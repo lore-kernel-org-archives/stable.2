@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795119388;
-	b=xqHlPg9/PXKOqJZ3SCMWbRIdSCrwx9rSGL4aaSFJIGMqVJvly7EjHfHliWAhAyDbWiRs
-	 d+q6g7Dqj7Ic3KyFUE0DAShdigJ/QOLvcNdqnVdNPuBakbLEZhggzcYE/xAnq4NwGfpH0
-	 iEtLHYyMGg2r3Nx7Ec9ACdvOWdX1FkN8JRS6HLgimAhj4QNb/vV95XbCdYghbhfter2OG
-	 A3OwVsaGxd7CGS01DIznO+tCWRCSlTGcUXBXr5cTxOTq595NEq123nZXqEr2vH94HWIVN
-	 QEkg5RQaog9mKIPz+pWCG/vFJm9u6NqOvBKCrZZ0paYgEEt7wz+69FsIahis5UKtnmA==
+	b=jfIzfuNlLu31WcVdg19iZ9eGve3sRous9JCPfo1oF+jGNHFXxuObcS2pixGtFMhX0Q0P
+	 SrIuUDSAuOHFVM8LnvQ6pVJHDkpAOZR8pcixzMACcMRYoTN4B79wJ2/DKqHscB/EfD4sO
+	 P3fn989E+QeqTk8bOajnnu9AhLiHTjxL6hIyPKRWe+wj8g9fWXgS99hjEmO8/eBxjcogO
+	 Ig4JSPl678KnZe20yzMLViepYxVqTVvJAY72B16qUYOvdMocZU0XnUNVQCjXdQkFpH42h
+	 bSvVx5Jsoa7e+e3QNtDa4SGUBlT0Q6xyXk1ryE66L+PEhjMms2kl0xzaQeDn0kp2VMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795119388;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ADboeXQohNTvbFLPoiyONtn0V51sHFi0IppZb8Okl54=;
-	b=cP5hLOVZkpvnqYe7K/JQdFsOdsbYEF5+oSKKT78n7ZGKBlGclnLSzYbhjybWbSje0AGB
-	 p+CwBUPN+KRs04qHrRM+jj2Itn9HgGcxlboWchBYsZKbG+X0qtip1+T7vO1UYvs+83E00
-	 pCjTFPx/fIhhkHYIt968Qakyq7xil7fA3tBEUO0voYG66Z8iWVCsYVkbZ6l5oiSZvM5/i
-	 IRJHXrQB4lEJM3ApgUP17wR2P4fEILcuAmoiUfFDSxjBEvgg7YlyHe/sN29MYpAV1mxK3
-	 bbEsTFU4VtzFa8E3Bd/R3ZOyipHE/VtxkV8z3FHmLt+fo1RHE9yy+A8TEaeBi8+Fukw==
+	bh=GezWjWrQJ5IW6qykfDU7HVQbVcRc8oRe51PIbCtx9s8=;
+	b=BkQvYevnCfTmEeoTwXgFVhlk+yJUBgE0YNq1qUe3/4/Ep5AzWuBIa9b8KopAy/QB3GbK
+	 3vpHZk81T4XYXv73abYGbDbrZT3x9WOIVum0Z/RP5x1fEdkg+9yid7ErlT4ejj4eIn+FG
+	 Xb0dPgBBStyfV5rjVtJPs4M9/aWoQy06c8SbqNQrEhUXy6JGNjf8VxMSZ+u7XGsR73yOh
+	 Evwnzm+Goc24LHH4pL3JyEvsmB/OPu1WJ6PWELPENvKMNi9q+UWczXJshVlD5wbNbC03H
+	 x9zLia+Q7vaxTVleMsdG7GTx5bH8XwYXPw8ER+SQBcvDCz8ZzFSx8Dt4rozcnJAToSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=EKIYmtGH;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=pbPeCFF9;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E5060A5BE1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D398560A6F52;
 	Thu, 19 Nov 2026 20:16:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78E5060A5BE1
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D398560A6F52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=EKIYmtGH
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=pbPeCFF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795119382;
-	bh=ADboeXQohNTvbFLPoiyONtn0V51sHFi0IppZb8Okl54=;
+	s=smtpout1; t=1795119383;
+	bh=GezWjWrQJ5IW6qykfDU7HVQbVcRc8oRe51PIbCtx9s8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=EKIYmtGH8dWuMnTC4kgMaimuppzaL+aMaZS8WrwboGMDgFxCeK4k94Cpet0iYBL/Y
-	 cUBFk2yIjC4gAdFvQ34Ut/TzDMZ1c3vVHGBmD9irJnN3gA+NG3QEJGU0HsTvgYv/3Q
-	 gXD3nLoGZ50vTjjrSL9rnKRnCXNw8kZ7Y2wWkyxIJxt8jJlzbPJm0yJxcqLIjG1oe3
-	 Hk4RqVeMTmr8rU2/s7PbmZgPUukzrj7VJig82ZL109koIHnH7ZuCdvklsYkkXUO5BA
-	 XUyZaX6M7x7DqytnPdOgj9KMXf4u8ksX2LHAt0zQtboYFfRtzXlB1ew3Im9q0602V9
-	 fwErCKJfQkGsg==
+	b=pbPeCFF9Kv5NkvldH6jwNBjXRW8uJaaPtfylPYaeN92lEqkNK3mZvAwwC34q6v1Tm
+	 vI5DQVAzCEhoPaJmeq5oEFWb9Ccw/BvG14/TQdEmuC906vsrBwhVVwLW1FhNolHHSV
+	 eiGFV0CX/2HzGWIVxiA50f/chAKCLMJKK/rIkD7c8mozCDu6/IaM6EGg5HBqMlPLWB
+	 qT7aIfiOY+lJbzO6lLD4IzHIESLrrrOcU12hMXods/9hlBVEpPbm+ILPoFjrqoMdSn
+	 t4uTSafk5RiWtDlnhECtLZ+3nJa0cMasNnGv5ntOkTahIe0tx404D+w8SeMszUViS8
+	 yq+LHwy0RydCg==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVqVY6Sp4zTdD;
-	Thu, 19 Nov 2026 15:16:21 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVqVZ6hxlzT9h;
+	Thu, 19 Nov 2026 15:16:22 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -80,9 +80,9 @@ Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v8 24/33] sched/deadline: Replenish a throttled task boosted while asleep
-Date: Thu, 19 Nov 2026 15:16:03 -0500
-Message-Id: <72cc0f62cfe227c6d86accb10d3c36fd2ec7ebdf.1795116791.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH v8 30/33] sched/deadline: Cap the runtime left of a constrained task at dl_runtime
+Date: Thu, 19 Nov 2026 15:16:09 -0500
+Message-Id: <886008fc50ab6666b44b8e5ec32db5a7c4b1230f.1795116791.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1795116790.git.mathieu.desnoyers@efficios.com>
 References: <cover.1795116790.git.mathieu.desnoyers@efficios.com>
@@ -97,81 +97,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A deadline task can be throttled as it blocks, with an rt_mutex held.
-Its replenishment timer is then armed. A deadline waiter can boost the
-task while it sleeps.
+sched_setattr() can change the parameters of a SCHED_DEADLINE task. The
+task keeps its runtime and its absolute deadline: the new parameters
+take effect at the next period. At the next wakeup, update_dl_entity()
+checks the runtime left against the new parameters.
 
-Commit feff2e65efd8 ("sched/deadline: Unthrottle PI boosted threads
-while enqueuing") lets a boost override the throttle. enqueue_task_dl()
-lifts the throttle of a boosted task, and dl_task_timer() ignores a
-boosted task. This covers a task that is enqueued while boosted. But a
-boost of a sleeping task does not enqueue it.
+For a constrained task, that check uses the density, dl_runtime /
+dl_deadline. Commit 2317d5f1c349 ("sched/deadline: Use deadline instead
+of period when calculating overflow") made dl_entity_overflow() compare
+with it: "We care about if the runtime can make its deadline, not its
+period." Commit 3effcb4247e7 ("sched/deadline: Use the revised wakeup
+rule for suspending constrained dl tasks") then cut the runtime of a
+constrained task that overflows to density * laxity. Both bound the
+runtime by dl_runtime only while the deadline is at most dl_deadline
+ahead.
 
-T is a SCHED_DEADLINE task that holds the rt_mutex L. W is a
-SCHED_DEADLINE task with an earlier deadline:
+A change to a shorter dl_deadline breaks that. The old deadline can be
+farther ahead. The check then keeps more runtime than the new
+dl_runtime, or computes more. For example, take a task of 50ms every
+100ms with 49ms left. Changed to 8ms in 20ms every 100ms, it would wake
+with 39.6ms. It would then run far more than its new runtime in this
+period. Admission control already counts the new, smaller bandwidth. So
+other deadline tasks could miss their deadlines.
 
-  T                                  W                              T's timer
+An implicit task is not affected. Its check compares with its
+bandwidth, which bounds the runtime for any deadline.
 
-  uses up its runtime, sleeps
-    dl_throttled = 1
-    start_dl_timer()
-                                     pthread_mutex_timedlock(L)
-                                       rt_mutex_setprio(T, W)
-                                       T sleeps: no enqueue
-                                                                    dl_task_timer()
-                                                                      T is boosted: returns
-                                     times out
-                                       rt_mutex_setprio(T, NULL)
-  wakes up
-    enqueue_dl_entity()
-      dl_throttled: waits for the timer
+Fix this by keeping no more than dl_runtime before the check, for a
+constrained task. A boosted task runs on the parameters of its donor,
+and is left alone. The runtime is signed and can be negative there, so
+compare it as signed.
 
-The timer has already fired. T would never run again, not even to die
-of SIGKILL. Every later waiter on L would hang too. This was found by
-reading.
-
-Fix this by returning early in dl_task_timer() only for a boosted task
-that is queued. A boosted task that sleeps then takes the existing path
-for a throttled task that is not queued: it is replenished.
-
-The refill reads the parameters of the donor, from the timer. So this
-relies on two earlier patches. "sched/deadline: Do not replenish a boost
-from cleared parameters" keeps the refill from looping on cleared
-parameters. "rtmutex: Continue the chain walk when a waiter's deadline
-donor changes" keeps the donor pointer from going stale. After a deboost in
-the class, "sched/deadline: Reset the donor's runtime at a deboost in
-the class" starts a period of the task's own reservation.
+The cases change_constrained_new_params and wake_constrained_new_params,
+added to deadline_bw_test later in this series, test this. The first
+changes a running task, the second a sleeping one. Both fail without
+this patch.
 
 The Sashiko AI review of this series found this.
 
-Fixes: feff2e65efd8 ("sched/deadline: Unthrottle PI boosted threads while enqueuing")
+Fixes: 2317d5f1c349 ("sched/deadline: Use deadline instead of period when calculating overflow")
+Fixes: 3effcb4247e7 ("sched/deadline: Use the revised wakeup rule for suspending constrained dl tasks")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Cc: stable@vger.kernel.org
 ---
- kernel/sched/deadline.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ kernel/sched/deadline.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
 diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 66a1150c4811..f4b670fee4a0 100644
+index 95db8afd8353..01497171919d 100644
 --- a/kernel/sched/deadline.c
 +++ b/kernel/sched/deadline.c
-@@ -1637,10 +1637,13 @@ static enum hrtimer_restart dl_task_timer(struct hrtimer *timer)
- 	}
+@@ -1468,6 +1468,25 @@ static void update_dl_entity(struct sched_dl_entity *dl_se)
+ {
+ 	struct rq *rq = rq_of_dl_se(dl_se);
  
- 	/*
--	 * The task might have been boosted by someone else and might be in the
--	 * boosting/deboosting path, its not throttled.
-+	 * A boost overrides the throttle. enqueue_task_dl() lifts it when the
-+	 * boost enqueues the task, or when the task wakes up boosted. So a
-+	 * queued task needs nothing here. A boost of a sleeping task does not
-+	 * enqueue it, and it can end before the wakeup. Nothing would lift the
-+	 * throttle then. So let a sleeping task reach the !queued case below.
- 	 */
--	if (is_dl_boosted(dl_se))
-+	if (is_dl_boosted(dl_se) && task_on_rq_queued(p))
- 		goto unlock;
++	/*
++	 * The checks below compare the runtime left with the density,
++	 * dl_runtime / dl_deadline. That bounds the runtime by dl_runtime
++	 * only while the deadline is at most dl_deadline ahead. After a
++	 * change to a shorter dl_deadline, the deadline can be farther
++	 * ahead, and the runtime left larger than dl_runtime. A constrained
++	 * task would then run more than dl_runtime in a period. Keep no
++	 * more than dl_runtime.
++	 *
++	 * An implicit task is checked against its bandwidth, which holds
++	 * for any deadline. A boosted task runs on the parameters of its
++	 * donor. Leave both alone.
++	 *
++	 * The runtime is signed, and can be negative here.
++	 */
++	if (!dl_is_implicit(dl_se) && !is_dl_boosted(dl_se) &&
++	    dl_se->runtime > (s64)dl_se->dl_runtime)
++		dl_se->runtime = dl_se->dl_runtime;
++
+ 	if (dl_time_before(dl_se->deadline, rq_clock(rq)) ||
+ 	    dl_entity_overflow(dl_se, rq_clock(rq))) {
  
- 	/*
 -- 
 2.47.3
 
