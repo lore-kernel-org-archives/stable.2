@@ -1,57 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.21
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795094227;
-	b=5KA6ulxw9q/P9UfZPLp+tkIlzfZ4On3SbucwTc3KWg2UWuZ27g//ZWkwLXfOBBi3T6BC
-	 1PrN7Xp+9UVoYsn5yIWdohtFFeDgJHJfQmF+elNWxI3GTaz8BRO4SVMRmF/W1VDc8Ny4E
-	 c1OiUeH5Hr9SYm5pdzF2CX71LGp12WEquG7xydISmUsyXQPpu1mPrMyE5q9t2e6AxDpNI
-	 bZLGHNWAPg7PsigOQeiRM3Wc4Ppbrm4VHeA8FDxrj9wlKntcMj029Lb6G2eEr+ck3VM/y
-	 5jObmw6MG0j5AIDaFxXAOMpIT5Cxj7dfhW352l76mtkgMBVKVuC/mlG1JOO071Qynmg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795094227;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Z/BBYeZCWdKo+dgO1M33Sr5kKilo/vdZ258+n1RCkQc=;
-	b=PcDkwphrPIPlj5sgz8l+/j7ILOYbTYgCxT1OmIF1S/1m8X0WUak1PH6RjGcYwqI+lxZi
-	 HCPSBN4xS2V2j/he1NQUMq949RDoewVO1jYa3QDOYO+bKt7qL+0SLxHp66PMPbT0rDsAV
-	 KhE/muStD2mhrLh4HWII0D+EvTau+eT9HagSr8XDwhxyQn6CZ1VIVLrVv3wN1601fL3d6
-	 LGfIYjorE5cw38zYmpHytcEAuKC+Jug66jv5B0P7eVtXUz8IIYqbfFilbyHwnBtmuGk1d
-	 hSuuSDN28/wRM2GANfZ9VdiPmzTc+MqkQ4BOF77RLv0Ix720JkxqZwKznRGFurMIXMQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=becholey.ch;
-	spf=pass smtp.mailfrom=becholey.ch;
-	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=JVCF27qN;
-	arc=none smtp.remote-ip=109.224.244.21
-Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch [109.224.244.21])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795094244;
+	b=w5lI/4xx5cUiUqYz7rPDOFx3WKXt/ZZdcqEidkHDydUasLB9L8lGqvxrcckvqI+lWbaC
+	 B2kq0mqHlnpqz0c9ShpEHeLOkqFPHWI+J4++uM096GvOWQ7ImZuF88TbaCgV0F5ZlrW6X
+	 sF23CxtyEk4vsYeoAT9qFWoj8rm2RuRe3gFFKy6hh8YUqDdRkCWRA7lsyC6DiTo2DhlXB
+	 d973S3nn24WaM7ssKIwgfpuS3cqdnhlxfRQHDcCG/ynHrl7aB10/Guoc7aKdFLCCV2yfV
+	 Eo1tgAxiE67B52Aa4eFFDOJdj5WpBxdg2b4Z+xuDxaO25BEGsZZENPWUsqwGWsF2ZbQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795094244;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=7DY1TQIQvk0+ckMeuoPyfBbQwgC+A8N3jdkd9bWc/6A=;
+	b=5fxhbKrZ9dQXMxvkHsaOX5FyApXnAoisPG6fKnPijkz7B3UwdvO1puouKJxrq2nu+vWp
+	 VIy8VpRttSikYW4XZC9QjV+KjmF3MEYiH+B8gYfOtxhS3XQ821PYpGiplTLaPr1Lqcg0L
+	 QCoYUkBqiTIfpK4oVFXhcuRxAJHKqw7QLdKjc+zdVftMOYTdSYFo0kHKRHdCrjQZB8IES
+	 ltAXLP5O3XWcRZiKrDlKqCjFxVShEVrVOeCTG1S9Gl9b/CyaoeiK4OkdUB2B0UG2DH56T
+	 Ho6KYiOslTVGG/p0PI1jDbTbEW5Hnaf1p2ggJrL9fbUqyN5w4waiiRVgsAiXyP7UPyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=LfC28QO3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
+Received: from sender5-pp-f112.zoho.com (sender5-pp-f112.zoho.com [165.173.182.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4EF606A324
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 13:17:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE4EF606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E2060A260E;
+	Thu, 19 Nov 2026 13:17:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0E2060A260E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=JVCF27qN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
-	s=protonmail; t=1795094223; x=1795353423;
-	bh=Z/BBYeZCWdKo+dgO1M33Sr5kKilo/vdZ258+n1RCkQc=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=JVCF27qNHGc9orjv57hVowIGxT133qRuEmRqvYc642rBTKMQsasOl9LHj9EoCSlAQ
-	 9xd6LnDpowhH9f4mqOUObsHyGT7HHHe3dB4rFos8GFBz5KiYLCPtkOtSNkRAPrSUHi
-	 OPhwxqhEuND+Bwq3Rt98mAOHPPngpyIkyViY/9sUisb77prJZ8VG7swJIGA7GKPXF3
-	 hJ3yOulRfCgb1ffX3lFgEvGnj1oD02D9i/rbdygVxLGldtjDpr0xIddP6JEZxtc1WX
-	 TZOp+Z1M8rGEsmd2VPLVNSL+wtins3iCBVGaVg+JRU0Nw4JN3E7XHoJxAH8fZUrdAP
-	 YtqiTVnRINKvw==
-Date: Thu, 19 Nov 2026 13:16:55 +0000
-To: Daniel Mack <zonque@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Karsten Wiese <fzu@wemgehoertderstaat.de>
-From: Alexandre Becholey <alex@becholey.ch>
-Cc: Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, Daniel Mack <daniel@caiaq.org>, Takashi Iwai <tiwai@suse.de>, Jaroslav Kysela <perex@suse.cz>, linux-sound@vger.kernel.org
-Subject: [PATCH] ALSA: caiaq: stop the iso packet parsers before a partial block
-Message-ID: <20261119131632.650637-1-alex@becholey.ch>
-Feedback-ID: 60743817:user:proton
-X-Pm-Message-ID: 58f06915aadd49c187784c5b7e7b4d3f65daae4f
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=LfC28QO3
+ARC-Seal: i=1; a=rsa-sha256; t=1795094235; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=h3EITVBwAK+YsgR9Huv2o58quTn8f7RSgUNRqCYoxogIM71dBLC+2GXD2YT8rEUWtGvn4AuzmhG028gFhGgXkebCJkUPctF7+jHBzhtKF58HeMwqAoXo0iRwsLpKyLO1/gE7PJsuxmrvlQU4f7iYhzKVWm/wI3td/RXcAT5NP0w=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795094235; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=7DY1TQIQvk0+ckMeuoPyfBbQwgC+A8N3jdkd9bWc/6A=; 
+	b=Rd4g7GFenAKJjKOFb3fNBvz+GK4RvS95xwupccasN2S7OZ9yxW4M7eYh18PbMp8G4bBuXHb6DmvDuJO2dw2sfACKEa99pjN9eyP7DkLzLS2aWGYbUVr049gCrH7FhQWFZVJ6zhsJdrWnlqKVGKKY3lLYFC/mJyYljbM7CaU+tqA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=LfC28QO3hxBu3b0WDOWN1xlTVyS7ZLYICokDhgT/fFuZ/9P1ocwS3xiqESu+D0Nu8MT87oE+zrIxRtmpEo8zuvCqlaRVNeaeJAWkibS1WQHFxUiOAdi/SOZsJqWyctXJVk/aNMj2bzbU3/+men0D3vxaa1KM78FrJ5lCnBy/Vb6jaegWlScfSPpCVy09raERDEXScMhP0PCOlMkdQag6Hlfjt2c581nnII21uKEmG9gEMpDtj4J9BMn3/NrT61qR7lmuYFlGYa9zdchfPvCDtoFWeDOYS5h9iScwDM/C3eNhIULwfI79QsuDRWCHc/wSo/hdmpU0zQg3YA4XEMKM+g==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=7DY1TQIQvk0+ckMeuoPyfBbQwgC+A8N3jdkd9bWc/6A=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795094232098759.8778588301834;
+	Thu, 19 Nov 2026 05:17:12 -0800 (PST)
+Message-ID: <b42d57fcd0ff720bd91c52590f95ccf247804423.camel@rong.moe>
+Subject: Re: [PATCH v3] platform/x86:
+ lenovo-yoga-tab2-pro-1380-fastcharger: cancel work on teardown
+From: Rong Zhang <i@rong.moe>
+To: Hyunjung Ko <hj351016@gmail.com>, Mark Pearson
+ <mpearson-lenovo@squebb.ca>,  "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
+ <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+In-Reply-To: <20261116122001.3096223-1-hj351016@gmail.com>
+References: <20261116122001.3096223-1-hj351016@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 21:12:05 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,155 +71,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1-3 
+X-ZohoMailClient: External
 
-The iso packet parsers in audio.c walk a packet in blocks of one sample
-per stream, but only compare the start of each block with the packet
-length. The block size follows from the channel counts the device
-reports, so it need not divide the packet length, and the last block of
-a packet runs past its end. A device reporting e.g. 62 channels can make
-the driver read and write up to 232 bytes past the capture and playback
-URB buffers in URB completion context.
+Hi Hyunjung,
 
-Make each parser round the packet length down to a multiple of its own
-block size, which depends only on n_streams and not on
-spec.data_alignment (the device can change that at any time), and zero
-the unused tail of a playback packet.
+On Mon, 2026-11-16 at 21:20 +0900, Hyunjung Ko wrote:
+> fc->work is scheduled from the extcon notifier callback
+> yt2_1380_fc_extcon_evt() (and once from probe), but it is never cancelled=
+.
+> The containing struct yt2_1380_fc and the extcon notifier are both
+> device-managed on the serdev device, and the serdev driver has no
+> ->remove callback, so teardown happens entirely via devres unwinding
+> when yt2_1380_fc_pdev_remove() calls serdev_device_remove().
+>=20
+> devm_extcon_register_notifier_all() unregistering on teardown only stops
+> future notifications; it does not drain a work item that the notifier has
+> already queued. A fast-charger extcon event that races device unbind can
+> therefore queue fc->work just before teardown; the work then runs after
+> devres has torn the device down. yt2_1380_fc_worker() dereferences not
+> only fc itself but also fc->pinctrl (pinctrl_select_state()) and the
+> serdev (serdev_device_write_buf()), so it must be drained before those
+> device-managed resources are released, not merely before fc is freed.
+>=20
+> Initialize the work with devm_work_autocancel(), placed after the serdev
+> is opened and pinctrl is acquired but before
+> devm_extcon_register_notifier_all(). Because devres runs cleanup in
+> reverse order, teardown then unregisters the notifier first (so it can no
+> longer queue the work), next cancels the work while fc->pinctrl and the
+> serdev are still valid, and only then closes the serdev, releases pinctrl
+> and frees fc. This closes both the re-arm window and the use-after-free
+> of fc and of its sub-resources in the worker.
+>=20
+> Found by static analysis / code review; compile-tested only, not
+> reproduced on hardware (requires the Lenovo Yoga Tablet 2 1380 charger).
+>=20
+> Fixes: b2ed33e8d486 ("platform/x86: Add lenovo-yoga-tab2-pro-1380-fastcha=
+rger driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 
-The bug was found, and the reproducer and this fix were written, by AI
-agents (Claude Mythos and Claude Opus models). The analysis and the
-patch were reviewed by a human.
+Reviewed-by: Rong Zhang <i@rong.moe>
 
-Fixes: 523f1dce3743 ("[ALSA] Add Native Instrument usb audio device support=
-")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexandre Becholey <alex@becholey.ch>
----
-An emulated caiaq device on QEMU xHCI reporting 62 channels and sending
-512-byte iso packets triggers KASAN slab-out-of-bounds in
-read_completed() on v7.3.1 and master 9d66f26fefac, as do 3- and
-12-stream variants in modes 0, 2 and 3, also with the device switching
-data_alignment mid-stream. With the fix: no report in 85 boots (20 on
-master); a well-behaved 4-stream device streams as before in modes 0, 2
-and 3. Not tested on real hardware. Reproducer available on request.
+Thanks,
+Rong
 
- sound/usb/caiaq/audio.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
-
-diff --git a/sound/usb/caiaq/audio.c b/sound/usb/caiaq/audio.c
-index bb6280aa3533..c7d47f0833da 100644
---- a/sound/usb/caiaq/audio.c
-+++ b/sound/usb/caiaq/audio.c
-@@ -332,13 +332,14 @@ static void read_in_urb_mode0(struct snd_usb_caiaqdev=
- *cdev,
- =09=09=09      const struct usb_iso_packet_descriptor *iso)
- {
- =09unsigned char *usb_buf =3D urb->transfer_buffer + iso->offset;
-+=09unsigned int len =3D rounddown(iso->actual_length, cdev->n_streams);
- =09struct snd_pcm_substream *sub;
- =09int stream, i;
-=20
- =09if (all_substreams_zero(cdev->sub_capture))
- =09=09return;
-=20
--=09for (i =3D 0; i < iso->actual_length;) {
-+=09for (i =3D 0; i < len;) {
- =09=09for (stream =3D 0; stream < cdev->n_streams; stream++, i++) {
- =09=09=09sub =3D cdev->sub_capture[stream];
- =09=09=09if (sub) {
-@@ -360,11 +361,13 @@ static void read_in_urb_mode2(struct snd_usb_caiaqdev=
- *cdev,
- =09=09=09      const struct usb_iso_packet_descriptor *iso)
- {
- =09unsigned char *usb_buf =3D urb->transfer_buffer + iso->offset;
-+=09unsigned int len =3D rounddown(iso->actual_length,
-+=09=09=09=09     cdev->n_streams * BYTES_PER_SAMPLE_USB);
- =09unsigned char check_byte;
- =09struct snd_pcm_substream *sub;
- =09int stream, i;
-=20
--=09for (i =3D 0; i < iso->actual_length;) {
-+=09for (i =3D 0; i < len;) {
- =09=09if (i % (cdev->n_streams * BYTES_PER_SAMPLE_USB) =3D=3D 0) {
- =09=09=09for (stream =3D 0;
- =09=09=09     stream < cdev->n_streams;
-@@ -407,6 +410,8 @@ static void read_in_urb_mode3(struct snd_usb_caiaqdev *=
-cdev,
- =09=09=09      const struct usb_iso_packet_descriptor *iso)
- {
- =09unsigned char *usb_buf =3D urb->transfer_buffer + iso->offset;
-+=09unsigned int len =3D rounddown(iso->actual_length, cdev->n_streams *
-+=09=09=09=09     BYTES_PER_SAMPLE_USB * CHANNELS_PER_STREAM);
- =09struct device *dev =3D caiaqdev_to_dev(cdev);
- =09int stream, i;
-=20
-@@ -414,7 +419,7 @@ static void read_in_urb_mode3(struct snd_usb_caiaqdev *=
-cdev,
- =09if (iso->actual_length % (BYTES_PER_SAMPLE_USB * CHANNELS_PER_STREAM))
- =09=09return;
-=20
--=09for (i =3D 0; i < iso->actual_length;) {
-+=09for (i =3D 0; i < len;) {
- =09=09for (stream =3D 0; stream < cdev->n_streams; stream++) {
- =09=09=09struct snd_pcm_substream *sub =3D cdev->sub_capture[stream];
- =09=09=09char *audio_buf =3D NULL;
-@@ -495,10 +500,11 @@ static void fill_out_urb_mode_0(struct snd_usb_caiaqd=
-ev *cdev,
- =09=09=09=09const struct usb_iso_packet_descriptor *iso)
- {
- =09unsigned char *usb_buf =3D urb->transfer_buffer + iso->offset;
-+=09unsigned int len =3D rounddown(iso->length, cdev->n_streams);
- =09struct snd_pcm_substream *sub;
- =09int stream, i;
-=20
--=09for (i =3D 0; i < iso->length;) {
-+=09for (i =3D 0; i < len;) {
- =09=09for (stream =3D 0; stream < cdev->n_streams; stream++, i++) {
- =09=09=09sub =3D cdev->sub_playback[stream];
- =09=09=09if (sub) {
-@@ -516,12 +522,14 @@ static void fill_out_urb_mode_0(struct snd_usb_caiaqd=
-ev *cdev,
- =09=09}
-=20
- =09=09/* fill in the check bytes */
--=09=09if (cdev->spec.data_alignment =3D=3D 2 &&
-+=09=09if (cdev->spec.data_alignment =3D=3D 2 && i < len &&
- =09=09    i % (cdev->n_streams * BYTES_PER_SAMPLE_USB) =3D=3D
- =09=09        (cdev->n_streams * CHANNELS_PER_STREAM))
- =09=09=09for (stream =3D 0; stream < cdev->n_streams; stream++, i++)
- =09=09=09=09usb_buf[i] =3D MAKE_CHECKBYTE(cdev, stream, i);
- =09}
-+
-+=09memset(usb_buf + len, 0, iso->length - len);
- }
-=20
- static void fill_out_urb_mode_3(struct snd_usb_caiaqdev *cdev,
-@@ -529,9 +537,11 @@ static void fill_out_urb_mode_3(struct snd_usb_caiaqde=
-v *cdev,
- =09=09=09=09const struct usb_iso_packet_descriptor *iso)
- {
- =09unsigned char *usb_buf =3D urb->transfer_buffer + iso->offset;
-+=09unsigned int len =3D rounddown(iso->length, cdev->n_streams *
-+=09=09=09=09     BYTES_PER_SAMPLE_USB * CHANNELS_PER_STREAM);
- =09int stream, i;
-=20
--=09for (i =3D 0; i < iso->length;) {
-+=09for (i =3D 0; i < len;) {
- =09=09for (stream =3D 0; stream < cdev->n_streams; stream++) {
- =09=09=09struct snd_pcm_substream *sub =3D cdev->sub_playback[stream];
- =09=09=09char *audio_buf =3D NULL;
-@@ -565,6 +575,8 @@ static void fill_out_urb_mode_3(struct snd_usb_caiaqdev=
- *cdev,
- =09=09=09}
- =09=09}
- =09}
-+
-+=09memset(usb_buf + len, 0, iso->length - len);
- }
-=20
- static inline void fill_out_urb(struct snd_usb_caiaqdev *cdev,
---=20
-2.53.0
-
-
+> ---
+> v3:
+>  - Use devm_work_autocancel() instead of a hand-rolled
+>    devm_add_action_or_reset(cancel_work_sync) (suggested by Ilpo Jarvinen=
+).
+>    It is placed at the same point in probe (after devm_serdev_device_open=
+()/
+>    devm_pinctrl_get(), before devm_extcon_register_notifier_all()) so the
+>    reverse-order devres teardown still drains the work after the notifier=
+ is
+>    unregistered but while fc->pinctrl and the serdev are still live. Movi=
+ng
+>    INIT_WORK() down into devm_work_autocancel() is safe: fc->work is only
+>    scheduled from the extcon notifier and from the probe-tail schedule_wo=
+rk(),
+>    both after this point.
+>  - Add Cc: stable (this is a use-after-free fix).
+> v2:
+>  - Move the work-cancel registration from right after INIT_WORK to after
+>    devm_serdev_device_open()/devm_pinctrl_get() and before the extcon
+>    notifier, so devres (LIFO) drains the work while fc->pinctrl / serdev =
+are
+>    still valid rather than after they are released.
+>  .../x86/lenovo/yoga-tab2-pro-1380-fastcharger.c    | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c=
+ b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
+> index 8551ab4d2c7d..c2fe919a3ce9 100644
+> --- a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
+> +++ b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
+> @@ -8,6 +8,7 @@
+>  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+> =20
+>  #include <linux/delay.h>
+> +#include <linux/devm-helpers.h>
+>  #include <linux/err.h>
+>  #include <linux/errno.h>
+>  #include <linux/extcon.h>
+> @@ -160,7 +161,6 @@ static int yt2_1380_fc_serdev_probe(struct serdev_dev=
+ice *serdev)
+> =20
+>  =09fc->dev =3D dev;
+>  =09fc->nb.notifier_call =3D yt2_1380_fc_extcon_evt;
+> -=09INIT_WORK(&fc->work, yt2_1380_fc_worker);
+> =20
+>  =09/*
+>  =09 * Do this first since it may return -EPROBE_DEFER.
+> @@ -209,6 +209,18 @@ static int yt2_1380_fc_serdev_probe(struct serdev_de=
+vice *serdev)
+>  =09serdev_device_set_baudrate(serdev, 600);
+>  =09serdev_device_set_flow_control(serdev, false);
+> =20
+> +=09/*
+> +=09 * Initialize fc->work with automatic cancellation on teardown.  This=
+ is
+> +=09 * registered after the serdev is opened and pinctrl is acquired, but
+> +=09 * before the extcon notifier: devres unwinds in reverse, so teardown
+> +=09 * unregisters the notifier first (no new work can be queued), then
+> +=09 * cancels the work while fc->pinctrl and the serdev are still valid,=
+ and
+> +=09 * only then closes the serdev and releases pinctrl.
+> +=09 */
+> +=09ret =3D devm_work_autocancel(dev, &fc->work, yt2_1380_fc_worker);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+>  =09ret =3D devm_extcon_register_notifier_all(dev, fc->extcon, &fc->nb);
+>  =09if (ret)
+>  =09=09return dev_err_probe(dev, ret, "registering extcon notifier\n");
