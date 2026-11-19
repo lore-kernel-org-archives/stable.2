@@ -1,55 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795116608;
-	b=NBMZo6RU81UWhm5viZqe1FDCo2SJfP+gtshFD/elxxo2cDE3jZTWL1Kjc5Kf8iXwBT+a
-	 mrOy2BzONkxgSKQY/x3+r4FJexssbPMIzhdlGcqVtCwfTpFFj8U5OICcVybcKiTpzGwk3
-	 cDHc4uQywiCVvELKTkdxqIreHBi/Qa7Ut7qXnO5B06iXY6L5d77256D0bcft2jK85XN8P
-	 opHmVIpIZMFIuVUnxC5V6LeXobhqgy52dvq9Di4wZ/4WB7gklZ4MKYuiEtgOaOFoa3FgT
-	 fSUlQMpIz8r/+EENvd7emkiUfRFx6icDkHVsfpzjQKpNhoHxbV8uiZZ9edj5xZ20tcA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795116608;
-	h=DMARC-Filter:Received:DKIM-Filter:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=PYGYhnvixEwD9HA/xY5pAkRnMJJMyKyOF0VnSklvfPg=;
-	b=vzAVzfYBN+pWE0NUANGSZC1uyHGyieLJW+qyAQ2Xksks0E8DNi8WankrBLw59WW2wX5V
-	 8nSMeWRhddas+oEEt+Oj/cf1/dfrDNVyttgyMgJ3OCgaSjNshxUY5mM2Pban860TZKt/f
-	 fYDpeM+3LgPGDiwMXq9JbsWBBfQd1bdP+d+Gi/fN2Ap5iKV+XctS4He4mGZS1BpCMfXgH
-	 IiRJD3ZIQLhm9To8Ek5kRMp4FTk/yhG9tV7bEoa1KBC1wj8r1qWuXWrC1KDC3vcL7uCED
-	 1yMrvNMzDjN23L3zZSDL4/d1QNpV+EjQvULHCRU8tFqYjMNNY/dbgMhnPW8wn6N0IwQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D051E606A334;
-	Thu, 19 Nov 2026 19:30:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D051E606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Received: by linux.microsoft.com (Postfix, from userid 1009)
-	id 026AD20B7166; Thu, 19 Nov 2026 11:30:05 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 026AD20B7166
-From: Dexuan Cui <decui@microsoft.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com,
-	davem@davemloft.net,
-	jakeo@microsoft.com,
-	saeedm@mellanox.com,
-	linux-hyperv@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	abhamidipati@microsoft.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH] PCI: hv: Don't use container_of() on non-vPCI buses in config block ops
-Date: Thu, 19 Nov 2026 11:29:37 -0800
-Message-ID: <20261119192937.570043-1-decui@microsoft.com>
-X-Mailer: git-send-email 2.43.7
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795116792;
+	b=sBZ3vPYrOdjnvonvXf1OTGvCXhNudepsLxLGefZJd+YL+X43Vtw1vxaEuDQR58T7gTuD
+	 QlWQZPBEJR29+jp8T2xoWc1J9YBFzoBBEqWrcnUaligw5mZplmJlnfvXjy9ZSFvV1a/A/
+	 0atzIemchk2MShOyjDQI8LJjSAqREd4nlFOSbO57Dcc9fdEsoxu2QcCLJRPRMGfqYo1B5
+	 zpMxarhKX523xhm8uMblCXL6HLAvFYqrM1/+FipC2u9GJSZMawZ2uKRmv61ePLDb5eh1K
+	 U6i9jnos8sTHHqgEubAzj9fMuDLnuvRArXDMrihazpeOzSUAG/sq4cqQuHTXgwmproA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795116792;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=WGZIV5m2cbvbePOeiIg+KiTHMRAB3Uic6UzxfiVJO18=;
+	b=pLiB/NIvWKx5LwDdfYncM/CIDVviV5Ri5/JkfrOhaonwMjKk5Ub9Ei17jRU29rhQ1Ee7
+	 aGwAVFOxySjZUZLVZLwsnC94LPUhTyLhxNGlRVEkrlY/FppuHCQ0SXRI8euoNcaWlJBFB
+	 2AVy38jLFkNPiw5pPDFoT5Fxs5mOsRihizNtYjQLnGdTWJPUK/KazMGc+A2YxLdQexnod
+	 zohE3MYV/BqM9t4BQwix6qoJxA7E8fpkc9dnq1stU1UWfydf/Shhq8tpXQdYxduyHWk+V
+	 7ESSa3d8gCKxSTduvPHvtlHRWjMkvffWIG7oARXA7mE2M+OLLuwnl1uRJ2DOOqkkY2w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CucyDZlR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03908606A325;
+	Thu, 19 Nov 2026 19:33:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CucyDZlR
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795116791;
+	b=JzzkP1wU0sD+uxGw1mbgpzGvG4568neK3HJVNpKCRrH9XT1Qj1hnyQ0UyYZK6PBOVJGQ
+	 EJsQ0Mxl2VCFLiqHN89rczLHvLUyPaS9kl4fOniH6XxDsVgX0rXYs09WYFzKL9PIr9rl6
+	 f/VpisBKl289ljpvKGorjy+V7ZcFb3QjfZBE9QC0oagjQKhLiXCugIsxNk85+U2LubAId
+	 ikmkFHSmoBwqr8phCXdDd6ll+KAi6RuBRWcAfPtJoeGZ4an4S7ehU9ZOwuHhHIpUO5sDq
+	 7+dy40+iNizBBptQIi1cuxdzXY2IegtyxJWNHmaa1wYQ8bs3pI4epvgvBGOLZkTMeXw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795116791;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=WGZIV5m2cbvbePOeiIg+KiTHMRAB3Uic6UzxfiVJO18=;
+	b=tT+rAAw0mCmFvg2DV4NoO4i+vYCerxSxAivIBSRhmDOeKwSOUmmyPcW/zcjMUEoQlcWi
+	 Fu71meN9Ro8p5GTqGPWxYcWwMw8ta3SZ7S7/CiXlzF+FKKoR1S4WF9WTuL0yEwNGF8Ign
+	 mO8SaRk30RinvisqXI0ec6iWWQDRWVlsXezvn9I7VBCmdbVmYVlWFjJtFmAHKiIkwOeGS
+	 B2Vp1z4DeYjz+ii9tNc4HNdAGiJl3yMY+k9ctjFZA/l1c77hh2m6R6tgNhzP6COBzpier
+	 /BuZhU43f+Qj6XuKOmKh0M6jv5oNBOcB1rCri5JgaJ8pFrpq9sdNKEYIK/4xbu9C6jw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1CD361F000C5;
+	Thu, 19 Nov 2026 19:33:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795116791;
+	bh=WGZIV5m2cbvbePOeiIg+KiTHMRAB3Uic6UzxfiVJO18=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=CucyDZlRvHRwelO89vMwPheVStVONocuuKtat57mgZnbYC/zuxbSDG4eAey7y3ngR
+	 PHMaUUbqLC+OUlRoUbweRq8nFmTnUHP8DKoCKFIzhQX6MX/GvqpV0nqBoaGbdYD/4i
+	 z8Wnj9HeZTkmNg12GssWNQemR8L5B5VwSr4r8eAQPXiFVQ+sqiIhYBsJJFoPbsubAv
+	 NjYB576L7jvTatnp4GjUGxHQ0FvAYO451w9Hu/gKx+F5jDsOEUwkkQenLkI49EEcSa
+	 PNvXiq4l6SelmP++fRr43aRRj6qwagUx+oBZg+1FPP4vHumkG40ItvlXQ865TsuVw4
+	 RQoAyS2oHMvMg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8AB864B3D5;
+	Thu, 19 Nov 2026 19:33:10 +0000 (UTC)
+From: Peder Bergan via B4 Relay <devnull+peder.bergan.gmail.com@kernel.org>
+Date: Thu, 19 Nov 2026 20:33:07 +0100
+Subject: [PATCH] rust: bindgen: Preserve sched_statistics alignment
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,154 +82,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261119-fix-schedstats-bindgen-layout-v1-1-0599dd230ffd@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAPJO/2oC/yWMQQ6CMBBFr0Jm7UQKCMGrEBdtGaFGC+lMDYZwd
+ 1tdvp//3g5MwRHDtdgh0NuxW3wCdSrAztpPhG5MDFVZtUqpHu9uQ7YzjSxaGI3z40Qen/qzRMG
+ yry+mbeqmKztIjTVQEn794fZnjuZBVnI0P4xmQhO0t3Oe4soSSL/OIbKgp03gOL7Z1CCbpgAAA
+ A==
+X-Change-ID: 20261119-fix-schedstats-bindgen-layout-0935b6434707
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795116790; l=2061;
+ i=peder.bergan@gmail.com; s=kernel-contributions;
+ h=from:subject:message-id;
+ bh=enj6BUb4oRB8IE5yaVUAOv95G/2SRaL0ZVC/+tCgiiM=;
+ b=rQs8CAyFUbEYInVCLSgBlAGhq9GORNTkDMbyOCPP/Y82UJOutZ4Y4O+RHHUn0zap6mInfzx3F
+ mgGOYtrg3ocBebFeSG9AqC66FX9RCOAL1h+Uq3/fJkAHzUUVQtnKBAD
+X-Developer-Key: i=peder.bergan@gmail.com; a=ed25519;
+ pk=39790pn1YZCulHBoUG1uiQI1Hm01EvhBEa2zVrS/yN0=
+X-Endpoint-Received: by B4 Relay for
+ peder.bergan@gmail.com/kernel-contributions with auth_id=1395
+X-Original-From: Peder Bergan <peder.bergan@gmail.com>
+Reply-To: peder.bergan@gmail.com
+Content-Transfer-Encoding: 7bit
 
-From: Aditya Bhamidipati <abhamidipati@microsoft.com>
+From: Peder Bergan <peder.bergan@gmail.com>
 
-hv_read_config_block(), hv_write_config_block() and
-hv_register_block_invalidate() are exported through hvpci_block_ops for
-mlx5_core, which calls them for its PCI function whenever it runs in a
-Hyper-V guest. They assume that pdev->bus->sysdata is embedded in a
-struct hv_pcibus_device and use container_of() on it.
+With CONFIG_SCHEDSTATS disabled, struct sched_statistics is empty but
+still cache-line aligned. Bindgen emits the empty definition without
+that alignment. On affected builds this misplaces fields following
+stats in the generated task_struct. In the reported arm64 build, Rust
+Binder reads the wrong pointer via CurrentTask::mm() and rejects mmap()
+with -EINVAL.
 
-That only holds for buses created by pci-hyperv. A Hyper-V guest can also
-have PCI devices behind other host bridges, for example the ACPI-enumerated
-ECAM root ports used for ePCIe (emulated PCIe) device assignment on Azure.
-For such a device, container_of() yields a bogus hv_pcibus_device, and
-mlx5_core crashes on a ConnectX VF. On a 7.0-based kernel it crashes in
-get_pcichild_wslot(), called from hv_register_block_invalidate() while
-the VF probes. On a 7.3-based kernel the VHCA invalidate work sends a
-packet on a bogus channel; UBSAN flags the spinlock, and a paging fault
-follows:
+Make sched_statistics opaque so bindgen uses the C size and alignment.
+Rust has no callers that access the fields of this type.
 
-  UBSAN: array-index-out-of-bounds in kernel/locking/qspinlock.h:68:9
-  index 2129 is out of range for type 'long unsigned int [512]'
-  Workqueue: mlx5_hv_vhca mlx5_hv_vhca_invalidate_work [mlx5_core]
-  Call trace:
-   queued_spin_lock_slowpath+0x644/0x6e0
-   _raw_spin_lock_irqsave+0x98/0xf0
-   hv_ringbuffer_write+0x98/0x340
-   vmbus_sendpacket+0x9c/0x100
-   hv_read_config_block+0xf4/0x1b0
-   hyperv_read_cfg_blk+0x28/0x80
-   mlx5_hv_read_config+0x6c/0x130 [mlx5_core]
-   mlx5_hv_vhca_control_agent_invalidate+0x8c/0x280 [mlx5_core]
-   mlx5_hv_vhca_invalidate_work+0x88/0x120 [mlx5_core]
-   process_one_work+0x1dc/0x5b8
-
-Commit 0d5acba6331c ("Drivers: hv: vmbus: Export hv_vmbus_exists() and
-use it in pci-hyperv") fixed the same crash for guests without VMBus, by
-not installing the ops at all. These guests do have VMBus, and their NIC
-and OS disk are on vPCI buses, so the ops are installed and a per-device
-check is still needed.
-
-Treat the bus as a vPCI bus only if its ops are hv_pcifront_ops, and
-return -EOPNOTSUPP otherwise. mlx5_core ignores a failure to register the
-Hyper-V VHCA invalidate callback, so the VF probes normally.
-
-Tested on an Azure ARM64 VM with 8 ConnectX VFs behind ACPI ePCIe host
-bridges, with a 7.0- and a 7.3-based kernel: all 8 VFs probe and their IB
-ports go Active, and a test module confirms that all three ops
-return -EOPNOTSUPP for a device that is not on a vPCI bus.
-
-Fixes: e5d2f910cfec ("PCI: hv: Add a paravirtual backchannel in software")
+Fixes: 313c4281bc9d ("rust: add basic `Task`")
+Closes: https://github.com/Rust-for-Linux/linux/issues/1269
 Cc: stable@vger.kernel.org
-Signed-off-by: Aditya Bhamidipati <abhamidipati@microsoft.com>
-Signed-off-by: Dexuan Cui <decui@microsoft.com>
+Signed-off-by: Peder Bergan <peder.bergan@gmail.com>
 ---
+Jules Mercier reported the layout mismatch on arm64.
 
-It's based on the PCI tree's for-linus branch, and can also apply cleanly
-to v7.4-rc3, pci/next, hyperv-next and linux-next.
+On arm64 with bindgen 0.73.2 and CONFIG_SCHEDSTATS=n, the generated Rust
+binding placed task_struct.mm at offset 1168 while the C layout placed
+it at 1208. After the change both report 1208. The layouts also agree
+with CONFIG_SCHEDSTATS=y, and the Rust kernel crate and Binder driver
+build with Clippy in both configurations.
 
- drivers/pci/controller/pci-hyperv.c | 36 +++++++++++++++++++++--------
- 1 file changed, 27 insertions(+), 9 deletions(-)
+OpenAI Codex assisted with the bindgen change, validation and drafting.
+---
+ rust/bindgen_parameters | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-index 824cf27e85e67..029d66a171216 100644
---- a/drivers/pci/controller/pci-hyperv.c
-+++ b/drivers/pci/controller/pci-hyperv.c
-@@ -1451,6 +1451,21 @@ struct hv_read_config_compl {
- 	unsigned int bytes_returned;
- };
+diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
+index 5bab3cf063360..2686687555af3 100644
+--- a/rust/bindgen_parameters
++++ b/rust/bindgen_parameters
+@@ -26,6 +26,10 @@
+ # warning. We don't need to peek into it anyway.
+ --opaque-type spinlock
  
-+/*
-+ * The config block ops are exported through hvpci_block_ops and can be called
-+ * for any PCI device, including devices behind a non-Hyper-V host bridge
-+ * (for example, ACPI-enumerated ePCIe roots). Only devices on a bus created by
-+ * this driver are backed by a struct hv_pcibus_device.
-+ */
-+static struct hv_pcibus_device *hv_pci_dev_to_hbus(struct pci_dev *pdev)
-+{
-+	if (pdev->bus->ops != &hv_pcifront_ops)
-+		return NULL;
++# Bindgen drops the alignment of empty structs. Keep the cache-line alignment
++# of sched_statistics when CONFIG_SCHEDSTATS is disabled.
++--opaque-type sched_statistics
 +
-+	return container_of(pdev->bus->sysdata, struct hv_pcibus_device,
-+			    sysdata);
-+}
-+
- /**
-  * hv_pci_read_config_compl() - Invoked when a response packet
-  * for a read config block operation arrives.
-@@ -1500,9 +1515,7 @@ static int hv_read_config_block(struct pci_dev *pdev, void *buf,
- 				unsigned int len, unsigned int block_id,
- 				unsigned int *bytes_returned)
- {
--	struct hv_pcibus_device *hbus =
--		container_of(pdev->bus->sysdata, struct hv_pcibus_device,
--			     sysdata);
-+	struct hv_pcibus_device *hbus = hv_pci_dev_to_hbus(pdev);
- 	struct {
- 		struct pci_packet pkt;
- 		char buf[sizeof(struct pci_read_block)];
-@@ -1511,6 +1524,9 @@ static int hv_read_config_block(struct pci_dev *pdev, void *buf,
- 	struct pci_read_block *read_blk;
- 	int ret;
- 
-+	if (!hbus)
-+		return -EOPNOTSUPP;
-+
- 	if (len == 0 || len > HV_CONFIG_BLOCK_SIZE_MAX)
- 		return -EINVAL;
- 
-@@ -1581,9 +1597,7 @@ static void hv_pci_write_config_compl(void *context, struct pci_response *resp,
- static int hv_write_config_block(struct pci_dev *pdev, void *buf,
- 				unsigned int len, unsigned int block_id)
- {
--	struct hv_pcibus_device *hbus =
--		container_of(pdev->bus->sysdata, struct hv_pcibus_device,
--			     sysdata);
-+	struct hv_pcibus_device *hbus = hv_pci_dev_to_hbus(pdev);
- 	struct {
- 		struct pci_packet pkt;
- 		char buf[sizeof(struct pci_write_block)];
-@@ -1594,6 +1608,9 @@ static int hv_write_config_block(struct pci_dev *pdev, void *buf,
- 	u32 pkt_size;
- 	int ret;
- 
-+	if (!hbus)
-+		return -EOPNOTSUPP;
-+
- 	if (len == 0 || len > HV_CONFIG_BLOCK_SIZE_MAX)
- 		return -EINVAL;
- 
-@@ -1652,11 +1669,12 @@ static int hv_register_block_invalidate(struct pci_dev *pdev, void *context,
- 					void (*block_invalidate)(void *context,
- 								 u64 block_mask))
- {
--	struct hv_pcibus_device *hbus =
--		container_of(pdev->bus->sysdata, struct hv_pcibus_device,
--			     sysdata);
-+	struct hv_pcibus_device *hbus = hv_pci_dev_to_hbus(pdev);
- 	struct hv_pci_dev *hpdev;
- 
-+	if (!hbus)
-+		return -EOPNOTSUPP;
-+
- 	hpdev = get_pcichild_wslot(hbus, devfn_to_wslot(pdev->devfn));
- 	if (!hpdev)
- 		return -ENODEV;
+ # enums that appear in indirect function calls should specify a cfi type
+ --newtype-enum fwctl_rpc_scope
+ --with-attribute-custom-enum=fwctl_rpc_scope='#[cfi_encoding="15fwctl_rpc_scope"]'
 
-base-commit: e735de71a2d9403fa1e2d134d1e9aa0a24f4eaff
--- 
-2.55.0
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20261119-fix-schedstats-bindgen-layout-0935b6434707
+
+Best regards,
+--  
+Peder Bergan <peder.bergan@gmail.com>
+
 
