@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795052579;
-	b=Q1bruG11/dMFQZbMLmMHsOQImk4zjKj4Jz1ymQ9f2bG7Q7NWLZf0SaSz5LvxjYsMiwd+
-	 H4aZzBvkALZBl9mqeCoSDe8d2unCNQrRBtpLQ/XaclCJ2cUEdTCLRC/Ng7PAxKzqIJ4E3
-	 6wmeOQrUcnPSALif18yLsHIb51qnyVrUOwLoAPXc7wnecYiWK6BgMfpxj9KY4gSthLvQd
-	 JZYqU8eltYvpTHUCzbJ8Qubhzc8/sx2kLEEQunkVdBh6JPItPIseKynEn+JtDb4W9qewC
-	 h16LhSx+/uQEyXSMEOhQXO7EqqBEnIxSUJo0yb6YA6BuE5TIWmEazHRNrN/NAkEa9Dg==
+	t=1795052580;
+	b=nvAk9RUIOwerQ+2/VvkMcPfa8ItbhvL4m6wh+KIi44HuwVAEntoWMkoZS5fPIi51iI/T
+	 DtDb74yKvF/6oqfgcaHU2BdWqNHkP/YdpTROQbVARGGSq5YVMA9piKMNdd2bxKsu6aiw1
+	 PvovR0jD5tV+quvGJ5rHmjBXMu1NBaVKUodK2+hs9kCB9BJQG1qBwIbHPmSAcbovzDzft
+	 HIivzjcNH1n11ELrlbsehQHMyGgY1P/3ulLnYwcq4QUfdEzSFjkWAfaH2Nk3HTAUc0Umw
+	 +hpWuS2quHOgjMnzkfJErgU8Vfqon74PHFWbV8UPuQeXj6bZkn1m0qfqZTGM5z/ZKHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795052579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795052580;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Tlq6falsu4p25eF2rHDzfLHqj6CqJX+UtA6BMRCKc90=;
-	b=IwL2P2AKQEuciSPReLy7R/3heZEiaM+z8PtFX1aGxbiq9IsdpZfKSvfiYd8AxzMYmYgr
-	 mgRb/N6iEnoitm3aYfgmBRCdDd99yC0ia9lbTkorT6NKO0PSOdfnSM2E75KPS9xOZzxa0
-	 R9RtECdPMgrTymddqY3llOyFRYNdAqnMJdOUBhd6oMwy6lIRBYcDwmbuUItjtukWYgpmx
-	 EIvfS7mbd0o/nX5GnbT8pxuJMana2vFyHd/nUaNIqaVfDmhs+MijXwxM0yNkx2QjtG7xK
-	 +mppXpJtyo6p3V7ZLGiOfLwhiLj6wNnSoKSx56yxbvvNADRO8RrojOL75ayGNfXOVNw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=uNFMtGegQbyx2nsp7e9y5ycgaKcKYuwzocjWkIqM9lc=;
+	b=PMCicCLzbazA5dyms3LZN8/x+9nyKlTWe7V8rvuC7+sq8bFv7QVWvrC4/ATod2tm1GMP
+	 MwjXsi0b0RrrqJe1sbKYSPCmpxilJftNoIcGIrhLpN2K9z2h7S8heWNGvVWACve8ushez
+	 zgjncuKp+slpVUak8rwD+aNMyAPODfhCujCEA3t8BxDGEdbSqpKMsoz68odjqHIi2tgKC
+	 5uF//Y0qcn7sODTJvMiiWj/F7OHMqhVnm+Jp1M3ilUOaiT83n7BhQeUoh0brXIthCGsj9
+	 Hsqwp3l4CivKq1sf1JgQBazDDf//I58EtTooKFRqckMlJQKN3IJpTWQ8GoEvy/4Ikcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GskiRwAw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ogTMimAN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6A9606A32C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FF7606A335;
 	Thu, 19 Nov 2026 01:42:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GskiRwAw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2038A1F000C7;
-	Thu, 19 Nov 2026 01:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795052579;
-	bh=Tlq6falsu4p25eF2rHDzfLHqj6CqJX+UtA6BMRCKc90=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ogTMimAN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 796FC1F000C9;
+	Thu, 19 Nov 2026 01:42:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795052579;
+	bh=uNFMtGegQbyx2nsp7e9y5ycgaKcKYuwzocjWkIqM9lc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GskiRwAwcwK/Ygg2/HSzeZ97xsULioiWuFXEq0a7CTSew05qu+ne0nGAvSuPh4mpz
-	 2wBPfNebB0RpwwQg+hPQxHGuNInFQlFYHdf3dywOOD1yi8mDYEYTwEM/c9E59MKxsX
-	 eYv5sTKYe9hfdnlDXS5S+sWvLaXBSZ9jLrwrkb28=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 0613/2214] mailbox: qcom-ipcc: Guard against NULL con_priv in send_data()
-Date: Wed, 18 Nov 2026 15:38:09 +0100
-Message-ID: <20261118150035.904270392@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150009.797899913@linuxfoundation.org>
-References: <20261118150009.797899913@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	b=ogTMimANOmUqTobBj3k5z8Ybv4Sh/Xzn9W2Y46iWRHZAq8ZB8I05tso9X74qShZT6
+	 C0JLDe2ZFWfOypRJIf1IBHloNLxCqdjWfad7+raqfL051GS39hofagtpNq07QEUzFD
+	 0TTduLSQhFZ9HYYyLbRcglWv7hjStpr+TpmPl54iPaOgU4lfQzL5aYOZqrQwGy8icy
+	 Uv6UQPQV7ri40GIlYw/8UiVUQn3YHyBvNsnct20EQxRsGxjZ8R6lPRskGd836tWDB3
+	 NWOmghVmQMAqI8eKNcurb4kPqlL/lnk86fcWwOeMeGUuFHCm26LaDV9vc6Oji563JJ
+	 wMbx9qswO7urw==
+From: SJ Park <sj@kernel.org>
+To: Yifan Feng <evanfengff@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/damon/core: fix damos_walk() hang with zero watermarks interval
+Date: Wed, 18 Nov 2026 17:42:46 -0800
+Message-ID: <20261119014247.119946-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261118235012.14859-1-evanfengff@gmail.com>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,74 +64,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+Hello Yifan,
 
-------------------
+On Wed, 18 Nov 2026 15:50:12 -0800 Yifan Feng <evanfengff@gmail.com> wrote:
 
-From: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+> kdamond_wait_activation() cancels damos_walk() requests while all
+> schemes are deactivated by their watermarks.  But it returns without
+> waiting when the watermarks check interval of a deactivated scheme is
+> zero, which is the default of the DAMON sysfs interface.  The kdamond
+> main loop then runs with all schemes deactivated.
+> 
+> In that state, kdamond_apply_schemes() finds no scheme to apply and
+> returns before it calls damos_walk_complete().  The walk request is
+> neither completed nor cancelled, so damos_walk() waits until the
+> watermarks activate a scheme again, possibly forever.
+> 
+> For example, with a scheme that has the free_mem_rate metric, zero
+> interval_us and a high watermark below the current free memory rate,
+> writing update_schemes_tried_regions to the kdamond state file never
+> returns and cannot be killed.  The writer holds damon_sysfs_lock, so all
+> other DAMON sysfs writes including "off" fail with -EBUSY meanwhile.
 
-[ Upstream commit 7b3cc361b5942ac600f38e5dff7aed009be34964 ]
+Thank you for finding and sharing the issue.
 
-qcom_ipcc_mbox_shutdown() clears chan->con_priv with no locking.
-qcom_ipcc_mbox_send_data() dereferences the same field without
-checking for NULL first, so a send racing a concurrent shutdown can
-crash:
+> 
+> Do not skip the deactivated schemes when deciding whether
+> kdamond_apply_schemes() has something to do.  damon_do_apply_schemes()
+> still skips them, so no action is applied, and the walk is completed
+> with no region for them, as it already is when another scheme is
+> activated.
+> 
+> Fixes: bf0eaba0ff9c ("mm/damon/core: implement damos_walk()")
+> Cc: <stable@vger.kernel.org> # 6.14.x
+> Signed-off-by: Yifan Feng <evanfengff@gmail.com>
+> ---
+> QEMU: the write hangs before, returns after; kunit and 13 selftests pass on both (2 need drgn, not run).
+> Found and written with the help of an AI coding assistant.
+> 
+>  mm/damon/core.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/damon/core.c b/mm/damon/core.c
+> index b8678a53b0a9..12578fc3280c 100644
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -3498,11 +3498,11 @@ static noinline_for_stack void kdamond_apply_schemes(struct damon_ctx *c)
+>  		if (time_before(c->passed_sample_intervals, s->next_apply_sis))
+>  			continue;
+>  
+> +		has_schemes_to_apply = true;
+> +
+>  		if (!s->wmarks.activated)
+>  			continue;
+>  
+> -		has_schemes_to_apply = true;
+> -
+>  		damos_adjust_quota(c, s);
+>  	}
 
-  mchan = chan->con_priv;
-  ...
-  hwirq = qcom_ipcc_get_hwirq(mchan->client_id, mchan->signal_id);
+But, this could make has_schemes_to_apply has false positive.  How about
+calling damos_Walk_cancel() when has_schemes_to_apply is false, like below?
 
-Add the same NULL guard mbox_send_message() already uses for
-chan->cl, and bail out before dereferencing a cleared con_priv.
+'''
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3849,8 +3849,10 @@ static noinline_for_stack void kdamond_apply_schemes(struct damon_ctx *c)
+                damos_adjust_quota(c, s);
+        }
 
-To close the remaining race where send_data() reads con_priv a moment
-before a concurrent shutdown clears it, acquire the spinlock in
-qcom_ipcc_mbox_shutdown() using the modern guard(spinlock_irqsave)
-primitive before setting con_priv to NULL.
+-       if (!has_schemes_to_apply)
++       if (!has_schemes_to_apply) {
++               damos_walk_cancel(c);
+                return;
++       }
 
-Fixes: d6fbfdbc1274 ("mailbox: qcom-ipcc: Fix IPCC mbox channel exhaustion")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/mailbox/qcom-ipcc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/mailbox/qcom-ipcc.c b/drivers/mailbox/qcom-ipcc.c
-index f1d4f4679b17b..06377bc70a742 100644
---- a/drivers/mailbox/qcom-ipcc.c
-+++ b/drivers/mailbox/qcom-ipcc.c
-@@ -10,6 +10,7 @@
- #include <linux/mailbox_controller.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-+#include <linux/spinlock.h>
- 
- #include <dt-bindings/mailbox/qcom-ipcc.h>
- 
-@@ -149,6 +150,9 @@ static int qcom_ipcc_mbox_send_data(struct mbox_chan *chan, void *data)
- 	struct qcom_ipcc_chan_info *mchan = chan->con_priv;
- 	u32 hwirq;
- 
-+	if (!mchan)
-+		return -EINVAL;
-+
- 	hwirq = qcom_ipcc_get_hwirq(mchan->client_id, mchan->signal_id);
- 	writel(hwirq, ipcc->base + IPCC_REG_SEND_ID);
- 
-@@ -157,6 +161,8 @@ static int qcom_ipcc_mbox_send_data(struct mbox_chan *chan, void *data)
- 
- static void qcom_ipcc_mbox_shutdown(struct mbox_chan *chan)
- {
-+	guard(spinlock_irqsave)(&chan->lock);
-+
- 	chan->con_priv = NULL;
- }
- 
--- 
-2.53.0
+        max_region_sz = damon_region_sz_limit(c);
+        mutex_lock(&c->walk_control_lock);
+'''
 
 
+Thanks,
+SJ
 
+[...]
