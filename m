@@ -1,70 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795195827;
-	b=elpD/KJGh3kP3ea6JJlUg+Jq3/XMhDpgYPgdU5bwyur6R21TkmBaFCakze4vu9sOF/GF
-	 elA0JfGYHZU8ErB5uxoMG2+dHZ5kS+R2xtvtSpgUbS9Qr0XuWBebSrQHzdy7D1B0n6gIZ
-	 5Trcz22jsWK2gniDLaangKTEko1J44Hmv55pLDRl4LGV+143/playGmsH6ycJjD/seHte
-	 n4Ch22r1l6sjBqBiE3HXijhQOFnKTluzd6LNW7TzjXXrBqWcwE2/3PsCYnbKc2qfQ3tQt
-	 vVRSwXqxwkDWAZl+Id5PWnsod1UDPU13LpKhI+wp7og55qn+r5P8I/lqtHtWddHUv9w==
+	t=1795196122;
+	b=Up4wz0qTaqbsLWDIz6LmtO02SIoIrdCVtzUrLmLvixpb3B5zIiOiKO0UZS9wedZ4okbc
+	 BXFOhVfc68egJGZ0Byvi+8njPG1sLo5ptXL6aZ46P688ZggmtCJXsgBWjCWwaCT+1OQe5
+	 4kTKjZNPpNLQrC9lxlPHyyauKmRWXhl86LsAnwcCPNJzoqDmsyHwlm3GXf0KoOFrkG7l4
+	 BvsfOEaCUwhsAWSsUSQ6XG3FWuQb0E23ofXQtV6G5FISZMiHf5GqfGQbdtNqcXAEaKl+O
+	 LwjYrQPGNgRdK+eoAc87PkGE/noJ5IupXACSzNXdFCaIAauqEm4FCe9LbexZJ8pxphQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795195827;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-SRS-Rewrite;
-	bh=RiSZPEtb6tphJE9SU16a3toiCyFopTKRl72efvtU7Tg=;
-	b=U3IXntXfqW2O29Kzve5tKAYl6uzojk+ARxNLtcK6IAtSuBIYzNScUCMtMm6Wh+N3kbNv
-	 T6wGtuBsiqhw82EvPvvhHADOVzxs03B7gRkpyVC/lM+gtcKX3jYhRl+KGSL0C1nnETaom
-	 nT0pwfDncjRmlKSlAjwGqGu0xINCDm1ZAy9Buhd8m+k5A7MgIYYb6ZOWS4J3yBRD5NBav
-	 SVaXDApCiP0u5qekesmy2Dr2eAFkjlMCtc+NHbuZ5H5/hx5P1hdK8qnMGqkodDQhtLhQd
-	 jylEoLyFEcM9ao+m4GqFjb6PClp6nVzuahAqP3ZdulAlH/1x8QtXYnLTKQfAjwjqaTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196122;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=1xpwcbGxuPT3tXpkx6Mf8RyX6Dzo36GFZ6Dp9E4sqss=;
+	b=5jYfIg7EAWpk2dbMzIWtxPQmNtk53T6dxbKEq48NRfiPKtga3UVvVSns7NT520PE9Qh1
+	 ODts2hHeZEzNemzG7SON1BcM4KCAu7x0SHlOofgHPqL7aGPlawURQy4t5WMnxhmsYs2fT
+	 T1/iYj+kt6KmKfeDMuXUAMAfC3pN8xyX/aVK2xZExzBmgspw+pLw3n6t7xVyfWSYjzvRr
+	 B677sZTuC3blEbKfJ7Htqe2IeWk/u87GXnuOeZ8ltONOO7mTDioR/5imGC3d44cavv1go
+	 P4g/rBHKuZ2FeDBDLqX7B77UnEmKJUBRbMLgfHR6BryxmrlfAcPVdETbcKGhjiJol4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=XGfTxC5x;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=di7sQHpA;
+	arc=none smtp.remote-ip=45.254.49.198
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980C760A2608;
-	Fri, 20 Nov 2026 17:30:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 980C760A2608
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08E260A2601;
+	Fri, 20 Nov 2026 17:35:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A08E260A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=XGfTxC5x
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=RiSZPEtb6tphJE9SU16a3toiCyFopTKRl72efvtU7Tg=; b=XGfTxC5xz5T4eJl3nCuBYgu0ZS
-	1pyHBJHxIHD35pN9mZSvLWOovaFSv9zP20FtSPu5yurcOCAeSQqYqxpbVnacVtklUQPAI6e2HwEaO
-	EdwCSIztxLVUbSyYAnHqHXe3FWmaCGz+SPgWcntveaXFv8f3C71OkXFrYLGVbDQBKBxPjdE+0yDM0
-	J7CyJASVspDU7RvguKKfnemSySGDDnraQ8xsNV7r87GzQF/ff5Yz5jmmV3ZOFb3XeiS1ZeRoXiXh6
-	fLD7PagyVYUGR3UlPkeSBmM1BLPP1co5oxSyr947cB+twxuB4+uGAyNfWJrdk2VwfoZK5+3pzdYl+
-	bA3q3+6Q==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xUSRJ-0000000FhjL-0ieO;
-	Fri, 20 Nov 2026 17:30:21 +0000
-Date: Fri, 20 Nov 2026 09:30:21 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Keith Busch <kbusch@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>,
-	Zakaria Belkadi <zakaria.belkadi@inria.fr>,
-	Caleb Sander Mateos <csander@purestorage.com>,
-	Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Kanchan Joshi <joshi.k@samsung.com>,
-	Anuj Gupta <anuj20.g@samsung.com>, florence.schadle@ssi.gouv.fr,
-	frederic.tronel@centralesupelec.fr, louis.rilling@irisa.fr,
-	stable@vger.kernel.org, "Martin K. Petersen" <mkp@kernel.org>
-Subject: Re: [PATCH RESEND] block: pin user PI pages for writing when ref
- tags are remapped
-Message-ID: <awCDrByZa8XsTXJe@infradead.org>
-References: <awBnB-55HQ54C1x6@infradead.org>
- <20261120162257.498238-1-zakaria.belkadi@inria.fr>
- <awB8OODx0fCFGc5G@kbusch-mbp>
- <awB_xd60To4UawrJ@infradead.org>
- <awCCG3FWbMHHvYd5@kbusch-mbp>
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=di7sQHpA
+Received: from lgs.. (unknown [101.76.249.61])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5573c0ab8;
+	Sat, 21 Nov 2026 01:35:09 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: dmaengine@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] dmaengine: imx-sdma: Fix potential memory leak on channel zero failure
+Date: Sat, 21 Nov 2026 01:35:05 +0800
+Message-ID: <20261120173507.3923720-1-liguangshuo@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,16 +60,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awCCG3FWbMHHvYd5@kbusch-mbp>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1fa06c2dc03a1kunm78995cb0238b67
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSEJDVkNNGR9MTUNLGhlOSlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+	NMVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=di7sQHpAD8ER8mZMsdEsxG3xOKw3SToAXE/uzh+u0doycz1U3OG8GiwwJwRtNTGQseu8jgdZ6olOP2coJtXNZkfCoDmKRW2YYPs8seXd27n/X/+DGFagHzti4HydpHEnFlpL7BrqJfgiHKxpnqWvmm8DCutL0pNSEw57HBHjOIg=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=1xpwcbGxuPT3tXpkx6Mf8RyX6Dzo36GFZ6Dp9E4sqss=;
+	h=date:mime-version:subject:message-id:from;
 
-On Fri, Nov 20, 2026 at 10:23:39AM -0700, Keith Busch wrote:
-> > No, the user did not ask for violating the mapping direction.  The
-> > whole remapping thing very much is an internal implementation detail
-> 
-> Okay, fine. But can we skip bouncing and remapping if the flag isn't
-> set?
+If allocating the channel zero descriptor fails, sdma_init() disables
+the clocks without releasing the already allocated channel control and
+context storage. Free that storage with the matching allocator before
+returning the error.
 
-Sure, as long as we make sure that doesn't break anything else.
+This issue was found by our static analysis tool under development.
+
+Fixes: 1ec1e82f2510 ("dmaengine: Add Freescale i.MX SDMA support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+---
+ drivers/dma/imx-sdma.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/dma/imx-sdma.c b/drivers/dma/imx-sdma.c
+index 36368835a845..9c0087b3b805 100644
+--- a/drivers/dma/imx-sdma.c
++++ b/drivers/dma/imx-sdma.c
+@@ -2161,7 +2161,7 @@ static int sdma_init(struct sdma_engine *sdma)
+ 
+ 	ret = sdma_request_channel0(sdma);
+ 	if (ret)
+-		goto err_dma_alloc;
++		goto free_channel_control;
+ 
+ 	sdma_config_ownership(&sdma->channel[0], false, true, false);
+ 
+@@ -2184,6 +2184,13 @@ static int sdma_init(struct sdma_engine *sdma)
+ 
+ 	return 0;
+ 
++free_channel_control:
++	if (sdma->iram_pool)
++		gen_pool_free(sdma->iram_pool,
++			      (unsigned long)sdma->channel_control, ccbsize);
++	else
++		dma_free_coherent(sdma->dev, ccbsize, sdma->channel_control,
++				  ccb_phys);
+ err_dma_alloc:
+ 	clk_disable(sdma->clk_ahb);
+ disable_clk_ipg:
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
+
