@@ -1,115 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795165890;
-	b=uHxrSHu5thaGcZ3ChxMZ1u/CClSlL75WApdPL/KYRlOn0LCxAOeESNVLDU/qcPRWSoG4
-	 JBq947JPqKf2RuGSMRxQ91yxue8DVeU6uKAhssUxisHKYzj4Sa5X23ipg+PGZOh0evvpe
-	 riYWBsVHvkp4BCDfQBmzMSpD5D29zJAzt6xft8Jp/o1aPcxASDVDlDeNFRtJeLgDIXTgE
-	 Pyq//aw839a9oLhG/B5iVcjoce/MC3mMpOuppD/a5Pa3TnOaH9j90kYIQT7bgezQtwl4P
-	 wJIPnUnhyshnYVobZ6J5O8Jh0WBwLhqKHqIhmKAafQFvyIZlhQvhVEoRcMygwA/cDTQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795165890;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1hDM5Gf/IXJa8i5k1Mi9KOj6U1sOYmnGLsASV4Hj194=;
-	b=JHEnki43tjBHtk8c8KAaiN4mw2Zc59mIa+XeJOsABxVIh8Z/zBy+HfP52cU5qRVDR7Qn
-	 y7is1l8A84VghDm2mcU3YMZy2kT7I5Q1uVcRMoyXayCbyASjES4Eow3HRYRlRchErgFB9
-	 P7mRzMobnPvgF+h72T9r8akfnJeXQSJphr9KDLwTjnNRbXF6caxXHspzZDP/l1V1Z1mpm
-	 GVjTMfX2t3pnfPyDocjsqQClaT0nBRtFn9BxMFiI9mOQ75bVGhiJt+y1o5H3g0tt0Xc1Q
-	 fqgECnWwQaOp07yt3iPj9irxkHcI8h1kfs6QpAy9JP5AmVnhC1FKKYppacPh6jpiYsQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b="dqxobL/W";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=uKzOAofy;
-	arc=none smtp.remote-ip=103.168.172.153
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.66
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795166293;
+	b=hW4wMHQ2gZWFsBcHjTFWWcKFuNaueZY1wEf3vpMtbC7kzryLA570aAu8v8Dt3bCwvZZo
+	 b6oOY71WKSXr9QcKJLU5TzjIv3+2u7KplVnOc2IRNQzgcUf1O+PxuMMw5A9hNhsbEKALd
+	 fVC7z3YO5YnOAnYLTiyVbM6CHKLgDzPFIqAs7ilw9B/22+tyT86I1rXz8j5ed8KTSN43v
+	 lDmofnlSrIm74MY6lUL0oZp5CB+ZtYDMav62b4HuwzfkYOO9KiS6s1v98rz+xaWRvyd3X
+	 wGLqs4v1TM6Jv3iTh4lEGYnA4V7Y5QTB4vCGrW2P0ty1ocGdbyvRTlYvBsVXkmvkZHQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795166293;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
+	 X-Mailer:X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6uf3MBc3V2g1zBvM6rT+T4LoTTN981m1+NShEL0RYGU=;
+	b=CFLrboPyH7kZogh65QSn2HIO6b+GF3lYMwV9d8Iejq+57VqocwaJemucEk3HHLEyfN2w
+	 BmPoSUD+0y1i3c6MlFEgs/25tbBK8e1ULfFB6mronZCU7wiog9cmBN8IwHo2cBtagOJy/
+	 ba956a4Kl5lX8HGkolh9yPHW7jKsmBwU6e8gTXdvN/XcQqEn/w9vZkW9YyrYE1g38+9SL
+	 i+GF7M7bv2I+AUdecLq8++8UxR4EWrGg6cvnJuhMpJz2zg4kftk2Im4v9XJJfrClyIQo6
+	 eVpVIgtFozNbj6Zaq9R7pKbLfX/vWzI3emjg9i+KWt0hANeaFKpNRTJP98+oGUbq2qA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=NxUnyJNv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.66
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010066.outbound.protection.outlook.com [52.101.84.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722D4606A325
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 09:11:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 722D4606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9C6606A325;
+	Fri, 20 Nov 2026 09:18:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB9C6606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=dqxobL/W;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=uKzOAofy
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 8E7CA14001D9
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 04:11:28 -0500 (EST)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-06.internal (MEProxy); Fri, 20 Nov 2026 04:11:28 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1795165888;
-	 x=1795252288; bh=1hDM5Gf/IXJa8i5k1Mi9KOj6U1sOYmnGLsASV4Hj194=; b=
-	dqxobL/WnHKFh7gnWZvN4SNZEcXWLrZMgFN7YHOXskevaCCHIg9S3gNrUrHR+JoT
-	u8iHBXapxjFCLi1ano+xH4JwR2zr7Y/cDoq4GR0oBfwjYAj0IeYkAemmvxKWevjj
-	zfJCITg7demHbFgfmatA5LMwkJ3ymyUJXIlBx4WTbm3QOhkStawWJPp+1alxMNXZ
-	JdKzNTorYtO1rkbbUkDdZya+Rym0GNXOfwb47R7iJFNKA9zjhqCOD8vYPey5XirF
-	DAn7PegnxExbWSGyldh2qN3npGxeed3SZwNNEFzxBxh5iIEs+jK00Kvd49J4hNiP
-	6aRC2Pqg/XKtd8eM/vKzOg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795165888; x=
-	1795252288; bh=1hDM5Gf/IXJa8i5k1Mi9KOj6U1sOYmnGLsASV4Hj194=; b=u
-	KzOAofyBPOf8iNbhZTDZpN0+wLQOWLdtZhkV5OeZufgt4yQb+XJCtnnUozsJiIey
-	TLSbXyyqlrdZgdUuR5ags/XNP55lS/RXWlxNkKC6HJpMnSQBXAYq+McB3AvR69Xp
-	SvIlDoZOe78rdiliKvn8qy1LcNehJH+3GSWGttqkpP7wUbkxqfByFUbykVRigsFJ
-	FTch/bnrPdkji9UUmK0eQFIjaOaPJDer2iinQzausWjSP6xHYhHYh9ibo9ez8UeU
-	OX0cY2l2vsJ2x6zd6Wk1qt/i7qB34FU1ZzBPWCDHeVz9GjDu5L3a9mfurVC8VscZ
-	d63FsHjjd9EKLZLx/Q9pg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795165888; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:MU4+lrbVV7RxXcyn7YoB4cb/xVhfFCYmiBOtuWvN8bgEg+g
-	xD1hGYKACadCPq/rFHZVFu3N9e7JQjJOk4oYo5pKANExlYQTG+sShGgsUZg15HhL
-	8497nG7RsySJGtIpXKKAP+cQEX397y/Dj5bojNLnfv7viImwsBj1h4rlzfxOcwDo
-	PCT7DgPL2BKmQ8jLBVRACcAMVvRdK5Qsi+jzy4rasI9DYXdPaCBQ8rr8oaVFeuK3
-	LE9zknECt2r4ddkIq17oLjMV5jXOQw+OC+/gX6k2aYC2zFQo8OLX7xRwZt+4cgb+
-	iUbFrScTbxXvhDlZwmcML/CCmJMdiHopHdt59tA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:p0uCjz5jaHPCxCefuOz6KQZU4plYYEHSxSQk7E6+bNw=:Jenh8YvvN9U4RjptxucH1k6+tJGpSw1CcgOdGUkHli4=;
-X-ME-Sender: <xms:vw4Aa2McEUxq_ewya4mt1rq182olCLlIRoGg52pPQdIPdQee7a13VA>
-    <xme:vw4Aa1W8HJKUar1a2V6sHfn0SIDwgerNaJxvlf-HteV4QF-IB-BLa-6gKcVNt7FW3
-    NUcOPr4I2zRC2L7SWpyWBhNc88nliOsdBZm_FDJkLIxTiCU03BG_4HP>
-X-ME-Received: <xmr:vw4Aa-abhtoqtAi7GHfKp0z4qWcifbRQtV2oqYiQMFZz6CjweqocYVRtQx7Xxmk1wIoI3hn2L-pmNehfrpXfxo1UrTC4aLa0>
-X-ME-Proxy-Cause: dmFkZTFcbiNj0kGpXP+YFUGPYwmWn+iYy8ELICUFrI8LD2H84eClBS2ScX+5laWZgbKqAi
-    aOrixx2Jo+2gfFC2jo/gdVqJ1J9fKjBcenMF+RvSvTsuqEjP/oivGVGTmgydqosf3yCspu
-    rzvBhE1PVGSLbGuknWj+WHh60UvADRM4Jk/ZmLNEojxN19x8vYK9x768l9C06/cFhJ0tXh
-    s0I2K4KXIQlBdSwo7eq8F772Z842lM6vyjqB1+kwli9TUjJWojqtEmPbN1rbVb6VrHHKHG
-    6d3ijnk0NI3xzc0nqjDoqqD/mZ2kykGCCXtCzQJp/WIwGrc9aNWwD4W+5vcIxojyBOyUqg
-    T/q4HWt15m89cfYR9iyjBs6ge0Iz1TWub5Egir4q7Ph1MEB6wwhbn13Yxn60fIT+5LoxDG
-    4uG3F911E8hDEzXzoRbxUeKIYk4hzv4dA6agdI0b5y1VnYMgqKOI9IWiTGKX6gNTv3vdSI
-    /GbfM3NxtZvyfhvTRKQvY709mUKgwGLg2mlGEWCx/mbrNtm3KVJnT+vnc58JRiLsM+aMcB
-    L7Gqy4gdmF4GO2PeWM6iEqGZFARtgxG/gTuulIpscPqadceyTJYzc7sdUhxCvkICKW5gAR
-    hYWjJlrtbh6PbGwMgj9AiyNpmWTdgUMPcWlV59YghQqx5o1Y38EJe8CBIAyA
-X-ME-Proxy: <xmx:vw4Aayu2OsXpyj5tYe4SJRM5WWNeyovF4F8Q07P8fJw9H6wy_CV2PQ>
-    <xmx:vw4Aa9k2fY6UrcXeZgKwy0MSzkJTZ6ujEoPCdZX9BVqEw5yowMPmaw>
-    <xmx:vw4AazX4XpPWqsyX_z6tXV2vjocf-B5EyBrCq75rrUl1HcHrUfiiyg>
-    <xmx:vw4AawnqcB9EPfnKNa7WRFukG8RoxQCYOB5VDxoyONkjmISzn563og>
-    <xmx:wA4Aa02DxH0MfqkzPSYegF0LZv714QEm97K53TSDPrmSI0qHCfkCDbB_>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 20 Nov 2026 04:11:25 -0500 (EST)
-Message-ID: <84c3376b-513f-4045-bfa1-db9c35e75200@pobox.com>
-Date: Fri, 20 Nov 2026 01:11:24 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=NxUnyJNv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fm4VdBBmDsL6u3dUOi8ACmunyfIvyzVCQxc6cI41azlIxOdhQsB9uORNit/jriv/T/ftYPy4poShTPgyMjBLE5UVRVIcebCn5StAZg5jr4mfv5YnOSPS78SpycAu9YzeBb3kTszJZvsANFPtJaqD9M3tfit4ftQmtxSWzw2Eog9mU9dYk23JSgeZGJmNnEYORBN3mWsCmNZZXaKRTH9vrDiLfKsnOTF4+uokBhKYHWalpmxHi6jAgDs1ph27Cji7erag2sYbv5S2A+g3l4379YwRSYVnNB9e9jxz7CVr+8l3j7gdESK88Fyk/06OrKh1drfNkWINhNxiBeiuQwgTUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6uf3MBc3V2g1zBvM6rT+T4LoTTN981m1+NShEL0RYGU=;
+ b=WMxO77CfMFFLQoWbzAzPt+1589M3tEBinZbhdGEYmgKkzXndQFf301UlssMULscvRJmFnJtWiOUPpPHff7evzKO1dOJJD8kr8666OGCrtaOt75hFUddFmHEDh8ziKQJvsappvschcztbVY1lzkj5QaklqKyQQ7svNITQ7fy25VtoPB1AwMVsDbTZ99HUU8Y0RHkavKz1XvVZzyJ70peQaOQW828Ri0mu4Jd0uhQ+LqWj3Xr/WdIEirTE/DTwg8sR+ajKt/lVfNqbBizJSTghGlH/jnA4ctq4SYq2tNkSu8ztVyjSpGbqYz/RoEnUkg9msCqwUOe4VJjankNpVmeXbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6uf3MBc3V2g1zBvM6rT+T4LoTTN981m1+NShEL0RYGU=;
+ b=NxUnyJNv/7X7CXbUR08IE8BOD9KnahLmS3Aoa7cjwn12bKzZ2FDzC/SYEYrKEqIvMzW5abFw2uY/PwF3hrOBg3F/DB8P5+h2tIbmBsJab/HEwegAiETeQt/Ll1++ZK6MATp5n5GSKZVdCcktfWuVccQ3eszMltVn1r5hF9k2I9nV7QcfT8tPvmf6RzdH9YUL3eheH8MbqXTY4GrOh4Qf1KZ8nSZr2+wW05u6Ip3xPyPJqRcsauCpsAyqt9DrPlCDk2degR4I9EZDYr4JS/LjpM58jmtFZTc0apvfExKGUP866M0ZOWfUsQuT621CsobS4GwDXUn6hhwbcUv3NDBiHw==
+Received: from DUZPR01CA0265.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b9::15) by AMBPR10MB9814.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:722::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.1; Fri, 20 Nov
+ 2026 09:18:09 +0000
+Received: from MAD0EPF000008A8.eurprd04.prod.outlook.com
+ (2603:10a6:10:4b9:cafe::7f) by DUZPR01CA0265.outlook.office365.com
+ (2603:10a6:10:4b9::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.12 via Frontend Transport; Fri,
+ 20 Nov 2026 09:18:08 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ MAD0EPF000008A8.mail.protection.outlook.com (10.167.241.180) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Fri, 20 Nov 2026 09:18:08 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 20 Nov
+ 2026 10:19:10 +0100
+Received: from localhost (10.48.87.222) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 20 Nov
+ 2026 10:18:07 +0100
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Date: Fri, 20 Nov 2026 10:18:03 +0100
+Subject: [PATCH 3/4] dmaengine: stm32-dma3: validate LLI pool allocations
+ and fix cleanup
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,48 +105,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 0000/2642] 7.3.6-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- Sasha Levin <sashal@kernel.org>
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261120055248.913352689@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261120055248.913352689@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20261120-dma3-fixes-v1-3-f29c1f437399@foss.st.com>
+References: <20261120-dma3-fixes-v1-0-f29c1f437399@foss.st.com>
+In-Reply-To: <20261120-dma3-fixes-v1-0-f29c1f437399@foss.st.com>
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>
+CC: <dmaengine@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Amelie Delaunay <amelie.delaunay@foss.st.com>, <stable@vger.kernel.org>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MAD0EPF000008A8:EE_|AMBPR10MB9814:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4dd6d878-6286-4208-119c-08df46e73158
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|261022075727099003|10067099003|261026121527099003|261026140227099003|56012099006|11063799006|261021121427099003|261021123027099003|261022105027099003|261102123227099003|261009223027099003|261102124527099003|261028144727099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	63VmWXk6cPc8RxYFAb2RieEd4Q1BxwHjIzMoVcuyKrXXo6BSAo/mC37nuxZVp2HY9Im/IScRYhjSomoc3yIcHGaFNHubByZtKTWYyCqAlYEqE2XVZCQ3JC4mQff/9dbxzdEzUEm7oyBIUFym/YkJZFOyMEQwO7tnU6v5fCTUMMeInrhhY2vor3nG5OK9rQbiLJCW32R4ieXRU60wNy6A1U/i9gQ7dEdIkkJV9mU+NLGC3cfEAxQhVq8YbaFoqtRYv76RzWlHG/ljue8SJdQZVA0XV5jz5mm2gINN2pOLeP/qMd+ClQbccmyRU97BHuKutv/sPL0pucwWXJv5+Z4YE2RqMwLiijAcr3UEb/q4Z13tqo3s6X0LwGa5JjVyDDdbVurGVwJGmcx9B6NI79qReQ6gr/DgCFROaq4D6QdnhZRSik6kmaDzJAA90L8GCHEUfZzFwM6cBu5sxZcBARDDkbsApwqkyaHdgeQogKif3IJ4RyWh2yhPj8S5ByvXi0FxvggTWNGJ4rapY0lv3jsfamhxAucJfwFTURX1it3PkjVSX9wgNKxoa4Q8z/3dqIUVxCx2UhhmlpfRzsXLWHRwPwTdox3GQIj+OgMTs3iy4WtQBpLaDoDzZC+HssnA4UH3jdoTn5NhEyfxs7GLU54j7yV/n4jRFF3re3BHMe/ErODB6fFkgZVK6p5sr5wo88d9U9C5h9x7F0l/49WSsuScQQ==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(261022075727099003)(10067099003)(261026121527099003)(261026140227099003)(56012099006)(11063799006)(261021121427099003)(261021123027099003)(261022105027099003)(261102123227099003)(261009223027099003)(261102124527099003)(261028144727099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	IRjPrxm2z4j4IaXN5DLTnvNLsGw/ygU1K9asqxiQPQCvyTcLOsXqEw2qGOd+3eiaq4p1MBEOHoUDBswcrRh5e2NCpfAsHo5isBMsz23JR7QnuGnnTpaQ5G6WI+t1TRWENh21FHZfQy0+i6QqzplxaxHNMxZfY+KEa7DSU7IKFQtorKsjzgW2rLyVcCqqGHP4EjBi4cjWJmXJPdyXlMVTb3nM987dqOyP+lUQznQe0sKqDiKcMKGELK83507nENfPGWDKVS4GljojEqHeOHcXzObsmvbd6OLdlqwlgtMbaqLw6xlkBFluVayq36XMlexK5qSnCzcAO28AjH+fkjyq+0nU2vBUD6V2epudLLWJvck5Q9aDZ7m8nRwzBE7QK/sHJCQXnbknmNNDw8I0rJozzuxCg1nA3ORfw06uSXlAm6dom0VATdQ8FXFkNGVfqsZT
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 09:18:08.7951
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4dd6d878-6286-4208-119c-08df46e73158
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MAD0EPF000008A8.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR10MB9814
 
-On 11/19/26 9:58 PM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.3.6 release.
-> There are 2642 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 22 Nov 2026 05:44:39 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.6-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+All descriptors in a linked list must share the same 64 KiB address
+window because CLBAR provides the common upper address bits. The DMA pool
+boundary only constrains individual allocations, not the whole list, so
+descriptors in a single list may be allocated from different pool pages in
+different windows.
 
-Tested on 2 amd64 systems and an arm64 virtual machine. Working well,
-no regressions observed. (Thanks for fixing the build issue I had
-with 7.3.6-rc1!)
+Check each descriptor's base address and reject lists that span multiple
+windows, instead of letting the hardware fetch descriptors from wrong
+addresses. Track the last allocated entry so that the error path frees
+exactly the descriptors that were allocated, including the one that
+failed the window check.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+While at it, simplify the ccr initialisation, which is functionnaly
+equivalent to the previous code.
+
+Fixes: f561ec8b2b33 ("dmaengine: Add STM32 DMA3 support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+---
+ drivers/dma/stm32/stm32-dma3.c | 31 ++++++++++++++++++++++++++-----
+ 1 file changed, 26 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/dma/stm32/stm32-dma3.c b/drivers/dma/stm32/stm32-dma3.c
+index a056f73fbe02..7c509a69f5e5 100644
+--- a/drivers/dma/stm32/stm32-dma3.c
++++ b/drivers/dma/stm32/stm32-dma3.c
+@@ -397,7 +397,8 @@ static void stm32_dma3_chan_dump_hwdesc(struct stm32_dma3_chan *chan,
+ static struct stm32_dma3_swdesc *stm32_dma3_chan_desc_alloc(struct stm32_dma3_chan *chan, u32 count)
+ {
+ 	struct stm32_dma3_swdesc *swdesc;
+-	int i;
++	int i, last_alloc_idx = -1;
++	dma_addr_t base_addr = 0;
+ 
+ 	/*
+ 	 * If the memory to be allocated for the number of hwdesc (6 u32 members but 32-bytes
+@@ -419,18 +420,38 @@ static struct stm32_dma3_swdesc *stm32_dma3_chan_desc_alloc(struct stm32_dma3_ch
+ 							&swdesc->lli[i].hwdesc_addr);
+ 		if (!swdesc->lli[i].hwdesc)
+ 			goto err_pool_free;
++
++		last_alloc_idx = i;
++
++		if (i == 0) {
++			base_addr = swdesc->lli[0].hwdesc_addr & CLBAR_LBA;
++			continue;
++		}
++
++		/*
++		 * dma_pool boundary=SZ_64K only guarantees that one allocation does not span a 64KB
++		 * boundary. It does not guarantee that all allocations of a given linked-list land
++		 * in the same 64KB address window required by CLBAR/CLLR addressing.
++		 */
++		if (base_addr != (swdesc->lli[i].hwdesc_addr & CLBAR_LBA)) {
++			dev_err(vchan_chan_dev(&chan->vchan), "LLI crosses a 64KB window (%pad)\n",
++				&swdesc->lli[i].hwdesc_addr);
++			goto err_pool_free;
++		}
+ 	}
+-	swdesc->ccr = 0;
+ 
+ 	/* Set LL allocated port */
+-	swdesc->ccr &= ~CCR_LAP;
++	swdesc->ccr = FIELD_PREP(CCR_LAP, 0);
+ 
+ 	return swdesc;
+ 
+ err_pool_free:
+ 	dev_err(vchan_chan_dev(&chan->vchan), "Failed to alloc descriptors\n");
+-	while (--i >= 0)
+-		dma_pool_free(chan->lli_pool, swdesc->lli[i].hwdesc, swdesc->lli[i].hwdesc_addr);
++	while (last_alloc_idx >= 0) {
++		dma_pool_free(chan->lli_pool, swdesc->lli[last_alloc_idx].hwdesc,
++			      swdesc->lli[last_alloc_idx].hwdesc_addr);
++		last_alloc_idx--;
++	}
+ 	kfree(swdesc);
+ 
+ 	return NULL;
 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.43.0
+
