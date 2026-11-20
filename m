@@ -1,47 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795165227;
-	b=udGnyl6ozxPYVNeTJYZSu/m0h7C+lTLcDyCoXTliVE4y3PWxajpbvGGXO12GGAA35tp5
-	 mbns88KCg/uvREpu790X5QVkNnhxELWUdsWkXiFudVgX4P9AqHarW8qQ6sm/Qu6708aLI
-	 Otdimd+RInl3TJ6+624SGtXDOiHPrfsEwyKtKtd19BBHBDzVb8lr9gDQkyFmW+Us7W680
-	 aJZHhLg1H7IT8841QNmz3I9k+0FKUo7nG7SL6J6wSkz8SDRf+K/fX7ceZ36csOBxoYnP4
-	 6NvteP+H0w42MqDtXQiwGgB7RkgCovIyV6Ti0gn7vAMRkSOxxc93Mi9b8KlqZ0GcULw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795165227;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795165261;
+	b=y+SeCWTZGnzlzzkRbV37x3nUvhh3lb/L//A3zwm2/k2cbcqGptIDnQEnhqcx1SRbSUT1
+	 K/q0MEYqnb9t2J/6QxgiIkZZNNPA8dgmu1WO5C39LJRKJZBdTZL8HiV+t9wo55q0QdPXq
+	 fzqVqW+k9+vNDJYueSvoEjxNCw1PzjkLAdVvdEue13ynBCKMx3aq06PVfkrOmT9mEjLag
+	 SURKXxawGRu3RhZCeZ74JZ/A5qPGujx2QZi4bms21PMLVA59U6iM152Pac90U3CV8Wvx6
+	 tSWlpeavpnS5o7EvrBHkRqDlovaopsXKRI+d//iXfwdOrpZ0O+ln/I5GEbEtqaWHdbw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795165261;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=bCMFgdHxFNCuUaIO4TWmPoLc3I/qaZLwtfUY2bWpsDk=;
-	b=0s/8mvAAjeDP4UHzfqrqWLA1/SeCtLVENWCqSh97hveUcqlFy5+fLuFiPFhUKbyjJuen
-	 iPt6bPLNp4yXEtmYIvl8Ew00HsgaJjRysjtCe3/D7LWApNEbQVO4zDGi61uLK8vRKXI3v
-	 rDz4Sa7QgLE5zLtcXC8MgrM4ej6NVi0bxD543LLDmwkLBdRBa2li2b/ZPe0xe4gpqwndb
-	 iUzflRJa2Qgy+Tc0QmL0QH6GqxHcx/n5cmKO4zElLyIKpp7NQ6VgjQHQKyaUKKl98HagX
-	 0Al885+9t2xyGZ7P/hjakAqPeb1hSc/lvFGtb9xHbFXjjzu5gm9PU6oz16yfxOtH+aA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxJgacnn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	bh=PZieRENVmUX5OHXGvmzJIcsoS8CWVu3mfuhhXe7ha4o=;
+	b=ae4we1x7Kty410Xvp4oq7oV4BsWujmtJEWVqn8T/RcCdqhEOzZ9xGyKnTcVZYAnB+QP6
+	 BMJMRym4RmFF20bjdKhxTFkZe/PaKjAMYqmi+NBXeTYMzDgchf/jjjHLY4MjFmNAzYIX7
+	 V9O5RaKXSsIwdnmOsmkSIqfgm6juMS6tavbB1u9R4YSniKRObjSzJ6bgqtWs6yrb4CFkz
+	 u9gNqbTSA87SQQTBXFPOxsbk+JbFT8tQlPCXeRTZcwZoHHS5g7oGjO2WUQWYZO9rwpkXj
+	 kD786K0jmuT3K8g8LdV5gl9acfAU1Ywsq3uiWxqhSHexUW6xtLlUm80EOnKZhRzWoaQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=futuring-girl.com;
+	spf=pass smtp.mailfrom=futuring-girl.com;
+	dkim=pass header.d=futuring-girl.com header.i=@futuring-girl.com header.a=rsa-sha256 header.s=google header.b=Z8BgscY9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5888D606A32C;
-	Fri, 20 Nov 2026 09:00:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970D1606A320
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 09:01:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 970D1606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxJgacnn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CE11F000C6;
-	Fri, 20 Nov 2026 09:00:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795165226;
-	bh=bCMFgdHxFNCuUaIO4TWmPoLc3I/qaZLwtfUY2bWpsDk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IxJgacnnFDeCFwz91x5Og4nh2kgEZVHMU9L70ytLCpG0KHr1xgXr5q245WBCAuJZl
-	 MmqLkR3fUuGSMZ3RkqsJFyNZXnF+BpIb0y+BDziwHQMJegeIDMBVf4jJqprnYX8bfG
-	 NG1eEIFMW/iSpQQccFOWn+bFyzKXXMqfPQH9ihf1BvRQmlcL2MfUT5HWfyCNrEehmg
-	 8Bc5am9zrHcbITMCQGp5XP3Ju/X3Tbc1y1M8LeoYtehJ07qeS/NwND5nxhA4PeOq3A
-	 LsAP+lKT/n0kOUL2bGqOgsOBc3IxrgYI2qEoRdB4dCqNVQbDe168/xeKdidTwo8+UZ
-	 cJZzmKW+uTVLA==
-Message-ID: <370ef3a3-aa32-4821-ad03-558ea0ec8cba@kernel.org>
-Date: Fri, 20 Nov 2026 10:00:13 +0100
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.a=rsa-sha256 header.s=google header.b=Z8BgscY9
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4d581da0aaso82872266b.2
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 01:01:00 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795165259; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bS40thwfNid66MuZ44EIYQxzorAMovnMU2b8Knrw1VYqGVjP62BDIWAwr1k+f4vfYH
+         UErMFhTfEJ2fCAL6Gtw29UUL8eE7BzHGgMm22DfwP2Byozquz2ybaNbmyiL8Uvzhpx38
+         LtR3IMNe9UGx6HA7zIszS0/y01a3v8GFYWbfKxeckpoqGBfPzEOCG9OhQySBxCbOJTAe
+         qfRPnyJ3taYm+9r+RSTWg0SFQq3MftgyG7zhBzAPRgYQuodxXulWzhGFDx+nB1lWBoaU
+         c4cQouklfyMQ0vTKeo4wEGDncjSAy0cwe02f01iYFfQ+W57Qkx3BZPFmrtlHVhFHYf6L
+         qGfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PZieRENVmUX5OHXGvmzJIcsoS8CWVu3mfuhhXe7ha4o=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=X+7LEm3Ty+jXtmNLzaDlQplgkZrb/ybS7JDihQ596c9kInlNxY2PID4er3N+2QQ9Tb
+         tCeGPF1ynj/VQbNaP9sTb3YnHnKOjxUzsIWjeOpokwNeAuCUvA9/SDNDry6ezDMlZuWL
+         Mw+/MOu4xa5c24BO3N5Toa6MJYLOZvJph+6Xw6SjmYLrm14fynv0It3qgg1987HQYHu6
+         lPPpE3PgMVed9TCutdK3Ox+grSf7o3X8QPzigcRfmYAmOYAEIq/vYUkRbKYn3qyCLcEg
+         J0y4QSP+ab/GA1+tWBAAziXkYttAbnBPNn3GODe5JcL2H5EgtV3Amohvphpo6NvVNcYA
+         /4sw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=futuring-girl.com; s=google; t=1795165259; x=1795770059; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PZieRENVmUX5OHXGvmzJIcsoS8CWVu3mfuhhXe7ha4o=;
+        b=Z8BgscY9/G3ijVbCwygY0Yd337nhLe18Bd+5uOZ3zsKqXXymvoeoIeywGgl6rlt8Wo
+         OXbMS0NIKAcYL+f5s02X+TlFlXpNhe9ccM40x7CEyMqlTDXxytBSPFVFL1kI6+dZeKml
+         /UbAc90eQaF3ip7q9UUc2GqCT05+qFsgfsV/j1YvsVAzanZqgz+SuKNLZNTxedQdLaFp
+         jJR9GVfwADTrzuuUR2ELE6iMSNNO2pnaPoUqD+hmV0AOQeA2ZJqLaMdPT4rxWCfM6Rqg
+         zZKbrixug+C9Z/vHTL+3hjeokbli7hhlhU782Ctq4gtFk7idNQEGpHQC/UNqgkABzCG0
+         kSfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795165259; x=1795770059;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PZieRENVmUX5OHXGvmzJIcsoS8CWVu3mfuhhXe7ha4o=;
+        b=Mqb0lKwbp4NH9JqnGSreuo5wEMY+AD3Fz2RQwbcIWNoWBIQgFUfMuJtF/4VQloo9R9
+         2WGirP82CyyyU2fxg3L5h855WTtdYR6qaC38zX+F9GMk17APrqko1lqrBn+afcALvdJ7
+         TvnxRzQsrLZ9+Ubl8UHo+Wbuz+rDCRw4FUwMoJ+hvFGin1Kl61uV+wl7ee/GwsuheiN/
+         Mfgn81ssybzsu2biw/JJoVtgBEsyS4L7CyFFDodZSgq3O97QvzTt4HfoHjTI27vLSeQU
+         1vuDzWhLlavru5EYtj1KPRd6DjU2HenRp7gdTBpUhGXiCrTsB/GV4c9x+iCLNMXa4R30
+         Y8DA==
+X-Gm-Message-State: APuU4Z+3jgFzH4al/diURtLHEGGuHcc1yfgI7tB5UJkAWidxlvgDNLC8
+	5MvnTHkDW2hHq1GemZfZ9gNt6WTXQ0DO1udjFRxuGs4sKme5VgJ9ex2n5N2vZTPy9EwFVjfz4DS
+	vWe7DtKF1JdhB1zZ3LxVVJwgoANp07XcfPQXUNRhziLyU5pv7z6v/g3c=
+X-Gm-Gg: AZFdTZd2LWANteGoASaWheNm9dOKm/fjxZghmNYaxB6EHRn6uUH1/RsDPGCVxFurB6i
+	oB0lUazAYPZjvDDysoTHA5DzpofxfhZN0Wszg1GZsqkHNzkIZHhnINfR+Imjaah4QbRPuS/APuK
+	ThWolJDeZKo2WfxH8PmzmLTUE6HuUxf+aB03wqfTggT86VGMQByDuTv2azb31UtSODU4OZERYU5
+	8h+uWOelIMMROAqjEkqdBcCJdYox7Y0o5sqy0Pc9xrFJ2wQFkjllRKEgwpeU+sV2fR8vZRBe3w6
+	9QkVrP0Bse3WUImLBK0Ekj+iUKiiVCXq15FMXyTp7XRK5Xonrfgudr0Z+46tZuaeYW+V3B6AWaF
+	gGr8bdWTGAeA/p8GvvQ7ZYOYaVoLTF5It1VSV
+X-Received: by 2002:a17:907:2d9f:b0:c50:f0f9:ad74 with SMTP id
+ a640c23a62f3a-c513a99aa4fmr235834066b.9.1795165257779; Fri, 20 Nov 2026
+ 01:00:57 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,91 +103,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] mm: fixes for stale TLB entries due to
- delayed/batched TLB flushes
-To: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- =?UTF-8?Q?Cenk_Y=C4=B1lmaz?= <cenk@deepfinresearch.com>,
- Zhang Peng <zippermonkey@icloud.com>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Youngjun Park <youngjun.park@lge.com>, Mel Gorman <mgorman@suse.de>,
- Sasha Levin <sasha.levin@oracle.com>, Rik van Riel <riel@redhat.com>,
- Ingo Molnar <mingo@kernel.org>, Peter Xu <peterx@redhat.com>,
- Hugh Dickins <hughd@google.com>, Axel Rasmussen <axelrasmussen@google.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Andrea Arcangeli <aarcange@redhat.com>, Thomas Gleixner <tglx@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261118-file_folio_flush-v1-0-e9e739ed14e0@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261118-file_folio_flush-v1-0-e9e739ed14e0@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261120055248.913352689@linuxfoundation.org>
+In-Reply-To: <20261120055248.913352689@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Fri, 20 Nov 2026 18:00:41 +0900
+X-Gm-Features: Aa3M54rlZA_OBwjiZKWCvnO1fS0Oy5SCnCxiMl_HpsSggZDP4dM965l7S2Cnigk
+Message-ID: <CAKL4bV6kN20uHLeG=ZV3FHe2HghsA-yRp3+YgCVgTvGybek5Hw@mail.gmail.com>
+Subject: Re: [PATCH 7.3 0000/2642] 7.3.6-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks everybody for the review!
+Hi Greg
 
-I'll throw patch 1 and 2 onto for-next-fixes for now, to get them into v7.4.
+On Fri, Nov 20, 2026 at 3:04=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.3.6 release.
+> There are 2642 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 22 Nov 2026 05:44:39 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.3.6-rc2.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.3.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-The other two, we'll target for the next merge window, and I'll leave them on
-the list for now. Please do review #4, that's the hardest nut to crack.
+Linux version 7.3.6-rc2 tested.
 
--- 
-Cheers,
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
 
-David
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+
+[    0.000000] Linux version 7.3.6-rc2rv-gd6a022cc5dc8
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
+Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Fri Nov 20 17:29:14 JST 2026
+
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
