@@ -1,56 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795180947;
-	b=mcTbgafcnpG4ZqKsB4IbFN64xSwg+0Zz5MzMlR+IVgpILkvw9bNYZmHV4qnMrsfZrT2Q
-	 vgx/qkEv3aaxl+794mPLdCIulj6guZZu+hBq7F2x2wJPFoXpD9AEzN4854tBevg36zwEq
-	 8yuC2ty2Me6P+WNzRgPjGXwHmCrMCy6XegGY3aylHI2+twjA0t8dgGOfdEPCt44lcf4eH
-	 bU9IO+NNMNtvezsD9EUghL6w4QwyI1U2CDamwkjraKz0uB+lRtd+WKRZBFMCamdP3XCgu
-	 nBKiTjRpwBOr5XYUDHgO7NRVPwSwzCc4hMnDxluwigx/2/FgDnPXbpabCyiHEo9NCMg==
+	t=1795181028;
+	b=h18IBZHkB6BFr8Tas3bNyB4+FFs4vjlwOuUs/2OKxxHLwFM+ENQOD7H/oG1ZffUOrLTS
+	 Ksu4dbJ6yhnxD22HfoWnE0wjFqmPafGHLHXQfuHN7F8+TZFaFOUgnQzfwZ0jFwU7nQeBM
+	 g55eLLgqIPW4j+t9VIeUTkejn7NBzDvbUxcBd3UOIlfBVD6CQAWU83zjzogglkWRP/ezR
+	 ypZ0S21mlPBeP4xB2G0ZHzfcH18viESPTirMqi8UYIYxb6TrqUyj+/Yt/qLXhANOZGA+q
+	 tkMWXQ/Iftsu5YXeZDIIQPxCcagtogn4eUW7phWLNZ0ANw41RA82N2hAxpFl3teBK2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795180947;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CYKzK+afm1UAXOdWN88x2NYVRVihApLSg0ZCPnBXpAE=;
-	b=CkqWD0IfpUdGdT5iCnAdhuWTcZF+kZtKr9SCYO0/B2hQE1htm384V/LrXc1tLFkofwuu
-	 hM2BYYnp7rngjJ+HzNRoJskZGcXDcoPMmxoEtmPYqhY/SNOPvLOu6FvnXXpv7yOGiN3PZ
-	 J2R6fN7wpWjx9xxDvCET9WDU6hMSGvmafHwKToA9xE/5XDPM1NDUrjH5juOA7R9je8xUH
-	 3Pgnv3ro8SBnjJwF4gKAlJY/KGXukT8wzxwr1F48Re3ev9HAyYOXe9maP1uPJt2T7voxZ
-	 2SboWAGpwkdMW6xTPKxJ4xkALiwKW3nBqquuEyGbngfG2Bld3w2LfXCP0ntBitSEQ7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795181028;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=sOqxMPdWLiPEPnbW/dainGjC9YwYsR76yz4ROyC6bYI=;
+	b=0ZUie085c7VlyFNFn2C3p4v/R6o0UWtju//8t/TGnNzs4EEiAt8QEQ911DFy14wYhp92
+	 ZMpkOHHprR+vEXQ0hEDS1kL67tG1pTG8TPFzU/S68+sScmSxxMkCwqOLSlWY3VsNyNvth
+	 Oa2A1xqMsRTiswxbANvLtXcEpBeU4RjZ9gJGyGXdKCEiRAMiIxuCgJmwcByt5p1RYCRO0
+	 AwMmG2stKT+Jl23m8C8r+d6gGimfN6e4s7E/s9InrFQwUS74ig6GZEyPwX657oj/72n77
+	 r+DcvIyjv1oheDC7m2rqpsEM9QzS1f8FH0Jdop64TjCOylnGVBdi57ga6/l06B3FDmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=daY6EDy4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=XCC4+jSY;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B8A606A326;
-	Fri, 20 Nov 2026 13:22:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3C6606A32A;
+	Fri, 20 Nov 2026 13:23:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B3C6606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=daY6EDy4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 417B01F000CA;
-	Fri, 20 Nov 2026 13:22:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795180946;
-	bh=CYKzK+afm1UAXOdWN88x2NYVRVihApLSg0ZCPnBXpAE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=daY6EDy4/MYgaj691rc13nwsS7BVt58ckPRvsKOl2i2Hnu4t/DTGBXgBKLWv75LqQ
-	 LyocvI3dr8BHsyaTYk6KWZ+lo8NPMzYhMO4mK05rpvqFVb4ZMKY+Yv+imvPzytoM0p
-	 mJ3OD0foxm16lLw/nD3rzKJr58Gc27/GczEOn2lEEdMQAFagiy38PrrIRl0M0tg7MN
-	 w/UcBT8RLduLhw9YlLeSyxtcYKLXnxIwGf2Yff9jH+iQ6mbq1d5YJxhKbbXDdOJQCB
-	 LqLGvy+B/ya4W91XSznxOTE8c3OZX6TDJD1v01gXWyjzrsGITdeX8h9VoN7bY1RDqk
-	 D51Qrr7L8WkIA==
-Date: Fri, 20 Nov 2026 13:22:21 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Nico Pache <nico.pache@linux.dev>, Jerrin Shaji George <jerrin.shaji-george@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mm@kvack.org, virtualization@lists.linux.dev, 
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=XCC4+jSY
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jWGHt6Zl2z8swc;
+	Fri, 20 Nov 2026 14:23:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1795181018; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sOqxMPdWLiPEPnbW/dainGjC9YwYsR76yz4ROyC6bYI=;
+	b=XCC4+jSYmTk/gDAFiCdj09c2SAjdcWEbCABInPrTuE7t3+gUyAf2QjJED1oQDKc3+6uHEd
+	89nqaqpLs4H9GIbhHdWYzcC3otNZXO5oJmoL2J26fJrSlBzcyfViPGjk0iAu8xR8EsseMt
+	NS26dou9nogpQwZ8Lre+ynmKF97lmgedpTGSZIUAPWjazm0BeWPhCFMHCUMSCOqSDb5SD+
+	HHuLCdUtfw7OgHVbzRzsqTfgMBP0QBHZ/D1gHX+vWrT+rrCUgpHDIjHTP+qyEHe9i8HIeN
+	ZH6NAWk7sPbEixSi8C/R1R9d98Fdb/QV6VDicxr4wIM4fYBh9+lF2u3Ue7nQKw==
+Message-ID: <0e037df8633ca4b4f898d9d29be76bd569709eca.camel@mailbox.org>
+Subject: Re: [PATCH 1/3] dma-buf/dma-fence: Ensure correct ordering in
+ dma_fence_timestamp()
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
+ Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Simona
+ Vetter	 <simona.vetter@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, Alice Ryhl
+ <aliceryhl@google.com>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, "Paul E . McKenney"
+ <paulmck@kernel.org>, Yunxiang Li <Yunxiang.Li@amd.com>, Alex Deucher	
+ <alexander.deucher@amd.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] vmw_balloon: account 2 MiB pages in NR_BALLOON_PAGES
-Message-ID: <awBJbbFwE7hlEs03@gremlin>
-References: <20261120-b4-balloon_nr_pages-v1-0-d8944b587819@kernel.org>
- <20261120-b4-balloon_nr_pages-v1-2-d8944b587819@kernel.org>
+Date: Fri, 20 Nov 2026 14:23:36 +0100
+In-Reply-To: <1505a605-a5ba-4fed-bc91-89177faee4a0@amd.com>
+References: <20261119131830.2535266-2-phasta@kernel.org>
+	 <20261119131830.2535266-3-phasta@kernel.org>
+	 <1505a605-a5ba-4fed-bc91-89177faee4a0@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,59 +87,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261120-b4-balloon_nr_pages-v1-2-d8944b587819@kernel.org>
+X-MBO-RS-ID: e03930609996b477a7e
+X-MBO-RS-META: d87dhhig8ddq5unpkr33gdp69ergtxsd
 
-On Fri, Nov 20, 2026 at 11:34:43AM +0100, David Hildenbrand (Arm) wrote:
-> vmw_balloon keeps 2 MiB balloon-inflated pages on its own list, not
-> using balloon core that takes otherwise care of updating NR_BALLOON_PAGES
-> for base pages.
->
-> So far we didn't account 2 MiB pages under the "Balloon" counters, so
-> /proc/meminfo etc. would not reflect them.
->
-> Fix it by updating NR_BALLOON_PAGES when enqueuing and dequeuing for
-> these pages manually.
->
-> This has low urgency.
->
-> Fixes: 4d689474e1b2 ("balloon_compaction: update the NR_BALLOON_PAGES state")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+On Fri, 2026-11-20 at 10:33 +0100, Christian K=C3=B6nig wrote:
+> On 11/19/26 14:18, Philipp Stanner wrote:
+> > dma_fence_timestamp() tests two fence flags with test_bit(), not
+> > providing any ordering.
+> >=20
+> > The while loop + cpu_relax() seem to satisfy the desire to avoid
+> > locking, effectively rebuilding a locks spinning behavior in the rare
+> > case that a fence is signaling right now. Contrary to proper locking,
+> > however, correct memory ordering is not guaranteed.
+> >=20
+> > Ensure correct ordering with locking.
+>=20
+> My words when I tried to clean that up the first time: "Another
+> alternative would be to grab the spinlock when that happens."
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+:)
 
-> ---
->  drivers/misc/vmw_balloon.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/misc/vmw_balloon.c b/drivers/misc/vmw_balloon.c
-> index 3edb934dd7fd5..47dbcb3be6ed6 100644
-> --- a/drivers/misc/vmw_balloon.c
-> +++ b/drivers/misc/vmw_balloon.c
-> @@ -1005,6 +1005,8 @@ static void vmballoon_enqueue_page_list(struct vmballoon *b,
->
->  		list_for_each_entry(page, pages, lru) {
->  			vmballoon_mark_page_offline(page, VMW_BALLOON_2M_PAGE);
-> +			mod_node_page_state(page_pgdat(page), NR_BALLOON_PAGES,
-> +					    1 << VMW_BALLOON_2M_ORDER);
->  		}
->
->  		list_splice_init(pages, &b->huge_pages);
-> @@ -1049,6 +1051,8 @@ static void vmballoon_dequeue_page_list(struct vmballoon *b,
->  	spin_lock(&b->huge_pages_lock);
->  	list_for_each_entry_safe(page, tmp, &b->huge_pages, lru) {
->  		vmballoon_mark_page_online(page, VMW_BALLOON_2M_PAGE);
-> +		mod_node_page_state(page_pgdat(page), NR_BALLOON_PAGES,
-> +				    -(1 << VMW_BALLOON_2M_ORDER));
->
->  		list_move(&page->lru, pages);
->  		if (++i == n_req_pages)
->
-> --
-> 2.56.1
->
+>=20
+> I don't remember the story why the busy loop was used and can't see
+> any reasons why it wasn't done this way in the first place.
 
---
-Cheers, Lorenzo
+I reached a point where I don't even want to know the story. Whatever
+the reason is, it will be something insane <.<
+
+>=20
+> But my suggestion is to completely drop the
+> DMA_FENCE_FLAG_TIMESTAMP_BIT as well. As far as I can tell that was
+> only added as indicator that the timestamp is set, but we do that now
+> for all fences anyway.
+
+Agreed, but the API has been ossified by amdgpu who again violates
+layering with drm_sched and by i915, who does something extremely weird
+in intel_breadcrumbs.c. They seem to have built their own fence there.
+
+amdgpu should be portable though.
+
+
+P.
