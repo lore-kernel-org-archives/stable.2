@@ -1,128 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795171977;
-	b=AST9mJA/2DoEEJsk7NG26+nfOhEVp0f+/2clU/ZbgBoJdtlSOMTQne3N1/iS3fjUFYAV
-	 G1OEvpEd1H8cuwZPRkP1jOjK0Axo0/Hxjzuryqgx2HXk8Kp/dWCiw0z44Wj4ZDyx1wrbb
-	 C9tSNJlaoUIsiqcL9ekZxby9O7gxtMRUN79uxZXXlmKQyFfw87+VzmdN8wSSt1rkzlKd3
-	 TCmL5GxPPuDoPANmeN8iNvjw9h6Z6OuQ3D/qa2Mhb458ER3EvwbHnMG0fDC/kaBejpBCF
-	 q5v2jgLBetvJCj2+MMoDCi7XpwkTFyiiAaJlO6xGnPNgHBDJtDaOpe6NFJdcKAcF9Kg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795171977;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
-	 To:Cc:References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info;
-	bh=wLo8YpPz80DCcFuImfcIoisrov3coWRRw4yGl05DN/A=;
-	b=12+wJKazLUCOurPilSbCrDi3dKzg6et7gtr6+g/Ud7l0vAAbB+16a2/KU4rSfqF2E1gZ
-	 rtIEFoitcTJ/DWd/YxbrFshW2TAIiHaKP1PWR9mQcbardAw/5J1e2upn9Z/hHK9VrlU0t
-	 AtmYd8NIyE2IzNRme5WdAiA9+eOgwiWKJKa6yq9f7aZA9/GLqOtrz44C3zSq80GTdbm51
-	 2pmVCKPztMU/pIiIDjM1E8k/h6OoQl9FT3UmIkopPcqZM2qbWxmD6/FAcc3IZgC9GpP2f
-	 qLDu6Bm3fWdjTMNCnU2s7l9ZeNaFdMJyXrrm4f3H0xQpr1QUrxYNkDaKBurcgy29W3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oracle.com;
-	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=VAx9zo9G;
-	dkim=pass header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=pmfQmTvP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.75
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795172169;
+	b=NzEwErtCX3t66BkUlawdUYxniCbuI5k9tQ+koH/9hhnKg4pXeqVW6rjol2VBzkVhPmxL
+	 P+oAQEhEqxJNl3AiUoOer0hvxPtXR4L5zRASdZRrX9Z29Q8PEb8qe9UGf/UTT1uVxlsyl
+	 XDoJDBMDGueXyKRltSaOVOqhlE3faR5BeNBC7034Nt63z5v9IdmB2bmWKh0T9TWansVsD
+	 phAavzaj6ZMKRVWAIzwaNjr52j2mQjf8DZgi19Um5kPUp/3XY7yFcXDYPQBSS0cQBsTZI
+	 VTtBpseAxneMvGQfWZgOkg+wCeOGFVFNHGrkQT9LZEf/wcRorknH29oC3lGtdeEPnOQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795172169;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=l3UcI9yUrxVvioLldGrOSgry5dsxwU15rfB9+uaoMLM=;
+	b=rLi47lOuvd9DLNten3x+ZcEAtYgH0dVEuWiadwJMMa0y4DxtDBWU3HiKPMgcNex6+2nO
+	 TdvAQOGYafpgjC/p529UQ+rskByQd8qAJs4JePgUdolu8IViax1rrMR2jvll4Ij6qOgam
+	 WmAu360CVl5fc/lMhNY6uBpSthGu9pEpHqqL9X14qsQ/dEGwgQ+H10BqcMlf4Lh2qlgIY
+	 CDYauQBgQhQR62Ewo6gkaHPneJt5sex/VcHlHldphJA1DBnboAoc29kj+jY4WoOhFaJVI
+	 yZFI4Pk+16Lbq0wToLAC51whc4AiZ5yGJd0iHMUbU7hM8oEJmyHq6Z8OGB7ENlfIDng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=kpdBZ+GY;
+	arc=none smtp.remote-ip=115.124.28.75
+Received: from out28-75.mail.aliyun.com (out28-75.mail.aliyun.com [115.124.28.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58A26606A320
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 10:52:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58A26606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A290E606A320;
+	Fri, 20 Nov 2026 10:56:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A290E606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=VAx9zo9G;
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=pmfQmTvP
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AK3T7OC094326;
-	Fri, 20 Nov 2026 10:52:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=wLo8YpPz80DCcFuImfcIoisrov3coWRRw4yGl05DN/A=; b=
-	VAx9zo9Gmws7ZKQB3p803Hrlo0Lu7c7sUrks9zW1OI23A8/iNe3UpeQcsNwpLc30
-	3Mz/o5cllokv7VzD1fD3xSb0ATx7AfS70C0+me+Tdm2Rt3XIFz2r0PC8/mvB6w+D
-	xfVpRyjQF9vezRjyp2NXWcJGTzX78/MFdt5z81o1BU4W1eqX8UpSpcKNVtv3CJ8R
-	qAa+p/BNk+QbpfU4LhWyK9iiVCjm8Q98wzR1Sh/b7sHw4AaJSHPzf39ZK8jVR9Uq
-	Z/MEIWjpYBhnKjy2Q0TfNABJrr7cfoflK2NUpYTtZZ843Y2rcOAdOgWu+esR77Te
-	wUD+nPx75wQJ0IlQvVB2sA==
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4j0yttvfd9-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Fri, 20 Nov 2026 10:52:47 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6AKAiqRm4134326;
-	Fri, 20 Nov 2026 10:52:47 GMT
-Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11010067.outbound.protection.outlook.com [40.93.198.67])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4j2m8d980d-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
-	Fri, 20 Nov 2026 10:52:45 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BpZAupNPum8FR/GvOQX2XzPS3Ir2MJApxs5BgXDtBXFq6/rY1azXARv8M3rmbAfuU0j8yRys2UGh15TEmCkBkylCPsQR+6CWB0dt/t6LO+QDcnYD13Z+/RFcM379HHYgjNPdTPwGzeVy79oKAD9VS2oJy6tinYNYNRupSueM9jTUC/7hmZrrjRm3UE/iQf2pFajC+GTQxXpERU/xK0rd0JOfbWBv3AD+j4iRl57pYG6U2OIJzpFea+GvcJQnMo3LnOvM7MXH+Rqae1FpZ45Vpk4q2ZyG9qf3Np/n1y8juiDB9zbe6EKb2MPygBq6JTeGV9tV9HLep4oih0lwN3xeeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wLo8YpPz80DCcFuImfcIoisrov3coWRRw4yGl05DN/A=;
- b=GnOR7+MKO8/FhjVu4YEUCSslJ/9O1ShKnGSgKiPaZzKfcN2l2h2ci4ZqZEEITfSpIbMrvISVn4AIx9LJI1k9muebO8Sl5AlJcELLkOJ5/ZHQcoJVKH7h2PcuTka0eOxHHiC11KQl53GoiimHus6tyf5Q3dIORqGHLdmJw/oGJf5IsQMEUfFzsIQO1ZDI2HbeUhR6uBTDNCp2GcZKXoXvw7Em1oxSpKJzw7diTbwfENdhhuSJfBePsmpj/kMeql9C1rWUPHvDRMLBqFFRJ253gzQpejsPtPYTfmx2N1V90xoEtCUoYVgChDK+2xH+3hXTvT/nKlp89SpRHRw1FVObdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wLo8YpPz80DCcFuImfcIoisrov3coWRRw4yGl05DN/A=;
- b=pmfQmTvPcn6BPeYGkV0V0y3JuIYPk3o22+FbZiV5Eua1pKMxw6jHSAEYlPtqyg7evNgWUuWz5rjbxRme6F5bw+zhde6aMmzfTQHLamryIKXw1JSWLQnu3aXbE9b5afHVIRxzuwh9Wz9Q2V0PcY3xIT/GPQPqG2H5WPC25s6MvYI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
- by PH7PR10MB6179.namprd10.prod.outlook.com (2603:10b6:510:1f1::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Fri, 20 Nov
- 2026 10:52:38 +0000
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a%6]) with mapi id 15.21.0615.009; Fri, 20 Nov 2026
- 10:52:38 +0000
-Message-ID: <60ee151c-fcd5-4125-bc51-a21f28fde1ed@oracle.com>
-Date: Fri, 20 Nov 2026 16:22:31 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 1345/1756] btrfs: update the inode item when removing
- a free space inode
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
-        Sasha Levin <sashal@kernel.org>
-Cc: patches@lists.linux.dev, Tal Zussman <tz2294@columbia.edu>,
-        David Sterba <dsterba@suse.com>
-References: <20261118150007.957976754@linuxfoundation.org>
- <20261118150102.881764190@linuxfoundation.org>
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Content-Language: en-US
-In-Reply-To: <20261118150102.881764190@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0106.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:191::21) To SJ0PR10MB5834.namprd10.prod.outlook.com
- (2603:10b6:a03:3ee::16)
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=kpdBZ+GY
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1795172161; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=l3UcI9yUrxVvioLldGrOSgry5dsxwU15rfB9+uaoMLM=;
+	b=kpdBZ+GYaYGcT/CpNjOE65VWVvr6jIqNfNZ4YJQCXiYzSQKIJa3PPl5d9AJhbiHhsZuR+zBOJHBCmh1vPLXVR40ZJ1TfsxSfg7Ddduy8psDwlY5lsMPYdhBFGWg7M+FUgPO98ipsfS7ys4KOpnYBSQmQT1Chh1Bzn1GR4/kZ7zw=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.044391|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00812833-0.000228324-0.991643;FP=12542528845651154930|1|1|4|0|-1|-1|-1;HT=maildocker-contentspam033023087102;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.k6Wwa0Q_1795172159;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.k6Wwa0Q_1795172159 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 20 Nov 2026 18:56:00 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+	netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Simon Horman <horms@kernel.org>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Maoyi Xie <maoyixie.tju@gmail.com>,
+	Guanglei Zhu <zhugl3@xiaopeng.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v3 0/5] net: wwan: iosm: validate MUX DL lengths and offsets
+Date: Fri, 20 Nov 2026 18:55:54 +0800
+Message-ID: <20261120105559.54519-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -132,234 +70,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|PH7PR10MB6179:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8bea588e-d915-4b98-dae6-08df46f46493
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|4143699003|5023799004|261013131602099003|261009223027099003|261021123027099003|10067099003|261021121427099003|261102123227099003|261022105027099003|56012099006|261028144727099003|261022075727099003|261026140227099003|261026121527099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Bd2NkE7LeJnafXcDO112rbYkgnJGOt8N53N8NjpdvUGfDwU9yknazx72Bhnjh4KBZrpgNTSQijnq7gODCqNyWjAxxnSSbuBlJzLlh0zgtjpTMoS1HA+mNhEojasOJJGpvB3ArwR4OIWdQWTsgaQQ5E3wm9pkZ8bNT9yZ0eeaLOq4r4wkru2nHePdGRsJIpXEn5W5DIWPtovaicgBjeFpsvFO447eHw8Goe3kiEjt0CgMswJWVt0xNNP1rGGuE10rp/K8Kiz+7/rsq7A6KD9E63TwbfxouODNyZtPx0nLBz8XEuSCfHpPUlWV84F2Mv0KVfYNRabVobejyVmUu200SoEgyrtBen/CQMZ9d15c3o/Q3ES34HP2xTU5L6Ml+96no4zGnbG9dd144enQCd3NqepyOv51QnUhAOFijrJd7guV/abaxH8Cl8nBTxjsFBdmBGMhXv2dVgMRos3wC6B17uqznS7W0Chu0InECEcF8TY2PBmdqnS9G7iQlJsl4Oh3LrnknjI11/G1CB150tWcNocZzatZRRk2L938Ep3MBfsGYOhDf1Qnl+hK7DFWFfqLgEAgFiRp/u++olcsiBPajaVba0qffvltF7cnSCfKaujFQz0MPgPoUxNcNDR5mnetu6eRA6eCKNWB91qhUWToQreOq44kUBRON+PCtISn0KM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(4143699003)(5023799004)(261013131602099003)(261009223027099003)(261021123027099003)(10067099003)(261021121427099003)(261102123227099003)(261022105027099003)(56012099006)(261028144727099003)(261022075727099003)(261026140227099003)(261026121527099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bDFWNnVZNUtETTJGbmF4WVpXSEMzUWk1RjFjSlNza000T3FFQzZUTGNOMnMy?=
- =?utf-8?B?WGREVEdiNitJVTRaYkVoUzh5a3ZMZ2RDWVlEczdmMGpzV0F3VE4xUW5xMHI5?=
- =?utf-8?B?ei82Rzl5TmJhRGtoaU1xRnI1dVdueUR4ZE10YlM1T1ZPd3lQbXV3R0xDZXFk?=
- =?utf-8?B?aUtJbDFyYm5jZ0g3ZE94RDIxWEZISlVsSDlURGkrMkx6d0tXajBSZWlPa3Bt?=
- =?utf-8?B?QWF6bDNVM1ZKdXRSNlJoQWFJWURUWmpHTTBlWEdZV1F5VHhuclFITkJZWlBl?=
- =?utf-8?B?NE8xWDVrK1E2Zk51QkZnMm1yTFdSNGdSQTNnZXRHdE4vT20zV2FqTVUvc0Ns?=
- =?utf-8?B?Y3pvUmxOc3ZQSEJYRWFKdFc3V0pHVGZnK016T1pnQmYrZkQrYTJCQUtDbE5k?=
- =?utf-8?B?cWhKQm5uckRvbmI1VmhlRVRWc3NxbmRYdVJtR0JLSlZsTEFYZzNOTFV4YzZT?=
- =?utf-8?B?WFhOSGNRRGZRWXNUaDFNN3dlWXYvK1d5ck5yVCs3R0orbk94UlUrK1FDRlVO?=
- =?utf-8?B?VHg2aUNWVTJWREZRY2ZvcXNET1pweWVzNHNaUUJVQUlHZlhBUzdPajVlQUtM?=
- =?utf-8?B?cUJnZGVKZ3FDMk02T0kzOFdEakJJWGVoaVBqRUJnNEdjQWQ1NVVKV05kSlNq?=
- =?utf-8?B?bFlHd3RZNHZoOGhiNTBBNjlieUJQZkpiV2c5dU40VzZKOEI5eEZhL3g5K08y?=
- =?utf-8?B?YndsU1Q0VkcxUytsZVFyL0d6eWhUNlZQN1FhVzBaYmtWVDI4ZmxwODF3TVp3?=
- =?utf-8?B?MGtoWDlDTTNweU5TK0VyczRmZGxscFVqTkdoTGFJcEpLK3BISVF3SEhzRk5Z?=
- =?utf-8?B?QkhrQUFVc3M3Mm5NNTFIeHNqTnNaZGZWVjhPZi9VWU9LbncvR2hTUGNoMTl1?=
- =?utf-8?B?TE50UURvVWkvVTFFUFIvNnZ4Vkp6blFkSy93aytyVWRpbElYbitvQk9COXhM?=
- =?utf-8?B?eXN0UVdWQjA3L0xsdDVGM1pMbkJGdDNwUXZuNjZzeWlxY2pLT1M3UTRiQU5v?=
- =?utf-8?B?RFJWZFJJcjh3RjIwei9IbExINm53Z1BPRDU4cTdTR3ZoNXU5ZFMxTXlXV29j?=
- =?utf-8?B?YkhJZTlrN2NiVWwvM2F5MU5CWkVrMXNvREVMYkEyTWs2NjJrUVVUWlNZWDhN?=
- =?utf-8?B?QTZYSytUYjRxYUJjSW9GblhBQVZBWHVPajhSQ3BDbnk3SXh1TTA4SnJ0emZu?=
- =?utf-8?B?TExsRGNOcXlyc0VVR3RPSitjR3ZyMndIL2x0Tm9CaXBoRGlqdGI3aE9yMEhh?=
- =?utf-8?B?eWtCZ1hkcU00VUVOdUZ3akNoeStmNDM0UjdIdWQrYWMyMkFpNGFHUjlnZ1lH?=
- =?utf-8?B?S3hlR2hqOXRTSktXcjErT0Rac0UybHFaZlV0aS9uazBFM0pyd2JRaWo2V1ZT?=
- =?utf-8?B?cFk0c2Z0Z0IvUDRmN3RYbW9HRmFtUkJ4L0Y5bXlCQVVvbXgrY0h1MW4rVGJv?=
- =?utf-8?B?VlFSTHAwWE1YWG1WeVN1SnpVNWtReVhMK1VYZWRMbWxGYXZ4Rk13T0tzMWRy?=
- =?utf-8?B?VW1SdGxEaHlYUE9ta2FoUGo2Uk5kR0lDT25OL2tPRFFDakhDWUtDMXI5NXNH?=
- =?utf-8?B?UEd6dU82U21uOE5idTBmSXdzRjB2cGJJZWZuS016YkUxVU0zUmF5amZOakVB?=
- =?utf-8?B?WlpnNUNPQTNQQXM5VXp6aTNyOERuTTdodGEvU2p0aUdTR3VjRzVWN2toVHc0?=
- =?utf-8?B?QlV3RkZOY1JkTmIxa29xMHNycnIvdWl1TTkzRTliY1lCbUlHV1hORmdkU0do?=
- =?utf-8?B?d00xUFdpRHlBdTNMdUFuMCsxTzdLK1JpTk5VNmZlUGRDTzZKZUJKQkRSaTh6?=
- =?utf-8?B?TUMyRFp2SFpNdTdnMWErZWozNURzZEdoaGJmTEtNQmNNNElHd3AxdHJLTnNi?=
- =?utf-8?B?dWV4bWhZRVMzUTZYV3pueVV5NnQyRUFsd2dCYTRGd0RSZ1JCRHZnMCt1UzUy?=
- =?utf-8?B?V2V4VGtmWU1DZDJvdkhUYUMvSldJYlMyQkZGMWVXOEpPMGZzdllJbVZRcStF?=
- =?utf-8?B?V3pUTzVIVThaam4vLzhUVzFBODV5QjEwQUFEdGp3dVRoZWpVYjFvMHJyZ0tS?=
- =?utf-8?B?YUFHaDlzczl3MzRnaCtDKzZhSTZDZVJ6a3EzSkJmM1JkVVVEeFRUR1N4OWg4?=
- =?utf-8?B?anJwallzblZ0eHdHK0F6blF1V2pLM3ZHTlowQUVoOW1Rc0VUMEhwUHlFNk1Q?=
- =?utf-8?B?bmgzTmhvRVowL1JscVNyRVlkdTlUM3JVaEZLdys3ejh3QWlpelZ5QmtPcGNu?=
- =?utf-8?B?VGRtaHVXbW90bmprUDRPcjJGTjQxU0xzV3ZxV0lKNWZFLzlLek54TzNJa1VL?=
- =?utf-8?B?S21BY25XMDh4blI5cW5TaHZiZGtyK1hSWTdZbG04emNQRlE3TWY4Wm9OK0I5?=
- =?utf-8?Q?KbhTsC/RByyv1kO1TMwf2o+qeK00Axr7zX+3f?=
-X-Exchange-RoutingPolicyChecked:
-	MzOlTD5tKyvqQUwKtkZWYjiuukWr7BaDvCFjcGHGxfLMp0aswOEOxew/1/J90/9Q/vCHjcMxl1zkUJlOWkV9sn7zh7pDKGz8efMS+7WjQ4tpAe8gZrxEkzLSKsCqG5IdGQ+Y+KKu5m1lHZyvKiE2Vv3iegIBv4kuoSltp9j9wTtyd+r7qRbn7L/AP3tBWfQmCyBg0VHFvS8CaJU92MswP4epyMFVfmJkRGf0eqj0zoROlFvsb0xmfwc/yrqklcE+JPa2+5WCzFP10EphmITNfiOBAjiR7D3bGI23yJACtB6TU81MB7pAxzGVciZ9NfziABUWcAjOqRViWOOMryt+vw==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	zauHTjdvIcZYA9Ll7CgMd4xpS+Pqj7TD5MLsRc1t87dwg23f16efbN0bfAfaVGBy4cgfCDDLIO5IijeMYUjBwVQyPUnO0z+MMdjLFxDEJwAc012+1YKYm7cwXU6XN2OyQeMZq22HAMDylI0+Hzi9BNni+5QB7eNc8bEEqETQvzUajuaVCP4B5BoEMmdvWs6DEfU/Vdw92gyMsddEs8ewRUov5UVx7kHelpRe4FiwkzFkamU9l6wb4pGJW1AAq3H96gQBMp9RQhufeFB5TbdLZR9rcxSiQkC0GKk1zQ6kG8+V/fkmZ838UPy69+Q+c7gVTOX2D3GJ8ceAeSYCF24+MqI2a5ojJodR9Erdhu7+2nvc5v+Ov/B+ksWR015blPAfWj64dT49+IuSNIo/scF+/MylCWDn1krOgedg40PzwAr7JJXhbO5WmSasEMceNIAVmOAzZsozjBSM8fBxuci6FtdDaTe6KBBl5PPn10MFwlRg5jic6jyBFILU1hSHLa/l2V3nnvhGUWonILzcEbPX2WcAWYw0at6HCi0UOqc6jLG0JveQl/Kq1WUhtI8lbxz4BPxAbh0AmkeXg3aK8iZExVpEmoy0cMY84lO2sLXPqZs=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8bea588e-d915-4b98-dae6-08df46f46493
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 10:52:38.4572
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jbAuxsw2iwaa5z1Q9a+InEjB5wKsDQ3fR77bGqX5O2NkEQPlQN4oWQqjBzGzekM/OWfRZ4juEVnDf8RsEhzsFj/B1bA6tYD68RCEz6l1RBURGUPB0OGn8uzCQRMs9tYq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB6179
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-20_04,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- malwarescore=0 phishscore=0 mlxlogscore=999 suspectscore=0 mlxscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611200043
-X-Proofpoint-GUID: 4XRGsHGwoeAs0z_b96LjAHWv6wk9Zb6C
-X-Proofpoint-ORIG-GUID: 4XRGsHGwoeAs0z_b96LjAHWv6wk9Zb6C
-X-Authority-Analysis: v=2.4 cv=dd4VTnXe c=1 sm=1 tr=0 ts=6b002680 b=1 cx=c_pps
- a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=RD47p0oAkeU5bO7t-o6f:22 a=iox4zFpeAAAA:8
- a=VwQbUJbxAAAA:8 a=PTKaZVi8P45otQ5e7PkA:9 a=QEXdDO2ut3YA:10
- a=WzC6qhA0u3u7Ye7llzcV:22 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22
- cc=ntf awl=host:13532
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIwMDA0MiBTYWx0ZWRfX/i1j6L3DRLcI
- NqrOtjdUWS841s7Q059KTtQH2fXCigsoPLC6AilIyiMhsjYHGjIb2xE8LRvYx1XFFHumUVDzVVV
- LG1y3L8qL2y253E6bRe5jpnfnvHU7qZ6C/izX9WMG31m/wr6aKElzs99CZr5kzELprdVnxzf7tw
- uNAwZTSwJuSFSlI1UJhPBD9BYuEpgYc+ty9dCcvjtfAjbinxNAvoWiBjjLCR7jrKU1kMpeoWtHl
- QvcfCtg9cpfKGAVZe6vHvPs1vNrxCgbvexeF1bHWqus35R2qPKPODEw48BbZMOqorZvBnbWL7eA
- yB5hwvWjlyh4NoW326eCn+XY6CnrsZC+HwD0W1XNEMDB9TA5WoVODGTpN6Jthct/kLbxdaxgAgp
- a42WZ3rKV1nNvzM+4CAJiQKSEz7GObUpIdvi6c88pvAc/F4hWMjqOf2JnWnuI1HjkWxYspZfmIl
- UnJ6SMNswHklEjCyZf67kzoZbXpUuBfdgPcZyENQ=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIwMDA0MiBTYWx0ZWRfX3aPy7ue9g415
- ZcBDO6hSbd6bHvhB+xm6M3qIZxeBcPK5QiiikcrNSeguvrOmUcmhuzbCBy9Oz9Zlsdj1fPppfiP
- lT9KQkge37Mux9vwqkBIDFP+rqtTkfVBIBw4rnOnITCfjbZNfNxe
+Content-Transfer-Encoding: 8bit
 
-Hi Greg/Sasha,
+The MUX downlink decoders trust several modem supplied lengths and
+offsets without bounding them against what actually arrived: the block
+size from the transfer descriptor, the ADGH datagram length, the ACBH
+block length, the command chain offsets and the declared parameter
+length. A truncated or enlarged DL block makes the driver read past the
+received data, hand the network stack an undeclared payload, or walk a
+command chain that loops or redecodes the same bytes. The aggregated
+datagram block path is already covered by commit 526b8ef54668 ("net:
+wwan: iosm: bound device offsets in the MUX downlink decoder") and is
+not touched here.
 
-On 18/11/26 8:27 pm, Greg Kroah-Hartman wrote:
-> 6.12-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Tal Zussman <tz2294@columbia.edu>
-> 
-> [ Upstream commit 4e89aff9ad6fcbec555c38169807c4023f93450f ]
-> 
-> btrfs_remove_free_space_inode() adds an orphan item for the free space
-> inode and clears its link count in memory, but never writes the inode
-> item. The item is only removed once the delayed iput evicts the inode,
-> which happens in a later transaction, from the cleaner thread or a
-> throttled transaction end.
-> 
-> If we crash in between, or if evict can't reserve space for the
-> truncation and leaves the orphan item for the next mount, the on-disk
-> inode still has a link count of 1. btrfs_orphan_cleanup() then treats it
-> as an inode with links and only deletes the orphan item. The free space
-> header item is already gone at that point, so nothing ever finds the
-> inode again, and its data extents are leaked.
-> 
-> Write the zero link count to the inode item in the same transaction as
-> the orphan item, so the orphan cleanup evicts the inode instead. Account
-> for the extra tree root item update when removing a block group.
-> 
-> Fixes: 455757c322cc ("Btrfs: delay iput when deleting a block group")
-> Assisted-by: LLM
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> Signed-off-by: David Sterba <dsterba@suse.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->   fs/btrfs/block-group.c      |  6 ++++--
->   fs/btrfs/free-space-cache.c | 10 ++++++++++
->   2 files changed, 14 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/btrfs/block-group.c b/fs/btrfs/block-group.c
-> index a01c4a5b95db7..20df0965316df 100644
-> --- a/fs/btrfs/block-group.c
-> +++ b/fs/btrfs/block-group.c
-> @@ -1326,12 +1326,14 @@ struct btrfs_trans_handle *btrfs_start_trans_remove_block_group(
->   	ASSERT(map->start == chunk_offset);
->   
->   	/*
-> -	 * We need to reserve 3 + N units from the metadata space info in order
-> +	 * We need to reserve 4 + N units from the metadata space info in order
->   	 * to remove a block group (done at btrfs_remove_chunk() and at
->   	 * btrfs_remove_block_group()), which are used for:
->   	 *
->   	 * 1 unit for adding the free space inode's orphan (located in the tree
->   	 * of tree roots).
-> +	 * 1 unit for updating the free space inode's item (located in the tree
-> +	 * of tree roots).
->   	 * 1 unit for deleting the block group item (located in the extent
->   	 * tree).
->   	 * 1 unit for deleting the free space item (located in tree of tree
-> @@ -1344,7 +1346,7 @@ struct btrfs_trans_handle *btrfs_start_trans_remove_block_group(
->   	 * more device items and remove one chunk item), but this is done at
->   	 * btrfs_remove_chunk() through a call to check_system_chunk().
->   	 */
-> -	num_items = 3 + map->num_stripes;
-> +	num_items = 4 + map->num_stripes;
->   	btrfs_free_chunk_map(map);
->   
->   	return btrfs_start_transaction_fallback_global_rsv(root, num_items);
-> diff --git a/fs/btrfs/free-space-cache.c b/fs/btrfs/free-space-cache.c
-> index effc8895516a5..ca16a8ccab545 100644
-> --- a/fs/btrfs/free-space-cache.c
-> +++ b/fs/btrfs/free-space-cache.c
-> @@ -266,6 +266,16 @@ int btrfs_remove_free_space_inode(struct btrfs_trans_handle *trans,
->   		goto out;
->   	}
->   	clear_nlink(inode);
-> +	/*
-> +	 * Persist the zero link count, so that if the delayed iput below
-> +	 * doesn't get to evict the inode, the orphan cleanup on the next mount
-> +	 * evicts it instead of only deleting the orphan item.
-> +	 */
-> +	ret = btrfs_update_inode(trans, BTRFS_I(inode));
-> +	if (ret) {
-> +		btrfs_add_delayed_iput(BTRFS_I(inode));
-> +		return ret;
-> +	}
+This series adds those bounds. No command type, response or protocol
+semantics change, so a conforming modem behaves exactly as before. A
+parameter too short for the member its command type reads is dropped
+with -EMSGSIZE, which also ends an aggregated block at that command.
+Patch 4 is the prep change for patch 5; both carry Cc: stable, as patch
+5 cannot be backported without patch 4.
 
+cmd_len is not a parameter bound in either path. In an aggregated block
+the boundary is next_cmd_index, or the end of the received block for the
+last command. In MUX Lite there is one command per skb, so the received
+length is already everything that command owns; the flow control decoder
+treats a mismatching cmd_len as a legacy device, so the field is a
+compatibility flag, not a length bound.
 
-I ran an AI-assisted backport review and I checked the finding
-against the code, and it looks valid to me.
+Patch 3 bounds the ACBH command chain by the received length rather
+than block_length. Although the structure describes block_length as
+the length of the aggregated command block, the uplink encoder
+initializes it to the ACBH header size and does not update it as
+commands are appended, so it cannot delimit the received command
+chain. The field is sanity checked, while first_cmd_index and
+next_cmd_index are bounded against skb->len. The walk's
+array_index_nospec() call is removed: it bounded a byte offset by
+sizeof(struct mux_cmdh), zeroing every legal offset past that size.
+The offset indexes no array; array_index_nospec() is kept only for
+if_id, an actual array index.
 
-Verdict: lets keep this and maybe add a downstream only fix ? there is a 
-allocation leak created because of this backport.
+Patch 2 relies on the ADGH header check from patch 1, patch 5 on the
+ACBH validation from patch 3 and the parameter pointer from patch 4.
+Every commit applies and builds individually, W=1 drivers/net/wwan/iosm/
+is clean. Found by reviewing the DL decode path against the MUX protocol
+structures, not reproduced on a live modem: reaching it needs a device
+that truncates or enlarges its own downlink blocks. The series is based
+on net-next at 9068e05d35f3.
 
-In fs/btrfs/free-space-cache.c, btrfs_remove_free_space_inode(),
-the new error return bypasses the path cleanup:
+Changes in v3:
 
-       ret = btrfs_update_inode(trans, BTRFS_I(inode));
-       if (ret) {
-           btrfs_add_delayed_iput(BTRFS_I(inode));
-           return ret;
-       }
+- Rebase onto net-next (9068e05d35f3) so the series applies on top of
+  66974df65a0b ("net: wwan: iosm: drop redundant skb->data check in MUX
+  DL decode"). Patch 1 no longer anchors its signature-length check on
+  the removed skb->data test; the check now sits directly before the
+  signature read. This clears the v2 patchwork context failure at
+  iosm_ipc_mux_codec.c:696 and the dependent context-hw gate failure.
 
-Upstream's early return is safe because the path is automatically
-freed. The declaration differs as follows (6.12.y -> upstream):
+- Patch 5 wraps the over-long continuation line in
+  ipc_mux_dl_cmd_decode(): param_len now goes on its own line, clearing
+  the checkpatch "line length of 82 exceeds 80 columns" warning.
 
-   -   struct btrfs_path *path;
-   +   BTRFS_PATH_AUTO_FREE(path);
+- Cc Guanglei Zhu, whom get_maintainer.pl now lists for this file after
+  his review of 66974df65a0b (the v2 cc_maintainers warning).
 
-In 6.12.y, the manually allocated path is freed only at out:
+Changes in v2, all three points from the Sashiko AI review of v1:
 
-       out:
-           btrfs_free_path(path);
-           return ret;
+- Patch 5 bounds the MUX Lite parameter by the received length alone,
+  not by cmd_len: v1 dropped legacy FLOW_CTL (cmd_len 16..19) and
+  OPEN_SESSION_RESP (16..27) even when the parameter bytes had arrived,
+  defeating the backward compatibility branch in
+  ipc_mux_dl_cmds_decode_process() that exists for exactly these (the
+  protocol minimum for cmd_len is 0x10).
 
-Could we change the new error branch to use that cleanup?
+- Patch 2 rejects adgh_len == packet_offset too: the zero length clone
+  reached ipc_wwan_receive(), which reads skb->data[0] without checking
+  skb->len. mux_dl_process_dg() already rejects the same case for the
+  aggregated path with dl_head_pad_len >= dg_len.
 
-       if (ret) {
-           btrfs_add_delayed_iput(BTRFS_I(inode));
-   -       return ret;
-   +       goto out;
-       }
+- Patch 4 gains Fixes: 9413491e20e1 and Cc: stable@vger.kernel.org: its
+  by-value signature copied all twelve union bytes even for a four byte
+  response, and patch 5 bounds the session responses, so the two are
+  needed together. A prerequisite itself marked for stable and present
+  in the series need not be listed, per stable-kernel-rules.rst.
 
-that would be a downstream fix. Or drop this patch ?
+Patch 1 is unchanged. Patch 3 changes only its changelog and comments.
 
+v2:
+https://lore.kernel.org/netdev/20261117173940.34970-1-fangxy@xiaopeng.com/
 
-Thanks,
-Harshit
+v1:
+https://lore.kernel.org/netdev/20261112125201.1019-1-fangxy@xiaopeng.com/
 
->   	/* One for the block groups ref */
->   	spin_lock(&block_group->lock);
->   	if (test_and_clear_bit(BLOCK_GROUP_FLAG_IREF, &block_group->runtime_flags)) {
+Fang Xieyan (5):
+  net: wwan: iosm: validate the MUX DL block length
+  net: wwan: iosm: validate the ADGH datagram length
+  net: wwan: iosm: bound the ACBH command chain walk
+  net: wwan: iosm: pass the DL command parameter by pointer
+  net: wwan: iosm: validate the command parameter length
+
+ drivers/net/wwan/iosm/iosm_ipc_mux_codec.c | 186 ++++++++++++++++-----
+ 1 file changed, 141 insertions(+), 45 deletions(-)
+
+-- 
+2.50.1
 
