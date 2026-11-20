@@ -1,69 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795189170;
-	b=hNv1lRdBVAAAo8Cgad8grSMgRSVGPWCGUxXLn2b5VzickSuqMvXnyI7+IGy0tSRGJ638
-	 z6K3CfYce67PSqFcOZzhSaELytqwPmzMi27uUD2nx12DjGYfY++/Hcxa3EoWZXUBvr58J
-	 mOnocpM+JPaBrvSJmOnSBwdEPQey6VQtxJKHvG+6ZmW6U7Q3ktAD+zmCykL408MjyAcOU
-	 lgCGTeSXwDiTGrvQCIGWfykOh3e13FBFlajcrt/OksDu0a2JpGMU1NWm8MYfYzbqTDhua
-	 Zu54i9P8yjZy4YLEpbqgWXl8wlHO7Cw5hrzU9kzeNVEeuDp5d7Mi0RSx4rtVly/sgTQ==
+	t=1795189455;
+	b=NoAXFcFDoM0X47DYGsdTf05b1SferWjBCbI4ktXsjQvyWRTVd/wJ6gx128m/k/DBgr/I
+	 LmGzQh3Ej+gxddHZ5ghIlmVh487fLmFH7S6peKMmoqCq5qkBMR1tF8nVeD1sLiVxtMVBF
+	 bLCG9hS/rwp+Q+dU7/W65M0LSBEs6KGgX7KQ/05Eql0Sgw8tFScUwWa0LEGuf7r4QqkEp
+	 CdAffTwX/eCKWlUChfktdxzqz7vGZsN66StsLpBBz1cNX9yqA1pIgWD+evm3XKVbZxker
+	 JncB8uxzPdK8Mne/tD17w9AnHqwwTUfvFHoqSm8HGjl4oREjWuVXws79/7Wr+rKimeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795189170;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=HTgMkVBYsEBM7CElJpFJatZTczccK0gAHQJIDzZhy7E=;
-	b=bMtiunFXoHyeSS0vBLIoBbB5VJ5+YaHrxjlZcmI1zRnqrTa5siUySA6o1HoJ6ByIHavS
-	 O7X7jvUBoewh+SBoTIeCA37w4y++91wl6MK639wo13em9ihorxSUH4v2HG4qnob7Z/bHb
-	 7jrvAkEHJh8n80XCY/AIzVIxdu6HHTACnRxvM6dfVNjM8MhMgI5b5vZN5KTAUhgai+jbo
-	 qLWbj+HEi/hkqKq6+yCnYzrlRAwoS3yoXAWiRqBXBIi23C1EMVsc2zCRsGRalYYxJ/NzU
-	 3h5tO14g4oIcvtSOmsOxqV0ULhy53oArTsldRR9GulJkGw4FKlhI+5ZZ9pOhPTSp9PQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795189455;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=MpAFJKoRLBHWua5zVfwBOUWeo6j4cvTXzjQs1AqjA18=;
+	b=QBQU3ZgAS0wmjuFY+vBYZQCSv/ELGhrP6J4lrzLcFskSQ4/d586e1AMwRKplM+XVpEWI
+	 P3xM6dbFoViMcZKQMqZF30v8pKcq7hgAE5FFDvLvt33oZirNiNL7AGQN/vYmVwTPmiqEX
+	 koaJBJm6VkI3gP/luKBC9GPfTnMSQuPolkNqk7dMS8Blx++8wivND8QxhbSpNI0+lZeYq
+	 thf7bsx0P71tIQ9PKeOHqPY9+sUdPJwLOqS33Um1mXGv1xOtu6PTYZ6Nrdsp89rkc6Uiq
+	 xR73LxEnFmQQY7jmURRWryNGBgrugAwiO5Oqr5SgPhaiaaehFGg5jsuc3hVeBAseQnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codewreck.org;
-	spf=pass smtp.mailfrom=codewreck.org;
-	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=V0wuecp8;
-	arc=none smtp.remote-ip=62.210.214.84
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA19B606A33F;
-	Fri, 20 Nov 2026 15:39:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA19B606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=V0wuecp8
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id ABC1B14C2D6;
-	Fri, 20 Nov 2026 16:39:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1795189166;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HTgMkVBYsEBM7CElJpFJatZTczccK0gAHQJIDzZhy7E=;
-	b=V0wuecp8l1wXq3s2AcKjfonYkJI5LMTdjlixWnf3AC4bZYwJUtwcV4lNCdAmdhI6SlP08P
-	HMT2fT99JjyRpwRsEx8/z5k/nnCC3kESK9Ev6ziO/B1yweUb9Vtt7Wz0FIMMFXA5HrwBdU
-	BpAUsBLbHVBw9Rkx3+1pLoO2QnvnnRa0xlGfLU3rMvAXMpds1A3oFzVaU7rR2Au2gfEt9G
-	+eat7vMobh4XXkLt1kKcJfrE0hE8TIIVrhmVhde387EHWBO35uuzfBENUKanMwqFSl2jVX
-	Wu0W3F/ecjgThStSsL/32JVws6c3W3I3mp7O6yWpMm0lqiuIypH+oUrZ4usC2A==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 6e2e633e;
-	Fri, 20 Nov 2026 15:39:18 +0000 (UTC)
-Date: Sat, 21 Nov 2026 00:39:03 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 5.10 0000/1811] 5.10.275-rc2 review
-Message-ID: <awBplxZFyGYI4anh@codewreck.org>
-References: <20261120054906.397973290@linuxfoundation.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C82E606A325;
+	Fri, 20 Nov 2026 15:44:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C82E606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id A190E68AFE; Fri, 20 Nov 2026 16:44:09 +0100 (CET)
+Date: Fri, 20 Nov 2026 16:44:09 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Jan Kara <jack@suse.cz>
+Cc: Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, io-uring@vger.kernel.org,
+	linux-block@vger.kernel.org, linux-nvme@lists.infradead.org,
+	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+	linux-unionfs@vger.kernel.org, bpf@vger.kernel.org,
+	linux-nfs@vger.kernel.org, stable@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>
+Subject: Re: [PATCH 07/12] zloop: take freeze protection when recording
+ write pointers
+Message-ID: <20261120154409.GD28611@lst.de>
+References: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org> <20261114-work-fs-frozen_writes-v1-7-f5ae61c898b1@kernel.org> <20261116064820.GB2964@lst.de> <20261116-biegen-flaute-flanke-cebddae97444@brauner> <t73376p7ip4bvetjbqijzugvglhi2rdxsqt62l3uuqtmt3tqgk@2rlkkdy33hwk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,32 +58,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261120054906.397973290@linuxfoundation.org>
+In-Reply-To: <t73376p7ip4bvetjbqijzugvglhi2rdxsqt62l3uuqtmt3tqgk@2rlkkdy33hwk>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-Greg Kroah-Hartman wrote on Fri, Nov 20, 2026 at 06:56:51AM +0100:
-> This is the start of the stable review cycle for the 5.10.275 release.
-> There are 1811 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Mon, Nov 16, 2026 at 12:57:09PM +0100, Jan Kara wrote:
+> On Mon 16-11-26 10:41:49, Christian Brauner wrote:
+> > Fwiw, the check can't go into __vfs_setxattr(), __vfs_setxattr_noperm()
+> > or __vfs_removexattr(). cap_inode_killpriv(), IMA and EVM call those
+> > from ->write_iter() via file_remove_privs() and kiocb_start_write()
+> > hides the freeze protection from lockdep for aio and io_uring. I have
+> > not bothered to figure out why. Maybe you already know? In any case,
+> > until that's fixed we can't place it there which means this doesn't
+> > catch IMA/EVM at which point this patch becomes pointless.
 > 
-> Responses should be made by Sun, 22 Nov 2026 05:44:39 +0000.
-> Anything received after that time might be too late.
+> It's because of AIO and io_uring - if you don't hide the protection from
+> lockdep, it will complain about it when returning to userspace while IO is
+> still in flight (and thus protection is held). Sadly lockdep does not
+> support releasing resources by anybody else than the process which acquired
+> it so we fool it in this way...
+
+Can we try to escalate this to the lockdep folks instead of piling hacks
+deeper and deeper?
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.275-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
-> and the diffstat can be found below.
-
-Tested 878cb656641d ("Linux 5.10.275-rc2") on:
-- arm i.MX6ULL (Armadillo 640)
-- arm64 i.MX8MP (Armadillo G4)
-- arm64 i.MX8ULP (Armadillo IoT A9E)
-
-No obvious regression in dmesg or basic tests:
-Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
--- 
-Dominique Martinet
-
+> 								Honza
+> -- 
+> Jan Kara <jack@suse.com>
+> SUSE Labs, CR
+---end quoted text---
