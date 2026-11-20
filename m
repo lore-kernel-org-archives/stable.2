@@ -1,64 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.130.202.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795139011;
-	b=JsY7tYeh0xiI8x5+SEVW8KwE1dLJbl7hN3xmIEFtJ8I0VP8SN+H9JwWFuomlz61rj1gG
-	 EmcJrTbLk3oHfd42IlXR76AXdNt/EO8kPjPXq7frNSj3Y+Wcd/mbfbFtNw8GSsQF2I9mj
-	 ou+FWS/M9BQH3V63nUvKJl8vj8VuJ4BewVoN47Dpm/qEFgp8d+fGHcqxqI2EEprV8M+jc
-	 blNA+2PvzA4PqSMmSvf+1LL1WX3XApl23JRZKs8CC96/g9C2ciPzhOdXSFsVmEMDmUD3p
-	 SMwprQJi3H9aHjHS5jhziSag0HNLNq+R7TMFUq6eDu6InhNhTEnOLt9rySfGX1dkXSg==
+	t=1795139487;
+	b=EglDTeKGlWS5xk0AdY4leUIekfcLzD4yOLizyQ+yjPIZp1NAm7dQE/c9x7jgLBbrhWj5
+	 pPabLQWyNUexILxrGDrZTW+puuXZWRbAKpKeAi3IHXhqANdYA7/T5oKpxOgZ4z6VAXRrE
+	 u3JYfjiwiTc9wARqvAi5ty0nX8uT2BOUlrj3KuuqxIeB2NtiF6SFfxK0PDZkEn2dZsbH/
+	 DXVkeh6k6JeWwcXajuOO3vbRR6KUaCyQOwnTJz05y0CwFq6++zkUe2dkUBi6GcRg5d5VB
+	 g9C8Ar0euk4GT3r8MsvL0BvAfgPjXW1+xPGM/74EXpB2nCSA2ycMe5iBDBZJbPMo/yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795139011;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Iguazu-Qid:X-Iguazu-QSIG:
-	 Received:From:To:Cc:Subject:Date:X-TSB-HOP2:Message-Id:X-Mailer;
-	bh=JgAKUlEUuz6maqK7hbvvEeeZ7/qE4Qo5HQOFPDSQICY=;
-	b=mCf3Cxs8GPVYdMC/HHux/NXA/86Rwe0ykkxseLDl+eqWeJZ7zFG+4jc1bMRSxVqHY2sp
-	 zqSgUcwhFHnNauVya2kVow6CPrxqJ2mpCvUg+Re67oO9ohmalvonB0RtWeZCX5SH3mey2
-	 drdkMaYtwkkrQ/4HtdRgkIgVtdZcE8e/iYTs1+h6gkT7hE71+uigDJ2ViiphBR9ePJTuc
-	 N/ZCLc6UsEVLjJxcOxCy/qWVxSeAVoW8MYe6geschYP8KH2VtXaKHcsSHH4FSNih/77pd
-	 xh0foXCZux6KI6D5oF+mMzTO6bOqAPh/MSeV3agtwVUI+Z9zKRpZw7mNcS1+imxNxtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795139487;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Sa/kRm/Czd3oa0ITjRFbGWzsUdwALeInsHgWFTaIKQ8=;
+	b=3Z8NC0iJXIJuhK20VKrEjweUHo217PPE9PMebbexS33ew4DZ/HENc1oqsQjyhilk/ikY
+	 pATuANENUKzx2E3ypl5QHxXOw4CkRc4mxHeb5TBjGef2KYhvVdigDqgWCX8H8SvZ6CTjD
+	 KZjH3CtvSgkkVw2Y6QJq+VRh314apOx7R82E+nto6sV3lLZ6rWPl51AZjAn731Olt67YS
+	 zvlgOeV9yPmW/VfcvAtrtOcgPb+NwbqBDZIMh+jyr1Zg3CB2KuVLVEM6X3B6wS8WBnUeP
+	 SXRJTUoX7HiSx1RiMewvsi2UPLM2g/3HXs4b/XlEZMVL4tnPiVTe8zokeucwVT0YAKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.toshiba;
-	spf=pass smtp.mailfrom=mail.toshiba;
-	dkim=pass header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=BqJGfMSZ;
-	arc=none smtp.remote-ip=210.130.202.152
-Received: from mo-csw.securemx.jp (mo-csw1802.securemx.jp [210.130.202.152])
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.147
+Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com [115.124.28.147])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952D2606A325
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 01:43:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 952D2606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.toshiba
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.toshiba
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=BqJGfMSZ
-DKIM-Signature: v=1;a=rsa-sha256;c=relaxed/simple;d=mail.toshiba;h=From:To:Cc:
-	Subject:Date:Message-Id;i=nobuhiro.iwamatsu.x90@mail.toshiba;s=key2.smx;t=
-	1795138987;x=1796348587;bh=cIbodR/XVhsbWAIiVgFLKO6Mw6icryVrfaDYCtM7rrU=;b=BqJ
-	GfMSZDNesKBoOHajBVagHUQztUqWrqjrLq1VC7FfsQ0WNuHpklGrdMwMNQBS2K/oWojLM0PmFPKtk
-	Sox8HJpeGJ+fhu8FEdymRpDWR6fI6LjdOnNRNOdJMwHBKQ5Z4eqScWuC5BMxRp0chuKEHsniy4lVz
-	rYOG20C9DrLYDj3UP84/eT4zrOeaZgQlGiRzgmX+s7sh+Qn8LABcOUov3qBNSF5hYKFiI948FNT24
-	dh2o7ZzqbQUQwC0HirgqvUR0ZpWnHgOFQoFbcAiWtOi0+c8RHb9FyVaMbWw560D3FrYf0NHLFfwCi
-	tGyk2DL8X3+Y5Lu5DE1ZHPJXOXhHfUw==;
-Received: by mo-csw.securemx.jp (mx-mo-csw1802) id 6AK1h70Y2083118; Fri, 20 Nov 2026 10:43:07 +0900
-X-Iguazu-Qid: 2yAbgtIaJNNIPR6lWm
-X-Iguazu-QSIG: v=2; s=1; t=1795138986; q=2yAbgtIaJNNIPR6lWm; m=heTbTaw5WzBZuA0jRSebcjnTAjQFnESsVEChbLPJTWs=
-Received: from imx2-a.toshiba.co.jp (imx2-a.toshiba.co.jp [106.186.93.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	 id 4jVylZ5HV2zyPQ; Fri, 20 Nov 2026 10:43:06 +0900 (JST)
-From: Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, sashal@kernel.org,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-        Mark Brown <broonie@kernel.org>,
-        Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-Subject: [PATCH] ASoC: rt7*-sdw: harden jack_detect_handler
-Date: Fri, 20 Nov 2026 10:42:57 +0900
-X-TSB-HOP2: ON
-Message-Id: <1795138977-10812-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
-X-Mailer: git-send-email 2.7.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B147606A320;
+	Fri, 20 Nov 2026 01:51:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B147606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08114662|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00621641-0.000610858-0.993173;FP=7179771474107532699|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033025068124;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.k67.P.w_1795139472;
+Received: from 172.18.22.44(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.k67.P.w_1795139472 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 20 Nov 2026 09:51:14 +0800
+Message-ID: <a5c3df5f-f133-4726-b2c1-c130f2503f18@open-hieco.net>
+Date: Fri, 20 Nov 2026 09:51:10 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,57 +44,100 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/cpu/hygon: Work around XSAVES Erratum 1386
+To: Dave Hansen <dave.hansen@intel.com>, x86@kernel.org
+Cc: puwen@hygon.cn, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, linux-kernel@vger.kernel.org,
+ yangzhen@hygon.cn, dengqiming@hygon.cn, stable@vger.kernel.org,
+ zhang_wei@open-hieco.net
+References: <20261028235712.383977-1-zhang_wei@open-hieco.net>
+ <4cabfb0e-c21d-4f73-9b41-9fb7eca5ea69@intel.com>
+Content-Language: en-US
+From: Tina Zhang <zhang_wei@open-hieco.net>
+In-Reply-To: <4cabfb0e-c21d-4f73-9b41-9fb7eca5ea69@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Hi Dave,
 
-commit 0484271ab0ce50649329fa9dc23c50853c5b26a4 upstream.
+On 11/19/2026 11:28 PM, Dave Hansen wrote:
+>> +#define X86_MATCH_HYGON_MODEL_STEP_UCODE(model, step, ucode) \
+>> +	X86_MATCH_VFM_STEPS(VFM_MAKE(X86_VENDOR_HYGON, 0x18, model), \
+>> +			    step, step, ucode)
+>> +
+>> +static const struct x86_cpu_id erratum_1386_microcode[] = {
+>> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x00, 0x9040000f),
+>> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x01, 0x9041000f),
+>> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x00, 0x9060000f),
+>> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x01, 0x9061000f),
+>> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x10, 0x00, 0x91000004),
+>> +	{}
+>> +};
+> 
+> This part is good.
+> 
+>> +static void fix_erratum_1386(struct cpuinfo_x86 *c)
+>> +{
+>> +	/*
+>> +	 * Affected processors enumerate no supervisor XSAVE state components,
+>> +	 * so XSAVEC is equivalent and is not affected by Erratum 1386.
+>> +	 * Disable XSAVES unless the microcode is known to contain the fix.
+>> +	 */
+> 
+> This comment is in the wrong place and is really hard to read. I think
+> you're somehow trying to say here that the kernel *COULD* just use
+> XSAVEC instead of XSAVES instead of disabling XSAVES.
+> 
+> But this isn't the place to litigate your solution. That's for the
+> changelog. This just needs to say what it does.
+Agreed. I was trying to explain both why the workaround is needed and
+why falling back to XSAVEC is safe, but that rationale belongs in the 
+changelog. I'll reduce the comment to:
 
-Realtek headset codec drivers typically check if the card is
-instantiated before proceeding with the jack detection.
+   /*
+    * Work around Erratum 1386.  The XSAVES instruction may fail to save
+    * XMM register state on affected processors.
+    *
+    * Clear the feature flag on affected processors without fixed
+    * microcode.
+    */
 
-The rt700, rt711 and rt711-sdca are however missing a check on the
-card pointer, which can lead to NULL dereferences encountered in
-driver bind/unbind tests.
+> 
+>> +	if (c->x86 != 0x18)
+>> +		return;
+>> +
+>> +	/* Models affected by Erratum 1386. */
+>> +	switch (c->x86_model) {
+>> +	case 0x00 ... 0x06:
+>> +	case 0x10:
+>> +		break;
+>> +	default:
+>> +		return;
+>> +	}
+> 
+> This part is not.
+> 
+> Why do you need an explicit 0x18 check if there's already an implicit
+> one in x86_match_min_microcode_rev()? If there are unfixed
+> model/steppings, then list those too.
+Right.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://lore.kernel.org/r/20220606203752.144159-6-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[iwamatsu: Drop patch for sound/soc/codecs/rt711-sdca.c]
-Signed-off-by: Nobuhiro Iwamatsu (CIP) <nobuhiro.iwamatsu.x90@mail.toshiba>
----
- sound/soc/codecs/rt700.c | 2 +-
- sound/soc/codecs/rt711.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/codecs/rt700.c b/sound/soc/codecs/rt700.c
-index 80acf0daabf8..7d221f93523b 100644
---- a/sound/soc/codecs/rt700.c
-+++ b/sound/soc/codecs/rt700.c
-@@ -162,7 +162,7 @@ static void rt700_jack_detect_handler(struct work_struct *work)
- 	if (!rt700->hs_jack)
- 		return;
- 
--	if (!rt700->component->card->instantiated)
-+	if (!rt700->component->card || !rt700->component->card->instantiated)
- 		return;
- 
- 	reg = RT700_VERB_GET_PIN_SENSE | RT700_HP_OUT;
-diff --git a/sound/soc/codecs/rt711.c b/sound/soc/codecs/rt711.c
-index 0e343ad205fc..e0117e576fd3 100644
---- a/sound/soc/codecs/rt711.c
-+++ b/sound/soc/codecs/rt711.c
-@@ -242,7 +242,7 @@ static void rt711_jack_detect_handler(struct work_struct *work)
- 	if (!rt711->hs_jack)
- 		return;
- 
--	if (!rt711->component->card->instantiated)
-+	if (!rt711->component->card || !rt711->component->card->instantiated)
- 		return;
- 
- 	reg = RT711_VERB_GET_PIN_SENSE | RT711_HP_OUT;
--- 
-2.55.0
+> 
+> I also don't get what the switch statement does.
+> 
+>> +	if (x86_match_min_microcode_rev(erratum_1386_microcode))
+>> +		return;
+>> +
+>> +	clear_cpu_cap(c, X86_FEATURE_XSAVES);
+>> +}
+> 
+> My overall suggestion is to do more in erratum_1386_microcode[] and less
+> in code.
+Agreed. I'll move the affected CPU selection into the table, including 
+fallback entries for affected models.
 
 
+Thanks,
+Tina
