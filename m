@@ -1,122 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795192483;
-	b=ANC3y/IgINCEjalDLzTy9lVHa7Ok9YS5m+lN88s+jzpETB7NO3mSI8E/rOHYzPRDHsyM
-	 FiOxWPBrzwqU9j9p8v4aaQSlrR7Gg7QULNKFJPPz+b29PaQQuiwnJnni+w5kRBy3ya+yN
-	 XlknR/GX22t4xGhb1dLjkpvaSN/KdsDzAk0Yh6NunI0TkauYtb/sVp+EEHgjlkv01WHKN
-	 dcf1toD6q38gtdVPJ5ujiFg3L3kuAaCNBZjaK8qsuIb4W6bSZF8yz2Arc7nPZ2tH0+qYo
-	 7fSOJ8xCCxZgDvLz8w6wVizRqu9FbEJ1oY60iL9aJnRDNfAT+T76t054Lprc5l/RnoQ==
+	t=1795192541;
+	b=G+bSCoXsYy780RvslLGeC0qMskV/HeRMvrBGT6gHlq/O+58CQFK1+114AXZ101FnJKrR
+	 y1Fn9rILK2aSuryqsBQydtJwWqoATnj5XNa+6pezMUeXlIujsFZv0uLLOAz6LrHVRsk/z
+	 g6zX7RT4A61TQnfw+fj8LPl4RkfQWi6Hn1m5HUqgSBOdjVtj6DNNmUWN9LNxl7LJ2jJHk
+	 vCXrGKNzozPsvG8LuPkE8iBF55rm3H5VT7K8tW4h7iekulfg7vUmaJ+mWpMm1lAqA2Tn7
+	 NT5VG5CC4wUKvxgvYXPeo/fIs7fwFSVQ4OKBTIC//ryxdDvCpzOdtOHdc2G3xe/cwZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795192483;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=X24ex3EiipTM1kpb/Q/yNZUtD7740LWhK2VF6n9GGrk=;
-	b=UnDeZ7jEpEdBR7zrqXVNGFoc59VzG2Q2pqKbwkYRKkEIZ0WOY5cHw5/8y003VrX116A1
-	 WB4V7Q4+dGwvMYen/vGYIWRvPc19gQImrPYEe9K8u8m6C63VJAnrLnPBiAYLP3YeNzlmI
-	 cV3bHb7+pMBwz65OdSi7MGBzc2q2Q4TpXXwIE2uuVmBjxFmUwpRzs8gaJbU9ct8O5KM0/
-	 EG2acdrCfp73uN6iFyYgRRvyEVnNNPlXrHgZ0bJ2bQOfttQUPgh24UdYO7nr+pp08XMgw
-	 DXi/NyrZVadLTrt2OkQttAuCNfH/cE46T2C4NOmkoxmIvArzDV2bDZW9/Gg+QnOJfHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795192541;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=cqX+HBaiyRku0wym2/6h6j8L9vuI5c+H4DFEoHY9HEc=;
+	b=MC7wmqvOGo19Sz9PigS5bIVhK+e8Jx2KbFLbC3JfnUSoychzemaYKgBGrxE0wDh1aoAI
+	 /EN0vpUuIH1gZXWVqYdGwClQprkZmrO6BqDKZmLHvb58hdanK739tTvlFFUFvZ0yBy12G
+	 JWGm3tIYeHlwgQ21Stkm19T9YcMrDHa02SzmMmuo3v7UlGvs8t0Nnc5JLl58Xg98jMVn8
+	 sdCTaO76RGq0UDOn87nAB1G3PfQMABFV+J+qs1TBuJNHomL+t+/87And4Zt+T0Zl+JQlu
+	 hTCY8t9OGPjVbWV5QUq1jKcclhgrv+3Z4/1IBXcUfkoz4dGmhacMgSpca3DCk6tyKKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=TfoQ8RwO;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=MXgXgh9e;
-	arc=none smtp.remote-ip=202.12.124.145
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71ED5606A320
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:34:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71ED5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=TfoQ8RwO;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=MXgXgh9e
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id DFB6D1D004D7
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 11:34:42 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Fri, 20 Nov 2026 11:34:42 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1795192481; x=1795278881; bh=X24ex3EiipTM1kpb/Q/yN
-	ZUtD7740LWhK2VF6n9GGrk=; b=TfoQ8RwO1pch4QcOnvEGHvX1QeFE96y7uZz1L
-	1XaSDRfZxYZEyWEXrSQavfr8JYENK+3YpcQeFkvK/KBVesUVjxCkg1HT+qtkt7UD
-	+gUt81pHCwSMbDgl/6WYqoKJ9I7gMcU7td5/ySyUKtVrFqgkoDHwtnU2CeKjxflz
-	TSTy3q0duTN9aFKn4uQlviiOGhZL2ZL++1oWR3yjGcFkwO2FTHWwFG5u6YbhHMe8
-	71scowOJgqQr/ZEYi0fxFzrz/FGQaI8t3BEQd6DEMdS/LLvi/73hRhyl4BaxEeqC
-	9vrriHKdOUr88fe1YfJDln7GGmQfTAlwFbxQdZgx4z9zFg1Jg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1795192481; x=1795278881; bh=X24ex3EiipTM1kpb/Q/yNZUtD7740LWhK2V
-	F6n9GGrk=; b=MXgXgh9eFGCI2wu4bAamHMEATGkgYbhm0qyWz70q5qhWuP/vwDi
-	eK5qCqQlCbjo6ob7Qd+16BmuAp+xz1CKZD0Apluoiq6HxHGBWbZrYkb+HflTnA/8
-	wxbJ7Bkn7NgvhFSuJi1Msoe57f1c3dA7g35VPqng32xseLYVzRvK+6b2DMLAb9jV
-	3CXEBCYatP2exoYEuZQC4ppzbQVGBG3k4UMfnC9BiGsZKLE8DeMhmXlQK0WctY1R
-	/xqpIKw9Jtb4vjpNs+PZY8PY5MF/V5BdgT3lumfoZxYC8KqXMqjW/KLq759r0w7H
-	JV+gjx3vNrXEIhz+MyrcwtYSmZU8UUCbdSQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795192481; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:a03ts3B86d1kNSrfLH24K2Bws/pjyMxPnolxRhsTeb6A2kd
-	gHzkv9irB9FcjNSwF5Ne24S8Qvn9lpWSs4fNcDkAnn0SYSLTiJHzGQBpwJOlQQ5F
-	VUkLpxyfdgnJWEHVdOuxOz0GGg/tep62SAjjvsT36xZP09rykVrRCoYmPxLlTELA
-	Nmm205TwFZbvL0HFbO047+UpqeclSAhcZRGiRtClxX3O2sgYLd4JZFN3eQbydySo
-	60BtOmfyvsJLARH3DLop2xnkpuzHWMbRpzhqZjS8Rt2Rffp70N0AvO/KCk3KUKrP
-	H7IpNb8OTRUgPUKkA0wDZhqeB/YKFHqrBbbko5A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:JcELUK1mRSVKZmul57Bf+sPAlhQG7bw42KA3EeF1KBU=:AVSk4usgP9AFACwtF1OgxfkX1T/1w8ClXhe4VPr+RSo=;
-X-ME-Sender: <xms:oXYAa6QJFCPl8ZglO0o35DI2TaoitIYlHhR_ahxhn3-IeVLFoIB5mw>
-    <xme:oXYAa7xwGexuhnplpo5uN-L0P8Pv_LzBAn3rsnuM1Ji07saZF7j8H3ZK-D3ekrIsO
-    5KvVSXXPeN7v4w1zKPFfgSVXxhfaIaKup_G_pnXN0O73poarlFsObbC>
-X-ME-Received: <xmr:oXYAa6A4MdpxHetorv25MrJ6KZLEHJNl-bVjFXF0m_s-KQANKPGxRUrFbIFV4OqJ>
-X-ME-Proxy-Cause: dmFkZTFrkt/592cIW6zcd2cS90fBkY8ChIF5aAyielgKNPXc04zGaX1wr3H7zzRLVOYXn4
-    efXnbS0uveYupx8bTn2lQpurYHX1dDS6bFeaiFk+tAF0Kl827CKa2P2n3+lnW3m7mvCzlf
-    CGCg7Pgio/PSOjAb+9BudjeBkgpjJhwYq46AMewWMxfW8Lp+MyHGl90pl7O2CMgndtTOv4
-    5jKJvxROSjZhIbU6R6dIHlZX8b3FvVlv3mLix3JMZxvI9QMfNWSMAjJmb4Ym7PqjNFJ9Hg
-    UoNDdkARhFhTIVkuOGKaBq1JnJ/xECjyGz35WglkTEoc0junbgq3jWdMS0FJDqau9tnEWR
-    fqiqKnBT6liUR/Feb5Flx6Lr3hHQ7X4XXktYdXl0es6L8YzALhxualXwn1//T7PdT1nOFu
-    oXohMeVkW/+XQ1AlSraUDU+QnNuCFrtown481mov8MMiA5x6pMwav2kwN4AiDSju5nTbD9
-    y9blwkTCnSoUDpWELBMDJQ+Ja3mV6T3RA+UScJY3mXJDW6zZFXewtwcMrhAVLX166dlIaa
-    R0W+FbaBIcZe356ateuU3RHU5JAcQwbUIPAmBt352pS+h/mhkNlZQ/YBaRi786OlLvH2tE
-    Q2ThuCfkttn0Gtq3Vc7M8YlR8k4PKPRshX90AgX2FBRqn4UzN2TyDrEROV0g
-X-ME-Proxy: <xmx:oXYAa3G8CEa4nLmJ-IayIO9Vij-tucdCfpwidKQS-GKLwUZhjlGpgQ>
-    <xmx:oXYAaxOXT-jzp3IknGFN68DupBVKsql1Gs7TJIvmukE71sR_QXLAAw>
-    <xmx:oXYAa44arzgfeQbSXebKNIV8nwV5pjLAqQQzax9qZvwaupqn7a8XAw>
-    <xmx:oXYAa0gS0pS6JI7k_0uQtftgs-Eb1bb0CPs5eUYIjVu_71-j3CyyXA>
-    <xmx:oXYAa94YIsB55I3WztOPyVsoig-p69q7mHldhd5wz_rHgM5wqluouppS>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 20 Nov 2026 11:34:40 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1908D60A260B;
+	Fri, 20 Nov 2026 16:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1908D60A260B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=cqX+HBaiyRku0wym2/6h6j8L9vuI5c+H4D
+	FEoHY9HEc=; b=QTmW1NdFdwPLolUy4u6UXSkUcGAEgyd7JVxtg3Etp3Um0h/OcH
+	QyBk8Y+Gg+Clt3rgp9b6TdWiRoBwVtyWvaQRM7U9VkeihQtzXeWzt3u6jpyYWfvP
+	VBkeJ0BjRof61RMryOCl7pEX7edZ3IoLWyK5qsNtT3VU9txfO2MGIVGrU=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkAmKv3NdgBrMA_0AQ--.38349S2;
+	Sat, 21 Nov 2026 00:35:26 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Lixu Zhang <lixu.zhang@intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: check the ACEs after an NFS mode ACE in a DACL
-Date: Fri, 20 Nov 2026 10:34:36 -0600
-Message-ID: <20261120163436.15296-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH] usb: ljca: fix NULL pointer dereference on events for callback-less clients
+Date: Sat, 21 Nov 2026 00:35:24 +0800
+Message-Id: <20261120163524.2994-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026112045-napping-suitcase-26b0@gregkh>
+References: <2026112045-napping-suitcase-26b0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,71 +62,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-CM-TRANSID:BbQMCkAmKv3NdgBrMA_0AQ--.38349S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr4kCF47Wry3JF15Wry8Krg_yoW8tF4kpF
+	W5KFyFk3Wkt3Z2v39Ivr4UtF1fAF4vq3y8Cr10g348Kan8GFyftFy3Kw1Ygay3Xws3Z3y2
+	ya1Yqry3C34qvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
+	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r1l42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjxUkl4iDUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUDD2sAYlgUOwAAs2
 
-An allow ACE with SID S-1-5-88-3-<mode> supplies the POSIX mode
-directly, and parse_dacl() stops walking the ACEs at the first one.
-The same walk checks each ACE and maps its generic rights, so the ACEs
-after the NFS mode ACE are neither checked nor mapped. set_info_sec()
-still stores the entire DACL and the request succeeds, but part of
-that DACL can have no effect.
-
-Continue checking the remaining ACEs and mapping their generic rights,
-while preserving the mode from the first NFS mode ACE.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
-
-Without this patch, an ACE allowing GENERIC_READ after the NFS mode
-ACE grants no access, because the right stays unmapped. A malformed
-ACE after the NFS mode ACE is stored instead of being refused. The
-access check and QUERY stop at it, so the ACEs after it are neither
-applied nor returned.
-
-Tested on ksmbd-for-next 2ef9bd9fa819 with KASAN. CREATE now rejects a
-malformed ACE after an NFS mode ACE with STATUS_INVALID_PARAMETER.
-GENERIC_READ in a later ACE is stored as the mapped rights, 0x120089,
-and now grants read access. Other tested descriptors are stored
-unchanged, and smbtorture results match the base.
-
-This patch was developed with LLM assistance.
-
- fs/smb/server/smbacl.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 58b74b95246e..7bb28ea195c8 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -401,6 +401,7 @@ static int parse_dacl(const struct mnt_idmap *idmap,
- 	struct posix_acl_state acl_state, default_acl_state;
- 	umode_t mode = 0, acl_mode;
- 	bool owner_found = false, group_found = false, others_found = false;
-+	bool nfs_mode_found = false;
- 
- 	if (!pdacl)
- 		return 0;
-@@ -479,13 +480,17 @@ static int parse_dacl(const struct mnt_idmap *idmap,
- 		ppace[i]->access_req =
- 			smb_map_generic_desired_access(ppace[i]->access_req);
- 
-+		/* ACEs after an NFS mode ACE do not change the POSIX mapping */
-+		if (nfs_mode_found)
-+			continue;
-+
- 		if (ppace[i]->type == ACCESS_ALLOWED &&
- 		    ppace[i]->sid.num_subauth >= 3 &&
- 		    !(compare_sids(&ppace[i]->sid, &sid_unix_NFS_mode))) {
- 			fattr->cf_mode =
- 				le32_to_cpu(ppace[i]->sid.sub_auth[2]);
- 			fattr->cf_posix_mode = true;
--			break;
-+			nfs_mode_found = true;
- 		} else if (!compare_sids(&ppace[i]->sid, pownersid)) {
- 			acl_mode = access_flags_to_mode(fattr,
- 							ppace[i]->access_req,
--- 
-2.47.3
+On Fri, Nov 20, 2026 at 05:06:20PM +0100, Greg Kroah-Hartman wrote:=0D
+> > A device that sends a message without LJCA_ACK_FLAG and with the type o=
+f=0D
+> > such a client therefore makes the driver call a NULL function pointer=0D
+> > from the URB completion handler:=0D
+>=0D
+> What device does that?  How?=0D
+=0D
+The link carries one message per bulk-IN transfer, laid out as {type, cmd,=
+=0D
+flags, len, data}.  ljca_recv() decides whether a message is an=0D
+acknowledgement or an event from bit 0 of flags alone, and ljca_handle_even=
+t()=0D
+then dispatches events by type only.  The I2C (type 4) and SPI (type 5)=0D
+clients are created during enumeration and never call ljca_register_event_c=
+b(),=0D
+so their event_cb stays NULL for as long as the adapter is bound.=0D
+=0D
+A device answering an ordinary I2C command (cmd 3..6, START/STOP/READ/WRITE=
+)=0D
+answers with flags =3D LJCA_CMPL_FLAG | LJCA_ACK_FLAG =3D 0x05.  Clearing b=
+it 0 of=0D
+that byte, one bit, turns the very same reply into an event: {type =3D 0x04=
+,=0D
+cmd =3D 0x03, flags =3D 0x00, len =3D 0x03}.  That matches the report exact=
+ly: cmd=0D
+3/4/5/6, len 3 for the short replies and 3+N for READ.  So any device that=
+=0D
+emits such a message, be it buggy firmware or a device that does not implem=
+ent=0D
+the protocol exactly, oopses the kernel from the URB completion handler.=0D
+=0D
+> How was this tested, shouldn't the driver be fixed up not to do that=0D
+> instead of this workaround?=0D
+=0D
+The callback is optional by design: ljca_register_event_cb() is how a clien=
+t=0D
+opts in, and the comment in ljca_handle_event() notes that only GPIO regist=
+ers=0D
+one.  What is missing is that the dispatcher does not honour that contract,=
+ it=0D
+matches on type alone and calls whatever is there.  The patch makes the=0D
+dispatch deliver events only to clients that registered for them, which is =
+the=0D
+driver being fixed up to do what its own API promises.=0D
+=0D
+The alternatives look worse: a no-op callback in the I2C and SPI clients (f=
+ake=0D
+handlers), keeping those clients out of the list (they are needed for=0D
+transfers), or validating event types in ljca_recv() (the type space belong=
+s to=0D
+the firmware, the driver has no table of valid event types).=0D
+=0D
+Testing: compiled with CONFIG_USB_LJCA=3Dy, CONFIG_GPIO_LJCA=3Dy and=0D
+CONFIG_I2C_LJCA=3Dy; the oops above is from 7.3.1 with a device sending tha=
+t=0D
+message.=0D
+=0D
+thanks,=0D
 
