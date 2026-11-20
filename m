@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795209271;
-	b=aGesscgaESfj3Nk0X0vcsoJXDH70yasfTXimhoAfCK3NEyKhpVOCx1HaygMG75DiT0TJ
-	 ILAokSnzewdHzLs5umZ9IR7B0v3MBYceMO7tOI7zsrppqmpPmbWL/trOgRXWk3a9cfnaB
-	 WsQhpwDrwBAi0gediMkSVxOR7oSYhD+O075+Bm/XTyuUaoSSc5brM35O9zhyQ4pVz39Um
-	 PcyxhIxZxTQsk0pNd42/EvvHfKErCShdv9GEE5ngogeDNs/b6V2iL2TlyZvxbcvSN8I3Y
-	 E62c47sp6miXNWTftUmHzTm4ibVXtYPBH6VVH0iJfjKtpn9Hy412C10KBmGY4wiDEIg==
+	t=1795209328;
+	b=Zh1BFU0zLZ1a47yldh+xs8XsDUpj8pxsNBi4KKCjc5uAess4bSg9pND0v3CtbtAnbhrs
+	 zNZxcx6cK7ni1JjnYaniHhzmrXSC+vdCNfxN/5k3k9PLlsSof33Iw2NkDO361tpjrHil8
+	 gtINvDcQfwf+qPQo16at6JGYw8LprlpvXuDxBtcRIG9rVeDNM4ef7vWebFAUdeRAdtXPJ
+	 LWMKdFdVxS/ktu0kpjntTv36meQpGQoqbdf8ecXONQ10Lfd3UK1tL5fwjahjf1ahPdo+K
+	 HbrUeBNM3Jr19HK2E4QrwAfdEivt1rbP8Vv0WawHWPAt19ubWPYZLyvQYJ24ZMPJiiA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795209271;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795209328;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=G105/EwTftSMSsJfJTgrHQWjcbh39Voo9ViZSiMzFbs=;
-	b=tYt2VeMlU4rcilXsrclx935g796s8MA867z3aH9Hu9fvXFmvAde8cfE1v/qRsbRmLkKd
-	 ZbrLm4C8T72oerrW7xMU+p3iTcLcckpxbPVgTaNWqAihHY7av6kuLs2i6+Lr2Kiv8GePv
-	 QCkYFobiEWclZihtC4KX62m05xL0Ae7U7OJSVM4vCtP1ymwA0k4jy/Tb/GxHzdohOyOP7
-	 cGHTte9t9n/alCsWaxNXxipInkFsZGA+HfbEB7JixkHvGUpb0dTMm53c+a5jIbrNxlUt1
-	 a+GTlZSrfuCuWjP99AbSwb4TAaKdv8JDGaHkDKAGs7QiQ3nkWAZGZEiAu8auuZnTFdA==
+	bh=jhsdAq68aTOS0woPorboO2Q3We/YdgAlOANjhDh+IIk=;
+	b=KqZpbwLUXQcio89Ve0QXTSJRHpptt7Rl8J1v5JZI2Kd0JEyMnHqTeoNPBKAlbPTvCe/i
+	 AdXMr83gf2lEu0DUGirGItSlqlYyt+DIKjP7l40moJde2PAd03T9DZnyxhjaGYofc20WQ
+	 QSUEJGg7eKV9oZWXP2xzE4JTj6nHebuW5a3u9SV4zEwFuBvT+gr6F3QR6LeXBujbSFGj6
+	 AFzXSHHWYkM/8pt/84Vd/kJrx2mCF8oFSyrPR4OKl1t3wc6v1pj1MPNKve74lTrSy77QI
+	 wGWXxBVz8yz+86FRA//bz1pFd0I0Fokj3Adg/VQxjc+vcG8dEyktW3TM/HXmpor7u2Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P6SKJzZA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F3CXrXiw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.51
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CCC606A691
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 21:14:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5CCC606A691
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F04606A696
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 21:15:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58F04606A696
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P6SKJzZA
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-54492d8a988so75621cf.0
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 13:14:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795209270; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F3CXrXiw
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5be3ed646a5so1760052e87.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 13:15:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795209320; cv=none;
         d=google.com; s=arc-20260327;
-        b=kJYgsVR5WUwSfI7SK6YtlSXSkJSAiUoNJC1XNiaXuirmvJ4EhrArgUW8klbILdfrL5
-         7EAoQJSdcAG1K5+tKkNNBzpxzmacIOqbmyCFXs3zGz/+ifku/dKTbFfLSqIjQ3g2M+pn
-         QbArBGUorJZ1S0/G056EWQdo+8i8TMrwtH5MQRhGmua+Xo+8T/EMwvwbD3eghAR1SJ/8
-         59C3kvPwvy9FeN3mDze6n8nkUj07QlVpoKzBMkwHbmyowBkUN/pCpfVbUmSroMxY4yM+
-         yK3VKSxW/V89iDWaqmCXjItQXhQQ6G9HEwekKmCXLvryTJjfLmXlSKGTctpm9sgAzcxw
-         AzHQ==
+        b=SWXWyFnk6hWsaF4ePrkyShykE8B+9NVhL1zpEgJQEcVVNoKeomDpQSpfCN6UpKr+81
+         /YLa2jIEpaUeTFPiA+2OT/jL+iZdolClo8JPEqQTjeqx7fO2LHuMS5cwRq33QeKm6Nyy
+         g/Gdkz2KCRHBokSjJLxMDXPOlLOxcUxD+iBNnuUGFE3DEYc9vowjyO0Wxs7Z2GKMSc87
+         427sChiwyovHoCvdhL8XTf6Nxf91N6QAK/qoXvDoIUOlqTNkuOag08jICLM5LpvtUdAt
+         aqUERAslLh+IIZMq43mEvB7X3p5iHB9WULdfqRlJ6DksIxycWx6zqY9s2oROJ16mMbV0
+         Dq1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=G105/EwTftSMSsJfJTgrHQWjcbh39Voo9ViZSiMzFbs=;
-        fh=bR1xtrza8Q/i5HKPEw3CVVG5kk/Tyicy/8c19KlOt+I=;
-        b=MnerlqD6DRlv1v+cG8uUlh7q1ZFN0HdIncKBuW7uKOOUr1W5QNrAI+TG65lrLsdKkA
-         BEs/UlDFYoMGcstPIx6HAhGMiHRceFINvduQog/ysBy3HmKnhiOrTzv/4nT61OirNb87
-         58ehDcyEoacKQqROKrVB7EzZgGJbxMCQrBYnHsndh3Kge0oax7X/UNRsk/cbJ6zsr532
-         0cbhvlOZg1q9PIsf59nxwvqJCwJ1hGQlN4gW3qzOgzJsdogEpBIcBBINx2JgCP8XICbo
-         D9Jb0vxz8l64xR5doIroX8IODx1uhsWRYTQnRDSIx7Y1OhUUMhAeRLWkpF09S0RCY3q8
-         dUPQ==;
+        bh=jhsdAq68aTOS0woPorboO2Q3We/YdgAlOANjhDh+IIk=;
+        fh=c1273DvYJC7zWW9oSIW2EWOkjxQLgDBfcttk08kh9Ys=;
+        b=UF2Nk402W3zJwqTXSQAC69U9SrGYCakCH20UXm/ghxoFD5OHcH1WVNIzEnM8jKZbLX
+         euW0Pw8kpqMbcAw1sLZvsfAQe/XHB90n0lG4krowdQM0ge3J0Zc3wM0UX/ZPCNd/JPlS
+         Q3OB1KkaN/252VAlDhmXZ16WUQki64VPFL8EyVkt6EgojZ3q95fS8MGdrL1W4NjQBeSp
+         961p4C1Lw3Hajm7U1t0NhM9/CRTEg++XXtXfMAld0Z7Wdei2qSSnR8uiOEZc1d0EkeXq
+         5uZ9h+njeR4vdFe02LkpnmUwQ3m5FewaRkAAGbWsbwL2G0njYR+QchrLiVmZuar2BSnS
+         RFGg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795209270; x=1795814070; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795209320; x=1795814120; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=G105/EwTftSMSsJfJTgrHQWjcbh39Voo9ViZSiMzFbs=;
-        b=P6SKJzZAPmQIDqfA23YKnCW3h1m/JA2LEUr2DKycJlveNQ8OEkefFfSMr4vaSYnite
-         uAlEaZhzdM4p/FfEKCK0IkANOklC2UzWzm2sNuoL76R6CFUrG43lxIZ6LOXOtXbB2Kt2
-         0haAi4Qboao0aYxLBXlmsjo0dixbdoBUG8STLXtaYIlA32VqwXsE0xyA1PtNzq50dUm5
-         6wIvFcOAvVmNWbuVFT6OojJdYXscs2kLoDPvxTi9FE0DQSz7JF0OMuDhZzJMLU4vzFYH
-         DZGUhhKmdSVuGp1PfdjFNg1yX+d3Wugrxv3qiSwmqbzOAv2henW6R4ryCm+742GoKN0r
-         MIcA==
+        bh=jhsdAq68aTOS0woPorboO2Q3We/YdgAlOANjhDh+IIk=;
+        b=F3CXrXiwAmtVGCQYnXua2+PdeK0UoDK/7K9IjEtt7ivLr2Ztl74CaHKGywM8Mecxw8
+         MePJWLH4GzSXwP5TpK6cDvYSiJ20/lVCHFpDfUUgO2P6d13crx3oxwipzHJGHF7uJqR8
+         ZFUyGEer552HXl+dJz4DtcBoJ2gTq3IOKH0np8s/O3syNymY+BI9NARZQ744dlQ6VKP8
+         lqvw8H0cQVXYlVjMcGN4Hiy4mzR0xSvyad3L901zV4NJ8xhyJxw3kpNPc12jJa/AE2X1
+         8cPiKrpzZVFn1RaWfZYLzisOISoEdBdxuUBhDEf671pJP7Bh0BY3Xh6xHa6GjWHvDKSU
+         ha9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795209270; x=1795814070;
+        d=1e100.net; s=20260707; t=1795209320; x=1795814120;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=G105/EwTftSMSsJfJTgrHQWjcbh39Voo9ViZSiMzFbs=;
-        b=s/CvTR4lZqjWBi9o2/78KBQcL+zc0112bQf4ES1rQo0xl5eZ3VvFamE+66WPx2UWNP
-         I2OOyVhgdtZdrktw49CFM2Sj/n2zhgWX/D8lDKvdJpPDoe4Q8We6xksp0HUV2tE4XRuM
-         8+dlv+DF7MfAgjkmBuz99KzpJ2JcEuaXHk7ynyQAARMPT3rl/Ww5iCq2sIJFDhd9YA7d
-         Iude3ExYWNLk9msQnrwV37llvgCf1qBRm7XwX+mxc2dezVKvpykzjrvhMnPPeVcZVkmS
-         oGBzWH2rGZlCOLvyBNX6zP0RTexfnRBItVPvFl5IM/b5LhSj72nCx/W7ekNc5aVXia15
-         afMw==
-X-Forwarded-Encrypted: i=1; AL+hErGlQnImj/pLrqOHhs4uWHtpstjyi2cOLwhi4S/Xg5WKMJbhFi9HgqJHCxeQfHKARHDfTcfwdps=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OIS1nCmasXgqCSXKezTMBWBjjujYKxtApWxlIXgu6ZUrhyqyI
-	BrfaWmYwtrYnmh4/RpCJLn0JTk4od9ehA1dVkeRA47DdwGSLScoiySdYDjzj8OG6DwvxUH6o+mK
-	zybPUAuEXK0n7O/73GnYjfYHsXtFyJgx4AOfTKAtQ
-X-Gm-Gg: AYBFou0KTxcwe7KsVw0IibYGEuieNYa1XRDUbgmzGdxodQAmjStdvheGGJquA0GSUET
-	3DCvpzNnWGv4YfmouUUix8W84rw3esPYrncCDOGRd0JiLrJeYwA+0gnUar7EQjSGLrOBAJc3eIS
-	qtyvXDldHGo7On6gzEdZGpha184ORCao+fhcKejok1G7RGiNiVZaZ1teoAglkGPOZwGwlLBTwHf
-	9LTHHd4weDSUL0U3crin0wt/bMbWGkbI1xN/wkbm5Eycdt/x4kVsqQ1/GvISepWfDAQjuGlOaNU
-	Lq9vgUhyvKn8zTC0Oaeik37uvUS98syG48qeTumqTBmK1tglzvM499MLaayO8r0JUw5h5heBerl
-	b9KEQw/jN/QraHMFeilPP8UYvUrBPuav5E4EwW31NHGDEY3kEuWqSzuGAbB6KyrPAAvOLbEniDp
-	EOsPCsEtGGsHD2tOUBrlB/za2y
-X-Received: by 2002:a05:622a:c15:b0:530:e335:4ef with SMTP id
- d75a77b69052e-55d88014944mr3792091cf.2.1795209269050; Fri, 20 Nov 2026
- 13:14:29 -0800 (PST)
+        bh=jhsdAq68aTOS0woPorboO2Q3We/YdgAlOANjhDh+IIk=;
+        b=Cyw8/LRedXsX9tUbcfzTR+fmoQd+dFRMdw/dTS4cVoYm3OKr4Sg/UVsW3uD2zi7Ovc
+         SKV5/+ixlQ2WlQDATuzuzwLdWWn9fkCXxwLPg0vsYoRMQhhC+sQcTNPNGO4Tb3nY0oza
+         nPOqI20DlTcHkRcnlviRQYD7HXyJkSXhmuUa4SswPrNZjShrJR/SiyZ5GC8rdAhp9kIN
+         wMAfRvv9atWihwo+B33rHGUEITJOnWxAVwI09494vyHcE2fTvd7jrk7azlSdI4EJ0+Vc
+         cYpQkXlinTF+3NWu/Hm2OT9skyH1wvhyCPWLbqBtYb0uzBYTljcih97tJtF1cAjSUlpg
+         2dgg==
+X-Forwarded-Encrypted: i=1; AL+hErHpVJPFIb+NKoQFG+9VCNV5VMTs9sVV4eBIrSSbxmDQ4xUUgMLLuzhqx640732L3qxEDy/GyB4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+yQqfv5tJBjsGeBW1Gb/Bnw0x/AwGjw1o+nS/EETsFCvBiwXz9
+	SiYQ+gATQfeG8RCDnkmXuqah3kv20yrzyjLiRWSjUhaTNfh4SOnA7Z2p0cr859l7vJ35gwDwaHz
+	n2N6APw88f0PA92ABWAlo8dHxePwm8lM=
+X-Gm-Gg: AZFdTZcrxJQynYO2E2vKk04D2u6Ab9Sw2lGghwP1FL+g+Bor+14wTI3jzV99SVSxeX1
+	u3VX0yDLIYt97fd9ms8oTg9c+MfUg0EH99LT6nkuf22cZoNvDRbeathJL+Ii/jTim9nYG7rPSnu
+	gNry6x9R6zEZVHZVtE0XvEPJd3abMInScXNZbiFY0eai9hanve1dKGWsmPqclkR6P8zXJkKgIue
+	+roD5S9EXEn93n9L1f6qTIWUgFleqAOvwAA1EZKGT75Pqi1Tw4bxLmhUF61OeetJdM9i7Qz/ALC
+	pwZCbyavMjf04tC7xfjuXELri7w1J8yTlsWcdScfoNQyVoWcfF8/3ugKRId/v9agO+4uBWxa8lz
+	GW3vt508A7PPERjPqQW2oh2vGOoIjuiNGvPJ9E0jkX8ZBrt6L83lsiw5891B+ZPZh7CVDqw69cK
+	JRy/z0ldZFk88t/crUNV49YHFd
+X-Received: by 2002:a05:6512:b14:b0:5c1:c4b4:a3e5 with SMTP id
+ 2adb3069b0e04-5c1c4b4a448mr663384e87.27.1795209320229; Fri, 20 Nov 2026
+ 13:15:20 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,70 +105,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116071325.263682-1-hao.ge@linux.dev> <20261116071325.263682-3-hao.ge@linux.dev>
-In-Reply-To: <20261116071325.263682-3-hao.ge@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Fri, 20 Nov 2026 21:14:16 +0000
-X-Gm-Features: Aa3M54plrOc1jkMpHJwvUpjhSrspGdyrmpubZwGwGNbiFNMddwdSWFYtVtM3KLk
-Message-ID: <CAJuCfpHOZS6mp_no3wKmU3-S4HKspnbriUw8Mwtxf3nmw0-pfw@mail.gmail.com>
-Subject: Re: [PATCH v5 02/11] mm/kmsan: undo the shadow mapping when the
- origin mapping fails
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Potapenko <glider@google.com>, 
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>, 
-	Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, linuxppc-dev@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+References: <20260909210213.946159-1-festevam@gmail.com>
+In-Reply-To: <20260909210213.946159-1-festevam@gmail.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Fri, 20 Nov 2026 18:15:08 -0300
+X-Gm-Features: Aa3M54p88NC6g05pV48qVC2p_9ZAScZjtIt_fyZczxzCKvkLyILovNFeQdmLZhk
+Message-ID: <CAOMZO5DuwQq_-hMPvpb65drpU40UNWYXQ_ksPW0ACXxaCwOoWw@mail.gmail.com>
+Subject: Re: [PATCH] drm/mxsfb: lcdif: Fix use-after-free on unbind
+To: marex@denx.de, Luca Ceresoli <luca.ceresoli@bootlin.com>, Liu Ying <victor.liu@nxp.com>
+Cc: mripard@kernel.org, imx@lists.linux.dev, dri-devel@lists.freedesktop.org, 
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 16, 2026 at 7:13=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
+On Wed, Sep 9, 2026 at 6:02=E2=80=AFPM Fabio Estevam <festevam@gmail.com> w=
+rote:
 >
-> kmsan_vmap_pages_range_noflush() first maps the shadow pages and then
-> the origin pages. If the second mapping fails, the first one is left
-> mapped, and the callers do not roll it back. The next vmap of the
-> same metadata range hits the stale PTEs again and fails with a
-> WARN_ON() and -EBUSY in vmap_pages_pte_range().
+> lcdif allocates its private data, which embeds the CRTC and primary
+> plane, and its encoders using devres. These DRM objects are linked into
+> the mode_config lists.
 >
-> Undo the shadow mapping on that error path, the same way
-> kmsan_ioremap_page_range() cleans up after a partial failure.
-> __vunmap_range_noflush() only clears the PTEs; nothing has touched
-> the shadow mapping, so no TLB flush is needed.
+> Since mode_config cleanup is DRM-managed, it is deferred until the DRM
+> device is released. An open DRM file can keep the DRM device alive after
+> the platform device has been unbound and devres has freed those objects.
+> The later mode_config cleanup then dereferences freed memory.
 >
-> Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_page=
-s_range_noflush()")
+> Allocate the private data with drmm before initializing mode_config so
+> that it remains alive until mode_config cleanup has completed. Allocate
+> encoders with drmm_plain_encoder_alloc(), which cleans up each encoder
+> and removes it from the mode_config list before freeing its memory.
+>
+> This can be reproduced on i.MX8MP by keeping the DRM card open across an
+> LCDIF unbind and closing it afterwards.
+>
 > Cc: stable@vger.kernel.org
-> Suggested-by: Suren Baghdasaryan <surenb@google.com>
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> Fixes: 1c71d925c03a ("drm: lcdif: Switch to drmm_mode_config_init")
+> Signed-off-by: Fabio Estevam <festevam@gmail.com>
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+A gentle ping.
+
+
 
 > ---
->  mm/kmsan/shadow.c | 5 +++++
->  1 file changed, 5 insertions(+)
+>  drivers/gpu/drm/mxsfb/lcdif_drv.c | 24 +++++++++---------------
+>  1 file changed, 9 insertions(+), 15 deletions(-)
 >
-> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
-> index 0c88d89bf0d6..212449db34a1 100644
-> --- a/mm/kmsan/shadow.c
-> +++ b/mm/kmsan/shadow.c
-> @@ -258,6 +258,11 @@ int kmsan_vmap_pages_range_noflush(unsigned long sta=
-rt, unsigned long end,
->                                             o_pages, page_shift);
->         kmsan_leave_runtime();
->         if (mapped) {
-> +               /* Undo the shadow mapping set up above. */
-> +               kmsan_enter_runtime();
-> +               __vunmap_range_noflush(shadow_start, shadow_end,
-> +                                      gfpflags_allow_blocking(gfp_mask))=
-;
-> +               kmsan_leave_runtime();
->                 err =3D mapped;
->                 goto ret;
->         }
+> diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lc=
+dif_drv.c
+> index e2173c4d6fc2..7e9f3b205a45 100644
+> --- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> +++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> @@ -24,6 +24,7 @@
+>  #include <drm/drm_fbdev_dma.h>
+>  #include <drm/drm_gem_dma_helper.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+> +#include <drm/drm_managed.h>
+>  #include <drm/drm_mode_config.h>
+>  #include <drm/drm_module.h>
+>  #include <drm/drm_of.h>
+> @@ -43,10 +44,6 @@ static const struct drm_mode_config_helper_funcs lcdif=
+_mode_config_helpers =3D {
+>         .atomic_commit_tail =3D drm_atomic_helper_commit_tail_rpm,
+>  };
+>
+> -static const struct drm_encoder_funcs lcdif_encoder_funcs =3D {
+> -       .destroy =3D drm_encoder_cleanup,
+> -};
+> -
+>  static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+>  {
+>         struct device *dev =3D lcdif->drm->dev;
+> @@ -74,19 +71,16 @@ static int lcdif_attach_bridge(struct lcdif_drm_priva=
+te *lcdif)
+>                                              "Failed to get bridge for en=
+dpoint%u\n",
+>                                              of_ep.id);
+>
+> -               encoder =3D devm_kzalloc(dev, sizeof(*encoder), GFP_KERNE=
+L);
+> -               if (!encoder)
+> -                       return dev_err_probe(dev, -ENOMEM,
+> -                                            "Failed to allocate encoder =
+for endpoint%u\n",
+> -                                            of_ep.id);
+> -
+> -               encoder->possible_crtcs =3D drm_crtc_mask(&lcdif->crtc);
+> -               ret =3D drm_encoder_init(lcdif->drm, encoder, &lcdif_enco=
+der_funcs,
+> -                                      DRM_MODE_ENCODER_NONE, NULL);
+> -               if (ret)
+> +               encoder =3D drmm_plain_encoder_alloc(lcdif->drm, NULL,
+> +                                                  DRM_MODE_ENCODER_NONE,=
+ NULL);
+> +               if (IS_ERR(encoder)) {
+> +                       ret =3D PTR_ERR(encoder);
+>                         return dev_err_probe(dev, ret,
+>                                              "Failed to initialize encode=
+r for endpoint%u\n",
+>                                              of_ep.id);
+> +               }
+> +
+> +               encoder->possible_crtcs =3D drm_crtc_mask(&lcdif->crtc);
+>
+>                 ret =3D drm_bridge_attach(encoder, bridge, NULL, DRM_BRID=
+GE_ATTACH_NO_CONNECTOR);
+>                 if (ret)
+> @@ -131,7 +125,7 @@ static int lcdif_load(struct drm_device *drm)
+>         struct lcdif_drm_private *lcdif;
+>         int ret;
+>
+> -       lcdif =3D devm_kzalloc(&pdev->dev, sizeof(*lcdif), GFP_KERNEL);
+> +       lcdif =3D drmm_kzalloc(drm, sizeof(*lcdif), GFP_KERNEL);
+>         if (!lcdif)
+>                 return -ENOMEM;
+>
 > --
-> 2.25.1
+> 2.43.0
 >
