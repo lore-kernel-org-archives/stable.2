@@ -1,79 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.175
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795188664;
-	b=qa6tmiBHvAZp6/ptUZ7CdEelLB0RtbNw2N3ZEz3wBjkSBFwOSD7Nwyd65jQdLNkNlDjW
-	 uI6sYyZ42CX7gzzkRyYukUzbc9/epQI0/donGYjhGnSzAWs3uOGF8qTf1utxP6SfDVqxO
-	 CPlxhUEDt4/p4mSfscV/osTKjVHKqcd5xQlp+4gk7/Ur/emLBtWq2tvcgjPy/89Wi6JE3
-	 Q+RF8dHWWIqvaLYtnEbxzwcJlaU5wpGtKAFVr/D1Nl9K5ODuQlQDh8kkFwY5fwXSFL80v
-	 w8cPtBz2N5hS4da3mhavSwMFn57l1ow/TQxXIFimdx0YngrZM1F5P5d4W1/p5trjOqA==
+	t=1795189120;
+	b=guvUmlU34Yqpyc/hFC7+qKBgUogbcNfCJ156klTkBL7xMC9mSA8uotMOYLD6htHTqCuH
+	 /s7WiGVRuXLhnSId2+2zEgmgW4Tu0cblePY1GT2915EUOVZku0rznTK90/NuehsFxln/3
+	 TUrlhpOkx9MHUIZyfZiqldtFaetagxEfPLAwzuqdmSoylDTVZH4ztYJ7ZEA1GGHq/opZx
+	 CzWIX5CI/ndbSHc/K1ZOcaCZczOuThsX+p4kQ+ryyrp1CTGoF0PASlyjdRdqMTBbsf28S
+	 1LGMwGdgl/1bVYnJVZTc2NTazwChmZ0mCi+TGJrUv720jvIpVHs3Kc62V4UwK78Vrrw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795188664;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Ic/Tkesv9swqUgqf5iFVky14aDs798pTEmP4wTv+sGw=;
-	b=ycn5mGSoRppTb8eGUvdJ7q7mdItUn+XQdZCiukk/fkM3gwqEdV7+ZHARKYr5mwNJ2o6h
-	 NCug7RjhmekRCQhKPr5neS0Ye5TVy8V4vm+Pq/Ef4cmIXorR0QK2fj4JQ+PvisQWRqe+7
-	 ywy8MGw06215+D6J94pkQKzvwJz5e677pL3wLfGuZ4/AzVnxt/47WnY0Dy0gH3WANC3OK
-	 QSg2+H9wPz14zrb9Eo+q79VKaSD07cXKO/qpOb+ovq+Oc2MMK4hMRhymUwRoTis6fo4rK
-	 3/n0SjsxSiNGjSHmZue/fvwpssXLX7NiElDrKXnigkb2Pb51pUBer3/+/AcshUbCoLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795189120;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:MIME-Version:Received:From:In-Reply-To:References:
+	 X-Google-Nh-Sender:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=Ps+r6wqioFZ5jOTix48/157hwwLW+rUrXw7vqmb1SQE=;
+	b=r+wfyv5/6T/o+sqGOoFzF/zlQ7Xk1eHMgO3mxxx1gj5RZllRQgf7duscSgau3QbHaVGa
+	 o8aPMvngfZ1SpExX0Y0hsZNQQZ4AxhXRzNzkJwoevJNrSoxjfsLZLerGztVixMy9wib57
+	 b3pwhJbSXfsckasNrE47OjavK4GOnYCyC4svyIsUdAxVeMnLpM2HAFMN3b1EiPhTC1MHw
+	 LOu0JoM9XbK6uCkD3NHtqXXRu1uAGwCrEtRzTi52TLSHl5i2Ala16I2KAMl360/1cwVdu
+	 pGH0242NDjgQBWBCr9kh5UjWujwx498TcoIgt6WlMr0v2j77oUcG25g11BbfYqgBcBA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PFXWRAbD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B58606A320;
-	Fri, 20 Nov 2026 15:31:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PFXWRAbD
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795188664;
-	b=2Sr5qRwqiJogqUwmNPr94QqJinb9l9DOwhXT97/ytYIvjOh5v756+Y8b/hW4KqU8diFq
-	 GTbVd6o/8x8N1R7HvQuadcXlTK1bbi+ov5SGd5EBkFwGSe4I0OXWintgclidniwMJDw0g
-	 ucwcQW8dwdN7xwZ1hnvrSB3V9Ratdlr0L5699H/q2FhNdorHut+91mKvzpH43sawNCzv+
-	 4JBd7fLAI68Noe+7H95/DkpVBAil2vebDRF3ZdrWh0wYxkU8CtV+QfRWryJwYVdS0fR6G
-	 o0rcNwnzpUtyxJJ/OwoQzXF7+vpLhFTT4l1Vy//641S2i8B6Oy3TmCIfPHdrN4KCSpA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795188664;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Ic/Tkesv9swqUgqf5iFVky14aDs798pTEmP4wTv+sGw=;
-	b=2mghJqf5BBy0DBpoyja+CVjfDKeifQzpXzu+RjlbAWN2n2FJfkTj6++HcIee35cLuLgF
-	 /2buvZ43PNwnJcfTUU+k4jWpV3fy9USGKh5HAThBO4Phllu3xtyTD1VBj4m6rTRijdm4S
-	 kBfA5rkabuU6YV18QRpPT0xzoksLgD89LTFRiDpaHT8e/GgcwgCjGY1KG0yS9rLJrcfbX
-	 hVeFjeqBXtq4CfiNDxiuAyRsEIht/PIF5cDQjXrbaCUSzAZrA8cz6QnMuX2k6JCk3gwJO
-	 arDNrKPI8tcvASRSEvBf6DmMdGXu2yb5toAPE+HNeLxTPoyXL4Z6O7+kbAoRBk3KTYQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bnVGGT5F;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.175
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4D9961F000EC;
-	Fri, 20 Nov 2026 15:30:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795188664;
-	bh=Ic/Tkesv9swqUgqf5iFVky14aDs798pTEmP4wTv+sGw=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=PFXWRAbDHnVeDhOsbJ/YOzYlq3EGhCPm/TXcy5PrFKNI1WIo6ziKoBF4MJwNLEqHg
-	 c3X/sjGTAOe9pngXh9jDEWRv5zKGM7+2g7yFU6nZwWK6YCJqW6ICzbl1qmIf2VfNO5
-	 axGxQTMeebuWN//Qia/eUC2bw+UmWzStUZrsoskQ2WfXxMrHQYyxbNi101j5dy3aYY
-	 jNEINEDD6lHawMaYR2cO6SxU5Sn8qe658eiegQDQCT/HN0twJYhDjFoRt3soE2QGFy
-	 QVVPluX5hYFY7YgeBXXxtVOFaQf/BqFEy3R+Q6Fsd6xWjCz4panHK4v3igR11yXHsi
-	 P6O1vTk08HzvQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CD6AC49904;
-	Fri, 20 Nov 2026 15:30:55 +0000 (UTC)
-From: Zhendong Liu via B4 Relay <devnull+yzddmr6.gmail.com@kernel.org>
-Date: Fri, 20 Nov 2026 23:30:53 +0800
-Subject: [PATCH v2] dma: swiotlb: Allocate the restricted DMA pool slot
- array with kvzalloc()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0547260A2600
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 15:38:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0547260A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bnVGGT5F
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b10d24345dso9903577b3.3
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 07:38:39 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795189119; cv=none;
+        d=google.com; s=arc-20260327;
+        b=i8d7ACqNcgTOXPZUDxR11a+duygP+K0qu8MGBYhtWvNiG9B8IMctYjOqFyvOtQkZQ+
+         nVDL2iFngaMlKLyl/5tenIQNbjwSphySYKHo/S5Up083mrM1KqPisXwc24/1pAKaVL2U
+         nwYJpMpKpBO1KIhU3JlD3LVJH4gRC9Mw8umQe12yRbcG9edKtR3pPuC5rxZ9A5/cLJtt
+         I84JXGV/Uo91GdpW1tpgEMpTMe2AaSxttm6u45yngcgNiP3P3+TGAEQ6PjZfeY3H2BIe
+         DpviJfWvjMEEX8t2uoRiOaXO1Rl031DXaEved8f04B+XzzEYYbCx1rHSMBIcV+0kXI3W
+         Dlaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:references:in-reply-to:from
+         :mime-version:dkim-signature;
+        bh=Ps+r6wqioFZ5jOTix48/157hwwLW+rUrXw7vqmb1SQE=;
+        fh=T249EKD+j8FKX1AAPjB4yFMWKSoItTMiiTe+03E7iPo=;
+        b=EzawwP6ktfJhPESOVdMf1db0WRvU2+WmYhWQv27D9Tvp0Ip+Rmt2KzWOAPBACIFUM8
+         IPZfMLt8PJi4vpZ9teDOCTvZ2ui7d/oOsR9Xbv1tJtgLahggcWFW29/zemi7lf4lIQ86
+         y+Vn0o63fewC9+7ZCMpCsqHRE8/Gxhc5Q8q4fBJbkK872vPbzz0z8lCqJOC8JFOOoziK
+         F0OKIRqEdZCvgMgLGZoUipQdEv0oe+1+Q1uIs479f2MDT7YCyJutPDUnaBjMvw0SRqIu
+         EN+yb0/PsDS5iXIJLO/4zUmlyvAibUHlYx0lQSsElNgfyx1HY4ukBQRjCRwci4CGVkTC
+         VI9A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795189119; x=1795793919; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ps+r6wqioFZ5jOTix48/157hwwLW+rUrXw7vqmb1SQE=;
+        b=bnVGGT5FdmfEv33S1WebbDElFiOPTlcUqXiZC55dfSFHGLQwFARnITwzxuBWLniQrW
+         q8pWxUscFadJF2tPc65NGbH3a74iijEKChfdjO8i3OqgCNezzzMm+819J0XZYTOUPCT9
+         2U21a8HyXsZk8rzpayrPVDyF+AeYsrff1w08u7diFt7mD7XoAuBHm67EJDkqiLCZ9LzR
+         Dcti7VKSMEu3wxV1jk1BdKVtKv8NQyGKpf4BTu5yxWsqEPx9VAnagka7VyUqnB5UD/uf
+         1yxZMIpKVsR/QesEP1jtp4yizg8aowpIw+GpXXKONwE+ZwGbroaQXWCMxzOQ56rKRebW
+         MeyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795189119; x=1795793919;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ps+r6wqioFZ5jOTix48/157hwwLW+rUrXw7vqmb1SQE=;
+        b=wcmKlOASvQUIz99vNpUoFH3JpHzIMSINaqnhjMPw7gIpFx0FhzCVmZrgsQ/T5R501j
+         kf6onUS2h6BGgQk9jv3kbi89rXuxmC6VjrA6FYcbulP/njNOdc2MMnxTp6Q8+ycg5y3y
+         WboMD4DdH2Zm5uO5BbPeyHcLty7239YUad+b44I0j6j5OB/RHaEQHb77MoP7a1d9l480
+         iQ69odg87uypFxBZCE/cInBK2HhZeLIDyFQEJAapEnQQyUeC9xuMTV06EsIJn89vNRBU
+         +WcWYHna9iCGWaG8UftYz0Vz+MWmfsWmiRfFElSHidtMljdnTDPc/Lp/U1QTf6ODtunh
+         01ZQ==
+X-Forwarded-Encrypted: i=1; AL+hErEQrceHXbSiXbAf3aYHlsmLBifNJrL51tbBSIbAsRLfCd5OZB2tpJLdEmo3sNAOWOxKxzDXet8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SowpHOqevwmFjSfM0NeSuUnsScYakn2zgXcdVACE6SKS8LI7x
+	+n3K4OKovaIxEhwDCLHSkcLqaNb1Yxt57KfMXdhPkWUOwYW7LCGia/8Xp1w3X/SeCxizyRKuMjt
+	rYksep+uIHjvkVu1UgmQdIYBb6mnFiGU=
+X-Gm-Gg: AZFdTZd0iDUs9Vy8IoLvPNhPYmjpRqFn5x8uEutrHWDZx5hhoNl5aggfbasyIB+7jny
+	eMUaXQFRbTE40jS00lP/l0UokWfyoTb4x71TFNoeLx41EqZ+cDFOqwvNBGcHECOVBO39fz3/Zvk
+	9mIZrG5iwQoN1bjxxEFyw7iBAFOTT90JUsP2Af7v/8LcMFeWNN5ILofUZS4FNz8hYMZWRilPQAQ
+	pLKID4xRlngq+AK3gILJPGxj2jGxY6UOQSfQ8GDnxBb+v0FRG4SapN1+5bcTSpYL+c2maBB0kl7
+	OnDEtVaCsm0ldSu6xWQk16J0Lk/ZTiOmLxxnX8o35amARstDrNY5xsBBV7W0YK5uYVEibPGr18E
+	6OcQmZ3+6FydsMccVZFex1KTerymAiu2/JkUY6dXp4yWl6sTZWCcAucmJHbMlc0lYg4XXlYQB1+
+	LGCLjUbM2aoLjuGUGQ5MCAEhaMpjOrr25GMI8lShAWKMhy+L+C8X+WEeVn80SSKABWqUGCHKGDp
+	tPY5Q==
+X-Received: by 2002:a05:690c:b1d:b0:8b4:dcd0:c84f with SMTP id
+ 00721157ae682-8b5204eac4fmr16574387b3.47.1795189118800; Fri, 20 Nov 2026
+ 07:38:38 -0800 (PST)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 20 Nov 2026 09:38:37 -0600
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 20 Nov 2026 09:38:12 -0600
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,127 +110,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261120-upstream2-swiotlb-rmem-kvzalloc-v2-1-cc5732dddb6b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAKxnAGsC/42OzQ6DIBCEX6Xh3G0Vo4k99T0aD4CL0oIYQPpjf
- PeiJj03e5qdyTczE49OoSeXw0wcRuWVHZKgxwMRPRs6BNUmTWhGqzynGUyjDw6ZoeCfygbNwRk
- 08IgfprUVICvBKyExq1lBEmV0KNVra7g1u/YTv6MIK3ZNcOYRuGOD6NfXr+C8Ga1hsANStFc+W
- Pfe1sZ8Rf4/LOaQTpSy5mVWUFpcO8OUPglrSLMsyxcnCgudCwEAAA==
-X-Change-ID: 20261120-upstream2-swiotlb-rmem-kvzalloc-f6cb6cfe09a3
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Zhendong Liu <yzddmr6@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795188654; l=4063;
- i=yzddmr6@gmail.com; s=20261028; h=from:subject:message-id;
- bh=n5WsBNFSSTY++xySoe4Lh6qAZ7+HFLIrorjS4M0Xd3I=;
- b=qpNujyU5LVEecmTJsbr9Kv82yZ6BGA0fvstIKHTLBgxAXuO2n1vVfjnSaVCkcTzNapi2xhZoB
- Al43Wdsl6TdBBXvUugeeZ3oEFCh7YVWtS23i5e3Kcyo3VGK3DL4+EXO
-X-Developer-Key: i=yzddmr6@gmail.com; a=ed25519;
- pk=QLT2mwairk4R38oU379hkHynqjoLrlqd0Cl1ERUqIqY=
-X-Endpoint-Received: by B4 Relay for yzddmr6@gmail.com/20261028 with
- auth_id=1489
-X-Original-From: Zhendong Liu <yzddmr6@gmail.com>
-Reply-To: yzddmr6@gmail.com
-Content-Transfer-Encoding: 7bit
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Fri, 20 Nov 2026 10:37:20 -0500
+From: peder.bergan@gmail.com
+In-Reply-To: <CANiq72kcDMqswODJ0OqcqecDG+8mVn7Q43v48=ED5d6tsFOWQQ@mail.gmail.com>
+References: <20261119-fix-schedstats-bindgen-layout-v1-1-0599dd230ffd@gmail.com>
+ <CANiq72kcDMqswODJ0OqcqecDG+8mVn7Q43v48=ED5d6tsFOWQQ@mail.gmail.com>
+X-Google-Nh-Sender: AW_J_Uo0_1sBs8TErsdnA0bl-M_r09fo3bmPAFKFbN5updnOD3nt4wJAkVJ_H5CTbSBmeL_sAzELV7JydptwZ3U-bKXp4hN5P0JxyGZRhaKvQbc2xeia6Am19MNbOhrETJgmIlapcSxEfkIRcK97u7m9H2ahPrMhiDDN8BPwRvv50BcSMzFFRcxdoi5ZcHMpe9wC89aIvFtv1ZI5lI1vdEbb2_Uq2euYD3oi8xW93afcjggJ4FNACxgUJWawMCo_eQgx3psl
+Date: Fri, 20 Nov 2026 09:38:37 -0600
+X-Gm-Features: Aa3M54rVdUxyxZnU-ZKzu4pEIUMsVnXfFp-UHkXmafb_R_K0SJjuvOWClOTzccI
+Message-ID: <nh-e30bf2f4-acc5-411c-89f2-b5dd827aa4d5@google.com>
+Subject: Re: [PATCH] rust: bindgen: Preserve sched_statistics alignment
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>, 
+	Jules Mercier <jules@les-mercier.fr>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Zhendong Liu <yzddmr6@gmail.com>
+Thanks, Miguel.
 
-rmem_swiotlb_device_init() allocates one struct io_tlb_slot per 2 KiB
-slot of a restricted DMA pool with kzalloc(). The struct is 24 bytes on
-64-bit, so with 4 KiB pages and the default MAX_PAGE_ORDER of 10 the
-array is larger than KMALLOC_MAX_SIZE (4 MiB) for any pool above about
-341 MiB. For such a pool kzalloc() refuses the request with a
-WARN_ON_ONCE() in ___kmalloc_large_node(), the pool is not set up, and
-of_dma_set_restricted_buffer() warns that it failed to initialise the
-pool. The devices assigned to it then lose the restriction without
-their probe failing, and use the default DMA path.
+I looked into bindgen 0.73.1. The layout diverges earlier at
+task_struct.se, and my v1 leaves that offset unchanged.
 
-The slot array is only accessed by the CPU and does not need to be
-physically contiguous. Allocate it with kvzalloc_objs() and free it with
-kvfree(). The other pools are not affected: the slot array of the
-default pool comes from memblock, and the buffers of late and dynamic
-pools are limited to MAX_PAGE_ORDER, which keeps their slot arrays
-small.
+I ran a reduced test and found that making the type opaque can worsen
+field placement on 0.73.0 and 0.73.1. Would you prefer limiting the
+workaround to 0.73.2 with scheduler statistics disabled?
 
-Pools of this size are needed when large buffers go through the pool
-for their whole lifetime: this was hit with an arm64 Gunyah protected
-VM whose virtio-gpu resources stay mapped in the pool, and a desktop at
-3392x2400 needed more than 341 MiB.
+I'll add the bindgen issue link and update the comment and stable tag.
 
-The problem was analysed and this change written with the help of an
-AI coding assistant.
-
-Fixes: 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhendong Liu <yzddmr6@gmail.com>
----
-Reproduced in QEMU on the base commit below (arm64 defconfig, 4 KiB
-pages): virt machine with 2 GiB, a 512 MiB restricted-dma-pool added to
-the DT and referenced by every virtio_mmio node, one virtio-rng device
-with iommu_platform=on (modern virtio-mmio, so VIRTIO_F_ACCESS_PLATFORM
-is negotiated), and swiotlb=track_hiwater. Without this patch the WARN in
-___kmalloc_large_node() fires, every transport reports "failed to
-initialise "restricted-dma-pool" memory node", no debugfs directory is
-created for the pool, and reading /dev/hwrng works without any bounce
-(io_tlb_used_hiwater of the default pool stays 0). With it there is no
-warning, every transport is assigned the pool, and its debugfs
-directory shows 262144 slots, with io_tlb_used_hiwater already at 17
-once virtio-rng has probed. W=1 shows no new warnings in kernel/dma/.
-
-The change is also used in the guest kernel of the Gunyah VMs
-mentioned above.
-
-I used an AI coding assistant for this work. It analysed the failure,
-wrote this patch and changelog and set up the QEMU reproducer. I have
-reviewed the change.
----
-Changes in v2:
-- Use my legal name in the From: and Signed-off-by: lines, as requested.
-- Link to v1: https://patch.msgid.link/20261120-upstream2-swiotlb-rmem-kvzalloc-v1-1-1c5f9b503223@gmail.com
----
- kernel/dma/swiotlb.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index 786954bc5e6a..51c7c064b62f 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -2042,7 +2042,7 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
- 			return -ENOMEM;
- 		pool = &mem->defpool;
- 
--		pool->slots = kzalloc_objs(*pool->slots, nslabs);
-+		pool->slots = kvzalloc_objs(*pool->slots, nslabs);
- 		if (!pool->slots) {
- 			kfree(mem);
- 			return -ENOMEM;
-@@ -2050,7 +2050,7 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
- 
- 		pool->areas = kzalloc_objs(*pool->areas, nareas);
- 		if (!pool->areas) {
--			kfree(pool->slots);
-+			kvfree(pool->slots);
- 			kfree(mem);
- 			return -ENOMEM;
- 		}
-@@ -2067,7 +2067,7 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
- 			if (ret) {
- 				dev_err(dev, "Failed to decrypt restricted DMA pool\n");
- 				kfree(pool->areas);
--				kfree(pool->slots);
-+				kvfree(pool->slots);
- 				kfree(mem);
- 				return ret;
- 			}
-
----
-base-commit: 14866e632fa48a0b4c385ab0121526575eb8f88c
-change-id: 20261120-upstream2-swiotlb-rmem-kvzalloc-f6cb6cfe09a3
-
-Best regards,
---  
-Zhendong Liu <yzddmr6@gmail.com>
-
-
+Thanks for testing, Jules. I'll add your Reported-by and copy you on v2.
