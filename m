@@ -1,72 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795185749;
-	b=JQ6ota6rjuTdaDp3pfmF6zVb6S4JPSxW3hR1DN84GJv3Tx8sdJp3BWIwAXPcQVu5p1hf
-	 tpsO8wf6s2AzlYNyGvBhk/cs/HuuLntrMG9drQ8brWaq3AFM/UBH/+mbypyV2mcRsLiq9
-	 xgTg4UVm8tL3KXvZFC9/gjvOtumO5R1gALirZ5/QOmaLrjpb1gdYlFFrewY6+1DS3gYyG
-	 z6EflkEmwYln3ffVf1LtZFeA8PHPn41yf/hcA/LRHnqhaa/Jdmka252KqfnWJ+ibj3dfA
-	 HWGob+kf+MF1IoxVpqbq4RQN8qvK0CVdqR7NSLf7ARyS0Vlqky/5L9A0zolXoxRbDwg==
+	t=1795185874;
+	b=KVeNjx6Hlc0OPNoJSx5vHY3QZUVsf8VFmx4zAeiZWDPE4V1i56HnBiEKbNXGpaf/IwPD
+	 G6mXVb7aF0dYiuAt1NzPvYIISZ/aQcP78wEQi1lRfMWDAnYL/hnwl/IaxYchcbzV18e/W
+	 NEwJ/vpgImKSjQ0NYPgpAj7tyd6m+SAyBOFVKUJQfIF5xN3RZSJTPMJ+cggNcANuxhtN6
+	 51gtoFlddyMZtQSkWWWeJhJVKTr+2k/hsEOR6HMi9vdrXAg45IuL/3DpL5TUj/mu3/GCo
+	 gFJ0nUaSJg6Fsr/6D8tSfck5ez4188Cnqu3s2kIfYQHGlyCrqa39Ghn6nxjtCljnQMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795185749;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=qbd+z81NWcBJ3UbzNi7GzHSjiR7on5yG5EEeouAnung=;
-	b=Q9xsPRYzkU1cZ7e0k/DTrgR31zP0MCdAJFbyweiPJJt59CYL6OZCM6JU4oaiDCLIGszA
-	 NpJc6rYhyZrtrUIsMdfeKX0p+12qlDRZgPZWEdnCZueS9IJQpAeFQk4Ab1s7irF+/iMvP
-	 kmd42WFC9/OiYwTJfkxPGspv7m6cmB/K9CWRLKiAFnAqP7WcmplVuoPWSq6HiWqiVNgaR
-	 qWLjtPk7iXB9wtaPglfGps8Cn+TOiE+k6OMDAqO2FSAURQYjV3zA2eFpNU7cnEABsz3g4
-	 ssACrRwQF53sB2BH9FDs5P0vnBvWp7XFH9o/mA0FCnM/cpJFuJ7I4vetMgPn/X6N7BA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795185874;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=m38xEXFjByfiKAzO4g/0gPgc29AKU9uTE7VRz7Geb/Q=;
+	b=Nm+BKRiCjrbjzmMMz4memgWPNB41ZUoopG5yuS5pFZgSf7eU6pQON4/t4PTUx7h3vFu0
+	 zGDstEzsaj/MoiGgkdqGV+vb3B4UyMn7RrpkWXXkav37RUZQLHyrQ3XbLif6zuYCnaudK
+	 3NCe9W7HibBHrJy9qyrGDL6qjMGtFRTU6A35f5CE8PR1MSzlHV5IIPbKGSu2T8sp95Oqi
+	 xBzVo0mRMJUCRBZrvKv/dXqIIRt2P0UyreE8gZ0iHoygJKK7MeVES5ammCecdrgXluCgJ
+	 IdREkEij1nag7NyjKJ4NYDWt960KfjZ75kRCaCVGReMMiGsjsH8ClOhPJwOj5hSKMHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ny2sWYgn;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="RL/dp9Ey";
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1594606A32A
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 14:42:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1594606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D6B606A325
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 14:44:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71D6B606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ny2sWYgn
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 1601E4E41681;
-	Fri, 20 Nov 2026 14:42:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DDB99601B9;
-	Fri, 20 Nov 2026 14:42:25 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F0D8C11BC0232;
-	Fri, 20 Nov 2026 15:42:16 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795185740; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=qbd+z81NWcBJ3UbzNi7GzHSjiR7on5yG5EEeouAnung=;
-	b=ny2sWYgnB0zcWHeFXhqxhDIAWQ/uV1VQzEEqCRq0frSEgIqGk0A/Gnr16gKIM/7MkE8G3Y
-	Dj81WUujkTgIygPti1bkzTol8TEO6lCcIikzANbIIz9JsdQguQvKy+ZskThQzoVvwiFImN
-	ANv6xsoO9kd+7yRJvQmXW5XinY6o210rhfzz1pDFd1wbNowGtBfLLgcifRK1mXcQ57HSSE
-	W+CrBat6FC4flKNMgU5QC43LywpdbagUOGBJVu+eQhirnHhKXtfyTU6I4iJWgHXVY94oMC
-	E6BVwAjHuXZOYLo00D9sQDoL4Queg25DHL5gvFaP98HIwXURNSC9YxMG30bvxA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Nicolas Ferre <nicolas.ferre@microchip.com>,
-  Alexandre Belloni <alexandre.belloni@bootlin.com>,  Claudiu Beznea
- <claudiu.beznea@tuxon.dev>,  Boris Brezillon <bbrezillon@kernel.org>,
-  linux-mtd@lists.infradead.org,  linux-kernel@vger.kernel.org,
-  linux-arm-kernel@lists.infradead.org,  stable@vger.kernel.org
-Subject: Re: [PATCH] mtd: rawnand: atmel: release the NFC IRQ before
- controller cleanup
-In-Reply-To: <20261108-submit-atmel-nand-irq-teardown-v1-v1-1-341643c83ee3@gmail.com>
-	(James Hilliard's message of "Sun, 08 Nov 2026 14:07:31 -0700")
-References: <20261108-submit-atmel-nand-irq-teardown-v1-v1-1-341643c83ee3@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 20 Nov 2026 15:42:16 +0100
-Message-ID: <87tslba7jr.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RL/dp9Ey
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-498f5fa5103so585836f8f.2
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 06:44:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795185873; x=1795790673; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=m38xEXFjByfiKAzO4g/0gPgc29AKU9uTE7VRz7Geb/Q=;
+        b=RL/dp9Ey9w11tTYSnWl/GfKTENXwG/NTsBETPFGblppDQ2px8PAe3X56P7oZweN1XC
+         eo3I9BiL4fhxrOaVziS0QzQSh0P/l2gU1XFFG1aLIUf2bz2nH7bAugEIZKk21G3NvoDU
+         ioMlLkbTNSL18YKm1GT4KKHYu20peTtSGG4aB5hXPk8gAq+HvxdRlOdnFhqOf/SYwEHi
+         QNt/cJKkXEyF/b37VPqpy+p0E6Wd/Orz1e7xxlsGjP7qigYzw6gPtpAdtnuGIALnuEA7
+         drhGHInsVCSxt1rp8XNZYbADgUQj9FKfgBs3DTtVZe9DHkr5ry1Az5JtH+OuDFj65/SO
+         in4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795185873; x=1795790673;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m38xEXFjByfiKAzO4g/0gPgc29AKU9uTE7VRz7Geb/Q=;
+        b=Se1cvikmc0FVJSq7nl40U/11c2vwr661fAWDbL6aHQueJZvEDhlPjwGEoMMxOhAeei
+         ZFyocO6c2Snr+4MGkjjgUG3hRuBKIQUzyx6EYK/Sj2rHjtDISakhvRm6iYiRzdpK7yie
+         yV2cnKzaEJzjD+7ChVwOIuSDZLbxGvwSzwv0dFHLeXGFar4lC2H7ko98CHGFQb3H5usV
+         ydOe1nz9rKRguGEIDeyfrpR4e+E20u0I542r2qgagY3JMPNEZeoGJY2ZtbHd3hDTEAnu
+         fGnlNhqURQsA+7ris5Dt7BGcQypsVkxBT9pBAvX8JajE1P15M71Qr2sgN+gOUIccjqxz
+         +yIQ==
+X-Forwarded-Encrypted: i=1; AL+hErFVnUIKdHKS9CbD+Gyfypd2jasL8dpQu+BXYs4v1Up/RmccLkEVwCaOAwy0g8EVXIhUvcX0uzA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LWWSIVMLfPsDrGTzc8/o35R4+OOzXK0Hets9DCDhtDW30fmNN
+	yTwr0b6Ne9TjX0Las+1S7ooAvvGQzBi3g5/qWajFT8in5P/MW1DWldIQ
+X-Gm-Gg: AZFdTZfDjOqOJt3dCHF8PYUtQK0DIVhxz2E66/jYVpVBcRLG6sV7lC+SoTnaA//pp4z
+	X0hC55PD3BUl8irJr7vZjbt0t5Lv3anuczeNWTEQ7+/mxV+O/YViC4CS3b7Hq+1wdbGJBHBdhfn
+	JrZiKlqVW2MfGTnqCE2QJovPpLfzCfQLm/m+xF8DVkIu/gAFobFUIlg7clV2eQK9tR7zdcK/Ydw
+	rYZn48nQ9zNStP5xihIapGJfYXv0lCPcFWxdp904uOGSucwJzJELOXIO1/bDtoI03PeOIgctdYm
+	vImlH+P8+FGXeWjBgCdspdnTC+NwlxgEvuwZ9N/dAe5FT6AL1JWNmtR6NoeZwwcqsfWQdaf0eOG
+	eLZql74eqn/MXmbIPRZVqyHnwb5fj0k9kumgThmYV4Z2Ckc3m+Fgiew1C2ZG/yiV/DZVVLSpbB5
+	NZinazXkMLh11XASMOXyQKo7RtVk1bW9iHpJL3qT1O7gsJVpFGi5oWylOwy8Q+j6Fe4s0mNsUtk
+	1ScGlSFoev02NBG+VD0qmWTas+WYmBF1cdzM7c9UXyS9A0QFcJOUkeccdcKglpYfizBMX8hZ77j
+	Qc+9gJJEN2hk7ONmwKs/UupsZZzwzWxCljIvqLimq9NTkNrtpX+hFHByuncol4L57j8=
+X-Received: by 2002:a5d:5f91:0:b0:48d:f9dd:e3df with SMTP id ffacd0b85a97d-4abb386134bmr6418979f8f.18.1795185872700;
+        Fri, 20 Nov 2026 06:44:32 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6bc8ce06sm5994516f8f.47.2026.11.20.06.44.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 06:44:32 -0800 (PST)
+Date: Fri, 20 Nov 2026 14:44:30 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Tina Zhang <zhang_wei@open-hieco.net>
+Cc: x86@kernel.org, puwen@hygon.cn, tglx@linutronix.de, mingo@redhat.com,
+ bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com,
+ linux-kernel@vger.kernel.org, yangzhen@hygon.cn, dengqiming@hygon.cn,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] x86/cpu/hygon: Work around XSAVES Erratum 1386
+Message-ID: <20261120144430.0b1b43a3@pumpkin>
+In-Reply-To: <22eb33f3-a6f7-43b6-837b-74c8f5a3428b@open-hieco.net>
+References: <20261028235712.383977-1-zhang_wei@open-hieco.net>
+	<20261120094627.513b216e@pumpkin>
+	<22eb33f3-a6f7-43b6-837b-74c8f5a3428b@open-hieco.net>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,65 +102,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 08/11/2026 at 14:07:31 -07, James Hilliard <james.hilliard1@gmail.com> w=
-rote:
+On Fri, 20 Nov 2026 22:12:59 +0800
+Tina Zhang <zhang_wei@open-hieco.net> wrote:
 
-> The NFC interrupt is shared and devm-managed. Controller removal disables
-> the clock used by the legacy binding before devres releases the handler.
-> An interrupt from another device on the shared line can therefore make
-> atmel_nfc_interrupt() read the NFC status with its clock disabled.
->
-> Release and drain the handler before freeing the controller resources.
-> Track successful IRQ registration because probe also uses this cleanup
-> path when requesting the IRQ itself fails.
->
-> Fixes: f88fc122cc34 ("mtd: nand: Cleanup/rework the atmel_nand driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
->  drivers/mtd/nand/raw/atmel/nand-controller.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/mtd/nand/raw/atmel/nand-controller.c b/drivers/mtd/n=
-and/raw/atmel/nand-controller.c
-> index 0bdbcbb50d94..9a724de67624 100644
-> --- a/drivers/mtd/nand/raw/atmel/nand-controller.c
-> +++ b/drivers/mtd/nand/raw/atmel/nand-controller.c
-> @@ -263,6 +263,7 @@ struct atmel_hsmc_nand_controller {
->  	struct completion complete;
->  	u32 cfg;
->  	int irq;
-> +	bool irq_requested;
->=20=20
->  	/* Only used when instantiating from legacy DT bindings. */
->  	struct clk *clk;
-> @@ -2334,6 +2335,9 @@ atmel_hsmc_nand_controller_remove(struct atmel_nand=
-_controller *nc)
->  	regmap_write(hsmc_nc->base.smc, ATMEL_HSMC_NFC_CTRL,
->  		     ATMEL_HSMC_NFC_CTRL_DIS);
->=20=20
-> +	if (hsmc_nc->irq_requested)
-> +		devm_free_irq(nc->dev, hsmc_nc->irq, hsmc_nc);
-> +
+> Hi David,
+> 
+> 
+> On 11/20/2026 5:46 PM, David Laight wrote:
+> > On Thu, 29 Oct 2026 07:57:12 +0800
+> > Tina Zhang<zhang_wei@open-hieco.net> wrote:
+> >   
+> >> The XSAVES malfunction described in AMD Erratum 1386 also affects
+> >> certain Hygon Family 18h processors. Under specific conditions, XSAVES
+> >> may fail to save XMM register state, allowing stale register values to
+> >> reappear after the state is restored.
+> >>
+> >> None of the affected processors enumerate supervisor XSAVE state
+> >> components. XSAVEC is therefore equivalent for their enabled state
+> >> components and is not affected by the erratum.  
+> > Would it just make sense to use XSAVES unless there are bits set in XSS
+> > MSR that the kernel might need to request be saved?  
+> 
+> Did you mean that the kernel could prefer XSAVEC when no supervisor 
+> XSAVE state needs to be saved, rather than clearing X86_FEATURE_XSAVES 
+> on the affected processors?
 
-That's a terrible approach, completely defeating the main purpose of
-devres.
+Or when there can never be any supervisor XSAVE state to be saved.
+I rather lost track of these instructions after XSAVEOPT.
 
-Your problem is a devres ordering. The fix should be by teaching devres
-the right order instead of open coding the fix. So you need a
-***_clk_cleanup() helper which does:
+David
 
-	clk_disable_unprepare(nc->clk);
-	clk_put(nc->clk);
+> 
+> That sounds reasonable in principle, although IIUC it would require 
+> changes to the current xstate instruction selection logic.
+> 
+> Thanks,
+> Tina
+> 
 
-and you want to register it before the IRQ request so it is triggered
-after:
-
-        devm_add_action_or_reset(dev, ***_clk_cleanup, ...);
-
-Thanks,
-Miqu=C3=A8l
