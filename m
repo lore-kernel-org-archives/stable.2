@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795207194;
-	b=vDDc7BrJ1uEFW2lPGqOmvWjuxGxhUPG90jdcvnLOtB4EkmYh+cyY9QCQYqzLKu9XseWW
-	 wQXlvttNfv0bxtoQLdDIqOpbDBQlQOA77T75sABOtqPmv5Yjvv46n9Fkb+zHqMPwIolzA
-	 m8VBCIjmAvMby+7M5LO8p+y6W0GsLXjDTK2hT5Yfpuenor05WDJ1G9jqMFN8PRSD5/tqS
-	 7GctfDzXXMcwlL0mUYu8MLeGfiw3qah3m5t4pTjMdsCx7f0fVoJFHMirxyS9xu0IiRPUM
-	 V5W75BhI/4Tmf2opG3T1ClW8+8dsCrt+rpoQBxNpZflc95VlkbO3DgeMslGQebd9Xhg==
+	t=1795207195;
+	b=XQp5OmjrxWomNUMjouYsj+WmMjbebPDMjzIQ2TpUPngqULjrHAtfLeOrpkXZqTGynEH9
+	 ACuHaa3QdVNA9WHecTymIhRV4sd3o+F3wcdTSP2x+WtVe29/qCsNhjfcaM5DMZzNJTfbk
+	 /AKULYAlU9JqizUAQUA0F8Z2rsgV/PIke4twRLYwj9tYDK/GMbQ5sarg4H98vbJVHgozg
+	 OXltkxrL9BWh+rucT42QZBc19z05v7X3Q35zvGtrTWDBAfcJlZwIV3+5k3eKMTyNGjEne
+	 0s7LyEI+DCmhCjCIG8gdHops6rRI6OP+WgkeQ+unq5mUZ4kAsPI7rOAYbcnyWdbsIEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795207194;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795207195;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=L74D0DDjr6qWcUhuctNEfte9ljzjjSG9KJneW2JFBgo=;
-	b=OBg8gD1kqXMxK5bP6hhpcXC3AgbZm/upGYhZY6CXdNTWVPU5ZMkkxR0TOes3Pm5uBuLQ
-	 yFcce9QQGoEFdKIequLXd56O1a3/Eo3rSbPQlsHqYsypXr7JBH/XiPqapixHjnpecg+ZB
-	 vJI3V24RlOP6Gs0bBYIUSBy0Liyx+hHkC+opxPlODAEQxEIXHrp4SxjElFdYMzofsHq40
-	 f3pTiSg8w6+g3G/Pl5X5OX1vOSizWIRkeyhMfmGgugVpCbrPSdTsdm5GbMEi17/Rc5LGc
-	 XBqml9j79/qIsPTgwjC++eiDiDEcFCZyD7AyxsZ0NCtEhnT1UyMHpTVHcBfXHZb2iFw==
+	bh=tGrhs9x4eGI2rilzfhPa4/lDsJZ8nr4YIP38FNjmM+s=;
+	b=Cknl8jnqfbQA659VdVcIsqdTp8EHnZVA3eMqK3dZ7OI+74JCoUtpaX6pSBPfF2npjy7F
+	 KK/Yteqm2PdPHi99gE+U4r1FtreS2yeZO/+fj4v/PA0zTiQjHf1xlx/8OJIJ97usmFGaq
+	 AhCeHGKF6hdstvHpZ3EDXsNnH5+H+dB/vat1GOEzo/KOoktUQLryjly9k7+dwbYTAUjfb
+	 1+vcZtFBQh6gxCfuQ6w5iPqZb+aII7T/w+UYVYE2YiziBEVSzA8X+VwvuUdrFviig/xz5
+	 McLbTHAeIVdHfmnV+fRQwge5SUXKxqH237Yda88fDailJNnCFNm4JvMQOXDZQu0vs3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVXmMFAc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AC2s+qjw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC12606A6E7;
-	Fri, 20 Nov 2026 20:39:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2CD606A6FC;
+	Fri, 20 Nov 2026 20:39:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVXmMFAc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17A6B1F000C4;
-	Fri, 20 Nov 2026 20:39:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AC2s+qjw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C97B1F000D2;
+	Fri, 20 Nov 2026 20:39:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795207193;
-	bh=L74D0DDjr6qWcUhuctNEfte9ljzjjSG9KJneW2JFBgo=;
+	s=k20260515; t=1795207195;
+	bh=tGrhs9x4eGI2rilzfhPa4/lDsJZ8nr4YIP38FNjmM+s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dVXmMFAce2VQJx/RYIPcvSKGFUDL0p5vKetl9/pJCe4+RFjJ3qAeJa7A8Q9D0Lc4J
-	 FEj1m0vIL+8aYPdmRr5Yq/yZRBOreCe9/Acx/krA0mhCoZ0KIEJSCjLtJWyvJxhOiA
-	 r0mzIXHGz531nIE6u4Hm+N2UyCs+kTykUS/e+NBMDlEENWkJU875qDUNTGkD0mXevu
-	 hK30N2qmZi9WRuLmoG+NfZiJz6SWmSmaTEslyx774itGZ5qDovydn6FkSxWf91e4r/
-	 8ZI94wPPD5RMiWe0p0e+PJumLpWIC0JwMCkrVrieEwont+RQVLznob+d92iMkHjaq5
-	 FB6QqVGQFU5wg==
+	b=AC2s+qjwbwhhHhED4Yu7rfQ3q1Xp1OhzZO4S+uNWdq+9fbTnErfQU50MlS1WTsNKJ
+	 HKIs/Oh33owFyOXEdMPgQbabsF1EHYbExfuRYS2Pa1PTs/JNKK5dgu8LLWiRtt5EB6
+	 C+TpscAu3ACr1CAc/P++rRkRaiTlciHkvGrfhvb9SM8SVH4Txq7u0i5BSSKHZirkpN
+	 gE0a3jqqqrp41GZjxsbX/+ZNWEy7oYFNHAqVTCV/RczoJRaRHXfF4/dbKJkUKEDLwt
+	 U5jUl8NeWo2RbNgeRSQal3zkk4Gher2nuBFZG5WTCAEmWfcUaWIFfUhRYjPm6A3Ild
+	 LxUyU9i6TKP4g==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
+To: Jens Axboe <axboe@kernel.dk>
 Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	Travis Howard <thoward@lafayetteinstrument.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 6.12 1515/1756] tg3: Add Datto SIRIS 5 1U Server to restart AER quirk table
-Date: Fri, 20 Nov 2026 15:39:09 -0500
-Message-ID: <2026-11-20-1-daily-reply-0020@kernel.org>
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
+	Yufan Chen <yufan.chen@linux.dev>,
+	dev@rebasedinc.com,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: io_uring/eventfd: registered eventfd signals only once after the cd305ee3633a backport (6.18.y, 6.12.y, Ubuntu 26.04)
+Date: Fri, 20 Nov 2026 15:39:10 -0500
+Message-ID: <2026-11-20-1-daily-reply-0021@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <5066c2c3-653a-4865-bef8-e031504e04cd@oracle.com>
-References: <5066c2c3-653a-4865-bef8-e031504e04cd@oracle.com>
+In-Reply-To: <2026112048-paper-radiance-199e@gregkh>
+References: <2026112048-paper-radiance-199e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Could we drop this patch? The original AER quirk was superseded;
-> adding it to the replacement table changes its meaning I think.
+> > >> Commit: 3adf7ae18bf4
+> > >> Date: Apr 18
+> > >> Fix: Partial mremap of the ring
+[...]
+> Great, then someone should have tagged these for stable inclusion, or
+> let us know after the fact :(
 
-Dropped from all trees, thanks.
+Queued 3adf7ae18bf4 ("fs: aio: reject partial mremap to avoid
+Null-pointer-dereference error") for 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10.
+
+c03ce4173c7b ("fs: aio: set VMA_DONTCOPY_BIT in mmap to fix
+NULL-pointer-dereference error") isn't needed for the crash there: d53b5aa5cfae
+("aio: fix NULL deref when a fault races ring truncation") is already queued on
+all of those trees, and its ->read_folio returning -EIO closes the fork route
+too, so c03ce4173c7b would only change fork() behaviour.
 
 -- 
 Thanks,
