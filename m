@@ -1,80 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795142955;
-	b=gmQSwlgUYH1KRt2IxZPEq8txbEdARGL1UJUryVeB5Al0z1chA7Y0O+ugaoni+zQ9utAY
-	 ZFCgIxCJ/wVp4HVl6gQgmjKaHmOrD/iMJrN1Dyp98aU6lum0OLXpL47OdOQYP0Ffuck7P
-	 QAwPvUJxeyvXs0vBlEwo85hAUZ8Mj/zd9NLTOWV3HC3QAjKEg7vGTzPEFknJVF9GybHkk
-	 3eHoFO67PZW8/1baDodz33c+gRboDK+lmet+kOp2vHF82ZXrZu5f1jyllMmBjrbuwOZ+C
-	 XVZUWHBiEa2cle+jeXh2/OWyfSE3pxarf41U8Fp1FW6Vuk/2M8vsLw1qr8tcxJsHLHg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795142955;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=CQl2SvQWLVhrrF+rgxKWAOgk0VZ5T5baWvxZ2m1vTk4=;
-	b=JMRh6HVxP8ApSBgQk+Ylfn9QsHNO448/eVPyv0Q2VBddA8q/peXELGzY0w4IEpAi+uLV
-	 POp6jP7fVVqlByTccKkerUtzPUa9Azn9jNs7kH8ktikTSLeWpBOPdGidOle9i+3uyazV4
-	 riPF4FkuwclG3yg5fwutiA/4ae4CxpU0rbShcgIk1C7Lu6yTwyEMV/CxfyNGDKsFqkQoE
-	 QcoJefyB+2D8Tvd2AgFZ1i6J7hECy/9nD+NyO6pk4eZp+U+Xkx/In3Dfn6DCiKtRkqVYg
-	 0wk8vKUfiJFzfcVCL+yOaBYOcz19mQ0Gdc0WSAc0Qx4vyuQvXRmpjCNsvxXVVkrLBiA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N47Ecp42;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795143102;
+	b=pQ/yQHOTM92uYWK5EexRYXdyLZYl6UMg6p7hn7oOFIKtdKfFb5BDqY0EVt/nlpLqlTox
+	 9eWJQ+LgHyYIpT7J7rCuM6WJUBbvap7Ol2OSsSDtSZ+v4vGLsk/6/9iSNaF/NCZ4TgbRq
+	 Koyv3S617+aRO+WtnrzDWW9uJGCG0yyzyRdfva9v3AyYn5/W9J3XgqRkq73c1kJHkPXVD
+	 buCQqrXnnY70/rZ+d6eh/9ME0MKdcpNZ4IuJiXwetcSixmramIzZl6UuyIA+wvqxGBRkB
+	 MIxCNjKSx+ed4HTUs1AotO7CC5ueojVazLSp0Q2ZL/tLN1Vqi6EWLTLPcPVtKG7qiVw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795143102;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=eGfAtI9kyl38J1trJHjzM3izwRkrfzjC6sxGZRhszQ8=;
+	b=l/ZW2RjubSZrJ5YldhkrrImHt9CXnR1mMuNOfOwHZMK1UvWttCMRzkEf+zfbUrNM2YYv
+	 FQVN9RbuKnVkvNdkM4np7yklBxF4wSQfn5ZhkQ9zBR46x8toxq6HWeJn/5aBZaQxVD7ao
+	 GYHUX3M/1oYfQADzs2WdonPmOwE4/mwySpaGny+m6Exfk79wS+8XE/LxQdqrrScdZgXSb
+	 2iLtbKKosCmUvmHrEk3juC2wY21DBJ1VMsDWezNFi/BZlgMH1rkL/fH15RmVFw+taQREA
+	 z/N7iiHYAtKpNtuAE9D79IntH0iU4vdBpEXIpE8Bbycko9OJQ8YwKRpABaVJPoJgsVg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=seanlyon.dev;
+	spf=pass smtp.mailfrom=seanlyon.dev;
+	dkim=pass header.d=seanlyon.dev header.i=@seanlyon.dev header.a=rsa-sha256 header.s=fm1 header.b=l7zTENoZ;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=YAenRQ9n;
+	arc=none smtp.remote-ip=202.12.124.159
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4DC606A326;
-	Fri, 20 Nov 2026 02:49:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF3A606A325
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 02:51:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABF3A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seanlyon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N47Ecp42
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795142954;
-	b=bAZL82/NGYB57OCKwcvaL90hdPKlNcM1pK3kyavHP5kpWQNtpJrX6kd0sqpUCo6JwAU9
-	 vVkP9QE3e2L2imPx9RMeylFftzm++PH31+OGrgZ+X83iiMLyY8kAOxb0IEvNp8/9YcEd2
-	 S++e1RlYm3Fj9KvcvXf0+lCHzJKTpODdgwLX8Y5+C3B3OX6rwqS3F+nDLWCBGSsULcwAp
-	 TlCXiV+8bM2xQXlGor618sIishzotwI3EKuvZTaFOnofgaE3WAqLVJx1KJyGn7g25S6Lc
-	 RqGfr2gpCpgEc4Sk2NFKWIlqWh9AtEx6HbBNUo1cP0crVZJIndgc6hWP9Sp219aK3Dg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795142954;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=CQl2SvQWLVhrrF+rgxKWAOgk0VZ5T5baWvxZ2m1vTk4=;
-	b=cvPQuophWFeDOUAhetGCCxWFuHp4XqClU+Fm60f19wN6oRpg5/s1UX8RoHtYhff/nBqM
-	 8J+F35+5UCXRVX6CVc2kTKAHmCayy39qcSWW4KCOGvngeI//O4Y/3OZxC1xOPjNovhbqZ
-	 kvq3zP/A8aIxIVi7cdWPFR4QLqUOySE8+fb18R6UBOMePZzajfnu5lliDJzR3632XpTBE
-	 kHAUjuImbDofandbHixyB29Fqoe7m3FqVKEAmo5d7/FV7Pt9rkFL4xlCPwIECKh8L0NsK
-	 CMlLScN7AHG0IwQWvGquxU0QpvCX6x9tzBDgavc103yUDNpFpFQI/t3dBklzsq09DiA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3D4141F000C4;
-	Fri, 20 Nov 2026 02:49:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795142954;
-	bh=CQl2SvQWLVhrrF+rgxKWAOgk0VZ5T5baWvxZ2m1vTk4=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=N47Ecp42XNCgB1A/TRdRC2XV80YsdBV9YKDQEJPT/xr2ReBkfnYfCP3ftCBoeMmbJ
-	 MsQ1SLtA/7/LYD2DEXeiR7gylxvuyNzqDeCxpd8jqjJhZShNt/6ifBI+k4Rp3AlbY2
-	 Q15jw3k2tPJmMCIX78Cjd0mt/MHdaS7aHCWd2CQ+VmbheMtGrcKt7pLhSj/57HsEjt
-	 VbzIXAm9fImqlaMvfaVbezb/hPnVlnUJwdq2xradnXnEs5ztk6Xn+d8KiMIMjeiHed
-	 vfS9rJcc6S0Tu5XaZIzOPG1Ch2+4Qh97yTfhpbwhScjHcI1FxmlK1n/crMkSLgqUtg
-	 QEayeH7cvLq3Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AE2704263C;
-	Fri, 20 Nov 2026 02:49:13 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v2 0/2] media: verisilicon: Fix VDPU2 decoder error
- handling
-Date: Fri, 20 Nov 2026 02:49:13 +0000
-Message-Id: <20261120-vdpu2-errreset-v2-0-8f4ef55e6dee@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=seanlyon.dev header.i=@seanlyon.dev header.a=rsa-sha256 header.s=fm1 header.b=l7zTENoZ;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=YAenRQ9n
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 0C2CE7A01FD
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 21:51:41 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Thu, 19 Nov 2026 21:51:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seanlyon.dev; h=
+	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1795143100; x=1795229500; bh=eGfAtI9kyl
+	38J1trJHjzM3izwRkrfzjC6sxGZRhszQ8=; b=l7zTENoZN7JNl6iF4eu20r97po
+	rzR1oyXoqmS8tgFzvlYk7JBjBgNUJ28xmltVoD3CaMCnfrolWtOlMvELos+u8eC7
+	sw05110XxB8UPkmVttnp0ssElBrbPOStfXnQu4ikjwaJpfWyxbWiZvXeNLdxDqUZ
+	DXouSiTRwuI8S6o/zleXdJLguqZZ0cldSgPqbdHSR35okRRefyjO1Whg6e3vOVWE
+	8ia67CUK6wt+zvEh5+eSQ5ZFgWDPChhY8UJ0NrnB2KF8wzS6ZyVajVi00BGguXpV
+	6koMer2heYmKd3wUd3N3HPNvgKsO0XfPefMMRT05t9MlFBxpE4A8yAQrkpMQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795143100; x=1795229500; bh=eGfAtI9kyl38J1trJHjzM3izwRkrfzjC6sx
+	GZRhszQ8=; b=YAenRQ9nTmFpi0n06vo8DwHbHTA9eMY/HFmvniNBPYfZx5CloaE
+	fZIZjUUwpkkRwdEbA/R8Rpg0CbDctuHdvZcUP2Z7pXrXqkkMMblnDP5fnSNXc6JL
+	TpD3LDVaewspfuo51Jhs+kEFEczU+KIwLEzD5uqLnEGwA4Yesfhovwn+Eoij5QmW
+	D44dhsCp3ex6PvBtwsaQ0O5IBv0xUXedkA9sykEuWo/haSHWu+82rmtJ1DdoE/Jf
+	UPLzYUj15PjrJUDwf7n88iyj/xWb8aRCFaQXpWFtLm4BKtjWVCctitXkg0r8rnks
+	GJVwsoccB/UJDKU6xllms4Bx9Yjf6Gof/Sw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=seanlyon.dev a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795143100; d=seanlyon.dev;
+	mf=PHNlYW5Ac2Vhbmx5b24uZGV2Pg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:YoWE1aZMdvTUd2ef7KO4oEf8NouMEG1NuMCEePAuo7IgZOS
+	oVwP3FlgcMA1YXikgJEx8VoGl7KoxRlKFa6cQgDFeedUzoQN22E3Ab8zS3Dvr6LP
+	BE99XUW1/sVLcKgFcXDJ4cQ4lg202bw2hLmM45oCMDrRdqg6Ae7ceofeIpfryHpP
+	l3gEZea7J/M7ynSEPL7yPInFsoiJw1UuTMv6qKhCSaH8pBbvkRbEg1aiZ8Ktc7WD
+	YKsl/uyMkmlpceR8AJW2zq6C11uXjHynH9c0A0G9poLLCQbeZPEEq2PF9SVDxjvR
+	pMPd6rgiAU9jX+O2jfNGC8zaeKIc0ADqS9xUTzg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:d4R6zsxUJ3nWZ33S2TESEzabliviX49L7PBOKLUxx1s=:UZf5nWPtx6oc53tNqsnCxw4a5bNtZ3wjBy68QPC81ro=;
+X-ME-Sender: <xms:vLX_ar-WY6P-JzfK65w1YqeER1-x3LCxfS6Yx4QDwe4mwnxPoNw_5Q>
+    <xme:vLX_ajkY7oAj22XuuJNb9FFfz9R2f6ReVGUhk_M9i6Q62demLyV34aj1mkV_CnfBQ
+    danZ5WfXNdw4FXPSV4XPSI3NGsJOalbnmSy7tCq6TYKkAycuVdUTNQ>
+X-ME-Received: <xmr:vLX_akhtw5oXqOkszvyB-Gc0uAI6pc1vDQb2w5F5mRGiSvC-FcZ7lcRgtJL-U12WLR0t78QODaNxnWelQatU5AvLQ-Q>
+X-ME-Proxy-Cause: dmFkZTGLuheel4IkDeQJKZsYVqt+ZkTlooqvIH1sGgPCN74xucbqrfqeqIJnUZKGb5vpW7
+    6wQ6kIGZUa68gW5mJIFbTwxXfxV9Ls9RXIit317iEAxTNnxAJ1hIgbMgrWx1PFmthxTtqp
+    CYsTJsT/IIq8DJDxqjVOgWm34x7XnQLgbfiFJI1CFisdaYcypkaMMSPmSkVmKpcFfEHd2v
+    CuEZpJLyKc+Uqooi/VYtHvPNApM2kUQL8aq7NWQ2KeRx3X0JG1a4uSPLPd7ys8japO24Rh
+    qmHwA2o+EbAG5dJmGdp7pDSF//x+GlBcnzNVwyvtdAvYdjmuhwqZUjehm4dJpxl70/jIDI
+    whhCk8D/MelM/IBi3B51U6F6jfmw/dvoXLNO7lafC6v+XQMibHAKGd7BgK9B64Ryz4BH0i
+    0r39Jzf2eE4yO74bV9S1eLteA1TaE4aYEvwxaEiuTWm3XuhM8ZQm7h7YLjdRwrtORr0DCl
+    imvGxeytgrXO+H9C7oH5pHipN0K0IQ7W+3w2lwYC0vcgdbDqhWHtXwgJJMxmisGRXclljx
+    UyJjmI+dpGeiK0592Jy4Qm2Z6eOGfrPPBFrdEaf87RUo5YNMj40/au685r148mkC/wttBc
+    Sg0UmpBCnqg6HtZLYalwZmR/X7UuttsgXe24PDHUYawi+rVK73puvZyZqqQA
+X-ME-Proxy: <xmx:vLX_arYhN_toWF6-mcjOSLvjBIEP5sAINQWTvNbz7M6ZyUMh085Zfg>
+    <xmx:vLX_aoGX9uFkm6sAvRFaZAOnsIx8K0b-iYt34PjGxM1C5PcDAtTS9g>
+    <xmx:vLX_aob-YwuLta3zPyiuUeAUfmeimxnpEu3R7In5GoNdq6hqKr00xw>
+    <xmx:vLX_ap3kkZHwp0rT-Ei6CTiviEXUPDvXbzx-GbjKA5RMDIgV5E4EQg>
+    <xmx:vLX_asCGULIRp4g_r6Z6BKZMZWcvvBOWGcH0m4QTnlSQRLlb3tkiYp0S>
+Feedback-ID: i07c64b5b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 19 Nov 2026 21:51:39 -0500 (EST)
+Date: Thu, 19 Nov 2026 21:51:39 -0500
+From: Sean Lyon <sean@seanlyon.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 0000/2651] 7.3.6-rc1 review
+Message-ID: <av-1u3vCWASDWVS0@ncase>
+References: <20261118150247.972732815@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,72 +127,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12Nyw6CMBBFf4XM2po+FIsr/8OwKDDAGKFkCo2G8
- O8Cxo3Lk5x77gwBmTDANZmBMVIg36+gDwmUresbFFStDFrqVCl1FrEaJi2QmTHgKGxq7UVKkxl
- nYB0NjDW99uA9/3KYigeW41bZjJbC6Pm9P0a1eb949h+PSkhR29qdpClSZ9yt6Rw9j6XvIF+W5
- QPt8b64vgAAAA==
-X-Change-ID: 20261115-vdpu2-errreset-8688700393a3
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, Jonas Karlman <jonas@kwiboo.se>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795142953; l=1549;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=236hsCejcx3sS9x+HFSJjCRXf+BV1f1+zibsBZf0JVg=;
- b=+ScOgDQeEaI5FZeSrS1ngM1Vh5HeTVe1p8NGZR8cjcXzNPcKHKCVAGU/ex+lwBGdM2kHJUuCi
- 3ZpiTcU5blgAZD4G9tSKHLAmAsOsrEeaAqfLZAxw7WU3d/sWWcCRDiu
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 
-The VDPU2 decoder reports failed decodes as done, and its interrupt
-handler can finish a job the decoder is still working on.
+On Wed, Nov 18, 2026 at 03:20:40PM +0100, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.6 release.
+> There are 2651 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Tested on Orange Pi 5 (RK3588S), v7.3-based KASAN kernel: 72 H.264
-fluster suite runs, 50 error-stream runs, VP8 61/61; no IOMMU faults or
-timeouts. The decoder was still enabled after 72 buffer-empty
-interrupts; a later interrupt ended each of those jobs.
-With a TEST-only patch (not in this series), the IRQ_NONE path ran
-200 times on real registers; bus error and timeout, simulated 5 times
-each by injected status bits, were logged and ended their jobs at once.
-VP8 stayed 61/61 bit-exact.
-Build-tested on media next. MPEG-2, RK3399 and RK3568 untested.
+Built, booted, and tested on hardware for x86_64:
 
-Developed with Claude (Anthropic), which wrote the code and the commit
-messages. I reviewed every change.
+- AMD Ryzen 9 5900X, Nvidia RTX 3080 (nouveau)
+- Intel N100
 
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-Changes in v2:
-- Patch 2: no reset after an error; handle the interrupt like the G2
-  handler instead (Nicolas)
-- Link to v1: https://patch.msgid.link/20261119-vdpu2-errreset-v1-0-f8fa403b6a3a@gmail.com
+No regressions found.
 
----
-Arun Iyengar (2):
-      media: verisilicon: Don't report VDPU2 decoder errors as success
-      media: verisilicon: Handle VDPU2 decoder interrupts like the G2
+Tested-by: Sean Lyon <sean@seanlyon.dev>
 
- drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
----
-base-commit: aa0f4c41d4870a18e65772a1817af16427200371
-change-id: 20261115-vdpu2-errreset-8688700393a3
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
-
+Thanks!
+Sean
