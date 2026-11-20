@@ -1,98 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795214849;
-	b=XdQaemDhJl0UT0l29dCBYCm9oy9BzwUDkOTXmz2PEhXMl4Pv3D0yIi1GaRg9QAMT1m77
-	 VG1J2sOuwN9/AKrpRmKy1SZkidIQbPiqxaXpwaQ7aAWs0tYliw2MqHnkfNOjFri+QMc05
-	 dFfD0ZvmvWZqQkFIxWSTTO2n8SBDlM+aTtzkvOAV41Dq/NB6aR4WmcHqUxyx6v8eWcUdj
-	 Z9LloAU3LyRfpgJ55Ipm8ZW5O1z9fRe8H6wxcq4//Pc2YxnD2dqsx8mqcOOlsiaCTiEgB
-	 VaAwMG0ZwbSOXiOALc7xcwg1qAK6Nj6WAJWyKA5dezY5wKEVxyzCZLGn+INg8dj2taA==
+	t=1795215023;
+	b=US/Tk7+MyXYDvGhdQbLTkx4MevZ+qv7YvrSBSOv4uUGFKAykWM1uk00rh7xGCs474Lr8
+	 JgzL1WI2lO/Xs0ZLWOzgAn3ym86gRrh3VbK2ILQLrgZ77DL6rOUaL9SRqc6gTrD0XETqT
+	 cB2oX1Skpdkf5AJg54IxlXZ181OcWLCjmuNiFvUeuBXLPxaq4qO8ZXQ3l1+iU25ra816i
+	 thkWjocLWMKD6OYcNRE3ArbhWhOZz0GuhLRk+cR6b6QJbnYqAyo21ptspHfP05FUFQ8b/
+	 D3r0Cddq8ukeqF7QiCbU0ZJXUYz3XKCD0GyApzkKw2koE7bnenCPLh9xap9UWAjZ88Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795214849;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=hDktAyyJAPG9jc8GPRxfEzIEA8i6qmjQXTURV29xE6Y=;
-	b=cQG92qRRtAjUWNrpcTA4fXQP7vx8N0hQ+4I9ammB4zHsVIwtuGgaFtDq9NBgIllyonhF
-	 rLanw+R3nNSjTrWgRw2I50k3osgf/YSn2Zb0CyXV7jR/1pfMFzEcorpTpq9LBHxi39KIq
-	 Fqel0he38RmtPJkmTNHgTswanSqHPkAlWyLQUQMEzP53V3fJXYvFD5rFQONSO5mnbmHtp
-	 uvW7m+MvYUucih/7Df6kb/i8GMj1ewlt6OotKoVihHlZ9aUgThO5Wx4Vn1lEjv1j098Wh
-	 sfQmfLwmobTBN8lmOxiOTbOT0XZTfEjFIwHFSgeyMSOlv89J1Va4CpQLHRte2yfyz7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795215023;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=teexMSd8PHdfaM03rUjjEKQ2tL2BcpPqCRX495L4lZM=;
+	b=4qMl3hUBKU+1n0anp6YSYzrqOmEmWTFYJlO64xZyU+wihOjLqscwuIRI7Itdi0R+7KWz
+	 eb6vEWLr67luHXcBrk+nl0HJje0DnXaFZ2OuQ9EOqqfWaIPHcEdKgnZtSnbnETTblECQd
+	 AvgInM9yh4l+1jV8oGfkuIb6zCA41413SqPbwVl1A6GYj5I6/SldYpQI5CbEShW5wCYmm
+	 3qAAG+rupfo4w79RlkEo5Fx791T8FVa1zOboW4UUXhGss7tr8mPMXyojgHnixEZ4nSb8D
+	 XKfzTQQWvFpcQtRlk0lJWPEsAdqH17gpg5zwEO3G8fV96PFV41xoeXJTwXJXI9lwnbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YqI6DP+3;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EKrcD2EY;
+	arc=none smtp.remote-ip=91.218.175.105
+Received: from mta0.migadu.com (out-105.mta0.migadu.com [91.218.175.105])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05EF606A691
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 22:47:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A05EF606A691
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D7B606A33E
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 22:50:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88D7B606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YqI6DP+3
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4a9be758734so901532f8f.1
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 14:47:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795214847; x=1795819647; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hDktAyyJAPG9jc8GPRxfEzIEA8i6qmjQXTURV29xE6Y=;
-        b=YqI6DP+3PWKjWwhrVSanSRfoeCtUGdxyLFN0q3WF6JcLPvi/aGITEW1BCBWNIWYDe6
-         Hn+L+vBVQ4WjLXv2V4SsPm0qUF1cmmGYAyMip3yyHdLdRPVpTI4m3DcZpfEn+JsTCBTp
-         +u7nZpbaKaSU/FkE3IvPShMxjhhBKeDiBhminR/33hzO0JsMRF9Rk3ajRpvRrH+vq6y5
-         t/C/0WPgnuT9Rj7IYbKwNughO9V31PjasVWfo2npVPrnCTaOHO7C8QQj1KQYKZyFAOEl
-         BqN4IWnY1uYgltPdSKMfzbab+vJZca6gVuoaVApUxSxIP79izKHooXtSL2bRMMI5jrWE
-         f7dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795214847; x=1795819647;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hDktAyyJAPG9jc8GPRxfEzIEA8i6qmjQXTURV29xE6Y=;
-        b=VwurZuptd6JuxtHjmNa+o9SeQ4GXEAUP1Y2iYidMBOX4AZPkoZ5C72uMT6hUOBrg3p
-         TUkRyqOnjMt75s92pw/C0nNZs51jY/KaPyXBfqMTJ98gj+Raazbs3J74B06lpWSadDn4
-         YKqiNxtxqKy2ZsJuDvMhYKCnALW5TN/4P0XskfrovkuWLLFXWdjkLfnU71h1ZAK87YFD
-         QBCVPItPpPeQ6sW1LzgbviVj13FybzLCfAsO9mnlVK/vR8K1XpwauPM4KCGfiBGPtImA
-         KGcOw0ijaWv5CPKJlCE2lukX0umdOa5YFYMrT/lRqIvbp8QIAMQdbTUPkfxu7deciKV8
-         pW1A==
-X-Forwarded-Encrypted: i=1; AL+hErGljW71UcO8bFugmVZ/HhWByFqHv2O1fH2Znr61l9Kp3p59LwoH8HTy+HqjILf6q8NjcEP70dg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Jb8gtKfaLcY8JdDYMJF6xtPHI87L1j/Vagu9Q4a3z1CG0SRpp
-	DpJR7044cjw34HlJqEXX4865UIlBgK2ZpXJRKWeCOEAjG8HO41M5Ak4=
-X-Gm-Gg: AZFdTZfDo+RQXlQZVj21B3LrVwpaIfjEwkoHf7E15h7uxvBdSVQ5YCEL1NVeTEhfYay
-	b4qPR1IgaPo129f0ig//DHVWhd3ZyeOk2Ldroc2zXFGJlF5TuXsgpJD3h1F/U6esiz2+M1U+4po
-	N+V1N3SwLb6LvmzNx9uSDXwQDt5y3bQHNqzt0UB3MkTpYNWXkRHdH/bQh19nIfZtNKcomstWA4Z
-	BR1ezJyzV1+H8GYVXcLIMeL8cy/GbqKJKeL4PSwNzyyPFoClfrrcIcr7r42aLsdAghjpn0/LN3G
-	oPLgK//ZWHgVwS9CzXrDixiFyWPlF1AEpdUfJyzERIlgaODCaEXQPAybJMqd1rc4Q5Y6OHtK8yd
-	/lGM4+ySepn3RrfyjiohudnduK98ISh6kkQoga2B3jrJL5yAmVaKUNh886+t56OQZ3Eik+bXuv7
-	6YVXxxiF8eocmVkclfC5VTAPTyfE3M2HlLpQUDbmTvdjzsCTiTzP09/dVMRpMFXqqOcAwDdgBWY
-	6mUwGJg3pNu1O8k1neSE0EDLisXPw/wvR0H3SCuEnGb8hAtWHXMSXMCK17+k+FmJxC1WlL/LWUO
-	JsbmJ6PY
-X-Received: by 2002:a05:6000:4a0b:b0:4a7:4efc:11d0 with SMTP id ffacd0b85a97d-4abaf740155mr9169550f8f.12.1795214846879;
-        Fri, 20 Nov 2026 14:47:26 -0800 (PST)
-Received: from debian ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6baa3882sm8148705f8f.49.2026.11.20.14.47.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 14:47:26 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH v2 media] media: v4l2-mem2mem: cancel job_work in v4l2_m2m_release
-Date: Fri, 20 Nov 2026 22:47:25 -0000
-Message-ID: <179521484597.972404.10406015135695575425@talencesecurity.com>
-In-Reply-To: <a931e754-ab4e-42d8-8555-9a432fe42a1e@kernel.org>
-References: <a931e754-ab4e-42d8-8555-9a432fe42a1e@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EKrcD2EY
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rYwH//s3ZpyAARSSd1MnfBFwVXfqUmxKvytgZIbg1u8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795215020; v=1; x=1795819820;
+ b=EKrcD2EYwrim8wKNjZask/JMVfOilOIWboPZPxjVypk3fDw9G7bE5j12jZooP21W0W+zGV8/
+ THKr/md0GWRkwVS65SatZiGhtA7PiJKtjvbZmdcbKw6i+jQD4501gVGDv5827tvtdddyHUYeI5+
+ UQBlL6Hi/9QaN+uA7Hxst2MA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 15c7c981e0c8d853;
+	Fri, 20 Nov 2026 22:50:19 +0000
+X-Mizu-Trace-ID: 15c7c981e0c8d853
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bd1ed1fa-2ff2-435c-8e0c-372802eb7187@linux.dev>
+Date: Sat, 21 Nov 2026 06:50:15 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,13 +58,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf v2] net: skmsg: fix copy cursor when coalescing clones
+To: Kyle Zeng <kylebot@openai.com>, bpf@vger.kernel.org
+Cc: john.fastabend@gmail.com, jakub@cloudflare.com, netdev@vger.kernel.org,
+ alexei.starovoitov@gmail.com, stable@vger.kernel.org
+References: <20261120214511.25934-1-kylebot@openai.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <20261120214511.25934-1-kylebot@openai.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Hans,
 
-tristan@talencesecurity.com is my correct address -- it is in From and
-Signed-off-by.  tristmd@gmail.com is just the SMTP relay that
-git-send-email routes through; it leaks into the envelope sender but is
-not my identity.
 
-Thanks,
-Tristan
+On 11/21/26 5:45 AM, Kyle Zeng wrote:
+> A splice or zero-copy append can leave the destination copy cursor at
+> sg.end. If sk_msg_clone() subsequently coalesces with the last entry,
+> sg.end does not advance and the cursor still points at an unused slot.
+> sk_msg_memcopy_from_iter() can then walk around the ring and write into
+> older entries, including file pages spliced from a read-only descriptor.
+> 
+> Software TLS can reach this with an ordinary MSG_MORE send after a file
+> splice and a splice from another TCP socket. Both TCP and the TLS
+> encrypted-message allocation can use the sending task's page fragment,
+> so the TCP-sourced plaintext can be contiguous with the next cloned
+> encrypted-message range.
+> 
+> When coalescing with an exhausted destination, move the copy cursor to
+> the tail and set copybreak to its old length before extending it. Find
+> the actual tail on each iteration using the ring iterator, including
+> when end wraps to zero. Leave an existing copy cursor unchanged and
+> preserve the normal coalescing, reference counting, and memory charging.
+> 
+> The issue was found by an LLM.
+> 
+> Fixes: fda497e5f5b8 ("Optimize sk_msg_clone() by data merge to end dst sg entry")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+
+
+Hi Kyle, I also received same issue from somewhere, but I think we should fix the root cause(TLS).
+I have a fix patch and will send it shortly.
+> ---
+> v2:
+> - Rebase onto the BPF fixes tree; no code changes.
+> 
+> v1: https://lore.kernel.org/bpf/20261030042138.73739-1-kylebot@openai.com/
+> 
+> I have a reproducer for this issue and can share via DM
+> 
+>  net/core/skmsg.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+> 
+> diff --git a/net/core/skmsg.c b/net/core/skmsg.c
+> index 8a3b8536c0c2..f47c59ba1ec6 100644
+> --- a/net/core/skmsg.c
+> +++ b/net/core/skmsg.c
+> @@ -103,16 +103,26 @@ int sk_msg_clone(struct sock *sk, struct sk_msg *dst, struct sk_msg *src,
+>  	}
+>  
+>  	while (len) {
+> +		int last = dst->sg.end;
+> +
+>  		sge_len = sge->length - off;
+>  		if (sge_len > len)
+>  			sge_len = len;
+>  
+> -		if (dst->sg.end)
+> -			sgd = sk_msg_elem(dst, dst->sg.end - 1);
+> +		sgd = NULL;
+> +		if (dst->sg.size) {
+> +			sk_msg_iter_var_prev(last);
+> +			sgd = sk_msg_elem(dst, last);
+> +		}
+>  
+>  		if (sgd &&
+>  		    (sg_page(sge) == sg_page(sgd)) &&
+>  		    (sg_virt(sge) + off == sg_virt(sgd) + sgd->length)) {
+> +			/* Start copying at the newly cloned suffix. */
+> +			if (dst->sg.curr == dst->sg.end) {
+> +				dst->sg.curr = last;
+> +				dst->sg.copybreak = sgd->length;
+> +			}
+>  			sgd->length += sge_len;
+>  			dst->sg.size += sge_len;
+>  		} else if (!sk_msg_full(dst)) {
+> 
+> base-commit: d5ba86298b45e1a81c578c499e9a222a3b734d5d
+
