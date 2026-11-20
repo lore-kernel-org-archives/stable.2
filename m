@@ -1,98 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795196246;
-	b=AaNaGzGtbpe5brJNMDUEd07+SgVll2gJ5EIzJkkfzCwoIMk/+TufEXaWzrg5SFEazDX+
-	 y3G3SWiMANnz5zQD7KX2EpV6sWMoXgXd0R5p8J9LKondujESDELxUaoHAGhVb6itQlcpp
-	 zGqilrokuLuX0Bsm8Y0lw9oDjP/blHT9esdNbsSQD3deCTvLCW+7ph9AIjlVp+NhFDW4V
-	 j/eQzmEFdEbxseAkb6CCrPFOa59c92g7wVTLj1dTtjCjSRZ2Sn56q36g77+anDDe/Bbn3
-	 lnriKcMhhfl0RADKXaUwFrgMH6USMp1Oz3I/ouKfxAVxzCv8cGdOdG//Bmc56BQyBOg==
+	t=1795196336;
+	b=4sz0lv5Z5S5F8sE3chdsmTudFzFFjtcQSE6j3uNjp1Egy45sJqDTyYhIN9JZd6HtAM8l
+	 VQUdc3LI0+R/3aarbggYaS3PhSABWPoZbDI4zme06MOZrgTLLnKD1C3BPDfFAdkXIjqrB
+	 vP5BKXrXcnfUqhBsrGxXlPNJAgLQYy1x8g1eM2hf+Md5XmrZbY+X6zWNUGp5UJDVDJDoT
+	 EkvRPryLFk++LSMj69tozg7Pt7CbataYxwzLAJu8xMG8axnVJaHIrwH3ttPucVd66GgYU
+	 4yMvuGYnn2bk4xwnulwJ23hpP3zRH3FrlDqiqfKRWF6Sk3AYC08EJH7iYYPX6i012Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795196246;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196336;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2pQ/nw5caVi4RbK1CcsBfPp7aScPNttl9DankhCdcO4=;
-	b=rzXamSmD6zCt4PySrVDrxchpzWPGS4V+L4XNbHjMZX01iOXb9uIynPtyvm0JoF/yh94K
-	 odCXtYy4F4VS03/js7POYpMen/19aFRz9b1wJVB4uZj/w9S+Ihm2wAnyw+IANllO6hvXK
-	 V9zP4zwYIwhmzu74t9OvFQbEkuw844GB0ArDfX6G/lfZhah2uWIedNOBK1j93jncCMpcQ
-	 mAIIeZpwsb+UctNv88t1fuMNjxJhZiXbnCCKOlyMOPOHddy9euLZueJsYvyXAuzlXP7NY
-	 NgU2XraRYt4YnlnPmslwWXQOt2VzfVyZxnoDcrW6NjVEkic9jsSdvx0zB4NgmvSSj8A==
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=KTQmlFfwUQU4v+NLA+yUDpQoUdLsc1gGPYlZIjQ7eEo=;
+	b=2WPnkXu7CIwt6G7XrJSkexOC9eCtoHR3suIrZZKkbU3MfI/60gIoXO1HQwe9DFrzClnu
+	 UFe5VTHMHWAGd7+UFiDzrguzdNo2/l5F2Zeabu4f+AYhqb5ifn8OeAer6RqCceVrNzdrj
+	 w8Qi2L6nRD2fC29eUN/S4/6ACBLhYTC91WrlNhCKfnpRah/bIAbJmo21yMHF7YeqNjXIz
+	 yXKU2ssq9zqbJRPol62A0Opu5Cvr+0IqB++Q064Zex1siduNuv6gvQSaiEPp1SqXU3d/E
+	 /FbLwGgxmdAb6V7h6ECto4npXbpdEyXk1xDvuasTKx7bX3tYqaJ9eIBxuw1nJFOmoXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SBs2GTH4;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZLqTU0I+;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCDA606A332
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:37:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CCDA606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8D0606A32A
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:38:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD8D0606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SBs2GTH4
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdb15cd8558so570313a12.2
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 09:37:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZLqTU0I+
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2f0458cc9easo7638225ad.3
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 09:38:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795196245; x=1795801045; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2pQ/nw5caVi4RbK1CcsBfPp7aScPNttl9DankhCdcO4=;
-        b=SBs2GTH4L8M6Rb3Jxgh9y0QVbTov6iGvVd3DR49NC6s9S08jVl74nb1GLcO6K0JVJU
-         sTM0P0mcCw+V0jB0osrRwu6gKBN0NzZPLk4s0iltsU4bG897u6qvjehhROtlzjAwGjqF
-         A0SUUdE3OYJSXQnXeKotKuZjWZx5joSo9uFFE0YfG2BLwFL4GnRm0bcYYuWERvOZfz6L
-         AI2AK9jkAlzdBZWqseJTZztDIMfxSXtzOeB0/F4FhkJD2J/OQOx5B7lWdyaBZ4BoWs+b
-         CK1/UK85l84CX+80sK0sT9jmzeIOW9NYRioDQLJoy17gJ9q/0/QgqRVGJRRa1uVsRu71
-         +aNA==
+        d=gmail.com; s=20260707; t=1795196335; x=1795801135; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KTQmlFfwUQU4v+NLA+yUDpQoUdLsc1gGPYlZIjQ7eEo=;
+        b=ZLqTU0I+DIIHMin65pUJcuDQgDfSkiYKNkHSq8jQ2W1y3uMQaQPbei6+eu81GWf6Vn
+         KfMyIv597LZ5FDfOmkRrYz6QA5ZVwklvvIkdS7QUpmDkbyA4nTtBRgXM72IXzfhAeP3W
+         KnXGCWDrVBPaNcPYgQAPiwVRHiH48IWIP4jw1/pM35UI3IiPlG0O/c4k4O0yd7gbNsM3
+         81YCSm6zO16/6p/yt98D/h0Isr8KQ5k2zBEa5m6cdNPqxQX18ZHqgxKDzVTvmtpZsmkT
+         zbZ6YQPYIEQu+Y/TT7Tm7ujj3OxJ1vOEgM4VTNcKBV5LHzJ3MjXuqmaRaP2FvG9ghfN/
+         ec8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795196245; x=1795801045;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2pQ/nw5caVi4RbK1CcsBfPp7aScPNttl9DankhCdcO4=;
-        b=ipALyHPlpeiT57ZnxHkx8BzcjAC1uzGZSTzYVQ40XdpVasfOt+GDskfsh9KhFdxSZd
-         QmMkjQJW+QhejOPWxHmQ/uFAkFe0Dw8yDqrSEYYq1RUJHeDsB78LsXoi0U73cs/KEBnd
-         skNGmoGi6scag7G4j82NrZpVBVWvqdH39Be+CiuoCvvvpwg5JlRCnNlYuUdxoK+ycOAU
-         pBxPni4zqhdZP36Omhfe3q3XxWhjY0fkZibg36RFVa7reu7meb1N7ifkRybxdw68ZRs9
-         EM+nMfeVZyBjVw54LVXL5/70YQBTr565v/HvO38M/rCxwczhCMzgzzLL+LnHpVmYXKRM
-         NgJg==
-X-Forwarded-Encrypted: i=1; AL+hErH2o7pMfhlZgEVvh2zDaXPYYW8SoDanRwVVsMXiXS0I9CTh+WKDKiHlBHzKf/DrrYOsQCBtjKI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z938MG2DOmGObEENwCNAXmghEgID4ko9qnW1TV+yZ0mYAvEA2Ic
-	bgKGFirC661AkL3SBEj5mD4/PfkeGtNxv64+RxAYVYrjyo45wGmxpAOL
-X-Gm-Gg: AYBFou1uCf8tL4MJObCkwFvs/CUriDz/SbSjUtB0AZXh81NfOij0zvhI7ACoW/xAci+
-	Fq7mV5vZiFgz2W8btVvGTBjoHigIrX2de5hxH0IAl8xE+Dtys+lX4g0jHfKHPQaU1v3kOcgMcGs
-	aoZ+zMzqO41hSHg9Am9X3vsUhMMIlDfn8Gx7jQNFSZJDtwjTZLCxCTq6BWqbksnxfUSoL5PKiDX
-	PHshjUCccxDGfvxjP6XtW4umkkvJUX8LjOGRi85B+1SFFnzdMK9FGEtr8lAiZrlvpFeZ6d120Py
-	GGSlcYffFvbRiGUvZezSlISz2d8x1+58Fesfw2Slo+6YGoUUo5KpYxHMpg8ho1rcYXayK2kcPJB
-	sRmHgrxYdnMZexJwffcT8Tj1Wn1pUGs+9y26aw2ZL9/kq7Q/quKwWWkVWZ7+Jqqe2GFOopFgU+Q
-	QrO18qEsMKqbJB4ZpPIz0emx1QY4zVaaAXu17tIceY8bwteg2CF2ZOk20zNNsMFoM1R6xEJvrR+
-	LPnuWYAmcNad9iJpR5RdoCFp6/7Bg4EAxW9sfgM0J8yX/2bHlTL3p2P2yb/f8emLJxz8TksKy4+
-	f7H2rMo5BlgbdFY3hI4HYuUlNTzonICPU8SIoXEidVyU90O9u3oJ
-X-Received: by 2002:a05:6a21:4d8e:b0:3fa:10b3:c8f1 with SMTP id adf61e73a8af0-4014d25ddfbmr3224637637.41.1795196244659;
-        Fri, 20 Nov 2026 09:37:24 -0800 (PST)
-Received: from d.home.yangfl.dn42 ([2a09:bac5:6213:28::4:379])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c873c1d71dsm1853608b3a.53.2026.11.20.09.37.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 09:37:24 -0800 (PST)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	stable@vger.kernel.org,
-	Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Zhangfei Gao <zhangfei.gao@linaro.org>
-Subject: [PATCH net] net: hix5hd2_gmac: do not release the RX ring on interface close
-Date: Sat, 21 Nov 2026 01:36:56 +0800
-Message-ID: <20261120173702.1551838-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1795196335; x=1795801135;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KTQmlFfwUQU4v+NLA+yUDpQoUdLsc1gGPYlZIjQ7eEo=;
+        b=zEN4+Pnkjjcr6X3opitBzqa4KgeZMj4rd5dN2hjIj5B1F+cmCoJiGNuA1SWMcMqQLQ
+         l/Eu0F4q30r5jKB5STF4gHmgS4I3yU1Gqy/AJRRj5tLIKVjvHgUcXR9DJxP+ETBssCiv
+         GJOuue9q8Z63yXg4PY3hLS/H9q8fLM8paqguJ2+RkaBofcVsBA5oP21PCyda2QLG7w1Z
+         s2uYT5osAqFJDEX6WS3pcKXW1QLg5rK9Cyw0pfOjRQUhmgn1U8baly3KG5J83spJDuqX
+         6EOn62EIlmDK8iO+15xs7EOu0xD7rGYCYBDXwgHkHykTi8mpIsENNsyGURmEYJYvSwLI
+         Xrmw==
+X-Forwarded-Encrypted: i=1; AL+hErEHVtVOPBrDIORTkwIRvzvuU5iga8HH5QywzzswLb5In08C8Qdd0WVFsRvAkC/w6xzeT5SeTEA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+vCi/IxrKDU+pazpivnglyuFKzBDZc/YoxXfKzhvFJREXuHL8J
+	svM4QWX4e9PTXKwSOnU4rOwxtxOuMdn7gEzmHeCD0NGHG7/J+4Z6sxFuBJvs6Q==
+X-Gm-Gg: AZFdTZf3qMhGuV1yF3qYL2g+dXW2D9NHx9CsEUDTy6pyftei3D/J2oX3RUrIWTrosDb
+	1T0tTWHtpZMrT7nVg8CFEasnSCRJEtpbdU9lOCzHYaZwu67iieU5Gru04U/yu/Xx+0FrcFIBzyM
+	65wYK4e7GNirjZeZmvy9+KPSEjhvVqm/qFVAgG2NAujN6xKiopxe34BkFDV26rKN1AEqzviahoQ
+	4+RhE3STN+ogzZQLZ+xsKBHBqpeps54hyEXGDxqLxP3vbExoFkl9sj28MZ6Dm+hVpbUilmYu7Do
+	89yzoGX8oV1Nllwn4yopYjcCcLPPyuXMlBMBikV4lYMTByGxqRfwWS8WCI+aK3fcxgiCb6rgwfJ
+	gFTwdgbaueXKgkmOLhSylYXrRgqNswpWqHMwZtxd1NofqADLNGapFFL3xM99YLJjbul2snB1cAE
+	m9+gVu9TAhFD0bkghVIaTcCEqEBLpkPMmbTu/RlPcPjBRJEUcjlMaTGP+eQCuyayXtiDHhaeWdf
+	XVsSBkNSCwG0N94gQyM4tifHoYZz3LUH77a4yvJoigHlCXoLqhMuqCPtYkCkAAnKHv2L+Z4gsJY
+	VBLxwMSFfscVE6ii2iM47nvNNB49ICbZFrF6Jf9sU11s6i2clN73iugaUGWpqx1hxObG4t31AYY
+	+zMFSGDfLwuyODTxRA1qd8aiz72pyKBGGsQ==
+X-Received: by 2002:a17:903:2391:b0:2ef:f01f:fa4d with SMTP id d9443c01a7336-2f03f1e0f73mr43801925ad.51.1795196334841;
+        Fri, 20 Nov 2026 09:38:54 -0800 (PST)
+Received: from localhost ([153.61.198.247])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0dc4f2sm18100965ad.30.2026.11.20.09.38.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 09:38:54 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,82 +88,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 20 Nov 2026 17:38:53 +0000
+Message-Id: <DN07ZMOAD4GP.37PG3XUPBG4CM@gmail.com>
+Cc: "Ryan Roberts" <ryan.roberts@arm.com>, "Will Deacon" <will@kernel.org>,
+ "Mark Rutland" <mark.rutland@arm.com>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "John Fastabend" <john.fastabend@gmail.com>,
+ "Andrew Morton" <akpm@linux-foundation.org>, "Alexander Viro"
+ <viro@zeniv.linux.org.uk>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH v1] arm64: Mitigate Spectre v1 in the BPF interpreter
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Catalin Marinas" <catalin.marinas@arm.com>
+X-Mailer: aerc 0.20.1-355-gf870624f6c37
+References: <20261117172341.3152407-1-ryan.roberts@arm.com>
+ <DMYSI3BOQWOC.2P2FZB0H872DR@gmail.com> <awAay4FFj1_wQtaL@arm.com>
+In-Reply-To: <awAay4FFj1_wQtaL@arm.com>
 
-hix5hd2_net_close() frees the receive buffers while the free queue still
-holds the descriptors the block has already fetched.
+On Fri Nov 20, 2026 at 10:02 AM UTC, Catalin Marinas wrote:
+> On Thu, Nov 19, 2026 at 01:18:03AM +0000, Alexei Starovoitov wrote:
+>> On Tue, Nov 17, 2026 at 09:23 AM Ryan Roberts <ryan.roberts@arm.com> wro=
+te:
+>> > The arm64 JIT implements BPF_NOSPEC with a speculation barrier, but th=
+e
+>> > interpreter calls barrier_nospec(), which falls back to a no-op on
+>> > arm64. Programs executed by the interpreter therefore lack the
+>> > Spectre-v1 barriers assumed by the verifier. Contrary to the code
+>> > comment, kernel-wide SSBD does not provide this protection, since it
+>> > mitigates Spectre v4 rather than Spectre v1.
+>>=20
+>> Nack.
+>> In bpf-next arm64 has no interpreter when the JIT is built.
+>
+> And what about current mainline/stable or when one disables BPF_JIT
+> explicitly? Should we force BPF_JIT=3Dy as well when ALWAYS_ON=3Dy?
 
-A port that keeps receiving then DMAs arrived frames into buffers the
-slab has already taken back; on Hi3716cv200 the descriptors at the next
-open all carried the previous session's stamps, and the frames received
-then came up as slab garbage -- six parsed as LLC, the rest with an
-unrecognized ethertype.
-
-Do not release the receive buffers, their descriptors and the queue
-pointers on the close, until the device goes away, so the block keeps
-ownership of every address it prefetches.
-
-The sibling hisi_femac has the same defect and resets the port before
-freeing its ring, as in commit d54b21d82430 ("net: hisilicon:
-hisi_femac: Stop the receiver before releasing the RX ring"); this one,
-however, has no reset feature and has to keep them alive across a close.
-
-Fixes: 57c5bc9ad7d7 ("net: hisilicon: add hix5hd2 mac driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
- drivers/net/ethernet/hisilicon/hix5hd2_gmac.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-index 12a5657653f8..8c67a0670cbb 100644
---- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-+++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-@@ -792,7 +792,7 @@ static netdev_tx_t hix5hd2_net_xmit(struct sk_buff *skb, struct net_device *dev)
- 	return NETDEV_TX_OK;
- }
- 
--static void hix5hd2_free_dma_desc_rings(struct hix5hd2_priv *priv)
-+static void hix5hd2_free_rx_buffers(struct hix5hd2_priv *priv)
- {
- 	struct hix5hd2_desc *desc;
- 	dma_addr_t addr;
-@@ -810,6 +810,13 @@ static void hix5hd2_free_dma_desc_rings(struct hix5hd2_priv *priv)
- 		dev_kfree_skb_any(skb);
- 		priv->rx_skb[i] = NULL;
- 	}
-+}
-+
-+static void hix5hd2_free_tx_buffers(struct hix5hd2_priv *priv)
-+{
-+	struct hix5hd2_desc *desc;
-+	dma_addr_t addr;
-+	int i;
- 
- 	for (i = 0; i < TX_DESC_NUM; i++) {
- 		struct sk_buff *skb = priv->tx_skb[i];
-@@ -873,7 +880,10 @@ static int hix5hd2_net_close(struct net_device *dev)
- 	hix5hd2_irq_disable(priv);
- 	napi_disable(&priv->napi);
- 	netif_stop_queue(dev);
--	hix5hd2_free_dma_desc_rings(priv);
-+	/* free rx buffers when device goes away, not when interface closed;
-+	 * the hardware prefetches rx descriptors and cannot be expelled
-+	 */
-+	hix5hd2_free_tx_buffers(priv);
- 
- 	if (dev->phydev) {
- 		phy_stop(dev->phydev);
-@@ -985,6 +995,8 @@ static void hix5hd2_destroy_hw_desc_queue(struct hix5hd2_priv *priv)
- {
- 	int i;
- 
-+	hix5hd2_free_rx_buffers(priv);
-+
- 	for (i = 0; i < QUEUE_NUMS; i++) {
- 		if (priv->pool[i].desc) {
- 			dma_free_coherent(priv->dev, priv->pool[i].size,
--- 
-2.53.0
-
+Anyone who didn't have BPF_JIT_ALWAYS_ON=3Dy were exposed to speculation
+attacks forever. The security hole was wide open. We've been saying it
+forever. At the next merge window we will say
+"you cannot make wrong choice anymore".
