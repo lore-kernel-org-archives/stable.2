@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795207370;
-	b=gbex+lowGaQrxoATQgU8SIQvPoWVKNEIxB1xSnMs9kz0UoMFYQo4sW/GSSQYBXp/dv7h
-	 eHFJAWdbdW6l7Lb2hMeaxFYviPQCuedcX2ylDNbz7SfiZDaZBoufsmWz9IR2WJJG9nl/M
-	 a3ms2LLRPefQX3IDg6kRb4IO0zlKI9Xl6gBEIbYCXf7R+obZUtfaE1tMGHykTV7B43HyD
-	 hFrM+dJUn4riE8oq+D0R7lHUjlz/H8omlXCDrWIZu42L2U/pJ3pjUDh5fBGcApOs96Ml7
-	 H40pPAEOXwGW6Mwwc9oCHG4TNiwxFg07l4o+912qexX1zz7guQHAEpaj2zRNJpwXvAw==
+	t=1795207372;
+	b=0EN8d7OWYIyIIqaaPK6MW+JYivkhwPbxgnFJAtYtyisTOCPTJ4/vrkkGpT04ENozUcFE
+	 XJbhwnL8tJgzgiz2RvLAMk0CEnFx3Tfysh4u+6YV93uLVrll+8rwqmsfzppBw71gBXFrA
+	 gqFWZYjVItfM5eJXX7HYX7R5K5M+ROOh7yzCm3wUpyFs4+n7/DSwSzKT8cGoyIwQLs+wi
+	 cyfbkhi2M3rf3jYqakqqUxg/GCbMdnpVxpFPbf4gZ7i+BxifGeJNiGNNcFcDk2oTcPKGG
+	 ZxJnbhbGLdefPz9DVeKQSK4N8LEQlQp2z2eqcrpOsuTHkYDO9JXM4MOiVqdEqQEtNxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795207370;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795207372;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=TuqbUt3dF8KeZFj1XULIA3nImhV/03hNHHXoWUu0XEM=;
-	b=iq/YtzcDJr/t/FLoQx6J7vgK5awzg1OvN+W+EekMIT8io/bivuA9jHrq7yNLf5LbRnap
-	 eIX1TJTsAyTEj+Qg+0uGTMe6zyb4e/2q1Nq3JobkFWcNlsPuGGYRIpG1GNzpGaK2soeuh
-	 EYXLo5vjK/CCE7Lee9f7ODfB4LkoVk5k1fcAYSdBsyd824YekzuN5atKDtKtcoFWq+z0t
-	 PLCNHniOzPmDdCkaUP2+VyKEMm+0D1OAMyA9/hOoaVVN3RZksyY9oVsqFkTKfVkjRiwRz
-	 wUw89glq49K4H7SnFHxKS2oCQOlzHE28K0ziEHvkRavhiEBg+kVJA/8NU0GtR36bPQw==
+	bh=vE+uNjXsB2iA/fb83lE/XKLUhCwUuFaXjUJLCJJWSCI=;
+	b=I870YI4skev3rZUC2ihgBUXa1ez8wKW/E6JoVxlgdN5yqRZIW53psRqzqUISztLbXOxD
+	 mG1fGGwD9mtaJgH6pvTChDHSirjW2lvCSWEjxh0R/vGeOJH6k3ad/Oak8uHf9VaDLSZ8T
+	 ED81hbvWWLccBXmmH/4UWv8sXy55S2DiulJo61YPRdSk8f2AdHkg/TKvTtnYV5vYxqNir
+	 Z52iLSxlQDZCLEMn7mDUlSsPQyVH5il3kXu9IWbFXhg8ZaCwrU/jmSt3uopc9pRSB9QcG
+	 csgHrdTH2wmx1xKHVZ2GtVL8gnq2IcQNRjMgK4ODr8AHHAQo5xVBGSRTbzHqMsfx6Rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=PQ498Pfj;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=J0Ebh9eN;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A550E606A6DF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E8A60A6F4C;
 	Fri, 20 Nov 2026 20:42:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A550E606A6DF
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9E8A60A6F4C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=PQ498Pfj
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=J0Ebh9eN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1795207360;
-	bh=TuqbUt3dF8KeZFj1XULIA3nImhV/03hNHHXoWUu0XEM=;
+	bh=vE+uNjXsB2iA/fb83lE/XKLUhCwUuFaXjUJLCJJWSCI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=PQ498Pfjlj3frwagk4/jqPUJLQ7C/MJ/OMnJruTHWcY2Tvbae7KSUjKwyIR9freOy
-	 EZ2LlYWWleJ7+Q12W+E9JAZuS/eWpHBmBRIiam1VwPJCnyg8yNU//bMN8PLhvksU+e
-	 m6W0WWYXL10fGYTEFIoazKOTv9cYRiPYGm74bxWkiBqXoLvNTTykkwb7nM53wHSB7p
-	 qPggs+GOoBwJKw5AraIwD/LFFq9sw8cXxD0OMBUX8KPYCfRlFMpzGJu0yPp363ODgA
-	 Pau1r/aO+AIvebksESPPL6DnJz2A0w84JJAbVJMVtOnAJViItV4yD7Cq506hDIf8tA
-	 vS3s9a5PjNpKQ==
+	b=J0Ebh9eNqdwgHF3sJSdkQVj4yXGzfbxfno1u1Q16gCnI6Y08MQyRzk8zpJSY4o/wY
+	 w/MY4tlTAbdVE55FzRPZ3Hw69XyvyA65MZtZxg8PQjmR7rDp+Er7r3qlR5BnM6LEb0
+	 7wPILlp+/BM7rXLblMye6TG1u1EXb7FpDYQ6L9RoG9dwNOkRrPH0KZphCaiUD+Ek4T
+	 UESTEXhSuMQPEv1saN3QyAjUaK+W6CiUTKZUQ6JkZBNV9v2Q1xBfldR7hgW3aQcKcR
+	 PM5D30EqvkaSmldtwB729MUDNSqbgQx/HHsmhXMiwvPKLXkbBO7PdDjEhem50/9grD
+	 0DCMi8+sQiSYg==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jWS2S1f0YzV51;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jWS2S3r6qzV52;
 	Fri, 20 Nov 2026 15:42:40 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
@@ -80,9 +80,9 @@ Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v10 36/40] sched/deadline: Reschedule a running task throttled at its enqueue
-Date: Fri, 20 Nov 2026 15:42:13 -0500
-Message-Id: <c7168c45c66d37cca17851f827681c83f913191c.1795207233.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH v10 37/40] sched/deadline: Keep the start of the period across a change of dl_deadline
+Date: Fri, 20 Nov 2026 15:42:14 -0500
+Message-Id: <3360961974ba9401f7d6d4d7d5fd513db04c9fc5.1795207233.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1795207232.git.mathieu.desnoyers@efficios.com>
 References: <cover.1795207232.git.mathieu.desnoyers@efficios.com>
@@ -97,60 +97,162 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A task with a constrained deadline (dl_deadline < dl_period) can wake up
-after its deadline but before its next period.
-Commit df8eac8cafce ("sched/deadline: Throttle a constrained deadline
-task activated after the deadline") throttles it then until that period.
-A refill would let it run for dl_runtime every dl_deadline, more than
-its reservation.
+dl_next_period() works out the start of the next period of a deadline
+entity as deadline - dl_deadline + dl_period.
+Commit 5ac69d37784b ("sched/deadline: Make sure the replenishment timer
+fires in the next period") added it. The replenishment timer of a task
+with a constrained deadline then fires at its next period, not at its
+deadline. Commit df8eac8cafce ("sched/deadline: Throttle a constrained
+deadline task activated after the deadline") uses it too. It throttles a
+constrained task that wakes between its deadline and its next period.
 
-enqueue_dl_entity() makes this check at every enqueue, not only at a
-wakeup. These changes to a running task also dequeue and enqueue it:
-- sched_setattr() and sched_setaffinity();
-- a cgroup move;
-- a deboost in rt_mutex_setprio().
+The formula assumes that the deadline was set with the current
+dl_deadline. But sched_setattr() can change dl_deadline during a
+period, and the deadline stays. The start of the next period then moves
+by the old dl_deadline minus the new one:
+- A shorter dl_deadline moves it later. A task that wakes after its
+  period ended is throttled until that later time. For an implicit task
+  made constrained, that is up to dl_period - dl_deadline.
+- A longer dl_deadline moves it earlier. A constrained task that wakes
+  between its deadline and its real next period is not throttled. It
+  gets a new runtime before its next period.
 
-A task can run past its deadline with runtime left, for example after
-tasks with earlier deadlines delayed it. The check then throttles it and
-leaves it off the dl_rq. But nothing reschedules: prio_changed_dl() sees
-the same deadline and returns.
+Fix this by recording the start of each period in period_start, where
+the deadline is set. dl_next_period() and dl_in_constrained_gap() use
+it.
 
-The task keeps the CPU. update_curr_dl() skips a task that is off the
-dl_rq, so the tick neither charges it nor preempts it. It runs until it
-blocks, until a task with an earlier deadline wakes up, or until its
-next period. That is up to dl_period - dl_deadline of CPU time outside
-its reservation. The Sashiko AI review of this series found this. The
-constrained_gap_change_running case, added to deadline_bw_test later
-in this series, tests this. It fails without this patch.
+The Sashiko AI review of this series found this. The case
+wake_after_deadline_shrunk of deadline_bw_test, added later in this
+series, tests the shorter dl_deadline. It fails without this patch.
 
-Fix this by rescheduling when the check throttles the current task, as
-a throttle in update_curr_dl_se() does.
-
-Fixes: df8eac8cafce ("sched/deadline: Throttle a constrained deadline task activated after the deadline")
+Fixes: 5ac69d37784b ("sched/deadline: Make sure the replenishment timer fires in the next period")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Cc: stable@vger.kernel.org
 ---
- kernel/sched/deadline.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ include/linux/sched.h   |  1 +
+ kernel/sched/deadline.c | 25 +++++++++++++++++++------
+ 2 files changed, 20 insertions(+), 6 deletions(-)
 
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 491ddeea7d65..244e57fa8c21 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -661,6 +661,7 @@ struct sched_dl_entity {
+ 	 */
+ 	s64				runtime;	/* Remaining runtime for this instance	*/
+ 	u64				deadline;	/* Absolute deadline for this instance	*/
++	u64				period_start;	/* Absolute start of this instance	*/
+ 	unsigned int			flags;		/* Specifying the scheduler behaviour	*/
+ 
+ 	/*
 diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index fe48137509ad..b9c206a59c16 100644
+index b9c206a59c16..e9b3d3ec71d7 100644
 --- a/kernel/sched/deadline.c
 +++ b/kernel/sched/deadline.c
-@@ -1996,6 +1996,13 @@ static inline void dl_check_constrained_dl(struct sched_dl_entity *dl_se)
- 		dl_se->dl_throttled = 1;
- 		if (dl_se->runtime > 0)
+@@ -89,7 +89,8 @@ static inline int on_dl_rq(struct sched_dl_entity *dl_se)
+  */
+ static inline void dl_start_own_period(struct sched_dl_entity *dl_se)
+ {
+-	dl_se->deadline = rq_clock(rq_of_dl_se(dl_se)) + dl_se->dl_deadline;
++	dl_se->period_start = rq_clock(rq_of_dl_se(dl_se));
++	dl_se->deadline = dl_se->period_start + dl_se->dl_deadline;
+ 	dl_se->runtime = dl_se->dl_runtime;
+ }
+ 
+@@ -103,7 +104,7 @@ static inline bool dl_in_constrained_gap(struct sched_dl_entity *dl_se)
+ 	u64 now = rq_clock(rq_of_dl_se(dl_se));
+ 
+ 	return !dl_is_implicit(dl_se) && dl_time_before(dl_se->deadline, now) &&
+-	       dl_time_before(now, dl_se->deadline - dl_se->dl_deadline + dl_se->dl_period);
++	       dl_time_before(now, dl_se->period_start + dl_se->dl_period);
+ }
+ 
+ #ifdef CONFIG_RT_MUTEXES
+@@ -1260,7 +1261,8 @@ static inline void replenish_dl_new_period(struct sched_dl_entity *dl_se,
+ 					    struct rq *rq)
+ {
+ 	/* for non-boosted task, pi_of(dl_se) == dl_se */
+-	dl_se->deadline = rq_clock(rq) + pi_of(dl_se)->dl_deadline;
++	dl_se->period_start = rq_clock(rq);
++	dl_se->deadline = dl_se->period_start + pi_of(dl_se)->dl_deadline;
+ 	dl_se->runtime = pi_of(dl_se)->dl_runtime;
+ 	dl_note_donor_refill(dl_se);
+ 
+@@ -1384,6 +1386,7 @@ static void replenish_dl_entity(struct sched_dl_entity *dl_se)
+ 		WARN_ON_ONCE(!is_dl_boosted(dl_se));
+ 		if (!dl_se->dl_deadline) {
+ 			dl_se->deadline = rq_clock(rq);
++			dl_se->period_start = dl_se->deadline;
  			dl_se->runtime = 0;
-+		/*
-+		 * A running task is now off the dl_rq: the tick no longer
-+		 * charges it or preempts it. Reschedule, as a throttle in
-+		 * update_curr_dl_se() does.
-+		 */
-+		if (!dl_server(dl_se) && task_current_donor(rq, dl_task_of(dl_se)))
-+			resched_curr(rq);
+ 			dl_note_donor_refill(dl_se);
+ 		}
+@@ -1406,7 +1409,8 @@ static void replenish_dl_entity(struct sched_dl_entity *dl_se)
+ 	 */
+ 	if (dl_se->dl_deadline == 0 ||
+ 	    (dl_se->dl_defer_armed && dl_entity_overflow(dl_se, rq_clock(rq)))) {
+-		dl_se->deadline = rq_clock(rq) + deadline;
++		dl_se->period_start = rq_clock(rq);
++		dl_se->deadline = dl_se->period_start + deadline;
+ 		dl_se->runtime = runtime;
+ 		dl_note_donor_refill(dl_se);
+ 	}
+@@ -1425,6 +1429,7 @@ static void replenish_dl_entity(struct sched_dl_entity *dl_se)
+ 	 */
+ 	while (dl_se->runtime <= 0) {
+ 		dl_se->deadline += period;
++		dl_se->period_start += period;
+ 		dl_se->runtime += runtime;
+ 	}
+ 
+@@ -1658,9 +1663,14 @@ static void update_dl_entity(struct sched_dl_entity *dl_se)
  	}
  }
  
++/*
++ * Return the start of the next period of @dl_se. Do not work it out from
++ * the deadline and dl_deadline: sched_setattr() can change dl_deadline
++ * during the period.
++ */
+ static inline u64 dl_next_period(struct sched_dl_entity *dl_se)
+ {
+-	return dl_se->deadline - dl_se->dl_deadline + dl_se->dl_period;
++	return dl_se->period_start + dl_se->dl_period;
+ }
+ 
+ #ifdef CONFIG_RT_MUTEXES
+@@ -1728,7 +1738,7 @@ static int start_dl_timer(struct sched_dl_entity *dl_se)
+ 		WARN_ON_ONCE(!dl_se->dl_throttled);
+ 		act = ns_to_ktime(dl_se->deadline - dl_se->runtime);
+ 	} else {
+-		/* act = deadline - rel-deadline + period */
++		/* act = the start of the next period */
+ 		act = ns_to_ktime(dl_next_period(dl_se));
+ 	}
+ 
+@@ -2603,6 +2613,7 @@ int dl_server_apply_params(struct sched_dl_entity *dl_se, u64 runtime, u64 perio
+ 
+ 	dl_se->runtime = 0;
+ 	dl_se->deadline = 0;
++	dl_se->period_start = 0;
+ 
+ 	dl_se->dl_bw = to_ratio(dl_se->dl_period, dl_se->dl_runtime);
+ 	dl_se->dl_density = to_ratio(dl_se->dl_deadline, dl_se->dl_runtime);
+@@ -4848,6 +4859,7 @@ static void switched_from_dl(struct rq *rq, struct task_struct *p)
+ 	 */
+ 	if (!p->dl.dl_runtime) {
+ 		p->dl.deadline = 0;
++		p->dl.period_start = 0;
+ 		p->dl.runtime = 0;
+ 	}
+ 
+@@ -5394,6 +5406,7 @@ static void __dl_clear_params(struct sched_dl_entity *dl_se)
+ 	dl_se->dl_density		= 0;
+ 
+ 	dl_se->deadline			= 0;
++	dl_se->period_start		= 0;
+ 	dl_se->runtime			= 0;
+ 
+ 	dl_se->dl_throttled		= 0;
 -- 
 2.47.3
 
