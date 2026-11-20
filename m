@@ -1,53 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795184678;
-	b=CG6OtMeeYT4sNTYJSV2xqwOyNYFWXkBDn415rV0b3Pb/FLv6O/qm70GrT/Lls6Z26J1W
-	 eScaT5bwLz0yh3+OoHG9JzQChW470R4CgTk4EJ9WQrh5tkR02l6dhaBXA6xBy6BVji5we
-	 h5uGzTPyin493PAUi08zQZi0vY+1HaV/HSJ52q1TLZRC/eZILihCmzljtn/nFVuMo+OPw
-	 oA+DtdkSDbOxbzvcZG0WFKJin5Y++0lufztcSyxgDD7M+Rk2Ukp8Yu6tCWwgV0prOubLf
-	 f2UvA2T69Ky27pjNWcVS6LQCVSmukkY8/dD63BWXal6dZMP3MWHXs5Zh0ZEF6WdEa5w==
+	t=1795184708;
+	b=xh+EFxF+kIZcztRWGcScox2ctIQwa9ysFJpD+SUsPuvUKjzndghjk8oMs47n6nE9H3TH
+	 wPORLH3N7B/QeXFPW8BO8HZgrKbTYtK9gPFAxMDq+/EFrV1YQwClwPmnNWZ3b7N0vm2fy
+	 hejC+IrELqv3E8NzSmNpNnZ38Bd4FdAoOp+xigkAA6eG7V5OcAxFTfiZHWx7F346BB1Ip
+	 DLHOvuypawvFgfaav7jW3vUtMILtU0VmtdzrVrgtcPiXjEIvvoQ+g/enholeyC370XeqB
+	 Fl6H7bHCGnJy+y6sBWIrIYm2/DSOJRXFY1hTck40hXlFRzs82ZFNioHzP4NS1WT0IIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795184678;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xRGBG+H8IsQFC0ggZ137F9TX1SsMKn/LIGcOU/7XoYg=;
-	b=glUu399B4wn5bvY7ERuQD5JUCzaNPSf4+Mr9KkA4MZjgRIjbNnW9kTNns2lRsWN5WmqR
-	 7ro8MZdo1G0guSZX4HCmvnyuGsYLmXZJqbyRk0YlE2aA/NvBQttobhMNyI3/GnKUMm4np
-	 6bbCsJuQDi4op5sdV/FFt8LAeHlJbG/r1h0jnLhRotdGlzn8G6rvkNuoZ7wCuqH6hgB8j
-	 Ml9HTGXoQZM9cdJBn60oMxn98usREZwq1LSMgP2AMA3LFdRUgKQ+AmJwB/KO1kBKwIVVv
-	 EEpuZGO40hW0FsFkgIZzfSLq6MyEFr9rkq4zrxfWQsM6rAUPWzfYdxwz+E5wMxowhKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795184708;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=H6O65CLLUWIgdMsDRDATl9RK7ce3kVGQoA5luepajgE=;
+	b=M6mSSmIPtUZDuMKXfnNsgU3SU9JdHMBzJNNsR/9eKM9dE5tPsHTlNrev3y692eULOTgE
+	 LyEKjX8sZVwjQJo3Y/uI6G0k95SFWQ30En7L7pH4dw+jtyfV2Ug2iUYbImUtVNnxXBHYE
+	 6Vd7PAdzW8TqSuIbOftvLHyaHuwerW6e+8TRZepllcOSbVVY7rnHspgOdU6Vr0G2E1pUp
+	 WMs/tyrMDGAAmK94VU6PqT7C0XfNzovdz5+K8J/A717F5ICJaRXNe7wjQeT7r6UV5VDVg
+	 Q8eojXv63PNANxhirgmnKYNs3J9nIUBIMqvZUMq0mYN2zPJIcTe5yA88IsArY1T9djg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FipZUaJ6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJ9R6d5G;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6556F606A325;
-	Fri, 20 Nov 2026 14:24:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67268606A320;
+	Fri, 20 Nov 2026 14:25:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FipZUaJ6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 057461F000D1;
-	Fri, 20 Nov 2026 14:24:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795184677;
-	bh=xRGBG+H8IsQFC0ggZ137F9TX1SsMKn/LIGcOU/7XoYg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FipZUaJ6gg1t7t3+x7ufdDN7hHjs9ygwD9wTmiIyt92xUC5aJCsWzJPrialvihpxj
-	 i1d193JLFLpPCDUgyyuomTqCQaReo0B0DY4Hr3YZfVUW3hE8BY8yzsH3DVhvjQSUgs
-	 r5jMqJ0B63sKINUnpc0A/0E0TE/xR0ndMSqSKSvU=
-Date: Fri, 20 Nov 2026 15:24:35 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Hyunjung Ko <hj351016@gmail.com>
-Cc: Kevin Cernekee <cernekee@gmail.com>, Neill Kapron <nkapron@google.com>,
-	Felipe Balbi <balbi@ti.com>,
-	Sebastian Andrzej Siewior <sebastian@breakpoint.cc>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: gadget: bcm63xx_udc: don't sleep under spinlock in
- udc_stop
-Message-ID: <2026112019-gesture-crawling-0b54@gregkh>
-References: <20261111072310.3005580-1-hj351016@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJ9R6d5G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4901F000C4;
+	Fri, 20 Nov 2026 14:25:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795184707;
+	bh=H6O65CLLUWIgdMsDRDATl9RK7ce3kVGQoA5luepajgE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PJ9R6d5GOaIKZEi4nmUquLjpNC1fiotHXi8WNi/LYohKkNms6O4dNlWJdqSaRIEOb
+	 AU9MRFB1AiH50y0IDCqTRmpGiufDT0gmaU0aznIQz0hQm4euAqnoT3z+eywUhc1rxF
+	 +sMkFT7mvfUSq1XN5YmSYQXDpdw00+81xwb1ZWKwxtjK9iX521jmUBI/2+x3k2eH1d
+	 Qd+h0JA+BjSUHl/HopNh1L8JwRv90afaJQyizvyWqH0OvjSEeA7CnNAKag5ZGL2f0W
+	 m0J3NF/iBUkTY+IWArmEtk5Yhz440vv02XH/amO03s+yQqAX2CIAbi497oKNILAtTf
+	 osXxmq8dwm/Iw==
+Message-ID: <45fa03f1-6a0f-47b0-bfca-8eb295aaf86f@kernel.org>
+Date: Fri, 20 Nov 2026 15:25:03 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,44 +51,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111072310.3005580-1-hj351016@gmail.com>
+Subject: Re: [PATCH] usb: musb: fix use-after-free in musb_remove()
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Bin Liu <b-liu@ti.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@pengutronix.de>, Felipe Balbi <balbi@ti.com>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20261107-usb-uaf-fix-v1-1-ba33689d0ca3@kernel.org>
+ <2026112054-sweep-flap-b94d@gregkh>
+Content-Language: en-US
+From: Joshua Crofts <crofts@kernel.org>
+In-Reply-To: <2026112054-sweep-flap-b94d@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 04:23:10PM +0900, Hyunjung Ko wrote:
-> bcm63xx_udc_stop() clears udc->driver and then calls msleep(100) plus the
-> PHY/clock teardown while still holding udc->lock, which is taken with
-> spin_lock_irqsave(). Sleeping in that atomic context triggers "BUG:
-> scheduling while atomic" (and a CONFIG_DEBUG_ATOMIC_SLEEP splat) when the
-> gadget driver is unbound.
+On 20-Nov-26 15:11, Greg Kroah-Hartman wrote:
+> On Sat, Nov 07, 2026 at 12:46:17PM +0100, Joshua Crofts wrote:
+>> Currently in musb_remove(), musb_platform_exit() drops the PHY refcount
+>> before usb_phy_shutdown() is called, causing a use-after-free bug.
+>> 
+>> Reorder the function so that usb_phy_shutdown() is called before
+>> musb_platform_exit(), the same way as musb_init_controller() does in the
+>> error path.
+
+...
+
+>> 
 > 
-> The lock is only needed to clear udc->driver, which serializes against the
-> interrupt handler. The settle delay and the bcm63xx_select_phy_mode() /
-> set_clocks() teardown only touch hardware and are already called without
-> the lock during init, so drop the lock right after clearing udc->driver
-> and run the sleep and teardown unlocked.
-> 
-> Fixes: 613065e53cb1 ("usb: gadget: bcm63xx UDC driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
-> ---
->  drivers/usb/gadget/udc/bcm63xx_udc.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/gadget/udc/bcm63xx_udc.c b/drivers/usb/gadget/udc/bcm63xx_udc.c
-> index ba91b1ebbf57..269063d19f10 100644
-> --- a/drivers/usb/gadget/udc/bcm63xx_udc.c
-> +++ b/drivers/usb/gadget/udc/bcm63xx_udc.c
-> @@ -1847,8 +1847,8 @@ static int bcm63xx_udc_stop(struct usb_gadget *gadget)
->  	unsigned long flags;
->  
->  	spin_lock_irqsave(&udc->lock, flags);
-> -
->  	udc->driver = NULL;
-> +	spin_unlock_irqrestore(&udc->lock, flags);
+> Does not apply to the usb-linus branch, please rebase and resend.
 
-Why is a lock needed to write a single atomic value?
+Sorry, rebased patch here:
+https://lore.kernel.org/linux-usb/20261120-usb-uaf-fix-v2-1-cc3cb2a38ad5@kernel.org
 
-thanks,
+-- 
+Kind regards,
+Joshua Crofts
 
-greg k-h
