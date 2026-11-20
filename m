@@ -1,101 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795136820;
-	b=GT11tIpvSKsg3d3MY+77V1+7FGekEPpvZBSdRQAopFMSXOdyGfwC6bf6DkmJy1En4Liq
-	 hCYYuejDi1sGpOMbAffxmfDhDDBbjIBTksGn8r9NTVHT4heagZrgzXfSw7TmIm2qJs562
-	 PNe+TP6Q3rPY5HCtysAt1Yh6QXpFvJbyX+9hneQoYUVo2FuBUEDAumaexkxV7CCmCaCIV
-	 nBwyhSFrkIiDXiAcpi6sNtDDm2bTM6pWEyn64XVwAWZffoW6z9sHO+/lTRQsCfhWnZdCf
-	 WBeSHHjrLmKCk7I64ANiVBGdScwr5r2um5+6wpqMS8TQLpDGNLeNguYz8rcvaR52MUQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795136820;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=azpbeeR0UmmXKlAwsDU3rTomTiwLhVswnIguSA8HmN4=;
-	b=m+69zSWqxEBYuTrxIbNIQKZvVVXjqlBelAyMi+cd2Yy0Dp/lntfe7B7qWPEOVPQgnbmt
-	 0oikh8uPr6bg7wSzd5vwwpBSHcyVjakj04GOOOXSgxxvd7WOR2dptYu7bNM1+M8DR6hZK
-	 ntOOsK1WxCGwpo5NmjXHWLnDRV1glDFMtqJgUq+KsYqv3yQLn82CHqyblOYrMeksQRqRg
-	 Lvk0ZYnNsTBdi/OlEobTqXF0LNrbBLScj91L/MvwpZzOwk7TPzqgunps/S8wzugWr/fwK
-	 Il9Zotr4FBaN8vwXgdv1Y6A4a0dwMIM/0DKa6CadRkxGyDv5fviG1BiykZSZ4vVWHVw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=everpuredata.com;
-	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=sNHCMxoK;
-	arc=none smtp.remote-ip=209.85.216.100
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795137197;
+	b=yIEdcG5F4ps439CIoKuw9gT+c0dmaymQmO3/S3S/kIaNPBSH5E2wX4zKqSdXQtCIRqin
+	 qdMBlIotMu0J3JJA6BVp3vo/MnffPaGycYOYJDAliTfbl2PKozR313jcRbCytCs9JwrqA
+	 AZ9AfWAEfmi4IXOoUwbNmrzQVRE+eJAlmg2uAT6gALIV+NxsNwT6d26dKq0d5ClFHWSoH
+	 KkbdcivdRyfkwlmcRWWFCbRfUguIkT4Q6E8qG7f6ePnmcEa7Nl7TWLRYoN2bK9mTUGC9Z
+	 7iiLFQlL5NpDrASKoqEZVIzFY4du3HOHq16gWklfkyTsxUnodv+nVNXpzWrEkfGJxhw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795137197;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=0Sd6i+zrFVYtSL2eAJrD9qXfzhUKkx6ndMdVVrjruSY=;
+	b=jtCLHn4QYvFaPWvRV1lvhNuejplgSBL10kTOaFm+7fj4Ds/oGclENUrEtoPDMdwgyx0f
+	 POHLvacxjYX9SRuG5Lcc9yK5bYjwXNPlvWCi2k9GwqNHVaDbphjpvI6vJCiYesPUEy9n9
+	 BwaB9Xo8mcqOS0zzT0pJJFAA4UoHKVNRfPDdRc29pVMZPlZye9ZxFPk0iWnE61lxLHbvR
+	 /Atko/2MQXY6yVCyVXq6mG6GCdESawHjsWPz/aAa20Qooxzd20ugudpLrWagveCeaUs7w
+	 s6UUsuggnmY/nGlfSHYB2Hv3AhcjD1SyYAzGM4oqhQrGuWQeMpONkB64uveWpzbe7WQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PCGACtfj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B200606A325;
+	Fri, 20 Nov 2026 01:13:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PCGACtfj
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795137197;
+	b=fmi+w6w1aSQzn1OBN+5yVKl1uPURvWhd3A5KxPUpdKNxh+ToOnJAglhNGIIQCWfh+5nV
+	 zb6NN8Qox838nCcAd+GXp0+rcpya6jJb83vl9tdVWugMGVx5N4gIW3J3+lwdg0iFFBSLH
+	 fuZY3C4giJxPErjwKZNWRfHV+ASsDW6xweE3jW0DUbm9E1yz7h+kVmT+r1WzMB0MO0ogT
+	 cMe33vEEZN8Xm9HwOSdS+9fzPz13rhnhpSHrxLMUMkeXMXvIsgAqbEqWrxmPnjw9XejzN
+	 ucRLmk4zIM+kXGaQ5dVbRoj4GSm1VbAnoXujeGssGsuntNrNQCpmmZ0AlumpGHelHkQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795137197;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=0Sd6i+zrFVYtSL2eAJrD9qXfzhUKkx6ndMdVVrjruSY=;
+	b=O8X6A2ivBp6IV3R4UTJB7BpelsF2RmvFUb5RfXmcA5VEU5xBxw/3OaCibdP+OqKkpLUR
+	 7gXypJJu6emXUfhVvJpZiYYkHH9TyvYpil5y7XnKIWV6vFbcrcWYTFCaY4uq3p+RLWuZR
+	 j1fDMDc76pYndIBz18YHuEVilzZ8OhrX2TmG8RDeEHrCIdsh5V3YrTi0A/EGRtmow0AFM
+	 XQATnpwwoAy73Pwb9mXcwwGcfXTExtLtHIHbO1tZVKWkDy1fZGJw86SENrfgIQFoJ4xIM
+	 GGt82m/6MMimdI+MrvjcaJ9IF4w6bO8rzxWNBZ3vC1+qBveljUjfbi201L2Eh/rskJw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7D7606A325
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 01:07:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C7D7606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=sNHCMxoK
-Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3ae691283ecso149317a91.0
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 17:07:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1795136819; x=1795741619; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=azpbeeR0UmmXKlAwsDU3rTomTiwLhVswnIguSA8HmN4=;
-        b=sNHCMxoKSWnMHqi2heurqFOoJmbYTUZ1ydPiN/uY6pu66Ialos12XUTZNoCNtwVkXq
-         JuZqkFQovQyKNnqtxI6NqsCbkXV29sURHtqFrJpwh6I340bRFH3YlLbSDOwLaSXaZGIi
-         Hug0FY0uPk9Q3ZuXh5MDVtcLu1BdTi78gRSTl8ulOewYo0mj+ja9m1EUFV9WsEleVbbG
-         1f1z0VcRmou3jfj5k39rfexokdBaFu9AmKBhesyPjJ6x/xoX/aVcpeiq5TXxFUwAAHFy
-         B4Yyc3hU5ALZ8tID/p65P/uPpYIYVYD4b0ORWNDdL8I3HWNtp8IfR10LuqpX2tmk81BB
-         UfPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795136819; x=1795741619;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=azpbeeR0UmmXKlAwsDU3rTomTiwLhVswnIguSA8HmN4=;
-        b=CTcEe8Y3ywfz2CWFbi70KXNM1A8drFZFr384DGrBw8KYU1PqNrgP8wrc/zxwv/5RH6
-         1+i2L7ZEfs1qo1JQbduLMnE74Dxvh9mNZBuewn2SozN6QReH8udnji189fA/NLv/odX3
-         Xr7WXdiAgmthHR/iRp1nQ1XM0dOH/r/taRVuYp0iz7noheZXg+r2HR4ubFnx2cscy5Xy
-         NYHox1q5H8nh3wAQhS9t60vWexT5634KUf42ig+119i5/CC4SOqjm1XDMDnFTiVYJPFf
-         /t6gCHjCIwVxGTnXMap5fXG+34rM1UYmXNtPyppfoesbOQjyD0CDFnYjt6MipEjwyBoJ
-         r4Bg==
-X-Forwarded-Encrypted: i=1; AL+hErHTAvk50a59Lk4hWMitcmHotLSkbD0LjAlnwGNAQ2EPVzy5GhaRMmaUXbtZADwRuNG2NQErae0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CueHQrnhba0ehJ7ske/gXNbufwj1g3xcYG1Zg545X/BuiZizV
-	VTVGlQgXcXJzGY+cvsQ+Ix9z/TTNMUrN2aCtNOIh6dQvaSf4an/o5qcQCcSmSqAIU/VaQR944GC
-	VuLdr3JTpHOkGtZR+uSkw2JxkESujQO57HAwM
-X-Gm-Gg: AZFdTZd8KDidM0Md5yLa3cIt91P0q0ZrnW1mEyvfFO9EDsJL2aOPbpC0F6in3t7sasO
-	4FW6YOs1ktVErc7kQHu1FIdAW/xlw5h+Hzbx+ZTSmYQy1QKXvp786OIqlJEWlWDqiKMZ0mdCHc/
-	gtxWiGlYs0TfCqJ4cgM04eBoQVzdHyyR7o/SodwIV34Y3+XMdjF0UWySbrDzwCMEgHOO+WqAFuJ
-	oC3xuIHKucfGnnXzb1JHjH0LGXYr+c253X8T9KwNZS+negU/nevUeulBios3V+yy8WR20UNgQJf
-	phQH964EOmpfmQF+q8IveX8wXrhD+ywhBaLT/IkiJOddBgb49nCau5yTi3aH5pAyCC6Qk8OjVD8
-	Zh3hXje1qF1J+5uwK+9ozibJQ7vrp1XMYP4+tLOE=
-X-Received: by 2002:a17:90b:5546:b0:3b0:a1c6:95ae with SMTP id 98e67ed59e1d1-3b41c941f9amr621799a91.31.1795136819434;
-        Thu, 19 Nov 2026 17:06:59 -0800 (PST)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b41cfc5245sm238009a91.0.2026.11.19.17.06.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 17:06:59 -0800 (PST)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id C9314340382;
-	Thu, 19 Nov 2026 17:06:24 -0800 (PST)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: Benjamin Coddington <bcodding@hammerspace.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Tigran Mkrtchyan <tigran.mkrtchyan@desy.de>,
-	Jon Curley <jcurley@everpuredata.com>,
-	Eric Badger <ebadger@everpuredata.com>,
-	Shiva Lingappa <slingappa@everpuredata.com>,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] NFS/flexfiles: Don't treat a locally aborted read as a DS failure
-Date: Fri, 20 Nov 2026 01:06:24 +0000
-Message-ID: <20261120010624.2154348-1-tmenninger@everpuredata.com>
-X-Mailer: git-send-email 2.53.0
+	by smtp.kernel.org (Postfix) with ESMTPS id A6E191F000CA;
+	Fri, 20 Nov 2026 01:13:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795137197;
+	bh=0Sd6i+zrFVYtSL2eAJrD9qXfzhUKkx6ndMdVVrjruSY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=PCGACtfjOqN3uwAUMZzTjIZWG4ks71DtrR2Eg/nclQynWhFw13N2w07rADvWsOLtg
+	 fJjEUGhcANDq1z87sNaFQIovYe9vZteQ9ZTNIjZJe/+OqbwzCurZfEXsZ5mUOcbDKh
+	 QCRHEnCguLFh6nTmDgZotI7cES8S/u949PFXt/v3rlXcoKGGZuZidK7IxIgLBas2JZ
+	 iMA0Jg/JC68SFlNzswhzBKmBuSgLj47144YGSMn2ed2tgrCOALDECdrCrVUr1O0a0r
+	 E3IN1tIekCYCOwbtBlYJliQ8jAcyPjPVsuwe79raiFdf27fvoK17NHkoJdewpcPE15
+	 eNOldK/quj9AA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3A217425FF;
+	Fri, 20 Nov 2026 01:13:16 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Fri, 20 Nov 2026 01:13:16 +0000
+Subject: [PATCH] tee: optee: check for the supplicant under supp->mutex
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,85 +82,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261120-optee-supp-toctou-v1-1-d9a2bdea1c90@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTsJU6MGrmJcYPnRYUGbTmtMC
+ Hen6PJbvLeSISmM+malhI+ahqVCTg3597C8wDpWk2vdVUQ6DjEDbCVGzsHnUHgcnL9MbXfDWah
+ 2MWHS7+95f/xt5TnD52NE27YDbTJKYnUAAAA=
+X-Change-ID: 20261119-optee-supp-toctou-da2c5f097e31
+To: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>
+Cc: op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795137196; l=2397;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=r+DQHxCOjcjVvvLW4z3rrN6VNbrbMcD//gJUMsCvQXA=;
+ b=irKeG1tS1xjH2e5wZixMtRgpxVJnRQ42nvZOXhZQvcCjRW+s/qZsKt4qjlzxguZIhsC7zCLaY
+ M6C+ScbZGmkAimKTGANjsQOXkqKi7IURLIKJZ756ptsYLTjbLFW2Hkr
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-When a flexfiles read asks for a pNFS resend, ff_layout_resend_pnfs_read()
-treats the failure as a DS problem. It moves to the next mirror and sends
-LAYOUTERROR, or, if no other mirror is usable, marks the layout for
-return.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-That is the wrong response when the client aborted the read itself.
-Relevant cases which don't establish a new DS failure, and therefore no
-longer drive another layout return:
+optee_supp_thrd_req() checks supp->ctx without supp->mutex. If the
+supplicant is released between the check and queueing, a supp_nowait
+request is queued after optee_supp_release() aborted the queue and
+waits until a new supplicant opens. For in-kernel clients that can
+be forever.
 
-    ECANCELED
-        pnfs_lseg_cancel_io() cancelled the I/O because its layout
-        segment was being returned or invalidated.
+Do the check under supp->mutex, together with queueing the request.
 
-    EAGAIN with the current RPC attempt unsent and hdr->lseg invalid
-        ff_layout_read_prepare_common() found the segment already
-        invalidated and exited the task before transmission.
-
-This was observed on 7.4-rc3 on a one-client one-DS system under
-sustained direct-read I/O over pNFS/RDMA after restarting the nfs
-service on the DS. Marking the layout for return cancels the reads of
-the segments obtained in the meantime, which then fail the same way. The
-client marked the layout for return from this path about 8,000 times a
-second and reconnected transports about 300 times a second. With this
-change, the layout was no longer marked for return from this path and
-transports reconnected about 10 times a second.
-
-Detect these local aborts before attempting DS failover and resend
-through pNFS using the current mirror index as the starting point.
-Skip the explicit LAYOUTERROR and layout-return requests in this
-resend handler, leaving existing error recording unchanged.
-
-Fixes: b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is recalled or revoked")
+Fixes: 42bf4152d8a7 ("tee: add supp_nowait flag in tee_context struct")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- fs/nfs/flexfilelayout/flexfilelayout.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+Found by Sashiko in its review of [1]; the race is older than that patch.
+Tested on an Orange Pi 5 (7.3-based, KASAN and lockdep) with a test-only
+2 ms delay between the check and queueing; 1242 of 2000 supp_nowait
+requests stranded without this patch, none with it. A real
+tee-supplicant was not tested.
 
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
-index 5c289737366f2..31f17d79b270a 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -1313,6 +1313,16 @@ static void ff_layout_reset_write(struct nfs_pgio_header *hdr, bool retry_pnfs)
- 	}
- }
+Developed with Claude (Anthropic), which wrote the code and the commit
+message. I reviewed it.
+
+[1] https://lore.kernel.org/r/20261115-optee-supp-close-v1-1-4e0b14f3a97c@gmail.com
+---
+ drivers/tee/optee/supp.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/tee/optee/supp.c b/drivers/tee/optee/supp.c
+index 06747e90c230..fd8d1f363f2f 100644
+--- a/drivers/tee/optee/supp.c
++++ b/drivers/tee/optee/supp.c
+@@ -91,13 +91,6 @@ u32 optee_supp_thrd_req(struct tee_context *ctx, u32 func, size_t num_params,
+ 	struct optee_supp_req *req;
+ 	u32 ret;
  
-+static bool ff_layout_read_aborted_locally(const struct nfs_pgio_header *hdr)
-+{
-+	const struct rpc_task *task = &hdr->task;
-+
-+	return task->tk_status == -ECANCELED ||
-+	       (task->tk_status == -EAGAIN &&
-+		!RPC_WAS_SENT(task) &&
-+		!pnfs_is_valid_lseg(hdr->lseg));
-+}
-+
- static void ff_layout_resend_pnfs_read(struct nfs_pgio_header *hdr)
- {
- 	u32 idx = hdr->pgio_mirror_idx + 1;
-@@ -1320,6 +1330,15 @@ static void ff_layout_resend_pnfs_read(struct nfs_pgio_header *hdr)
- 	u32 dss_id = 0;
- 	struct nfs4_ff_layout_ds *mirror_ds;
+-	/*
+-	 * Return in case there is no supplicant available and
+-	 * non-blocking request.
+-	 */
+-	if (!supp->ctx && ctx->supp_nowait)
+-		return TEEC_ERROR_COMMUNICATION;
+-
+ 	req = kzalloc_obj(*req);
+ 	if (!req)
+ 		return TEEC_ERROR_OUT_OF_MEMORY;
+@@ -109,6 +102,16 @@ u32 optee_supp_thrd_req(struct tee_context *ctx, u32 func, size_t num_params,
  
+ 	/* Insert the request in the request list */
+ 	mutex_lock(&supp->mutex);
 +	/*
-+	 * A local abort is no evidence against the DS, so skip DS failover
-+	 * and don't request another layout return.
++	 * Return in case there is no supplicant available and
++	 * non-blocking request.
 +	 */
-+	if (ff_layout_read_aborted_locally(hdr)) {
-+		pnfs_read_resend_pnfs(hdr, hdr->pgio_mirror_idx);
-+		return;
++	if (!supp->ctx && ctx->supp_nowait) {
++		mutex_unlock(&supp->mutex);
++		kfree(req);
++		return TEEC_ERROR_COMMUNICATION;
 +	}
 +
- 	mirror_ds = ff_layout_choose_any_ds_for_read(hdr->lseg, idx, &new_idx,
- 						     hdr->args.offset, &dss_id);
- 	if (IS_ERR(mirror_ds)) {
+ 	req->id = idr_alloc(&supp->idr, req, 1, 0, GFP_KERNEL);
+ 	if (req->id < 0) {
+ 		mutex_unlock(&supp->mutex);
 
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
--- 
-2.53.0
+---
+base-commit: e21989d08e0d6abacfff71387d0cb36dd96a4079
+change-id: 20261119-optee-supp-toctou-da2c5f097e31
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
+
 
