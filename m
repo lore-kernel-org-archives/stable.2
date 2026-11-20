@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795176782;
-	b=mNljtiu51mmKhF9jmWNZobaYbT9mqUjHAmVibC4X8E1SwnzZYvIrHU/zNKOn/4768PVu
-	 5lSdi0qhE5lU6JI04FU/ke6rtymSzEPyWmmcwWpwziVV3y0ckpcQIvyq1cZXOns0f0SIO
-	 FuI9suZSh40pM7I2O4HYPWjT3oMNPzg4GzdXEWCJlwJ3aWo39vVSSfqsfsnV8mRnti2Qm
-	 z6lwPEujCQW86t3etXsFs2brZOer7cY1wJ+DAtNMrre+MC5W2FJOYq4qmr9Pl7j3b1zJ5
-	 JS0pRknhCZi09SS8mr16gn61BOIpp+ClytPMbhk0n6vyKnWrR0SENvSFzZIaWU9XZuQ==
+	t=1795176858;
+	b=zKhqeqeQOwZ4RqUZ9BG5DUtx9nYMH6/WYgMe6cWryR8NeraozNGD+2ICNT2IeFEY8Nz3
+	 91RoFGly0j7YJYMSv/plLjeQeZRzfE2iKOu+uODquFMQ2q67zAVlwjhKhKEtnekHIbZAL
+	 yVc1mIXao+OkGi7u9BNiRmxhB3Xw4hbCVkEwWAOeGKBkM++I8rfWAh0pKu/7iqvc3QRav
+	 HGyI6wqUHMINosmx5zS3I+8Cbq2jdSs+foVWPygbC59VsA9cZZ6+O686EP0Gp36iou6Y4
+	 Hd2zp/4EDwNhyXxukZXIDE4106ytjTTQFOguqNkjjVW2TGKSJdIvpVZLlILb+6TsPtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795176782;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ha/HIPyjbyejWB583GRHAkEiDBBqMXyy2GBchphEkzY=;
-	b=TVJs1Qp5txfDFQN5GgfUd6gL+aTiXdeHspzAXVvFdWNmMoI7uI79z6SpKkbXapJCEglI
-	 NQ6lY4c3TxZq+g7UiWFAEdnYIpC1iIx9YjwifkRIyyhDdDlBQ2hcDpIv1+WD8va9cPG/V
-	 So0REIqnC1Rb+90/aEjdvhWGY3uzB+/Agq3C7SHuLNqNifpP0mUjpL+NiuFPgVPddurAF
-	 wwq5yV0Z/pjXUzavIQrGaXzV/Pq9XyY6sv5Z1rPhxqpagIliSQh2ENhf9npgjfcr6xBQz
-	 /PYaDIklN2XuXYE2nfbmFqj0EJfSJgtd3m7S/8TBHY0I/8tZJ2paNZATr+2Sa+FXVfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795176858;
+	h=Received:DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:MIME-Version:Content-Type;
+	bh=CSLYtYNsDaTun26wMNmzm2IdVDSojM0ADRUtYrpSQyw=;
+	b=OwvdTLu2skR7+OoK8SSIeEDJx4lsDFDgEPdFJW6G+1hZ84X+J5es7NKvVgFxDfwt7w3x
+	 F11hj7tJA1vIPy9d9KysjlDYyOr60AgOz/iG4TC/AUJlcaFppOs3SSMZeSHBtM+GZwcPW
+	 42AQ4kF7onLpXboyJ6GnJ3jLnFJ77S8P08MUo20qPY6T1lsM7bvrVTGcRROSd92pkCIMb
+	 9R8ChChs6zeSbEw6Ho7mKZCcFk0ULgmmSVhONXHly5nwe7DF2AS8QOLfLf+3Q0s8RVga/
+	 AJC97gaeBkc+aIh+suVFR3KTu2l41rosAy6j7GSwslKY/DdIIER+dxNI6S/y6mxipnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WuOst7cw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aCczXQAA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C1AAC606A333;
-	Fri, 20 Nov 2026 12:13:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B562B606A325;
+	Fri, 20 Nov 2026 12:14:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WuOst7cw
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6874E1F000C0;
-	Fri, 20 Nov 2026 12:13:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aCczXQAA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD2ED1F000C4;
+	Fri, 20 Nov 2026 12:14:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795176782;
-	bh=ha/HIPyjbyejWB583GRHAkEiDBBqMXyy2GBchphEkzY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WuOst7cwpMEZCvVFgd4xC3oos6k09EFCLdlRuwAsf7ou9tU38PrBXsXgYNCSVmwiz
-	 z0aCrAtouh502CZk5InG2i3uIL+wkz76+rSRIFurwERFfDYWseOLx6kyys7A6gSuvx
-	 H96IKQsGTwlOujGK+2+yyMpj7xiAA8ALO2nnc2Of+tVTqHPGI/gHWfbTvYF2M7RnYX
-	 VdVh62lDbI4wvV/oK6Pdk3HunEMKjGCKxE/uRfywdu99hRTCT4fbsq88saLyEU4BLF
-	 6AR+IHgLKVS3gVd6L7y/oIRaERQFnKT6ZrdrYoB+3cqeWwxwfSdbSPavTAif8xnb06
-	 EzsApg8vfLIig==
-Date: Fri, 20 Nov 2026 13:12:59 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Lee Jones <lee@kernel.org>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Shawn Guo <shawn.guo@linaro.org>, Thierry Reding <thierry.reding@gmail.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-pwm@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/8] pwm: mxs: Return early when disabling and fix
- error-path clock leak
-Message-ID: <awA401UihKFTbVaK@monoceros>
-References: <20261105143847.2559586-1-lee@kernel.org>
- <20261105143847.2559586-3-lee@kernel.org>
+	s=k20260515; t=1795176858;
+	bh=CSLYtYNsDaTun26wMNmzm2IdVDSojM0ADRUtYrpSQyw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=aCczXQAAeUEGw5x3rSvzxoCj4xi36YfHt/HwaGB+GWCDSWmlu0DFsmvAsmzonfUEO
+	 CbyusFuKAQmrF9eeq7LPik/irzIVLEi81+BPmirtsnRS+tFU1ArKya5IF9EXyY3+Yv
+	 wf5RK7KLzwLCG3NnvK4HlMbSbddWWFl8FWbj94HUWD5uC6JWsZWm8d33GKLst6Tdvx
+	 We0EWvJ4s+3hVc31Pk0A+YJL94VMhjUvYW90XynoEREcR+L12Nqlv1Pfi2+C+wy6dL
+	 4jXNOvvyJW1Q4wbxq5AUB/o5z5VVnROrv3824jiepNuONIktRZDU3+ODzVTA8fnaak
+	 gCyfoxYQsrkog==
+Date: Fri, 20 Nov 2026 13:14:15 +0100 (CET)
+From: Jiri Kosina <jikos@kernel.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+cc: Benjamin Tissoires <bentiss@kernel.org>, 
+    Gideon Heinz <gideonheinz02@gmail.com>, 
+    =?ISO-8859-15?Q?Filipe_La=EDns?= <lains@riseup.net>, 
+    Bastien Nocera <hadess@hadess.net>, Hans de Goede <hansg@kernel.org>, 
+    Edwin Velds <e.velds@gmail.com>, 
+    Stuart Hayhurst <stuart.a.hayhurst@gmail.com>, 
+    Andrey Smirnov <andrew.smirnov@gmail.com>, linux-input@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 00/14] HID: logitech-hidpp: G920 force-feedback and
+ battery fixes
+In-Reply-To: <20261120-hid-logitech-hidpp-v3-0-cfe2caa1d0eb@gmail.com>
+Message-ID: <34ppp9o3-o9s3-4521-04s8-3s44436rq153@xreary.bet>
+References: <20261120-hid-logitech-hidpp-v3-0-cfe2caa1d0eb@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,100 +64,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4wybzqijlhfywcig"
-Content-Disposition: inline
-In-Reply-To: <20261105143847.2559586-3-lee@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
 
+On Fri, 20 Nov 2026, Dmitry Torokhov wrote:
 
---4wybzqijlhfywcig
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/8] pwm: mxs: Return early when disabling and fix
- error-path clock leak
-MIME-Version: 1.0
-
-On Thu, Nov 05, 2026 at 02:38:04PM +0000, Lee Jones wrote:
-> When disabling a PWM channel (!state->enabled), the PWM core permits
-> state->period to be zero.  mxs_pwm_apply() currently falls through into
-> the period and duty-cycle calculations even when !state->enabled,
-> causing do_div(c, state->period) to divide by zero when state->period is
-> zero.  In addition, if the requested period exceeds the maximum divider
-> (div >=3D PERIOD_CDIV_MAX) while the PWM channel is currently disabled,
-> mxs_pwm_apply() returns -EINVAL without disabling and unpreparing
-> mxs->clk.
->=20
-> Handle the !state->enabled path upfront and return early, and balance
-> clk_prepare_enable() on the -EINVAL error path.
->=20
-> Fixes: bf29c2ff82fd ("pwm: mxs: Implement ->apply()")
-> Closes: https://sashiko.dev/#/bug/linux-710f863f-6964-4e4f-990a-e5043dbc1=
-a87
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+> Per Jiri Kosina's request, the v2 series has been split into this
+> 14-patch bug-fix series targeting v7.4 and a separate 18-patch rework
+> and cleanup series targeting v7.5. The open-evdev-across-unbind
+> force-feedback teardown use-after-free (v2 patch 22/33) is now handled
+> in input core ("Input: destroy force-feedback device on input
+> unregistration") and has been dropped.
+> 
+> This series starts from Gideon Heinz's report of Logitech G920
+> force-feedback initialization timing out in v7.3 and addresses several
+> pre-existing bugs and lifetime races in hid-logitech-hidpp.
+> 
+> The force-feedback and teardown fixes temporarily enable device I/O
+> around g920_get_config() in hidpp_input_configured(), switch
+> hidpp_ff_queue_work() to GFP_ATOMIC since callbacks run under the input
+> event spinlock, drain the G920 FF workqueue before closing the HID
+> transport on input close, synchronously disable driver work items and
+> disconnect input devices with device I/O enabled before stopping the
+> transport on removal and probe failure, avoid storing an ERR_PTR in
+> battery->ps on registration failure, avoid NULL pointer subtraction in
+> the HID++ 1.0 consumer keys report fixup, and fix an off-by-one in G920
+> slot tracking that made the 63rd user effect in slot 64 unusable and
+> leaked it across reopen.
+> 
+> The transport and battery fixes update hidpp_send_message_sync() to stop
+> retrying timeouts and transport errors, initialize response buffers
+> before publishing send_receive_buf to eliminate races with concurrent or
+> spurious packets, fix HID++ 1.0 battery mileage event parsing and state
+> updates, properly propagate negative errors in ADC measurement (0x1f20)
+> queries, mark devices online on unified battery (0x1004) events while
+> gating 0x1000/0x1004 dispatch, fix K750 solar battery feature lookup and
+> reconnect handling, and expose and correctly map the charge_type
+> property for the battery voltage (0x1001) feature.
+> 
+> Note that device removal teardown still has limitations due to how HID
+> core's hid_device_io_start() and hid_device_io_stop() (via
+> driver_input_lock) gate both driver raw command/response I/O and
+> subdriver event forwarding, disabling I/O before .remove() and
+> hid_disconnect(). For instance, HIDPP_QUIRK_DELAYED_INIT devm-managed
+> input devices are still unregistered after hid_hw_stop(), and
+> hidpp_connect_event() publishes hidpp->input before input registration
+> completes. Resolving these teardown edge cases cleanly will require
+> follow-up work in HID core and driver input registration.
+> 
+> Thanks.
+> 
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 > ---
->  drivers/pwm/pwm-mxs.c | 32 ++++++++++++++++++--------------
->  1 file changed, 18 insertions(+), 14 deletions(-)
->=20
-> diff --git a/drivers/pwm/pwm-mxs.c b/drivers/pwm/pwm-mxs.c
-> index e1a3df6549fc..16233764fd3c 100644
-> --- a/drivers/pwm/pwm-mxs.c
-> +++ b/drivers/pwm/pwm-mxs.c
-> @@ -56,6 +56,14 @@ static int mxs_pwm_apply(struct pwm_chip *chip, struct=
- pwm_device *pwm,
->  	unsigned long long c;
->  	unsigned int pol_bits;
-> =20
-> +	if (!state->enabled) {
-> +		if (pwm_is_enabled(pwm)) {
+> Changes in v3:
+> - Split out the 14 bug fixes into this series for v7.4 per Jiri Kosina,
+>   moving the 18 rework and cleanup patches into a separate series for
+>   v7.5 and dropping v2 patch 22/33 in favor of input core teardown.
+> - Collected Tested-by tags from Gideon Heinz on all unchanged patches in
+>   this series (omitted from patches 12 and 14 which were updated after
+>   v2 testing).
+> - Gated event dispatch in hidpp_raw_hidpp_event() on
+>   HIDPP_CAPABILITY_UNIFIED_BATTERY so 0x1000 and 0x1004 events are
+>   routed to their respective handlers instead of cross-corrupting
+>   battery state.
+> - In hidpp20_battery_map_status_voltage(), set charge_type to unknown
+>   when status is unknown, to none when discharging, full, or not
+>   charging, and to standard, fast, or trickle only when charging.
+> - Reset charge_type to unknown on wireless disconnect in
+>   hidpp_connect_event().
+> - Link to v2: https://patch.msgid.link/20261110-hid-logitech-hidpp-v2-0-30743e91d83b@gmail.com
 
-Please don't call pwm consumer functions from the lowlevel driver.
-Currently there is no locking in pwm_is_enabled() (as it only checks the
-last state that was applied and not the actual hardware state), but this
-calls for trouble. So either check pwm->state or even better the actual
-hardware bit.
+Applied to hid.git#for-7.4/upstream-fixes.
 
-> +			writel(1 << pwm->hwpwm, mxs->base + PWM_CTRL + CLR);
-> +			clk_disable_unprepare(mxs->clk);
-> +		}
-> +		return 0;
-> +	}
-> +
->  	/*
->  	 * If the PWM channel is disabled, make sure to turn on the
->  	 * clock before calling clk_get_rate() and writing to the
-> @@ -67,9 +75,6 @@ static int mxs_pwm_apply(struct pwm_chip *chip, struct =
-pwm_device *pwm,
->  			return ret;
->  	}
-> =20
-> -	if (!state->enabled && pwm_is_enabled(pwm))
+Thanks,
 
-Oh, calling pwm_is_enabled() is prior art :-\
+-- 
+Jiri Kosina
+SUSE Labs
 
-> -		writel(1 << pwm->hwpwm, mxs->base + PWM_CTRL + CLR);
-> -
->  	rate =3D clk_get_rate(mxs->clk);
->  	while (1) {
->  		c =3D rate >> cdiv_shift[div];
-
-Best regards
-Uwe
-
---4wybzqijlhfywcig
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsAOUgACgkQj4D7WH0S
-/k6CCwf/aI0uzeINZBznaAblpm51Dl7ZmWJqaoBuK5nyAOqbeRcXQ/pifFm41Miw
-kGHTvXE8i4WorWu7o80RBB9hSvAv5Kag19OBLf3gqrRaZpUmQr58X+BVd0hlv9dW
-CsYxvC4j450cZjy4H2ny2p0YybbnVGfYXvRXBwgV9lnUFfwrOSyJdBvBY1lmN3JY
-vUnVyBILFhi2C72B3jLmF+tz2B2WgPPnN/AvQO4dW9yMOgKRT9NAPJtHl89XJIys
-HdriNW6JgHsg6jUmO1ba4mFdaSFg41n//W+PbBXV4t9W4G9LcFRjDUDR33Of1n3i
-BIewAhysMOSCzawWN7YXA7j+CIVmBg==
-=vMBo
------END PGP SIGNATURE-----
-
---4wybzqijlhfywcig--
