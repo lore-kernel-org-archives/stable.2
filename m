@@ -1,82 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795197268;
-	b=fPgxXSqAAv5I5KJc/yWjRf0n/aRHOXhY0u+IIzjWG6alI/nxufmgqiBEWjLoAVayL5Yn
-	 zwzLkIYykR0XC+H7d1V0tr1B1/H0jemJ1LYLbmbd+f8/QaK0zrZpJ/UQQbDIEQakbxeNd
-	 5dFSCHJ2WGqpPjGSKZrnsHoo5LxlD/cpUGUtIxLCGHaPmrfH3NMaCgRURGTSnPFZSa+k8
-	 ZLWdzQLNYy42U9pFEzQrjTvdqpQk+536mQCy1JXb4aXcGOGiskeEH5eafn/rku3x1eAEH
-	 B89u3nBgqvm4bK4koaPlhfjEyGSzYuSPtBaEcuhDOjQAwwEzyz8n0i4sXqJQD5uzTbQ==
+	t=1795197272;
+	b=Au/TPXIHI/JXrDJtjF7JCtpcoWP3oLtun45iBESn1e1WrcdrE6N71I1b4qwZoTUhB+N1
+	 NnIshzkWi5NHHh7mzzBDZft4OM98UYBOg2W9o3fwuMHYxr+BkAuu4MQgHi9l7DQQhcPxo
+	 0aV1PcZRiufTgFSgO6hXKfikw2bijO7W1qUMPCDiqffjYur1K50E1JjxEWXHZNu3Uzu8R
+	 8Hx4ARHPNzM4OCEHNgU3PfzvoAzX8UPdNJU6VmKuYWTAz1StTB766SxMaxyHCwD3VK8+X
+	 9Q+X4zm00riMbE5/yeXHc9MXAqs8GAl7q6XNMRaEtEWzB+40XBm045tNEht9NY20GSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795197268;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795197272;
 	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
 	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Provags-ID:
-	 X-Spam-Flag:UI-OutboundReport;
-	bh=g/5ihrOrEYdtMF7cAo12Cb9BZ1N43GpkVryzZU3sJ7o=;
-	b=xxXNS9wy5VZeixZkuRxFubH+nAmH9QAvXpQ6ks1AQVXhvuLOvO4opjCxtKhOnCEFn33h
-	 EcShTInB9UrEFnCIMukbYVmkyHgM6BQoGXeGHFVzW90LR4DH0Wu8MenH8lQGyqBmCLrnD
-	 zMVAm4o7pw1tUcXAbUD9CMjzvyi5qFGq6KsxRwSKOFAggyeFtp/Oc6gPH+NQ9+t5i5wqC
-	 jgP9q0gD5WhOzIbpIUkQiuCtYdzgSVuDlMU7xbQcmnFfP/vi8MlIARTkzfD35xqxy61Qt
-	 WMPecuaMeGhfcAb3XDc5yuPg87e6TK6Y191hPDombOsUGi1VGwFpw+RiJIHxyeBie3A==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=sHrVwm9Y2azO/qyG5D6lAPdfzBKPrr7WTaybCanFFQA=;
+	b=r2+BWTFb3AQdYsDo6v+U6UbfjqLp1c5Xq6+Lnelqcct2PHaNWIb0RK0CBl0KMaylT8dq
+	 X2E+lufiL5/ANTMFS/V/FU5K3qXYT4sQYpq41SSC/4XzLgsx8FHQR0osNy52Tii3DQzx1
+	 O9msz/QB7FA46yEyuId/qi6uddgYb5oxbAFKDTO9eWp3QygoUo6iL2/fTMjXLRim39jgt
+	 OrNUHM7gYKmVbXXJE/M4yZ/zZZQX9ju8Q0BLfKaUFLJjTx7c8pwxDmLOAdltT+YWtobW+
+	 9qJm/rgi0zsEJ/n3nsRvkY/eQF4rVOLr1RMgvAOACakKsIoENXTOhJocna3u93gJtdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmx.de;
 	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=gtrHjavI;
-	arc=none smtp.remote-ip=212.227.17.22
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+	dkim=pass header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=RyOiIGoj;
+	arc=none smtp.remote-ip=212.227.17.20
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0BE60A381E
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:54:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB0BE60A381E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24AC060A3825
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:54:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24AC060A3825
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=gtrHjavI
-DKIM2-Signature:  i=1; m=1; t=1795197265;
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=RyOiIGoj
+DKIM2-Signature:  i=1; m=1; t=1795197268;
  mf=PGRlbGxlckBnbXguZGU+;
  rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
  d=gmx.de;
- s=s31663417:rsa-sha256:eLLd3TlYkxxmEElx3HAkVdbOgMg3
-   sVDTxjuLOKbhqgIRjqvTKZ7bojUrtZ/bpdgofuSGyuU/GTwdo6kBLVeY07fNard3lxfEgCRVbWL
-   sxXyCbJqV09CHDYSKhplUXTwUVXISV7+H7crPPjtuYVEGk4+2lOepbmobq+sS5u3/ADFMvec8C8
-   dELgq3mI8s4R1RM8nUQIUg2dRcZT1yPhh/5+oDQloYYmivr5Ku1wMNYun7sHmDAzZGPHP5H0e2/
-   szYx2QZ0spwFxDxFi3Qd+6I9mQ6hX4dZjskY+zaLELlrZ512FrvFsIYCIIRanqAh9UPqM8LTFVL
-   KQjS0YaIQ+UGBA==;
+ s=s31663417:rsa-sha256:PleLYc8NUwf7y36ozlxKqupHT3Cb
+   oN2CdUK7MhupcPCiBH2q2n+ksr+TrCtThqs/mvHMFJLNYny9+uEgxhwS5tXy0tLgSYKZLYpZwle
+   m66Hjfd0KRoJMofteO/3dk6omspXuG3Teay2SkNk3LPXRhW8cmLfCcCGkzTffb4vfDi60Ds+49K
+   UYvPjYmt7DjYRUtNgszrAXqcYpCIXkGeRvRJ3u9gE8B/4HrctkDzgWeG4Nem39w9WKC7NVzVECS
+   dz/nLiMQqUB6PPLRBqtLDokhrnYLiIMN2MDQmHeTS//AxSJAiFNBgvpWVKWVpEXfoErz/P7DlBa
+   FrqHseQEXp1QpA==;
 Message-Instance:  m=1;
  h=sha256:
-   gY+DyrjmI1frdQlhPrGFEEzgCgAYorV6Qt6i4B57LJQ=:
-   9spbTM1JbvoboYh77jNITz+p+qG9OC2+VBQBSVbLkEw=,
+   EYQLEEDq46wAcosuHPgHvTh1urvAe7EMG7PGoiM0rpk=:
+   kb8i/WGJzIOgpop7YMTG5VRycG6NnfUl/YmjrQVPuwM=,
   sha512:
-   qqYSx70Ikd27H2IV1ypGXZ5SqQuSsTiUltdrIEFdq3BKRgKfcUGiiv9lPKpg54arpgYpuNxK24880c0D0SNv0A==:
-   xAV3zlV+fsMzEhHaKUZGpFlQ9O+w5QFPbWQ90rHkzqyzizrIvBh6pyEO841oPUIZZ23eN5xVcOdLYCI5bfCfgQ==;
+   46jSujwWgPNB6xP0YCpIwhg9Hiy4NW9u/8sXTShU5OfUVEn4EI2mP3y/IdAl0LyPoKa+/PNCW17wFrxyYI0nzw==:
+   B9QlnLeAEJlgeLcGds4La6YapwYA3jD6puOBUk9RPE8W+8t5b5+5sgNUW0VJ4NAUZadt7vP9WBuJBYOg+xEY0A==;
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
 	s=s31663417; t=1795197254; x=1795802054; i=deller@gmx.de;
-	bh=g/5ihrOrEYdtMF7cAo12Cb9BZ1N43GpkVryzZU3sJ7o=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:cc:
+	bh=sHrVwm9Y2azO/qyG5D6lAPdfzBKPrr7WTaybCanFFQA=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
 	 content-transfer-encoding:content-type:date:from:message-id:
 	 mime-version:reply-to:subject:to;
-	b=gtrHjavIVfe/PL+nl/KclbBpl/c2ukvfzqUxtpQl3ihWMB0JopxuIwRFIGA+Yjva
-	 Yv5VDPsAHuJtDT9U2QjLNXtIVmoYfSQ5C5Q0v3MDcFN1lgmwl7wy+qGi98tFtZ7yw
-	 DqURL8KyhHIKonD8G2FwRHGOA3jmugwQVN1GnHCUVZ5bIPIskrKpXdKOIQRnEuhgI
-	 Rpwb+4VpE5hkqnVWAdOLMn4ObwrUcCPAG1Pg6OKeJ1E9Eqs+lopqdhw0eF6MUIEAZ
-	 bpU8mbL+smGxogZ0bHlLDNsKnGWX6/g7Bp8BGLwpn26Z56za9zeX5sYel7Zq9wkn7
-	 r59x+QLYI1yJ9GPLoQ==
+	b=RyOiIGojNFj6sTXZ7SRTpVmzkbd0aKM7t3h7N/ls9NkBFXR45dnUW/kFGYq3q2Z8
+	 p5AFzzyJtljr2DMIHcma6/g4oiu6IapQt1J47P+RqffOQzncILINwjyyclzHaHfm9
+	 +q/nmBNny1Opj4XplAYnAriauNkgjPk1cDBVgnrRBt3BAoSWzWqPSWkiuzdtyhkvJ
+	 wFyneReLPE9OVDUTePvKCkAvrW0v+WbFuJFs69JXR0TShFGXUxm5HngYqy1mDnWDD
+	 cfG/VthOvrWmS5kOcewMmHgLY5/Qar/L5rFYuhLfKslPRcFWN5VUnlHl5kAKb/txL
+	 sKqY8qcpXxwOjVwutg==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1Mirng-1y92tW0fzg-00dsKQ; Fri, 20
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MJVHU-1xoK342CHA-00LPdW; Fri, 20
  Nov 2026 18:54:14 +0100
 From: Helge Deller <deller@gmx.de>
 To: linux-fbdev@vger.kernel.org,
 	dri-devel@lists.freedesktop.org
-Cc: Jianqiang Zou <jq.zou@outlook.com>,
+Cc: Henri Roosen <henri.roosen@ginzinger.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] fbdev: radeonfb: reject a zero pixclock in radeonfb_check_var()
-Date: Fri, 20 Nov 2026 18:54:12 +0100
-Message-ID: <20261120175413.176249-1-deller@gmx.de>
+Subject: [PATCH 2/2] fbcon: Don't drop last logo line if logo is same size as screen
+Date: Fri, 20 Nov 2026 18:54:13 +0100
+Message-ID: <20261120175413.176249-2-deller@gmx.de>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261120175413.176249-1-deller@gmx.de>
+References: <20261120175413.176249-1-deller@gmx.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,174 +89,157 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:xqg1wdA17GVAvX0BQHvQneFOqqLbDMfBwXdUyuIGV7YzGDNazj3
- VxR613Ip9xBGm2OehBRFg8eULk+Dnf0KPUexmORoI1lDQS3vMS9oYWtApc4uIv3dsjqFYXt
- O/5ercW49ic+G+AqPuA5VDy22mHqV6e4GNyffdlNj6M3bRWR4J37CX7pFAnvHt3scMae+Ro
- xg69EZeSgEPsD/J7T/3cw==
+X-Provags-ID: V03:K1:uZpN/SJ9/o+U8cPP0zJjCorPn+bxWK8Psv5ciIwhdsCGzxILXKf
+ rnUtqfDEgreSL0lnqCE4QWnAtsEatH+Ip1egkk74GvKxP53z1KeNS2dH/+RTC8gRdEt4lRM
+ apY6tysMpuIHATQD2MgaRQ5e7XGl02CgyCLsDPQZI7cm1Knhto0I9aKybvAsKvKNZtK86vk
+ ujGnk4oyyIHoX9eMnYEWQ==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:aKc4ptsHbyE=;iMwVaLIN6+Wk1StmdFAqQTt2jWc
- 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
- mlD5onnTqhJ7uVx
+UI-OutboundReport: notjunk:1;M01:P0:2CRPWB0ohTk=;K2cat+do9kRmwXN1QElxoox4TES
+ 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
+ 2GxBAAiRscqgYA+wpA==
 
-From: Jianqiang Zou <jq.zou@outlook.com>
+Henri reported a regression that when a custom bootlogo is exactly as
+big as the screen, a white bar with the size of the font height is
+displayed at the bottom of the display.
 
-radeonfb_set_par() derives the dot clock from the user supplied
-struct fb_var_screeninfo:
+This patch fixes this off-by-one bug, but now -as sashiko-bot noticed-
+since the logo covers the whole screen there is no area left in which
+the text can be scrolled. To avoid accesses outside the screen memory
+simply keep the text area covering the full screen (and possibly
+overwriting) the full-screen logo.
 
-	dotClock =3D 1000000000 / pixClock;
-
-where pixClock is copied from mode->pixclock.  A zero pixclock
-bypasses the existing validation and makes the kernel divide by zero
-in radeonfb_set_par().
-
-The driver does have a check for this: fb_validate_mode() returns
--EINVAL when pixclock is 0, but radeon_match_mode() only calls it when
-the output has no scaler and an EDID-derived mode database is
-available:
-
-	if (has_rmx =3D=3D 0 && rinfo->mon1_modedb)
-		if (fb_validate_mode(...))
-			return -EINVAL;
-
-mon1_modedb is only filled in when an EDID is read, so when no
-EDID-derived mode database is available the validation is skipped and
-the invalid mode reaches radeonfb_set_par().
-
-Reject a zero pixclock in radeonfb_check_var() before matching the
-mode.  fb_set_var() calls it on the FBIOPUT_VSCREENINFO path before
-->fb_set_par(), so the invalid value is rejected before the mode is
-applied.  This is the same check other fbdev drivers use (i740fb,
-arkfb, s3fb).
-
-Reproduced on Linux 7.3.0 using a custom QEMU PCI stub device with
-vendor/device ID 1002:5955; no physical Radeon hardware was used.  A
-single FBIOPUT_VSCREENINFO with pixclock =3D 0 is enough to trigger the
-divide error.
-
-Signed-off-by: Jianqiang Zou <jq.zou@outlook.com>
-Cc: stable@vger.kernel.org
+Fixes: 94e6a058b168 ("fbcon: Fix KASAN slab-out-of-bounds Read in fbcon_pr=
+epare_logo")
+Tested-by: Henri Roosen <henri.roosen@ginzinger.com>
 Signed-off-by: Helge Deller <deller@gmx.de>
+Cc: stable@vger.kernel.org # v7.3+
 =2D--
- drivers/video/fbdev/aty/radeon_base.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/video/fbdev/core/fbcon.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/video/fbdev/aty/radeon_base.c b/drivers/video/fbdev/a=
-ty/radeon_base.c
-index 387bc5f96765..45dd42134e81 100644
-=2D-- a/drivers/video/fbdev/aty/radeon_base.c
-+++ b/drivers/video/fbdev/aty/radeon_base.c
-@@ -836,6 +836,9 @@ static int radeonfb_check_var (struct fb_var_screeninf=
-o *var, struct fb_info *in
-         int nom, den;
- 	unsigned int pitch;
-=20
-+	if (!var->pixclock)
-+		return -EINVAL;
-+
- 	if (radeon_match_mode(rinfo, &v, var))
- 		return -EINVAL;
-=20
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/f=
+bcon.c
+index d7890e119dc7..cc311dc0e2e4 100644
+=2D-- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -666,7 +666,7 @@ static void fbcon_prepare_logo(struct vc_data *vc, str=
+uct fb_info *info,
+ 	logo_height =3D fb_prepare_logo(info, par->rotate);
+ 	logo_lines =3D DIV_ROUND_UP(logo_height, vc->vc_font.height);
+ 	logo_lines =3D min(logo_lines, rows);
+-	logo_lines =3D min(logo_lines, new_rows - 1);
++	logo_lines =3D min(logo_lines, new_rows);
+ 	if (logo_lines <=3D 0) {
+ 		logo_lines =3D 0;
+ 		logo_shown =3D FBCON_LOGO_DONTSHOW;
+@@ -734,7 +734,9 @@ static void fbcon_prepare_logo(struct vc_data *vc, str=
+uct fb_info *info,
+ 		pr_info("fbcon: disable boot-logo (boot-logo bigger than screen).\n");
+ 	} else {
+ 		logo_shown =3D FBCON_LOGO_DRAW;
+-		vc->vc_top =3D logo_lines;
++		/* keep vc_top if logo covers whole screen */
++		if (logo_lines < vc->vc_bottom)
++			vc->vc_top =3D logo_lines;
+ 	}
+ }
+ #endif /* MODULE */
 =2D-=20
 2.56.1
 
