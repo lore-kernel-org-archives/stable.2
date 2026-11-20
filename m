@@ -1,101 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.201
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795191673;
-	b=WVyW7XNlfBWetQ+35XQ6xuMRSGS81lBu1To2Fi1LvKt8/2khNZZ3bDIo9/zmmqr5XgP5
-	 1zqRzUyB9DeIS3U1q32o1dyn9ICk1Eg6ec9gGrfiKrXM3GHUukZnjn5PwmcGhsoqu/BAu
-	 u01bjE8qN0M3lmla3JhgW9JDTcl8Dh8pUwlf2xYgSSfz9TuY7XUsMjpgqTa03vaBRTxge
-	 5TrEDNnE2pld4zPBG+UEgvzPT9vB8z6fRPIMMWrP+v4N4DMomeOK4zG995Zjhb0TJWDE7
-	 JxX/G48ibO7IHYVDN3TdxoaESv8+MfTkYbXOWw1Kc1eSGkObTNzLA8JXFtWuJIqcfOQ==
+	t=1795191723;
+	b=p3KJXkSSLsPzMecRUmPG+gPl/SAcLd2B3ZwW99bbR3wxhC5HBMfpVrdKizmMrAS2VOrn
+	 wyVfWrlWBp8hjiGmrPLOblM/XmToAVFEbzv87asE3BASzssAhGXAzMR54l5LC//K7ak9r
+	 JaLJwpBJyByXn5AFuTYFBv1Tw6E2P5ok52dlPVND88UUUduY5gNJa5h7iRdd7VZjbV4xM
+	 KDWBAnvGRdvNgUBQbt4uFZrVij4cPYk94wmt7QoKtgXQXZno86W/8LECmMe7yTwgjf8gY
+	 g0sG/Jw+8rLZCBG4CMIH+982/IrgfCsijZ4sFYU93RO9himW9/J9TmnpD9OzD5l7YFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795191673;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795191723;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=DlHp18CPjbRy2dBjwYmV0o13g/8Est+vNGExs52wGVI=;
-	b=Fr7b0uqwZxtDgmXc06xFTXwpqjYNcx5NurOP5+nmBQ+LxqmFv9tQUxzprBnzT/9ic/bN
-	 0bIDqXmrNCkBg0bThCJSc+el0aj6ZkEwLkNJapx9X/AJqnkJyXeB59bWXBVMFBNf3qyp9
-	 Sn5PHjGvrkdX0A0oju5tWDTo8vkFfbxpPIFbV/pV0lbF4sPB6ot9dVSdH3Gm23xmSJk3R
-	 xxx4mC6SEgskMZiu7uA4gWuyfwZLq7moBopmU7XRhOy6riyu7kG4FSOi5vcGF1oHbgxrQ
-	 w7RSVM8UHQMsYdumC2wBeWR1ajFn/uZRn7XfSO1mZQ8ZvmhoXBi/IGOyjVI5Z01iIbQ==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=McN17chfwr/LQozF6dFVi78SiwnCLQfwPyBkDcQsbSc=;
+	b=eEsklQRZ0MXkH/nETVH+yfcl6MumynBjCt6KulfjyBN9sLBEAYPAX25qc60JXvEGIIIg
+	 hzL45KSZ+j4JEVHaR8x01wQJpk4PN5KrjeYMt0oD+TQhF80gMltJWBaoK0IWubonVle9w
+	 soI8EAIF+5eB/BA33haU3/41+J7gnMaMEi5rxgVS2gjGaP8uqksuyYViWGlvSChOWIw+D
+	 WfJc4D9mbJ45fT3mk8yQHG6vfoK3eBnyqdEWGGyiUUBBYxjURVnVICItYoMmvm5FNl1xR
+	 E2HHX2zBbgezl32i/AKvjr9vclzK27mOW8Fo/VM4EN9eMzYiw9hqgtqaS7szgsbfcrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QFIMvXBw;
-	arc=none smtp.remote-ip=74.125.227.201
-Received: from mail-pi2-f9.google.com (mail-pi2-f9.google.com [74.125.227.201])
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=GSMVwhZH;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC590606A32C
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:21:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC590606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED8B606A334
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:22:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AED8B606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QFIMvXBw
-Received: by mail-pi2-f9.google.com with SMTP id 41be03b00d2f7-cdd9779aac8so181901a12.0
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:21:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=GSMVwhZH
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb6adaf0f1so9574295e9.0
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:22:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795191672; x=1795796472; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DlHp18CPjbRy2dBjwYmV0o13g/8Est+vNGExs52wGVI=;
-        b=QFIMvXBwT5UZma+RH3dkZsdOYQvdRV5lMg2aPbcMemqkf8Dupdo41EKmwIjAfGV4QA
-         Rp/STC14Fr5kxpZn+8zkLj31m1bjMjxlpVWu5+0//Z8eCJbmEBx3iIRpFCCMESlrrf9Q
-         74BR4tGYR7QwgQcBkHvI2flO0QSGZaaSskVdakj/+23kYau/j0GxnIcVBm3nNd5igetR
-         HGiHwoG0tUTt/5hlWBXpo2Q8eAbrCY5t5yCGNINLQ0L+yQv+Ww8SSN4ZSQZtyT1IqnWr
-         gdzRJT0GAx4L7UAT6H4ozbogf5xYExqjbow2iVzPZ+99dtMfu3s32l3yKwAv/yQqsHNG
-         Cuqg==
+        d=baylibre.com; s=google; t=1795191721; x=1795796521; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=McN17chfwr/LQozF6dFVi78SiwnCLQfwPyBkDcQsbSc=;
+        b=GSMVwhZH/ueBlJaQiJ5tBFKzOag7BCR5BhXV1vjJ6yXySEI0mT2VMeFtR8YLI3QObp
+         l+9xoHrKeIBmt2kbouQcLmWeYtsw1SAQsvk19IVm1GoRn/dd5U/zC3gpB7SsC82DLkMC
+         1PxNoFLz19cCa9xeO6jQ1x7QwuiDjsSlO2ve/tZs/untp7QF97TlsVV0fEDCtGEfppcN
+         kyTRRyJYJMxJzqyhtxryQTDEnVcltPPWcx/qW5dbw8GLPGUI+zwUL6SyrZNl/H/CXbIh
+         DN4P0fC06cQ3rv1oqcphHJY9Or07QdoJ0BJ3bnq6/b+HufHJMelC+YFHl3KH9tbwoTMF
+         pdTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795191672; x=1795796472;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1795191721; x=1795796521;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DlHp18CPjbRy2dBjwYmV0o13g/8Est+vNGExs52wGVI=;
-        b=oXF0CwxubMZpPiENQyl7EKZukkgWPkRbU1gpDukXe0aAutQ9V8qx9crvzrSXt/kDDz
-         lJ20VNBNrGvSgEmvLdhSQkbQZtT3mpufMV5/ZqjY2P6LFjFhQIWCk7SdXnDZfb6V3uut
-         HnHjc8oKK2E/A8NcTXGT310TD4gA8JgELi6s4ndZViu95dvKMVEOQVIGuYHBTmPwtC76
-         0dPdaUmW9ULJyWGy8Jljb54J9L2aLqY2NQP80CSDvzB7Y7zBcvEvfDjH+OnpgM/3wSbV
-         lsLlFUSwk36kT2BLhJBZYVMMv6iYFAvz7MTmQT0J+jBaF9q6mNIDMe3gNLVxUKQXW6U4
-         RIog==
-X-Forwarded-Encrypted: i=1; AL+hErEF+1mlT6GUfjaD8HmK4tsx03OCx1TTjRTQ1I19KMtqb1bQUAgOtoA9yzlNCLj7yw4HRU0pWyA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Dud5vP/8oTq12GMk8iIFVKn8pMueqRomVPvxzPb9z2Igg0DNF
-	6fyVd0ludPQ+MhlAGcSXI8xnSmgikW2dlFqbtUwAf4VVfNrQRijzlyLR
-X-Gm-Gg: AZFdTZeo5lOsh9LoWtJis8J66R1C8uPJ8DVlFornQR8GLH+s1wG+vcNMcBwdMe/AMbM
-	eJbEQCibsFPhEJj/eUgNoYUFs6xJs+hKfres2w0LdETLMWwenEVgSwKhZuTkyzw3BkhOgyu2pVx
-	ZQI5ks56G9Uc39Ytw5jYUt1EI5j8Ic9o3wh9b4fk9duwv5hvbsjqjw7iRJsCYgEqsrnzr9TVAjP
-	RgLGprFxIIKurRJm4yBkhCn1ncZa9CGjHi2LgnmFDh/oxPOguwsGwYSzLdLo0xH59fZAtPAKLgg
-	qDjk8/LNudbE2hVXQTbWjHNR1N/UgX8jVJZdcSNOT1p97g0pIhF8VlvT33udmrEROEwssRIPxQL
-	/A3LJPxPGWh3mVwREpfOrj9IgI4A5UlPdNur3OHu65NzSfHa6dpe5b6H0Yk0uq+0WY4HwvLxv6C
-	QLAWAAzXF7E5GbS0/IjAVtcl8vnVaF451J/aA5ayR3QJSKX/4nMCmwMbNs/nq3ky8JlcnhEWb+M
-	H5IvojRVFt70FdTIPNHK9VkjjFrYy2J9lawq2BpCkzemKW0Vm+5ft1HiMjylUw+zr+gKCtgMJS6
-	kNCYlC9LMPVftJ+TdVKmdjo=
-X-Received: by 2002:a05:6a00:1c97:b0:8b5:7fc8:866f with SMTP id d2e1a72fcca58-8c87d32b004mr3231608b3a.44.1795191671804;
-        Fri, 20 Nov 2026 08:21:11 -0800 (PST)
-Received: from localhost ([2a03:2880:9ff:60::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c872e45e32sm1696071b3a.24.2026.11.20.08.21.11
+        bh=McN17chfwr/LQozF6dFVi78SiwnCLQfwPyBkDcQsbSc=;
+        b=C4QTGcbLyCKt/4tEZOyOi1qKUol9LuCHVBibao5I1gO0HpDZjGA4ezpyrov6u1a3Uu
+         FBifqNZjLdzbU4VthvxyEwg2FxjbHPNzAnj7K9qZw5eHbxi7tVJbJ9M6cz33rxV0RVnW
+         /boQT9hPt9b7qakYfhts5fK5hmsvhGylflF1BmDwM6jsX7XM7TFQVVIcTnVTwcl2pKTm
+         zzJtpJrp0w44NLSPcJdDc5y7EgEaTxKysSIJPF0YPE4fN5GpnXLqkHM9j4js6n0iQS9E
+         +0AT1JxhAQMzbU/ceW8PQ/E2eRv67kH5+cbDm8cRTPAwMcb6qwMb7vjxZ3Vif3UT/s17
+         5gvQ==
+X-Forwarded-Encrypted: i=1; AL+hErGbPEKZWY+kJZiK2YDBvRGrUsHw/S1PbWeaRSXAfep1cfdkqZU+bqy1aCeic8Lgpnjxx0VqKcs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+50JqPzmGSEYKMnpXrUc10Gic8urLiUN3i5vGWt2rYL+AtgB+I
+	x49E3YtrIjjdvfwR5NSP9nADBkK3UaJByy3CkmEiV8VvVoSdmk6OOwKWeL57PFU4mTQ=
+X-Gm-Gg: AYBFou2BGrvOeIpQ0JYtrHht22vMORcgHMeOKuAMVM1VFgftts8HGmADOSpb2qcQtu9
+	+4554wIN9300WbbgFx4pWzyzvFXJkSAcgQX49bs+ohBqWj/pY5+7AZnJFXxjBedwU8T3KW/GsT7
+	933PMg807yx5DEKFlNIwdR5/mjobTQpRNDIXhaYtw8YKoFuBuJ0dvXXUDyv4HbYVmsBiMG3PBcF
+	fc7biN/E/Mh9CF2silqEcLD7xPBpi7PpTNPiI2LkShGIzug7liNhhtndsm3AP7FNIhwQ4qyVTiP
+	+PNplV45ECuxb4zJGs9/ksT6FN4t5DpglHMS/sRd2Ft+Juw29V0z1gfGLd66Wr1B8DG8qPdg2pv
+	NWRYpBBPJ1hmvnfqmPaW1vsG9B/guiVpuM6R39MszF4rTguMmUfautQc+c53GRQMdnD6Az4veDv
+	xJmqzwZFizGNQC9fYBWH8DHR/N3WCPCmeoTSzWQL6XLdFHczBSGRbBUq4cRL56qTQXeO3zAkr2Y
+	Y4jGG5FaeIYmAqZljuoWgyvPQEWcm3asQlFl0sK3qDfxxDKWaq646LQySQ3jSehkMa7mOZ9L07N
+	b/hQdr+kfLrkWmFWDb6n6Aal4OQHJY81ZvzXHSXUSXZkIldm
+X-Received: by 2002:a05:600c:3e1a:b0:4bb:6814:7391 with SMTP id 5b1f17b1804b1-4bb8881921cmr77585875e9.25.1795191721065;
+        Fri, 20 Nov 2026 08:22:01 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853ca452sm129338075e9.15.2026.11.20.08.22.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 08:21:11 -0800 (PST)
-Date: Fri, 20 Nov 2026 08:21:05 -0800
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Kiryl Shutsemau <kas@kernel.org>, 
-	Song Liu <songliubraving@fb.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Rik van Riel <riel@surriel.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Pedro Falcato <pfalcato@suse.de>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, stable@vger.kernel.org
-Subject: Re: [PATCH net 1/4] net: skbuff: limit folio refcount when copying
- skb frag references
-Message-ID: <awBy7PoxdEMEGWyW@devvm16445.scu0.facebook.com>
-References: <20261118-skb_refcount_overflow-v1-0-5551b4954c3f@kernel.org>
- <20261118-skb_refcount_overflow-v1-1-5551b4954c3f@kernel.org>
+        Fri, 20 Nov 2026 08:22:00 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,76 +89,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261118-skb_refcount_overflow-v1-1-5551b4954c3f@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v12 00/10] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, stable@vger.kernel.org, 
+ Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
+References: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
+Date: Fri, 20 Nov 2026 17:21:57 +0100
+Message-Id: <179519171774.3795820.6006858658982158181.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1505; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=da1CAgmUNSJ5Vw/XW6Lz4OSgqJ+yn+Z+QoMk5bui0gM=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDNkMxctdWw95f775+kf6Kd3uhXaOSe5//1wwaWVeY9QYX
+ yM9mbu/o5SFQYyLQVZMkaWGu1r8naTWl1nTdW7DzGFlAhnCwMUpABOxMGf4nyRy6+VEnRlFq7fI
+ GagKJv1//7Hkw7/YmsPPe/Y99eOVz2NkuJ8445EhV1vDy2cFLl7ntuvVZT55xxi3U6SLM/uNTEA
+ fBwA=
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On 11/18, David Hildenbrand (Arm) wrote:
-> Various networking features copy frag references of an skb, for example
-> when unsharing a cloned skb (AF_PACKET trimming a clone), when copying an
-> skb (nft dup) or when building NFQUEUE messages. This is an effective
-> way for multiplying folio references held by an skb, allowing for
-> exceeding folio refcount limits.
+> I am in possession of an MA35D1 NuMaker board. The SPI controller has
+> been contributed, but at this stage it does not work with the current
+> clock driver.
 > 
-> This is not specific to large pagecache folios, but with them it is a
-> lot easier to reach the refcount limit, as page table mappings can cheaply
-> create many references.
+> The clock controller registers its muxes with .fw_name parent data,
+> which requires every internal clock name to be declared in the DT. As
+> the DT does not declare them, all parent lookups fail: muxes end up
+> registered as root clocks and most peripherals read a zero rate.
 > 
-> Let's introduce skb_frag_try_ref() and skb_frags_try_ref(), which use
-> try_get_page(), and use them in pskb_expand_head(), __pskb_copy_fclone(),
-> skb_zerocopy() and pskb_carve_inside_*(). All of these can already fail,
-> and their callers handle that.
+> This conversion exposed a first issue with the WDT/WWDT parents which
+> were actually missing in the clock driver. I am not using these clocks
+> myself but it is worth fixing.
 > 
-> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-> Cc: stable@vger.kernel.org
-> Acked-by: Pedro Falcato <pfalcato@suse.de>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  include/linux/skbuff_ref.h | 53 ++++++++++++++++++++++++++++++++++++++++++++++
->  net/core/skbuff.c          | 35 +++++++++++++++++++-----------
->  2 files changed, 76 insertions(+), 12 deletions(-)
+> The second round of reviews raised another problem with the
+> crystals. HXT and LXT are external crystal oscillators wired on the
+> board, while HIRC and LIRC are on-chip RC oscillators. HXT was described
+> whereas LXT was not. The series now also takes the two crystal inputs
+> from the DT: they get documented in the bindings, described in the
+> boards and looked up by the driver (with a fallback for backward
+> compatibility).
 > 
-> diff --git a/include/linux/skbuff_ref.h b/include/linux/skbuff_ref.h
-> index b6f6da556ee90..560ddc863bbec 100644
-> --- a/include/linux/skbuff_ref.h
-> +++ b/include/linux/skbuff_ref.h
-> @@ -44,6 +44,33 @@ static __always_inline void skb_frag_ref(struct sk_buff *skb, int f)
->  		       skb->pp_recycle);
->  }
->  
-> +/**
-> + * skb_frag_try_ref - try to acquire a reference on a paged fragment of an skb
-> + * @skb: the buffer
-> + * @f: the fragment offset
-> + *
-> + * Like skb_frag_ref(), but acquires non-page_pool page references using
-> + * try_get_page(), refusing additional references to a page whose refcount is
-> + * at its limit.
-> + *
-> + * Return: True if a reference was acquired, otherwise false.
-> + */
-> +static __always_inline __must_check bool skb_frag_try_ref(struct sk_buff *skb,
-> +							  int f)
-> +{
-> +	netmem_ref netmem = skb_frag_netmem(&skb_shinfo(skb)->frags[f]);
-> +
-> +#ifdef CONFIG_PAGE_POOL
-> +	if (skb->pp_recycle && napi_pp_get_page(netmem))
-> +		return true;
-> +#endif
-> +	if (netmem_is_net_iov(netmem)) {
-> +		net_iov_inc_ref(netmem_to_net_iov(netmem));
-> +		return true;
-> +	}
-> +	return try_get_page(netmem_to_page(netmem));
-> +}
+> Finally, I was still unsatisfied by the clock tree because there were
+> too many root clocks. Many "gates" were wrongly set aside from the
+> downstream clocks they would gate, and SYSPLL was simply not parented at
+> all (?).
+> 
+> The clock tree now looks much more accurate.
+> 
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
-I don't see you removing original skb_frag_ref implementations after
-the conversion, any specific reason? Do we still have any skb_frag_ref
-callers left? Maybe at least you can make skb_frag_ref do 'return
-(void)skb_frag_try_ref' to avoid duplicate code?
+Looks good overall. just 2 tiny nitpick and we are good.
 
-(optional) Also, an easier way to migrate might be to make the existing
-skb_frag_ref return bool, convert everything, and then add __must_check.
+-- 
+Jerome
+
