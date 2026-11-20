@@ -1,63 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.69.43.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795180674;
-	b=c4YtkcZAUOu/E1ElAKmAoPl7TG/OR5OHZn3fFn0XEQa2PCjz8q6F906m5hn9EI1h66vG
-	 v31qR0t4DbIMQ+Js2zW865vj2wiaDfG/yY6X7Mr0koSwP1cZvqsi3P37xvge1bqw/C7+F
-	 Zi4t1980W3UTz1FHUys3t8BsOol0g6q2BSDEf9GgxdMxVt78VCU++hP5heosCvj4OSQty
-	 6wwaWvV7BVrRpAzUcSOOnmxocbkfB5CPNV9OXcVRUjSn5B+5L9cNmfmRWFbzBkOWk4j3d
-	 JRgQ9oWKI2K5ICbG2RIYAqm/VFkG/wkgIa8xOwK2gOCVkux8kJVAUMXXyWQx+xFEQjw==
+	t=1795180717;
+	b=sF6xu+ojRV78J0TnMfeDfZAEkn8zeikJEwLXICOzO38TkRdP3taDTcbcCV814zA9a7VK
+	 nd0tKn9awvMekFjXNFswc18pFR6ec4WgVocSskGuKK1kCFASS4Q1XZFLW96F2LBQ3FPGb
+	 YKEav5iXgj2RUJNuPl8iBdqrDFYKzsksO8dRbjZW2vypLCqmU9Wum7k/7CQVq60XrZ3v/
+	 Qfay6uHZpdhPHz9MoT+FNcJzrCglFF3LcakZzgNXAsVQC5s92rXc4guVOVb8bXfasudj2
+	 5leJYBLcIOl0LMFKjgNPzKNTrSZKFFAqZZtHad7/DgQpaYIGK9Z/FET3yKylvLKmpXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795180674;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=5JWf5OXupYVqIkiH9DSB2am/4xavv4dxRVzrPrLSdSI=;
-	b=wHc0ikyzUoFkYz7oKmweulMarCFSXe+T/q2vmBCrOfa2a0+tDDD3o9em3jLgngPhVb50
-	 uaxxOtG6W3lpyFP/ADNiOGQxv2RpKG9h3viBqOSRvVGZgJ9qOfvT9TW22EbwtuYxQHTcu
-	 8Ni4SlJNCo0lMeB4LtF9VQjxhyiNGHYSEmbdNhZkuY9htHGlwbBySV9zucDZB3TNlzYN7
-	 H3jmty9ZV89/NnftiegJC2IUJswyJqNibLC7rMli2YMY5mi7+xZ3Yw0dx2NYIAB259zI9
-	 4dP0didSv14mzh+zw2OuSob9PBiOPi1u+MfpiS8t/nHOt0EuWmk6eyN5JmvZqpWr/ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795180717;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Developer-Key:X-Developer-Signature:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=THmtNWKGdSUGvlI+rK4tvt1qtBtoY6Lh6AheMCt1Uxs=;
+	b=NAcuqMoUnsN91Pr2ifPwX2IFaPQWLhQQ/YholVBbosX4iA2JKPDigNGVkZtoIt1VpKqA
+	 vY0yuNQnI4R55Qxt7AsxjEj135GL0r9Pkj/LW0sxzDfPMT+4SDFHtgvam0sim5OEkI5Oz
+	 /SZDNY5MtiJq8IMKl8StkBeqwWW2VNSbet5RxTnvzFRFJckt1gUIbuv4WorWrM4iRT4bV
+	 CPM6hjgLqIb5RIl4IWcc6ofuu60qpianIHAeaFlN/2w0YctgYJMhhoGDN6TK8wvxWrGR8
+	 Yg4AKTbwbEL8yPB+0ldMwiburxBHT7UGtvrgRgPPdD5mhy1iAIoddYfk/jLo/OrhGtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vozeler.com;
-	spf=pass smtp.mailfrom=vozeler.com;
-	dkim=pass header.d=vozeler.com header.i=@vozeler.com header.a=rsa-sha256 header.s=max-2024-2 header.b=KqzQW1pg;
-	arc=none smtp.remote-ip=80.69.43.37
-Received: from imap.hinterhof.net (imap.hinterhof.net [80.69.43.37])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--ardb.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iZi2yk0X;
+	arc=none smtp.remote-ip=209.85.128.72
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3581160A2618;
-	Fri, 20 Nov 2026 13:17:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3581160A2618
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vozeler.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vozeler.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FFF606A320
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 13:18:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1FFF606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vozeler.com header.i=@vozeler.com header.a=rsa-sha256 header.s=max-2024-2 header.b=KqzQW1pg
-Received: from dp.vpn.hinterhof.net (dynamic-176-002-211-151.176.2.pool.telefonica.de [176.2.211.151])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256
-	 client-signature RSA-PSS (4096 bits) client-digest SHA256)
-	(Client CN "x201t.vpn.hinterhof.net", Issuer "Max Vozeler" (not verified))
-	by imap.hinterhof.net (Postfix) with ESMTPS id 79B9F905A5B;
-	Fri, 20 Nov 2026 13:17:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=vozeler.com;
-	s=max-2024-2; t=1795180663;
-	bh=0PEgacUkNlIZomwm9ydbicVjYtPuVcdoui4iSWh3UOI=;
-	h=Date:From:To:Cc:Subject:From;
-	b=KqzQW1pgjX75vCWF4sRK1jvCfEwUPZMYeQhd3lBWshcPFbdacYsvQCLuDZXzwSO9e
-	 7Zgx/s6doXeDdGmQy1UsSRkWYrBCwWpZHfW/aHLk3wYiXSsEjN1koGWMPKNJKaK+S2
-	 LZEHQa+FSC7vLD8rBilCquIkP5onVcjALDHk92+6Di/WW4lcCoodSFEyrDJw7XHbG5
-	 PyrHJutQCZuxx33KNpnyKP9XBbuOOddGDCBALWHybXSInoaallhwOU21UFT3gC8rPl
-	 k4oljtJC+AgGfIgKKxTXQk6d+LCN5sV+9rXZ5MZK9qx3CGaLj+6PMoEYDLabM1I24P
-	 bTCt7+zsD6a2w==
-Received: by dp.vpn.hinterhof.net (Postfix, from userid 1000)
-	id CC87526018A; Fri, 20 Nov 2026 14:17:43 +0100 (CET)
-Date: Fri, 20 Nov 2026 14:17:43 +0100
-From: Max Vozeler <max@vozeler.com>
-To: linux-nfs@vger.kernel.org
-Cc: stable@vger.kernel.org, regressions@lists.linux.dev
-Subject: [Regression linux-6.1.y]: NFSv4 server: sec=krb5p mount fails with
- EIO in 6.1.192
-Message-ID: <awBIdxOJ4XSXuc7S@dp.vpn.hinterhof.net>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iZi2yk0X
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a204ac318aso4160695e9.2
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 05:18:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795180715; x=1795785515; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=THmtNWKGdSUGvlI+rK4tvt1qtBtoY6Lh6AheMCt1Uxs=;
+        b=iZi2yk0XZTLvBAAb36l3OOZd7FRkvOfdyolXV2KA/5IbeZ2hS4C+n7F+6wA8YAx2cC
+         uRrcT0o3rpY0CgZoHpLnD0MYHDxVQENGwVgmR8QZ6hV6VOAO1CLLIPRcJDqi0lSE12F3
+         zMdoIbDjtTNlCKPA/ycJVR0cfBLdGxl3l6GKdq06i3BXmw3DH4J3yXWStB+7o0JRgdRM
+         WfUhFBBO4nm52u+5wvIPUZRcdPTWE3CVi/H59846CfGmcwIfV7AJhGOEKlLkKXFo6e/y
+         kXne8FuEYneQ7on93PtmIJEmAinUCQdpKhfKAzAGcr2j5lRjMTpVgqJ80Dzkn4Cm95Sd
+         nW6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795180715; x=1795785515;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=THmtNWKGdSUGvlI+rK4tvt1qtBtoY6Lh6AheMCt1Uxs=;
+        b=U+n30lexvBolpLVnxcPfHRZOVko3eaYjtRvsQVfzadgRDE6Ba3XJoLYhUK9t5dQsdZ
+         AhjwhqXP8JQUAza8BlqlsQajFh3RvxzsrZQyPkyunEkWdv6EX9n6PUTaMbymQ+2kOg5I
+         HmBnKSyomu6brFXVwklVTpgVihT8RVA6+6q3UHOIdjiAsGzhx6srCXTtK6HvtoRY7c6o
+         +gKqkcwqVZh+3sZjP1yg6UF8n43FvRdzlk241TMYSe/pkR/RaPEL+ilO3Z9K9P9fLNOd
+         s7FJ/9SBGNY7BvIFnZRmy0ktaeADmCTh2bfyZzLCVCkXccZnQLLGFctQfpku0uzOiMEz
+         +EvQ==
+X-Forwarded-Encrypted: i=1; AL+hErEVAn0fWeYNI14YyADlJepO6ButQx8RdcQbRj9g66RDtz2pIV18diYdNZ2OdWszdMOVpAkaxZk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9FWsuCnqYmjF1PIFlJHUuqIlrRs6YZzD4vKRsQetKR7Nr+v/LE
+	So/D5Imj94gaTfCmecTFlpBW0Dhd+M76QexyJgyJ/424UvuJmXY8FaPXJbKvzM6K7M47P1OU9Q=
+	=
+X-Received: from wmbd9.prod.google.com ([2002:a05:600c:58c9:b0:4a1:810f:3937])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:6708:b0:4ba:7e6:53d6
+ with SMTP id 5b1f17b1804b1-4bb88940848mr59000965e9.33.1795180714601; Fri, 20
+ Nov 2026 05:18:34 -0800 (PST)
+Date: Fri, 20 Nov 2026 14:18:29 +0100
+In-Reply-To: <20261120131827.480055-4-ardb+git@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,165 +78,127 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
+References: <20261120131827.480055-4-ardb+git@google.com>
+X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3707; i=ardb@kernel.org;
+ h=from:subject; bh=eJW5Q1BjY1re402No/fJ4Z/93XbGNr/CeguCf/4k6EA=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIZvBY+n2iP4dT7Xj2/olXz3M5fJ7negfnj3v6+H1z/v7F
+ 7068fpYRykLgxgXg6yYIovA7L/vdp6eKFXrPEsWZg4rE8gQBi5OAZhIqT/DXyHNwt8ntDhtFgj4
+ mrJc3vRopa3Ru3pundyZEnpW8iFPrRj+V4htY8jr2izp6Wx7NHrxhGW7prJtWHHodGWulbSz1dp 9LAA=
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+Message-ID: <20261120131827.480055-5-ardb+git@google.com>
+Subject: [PATCH 1/2] efi: pstore: Make pstore_disable parameter read-only again
+From: Ard Biesheuvel <ardb+git@google.com>
+To: linux-efi@vger.kernel.org
+Cc: Ard Biesheuvel <ardb@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-#regzbot introduced: v6.1.190..v6.1.192
+From: Ard Biesheuvel <ardb@kernel.org>
 
-Hi,
+Commit a28655c330ab ("efi: pstore: Allow dynamic initialization based on
+module parameter") wired up a kernel_param_ops::set callback for
+pstore_disable that invokes efivars_pstore_init() directly.
 
-after upgrading an NFS server (Debian bookworm) to 6.1.192
-(Debian linux-image-6.1.0-55-amd64), NFSv4 clients fail to mount exports
-using sec=krb5p with EIO.
+Because parse_args() runs before module initialization (and before
+mm_core_init() during early boot when built-in), calling
+efivars_pstore_init() from the parameter setter is fundamentally broken:
 
-Downgrading the server back to 6.1.190 (linux-image-6.1.0-54-amd64)
-makes things work again.
+ - Loading efi-pstore as a module with pstore_disable=N initializes and
+   registers efi_pstore_info during parse_args(), and then runs
+   efivars_pstore_init() a second time from do_init_module(), leaking
+   the first buffer, failing pstore_register() with -EBUSY, and zeroing
+   efi_pstore_info.buf/bufsize while leaving efi_pstore_info registered
+   with pstore.
+ - If load_module() fails after parse_args() (e.g., due to a subsequent
+   unknown parameter), the module is freed without calling module_exit,
+   leaving pstore with a dangling backend pointer.
+ - Passing pstore_disable=N before record_size=<N> initializes the
+   buffer using the default record_size before record_size is parsed.
 
-Good: 6.1.190 (Debian linux-image-6.1.0-54-amd64)
-Bad:  6.1.192 (Debian linux-image-6.1.0-55-amd64, linux-image-6.1.0-56-amd64)
+Module parameters are meant for boot/load-time configuration rather than
+runtime driver state control via sysfs. Revert the dynamic parameter
+callback changes and tighten the sysfs permissions of pstore_disable from
+0644 to 0444 (matching record_size) so it is no longer misleadingly
+writable at runtime.
 
-sec=krb5i works on the exact same server, export, and Kerberos keytab;
-only sec=krb5p fails.
+Fixes: a28655c330ab ("efi: pstore: Allow dynamic initialization based on module parameter")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+---
+ drivers/firmware/efi/efi-pstore.c | 39 +++-----------------
+ 1 file changed, 6 insertions(+), 33 deletions(-)
 
-# mount -vvv -t nfs4 -o sec=krb5p,vers=4.0 10.x.y.z:/<export> /mnt
-mount.nfs4: timeout set for Fri Nov 20 08:10:07 2026
-mount.nfs4: trying text-based options 'sec=krb5p,nfsvers=4.0,addr=10.x.y.z,clientaddr=10.x.y.a'
-mount.nfs4: mount(2): Input/output error
-mount.nfs4: mount system call failed
+diff --git a/drivers/firmware/efi/efi-pstore.c b/drivers/firmware/efi/efi-pstore.c
+index a5db3534f0a6..19a7e4fe5b52 100644
+--- a/drivers/firmware/efi/efi-pstore.c
++++ b/drivers/firmware/efi/efi-pstore.c
+@@ -19,37 +19,10 @@ MODULE_PARM_DESC(record_size, "size of each pstore UEFI var (in bytes, min/defau
+ 	 EFI_VARIABLE_BOOTSERVICE_ACCESS | \
+ 	 EFI_VARIABLE_RUNTIME_ACCESS)
+ 
+-static bool pstore_disable = IS_ENABLED(CONFIG_EFI_VARS_PSTORE_DEFAULT_DISABLE);
++static bool efivars_pstore_disable =
++	IS_ENABLED(CONFIG_EFI_VARS_PSTORE_DEFAULT_DISABLE);
+ 
+-static int efivars_pstore_init(void);
+-static void efivars_pstore_exit(void);
+-
+-static int efi_pstore_disable_set(const char *val, const struct kernel_param *kp)
+-{
+-	int err;
+-	bool old_pstore_disable = pstore_disable;
+-
+-	err = param_set_bool(val, kp);
+-	if (err)
+-		return err;
+-
+-	if (old_pstore_disable != pstore_disable) {
+-		if (pstore_disable)
+-			efivars_pstore_exit();
+-		else
+-			efivars_pstore_init();
+-	}
+-
+-	return 0;
+-}
+-
+-static const struct kernel_param_ops pstore_disable_ops = {
+-	.set	= efi_pstore_disable_set,
+-	.get	= param_get_bool,
+-};
+-
+-module_param_cb(pstore_disable, &pstore_disable_ops, &pstore_disable, 0644);
+-__MODULE_PARM_TYPE(pstore_disable, "bool");
++module_param_named(pstore_disable, efivars_pstore_disable, bool, 0444);
+ 
+ static int efi_pstore_open(struct pstore_info *psi)
+ {
+@@ -255,12 +228,12 @@ static struct pstore_info efi_pstore_info = {
+ 	.erase		= efi_pstore_erase,
+ };
+ 
+-static int efivars_pstore_init(void)
++static __init int efivars_pstore_init(void)
+ {
+ 	if (!efivar_supports_writes())
+ 		return 0;
+ 
+-	if (pstore_disable)
++	if (efivars_pstore_disable)
+ 		return 0;
+ 
+ 	/*
+@@ -287,7 +260,7 @@ static int efivars_pstore_init(void)
+ 	return 0;
+ }
+ 
+-static void efivars_pstore_exit(void)
++static __exit void efivars_pstore_exit(void)
+ {
+ 	if (!efi_pstore_info.bufsize)
+ 		return;
+-- 
+2.56.1.750.gf70dc682cf-goog
 
-Server dmesg with rpcdebug enabled:
-
-[42095.312947] svc: server 0000000039bc31cb, pool 0, transport 00000000cfa39484, inuse=2
-[42095.312971] svc: server 0000000072d08ff5, pool 0, transport 00000000cfa39484, inuse=3
-[42095.312975] svc: svc_authenticate (0)
-[42095.324501] svc: server 0000000072d08ff5, pool 0, transport 00000000c60f4fcd, inuse=2
-[42095.334305] svc: server 0000000072d08ff5, pool 0, transport 00000000c60f4fcd, inuse=2
-[42095.334324] svc: svc_authenticate (6)
-[42095.334331] svc: server 0000000039bc31cb, pool 0, transport 00000000c60f4fcd, inuse=3
-[42095.334388] RPC:       xs_local_send_request(1756) = 0
-[42095.338142] RPC:       krb5_encrypt returns 0
-[42095.338144] RPC:       krb5_encrypt returns 0
-[42095.338148] RPC:       krb5_encrypt returns 0
-[42095.338148] RPC:       krb5_encrypt returns 0
-[42095.338151] RPC:       krb5_encrypt returns 0
-[42095.338151] RPC:       krb5_encrypt returns 0
-[42095.338154] RPC:       krb5_encrypt returns 0
-[42095.338154] RPC:       krb5_encrypt returns 0
-[42095.338156] RPC:       krb5_encrypt returns 0
-[42095.338156] RPC:       krb5_encrypt returns 0
-[42095.338158] RPC:       krb5_encrypt returns 0
-[42095.338158] RPC:       krb5_encrypt returns 0
-[42095.338160] RPC:       gss_import_sec_context_kerberos: returning 0
-[42095.338163] RPC:       gss_get_mic_v2
-[42095.338546] svc: server 0000000072d08ff5, pool 0, transport 00000000cfa39484, inuse=2
-[42095.338554] svc: svc_authenticate (6)
-[42095.338555] RPC:       gss_verify_mic_v2
-[42095.338557] RPC:       gss_get_mic_v2
-[42095.338557] svc: server 0000000039bc31cb, pool 0, transport 00000000cfa39484, inuse=3
-[42095.338559] RPC:       gss_verify_mic_v2
-[42095.338573] nfsd4_exchange_id rqstp=0000000072d08ff5 exid=0000000096ec91a4 clname.len=27 clname.data=0000000035150242 ip_addr=10.x.y.50 flags 101, spa_how 1
-[42095.338592] nfsd4_exchange_id seqid 0 flags 20001
-[42095.338594] RPC:       gss_get_mic_v2
-[42095.338777] svc: server 0000000072d08ff5, pool 0, transport 00000000cfa39484, inuse=2
-[42095.338783] svc: svc_authenticate (6)
-[42095.338784] RPC:       gss_verify_mic_v2
-[42095.338786] RPC:       gss_get_mic_v2
-[42095.338786] svc: server 0000000039bc31cb, pool 0, transport 00000000cfa39484, inuse=3
-[42095.338787] RPC:       gss_verify_mic_v2
-[42095.338790] nfsd4_exchange_id rqstp=0000000072d08ff5 exid=0000000096ec91a4 clname.len=27 clname.data=0000000035150242 ip_addr=10.x.y.50 flags 101, spa_how 1
-[42095.338799] nfsd4_exchange_id seqid 0 flags 20001
-[42095.338834] RPC:       gss_get_mic_v2
-[42095.338953] svc: server 0000000072d08ff5, pool 0, transport 00000000cfa39484, inuse=2
-[42095.338958] svc: svc_authenticate (6)
-[42095.338958] RPC:       gss_verify_mic_v2
-[42095.338960] RPC:       gss_get_mic_v2
-[42095.338960] svc: server 0000000039bc31cb, pool 0, transport 00000000cfa39484, inuse=3
-[42095.338962] RPC:       gss_verify_mic_v2
-[42095.338982] check_slot_seqid enter. seqid 1 slot_seqid 0
-[42095.338998] RPC:       set up xprt to 10.x.y.50 (port 0) via tcp
-[42095.339057] RPC:       gss_get_mic_v2
-[42095.339264] svc: server 0000000072d08ff5, pool 0, transport 00000000cfa39484, inuse=4
-[42095.339267] svc: svc_authenticate (6)
-[42095.339268] RPC:       gss_verify_mic_v2
-[42095.339270] RPC:       gss_get_mic_v2
-[42095.339271] RPC:       gss_verify_mic_v2
-[42095.339271] svc: server 0000000039bc31cb, pool 0, transport 00000000cfa39484, inuse=5
-[42095.339274] __find_in_sessionid_hashtbl: 1795172831:1033077859:4:0
-[42095.339284] nfsd4_sequence: slotid 0
-[42095.339285] check_slot_seqid enter. seqid 1 slot_seqid 0
-[42095.339287] alloc_cld_upcall: allocated xid 9
-[42095.340556] --> nfsd4_store_cache_entry slot 000000008b186fa8
-[42095.340560] RPC:       gss_get_mic_v2
-[42095.343136] svc: server 0000000072d08ff5, pool 0, transport 00000000f9548822, inuse=2
-[42095.344680] svc: server 0000000072d08ff5, pool 0, transport 00000000f9548822, inuse=2
-[42095.344687] svc: svc_authenticate (6)
-[42095.344690] svc: server 0000000039bc31cb, pool 0, transport 00000000f9548822, inuse=3
-[42095.344757] RPC:       xs_local_send_request(1756) = 0
-[42095.347090] RPC:       krb5_encrypt returns 0
-[42095.347092] RPC:       krb5_encrypt returns 0
-[42095.347096] RPC:       krb5_encrypt returns 0
-[42095.347096] RPC:       krb5_encrypt returns 0
-[42095.347099] RPC:       krb5_encrypt returns 0
-[42095.347099] RPC:       krb5_encrypt returns 0
-[42095.347101] RPC:       krb5_encrypt returns 0
-[42095.347101] RPC:       krb5_encrypt returns 0
-[42095.347103] RPC:       krb5_encrypt returns 0
-[42095.347104] RPC:       krb5_encrypt returns 0
-[42095.347105] RPC:       krb5_encrypt returns 0
-[42095.347105] RPC:       krb5_encrypt returns 0
-[42095.347107] RPC:       gss_import_sec_context_kerberos: returning 0
-[42095.347109] RPC:       gss_get_mic_v2
-[42095.347456] svc: server 0000000072d08ff5, pool 0, transport 00000000cfa39484, inuse=4
-[42095.347468] svc: svc_authenticate (6)
-[42095.347469] RPC:       gss_verify_mic_v2
-[42095.347471] RPC:       gss_get_mic_v2
-[42095.347471] svc: server 0000000039bc31cb, pool 0, transport 00000000cfa39484, inuse=5
-[42095.347473] RPC:       gss_unwrap_kerberos_v2
-[42095.347646] RPC:       bc_destroy xprt 00000000488733b3
-[42095.348467] svc: server 0000000072d08ff5, pool 0, transport 000000005d77f59c, inuse=2
-[42095.348472] svc: svc_authenticate (6)
-[42095.348474] RPC:       gss_verify_mic_v2
-[42095.348481] RPC:       gss_get_mic_v2
-[42095.348483] RPC:       gss_unwrap_kerberos_v2
-[42095.348507] svc: server 0000000072d08ff5, pool 0, transport 000000005d77f59c, inuse=2
-[42095.348713] svc: server 0000000072d08ff5, pool 0, transport 000000005d77f59c, inuse=2
-[42095.348752] svc: server 0000000072d08ff5, pool 0, transport 000000005d77f59c, inuse=2
-[42095.348758] svc: svc_authenticate (6)
-[42095.348759] RPC:       gss_verify_mic_v2
-[42095.348761] RPC:       gss_get_mic_v2
-[42095.348763] RPC:       gss_unwrap_kerberos_v2
-[42095.348762] svc: server 0000000039bc31cb, pool 0, transport 000000005d77f59c, inuse=3
-[42095.365858] svc: server 0000000072d08ff5, pool 0, transport 000000005d77f59c, inuse=2
-[42095.365867] svc: svc_authenticate (6)
-[42095.365870] RPC:       gss_verify_mic_v2
-[42095.365869] svc: server 0000000039bc31cb, pool 0, transport 000000005d77f59c, inuse=3
-[42095.365877] RPC:       gss_get_mic_v2
-[42095.365877] svc: svc_authenticate (6)
-[42095.365880] RPC:       gss_delete_sec_context deleting 000000004f9c6594
-[42095.365881] RPC:       gss_verify_mic_v2
-[42095.365892] RPC:       gss_get_mic_v2
-[42095.365894] RPC:       gss_verify_mic_v2
-[42095.365900] nfsd4_destroy_session: 1795172831:1033077859:4:0
-[42095.365901] __find_in_sessionid_hashtbl: 1795172831:1033077859:4:0
-[42095.365903] svc: server 0000000072d08ff5, pool 0, transport 000000005d77f59c, inuse=3
-[42095.365928] RPC:       gss_get_mic_v2
-[42095.366086] svc: server 0000000072d08ff5, pool 0, transport 000000005d77f59c, inuse=2
-[42095.366091] svc: svc_authenticate (6)
-[42095.366092] RPC:       gss_verify_mic_v2
-[42095.366094] RPC:       gss_get_mic_v2
-[42095.366094] svc: server 0000000039bc31cb, pool 0, transport 000000005d77f59c, inuse=3
-[42095.366095] RPC:       gss_verify_mic_v2
-[42095.366101] alloc_cld_upcall: allocated xid 10
-[42095.367452] RPC:       gss_get_mic_v2
-[42095.367647] svc: server 0000000072d08ff5, pool 0, transport 000000005d77f59c, inuse=2
-[42095.367653] svc: svc_authenticate (6)
-[42095.367655] RPC:       gss_verify_mic_v2
-[42095.367655] svc: server 0000000039bc31cb, pool 0, transport 000000005d77f59c, inuse=3
-[42095.367658] RPC:       gss_get_mic_v2
-[42095.367660] RPC:       gss_delete_sec_context deleting 0000000023931779
-
-Let me know if there is any useful information I can provide.
-
-Best regards,
-Max
