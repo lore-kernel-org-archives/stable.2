@@ -1,61 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795214799;
-	b=MZPhYms6vJSANY+gTgP7HVDmmK+OykuLPbiTX3bvKK+xK/gIdQB08q42TpHmLo6PUObD
-	 ZStg70vAzTog5yxhJTshm4hq3Ty5wOvOcQRq1s63ChlWVaFhrZkvIA/nYpaAvvqT5RQBY
-	 Chc0sNVxRaBtuzTW46ulq64+7oZVIKGrWcGRTwngEt02tgZ2iiRPyQojx8/DMGGcXEw91
-	 tQd96FMc9t4qMBjpuDyR2f9vtNnjZk2Y+TTrhw0kZSkixs6ltqeJOO35puORkSetAo+bU
-	 MhSGypZyE4FWYcwrXG3N39FyFJPmlUdjKgzsyX3yvWrWJv05x4nepLcI2Z0+hf+59XQ==
+	t=1795214849;
+	b=XdQaemDhJl0UT0l29dCBYCm9oy9BzwUDkOTXmz2PEhXMl4Pv3D0yIi1GaRg9QAMT1m77
+	 VG1J2sOuwN9/AKrpRmKy1SZkidIQbPiqxaXpwaQ7aAWs0tYliw2MqHnkfNOjFri+QMc05
+	 dFfD0ZvmvWZqQkFIxWSTTO2n8SBDlM+aTtzkvOAV41Dq/NB6aR4WmcHqUxyx6v8eWcUdj
+	 Z9LloAU3LyRfpgJ55Ipm8ZW5O1z9fRe8H6wxcq4//Pc2YxnD2dqsx8mqcOOlsiaCTiEgB
+	 VaAwMG0ZwbSOXiOALc7xcwg1qAK6Nj6WAJWyKA5dezY5wKEVxyzCZLGn+INg8dj2taA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795214799;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DMfrqVPjPuK+e72+6L9bE14tazO/DZzHZLMmL92Qx8k=;
-	b=EuxaMmXa+UgdUaWKrNalCEQaXQEwJWEZ1PU9zpzW3pJnyfv22zFlj0YQ5wwwDPZzB/65
-	 fSAEYPSbOvrLH6E9a9QxdM3OBl31aKq24iy186kQY1R48D3wlPc5qt5OKplWDz+fEBkJZ
-	 8ZfWx0F2J60YsKjtQuIAiOwAH4cURfPnr2zzdZS10t2G4stwNkip6KGJN/qxgBWU0BLVI
-	 Nwxf3vz2OVXnXxKQopqVZPyje1kl6yP4IuSLil3A8bQwUg+IXu0y8poWkCb+ecawgx9mW
-	 5OXGH/T+JQFXQVc3bS5P3OqAvw7wMSGqi+ggLQMV1Mg5wSGIiMMNkki+OtuQg1aByCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795214849;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=hDktAyyJAPG9jc8GPRxfEzIEA8i6qmjQXTURV29xE6Y=;
+	b=cQG92qRRtAjUWNrpcTA4fXQP7vx8N0hQ+4I9ammB4zHsVIwtuGgaFtDq9NBgIllyonhF
+	 rLanw+R3nNSjTrWgRw2I50k3osgf/YSn2Zb0CyXV7jR/1pfMFzEcorpTpq9LBHxi39KIq
+	 Fqel0he38RmtPJkmTNHgTswanSqHPkAlWyLQUQMEzP53V3fJXYvFD5rFQONSO5mnbmHtp
+	 uvW7m+MvYUucih/7Df6kb/i8GMj1ewlt6OotKoVihHlZ9aUgThO5Wx4Vn1lEjv1j098Wh
+	 sfQmfLwmobTBN8lmOxiOTbOT0XZTfEjFIwHFSgeyMSOlv89J1Va4CpQLHRte2yfyz7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JvHQcD7V;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YqI6DP+3;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237D2606A32C;
-	Fri, 20 Nov 2026 22:46:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05EF606A691
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 22:47:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A05EF606A691
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JvHQcD7V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BE7A1F000C0;
-	Fri, 20 Nov 2026 22:46:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795214798;
-	bh=DMfrqVPjPuK+e72+6L9bE14tazO/DZzHZLMmL92Qx8k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JvHQcD7Vx8eKnvv4+OgD6+g5xBlMnDQM0b4jrgYV34hRsn2Qou+8K4oKOqzPHajUK
-	 Yn4ruOx0M0cw17DRuWRjhsrn0wdQHOxNzpJin2VgahG4M3z0wKoNog9oZjlsCoiOYZ
-	 6VomTww5ovIyXURdZsUjUCvMPUldcrGQme48v02T9RMmNBsAIzuweB0cBJPK8vScXV
-	 JJub+6RaKo/ollYJiGEX/13sQF1Do0A50Jsgd0uv3mClUVOhf9r/1VtT94lzUQk0Cr
-	 duUTIn4M1UQOvzw2ef+bvs/hclEtn+3q0xv7m2SpP2OsutK+SwCimFGXHp3r+jhR5c
-	 3mKNrQGwe/k/g==
-From: Chuck Lever <cel@kernel.org>
-To: jlayton@kernel.org,
-	Yiran Qiu <eritque-arcus@ikuyo.dev>
-Cc: neil@brown.name,
-	okorniev@redhat.com,
-	Dai.Ngo@oracle.com,
-	tom@talpey.com,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] SUNRPC: copy the GSS init token with read_bytes_from_xdr_buf()
-Date: Fri, 20 Nov 2026 17:46:36 -0500
-Message-ID: <179521478676.60322.17225332794263348687.b4-ty@b4>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261120060007.302599-1-eritque-arcus@ikuyo.dev>
-References: <20261120060007.302599-1-eritque-arcus@ikuyo.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YqI6DP+3
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4a9be758734so901532f8f.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 14:47:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795214847; x=1795819647; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hDktAyyJAPG9jc8GPRxfEzIEA8i6qmjQXTURV29xE6Y=;
+        b=YqI6DP+3PWKjWwhrVSanSRfoeCtUGdxyLFN0q3WF6JcLPvi/aGITEW1BCBWNIWYDe6
+         Hn+L+vBVQ4WjLXv2V4SsPm0qUF1cmmGYAyMip3yyHdLdRPVpTI4m3DcZpfEn+JsTCBTp
+         +u7nZpbaKaSU/FkE3IvPShMxjhhBKeDiBhminR/33hzO0JsMRF9Rk3ajRpvRrH+vq6y5
+         t/C/0WPgnuT9Rj7IYbKwNughO9V31PjasVWfo2npVPrnCTaOHO7C8QQj1KQYKZyFAOEl
+         BqN4IWnY1uYgltPdSKMfzbab+vJZca6gVuoaVApUxSxIP79izKHooXtSL2bRMMI5jrWE
+         f7dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795214847; x=1795819647;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hDktAyyJAPG9jc8GPRxfEzIEA8i6qmjQXTURV29xE6Y=;
+        b=VwurZuptd6JuxtHjmNa+o9SeQ4GXEAUP1Y2iYidMBOX4AZPkoZ5C72uMT6hUOBrg3p
+         TUkRyqOnjMt75s92pw/C0nNZs51jY/KaPyXBfqMTJ98gj+Raazbs3J74B06lpWSadDn4
+         YKqiNxtxqKy2ZsJuDvMhYKCnALW5TN/4P0XskfrovkuWLLFXWdjkLfnU71h1ZAK87YFD
+         QBCVPItPpPeQ6sW1LzgbviVj13FybzLCfAsO9mnlVK/vR8K1XpwauPM4KCGfiBGPtImA
+         KGcOw0ijaWv5CPKJlCE2lukX0umdOa5YFYMrT/lRqIvbp8QIAMQdbTUPkfxu7deciKV8
+         pW1A==
+X-Forwarded-Encrypted: i=1; AL+hErGljW71UcO8bFugmVZ/HhWByFqHv2O1fH2Znr61l9Kp3p59LwoH8HTy+HqjILf6q8NjcEP70dg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Jb8gtKfaLcY8JdDYMJF6xtPHI87L1j/Vagu9Q4a3z1CG0SRpp
+	DpJR7044cjw34HlJqEXX4865UIlBgK2ZpXJRKWeCOEAjG8HO41M5Ak4=
+X-Gm-Gg: AZFdTZfDo+RQXlQZVj21B3LrVwpaIfjEwkoHf7E15h7uxvBdSVQ5YCEL1NVeTEhfYay
+	b4qPR1IgaPo129f0ig//DHVWhd3ZyeOk2Ldroc2zXFGJlF5TuXsgpJD3h1F/U6esiz2+M1U+4po
+	N+V1N3SwLb6LvmzNx9uSDXwQDt5y3bQHNqzt0UB3MkTpYNWXkRHdH/bQh19nIfZtNKcomstWA4Z
+	BR1ezJyzV1+H8GYVXcLIMeL8cy/GbqKJKeL4PSwNzyyPFoClfrrcIcr7r42aLsdAghjpn0/LN3G
+	oPLgK//ZWHgVwS9CzXrDixiFyWPlF1AEpdUfJyzERIlgaODCaEXQPAybJMqd1rc4Q5Y6OHtK8yd
+	/lGM4+ySepn3RrfyjiohudnduK98ISh6kkQoga2B3jrJL5yAmVaKUNh886+t56OQZ3Eik+bXuv7
+	6YVXxxiF8eocmVkclfC5VTAPTyfE3M2HlLpQUDbmTvdjzsCTiTzP09/dVMRpMFXqqOcAwDdgBWY
+	6mUwGJg3pNu1O8k1neSE0EDLisXPw/wvR0H3SCuEnGb8hAtWHXMSXMCK17+k+FmJxC1WlL/LWUO
+	JsbmJ6PY
+X-Received: by 2002:a05:6000:4a0b:b0:4a7:4efc:11d0 with SMTP id ffacd0b85a97d-4abaf740155mr9169550f8f.12.1795214846879;
+        Fri, 20 Nov 2026 14:47:26 -0800 (PST)
+Received: from debian ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6baa3882sm8148705f8f.49.2026.11.20.14.47.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 14:47:26 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v2 media] media: v4l2-mem2mem: cancel job_work in v4l2_m2m_release
+Date: Fri, 20 Nov 2026 22:47:25 -0000
+Message-ID: <179521484597.972404.10406015135695575425@talencesecurity.com>
+In-Reply-To: <a931e754-ab4e-42d8-8555-9a432fe42a1e@kernel.org>
+References: <a931e754-ab4e-42d8-8555-9a432fe42a1e@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,29 +102,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
-On Fri, 20 Nov 2026 01:00:07 -0500, Yiran Qiu wrote:
-> gss_read_proxy_verf() copies the token from the head of rq_arg and then
-> from rq_arg.pages, assuming the rest of the token is in the page list.
-> svcrdma rebuilds a Call that carries one Read chunk as head (inline data
-> before the chunk position), pages (the chunk) and tail (inline data
-> after it), and xdr_stream_remaining() counts the tail. When the token
-> starts at the chunk and continues into the tail, the copy runs past the
-> chunk's pages. If the chunk fills rq_pages, the copy takes the NULL
-> entry at rq_pages[rq_maxpages] and memcpy() reads from
-> page_address(NULL); otherwise the stale contents of the next page go to
-> gssproxy in place of the tail. This runs in svcauth_gss_proxy_init()
-> before any credential is checked, so a client of an NFS/RDMA server that
-> uses gssproxy can oops nfsd threads without authenticating.
-> 
-> [...]
+Hi Hans,
 
-Applied to nfsd-testing, thanks!
+tristan@talencesecurity.com is my correct address -- it is in From and
+Signed-off-by.  tristmd@gmail.com is just the SMTP relay that
+git-send-email routes through; it leaks into the envelope sender but is
+not my identity.
 
-[1/1] SUNRPC: copy the GSS init token with read_bytes_from_xdr_buf()
-      commit: 6d817b9ca893bc2603446e340030e149e5c8b207
-
---
-Chuck Lever <cel@kernel.org>
+Thanks,
+Tristan
