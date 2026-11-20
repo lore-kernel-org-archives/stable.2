@@ -1,68 +1,42 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.239.133.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795194824;
-	b=N0YH0GmS6JBSl2OTkNgL8q5Izlopatiob9M3uSmkOakglYpqNfq8mpRcbOJWdxgdWWwO
-	 8ZWTJ6bHfrs4sZ6VTE5garUPhIenoi6+/7dGQ9EYU/tLMNc4nHEzAUlZ8QvcyRnihibpP
-	 6MZ2r1EGx/bHlOeT/H1/2+2ahcEuuENCkOWW7tBQ2gvriF1ZiAESAWkxD+4Uy3DeZjFWe
-	 K3ZI4qRcYnpPSYwLKglK2hxjVvPQHDAhvEenPb0xlcSIs2k6XZvsZlrzdvtPj0HrQsjPx
-	 enh6dpxBcA2KASJ5N1LNifQgIM+bMfysl3/t8jI2MoN8zcpNt9DeHhh2UFzWYt2m+ZA==
+	t=1795195063;
+	b=Gftzqwsdi3VXsO9iQq8r/JkilChKRdBJsgCD0ENV88xroMxRaoRfe6PNsDFKczKolPV6
+	 70zzzm7drFm3cY1368GYztVRW3ntSxVZUpXlmNNDVc84Pfc7i368qkQQfDC8623Cja8aY
+	 5ZetY7XC1VgnkB3QeRgSDrQNRKrNQpzMWPKY6rBxlT7/4+/4LOBFJIMt5rYFOmo1VvLh8
+	 POrmZ747JdiG2Tj6B0U68meBy8+DCr5K/AGi753Fql9LYhaf8TaZVUa6h1GmrQmtpV0B/
+	 NRhspsNSxElUxFHTYsyVxKzexcIVN06UrqviygyaK7Pzy1oSRj3XjtmK8FKz8Rugucg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795194824;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-SRS-Rewrite;
-	bh=Y4FSJdFJ9FJTRu2HiS/qdhokJ359mTa41Gazn1t58H4=;
-	b=gFGlbxLEl/KGHRNK6N0jNMdGT4l654K5g492eoxCNNklhYaaIrGgn3Eq4lvkxBHe7Qy9
-	 s6L/5KBKOeQtJIGYe32PuEbcwsG70Wko2YUDBRlOIqs/867E3mYpu3uBIa50y2K2eMfcO
-	 RPUW+k7RWH3P6yiwJcc7vqb++FCdEExTLWLKnXkCbxpzt1jpVSk5VDM1KHJ/i5/kueMuU
-	 +wOhjhNcfeuRNbfbzh9ONzGE1wJLjJKOQxX2aoBtH5V6JXo63C1w4Ivyr6V29Dmxiuzb5
-	 xGB2rQgFj2V0K/xsCmbqwWo5PZ7eUdNwhCUQWVVc78aj6xLreaFlzncybBLBYIaNeSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795195063;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Authenticated-Id;
+	bh=QQZ+cbtcpKFHgk1DpEzLueNxHPxmGXXgeatclk9OYMY=;
+	b=3DN8otY4VxmxnPfpQ+czIS1aoMhPkB3EjF53VS8gHkEKLEY20ievwTegBVBuNGNR6hSM
+	 jyUyfrZcXsFcztP8DsDjeNmCJQTadrFSEjQm6h0e0SgrNDk6CYCZ5kwrl1fSIdpq8iO/o
+	 yszKb9uqHGIfCTpj7idcPpVZ3iCihsrX3AdMrWA18t/dECxcXwZjBGwpt1TC0MuH+PyQA
+	 BX0oPcAx/zZncTa0WVpAvkQu4A04t9fUm0Crl3dI7v3WMvTCjeTILv9NYZSMWtkOCUejO
+	 /MlF/22vCjlJ3Yd9gYdKE8Qr8rvnAUQUYwLMgMftZGiKD+a9GiCxCR/2/J6pOUdVTLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=K1Lihill;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dmarc=pass header.from=kubik.pl;
+	spf=pass smtp.mailfrom=kubik.pl;
+	arc=none smtp.remote-ip=213.239.133.39
+Received: from mail-e618.seohost-mail.eu (mail-e618.seohost-mail.eu [213.239.133.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF2A606A32A;
-	Fri, 20 Nov 2026 17:13:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CF2A606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=K1Lihill
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Y4FSJdFJ9FJTRu2HiS/qdhokJ359mTa41Gazn1t58H4=; b=K1LihillO3xvKHypPocoMqMNhb
-	78cyBGR38TXdZp6RCL1a5hxOvNEhaSQxGJBfUQy3MyhPYoiw55mTtPrl3n6ahwi0Wnb3gP/oNWkZn
-	havHp+ZVTMg/zn1VtXZvO9L+yTEERkD4o6WPPDEAiyBNmSUe9FZz218nLDTWu/t5essUqXhw7bZvv
-	kMVXhAPEGuh6UBTXx5jEE+LPcwPSEsndZCExjHoa6jtHTCwPFQGaHCtbjVkQ+7PyIsNhD+GS0eUxV
-	MpgjHIdvnCcLcQhEAvYijMWgk0uC+SDqDZ2jbCkxlzkvJCmdroVBkwkEZ63R+5OH2eAzqb3khyFNQ
-	HJ5lZ1Gw==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xUSBB-0000000FdoL-0GwL;
-	Fri, 20 Nov 2026 17:13:41 +0000
-Date: Fri, 20 Nov 2026 09:13:41 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Keith Busch <kbusch@kernel.org>
-Cc: Zakaria Belkadi <zakaria.belkadi@inria.fr>,
-	Christoph Hellwig <hch@infradead.org>,
-	Caleb Sander Mateos <csander@purestorage.com>,
-	Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Kanchan Joshi <joshi.k@samsung.com>,
-	Anuj Gupta <anuj20.g@samsung.com>, florence.schadle@ssi.gouv.fr,
-	frederic.tronel@centralesupelec.fr, louis.rilling@irisa.fr,
-	stable@vger.kernel.org, "Martin K. Petersen" <mkp@kernel.org>
-Subject: Re: [PATCH RESEND] block: pin user PI pages for writing when ref
- tags are remapped
-Message-ID: <awB_xd60To4UawrJ@infradead.org>
-References: <awBnB-55HQ54C1x6@infradead.org>
- <20261120162257.498238-1-zakaria.belkadi@inria.fr>
- <awB8OODx0fCFGc5G@kbusch-mbp>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6AFD606A320;
+	Fri, 20 Nov 2026 17:17:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6AFD606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kubik.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kubik.pl
+Received: from static-46-238-236-132.awacom.net ([46.238.236.132] helo=[192.168.8.166])
+	by h84.seohost.pl with esmtpa (Exim 4.99.5)
+	(envelope-from <piotr@kubik.pl>)
+	id 1xUSF2-0000000GmV1-10OU;
+	Fri, 20 Nov 2026 18:17:40 +0100
+Message-ID: <b0026332-b980-49a8-80bb-a41735468592@kubik.pl>
+Date: Fri, 20 Nov 2026 18:17:19 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,29 +46,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awB8OODx0fCFGc5G@kbusch-mbp>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] USB: cdc-acm: restore the line coding after a
+ reset-resume
+To: Oliver Neukum <oneukum@suse.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Francesco Lavra <francescolavra@interfree.it>, stable@vger.kernel.org
+References: <20261119122842.3611681-1-piotr@kubik.pl>
+ <1817932e-469f-401b-bc04-37f30625c3ec@suse.com>
+Content-Language: en-US
+From: Piotr Kubik <piotr@kubik.pl>
+In-Reply-To: <1817932e-469f-401b-bc04-37f30625c3ec@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Authenticated-Id: piotr@kubik.pl
 
-On Fri, Nov 20, 2026 at 09:58:32AM -0700, Keith Busch wrote:
-> > Agreed. I'll keep the PI iterator as ITER_SOURCE. In v2,
-> > bio_integrity_map_user() will bounce the user PI buffer for REQ_OP_WRITE
-> > when the integrity profile has BLK_INTEGRITY_REF_TAG. That way the
-> > block layer can remap the tags in its own copy.
-> 
-> Can avoid bouncing? I think the remapping flags can be tied to the
-> user's reftag check request.
-> 
-> If BIP_CHECK_REFTAG is set from the user setting IO_INTEGRITY_CHK_REFTAG
-> on a write, we can map the PI buffer for writing. The user explicitly
-> asked to have the ref tags checked by the device, and partitions require
-> remapping them, so they've told the kernel to write to their buffer.
+Hi Oliver,
 
-No, the user did not ask for violating the mapping direction.  The
-whole remapping thing very much is an internal implementation detail.
+thank you for the review. You are right. usb_resume_both() resumes the
+interfaces in the order of the configuration descriptor, so the control
+interface is not always the last one. On the CH344 that I tested, each
+control interface resumes before its data interface, so v1 sent the
+request while the data interface was still suspended.
 
-We could fine tune based on if we need remapping due to partitions,
-if we limited remapping to partitions, but I think Martin last time
-voiced an opinion that remapping could also be used to pass in
-arbitrary tags (which always felt a bit odd to me).
+In v2, acm_reset_resume() reads acm->susp_count under write_lock and
+sends the line coding only when the count is 1. So the last interface
+to resume sends it, before acm_resume() restarts the URBs.=C2=A0
+I tested v2 in the same way as v1, and an extra print showed that on the
+CH344 the data interface now sends the request.
+I will send v2 as a new thread.
+
+Regards,
+Piotr
+
+
+On 11/19/26 13:47, Oliver Neukum wrote:
+>
+>
+> On 19.11.26 13:28, Piotr Kubik wrote:
+> Hi,
+>
+> thank you for this patch. However, it has an issue.
+> Let me comment on this inline.
+>
+> =C2=A0
+>> +=C2=A0=C2=A0=C2=A0 /*
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * The device can lose its line coding, for e=
+xample when it loses
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * power during system suspend, and acm_tty_s=
+et_termios() sends the
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * line coding only when it differs from acm-=
+>line. Send it once, for
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * the control interface. In a runtime resume=
+ of the device, an autopm
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * reference here would wait for this resume =
+and never return.
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
+>> +=C2=A0=C2=A0=C2=A0 if (intf =3D=3D acm->control)
+>
+> This test is problematic. The interfaces may be resumed in any order.
+> You are setting a line coding before the rest of the device is
+> resumed.
+>
+> To do this cleanly, you need to look at the counter.
+>
+> =C2=A0=C2=A0=C2=A0=C2=A0Regards
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Oliver
+
