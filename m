@@ -1,96 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=99.33.87.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795198824;
-	b=slQoi0P2DkrlrxDqtMC/SHUC+HzpuSn0VsF/2Yk1kkiTuOlao1Nl6piViDt7NIbP6dsi
-	 OZ5YsuloGFppXmTAq6Rptfi5f/s7KCi5rEHhhtMCQc2mE6guSnhok9E79KpdBt8eWBjXH
-	 +KgkawUFQ+MXSXkAsm5HTr2NZ7xrkv4SNgyIJxNdXg8Da6sqdp1LBtw2YAcMiNbG4r2jV
-	 AHL6jxFhMLyfTjtvTKi7PQpX5/UaFoxGe6ESh5XCudtcjrtvnoJkHj8S2nWu7qNSZKIw/
-	 cWI5H8vg4+vi9+kHtaPnyRKtm8bkpnGdxkIuLVem21tA10erxo+mjSUYBxynSBpAeyg==
+	t=1795198959;
+	b=q8VXFtiC8UFf8xCxJ9DAKJAjqJSnjDSKJuFowBS+pm8fE/4VlGVo6KRnmUmcoMKqXn3D
+	 WzreMcT4f0fFtD3TUzPDJRUnDlP5wRev1AmQGPJT6xMMuWkkDwVWqp4JE492qVoqD4tU4
+	 cgzMZ9VgaHxY4TnnpbY2IeNzAFabISiFAMCqJ1d3YU0IZOjokJ641VAS+0pVmQ+TL24C1
+	 1q99x5bG+LvyNjcbRnFEBJdTMkZkgl2I80SGwiyoHXkgBZf64P3cXoXw4uGnfpkgr6Wiw
+	 WhwJsgWBi7iHQfG2CGzQp2GJK7QC6w7eVQvs+jgG/cR0kZjI6HjIypMFerXPH1qXLvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795198824;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qHyHugXT8A3gMhSG4ut0su7T08sNPi7lup8ky8aAdYA=;
-	b=KhaQmeCNs/4rD5PASiANefxNtvuJPfsyfFTFlOg5c8832785vi6FjJVlyZYVGKedJfTK
-	 JJmTsfeeUUYpwJLk6wUHw/Sv09V39FgGZLeu+DaKMe0BMdyPKX4kcIYLqPR5PxlKmv5va
-	 +auFJCCltxYctzo/DHBPEgVv5ACJeEZqJNq0XTTBGhPEYm5uEJkxEONwDfXKuk3XwUwgf
-	 hLZeNFtTO122poLaFX8SZqDodyU29PPO8BHUo5AKGGfG+/10AoxHHD4N23wNQPhrWIcjU
-	 lxcYqu4lPQxLxp2Qlz4NF+Zbc+vdLu35JIZkUQSm65/XuhNoeYGKSP8DIqr8l48aj5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795198959;
+	h=DMARC-Filter:Received:Date:From:X-X-Sender:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:MIME-Version:Content-Type;
+	bh=2jkde0bQ5ks7RbXj+AFz+mtlYLhKUbqkJFme+5XX6Ug=;
+	b=ImxbuauoSUhsMBRywau7w0aIkwNfgWi61iSxe1wHpn0jzOG+0O641PIZixGd4qrzrP0Y
+	 iA/kyKTd8L+Oz5f8YbkuC1Q2IHzLCXIONjJhc78t7VcO5JwzXBso9rF8z7fF4WvC63rbd
+	 an5UuFjkxoIew6qdYRfOE0OA9s8pxQ4OhZ4DzDaYX3+Ri7ORTQAqOAzXYsAJl67Ps81eU
+	 50yj/6KXZEXWt9JjxKM7l4DO0VecfN7A2gFgUSo/c68XxZ+ROpsX9K0xviVKQjixH01FL
+	 iCFYhG13P9H9t3JQl4WWZmkjVvR6Gcmhs7g6XS3W1mxjUJ6GBsaJXCk3lRe8MtsxC+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SIqoiPHl;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=aaazen.com;
+	spf=pass smtp.mailfrom=aaazen.com;
+	arc=none smtp.remote-ip=99.33.87.210
+Received: from mail.aaazen.com (99-33-87-210.lightspeed.sntcca.sbcglobal.net [99.33.87.210])
+	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6FC606B223
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 18:20:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B6FC606B223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SIqoiPHl
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-497614c95f0so761708f8f.1
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 10:20:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795198817; x=1795803617; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qHyHugXT8A3gMhSG4ut0su7T08sNPi7lup8ky8aAdYA=;
-        b=SIqoiPHl4PvkvH3uNUmWwM+jmheKQz3gILJ8Bof2Xhfc/jlWKFryJC7rR+YUM7AwFy
-         3WI23dfrODgmpMtus3eKndATKXoncXM0853HMuJlAmDxHHpHDaEL9O+GQjIliaubfDYu
-         SkJjEODQK47/wialIiZ0TThDTPpnIv+yp6RE7VgaqmfBD0/hXzFJG6pdlrboDGYCZbuQ
-         M7t8NcUWjsGpeeLfkVc8X+6WQErPsUoM8aaI3Lru1ezHaPlXJZ9jGLYbAf79JkrgCzos
-         QZqwfLMoWdrW4SYE8C6uEkxect7i6LirnNeLgnb81xSrtmP2TXSNwvI/rId9TG7Tb567
-         WXsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795198817; x=1795803617;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qHyHugXT8A3gMhSG4ut0su7T08sNPi7lup8ky8aAdYA=;
-        b=OLzygpMFYP9wjiZKiEmJ+LgMMiRvnRYpqsK+lae9xtYthjuePBPB1d3YPBY5PwOzBT
-         25AOJodWqNqfI+dBnoY3arDnFlqpxW5JeLXHqxmy+LjqIggp9a8dT74Mee1MP3pXTNz3
-         aNaaJrwC2zxehZSpPwIPGr6ji0lkd10P1vOZHEFGDnv//y+TFCVTs9PLLFmXv1/YHqtm
-         lr4kOGaDoVXw0vbtGfTib3+Z4fAtrMYzuQgL+sFDf5i0eIJpKSV54vozvCEcwh5mQW4M
-         /R/Q6D9ZI8ABT05hwKoenQORvPauzbHl5wNxItEaH4ZUkRJZbtW51BiigEAEdwioPJma
-         LYKA==
-X-Gm-Message-State: APuU4Z85Te0Gp0qBdwjMzc2idcG0KPUisDv1eJMT/abbYh//f3ByusKb
-	h464uMiw54orEidRSMIOMlkTXGiK05LWtvDkqmkDGgjSCoo6NlCgS0U+U5WCSA==
-X-Gm-Gg: AYBFou3rGkBjNxPVm2Da47eKMjqpEQ/iZun7UY3qzmaclBw6cTGocG86lO3sHULXAXB
-	jxTb5bZswqHISxMNSpPhmmRGbrciTyUcaYywGEjUoDQySda3z8vkJuiPnq1fGgj8jufk2UX/xUV
-	TRg5i0GdgE5+1Oh+I9N7Od4Yn4eaJywZtNWaEfI92hk6LZLYcqi+a0QIrn31FfL0MgyWLRxggtN
-	ud7npTTMnVInB31YOsVHKMLopueVPoCniDTLd9KopN3DOkb1kTMKTJcsHsL6viW0W12K9mPpDUu
-	CbXH07jbnF+4KQ3GCaEWbqvkZTbIsnvEjyqvrICV/eE1aC/cO/zV71hccF2VYRqTsgvJ+xSQ+HI
-	3a8He7E6npWrrb59S+rElFymbMgzUdij/hj97k2IlPT/qbliXru9TKq6yNqTkWwJoFs3TFPgPKs
-	l6e2F5mkx3lZNMcPOsYoQjzD4UCKMWDZ28VnQaS0eSPCSrpospNXnFC2dK4hnh+l3fq6RzsHBE6
-	xQ19xslL6OVuWFtmihdnw4mi8PSU2dJTvpilygEd7F+R0237Ntbzdf1MsVMl/KOJxtx0yhP7dF8
-	gKO3p9cpdj8wnVzGE+jKFFfhsHjgeZftRtHl1u8TJ40v41qpBwT7rraK1HZEOX4LphHjAFg33Nq
-	opSAiD00nFegryC+ClFoeP5fk6i6GN0G8mBr8WSExNbTtMrw=
-X-Received: by 2002:a05:600c:1c28:b0:4bb:867b:f0f0 with SMTP id 5b1f17b1804b1-4bb88810708mr105298155e9.15.1795198816718;
-        Fri, 20 Nov 2026 10:20:16 -0800 (PST)
-Received: from mbp-de-florent.lan (37.170.0.109.rev.sfr.net. [109.0.170.37])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb895eec06sm34789565e9.2.2026.11.20.10.20.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 20 Nov 2026 10:20:16 -0800 (PST)
-From: Florent Carli <fcarli@gmail.com>
-To: stable@vger.kernel.org
-Cc: Juri Lelli <juri.lelli@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Gabriele Monaco <gmonaco@redhat.com>,
-	linux-rt-users@vger.kernel.org
-Subject: [PATCH 6.12.y 4/4] sched/deadline: Fix server stopping with runnable tasks
-Date: Fri, 20 Nov 2026 19:19:49 +0100
-Message-Id: <20261120181949.7528-5-fcarli@gmail.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261120181949.7528-1-fcarli@gmail.com>
-References: <awB-5usPb2QZXt37@jlelli-thinkpadt14gen4.remote.csb>
- <20261120181949.7528-1-fcarli@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2381B606A881;
+	Fri, 20 Nov 2026 18:22:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2381B606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aaazen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aaazen.com
+Received: from localhost (localhost [127.0.0.1])
+	by thursday.test (OpenSMTPD) with ESMTP id c85c3c94;
+	Fri, 20 Nov 2026 10:22:29 -0800 (PST)
+Date: Fri, 20 Nov 2026 10:22:29 -0800 (PST)
+From: Richard Narron <richard@aaazen.com>
+X-X-Sender: richard@thursday.test
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+    linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+    akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+    patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+    jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+    rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+    achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 5.15 0000/2178] 5.15.226-rc2 review
+In-Reply-To: <20261120055015.328810133@linuxfoundation.org>
+Message-ID: <278ed82d-ba22-1cfe-67fd-260158b5b63@aaazen.com>
+References: <20261120055015.328810133@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,85 +56,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-From: Gabriele Monaco <gmonaco@redhat.com>
+On Fri, 20 Nov 2026, Greg Kroah-Hartman wrote:
 
-commit ca1e8eede4fc68ce85a9fdce1a6c13ad64933318 upstream.
+> This is the start of the stable review cycle for the 5.15.226 release.
+> There are 2178 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 22 Nov 2026 05:44:39 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.226-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
+>
 
-The deadline server can currently stop due to idle although fair tasks
-are runnable. This happens essentially when:
+Tested on AMD    amd64 12-core and 4-core and x86 1-core systems
+and    on Intel x86-64  4-core            and x86 1-core systems
 
- * the server is set to idle, a task wakes up, the server stops
- * a task wakes up, the server sets itself to idle and stops right away
-
-Address both cases by clearing the server idle flag whenever a fair task
-wakes up and accounting also for pending tasks in the definition of idle.
-
-Fixes: f5a538c07df2 ("sched/deadline: Fix dl_server stop condition")
-Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260113085159.114226-3-gmonaco@redhat.com
-[ Florent: context conflict in dl_server_start(), which still
-  initializes the fair server in 6.12 ]
-Signed-off-by: Florent Carli <fcarli@gmail.com>
----
- kernel/sched/deadline.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index ea64ab436..2da68de70 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -1482,7 +1482,7 @@ update_stats_dequeue_dl(struct dl_rq *dl_rq, struct sched_dl_entity *dl_se, int
- 
- static void update_curr_dl_se(struct rq *rq, struct sched_dl_entity *dl_se, s64 delta_exec)
- {
--	bool idle = rq->curr == rq->idle;
-+	bool idle = idle_rq(rq);
- 	s64 scaled_delta_exec;
- 
- 	if (unlikely(delta_exec <= 0)) {
-@@ -1663,8 +1663,8 @@ void dl_server_update(struct sched_dl_entity *dl_se, s64 delta_exec)
-  * | 8 |       B:zero_laxity-wait       |     |    |
-  * |   |                                | <---+    |
-  * |   +--------------------------------+          |
-- * |     |              ^     ^           2        |
-- * |     | 7            | 2   +--------------------+
-+ * |     |              ^         ^       2        |
-+ * |     | 7            | 2, 1    +----------------+
-  * |     v              |
-  * |   +-------------+  |
-  * +-- | C:idle-wait | -+
-@@ -1709,8 +1709,11 @@ void dl_server_update(struct sched_dl_entity *dl_se, s64 delta_exec)
-  *   dl_defer_idle = 0
-  *
-  *
-- * [1] A->B, A->D
-+ * [1] A->B, A->D, C->B
-  * dl_server_start()
-+ *   dl_defer_idle = 0;
-+ *   if (dl_server_active)
-+ *     return; // [B]
-  *   dl_server_active = 1;
-  *   enqueue_dl_entity()
-  *     update_dl_entity(WAKEUP)
-@@ -1825,6 +1828,7 @@ void dl_server_update(struct sched_dl_entity *dl_se, s64 delta_exec)
-  *   "B:zero_laxity-wait" -> "C:idle-wait"        [label="7:dl_server_update_idle"]
-  *   "B:zero_laxity-wait" -> "D:running"          [label="3:dl_server_timer"]
-  *   "C:idle-wait" -> "A:init"                    [label="8:dl_server_timer"]
-+ *   "C:idle-wait" -> "B:zero_laxity-wait"        [label="1:dl_server_start"]
-  *   "C:idle-wait" -> "B:zero_laxity-wait"        [label="2:dl_server_update"]
-  *   "C:idle-wait" -> "C:idle-wait"               [label="7:dl_server_update_idle"]
-  *   "D:running" -> "A:init"                      [label="4:pick_task_dl"]
-@@ -1850,6 +1854,7 @@ void dl_server_start(struct sched_dl_entity *dl_se)
- {
- 	struct rq *rq = dl_se->rq;
- 
-+	dl_se->dl_defer_idle = 0;
- 	/*
- 	 * XXX: the apply do not work fine at the init phase for the
- 	 * fair server because things are not yet set. We need to improve
--- 
-2.39.3 (Apple Git-146)
+Tested-by: Richard Narron <richard@aaazen.com>
 
