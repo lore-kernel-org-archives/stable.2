@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795190506;
-	b=CowUE7NwWgxPvYfVuzsHe+rSJRxKnCIB0Xm5pUrQeOYcRU/gb7W+YaNFIzHDwKqcYc26
-	 zS0ciSrm90Ga/b21rcYqNjzCHBLa4+FkVGY9n0oIz2jINIZSPo4tNgs6tOQRWst2Wh9EO
-	 YulleHTmnc+U2I0QISuy4+S77OCAkKxjGZc4X2eMeaFlKfM+JUXm1jkESV5biI8CLo8h2
-	 pakZa5F8v1rGAj3nOXEOqfF/YOehJKiwAzFgjvCQE//tiPB6yZlMdIy8bEtV2pRv/MKuz
-	 7HK5GFG27LOOzMSB2ld3wqwieaXuuGCh2fwdiVRqFLk3LcdGPHHreUNv0cH2WwzDryA==
+	t=1795190533;
+	b=XonP/V9OQVuQiCV94o20JdOsILRzL9KzzbNeavcobee9+LdlFN/t8ndYzhDdl9xuEMD2
+	 CW6UzUzzym3JoWOOZWcC1vpWVOT3CDXbWIGFi09lbQkjyf0Pw/uvRiewaCLvSFbjgIp7h
+	 xyIBT18zd2yrO5m3m3Qjtnef376VbjqhEDk/l0dPIxJ73uIxcgQjg/DTmW8FUTB11i2za
+	 dnuhLaMEC+FINZmTk4SjYeK6+li69E6fS4JzmGcQMcD9wtyNn5ELOXZjppsXpp/b8+5LI
+	 RB0HUyNPtVaKsWOExQcArlffcxNm2tHz8D7uyt0vMnFwzyw4BYWu+E7Hq9Kw8SpfMFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795190506;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795190533;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=NtVw7HJE+FU9DI3xWpl8Pyt0L7yMJpDS2sfT356C23w=;
-	b=dPft+KqNeRH7UlEfC/aPZA8fTt/Vj0fTfEpKtk/h29tzXvu6KT8B5cPHKBbdUEMOfRZs
-	 NLiGiDg3mv8ibx3v413qgr/DOqBQ5PDryB+fsxdQOIeJ6Op7dRW4R0Te+nGzuamw557rI
-	 89v0SoofEo0fg9iZBx7b4paNdYVqrLKCTVj5wDmFphd+2ijJ0BqyEOHbf1ZeoRcPcObE/
-	 ssaRi5aTU0mznm8RgGPyIrIt3ZQiYlPZS/0BqDku6ENQ98ZspaSAztysXMXEwj1kHIffc
-	 ND7YpF134bKaI8PLc5akJ1GCDi9R2Q7Rrhz0nkH/rxC/+sE5bBBhfTgYPfgCC58LKFQ==
+	bh=dApsL/dlRKoFxvBs2GETZ/NYEsxe4Hnp92CF1CLUeuU=;
+	b=BOTt3vNZejIDHg+9auaGAWc3h+NZ2V7/uKXYqQ9v3WolAEg+cKEFqj/bU58WK22GHl8o
+	 coCkvhCwH+ERb40x+uCHuSFDMPoPqPo2vcOHg888l9lhDvky+nC8oFuIXXh+hbjb+6695
+	 ZBNscvJQHijAvwZvsl+lfwFuB865bd9VvlqzBY/UxqKbNohSCuCq8T/iQ2TdjlxtrkyfR
+	 dSjlEHObd7RF+OPlcQTmX/OXg8xHqD6UciqCM+JWiYpF/f+31AexeBfNehxsjLawQZTpl
+	 mqmNgjYEPseOPwD+hU9y4jQ66kt4IugN8vJP6fxHXqbryX135MCY5RxJKhoeOcti+Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XAXUnE15;
-	arc=none smtp.remote-ip=209.85.210.45
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t4CUSqYw;
+	arc=none smtp.remote-ip=209.85.210.48
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556C5606A325
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:01:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 556C5606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D300E606A325
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:02:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D300E606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XAXUnE15
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-862df509d48so746513a34.0
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:01:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t4CUSqYw
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-862b9c2e78aso651175a34.2
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:02:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795190505; x=1795795305; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795190532; x=1795795332; darn=vger.kernel.org;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=NtVw7HJE+FU9DI3xWpl8Pyt0L7yMJpDS2sfT356C23w=;
-        b=XAXUnE15xCXWUgDbFmuMCBMg4ffNmK383G4cW2vjVWZ0Y96B6uK1rt7PtSzIDEEfNF
-         DoSZDtVwTnHMSjXSDZbYSen6XFgwdJ11nlfGjRTbFg+2b0BNg9Y9nZ724IgwJfq9Nnr2
-         G7SOupfYUkuyQ4k560TgLLrWwgnAC7IugZNqvCeoCiEwGkdXnlqPVxvHkYjC410LNW22
-         512PQtAiYK68Wa2+nldfJZLooBuwx89dFBhYXzeLW75NlK0F1MAN9EiXx4MGqc/jYXH1
-         WulTezX3aDXms0TkxfSm4r66RKifVn59DH7QYvhKh9o7Xb1z5K38XMFLPFXUCuQHBrPL
-         IIgA==
+        bh=dApsL/dlRKoFxvBs2GETZ/NYEsxe4Hnp92CF1CLUeuU=;
+        b=t4CUSqYweHqu+sOy/9IwfBzvby1J11Ei2Ie24G7H2zDvWMmrK63gqIm8/gLFLOPLyV
+         qfNvbQ9EAC2eOil3qpni+5DwkJNLy+g/L84suyXe9npP0i4usrFeEoTHKxRac+fQmwSb
+         olAiVKf+86TJ8+yEVOlGsna9223O05zipiRvC/OprljMxZzWDSvPr4GxKy+ivvg9J5iJ
+         f5gChIHMy7uaNlp8YBtL7h4eRpLq8pDCI1R0avg9BverGCOGFCjzGuaentMV+nodsALU
+         SMEX/Y7vSlRnLdyscV+g9tgqscJtkBOQ+AMYJ64+Gp5syMLaYLEoJ4N09a6jPJgiTVhO
+         6AuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795190505; x=1795795305;
+        d=1e100.net; s=20260707; t=1795190532; x=1795795332;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=NtVw7HJE+FU9DI3xWpl8Pyt0L7yMJpDS2sfT356C23w=;
-        b=WYoyW8frYghU3r2k2mIbIMxYc7EHSUVSXao4r+w+15Ym4lwILVQV0TEKJrWI3d0MTZ
-         ZKYyIVdusBPbMVtW42ZJMOwzk1VVP+TknBHy0AgQb0BLbRW4uX2FCXj6Vr0wDYo1HewK
-         FiVHKBc4jpz9ohXzljp1AKR4Oh5p6WJmPQtGFCLyD5JKlOylnTOdpbtkQiyOh5TON9F3
-         ceT1k06VRfeyCj3uW4Iz+cn+02OmqMSyBvsrJH2W3Vzrcu5FsS8KENe3G5jlfEukruDF
-         gPzi98AfmQzLcDmqLgs7KdP8ULU/RF+w+2YA6dDbK52VJ26FpMPmXaiU9ph9CdzTkMdK
-         ecaQ==
-X-Forwarded-Encrypted: i=1; AL+hErF2jpaYbkTZZV7Xjq/UmwBoWft0uezvF39ZBRr78CwU6kI3/et61HN68h3DoTKWxtenOkG2ovo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+XtaQrTeQJjMOfe24iEad4qTdPief93DE+XyvuOrTHjqw5s14J
-	37qtN4OfH05qB54H8v1sygjyoMgnvUZ5pH9bEpD/ruFxvCUDvyZ0hbkJ
-X-Gm-Gg: AYBFou0Dd3SGGUWhBycheqUr10UMssq//PsGCVyFGfgBEbyQR2U4P3lJYQ3n0nnoIMD
-	nm2xdo2JhGNon7Y3NKWRznkKBv/AKhg/438j3Fypei/JcgUOwtWPcYN1WEVV3N3GJV5DMfImX3j
-	lQCc+o+LVUZYpkYXYm5eEXXoMUV1CghVikljH6m31Z187M2dZ/8+NzxMyCYDHPiLCTqSvSDAaqi
-	SILL4QQ8Pl9GeRwixFAfiGZBWGerb9ostYNPYefiaKOu5UJthov4Sjy/Go/WWr9qTAj1fzBJFVJ
-	s192u04icvLs/8yMcjUUvTtkn+hT5Qgu/y4sIyZOYoqJ6eAv9X6gb3YrMOq90spLbf3Fjn4f+aZ
-	rNJsXkdwhy6CIdyr2DM+kZZdRwaLyWcq8xlN86Wf6RMkunJcwv2S7PJZtuGJgOnRRHsUCj76+uu
-	gDFkBQ7sq+IubVdWqEb7yiUyVWzAHHQW5NvMda42JW2PSy71/sIEvj0/nFwHgx35DSqfm/okwD6
-	4Uzykpn0pX+tXjuRhMbKLIlGW+b5SSQ20B6Xx/vuvnf4LZ5yriFVotc41ogkNgEKHCgG6XvOYvl
-	Uo3JWG2Ph71nxKjcH9Dr2Xh2w6qeSG2CTe+WcMkKvPGylLmUW+WVdTufLYPKDkVwa/n5E5tY9Ol
-	iG8tob0FX+XwH01nwJxkXaImLM1FhDjoBhaCLv76AHuOx4ND7yebBVl3uGchAERj3kMRZw5xeME
-	kgV/ZqaKax8aN7Jjn0q9Vt+0AEPxnWQnC9okK8h/FS3mfCCoqMKZQ=
-X-Received: by 2002:a05:6830:3916:b0:845:614b:eab9 with SMTP id 46e09a7af769-863091a9d18mr3867703a34.6.1795190505053;
-        Fri, 20 Nov 2026 08:01:45 -0800 (PST)
+        bh=dApsL/dlRKoFxvBs2GETZ/NYEsxe4Hnp92CF1CLUeuU=;
+        b=J9l1fgChOfYPA7hoFoAsfmnYUy2qUvemB5jd6QZZjPqoeTl9h+QTHfDBYB1eAEJA2m
+         uD6Ydm781LIyqnx+TkUAz1czbS5yPX6A1wzPVo69Mv0hSxMMy42CCMMRIYejsnzSy4Ab
+         KM2VSuC0CkYkYWWRVbTfWLlQp8nbABln3RdzQRDP9hJT7Csr66mfZMb0iO6tBZi+moFF
+         EV6+fgU5TBD//85RPRGck/GPQKOa9iDQH4Tae8+evYJQs3y4aqM5jS5ZcY5uDzObf4dl
+         E/pshzCahkl+vckCYi8fG98yJEZ10hNhOzJItcuDHs3UVN50j/4Gujmd+LwgznX5zVOK
+         lvGQ==
+X-Forwarded-Encrypted: i=1; AL+hErEZSinrJURGk2kxCycIHUUAt3G0S3tJUnfcWnKv5VMxxSDCty4DuYuWxJkRXRDEZ81NwFzSw70=@vger.kernel.org
+X-Gm-Message-State: APuU4Z90z+E4QzG1Z9FVh8UwtoLo4nExT+R53a1gjmddVhq31ZSqXK1k
+	xJ7Xx80y6vKa6Z5DDan6PivOU9zIu2dAfMhJtl7LGfRqWwCDjfiKnPek
+X-Gm-Gg: AZFdTZfDVKYohJItoMFenk6MTqe2A26LDZ/IT4GTvOJKTH0yCTEoYyBvyz1vEv97zU9
+	wGVpwV2Tbt26SLKtF2DY3Fmnlljq6W6rS5Hu6qEXUbPgpjg1S51anH/DlS3fz3IdQqw0tCAgau0
+	uyV6+W9Ax/Li49dT6NzTZqvHKmm7zRDq2I/jrIiXVDColhONy90C62OOEv+T+fpR64nVzwq/wOL
+	IgtupR5IvGqiAu7nem9YvN38ue+mXq9jTfUK30Q6QW+rONHXjOzuoUx0/+sz1vAB2kpERQptv2i
+	Cy5iqwNtHrrIDxcFWEqAMNttXm17W4Fx5wZ/6cNQb+IzPWs9tckILpqUn5EIxe8ETiytxlZIBzF
+	aZw0DkluO+KmVxV9/DzbFTxJGbi+gX+Vk53ci5HG9oDZetQ/26mlDF+NsZOUmpiMmAWfdfzXD3e
+	hlMXSJWXz5JHREsfvI2hf/dTr0kAWdiu8BYMhEBMP6fv7UEGkGME+TETCL6kN3RYT4iQ9FEtp32
+	QThfZOmYGhTHbc8w6LUD5IHq5mr5LMprQ9mJ5wxMcr/L8pVlEni/vcUc6XDK4rbREDrRYB8OiTP
+	qEvJIA6SX2K79Bj/prhJjoi2etvpHfHOu7MMYb2osaU9p6hdg2JeKlHcKTPOyfbHfRVFLTRA65w
+	JzKbEp3/4xTkuj3ZQk7b8rcs0wUk9gew++Dd5un+U+Fgjy1rNe7TijxEQmf+N/ytTU5Ccb8+lgg
+	k07Nf8Au05zm6snckMV3OlnsqA+/zUBMUjl3/u4LZIsVkW8WFtsXHuoSSp0f77KS/Mq2UirGmG
+X-Received: by 2002:a05:6808:3193:b0:4cb:f21c:a794 with SMTP id 5614622812f47-57a0ac257d3mr3853052b6e.28.1795190531576;
+        Fri, 20 Nov 2026 08:02:11 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168f3964sm2307408a34.14.2026.11.20.08.01.41
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-57a34252251sm2522283b6e.6.2026.11.20.08.02.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 08:01:41 -0800 (PST)
+        Fri, 20 Nov 2026 08:02:10 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 20 Nov 2026 09:01:35 -0700
-Subject: [PATCH v2] mtd: take a reference when opening an unpartitioned
- master
+Date: Fri, 20 Nov 2026 09:02:06 -0700
+Subject: [PATCH v2] mtd: serialize dynamic partition registration with
+ removal
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,82 +95,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-submit-mtd-master-open-reference-v1-v2-1-5c2e2ede4ea7@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOSw7CMAxEr4KyxtBU9CNW3AN1kSamNSJJlYQKV
- PXuOO0JkOzFeOznWUTEQBjF9bCIgDNF8o5FeTwIPSo3IJBhLcqirKUsWojv3lICmwxYFRMG8BM
- 6CPjAgE4jzBKU7JuqNtrgpRFMmtilz/bl3u2aMU/UKaPzRq8iQh+U02MeMf2ce79if6SYfPhuM
- WeZOf8l4pLQNlIp3eoai+o2WEWvk/ZWdOu6/gDe9JtUCAEAAA==
-X-Change-ID: 20261108-submit-mtd-master-open-reference-v1-a1b756dcde47
+Message-Id: <20261120-submit-mtd-partition-publication-v1-v2-1-8098cde01961@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WO3Q6CMAyFX8Xs2iqbiOKV72G42EaBGv6yDaIhv
+ LsdPIFJm/S0PV+7CI+O0IvHYREOZ/I09CzU8SBso/sagUrWQiUqkzK5g59MRwG6UMKoXaDABhg
+ n05LVWz1LSDOVG8zT8oaZYNLosKLPduVV7Joxb7QhouOG0R7BON3bJraYfo65u3jekA+D+25vz
+ jJy/vuIQ4I1VaUSIy9Xic+609Se7NCJYl3XH5KuSIgIAQAA
+X-Change-ID: 20261108-submit-mtd-partition-publication-v1-4629be94d7e6
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
 Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.17-dev
 
-With CONFIG_MTD_PARTITIONED_MASTER disabled, a flash device with no
-partitions still gets a /dev/mtdX node. Opening that node does not take
-a reference on the master MTD. If the driver unregisters the flash
-before the file is closed, the core can unregister the MTD device and
-its NVMEM provider while the file is still open.
+If a flash driver is unbound while userspace adds a partition, removal
+can find the new partition before it is registered or release it before
+its sysfs attributes are added. If removal finishes first, the ioctl can
+even register a new partition on a master that has been unregistered.
 
-Take a master reference for a handle on the master and drop it when the
-handle is released. A handle on a partition still takes a master
-reference only when CONFIG_MTD_PARTITIONED_MASTER is enabled.
+Hold partitions_lock from the start of partition allocation until the
+device and its attributes are registered. Mark the master as being
+unregistered under the same lock so a later ioctl fails before allocation
+can read bad-block markers. Clear the flag when registering the master.
 
-Fixes: 264725e35fbc ("mtd: Clean refcounting with MTD_PARTITIONED_MASTER")
+Fixes: 5daa7b21496a ("mtd: prepare partition add and del functions for ioctl requests")
 Cc: stable@vger.kernel.org
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
 Changes in v2:
-- Clarify which handles take a master reference and what is released early.
-- Link to v1: https://patch.msgid.link/20261108-submit-mtd-master-open-reference-v1-v1-1-871aac8c6e05@gmail.com
+- Use mutex guards to keep publication and teardown lock scopes explicit.
+- Link to v1: https://patch.msgid.link/20261108-submit-mtd-partition-publication-v1-v1-1-cbff20b1351e@gmail.com
 ---
- drivers/mtd/mtdcore.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/mtd/mtdcore.c   | 4 ++++
+ drivers/mtd/mtdpart.c   | 9 ++++-----
+ include/linux/mtd/mtd.h | 2 ++
+ 3 files changed, 10 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
-index b170c3144ca8..c51067ea19c8 100644
+index b170c3144ca8..5ee1eb29fc1a 100644
 --- a/drivers/mtd/mtdcore.c
 +++ b/drivers/mtd/mtdcore.c
-@@ -1330,6 +1330,7 @@ EXPORT_SYMBOL_GPL(get_mtd_device);
- int __get_mtd_device(struct mtd_info *mtd)
+@@ -918,6 +918,7 @@ static void mtd_set_dev_defaults(struct mtd_info *mtd)
+ 	INIT_LIST_HEAD(&mtd->partitions);
+ 	mutex_init(&mtd->master.partitions_lock);
+ 	mutex_init(&mtd->master.chrdev_lock);
++	mtd->master.unregistering = false;
+ }
+ 
+ static ssize_t mtd_otp_size(struct mtd_info *mtd, bool is_user)
+@@ -1206,6 +1207,9 @@ int mtd_device_unregister(struct mtd_info *master)
  {
- 	struct mtd_info *master = mtd_get_master(mtd);
-+	bool master_ref = mtd == master || IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER);
  	int err;
  
- 	if (master->_get_device) {
-@@ -1350,7 +1351,7 @@ int __get_mtd_device(struct mtd_info *mtd)
- 		mtd = mtd->parent;
- 	}
++	scoped_guard(mutex, &master->master.partitions_lock)
++		master->master.unregistering = true;
++
+ 	if (master->_reboot) {
+ 		unregister_reboot_notifier(&master->reboot_notifier);
+ 		memset(&master->reboot_notifier, 0, sizeof(master->reboot_notifier));
+diff --git a/drivers/mtd/mtdpart.c b/drivers/mtd/mtdpart.c
+index ddded0dbe77e..b20fa4309084 100644
+--- a/drivers/mtd/mtdpart.c
++++ b/drivers/mtd/mtdpart.c
+@@ -278,13 +278,15 @@ int mtd_add_partition(struct mtd_info *parent, const char *name,
+ 	part.size = length;
+ 	part.offset = offset;
  
--	if (IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER))
-+	if (master_ref)
- 		kref_get(&master->refcnt);
++	guard(mutex)(&master->master.partitions_lock);
++	if (master->master.unregistering)
++		return -ENODEV;
++
+ 	child = allocate_partition(parent, &part, -1, offset);
+ 	if (IS_ERR(child))
+ 		return PTR_ERR(child);
  
+-	mutex_lock(&master->master.partitions_lock);
+ 	list_add_tail(&child->part.node, &parent->partitions);
+-	mutex_unlock(&master->master.partitions_lock);
+ 
+ 	ret = add_mtd_device(child);
+ 	if (ret)
+@@ -295,10 +297,7 @@ int mtd_add_partition(struct mtd_info *parent, const char *name,
  	return 0;
-@@ -1435,6 +1436,7 @@ EXPORT_SYMBOL_GPL(put_mtd_device);
- void __put_mtd_device(struct mtd_info *mtd)
- {
- 	struct mtd_info *master = mtd_get_master(mtd);
-+	bool master_ref = mtd == master || IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER);
  
- 	while (mtd) {
- 		/* kref_put() can relese mtd, so keep a reference mtd->parent */
-@@ -1445,7 +1447,7 @@ void __put_mtd_device(struct mtd_info *mtd)
- 		mtd = parent;
- 	}
+ err_remove_part:
+-	mutex_lock(&master->master.partitions_lock);
+ 	list_del(&child->part.node);
+-	mutex_unlock(&master->master.partitions_lock);
+-
+ 	free_partition(child);
  
--	if (IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER))
-+	if (master_ref)
- 		kref_put(&master->refcnt, mtd_device_release);
+ 	return ret;
+diff --git a/include/linux/mtd/mtd.h b/include/linux/mtd/mtd.h
+index 8d10d9d2e830..cd7b4671c456 100644
+--- a/include/linux/mtd/mtd.h
++++ b/include/linux/mtd/mtd.h
+@@ -224,6 +224,7 @@ struct mtd_part {
+  *		     not only the master partition list, but also all
+  *		     sub-partitions.
+  * @suspended: set to 1 when the device is suspended, 0 otherwise
++ * @unregistering: removal has started; protected by partitions_lock
+  *
+  * This struct is embedded in mtd_info and contains master-specific
+  * properties/fields. The master is the root MTD device from the MTD partition
+@@ -233,6 +234,7 @@ struct mtd_master {
+ 	struct mutex partitions_lock;
+ 	struct mutex chrdev_lock;
+ 	unsigned int suspended : 1;
++	bool unregistering;
+ };
  
- 	module_put(master->owner);
+ struct mtd_info {
 
 ---
 base-commit: 14b6830335eb6d70dec7a235094d66c22d38eb07
 base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git mtd/fixes
-change-id: 20261108-submit-mtd-master-open-reference-v1-a1b756dcde47
+change-id: 20261108-submit-mtd-partition-publication-v1-4629be94d7e6
 
 Best regards,
 --  
