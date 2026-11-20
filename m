@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795207365;
-	b=AlpPj/zCySGK0I1GunV6SXq7uBDgqhQ8nnqfsv3VtT5JLxDf+O9aHa6vJh5YBrP1ED4N
-	 hn+8/9C27DfjNKS0V52FyJtysUyrVBZ47IkWSHVLp1YL72WyNptAwXBvPFt+n/YDNzDNM
-	 SlZcS3Z39IVVZe0QX0I/ob3cLUkLJFWgJL6LHyaN0NA2REy41Gt0FpGt+oc4TeTC0o+Hq
-	 fjHmh5mI6Nm7iGLUhgUxItdtQCwOqkCNYM0kcJCyfd4tJnhMRLC8AregiGoj0jzfpCB4U
-	 bwylo8rxuk+5zKKY8z2CnVCPrHXGNqc4KCHuKZvkcd8Vf3+vD+m9Pim2PecqXTRAQNw==
+	b=NvqteQULkJbRo06yg3a6OgmzyxG+cSecrnJXBmIg/b2E5JCT/Pyw0j9QKdDFSGPhui1F
+	 8Y/sEpDReBW0XQOnuhR4lUEgzExK/hSYSL+o+X/zd/2UKZ8cQARSYZ+TrVCckoYrgSNua
+	 7knFkKPLq+WL59yaU+/8xnQh5I6iVVyvxjxCpmFR8biszTRb7mb4Sq6Fdusv5numVAreU
+	 Mr+0EZEBdNDWuLwdzHUiSN9E1CiOvF5+UZx4+PvgHUEiwzDLMvi16J4pXFUslDTvpDR+R
+	 ZU/3gvb3VO8HXO6EuXpzrSkUfrCU/hna5op1z1M1YOUNoCKuTtoceev6IrcWvuL9kIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795207365;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=hnZN3YRZ98GVF++w/YTWvIy7nXP4wGKxJAAnzb2UsdA=;
-	b=Wuvfm+qrGYGL95taEqVmGX263WoidCkNkSm+E9opoGcZgH+XvwsKlwk2aVC96G1NEn8z
-	 b6YeFo+lstvAk/W+DDPmjDHUDFQew2fiVTukvTodSJObLzxPTOVSFeqJbfywW0eNG3dVc
-	 Gcs7M9kA1zjLjPPzMvwWVkeHjU2IysDb0wV40Jhlu5QwJXsBS+0yywKLl1ARYN/5uoFlY
-	 g2tkXfy9r+JWYooT9BiEg2OuPMpBPE+KtUycj/56IWDJ0B4SOuJRkYW0nfI/n42DUMPUP
-	 3vNM+KUQdncAwVCe99WnE324DBQk4BY6mD+Av62gNDFQXu11ve5gyaF07JYEp50ZZ9w==
+	bh=CNvfx3FsmRuSU4jKrv6OcILPWoIpbOIycZRWputDuP0=;
+	b=ifrQohgHzxicTv/Ld5lfww6xhsax5gnqlgqFTwVZ1d8QzGt6qeSdT+I8tewumFg69i60
+	 6iJwiO9Y+/dux+Xt3yhnWPLbCBLVVQLRXowZZx2Rjw/PmVeiQmWvsiHChQLMYx+VlkFkM
+	 TUtsBrI2H/+yD488qRqq7YQqxRtgxBpwFmrCywO8gRl4vssmr2FK0lYz1m5Ts7wSZdzC0
+	 whp7bZX7IH8gPvDnW7oZqXN2RyNCqgW6C90DygYHQwLLWJBtoMrcXQ4H0FcKq1cb+TMAZ
+	 CqwUocamHONQFmoeX4t0oKh6nTB3wE3bB1HGxVUJT2ma+JN9XFMlINxnqgt1Z8onjRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=RNtVmi56;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=jE0wqTxw;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7BE606A6C1;
-	Fri, 20 Nov 2026 20:42:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC7BE606A6C1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABFEB60A3812;
+	Fri, 20 Nov 2026 20:42:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABFEB60A3812
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=RNtVmi56
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=jE0wqTxw
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795207353;
-	bh=hnZN3YRZ98GVF++w/YTWvIy7nXP4wGKxJAAnzb2UsdA=;
+	s=smtpout1; t=1795207356;
+	bh=CNvfx3FsmRuSU4jKrv6OcILPWoIpbOIycZRWputDuP0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=RNtVmi56Og6HpP1TaMO+H5Q4Kfe+Y9lITZVPTMt7v2o158KVhzsXHlSN7JeMMQr+n
-	 ymXgOQ95cCir7A3e6wrs249NSi1Iw0Ymm6asdvZqvmW1AtoVF9Va4e+QrTNwRC2Jz6
-	 XolxyzIHBfIOZGj5xa06hKpRDi6Uto+x7r1lW9fR1+URwp5Gb2q6z8Dc4PwnT5DxHu
-	 K/5rN29VQOHsOV0xIy/HG+oarkxYqt/v78r5lCIfphklKwQbygHMJpJ5M//+n61rov
-	 m8EC75C3nZKJiYO66TYRZYSBip4F+4gs6AG+fz1zKBLowEE8Zi4LRZLDvNmvJmlxxJ
-	 KF5j2yZmbkmKQ==
+	b=jE0wqTxwsKbM581p5MEU7tPoJ8lJ6oGMwbLT20bwXEZn3d6N3udfKffr5sJK2CQFv
+	 8NZt3EFGWyweZNJxlJ8BRKIQwJLcEHgtZcbD4VN3PjaNsRM6kL2zgz1h24sYh7qHcv
+	 FIUlMMoj3XQgXxe8+nQTv93OPxjE9UigyhiGN3HSiTSAYYw8tpDqIJ6gxwn7x/gH3x
+	 AemICfFoFq1Jg4fTM/te/khRaTNztlO3/rokP7/axhZV+fTSr2TuuGBDARnwxXuc3B
+	 x9gogqFig2+QBT5KOy2wndoQLcqPN3jWGjBM9sAeQRNk+ko3/XwwcvulL05QfGEzyl
+	 xS4wldhlK5/0Q==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jWS2J4BmKzVBF;
-	Fri, 20 Nov 2026 15:42:32 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jWS2N4tmHzTqc;
+	Fri, 20 Nov 2026 15:42:36 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -80,9 +80,9 @@ Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v10 10/40] cgroup/cpuset: Give back the bandwidth an attach did not move
-Date: Fri, 20 Nov 2026 15:41:47 -0500
-Message-Id: <ef7bab599d38abb18f430bdab29cd3470a4b9b45.1795207232.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH v10 26/40] sched/deadline: Replenish a throttled task boosted while asleep
+Date: Fri, 20 Nov 2026 15:42:03 -0500
+Message-Id: <9c0cc7d7c43e0562a9fc9f363898178b36c6e9c2.1795207232.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1795207232.git.mathieu.desnoyers@efficios.com>
 References: <cover.1795207232.git.mathieu.desnoyers@efficios.com>
@@ -97,193 +97,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 2ef269ef1ac0 ("cgroup/cpuset: Free DL BW in case can_attach()
-fails") reserves the bandwidth of an attach as one sum.
-cpuset_can_attach() adds up the bandwidth of the deadline tasks it
-moves. Once all tasks pass their checks, it reserves the sum in the
-destination root domain. If another controller refuses the attach,
-cpuset_cancel_attach() frees the sum. If the attach goes through, the
-move of each task uses its part of the sum.
+A deadline task can be throttled as it blocks, with an rt_mutex held.
+Its replenishment timer is then armed. A deadline waiter can boost the
+task while it sleeps.
 
-But a task can leave SCHED_DEADLINE between cpuset_can_attach() and
-cpuset_attach(). The previous patch makes sched_setattr() wait for the
-attach. sysrq-n does not wait: it cannot sleep. The task then moves no
-bandwidth. Its part of the reservation stays in the destination's
-total_bw, until the next rebuild of the accounting. The destination can
-then refuse deadline tasks that would fit.
+Commit feff2e65efd8 ("sched/deadline: Unthrottle PI boosted threads
+while enqueuing") lets a boost override the throttle. enqueue_task_dl()
+lifts the throttle of a boosted task, and dl_task_timer() ignores a
+boosted task. This covers a task that is enqueued while boosted. But a
+boost of a sleeping task does not enqueue it.
 
-Fix this by keeping the tally of what the attach moves, in
-sum_moved_dl_bw. Once the attach is through, give back what it did not
-move.
+T is a SCHED_DEADLINE task that holds the rt_mutex L. W is a
+SCHED_DEADLINE task with an earlier deadline:
 
-set_cpus_allowed_dl() decides the move under the runqueue lock.
-cpuset_attach_task() does not hold it. So the tally counts what
-set_cpus_allowed_dl() reports in the affinity context.
+  T                                  W                              T's timer
 
-The random_mix case, added to deadline_bw_test later in this series,
-found the bug. It could no longer lower a fair server in a partition
-root with no room left.
+  uses up its runtime, sleeps
+    dl_throttled = 1
+    start_dl_timer()
+                                     pthread_mutex_timedlock(L)
+                                       rt_mutex_setprio(T, W)
+                                       T sleeps: no enqueue
+                                                                    dl_task_timer()
+                                                                      T is boosted: returns
+                                     times out
+                                       rt_mutex_setprio(T, NULL)
+  wakes up
+    enqueue_dl_entity()
+      dl_throttled: waits for the timer
 
-The move_normalized case, added with that test, fires sysrq-n while a
-process with a sleeping deadline thread of 30% moves into a one-CPU
-partition root. Without this patch, the partition kept the 30% in 3
-guests of 3. It admitted 6 tasks of 10% where it had room for 9.
+The timer has already fired. T would never run again, not even to die
+of SIGKILL. Every later waiter on L would hang too. This was found by
+reading.
 
-Fixes: 2ef269ef1ac0 ("cgroup/cpuset: Free DL BW in case can_attach() fails")
+Fix this by returning early in dl_task_timer() only for a boosted task
+that is queued. A boosted task that sleeps then takes the existing path
+for a throttled task that is not queued: it is replenished.
+
+The refill reads the parameters of the donor, from the timer. So this
+relies on two earlier patches. "sched/deadline: Do not replenish a boost
+from cleared parameters" keeps the refill from looping on cleared
+parameters. "rtmutex: Continue the chain walk when a waiter's deadline
+donor changes" keeps the donor pointer from going stale. After a deboost in
+the class, "sched/deadline: Reset the donor's runtime at a deboost in
+the class" starts a period of the task's own reservation.
+
+The Sashiko AI review of this series found this.
+
+Fixes: feff2e65efd8 ("sched/deadline: Unthrottle PI boosted threads while enqueuing")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Cc: stable@vger.kernel.org
 ---
- include/linux/sched.h           |  3 ++-
- kernel/cgroup/cpuset-internal.h |  2 ++
- kernel/cgroup/cpuset.c          | 30 +++++++++++++++++++++++++-----
- kernel/sched/core.c             | 12 ++++++++----
- kernel/sched/deadline.c         |  4 ++++
- kernel/sched/sched.h            |  2 ++
- 6 files changed, 43 insertions(+), 10 deletions(-)
+ kernel/sched/deadline.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index e88616448b85..81a8d80a1aee 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1967,7 +1967,8 @@ extern void set_cpus_allowed_force(struct task_struct *p, const struct cpumask *
-  */
- extern int set_cpus_allowed_ptr(struct task_struct *p, const struct cpumask *new_mask);
- extern int set_cpus_allowed_bw_reserved(struct task_struct *p,
--					const struct cpumask *new_mask);
-+					const struct cpumask *new_mask,
-+					u64 *moved);
- extern int dup_user_cpus_ptr(struct task_struct *dst, struct task_struct *src, int node);
- extern void release_user_cpus_ptr(struct task_struct *p);
- extern int dl_task_check_affinity(struct task_struct *p, const struct cpumask *mask);
-diff --git a/kernel/cgroup/cpuset-internal.h b/kernel/cgroup/cpuset-internal.h
-index bf847953c78d..93aa46d76b04 100644
---- a/kernel/cgroup/cpuset-internal.h
-+++ b/kernel/cgroup/cpuset-internal.h
-@@ -170,6 +170,8 @@ struct cpuset {
- 	int nr_migrate_dl_tasks;
- 	/* DL bandwidth that needs destination reservation for this attach. */
- 	u64 sum_migrate_dl_bw;
-+	/* The part of sum_migrate_dl_bw moved. The rest is given back. */
-+	u64 sum_moved_dl_bw;
- 	/*
- 	 * CPU used for temporary DL bandwidth allocation during attach;
- 	 * -1 if no DL bandwidth was allocated in the current attach.
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index ce9c57617f49..2f39c3d12550 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -3140,10 +3140,24 @@ static void clear_attach_data(struct llist_head *head, bool cancel)
- 	llist_for_each_entry_safe(cs, next, lnode, attach_node) {
- 		init_llist_node(&cs->attach_node);
- 		if (cs->nr_migrate_dl_tasks) {
--			if (cancel && cs->dl_bw_cpu >= 0)
--				dl_bw_free(cs->dl_bw_cpu, cs->sum_migrate_dl_bw);
-+			/*
-+			 * Give back the bandwidth the attach did not move.
-+			 * If the attach is cancelled, that is all of the
-+			 * reservation. Otherwise, it is what no move used,
-+			 * such as the part for a task that left
-+			 * SCHED_DEADLINE. The class it left releases its own
-+			 * bandwidth, from the root domain that counts it.
-+			 */
-+			if (cs->dl_bw_cpu >= 0) {
-+				u64 bw = cancel ? cs->sum_migrate_dl_bw :
-+					 cs->sum_migrate_dl_bw - cs->sum_moved_dl_bw;
-+
-+				if (bw)
-+					dl_bw_free(cs->dl_bw_cpu, bw);
-+			}
- 			cs->nr_migrate_dl_tasks = 0;
- 			cs->sum_migrate_dl_bw = 0;
-+			cs->sum_moved_dl_bw = 0;
- 			cs->dl_bw_cpu = -1;
- 		}
- 	}
-@@ -3303,10 +3317,16 @@ static void cpuset_attach_task(struct cpuset *cs, struct task_struct *task)
- 	 * can_attach beforehand should guarantee that this doesn't
- 	 * fail.  TODO: have a better way to handle failure here
- 	 */
--	if (reserved)
--		WARN_ON_ONCE(set_cpus_allowed_bw_reserved(task, cpus_attach));
--	else
-+	if (reserved) {
-+		u64 moved;
-+
-+		/* Count what the move reports it moved. */
-+		WARN_ON_ONCE(set_cpus_allowed_bw_reserved(task, cpus_attach,
-+							  &moved));
-+		cs->sum_moved_dl_bw += moved;
-+	} else {
- 		WARN_ON_ONCE(set_cpus_allowed_ptr(task, cpus_attach));
-+	}
- 
- 	if (cpuset_v2() && !attach_ctx.mems_updated)
- 		return;
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index c0a714dde425..fff2725a4cd5 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -3301,17 +3301,21 @@ EXPORT_SYMBOL_GPL(set_cpus_allowed_ptr);
- /*
-  * Like set_cpus_allowed_ptr(), for a caller that has made room for the
-  * deadline bandwidth of @p in the root domain of @new_mask. Move that
-- * bandwidth there with @p. Return 0 on success, or a negative error
-- * code.
-+ * bandwidth there with @p, and set @moved to the bandwidth moved, 0
-+ * if none. Return 0 on success, or a negative error code.
-  */
--int set_cpus_allowed_bw_reserved(struct task_struct *p, const struct cpumask *new_mask)
-+int set_cpus_allowed_bw_reserved(struct task_struct *p,
-+				 const struct cpumask *new_mask, u64 *moved)
- {
- 	struct affinity_context ac = {
- 		.new_mask  = new_mask,
- 		.flags     = SCA_DL_BW_RESERVED,
- 	};
-+	int ret;
- 
--	return __set_cpus_allowed_ptr(p, &ac);
-+	ret = __set_cpus_allowed_ptr(p, &ac);
-+	*moved = ac.dl_bw_moved;
-+	return ret;
- }
- 
- /*
 diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index e35d4c3045b3..a67a50ecd525 100644
+index 2912d13b60d6..9a4639ae676a 100644
 --- a/kernel/sched/deadline.c
 +++ b/kernel/sched/deadline.c
-@@ -3672,6 +3672,9 @@ static void set_cpus_allowed_dl(struct task_struct *p,
- 	 * Otherwise, the bandwidth stays where it is counted, until the next
- 	 * rebuild of the accounting. Moving it without room would leave no
- 	 * root domain counting it.
-+	 *
-+	 * Report in @ctx the bandwidth moved. The caller made its own test
-+	 * without the runqueue lock, so it must count only what this reports.
- 	 */
- 	if ((ctx->flags & SCA_DL_BW_RESERVED) &&
- 	    dl_task_needs_bw_move(p, ctx->new_mask)) {
-@@ -3700,6 +3703,7 @@ static void set_cpus_allowed_dl(struct task_struct *p,
- 		cpu = cpumask_any_and(ctx->new_mask, cpu_active_mask);
- 		p->dl.dl_bw_cpu = cpu < nr_cpu_ids ? (int)cpu : -1;
- 		p->dl.dl_bw_gen = dl_bw_gen;
-+		ctx->dl_bw_moved = p->dl.dl_bw;
+@@ -1705,10 +1705,13 @@ static enum hrtimer_restart dl_task_timer(struct hrtimer *timer)
  	}
  
- 	set_cpus_allowed_common(p, ctx);
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index f4cd35811b96..65fc17909d56 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2678,6 +2678,8 @@ extern const u32		sched_prio_to_wmult[40];
- struct affinity_context {
- 	const struct cpumask	*new_mask;
- 	struct cpumask		*user_mask;
-+	/* Out: the deadline bandwidth moved to the new root domain. */
-+	u64			dl_bw_moved;
- 	unsigned int		flags;
- };
+ 	/*
+-	 * The task might have been boosted by someone else and might be in the
+-	 * boosting/deboosting path, its not throttled.
++	 * A boost overrides the throttle. enqueue_task_dl() lifts it when the
++	 * boost enqueues the task, or when the task wakes up boosted. So a
++	 * queued task needs nothing here. A boost of a sleeping task does not
++	 * enqueue it, and it can end before the wakeup. Nothing would lift the
++	 * throttle then. So let a sleeping task reach the !queued case below.
+ 	 */
+-	if (is_dl_boosted(dl_se))
++	if (is_dl_boosted(dl_se) && task_on_rq_queued(p))
+ 		goto unlock;
  
+ 	/*
 -- 
 2.47.3
 
