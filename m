@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795208516;
-	b=jlKQS5iyl9J6ahSqWX1CjUmOz8pQc3BEbHIQdWaP58BW/IEHFnrdEFIcIKqW+6HU5Qep
-	 LPlola/zLsNXx93NQ33T2Y36V3RrBm1FP+nNkfhWSOikwb+rdqEekD5ONTvIJOAFoMQjm
-	 +Uv33pp6tJ26PEhFsiH2heiNimpAVsWuzE1yny/4a/uE9EcKmfw4+jo2rSOeos2sXZ3Ig
-	 hBlWh15DPdRzWZYxirbcIYd6uOpQSptuC8Gimxgiu8m4qhyUyXh/5nd6L2X0uaw4CstWw
-	 Bs52XwDvKmAWInkxPMy54uOj/cmuOXf7NmZh/Hol3YNRcD6gk/KfDKI+TqSEQax/OLQ==
+	t=1795208526;
+	b=falrZpZNorE+tC/fBRcdjvjyv3PF+as/sG/99J2oGAu/nzUEaR9gpTuIeA8/5CKXbQp7
+	 yzRzdkV1856ppz5jSEnD2mljdHpp3xE0S6Zj8I8bayESWkzt3+g425mIkns5aqVfq5uCC
+	 B5QmXgj6F1akMTE7uhSQm97/5Uy2GyFtGJQy2eO3xhdRaaOS/T8zgBDdez4Av5Zi+WjrY
+	 wn32DXtkNWe6wd/ygFDwrJcV2FrPFel6A0rVuv3FiRL4IxfFZ/quMhwU2rYf5oOkzZYqF
+	 0xIksJOei9sgErMWndMvdig6tlG320192fOYMn5BWx8+zhLsAgtFXjOdGWm5eKhh+bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795208516;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795208526;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=HO1q0aoPA0BF8pQw7wMOKKak9460g+JZjnsIKYiHnDo=;
-	b=K6ZVnfzf9bje+QspdRdjMvDm441JoRPgSLM9iZjaTh2unZol3c9ydG6U2l6nAvkre54s
-	 nwOVl3qPJKh3HZsos3ewXuNLp++FkuA/r6FmgZTks4EU9AdH2pOHKIdpYuFLapTeB7mz4
-	 7y+MfertVmjSQlkh0lNMo54zhfeOPVGhlPoiNb+aH8OLPYYrZkfcsgxOM7Js+AHk0D+gk
-	 8jO7rx6rpy4F/9T35Bap26eaBeo9oo7YlrxBpzZ2Vj84OzdwPWBoxqpHimZTwfIHXCTn/
-	 9185FIYBzBVOo3XKI1Liq2rKchaF6dv2rlzwfjchkbkXwRa05ey/YrMvru1ehFmqTdA==
+	bh=n34JAgo+BYEXBsBH3HriYNhCx1OSAseNztdfnC7EmCA=;
+	b=GsN9DMdm0slSdGvaSVpoZNZYfw2+inswcIvqzlM0sTdymvu0fqgwTlYFUiUuMbBpoTAN
+	 PFneuHbqt87LbyVX6gTffdyHTRLDHD1z0SvB5XVK8uapIzf26MrNQ8JUfnrqTFUgA1hwa
+	 DJoxuFCZQ5SMrIvGXfqTU9/fa+NCwIlZqTyT96rWLi0rtiRBKwJvxNLUB1q2YiO3FvmJZ
+	 a42zTdCRHm4LMy3TiMyRr2D2i8ztcnEf4J9mXYIi7M3vhkw48ru5oRbIQLLOGoU53Mh3W
+	 Vptb3dZYKKK00X2Ili0yT6I+Rha+thTJViTyB+VPdLdlAfKY7NBiZYQtaFtSj3Bznfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=mandelbit.com;
 	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=mW9VZGZU;
-	arc=none smtp.remote-ip=195.10.208.55
-Received: from mout-b-110.mailbox.org (mout-b-110.mailbox.org [195.10.208.55])
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=H2YdIHHe;
+	arc=none smtp.remote-ip=195.10.208.47
+Received: from mout-b-107.mailbox.org (mout-b-107.mailbox.org [195.10.208.47])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103B0606A335;
-	Fri, 20 Nov 2026 21:01:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 103B0606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3235606A696;
+	Fri, 20 Nov 2026 21:01:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3235606A696
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=mW9VZGZU
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=H2YdIHHe
 Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-b-110.mailbox.org (Postfix) with ESMTPS id 4jWSSP1txrzNkLK;
-	Fri, 20 Nov 2026 22:01:41 +0100 (CET)
+	by mout-b-107.mailbox.org (Postfix) with ESMTPS id 4jWSST2lTlz3wjt;
+	Fri, 20 Nov 2026 22:01:45 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1795208501;
+	s=MBO0001; t=1795208505;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=HO1q0aoPA0BF8pQw7wMOKKak9460g+JZjnsIKYiHnDo=;
-	b=mW9VZGZUlNpE5JV2oo6PSgKn8hmkcP+pK7BBRAHAP0PPXmE1i61imrwz2YpiBFP+UlCIG9
-	QCwhtBzJJt8osLbIptUzaQw5l8DGqaFZWfTQrU0SiaYwZNIkyThl/jfFpDpDo6wpMSdSZn
-	rtCR/Z7RuLbu9bkeVNWeAXzubralMWRKU6iva9DAn3XdIgFvY/cwz2LwQntRmiB1q0wyEN
-	kq5Eurrkd+0nXHIHjSEUseZrGAgU6o4OiF5ewrK8jJ1PY+fsmdP7Bb+dBSUDzgxWDodQOe
-	pIlmtn8KEsCFFibJR77UdE9hmBL5e3pjRbma6S5OEJbJLXXXrefWsL5cUrnqAQ==
+	bh=n34JAgo+BYEXBsBH3HriYNhCx1OSAseNztdfnC7EmCA=;
+	b=H2YdIHHeSCyc4bQ+GvtyAWBTBiXFnjJVPo1L8cQw/bC4eWfX5sTS2rst213vmMT7ANXl+K
+	UqLWCTWBQbXL1+QCYmiBEZOB6UUOfsHWWX13/NPvY8WqdhN5LHtv3U4Jyog5pmnBy/ZAZp
+	TBBmdJ+REW9dSmU2skOBgoz8XPnoBWvmrdvMvlYWHwEJzGqBCA0C5BT6TvxCKjjmMRICay
+	NZn+MTVAJsW4xDI6taVRZ1mfekmKFADaGpIBoueISzy+gLWetSOHiNLHJQIpW+ehooigDN
+	PQKzja6RbokrD8xGDUqAATOJhzEGGjwmTBcSQR69HE+9Fcv8xw3XNk65ARnZKg==
 Authentication-Results: outgoing_mbo_mout;
 	dkim=none;
 	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
@@ -65,21 +65,12 @@ Cc: Antonio Quartulli <antonio@mandelbit.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Janis Edvarts Lacis <janislacis06@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Sriram Yagnaraman <sriram.yagnaraman@ericsson.com>,
-	Kurt Kanzenbach <kurt@linutronix.de>,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net v4 1/4] igb: don't touch rings that don't exist when disabling an XSK pool
-Date: Fri, 20 Nov 2026 22:01:29 +0100
-Message-ID: <20261120210134.133238-2-antonio@mandelbit.com>
+Subject: [PATCH net v4 4/4] igb: only allow runtime PM if the device can wake up
+Date: Fri, 20 Nov 2026 22:01:32 +0100
+Message-ID: <20261120210134.133238-5-antonio@mandelbit.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261120210134.133238-1-antonio@mandelbit.com>
 References: <20261120210134.133238-1-antonio@mandelbit.com>
@@ -93,119 +84,60 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jWSSP1txrzNkLK
+X-Rspamd-Queue-Id: 4jWSST2lTlz3wjt
 
-xsk_get_pool_from_qid() checks the queue id against the stack's real
-queue counts, which can be higher than the number of rings the device
-has: on 82576, enabling VFs leaves a single Tx queue while keeping two
-Rx queues, and igb can fall back from MSI-X to MSI with a single queue
-on resume. Disabling the pool of such a queue, e.g. one bound to queue 1
-before enabling VFs, then passes a NULL Tx ring to
-igb_txrx_ring_disable().
+igb lets the device be runtime suspended even if it can't signal a
+wake-up from D3. Such a device doesn't notice the link coming back, so
+the port stays down until it is resumed from user space.
 
-Only disable and re-enable the rings the device has: skip the queue if
-it has no Rx ring, and only the Tx part if it has no Tx ring, so that
-an Rx ring using the pool still stops using it.
+Allow runtime PM only if pci_dev_run_wake() is true, as e1000e and
+r8169 do. Devices that can't wake up no longer runtime suspend, even
+with power/control set to auto.
 
-Tested with the 82576 emulated by QEMU and a zero-copy AF_XDP socket on
-queue 1: closing it after enabling a VF no longer oopses and the Rx ring
-no longer references the pool afterwards (checked with a debug print, as
-QEMU doesn't spread traffic over the PF queues with VFs), and without
-VFs queue 1 keeps receiving after the close. Not run under KASAN.
+Tested with the 82576 emulated by QEMU.
 
-Fixes: 80f6ccf9f116 ("igb: Introduce XSK data structures and helpers")
-Cc: stable@vger.kernel.org # 6.14+
-Link: https://lore.kernel.org/netdev/20261116153041.3002666-2-antonio@mandelbit.com/
+Fixes: 749ab2cd1270 ("igb: add basic runtime PM support")
+Cc: stable@vger.kernel.org
+Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
 Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
 ---
-v4: also handle queues with an Rx but no Tx ring, as with VFs (Sashiko):
-tear down the Rx ring and skip only the Tx part; tested with a
-zero-copy AF_XDP socket; subject was "don't disable rings that don't exist
-..."
-v3: new patch.
+v4: no changes
+v3: no changes
+v2: no code changes; mention the tested hardware
 
- drivers/net/ethernet/intel/igb/igb_xsk.c | 37 +++++++++++++++++-------
- 1 file changed, 26 insertions(+), 11 deletions(-)
+Note: igc has the same issue: igc_probe() also allows runtime PM
+regardless of pci_dev_run_wake().
 
-diff --git a/drivers/net/ethernet/intel/igb/igb_xsk.c b/drivers/net/ethernet/intel/igb/igb_xsk.c
-index ce4a7b5..3b4212a 100644
---- a/drivers/net/ethernet/intel/igb/igb_xsk.c
-+++ b/drivers/net/ethernet/intel/igb/igb_xsk.c
-@@ -31,15 +31,22 @@ static int igb_realloc_rx_buffer_info(struct igb_ring *ring, bool pool_present)
- 	return 0;
- }
+ drivers/net/ethernet/intel/igb/igb_main.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+index 6196d7a..72eeaf3 100644
+--- a/drivers/net/ethernet/intel/igb/igb_main.c
++++ b/drivers/net/ethernet/intel/igb/igb_main.c
+@@ -3654,7 +3654,11 @@ static int igb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
  
-+/* With VFs, the device has a single Tx queue but can have more Rx queues */
-+static struct igb_ring *igb_xsk_tx_ring(struct igb_adapter *adapter, u16 qid)
-+{
-+	return qid < adapter->num_tx_queues ? adapter->tx_ring[qid] : NULL;
-+}
-+
- static void igb_txrx_ring_disable(struct igb_adapter *adapter, u16 qid)
- {
--	struct igb_ring *tx_ring = adapter->tx_ring[qid];
-+	struct igb_ring *tx_ring = igb_xsk_tx_ring(adapter, qid);
- 	struct igb_ring *rx_ring = adapter->rx_ring[qid];
+ 	dev_pm_set_driver_flags(&pdev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
+ 
+-	pm_runtime_put_noidle(&pdev->dev);
++	/* A device that can't wake up wouldn't notice the link coming back
++	 * while runtime suspended
++	 */
++	if (pci_dev_run_wake(pdev))
++		pm_runtime_put_noidle(&pdev->dev);
+ 	return 0;
+ 
+ err_register:
+@@ -3876,7 +3880,8 @@ static void igb_remove(struct pci_dev *pdev)
+ 	struct igb_adapter *adapter = netdev_priv(netdev);
  	struct e1000_hw *hw = &adapter->hw;
  
--	set_bit(IGB_RING_FLAG_TX_DISABLED, &tx_ring->flags);
--
--	wr32(E1000_TXDCTL(tx_ring->reg_idx), 0);
-+	if (tx_ring) {
-+		set_bit(IGB_RING_FLAG_TX_DISABLED, &tx_ring->flags);
-+		wr32(E1000_TXDCTL(tx_ring->reg_idx), 0);
-+	}
- 	wr32(E1000_RXDCTL(rx_ring->reg_idx), 0);
- 
- 	synchronize_net();
-@@ -47,24 +54,27 @@ static void igb_txrx_ring_disable(struct igb_adapter *adapter, u16 qid)
- 	/* Rx/Tx share the same napi context. */
- 	napi_disable(&rx_ring->q_vector->napi);
- 
--	igb_clean_tx_ring(tx_ring);
-+	if (tx_ring) {
-+		igb_clean_tx_ring(tx_ring);
-+		memset(&tx_ring->tx_stats, 0, sizeof(tx_ring->tx_stats));
-+	}
- 	igb_clean_rx_ring(rx_ring);
--
- 	memset(&rx_ring->rx_stats, 0, sizeof(rx_ring->rx_stats));
--	memset(&tx_ring->tx_stats, 0, sizeof(tx_ring->tx_stats));
- }
- 
- static void igb_txrx_ring_enable(struct igb_adapter *adapter, u16 qid)
- {
--	struct igb_ring *tx_ring = adapter->tx_ring[qid];
-+	struct igb_ring *tx_ring = igb_xsk_tx_ring(adapter, qid);
- 	struct igb_ring *rx_ring = adapter->rx_ring[qid];
- 
--	igb_configure_tx_ring(adapter, tx_ring);
-+	if (tx_ring)
-+		igb_configure_tx_ring(adapter, tx_ring);
- 	igb_configure_rx_ring(adapter, rx_ring);
- 
- 	synchronize_net();
- 
--	clear_bit(IGB_RING_FLAG_TX_DISABLED, &tx_ring->flags);
-+	if (tx_ring)
-+		clear_bit(IGB_RING_FLAG_TX_DISABLED, &tx_ring->flags);
- 
- 	/* call igb_desc_unused which always leaves
- 	 * at least 1 descriptor unused to make sure
-@@ -148,7 +158,12 @@ static int igb_xsk_pool_disable(struct igb_adapter *adapter, u16 qid)
- 		return -EINVAL;
- 
- 	rx_ring = adapter->rx_ring[qid];
--	if_running = netif_running(adapter->netdev) && igb_xdp_is_enabled(adapter);
-+	/* The stack can know more queues than the device has, e.g. after a
-+	 * fallback to fewer queues on resume: skip the rings it doesn't have.
-+	 */
-+	if_running = netif_running(adapter->netdev) &&
-+		     igb_xdp_is_enabled(adapter) &&
-+		     qid < adapter->num_rx_queues;
- 	if (if_running)
- 		igb_txrx_ring_disable(adapter, qid);
- 
+-	pm_runtime_get_noresume(&pdev->dev);
++	if (pci_dev_run_wake(pdev))
++		pm_runtime_get_noresume(&pdev->dev);
+ #ifdef CONFIG_IGB_HWMON
+ 	igb_sysfs_exit(adapter);
+ #endif
 -- 
 2.56.1
 
