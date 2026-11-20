@@ -1,63 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795173760;
-	b=0UIYW827Pm8cK7NchnzkOmi2OKCO2A1EYpMNE5cUim7RS1mqy/5L/02cjBhMHxUj9/zm
-	 QyQBvojLkldz0bzsHJmFVUD5BW2tCrZ/kAPkWUHyOIrvKZj0B34OZ0HgQF/IqpUl5Rauw
-	 RUZrzj8+UVYJ88jUwhfePnfeg0TK9u7S+qDsNtvNKXGwyOy27+kq2k/ye5j+ePIWuVm58
-	 lUguKwAQ59K8WQlNrdUSbcMQCUjL611/FBuRlZ0CKElsRRi0N8LkXI0NOa6TjOf72qmTG
-	 5rJ4Oo4PdgVnaMBVnbJNSW/xiAAQQFR7zbkYJFsn8E6Sc8wqbKlO6UsJ2q4I5ner8QA==
+	t=1795173869;
+	b=Rbr1jpIWQqf6hO7/3RdksTCp21b1/70ejxsj5+JeQ3ciQQ1k9je230EHGaPdCAKNuSxF
+	 FsEbUP/ybAUzwK8Gc+UnD2dkunnBpAmL8hoL9G243xO5lPWyjT3zH2R3UUaU/ad0MkpB4
+	 Wq6BGfCRTMyMrmiMqBSj+jeU63BafAJmOIGpsXOcs2rLltFaFGDk7L72Yr1EdsvkNSViT
+	 tAwDcrGRVjqpA4TX0oyMLLHL/HAACf555hfvgZAtpG6yr5rlw2CWfARsGgtOGHGdkz8kd
+	 dn7HeG/TGE/IrS8KdW+1hFsRMjcWmCSqwihQ04qXk4FUzo04Pff0QI4gBnovAShpZzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795173760;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=K0f4GyuWmwiU3xAt1qgEIuTwy9fTV0XTeNNsXZl+3Ts=;
-	b=WvQH8Qwt+mDrM36s9CDvj91jAG/9u2xUK5dvrA7nt2Ulcu2kYO5pLYwJOY02fNcVYgCz
-	 6Q65eZFTm78rJITXA23HAHjwYHVFmeImNMt5/GSWZGA+EHESR3OF09riz2+H4zKX4DhE6
-	 VZn/4HL4Ny6viUYV1Lcsy6S4PB1C76rW7aIVy7ntBXngmU4Wm6Rn+L1bXKPmKlW2W9wx0
-	 Ge7LEWUhJBpCTk9F9+JJgcpTwX9vWcJ/HNkruOh7kS56tzlatpmzGeK7hPA7aNEgssm02
-	 K4t4OPG5YyPYDCRH4CCurA2T6xwYnEjF8A6LumES5xxEMLUogXWNCtPEmq3UV1CcivA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795173869;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=e6Htv9LFeSLw+jD+wOsLXSXNdz2GUdPCK8J2LmStufU=;
+	b=hiQf2O+9dOhjAAHYuB8MtxW7De24tuh9TJ1j9fhg5bKpjfpUKTRiFPuaeKyyWISgRzsS
+	 iCEoQlCoqk2ltzxIQkSbRN+RWWlXuqLOELb5VVGhbF+Ioy8q/nihnx5UQYZb+dWGhsXN+
+	 MbI2JtLh/Y4xLlcBlYp//qUuNRAaff+sCJrzsaNO+8VAFQHtSV9xT4cPSL6Aen7IYWaVr
+	 1tHXN9BKwVuNmofL/du+EXeOoVdRznkMUhZTmpdv9Y9AY2Uri5GnT2wfr1MmU2P5YFOCJ
+	 1EGrqLX25BQVoMwZKid2R2YxRFgJlNyBcTGwh4iNBQ9XDYv80XXqqG2x/KpBueVpF5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=M2s+JNcb;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U3yRfJrB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1267C606A320;
-	Fri, 20 Nov 2026 11:22:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1267C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71BE606A325;
+	Fri, 20 Nov 2026 11:24:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=M2s+JNcb
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C56510D007;
-	Fri, 20 Nov 2026 12:22:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1795173754;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=K0f4GyuWmwiU3xAt1qgEIuTwy9fTV0XTeNNsXZl+3Ts=;
-	b=M2s+JNcbD+sxtiCWVM8jz5IfbpTIjcqntXGnoM3iPEe1IcaWNzrBJUUGwCoisCCTik9Iqc
-	c9F7AlvufbZuQDisdhd6IA9gq57eBsU5TNsUUUTJk39QjmhFTtn9IpmhqMxKnVjgzPcELN
-	jdzSzUqWPoN7FjOdguSZPNICfM3kDQO3dL2UZqF70eLicuvG81knn9Npgkdlhlz/c9kdXa
-	Xvyn+Wz97+uxDW2AHDE42zPkWT4aSRyRmsdA6+tzzdDQXB1xdY6UPvqCLu50vSCWvyApF0
-	zzwPHb4t4rv88JCOQ08T6j5rc+EzX48o46y/vXE9Wqy2+L4hBjb1lk49kBBEuw==
-Date: Fri, 20 Nov 2026 12:22:31 +0100
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.3 0000/2642] 7.3.6-rc2 review
-Message-ID: <awAtd3NV3kVYbQ3b@duo.ucw.cz>
-References: <20261120055248.913352689@linuxfoundation.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U3yRfJrB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C71081F000C4;
+	Fri, 20 Nov 2026 11:24:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795173869;
+	bh=e6Htv9LFeSLw+jD+wOsLXSXNdz2GUdPCK8J2LmStufU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U3yRfJrBpx3oWJRtEqrvXe20VwuatH58XY9LrYJOHdjQNWdRf8/Pu0LlT3+5+/OPw
+	 /7SMXklt6GXUcQGsKa7halMtP+PxFosUnXpbr6OKOvlLafNZQl9j9vOuqBmN3vxy8x
+	 5IX3N6K8k2FPiiDVNgqGzoLRRCCjW0HPm/txvrk0=
+Date: Fri, 20 Nov 2026 12:24:26 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Jerrin Shaji George <jerrin.shaji-george@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org,
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] vmw_balloon: account 2 MiB pages in NR_BALLOON_PAGES
+Message-ID: <2026112010-alabaster-correct-8594@gregkh>
+References: <20261120-b4-balloon_nr_pages-v1-0-d8944b587819@kernel.org>
+ <20261120-b4-balloon_nr_pages-v1-2-d8944b587819@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,41 +60,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="leAxbMl8bKwyHXMe"
-Content-Disposition: inline
-In-Reply-To: <20261120055248.913352689@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
-
-
---leAxbMl8bKwyHXMe
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261120-b4-balloon_nr_pages-v1-2-d8944b587819@kernel.org>
 
-Hi!
+On Fri, Nov 20, 2026 at 11:34:43AM +0100, David Hildenbrand (Arm) wrote:
+> vmw_balloon keeps 2 MiB balloon-inflated pages on its own list, not
+> using balloon core that takes otherwise care of updating NR_BALLOON_PAGES
+> for base pages.
+> 
+> So far we didn't account 2 MiB pages under the "Balloon" counters, so
+> /proc/meminfo etc. would not reflect them.
+> 
+> Fix it by updating NR_BALLOON_PAGES when enqueuing and dequeuing for
+> these pages manually.
+> 
+> This has low urgency.
+> 
+> Fixes: 4d689474e1b2 ("balloon_compaction: update the NR_BALLOON_PAGES state")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  drivers/misc/vmw_balloon.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
 
-> This is the start of the stable review cycle for the 7.3.6 release.
-> There are 2642 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-
-CIP testing did not find any problems here:
-
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-7.3.y
-
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
-
-Best regards,
-                                                                Pavel
-
---leAxbMl8bKwyHXMe
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCawAtdwAKCRAw5/Bqldv6
-8vTrAJwKW+dVO5Vz6iY4GwbYdYt9o+joiQCfcVnPyj04FdfVx78cvby6ZUnw/XU=
-=XOCX
------END PGP SIGNATURE-----
-
---leAxbMl8bKwyHXMe--
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
