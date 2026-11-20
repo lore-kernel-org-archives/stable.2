@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795196475;
-	b=UbDhbdWgsmro+EXWYqUrxCniTSUr6wPTCQ15910JZiaLI6zLAMgj4rVeRPBlaS3JMTK0
-	 Et6iStj57uUk636DtZ3AtWoy84omCLkyFpSiXxdHP+jwdRrEWkU5Y8SyINd7wR+xLkNbI
-	 X+RDKbQG27ADOZTr6iWn5o4whXFHBoLFXQeacLUed0fWq3GuvNMBNxCsUDVeVUBETE+Rn
-	 rmTfbkfD5m0qlD1knY7XL3QL9AGoAn25btMz3OlaqZnueOFuVUg8ddA69wwJOZgvDB6nE
-	 VVlwvp11xByB37fJpq5aWTENi6zRRwBjotHNmIXvpljBzW/BCEg28ClCbF98xP7Aruw==
+	t=1795196476;
+	b=Cu67fWiiIq8q4HOHfunIVsBxWxTnSt/YLaSBZUvEzWXB+s7Xr0/b66MWUqhok9WeaL+0
+	 Q1bMOAJMw4sAUKQh/VqW1Fr5aUDfN0ZXow6VExn1F+7vCHJ0KmEl+kPCX5wF6dPxGvByK
+	 ll/bQF/SDWOXK0aP0o9Onq4zm5sM7rX2+zibv3UELuvtsq3AH4VUUhlBP6ram/EKDeixi
+	 OlwD8BC2ArPSE7CT4DdGqzttxlnfgHSDDQdqPrQDmnDd8iri0Y1fBFzvSSZYurgTSGf+a
+	 rtC659/AygKUIMSZXw7bQik3uwEyZ16cg2LL/z4LuC9HeH2+qQdtx7nTsAkRScKB4XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795196475;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196476;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
 	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=Adu/Hdv9H4tgUeMLSxNGgOk0ElazLC8OxKyBikKQgTI=;
-	b=VcsHqMafqoHRWuwiFolOIlEfhxB6mIlv28AMn3DotmLDvkR5EFMj4qhSQamtIcV750ZT
-	 wkdXuNeWr4ESIGvvLW8bfbkuOXfX6BeqI1WqRJNxCw8Tf/ZfLu+AIpIUuwj8rTU8er8AH
-	 vLGcb0Ax9uwbIRTbsDjg9kyNt+OvwY60dM6bw0lQJCaYLgx9WtCQEK4e55hg7G3MRplWk
-	 jBZK4rfn75y0bwC64TW9T59GEQN018da+WTGvbT9hprkUwRwiOiozws1FTnQfouOH1yJp
-	 +qmp4pNUdTcOXzIQ6l1GJ5Ja9tB8Jiqa8GnIbXQJWjqRYMQWR4KFveFUt5tFacXp8yw==
+	bh=5/mgREcDRE9cm5A9J87qj4yWsVHq52QY/AnMOSNx1rs=;
+	b=whYb+FoiJfzWdAAfGXI0LQiVa37WSX9RUnI6NZt+cr87jJYaIRLvqbhT32xcOpBzw0RF
+	 Z7EC835WXph9y01Gz3RXZq6FIMpBKWMAbJ+7aZZmC3kgeQiMKARmQh9nb8WvGW+9E5GIe
+	 93ye3PkO2Xe+Th20wOc1HaNT4pSOZIegRX//b16k7ViZ+lVQhqyZltU2T+pvdvi46+XIK
+	 q0V1YJc6FRU578hDGw0d38wTqLX1hvo/U/cvEWu6mJFX70aZGqEg4Xh1lCnjRJHpmut3v
+	 OREmg2ktJnq2L4JsAbN4NVnoPbfyzVC0Oo5jHC0tsKCHzbGTfetOryrB2/AE+3/9BDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhfHyRcz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iyQ6HTRQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB7660A2606;
-	Fri, 20 Nov 2026 17:41:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 773D260A2623;
+	Fri, 20 Nov 2026 17:41:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhfHyRcz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980AB1F0093C;
-	Fri, 20 Nov 2026 17:41:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iyQ6HTRQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369361F0093C;
+	Fri, 20 Nov 2026 17:41:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795196475;
-	bh=Adu/Hdv9H4tgUeMLSxNGgOk0ElazLC8OxKyBikKQgTI=;
+	s=k20260515; t=1795196476;
+	bh=5/mgREcDRE9cm5A9J87qj4yWsVHq52QY/AnMOSNx1rs=;
 	h=Date:From:To:Cc:Subject:References;
-	b=NhfHyRczEsSD4xj8D0E+7sr9d9iVKTI2KtKtVJE7myldN7cfkitr2yV/Y77BmQf7a
-	 N09EV2BT6XwPKZQvo4LLMr7v1fFO5xGiehfszpLJqiJSlMLESlyTLXvH3ZDEWx6GVW
-	 o489CA6BZhjBmO9HSqdoAeTMkSkkuzPnyJwMPGXEPbbX6L/5FcqWGRPY0CTVV/ZD7Z
-	 GYSwIJn8Bi3CzZZsdilRdP2bmfHLo8B3Uw/DTCDdEqYuTu977CdWAUFVdOcr77YWza
-	 pDifU43zdHo9R5NAPhdQLT80Y+ZMUH3tE62xEDWKNCkRlCYHG5UEAlziw5aQAUnziC
-	 +BHoD+vNwLCYw==
+	b=iyQ6HTRQPBuYdABElXAxB6Z9dGq/HOu7ljkeJsPE9IzKVCdasu70Uo5qXi5fpxUOE
+	 E/e4RjSNKn1A9EZoXCUZosUoTeNrGI9+WGt6runSkYGPDv6cJ3YGbhFH+uO25n1yyh
+	 zuUjOUcgzRTHc4Mx/qsq+7b7fhRvJnCEy4/A/FGNb5f+LlTFyAvxv/pN0RmfLxPAOu
+	 6tlsoETt7BmE9lw62ppNeteVzxS3th0MshFhXTO06otahQoeD78+w47CzpKWTysVEo
+	 EBFG8k9tsUU4gOGIJiov3TnplVEilJzTcBrK1nkJZXBn1U4JgfUzANsW2qkERV+hzI
+	 CjX6TSvYh39Qg==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xUSbq-00000004aGQ-43kC;
-	Fri, 20 Nov 2026 12:41:14 -0500
-Message-ID: <20261120174114.766221293@kernel.org>
+	id 1xUSbr-00000004aI4-2MDe;
+	Fri, 20 Nov 2026 12:41:15 -0500
+Message-ID: <20261120174115.385884577@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 20 Nov 2026 12:38:56 -0500
+Date: Fri, 20 Nov 2026 12:38:59 -0500
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -53,8 +53,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Kyle Zeng <kylebot@openai.com>
-Subject: [for-linus][PATCH 04/32] tracing/filters: Treat zero-length dynamic strings as empty
+ Jaewon Jung <jaewon8868@gmail.com>
+Subject: [for-linus][PATCH 07/32] tracing: Avoid undefined shifts for zero histogram map size
 References: <20261120173852.687189370@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,116 +67,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Kyle Zeng <kylebot@openai.com>
+From: Jaewon Jung <jaewon8868@gmail.com>
 
-The regex callbacks use a length of zero for NUL-terminated strings of
-unknown size, such as the trailing buffer in a trace_marker record.
-However, filter_pred_strloc() and filter_pred_strrelloc() pass the length
-from a data locator directly to those callbacks. A zero-length locator
-has no data and need not point at a NUL byte.
+Reject size=0 before calling roundup_pow_of_two().
 
-In particular, syscall entry events can contain an empty captured array
-or a failed user-string copy. Matching such a field with an equality,
-prefix, or substring filter can read beyond the record. The per-CPU perf
-trace buffer is reused, so an unprivileged counting syscall event can
-disclose bytes left by a previous kernel tracepoint even when raw
-sampling is denied and exclude_kernel prevents counting that tracepoint.
+include/linux/log2.h documents roundup_pow_of_two() as:
 
-Handle both locator formats through a common helper. For a zero-length
-field, pass an empty string and its actual size to the regex callback.
-This gives all matching modes the empty-string semantics without reading
-the locator's target. Keep nonzero fields and the legacy trace_marker
-unknown-length convention unchanged.
+  - the result is undefined when n == 0
 
-Fixes: 10f20e9f9da9 ("tracing: Have zero size length in filter logic be full string")
+With CONFIG_UBSAN_SHIFT=y, a size=0 histogram trigger reports:
+
+  UBSAN: shift-out-of-bounds in include/linux/log2.h
+  shift exponent 64 is too large for 64-bit type 'long unsigned int'
+
+Tested on x86_64 QEMU: size=0 is rejected without UBSAN warnings,
+and the histogram modifier and parser tests pass.
+
+Fixes: 7ef224d1d0e3 ("tracing: Add 'hist' event trigger command")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261006225642.58778-1-kylebot@openai.com
-Assisted-by: Codex:gpt-6-astra
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Link: https://patch.msgid.link/20261028074610.2212374-1-jaewon8868@gmail.com
+Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_filter.c | 38 +++++++++++++++++++-----------
- 1 file changed, 24 insertions(+), 14 deletions(-)
+ kernel/trace/trace_events_hist.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index cd0da148414d..62444db0f78b 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -891,6 +891,25 @@ static int filter_pred_pchar_user(struct filter_pred *pred, void *event)
- 	return filter_pchar(pred, str);
- }
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index a87d626e40e8..d4702ad4e003 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -1430,6 +1430,11 @@ static int parse_map_size(char *str)
+ 	if (ret)
+ 		goto out;
  
-+static __always_inline int filter_dyn_string(struct filter_pred *pred,
-+					     char *str, int len)
-+{
-+	int cmp;
-+
-+	/*
-+	 * The regex callbacks use zero for an unknown-length, NUL-terminated
-+	 * string. A zero-length data_loc or rel_loc field has no bytes at all.
-+	 * Match an empty string instead of reading past the end of the field.
-+	 */
-+	if (!len) {
-+		str = "";
-+		len = 1;
++	if (!size) {
++		ret = -EINVAL;
++		goto out;
 +	}
 +
-+	cmp = pred->regex->match(str, pred->regex, len);
-+	return cmp ^ pred->not;
-+}
-+
- /*
-  * Filter predicate for dynamic sized arrays of characters.
-  * These are implemented through a list of strings at the end
-@@ -907,13 +926,8 @@ static int filter_pred_strloc(struct filter_pred *pred, void *event)
- 	int str_loc = str_item & 0xffff;
- 	int str_len = str_item >> 16;
- 	char *addr = (char *)(event + str_loc);
--	int cmp, match;
--
--	cmp = pred->regex->match(addr, pred->regex, str_len);
- 
--	match = cmp ^ pred->not;
--
--	return match;
-+	return filter_dyn_string(pred, addr, str_len);
- }
- 
- /*
-@@ -930,13 +944,8 @@ static int filter_pred_strrelloc(struct filter_pred *pred, void *event)
- 	int str_loc = str_item & 0xffff;
- 	int str_len = str_item >> 16;
- 	char *addr = (char *)(&item[1]) + str_loc;
--	int cmp, match;
--
--	cmp = pred->regex->match(addr, pred->regex, str_len);
- 
--	match = cmp ^ pred->not;
--
--	return match;
-+	return filter_dyn_string(pred, addr, str_len);
- }
- 
- /* Filter predicate for CPUs. */
-@@ -1037,7 +1046,8 @@ static int filter_pred_within(struct filter_pred *pred, void *event)
-  *
-  * @str: the string to be searched
-  * @r:   the regex structure containing the pattern string
-- * @len: the length of the string to be searched (including '\0')
-+ * @len: the length of the string to be searched (including '\0'), or zero
-+ *       for a NUL-terminated string of unknown length
-  *
-  * Note:
-  * - @str might not be NULL-terminated if it's of type DYN_STRING
-@@ -1046,7 +1056,7 @@ static int filter_pred_within(struct filter_pred *pred, void *event)
- 
- static int regex_match_full(char *str, struct regex *r, int len)
- {
--	/* len of zero means str is dynamic and ends with '\0' */
-+	/* Zero is reserved for a NUL-terminated string of unknown length. */
- 	if (!len)
- 		return strcmp(str, r->pattern) == 0;
- 
+ 	map_bits = ilog2(roundup_pow_of_two(size));
+ 	if (map_bits < TRACING_MAP_BITS_MIN ||
+ 	    map_bits > TRACING_MAP_BITS_MAX)
 -- 
 2.53.0
