@@ -1,112 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795194606;
-	b=1Ckprf2spzn4uU+v84WMNpJ6cqhVZApzrT8SJvf5jg1H2ewTrt5usmBRCfZqSnyiEg+0
-	 Hyv/FOWCnYE3f/TPDukIw2Izr9M4W2b0NHCVSKILkLb9WGM3dAu3S64ZoZ5crZr5BIC7j
-	 bv4ez2Et0IpSuAbxo7LmskNuj8KDnmej/y5xjVbimIXJaW6yZ1e0bgekkGql9y+l3jF0m
-	 tnSREaVuwdWZ+AvI2naR/S+cS71vmmhh9OY2xVKr6yeH1IwsVlm9EZAD8tr73lUolc8OM
-	 5Hr//h5CkBCsa44JSennNU6KlLlfGdY8q/6I4bEPCDOS33WuQOiN9xP8Lnb2g5oKIhw==
+	t=1795194727;
+	b=X99MhSVTSgL9uC699AWKNyPYQcaMprmwD9X8iDcOylO/3ToDNnDUSw64KMczEDl8XyB1
+	 MnPSGMlqF6mbsK2S9ZJ5HkDizfdW4dr+b6fa/9aR08RblAsUtUlbWduHrSz8NNgYyWnjM
+	 GGAaywRpReOO7vsyMs1AV0e7ma6ExznhIamaH1oieJotPDGgRUPDrzOAZ3C7olXShEODn
+	 N2QTmxe8JJpmG1ZgQYytVgiCzyRIp+aDqFPXAs9/C/0C2JGmJAdgmOe/j5ukWeqILDZ0y
+	 XQQcyzc2HSLxMyy3z3RYdGK4bTnGACBN/s3TFr4XxKuPJaMCV9CJSeS4PnOVWuyI8RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795194606;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=J6EcKPCt+KfAzvCKSl56m3Ot7NS7Ub9tU52adEj4q9U=;
-	b=cwPbpicHIrJTOCqvDXlNihG2Jij1P23QNlcdfSnkDM8csuFQkLTjlq7rYTEaMJIqEXFM
-	 U7kYmclSjAIfXJ4sSR8E/HsNC0NjRm6ql4h8dp5Yr1RjJv7SVX+aFSMH0ad6S3io9pymU
-	 /sc7IWjPelwtAJON6swmdztq7h1t7v3dNJhJh2cMXoi+DfSVksrcHK5WIMD1RyRwwvuqP
-	 Z7Zv3GSYxbvY+ILoPv20kdjt8PW1tavStWnJ4PWD8Tl5Fq+ae5KC0o4x4+nfJFzaJMSKi
-	 0yjrYpGiSE4VPHoiE90XMGIVM1D8tYZamc3s64qzUsY8AOFew27CPBVZcTn/4oCgchQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795194727;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=C4WNcrWy6IW/AdCMObiWivkaWamwO5g/wk7Z2a8B9eQ=;
+	b=LPPaFLH8maD05IQ5WiAqnWN5rJ3yBO1X3QxiCjOSjc2cK9U4uMRQkyqgDnnDb1FcBul4
+	 TxGaDUFTdepviXGufPlSeRUxe6b7zVJrFVMDujjoOG+Cwcj1rE+Rn87kacX0sLxn5xrof
+	 e7bobwJY7OoyrXJX5oYsM0PSDO8/sSsKpLlCc29TCwTeBIv/e/4SDKgd5eVkivdehm0FL
+	 P8J/CLBQZUQWNkX2utm+8vlHw39k54fkUKyt5ERW36TV+HcS5//WgAwA+CMxzQyYI1IGs
+	 FmjunxOUMGnfrOYfuwYzLhmizN75w6y/Lh49NXu67jljl2ghjyaronh0Y32ESERSP1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IaWKzCbo;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=r9LlN0Uo;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=hznXqWE3;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=V3orJQl0;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=hznXqWE3;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=V3orJQl0;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9108760A2613
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:10:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9108760A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED398606A338
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:12:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED398606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IaWKzCbo;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=r9LlN0Uo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795194604;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=hznXqWE3;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=V3orJQl0;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=hznXqWE3;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=V3orJQl0
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 444381F81C;
+	Fri, 20 Nov 2026 17:11:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795194715; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=J6EcKPCt+KfAzvCKSl56m3Ot7NS7Ub9tU52adEj4q9U=;
-	b=IaWKzCboaIVzaO1T4dKi0eSuCGRQOx5ceeNhIx6+D0CXrEA/7SEDhcOW6Ya1vo77WS+5LN
-	Qh778po0KOMt/V8Fgu4NK77nkDJ9fZw5WADlWMoBsmCm8WXM2gAeX3B8HIGPjGOvnPUafz
-	NEZLICJZojWWHwu1tnOlURfbWKde6KY=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-591-eL-yUpsIOTuVTo8gf2wwUg-1; Fri, 20 Nov 2026 17:10:02 +0000
-X-MC-Unique: eL-yUpsIOTuVTo8gf2wwUg-1
-X-Mimecast-MFC-AGG-ID: eL-yUpsIOTuVTo8gf2wwUg_1795194601
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-492b5408dedso646643f8f.3
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 09:10:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795194601; x=1795799401; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=J6EcKPCt+KfAzvCKSl56m3Ot7NS7Ub9tU52adEj4q9U=;
-        b=r9LlN0UoZvF9GDkpYCcqm6LjKUkYUPlIUhYbV+2nG23t13IitrM77sx9dR2h2ecVz+
-         abNFMQY5z0ZWDmErm6eL2+in1XEOkKO0FD4aYLkemOPz01k0PlYEIcSVGh7syv73ecGc
-         eoEVuYyHoOQAlBs5kajQeh9v3tGqnnyIr30p7h7H0hsqJ/cuh43bal8Xn5tviFjOjMtb
-         W46DFR4ER8AsRUDkYOUqHXEpiiv8bwRPzs+NxeQJG2Icb5Blb6xFUWs0s6MAJ1M1htZL
-         ABd28WOx+pTw4CL3/d6mNO9aTVj84dxenvj4CDZIUTu79di1S02UxbDs3aCxh1PFbCYZ
-         1/+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795194601; x=1795799401;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J6EcKPCt+KfAzvCKSl56m3Ot7NS7Ub9tU52adEj4q9U=;
-        b=ycfQYb4IjOd5oKI/ocWvzU53GQuzbjYz2sIKzk/79vD7NfIKWkCVYiAfNtA677dFSM
-         OfErAvWW4C7gaeHLaVRLtVqzOVazYaPGIwebn/Y9gVxm6R8FE15hkRBT3LA/xlHgbFIM
-         YXf/J+ytEE4AhV/lcoytnMzDfShUzxanTLeCOR5wNVa05q+mn7qQcDwZyAW4KBK2RiHK
-         LSyO0bGln2i5LNEfvA9Z4s0ZEKUftLOXIhzgzEsDuJM2d03mXLPP0HbZbrBi0YsgKBQb
-         ZspcR9k8FZ8yxHWOPvn/WhdzdvIUIKV8ASEfmBbkazu+RKFyeJUO5BG9TQTRy38o1mYS
-         iXmA==
-X-Gm-Message-State: APuU4Z+i3ot4ylDyWGUDI1ChiRECrAV5zdCgVKn9fxP26hsvGEDUs9D/
-	cPoU75HMkeJo2ER6dNJG98YmnmcXsJvMGxhjxzmhmCcMf5K/YeEkdN9fcH+ndATOg0Y3wkD2Be9
-	gRTsPRl3AgkDnmRxSb/yTYQaQCLeBTzr5b2MLzgkved28Ks9CGMfEfQhUFg==
-X-Gm-Gg: AZFdTZedw/r3kWPzWgIhDRIPEc8rAOq00exMwlBkBkJoIUCQCDqL94LONyAg1PmP0lr
-	DLLWdQpCJkdZ1e5H4jxY/cqVjpjFgD/uD100HbAL70DFGCGXB/PM1zisPAcqWAd8brgIO3ldh9U
-	tJ8wpO4zM7o2NjXuPqjb3Bp0jkXR3OD2deb6q2csVBSkL1WEum69kcpoXgNnM0wLyFdnrzSXwfX
-	BO/LNQ7c9SZOgxHi86R3OMI92VwHb3bhI2etsv4whD4g1uWFLa8sc41cTDtQNomfbFGVaK35B5B
-	ihbAhw1BceVyJl7JRP3ppjc8GRU1g7/naLUfoU6yL4jN8S90M/Wmmc+cX39cNwacnTtQKQEPg/a
-	h8sQ99kc/ei91/S8XaKz/mso1xdtCosn42DWQVcrDXOxXIJeCexMgS74uoOIMzoXbJqtWVwm7Rc
-	BenSI=
-X-Received: by 2002:adf:e010:0:10b0:4a7:518f:bea6 with SMTP id ffacd0b85a97d-4abb3a4d2b1mr5619852f8f.28.1795194601129;
-        Fri, 20 Nov 2026 09:10:01 -0800 (PST)
-X-Received: by 2002:adf:e010:0:10b0:4a7:518f:bea6 with SMTP id ffacd0b85a97d-4abb3a4d2b1mr5619795f8f.28.1795194600653;
-        Fri, 20 Nov 2026 09:10:00 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a680483sm6652201f8f.28.2026.11.20.09.09.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 09:10:00 -0800 (PST)
-Date: Fri, 20 Nov 2026 18:09:58 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Florent Carli <fcarli@gmail.com>
-Cc: stable@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	linux-rt-users@vger.kernel.org
-Subject: Re: [REGRESSION] 6.12.y, 6.18.y: fair server runs SCHED_OTHER ahead
- of SCHED_FIFO on an idle CPU (fixed in 6.19)
-Message-ID: <awB-5usPb2QZXt37@jlelli-thinkpadt14gen4.remote.csb>
-References: <CAJuRqcD2=42CTQk2PSHofSmt+=H=qKT-x-ZXD76TwVshaepBAw@mail.gmail.com>
+	bh=C4WNcrWy6IW/AdCMObiWivkaWamwO5g/wk7Z2a8B9eQ=;
+	b=hznXqWE3ppzce+qx3hCvdhyfL6SyMsV8V2jMUkT1ydnxC6m3MlTlhzJ84rogwnjIiYCQD1
+	bGd/8yGTBndxq+48v6cFAbpr/ce+gAY3zMSU1VYtrddtw9CzvlyNoxEknAL+KKwi+QA9kI
+	4zwqVD6y/5/+mvlO9xDQYUs3gQgBluE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795194715;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C4WNcrWy6IW/AdCMObiWivkaWamwO5g/wk7Z2a8B9eQ=;
+	b=V3orJQl07rr8FOkdhXcI9x9DLXP2sDOSmlqrCfGNHB4E1TKX9UKu81apzoZj4sA4RC0oH4
+	yErjupCHGT6XuuBQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=hznXqWE3;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=V3orJQl0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795194715; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C4WNcrWy6IW/AdCMObiWivkaWamwO5g/wk7Z2a8B9eQ=;
+	b=hznXqWE3ppzce+qx3hCvdhyfL6SyMsV8V2jMUkT1ydnxC6m3MlTlhzJ84rogwnjIiYCQD1
+	bGd/8yGTBndxq+48v6cFAbpr/ce+gAY3zMSU1VYtrddtw9CzvlyNoxEknAL+KKwi+QA9kI
+	4zwqVD6y/5/+mvlO9xDQYUs3gQgBluE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795194715;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C4WNcrWy6IW/AdCMObiWivkaWamwO5g/wk7Z2a8B9eQ=;
+	b=V3orJQl07rr8FOkdhXcI9x9DLXP2sDOSmlqrCfGNHB4E1TKX9UKu81apzoZj4sA4RC0oH4
+	yErjupCHGT6XuuBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DA6ED1342D;
+	Fri, 20 Nov 2026 17:11:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3xzSK1p/AGv9UgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 20 Nov 2026 17:11:54 +0000
+Date: Fri, 20 Nov 2026 18:11:54 +0100
+Message-ID: <8733svwhph.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Akhil Arul <akhilarul324@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	shenghao-ding@ti.com,
+	baojun.xu@ti.com,
+	Carmel@aperio.ai,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/tas2781-spi: Set tas_hda->dev in probe
+In-Reply-To: <20261120125729.135171-1-akhilarul324@gmail.com>
+References: <20261120125729.135171-1-akhilarul324@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,72 +116,75 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJuRqcD2=42CTQk2PSHofSmt+=H=qKT-x-ZXD76TwVshaepBAw@mail.gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 444381F81C
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -12.51
 
-Hello,
-
-On 20/11/26 16:09, Florent Carli wrote:
-
-...
-
-> On 6.12.y and 6.18.y, I see it run SCHED_OTHER tasks ahead of RT tasks
-> on a CPU where nothing starves.
-
-...
-
-> The fix went into 6.19:
+On Fri, 20 Nov 2026 13:57:29 +0100,
+Akhil Arul wrote:
 > 
->   e636ffb9e31b ("sched/deadline: Fix dl_server time accounting")
->   f5a538c07df2 ("sched/deadline: Fix dl_server stop condition")
->   1e0a2ba7afb1 ("sched: Provide idle_rq() helper")
->   ca1e8eede4fc ("sched/deadline: Fix server stopping with runnable tasks")
+> tas2781_hda_remove() is shared by the I2C and SPI drivers and uses
+> tas_hda->dev for component_del() and for the runtime PM calls.  The I2C
+> probe sets that field, the SPI probe does not, so for SPI it stays NULL
+> from the devm_kzalloc().  Unbinding the device through sysfs then warns
+> in component_del() and crashes on the NULL device in pm_runtime_get_sync():
 > 
-> None of them carries a stable tag, and only 1e0a2ba7afb1 applies
-> cleanly to 6.12.y or 6.18.y.
+>   WARNING: drivers/base/component.c:839 at component_del+0x149/0x170
+>   Call Trace:
+>    tas2781_hda_remove+0x16/0x60 [snd_hda_scodec_tas2781]
+>    device_release_driver_internal+0x19e/0x200
+>    unbind_store+0xa4/0xb0
+>   Oops: general protection fault, kernel NULL pointer dereference 0x1d1
+>   RIP: 0010:__pm_runtime_resume+0x1a/0x90
+>    tas2781_hda_remove+0x23/0x60 [snd_hda_scodec_tas2781]
+> 
+> The same path runs from the driver remove callback and from the
+> component_add() failure path in tas2781_hda_spi_probe().
+> 
+> Before the common library was introduced, the SPI driver had its own
+> remove function that used tas_priv->dev.  Set tas_hda->dev in
+> tas2781_hda_spi_probe(), as the I2C driver does.
+> 
+> Tested the probe/unbind path with KASAN and lockdep enabled: without this
+> change, unbinding the device gives the warning and oops above; with it,
+> unbind, bind and unbind again complete without any splat.
+> 
+> Fixes: 28a09d9e42c5 ("ALSA: hda/tas2781: Create an independent lib to save the shared parts for both SPI and I2C driver")
+> Reported-by: Carmel Okun <Carmel@aperio.ai>
+> Closes: https://lore.kernel.org/linux-sound/AS2PR02MB10038DB2CE8CAE659D35B9F1AC8792@AS2PR02MB10038.eurprd02.prod.outlook.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Akhil Arul <akhilarul324@gmail.com>
 
-Thanks for the detailed report and the reproducer, much appreciated.
+Applied now.  Thanks.
 
-I had a look and I agree with your analysis. Comparing v6.19 with the
-current stable heads (6.12.118 and 6.18.64), these four are the only
-dl_server changes not yet in either branch. The other dl_server fixes
-from that period (including 115135422562 "Fix 'stuck' dl_server" and
-the two "revised wakeup rule" follow-ups) are already in stable.
 
-On applying them: with git am (no -3) I get exactly what you report,
-on both 6.18.15 and 6.18.64: only 1e0a2ba7afb1 applies on its own. The
-rejects are context only, though (upstream refactors around the
-sched_class callbacks that stable doesn't carry), and a 3-way merge
-takes care of them. With git cherry-pick, applying them in order:
-
- - 6.18.y: all four apply cleanly, and the result matches upstream.
-
- - 6.12.y: e636ffb9e31b and f5a538c07df2 apply cleanly.
-   ca1e8eede4fc only has a context conflict in dl_server_start() and
-   1e0a2ba7afb1 needs a adaptation.
-
-So I'm in favor of taking these for 6.18.y and 6.12.y. 6.18.y should
-go first, so that 6.12.y never carries the fix without the newer
-stable branch also having it.
-
-For 6.18.y, since the commits cherry-pick cleanly, it might be enough
-to ask the stable team to pick them by SHA.
-
-For 6.12.y, could you then send your backport, rebased on the current
-head? Please Cc Peter and Gabriele on both requests, since they authored
-the commits and myself.
-
-It would also help if you could rerun your numbers (latency and the
-starvation check) on current 6.18.y (64), as 6.18.15 is quite a bit
-older and a few dl_server fixes went in since. I tried to reproduce on a
-local VM, but I think my system was too noisy to see what you reported.
-
-Until then, setting fair_server runtime to 0 on the isolated CPUs is
-a reasonable workaround. Just keep in mind that it removes starvation
-protection for all fair tasks on those CPUs (kworkers included).
-
-Thanks,
-Juri
-
+Takashi
