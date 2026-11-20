@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795200775;
-	b=mB6LJ1rlfOFFURILVC0jN3lsBnawUpfGeXU6Y84AC+fP2x1+QaWeE7URm6t+PFscipCk
-	 rdeuDibLKSCMwpe+ofOYov0U6Ien1rYaXQj77dLAK0AYhC5Ph/Auz6G3qRQFZaKA1PWwL
-	 U+G3LssJyruaa8ALE01Z4Gt0HehqCcW9rm220gS9Y2I9vzy1katttyJPYICRg89UvH9QP
-	 ifSNQnKkVmiJtxvQU+cj/fMixDSa1Bkk6UBjpCvL+UlSvREtV+BSKMgTJAdQdqYyEK+N0
-	 SpOWmUBDeqqNu+qtTDdNnVCj7t6Or9cERblDd51jbQ0E4uCZZEzVHj2lZFLgOuOF1LQ==
+	t=1795200782;
+	b=eZOy5oqNaYssOEhNz3c564BTJ3I0gwzyM5WoX+3kYc6u+TX1XkkJ95IUU1L1sIRFB2P1
+	 sOt56DbVyzSrNvfSzpzxeyqAyfCT9ebG/Ajsy1LBg7ZX99DjmSRkzBnYD0ZZY+RWHA1ka
+	 /4sdzd3naxWKPAJTCtP/Otfi2jIVjs7ahY/m2L8WDTMnR+wNDyxN+wQNblx4auucV7zKn
+	 8MvUf5vs7S2BxnbhjZZQUgImvQ2uRvBPAqlTt2oTCwVZ/13AK0dHCHVy5Hd6wd3QF0Evf
+	 OBP1GJ8wS27QfiQpBcjBlrshlJPQ+d3C5zTOjxItSTfCWmmgLnqs/25zDYcKVrOF2Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795200775;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795200782;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vFu71F4VU/EdQcXZhad8GczLSYIVyzi2P+9OjoRpNEo=;
-	b=gkkV9ai84il6jMv1T+VTVcwmdVTPqLaULYKKwTl7/Fj4DzyQBwdCGNFVzbZzFSM7l5k8
-	 J8cpcCScEEGbtx3/VWmnTxtK1chaQClHMI6/BvQ8Q1EgiWg28pLN1lvGyEB8TKwInsqnM
-	 bwmPcZaz4lrC48uHmMQtFxYPGZMMtqOvL4am6Bh3l71V7bkusrPIn14bFwBIXd0h3+qnt
-	 H+5cTNDleBa+If1FTgKhfBm3MUTr84FpQ/79tVqPl9XIEo9wAYvuV/2hxWnqPGWbOtUOt
-	 vNaBpyRwMyOK0nd9/G2FLbeptVG75ln/6as+pqc8TtJba/hTzRDdqoTIJP929IXgEuw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=o8v/BZgYUbcYBIe4CB9T7ZtFdceVMuVvuQywcZxh+ZQ=;
+	b=fGZip2OA4gFqeOB/GZTE0kMt8VuxTBl5fBExwTzq1O0FhcOCSrOmQesLnaOKUniLGAPU
+	 D/xwMX2tveGcbGDdDlZb7RZIhYVS/NKyW83tdYvUjw7/rT8AuAcwRVOy3Bs++j/DPA52b
+	 Ci/EjiizGfwPFUQW9ckBHg92BGNATjqXuitNLd+epHijHwncUA3TcSx0L/OtYiQWjvDth
+	 URwpGJaMlyEQs3cKd8n3FZcjdmtuEz0Ncy0mGFRh4XMunA4HuBNj/vly8D7QV+csf/I3N
+	 4HvcS4MkDiX9e3mqQYKsjgNrq4S558a1AXMmFQ4/nCLqkjQLktnY5HZK62IBL8E2Sjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iGNmkv8B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WWgo0r0r;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2937D60A2611
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 18:52:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4646860A261B
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 18:53:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iGNmkv8B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22C761F000C0;
-	Fri, 20 Nov 2026 18:52:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WWgo0r0r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6CCE1F000C6;
+	Fri, 20 Nov 2026 18:52:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795200774;
-	bh=vFu71F4VU/EdQcXZhad8GczLSYIVyzi2P+9OjoRpNEo=;
-	h=From:To:Cc:Subject:Date;
-	b=iGNmkv8ByFAtY7Lm/PR+Fg4PUMeb2KRjz4XSN/5mJuVUXppzYRSjYAKIzjQl4jm1V
-	 +ugc2KySZr5runzMywFHgV2FKrFo2rd6RUCGXuxAP7DzUFFUyUl/NMnrbBSRaffJZD
-	 cE9B9XLUH12iMVnVosV1hIuGgZFmL5inkuIUKSup6Zxujcdi1vRRDnM21mW21sunnO
-	 qoYeiOmE/wFf7Y16T4swiyol6EmXZHCBn5jlBcsOozuetRyN6nmhXaBkLkpqjGDLa3
-	 D3aW86B34td0Kz2CtXE41VH349f0EGhcZ+LJxRysbYTvQ2wTCKFPM+f9HXhioNoMnr
-	 HZRUKc3GdYugQ==
+	s=k20260515; t=1795200781;
+	bh=o8v/BZgYUbcYBIe4CB9T7ZtFdceVMuVvuQywcZxh+ZQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WWgo0r0r1vT43l43ZnUCs7L11gO2wYTDrsaDv2oJlg18DbRar2LJXEzGoNqqemJuu
+	 DcASk2vntTTS/LPryVF5dq+uau+qOSF3XhUJswL5i7ox/dUpTDUPDj5pM3SB2iLG3E
+	 J+XG/LObwAmALYgp1xxlescrrMlNP1ReNQMArjY0Ff5r7p8zrZkICiHOJkAbawm7qs
+	 Qdib+6WJijoNXcL9hGOTY6d0MSYKNqIA3nTAM2QMBJRIAtpPYEJO+1R5qntRE5bW82
+	 363uzycEl8cFu16wNETEZ3JUoQemxHogWQnzlLlZ9rlFwpr5f2pIkXqgaZfZn8uSFO
+	 KYlBjeJp8OnVw==
 From: Arnd Bergmann <arnd@kernel.org>
 To: David Hildenbrand <david@kernel.org>,
 	Gregory Price <gourry@gourry.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Arnd Bergmann <arnd@arndb.de>
-Cc: larips <larips950@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	larips <larips950@gmail.com>,
 	stable@vger.kernel.org,
 	Zi Yan <ziy@nvidia.com>,
 	Joshua Hahn <joshua.hahnjy@gmail.com>,
@@ -53,10 +53,12 @@ Cc: larips <larips950@gmail.com>,
 	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
 	Johannes Weiner <hannes@cmpxchg.org>,
 	linux-mm@kvack.org
-Subject: [PATCH 1/2] [v3] mm/mempolicy: fix copy_nodes_to_user() for odd inputs
-Date: Fri, 20 Nov 2026 19:52:12 +0100
-Message-ID: <20261120185248.823415-1-arnd@kernel.org>
+Subject: [PATCH 2/2] [v3] mm/mempolicy: replace copy_nodes_to_user() interface with put_nodes()
+Date: Fri, 20 Nov 2026 19:52:13 +0100
+Message-ID: <20261120185248.823415-2-arnd@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261120185248.823415-1-arnd@kernel.org>
+References: <20261120185248.823415-1-arnd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,72 +72,101 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-copy_nodes_to_user() is broken for compat userspace in three
-distinct ways:
+The get_nodes() function handles copying node masks from userspace,
+while copy_nodes_to_user() copies the same masks to userspace, but
+with a different argument order and slightly different meaning of the
+same variables.
 
- - Passing a power-of-two size plus 1 as most normal userspace
-   does can end up calling compat_put_bitmap() with the wrong
-   size, copying an extra 32-bit word from the stack into
-   userspace and overflowing both arrays as compat_put_bitmap()
-   expects the actual number of bits, not the number plus 1.
+To make that less confusing, change copy_nodes_to_user() to look more
+like get_nodes(), using similar name and arguments as well as adjusting
+the maxnode value once, and restructure it for readability.
 
- - Asking for an odd number of 32-bit words rounds up the
-   userspace buffer size full 64-bit words, leading to
-   an out-of-bounds access in userspace.
-
-Fix the calculation of 'copy' to be based on the userspace
-word size and use this to for calculating the final number
-of bits to copy as well.
-
-Reported-by: larips <larips950@gmail.com>
-Reported-by: Gregory Price (Meta) <gourry@gourry.net>
-Fixes: e130242dc351 ("mm: simplify compat numa syscalls")
-Link: https://lore.kernel.org/all/20261117101910.1820066-1-gourry@gourry.net/
-Cc: stable@vger.kernel.org
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
-v3: don't introduce a bug that skip setting a 32-bit word to zero
-    where needed.
-v2: as Lorenzo pointed out, the off-by-one mistake is part of the ABI
-    and cannot change, we just have to use it consistently.
----
- mm/mempolicy.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ mm/mempolicy.c | 48 +++++++++++++++++++++++++++++-------------------
+ 1 file changed, 29 insertions(+), 19 deletions(-)
 
 diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 62d4c9e57035..afe614efb77c 100644
+index afe614efb77c..b240acaa8cf1 100644
 --- a/mm/mempolicy.c
 +++ b/mm/mempolicy.c
-@@ -1772,12 +1772,14 @@ static int get_nodes(nodemask_t *nodes, const unsigned long __user *nmask,
- static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
- 			      nodemask_t *nodes)
+@@ -1736,7 +1736,9 @@ static int get_bitmap(unsigned long *mask, const unsigned long __user *nmask,
+ static int get_nodes(nodemask_t *nodes, const unsigned long __user *nmask,
+ 		     unsigned long maxnode)
  {
--	unsigned long copy = ALIGN(maxnode-1, 64) / 8;
-+	unsigned long copy = ALIGN(maxnode-1, BITS_PER_LONG) / 8;
- 	unsigned int nbytes = BITS_TO_LONGS(nr_node_ids) * sizeof(long);
- 	bool compat = in_compat_syscall();
+-	--maxnode;
++        /* User space passes the number of bits plus 1. Fix that up. */
++	maxnode -= 1;
++
+ 	nodes_clear(*nodes);
+ 	if (maxnode == 0 || !nmask)
+ 		return 0;
+@@ -1769,31 +1771,39 @@ static int get_nodes(nodemask_t *nodes, const unsigned long __user *nmask,
+ }
  
--	if (compat)
-+	if (compat) {
-+		copy = ALIGN(maxnode-1, BITS_PER_COMPAT_LONG) / 8;
- 		nbytes = BITS_TO_COMPAT_LONGS(nr_node_ids) * sizeof(compat_long_t);
-+	}
+ /* Copy a kernel node mask to user space */
+-static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
+-			      nodemask_t *nodes)
++static int put_nodes(unsigned long __user *mask, nodemask_t *nodes,
++		     unsigned long maxnode)
+ {
+-	unsigned long copy = ALIGN(maxnode-1, BITS_PER_LONG) / 8;
+-	unsigned int nbytes = BITS_TO_LONGS(nr_node_ids) * sizeof(long);
+-	bool compat = in_compat_syscall();
++	const bool compat = in_compat_syscall();
++	const unsigned int word_bits = compat ? BITS_PER_COMPAT_LONG : BITS_PER_LONG;
++	unsigned long bits, node_bits;
  
- 	if (copy > nbytes) {
- 		if (copy > PAGE_SIZE)
-@@ -1785,12 +1787,11 @@ static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
- 		if (clear_user((char __user *)mask + nbytes, copy - nbytes))
+-	if (compat) {
+-		copy = ALIGN(maxnode-1, BITS_PER_COMPAT_LONG) / 8;
+-		nbytes = BITS_TO_COMPAT_LONGS(nr_node_ids) * sizeof(compat_long_t);
+-	}
++	/* User space passes the number of bits plus 1. Fix that up. */
++	maxnode -= 1;
+ 
+-	if (copy > nbytes) {
+-		if (copy > PAGE_SIZE)
+-			return -EINVAL;
+-		if (clear_user((char __user *)mask + nbytes, copy - nbytes))
++	/* Don't exceed what would fit into a single page. */
++	if (maxnode > PAGE_SIZE * BITS_PER_BYTE)
++		return -EINVAL;
++
++	/* Process full words, which depend on the user space ABI. */
++	bits = ALIGN(maxnode, word_bits);
++	node_bits = ALIGN(nr_node_ids, word_bits);
++
++	/* Clear anything we won't copy below. */
++	if (bits > node_bits) {
++		if (clear_user((char __user *)mask + node_bits / BITS_PER_BYTE,
++			       (bits - node_bits) / BITS_PER_BYTE))
  			return -EFAULT;
- 		copy = nbytes;
--		maxnode = nr_node_ids;
+-		copy = nbytes;
++		bits = node_bits;
  	}
  
++	/* Finally, copy the bitmap. */
  	if (compat)
  		return compat_put_bitmap((compat_ulong_t __user *)mask,
--					 nodes_addr(*nodes), maxnode);
-+					 nodes_addr(*nodes), copy * 8);
+-					 nodes_addr(*nodes), copy * 8);
+-
+-	return copy_to_user(mask, nodes_addr(*nodes), copy) ? -EFAULT : 0;
++					 nodes_addr(*nodes), bits);
++	if (copy_to_user(mask, nodes_addr(*nodes), bits / BITS_PER_BYTE))
++		return -EFAULT;
++	return 0;
+ }
  
- 	return copy_to_user(mask, nodes_addr(*nodes), copy) ? -EFAULT : 0;
+ /* Basic parameter sanity check used by both mbind() and set_mempolicy() */
+@@ -2054,7 +2064,7 @@ static int kernel_get_mempolicy(int __user *policy,
+ 		return -EFAULT;
+ 
+ 	if (nmask)
+-		err = copy_nodes_to_user(nmask, maxnode, &nodes);
++		err = put_nodes(nmask, &nodes, maxnode);
+ 
+ 	return err;
  }
 -- 
 2.53.0
