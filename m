@@ -1,78 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.209
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795177091;
-	b=ook8TpG0L2WK/gvXmc9F5Kt/ZTrjQur4VZepQj6PKxHiOQRtyL/4NEewdVVEYsBaaZY0
-	 g37ec6U0l0vAogDl2oRWT6t95a1X6sgwLujZ5Ic1Xa+Jx6SQXr3Pqg1SBFJGwOfQ3CaBP
-	 NwMYI0JawgJ4mFKbSxFEuZ5f5MAXgL+khusmlgYmQIZDnhp2mcHQ5YZ4PY3flqOb0cw36
-	 bBgKTe0PqTNbb4ou0s+jpbN/9ps0ZYWk2dxq/hwgmYmtHwDab06bYgPGq9MI/0OBN0yvn
-	 Bt9gaOopmV8RgwRjere491e75WX8gXMBK3nFFb6npCJ5vo1Rr/E/RPXCM4A1g4buqcA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795177091;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=bMm8H+yvAuVuYABF/zltzdQZ92nZTYXGeyLMpgEqP9U=;
-	b=XMOdaASS2qTFjTDkQ/pPlISYCLLRsGwIU0PHn3+VGLV585nJ+qkj70K062NiNe1pSZqH
-	 zHyC4TkizjS3b27yOKT30Rt3b0aiC6XhWw2QdXmCIqFS+PlMim0Jp7v5IyabIRdMbu6Hy
-	 JuuHdxdZaDtkR9AzfQJvGw0Ruz3TidtN373RTfr4UNfhs1pW267M2ncqgcI91NLuPCT3r
-	 SL76lp58T4E6K0p8VrgtgfP41NqIijWrK1S6cENW57vFSzcS4cBtyATVT5gz95oYOP7t1
-	 oN7nTnIsfrdGeznVFt7FjyaFi4uOWpu6kjBwKsX0tnJ47xlPFvta8qKMzOcoPoa4BwQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="IoQlr+/t";
-	arc=none smtp.remote-ip=203.205.221.209
-Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795177222;
+	b=jJVgsMg10aIJdjzQgEY8ZwJHlpnE08igFAMor4rCjUFxEVpSKHvH7brAhBU+lIoL3nwS
+	 eaJEQRQ7q4mKjnuRABWnWixA1emY3NQCfkR0D2n1ZrnwqEoDVa3AxJxcx538YOLGv2DEV
+	 ZRzmYFHBALgHlM1p0lAuvr7FOeJm7wxSqUYYFTT7A7uU0FhUTFesCwynVTX/7jqeCClQe
+	 +FaKt0IicBuvHxHHsqqaypie9W6A0BY3ie+Dwcv1S9yxqB6rYuBwPg06pRpRlw8b5OPBp
+	 X/gkJLgNfmSpPqVVfu5LfjHs88p9vT8Oi8BNglTbUTo1NSzy3we2V+tc1dkEw7BqEMw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795177222;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=Ida7ZOzQmbAaoOpD67ibDsNtLvf5bm1Iif/aInwM/as=;
+	b=k/RG834GwAzfgVYlNymlpW/7OcdSW85UJIe1jdlvFvGSqwLMZhgxP0sx2WntQmy8ATDG
+	 Hh6KEIoAiCZz5W6YvZX+jKWFKUWAPGIHjbXI21wT3D8BjRo9o/XrZKhouw2SNOQ3/kfpG
+	 wehd315yhR9QuHZ6j9Is4SWXqC0yBQLhap3ilpJ+6sRnQMg46LsN6f1TcFNgolaJSTxkR
+	 6GD6W90fju902GT0dm6BZmkxXTT7BKZOgGImQ7oMq9PjMSrcxc3yc6b25/qJ3xigb5yc1
+	 W38u3OiStTYsJfzLRsjjCGAidxeLlorS+Ck4SAt0XvVub38fncnbp/wKrCPhqVCGtyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cloudlinux.com;
+	spf=pass smtp.mailfrom=cloudlinux.com;
+	dkim=pass header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b="f/v4uMn4";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846CB606A320;
-	Fri, 20 Nov 2026 12:18:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 846CB606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4152C60A2600
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 12:20:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4152C60A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cloudlinux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudlinux.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=IoQlr+/t
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795177081; bh=bMm8H+yvAuVuYABF/zltzdQZ92nZTYXGeyLMpgEqP9U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IoQlr+/tU+IsIFdlXvM3yq8cxvYY0tpwZPbsNEaHerUHDkUdK6K6sagyb9g/v0nMb
-	 IP262ZyD0zVnPw0fSokbQPlFU/8bJ24/GzGa911tt7aVVoYaRY3q6nt6xyFvANNR2t
-	 Q/0d1+crRDcCXRZ1nFUcM7+5H9dYXhDG372uCnus=
-Received: from [127.0.0.1] ([2409:8d5c:8f0:65e5:65c9:1ea4:b234:d5d4])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 47914255; Fri, 20 Nov 2026 20:17:57 +0800
-X-QQ-mid: xmsmtpt1795177077t38y1pdw9
-Message-ID: <tencent_F83D2E71F8533412D7D7477A7ED9F6459B06@qq.com>
-X-QQ-XMAILINFO: M1rD3f8svNznHmnIW8AmHMMUTl1dcnq/33/oxmXjr/dj6SajJEFYV2PaN9bftC
-	 L969/tGIebhk3akw3EZFbp4AlCrn1JN/S8sSnm4O9UrKnx8jkyRwbWsNFbcOrOJXiZcgexHrTMxk
-	 z6wjfOitR4QCkiXB+UNAyeeG5hHi9xUd7ipcAib3eOulEt+TxdYJKEOpnqtw8vvUm57i0jKzL/97
-	 V6QmsxSPtq27uWkPtO3FFxe7D4SiyRe8LDaFxpPOHm+1/yPS4YVUbnkubMHXV5a+MxA1NRI4n9HV
-	 IK2XQ5DcDhSTp0pEMA66m+M5nJD/nX/2ZQOO9guFXHFAhzc7K9Rb7ZaqLjQz/n+XeDii/JW9z8b3
-	 9f2xfiqhywuom6qqTfVUcLNQQ0SN8y9Phf3m8xVbX/3fDKTswj9BjI5DYOoCbWjQOvJl+FPseVHw
-	 BJzTwMRdBsaxiHhc/Zgcr9evBetOhr8KPuLDDOz2i4mNIuUinwEpNkRivzk5ozu32msL3Ees4xsY
-	 ENWHI8NfBCZzgbZhffNwLOjjDv1bdQ788mnHL1xCrmxOQd1MNkuXLZQ5vd5Wclk/rl2TwPFfDvYu
-	 EArgY5Z7tGeisegTLzTBBtr7ghW0dSIiWc4XmYexY39xZldvdCVSvzZJuyQZ90TV7zYNlkSfI6pM
-	 SkPHjRqpBwz4RETbsxRHjlU99bXV/rBsjijrwiyy0suTWFwmRKZOPl7feid+npqC0OJSL1C8Dtex
-	 CbkMjhWQ6D3BisGc078QqaL1DkQzkeMGsNavpQdTg58XVtMoAbLnKIsqdA/xOA/ft5Pp/GhleMKw
-	 3gTRKPSKLMjn71fXpHVH/Z/wLzbQtR4cT0+gsZ9Ba+U2+8tIoRakkVMIgpDCoeq9EsqD3oSG5tc3
-	 CO2iAU8reX3pjCEENanUiswSfDrmTAiVJoVlyDwNb36+xG+bxqK2vIqidy+NqclLO/vV7ocupUby
-	 VdfAN1vW5yw1da1RyHzQL2I90vCSzNyVc2LRzLXBzD/mkA9JqjPkTv5tpP7Cbc7I37zrNRfiddmQ
-	 HbDQxwnalETgj3DxfQDQpIdY34A/Vu6pNbMVYovitRpPXJ3QrAvmNdRinMg4C2mq2qw05Fgg==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Hang Nan <2122295973@qq.com>
-To: matttbe@kernel.org
-Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, martineau@kernel.org,
- geliang@kernel.org, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, kuniyu@google.com, willemb@google.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 2122295973@qq.com
-Subject: Re: [PATCH net v5 0/3] mptcp token hash ordering and token 0 lookups
-Date: Fri, 20 Nov 2026 20:17:56 +0800
-X-OQ-MSGID: <179517707644.56974.16674613746518125542@qq.com>
-In-Reply-To: <20261116145829.96849-1-2122295973@qq.com>
-References: <20261116145829.96849-1-2122295973@qq.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=f/v4uMn4
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c51373ae637so126825566b.3
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 04:20:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795177221; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iD4ESsU6a5FWZrQIa32q/2JLO2n9UK0IjbEslvrC/OL27CqohR/HfHnMi3Sf+zPEz/
+         O43lj0gA8KH0qAjBugm0k+ROYgCBGBIVhqUkBTFctJ0PAg6ZdcHY9HUUchhXxqmxgev8
+         zpBkcqWwb69Ntn3RUIsUiMenaUwWHPAqkjfsP+GKGsReE2syI0umgf0DcGRXX7SeypQK
+         2pZnTIzaGGCGUaX9hlFtZvBxiArEBctfPBswATHAPkESkArPdrcX6RJFhlNAoehexey/
+         8ExfQlECAZbHc8jfGCpuxN7WBzKAts7cffew59kpYKKzpwmMtz8Qg7Zcske2VVQir7CG
+         Mnyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Ida7ZOzQmbAaoOpD67ibDsNtLvf5bm1Iif/aInwM/as=;
+        fh=6Z/I9ff6zmsEqRSbv5krPCnt7xn5JHQR2PWCtORATF4=;
+        b=Hz0zl3AWi6r+cTmCIU+yQomAo9b2u1736r1W3kANAqRE8jxcQlNQ8QBx122TfNAPJD
+         zgIGo1UTOw/9PvyueRqKqB/7nQhaPmeO77DkaXJrK5r/Qba1PHP6tnNybVdbqPBlcKze
+         YDwoUpHakFxfmqCmaweYrdFAFt0CVQ/xs5/yF+TH8fMA7UXA8vkRApTilATrmgVwaJuH
+         4oI+3gPaStP+JnLxOaKpiSjHJ/89A4GYe6+agwBBKlT2GVxT1WkgJXKPEmtSH0qQeeg9
+         XSA4XmQRYNFSA+MABQnIywN2HegEleAdNCkcGWxsbwLT2bbkiVKmgBpKy6Vzf6BvDOPc
+         lqkQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudlinux.com; s=google; t=1795177221; x=1795782021; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ida7ZOzQmbAaoOpD67ibDsNtLvf5bm1Iif/aInwM/as=;
+        b=f/v4uMn4J3fQGmL3e8hL8H6GpITgmTc+j+FxBSUEKNQWWCcZHMZO2Tt7vAhawDk/7d
+         trHE7f0BDEtIUdZzG0iJO3hF5E5gt/NNUkLKDU8QAp8gsYRxWEQ2DYavxXHQbsuyBs3u
+         0roHf7zcHoItpEkApyGHqmHVB2Qb3K9j5J9KRFsv/e7xsQwFeNmaP05ELmyRkOzWiO81
+         eYleydYZC/heAiZP7H6TM6wz/Y77Eg+n5V3frhEA6xCtCSr4nirpr7hcOxguEDPo3D0N
+         aPbLGMINMqBlgpedk0Eg00B24dolXOAKRcSfek/2OLCk2Sj1dKcyQWWu7fifkIeOKbWf
+         4p8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795177221; x=1795782021;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ida7ZOzQmbAaoOpD67ibDsNtLvf5bm1Iif/aInwM/as=;
+        b=AUJ5YOpWMTNyhjeg+knNopQGc9McEVgNC/RW4kvJAzWI+OHZqxdXjSSh2p4VJXzIpM
+         EwJmB38QJcJjvVt8qyLdDqtO2FF0e617FeMARI3CetPerjylIG1EY1FfI8d6eVXpb/Dv
+         n3n5IgScAFVFZRnTIw0vRSkw5mIaW6kB7OH8wcT4SgCMsEFZQ1hXpbR68M6/KO0XDVlB
+         NXkwz+8KpfiX/E2gwBvuNaGay4nNkAiyMLV/aNRjMcPdDcBpRRjKAAc3jIGlLUNwDpUf
+         IvugLddzB5/EN1b9EoC4W3T1D61r8IAB1Q1E6TXWOv7LBvsTE+cf7IVdvS5h9XMSVj0d
+         CJnQ==
+X-Forwarded-Encrypted: i=1; AL+hErExynBkrHb0FMW9s8txYKohcDVofSrJD/TOI9Df8+3aAjlgBvwlefPURuiT7WoqX25p4nUpiXE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/kYh/9VOR1KgK6KIN5XedbSMWqkXqEg/pCoPirAWp/WJy+j/8j
+	LSc6+RXTgyUwmYZuw4I+hfl+dMRIwEzyvlGuxa4FZ9Y+67SaSEyUKJD7/fuImOScZnjN69iS3f3
+	BZcfrLq0tel7ve5sSxTiRzwOqCXe62gkGqKDC+W1Nug==
+X-Gm-Gg: AYBFou3nxZmKy5V+5k5MIgfHisrcpvRUpNMx8ILkKie0+Xe6PxA+RYA33i9AakgLEF7
+	Ql6V6E6gIOG01lnfjZEHVIiDS6WM/WQU7XZPhumV8sTn62RATPJc7sISv/33/NnwECKDEaxxODu
+	O002OOEJGuqrxHIx03cvUZZeWYNHSJezSRxTjOgOkBTaqNHZkf58TgxeoXcptvomOscs4DoWtI0
+	jXzjg6WLYSFSC4zhci26IKUc7Mv0lNDThP2BaXDvFUMREwl2w2oK4lYA4f5KM+ugLaJl+BAheoc
+	oYW2IUSBesH7RXodBFvNV31sRHUqGZkNHM6speRMjAysCaCLcC39fvZxjSO84ceIi5XfpJqwDHJ
+	sWmcRBo1tK/HDXaKZDpzX7MVvzu11gjYNcz62ZZVmH5Izxn45jZos+Co=
+X-Received: by 2002:a17:906:1ed1:b0:c51:2fb:a039 with SMTP id
+ a640c23a62f3a-c513a850365mr243467866b.12.1795177220590; Fri, 20 Nov 2026
+ 04:20:20 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,50 +103,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <alvD5nOP15O5B8Ai@kernel.org> <20261117104838.2650999-1-rmustafin@cloudlinux.com>
+ <avwzid1Ovl4ACkaQ@kernel.org> <avxJ9MxZ0PoWbQTc@kernel.org>
+ <avxKqn-PlzJyxVdK@kernel.org> <CAG6=z5sxUo1x6mpotkNZXk=nQYvD2AyMLSDhzD3B3kqxJ1=iaw@mail.gmail.com>
+ <av23L5HBpy2gbm3m@kernel.org> <CAG6=z5u+qK3JQ4OwqS8e9ncfcasYPWLQhU9Y4iBFi1pEf0QFuQ@mail.gmail.com>
+ <av88MkHFBHTD8Rqe@kernel.org>
+In-Reply-To: <av88MkHFBHTD8Rqe@kernel.org>
+From: Rustam Mustafin <rmustafin@cloudlinux.com>
+Date: Fri, 20 Nov 2026 19:20:09 +0700
+X-Gm-Features: Aa3M54olXavvLpImCYcikZbsYtV4fjBy_7D-xUAbTEHrCt2I1nTcWgO0yQSHO6c
+Message-ID: <CAG6=z5tCq-THqRRgF5vMs0=MNmXMp80g8HiQmbyov0i-9pRFXQ@mail.gmail.com>
+Subject: Re: [PATCH] tpm: track the response read position internally, not via
+ the file offset
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>, Jaewon Yang <yong010301@gmail.com>, 
+	Tadeusz Struk <tadeusz.struk@intel.com>, linux-integrity@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Matt,
+On Fri, Nov 20, 2026 at 1:13 AM Jarkko Sakkinen <jarkko@kernel.org> wrote:
+> > 1. ->read_iter and ->write_iter that just return -EINVAL.
+> >
+> >    Simple, but readv() and single-iovec writev() stop working.
+>
+> So. What would be the use case for this?
 
-thanks, all points taken.  v6 is prepared but not sent: I will wait for
-Netdev Sashiko to finish, as you asked.
+I don't know of a real user, tpm2-tss uses read() and write(). It is
+about compatibility: readv() works today and can split a response,
+e.g. the 10-byte header into one buffer and the body into another.
+writev() is less useful, since a command must fit in one iovec.
 
-- Threading: I see the same thing you do on lore.  The patches are sent
-  with git send-email, which sets In-Reply-To to the Message-ID it assigned
-  to the cover letter, but our relay rewrites Message-ID on the way out
-  (the tencent_*... IDs on lore are not the ones the client wrote), so the
-  children end up pointing at an ID that never existed publicly.  I have
-  not found a way to make that relay preserve the header; if you have a
-  suggestion that works with such a relay I would take it, otherwise I will
-  send the next version in a way that does not depend on the rewritten ID.
+> 2 is a bug fix, enabling is a feature. I guess this is the confusion.
 
-- Prefix: switched to "mptcp: " in v6.
+Adding ->read_iter for 2 also lets vfs_iter_read() callers such as
+Coda reach tpm_common_read(). Their requests look the same as readv(),
+so the checks in 2 cannot tell them apart. That's why I sent the read
+position fix as v2 first:
+https://lore.kernel.org/all/20261120121614.978396-1-rmustafin@cloudlinux.com/
 
-- KUnit test: dropped.  Beyond your point that a !token guard is not worth
-  50 lines, it also caused the build failure the test robot reported - the
-  case used mptcp_token_exists(), which is not exported, so
-  mptcp_token_test.ko failed at modpost when the test is built as a module.
-  The pre-existing token tests pass with the series: pass:4 fail:0.
+With it, tpm_common_read() ignores *off, so io_uring reads and writes
+work correctly. I'm not sure about blocking io_uring on top of that:
+it works today, and I can't rule out users, especially of /dev/tpmrm0,
+which many processes can open at once. I have 2 implemented and
+tested, with -EIO, and can send it if it's needed.
 
-- For backports I kept the code changes as three separate commits (ordering,
-  hash-membership check, token 0), so none of them carries test code.
-
-- token 0: v6 says explicitly that no connection gets token 0 from this
-  implementation, and that the RFC 8684 token field does allow zero, so the
-  rejection is a Linux-side property, not a protocol one.
-
-Two things I folded in from the Sashiko review of the same series, which
-you may want to look at when you do the full review:
-
-- [High] The acquire ordering does not cover the passive-open path, where
-  sk_clone() publishes the refcount before mptcp_sk_clone_init() sets the
-  token.  v6 adds a separate patch that drops a socket which is no longer
-  on the chain after the increment, the way __inet_lookup_established()
-  does.
-
-- [Low] The stable tag now names the dependency:
-  "Cc: stable@vger.kernel.org" plus a sentence pointing at
-  7f8ceea0c580 ("refcount: provide ops for cases when object's memory can
-  be reused") in the body.
-
-Cheers,
-Hang
-
+Br,
+Rustam
