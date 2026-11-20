@@ -1,55 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795176372;
-	b=DXsWkXTD9sl0eDIOnlal4EB32jcmetwyCWAyIZWWTi8tS8HaDZFnzTS8YWRfvAjhnqvO
-	 KxnVv3Coj+78RvXQP532uHllhzQtggZvewUhiUBjuElbhMUQ2jQhToGaInuEKKGkeUaMx
-	 V1odNWUWgDPuz6O/IyVLWZA2O5uswzAdb938zKCI2QbY8EvaOj30blZiO/UCPj2oJ3J3I
-	 9VmCYA5iBZC1qlIFbAGoqrFgaz8hzYRNXhdxhNFDxAHMucIOsFvqRF2MTaQU3LH4QPMei
-	 44N3I0SMzkSQs/KfyevMAdL8+mYOJqEXzjduR2V/fnS7cSWb/Pq44wA+H8jc1oDYwHw==
+	t=1795176496;
+	b=FLF1sI5DITwqEiFrGfjYK7wpzK0e1JSrekJJDBYrJeiQtKq1n8LSXrmy+lwz7UfmHDtg
+	 CB3Tlf8kUHYCAi9TWxfL2MCC7a4v2Ltk9I4eJw76IXLG6+RPycmW3SijwDPJrhy3OQo6K
+	 Lo/EabgnLBQsx4daYJB6QsCQ2AzOokvCBrFdAmoQXeQFGfJK89guYPMWEbGIak1MxqNoz
+	 Wlsp4DsU3eQ8CY+hYboSI7h06nmen1LlZZSxtDP2mYGlf903VZbLQvj7cjUDeH1Cnf4pK
+	 oqTouMSa2CfumaL1qT5KdjZFmsGMjfAsWKZOUSJjYe5GUbjuM1zRCHkyH3oiJHEW1yQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795176372;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VZcbeVDdlNi18JiKSg+eWjVY4TeiiYK+J+UD2JmK1rw=;
-	b=YP0YvU+fvSVRIgd3Kng0Jb2/o6YAQhMBg2cTRaZNv8xxXFfD4SZXMH/s+EnhIfWhZyeg
-	 YlFScnO82s4ZGLU38//rUeyY+Up3XYGHrznfczCsM1uWKggyeVLafD+SsdJqcW07F4QSs
-	 B8/dayfiOr+ZUqYpBkEji0SsdWvCUJtN8NGV+EQdwzSwbbZDEMhjRE9NCXf7cLXm4tlgF
-	 IWQCzuQhFwPp3CHwwFmmY833rV2OVGJShrbbCB9cEVell7Mq0clb/HbL/6dpQnoRqm1Lf
-	 WMQtTuuOlQgAlW7cIZUdqhLTXJ5cUJ5e8MRMNTg0403/lrQhTyGWLBqEnVc1vj0AHXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795176496;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=leH4vKCDxg4Q4mbVrfWpHJbzOjqXkPLFQadbncRScqc=;
+	b=GdgDkDPqaiL5JIrYgoOuQSaUIXRukkGPyxG0rtdaakHdDJqfEkxHqNpSClcobSOzVFPb
+	 htNb6j7gzlitimflmB8mreMWpw7bXJUA6dSUBSQ8Ra97DPxGovUrkuhRauhc72KFJ77oH
+	 MTDmRPcpn8JlRb6KloBJMncT4w/YC4aeBcG0ajFB14kXLEZ20fB/al8adcIZ6d8kaSeQU
+	 EPa98zzFMPPMWr3e27+92Qo0gHUQmvBGNvmF+oFWBDdhzTtWOAmouoeeLQMMJisIUdYlY
+	 UjTVlQHQfK2lFCCVcNLiK6mIWh+cFD6c5n8jSBDk6qfITPHi+i7fuBvAiSYzUVx3mkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dj1I9gbO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=pWCrJsIR;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A840A606A320;
-	Fri, 20 Nov 2026 12:06:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5A8606A33D;
+	Fri, 20 Nov 2026 12:08:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B5A8606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dj1I9gbO
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DCD781F000CF;
-	Fri, 20 Nov 2026 12:06:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795176372;
-	bh=VZcbeVDdlNi18JiKSg+eWjVY4TeiiYK+J+UD2JmK1rw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Dj1I9gbOcUktcP3XTHqIIzS3XhiqpnOQzQ99On8eXfO29UtqD1/i6OhMpILa4lUsz
-	 MocLAdjEfLu3Z1wkHpw7TUSss/tbSfsQ0guF0N5eleAmotZ0sjsqkrVmb/bHq7ypVX
-	 TJXr4AfoYpcPARr9+/8FiwQ34N09IiHj21frDV45NTD5w/ML30+FoOMqdUtY6sCk3j
-	 QWtQKuKeMdQz8BteW0utOV1XjtvKOmti2nr42G+H6EdA1OKQJDCDBFmUxWz5vhEIAa
-	 86bSXqGdAdp6jpamqwSvUO/eN7g/wUvfSK+2ha51T4AUur42lLDQNxz0GLsmNOL5YR
-	 ndKZNASxyDy0Q==
-Date: Fri, 20 Nov 2026 13:06:10 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Lee Jones <lee@kernel.org>
-Cc: "Philip, Avinash" <avinashphilip@ti.com>, 
-	Vaibhav Bedia <vaibhav.bedia@ti.com>, Thierry Reding <thierry.reding@avionic-design.de>, 
-	linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 7/8] pwm: tiehrpwm: Enable runtime PM before registering
- PWM chip
-Message-ID: <awA3Cfrm8lHE2uLH@monoceros>
-References: <20261105143847.2559586-1-lee@kernel.org>
- <20261105143847.2559586-8-lee@kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=pWCrJsIR
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=leH4vKCDxg4Q4mbVrfWpHJbzOjqXkPLFQadbncRScqc=; b=pWCrJsIRg/rUdUJopFL+uSchfV
+	nugUPTlQygkizPNxLXYFxjlmGwnLzbHKSFC/47HVx4xP77V6KMmxZxOccb3ZwpdAnS0LZQPL9mB7s
+	+E1YR+Y/Q5vC9GG4cjhqsa2g2w7a518WjpaxGZsfqph2/q7PYpgpesYG7Z0Pa8y/bwboPbGHvSC6v
+	UWRG+A9jH9xbs+dmi75BE/glBjXgPTUVCdN7PFBUB979TQ9iE5UpRdvufdvxDyZp2szsSmIX5mRpS
+	DEizgSnjvu6AWq293mFWR0AMSk5zGBAQG3RhUTPyUjcuyhh3uBHC7j927LyvBrjS6fn9SawVAyDnf
+	HvnsRXfg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xUNPK-00000000jzH-255A;
+	Fri, 20 Nov 2026 12:07:58 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id C8379301185; Fri, 20 Nov 2026 13:07:56 +0100 (CET)
+Date: Fri, 20 Nov 2026 13:07:56 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Kees Cook <kees@kernel.org>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
+	Ingo Molnar <mingo@kernel.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	Chris Mason <mason@kernel.org>, Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] fork: clear p->mm when copy_process() fails
+Message-ID: <20261120120756.GS2668564@noisy.programming.kicks-ass.net>
+References: <20261119-mm_failed_fork-v1-1-b3019f43d197@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,98 +87,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="52p67fuekkm3a7ph"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105143847.2559586-8-lee@kernel.org>
+In-Reply-To: <20261119-mm_failed_fork-v1-1-b3019f43d197@kernel.org>
 
-
---52p67fuekkm3a7ph
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 7/8] pwm: tiehrpwm: Enable runtime PM before registering
- PWM chip
-MIME-Version: 1.0
-
-Hello,
-
-On Thu, Nov 05, 2026 at 02:38:09PM +0000, Lee Jones wrote:
-> ehrpwm_pwm_probe() calls pwmchip_add() before setting driver data and
-> enabling runtime PM.  Because pwmchip_add() immediately exposes the PWM
-> channels to consumers, a consumer can invoke ehrpwm_pwm_apply() before
-> pm_runtime_enable() runs, causing registers to be accessed while the
-> device remains runtime-suspended.
-
-Is this correct? Until pm_runtime_enable() is called the device doesn't
-go into suspend, does it?
-
-> Set driver data and enable runtime PM before calling pwmchip_add(), and
-> disable runtime PM on the error path.
->=20
-> Fixes: 19891b20e7c2 ("pwm: pwm-tiehrpwm: PWM driver support for EHRPWM")
-> Closes: https://sashiko.dev/#/bug/linux-28b36a80-e4a9-4bb6-97bc-7ca028955=
-70a
+On Thu, Nov 19, 2026 at 09:04:58AM +0100, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
+> 
+> When copy_process() fails after copy_mm(), the error path drops the mm
+> reference but leaves p->mm set. Perf and BPF can still reach the
+> task, and take a reference on the already freed mm through get_task_mm()
+> or bpf_find_vma(), resulting in a use-after-free:
+> 
+>     copy_process()               PERF_EVENT_IOC_SET_FILTER
+>     ==============               =========================
+>     perf_event_init_task(p)
+>     copy_mm(p)
+>     a later step fails
+>     mmput(p->mm)
+>       /* frees the mm */
+>                                  perf_event_addr_filters_apply()
+>                                    get_task_mm(p)
+>                                      /* use-after-free */
+> 
+> Similarly, a BPF program on the task_free LSM hook can call bpf_find_vma(p)
+> before the task is freed.
+> 
+> Fix it by clearing p->mm under task_lock() before dropping the reference,
+> just like exit_mm() does.
+> 
+> Further, if copy_process() fails before copy_mm(), p->mm is still the
+> parent's mm pointer copied by dup_task_struct(), without having taken a
+> reference. While nobody can access it concurrently, there is the
+> chance that it might get accessed later when a BPF program is attached
+> to free_task().
+> 
+> With CONFIG_MEMCG the task is freed after an RCU grace period, so the
+> parent might already be gone and p->mm in the child points at something
+> that was already freed. So let's just clear p->mm before freeing the
+> task. No lock is required as there cannot be concurrent access (and we
+> might not even have the lock initialized yet).
+> 
+> This has medium urgency.
+> 
+> Fixes: 375637bc5249 ("perf/core: Introduce address range filtering")
+> Fixes: 7c7e3d31e785 ("bpf: Introduce helper bpf_find_vma")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/sashiko-outbox-180866@kernel.org/
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: simplify description and comments ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > ---
->  drivers/pwm/pwm-tiehrpwm.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/pwm/pwm-tiehrpwm.c b/drivers/pwm/pwm-tiehrpwm.c
-> index e3407d0a1f7f..f9dd3b91c73a 100644
-> --- a/drivers/pwm/pwm-tiehrpwm.c
-> +++ b/drivers/pwm/pwm-tiehrpwm.c
-> @@ -461,18 +461,19 @@ static int ehrpwm_pwm_probe(struct platform_device =
-*pdev)
->  		return ret;
->  	}
-> =20
-> -	ret =3D pwmchip_add(chip);
-> -	if (ret < 0) {
-> -		dev_err(&pdev->dev, "pwmchip_add() failed: %d\n", ret);
-> -		goto err_clk_unprepare;
-> -	}
-> -
->  	platform_set_drvdata(pdev, chip);
->  	pm_runtime_enable(&pdev->dev);
-> =20
-> +	ret =3D pwmchip_add(chip);
-> +	if (ret < 0) {
-> +		dev_err(&pdev->dev, "pwmchip_add() failed: %d\n", ret);
-> +		goto err_pm_disable;
-> +	}
-> +
+> I can take this through my tree (rather soonish) unless someone else
+> wants to pick this up.
 
-If you switch the order here, it would be awesome to also switch in the
-=2Eremove() callback to have the order match.
+Have at.
 
->  	return 0;
-> =20
-> -err_clk_unprepare:
-> +err_pm_disable:
-> +	pm_runtime_disable(&pdev->dev);
->  	clk_unprepare(pc->tbclk);
-> =20
->  	return ret;
-> Cc: "Philip, Avinash" <avinashphilip@ti.com>
-> --=20
-> 2.56.0.398.g882cbad275-goog
->=20
-
---52p67fuekkm3a7ph
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsAN7AACgkQj4D7WH0S
-/k6ZMAf/Sfja5kwJbbnFMEzKlPXRu5nvLwz6Cl5huAWiTMh8OUPEmcGsJjd88Ul5
-0uJQwE4mFuzjJFtKScfdJWc+gwYlzZwhN4vel1E5Vu4FbjaFSrHqrhAEhvsfzJSj
-upQzhfNcNa4u9Uz1Y+6p1QfHYHog533WUK/DCGypFDQ93LqHGu+hheXPJKmSQClf
-0AuWmEUZuAG2pxaeaCw7a2JsTbuJ2gDcosrezGQjMWFNMLJuCNNOWtumR9EGXLHR
-NDqbnhSZ/4X4z6MN0Yrr1XGkTNGRdkbQ4nry2ILMDRi6gFMgVyTcYtAzC3Jwh6w9
-nhUwFMtmTLCvBWbD6kGiqLwj3swg8g==
-=U410
------END PGP SIGNATURE-----
-
---52p67fuekkm3a7ph--
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
