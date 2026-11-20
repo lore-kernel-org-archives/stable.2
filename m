@@ -1,72 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795147030;
-	b=C737s7dmd9nNIdIRf07lhflfu7AZNRFofE1mI928Ano3TZf0s1bNIDn4NyhyB0Qj+ZAM
-	 Ec/zIq57ymZ1HrLHqBkhjG+IdSAmiji9pRVTDQSw0YcuNKkhBOriq13wnBkvx8pEdhgq7
-	 /FT8sXo1J2KiHllD1vbZWunp8EhzzMCrvbE9m4yE3skpVeGVnC08HNkj2Zr9CCQA14UOA
-	 Abb418gDbp8DwXD3z3P6hTCe3I3McasGtS1082mwMl/k3ukHyqez0EE1OwnEjqxvwSZ7f
-	 yi+ZmWCqVAK+bUYgCF7+UgqSWLbaKg/TR98Y5rFZMyHfjx1ZLFvCqdFMJZ/ZikX05tQ==
+	t=1795147089;
+	b=svmHlzzciXbPR2QKugz4mte5zpNMx3DDIQsuypyFeOLxTKDRWWait22ikGnjLPFYsMgM
+	 adIWJpRymIkY9pW0ej+UfweCa3SrgK737FbrBPVND8A7423IjT3debBO1mlWmllsOVh/N
+	 zuvlmUGCkSjC3gh1KIVuEwyo8EmfaRLn96ZmCg9yYWsxbEYldYN7EbQOkEUavsta9dQlL
+	 DMrZYmj+NbcQiBHW0yF8dBr/Viqf3XWdhuRiamxcVI1KU7RbQjA/ML3W9PwRXfOxgpm4p
+	 mO7Pclosam60dI23ZUo60RpJKcCqfGG7y1eyuWORuPgMaxPcpyZ1+cM250/D5/Uqyfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795147030;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795147089;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
 	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=11okyqYHxE0IernNnQyz3EyafRRbkarCz5jl6k/WWBA=;
-	b=j4EoF90fNfBBO3E1+Al6izjikL5oHXlmg9IsNeL1YYGY0zTCfWNrYngjyplokZT9V9Vp
-	 IM/6HTNJyc5RLdKLYkWM7r12PBEgzjtGsM39X9FNX5FDBWOBElVNeqSlof/WluwLC66vs
-	 18/lzt3iPVrWVH45HkS2fWt650vSafwqzFBCpv+7VVGfE/TFP1kzbOe2p29Y1AVvm90si
-	 94aSkSwx1UnQ/Y+gqRUd2SKpLor043vzEdHhPzF5aR17JdUo5tompvCoVkaRSAKlHit9P
-	 pLDxoMZAatamLwNfsE4Vv4AqHQuDQHGQW4eQjEOenJO9kufz6vEZmqKIzIyMFmz5nog==
+	 Content-Transfer-Encoding;
+	bh=uLsKXEDhwGYD4vln9h1lh8iifiE+0MXQN0SUM4cCLMc=;
+	b=rOuAdjisdXK7QiUwhCdn7clG/YEk4GF21wnlU/OXpPvLn6FU/byxshqX8B337vWQySKh
+	 0/HlKMnU8u1PUN6EgCycGls+/WbkaGC6QEgd1ZgL7KIV20+h96W00pjfLKsTk6j2ZVVT9
+	 oUxLIICXbpoOX6V/PTPAtJ5aVB6pi0gN3oaT4gJzHaHsv7i1+4TIqZ9E+QQz/xfI/a+XC
+	 2DoJbizuD4+LSgOnJlByPVt9x9oqdX+lv60Mja5ialcYGY3WeJUdxp0NP0aYeVCtar4Wu
+	 yW5u+boSbaxTfa5bYlgUAmqjzwf5rVrq8flGHm0dbP1iwD+93hf4sVgFeQX+GdNjQZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=w6rz.net;
-	spf=pass smtp.mailfrom=w6rz.net;
-	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=JIUXM2qO;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=f9DHTC0K;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="rPsUV/JI";
+	arc=none smtp.remote-ip=202.12.124.145
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2CA9606A320
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 03:57:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2CA9606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B883606A325
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 03:58:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B883606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=JIUXM2qO
-Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
-	by cmsmtp with ESMTPS
-	id UAaWx5Ep2yb4YUFkLxTJF2; Fri, 20 Nov 2026 03:57:09 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id UFkKxBZta3nNNUFkLxKLYF; Fri, 20 Nov 2026 03:57:09 +0000
-X-Authority-Analysis: v=2.4 cv=TuLmhCXh c=1 sm=1 tr=0 ts=6affc515
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=UheLhBLhog78gnJQedQA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=11okyqYHxE0IernNnQyz3EyafRRbkarCz5jl6k/WWBA=; b=JIUXM2qOrIubJ6u7hVHK1jHHGD
-	oNHMX6yo1YUSyEe5IJC+XlYpOcpCL1IYQkC957TCwYiCskR7Fb3anf3wCGpzsaIUwtkreEWxzHcZN
-	hM+ffR/PX6CNwr9bzF2sib9pAk1gA9wJRYIebYBinVDznnbyf807AfeqqOKy7bJfmxQXO0Zp1Umch
-	T9YPMvP/RgWNnaKQXaqMWKzjdPGRE0gBj9olPEdHXRUpCcHOJiH2uGpndoiM2v2r/mGrm1FGCS0eu
-	JG8RG800aCw800hpyAWFYZ/qv83uyfx8WaCHKJXNuV4MfnFTUwp3bVVqsv5MCDa6jwXPbHfigF0v8
-	EWjZ4N1A==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:33018 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xUFkK-00000001Pyr-14cM;
-	Thu, 19 Nov 2026 20:57:08 -0700
-Message-ID: <4a210c36-d99d-4a74-b94f-41f6a28d5040@w6rz.net>
-Date: Thu, 19 Nov 2026 19:57:06 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=f9DHTC0K;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=rPsUV/JI
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id E409F1D002CC
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 22:58:07 -0500 (EST)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-03.internal (MEProxy); Thu, 19 Nov 2026 22:58:07 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1795147087;
+	 x=1795233487; bh=uLsKXEDhwGYD4vln9h1lh8iifiE+0MXQN0SUM4cCLMc=; b=
+	f9DHTC0K9e7U7aEPG4E7BiobwHY8HmqeZvPCGH7HP+cGDTiH39jRj+Nc4Xab1hiY
+	XLH39oY+kNpur8kLKy2RRUjse4YUkRRF6hgB9YAM9QapJ24gzIqSatOQVivifp6n
+	04Gg2NjWbB0aVg3WMwMfGl6kUf4w99rR35VSR9jFJ6rRg4H76cfTzQghTq/fxvD0
+	cPPfYhOQKB2AdM9mXAc9fyQ26QIEH/FH+Trpdmo2j6q1N/C9iP1ABH5yxLt0KI5s
+	pJfFV6+MYSZyYcUbHzFpBMv/3R/WCy4fZ2qUxH6dTmntfPspTcAYu41v1KmJ4XkF
+	htrgkFyhB/oqAa7oN8mlUw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795147087; x=
+	1795233487; bh=uLsKXEDhwGYD4vln9h1lh8iifiE+0MXQN0SUM4cCLMc=; b=r
+	PsUV/JIenWUfICsP0xqRw9Vd4B69PcTKzjY7sxRzSLqOCWBT0OSUGf1TZ6sy+X/r
+	1YbY5lDMGoMiK1IShhE14ykjMdPvm9pRylFFkakHjgrD219rnv9J8RqwzR15bxfh
+	+kYrIAXKQUmwSjekoMzVrUNren8YA8FBGBS1uFYzM+88JHjpuDGouMjKw73FM5Dc
+	JmIyWwh++JgpKngeEUPAzqZCHjkrZccmVJj5I3WGyUHzkCXW/8cRJ4ojp4ceGzK5
+	3O7T8CpJonOOkC4tOVyZNBr20fQj5lsMPAhYGShZdJE5Bl06KrvHaHq4l2W8lD5h
+	Z/EAFIBw/1CMfrhyabVaQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795147087; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:bBfDRROupa0hj2/zdnOPEFRDeyjU5Aef8jR+CxIEgWgz/Oq
+	fgW6tW7gYpmwsTzuf7y9TQKfsGrGRpfo4DPbOmc/uQCpxFKXJTSex94YY9OBFZmc
+	EJKzmNbMq5synHM0vZb2TQx6FIOhs0XPW2M2hNdVlX55OYnMEoc/IiF82vrp2fXH
+	VNBb/RL9/2gZ3+oIr284OvBBstYJxOev4Ruxz3q6YZ1krWOZnAshjW9UVlEMf3ug
+	yLwCXc4lZ/W+xeG0Gln5FTOfVW/To9Alvu+cUdWGfHVLAkJj1KJ/YVJTni+mK8K0
+	bjVbS2hX7Tb4BQsp0QVuB63/0w/i3ja6BWk0/Aw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:CaipM/szxdh5jNlELhKOkh0Iks+KbHBUkEqOottiWUY=:+hU6iUvmVtlhho0PKAKSHIC6/4zALy6S6Q7cMGRkSMo=;
+X-ME-Sender: <xms:TcX_ar-eNJzNpLxp4R0OkC1XDe6a1V4rV32MfU0jxT87qEG9Zm5IRQ>
+    <xme:TcX_arp4RZEI4RwLPc1p-AEf4PuNmuAuLDkvf6z9jfzmP3FnoclPBh3eddaWyJOjY
+    DWiQeOHq4e6vLS5nhNewQWFzLbOHC5gnQh3ebdZ2R4hll5_TDp8GQl8>
+X-ME-Received: <xmr:TcX_ahjDQCWTMIqsQkEXNOW8xyq_2tIqmLB46Eio2JjDGRnhAs6QpXljffUHd-LY_ZrkIX7-le8kNHN22O_FCs1m7p7TfhsI>
+X-ME-Proxy-Cause: dmFkZTFDyfYCSEZ3aLEtRQuMdExUXBO/ouLd0M829jFBQClPaz8n66R9zfy6U9KeTTiYSS
+    96sVhVREBicTnVdaRx/XDt+H4+mUbCnFaKHBStiqdidKA++nwEZOb/cipeyIxE1sTzvxIS
+    8xUKN5dHngT1nc9oUZNerj3V4Ew9Q2Ox652H4mpxLkQ1Y2kx8Woy4Q/Prt2o3fs1SXSLHZ
+    FoFYDHnLhKzFEYl06oRO5/ypZ8hHJDtVQ4fqzBlotRnyCMPfAxp1fBlbQEYLFXduLlZRgG
+    rI/hvLhMAukmzcKtEQfz98FnEGw5g/F/RXGRpzQhaHlYGvR5aCgInJ4CaERbdEDU5y2LYz
+    7UvVh9ufMrg9kCNbbUcvD3+j8QxTMRoYIPBrpH3ZQ/NnjEiK0KDmv4Hzg3jPOW/QCS+mfz
+    J0W7V9e/KH34/PYL6awDQfmCA8YUHiyDi11A2n0T6LPKKqXgCDhA7MD6wLzlofu0njmz6V
+    l7AgsfKXDJn5oJSC2UQLRYIbwgX+wNvXyHMrHjRGC6iY6Ug8pUBmKw1BRTrBNRdNsf7ai6
+    GiuiI6qnzmW9mSAxzOJLdSER25cAU24G8FJ2jEAcWO5OZM/IQ/w1SDGe536JG9ToWIsTAz
+    b8riGOrU+MU445Ks0ohaxR2IHvfCHgmuRu9jW54GUOTkmmQl4083J9k3gC4g
+X-ME-Proxy: <xmx:TcX_ahCy1icLOSVj-mImtF1ng4RXEFrI-l2zOTWj4712oR7KZQj6JQ>
+    <xmx:TsX_anuD7K_nM3j7smk8HJXl9TWaOEB8Y-jSv-50m-iJAccP_2gwcQ>
+    <xmx:TsX_aj6PgURTPVCaZHxEPJYFYOwAew9ZJS5xHF5WbpUoIKwZHxRMAw>
+    <xmx:TsX_apfX9LJt9M0qjAn_AuTsOvjzOgdZWx32q3ymYpYAmMrd3hTyoQ>
+    <xmx:T8X_aiy-sJGJo6CyOT4j_cunB5PSFwPetoG88sXM0DIuZFFsiaiSRp5v>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 19 Nov 2026 22:58:03 -0500 (EST)
+Message-ID: <1b91d4e9-cfce-4974-83fd-6e2b72ce0168@pobox.com>
+Date: Thu, 19 Nov 2026 19:58:01 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,62 +120,38 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 0000/2214] 5.15.226-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+Subject: Re: [PATCH 5.10 0000/1848] 5.10.275-rc1 review
+To: Sasha Levin <sashal@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+ patches@lists.linux.dev, linux-kernel@vger.kernel.org,
  torvalds@linux-foundation.org, akpm@linux-foundation.org,
  linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
  lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
  f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
  conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261118150009.797899913@linuxfoundation.org>
+ achill@achill.org, sr@sladewatkins.com,
+ Brett A C Sheffield <bacs@librecast.net>,
+ Dominique Martinet <asmadeus@codewreck.org>
+References: <20261118145911.150052362@linuxfoundation.org>
+ <2cc4e958-33bc-45f7-bbd9-c6763fa3a8d0@linuxfoundation.org>
+ <20261120020908.2320910-7-sashal@kernel.org>
 Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261118150009.797899913@linuxfoundation.org>
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261120020908.2320910-7-sashal@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xUFkK-00000001Pyr-14cM
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:33018
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 119
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfEkBKI8vWXOvg2L3g3TRRxBYqKYEXUbOWx/QZ1F3iizx5+CJEPJfIfLX5Tfc6CnJUYCDHNMMyX6MGmXQ1y9AK3QPbq/GTvbodYqXMOpGOm0A+aa6xG3q
- HW0v5bqUa/RweVEerYmmaNJvu7y8IisuRBXBI4MoBycG16iO2S17T1b05sntHAmCMZPm/gJk5DGNWA==
+Content-Transfer-Encoding: 8bit
 
-On 11/18/26 06:27, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.226 release.
-> There are 2214 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 20 Nov 2026 14:55:35 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.226-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+On 11/19/26 6:09 PM, Sasha Levin wrote:
+> On Wed, Nov 18, 2026 at 06:02:21PM -0700, Shuah Khan wrote:
+>> net/core/filter.c:5867:26: error: implicit declaration of function ‘seg6_get_srh
+>> ’ [-Werror=implicit-function-declaration]
+> 
+> This is e8b084646b94 ("bpf: Validate the SRH which End.DT6 uncovers in
+> End.BPF"), which calls seg6_get_srh(); 5.10 does not have that function.
+> It is dropped from the 5.10 queue together with 434324c611a9 ("bpf: Pull
+> the inner header for End.DT6 in End.BPF"), which relies on it.
+> 427e751a231a ("bpf: Update the SRH state if End.B6 fails late") stays.
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
-
-Tested-by: Ron Economos <re@w6rz.net>
-
+This fixed the build for me. Thanks!
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
