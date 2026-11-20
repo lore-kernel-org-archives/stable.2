@@ -1,70 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.240.48.59
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795171586;
-	b=ohvX0vMFk+D61FbaT4ChxRUt5R6m0bHUQ3/Z2pRR1kVyiExGvUxuygOOcLy+DyFEhVsJ
-	 eWiu9GJc11+Qw42bCJkWyfMGkgTYrl2wkkYEd1ymk8KiZJm9rtJkLRGPTR/emLf1k4FaH
-	 lsLnI6vxR7xPb2Mw8hjAcDbpWxiwh2zKFu/zSAsFC9wwoSQHFTsgMFWO4uMd7C42G2p2+
-	 /pnWAOyT7v1ocz8wnkM6uYFrFgT/2wCqTjv/DQzrB0YkM/p2/EbqZ1NKePfVkF2Z4oCCy
-	 4HaBdzeD9tB5apJ2KFgZtuPPGAGwWbz7MAlbHVZtcWN9zNQI6g19zQvJUGGjgEjdGeA==
+	t=1795171654;
+	b=vt8vnj3UP1DGGWv0Lahahadwbmkbpd0fgjV098MsgoxNtlY+V+ihu7U7GY7mZfNB7K41
+	 UsvKpXZFD77fJjnPWm2YzpnMF9S4v0YSYYmyKTo4bRS0C/f/5JfKNIOh82tt31gOH9ih2
+	 gsVWGi8Yj0LrLh85qWQD5iix5oClK5n92bUVW9hlxaWyng6W2bwB76Nqgq1PVhy/b6v8O
+	 PFlOVu7iKrsZsVMc/bp6SHYg5jgD8Qy3TK9eKNUcwxi+f9N5qMb5ik8FBXet3CaB1WrWx
+	 EWSL8KQ2uMjtLfF31eYb+ek5SSVWHCXsn8U1dBNitu5kdFldOIyAuXX4p3o7U5mgvfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795171586;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:References:
-	 From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:
-	 MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
-	bh=JV2acAQmqGKfDbCVtMogdgCc+FnQWR86JztEUsUWjJM=;
-	b=VwvhklNn7PsYRfWPZAx/ZhT1tN6Ye5hfIrHpuMbQslW4zXn0i7tOcxZ7vERs6DpfZvv4
-	 F7ndmkepNXl4MmFyKuWLo1y8JrDP2faXjNq3rLl+8jHma/ze1CZH+z7+tgZvIPDVgavwC
-	 HAY20v4h22qvK1qpXWtVt/LU7ck3iA5nBaJ/4gWLPWle3UkPSQuNSIQ9YDMzWbPExbMPr
-	 iPK0F2UBkuz+JdcRhhkNZAH0DIW8sc3rQYDPaEm+FgVJRoQjnsZfmQaBnNCQzdRGOTb/b
-	 CRDzy79LcgXiYwj7nmHkfuc4mWMpTDYoe7gG2OfrvbAPTr7g76/PARhQGi3pqDGGO8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795171654;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=lFLzfeDX5+GA+gtI0FcKgxoRUqo4S+nL34hrT/BINfg=;
+	b=w4nvGh/8oS+h8M2M3Qf2gsMZKhCIAbI/XyTSj4UdjMfOvKHiKJ9gnEC841tGPgwbdUeY
+	 1bXWxL/3PIJrNDipI+zP1l1802B+GYfNtqICzU0h3B/MePb2Gc6CUdZB8VknW9a2LJE6Q
+	 bsyhPXbXomdZmKyIJvAW4kLvoZQOw95xyCjSH3rMMek60//qseH8rTmI35Z5y8Ktu9lcb
+	 RPlLb65SvxOUSWA1U5l1z9A0ZNhNBwrXaNMcLZSRQ/BrG1/0+2faujtTMxVL6RQM9X3l+
+	 eZ118rXrlSv1myrq5q1BGePslEwhuFnNAX78yTmyWh+XtRP9blAmi2ivrXU2c4pWehg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ahmedabdelfattah.dev;
-	spf=pass smtp.mailfrom=send.ahmedabdelfattah.dev;
-	dkim=pass header.d=ahmedabdelfattah.dev header.i=@ahmedabdelfattah.dev header.a=rsa-sha256 header.s=resend header.b=N97xfKNq;
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=hkVSnF4J;
-	arc=none smtp.remote-ip=54.240.48.59
-Received: from a48-59.smtp-out.amazonses.com (a48-59.smtp-out.amazonses.com [54.240.48.59])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=P1F7kEw+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE459606A331;
-	Fri, 20 Nov 2026 10:46:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE459606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ahmedabdelfattah.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.ahmedabdelfattah.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1377606A320;
+	Fri, 20 Nov 2026 10:47:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ahmedabdelfattah.dev header.i=@ahmedabdelfattah.dev header.a=rsa-sha256 header.s=resend header.b=N97xfKNq;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=hkVSnF4J
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=ahmedabdelfattah.dev; t=1795171585;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=6CD2vOsCvJqHeLL+WfMDNvW1b1UbZ+Ck4Y3+1Csv8O8=;
-	b=N97xfKNqCaWCFd2qaWcA7qfcgwPG3bj66p3I/eNAy5510DAD4yiee/ZLvTU/dz9c
-	R9Ez/3QQLWwKPiQ3DBjRWgHbUM2k0Rvka5l4FbCyh3WcmttgKocinjuSimrq81Q5Qxt
-	muzqp8UlK6bdNLorSJIcnsTu+lhvyCZ7lIvuW2BQ=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1795171585;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=6CD2vOsCvJqHeLL+WfMDNvW1b1UbZ+Ck4Y3+1Csv8O8=;
-	b=hkVSnF4JMsSfmb6Z4yWQ0NJdJuoyL2nqSK3+2UC9Meb1yHrZXTo/O5nIsbnwovbL
-	/lwrcmpIFxTrUK6rVM0Mn0pYkJz/gP2yHWi9aosGAT/0Ei1enLxQHZTBpt+7V2lvB2D
-	KgWr9Lmg3k0DpBxe4YFtFqFdCgUDUwn0HFXW4MXo=
-In-Reply-To: <av_uoSlMShJiJsff@intel.com>
-References:
- <20261119-x86-mce-storm-no-cmci-v1-1-bc593e90abaf@ahmedabdelfattah.dev>
- <av_uoSlMShJiJsff@intel.com>
-From: Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
-To: Chao Gao <chao.gao@intel.com>
-Cc: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, linux-edac@vger.kernel.org, 
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=P1F7kEw+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8FA1F000D1;
+	Fri, 20 Nov 2026 10:47:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795171653;
+	bh=lFLzfeDX5+GA+gtI0FcKgxoRUqo4S+nL34hrT/BINfg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P1F7kEw+H/gGXP05c7K1ZXa1AAKPU0GrhJgZ3shtV3S48SQpILvRZJPlwuup5Xz2l
+	 DDQq/AdAWzM2LH+P4tbQuFZMcCkAMFFOxAaWO+RX7wJN7mR3Tsextc/Zgdmt8TdAgP
+	 amxWg8zw/RtdaAlkp3MeqZH5rYVGXZEAF1u1sQ9M=
+Date: Fri, 20 Nov 2026 11:47:29 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Hui Peng <benquike@gmail.com>
+Cc: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+	Felipe Balbi <balbi@kernel.org>, linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] x86/mce/intel: Skip storm tracking on CPUs without
- CMCI
-Message-ID: <010001a1f8908ab7-fa522391-bf93-4fe3-9ddc-e2f3e8e43ae0-000000@email.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 10:46:24 +0000
+Subject: Re: [PATCH v4] usb: gadget: f_printer: bound PNP string copy length
+ in printer_func_setup()
+Message-ID: <2026112009-smudge-chaste-0ef0@gregkh>
+References: <20260930075920.483189-1-benquike@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,81 +55,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.us-east-1.uCKvsN4fow5iTxhgdfCiLkD52dLS8e5zeZeNIHIyObThYgWj6io55JEpA9Lr59BibvMHOQwybONW0pi/CZ0koY1A1i17AG2yWEV8SeTaUDUkRN5zlcaoQEhviEafOoOqtPZhQs319GE3nsx7+JZeBdmAUyq6td6+kg0Qy2oXHvo=:1.us-east-1.pAEstvQcjyhQNKGKcgSlzI7SVR8ZSG5wSmKwiz/A8Dg=:AmazonSES
-X-SES-Outgoing: 2026.11.20-54.240.48.59
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930075920.483189-1-benquike@gmail.com>
 
-On Fri, Nov 20, 2026 at 02:54:25PM +0800, Chao Gao wrote:
-> My understanding is that QEMU gets host memory errors only through
-> SIGBUS, and the host kernel does not send SIGBUS for corrected errors.
-> So QEMU never forwards corrected errors to a guest, and a guest sees
-> them only when someone injects them by hand.
+On Wed, Sep 30, 2026 at 07:59:20AM +0000, Hui Peng wrote:
+> In printer_func_setup(), when processing a GET_DEVICE_ID class setup
+> request, the IEEE-1284 PNP string length value = strlen(*dev->pnp_string)
+> is copied into buf without checking wLength (the host's requested buffer
+> size):
+> 
+>   value = strlen(*dev->pnp_string);
+>   memcpy(buf + 2, *dev->pnp_string, value);
+> 
+> When the host issues a GET_DEVICE_ID request with wLength smaller than
+> value + 2, memcpy() writes past the end of the transfer buffer, triggering
+> a slab out-of-bounds heap buffer overflow in printer_func_setup():
+> 
+>   BUG: KASAN: slab-out-of-bounds in printer_func_setup+0x280/0x450
+>   Write of size 3074 at addr ffff8880024f8000 by task init/1
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x70/0xa0
+>    print_report+0x153/0x4c6
+>    kasan_report+0xf1/0x120
+>    __asan_memcpy+0x3c/0x60
+>    printer_func_setup+0x280/0x450
+> 
+> Bound the PNP string copy length using min_t(u16, wLength, strlen() + 2) in
+> printer_func_setup() so memcpy() never exceeds wLength.
+> 
+> Tested in QEMU against Linux 7.3.0-rc3 with KASAN enabled by binding
+> f_printer with a 3074-byte PNP string and issuing a GET_DEVICE_ID setup
+> request with wLength = 64: on the unfixed kernel this triggers a KASAN
+> slab-out-of-bounds write, whereas on the fixed kernel value is bounded to
+> wLength and 0 KASAN faults occur.
+> 
+> Fixes: b185f01a9ab7 ("usb: gadget: printer: factor out f_printer")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> Changes in v4:
+> - Re-target fix strictly to bound memcpy() size against wLength in
+>   GET_DEVICE_ID handling in printer_func_setup().
+> 
+>  drivers/usb/gadget/function/f_printer.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
+> index a27792966287..f8726e3d849f 100644
+> --- a/drivers/usb/gadget/function/f_printer.c
+> +++ b/drivers/usb/gadget/function/f_printer.c
+> @@ -1033,9 +1033,13 @@ static int printer_func_setup(struct usb_function *f,
+>  			if (!*dev->pnp_string) {
+>  				value = 0;
+>  				break;
+>  			}
+> -			value = strlen(*dev->pnp_string);
+> -			buf[0] = (value >> 8) & 0xFF;
+> -			buf[1] = value & 0xFF;
+> -			memcpy(buf + 2, *dev->pnp_string, value);
+> +			value = min_t(u16, wLength, strlen(*dev->pnp_string) + 2);
 
-Yes, that's right. The =
-guest is only where I noticed this, and the
-sentence about KVM guests =
-running into it easily is wrong: in a guest
-the errors have to be injected.=
- I'll drop it.
+min_t() is not needed, correct?  Just use min().
 
-> Can you reproduce this on bare metal, or in a guest =
-without manual injection?
-> If not, this does not look like a practical =
-issue to me.
+thanks,
 
-No. In a guest it takes injection, and I have no Intel =
-machine without
-CMCI to try it on. Going by the SDM, that is everything =
-before Nehalem
-(06_1AH).
-
-What I can show is that such a machine needs =
-nothing unusual to get
-there. For the first test I had set check_interval =
-to 1 s to save time.
-I ran it again with the default 300 s and one =
-corrected error injected
-into bank 9 every 2 s. mce_timer_fn() halves the =
-poll interval after
-every poll that logged something, so the polls close in=
- on the bank by
-themselves:
-
-  uptime    next poll in
-  313.8 s   150 s
-  477.6 s    75 s
-  552.7 s    37.5 s
-  592.0 s    18.8 s
-  610.8 s     9.4 s
-  620.6 s     4.7 s
-  625.7 s     2.3 s
-  628.7 s   CPU0 BANK9 CMCI storm detected
-            unchecked MSR access=
- error: RDMSR from 0x289
-            unchecked MSR access error: WRMSR to =
-0x289
-
-So a bank that keeps logging corrected errors for ten minutes is
-enough. I then stopped injecting. The storm ended 30 s later, and
-cmci_storm_end() took bank 9 out of mce_poll_banks. An error injected
-after that was still in MC9_STATUS after the next poll, which ran with
-a mask of 0xfffffffffffffdff. Nothing sets that bit again on a CPU
-without CMCI, so the bank that was reporting errors is the one that
-stops being polled.
-
-That last part is what d7ac083f095d ("x86/mce: Do not =
-clear bank's poll
-bit in mce_poll_banks on AMD SMCA systems") fixed for AMD=
-. Intel CPUs
-that poll because they have no CMCI still have it.
-
-With the patch the same run has no storm and no MSR errors, and the
-error injected at the end is logged by the next poll.
-
-I think that is still worth fixing, but I agree the changelog oversold
-it. Unless you or Tony would rather not have the patch, I'll send a v2
-that says which CPUs are affected and how the storm is reached, without
-the KVM sentence.
-
-Thanks,
-Ahmed
+greg k-h
