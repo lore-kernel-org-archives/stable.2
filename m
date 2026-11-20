@@ -1,111 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795141055;
-	b=ULlR3q0/9vuF9klbr4KggICPAdaiMMn7JrOwyxu7N63wviCIs4PfmZ97Ot9bFQ/ZZWPo
-	 oQWrdKBFVl4VzsLXoKBe3i1WLvYaY8LUIs6NKjg43doBezhWre0l+DB9ouxqWj1cufWYv
-	 XPGLBrTMcDURQ/cxczp4Xo5j+Tvc0x0vWNpLajmvV3tH2Tvk+7MOG1J10Qbc+jFNYNsDw
-	 BMI06wExaeYtxMOPbQ99PB0ug5dG19XW70PGqUEMvYysYUeUVweUMPkjLlCS6dQJkLGdf
-	 UHnk82q5eCEa4fOUWvi8N2ksLU/jIfLIWcEqIVLkXpvX37/cEIPVFultfAz7FM6T4tg==
+	t=1795141322;
+	b=vV6iChbj/mxnGnRV/gkeOfuVIAZvHgXVjTSKLfWbY7avoP/o81oUD/x5zDZZKqm+dc9d
+	 CW22vnQRfIxfS5acORCEkQg8VcJvN/tic6h8p5oVnCSI2qXCo/A6L/1rvfiUAeKCcHOrG
+	 V2IpY7Shqwhb7pkPDgPovb1qvlQz6Y8qhHtqJdHSPMvJXZ6RRGOS7LxbF7UjU3EVeEfNx
+	 tvbOLtJceqqiIKq4qyGbbdm9r5PWas6ad6+oOWnVqa8wjIjxaQYj/83iMFqsHkFavJAsZ
+	 sKkUWQ7kvOKtRVKQkMLDcPoJ8J5djBXxE7Djq3UiU4uZzeh1DxDK0qd23WLDBWOxOrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795141055;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Qrne1U4Gq2URgk+EKe+uNj5xFft/8oosPyNbOoW67yY=;
-	b=LHkJI2MhuFkvnXKQ5+WCxhZHGDFcqiBhRyD8BcoJoPEt+uHbQluGuKuCyEjZ76btQiVF
-	 cncbsxh5xn94O2EUuDWIYVJY/ZEEpgh/bNKO9cp+Hajh47/lTMtXlE6JLR8WTymucp5iR
-	 X51oBEQ9pHv6YCLnrdCWAlLGRIXXqtScZ7LDBLClO5iMuBmeykyrMumuJJWXIPg3lFG1i
-	 lmmkPGeO/He+o9rc+bcOvYdrWxhZnTLgwt1DIS95j+Gf+ciSDmuqGQvGGuvVgTYeoOU1k
-	 SGRXkzrWDPiMSCqmG61peH8BOo8nnOO3I+rvhU8vjpCBEamVZNZk/b7KDqCv8WxfxgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795141322;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=gDfMbB0iLO5147W7hciH56ETASFEwnLRXOCRyFYMdqQ=;
+	b=eTOsGB64fWo7Nhdh/bMEBzRsgI56YzMO7QO1hNfuEKUdGXjQzypq5MyvDLqy1BQmNmUO
+	 ukcej3Mw7hq9Gre73VaTIwFU1XUmppU3afWZgL6jUESYSjhWwSER9YYArVFFdvr5o+kLJ
+	 kji7TNVtdx2FU4k/+poLVDdYAKgywrHRBauGsvC9xJ/tWVWn+NoNaBFNRlmJYbTEvzlST
+	 VZnSEy6z8XMeY6afq9rspsvbKFy6YRHTE2G4+HmJHnKDrIL6JvWoPe9mJYnkEPUpTx5Z3
+	 iUGTYL85deBkW6CiRGSLyD2dGrkf2sDE1oA10WmQRHWnxNv7OhLUIt5vZnSgiccf3jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dk0wFmrb;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T031gPTS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60608606A325
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 02:17:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60608606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16ECE606A320;
+	Fri, 20 Nov 2026 02:22:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dk0wFmrb
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2f046b0adc0so264175ad.1
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 18:17:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795141055; x=1795745855; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qrne1U4Gq2URgk+EKe+uNj5xFft/8oosPyNbOoW67yY=;
-        b=dk0wFmrbOWHHA/sZMb1BuFyOgxGpiAiMvFQVB45s+uDstllAlf6cJIerjKVe2hT1u8
-         HFbF4W6Du4euIyp1k6G7BrLayOMBUxuX+sHDRyXSMLtfBeXnGwTzYzo1G6ZEE1J8Wtav
-         RW5UcNb6YmJw98S9+GqnVGbGClgJO25945PdbKsmy4aosSw2xcJuKmBNL+SZHH6dwHIQ
-         by1EEDkTGcYA+41idX6Thr5nbNaVhWQ4pTZBLkNYEsILqasoxo4dxy8MYsTPFp0oX0ls
-         HujPzHoJ3eXdCDsCZodHmSAc80e+9DGhXtUSaxbwpwa0SExniobOtoKowV65sHxUmBRK
-         nr1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795141055; x=1795745855;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qrne1U4Gq2URgk+EKe+uNj5xFft/8oosPyNbOoW67yY=;
-        b=AGsql2z2VQsGl5i2pHQUtuiodIDMbvpqzZ3zUSgeKsBUs2I438QXNlCyG7wn5uDtzV
-         qUd1xVKz41pNIT0rxz8iR8A8wuyXiKCB4qF23BoQm+CflaMEcX8AVbMDedf6FwWn0bXZ
-         eYDC+A4JHoZw2xrtPo8lx9udOEOcgkcXT4sjCnP55S3hW+Xz9K6E+XsHypEuf00WTScS
-         2ciKMWr7+7zgvRQHaxXEc7nfYWSFtujVbaumyxO5waWPWc/WDtwRgYpm6c/rtkSuzKIR
-         aZOEAKPe2ybSM55bqRT8np5BMidqdcQhEpphT99ZIsFlOaTnreQA9Q3f71KxwXrShBqx
-         plyw==
-X-Forwarded-Encrypted: i=1; AL+hErHy9n2TobtTHjYLR1WwwL8MfyLIcBmHUE8AWe5EGZi3AJXEQTFM0l1GjAxfw7E/fYyLSHgiotk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Qf+4PcUEqj4tk8endCv2i/5yhaB5h/KZK2cHmRfOJjIlBSrPi
-	Kr+zyqJyxa9W1f66ooEsE8bS+0DlTbhowAR87GITCfaznKRXJGs9KpIt
-X-Gm-Gg: AZFdTZc9+s3ACtWD6jPLPsjz++72Loa+LrKkryjp5JgxzXxT/O/Q55vgadGK9H8u4w2
-	dVUjbpseRxaAt8KhZmRRXSxSCCj3A63TiC4KsSmL/Xp5tD1mau/YhLZQYInhBz2mPlcGOt1lCqi
-	+RA5PgbB2LiAEKpRGEBYUX6IBt8Krwsnu6tg2n+QlZk4lZHkpv3evBoICBucWFMuVr444CljOVl
-	wmm9lfOL9uFSkY8biCevNywgruUUZ4t3z7wqUAJ7cHuHec52BXnPjIDcUD+ZPntdWfstibmVJH6
-	DLn3nwvyAauxwcVuj8fu/NzoQtUBnqvddnB+QDA7NRASl68bA3yL1bkqLBd8WtZoKwdnPDv6VYI
-	T0KEzipvTOwegJDzHRDY5ipfDpDIwhXzvL768+AXDg9vFuS6KjyUy/rJgZSae4bqPRX6/Pz4D+9
-	EXFnZl2Ksgu5sWGJkYGS7ILCpLLqXxrfb1VNsR7pJscIoQVde3DDpZSxE0IkTjhYt0LYPH4lHA2
-	4k8DOU7IcxuJs+/T4LiOE5Qjlp3N4DivKvlQp3gTbixLaKZj9R8BS7YmZUYp/hQINrMokxhuEKl
-	hYx+8R6BfMxrU2rRDQ3UXi/8p1RtYCgRoLqHEXd7fdYZN9uQl/h811ZPBaE=
-X-Received: by 2002:a17:90b:2c84:b0:3a5:c08:4c41 with SMTP id 98e67ed59e1d1-3b41c98a138mr1104076a91.50.1795141054397;
-        Thu, 19 Nov 2026 18:17:34 -0800 (PST)
-Received: from ysq-QiTianM428-A376 ([111.201.209.250])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41cfbaf2bsm708563a91.2.2026.11.19.18.16.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 18:17:33 -0800 (PST)
-From: Franklin-Qi <yusq77@gmail.com>
-To: Miguel Ojeda <ojeda@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>
-Cc: rust-for-linux@vger.kernel.org,
-	linux-mm@kvack.org,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Harry Yoo <harry@kernel.org>,
-	Georgios Androutsopoulos <georgeandrout13@gmail.com>,
-	Vitaly Wool <vitaly.wool@konsulko.se>,
-	stable@vger.kernel.org,
-	Franklin-Qi <yusq77@gmail.com>
-Subject: [PATCH] rust: alloc: reject offline NUMA nodes in allocator
-Date: Fri, 20 Nov 2026 10:16:29 +0800
-Message-ID: <20261120021633.12274-1-yusq77@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T031gPTS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72EDE1F000CA;
+	Fri, 20 Nov 2026 02:22:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795141321;
+	bh=gDfMbB0iLO5147W7hciH56ETASFEwnLRXOCRyFYMdqQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=T031gPTSzRGf5px/5xZoOAaCt9a/jrJuJTElhgersdptRgSVlRj30JsYC4srxx9Xc
+	 XLIw2JLsLZefBUuNyA+0lGphtfeDK0ZylsU3w/oskVDoh8W+gTxvWTauOkS9MJjMJB
+	 zWiTOyvjzeQj1IVGa/MAzyBdkwEUXYgeImNGAhG4e5WxD79Qtqq9Fh8XTolVi5+Vrj
+	 oYKR3NC+VR7uLE0fQFUtg5M85u5mfYCGQCF2tJgH/lVToFLyw+31Eu2i/O3aQK6uJ6
+	 LVf6VXN3VRVzDc632HVrsybjl81+SDk1/FfbUugS8CUyzFd3/DGoA7zMeQm+MNjxAB
+	 etliTNMtri2Hg==
+Subject: Re: [PATCH net v10 1/4] net: hsr: keep GRO disabled on HSR/PRP ports
+From: netdev-bot+sashiko@kernel.org
+To: xiexinet@gmail.com
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
+ shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
+ qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
+ bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
+ liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
+ lukma@denx.de, fmancera@suse.de, danishanwar@ti.com
+Date: Fri, 20 Nov 2026 02:22:00 +0000
+Message-ID: <179514132000.3136.2415655157145361596@kernel.org>
+In-Reply-To: <20261117141922.20-2-xiexinet@gmail.com>
+References: <20261117141922.20-2-xiexinet@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,90 +67,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-NumaNode::new() only checks that the id is in [0, MAX_NUMNODES). Safe
-Allocator APIs can still forward an offline node into
-k[v]realloc_node_align(), which may dereference NODE_DATA(nid) == NULL
-and panic (GPF).
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Reject offline nodes at the shared ReallocFunc boundary for nonzero
-allocations. Leave NUMA_NO_NODE and zero-sized free/realloc paths
-unchanged. A residual hotplug TOCTOU remains if a node goes offline
-after the check; this matches practical C usage for rejecting
-statically missing nodes from safe Rust.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Fixes: 7760b6421b6c ("rust: add support for NUMA ids in allocations")
-Cc: stable@vger.kernel.org
-Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Closes: https://github.com/Rust-for-Linux/linux/issues/1263
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Signed-off-by: Franklin-Qi <yusq77@gmail.com>
----
- rust/helpers/mm.c              |  6 ++++++
- rust/kernel/alloc/allocator.rs | 18 ++++++++++++++++++
- 2 files changed, 24 insertions(+)
+- [Medium] When dev->hsr_port is set, __netdev_update_features()
+  (net/core/dev.c) clears NETIF_F_GRO, and NETIF_F_GRO_HW if it is in…
 
-diff --git a/rust/helpers/mm.c b/rust/helpers/mm.c
-index b5540997b..b61e54e16 100644
---- a/rust/helpers/mm.c
-+++ b/rust/helpers/mm.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- 
- #include <linux/mm.h>
-+#include <linux/nodemask.h>
- #include <linux/sched/mm.h>
- 
- __rust_helper void rust_helper_mmgrab(struct mm_struct *mm)
-@@ -38,6 +39,11 @@ __rust_helper void rust_helper_mmap_read_unlock(struct mm_struct *mm)
- 	mmap_read_unlock(mm);
- }
- 
-+__rust_helper bool rust_helper_node_online(int nid)
-+{
-+	return node_online(nid);
-+}
-+
- __rust_helper struct vm_area_struct *
- rust_helper_vma_lookup(struct mm_struct *mm, unsigned long addr)
- {
-diff --git a/rust/kernel/alloc/allocator.rs b/rust/kernel/alloc/allocator.rs
-index cd4203f27..15e17f598 100644
---- a/rust/kernel/alloc/allocator.rs
-+++ b/rust/kernel/alloc/allocator.rs
-@@ -101,6 +101,23 @@ unsafe fn call(
-         nid: NumaNode,
-     ) -> Result<NonNull<[u8]>, AllocError> {
-         let size = layout.size();
-+
-+        // `NumaNode::new` validates the ID range, not whether the node is online.
-+        // The C allocation paths require an online node for nonzero allocations.
-+        // Keep `NUMA_NO_NODE` and zero-sized deallocations unchanged.
-+        //
-+        // Residual TOCTOU remains if a node goes offline after this check and
-+        // before the allocator runs; that matches practical C usage for rejecting
-+        // statically missing/offline nodes from safe Rust.
-+        if size != 0 && nid != NumaNode::NO_NODE {
-+            // SAFETY: The helper only reads the kernel's online-node mask. `nid`
-+            // is either `NUMA_NO_NODE` (excluded above) or a value in
-+            // `[0, MAX_NUMNODES)` from `NumaNode::new`.
-+            if !unsafe { bindings::node_online(nid.0) } {
-+                return Err(AllocError);
-+            }
-+        }
-+
-         let ptr = match ptr {
-             Some(ptr) => {
-                 if old_layout.size() == 0 {
-@@ -116,6 +133,7 @@ unsafe fn call(
-         // - `self.0` is one of `krealloc`, `vrealloc`, `kvrealloc` and thus only requires that
-         //   `ptr` is NULL or valid.
-         // - `ptr` is either NULL or valid by the safety requirements of this function.
-+        // - For nonzero allocations with a specific node, `nid` was checked online above.
-         //
-         // GUARANTEE:
-         // - `self.0` is one of `krealloc`, `vrealloc`, `kvrealloc`.
+--
+
+net: hsr: keep GRO disabled on HSR/PRP ports
+
+This patch adds an hsr_port role bit to struct net_device and sets it on
+HSR/PRP slave and interlink devices. While the bit is set,
+__netdev_update_features() removes NETIF_F_GRO and configurable
+NETIF_F_GRO_HW from both dev->wanted_features and the computed features.
+The attach is refused if software GRO is still on after the update.
+
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index 3c58db732761a..1f51a55ff2b08 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -11289,6 +11289,21 @@ int __netdev_update_features(struct net_device *dev)
+>
+>  	features = netdev_get_wanted_features(dev);
+>
+> +	/* A direct HSR/PRP port needs per-frame metadata. Drop software
+> +	 * GRO and configurable GRO_HW from the request as well as from the
+> +	 * features passed to ndo_fix_features(): drivers such as veth
+> +	 * derive state from wanted_features and need the requested and the
+> +	 * active bit to agree. Fixed-on or driver-required GRO_HW is left
+> +	 * to the driver.
+> +	 */
+> +	if (dev->hsr_port) {
+> +		netdev_features_t gro = NETIF_F_GRO |
+> +					(dev->hw_features & NETIF_F_GRO_HW);
+> +
+> +		dev->wanted_features &= ~gro;
+> +		features &= ~gro;
+> +	}
+
+[Severity: Medium]
+Does clearing dev->wanted_features here make the ethtool uAPI report a
+GRO request on an HSR member incorrectly?
+
+With the legacy ioctl, ethtool_set_features() in net/ethtool/ioctl.c
+stores the request, calls __netdev_update_features(), and then works out
+ETHTOOL_F_WISH from dev->wanted_features:
+
+net/ethtool/ioctl.c:ethtool_set_features() {
+    ...
+	dev->wanted_features |= wanted & valid;
+	__netdev_update_features(dev);
+
+	if ((dev->wanted_features ^ dev->features) & valid)
+		ret |= ETHTOOL_F_WISH;
+    ...
+}
+
+On a member, "ethtool -K <port> gro on" ends with GRO cleared in both
+wanted_features and features. The call therefore succeeds without
+ETHTOOL_F_WISH, even though GRO stays off.
+
+include/uapi/linux/ethtool.h documents the flag as:
+
+ *   %ETHTOOL_F_WISH - some or all changes requested were recorded but the
+ *      resulting state of bits masked by .valid is not equal to .requested.
+
+Is that contract broken in this case?
+
+On the netlink side, ethnl_set_features() in net/ethtool/features.c
+builds its reply from the local req_wanted bitmap:
+
+	bitmap_xor(wanted_diff_mask, req_wanted, new_active,
+		   NETDEV_FEATURE_COUNT);
+
+So the SET reply says GRO is wanted but not active. A later
+ETHTOOL_MSG_FEATURES_GET then reads dev->wanted_features in
+features_prepare_data() and shows GRO as not wanted. Can the SET reply
+and the GET that follows it disagree about the same request, and can the
+ioctl and netlink interfaces disagree with each other?
+
+The commit message describes this behaviour:
+
+    A GRO request on a member is dropped,
+    not kept pending: while GRO stays off, the legacy ETHTOOL_SFEATURES
+    ioctl returns no ETHTOOL_F_WISH for it, and the netlink reply still
+    shows the request as not applied.
+
+The other core paths seem to handle this differently.
+netdev_sync_upper_features() and ndo_fix_features() only mask the
+computed features, so a bridge port's LRO request still returns
+ETHTOOL_F_WISH. dev_disable_lro() and dev_disable_gro_hw() clear
+wanted_features only once, when they are called. This new branch erases
+the request on every recompute.
+
+Could the request stay in wanted_features, with only the computed
+features masked here? veth's use of wanted_features (veth_gro_requested()
+reads dev->wanted_features) could then be handled separately.
+
+>  	if (dev->netdev_ops->ndo_fix_features)
+>  		features = dev->netdev_ops->ndo_fix_features(dev, features);
+>
+
+[ ... ]
+
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261117141922.20-1-xiexinet%40gmail.com
