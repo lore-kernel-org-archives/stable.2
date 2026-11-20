@@ -1,62 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795184794;
-	b=yCEIAHiAxQZNZK79+D9asrBu2qP0BqKXwMZWbLt4aicWDuT8gvMJCm3f5+/wPhgdi1Et
-	 Y3VlGoNJkkdlImoU32jgsCME9Wjcl/10bOLHrIUtwGhsmHNuYkTkwkdmVFs0yF0mwbVhu
-	 yn81QeAH5GHEEDZ2BZu6hLPxOkvlkwIJ9w7Nmr8dt2ME+nEHrlLGLOBkBo6ZMH7r1mfhD
-	 p2QEazI9svtJgs4h8wuGrxwWUw5iMDGjKL9Wvmg5Erdglmo8/mRxJCKzRp1Bs77N009Wr
-	 jMQyHmKN8FF2Bsx8pXIRC+suzwOwqfyx2+zTX87aOiANf6OHWyc4KySm3umfLS7FbXw==
+	t=1795184843;
+	b=q4vlEUcFjD44eTQjFVT9HdVFhi3nmWHcM49YaAeBk+UlDjDsrlUDdGBpioZPVidH5DVi
+	 JN3cNEHoCe14qPaRsIydXY+xxPpyjNCnry5SFXH9pum21AGHtMFRuZT7fTXY6yZt0itSY
+	 6ncqHLc5gXOa6GJrSAa2Kqb3YfOE3xCMJpaKcZp7Ji69EzL9OMjAmFWdKaD5CritYuSV1
+	 PEJroNVds0lkFt3m3GdYNRDku9vULjM7G3TmMx5BJR8P+hi+hyEPZis3NDJ/161Hr33KE
+	 p+I3RUA/xxQ3K8KRf8gh0v9DhYKvimcQrHIcUPtbwUFh6a3KVsRFv7Bp8uMWzqCCFLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795184794;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=MXEJ+MFtGcP0MDSd1iebV4N/4A/ZG9FDk3hg8wlxkpE=;
-	b=W54U2y2dZftQ4EPKDA3wWL/l8tQgSE2NgwgnwsIaPNv+Ma8vkDX8ZLvRP2ojjEDVmK1Y
-	 KL+2KX6VJ29dEfQz8Q4FlEEuF5V3HNGfqfdbRL3ciTgVsOaFd/xVNUdwuufyIeo+h6+qK
-	 YdaXPsLJInGTX4xkgEzCFTHdF6f70ur8vnXS2mzlwHfnW+DwTyFS29iN1ipjdRxMk0KR5
-	 D2GsglCGJwUHcgxG+iv2JbNBjXIe61nXvV5G2r++QwBHuNayaR7fi5kMJm5cp8vgAxXJ7
-	 R2ItLl4RsS8w8ENP6FGnaNq3T3YAyWHK89kpXKZJam4UMlrVF1lqWaNA/ACk8pJBPdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795184843;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=X5uMGtPn4ARocnI6PlxLm4xxrDwcmpIfjMn71WllvfQ=;
+	b=euu42yb/wwSIUve/pBJVsE0VLO/TFTnqT5GLDUcfyCXYRHGwG/uVCz04+a541InVrv7U
+	 /BIAUGt1L7vjO9r0sQcBAi8xrJI4A0SgT00PggIw07OazsPmqqEusEc5PDYoBywZiStxK
+	 s0qZnWT/LBNFC3F1pLZkDmyvi9AycJcOXuB34fmF3xZMFozRU4SYIOwAd9o3U7h6j10kW
+	 kk+rBylqzYMpnEOLeLAw4RgRaJq/dq1IeEfh0HGsfFgMTergXDu82qHige2I1cy+J4Cl9
+	 AJPXeawGolps1u/VMoAs4POjPFjKhLx9uTM+lfwLgHRwXRmECP93xFoprXcv1urEEiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtA9bkLk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VjcvCpSA;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72FC606A325;
-	Fri, 20 Nov 2026 14:26:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011ED606A320
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 14:27:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 011ED606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtA9bkLk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F501F000CF;
-	Fri, 20 Nov 2026 14:26:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795184794;
-	bh=MXEJ+MFtGcP0MDSd1iebV4N/4A/ZG9FDk3hg8wlxkpE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=QtA9bkLkgkFwKQsDiv12DqRIWbzHZpScKt1iRsISUsXDSloCPQWxrWjmR5ulTVYNc
-	 juYMPpFOFpv9nSMAiPgMXKsr7ayNGHhswHL61TKR30+Cbm+08XdCSCTlDgmIa6+VgG
-	 RuAU0IqOFkH9OmSjGOZd2kmBH4AExhAku7CKhgZtYFa78NTmrKAF6huNQy7jgOxW79
-	 0e4UE7o9fRm78y99yhP3UAlpo11bJJ5A0XmQu154NNNCgfYOGCBfMxiHevBebz58Qu
-	 lVwL70tkKo49iJV0A4RaSc8WZedg6M7wKXl/gBKaRarKhTyQowS3ThIHpcEUuS0m5x
-	 b9GH5eXadMVFA==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Rob Herring <robh@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Patrick Fischer <admin@tsv-stahl-riesa.de>
-Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, 
- Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
-References: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
-Subject: Re: (subset) [PATCH 0/6] memory: tegra114-emc: Fix bus width and
- pad auto-calibration
-Message-Id: <179518478010.10624.16434816435378444252.b4-ty@b4>
-Date: Fri, 20 Nov 2026 15:26:20 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VjcvCpSA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=X5uMGtPn4ARocnI6PlxLm4xxrDwcmpIfjMn71WllvfQ=;
+	b=VjcvCpSAqVfy/z/9RtpYE/JTtDpwg0Lyj0LVqVafgd3XZFzOVtXgOtiUq9RlF+
+	rKqcCH6S/MggoxeZ5ON39evY3FnFHiSPiSlTa83faQolLTBeumEadov2w5MGeiuQ
+	PEhGA5F11cfXC8qzqveTfy1L0vQ19vs0GE7C5gHaQQWpM=
+Received: from [IPV6:2409:8900:1e87:c681:e0d9:72d0:20c3:a0ec] (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3n0ORWABrJM58JA--.47517S2;
+	Fri, 20 Nov 2026 22:26:27 +0800 (CST)
+Message-ID: <ee94181c-784f-4f9b-8697-cca5abec6b07@163.com>
+Date: Fri, 20 Nov 2026 22:26:25 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,51 +54,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1309; i=krzk@kernel.org;
- h=from:subject:message-id; bh=wvfsuBATYqa0g6BF6xgpEUVthjbiBUKHaaA0ibnh1TM=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBrAFiRgdH12q3VGdzDpPK08nTsfu9r0pw0kKdNu
- NcZgnxdtUWJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCawBYkQAKCRDBN2bmhouD
- 1yADD/4hFgqnhy4MNornfnm0PoFb3TfX8OXvCk5LPnYXTX5gVgvcG3W7FOcfhX6lC5F+gtpoh7o
- qI6a3rOFtRPtx9Z0C5yPTVPK5JPBsvTU868zm0wVGP+bZnm0kkX+l3WJcVBLEk3CylquyvnHuLE
- Nfh1FAJoS7hghX7CSsbLAIFy3n2sYs56r+DvEHYrdRMsLNXqzrjeSTFzOKxGjdjy60JVVVY7z8O
- BvXiD1eQ9yG5aZPGbBVhiLP1TWd8ZSQYczyTvlspI7mcmX4/sMCGHaGL93HeUbjaDxeM5Y6vSKH
- hpbLTNICmRm2bTNWF7pPZIZP9lQRfrE/2Fa3Q0KuhKcBLtej4UnI9KXW9yfVjsujJFAPYmSGnph
- nRRSlQHzi5AwUHlIPhVbwMLKp4nBqyLZDU4LwOC1m8RuTL92rLZ6MFs9GHsbGvQVoGPXjF8npK4
- J3RCGHY++jSsh7VHPYP2+94pzhOw0F67sE0YalhpXzcngOmG3rGGfn1c2Gb/slP2tzo2LhIpbbP
- lqYDTyP8s9T9Zmb1HLm74fwSM6b7A4LifRfgD5rSx6lS+1SaqUxeJ9dQ4SuDSbBLthYIaeE1ZaN
- xVzStqQuujWIFYCKsZsW0D9uIp9E5aqXnvrceptcEX5Ka4oYcFLImTCj2/qhsYtTeKk/d/OK9g5
- BvzFpuShYSqGtPA==
-X-Developer-Key: i=krzk@kernel.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION][NTFS] Linux 7.3.4 mounts 64K-cluster NTFS read-only
+ after $MFTMirr record 24 mismatch
+To: "d3nchk@outlook.com" <d3nchk@outlook.com>,
+ "ntfs@lists.linux.dev" <ntfs@lists.linux.dev>
+Cc: "linkinjeon@kernel.org" <linkinjeon@kernel.org>,
+ "hyc.lee@gmail.com" <hyc.lee@gmail.com>,
+ "zenghongling@kylinos.cn" <zenghongling@kylinos.cn>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <VE1P190MB0877D026E2C3905F0324B46F85782@VE1P190MB0877.EURP190.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <VE1P190MB0877D026E2C3905F0324B46F85782@VE1P190MB0877.EURP190.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n0ORWABrJM58JA--.47517S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZw1rCF4UWw4UGw4xZrWfuFg_yoWrGrW3pr
+	Z0ywnxtF4kJ34Duwn7tFWxJF90y34SyF4Yqa4kGFy5Krn8JFW0qrySqr4a9a9xArySgw4q
+	qFyqg343KFZrCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRpwZ3UUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RMV32sAWJPtwAAA39
 
 
-On Wed, 11 Nov 2026 11:10:55 +0100, Patrick Fischer wrote:
-> memory: tegra114-emc: Fix bus width and pad auto-calibration
+
+在 2026/11/20 20:49, d3nchk@outlook.com 写道:
+> Hello,
 > 
-> On a Tegra Note 7 (Tegra114, P1640) I had kernel panics, bit errors and
-> WLAN firmware hangs under load, and two kernel panics on EMC rate
-> changes from pll_p to 624 MHz on pll_c. Looking at the EMC I
-> found three problems in the Tegra114 EMC driver:
+> Resending in plain text because the previous HTML-formatted message was rejected by the regressions mailing list. Apologies if this creates duplicates for other recipients.
 > 
-> [...]
+> I am reporting a regression in the in-kernel fs/ntfs driver (NOT ntfs3).
+> 
+> Environment:
+> - Distribution: Debian 13, backports kernel
+> - Working kernel: 7.2.12
+> - Broken kernel: 7.3.4+deb13-amd64
+> - Device: /dev/nvme0n1p1
+> - Filesystem: NTFS 3.1
+> - Cluster size: 65536 bytes
+> - Mount options: defaults (including errors=continue)
+> - Driver: fs/ntfs/ntfs.ko.xz
+> 
+> Kernel log:
+> 
+> ntfs: (device nvme0n1p1): check_mft_mirror(): $MFT and $MFTMirr record 24 do not match. Run chkdsk.
+> ntfs: volume version 3.1, dev nvme0n1p1, cluster size 65536
+> ntfs: (device nvme0n1p1): load_system_files(): Errors were recorded during mount. Mounting read-only. Run chkdsk.
+> 
+> This volume worked read-write with kernel 7.2.12. After upgrading to 7.3.4, it is forcibly mounted read-only, making normal file operations impossible.
+> 
+> Windows chkdsk has been run repeatedly, both through the GUI and command line, including dismounted-volume checks. The issue persists after rebooting into Linux.
+> 
+> I suspect commit 749357bd48c16c4cdc09093450deca609492f012 introduced the new read-only behavior for this case.
+> 
+> There is also a potentially relevant NTFS compatibility issue: modern Windows may not keep all $MFTMirr records synchronized on volumes with large clusters. Here the mismatch is reported at record 24, beyond the first 16 records.
+> 
+> Please investigate:
+> 
+> 1. Whether the comparison of MFT mirror record 24 is valid for modern Windows-created NTFS volumes with 64K clusters.
+> 2. Whether this is a false-positive filesystem corruption report.
+> 3. Whether errors=continue can be honored for noncritical MFT mirror mismatches, while retaining mandatory read-only protection for Windows hibernation and genuinely unsafe filesystem states.
+> 4. Whether a fix can be backported to the Linux 7.3 stable series.
+> 
+> This regression prevents normal read-write access to this volume.
+> 
+> Thank you.
 
-Applied, thanks!
+Hi,
+    Thanks for the report and the detailed logs.
 
-[1/6] memory: tegra114-emc: Stop clearing EMC_AUTO_CAL_CONFIG
-      https://git.kernel.org/krzk/linux-mem-ctrl/c/3b8f59b6feda47ea37ddfd29f4352f4990e9b9d9
-[2/6] memory: tegra114-emc: Use the full DRAM bus width for interconnect requests
-      https://git.kernel.org/krzk/linux-mem-ctrl/c/b7789fb82fbfe5ef16bed6068a3d5b1efe379eea
-[3/6] memory: tegra114-emc: Always restore the auto-calibration interval
-      https://git.kernel.org/krzk/linux-mem-ctrl/c/8d48b698942dc1f439dc785e2f83a00ef750b8a0
-[4/6] dt-bindings: memory: tegra: Add Tegra114 EMC channel registers
-      https://git.kernel.org/krzk/linux-mem-ctrl/c/2ab2ea1bb4720c567ec6a47539e75ffaad502bde
-[5/6] memory: tegra114-emc: Program pad auto-calibration per channel
-      https://git.kernel.org/krzk/linux-mem-ctrl/c/af17b5fee079904c89008268c54029ff84dffab7
+    I checked 749357bd48c1. It didn't introduce the mirror comparison,
+but it did make errors recorded during mount force a read-only mount, 
+even with errors=continue. That explains the change in behaviour you're 
+seeing.
+    There is a known compatibility issue with the comparison itself.
+On volumes with large clusters, Windows 10 can leave later records
+in $MFTMirr out of date.
 
-Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+    ntfs-3g already handles this by comparing only the first 16 records, 
+or fewer if the mirror is smaller. See commit 85e208176ffd ("Stopped 
+checking matches of MFTMirr against MFT at record 16").
+   fs/ntfs still compares the whole mirror. With 64 KiB clusters and
+1 KiB MFT records, that means records 0 through 63. A difference
+at record 24 could therefore just be a stale mirror copy, rather
+than filesystem corruption. Your report looks consistent with
+this case.
+
+    I'll follow the ntfs-3g approach and limit the record checks and
+comparison to the first 16 records within the mirror. We'll still
+read the full mirror and check its location, and leave the mirror
+writeback range unchanged.
+
+    This should allow read-write mounting in this case, provided
+there are no other errors. We shouldn't need to relax the general
+errors= handling or change the read-only protection for hibernated
+volumes and other unsafe states.
+
+    I'll include a Fixes tag and Cc stable so the patch can be
+considered for the 7.3 stable series after upstream acceptance.
+
+    I'll send the patch shortly and CC you. You can then give it a
+try and let us know whether it resolves the issue.
+
+Thanks,
+Baolin
 
