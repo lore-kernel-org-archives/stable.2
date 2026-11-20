@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795168803;
-	b=0VNAWI4MEd0ffdSdLb41+aDFnGs0vLik/2AJEDO6aq4e7NcwkMbLw/IIe6XjsEP8Pp89
-	 0S915kARkgzBpM/tPk1R9dGalmkWLEijimG1+q/Q7hqKXW2wPdICMiS4VIZaismatBbLq
-	 s05gGJE6ICEaHKOt1GlxtjbqbF+SIW5dCLH4AdClJfyCknyrBcGm+NqnLFRSIZrQqdL6J
-	 jzP1+Smo3vDHYqFDRzPxQpA1Z7mT+fRLc60vRoD9lbSjeFV6kw/OA3kebe+Y7ZPkhT98z
-	 T7hCbwLUtC3cMY6GMT7DSlbwQs3GXHV0Je+ZYI8a95NEnosSyAcq/RnDPBZOTQfnHog==
+	t=1795168869;
+	b=ZKOWJEC0zFKDPjPasDcaQiYFdIIijNKmCAgnujf6xt9q5M2JhOulzQeGEqHY7QMEznyh
+	 i041ev2FKDgm4HQlkQvB8F2OKc54B1nndplBjgZDY8k5FlDa7yRLKRPNSwDiG53K/7HqI
+	 0WQC1sppathVOvvgTJT9V5OnUqKP/6jpBjZiVHxxbujoBjYHEP/syfZyY+CDnv1jjL1XZ
+	 usBm9zqFJvJ+fm46654BzgmWqWPsxMgj4kCi8oUJOlth0u3ifme0oiCGu7qV3/YNr1lq2
+	 Vh/vsXotWB7FlBfDNvVkmyPYnxIS9TKrWaw9lnkHlAXZrNjQJB15py6vXBYVT3L2CIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795168803;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=53IYgGn1hvZqbl/iv8n9HjV2+EPLGnQoxoloaQwl0lY=;
-	b=nbEB/Iyvk1qbm3JdSWzVDQLdML2oYSOSjhr/XjFJvzk2F9pZImEGe13DbcrZnk4MlTpw
-	 oxALKW86+3AyKfk0obKeBwYa56Cf05eg5gnDwNJpUvU2W1Zv//VkSRs50DmGxrV4VAJoJ
-	 JoiIIRTdHb0x8CvraNp8jjup7ZWxwf4O7H8l05QFq7C2HjHjoCspJ8ZvpjeXeyyGMNNvV
-	 rP3G0il2thlkzcK7vZ529xHvwjszhH+KHWe0SJpX09EHDDc2BvhVBfoB6q8saAYV3UYP7
-	 Wlv+NjdYa///FXyqByc3dGcUchd23IlmDdvrvuLrD4gPNsz4Sujy9e58JWWexQimZqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795168869;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=tuJA0XDaKwz11CrlbVlHVIWMZJx66TbVl81T/rjPki8=;
+	b=yThzLPwO66rP6VwR9olP3PnYqXizoN27bGEpP7/nQ+5VmcpUwJi9EWzor1+PviH5a6eh
+	 vIf9CpWRk3TS71D7MlbPqPRRa2QvO8tlO6VbcqjzIzURuVplD0l587otnmiuILNfb+ddo
+	 +GRbKlM8j2jN/fvcz796sOi9/QAV2j5TFRbWJ50IRLjw7I4/cXI4GiEEfWMhcMTaXjQ53
+	 fO4BVqQssIk5JZZIa4h2NMD5bgkR043CVH4K9BzU1sR9MAYyQt8hDv9NTeCPI4h9vv8r4
+	 bu6ABkjAjXt0746OZpOXP2/foLeUHWMAKq1AsgEdSzj2x+ciI37FsSsifNdi5zNyhRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RCc19Wqs;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b="Vz//ANnY";
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2396606A325
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 10:00:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2396606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B595F606A33B;
+	Fri, 20 Nov 2026 10:01:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B595F606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RCc19Wqs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795168804; x=1826704804;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Dgi6myinJZLo7hQda6QBDHER9GVUwzKuhB2DR3WDrdA=;
-  b=RCc19WqsW236AMmdMNwAq7jx2lf1vW3nj6E5vOtnh5sRnmFuaBoGyXXj
-   uoQODKhnioCHdN08iMOwKudklDFq0w2TigTuagDDKOXez2qQfU9kk+2gQ
-   ggwJnQs7DG1Ds4wawHa0OmtfD6qRdLi0sRc5GZUChhJB6odVKsE+2vX7a
-   vTuCAi+iJHgXtjeXy5653rDRPcahSfabs2jSI/26JlPYpbfvZE28msyo7
-   d1MSc9z70l9S0QvghbQyPJeI6PVY3j3yk6fLUr77x/eYXVNC8oMZNSlxP
-   bxlO8KT2vV+t6UuEVtEYc9PJ1ViWpAVPfwHAtQCD8GrBvszxBh2CXbrx6
-   Q==;
-X-CSE-ConnectionGUID: pVhdvnIRTo+f+6D7tC8w6g==
-X-CSE-MsgGUID: GIckFnsaS327DBuhFsp/eA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4085715"
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="4085715"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 02:00:03 -0800
-X-CSE-ConnectionGUID: lo2pq+bMTrKi52+noe0mEQ==
-X-CSE-MsgGUID: 3LqStTW3S42IF8/5fOYvUg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="10803200"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.253])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 02:00:00 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 98A7011F8AD;
-	Fri, 20 Nov 2026 11:59:59 +0200 (EET)
-Date: Fri, 20 Nov 2026 11:59:59 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>, patches@lists.linux.dev,
-	Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: Re: [PATCH 6.12 0810/1756] power: supply: bq24190: Remove redundant
- pm_runtime_mark_last_busy() calls
-Message-ID: <awAaH1vUBq1Bhb9X@kekkonen.localdomain>
-References: <20261118150007.957976754@linuxfoundation.org>
- <20261118150041.869799943@linuxfoundation.org>
- <4d03745f-1cd4-4280-965e-c6527f3f3c07@oracle.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Vz//ANnY
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jW9p91Nv7zMlyX;
+	Fri, 20 Nov 2026 11:01:05 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1795168865; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tuJA0XDaKwz11CrlbVlHVIWMZJx66TbVl81T/rjPki8=;
+	b=Vz//ANnYWzDPxmgoY0vJq5qnG3FZlDUzowfc2BZoBkQWOki4fnvqncbjlnjgzDsOfoHUus
+	BBb0rU/UEebNzxtacD9M34Uj8SwTCwLYQlv/mgXbdJebxmb/9KU7UhdxaBOENfIilzlYPk
+	hsmp2DWW9CiJyb8nxJHzVDvLJ9KJ2/N7JkZZJZPCq9hDegvPO8JRB32PgJpZZ9jBFHhq+v
+	+cH7IElqfhizxTP6m8ESYFe0iivegorXU/4KoBAkJmpAh3f8NjzgsMST+juIc+e+hya3hy
+	qzwtaiR6ygiHdX4MFJQA6ga60+vVyKl+aL/Ht9bjGu1OEfi7aqVHUs3X+k5jXw==
+Message-ID: <d53b0e41ca767a2acb1f6ee29344567f34385d8c.camel@mailbox.org>
+Subject: Re: [PATCH 2/3] dma-buf: dma-fence: Add
+ dma_fence_overwrite_timestamp()
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
+ Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Simona
+ Vetter	 <simona.vetter@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, Alice Ryhl
+ <aliceryhl@google.com>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, "Paul E . McKenney"
+ <paulmck@kernel.org>, Yunxiang Li <Yunxiang.Li@amd.com>, Alex Deucher	
+ <alexander.deucher@amd.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Fri, 20 Nov 2026 11:01:01 +0100
+In-Reply-To: <a8fe714b-6d26-4777-8b9c-4299ecdc3f44@amd.com>
+References: <20261119131830.2535266-2-phasta@kernel.org>
+	 <20261119131830.2535266-4-phasta@kernel.org>
+	 <a8fe714b-6d26-4777-8b9c-4299ecdc3f44@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,51 +87,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4d03745f-1cd4-4280-965e-c6527f3f3c07@oracle.com>
+X-MBO-RS-ID: fa50b291f261fae32f2
+X-MBO-RS-META: gjw3fjryizx7ih8jrimp6njyrwmw4ndz
 
-Hi all,
+On Fri, 2026-11-20 at 10:38 +0100, Christian K=C3=B6nig wrote:
+> On 11/19/26 14:18, Philipp Stanner wrote:
+> > A fence's timestamp is just an opportunistic data point for debugging
+> > information etc. drm_sched, for example, uses the timestamps for its
+> > scheduling algorithms.
+> >=20
+> > In rare situations it can make sense to allow users to overwrite a
+> > timestamp with a more accurate value. This is relatively harmless since
+> > the timestamp has no meaning for the implementation itself.
+> >=20
+> > Add dma_fence_overwrite_timestamp().
+>=20
+> I think that this is a very bad idea since it gives the impression
+> that overwriting the timestamp on a fence is ok.
+>=20
+> That was only done on the scheduled dma-fence because nobody cares
+> about that time in the uAPI. For all other cases that can blow up.
+>=20
+> I would rather come up with a clean approach for the scheduler to
+> track the spend time per entity which would make that hack completely
+> superfluous.
 
-On Fri, Nov 20, 2026 at 02:51:48PM +0530, Harshit Mogalapalli wrote:
-> Hi Greg/Sasha,
-> 
-> 
-> On 18/11/26 8:18 pm, Greg Kroah-Hartman wrote:
-> > 6.12-stable review patch.  If anyone has any objections, please let me know.
-> > 
-> > ------------------
-> > 
-> > From: Sakari Ailus <sakari.ailus@linux.intel.com>
-> > 
-> > [ Upstream commit 2453753f395e68af947d9ac6ce37bf0eb40f7123 ]
-> > 
-> > pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
-> > pm_runtime_autosuspend() and pm_request_autosuspend() now include a call
-> > to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
-> > pm_runtime_mark_last_busy().
-> > 
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> > Link: https://lore.kernel.org/r/20250704075442.3221283-1-sakari.ailus@linux.intel.com
-> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> > Stable-dep-of: e0844bd22a9f ("power: supply: bq24190_charger: don't reset registers across system suspend")
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > ---
-> >   drivers/power/supply/bq24190_charger.c | 14 --------------
-> >   1 file changed, 14 deletions(-)
-> > 
-> 
-> 
-> Ai assisted backport review has found an issue for this backport. The
-> finding looks correct to me.
-> 
-> Verdict: lets drop it until we have the prerequisite I think.
+Yes, I agree.
 
-I agree. The pm_runtime_mark_last_busy() changes were merged for v6.17 so
-these patches musn't be backported before that (and I wouldn't backport the
-pre-requisites).
+The *one* feature we would have needed in C is a public-private system.
+With structs in APIs it's often completely undefined what the user can
+and cannot touch.
 
--- 
-Regards,
+That led to API ossification. Just look at drm_sched, where we now
+cannot trivially change API internals anymore because external parties
+conveniently use this or that.
 
-Sakari Ailus
+> IIRC Tvrtko already created patches for that, I'm just not sure if
+> they were ever committed.
+
+I suppose it should be somewhat easy to track that data in
+drm_sched_fence.
+
+Maybe Tvrtko can point me to his ideas so I can take a look.
+
+Thx
+P.
