@@ -1,53 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=135.181.196.210
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795132861;
-	b=5e7bnzetJuukCmfOkoRTjF35kdB9kGk02EQBOPJsrwZre4iBSoLqEJFbGcJqMencp0gR
-	 NuSTMxgmpWTKuOdQbUBGEC8OtV0O2l0cgnzB9ef/Hx/cRtPh6ujOT8/AAMxpu9faqTOWX
-	 R86F3vLha8kACoObktliSHOV/tjpo/txutqzo5XKQKDqgzCfEmdyYjQFO81tMy91GGsl7
-	 Iz+yTnOg+mZYBX/zvgCFubewhAMq2A+vI63NHrqP6oHuv0hQP427F/XSIIHSgqilRH21M
-	 qu6XCGH84ddPTjmjMuiW8dTJGkYTG/ld8dl4+PSUtiNYWzC/V8K12XXhRTVU/dRD8FQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795132861;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=5FJBzUYikHTz9Jwg01bNdUYmr9ueJ0Ev2tfSqj/4shQ=;
-	b=Ioac4Ivhx/fpSQM3Td2B0kq48bTnJdq44tElwSww+HKmGa3UkTIIrnbdVp0LcFpk8EbC
-	 xdHHWzRaUKJ2CF6funEY1uNHoLpwQrqBo7eMxYC1dXVHphLBd/JJAqUBhJDrFPDFGt99M
-	 Hy7s2YlwRIyWe+Gifh4vmWMqtIOCvPEzXMWVDpORqLnqcJdtDkGJm8B3MxVXXgUyt/93V
-	 pNbSVDX4zt+LmKuKigwjo6LRJEUAKr7L4zYJhmI9FwncqVQ+OBY0pNYNC0qHGAi244KBu
-	 r0/vRibqA1Gs8U/L0DrFcqsmK6d6u2Uq9jXuseZfRCio1RUg5LenbyTU52vfiJbaEkQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=puri.sm;
-	spf=pass smtp.mailfrom=puri.sm;
-	dkim=pass header.d=puri.sm header.i=@puri.sm header.a=rsa-sha256 header.s=smtp2 header.b=GWdmvqhq;
-	arc=none smtp.remote-ip=135.181.196.210
-Received: from ms.puri.sm (ms.puri.sm [135.181.196.210])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795133257;
+	b=IDfl0WUYqnFxVxeA4ThZvhj1litXAH4SYaI9+OczEfaAMcaOg/i7RtM7y//yMfyhbRWf
+	 R0ktFoKCBvqdGdPsHveP5PtUI9B7uPl15r3Mze81fYMcvngUQ9xmMWuh9EVJ2Pxu49ApV
+	 LOOl1EnKYbpNCeXBrseih1/cob5R/Mo0fEs0y1ilP1d/FqmorMrp32Tql0ZBxBoMtA6lk
+	 Uj1Eva1a2Px7EWMf18PlaoKpKXoiJXZn5J2K7XKSDgS/KX5eYWf2j6yvBwy5jnfR59eju
+	 w54KmYQSWRBold44K5yOWAp7yGdqnZl0aod83b4gvYHLw/rjxhT0hvrRrtePjKPmLBA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795133257;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=yA0m58rWik3g8f7UVelIRblvrNa8BEocMNHHM2/4B1I=;
+	b=0K875NVkbdDo0g4beAPQw92d0mNQiehWFLMdN59ZIMGwmnhFKmABPQFHcd01vpXq4wA3
+	 bmmmUaodEVXmp6Nz+Rvakd4M7xJPmx6TBTjRcyG+lXvHuPI/YtBV42Se0KHgMt9vuqhVF
+	 +gcPqRyqIrhREgUrWZKqIj0FZ/UlsXVOTo1oTsXLXYhPUghdUJSuJoBKsrNnyU+ca9sKp
+	 lTVUHWTiP9vZ9RvAe17NEQLEKJEglslJA0DxLn4RdSDjUszY0sualQdiQO5rzznzHA0NN
+	 wAX3Ax3LlhjkiS02SN8PbILLsu/G1IQvrBPCCf5QVrLC3JKF9FgksSZy1K2TfNxCEBg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e+6c6co8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E351E60A2602;
+	Fri, 20 Nov 2026 00:07:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e+6c6co8
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795133256;
+	b=Q2DnX6FV6FVtjPeVMwIZlLc1lHJMYp203P/kyL9+CjDprgD6w92yYuX7M7dEwmElY2SH
+	 4guaXSNtpdKXByblwDj7FSY+miNZmPHJ1o08oaHX6kHQoTQyAYSPDdBWShKYTRsfz6tbS
+	 osY/ziYyyxKHmUEoAFCS24m5a+JLwyWLNQEd1cJdGsDOG6yBVe7sdNUkCDQUVpR+bAaRy
+	 XdkNiAoTT1iWYT2cBfkq1eJfVWd3FY8vY2m3/wKxeLkzm8pqrP9oh+OHjKV9t5B7WpL3s
+	 GSsyytS8sgkFgxskRxssFhG7AnE/bgK6S72dhTGtxr6AqmuJJokUBxSayUM3Iz7y+Zg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795133256;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=yA0m58rWik3g8f7UVelIRblvrNa8BEocMNHHM2/4B1I=;
+	b=UyIJFjc8dcDWPdxy53onL1Yh/yrylFR6sZQpAqPBHgtP9JBHtYGj6lbCZciGvNb04aWf
+	 kgRCSU6uOcxDScnR8DEE8rb3uipZFAwC7JS2pWzbwXgPDypvgr+7Nn6GyB15/eI8U8ZzW
+	 8Hcw330OAmztuNOwga3+ZQh1pgFgIl9c0npm1cYOMSfvqRn0SID+lWuvX5Nf2JYu1JjKJ
+	 PMzCDlb4Mn+zr8L/jSPUOFrj2Y/OL+hQE5sGHLntv7NpvEifjia04WgKsjZJT/6hWh8IR
+	 hW5Ee26Um0lYP+oZUGRE/v/QF4JaWZlBwsj2MNQgns90Aj85E34XtKZ5zgtFe6W0llw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB2F606A32C;
-	Fri, 20 Nov 2026 00:01:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BB2F606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=puri.sm
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=puri.sm header.i=@puri.sm header.a=rsa-sha256 header.s=smtp2 header.b=GWdmvqhq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=puri.sm; s=smtp2;
-	t=1795132853; bh=SiwjhZMnEdkRN2oANYVb8ccwnFJVVPfeFZQs/1CS3is=;
-	h=From:Date:Subject:To:Cc;
-	b=GWdmvqhqktMJerRbqIhgH8P6eflIwNH3kL2B/4RlJa9SQ/JDYI0mIb2jOQ8ow/ARg
-	 75H0+nzlxU92R9lvuYxAexr6POka6nOtCV0teCCDQmWj4rPETCxvDZQcLvwG/deT66
-	 L1F8DFTofKOjH9ODNt3k0kBrrHDW6BU9sGWcs0ZBAqPvJ9Q+gCBHrC0D8Vs4znQUdk
-	 FSADZLaqCgMUn9o9tldo/F9BKKI/BjSCyCTuXgfZbv2SMwoK1ajnDxCWGhKx8WD5fh
-	 THwfD0YDTUZNeLhhZta6vwftuGqr/gdb99BVlTgIHK3NK/6dYlJ7oRoQwSoFflgqhu
-	 D39gHKVoNHt0Q==
-Received: from pliszka.localdomain (83.24.14.135.ipv4.supernova.orange.pl [83.24.14.135])
-	by ms.puri.sm (Postfix) with ESMTPSA id 6FF661F770;
-	Thu, 19 Nov 2026 16:00:52 -0800 (PST)
-From: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-Date: Fri, 20 Nov 2026 00:59:57 +0100
-Subject: [PATCH] crypto: caam - handle empty message in ahash_finup_first
+	by smtp.kernel.org (Postfix) with ESMTPS id E1ED71F000C4;
+	Fri, 20 Nov 2026 00:07:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795133256;
+	bh=yA0m58rWik3g8f7UVelIRblvrNa8BEocMNHHM2/4B1I=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=e+6c6co8kmNG3AH1u2sMiWzi70uceSK6F6xK14aunUKW98lZXhUf0EcoHfuFfcI2F
+	 3boSupwg26k+MK+mDz/24gLL/y8c5fuItEp4vMhTaCzW2snh9cs4ejQyCO1mU135pO
+	 UMRsQH+4yhCHnqpY3drV7xgbuU6jlKiPtDLNSex+MrjGzkSB72XP2Zwwm+akgFavlY
+	 qQlJKuYkrtXo+Gm8s2TmVEuHHHAjjx+YEz7GRpbN2BGo7yeU2G/n3nFg0Z8kBvqiBK
+	 2lLxU/OTwaH6pudG9Y19GMnA12aQgbt7MIGrQc0kBpUKfs3LXBX3l77vQNGqoGkPhO
+	 t9cegpETdHxWA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6F3FB424C7;
+	Fri, 20 Nov 2026 00:07:35 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Date: Thu, 19 Nov 2026 19:07:23 -0500
+Subject: [PATCH v3 01/11] leds: rgb: ktd202x: Fix the flash period of short
+ blinks on 32 bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,110 +84,75 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-caam-empty-v1-1-d82106209428@puri.sm>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z1Py26DMBD8FeRzjQFVSPArVQ7GmYITbMh6qagQ/
- x4bV73tPDV7iACyCKIvDkH4scEuPoL6oxBm0n6EtPeIRVM1bV03lTRaOwm38q/s2s+u0mgroyF
- iYCV82/0q+7plHLbhAcOpITkGHSAH0t5MifLYWTkdGPSXJ7y2uIFzSfYzAX0xMa+hV2q0XD5BH
- nO50KjWbVDBODVbv+0qC8mjru6LleksI/e/wCzOWe6LJMj8Wd2J23m+AaxZ3coPAQAA
-X-Change-ID: 20261120-caam-empty-96490ae60cae
-To: =?utf-8?q?Horia_Geant=C4=83?= <horia.geanta@nxp.com>, 
- Pankaj Gupta <pankaj.gupta@nxp.com>, 
- Sahil Malhotra <sahil.malhotra@nxp.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>
-Cc: kernel@puri.sm, linux-crypto@vger.kernel.org, stable@vger.kernel.org, 
- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+Message-Id: <20261119-ktd202x-et6326-v3-1-98b836b1cddc@telaak.dev>
+References: <20261119-ktd202x-et6326-v3-0-98b836b1cddc@telaak.dev>
+In-Reply-To: <20261119-ktd202x-et6326-v3-0-98b836b1cddc@telaak.dev>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-doc@vger.kernel.org, stable@vger.kernel.org, 
+ Joseph Telaak <joseph@telaak.dev>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2459;
- i=sebastian.krzyszkowiak@puri.sm; h=from:subject:message-id;
- bh=SiwjhZMnEdkRN2oANYVb8ccwnFJVVPfeFZQs/1CS3is=;
- b=owEBbQKS/ZANAwAKAejyNc8728P/AcsmYgBq/420fMctKLZ8q5RAt1ZYuFXIEnWduLKmclRe+
- jNgeF5JUUSJAjMEAAEKAB0WIQQi3Z+uAGoRQ1g2YXzo8jXPO9vD/wUCav+NtAAKCRDo8jXPO9vD
- /+5+D/9WRgZ7yFruzo+TOC/w/FVrEQQv+fjuX2QuiPy08qtBgDidocLnXvaRlkVNyzCSsCf7ZpR
- 6KqWGj6BBlyRJbGkc70VJxHLFSnZ7O7UY0Nd31IPzjnrgFiSebDB7S/GdF25eFf7VUhrU1dtJRV
- QLEbHGLqTq2LFvoeCbOydAt6vz9F1S1+KRqbF5O4ju15QHPUKU4SyAYm1wdLv6gYeb86ve3SvVW
- KP9eCO+ICPRqBFZPNHyG1PlqBxEL4Z7Zdt5j/FYT63sg0wzXcyDohJrlN33J+J23hOyXfqsgfyL
- oI8FUbePIdYRNlE9uotdGIGvb4E8ahmKVYRuwkLJ28P5eLVYEBeVY+V5/ocGLgd+nYb6GVZiaoF
- qVw2e6zZ/Vf9gCznTqNaWXRPQ5xn12xIFIdUdm/8uOKY15fiv0Q8d0UByCw850VO7btFe8j7vDu
- ZXcF9mOhCq65oPz45sBr6OImvXdHemhkKm4VGUCUHTMnN7SrHPXy+7GDct5/sCdcHJuPbuOrGd2
- giFgJrHyy3sFWrOSyo+lADqjBO3KFxmuZBCcQ1+XCHcEQK+anBgvMQLn/Ie9TEol+Wtjbta0T6b
- ittqDH1akhkf5En3SHpYwidrMgLnqdCx5JCFQ9Ei+GGAEuC4OYnZiYQ4kHPUEg1wJh1ZaNxciXw
- xk8JCbXfQGg6q8A==
-X-Developer-Key: i=sebastian.krzyszkowiak@puri.sm; a=openpgp;
- fpr=22DD9FAE006A11435836617CE8F235CF3BDBC3FF
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795133254; l=1641;
+ i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
+ bh=zfAMVaNdKcol9zMzD0rM6l30D7wHuzr1tcEVXAw473c=;
+ b=3BQgXUcypJjlefjNYxm8V6ta1mw/nAx6OEIcHXXCunRFrfTiejklKfxqS7wNZbupPbBrqYF8n
+ 9GkZJkXs5TzAwXE5hn+oxswKooeYsI7QqglR8sAVfdnJY19OSoiyI2n
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
+ auth_id=1404
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
+Content-Transfer-Encoding: 7bit
 
-Since commit 9d7a0ab1c753 ("crypto: ahash - Handle partial blocks in API"),
-crypto_ahash_final calls crypto_ahash_finup with req->nbytes == 0.
-This leads to an oops on an empty message to hash when ahash_edesc_add_src
-calls sg_dma_address(req->src) if the caller passes NULL as req->src:
+From: Joseph Telaak <joseph@telaak.dev>
 
-    Unable to handle kernel NULL pointer dereference at virtual
-    address 0000000000000010
-    Call trace:
-     ahash_edesc_add_src+0x40/0x390 (P)
-     ahash_digest+0xcc/0x250
-     ahash_finup_first+0x18/0x30
-     ahash_finup+0x24/0x38
-     ahash_do_req_chain+0xc0/0x1b0
-     crypto_ahash_finup+0x168/0x200
-     hash_recvmsg+0xb0/0x1f0 [algif_hash]
+When delay_on + delay_off is below 256 ms, the unsigned subtraction of
+KTD202X_FLASH_PERIOD_MIN_MS wraps. On 64 bit the result truncates to -1
+or -2 and gets clamped to the shortest period, but on 32 bit it
+truncates to 33554431 or 33554430 and gets clamped to the longest one,
+so asking for a fast blink gives a blink every 16 seconds.
 
-It can be reproduced on i.MX 8M Quad with the following Python snippet:
+Compare before subtracting.
 
-    import socket
-    s = socket.socket(socket.AF_ALG, socket.SOCK_SEQPACKET, 0)
-    s.bind(("hash", "sha256"))
-    op, _ = s.accept()
-    print(op.recv(32).hex())
-
-The oops was observed being triggered by iwd.
-
-ahash_finup_first runs only when nothing has been hashed yet, so handle
-the empty-message case by routing it to ahash_final_no_ctx.
-
-Fixes: 9d7a0ab1c753 ("crypto: ahash - Handle partial blocks in API")
+Fixes: 0ebdb7210943 ("leds: Add ktd202x driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- drivers/crypto/caam/caamalg_qi2.c | 3 +++
- drivers/crypto/caam/caamhash.c    | 3 +++
- 2 files changed, 6 insertions(+)
+ drivers/leds/rgb/leds-ktd202x.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/crypto/caam/caamalg_qi2.c b/drivers/crypto/caam/caamalg_qi2.c
-index ef67122bef57..d449634a9bfb 100644
---- a/drivers/crypto/caam/caamalg_qi2.c
-+++ b/drivers/crypto/caam/caamalg_qi2.c
-@@ -4331,6 +4331,9 @@ static int ahash_update_first(struct ahash_request *req)
+diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd202x.c
+index 143020945e23..539cf425cdb7 100644
+--- a/drivers/leds/rgb/leds-ktd202x.c
++++ b/drivers/leds/rgb/leds-ktd202x.c
+@@ -296,9 +296,13 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
+ 	/* Convert into values the HW will understand. */
  
- static int ahash_finup_first(struct ahash_request *req)
- {
-+	if (!req->nbytes)
-+		return ahash_final_no_ctx(req);
-+
- 	return ahash_digest(req);
- }
+ 	/* Integer representation of time of flash period */
+-	num_steps = (*delay_on + *delay_off - KTD202X_FLASH_PERIOD_MIN_MS) /
+-		    KTD202X_FLASH_PERIOD_STEP_MS;
+-	num_steps = clamp(num_steps, 0, KTD202X_FLASH_PERIOD_MAX_STEPS);
++	delay_total_ms = *delay_on + *delay_off;
++	if (delay_total_ms < KTD202X_FLASH_PERIOD_MIN_MS)
++		num_steps = 0;
++	else
++		num_steps = min_t(unsigned long, KTD202X_FLASH_PERIOD_MAX_STEPS,
++				  (delay_total_ms - KTD202X_FLASH_PERIOD_MIN_MS) /
++				  KTD202X_FLASH_PERIOD_STEP_MS);
  
-diff --git a/drivers/crypto/caam/caamhash.c b/drivers/crypto/caam/caamhash.c
-index 3cd71810380f..5794c26e0efb 100644
---- a/drivers/crypto/caam/caamhash.c
-+++ b/drivers/crypto/caam/caamhash.c
-@@ -1499,6 +1499,9 @@ static int ahash_update_first(struct ahash_request *req)
- 
- static int ahash_finup_first(struct ahash_request *req)
- {
-+	if (!req->nbytes)
-+		return ahash_final_no_ctx(req);
-+
- 	return ahash_digest(req);
- }
- 
+ 	/* Integer representation of percentage of LED ON time */
+ 	on = (*delay_on * KTD202X_FLASH_ON_MAX) / (*delay_on + *delay_off);
 
----
-base-commit: d785d132202e8e8e93335ebf74ad5b29fca0951f
-change-id: 20261120-caam-empty-96490ae60cae
+-- 
+Git-155)
 
-Best regards,
---  
-Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
 
