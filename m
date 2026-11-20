@@ -1,81 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.12.53.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795196747;
-	b=eJGOOCx7fxARPGjTppgYm56/zp2xHb1JnEZzciITUslv7CfytcB42ujyHq/SNh/OBjhc
-	 h/+fq9jw8WdoAcseI0WAX/AgtdudK4PeWt5A6u/Lv87sT5tOgiuQ7Yqw9RYpFIqa/mkU8
-	 wF19UI2j1a4Kv0MBD/ex8zTEHXOkWt5i0Z4KATQYM1JMbGMVgSitrwpuOfxqijA2UMyga
-	 lPBYmW6dz92KCJUW78Ny33C03dSM3AbfHFkbofnf2yCnlOpdtIbTPgm5ZeCwiUK7bQdh9
-	 ww4UYGTPVVgVOcE9DiE3mob6y45ZB0/azHxSlkV+iuZ4XCmQSJkP5/IsqB6ueJFRujA==
+	t=1795196888;
+	b=OvzLjmgHZvrtc2jJe42QCALYx+8J6XJz2vDS5+tCVzk+B8u6LH1oWLMSmT/OnDt+m5B8
+	 Ca55nPw9iJLCaCX63PYkEYRJ88xg3wqGEJsSlWfb4QytnrGvjlGsVHUCRPIQd5QBiGC9w
+	 CLe/2oNrujIM6b84STyqnSTbUkifogxLbN9yDAYzIIR6NSM5otwhwE0nVOY58322VxaKc
+	 R7lvztd4mys9viqtPqoUxn6YVoIKCopoZNGKkoZUXGKt0lpz+0WWDTdrxmKp5p2zZ6FS1
+	 i+2uD4+uPiH78ng6DR98eAoNhXgAG6qQeazcCuhUilGhXFCweEdb7S1QoP3JfPQWD4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795196747;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196888;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=dD5U44nHrFTl/AAIBulcJRmC+nCx2LZfUKFNl03tD2w=;
-	b=5LbyTnqnky52Ep1+EVv+9KMDQFi2fcQYQvbNqq5Ab31QgjUu2j0N7RfsswBcOSW9cfMW
-	 Xy3r0rARG4oHcspkSYj58L7Gttu7l/m8UQv9g7s/y0tOVGLjhsJxKZwa77Qmg4SA5jME6
-	 aDq+5r6PZNmSdhj3EInh3tWc3O4/9YhVKkrl6Ks4cO8CRzivdoZatPA8d6lsGohucMBZD
-	 GYlcWFM3zlEuK08n4WCGq1P6/5lJNUizloeHBYv98/CJReR+gdx9J69YfC94UjGSYrq3B
-	 byrHAhyns84b7e2/SWvl6qJp8IXrweXLf130F1yag3inVXOw4djNKDTmmvOnFArDhOw==
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=BRbB4TeEbeDPYP10r5R78d5DnXhIf+696YAbQVI6b1I=;
+	b=xxFihnUuK1x82pTEtrw8n41DKoaFPjdwQcUqUsMyZ8d5ybfIkHk3GkESAkxYmUEykaWO
+	 aqjGldlnP7G5NhM6ROWvi0co9CirtLnQk3r04JyBaNs4ShpsS3qdAYzcWFEeKZH2R1lv2
+	 Mv7dccRRORP5RhWUjs3jo9LrdncMG7Qjk9OSDkxj6PdRbsGwcgDxWtTfKfJifIkfeJQGn
+	 9yTu0dOE2FdPCLKNyYNDDkHxzf6SXHF8PAKx6bLc+fEZMwxMi0fYa37kxaFqhh8bqJdkB
+	 zMxWpIAhrdrxglfZs51TPtcm7oi4SRZC8DS0For6GYTlzlrju1aiJvDGg2GoD3KG72A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AC5TAC6S;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	dmarc=pass header.from=amazon.de;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=BKMdN6qE;
+	arc=none smtp.remote-ip=52.12.53.23
+Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7007606A337;
-	Fri, 20 Nov 2026 17:45:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7007606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC0E60A2606
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:48:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DC0E60A2606
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AC5TAC6S
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795196743; x=1826732743;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=u77/hB+36LpY07PfSLYCOFalxai0/Sr7Rp8nDWfm1a4=;
-  b=AC5TAC6So/Y4lmsTMUUvjJ+1A/RzeIG9yB/luFvKnJyCDohN2ROd00cU
-   ZrMCbh/qiDNgpcPsXXa5r1Y+c54iaQGj3q7zk2+0iV1PKxOhI6PRDffTY
-   lxrq2wFJvlwmfU9umnYQN1NrLLysj539/UkUcoOHv1a3Wy+d+TdUVTMMM
-   mjjjPbqAo2rvN1efVAh2yh5mX625xUHbmQcUQQ2y1EUvClmu9QYcvLQcM
-   qKm0GO4RA4dH61l0oIetRc0aq+UBkD48tP75YlPUlof4og6ZU+/2ML3Fm
-   wh6GX3Xo62vE1AkiIrhKxunub6EHru/RAZeYKlT1pbg3DMews1ktGCN/+
-   Q==;
-X-CSE-ConnectionGUID: AXyOQsLRRmWUAtQjOTvtEQ==
-X-CSE-MsgGUID: fOyez4xdTxCRkXPJ0NZ22g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="3963609"
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="3963609"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 09:45:42 -0800
-X-CSE-ConnectionGUID: 8rRwW6b5S5SFrW7/L1fIyg==
-X-CSE-MsgGUID: gK95g7QHQNKN/WvFEctnqg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="10564344"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by orviesa008.jf.intel.com with ESMTP; 20 Nov 2026 09:45:38 -0800
-Date: Sat, 21 Nov 2026 01:36:22 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Chris Down <chris@chrisdown.name>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Jeff Moyer <jmoyer@redhat.com>,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] x86/mm/pat: Don't leak reservations at the physical
- address limit
-Message-ID: <awCFFu76KVuQHTCu@yilunxu-OptiPlex-7050>
-References: <avAH5XMCbIWvdD8R@chrisdown.name>
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=BKMdN6qE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1795196883; x=1826732883;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=BRbB4TeEbeDPYP10r5R78d5DnXhIf+696YAbQVI6b1I=;
+  b=BKMdN6qEwTpDyAX6CREB1KRZCjUZDmDXcqYWERZO6uhWhtfFa2/UjbKG
+   3KxEjf+uwnensduOh3yetEFYrYTh7pwI+uSaB2/CrslRj4czQdlNo0gYm
+   1jyPUialfgySfhtPuoVk7CUO+gTY6Spu9n2QoD7WhFEtcY0kDmDRu/wyI
+   WQ6YSq1iyBwd1RCPkOHvbnpncwYrJDa1JE4nR9F6LWxi47n/8BC8S8Fj1
+   7EOG3CqHDYHd/vZnT33tHC+tIAWxjgvS80tynP2YAvzxU09Nrow0WXZwi
+   8EwCHPGn6pLXi52sGtZVMQeiww7tEIJONC/zlK4oqeaSBtEx4VTo80zr0
+   A==;
+X-CSE-ConnectionGUID: Q3ofdov8TCKC2HnaxqewtQ==
+X-CSE-MsgGUID: 5Jiw2TxURRiOZZBwsk6NYg==
+X-IronPort-AV: E=Sophos;i="6.27,223,1787011200"; 
+   d="scan'208";a="34540198"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 17:48:00 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:28745]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.13.177:2525] with esmtp (Farcaster)
+ id 767f9935-a099-439d-9b67-2386925f1139; Fri, 20 Nov 2026 17:48:00 +0000 (UTC)
+X-Farcaster-Flow-ID: 767f9935-a099-439d-9b67-2386925f1139
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.57;
+ Fri, 20 Nov 2026 17:47:59 +0000
+Received: from dev-dsk-gyokhan-1a-87ab81cc.eu-west-1.amazon.com
+ (10.253.85.128) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.57; Fri, 20 Nov 2026
+ 17:47:58 +0000
+From: Gyokhan Kochmarla <gyokhan@amazon.de>
+To: <stable@vger.kernel.org>
+CC: Mike Rapoport <rppt@kernel.org>, Andrew Morton
+	<akpm@linux-foundation.org>, Uladzislau Rezki <urezki@gmail.com>,
+	<linux-mm@kvack.org>
+Subject: [PATCH 7.3.y 0/2] mm/execmem: keep the ROX cache huge-page only
+Date: Fri, 20 Nov 2026 17:47:43 +0000
+Message-ID: <20261120174745.3785179-1-gyokhan@amazon.de>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,57 +84,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avAH5XMCbIWvdD8R@chrisdown.name>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Sat, Nov 07, 2026 at 09:25:57PM -0800, Chris Down wrote:
-> memtype_reserve() and memtype_free() pass their physical addresses
-> through sanitize_phys(). Both take an exclusive end address, but
-> sanitize_phys() expects an inclusive one.
+Hi,
 
-This reads like both memtype_reserve/free() need fix, but in fact
-memtype_reserve() is already fixed, you are simply following up the fix
-for memtype_free().
+Please consider these two mainline commits for 7.3.y:
 
-Make it explicit by referencing the previous fix, that makes review
-easier.
+  d80773cedde2 ("mm/execmem: handle potential allocation errors in the maple tree")
+  569db54d8b7a ("mm/execmem: make sure ROX cache always contains multiples of PMD_SIZE")
 
-> 
-> So this has the effect that for a range that ends exactly at the top of
-> the physical address space, the mask turns the end into 0.
-> 
-> As a result the ISA range check succeeds and memtype_free() returns 0
-> without removing the reservation. A new reservation that overlaps
-> existing entries takes on their memory type, so the stale entry goes on
-> choosing the cache mode for that range.
-> 
-> Let's fix this by doing some annoying off by one twiddling.
-> 
-> Fixes: aeef8b5089b7 ("x86/pat: Pass valid address to sanitize_phys()")
+They complete the series whose first patch, 52d95a55a011 ("mm/execmem:
+free ROX cache chunks only when they span an entire vm area"), is
+already in 7.3.4 as 8c60564f03e0. The same two commits are posted
+separately for 6.18.y, and this version keeps 7.3.y covered for that
+request.
 
-Maybe you want to reference the previous fix, but that's not what Fixes
-is for. Obviously, aeef8b5089b7 is not the one that cause the issue.
-Please make the back porting work well.
+On x86 systems with 384 CPUs, udev coldplug runs several hundred
+concurrent init_module() calls for the same modules (kvm, kvm_intel,
+irqbypass, x86_pkg_temp_thermal). On a ROX cache miss,
+execmem_cache_populate_alloc() reserves a 2 MiB area before it takes
+the cache mutex, so these reservations briefly exhaust the module
+address range. Each failed attempt prints "execmem: unable to allocate
+memory", although the exact-size retry succeeds and every module loads.
+The exact-size areas then stay in the cache and are never freed.
 
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Chris Down <chris@chrisdown.name>
-> ---
->  arch/x86/mm/pat/memtype.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/mm/pat/memtype.c b/arch/x86/mm/pat/memtype.c
-> index cf94fb561310..007d833b4c00 100644
-> --- a/arch/x86/mm/pat/memtype.c
-> +++ b/arch/x86/mm/pat/memtype.c
-> @@ -613,7 +613,7 @@ int memtype_free(u64 start, u64 end)
->  		return 0;
->  
->  	start = sanitize_phys(start);
-> -	end = sanitize_phys(end);
-> +	end = sanitize_phys(end - 1) + 1;
->  
->  	/* Low ISA region is always mapped WB. No need to track */
->  	if (x86_platform.is_untracked_pat_range(start, end))
-> 
-> base-commit: 5cdc3746fa163fb4e8d05fa3cabf46bc6aa7df75
+With 569db54d8b7a, the cache refill only accepts a huge-page backed,
+PMD-sized area and fails quietly otherwise. The allocation then falls
+back to an exact-size ROX area outside the cache. d80773cedde2 is a
+prerequisite.
+
+7.3.y does not have 4c4b2ed5b783 ("mm/execmem: use
+VM_FLUSH_RESET_PERMS for ROX cache allocations"), so both patches keep
+the existing execmem_set_direct_map_valid() handling for cache chunks.
+The uncached fallback is freed with plain vfree(), so it uses
+VM_FLUSH_RESET_PERMS like the non-ROX path. Each patch documents the
+change in a [ 7.3: ] note. Mike, if you would rather have 4c4b2ed5b783
+backported as well, I can send that version instead.
+
+569db54d8b7a is above the usual 100-line limit. A large part of it
+moves the ROX setup into a helper that the cache refill and the
+fallback share.
+
+Both patches apply cleanly to v7.3.5, and mm/execmem.o and
+mm/vmalloc.o build with W=1 on x86_64. The code changes are the same
+as in the 6.18.y version, which was tested on c8i.metal-96xl: 20 and
+29 warnings without the patches, none with them, and no failed module
+loads in either case. I have not run the 7.3.y version on hardware.
+
+Gyokhan
+
+Mike Rapoport (Microsoft) (2):
+  mm/execmem: handle potential allocation errors in the maple tree
+  mm/execmem: make sure ROX cache always contains multiples of PMD_SIZE
+
+ include/linux/vmalloc.h |   1 +
+ mm/execmem.c            | 109 +++++++++++++++++++++++++---------------
+ mm/vmalloc.c            |  15 +++++-
+ 3 files changed, 84 insertions(+), 41 deletions(-)
+
+
+base-commit: 988117cc1bb17338c586a4e21ade88b5397eac33
+-- 
+2.50.1
+
