@@ -1,93 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795210153;
-	b=ANGAdvP9Xr/wgjGdKMHmPj8igTw1f0wPgX3SbjHBjJR48k4vGfG31kyEtM6kl76yQeYZ
-	 2QVgJG3oAV0Q0bmAJYY0XeHs9YqAiJck3Xhwj0kL9BdOIuLMAYppWDkxRa7BAgdHqt0Eg
-	 jLbuuW2exbBkvgeyezfgxa2LXpPez6EPHsS3Atts1UuFh9lV1FzRe4xsP94BXbusVkwex
-	 fGy5i58QefBsE7Oszb2xvm0FJbcNaGC5+s77izEjiQd553YM713u9eplLbrcg/gdaMzJL
-	 DAqxDgINOm7EpgbDyYYAF+wvIt7uRCzVwD11vhyK5Hv1ezBoM3ssJ6smhMShspHM1Hw==
+	t=1795210249;
+	b=pT1BO/jTXXHAYDoqeosSshT+2xM72x+V2YHqa/+Xz/aNkRnW+e8NrjnnwmepR9PzijmU
+	 ogd9jM+gES7S7TbAnSZ19Di+EOb9ZT/rbXAPm9NlBv1f5UxGowVSsTyzyE4wIXXSBD/4d
+	 26UmzQ9USiKSHHTR6zZPEyLbHJSuq7Y2ZJKYOLuDehPDxPUwZPsrEY5djt4Pc/+XYftx+
+	 nvR4oUbikM/6nPwLykt4cskZAbRO/ylcIFon8LaauBO51ATFTNMp7g6TQQhhwYfGtQU4d
+	 Src3HApkekK0Skgx+oPdwke3//sgIxIUk/MVnQtBrpVHA7/MP3ghVWW55zI4a+frQjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795210153;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795210249;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=RtJF5VKE8u91+dvBTPTeMcNPvnfKxdIIH3R4flqEr6s=;
-	b=J+voev/Nk7XmUqudNgJ4tQEuFBLWDlFrpx+blPmkO4aUs6eCWjN0V5m95D7j4xcOEhub
-	 y3UiRruWQnQY6Og2Pv9haMzI7V836/0hiSQdl1k4qx+FpAsRHnmGfdWS8yrlAVWWJSedZ
-	 PYxcq/n84KdQygcm/rffDXnDxw/JL6q9kTBfywSMVhUDiyu3FLMwPjnG0kxiKMInYwPV6
-	 x06yqF/fi9BPmsY8InOuSJAbasLWK6T9ZjkP4iywxE9QTt7TT4bLGlkUAOxyLHYvSCR1t
-	 g/D4DY0XfunUIEOIa/m90sJtStGenFgZydtt42X3YhndAjY83WO4gapjEeCCOqJguuA==
+	bh=a1ho229usvH7WXbHz/geyTJETW2rhXcPAgdJKyw9+jY=;
+	b=2BatoN0r6ShklFBxjHOO8/Nh/JYbFkvyM7g8PPOG6D6hfv5iArNoXfiT5+mf00RrR6rP
+	 ndOdA4atLbbShMpH2PZPP3ULzOCA1SHCTK7PIDtAAQfu3tw4LewMLkgWRA/XhmB9DEMld
+	 2rlJnrBhDo26Xc6ut0mQ5AHaHsE250YxBS0xRTeedPVDsAEycY9atsrGNjxLzmfAToM7r
+	 5cWzun8qwSLUPv0088ro4WIYo0QRq42CbselqRAqtkxxdNAJFrisH69MS95IqLmkVKr5o
+	 oyQ+ZnV+DxK+0Gkfnnc/eHsx/iLu0tUW9N4NnPz9rSDNMNbRxS5TCshjuwGMLv/I9gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GuQAj3sa;
-	arc=none smtp.remote-ip=209.85.221.176
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f7vbJLAa;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32638606A6A6
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 21:29:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32638606A6A6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECBDE606A6BE
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 21:30:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECBDE606A6BE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GuQAj3sa
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5ee3e658c70so374711e0c.0
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 13:29:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f7vbJLAa
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4a3dd785f65so120310f8f.0
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 13:30:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795210147; x=1795814947; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RtJF5VKE8u91+dvBTPTeMcNPvnfKxdIIH3R4flqEr6s=;
-        b=GuQAj3saQdXCDa9aobPR2y7rJ1ST8tMdTFd9D9LRo+H/hjqGMY5/LQGUIWb/r+jxFA
-         z+rvM8ElYpoaTxdwei476vbYYWpbwIgrU19fIzFT76zqhVnoads2aM5Ffv26F3PuMyw6
-         KFSVSRSLFkw9OeT2+/2fT2YnpxQByTfJeJSskmqJZ0m38817C1+m7ReZ4sBQQYWvqbip
-         0lGtd+ps+lSFBHSL3pPNovOZsiaJzpyznOLuhqnjudnA4Lz28YWTTuQjKo+ERugCKxH8
-         bc6N5XCBM1H3Gui2xqbSn3rW4nOlnGjkiM3YfKnE1ncOUr+qe6askR3Xz6U+kcCNwXfq
-         nqlQ==
+        d=gmail.com; s=20260707; t=1795210246; x=1795815046; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a1ho229usvH7WXbHz/geyTJETW2rhXcPAgdJKyw9+jY=;
+        b=f7vbJLAauX1ju+cWR/RmICqMbM2gmqeyAfkOA+IV9lUo0n7cqt3FtIyoEBOCmidg4r
+         Y/00HD2ZViRnBRaMyjLwYyxKajWQbPmBRwIQeDGm4dKK72y/JS2CTjPrcFEvWbcOgnlh
+         Q0rssmXAUfQVfZ7kspfX7P+ghLUBLZaulP6GmPHa4My1mI8Cq2+Zx7cTQbH8+vqd37zQ
+         V1RHgHvnH15edOMT9iXCkWcyvnQ7wnuVKkQ93KHC6SIU4kR8C8ImnONF3sjwstaMPly+
+         d3PlW7FycgUnemmyMjswQBXnUXKj2umCWjGtKlroR49RMbH7NOcE+DKJWU5/Lmw3x3QB
+         7I8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795210147; x=1795814947;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795210246; x=1795815046;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RtJF5VKE8u91+dvBTPTeMcNPvnfKxdIIH3R4flqEr6s=;
-        b=Ipl3HHxzIS4s6FKb5PTaR4pZKCi+D/7ykuSzs6I8gZ05QnwnDrsI8TAM4pxiXBT9qd
-         AuxQ5Ti8ONnY80RFchQHOjT31eRaeILRZYlkPSF0jzxAy8wIdPNYyEBac2rvw1NZI1My
-         BhOjbZjMKyzoX8CB4CnuIuXkR1Z/WJzE+E6O/Dh3sSST9GnX2kQvLk+8aC9MCv2kmKQf
-         HWWTLLaag9UukwbbXcLRC1f6APpwQVHMXVYq3GXZpdI5uZtChOBxxr1gU0xRBQDsbny8
-         AhVryLFnyQ31fis5s1r6nZGxi+dHDMCocCXzZEMQwA7m/gUStbh1XFtPtc18X8Knc9KG
-         Rfog==
-X-Forwarded-Encrypted: i=1; AL+hErE7o+oikOcFwhXv0H6B+6NS2Ja7KdfbfchuKfpfcNi2Se+GzbYQgHwfddnoO/p28G1kKfeUOa4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9SVmBpqmB3orD8GdPh00hgNXSYmGSi19bJ3hvqoAgP7rEpG6Af
-	TXsqwjQC8UtnANVC9SnoAhntfqVIAl+ibHKHeZOdkddjmbYGWTp44622
-X-Gm-Gg: AZFdTZemJxgSyuCf7bm5ilXYOXsnC6xCJZxBVoV21EmYWBnlCa/VhLA40NBXT90C7HI
-	WElVc3t2ShechQ2I6XBdHF9B0wTwJD3GSh1dI4KAyAQR1Ks2VQwUHe7NIyqiJfmvEfJdHZebvOo
-	7ku6Yri0dOHMRCq2weURlAWSff8I9UJhAxlOnPvATwOJWttxEyAlvNadMzUcn8SxAbst+37QSDq
-	fI2qIefSP78P3ERQE/CHRfvKxS0m78ZNahwBZubJaLrR0MKhBux1omYcv0Lt5/LHAF27xswrmPy
-	u3jC3nwp9sg+3MJxunevpBgNInvvosanzPREmOqAtfR2TICH2hT4Y1cWk/AA+jCx/o154vnLw+4
-	/ktCi8BfkeEmB0vWVR1Q6qKqH0t2lykEJeXfLMDK80eG3qteYnkFvQyaJco0D7+8qg4eDirrkp2
-	CIetVP3Ry/V6jH7rDBcxxCfZns2bNyMNKdV0DBCJx+iLmjy1/dM2eCGEItUkHrphLzzS657KV6y
-	qxOZ/ooNsYFLC87tYobY1LmgpAqqGWKAle5Io3dI93B+d3IPq/4RgVxfNcPP+GAEmJc8d7X6/Ny
-	32Zy9x12m+TiZumURORM9mwp4Lk5ol21c8rmvJxcDTE=
-X-Received: by 2002:a05:6122:7ca:b0:5ea:fae8:e69e with SMTP id 71dfb90a1353d-5ee8aefbc08mr2508517e0c.11.1795210146967;
-        Fri, 20 Nov 2026 13:29:06 -0800 (PST)
-Received: from arch.localdomain ([181.80.89.146])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee8b4335e1sm3709291e0c.1.2026.11.20.13.29.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 13:29:06 -0800 (PST)
-From: Paulneja <paulnejacontacto@gmail.com>
-To: Jeff Chen <jeff.chen_1@oss.nxp.com>,
-	Johannes Berg <johannes@sipsolutions.net>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless v2] wifi: nxpwifi: bound the pairwise-cipher OUI walk to the IE length
-Date: Fri, 20 Nov 2026 18:28:54 -0300
-Message-ID: <20261120212854.25239-1-paulnejacontacto@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=a1ho229usvH7WXbHz/geyTJETW2rhXcPAgdJKyw9+jY=;
+        b=tZ/e1F+QBGsDlP2sZmHhZbXjt0HX6W6MDvj15YNUbHth7995O0pxcm6TtHzKMeHRuZ
+         43iQ86mVIibbqbPJx/J+La9Sq460IcV8Cj6CTKzTzZTcoe9E/AyTaCh+LbdjoyzNQEXq
+         24KRQIHGfwW0EThI2V4YVCwdbovMp1CyLfxHgDBez8tTo0yhkRimfp1BRhwoR+viQdEI
+         A5PU/EwcVny2I9ViHLDmSeVBRqWURhBmBOnBFtgqXgyTL7+NP/SxeS+QeWDE+2sdjfmk
+         R6hVdvb7a5LA6xcafh0XQiL1k+8qXD1PCAETU2NNONg2IyBW9jFw6mWuSI4dCzcTXuxZ
+         FvTA==
+X-Forwarded-Encrypted: i=1; AL+hErFgIBIauYVq4VgLL1bnN8EP50PWdQdJmIY1t+ja+zhOHpaAzMDfe8QnJmuaZN9hv4UmvHPuA34=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/IKixmb1e8tHkIKv8Qbie1mv6Mo9KFtZYj+na33jIKUdnIFpS7
+	W32BQ0+vF0Ib+6OyHqkwxxbhX3Sm8jLtKfr7wJcoSH9JsVD/40rdp9S/
+X-Gm-Gg: AYBFou3MBl2Fg86Xc59Si9HLaNdW6FYqjMMezs25JpQmozPA8mx2KB1wmTlufwKsu9j
+	QeMe6qkXrSJ3jUSFBZzGhUSCO8v3nwe145PO0csToImLzZ+4zMRIl6/E/tq72vdxatIaavHeD1a
+	OIjfjf1cqVet5afVrwmQjtNY+Kulq103Ffaq/0O45fHERrilFo+p7mAKEIOnbYOSHOyxMUGiDO7
+	zzZV7QScraG4Jk9mtGy2tABC4+AtW6a88zqDD427aOnI+YoEq8ZPAwdwvv2gNT4nxW+swUV7H4t
+	f/Bjdbt85ka2CdwBozHGfnAzs5Cqq+ai2agDOfI9fbohthm7XuKVeBstc6cKArZqOf3GYSSQuyq
+	xxIUpKXfggaYbDgcZXrqD34BammgbgS1OCYGNc80r35saEmgzqRamCgnYiwihiUCwhZoiUacn0o
+	xVZA1Sljpy7JH2eEbCf3XeUxBksa1AaMSbS7prKWwjQizJ8kwZNvMo1a8LFRzxsClIt30Ld2SYG
+	R4VAT7zeMu/u+BJtIFRyJtjnKDozNmC3qrC4A9qJ3eGFjrr4w0jwgYxZmDvkiNVAid564m0V7Im
+	fYRJrF1r+/nyoLG7OCZqJXQ6GYA7A+/0EGAO1EbgsMlxjKpfJPInuMQY3LxMRwRGLEhcdsAtl0z
+	EpIPjtbzq8EokysHkCDWd/TIdGucuEMw7vPITrJ/+zggmdu6RdHanir3PtgP12DhvL6mM0+hZgf
+	aCuKMqn4nIn8+1FeXDQ6Uk2kSjxkh6lhREDOzvZtpumCNM8N0wx3RUbOdNcq9fAxOtL3NT
+X-Received: by 2002:a05:600c:217:b0:4bb:6a02:d42e with SMTP id 5b1f17b1804b1-4bb887f3fb8mr69726355e9.1.1795210246073;
+        Fri, 20 Nov 2026 13:30:46 -0800 (PST)
+Received: from ?IPV6:2a02:3100:65ed:8fc:216e:bbeb:a7f9:ea1d? (dynamic-2a02-3100-65ed-08fc-216e-bbeb-a7f9-ea1d.310.pool.telefonica.de. [2a02:3100:65ed:8fc:216e:bbeb:a7f9:ea1d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6baa3c4dsm6400500f8f.46.2026.11.20.13.30.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 13:30:45 -0800 (PST)
+Message-ID: <1f2ccb87-9017-4053-b8c8-5b31a211bd21@gmail.com>
+Date: Fri, 20 Nov 2026 22:30:44 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,100 +94,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v10 2/4] net: hsr: refuse forwarding devices as
+ HSR/PRP ports
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
+ shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
+ qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
+ bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
+ liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
+ lukma@denx.de, fmancera@suse.de, danishanwar@ti.com
+References: <20261117141922.20-3-xiexinet@gmail.com>
+ <179514132185.3136.17085396682149520983@kernel.org>
+Content-Language: en-GB
+From: Xin Xie <xiexinet@gmail.com>
+Autocrypt: addr=xiexinet@gmail.com; keydata=
+ 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
+ sNySbH3veZ/55EtlXA==
+In-Reply-To: <179514132185.3136.17085396682149520983@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-nxpwifi_search_oui_in_ie() walks as many 4-byte cipher suites as the
-pairwise count in the RSN or WPA element of a beacon says, without
-checking the count against the element length. An AP can send a short
-element with a large count and make the walk read up to 1020 bytes past
-the end of the kmemdup()ed beacon buffer.
+On 20/11/2026 03:22, netdev-bot+sashiko@kernel.org wrote:
+> Can a plain veth slave still re-enter the xmit path of its own HSR master?
 
-Pass the number of element bytes available at the suite list and reject
-a count that does not fit, as commit e667aee1c192 ("wifi: mwifiex: bound
-the pairwise-cipher OUI walk to the IE length") did for mwifiex.
+Yes. The redirect case exists without the patch, and the commit message
+lists it as not covered. seqnr_lock has been held across the port
+transmit since 06afd2c31d33 and 430d67bdcb04. The patch refuses port
+types that make no sense as HSR/PRP ports, which covers the syzbot
+topology, as Sebastian suggested [1].
 
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
-Cc: stable@vger.kernel.org
-Signed-off-by: Paulneja <paulnejacontacto@gmail.com>
----
+> Would it be
+> better to stop holding seqnr_lock across dev_queue_xmit() in this fix,
+> instead of adding a denylist that the planned lock narrowing would
+> replace?
 
-Notes:
-    v2: shortened the commit message and dropped the Assisted-by tag, as Jeff
-    asked. No code change.
-    
-    An LLM was used to locate the bug and to draft the patch. I reviewed it by
-    hand against struct ie_body and struct ieee80211_vendor_ie and against the
-    mwifiex fix.
-    
-    Testing: no IW61x hardware here. The three functions were run verbatim in a
-    userspace harness under AddressSanitizer with a short RSN element and a
-    pairwise count of 255. It reports a heap-buffer-overflow read before the
-    patch and is clean after it. scan.o builds without warnings with W=1.
+Releasing seqnr_lock before the port transmit closes the whole class,
+but it can reorder frames for receivers without aae9d6b616b5 ("hsr:
+Implement more robust duplicate discard for HSR"). It is left to
+net-next, where Hangbin's patch [2] fits.
 
- drivers/net/wireless/nxp/nxpwifi/scan.c | 23 ++++++++++++++++++++---
- 1 file changed, 20 insertions(+), 3 deletions(-)
+> Could this hunk move into the GRO policy patch, or could a stable
+> dependency note be added?
 
-diff --git a/drivers/net/wireless/nxp/nxpwifi/scan.c b/drivers/net/wireless/nxp/nxpwifi/scan.c
-index 4eeba6700aa7..33779e21336b 100644
---- a/drivers/net/wireless/nxp/nxpwifi/scan.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/scan.c
-@@ -79,12 +79,20 @@ _dbg_security_flags(int log_level, const char *func, const char *desc,
- 
- /* Parse a WPA/RSN element and check whether its PTK list contains the OUI */
- static u8
--nxpwifi_search_oui_in_ie(struct ie_body *iebody, u8 *oui)
-+nxpwifi_search_oui_in_ie(struct ie_body *iebody, u8 *oui, int ie_len)
- {
-+	const size_t ptk_body_offset = offsetof(struct ie_body, ptk_body);
- 	u8 count;
- 
-+	/* ie_len is the number of element bytes available at iebody */
-+	if (ie_len < 0 || (size_t)ie_len < ptk_body_offset)
-+		return NXPWIFI_OUI_NOT_PRESENT;
-+
- 	count = iebody->ptk_cnt[0];
- 
-+	if (ptk_body_offset + count * sizeof(iebody->ptk_body) > (size_t)ie_len)
-+		return NXPWIFI_OUI_NOT_PRESENT;
-+
- 	/*
- 	 * PTK may contain multiple OUIs; iterate through the list and compare
- 	 * each one
-@@ -113,10 +121,13 @@ nxpwifi_is_rsn_oui_present(struct nxpwifi_bssdescriptor *bss_desc,
- 	__be32 oui = cpu_to_be32(cipher);
- 
- 	if (bss_desc->bcn_rsn_ie) {
-+		int ie_len = (int)bss_desc->bcn_rsn_ie->datalen -
-+			     RSN_GTK_OUI_OFFSET;
-+
- 		iebody = (struct ie_body *)
- 			 (((u8 *)bss_desc->bcn_rsn_ie->data) +
- 			  RSN_GTK_OUI_OFFSET);
--		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui);
-+		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui, ie_len);
- 		if (ret)
- 			return ret;
- 	}
-@@ -132,9 +143,15 @@ nxpwifi_is_wpa_oui_present(struct nxpwifi_bssdescriptor *bss_desc, u32 cipher)
- 	__be32 oui = cpu_to_be32(cipher);
- 
- 	if (bss_desc->bcn_wpa_ie) {
-+		/* data[] starts after the OUI and OUI type */
-+		int ie_len = (int)bss_desc->bcn_wpa_ie->vend_hdr.len -
-+			     (int)sizeof(bss_desc->bcn_wpa_ie->vend_hdr.oui) -
-+			     (int)sizeof(bss_desc->bcn_wpa_ie->vend_hdr.oui_type) -
-+			     WPA_GTK_OUI_OFFSET;
-+
- 		iebody = (struct ie_body *)((u8 *)bss_desc->bcn_wpa_ie->data +
- 					    WPA_GTK_OUI_OFFSET);
--		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui);
-+		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui, ie_len);
- 		if (ret)
- 			return ret;
- 	}
+No stable backport is requested for this series. The macvlan GRO check
+depends on patch 1 and makes no sense in a tree without it.
 
-base-commit: dcf495789037ab78d8ddf5844239cf85d92ac5f1
+[1] https://lore.kernel.org/netdev/20261014151838.6RyMIRVM@linutronix.de/
+[2] https://lore.kernel.org/netdev/20260805-hsr_deadlock-v1-1-d8a6f06fc5a8@kylinos.cn/
+
 -- 
-2.56.0
-
-
+Xin
