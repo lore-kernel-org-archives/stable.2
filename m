@@ -1,83 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.218.115.239
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795197363;
-	b=tmBlthxKZ29gvZq8L3MbJGWhX4j353g0Mh7Deg64KYWb+Or8UICyz0HfTkpFjf2cwuiz
-	 5UpcoXMxbQwk0HSBDzCNCMQ86EMVl7uc1+G47LbhIu5mSG2psy4QSF0bzxOgdt/RdlGkX
-	 4LaVRd9vB4qvYmzYD0iUJO0lyLnjB+3V78oGstfV70XPfA1aagwCgr+Xh/o8hqwLbFbhi
-	 1E2BEts66Dea3bgh0cBeCYv6POyAbRtAKcKoP7uEqxNTBmHZGTfT59N3RaeoDf1kjFbid
-	 qlndGUcHaNReHcvsIxcmusGwrz4BgUdNjfzfQLjnt+VKjxDoekdiB29T71CWastD/9w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795197363;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=TQA1t/z07MHDgwRvVNmYH44lQ4Hq2Vg1kB4U9sqhCnw=;
-	b=mdpOTA9KNfIYjerJY2sUZ7++cRlyAMvjC0131s6xHot5DRRDfLBhGsiwjXhKrbWlHgq6
-	 oxIJXc15qtmj4nUIycBAfxv2YaXIk1+LQ2+1l8PzeFo21CkACmSR+X8OYD5+YMAecIagd
-	 ffFAz6patzxpWloSnmITPqACGAwiJ0I9bnI2+JOpLgJdOujQN6MOEF+d/kGK4IYNvGHg4
-	 3eUlxsk5bphryoNmln202p9asstH4CBmBynqbVGECMW0DmgZhlkHjS3WwYnua5kBT9/sd
-	 r1amDtqbPlgjr2pJKr3VPyRze3Fy7jDT6Ustu0ntA2jz7nHsb9eQ6INke6kbgQy5S0w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.de;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=mCPGSUsy;
-	arc=none smtp.remote-ip=34.218.115.239
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.1
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795197800;
+	b=ZoQ4mdGL67mShA1gJmJTb8/FZh2JC3Asc+GwMoIFzgSPeP3bBJ7g7CaCJ2F8p2kzINpz
+	 NQl/E3tFtc4ncTcBL27d6neyeTOuhe8M26z202jW95S1HObHUAfFnCaz/04Lz8mmiQtiG
+	 +KQBFM8xX5Q0BlnXpKm1z05ZCPM/QFDSLpXdiealoNyYrywh0+lzr/v5m7N0AVhbhYcO3
+	 1Ao5hdc6koClnS6UYMrZBohGe8GP/Om1tVJ7A+coopbBmu0FfWKKQx13I8zWmk6gW49Oj
+	 Dg7qEphShk0WIq+C8hsLftcgumLDY6trYuF9yzBBNr0qUV6amhdtu/wmd/a4iXUnUEg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795197800;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ha1goxV1uznv7FYwU3jGyeseBGJWBh1KQjmGUUraPrg=;
+	b=iABb9eHpvTY+tHJqlZWo48Y/VA9i7H4CBNeHxPIbjfgboC3fnoORhjIxLZBthJ+BeOvo
+	 Ad6IvgpCiFpW2F1GZPd8OG74SN6LNQQb0lFpyiNfl5pFZsecVjKOnh6AWVzpyEV0iq4kI
+	 2l8zDR35PpUwJncMRw251a2DoM4bGDW1R+48O0dhJEWzclAHqi26XcaRRRsfs+x5sMuqh
+	 otD0/nrJWWk/zRJcnMONZDF+gVzxNHvxoafejh/ZpNxXNfECrty8pIxRZ1fecoQ5rPpBB
+	 3Ubg8AgMnnmFRCAGTnidDWsD+LDsdP/WnasZko9eayaVGhcMo51MVnLixe+m/ZL3/sQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=AwVRPTfw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.1
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011001.outbound.protection.outlook.com [40.107.130.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CAF606A829
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:55:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70CAF606A829
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256C160A2630;
+	Fri, 20 Nov 2026 18:03:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 256C160A2630
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=mCPGSUsy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1795197356; x=1826733356;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=TQA1t/z07MHDgwRvVNmYH44lQ4Hq2Vg1kB4U9sqhCnw=;
-  b=mCPGSUsyRqvKuyIuPszugivnKsRKOqPxVp8XRVhenoenP7zB1PytSiZU
-   +bT5vLHe9Rnc8YRK4wzSFz/LXHBCAdaX1b+ZRa+JM1j8kKmafgOMd5sVV
-   A3hY2WRTTW+F7Wt4QoeS3Gs+02d87nnGakjBgvZ8a3gq65kMnXj6UPKdA
-   9eYLcD1PIrG0SzmI1CFtnvhXHAhnkKhhWXT2Q6Iyv5ERmXaD8G/opz1Rp
-   1XAxW1+eGA2kucO/UrvPwCBmCG5O27fi/6unmGeRdDv92gtGzfT7sKutp
-   Y+SXdyW7N3oxWIG0FAcBQM8pP/FGPqZX0Mqyab9uwZt402B4RhBQd56/2
-   Q==;
-X-CSE-ConnectionGUID: UpktH0I7T8aEnCkIaCr1Hg==
-X-CSE-MsgGUID: I5c/bu4IRZ+paHbfnEBlrg==
-X-IronPort-AV: E=Sophos;i="6.27,223,1787011200"; 
-   d="scan'208";a="34516653"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 17:55:54 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:27920]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.50.116:2525] with esmtp (Farcaster)
- id c6b91c2e-d03d-4de0-bad7-700200c06897; Fri, 20 Nov 2026 17:55:53 +0000 (UTC)
-X-Farcaster-Flow-ID: c6b91c2e-d03d-4de0-bad7-700200c06897
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.57;
- Fri, 20 Nov 2026 17:55:53 +0000
-Received: from dev-dsk-gyokhan-1a-87ab81cc.eu-west-1.amazon.com
- (10.253.85.128) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=AwVRPTfw
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C2tvPmS3BxhoAsjFrYFwAO+CIwK3GIPNlhq1nUyLbkeQveHil+gCd2ZUvw2jz82yF9DW2fbtwth0H2dLacFUuYrKRmtyAvkCWbb2gVFE9ihhpnzXYJisXVRP86kB84kPZf2c3srHs5G4Su/pGBQ/Lilv1yrEhP9pjWp5FNQrWoiDlAfsgcDntabwaCygM+zMzURZ8rrNg7fakoCLcEnn2Z1u3KwMHFrrcOk5UhSiNVteLVycM+/xkfywa4zPsCnvzuviDy8wP2v/5u3MObVLE2wB2sH67Lrc/gm5uX/pLefs6lhdmWzsZ/+ZGwLX2+vzYXWN8cy7S6AJJb4qd8pK4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ha1goxV1uznv7FYwU3jGyeseBGJWBh1KQjmGUUraPrg=;
+ b=cK8RGv7dnbyIXgZ/Lo4176epTmTvpYPvKA1qwdmefjVVdm+DtrnCi2gy0n2NTmJMhM/jp1jAg5EnL6UAV7tbFo8D5ytFF/372hAOIJbY/73z0Fw3pl0dXTSpQIo9zIb4iXaJ8dMMMdrWE4X/NDgWoG3BtL+fALafoX5j3731r8vyVM8Le4QBOBVbeP7ep8FRAqDunqxpHc6Pufif+VvWlvL1sfUJFfI4/o+zZEBGzMhlDQQGuNiJ0sIJzGLFn7gUAQr6eKjE5KpaTQcNHxLsPLCu+mC+m1DHYcsOcNg0xq6Y3YvdlBbRW8SpX6/oILlaxKlYovEshn15MyrwZReoqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ha1goxV1uznv7FYwU3jGyeseBGJWBh1KQjmGUUraPrg=;
+ b=AwVRPTfw5iSjujgKZDdtDp/a/xLGvNXKDqK1kU9uMqX+ziHpyTLGt6AqUwxmG8FrLXUvJ7xySPYTAQST4Aakw/qh5V/DIOjjgW8lASP7r7sRJJOB+mFzfg+nNtd6AqIn5Mnr9Z2XC82YNNvdaltDj0YO99O94u9O861Frwrvbl5PCrzdAsRPqAM6oELnaU8mObz61dvMLmLC/DZ0/0j9uNUx9glA5tAuPdNl6dY/EfFiAz/tV/hVewdqww4Pc7/z5UIuKT+/NXBag/LNY86rMqwOMwFxnjv8OU1TElEcxixMT3rBUZgintV/MHc/lEBzhQJII+xxtoVCo255xOdqPg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by BR2PR04MB834250.eurprd04.prod.outlook.com (2603:10a6:2c8::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.57; Fri, 20 Nov 2026
- 17:55:51 +0000
-From: Gyokhan Kochmarla <gyokhan@amazon.de>
-To: <stable@vger.kernel.org>
-CC: Mike Rapoport <rppt@kernel.org>, Andrew Morton
-	<akpm@linux-foundation.org>, Uladzislau Rezki <urezki@gmail.com>,
-	<linux-mm@kvack.org>, Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina
-	<jikos@kernel.org>, Luis Chamberalin <mcgrof@kernel.org>
-Subject: [PATCH 6.18.y 2/2] mm/execmem: make sure ROX cache always contains multiples of PMD_SIZE
-Date: Fri, 20 Nov 2026 17:49:19 +0000
-Message-ID: <20261120174919.3789837-3-gyokhan@amazon.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261120174919.3789837-1-gyokhan@amazon.de>
-References: <20261120174919.3789837-1-gyokhan@amazon.de>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Fri, 20 Nov
+ 2026 18:03:07 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Fri, 20 Nov 2026
+ 18:03:07 +0000
+Date: Fri, 20 Nov 2026 12:02:57 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 3/4] dmaengine: stm32-dma3: validate LLI pool allocations
+ and fix cleanup
+Message-ID: <awCLUSCKqsBDF5g3@SMW015318>
+References: <20261120-dma3-fixes-v1-0-f29c1f437399@foss.st.com>
+ <20261120-dma3-fixes-v1-3-f29c1f437399@foss.st.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261120-dma3-fixes-v1-3-f29c1f437399@foss.st.com>
+X-ClientProxiedBy: PH8P223CA0001.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:2db::32) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,290 +101,166 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|BR2PR04MB834250:EE_
+X-MS-Office365-Filtering-Correlation-Id: 40f0cc9a-0a5a-47be-7b88-08df473087cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|23010399003|7416014|376014|366016|18002099003|22082099003|261009223027099003|6133799003|56012099006|11063799006|10067099003|4143699003|261102124527099003|261102123227099003|261026121527099003|261022075727099003|261026140227099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	1jXf84XSfQNRoC1DbcSdaltwe3ePAKv2RcwfSyL+nLExlGjJjkYvo22fmcSJ3Nem1q96jGelQ1iczeawWWHX3VOLZZXre5leMX4JjVJSPBJYMAMr+o1BcyM7DM0yF6JKZiHnGC4jmgE+LoxvZCb6PJ610VPgxsFraQUVu72f+0b7fAhfqXz2TO5lmOmfDUdkFmIBgV5Uapocfns0mNO+VBFd+BoPt28rCedQAwvLMTsSsg3oxgdWbkYoppO7IGJ5vln3+vV/74S6T+pjzRHW0v7/6B/TZepX+SLefBV+m0GAOM52jOHT+RDiePj+rDbxbTiiDZzTNslbGhg8EwBMQhK7uITGGadEnla6qnE1DHvzcnRW+pHyxnXvqlMCKoyWcfSWwH5wVsSsZ3chr9ZsreaTk1RhNvzOmBZcOArusSf9R9xNBpcCSG/A8WN89c+wxW5jBTWmsVi8ME9Y4KFgVhVhQ0e+YQSpL2nmt+3/8zn1H/1xxjMEX7Bc2M9v24+Adv8qQzHbitYMP4abDortVAqnO/LIiNUhp0Mem7PZkcUHlIq8op+XDPd1rsSaAM800z9ekKLaqqWkARtSycl+2oBjQFfKzBRG3l+FUxfvgl6PS1epRpc6NYL+g59j2jTt6Wkv2J0vjLOAw8MPSiZjCh+N3c6MnuWmLHGU/vlKdzc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(23010399003)(7416014)(376014)(366016)(18002099003)(22082099003)(261009223027099003)(6133799003)(56012099006)(11063799006)(10067099003)(4143699003)(261102124527099003)(261102123227099003)(261026121527099003)(261022075727099003)(261026140227099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?nu0x8FYE4uO8Ekvk4fvK9wgzCFtaIEfpElSKoZQ+o72exA4TZ5VAvEcjUmCH?=
+ =?us-ascii?Q?ULmaSylYbI+py77WAf8xIO0YzzEPX9vES8xS77+zL6klWi9Ak8Jit/159E6b?=
+ =?us-ascii?Q?ahqENakPRHmzOeOqnuwbGRQLIoAf7IQjAHQgh+IFQLrQQXzA+Xz7wtvDO3Wy?=
+ =?us-ascii?Q?sqlRfq6OD+yoChjrCEHBB0ZWgYqAAgBuvlJ30vlEGA8otwtRHXvdxOJgQ/zz?=
+ =?us-ascii?Q?0TRw7br8hcZ5P1DnefFRCHYFXruhwgXzo1xUVkKUuUiNXpScKPLPaoy6RCV+?=
+ =?us-ascii?Q?GnSb74MSTx9XBqZNtdxemobk9JL/ShcvYMD/tMd9M/CuDsN2A+VKqZi00DjA?=
+ =?us-ascii?Q?OcG+RF9IXgKlWX3YG7iOnFJZknjr3404FLKjYSaOf8Frf3oiVoBLnammR7Y8?=
+ =?us-ascii?Q?VI5Xb/IK/YL/l1UinRE/zYHKQpSzhWuN2qML/TTnNvQ5fiQzBry1AwvjxtlA?=
+ =?us-ascii?Q?faXi1lxUwmqgqMC85nzCsYHCqTBBfEjwbcAZw48E5Eq9cZgft/ZYZDq1gfaF?=
+ =?us-ascii?Q?PTG2ND8gIgtOP2AcxmlYrCgL9q9pR5hhUPqWo4AIksEgT9pNVNYMlRinaBIR?=
+ =?us-ascii?Q?QxtQksZZmYTLY1UXdAGcF/+ncNjwwCv0TUwNnHwxQh6eYhDoHoIufuNow5S+?=
+ =?us-ascii?Q?wZqKQF/6rWcIh1+azRspB1J4SKpU1xiILzoD0mmm9TD2SjP4vXVrO7CChsN8?=
+ =?us-ascii?Q?9963X9mj4gNF41rnulJHEL2R/7lqJaN6L4NcHcuBXdFUQo/iF/l8XBd9YITs?=
+ =?us-ascii?Q?jsFUgapLIkK0k1KDOvCkbaoCtjkt9tbde2OGEhgQI+y/sSN9ay6saAWKP/hd?=
+ =?us-ascii?Q?ui2sIpH+zXkO4EfFiMl1xK+T5YC/JOygg+J0i7LdgBEfboSM1S/ouXYrVsJG?=
+ =?us-ascii?Q?ask0cjG/8STfZ7FBMBsRU1lw0KjVZJ3ojSgxi3aohhFyEhZadP6Dyhe20+V+?=
+ =?us-ascii?Q?wS0bRQgn2y6k4TNO9O14GhDa2QkkjXo/qxYJlMratYtZaa53QNhIfYRvIWrk?=
+ =?us-ascii?Q?J7uJKdLz+ry52mjnclAcQVbkVu0WfvG1zMt9Dp09DFEVWEWYS1OPfKrcEMtg?=
+ =?us-ascii?Q?Q20IDQuWNxc/QBd1UsH5ix82I7IEeLZhGXgGjd790RDYW8uxChGTFj0Tuc6Z?=
+ =?us-ascii?Q?v0vTa6Mv/2/fKAoSJLDvdj98RkqYTNaMkwsx7q9tafj2BzxIMBhnY0cXYJs1?=
+ =?us-ascii?Q?MC8w5dMQDNsAPsNmO9uQhsOLA0BFbjGkWA++N/S2av3Kcz8ue7CzZUghU9fG?=
+ =?us-ascii?Q?VYn+dDyJ+Brc42qppWXIzA4yAhHFjsWfL3Hg2EiDCKd7dny8a8hSUcO7QENO?=
+ =?us-ascii?Q?YG/AQ2tMdkwMSH7e176Qbxo6Cjd96hmosPuhUlOMDstnVnT7GaAJDP8hHt4K?=
+ =?us-ascii?Q?2mdgpoGDctY7LvxjPSE1bBuLWD4aCEBrCNnRytS7WRjWeTWxmjqp4CeJkWDn?=
+ =?us-ascii?Q?MrD6LdjVdX6Gk8AFjw0un9qizLWzhnpbZdL2xQHNqEAyyxi8kPJcXiUcV4Bz?=
+ =?us-ascii?Q?cBCgFGC8bmrQHMNPdr6yAnRnDTM/eWSo9NcAC402XtKww9frfP7vnvChS2c9?=
+ =?us-ascii?Q?FJi7fFmQ1ZTsbpzL2L5MKawjyaFlVshYj4U/dusraro+5RNBSJ/l+VwotEjV?=
+ =?us-ascii?Q?ciw327ynh3dHlZYq7b1umU5BHBE/VfRvMQI5LExCiM5wHg+6YrJA5xoeujZu?=
+ =?us-ascii?Q?k+47Hg7rgJ5jXP1T5v/5iB5bi3/Py5bysmPpKuwtFyGpz5YSmJgNVH9tzEJq?=
+ =?us-ascii?Q?HowoUnSsuPB189pnKzmeXMbP7MMhbhydy0uyA/eh1jNqCaI+uW9c?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40f0cc9a-0a5a-47be-7b88-08df473087cf
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 18:03:07.4441
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eQGsJ2fbR+cY+oOrAmFUyMoYqRpvForlmA8kjxHAEJcdpDIrkM7yESF/KtEhRWNqdOoVV7eCs5UP1vcRug2icRyEcpCvC6ic0PUtirM7mzGDlTwa3P44AKueaLvTUvXe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR2PR04MB834250
 
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+On Fri, Nov 20, 2026 at 10:18:03AM +0100, Amelie Delaunay wrote:
+> All descriptors in a linked list must share the same 64 KiB address
+> window because CLBAR provides the common upper address bits. The DMA pool
+> boundary only constrains individual allocations, not the whole list, so
+> descriptors in a single list may be allocated from different pool pages in
+> different windows.
 
-commit 569db54d8b7a4ec463a62c444de0d6f5f10e9dc1 upstream.
+/**
+ * dmam_pool_create - Managed dma_pool_create()
+ * @name: name of pool, for diagnostics
+ * @dev: device that will be doing the DMA
+ * @size: size of the blocks in this pool.
+ * @align: alignment requirement for blocks; must be a power of two
+ * @allocation: returned blocks won't cross this boundary (or zero)
 
-The ROX cache relies on its chunks being PMD mapped.  For a PMD mapped
-chunk, set_memory_rox() updates the direct map alias one PMD at a time and
-the large mappings there survive.
+suppose you can set allocation to 64K to avoid cross 64K boundary.
 
-When execmem refills the cache, it rounds up the requested allocation size
-to PMD_SIZE and tries to allocate that with vmalloc(VM_ALLOW_HUGE_VMAP).
-If that allocation fails, execmem falls back to vmalloc() of the original
-size.
+ *
+ * Managed dma_pool_create().  DMA pool created with this function is
+ * automatically destroyed on driver detach.
+ *
+ * Return: a managed dma allocation pool with the requested
+ * characteristics, or %NULL if one can't be created.
+ */
+struct dma_pool *dmam_pool_create(const char *name, struct device *dev,
+				  size_t size, size_t align, size_t allocation)
 
-There are two issues with this approach:
-* If huge pages are not available, __vmalloc_node_range() silently falls
-  back to base pages. The area execmem gets is virtually contiguous, but it
-  is backed by 512 scattered base pages.
 
-  Permission updates on such areas split large mappings in the direct map
-  that contain those base pages, up to 512 PMD splits in the worst case.
+Frank
 
-* execmem's own fallback adds a small base page mapped area to the cache.
-  This adds the overhead of cache management to these allocations with no
-  benefit of reducing fragmentation either in the vmalloc/modules address
-  space or in the direct map.
-
-  Worse, these areas are never freed from the cache, because
-  execmem_cache_clean() releases only chunks that are a multiple of
-  PMD_SIZE and aligned to PMD_SIZE, exactly to minimize the number of base
-  page mappings.
-
-Add VM_REQUIRE_HUGE_VMAP option to vmalloc that fails if the allocation of
-huge pages fails or if such an allocation is not possible because huge
-page allocations in vmalloc were disabled or the architecture does not
-support them.
-
-Use this option when populating the ROX cache.  If
-vmalloc(VM_REQUIRE_HUGE_VMAP) fails or vmalloc of huge pages is
-unavailable, handle the memory allocation outside the ROX cache with plain
-vmalloc().
-
-Since the fallback allocation has to return ROX memory, add an
-execmem_alloc_rox() helper and use it for both populating the ROX cache
-and dealing with a fallback allocation in a ROX execmem_range.
-
-With that, the cache only ever contains PMD aligned chunks sized as a
-multiple of PMD_SIZE, and the PMD checks in execmem_cache_clean() become a
-VM_WARN_ON_ONCE() to ensure that the PMD mapping invariant does not
-change.
-
-Link: https://lore.kernel.org/20260903-execmem-rox-cache-pmd-v1-v1-3-11beb2a3d249@kernel.org
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: copilot:claude-opus-5
-Cc: Benjamin Tissoires <bentiss@kernel.org>
-Cc: Jiri Kosina <jikos@kernel.org>
-Cc: Luis Chamberalin <mcgrof@kernel.org>
-Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
-[ 6.18: 4c4b2ed5b783 ("mm/execmem: use VM_FLUSH_RESET_PERMS for ROX cache
-  allocations") and its prerequisite set_area_direct_map() changes are
-  absent, so 6.18 still restores the direct map of cache chunks with
-  execmem_set_direct_map_valid(). Keep that handling for cache chunks:
-  execmem_vmalloc_rox() does not call set_vm_flush_reset_perms(), and the
-  populate error path still restores the direct map before vfree().
-  The uncached fallback is freed by plain vfree(), so execmem_alloc_rox()
-  passes VM_FLUSH_RESET_PERMS, matching the non-ROX execmem_vmalloc() path.
-  In mm/vmalloc.c only the kerneldoc context differs; the code hunks are
-  identical to upstream. ]
-Signed-off-by: Gyokhan Kochmarla <gyokhan@amazon.de>
----
- include/linux/vmalloc.h |  1 +
- mm/execmem.c            | 77 +++++++++++++++++++++++++----------------
- mm/vmalloc.c            | 15 +++++++-
- 3 files changed, 62 insertions(+), 31 deletions(-)
-
-diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
-index 380dcc5a470e..f8f3cb2dafab 100644
---- a/include/linux/vmalloc.h
-+++ b/include/linux/vmalloc.h
-@@ -38,6 +38,7 @@ struct iov_iter;		/* in uio.h */
- #define VM_DEFER_KMEMLEAK	0
- #endif
- #define VM_SPARSE		0x00001000	/* sparse vm_area. not all pages are present. */
-+#define VM_REQUIRE_HUGE_VMAP	0x00002000	/* huge page mapping or nothing */
- 
- /* bits [20..32] reserved for arch specific ioremap internals */
- 
-diff --git a/mm/execmem.c b/mm/execmem.c
-index cce6a2ac66b4..be9b4e5ea37a 100644
---- a/mm/execmem.c
-+++ b/mm/execmem.c
-@@ -50,7 +50,8 @@ static void *execmem_vmalloc(struct execmem_range *range, size_t size,
- 	}
- 
- 	if (!p) {
--		pr_warn_ratelimited("unable to allocate memory\n");
-+		if (!(vm_flags & VM_REQUIRE_HUGE_VMAP))
-+			pr_warn_ratelimited("unable to allocate memory\n");
- 		return NULL;
- 	}
- 
-@@ -167,10 +168,9 @@ static void execmem_cache_clean(struct work_struct *work)
- 		struct vm_struct *vm = find_vm_area(area);
- 		size_t size = mas_range_len(&mas);
- 
--		if (vm && get_vm_area_size(vm) == size &&
--		    IS_ALIGNED(size, PMD_SIZE) &&
--		    IS_ALIGNED(mas.index, PMD_SIZE)) {
--			struct vm_struct *vm = find_vm_area(area);
-+		if (vm && get_vm_area_size(vm) == size) {
-+			VM_WARN_ON_ONCE(!IS_ALIGNED(mas.index, PMD_SIZE) ||
-+					!IS_ALIGNED(size, PMD_SIZE));
- 
- 			/*
- 			 * Preallocate to ensure mas_store does not fail
-@@ -288,36 +288,41 @@ static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
- 	return execmem_cache_alloc_locked(range, size);
- }
- 
--static void *execmem_cache_populate_alloc(struct execmem_range *range, size_t size)
-+static void *execmem_vmalloc_rox(struct execmem_range *range, size_t size,
-+				 unsigned long vm_flags)
- {
--	unsigned long vm_flags = VM_ALLOW_HUGE_VMAP;
--	struct mutex *mutex = &execmem_cache.mutex;
--	struct vm_struct *vm;
--	size_t alloc_size;
--	int err = -ENOMEM;
--	void *p;
--
--	alloc_size = round_up(size, PMD_SIZE);
--	p = execmem_vmalloc(range, alloc_size, PAGE_KERNEL, vm_flags);
--	if (!p) {
--		alloc_size = size;
--		p = execmem_vmalloc(range, alloc_size, PAGE_KERNEL, vm_flags);
--	}
-+	void *p = execmem_vmalloc(range, size, PAGE_KERNEL, vm_flags);
-+	int err;
- 
- 	if (!p)
- 		return NULL;
- 
--	vm = find_vm_area(p);
--	if (!vm)
--		goto err_free_mem;
--
- 	/* fill memory with instructions that will trap */
--	execmem_fill_trapping_insns(p, alloc_size);
-+	execmem_fill_trapping_insns(p, size);
- 
--	err = set_memory_rox((unsigned long)p, vm->nr_pages);
-+	err = set_memory_rox((unsigned long)p, size >> PAGE_SHIFT);
- 	if (err)
- 		goto err_free_mem;
- 
-+	return p;
-+
-+err_free_mem:
-+	vfree(p);
-+	return NULL;
-+}
-+
-+static void *execmem_cache_populate_alloc(struct execmem_range *range, size_t size)
-+{
-+	unsigned long vm_flags = VM_REQUIRE_HUGE_VMAP;
-+	size_t alloc_size = round_up(size, PMD_SIZE);
-+	struct mutex *mutex = &execmem_cache.mutex;
-+	int err;
-+	void *p;
-+
-+	p = execmem_vmalloc_rox(range, alloc_size, vm_flags);
-+	if (!p)
-+		return NULL;
-+
- 	/*
- 	 * New memory blocks must be allocated and added to the cache
- 	 * as an atomic operation, otherwise they may be consumed
-@@ -336,12 +341,16 @@ static void *execmem_cache_populate_alloc(struct execmem_range *range, size_t si
- 
- err_reset_direct_map:
- 	mutex_unlock(mutex);
--	execmem_set_direct_map_valid(vm, true);
--err_free_mem:
-+	execmem_set_direct_map_valid(find_vm_area(p), true);
- 	vfree(p);
- 	return NULL;
- }
- 
-+static void *execmem_alloc_rox(struct execmem_range *range, size_t size)
-+{
-+	return execmem_vmalloc_rox(range, size, VM_FLUSH_RESET_PERMS);
-+}
-+
- static void *execmem_cache_alloc(struct execmem_range *range, size_t size)
- {
- 	void *p;
-@@ -469,6 +478,11 @@ static void *execmem_cache_alloc(struct execmem_range *range, size_t size)
- 	return NULL;
- }
- 
-+static void *execmem_alloc_rox(struct execmem_range *range, size_t size)
-+{
-+	return NULL;
-+}
-+
- static bool execmem_cache_free(void *ptr)
- {
- 	return false;
-@@ -478,17 +492,20 @@ static bool execmem_cache_free(void *ptr)
- void *execmem_alloc(enum execmem_type type, size_t size)
- {
- 	struct execmem_range *range = &execmem_info->ranges[type];
--	bool use_cache = range->flags & EXECMEM_ROX_CACHE;
-+	bool use_rox_cache = range->flags & EXECMEM_ROX_CACHE;
- 	unsigned long vm_flags = VM_FLUSH_RESET_PERMS;
- 	pgprot_t pgprot = range->pgprot;
- 	void *p = NULL;
- 
- 	size = PAGE_ALIGN(size);
- 
--	if (use_cache)
-+	if (use_rox_cache) {
- 		p = execmem_cache_alloc(range, size);
--	else
-+		if (!p)
-+			p = execmem_alloc_rox(range, size);
-+	} else {
- 		p = execmem_vmalloc(range, size, pgprot, vm_flags);
-+	}
- 
- 	return kasan_reset_tag(p);
- }
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 60025b682bc0..747fade971a5 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -3844,6 +3844,12 @@ static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
-  * Map them into contiguous kernel virtual space, using a pagetable
-  * protection of @prot.
-  *
-+ * %VM_ALLOW_HUGE_VMAP allocates huge pages when possible and falls back to
-+ * base pages if huge page allocation fails.
-+ *
-+ * %VM_REQUIRE_HUGE_VMAP implies %VM_ALLOW_HUGE_VMAP and fails instead of
-+ * silently falling back to base pages.
-+ *
-  * Return: the address of the area or %NULL on failure
-  */
- void *__vmalloc_node_range_noprof(unsigned long size, unsigned long align,
-@@ -3867,6 +3873,10 @@ void *__vmalloc_node_range_noprof(unsigned long size, unsigned long align,
- 		return NULL;
- 	}
- 
-+	/* VM_REQUIRE_HUGE_VMAP implies VM_ALLOW_HUGE_VMAP */
-+	if (vm_flags & VM_REQUIRE_HUGE_VMAP)
-+		vm_flags |= VM_ALLOW_HUGE_VMAP;
-+
- 	if (vmap_allow_huge && (vm_flags & VM_ALLOW_HUGE_VMAP)) {
- 		/*
- 		 * Try huge pages. Only try for PAGE_KERNEL allocations,
-@@ -3883,6 +3893,9 @@ void *__vmalloc_node_range_noprof(unsigned long size, unsigned long align,
- 		align = max(original_align, 1UL << shift);
- 	}
- 
-+	if ((vm_flags & VM_REQUIRE_HUGE_VMAP) && shift == PAGE_SHIFT)
-+		return NULL;
-+
- again:
- 	area = __get_vm_area_node(size, align, shift, VM_ALLOC |
- 				  VM_UNINITIALIZED | vm_flags, start, end, node,
-@@ -3956,7 +3969,7 @@ void *__vmalloc_node_range_noprof(unsigned long size, unsigned long align,
- 	return area->addr;
- 
- fail:
--	if (shift > PAGE_SHIFT) {
-+	if (shift > PAGE_SHIFT && !(vm_flags & VM_REQUIRE_HUGE_VMAP)) {
- 		shift = PAGE_SHIFT;
- 		align = original_align;
- 		goto again;
--- 
-2.50.1
-
+>
+> Check each descriptor's base address and reject lists that span multiple
+> windows, instead of letting the hardware fetch descriptors from wrong
+> addresses. Track the last allocated entry so that the error path frees
+> exactly the descriptors that were allocated, including the one that
+> failed the window check.
+>
+> While at it, simplify the ccr initialisation, which is functionnaly
+> equivalent to the previous code.
+>
+> Fixes: f561ec8b2b33 ("dmaengine: Add STM32 DMA3 support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> ---
+>  drivers/dma/stm32/stm32-dma3.c | 31 ++++++++++++++++++++++++++-----
+>  1 file changed, 26 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/dma/stm32/stm32-dma3.c b/drivers/dma/stm32/stm32-dma3.c
+> index a056f73fbe02..7c509a69f5e5 100644
+> --- a/drivers/dma/stm32/stm32-dma3.c
+> +++ b/drivers/dma/stm32/stm32-dma3.c
+> @@ -397,7 +397,8 @@ static void stm32_dma3_chan_dump_hwdesc(struct stm32_dma3_chan *chan,
+>  static struct stm32_dma3_swdesc *stm32_dma3_chan_desc_alloc(struct stm32_dma3_chan *chan, u32 count)
+>  {
+>  	struct stm32_dma3_swdesc *swdesc;
+> -	int i;
+> +	int i, last_alloc_idx = -1;
+> +	dma_addr_t base_addr = 0;
+>
+>  	/*
+>  	 * If the memory to be allocated for the number of hwdesc (6 u32 members but 32-bytes
+> @@ -419,18 +420,38 @@ static struct stm32_dma3_swdesc *stm32_dma3_chan_desc_alloc(struct stm32_dma3_ch
+>  							&swdesc->lli[i].hwdesc_addr);
+>  		if (!swdesc->lli[i].hwdesc)
+>  			goto err_pool_free;
+> +
+> +		last_alloc_idx = i;
+> +
+> +		if (i == 0) {
+> +			base_addr = swdesc->lli[0].hwdesc_addr & CLBAR_LBA;
+> +			continue;
+> +		}
+> +
+> +		/*
+> +		 * dma_pool boundary=SZ_64K only guarantees that one allocation does not span a 64KB
+> +		 * boundary. It does not guarantee that all allocations of a given linked-list land
+> +		 * in the same 64KB address window required by CLBAR/CLLR addressing.
+> +		 */
+> +		if (base_addr != (swdesc->lli[i].hwdesc_addr & CLBAR_LBA)) {
+> +			dev_err(vchan_chan_dev(&chan->vchan), "LLI crosses a 64KB window (%pad)\n",
+> +				&swdesc->lli[i].hwdesc_addr);
+> +			goto err_pool_free;
+> +		}
+>  	}
+> -	swdesc->ccr = 0;
+>
+>  	/* Set LL allocated port */
+> -	swdesc->ccr &= ~CCR_LAP;
+> +	swdesc->ccr = FIELD_PREP(CCR_LAP, 0);
+>
+>  	return swdesc;
+>
+>  err_pool_free:
+>  	dev_err(vchan_chan_dev(&chan->vchan), "Failed to alloc descriptors\n");
+> -	while (--i >= 0)
+> -		dma_pool_free(chan->lli_pool, swdesc->lli[i].hwdesc, swdesc->lli[i].hwdesc_addr);
+> +	while (last_alloc_idx >= 0) {
+> +		dma_pool_free(chan->lli_pool, swdesc->lli[last_alloc_idx].hwdesc,
+> +			      swdesc->lli[last_alloc_idx].hwdesc_addr);
+> +		last_alloc_idx--;
+> +	}
+>  	kfree(swdesc);
+>
+>  	return NULL;
+>
+> --
+> 2.43.0
+>
