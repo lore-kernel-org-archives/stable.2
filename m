@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795133257;
-	b=IMlV4TwLBc0OU1G3cZd5C4/jlzpQAIE22WhP54mbMA1F/T4H3VlvzU3Z/VBvxqfLJCMB
-	 wGFBsx6uPx6rlQ50c/+72w492YdkldWUWmHBrXRfpnISlBlC6NOFzmEexhsKB9GqvurNY
-	 oWo6nNnDYRaJ0XEp4RVlLH+qky5FtNdidDQg1krmyE0a57x4SpPgTJzEnHUNNzgQtFNbl
-	 3mA/nyYi4Bf8IqJFG+2JQSXaxhI0NH1CQ9PgJIxppCkKXXp+OmvNkB1FFq7DeXJdUZal7
-	 d/3EtFjWqsYVD/fx33zBD91hyDfFDnlrk8jC2hcT0JmLm923dVTjGoiXeKbwodi4t2g==
+	t=1795133258;
+	b=xHWsLGLMl8SWP6+MQLZvEL7bF4XTyvTA75AbvV+xy7FkMefeQ/wcFUdo7Lh9G00rfiYe
+	 4bHzektj8dojREKofIuGT0WthocTOE6IiCp49SL/AVxMsBOxELczsFr1jab5a6FEHcdk8
+	 RqIZjb+WqZIHuLZ8mARRU307wuotf81ut9RIk9+Tj7meCqvgDEaU/rPsBef8/utip0lnZ
+	 FTQYau6EesFhpiiCNJkEfbQujkDm/3dquQrRQgXz01M9oXCe8fkAj1cYP90g5onIcZKeS
+	 Vvg7Ex7gElBouCSPGrS+03FEvNgRfLeGQEHoXMZ4QylYSg3+iM9SGz0NOeNHdycEGAQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795133257;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795133258;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=L9l4FZ5LL/w8As/C818xoov7mkgGSGnX0m7j2Tu08A8=;
-	b=GihNG6tFMLq53bLcPnQGhufVdCfVNPoD30cDB79nPWAZGJurK5EFz3+pAtPQwzINxc1c
-	 Yn7mQnnf9Gs8R8kQaP7/gfu6ynqYwUPcrJzJ4V7NiGbGS6jpyAJlvzum8Rnvs5/A3F2Lm
-	 idM2xkzfJ0TcndYt5fUSoh2S/UsHkWMtYoZhZQ/mTLML0oprqqytyOyWRMlxA6o4ACd81
-	 /Hrkl15aI3pACyky3XZm0RzpumGcxw5a6swYGLpJ4NMjP0z3wDMKiimMtiRFdxEnVVrtg
-	 VHtXQq75e6vM23+GLINlT43PlL1jjLbew7OGVgVrWctQHOf/sWk3fgsxCk3m+Wzj06w==
+	bh=5v8xvvHg/zQOw7ubDKmkCpyQDBYHm31ESItRML/0yR8=;
+	b=k7ujpuK1MdH4nvFQw13yFJfNN6oDan5X/cop6hgaVnhVvJuhbbRaQbS+fJSLXdKdxuh1
+	 K/8F6gtDzuejOLxrO+X9kJ949oIpkmJfGR9zXqf2PfettyQXPAZeH/+zG3qS98Anu0NrI
+	 umezNIey0YYf6m8eGgaHObPRBYAF5Bi75vM45xMZkRqdvxovVvr0SKPQMETZthlY/jUzA
+	 FT/UKaMgBTkx4rctE6sk/MNu9ThisuwWCUtlcKjL1UvZy9cJMYP98GvLsfrvkEZGtIal/
+	 0cgpN2bsUWAY/r1oawNv2tz4aAugYTCUKIUIm8b+KP2ir0bbEXb1Lk1LCefx7mdo07w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WhM3PsPV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CMDg7yhW;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6344B60A2620;
-	Fri, 20 Nov 2026 00:07:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6331660A3814;
+	Fri, 20 Nov 2026 00:07:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WhM3PsPV
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CMDg7yhW
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795133257;
-	b=duZQxZ6lkwYKjGgBp30dlhR4dmP9NIGQ3u00ik7WdtNdG06YKk6Gr+M1n82GGlv4ZNcm
-	 3vi5mhDKrqnWwC1wHaxWlJWqZSjxxC9Xq9KU+l/iBbOrSmMIdNk/fpy5MMYciXUJI8aPR
-	 b2+2WYX019Z0Val+OlRxtrglUJjUgaoPjQhWkckUGW6pMJjEYEhRuvJAE7fpgVPWA+YLt
-	 8eG5nvQuJl3H227Em/g+JGKKJLTORVj1ooH+xXYUFsLTq/1Wep6lB6Lkti8g3ydkVLWAz
-	 LfbA0eSfzJj4zpxXaAHU3D4GoEfEb/XJ+7lr+Kwqaewy0glmKhMiFf4XXSI/rVLhSFQ==
+	t=1795133258;
+	b=r2FYL55Lb84Juhh/msDNvbnEXyCCd9Fy/EIke8ckLFBG4lJ0Z+S5SMk01EVFnmjFlsL1
+	 ijRD03GS1sYi1hHZeb6EVbDQM7UOs6CIGU2iXfC9FChLDmWGlKiwoWt5C9DvHxbr6Pnsb
+	 I704wR72KNBlmUatEUp+qHcPYMgC7dcfZ2IyvptbaqxPOxIN8DudgdHOi7RQTci5OrBVf
+	 E/xCxwSDjchha/SXUGvIPQW5AN+ygFICeXRPWIzXSBgnsJX948qM9I/TILGtH3SJrleUA
+	 5IxZkctHIA/CD4xo7vvmn2KZUESMikL4LxDLV6IDx9cHnGi0kixiIGj5e56Joldhcuw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795133257;
+	c=relaxed/relaxed; t=1795133258;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=L9l4FZ5LL/w8As/C818xoov7mkgGSGnX0m7j2Tu08A8=;
-	b=Dk4z0UkwPRR9ccxDH4KdL1Z81FtVcZG7Dv9N0sfw8DYXO6W2AEEBM2htcEti/HX7E1LR
-	 hZs9pRmSni5A1ohFCGBCpcTc1DCJAhnKtEbXXE49y5Xzp5/WSauOJ8TqeXAt9o+H1U2LZ
-	 R+NM+OxWsu+7r2fW8rSDPmPT4Vr4IBUQLCbTVfbS+51fXjHIXN5NpIN+lM73rxQTLcZtj
-	 MubqnmpMmxEqSHkxd1bJUXbPbsx1H/SEyy6uY3b/mveWJlt6ply37mXymjo4wJVd8WRID
-	 KECz66JBK+oNBcdZKfP2Bgcryw8Eu9BwhXAE9EtCvMw2hlqdVmiUrF0TO8Z1aj+YhQQ==
+	bh=5v8xvvHg/zQOw7ubDKmkCpyQDBYHm31ESItRML/0yR8=;
+	b=f6OHxfDQ0MBgu6os2Se+QgD1RXCJFjtcoV47nMPZi7a3k4JECD5v1iGJ3j979VYx0cz6
+	 chwKE9YLq4fNhLW84VbVi3Eqd6jk4k/aCwZTOvIOPNqj4xV6fk5a7YL8GadivxyoCreav
+	 xM+CJ/Fs1ZG/xXDfWoWoDe91KxBpd8dds7hcSms2+F57ezyFLx3xJFdh8e72LS8A/+I/l
+	 YE6slEObXweIGJWXjgElHAKsdUsnPBmSflNYjOnA3cZognUKNgWDdUlqKKHLVl2XOYkUh
+	 gctTPkXltJUYJXvkz3zYWW7Yv2xXO8G4n0fbjQdboDL6QuZUOqhDBCRnGtXPcfBs/lA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3C73B1F000D0;
-	Fri, 20 Nov 2026 00:07:36 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 187811F000C4;
+	Fri, 20 Nov 2026 00:07:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795133257;
-	bh=L9l4FZ5LL/w8As/C818xoov7mkgGSGnX0m7j2Tu08A8=;
+	s=k20260515; t=1795133258;
+	bh=5v8xvvHg/zQOw7ubDKmkCpyQDBYHm31ESItRML/0yR8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WhM3PsPVscBFdaBQIcaZK+xDAFOnz54xytAnSa93Y+IwnwiVFP6hM+rmmHDczO0ow
-	 p+2cRQp26KOvgow40JD50Z/P3FwMe8tcFy4iQtI3sBFJyyJLVMPCS6OjYVYdRKNAnc
-	 btavZYWH/sSXHiBTWKpb4p7oX004JY7kAqijBYI7H4u8ISENI1m3W+3F6Kgr9bCCw3
-	 YRROdEZgqToPSgVJHvNCz47jyWlbEewvzO9PIOvUPH+IYRo9xNJx+FGQJ7g2ypCRc8
-	 L4qFKa92TXBdTScBhG9FuwAT8pe8fVEz++WGIfD1+HA1g/wfZzyk0SwO0ujvCLEr4Q
-	 ksCPDMgMzYqOw==
+	b=CMDg7yhWNLa0w7yfxIl6n63U9OVcYcLnDWGZWbn6wWIvOxXvHnyHUTD8c8pibTrJs
+	 9tqpuimu8cRdR+xPPNTxhh+ltDPQF1fysLwbtOv7kLYPQWc5aYw24KT6ZUlSa0/S1G
+	 duKEtJG1BgcHF0ZrF+LNA+ExbFs9e5kCEQSdCyG6lxAu4o2+grZIRh8guNHD9ijNpn
+	 EHNO30LKg01q2w3pqyD/f9gwnLgim5v0wX/3CxjgkKsVbSAGga9zR7yD9ISHEdpSEn
+	 TdlaEkF7DD1tnkndRbQQVXVQAbqPLmEeOHfPfGAOATL4+MSuPDVulf+/4oBvyNcK1X
+	 a/kgkKrZSMDyA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BE7F9424E8;
+	by lkml.kernel.org (Postfix) with ESMTP id D8E5E424EE;
 	Fri, 20 Nov 2026 00:07:35 +0000 (UTC)
 From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Thu, 19 Nov 2026 19:07:26 -0500
-Subject: [PATCH v3 04/11] leds: rgb: ktd202x: Fix a division by zero with
- long blinks
+Date: Thu, 19 Nov 2026 19:07:27 -0500
+Subject: [PATCH v3 05/11] leds: rgb: ktd202x: Keep the unlit colors of a
+ blinking LED off
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-ktd202x-et6326-v3-4-98b836b1cddc@telaak.dev>
+Message-Id: <20261119-ktd202x-et6326-v3-5-98b836b1cddc@telaak.dev>
 References: <20261119-ktd202x-et6326-v3-0-98b836b1cddc@telaak.dev>
 In-Reply-To: <20261119-ktd202x-et6326-v3-0-98b836b1cddc@telaak.dev>
 To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
@@ -100,11 +100,11 @@ Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-doc@vger.kernel.org, stable@vger.kernel.org, 
  Joseph Telaak <joseph@telaak.dev>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795133254; l=2532;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795133254; l=1614;
  i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=ZwqI7v4DG55lRFAiYaRoYyNEA1kQO3JMlNgT3S5y4mM=;
- b=aaQu7aGpvdbUbM81gqST6Zt3voZbe3FFw/DAPdKyMXWgDKmE16Nv4rYLy5iLtxK1nwT63hqg+
- uos1glpgUeeDYwjXRgFTNQBQUR0raXyMwAH+BKFGsgIJjcNmNBdr8R3
+ bh=N0qjLyVSYeHCoIVzs3o90qtyZk6KHKqoW0ZHApWnTGE=;
+ b=uJsMQ/n6ajRaxGbd7zm/7rUpM/ehN02TU8AxegrS22XOOrS9CPH1TX2cxKTdPXha2unWWxHbw
+ ZAUHwZgHvhXBpOvd7qYZdlDHjPYTytHFYM+Dps4v3ZJjVcA2JQo/Woy
 X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
  pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
 X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
@@ -115,65 +115,46 @@ Content-Transfer-Encoding: 7bit
 
 From: Joseph Telaak <joseph@telaak.dev>
 
-blink_set() works out the on time as delay_on * 256 / (delay_on +
-delay_off) in unsigned long, with delays straight from the timer
-trigger's sysfs files:
+blink_set() switches every channel of a multicolor LED to the flash
+timer, or to always on when delay_off is 0, including the colors whose
+brightness is 0. Their current register still holds the last brightness
+they had, or the 10 mA default, so for example a red blink set with a
+multi_intensity of "255 0 0" also blinks green and blue.
 
-- when the two delays add up to exactly 2^32 on 32 bit, or 2^64 on
-  64 bit, the sum wraps to 0 and the kernel divides by zero, for
-  example with "echo 2147483648" into both delay_on and delay_off.
-  That oopses on x86 and gives an arbitrary result on MIPS and arm64.
-- on 32 bit the product already overflows once delay_on is above about
-  4.6 hours, and a sum that wraps sets the wrong period, so long blinks
-  get an arbitrary duty cycle
-
-Saturate the sum, and compute the on time with mul_u64_u64_div_u64().
+Leave the channels of the colors with no brightness off, as
+brightness_set() does. A single color LED now passes its brightness too.
 
 Fixes: 0ebdb7210943 ("leds: Add ktd202x driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- drivers/leds/rgb/leds-ktd202x.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/leds/rgb/leds-ktd202x.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd202x.c
-index 362d231eddcc..bfc05f5f02d6 100644
+index bfc05f5f02d6..ac7ed7552fb2 100644
 --- a/drivers/leds/rgb/leds-ktd202x.c
 +++ b/drivers/leds/rgb/leds-ktd202x.c
-@@ -9,10 +9,12 @@
+@@ -285,6 +285,11 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
+ 		int channel = subleds[i].channel;
  
- #include <linux/i2c.h>
- #include <linux/led-class-multicolor.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/of_device.h>
-+#include <linux/overflow.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
+ 		ctrl_mask |= KTD202X_CHANNEL_CTRL_MASK(channel);
++
++		/* A color with no brightness stays off */
++		if (!subleds[i].brightness)
++			continue;
++
+ 		ctrl_on |= KTD202X_CHANNEL_CTRL_ON(channel);
+ 		ctrl_pwm1 |= KTD202X_CHANNEL_CTRL_PWM1(channel);
+ 	}
+@@ -360,6 +365,7 @@ static int ktd202x_blink_single_set(struct led_classdev *cdev,
+ 	if (!*delay_on)
+ 		return ktd202x_brightness_single_set(cdev, LED_OFF);
  
-@@ -297,7 +299,8 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
- 	/* Convert into values the HW will understand. */
++	info.brightness = cdev->brightness;
+ 	info.channel = led->index;
  
- 	/* Integer representation of time of flash period */
--	delay_total_ms = *delay_on + *delay_off;
-+	if (check_add_overflow(*delay_on, *delay_off, &delay_total_ms))
-+		delay_total_ms = ULONG_MAX;
- 	if (delay_total_ms < KTD202X_FLASH_PERIOD_MIN_MS)
- 		num_steps = 0;
- 	else
-@@ -309,8 +312,8 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
- 	 * Integer representation of percentage of LED ON time. A value of 0
- 	 * keeps the LED dark, so use the shortest on time instead.
- 	 */
--	on = (*delay_on * KTD202X_FLASH_ON_MAX) / (*delay_on + *delay_off);
--	on = max(on, KTD202X_FLASH_ON_MIN);
-+	on = mul_u64_u64_div_u64(*delay_on, KTD202X_FLASH_ON_MAX, delay_total_ms);
-+	on = clamp(on, KTD202X_FLASH_ON_MIN, KTD202X_FLASH_ON_MAX - 1);
- 
- 	/* Actually used delay_{on,off} values */
- 	delay_total_ms = num_steps * KTD202X_FLASH_PERIOD_STEP_MS + KTD202X_FLASH_PERIOD_MIN_MS;
+ 	return ktd202x_blink_set(led, delay_on, delay_off, &info, 1);
 
 -- 
 Git-155)
