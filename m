@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.68
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.96
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795177013;
-	b=UOnDXVPlTDnurSEw+CJ3ddoim5GW8RFeMWwq7B8qprjarSd9r6gDynTSaZd/jImGrPa6
-	 48wUsRVnpfdcG2jkakfV6QOWGoaquyqAH9MMVTVN1njL8+LTlld95yp1jkQbv4cwPlUhD
-	 n+Yt+MWzcZRVw1Uatci4y4bc8ExJwqstr5c8akKPIoZwj1tjkr42LNlbw2yHyXuRUJ4iW
-	 cDAGF0BKKXcyUMsiOXqixYwNYje4p/4t48sDxgLxdcjAkmFegOwxBSuPSTLMxGexpjz5e
-	 ZWmh67vSrOHLeeadsZ4oWmECsuenIxbKRG66zho/fTbqAyMfM4mQy2tfBJbnhfHZ3Mw==
+	t=1795177016;
+	b=kZliZmgAU2jdsMSRRgTXl0x/Whc/51W9TyATCa7/dlqQzTf6K6ScDlLvDNV7cU8D40u1
+	 pObxbAqobHSSWWTULy7EGHUtLkQS9XLlVD7egKKDTGN57msv7OiRCPkuLDkOnstFt5KYi
+	 dYIA7SO96MPYgwDu/fF6jespzJsp6dOEwTebo6roeNgvt1VZxmQ/UjywfR0oTU6L/YJPm
+	 ZHk2EGU5kE01s3J6uac5ResHI8Jwby6pOFlEnkZbXxA/wZulIpoR5zMkV2DwfRQ7BKDjE
+	 jGfqBUtWoZfp9zRDX4jP4HtpgbCIj5wZ2oOul071h8zPg/qGskxerL0dMhvpAzZaE6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795177013;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795177016;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=WFGUsPib7UYtVJ1BiXTL9SeVte53OesLIVWmVAJzm2E=;
-	b=eLE9KLBJbvt81R1Oy9JqsAaUO+P09EONroTv42fYAFleN3Wx0uqakijEVLmyI6pjJQec
-	 q2IhvIw4MA4RvfFnXOYwu9vEJq3oEjPNZH/mdnWAxSHyOoZUwfpbfaEJXEtccQL3rls+/
-	 mbVkoVy4lxNzGhs0TdeVmGMQy1j3lZhC+HzWyers0krpDcseUj/R4gJsBSnyBBMtS+8le
-	 pQmTa5do4WU4LyLn2aoN648mbPlFffvTaAITkkoty9SqitEQEmS2XvieMb2EnLwVE8vAN
-	 alP3SpifA3HUXFH++XpVuOoWB/ljwuCCieJiM/fUpV3GUPNXz/yYdVP6yuof0y1XYyw==
+	bh=spoiYnWR0WKKRs7Mhq5Q09v/YFoqQN68ueFyWXGucg0=;
+	b=mUgy6lRkjzcAqKUd3HUn8wMt+bwM8p3SJpiRSgotAVipaZnQvbIfR4GOMkdFrkth3vf5
+	 mmrm15CqlxGwrcJ1lRaT57PryrPUSEFCua2+GDn/Tt3gmbW9fdTprvCcyTe+cmTbux2c3
+	 o8ksAZYc7qBzZ3LDkK3YLa7GTrrOM7Sn7jqNXJRUTGp8tOpgJUlG4yaBVeBVDG9tSZPX5
+	 e6Dp2fCSvJBI1smfLB74aTTRlquzd0aT6eYNlBHBExN4HAyMEpAmVIipSTCL2ds9rgH5B
+	 g1LFePiRcoqWycQ2PbvJPtngu8mSe/mL4wIIAFOD75aD8NRLGqthqZqM4FUrp+CdqDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="U/QsRWSw";
-	arc=none smtp.remote-ip=95.215.58.68
-Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="BDi/9kXJ";
+	arc=none smtp.remote-ip=91.218.175.96
+Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE37E606A32C
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 12:16:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE37E606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41771606A334
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 12:16:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41771606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U/QsRWSw
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BDi/9kXJ
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rMvHJji9BqzVdUvxXHqbG2A1RgJoNeZr1+rKa6jfFow=;
+DKIM-Signature: a=rsa-sha256; bh=Q/N+GDt8QiK0EADOOx91mUK2qbf8ppdyYXeJryKLBCU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795177011; v=1; x=1795781811;
- b=U/QsRWSw6sPavX2LMNl6AOJB6QRTZj2R3aBovDpVN1qqp12E6GKYJW0v9Z+tvXJt9x1PfXql
- ydpRhX7JUUXv+dUfZfdY/dh5zszYlEk6tjpCgtq+COdg64wpP1qtzB1HKepYrWDLjjgdRTdIUgX
- mKaSmZkYd+GcbneWr508BWZY=
+ t=1795177014; v=1; x=1795781814;
+ b=BDi/9kXJf4YgRBbAHxD3RyugCbjKW0PCal1+Gv5IYm/c2FgLLV7VbqY+f1zHlScILQiVZSw0
+ +03BU6gv7xmavzbyWPCdEZAWETU5MqSdYzR9jIvXi+rqN4ZAYCafaPdGc7Qhrshm5ue6emni7g4
+ DpdU8ocr/xq9tuP+clLQGljk=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d94a9313021c98ac;
-	Fri, 20 Nov 2026 12:16:50 +0000
-X-Mizu-Trace-ID: d94a9313021c98ac
+Received: by smtp.migadu.com with ESMTPS id 18135977f985d146;
+	Fri, 20 Nov 2026 12:16:54 +0000
+X-Mizu-Trace-ID: 18135977f985d146
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Catalin Marinas <catalin.marinas@arm.com>,
@@ -60,9 +60,9 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
 	linux-kernel@vger.kernel.org,
 	Fuad Tabba <tabba@google.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/3] arm64: mm: Add an ISB after remapping the KPTI page-table slot
-Date: Fri, 20 Nov 2026 12:16:37 +0000
-Message-ID: <20261120121638.194154-3-fuad.tabba@linux.dev>
+Subject: [PATCH 3/3] arm64: mm: Don't defer the barriers when installing a fixmap entry
+Date: Fri, 20 Nov 2026 12:16:38 +0000
+Message-ID: <20261120121638.194154-4-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261120121638.194154-1-fuad.tabba@linux.dev>
 References: <20261120121638.194154-1-fuad.tabba@linux.dev>
@@ -77,33 +77,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kpti_map_pgtbl remaps a temporary slot with break-before-make, and
-kpti_mk_tbl_ng then reads the page tables through it. The make ends in
-a DSB alone, so the reads can fault on a translation of the slot made
-speculatively before the new entry was written. With the temporary page
-tables in TTBR1 the kernel's vectors are unmapped, and the boot hangs.
+In lazy MMU mode, __set_pte(), which __set_fixmap() uses, only queues
+its DSB and ISB, but a caller can dereference the slot as soon as
+__set_fixmap() returns. On a CPU with BBML3, runtime changes to the
+linear map are made in lazy MMU mode. With 4K pages and 39-bit VAs, for
+example, such a change can update a top-level entry, which
+set_swapper_pgd() writes through FIX_PGD. That store can fault, and the
+kernel then warns about a spurious translation fault. When kgdb stops a
+CPU in lazy MMU mode, its breakpoint writes through FIX_TEXT_POKE0 can
+fault the same way, and fail.
 
-Add an ISB after the DSB.
+Emit the barriers directly in __set_fixmap().
 
-Fixes: 47546a1912fc4 ("arm64: mm: install KPTI nG mappings with MMU enabled")
+Fixes: 5fdd05efa1cd3 ("arm64/mm: Batch barriers when updating kernel mappings")
 Cc: stable@vger.kernel.org
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/mm/proc.S | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/mm/fixmap.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
-index 12aacc74f7647..7ca36d59bf77f 100644
---- a/arch/arm64/mm/proc.S
-+++ b/arch/arm64/mm/proc.S
-@@ -262,6 +262,7 @@ SYM_FUNC_ALIAS(__pi_idmap_cpu_replace_ttbr1, idmap_cpu_replace_ttbr1)
- 	orr	pte, pte, pte_flags
- 	str	pte, [temp_pte, #8 * (\level + 2)]
- 	dsb	nshst
-+	isb
- 	.endm
+diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
+index f66a0016dd02d..951004ad700c3 100644
+--- a/arch/arm64/mm/fixmap.c
++++ b/arch/arm64/mm/fixmap.c
+@@ -127,7 +127,9 @@ void __set_fixmap(enum fixed_addresses idx,
+ 	ptep = fixmap_pte(addr);
  
- /*
+ 	if (pgprot_val(flags)) {
+-		__set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
++		/* The slot must be usable on return, even in lazy MMU mode. */
++		__set_pte_nosync(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
++		emit_pte_barriers();
+ 	} else {
+ 		__pte_clear(&init_mm, addr, ptep);
+ 		flush_tlb_kernel_range(addr, addr+PAGE_SIZE);
 -- 
 2.47.3
 
