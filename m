@@ -1,52 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=99.33.87.210
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795198959;
-	b=q8VXFtiC8UFf8xCxJ9DAKJAjqJSnjDSKJuFowBS+pm8fE/4VlGVo6KRnmUmcoMKqXn3D
-	 WzreMcT4f0fFtD3TUzPDJRUnDlP5wRev1AmQGPJT6xMMuWkkDwVWqp4JE492qVoqD4tU4
-	 cgzMZ9VgaHxY4TnnpbY2IeNzAFabISiFAMCqJ1d3YU0IZOjokJ641VAS+0pVmQ+TL24C1
-	 1q99x5bG+LvyNjcbRnFEBJdTMkZkgl2I80SGwiyoHXkgBZf64P3cXoXw4uGnfpkgr6Wiw
-	 WhwJsgWBi7iHQfG2CGzQp2GJK7QC6w7eVQvs+jgG/cR0kZjI6HjIypMFerXPH1qXLvA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795198959;
-	h=DMARC-Filter:Received:Date:From:X-X-Sender:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:MIME-Version:Content-Type;
-	bh=2jkde0bQ5ks7RbXj+AFz+mtlYLhKUbqkJFme+5XX6Ug=;
-	b=ImxbuauoSUhsMBRywau7w0aIkwNfgWi61iSxe1wHpn0jzOG+0O641PIZixGd4qrzrP0Y
-	 iA/kyKTd8L+Oz5f8YbkuC1Q2IHzLCXIONjJhc78t7VcO5JwzXBso9rF8z7fF4WvC63rbd
-	 an5UuFjkxoIew6qdYRfOE0OA9s8pxQ4OhZ4DzDaYX3+Ri7ORTQAqOAzXYsAJl67Ps81eU
-	 50yj/6KXZEXWt9JjxKM7l4DO0VecfN7A2gFgUSo/c68XxZ+ROpsX9K0xviVKQjixH01FL
-	 iCFYhG13P9H9t3JQl4WWZmkjVvR6Gcmhs7g6XS3W1mxjUJ6GBsaJXCk3lRe8MtsxC+g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=aaazen.com;
-	spf=pass smtp.mailfrom=aaazen.com;
-	arc=none smtp.remote-ip=99.33.87.210
-Received: from mail.aaazen.com (99-33-87-210.lightspeed.sntcca.sbcglobal.net [99.33.87.210])
-	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795199316;
+	b=zietn+mSgDzGA2WA6YE1bosw9bhTSages4kWkpvEvnhK1mtnr/s7S6KZOrzX+zgeyRoT
+	 h3UnzvlHcGECx2PNYcFtEEM+/M7iR9yhcw8EMdn5rRdRpJMq5+hCAcNbB5979CH4ZklhD
+	 PwRJuNhD07ThRxeTNMN+VApKw108/wyV1AsH44oX4zoLasBXbN5fc/Q3IBk8SNaj6fUM7
+	 wtqzPp9L8hVdoAoter0r660NxnvFHfLdUNShXXj2U0xcGnOYa7V5gLwwM/pXq3Pjn6cUt
+	 UkcvpHOK9MYPXMrhOP58xShoeZ2zBECW4vuPDmeP0vvyUarEcWUB5MDqalC99nKzKXQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795199316;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=zNDQo+a14v9s0HW9OP+czAcmraAhXwLLM732JTo+ZL8=;
+	b=E2iOWu41/Zkrsf+syk0mvM6qyh2ClwTq4cGp9RcHIBPi9nDr1I6HVqucI65BOGxpj+0t
+	 ogq7qU+Ja/rZdBUjjT+vjmHRTXrjPUzQUQBMQsy47l876/RajgJndSbbX8YhoY2WsiDVk
+	 CZBhW/8SKbT/NLtgKIFAOCx2r+dJI1o/HLmOcN6v8hNtsvi9mdHar5NE8bHeIKYPUaGbc
+	 e3bahXMM3OwUExemBpseNR5aTfhB8Oco8bAjTslqz6vK9UKYD1t9ghWQy2obp6SD/TlSt
+	 eFhjXyABA5b5iQr90kAkFyVwRND/qIN3rVFHXmKY7KH/O8DClGf6P8Lx2QiIMzz1wfA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SKP+VL7U;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2381B606A881;
-	Fri, 20 Nov 2026 18:22:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2381B606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aaazen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aaazen.com
-Received: from localhost (localhost [127.0.0.1])
-	by thursday.test (OpenSMTPD) with ESMTP id c85c3c94;
-	Fri, 20 Nov 2026 10:22:29 -0800 (PST)
-Date: Fri, 20 Nov 2026 10:22:29 -0800 (PST)
-From: Richard Narron <richard@aaazen.com>
-X-X-Sender: richard@thursday.test
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-    linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-    akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-    patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-    jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-    rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-    achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 5.15 0000/2178] 5.15.226-rc2 review
-In-Reply-To: <20261120055015.328810133@linuxfoundation.org>
-Message-ID: <278ed82d-ba22-1cfe-67fd-260158b5b63@aaazen.com>
-References: <20261120055015.328810133@linuxfoundation.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E261606A332
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 18:28:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E261606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SKP+VL7U
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-49a92144733so654297f8f.0
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 10:28:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795199314; cv=none;
+        d=google.com; s=arc-20260327;
+        b=K0sDyjELL2otJQplpfP5fgOrDHsJhFVmmFnqA2FsQoxzF/uy/aWsQykOKrzIb6swzd
+         MNsJ0PpGw26SzmcQvlVEUsQoHNuQYvnF/ZLNopBzeOAqQAAJIMGb6nbgZ2NOKqDgwzFb
+         FLnhyS/wQ6DgpUkYHnknCcXR7z9eqbcwCGM3mIRIujfgxe0h3+FlwqYcIbdoSG7vGosS
+         8EhEV5LUmjhl+JctYwYJl+OnZ3LGiD+Z7oFtFN0I7XTrosVNRxe56/zkgJwKYbYehYI8
+         QV9Y3FwL2frqsvTD3qpywhBuRULSkVqx+qKeZdUASSpn9z7P8VmrEaY86b1KXYsoFOzO
+         QDnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zNDQo+a14v9s0HW9OP+czAcmraAhXwLLM732JTo+ZL8=;
+        fh=S6WueyjgEKZTktWG2RrupzRPPgtqKxCMnEW5F8IGeew=;
+        b=C/UHCXeFMUhCW49C6NXdgXEVWTm9yQZNCdjD3IZrOCKXRlXCIdXBJCgEHxKSnobEcg
+         n8f9pxovHfzrCAAdFy8wwXvENWqCwF8jkahwSKu1D8h19jM2hDQcfhwLiiyUWJskdqBE
+         yQKYCrtlgcF60qVmJABAMoxLDh8J17seV5yPgnmO0i51bO7R09/yFS02s2hvNm1K7eWO
+         +DZrwh5nEsj31eut41Njwyzs/o3BHmONm/mG0In3MTlhX1jk2Fibe0rJVfyog15J53ks
+         iHLJ0D2o9/ORrCe3bv1YypfkuRqrKjhzr4BYRJirEi/3UI74sBQ/iNzGoHx6l+xhJXAc
+         AseQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795199314; x=1795804114; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zNDQo+a14v9s0HW9OP+czAcmraAhXwLLM732JTo+ZL8=;
+        b=SKP+VL7USEbVWLzyNKe8vqlVzzCV9Yk8mcaoFQiMau8f8rXDzwpCak4Vsmv6BR/+pr
+         RgylvG9oK1tyn9HVNxsfbZVUNKkIchTWZ9X8kJuoyh1kq64J4Ht2rzEa0T1VyHr22jgY
+         8LCDGRU15JxcXqPu3SUUV5SgqRuHz+Z1iEokPyTEcAcId1PaGovoxia4Ty6h+zvaD7I3
+         4y2tVCh/h1q718vD/ixJINcglatHqod8P/u+jn7b0Kg91rBesPqOPLmb7sdtO2eGD3hu
+         BDKWUbOZHypesxxEv5PhgymmUWQHQko31GpAGU6sziXf/1R5N8yEfF6gUFxCmLJXMEQq
+         BKPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795199314; x=1795804114;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zNDQo+a14v9s0HW9OP+czAcmraAhXwLLM732JTo+ZL8=;
+        b=w8fPX4qmpdFkEuZ3mmbGnMD4V8W6TU0B4nSS0GaOfaklONTDuW4/Kt/TPfq96dEBk7
+         CzTbm+WSsMw+7un6N/Qp0t4dnYRM89eaW9nKQkmL/9k1f7jDs0dbNdG3dFQbxwgMqBbf
+         EUlJ1eGDJxbHk+vtKTB3rUOcaEtlCoeRA7JhmzcpSYH9i4UoYjOyQhWmvUgKJVQOLfJZ
+         crbv5cta+9eB3WkXFHK3WsgLY9oPiMo9EjF7JzFvrM6DPtA3upvSh6IpHwXSR2+x2Rvw
+         3zpTpoIO5s7sdFtRNZTq6+pFA1dilziEET5sVSyInGD7mCGzih63pHgTO8nts1GFX6O2
+         dMaA==
+X-Forwarded-Encrypted: i=1; AL+hErFE/WCPYVLVi2nO9or81KYBATAE4Nen7mJoFPfzwxSPBF6T6rAvBCeuvwcnese3bA4SlrKgzW0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0HkS20usVH4hnTlSZ1GxaRqgQZ6KDIluDsSvyWyzV2actwc91
+	zazTtrEyEMsevV5+Xqy4QH1mQ3Fhvnss6JCu2eYRTBb1O/Vw8FSxUTtoJ4Ng6YuYUo42ExlKW4Z
+	2nUFF5quSdlScFchKCCqAoliAbZsy69E=
+X-Gm-Gg: AZFdTZd39OujAFszQFoDDWyQeRCuZ4XsOMRVFbBXIvYEbqHkdp6vdBwv01NIjK1j7oC
+	uhavxvpdwD4E5Y0Cc/cuY3waxymI6y4hsrnAumSSIRpWzXs+xQlVVV5es9wzl8I+XEPtIGG1/vD
+	yA7M1HF8cgeLQ/e5bKaI2NTv3IZwZCZg/DImNr7DnYsEF5Jh4Wvriyp0TpahjNP1sAtiB4WIy+T
+	CK5JB54mZXH+9dP/bYJDXWtm884BaUNvEKTTMD49tE+ywNC5f07+Zpf3jNFj3Y3OF4ouXeb9HmE
+	bxPfxRNN05hS6t1IfcfS9nraewyEQNhcMzSnfMW/Pu2aKRKkcYHFq/td6x02NZAEpoJeAXoGbbt
+	U351/7+0EZEyqnoyT1wQV1ilOTGv2aR2qAQRGRMplGTdrXh0lAJuTc92lSYEeNQx7cYImiXE2Ch
+	BKRbZCJew9kwwRnBYqyre5zl9nbdw1MpiF19H7KHiNb/L9CtSGs4lFpwsg1w==
+X-Received: by 2002:a05:6000:2f81:b0:4aa:ba0f:c1a with SMTP id
+ ffacd0b85a97d-4abb683bca6mr8274343f8f.40.1795199314113; Fri, 20 Nov 2026
+ 10:28:34 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,27 +105,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261120002549.1908299-10-prabhakar.mahadev-lad.rj@bp.renesas.com> <d4405a68-5df9-4e76-84ff-fa034f162429@lunn.ch>
+In-Reply-To: <d4405a68-5df9-4e76-84ff-fa034f162429@lunn.ch>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Fri, 20 Nov 2026 18:28:07 +0000
+X-Gm-Features: Aa3M54otSF2In6FsOUyV1sYkafqWIOL4jrRT5kqPhS7eswmhjTdncZ_k_zb5leE
+Message-ID: <CA+V-a8vj4nCZ+u_HnzNxKXu8xuOR115gHDF7YACFfiDpskQsjQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 09/24] net: dsa: rzn1-a5psw: Fix
+ VLANTransmitted counter offset
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@linux.dev>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Simon Horman <horms@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Florian Fainelli <f.fainelli@gmail.com>, Ralph Siemsen <ralph.siemsen@linaro.org>, 
+	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 20 Nov 2026, Greg Kroah-Hartman wrote:
+Hi Andrew,
 
-> This is the start of the stable review cycle for the 5.15.226 release.
-> There are 2178 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Thank you for the review.
+
+On Fri, Nov 20, 2026 at 3:29=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
 >
-> Responses should be made by Sun, 22 Nov 2026 05:44:39 +0000.
-> Anything received after that time might be too late.
+> On Fri, Nov 20, 2026 at 12:25:19AM +0000, Prabhakar wrote:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > The RZ/N1 hardware manual places the VLANTransmittedOK counter at
+> > offset 0x8f4, not 0x8ec. Correct the register offset so the driver
+> > reads the counter from the right location.
+> >
+> > Fixes: c7243fd4a62f ("net: dsa: rzn1-a5psw: add statistics support")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 >
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.226-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
+> This again seems like a real fix, so should be for net.
 >
+Ok, I will re-submit it for net (and for all other fixes patches in the ser=
+ies).
 
-Tested on AMD    amd64 12-core and 4-core and x86 1-core systems
-and    on Intel x86-64  4-core            and x86 1-core systems
+Cheers,
+Prabhakar
 
-Tested-by: Richard Narron <richard@aaazen.com>
-
+> Submitting these to net will also help with your patch count.
+>
+>            Andrew
