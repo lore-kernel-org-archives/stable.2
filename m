@@ -1,101 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795199380;
-	b=ufg13jl5J2vT3diEO2PmYfaoHBzeH5jf2KoqqeEUKVu6Ye7ARk33sCwTFfDRH/rf+cK+
-	 KJBSl1863fUk9uv5UWX2297q5MOm58ta1szYYcT/zv/STPBkSYwjhca/CmSEfaQpJ9XbY
-	 QnTxFD455a3OfEDAYMaq49Apwe3Zs79pHh1Oo6QRsgHEMddRTiIriHn6pTi1ChdK36AYL
-	 Yhx0Ph1Le/Jv4UbEBvDPnnGFqwhxrF6o59BH8YFdcuYGFJ1LMuZ46wyqG73CCsgTEQA4A
-	 7LeJ7+Ry21wYjda1DtclTbIRGKS/0r5YJYMT8NY4N/do787wHvnI7KlLsI/esSL2CoA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795199380;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WpZL2JSgED1dxCTCDeitpd9jOOz/PRQfRKQZbZU7GDc=;
-	b=5qFgZaoiR/opUZWru5CUN54HbjF7UORc+ndhoosDxZ3eclwA2veer8u6v/wXrGemid3F
-	 aY8Br+mNwqbeK6jk3bQ/NB7J7CavQELc+qjjq7kHlyfCPg0FleotK/13JSOfrXpOEPeMG
-	 4mWlClV16/ppdG/7bOBiB/veC+NWwK49TRF0HhzCP5axFHIj+5//2ft+8ehjaUOwBexkB
-	 srysPPGpNJ8J4Z5NQCAJhMHvQ5OYuU3TpcLdk6dNjXdHbyTNGrZvfyaYj3zmcDwm7+WMe
-	 B+WTK85XAEBUPajxw/a3JZoHrfdsatADKaTaRKb5lt2p6VMZt3jNQXFXXo5/qDqNiOQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uwABIWmP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.209
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795199688;
+	b=sJMk+eT0+n+Ms+2ppvskhgdLSo8Za1Cgp33Oi5e+JXYmhkZv9mblLftjjf8jL3/38u8T
+	 SjmWk2tsUpCzxztRS8F04zHz8EzqObq4kaNNmlb3m/4+rGeihJrjfncCwgYwlZZa8GG89
+	 fSugbn3biumVrcfI5nEeb/OgGOYuzU0bA3Et/mUGNNorRAbpEFP822LGulsqU0PH3KmcG
+	 9ZDn5FWHwi7jH2U5yojecjMnzyl73ZF5n1uN7qda8DcObhYVOs8jNSEYqwkPn/RU7wCXw
+	 H517M/cvgUGR624vc21b+PCwTQVa4aIYvbGXeV4HhxJj6jh8UDtezv2XvQDvTcAGDjA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795199688;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=qB+H610s9ZzCf1qnPAPGdFN5sY489ZoUD1VKUQW1JR4=;
+	b=1cUGqEVW3NoSPuGEuTudghNssfCWg0sggbGY1J4uJAsM4ojyxL9gt3Uq4UCXy1KRjH7t
+	 x90Mp3kqapH4x94nkuba41hwJTCJ6B+Qa9CbhKsY7di/aVuHT1VGZUtj4uqKrSGu577lp
+	 xa4WJocBlmjM0ccgnurI1v6csjOAhhuktg6pF1Q0+myWxErZBWuUkqz5AFOFCG55PNF/s
+	 Id++2fVLdjVWkuzB056HDP7npyzU5UAOVzCNTqYcKRtKM5pi5cSHLmMZ27C8HWqx6Bt5F
+	 62ybjdvOIV3VvU329+cyYN9Ev5LzwA2mO+JYumBDx3FGEje6aJM/ryTGUkMxKMG573g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=uOVLV8dq;
+	arc=none smtp.remote-ip=203.205.221.209
+Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FB8606A330
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 18:29:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5FB8606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698D560A2618;
+	Fri, 20 Nov 2026 18:34:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 698D560A2618
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uwABIWmP
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4a7b8abe209so944554f8f.0
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 10:29:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795199377; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hhYvod0Wt0rpN4GsXbcmWI679XVqgGkqF7+5Uhj+1fjMKexa3834z0VDqpVXKfJUA7
-         cyr5t58vG8vEm4wlP3eHVPId7e6kQYEsKSgfH4jki2Nf1CQV8ry4QIGL7mP0hyu8kCZw
-         CSqASJcfkAjkJeVGb3l7n+ozejQyU8z8i1TMxdlJ4m8nPPVVrkzXulETGrG43PjDyiIm
-         ZRbGevmAtb8bPyYjoVidvvrzcVQeb5P4qqg3browFk6rSeFqjKLWZ7L81763BOQ2WuWd
-         4Fzi3qA/PDVAnNiP147LAo7N+WTVdc4VoqFbfBZsK7DfDM8s9ULHeqo2/1Ick1tP/GYr
-         0v2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WpZL2JSgED1dxCTCDeitpd9jOOz/PRQfRKQZbZU7GDc=;
-        fh=oMB08q89yrO64MMqvHZtS5RG89cdkTI6i8TDm5llaxU=;
-        b=ctfB8gZUev0oZzjU5dAk5rSwVT6g/EoFyGnpdLPMMmEdFVBz3THhDjGko89d7URDyo
-         R9dyCl7tb+btXUbpEjYzDVSVMm+eKnO7F9nDeaLpmYbVf0jd22sMHF8Uz2TyYWJqft4v
-         9mK/c1KCzv1JO0avGL0XcjXYhR3m8v/RRRgmDmPfZA6W+m0iRvIl52rx8+ZV+AXIlanC
-         tqxNx8ASDx+eSp/aDIyOiMJlkL1QYW+deXLcljeX90PjB/8auJs0teJZn7Y6KEymDR4q
-         aZce4dsyRX0jN7oQFKUKpFh5QLlCCcxiTDBz0d13hDMeSa7ZxXp35DLsJxv3ITv93ZzN
-         Aw/Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795199377; x=1795804177; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WpZL2JSgED1dxCTCDeitpd9jOOz/PRQfRKQZbZU7GDc=;
-        b=uwABIWmPL8ufMw3MxhB2hOwlsEmPeYT8AMWdeblvvNQ1+v8MV4AO60p9JPABKcnamE
-         9JU6LGYN7Rjwug1zxzVeJfqBL5YXMOmJO0GTOzazp/XoyyrswxdfWvwZfhhafqQqFPPt
-         puNGPl19MUAnpekoVGvKRt7Mr5vTe4SQFBbC7jnM/ITYttyruWuBOwQSJ9X52/Wj4iEH
-         bosO+SyqUgtYWJAjPH7yYL8doFP9iZQqB2OGnY5zNkhvPXMUmBIgSn+t6PsMJQXz2KOH
-         dDNGaZsmXmcj3qC835umHkJbCrs9Bn3d2RCkV/6r68WrFW+s0asEfLgHUq+ZdBKyOpQ4
-         CFUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795199377; x=1795804177;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WpZL2JSgED1dxCTCDeitpd9jOOz/PRQfRKQZbZU7GDc=;
-        b=uGAD7pVcbqD8HQW+KolAGp4HqPCjTkYMhsWr64TobQ7ualXaN74VObLEQtRVkC0Z7F
-         b+917kKc9s++Hg7csVwe+nAI9LSn1IM2+0P7rBFmK8e26EY2rCk88N9KP5QDttDHhD1o
-         uuRQAljJPR/bCfru/6uIwklMH0xp6bNhIk/QOJizX1B6Ct1oQB8m/mXoN6W9Izt58aR3
-         PnfBWt+WcUn9+Ftxj5fQ8NyueqHDWzFaloRRRQHaQRapqHWhe+1G0c2A+fVzs7/R83EK
-         qZy4PF7YpBJXoZamkySsTdHdlpuR0U58bjoO/pKevSL01OvsGiUYunvahjfyGY3WR1st
-         Vebg==
-X-Forwarded-Encrypted: i=1; AL+hErEQQH3sjRjXuoiE6pkXRubRI7Opy0lqTY48KnalahhgpY2YzMkeDU7eBi16fiJBLn78XWUMntc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eexuOVUGDu/cr8YczTByd078OjWnot2WIUQ87i2xZYbWdrd2h
-	zjevYurVOU3CtU3zEEhHPTc482oFR9XOnvl5OIA7sV7c9lF3ChY3OmN6tt7nFgfojenzpRH+XsK
-	lTJ//XBvD51VPhgADluhLeKGoSQnQaGw=
-X-Gm-Gg: AZFdTZfnsK2i2+vavfg6DlMK1br8l9AJy9hPwV2UwYqiH8j5tCDOTTreMQlqHX5OHW+
-	Yui/4v21Pa1i9y+ZRUo7oNofuh/5xzSIUmvRSkOvO2UEaQHaKfI6b1PG3d02kefqRGRaD0sUV7a
-	fEcrktGuNxNS0QyG8l4Tb/nvO62Q5g/Kq7FUBpPmxqYoHTmjoxyOPItiD/v+Cf6pOUy2XgFYzsv
-	OkOC866mIOSxX0+hO0Qb3/34W2b24WZU/U9EoeFVv2+1cjbU7YxoBU2GoJryh80+kQOZb+ZG/3V
-	MpdQ0BB52/dsru3Vf37wDUGADi+yQRhWkmXuHVlX5uEYfCd6gNonLPkFdNWiDRK/XGnFUEpIEfv
-	JqwSzQdh+Ewf3dJ9SyE6j1McKcdhB22X79vow+8KvKIuZeizTlsXIkYI2AtvAPBElgw7hGI5grp
-	0UayViagcsveG/C/V8pGa+wqj+8qqdeeVH5zktHR7twBleCfl5PLJ7WexswQ==
-X-Received: by 2002:a05:6000:481c:b0:4a5:ebcc:2260 with SMTP id
- ffacd0b85a97d-4abb2dda518mr7812309f8f.29.1795199376768; Fri, 20 Nov 2026
- 10:29:36 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=uOVLV8dq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1795199682;
+	bh=qB+H610s9ZzCf1qnPAPGdFN5sY489ZoUD1VKUQW1JR4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=uOVLV8dqtqmqNaoOOKEZGGoazyyys6gZSKyoa0YOapwXjezAHfT8Dvf0aBpabK2uZ
+	 lzyIh+yDPtMcaxS0jXwqu8D+RfvqjGVx0RmVUTG4kpyBlfwXwAgoI5rm9QMdRvQrRt
+	 TZYcoD4EG3XB6N/71MruDXapa0lCePP7G4+BT9iY=
+Received: from localhost.localdomain ([240e:3bb:3013:2171:4526:e32a:3de3:2a2d])
+	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
+	id 8A7300B3; Sat, 21 Nov 2026 02:34:39 +0800
+X-QQ-mid: xmsmtpt1795199679tdb1zza87
+Message-ID: <tencent_3C8B79F98D619AA20768761A53496A7D6E05@qq.com>
+X-QQ-XMAILINFO: MmpliBmRb3iCqxY1Okdmd8MNOQZ/eQAtb7GNXRvlTz5qhivJsJFSD1x8UFU3Ng
+	 lnD8NRu8EUWuL5WsANJsW/4Ud0cE7eb/fyxXvbM/0q0yRfJFNWPyZJhJXQRj1y7lo/9ARTYpvdjM
+	 +X/qVHQUKP0pPwWJ2yIIvKhlncehKVzSEY0ErcEYZGEEdQFtkT229P4O8O5GSjU3zGOLuthRSMKK
+	 x5GUz5KhxR7zpOcWD/BfMI4I1TP2jqZhR6DePnWR0t8U5cv4L5sN9Ywq00tU6lkbPxHRq4pq7/ZH
+	 LkAkl2DxQA5OkFtB+5pjF3OPL1EqdjB7w9LhCXwcOSW8JNyKmKSH/lEobhf157W/xwLpiFXZ2HLh
+	 97hFp36wQTOOu9vEiriHqAFbDIxTW2sx8VpqhQM3LioOpZWoSt4WUg104o6bDwn2OFBN3hda3lY4
+	 IBmfOgXmeYZFNJVUlmdpFyL7bVKPajbFgfj1vXW/t7QKN294nx7/7pr9kecm/W3HbelSpm0jtJP8
+	 eYtEpldRKEIv/5LWUjq9XO5LowJMBKrg6IPWSinW1G2/NgOu0g3a1ABad0fOYnTiPOboaVb5yfUI
+	 SsvJXX7tohRK20sYvxRgX9CI+IY5QSOZQe48UE2ArxLf2lOApXfEAPWGNJaJIhH8jlTVx5RY1+15
+	 yrBWThzrNA1sq50qg1sPsmAVpCU+wM6DVhbbVKa09RVt+algjiTDpiqKLk+i2JXgI+zgN5Cj9EJT
+	 L2L2+qko+ZbGawCAtVZ0yYXn+Q1BHV7rva6U9++MQDJqyl8rKwdc6MGIUkN29Gyi+Qx/gjydwfjX
+	 wiwgzWYuffl165R92gyJy9pvuPHCpJll1rZ7nncFvSZpmqWOw21WKKtrBT9QF3JzsTA1MYpKEcJx
+	 exIH0G4lSR5DtWCtD+HPfU3blwKZb9BwmMVAm+7sXaHQvKAPKy4rhIFcvGul4rzyPaTqyYiQICc+
+	 1m9n2sMPp/ALBm7bDwMsTtHd/mXgvwA8n+ahUD7LH8pyUCtaMkDxfI/dVzNaA+rHMMWJpmEEuO9t
+	 yKSMyfX8449eLKjob4v4MUL34ZQHvXZ2/iSRxQOljgLO2RjpeOUoBCSS8r6Wd27VNLqKl3Xg==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: memoriaru@foxmail.com
+To: heikki.krogerus@linux.intel.com
+Cc: linux-usb@vger.kernel.org,
+	badhri@google.com,
+	gregkh@linuxfoundation.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH usb v2] usb: typec: tcpm: align SOP' Soft Reset handling with SOP
+Date: Sat, 21 Nov 2026 02:34:38 +0800
+X-OQ-MSGID: <1795197300.a1b2c3d4.tcpm-v3-plain@foxmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <awBIRnc9lBkdVhEK@black.igk.intel.com>
+References: <tencent_443620EAE95525A375BB2D8A653406630A07@qq.com> <awBIRnc9lBkdVhEK@black.igk.intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,124 +82,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261120002549.1908299-9-prabhakar.mahadev-lad.rj@bp.renesas.com> <d0f5f347-a5f6-4e84-b773-f29ffcdab156@linux.dev>
-In-Reply-To: <d0f5f347-a5f6-4e84-b773-f29ffcdab156@linux.dev>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 20 Nov 2026 18:29:10 +0000
-X-Gm-Features: Aa3M54pnhmFSvmvZzRx-r4wW9mEW3Np4iPEWnckhFv_SM03jf-al_Jy7M9nYdCI
-Message-ID: <CA+V-a8tQH_aFb871XXJ6QkNUhyXwZo_0RD4j83GbgDpfa=9x0A@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 08/24] net: dsa: rzn1-a5psw: Fix LK_LEARNCOUNT
- write mode encoding
-To: Clement Leger <clement.leger@linux.dev>
-Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Simon Horman <horms@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Florian Fainelli <f.fainelli@gmail.com>, Ralph Siemsen <ralph.siemsen@linaro.org>, 
-	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-Hi Clement,
+From: Zhang Hewei <memoriaru@foxmail.com>
 
-Thank you for the review.
+Resending as plain text -- the previous two copies went out in HTML
+format and were rejected by the vger list infrastructure. Please use
+this one and disregard the duplicates.
 
-On Fri, Nov 20, 2026 at 6:01=E2=80=AFAM Clement Leger <clement.leger@linux.=
-dev> wrote:
->
->
->
-> On 11/20/26 01:25, Prabhakar wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > The LK_LEARNCOUNT write mode lives in bits [31:30] of the register, but
-> > the driver writes the raw A5PSW_LK_LEARNCOUNT_MODE_* values (0, 1, 2)
-> > directly. As a result, adding an FDB entry writes "set LEARNCOUNT to 1"
-> > and deleting one writes "set LEARNCOUNT to 2", instead of atomically
-> > incrementing/decrementing the counter.
-> >
-> > Use FIELD_PREP() with A5PSW_LK_LEARNCOUNT_MODE so the mode lands in the
-> > correct bit field.
-> >
-> > Fixes: 5edf246c6869 ("net: dsa: rzn1-a5psw: add FDB support")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > ---
-> > v4->v5:
-> > - New patch
-> > ---
-> >   drivers/net/dsa/rzn1_a5psw.c | 10 +++++++---
-> >   1 file changed, 7 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.=
-c
-> > index 13c46cf2c420..7fd2652813ac 100644
-> > --- a/drivers/net/dsa/rzn1_a5psw.c
-> > +++ b/drivers/net/dsa/rzn1_a5psw.c
-> > @@ -5,6 +5,7 @@
-> >    * Cl=C3=A9ment L=C3=A9ger <clement.leger@bootlin.com>
-> >    */
-> >
-> > +#include <linux/bitfield.h>
-> >   #include <linux/clk.h>
-> >   #include <linux/etherdevice.h>
-> >   #include <linux/if_bridge.h>
-> > @@ -545,7 +546,8 @@ static int a5psw_port_fdb_add(struct dsa_switch *ds=
-, int port,
-> >               goto lk_unlock;
-> >
-> >       if (inc_learncount) {
-> > -             reg =3D A5PSW_LK_LEARNCOUNT_MODE_INC;
-> > +             reg =3D FIELD_PREP(A5PSW_LK_LEARNCOUNT_MODE,
-> > +                              A5PSW_LK_LEARNCOUNT_MODE_INC);
-> >               a5psw_reg_writel(a5psw, A5PSW_LK_LEARNCOUNT, reg);
-> >       }
-> >
-> > @@ -604,7 +606,8 @@ static int a5psw_port_fdb_del(struct dsa_switch *ds=
-, int port,
-> >
-> >       /* Decrement LEARNCOUNT */
-> >       if (clear) {
-> > -             reg =3D A5PSW_LK_LEARNCOUNT_MODE_DEC;
-> > +             reg =3D FIELD_PREP(A5PSW_LK_LEARNCOUNT_MODE,
-> > +                              A5PSW_LK_LEARNCOUNT_MODE_DEC);
-> >               a5psw_reg_writel(a5psw, A5PSW_LK_LEARNCOUNT, reg);
-> >       }
-> >
-> > @@ -963,7 +966,8 @@ static int a5psw_setup(struct dsa_switch *ds)
-> >       }
-> >
-> >       /* Reset learn count to 0 */
-> > -     reg =3D A5PSW_LK_LEARNCOUNT_MODE_SET;
-> > +     reg =3D FIELD_PREP(A5PSW_LK_LEARNCOUNT_MODE,
-> > +                      A5PSW_LK_LEARNCOUNT_MODE_SET);
-> >       a5psw_reg_writel(a5psw, A5PSW_LK_LEARNCOUNT, reg);
-> >
-> >       /* Clear VLAN resource table */
->
-> Hi Prabhakar,
->
-> It could probably be worth it to add a small a5psw_set_learncount()
-> helper that contains these the FIELD_PREP + writel.
->
-Sure I will do that in the next version.
+Hi Heikki,
 
-Cheers,
-Prabhakar
+Apologies -- you are right, and thanks for catching it. The patch
+doesn't apply because I generated the diff from inside
+drivers/usb/typec/tcpm/ and shipped it with the short paths (a/tcpm.c
+instead of a/drivers/usb/typec/tcpm/tcpm.c), so git apply fails at the
+root of the tree. I had not verified it with `git apply --check` from
+the top before sending. Lesson taken.
 
-> Otherwise, LGTM:
->
-> Reviewed-by: Cl=C3=A9ment L=C3=A9ger <clement.leger@linux.dev>
->
-> Thanks,
->
-> Cl=C3=A9ment
->
+The base itself was the real tree: the index blob bb90211 in the v2
+diff is the master tcpm.c blob, and the two hunks apply cleanly and
+build with the corrected paths. I've verified v3 end to end on a fresh
+master tree: git apply --check passes at the root (forward and
+reverse), and with CONFIG_TYPEC_TCPM=y the patched tcpm.c compiles
+clean (tcpm.o, zero warnings).
+
+The rebased v3 below is content-identical to v2 (same index blob
+bb90211 -- the base was the real tree, only the paths were wrong):
+
+From: Zhang Hewei <memoriaru@foxmail.com>
+Subject: [PATCH usb v3] usb: typec: tcpm: align SOP' Soft Reset handling with SOP
+
+The PD message duplicate-check and the SOFT_RESET state handling treat
+the SOP and SOP' channels differently:
+
+- tcpm_pd_rx_handler() exempts PD_CTRL_SOFT_RESET from the MessageID
+  duplicate check on the SOP path (USB PD spec 6.6.1.2 note: a
+  Soft_Reset message always carries MessageID zero, so the duplicate
+  check must not drop it), but the SOP' branch of the same switch has
+  no such exemption. A cable that sends a second Soft Reset over SOP'
+  (MessageID zero again) has that message silently dropped by the
+  stale rx_msgid_prime comparison, and the cable-side re-negotiation
+  stalls.
+
+- run_state_machine()'s SOFT_RESET case resets message_id/rx_msgid but
+  not message_id_prime/rx_msgid_prime, while the initiator path
+  (SOFT_RESET_SEND, SOP_PRIME branch) resets both counter pairs. After
+  a responder-side soft reset the prime counters stay stale.
+
+Reset the prime counters together with the SOP counters and exempt
+Soft Reset from the SOP' duplicate check, aligning the SOP' handling
+with the SOP path.
+
+Found by code inspection; a software TCPC stub was built for the
+responder path.
+
+Fixes: 6bd181ba60 ("usb: typec: tcpm: add control message support to sop'")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhang Hewei <memoriaru@foxmail.com>
+---
+ drivers/usb/typec/tcpm/tcpm.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index bb90211..95f748d 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -4200,7 +4200,8 @@ static void tcpm_pd_rx_handler(struct kthread_work *work)
+ 		 */
+ 		switch (rx_sop_type) {
+ 		case TCPC_TX_SOP_PRIME:
+-			if (msgid == port->rx_msgid_prime)
++			if (msgid == port->rx_msgid_prime &&
++			    type != PD_CTRL_SOFT_RESET)
+ 				goto done;
+ 			port->rx_msgid_prime = msgid;
+ 			break;
+@@ -6193,6 +6194,8 @@ static void run_state_machine(struct tcpm_port *port)
+ 	case SOFT_RESET:
+ 		port->message_id = 0;
+ 		port->rx_msgid = -1;
++		port->message_id_prime = 0;
++		port->rx_msgid_prime = -1;
+ 		/* remove existing capabilities */
+ 		tcpm_partner_source_caps_reset(port);
+ 		tcpm_pd_send_control(port, PD_CTRL_ACCEPT, TCPC_TX_SOP);
+-- 
+2.39.5 (Apple Git-154)
+
