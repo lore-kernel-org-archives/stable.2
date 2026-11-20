@@ -1,58 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795207195;
-	b=XQp5OmjrxWomNUMjouYsj+WmMjbebPDMjzIQ2TpUPngqULjrHAtfLeOrpkXZqTGynEH9
-	 ACuHaa3QdVNA9WHecTymIhRV4sd3o+F3wcdTSP2x+WtVe29/qCsNhjfcaM5DMZzNJTfbk
-	 /AKULYAlU9JqizUAQUA0F8Z2rsgV/PIke4twRLYwj9tYDK/GMbQ5sarg4H98vbJVHgozg
-	 OXltkxrL9BWh+rucT42QZBc19z05v7X3Q35zvGtrTWDBAfcJlZwIV3+5k3eKMTyNGjEne
-	 0s7LyEI+DCmhCjCIG8gdHops6rRI6OP+WgkeQ+unq5mUZ4kAsPI7rOAYbcnyWdbsIEQ==
+	t=1795207197;
+	b=I1x4RMYBIY39Q/lfTvFrGDfjahJpTSIznfVUzV6StSGCqiZdydDwh26gCW0mE4JYyqR0
+	 xVI4ddNyxPyT+Zmco9rFMNHA9fom/RO1Hc9GWvDJWV5f9SCBG1jg5LgYE3Gjk6O7VDftc
+	 o8APd//sTXsWhs48+z7UY9UiMcSHUbIgcOH4SchXe8OThuqeIyyIgh4ipw4rwsL+Ebh2j
+	 Q/bZxhW/eXHtf+Jk59ahwDl4ZMQA15OdkGcO7GTrZU8cE6kkePHVZB7ymt4iDoL37LtOE
+	 pc97ZZkI9EuUv5YlZtwU7Rlzr/4xv1RPlALK8MuocEkO2cIhx+zyO4wj6CAEWmokVSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795207195;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795207197;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tGrhs9x4eGI2rilzfhPa4/lDsJZ8nr4YIP38FNjmM+s=;
-	b=Cknl8jnqfbQA659VdVcIsqdTp8EHnZVA3eMqK3dZ7OI+74JCoUtpaX6pSBPfF2npjy7F
-	 KK/Yteqm2PdPHi99gE+U4r1FtreS2yeZO/+fj4v/PA0zTiQjHf1xlx/8OJIJ97usmFGaq
-	 AhCeHGKF6hdstvHpZ3EDXsNnH5+H+dB/vat1GOEzo/KOoktUQLryjly9k7+dwbYTAUjfb
-	 1+vcZtFBQh6gxCfuQ6w5iPqZb+aII7T/w+UYVYE2YiziBEVSzA8X+VwvuUdrFviig/xz5
-	 McLbTHAeIVdHfmnV+fRQwge5SUXKxqH237Yda88fDailJNnCFNm4JvMQOXDZQu0vs3g==
+	bh=QD7b0Xy388teML1WXEOiMrJ+vdXDnTwGVLrQDLOlWSI=;
+	b=mNVF8mX88FQRLENsL4NDyRBP8ZoECnME7ajAAqeE09+ahPrfRsZwLiQX6zUUjG8Wrw93
+	 zHgu321I68dygRROYoezovJ/acZDtg47FhbPbDeAwsxB4DRHNLyB9/X/VaJytT6npNvP2
+	 eEVCf/gsfoR/ZsE9jwPJlxqwE967VIPTa0DFQdCZEGIO17YGDXCYicqgmJLArDJajqfRt
+	 buTlXIahog3KRUryyuMesTay2RP0UY5Eq9xKWVzLiNuXbhDD90aLuEcSGZF2uhdWWG8FW
+	 ZFAm624e3g2tI+kficepA56uvxzBVmJqOoW94jffQJD2PT6TJ28/ZfmUe4UWXcncI9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AC2s+qjw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ooFjSCFM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2CD606A6FC;
-	Fri, 20 Nov 2026 20:39:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06CE606A33D;
+	Fri, 20 Nov 2026 20:39:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AC2s+qjw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C97B1F000D2;
-	Fri, 20 Nov 2026 20:39:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ooFjSCFM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFAF91F000C4;
+	Fri, 20 Nov 2026 20:39:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795207195;
-	bh=tGrhs9x4eGI2rilzfhPa4/lDsJZ8nr4YIP38FNjmM+s=;
+	s=k20260515; t=1795207197;
+	bh=QD7b0Xy388teML1WXEOiMrJ+vdXDnTwGVLrQDLOlWSI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AC2s+qjwbwhhHhED4Yu7rfQ3q1Xp1OhzZO4S+uNWdq+9fbTnErfQU50MlS1WTsNKJ
-	 HKIs/Oh33owFyOXEdMPgQbabsF1EHYbExfuRYS2Pa1PTs/JNKK5dgu8LLWiRtt5EB6
-	 C+TpscAu3ACr1CAc/P++rRkRaiTlciHkvGrfhvb9SM8SVH4Txq7u0i5BSSKHZirkpN
-	 gE0a3jqqqrp41GZjxsbX/+ZNWEy7oYFNHAqVTCV/RczoJRaRHXfF4/dbKJkUKEDLwt
-	 U5jUl8NeWo2RbNgeRSQal3zkk4Gher2nuBFZG5WTCAEmWfcUaWIFfUhRYjPm6A3Ild
-	 LxUyU9i6TKP4g==
+	b=ooFjSCFMwRqlbDR2tDBSa3tXt2jDV6Llh93ysbnN+e90T+Dw+HVJzs3ruHgcewvHx
+	 +drHAJZgrpGNt0++KCE5R95VwqNH6j7HaQXUkGLz7dAH4KxhSHQQmDR2sQaKHwdl1i
+	 8zMj9VxuL5HxZBu8hXCqQ8Cwn+JTnB7A3Wmcqqrr8WGezYLQxA1dMAbt8rRR3a9ZjZ
+	 DAojBo5m6okR7aaXMRO20YtYEhmuRYP+UVsJBqbhQ9rBfpKuxA2RDrv2wyLGkeBOAE
+	 +9ojdOUVi26YYH0HlRyP6MjN59NyUa62n7/5qh9L6SojtIIcSaIygz+ERH7+7oLIIm
+	 1KaLKdW/Lx3+g==
 From: Sasha Levin <sashal@kernel.org>
-To: Jens Axboe <axboe@kernel.dk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
-	Yufan Chen <yufan.chen@linux.dev>,
-	dev@rebasedinc.com,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: io_uring/eventfd: registered eventfd signals only once after the cd305ee3633a backport (6.18.y, 6.12.y, Ubuntu 26.04)
-Date: Fri, 20 Nov 2026 15:39:10 -0500
-Message-ID: <2026-11-20-1-daily-reply-0021@kernel.org>
+	patches@lists.linux.dev,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Junxiao Bi <junxiao.bi@oracle.com>,
+	Changwei Ge <gechangwei@live.cn>,
+	Jun Piao <piaojun@huawei.com>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: Re: [PATCH 6.12 0942/1756] ocfs2: allow xattr bucket entries to span multiple blocks
+Date: Fri, 20 Nov 2026 15:39:11 -0500
+Message-ID: <2026-11-20-1-daily-reply-0022@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112048-paper-radiance-199e@gregkh>
-References: <2026112048-paper-radiance-199e@gregkh>
+In-Reply-To: <81413702-b0b1-4d7b-bb64-61f349c7732b@oracle.com>
+References: <81413702-b0b1-4d7b-bb64-61f349c7732b@oracle.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,21 +70,15 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> > >> Commit: 3adf7ae18bf4
-> > >> Date: Apr 18
-> > >> Fix: Partial mremap of the ring
-[...]
-> Great, then someone should have tagged these for stable inclusion, or
-> let us know after the fact :(
+> Could we also include 415ad9147484 ("ocfs2: reject inconsistent
+> local xattr entries")? It adds the missing validation both when
+> reading buckets and before the size calculation.
 
-Queued 3adf7ae18bf4 ("fs: aio: reject partial mremap to avoid
-Null-pointer-dereference error") for 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10.
-
-c03ce4173c7b ("fs: aio: set VMA_DONTCOPY_BIT in mmap to fix
-NULL-pointer-dereference error") isn't needed for the crash there: d53b5aa5cfae
-("aio: fix NULL deref when a fault races ring truncation") is already queued on
-all of those trees, and its ->read_folio returning -EIO closes the fork route
-too, so c03ce4173c7b would only change fork() behaviour.
+Queued for 7.3. 6.12 and 6.6 have to wait until 6.18 has the rest of the xattr
+validation work, which it is missing: 2cf82b46d5e4 ("ocfs2: validate external
+xattr entries when reading metadata"), 8914a3330b72 ("ocfs2: validate inline
+xattrs during inode block validation") and 78cce2082d22 ("ocfs2: allow xattr
+bucket entries to span multiple blocks").
 
 -- 
 Thanks,
