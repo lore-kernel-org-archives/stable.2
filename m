@@ -1,57 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795191636;
-	b=x0JMnkozl36J9H3OTk4/8uZ8Y58sWSYSlAJHBRjVE2iChdIaxX32R4zQlIvhzX8tN9ac
-	 3ePwGDhpYKk191jev50QqFYawBQs96RV9y45NJ6MQJ+mt1Z/dBm667NrEUnw9RMUa36PB
-	 mFN5RFtptlsrJMg66va9SoPARLO+LQ4WAuJdqsjF4smfhzXOr50LvSNeKkvkx1gYDHlMb
-	 crSQdyfHEIy9zYU0fvwOtl2dm2zJWA3GXO4p5FKFEPzXikx64FJ5dQlNYo0dem9lr6Q8K
-	 EPVZtsKGMj++SuX6F8jcdjfP70g6vvYfkHl6b0INIWRlqBTWcLXFwtP4oFdY9H8V4sg==
+	t=1795191647;
+	b=xkrH4nANUysGKR/kgQP8JmW8eLHWEzWhiu/XVgyE8tGuctVsC06SLkEa4pLgpsADrtV0
+	 lpdGRsJer0+WmvFM/P4PML26lxIHcipEOIs0dUp+CgtGDcjjU9776Oq1vTDhyowf/y+m2
+	 ckGaeQebCWaX7E+QkHKxNvS48+HUjRFKK3czxkrfNVC/7eIehYzdEOR+S1p6xWAEOKkqd
+	 BEcvUeFE6GAGjSQtnjljZ9aIl/vECVTln1hvw12LLZxn0Xq28uragCWANkVYsYi0DERM4
+	 paP9q61DM9k7WGhB8IsANI+idJXSR18zoD3YmkTQuxh/lzFQAK3WBCPnXG75cSNv/jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795191636;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=+D05lpCV9sFp0O/vrHa47EoULttgReSKLF94kPLxRF0=;
-	b=SlwxYQ8tipUoSvzAvxLU1I+ly3FW0eccSEY/bmJPe0MJPHVx/1Wto/ZEdlXCuE3aDqK1
-	 noAFbcACVeKYfJOvu/r3Ps8QTPezmqeE2qPEgZPs66gvwcfGzhIM02CFhuoD4p+ONRa3n
-	 vuOYJxJLdHcfKE1qKPXKkU0KszE2vo2dgcl9zd8ElF9b0r7IJzn5FYWUF25sLH9a8W8Nu
-	 GK5T3XR5zxyQfSbccbnOkaFHV3bxRsrt8c78VugR5zV98BHNXcIgcL34N41jatO1XlxGc
-	 MZdh5W38bOOP+Z77QWro+5vjfTDqNOB/EYkmTq+zCGuAAM8J4P9Ieh6upwgTBeuXqcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795191647;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=oRxpEC2GG8v+kUysfDv1Clo2J6a3wzMDb38qxEUjywA=;
+	b=V90MZu0B2G10jHsV1EbNlWjGsvMVlwdwm7DCkELHndilRoncvcjmaqo2QbffaqXWEsx3
+	 DeDbbj/rg/zKmjjLIwK6YN87OVfT/lQKeXrCVe/hi6zNprgtw+MCBHV82Ik71BjDN0Yla
+	 9YecEfCuWbVMUn4zZl/q7nnBukkxCspkez1GKI44NpgWPcHS/YHv0daLSauQBAxL2zxE/
+	 ZXfpM59nmCC/3+v4q4ppfMdLqz9DUuPzAdHj8a9jZbvmatvhWxAX1Y47XDT/f4NFSJMxO
+	 NV2g0qxnukBgohtqq7ygqEPUQMpUNtdgkOiTS8/VflWVGpwTWccvEux3Yr7kEHm2hVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 14C2D606A330;
-	Fri, 20 Nov 2026 16:20:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14C2D606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=andrii.net;
+	spf=pass smtp.mailfrom=andrii.net;
+	dkim=pass header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b="m4SK/qcu";
+	arc=none smtp.remote-ip=209.85.216.100
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B08606A325
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:20:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72B08606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrii.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrii.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=m4SK/qcu
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3b3fb193c03so558377a91.2
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:20:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=+D05lpCV9sFp0O/vrHa47EoULttgReSKLF
-	94kPLxRF0=; b=Z6hlyNtJgNdKsGmNHHYF5p2Nd2SqblPc7hkoghjDqaIHYk5PXN
-	n+edXnqD/8MN4aE52im2ttfEishyu4BNKh+aHel8eKGci2bBTVXrDIlg/WQ4ADd5
-	ZTXoUZ7Fi0e5/rGhJtzqw+KZ8NxzObtcm5QrUXzUsOAUFv1HW2hsoNEJU=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCGzAFGcwBrz2n0AQ--.56536S3;
-	Sat, 21 Nov 2026 00:20:28 +0800 (CST)
-From: 25031212351@stu.xidian.edu.cn
-To: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: linux-media@vger.kernel.org,
+        d=andrii.net; s=gmail-2025; t=1795191646; x=1795796446; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oRxpEC2GG8v+kUysfDv1Clo2J6a3wzMDb38qxEUjywA=;
+        b=m4SK/qcueYDr3XuCRqc7TgUWMwRcuhFcdHtQ1FBF9Zbdy4lQWhLf6vs9SK2vMlbqK4
+         2dVtbe5YrdXbiV5wSQvitn9jj/ERoP4RArf9CQJZ8YCbonVWZpKLUIRSi3u4TPrVfSNU
+         HCc053Mu7Kv9NA1DHUZOC/If/pZWqEwQbrdEW39w6o2Ymr0JveR0z1lnhmsZUuoYIpV3
+         28XYNtgskHippdDC6wwaWV8uHljshF6bTNFuhro05DnVitr1CdD9kaXfFp3DziiMUwwT
+         JqaWZ4CRsy+oPwwwyLutZ/RVdmHkUJXRX4fp4Owh7kPP3r8SWDb98FBqfxwpBLcSWcVL
+         hCsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795191646; x=1795796446;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oRxpEC2GG8v+kUysfDv1Clo2J6a3wzMDb38qxEUjywA=;
+        b=h10/KjKtB2t6tE8oQt49nYliGF9gxzx6Q6XYp043rHyPvohAclM14PDDJfAT4LdqLZ
+         6DekBybQM+mw9XpmTbO44sRpsFM96YktnFpte/+MNj1Wyaw7pAhrjx+++RkXsasrJcM9
+         fgXFLx+++6+3/BFB1nYzO8eRo1aZO/Icb5fbmxS3n5G+vxfl5dXxWcHbCeyPS6gsFcIq
+         e7ZYLf2B5J7D7yYUbJ6FWlTVrmLiAB+t+k868OD8dhRk0IwGgCXb1bqXnj1WHJo40D7B
+         IWt5NmwDh7hWJ+/1dj5mS3pqajnPq0QD8TaSmd1g3FoKqCycLfq52Fjw6L1kGlQGSZDA
+         gfTA==
+X-Forwarded-Encrypted: i=1; AL+hErFog8nqEIWm55rma4sJGAWjrDlM+sNNleIWx1n5qGDIs3hMjZ9O5vLBk6wszXOAa3+Cm31afow=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/7glJ8GfYLacblLw4J5Y/ouIsUwa1ijbW+n3vVU4hQLiUu8muM
+	49acmc6fItjm2XOhnF/QwwXejVZHVik6RSFtkdiGYcWcxgVq5YiFBmqY/bvH312lfNfNGh2YmCz
+	30cR3p4vbF3aFg+FwSpX2W1ni79A+SC/GEFliGIBWzsfcLeKewblJ
+X-Gm-Gg: AZFdTZdqbqEuT4t4IJlLZeo1ues7bgTlAqw5AD2JI2GG7+BJFvRIfLneiLY67hacFWz
+	UNlQXlItfNx8u4Q3Z5/cdW3lYUQtsbSbPiXfkhb79nUnuBBHh72Y+1AT40JHyM9lOQ+3FhBO+OW
+	4f+2tW0q3IrPuNhRIrnwqfmVdpUh5PHCeB5ea+EOaKmLxdW/ivdm0/OlYP2COw+k/jgYqhxptKt
+	I0FEsPqQqi9bipn9WhjBsLos+g3wDoJZsgLBQ1CngjJociin6zBzt8VCgEVwicPU8KSe8u3zVfC
+	84plXyytcB/pghv9+64PMrz+rsypWerMF+GD8xbcguQFa7q4HJ8IP0DTUDuFAcjWgRWoqTpBV7N
+	Si3qBj7fnKpLeg8RkXAfWpvhxAnw=
+X-Received: by 2002:a17:90b:4b8b:b0:3b3:b9e4:e3ed with SMTP id 98e67ed59e1d1-3b41cb47a0cmr3245756a91.63.1795191645728;
+        Fri, 20 Nov 2026 08:20:45 -0800 (PST)
+Received: from andrii.ai (mac.hestia.andrii.net. [2602:f337:ed:4865:7374:6961:204d:6163])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b40625d66bsm3383925a91.4.2026.11.20.08.20.45
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 20 Nov 2026 08:20:45 -0800 (PST)
+X-Relaying-Domain: andrii.net
+From: Andrii Tereshchenko <opensource@andrii.net>
+To: Fernando Fernandez Mancera <fmancera@suse.de>
+Cc: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Christian Hopps <chopps@labn.net>,
+	Piyus Kedia <piyus@iiitd.ac.in>,
+	netdev@vger.kernel.org,
+	ipsec@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v3 2/2] media: hdpvr: fix out-of-bounds read in hdpvr_read()
-Date: Sat, 21 Nov 2026 00:20:22 +0800
-Message-Id: <20261120162022.5867-2-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261120162022.5867-1-25031212351@stu.xidian.edu.cn>
-References: <20261120162022.5867-1-25031212351@stu.xidian.edu.cn>
+	stable@vger.kernel.org
+Subject: Re: [PATCH ipsec] xfrm: iptfs: make room before copying a continuation in reassembly
+Date: Fri, 20 Nov 2026 08:20:40 -0800
+Message-ID: <d9a8310d-e139-4edf-9cf2-4b32664facb5@mid.andrii.net>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <ac558468-8e5a-4b1e-8d4d-591221b2dbf0@suse.de>
+References: <ac558468-8e5a-4b1e-8d4d-591221b2dbf0@suse.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,122 +108,42 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkCGzAFGcwBrz2n0AQ--.56536S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxAF18ur4kWFy5Gw1Utw18Krg_yoWrWr17pF
-	W3KrW2yrWDXr9FkrnrXa1Iqa1rA3WkCF4UGrW5Gasayr45Gr1F9ryrt34jvFWrGr92vryj
-	qFWa9ryfua1UAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUHSb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aVCY
-	1x0267AKxVW8JVW8Jr1lnxkEFVAIw20F6cxK64vIFxWlnxkEFVCFx7IYxxCEVcI25VAKI4
-	IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r126r1DMxkIecxE
-	wVAFwVWUMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0KNt5
-	UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUDD2sAYlgQcAACs7
 
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+On Fri, 20 Nov 2026 12:18:09 +0100, Fernando Fernandez Mancera wrote:
+> This commit message is too verbose IMHO. It is quite hard to read and
+> understand.
 
-hdpvr_read() computes the number of bytes left in the current buffer as
-urb->actual_length - buf->pos and uses that as the length for
-copy_to_user(). buf->pos is a plain unsigned int that is not reset when
-hdpvr_cancel_queue() recycles a buffer, and it is not protected against
-concurrent readers of the same device.
+Agreed - I will shorten it.
 
-After hdpvr_stop_streaming() has killed the URBs, the buffers are put
-back on the free list with their old position, and the worker resubmits
-them with urb->actual_length reset to 0. If the next transfer completes
-with less data than the position a reader has already consumed, the
-subtraction yields a negative value. As rem is an int and count is a
-size_t, the comparison "rem > count" is then true, so cnt becomes count
-and copy_to_user() copies count bytes starting at
-transfer_buffer + buf->pos, which can be past the end of the 8192 byte
-transfer buffer. Two readers of the same video device can corrupt each
-other's position in the same way, and buf->pos is read twice, once for
-rem and once for the source address.
+> Manually accounting room and need allow us to perform a single
+> allocation but I do wonder, is it necessary? This is a very specific
+> case.. maybe we can just call skb_linearize() first and then check the
+> if there is enough tailroom and perform pskb_expand_head() if needed.
 
-A KASAN slab-use-after-free read of 4096 bytes was observed in
-hdpvr_read() with the source address 1281 bytes past the end of the
-transfer buffer; the pages following the buffer had been recycled as
-slab pages. A second report with a 42 byte copy was 25 bytes past the
-end of the buffer.
+Agreed. In my tests regular traffic (HTTP, ssh, scp, ping, UDP on six
+NIC drivers) never took the second allocation; only packets arranged
+for it do. There it costs one more reallocation and copy, but the code
+reads better. The first version of this fix did what you describe. For
+v2:
 
-Fix this by reading the position once, by handing a buffer whose
-position reached actual_length back to the worker, and by using min_t()
-so that a negative remainder can no longer be turned into a full-size
-copy.
+--- a/net/xfrm/xfrm_iptfs.c
++++ b/net/xfrm/xfrm_iptfs.c
+@@ -909,7 +909,15 @@ static u32 iptfs_reassem_cont(struct xfrm_iptfs_data *xtfs, u64 seq,
+ 	    iptfs_skb_can_add_frags(newskb, fragwalk, data, copylen)) {
+ 		iptfs_skb_add_frags(newskb, fragwalk, data, copylen);
+ 	} else {
+-		if (skb_linearize(newskb)) {
++		/* A newskb started by iptfs_pskb_add_frags() has little
++		 * tailroom after linearizing. Make room for the rest of
++		 * the inner packet before copying.
++		 */
++		if (skb_linearize(newskb) ||
++		    (skb_tailroom(newskb) < ipremain &&
++		     pskb_expand_head(newskb, 0,
++				      ipremain - skb_tailroom(newskb),
++				      GFP_ATOMIC | __GFP_NOWARN))) {
+ 			XFRM_INC_STATS(xs_net(xtfs->x),
+ 				       LINUX_MIB_XFRMINBUFFERERROR);
+ 			goto abandon;
 
-Reset buf->pos when hdpvr_cancel_queue() recycles the buffers as well,
-otherwise a restarted stream either skips the first bytes of the new
-transfer or drops it entirely.
-
-Fixes: 9aba42efe85b ("V4L/DVB (11096): V4L2 Driver for the Hauppauge HD PVR usb capture device")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
-v3:
- - Move the buffer recycling fix into a separate patch; no code change.
- drivers/media/usb/hdpvr/hdpvr-video.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/usb/hdpvr/hdpvr-video.c b/drivers/media/usb/hdpvr/hdpvr-video.c
-index 98480a67287a..32a54a5ebf0f 100644
---- a/drivers/media/usb/hdpvr/hdpvr-video.c
-+++ b/drivers/media/usb/hdpvr/hdpvr-video.c
-@@ -92,6 +92,8 @@ int hdpvr_cancel_queue(struct hdpvr_device *dev)
- 	list_for_each_entry(buf, &dev->rec_buff_list, buff_list) {
- 		usb_kill_urb(buf->urb);
- 		buf->status = BUFSTAT_AVAILABLE;
-+		/* the data is discarded, the next transfer starts at 0 */
-+		buf->pos = 0;
- 	}
- 
- 	list_splice_init(&dev->rec_buff_list, dev->free_buff_list.prev);
-@@ -434,6 +436,7 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
- 	struct urb *urb;
- 	int ret = 0;
- 	int rem, cnt;
-+	unsigned int buf_pos;
- 
- 	if (*pos)
- 		return -ESPIPE;
-@@ -507,10 +510,22 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
- 
- 		/* set remaining bytes to copy */
- 		urb = buf->urb;
--		rem = urb->actual_length - buf->pos;
--		cnt = rem > count ? count : rem;
-+		buf_pos = buf->pos;
-+		rem = urb->actual_length - buf_pos;
-+		if (rem <= 0) {
-+			/*
-+			 * The buffer was recycled and refilled with less data
-+			 * than this reader already consumed from it, so there
-+			 * is nothing left to copy. Give it back to the worker.
-+			 */
-+			hdpvr_recycle_buffer(dev, buf);
-+
-+			buf = hdpvr_get_next_buffer(dev);
-+			continue;
-+		}
-+		cnt = min_t(int, rem, count);
- 
--		if (copy_to_user(buffer, urb->transfer_buffer + buf->pos,
-+		if (copy_to_user(buffer, urb->transfer_buffer + buf_pos,
- 				 cnt)) {
- 			v4l2_err(&dev->v4l2_dev, "read: copy_to_user failed\n");
- 			if (!ret)
--- 
-2.34.1
-
+Thanks for the review.
