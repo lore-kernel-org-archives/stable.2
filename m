@@ -1,78 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795184350;
-	b=IcRjfEEDoNpb/j3ydy0NyIzCLBXPLGpzkd90iTQLU61KY7BJ21lWf90mjoAPFbu2EQWY
-	 Dzim0BDCJNirpDGcqeuelpsDVHGlesktOh9+ywv3rFrwPDvJWL68MT2bNnwtrY/KLgABm
-	 stFubA/eu6SzcouN2o6ccF1y6hsmSRXI3mz4l5uo+X/MJS7vcY00WjowDUf7C9iRBCkWX
-	 QwOEYb0DAU2OF8kv/5cDhATF3fMAbCiMUg2nQapjrWZcwHeR7UKBLfVguGK5p7u6VFU8v
-	 mWPAzla8dGPb2BrFC/KmxbV0Nh7Mxwk3FcBz6ZVO+Mk76YPYegGiC5yJYnkruW6b0OQ==
+	t=1795184488;
+	b=UV98P0CQ7QLA6nRfC/G2VD+SmbCevEnvVNNT9+gohFOXgsQlxi2eq611m1aujbADnmTU
+	 9aOVVuJFGpTuLDr4hwIM4U46GVg8D4IInXRjsuYmz9H7cbrExrBQZBsKzWezQgHrs0uNf
+	 NYJAOyTIcc92DA67JRIPPnHxQnmj9xW3j5vBAuJW8v0gm6wJ2HU7AIla7UdjMswabX9qm
+	 lz5jkr2rt+YeWyOa8Ym+lDJvkU8YALN7nEj9EIQobRujYdNi1ZnmFkcvJ3n+8T93UJ3bq
+	 02dH9YzabfxRTtTzMgHRZwE0kajJm86PLC02GGFjB4nAjC0hJiBCyqjssCjxp8a8r2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795184350;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=kCmSLUIBckuiPzspA4IkBNq6yFuVZYYrJamPoUyPQzc=;
-	b=v6cuCh68txTlgAgc6KE0uR2MWR0fIgBJDreLwStCr8dCduLbPcfsgS4PrrhEgztJ2c9l
-	 rwUI/45Mwy32uaoRSH0tKc8idVZ8/UHqJjO8CKDEeGebGCE6rJTqCi8vj9EglOA+rQ5aZ
-	 dWT3R/2znh7cWI7xpwDTA7pkB8z7V6MLtFQJNR8HXIW/8tiJ+vgwvdu1F0XLNwNtUCSVQ
-	 SPuRMCPK2CyUimKbOWZX4rOVGNZdPGyIGngsOI2q2s7wzl+j3hIkoFcVyaCvGyHlPsESM
-	 lFC1PIb8xABZk4qQkxA3tGwjiv1FsVmZK+FCs0WGZyXwQNrImQLuXNdfALlhGaBK+Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795184488;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Developer-Key:X-Developer-Signature:X-Mailer:Message-ID:Subject:
+	 From:To:Cc:Content-Type;
+	bh=ITiUSrkcHo3/vrwpGUwRiKCqGxMl4l0M0GrgljGxK/4=;
+	b=HI8r6+vIFxnQzhYyLGxvhDadWW11VaSE0WErflQITtpViZx7G66D5lxHlgxi6LyW3zAJ
+	 ZWbly27+Lz0Fd7RLbw88+7JicOm3aDGIO+E/70yUqCxMm7B0z6EFPxviQ9HVGE03ja0zQ
+	 M1Ij0S61vXX2+EpyRsR/GLn4FfkD0vH4duPITxFLFPefZvCfMzym/fHr2iHlG7FpFsZ/z
+	 vYl7/LFupbn3o4ryhYDkVnJCDybeRF948A/h+s5pbRe0MGVwLNv35+xv89FuveL5oTK3b
+	 E/Mi27Z9KROKAapTjfbVE/nv1nRjSfIfz8+fDs9KJ+aLqMtgkCc1Mf51MOO/CrH05TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=S4JWxgYa;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--ardb.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NBS3fzbo;
+	arc=none smtp.remote-ip=209.85.221.69
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DE5606A325;
-	Fri, 20 Nov 2026 14:19:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92DE5606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E785606A326
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 14:21:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E785606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=S4JWxgYa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795184349; x=1826720349;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ygMS8bfp+r/Ry1VqGSfmzGK524Y0flw4JjnPVtZrE40=;
-  b=S4JWxgYaREfKin62JHBXPYznOo5k1wg3bbv5OuPT1sUpGHBX9yYc6JMc
-   VhoKkQs1bJdnXHyMI6JEovh/b/Wng3bBuPlf125HMY4kEvlwDTDFlpZtr
-   u1+zlN6GRRLCu3mogcECKAeW2hM8OiDr888OZ/ju6aszTVDF+7AKzeqGF
-   GzcriK4t1xxgIc2sNSKx2FzT91Ce+ZD4OJ8pmh9x9hJVXLi01NYIlbsoZ
-   BlP0NHXrwHmoK8cgWxkm7Fgs2L5aNPSqG86B15PmeqKsBuDFRFnT3Tvru
-   D0KkabOTDQf2QEiklojpNoZyBVvpvi7e6pJ42v3sNFZIa8j6uO+U9Ys3B
-   g==;
-X-CSE-ConnectionGUID: ADYLFS5jTIuZK4Nc0ztZzQ==
-X-CSE-MsgGUID: tsBz42D6QZmDYwzvYT3UlA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4106151"
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="4106151"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 06:19:09 -0800
-X-CSE-ConnectionGUID: 3kryz8ETQe2llA/oIdr6sg==
-X-CSE-MsgGUID: dfuxc4MWSeOGSmDhZLL9Kw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="10696880"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.218])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 06:19:07 -0800
-Date: Fri, 20 Nov 2026 16:19:04 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: silverducks@altlinux.org
-Cc: bnatikar@amd.com, Basavaraj.Natikar@amd.com, Shyam-sundar.S-k@amd.com,
-	brgl@kernel.org, linusw@kernel.org, linux-acpi@vger.kernel.org,
-	linux-gpio@vger.kernel.org, mario.limonciello@amd.com,
-	stable@vger.kernel.org, westeri@kernel.org
-Subject: Re: [PATCH v2] gpiolib: acpi: Add ignore_wake quirk for Gigabyte
- B650 GAMING X AX
-Message-ID: <awBW2BeZjVdDi_Ha@ashevche-desk.local>
-References: <139a1c14-39a1-4bc5-aba3-673ba603821d@amd.com>
- <20261120125823.716828-2-silverducks@altlinux.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NBS3fzbo
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4a799d93bc3so471066f8f.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 06:21:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795184486; x=1795789286; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ITiUSrkcHo3/vrwpGUwRiKCqGxMl4l0M0GrgljGxK/4=;
+        b=NBS3fzboEkL64Ak9+4oXjgDYEondLbWnqd3arCyHVetN7wmvWalFjvylGj93+6EX0F
+         Ry7mMHTT7zfpKThI46+b3+U4f4DO5hQld2ErJ1OsZ4yMnjuyyLRwA15Y3ulwy+0Ee0/f
+         CLfdwYS8At9/QE1BSfYZBCzTnX8UCpcDBm5ab4FnbCa+SCQNSKoajqRGE8VinrEsb3Wk
+         f/mfcq+dINTXkk+1oVpm/l5XOXEA+ULK8MZXOg0orGv5/odMaieYQpPjM26K+VrIteEl
+         on8wlfQEJUaTlvjecRM7X5PPCCAOKKJ59q41lG5NPLIR3zbF6iNDvafXMQLCKDrr2b+9
+         Kc+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795184486; x=1795789286;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ITiUSrkcHo3/vrwpGUwRiKCqGxMl4l0M0GrgljGxK/4=;
+        b=vzDqnJ93SgVUDS96Qa87xyHbaKG8F0BINjj+Yc2SFGK4/2rnPDvwF48P6R6KKl/so7
+         1+uzSTNeyy3skvk23/hdJkInsbcOtQjUcNXV4T12XovF3WXbZVoNaL6g2JxNT3bNshSB
+         9kzN2Jv5DdgYdS5i4ICTVTnQuDIgALMe2UQQvwL6AODh9qxP5+mbAMQyoog3y8U9WbX0
+         WS6bOzZ1LLOeEOcAjuovJeNZou0GOTpH8cfoT2xn+9i5sWge6sWmQIRsOcFDK3pc6uc9
+         DdIitRAzdIvKVri7mzPf1XIY2pdSWL+chUc0DQTOSd8o8pvnbYxRH38OYSZgpi6Noajf
+         nc6g==
+X-Forwarded-Encrypted: i=1; AL+hErGTp0m66XI1GvCu929zIpyUVz078XaBT6UlsyGRkboDojD7GGVI3tqFMUhWOQtFGYs2ZgiY13A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9OgN/+muecEHsKO3IVZTLtmWTBXyYzNStA9Cr5rncldeOOIMDw
+	uJveaf7PqkRjPXSx0mbiqx5LSmz5FYSxdlcxGO+ePWZ0iCotGq6NoJdRrDhQaqt9lA3mRVOvIQ=
+	=
+X-Received: from wmol4.prod.google.com ([2002:a05:600c:47c4:b0:4a2:655:296e])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:6708:b0:4ba:7e6:53d6
+ with SMTP id 5b1f17b1804b1-4bb88940848mr62322595e9.33.1795184486289; Fri, 20
+ Nov 2026 06:21:26 -0800 (PST)
+Date: Fri, 20 Nov 2026 15:21:24 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,77 +76,70 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261120125823.716828-2-silverducks@altlinux.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1872; i=ardb@kernel.org;
+ h=from:subject; bh=X3o9Rmm7jx01kMITf0sPisYNfYMNsUTwItzuQQ7OsyU=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIZshPPlBlfXFQ9kW09YuOKl2dvuLpIz2Bfx5jAVLbl86F
+ Bxy70NGRykLgxgXg6yYIovA7L/vdp6eKFXrPEsWZg4rE8gQBi5OAZhIJBsjw85VT855FniemFxQ
+ f6STSe3HinPZPe92Z9xc5fR35kqVCVcZfrMmftN6W3k+9LHuJ4UDv1PusBnHS16u4fTd1BAb7/P zEBMA
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+Message-ID: <20261120142123.1125683-2-ardb+git@google.com>
+Subject: [PATCH] efi: Don't destroy runtime workqueue on efisubsys_init() failure
+From: Ard Biesheuvel <ardb+git@google.com>
+To: linux-efi@vger.kernel.org
+Cc: Ard Biesheuvel <ardb@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Nov 20, 2026 at 03:58:24PM +0300, silverducks@altlinux.org wrote:
-> On 11/19/2026 7:46 PM, Andy Shevchenko wrote:
-> > On Thu, Nov 19, 2026 at 03:28:45PM +0300, silverducks@altlinux.org wrote:
+From: Ard Biesheuvel <ardb@kernel.org>
 
-...
+Commit 98086df8b70c ("efi: add missed destroy_workqueue when
+efisubsys_init fails") added a destroy_workqueue(efi_rts_wq) call to the
+error cleanup path of efisubsys_init() without clearing
+EFI_RUNTIME_SERVICES in efi.flags, leaving __efi_queue_work() passing a
+freed workqueue pointer to queue_work() on any subsequent runtime
+service call (for instance via the rtc-efi device registered right
+before efi_kobj is created).
 
-> >> Hmm... And you are running the latest BIOS?
-> >
-> >+1. If a newer BIOS de-flags the pin (ExclusiveAndWake -> Exclusive) or
-> >stops asserting it in S3, this quirk would permanently disable GPP7 wake
-> >on units that no longer need it. Please confirm the BIOS version it
-> >reproduces on and whether the latest available BIOS still shows it.
-> 
-> Ah, right, my bad. The version was F31b.
-> I've tested again after flashing the latest F42e (october 20th, checksum
-> 1DA1). S3 works on it with unpatched kernels.  Diff of the relevant sections
-> between these versions:
-> 
-> @@ -66279,16 +65498,11 @@
->      {
->          Method (_AEI, 0, NotSerialized)  // _AEI: ACPI Event Interrupts
->          {
-> -            Name (BUFF, ResourceTemplate ()
-> +            Name (BUFF, Buffer (0x02)
->              {
-> -                GpioInt (Edge, ActiveLow, ExclusiveAndWake, PullNone, 0x0000,
-> -                    "\\_SB.GPIO", 0x00, ResourceConsumer, ,
-> -                    )
-> -                    {   // Pin list
-> -                        0x0003
-> -                    }
-> +                 0x79, 0x00                                       // y.
->              })
-> -            Name (BUNP, ResourceTemplate ()
-> +            Name (BUNX, ResourceTemplate ()
->              {
->                  GpioInt (Edge, ActiveHigh, ExclusiveAndWake, PullDefault, 0x1388,
->                      "\\_SB.GPIO", 0x00, ResourceConsumer, ,
-> 
-> @@ -66330,24 +65547,40 @@
->                      "\\_SB.GPIO", 0x00, ResourceConsumer, ,
->                      )
->                      {   // Pin list
-> -                        0x0003
-> -                    }
-> -                GpioInt (Edge, ActiveLow, ExclusiveAndWake, PullNone, 0x0000,
-> -                    "\\_SB.GPIO", 0x00, ResourceConsumer, ,
-> -                    )
-> -                    {   // Pin list
->                          0x0009
->                      }
->              })
-> 
-> Seems like this has indeed been fixed on firmware side in the new BIOS.
-> Pin 3 was not just deflagged, but removed entirely.
-> 
-> Should I rescope the quirk to F31b or drop it altogether?
+Furthermore, since commit 13c6da02e767 ("efi: Allocate runtime workqueue
+before ACPI init"), efi_rts_wq is no longer allocated by
+efisubsys_init() at all, as efipostcore_init() allocates it earlier for
+consumers such as ACPI PRM that do not depend on /sys/firmware/efi.
 
-No, since there is a FW update available and it fixes the issue.
-However you can do a blog post or something like this, so internet
-will remember that.
+Drop the bogus destroy_workqueue() cleanup from efisubsys_init().
 
+Fixes: 98086df8b70c ("efi: add missed destroy_workqueue when efisubsys_init fails")
+Fixes: 13c6da02e767 ("efi: Allocate runtime workqueue before ACPI init")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+---
+ drivers/firmware/efi/efi.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
+index 9bc22de0d67e..40b423f85e06 100644
+--- a/drivers/firmware/efi/efi.c
++++ b/drivers/firmware/efi/efi.c
+@@ -466,8 +466,7 @@ static int __init efisubsys_init(void)
+ 	efi_kobj = kobject_create_and_add("efi", firmware_kobj);
+ 	if (!efi_kobj) {
+ 		pr_err("efi: Firmware registration failed.\n");
+-		error = -ENOMEM;
+-		goto err_destroy_wq;
++		return -ENOMEM;
+ 	}
+ 
+ 	if (IS_ENABLED(CONFIG_PREEMPT_RT) && efi.runtime_supported_mask) {
+@@ -525,9 +524,6 @@ static int __init efisubsys_init(void)
+ err_put:
+ 	kobject_put(efi_kobj);
+ 	efi_kobj = NULL;
+-err_destroy_wq:
+-	if (efi_rts_wq)
+-		destroy_workqueue(efi_rts_wq);
+ 
+ 	return error;
+ }
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.1.750.gf70dc682cf-goog
 
