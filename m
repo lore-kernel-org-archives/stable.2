@@ -1,95 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795173242;
-	b=TheR12P10LQ4Q6oqVhOrAd11n30WiSYsKmbaO4nbh1xKjdiX/+g+Y4qCXxqTZu8hXuyh
-	 P7t6hIDCFdD9eGKS5CcTzYo4g9uNux0celOFTkmUjylr2l0d7qX5EV7+z+q8YwTIQEAN6
-	 i1LPpMNpXVLWQ2z4ZTTMJk+Db3D66CRbytHEh4JGtYxU5OLCVtXCncTmkZ2I+926YlN2g
-	 S/HHUxBOakikw/ty1QqYwR+1pnv9ZOM5+J408RVjwn7HoWtu22JVhjEwRlNrjdOHka9iy
-	 +rtGOJ9vxGoFt1WT6PrypWVGBiKcSnoQ3EjTzR40EEfqBe1vA0bfYw19iXAB76k4PKg==
+	t=1795173377;
+	b=Z9bctU9qs/VtEaxHAz14hDXzGY2A/ILKxxufXn0REhUmD2dfa8ssjWiw2m3+pYA0jiUr
+	 Yq15sshkUh5eYcNRajoxqQ0vQdDpov0hn/Mtypv/a4BTJI0/hpj6AcbeIsYwJ/lW8UsJ+
+	 k4IjcE2eSP+9ovu8jeZNW+mtQ8Go97K0JKeJQdx4U8nkUP6bh9eWCYtC2ECaeaj7912ZQ
+	 9Ljn0hI8mZ/SbHk5ByMyyA1wrBv4j8NVs1X4c4bkK4JDDkkyJEEIpbYlZ6Ni+6zV7jNWP
+	 661gyU7a84641WLjqIrlrc2lfnRvAZ+gwZiqLuJEEb5RNPjQ1REtE326Pld/ToOkPHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795173242;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=c5TP8QN0A+61hAuSZdjk63ActRIUkjcmDfLAhcw9riM=;
-	b=MTRy82aMj0v6+OAtRsiUbGw/Fqif819hHx6NsnJyj6gqZxlFTLxe3zEZmP0+OEsFJbBz
-	 76SMqaqrkc/cOKnjzzXWOPsbgemSV/aMKQMpQI5lhsJ1TmS0gYomAp5WZz9wVJIk9tcvm
-	 Kf+4ZQceFSqSxxqOAF69TaqtkxZwl7u9s7EV9whh8oHT8ZiGflcB1wu1hXezapxvWYLEW
-	 PMHT5+D2mebccbMV76ME1x5tcVf+dNtobx+XloX0uRoMYkXZdQIMlT1smB9FGJGf3Pk8r
-	 A0QzIeBdMaNbprRvYnIbiOucbMbIJAh5/hwWKzxshvVMlQG3BlD7GMNpWZnTHo86WeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795173377;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=pl136nzpOFQ345cNO6L/r1uz90t3NzllIlAz7VRcMtI=;
+	b=LMA27b4LpHPoVE5EW4x+xZDKtf0HVHQ+/GHROJ9mdLGCyUU9mUzbSkqkCaX8itayGd51
+	 KCI4VD0kp4CwVp90okjdqYncrUbuf0jkOcMSXeYEyA8x4H63ezWWFUOGLzTVoPqA8+QF+
+	 xX9oZF8KGhHvI4W0pxu5053G19uwWvdpiBeIM5AblCu70SHGEPIJeemlQWol7HlGeC6kN
+	 GZuDnywwZnmxsS2Y5rKCIVodUQ+S4BADEUA0loNZFZ5Kvxr6wnXY3C79pDKP2jLTQgD+u
+	 nxeuWp9XlSiTC1CgaFzfZqmwW/vJOmBVrBp2EV7o9bsUmglmvUUnjmI0vEGG5kq7wyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fAodecJY;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zUySvkkH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88117606A320
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 11:14:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88117606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E485C606A320;
+	Fri, 20 Nov 2026 11:16:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fAodecJY
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4a68190a2a7so656954f8f.1
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 03:14:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795173240; x=1795778040; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=c5TP8QN0A+61hAuSZdjk63ActRIUkjcmDfLAhcw9riM=;
-        b=fAodecJYdDh5FrLQntGkHTfvuTZG4mAqmgdlpnvwepAyDXsAoBKUgwtS+BdGC+QZQI
-         NxKqqLZ/Ei6FNNWSA1uSl/QJ52OjQhL9KmxDFcaqb4daPgepHmwHR4ntiZjYtOPySAHE
-         etzdAeZ1HUqVOf2fsEnVLTL0565Sy9sGlbhKst2zvg/P8bwybGMmwmwcihAMyQeTfWwb
-         6+8ndLbJPLsux4RE69l2+m/GFp22WxKS78HMVnehbl/XKkyOjVTscrsLDLhqG1pJ8q0v
-         BsbmFpuGIwdsW+t5JYufilRclbN2LHdbRBiG/BQ7hLLnuloGJegwXxAkKodjJhjkcqSL
-         tXyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795173240; x=1795778040;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c5TP8QN0A+61hAuSZdjk63ActRIUkjcmDfLAhcw9riM=;
-        b=tPE6P0nEudJigof+iHk8QFb3Y3B8bjfzMuz/v+DSFeozASr4vKQGEonzx6+nbe7KZL
-         P7+w2gIJ528SAtne/J3kHp/BBjLD6E4Si/WJRTKQHGynl/WqMdbh5OaZ1p+SMpsEZcca
-         K0ITDeevJoTh+jrXcpJ7r7aK2pEihy4CY14+S/DvEfvE9beuz354N2L5lBDTjMQK7ksV
-         ps3MPARWlB3wrjrPpQfvZ866inkttgqRvVbUDD3PPX6fSJ1wvbvvAbCD+2haGI3SI/zK
-         b/HBFe0I4vE1HNwI3zAsEYmi3hOzRtyGGWTi335JIiZ0xryGTSLeuaU0tcWWck0PRAf6
-         LFhA==
-X-Forwarded-Encrypted: i=1; AL+hErFb8oPRqVZKoKreZzK8WvplUrfRM+USowTZFF11CY9XfJzHxR9etAFmHw5r5ZYWdNNKIbqkneM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/v8i6F/LNuFC0o+/fP/L/SU1N02RCCcSjBfB0IXJX5O78uWuOm
-	ujEptsLHfBEilYLSbtV/l0Niv2m1nJrhq7P6TyUALunhXWo7S2fSZvpZ
-X-Gm-Gg: AZFdTZfUV1AxFgfKKd3KWtTC1IVOmw2g1madivXp9G6CSloDohnfUxjrA6PZurs8StZ
-	v3wYa9DFCebk4hvKSU1Dd7V7CvrgINlQ3RlCq+/iK7CLb6AcSzDM7kl3dqIU496L31105gaQTOl
-	va+yV7Rfa2NWRY7RNYl+4pHBifyBDUUT0az1kzbAsXTXDR2SXmy6op7Iwf/SMPQf7yFDcclKO76
-	bgaDdujyU7zPWqsGfkP7R4TBBykHN3nbskB+UgTh9yg99KOX9jTdrH7xLCcOKahovyTzEI0DCQQ
-	/1BwfGgaeFGAPKl4NSqgpdBhlaq77nLzzpSIwcNnC75PeVyLt/jvjZSXrsA96ozAM0gFuy7JmD9
-	K8dqgPqhEBHzDXZqeWmimO97o/o1JAxu6rr5dJfOelzikl7ZxX7F67pWk0jQ3awbOl1d62pWiAV
-	koWSLTfW0+IXuqAPxZ1nIdEp3sVNkPCYJn22ck9Imnry5MWu0yFZYMOUb1oHNRgAXTLoYDJPl4+
-	NHU1jby7ra6WV6vz+GFqGTfjOceb162blrEDoxnhUcqlQyIF2Tihn+TwFuFozIaQxu6vyCXA80C
-	CnFrHGhdNbdUtahKBKereJePraTKl1hZOfM7dB8RvYSqO8/ltB/YYdK6eyZHS0E=
-X-Received: by 2002:adf:e012:0:10b0:48e:3697:708d with SMTP id ffacd0b85a97d-4abb0d51ab2mr3805002f8f.12.1795173239827;
-        Fri, 20 Nov 2026 03:13:59 -0800 (PST)
-Received: from foxbook (bfh118.neoplus.adsl.tpnet.pl. [83.28.45.118])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab65cb41f4sm4905165f8f.7.2026.11.20.03.13.58
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Fri, 20 Nov 2026 03:13:59 -0800 (PST)
-Date: Fri, 20 Nov 2026 12:13:57 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Riley Wagner <riwiwa00@gmail.com>
-Cc: mathias.nyman@intel.com, linux-usb@vger.kernel.org,
- gregkh@linuxfoundation.org, stable@vger.kernel.org, "Mario Limonciello
- (AMD)" <superm1@kernel.org>, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH] usb: xhci: pci: do not perform Soft Retry on AMD 500
- series chipset host
-Message-ID: <20261120121357.1e1a0ce4.michal.pecio@gmail.com>
-In-Reply-To: <20261117193300.25897-1-riwiwa00@gmail.com>
-References: <20261117193300.25897-1-riwiwa00@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zUySvkkH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9DC51F000C0;
+	Fri, 20 Nov 2026 11:16:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795173376;
+	bh=pl136nzpOFQ345cNO6L/r1uz90t3NzllIlAz7VRcMtI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=zUySvkkHhPiH3OWBBhmtbPX5N22IOKGeVTdc3jos3pj0U8ksV8GdleYy1i/sdZgnU
+	 fDrPAzJJtMEYCSbG+7qnnH9VcS4tGvjl2XPwDImU+5xFNR1U7FTob/VsFWLfkuapHl
+	 +YiHkeWBdYslE/3KxNS+ET0Em1HSiUoZdeijhRFc=
+Date: Fri, 20 Nov 2026 12:16:13 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Neill Kapron <nkapron@google.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4] usb: gadget: f_uac1_legacy: fix copy_buf lifetime on
+ queue handoff and free
+Message-ID: <2026112033-gummy-backward-5436@gregkh>
+References: <20261104125346.2552742-1-tristmd@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,113 +56,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104125346.2552742-1-tristmd@gmail.com>
 
-On Tue, 17 Nov 2026 11:33:00 -0800, Riley Wagner wrote:
-> Full-speed HID devices hot-plugged into a root port of the AMD 500
-> series chipset xHCI host (1022:43ee) enumerate and bind, but never
-> deliver any input. The device then resets itself after ~10 seconds,
-> re-enumerates, and the cycle repeats. Devices present at boot are not
-> affected.
-
-I doubt that this affects all HID devices, people would have noticed.
-
-What if it's not connected to the root hub? Is this important?
-
-> With xhci_hcd dynamic debug enabled, the first poll of the interrupt IN
-> endpoint fails with a transaction error, the driver performs a Soft
-> Retry, and the endpoint never completes another transfer:
+On Wed, Nov 04, 2026 at 12:53:46PM +0000, Tristan Madani wrote:
+> From: Tristan Madani <tristan@talencesecurity.com>
 > 
->   [ 6658.313453] xhci_hcd 0000:02:00.0: Successful Endpoint Configure command
->   [ 6658.352348] input: ELECOM TrackBall Mouse HUGE TrackBall as ...
->   [ 6659.424165] xhci_hcd 0000:02:00.0: Transfer error for slot 29 ep 2 on endpoint
->   [ 6659.424170] xhci_hcd 0000:02:00.0: Soft-reset ep 2, slot 29
->   [ 6659.424290] xhci_hcd 0000:02:00.0: Ignoring reset ep completion code of 1
->   [ 6667.989369] usb 1-9: USB disconnect, device number 30
+> f_audio_free() tears down the f_audio structure without cancelling
+> playback_work or releasing audio buffers.  The pending work can access
+> the freed structure, and queued audio buffers leak.
 > 
-> usbmon shows the interrupt URB submitted at enumeration and only given
-> back by the disconnect, 9.6 seconds later:
+> Additionally, f_audio_set_alt() and f_audio_out_ep_complete() transfer
+> copy_buf to play_queue without clearing audio->copy_buf.  When
+> playback_work later consumes the buffer from the queue, audio->copy_buf
+> becomes a stale reference.
 > 
->   2562187476 S Ii:1:030:1 -115:1 8 <
->   2571824873 C Ii:1:030:1 -108:1 0
+> Clear audio->copy_buf when its buffer is queued to play_queue, so the
+> pointer reliably reflects ownership.  In f_audio_free(), cancel
+> playback_work, drain the play_queue, and free copy_buf when it was not
+> queued.  Use IS_ERR_OR_NULL for the copy_buf check because
+> f_audio_buffer_alloc() returns ERR_PTR on failure and f_audio_set_alt()
+> stores the result directly in audio->copy_buf.
 > 
-> No further transfer events or errors are reported for the endpoint after
-> the soft reset completes and the doorbell is rung, so the TD is never
-> retried or failed.
-
-IIRC that's the same HW bug which broke some high-speed Realtek WiFi
-dongle and caused Soft Retry to be disabled in multiple variants of
-Promontory chipsets. I actually obtained that WiFi dongle (long after
-the fact) and reproduced the issue - it happens when a device fails
-the first URB and it gets retried. Most HCs handle this normally, but
-Promontory generates no transfer events and later fails Stop Endpoint
-with Context State Error and the endpoint is "halted".
-
-And I think I have seen similar issues on other ASMedia HCs in case of
-disconnection and repeated retries and endpoint resets. OTOH, in other
-cases this controllers perform retries correctly.
-
-I will look into that, because maybe we could only avoid the particular
-retries which fail (and also add a whole lot more PCI IDs).
-
-> This matches commit a4a251f8c235 ("usb: xhci: do not perform Soft Retry
-> for some xHCI hosts"), which disabled Soft Retry on the AMD Promontory A
-> hosts (43b9, 43bb) for the same class of failure. Booting with
-> xhci_hcd.quirks=0x10000000000 (XHCI_NO_SOFT_RETRY) makes the device work
-> reliably after hot-plug on the chipset root ports tested (1-3, 1-9); the
-> same device also works after hot-plug on the CPU's xHCI host (1022:149c)
-> without the quirk.
-> 
-> Tested on an ASUS ROG STRIX B550-F GAMING (BIOS 3621) with an ELECOM
-> HUGE trackball (056e:010c) and a PFU HHKB Professional HYBRID Type-S
-> (04fe:0021), on 7.3.4 with commit 6895dbdc19d9 ("xhci: give back TDs
-> and clean up ep0 after disconnect") applied. The trackball showed the
-> same behaviour on 7.2.x.
-
-I suppose the keyboard also had problems on 7.2?
-IIRC it's that one which always disconnects itself on initialization.
-
-> Add the AMD 500 series chipset xHCI to the hosts that do not perform
-> Soft Retry.
-> 
-> Fixes: f8f80be501aa ("xhci: Use soft retry to recover faster from transaction errors")
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=202541
+> Fixes: c6994e6f067c ("USB: gadget: add USB Audio Gadget driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Riley Wagner <riwiwa00@gmail.com>
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 > ---
->  drivers/usb/host/xhci-pci.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-> --- a/drivers/usb/host/xhci-pci.c
-> +++ b/drivers/usb/host/xhci-pci.c
-> @@ -88,6 +88,7 @@
->  #define PCI_DEVICE_ID_AMD_PROMONTORYA_3			0x43ba
->  #define PCI_DEVICE_ID_AMD_PROMONTORYA_2			0x43bb
->  #define PCI_DEVICE_ID_AMD_PROMONTORYA_1			0x43bc
-> +#define PCI_DEVICE_ID_AMD_500_SERIES_XHCI		0x43ee
+> Changes in v4:
+> - Fix the root cause of the stale copy_buf reference: clear
+>   audio->copy_buf at the two sites that transfer ownership to
+>   play_queue (f_audio_out_ep_complete inside the spinlock, and
+>   f_audio_set_alt alt 0) so playback_work consuming the buffer
+>   can no longer leave a stale pointer (sashiko-bot)
+> - Simplify f_audio_free drain: no buf == copy_buf comparison
+>   needed since copy_buf is now reliably NULL when its buffer
+>   is on the queue
+> 
+> Changes in v3:
+> - Guard copy_buf free with IS_ERR_OR_NULL because
+>   f_audio_buffer_alloc() returns ERR_PTR on failure (sashiko-bot)
+> - Attempted to detect copy_buf during queue drain, but that
+>   missed the case where playback_work already consumed it
+> 
+> Changes in v2:
+> - Added play_queue drain and copy_buf free (sashiko-bot)
+> 
+>  drivers/usb/gadget/function/f_uac1_legacy.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/drivers/usb/gadget/function/f_uac1_legacy.c b/drivers/usb/gadget/function/f_uac1_legacy.c
+> index 7c8d60c7e87d1..cba7b447b09e3 100644
+> --- a/drivers/usb/gadget/function/f_uac1_legacy.c
+> +++ b/drivers/usb/gadget/function/f_uac1_legacy.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/slab.h>
+>  #include <linux/kernel.h>
+>  #include <linux/module.h>
+> +#include <linux/err.h>
 
-I think "PROMONTORY_19" or "PROM19" would be better for consistency
-with other entries (see also: commit 9e896b4a48c4).
+Are you sure this is needed?  If so, why here in the list?
 
-And isn't 1022:43ec another PROM19 ID?
-Does anyone know if 400-series or PROM21 have the same bug?
+>  #include <linux/device.h>
+>  #include <linux/atomic.h>
+>  
+> @@ -338,6 +339,7 @@ static int f_audio_out_ep_complete(struct usb_ep *ep, struct usb_request *req)
+>  	if (audio_buf_size - copy_buf->actual < req->actual) {
+>  		spin_lock_irq(&audio->lock);
+>  		list_add_tail(&copy_buf->list, &audio->play_queue);
+> +		audio->copy_buf = NULL;
+>  		spin_unlock_irq(&audio->lock);
+>  		schedule_work(&audio->playback_work);
+>  		copy_buf = f_audio_buffer_alloc(audio_buf_size);
+> @@ -670,6 +672,7 @@ static int f_audio_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
+>  			if (copy_buf) {
+>  				list_add_tail(&copy_buf->list,
+>  						&audio->play_queue);
+> +				audio->copy_buf = NULL;
+>  				schedule_work(&audio->playback_work);
+>  			}
+>  		}
+> @@ -942,7 +945,15 @@ static void f_audio_free(struct usb_function *f)
+>  {
+>  	struct f_audio *audio = func_to_audio(f);
+>  	struct f_uac1_legacy_opts *opts;
+> +	struct f_audio_buf *buf, *tmp;
+>  
+> +	cancel_work_sync(&audio->playback_work);
+> +	list_for_each_entry_safe(buf, tmp, &audio->play_queue, list) {
+> +		list_del(&buf->list);
+> +		f_audio_buffer_free(buf);
+> +	}
+> +	if (!IS_ERR_OR_NULL(audio->copy_buf))
 
-Adding some AMD people...
+How can it be an error?  This is usually a sign something else is wrong,
+right?
 
->  
->  #define PCI_DEVICE_ID_ATI_NAVI10_7316_XHCI		0x7316
->  
-> @@ -493,7 +494,8 @@
->  
->  	if (pdev->vendor == PCI_VENDOR_ID_AMD &&
->  	    (pdev->device == PCI_DEVICE_ID_AMD_PROMONTORYA_2 ||
-> -	     pdev->device == PCI_DEVICE_ID_AMD_PROMONTORYA_4))
-> +	     pdev->device == PCI_DEVICE_ID_AMD_PROMONTORYA_4 ||
-> +	     pdev->device == PCI_DEVICE_ID_AMD_500_SERIES_XHCI))
->  		xhci->quirks |= XHCI_NO_SOFT_RETRY;
->  
->  	if (pdev->vendor == PCI_VENDOR_ID_ZHAOXIN) {
-> -- 
-> 2.56.0
+thanks,
+
+greg k-h
