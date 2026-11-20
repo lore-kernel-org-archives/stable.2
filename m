@@ -1,107 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795190307;
-	b=oA9ipmMHR0Fj4knVZW85WepDFhEJBufAWNaNcv2pVDoRCN5CHuIHlqcPQYZ3XXW+VDxv
-	 Qyv/Wn7xfBZVOSyq5OPGzTesFlaCGE2ZRzBIJk9iiqW4kmBiYU9daRslaFYk7J3rGAfA7
-	 Bjdfn6oyCU9ZOEuLmvyyadscGbrCPuM3ToIKF33zM3I2WYXmerJ7DWRPP2XqiCpWGFfg7
-	 MSP6C+eneRTAca+Og6WwVz+2nnl0mP5cvXiykBgqFoHEBMLJk4QYO0LXl2vSqLy+zm8Dh
-	 63h9AsKjsekQGgbn2T569Ut+cSHK5kjWTdwpW0KODVJegTROPJSZMyjIy2EpCxfoPZw==
+	t=1795190462;
+	b=1Sok3fZw6gSJyIrh2qRWlWuydNBdNgv/75HF5T18xug0wqe9bApSGfj9wEXjF+oVSxIk
+	 NqPqZUoU0Ob5up6dO3AQ6FRzsq/Uu2nMFBB3nPVG9I4O7wYPlEUIjnOq7lxbycUNphHtg
+	 m6drWoqmXLx3xc6nffbXc00geBEeuJcjJdVOwUWfZFYk+yJdBxCKQTBYXc0+THkIUDi8L
+	 5K18LbDVzQnvzugbJKf3UPKQueLdagYklP+HHWiolFO569HyGjALMgq84mGPeJugxkVdV
+	 A67r23e/pdZz1DjlmkdJ3BmS2vcRqVfX5wiZPw/gwJ9NuVa/6O0GunaMDi9rgn7YLCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795190307;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
-	 X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
-	b=uHTNk7PONNEDmSG8KhdtOPnW2l+QBsD5DdLAL4tNIZ2gkgudm3JQr7ZGl8MJCEU8+bg5
-	 HaVmJxA+2bZ6Nyj1JjxXg0Bt0O2EBwD1525Dpt/G7mRhfPBW/CwDftsh3I8ArKsFLr/kB
-	 a7CXEh4MmRhZUg2dZmIVr22BvWflEPnxo4gu+8molQm0naBcOhfqjgrY6a+5/xefiJ8TI
-	 xTlUpU9pHvN1mIcveXys9PTJiEB/2JDKqZK5ZoZh30CmPxkQSj5AHeF2tceMkIp3BZykJ
-	 pxiVxhL+I1St3boU48spxXIDjeaBsa7GpBLa/frOwVhbAYnQgWtVEz/l66LtPAcBEBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795190462;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=uBZHDjcp8OHvO+9HMmytd8ayAJCp+xM1stb3TXPJ8UI=;
+	b=2YX2WyKUIg0gW2CbQuFaJHL+W5KF4mafTg8Gr7wg0OMcbGfuLRGfXpsypCJD1SrScvBe
+	 3Bfq7uA/JqInAShnS/MDrmX/145ILKrJP9OPlrnMPBVpjDjphzUK3CAcPSIwpMq+flplM
+	 X54igwJBe0fCOX3I0L1bcSZnxSWZWrGiPOfM2IPsRaqDzf84InBEaqlKpotnzxDuhKjNK
+	 hhkZ1kg7CqLIHYJJ5PvnKJ9PXmLsktf00ogFBHTs6Dv+3wNkUzWuijazO6D7oV/+o41GA
+	 GwZpOtcfF62/fmfg+xMP060uK9MUsqjwAH0LknAxdwZx4Gyt/ZKz/0ugTUPJFKGyiKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LVloF5Ph;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hdfXVYss;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FMm+sDTb;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3ood98qN;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m4k51Ka8;
+	arc=none smtp.remote-ip=209.85.160.46
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF47606A325
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 15:58:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FF47606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6518B606A32A
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:01:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6518B606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LVloF5Ph;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hdfXVYss;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FMm+sDTb;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3ood98qN
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id EB00C2258E;
-	Fri, 20 Nov 2026 15:58:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795190305; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
-	b=LVloF5Ph1ridCWOcv3hHQGDNMNvqy+2ERuwqO42C2X63IOp5LwL4MtHQGd8B4lWNVHP2jo
-	tRH4ztfuwerOCZn4pUpRHUOx1GMZ0+UevYIDVXqAvtZZJT1Re3OoOBS1kujauHosqbm6/q
-	a8zRYQi8X1oynwbQF5BsVy07ZTV3/g8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795190305;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
-	b=hdfXVYss/zpHLS1ViHEH7Yqqls+lsdPiIWjLljS01HOcgKUITnq/O0tEiPEs1v/HqiuYLb
-	QnQzaAZu8PkLZ/Aw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FMm+sDTb;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3ood98qN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795190304; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
-	b=FMm+sDTbEA9wH+NiVby8McQfFIi+n2Kdq1fp+vipQXaMEcJuudkMK9Kkz2RdfjwkVpvRcP
-	EEMGrMMq45t5nB3SnFxSL1Pvm+G+eMPJndWCQ8asIhqEAFaLKZLd1FsnC0oQ+Vl4FQs+S9
-	3zVY7TJMLHBjLCfiCbjtQRpxmkALkok=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795190304;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
-	b=3ood98qNeHrV1GEyVo5U31EtjN78yaA6wRyMUMD80qZ/qAp6DVUDoQOBsZ4zOEZiOCY3y1
-	WafwAtk4uhIcL+Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8BB841348F;
-	Fri, 20 Nov 2026 15:58:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Dx6oGiBuAGtTCQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Fri, 20 Nov 2026 15:58:24 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jfalempe@redhat.com,
-	airlied@redhat.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	airlied@gmail.com,
-	dri-devel@lists.freedesktop.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/ast: Add an option to disable Write-Combine
-Date: Fri, 20 Nov 2026 16:57:58 +0100
-Message-ID: <20261120155821.119377-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m4k51Ka8
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-4ad881b6517so880561fac.2
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:01:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795190461; x=1795795261; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uBZHDjcp8OHvO+9HMmytd8ayAJCp+xM1stb3TXPJ8UI=;
+        b=m4k51Ka8eU6xgJB0FiyfWWWXB69vi6/sEq6C8/NEdLlcSfvCwbegXzOw5x1U83KjDx
+         xFccbe8sLrISZot5sGEjLfOiERpg6RC4+loGxtKDkPTcfqh7r0FiwejqMOVU6t08pGe8
+         EsGwWh1f1WiEmhGf1TmDrtpSW1PG35N1nvQf5hYBxNsMbDKNEGQT3LiVfxTnjaYbRuky
+         yZx4W4pJ56MlPte5itCwVH/etJ67VvE5ov67qGnSIwEkcoxK9jlBK9Y9n9paCz4NZjrD
+         yK9f+sGXc/CmYA3IX/MjriafIkLO+HO7U0f1bj0/SnTjgwrrzV2dFD+hPFjTO9Aog+m2
+         p5cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795190461; x=1795795261;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=uBZHDjcp8OHvO+9HMmytd8ayAJCp+xM1stb3TXPJ8UI=;
+        b=HP/u9UnUGIzFvmWWLIBa6FGouPZuZQ8wHl7TtP41CReGr8yeExB69XUUe+OMdUeo2h
+         wSCA+wLpIy4gde3mdh6H7sViJruGQZYvUCHmhudoUs2E+U6Quxiya3Rh2Ix+/DHcrn+8
+         AsdeOOYbp0UQZIb36A5tSelHvffVFy4BPUmPUEztznF7dHBdpA3/0lJGNXEXFYKeOT9W
+         DynpT3khu7rKEXAp3J/lh68hW2LR+LkmhEMckiNazl5/653ghonwdgDFc/BdxA390B8f
+         iWtH038wBwEYI7mQOBfdtAHJxmjZQNrbUVzRhyD/1YKEVKgqcpTwhiP8HhZVhQoO7ogr
+         O7rw==
+X-Forwarded-Encrypted: i=1; AL+hErHGdJEj/rRs0BLhnoYUcvaEpsR0fe5S29Fu4UP9+HTBL5y/PBzI2Hl27TlBCvp3/6MVQpBfP5s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z90wK9XZtIgyU1Kx7EtpHw2mDGQXG/aUtI/mqmygObJ3rMYwV3h
+	u0NLZDsTl1+HeEbxRbZ7st/H4GlOm4FC6XHxRKvUq6frZkqmN+UqMnIo
+X-Gm-Gg: AZFdTZciErZT9pSYUqdNwd4dZqVdmrItGHoyXGyoONf/Ft+521x7fPD7YUaPBMqXpMq
+	FJBkIQ16gG6MuWWCDB4J8Mpffzv5Bet6avKnj8QXRylglyLOITS+weEUAViMI8795ThMfyA0IpF
+	egoCmj54X1Rhrc6g+VVCt0hngbp3JnSgNqyOcHyR/h5ysUMt2b6KpJozDapw4tfc6Q7m+0LjE8f
+	jf6BBgVuXe+VCqEKGA3RkSQvhwW4L2W6FcPpnl8DT0CkGT6zbQKOtDrNWAEigQWH5uL8++VSeeO
+	DvagBIssjIn1Vb+B5vMdX7X09D5EMqh5gw11KOn7dFqN3m4U5IEQgT2aEXrkYtYjpfMq+yoePwN
+	EIf5llgfU1+bHr61ZYVHsx3zvpxTQMPgRfgZbmKd/24xMOlz5cn5rJqJmkTAhRyhxXlLplbbTCV
+	C5oXSYhXm46K7TtPF0I6W9+63wV2OZ9jQ4IIjTba5CuLM5vXlaLkMz1/5S35Ee7fBMETWrH5kiu
+	Ar0PjLO3ZGh/BxVrpbZp8tnO02wVxybBKm9PPI56+M3S9X4mOHUSgkajwjJNNu4gu1ZdTj7Co+a
+	57XAA1xKFI6wgrd4RQMCVFaBubMZR2i2uMTJN8BpsnunNbFcm2UFAJ2ZUuEUlqG61V97eXUKc4I
+	Mrhg9+/RozKgubQyvydXqO69twCQObvUpsJBduu4x+d4LuzHbZWGuKsJkoR77oZIWdtUOGTBBCf
+	eWxL86iN10NeLIrXzoJIHT1wPM0x+fTt5OZbTthCyReKQukNc4z1M=
+X-Received: by 2002:a05:6870:b93:b0:4a9:5bde:8484 with SMTP id 586e51a60fabf-4bc85402f1dmr3040217fac.51.1795190460802;
+        Fri, 20 Nov 2026 08:01:00 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bd044fc4besm2161534fac.7.2026.11.20.08.00.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 08:01:00 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 20 Nov 2026 09:00:53 -0700
+Subject: [PATCH v2] mtd: rawnand: atmel: keep the HSMC clock on until the
+ NFC IRQ is freed
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,109 +93,215 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: EB00C2258E
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,ffwll.ch,gmail.com,lists.freedesktop.org];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Score: -12.01
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261120-submit-atmel-nand-irq-teardown-v1-v2-1-7460e7c8c163@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ6CMBBFr0K6doRSgujKexgXpR1hDC3aVtQQ7
+ m6LcW8ymz9/8ubNzKMj9OyQzczhRJ5GG0O5yZjqpe0QSMfMyqKsOS924B+toQAyGBzASquB3B0
+ CSqfHp4WJw2VflKLYKd7olkXOzeGFXuuP0/mbI+SKKiRwumilR2idtKpPKxN0nsi5xVdIfU8+j
+ O69Sk48cX4+zR8+cTiIiteVUI1AFMfOSBq2ajTsvCzLByGyZ7cEAQAA
+X-Change-ID: 20261107-submit-atmel-nand-irq-teardown-v1-f902307c18db
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Boris Brezillon <bbrezillon@kernel.org>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.17-dev
 
-WC-mapped video memory presumably has PCI I/O bursts that interfere
-with real-time tasks. Seen on AST2600 hardware.
+When the Atmel NAND driver is unbound on a system using the legacy DT
+binding, another device on the shared interrupt line can still cause the
+NFC handler to read registers after the HSMC clock has been disabled.
+The remove callback turns off the clock, but devres releases the IRQ
+only after the callback returns.
 
-Add an Kconfig option to ast for vmapping the video memory uncached
-if CONFIG_RT=y. If set, video-memory access is slower, but avoids
-I/O bursts on the PCI us. Mirrors a similar change to mgag200 in
-commit b593ea940623 ("drm/mgag200: Add an option to disable
-Write-Combine").
+Register a clock cleanup action before requesting the IRQ. Devres then
+drains the handler before disabling and releasing the clock, both on
+removal and when probe fails after requesting the IRQ.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: f2fa5a99ca81 ("drm/ast: Convert ast to SHMEM")
-Cc: <stable@vger.kernel.org> # v6.2+
+Fixes: f88fc122cc34 ("mtd: nand: Cleanup/rework the atmel_nand driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/gpu/drm/ast/Kconfig  |  9 +++++++++
- drivers/gpu/drm/ast/ast_mm.c | 13 +++++++++++++
- 2 files changed, 22 insertions(+)
+Changes in v2:
+- Use a devres action for clock cleanup so devres releases the IRQ first.
+- Link to v1: https://patch.msgid.link/20261108-submit-atmel-nand-irq-teardown-v1-v1-1-341643c83ee3@gmail.com
+---
+ drivers/mtd/nand/raw/atmel/nand-controller.c | 56 ++++++++++++++--------------
+ 1 file changed, 28 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/ast/Kconfig b/drivers/gpu/drm/ast/Kconfig
-index 242fbccdf844..f2c99e99b5b4 100644
---- a/drivers/gpu/drm/ast/Kconfig
-+++ b/drivers/gpu/drm/ast/Kconfig
-@@ -14,3 +14,12 @@ config DRM_AST
- 	 is bound to the driver. These GPUs are commonly found
- 	 in server chipsets.
+diff --git a/drivers/mtd/nand/raw/atmel/nand-controller.c b/drivers/mtd/nand/raw/atmel/nand-controller.c
+index b86d080bcb2c..ce5e13276d2e 100644
+--- a/drivers/mtd/nand/raw/atmel/nand-controller.c
++++ b/drivers/mtd/nand/raw/atmel/nand-controller.c
+@@ -263,9 +263,6 @@ struct atmel_hsmc_nand_controller {
+ 	struct completion complete;
+ 	u32 cfg;
+ 	int irq;
+-
+-	/* Only used when instantiating from legacy DT bindings. */
+-	struct clk *clk;
+ };
  
-+config DRM_AST_DISABLE_WRITECOMBINE
-+	bool "Disable Write Combine mapping of VRAM"
-+	depends on DRM_AST && (PREEMPT_RT || COMPILE_TEST)
-+	help
-+	  The VRAM of AST GPUs is mapped with Write-Combine to improve
-+	  performances. This can interfere with real-time tasks; even if they
-+	  are running on other CPU cores than the graphics output.
-+	  Enable this option only if you run real-time tasks on a server with
-+	  Aspeed graphics.
-diff --git a/drivers/gpu/drm/ast/ast_mm.c b/drivers/gpu/drm/ast/ast_mm.c
-index 0bc140319464..cc882d2c172d 100644
---- a/drivers/gpu/drm/ast/ast_mm.c
-+++ b/drivers/gpu/drm/ast/ast_mm.c
-@@ -74,6 +74,18 @@ int ast_mm_init(struct ast_device *ast)
+ static inline struct atmel_hsmc_nand_controller *
+@@ -2151,6 +2148,14 @@ atmel_smc_nand_controller_init(struct atmel_smc_nand_controller *nc)
+ 	return 0;
+ }
+ 
++static void atmel_hsmc_nand_clk_cleanup(void *data)
++{
++	struct clk *clk = data;
++
++	clk_disable_unprepare(clk);
++	clk_put(clk);
++}
++
+ static int
+ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
  {
- 	struct drm_device *dev = &ast->base;
- 	struct pci_dev *pdev = to_pci_dev(dev->dev);
-+#if defined(CONFIG_DRM_AST_DISABLE_WRITECOMBINE)
-+	resource_size_t base;
-+	u32 vram_size;
-+
-+	base = pci_resource_start(pdev, 0);
-+
-+	vram_size = ast_get_vram_size(ast);
-+
-+	ast->vram = devm_ioremap(dev->dev, base, vram_size);
-+	if (!ast->vram)
-+		return -ENOMEM;
-+#else
- 	resource_size_t base, size;
- 	u32 vram_size;
+@@ -2164,6 +2169,7 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
+ 	struct device_node *nand_np, *nfc_np;
+ 	void __iomem *iomem;
+ 	struct resource res;
++	struct clk *clk;
+ 	int ret;
  
-@@ -89,6 +101,7 @@ int ast_mm_init(struct ast_device *ast)
- 	ast->vram = devm_ioremap_wc(dev->dev, base, vram_size);
- 	if (!ast->vram)
- 		return -ENOMEM;
-+#endif
+ 	nand_np = dev->of_node;
+@@ -2173,41 +2179,46 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
+ 		return -ENODEV;
+ 	}
  
- 	ast->vram_base = base;
- 	ast->vram_size = vram_size;
+-	nc->clk = of_clk_get(nfc_np, 0);
+-	if (IS_ERR(nc->clk)) {
+-		ret = PTR_ERR(nc->clk);
++	clk = of_clk_get(nfc_np, 0);
++	if (IS_ERR(clk)) {
++		ret = PTR_ERR(clk);
+ 		dev_err(dev, "Failed to retrieve HSMC clock (err = %d)\n",
+ 			ret);
+ 		goto out;
+ 	}
+ 
+-	ret = clk_prepare_enable(nc->clk);
++	ret = clk_prepare_enable(clk);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to enable the HSMC clock (err = %d)\n",
+ 			ret);
+-		goto out_put_clk;
++		clk_put(clk);
++		goto out;
+ 	}
+ 
++	ret = devm_add_action_or_reset(dev, atmel_hsmc_nand_clk_cleanup, clk);
++	if (ret)
++		goto out;
++
+ 	nc->irq = of_irq_get(nand_np, 0);
+ 	if (nc->irq <= 0) {
+ 		ret = nc->irq ?: -ENXIO;
+ 		if (ret != -EPROBE_DEFER)
+ 			dev_err(dev, "Failed to get IRQ number (err = %d)\n",
+ 				ret);
+-		goto out_disable_clk;
++		goto out;
+ 	}
+ 
+ 	ret = of_address_to_resource(nfc_np, 0, &res);
+ 	if (ret) {
+ 		dev_err(dev, "Invalid or missing NFC IO resource (err = %d)\n",
+ 			ret);
+-		goto out_disable_clk;
++		goto out;
+ 	}
+ 
+ 	iomem = devm_ioremap_resource(dev, &res);
+ 	if (IS_ERR(iomem)) {
+ 		ret = PTR_ERR(iomem);
+-		goto out_disable_clk;
++		goto out;
+ 	}
+ 
+ 	regmap_conf.name = "nfc-io";
+@@ -2217,20 +2228,20 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
+ 		ret = PTR_ERR(nc->io);
+ 		dev_err(dev, "Could not create NFC IO regmap (err = %d)\n",
+ 			ret);
+-		goto out_disable_clk;
++		goto out;
+ 	}
+ 
+ 	ret = of_address_to_resource(nfc_np, 1, &res);
+ 	if (ret) {
+ 		dev_err(dev, "Invalid or missing HSMC resource (err = %d)\n",
+ 			ret);
+-		goto out_disable_clk;
++		goto out;
+ 	}
+ 
+ 	iomem = devm_ioremap_resource(dev, &res);
+ 	if (IS_ERR(iomem)) {
+ 		ret = PTR_ERR(iomem);
+-		goto out_disable_clk;
++		goto out;
+ 	}
+ 
+ 	regmap_conf.name = "smc";
+@@ -2240,30 +2251,24 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
+ 		ret = PTR_ERR(nc->base.smc);
+ 		dev_err(dev, "Could not create NFC IO regmap (err = %d)\n",
+ 			ret);
+-		goto out_disable_clk;
++		goto out;
+ 	}
+ 
+ 	ret = of_address_to_resource(nfc_np, 2, &res);
+ 	if (ret) {
+ 		dev_err(dev, "Invalid or missing SRAM resource (err = %d)\n",
+ 			ret);
+-		goto out_disable_clk;
++		goto out;
+ 	}
+ 
+ 	nc->sram.virt = devm_ioremap_resource(dev, &res);
+ 	if (IS_ERR(nc->sram.virt)) {
+ 		ret = PTR_ERR(nc->sram.virt);
+-		goto out_disable_clk;
++		goto out;
+ 	}
+ 
+ 	nc->sram.dma = res.start;
+ 
+-	goto out;
+-
+-out_disable_clk:
+-	clk_disable_unprepare(nc->clk);
+-out_put_clk:
+-	clk_put(nc->clk);
+ out:
+ 	of_node_put(nfc_np);
+ 
+@@ -2345,11 +2350,6 @@ atmel_hsmc_nand_controller_remove(struct atmel_nand_controller *nc)
+ 			      (unsigned long)hsmc_nc->sram.virt,
+ 			      ATMEL_NFC_SRAM_SIZE);
+ 
+-	if (hsmc_nc->clk) {
+-		clk_disable_unprepare(hsmc_nc->clk);
+-		clk_put(hsmc_nc->clk);
+-	}
+-
+ 	atmel_nand_controller_cleanup(nc);
+ 
+ 	return 0;
 
-base-commit: 7d502136b31169f6b5575f7f89c3da60cdf7891d
--- 
-2.56.0
+---
+base-commit: ec1e844b9486302a488abc03ea918db60709766e
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git nand/next
+change-id: 20261107-submit-atmel-nand-irq-teardown-v1-f902307c18db
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
