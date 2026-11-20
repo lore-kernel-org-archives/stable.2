@@ -1,70 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795145981;
-	b=lObNNR/JT7NRMjGD5v7gCvM/6qU71OxjkeJzNDk/wXnjdcxWt1PaP3XjA37nntUGz0JP
-	 A9ktQGnr2YBGmF2zBUt1HqXRYHu/LmbHDh4tWzd8qBB0xDXHiR/HE2lFRSh/+530u3JJo
-	 9jAXLOjSiBiCHuw+jK2dZC8IzVyPt8TD0EgsdDVjyNW+GQlEuOT+IjFPDDY4ijQ2dIRev
-	 vFwvX5PASSXQpwJL9Tv4rgrWRJHxbas9HtcYUQ9ClgLWFbdviaxmz8iLh4hRihLMtQghI
-	 4P+XkTm3qA+HH+69RHuIgt0I+EZGRzoliqunylGYZDhfyWi1+aRF4yoTyppnHPghKcg==
+	t=1795146025;
+	b=XOv8Gbs8PdZI2ute0PDaRfWacnVPwba778oPDkjs51MADLgPybDyfIat3nMQq47Tonpx
+	 DiX4Q8d2hLD4rP5gphNtj+2zYZHotJf0tXMDg+GXljZ9mABX/jk2FRS3pIAvTDlOF+ces
+	 iS+VH5uixqimSxLoj/tsEJxvnQ49TW+qFfldCpmlrj1hbLIk1V25eOgHFzGHjpVUIRKrV
+	 VW7xMwR0SmWXwzS2/PI/T53JD3iysvTiIbHmsAEXN5U0SztJhmUw7GzOAhF0NTG1xo/lR
+	 d3MLR5XwVnM5HcU+HD8doDuHLAd2q/VzSGGWR5FWoRkAMmWHgl2HdesyZg09vwHERqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795145981;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=6ID25TASgB9mY3j+/9ivqOm1LKio+2OprW84VL0Grno=;
-	b=F2ALR8kWF+f2XIYn8F3lJk8/GtFX8i3YBmcimttYcBddQT97WN7CwP4jXielDHFNgawP
-	 G7yjceeqT4f2L7VQk3ZScpAQxquDGSPIGuhzfIZSpEzPcTAfe2Zc480XI7ot4wbzfXtRM
-	 SPK2YApzRXeNH85enKTobynNbsS2hefxNXHBzXXDGgqBmrVAOl67wayA00DJUxzx2DpT/
-	 INNJDQGJ3NwnHGCQ/tYt9WQRTrZjUKjoMsyL/vraaQeF2vpi3zulfJrMKYD5P8zp1c6St
-	 ozfeGD55l+FC0+64wPP5dH2vxg6p4VdR75uhRcyPQrPlENbYcvztNpzLBrTEij7Z20g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795146025;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=xFEuU+Ig2XWSeIveBUY4FuqtWKaIuk8y+p/wf34XVVc=;
+	b=jJvD87H0dIeX56w6IO3pzTQKe9HX3r/xn3kWmrIKOTu3YDsZOAsv5fy7dywP52V5ENPD
+	 V9RyQaCqEbiTo+bDRUXT+ClYGLZX9qHStwXINYcYKohz/xic4Jpt2tgIyrky6yYxEdeWH
+	 gZMStGogqB7RtpmYBigygCMfm7rwV7UP2ouxmnpYHGOEjJx0RQxbqm/5m/9bSFYk8nhsv
+	 ZIDuBJC+qeOPe2BROeL+5FSaL4txBxKZGkmQWRmDFS8Bwewfyhte8UPCwxqhC48Z5ygGA
+	 3//JPY92MiL4xY1NkpG5uV/mS49J/o86c6OL9+m39S7l2UQfJ+WT3JlEwdiNyqCUwUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=RaDWpzLq;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	dmarc=none header.from=w6rz.net;
+	spf=pass smtp.mailfrom=w6rz.net;
+	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=e+AOtmR9;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A38606A325;
-	Fri, 20 Nov 2026 03:39:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72A38606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1141C606A325
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 03:40:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1141C606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=RaDWpzLq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1795145912;
-	bh=6ID25TASgB9mY3j+/9ivqOm1LKio+2OprW84VL0Grno=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=RaDWpzLqCdYYGRlKySuGUQaSPqkaLKbto6xE75Z7DkWkxQkTgTfeRG0R94NcJFHIo
-	 wZa943Zh1rATL+aq0YIJh0YyEYetiF/YBgVPubX62zIUIoXfixEo6Rm6SQSyUkWBcf
-	 FklDE/31hdDk2EvwxWiT95VlBDo+MowuMgkvLIjc=
-X-QQ-mid: zesmtpgz9t1795145907t2b7c356a
-X-QQ-Originating-IP: 2Dvc6PhiaE8wquu067dn3SVToxhwDgWWzXwvNhwqyak=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 20 Nov 2026 11:38:25 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 5714097690566660774
-EX-QQ-RecipientCnt: 10
-From: raoxu <raoxu@uniontech.com>
-To: mst@redhat.com
-Cc: jasowangio@gmail.com,
-	eperezma@redhat.com,
-	davem@davemloft.net,
-	kvm@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] vhost/net: Fix receive queue test in busy poll
-Date: Fri, 20 Nov 2026 11:38:24 +0800
-Message-ID: <1B3A1B72438119BC+20261120033824.681219-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=e+AOtmR9
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
+	by cmsmtp with ESMTPS
+	id U9IXxfEeVV16IUFU8xS0nm; Fri, 20 Nov 2026 03:40:24 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id UFU7xvlVNuJrPUFU7xKjRY; Fri, 20 Nov 2026 03:40:24 +0000
+X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6affc128
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=uPKWhRKihB2-fsaYkyYA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=xFEuU+Ig2XWSeIveBUY4FuqtWKaIuk8y+p/wf34XVVc=; b=e+AOtmR9kjpy8RYN0RrliqALDF
+	Ej8CpKgTzaTFvsnm2kFygS1Wmg6EwWWZB1Z234Dzs4ucBrHaBnR2HrA5tpkFPM1eDOSHiP87N//FC
+	8Pq9fYqANmqJgJNADZvHo8QIUCE9FjKDVrqMRQjaAp/TuJxDM+AoiFYOjQdIeApRZEwV7GTmmx/VO
+	JS04XJENot0CePJsd73VnPzVZMc5I2QeA/8Lx3p/Y8H6TDT6eL26ESwF4E7Y9bQSvWJ9jzMSUemoq
+	FXS/83DCP/Woo0lCTgisa66ZIezwt7m7bIxLr+uZng/u+2H+kKEp8RizUJSLu7hO5HkUqy4t13OKK
+	epTec/yQ==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:56318 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xUFU6-00000001Gjg-3Vnf;
+	Thu, 19 Nov 2026 20:40:22 -0700
+Message-ID: <c27462a9-17f5-4638-bff4-1189ba5fca00@w6rz.net>
+Date: Thu, 19 Nov 2026 19:40:21 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,97 +76,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: N4kMhpKju7/pug6xHKTvHbdchBT/IBEy6aGk8cOlUz33hi8Qj9qKk5tl
-	QKAN9A5QI2vypQtXDC+lvRXzrp5RxsvkTRBRys8mK7lGs2KZ5tmCHrfrirdFMSmIHiCXJAK
-	clPUZd9F7/qorsVB4CddiztQNYlu6beQmVo2r2yLggA3uu0YVK1vCu2B3BVSo8LA3zP+rDn
-	28sdh0LC+Jg1Ys4G2x7+/9IjRVZ4+9NyAV3l9J+fjQ26kFFD3dhO/qTWmI+xuTM52kQaf//
-	plUnZL0+GUDFWBERGBdjY2pi/S6j4bh+gicodXtr6nDl21mF7eXU0KZNVzNr2z48XMAdT2f
-	x26Os8BHGNLwS5F3WCnmZ/fcpTjF1RiPJi6gKw+yrY9XwCZi6BTP2AYYLi22R2frK+uN0Xu
-	mVcsRkiP0M915XrEjLSXh+5UzyKS0MtKDbvXMO838UfyOI325p5SGFsKbWyt3R5qcAhQ4Tm
-	w5HCaIsSEBDvqVeN81rWamaJgR+U5sh8rLwZvMXt749NSaeh/+kM9GJaiP7pT8K8VAyFYtK
-	ZoLPQoTZeiYhsrBVmOrjpbbxZSjpqV8JUviv+ppXjvM5YlrzPHvnTzuMPfzwbkOlwyhPKul
-	3CtLQOubykvgiyPC8zOiUmM0I2edOoxuZ+74AWoFV/kdPcpZz4+nC7Mhr0W9AYKeLFDKXlY
-	9Gp52SqGvXltQvcgqC6s3avxCWBoItbpHA4acWscVPYPVhqg0kSJYgB/d+EL633dhDFeGEE
-	F2GaPqnpLCJdMreuggwjoNSj1qeGJxWfbS1sYgeEVJzyHWGS6+Do9iuZzq9FnlFRoXB+4oq
-	qJHSUQYqXjz2aoWMOWZTrTIXmL0qWir3Qw/5bV+5seH+ZtwKW9zZNnPBTjULfdS6vlvgKQ5
-	GGhG439/uZDSx0JPnJ1LLausWze/MXqKfI89LSwOxJRMR9q3VlTP/8V8Z7Oj6zztWIFMLGm
-	TC2ACTEPbeIO3xN5aTP6lmfbjDGjyYhEKyraEG3b8tPgX6LfGJSzFJGFWQKr17eneavmVjH
-	6WVi4a4cjyB2E+NRkl4irctZ/s+7PSxK2g6Wa4OeVpWFyo7yEcVHLgWJBoDvbDZ2R0xgnpC
-	p6J483PVEMJ76aQYexPo3g=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 0000/3318] 6.6.163-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261118150313.527275416@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xUFU6-00000001Gjg-3Vnf
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:56318
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 79
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfJPOAH6l7EtIkiEL44yyZgwgb7as8GsIZsJm9Pm0bl2s0HN+Ue9auytegA8wOFdEUf3yzpuVTAPuL6QwT+IW4HaqsdbG/70UxvcP3AuG0F4XDNEZ577U
+ CXtsPJRAk/HoNbZM7iOxwerSKNaS9yElFqg7uW22uGA+rLezCh/Nvj8ySPgmPY8KPKdK0ZP0yvcALQ==
 
-From: Xu Rao <raoxu@uniontech.com>
+On 11/18/26 06:10, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.163 release.
+> There are 3318 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 20 Nov 2026 14:55:42 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.163-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-sock_has_rx_data() returns a positive value when receive data is
-available. For sockets without a peek_len() callback, however, its
-fallback returns skb_queue_empty(), which has the opposite meaning.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-An AF_PACKET SOCK_RAW socket is accepted by get_raw_socket() as a
-vhost-net backend, and its socket operations do not provide peek_len().
-With busy polling enabled for this backend, an empty receive queue is
-treated as ready and a nonempty queue as not ready. This can make
-vhost_net_busy_poll() stop polling prematurely or fail to stop for
-queued receive data, and invert its receive-side scheduling decision.
-TUN and TAP backends provide peek_len() and are unaffected.
+Tested-by: Ron Economos <re@w6rz.net>
 
-Negate skb_queue_empty() so the fallback matches the callback and the
-readiness checks in vhost_net_busy_poll().
-
-The issue was found during AI-assisted code review. The helper's
-incorrect result was confirmed on x86_64 running 6.6.0-amd64-desktop
-using a temporary diagnostic module containing the original and fixed
-helpers. An AF_PACKET SOCK_RAW socket, without PACKET_RX_RING, was
-bound to loopback in a private network namespace. Across three cycles
-of sending and receiving a 60-byte frame, the original helper returned
-1 for an empty queue and 0 for a queued frame. The fixed helper returned
-0 and 1 respectively, matching socket readability in all nine checks.
-This tests helper copies on real sockets, not the running vhost-net
-busy-poll path; the vhost-net module was not replaced.
-
-The patched drivers/vhost/net.o was also build-tested on the net tree
-with x86_64 GCC 12.3 and W=1 under allmodconfig and allyesconfig.
-No end-to-end vhost tests or kernel selftests were run.
-
-Fixes: 1576d9860599 ("tun: switch to use skb array for tx")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
-Changes in v2:
-  - Target net and add the introducing commit's Fixes tag.
-  - Explain the raw packet socket backend and busy-poll decisions.
-  - State the AI-assisted discovery method and document the diagnostic
-    module test, its results and its helper-level coverage.
-  - Document the targeted build tests.
-  - Keep the code change unchanged from v1.
-
-v1: https://lore.kernel.org/virtualization/20261110051642.249640-1-raoxu@uniontech.com/
-
-AI assistance: OpenCode was used to inspect the history, prepare and run
-the diagnostic module test, run build checks, and revise this message.
-The code change is unchanged from v1. The discovery method was confirmed
-by the author.
-
- drivers/vhost/net.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/vhost/net.c b/drivers/vhost/net.c
-index 4570a4ffbab2..10ed2d55ff07 100644
---- a/drivers/vhost/net.c
-+++ b/drivers/vhost/net.c
-@@ -538,7 +538,7 @@ static int sock_has_rx_data(struct socket *sock)
- 	if (sock->ops->peek_len)
- 		return sock->ops->peek_len(sock);
- 
--	return skb_queue_empty(&sock->sk->sk_receive_queue);
-+	return !skb_queue_empty(&sock->sk->sk_receive_queue);
- }
- 
- static void vhost_net_busy_poll_try_queue(struct vhost_net *net,
-
-base-commit: 435cbdaf9b03687498dc16fe4af8d16a977e21d0
--- 
-2.50.1
