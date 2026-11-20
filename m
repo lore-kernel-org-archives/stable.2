@@ -1,76 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795173933;
-	b=VhO9fItvhZDf7Z5pDZZAVlho6APxZxo02ttFNQ7byX5ZAEtgO6261kc3WXQXpcHmOUX1
-	 rdtxnfTriNGtjxfnoax3OB7sKiGOvAOoCI27oPQyWkcpnV0lkONg2OuPgoNyvaIpqCGkd
-	 DwW3FmUSD3csBDaCfzppLFxJgBw8Et9kuJYmZyf4AJycvyutsmtUTSId33FaH/ASoeyke
-	 p90Pdj19rWzVwmrYJvNwj4ypWJaoNMc1Y6BP/zc6+z9zM7AkjpNg8QMOvEJ07ShG0RaK0
-	 15kRhGy1Bds2OKi04REwmLSgiB+I/bNbOgPea+YRPynA3Z6MsFm6ZBu+yL5NVpgaqhw==
+	t=1795174000;
+	b=zQPDjEjXZmZD+tasONdNSNsCOOblR0dKrJAX0UflHjfCurYBvS5xLYXjCoQdze5d/H1q
+	 vSs58id4A28MWGP3UDu9PuyL/En103BjyG2O4kRYMV47YeGR2+ZzPkHkSygp3EJcJRyXc
+	 SWjLGycgRfdbJNd8dgyMGoYMmE9o0Ba+Yj0cLCx5Ej9na/LpOVsmTQgZ4M3pw+Zh5ajpG
+	 9QonFP17SwYRJPGrRIdyyYN3ZLoMiy90g2fXh5sis9H647AKiDJHOeTjAhGTk+biT1S2A
+	 7S37M7+d6/0jbwsE8ZjUhalh820DCb8irEoC4ipwG3CuNfc9eOTpU3G9V2FPOIRWIFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795173933;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:Organization:
-	 Content-Transfer-Encoding;
-	bh=QwtGDpV42mYs9qTBAWGpyw82EwVpQmmbUc1wwpeHeuU=;
-	b=Lj4oZp4AnmtIyz9B1MhLt89HQ41r8EZosGyd4b0JuK5G1JI5VJswn8PN6aujwPPk5R0j
-	 oEPe9Dp2rT+YL2YgpRBSidrqdxe8kWav3on/DJ40xAsE9Xp05Yw40QP+kKSuGs11HEgid
-	 52vctQ3GedJnjaEDf59ZsA+3EhGmzZakT+/uwr05dLRRqYBj5df6QGNGXXlIruFW8DA9D
-	 xdpU24FLraamXIEgAq0zD0NKfGfJQV7ZHJ5KZ42ZAfllg8JCg4E6nzbRyZElEtyfrD9dK
-	 YYFDQE3rGnt+7G5PVQhCBXjYf/uTkRa6uf/lmgnTl6ME/8Vko+aJeoDe0OieHNPzmnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795174000;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=5F2eTzaQioZlffdDvmTAcM2K2yQPTf7znqshC9jLldc=;
+	b=ZEZS5DC7zF9NwNN63bvnzM0ZEZQnZpsKfRR5+2PrTWiejHonf3PNWjrCrNhj97YGPC36
+	 qd35Lf44MU+z4LRFLNOp9YMdNQAEhV0XC9iwKb/9IiD7PcQf6eGMT/15AI5n9hg471qRJ
+	 mON6Ry3Pms6MUmf+HKBGZ52VxSglmF8PIeiqyFyPPKEWYtMjVF79opDmMMB00nsSvaMiH
+	 F9lk/03uBJIM2QyceyNW14whccRxVNM4sZDeArKiHQD40R8sGL5rNeQL38PKAZ462Gln7
+	 uMNrqA+Bqn5muqn+wOiEPX6vOV6UqwJ3rD9ua5zpr/gYQ9mPHfbk1yy+sqIEbBqMZyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jN3My5gu;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtQhf7vO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC33606A320
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 11:25:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BC33606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95BB606A320;
+	Fri, 20 Nov 2026 11:26:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jN3My5gu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795173933; x=1826709933;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=nJflTo/S163kjEMWLt1CJc89L3Gu4IKHol7tUJLyxWY=;
-  b=jN3My5gugoMIr6qzxSxygOopxBu208lWDrLQ0XigGJ/KWv2tER6GboNq
-   0i/GFfs3WTvPkeAq75Muzdx05SoYxzGkC6ba7G0l16P+J8O6nbCEY2ED6
-   12UkDsKn2Ejt249qNNS2PFWHPR8ZyU1rOqqLgPnI+kWASfN3+nauLV+6w
-   vneuxhFWSTx1/dkiLdXPtw/10SZRLubJXvIlOcELS1z62Js5bn1NKKeJR
-   5WKRTwqLM4MGiDU4IKdSkDFYvw56iSiezt+SVZtvhQ3QY2PGGFDUEmr3b
-   ZpYpnEhva6OIAsmirzfMuxIoBb2/HylVJne3sp36FaNMIEXfzLG6Du0sh
-   Q==;
-X-CSE-ConnectionGUID: EzGeGvKnTgW6cVQ56ajV1w==
-X-CSE-MsgGUID: YhfWHaM8SYKxyrxaqCB8yg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4042339"
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="4042339"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 03:25:32 -0800
-X-CSE-ConnectionGUID: NoJNMK8cT563Ib3Lyd4wAw==
-X-CSE-MsgGUID: yiF9uvDQToOC1XGNexgNJQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="11012771"
-Received: from lpankiew-mobl.ger.corp.intel.com (HELO jhogande-mobl3.intel.com) ([10.245.246.221])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 03:25:30 -0800
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
-	Animesh Manna <animesh.manna@intel.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtQhf7vO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C57E1F000D2;
+	Fri, 20 Nov 2026 11:26:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795174000;
+	bh=5F2eTzaQioZlffdDvmTAcM2K2yQPTf7znqshC9jLldc=;
+	h=From:To:Cc:Subject:Date;
+	b=QtQhf7vOjkzSNFDhXLk+UAS7osGMFB6VF04c2IGXygF6NYRznYMQVMA/nN1HiiubF
+	 sa0AqPEh6FCNiq0Wm4itxatY/MUaA08FlJv0QL6fJe+BkaF78elJmX7juUQQJfjoHe
+	 /mEYDgtAE8vT10qOPpcPEYE5o90sB+b1jY2Ap/bYV6aLOUGv+7RSiFY0jnD7PqCC4C
+	 YOw5KTy4f6U7/hvRN++n0HtmoravHzAtUjZXxs1XJoplnD/6WW5AEy3e5m7UqHvm25
+	 Ecl7Gd89E24ZAtEEtlxm/qwIwiVQ1Q9f8PeWtTcX4mA1ZSFGlX8QzJZwlsfW3/S89L
+	 8yzX0Kurdyiuw==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xUMlK-00000005gG3-0ETW;
+	Fri, 20 Nov 2026 12:26:38 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-serial@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>,
+	"William A. Kennington III" <william@wkennington.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/i915/alpm: Track the configured transcoder lifetime
-Date: Fri, 20 Nov 2026 13:24:46 +0200
-Message-ID: <20261120112446.1562267-1-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH] tty: reset ldisc to N_TTY on reopen after hangup
+Date: Fri, 20 Nov 2026 12:24:55 +0100
+Message-ID: <20261120112455.1353962-1-johan@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,79 +65,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 
-ALPM disable can access a stale transcoder when ALPM was not configured
-for the current modeset, causing unclaimed register accesses during
-pipe teardown.
+Line disciplines should not call into a TTY driver for a device that has
+been hung up as the underlying hardware may have been powered down or
+resources may have been freed.
 
-Record the transcoder only when programming ALPM and invalidate it
-after disable. Check it under the ALPM lock to avoid register accesses
-on repeated or unconfigured disables.
+Since commit 638b9648ab51 ("tty: Fix the ldisc hangup race") the line
+discipline is however reinitialised on hangup which means that ldiscs
+that register class devices on initialisation (e.g. N_SLIP) can call
+back into a TTY driver after hangup.
 
-Fixes: 504766382edb ("drm/i915/lobf: Disintegrate alpm_disable from psr_disable")
-Cc: Animesh Manna <animesh.manna@intel.com>
-Cc: <stable@vger.kernel.org> # v6.16+
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Commit 892d1fa7eaae ("tty: Destroy ldisc instance on hangup") later
+moved reinitialisation to open() but that still leaves a small window
+where an ldisc could call into the TTY driver before the device has been
+opened.
+
+For hotpluggable devices, open() can also race with disconnect,
+reinitialise the ldisc and leave a class device registered indefinitely
+after the underlying device and its resources are gone.
+
+Fix this by restoring the pre-2004 behaviour of always resetting the
+ldisc to N_TTY when a tty is reopened after hangup.
+
+Note that console ldiscs are still reinitialised on hangup but consoles
+are special in that they are not shut down on hangup.
+
+Also note the line disciplines currently affected by this require
+CAP_NET_ADMIN.
+
+Fixes: 638b9648ab51 ("tty: Fix the ldisc hangup race")
+Reported-by: William A. Kennington III <william@wkennington.com>
+Link: https://lore.kernel.org/20261118145636.3534234-1-william@wkennington.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_alpm.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/tty/tty_io.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index f54b29e193ee9..105006ca6be7f 100644
---- a/drivers/gpu/drm/i915/display/intel_alpm.c
-+++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -46,6 +46,7 @@ bool intel_alpm_is_alpm_aux_less(struct intel_dp *intel_dp,
- void intel_alpm_init(struct intel_dp *intel_dp)
- {
- 	mutex_init(&intel_dp->alpm.lock);
-+	intel_dp->alpm.transcoder = INVALID_TRANSCODER;
- }
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index 1a6c8a1bc764..363572f10456 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -1323,7 +1323,7 @@ static int tty_reopen(struct tty_struct *tty)
+ 			return retval;
  
- static int get_silence_period_symbols(const struct intel_crtc_state *crtc_state)
-@@ -549,6 +550,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
- 	alpm_ctl |= ALPM_CTL_ALPM_ENTRY_CHECK(crtc_state->alpm_state.check_entry_lines);
- 
- 	intel_de_write(display, ALPM_CTL(display, cpu_transcoder), alpm_ctl);
-+	intel_dp->alpm.transcoder = cpu_transcoder;
- 	mutex_unlock(&intel_dp->alpm.lock);
- }
- 
-@@ -556,7 +558,6 @@ void intel_alpm_configure(struct intel_dp *intel_dp,
- 			  const struct intel_crtc_state *crtc_state)
- {
- 	lnl_alpm_configure(intel_dp, crtc_state);
--	intel_dp->alpm.transcoder = crtc_state->cpu_transcoder;
- }
- 
- void intel_alpm_port_configure(struct intel_dp *intel_dp,
-@@ -733,17 +734,23 @@ void intel_alpm_lobf_debugfs_add(struct intel_connector *connector)
- void intel_alpm_disable(struct intel_dp *intel_dp)
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
--	enum transcoder cpu_transcoder = intel_dp->alpm.transcoder;
-+	enum transcoder cpu_transcoder;
- 
- 	if (DISPLAY_VER(display) < 20 || !intel_dp->alpm_dpcd)
- 		return;
- 
- 	mutex_lock(&intel_dp->alpm.lock);
- 
-+	cpu_transcoder = intel_dp->alpm.transcoder;
-+	if (cpu_transcoder == INVALID_TRANSCODER)
-+		goto unlock;
-+
- 	intel_de_rmw(display, ALPM_CTL(display, cpu_transcoder),
- 		     ALPM_CTL_ALPM_ENABLE | ALPM_CTL_LOBF_ENABLE, 0);
-+	intel_dp->alpm.transcoder = INVALID_TRANSCODER;
- 
- 	drm_dbg_kms(display->drm, "Disabling ALPM\n");
-+unlock:
- 	mutex_unlock(&intel_dp->alpm.lock);
- }
+ 		if (!tty->ldisc)
+-			retval = tty_ldisc_reinit(tty, tty->termios.c_line);
++			retval = tty_ldisc_reinit(tty, N_TTY);
+ 		tty_ldisc_unlock(tty);
+ 	}
  
 -- 
-2.53.0
+2.56.1
 
