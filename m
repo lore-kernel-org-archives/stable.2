@@ -1,78 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795149794;
-	b=BaWVhPhCN2AAZThZPoFO+BqGtNUZ9ks7J2vHvBknvObkrxsPZgrVQaTRs68tDeGzDB1x
-	 H0a4aH42qMzkCNUghLivDNFXcSMF9QqYBMDdQCZR2vUFqaSH/SvJq7x0JWr4tPtPCO1rY
-	 ZDCB0tkFE5RJ6R8/DIP1cWPOeH6phe/pDef1cgFArW9M7D/wvu28hVG3U+u5gaLvCDkFI
-	 kPQf4/E+1QNCg2pLDgETaJUpOjyUfNS34FSEnnJcMesU7pSCfi7y8bnKwr6u+r2VVWgEk
-	 yqQfAxKC2w7lVaFS5xR+lKSADufUio4aTRQawdQ4+cp/bjhS7ojfQvJ7QM790wdEFFQ==
+	t=1795149906;
+	b=eCgjZCAoWwG0AbAOpyc4qiDh/YTqaA+o3sf3I458gdm8jZsa2CwGqPKHnqsiodsbeYPY
+	 K/UBmC2SRF526i1s7MoMj1wEy3I57OW5ElP7KhqeBcV1rQgsEykuqGCwkQFakNR/4vWZN
+	 dkCx+k+ig86+T3DNIMaujfq+FHCHe1bl2ZuXnLseULTx+/0G7HCPTP1NETgPOmzqsbNAc
+	 2boPKJYv3UvzLQ2DcUeIUBKZ89tQKA7Hd0bcn/cyNtPOrMgt4Zdb/cGoeTT1LurmabqOc
+	 XMOjbLcacjJwd+XudkzAoT4MaPn37pSwgEpFFBBcsYneOCQmmWS0RiP2dRAFFaCgogQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795149794;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=lqDt1Owim2YZ/Pr88FxbmrZHbmtAdCxve/g4kOQzHbc=;
-	b=BX8mJhnpiDT2EkO6Up/x1yV9RCMCRSfCncqY/Mk88839p1c7zxQQDpWXcyk1oZydg/9D
-	 fQAkb5nS9jMVEYpdqipFmcQSFcpcTxhX3VmOXZF77WqAtvCv3paf5nbVgbW384nArPKR3
-	 TbIzG/0JQxVIdOxruYwy5mF751GbZnvFGfhDzbQq9n3L1TaNYPx+1cpXjuw8qt5nfI/o9
-	 n5wS71odKrcJjGh/S8AWoyt8HjU6WqcKmucssXIbw659dyNLh6MyW1ZpH49yZFZbyP/uz
-	 r5Mu2HK1DMXJXJa3vNyAqBC1VvaQxUBEWkqZxECc3PquovVSiIpHWA5M/DYh5F+ajgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795149906;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:MIME-Version:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version;
+	bh=7XySl6wLuSPLbO5RF4U1ztw2ZnnD609uCFl6DWYb7rc=;
+	b=bgWqX7msMyFhQ2vTuQDnEB/c0YwAYr6RVnf/TdZFsME67qF8YarEYzEoSmofxAVRBo6O
+	 YOmsv7oxZ8YMlOHUteBE/z1KfeA21VEQ1o9xeHYFPAIGBFhPyc6jHI2JNCPaQdZNOOrkl
+	 P7/bqQU+U24FKcQPtul4g+Q4AdoA5lRdR7+pP1lu0BS58RHwJcP2tjSwcH+iMUowS8V1R
+	 kirpkcUTJDfA1KYXblWN2sx5sbeI3fRZ9ETkWMs2I5KT7TDYhpw2o4kj9eM1g2TxLJMP/
+	 9kkQYJaR2W9u1gCY9jw7yGX69H9u30LgpD4dRUw/p1ompghm0TTwjgKdY0wFHY3iM5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=v1YNzcNh;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9lX1aELG;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zOc6Tsg4;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E444606A325;
-	Fri, 20 Nov 2026 04:43:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E444606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8764606A320
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 04:45:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8764606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=v1YNzcNh;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9lX1aELG
-Date: Fri, 20 Nov 2026 04:43:08 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1795149791;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lqDt1Owim2YZ/Pr88FxbmrZHbmtAdCxve/g4kOQzHbc=;
-	b=v1YNzcNhl+03KaQ6PYd88V9s08bVi8IsFZRO11Cak+Hd55AcWHrRnhDbaqV/1DSRXZPWF9
-	MX4ZSNdLJ1n3fdL8REdRDpKgZG0BcrlAojhfMjEFcnPwd7tGYP1M6iDI9GJ3arX0ihXsyc
-	cQp1U6CwTkI/UtecF8Qyu2U63LBc25a7so2yePOkh2gMQGEfRILa5J+oJ2164MIAHdH92R
-	NRpBEBYaa1g7KDc30gAAiSCKHuV0+oPhX+wBPaQOYbsomW0rwib0FOv5h95zzK+j6qYdO/
-	KtIX2OoWZzrohWfEaGQRSP3Cfp8uH1+n2lQqguqM2eRE70lyB6Y2QLRIh0MMLQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1795149791;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lqDt1Owim2YZ/Pr88FxbmrZHbmtAdCxve/g4kOQzHbc=;
-	b=9lX1aELG1zkxyOyKJH/hutLcdtZCD8dBo7JWu2kP+8A51CVebgxWmm/kHd19dTS2ujMPDr
-	CMz0cC+GbausnoDg==
-From: "tip-bot2 for WeitaoWang-oc" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: x86/urgent] x86/apic/msi: Fix MSI interrupt affinity configuration
-Cc: Weitao Wang <WeitaoWang-oc@zhaoxin.com>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	Koichiro Den <den@valinux.co.jp>,
-	Thomas Gleixner <tglx@linutronix.de>, stable@vger.kernel.org,
-	#@tip-bot2.tec.linutronix.de, v6.1+@tip-bot2.tec.linutronix.de,
-	x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com>
-References: <20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zOc6Tsg4
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15ea896ddc8so911420c88.0
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 20:45:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795149905; x=1795754705; darn=vger.kernel.org;
+        h=mime-version:message-id:date:subject:cc:to:from:mime-version
+         :content-type:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7XySl6wLuSPLbO5RF4U1ztw2ZnnD609uCFl6DWYb7rc=;
+        b=zOc6Tsg46iSQIZ4jwdB6ke7VZuGeAuVcUczk/TNpHPVTHvGPYsaAa/jD41yjwn8GdK
+         V6ZDmtHa/k5Yf6vPE+Ve6sGWLjHaWwvjn0BN6MKpyd0I8sqvR3NHqG3+bBxtBlSpE8uP
+         k1vDXQJF0oMpNiF6Xvws5jF6/62BGD9IcA0Q3nqQKuJbWaiIa8UvpvlxveYxbWcoq1F8
+         IvZgn3fZNkf9OJXiXrU1ZvGJunOmfos5FZc8AilYmKHlVBwEC4fHILdQlepy2n31kcya
+         6NskgxshhDiLSp4qu17iy4m8i/jf1Yl59yrKT/Hp6jgJShCSjro/aMg2SE+wbMiTDJgQ
+         4jWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795149905; x=1795754705;
+        h=mime-version:message-id:date:subject:cc:to:from:mime-version
+         :content-type:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7XySl6wLuSPLbO5RF4U1ztw2ZnnD609uCFl6DWYb7rc=;
+        b=wvXSNAEX3kPgfnxMwA3tDWT4ChTrWVYhQqW+/F+8az6wCF8LDCnvNHMYFPJRUA2/hp
+         niOpqHiSnKHCnhuEAH8aVAksmXp9wb/LJtgZ7urwPo1l+bgoG6s1vPB3jtXVfj7XZDLH
+         GxrNSH7mCRU+rJe813QPBIfVNL1BmMkLofswe8TvY7ixVRYWH9DEuMMMpvCmmMGTVWMr
+         FBssU5YLPnF167SdWmaxpskGILwV/JsRfqPsq2yp2zkF7/Hw8VkkQgwsTKevqRJzfW1y
+         fhn+vB7GZ7gHgoP2kGPxh+dwadx+zPQ1v7wRNan5Udemm0MoBmywtnTqLA+9GsIw+4X2
+         uoFA==
+X-Forwarded-Encrypted: i=1; AL+hErHha+vtG3Tn5KU0Lx3Jkym0NDJQyZ0x5S3EGESJzWXubaVc+NT//qHS+nEhwcVaKWKLUzeNV5o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z92n3lPIg76GMST/E+qt/BzSLNRdtE3RVnIdKDLAL+ndZQhe4MN
+	L/mgSfGRTkyry+rJrAS4LrCliGq0omy4nTMvhk08GmrbcTIELn5YE8iV
+X-Gm-Gg: AZFdTZeT2Bf3kURQRZNqd9CweH7l0QMcIpL0Llio5lQrqsSKz6qf5o53n6aj3mTSMuU
+	0LnBO4W/IJy2M0/0UYIFq6mXWyk3vSzKfHVcLj2MGSp6OyxjnumaQV0ZqbhzMsQaiJka6x+qNlc
+	srmebmMne99iv48BixG/R/ETL6Meu+RbTNqL3LDjdyh6Rp5B+SkKSljx+Kao71iFZlHCUdW8b5j
+	1Y/lZBsLi6zKsgF1xHIphbEFjlnbJxfzh4ekqPpIrfLLs6d+Sy/8BMxKleUeDF/k2dIu5p77ejP
+	xmnlRma5f647phpBmd/fwqzkGaaML4QQ0rLoyKaZtWSGPItGEls2vEW+/QxK6h/XofT3BbP0s2w
+	KwPBN/0d2WvaJFzi3Dnz6SSPc1RYV/uLcQtKitmntTtn2CADvb6ILU8/tCmFuiDwPyQWGt+dyZR
+	4qgekzO06XigCJLUSCsmhWIRFmuDQ6QkugRpjGDm4PW5B1hIyUECwO/aQOX9yxZ/cLAaggGvxMs
+	bJrdklPt4aiQiYu+NnWdKG02mmoXr4T5s+fGpmxUN+pb2nIj9HS9t+5TDgPyqRJQ2I9LEW3LIRZ
+	qeWazLeuSxa9WCEUOtVYBEmelQ+hKxhbLd2F+MZbcwcr2gp7zbnYAbBBegjvovDjZMXuUj/vV+k
+	mneku97Oi2sl6uLxgV5zs2bQklMRTZ3UQdNCGxveAotNzkhqf+1GH05ZphSy76QyRVuLOQsI8Dc
+	MC0hQ297KnxPeIz/yuP1+e2C9Nd5plk+79g6yuiFx5Q40fwcqmli+O2pGnW89pG2hSjCuNRMPD7
+	mXfqu5RhToWtYIRbR2WyWxNGgBZBHhGkT/b9BW0jcrIlN1PIns=
+X-Received: by 2002:a05:7300:430a:b0:382:7375:1306 with SMTP id 5a478bee46e88-3856fc603eemr2115956eec.14.1795149904804;
+        Thu, 19 Nov 2026 20:45:04 -0800 (PST)
+Received: from HEXER.localdomain ([101.2.187.90])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385672c6f31sm3415289eec.15.2026.11.19.20.45.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 20:45:04 -0800 (PST)
+Content-Type: multipart/mixed; boundary="===============8652790659508840351=="
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,81 +91,169 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179514978893.3191731.5879996775654988810.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
+From: "Kanishka De Silva (HEXER)" <kpskanna1915@gmail.com>
+To: efremov@linux.com
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] floppy: fix copy_buffer() OOB access due to ignored clamped size
+Date: Fri, 20 Nov 2026 04:45:00 +0000
+Message-ID: <179514990028.24686.6400570561985206166@hexer.is-a.dev>
+MIME-Version: 1.0
+
+--===============8652790659508840351==
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
 
-The following commit has been merged into the x86/urgent branch of tip:
+SGkgRGVuaXMsCgpBcyBkaXNjdXNzZWQsIGhlcmUgaXMgdGhlIGZvcm1hbCBtYWlubGluZSBwYXRj
+aCBmb3IgdGhlIGNvcHlfYnVmZmVyKCkKY2xhbXAvY29weSBtaXNtYXRjaC4KClJvb3QgY2F1c2UK
+LS0tLS0tLS0tLQoKY29weV9idWZmZXIoKSBjb3JyZWN0bHkgY2xhbXBzIHRoZSBwZXItc2VnbWVu
+dCB0cmFuc2ZlciBsZW5ndGg6CgogICAgc2l6ZSA9IGJ2LmJ2X2xlbjsKICAgIFNVUEJPVU5EKHNp
+emUsIHJlbWFpbmluZyk7CiAgICBpZiAoZG1hX2J1ZmZlciArIHNpemUgPiBmbG9wcHlfdHJhY2tf
+YnVmZmVyICsgKG1heF9idWZmZXJfc2VjdG9ycyA8PCAxMCkgfHwKICAgICAgICBkbWFfYnVmZmVy
+IDwgZmxvcHB5X3RyYWNrX2J1ZmZlcikKICAgICAgICBicmVhazsKCiAgICBpZiAoQ1QocmF3X2Nt
+ZC0+Y21kW0NPTU1BTkRdKSA9PSBGRF9SRUFEKQogICAgICAgIG1lbWNweV90b19idmVjKCZidiwg
+ZG1hX2J1ZmZlcik7CiAgICBlbHNlCiAgICAgICAgbWVtY3B5X2Zyb21fYnZlYyhkbWFfYnVmZmVy
+LCAmYnYpOwoKQnV0IG1lbWNweV90b19idmVjKCkgLyBtZW1jcHlfZnJvbV9idmVjKCkgKGluY2x1
+ZGUvbGludXgvYnZlYy5oKSBpZ25vcmUKYHNpemVgIGFuZCBhbHdheXMgY29weSBidmVjLT5idl9s
+ZW46CgogICAgc3RhdGljIGlubGluZSB2b2lkIG1lbWNweV9mcm9tX2J2ZWMoY2hhciAqdG8sIHN0
+cnVjdCBiaW9fdmVjICpidmVjKQogICAgewogICAgICAgIG1lbWNweV9mcm9tX3BhZ2UodG8sIGJ2
+ZWMtPmJ2X3BhZ2UsIGJ2ZWMtPmJ2X29mZnNldCwgYnZlYy0+YnZfbGVuKTsKICAgIH0KCldoZW4g
+cmVtYWluaW5nIDwgYnYuYnZfbGVuICh0cmFjayAvIGN1cnJlbnRfY291bnRfc2VjdG9ycyBjbGlw
+KSwgdGhlCmJvdW5kcyBjaGVjayB2YWxpZGF0ZXMgZG1hX2J1ZmZlciArIHNpemUgb25seSwgd2hp
+bGUgdGhlIGNvcHkgdXNlcwpidi5idl9sZW4uIElmIHJvb20gdG8gdGhlIGVuZCBvZiB0aGUgdmFs
+aWRhdGVkIHJlZ2lvbiBpcyBpbgpbcmVtYWluaW5nLCBidl9sZW4pLCB0aGUgY2hlY2sgcGFzc2Vz
+IGFuZCB0aGUgY29weSBvdmVycnVucy4KCkltcGFjdCAoY29ycmVjdGVkIGZyb20gbXkgZWFybGll
+ciBwcml2YXRlIG5vdGUpCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tCgpUaGUgb3ZlcnJ1biBpcyBvbiB0aGUgZmxvcHB5X3RyYWNrX2J1ZmZlciAvIERNQSBz
+aWRlLCBub3QgdGhlIGJpbyBwYWdlOgoKICBGRF9SRUFEOiAgaGVhcCBPT0IgcmVhZCAgZnJvbSBm
+bG9wcHlfdHJhY2tfYnVmZmVyIHBhc3QgdGhlIHZhbGlkYXRlZAogICAgICAgICAgICBETUEgcmVn
+aW9uIC8gYWxsb2NhdGlvbiBlbmQKICBGRF9XUklURTogaGVhcCBPT0Igd3JpdGUgaW50byBmbG9w
+cHlfdHJhY2tfYnVmZmVyIHBhc3QgdGhlIHZhbGlkYXRlZAogICAgICAgICAgICBETUEgcmVnaW9u
+IC8gYWxsb2NhdGlvbiBlbmQKClRoZSBiaW8gcGFnZSBpcyBhbGxvY2F0ZWQgZm9yIGJ2X2xlbiBh
+bmQgc3RheXMgaW4tYm91bmRzIG9uIGJvdGgKZGlyZWN0aW9ucy4gT25lIGJ1ZywgdHdvIGRpcmVj
+dGlvbnMg4oCUIHBsZWFzZSBkbyBub3Qgc3BsaXQgaW50byBzZXBhcmF0ZQpGRF9SRUFEIC8gRkRf
+V1JJVEUgaXNzdWVzIHdpdGhvdXQgY29vcmRpbmF0b3IgaW5wdXQuCgpBZmZlY3RlZAotLS0tLS0t
+LQoKSW50cm9kdWNlZCBieToKCiAgMTNkNGVmMGY2NmI3ICgiZmxvcHB5OiB1c2UgbWVtY3B5X3t0
+byxmcm9tfV9idmVjIiwgMjAyMi0wMy0wMykKClN0aWxsIHByZXNlbnQgYXQ6CgogIGFlYmI3Mjc0
+NDc2NDAzMDQwZDU4MmM2MTQ3OGRmOGY0YTdiZjljZDMgKExpbnV4IDcuNC1yYzMpCgpWZXJpZmlj
+YXRpb24KLS0tLS0tLS0tLS0tCgoxKSBQcm9wb3NlZCBwYXRjaCBhcHBsaWVzIGNsZWFuIG9uIHRo
+ZSByZXZpc2lvbiBhYm92ZSBhbmQgYnVpbGRzIHdpdGgKICAgQ09ORklHX0JMS19ERVZfRkQ9eSAo
+ZmxvcHB5Lm8gaGFzaGVzIGRpZmZlciB1bnBhdGNoZWQgdnMgcGF0Y2hlZCkuCgoyKSBBZGRyZXNz
+U2FuaXRpemVyIHVzZXJzcGFjZSBtb2RlbCBvZiB0aGUgY29weV9idWZmZXIoKSBpbm5lciBsb29w
+CiAgIChmYWl0aGZ1bCBjbGFtcCArIGJvdW5kcyBjaGVjayArIG1lbWNweV8qX2J2ZWMgaGVscGVy
+cyk6CgogICBTY2VuYXJpbzogMTYgS2lCIHRyYWNrIGJ1ZmZlciwgZG1hX29mZj0xNTM2MCwgcmVt
+YWluaW5nPTEwMjQsCiAgIGJ2X2xlbj00MDk2IOKGkiBzaXplPTEwMjQgcGFzc2VzIHRoZSBib3Vu
+ZHMgY2hlY2s7IGhlbHBlcnMgY29weSA0MDk2LgoKICAgRkRfUkVBRCAgVU5QQVRDSEVEOgogICAg
+IEVSUk9SOiBBZGRyZXNzU2FuaXRpemVyOiBoZWFwLWJ1ZmZlci1vdmVyZmxvdwogICAgIFJFQUQg
+b2Ygc2l6ZSA0MDk2IGF0IDAgYnl0ZXMgYWZ0ZXIgMTYzODQtYnl0ZSByZWdpb24KICAgICBpbiBt
+ZW1jcHlfdG9fYnZlYwoKICAgRkRfV1JJVEUgVU5QQVRDSEVEOgogICAgIEVSUk9SOiBBZGRyZXNz
+U2FuaXRpemVyOiBoZWFwLWJ1ZmZlci1vdmVyZmxvdwogICAgIFdSSVRFIG9mIHNpemUgNDA5NiBh
+dCAwIGJ5dGVzIGFmdGVyIDE2Mzg0LWJ5dGUgcmVnaW9uCiAgICAgaW4gbWVtY3B5X2Zyb21fYnZl
+YwoKICAgUGF0Y2hlZCAoYm90aCBkaXJlY3Rpb25zKTogY2xlYW4sIGV4aXQgMC4KCjMpIGZsb3Bw
+eS5vIHdpdGggQ09ORklHX0tBU0FOX0dFTkVSSUMgYnVpbGRzIHdpdGhvdXQgd2FybmluZ3MuIEEg
+UUVNVQogICBndWVzdCB3aXRoIENPTkZJR19CTEtfREVWX0ZEPXkgKyBLQVNBTiByYW4gSS9PIGFn
+YWluc3QgYSAyLjg4TSBFRAogICBmbG9wcHkgYnV0IGRpZCBub3QgcHJvZHVjZSBhIEtBU0FOIHJl
+cG9ydDogRUQgdXNlcyBhIDY0IEtpQiB0cmFjawogICBidWZmZXIsIHNvIHJvb20gc3RheXMgPj0g
+NDA5NiBmb3Igc3RhbmRhcmQgZ2VvbWV0cmllcy4gTGl2ZSBrZXJuZWwKICAgcmVhY2hhYmlsaXR5
+IG9mIHJlbWFpbmluZyA8IGJ2X2xlbiB3aXRoIHJvb20gPCBidl9sZW4gaXMgdGhlcmVmb3JlCiAg
+IG5vdCB5ZXQgZGVtb25zdHJhdGVkIGVuZC10by1lbmQ7IHRoZSBjbGFtcC9jb3B5IGJ1ZyBpdHNl
+bGYgaXMKICAgY29uZmlybWVkIGJ5IHNvdXJjZSArIEFTYW4gbW9kZWwuCgpDb25kaXRpb25zIGZv
+ciB0aGUgb3ZlcnJ1bgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKQ09ORklHX0JMS19ERVZf
+RkQ9eSBhbmQgYSBmbG9wcHkgcmVxdWVzdCB3aG9zZSB0cmFuc2ZlciBpcyBjbGlwcGVkIHNvCnRo
+YXQgcmVtYWluaW5nIDwgYnZfbGVuIHdoaWxlIGRtYSArIHNpemUgc3RpbGwgcGFzc2VzIHRoZSB0
+cmFjay1idWZmZXIKYm91bmRzIGNoZWNrIChzaG9ydCBjdXJyZW50X2NvdW50X3NlY3RvcnMgbmVh
+ciB0aGUgdmFsaWRhdGVkIGVuZCkuClJlcXVpcmVzIGxvY2FsIGZsb3BweSAob3IgZXF1aXZhbGVu
+dCkgYWNjZXNzIHRvIHN1Ym1pdCBzdWNoIEkvTy4KCkZpeAotLS0KCk9wZW4tY29kZSB0aGUgY29w
+eSB3aXRoIG1lbWNweV90b19wYWdlKCkgLyBtZW1jcHlfZnJvbV9wYWdlKC4uLiwgc2l6ZSkKc28g
+dGhlIGFscmVhZHktY2xhbXBlZCBsZW5ndGggaXMgdXNlZC4gUmVzdG9yZXMgcHJlLTEzZDRlZjBm
+NjZiNwpzZW1hbnRpY3MgZm9yIHRoZXNlIHR3byBjYWxsIHNpdGVzIG9ubHkuCgpQYXRjaCBpcyBh
+dHRhY2hlZCAoYWxzbyBhcHBsaWVzIGFzIGEgcGxhaW4gZ2l0IGFtIG9mIHRoZSBib2R5IGJlbG93
+KS4KCi0tLQpIRVhFUiAoS2FuaXNoa2EgRGUgU2lsdmEpCkhFWEVSTEFCCmNvbnRhY3RAaGV4ZXIu
+aXMtYS5kZXYKaHR0cHM6Ly9oZXhlci5pcy1hLmRldgoKLS0tLS1CRUdJTiBQQVRDSC0tLS0tCkZy
+b20gNjc2MDY0MjRjZjhkYzRiZDFiYWE2OTA0OTRhMjY0NDA5NWJlZGRiNyBNb24gU2VwIDE3IDAw
+OjAwOjAwIDIwMDEKRnJvbTogS2FuaXNoa2EgRGUgU2lsdmEgPGNvbnRhY3RAaGV4ZXIuaXMtYS5k
+ZXY+CkRhdGU6IEZyaSwgMjAgTm92IDIwMjYgMDY6NDU6MzUgKzA1MzAKU3ViamVjdDogW1BBVENI
+XSBmbG9wcHk6IGZpeCBjb3B5X2J1ZmZlcigpIE9PQiBhY2Nlc3MgZHVlIHRvIGlnbm9yZWQgY2xh
+bXBlZAogc2l6ZQoKSW4gY29weV9idWZmZXIoKSwgd2hlbiBpdGVyYXRpbmcgb3ZlciBiaW8gc2Vn
+bWVudHMsIHRoZSB0cmFuc2ZlciBzaXplCmlzIGNvcnJlY3RseSBjbGFtcGVkOgoKICAgIHNpemUg
+PSBidi5idl9sZW47CiAgICBTVVBCT1VORChzaXplLCByZW1haW5pbmcpOwoKSG93ZXZlciB0aGUg
+c3Vic2VxdWVudCBtZW1jcHlfdG9fYnZlYygpIC8gbWVtY3B5X2Zyb21fYnZlYygpIGhlbHBlcnMK
+Ym90aCBpZ25vcmUgYHNpemVgIGFuZCBhbHdheXMgY29weSBidi5idl9sZW4gYnl0ZXM6CgogICAg
+c3RhdGljIGlubGluZSB2b2lkIG1lbWNweV9mcm9tX2J2ZWMoY2hhciAqdG8sIHN0cnVjdCBiaW9f
+dmVjICpidmVjKQogICAgewogICAgICAgIG1lbWNweV9mcm9tX3BhZ2UodG8sIGJ2ZWMtPmJ2X3Bh
+Z2UsIGJ2ZWMtPmJ2X29mZnNldCwgYnZlYy0+YnZfbGVuKTsKICAgIH0KCldoZW4gYSB0cmFuc2Zl
+ciBpcyBjbGlwcGVkIHNvIHRoYXQgcmVtYWluaW5nIDwgYnYuYnZfbGVuLCB0aGUgY2xhbXBlZAp2
+YWx1ZSBpcyBkaXNjYXJkZWQgYW5kIHRoZSBmdWxsIGJ2ZWMgbGVuZ3RoIGlzIHVzZWQgZm9yIHRo
+ZQpmbG9wcHlfdHJhY2tfYnVmZmVyIG1lbWNweS4gIFRoZSBib3VuZHMgY2hlY2sgYWJvdmUgb25s
+eSB2YWxpZGF0ZXMKZG1hX2J1ZmZlciArIHNpemUsIHNvIGRtYV9idWZmZXIgKyBidi5idl9sZW4g
+bWF5IHBhc3MgdGhlIGNoZWNrIHdoaWxlCnN0aWxsIG92ZXJydW5uaW5nIHRoZSB2YWxpZGF0ZWQg
+RE1BIHJlZ2lvbiAvIGFsbG9jYXRpb246CgogIEZEX1JFQUQ6ICBvdXQtb2YtYm91bmRzIHJlYWQg
+ZnJvbSBmbG9wcHlfdHJhY2tfYnVmZmVyIChzb3VyY2Ugc2lkZSkKICBGRF9XUklURTogb3V0LW9m
+LWJvdW5kcyB3cml0ZSBpbnRvIGZsb3BweV90cmFja19idWZmZXIgKGRlc3Qgc2lkZSkKClRoZSBi
+aW8gcGFnZSBpdHNlbGYgaXMgc2l6ZWQgZm9yIGJ2X2xlbiBhbmQgaXMgaW4tYm91bmRzOyB0aGUg
+b3ZlcnJ1bgppcyBvbiB0aGUgdHJhY2stYnVmZmVyIHNpZGUuCgpGaXggYnkgb3Blbi1jb2Rpbmcg
+dGhlIHBhZ2UgY29weSB3aXRoIHRoZSBhbHJlYWR5LWNsYW1wZWQgYHNpemVgIHZpYQptZW1jcHlf
+dG9fcGFnZSgpIC8gbWVtY3B5X2Zyb21fcGFnZSgpLCB3aGljaCBhY2NlcHQgYW4gZXhwbGljaXQg
+bGVuZ3RoLgoKRml4ZXM6IDEzZDRlZjBmNjZiNyAoImZsb3BweTogdXNlIG1lbWNweV97dG8sZnJv
+bX1fYnZlYyIpCkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYtYnk6IEthbmlz
+aGthIERlIFNpbHZhIDxjb250YWN0QGhleGVyLmlzLWEuZGV2PgotLS0KIGRyaXZlcnMvYmxvY2sv
+ZmxvcHB5LmMgfCA0ICsrLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVs
+ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ibG9jay9mbG9wcHkuYyBiL2RyaXZlcnMv
+YmxvY2svZmxvcHB5LmMKaW5kZXggYzY3N2Q3ODM4Li5iNDkyZTM1Y2EgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvYmxvY2svZmxvcHB5LmMKKysrIGIvZHJpdmVycy9ibG9jay9mbG9wcHkuYwpAQCAtMjQ4
+OCw5ICsyNDg4LDkgQEAgc3RhdGljIHZvaWQgY29weV9idWZmZXIoaW50IHNzaXplLCBpbnQgbWF4
+X3NlY3RvciwgaW50IG1heF9zZWN0b3JfMikKIAkJfQoKIAkJaWYgKENUKHJhd19jbWQtPmNtZFtD
+T01NQU5EXSkgPT0gRkRfUkVBRCkKLQkJCW1lbWNweV90b19idmVjKCZidiwgZG1hX2J1ZmZlcik7
+CisJCQltZW1jcHlfdG9fcGFnZShidi5idl9wYWdlLCBidi5idl9vZmZzZXQsIGRtYV9idWZmZXIs
+IHNpemUpOwogCQllbHNlCi0JCQltZW1jcHlfZnJvbV9idmVjKGRtYV9idWZmZXIsICZidik7CisJ
+CQltZW1jcHlfZnJvbV9wYWdlKGRtYV9idWZmZXIsIGJ2LmJ2X3BhZ2UsIGJ2LmJ2X29mZnNldCwg
+c2l6ZSk7CgogCQlyZW1haW5pbmcgLT0gc2l6ZTsKIAkJZG1hX2J1ZmZlciArPSBzaXplOwotLQoy
+LjQzLjAKLS0tLS1FTkQgUEFUQ0gtLS0tLQo=
 
-Commit-ID:     068d82afd070beb8ea32c8ee64d685af7d3f36e2
-Gitweb:        https://git.kernel.org/tip/068d82afd070beb8ea32c8ee64d685af7d3=
-f36e2
-Author:        WeitaoWang-oc <WeitaoWang-oc@zhaoxin.com>
-AuthorDate:    Sat, 17 Oct 2026 02:10:16 +08:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Thu, 19 Nov 2026 20:17:47 -08:00
+--===============8652790659508840351==
+Content-Type: application/octet-stream
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="0001-floppy-fix-copy_buffer-OOB.patch"
 
-x86/apic/msi: Fix MSI interrupt affinity configuration
+RnJvbSA2NzYwNjQyNGNmOGRjNGJkMWJhYTY5MDQ5NGEyNjQ0MDk1YmVkZGI3IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYW5pc2hrYSBEZSBTaWx2YSA8Y29udGFjdEBoZXhlci5pcy1h
+LmRldj4KRGF0ZTogRnJpLCAyMCBOb3YgMjAyNiAwNjo0NTozNSArMDUzMApTdWJqZWN0OiBbUEFU
+Q0hdIGZsb3BweTogZml4IGNvcHlfYnVmZmVyKCkgT09CIGFjY2VzcyBkdWUgdG8gaWdub3JlZCBj
+bGFtcGVkCiBzaXplCgpJbiBjb3B5X2J1ZmZlcigpLCB3aGVuIGl0ZXJhdGluZyBvdmVyIGJpbyBz
+ZWdtZW50cywgdGhlIHRyYW5zZmVyIHNpemUKaXMgY29ycmVjdGx5IGNsYW1wZWQ6CgogICAgc2l6
+ZSA9IGJ2LmJ2X2xlbjsKICAgIFNVUEJPVU5EKHNpemUsIHJlbWFpbmluZyk7CgpIb3dldmVyIHRo
+ZSBzdWJzZXF1ZW50IG1lbWNweV90b19idmVjKCkgLyBtZW1jcHlfZnJvbV9idmVjKCkgaGVscGVy
+cwpib3RoIGlnbm9yZSBgc2l6ZWAgYW5kIGFsd2F5cyBjb3B5IGJ2LmJ2X2xlbiBieXRlczoKCiAg
+ICBzdGF0aWMgaW5saW5lIHZvaWQgbWVtY3B5X2Zyb21fYnZlYyhjaGFyICp0bywgc3RydWN0IGJp
+b192ZWMgKmJ2ZWMpCiAgICB7CiAgICAgICAgbWVtY3B5X2Zyb21fcGFnZSh0bywgYnZlYy0+YnZf
+cGFnZSwgYnZlYy0+YnZfb2Zmc2V0LCBidmVjLT5idl9sZW4pOwogICAgfQoKV2hlbiBhIHRyYW5z
+ZmVyIGlzIGNsaXBwZWQgc28gdGhhdCByZW1haW5pbmcgPCBidi5idl9sZW4sIHRoZSBjbGFtcGVk
+CnZhbHVlIGlzIGRpc2NhcmRlZCBhbmQgdGhlIGZ1bGwgYnZlYyBsZW5ndGggaXMgdXNlZCBmb3Ig
+dGhlCmZsb3BweV90cmFja19idWZmZXIgbWVtY3B5LiAgVGhlIGJvdW5kcyBjaGVjayBhYm92ZSBv
+bmx5IHZhbGlkYXRlcwpkbWFfYnVmZmVyICsgc2l6ZSwgc28gZG1hX2J1ZmZlciArIGJ2LmJ2X2xl
+biBtYXkgcGFzcyB0aGUgY2hlY2sgd2hpbGUKc3RpbGwgb3ZlcnJ1bm5pbmcgdGhlIHZhbGlkYXRl
+ZCBETUEgcmVnaW9uIC8gYWxsb2NhdGlvbjoKCiAgRkRfUkVBRDogIG91dC1vZi1ib3VuZHMgcmVh
+ZCBmcm9tIGZsb3BweV90cmFja19idWZmZXIgKHNvdXJjZSBzaWRlKQogIEZEX1dSSVRFOiBvdXQt
+b2YtYm91bmRzIHdyaXRlIGludG8gZmxvcHB5X3RyYWNrX2J1ZmZlciAoZGVzdCBzaWRlKQoKVGhl
+IGJpbyBwYWdlIGl0c2VsZiBpcyBzaXplZCBmb3IgYnZfbGVuIGFuZCBpcyBpbi1ib3VuZHM7IHRo
+ZSBvdmVycnVuCmlzIG9uIHRoZSB0cmFjay1idWZmZXIgc2lkZS4KCkZpeCBieSBvcGVuLWNvZGlu
+ZyB0aGUgcGFnZSBjb3B5IHdpdGggdGhlIGFscmVhZHktY2xhbXBlZCBgc2l6ZWAgdmlhCm1lbWNw
+eV90b19wYWdlKCkgLyBtZW1jcHlfZnJvbV9wYWdlKCksIHdoaWNoIGFjY2VwdCBhbiBleHBsaWNp
+dCBsZW5ndGguCgpGaXhlczogMTNkNGVmMGY2NmI3ICgiZmxvcHB5OiB1c2UgbWVtY3B5X3t0byxm
+cm9tfV9idmVjIikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKU2lnbmVkLW9mZi1ieTogS2Fu
+aXNoa2EgRGUgU2lsdmEgPGNvbnRhY3RAaGV4ZXIuaXMtYS5kZXY+Ci0tLQogZHJpdmVycy9ibG9j
+ay9mbG9wcHkuYyB8IDQgKystLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBk
+ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2Jsb2NrL2Zsb3BweS5jIGIvZHJpdmVy
+cy9ibG9jay9mbG9wcHkuYwppbmRleCBjNjc3ZDc4MzguLmI0OTJlMzVjYSAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9ibG9jay9mbG9wcHkuYworKysgYi9kcml2ZXJzL2Jsb2NrL2Zsb3BweS5jCkBAIC0y
+NDg4LDkgKzI0ODgsOSBAQCBzdGF0aWMgdm9pZCBjb3B5X2J1ZmZlcihpbnQgc3NpemUsIGludCBt
+YXhfc2VjdG9yLCBpbnQgbWF4X3NlY3Rvcl8yKQogCQl9CgogCQlpZiAoQ1QocmF3X2NtZC0+Y21k
+W0NPTU1BTkRdKSA9PSBGRF9SRUFEKQotCQkJbWVtY3B5X3RvX2J2ZWMoJmJ2LCBkbWFfYnVmZmVy
+KTsKKwkJCW1lbWNweV90b19wYWdlKGJ2LmJ2X3BhZ2UsIGJ2LmJ2X29mZnNldCwgZG1hX2J1ZmZl
+ciwgc2l6ZSk7CiAJCWVsc2UKLQkJCW1lbWNweV9mcm9tX2J2ZWMoZG1hX2J1ZmZlciwgJmJ2KTsK
+KwkJCW1lbWNweV9mcm9tX3BhZ2UoZG1hX2J1ZmZlciwgYnYuYnZfcGFnZSwgYnYuYnZfb2Zmc2V0
+LCBzaXplKTsKCiAJCXJlbWFpbmluZyAtPSBzaXplOwogCQlkbWFfYnVmZmVyICs9IHNpemU7Ci0t
+CjIuNDMuMAo=
 
-The two step update sequence in msi_set_affinity() is required for MSI
-interrupts which cannot be migrated atomically, i.e. devices which do not
-provide MSI masking.
-
-The MSI message update writes address and data registers separately, so such
-a device can raise an interrupt in between, which results in a message built
-from half updated state: a stray interrupt on a stale vector and a possibly
-lost device interrupt.
-
-The update sequence is selected by a per interrupt quirk flag, which is set
-for interrupts which cannot use reservation mode. Reservation mode is only
-enabled for maskable interrupts, i.e. devices which provide MSI-X or
-mask support, so the quirk flag is the inverse of the reservation mode
-bit.
-
-The removal of the quirk flag replaced the flag check with a reservation mode
-check, but dropped the negation of the removed condition:
-
-   - if (!irqd_msi_nomask_quirk(irqd) || ...)
-   + if (!irqd_can_reserve(irqd) || ...)
-
-As the quirk flag is the inverse of the reservation mode bit, the replacement
-inverted the condition and selects the wrong update path for every interrupt:
-non-maskable interrupts take the direct update path again, which reopens the
-race, while maskable interrupts needlessly go through the two step update.
-
-Restore the original condition so that the direct update path is selected when
-reservation mode is enabled, which also matches the comment above the check:
-direct update is possible when the MSI is maskable, which is the case when the
-reservation mode bit is set.
-
-  [ bp: Massage commit message. ]
-
-Fixes: b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI quirk")
-Signed-off-by: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Koichiro Den <den@valinux.co.jp>
-Acked-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: stable@vger.kernel.org # v6.1+
-Link: https://patch.msgid.link/20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com
----
- arch/x86/kernel/apic/msi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
-index 66bc5d3..da5f44a 100644
---- a/arch/x86/kernel/apic/msi.c
-+++ b/arch/x86/kernel/apic/msi.c
-@@ -62,7 +62,7 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumas=
-k *mask, bool force)
- 	 * - The interrupt is not yet started up
- 	 * - The new destination CPU is the same as the old destination CPU
- 	 */
--	if (!irqd_can_reserve(irqd) ||
-+	if (irqd_can_reserve(irqd) ||
- 	    cfg->vector =3D=3D old_cfg.vector ||
- 	    old_cfg.vector =3D=3D MANAGED_IRQ_SHUTDOWN_VECTOR ||
- 	    !irqd_is_started(irqd) ||
+--===============8652790659508840351==--
