@@ -1,97 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795133587;
-	b=jsBTkdnuTvs9RnfkfL+S6Fb83iyweMY6UL805+Bl56HoYlojHU6JOxCpBeAQkilC5dpR
-	 4ZNrVSfVHXviGs8sQEuC6BBWy4/fKklH5ADf/oTy10cULyY68JLaT/1+Crm+zrhHMn3sQ
-	 GCQ2rXm4oRP+dK2+oNhioTez9RV8yRy5yxZf2erbtYtbe+fMPpCa5L73q+QrcT3yxOp4P
-	 ylttWbQmsf0Tl/BnD9a7J97paNsL1pGNkP8TLVjfNHtoj3LwztiGLW4r9SK+2TiHX2WiS
-	 Ge0GVqes9AA3sFMq6QsRUZXl9zZhbrfEH6+Lezkd7Q9eP6qQbuI7SNC+skXLoA0Qvcw==
+	t=1795134364;
+	b=5C9aQAMSPpaPPVkVaBpcfKKkAlnuPCna8OjU4hInlilcdXnLfpZZ66wcJH7vVR/ZOUcs
+	 dAAGGVO1YQODWeLiqJouWj3UF+jizM2m3nfo4ekwHbTJpJculilwS9O9p8s1h1WZVjOtz
+	 ZlHGL5kzNx0r/amHTffUYxrhbOt7BPgSLUKeLmwFU93QMLpDnrJ37vv7wJ9HHrT0K7kND
+	 hHrg0nnKulXV1xJDeA6WldT5mcohWevTsKvbo67PYamKJo4nA7M8uFPk5qJrTzur9WLDk
+	 vtKV35AKm3pzsnrncMzxgNPUftzp+zdJxQYYnYpZYKxdH/XAOrFVWkvy382tADmdF2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795133587;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795134364;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9SB4EObKSw+tB9P4IbZtGcg+6FkG4Gy4Q2cjVejRkPE=;
-	b=S01rUM94ciOXsm9Vxf5kZ8b80IHFF3aL1b5xyFGd+A226etbW8o63sxbZTHnPeW6jf0w
-	 2tZe/htCpDEgNsLUOKy7jaGFhbk7ebK+o3qU/gE560kKml3ZWxu//mhQp1byEb3+T4R2x
-	 87fM4vIGtd0aApL9Fw3YSAV7wPElgaALe9rDLVwVX4IXjnMspQ/9pSn7dz+C12FggOexw
-	 Cb5uArTFH7BoxCNXZqQMO+00KUpajJtVPDXt/ae6WObbRKfpBmizVKmHw1fNr0O+IZZc+
-	 iaGmhB60I0Zm5zBZQ5iyOtuKyWfTe5I6yk1/zqybal1X+XNcrO1B/679HK+h2Ffg4eA==
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=BxV2zTydEE4k6FT+/UqpEKJRz2u+2cYDgcocvttPorY=;
+	b=jy/gx1Tez0nv3nKxRavpHMuhDyyvywpsnyUCgJEn5yUCcI66mjwhVYdD8u92cJtSaIbM
+	 W4BYtw/CwuAV4DEee/ml41fcufR6an9NOOZldT/3GbSYJsjkIQ/Yhq04+PDfylrWoXLem
+	 1lpIgf5ruQO4MTaERlPRreDIyYW+NMw7Oi0fkjo72kEzDhhAWqSAnDt6PLtpPizftbfgK
+	 jlDxULmQ5Kq3zbnlgCY6UYnIvd0hvEdIvYxHfRaeAELziz3E+b/QTmPfK2vUf22pd3gVJ
+	 DU3TCFFyYahrK0OBiz4YWgh5eHDhxamvBachcxxFgI3ikrfjdVNuhDxvoFF5Py60wyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SPB9X4X9;
-	arc=none smtp.remote-ip=209.85.160.181
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v9MqcPLt;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0607D606A32A
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 00:13:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0607D606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8796060A3816
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 00:26:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8796060A3816
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SPB9X4X9
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5364648ae07so4013521cf.1
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 16:13:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v9MqcPLt
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e3b22e971so153339f8f.0
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 16:26:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795133586; x=1795738386; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9SB4EObKSw+tB9P4IbZtGcg+6FkG4Gy4Q2cjVejRkPE=;
-        b=SPB9X4X99PCJkOzgmPj4UGRhE7afdmtnkVry4+D03EDd4zGfx1I4hoDHolxW5E5B3T
-         vR/Wexx3zKvzmcxvEc1/Wpw2iVtWCQzTHwu41knk1r29HnGyGqU4SHejC7o2mu/dfNXe
-         9SEkKVXtYe0/12eFNX4Om6B5NkYRqtACFsrOW9wD2TcnbWnVm3rF8xTVw4GU5drzKmTQ
-         EWpKc87m3or3G0etAhvHov56qU1MqCx0pRO7H5g7igyw8ZxulNqVnpNEyxdU2xp5t9h7
-         ttKpkoMGMeAOlA1cOLtkvTJsQmNYBibWKQl2m5mQBwlLeYDTDmy9pj3ZmxD7y4VFusWQ
-         a0RQ==
+        d=gmail.com; s=20260707; t=1795134362; x=1795739162; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BxV2zTydEE4k6FT+/UqpEKJRz2u+2cYDgcocvttPorY=;
+        b=v9MqcPLtxE53SbjN64oHKP9t3rCkg88Zes1tVNDU+ofhyrQCe7iAjOqyGgwoAVAPyB
+         74RlAfCImWW4u3EDJgGcEgjAiFs4MrtoR0odM43Nci/Lq5HaIRvqBDlFNbttHaKnzku9
+         bvgg/zluqtZ5RKvErgFdFnt6f7vI5DzRhSamnmWF9enY8PTOkPLVNn1Uk327j3Gv0Dvz
+         Uc0gpHcmKZClPKqOMRZ8DNI5DhyyGBcDwGGNYxRYkffFwL1VudZ5IVkNevBJEBNTP71U
+         u+AVVz3mizW1JfQOmIXe3NZ5ttsOXZB8x9NJVYpIUYbvDBz4BCj1YyYuoJHrAxE/ZTJ8
+         5/lQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795133586; x=1795738386;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9SB4EObKSw+tB9P4IbZtGcg+6FkG4Gy4Q2cjVejRkPE=;
-        b=ObtPZozLbgVHk6ZS7HfGlW/170Sd/t7DKlfB48phXrK1O/tGoL6xbIoeUdkllUSxq3
-         wZTqwDQMz1nrbGKao3CbvJ4KCrsXbW/zxmL41xxsHcekGcsMn6hOd3qA1y5Q1dIEmPna
-         k7oNI2dVh9henAfGVsoi0rWKSX4io75XKPa99fEeU0qLEX/O10MdLws2+YbXjj3Mp+7m
-         2aJx6cKRtAkIXu/sK4cMIvp64h8J5C1wL25G9QhZNfY4ywSSUJ3XG1cStTJFHgLEybHv
-         UQ0TVO2SlAnME5iejsByUszUls/SZUQBVTKhV6GtzHnFkXIoWrejz1pfOnAQ/Y2rIk6+
-         LzCw==
-X-Forwarded-Encrypted: i=1; AL+hErEv+h2EXBWv4Y1gEfZlxfJqXhmlcjhj0Z7MTPhWwWmj+L5KdOObxdPUFw8tyG2EPS4PFzOChpk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+cOEsqbWoGowDMWy82RM/8fD4Bz202htpVbTRwQwpfQA0kyjUX
-	cI830Q4uPDVuLGmHNHDDk/udgjn00DRKqsXU1SBpjs7+1ey8oddURWn7
-X-Gm-Gg: AZFdTZfNWa7meDWsaLK5J7eBTm6lvmoyQKZPy3clY5K0hWQkDWag+NcltmrOIIY3u5x
-	V9ru61QACRr2EQcPi+uXcsWliPAFDSVrUx5zOmI+MxRHnKlYvR54bu8s2wLog/q6OpORxp+OKne
-	CuS4H1Pn7q1QcJDj9k3//9gleHgRdwUH9ZXbVMnB0zxtdzPJph5scf4jxoDfkU5V0wJ7PryTLQ9
-	GsWEZdSg8AFh5h/ohCGF0b/Q7Fp2HgjObHRJCP4/pII7zhe3ONUEUnVtlRqPKoFhh6F2KCXGgmZ
-	3+3w07Sh1RI1HCACEfaOv/t+IDSaGN/gzK2Hu/UANxMrMYVpSC75VvzVFgZ+rk2/O6s7o/OvYWe
-	JlS9IrXJRh3nAy2+3HUWC0bR5gOq/Lcd77FK8tlsi8gtOY88YcsNqrFUmT/Z8pzVyWW7OQMK0c+
-	kTbdiH/8ZmxlPJXx5N8UbRftb4XhUvGhgTz26GrbwgHxbIkDH8ul9CuHsGEUeoHH1peEUZnhg+I
-	v6H71g0Awcd2pRH57M5h+j+7eQBXuYCQ9tAE6kGu4sjZk+ryGn51aJozVP//vLncn1Nqp3dSMcg
-	muwPbO29ozgiKRrinJFjJpvpu2EJlyZMV/Cno5CWLlKfZhDxAjK7ImFw/GxtKb91GwXKBp7Dsm6
-	jhLP2/BhwvGYjyHrVU3ZiqlYRjmIkdPEu65Qu+kj4G4KqGuL11tHeeilLfK4=
-X-Received: by 2002:a05:6214:3a84:b0:921:3171:b604 with SMTP id 6a1803df08f44-92134b48c88mr23359986d6.54.1795133585733;
-        Thu, 19 Nov 2026 16:13:05 -0800 (PST)
-Received: from FKXX2DL94F.bytedance.net ([72.29.204.230])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9213515f467sm8311096d6.41.2026.11.19.16.13.04
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 19 Nov 2026 16:13:05 -0800 (PST)
-From: Yifan Feng <evanfengff@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1795134362; x=1795739162;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BxV2zTydEE4k6FT+/UqpEKJRz2u+2cYDgcocvttPorY=;
+        b=oKkUgs8PI3Oay/PcqjIGDDJdHoCjWhAzrScJEM43wnZHfhayJWjziBVtpzFCVU5oDM
+         c3z5GcelgclDdA5P0jd3LBkwVsd16hQy5BdTFT/vGJlPNXOmFoeGfWtaCI3zfz3/xF6r
+         5wHMMmb2rZIRD8xCh5jgwZ4hF3d9ctofgQbMTV7eo9BkP1Rohv73lQPi7DLO+7X0WLcV
+         3imAx44VAHCd70HSMj9aJhxLrMVffTLrKFDMUmKinGfK/hqkZ0IOee5iXSAfXMO/q4Gn
+         4Zi1oyVgWMD45OQzGUOna5KUN74cequZ2GtXdqNXGbWS26uD7sdw1s4jWY1IkhnF6BXM
+         sVhQ==
+X-Forwarded-Encrypted: i=1; AL+hErElUK2of4J+pS+guRh+eGl8IDAo+Ja0c8WN5hei2fmxSSDLPPsgyeE4G2Ui9IVD3eVIsUp12uU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/4EUnBVcFl9gRz7KglF1007PHhV5YZ0kyto+3B45IRUSq+FlbL
+	Rkqk/UV1JZAVKXj/k5RmiBnVM1wqbVZr2wj60auQqiGn5cG8HILrKhfu
+X-Gm-Gg: AZFdTZfpzQ1F9oUxrsJ0hGZVFuWQJbbU6ltCoMpQKh91prNfgQ6BpHbQ4VqbppbYUaX
+	NgNMPSRzhzogvIZOHifODHO8q8Fx/jW/c14x/D/QyPh3LJHmc7vvNM7fnPzVCCTHMfBoUso2NBk
+	K4BxcncMH4i5bS1wnkcuPtFMZbrg4yZqn1m4DxAGq8XHdxeg8kXbnqRoMZ/raWq83yHowwrm1AF
+	aPHNkdVXPCHMFQHaXAv9TfT/GAMXjZDCaYZJLcjj/jYd01hAluuaT6VaEajXk+sk1ysguVm0n5X
+	X8Q8qHmb6e9qTuMkMq3VV19lOsNtpJfbOYSrdclXXjVk6CpJgUZxniqzzJ77HsCK5Lfc4v6xq30
+	+fa6CiutwRorSvFuoSxlr82JcqphLypdWt1w93CthGB3Cs7DUxaDb42kZKYT+TY03xHhpEco3X4
+	SN81kW3XHAV8mIBb6AvSKuHR5AJ0BDS0IIMwRrbeK38P1FiZVC/LQgmD6bDAKzUvlJZurA+WTzy
+	zjp5ApYT5tIjAV4rEzT0ck7lty/PaAtqWvQ7lqTFtbE4A3FBXJRuhgE9t54nHawN5LkJMdKbs6q
+	qS9i1kilZw0kyHWzJmKXlhDFJhqCi7DTMi38w+mlOAtGFBLucy88ewC1zNO6hjiX/5tYxCC44jB
+	XYrE9l5C42483qJlA8CwADa5RqFVCqq3EZvKxUQIctd0nBme9Tr8d0Y4SKQ1eaGUl6aEeDqCM
+X-Received: by 2002:a05:6000:4916:b0:4a5:e50:ea5e with SMTP id ffacd0b85a97d-4abaf64bdfbmr1921927f8f.9.1795134361869;
+        Thu, 19 Nov 2026 16:26:01 -0800 (PST)
+Received: from iku.lan ([2a00:23c8:254f:fd01:c5c5:590b:f4b8:3e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6c340df4sm2629998f8f.55.2026.11.19.16.26.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 16:26:01 -0800 (PST)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Simon Horman <horms@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Ralph Siemsen <ralph.siemsen@linaro.org>,
+	linux-renesas-soc@vger.kernel.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/damon/core: fix damos_walk() hang with zero watermarks interval
-Date: Thu, 19 Nov 2026 16:13:00 -0800
-Message-Id: <20261120001300.11809-1-evanfengff@gmail.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261119014247.119946-1-sj@kernel.org>
-References: <20261119014247.119946-1-sj@kernel.org>
+Subject: [PATCH net-next v5 08/24] net: dsa: rzn1-a5psw: Fix LK_LEARNCOUNT write mode encoding
+Date: Fri, 20 Nov 2026 00:25:18 +0000
+Message-ID: <20261120002549.1908299-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,63 +124,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Wed, 18 Nov 2026 17:42:46 -0800 SJ Park <sj@kernel.org> wrote:
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-[...]
-> But, this could make has_schemes_to_apply has false positive.  How about
-> calling damos_Walk_cancel() when has_schemes_to_apply is false, like below?
+The LK_LEARNCOUNT write mode lives in bits [31:30] of the register, but
+the driver writes the raw A5PSW_LK_LEARNCOUNT_MODE_* values (0, 1, 2)
+directly. As a result, adding an FDB entry writes "set LEARNCOUNT to 1"
+and deleting one writes "set LEARNCOUNT to 2", instead of atomically
+incrementing/decrementing the counter.
 
-Thanks for the review.  You are right about the false positive.
+Use FIELD_PREP() with A5PSW_LK_LEARNCOUNT_MODE so the mode lands in the
+correct bit field.
 
-I tried your change.  It fixes the hang, but has_schemes_to_apply is also
-false whenever no scheme has reached its next_apply_sis yet, so it cancels
-the walks of activated schemes too.  In my test (one stat scheme, default
-intervals) 18 of 20 update_schemes_tried_regions writes got -ECANCELED,
-and two selftests fail: sysfs_update_schemes_tried_regions_wss_estimation.py
-and sysfs_update_schemes_tried_regions_hang.py.
+Fixes: 5edf246c6869 ("net: dsa: rzn1-a5psw: add FDB support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
+v4->v5:
+- New patch
+---
+ drivers/net/dsa/rzn1_a5psw.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-What do you think about cancelling only when no scheme is activated?
-
-'''
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3492,9 +3492,13 @@ static noinline_for_stack void kdamond_apply_schemes(struct damon_ctx *c)
- 	struct damon_target *t;
- 	struct damos *s;
- 	bool has_schemes_to_apply = false;
-+	bool has_activated_schemes = false;
- 	unsigned long max_region_sz;
+diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
+index 13c46cf2c420..7fd2652813ac 100644
+--- a/drivers/net/dsa/rzn1_a5psw.c
++++ b/drivers/net/dsa/rzn1_a5psw.c
+@@ -5,6 +5,7 @@
+  * Clément Léger <clement.leger@bootlin.com>
+  */
  
- 	damon_for_each_scheme(s, c) {
-+		if (s->wmarks.activated)
-+			has_activated_schemes = true;
-+
- 		if (time_before(c->passed_sample_intervals, s->next_apply_sis))
- 			continue;
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/etherdevice.h>
+ #include <linux/if_bridge.h>
+@@ -545,7 +546,8 @@ static int a5psw_port_fdb_add(struct dsa_switch *ds, int port,
+ 		goto lk_unlock;
  
-@@ -3506,8 +3510,12 @@ static noinline_for_stack void kdamond_apply_schemes(struct damon_ctx *c)
- 		damos_adjust_quota(c, s);
+ 	if (inc_learncount) {
+-		reg = A5PSW_LK_LEARNCOUNT_MODE_INC;
++		reg = FIELD_PREP(A5PSW_LK_LEARNCOUNT_MODE,
++				 A5PSW_LK_LEARNCOUNT_MODE_INC);
+ 		a5psw_reg_writel(a5psw, A5PSW_LK_LEARNCOUNT, reg);
  	}
  
--	if (!has_schemes_to_apply)
-+	if (!has_schemes_to_apply) {
-+		/* The walk cannot be completed while no scheme is activated */
-+		if (!has_activated_schemes)
-+			damos_walk_cancel(c);
- 		return;
-+	}
+@@ -604,7 +606,8 @@ static int a5psw_port_fdb_del(struct dsa_switch *ds, int port,
  
- 	max_region_sz = damon_region_sz_limit(c);
- 	mutex_lock(&c->walk_control_lock);
-'''
+ 	/* Decrement LEARNCOUNT */
+ 	if (clear) {
+-		reg = A5PSW_LK_LEARNCOUNT_MODE_DEC;
++		reg = FIELD_PREP(A5PSW_LK_LEARNCOUNT_MODE,
++				 A5PSW_LK_LEARNCOUNT_MODE_DEC);
+ 		a5psw_reg_writel(a5psw, A5PSW_LK_LEARNCOUNT, reg);
+ 	}
+ 
+@@ -963,7 +966,8 @@ static int a5psw_setup(struct dsa_switch *ds)
+ 	}
+ 
+ 	/* Reset learn count to 0 */
+-	reg = A5PSW_LK_LEARNCOUNT_MODE_SET;
++	reg = FIELD_PREP(A5PSW_LK_LEARNCOUNT_MODE,
++			 A5PSW_LK_LEARNCOUNT_MODE_SET);
+ 	a5psw_reg_writel(a5psw, A5PSW_LK_LEARNCOUNT, reg);
+ 
+ 	/* Clear VLAN resource table */
+-- 
+2.56.1
 
-With this the hang is gone, 20 of 20 writes succeed while the scheme is
-activated, and kunit and selftests results are the same as on the base
-kernel.
-
-I will send v2 with this if you are ok with it.
-
-Thanks,
-Yifan
