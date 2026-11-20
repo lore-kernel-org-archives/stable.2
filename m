@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795196479;
-	b=TGQ7aJdy1uXqFOJRM6pczWmqTXhX5EIZ6g/iCd7E4E2FYbh8wXmKLRiR7MlYKn8Yn5zD
-	 gyCATeb7ClcS7miEel3yz5/BrEOvcUimVGl1TrlIZbxKoY5v9HcmWlP20PZwtSpYWAr6p
-	 mHfrZEnJbvKLTvvzJO0MN3n7uM3Qfrw2efR1DxX7XvU48JyaPHbDQXD3/u0ejC8Brfcyv
-	 0G3pXQUA+D3pcAEkkuR4TOvO+RZdovLsrpJEVuwxJhT7K8Ss/YWZHnMPNUc/dxN6FKusj
-	 M3EkSzJ01kh3QFHuhuFxkfbCG17a1gwg0jATPvzJxS5UKTCZzr1GxJ/2vOrwqFY2sSg==
+	b=k3rj/ejUw689oTH9TowPJuO2ZcMUiYyh3eM7DUbRIbl5n6CIdbLFtiiMFQNHlCClzUsz
+	 09Gpl0Olh2+uCwUsHrTbxW0KbbdcVPT7unOixyGKpW83UDIlFff/6AydBpy6I0kqTegNq
+	 eb4UgkqAnomYM2XXrrvICjPlvRR7OxhKRHNTjQj0nUOwQ87RgZPPuF3AxbSYjiK9PMmKu
+	 Ex6pWRwZeR9yleaLRWesvE9yYUXaZnXGtRoiuOgs56y06RocKQ82op867VFaAbDpXA7lh
+	 7IWxlnt9+46ekaxW/Ck/yb6lmA5OTQ64u+dp89wI7hL977A6JHdAhRj091ECaDgV85g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795196479;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
 	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=7D9cJe1yNWbqh0DJmxweChnohkqptYnNcUKzDoL19jA=;
-	b=UNcJcYk81IwtMAhDmzIVPBN3MoMEQvFoBjtPeO8YuZo2DftwYBLEr1j3rUtT4fNCEqaI
-	 V1YV6QX7iXgpwIGrTMkJxv1144LMYQ9kT+XqoCp3ICyie7FUikn4rvdNHvhBuC7PiZIlQ
-	 JrzY/tUFZCsyTE6JHxBUl0mXD5A2lUN57eSAle7rdmZzJvWmqsJG6iCVbHXZy7J0ihl58
-	 erUT36HXpJWzKb4ZzUz1mqBW5EPMXTxmRTGX5AsQyA+aB3wSmk9GglI8A+02pThZ8u6ut
-	 47MhEFbchabxbh1jY+Cmx+MLp/BiwIqnjWLKJ7s70XZ+LUL6i7hOQcIiIYMGBQ7CHjw==
+	bh=lLHe99j0H7z4qGlyV8j8JNJiq4f64W4G+h4fzRpJrxk=;
+	b=ejs/qrDUYDcNycpHlGSBl2wg9PmX04UUDMU+rxJZcp52CmlAN01zYB8MM3v3Txl9czOH
+	 OaUOM94J+fIWQp2t9oBv/WsoSfhga0AxsU2g1UEoZhCXULc0+aSrqhMIZiNSHLW7cN1rv
+	 jRB+mBdAM1NSRRBMpxPJxAeyTTBk1n5KiIHgPvz+ACOq9UeJyj3Ft3no1NA8Kw1Etg68u
+	 INptAZPMESXuegbEpU13g9VentAH/H7vnGgkk9q9E+MpbdYpKHD6b1cBJpwuIOA9EQJSX
+	 Yg2nZsWDJDofWN2rEdu16l/hlcd7mK/84iAJEN5ImGx3HC/SEB4CIN5zrHWcJIIDJPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m4QpB2tl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMH6dgjg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0990160A5BE8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B9760A2610;
 	Fri, 20 Nov 2026 17:41:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m4QpB2tl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB95B1F01579;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMH6dgjg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0AC21F000EE;
 	Fri, 20 Nov 2026 17:41:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795196478;
-	bh=7D9cJe1yNWbqh0DJmxweChnohkqptYnNcUKzDoL19jA=;
+	s=k20260515; t=1795196479;
+	bh=lLHe99j0H7z4qGlyV8j8JNJiq4f64W4G+h4fzRpJrxk=;
 	h=Date:From:To:Cc:Subject:References;
-	b=m4QpB2tlQYd0EcJshsPTJNHuaxeNs9M7pjDB0Mqw+NXyrwr9U7pEWOy/Uw2e/R06B
-	 7Iv2c9CUhWQdcPWlhO5Y8jan/5w/l2TuU/gBsvYEwDRQ/tLmv75eIGiN6mJ6Jw9waD
-	 RRATx6RIGiXE1y16arNrOUI4kDN98l4LaXQ5njzBAdwODBc+kRmgpppSKWHVAzpXNM
-	 CXjP5ukQZWLf2Vn707oJqDQZacYkkWKPA8mhR7bTtA1CnZX5AdMy3UNYXwgujvFyww
-	 xOJpjuLaRzFmdLr5Uy2nDSd2sCj6ZJcfwmUyw85Bdm9mO0qly9i0FnK1GJA9YSQ3Gz
-	 /n5NLeQK9ukpg==
+	b=LMH6dgjgEvFkrv+n0yer/WGLOF8o9m9kRmz6oqgz04c9NZllizTSNZshFx7RUQt8C
+	 jpGNpv+GeZx4GmyRxj+mNWDT82dhofsUf+222XWoyVy17oVWEXj7bl0pPR4zAdToog
+	 HUOa5QSBhTyvJQCC9yONGQW7DKuZRVa65S41E5bYzmMPkmycCC+AWmqgMPic1sbSOA
+	 e8dCazUJcNGWaCXenrAh+s5nJIZK317LvTuuYevrugjqL5tU0bfcfYW0/nRJ/nqzRh
+	 A3lQBJ8vrHfyGWcjTefDDAsYiXljFOF2UYjMWWMOer++wEj3Y0xHaUJ5tmyFtrT27i
+	 RxfxnKuW8VCaA==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xUSbu-00000004aQ2-0cES;
+	id 1xUSbu-00000004aQb-1NMD;
 	Fri, 20 Nov 2026 12:41:18 -0500
-Message-ID: <20261120174117.981511691@kernel.org>
+Message-ID: <20261120174118.166817590@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 20 Nov 2026 12:39:13 -0500
+Date: Fri, 20 Nov 2026 12:39:14 -0500
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -54,7 +54,7 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
  Vincent Donnefort <vdonnefort@google.com>
-Subject: [for-linus][PATCH 21/32] ring-buffer: Skip remote reader page swap when on tail
+Subject: [for-linus][PATCH 22/32] ring-buffer: Check remote reader page commit before meta entries
 References: <20261120173852.687189370@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,79 +69,119 @@ Content-Type: text/plain; charset=UTF-8
 
 From: Vincent Donnefort <vdonnefort@google.com>
 
-When the reader page is also the tail, swap should not be permitted or
-it would insert the tail behind the head, breaking the integrity of the
-ring buffer. While __rb_get_reader_page() does correctly prevent this
-situation, the simple_ring_buffer implementation misses it.
+__rb_get_reader_page_from_remote() bails out when rb_num_of_entries() is
+zero before verifying if there is more data committed on the current
+reader_page (rb_page_size()), while simple_ring_buffer updates
+page::commit before meta::entries. As a consequence, a race between the
+writer and reader could lead to __rb_get_reader_page_from_remote()
+returning NULL, while more data is available for reading on the ring
+buffer.
 
-Once the reader catches up with the tail, make
-simple_ring_buffer_swap_reader_page() return 0. The remote reader now
-can expect an unchanged reader. When it is the case, there's nothing
-more to read.
+  CPU0 (writer)                       CPU1 (reader)
+  -------------                       -------------
+  local_set(&page->commit, write);
+                                      __rb_get_reader_page_from_remote()
+                                        !rb_read_remote_meta_page()
+                                          return NULL;
+  simple_rb_meta_inc(meta->entries, 1);
 
-Also, when the simple_ring_buffer writer moves the tail to a new page,
-it resets the new tail counters and more specifically page::commit. As
-moving the tail unblocks page swap, order the page reset before the
-tail_page update. This ensures the reader can't swap the reader page
-with the new tail and observe a stale commit value.
+This is an issue for rb_advance_reader() which always expects
+rb_get_reader_page() to return a page.
+
+Fix this issue by swapping the checks in
+__rb_get_reader_page_from_remote(): first it verifies if there is more
+to read in the current reader page, then it verifies if there's anything
+at all in the ring buffer.
+
+Also, if the reader observes the meta::entries update before
+page::commit while the writer moves tail_page, it could swap reader_page
+out and drop unread events. Order page::commit before meta::entries on
+the writer and rb_read_remote_meta_page() before rb_page_size() on the
+reader size.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261113152729.837429-2-vdonnefort@google.com
+Link: https://patch.msgid.link/20261113152729.837429-3-vdonnefort@google.com
 Fixes: 2e67fabd8b77 ("ring-buffer: Introduce ring-buffer remotes")
 Fixes: 34e5b958bdad ("tracing: Introduce simple_ring_buffer")
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/ring_buffer.c        |  3 ++-
- kernel/trace/simple_ring_buffer.c | 15 ++++++++++++++-
- 2 files changed, 16 insertions(+), 2 deletions(-)
+ kernel/trace/ring_buffer.c        | 19 +++++++++++++------
+ kernel/trace/simple_ring_buffer.c |  6 ++++++
+ 2 files changed, 19 insertions(+), 6 deletions(-)
 
 diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index ed267d628826..15ccb65de35b 100644
+index 15ccb65de35b..f728ee82cf54 100644
 --- a/kernel/trace/ring_buffer.c
 +++ b/kernel/trace/ring_buffer.c
-@@ -5848,7 +5848,8 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
+@@ -5615,14 +5615,12 @@ unsigned long ring_buffer_overruns(struct trace_buffer *buffer)
+ }
+ EXPORT_SYMBOL_GPL(ring_buffer_overruns);
  
- 	new_reader = cpu_buffer->subbuf_ids[cpu_buffer->meta_page->reader.id];
+-static bool rb_read_remote_meta_page(struct ring_buffer_per_cpu *cpu_buffer)
++static void rb_read_remote_meta_page(struct ring_buffer_per_cpu *cpu_buffer)
+ {
+ 	local_set(&cpu_buffer->entries, READ_ONCE(cpu_buffer->meta_page->entries));
+ 	local_set(&cpu_buffer->overrun, READ_ONCE(cpu_buffer->meta_page->overrun));
+ 	local_set(&cpu_buffer->pages_touched, READ_ONCE(cpu_buffer->meta_page->pages_touched));
+ 	local_set(&cpu_buffer->pages_lost, READ_ONCE(cpu_buffer->meta_page->pages_lost));
+-
+-	return rb_num_of_entries(cpu_buffer);
+ }
  
--	WARN_ON_ONCE(prev_reader == new_reader);
-+	if (prev_reader == new_reader)
-+		return NULL;
+ static void rb_update_remote_head(struct ring_buffer_per_cpu *cpu_buffer)
+@@ -5825,8 +5823,13 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
+ {
+ 	struct buffer_page *new_reader, *prev_reader, *prev_head, *new_head, *last;
  
- 	prev_head = new_reader;  /* New reader was also the previous head */
- 	new_head = prev_head;
-diff --git a/kernel/trace/simple_ring_buffer.c b/kernel/trace/simple_ring_buffer.c
-index abfaf9bee12e..d5c84af01925 100644
---- a/kernel/trace/simple_ring_buffer.c
-+++ b/kernel/trace/simple_ring_buffer.c
-@@ -139,6 +139,13 @@ int simple_ring_buffer_swap_reader_page(struct simple_rb_per_cpu *cpu_buffer)
- 
- 	reader = cpu_buffer->reader_page;
- 
-+	/*
-+	 * The reader is already the tail page. See simple_rb_move_tail() for
-+	 * memory ordering.
-+	 */
-+	if (reader == smp_load_acquire(&cpu_buffer->tail_page))
-+		return 0;
+-	if (!rb_read_remote_meta_page(cpu_buffer))
+-		return NULL;
++	rb_read_remote_meta_page(cpu_buffer);
 +
- 	do {
- 		/* Run after the writer to find the head */
- 		ret = simple_rb_find_head(cpu_buffer);
-@@ -196,7 +203,13 @@ static struct simple_buffer_page *simple_rb_move_tail(struct simple_rb_per_cpu *
++	/*
++	 * Order meta::entries read before page::commit, most likely paired with
++	 * simple_ring_buffer_commit().
++	 */
++	smp_rmb();
+ 
+ 	/* More to read on the reader page */
+ 	if (cpu_buffer->reader_page->read < rb_page_size(cpu_buffer->reader_page)) {
+@@ -5835,6 +5838,9 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
+ 		return cpu_buffer->reader_page;
  	}
  
- 	simple_bpage_reset(new_tail);
--	cpu_buffer->tail_page = new_tail;
++	if (!rb_num_of_entries(cpu_buffer))
++		return NULL;
++
+ 	prev_reader = cpu_buffer->subbuf_ids[cpu_buffer->meta_page->reader.id];
+ 
+ 	if (cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
+@@ -6909,7 +6915,8 @@ int ring_buffer_poll_remote(struct trace_buffer *buffer, int cpu)
+ 		cpu_buffer = buffer->buffers[cpu];
+ 
+ 		guard(raw_spinlock)(&cpu_buffer->reader_lock);
+-		if (rb_read_remote_meta_page(cpu_buffer))
++		rb_read_remote_meta_page(cpu_buffer);
++		if (rb_num_of_entries(cpu_buffer))
+ 			rb_wakeups(buffer, cpu_buffer);
+ 
+ 		return 0;
+diff --git a/kernel/trace/simple_ring_buffer.c b/kernel/trace/simple_ring_buffer.c
+index d5c84af01925..5f14ba152fba 100644
+--- a/kernel/trace/simple_ring_buffer.c
++++ b/kernel/trace/simple_ring_buffer.c
+@@ -309,6 +309,12 @@ void simple_ring_buffer_commit(struct simple_rb_per_cpu *cpu_buffer)
+ {
+ 	local_set(&cpu_buffer->tail_page->page->commit,
+ 		  cpu_buffer->tail_page->write);
 +
 +	/*
-+	 * Setting a new tail may unblock the swap in
-+	 * simple_ring_buffer_swap_reader_page(). Ensure the reader observes the
-+	 * page::commit reset.
++	 * Order page::commit before meta::entries. Paired with
++	 * __rb_get_reader_page_from_remote().
 +	 */
-+	smp_store_release(&cpu_buffer->tail_page, new_tail);
++	smp_wmb();
+ 	simple_rb_meta_inc(cpu_buffer->meta->entries, 1);
  
- 	simple_rb_meta_inc(cpu_buffer->meta->pages_touched, 1);
- 
+ 	/*
 -- 
 2.53.0
