@@ -1,88 +1,101 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795218167;
-	b=q6olWkxwRq2UDlPybSeqFThrXyVk1KrclmWcsmkEPZ/egm40UEoyUbSnqBrYRaclP2qq
-	 9/M69Mn2/G/lQ9LBIIs6/QrLll4UA4hss/tzD2+vW+AF6a6yQBoRtzpgrG6PltVzyA4Mk
-	 GJgjsvjVzfao04bPIBfvLdpUX384iQotLw0gV6oQtm4/TwsWwtG0iQhnI6z1yFeH64g/p
-	 xKQSLvuOEfskHtHBlB/L7UktnsiQUFcN5bneCEsp6wTBRqPMOfppZ1qIW1dSf1+eVpx1J
-	 DYIh7J6+VLx4yn8mfJWylGDwR5CoQJyiiDqF9M5d+EcbOnrchQsHU8vS2kIt/RJFA8g==
+	t=1795218862;
+	b=HqwYmG+TxGFiMbFwqUT5n69MxMCcB/NpTamXbV9yAke3LhFnq4ehFLZ3A1E3406INqHL
+	 fMNsCb/Yk7o9xaEYjlMQoPnqTPfmNkXMCd44kwQ3YoNCMcVJ3OIL9F8KmlL4QuKehYPXv
+	 xa0NpyIhekuXVTd2gdP0JTRjRLdQUrHuX+onUyeKHk6W8bhE6hs4D07otvnbX3GkpgYUY
+	 ytHpO8qxXeFvPh00fZIOLVkgGwVyp78E442oS8T2J15bEYYVwW57F6oKreFpjJFk47Oq2
+	 eXc6llsqX1tR4iStBed1/kI9wDmL0U7hO6t4033MQa4RHs9C2XIkDGCAjzo52AstYKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795218167;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795218862;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=wwBraWobBItGeKC6KHMZfI8h4IHsYw6kjmjUtwXO9Sg=;
-	b=JAo4K2rpGibLqa1zDzwEhIerCB+srMzH6wzuOzAAxGdhJ+1XaMYpIRPWMQw6SZMav5Ti
-	 gU5BWi5OxSoNx0UQhOELU6ST4t+AfU1WwKe1VpmfjMvpFFCR3ztNh68gAH6t0R6XJuGE5
-	 Ugw1mkGELi2a2IdhtyRwLuvSv/sDnL11JJsDgMonWajzu7xJx1SzIaeaHfLkDLzRyDDKB
-	 n7+IK5Hwb9MoPGAuME8c+uSXQH3s/hWAyoMcmBxPfQzvqif2BYBxrm5wwCIgnVsQVHibC
-	 FhndYIN1UCIbhtr+6wNDnpNhDv9FprobAJsrmjm8DAKjfkwZPPOj74cnWvW4ffDeirg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=xJPZl5evGP8F6MuKELplPvTbH6ZVugBq2XkPlqpVuPc=;
+	b=rFKKJJLcirvZU6YA0ry8We7DHJU9xZvmxJtz4eAUgtphtGEfhHe+S4e1EUNl8PMAnkRw
+	 Huuj49bKEcg/wk2+8Dq8s6sSQTLmNquHWoa6G3YMNYH+q8WghgrHWSA+zSMdTw9A4ESjw
+	 KRxlW6avSgiS++HwZ9ial3D6dSPLhralVFb6D7ZNv9gnMIjMfeOQk9jFPWEUJnAHXXvnm
+	 I4M7Q7eSmrbbY9y/af06l+aLZADKI+QSVDseHL73WmB/wcZ7cQrGiyABO+t+FAYX6kwFG
+	 Yv4hUC9lUexAXlcb60scCdsg2jbzIo1QsY8bKfZxuJjn4H1P46vwS8+fkqGF6Q1OUWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I4GqLAnE;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C+ga714s;
 	arc=none smtp.remote-ip=209.85.128.42
 Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC8A606A6B7
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 23:42:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FC8A606A6B7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7EB606A68C
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 23:54:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B7EB606A68C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I4GqLAnE
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so13710025e9.2
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 15:42:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C+ga714s
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so13322415e9.3
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 15:54:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795218164; x=1795822964; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795218858; x=1795823658; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wwBraWobBItGeKC6KHMZfI8h4IHsYw6kjmjUtwXO9Sg=;
-        b=I4GqLAnE/M95ySZsHhBdHSnjPCrJF4TlOlEqpQ0TQinAFRF9Y1SbCwa2D4Z8GyCNZW
-         pNe626d8v1MaMNRcOP4M0OvVD2BTHhy8o0BAbYEgZ8z+WXzyI3+oXkILxJOLKWBqxjtN
-         jdvksX7U/0Kup/J8qEwNz38vHpP+lDwKfmGZbr3x8wlEyC3qYzqGcebLrNxhRglc19cm
-         Rb8ZIj2xvEdsgVlar0pkwDRSbCkJD4EGQA2167qzKCOh3FLgT8CotM0xW5GkD0fAwmnd
-         LagK07e4d0RGmjnMEjTLTuN/R6AJIgQSdUMN/Gi6UJ7Y1rdZasFSazfdnk7Vv04kMIiw
-         3D2A==
+        bh=xJPZl5evGP8F6MuKELplPvTbH6ZVugBq2XkPlqpVuPc=;
+        b=C+ga714sQWcJdkw0Xpdg2OlXKFgsE8ih8EnKXfjHIv0+JuGV5xpCD2uDyzNanM9Bm8
+         2yBgqByvdJNQYsQ2f4dULNyK4jgCwRB4kTTrzugaItKFVLNkEhhV9wRYhUX9VDGFntJB
+         hl3R5h+10CFCz8QSO2aHex0Y/B3s6zAHBUYZ2QBE+jphNfredA2I2vfUU07hywqWC79Z
+         bXm1tbuYqjLXo9FYW8gBtxuJNzmJBvLEF1LOGDcz2hOOcOeYOWhhrTjyGMnV8/qUn3An
+         j4Ozf+n12qMFyCOW1aGBhZae/fD97XB1N4cYsX7tN90dVVWYSTFrTXIhrdXH9AWR2OZt
+         hJyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795218164; x=1795822964;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wwBraWobBItGeKC6KHMZfI8h4IHsYw6kjmjUtwXO9Sg=;
-        b=JIjPPBWpOkRORqLpxIFHIz7mM1wEyZ1e0MgHN593xQ5H+aG3cRTh4IlFeYD0kR7W2q
-         XYbr1HnFcWsZc42GaeE3KXDVMh36wYRp95ayW1d9lKDzW0YB6rUdzCPkysOx8IEUStUC
-         D6BjhN+FvoPWYZ9l5VjNQkFayHBT1k9f64eNln8qOeyJYNazWBgkJyhtiB7oZZLkeffC
-         tWx7Bqz2RnRzLN6kNEnSz2h+UUY85+6mc42c51hTmrvSqt6OL3Ulbeo8oDpogHDgJqR6
-         Ud1cuFYs6suw+VKqivPNIJEF9Jsnlsth2vecBL9OWWyQI00DXMgGwSh2C9zzduUhhDeb
-         tFLw==
-X-Forwarded-Encrypted: i=1; AL+hErENIvdN23/c7EYg5cvOL1k2YDfiyk21zy+WMBu9HY3JRDyMuNcZPFlULtgRZFLlPGpwWK08jQQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/qt7KgQsO15pjG0jaB1iXPUn8JEryMrRwZIFzp4VsgnWOh5JDs
-	ShDzJwNnLWqzHti9bT84LHfAMKlzFaW6Fs8WJJ6wXWcQZ1oApp/UyKA+
-X-Gm-Gg: AYBFou0f17qErgXaDy95ChPkRM8OlaYQGxN9ZzTDGrX0UY6JxvVCxVJRiMSNXXYzpSl
-	ErhGQyqlKE9OjhvwqPYZaFln5oklcFJR6RMSGvGmxXkGevQya+vwEF48Tizdp5+kijQ+/jhmWx7
-	w9vwKCv/6MpdCkKL1bW7QwGt7efbsrn6Wq/DfZGB8wyK/tv2zaT/1jxtdR5H6OpuhACUCqZ0dwd
-	6Se6jY1uklOqRTvidjTc0HjUiJDEKavcCe9AvAyCyxHHaIBMofVo67xs+Mu0fN4AgCgziDgM6Km
-	Rp94lwkYTMd4NDKScp7vVWcsjMlXOyc8US/q8YDrvEX6xTS8KgPb/0IhHBJvKl9bAbUr/N0Zkek
-	nT/ou51o37rGg9Hzks2Bu/pSqVUUo1vra10NaMn4lNZgmSb53eKpV9ky+NjDAmRT22RpsxkToc1
-	tmjh7EY1c40t15lY964uzxhgjb869jZ7UWerFuc1oT0FGNmhTwlsnI03/hjNls7VSsAPDvbi6vp
-	Pji5vN8ZJgwhbaV6c8NxhDt3PX12fKdmy2Mg0EKD5BLO8kVWmqa1V/5kP/Y7sbyGCujyojqBxD+
-	6n4D64TngqtowY7e57rQ5XVsWzduJUZmG1CBrSdgX0igb8Uf
-X-Received: by 2002:a05:600c:4e16:b0:4bb:6f77:1e35 with SMTP id 5b1f17b1804b1-4bb88810991mr114710275e9.21.1795218163665;
-        Fri, 20 Nov 2026 15:42:43 -0800 (PST)
-Received: from [127.0.1.1] ([85.105.252.11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab65cb41f4sm8085462f8f.7.2026.11.20.15.42.38
+        d=1e100.net; s=20260707; t=1795218858; x=1795823658;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xJPZl5evGP8F6MuKELplPvTbH6ZVugBq2XkPlqpVuPc=;
+        b=0hPMl2hAxNjj9gM/cnjLJal9Jjy6vGuNtDqtsekS0kDad81dYboLrzj3iNqOq7yK/H
+         A1/tr82Ir4G/MMATq78/isCCKsGh35phhJZbvcLVYfjb71c4oZM1uedhX/g6ecclOCeI
+         L09l18Flqyq4LllUc1dH8UKFc1dNfyRyxlfKrlEo4DroRcopVDN6ChuK/A+f7dC30xsX
+         ysasfQaf07uuBLD3L55oOlzDIv7KiDX0dI8QhFKeCBbHZacpOGehYeMJnfSN2j937OSJ
+         2q8oBrmMVSoaiPvN5j5tGVglCbGAtRKF8X4eZopdbzwIkLVvNw7UBCmmFrtZdQdfUF96
+         dyZw==
+X-Forwarded-Encrypted: i=1; AL+hErFIrTjlP7MWdzQZItHvH836sNn69ZuTBPFN07n1MU47U7SedMXHaLzvWmRsP06ysvRa0a31PEA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YaXBRnjZtusJEFRSBxxAkRiu5G9NvwOUlRnzgdXXJbQw7dlM/
+	B8ONnRGsLGyrfhQkj6v94MLNEETN3t47sc53Osfh57hwpWgNrKYGluc=
+X-Gm-Gg: AYBFou2MoqM1hGGTEVg5O+MH7lHsC+YdrAeI3gYU8rlZ5Pc2h3+4+3yH056uARqOEhR
+	jr7yUbc32Yjwvxgg6jKiCX9Dh1NPsIAXQ+mJN53RLDaM5mJMuDOXplDyzR5oe0U+E9+Ycy53VvU
+	GHIL0bwGNwDqXQ7BqJdoUKRQ9fy6s6WZWRUQmPPyi/XRAuZaoIsHx+0L8t47nwgsxOoIHOHOCfm
+	vVbCQsB+jhwv3AXoj2J78lJQhh19mBQbdqQEsStzaby0KX8hhLSgmDywhptJnq8QNDd8vOhPN3h
+	Xu9OCtVTsVfYhRTH2gNn0bvaKtugwtPKlnPyjv4jDKwCS7v3oNk8wO+KJXvklcYVSJQ8H2mAAWK
+	WYAyy5Mr6WaTLdhX+wAW0mfk+QwjydjnmheP+v2TiO1iNC0aEquNqvgtC/8sIMZ8q8h4MUtrGc8
+	KlFvrsH1/H8vedkfJKpa4fAdCQtiVN0AMny3k8qRz55NX24L/mJZ3+tsSriQpgqdFxCZhAD0VjE
+	cyvJalEqVzZpczmmOCCclqpHcQMCVvV7R65UVlt0CLX2/qBXvgYfKSxShb1ZQvHjLWtdfE+jjI8
+	BQnOgta4keqnW1I=
+X-Received: by 2002:a05:600c:3547:b0:4a2:a6e:80f5 with SMTP id 5b1f17b1804b1-4bb888098bfmr104741775e9.11.1795218857727;
+        Fri, 20 Nov 2026 15:54:17 -0800 (PST)
+Received: from localhost.localdomain ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb90660cb4sm29426445e9.2.2026.11.20.15.54.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 15:42:42 -0800 (PST)
-From: Bartu Alev <bartualev@gmail.com>
-Date: Sat, 21 Nov 2026 02:42:27 +0300
-Subject: [PATCH v2 1/2] platform/asus: asus-wmi: clamp keyboard brightness
- hotkey updates
+        Fri, 20 Nov 2026 15:54:17 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+	Paul Fertser <fercerpav@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2 net 2/2] net/ncsi: defer free of removed list entries to an RCU grace period
+Date: Fri, 20 Nov 2026 23:54:07 +0000
+Message-ID: <20261120235407.1911365-3-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261120235407.1911365-1-tristmd@gmail.com>
+References: <20261120235407.1911365-1-tristmd@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,114 +105,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261121-b4-asus-kbd-fixes-v2-1-52cda07d233f@gmail.com>
-References: <20261121-b4-asus-kbd-fixes-v2-0-52cda07d233f@gmail.com>
-In-Reply-To: <20261121-b4-asus-kbd-fixes-v2-0-52cda07d233f@gmail.com>
-To: Corentin Chary <corentin.chary@gmail.com>, 
- "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Antheas Kapenekakis <lkml@antheas.dev>, 
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: Alex Bogusta <alex@bogusta.com>, 
- Denis Benato <benato.denis96@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Bartu Alev <bartualev@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
 
-The NOTIFY_KBD_BRTUP/DWN/TOGGLE handlers pass led_value ± 1 into
-kbd_led_set_by_kbd(), which stores the value into asus->kbd_led_wk
-without clamping it. Pressing brightness-down at level 0 drives the
-cached level negative (-1, -2, ...); kbd_led_update_all() then drops
-every hardware update on its "value >= 0" check while
-led_classdev_notify_brightness_hw_changed() hands the wrapped negative
-to userspace, so brightness_hw_changed reports 4294967294+ or ENODATA
-and the brightness-up key appears dead until the counter climbs back
-to 0. Pressing brightness-up at maximum reports 4, above
-max_brightness.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Compute the level as int and clamp it in kbd_led_set_by_kbd(): the
-stepping must happen in a signed type, because enum led_brightness is
-an unsigned type in practice and 0 - 1 passed through it wraps to a
-value that clamps to full brightness instead of staying off.
+ncsi_remove_channel(), ncsi_remove_package() and ncsi_unregister_dev()
+each call list_del_rcu() and then immediately kfree() the entry.
+Concurrent RCU readers that found the entry before the removal can
+still dereference the freed object.
 
-Also clear kbd_led_notify when snapshotting it in
-kbd_led_update_all() instead of after updating the hardware, so a
-keypress queued while the worker runs is not swallowed by the late
-clear.
+ncsi_remove_channel() also kfree()s the channel filter buffers
+(mac_filter.addrs, vlan_filter.vids) while the channel is still on
+the list.  An unprivileged NCSI_CMD_PKG_INFO caller walking
+ncsi_write_channel_info() can follow vlan_filter.vids into freed
+memory.
 
-This addresses the same bug as Alex Bogusta's earlier patch
-(reviewed by Denis Benato) [1], while also closing the kbd_led_notify
-race in kbd_led_update_all()."
+Additionally, ncsi_unregister_dev() frees all packages and channels
+before calling disable_work_sync(), so the work function can run on
+already-freed structures.
 
-[1] https://lore.kernel.org/r/20261016015117.32174-1-alex@bogusta.com/
+Add struct rcu_head to ncsi_channel and free channels through a
+call_rcu() callback that releases the filter buffers and the channel
+together, so the memory remains valid for the full RCU grace period.
+Use kfree_rcu_mightsleep() for packages and the device structure
+which have no sub-allocations accessed by RCU readers.  Move
+disable_work_sync() before the package removal loop so the work
+function is quiesced before any structures are unlinked.
 
-Fixes: fac55d29581f ("platform/x86: asus-wmi: Add support for multiple kbd led handlers")
+Found by manual code inspection; not triggered at runtime.
+
+Fixes: 2d283bdd079c ("net/ncsi: Resource management")
 Cc: stable@vger.kernel.org
-Cc: Antheas Kapenekakis <lkml@antheas.dev>
-Cc: Alex Bogusta <alex@bogusta.com>
-Cc: Denis Benato <denis.benato@linux.dev>
-Signed-off-by: Bartu Alev <bartualev@gmail.com>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/platform/asus/asus-wmi.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+ net/ncsi/internal.h    |  1 +
+ net/ncsi/ncsi-manage.c | 28 ++++++++++++++++------------
+ 2 files changed, 17 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/platform/asus/asus-wmi.c b/drivers/platform/asus/asus-wmi.c
-index b33ebdb21aa2..f1a94bcdb0c0 100644
---- a/drivers/platform/asus/asus-wmi.c
-+++ b/drivers/platform/asus/asus-wmi.c
-@@ -1784,6 +1784,7 @@ static void kbd_led_update_all(struct work_struct *work)
- 		registered = asus->kbd_led_registered;
- 		value = asus->kbd_led_wk;
- 		notify = asus->kbd_led_notify;
-+		asus->kbd_led_notify = false;
- 	}
+diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+index 2c9d1f22c16a9..2cb1cf653164c 100644
+--- a/net/ncsi/internal.h
++++ b/net/ncsi/internal.h
+@@ -239,6 +239,7 @@ struct ncsi_channel {
+ 	} monitor;
+ 	struct list_head            node;
+ 	struct list_head            link;
++	struct rcu_head             rcu;
+ };
  
- 	if (!registered) {
-@@ -1806,11 +1807,8 @@ static void kbd_led_update_all(struct work_struct *work)
- 
- 	if (value >= 0)
- 		do_kbd_led_set(&asus->kbd_led, value);
--	if (notify) {
--		scoped_guard(spinlock_irqsave, &asus_ref.lock)
--			asus->kbd_led_notify = false;
-+	if (notify)
- 		led_classdev_notify_brightness_hw_changed(&asus->kbd_led, value);
--	}
+ struct ncsi_package {
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index ec7c0d8cf3d9f..d872351d40245 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -242,28 +242,33 @@ struct ncsi_channel *ncsi_add_channel(struct ncsi_package *np, unsigned char id)
+ 	return nc;
  }
  
- /*
-@@ -1958,10 +1956,16 @@ static int kbd_led_set(struct led_classdev *led_cdev, enum led_brightness value)
- 	return 0;
++static void ncsi_channel_free_rcu(struct rcu_head *head)
++{
++	struct ncsi_channel *nc = container_of(head, struct ncsi_channel, rcu);
++
++	kfree(nc->mac_filter.addrs);
++	kfree(nc->vlan_filter.vids);
++	kfree(nc);
++}
++
+ static void ncsi_remove_channel(struct ncsi_channel *nc)
+ {
+ 	struct ncsi_package *np = nc->package;
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&nc->lock, flags);
+-
+-	/* Release filters */
+-	kfree(nc->mac_filter.addrs);
+-	kfree(nc->vlan_filter.vids);
++	ncsi_stop_channel_monitor(nc);
+ 
++	spin_lock_irqsave(&nc->lock, flags);
+ 	nc->state = NCSI_CHANNEL_INACTIVE;
+ 	spin_unlock_irqrestore(&nc->lock, flags);
+-	ncsi_stop_channel_monitor(nc);
+ 
+-	/* Remove and free channel */
++	/* Remove from list and defer free until after RCU grace period */
+ 	spin_lock_irqsave(&np->lock, flags);
+ 	list_del_rcu(&nc->node);
+ 	np->channel_num--;
+ 	spin_unlock_irqrestore(&np->lock, flags);
+ 
+-	kfree(nc);
++	call_rcu(&nc->rcu, ncsi_channel_free_rcu);
  }
  
--static void kbd_led_set_by_kbd(struct asus_wmi *asus, enum led_brightness value)
-+static void kbd_led_set_by_kbd(struct asus_wmi *asus, int value)
- {
-+	/*
-+	 * The hotkey callers step the level by one, which must happen in
-+	 * a signed type: enum led_brightness is an unsigned type in
-+	 * practice, so -1 passed through it wraps to a value that clamps
-+	 * to ASUS_EV_MAX_BRIGHTNESS instead of staying off.
-+	 */
- 	scoped_guard(spinlock_irqsave, &asus_ref.lock) {
--		asus->kbd_led_wk = value;
-+		asus->kbd_led_wk = clamp_val(value, 0, ASUS_EV_MAX_BRIGHTNESS);
- 		asus->kbd_led_notify = true;
- 	}
- 	queue_work(asus->led_workqueue, &asus->kbd_led_work);
-@@ -4677,7 +4681,7 @@ static int asus_wmi_get_event_code(union acpi_object *obj)
+ struct ncsi_package *ncsi_find_package(struct ncsi_dev_priv *ndp,
+@@ -326,7 +331,7 @@ void ncsi_remove_package(struct ncsi_package *np)
+ 	ndp->package_num--;
+ 	spin_unlock_irqrestore(&ndp->lock, flags);
  
- static void asus_wmi_handle_event_code(int code, struct asus_wmi *asus)
- {
--	enum led_brightness led_value;
-+	int led_value;
- 	unsigned int key_value = 1;
- 	bool autorelease = 1;
+-	kfree(np);
++	kfree_rcu_mightsleep(np);
+ }
  
-
+ void ncsi_find_package_and_channel(struct ncsi_dev_priv *ndp,
+@@ -1964,6 +1969,7 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
+ 	unsigned long flags;
+ 
+ 	dev_remove_pack(&ndp->ptype);
++	disable_work_sync(&ndp->work);
+ 
+ 	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
+ 		ncsi_remove_package(np);
+@@ -1972,8 +1978,6 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
+ 	list_del_rcu(&ndp->node);
+ 	spin_unlock_irqrestore(&ncsi_dev_lock, flags);
+ 
+-	disable_work_sync(&ndp->work);
+-
+-	kfree(ndp);
++	kfree_rcu_mightsleep(ndp);
+ }
+ EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
 -- 
-2.56.1
+2.47.3
 
