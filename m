@@ -1,99 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795159414;
-	b=5Ao1DywynJWSL20/R/U98rrbjP6SiuUIJ1ON0PSlKT3ZRJG0yc4MaMqW+TE/DGvI8GXS
-	 FROOdrUF+Y5vgb5fMuSb5OLr8RT3D/eRjKpAXdT9BITa5W2PUcsEdEk+7MnO6HTc+45Z9
-	 bAK3F/uTiKrYA9sjfNstAMqgKZNOGQjYYz3vw/krPQ8M0hyyRxBsYd1Cu84utcR2i2ldt
-	 wXIg5oCKP9thqdtii/4bcuEWkyIG009OIGtWPGTZ9c0vm48yz/wtOPqHnC+9LiHkOpqPI
-	 DFiRt6ckMwjmsmaceckKGAQleapoJ3IThqnzsTjEEuaYXPdNDrL8tCqdUYxLD+PdiPw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795159414;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=NOjguDHiGpliPje8lgUyj591MMGA2gJ6nq9lkIN3/BM=;
-	b=BQZMmhsuyNjGonWNyY0jWqgYF5etRRQowI2NYkBDHiRaYy2/+xD3HNNUGTl1ckwdMQL/
-	 YkvLZQG7roqNLPbFYURUl0gJqId8QXN9VAhhCJfSECV31Fol6D3VTaMbXgYCsibyZysod
-	 UArvpMPFVYtkkBoZNqFSgc4y7+elf3V6R1ZC1r4YLXcpSaUnk5NazlQ7ozrU+OPCPmITH
-	 ZdOnVNk4YEtuS4IgG8lcu3k5WM3FZrQk4y4jLAqUTWyCo0+bGREz3BP7mb9ZrZyXnDK1G
-	 Q+y2g8At95cehWMWoHjC6CSsewZefNjnhRV76T6Y23bx1tk36Njk790c/e1ouzZAqbQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C0Z2a3k4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795159818;
+	b=BJW3tpMPXSXz1JM6Wn0JH540dXVuu8tseSaQZVZ4lQgcS3oi8nchDI82shw8cb6AUfWd
+	 N+CVNJofb3gTc8H6DH0czGX9zcwOte337+hcv++1fr7rQgAJ+392p1svhS0N9pLUgpwlk
+	 1zLhjL0CnKiihBFbjCnKes04QOGcHYb6sHflSOfpCB7DW/spoDN/2yDRY3GIY1aQuE+78
+	 CKHOedOMMnbSuVNp2zdBqZXrpP3j2Az5T0Grg+hAP8GFwpyujA6xtYHyrWlmVqu2FBmIn
+	 Bb1bcfLJRDdTfI/iI/5jvGGPJMrKcTmhWFswAQzUna9SzXDD0rw07IjqZJH0wisXDug==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795159818;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=WgD3o5YqqFp5tl7g/gaLxS1DvznIweW9VYIoB5RoKIs=;
+	b=5jFOXe+12Gh3z2JS9YvR0OxAHKiSQeYuPjStgA9uIn+4pYlpXANGwcUmte1jKIJUqomG
+	 vl6P2hMLuINlUVkhXKIizkNaREJDoTrbbjboenFhIMebC54t9kozOWe2iX3hzrnX4UXXX
+	 HDX+153QppwJS4RBZPFy1ImisKbICJBiBkS5BtX8L0145OnuJuBs+5G3C1DkS9hjOuevb
+	 bevA1HzwENfdw6+K5/TqBqi8YQj7vrMo/bcNMbxVaMrjJqeFPdHjXjsYDIRqX/azrb0KK
+	 Rg2CHtsJ5ZJtBzd57kIumwUn9rmVyFjOM3yQMy4uRQh6p+f2zb8PtSGYNKp9XACf62w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="jETopX/V";
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EDA1606A320
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 07:23:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EDA1606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7894606A325;
+	Fri, 20 Nov 2026 07:30:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7894606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C0Z2a3k4
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-498f5fa5103so271265f8f.2
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 23:23:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795159413; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Mh1S2ag90Iwo1lgrFb7dotUubry0ovbrGVNpjz4Bk/3UAB9DSZuYdh93O3wubXdZ7I
-         JWccCJI9GBKRRqtruxBBslHgKSAv5uc+sHdP2cscD4rC5HvEaYlSkhiHB2r886rpb/5u
-         Y5RS8xEzeBe4JeX4klX83IfzW3iC7iuevktI14ClLXhEOhh3K3K7tAnLlpdfJJgRiaMF
-         EMuJrTYjyInvojZvfsr3qQNhvgeP/JMz3Qvwd7Bz9ovDLpI+FOi/8xfbBIZuB8L39eF8
-         rUyFKHM+ZjJe5gAmqakeI/Lv9qpjl6eF3bVt8t8Pdb7PDriP6IMfmGEJrVblJG3iPJld
-         XvEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=NOjguDHiGpliPje8lgUyj591MMGA2gJ6nq9lkIN3/BM=;
-        fh=vScu0+ZcB4qXhvr6qBiLk5gpFhX/J5hw+Myfw9qUBN4=;
-        b=eCVAtjACpZMsMSUQrJkEeWBeTu1VXHJBZqzHzHxv3+OHfubOd4fy8gaUHLyURkHSkC
-         WQ44V6IsP04sAnt9VlQ7xdxb9iyOGOKSW92lchcB0BxfbHkSrtu1IRTsPal7MUXHxqvq
-         0yI5zfklT0KZ3gEc9+sEhbhU6ZkRbPyx9bKwCc9L62WN2oTg5PGeSnlVxXbiNA+/otgR
-         DSCnHcJhRUaItcWeHjmae94/fTaGxmR2q2vbY00VzujLDIx7terh+kdTzxdFUNhLDTP8
-         j8vGhgSeDFI1u+knapNQ0CZFt5LB7OuN6fqR7mBIMEmilstBAeoCgdbId+DVFeTEu4D3
-         9M1Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795159413; x=1795764213; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NOjguDHiGpliPje8lgUyj591MMGA2gJ6nq9lkIN3/BM=;
-        b=C0Z2a3k4h9LGR5OCECjXLMezJNKkzAAyjBN6mS26BgF0GZamujoIU8xhVlsorWEPCF
-         jDMeCNrmbUxmZLDFW1Emi9PI0jP/y90t4PwrXqwrwvq8Td4n0mK/dMxTOmSvZqhpUSzZ
-         CMan7JvHXLPvAlGubdfhqt6RvN31/Fgt+nUseWYQ76RbvUb7Njf7MirILJ7gNjLAHeZ+
-         OzxSy+wrY+yzTH3Bpu4HzrW/2tYB36XJKJnfqcmZRAhLWwyWnzowWTcFE4sLrOLYfWv7
-         N+GtzES1pHOypKwF0NL4s4YNPrJr60exo2MceoFl5jzZ+wX9Dv+fzDJXW9zft/2rqoQT
-         88Fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795159413; x=1795764213;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NOjguDHiGpliPje8lgUyj591MMGA2gJ6nq9lkIN3/BM=;
-        b=UYHGJwxfpQF/8hKQ2XYRw8rhWdC0UIw6aMlOf5nqnggty51GrFFgYjHbugcHT5zmsU
-         aZopiEhLVdRHFtk6tDlpMUDukVC025uJVZV4aLewFJH69rfbpHRmK3KOYNYZWjAv2qRF
-         1ZtEgYUUM0ifoKztcuqCoom9prKFpdHBaByB45P+Qn0UoHnB78gvCCkQivCN6Omgjnrf
-         2jvtLbATSQ+z/0eSI3Rp7wmXwly9/O77UMxbNmVf3y6r15HIY5IQ4j/zpBa74oANuToO
-         CdmhIhH69c1NmIA3H2LM6Ug9FN4GBJ5ac5XeK98mhJZOJ6JZOGUXGT5MI848RdgQDA8L
-         l5iQ==
-X-Forwarded-Encrypted: i=1; AL+hErFpAIQeBP527Y+kOcMkKYO7huRvFd9/9R89RsPOfMRwY7RlUR8bXxuQpELlrvDTpYHHrkW/r2Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9v1Fp6/RCP6DYW0Ggl9QwC1pi2c3jZ6ciH9S+aRF0TToKasaXv
-	B9in1OhjGsmp/w65WrrqqiCoFoGnQlkZYxch50PPVFh0YbfSOqkVNcF4B/JgFvO4snhZ1B/lX77
-	3nXh7aWhmjNSuxvunfWC5A6Bj6uG61Ss=
-X-Gm-Gg: AZFdTZeWPZ410AtlGbNWtK7NWe/fl2eWs+A9iCHz1MS89N3W+hT6TdapMHcZwXQpV5z
-	43C7f+NUekvtK5xRJM5FN/Sa9gjMsHR7GlbSyISbFqvRv0q99iH8MW4ac2WP6G4Qw25OJ60Ffc3
-	OSuNZDILWXZvCj6yTH6ij7awFl/zJ0vsOo6qRvquaodN1ysWxw3Cbx/2pZSfA5crO64iuRO1v3K
-	XaYuVcDp3p79rxnVVuuoUux2Qt3Zl/Xg+hCXrh7GNJw3zuQwO6aTzbYoV2HUDJ7srBFM3Ufe9Q9
-	LD9wiYsejvAInV3x4Qks9+SyXoPglgwoJmmWvE6l8e0wIKo9Kj4beQrcC61SeUK96Bw8kFcqFfO
-	t6uaGMWlC+/twACck37OmVONg+jKfNHG7DZTXOCi+n7k6hyTnWsN3Ht0BVg==
-X-Received: by 2002:a5d:5888:0:b0:490:a481:7ac8 with SMTP id
- ffacd0b85a97d-4abb532ea79mr3553673f8f.29.1795159412630; Thu, 19 Nov 2026
- 23:23:32 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=jETopX/V
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=WgD3o5YqqFp5tl7g/gaLxS1DvznIweW9VYIoB5RoKIs=;
+	b=jETopX/Vv/H0WpCb8Ut4+3CN+Ode1JmosSdBB35hZPN3OTXePTr8UB9I34Beha+IXZ0LqRABP
+	K8jYht2cvkVzNL8JZyetq/1E+XsfX2VbOwqxMCVN3YLTKQ4lXojLXWSHJBRuEnoQ2ziStZkpt3C
+	H/je1Zg9svUf4eU9xyShsqA=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jW6R10Gm5zcbWy;
+	Fri, 20 Nov 2026 15:29:17 +0800 (CST)
+Received: from whupemo500017.china.huawei.com (unknown [7.152.184.243])
+	by mail.maildlp.com (Postfix) with ESMTPS id 2661240685;
+	Fri, 20 Nov 2026 15:30:13 +0800 (CST)
+Received: from huawei.com (10.67.174.49) by whupemo500017.china.huawei.com
+ (7.152.184.243) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 20 Nov
+ 2026 15:30:11 +0800
+From: Ye Weihua <yeweihua4@huawei.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi
+	<peter.ujfalusi@linux.intel.com>, Bard Liao
+	<yung-chuan.liao@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>, Kai
+ Vehmanen <kai.vehmanen@linux.intel.com>, Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.dev>, Vijendar Mukunda
+	<Vijendar.Mukunda@amd.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+CC: <sound-open-firmware@alsa-project.org>, <linux-sound@vger.kernel.org>,
+	<stable@vger.kernel.org>, Ye Weihua <yeweihua4@huawei.com>
+Subject: [PATCH v2 2/3] ASoC: SOF: topology: Free bytes control backup on unload
+Date: Fri, 20 Nov 2026 07:00:41 +0000
+Message-ID: <20261120070042.279508-3-yeweihua4@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261120070042.279508-1-yeweihua4@huawei.com>
+References: <20261120070042.279508-1-yeweihua4@huawei.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,50 +76,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261119124928.1398520-1-maoyixie.tju@gmail.com> <av8osemFMD6C2EdK@lore-qca>
-In-Reply-To: <av8osemFMD6C2EdK@lore-qca>
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-Date: Fri, 20 Nov 2026 15:23:21 +0800
-X-Gm-Features: Aa3M54qvLIAoTLXhSwpuxxRmvv68nNUsPxUUak29GDrjI45vtYhuyOcNNPOYrRw
-Message-ID: <CAHPEe=FFgzM3L9aiBNczg2AQ4JiG-p+eFKLemjrOMzekuBmHpg@mail.gmail.com>
-Subject: Re: [PATCH] wifi: mt76: sdio: check the RX packet length in mt76s_rx_run_queue()
-To: Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Felix Fietkau <nbd@nbd.name>, Ryder Lee <ryder.lee@mediatek.com>, 
-	Shayne Chen <shayne.chen@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-wireless@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemo500017.china.huawei.com (7.152.184.243)
 
-Hi Lorenzo,
+scontrol->old_ipc_control_data is only freed when it is restored, so it
+leaks if the control is released while the backup is present. Free it in
+sof_control_unload() and sof_widget_unload() along with the rest of the
+control data.
 
-On Thu, Nov 19, 2026 at 05:49:53PM +0100, Lorenzo Bianconi wrote:
-> I do not think this patch is correct since we actually consume just len -
-> MT_SKB_HEAD_LEN bytes at most, right? I guess we should add something similar
-> to the patch below, what do you think?
+Fixes: 299f6c752f8f ("ASoC: sof: Improve sof_ipc3_bytes_ext_put function")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ye Weihua <yeweihua4@huawei.com>
+---
+ sound/soc/sof/topology.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks for looking at this.
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 4dcacafb9cdb..c21a0199db9c 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1069,10 +1069,11 @@ static int sof_control_unload(struct snd_soc_component *scomp,
+ 			dev_err(scomp->dev, "failed to free control: %s\n", scontrol->name);
+ 	}
+ 
+ 	/* free all data before returning in case of error too */
+ 	kfree(scontrol->ipc_control_data);
++	kfree(scontrol->old_ipc_control_data);
+ 	kfree(scontrol->priv);
+ 	kfree(scontrol->name);
+ 	list_del(&scontrol->list);
+ 	kfree(scontrol);
+ 
+@@ -1717,10 +1718,11 @@ static int sof_widget_unload(struct snd_soc_component *scomp,
+ 		default:
+ 			dev_warn(scomp->dev, "unsupported kcontrol_type\n");
+ 			goto out;
+ 		}
+ 		kfree(scontrol->ipc_control_data);
++		kfree(scontrol->old_ipc_control_data);
+ 		list_del(&scontrol->list);
+ 		kfree(scontrol->name);
+ 		kfree(scontrol);
+ 	}
+ 
+-- 
+2.34.1
 
-The fragment is len - MT_SKB_HEAD_LEN bytes, yes. But
-mt76s_build_rx_skb() first copies up to MT_SKB_HEAD_LEN bytes from buf
-into the skb head, so a frame still needs all len bytes between buf and
-end.
-
-> +     if (data_len > len && data_len - len > buf_len)
-> +             return NULL;
-
-The caller passes buf_len = round_up(data_len + 4, 4), so this check
-never triggers. With it applied, my harness still reports the same
-reads past the buffer.
-
-Also, rx_check() runs before mt76s_build_rx_skb(). For a TXS frame,
-mt7921_rx_check() and mt7615_rx_check() walk the records up to
-rxd + len / 4, which a check in mt76s_build_rx_skb() cannot cover.
-
-So I think we should keep the check before rx_check(), as in this
-patch. Frames that fit are not affected, and the loop already ends at
-a frame that does not fit.
-
-Thanks,
-Maoyi
