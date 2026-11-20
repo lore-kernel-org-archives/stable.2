@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795164069;
-	b=NEvG872gVEFkmzQo0m/qxKLMdumGyZE3vjjuPBDhi2ZxxVyDW1K3y8Q2KAIjI8FY6x2p
-	 +8u9OTxfmFTzooETjzIYtd8b0R2ZM1KDiKAKp2bmRAbgOirgmgERXvEmcUwRga+4pPytE
-	 GuSdFTwGAKq5F7QmdaF6EOuiTchrPEdoXgcsIk/Np/bx2Cc3jNOcCorQPp8uCRwMwC0ji
-	 iSnAOCE8A/Q7Bs9mYToWatHxgsSHZrxto8hCc111GY4LneJXWN70y9sZAI7U7ZyoKhYbY
-	 AXDg6FTFt5ffzYlLMJILiwL4tpeWpavUbAAPcXAh2A/aPIZzj/7lo2JHGMI7LBNCaqg==
+	t=1795164071;
+	b=R9CBSNSg4YcPT/oaEZcU86c/6Ebbzw61WaNy/Ngi1l1qFXra9jfFGiC7U4e1FfZVEo1G
+	 yflD06qQcjxwPa7NGUIHKI9iU3csalSbRxjeaP3BTTpiT03cK6o9+SmGjHBG+wWf+qDQM
+	 IKxcDtZ9v9Rdt5+HtKIrYanAEK8oonSAtf3rMEr1ezcXcNFrRqvF5bennwwIu+dvuf7/V
+	 k6G75N31T0zBZbsE89+EBgwbd20WaDUWecNS7rxjQFY6wgkBKD5fTz6W0UrKzdQNW+A83
+	 bMZ50K24roUvv9D4K+PYL2tCp0ue0rp0GDxw/lH8D4PHWR4SAPBS7REnaD8BioQYFnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795164069;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795164071;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=vkzLSGS2/EtfF3lDjWx5RTNsXPS6BLA3nJkka+odvM8=;
-	b=KA7CsLrTR0O3OuDgjSaPCf3HrHKLAoKfDW9r8K6juYhuyRPBaaMoh8jyBvQrTH4BiLcI
-	 A1daxSRjPYdipSRKRGZeN4vJHE5sxLNc7IdD0ap9C47/JoiaCZmz+TTIQbz7eVN/QUlWl
-	 wwHXqEQ1Dyimg2QdrFf9bd9huWABrm7dc4ZJOqJqcWrlcGlU+5SX4OZRop+CgL1/1Z1or
-	 F9Gg3eT7DkSny+KLWE57L6i/dWFc/nhcrI8bfiUBhrh8H92VPuibU9sZl6vayTh8VK7pi
-	 s9mepcAfLWOPMI/Y23KVfvx71wYLjfsIlg0f75j6210y5fbdxPvvioYi44Qv804/+gg==
+	bh=+q+bk6wBeU6DAMOAVWLCyHDeeW4f0hRfi2USDPpSdvY=;
+	b=n3jubueDKjsDVRQcKk0ZeuYK83gfoHISJBSbbPqgUJIhNkLEc17GjViHwRs+CksIRngb
+	 difDio2ZVvy55CDHfDhFXGtH5VGqy3eVIwUMvxbHt28Y3LFYTt9F4lIjPx1wnxE6BDY9C
+	 s0xuILOBt4CJES1KlaGbXc19sNxxSplLGJIFM6ULebGbBc4G5Q5iYFjQnxGFhYKC5INd5
+	 xcCOKhUC5WcMVe89wzbKfRkXE+TBGL0/tow5YjuPPrmorbpvV/m2VznvbaNXcM+LqdrjW
+	 ypA0+X6fQ2+ijpnROXKiqxtd0kXEKDogt8e1/i9etGeR21TZ4UU/rRwD5dFZ3zHExWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HDbf0pDW;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BFxXblBq;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C49C60A5BC3
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:41:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C49C60A5BC3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF2F60A5BD7
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:41:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDF2F60A5BD7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HDbf0pDW
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-372bdb942dbso825140eec.1
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 00:41:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BFxXblBq
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-38431138772so774369eec.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 00:41:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795164068; x=1795768868; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795164070; x=1795768870; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vkzLSGS2/EtfF3lDjWx5RTNsXPS6BLA3nJkka+odvM8=;
-        b=HDbf0pDW6HRvSYER+4Zy6Bhgv8bbnW5DHw3wmlOWnnSjh28UrnreoWPPR3KIK3CTp+
-         tOFtoFVqPoG7g5v481mOcCqC/RJwSYvrTzR0kO9ANWnLqXpe9wo5cAAxq3l00SER5FGf
-         ApeFM2fuPH4cBLyU6pMq15YCCweyfo0fN7u+tjGMNu3tO+8tyJaCHKHbLsnEv0S9NHm1
-         oqWvmQ73wt04VjtGP1Y7659yFGbSdOeauRpgPGQ2Niazh1k5rv3cuijUtexEEaiHTC/i
-         o8LKwNde3yrv7D9Lved+AP5Bj2sb6UZdpTjmGMK85y8GOnQBsU55IpLos075iVRbyNIl
-         JC0w==
+        bh=+q+bk6wBeU6DAMOAVWLCyHDeeW4f0hRfi2USDPpSdvY=;
+        b=BFxXblBq1otoODFiqEI2i/efkRllhYlVxPiXINOyzCa87lxGRzRvo4ysEgErBhelYs
+         8k8DFKpTnbFiViNMEIcQiEl7ek4JT8smZcZwR/XoEUg0HXOQuXzyfIWYXJ3Dm6erP4ar
+         JYZ1oZQQ5uDIg+6LlfR2OHha4IK4Ub9DWeLmUuLsYQwOOWF0dl/zF0hoiJTr48raameH
+         ZaUn6fd0Dp2ppnh6GWoz7swz1kHULWeoKiqN5seP7dAB+Nd9/y/JMeQOQeHBW2+7pXCb
+         HGJJr8XQjTy4uB1JCHT5Q0FaRY+004ORNMLRjWvcxTQ/li7WDeuwUZeG26j1d6Qo8OJy
+         Jowg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795164068; x=1795768868;
+        d=1e100.net; s=20260707; t=1795164070; x=1795768870;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vkzLSGS2/EtfF3lDjWx5RTNsXPS6BLA3nJkka+odvM8=;
-        b=z0Asuq1rYEkzwrEoHQC4DUnxmlURO5rZ+8VpTrkm4IPNHenQtw6YIRD0y/r+knKbyl
-         hTvZFXHDeLjbY5zzgzeqaHgNzfgm08h+3rZdcA7FHOUWiDTZVRQzikTloySffyLQLri5
-         dQrdX4bnmZNcPgo2mUK0bTpAvcBL3TjxUQj2TcF7g361jcV5r+kGuEVQbbC+h6iK1pqv
-         Km2YrunFyy8f3bQy6QFvKs8E5TTtyqZyBLDU9kNEFXZosimaROyXrZT6bTIZXF7VMeP7
-         uvCI/2vof1kDfEffVpVNcGc40PCubvk3zmzBuEvx5Ge8jhtRjRcj+yZ64/Cz6Lzl3X73
-         KkhA==
-X-Forwarded-Encrypted: i=1; AL+hErF724ZRlnFLenqvkKB6SIJ5/rCJiYKqzuIER2lqRQRNkfR6zzOU5cxZccgZ4+4EHhMDG1nCXZ4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+yvw9wpNyXjiMjOZ0sLoC6ZUGhhSmrzy4Xdh1Ubbe+VroHmUpv
-	WCOBVC/M7JAg44WksjRAUNK+WYn9A9W8MEvzuyr5ibYxPxUhSB2DuyBW
-X-Gm-Gg: AZFdTZfpbwpBX0XF74V6aeh0+9aAavOc+TXwqDA2YIlDZ9WiA2+z4mrDUmdKVgKxBba
-	CmIruuZVZa7sorw0jm9OFJ77w7jNDFIpf2ONK86O/CuDgOaPIGzG75fUJ0t925p0+YDPOOvyNaO
-	2Dpku8OOIfZ2MMtOW1i7Q85+8bKpLMltV6M7/jro3EU4O00TDAeZyKO08AzYgJYGqy0psrBUXcV
-	W5aPg2vYoz1z+0gKh8a4RFQ5PVOX1qOx9hNqZR7yPMdQPnINCaz1dhnyab1xeShtkHM6mjA8N1E
-	etNj/X0hsAZ/Pp06z8dTkl2fUHdmGVi6OW4pbmdpJTgzl6a8k4aE1yX/6FdkX7jceQseq1Xx0IL
-	Sud+RoAhXsphkcPTa7bUI/C9t6Iqti8Y3AbLc1hQ7vLecEhBckxy7C1734XH8rUwYMcnwhuDvua
-	k+DkLqHFDI7nMv+H/Vnz8dUKdSJpnBLJeXbnw/q/VWa7f9FmaJaB45/nYRobJLzLGbkEYiz7f0T
-	XJo0tFR1T6nEZMPrR1RJ9g3Z3TRUBbhDsOyAAk2IgFufLNEHBmcPRv2utyONwYvLajcpBxlgIUw
-	MHNLsLSG9eNPFhexHvLEB3UHvMuaIv9Plp1j44fPan2EKTflrDB5Td0ej88ulXv/KJccyMgDxlu
-	/MFsWfBoZTLM7qHF/Fg==
-X-Received: by 2002:a05:7301:18aa:b0:384:eec:aba0 with SMTP id 5a478bee46e88-3857073eebamr1937266eec.36.1795164068086;
-        Fri, 20 Nov 2026 00:41:08 -0800 (PST)
+        bh=+q+bk6wBeU6DAMOAVWLCyHDeeW4f0hRfi2USDPpSdvY=;
+        b=pZhQpDxWGDQdZ4R7Bxd3b0pRdK+Ek1PYKGekD9K14ZX3bYpvQl7dtnCeWYlTuYpud/
+         rUqMmu9k927SCD9jkoQxDM5sh+3kBislxRr+DdCpWgC9BjzIfKKKBZoMwoWeNn1RthHV
+         LC3cDeXdKjxD6mXQDNnIgDrv+1igl8tKsDeKfIRy1JY60Eml3wNvnsM6Eaz91BxaaNZC
+         GFViltDGuqVV9kNo+P9RWuT1IQjAeZ24jmcDDDNcEFgj/zRfeROtOFv9LrRzzsrmrkTr
+         yVoe5mHe9VW6Ir6hQLy9oAvVlauwWKMpn7lcQcd/6vd8T2UI2FeXeU6wRVkGXoD+zTRw
+         yFrw==
+X-Forwarded-Encrypted: i=1; AL+hErFv0XhvZ6gQ1vq+Mm4barCzxoZtBMO7Sfhkbk5ZfWYgF+jBMWJL8UO0Q0rMl/KZqxGRQrftBQU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+m9pqM8L4HVB3d3gKM0T6fO3QxAfs/pGGaVd0lLWAaTYq+3Wsr
+	TUOkruXhFHVlhHV+Az0gVVuL+llFbnwuBi44DSJ5a1ukll0y+z1atI+W
+X-Gm-Gg: AZFdTZd+I/YhkSaiXQA5TOLBM8JSAVZ+TMXw9OGKvSpjtGW3peMsGlfLZB+ViLXbfDZ
+	Yfmnz6Fa04BEPgeV5tJ2G0NzgVQAeFhjpXgY6WzfwuqY/7oi8lD/zLaHSWUdjPYR6KsOEjO6u43
+	AP9QOUHyXKv3mIRki4JO3a/L6MlNrotMsT7bLEl4QUCZwSk3xTtzpHpoz0L+BuKH+28xtdgqFqt
+	25bIlxTtx88li6JL/eNBDudic2YrmFmDNvZ6iNIoxvu+3OMko3GJZY/8RJoelb4NeNH9w9L5Bhw
+	lyR0WTVp1A77GlgfsU9bjZVRE9SXAmlRgzNbvthls7jvfKFsCUXFIjDdLlLGRtFWqyv0ACrP5vy
+	w/t91sGKRDcgFNycYtFFULqGiffbnV7oD2m+oYaTQ5KbB699zmzUkNBSh4q5pfEkgZEb40ciG/2
+	WQerNGIyCNoDjewl7N8wdg+yMdOCGpLkYp3oaxydjqr2LXGuytxWzl3B1pE1XPf3uJ43eJlcga4
+	TXfnzuBsXcvyQs2zF7dN5O65PYDhLkeRKGdmt2O2sMiDNd1CZUUl+E+lKHIs7u1ErXeGltnrRCy
+	DgJmezonXc5c8awcuM1TMM/DcfIX69KvrjtJWUIeIlBt1KMMkTFtprSZhqurWD6rgwerjF5ZZjp
+	zlHgb9nUO82IACyPuWg==
+X-Received: by 2002:a05:7301:fc02:b0:384:c043:c5c with SMTP id 5a478bee46e88-3856c6b3470mr1883528eec.3.1795164069863;
+        Fri, 20 Nov 2026 00:41:09 -0800 (PST)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:ea97:e47d:2ebc:210c])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385677c371esm5793181eec.23.2026.11.20.00.41.06
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385677c371esm5793181eec.23.2026.11.20.00.41.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 00:41:07 -0800 (PST)
+        Fri, 20 Nov 2026 00:41:08 -0800 (PST)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Fri, 20 Nov 2026 00:40:55 -0800
-Subject: [PATCH v3 07/14] HID: logitech-hidpp: fix off-by-one in G920
- force-feedback slot tracking
+Date: Fri, 20 Nov 2026 00:40:56 -0800
+Subject: [PATCH v3 08/14] HID: logitech-hidpp: do not retry timeouts and
+ transport errors in hidpp_send_message_sync()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-hid-logitech-hidpp-v3-7-cfe2caa1d0eb@gmail.com>
+Message-Id: <20261120-hid-logitech-hidpp-v3-8-cfe2caa1d0eb@gmail.com>
 References: <20261120-hid-logitech-hidpp-v3-0-cfe2caa1d0eb@gmail.com>
 In-Reply-To: <20261120-hid-logitech-hidpp-v3-0-cfe2caa1d0eb@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
@@ -108,49 +108,40 @@ Cc: =?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-6b8b8
 
-Logitech G920 firmware reports 64 total 1-based hardware effect slots,
-reserving one slot for the built-in autocenter spring while allocating
-the remaining 63 user effects across 1-based slots 2 through 64. Because
-the driver subtracts the reserved slot count upfront before sizing and
-bounds-checking its slot mapping table, the 63rd concurrent user effect
-is assigned hardware slot 64 and exceeds the stored limit, so its slot
-mapping is never recorded or released and remains leaked in wheel memory
-across device close and reopen.
+When a transport failure or timeout occurs, the synchronous send helper
+clears the response buffer, setting its report ID to zero. Because the
+retry loop only inspects valid HID++ short, long, and very long report
+IDs to decide whether to return, a cleared buffer misses both checks and
+falls through to the busy-retry path. Every transport error and timeout
+is therefore misidentified as a busy error and retried three times while
+holding the send mutex.
 
-Keep the full hardware slot count for table sizing, lookups, and slot
-bounds checks, and withhold the reserved slot count only when creating
-the input force-feedback device.
+Return immediately when the low-level helper reports success or a
+negative error code, and only retry when the device responds with an
+explicit busy protocol error.
 
-Fixes: ff21a635dd1a ("HID: logitech-hidpp: Force feedback support for the Logitech G920")
+Fixes: aba7963544d4 ("HID: logitech-hidpp: Do not assume FAP in hidpp_send_message_sync()")
 Tested-by: Gideon Heinz <gideonheinz02@gmail.com>
 Cc: stable@vger.kernel.org
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/hid/hid-logitech-hidpp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/hid/hid-logitech-hidpp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index 53c171dfcf96..0264e4541edf 100644
+index 0264e4541edf..c486488efe99 100644
 --- a/drivers/hid/hid-logitech-hidpp.c
 +++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -2872,7 +2872,7 @@ static int hidpp_ff_init(struct hidpp_device *hidpp,
- 		for (j = 0; hidpp_ff_effects_v2[j] >= 0; j++)
- 			set_bit(hidpp_ff_effects_v2[j], dev->ffbit);
+@@ -364,6 +364,9 @@ static int hidpp_send_message_sync(struct hidpp_device *hidpp,
  
--	error = input_ff_create(dev, num_slots);
-+	error = input_ff_create(dev, num_slots - HIDPP_FF_RESERVED_SLOTS);
- 
- 	if (error) {
- 		hid_err(dev, "Failed to create FF device!\n");
-@@ -3486,7 +3486,7 @@ static int g920_get_config(struct hidpp_device *hidpp,
- 		return -EPROTO;
- 	}
- 
--	data->num_effects = response.fap.params[0] - HIDPP_FF_RESERVED_SLOTS;
-+	data->num_effects = response.fap.params[0];
- 
- 	/* reset all forces */
- 	ret = hidpp_send_fap_command_sync(hidpp, data->feature_index,
+ 	do {
+ 		ret = __do_hidpp_send_message_sync(hidpp, message, response);
++		if (ret <= 0)
++			break;
++
+ 		if (response->report_id == REPORT_ID_HIDPP_SHORT &&
+ 		    ret != HIDPP_ERROR_BUSY)
+ 			break;
 
 -- 
 2.56.1.750.gf70dc682cf-goog
