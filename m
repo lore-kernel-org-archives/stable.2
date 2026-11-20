@@ -1,83 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795168869;
-	b=ZKOWJEC0zFKDPjPasDcaQiYFdIIijNKmCAgnujf6xt9q5M2JhOulzQeGEqHY7QMEznyh
-	 i041ev2FKDgm4HQlkQvB8F2OKc54B1nndplBjgZDY8k5FlDa7yRLKRPNSwDiG53K/7HqI
-	 0WQC1sppathVOvvgTJT9V5OnUqKP/6jpBjZiVHxxbujoBjYHEP/syfZyY+CDnv1jjL1XZ
-	 usBm9zqFJvJ+fm46654BzgmWqWPsxMgj4kCi8oUJOlth0u3ifme0oiCGu7qV3/YNr1lq2
-	 Vh/vsXotWB7FlBfDNvVkmyPYnxIS9TKrWaw9lnkHlAXZrNjQJB15py6vXBYVT3L2CIw==
+	t=1795168981;
+	b=HIA++Py5qUecycMku4THGz8pZKxGa6q6egU2eGkfFl2fWNJoM0UeHifzIxCwWuP1F6UP
+	 xR3zCdmPz2vzYO5f6ZPpBEfK79w6AhyvXXaeWrEJ4yXNZLGBuerrImRxvpAHJimi66w4p
+	 bnRBtwBtGCCrF4s2wcb0pDnkgHEmbm8aFHTC2sxomj/dRHJFStvfORSID9dqRcUFq5XUE
+	 vkviypgnDIXvGUOdDuXQoDyQMKe+T44MIJibdk3WCo9GmivBdSCzLSKgQY4zdlZ8wAqLN
+	 nVDpCOUNejCl3+qsmL+JjZsflaccX1XcGWSwyZjP1OwW7t3klGGuu3JbC5kU/Y+PePw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795168869;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=tuJA0XDaKwz11CrlbVlHVIWMZJx66TbVl81T/rjPki8=;
-	b=yThzLPwO66rP6VwR9olP3PnYqXizoN27bGEpP7/nQ+5VmcpUwJi9EWzor1+PviH5a6eh
-	 vIf9CpWRk3TS71D7MlbPqPRRa2QvO8tlO6VbcqjzIzURuVplD0l587otnmiuILNfb+ddo
-	 +GRbKlM8j2jN/fvcz796sOi9/QAV2j5TFRbWJ50IRLjw7I4/cXI4GiEEfWMhcMTaXjQ53
-	 fO4BVqQssIk5JZZIa4h2NMD5bgkR043CVH4K9BzU1sR9MAYyQt8hDv9NTeCPI4h9vv8r4
-	 bu6ABkjAjXt0746OZpOXP2/foLeUHWMAKq1AsgEdSzj2x+ciI37FsSsifNdi5zNyhRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795168981;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7OG9wGQR7f5mu6l6IUhEOyBk2qztlmEiKeUKVEyFJTw=;
+	b=jxFyr6I/srVLembnFBmvmjfGgKrgMwJ+P8kZ9cfQ+Av/tfPqVvyrgvsU7HzuhYIf4TqT
+	 v+SGVNLvjs8hBs0bvA3EJ6OJZX6/yU6TFBOmj3lFiA9oYOKFGiimDOvzt1vqZMeZ1DM0F
+	 mumH2EAt56FLEipOvDVIh2+C7FLi4jAMKipxkoCygnZl7AREjHK71LCl0uRJod9fS9VjL
+	 T+PQf/G5W15p8aUuiFugo7jjLk0+xAmD6i0KX85zwCgIbY8/gP+WDuWh/nE2OLugGQysP
+	 AGjZdGa+U7fdFi52djUF4uAjL9W5yuDNSPYHyIX5fCzUTQ1+xLbYlQ3r0oaVEGlT8HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b="Vz//ANnY";
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hli0wnnO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B595F606A33B;
-	Fri, 20 Nov 2026 10:01:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B595F606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F7E606A325
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 10:03:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Vz//ANnY
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jW9p91Nv7zMlyX;
-	Fri, 20 Nov 2026 11:01:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1795168865; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tuJA0XDaKwz11CrlbVlHVIWMZJx66TbVl81T/rjPki8=;
-	b=Vz//ANnYWzDPxmgoY0vJq5qnG3FZlDUzowfc2BZoBkQWOki4fnvqncbjlnjgzDsOfoHUus
-	BBb0rU/UEebNzxtacD9M34Uj8SwTCwLYQlv/mgXbdJebxmb/9KU7UhdxaBOENfIilzlYPk
-	hsmp2DWW9CiJyb8nxJHzVDvLJ9KJ2/N7JkZZJZPCq9hDegvPO8JRB32PgJpZZ9jBFHhq+v
-	+cH7IElqfhizxTP6m8ESYFe0iivegorXU/4KoBAkJmpAh3f8NjzgsMST+juIc+e+hya3hy
-	qzwtaiR6ygiHdX4MFJQA6ga60+vVyKl+aL/Ht9bjGu1OEfi7aqVHUs3X+k5jXw==
-Message-ID: <d53b0e41ca767a2acb1f6ee29344567f34385d8c.camel@mailbox.org>
-Subject: Re: [PATCH 2/3] dma-buf: dma-fence: Add
- dma_fence_overwrite_timestamp()
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
- Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Simona
- Vetter	 <simona.vetter@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
- Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, Alice Ryhl
- <aliceryhl@google.com>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, "Paul E . McKenney"
- <paulmck@kernel.org>, Yunxiang Li <Yunxiang.Li@amd.com>, Alex Deucher	
- <alexander.deucher@amd.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri, 20 Nov 2026 11:01:01 +0100
-In-Reply-To: <a8fe714b-6d26-4777-8b9c-4299ecdc3f44@amd.com>
-References: <20261119131830.2535266-2-phasta@kernel.org>
-	 <20261119131830.2535266-4-phasta@kernel.org>
-	 <a8fe714b-6d26-4777-8b9c-4299ecdc3f44@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hli0wnnO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21F0C1F000C4;
+	Fri, 20 Nov 2026 10:02:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795168981;
+	bh=7OG9wGQR7f5mu6l6IUhEOyBk2qztlmEiKeUKVEyFJTw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hli0wnnO5C3F5wE9WS1Ftt+8YiM6qWoePpnIzfTVOOdud2PNs7bpGRoou/Ui8PU34
+	 Qn0V0QoYt02PHZe36dt0A+POB1Q2X8cwngfXcI+VOAnMh9MFa0oYQklzr/JkgFN2fU
+	 KER8TJ7cMndYmhVHN5UvQyumiDp+fdBxfgOdEFIw3ZVluPPIcLfPdpSJ3nS5MwMAsT
+	 MzMqcSJEbe9mvgrM8XB1pgh0y3VbWnsPLjYsRv/pmA7gO+C58/i2LbQPNW/u+kYrO/
+	 PACSYIYBnVct7bKtXG41Qd5J3dQ5nABVPGErUJXdxG+BOREEZsGOv70Eo33MYqrsS9
+	 zGDdlB0D8f2MQ==
+Message-ID: <1f12c78f-782d-4d03-ac3b-7321520f02ed@kernel.org>
+Date: Fri, 20 Nov 2026 11:02:56 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,48 +51,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: fa50b291f261fae32f2
-X-MBO-RS-META: gjw3fjryizx7ih8jrimp6njyrwmw4ndz
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] alloc_tag: two fixes and one cleanup
+Content-Language: en-US
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Usama Arif <usamaarif642@gmail.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Harry Yoo <harry@kernel.org>, Hao Li <hao.li@linux.dev>,
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>
+Cc: linux-mm@kvack.org, stable@vger.kernel.org, Chris Mason <mason@kernel.org>
+References: <20261119-alloc_tag-v1-0-efcccfd3a9c9@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261119-alloc_tag-v1-0-efcccfd3a9c9@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2026-11-20 at 10:38 +0100, Christian K=C3=B6nig wrote:
-> On 11/19/26 14:18, Philipp Stanner wrote:
-> > A fence's timestamp is just an opportunistic data point for debugging
-> > information etc. drm_sched, for example, uses the timestamps for its
-> > scheduling algorithms.
-> >=20
-> > In rare situations it can make sense to allow users to overwrite a
-> > timestamp with a more accurate value. This is relatively harmless since
-> > the timestamp has no meaning for the implementation itself.
-> >=20
-> > Add dma_fence_overwrite_timestamp().
->=20
-> I think that this is a very bad idea since it gives the impression
-> that overwriting the timestamp on a fence is ok.
->=20
-> That was only done on the scheduled dma-fence because nobody cares
-> about that time in the uAPI. For all other cases that can blow up.
->=20
-> I would rather come up with a clean approach for the scheduler to
-> track the spend time per entity which would make that hack completely
-> superfluous.
+On 11/19/26 09:52, David Hildenbrand (Arm) wrote:
+> Hi,
+> 
+> two fixes (one for alloc_tag as triggered by slab, one for mempool) and
+> one related cleanup to make things consistent.
+> 
+> Quickly reproduced and tested the warnings in a x86-64 VM.
+> 
+> This should go through Andrew's tree. No need to rush, it can wait until
+> the next merge window.
 
-Yes, I agree.
+mempool is part of slab section and the first fix while in page_alloc.c is
+also for slab, so we'll take it :)
 
-The *one* feature we would have needed in C is a public-private system.
-With structs in APIs it's often completely undefined what the user can
-and cannot touch.
+> 
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+> Chris Mason (1):
+>       mempool: fix missing alloc tagging in mempool_resize()
+> 
+> David Hildenbrand (Arm) (2):
+>       alloc_tag: handle a NULL tag in alloc_tag_set_inaccurate()
+>       mempool: account the element array to the caller
+> 
+>  include/linux/alloc_tag.h |  3 ++-
+>  include/linux/mempool.h   |  7 +++----
+>  mm/mempool.c              | 23 ++++++++++++-----------
+>  mm/page_alloc.c           |  3 +--
+>  4 files changed, 18 insertions(+), 18 deletions(-)
+> ---
+> base-commit: 4405c18c95d2d0f99f6c581ef0ee8591a1aa6ccd
+> change-id: 20261119-alloc_tag-57326f1fcc85
+> 
+> Best regards,
+> --  
+> David Hildenbrand (Arm) <david@kernel.org>
+> 
 
-That led to API ossification. Just look at drm_sched, where we now
-cannot trivially change API internals anymore because external parties
-conveniently use this or that.
-
-> IIRC Tvrtko already created patches for that, I'm just not sure if
-> they were ever committed.
-
-I suppose it should be somewhat easy to track that data in
-drm_sched_fence.
-
-Maybe Tvrtko can point me to his ideas so I can take a look.
-
-Thx
-P.
