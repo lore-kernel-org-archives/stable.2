@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795207368;
-	b=Ig1si8XWfzuGv3CvvRwM4N8+/0PZZDZn6qeM2cfEZvs3+eEul+crPuBNs5hdlLOi9WnV
-	 U2gZxmF/RveJl0jch8l0+oAOq6zUr6j0m2A2WPFc5HZm3yzQ29DsAIoMOUTHq6o6gbTCe
-	 1Bh/3YoGhEyIvBI4AK9jGJh5CdureHcgvqpuT6vMxBKwSjidrKEoi4z1U3T+AF6hr3Ypc
-	 3okLb6uUsp8dfB249PX9CBWpt6mW2LaDycpl7/EJ5yOr35hwEOv1mnE0oRqmsCkpzshLd
-	 xBdTK9ij8bkoWMhmLPeasVA9vAbHpFmSj5S6+9ue9r3wR8XALSWJeRz6OTNnLs8gDUw==
+	b=YTNY8ZSU+keEM2f08pjYM0kYkrEiTLlCXldRUJoRVkgou/ClGF13D1fVJ1rNG/KejOyH
+	 FLPLB6xYncpJFgURHJoENTotHTe0cIKDcIKCDDqs6jf1F8ZGe9mgr2j8pyDrwP/2/TeIN
+	 nKvt4mH6peDtn/Me3r3YtSIeQ/nosbvhKmfB28kHPJ6NJUQImDtcMqZspjV0KZLC86ogW
+	 PmiXfp3jqpENfBQcwM2evhQ1K0SrlNzjvI8eCzCIvW3iR8TOqpQsxPnir6EnVtEH6x82o
+	 6Wuem4oe0woiHteIjqAh3PUajl+oImcS63EUSBRmXSukBaMWbh4fQOH53N0w1SUnNyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795207368;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=7S8F9+iWYPqVTwdZ/ASV/o+SPoxwihXXCO7lT4Bc3P4=;
-	b=rHjDGw840AfQ6JfLVzmhOabpwUMgjIiEd7RvVbdHzYWByah8fnJ+G/dSpbnxaf/8wwUA
-	 09SylYPmwHdpJOjtC4bH2/uyW55x3xUBJwKfXxNh02MO3SC8ZeI+AsPjFl96rBAKCqvzL
-	 OJ6DesvW8RasnIA8+00scYu4a7ctJVbTcS4H27cg7JKM8rNL6O4xK6AwmjNc818pnAyxm
-	 171EH7aMCghQ9DJE/CxZ8cw0huW6ZYkDu/z4Hs+qtmFhZPCg6KmvouPS+PlpIWmrk2kVM
-	 0rinJoIEZz5u0GBmw3hndIjh1n3KZlkJL1MnV8OtF/j26aiuws5zcO5FW9gn3iv7+Yg==
+	bh=TxvxQMkXa7o3fwojYn6lBFWEhgxcusn/QjTf5hpFuLg=;
+	b=jiHmdpwq6vrVuzFzA6/0qgpvDzf9+1oFDJHA6r2Oc4XzW1OwH/pp3Pa9ASDdpW+AOf+j
+	 xUwapCgmASMGsUVoZkza0hib/SOZJO0kzkTkKCbnr4D/+TzFPXaxcAdJZgs/NYLRMUSra
+	 MyB4tierFDezyqK9PMWB/76tTYHuOvXVyTuxbmyf6OiZvithyGz2w+5ki/XGja0T08loO
+	 IakOPrWqfWyMQipUiyD3XW7LWJXBaMIQX+52CE9tQWIF8e/AwSCd3Zvjvj61bNOsW+n3L
+	 8I6o6Ua0CPMXoY23N94hbDlCeYjDD77hMnmRKZDHWDUyREeeU/TetUAMRLX793S2IDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=OprcRkZU;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=sdHkuGZW;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8954F60A382F;
-	Fri, 20 Nov 2026 20:42:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8954F60A382F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC44060A5BFE;
+	Fri, 20 Nov 2026 20:42:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC44060A5BFE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=OprcRkZU
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=sdHkuGZW
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795207357;
-	bh=7S8F9+iWYPqVTwdZ/ASV/o+SPoxwihXXCO7lT4Bc3P4=;
+	s=smtpout1; t=1795207359;
+	bh=TxvxQMkXa7o3fwojYn6lBFWEhgxcusn/QjTf5hpFuLg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=OprcRkZUH6Tw3du8WlA7jpQ2FQP5evvntU1ml/4vrOYVyK9wNdS3Qa/Jt53O8JGOh
-	 EsGJNvM2aqFuYZBCLal/+h57cjaxYciaTr902kna4QL8baVvp/elRtJZj/XyFXEe1o
-	 A/uI5UvUyglYnVPwYh2wza5QQKvmb2MZ/+3ui1eQ1yPVYCc0IsjWd1s64Seq7V4CvC
-	 X3O9VWkATx5QaOV5tu+bJCfqhtdRo8NQGxQNlKyvXk6GVsMJPJ+6pMOnlhI3tkQHJE
-	 rQzpOZ/uU8vTA7f786pqICf8qvMpLPsMAhqEBVUNB+qeHy+km9Vzz16MObJnvRHksb
-	 WlKHuhZHzW6ng==
+	b=sdHkuGZWQQxvwgywuNaGujyJ/cEI0Q/okajCXgYLD0ZXd/YXDOPSYz9LXs2PpobrF
+	 BDgaO7dgYMq/AfoFTAQKV6wvFGSS8QTx7ehFgMeiePHr0knZv+w9UTmzTf67hQLIGY
+	 bEYfv1g5T5PnjhXteDdX7en2KhtV6eesCyEV3qeK56XSqhfiopwZxmwHWKBcZr+DHW
+	 GeeGbGcknh2bJ8T0Apvxlg/kKk+nzF4HWbAhIQ/OWFV3OdLU3QbJd4da8w5RZfOwro
+	 Q+4XWjHM9BncLksTKJXXuSZDfPQESGrsvfqm2mObccBwicxj0Yy63cNGF2Nwom0SDC
+	 VyOTQjobcBjiA==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jWS2P1trJzTqg;
-	Fri, 20 Nov 2026 15:42:37 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jWS2Q5QzzzTql;
+	Fri, 20 Nov 2026 15:42:38 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -80,9 +80,9 @@ Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v10 29/40] sched/deadline: Start a period at a deboost out of the class
-Date: Fri, 20 Nov 2026 15:42:06 -0500
-Message-Id: <5e6b0ddced3a3ff2f0d7c3e99e47fcefb76d3245.1795207232.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH v10 33/40] sched/deadline: Cap the runtime left of a constrained task at dl_runtime
+Date: Fri, 20 Nov 2026 15:42:10 -0500
+Message-Id: <c755a9fbae63650dffdebfc715d8be46ab605b29.1795207233.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1795207232.git.mathieu.desnoyers@efficios.com>
 References: <cover.1795207232.git.mathieu.desnoyers@efficios.com>
@@ -97,142 +97,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A task that leaves SCHED_DEADLINE keeps its runtime and deadline until
-its 0-lag time. Commit a649f237db18 ("sched,dl: Fix sched class hopping
-CBS hole") does this, so that leaving the class and coming back gains
-nothing. A priority inheritance boost also keeps the runtime and
-deadline of a task with parameters of its own.
+sched_setattr() can change the parameters of a SCHED_DEADLINE task. The
+task keeps its runtime and its absolute deadline: the new parameters
+take effect at the next period. At the next wakeup, update_dl_entity()
+checks the runtime left against the new parameters.
 
-But a boosted task is not throttled. When it runs out of runtime,
-replenish_dl_entity() refills it from the donor's parameters. If the
-task stays in the class at its deboost, "sched/deadline: Reset the
-donor's runtime at a deboost in the class" starts a new period.
+For a constrained task, that check uses the density, dl_runtime /
+dl_deadline. Commit 2317d5f1c349 ("sched/deadline: Use deadline instead
+of period when calculating overflow") made dl_entity_overflow() compare
+with it: "We care about if the runtime can make its deadline, not its
+period." Commit 3effcb4247e7 ("sched/deadline: Use the revised wakeup
+rule for suspending constrained dl tasks") then cut the runtime of a
+constrained task that overflows to density * laxity. Both bound the
+runtime by dl_runtime only while the deadline is at most dl_deadline
+ahead.
 
-A task that leaves the class at its deboost is missed. switched_from_dl()
-calls task_non_contending(), which computes the 0-lag time from the
-runtime and deadline of the donor's refills, with the task's own
-dl_runtime and dl_period. The root domain then keeps the task's
-bandwidth in total_bw for too long, or releases it too early. Until it
-is released, deadline tasks that would fit are refused.
+A change to a shorter dl_deadline breaks that. The old deadline can be
+farther ahead. The check then keeps more runtime than the new
+dl_runtime, or computes more. For example, take a task of 50ms every
+100ms with 49ms left. Changed to 8ms in 20ms every 100ms, it would wake
+with 39.6ms. It would then run far more than its new runtime in this
+period. Admission control already counts the new, smaller bandwidth. So
+other deadline tasks could miss their deadlines.
 
-Fix this by starting a period of its own in switched_from_dl(), as
-dl_deboost() does. Share that code in dl_start_own_period(). The 0-lag
-time of the new period is now, or has passed, so the bandwidth is
-released at once. task_non_contending() now also releases it when the
-0-lag time is exactly now, instead of arming a timer of 0ns.
+An implicit task is not affected. Its check compares with its
+bandwidth, which bounds the runtime for any deadline.
 
-A task can also block while boosted, after a refill. Its dequeue then
-arms the inactive timer from the same mix. If the boost ends while the
-task sleeps, switched_from_dl() finds that timer armed, and keeps it.
-Fix this too: cancel the timer there, and compute the 0-lag time of the
-new period instead.
+Fix this by keeping no more than dl_runtime before the check, for a
+constrained task. A boosted task runs on the parameters of its donor,
+and is left alone. The runtime is signed and can be negative there, so
+compare it as signed.
 
-The Sashiko AI review found this, on "sched/deadline: Reset the
-deadline and the runtime with the parameters" of the first series. The
-deboost_out_after_donor_refill case, added to deadline_bw_test later in
-this series, tests it. Without this patch, the owner's bandwidth was
-still in total_bw right after the unlock, in every run. The
-deboost_out_asleep_after_refill case tests an owner asleep when the
-boost ends. Without the cancel of the timer, its bandwidth was still in
-total_bw after the boost ended, in every run.
+The cases change_constrained_new_params and wake_constrained_new_params,
+added to deadline_bw_test later in this series, test this. The first
+changes a running task, the second a sleeping one. Both fail without
+this patch.
 
-Fixes: 2d3d891d3344 ("sched/deadline: Add SCHED_DEADLINE inheritance logic")
+The Sashiko AI review of this series found this.
+
+Fixes: 2317d5f1c349 ("sched/deadline: Use deadline instead of period when calculating overflow")
+Fixes: 3effcb4247e7 ("sched/deadline: Use the revised wakeup rule for suspending constrained dl tasks")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Cc: stable@vger.kernel.org
 ---
- kernel/sched/deadline.c | 49 +++++++++++++++++++++++++++++++++++------
- 1 file changed, 42 insertions(+), 7 deletions(-)
+ kernel/sched/deadline.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
 diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index ee3a08ff3345..b1346be9e81d 100644
+index 9f87315d3d6e..b6fecf4c0324 100644
 --- a/kernel/sched/deadline.c
 +++ b/kernel/sched/deadline.c
-@@ -83,6 +83,16 @@ static inline int on_dl_rq(struct sched_dl_entity *dl_se)
- 	return !RB_EMPTY_NODE(&dl_se->rb_node);
- }
- 
-+/*
-+ * Start a period of the reservation of @dl_se now. The caller holds the rq
-+ * lock and has updated the rq clock.
-+ */
-+static inline void dl_start_own_period(struct sched_dl_entity *dl_se)
-+{
-+	dl_se->deadline = rq_clock(rq_of_dl_se(dl_se)) + dl_se->dl_deadline;
-+	dl_se->runtime = dl_se->dl_runtime;
-+}
-+
- #ifdef CONFIG_RT_MUTEXES
- static inline struct sched_dl_entity *pi_of(struct sched_dl_entity *dl_se)
+@@ -1539,6 +1539,25 @@ static void update_dl_entity(struct sched_dl_entity *dl_se)
  {
-@@ -119,11 +129,8 @@ static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task);
-  */
- void dl_deboost(struct sched_dl_entity *dl_se)
- {
--	struct rq *rq = rq_of_dl_se(dl_se);
--
- 	if (dl_se->dl_donor_refill) {
--		dl_se->deadline = rq_clock(rq) + dl_se->dl_deadline;
--		dl_se->runtime = dl_se->dl_runtime;
-+		dl_start_own_period(dl_se);
- 		/*
- 		 * A task asleep since the refill has its inactive timer armed
- 		 * from the donor's runtime and deadline. The 0-lag time of the
-@@ -826,10 +833,12 @@ static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
- 	zerolag_time = dl_time_to_zerolag(dl_se, rq);
+ 	struct rq *rq = rq_of_dl_se(dl_se);
  
- 	/*
--	 * If the "0-lag time" already passed, decrease the active
--	 * utilization now, instead of starting a timer
-+	 * If the "0-lag time" is now or already passed, decrease the active
-+	 * utilization now, instead of starting a timer. A task that leaves
-+	 * the class with a period of its own just started has a 0-lag time
-+	 * of now.
- 	 */
--	if ((zerolag_time < 0) || hrtimer_active(&dl_se->inactive_timer)) {
-+	if ((zerolag_time <= 0) || hrtimer_active(&dl_se->inactive_timer)) {
- 		if (dl_server(dl_se)) {
- 			sub_running_bw(dl_se, dl_rq);
- 		} else {
-@@ -4662,6 +4671,19 @@ void dl_clear_root_domains(void)
- 
- static void switched_from_dl(struct rq *rq, struct task_struct *p)
- {
-+	bool own_period = p->dl.dl_runtime && p->dl.dl_donor_refill;
-+
 +	/*
-+	 * The boost of a task with parameters of its own ends, and the task
-+	 * leaves the class. If the boost refilled its runtime from the
-+	 * donor's parameters, its runtime and deadline are not those of its
-+	 * reservation. task_non_contending() would mix them with its own
-+	 * dl_runtime and dl_period. Start a period of its own instead, as
-+	 * dl_deboost() does. Its 0-lag time is then now, or has passed.
++	 * The checks below compare the runtime left with the density,
++	 * dl_runtime / dl_deadline. That bounds the runtime by dl_runtime
++	 * only while the deadline is at most dl_deadline ahead. After a
++	 * change to a shorter dl_deadline, the deadline can be farther
++	 * ahead, and the runtime left larger than dl_runtime. A constrained
++	 * task would then run more than dl_runtime in a period. Keep no
++	 * more than dl_runtime.
++	 *
++	 * An implicit task is checked against its bandwidth, which holds
++	 * for any deadline. A boosted task runs on the parameters of its
++	 * donor. Leave both alone.
++	 *
++	 * The runtime is signed, and can be negative here.
 +	 */
-+	if (own_period)
-+		dl_start_own_period(&p->dl);
++	if (!dl_is_implicit(dl_se) && !is_dl_boosted(dl_se) &&
++	    dl_se->runtime > (s64)dl_se->dl_runtime)
++		dl_se->runtime = dl_se->dl_runtime;
 +
- 	/*
- 	 * task_non_contending() can start the "inactive timer" (if the 0-lag
- 	 * time is in the future). If the task switches back to dl before
-@@ -4693,6 +4715,19 @@ static void switched_from_dl(struct rq *rq, struct task_struct *p)
- 		if (p->dl.dl_non_contending)
- 			sub_running_bw(&p->dl, &rq->dl);
- 		sub_rq_bw(&p->dl, &rq->dl);
-+		/*
-+		 * The task blocked while boosted, after a refill from the
-+		 * donor. The timer armed then mixes the donor's runtime and
-+		 * deadline with the task's own parameters. Cancel it, and
-+		 * work out the 0-lag time of the period just started below.
-+		 * If the timer handler is already running, it releases the
-+		 * bandwidth.
-+		 */
-+		if (own_period && p->dl.dl_non_contending &&
-+		    hrtimer_try_to_cancel(&p->dl.inactive_timer) == 1) {
-+			p->dl.dl_non_contending = 0;
-+			put_task_struct(p);
-+		}
- 		/*
- 		 * Without an armed timer, nothing releases total_bw. Do as for
- 		 * a queued task: arm the timer if the 0-lag time is ahead, or
+ 	if (dl_time_before(dl_se->deadline, rq_clock(rq)) ||
+ 	    dl_entity_overflow(dl_se, rq_clock(rq))) {
+ 
 -- 
 2.47.3
 
