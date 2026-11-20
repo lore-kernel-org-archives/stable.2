@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795184515;
-	b=lHQkTuH/ejOqA3eMMHR8RfjVfhcufPKD9d+w2BFCx5lhdalW1Ilf7fjvMsa3+yYzbe+i
-	 tOUBqKPTXhLqieLVQWQfLKhIfAn6zxU/qlipElT9xAu6yQ1X5m7l3kKktWBHAcsuMTCUt
-	 hPVC/Mx6H/TL6kPdkzk3DpCW5zKe2R4lH/+4JEs+HQtb1btfjFLvvcw05cgwlnvZ9ZYj9
-	 cZZXpQ/fRkfOIGAfC8A2YRDp9UlHZA7xzklhipV9VM6fRe+YqmefMDDUohAmiGV18/Ap1
-	 SQ1/fRiOpLn5DYglKY0/csV29huGmeBBfXVTdpuGuRqlaVKHo4WtoLJ/AEOzWhOnHHQ==
+	t=1795184586;
+	b=liGJ5jf01b6fK1R1HGXYWT2OX6l3csvuMVQaP0mfsERwfV8GMUqfXHdCuDHN5Q2oJWm8
+	 WwlULiZSmUVTqeOxP0heVM+8tfwuBsD3xAyhNHqlg696ow+vjv7SeGA6RHkbmjF9zTxhY
+	 WONe9rryJnx5at0LNig1Xe0c3scWruvsNRRX3vzU3NiRVP4cz6J0H71laZUeYKWukc3Iy
+	 e/j7mY97WF6f1CxbWWtp6k0hc/Rh4g6YPdlUNl/bqq6ZvbvmgjvnKxWlhmNXbDXavUG3P
+	 qSjL9tppuy1xaf3Uv2wQP4iahxlqvbjYVfuOGH91BmriuTwX80tRWssLh/ln2LorM/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795184515;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795184586;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=b8v+t+OSB4EchFvCdH8uiX9uT/Ot90vpwiBcqriqClE=;
-	b=jmNWtnhn4ty8ZQd0TYD3n/JNfHScUO26aklJ+l1zCamB61VCM/SEETMHnOxCMc9Cjf2Z
-	 dk0S08+EfeXiXrNiZRz4kzlm69BoX75W1GhR+2nDTcIe20JcuCQy8z82tE6eJIa5gwM4n
-	 UPfwtaaGiXam2eDWeOgqQ7IvYKwCNm4X+s4avELruQP9iT2i7hDeLIFyVyiaU3Hyj2VON
-	 m+KNcSTWMYitgiZqDcy3Lf9BK3a0CKcDyEMw3SUn7sEwBcc//UNcm5BmjAuVJlYsXUnaR
-	 8h15Cp/aB9TbPln+DNl/KjdPhUn6N9Dk0zR/p2MjUOqM0At0bJpFhvtFbKf5Gw1SWfQ==
+	bh=lusnGRfk+umHymzkE0cY3hSploaM39BQgbgUI4luLX0=;
+	b=z7R+oNUxiPq8in/H1ZtnZSmZILsf99SKsNF7suzuP0yzT5OOGcMBJPQfsHa17pI+bWUB
+	 TPBX/zZOiiIJO5ah+VQReWMAJ8W65S4WOZL9fA8QRuUtbflTY9gRrptFVt6zK6OCt8LLo
+	 MQHp5pFhewfA9VEF8KTSoWgFpSM86VIZZn1fBnZXMlKJB/IjTZDabuUtb82xTclFmW4da
+	 OOu9evj+RRGlaz3TTANeyYZxgu8MSktUnKstAtUzl5mGIvRl95nLMgjMJ0RgysmhJRqC+
+	 d49Ax+gpH+rEnL3VwXSql6hOvSsLV7IbuoOvQg44UFq4DyNnhMF36kMda6BiXr2Yp5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=p4Oi7dQ4;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="BpKVSuP/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FF3606A32A;
-	Fri, 20 Nov 2026 14:21:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652CD606A320;
+	Fri, 20 Nov 2026 14:23:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=p4Oi7dQ4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C92A1F000C4;
-	Fri, 20 Nov 2026 14:21:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BpKVSuP/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AFB91F000C0;
+	Fri, 20 Nov 2026 14:23:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795184514;
-	bh=b8v+t+OSB4EchFvCdH8uiX9uT/Ot90vpwiBcqriqClE=;
+	s=korg; t=1795184586;
+	bh=lusnGRfk+umHymzkE0cY3hSploaM39BQgbgUI4luLX0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=p4Oi7dQ4PiwYFyPdNXEMk2OPBSY+ONAvQblcEfI+aCStepVgr7a6JzeK7TNaDc+Mx
-	 1ZteiylYz+HchFxQrS12M5gQg6jXcDgnlwR6LMsUvjEdwa1qvDjFagfdHIBK13j9pF
-	 kgIPNOXogrLZSSOLCo8oiMUn2uSTHZbVbsx1RdAk=
-Date: Fri, 20 Nov 2026 15:21:52 +0100
+	b=BpKVSuP/TcUHJ2kfTbFOMqN3DShNbmQJKTfMJhvilCLmvJAExqzmDsavDi2HwQlTV
+	 zRZE8ZVK5I08Kt+GpeVAxmBeHd7beXgLwKshV2blTIcNZUzdFH+/QkknvCGutpVjfd
+	 wAZP3R/I5TnuWnq7qtqm8wtdHap/xOzOXlLU4f+4=
+Date: Fri, 20 Nov 2026 15:23:03 +0100
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Hyunjung Ko <hj351016@gmail.com>
-Cc: Neill Kapron <nkapron@google.com>, Vladimir Zapolskiy <vz@mleia.com>,
+To: Hongyan Xu <getshell@seu.edu.cn>
+Cc: Vladimir Zapolskiy <vz@mleia.com>,
 	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
-	Roland Stigge <stigge@antcom.de>, Arnd Bergmann <arnd@arndb.de>,
 	linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: gadget: lpc32xx_udc: drain the pullup work on
- removal
-Message-ID: <2026112036-strategic-deviation-bf21@gregkh>
-References: <20261110114351.2524921-1-hj351016@gmail.com>
- <20261110120243.2540098-1-hj351016@gmail.com>
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: Re: [PATCH v2] usb: gadget: lpc32xx_udc: drain pullup work before
+ teardown
+Message-ID: <2026112007-lumber-pounce-3ec2@gregkh>
+References: <179474326988.103840.10326852247134349070@seu.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,51 +59,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110120243.2540098-1-hj351016@gmail.com>
+In-Reply-To: <179474326988.103840.10326852247134349070@seu.edu.cn>
 
-On Tue, Nov 10, 2026 at 09:02:43PM +0900, Hyunjung Ko wrote:
-> isp1301_pullup_enable() schedules udc->pullup_job to perform the slow
-> isp1301 i2c pull-up access from process context. The work handler
-> (pullup_work) dereferences udc and touches the isp1301 i2c client.
+On Sun, Nov 15, 2026 at 07:47:49PM +0800, Hongyan Xu wrote:
+> The pullup worker accesses the transceiver I2C client and UDC
+> state. IRQs can leave it pending when remove or a late probe
+> failure releases those resources. Cancelling the final pullup
+> work would also discard the requested disconnect.
 > 
-> udc is allocated with devm_kmemdup(), so devres frees it after
-> lpc32xx_udc_remove() returns. remove() calls pullup(udc, 0) -- which
-> queues pullup_job to clear the D+ pull-up -- but never drains it, so the
-> work can run after udc has been freed (and the isp1301 client put),
-> dereferencing freed memory -- a use-after-free.
+> After the gadget core has stopped its callbacks, explicitly free
+> and synchronize the registered UDC IRQs. Request pullup-off and
+> flush its worker while the transceiver client is still retained.
+> The worker needs no UDC IRQ to finish its I2C transaction.
 > 
-> Flush pullup_job in lpc32xx_udc_remove() after the final pullup(udc, 0).
-> flush_work() (rather than cancel_work_sync()) lets the queued pull-up
-> disable actually complete before the udc and its isp1301 client are
-> released, so the transceiver is left with D+ deasserted.
+> Track successful IRQ registrations during probe so late failure
+> also stops all acquired producers and drains pullup work before
+> destroying DMA resources and dropping the I2C client.
 > 
-> Found by static analysis; not runtime-reproduced (needs LPC32xx USB
-> gadget hardware with the isp1301 transceiver).
+> Found by the author's in-house static analysis tool.
 > 
 > Fixes: 24a28e428351 ("USB: gadget driver for LPC32xx")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+> Suggested-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> Link: https://lore.kernel.org/all/20260928134158.117-1-getshell@seu.edu.cn/
+> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+> Signed-off-by: Zehao Gao <gaozehao@iie.ac.cn>
 > ---
-> v2: flush_work() instead of cancel_work_sync(), so the pull-up disable
->     queued by pullup(udc, 0) completes rather than being dropped
->     (OTG1_DP_PULLUP would otherwise stay asserted after unbind) -- per
->     Sashiko review of v1.
 > 
->  drivers/usb/gadget/udc/lpc32xx_udc.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+> Discovery: found by the author's in-house static analysis tool.
+> 
+>  drivers/usb/gadget/udc/lpc32xx_udc.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
 > 
 > diff --git a/drivers/usb/gadget/udc/lpc32xx_udc.c b/drivers/usb/gadget/udc/lpc32xx_udc.c
-> index 94355d3d930f..b98faf5b71e5 100644
+> index 94355d3..d627a2a 100644
 > --- a/drivers/usb/gadget/udc/lpc32xx_udc.c
 > +++ b/drivers/usb/gadget/udc/lpc32xx_udc.c
-> @@ -3187,6 +3187,13 @@ static void lpc32xx_udc_remove(struct platform_device *pdev)
->  	udc_disable(udc);
->  	pullup(udc, 0);
-> 
-> +	/*
-> +	 * pullup(udc, 0) queues pullup_job to clear the D+ pull-up over i2c;
-> +	 * flush it so that disable completes and no work can run after the
-> +	 * devm-allocated udc (and its isp1301 i2c client) are released.
-> +	 */
+> @@ -2978,10 +2978,17 @@ static struct lpc32xx_usbd_cfg lpc32xx_usbddata = {
+>  
+>  static u64 lpc32xx_usbd_dmamask = ~(u32) 0x7F;
+>  
+> +static void lpc32xx_udc_free_irqs(struct lpc32xx_udc *udc, unsigned int count)
+> +{
+> +	while (count--)
+> +		devm_free_irq(udc->dev, udc->udp_irq[count], udc);
+> +}
 
-This comment makes no sense to me, sorry.  WHy is it needed at all?
+This is "funny", please unwind things in a better way.  Also, have you
+ever hit this in an actual device?  If not, don't make changes like
+this.
+
+thanks,
+
+greg k-h
