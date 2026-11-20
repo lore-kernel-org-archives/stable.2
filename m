@@ -1,101 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795192669;
-	b=i4/3jhrYjGI3+TPjYT4WbSOxDw8DxAfAJi1BKGpcoF7uffXsu9tPAjxYhgI4hLEQ4tvk
-	 eeKlX62LT1mo8VgrulaVDMTIGoqUFjLs+veefGPGYczvW4ac1SKZU2zrfAZq+VUhc6KXa
-	 p5VBPdtgY+myaQ613gQ/wgFzB+4lAfYyd4ncLxL2X01luK+P7f8UWbYxI4qD5dTBzMOCb
-	 pK5Jk5BwalTCU47I5LkLv3p2PZ1AYwNAV6LH2bd2NXk4Atacfi5idOTsNIsd2nPpt9QMK
-	 cYNDYHWT1OtAoRd/q4oPnSTH1M4IOh1Ox/1wy7RSD00ngBSH5AddozBr095NuUtQELw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795192669;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=8gVVdRXDHaBUhqI8CsaDjorE6ggyqAZgC0sVv6G0dYk=;
-	b=NsU1/xxRZ7ZeU6UkaPp2NhCwrwM9QBFfkljvThw0TmzaR/dtty0TET+FNC7OUKYoJKKP
-	 5NME9+foLswPH8OuwFtbMND9hPK8cq8sdURwLJ1t3xWkhhDqWTKtH0aNFBth7Q4/vhmsD
-	 q8BLrkploJeVbUG8Ojzvvf2U6J1gudKF4vLKEkLnhi/TgHqWiOZG1T2ROo6ibqlP0ToNj
-	 Hbggp3Z9mYutkTS23sSvhokJpvzVjXMMeYCmps62nZdgkwsZ8h8QiaZifBtYzye/iHTVL
-	 uWUdFHpj4H/SkFbV8zGmY7GDWdc/XuFGTuPu5aZi2mhsHd3l7DcK4ug29LIcKORJQzA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZOiu824+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795193134;
+	b=bmKClhKstWIFoQb2Xft+FitwOhXJOZ5E9cv3uCfukmo8FbkrlHmS5uoW2DQOEhFElAg/
+	 gHldOvW01Xtqi+diyexNpsmRCuGri4kDyqkOSM1vmVOI7bOcvl8OoAAaH8BqqOVdIHwVy
+	 qD5+IonFfpFMLVP6Mc31DKI0GyaoTlPKuloxmAtxG7KipY/u+G4TtRMRtJmmH5EhuoYoR
+	 M68YQTNTlqQKw58SaiyHyVzARpvxpO3eS+Ap3y+sU/VBI6ItVkDR9YX4IhDKEpv6+vw3q
+	 M3hRIqwsb9/Gcs2z+kz4r0RjQb9LB5ZRyZerwFi1cm9bhSoDOK6puXS5lxhwrGnJVWQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795193134;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=4IlXOQ7f0zn8jf6zZzbIrtKtz6kWu6T2Z8xnSRwhbZw=;
+	b=ujzBJ/fNfSjzJplDAD85fMTtbiRdvNzfC2/AvXZXJ2cg8cDOB4wLttHIPzdTmKS96cxS
+	 +N9Do3iYZmZeEhIYFG5hKwNLMTpqHq8tbVmjXdeAAC58DpMEImtCpieGwJIuZlkJsl8l2
+	 UR2mqvmaWYDzMbOR7a33CVyme38eHYmpQkjy/QMLEi5IV5Id74Pt1rJY5wbtgOGKPxgKc
+	 PswcFLRKgE832PQ0UOiBVWiAkiLFqN2BCd9h2bkBNYeRLiSuS3OkGO5v0csMZ+lP+aQge
+	 Q9Kt8F91R5QkuXmVh8mkw35A8pZtR4cy5OgexxfFE82gE9pTLS/9RHtBe3h2Y/uw15Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y4SgVwVh;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iEr7E6hu;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5215C606A330
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:37:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5215C606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EA4606A609
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:45:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52EA4606A609
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZOiu824+
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8b68e59ab33so877840b3a.2
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:37:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795192667; cv=none;
-        d=google.com; s=arc-20260327;
-        b=e/xxn1y+OCrwQ5baknx9c/LZNjOWJpIVP6IjzGp1iK+2P83TsOZ+T+7sJZINhCPjNe
-         wLarEWrd1j8D7GrO1DVL1rLwb2cYTkVEvx108PrUI2jGybkdcEfQASmkMGZUFGvBlj/f
-         /Ore4LHbhdAWlUK+FFCz2K8cFODAXUMvyNhU1UJjZXIcsEePfBzt9kdjocTUrFfVrL++
-         xkicYnt+xmIyVqfQrLruy8o/lyFd5UFjMurZdAeb0yg9Ba1XbcNvSVxLsQnQVR5rDLph
-         q75SF3tncPGUDYVKUPNsKIZVpdQvamxkWimC5mEQdFJLW3kkuAOQPuR6Ve5OL3FjHhfy
-         uB/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8gVVdRXDHaBUhqI8CsaDjorE6ggyqAZgC0sVv6G0dYk=;
-        fh=Mdboc29plGiEkC0Iw7CpAW0h6PtWoBmrTEgPdGXXwA8=;
-        b=mHfkVu25+GE7AA9ZRKalo8CdorH5J4NMLI5w+0VImIrWVK9BdUGSDIFzZGQMvt38Lc
-         Ov3Dg3vkXnbcOiEDhXlWvc4u0pq9dc2QR3PE6E11oCE+tE7/rXF4EVguBGC9Vf+UFqKp
-         CplWbHSe1BygMBwHFuEDKl7n+IQAxMxNXmEH7TAU6Awn9jnrx9/ULBis7EvhE7oK1OBG
-         bC7/j+TJbxkVt9tIpJlCyD7onZaoaPxg99jVrIKL3IjI+N5vuMAvFyMkfXOeJsJPt9PA
-         6+urPWe8sRQkiaL+Nk11Xf40R25aVsZZjgVTjqGrIu1sXbFjQ0Jot0vKl86g1dZdXEi0
-         +RFw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y4SgVwVh;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iEr7E6hu
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AKEfINI2040017
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:45:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4IlXOQ7f0zn8jf6zZzbIrtKtz6kWu6T2Z8xnSRwhbZw=; b=Y4SgVwVhvElqL7gM
+	AuSh76nTy6d07wAWzQzAByaL8WNeDbQOQT5zJS5pta+Ws1fYjmdZjPnBJxgiL4w0
+	GhPfMtuR8uCYU/RRAt94Iob+xSvCO+qTg3rNqUAL+y8lLKHkpF3MZ7Saxn0IGnDI
+	EKntjdJy5BWBvejh1PTSi4ssjKiXLm7z7sefqI1ak3dVrUaoTJroQs01a1DbJUB/
+	Uef+g1a7fB7tv05HUU8m+jo3yxnV+BoJn9y3WB2JUKJXwrlmoLjkQwIMp6sq0Gk8
+	1A3AKDO99MtLsIIVOXYBTaaOg89Us31EPpaSR+N+hosLbOmXyZHoKOcWRHNg9rJ6
+	pZi97A==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j2fjttu96-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:45:32 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-38355b03cb8so1032834eec.0
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:45:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795192667; x=1795797467; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8gVVdRXDHaBUhqI8CsaDjorE6ggyqAZgC0sVv6G0dYk=;
-        b=ZOiu824+Qzybi4tCeLzrG2HfbR7LqOAvhjxtrLtycpDDlq5EvcJyn4toRCyBscyObG
-         2F3FyeyAse5cYOzzflbdnEcBAXNCHUklhH0M3CNUJAJBrGiheGthMtGLB+4AzMK7voLO
-         3PNSaKexaTcyBJ9ErwP0nWqVCqJK9Ai9tuRUpEKVZ3UGeYWKQsG/09x3la4TqHdesoHm
-         N+BqgDqothmocsIqqDFAcl0OcZpKk9P6XH99DiiPzydVWtUDABK982SCGULWGF/s6B5C
-         VPAUJhGNRfpKZg8aLC3X87wtQ7eL1lmIEUl50SFmUp+DbAGAyoKjf/abnBqXwUaKPuZD
-         srEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795192667; x=1795797467;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1795193132; x=1795797932; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8gVVdRXDHaBUhqI8CsaDjorE6ggyqAZgC0sVv6G0dYk=;
-        b=JmoftHw9fFq2ArQ25rD8LrzKzBbWxpa9wixrXlxBWW6LOqykW20rFjxJBYFGp09Fzf
-         FGErrRXy8Q37TlsVMu6NX8AFZ1LNAuGvQ0jd4JRacK0ooZg2LsYnIIf61ByQySc3USgG
-         bmrjKYOkYHQMhKVR/KbMYPMUFBp9zdi6Hl+97nt34Rat+gr2rtGLM71oeI67vb/wJLrL
-         P3gkwvlYIBTVcY7WTIiq7on1Lc0mSfzi/8ixyiT+WmJ8lOw258lxQy5ppHdo/UePHtlR
-         vC5kIRK18eOaFy1lq6aS+zRV5Ei1JIW/4Y4TSFBhBuUvBqi6I45ozvc8c2l7g9A0NLcF
-         73vg==
-X-Forwarded-Encrypted: i=1; AL+hErGMJq6PD0OGSsrVnGAW3t3xbaAKSoNV9WrK1OJ5mzc0XsnX1l61y4ys4cxO97Kw2sYALYV49Ys=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/wBii0hZuz0eUaQBN72QMDy7NprklI4qr+ZFIlxQIcng1KBR6b
-	iPWJqc5wl89QQVKLCmnI2T1kux6QiQjDcH3Ga/4dOneauOxAsx+U7QqqMijhyw5zU6AZSEEa4lp
-	zkQODac8AiHT+NTVNrP+RMSvy1jXC2t1aBM7y
-X-Gm-Gg: AZFdTZc1YCtMYvMCI/+MaiQGFy4FRmTOXxcXu9IXbV9BbtSwdj+vw/Kb52St0JiRkSz
-	Ah2Tt7nAEQkTvDz2sGozXJe2f10i2KG2gbsA0aDosywp9G90DCVR3cDNXmuli2ZC8jirJyiGwv0
-	7pwqKJ+jQRLronEbUilUXzUUPIA9fCFmmylwMcco8ttm/ZhQ3AdGqZYqnXVaSEW6wv5jwTnfaAx
-	h4BOv4QBekfLZZXBh02MWam2ZCeGf/0AWt4T71lzht/PalkwqWIiOBxaEmCdBhIB8xqwkI0sFYB
-	KoTSEldaEhS9QNZ2H8QNYtx3uHh3/cnMXjenT5VGZGbT7Oww4hwaOngZ1hrqcFeRP6fbCTsk7nG
-	tupKeN2+R8YKCEUtYqrymUGWEtJXqMxFZLA0SfxZ9HXwWPZyBzSACsWo1fxDbUbU16HXpSwS6Ol
-	yo9Gh0rDCFTEwGKlNa+vMua3RbWOi+1bbJu5LItg==
-X-Received: by 2002:a05:6a00:2987:b0:8b6:3e44:8aaf with SMTP id
- d2e1a72fcca58-8c87b4ee9c0mr3361079b3a.20.1795192666568; Fri, 20 Nov 2026
- 08:37:46 -0800 (PST)
+        bh=4IlXOQ7f0zn8jf6zZzbIrtKtz6kWu6T2Z8xnSRwhbZw=;
+        b=iEr7E6hurkE6sq89FOOL7ozBM6i3HW1b3bO7IyX2RPbOtt+2w44DjRoGTJbYH8J+9R
+         fgH2omQKCTmxmbIV+ZseWcu6DK4CVzfRJcDNouH2erW3PfwawF+QKMvtAla2kHbBNzyA
+         cBSSYybNXkB1/aRzi3jqxDxVAvMnxE4pYfqUxrbgAYq/MBLl/bnMPhO6lh1/goWwr89l
+         Ch3QFeClyEj3XedhsG4yZzCmCnjLcpziHtQcOPGzn1vjn96pVOeyWwlr0d7yHpcNLQOv
+         qu+skBXeHh7JiXv+LuTt+wpQoaNq1w2UsOcj1ZiFptLFo2ZYWfJ02uIUOUg4Q0Bx4aqg
+         qZWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795193132; x=1795797932;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4IlXOQ7f0zn8jf6zZzbIrtKtz6kWu6T2Z8xnSRwhbZw=;
+        b=YLwO/K4nClHNCkufBCqVCoq2//g7M/LZCGBLZBlLKEAxlvTJzrvMDo4+DMV92dkTkN
+         /Mw9DnwoXbwC7KCSSRasv+DM/n23NHt0gyetYtGo0ZBalvkjgzHRuk17eW54G1zGJzuj
+         1OcS+zD6HLps3+tpuAjqwGbgHB0cjAeBrlB35zjSM6sb5zpaDN1khi8jfmVtjMNEsx+q
+         TWgNhC0sARLC1kPCP6gmmKUQR/sJNnJQ0sKsAtsGVOn3ql9+Dln4YdUjKlBmLzI+6iuY
+         zhtZu0Oi3kAT3qi+nfbgLribdwQGHcHXUmEvvOmn/azvbhR4+jR+4rCxyt7peUi6ko1I
+         HR4A==
+X-Forwarded-Encrypted: i=1; AL+hErHqkEtAD8pAuVaqg4kWXBhMk3nqx6GtPsVKEeUj00Tgn91vpM7TYfIz/L00VZZo8Cp00y8gVBI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ycy4dgOnTmEw2dvI7IRmpawwN/7hiJycayJRyYJbZBKs36GAw
+	BOABuJZbrQ3sN3NgCoUI9PONd6VDKcXAnQ6AJhNidDBo4KALQ70RBnmxGjfrDl6ocA0bpf4TiAN
+	LZ6QQ4GgVqaL390Hqkqs1U6yOJzGP/Dgi+i8EHej4QCXfW1hANKjW/gc9DraXIcSt2hA=
+X-Gm-Gg: AZFdTZepVndS/xfHPrplBnQKBms48WlKpZbrTGck06Drl0/pVtFGb3MPW/ORxv73mQJ
+	daYqWzLXgmrZjRRvXb+5QBRdEWm8tGzhcNUtIS0hSUtt1RkxRSMlFOLymSdQZXX8POiNvdbqON0
+	iroZBff0F/0NmUv75ZviSaKDIHsqMbglrMQpZwGKJ2tXbb1XuqEkmA8puEPIJOaPvSiAj1TMlmq
+	GjWyNlvIbfhwlVQj/Ko/qaV5/Dvhl8BJ3WlrmMXPuvP6D82I9AsXrytYjwhnZ6y5TJRQJycDYrh
+	9+L8NB8RDojDB7POThGYLmFXMty9y4srlpB1zjyLLcDD4k2WDzcwe9f0WBK603wmAwkzLFIMbPj
+	A4qTt6OYDgWrtUxjesNcYt+I9kWyMxVIY6Y0FuLyx+MWw7T2cObRligriqhXeq35mSxsdqZIyzl
+	1Ys5dcBaW8HfVCvDCSYX67Iuo=
+X-Received: by 2002:a05:7301:2419:b0:367:185e:867a with SMTP id 5a478bee46e88-38571027a5dmr3430884eec.38.1795193131854;
+        Fri, 20 Nov 2026 08:45:31 -0800 (PST)
+X-Received: by 2002:a05:7301:2419:b0:367:185e:867a with SMTP id 5a478bee46e88-38571027a5dmr3430845eec.38.1795193131141;
+        Fri, 20 Nov 2026 08:45:31 -0800 (PST)
+Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385667decc2sm9309301eec.9.2026.11.20.08.45.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 08:45:30 -0800 (PST)
+Message-ID: <ca6de262-80e3-4c38-8f3c-122712d3f54d@oss.qualcomm.com>
+Date: Fri, 20 Nov 2026 09:45:30 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,122 +116,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261120050108.426545-1-xuehaolin@uniontech.com>
-In-Reply-To: <20261120050108.426545-1-xuehaolin@uniontech.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Fri, 20 Nov 2026 11:37:34 -0500
-X-Gm-Features: Aa3M54qNypMyBmyBYevUfk0cK2R-oXwezfsszARlwdxXW7NeEApwkkiP6N3Sz0g
-Message-ID: <CADvbK_fKB1P4c3KkZobQwGc84snyZG-b7NYXi7xPwN04ojcW9g@mail.gmail.com>
-Subject: Re: [PATCH net] sctp: fix race between sctp_sendmsg free path and peeloff
-To: Xue Haolin <xuehaolin@uniontech.com>
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] bus: mhi: host: Only expose controller sysfs attributes
+ on the controller device
+To: Slark Xiao <slark_xiao@163.com>
+Cc: mani@kernel.org, mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261111115659.11943-1-slark_xiao@163.com>
+ <826c1746-137b-4a5a-968e-8e0449a25e78@oss.qualcomm.com>
+ <3cb75687.54e4.1a1ed794488.Coremail.slark_xiao@163.com>
+Content-Language: en-US
+From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+In-Reply-To: <3cb75687.54e4.1a1ed794488.Coremail.slark_xiao@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: P0gCrW9XLmfhZ0kyFH0C_RAv_N-LnsyI
+X-Proofpoint-GUID: P0gCrW9XLmfhZ0kyFH0C_RAv_N-LnsyI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIwMDA2NiBTYWx0ZWRfXzOyZBphHo8cu
+ 8dJyGTKdkZNrkfThjVwxi8K7YKsoy54gmG76HgLHzCPpknAMqEi3v4HBP5A+dxBlyP4R88J0yGx
+ BUQsrpauDSUJ3Ge7o1q90V/5OLPe6i6MgPt20Vi23Mc6nU8BIwbCKm4JUyikAyD6S/B2t+0nL51
+ lzb3Mwrh1P5ZlQvKO6sL1u1ipjV5PkgMGecQyj9qG2eMNgtj2qbjH7lBAaAuMOuFtM7GQDVPyQL
+ dEBa160Hbw/LOdiQIkAC2cLFDwFzXQM3ID+Q0oEDcdCCoaWIsGrP2RsE9Jp/NMOzEciZ2caNEbL
+ mv2qw5Er9XDEee/8NgrkiC47VZq9v3wK15GTmp5ChmecA+8uHVQua7cMd6TkW1mhBB2RuerFfl+
+ a4LG3m2e3vWwsGJr05AzQwMv0WTBvVn1g5mCGOEbBfilYO5R0n5xGJ2bqqmG+Sxfhtu7qdvO8CJ
+ X6XcMUO+ysoLnk/YUEw==
+X-Authority-Analysis: v=2.4 cv=XcccX455 c=1 sm=1 tr=0 ts=6b00792d cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=_J-3HC_dJu7vbrgoKJ8A:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIwMDA2NiBTYWx0ZWRfX2RsilPhK1Mvc
+ Lia97EmthjnLmQIJUsmIxbiZuCQ4fW2qqfzhZosl9y1VEee2UVAlCx8hNhMIGFY5hSItix7oILE
+ 4n/YYCO4McczkQIBsjGboHRCkRY5+t4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-20_05,2026-11-19_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 malwarescore=0 adultscore=0 spamscore=0
+ suspectscore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611200066
 
-On Fri, Nov 20, 2026 at 12:01=E2=80=AFAM Xue Haolin <xuehaolin@uniontech.co=
-m> wrote:
->
-> From: Haolin Xue <xuehaolin@uniontech.com>
->
-> sctp_sendmsg_to_asoc() may release the socket lock while waiting for
-> sndbuf space (sctp_wait_for_sndbuf) or connection establishment
-> (sctp_wait_for_connect).  During this window, another thread can peel
-> off the association to a new socket via getsockopt(SCTP_SOCKOPT_PEELOFF),
-> which migrates the association by setting asoc->base.sk to the new
-> socket and moving it to the new endpoint's association list.
->
-> When the waiting thread resumes, sctp_wait_for_sndbuf() detects the
-> migration (sk !=3D asoc->base.sk) and returns -EPIPE.  However,
-> sctp_sendmsg() still calls sctp_association_free() on the migrated
-> association when err < 0 && err !=3D -ESRCH && new.  This frees an
-> association that is now owned by the new socket, leading to a
-> use-after-free or double-free.
->
-> The connect-wait variant was fixed in commit f14fe6395a8b ("sctp: fix
-> race between sctp_wait_for_connect and peeloff") by adding the same
-> sk !=3D asoc->base.sk check that sctp_wait_for_sndbuf already has.  This
-> patch applies the analogous fix on the caller side: guard the
-> sctp_association_free() call with asoc->base.sk =3D=3D sk, and hold an
-> extra reference across the guard check so the association memory
-> remains valid even if the new socket is closed concurrently.
->
-> Note that the sndbuf variant of this window predates the connect
-> variant: the unguarded sctp_association_free() in the sendmsg error
-> path existed before the sctp_sendmsg_to_asoc() refactor, and the
-> sctp_wait_for_sndbuf() sk revalidation check was already present in
-> v4.14.  The Fixes tag targets the refactor commit because that is
-> where the current code structure (sendmsg calling sendmsg_to_asoc
-> which sleeps) was introduced; earlier kernels have the same race in
-> a slightly different code layout.
->
-> Discovered by manual code inspection, following the public report of
-> the SCTP local privilege escalation (Xint "NGINX2Root", 2026-11-18).
-> The issue was not triggered here and the fix has not been tested
-> against a reproducer; compile-tested only (make M=3Dnet/sctp).
->
-> Fixes: f84af33138a8 ("sctp: factor out sctp_sendmsg_to_asoc from sctp_sen=
-dmsg")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Haolin Xue <xuehaolin@uniontech.com>
-> ---
->  net/sctp/socket.c | 25 ++++++++++++++++++++++---
->  1 file changed, 22 insertions(+), 3 deletions(-)
->
-> diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-> index b5a57f61ee6d..0039c54a55d6 100644
-> --- a/net/sctp/socket.c
-> +++ b/net/sctp/socket.c
-> @@ -2082,10 +2082,29 @@ static int sctp_sendmsg(struct sock *sk, struct m=
-sghdr *msg, size_t msg_len)
->         /* Update snd_info with the asoc */
->         sctp_sendmsg_update_sinfo(asoc, sinfo, &cmsgs);
->
-> -       /* Send msg to the asoc */
-> +       /* Send msg to the asoc.
-> +        * Hold an extra reference for newly created associations so the
-> +        * memory stays alive across the migration check below; see comme=
-nt.
-> +        */
-> +       if (new)
-> +               sctp_association_hold(asoc);
->         err =3D sctp_sendmsg_to_asoc(asoc, msg, msg_len, transport, sinfo=
-);
-> -       if (err < 0 && err !=3D -ESRCH && new)
-> -               sctp_association_free(asoc);
-> +       if (err < 0 && err !=3D -ESRCH && new) {
-> +               /* sctp_sendmsg_to_asoc() may have released the socket lo=
-ck
-> +                * while waiting for sndbuf or connect, during which the =
-newly
-> +                * created association could have been peeled off to anot=
-her
-> +                * socket.  The hold above keeps the association memory a=
-live
-> +                * across this check.  If the association was migrated,
-> +                * asoc->base.sk no longer matches @sk and the associatio=
-n is
-> +                * now owned by the new socket; freeing it here would lea=
-ve
-> +                * the new socket referencing freed memory (use-after-fre=
-e /
-> +                * double-free).
-> +                */
-> +               if (asoc->base.sk =3D=3D sk)
-> +                       sctp_association_free(asoc);
-> +       }
-> +       if (new)
-> +               sctp_association_put(asoc);
->
->  out_unlock:
->         release_sock(sk);
-> --
-> 2.43.0
->
+On 11/18/2026 12:05 AM, Slark Xiao wrote:
+> 
+> At 2026-11-14 02:42:46, "Jeff Hugo" <jeff.hugo@oss.qualcomm.com> wrote:
+>> On 11/11/2026 4:56 AM, Slark Xiao wrote:
+>>> The serial_number, oem_pk_hash and soc_reset attributes are registered
+>>> through mhi_bus_type.dev_groups, so the driver core creates them for
+>>> every device on the MHI bus.  MHI client devices (the per-channel
+>>> devices such as mhi0_DUN or mhi0_MBIM) are also MHI bus devices, so
+>>> each of them ends up with its own copies of these files even though
+>>> they all operate on the same mhi_controller:
+>>>
+>>>     $ ls /sys/bus/mhi/devices/mhi0_DUN/
+>>>     driver  oem_pk_hash  power  serial_number  soc_reset  subsystem  uevent
+>>>
+>>> This is wrong for several reasons:
+>>>
+>>>     - The attributes describe the controller, not the channel.  Their
+>>>       callbacks all dereference mhi_dev->mhi_cntrl and read BHI registers
+>>>       or issue a controller-wide SoC reset, so writing soc_reset through
+>>>       mhi0_DUN resets the whole device while looking like a per-channel
+>>>       operation.
+>>>     - oem_pk_hash reports failures with dev_err(dev, ...), so a single
+>>>       failing controller produces one log line per registered channel
+>>>       device instead of one.
+>>>     - Userspace has no way to tell which copy is authoritative.
+>>>
+>>> Move the attributes off the bus and attach them to the controller
+>>> device only.  mhi_register_controller() now installs the group via
+>>> mhi_dev->dev.groups before device_add(), while the channel devices
+>>> created by mhi_create_devices() are left untouched.  No functional
+>>> change for the controller device; the files stay at the paths listed
+>>> in Documentation/ABI/stable/sysfs-bus-mhi.
+>>>
+>>> Note that trigger_edl was already handled this way, through an explicit
+>>> sysfs_create_file() on the controller kobject, which is why it never
+>>> appeared on the channel devices.
+>> I agree with the rationale, but this does appear to change uAPI. Are you
+>> sure no one is using these on the channel devices?
+>>
+>> -Jeff
+> Hi Jeff,
+> For oem_pk_hash and serial_number, all interface returns same value.
+> I think there is no need to keep these interfaces under the channel
+> devices.
+> 
+> For soc_reset, it write the register directly and it works for the entire
+> device rather than a single channel.
+> 
+> So I think there is no problem to remove them.
 
-I think this is a dup of
-https://lore.kernel.org/netdev/20261112172149.27355-1-yves.bieri@theori.io/
+These are uAPI. The golden rule of the kernel is that we do not break 
+userspace. It does not matter that their existence is a "bug", if there 
+is userspace using them, then we must keep them.
 
-Thanks.
+I could agree with you assessment that having these items on the channel 
+device is a mistake (and I do), but that does not change the rule.
+
+So far you have not provided any data to say that userspace is in fact 
+not using these, and therefore removing them would have no impact.
+
+Without that analysis, I am sorry to say I am uncomfortable proceeding 
+with this change.  Mani is free to ignore my concerns and apply this 
+patch at his own risk.
+
+-Jeff
