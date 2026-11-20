@@ -1,59 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795213109;
-	b=ud9nJU/tGxm0yb2LFqhQQ27TZRESrhI60JG/yEILt1Wdrhvxq9kcUAmv4zNPZyJkOqjD
-	 yngnCeF1OO8m9RMSsRjx5Rx3sV0QFVPVTwmOjA5UXIKJOGY5qwzPXbJoV9k3e/LTkxxkH
-	 g3Q5O3EgWuyCYKq+aut1FaE8LXI2yqxG9NYjueawr/F1cO7SG7mLzO+Iz+dVnBuGR7/Ot
-	 6SlisajVolv5Cp5D7Qvg+HL6iZhiTF9jtDPCCpAtb5gX+T2LmBYvwwoZ/kKu3KZmfb04h
-	 qZx5jEcB9DM61f4HjnJd+Wc8+NkjNP0cCnHAQdjvqDmx7GwqyvuE+7YWi/6+yldTdWg==
+	t=1795213282;
+	b=qJQT0Y1P7KQA3Aouc7IaZeraUmawB5d2mGKA0JZym1ErB6ZYaW4qYhwlHa6CcRLZYCeK
+	 lR+WUgYEkv3EoWfkTKuE91k1Y1xvo/rQ3jYm5CkBNS4QC4eocOhChZeLl8EiDqKdrYotb
+	 6c2CDG85lGIQgWuxQseqBBaTNrhiV8BMlXrxg8lUWl5WzC5hDPxMQ6fvpJMouU2HzMDFj
+	 jgAyfPeFsDoG+aMMUm3pSRaoZFLpLhoKy05GfoNnaUB9qsC0WJyVtTJ7Gd7nKGoJl7EQo
+	 5AiyRp7VuzFNXhFpl0675rG5cS/nNYV/C73YPbDZ2q1JiVAYwAxCtSjEr46UJrb33LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795213109;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-MBO-RS-META:X-MBO-RS-ID;
-	bh=vp+/Jvx8ZdX5MQTGDvK8fK5XF90fdpcAWl4Gm05qZB8=;
-	b=gbU8qM6DeAOExESZA9aOOwgqxVTZ9ceaoF5IZ5R6ySfnM6gtu2u66C0m5cmx4U/5jLz6
-	 9lzq5BLLj9InhDAVpt/CiTP4ixNJwnrDjp8IGTH0x9Vtnh/BdA7qjuyXdMkC4XLMJmDqs
-	 6XuOJMywby7ymFuHLNn/iv8jSHhXUUVdTpGBaVbJ+1+qt0g9BfwvxUqFx12v2S7hWU8QN
-	 lQcYmoWHWwQGkRvRkaCVFwKiKRljXTPc3ozLejIJ7VVklD9xKXkm8IsG8E14DFve2VnOl
-	 jmHkTmMVe5fqD5T56ZTT28e69kkGkBCYI/Yg1BFEsDs20H/RtgT6UCjIFD7Je3KEDsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795213282;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=YWAHn2Sutfx4jyhpprq+KziM+rM4UEONRsPYaYW8qwc=;
+	b=RfJ0M42XcfGU72g4tHKHPwsKlXuIMiCL08HQCXvVnEGNxTmpLBdGku7Mk1LPGfxoFG13
+	 gCmuhdNN+5/wZC0OV2AZSSlOa4LsNzEJJPB/Rh3hd1WcUsJOmTtGrgBTLMBwxgWd3gHn7
+	 iRZJObpzNgUYBny7TASnzyVnNJALqGPrfNk1kEdeNdKpf4wgUecGAkfRRZrc8xW3I217Z
+	 WLCwjUIzfPOvTJmkDEIwnnyBy5/plqMoYK+ijBQpkry7dRHf9OfrHWPgQTXHX2fGlEHpd
+	 utMWp6tKW6RxBT44TDhToUtdfQ651JgL40QFlm5NcnN6iXQX7nUYA3U2ngkeNgLOthQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Qu7M20cz;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Yf6DiZlS;
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5598606A698;
-	Fri, 20 Nov 2026 22:18:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5598606A698
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378A0606A6AE
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 22:21:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 378A0606A6AE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Qu7M20cz
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jWV8k0PRwzKr4t;
-	Fri, 20 Nov 2026 23:18:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1795213094;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=vp+/Jvx8ZdX5MQTGDvK8fK5XF90fdpcAWl4Gm05qZB8=;
-	b=Qu7M20czGbdezICHUhD+vh7X4JmGAm6n/LHLmfp7eXETSqgbvSUHv3LvIUoB62Dio0GlTv
-	gGqkU1L5/XmWvu/qjNP8eIjwDvBk0i82blfok6taxMHkEN94fLR1kMGUC+e+ILMuB5K+dy
-	E/LcQQ8mA93NRbeDe9iYC7GOlJLEloDAFWNVl/jOWfuoHqfOG1jp51JcnHgWRHaKlZDxZO
-	YxqYtAphXq29521Rm6euC0DsZYHzJh0HDxKJGEsQgb0lGUPFCPtfWKvns5t1ZyOqE1SmKB
-	QfXTuNjmibajk7UDvvF1QTu3fZ1hr6eN6hpXykDKAyT7N4YBm0uU4L/Cqo6Lwg==
-From: Lukas Beckmann <lbckmnn@mailbox.org>
-Date: Fri, 20 Nov 2026 23:17:57 +0100
-Subject: [PATCH v4] cpupower: fix use-after-free and stale limits in
- frequency-set
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Yf6DiZlS
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2efc4a84e75so7455ad.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 14:21:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795213281; x=1795818081; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YWAHn2Sutfx4jyhpprq+KziM+rM4UEONRsPYaYW8qwc=;
+        b=Yf6DiZlSNFO5GLCuQDAESWda3efOZ+ibaIKUvebHR9Ots3v4MJUI7W1R383LBgPssP
+         JemDiDFzGhF2EXC2dNnbjkXEdmG8tiZfnzUH/N688CKz+Ac3/Gwltykxrvaa3EDKhRTj
+         816ODB0DgIVzcAVJ++EiaZMkbWjndkCiLJIOF/8dZhmVY2+MEWkZcj47mZvmt4B4lBE3
+         +ekVzpMJxEKBn6+5mvwrfbPUmacS0toEphyggM9hC2bCrhjbb1inSozdq3vb5n6hJZZ0
+         2wu23ClMuJ/AYhbR0sW4ZN7U9MYW22amTmpeLxvnoKXtHxg8unyhrkzmb3perxPOaQ6v
+         tvCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795213281; x=1795818081;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YWAHn2Sutfx4jyhpprq+KziM+rM4UEONRsPYaYW8qwc=;
+        b=0Pw1g0eE2o8J+8QLbYX+Dud6KmKOl5tQYZNCq2VsY3BZickIx/Jut87pV4J2oP4+/5
+         9HEUaCbuYQMGAjd7HcL8KbhSIE2DK9jMCl4OrtgUtt+asazXwWpeAqe/hc11KpWXgQgF
+         u7xfTgFsHOqntQnVCkh5USFIw+S3nU8r+0/UimWdCvxn+/h0G2oCBa01eqsm21XbKhSY
+         ZtqIp6FxEX59CAWrDmCOBqX2KZwkOTWh6B5Pab0g1tbHb+NUn0eFTq0ES2gXEix2Fi5I
+         /gRulRGz7x55EUGO54ZTiORXed5/BBJ/cN1KLcIIzQtkzdF3LIA739/Kvj4+NWThGkn9
+         Sw/Q==
+X-Forwarded-Encrypted: i=1; AL+hErE4tCAB/U7Qm8OIzbSwuEDeDcWDQmzMVR2E8JNJ3yDSslvhV1gwVheboB4XYYTfeVXKzSO1Js0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8GF1q9zHzDl9v/yyaffU3Iq9flcD6IuCFsxOk2bmc0xeI4mAOt
+	2lbgCSf0kiXThRLeyIgFi23XDVrmYNRZCj8TaXa9FL4fN179iSBOeTigXzgZztspWA==
+X-Gm-Gg: AZFdTZdLPtPD/4tFxTC/k9uV8FYOtql9NpVdsZEO7Zqfp18jQMlRpcONZ8XHqszEF1s
+	tmriZOcVGAaTulBZfTms4xzsHnScnyqXJOrnq4uyLogSld9GCBq9cotGUyUWatukczH8iC5NVyt
+	GFpY9Wb2Ce1ehtd7f0QWstdnA3znodZtbz74Hq8NF5Mo+2FrCTEeK0sP5lWCEoCuJe0yGYTGeSU
+	fYLrizxuVeOBeId+J6AN14k6rz7hHh2yIHWdnFsslj1LljxC6l655AKHTKL6hIwSxX0MLv798zx
+	8ohAEkOftMcUy/tWZ8DVW98JGqI2g2+EeEiLg7Fq1+vO1T6z1MyZmvfl2kht88OjP4ZkBj7mwnt
+	5yUxzjkq7O7F/+A+TaHSwK9++dvhDrHRkJjCat9Aqc6qD4xV38gvGhjBz1RgSjFgTRi+jL2/OlR
+	3UT3KxLga5ujlOxEGGHJnDR75iTidC52VibV3RLiL7I3zDEeAghzYaGsV73BuSEY+b3WiX6qnxb
+	hTBgLfbxfylmbiny1hiAPJhXLaX6SEFGJ844EGi4eteamdG/0DyTTuu1slzb7jMlM6nKNOZ/M+r
+	ESSosRJzg+gHBU3sfhiXDgD76FLoTgBaxJoR6fkFREP5ThwYk7aNBBKGnAi2H2gWjd28sqpLeGi
+	juvYeeaFvq/JpyHX6v4V1qQ==
+X-Received: by 2002:a17:902:f709:b0:2e6:1735:f645 with SMTP id d9443c01a7336-2f062b91bfdmr1318055ad.4.1795213280161;
+        Fri, 20 Nov 2026 14:21:20 -0800 (PST)
+Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad0a33fsm5793510a91.6.2026.11.20.14.21.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 14:21:18 -0800 (PST)
+Date: Fri, 20 Nov 2026 22:21:16 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Alex Williamson <alex@shazbot.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Anthony Pighin <anthony.pighin@nokia.com>, 
+	Dave Jiang <dave.jiang@intel.com>, Dan Williams <dan.j.williams@intel.com>, kvm@vger.kernel.org, 
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] vfio/pci: Only lock the upstream bridge if the reset may
+ need it
+Message-ID: <awC5Ldqmue6DiO44@google.com>
+References: <20261112235700.2029562-1-skhawaja@google.com>
+ <20261118163706.7138d246@shazbot.org>
+ <20261119143237.4bf54796@shazbot.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,122 +102,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-cpupower-freq-set-use-after-free-v4-1-928675d53a23@mailbox.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OTQrCMBAF4KtI1o5kMv2xrryHuGjqRCPa1KSti
- vTupoqguNDlGx7fm5sI7C0HsZjchOfeBuvqGJLpRFS7st4y2E3MQkmVIaKEqukad2YPxvMJArf
- QBYbStM8TA0kmyk25qbQRkWk8G3t5TKzWzxw6veeqHd2xsbOhdf76+KHHsfeaU7/negSEhKWkp
- FC5JrM8lvag3WXm/FaMg716J9M/SBXJTBdoMCOJWfpN0js5/4OkSBJLhYSpTvPikxyG4Q4hBHv
- figEAAA==
-X-Change-ID: 20261110-cpupower-freq-set-use-after-free-30e337fadcbf
-To: Thomas Renninger <trenn@suse.com>, Shuah Khan <shuah@kernel.org>, 
- "John B. Wyatt IV" <jwyatt@redhat.com>, John Kacur <jkacur@redhat.com>, 
- Dominik Brodowski <linux@dominikbrodowski.net>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Lukas Beckmann <lbckmnn@mailbox.org>
-X-Mailer: b4 0.15.2
-X-MBO-RS-META: feg7ddw56xmg4qqco8m9mgq8c3iasaa5
-X-MBO-RS-ID: 4624b0631c338ab02a3
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261119143237.4bf54796@shazbot.org>
 
-do_new_policy() directly fills the unset fields of new_pol from the
-current CPU's policy. This is problematic because do_new_policy() is
-called with the same new_pol for multiple CPUs by do_one_cpu() in the
-slow path. This results in stale values in new_pol being applied
-(starting from the second CPU that should be changed), and even a
-use-after-free (for the governor string).
+On Thu, Nov 19, 2026 at 02:32:37PM -0800, Alex Williamson wrote:
+>On Wed, 18 Nov 2026 16:37:06 -0800
+>Alex Williamson <alex@shazbot.org> wrote:
+>
+>> On Thu, 12 Nov 2026 23:57:00 +0000
+>> Samiullah Khawaja <skhawaja@google.com> wrote:
+>>
+>> > Commit 962ae6892d8b ("vfio/pci: Lock upstream bridge for
+>> > vfio_pci_core_disable()") makes vfio_pci_core_disable() trylock the
+>> > upstream bridge before resetting the device, and skips the reset if the
+>> > trylock fails.
+>> >
+>> > All VFs of a PF have the same upstream bridge. Take a device with two
+>> > VFs, both used by one process. When the process is killed, both VFs can
+>> > be released at the same time. The first one takes the bridge lock and
+>> > does its FLR, the second one fails the trylock and is never reset.
+>> >
+>> > The bridge lock is only needed for a bus reset, which is done through
+>> > the bridge. A VF is reset with FLR, and pci_parent_bus_reset() never
+>> > resets the bus for it because the PF and the other VFs are on the same
+>> > bus.
+>> >
+>> > Add pci_reset_needs_bridge_lock(), which returns true if any reset
+>> > method enabled for the device is a bus reset, and only lock the bridge
+>> > in vfio_pci_core_disable() when it does.
+>> >
+>> > Fixes: 962ae6892d8b ("vfio/pci: Lock upstream bridge for vfio_pci_core_disable()")
+>> > Cc: stable@vger.kernel.org
+>> > Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>> > ---
+>> > Tested in QEMU with an igb PF behind a PCIe root port, bound to vfio-pci
+>> > with two VFs. Both VFs are opened through VFIO and then closed from two
+>> > threads at the same time, counting FLRs with a kprobe on pcie_flr().
+>> > Without this patch one VF missed its FLR in 50 of 50 rounds, with it
+>> > both VFs were reset in every round. I will send a VFIO selftest for this
+>> > separately.
+>> > ---
+>> >  drivers/pci/pci.c                | 28 ++++++++++++++++++++++++++++
+>> >  drivers/vfio/pci/vfio_pci_core.c |  3 ++-
+>> >  include/linux/pci.h              |  1 +
+>> >  3 files changed, 31 insertions(+), 1 deletion(-)
+>> >
 
-Fix this by building the target policy from new_pol and the current
-policy in do_new_policy() instead of filling the missing values into
-new_pol.
+[snip]
 
-Fixes: 7fe2f6399a84 ("cpupowerutils - cpufrequtils extended with quite some features")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lukas Beckmann <lbckmnn@mailbox.org>
----
-Testing and minimal reproducer:
+>> > +
+>> > +		if (pci_reset_fn_methods[m].reset_fn == pci_reset_bus_function ||
+>> > +		    pci_reset_fn_methods[m].reset_fn == cxl_reset_bus_function)
+>>
+>> This looks like a maintenance nightmare.  What if instead we did
+>> something like:
+>>
+>> bool pci_parent_bus_reset_possible(struct pci_dev *dev)
+>> {
+>> 	struct pci_dev *pdev;
+>>
+>> 	if (pci_is_root_bus(dev->bus) || dev->subordinate ||
+>> 	    !dev->bus->self || dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET)
+>> 		return false;
+>>
+>> 	list_for_each_entry(pdev, &dev->bus->devices, bus_list)
+>> 		if (pdev != dev)
+>> 			return false;
+>>
+>> 	return true;
+>> }
+>> EXPORT_SYMBOL_GPL(pci_parent_bus_reset_possible);
+>>
+>> static int pci_parent_bus_reset(struct pci_dev *dev, bool probe)
+>> {
+>> 	if (!pci_parent_bus_reset_possible(dev))
+>> 		return -ENOTTY;
+>>
+>> 	if (probe)
+>> 		return 0;
+>>
+>> 	return pci_bridge_secondary_bus_reset(dev->bus->self);
+>> }
+>>
+>> Where we'd then condition acquiring the bridge lock on whether it's
+>> even possible for a function scoped reset to perform a bus reset.
+>>
+>> It's a bit broader of a test than whether we actually have the necessary
+>> methods in our reset_fn list, but since we're not locking the reset_fn
+>> list between test and function-reset, it's also safer.  Thanks,
+>
+>After exploring Ionut's patch[1], what I propose above is probably
+>wrong.  We don't have any guarantees that the sibling topology is
+>static and this bus-reset-possible function presents it as immutable.
+>The existing bus-reset function has the same race, but the gap is
+>smaller, let's not make it bigger.
+>
+>There are however immutable properties we can test that cover a fair
+>number of cases.  For example:
+>
+>bool pci_reset_function_needs_bridge_lock(struct pci_dev *dev)
+>{
+>	return pci_upstream_bridge(dev) &&
+>		!(dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET) && !dev->is_virtfn;
+>}
+>EXPORT_SYMBOL_GPL(pci_reset_function_needs_bridge_lock);
+>
+>We should be able to use this as a condition on whether we acquire the
+>bridge device lock, in pci_reset_function() and in vfio-pci code.
+>Thanks,
 
-Running the command
+This sounds good and it will also fix the bug that I am seeing.
 
-    ./cpupower frequency-set --max 2500MHz --min 2500MHz
+The only caveat is that pci_dev_wait() might fail during VF reset and
+then it might try to do a bus reset if the VF is behind a pciehp or CXL
+port. I would prefer to do it only for vfio-pci code as that is where
+the reset skip issue is. pci_reset_function() takes the lock and
+serializes the VF reset. Are you ok with doing it just for vfio-pci?
 
-with ASAN reports the use-after-free before, but not after the patch.
-
-Run the following commands:
-
-    # set CPU 0 to a different maximum than CPU 1
-    echo 2000000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    echo 3000000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-
-    # Change min and governor (but not max) of CPU 0 and 1
-    ./cpupower -c 0,1 frequency-set --min 1GHz -g performance
-
-    # See if max got changed
-    cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
-
-This shows that the stale maximum of CPU0 is used for CPU1 before the
-patch, but not after the patch.
----
-Changes in v4:
-- Do not qualify new_pol as const (not needed for the fix)
-- Link to v3: https://patch.msgid.link/20261118-cpupower-freq-set-use-after-free-v3-1-3e021315b579@mailbox.org
-
-Changes in v3:
-- Keep the original if conditions (no functional change)
-- Link to v2: https://patch.msgid.link/20261115-cpupower-freq-set-use-after-free-v2-1-6b91f1630165@mailbox.org
-
-Changes in v2:
-- use a shorter changelog and testing section
-- build temp_pol from new_pol and cur_pol instead of copying new_pol
-- Link to v1: https://patch.msgid.link/20261112-cpupower-freq-set-use-after-free-v1-1-4e0034927b3f@mailbox.org
----
- tools/power/cpupower/utils/cpufreq-set.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/tools/power/cpupower/utils/cpufreq-set.c b/tools/power/cpupower/utils/cpufreq-set.c
-index 06cd4b280132..0808f1f384b5 100644
---- a/tools/power/cpupower/utils/cpufreq-set.c
-+++ b/tools/power/cpupower/utils/cpufreq-set.c
-@@ -144,6 +144,7 @@ static unsigned long string_to_frequency(const char *str)
- static int do_new_policy(unsigned int cpu, struct cpufreq_policy *new_pol)
- {
- 	struct cpufreq_policy *cur_pol = cpufreq_get_policy(cpu);
-+	struct cpufreq_policy temp_pol;
- 	int ret;
- 
- 	if (!cur_pol) {
-@@ -152,15 +153,21 @@ static int do_new_policy(unsigned int cpu, struct cpufreq_policy *new_pol)
- 	}
- 
- 	if (!new_pol->min)
--		new_pol->min = cur_pol->min;
-+		temp_pol.min = cur_pol->min;
-+	else
-+		temp_pol.min = new_pol->min;
- 
- 	if (!new_pol->max)
--		new_pol->max = cur_pol->max;
-+		temp_pol.max = cur_pol->max;
-+	else
-+		temp_pol.max = new_pol->max;
- 
- 	if (!new_pol->governor)
--		new_pol->governor = cur_pol->governor;
-+		temp_pol.governor = cur_pol->governor;
-+	else
-+		temp_pol.governor = new_pol->governor;
- 
--	ret = cpufreq_set_policy(cpu, new_pol);
-+	ret = cpufreq_set_policy(cpu, &temp_pol);
- 
- 	cpufreq_put_policy(cur_pol);
- 
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-cpupower-freq-set-use-after-free-30e337fadcbf
-
-Best regards,
---  
-Lukas Beckmann <lbckmnn@mailbox.org>
-
+Thanks,
+Sami
