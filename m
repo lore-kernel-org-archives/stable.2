@@ -1,49 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795141806;
-	b=P5MH72ZWe/cT6B+cxaETlr/q/auOsbdSQTPJS+PxhjITYLjwf9ZtRyahB/5imu2l2UoH
-	 hcGBeC25PPf7IuYARpY92LyczLKQgl+aAJTvXQf4w3mY9j4vGE3M6Ihpk/RH1ff953t+n
-	 lEOyGuIT3yseYO5orDaE2lfvY5DpBe3UvQ9GvHfB86Utt/xNCPjnpTo87ca+gEbvM709v
-	 FbS7bpm0eEKVCMatAs4Y6BkWJ2LyaDMCWrkgE5lJXS7khqckzzdOc0k5YYW5NevkNbufn
-	 AJo/ey2iNAnxruQofSIIUr+X9F8jjWa4o4W2o3yPsWEbeIqSWIIzf3r1ya9XMQxCDHQ==
+	t=1795141922;
+	b=YDfVHmtwl8OIGSsKKwzWHNLKpKGhUiJDA13oHTtrqAhijnPSF7e0+EEdTKBN+nJhJojj
+	 Zf1XRWHvN6EB596Im43qPjIOWoIV2lIA/RuDA9VLMrhVdECaiUQs2O15iKqfHnZ2T0eZa
+	 zUsu91/wyQ/FLbj39zegSZfmgU91S0ZcQzwCybbVtNU8Gb7T5KN0uIqShxD+73G8c3k8M
+	 YUN2oVRX8A4vlkUQsU0elafSVBlRKpa1salItGCwH/zP2JuQzN7reXAuJ/QMfD3MNkYPW
+	 5kb9HQFvQWZTGFHWRKvd2i0ddOLrG/qHfnbiTt+cPlycmn2Rza2tQF0vL4b7aD4bzJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795141806;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=9qUIPmIYPuUTwrmfhDJvI04x06r49CpjuUWZ05eJ8FQ=;
-	b=a1S00IOGEjzpERfETf/qBpGHIlGJFEfSbMOmWBcTxI1WbJl6SHeH3wdFqCIEX9p93t/i
-	 W9X0DIF5WzqPRWUfjSgYC5oCP7+zefl+JlOWR1GZfg1xnv8x+Ke240AfRBASQSUenvDSR
-	 N/UmrL+yHkZUpl7Sv27mlD+1q+JZAOleb/NnddC6JcutyK50OkPaB6XQsXfzyULS4FkD7
-	 Mn4PNSCj9ILGt8quhG7hAZRG27KVoWKDRNdUIuMjKmt+5JtyMymexBUHqZbO4B6SrqXEL
-	 Hm0wyoJLcZCalrZydumOAyKSxg9hk3pMP5qEe+zusJh6L0Rjb/OVMxK3YiGsRIH+J7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795141922;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rkSK/wNIPIw1Wi1sSdM3kFmLGiju15tFnWSbcknF3Jc=;
+	b=NL66sCu9FqJ3QGeQ0LV4enCFeiMRrtqEI1X7Kej+6o1OxPVoX0xOdx/io0GOznZUZE5i
+	 QINdJ/D7h3RAjEJXqd+AoH+bcIVO8VQcmtmNRNnigM38ToKv01I3Urv+3yqcdkmYfvHww
+	 oYN1wPZ+Z9gxorzU4GPX1R9D89Awimmqmx4yyonzM4EDMoVgcXLVdWSmQg2uFi7+ZhGCY
+	 la0stXjYyfwudLNOakCgiLQTJbdSENtaVqLxfMFkKtGOUwPh63/V4YmXLOYGh7E6go3xV
+	 72zcaaGYvzi/VoPKSa50ehDuioVkswwLIXbNmrx/Wd/yYTDARZgtZj9IyDF9lW6FX1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfN3iCcq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gIIoQ/ku";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1403606A326;
-	Fri, 20 Nov 2026 02:30:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701AE606A325;
+	Fri, 20 Nov 2026 02:32:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfN3iCcq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0602B1F000C4;
-	Fri, 20 Nov 2026 02:30:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIIoQ/ku
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EC231F000C6;
+	Fri, 20 Nov 2026 02:32:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795141806;
-	bh=9qUIPmIYPuUTwrmfhDJvI04x06r49CpjuUWZ05eJ8FQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=YfN3iCcqTm67hg4w/R2O7jdCBWY4Wuylhaw/PjnRiT7VQdB8His/XoEo+xEHXfxh+
-	 LH9NJTixNjHGGYzJmHuRpEudl/D8okWWoA3gorE08iQAiLy3M79guRRa1phXNN6vdy
-	 yse7qxaevsM5vTcsEw+kCf7ZmbYyf3RFu+HIKu4jY/rWp3OF//0CeNMFj5vF1ovwT3
-	 rgwevLWZzfdfhI2GVOgrl9kVLjSqRxcP5WcVbwE0rC4pmPRXnzfdPS+VCeqv5ks9Wz
-	 3+EgXMGKQo4bAuiVk8PbIwd/tASyp/UEUrLj3Y/iGnzCmwKkac/oZR0gOR5NZATzhZ
-	 7AD+UEz7//k1w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F14503808209;
-	Fri, 20 Nov 2026 02:30:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1795141922;
+	bh=rkSK/wNIPIw1Wi1sSdM3kFmLGiju15tFnWSbcknF3Jc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=gIIoQ/kumDmnnAD+kIxTAeyDPzetjRKBULzpnGJayWdkEmJatzZhMjqviXDZwh5jF
+	 zmdO4xVmRqWK1K6TTYYxrbFKMg8rciC3u9OusKPw9Q5mkiyAYYwVN8iJAIKOaPmWtH
+	 JSO/zFcVNLR2306cAgsCrq3wZlZfMBM1WGNYq0M2W7IgVcxt5bjjHqrAD6yehWnNll
+	 rV5WgA7B51kf8i7m8Xd0XNjQSORPQLiSqeFR8BNsseYZo2wsMamLoazLFPcOIVPjm4
+	 1RWnCZDv4xSvlPs/uibrxFKQTtBn+g6lEaaSPCTF7QEOPu+TuFMZQ9NQfAX9C69/v2
+	 TJ9/jh5jkNSqQ==
+Date: Thu, 19 Nov 2026 18:32:00 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Matthieu Baerts <matttbe@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>, Geliang Tang <geliang@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Simon Horman <horms@kernel.org>, Florian Westphal
+ <fw@strlen.de>, Dmytro Shytyi <dmytro@shytyi.net>, mptcp@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Quanye Yang
+ <quanyeyang@proton.me>, Petar Sakic <petar.sakic@ink.fish>, T S Rameshkumar
+ <rameshkumar.t@phytecembedded.in>, Chris Mason <mason@kernel.org>, Mat
+ Martineau <martineau@kernel.org>, netdev@vger.kernel.org
+Subject: Re: [PATCH net 0/7] mptcp: misc fixes for v7.4-rc4
+Message-ID: <20261119183200.27386123@kernel.org>
+In-Reply-To: <869ba3ad-381e-41b1-adfe-2ef86fef5ad7@kernel.org>
+References: <20261116-net-mptcp-misc-fixes-7-4-rc4-v1-0-bf7656de653e@kernel.org>
+	<869ba3ad-381e-41b1-adfe-2ef86fef5ad7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,43 +65,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] l2tp: reject short IPv6 address attributes
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179514180478.3985754.2418266134106801172.git-patchwork-notify@kernel.org>
-Date: Fri, 20 Nov 2026 02:30:04 +0000
-References: <20261117092157.85513-1-hj351016@gmail.com>
-In-Reply-To: <20261117092157.85513-1-hj351016@gmail.com>
-To: khj <hj351016@gmail.com>
-Cc: jchapman@katalix.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
- celston@katalix.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello:
+On Wed, 18 Nov 2026 23:05:24 +0100 Matthieu Baerts wrote:
+> Note that patch 2 should have another Fixes tag (sent in my reply to
+> Clashiko). Sorry for that, Sashiko/Clashiko didn't notice that before.
+> If changing it when applying the patches is causing troubles, could you
+> please drop this patch 2/7 and apply the rest?
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Tue, 17 Nov 2026 18:21:57 +0900 you wrote:
-> L2TP_ATTR_IP6_SADDR and L2TP_ATTR_IP6_DADDR are NLA_BINARY with .len set
-> to sizeof(struct in6_addr), which only bounds the attribute from above.
-> l2tp_tunnel_sock_create() then copies a full in6_addr out of each one,
-> so a shorter attribute makes it read past the payload. If the attribute
-> is the last one in the message this picks up whatever lies behind the
-> skb tail (stale heap data unless init_on_alloc is set), which ends up
-> in the socket address and can be read back with L2TP_CMD_TUNNEL_GET.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net] l2tp: reject short IPv6 address attributes
-    https://git.kernel.org/netdev/net/c/3bf0ed569563
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Updated the tag when applying. Sorry for missing the PR.
