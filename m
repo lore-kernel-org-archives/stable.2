@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795186970;
-	b=sQKeT5l7vtHKQB/MlyX/HT8jO2Mi0sCJirO5BvljvvlLL1EyV2MK8EGRy4t8obP+KPBx
-	 KDCGoBqfeRMQt0IjklXU1Nki3CoVf5uLFtHulvA+KqnE1poKkEMWOXhrpBgA7FH1OWGWW
-	 8HtzYpQIVVvoIGp0HKhbvhii0/vWf036Au12TbgXjgbzhXqHUQgBFfPPQe3xo2w9vmCdV
-	 pC3P3DyWTEYRfDfTAsFz0j2ug1r3DYp4udi+3aUyKJSDiHUHmM4EN1LxUNPknXh2Obt1r
-	 G2c6TzOHo4wna3vOhvtLB3VsEAYQTMrM+1nAxXX1T/bMdZwLKzHEXBToOgTMpN17nNg==
+	t=1795186971;
+	b=s6F5fckQlRFK8jqdyDJGEwt4rhGBBVTJxoQuNemDxtdT+b+fLhaWs/Gle8lIeJk2K7mm
+	 jvRElTiuKhbiV5GUem5qTsXX/H5e10EaPTT8x8PDTVOcyTahtDgjWjg48EPYAIcY44TUR
+	 //cGWn0L8V+ZMYxXHuFjT8S+fk75H3XaZB4rhQ1URZuEfcMfPtcak9GrGb7ZzjgePLF8r
+	 ISQj8aV6GaWi21xcTklQs9E+unx/xYP67iBYxGvJQ7kkhZnohaam3VNOee6+wXpOUdu59
+	 mBLCZfX+QquFsc6vAAYj4fdgN+f8oLcucYhT98PbZRc8nMfZeOJZzbJiRNj72CEPCsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795186970;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795186971;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-Mailer:
 	 X-Last-TLS-Session-Version;
-	bh=eCJcsk7nKdE/zS/Mw/SS7quXmWWfDvd3Vyxw1OphYiQ=;
-	b=ILEWvnt2Ynl8Qkj5buEq0pb1WV1BLhpPGLmMpsUNBsN9Y+7dL1N/62akPG1DMsF5g0D8
-	 us+atRxC5xP7d9xiurXQHnhWbb6rLEflYy09UJArUsOFc4ukx2T5oh8yr7f1vdK9hw+V3
-	 dsKGLrRtNhGPWBoCBpUUcUaeWpSGX3iJ64eZUSxmDCv4M6Jd5S2GISe3Y20WVV+gjP4Ne
-	 GaGNbhpXf+OSfwfkJFz0wzkplGYDYtwUUOwyyUMi9EhMg8Zxf6D98EgvkAID9SNeV7cXI
-	 XxUxfikigEQkgljRWzkhP9Dqf5NRL3YmShv6lMtGZLHx8O3rK2PfrIJz6r3Cly7DInQ==
+	bh=RjjrO4x33/X7qoxGWKBXsMF2h2L17f9YWm2FAzoV/0w=;
+	b=g9MjYQDCrcEMBOobj6zWzlovNbH+NDpDJFLTBKUp9spjLdeUd8W0TyE3pQLXKVbijl0Z
+	 FE7UZSIA/uIMhc+1/rzFgUJRWn8A1AGnNKgZujXSqPDW8L8eQJ76UcJWACTqxYww/KLUs
+	 yLYPfw2KMEWp/7BmB0sDO12tQ7uN0P28D3oxbk+Hv1mrmPZI/3P5qqScmMM/Boo+gQKAs
+	 phbovNgBxZaHFP488Oozj7Z3pTiLpqppwfDWZFywtYIcm6JeatuhzVTeOB2b2o+W+WLcM
+	 rZK08zugjvHbWKnD3N6ic1FotoCoRe4pdMQqflTXPw/opAw0QQnGE6VXn3bDuXQYyBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mvfJrJIS;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ssBNuUQb;
 	arc=none smtp.remote-ip=185.246.84.56
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3EF606A33C
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 15:02:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A3EF606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27E68606BC88
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 15:02:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27E68606BC88
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mvfJrJIS
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ssBNuUQb
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id ABCB51A174E;
-	Fri, 20 Nov 2026 15:02:48 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E07F11A174F;
+	Fri, 20 Nov 2026 15:02:49 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 805B3601B9;
-	Fri, 20 Nov 2026 15:02:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8BE4911BC027B;
-	Fri, 20 Nov 2026 16:02:45 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B6057601B9;
+	Fri, 20 Nov 2026 15:02:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2D5F711BC0284;
+	Fri, 20 Nov 2026 16:02:48 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795186968; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1795186969; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=eCJcsk7nKdE/zS/Mw/SS7quXmWWfDvd3Vyxw1OphYiQ=;
-	b=mvfJrJISZSYm07vBBw4iF43fWAabOWg2boVfJFPB39RisD6iY9q30nyj60ph5H2VU7+61h
-	thwRC9ePbnMQMJpiVpHJh6nQ0ErljTqNrd2pcRtLNqKpkk7PX+P54naI3d7g0tVJJRHtVy
-	SShzP6sO9qRyKPaRYF7ZUTnB+q+ZuioWAZ8u8An7Zy/p+Koa+b2f4K73xKi/3PpqfMelXX
-	+zrLPyJT/5bZipyIGRyw2s1JlzIv3oXheujAnfk4Gtt4kyWjjwrcpSk3qct7c44AO/Frk0
-	de8xJXkYe8Bcd5xbhdUkZm43vsd+uG57mDOr3WOUhgm1oW3dhhctkiYT1Fv8kA==
+	bh=RjjrO4x33/X7qoxGWKBXsMF2h2L17f9YWm2FAzoV/0w=;
+	b=ssBNuUQbwq+8FpwxhUsUTHSrrYka73VXPRpTygtfqS1ZSQzQtsQt62hmFZUL14zgBsO283
+	lr5lgLztnkraf7fTmuJ3p/N6c6YYEsBvn2TGoH/imr2/EgqJnrmq2YGSvMpO9nVfCkCcIl
+	IoeFMPcpKiC2mI1vy5nSW7jLE77LbyFSzxBbROEXbwbT+q3kLOg03K8JDkIyfIBPK90wnG
+	v215Yx3iDwOlbc+7Be755B0ihfm675EuWfdEiS3udLQAPKH2qzSlpsjbETduT69oCjQ52E
+	vkyCuSKcQwydIwfbZhgkg67OQ2NjOkqqQARbnnlUpQhuCXu/dk48+sgTxZ//TQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 To: Richard Weinberger <richard@nod.at>, 
  Vignesh Raghavendra <vigneshr@ti.com>, 
@@ -58,12 +58,11 @@ To: Richard Weinberger <richard@nod.at>,
  James Hilliard <james.hilliard1@gmail.com>
 Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org
-In-Reply-To: <20261105-submit-mtd-oob-end-v1-v2-1-734bffdc2914@gmail.com>
-References: <20261105-submit-mtd-oob-end-v1-v2-1-734bffdc2914@gmail.com>
-Subject: Re: [PATCH v2] mtd: core: reject OOB transfers with no complete
- page remaining
-Message-Id: <179518696533.3401781.5807779748202005416.b4-ty@bootlin.com>
-Date: Fri, 20 Nov 2026 16:02:45 +0100
+In-Reply-To: <20261118-submit-mtd-empty-io-v1-v2-1-b980927931ef@gmail.com>
+References: <20261118-submit-mtd-empty-io-v1-v2-1-b980927931ef@gmail.com>
+Subject: Re: [PATCH v2] mtd: core: skip empty read and write requests
+Message-Id: <179518696810.3401781.11014509839002382803.b4-ty@bootlin.com>
+Date: Fri, 20 Nov 2026 16:02:48 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,23 +77,21 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 05 Nov 2026 12:29:40 -0700, James Hilliard wrote:
-> mtd_check_oob_ops() permits offs == mtd->size when the data length is
-> zero. For an OOB-only request with a nonzero ooboffs, maxooblen then
-> underflows because there are no pages remaining. The wrapped value lets
-> the request pass the OOB length check.
+On Wed, 18 Nov 2026 10:18:36 -0700, James Hilliard wrote:
+> When mtd_read() and mtd_write() became wrappers around the OOB helpers,
+> they lost their zero-length checks. An empty read at the end of a raw
+> NAND device can then compute a die index one past the last die and hit
+> the WARN_ON() in nand_select_target().
 > 
-> The OOB ioctls can reach this case by encoding the OOB offset in the low
-> bits of start. On a partition ending before its master device, the
-> subsequent address translation allows the request to read or write OOB
-> in the page immediately following the partition.
+> Return success from the common helpers without calling the driver when
+> the request is valid but has neither data nor OOB bytes to transfer.
 > 
 > [...]
 
 Applied to mtd/next, thanks!
 
-[1/1] mtd: core: reject OOB transfers with no complete page remaining
-      commit: 656496952b7d3b7a0283351387a2e444df07f6cc
+[1/1] mtd: core: skip empty read and write requests
+      commit: 3db54924e7fa664dd6303f3bd0cb1eeceb1f513e
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
