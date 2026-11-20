@@ -1,93 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795211118;
-	b=nz9jR+59oXPS++bszSTfcACuwEGKZY2x/0ZvXpuwK51k7hWe8KLOEiaYvMagFKcPNeKC
-	 r4Mm6ErKQzP448EX1uNXlmfgaTtNIz0hKAgD3kvTH/rUgNdBlTUrtqxwgDRSdpGMt4QIp
-	 ajoCot2+pKhP2S5c27+rxQ3+IavwiFtAlrLkQ6s6weZyTVIU9re6mO0jcF3Y7gpVIUz0t
-	 t0Q7we9CFrKJchihUUtAUIjjUSsdCnRH7ojvihNlgWDJvfreNqp8Dy0vPl155wXuO6SzO
-	 c8T7YiK07E8/s/BqY2I0XZGQcoksX18nPg9bwoOYS+22HPtpwoIX8uDTQ/bMK74XUqg==
+	t=1795211125;
+	b=dBucy6BLnFBQzUEqWSV54Q8hoh/wMO528l8kFPziFku7724UGGFPg5mnvptgVMIQz851
+	 rdneBizWedGRvt17ToicSByAxcqbS/6ySftL7xVen5Y7qp+aGX1b8ZakkGn7YJYXRlLQG
+	 jdg5p0uSGT9RlZs8NfnJvOmquotSdQG6tcmmLQYZbq5JVcH435BVXj7RZasnOCKAK+IUo
+	 8RhaVaQzrFi4HP7VSM8uRs7BCJg+aTW8LACNAzi0KHqPMqGLt5ISBmlHC0wy0LWD3/ybI
+	 ifWL9vYvas/QfDPV+mTJ4Aec6u3vCcyae28ymm8SWr52apSE8j+3tzCl3fOM/cThoQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795211118;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LQYysgp//9KShYReg1WCF+KgYK2YJRDdVhocAyIlPg4=;
-	b=q9Jeh3dBBFNpkyKSHZw6Bk/xbWc41DD5dWQmwKQiNeYtoXiMelw5JYQyye3wj3KT6eau
-	 61CtDyA+5O0XoMQ1IDEBO2J/34VafiIeWK0RBoghqLHKSSRmLBCsFMDUcf1k5gdawIlhx
-	 w0IS0utJmGbGhqHCy/WujUt48Capv52cYwEZ92wyAao6ZNMnPvHvPZZHZ7uImwbGcNSUY
-	 SBvQ+4fqyqeX69S2JA7sTxnq+3nvQRyXULkERdXuO0xSWioOX+Zy0eNWc64NguuntJHms
-	 NdHK8CHebmiYm7V02/NfR8/s7zTPe3tLwHq6K9aTFA5zqxrRn3XaAQb2y2g35/9CF7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795211125;
+	h=Received:DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:MIME-Version:Content-Type;
+	bh=7iPRfjHcD3QPP2Ak5f+fpt8vaZlfTjiFK4MIt1xLa8g=;
+	b=2tJW+LMc/gb4XQvX54+JvCi5XOuj/EI9yNDC/L0rVuYz3sboY7hSg1bThw8DDebLaVqn
+	 iAqPhaBNAIQxMnzH5njfHEvdhTgGD3ew8rCfaDgCBx93Bk0CQCZwlx2gDO7kD/R6O2ayU
+	 KplUlZXzmONSb79YABhcKBrY1nzhvwKUcp+sfSQDG/IRkUDaMN3gJJCTIsId4K8fUueGi
+	 3a/X9g+riDY2coTmXk/fgd/ixh06eE3y//fwoYFyJsNUkBvwgQl6xWdMwJb29EhkwEZkr
+	 PYb/nTXx53yyhv85qW6M8mElKNPYq1mBE5HXEjnoeta9WeBcfMDtXe9CCqM/ai4IvRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openai.com;
-	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=C2jpFfSu;
-	arc=none smtp.remote-ip=209.85.167.182
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=arxrMPET;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6A2606A6B9
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 21:45:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B6A2606A6B9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF2E606A6A8;
+	Fri, 20 Nov 2026 21:45:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=C2jpFfSu
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4b190cdc9feso901009b6e.0
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 13:45:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1795211116; x=1795815916; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LQYysgp//9KShYReg1WCF+KgYK2YJRDdVhocAyIlPg4=;
-        b=C2jpFfSuutuCZeuGrrbB6CPrXuCLHPjsYbHeZ0INc6l3v8QadfuYXncjt5KuVqhCt7
-         3SGz83K3k0XfOMALHygvAHc0p1IU97YYD7qpD97CXDb1KaWyKI9wQnFAKN+YjHjDDrKi
-         mrAFEuwoV4wVp4oMYecBLnGPaSrvpuSnn1QWA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795211116; x=1795815916;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LQYysgp//9KShYReg1WCF+KgYK2YJRDdVhocAyIlPg4=;
-        b=lRFpRuWBhROyInCvaD90r2nn0csiOw8zTxuV+c7ahLLK3xA6FakzQ4i47tmutj0+1X
-         weDeEqtraiPS5X25pIretc9VKuv1I0BuCztPqdVuHuClaxBYdovm/BOmCUoD07Jim6gO
-         mdgYY9hFtXegU2B7zR7MvzewWjNFlN6uuzU98JTBbHPjc8xH5qN/muwglzPZLXaoqbvw
-         9hDQeFRG4PFBPU7CU+JtZneeBKRC4CUoFeqhsMr65ZWoDxCJni0C/TitBvL1lU6ojZZB
-         Cossemt8+lK6Ml6hD+vwcjgubpkdFLprMdd2JLvstah+xk+CBrqYokS/CoD18rKOtr+p
-         LPNQ==
-X-Forwarded-Encrypted: i=1; AL+hErG4RFIa/seGLWXYXqYZJ7J1Y6mL3KsEJ4HPtzbnoGUlglRUnr3sBg3Gs05PsGShxD1NA6QwH6s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z99imhKyqTqtFtofunJaGbaMiJxKc7OXc0W4azQPQTKcCGFdAPy
-	CCybKAupgcJJkjGa3WxYdqZukl2KpvS9OG6kEd8R5g5tytRxym7o7FSDnjCARGD/Gzc=
-X-Gm-Gg: AYBFou0R8CgRv7ZxxH576jIVVzYIJ6xYbMppuiU+nG9z2hec6Q3+2Y13JF8qDv+NzFb
-	+2llx2BMfG6jFIuC7Zy/zi8e2iYeRN2s8B837U7fvogBspKiNKWe2b8YHuBGiYrME/gtRTOSPqF
-	gqsvqXhXgaMjPPQwxC6WtSOXhac7bH1Bxx4Ouz8dT4T8o+1DhYdrfnjaABqyb5Wf5NaRe/igzm2
-	x7lh+JGiypj8ack2pLWs5f7Pkt6rJYx99zQTaFTU2aDdtGN8Q6D5Bb5PJrC42Gg7ntBFVKZCXZp
-	skRRBWl2IPDDQ2xrFF0m4ZyGu9FwJSX98qXc0J2++LIjgQIncwwkBzT/34c5NJ0mwhqFVomw/RQ
-	zle13VEry6swfKWEIsK+4mcR2Y9LgSgdWfjCPW3bAPS4bLc8DzKioJDVuovq+PMjvYo5LCauVCr
-	0FpSLztJM2wWOZRqrRXNFp1d/Jr0asDby+ghkXvHI9+lOnEfKLqU6hQLq+Si0CLM4OzIG7vqFEx
-	MCXND507gilv15Fj7Nhtmw6/ao2sREH2H7sprDQFAAdz/LvBcUaItGIRzVNwJOhQEBdsCsWk62a
-	hfAwZnKtMpc6LEOmAiPNXqnUQHyuOOv6I49ddMt/aemZ4ZrDh83hWTPbGV54HAgQuKUYeIkc6v7
-	fOytJmFfRW8LuWiq5Off3fp59l9N4BGqNHcLTyBh+ZJEAZ/Q002g=
-X-Received: by 2002:a05:6808:308d:b0:557:308a:9e9a with SMTP id 5614622812f47-57a095037bemr5687975b6e.21.1795211116347;
-        Fri, 20 Nov 2026 13:45:16 -0800 (PST)
-Received: from com-75606.corp.openai.org ([199.47.143.1])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-57a35c5ac5dsm3222237b6e.15.2026.11.20.13.45.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 20 Nov 2026 13:45:16 -0800 (PST)
-From: Kyle Zeng <kylebot@openai.com>
-To: bpf@vger.kernel.org
-Cc: john.fastabend@gmail.com,
-	jakub@cloudflare.com,
-	jiayuan.chen@linux.dev,
-	netdev@vger.kernel.org,
-	alexei.starovoitov@gmail.com,
-	Kyle Zeng <kylebot@openai.com>,
-	stable@vger.kernel.org
-Subject: [PATCH bpf v2] net: skmsg: fix copy cursor when coalescing clones
-Date: Fri, 20 Nov 2026 13:45:11 -0800
-Message-ID: <20261120214511.25934-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=arxrMPET
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3BB1F000C6;
+	Fri, 20 Nov 2026 21:45:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795211124;
+	bh=7iPRfjHcD3QPP2Ak5f+fpt8vaZlfTjiFK4MIt1xLa8g=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=arxrMPETYn1Wlvc3AwMrhlDs1NEtwSkVedqBLhEKj+xmErEbR1XELMtEYke4H70Su
+	 PbL/ZqnDpiWdd+aYEqr3Yp07cIoljzNer2dNU4H3/lX40eNb8pwCBvp1LZaoOrbyBB
+	 Qw5wjL8GgR3+IvDvgpHG4yKhUp3/jvImZD3fNTzqguJLX+kz4jLIPBGKw59wg/xoON
+	 rN7+vzNYv40FkVdmyvWX0VCRPDhL7obyxRv4Cij1LJckvS6Nx19pHY2jCdHKBqJnis
+	 /yLW1Bz8q4SdbZ0JE+M382YmjOcVMbfQ1/Na+YVw2uGDuvQ2WeZOxB3vxJexHN50EX
+	 eXOuBA0yIWD1w==
+Date: Fri, 20 Nov 2026 22:45:21 +0100 (CET)
+From: Jiri Kosina <jikos@kernel.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+cc: Benjamin Tissoires <bentiss@kernel.org>, 
+    Gideon Heinz <gideonheinz02@gmail.com>, 
+    =?ISO-8859-15?Q?Filipe_La=EDns?= <lains@riseup.net>, 
+    Bastien Nocera <hadess@hadess.net>, Hans de Goede <hansg@kernel.org>, 
+    Edwin Velds <e.velds@gmail.com>, 
+    Stuart Hayhurst <stuart.a.hayhurst@gmail.com>, 
+    Andrey Smirnov <andrew.smirnov@gmail.com>, linux-input@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 04/14] HID: logitech-hidpp: disable works before
+ stopping transport
+In-Reply-To: <2F4EEC0F-5662-4FE4-B9A3-9FCB83B587B1@gmail.com>
+Message-ID: <op182q3s-q21q-2r18-9p5n-60p7003o64o1@xreary.bet>
+References: <20261120-hid-logitech-hidpp-v3-0-cfe2caa1d0eb@gmail.com> <20261120-hid-logitech-hidpp-v3-4-cfe2caa1d0eb@gmail.com> <r078ror3-9q6q-s581-35r4-63pnp1p93s85@xreary.bet> <awCMOvYf64DZfuWF@google.com> <73r1s387-pn80-s74n-o50s-056r1pn8512n@xreary.bet>
+ <2F4EEC0F-5662-4FE4-B9A3-9FCB83B587B1@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,77 +65,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-A splice or zero-copy append can leave the destination copy cursor at
-sg.end. If sk_msg_clone() subsequently coalesces with the last entry,
-sg.end does not advance and the cursor still points at an unused slot.
-sk_msg_memcopy_from_iter() can then walk around the ring and write into
-older entries, including file pages spliced from a read-only descriptor.
+On Fri, 20 Nov 2026, Dmitry Torokhov wrote:
 
-Software TLS can reach this with an ordinary MSG_MORE send after a file
-splice and a splice from another TCP socket. Both TCP and the TLS
-encrypted-message allocation can use the sending task's page fragment,
-so the TCP-sourced plaintext can be contiguous with the next cloned
-encrypted-message range.
+> >> Ah, yes, I un-exported it in my hidraw cleanup patch series that you
+> >> just applied.
+> >
+> >Hmm, but that cleanup is sitting in hid.git#for-7.5/hidraw, while this 
+> >build breakage occured in for-7.4/upstream-fixes, which is based on Linus' 
+> >tree and doesn't include that hidraw cleanup ...
+> 
+> Doesn't next mix it all together? 
 
-When coalescing with an exhausted destination, move the copy cursor to
-the tail and set copybreak to its old length before extending it. Find
-the actual tail on each iteration using the ring iterator, including
-when end wraps to zero. Leave an existing copy cursor unchanged and
-preserve the normal coalescing, reference counting, and memory charging.
+Right, the build fails on for-next, which is a super-merge of all the 
+topic branches. Sorry for the noise,
 
-The issue was found by an LLM.
-
-Fixes: fda497e5f5b8 ("Optimize sk_msg_clone() by data merge to end dst sg entry")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
-v2:
-- Rebase onto the BPF fixes tree; no code changes.
-
-v1: https://lore.kernel.org/bpf/20261030042138.73739-1-kylebot@openai.com/
-
-I have a reproducer for this issue and can share via DM
-
- net/core/skmsg.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/net/core/skmsg.c b/net/core/skmsg.c
-index 8a3b8536c0c2..f47c59ba1ec6 100644
---- a/net/core/skmsg.c
-+++ b/net/core/skmsg.c
-@@ -103,16 +103,26 @@ int sk_msg_clone(struct sock *sk, struct sk_msg *dst, struct sk_msg *src,
- 	}
- 
- 	while (len) {
-+		int last = dst->sg.end;
-+
- 		sge_len = sge->length - off;
- 		if (sge_len > len)
- 			sge_len = len;
- 
--		if (dst->sg.end)
--			sgd = sk_msg_elem(dst, dst->sg.end - 1);
-+		sgd = NULL;
-+		if (dst->sg.size) {
-+			sk_msg_iter_var_prev(last);
-+			sgd = sk_msg_elem(dst, last);
-+		}
- 
- 		if (sgd &&
- 		    (sg_page(sge) == sg_page(sgd)) &&
- 		    (sg_virt(sge) + off == sg_virt(sgd) + sgd->length)) {
-+			/* Start copying at the newly cloned suffix. */
-+			if (dst->sg.curr == dst->sg.end) {
-+				dst->sg.curr = last;
-+				dst->sg.copybreak = sgd->length;
-+			}
- 			sgd->length += sge_len;
- 			dst->sg.size += sge_len;
- 		} else if (!sk_msg_full(dst)) {
-
-base-commit: d5ba86298b45e1a81c578c499e9a222a3b734d5d
 -- 
-2.55.0.openai.911.g06873a30d2f3
+Jiri Kosina
+SUSE Labs
 
