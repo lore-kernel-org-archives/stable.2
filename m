@@ -1,61 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795174000;
-	b=zQPDjEjXZmZD+tasONdNSNsCOOblR0dKrJAX0UflHjfCurYBvS5xLYXjCoQdze5d/H1q
-	 vSs58id4A28MWGP3UDu9PuyL/En103BjyG2O4kRYMV47YeGR2+ZzPkHkSygp3EJcJRyXc
-	 SWjLGycgRfdbJNd8dgyMGoYMmE9o0Ba+Yj0cLCx5Ej9na/LpOVsmTQgZ4M3pw+Zh5ajpG
-	 9QonFP17SwYRJPGrRIdyyYN3ZLoMiy90g2fXh5sis9H647AKiDJHOeTjAhGTk+biT1S2A
-	 7S37M7+d6/0jbwsE8ZjUhalh820DCb8irEoC4ipwG3CuNfc9eOTpU3G9V2FPOIRWIFQ==
+	t=1795175019;
+	b=bORX+wPwHs2taz6i8sXxlpuClIjTPMQpeJcibJAfTLB8l0V0AzRq4x0UojaRbSMzos6n
+	 UxtEH5PvkKoWsEvX7potvjcrw8cYLgTyAE/5RE/8HJwTDuTJPyTcZyFfTaBBpjfXNoFXG
+	 e0+9viLhhTBLgNAzoATmQ/zWgMBMUMOPdz/CmX3Qk60A40OkT4xT2PWp6hHHfVz36XZA0
+	 jtlFf4u4A2dH8rtGdQ48lvTfLrjvvo+SVd+eJx4cIVa3SwdxDdvlwDV4zuWjlzpkA07tt
+	 Kbr87GTprHgcJPI4lomorWIiU4VnFE1TQG7uTil7rduwa+sahUU7eMwNL3j1KtZnomQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795174000;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=5F2eTzaQioZlffdDvmTAcM2K2yQPTf7znqshC9jLldc=;
-	b=ZEZS5DC7zF9NwNN63bvnzM0ZEZQnZpsKfRR5+2PrTWiejHonf3PNWjrCrNhj97YGPC36
-	 qd35Lf44MU+z4LRFLNOp9YMdNQAEhV0XC9iwKb/9IiD7PcQf6eGMT/15AI5n9hg471qRJ
-	 mON6Ry3Pms6MUmf+HKBGZ52VxSglmF8PIeiqyFyPPKEWYtMjVF79opDmMMB00nsSvaMiH
-	 F9lk/03uBJIM2QyceyNW14whccRxVNM4sZDeArKiHQD40R8sGL5rNeQL38PKAZ462Gln7
-	 uMNrqA+Bqn5muqn+wOiEPX6vOV6UqwJ3rD9ua5zpr/gYQ9mPHfbk1yy+sqIEbBqMZyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795175019;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=VesvHE2NCs2cycQn+5+nrmTvzccPzdufxO3TqLOF7RY=;
+	b=IkL0ufkTSKk/Orxdt0htRJl+PKreJqmYGixN7bskQpDAqs0ivgKPJIsnCfoWq1VGt80s
+	 x+MoYr7DRdmwXAaFd7g2MQXxWSANoJD1A6fZ5XKgp47waNsX8ArbMfhObJvmrhc6m4Q7R
+	 /t1AL1Sj5Od4AYAiAyyz+KR9XaQkT2Sa23GxChOz5j8RkGtm7wDbWfs7L9GrF2Z5KhLp9
+	 E79bfXD2oiuwPD7pWyYX4cn2bBVSKm5CgkA4m4q2V077PQVXwvpbFzWM2nO2c4vennqry
+	 GTKfkZEZ0eXHuAtl4MHzVkC9wDzxEWJ5LCv2gVNarLF0ozPEI2xgybdraq14cfF2UdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtQhf7vO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aAuJeIeQ;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95BB606A320;
-	Fri, 20 Nov 2026 11:26:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B206A60A261B
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 11:43:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B206A60A261B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtQhf7vO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C57E1F000D2;
-	Fri, 20 Nov 2026 11:26:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795174000;
-	bh=5F2eTzaQioZlffdDvmTAcM2K2yQPTf7znqshC9jLldc=;
-	h=From:To:Cc:Subject:Date;
-	b=QtQhf7vOjkzSNFDhXLk+UAS7osGMFB6VF04c2IGXygF6NYRznYMQVMA/nN1HiiubF
-	 sa0AqPEh6FCNiq0Wm4itxatY/MUaA08FlJv0QL6fJe+BkaF78elJmX7juUQQJfjoHe
-	 /mEYDgtAE8vT10qOPpcPEYE5o90sB+b1jY2Ap/bYV6aLOUGv+7RSiFY0jnD7PqCC4C
-	 YOw5KTy4f6U7/hvRN++n0HtmoravHzAtUjZXxs1XJoplnD/6WW5AEy3e5m7UqHvm25
-	 Ecl7Gd89E24ZAtEEtlxm/qwIwiVQ1Q9f8PeWtTcX4mA1ZSFGlX8QzJZwlsfW3/S89L
-	 8yzX0Kurdyiuw==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xUMlK-00000005gG3-0ETW;
-	Fri, 20 Nov 2026 12:26:38 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-serial@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>,
-	"William A. Kennington III" <william@wkennington.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] tty: reset ldisc to N_TTY on reopen after hangup
-Date: Fri, 20 Nov 2026 12:24:55 +0100
-Message-ID: <20261120112455.1353962-1-johan@kernel.org>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aAuJeIeQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795175019; x=1826711019;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=KhjkRsM4o73kxPUE3AzwWYfbcjkFWJVajXiB+PsF+pk=;
+  b=aAuJeIeQosIIFvpnqOJ4ZC4FboafBbJE2VHiHklz93PFQAALb0KlnIbp
+   jsMCIX/M7Yow8l3AHRGD/tvrHBzcSmDH7tx4zwCnFEG/ePu3qmSFlSngF
+   ymTqMXcU4z4NRXrO+Y5TH2+mDFy0KDOUU20aMlHA7yzNei+FTt3FvL5hK
+   rA8sSqHpCieMDqGVOnOc+KZ0bxKn7nuiRxlLvOnuVnSFjkxF3ssypgSlk
+   37Pc1Z8rcS+Pu0vLHS8FUk3o7htcW5zlN0DuefdRNjwNv8iXU0WTH8g4H
+   EECdoJzq5XCnbRzI9R9E2E+KrKA7vUqQtz3mo32PilDPYyyFJnkDNdbod
+   Q==;
+X-CSE-ConnectionGUID: mWiAOKWuQVuU2UlokWVlUg==
+X-CSE-MsgGUID: xu9upLvaT2KscdIG/zOsoA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4083654"
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="4083654"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 03:43:38 -0800
+X-CSE-ConnectionGUID: EzPnGSoHSMemkSFgfwVa2A==
+X-CSE-MsgGUID: nq+i4X5lRMOGq6kExUW+aw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="11044210"
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.9]) ([10.124.240.9])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 03:43:36 -0800
+Message-ID: <5f94f0aa-80ad-4aac-8b91-5e1aba36ca2c@intel.com>
+Date: Fri, 20 Nov 2026 19:43:32 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,57 +72,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 0942/1005] KVM: TDX: Enable Bus Lock VM exit
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sasha Levin <sashal@kernel.org>, Sean Christopherson <seanjc@google.com>,
+ stable@vger.kernel.org, patches@lists.linux.dev,
+ Nikolay Borisov <nik.borisov@suse.com>, Chenyi Qiang <chenyi.qiang@intel.com>
+References: <20261104211043.516122098@linuxfoundation.org>
+ <20261104211109.504581890@linuxfoundation.org>
+ <dac4e304-98e6-4e61-93f4-8d971069d936@intel.com>
+ <2026110539-lived-blast-ef64@gregkh> <auyRq2HXJIfMXgBh@google.com>
+ <20261106-re-kvm-tdx-bus-lock-drop@kernel.org>
+ <6e48bcc5-8f7c-4e5a-9e34-1cab1c53dd92@intel.com>
+ <2026112012-hardener-radish-1583@gregkh>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <2026112012-hardener-radish-1583@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Line disciplines should not call into a TTY driver for a device that has
-been hung up as the underlying hardware may have been powered down or
-resources may have been freed.
+On 11/20/2026 2:38 PM, Greg Kroah-Hartman wrote:
+> On Fri, Nov 20, 2026 at 02:23:41PM +0800, Xiaoyao Li wrote:
+>> On 11/6/2026 9:19 PM, Sasha Levin wrote:
+>>> On Thu, Nov 05, 2026, Sean Christopherson wrote:
+>>>> Yes, please drop it.  Thanks!
+>>>
+>>> Dropped from the 6.18 queue only: 7.3 has the prerequisites.
+>>
+>> Can you pick this patch for 6.18 queue now? I check the linux-6.18.y, which now
+>> has all the prerequisite patches now.
+> 
+> What is "this patch"?
+> 
+> You dropped the context...
 
-Since commit 638b9648ab51 ("tty: Fix the ldisc hangup race") the line
-discipline is however reinitialised on hangup which means that ldiscs
-that register class devices on initialisation (e.g. N_SLIP) can call
-back into a TTY driver after hangup.
-
-Commit 892d1fa7eaae ("tty: Destroy ldisc instance on hangup") later
-moved reinitialisation to open() but that still leaves a small window
-where an ldisc could call into the TTY driver before the device has been
-opened.
-
-For hotpluggable devices, open() can also race with disconnect,
-reinitialise the ldisc and leave a class device registered indefinitely
-after the underlying device and its resources are gone.
-
-Fix this by restoring the pre-2004 behaviour of always resetting the
-ldisc to N_TTY when a tty is reopened after hangup.
-
-Note that console ldiscs are still reinitialised on hangup but consoles
-are special in that they are not shut down on hangup.
-
-Also note the line disciplines currently affected by this require
-CAP_NET_ADMIN.
-
-Fixes: 638b9648ab51 ("tty: Fix the ldisc hangup race")
-Reported-by: William A. Kennington III <william@wkennington.com>
-Link: https://lore.kernel.org/20261118145636.3534234-1-william@wkennington.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/tty/tty_io.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index 1a6c8a1bc764..363572f10456 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -1323,7 +1323,7 @@ static int tty_reopen(struct tty_struct *tty)
- 			return retval;
- 
- 		if (!tty->ldisc)
--			retval = tty_ldisc_reinit(tty, tty->termios.c_line);
-+			retval = tty_ldisc_reinit(tty, N_TTY);
- 		tty_ldisc_unlock(tty);
- 	}
- 
--- 
-2.56.1
-
+Exactly this one:
+https://lore.kernel.org/all/20261104211109.504581890@linuxfoundation.org/
