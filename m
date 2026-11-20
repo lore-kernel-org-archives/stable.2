@@ -1,68 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795175019;
-	b=bORX+wPwHs2taz6i8sXxlpuClIjTPMQpeJcibJAfTLB8l0V0AzRq4x0UojaRbSMzos6n
-	 UxtEH5PvkKoWsEvX7potvjcrw8cYLgTyAE/5RE/8HJwTDuTJPyTcZyFfTaBBpjfXNoFXG
-	 e0+9viLhhTBLgNAzoATmQ/zWgMBMUMOPdz/CmX3Qk60A40OkT4xT2PWp6hHHfVz36XZA0
-	 jtlFf4u4A2dH8rtGdQ48lvTfLrjvvo+SVd+eJx4cIVa3SwdxDdvlwDV4zuWjlzpkA07tt
-	 Kbr87GTprHgcJPI4lomorWIiU4VnFE1TQG7uTil7rduwa+sahUU7eMwNL3j1KtZnomQ==
+	t=1795175347;
+	b=U0AzBi7QcxWEqgrpbaCYnrBHIF154dd8lGjerYraT6TMhDLOJlPPmojrV5Y31Hija7nr
+	 M7X/04P1kQF3dkChyjc+qIGte4g1HHUBYNgpiUrG52Mt3mxA999Hhert27fbM8iCu229s
+	 lmUZQDmLs6ngCI16ZaNEquBaicwxUYALp3vRHtg9tLgomVtgY/W083DvRqcSIpygsDMFf
+	 aJeeWpBSqh8V5vPuuq80UWxfFzkhdfpkl29KNHCiYgyJ27aMobgB1Fbb94PpmmiavOVN0
+	 /NH+PhpIobs63Du85JakqHSLa4onMNIX1BEoS63UnZRhhKUW639D/Jcgeoz9IPtdhWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795175019;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=VesvHE2NCs2cycQn+5+nrmTvzccPzdufxO3TqLOF7RY=;
-	b=IkL0ufkTSKk/Orxdt0htRJl+PKreJqmYGixN7bskQpDAqs0ivgKPJIsnCfoWq1VGt80s
-	 x+MoYr7DRdmwXAaFd7g2MQXxWSANoJD1A6fZ5XKgp47waNsX8ArbMfhObJvmrhc6m4Q7R
-	 /t1AL1Sj5Od4AYAiAyyz+KR9XaQkT2Sa23GxChOz5j8RkGtm7wDbWfs7L9GrF2Z5KhLp9
-	 E79bfXD2oiuwPD7pWyYX4cn2bBVSKm5CgkA4m4q2V077PQVXwvpbFzWM2nO2c4vennqry
-	 GTKfkZEZ0eXHuAtl4MHzVkC9wDzxEWJ5LCv2gVNarLF0ozPEI2xgybdraq14cfF2UdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795175347;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=wMuU7gD0u43sL1seq9JqEdQgJtWWqSdEN+rP/TTuoKc=;
+	b=5kZsThrl90sGERr9Cenc3k9IUOadvCduwBhoubGrLGBI9PPnrepHkX+ZTTIqkHXGiMKs
+	 J1qeUGsdn0PHhpyn3UIw4Jol15TH1i3sD1ql6EA2gAm6ZwqtfHhFiVlO6dVA6AnZlvTYF
+	 zjNmTssGvXkx4FUxRLHw5wq4kiyfHgVFjEOy1ncRPPi5/d67Ag4DygpfZRONcyoeYBVpK
+	 3oEF3mVFR3sc/iTe0vANXmHurQuGQ/F+E0Y0ri7eWOSfpnP3ZazfsJ7cU6Unuk8SBPPQA
+	 60EO2yXs1Ub3z99JjJWdwLkbo2hsMb9DD0TvnR9Xvz5eix2cEsjXnvp7gfM0XhHVN0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aAuJeIeQ;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jN0Aht82;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B206A60A261B
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 11:43:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B206A60A261B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E25606A334;
+	Fri, 20 Nov 2026 11:49:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aAuJeIeQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795175019; x=1826711019;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=KhjkRsM4o73kxPUE3AzwWYfbcjkFWJVajXiB+PsF+pk=;
-  b=aAuJeIeQosIIFvpnqOJ4ZC4FboafBbJE2VHiHklz93PFQAALb0KlnIbp
-   jsMCIX/M7Yow8l3AHRGD/tvrHBzcSmDH7tx4zwCnFEG/ePu3qmSFlSngF
-   ymTqMXcU4z4NRXrO+Y5TH2+mDFy0KDOUU20aMlHA7yzNei+FTt3FvL5hK
-   rA8sSqHpCieMDqGVOnOc+KZ0bxKn7nuiRxlLvOnuVnSFjkxF3ssypgSlk
-   37Pc1Z8rcS+Pu0vLHS8FUk3o7htcW5zlN0DuefdRNjwNv8iXU0WTH8g4H
-   EECdoJzq5XCnbRzI9R9E2E+KrKA7vUqQtz3mo32PilDPYyyFJnkDNdbod
-   Q==;
-X-CSE-ConnectionGUID: mWiAOKWuQVuU2UlokWVlUg==
-X-CSE-MsgGUID: xu9upLvaT2KscdIG/zOsoA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4083654"
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="4083654"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 03:43:38 -0800
-X-CSE-ConnectionGUID: EzPnGSoHSMemkSFgfwVa2A==
-X-CSE-MsgGUID: nq+i4X5lRMOGq6kExUW+aw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="11044210"
-Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.9]) ([10.124.240.9])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 03:43:36 -0800
-Message-ID: <5f94f0aa-80ad-4aac-8b91-5e1aba36ca2c@intel.com>
-Date: Fri, 20 Nov 2026 19:43:32 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jN0Aht82
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCE9C1F000C4;
+	Fri, 20 Nov 2026 11:49:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795175346;
+	bh=wMuU7gD0u43sL1seq9JqEdQgJtWWqSdEN+rP/TTuoKc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jN0Aht82yiGY3+Nq1kA4Mw1jDHXParSY8hS6y5K8m/NoOR2FoesyOOsghw+Uj/J3P
+	 27w6uuPmp9Lcg32ToWf5iFnIKfKVfinSztXrOj5WKlEpG0aK2cmm2+9ZpEddQlOcLI
+	 yAF1knKk2zLqh12azLZQLFgRqPbcDNQpJcgfAJ8c=
+Date: Fri, 20 Nov 2026 12:49:03 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: =?utf-8?B?6IOh6L+e5Yuk?= <hulianqin@vivo.com>
+Cc: "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
+	Hannes Reinecke <hare@suse.de>,
+	Mike Christie <michael.christie@oracle.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	John Garry <john.g.garry@oracle.com>,
+	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"usb-storage@lists.one-eyed-alien.net" <usb-storage@lists.one-eyed-alien.net>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v5 2/2] usb: storage: set surprise_removal flag on
+ physical removal
+Message-ID: <2026112048-preamble-fifteen-46a3@gregkh>
+References: <TYUPR06MB621711053AB2B701FECC73FED2922@TYUPR06MB6217.apcprd06.prod.outlook.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,39 +69,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 0942/1005] KVM: TDX: Enable Bus Lock VM exit
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>, Sean Christopherson <seanjc@google.com>,
- stable@vger.kernel.org, patches@lists.linux.dev,
- Nikolay Borisov <nik.borisov@suse.com>, Chenyi Qiang <chenyi.qiang@intel.com>
-References: <20261104211043.516122098@linuxfoundation.org>
- <20261104211109.504581890@linuxfoundation.org>
- <dac4e304-98e6-4e61-93f4-8d971069d936@intel.com>
- <2026110539-lived-blast-ef64@gregkh> <auyRq2HXJIfMXgBh@google.com>
- <20261106-re-kvm-tdx-bus-lock-drop@kernel.org>
- <6e48bcc5-8f7c-4e5a-9e34-1cab1c53dd92@intel.com>
- <2026112012-hardener-radish-1583@gregkh>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <2026112012-hardener-radish-1583@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <TYUPR06MB621711053AB2B701FECC73FED2922@TYUPR06MB6217.apcprd06.prod.outlook.com>
 
-On 11/20/2026 2:38 PM, Greg Kroah-Hartman wrote:
-> On Fri, Nov 20, 2026 at 02:23:41PM +0800, Xiaoyao Li wrote:
->> On 11/6/2026 9:19 PM, Sasha Levin wrote:
->>> On Thu, Nov 05, 2026, Sean Christopherson wrote:
->>>> Yes, please drop it.  Thanks!
->>>
->>> Dropped from the 6.18 queue only: 7.3 has the prerequisites.
->>
->> Can you pick this patch for 6.18 queue now? I check the linux-6.18.y, which now
->> has all the prerequisite patches now.
+On Fri, Oct 09, 2026 at 11:31:42AM +0000, 胡连勤 wrote:
+> Set the surprise_removal flag in struct Scsi_Host when the USB device
+> state is USB_STATE_NOTATTACHED, indicating the device has been
+> physically removed and cannot handle I/O.
 > 
-> What is "this patch"?
-> 
-> You dropped the context...
+> This flag is checked by sd_remove() (added in the previous patch) to
+> skip sync_filesystem() during surprise removal, avoiding a hang waiting
+> for I/O that can never complete.
 
-Exactly this one:
-https://lore.kernel.org/all/20261104211109.504581890@linuxfoundation.org/
+There is no previous patch.
+
+> For orderly removal (e.g. rmmod, sysfs unbind) the USB device state is
+> not NOTATTACHED, so the flag is not set and sync proceeds normally,
+> preserving dirty data writeback.
+> 
+> Signed-off-by: Lianqin Hu <hulianqin@vivo.com>
+
+Does not match the From: line :(
