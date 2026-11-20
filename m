@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795196478;
-	b=dw10l4mjz+/SBIjJX8XRahKjxf6gM3oAp/Jdf7KTTmTGWA4bMCTutj810HAPVzv2HRsM
-	 jEQYwaLicD18JtJHDkw1qF6aT1HrVQzOstE7HnKSw2SLwnZH+A35jNtJ7tb4OrSyUSQLp
-	 hc/KInYSF7fb0Iuazq6ZIKcuXstU81LQLPaCLS3TTULO/j0x6pwCoQeV/mmma+ofwkAkr
-	 4FSkjxbE6friCxV3WdpSPUOtc0b7jOHowvNkxC9Kzh3bKDY7M584jk8t0uFfXI2U9S+SR
-	 6IrtlxyP02PL7BPVIhS51qxYZFovcebTBfzL5ri4ymKhhsUBUKdCsPFRhSk4ZwbWvXA==
+	b=VBcwFL5coDI0YsDXmU3aak2ebU03Xp83AJn/lRReRe3PdViJolQs/cAdGH6I3CjIF6tq
+	 n+KfcIq5ADFiebq8hNfVzXs5zBaHVYW6cqG3zKNZs/keZW6LCdRGfNTQdyX3HY9IuLtSd
+	 pSaFLPBI2047nzHRdSYYQm7D0U7ZuEvlpT2lAPVY2D5MF1fOT4Fv36kv/7DbT0YawKoHP
+	 +k9vlVoYNIY+j03h8zw6jtvysHyguJN++rPiCUwRtfUf63ZVpc5jh6sK04YtR+ZnbVyIG
+	 vRSHxshCMdeh3DOkrvuEoWLi8KTg2gJ5dqJv4Ea42WVHkX+L0esrWR40VDVD67ZZ6+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795196478;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
 	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=/JrhOF2XVSdyKgSUnfNnSVf78q5yfZwAkgCYz96RCpU=;
-	b=U5JGLAcUTTrXOl+xJSwj1DFYTn7bu+wDptorMYVTOy5o1S+6YBIFHODla1cS5NR3T18A
-	 JDiiWFvk91LY7PL64oWQKa4CZQ9rNVO5LGOWbBtfUL1+AFu0aRoC8n2UdPKBKoIvfR8x/
-	 7mYOJ3hgIOaiW9Wh4r3ZbvWM4ck8erY4mCT46FqK/qY3TNS6NybPXDsHK2TXi/WMrneW3
-	 NhSb65zLpc4DwJepl72Vlqn1O5h95+P6IeF6Ob0RkgdG2g4daT/1VUq2oA1/AW7NdQdAh
-	 jLRQkTWS5bLaLjjbHbqer5XIV9VULOnyU/auGfqBH2I2ZOtZkJ14alrfkIKTe0o0tPg==
+	bh=y49/Crf+SDjypQqR3zzyQXujbdpIG7OI0HDN3f8+Tm8=;
+	b=kDkXDhAxteMgjjQ2QqcHaUVSuDm/eXuSMmdFlqXrXtfF7u8QhFmhtHV0KzqAdf4NvQgT
+	 QbW5cM5S0qZPreD8RNAENAntbq7pCV6KNSB7nIfh9BMJqhKKivUTpJ1ZzYeD7xwzIiVWH
+	 layrSabjpTLy+HCdJtKKRD/F9H5ZVfQxy0gH6yl9xx4iegP6Or5LeYiqLqEtsRKzU7GJQ
+	 IFY2fDZvCwyHth5W4I8xaxQUQRbSBqnvBzPkqpcZynmJSjHmRuPDeUNUbHVD2ogb04VbP
+	 VIg/HICIdHD5xP+FyAhLrDELheqLqzA5VElmgsY8/4xDnQ3DnNzftF2KgMaiwX3t+qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU8om3HR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+HC2qSJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9B160A5BCC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786DC60A5BCF;
 	Fri, 20 Nov 2026 17:41:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU8om3HR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0DDB1F000D0;
-	Fri, 20 Nov 2026 17:41:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+HC2qSJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AB2A1F01563;
+	Fri, 20 Nov 2026 17:41:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795196477;
-	bh=/JrhOF2XVSdyKgSUnfNnSVf78q5yfZwAkgCYz96RCpU=;
+	s=k20260515; t=1795196478;
+	bh=y49/Crf+SDjypQqR3zzyQXujbdpIG7OI0HDN3f8+Tm8=;
 	h=Date:From:To:Cc:Subject:References;
-	b=XU8om3HRbaRgP/+Tn/jDEM2RJZtGm1NQm5gBiIQiSvkRvTz2d34+bbLovdtCwMNch
-	 DxG6haAO13EFSV4H4pfurc84AQquPnxnNh7F/2QlkKwbIeLG6hRUluq23WNfXb2Brl
-	 GXlHf1cZNqIIR74P8lmYzYztuK+/Wp4Z+HtwyNr6e4YxC24J3idaJlksn+0s9uZvEB
-	 oLfZh9fa0mMOYQcDBVNGMHFCNPijU67sqT1GbaYUmLeEtp7Xe4ZK5JoOQO9JNOOcxa
-	 qnqdnP7PfKmKK+a5Wn7KbC4LcnG9ImJ1DlhX/GyjyiCGcWXkBPq6zALLi9FXctYEwa
-	 olrP0m5ARDr2A==
+	b=H+HC2qSJuDCpXhWYVyo+uEojl+HitmglDsHJ5pyvVl+tE1MNZrmBs4aZn5M5hVkwa
+	 e/43UdpOXLqS/eAGS7ohABXD4fO1/zH5lOs95ZARxbmLR6ItLSYw1vUhBnzFWY6Kue
+	 SZvzm07ko82m3pyJLcWyBu7B4YnNScAZs/dmtaa/8MIQm8ARb6d3HKyHcqY1hm060d
+	 H1OMq0RFQ7bmALyCdjXDaQ0xP7Y9ByEkj+zuOKxdc/UaFQuGKDBU533a4AvDwf2Luv
+	 QT6w5U2Kuyhqt+CrtvYP1gqnReoiZtupyLNuiCrwSiRHro2AyZCdrsXgnGK8b92UWg
+	 ESUJ9de6nIF0A==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xUSbt-00000004aN8-0wBF;
+	id 1xUSbt-00000004aNj-1hs3;
 	Fri, 20 Nov 2026 12:41:17 -0500
-Message-ID: <20261120174117.054583223@kernel.org>
+Message-ID: <20261120174117.241262344@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 20 Nov 2026 12:39:08 -0500
+Date: Fri, 20 Nov 2026 12:39:09 -0500
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -53,8 +53,9 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Chaosheng Qu <chaosheng.qu.linux@gmail.com>
-Subject: [for-linus][PATCH 16/32] tracing/osnoise: Dont start a kthread in timerlat user-space mode
+ David Carlier <devnexen@gmail.com>
+Subject: [for-linus][PATCH 17/32] tracing/user_events: Dont free an event that a dynamic event still
+ references
 References: <20261120173852.687189370@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,90 +68,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
+From: David Carlier <devnexen@gmail.com>
 
-In timerlat user-space mode (NO_OSNOISE_WORKLOAD) the workload is a user
-task reading timerlat_fd, so there is no per-CPU kernel thread to run.
-start_kthread() only checks for that in the osnoise branch:
+An eprobe takes a reference on the call of the event it attaches to,
+and kprobe, uprobe, fprobe and synth events all refuse to go away while
+trace_event_dyn_busy() says such a reference exists. user_events never
+checks it, so a user event can be freed under an eprobe:
 
-	if (timerlat_enabled()) {
-		snprintf(comm, 24, "timerlat/%d", cpu);
-		main = timerlat_main;
-	} else {
-		/* if no workload, just return */
-		if (!test_bit(OSN_WORKLOAD, &osnoise_options)) {
-			...
-			return 0;
-		}
-		...
-	}
+  echo 'u:test u32 a' >> dynamic_events
+  echo 'e:ep user_events/test a=$a' >> dynamic_events
+  echo '-:user_events/test u32 a' >> dynamic_events
+  echo '-:eprobes/ep' >> dynamic_events
 
-start_per_cpu_kthreads() guards against this mode itself, but
-osnoise_hotplug_workfn() calls start_kthread() directly. Bringing a CPU
-online in user-space mode therefore starts a timerlat/N thread and sets
-its bit in kthread_cpumask while OSN_WORKLOAD is clear.
+The last write drops the reference on the freed call.
 
-stop_kthread() uses that bit to decide what the recorded task is:
+If the last fd of a non-persistent event closes while such a reference
+is held, the delayed destroy now fails. Mark the event persistent then,
+so it can still be deleted once the reference is gone instead of being
+leaked.
 
-	if (cpumask_test_and_clear_cpu(cpu, &kthread_cpumask) &&
-	    !WARN_ON(!test_bit(OSN_WORKLOAD, &osnoise_options))) {
-		kthread_stop(kthread);
-	} else if (!WARN_ON(test_bit(OSN_WORKLOAD, &osnoise_options))) {
-		kill_pid(kthread->thread_pid, SIGKILL, 1);
-		put_task_struct(kthread);
-	}
+Return -EBUSY from destroy_user_event() in that case.
 
-The bit is set but OSN_WORKLOAD is not, so the first WARN_ON() fires and
-the && short-circuits into the user-task branch. A running kernel thread
-is SIGKILLed and its task_struct is put without ever being stopped, so it
-keeps executing until it is freed underneath itself.
-
-Any write to osnoise/options reaches this: osnoise_options_write() stops
-the per-CPU threads before applying the new value, so stop_kthread()
-still sees OSN_WORKLOAD clear. Re-writing the value that is already set
-triggers it just as well as changing it.
-
-  echo NO_OSNOISE_WORKLOAD > osnoise/options
-  echo timerlat > current_tracer
-  echo 0 > /sys/devices/system/cpu/cpu1/online
-  echo 1 > /sys/devices/system/cpu/cpu1/online
-  echo NO_OSNOISE_WORKLOAD > osnoise/options
-
-The offline/online pair is required, otherwise no kthread is recorded and
-no bit is set. Running this on 7.3-rc7 with KASAN gives a WARNING in
-stop_kthread() followed by a slab-use-after-free in update_se(); leaving
-out the hotplug step produces neither.
-
-Keep the check in start_kthread(), where the related hotplug bug was
-fixed in 0bb0a5c12ecf, instead of adding another copy to the callback.
-
+Fixes: 7f5a08c79df3 ("user_events: Add minimal support for trace_event into ftrace")
 Cc: stable@vger.kernel.org
-Fixes: e88ed227f639 ("tracing/timerlat: Add user-space interface")
-Link: https://patch.msgid.link/20261014081034.12702-1-chaosheng.qu.linux@gmail.com
-Signed-off-by: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
+Link: https://patch.msgid.link/20261031212453.16116-1-devnexen@gmail.com
+Signed-off-by: David Carlier <devnexen@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_osnoise.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ kernel/trace/trace_events_user.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/kernel/trace/trace_osnoise.c b/kernel/trace/trace_osnoise.c
-index 995da9e0b548..fbba42286747 100644
---- a/kernel/trace/trace_osnoise.c
-+++ b/kernel/trace/trace_osnoise.c
-@@ -2039,6 +2039,14 @@ static int start_kthread(unsigned int cpu)
- 		return 0;
- 
- 	if (timerlat_enabled()) {
+diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+index f658c3a77aa7..ea6a20a30cf5 100644
+--- a/kernel/trace/trace_events_user.c
++++ b/kernel/trace/trace_events_user.c
+@@ -256,6 +256,11 @@ static void delayed_destroy_user_event(struct work_struct *work)
+ 		 * attempt to delete it later.
+ 		 */
+ 		pr_warn("user_events: Unable to delete event\n");
 +		/*
-+		 * In timerlat user-space mode the workload is the user task
-+		 * reading timerlat_fd, so there is no kernel thread to start.
-+		 * One started here would set its kthread_cpumask bit, which
-+		 * stop_kthread() reads as "osnoise workload kthread".
++		 * Keep it as persistent so it can be still deleted
++		 * since nobody own this event
 +		 */
-+		if (!test_bit(OSN_WORKLOAD, &osnoise_options))
-+			return 0;
- 		snprintf(comm, 24, "timerlat/%d", cpu);
- 		main = timerlat_main;
- 	} else {
++		user->reg_flags |= USER_EVENT_REG_PERSIST;
+ 		refcount_set(&user->refcnt, 1);
+ 	}
+ out:
+@@ -1506,6 +1511,10 @@ static int destroy_user_event(struct user_event *user)
+ 
+ 	lockdep_assert_held(&event_mutex);
+ 
++	/* If there is a reference to a dynamic event */
++	if (trace_event_dyn_busy(&user->call))
++		return -EBUSY;
++
+ 	/*
+ 	 * Detach the fields before removing the call. Removing the event
+ 	 * frees the field list memory (trace_destroy_fields() is run on
 -- 
 2.53.0
