@@ -1,52 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.239.133.38
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795195101;
-	b=16DRTY1mg4W2Ckw+YOU36IiwwnX1WMh4ZGmnLZ77t/38pbMgshykKoB91u4xirLFZWpD
-	 1yX4EmyvcebuueRIxGbHLZDuoC9xRZhreD3OsfwLobQdv+5NHcHZEdMhbzuzsTzrbQ95O
-	 a1E0GPuVwg8CMuHstkYIPRVpiSK262K7IQFp6y0lhCx9S6wNhYyqYFqwio5EJHl+VsmaB
-	 5PfsbkgUoJ84kE6JJW9iiumuMRE8v/vPVFyj/DOAMXk3dovwL3nzFchkwgBcDf7K50hhT
-	 RiCGy+kNJofiCO+gQga91qsPzExKb+umpO47Mqb7P6m1lrzaFgI8hHbAmWWdemk7jQw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795195101;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-Authenticated-Id;
-	bh=QrOEJiHl97UFvdmQDswqLhAVnrBIT/C6U4HJu34bKcY=;
-	b=YWP5Rf9SaeONercfhchC5vD+q1tmxGWOIrj0friJ/+Q7ffSC6SdTgp/S/0qT3BSMTdkV
-	 j7wWWQDFcz5hUxF+uyXpz/3vXYayy1WboEsaw1dqha3AMm1AzLGRpvVvNDX1Z8Qy4guHb
-	 gluQOAL39ETIIYTHhcyVrO34ih0elKqK4auNsAcja9kV8KxHyWjO8+vuyK4CpHKiFFY2S
-	 VhrxYDNrMszCNk6WvOO+ebl7+LOzN9KhEVCtbQUzus+oSy22LfANbzYzgWIZDpRKPsdIN
-	 hr5CoaBZB9YHmsbvlqZcjfVQ/Wc9mSoBpzoS6chUpdnPO8eJzPgof8YpQclOaPfqjSA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kubik.pl;
-	spf=pass smtp.mailfrom=kubik.pl;
-	arc=none smtp.remote-ip=213.239.133.38
-Received: from mail-e677.seohost-mail.eu (mail-e677.seohost-mail.eu [213.239.133.38])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795195178;
+	b=fm0QHNntoZ5kLNE5Rg27JBndpJQXs05uBiiwy1T+2yO15NnknA1hyi/424HUrZdlZqGe
+	 7k9biDWvNpghoOPeI6xoIXxUiqBH3cjBkQtbqh8yAAUX3XFIyQ3EINYebqTf83wgA3V1D
+	 e0SYe8X9NChk7I0JPLOmDbqCzSVOlv30HtVgArevDLIno9vgPDq95FB2a1kAe6gjiIuJZ
+	 yn+WhZcV3SVhwU/6DiTPqmG09ofnVntxlUeWOL1/RaQOq2JIEmlmZ0YAjVl2uwqB4DrO4
+	 AnOh0sSHFu0Fo3F2ibmsBa0IcwPYFj+dEAEdOAU+c9g8yEqJtZCIkNViLwneZ8oMadQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795195178;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=2zcrVQeVXJas3x9RQbNjgW1QooapoxIa+ujuUqI6vCc=;
+	b=AuP5mFWDGcwVi2Yjq1M7OdYEV/G8VHMwKJAEiufRAFLsfFHxC6/2d6t97dx5/nDJrA2L
+	 rPvUnuAowLv+PKn88ENWD/MOK1r7IjuN0cTFJpIi36e3Y9UJs5vsyCwQJhlsuTt1Pszil
+	 FnQBmJvUCcuyGfaeuf+O8hRdX0FdWwfKxwFfTCTa3YM8D0thUXNkeSeiVidPitfXj6H/N
+	 MHo99uLjll1Dl/B0CdftCLe8yOWzkSPT8eaMpYJVYf4NUAgHny75YZcVxdsPvofPLIoUe
+	 O0k3bryu+YjqsckGoU/LxsmOaU+G9zP0QDtlXwoiIGQiIgthm13h4xN7/0NuHi/us1g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z8v1Xxd7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8B860A2602;
+	Fri, 20 Nov 2026 17:19:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z8v1Xxd7
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795195177;
+	b=SglsH1vQS6IJt8T9y7vRjDen9ftjATSEtb9exhAhK5/C1ZQyLg5TIT5RzqhQgfLdKBXF
+	 X0K9HDDJyqQj2qdxk3IHp2gRBaWhLYVQWoFPl8IJGzvBK0rnhr/wAHypkFEP581pvBXhy
+	 Rj3a5CN1fJzqncf1ucC4mYa5BWPXdgSldiZ4vYF9K+PcEcnkd+pfSfm0Ln1HH81+lmldZ
+	 CAtHLlA2yXeRIfruE5ky7poWNM9nAj2L7jdRCd0/vPuOJ3afTX3dtREgL7g1EHUQCddOB
+	 mdSYVGPSsa3th6RFVsdkDcJIXvXr+uvnA1OTNMfcntf102n9HqpN/SAn1sSqnNvtN0g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795195177;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=2zcrVQeVXJas3x9RQbNjgW1QooapoxIa+ujuUqI6vCc=;
+	b=GJsH9VXqBtv5AiYe1r5Im1qNE1VpeS+eKSUIDDruZkfpmJ/1VxYzHzsKvnWY0vqq86Mu
+	 iU++M8LKexEGjvp3MCEIY8Bdv4A7lp4ZML+jeE/TB86I2q04I72YNVuxMSPSuC6f/ZA8P
+	 bKHkHuPG+41FDFyQ1Xfn6XLzwSx9mJKiMiKWUxJYPte4FXAEyHKSvOpTXkpsWZZkc9S41
+	 7eHJaEOHHoRVtqlCxLWNeJ8xVBorRfXTVG4p0yikxPiXs1tSDVbD9uWrfdDbzcPTSD16v
+	 KM5jnz+TOORlqkrx5ebd4/OCX5F2y9DN1amyL12vZg1A/NNPJlo6rv70dQVince59dw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA25B60A261F;
-	Fri, 20 Nov 2026 17:18:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA25B60A261F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kubik.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kubik.pl
-Received: from static-46-238-236-132.awacom.net ([46.238.236.132] helo=localhost)
-	by h84.seohost.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <piotr@kubik.pl>)
-	id 1xUSFY-0000000GpTo-0jV3;
-	Fri, 20 Nov 2026 18:18:12 +0100
-From: Piotr Kubik <piotr@kubik.pl>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Oliver Neukum <oneukum@suse.com>
-Cc: Piotr Kubik <piotr@kubik.pl>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Francesco Lavra <francescolavra@interfree.it>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] USB: cdc-acm: restore the line coding after a reset-resume
-Date: Fri, 20 Nov 2026 18:18:09 +0100
-Message-ID: <20261120171809.1494779-1-piotr@kubik.pl>
-X-Mailer: git-send-email 2.55.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 08BE51F000D2;
+	Fri, 20 Nov 2026 17:19:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795195177;
+	bh=2zcrVQeVXJas3x9RQbNjgW1QooapoxIa+ujuUqI6vCc=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Z8v1Xxd7V7e72HcIevlDidUk/qBqw/0ewkze/C9b4Ww0HbcAVMUOl/4NdUxohot3y
+	 Ver4PoVQzC15Ss2Pf3g9248pFcrmeA088+4tkz/0nPzsvGEtNgDa+tab0+BSF67TYx
+	 LwY2rZwn3B8xTZh/vgJYW2aDsidWxKI1I3hwPG+reAnll/uGV9Ie8CsFWX4hqYWIRB
+	 Nx+hgYRVhf1Wsu0jSuv9/Cc+dKCvVSbJbhXelKAjlYTaZdL2pSajyfDPc+TnBJvVY0
+	 tBz5Ke0+un6EcK5y85TgBhFySSBPgoYusZhjvLsntFv5mh1xyIItFXkBItq4fFE+en
+	 dQp0MxhcWNilg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8E6AA4B867;
+	Fri, 20 Nov 2026 17:19:22 +0000 (UTC)
+From: Peder Bergan via B4 Relay <devnull+peder.bergan.gmail.com@kernel.org>
+Date: Fri, 20 Nov 2026 18:19:17 +0100
+Subject: [PATCH v2] rust: bindgen: Preserve sched_statistics alignment
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,173 +82,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authenticated-Id: piotr@kubik.pl
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261120-fix-schedstats-bindgen-layout-v2-1-1c42e4a996ae@gmail.com>
+X-B4-Tracking: v=1; b=H4sIABSBAGsC/42OTQ6CMBSEr2K69mkLosGV9zAs+vOgNdKSvkI0h
+ rvb4gVcfpOZL/NhhNEhsevuwyIujlzwGar9jmkr/YDgTGZW8eoshGihdy8gbdFQkolAOW8G9PC
+ U7zAn4G3dqPOpPl34hWXHFDEPNv+9+zHN6oE6FWlpKEkIKkqvbYnmiVJEOR7jTAk8vlIpWUcpx
+ Pf2chFF9u+hRYAA3rStMVXN+97chlG650GHkXXrun4BQiKm3wEBAAA=
+X-Change-ID: 20261119-fix-schedstats-bindgen-layout-0935b6434707
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Carlos Llamas <cmllamas@google.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Jules Mercier <jules@les-mercier.fr>, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795195162; l=2723;
+ i=peder.bergan@gmail.com; s=kernel-contributions;
+ h=from:subject:message-id;
+ bh=u4QY0eOrLq5AnKKXDQlNnc7y1G/bsdbLKO4Tsmnc1Rc=;
+ b=CGjLrC3xrHMMhwNk+60mTkOfXvVww+NtfWTp4WrSpTz699eWkTcZfvLHqQl0ZqdN5766bwcEE
+ 9/I4tueXlvnA7tRsCj0He39kTVlIwcEXrORV3Rogf331Je1IwEuSJFa
+X-Developer-Key: i=peder.bergan@gmail.com; a=ed25519;
+ pk=39790pn1YZCulHBoUG1uiQI1Hm01EvhBEa2zVrS/yN0=
+X-Endpoint-Received: by B4 Relay for
+ peder.bergan@gmail.com/kernel-contributions with auth_id=1395
+X-Original-From: Peder Bergan <peder.bergan@gmail.com>
+Reply-To: peder.bergan@gmail.com
+Content-Transfer-Encoding: 7bit
 
-A device that loses power during system suspend comes back at its
-power-on line coding. With USB persist, the USB core then resets the
-device and calls acm_reset_resume(), but acm->line still holds the line
-coding that the driver sent last. acm_tty_set_termios() sends
-SET_LINE_CODING only when the termios differ from acm->line, so an open
-with the same settings sends nothing. The port then runs at the wrong
-rate until the termios change or the device is probed again.
+From: Peder Bergan <peder.bergan@gmail.com>
 
-Send the cached line coding from acm_reset_resume() of the last
-interface to resume, which acm->susp_count shows, before acm_resume()
-restarts the URBs. The USB core calls reset_resume for each interface in
-the order of the configuration descriptor, so the control interface is
-not always the last one. Use the variant without the autopm reference,
-because reset_resume also runs in a runtime resume of the device, where
-usb_autopm_get_interface() would wait for that same resume and never
-return. Ignore the result, as acm_probe() does, because a device without
-USB_CDC_CAP_LINE need not support the request.
+With CONFIG_SCHEDSTATS disabled, struct sched_statistics is empty but
+still cache-line aligned. Bindgen omits the alignment of the empty
+type. Bindgen 0.73.2 also stopped forcing padding before over-aligned
+fields, so fields following stats can be misplaced in the generated
+task_struct. On the reported arm64 build, Rust Binder reads the wrong
+pointer via CurrentTask::mm() and rejects mmap() with -EINVAL.
 
-I saw the fault on my workstation while using serial consoles.
-Claude Code agent (Opus 5.5) traced the cause to the cached
-acm->line and wrote the first draft of this patch and this commit message.
-It also wrote and ran the test: a QEMU guest with the adapter passed
-through, and a USB power cut while the guest was in S3.
-Two other Claude instances reviewed the patch, the message and the test
-record. I reviewed the patch and I understand the change.
+Make sched_statistics opaque so bindgen uses the C size and alignment.
+Rust has no callers that access the fields of this type.
 
-Fixes: a91b0c502285 ("cdc_acm: add reset_resume method")
-Cc: stable@vger.kernel.org
-Signed-off-by: Piotr Kubik <piotr@kubik.pl>
+Reported-by: Jules Mercier <jules@les-mercier.fr>
+Closes: https://github.com/Rust-for-Linux/linux/issues/1269
+Link: https://github.com/rust-lang/rust-bindgen/issues/3549
+Tested-by: Jules Mercier <jules@les-mercier.fr>
+Cc: stable@vger.kernel.org # 6.12.x
+Signed-off-by: Peder Bergan <peder.bergan@gmail.com>
 ---
+Changes in v2
 
-Notes:
-    Changes in v2:
-    - Send the line coding from the last interface to resume, which
-      acm->susp_count shows, instead of from the control interface, which
-      need not resume last (Oliver Neukum).
-    - Commit message: describe the interface order.
-    
-    v1: https://lore.kernel.org/all/20261119122842.3611681-1-piotr@kubik.pl/
-    
-    Reproduced and tested on v7.4-rc3 in a QEMU 10.0.13 q35 guest. The v2
-    runs used f11fe7603df0, the usb-linus head of 2026-11-19; three of the
-    runs without the patch used mainline 20eef29b7c84, which has the same
-    cdc-acm.c. The guest runs (TCG, qemu-xhci) with a WCH CH344 quad UART
-    (1a86:55d5) passed through from the host. Port 0 is wired to a 115200
-    8N1 console that answers a carriage return with a 24-byte login prompt.
-    The guest holds the port open and suspends to RAM. While the guest is
-    suspended, the host cuts VBUS of the hub port of the adapter for 3 s and
-    then wakes the guest, which reset-resumes the adapter. The host's own
-    cdc-acm binds the adapter between the power cut and the wakeup, so the
-    adapter is at 9600 or at its power-on line coding when the guest
-    resumes. The patch applies without offset to usb-linus b0baaf6cbb16 of
-    2026-11-20, whose cdc-acm.c adds only device IDs.
-    
-    Without this patch: the read after the resume returns 1 byte and no
-    prompt, and usbmon shows no SET_LINE_CODING after the resume (4 runs).
-    With v2: the read returns the prompt, and usbmon shows one
-    SET_LINE_CODING per port, with the cached line coding of that port
-    (2 runs, one with an extra dev_info() in acm_reset_resume()). On the
-    CH344 each control interface resumes before its data interface; the
-    extra print shows that the data interface, the last one, sends the
-    request, in S3 and in a runtime resume.
-    
-    Also with v2: a runtime resume with the RESET_RESUME quirk set for the
-    adapter sends the line coding once per port and completes. Without a
-    power cut the CH344 keeps its line coding, so the unpatched driver
-    shows no fault in that case.
-    
-    Build: make W=1 drivers/usb/class/cdc-acm.o gives no new warnings.
-    checkpatch.pl --strict reports no errors, warnings or checks.
-    
-    Not tested:
-    - a device whose control interface resumes after its data interface
-    - a reset-resume of a single port that lost power: in the guest the
-      reset-resume came from the xHCI reinit ("root hub lost power or was
-      reset")
-    - a device that rejects SET_LINE_CODING (no USB_CDC_CAP_LINE)
-    - a device with a combined control and data interface
-    - this patch on bare metal; the fault itself was seen on a 6.12 host
-      after S3
-    - a port that is open during a runtime reset-resume
-    - an autopm reference in reset_resume: the wait without end comes from
-      reading rpm_resume(), not from a test
+- Explain how the bindgen 0.73.2 padding change exposes the missing alignment.
+- Link the bindgen bug and request stable backports starting with 6.12.x.
+- Credit Jules Mercier's report and OnePlus 6T test, and expand the Binder Cc list.
 
- drivers/usb/class/cdc-acm.c | 41 ++++++++++++++++++++++++++++++-------
- 1 file changed, 34 insertions(+), 7 deletions(-)
+I kept the opaque rule unconditional as discussed. On bindgen 0.73.1,
+I found an offset mismatch at task_struct.se before sched_statistics.
 
-diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
-index 666969ffd194..bcbebcd47b3a 100644
---- a/drivers/usb/class/cdc-acm.c
-+++ b/drivers/usb/class/cdc-acm.c
-@@ -108,15 +108,11 @@ static void acm_release_minor(struct acm *acm)
-  * Functions for ACM control messages.
-  */
- 
--static int acm_ctrl_msg(struct acm *acm, int request, int value,
--							void *buf, int len)
-+static int __acm_ctrl_msg(struct acm *acm, int request, int value,
-+			  void *buf, int len)
- {
- 	int retval;
- 
--	retval = usb_autopm_get_interface(acm->control);
--	if (retval)
--		return retval;
--
- 	retval = usb_control_msg(acm->dev, usb_sndctrlpipe(acm->dev, 0),
- 		request, USB_RT_ACM, value,
- 		acm->control->altsetting[0].desc.bInterfaceNumber,
-@@ -126,9 +122,23 @@ static int acm_ctrl_msg(struct acm *acm, int request, int value,
- 		"%s - rq 0x%02x, val %#x, len %#x, result %d\n",
- 		__func__, request, value, len, retval);
- 
-+	return retval < 0 ? retval : 0;
-+}
-+
-+static int acm_ctrl_msg(struct acm *acm, int request, int value,
-+			void *buf, int len)
-+{
-+	int retval;
-+
-+	retval = usb_autopm_get_interface(acm->control);
-+	if (retval)
-+		return retval;
-+
-+	retval = __acm_ctrl_msg(acm, request, value, buf, len);
-+
- 	usb_autopm_put_interface(acm->control);
- 
--	return retval < 0 ? retval : 0;
-+	return retval;
- }
- 
- /* devices aren't required to support these requests.
-@@ -1739,10 +1749,27 @@ static int acm_resume(struct usb_interface *intf)
- static int acm_reset_resume(struct usb_interface *intf)
- {
- 	struct acm *acm = usb_get_intfdata(intf);
-+	bool last;
- 
- 	if (tty_port_initialized(&acm->port))
- 		tty_port_tty_hangup(&acm->port, false);
- 
-+	spin_lock_irq(&acm->write_lock);
-+	last = acm->susp_count == 1;
-+	spin_unlock_irq(&acm->write_lock);
-+
-+	/*
-+	 * The device can lose its line coding, for example when it loses
-+	 * power during system suspend, and acm_tty_set_termios() sends the
-+	 * line coding only when it differs from acm->line. Send it from the
-+	 * last interface to resume, before acm_resume() restarts the URBs.
-+	 * In a runtime resume of the device, an autopm reference here would
-+	 * wait for this resume and never return.
-+	 */
-+	if (last)
-+		__acm_ctrl_msg(acm, USB_CDC_REQ_SET_LINE_CODING, 0,
-+			       &acm->line, sizeof(acm->line));
-+
- 	return acm_resume(intf);
- }
- 
+I also checked an arm64 6.12.y build with bindgen 0.73.2 and schedstats
+disabled. With the rule applied in the 6.12.y context, the Rust
+task_struct.pid offset moved from 1208 to 1216, matching C.
 
-base-commit: f11fe7603df07fbb9fa02b0d385c1696c87a6dab
--- 
-2.55.0
+v1 on lore.kernel.org
+https://lore.kernel.org/rust-for-linux/20261119-fix-schedstats-bindgen-layout-v1-1-0599dd230ffd@gmail.com/
+
+OpenAI Codex assisted with the bindgen change, validation and drafting.
+---
+ rust/bindgen_parameters | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
+index 5bab3cf063360..65c308d4b603b 100644
+--- a/rust/bindgen_parameters
++++ b/rust/bindgen_parameters
+@@ -26,6 +26,12 @@
+ # warning. We don't need to peek into it anyway.
+ --opaque-type spinlock
+ 
++# Bindgen omits the alignment of empty structs. Bindgen 0.73.2 also stopped
++# forcing padding before over-aligned fields, so following fields can be
++# misplaced. Making sched_statistics opaque preserves its C alignment.
++# https://github.com/rust-lang/rust-bindgen/issues/3549
++--opaque-type sched_statistics
++
+ # enums that appear in indirect function calls should specify a cfi type
+ --newtype-enum fwctl_rpc_scope
+ --with-attribute-custom-enum=fwctl_rpc_scope='#[cfi_encoding="15fwctl_rpc_scope"]'
+
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20261119-fix-schedstats-bindgen-layout-0935b6434707
+
+Best regards,
+--  
+Peder Bergan <peder.bergan@gmail.com>
+
 
