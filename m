@@ -1,71 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795187545;
-	b=HdXkJ8BIqgEUSWxmE3+t0khjEMRPYCzA61p/qjwRFp+BJpGsbl177s/0OoQXhKhSqTtY
-	 iRwJJ/2Cv/R+t0C5UtbkLdlgCMn8vsh1UrkeJJ77nYXUl7aHfFY+6sNMQdoorjHGOuUHk
-	 y0bPDgy6cvLgCpWpWU8gdZ+zaxz4mhrc3FyQcmGg7C72uxEzyz26FCBzA2iexon5ax6vT
-	 T+Y6jH36YjjP1KYyWRfyrsNcIs+H9a0/8tUH9E6lfHDPigPyG/2lO9MgmHk68Xzcp0/yl
-	 mBJtt5OyvdJci2vhSdwdO1fSBRna7KU9ZGRziRTAqfE4zZ5N9lC+cplgznoAnvIi4Ew==
+	t=1795187694;
+	b=gaUMj5PvjSWKqBeH+eoGnYOeCZhBtAMcrUczYXXUiBSNhDprQos03ZMlMyzvX0gKSyx1
+	 dy7J8uTlmlaEkb5kbvJrWHVeg9PKI6ZOljnnd2kdWcXDFPA0zWA9HwEwD468lWKkd/9aN
+	 TqzY9kNJBlYvmFo2bl9CzYGLBLQ4uGbD7halGTpvc4LClEnxijzyLUG3vAftlY0+Y2g9a
+	 G/oepd0jLlRjkcaoF6TFSkAfeZvXNOVfrTuntXq22797EN2melOcQVMBU8VN6yTxDdzo5
+	 o6sHgTbMkNGHxhS5Y5H5gukqIBzX0FbIW2jP63Gpply38y4o8As8RMToPTacOvEl20w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795187545;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XeHR8KcI4u5N4CABwzKgjeTMfIUHpiO+90sGtoBXfzE=;
-	b=G/1kbzMqvWNEyifrghAT5Imi3EAYQJZqapfdJsXZ+KMZF6KAcWpzvC2aJ7QYKq6ouYMx
-	 8tRN39PEOjCIqMl4XEJPzfmNmWyuImsIks5yALPTzbMEZiql2He/6UkPuosEbGUIOapxg
-	 1+o3gDvSSANMxERZ4ckfrfYsHhTfGVZNkih60zGBzAYgkQXz6SmkdcNRjygWV85dVs3Ze
-	 g+g6xMGBHtrKNAvsnsLkFRPbDWWG2bOf2EoT8k7CLB11qSfLCnKfXaaIt/Jy2R+FVm8CZ
-	 SM8/IYWbc2e2hWWKcO5mMYDULZLXbkiJ/S+cvPXY016POh45ODPGhc7yLrJmuzXM9bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795187694;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=VUA4AZldclabl7KQ7qeQb/LRDMoYnf1ou18XMuVyDAs=;
+	b=frFK/NG9Uo1UlpAwT43gkYsS7LndeLLHXVf9FmW0CcyvOPZ+TqenL+gH5eYAkERcxos2
+	 8MACu6jMG3K8hY8+xX4fD5IkHviP03AKQyYNI1h+aLlUiR9u5uh2CkS90ze+JQyBqjRtW
+	 5z33bYvD2bhVsLIAGD4aiTRu5zt5sIq/0y0WyQDi+A5YN1fWv4lU2YOTh+7UjAhJ6hW4b
+	 SMP/PfFmll+jygjKe9dvMbk6aeL/bd8fUcHjYxQd+rz3eNReH7PXIqH08O9wghm79Moim
+	 PoyOdZqXiwLGyCgEbnafaEUbFWb9SZkhPkcTjfM93VPu4jN/kwppGHbA3ulvshUn9Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lc1vRAnl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=becholey.ch;
+	spf=pass smtp.mailfrom=becholey.ch;
+	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=dT24xTxp;
+	arc=none smtp.remote-ip=109.224.244.118
+Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F54606A32C;
-	Fri, 20 Nov 2026 15:12:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B97660A2601
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 15:14:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B97660A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lc1vRAnl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D178C1F000C6;
-	Fri, 20 Nov 2026 15:12:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795187544;
-	bh=XeHR8KcI4u5N4CABwzKgjeTMfIUHpiO+90sGtoBXfzE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lc1vRAnluELw19Za83aYiKwzRxIiGlTtm+kG+Y3fQ+Hczy8Uva68/XpPvOrWJZp9t
-	 GJTtM2hPg2zH+1w79fXPbxGsOWbLWPqOcFIAnOD8VUwvSgH1bUlVZu6XoI/UywQRwy
-	 ICpo8FGnutqVi4qR3qYCivR//VU6tWA16ckXu+csHLpkEFyhYHrh7nS7MHm9arMPL5
-	 oUGU3RRRhyRopdN6+AoyruTwDf5gcK0s4cN2L8Vk622RjomUxfHp9/0H6nHpnP2nr7
-	 aC8KJa/tyNysSgvAQsbZ5CnSl5oEEZJFPN8G5VC/teV8VEr7LgXGbdHB3j58X6J3lS
-	 DqTPEMuy3nZug==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 6.12 0000/1736] 6.12.119-rc2 review
-Date: Fri, 20 Nov 2026 16:12:14 +0100
-Message-ID: <20261120151214.22886-1-ojeda@kernel.org>
-In-Reply-To: <20261120054951.366579794@linuxfoundation.org>
-References: <20261120054951.366579794@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=dT24xTxp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
+	s=protonmail; t=1795187690; x=1795446890;
+	bh=VUA4AZldclabl7KQ7qeQb/LRDMoYnf1ou18XMuVyDAs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=dT24xTxpAINTzYFcvBS0eyvxceCogQuX4AbP2E5NWQ2miarr8muxfe14Xm/inhFcS
+	 DuoAil1OphlGXxO86kvc5wtqKourFN1sW2CrYtTtvwTgjXI/GhIpsSQXhdXFvLbcas
+	 6a3Jf6dxG87eIeY7+y8CLtequLpQVsmkPxAaijTUQ1HE8JNyL/eb6WC2JGete336kx
+	 squtEoRBwDgiLpYbbk9vYkMI2QOMgu7gZ7PUNmCxZERJx7VE/zVcpjfia75k/QbzTJ
+	 nu0umj4qXIdiBBTKHBlk4FA7sg6OYzSpCKjPfy2tscLhCdTxA+AOAmZvUkNoBJX6Cd
+	 x+rXI9W/bneTQ==
+Date: Fri, 20 Nov 2026 15:14:44 +0000
+To: Oliver Neukum <oneukum@suse.com>
+From: Alexandre Becholey <alex@becholey.ch>
+Cc: Oliver Neukum <oliver@neukum.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH] usb: image: microtek: don't receive REQUEST SENSE data into sense_buffer
+Message-ID: <8iDv29vCFEOxycORJWCZZoTT9dMFbUZZ9VK25sT27tKoWWtaKvLKZaW2YoQDygTrSRkZRE6Pu5PmkMFLl-PDCWXI9n1l-LSB9aJCByn8gks=@becholey.ch>
+In-Reply-To: <e3956050-8b80-4270-998e-2e5ec70cbdf8@suse.com>
+References: <20261119084526.535901-1-alex@becholey.ch> <643a71e0-7347-47f3-8cad-ce31f76cb8af@suse.com> <AP57iwtzG1Kr6EB4hY7F0Hd-DaLhPZJzxoKNuvDpeiAKZvyxsddI1fl6kRKAc2Xg1ox0kL-KAdNYmZrRMEYN_mZRamfiV6nXjdcfDhJhGyY=@becholey.ch> <e3956050-8b80-4270-998e-2e5ec70cbdf8@suse.com>
+Feedback-ID: 60743817:user:proton
+X-Pm-Message-ID: 3e4d380063c7bf7d7a2631f03fc3f8974690252a
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,26 +64,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 20 Nov 2026 06:57:42 +0100 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 6.12.119 release.
-> There are 1736 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sun, 22 Nov 2026 05:44:39 +0000.
-> Anything received after that time might be too late.
+On Thursday, November 19th, 2026 at 1:51 PM, Oliver Neukum <oneukum@suse.co=
+m> wrote:
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64:
+>=20
+>=20
+> On 19.11.26 13:28, Alexandre Becholey wrote:
+> > On Thursday, November 19th, 2026 at 1:02 PM, Oliver Neukum <oneukum@sus=
+e.com> wrote:
+> >
+> >> On 19.11.26 09:45, Alexandre Becholey wrote:
+> >>
+> >>> The special case is not needed: for the error handler's own REQUEST
+> >>> SENSE, scsi_eh_prep_cmnd() already points the data buffer at
+> >>> sense_buffer with at most SCSI_SENSE_BUFFERSIZE. Handle REQUEST SENSE
+> >>> like every other data-in command.
+> >> Hi,
+> >>
+> >> thank you for looking at this, but this fix seems to not take an
+> >> approach I can approve. Where sense_buffer is pointed to is
+> >> internal to the SCSI layer. We cannot use that in an LLD.
+> >>
+> >> If you think that LLDs should not use sense_buffer then the clean
+> >> solution is to remove it from struct scsi_cmnd.
+> >>
+> >> =09Regards
+> >> =09=09Oliver
+> >>
+> >> NACKED-BY: Oliver Neukum <oneukum@suse.com>
+> >>
+> > Hi Oliver,
+> >
+> > Would you take a v2 that keeps receiving the REQUEST SENSE data into
+> > sense_buffer and only limits the transfer to SCSI_SENSE_BUFFERSIZE?
+>=20
+> Hi,
+>=20
+> sure that would be fine.
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+Thanks, v2 will do that.
 
-I don't see anymore the `BLK_MQ_F_SHOULD_MERGE` error I reported in -rc1.
+>=20
+> Yet, I am afraid I have to ask why you want to solve this issue
+> at the level of the LLD? This looks like a generic issue to me.
+> The size of sense_buffer is documented. I don't see how this
+> issue can be limited to microtek.
+>=20
+> =09Regards
+> =09=09Oliver
+>=20
+>=20
 
-Thanks!
+The overflow comes from microtek receiving the data phase of a
+REQUEST SENSE command into sense_buffer with the length of the
+command's own data buffer. That length is chosen by whoever sends
+the command (sg allows REQUEST SENSE on a read-only node) and has
+nothing to do with sense_buffer, so I don't think the core can see
+the problem.
 
-Cheers,
-Miguel
+I looked at the other drivers for that special-case REQUEST SENSE
+(in drivers/scsi, drivers/ata and drivers/usb). They either
+transfer its data into the command's data buffer like any other
+data-in command, or emulate it there. I found no other driver that
+copies a caller-sized transfer into sense_buffer, so I think the
+fix belongs in microtek. If you see a place where the core should
+enforce the size, I am happy to look at it.
+
+Kind regards,
+Alexandre
