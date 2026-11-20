@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795196476;
-	b=Cu67fWiiIq8q4HOHfunIVsBxWxTnSt/YLaSBZUvEzWXB+s7Xr0/b66MWUqhok9WeaL+0
-	 Q1bMOAJMw4sAUKQh/VqW1Fr5aUDfN0ZXow6VExn1F+7vCHJ0KmEl+kPCX5wF6dPxGvByK
-	 ll/bQF/SDWOXK0aP0o9Onq4zm5sM7rX2+zibv3UELuvtsq3AH4VUUhlBP6ram/EKDeixi
-	 OlwD8BC2ArPSE7CT4DdGqzttxlnfgHSDDQdqPrQDmnDd8iri0Y1fBFzvSSZYurgTSGf+a
-	 rtC659/AygKUIMSZXw7bQik3uwEyZ16cg2LL/z4LuC9HeH2+qQdtx7nTsAkRScKB4XA==
+	b=saGX2XT4gu5LUMwtYSM8oSmjWeeGu6NGefbLLvQCatFVviylWpTTz+aR17GmMagZN9cU
+	 U6TaM3W4OV3rwCorFMhLlHwLS2OdLI3WzBnSBgb3nX/32cLVMCIPlt23TOBq04aYXsD6Q
+	 vYhXvLX721v8AMrdGYLBu2GKOEYGCoJUUtOHs0sp3zh1TYfLtsJcsIYmm3QZ8Ok11Usbt
+	 6l3ITJ/Rg55hta7ySGTfco3fgL7VhAxHLMzYyYxKyi0uMfQ5G9Nh1g/CW7ISTBpNB9ioX
+	 sVTVBqxM7qlB5J1RN610dpahcXIPmPSwa2fL0P3hdO2dwz7wbSnrPvk0Gwct9lFTeqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795196476;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
 	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=5/mgREcDRE9cm5A9J87qj4yWsVHq52QY/AnMOSNx1rs=;
-	b=whYb+FoiJfzWdAAfGXI0LQiVa37WSX9RUnI6NZt+cr87jJYaIRLvqbhT32xcOpBzw0RF
-	 Z7EC835WXph9y01Gz3RXZq6FIMpBKWMAbJ+7aZZmC3kgeQiMKARmQh9nb8WvGW+9E5GIe
-	 93ye3PkO2Xe+Th20wOc1HaNT4pSOZIegRX//b16k7ViZ+lVQhqyZltU2T+pvdvi46+XIK
-	 q0V1YJc6FRU578hDGw0d38wTqLX1hvo/U/cvEWu6mJFX70aZGqEg4Xh1lCnjRJHpmut3v
-	 OREmg2ktJnq2L4JsAbN4NVnoPbfyzVC0Oo5jHC0tsKCHzbGTfetOryrB2/AE+3/9BDQ==
+	bh=x4jvh8ydOVs3x0UYASVI8+WP/hsoTYFADxWW4RmKSZQ=;
+	b=Ibjuu2xVREr7RDk9X32HT0Crb5qG6/w1qo3Y5rUSs083121yfcJEOJrvp8G3aF/2XlXm
+	 6ZyCdStZE4jCwTaHpswrkSu1qvd290tAwlwg/Bin/R1zqtrKuTwIW1PaqTUCR1bhCFzYy
+	 uImVKT1gIH/5AT9umJoX7MeJeBnZbHA/2gN918XgQiPZDUGse1gJM2QwrhwYsGtM0QmR6
+	 hElcYsAzpNBKK6yeQvb05WoI6cGgB0xrFUsrZB9kIboFTShpJpAMVv06rPaWFa0UUcphU
+	 gZ3jjCfjzOvEtPP9IRItCUpQfiD45iHoFDlnLVHCtav8c0gzYEFW3V15xg08MWil9kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iyQ6HTRQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fTuXbe6K;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 773D260A2623;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7737560A2622;
 	Fri, 20 Nov 2026 17:41:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iyQ6HTRQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369361F0093C;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fTuXbe6K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154011F00AE3;
 	Fri, 20 Nov 2026 17:41:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795196476;
-	bh=5/mgREcDRE9cm5A9J87qj4yWsVHq52QY/AnMOSNx1rs=;
+	bh=x4jvh8ydOVs3x0UYASVI8+WP/hsoTYFADxWW4RmKSZQ=;
 	h=Date:From:To:Cc:Subject:References;
-	b=iyQ6HTRQPBuYdABElXAxB6Z9dGq/HOu7ljkeJsPE9IzKVCdasu70Uo5qXi5fpxUOE
-	 E/e4RjSNKn1A9EZoXCUZosUoTeNrGI9+WGt6runSkYGPDv6cJ3YGbhFH+uO25n1yyh
-	 zuUjOUcgzRTHc4Mx/qsq+7b7fhRvJnCEy4/A/FGNb5f+LlTFyAvxv/pN0RmfLxPAOu
-	 6tlsoETt7BmE9lw62ppNeteVzxS3th0MshFhXTO06otahQoeD78+w47CzpKWTysVEo
-	 EBFG8k9tsUU4gOGIJiov3TnplVEilJzTcBrK1nkJZXBn1U4JgfUzANsW2qkERV+hzI
-	 CjX6TSvYh39Qg==
+	b=fTuXbe6KceG+KQGXPx9TRnI6jwpZLHAYOFV6RPt0Ah3bOTdOWz42/GQ0jwhAUw2pQ
+	 qVmUAfz/NbT5WtBrwqO8+bO/qPvG4bMoqwDF46ai78+iNOzrZlFv56EgHwATFV3Mco
+	 swwYXZvY3MMr1cjXH2SCb8zKPhcZJ8CK7Vqyr1frGuWrovZrETNIub1NR3VN94j4vT
+	 PK++Q3g99fj2YBBmAHcnuPDxu0CmSCdHG0kSzitd7K89JiJMckRiICeUiq0xUY0fMa
+	 c+0sMOrn4/2HGFLuNUrvdClRnXbyBmXGNm84rMmH+ELtTzu+FCwPFBMR6kg5MueA2g
+	 8o5NABacZXDrg==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xUSbr-00000004aI4-2MDe;
+	id 1xUSbr-00000004aHW-1XVy;
 	Fri, 20 Nov 2026 12:41:15 -0500
-Message-ID: <20261120174115.385884577@kernel.org>
+Message-ID: <20261120174115.186242337@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 20 Nov 2026 12:38:59 -0500
+Date: Fri, 20 Nov 2026 12:38:58 -0500
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -53,8 +53,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Jaewon Jung <jaewon8868@gmail.com>
-Subject: [for-linus][PATCH 07/32] tracing: Avoid undefined shifts for zero histogram map size
+ David Carlier <devnexen@gmail.com>
+Subject: [for-linus][PATCH 06/32] tracing: Drop the synthetic event ref when clearing hist triggers
 References: <20261120173852.687189370@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,46 +67,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Jaewon Jung <jaewon8868@gmail.com>
+From: David Carlier <devnexen@gmail.com>
 
-Reject size=0 before calling roundup_pow_of_two().
+clear_event_triggers() frees a hist trigger on a synthetic event without
+dropping the se->ref taken by event_hist_trigger_parse(). Removing an
+instance with such a trigger leaves the synthetic event busy forever.
 
-include/linux/log2.h documents roundup_pow_of_two() as:
-
-  - the result is undefined when n == 0
-
-With CONFIG_UBSAN_SHIFT=y, a size=0 histogram trigger reports:
-
-  UBSAN: shift-out-of-bounds in include/linux/log2.h
-  shift exponent 64 is too large for 64-bit type 'long unsigned int'
-
-Tested on x86_64 QEMU: size=0 is rejected without UBSAN warnings,
-and the histogram modifier and parser tests pass.
-
-Fixes: 7ef224d1d0e3 ("tracing: Add 'hist' event trigger command")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261028074610.2212374-1-jaewon8868@gmail.com
-Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
+Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
+Link: https://patch.msgid.link/20261022205405.1228742-1-devnexen@gmail.com
+Signed-off-by: David Carlier <devnexen@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_hist.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ kernel/trace/trace.h                |  2 ++
+ kernel/trace/trace_events_hist.c    | 20 +++++++++++++-------
+ kernel/trace/trace_events_trigger.c |  2 ++
+ 3 files changed, 17 insertions(+), 7 deletions(-)
 
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index 0635503a31dd..6b695a7f42c8 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -1912,9 +1912,11 @@ extern const struct file_operations event_inject_fops;
+ #ifdef CONFIG_HIST_TRIGGERS
+ extern int register_trigger_hist_cmd(void);
+ extern int register_trigger_hist_enable_disable_cmds(void);
++extern void hist_put_synth_event(struct trace_event_file *file);
+ #else
+ static inline int register_trigger_hist_cmd(void) { return 0; }
+ static inline int register_trigger_hist_enable_disable_cmds(void) { return 0; }
++static inline void hist_put_synth_event(struct trace_event_file *file) { }
+ #endif
+ 
+ extern int register_trigger_cmds(void);
 diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index a87d626e40e8..d4702ad4e003 100644
+index 1aae7d7c6dc5..a87d626e40e8 100644
 --- a/kernel/trace/trace_events_hist.c
 +++ b/kernel/trace/trace_events_hist.c
-@@ -1430,6 +1430,11 @@ static int parse_map_size(char *str)
- 	if (ret)
- 		goto out;
+@@ -6761,6 +6761,17 @@ static bool hist_trigger_check_refs(struct event_trigger_data *data,
+ 	return false;
+ }
  
-+	if (!size) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
++void hist_put_synth_event(struct trace_event_file *file)
++{
++	struct synth_event *se;
 +
- 	map_bits = ilog2(roundup_pow_of_two(size));
- 	if (map_bits < TRACING_MAP_BITS_MIN ||
- 	    map_bits > TRACING_MAP_BITS_MAX)
++	lockdep_assert_held(&event_mutex);
++
++	se = find_synth_event_call(file->event_call);
++	if (se)
++		se->ref--;
++}
++
+ static void hist_unregister_trigger(char *glob,
+ 				    struct event_trigger_data *data,
+ 				    struct trace_event_file *file)
+@@ -6816,7 +6827,6 @@ static void hist_unreg_all(struct trace_event_file *file)
+ {
+ 	struct event_trigger_data *test, *n;
+ 	struct hist_trigger_data *hist_data;
+-	struct synth_event *se;
+ 
+ 	lockdep_assert_held(&event_mutex);
+ 
+@@ -6829,9 +6839,7 @@ static void hist_unreg_all(struct trace_event_file *file)
+ 			list_del_rcu(&test->list);
+ 			trace_event_trigger_enable_disable(file, 0);
+ 
+-			se = find_synth_event_call(file->event_call);
+-			if (se)
+-				se->ref--;
++			hist_put_synth_event(file);
+ 
+ 			update_cond_flag(file);
+ 			if (hist_data->enable_timestamps)
+@@ -6946,9 +6954,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
+ 		}
+ 
+ 		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
+-		se = find_synth_event_call(file->event_call);
+-		if (se)
+-			se->ref--;
++		hist_put_synth_event(file);
+ 		ret = 0;
+ 		goto out_free;
+ 	}
+diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
+index 4d2fde996c0f..a2487ad7fef8 100644
+--- a/kernel/trace/trace_events_trigger.c
++++ b/kernel/trace/trace_events_trigger.c
+@@ -643,6 +643,8 @@ clear_event_triggers(struct trace_array *tr)
+ 		list_for_each_entry_safe(data, n, &file->triggers, list) {
+ 			trace_event_trigger_enable_disable(file, 0);
+ 			list_del_rcu(&data->list);
++			if (data->cmd_ops->trigger_type == ETT_EVENT_HIST)
++				hist_put_synth_event(file);
+ 			if (data->cmd_ops->free)
+ 				data->cmd_ops->free(data);
+ 		}
 -- 
 2.53.0
