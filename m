@@ -1,54 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795165188;
-	b=cKtmjKmXmze6su5XXEobNHOewXbc4Cmq4Ms6q0lsyy354/paSNEf2rd2sf6Y2kimdO/3
-	 tUzTK7t4HQKxBMi03F/YK4KkfUgEy997XvniikHDqU+GEyRAvpN3owhhnK+Fd4o/V4VB+
-	 GkvnU0DUnlMLzluONrs1+BaOCkjR/fsf4hxemFlaTmpkqqzCDwt2hinS56hhStElGoPpA
-	 z2sBw1Fi92EVTmxpmZtKy8gcs+GwKJpUgh4GpNZCZdDnP7PLgx70KU+GPKXw3Hv8r2Lf2
-	 kRXJcVl1jj3OHUlVzT3+kURyJavY4y7zE7jtVddTkNw2sfoc/3tPS364B7691yRH32g==
+	t=1795165193;
+	b=TZ4zR1qvwNAaLzlVgz8a+fowoZ8ZZ3t04LwV3U0CdhTuL68sgnHH4ppSxMUQ3zIFdqaP
+	 k2oMEaq7Le6i3RUqsSKfsdrEQDuM8hxxq7YvtI59dMeUcpyMHQkaz6VPG4+xNVcoRfRuR
+	 J5RIfvlI/og0QAb1Vahk55tugXM0b8Obz/bfvpE9F7GTNOpHRkEQG3X0fqno8/DqZj2mJ
+	 Krhpp0xGI1XIvfltiZxENjNSGIC/eFy+7yQ2eo2Qj2R4t+WBkbvPOvcvnME37HM92jyRB
+	 ODxRldkiqtRs65mWQPxDlV7YstN0NE9eCiQLFHcXQFgefCHgU1MpyIJbBjQIV20RT0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795165188;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Yc9PKLM1TRlGBdAGztoHr3hWSYWm+6yS6vAIXll0IPg=;
-	b=LKYn0JOKxaroGU6BNQUOEAFci/ZT8HpzaTV6WEe6pkZfFgl0QUe2Do5g3WGMTeqHTSL0
-	 8KeuER9mwLhTfRn6ir+sjVhkoBiia4gPfunVTHA6qmm3eA5gCh/qbQced3LoJAJaIz1ND
-	 0F55dFqFJF/iBgNV+xf8DIyGJdFAgzUCdD1h18WumXG/TBzomIWto7qdoxDP1JD2ENPoG
-	 Y6Nl3HwMFRtd5G5At47kspTto0FK/uGvnU1ci/DWTeNGDlUgAukJzOTcrWeBDL8H8/jgj
-	 nFqZQOaBF20FvMeCzQAfB+E850w6bcGsiefg/J232dWHFT+dMCMm4VPsoJfepjHv+Pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795165193;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=+D3f9bi61lg53c1fUjRW0l7irQxN1pm6/gdiqoSesLw=;
+	b=DHVcOc/a42HS0+6tudcCCaxwIvuBduMnbuEaVrt4WcTH70rz13v+ULSSN1hygs7wrEjS
+	 ahE29492DKW5sFlkK0sYYBfkm0E45QT+PTvqXg2jMPWpuzy/6M3jb2uESShkN6yNknnfE
+	 G2oOX+/4kJe/TRn5nH1ZQuxUVYTwbx/8n/muRxRPh9rChrv1Zic3+W226ihz2m7n5ZujF
+	 AzOs+1p0SBG6BWz7fNMfrUKVQcZwoTrMn8QVbIriBRUe1wDME2+ve5fOt6WIofL1Kbm0J
+	 s8Osq5Np4+BDHquudAlwaAF3OMR0/yZxPtrl+BbnZE2izxmj6HAnCY63OUHAk9XJAOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="ZTuu+/kE";
-	arc=none smtp.remote-ip=95.215.58.11
-Received: from mta1.migadu.com (out-11.mta1.migadu.com [95.215.58.11])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VUxJKpkm;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hOXDcmoq;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353E6606A332
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:59:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 353E6606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27ED60A5BC4
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:59:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F27ED60A5BC4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZTuu+/kE
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=j5sy5dx6lTWHNP91V+IG2oaea8AWB1IF7PeLayynPtU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795165186; v=1; x=1795769986;
- b=ZTuu+/kErGbrYo2EAUfdxPsJCulCf/mPmE+cx+8a/P4Szyb57xHYVvLt47wm0vx3T4zDn6sx
- 8FYBuQIOQv4YIq1Uy8gwodwX4PMKEtuks16140GAL9kQ5PUPmIU6yxlaAmXtHUyq9jkd/a/cKGR
- 970u3E1iYGzwaNsILxITdGjY=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ff20ff19d5265770;
-	Fri, 20 Nov 2026 08:59:46 +0000
-X-Mizu-Trace-ID: ff20ff19d5265770
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <18eed3f7-1403-4738-b8f8-f11551e1cd7c@linux.dev>
-Date: Fri, 20 Nov 2026 16:59:41 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VUxJKpkm;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hOXDcmoq
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AK7fPgs758528
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:59:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=+D3f9bi61lg53c1fUjRW0l
+	7irQxN1pm6/gdiqoSesLw=; b=VUxJKpkmxdZ2GhcmqLeTLul9MOK/fZnYnTMBNV
+	V8pU3CCKb2V7Z+M1iR6rOBfy/KbuFsY6+zJFAXKhYyIYJ8yRpy3/x2WEp/oqRyrT
+	h+Xjnlwt9RDT60GPJFj1Ec3t9JYScers+sYC+14fVG6Yh6Y3PtdRF89xmPOg0AUv
+	ChXTSCiHcOZ8G67Y4s5j1JvHg0MfJ0N/g/RApn3v5hHJIaulOwXWb6ZrkmQ0lRRt
+	YzPEn3DBIz0bBIMR/MRAebEzURH46XDfou4X3WbzH0xYxISy2j7rIyqCF8ejzYpb
+	zU33wq3lkEZaY8/SvvAXQx5LPDdYOcsLxfb2RDQdpzULsMvg==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j27b5tv7h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:59:27 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1b3b63b9665so694710c88.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 00:59:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795165166; x=1795769966; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+D3f9bi61lg53c1fUjRW0l7irQxN1pm6/gdiqoSesLw=;
+        b=hOXDcmoqspPjnJ2xEBKTLKGwIHlLSnVRzh3Iw4S4Ar5CHu8Q9QbLF6piT7MCb4LfZI
+         cyNyYHH+RYvKO+T8WivCLHZ5PDJEKs+CWzH7uakn5UobqvaFfQaIFK+rHjgmh3S/4A9r
+         57yPzKewlWlBUvFa7WXGczEiGe1bez4155QuZ65g36yfTqRsCdBRFfe31pg3pADqrFPa
+         oiGcFMW1AL2StQv2kwjiw9XBjSDcvms9a0usrNkqMmnbrBXh9NrvbMh2HnmsworFZXOy
+         txTvGd5jgH+rFCl11wDMGWc32mb3t47DFo6NzXwN0mo2AKIHpmYhn1uIetzeTt/DWNY/
+         /vNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795165166; x=1795769966;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+D3f9bi61lg53c1fUjRW0l7irQxN1pm6/gdiqoSesLw=;
+        b=SGt6kkN5uqUfB7wAMUmadeCVfPi+yy8pSKK5uoyHaZhlsrOUBmpf/d3a4DIoBJRd8l
+         1RF7iP7ypj0Vc/CmkkoHOdfVy1523ZR1vuipA5Hg3P6Gw1gdtSyyk/dnNVBjROnyhRVb
+         ArPSnqSamgjKvsjr//wPStA2SOA08s9LHXar2zG9D+7b3LxhItb6GQ2Nk0Q2mOVJEy73
+         lbJb9/bayFDZCsSUlFYhAaar1WTsgW0TtnQKRllQut4M6CRCnCTf4ydSEHGKmhs4k+pZ
+         glHzfRzPYXOBTNuFkjXeg+QL7ebZmICiNrfI45N13jidHFaeQoGhTNwpLnYCydfq7Rym
+         PRxA==
+X-Forwarded-Encrypted: i=1; AL+hErGQ1rSWnJY0/8kpwcS8jvkVGcoC+RjIQp+zPcd3KLvXnV2xlKNWl8xsBuhZ68XUmqeCHM1L360=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3+5dQCce/QMuXp7R+Z6uRKoVuip7bJFto+bjWa5Yxqmq7JgRl
+	e+WXHc6/sL4ZqeUinJMk7P/Zf4QTwrgsqdGlsG3avY8ySKh1z4acgeM/iSXt1uuse6zYic5xCxd
+	7qpz5JvB0ANm6zDvWODs4OmCsxHARABaQdhqtLcu/lYBQw5EtnbVyUjJqymyMC1jNy2U=
+X-Gm-Gg: AYBFou1qwiOpOVgzWPMgtXFDTPjR1pmrKj1v0Crw6OAChSUXohizCreaPrE0+K6pwDx
+	yUwetp+ed1c5XjxsPUdk1gWWSibZt2s8VI8bitrKs7YwW6kxwZZoFNOUXttgBg0BcG3WOsl87j6
+	/y4aMZOPN6rz1l2hMjXH/cY4wzJVljyuBHviJYK9AEXrq1yn4UJXo2OWW2vAmPFaJ0+X5nwIXh2
+	YE1xikeyKLuwzVK/6McvXqqQnzaABdjvujJSP7pNiGdynv04smIuhbQjc31xPzoSoLm7lkxhAFM
+	9RuYaPfwLz/OktHDghXeUNuyL6YpofkvE54+QdVBciqJodQkMIXuk6xg/aURf1cTeaa+mLLQaj8
+	ThmLDvwjPO7a6NNRRDXtdeL5W0GilOd/3D3R2euA8osu8LFIxOxW1WipDMlJZSo6B17VmvM/tem
+	W9gCdeTEXjiadhsjLuYOZYLvtlsChY6twJpKnqYVhXB4ort8wJKNyO5bWPr/9oioyW2PTNCMOka
+	nbJGuuWrUk=
+X-Received: by 2002:a05:7022:3b8e:b0:1b5:10cf:c402 with SMTP id a92af1059eb24-1b5568a17d9mr2368681c88.10.1795165166029;
+        Fri, 20 Nov 2026 00:59:26 -0800 (PST)
+X-Received: by 2002:a05:7022:3b8e:b0:1b5:10cf:c402 with SMTP id a92af1059eb24-1b5568a17d9mr2368661c88.10.1795165165529;
+        Fri, 20 Nov 2026 00:59:25 -0800 (PST)
+Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b556829d31sm9490658c88.9.2026.11.20.00.59.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 00:59:25 -0800 (PST)
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Subject: [PATCH 0/4] arm64: dts: qcom: ipq9650: add and enable various
+ devices
+Date: Fri, 20 Nov 2026 14:29:05 +0530
+Message-Id: <20261120-ipq9650_various_devices-v1-0-14f53b84c42c@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,122 +116,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: hugetlb: allocate larger early CMA pages first
-To: "David Hildenbrand (Arm)" <david@kernel.org>, muchun.song@linux.dev,
- osalvador@suse.de, akpm@linux-foundation.org, fvdl@google.com,
- Qi Zheng <zhengqi.arch@bytedance.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261120074701.48298-1-qi.zheng@linux.dev>
- <8a43c25e-0828-492b-90cf-beeb72ecdbb3@kernel.org>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <8a43c25e-0828-492b-90cf-beeb72ecdbb3@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANsLAGsC/0WN7QqDIBiFb0X8PcGPdM1bGRGmb5tjrVKLQXTv0
+ zXYr8MD5zlnwxGCh4g12nCA1Uc/vjKwE8L2bl43IN5lxpxyxSjjxE/zRUnarib4cYmty5KFSHr
+ rGAhZl8DZngL0/v1dvjYHx6V7gE1l7tcIMC/5Mh21/6NG5Y/WnBKbwpMoyiQwSUXHK73yYncmA
+ rHjMPikkXHWuHNfgRICN/v+AboiZznXAAAA
+X-Change-ID: 20261012-ipq9650_various_devices-fcd1e358cd1e
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        stable@vger.kernel.org,
+        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIwMDAzNSBTYWx0ZWRfX8Qubmroa6B2l
+ g4u2jZ4QeAaYQYwFwRwjijSV/zxkuUHdPV9ShObyyw1cZHj83oiI0FAEXxABprR4W0egOmYDkQU
+ c2aJALahQd5GqmVrhpWTgdn7WI1pOWE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIwMDAzNSBTYWx0ZWRfX8Md+I0n9lqBJ
+ z0WX8RwlAwoUpE6p4cWXgITaBZy1avUgpfE+VUEmDhqEIPxSD39DZMBLRasTXfiK6N4fzi+h5nJ
+ ZaVp7htuvypwjjB8P4UyXVSPbXbuoSItW8paXNfVA2GoQphEKx71CanSy1OuXviWxcysDWYIcCL
+ avk8wdlXmZ/pN8EcofRAQ9cKiTViOVJtMo6ZKq1ubmSfkalN6Qv0WTLExLKG19iIiQk2EZEyWKR
+ nC+fT8sYt7D1tzMGvRbxV2dTH4n0pcowrd3COyoRGTbCWJE/TjxJmz1hjNjsJFJ/4QLNaynMRo8
+ uxX6tBQbWGWabN0oeeiLL4oGtyzfJP2ObuBASYAnRgCGPJqAz6bads52V02srJILluWq2C8AyRE
+ lKIwq5+FevCG1f5FeXezpyl867IODDjtQS0+VmXGLsYmpNkj2yMqN0XScSVSGjiNUvKfPrgUEvz
+ o3eWbj9uHg+XOcKImdA==
+X-Proofpoint-GUID: jzizKFQo2RD1jFdBdT0lhdqK9Vwu_9gv
+X-Proofpoint-ORIG-GUID: jzizKFQo2RD1jFdBdT0lhdqK9Vwu_9gv
+X-Authority-Analysis: v=2.4 cv=LPTz05W9 c=1 sm=1 tr=0 ts=6b000bef cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=AkfpK71W5FzRhKASgtsA:9 a=QEXdDO2ut3YA:10
+ a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-20_03,2026-11-19_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 spamscore=0 adultscore=0 lowpriorityscore=0
+ phishscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611200035
 
+This series adds device tree support for various IPQ9650 peripherals
+and extends the RDP488 board support.
 
+It adds QUPv3, download mode, QSPI NAND, BAM, CPU idle states, USB,
+DSU PMU, LLCC, SMMU, and eMMC ICE support. It also introduces a common
+RDP488 DT file shared by the eMMC and NAND variants and adds the RDP488
+NAND variant.
 
-On 11/20/26 4:55 PM, David Hildenbrand (Arm) wrote:
-> On 11/20/26 08:47, Qi Zheng wrote:
->> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>
->> With hugetlb_cma_only=1, early HugeTLB CMA allocations follow hstate
->> registration order, which can depend on the order of hugepagesz= and
->> default_hugepagesz= parameters. cma_reserve_early() advances early_pfn by
->> the requested size without aligning the start of each allocation.
->>
->> On arm64 with 4 KiB base pages, 32 MiB and 1 GiB pages share a CMA pool
->> aligned to 1 GiB. In a 2 GiB CMA range starting at 4 GiB, allocating a
->> 32 MiB page followed by a 1 GiB page places the latter at 4 GiB + 32 MiB,
->> violating its required 1 GiB physical alignment.
->>
->> Simply rounding early_pfn up before the 1 GiB allocation would leave a
->> 992 MiB gap and advance the cursor to 6 GiB. cma_activate_area() marks the
->> entire prefix below early_pfn as allocated and only frees pageblocks after
->> it. The gap would remain reserved with its bitmap bits set, and releasing
->> the two HugeTLB folios would not reclaim it, permanently losing 992 MiB
->> of usable CMA capacity. An alignment-only fix would therefore also need
->> to track and reclaim such gaps.
->>
->> The same alignment issue can affect non-LPAR PowerPC64 hash MMU systems
->> supporting 16 MiB and 16 GiB pages, with 64 KiB base pages and
->> CONFIG_ARCH_FORCE_MAX_ORDER=7. The 16 MiB size then has order 8 and is
->> also gigantic, sharing the 16 GiB-aligned CMA pool.
->>
->> Allocate early CMA hstates in descending order. Each range starts aligned
->> to the largest supported size, so this preserves alignment for subsequent
->> smaller allocations without creating gaps.
->>
->> Fixes: d2d786714080 ("mm/hugetlb: enable bootmem allocation from CMA areas")
->> Cc: stable@vger.kernel.org
->> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->> ---
->>   mm/hugetlb.c | 28 +++++++++++++++++++++++++++-
->>   1 file changed, 27 insertions(+), 1 deletion(-)
->>
->> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->> index 4a448c5909d36..d69a9532ad5ef 100644
->> --- a/mm/hugetlb.c
->> +++ b/mm/hugetlb.c
->> @@ -4600,6 +4600,22 @@ void __init hugetlb_bootmem_set_nodes(void)
->>   		node_set(nid, hugetlb_bootmem_nodes);
->>   }
->>   
->> +/* Return the largest early-CMA hstate below the given order. */
->> +static struct hstate *__init hugetlb_next_early_cma_hstate(unsigned int order)
->> +{
->> +	struct hstate *h, *next = NULL;
->> +
->> +	for_each_hstate(h) {
->> +		if (!hugetlb_early_cma(h) || huge_page_order(h) >= order)
->> +			continue;
->> +
->> +		if (!next || huge_page_order(h) > huge_page_order(next))
->> +			next = h;
->> +	}
->> +
->> +	return next;
->> +}
->> +
->>   void __init hugetlb_bootmem_alloc(void)
->>   {
->>   	struct hstate *h;
->> @@ -4615,9 +4631,19 @@ void __init hugetlb_bootmem_alloc(void)
->>   	for_each_hstate(h) {
->>   		h->next_nid_to_alloc = first_online_node;
->>   
->> -		if (hstate_is_gigantic(h))
->> +		if (hstate_is_gigantic(h) && !hugetlb_early_cma(h))
->>   			hugetlb_hstate_alloc_pages(h);
->>   	}
->> +
->> +	/*
->> +	 * CMA ranges are aligned to the largest supported size. Allocate larger
->> +	 * sizes first to keep the early reservation cursor aligned without gaps.
->> +	 */
->> +	h = hugetlb_next_early_cma_hstate(MAX_FOLIO_ORDER + 1);
->> +	while (h) {
->> +		hugetlb_hstate_alloc_pages(h);
->> +		h = hugetlb_next_early_cma_hstate(huge_page_order(h));
-> 
-> Was thinking that this could be written in a neater way, but it really can't.
-> Best we could do is issue a single hugetlb_next_early_cma_hstate().
-> 
-> order = MAX_ORDER - 1;
-> while (h = hugetlb_next_early_cma_hstate(order)) {
-> 	hugetlb_hstate_alloc_pages(h);
-> 	order = huge_page_order(h);
-> }
+Additionally, fix the incorrect TCSR mutex address range.
 
-Yeah, that is indeed simpler — will rework it and send v2.
+Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+---
+Kathiravan Thirumoorthy (4):
+      arm64: dts: qcom: ipq9650: fix the TCSR mutex address range
+      arm64: dts: qcom: ipq9650: add RDP488 common DT file
+      arm64: dts: qcom: ipq9650: add and enable various device nodes
+      arm64: dts: qcom: ipq9650: Add RDP488 NAND variant
 
-> 
-> Thanks!
-> 
-> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+ arch/arm64/boot/dts/qcom/Makefile                  |   2 +-
+ .../arm64/boot/dts/qcom/ipq9650-rdp488-common.dtsi | 376 +++++++++++++++++++
+ arch/arm64/boot/dts/qcom/ipq9650-rdp488-nand.dts   |  17 +
+ arch/arm64/boot/dts/qcom/ipq9650-rdp488.dts        | 183 +--------
+ arch/arm64/boot/dts/qcom/ipq9650.dtsi              | 411 ++++++++++++++++++++-
+ 5 files changed, 806 insertions(+), 183 deletions(-)
+---
+base-commit: adcad7f4e6332cff3d6d7165f41584899f598534
+change-id: 20261012-ipq9650_various_devices-fcd1e358cd1e
+prerequisite-change-id: 20260820-ctrl-6015e1503b24:v2
+prerequisite-patch-id: 648145477ef49e49ea4eac0423acb592882281ce
 
-Thanks!
-
-> 
+Best regards,
+--  
+Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
