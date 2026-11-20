@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795196477;
-	b=l81hPz/QbNrvYiVEr50jGx2K6wuPqQH0t8hdIXiXGSkm07vD0J0Gbwyld8lH4omHhuY3
-	 n+01vxOu4XKcvdIAyjdPJDJz3wF0fm9EeTVshu/K9DfnbVpys3j/Jx/oEUcLRt5d6WiBu
-	 Njnl67uPqq4jaadEDxmjoCrb5YTDYuRamakWAc46LEiP+GQWQQhw0RQ9DyXjBd/oPbShg
-	 afZAy7ShcByTLHs0UvFIP7S4ViCCzwXkk5fi6FvWyIHYmtA2iYtI/7ERKJu21nSyXU8DO
-	 LAM6htcxh8QpwGzRaOACVYVygJWCYALsNqSJlvkyWg3c6urcXBoqKrYWWs00lMJiWDg==
+	t=1795196478;
+	b=dw10l4mjz+/SBIjJX8XRahKjxf6gM3oAp/Jdf7KTTmTGWA4bMCTutj810HAPVzv2HRsM
+	 jEQYwaLicD18JtJHDkw1qF6aT1HrVQzOstE7HnKSw2SLwnZH+A35jNtJ7tb4OrSyUSQLp
+	 hc/KInYSF7fb0Iuazq6ZIKcuXstU81LQLPaCLS3TTULO/j0x6pwCoQeV/mmma+ofwkAkr
+	 4FSkjxbE6friCxV3WdpSPUOtc0b7jOHowvNkxC9Kzh3bKDY7M584jk8t0uFfXI2U9S+SR
+	 6IrtlxyP02PL7BPVIhS51qxYZFovcebTBfzL5ri4ymKhhsUBUKdCsPFRhSk4ZwbWvXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795196477;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196478;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
 	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=tNHeeDCQvfwWa1QOMbRxkHx7Vhy2KBbZP/oe2wh3pok=;
-	b=iIB9mUQOnr6YWZNbFHTQtd3KHOCjPW/bE2Nz1Y6AMs6C0p1g/nKXEM+d/Gqgo1Gr2+P8
-	 7VhP2Uy9lQ4kqmjGibHplWrn6MazPEi2wFhrY7g7NfI8Wqrsn45ADjZ2yJaPUBCLq9b7I
-	 w1XtoNnklkrLqaLkl+mumFc/6u+zxCEBTs8u6CjfX7miCXFv+ZQxiKvqiDpPDH1umJDND
-	 /H6EVMSDsHNhTpKKZqcxJy7FNNhU9FIfgJeIBoozpvAUB+OzMmwQ549n8UG/rRwLQRPkY
-	 zj3WjLGLHj/i/JI3iedALsENJBZc3eEE/+Qsz/N2jaEhOOZ7/HOWaPWRNS3sAoC1cGg==
+	bh=/JrhOF2XVSdyKgSUnfNnSVf78q5yfZwAkgCYz96RCpU=;
+	b=U5JGLAcUTTrXOl+xJSwj1DFYTn7bu+wDptorMYVTOy5o1S+6YBIFHODla1cS5NR3T18A
+	 JDiiWFvk91LY7PL64oWQKa4CZQ9rNVO5LGOWbBtfUL1+AFu0aRoC8n2UdPKBKoIvfR8x/
+	 7mYOJ3hgIOaiW9Wh4r3ZbvWM4ck8erY4mCT46FqK/qY3TNS6NybPXDsHK2TXi/WMrneW3
+	 NhSb65zLpc4DwJepl72Vlqn1O5h95+P6IeF6Ob0RkgdG2g4daT/1VUq2oA1/AW7NdQdAh
+	 jLRQkTWS5bLaLjjbHbqer5XIV9VULOnyU/auGfqBH2I2ZOtZkJ14alrfkIKTe0o0tPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gdw5OeY+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU8om3HR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9D260A382E;
-	Fri, 20 Nov 2026 17:41:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9B160A5BCC;
+	Fri, 20 Nov 2026 17:41:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gdw5OeY+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C1C1F01565;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU8om3HR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0DDB1F000D0;
 	Fri, 20 Nov 2026 17:41:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795196477;
-	bh=tNHeeDCQvfwWa1QOMbRxkHx7Vhy2KBbZP/oe2wh3pok=;
+	bh=/JrhOF2XVSdyKgSUnfNnSVf78q5yfZwAkgCYz96RCpU=;
 	h=Date:From:To:Cc:Subject:References;
-	b=Gdw5OeY+7zqq4/GojE2VO1oF2EnwwnYEW511w+djO4tLOGSWyZS7WoLPdsTt+4fYC
-	 TG9yL9Uty2iicNg8JOEZOURotK70CFQa6FNvrvsY9tUlgMS7xW/8XVvb0qcTliKG9q
-	 NdN/pcLmRWSkqwPH1lX1GgvuDLdY8yVvLMzIpBYJEv8rno2k8Da5JzeNOzC62K7b4N
-	 Do7BgQYfz7GSscmfLM6xH9aClqthUvxtgXI/sP21Usy0QtKLsFpRwUUxmAk05FQRv4
-	 xGejEjO1iUkMSpfhCaMoYkEIlN0zg9qFwu49jBqvTtpxmiPQl2DQAfsU16SGIj6uqY
-	 7a9S1srAuwhvw==
+	b=XU8om3HRbaRgP/+Tn/jDEM2RJZtGm1NQm5gBiIQiSvkRvTz2d34+bbLovdtCwMNch
+	 DxG6haAO13EFSV4H4pfurc84AQquPnxnNh7F/2QlkKwbIeLG6hRUluq23WNfXb2Brl
+	 GXlHf1cZNqIIR74P8lmYzYztuK+/Wp4Z+HtwyNr6e4YxC24J3idaJlksn+0s9uZvEB
+	 oLfZh9fa0mMOYQcDBVNGMHFCNPijU67sqT1GbaYUmLeEtp7Xe4ZK5JoOQO9JNOOcxa
+	 qnqdnP7PfKmKK+a5Wn7KbC4LcnG9ImJ1DlhX/GyjyiCGcWXkBPq6zALLi9FXctYEwa
+	 olrP0m5ARDr2A==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xUSbs-00000004aKt-22qH;
-	Fri, 20 Nov 2026 12:41:16 -0500
-Message-ID: <20261120174116.322091512@kernel.org>
+	id 1xUSbt-00000004aN8-0wBF;
+	Fri, 20 Nov 2026 12:41:17 -0500
+Message-ID: <20261120174117.054583223@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 20 Nov 2026 12:39:04 -0500
+Date: Fri, 20 Nov 2026 12:39:08 -0500
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -53,8 +53,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-Subject: [for-linus][PATCH 12/32] tracing: Free tracer resources on instance creation failure
+ Chaosheng Qu <chaosheng.qu.linux@gmail.com>
+Subject: [for-linus][PATCH 16/32] tracing/osnoise: Dont start a kthread in timerlat user-space mode
 References: <20261120173852.687189370@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,76 +67,90 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+From: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
 
-Creating a tracefs instance can allocate private tracer nodes, copied
-flags and option arrays before trace_array_create_dir() returns. If a
-later allocation fails, trace_array_create_systems() frees the trace_array
-without releasing those private allocations. The failed instance is never
-registered, so normal removal cannot reclaim them.
+In timerlat user-space mode (NO_OSNOISE_WORKLOAD) the workload is a user
+task reading timerlat_fd, so there is no per-CPU kernel thread to run.
+start_kthread() only checks for that in the osnoise branch:
 
-Free the tracer nodes and option arrays when trace_array_create_dir()
-fails, then continue through the existing trace_array cleanup. Share the
-option array cleanup with normal instance removal. Earlier failures still
-use out_free_tr because the tracer list is not yet initialized there.
+	if (timerlat_enabled()) {
+		snprintf(comm, 24, "timerlat/%d", cpu);
+		main = timerlat_main;
+	} else {
+		/* if no workload, just return */
+		if (!test_bit(OSN_WORKLOAD, &osnoise_options)) {
+			...
+			return 0;
+		}
+		...
+	}
+
+start_per_cpu_kthreads() guards against this mode itself, but
+osnoise_hotplug_workfn() calls start_kthread() directly. Bringing a CPU
+online in user-space mode therefore starts a timerlat/N thread and sets
+its bit in kthread_cpumask while OSN_WORKLOAD is clear.
+
+stop_kthread() uses that bit to decide what the recorded task is:
+
+	if (cpumask_test_and_clear_cpu(cpu, &kthread_cpumask) &&
+	    !WARN_ON(!test_bit(OSN_WORKLOAD, &osnoise_options))) {
+		kthread_stop(kthread);
+	} else if (!WARN_ON(test_bit(OSN_WORKLOAD, &osnoise_options))) {
+		kill_pid(kthread->thread_pid, SIGKILL, 1);
+		put_task_struct(kthread);
+	}
+
+The bit is set but OSN_WORKLOAD is not, so the first WARN_ON() fires and
+the && short-circuits into the user-task branch. A running kernel thread
+is SIGKILLed and its task_struct is put without ever being stopped, so it
+keeps executing until it is freed underneath itself.
+
+Any write to osnoise/options reaches this: osnoise_options_write() stops
+the per-CPU threads before applying the new value, so stop_kthread()
+still sees OSN_WORKLOAD clear. Re-writing the value that is already set
+triggers it just as well as changing it.
+
+  echo NO_OSNOISE_WORKLOAD > osnoise/options
+  echo timerlat > current_tracer
+  echo 0 > /sys/devices/system/cpu/cpu1/online
+  echo 1 > /sys/devices/system/cpu/cpu1/online
+  echo NO_OSNOISE_WORKLOAD > osnoise/options
+
+The offline/online pair is required, otherwise no kthread is recorded and
+no bit is set. Running this on 7.3-rc7 with KASAN gives a WARNING in
+stop_kthread() followed by a slab-use-after-free in update_se(); leaving
+out the hotplug step produces neither.
+
+Keep the check in start_kthread(), where the related hotplug bug was
+fixed in 0bb0a5c12ecf, instead of adding another copy to the callback.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261029173127.387835-1-pocj8ur4in@gmail.com
-Fixes: 428add559b69 ("tracing: Have tracer option be instance specific")
-Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+Fixes: e88ed227f639 ("tracing/timerlat: Add user-space interface")
+Link: https://patch.msgid.link/20261014081034.12702-1-chaosheng.qu.linux@gmail.com
+Signed-off-by: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ kernel/trace/trace_osnoise.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 527b16690acb..b11ec4d3cfb8 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -1456,6 +1456,13 @@ static void free_tracers(struct trace_array *tr)
- 	}
- }
+diff --git a/kernel/trace/trace_osnoise.c b/kernel/trace/trace_osnoise.c
+index 995da9e0b548..fbba42286747 100644
+--- a/kernel/trace/trace_osnoise.c
++++ b/kernel/trace/trace_osnoise.c
+@@ -2039,6 +2039,14 @@ static int start_kthread(unsigned int cpu)
+ 		return 0;
  
-+static void free_tracer_options(struct trace_array *tr)
-+{
-+	for (int i = 0; i < tr->nr_topts; i++)
-+		kfree(tr->topts[i].topts);
-+	kfree(tr->topts);
-+}
-+
- /**
-  * register_tracer - register a tracer with the ftrace system.
-  * @type: the plugin for the tracer
-@@ -8763,7 +8770,7 @@ trace_array_create_systems(const char *name, const char *systems,
- 	if (trace_instance_dir) {
- 		ret = trace_array_create_dir(tr);
- 		if (ret)
--			goto out_free_tr;
-+			goto out_free_tracers;
- 	} else
- 		__trace_early_add_events(tr);
- 
-@@ -8773,6 +8780,9 @@ trace_array_create_systems(const char *name, const char *systems,
- 
- 	return tr;
- 
-+ out_free_tracers:
-+	free_tracers(tr);
-+	free_tracer_options(tr);
-  out_free_tr:
- 	ftrace_free_ftrace_ops(tr);
- 	free_trace_buffers(tr);
-@@ -8926,10 +8936,7 @@ static int __remove_instance(struct trace_array *tr)
- 	if (tr->flags & TRACE_ARRAY_FL_VMALLOC)
- 		vfree((void *)tr->range_addr_start);
- 
--	for (i = 0; i < tr->nr_topts; i++) {
--		kfree(tr->topts[i].topts);
--	}
--	kfree(tr->topts);
-+	free_tracer_options(tr);
- 
- 	free_cpumask_var(tr->pipe_cpumask);
- 	free_cpumask_var(tr->tracing_cpumask);
+ 	if (timerlat_enabled()) {
++		/*
++		 * In timerlat user-space mode the workload is the user task
++		 * reading timerlat_fd, so there is no kernel thread to start.
++		 * One started here would set its kthread_cpumask bit, which
++		 * stop_kthread() reads as "osnoise workload kthread".
++		 */
++		if (!test_bit(OSN_WORKLOAD, &osnoise_options))
++			return 0;
+ 		snprintf(comm, 24, "timerlat/%d", cpu);
+ 		main = timerlat_main;
+ 	} else {
 -- 
 2.53.0
