@@ -1,57 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=31.14.14.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795191772;
-	b=sVq5bKWv9668TqTouyzenQlRYuXo2o1htK0d0+dWOScKLgNen6qe7ZUTv7DosKFmWuDw
-	 SdjAu3N7zp2S36vdrzCdjGBNDqv+FieKrkBrN5orhDf/Ve4PJJINqudbfE5mXzRerW4DY
-	 J3/S4pUM502d72Pn9YfX0/kYvmDPczbUc0syJzK3UYTDyFJ57TFrsUaMTjFhD3nZyDZUQ
-	 vHtpP2Axri4dejPYy/hNXY5BblQAZK99YA/ofFRfErAUsXUr4hevX9EMHBegcaRfjZgwz
-	 /jJuZ3VHStGT6nBPMOd/a2OxlPVIFsfwmDOK0vcUC3z1O8s8yU3rhFrfNa2WKVZysPQ==
+	t=1795191800;
+	b=YvcGHqqwOz2wjw3xn216pRMD6sLmOlnPoCkv7TQ92ud9P7RQceUCZrOHa8UlS6NyFC02
+	 mqE2dCAhA5lQ8IG1IrWG1e73WWtU4d/69UUY3hVxnrWpSPZhFQx0y0uiJ8figMLqwk8eB
+	 D0D2WsmFCy1eSgx5BaDCeBEboVQrTm/kNry8hjf7V14o1BjAx/qH44Pi5CkDT/P86qJq9
+	 yCgCLGZawbmblthudqPPoKyvV2vP66Wh4+LdzyxMWjHmPp6iO+wLYguSj5SmAoE7N1bCG
+	 DbBLSr37vcNfDqmcVaMPYazKKNxI3lLU2HtQdzdS8jX6Makrtry4v9DWTp+pfg5byLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795191772;
-	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
-	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=bs8xnKXxBBHbGpU3xbc6laooSZSBeaegD7Ow6zNQ+KE=;
-	b=Win5Ykbc6m9uNTEQmsaNT8m662kZDfiDoDnAjV4WdS3s5fEBa4C/clAiT50WEbXhJ/X3
-	 0WIuACazpBk8SbkhCNaqlOm4XOAXzkSTZpHAbGaske10VVKslRNmoeRhDANSZjvpotdIZ
-	 53pVWY+ah1PQblwkCjpZs99C3SnjpCS+t1ujKYlGePZ0/zvgjKGyp+yZO3PNE0VSGXWYN
-	 m40eFrhA/HE4lg+/AwDJZIDQeL33joPt8A8O7kC1DgmyeMnTDgXkqOPLRFLjCyJ5dqidT
-	 GW9ShFdCxL061OPqR4TGtEH1h9yHg2WhalyJIQC9JLiMuk3XXAKZj9WP4nbpIgddIVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795191800;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=W+TpxS1i+J9I/NKJ3cSN+tLGKZHGRM6TY2QWiTn+Pqw=;
+	b=DNfaWustBveXnfQxvS7/44Y3gdifONn0CtsNADDear77rhd/bi9IzMrztGEBup/TKBsQ
+	 938Y3VqJnolkUjsgYL+WnS6G3GzCyX/8MUKJTh9NlFLKGcFBf4LxEynsueCBVmzkEttp8
+	 NpOfB7UUuWU3qdDg8It2+zPtVItgkrRFSWFT9drXHkQ4Q7U9DKcIGeBmKXypvLPchsJ0F
+	 COAWMVJpCJ15WXu2twag2U7wJdftwQidux02BrQ2+xsTp9xMujcUFcwJJwsWxDUWvl2d0
+	 UNwl0jy6uUoKAhAMlL6+t6MN23Q9JGNE0HFpDs7WNlK5Af60S2qK7GYx5b3jeR701Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=taladin.ro;
-	spf=pass smtp.mailfrom=taladin.ro;
-	dkim=pass header.d=taladin.ro header.i=@taladin.ro header.a=rsa-sha256 header.s=default header.b="n33/mKtt";
-	arc=none smtp.remote-ip=31.14.14.46
-Received: from taladin.ro (unknown [31.14.14.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=inria.fr;
+	spf=pass smtp.mailfrom=inria.fr;
+	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=YDaM9KU6;
+	arc=none smtp.remote-ip=192.134.164.83
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E18606A320;
-	Fri, 20 Nov 2026 16:22:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1E18606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=taladin.ro
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=taladin.ro
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C71606A320;
+	Fri, 20 Nov 2026 16:23:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3C71606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=taladin.ro header.i=@taladin.ro header.a=rsa-sha256 header.s=default header.b=n33/mKtt
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=taladin.ro;
-	s=default; h=Content-Transfer-Encoding:Content-Type:Message-ID:References:
-	In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Unsubscribe-Post:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=bs8xnKXxBBHbGpU3xbc6laooSZSBeaegD7Ow6zNQ+KE=; b=n33/mKttm+rApyV6t22KmflZ9I
-	nknmQC/hS4cAe5Pj2572eJzhXuiKaxEydLHZwC8+TcX8tB4oKfM59EY/vv4T7sz/4JVZfWxh5VjgL
-	X5O0fCDqRWv6UzCvb/HYqUBda/4jFH4Dg44tgatqizV+yIak0j6XGXZy9QddyAvw+XoGJoEjjNgcZ
-	XujXr3laa69oGkgEASOCs67b04McxZTBNpRSS/ylEiriXvCQSWhDJnvAtzaiawIZUQ0cqu0mBhfF2
-	ghUC7rqS6oq7gaEyJe7ChCJfNfGd65M1P5K7YezNUpcIiX101DwbKPPHg1pha7B8QNLxa9v3EpxDz
-	Tz+NnuDA==;
-Received: from [::1] (port=43858 helo=cloud607.c-f.ro)
-	by cloud607.c-f.ro with esmtpa (Exim 4.100.1)
-	(envelope-from <aardelean@taladin.ro>)
-	id 1xURNn-00000002JV6-3YM0;
-	Fri, 20 Nov 2026 18:22:41 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=YDaM9KU6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=W+TpxS1i+J9I/NKJ3cSN+tLGKZHGRM6TY2QWiTn+Pqw=;
+  b=YDaM9KU6/kXBvD6g49Wx5jS4NOymnKZuz69pkB3lGxpPAlej1Sy6vLUn
+   JyGASBlcmBuAuIWHtbDFDY3CYOYw5UrbD6+7micLm6C/Cis51ZbGI/aXA
+   e5BhfK7lwNyeBzNbJ6xAqI7uUcWX1VQK2MftcH7E2C66y7LR7/Unx+FsK
+   w=;
+X-CSE-ConnectionGUID: PUjWxCQKTyq/W1N/uAkTuQ==
+X-CSE-MsgGUID: VcX/fQEXTbeOvkyefUMb3A==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=zakaria.belkadi@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,223,1787004000"; 
+   d="scan'208";a="306591356"
+Received: from unknown (HELO Dellisimo.rennes.centralesupelec.fr) ([192.70.40.1])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 17:23:06 +0100
+From: Zakaria Belkadi <zakaria.belkadi@inria.fr>
+To: Christoph Hellwig <hch@infradead.org>,
+	Caleb Sander Mateos <csander@purestorage.com>
+Cc: Jens Axboe <axboe@kernel.dk>,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	Anuj Gupta <anuj20.g@samsung.com>,
+	florence.schadle@ssi.gouv.fr,
+	frederic.tronel@centralesupelec.fr,
+	louis.rilling@irisa.fr,
+	stable@vger.kernel.org
+Subject: Re: [PATCH RESEND] block: pin user PI pages for writing when ref tags are remapped
+Date: Fri, 20 Nov 2026 17:22:57 +0100
+Message-Id: <20261120162257.498238-1-zakaria.belkadi@inria.fr>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <awBnB-55HQ54C1x6@infradead.org>
+References: <awBnB-55HQ54C1x6@infradead.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,66 +75,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 20 Nov 2026 18:22:40 +0200
-From: aardelean@taladin.ro
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, stable@vger.kernel.org,
- hubert.wisniewski.25632@gmail.com, b-liu@ti.com
-Subject: Re: [PATCH] usb: musb: gadget: mask the MUSB IRQ while complete()
- runs
-In-Reply-To: <2026112008-dean-crabbing-a331@gregkh>
-References: <20261118115435.49748-1-aardelean@taladin.ro>
- <2026112008-dean-crabbing-a331@gregkh>
-User-Agent: Roundcube Webmail/1.6.20
-Message-ID: <ad232a7458badaf3a6f0ece3020661e9@taladin.ro>
-X-Sender: aardelean@taladin.ro
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cloud607.c-f.ro
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - taladin.ro
-X-Get-Message-Sender-Via: cloud607.c-f.ro: authenticated_id: aardelean@taladin.ro
-X-Authenticated-Sender: cloud607.c-f.ro: aardelean@taladin.ro
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-20 16:07, Greg KH wrote:
-> On Wed, Nov 18, 2026 at 01:54:35PM +0200, Alexandru Ardelean wrote:
->> This patch is 2-part (in one).
-> 
-> What does that mean?
-> 
->> It reverts commit 3fc137386c46 ("usb: musb: Fix hardware lockup on 
->> first
->> Rx endpoint request") and implements the second possible fix suggested
->> in that commit.
-> 
-> Please no, make this a patch series.
-> 
->> Reverting that commit alone would bring back CVE-2024-56687 which it
->> addresses.
-> 
-> That's fine, that way that CVE will get automatically rejected and a 
-> new
-> one will happen for this fix if it needs it.
+Christoph, Caleb,
 
-Oh
-Good to know.
-Was not sure how the whole CVE mechanism happens.
+Thanks to both of you for the review.
 
-I was hung-up on the old mantra of "each patch should be atomic and each 
-atomic patch should not anything".
+On Fri, Nov 20, 2026 at 07:28:07AM -0800, Christoph Hellwig wrote:
+> I don't think we can just pin memory as writable that wasn't given to
+> us as writable.  So this needs to force bounce buffering, at least when
+> remapping might be required.
 
-Will re-spin into a series.
+Agreed. I'll keep the PI iterator as ITER_SOURCE. In v2,
+bio_integrity_map_user() will bounce the user PI buffer for REQ_OP_WRITE
+when the integrity profile has BLK_INTEGRITY_REF_TAG. That way the
+block layer can remap the tags in its own copy.
 
-Thanks :)
-Alex
-
-> 
-> thanks,
-> 
-> greg k-h
+Thanks,
+Zakaria
