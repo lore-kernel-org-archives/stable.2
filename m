@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795207172;
-	b=iCWpK+GZyN2JX+XVzZDotNm4rG/zN5SQfyj+JKPDeE9lpXNWICBSvFy8qVKO670NR7JE
-	 RFERk0lzZf7sXKyiFoqUIWo4cVZhBc8lg3LfUkq6b4+YaDNfJOFiYoW5FzgPlYjIHYZxi
-	 wZbjbexLqvARum6+dxzaD99BA/ZTXqpMAEXG9e7lykdQb7Zx9PScGs2ciVFXh5iLqfYOy
-	 QLiaORXpR6nbSnQ7MFlnOWqap5JulwfBT0Vn67+cumXlMBy/paNgYkQjg7KODHtlN5dVV
-	 bRLvmQag6Qu9hKQzlFTU0cD8L9DpXA86OyHyrh/Bxl2Vl0Oo4Xd/rivDCcdAZ+E9ofw==
+	t=1795207173;
+	b=rtk8kgwPdtxs9q2ZV+goAia/uK+RcxHlBlXqsBbvZhM4F563Rp2h+bUaVhYhGRFqlra1
+	 xYjcn3BdpgASlWF4FCJLdwhBa/b1TvlDjVFiAZzRTMPTTscAJzLD3HDet34GW9wkGNwfb
+	 YJG8Vxre6k2DG9S8BreYoUhPFWdngdOCwqingVGoWyDYNvPXqAXi1iBpEM66k/AI1GT0s
+	 Mt4Gh6qbIl/JuP9jgFPsuJyGumRd+2CtlE8/MSwxz9O2snjoGL9eBwH0MrqJ1k+kxYR8O
+	 H/M67I3uN2eaT1KmDYhjzc9fIL76HerS3Ubck1+nNq1QKj+jx2BaX4B9L2LGylWu+Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795207172;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795207173;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qsRnFRVqi8iSZhX8tc9yhC2RCaX5Z0SMo8XbBqe42dQ=;
-	b=f1ZQNkCW0dpJAbldVh3ZXj6KZXtWdwCIFFH1ZBRjZ12Lop0niLKsV/S0xGv8DQqRKw+z
-	 zBAGYN8LXgyG4pgKfQTE9DJI1jrHACI3muQKP4hLi6h8O8rTGn8fRF6B0LneFUWz9T6uF
-	 xz78bgWnp9L9eu33WfnRs7gbKmn/9zrzXa3V3NpgsKerQ4mLzMolb+MaDbwPF8kMyRfno
-	 k0wDsL3Gt8Ae3eEsMb/qv+tjSgveZK0o9I626hxo5CEsnGXtxpu+q6hUQl7ug++3XoE6S
-	 KWYNdQ0kbV9ek6xMCN0XDVGVrAU/pRa1l6tP2O9gZlCXhYYI5nmyCJrpMWA4gwmEXmA==
+	bh=XY1U39d671PEtb/demOi8zVtKO7zQPG13uQld90rMJ8=;
+	b=ArLb94vPVBfifZrWuj73Mtw60LNCqY1uIE+yFnRC5t/AlMwlq/8fBMEJ4UwohfwXBX95
+	 bdxpqwurB0nD9EftxgEfnqkxqZ7+3j+Yjg8Ze9fT6JHMz4n30cBXJLmuHCzihkX7nIZ/O
+	 2Ih7iw2bHpifa8Hg/1SnxVlnM38SditUM497KTlXwifl0EyWrgoLU6/Gdxje7b1fMWlAU
+	 7AmxHtzpFUxwHwp8/im9ImeYcJ33zOLaYALUWx4NrSwv9qrSR7glbL/IuofbYFpiApBHE
+	 4YAIRETmqQeMZ6Ta5+Ijnyq6Xqg7jM4bSLofE7wiIUw8KdjnE8jRowideBOsWPi8YcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJ52gqzQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iralBf1z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0D1606A325;
-	Fri, 20 Nov 2026 20:39:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948D1606A6C2;
+	Fri, 20 Nov 2026 20:39:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJ52gqzQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8253B1F000D8;
-	Fri, 20 Nov 2026 20:39:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iralBf1z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 019F21F000D2;
+	Fri, 20 Nov 2026 20:39:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795207171;
-	bh=qsRnFRVqi8iSZhX8tc9yhC2RCaX5Z0SMo8XbBqe42dQ=;
+	s=k20260515; t=1795207172;
+	bh=XY1U39d671PEtb/demOi8zVtKO7zQPG13uQld90rMJ8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZJ52gqzQ5FO8PKIe0gqMO/MRN08d2CsIBmGKtg2CTe1194haWPfMacQ7jRhtYwJT4
-	 Bsyr5mrSHGnfhHmCg2vIcCSeBlGjaqmJXE4nRNIXJxGEPShHBRQTsu+jxsvegji+C9
-	 WslOEWRD0r4iLO3IYCM1YOMwogUtgkX0cRqwXZn6jVL5KFd8uK7t4N9uLEAOuxvzkn
-	 w+/amRrUbtWteAeGIaV21HZt/KXF5ZxO2ljLwt0DDHuIjKj+eqaNSUMIcUlqOPj6By
-	 opiGkc+KvNC9J458YsR77S6gVBCX/sBVtVMrKhHYK3BdQMnbRISdK7JGWzLImBxgju
-	 oCZf0z/pVB4Hg==
+	b=iralBf1znmULzJW9Gfc6Slyhl/R5/ljK5EqXWQ0vqQWA5QyNr7e2EQ7JssCu49Oe4
+	 99E8pwmIXAXgaiPzb5k0ALA86o1z2rWA1wKsE3ucez/nZn3jdfEEnXS8Aq4HQKiMKj
+	 speERGVIGqkdLifSnFgisVYuaQY/RgWrN0elBQtADEvyaXZr/mmo8D7quiICqcjsTa
+	 tIxvLeXQbBPPT5PncVGKbncFRZ2l9b1+l0mluJVXEZdkYyulBCBy0o9A/xu52kvcfn
+	 Fyh+xLUt5uyBNNlRzMumnLaygwLtnKDrgPUqLZPCtrJ2nUK5m8C6xLuMQPpeuMl33R
+	 RayGFA3GX2TWQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Ben Horgan <ben.horgan@arm.com>,
-	James Morse <james.morse@arm.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Fenghua Yu <fenghuay@nvidia.com>,
-	linux-kernel@vger.kernel.org,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH 7.3.y] arm_mpam: On saving mbwu state read the monitors before clearing CFG_MBWU_CTL
-Date: Fri, 20 Nov 2026 15:38:54 -0500
-Message-ID: <2026-11-20-1-daily-reply-0005@kernel.org>
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Christian Brauner <brauner@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	Eric Hagberg <ehagberg@janestreet.com>
+Subject: Re: [PATCH 6.18.y] writeback: use a per-sb counter to drain inode wb switches at umount
+Date: Fri, 20 Nov 2026 15:38:55 -0500
+Message-ID: <2026-11-20-1-daily-reply-0006@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261119151931.335561-1-andre.przywara@arm.com>
-References: <20261119151931.335561-1-andre.przywara@arm.com>
+In-Reply-To: <20261119185222.1147448-1-ehagberg@janestreet.com>
+References: <20261119185222.1147448-1-ehagberg@janestreet.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,10 +65,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> this is the backport version of this patch for v7.3, as discussed on the
-> list before.
+> Replace the global synchronize_rcu()/flush_workqueue() pair with a
+> per-sb counter, s_isw_nr_in_flight, plus three small helpers:
 
-Queued for 7.3, thanks.
+Queued for 6.18, thanks.
 
 -- 
 Thanks,
