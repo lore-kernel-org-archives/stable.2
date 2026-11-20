@@ -1,48 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795184599;
-	b=pb/uJxofBSCzjoVFaRGxau3NgUgbE1GD3e++yAdiVPlPdwe91Yt+ZQGoQjdNJ86hX5h1
-	 aGUpNwVQzCCIKxtWNhbHfy2+A7PTW8Hiq1fcVH321IeYbaubGRn3Y75+SK9dL1txvrD0p
-	 jsB2xrSUkCd7Mp9soLtnPBpisl3whjauA5VU6Y3M9JTP2kl6yt+VWVZuVMRUjdfhef9Ss
-	 Il2E39brXPQdZSwG1FMKZHxkOQ6DwUNHIvvj2PKxq6CmU6+ysvqPKmj3mwo6sHB+PmmOf
-	 qvwj35lddDky4l4Yfbn2O6bNQZf81QdoLCUxdP2Io+gJOIwwHSKYCCIKgvPtLa6IDBA==
+	t=1795184617;
+	b=ubx8kkwqaMXcU0Ro39NxpAGTsdYOKLMp6tzXzf7TsMIxYiOzcVUfqrh22KALfoOhFO8e
+	 TUBdmYjnowNRcuQs83BMOvler4IfuycGuY2hQSgWVYS+MXQthqhHFybv6uo8HVKXffD2f
+	 ozpCA5aHkZK44do3rVSsTqH9ah97krU+sRoH2SwYm9PBHcN5nJyPa8emfypv0om0snsAo
+	 0GehYoO7dPvdTvcO4vLCJGQV7Dtb633omaZj1xkv/rWyhLpg0LHBSNS1Sc4OWoj5sxSL1
+	 29CTeYwtQBaVxdL4ElCbvtGH0sf9Pn10XGVMdnPESZvs9IHsC/YZ8EejkfwnH2rAJWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795184599;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=qdWUUq41d3eFaVJdHQ/J8Yy+6VasiGv6t9mZQQCSKgA=;
-	b=3Xcb3SPtxcUl7NVsyW90icgbAza1IYndaplB+2N3XUMfKfOMX8NkKgY0UwEcK2EiZaxz
-	 KdhPX099f71flgclDbBCM7E0vLzKBGbI1H0Fb7wit2CXMnDHDgG2owrxtAdTdMbUnsNPU
-	 NMuPJABtWG/D0wN8WfARe19I57nPbCfbJycAcKx3FdRKPI+Buc5FoxXLIBM+maiHRkzfH
-	 eKWKIiJ3l/1k+6VeB5HJZk3UIEx59RMP/gYVkJqWdbuu+zxtLn2oV7E9/toihCNvf6Rd9
-	 CH51hLReQuo3Jx1/svbU4nDu3Hh9mHlTGShd34VdUeuIzEQbcr6VXKGeUNkDlWg4Tfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795184617;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4KYuo7FdU68DsPajG3eePVYny09UrQMaX1Lx+TuzLaY=;
+	b=qOwgbhdkcIpiQOW1tOmuOb08gxAwu59+nkSn4qF3tlWO+A3hLUh6OABiD/fLfel90wmn
+	 T5T4GOyR60bxvD+MIsX66xdVlWbeQuSwWVYnpM9U1yuKJLBf3NtF7uFQIvRau+CCArscp
+	 WtLSbakLEdmvJJAHZ/dH6mkpWjfmxFEt7AB8JPjtl7KuPZ1Z74LwQw2cFSaP/UOeFFIy/
+	 xBJSJXisknQqDsmJMJiKhueM4IaS2C3aeSfJttFPL/7y8ptK6ayFgFeIBFuFlA9U39dFv
+	 88iaUX4+owHoJxFXyDbroDpPL+nRpcHTp9LJA/XqWRd7vFO3C4krnPo1Zm+QaZl4p2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ek5ZKLbI;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=txk2FobC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C828606A320;
-	Fri, 20 Nov 2026 14:23:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3B9606A320;
+	Fri, 20 Nov 2026 14:23:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ek5ZKLbI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58F821F000C4;
-	Fri, 20 Nov 2026 14:23:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795184598;
-	bh=qdWUUq41d3eFaVJdHQ/J8Yy+6VasiGv6t9mZQQCSKgA=;
-	h=From:Date:Subject:To:Cc;
-	b=Ek5ZKLbIdKNnA6dtvZzCkPaGO5m+ZVrC6QSglzMCSEuiocLls5dfLIs7Pkw0hRVZL
-	 clp1QF7KdxRdZeLC4c4qUw8iVisMCSDO7EjAPLhnD9pSG6uf7oBEBMOmfzwu3RPB4q
-	 xNJh05A9qKxMY5gkZpqTgiD3xo2fBSymiek+KaxthG4VZZ5XcFayOBmSKZ5BJpkpWU
-	 Te+xYlp9WVmr6pf0GjzGYzPEdzISSVsmvAN/BcyDUlIRJ8N3cprB7/sBL1odyUAwBl
-	 W5WSHTiEJ3p7brHdKJrAEjfhfqDAKzhpqFRbFJJaPfAxr9VQ0nyQtIGD/tT+MPEHII
-	 jEa1VjURDqEkQ==
-From: Joshua Crofts <crofts@kernel.org>
-Date: Fri, 20 Nov 2026 15:23:14 +0100
-Subject: [PATCH v2] usb: musb: fix use-after-free in musb_remove()
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=txk2FobC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A37D1F000D8;
+	Fri, 20 Nov 2026 14:23:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795184616;
+	bh=4KYuo7FdU68DsPajG3eePVYny09UrQMaX1Lx+TuzLaY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=txk2FobCLE0AC67/e5/J/x9/WWzKuRMeZa4PN2EvMYHVv7Fwoag55XJKa/gLEXXi6
+	 UxCpDQ/lhXxJlUApt2jZMm7lIxok4FC7GS8Yk4ReGdsEFECDOYbJk5JzI3PEj/lom6
+	 OEnFcZKYctT7T66Q73nYfLaCA5C1P0m7TvMZaa6E=
+Date: Fri, 20 Nov 2026 15:23:34 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Fang Xieyan <fangxy@xiaopeng.com>
+Cc: linux-usb@vger.kernel.org, Vladimir Zapolskiy <vz@mleia.com>,
+	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+	Johan Hovold <johan@kernel.org>, Roland Stigge <stigge@antcom.de>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Guanglei Zhu <zhugl3@xiaopeng.com>
+Subject: Re: [PATCH] usb: gadget: lpc32xx_udc: handle interrupts with an
+ empty queue
+Message-ID: <2026112017-curfew-neuter-44d7@gregkh>
+References: <20261109121035.34561-1-fangxy@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,75 +57,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-usb-uaf-fix-v2-1-cc3cb2a38ad5@kernel.org>
-X-B4-Tracking: v=1; b=H4sIANFXAGsC/1XMTQ6CMBCG4auQWTumLVh/Vt7DuGjLFKpSzBSIC
- eHuFt3o8p3M98yQiAMlOBUzME0hhT7mUJsCXGtiQxjq3KCE0lIqgWOyOBqPPrzQ+8pZ0q6SYgd
- 58WTK5492uX47jfZGbliJ9cNz3+HQMpkfVez/1EmiRGvKUh+OtXCmPN+JIz22PTewLG/MWkcNs
- wAAAA==
-X-Change-ID: 20261120-usb-uaf-fix-ff4cbe6c4105
-To: Bin Liu <b-liu@ti.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, 
- Felipe Balbi <balbi@ti.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org, 
- Joshua Crofts <crofts@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795184597; l=1771;
- i=crofts@kernel.org; s=20260422; h=from:subject:message-id;
- bh=ImBZOGSy/3es4iqt+RSHnVd4JCTQumrfoYp6xlA9bTc=;
- b=/4jq0RnBeAgt2JHQskYjjDPiMpKtKieJRF8CE4NCdb4F5nuUkcrRvtheTh2f1B5qg9+atiKHn
- WPecZ1ZGIjqBjmSRdnowyXlAZ8/KZs6bK7ztLm61DyN+jRtw7mFacdl
-X-Developer-Key: i=crofts@kernel.org; a=ed25519;
- pk=Xd+UVoRPiiI0K3LHQ2XIcXmO0jvVuFTv9eTx3lgBphI=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109121035.34561-1-fangxy@xiaopeng.com>
 
-Currently in musb_remove(), musb_platform_exit() drops the PHY refcount
-before usb_phy_shutdown() is called, causing a use-after-free bug.
+On Mon, Nov 09, 2026 at 08:10:35PM +0800, Fang Xieyan wrote:
+> A request can be dequeued after a DMA transfer has completed and filled
+> both endpoint buffers, while the delayed endpoint or DMA interrupt is
+> still pending.  lpc32xx_ep_dequeue() removes the request from ep->queue
+> and gives it back via done() without clearing the pending endpoint or
+> DMA interrupt status.
+> 
+> When the interrupt handler then runs with an empty queue,
+> list_entry(ep->queue.next, ...) derives an invalid request pointer from
+> the list head; list_entry() does not return NULL.  Passing that pointer
+> to done() in udc_handle_eps(), or dereferencing req->dd_desc_ptr in
+> udc_handle_dma_ep(), results in invalid memory accesses and can crash
+> the kernel.
+> 
+> Check whether the request queue is empty before touching the request in
+> both handlers.  In udc_handle_eps(), do this before sending the deferred
+> ZLP and disable the endpoint interrupt when there is nothing to
+> complete.  In udc_handle_dma_ep(), still disable the DMA channel and
+> clear the pending EOT/NDDRT (and SYSERR) interrupt status so the
+> interrupt does not keep firing, without dereferencing the missing
+> request.
+> 
+> Fixes: 24a28e428351 ("USB: gadget driver for LPC32xx")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+> Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+> ---
+>  drivers/usb/gadget/udc/lpc32xx_udc.c | 25 ++++++++++++++++++++++++-
+>  1 file changed, 24 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/gadget/udc/lpc32xx_udc.c b/drivers/usb/gadget/udc/lpc32xx_udc.c
+> index 044c31869cfb..67b0d6f73e43 100644
+> --- a/drivers/usb/gadget/udc/lpc32xx_udc.c
+> +++ b/drivers/usb/gadget/udc/lpc32xx_udc.c
+> @@ -1945,6 +1945,13 @@ static void udc_handle_eps(struct lpc32xx_udc *udc, struct lpc32xx_ep *ep)
+>  	/* Get endpoint status */
+>  	epstatus = udc_clearep_getsts(udc, ep->hwep_num);
+>  
+> +	/* If there isn't a request waiting, something went wrong */
+> +	if (list_empty(&ep->queue)) {
+> +		ep->req_pending = 0;
+> +		uda_disable_hwepint(udc, ep->hwep_num);
+> +		return;
+> +	}
+> +
+>  	/*
+>  	 * This should never happen, but protect against writing to the
+>  	 * buffer when full.
+> @@ -1958,7 +1965,6 @@ static void udc_handle_eps(struct lpc32xx_udc *udc, struct lpc32xx_ep *ep)
+>  	} else
+>  		return;
+>  
+> -	/* If there isn't a request waiting, something went wrong */
+>  	req = list_entry(ep->queue.next, struct lpc32xx_request, queue);
+>  
+>  	done(ep, req, 0);
+> @@ -1985,6 +1991,23 @@ static void udc_handle_dma_ep(struct lpc32xx_udc *udc, struct lpc32xx_ep *ep)
+>  	ep->totalints++;
+>  #endif
+>  
+> +	if (list_empty(&ep->queue)) {
+> +		u32 mask = 1U << ep->hwep_num;
+> +
+> +		ep->req_pending = 0;
+> +		ep_err(ep, "DMA interrupt on no req!\n");
 
-Reorder the function so that usb_phy_shutdown() is called before
-musb_platform_exit(), the same way as musb_init_controller() does in the
-error path.
+Why spam the kernel log for something like this?
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-d180c2b9-0006-4638-a22b-13df8c201235
-Fixes: 39cee200c23e ("usb: musb: core: call init and shutdown for the usb phy")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joshua Crofts <crofts@kernel.org>
----
-Changes in v2:
-- Rebased on usb-linus branch
-- Link to v1: https://lore.kernel.org/linux-usb/20261107-usb-uaf-fix-v1-1-ba33689d0ca3@kernel.org
----
- drivers/usb/musb/musb_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+And how was this tested?
 
-diff --git a/drivers/usb/musb/musb_core.c b/drivers/usb/musb/musb_core.c
-index eb29ae47697c..1715ff1dd424 100644
---- a/drivers/usb/musb/musb_core.c
-+++ b/drivers/usb/musb/musb_core.c
-@@ -2651,6 +2651,7 @@ static void musb_remove(struct platform_device *pdev)
- 	cancel_delayed_work_sync(&musb->finish_resume_work);
- 	cancel_delayed_work_sync(&musb->deassert_reset_work);
- 
-+	usb_phy_shutdown(musb->xceiv);
- 	musb_platform_exit(musb);
- 
- 	pm_runtime_dont_use_autosuspend(musb->controller);
-@@ -2659,7 +2660,6 @@ static void musb_remove(struct platform_device *pdev)
- 	musb_phy_callback = NULL;
- 	if (musb->dma_controller)
- 		musb_dma_controller_destroy(musb->dma_controller);
--	usb_phy_shutdown(musb->xceiv);
- 	musb_free(musb);
- 	device_init_wakeup(dev, 0);
- }
+thanks,
 
----
-base-commit: 81fbc49e54cd8a8d10677878cc98a76d44797ea8
-change-id: 20261120-usb-uaf-fix-ff4cbe6c4105
-
-Best regards,
---  
-Joshua Crofts <crofts@kernel.org>
-
+greg k-h
