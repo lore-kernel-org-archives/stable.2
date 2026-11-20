@@ -1,47 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.240.48.59
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795171259;
-	b=viCSuTkdhkf2mhSFVlUtgZOqdaUqU+XABahpCUo8xuA2xfADFszFsIMafWL3ENLNkp6+
-	 DclQa0T0vNRY6Sx6qj2+w5t7+ISuwkNm3NyaHKZayR69Jkavr+r5JLfEzz+hRzWJuw4Q5
-	 J6q+v77KhCmUMaAn3Yuc90SU4H60plUsI8/Mfz0xRDujawXImHclZBhkrtjBdBuiuFUFk
-	 dr6J6lX1I7lBVshuHhFpG7h4GqeEzXfgbvPOvKTnvzhLMma0S51nA9mjVMdz8KLaUAW7z
-	 YUaWnU7NG/wghv0cmI9ubHjbeSIW4fA+CNReodCJgL2U3iI2ZRiTLiUwFTu/040Tllg==
+	t=1795171586;
+	b=ohvX0vMFk+D61FbaT4ChxRUt5R6m0bHUQ3/Z2pRR1kVyiExGvUxuygOOcLy+DyFEhVsJ
+	 eWiu9GJc11+Qw42bCJkWyfMGkgTYrl2wkkYEd1ymk8KiZJm9rtJkLRGPTR/emLf1k4FaH
+	 lsLnI6vxR7xPb2Mw8hjAcDbpWxiwh2zKFu/zSAsFC9wwoSQHFTsgMFWO4uMd7C42G2p2+
+	 /pnWAOyT7v1ocz8wnkM6uYFrFgT/2wCqTjv/DQzrB0YkM/p2/EbqZ1NKePfVkF2Z4oCCy
+	 4HaBdzeD9tB5apJ2KFgZtuPPGAGwWbz7MAlbHVZtcWN9zNQI6g19zQvJUGGjgEjdGeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795171259;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=wuF3voKG3KiMsxJLfQZCJijkDisSiEB0JzslwfKJP50=;
-	b=EaLv22btgObUPMIlu2Al6HzbpacdrqTkZJFobNkhSMgnfZJNfQXVkkgazikLpIgE/Zxl
-	 yNzLPKRPSklKpPS0KdG74tl3L3vena5LKNyk32WoEOv3tvGVmvStO9b+eB5j/FzxqUPIh
-	 ZFOoaWVHOWjN4TjtWSdWJ+NMcpiFWpthwX2+LsmTzB6U6g0rDSfqi/9Keomgc+t1Qcl4a
-	 wKDIyDBPxVMQq+FqiefXiieuFTETw45vcTZ2qdZlgJIA9tOj9Z9IksXTNghOxAC24Ae2C
-	 YQBvWiEfS+42c3RBY+xhIYpkoYaKxGzW2khwkoUi5wvj5vwo0gjnjC4yl37IxFwp4rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795171586;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:References:
+	 From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:
+	 MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
+	bh=JV2acAQmqGKfDbCVtMogdgCc+FnQWR86JztEUsUWjJM=;
+	b=VwvhklNn7PsYRfWPZAx/ZhT1tN6Ye5hfIrHpuMbQslW4zXn0i7tOcxZ7vERs6DpfZvv4
+	 F7ndmkepNXl4MmFyKuWLo1y8JrDP2faXjNq3rLl+8jHma/ze1CZH+z7+tgZvIPDVgavwC
+	 HAY20v4h22qvK1qpXWtVt/LU7ck3iA5nBaJ/4gWLPWle3UkPSQuNSIQ9YDMzWbPExbMPr
+	 iPK0F2UBkuz+JdcRhhkNZAH0DIW8sc3rQYDPaEm+FgVJRoQjnsZfmQaBnNCQzdRGOTb/b
+	 CRDzy79LcgXiYwj7nmHkfuc4mWMpTDYoe7gG2OfrvbAPTr7g76/PARhQGi3pqDGGO8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjyawddn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=ahmedabdelfattah.dev;
+	spf=pass smtp.mailfrom=send.ahmedabdelfattah.dev;
+	dkim=pass header.d=ahmedabdelfattah.dev header.i=@ahmedabdelfattah.dev header.a=rsa-sha256 header.s=resend header.b=N97xfKNq;
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=hkVSnF4J;
+	arc=none smtp.remote-ip=54.240.48.59
+Received: from a48-59.smtp-out.amazonses.com (a48-59.smtp-out.amazonses.com [54.240.48.59])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D150606A325
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 10:40:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE459606A331;
+	Fri, 20 Nov 2026 10:46:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE459606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ahmedabdelfattah.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.ahmedabdelfattah.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjyawddn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6403D1F000EB;
-	Fri, 20 Nov 2026 10:40:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795171258;
-	bh=wuF3voKG3KiMsxJLfQZCJijkDisSiEB0JzslwfKJP50=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bjyawddnWiPtZYcrrH/VNFTmoOnGihjVjMZtQYVGsg4PsDddn4HQL26RBf+uD2Dqz
-	 OlWv5iNZz9ivXgBWpweKGQs1X6mIoUbkMcFyqcluFNFtSngw57ZU9M+WnO4jtB3JBT
-	 kmlPWaR0mW3D8f26oCjtZjBznicmVSatGMNRpvi1KfPeG+e5HTFBGIykhoDwKky4yZ
-	 kp5c2N0sxSR/+LJW/SrJHOxNW6dw8TNaJm5RqaY0hHjHg60wu8NjDAYmvnrSIkCcxI
-	 mBcKJzgukxs0OE1NxKslLElUXvL+JqI02fq1fnwPeuw7W+dblIWzqzDmS+uJxDRs7a
-	 rbZXtkS1Og7XA==
-Message-ID: <a9fda4ff-1758-4ee5-ae43-9a951eaf44e1@kernel.org>
-Date: Fri, 20 Nov 2026 11:40:53 +0100
+	dkim=pass (1024-bit key) header.d=ahmedabdelfattah.dev header.i=@ahmedabdelfattah.dev header.a=rsa-sha256 header.s=resend header.b=N97xfKNq;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=hkVSnF4J
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=ahmedabdelfattah.dev; t=1795171585;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=6CD2vOsCvJqHeLL+WfMDNvW1b1UbZ+Ck4Y3+1Csv8O8=;
+	b=N97xfKNqCaWCFd2qaWcA7qfcgwPG3bj66p3I/eNAy5510DAD4yiee/ZLvTU/dz9c
+	R9Ez/3QQLWwKPiQ3DBjRWgHbUM2k0Rvka5l4FbCyh3WcmttgKocinjuSimrq81Q5Qxt
+	muzqp8UlK6bdNLorSJIcnsTu+lhvyCZ7lIvuW2BQ=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1795171585;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=6CD2vOsCvJqHeLL+WfMDNvW1b1UbZ+Ck4Y3+1Csv8O8=;
+	b=hkVSnF4JMsSfmb6Z4yWQ0NJdJuoyL2nqSK3+2UC9Meb1yHrZXTo/O5nIsbnwovbL
+	/lwrcmpIFxTrUK6rVM0Mn0pYkJz/gP2yHWi9aosGAT/0Ei1enLxQHZTBpt+7V2lvB2D
+	KgWr9Lmg3k0DpBxe4YFtFqFdCgUDUwn0HFXW4MXo=
+In-Reply-To: <av_uoSlMShJiJsff@intel.com>
+References:
+ <20261119-x86-mce-storm-no-cmci-v1-1-bc593e90abaf@ahmedabdelfattah.dev>
+ <av_uoSlMShJiJsff@intel.com>
+From: Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
+To: Chao Gao <chao.gao@intel.com>
+Cc: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, linux-edac@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/mce/intel: Skip storm tracking on CPUs without
+ CMCI
+Message-ID: <010001a1f8908ab7-fa522391-bf93-4fe3-9ddc-e2f3e8e43ae0-000000@email.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 10:46:24 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,87 +74,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] alloc_tag: two fixes and one cleanup
-Content-Language: en-US
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Usama Arif <usamaarif642@gmail.com>, Shakeel Butt <shakeel.butt@linux.dev>,
- Harry Yoo <harry@kernel.org>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>
-Cc: linux-mm@kvack.org, stable@vger.kernel.org, Chris Mason <mason@kernel.org>
-References: <20261119-alloc_tag-v1-0-efcccfd3a9c9@kernel.org>
- <1f12c78f-782d-4d03-ac3b-7321520f02ed@kernel.org>
- <a0a5c3e0-ef9f-49ab-9f2a-d1a2e1e1934f@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <a0a5c3e0-ef9f-49ab-9f2a-d1a2e1e1934f@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.us-east-1.uCKvsN4fow5iTxhgdfCiLkD52dLS8e5zeZeNIHIyObThYgWj6io55JEpA9Lr59BibvMHOQwybONW0pi/CZ0koY1A1i17AG2yWEV8SeTaUDUkRN5zlcaoQEhviEafOoOqtPZhQs319GE3nsx7+JZeBdmAUyq6td6+kg0Qy2oXHvo=:1.us-east-1.pAEstvQcjyhQNKGKcgSlzI7SVR8ZSG5wSmKwiz/A8Dg=:AmazonSES
+X-SES-Outgoing: 2026.11.20-54.240.48.59
 
-On 11/20/26 11:08, David Hildenbrand (Arm) wrote:
-> On 11/20/26 11:02, Vlastimil Babka (SUSE) wrote:
->> On 11/19/26 09:52, David Hildenbrand (Arm) wrote:
->>> Hi,
->>>
->>> two fixes (one for alloc_tag as triggered by slab, one for mempool) and
->>> one related cleanup to make things consistent.
->>>
->>> Quickly reproduced and tested the warnings in a x86-64 VM.
->>>
->>> This should go through Andrew's tree. No need to rush, it can wait until
->>> the next merge window.
->> 
->> mempool is part of slab section and the first fix while in page_alloc.c is
->> also for slab, so we'll take it :)
-> 
-> Thanks! :)
+On Fri, Nov 20, 2026 at 02:54:25PM +0800, Chao Gao wrote:
+> My understanding is that QEMU gets host memory errors only through
+> SIGBUS, and the host kernel does not send SIGBUS for corrected errors.
+> So QEMU never forwards corrected errors to a guest, and a guest sees
+> them only when someone injects them by hand.
 
-Actually, let's separate to minimize conflict potential
+Yes, that's right. The =
+guest is only where I noticed this, and the
+sentence about KVM guests =
+running into it easily is wrong: in a guest
+the errors have to be injected.=
+ I'll drop it.
 
-patch 1 merged to: page_alloc/for-7.5/misc
-patches 2+3 merged to: slab/for-7.5/misc
+> Can you reproduce this on bare metal, or in a guest =
+without manual injection?
+> If not, this does not look like a practical =
+issue to me.
 
-Thanks!
+No. In a guest it takes injection, and I have no Intel =
+machine without
+CMCI to try it on. Going by the SDM, that is everything =
+before Nehalem
+(06_1AH).
+
+What I can show is that such a machine needs =
+nothing unusual to get
+there. For the first test I had set check_interval =
+to 1 s to save time.
+I ran it again with the default 300 s and one =
+corrected error injected
+into bank 9 every 2 s. mce_timer_fn() halves the =
+poll interval after
+every poll that logged something, so the polls close in=
+ on the bank by
+themselves:
+
+  uptime    next poll in
+  313.8 s   150 s
+  477.6 s    75 s
+  552.7 s    37.5 s
+  592.0 s    18.8 s
+  610.8 s     9.4 s
+  620.6 s     4.7 s
+  625.7 s     2.3 s
+  628.7 s   CPU0 BANK9 CMCI storm detected
+            unchecked MSR access=
+ error: RDMSR from 0x289
+            unchecked MSR access error: WRMSR to =
+0x289
+
+So a bank that keeps logging corrected errors for ten minutes is
+enough. I then stopped injecting. The storm ended 30 s later, and
+cmci_storm_end() took bank 9 out of mce_poll_banks. An error injected
+after that was still in MC9_STATUS after the next poll, which ran with
+a mask of 0xfffffffffffffdff. Nothing sets that bit again on a CPU
+without CMCI, so the bank that was reporting errors is the one that
+stops being polled.
+
+That last part is what d7ac083f095d ("x86/mce: Do not =
+clear bank's poll
+bit in mce_poll_banks on AMD SMCA systems") fixed for AMD=
+. Intel CPUs
+that poll because they have no CMCI still have it.
+
+With the patch the same run has no storm and no MSR errors, and the
+error injected at the end is logged by the next poll.
+
+I think that is still worth fixing, but I agree the changelog oversold
+it. Unless you or Tony would rather not have the patch, I'll send a v2
+that says which CPUs are affected and how the storm is reached, without
+the KVM sentence.
+
+Thanks,
+Ahmed
