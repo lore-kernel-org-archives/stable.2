@@ -1,99 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795184947;
-	b=iL9J2XEdzF4PhfI5zehVMl5xFjUZguA6wYwFGafwTCvizOnGyGCeeEEMv9+HV/OLS5bB
-	 iWAN8BB4Sz36UGRCuv7kY4CS7c/cQI2GE2XlDRsnTM9Q+CEPmJf+24ayYRiAeKAOD2kyu
-	 5+h3YP/hNtirWqlW0095EVtmhlsi0VMWGQgxMLBst5rU9PeiuGGc8NbSmDolU0OdQ+IO4
-	 ICmm0aI3gDk+1vn99dgj34RLRtR8kg6OecexWyANbzjmscAtRkuC9oBUCEKzeluJSlauB
-	 xngEpBfb4FmlhjSmBSF0CMoiuZuNkTdNPafVOg594mYllKbY8Gy8FMcs2sHnPMq39TA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795184947;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=PrOqE+bSiayWOYxEYrs3jZYEla+CkFoA9nQLVlRCn6Y=;
-	b=cdZC5xmLom3PNwhjFf/SJWclj1GMKypXeZZdLg7T94r4xH0I50215YdmsB0BJWUezzsA
-	 KL3r6/aXziphH16vmRBau2+2VKlwN/T7BnT1wT+jhFVwYXF2qxxHJohCmGouFla2sOHK5
-	 IrZbILshczhWzNm4015sdxrUuaziTwi6oliZ+CKP+ojTI4IXqz2sElTyKMYmVSsgeNCCH
-	 QYJYjmj+jokgjbEOvSoyxSVAh5yfRPsdjmdXt//goyIPj+N6N3+IOweaB8kD+M3GshhLC
-	 LpcFLVtxDws2pru7XrsGsKQO9orxuRroOKrdHntUA5bSim6a+MuLoHKuDqE4OtGpVfQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudlinux.com;
-	spf=pass smtp.mailfrom=cloudlinux.com;
-	dkim=pass header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b="KGPM2/li";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795185111;
+	b=rG5g2mE67GZ2LZyliD9395sA+KtpVTEvPuUhlfskga12CpuUKh8ZVBSS6ZNEaz9XOrVU
+	 +T9fRhTN0UUN3bqG1vswNqfrFK7JAS1dPIZK0HZQx5JsCugRpwJxyXk4D5D78csPG9zTr
+	 G/3UQZw0z0n7GI1iADgRjdQfZOYzus+1BLyvzrYKy/1s0PtqST2xUWc/BosddT55V5pvS
+	 ziT6pKznGOihaGCo4w0JxRhxDWTHOZakNBQ7WOh8nC7S6VptziYqCEhdxROZIx3PlwoJA
+	 yLDt6UnxVosWlqE1s4kPDr+2zBCd9H0NSytBFL//UeE7wZP5UxComOU2cib/IGyFHLA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795185111;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=34CR+5iiHoaofQCyhefI83UO5nHYtI/vM0KER5Q61IY=;
+	b=08O5h8OQwiH8BUcmNXXXZzr4416iMxlBbJ20zWwW/QIIjQcuGUhIgJVtzFjbf/ovNmgA
+	 PmsR3Ncu8B1JXHtA28UEWpFYzEphf3qLoNZXfFSigZEHep2xvu6+C1hoAFb/vENEUUdp5
+	 FNAj5TsqBm4B7mJDYj3FB3QYEBOaGnye/MXkQq6FrWk2Mh5qXJiWtP3wBkFb0/qLGmDjm
+	 YxOm1OqwM7opttMz7koQVvpJ+bc76jd5OyT+6eIh/zAwGh3SNgIH2tfKzilPDjmARkxYh
+	 9r2VnSf8lM4YhgsKPtbpU1vplfePWNNA7qzF3A0Dlrzc9BmiIfbFSu9km9JSjVJcluw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="c9e/fuXK";
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349D9606A32A
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 14:29:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 349D9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cloudlinux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudlinux.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB6A606A336;
+	Fri, 20 Nov 2026 14:31:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AB6A606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=KGPM2/li
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so169343066b.2
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 06:29:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795184945; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Jqhszn6wI70cs2XBwATm/X2h2isW3FNOVuROARrZBLz7m/RE+NQV2NcbZknLRUMcA3
-         DNu7WebAC8zWUwL11peZ9qKEulowt9iQfNjx6pnxG07WLJdd6jkhIk5/4uede6cBoQNe
-         P/hVhwWmlOW570hWtIIuX6Rj7wBnI2GeaDYWQb0SP6pVbdZ4koOML2UCIcnLiXg5aFd9
-         UtCwTZqvdSyHX4HY52fgIzjF8Wse2VwlDOkPK6mf3n3CKZhBSn1gf9qEM6bM3pJAFkkV
-         JIH/IMjtiSK2g5rqQ6uPKR2EQ216o0mQ9gFLsEzPHdu0qcuWYtDBEUYZgPq/nARURxrf
-         v/fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=PrOqE+bSiayWOYxEYrs3jZYEla+CkFoA9nQLVlRCn6Y=;
-        fh=1UQ/bTbZbFJZGqIDnEHMA6yBrN3gQck958Rqvn+ECV8=;
-        b=r77SgQv57F7bV2WUeOj5buSTte/YyFeq8FdBMVVH7vZB5JJDVs6ecssWSTBcue2hX4
-         FGG/EKJwfbFFdU36yuMkaVva6DrhMn2IvW9LUSubLaiK/HfB/SYrBa152dGfpaC6SPiJ
-         l/g6SOsa+DzUb2X2uF2ywUzs3Zc0I973UBEJpSKkkq1tIQASg72Lf6izKS8OxdZm12Uu
-         qBXW2Fvs6jxAtRFHRt/x4kTHelyWuFpJVib6INyiYQOeOX6KA2Zxq5m+x9nk4VrEL6rk
-         1saBYy/Jv0gcssaQ1eMOnDHvnsDXMhJqvDQm6udAqkdkr2we7ago4WZ+zO3161Nnr2BU
-         tluQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudlinux.com; s=google; t=1795184945; x=1795789745; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PrOqE+bSiayWOYxEYrs3jZYEla+CkFoA9nQLVlRCn6Y=;
-        b=KGPM2/li2EqKJYsf/Gv0WBthhS+7luPZAuNGPpKyoFR0Tzkw/keRMcPSqNncdo+2u3
-         uZ+z8CtXzAHyFe95zXtUVAzd3/EqXdFCu6If/GIpuT/0EUC5sR2s5ZHQAtrFj3wHUQ0Z
-         IXdKQpGDDTztrw1WwuQaleOUwzoMUx9m7ewvakMso9Ku4mvH+wudthJmCerHjg1bYbRV
-         o1ynKSSNX6Rg214EU/v8oT5eMHlVczo/yhDp5h56i+74PPC6D1YDy+Ll9n4D/UClUXHw
-         Cli1pzyCwK1zM/moRyGGU2j/ZJ4fZUiQSbjkpPtk5urWyIMeD44Rglud1eb1xF9kceFu
-         b2AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795184945; x=1795789745;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PrOqE+bSiayWOYxEYrs3jZYEla+CkFoA9nQLVlRCn6Y=;
-        b=e3cvnzhmjzGUnRLKm7Z50aNNgE59VFwEj2aRybycrkdyy16n95FXRMxMiyWm9k+pPw
-         Cvl5ombZbJ6cYTTIbwgl369Ei7yGU/XssVhAb8iEA/gErhU8OvbEqR9WTt7RPmsIn+7m
-         FWTu+1blxVC31nb4QLhfpRzQz3wvcjNjlUkY9s4FqXsBLLo/66n61VsGt4omKjXLVdRH
-         /Ia+1vpscenUYRXLsKvwHHnrheBWc8KFOMWZHrBPRRXEJRKLfrm/+XAPnYbWuQyWuDID
-         F1zHTa1yVekWwh/1tifv0eI9FdtsULWXmp5u2pPmy+4uR0EQM+LPTVW5hwdA7wvRxvbF
-         rSMg==
-X-Forwarded-Encrypted: i=1; AL+hErEcfyov5dEv9fceknT3S3/sMpHzvT0m6JBbfOTBYeDPQM/dDIuQOxlMHEUFT702VWI0U9lJLGw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z83gEssoDAZdgVoYrUF0IHBCgbtWRb+Rpw68H2B3kMloFWwIQCU
-	FCeozqT7nDIF1dbnqpMuuML+hc0ZGS0Loi261ibAuH9+H9iPOd0X6bbyGHIdSR1+BR4Gs87/Y3e
-	Z6AFHN54TvG6bXBif060WWDoa3XKGl/5LtNQZ3Do72w==
-X-Gm-Gg: AZFdTZcITySoKi8Up+dEGbmdOLJKF6l4igKX2jScchth8M2bbQqysWBB3TpKe0AirFo
-	EBYl1Hwh5kDU8q5T29s36PpXWx6amAfzvxOpcKLTW5OWhXoiyB9HGHR7g8YhSxWqhDcrRSDtk1B
-	jV/fH4i3QJSNcpUtIbCE5njeY98kve9VOTw3TQOT8UHUOc4yaVn/JUZHBRDDNuHP81MKd1110RJ
-	W4VXD4q1fbrspn7sY68KDyR2GcBBm/SUBAmqsTXjeSw6/aY8RmvTrNks3ZaD2nc757KWm7dA8ra
-	SQkJeapcZGhMkfGrvO3LPH1Wuo9ZlAbrbOG7OPdn1Dc4VxdX2OX8dft7NwZdl9i0kMGZBgVo8C2
-	tyNY1g2VE+m2vUBZ3bSb/nlsMvfAOCSX+eQ==
-X-Received: by 2002:a17:907:ec02:b0:c50:aa10:d898 with SMTP id
- a640c23a62f3a-c513a859528mr312083666b.26.1795184945410; Fri, 20 Nov 2026
- 06:29:05 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c9e/fuXK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795185111; x=1826721111;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=F9K3xye83Ao/ha+3ii5PfNxsGlcbGf9vFnyPkk1Q1PI=;
+  b=c9e/fuXKDJ44nQ0Rjj6d0cuJMcEmygz7r98z8yRDJ54B9fQkHyGDj3+4
+   1qPHcD4MIem8n34DD60sHrrLre6VL1mXRhOEm+r2Y7g8rNmXGhtqGaqYx
+   mFVFtC5RSUGR+5W02GOkZx8eZHAbQTRSHIO3Y0h/oodV3UXS8mjKOo0NL
+   6P8pxyiQLvku6ikLDKEuO6K+4meeYbscigVl4W/CuQrPl6ga5VuvVLAw4
+   AFLTlpcI4Fyz16bBfIsgy3YrhDhCG7UISYxDctbDPY9QxbzXV7maWcT1O
+   LKCdWdGcWcHbEWKj6091+iMYbVMmGTdC4YQn0TXkj4U5E3h0B4v+Cokrn
+   w==;
+X-CSE-ConnectionGUID: 3NdvltstQNqn8KTJv5OvXg==
+X-CSE-MsgGUID: drwHch3zR/ae8/JlNuYXIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4164011"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
+   d="scan'208";a="4164011"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 06:31:50 -0800
+X-CSE-ConnectionGUID: 0H454MDbRSi5nIYZszAPvw==
+X-CSE-MsgGUID: vG4B7h7gRp+bG9+NTaSnYw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
+   d="scan'208";a="10698896"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa006.jf.intel.com with ESMTP; 20 Nov 2026 06:31:48 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id D457599; Fri, 20 Nov 2026 15:31:46 +0100 (CET)
+Date: Fri, 20 Nov 2026 15:31:46 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Badhri Jagan Sridharan <badhri@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	RD Babiera <rdbabiera@google.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	linux-usb@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] usb: typec: tcpm: Keep the Soft_Reset target
+ apart from the VDM one
+Message-ID: <awBZ0h0zdaTwGwlA@black.igk.intel.com>
+References: <20261118-tcpm-soft-reset-sop-v2-0-b6decdc95e66@flipper.net>
+ <20261118-tcpm-soft-reset-sop-v2-1-b6decdc95e66@flipper.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,37 +85,156 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261120121614.978396-1-rmustafin@cloudlinux.com>
- <20261120121614.978396-2-rmustafin@cloudlinux.com> <awA8o4oIq81a7J1z@kernel.org>
-In-Reply-To: <awA8o4oIq81a7J1z@kernel.org>
-From: Rustam Mustafin <rmustafin@cloudlinux.com>
-Date: Fri, 20 Nov 2026 21:28:53 +0700
-X-Gm-Features: Aa3M54ovtmNup2lPY6rNVpSaJu-oUVw9OB9JbjDeYfkHzHe9GxRDZx2A7BPFff4
-Message-ID: <CAG6=z5tzc8DG-7gU03mKs1JxqEzUULwBinfHKtYWyPycKkG6mA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] tpm: Track the response read position internally
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>, Shuah Khan <shuah@kernel.org>, 
-	Jaewon Yang <yong010301@gmail.com>, linux-integrity@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118-tcpm-soft-reset-sop-v2-1-b6decdc95e66@flipper.net>
 
-On Fri, Nov 20, 2026 at 7:27 PM Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> On Fri, Nov 20, 2026 at 07:16:13PM +0700, Rustam Mustafin wrote:
-[...]
-> So... why does not this block uring? You are implementing a feature
-> as a bug fix, or so that it appears.
+On Wed, Nov 18, 2026 at 11:26:39AM +0400, Alexey Charkov wrote:
+> tx_sop_type holds the SOP* of the VDM being sent, for its retries, and
+> SOFT_RESET_SEND also reads it to tell a Soft_Reset for the cable plug,
+> after a VCONN Swap, from one for the port partner. Nothing sets it back
+> after a VDM, so once a VDM has gone to the cable plug, such as Discover
+> Identity on SOP' before the first contract, every Soft_Reset meant for
+> the port partner goes to the cable plug instead. The cable plug accepts
+> it and the port goes back to its ready state, but the port partner never
+> sees the Soft_Reset: a source whose Source_Capabilities got Not_Supported
+> is then left without a contract. The VCONN Swap, in turn, overwrites the
+> SOP* of a VDM that may still be pending. This left a FUSB302B-based
+> source without a contract until it was unplugged, after its partner
+> missed a message following Discover Identity to an e-marked cable.
+> 
+> Keep one target per context: vdm_sop_type for the VDM and its retries,
+> and soft_reset_sop_type for the next Soft_Reset. Point the latter at the
+> cable plug only for the VCONN Swap, only once, and back at SOP whenever
+> the protocol layer starts over or a Soft_Reset of the port partner
+> starts, along with the SOP' MessageID counters.
+> 
+> Fixes: 6bd181ba60e1 ("usb: typec: tcpm: add control message support to sop'")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
 
-Patch 1 also fixes a plain read() racing a write() (the second trace),
-which does not involve io_uring, so blocking io_uring alone would not
-cover it. Patch 1 is small, so it might be easier to backport.
+Hopefully Badhri or RD have time to take a look, but LGTM:
 
-The io_uring block is posted on top of this series:
-https://lore.kernel.org/all/20261120142116.1630010-1-rmustafin@cloudlinux.com/
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-It depends on this series, because the new ->read_iter() would let
-vfs_iter_read() callers such as Coda reach tpm_common_read() with
-their own offset.
+> ---
+>  drivers/usb/typec/tcpm/tcpm.c | 28 +++++++++++++++++-----------
+>  1 file changed, 17 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+> index bb90211660ca..8c5be904d772 100644
+> --- a/drivers/usb/typec/tcpm/tcpm.c
+> +++ b/drivers/usb/typec/tcpm/tcpm.c
+> @@ -675,12 +675,13 @@ struct tcpm_port {
+>  
+>  	/* SOP* Related Fields */
+>  	/*
+> -	 * tx_sop_type determines which SOP* a message is being sent on.
+> -	 * For messages that are queued and not sent immediately such as in
+> -	 * tcpm_queue_message or messages that send after state changes,
+> -	 * the tx_sop_type is set accordingly.
+> +	 * Messages that are not sent right away carry their SOP* separately,
+> +	 * one per context so that one cannot redirect another:
+> +	 * vdm_sop_type for the VDM being sent, including its retries, and
+> +	 * soft_reset_sop_type for the next Soft_Reset.
+>  	 */
+> -	enum tcpm_transmit_type tx_sop_type;
+> +	enum tcpm_transmit_type vdm_sop_type;
+> +	enum tcpm_transmit_type soft_reset_sop_type;
+>  	/*
+>  	 * Prior to discovering the port partner's Specification Revision, the
+>  	 * Vconn source and cable plug will use the lower of their two revisions.
+> @@ -2003,7 +2004,7 @@ static void tcpm_queue_vdm(struct tcpm_port *port, const u32 header,
+>  	port->vdm_state = VDM_STATE_READY;
+>  	port->vdm_sm_running = true;
+>  
+> -	port->tx_sop_type = tx_sop_type;
+> +	port->vdm_sop_type = tx_sop_type;
+>  
+>  	mod_vdm_delayed_work(port, 0);
+>  }
+> @@ -3065,7 +3066,7 @@ static void vdm_run_state_machine(struct tcpm_port *port)
+>  		} else {
+>  			tcpm_ams_finish(port);
+>  			port->vdo_data[0] = 0;
+> -			if (port->tx_sop_type == TCPC_TX_SOP)
+> +			if (port->vdm_sop_type == TCPC_TX_SOP)
+>  				break;
+>  			/* Handle SOP' Transmission Errors */
+>  			switch (PD_VDO_CMD(vdo_hdr)) {
+> @@ -3102,7 +3103,7 @@ static void vdm_run_state_machine(struct tcpm_port *port)
+>  	case VDM_STATE_SEND_MESSAGE:
+>  		/* Prepare and send VDM */
+>  		memset(&msg, 0, sizeof(msg));
+> -		if (port->tx_sop_type == TCPC_TX_SOP_PRIME) {
+> +		if (port->vdm_sop_type == TCPC_TX_SOP_PRIME) {
+>  			msg.header = PD_HEADER_LE(PD_DATA_VENDOR_DEF,
+>  						  0,	/* Cable Plug Indicator for DFP/UFP */
+>  						  0,	/* Reserved */
+> @@ -3119,7 +3120,7 @@ static void vdm_run_state_machine(struct tcpm_port *port)
+>  		}
+>  		for (i = 0; i < port->vdo_count; i++)
+>  			msg.payload[i] = cpu_to_le32(port->vdo_data[i]);
+> -		res = tcpm_pd_transmit(port, port->tx_sop_type, &msg);
+> +		res = tcpm_pd_transmit(port, port->vdm_sop_type, &msg);
+>  		if (res < 0) {
+>  			port->vdm_state = VDM_STATE_ERR_SEND;
+>  		} else {
+> @@ -5529,6 +5530,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  		port->message_id_prime = 0;
+>  		port->rx_msgid = -1;
+>  		port->rx_msgid_prime = -1;
+> +		port->soft_reset_sop_type = TCPC_TX_SOP;
+>  		port->explicit_contract = false;
+>  		/* SNK -> SRC POWER/FAST_ROLE_SWAP finished */
+>  		if (port->ams == POWER_ROLE_SWAP ||
+> @@ -5801,6 +5803,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  		port->message_id_prime = 0;
+>  		port->rx_msgid = -1;
+>  		port->rx_msgid_prime = -1;
+> +		port->soft_reset_sop_type = TCPC_TX_SOP;
+>  		port->explicit_contract = false;
+>  
+>  		if (port->ams == POWER_ROLE_SWAP ||
+> @@ -6193,6 +6196,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  	case SOFT_RESET:
+>  		port->message_id = 0;
+>  		port->rx_msgid = -1;
+> +		port->soft_reset_sop_type = TCPC_TX_SOP;
+>  		/* remove existing capabilities */
+>  		tcpm_partner_source_caps_reset(port);
+>  		tcpm_pd_send_control(port, PD_CTRL_ACCEPT, TCPC_TX_SOP);
+> @@ -6210,6 +6214,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  	case SNK_SOFT_RESET:
+>  		if (port->ams != NONE_AMS)
+>  			tcpm_ams_finish(port);
+> +		port->soft_reset_sop_type = TCPC_TX_SOP;
+>  		port->upcoming_state = SOFT_RESET_SEND;
+>  		tcpm_ams_start(port, SOFT_RESET_AMS);
+>  		break;
+> @@ -6220,7 +6225,8 @@ static void run_state_machine(struct tcpm_port *port)
+>  		 * A Soft_Reset Message Shall be targeted at a specific entity
+>  		 * depending on the type of SOP* packet used.
+>  		 */
+> -		if (port->tx_sop_type == TCPC_TX_SOP_PRIME) {
+> +		if (port->soft_reset_sop_type == TCPC_TX_SOP_PRIME) {
+> +			port->soft_reset_sop_type = TCPC_TX_SOP;
+>  			port->message_id_prime = 0;
+>  			port->rx_msgid_prime = -1;
+>  			tcpm_pd_send_control(port, PD_CTRL_SOFT_RESET, TCPC_TX_SOP_PRIME);
+> @@ -6439,7 +6445,7 @@ static void run_state_machine(struct tcpm_port *port)
+>  	case VCONN_SWAP_SEND_SOFT_RESET:
+>  		tcpm_swap_complete(port, port->swap_status);
+>  		if (tcpm_can_communicate_sop_prime(port)) {
+> -			port->tx_sop_type = TCPC_TX_SOP_PRIME;
+> +			port->soft_reset_sop_type = TCPC_TX_SOP_PRIME;
+>  			port->upcoming_state = SOFT_RESET_SEND;
+>  			tcpm_ams_start(port, SOFT_RESET_AMS);
+>  		} else {
+> 
+> -- 
+> 2.56.0
+> 
 
-Br,
-Rustam
+-- 
+heikki
