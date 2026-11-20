@@ -1,55 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795169891;
-	b=lqE/LfB42mu/JLM6YPny86YBEAxmqDR1aXabiCGTwCWHigx9VhaJslGhF62/n3Fn4bDv
-	 KirdrMAQVdc4jdF0/MxLSs7PrssFHDg0AgPUSHbhKpNvt5A9KTNGn7V+uEif+Ebg2DmW/
-	 +vTD6rwi8y9P21l4knLQ2tFApJ40Vm3HxTnuXX2vlk2sw9sN1C94K+4h4fsMw7Fvxj02V
-	 vNjh4KtOnZJj1qK4Vi68fKXndABK+/AeoFGm8IN3ArdqPSMdMOvz/Z5Nfrjki7Z6lwZ51
-	 yNsH3ecoeLQpnuAJzz7G2UMQLMjffoUf9T83phfpUvVOv4kK4V/J+TueazAodHzWvdQ==
+	t=1795169897;
+	b=1yp6WfUZQGfA0I9Usdd2ii7BkP/mjlx89c0MzsbhaFL59/w3wIPwqEs1H5LJUF1wz+th
+	 0CcWLffQpM325QMdgOs3QZuffOHZDGAOjIxK1ok7y56V9njCpVgm2Igxo/4HIdhbTM50H
+	 9aBMEJ8Xcr81PonSd+2pKlF+5J+PiVanZU5lCMe6XHDulVSIOT1x1ozF6ed1S7GyUggfZ
+	 TBGgZYi6II/acYm/FT3Aq0GFH5eibrFXT3skRzBTqfbYxRucPiFdPNev5u/FLGOf80CiF
+	 5Rz31fk13jgSZZ8C5lxVel+HFYar9sEMfQdAdcteFpbr23N2pu6sC1PELmQ5tIJid8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795169891;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=91aSG4C3xDj7rNipux5lI7AnWD+3hz8cV70eKCK0A3Y=;
-	b=stNJLw11W5IMhYUEFho/W6Z1jNySzvnS+Gw9lyYsfNZ+Z5WkQRTQnj/ZdIDQ7bN7ln0+
-	 2f2iMXFzn/v5lNLt2QfdY8EgxGFCOGds52mgENDXTr/I2WVI2uVZDGfZtBIcxhuNDoABo
-	 x9VXKOjD+nKNNaLyxltUq5A8fF+Oi+v/mhB44uCcDupnhkDjpVQuy14uHkT7ZDfrZQofX
-	 6xnmUnSa2FqBJR6QBGTgQuQfRR5T2puhe3DNQ0ZnubUap8iryjB34nsRz8nhsvTPI75B6
-	 oI3HHZF9g22DBosQzi8t6UsR8WPKqmmhmJJ4JLW0u3KD4sS6hBm7DbaE+O18ldYWu6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795169897;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0840EDq5sPqsJHKgUXXcqS6nB05CdxuLpexyxuNzBmU=;
+	b=UFvwMmc3BvGrGJeoAyooNy1Z6+eXZbv4FLKwGEhEfZnw6dWMxfiLbUw+BpGdkJ7cMPQI
+	 N61u3yi5Em40gDOtc7AB8wQkdZcXtVdi7nJOoCjyrwG6eLlA4gCRokOKrsSq8wLrLRz2J
+	 nc6cuOiUzATuNuRlM0QJYlBHVcKLZVoZ79OlRoTWGErhk/3qgeBWDLMn0IVnU5uhIJQ6I
+	 HFWFMTO+z1f1XmqYv822wcNsWdt1TdlW4tDapN+DBmLytR3qO3aZ1Zn4sSqX6hSbayXVs
+	 Y0M/xzWwQCPRcvYbUh1pZ1WNUeVKG+KO0EuwVORk5f/aVADAgtDUwzLjRxuNesKTgzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LMDZJNKP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0UWDzhBg;
+	arc=none smtp.remote-ip=74.125.229.137
+Received: from mail-dl2-f9.google.com (mail-dl2-f9.google.com [74.125.229.137])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A91E606A320;
-	Fri, 20 Nov 2026 10:18:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E899C606A325
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 10:18:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E899C606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LMDZJNKP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E4421F000CF;
-	Fri, 20 Nov 2026 10:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795169890;
-	bh=91aSG4C3xDj7rNipux5lI7AnWD+3hz8cV70eKCK0A3Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LMDZJNKP3WhrzcLhiGmKo6B2KkXY5JuEVE3bD/AeAxLSQahDxrOspDslHBGaeyaug
-	 cXKghlblt4VBw/sWnXKfJk/fU9Oi5louyLXTvJ5pmCEMmHrMZA3Bet7MIWSZnRy6VR
-	 zvMvVn5qldvnD6hPq8izYmGEpYAvVGzvQ8yEkdGM=
-Date: Fri, 20 Nov 2026 11:18:08 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Palla Raghunath <raghunathpalla.0209@gmail.com>
-Cc: linux-usb@vger.kernel.org, Neill Kapron <nkapron@google.com>,
-	=?utf-8?Q?Micha=C5=82?= Nazarewicz <mina86@mina86.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	linux-kernel-mentees@lists.linux.dev, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0UWDzhBg
+Received: by mail-dl2-f9.google.com with SMTP id a92af1059eb24-1397ad3d891so75205c88.0
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 02:18:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795169895; x=1795774695; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0840EDq5sPqsJHKgUXXcqS6nB05CdxuLpexyxuNzBmU=;
+        b=0UWDzhBgiZt5U/3N4EeZci/JkWF9eKwGJXsAHn33Vkruk3qem1UHqvfcGP6nWBvInq
+         BdCARVy8qG6wx2oPff/jAo/jp2sEbNZLdW+aiXFbEcQvb+2WEqXLeca3fkfqaEXKAl5n
+         lrgbH9EcwYkxXzc9HMRgG7npL0l+MYg5mlUyrqhOj3eUmlzNEcy7ln+bAP6DfG+rwxQU
+         dsO1QW0R8k0RfLSX8CSqHIqkiai9v1pDGS9vIm2NPVZof7kmQaUntowQ99KIIV3Dqesi
+         diGgYheEaF+iqiezAvbSE5xWM5zNHf3jCQGh4t/IW7lxv6XFNtuqqnqqO9UlxRCX7oQl
+         s24Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795169895; x=1795774695;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0840EDq5sPqsJHKgUXXcqS6nB05CdxuLpexyxuNzBmU=;
+        b=QWYi/UmmZAWEM3G77wewQDQqwepgj8xI54Xm0lw++tQgdZvgWgFYv6wzJcEOR5ZspE
+         lL6GyIoZ7NHCUBLZRGsI71VaJxGhTljenQt0qqARQZcKx7XR2DREE4/Qr1iCAJw33baw
+         EmU/vyUfefotBV3NmTrsHqo6SHPWgm5tzpm3Ai4JdH05DiDTyxV7/Q/SVVOdOHjPzUO0
+         F0JbA2Pp5o72KxUeW4rN+VmyBtuq9h1f9xnzHXSawu7HTpa16xTYNfu9Q8lobPV6EwSq
+         NaGc+JUdlBMnEQ3ZNgBqxHV4ItWWdLjq8KauFJWQwnzCojWuRUA+cRirb4PCQQcT8nzd
+         hhjQ==
+X-Forwarded-Encrypted: i=1; AL+hErEkzwRfHEu6xabD7zdlB7vsIVEpxkbnutMhdMfj2opftN+SMeQu0h8/qCaLV8gfDobGXAGUP60=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CGw1IKBU3Y/BU5ZiFtL3LMboNuIVeh4wMi4t9UXSR3bXlNNNL
+	hA/HG5mnCNMpWts2Gj3uH3JqTvrYvPrRlquMOF1uQ4WGxPa0AeEUzPAT
+X-Gm-Gg: AYBFou2ApJrzzhbJDxbQhGxdTwtiZVxQw/BgNdN1O/zbkCes2GmDxOVdyvhA3Mcb2oV
+	Hcf526EF8682WPrSgCOObxRMJDsdHYGyUZIrCPILc3hbrxEfHY+hGZTHe6hU3vSgiiFjyipfXwz
+	+8Hdb85gZ2VsUbrvvk2Zt4q0m54qbMIushddcOHlcG62bPpcQSCdp3jKFDNw0yPKb3FXPiySpUM
+	JhZzv5Zfx9INiBC771ixTMzmrNhJSjx/ZiG0zqu9NIS7uaoDOjB/HSWjJ2weU+EIqEopkHvH3Ql
+	92/Xu18ShVo2dYP1FbGoj7KUVB3KhU2UmulvB7FaWB/NBIB2WFEmWf6G6MFsHkdIG26CgL6Aqm4
+	I9RBCgVG/7BEXga9HqKW+FKuXYYgiQpKJealHXz7WJm7Jo8hD2XAiWUAXQNcLclRGAFzsO0s4h/
+	wdI1rprxoh57BJXo7VNKVMSitaF2paHr3olu+bbN9wLz9ZKWhrx6hkNOkdRyRPB//JmNoWNUVUD
+	3NJ01xeDVjxHg9/X67w5hRtExiNRLPhjBF7j/RYIqYirY+EMmixFRYjrPUGAinpoeDKd6HDbNIH
+	sO23G6p/4ohBXJCUPixeWLkjMqkpeeuVIErmuZlzUEe+ILItZxskfoStJKCGiK/SfEZgI9/hHFT
+	6HX7y9zgY8+pCMa3fVpgit7jSDiuM4E2gIa64FQ==
+X-Received: by 2002:a05:701b:2901:b0:143:3c9f:10a6 with SMTP id a92af1059eb24-1b5567b315cmr2415345c88.4.1795169894971;
+        Fri, 20 Nov 2026 02:18:14 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5568592adsm5905170c88.15.2026.11.20.02.18.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 02:18:14 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: axboe@kernel.dk
+Cc: hch@infradead.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dm-devel@lists.linux.dev,
+	mtsai@redhat.com,
 	stable@vger.kernel.org,
-	syzbot+6227549bd2c8a1ec8ba0@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: gadget: f_fs: fix use-after-free of ffs_dev in
- ffs_free_inst()
-Message-ID: <2026112029-depletion-small-f290@gregkh>
-References: <20261006204202.59604-1-raghunathpalla.0209@gmail.com>
+	dennylin0707@gmail.com,
+	hch@lst.de
+Subject: [PATCH v4] block: fix discard alignment for non-power-of-two granularities
+Date: Fri, 20 Nov 2026 10:17:58 +0000
+Message-ID: <20261120101758.45513-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,83 +101,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006204202.59604-1-raghunathpalla.0209@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 06, 2026 at 09:42:02PM +0100, Palla Raghunath wrote:
-> When a function instance is removed through configfs, ffs_free_inst()
-> first calls ffs_release_dev(), which takes ffs_dev_lock, detaches the
-> dev from its mount and drops the lock again. Only then does it retake
-> the lock and free the dev with _ffs_free_dev().
-> 
-> Between those two steps the dev is still on the ffs_devices list. If
-> someone mounts functionfs with the same instance name right then,
-> ffs_acquire_dev() finds the dev, marks it mounted and points the new
-> ffs_data at it. The dev is freed a moment later, and when that mount
-> is torn down, ffs_closed() writes to freed memory. syzbot hit this:
-> 
->   BUG: KASAN: slab-use-after-free in ffs_closed drivers/usb/gadget/function/f_fs.c:4427 [inline]
->   BUG: KASAN: slab-use-after-free in ffs_data_clear+0x543/0x5b0 drivers/usb/gadget/function/f_fs.c:2305
->   Write of size 1 at addr ffff8880237b1e4a by task syz-executor/11910
->   Call Trace:
->    ffs_closed drivers/usb/gadget/function/f_fs.c:4427 [inline]
->    ffs_data_clear+0x543/0x5b0 drivers/usb/gadget/function/f_fs.c:2305
->    ffs_data_reset drivers/usb/gadget/function/f_fs.c:2336 [inline]
->    ffs_fs_kill_sb+0x84/0x370 drivers/usb/gadget/function/f_fs.c:2180
->    deactivate_locked_super+0xbe/0x110 fs/super.c:586
->    cleanup_mnt+0x3d3/0x460 fs/namespace.c:1329
->   ...
->   Freed by task 17408:
->    kfree+0x1c5/0x650 mm/slub.c:6923
->    _ffs_free_dev drivers/usb/gadget/function/f_fs.c:4336 [inline]
->    ffs_free_inst+0x233/0x2c0 drivers/usb/gadget/function/f_fs.c:4152
->    usb_put_function_instance+0x95/0xc0 drivers/usb/gadget/functions.c:77
->    config_item_release+0x13a/0x2d0 fs/configfs/item.c:137
->    configfs_rmdir+0x885/0x950 fs/configfs/dir.c:1580
-> 
-> Fix it by doing the release and the free while holding the lock once.
-> To allow that, move the body of ffs_release_dev() into a new
-> _ffs_release_dev() that expects the lock to be held already, and keep
-> ffs_release_dev() as a wrapper for ffs_data_put(). A racing mount now
-> either gets the dev before ffs_free_inst() runs, in which case the
-> release clears its pointer, or doesn't find the dev at all.
-> 
-> I was able to reproduce this in QEMU with a small program that keeps
-> creating and removing an ffs function directory in configfs while a
-> second thread mounts and unmounts functionfs with the same name. On an
-> unpatched kernel it hit the same KASAN report within about ten
-> minutes. With this patch applied, the same program ran for 30 minutes
-> without any problem.
-> 
-> Fixes: ecfbd7b9054b ("usb: gadget: f_fs: Fix setting of device and driver data cross-references")
-> Cc: stable@vger.kernel.org
-> Reported-by: syzbot+6227549bd2c8a1ec8ba0@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=6227549bd2c8a1ec8ba0
-> Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
-> ---
->  drivers/usb/gadget/function/f_fs.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-> index c64a268e98a4..f8ea9a980605 100644
-> --- a/drivers/usb/gadget/function/f_fs.c
-> +++ b/drivers/usb/gadget/function/f_fs.c
-> @@ -288,6 +288,7 @@ static struct ffs_dev *_ffs_find_dev(const char *name);
->  static struct ffs_dev *_ffs_alloc_dev(void);
->  static void _ffs_free_dev(struct ffs_dev *dev);
->  static int ffs_acquire_dev(const char *dev_name, struct ffs_data *ffs_data);
-> +static void _ffs_release_dev(struct ffs_dev *ffs_dev);
+bio_discard_limit() uses round_up() and round_down(), which require a
+power-of-two alignment. However, discard_granularity need not be a power
+of two. For example, dm-thin supports data block sizes that are arbitrary
+multiples of 64 KiB and advertises the block size as its granularity.
 
-> -static void ffs_release_dev(struct ffs_dev *ffs_dev)
-> +/*
-> + * Same as ffs_release_dev(), for callers that already hold ffs_dev_lock.
-> + */
-> +static void _ffs_release_dev(struct ffs_dev *ffs_dev)
+With a 192 KiB granularity, discarding one complete block at offset
+384 KiB is split into 128 KiB and 64 KiB bios. Neither covers a complete
+thin block, so dm-thin ignores both and the mapping remains allocated.
 
-Then enforce the lock being held here by telling the compiler that it
-must be held.
+Use div_u64_rem() to find the starting sector's remainder without
+modifying the sector. Round the maximum bio size down with rounddown()
+and subtract the remainder so that the next bio starts on a granularity
+boundary. This handles non-power-of-two granularities and avoids a small
+initial bio when a large discard starts at an unaligned sector.
 
-thanks,
+When discard is unsupported or disabled, discard_granularity can be zero.
+Return BIO_MAX_SECTORS in that case so the existing bio submission checks
+can handle unsupported discard requests without dividing by zero.
 
-greg k-h
+Fixes: 9b15d109a6b2 ("block: improve discard bio alignment in __blkdev_issue_discard()")
+Reported-by: Ming-Hung Tsai <mtsai@redhat.com>
+Link: https://lore.kernel.org/r/CALjSBEvjbiGDVewuapWKhGDtaxZwcn4=22raUiBEOyj22rY7-g@mail.gmail.com
+Suggested-by: Christoph Hellwig <hch@infradead.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+Changes in v4:
+- Add Christoph Hellwig's Reviewed-by.
+
+v3: https://lore.kernel.org/r/20261103185909.71843-1-dennylin0707@gmail.com
+
+Changes in v3:
+- Use div_u64_rem() instead of sector_div(), as suggested by Christoph
+  Hellwig, so the input sector is not modified.
+- Subtract the starting-sector remainder from the rounded maximum size
+  instead of emitting a short initial bio, following Christoph's proposal.
+- Include <linux/math64.h> explicitly and retain v2's zero-granularity guard.
+
+Changes in v2:
+- Handle zero discard_granularity before dividing. Leave unsupported
+  discard handling to the bio submission path.
+
+v2: https://lore.kernel.org/r/20261026195131.46699-1-dennylin0707@gmail.com
+
+ block/blk-lib.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/block/blk-lib.c b/block/blk-lib.c
+index 688bc67cbf7..e98aa483707 100644
+--- a/block/blk-lib.c
++++ b/block/blk-lib.c
+@@ -3,6 +3,7 @@
+  * Functions related to generic helpers functions
+  */
+ #include <linux/kernel.h>
++#include <linux/math64.h>
+ #include <linux/module.h>
+ #include <linux/bio.h>
+ #include <linux/blkdev.h>
+@@ -13,26 +14,25 @@
+ static sector_t bio_discard_limit(struct block_device *bdev, sector_t sector)
+ {
+ 	unsigned int discard_granularity = bdev_discard_granularity(bdev);
+-	sector_t granularity_aligned_sector;
++	u32 unaligned_sectors;
++
++	if (!discard_granularity)
++		return BIO_MAX_SECTORS;
+ 
+ 	if (bdev_is_partition(bdev))
+ 		sector += bdev->bd_start_sect;
+ 
+-	granularity_aligned_sector =
+-		round_up(sector, discard_granularity >> SECTOR_SHIFT);
+-
+-	/*
+-	 * Make sure subsequent bios start aligned to the discard granularity if
+-	 * it needs to be split.
+-	 */
+-	if (granularity_aligned_sector != sector)
+-		return granularity_aligned_sector - sector;
+-
+ 	/*
+-	 * Align the bio size to the discard granularity to make splitting the bio
+-	 * at discard granularity boundaries easier in the driver if needed.
++	 * Align the bio size to the discard granularity to make splitting the
++	 * bio at discard granularity boundaries easier in the driver if needed.
++	 *
++	 * If the current sector is not aligned, shorten the range so that the
++	 * next one is aligned.
+ 	 */
+-	return round_down(BIO_MAX_SIZE, discard_granularity) >> SECTOR_SHIFT;
++	div_u64_rem(sector, discard_granularity >> SECTOR_SHIFT,
++		    &unaligned_sectors);
++	return (rounddown(BIO_MAX_SIZE, discard_granularity) >> SECTOR_SHIFT) -
++		unaligned_sectors;
+ }
+ 
+ struct bio *blk_alloc_discard_bio(struct block_device *bdev,
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.50.1 (Apple Git-155)
+
