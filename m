@@ -1,78 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795180442;
-	b=1lVWAspL5y079SE3Zv90YCpaFrhC3zh1Tj55ndvTp3O3pfouPBp/Wl/O3fIzHcvR0Ooy
-	 0FgDVfZ0Cg0+ReCVrVut133cebK5av3nZq/qHFZX8PQnM78zHcKdMVdgEEwpV4YL79br5
-	 WbNAXX4qQmGlMIyS214vdFQ987EQCfTwCjtqZ97vPSo0dQTEJ4pWGKae3po3eaCM5YHgS
-	 O5I9mxq/L+4IK0QdN8IuX6nGnmAeFpdDpxdJgJDIJOQF+FwKvdouKulf+mIAtn/5U+4EK
-	 AHKMSRIJAuiJXPXMVe/7U6cCdjqIlSLpEptE42kx3vkdEHz6TjCKxVvSKS3LO0mEOjg==
+	t=1795180618;
+	b=K6am7Q+db/LECy1kg+GjXZRR5Ax+ShO4fW3MsYuVtl2RNHIdIjuRvK/B8RIaGRTOEeTo
+	 dmhseTFbo4V4LLxxzTfrQ4fSeCo/BLsQ3JF54a3Rk8VPf3SiMcyXcWODYddPFkcM9dykO
+	 gNyhym0xxY4epKku4fXLJ7dBfsHgjdIEPw2RNuB8QV0neyxPCa+mz/IhxCL4/vvA6Rbym
+	 PUMGMwY5yuT2YqZ7zgWqBP00Vrlc5UHXFS81aozNi4u3/WOztTN/l6+N3DB0zu8R8cngl
+	 cCBAOIQaWzAbBUWprVhkdMHWvdQS5XUkBhnhWeTaUy8FlYThuQmWtrnpMple1e/pg4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795180442;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=ct9uYE0MzuKkAMie5CXMo99Xok8IAJAQ6knyjO+0/hE=;
-	b=Ckrc6CZoRFA6xtKA35HfVmPlc7WvjxuqAazCilVqBZldZWyFmNUDpg6l6lavHzDpn79I
-	 XEB7Mh60MpDBqtfKIabddacklIJ7bE/JCZUG+OXhWpSGOGLCdYMi+TgljQSvfd0z9+5EV
-	 PzAdzNuX+iabOkUEaIhvJfp8EI0QrSfBux9e+Errj5G/zijRXG2TvaMzBKVqonT7UQLmi
-	 qA9Re/Go0POcjLfqpd5BhIpgdiu3HLZFUmkRFCLjFO2QFZYdctZFAyclkhkdcizmqr+7f
-	 BeX3naMOh9c0NQdwVWlTMiUcCAGxccOwOV8Cn58fp25xtWwGR6u/85qWHPiEOaXmnMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795180618;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=c7dPS/UtYCXPtVTm4vS/8g+0IPJtQ9sYZmAnSl23OeQ=;
+	b=MbleR04V1al0hl141GyYrNhn9h12Wow3EkLR4vEMfu30TOqos9RscsQwxIHNpFxnC143
+	 e03fkBCOEDQNqrhb/beLU6FwKYb4+3PHqBj+VIQhiKgNK3RwHK6ePCA4hwWd+7nngOMK8
+	 QeKey2HIpjbg13O2GlvK+1lQy2y6/fEaHrXshISfL7JeJGAU0JfU/uHnOcbTxMCPuuQxh
+	 eY1KelS2qcQ6hhzPQfXWB7J6YddgtGxdWSgCVK/P/1bRtIRmabqo6hxQZI2KnLcnGrlQK
+	 6HPC7QA7gID9JAUlxMQfYBvgjubRt6aJiKGC/g1K9nPI2YNa7Djv19eADNUFYosUiOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=lt37JKR9;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Kfx0OxVm;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED85606A325;
-	Fri, 20 Nov 2026 13:14:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CED85606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9D7606A320;
+	Fri, 20 Nov 2026 13:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D9D7606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=lt37JKR9
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jWG4k1WDvzKmcF;
-	Fri, 20 Nov 2026 14:13:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1795180438; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ct9uYE0MzuKkAMie5CXMo99Xok8IAJAQ6knyjO+0/hE=;
-	b=lt37JKR9rIh6DlBR0U+q0QMh6BHcGjljqKeNNe585NLbVM2ygPKRdX12oxxnuzcpj2ayN1
-	LJJQNDX4/MMRlaGIF+wLLFH6IzidejaRKx9dlHHiKacZ8sZPi7e4OqG8KCBjBhbmbLSSzB
-	pBTWzCfmfdsfRCQvMaKHBKA8OVJM5nn6+VazUHi6eMc5lo8F/PacL14BH//lG05dsaHvj9
-	QLUevQvjcQfYH14M2k1oY4/x886KStGGfUKEhW/orEIha0Pz5Pjver2TZokT8jvQXrgWRa
-	KO+Vr3ecu/cXkr6iqEGyhqoDtUnaocfjY8+oYSgjyWB8pbsNDekaQphEEnG8Eg==
-Message-ID: <f8244837789536b0c339818a45aa3e6a52580a4e.camel@mailbox.org>
-Subject: Re: [PATCH v4] dma-buf/dma-fence: Prevent misordering for error
- checks
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
- Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Simona
- Vetter	 <simona.vetter@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
- Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, Alice Ryhl
- <aliceryhl@google.com>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, "Paul E . McKenney"
- <paulmck@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Fri, 20 Nov 2026 14:13:55 +0100
-In-Reply-To: <9a434a22-249b-4121-a390-95eaedb5ba6a@amd.com>
-References: <20261120111615.2940647-2-phasta@kernel.org>
-	 <9a434a22-249b-4121-a390-95eaedb5ba6a@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Kfx0OxVm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795180617; x=1826716617;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yB//zI+7RxZPN6IQQJDw5n0c8DJgoR4yjSGTToAdGQg=;
+  b=Kfx0OxVmrgb93aoNAgPBF6+W2NZbgBwlX428uRS+oV5irGt9PQt/hCfQ
+   OQWXRWO/auNjrzrmn0lnmn1eYC1R1fFESyeTqSuv14GyBYTIy826QNFIb
+   7OE2Nz8LxtRcyFkiPHDrxgR6hm72yyxNUFB/u/Lbt0fB8yUYfXxsGnVOf
+   ZKtnch/EyC5znldp8Pd/oHiPSVaqME5g2mm/jM38mUcJFBZ9AT2qeHOLH
+   bC4Vl95H6hRb2K+29bH+pDjAROx9WkEWrdA1aRiYVGJZ7L6FzflYirLpR
+   HzbhX8v0CJ0xqf5kURmwMaQCcqs/YEpWuubxPxWijLTMH1u49cv9I8clM
+   g==;
+X-CSE-ConnectionGUID: y4Mkrk6BSNyLgN6dGSH5qg==
+X-CSE-MsgGUID: QUSJ/ML8TWaKn2oyMyXg2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4101332"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
+   d="scan'208";a="4101332"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 05:16:57 -0800
+X-CSE-ConnectionGUID: XGYvRCPTQWOtz0zWArkz7g==
+X-CSE-MsgGUID: VIQI0BUWThqZu9kuKO5FLw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
+   d="scan'208";a="11268920"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa010.fm.intel.com with ESMTP; 20 Nov 2026 05:16:56 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 5EFA499; Fri, 20 Nov 2026 14:16:54 +0100 (CET)
+Date: Fri, 20 Nov 2026 14:16:54 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: memoriaru@foxmail.com
+Cc: linux-usb@vger.kernel.org, badhri@google.com,
+	gregkh@linuxfoundation.org, stable@vger.kernel.org
+Subject: Re: [PATCH usb v2] usb: typec: tcpm: align SOP' Soft Reset handling
+ with SOP
+Message-ID: <awBIRnc9lBkdVhEK@black.igk.intel.com>
+References: <avw6CtZkJqvwj4eL@black.igk.intel.com>
+ <tencent_443620EAE95525A375BB2D8A653406630A07@qq.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,20 +82,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: a7acc205da7b9c483bd
-X-MBO-RS-META: ezmrjbsp5jwni611xb19k6cbdob6odsk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_443620EAE95525A375BB2D8A653406630A07@qq.com>
 
-On Fri, 2026-11-20 at 13:36 +0100, Christian K=C3=B6nig wrote:
-> On 11/20/26 12:16, Philipp Stanner wrote:
-> > Ensure ordering for everyone evaluating the error code centrally by
-> > using test_bit_acquire() in dma_fence_test_signaled_flag().
-> >=20
-> > Cc: stable@vger.kernel.org
-> > Fixes: d6c99f4bf093 ("dma-fence: Wrap querying the fence->status")
-> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
->=20
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+On Tue, Nov 17, 2026 at 07:36:21PM +0800, memoriaru@foxmail.com wrote:
+> From: Zhang Hewei <memoriaru@foxmail.com>
+> 
+> The PD message duplicate-check and the SOFT_RESET state handling treat
+> the SOP and SOP' channels differently:
+> 
+> - tcpm_pd_rx_handler() exempts PD_CTRL_SOFT_RESET from the MessageID
+>   duplicate check on the SOP path (the USB PD spec 6.6.1.2 note: a
+>   Soft_Reset Message always carries MessageID zero, so the duplicate
+>   check must not drop it), but the SOP' branch of the same switch has
+>   no such exemption. A cable that sends a second Soft Reset over SOP'
+>   (MessageID zero again) has that message silently dropped by the
+>   stale rx_msgid_prime comparison, and the cable-side re-negotiation
+>   stalls.
+> 
+> - run_state_machine()'s SOFT_RESET case resets message_id/rx_msgid but
+>   not message_id_prime/rx_msgid_prime, while the initiator path
+>   (SOFT_RESET_SEND, SOP_PRIME branch) resets both counter pairs. After
+>   a responder-side soft reset the prime counters stay stale.
+> 
+> Reset the prime counters together with the SOP counters and exempt
+> Soft Reset from the SOP' duplicate check, aligning the SOP' handling
+> with the SOP path.
+> 
+> Found by code inspection; a software TCPC stub was built for the
+> responder path.
+> 
+> Fixes: 6bd181ba60 ("usb: typec: tcpm: add control message support to sop'")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhang Hewei <memoriaru@foxmail.com>
+> ---
+>  tcpm.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tcpm.c b/tcpm.c
+> index bb90211..95f748d 100644
+> --- a/tcpm.c
+> +++ b/tcpm.c
 
-Pushed it to misc-fixes. Thx.
+How did you prepare this patch? It doesn't apply.
 
-P.
+I do hope you have actually compiled this at some point.
+
+Thanks,
+
+> @@ -4200,7 +4200,8 @@ static void tcpm_pd_rx_handler(struct kthread_work *work)
+>  		*/
+>  		switch (rx_sop_type) {
+>  		case TCPC_TX_SOP_PRIME:
+> -			if (msgid == port->rx_msgid_prime)
+> +			if (msgid == port->rx_msgid_prime &&
+> +			    type != PD_CTRL_SOFT_RESET)
+>  				goto done;
+>  			port->rx_msgid_prime = msgid;
+>  			break;
+> @@ -6193,6 +6194,8 @@ static void run_state_machine(struct tcpm_port *port)
+>  	case SOFT_RESET:
+>  		port->message_id = 0;
+>  		port->rx_msgid = -1;
+> +		port->message_id_prime = 0;
+> +		port->rx_msgid_prime = -1;
+>  		/* remove existing capabilities */
+>  		tcpm_partner_source_caps_reset(port);
+>  		tcpm_pd_send_control(port, PD_CTRL_ACCEPT, TCPC_TX_SOP);
+> -- 
+> 2.39.5 (Apple Git-154)
+
+-- 
+heikki
