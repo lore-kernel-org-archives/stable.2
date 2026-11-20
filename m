@@ -1,65 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795205683;
-	b=s4NQB/8g8m8hSuItyKSAX4oO2Qu217cqbwio8TCfjsmQqzpMKfdE9OzaCq+5ikdQBv3E
-	 D/s0UDOZdr0toQqQGty2OP+8a6AmLuFjiAI/G92xn6OKtNfB4QM8oRpyuKpCpOYr7/1TR
-	 JV1bL8m3Vb9Uwco9GR/oipzc+W42wC6VbJ10+HPHjRyx1J/vv5b2WmLMGg6c1nIbTj1Bo
-	 MNVi5Y/ip7DxavFQw4vl4PRuwU2HHFW6E9tNsv+te0nAJT+vSpRyYkz9y+Y1LlCuqPBZ0
-	 jLSmWNT4cte9LdHLnncGKSBl/wQcnrklgRLKT0eM0Zc7YYtv5df6IRG8UNCf14Hw8Zw==
+	t=1795205758;
+	b=QWPKniw0sJCbFikfJFL3JeBTiIcufK1nO5QlPxHmxH1Aazd9IacEHON6mgQMWNNr/D1+
+	 nYx0zV/W6zv4ro8mxK/jNzWv6B6RdLzbNslbkgZJBpGCCcq4fCsc9WVMKrayqTzdtnnPW
+	 toguKMJp05pfZL/we1mJVkUv0iQKM/QCXGPU82qLI1Br8SoP0C7dJZQ2VIJyOJfif+I8L
+	 6hkDVuwQ1io0nlwzTEwnUDBl6KOvui/9UP/VF2nAEbafg44HKwLUpBEsudzg5ZZZJI8ZO
+	 F5+Z5Lv03F02fa6nk/1eMnPZyU7rctjhE+6MG+xZGXMbQ35CG0fJNQfCO177wLMec8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795205683;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=FFTP1NPza1DvwgzCri+N43IcvcyxR0U6bBZgpwRHscQ=;
-	b=GCsHNaBv6pfVHXpRDIweuay7yh9jwlMnUQFR2b/x95LYoSjeYUkcOrrIDa1F1Txy5HXZ
-	 E5sY7WAlsdKUsZ8duTa7NVev+gXrWPQcwv8Ifiu91XvhTM9UxrTsSWYM/3jYemYShWdpq
-	 dBO3vIv7yQMdf9m/JUogtx8W2VBoMaKlde3RjLRZ7kfZdSx79J2MJPPe8y7vfQNhjoB0B
-	 zf1in8d3eUVLeYoPntri77KN5xykEN03sbBypdlRnTEQwv14tAh08vlElrASkAzHc7VYT
-	 3uoNBkpRLO2X1SRAKA25C3y8VdGDE1k/NmC9LHFU6c9stp1cXk3mNfqp3t5E8WoLs1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795205758;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Bmres2veI4WmKoOO0djqwZlxjU4vTSr8LiYOV14rpMI=;
+	b=nn5cZgsve4klQhMlP2hSw4hAFsXp2iYlFjoNZ+xsYHdvbomhtbRvqIQGDFOgE6Cyvfzk
+	 CXWWTCHvn8tkcrtPAg2EC4wc4Mzk8Wek/sPGRZJxcvjXVEAlIimUazINwl4+lCamuoAsa
+	 ZHO0gKHpMFI/QrjyOKdsrb1l0mgrMpNbnOn8mlx7Xas0kU0RTmGXVrosRrxqQlwl2wNNH
+	 hkjLDORnc1pcTHcXTMJkdlx2xd39nMS+WJs5cO9k6gE6zGBC2v+yGJjldMbgLV6Iz5eIq
+	 mlHAs/POA60htoenpE82paS+qSeuMOZGuCG+F8Ua9h22v4xfUP46U0nczeWg9dLlllA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=kOcxHrVk;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GqEgBK21;
+	arc=none smtp.remote-ip=209.85.160.172
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981CE606A6F1;
-	Fri, 20 Nov 2026 20:14:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 981CE606A6F1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39805606A6E8
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 20:15:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39805606A6E8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=kOcxHrVk
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=FFTP1NPza1DvwgzCri+N43IcvcyxR0U6bBZgpwRHscQ=; b=kOcxHrVkAyIvrsNI5n9oXxz2Cd
-	zSYQ4zJyHNy9cHPfsv8prE2GWzy7pHB1MWM7Dj3TWGiCaruL8l65x0Sm5WFdyFaKLGLAITTLlWQ7m
-	rxdUlf8+KA1YJewSlLAbJruWpBcyvE7EfLgg2pzT3Km2AW0r8QF+/MRmMD1Ev0CPNzb4q5GJrjYH7
-	OgqwmsrEuxm5iLJ8NKVcuWbVYWz6ijqfbX0c9UZWFUaV2Hf0R/k537BzeIuPLyh7CyTM3hfaT1W20
-	iNoObdEBvfnwMcdKMCyDI1KV6UKItF9Ibv9+NKRYzMBPN9rZj4nxTp5mbzBxjSTq+2pve3SNhC4Aj
-	jjRH1Nww==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xUV0E-0037jW-20;
-	Fri, 20 Nov 2026 20:14:34 +0000
-Date: Fri, 20 Nov 2026 12:14:29 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Danny Tsen <dtsen@linux.ibm.com>
-Cc: linux-crypto@vger.kernel.org, stable@vger.kernel.org, 
-	herbert@gondor.apana.org.au, nayna@linux.ibm.com, appro@cryptogams.org, 
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, mpe@ellerman.id.au, 
-	ltcgcw@linux.vnet.ibm.com, dtsen@us.ibm.com
-Subject: Re: [PATCH v2] crypto: powerpc/p10-aes-gcm - Fix IPsec stall on bond
- failover
-Message-ID: <awCpkj5wsxEPt-Vd@gmail.com>
-References: <20261120181657.6396-1-dtsen@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GqEgBK21
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-55d846e884eso3991201cf.2
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 12:15:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795205748; x=1795810548; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bmres2veI4WmKoOO0djqwZlxjU4vTSr8LiYOV14rpMI=;
+        b=GqEgBK21StO8Cxd+na/3iiN3yW+IrI9rHKRE1HvRhb95+XwkQmrGisIz0yzLAIaFNy
+         NpJ2dNGzkqNEZ1SZ1WFUAYGLbyQ+LzQOwWuZbi8L487BrUtOh9lOzYdA+g+zlichDGq0
+         kMqpxk6aRRrEPMoLvS+XgJ/QYdsA/A7qpwxdVSfhkMLKIchu6NvpyjlcgnuC2lOUY29I
+         48bqAnwtN1jVGJ5AYZ4A+DB+TJxvFtuEyGURmvOqezNtYIX/+7SS9keoRkBJAIL/ALpi
+         rx3bkx9wSkTcVW0UuO/L3OPge3pxKnO+qkpg4SH8wuWBQf/XLTq8CEcKvPJ2Z5Zn4cxq
+         MKoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795205748; x=1795810548;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bmres2veI4WmKoOO0djqwZlxjU4vTSr8LiYOV14rpMI=;
+        b=YZ2s9rDpFl0nAoRArvXpu6lvZy7QDt128a5m47wpRgZ+W/Oh+fwnZnSPxSbN0MxSik
+         VlzO21OYsBQfisatpK0oLpkqwngL9hSgnZfKaIn64bGGrwex2b01LK2pOMnjG/GTMYzP
+         oODwBOk7I0um8lkPgyZy/ODhyJU4pOrI0WbUHKyWIKKTWaNx347KbhUKJqOPm3WgCS/t
+         WpyPdvZFJgozWXJcHMrOmFfo51fg8ii5XzvBqqG2YAqjOV5luCA5A1sK2U5yBGotHSzK
+         BZCF5m87AwZH0GlGqzJXrt+YN7r1JnERq2HVKTxdh9PhXGI/hDD9w0jravnKQr8x6Fsb
+         aH6Q==
+X-Forwarded-Encrypted: i=1; AL+hErEaVdlstx01s4lv7H8aLwuTVvRZNmLu8QwM5kiIugRDI1uqPtAfc8Ejn3MLNCvvsmdv+cp/EZE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/bVKX/IqzX8GVS74ScCAnHVhOIBdotA29QZsHJStnH/np+L9qv
+	o791ZMHTBB6QHhMPm+eXqkAmbfED1TXQmkqLUKKTVO5IjDm+TAmpmjvZ
+X-Gm-Gg: AYBFou2CQbLUsT/wtgmVU8rTLb0Foyj4rOMEKhywha1H2tkVxP4jVwQnCTeWtJbvC5K
+	17ej9qkdPbeQxvbqHR6+j+N/RPxuTwYWBtVCCuQx4rNrqU51uBt6ORy9NHUSJ0e84o78RhRC5EX
+	EJlsrg15wgxPNgJ4gxcNJ15RskWfHYw49XCiwjzXgA2x6xx7ipW7lEChVQGnzXAcQH2EidsBa56
+	QSKtalRjRAPFJAvvBr1tOB6j9VGf5Ej3aeUr39DUE/Rfp2+u0WsE8xesj6TLLbGfBBF4+ll/qQx
+	U6LeENKMVx9/ZAHZW6dDkYD1biVbNnl30hWNMrwqfYClnK5PjgBHy2rksvYGoVRN5oF7wsVOjhI
+	UMxWBXXckiCwAxYyjrfjyPyv3LdPTMzREehEGrw8hixcMpWpwNQE97B95/zR+wrs1spNIhUYusy
+	zJB4qxSAtgcpz/FPV0VELZ/0Yy0yVG7w58qZVGk2axwQbgxMvjKXPb4lRdIf3Z5h04OFFI0m1rV
+	LJ+oe2+6qRU92eUsJsPAsm40R7nqFfkfXaFIeB3/UY1tSfiImpU1AJ5qZxsLHpghgstLMJRx0Ds
+	EpRaNUGpbGMh0Ch182UtKMbGeJQv/VGTLX2wjhdXUbdDZXgu+tyry+ZXl6VzNcfgRbim/hBrRj8
+	Veg==
+X-Received: by 2002:a05:622a:230b:b0:55b:f621:e7ce with SMTP id d75a77b69052e-55d76a26c80mr68335001cf.25.1795205748149;
+        Fri, 20 Nov 2026 12:15:48 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d78807b5fsm31219881cf.6.2026.11.20.12.15.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 12:15:47 -0800 (PST)
+Message-ID: <ac9a7cea-0d4e-4856-b796-03a1b887476a@gmail.com>
+Date: Fri, 20 Nov 2026 12:15:44 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,43 +93,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261120181657.6396-1-dtsen@linux.ibm.com>
-X-Debian-User: leitao
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 0000/2178] 5.15.226-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261120055015.328810133@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261120055015.328810133@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 20, 2026 at 01:16:57PM -0500, Danny Tsen wrote:
-> The Power10 AES-GCM driver registers its gcm(aes) and
-> rfc4106(gcm(aes)) algorithms through the crypto SIMD helper. When
-> crypto_simd_usable() is false, for example in softirq context, the
-> helper defers requests to cryptd and completes them asynchronously
-> with -EINPROGRESS.
+On 11/19/26 21:57, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.15.226 release.
+> There are 2178 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> This breaks IPsec traffic during a bond failover. With the crypto
-> offload device active, traffic is switched to a passive device that
-> has only software encryption, and the ESP requests then go through
-> aes_gcm_p10_crypto. Under heavy load, some or all of the TCP streams
-> drop to zero throughput and do not recover. The stack is seen to drop
-> the ACKs as invalid, which points to the cryptd queueing delaying or
-> reordering the packets.
+> Responses should be made by Sun, 22 Nov 2026 05:44:39 +0000.
+> Anything received after that time might be too late.
 > 
-> Fix this by registering the algorithms directly as aead_alg with
-> CRYPTO_ALG_NEED_FALLBACK, and allocating a "gcm(aes)" or
-> "rfc4106(gcm(aes))" fallback tfm in ->init(). When VSX cannot be used
-> (!crypto_simd_usable()), the key was not set up for SIMD, or
-> cryptlen < 64, the request is handed to the fallback and completed
-> synchronously in the caller's context. The driver no longer defers
-> work to cryptd.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.226-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
 > 
-> Remove Kconfig option CRYPTO_SIMD and add CRYPTO_AES and CRYPTO_GCM.
+> thanks,
 > 
-> Fixes: c954b252dee9 ("crypto: powerpc/p10-aes-gcm - Register modules as SIMD")
-> 
-> Signed-off-by: Danny Tsen <dtsen@linux.ibm.com>
+> greg k-h
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-> - * Copyright 2022- IBM Inc. All rights reserved
-> + * Copyright IBM Corp. 2022, 2023, 2024, 2025, 2026
-
-Do we really want to change this in this "fix" commit?
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
