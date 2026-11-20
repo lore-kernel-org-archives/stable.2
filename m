@@ -1,47 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795196553;
-	b=EkpwKpX/LjMBqCpwEYwlmKI3bo1vzPh7HyIqX8MNI6REDPVaflK7sNe1mmUqGWBuMijs
-	 Ibp2LsaONvuRWGJ+sN8YTa1db7hXVESaQ+QIkCuB88fAznrH+gKb8CxxWKHGJ3KiKlAT4
-	 tyefShmAFP2vheB7ep4olrQQOrZ4FhrsZDShaYnf7gMmtewTkEIhX6bObYlk2ZiJVuILS
-	 qe5bXxR05Fmyf01VqfxEoG2uOI31CRCfV+86fVP34KtpLmciAese0ZtXpRMb5yPV3A1HG
-	 x4DVYBQCgCai6oxkNZWWyuKDGGRS7CSNTDH4roSFBbviVdGSqAe18D/VELESuHTAQeA==
+	t=1795196557;
+	b=IZyYDr/hszhJr1rZyICmfp/95BfY6zd6EWAjiqxNVE/eOkd391Y4X4B+qdhvK6hQLNSL
+	 2aWO8cRST2WcBD7K0b3OcTbBWlyrWFwcDMiHx9PFSbUu0CEZ0FLGjSdVHDPWDaar2juqN
+	 jkWu/OcVdmO7b8SdJYvIDblPEyMzEixyWpNtLA6eJQKLCpHup2Oqkm2r5pFdL4+ePSOUw
+	 J2xQFIOkv4QtEQQpehRR17ctZ8mL/HHXSPrjh8EHXfNPlv7LYTAlOEDi/CsE99F7a2lTG
+	 EPbPvSidY40NEaiL6R4sldNIJ8ZZXBsTPv9F20cokWC4tEmt0ddw2kxzNeqaKwIw2gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795196553;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Bhnyfvy2KqZXAS36AJ1i0JMsTJ0vNWzr4CDn3GrGcfY=;
-	b=SxGm22mocCTMpx6/QRRwan2KcGJRFtcd1TUxIZYw3x4VA+BnBKNoe60p70LvBv3+BIxq
-	 bAkzvJJjKfS9mXYfDoGxN/SWaheIPYU/KyhbGRCJzjXw+rHrzo84/OKfxjjhjY+xJEyvo
-	 1OKNYcOSUeoK+YU4blaJ5hi7PFcUPfEn5hMFRmGD/i4AydRgyZeAN+Cw2SoKVs73hkOix
-	 /W+/MF7wmih2QYp89B3IR0xZTerurqOQn5DxfUkA3wL8ytNVDdtXq615cimUHzHstvMct
-	 oHn9zxsDlncvjIFYuvB+kan8kGKlwjX7P8YNaTSY3rIsWJWqgWv+C8+Ct0nVH1hZVxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196557;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZcQXLHhR20hCfvjpVa526iaWuFLXqsFmhOokAK+WFKc=;
+	b=SxYXkDtyRvy6aGu8ZrGhdTttBB2KPnvvDSshgKQu5ZxeMy20A01Cy0boR8laqDd19WLp
+	 +GYurfGvm5FsqdhQl5P2+ufEOHYYI/qaoANtsK1FFsEYMLDJhazIg15PxIUiPVmQg1aAn
+	 zXEY7b4EeSlWd06ChWjr0MTqP33ntyISBE+tQrv6vBtJSXFmGj0Wg19c64pCLEEefwPeq
+	 e1aoP73/6VZtI07OTQacnZG0XIQnkO/q4SzyOcbfZHt3NU1xgOqh7djooHLUQmmALdheE
+	 Sjp5MnQcTfzGKWvsUFc6HuryjMYwRpLXeC/aWqh80IhLebuFLYMGHhaGgLRgg62Jn7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ckKFX1wL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=dothBp3r;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131AF606A7F2;
-	Fri, 20 Nov 2026 17:42:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442E8606B064
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:42:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 442E8606B064
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ckKFX1wL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 862021F01566;
-	Fri, 20 Nov 2026 17:42:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795196552;
-	bh=Bhnyfvy2KqZXAS36AJ1i0JMsTJ0vNWzr4CDn3GrGcfY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ckKFX1wLJ/UaG1cRBOg1e67ciDfy+pFb7AtJUVNzWr1+51uahBffgq/LgVw00c4A2
-	 8EzmdA+Hokb4hBwVcSRdV2LdcaLG/WO5voEGoP7DGBhNbFzH05cjnl74TrOx9eTgwq
-	 39VyLXP1H9zVPgcNJJKoI4fH6B5D3MEG8TmVOzI5NXx55ookscVwHlrD+SixrBBxzq
-	 3aDUKLw8M1ojXekVybzS6pTCIJpWzc/T6UB41b+dtiFzijQp2uteKAi3neGvaiN+p/
-	 ixJU90LraJv7+XIxpul8suA4khR+gmdgyjEJjkaRWeotqxPQZhzw7rZ1KaIswGndPW
-	 Pkax1PhSuRFLw==
-Message-ID: <525fce64-8260-447a-8362-503655d09c91@kernel.org>
-Date: Fri, 20 Nov 2026 18:42:23 +0100
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=dothBp3r
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4a68190a2a7so1014317f8f.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 09:42:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1795196556; x=1795801356; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZcQXLHhR20hCfvjpVa526iaWuFLXqsFmhOokAK+WFKc=;
+        b=dothBp3r0726IrSCWAX08EYvioo4cffqghvF5G6GmLQS8uKw+MYIbm2jUHYsXYhI/n
+         BUZt9IaV54Y0YRulxSYeKILxEaipbNywSvkDJzcGDUsnXRzz4nbQE4LMBgmHjV6WFzBG
+         /+a+0n61eiSMsxetVWrYdBCQ9Q97mMLwUvMao=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795196556; x=1795801356;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZcQXLHhR20hCfvjpVa526iaWuFLXqsFmhOokAK+WFKc=;
+        b=BTH2ufdsyQSzMA+HRR1gNyioBxfoOJ2QPLAEIRCjI2N+Zf5V2p7KYxHV+rPQpR0oHy
+         9mL6K7kb/YvDbC5ExHMgTLtRfP8bAYmlU2LLLrki83nHrI2ydvhom32vQ7Jjnlit494E
+         f+itiMs0801H0Ck/1EzmyQ8knXz/xrTVNwkUV9Qv66S5dvBvPBjDzQE/3VMTOdGYXFMK
+         k8yF1oVKmeSbQo6/wHJ2ixJf23dBG048wJgtj0/xsU8ZUipa5bOlfXS+3KIfhaRWMaQI
+         FHsKdIFRrWO3AtXkB/NptyY8ntEUAp7Ums7jA5uqEvJmfAMw5RW4uOTfpoiBX7xNx3cl
+         DlHA==
+X-Forwarded-Encrypted: i=1; AL+hErH/q9ihRK0VDl7dkJVJhaH9eg8ZYUtpTQfqCbn/yY49gWOv1YlSk7piSNe4dj/x8rjMFEpgj+A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wzMzPmcPqCOZcfcJNKn3ZtRvRB9GLxEx9rjQdSRbNx7IfCVXf
+	l16rCzmUe3eMWxzPMg9Pk1ptecQcUO04jbJ/am4xxY6LwPrHe9Zpg8QbCCh48DcBx5k=
+X-Gm-Gg: AZFdTZfrp2kxdtH/1/qikBQYZav1e6ypYU+wYgqZffQW7Deiz/2LdkKlQLSsE4KtCRI
+	l+dJFLaIj0qJGMlRBETkgJMFeE5eDghSWwdhBRe6B+MRvHB4tG6QRp1nCV4hDpuyu7PNBDDD3ph
+	8vdOOzAs864SsIFYGNQ8VptXVOWfUs8OatviG0geaUbXVZs5Elu0eRCBIBJAB++HNXk8EhP4Km1
+	WvkW7s6SAjJRSLzEDT2uIwWSYl0/DPqWdZAZU/tEwKLX5LNJXOedFgKraxkwfai4KWO0lRmCQrg
+	lunFM6UUyayRSnMA1aQ2VYgALQcqpNKcyJfP1KprznhrtbtKPAZz2G2lw8lTgTcBXcBPVfYKTeQ
+	IfOLuDdCd2Wj378LIVt3neLYi3de1nB/yO0m4uNH5Ywwa1hIlU2mgAMh9mVTvNRlLFY/bIkekNs
+	gr9jHQXUe3HOcBcW5e/9xmcpE7w5yZZdiq4/oLgbdH1J3/xjWQ0v7BfEzHMwWmk+Sw2NXsYDWvs
+	ocVBIRAELzGMF1prHraVJvCLIaGjGxtK8y2qW1/ucPEaXlVubke1iueY6i7oeXbyamhXwXL36R0
+	LwjyPNA1Gsyoc5ERRsigfitvPNC9ZNLcnr2x7A0Pb/525oMXlzdPAAkNGqbOzfmc/USHTzBxoMS
+	FpQOgNLVW3UiRt7lQSFFvx3J+JGsMrx50vQIBs66xmDNq/r//u9AVbVeOAw7oW45cCIWeke0=
+X-Received: by 2002:a05:6000:470e:b0:4aa:323a:d7b7 with SMTP id ffacd0b85a97d-4abb16e310bmr8421955f8f.23.1795196555630;
+        Fri, 20 Nov 2026 09:42:35 -0800 (PST)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.41.246])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b2050f1sm6597356f8f.38.2026.11.20.09.42.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 09:42:35 -0800 (PST)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: michael@amarulasolutions.com,
+	linux-amarula@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	stable@vger.kernel.org,
+	Abdun Nihaal <nihaal@cse.iitm.ac.in>,
+	Benjamin Drung <benjamin.drung@canonical.com>,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Matthias Brugger <mbrugger@suse.com>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	brcm80211-dev-list.pdl@broadcom.com,
+	brcm80211@lists.linux.dev,
+	linux-wireless@vger.kernel.org
+Subject: [PATCH wireless] wifi: brcmfmac: fix use-after-free of the watchdog task_struct
+Date: Fri, 20 Nov 2026 18:42:27 +0100
+Message-ID: <20261120174231.2024897-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,142 +103,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] mm/vmscan: flush deferred writable TLB entries before
- unlocking the folio
-Content-Language: en-US
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- "Borislav Petkov (AMD)" <bp@alien8.de>,
- =?UTF-8?Q?Cenk_Y=C4=B1lmaz?= <cenk@deepfinresearch.com>,
- Zhang Peng <zippermonkey@icloud.com>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Youngjun Park <youngjun.park@lge.com>, Mel Gorman <mgorman@suse.de>,
- Sasha Levin <sasha.levin@oracle.com>, Rik van Riel <riel@redhat.com>,
- Ingo Molnar <mingo@kernel.org>, Peter Xu <peterx@redhat.com>,
- Hugh Dickins <hughd@google.com>, Axel Rasmussen <axelrasmussen@google.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Andrea Arcangeli <aarcange@redhat.com>, Thomas Gleixner <tglx@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261118-file_folio_flush-v1-0-e9e739ed14e0@kernel.org>
- <20261118-file_folio_flush-v1-2-e9e739ed14e0@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261118-file_folio_flush-v1-2-e9e739ed14e0@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/18/26 10:20, David Hildenbrand (Arm) wrote:
-> try_to_unmap() with TTU_BATCH_FLUSH transfers the PTE dirty bit to the
-> folio and defers the TLB flush.
-> 
-> Reclaim must flush the TLB before unlocking the folio, otherwise stale
-> writable TLB entries might be left behind temporarily: writeback started
-> by other mechanisms (e.g., fsync) will not find any mappings in
-> folio_mkclean(), so it will neither write-protect nor flush anything.
-> 
-> A write through a stale TLB entry after the folio was cleaned gets lost
-> once the folio is reclaimed.
-> 
-> However, reclaim currently does not flush the TLB if the now-dirty folio
-> does not get written back (e.g., gets activated or kept instead). Fix it
-> by flushing right after try_to_unmap() if the folio is dirty, which makes
-> the existing flush before pageout() unnecessary.
-> 
-> For dirty page-cache folios that reclaim activates, we will now flush the
-> TLB immediately after unmapping them instead of batching the flush, which
-> is the right thing to do. Performance-wise, it shouldn't really matter
-> much, because folios with dirty PTEs are usually young and reclaim won't
-> even try to unmap them.
-> 
-> Fixes: d950c9477d51 ("mm: defer flush of writable TLB entries")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+The watchdog thread exits as soon as it receives a SIGTERM, also from
+userspace, e.g. when init kills all the processes at reboot. If the
+driver is removed afterwards, the reference taken right before sending
+the signal by commit c623b6358088 ("wifi: brcmfmac: Fix potential
+use-after-free issue when stopping watchdog task") comes too late, and
+kthread_stop() runs on a task_struct already freed.
 
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+  WARNING: kernel/kthread.c:84 at kthread_stop+0xd8/0x190
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+  Call trace:
+   kthread_stop+0x148/0x190 (P)
+   kthread_stop_put+0x14/0xb0
+   brcmf_sdio_remove+0x58/0x1d0
+   brcmf_sdiod_remove+0x20/0xa0
+   brcmf_ops_sdio_remove+0x5c/0x90
 
-> ---
->  mm/vmscan.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 5495d9be90e88..af7831643ecf5 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -1455,6 +1455,12 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
->  				flags |= TTU_SYNC;
->  
->  			try_to_unmap(folio, flags);
-> +			/*
-> +			 * Flush deferred writable TLB entries before we could
-> +			 * drop the folio lock and others could start writeback.
-> +			 */
-> +			if (folio_test_dirty(folio))
-> +				try_to_unmap_flush_dirty();
->  			if (folio_mapped(folio)) {
->  				stat->nr_unmap_fail += nr_pages;
->  				if (!was_swapbacked &&
-> @@ -1496,12 +1502,6 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
->  			if (!sc->may_writepage)
->  				goto keep_locked;
->  
-> -			/*
-> -			 * Folio is dirty. Flush the TLB if a writable entry
-> -			 * potentially exists to avoid CPU writes after I/O
-> -			 * starts and then write it out here.
-> -			 */
-> -			try_to_unmap_flush_dirty();
->  			switch (pageout(&ctx, mapping, folio, folio_list)) {
->  			case PAGE_KEEP:
->  				goto keep_locked;
-> 
+Take the reference before the thread is started and drop it with
+kthread_stop_put() when it is stopped.
+
+Fixes: c623b6358088 ("wifi: brcmfmac: Fix potential use-after-free issue when stopping watchdog task")
+Cc: stable@vger.kernel.org
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+
+---
+
+ .../net/wireless/broadcom/brcm80211/brcmfmac/sdio.c  | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+index cea52d408817..67b2291f8ee5 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+@@ -2478,7 +2478,6 @@ static void brcmf_sdio_bus_stop(struct device *dev)
+ 	brcmf_dbg(TRACE, "Enter\n");
+ 
+ 	if (bus->watchdog_tsk) {
+-		get_task_struct(bus->watchdog_tsk);
+ 		send_sig(SIGTERM, bus->watchdog_tsk, 1);
+ 		kthread_stop_put(bus->watchdog_tsk);
+ 		bus->watchdog_tsk = NULL;
+@@ -4500,12 +4499,16 @@ int brcmf_sdio_probe(struct brcmf_sdio_dev *sdiodev)
+ 	timer_setup(&bus->timer, brcmf_sdio_watchdog, 0);
+ 	/* Initialize watchdog thread */
+ 	init_completion(&bus->watchdog_wait);
+-	bus->watchdog_tsk = kthread_run(brcmf_sdio_watchdog_thread,
+-					bus, "brcmf_wdog/%s",
+-					dev_name(&sdiodev->func1->dev));
++	bus->watchdog_tsk = kthread_create(brcmf_sdio_watchdog_thread,
++					   bus, "brcmf_wdog/%s",
++					   dev_name(&sdiodev->func1->dev));
+ 	if (IS_ERR(bus->watchdog_tsk)) {
+ 		pr_warn("brcmf_watchdog thread failed to start\n");
+ 		bus->watchdog_tsk = NULL;
++	} else {
++		/* The thread may exit on a SIGTERM before it is stopped */
++		get_task_struct(bus->watchdog_tsk);
++		wake_up_process(bus->watchdog_tsk);
+ 	}
+ 	/* Initialize DPC thread */
+ 	bus->dpc_triggered = false;
+@@ -4576,7 +4579,6 @@ void brcmf_sdio_remove(struct brcmf_sdio *bus)
+ 	if (bus) {
+ 		/* Stop watchdog task */
+ 		if (bus->watchdog_tsk) {
+-			get_task_struct(bus->watchdog_tsk);
+ 			send_sig(SIGTERM, bus->watchdog_tsk, 1);
+ 			kthread_stop_put(bus->watchdog_tsk);
+ 			bus->watchdog_tsk = NULL;
+---
+base-commit: d0f871bfb831705d9f55479f5b2b40f636ea7b16
+branch: brcmfmac-wdog-uaf
+
+-- 
+2.43.0
 
