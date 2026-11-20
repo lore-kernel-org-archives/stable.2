@@ -1,92 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795208792;
-	b=u/Zqer5JEixiyqj0E+KeZmBLWtNgiN7JIuBuYWuhILlEpXb9/dARAsptt10fT71uYLk9
-	 3Pnu4U0TyVLaHwuBw7iMVAy0eMbUmhnXJhtP8xzKB4KmXk0OBUao4nIWCE+h9dEuE+3bl
-	 lmtNBzj2cJXuVH1VFRUghb8wH895zYOOdN8Jut/akGe7MoBLKO7u7j+sm1WKJEXyfn1Tp
-	 VHCL0MoXUp6T8dhoyFKUw40BGBjgUMo//JGNmPVeTZ3ZICq8KlxObW7VEQlbyUpsTjj8b
-	 flUVfdPpOCTGIpNqyietwlElHJ4oULFGz5PZuyhM4UsldAA6ita+Rz+0d0kAbNDLzKA==
+	t=1795208837;
+	b=cmgo0Yv5tCaTDN7hN0/z5LhSpz6DjuhQsSiHGzGYJH4EUK1xOvkaAbxpm4U+XlfIxrhi
+	 dbdI8MfxA1rlzKVA+Zn3oMkbLIr51mOyDuPFbKe8+8csPUA3hb/evOs2DP5DLeT741qte
+	 CgmnJcatwsgHYZdRes3gDwLi+eoC6Ik/G19Ksk16XTCjU8pbYxtIRkCJ+iBZzoiCn33lQ
+	 Qf33CnFcbcckn86gVtyRmW2Sc0s7bwdUjBr88xveImjkEFCCyDiu8T31Rfa4z5IaATwXJ
+	 FMD977TPuHwW6VO0YgrDt/MSccvDVS87+WdhzVy4oTGZ/0UYtdeRMuFIjkXhLhSUFEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795208792;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795208837;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=3LS5gvBAydA0Ig1FL/11e5L9aa77Zg2FmflSrEEofQc=;
-	b=mU11LeMHL9cfsZFAAgB3rZ1+Ka27LtmBCH4SfIDfWfXvoHoZQhIycaNF6JehEvsgEKo/
-	 LqXw8JH4668DA/+D8ZtdO0hcwi3mpCQvVwH3+0TU/joRDLY1A5yo8u8r3AkS4k8Qp6GFC
-	 J5y8DeVF0Ub+qEnIlDunulBuW2X0SNoKIBV0+Bi+4m5lr81ewIvyr3b5amqJAB3L16ic/
-	 cYR3hvx8JXTQjUZCnG8B0pBU9OCsqfHoP7JEy3tyi1MKtocz0ZmiqNYB0MvC5b26kpqNl
-	 cx5Cki6K5OlDEydVwHy4PPOjHvuHLkrS4eXwqTCHxyF48eFQh1W3Zt4Kp8A00Gns59Q==
+	 Date:From:To:CC:Subject:User-Agent:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=7jrrtoj6v0NCmCpB0Z88oB4a8HDSQG98zdWLNMlabu8=;
+	b=dNuG33pVXVMh8+9dHO/RyeI3wFKfZ3zmj6iDo3+w1FbkiD7vq2oEruFiT5GD15EzpiCV
+	 L7BWfMd4gd+bbTbvfvjPqvTv8GOkhXqfpCfRKLi4zutcVrcMJxowsHBTlrmdAnH9/y5W/
+	 W4sUN0lfHgo63cRME6kH6x8ZTIQAI4wL1SwNCZsZiayZnajVyCDF++KEYCG3lDXOKnzpV
+	 S/17y0lx7vlOmZIOAH1zLuUlMMQ84SEDMYQieutQoxDNG8BNEsCg/dneb+VWDSOG5cC25
+	 s2LZ5OwEBoAUjkP46vxYfqpl4E8xVehIYsK5jANPSpXc7Cf3eFmtxtyIVyZjtaeeYsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yfmtltvj;
-	arc=none smtp.remote-ip=209.85.219.51
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GwVF4Jn9;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D565B606A6AD
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 21:06:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D565B606A6AD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990AA606A6BE
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 21:07:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 990AA606A6BE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yfmtltvj
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-9213f004a14so8627336d6.3
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 13:06:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GwVF4Jn9
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-38190551625so2279494eec.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 13:07:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795208790; x=1795813590; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3LS5gvBAydA0Ig1FL/11e5L9aa77Zg2FmflSrEEofQc=;
-        b=YfmtltvjYin2V0r/X5r77eN74n1Qf5MVudBB9cLA7bRTyHQ1S6vpmEM62BGlRaXwtS
-         xifBTkIhBJ76sN4Wer8ZTPZuKxVOMd8ClMyJBExXj0d7bRpEUZoIKPGY+PScsLrh9aku
-         Nem1DVqLtR5LnicdQjbVLavtKu/oBXt1c/QJiE48IytIXDYjlw83oQzZjKDM2T9z97/8
-         aqGwbkAq7vl6/1Rj9f4yoWxJ26fS7118ia/YDw5eL3vYO53181M4Y4Pphero1q/qqrRa
-         yIbiL6dj7Cm3hefZ/5DuoSh8MnQXcl+0mvFbPxccv9y4LBbLK9dRU4ndJV5SmSDpCS9M
-         hDKQ==
+        d=gmail.com; s=20260707; t=1795208835; x=1795813635; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=7jrrtoj6v0NCmCpB0Z88oB4a8HDSQG98zdWLNMlabu8=;
+        b=GwVF4Jn9eZO2wRAEn0rlpvXXCjH4SynS6Rs4Y1execPCOih144WClMxXEP51uMNjQD
+         ZIJfSuOKfpql7V91LVjEVljkGN1+Xavx1ldMekNwrLuykliRCACF6NHgFUQsI5MThz+U
+         Wq3KQQA26RNCl0362YFySpWZk9oPtqH1lHgW3iNYTbaf+geMqyrTxuwFFliQvhl7YQ1O
+         DLPS0il4qQPwVgTPgO/5TV1Q0aqCrsDtN+57aJZEL9dmU/vM9hsDQEGfhiMwV173oBkx
+         YawPjrGxY5zV0n7NKVtjS8vw7b9DK3oWwHGmQlWX0YUpBcYBd1mQVKJL13snXPDx3erY
+         8XLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795208790; x=1795813590;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3LS5gvBAydA0Ig1FL/11e5L9aa77Zg2FmflSrEEofQc=;
-        b=0pH0E8yj8q8+0h6P1J2WuspIp/oj8/BJPl9T8Y5DPEquKUwkOIfeoOGEUK/Ku32s1P
-         rf3sryg/s4q8xvfcVMndbErguJacqDp45al29AmD9q2apeLEFfXmm3IpBdrLodVBgAUa
-         YgtYFYrzHROey4+NOdej6iQBWQHQFXa5YWTWyilUaHvXkHYZKLgRdzFPURqbfS8OouYz
-         ZFJfNYWn150Y5U553hh8hRumkaykoDuUpVT0WK51AkAyHKXjFSRNtw0GivZ/RpwsDUkW
-         nwB8Dgr8eXa2OKVr8PB0AYP80KArLwgcnKnctp+jQAryKuwvZnlCyqi1O7rhhwlJ48FG
-         TTtQ==
-X-Forwarded-Encrypted: i=1; AL+hErHShsuw5gW13r7OlgQtIi+RVFdB0v46Fvyphc80REVaP2IkUOSWP3Fi4cB0q1ZSVKGRlKMmfTs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xsx5B2dSL9Jh/qcEprVwKBy0Bg+vmOFWBKNfml27SqE+Fb6xq
-	a3o77ajPBdlyQL0kFtAs/U/rZQ2cft/htpKG8XiHXtUCS3IXCTYNi9n5
-X-Gm-Gg: AZFdTZc7xujpTwoobWMxCMuHq9BHMHONzsDe8nreb7cQIdqRoJbbiOcQ8HzvxUdUIAj
-	ApyNywfa2jzkpHPjol8wuSDZCeXTOIkG9mSHRMH5VQxGnjb9VWjZOp3q6dWB8D5fnmj+qcwvadZ
-	mAZFS0tDdU5I1/9ytSASII3PvVh1gSAhKPYcY5EJjhaCHE1kocONxvQDNIqp5872FD6Yoh7N51S
-	8ddzjNvRWUSecAiW/U6CujOwTNWLdMKz7WMTzd+JuTbFJC33PycfOz+EpRHbXfAuVNfQmaK78NL
-	zr2flpBpsL7TGmbzHjmW7GZKz7uA4mSJ0whwBZz55Mm8Zwy0Cp6nOIZYMQyptuYHgOHnOTsWBLG
-	BOoA0AAMbZUCk2QJ02Qu3+06luBqi9bnmt8UTAQ2L8qAbv4sAcywZfPU9kybyLSxp7UF4Rca0Mx
-	4uiqC+z6SjX5bofS33+EQ0Vi0SZk3elrPM+iuuMuNV/hDfIKAocNMTj0/K3mvsJqWwjlGqapzJH
-	A9A2lR34DI1Mw7hasan0Gx/4AAkm/5hm6NfKjPmlezxP2khIIeCaR1d/R0/bBoXpTujGT/TLVgM
-	ZkcrHBzvdHuXg2zqqRyr9o1YS064rON7DlcB2uVyHOhaPWrEA8Fi63FMt5Q=
-X-Received: by 2002:a05:6214:84d3:b0:91f:1e1b:7b3a with SMTP id 6a1803df08f44-92134b0c780mr49391576d6.57.1795208789683;
-        Fri, 20 Nov 2026 13:06:29 -0800 (PST)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-92134bf848dsm35509986d6.44.2026.11.20.13.06.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 13:06:29 -0800 (PST)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] usb: gadget: f_fs: fix use-after-free in ffs_func_unbind
-Date: Fri, 20 Nov 2026 16:06:16 -0500
-Message-ID: <20261120210616.2293426-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1795208835; x=1795813635;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7jrrtoj6v0NCmCpB0Z88oB4a8HDSQG98zdWLNMlabu8=;
+        b=DFba+eFRcdBlazq1fka7ZJWPrHyt3Y+EtsI7NFsf848uW5ofr93a7Ypw0KaVR27JOG
+         Sn7uK3I0wq93G2TtSkw9u7outj6zGi7spKXccmgTxKishJorJQhhzygN0u2lZT697hzM
+         H6JaBRdBcgJ82DUX159vXBD4oP6X9hxqdFtDWdRJ/G2vImo7celPchBzO5akRqftz9uF
+         uVt+hzGPCzci6NWNnPX67h3cfe4ZF05j2Kk53gXXdGYhl9kSlB80tLuIxfuV6AHGJAVF
+         8ytNIIdkm1MuCcB9W3scEheFR6h0ImjU+gvkPBR3+glhWidSpDlStg9KbsyK8skn3s4D
+         26rQ==
+X-Forwarded-Encrypted: i=1; AL+hErHnywFKbqq44wEcOxnzmuW6eG0lQd8UyE6/IIFAbNc5OXuaq3H+3tf5g9LIv2sP595gGd/1JAM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Q6GouHuaaZv58nklY/UacTpR4uoB5gRO39iJlVPI1FLBWzF2i
+	E50/Gbq1KOGC1HXRDocWqHIQV/huYrfFwud7TXs3mo0uxXIGAN25PeYz
+X-Gm-Gg: AYBFou32nZ3F+gifX3OtIpwsvhBOune8Gt7bg4YbejY9uhrH+aT1hIQ3HwMIbPQ7Ebz
+	W50SncITzIvpOZ93RJjXDzKhJY5SEAXHx+xxGeWlXhULqFPMDIySisi5ADLYR9iXg0DUjYWolym
+	IVCFhkOxKJRFAW8Ww7mSBwnheEfwQf9+inHZoRk3A+xNUY7460zz2iaTS+yNFKEbjVPoH87EOQM
+	5YGlUSlVx/EoanOdnjfWMG1yaDEIyU6+FfadSZxa1L+JCKI545yVQzFa10AzM7tRkpJ80UczmZr
+	b25/kp9SAWcCuHch3vS5Nso2FZP5NFYoGKkqpoMkEQdnA/M4W2TnfRAzmyUtTIRMQVHr3t4U3b+
+	7vyk2ibIWggqtxaemT8CmrBZ5jxqo0+7mxhTGYaXPO4LwlI5wF8EmR2m7RN3Ynr5XAu245v/iPl
+	AruQzT2Soz7jZx2DkXcdRH2VSQgZFji8+GLG9dj6VPYYROSTG9GWXsoHEId4+whwyXFN42PuTCw
+	o/Xf9WrC9+eVCnjiIK2Nvp8qEPi6oBinbTX0ZDby12KujlRRKwhe4fd0llYWn0bH+nNO23Ty74V
+	ASbd9rTLXdJy2ZacZ32gnK5aVr2GNcQqZODsqv+jif7/Oa9XDUSGaO54mZiXZcs3JtyAwLKd2hb
+	/RjmdBbpRqht1PnrP3Jgwdo+w
+X-Received: by 2002:a05:701b:2083:10b0:164:4e36:f956 with SMTP id a92af1059eb24-1b5568b47a4mr4157620c88.16.1795208834608;
+        Fri, 20 Nov 2026 13:07:14 -0800 (PST)
+Received: from ehlo.thunderbird.net ([2a00:79e1:2e00:6c01:7cf7:3a98:7b9f:8575])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55682d301sm8822424c88.10.2026.11.20.13.07.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 13:07:13 -0800 (PST)
+Date: Fri, 20 Nov 2026 13:07:09 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>
+CC: Benjamin Tissoires <bentiss@kernel.org>,
+ Gideon Heinz <gideonheinz02@gmail.com>,
+ =?ISO-8859-1?Q?Filipe_La=EDns?= <lains@riseup.net>,
+ Bastien Nocera <hadess@hadess.net>, Hans de Goede <hansg@kernel.org>,
+ Edwin Velds <e.velds@gmail.com>,
+ Stuart Hayhurst <stuart.a.hayhurst@gmail.com>,
+ Andrey Smirnov <andrew.smirnov@gmail.com>, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_04/14=5D_HID=3A_logitech-hidpp?=
+ =?US-ASCII?Q?=3A_disable_works_before_stopping_transport?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <73r1s387-pn80-s74n-o50s-056r1pn8512n@xreary.bet>
+References: <20261120-hid-logitech-hidpp-v3-0-cfe2caa1d0eb@gmail.com> <20261120-hid-logitech-hidpp-v3-4-cfe2caa1d0eb@gmail.com> <r078ror3-9q6q-s581-35r4-63pnp1p93s85@xreary.bet> <awCMOvYf64DZfuWF@google.com> <73r1s387-pn80-s74n-o50s-056r1pn8512n@xreary.bet>
+Message-ID: <2F4EEC0F-5662-4FE4-B9A3-9FCB83B587B1@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,67 +106,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-ffs_func_unbind() calls functionfs_unbind(), which drops the reference
-to ffs taken in functionfs_bind(). It then keeps using ffs: it takes
-ffs->eps_lock to free the endpoint requests.
+On November 20, 2026 10:12:23 AM PST, Jiri Kosina <jikos@kernel=2Eorg> wrot=
+e:
+>On Fri, 20 Nov 2026, Dmitry Torokhov wrote:
+>
+>> Ah, yes, I un-exported it in my hidraw cleanup patch series that you
+>> just applied=2E
+>
+>Hmm, but that cleanup is sitting in hid=2Egit#for-7=2E5/hidraw, while thi=
+s=20
+>build breakage occured in for-7=2E4/upstream-fixes, which is based on Lin=
+us'=20
+>tree and doesn't include that hidraw cleanup =2E=2E=2E
 
-The superblock holds a separate reference, dropped when FunctionFS is
-unmounted. If the gadget is unbound (for example by writing an empty
-string to the configfs UDC attribute) while FunctionFS is being
-unmounted, ffs_fs_kill_sb() can see FFS_FL_BOUND already cleared, skip
-unregister_gadget_item(), and drop its reference. Whichever put comes
-last frees ffs, and if that happens before ffs_func_unbind() is done,
-the eps_lock access is a use-after-free. KASAN reports it as a
-slab-use-after-free in _raw_spin_lock_irqsave() called from
-ffs_func_unbind().
+Doesn't next mix it all together?=20
 
-Before commit a3058a5d82e2 ("usb: gadget: f_fs: remove redundant
-ffs_data_get()"), bind took two references and unbind dropped only one,
-so ffs was never freed and the late access was harmless.
+>
+>> Hoisted by my own petard ;)
+>
+>:))
+>
+>Thanks,
+>
 
-Do the endpoint cleanup first and call functionfs_unbind() last, so ffs
-is not touched after the reference is dropped.
 
-Fixes: a3058a5d82e2 ("usb: gadget: f_fs: remove redundant ffs_data_get()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
-v2: Don't take an extra reference. Instead, move functionfs_unbind() to
-    the end of ffs_func_unbind(), so ffs is not used after the binding
-    reference is dropped. (Greg)
-v1: https://lore.kernel.org/all/20260815013818.39466-1-shuangpeng.kernel@gmail.com/
-
- drivers/usb/gadget/function/f_fs.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index c64a268e98a4..fe4564d68b18 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -4212,8 +4212,6 @@ static void ffs_func_unbind(struct usb_configuration *c,
- 	drain_workqueue(ffs->io_completion_wq);
- 
- 	ffs_event_add(ffs, FUNCTIONFS_UNBIND);
--	if (!--opts->refcnt)
--		functionfs_unbind(ffs);
- 
- 	/* cleanup after autoconfig */
- 	spin_lock_irqsave(&func->ffs->eps_lock, flags);
-@@ -4236,6 +4234,12 @@ static void ffs_func_unbind(struct usb_configuration *c,
- 	func->function.ssp_descriptors = NULL;
- 	func->interfaces_nums = NULL;
- 
-+	/*
-+	 * This may drop the last reference to ffs, so it must be the
-+	 * last thing that touches ffs.
-+	 */
-+	if (!--opts->refcnt)
-+		functionfs_unbind(ffs);
- }
- 
- static struct usb_function *ffs_alloc(struct usb_function_instance *fi)
--- 
-2.43.0
-
+--=20
+Dmitry
