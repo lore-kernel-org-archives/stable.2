@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.218.115.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795197272;
-	b=Au/TPXIHI/JXrDJtjF7JCtpcoWP3oLtun45iBESn1e1WrcdrE6N71I1b4qwZoTUhB+N1
-	 NnIshzkWi5NHHh7mzzBDZft4OM98UYBOg2W9o3fwuMHYxr+BkAuu4MQgHi9l7DQQhcPxo
-	 0aV1PcZRiufTgFSgO6hXKfikw2bijO7W1qUMPCDiqffjYur1K50E1JjxEWXHZNu3Uzu8R
-	 8Hx4ARHPNzM4OCEHNgU3PfzvoAzX8UPdNJU6VmKuYWTAz1StTB766SxMaxyHCwD3VK8+X
-	 9Q+X4zm00riMbE5/yeXHc9MXAqs8GAl7q6XNMRaEtEWzB+40XBm045tNEht9NY20GSQ==
+	t=1795197363;
+	b=tmBlthxKZ29gvZq8L3MbJGWhX4j353g0Mh7Deg64KYWb+Or8UICyz0HfTkpFjf2cwuiz
+	 5UpcoXMxbQwk0HSBDzCNCMQ86EMVl7uc1+G47LbhIu5mSG2psy4QSF0bzxOgdt/RdlGkX
+	 4LaVRd9vB4qvYmzYD0iUJO0lyLnjB+3V78oGstfV70XPfA1aagwCgr+Xh/o8hqwLbFbhi
+	 1E2BEts66Dea3bgh0cBeCYv6POyAbRtAKcKoP7uEqxNTBmHZGTfT59N3RaeoDf1kjFbid
+	 qlndGUcHaNReHcvsIxcmusGwrz4BgUdNjfzfQLjnt+VKjxDoekdiB29T71CWastD/9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795197272;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=sHrVwm9Y2azO/qyG5D6lAPdfzBKPrr7WTaybCanFFQA=;
-	b=r2+BWTFb3AQdYsDo6v+U6UbfjqLp1c5Xq6+Lnelqcct2PHaNWIb0RK0CBl0KMaylT8dq
-	 X2E+lufiL5/ANTMFS/V/FU5K3qXYT4sQYpq41SSC/4XzLgsx8FHQR0osNy52Tii3DQzx1
-	 O9msz/QB7FA46yEyuId/qi6uddgYb5oxbAFKDTO9eWp3QygoUo6iL2/fTMjXLRim39jgt
-	 OrNUHM7gYKmVbXXJE/M4yZ/zZZQX9ju8Q0BLfKaUFLJjTx7c8pwxDmLOAdltT+YWtobW+
-	 9qJm/rgi0zsEJ/n3nsRvkY/eQF4rVOLr1RMgvAOACakKsIoENXTOhJocna3u93gJtdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795197363;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=TQA1t/z07MHDgwRvVNmYH44lQ4Hq2Vg1kB4U9sqhCnw=;
+	b=mdpOTA9KNfIYjerJY2sUZ7++cRlyAMvjC0131s6xHot5DRRDfLBhGsiwjXhKrbWlHgq6
+	 oxIJXc15qtmj4nUIycBAfxv2YaXIk1+LQ2+1l8PzeFo21CkACmSR+X8OYD5+YMAecIagd
+	 ffFAz6patzxpWloSnmITPqACGAwiJ0I9bnI2+JOpLgJdOujQN6MOEF+d/kGK4IYNvGHg4
+	 3eUlxsk5bphryoNmln202p9asstH4CBmBynqbVGECMW0DmgZhlkHjS3WwYnua5kBT9/sd
+	 r1amDtqbPlgjr2pJKr3VPyRze3Fy7jDT6Ustu0ntA2jz7nHsb9eQ6INke6kbgQy5S0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=RyOiIGoj;
-	arc=none smtp.remote-ip=212.227.17.20
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.de;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=mCPGSUsy;
+	arc=none smtp.remote-ip=34.218.115.239
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24AC060A3825
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:54:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24AC060A3825
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CAF606A829
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:55:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70CAF606A829
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=RyOiIGoj
-DKIM2-Signature:  i=1; m=1; t=1795197268;
- mf=PGRlbGxlckBnbXguZGU+;
- rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
- d=gmx.de;
- s=s31663417:rsa-sha256:PleLYc8NUwf7y36ozlxKqupHT3Cb
-   oN2CdUK7MhupcPCiBH2q2n+ksr+TrCtThqs/mvHMFJLNYny9+uEgxhwS5tXy0tLgSYKZLYpZwle
-   m66Hjfd0KRoJMofteO/3dk6omspXuG3Teay2SkNk3LPXRhW8cmLfCcCGkzTffb4vfDi60Ds+49K
-   UYvPjYmt7DjYRUtNgszrAXqcYpCIXkGeRvRJ3u9gE8B/4HrctkDzgWeG4Nem39w9WKC7NVzVECS
-   dz/nLiMQqUB6PPLRBqtLDokhrnYLiIMN2MDQmHeTS//AxSJAiFNBgvpWVKWVpEXfoErz/P7DlBa
-   FrqHseQEXp1QpA==;
-Message-Instance:  m=1;
- h=sha256:
-   EYQLEEDq46wAcosuHPgHvTh1urvAe7EMG7PGoiM0rpk=:
-   kb8i/WGJzIOgpop7YMTG5VRycG6NnfUl/YmjrQVPuwM=,
-  sha512:
-   46jSujwWgPNB6xP0YCpIwhg9Hiy4NW9u/8sXTShU5OfUVEn4EI2mP3y/IdAl0LyPoKa+/PNCW17wFrxyYI0nzw==:
-   B9QlnLeAEJlgeLcGds4La6YapwYA3jD6puOBUk9RPE8W+8t5b5+5sgNUW0VJ4NAUZadt7vP9WBuJBYOg+xEY0A==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1795197254; x=1795802054; i=deller@gmx.de;
-	bh=sHrVwm9Y2azO/qyG5D6lAPdfzBKPrr7WTaybCanFFQA=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=RyOiIGojNFj6sTXZ7SRTpVmzkbd0aKM7t3h7N/ls9NkBFXR45dnUW/kFGYq3q2Z8
-	 p5AFzzyJtljr2DMIHcma6/g4oiu6IapQt1J47P+RqffOQzncILINwjyyclzHaHfm9
-	 +q/nmBNny1Opj4XplAYnAriauNkgjPk1cDBVgnrRBt3BAoSWzWqPSWkiuzdtyhkvJ
-	 wFyneReLPE9OVDUTePvKCkAvrW0v+WbFuJFs69JXR0TShFGXUxm5HngYqy1mDnWDD
-	 cfG/VthOvrWmS5kOcewMmHgLY5/Qar/L5rFYuhLfKslPRcFWN5VUnlHl5kAKb/txL
-	 sKqY8qcpXxwOjVwutg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MJVHU-1xoK342CHA-00LPdW; Fri, 20
- Nov 2026 18:54:14 +0100
-From: Helge Deller <deller@gmx.de>
-To: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Cc: Henri Roosen <henri.roosen@ginzinger.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] fbcon: Don't drop last logo line if logo is same size as screen
-Date: Fri, 20 Nov 2026 18:54:13 +0100
-Message-ID: <20261120175413.176249-2-deller@gmx.de>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261120175413.176249-1-deller@gmx.de>
-References: <20261120175413.176249-1-deller@gmx.de>
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=mCPGSUsy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1795197356; x=1826733356;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=TQA1t/z07MHDgwRvVNmYH44lQ4Hq2Vg1kB4U9sqhCnw=;
+  b=mCPGSUsyRqvKuyIuPszugivnKsRKOqPxVp8XRVhenoenP7zB1PytSiZU
+   +bT5vLHe9Rnc8YRK4wzSFz/LXHBCAdaX1b+ZRa+JM1j8kKmafgOMd5sVV
+   A3hY2WRTTW+F7Wt4QoeS3Gs+02d87nnGakjBgvZ8a3gq65kMnXj6UPKdA
+   9eYLcD1PIrG0SzmI1CFtnvhXHAhnkKhhWXT2Q6Iyv5ERmXaD8G/opz1Rp
+   1XAxW1+eGA2kucO/UrvPwCBmCG5O27fi/6unmGeRdDv92gtGzfT7sKutp
+   Y+SXdyW7N3oxWIG0FAcBQM8pP/FGPqZX0Mqyab9uwZt402B4RhBQd56/2
+   Q==;
+X-CSE-ConnectionGUID: UpktH0I7T8aEnCkIaCr1Hg==
+X-CSE-MsgGUID: I5c/bu4IRZ+paHbfnEBlrg==
+X-IronPort-AV: E=Sophos;i="6.27,223,1787011200"; 
+   d="scan'208";a="34516653"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 17:55:54 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:27920]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.50.116:2525] with esmtp (Farcaster)
+ id c6b91c2e-d03d-4de0-bad7-700200c06897; Fri, 20 Nov 2026 17:55:53 +0000 (UTC)
+X-Farcaster-Flow-ID: c6b91c2e-d03d-4de0-bad7-700200c06897
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.57;
+ Fri, 20 Nov 2026 17:55:53 +0000
+Received: from dev-dsk-gyokhan-1a-87ab81cc.eu-west-1.amazon.com
+ (10.253.85.128) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.57; Fri, 20 Nov 2026
+ 17:55:51 +0000
+From: Gyokhan Kochmarla <gyokhan@amazon.de>
+To: <stable@vger.kernel.org>
+CC: Mike Rapoport <rppt@kernel.org>, Andrew Morton
+	<akpm@linux-foundation.org>, Uladzislau Rezki <urezki@gmail.com>,
+	<linux-mm@kvack.org>, Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina
+	<jikos@kernel.org>, Luis Chamberalin <mcgrof@kernel.org>
+Subject: [PATCH 6.18.y 2/2] mm/execmem: make sure ROX cache always contains multiples of PMD_SIZE
+Date: Fri, 20 Nov 2026 17:49:19 +0000
+Message-ID: <20261120174919.3789837-3-gyokhan@amazon.de>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261120174919.3789837-1-gyokhan@amazon.de>
+References: <20261120174919.3789837-1-gyokhan@amazon.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,158 +87,290 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:uZpN/SJ9/o+U8cPP0zJjCorPn+bxWK8Psv5ciIwhdsCGzxILXKf
- rnUtqfDEgreSL0lnqCE4QWnAtsEatH+Ip1egkk74GvKxP53z1KeNS2dH/+RTC8gRdEt4lRM
- apY6tysMpuIHATQD2MgaRQ5e7XGl02CgyCLsDPQZI7cm1Knhto0I9aKybvAsKvKNZtK86vk
- ujGnk4oyyIHoX9eMnYEWQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:2CRPWB0ohTk=;K2cat+do9kRmwXN1QElxoox4TES
- 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
- 2GxBAAiRscqgYA+wpA==
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Henri reported a regression that when a custom bootlogo is exactly as
-big as the screen, a white bar with the size of the font height is
-displayed at the bottom of the display.
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
 
-This patch fixes this off-by-one bug, but now -as sashiko-bot noticed-
-since the logo covers the whole screen there is no area left in which
-the text can be scrolled. To avoid accesses outside the screen memory
-simply keep the text area covering the full screen (and possibly
-overwriting) the full-screen logo.
+commit 569db54d8b7a4ec463a62c444de0d6f5f10e9dc1 upstream.
 
-Fixes: 94e6a058b168 ("fbcon: Fix KASAN slab-out-of-bounds Read in fbcon_pr=
-epare_logo")
-Tested-by: Henri Roosen <henri.roosen@ginzinger.com>
-Signed-off-by: Helge Deller <deller@gmx.de>
-Cc: stable@vger.kernel.org # v7.3+
-=2D--
- drivers/video/fbdev/core/fbcon.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+The ROX cache relies on its chunks being PMD mapped.  For a PMD mapped
+chunk, set_memory_rox() updates the direct map alias one PMD at a time and
+the large mappings there survive.
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/f=
-bcon.c
-index d7890e119dc7..cc311dc0e2e4 100644
-=2D-- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -666,7 +666,7 @@ static void fbcon_prepare_logo(struct vc_data *vc, str=
-uct fb_info *info,
- 	logo_height =3D fb_prepare_logo(info, par->rotate);
- 	logo_lines =3D DIV_ROUND_UP(logo_height, vc->vc_font.height);
- 	logo_lines =3D min(logo_lines, rows);
--	logo_lines =3D min(logo_lines, new_rows - 1);
-+	logo_lines =3D min(logo_lines, new_rows);
- 	if (logo_lines <=3D 0) {
- 		logo_lines =3D 0;
- 		logo_shown =3D FBCON_LOGO_DONTSHOW;
-@@ -734,7 +734,9 @@ static void fbcon_prepare_logo(struct vc_data *vc, str=
-uct fb_info *info,
- 		pr_info("fbcon: disable boot-logo (boot-logo bigger than screen).\n");
- 	} else {
- 		logo_shown =3D FBCON_LOGO_DRAW;
--		vc->vc_top =3D logo_lines;
-+		/* keep vc_top if logo covers whole screen */
-+		if (logo_lines < vc->vc_bottom)
-+			vc->vc_top =3D logo_lines;
+When execmem refills the cache, it rounds up the requested allocation size
+to PMD_SIZE and tries to allocate that with vmalloc(VM_ALLOW_HUGE_VMAP).
+If that allocation fails, execmem falls back to vmalloc() of the original
+size.
+
+There are two issues with this approach:
+* If huge pages are not available, __vmalloc_node_range() silently falls
+  back to base pages. The area execmem gets is virtually contiguous, but it
+  is backed by 512 scattered base pages.
+
+  Permission updates on such areas split large mappings in the direct map
+  that contain those base pages, up to 512 PMD splits in the worst case.
+
+* execmem's own fallback adds a small base page mapped area to the cache.
+  This adds the overhead of cache management to these allocations with no
+  benefit of reducing fragmentation either in the vmalloc/modules address
+  space or in the direct map.
+
+  Worse, these areas are never freed from the cache, because
+  execmem_cache_clean() releases only chunks that are a multiple of
+  PMD_SIZE and aligned to PMD_SIZE, exactly to minimize the number of base
+  page mappings.
+
+Add VM_REQUIRE_HUGE_VMAP option to vmalloc that fails if the allocation of
+huge pages fails or if such an allocation is not possible because huge
+page allocations in vmalloc were disabled or the architecture does not
+support them.
+
+Use this option when populating the ROX cache.  If
+vmalloc(VM_REQUIRE_HUGE_VMAP) fails or vmalloc of huge pages is
+unavailable, handle the memory allocation outside the ROX cache with plain
+vmalloc().
+
+Since the fallback allocation has to return ROX memory, add an
+execmem_alloc_rox() helper and use it for both populating the ROX cache
+and dealing with a fallback allocation in a ROX execmem_range.
+
+With that, the cache only ever contains PMD aligned chunks sized as a
+multiple of PMD_SIZE, and the PMD checks in execmem_cache_clean() become a
+VM_WARN_ON_ONCE() to ensure that the PMD mapping invariant does not
+change.
+
+Link: https://lore.kernel.org/20260903-execmem-rox-cache-pmd-v1-v1-3-11beb2a3d249@kernel.org
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Assisted-by: copilot:claude-opus-5
+Cc: Benjamin Tissoires <bentiss@kernel.org>
+Cc: Jiri Kosina <jikos@kernel.org>
+Cc: Luis Chamberalin <mcgrof@kernel.org>
+Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
+[ 6.18: 4c4b2ed5b783 ("mm/execmem: use VM_FLUSH_RESET_PERMS for ROX cache
+  allocations") and its prerequisite set_area_direct_map() changes are
+  absent, so 6.18 still restores the direct map of cache chunks with
+  execmem_set_direct_map_valid(). Keep that handling for cache chunks:
+  execmem_vmalloc_rox() does not call set_vm_flush_reset_perms(), and the
+  populate error path still restores the direct map before vfree().
+  The uncached fallback is freed by plain vfree(), so execmem_alloc_rox()
+  passes VM_FLUSH_RESET_PERMS, matching the non-ROX execmem_vmalloc() path.
+  In mm/vmalloc.c only the kerneldoc context differs; the code hunks are
+  identical to upstream. ]
+Signed-off-by: Gyokhan Kochmarla <gyokhan@amazon.de>
+---
+ include/linux/vmalloc.h |  1 +
+ mm/execmem.c            | 77 +++++++++++++++++++++++++----------------
+ mm/vmalloc.c            | 15 +++++++-
+ 3 files changed, 62 insertions(+), 31 deletions(-)
+
+diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
+index 380dcc5a470e..f8f3cb2dafab 100644
+--- a/include/linux/vmalloc.h
++++ b/include/linux/vmalloc.h
+@@ -38,6 +38,7 @@ struct iov_iter;		/* in uio.h */
+ #define VM_DEFER_KMEMLEAK	0
+ #endif
+ #define VM_SPARSE		0x00001000	/* sparse vm_area. not all pages are present. */
++#define VM_REQUIRE_HUGE_VMAP	0x00002000	/* huge page mapping or nothing */
+ 
+ /* bits [20..32] reserved for arch specific ioremap internals */
+ 
+diff --git a/mm/execmem.c b/mm/execmem.c
+index cce6a2ac66b4..be9b4e5ea37a 100644
+--- a/mm/execmem.c
++++ b/mm/execmem.c
+@@ -50,7 +50,8 @@ static void *execmem_vmalloc(struct execmem_range *range, size_t size,
  	}
+ 
+ 	if (!p) {
+-		pr_warn_ratelimited("unable to allocate memory\n");
++		if (!(vm_flags & VM_REQUIRE_HUGE_VMAP))
++			pr_warn_ratelimited("unable to allocate memory\n");
+ 		return NULL;
+ 	}
+ 
+@@ -167,10 +168,9 @@ static void execmem_cache_clean(struct work_struct *work)
+ 		struct vm_struct *vm = find_vm_area(area);
+ 		size_t size = mas_range_len(&mas);
+ 
+-		if (vm && get_vm_area_size(vm) == size &&
+-		    IS_ALIGNED(size, PMD_SIZE) &&
+-		    IS_ALIGNED(mas.index, PMD_SIZE)) {
+-			struct vm_struct *vm = find_vm_area(area);
++		if (vm && get_vm_area_size(vm) == size) {
++			VM_WARN_ON_ONCE(!IS_ALIGNED(mas.index, PMD_SIZE) ||
++					!IS_ALIGNED(size, PMD_SIZE));
+ 
+ 			/*
+ 			 * Preallocate to ensure mas_store does not fail
+@@ -288,36 +288,41 @@ static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
+ 	return execmem_cache_alloc_locked(range, size);
  }
- #endif /* MODULE */
-=2D-=20
-2.56.1
+ 
+-static void *execmem_cache_populate_alloc(struct execmem_range *range, size_t size)
++static void *execmem_vmalloc_rox(struct execmem_range *range, size_t size,
++				 unsigned long vm_flags)
+ {
+-	unsigned long vm_flags = VM_ALLOW_HUGE_VMAP;
+-	struct mutex *mutex = &execmem_cache.mutex;
+-	struct vm_struct *vm;
+-	size_t alloc_size;
+-	int err = -ENOMEM;
+-	void *p;
+-
+-	alloc_size = round_up(size, PMD_SIZE);
+-	p = execmem_vmalloc(range, alloc_size, PAGE_KERNEL, vm_flags);
+-	if (!p) {
+-		alloc_size = size;
+-		p = execmem_vmalloc(range, alloc_size, PAGE_KERNEL, vm_flags);
+-	}
++	void *p = execmem_vmalloc(range, size, PAGE_KERNEL, vm_flags);
++	int err;
+ 
+ 	if (!p)
+ 		return NULL;
+ 
+-	vm = find_vm_area(p);
+-	if (!vm)
+-		goto err_free_mem;
+-
+ 	/* fill memory with instructions that will trap */
+-	execmem_fill_trapping_insns(p, alloc_size);
++	execmem_fill_trapping_insns(p, size);
+ 
+-	err = set_memory_rox((unsigned long)p, vm->nr_pages);
++	err = set_memory_rox((unsigned long)p, size >> PAGE_SHIFT);
+ 	if (err)
+ 		goto err_free_mem;
+ 
++	return p;
++
++err_free_mem:
++	vfree(p);
++	return NULL;
++}
++
++static void *execmem_cache_populate_alloc(struct execmem_range *range, size_t size)
++{
++	unsigned long vm_flags = VM_REQUIRE_HUGE_VMAP;
++	size_t alloc_size = round_up(size, PMD_SIZE);
++	struct mutex *mutex = &execmem_cache.mutex;
++	int err;
++	void *p;
++
++	p = execmem_vmalloc_rox(range, alloc_size, vm_flags);
++	if (!p)
++		return NULL;
++
+ 	/*
+ 	 * New memory blocks must be allocated and added to the cache
+ 	 * as an atomic operation, otherwise they may be consumed
+@@ -336,12 +341,16 @@ static void *execmem_cache_populate_alloc(struct execmem_range *range, size_t si
+ 
+ err_reset_direct_map:
+ 	mutex_unlock(mutex);
+-	execmem_set_direct_map_valid(vm, true);
+-err_free_mem:
++	execmem_set_direct_map_valid(find_vm_area(p), true);
+ 	vfree(p);
+ 	return NULL;
+ }
+ 
++static void *execmem_alloc_rox(struct execmem_range *range, size_t size)
++{
++	return execmem_vmalloc_rox(range, size, VM_FLUSH_RESET_PERMS);
++}
++
+ static void *execmem_cache_alloc(struct execmem_range *range, size_t size)
+ {
+ 	void *p;
+@@ -469,6 +478,11 @@ static void *execmem_cache_alloc(struct execmem_range *range, size_t size)
+ 	return NULL;
+ }
+ 
++static void *execmem_alloc_rox(struct execmem_range *range, size_t size)
++{
++	return NULL;
++}
++
+ static bool execmem_cache_free(void *ptr)
+ {
+ 	return false;
+@@ -478,17 +492,20 @@ static bool execmem_cache_free(void *ptr)
+ void *execmem_alloc(enum execmem_type type, size_t size)
+ {
+ 	struct execmem_range *range = &execmem_info->ranges[type];
+-	bool use_cache = range->flags & EXECMEM_ROX_CACHE;
++	bool use_rox_cache = range->flags & EXECMEM_ROX_CACHE;
+ 	unsigned long vm_flags = VM_FLUSH_RESET_PERMS;
+ 	pgprot_t pgprot = range->pgprot;
+ 	void *p = NULL;
+ 
+ 	size = PAGE_ALIGN(size);
+ 
+-	if (use_cache)
++	if (use_rox_cache) {
+ 		p = execmem_cache_alloc(range, size);
+-	else
++		if (!p)
++			p = execmem_alloc_rox(range, size);
++	} else {
+ 		p = execmem_vmalloc(range, size, pgprot, vm_flags);
++	}
+ 
+ 	return kasan_reset_tag(p);
+ }
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 60025b682bc0..747fade971a5 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -3844,6 +3844,12 @@ static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
+  * Map them into contiguous kernel virtual space, using a pagetable
+  * protection of @prot.
+  *
++ * %VM_ALLOW_HUGE_VMAP allocates huge pages when possible and falls back to
++ * base pages if huge page allocation fails.
++ *
++ * %VM_REQUIRE_HUGE_VMAP implies %VM_ALLOW_HUGE_VMAP and fails instead of
++ * silently falling back to base pages.
++ *
+  * Return: the address of the area or %NULL on failure
+  */
+ void *__vmalloc_node_range_noprof(unsigned long size, unsigned long align,
+@@ -3867,6 +3873,10 @@ void *__vmalloc_node_range_noprof(unsigned long size, unsigned long align,
+ 		return NULL;
+ 	}
+ 
++	/* VM_REQUIRE_HUGE_VMAP implies VM_ALLOW_HUGE_VMAP */
++	if (vm_flags & VM_REQUIRE_HUGE_VMAP)
++		vm_flags |= VM_ALLOW_HUGE_VMAP;
++
+ 	if (vmap_allow_huge && (vm_flags & VM_ALLOW_HUGE_VMAP)) {
+ 		/*
+ 		 * Try huge pages. Only try for PAGE_KERNEL allocations,
+@@ -3883,6 +3893,9 @@ void *__vmalloc_node_range_noprof(unsigned long size, unsigned long align,
+ 		align = max(original_align, 1UL << shift);
+ 	}
+ 
++	if ((vm_flags & VM_REQUIRE_HUGE_VMAP) && shift == PAGE_SHIFT)
++		return NULL;
++
+ again:
+ 	area = __get_vm_area_node(size, align, shift, VM_ALLOC |
+ 				  VM_UNINITIALIZED | vm_flags, start, end, node,
+@@ -3956,7 +3969,7 @@ void *__vmalloc_node_range_noprof(unsigned long size, unsigned long align,
+ 	return area->addr;
+ 
+ fail:
+-	if (shift > PAGE_SHIFT) {
++	if (shift > PAGE_SHIFT && !(vm_flags & VM_REQUIRE_HUGE_VMAP)) {
+ 		shift = PAGE_SHIFT;
+ 		align = original_align;
+ 		goto again;
+-- 
+2.50.1
 
