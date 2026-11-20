@@ -1,60 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795176858;
-	b=zKhqeqeQOwZ4RqUZ9BG5DUtx9nYMH6/WYgMe6cWryR8NeraozNGD+2ICNT2IeFEY8Nz3
-	 91RoFGly0j7YJYMSv/plLjeQeZRzfE2iKOu+uODquFMQ2q67zAVlwjhKhKEtnekHIbZAL
-	 yVc1mIXao+OkGi7u9BNiRmxhB3Xw4hbCVkEwWAOeGKBkM++I8rfWAh0pKu/7iqvc3QRav
-	 HGyI6wqUHMINosmx5zS3I+8Cbq2jdSs+foVWPygbC59VsA9cZZ6+O686EP0Gp36iou6Y4
-	 Hd2zp/4EDwNhyXxukZXIDE4106ytjTTQFOguqNkjjVW2TGKSJdIvpVZLlILb+6TsPtQ==
+	t=1795176885;
+	b=tMWRGgyXw8gWpYkXG1458pfHVn6j/qoo/TEEMXOt1DtRatCVf9RRhuM1S0yArUlUVHE5
+	 6t2DbeW13lBfMy68lF+4/1ArZH4dLVOX11py4l8CYHYro1ixFM9nUVxPbLlqi0hP1/Agp
+	 hTUqjFE82rLhgjZSXcOaOmi7QrwyjiTSLwdD5l7Nd7I9GzfDauI15UA6H5guDwz2AtNMt
+	 vWXwTa/cg1R+9MjWS0RJsvy+YNhh8VdH0nNkHKQfGWn2iDQ71qpJAUH4Pj5YxSn4wtpB/
+	 MMxG7hSpsKWm1A5Zk1Jsud8k9+ZDUTfULUCXg4AA72LcnftHRp2lQv2CpsPAGS8YPPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795176858;
-	h=Received:DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:MIME-Version:Content-Type;
-	bh=CSLYtYNsDaTun26wMNmzm2IdVDSojM0ADRUtYrpSQyw=;
-	b=OwvdTLu2skR7+OoK8SSIeEDJx4lsDFDgEPdFJW6G+1hZ84X+J5es7NKvVgFxDfwt7w3x
-	 F11hj7tJA1vIPy9d9KysjlDYyOr60AgOz/iG4TC/AUJlcaFppOs3SSMZeSHBtM+GZwcPW
-	 42AQ4kF7onLpXboyJ6GnJ3jLnFJ77S8P08MUo20qPY6T1lsM7bvrVTGcRROSd92pkCIMb
-	 9R8ChChs6zeSbEw6Ho7mKZCcFk0ULgmmSVhONXHly5nwe7DF2AS8QOLfLf+3Q0s8RVga/
-	 AJC97gaeBkc+aIh+suVFR3KTu2l41rosAy6j7GSwslKY/DdIIER+dxNI6S/y6mxipnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795176885;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yfVhfgGK1OedUEyPydQHT3KhIaYnblF9DmvN6Za45Rg=;
+	b=rZrSvymWrtKZMVk5aC+otFHOS2L29h9+RZ8iszgJVwE3PES+Bz8loQn/djWOw2Qngbg9
+	 nzUywSha6sUGMyAwLVx+yK3qo+0zUk9dyvTs+D6/feqangokyElkeR4iUPqK0wvyz60mn
+	 naZ17VyS+071L1wKGz/l567shxOSY0MaitcC5VrQhyAFfWoWXBxHIeSLf4nRgdtjVzhcr
+	 ihaM+ame5ijQH85/NjTRtf4CckK7m0ewziwEaKqmpC/rdCB8/IqJjEU0HV1zUGVamQRE8
+	 ZB5S2fLTNNj5Ir4Nf3Gtxx7y7KQzu1vpPM9TszlPkA87JsctsdR5XOSI0qDN6lp7QQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aCczXQAA;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HHs3PO6J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B562B606A325;
-	Fri, 20 Nov 2026 12:14:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 489D0606A320;
+	Fri, 20 Nov 2026 12:14:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aCczXQAA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD2ED1F000C4;
-	Fri, 20 Nov 2026 12:14:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795176858;
-	bh=CSLYtYNsDaTun26wMNmzm2IdVDSojM0ADRUtYrpSQyw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=aCczXQAAeUEGw5x3rSvzxoCj4xi36YfHt/HwaGB+GWCDSWmlu0DFsmvAsmzonfUEO
-	 CbyusFuKAQmrF9eeq7LPik/irzIVLEi81+BPmirtsnRS+tFU1ArKya5IF9EXyY3+Yv
-	 wf5RK7KLzwLCG3NnvK4HlMbSbddWWFl8FWbj94HUWD5uC6JWsZWm8d33GKLst6Tdvx
-	 We0EWvJ4s+3hVc31Pk0A+YJL94VMhjUvYW90XynoEREcR+L12Nqlv1Pfi2+C+wy6dL
-	 4jXNOvvyJW1Q4wbxq5AUB/o5z5VVnROrv3824jiepNuONIktRZDU3+ODzVTA8fnaak
-	 gCyfoxYQsrkog==
-Date: Fri, 20 Nov 2026 13:14:15 +0100 (CET)
-From: Jiri Kosina <jikos@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-cc: Benjamin Tissoires <bentiss@kernel.org>, 
-    Gideon Heinz <gideonheinz02@gmail.com>, 
-    =?ISO-8859-15?Q?Filipe_La=EDns?= <lains@riseup.net>, 
-    Bastien Nocera <hadess@hadess.net>, Hans de Goede <hansg@kernel.org>, 
-    Edwin Velds <e.velds@gmail.com>, 
-    Stuart Hayhurst <stuart.a.hayhurst@gmail.com>, 
-    Andrey Smirnov <andrew.smirnov@gmail.com>, linux-input@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 00/14] HID: logitech-hidpp: G920 force-feedback and
- battery fixes
-In-Reply-To: <20261120-hid-logitech-hidpp-v3-0-cfe2caa1d0eb@gmail.com>
-Message-ID: <34ppp9o3-o9s3-4521-04s8-3s44436rq153@xreary.bet>
-References: <20261120-hid-logitech-hidpp-v3-0-cfe2caa1d0eb@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HHs3PO6J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291D31F000D2;
+	Fri, 20 Nov 2026 12:14:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795176884;
+	bh=yfVhfgGK1OedUEyPydQHT3KhIaYnblF9DmvN6Za45Rg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HHs3PO6JY+pilipPqKehSJcCqz7dbnMnVi0GVGnI54PrcUo6xTaYUmBoy+5kqpcrq
+	 E5CGl1dRRPoDGUlDobGCK9K7SHCipGokU4zf4La70QAuDGF0Da1ETWVpNvAwA+u8l6
+	 7m2ngaNuV9rMuvkwZ8IDC8L1Nm9Zx5+G/b/OwLn8=
+Date: Fri, 20 Nov 2026 13:14:42 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Liu Chao <liuc63@xiaopeng.com>
+Cc: linux-usb@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	liuwb@xiaopeng.com
+Subject: Re: [PATCH] usb: gadget: fsl_udc: validate pipe index in
+ ch9getstatus()
+Message-ID: <2026112032-cotton-hardly-d8db@gregkh>
+References: <20260917123133.3760392-1-liuc63@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,80 +55,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917123133.3760392-1-liuc63@xiaopeng.com>
 
-On Fri, 20 Nov 2026, Dmitry Torokhov wrote:
+On Thu, Sep 17, 2026 at 08:31:33PM +0800, Liu Chao wrote:
+> ch9getstatus() uses get_pipe_by_windex() to compute a pipe index from
+> the host-supplied wIndex field and then passes it to get_ep_by_pipe()
+> to index the udc->eps[] array.  get_pipe_by_windex() can return up to
+> 31, but udc->eps[] is allocated with udc->max_ep entries (typically
+> 8-16 depending on the hardware).
+> 
+> The SET/CLEAR_FEATURE handler in the same function already checks
+> 'pipe >= udc->max_ep' (line 1431) before indexing, but the GET_STATUS
+> path omits this check, allowing an out-of-bounds access.
+> 
+> Add the same pipe >= max_ep guard to the GET_STATUS endpoint path,
+> matching the existing check in the feature handler.
+> 
+> Fixes: b504882df105 ("USB: add Freescale high-speed USB SOC device controller driver")
 
-> Per Jiri Kosina's request, the v2 series has been split into this
-> 14-patch bug-fix series targeting v7.4 and a separate 18-patch rework
-> and cleanup series targeting v7.5. The open-evdev-across-unbind
-> force-feedback teardown use-after-free (v2 patch 22/33) is now handled
-> in input core ("Input: destroy force-feedback device on input
-> unregistration") and has been dropped.
-> 
-> This series starts from Gideon Heinz's report of Logitech G920
-> force-feedback initialization timing out in v7.3 and addresses several
-> pre-existing bugs and lifetime races in hid-logitech-hidpp.
-> 
-> The force-feedback and teardown fixes temporarily enable device I/O
-> around g920_get_config() in hidpp_input_configured(), switch
-> hidpp_ff_queue_work() to GFP_ATOMIC since callbacks run under the input
-> event spinlock, drain the G920 FF workqueue before closing the HID
-> transport on input close, synchronously disable driver work items and
-> disconnect input devices with device I/O enabled before stopping the
-> transport on removal and probe failure, avoid storing an ERR_PTR in
-> battery->ps on registration failure, avoid NULL pointer subtraction in
-> the HID++ 1.0 consumer keys report fixup, and fix an off-by-one in G920
-> slot tracking that made the 63rd user effect in slot 64 unusable and
-> leaked it across reopen.
-> 
-> The transport and battery fixes update hidpp_send_message_sync() to stop
-> retrying timeouts and transport errors, initialize response buffers
-> before publishing send_receive_buf to eliminate races with concurrent or
-> spurious packets, fix HID++ 1.0 battery mileage event parsing and state
-> updates, properly propagate negative errors in ADC measurement (0x1f20)
-> queries, mark devices online on unified battery (0x1004) events while
-> gating 0x1000/0x1004 dispatch, fix K750 solar battery feature lookup and
-> reconnect handling, and expose and correctly map the charge_type
-> property for the battery voltage (0x1001) feature.
-> 
-> Note that device removal teardown still has limitations due to how HID
-> core's hid_device_io_start() and hid_device_io_stop() (via
-> driver_input_lock) gate both driver raw command/response I/O and
-> subdriver event forwarding, disabling I/O before .remove() and
-> hid_disconnect(). For instance, HIDPP_QUIRK_DELAYED_INIT devm-managed
-> input devices are still unregistered after hid_hw_stop(), and
-> hidpp_connect_event() publishes hidpp->input before input registration
-> completes. Resolving these teardown edge cases cleanly will require
-> follow-up work in HID core and driver input registration.
-> 
-> Thanks.
-> 
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> ---
-> Changes in v3:
-> - Split out the 14 bug fixes into this series for v7.4 per Jiri Kosina,
->   moving the 18 rework and cleanup patches into a separate series for
->   v7.5 and dropping v2 patch 22/33 in favor of input core teardown.
-> - Collected Tested-by tags from Gideon Heinz on all unchanged patches in
->   this series (omitted from patches 12 and 14 which were updated after
->   v2 testing).
-> - Gated event dispatch in hidpp_raw_hidpp_event() on
->   HIDPP_CAPABILITY_UNIFIED_BATTERY so 0x1000 and 0x1004 events are
->   routed to their respective handlers instead of cross-corrupting
->   battery state.
-> - In hidpp20_battery_map_status_voltage(), set charge_type to unknown
->   when status is unknown, to none when discharging, full, or not
->   charging, and to standard, fast, or trickle only when charging.
-> - Reset charge_type to unknown on wireless disconnect in
->   hidpp_connect_event().
-> - Link to v2: https://patch.msgid.link/20261110-hid-logitech-hidpp-v2-0-30743e91d83b@gmail.com
-
-Applied to hid.git#for-7.4/upstream-fixes.
-
-Thanks,
-
--- 
-Jiri Kosina
-SUSE Labs
-
+Not a valid git id :(
