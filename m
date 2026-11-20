@@ -1,56 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795196144;
-	b=GJPEZqaCI/zyVcCnkzzLUqQ3LM4+TvlXStKa23RojWZjqAtyvvnRd/tQbJb3YBFJLEmY
-	 jLP7aGIIa2C1OfbBpSxo1vWkSvJftxYqLSptWlxDJcUjPMm9FYk4a0xh/jFZog1Zm+RDW
-	 CXlASvBfPkjdbnu/OjLhc5UsLenkPOx3VYBQ/Jg8bNaAEV3mY83hAnGcJ6ai6Ttgoe+fz
-	 hWw82advrtswadUcDaI8phjoZbSNW6oT1w1VbA9fCWOC8zrvi3K5UFGIKBYJdz7LaLnnw
-	 3z97I9fDFD+ZB5vSyiqqDYBY62IaKJYi7rKe8JDUrpK4wQGwiyRfzpdGuao4LmWEZVw==
+	t=1795196246;
+	b=AaNaGzGtbpe5brJNMDUEd07+SgVll2gJ5EIzJkkfzCwoIMk/+TufEXaWzrg5SFEazDX+
+	 y3G3SWiMANnz5zQD7KX2EpV6sWMoXgXd0R5p8J9LKondujESDELxUaoHAGhVb6itQlcpp
+	 zGqilrokuLuX0Bsm8Y0lw9oDjP/blHT9esdNbsSQD3deCTvLCW+7ph9AIjlVp+NhFDW4V
+	 j/eQzmEFdEbxseAkb6CCrPFOa59c92g7wVTLj1dTtjCjSRZ2Sn56q36g77+anDDe/Bbn3
+	 lnriKcMhhfl0RADKXaUwFrgMH6USMp1Oz3I/ouKfxAVxzCv8cGdOdG//Bmc56BQyBOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795196144;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
-	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=KFuB17UBx3dmAUo4Do73D0BjXXKCh6ehL5UyXgHwGCE=;
-	b=bZF+PvWFibGmbh28HgnvTeri5QK7Wr47RflnGrX+LuHex55VdG4xKmrAUjnQlDfOMODO
-	 SLqYlJu0U/CYu+6RRM4QF5OoQZ2jwg0i4pa63bEpJMO+QBoHYyKJEwuHasNLV53H5ft7O
-	 JCDl8az4MTJ47e7yulJy5xPjHB7Fuz/FL97cVA5I3UHTWY+5T6bTMzyFIwdXcZCd8wFT0
-	 z9FLIGC52GSYOUA4fRz8WUNNc0kHt7FYZiPFhY5AJkS0AuHsg0qECnwSOhhx3PKk3Icvp
-	 IlS9ZOD3ykj5fSqTGNug/nCtE+ma9G2aOeZ1SsftbAG5QOFPaV9oiGJyfH88c+Y13wQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196246;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2pQ/nw5caVi4RbK1CcsBfPp7aScPNttl9DankhCdcO4=;
+	b=rzXamSmD6zCt4PySrVDrxchpzWPGS4V+L4XNbHjMZX01iOXb9uIynPtyvm0JoF/yh94K
+	 odCXtYy4F4VS03/js7POYpMen/19aFRz9b1wJVB4uZj/w9S+Ihm2wAnyw+IANllO6hvXK
+	 V9zP4zwYIwhmzu74t9OvFQbEkuw844GB0ArDfX6G/lfZhah2uWIedNOBK1j93jncCMpcQ
+	 mAIIeZpwsb+UctNv88t1fuMNjxJhZiXbnCCKOlyMOPOHddy9euLZueJsYvyXAuzlXP7NY
+	 NgU2XraRYt4YnlnPmslwWXQOt2VzfVyZxnoDcrW6NjVEkic9jsSdvx0zB4NgmvSSj8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=U0h+PKV0;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SBs2GTH4;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0242D60A2627;
-	Fri, 20 Nov 2026 17:35:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0242D60A2627
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCDA606A332
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:37:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CCDA606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=U0h+PKV0
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5573c0ac1;
-	Sat, 21 Nov 2026 01:35:34 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Amit Kucheria <amitk@kernel.org>,
-	Thara Gopinath <thara.gopinath@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] thermal: qcom: tsens: Fix potential repeated removal of shared debugfs root
-Date: Sat, 21 Nov 2026 01:35:32 +0800
-Message-ID: <20261120173533.3924126-1-liguangshuo@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SBs2GTH4
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdb15cd8558so570313a12.2
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 09:37:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795196245; x=1795801045; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2pQ/nw5caVi4RbK1CcsBfPp7aScPNttl9DankhCdcO4=;
+        b=SBs2GTH4L8M6Rb3Jxgh9y0QVbTov6iGvVd3DR49NC6s9S08jVl74nb1GLcO6K0JVJU
+         sTM0P0mcCw+V0jB0osrRwu6gKBN0NzZPLk4s0iltsU4bG897u6qvjehhROtlzjAwGjqF
+         A0SUUdE3OYJSXQnXeKotKuZjWZx5joSo9uFFE0YfG2BLwFL4GnRm0bcYYuWERvOZfz6L
+         AI2AK9jkAlzdBZWqseJTZztDIMfxSXtzOeB0/F4FhkJD2J/OQOx5B7lWdyaBZ4BoWs+b
+         CK1/UK85l84CX+80sK0sT9jmzeIOW9NYRioDQLJoy17gJ9q/0/QgqRVGJRRa1uVsRu71
+         +aNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795196245; x=1795801045;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2pQ/nw5caVi4RbK1CcsBfPp7aScPNttl9DankhCdcO4=;
+        b=ipALyHPlpeiT57ZnxHkx8BzcjAC1uzGZSTzYVQ40XdpVasfOt+GDskfsh9KhFdxSZd
+         QmMkjQJW+QhejOPWxHmQ/uFAkFe0Dw8yDqrSEYYq1RUJHeDsB78LsXoi0U73cs/KEBnd
+         skNGmoGi6scag7G4j82NrZpVBVWvqdH39Be+CiuoCvvvpwg5JlRCnNlYuUdxoK+ycOAU
+         pBxPni4zqhdZP36Omhfe3q3XxWhjY0fkZibg36RFVa7reu7meb1N7ifkRybxdw68ZRs9
+         EM+nMfeVZyBjVw54LVXL5/70YQBTr565v/HvO38M/rCxwczhCMzgzzLL+LnHpVmYXKRM
+         NgJg==
+X-Forwarded-Encrypted: i=1; AL+hErH2o7pMfhlZgEVvh2zDaXPYYW8SoDanRwVVsMXiXS0I9CTh+WKDKiHlBHzKf/DrrYOsQCBtjKI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z938MG2DOmGObEENwCNAXmghEgID4ko9qnW1TV+yZ0mYAvEA2Ic
+	bgKGFirC661AkL3SBEj5mD4/PfkeGtNxv64+RxAYVYrjyo45wGmxpAOL
+X-Gm-Gg: AYBFou1uCf8tL4MJObCkwFvs/CUriDz/SbSjUtB0AZXh81NfOij0zvhI7ACoW/xAci+
+	Fq7mV5vZiFgz2W8btVvGTBjoHigIrX2de5hxH0IAl8xE+Dtys+lX4g0jHfKHPQaU1v3kOcgMcGs
+	aoZ+zMzqO41hSHg9Am9X3vsUhMMIlDfn8Gx7jQNFSZJDtwjTZLCxCTq6BWqbksnxfUSoL5PKiDX
+	PHshjUCccxDGfvxjP6XtW4umkkvJUX8LjOGRi85B+1SFFnzdMK9FGEtr8lAiZrlvpFeZ6d120Py
+	GGSlcYffFvbRiGUvZezSlISz2d8x1+58Fesfw2Slo+6YGoUUo5KpYxHMpg8ho1rcYXayK2kcPJB
+	sRmHgrxYdnMZexJwffcT8Tj1Wn1pUGs+9y26aw2ZL9/kq7Q/quKwWWkVWZ7+Jqqe2GFOopFgU+Q
+	QrO18qEsMKqbJB4ZpPIz0emx1QY4zVaaAXu17tIceY8bwteg2CF2ZOk20zNNsMFoM1R6xEJvrR+
+	LPnuWYAmcNad9iJpR5RdoCFp6/7Bg4EAxW9sfgM0J8yX/2bHlTL3p2P2yb/f8emLJxz8TksKy4+
+	f7H2rMo5BlgbdFY3hI4HYuUlNTzonICPU8SIoXEidVyU90O9u3oJ
+X-Received: by 2002:a05:6a21:4d8e:b0:3fa:10b3:c8f1 with SMTP id adf61e73a8af0-4014d25ddfbmr3224637637.41.1795196244659;
+        Fri, 20 Nov 2026 09:37:24 -0800 (PST)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:6213:28::4:379])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c873c1d71dsm1853608b3a.53.2026.11.20.09.37.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 09:37:24 -0800 (PST)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	stable@vger.kernel.org,
+	Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Zhangfei Gao <zhangfei.gao@linaro.org>
+Subject: [PATCH net] net: hix5hd2_gmac: do not release the RX ring on interface close
+Date: Sat, 21 Nov 2026 01:36:56 +0800
+Message-ID: <20261120173702.1551838-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,98 +102,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1fa0723e303a1kunm13f08662238bb4
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHU5KVhgaSEIaTUsZHkkfSFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=U0h+PKV089Y9v2y82Tb/jss73lpZ1diiYfFdkaY9D+Zh6xJIVe9fTd7yF1HoBsOMp0kxonrelzb/FIfy8GJfYRm4kXyqYQXKZzgpO6x7y0uuzBbXVTjLrvjFSYjZY7FeJx0kLWV5M0JhsOTvvtoXhK17tL8KVAEevTRh4T3i+Rw=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=KFuB17UBx3dmAUo4Do73D0BjXXKCh6ehL5UyXgHwGCE=;
-	h=date:mime-version:subject:message-id:from;
 
-Each TSENS instance stores the same debugfs root and removes it during
-teardown. Removing one instance therefore removes the files of its
-peers, and subsequent removal operates on the same root again.
+hix5hd2_net_close() frees the receive buffers while the free queue still
+holds the descriptors the block has already fetched.
 
-Own the root at driver initialization and exit. Each instance only
-removes its own directory, leaving the shared root to the driver.
+A port that keeps receiving then DMAs arrived frames into buffers the
+slab has already taken back; on Hi3716cv200 the descriptors at the next
+open all carried the previous session's stamps, and the frames received
+then came up as slab garbage -- six parsed as LLC, the rest with an
+unrecognized ethertype.
 
-This issue was found by our static analysis tool under development.
+Do not release the receive buffers, their descriptors and the queue
+pointers on the close, until the device goes away, so the block keeps
+ownership of every address it prefetches.
 
-Fixes: 7c938f4837ab ("drivers: thermal: tsens: Add debugfs support")
+The sibling hisi_femac has the same defect and resets the port before
+freeing its ring, as in commit d54b21d82430 ("net: hisilicon:
+hisi_femac: Stop the receiver before releasing the RX ring"); this one,
+however, has no reset feature and has to keep them alive across a close.
+
+Fixes: 57c5bc9ad7d7 ("net: hisilicon: add hix5hd2 mac driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+Signed-off-by: David Yang <mmyangfl@gmail.com>
 ---
- drivers/thermal/qcom/tsens.c | 31 ++++++++++++++++++++++++-------
- 1 file changed, 24 insertions(+), 7 deletions(-)
+ drivers/net/ethernet/hisilicon/hix5hd2_gmac.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/thermal/qcom/tsens.c b/drivers/thermal/qcom/tsens.c
-index 4d7013fc79d6..e0fdeafdca30 100644
---- a/drivers/thermal/qcom/tsens.c
-+++ b/drivers/thermal/qcom/tsens.c
-@@ -22,6 +22,8 @@
- #include "../thermal_hwmon.h"
- #include "tsens.h"
- 
-+static struct dentry *tsens_debugfs_root;
-+
- /**
-  * struct tsens_irq_data - IRQ status and temperature violations
-  * @up_viol:        upper threshold violated
-@@ -902,12 +904,8 @@ static void tsens_debug_init(struct platform_device *pdev)
- {
- 	struct tsens_priv *priv = platform_get_drvdata(pdev);
- 
--	priv->debug_root = debugfs_lookup("tsens", NULL);
--	if (!priv->debug_root)
--		priv->debug_root = debugfs_create_dir("tsens", NULL);
--
- 	/* A directory for each instance of the TSENS IP */
--	priv->debug = debugfs_create_dir(dev_name(&pdev->dev), priv->debug_root);
-+	priv->debug = debugfs_create_dir(dev_name(&pdev->dev), tsens_debugfs_root);
- 	debugfs_create_file("version", 0444, priv->debug, pdev, &dbg_version_fops);
- 	debugfs_create_file("sensors", 0444, priv->debug, pdev, &dbg_sensors_fops);
+diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+index 12a5657653f8..8c67a0670cbb 100644
+--- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
++++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+@@ -792,7 +792,7 @@ static netdev_tx_t hix5hd2_net_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	return NETDEV_TX_OK;
  }
-@@ -1459,7 +1457,7 @@ static void tsens_remove(struct platform_device *pdev)
+ 
+-static void hix5hd2_free_dma_desc_rings(struct hix5hd2_priv *priv)
++static void hix5hd2_free_rx_buffers(struct hix5hd2_priv *priv)
  {
- 	struct tsens_priv *priv = platform_get_drvdata(pdev);
- 
--	debugfs_remove_recursive(priv->debug_root);
-+	debugfs_remove_recursive(priv->debug);
- 	tsens_disable_irq(priv);
- 	if (priv->ops->disable)
- 		priv->ops->disable(priv);
-@@ -1474,7 +1472,26 @@ static struct platform_driver tsens_driver = {
- 		.of_match_table = tsens_table,
- 	},
- };
--module_platform_driver(tsens_driver);
-+
-+static int __init tsens_init(void)
-+{
-+	int ret;
-+
-+	tsens_debugfs_root = debugfs_create_dir("tsens", NULL);
-+	ret = platform_driver_register(&tsens_driver);
-+	if (ret)
-+		debugfs_remove_recursive(tsens_debugfs_root);
-+
-+	return ret;
+ 	struct hix5hd2_desc *desc;
+ 	dma_addr_t addr;
+@@ -810,6 +810,13 @@ static void hix5hd2_free_dma_desc_rings(struct hix5hd2_priv *priv)
+ 		dev_kfree_skb_any(skb);
+ 		priv->rx_skb[i] = NULL;
+ 	}
 +}
-+module_init(tsens_init);
 +
-+static void __exit tsens_exit(void)
++static void hix5hd2_free_tx_buffers(struct hix5hd2_priv *priv)
 +{
-+	platform_driver_unregister(&tsens_driver);
-+	debugfs_remove_recursive(tsens_debugfs_root);
-+}
-+module_exit(tsens_exit);
++	struct hix5hd2_desc *desc;
++	dma_addr_t addr;
++	int i;
  
- MODULE_LICENSE("GPL v2");
- MODULE_DESCRIPTION("QCOM Temperature Sensor driver");
+ 	for (i = 0; i < TX_DESC_NUM; i++) {
+ 		struct sk_buff *skb = priv->tx_skb[i];
+@@ -873,7 +880,10 @@ static int hix5hd2_net_close(struct net_device *dev)
+ 	hix5hd2_irq_disable(priv);
+ 	napi_disable(&priv->napi);
+ 	netif_stop_queue(dev);
+-	hix5hd2_free_dma_desc_rings(priv);
++	/* free rx buffers when device goes away, not when interface closed;
++	 * the hardware prefetches rx descriptors and cannot be expelled
++	 */
++	hix5hd2_free_tx_buffers(priv);
+ 
+ 	if (dev->phydev) {
+ 		phy_stop(dev->phydev);
+@@ -985,6 +995,8 @@ static void hix5hd2_destroy_hw_desc_queue(struct hix5hd2_priv *priv)
+ {
+ 	int i;
+ 
++	hix5hd2_free_rx_buffers(priv);
++
+ 	for (i = 0; i < QUEUE_NUMS; i++) {
+ 		if (priv->pool[i].desc) {
+ 			dma_free_coherent(priv->dev, priv->pool[i].size,
+-- 
+2.53.0
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
