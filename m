@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795196478;
-	b=VBcwFL5coDI0YsDXmU3aak2ebU03Xp83AJn/lRReRe3PdViJolQs/cAdGH6I3CjIF6tq
-	 n+KfcIq5ADFiebq8hNfVzXs5zBaHVYW6cqG3zKNZs/keZW6LCdRGfNTQdyX3HY9IuLtSd
-	 pSaFLPBI2047nzHRdSYYQm7D0U7ZuEvlpT2lAPVY2D5MF1fOT4Fv36kv/7DbT0YawKoHP
-	 +k9vlVoYNIY+j03h8zw6jtvysHyguJN++rPiCUwRtfUf63ZVpc5jh6sK04YtR+ZnbVyIG
-	 vRSHxshCMdeh3DOkrvuEoWLi8KTg2gJ5dqJv4Ea42WVHkX+L0esrWR40VDVD67ZZ6+w==
+	b=bUmWqQbpTT19MoURvf0lVEI5KXqFF8zxHTusZbElWTimk/YS/SJXArWvSSp0XQ6jWQRO
+	 Dy/KBI9rD3qNbqKo/bnqIiMOTNv2u1sSO3gJPV09ykuoHbh8f28kRVGUZvfHtzkDjOJa6
+	 JRmNO4f4YnuLkRRc4GQjiXP7ZU39Vapkj5+sad/ppqifF2no+1L4+HJUpSMJ/Govk4t9D
+	 vbGD5DJSStfqrENqsckBjR94SG65d4YLTjzhKZdVDd5sQpv685sDpXsLwRNTJ/PCUrTtd
+	 i64m+1NljqkqTOGfwyN3ctDA+hxRciLGxJ18/kuqQTUcNwKSC2ltbhv5tBPZwWURQCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795196478;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
 	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=y49/Crf+SDjypQqR3zzyQXujbdpIG7OI0HDN3f8+Tm8=;
-	b=kDkXDhAxteMgjjQ2QqcHaUVSuDm/eXuSMmdFlqXrXtfF7u8QhFmhtHV0KzqAdf4NvQgT
-	 QbW5cM5S0qZPreD8RNAENAntbq7pCV6KNSB7nIfh9BMJqhKKivUTpJ1ZzYeD7xwzIiVWH
-	 layrSabjpTLy+HCdJtKKRD/F9H5ZVfQxy0gH6yl9xx4iegP6Or5LeYiqLqEtsRKzU7GJQ
-	 IFY2fDZvCwyHth5W4I8xaxQUQRbSBqnvBzPkqpcZynmJSjHmRuPDeUNUbHVD2ogb04VbP
-	 VIg/HICIdHD5xP+FyAhLrDELheqLqzA5VElmgsY8/4xDnQ3DnNzftF2KgMaiwX3t+qA==
+	bh=gPY1qtL0NG3BEqtvAhhfn+1WQEbBzKYd8vzgd415+Jw=;
+	b=zYmyvo+U6zQCu7WobeYm8/D0CvG4ItYiiLXRJzohVT5hRgc5gryE4cSuxzU27NBPkpQb
+	 6JvVJgYwQ3BiElGcyJqd97tKbxHQ8Qf60v+Bz0qk6qxCa9yL4xkRpnhO8bKl8IqFFQpbE
+	 J/4oAfRRAaR4dU6duCcncKxSGwEVgXucjuYG60MYCyyUNyx3cXq4bRWeSO8Ps0mvYgg7K
+	 U5UlrcOuyiv6fpqSpVw7BFerKchhVs9P0DROrHiIv9WZunw9GKIHZ3CFbKrdwHImghGoG
+	 ZDiz3Iz0go0P3X/nTmTOtvP+fbrBWUIPPPOGN9/aTYtBes+ZSkKTGAgTSvSWxj4Lyrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+HC2qSJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QqsBM42Q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786DC60A5BCF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA77160A5BDA;
 	Fri, 20 Nov 2026 17:41:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+HC2qSJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AB2A1F01563;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QqsBM42Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78DC01F0156E;
 	Fri, 20 Nov 2026 17:41:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795196478;
-	bh=y49/Crf+SDjypQqR3zzyQXujbdpIG7OI0HDN3f8+Tm8=;
+	bh=gPY1qtL0NG3BEqtvAhhfn+1WQEbBzKYd8vzgd415+Jw=;
 	h=Date:From:To:Cc:Subject:References;
-	b=H+HC2qSJuDCpXhWYVyo+uEojl+HitmglDsHJ5pyvVl+tE1MNZrmBs4aZn5M5hVkwa
-	 e/43UdpOXLqS/eAGS7ohABXD4fO1/zH5lOs95ZARxbmLR6ItLSYw1vUhBnzFWY6Kue
-	 SZvzm07ko82m3pyJLcWyBu7B4YnNScAZs/dmtaa/8MIQm8ARb6d3HKyHcqY1hm060d
-	 H1OMq0RFQ7bmALyCdjXDaQ0xP7Y9ByEkj+zuOKxdc/UaFQuGKDBU533a4AvDwf2Luv
-	 QT6w5U2Kuyhqt+CrtvYP1gqnReoiZtupyLNuiCrwSiRHro2AyZCdrsXgnGK8b92UWg
-	 ESUJ9de6nIF0A==
+	b=QqsBM42QHkCJ8ITjDnid4DDaFnqQ0jbUCHLTdIqAtrZS/TqbQ8Shah4PxmhfwiKYK
+	 Midq03OnqMXiI2Duj6t4EpypOZ1ZGeAGYbrQgx34arFD93rxIXIDxwyEhHFbK+Tnhd
+	 rtd60Nzzav+5MbRNsudBfuHUlvzQI9wQA8M4fBVTORzVUpbLSDKR+KVMF+BaR5zAvU
+	 L0mtZFG6/kx92aukKD5yW6z4pZU6CapmPU1+NCZMYQr51P9pjV+1ZgF5MRsZ7zlthM
+	 skKF4HTnI6tVLNjo8d6fpW+9z3tumRNjLIJSrW5o+l5XU+OaM701R/NCpzUSSwwze6
+	 Ool2DLC676N3w==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xUSbt-00000004aNj-1hs3;
+	id 1xUSbt-00000004aOs-3FUK;
 	Fri, 20 Nov 2026 12:41:17 -0500
-Message-ID: <20261120174117.241262344@kernel.org>
+Message-ID: <20261120174117.616580958@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 20 Nov 2026 12:39:09 -0500
+Date: Fri, 20 Nov 2026 12:39:11 -0500
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -53,9 +53,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- David Carlier <devnexen@gmail.com>
-Subject: [for-linus][PATCH 17/32] tracing/user_events: Dont free an event that a dynamic event still
- references
+ Kyle Zeng <kylebot@openai.com>
+Subject: [for-linus][PATCH 19/32] tracing: Validate user addresses in faultable buffer copies
 References: <20261120173852.687189370@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,62 +67,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: David Carlier <devnexen@gmail.com>
+From: Kyle Zeng <kylebot@openai.com>
 
-An eprobe takes a reference on the call of the event it attaches to,
-and kprobe, uprobe, fprobe and synth events all refuse to go away while
-trace_event_dyn_busy() says such a reference exists. user_events never
-checks it, so a user event can be freed under an eprobe:
+trace_user_fault_read() uses __copy_from_user() when no custom copy
+function is supplied. That primitive assumes the source address has
+already been validated, but the helper only checks the destination
+buffer size. A caller that passes an unchecked kernel address can
+therefore cause mapped kernel memory to be copied into the tracing
+buffer. The original syscall-array tracing implementation exposed this
+path to syscall arguments before the syscall validated them.
 
-  echo 'u:test u32 a' >> dynamic_events
-  echo 'e:ep user_events/test a=$a' >> dynamic_events
-  echo '-:user_events/test u32 a' >> dynamic_events
-  echo '-:eprobes/ep' >> dynamic_events
+Use copy_from_user() for the default copy as documented. Non-user
+addresses then fail the copy and follow the existing NULL-return path.
+Successful user copies, buffer bounds, and preemption and migration
+retry rules are unchanged.
 
-The last write drops the reference on the freed call.
-
-If the last fd of a non-persistent event closes while such a reference
-is held, the delayed destroy now fails. Mark the event persistent then,
-so it can still be deleted once the reference is gone instead of being
-leaked.
-
-Return -EBUSY from destroy_user_event() in that case.
-
-Fixes: 7f5a08c79df3 ("user_events: Add minimal support for trace_event into ftrace")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261031212453.16116-1-devnexen@gmail.com
-Signed-off-by: David Carlier <devnexen@gmail.com>
+Fixes: 64cf7d058a005 ("tracing: Have trace_marker use per-cpu data to read user space")
+Link: https://patch.msgid.link/20261110054411.75788-1-kylebot@openai.com
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_user.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ kernel/trace/trace.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-index f658c3a77aa7..ea6a20a30cf5 100644
---- a/kernel/trace/trace_events_user.c
-+++ b/kernel/trace/trace_events_user.c
-@@ -256,6 +256,11 @@ static void delayed_destroy_user_event(struct work_struct *work)
- 		 * attempt to delete it later.
- 		 */
- 		pr_warn("user_events: Unable to delete event\n");
-+		/*
-+		 * Keep it as persistent so it can be still deleted
-+		 * since nobody own this event
-+		 */
-+		user->reg_flags |= USER_EVENT_REG_PERSIST;
- 		refcount_set(&user->refcnt, 1);
- 	}
- out:
-@@ -1506,6 +1511,10 @@ static int destroy_user_event(struct user_event *user)
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index bffba5e27086..70b3c11ac166 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -6298,7 +6298,7 @@ char *trace_user_fault_read(struct trace_user_buf_info *tinfo,
+ 		if (copy_func) {
+ 			ret = copy_func(buffer, ptr, size, data);
+ 		} else {
+-			ret = __copy_from_user(buffer, ptr, size);
++			ret = copy_from_user(buffer, ptr, size);
+ 		}
  
- 	lockdep_assert_held(&event_mutex);
- 
-+	/* If there is a reference to a dynamic event */
-+	if (trace_event_dyn_busy(&user->call))
-+		return -EBUSY;
-+
- 	/*
- 	 * Detach the fields before removing the call. Removing the event
- 	 * frees the field list memory (trace_destroy_fields() is run on
+ 		preempt_disable_notrace();
 -- 
 2.53.0
