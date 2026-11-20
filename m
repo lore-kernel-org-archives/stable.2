@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795196137;
-	b=lX730t6kiWi8M26mrY6iya79TVuS63NxbDpxln/nYqDdZUnKWbhD+lMXUzg0ENNneY16
-	 jPTZR2AsFnnLjiK4lOvSS73EbGUi1Gcgg5qJCA1jTup5QVjhQ66PFZ8WbULCFTE3G8qxq
-	 pT3/1v1TaDZv1jnE94C/E2rZ8iCyuDf9zNK4dVFN5crEPQ1oNXP0AMngBG6uSLs7ELPZG
-	 x/88aS7F3pEyGVzRcCGpbwZa/P8c4yVxlg8p+vsQyzqPcTwRpC4lIZdHZVVD9z+1o0ZKG
-	 jvXdbxXp3MNNYckp0QS4li60rxj9FZGDRBDNu0RrywU3uVq4xMNSALa5z+Lza0a/DpQ==
+	t=1795196144;
+	b=GJPEZqaCI/zyVcCnkzzLUqQ3LM4+TvlXStKa23RojWZjqAtyvvnRd/tQbJb3YBFJLEmY
+	 jLP7aGIIa2C1OfbBpSxo1vWkSvJftxYqLSptWlxDJcUjPMm9FYk4a0xh/jFZog1Zm+RDW
+	 CXlASvBfPkjdbnu/OjLhc5UsLenkPOx3VYBQ/Jg8bNaAEV3mY83hAnGcJ6ai6Ttgoe+fz
+	 hWw82advrtswadUcDaI8phjoZbSNW6oT1w1VbA9fCWOC8zrvi3K5UFGIKBYJdz7LaLnnw
+	 3z97I9fDFD+ZB5vSyiqqDYBY62IaKJYi7rKe8JDUrpK4wQGwiyRfzpdGuao4LmWEZVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795196137;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196144;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
 	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=exfjPLmiPr/gH2qdpIB7g+QBoVPsjOIjS8DPBZRkz+M=;
-	b=UMLP20eRPU9kNgR5SbFxiIV7PstIEB0hQnl5hfHf6CaFFLnO1cZB4sBIb4hxZtyIJjEB
-	 y4/VSlpfq1Ce3S9xP3zFo6HgZccBN/NZt94T2VUQDNBoET8DKNNIdTIfDel3qVzKqbhfs
-	 qNe8vTT99HfuRBT3TWoMqePd+BDOjSqqkQZK43hhi7JxpI5It6x1GPp0aGlw7D9Y4FmFZ
-	 McDNROWCYquJJ2Ite2Yp9lP9z9ev2W51VLX7rksCL4e1sjtPViG+6BHhmjvUFM9AH7ZGB
-	 bgbF4CWvtvk44ZNB02B0yBgyn8iyyaPQ0Xx3hqSVs1yoKm4AfBO5ZhxySOuz5fSThHw==
+	bh=KFuB17UBx3dmAUo4Do73D0BjXXKCh6ehL5UyXgHwGCE=;
+	b=bZF+PvWFibGmbh28HgnvTeri5QK7Wr47RflnGrX+LuHex55VdG4xKmrAUjnQlDfOMODO
+	 SLqYlJu0U/CYu+6RRM4QF5OoQZ2jwg0i4pa63bEpJMO+QBoHYyKJEwuHasNLV53H5ft7O
+	 JCDl8az4MTJ47e7yulJy5xPjHB7Fuz/FL97cVA5I3UHTWY+5T6bTMzyFIwdXcZCd8wFT0
+	 z9FLIGC52GSYOUA4fRz8WUNNc0kHt7FYZiPFhY5AJkS0AuHsg0qECnwSOhhx3PKk3Icvp
+	 IlS9ZOD3ykj5fSqTGNug/nCtE+ma9G2aOeZ1SsftbAG5QOFPaV9oiGJyfH88c+Y13wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.sdu.edu.cn;
 	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=aoGZMJLd;
-	arc=none smtp.remote-ip=45.254.49.198
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=U0h+PKV0;
+	arc=none smtp.remote-ip=45.254.49.197
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F3360A261F;
-	Fri, 20 Nov 2026 17:35:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F3360A261F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0242D60A2627;
+	Fri, 20 Nov 2026 17:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0242D60A2627
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=aoGZMJLd
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=U0h+PKV0
 Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5573c0ac0;
-	Sat, 21 Nov 2026 01:35:31 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5573c0ac1;
+	Sat, 21 Nov 2026 01:35:34 +0800 (GMT+08:00)
 From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Ludovic Desroches <ludovic.desroches@microchip.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
+To: Amit Kucheria <amitk@kernel.org>,
+	Thara Gopinath <thara.gopinath@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] pinctrl: at91: Fix potential use-after-free on manual unbind
-Date: Sat, 21 Nov 2026 01:35:29 +0800
-Message-ID: <20261120173530.3924083-1-liguangshuo@mail.sdu.edu.cn>
+Subject: [PATCH] thermal: qcom: tsens: Fix potential repeated removal of shared debugfs root
+Date: Sat, 21 Nov 2026 01:35:32 +0800
+Message-ID: <20261120173533.3924126-1-liguangshuo@mail.sdu.edu.cn>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,53 +62,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1fa0717f403a1kunmb9744555238baa
+X-HM-Tid: 0aa1fa0723e303a1kunm13f08662238bb4
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTRhDVkgaGRgeSB9OHUMfTFYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHU5KVhgaSEIaTUsZHkkfSFYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
 	NMVUpLS1VLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=aoGZMJLdSHFbZhvNm6OwuS5+U286Sszstb3D07Cxh48kh6OX+6FGYzDtIy9ohgDC4O1u3MYpGsG+GUk6Y52pfDOn1GeECo/Ravcpjpi/Nw+4KSMPfEzNg889ESo5J+k/HH7kKyx3BLPzpacTJoBljOXLIQad6Jldu3OcSHsiPSk=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=exfjPLmiPr/gH2qdpIB7g+QBoVPsjOIjS8DPBZRkz+M=;
+	b=U0h+PKV089Y9v2y82Tb/jss73lpZ1diiYfFdkaY9D+Zh6xJIVe9fTd7yF1HoBsOMp0kxonrelzb/FIfy8GJfYRm4kXyqYQXKZzgpO6x7y0uuzBbXVTjLrvjFSYjZY7FeJx0kLWV5M0JhsOTvvtoXhK17tL8KVAEevTRh4T3i+Rw=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=KFuB17UBx3dmAUo4Do73D0BjXXKCh6ehL5UyXgHwGCE=;
 	h=date:mime-version:subject:message-id:from;
 
-The built-in GPIO and pinctrl drivers share GPIO ranges and global bank
-pointers but provide no teardown for those relationships. Manually
-unbinding a GPIO bank frees its private data while pinctrl still holds
-its embedded range, which is accessed during pinctrl cleanup.
+Each TSENS instance stores the same debugfs root and removes it during
+teardown. Removing one instance therefore removes the files of its
+peers, and subsequent removal operates on the same root again.
 
-Suppress the bind attributes for these non-removable SoC controllers
-so userspace cannot trigger this unsupported teardown.
+Own the root at driver initialization and exit. Each instance only
+removes its own directory, leaving the shared root to the driver.
 
 This issue was found by our static analysis tool under development.
 
-Fixes: 6732ae5cb47c ("ARM: at91: add pinctrl support")
+Fixes: 7c938f4837ab ("drivers: thermal: tsens: Add debugfs support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
- drivers/pinctrl/pinctrl-at91.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/thermal/qcom/tsens.c | 31 ++++++++++++++++++++++++-------
+ 1 file changed, 24 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/pinctrl/pinctrl-at91.c b/drivers/pinctrl/pinctrl-at91.c
-index 0a57ed51d4c9..81b58a7a44be 100644
---- a/drivers/pinctrl/pinctrl-at91.c
-+++ b/drivers/pinctrl/pinctrl-at91.c
-@@ -1911,6 +1911,7 @@ static DEFINE_NOIRQ_DEV_PM_OPS(at91_gpio_pm_ops, at91_gpio_suspend, at91_gpio_re
- static struct platform_driver at91_gpio_driver = {
- 	.driver = {
- 		.name = "gpio-at91",
-+		.suppress_bind_attrs = true,
- 		.of_match_table = at91_gpio_of_match,
- 		.pm = pm_sleep_ptr(&at91_gpio_pm_ops),
+diff --git a/drivers/thermal/qcom/tsens.c b/drivers/thermal/qcom/tsens.c
+index 4d7013fc79d6..e0fdeafdca30 100644
+--- a/drivers/thermal/qcom/tsens.c
++++ b/drivers/thermal/qcom/tsens.c
+@@ -22,6 +22,8 @@
+ #include "../thermal_hwmon.h"
+ #include "tsens.h"
+ 
++static struct dentry *tsens_debugfs_root;
++
+ /**
+  * struct tsens_irq_data - IRQ status and temperature violations
+  * @up_viol:        upper threshold violated
+@@ -902,12 +904,8 @@ static void tsens_debug_init(struct platform_device *pdev)
+ {
+ 	struct tsens_priv *priv = platform_get_drvdata(pdev);
+ 
+-	priv->debug_root = debugfs_lookup("tsens", NULL);
+-	if (!priv->debug_root)
+-		priv->debug_root = debugfs_create_dir("tsens", NULL);
+-
+ 	/* A directory for each instance of the TSENS IP */
+-	priv->debug = debugfs_create_dir(dev_name(&pdev->dev), priv->debug_root);
++	priv->debug = debugfs_create_dir(dev_name(&pdev->dev), tsens_debugfs_root);
+ 	debugfs_create_file("version", 0444, priv->debug, pdev, &dbg_version_fops);
+ 	debugfs_create_file("sensors", 0444, priv->debug, pdev, &dbg_sensors_fops);
+ }
+@@ -1459,7 +1457,7 @@ static void tsens_remove(struct platform_device *pdev)
+ {
+ 	struct tsens_priv *priv = platform_get_drvdata(pdev);
+ 
+-	debugfs_remove_recursive(priv->debug_root);
++	debugfs_remove_recursive(priv->debug);
+ 	tsens_disable_irq(priv);
+ 	if (priv->ops->disable)
+ 		priv->ops->disable(priv);
+@@ -1474,7 +1472,26 @@ static struct platform_driver tsens_driver = {
+ 		.of_match_table = tsens_table,
  	},
-@@ -1920,6 +1921,7 @@ static struct platform_driver at91_gpio_driver = {
- static struct platform_driver at91_pinctrl_driver = {
- 	.driver = {
- 		.name = "pinctrl-at91",
-+		.suppress_bind_attrs = true,
- 		.of_match_table = at91_pinctrl_of_match,
- 	},
- 	.probe = at91_pinctrl_probe,
+ };
+-module_platform_driver(tsens_driver);
++
++static int __init tsens_init(void)
++{
++	int ret;
++
++	tsens_debugfs_root = debugfs_create_dir("tsens", NULL);
++	ret = platform_driver_register(&tsens_driver);
++	if (ret)
++		debugfs_remove_recursive(tsens_debugfs_root);
++
++	return ret;
++}
++module_init(tsens_init);
++
++static void __exit tsens_exit(void)
++{
++	platform_driver_unregister(&tsens_driver);
++	debugfs_remove_recursive(tsens_debugfs_root);
++}
++module_exit(tsens_exit);
+ 
+ MODULE_LICENSE("GPL v2");
+ MODULE_DESCRIPTION("QCOM Temperature Sensor driver");
 
 base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
