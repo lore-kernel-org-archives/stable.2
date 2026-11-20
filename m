@@ -1,104 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.43.32
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795149710;
-	b=RGDlRQrehayMYx+9dS2hjknx+QT0FPghz1gAfbRdExMzVLDx2oAKZ/s2oGaaNr2/7ptk
-	 UCRd7kLtcPmzX6yl9DFE6mHM8Z5JRYkCsoFUdlXv8ehcnlEJQEccY52DEtJblbT7qT6mb
-	 dGH+DsCd9B9Rol12jmQDXxVHFtovmy41ZkYVjCUtgFcQX1lbaj1EYyBWoijZfqJ3gyj/m
-	 wq+8B0NPHtc0QfZwJyiIBDBFa0nmga1x0uZyad9hvz3w1euFY8mRhFrb4hA208QaXnPU/
-	 EK1z3LKsdbhO35pa6Cbg4WUhNFT3x3N0HLqVmkbw5KNywTEDtSzSxUYUuxVNNCTNq9Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795149710;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
-	 X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SLBlob-MailProps:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=gB8IValn/e3sx8EBF+QkG01N4rJR3y4+an0+UA7x9ZI=;
-	b=m8qItk9nml6zWoxLcLCzo199nZxfVdxssmP14I2HkCpU0GMpETVdmZs94LeOmE5Qwlri
-	 vu6iJirRCEIr5yQqzKf0zriEE7y7cDjt66WATq4aiyYBF1ixnxirx4OqzM3Zo6Y/27Xbf
-	 sAILFEr+EQmd2I5TCHz7/WfPJM2r+5Cwc3nmaEPbAQ6uMjwgF1rJMTYv+LsGf3yUere6a
-	 WRrgS6HNhKrtLBzELb6JuonFHsM1wUzkzzv9IzxbyqW2LU1w5aIIGGYwdpSvZT1KYMPk9
-	 drFho9BlB7zoHZH3tv7ZQhI5pnQ77d0xShbRh4/w6za8N9q7fyJ6aAazObY7DnAxihg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=okAunNlg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.43.32
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazolkn19011032.outbound.protection.outlook.com [52.103.43.32])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795149794;
+	b=BaWVhPhCN2AAZThZPoFO+BqGtNUZ9ks7J2vHvBknvObkrxsPZgrVQaTRs68tDeGzDB1x
+	 H0a4aH42qMzkCNUghLivDNFXcSMF9QqYBMDdQCZR2vUFqaSH/SvJq7x0JWr4tPtPCO1rY
+	 ZDCB0tkFE5RJ6R8/DIP1cWPOeH6phe/pDef1cgFArW9M7D/wvu28hVG3U+u5gaLvCDkFI
+	 kPQf4/E+1QNCg2pLDgETaJUpOjyUfNS34FSEnnJcMesU7pSCfi7y8bnKwr6u+r2VVWgEk
+	 yqQfAxKC2w7lVaFS5xR+lKSADufUio4aTRQawdQ4+cp/bjhS7ojfQvJ7QM790wdEFFQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795149794;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=lqDt1Owim2YZ/Pr88FxbmrZHbmtAdCxve/g4kOQzHbc=;
+	b=BX8mJhnpiDT2EkO6Up/x1yV9RCMCRSfCncqY/Mk88839p1c7zxQQDpWXcyk1oZydg/9D
+	 fQAkb5nS9jMVEYpdqipFmcQSFcpcTxhX3VmOXZF77WqAtvCv3paf5nbVgbW384nArPKR3
+	 TbIzG/0JQxVIdOxruYwy5mF751GbZnvFGfhDzbQq9n3L1TaNYPx+1cpXjuw8qt5nfI/o9
+	 n5wS71odKrcJjGh/S8AWoyt8HjU6WqcKmucssXIbw659dyNLh6MyW1ZpH49yZFZbyP/uz
+	 r5Mu2HK1DMXJXJa3vNyAqBC1VvaQxUBEWkqZxECc3PquovVSiIpHWA5M/DYh5F+ajgg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=v1YNzcNh;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9lX1aELG;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DF0606A32C;
-	Fri, 20 Nov 2026 04:41:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49DF0606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E444606A325;
+	Fri, 20 Nov 2026 04:43:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E444606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=okAunNlg
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G4rGLfsT9gWmtrJV51J+Pg8BJzGFazujDUc80hWcTReSFLf370wplTHtRv5Nm+GVjAfZVPqDyIHYC1tb4b3jFB0YE0yBRP/iPFU0BJyv125v1s7H7qSxx4nxzCoakKukThgxP8cbtMpqhm9qgU+0nDf0TWyz+VMJngjI/Lgm7WyPv9LHnwjyw9zOMN9RC2Up+N6Awy6lLHIHDYaIlAUVGEj1gy69KAtHIu46giqMJ1atxdRalueKxWl63PnmOuvmXiw8roqQvTmARPzdb+n9AZuJmdLQBKIZf8dDRTLV23hj9ubKibNR/e/OmFyPuFcOWP+h+Gx+FUkOTL+XarueOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gB8IValn/e3sx8EBF+QkG01N4rJR3y4+an0+UA7x9ZI=;
- b=mto9PWNyTDJhw2zSiuyxC+Ig2Uu9O7ZQbiuEg+Mx7sn2DTddDrS5LWUd10Gyd4bed1KlubAHeR4A3NbagwDRBMPCMnGwOhNL8G+2qrtJgFreAylG2wCQXD2NNSunYnBLHTwuOWSNBRLSOcCStbZhcf54donVvJaURXE0u9K6MGipo57O98lg/OOsM//o94QWz8xVLYrmpXOxhs0Ef0fbmqyV6SX6XXOEq8IbIRHQ+JnftQviACSjj6i+EUgdjLbm4BoBdekRkLXH+FcOdxe5gry8/bVqj4MQSh1dOCflr0o5w6/h4Fpa3Ck74vf7wyxol19DfxuNICO2Y71SD77eWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gB8IValn/e3sx8EBF+QkG01N4rJR3y4+an0+UA7x9ZI=;
- b=okAunNlgZl5T9UBguykEWtK23Og+airILXvezCPXz9pLJ7jIZBiuPlK5afM1vphWlVhVhN42nJJ6fd2+Sy2yd7b0AelDPdjSArzAOaXL2HnSAPahESVbLh98ViAmJhM/mBBTYqSc0Lp+SmO7JAR8sfLsMWCb0CzBpv7L6AaLzS3NGoPh2/2OJN/W9DvYZ0u+JYuH71L0FJ+nfdeMyey3G6gxd6WuzkWFmsYSCPLV3XNT3zUIdYzGcNn4Zb130Xq0lkMaMb423wNWJq3LV/QDQ5rJ4voAcKZUN0U5tWLc08OyAI4xPGUnhGeusMDZtIyzIDiS5tS3QL+uZ4/atvEYGA==
-Received: from OSCPR01MB15019.jpnprd01.prod.outlook.com
- (2603:1096:604:3ab::14) by TY4PR01MB17473.jpnprd01.prod.outlook.com
- (2603:1096:405:354::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Fri, 20 Nov
- 2026 04:41:45 +0000
-Received: from OSCPR01MB15019.jpnprd01.prod.outlook.com
- ([fe80::d06:4844:6b2f:9fa2]) by OSCPR01MB15019.jpnprd01.prod.outlook.com
- ([fe80::d06:4844:6b2f:9fa2%4]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 04:41:45 +0000
-From: Shiji Yang <yangshiji66@outlook.com>
-To: linux-wireless@vger.kernel.org
-Cc: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Shiji Yang <yangshiji66@outlook.com>,
-	Mark Brown <broonie@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] wifi: mt76: connac: correct rate power limit logic
-Date: Fri, 20 Nov 2026 12:40:57 +0800
-Message-ID:
- <OSCPR01MB150191A858729F9D98B404F6ABC782@OSCPR01MB15019.jpnprd01.prod.outlook.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <OSCPR01MB15019FDE88A442FBC74081EAABC782@OSCPR01MB15019.jpnprd01.prod.outlook.com>
-References: <OSCPR01MB15019FDE88A442FBC74081EAABC782@OSCPR01MB15019.jpnprd01.prod.outlook.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI3PR03CA0006.apcprd03.prod.outlook.com
- (2603:1096:4:297::8) To OSCPR01MB15019.jpnprd01.prod.outlook.com
- (2603:1096:604:3ab::14)
-X-Microsoft-Original-Message-ID:
- <20261120044057.1841-2-yangshiji66@outlook.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=v1YNzcNh;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9lX1aELG
+Date: Fri, 20 Nov 2026 04:43:08 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1795149791;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lqDt1Owim2YZ/Pr88FxbmrZHbmtAdCxve/g4kOQzHbc=;
+	b=v1YNzcNhl+03KaQ6PYd88V9s08bVi8IsFZRO11Cak+Hd55AcWHrRnhDbaqV/1DSRXZPWF9
+	MX4ZSNdLJ1n3fdL8REdRDpKgZG0BcrlAojhfMjEFcnPwd7tGYP1M6iDI9GJ3arX0ihXsyc
+	cQp1U6CwTkI/UtecF8Qyu2U63LBc25a7so2yePOkh2gMQGEfRILa5J+oJ2164MIAHdH92R
+	NRpBEBYaa1g7KDc30gAAiSCKHuV0+oPhX+wBPaQOYbsomW0rwib0FOv5h95zzK+j6qYdO/
+	KtIX2OoWZzrohWfEaGQRSP3Cfp8uH1+n2lQqguqM2eRE70lyB6Y2QLRIh0MMLQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1795149791;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lqDt1Owim2YZ/Pr88FxbmrZHbmtAdCxve/g4kOQzHbc=;
+	b=9lX1aELG1zkxyOyKJH/hutLcdtZCD8dBo7JWu2kP+8A51CVebgxWmm/kHd19dTS2ujMPDr
+	CMz0cC+GbausnoDg==
+From: "tip-bot2 for WeitaoWang-oc" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: x86/urgent] x86/apic/msi: Fix MSI interrupt affinity configuration
+Cc: Weitao Wang <WeitaoWang-oc@zhaoxin.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Koichiro Den <den@valinux.co.jp>,
+	Thomas Gleixner <tglx@linutronix.de>, stable@vger.kernel.org,
+	#@tip-bot2.tec.linutronix.de, v6.1+@tip-bot2.tec.linutronix.de,
+	x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com>
+References: <20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,102 +82,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSCPR01MB15019:EE_|TY4PR01MB17473:EE_
-X-MS-Office365-Filtering-Correlation-Id: dafc7642-fd83-4e52-c037-08df46c09497
-X-MS-Exchange-SLBlob-MailProps:
-	dx7TrgQSB6cUe9t9Fs5HiQGsDL5YS4QsPu0JFnyBXKIjiX78Fbkh3kToagDhzxDW0LiCI46Lujbd9fd+8N+ButzO79RQC4TeLK+qllx9ng4rH/x9XEIrJ6IeYOZb8FAVfZ6un40VIb3/LyTXl26sYltx6ziDDbTNMw20ZvM4eOfKR47wcW9tXSOPXlw8fXSf0uOxhmmKZFySfe1l90hbdIhP2LA6zp8L45FUuHNTInDLGKEqVOJfWcHPCJvb3/sJISN4Cfa/R6hoI8meEbVfKP5oOdh3GWlSKSpwsZigkTrZbuq4vSggMRx7FUGcDIon8VI3qmBUbRuXqQuP8stdj4YVGF8a7GIA7usLfq4bd/vYPnsf/DbzjxvVDa0XHUooaWEJYB5GXOLwOFpmV9tgo7lUakCqfD4dMDHd4uiRRveO7okTZK3O8eO9g+qBoM4bPoQXUjtYUgXG1TY6HLqJowN2HmkkYYsT/LYM7UK+DtDkyPHDzWPQqM4/Y4trt8YCg6eBCI08tTlEaVQBOnBvVhR4XCQEGHASL0Nis6dP0139DBm59537YHGXi4ovU6FIALSJ6twSKaeB6mKxWxiyb+SE3XZL9OhGz8r1NKiRBhvGepJgGDvh3D3f+1pkvnMRKU3lGta3ZXCY5z5OoCFcyWRDn/URtvS2I4PVl1vDBoZiVQBWjlb+b/7Vf3nuND9iDmQr7S0QgTQHo0dE2p9dp3bF5QU+c1IMhJnka4D12r7Esu0BjnM1bubWhCtCICh4lBP20WkETf0=
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|260925184616899003|4140399003|25010399006|19110799012|24021099003|23021999003|8060799015|24121999003|15080799012|22091999003|5072599009|41001999006|40105399003|52005399003|440099028|3412199025|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?fGAa9ijuKu6/7Ye0BqlqV0oKkByJQFo0eiO2FQylp1cXCbZLedJQHhSJfs/5?=
- =?us-ascii?Q?6Q+cxGEfJWE7mJuqMRpfNG7mJ13OpZu7/N8qn+so/bIca5DqEj6GcEZV4fYQ?=
- =?us-ascii?Q?BSqnA7ltbWp1zh2OEhTFGIea5Mfze07FhDlN2J3o2l9Najd3n3FfOhf6sqXI?=
- =?us-ascii?Q?LwzCbmJ1eekbV7TlLFE5mO71t9RZ6AUIJZNHLPxtbqKga2/Yk2BOstOpo/8M?=
- =?us-ascii?Q?HYzimR/fovzdZ+3gYuBohJ2LPSOfEfGAhhL0WcB+Y+J6FZZRhlzLW9ikVlkk?=
- =?us-ascii?Q?dqInMH5MXV4EB678tiRhjMTplWiaDW+4/lGQnKsMwuJC0CHGDWfKJby8pYmk?=
- =?us-ascii?Q?7ZDQU8pf08EBLj33umH71QAK4gnkx9Xr/U1hsl7lnYYVDlUcAv4oxGK7vCmw?=
- =?us-ascii?Q?2vM4VSImegjD/z1dyMwk5i2MpHDB9BHCpW+Ec6oEht4kBoc3RhvPs69aJSM4?=
- =?us-ascii?Q?ruD91ZlaO4bg5WFzQUOtENKuirYJZI32XEMKnmhKetCeK9hwCiNfii+YuF5N?=
- =?us-ascii?Q?0dPpU3QHoTE3H8iJFjQlV6+IYObaxMCzEWeQgEB7B3rSF5CFG+0i+XKazdvg?=
- =?us-ascii?Q?M/i9Ii3tcwxlUEBRsB77WtM8zTnTVnzA8CSiDnOPLxz71C9Xd79Xtea/Te24?=
- =?us-ascii?Q?EyhBDhATc0zqKxwTjq/JqIxpkR3jd0gqU+GT8FtuFWRLBYXXkzFNhnrAqeUr?=
- =?us-ascii?Q?UxmCAC88MjsF66VTKgOIh0N0VaRSuQf/CECFnGKbPEqgmYWvNCK1UyNaVzrX?=
- =?us-ascii?Q?Mn10ACikYAX+KUQQTprfybgZq51Ww4wpuvkZdY2+Tb0Nx03puPvkLDuETTv/?=
- =?us-ascii?Q?8Rpl8hurWDvfHRGTYCknLkfaPmPGL8HcYHN3PCAyE6GtB43J7ba2QQDgTDis?=
- =?us-ascii?Q?02WHsEei6Kt+T4HPawSil6R/BLc55gp9OqYowxBuc3Ylhe8Jtxfbv9iii62N?=
- =?us-ascii?Q?RHuzRN9eyYqAolB6JmD8eOjerS0bwgQ7vngA0uGzdf2h86tANldYMn8xud6n?=
- =?us-ascii?Q?uwFOP4h80zRpRw8O/B8gAqW1Bqx8Aurajzw8PDcgOb7kBRQV7iBnlRJksqbI?=
- =?us-ascii?Q?yG1ELu2u?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Fstn5WEkj/R2vmRMW/54yXCLXwDSH+C6KOFABXcTpH9O1VJRowbS6vJcKSYq?=
- =?us-ascii?Q?I9Aa47buqtwZoHFvS78y7QmBPK2TbQF1w447oVobsN+cuwm2goHmLR0xuAq9?=
- =?us-ascii?Q?XM9rS7w5ACovObaEeGdhI3crKnm+ZrQzouXmKgUnexq7r03rbuJNk12nR0ew?=
- =?us-ascii?Q?BCGZiOgiylm16ZV63lBfWrgbolj7Nz3YAVCiT+C1HGKYjuDLU8FumS/QHQdU?=
- =?us-ascii?Q?vNPj+40K26Ecu1xmVAfvuS4xiGcGIrKHNN6oIfY+NSg0EV/SanMPjJ0ELfCD?=
- =?us-ascii?Q?9QSrMQkPez5yoomIUkBCH4Pb55MtW2CaoRQM8a37/bFAENRtP7hchOvNY6hg?=
- =?us-ascii?Q?S2q8foqK7QXU1NW85E9s5e5wco769Bf11hD0D6cUKWXKFfgzNOesYHpPHkxY?=
- =?us-ascii?Q?LhiORy88s4j3gtaEwvTXHEY4TLtbTIfDzC6XkR1JyCLPTGWT5xkxg4+5clNW?=
- =?us-ascii?Q?4tO2Uo8wc7jU3fZM4+Ucazwwziwey0/ZhQnPR1QSFLhjVXCPh0GYMAyq8Z7u?=
- =?us-ascii?Q?pve0xdaWx+YmygmUpU/Fn6wYXTotdwblPFu9xV68OE/XkkzbtbGghchG9k1P?=
- =?us-ascii?Q?mTiJeVFhHZEJpGC4hV04WlE0XoWGoXiwhQ/q2ocDhUfQKZk6DI9yhl0KCV9v?=
- =?us-ascii?Q?IZz4ZreVjiuRHTIw918tzeto6p6JBtqve8PxvAAJckqHPsbe+IEgUMUt7Q2O?=
- =?us-ascii?Q?6T5Hqt8CzNKsyIiJGRvZhlbVsXRVjJ8dshNN6xpeT4GlDWj2SDC6ulJzDMx9?=
- =?us-ascii?Q?lO2WmSc0edUtiHnFsImTauxpLBMCzPKXIj1ST5TfEj3fm4B4wWdGaNCqFUYe?=
- =?us-ascii?Q?D7q4RELm0dCGEh9OUwt8XdxnjW0x67osRLCPNgVvJRGPhKhi6Q1RwLYuwXw+?=
- =?us-ascii?Q?D1XJPRx45725K4bIW5nwzRMPqtPX9Fq2Os33PpuKt5wl/eHSbbQS9hEpAxqv?=
- =?us-ascii?Q?bOqfTsp6Ec7L3sdknhQJNVZIT/yJoPhTb0iaJH43rd8a5SCm/H6lSB2kknM7?=
- =?us-ascii?Q?USINLgrRxpMW3Sy/Hyh3v12M3tNBCoADe/oPY/S46TYdhrQvfZKT3Wc+6nZt?=
- =?us-ascii?Q?wSxmxHY3sEGEib4W7/OlOs+EWzvlopPR3Bx+MhU2Ow3DV7nYZogZNgYd5PPg?=
- =?us-ascii?Q?is8UYsHWU1+BAC2Y7A6F6gstfifxKCLF5hgdAEahut2F3W0p6UEHbqVc7HqN?=
- =?us-ascii?Q?FgMXk+P4MbcVo57jhYFAGkyp6kQgusaHdgBhflbAFOkwuJs0mFjZWmkCW2a8?=
- =?us-ascii?Q?AksFCqo5gwy4iqJVdlAsZ6xj52iGSvR/u/M/EUsQXcQSQHYEKnxg48Gt2zTj?=
- =?us-ascii?Q?R6Bo1lQeuIgENiAkSOU8robP7pL9QXnERl5MoiCDcGuBugjtVA9PgfUwmaa0?=
- =?us-ascii?Q?kpxAECYZaWFq1ROYRTa/RXQAAA11?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dafc7642-fd83-4e52-c037-08df46c09497
-X-MS-Exchange-CrossTenant-AuthSource: OSCPR01MB15019.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 04:41:45.4647
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB17473
+Message-ID: <179514978893.3191731.5879996775654988810.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-When mac80211 sets the power to 0, it does not make sense to change
-the tx power to the maximum value. The original purpose should be to
-limit the tx power to not exceed the hardware limit.
+The following commit has been merged into the x86/urgent branch of tip:
 
-Fixes: 8225816d2974 ("mt76: mt7921: limit txpower according to userlevel power")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+Commit-ID:     068d82afd070beb8ea32c8ee64d685af7d3f36e2
+Gitweb:        https://git.kernel.org/tip/068d82afd070beb8ea32c8ee64d685af7d3=
+f36e2
+Author:        WeitaoWang-oc <WeitaoWang-oc@zhaoxin.com>
+AuthorDate:    Sat, 17 Oct 2026 02:10:16 +08:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Thu, 19 Nov 2026 20:17:47 -08:00
+
+x86/apic/msi: Fix MSI interrupt affinity configuration
+
+The two step update sequence in msi_set_affinity() is required for MSI
+interrupts which cannot be migrated atomically, i.e. devices which do not
+provide MSI masking.
+
+The MSI message update writes address and data registers separately, so such
+a device can raise an interrupt in between, which results in a message built
+from half updated state: a stray interrupt on a stale vector and a possibly
+lost device interrupt.
+
+The update sequence is selected by a per interrupt quirk flag, which is set
+for interrupts which cannot use reservation mode. Reservation mode is only
+enabled for maskable interrupts, i.e. devices which provide MSI-X or
+mask support, so the quirk flag is the inverse of the reservation mode
+bit.
+
+The removal of the quirk flag replaced the flag check with a reservation mode
+check, but dropped the negation of the removed condition:
+
+   - if (!irqd_msi_nomask_quirk(irqd) || ...)
+   + if (!irqd_can_reserve(irqd) || ...)
+
+As the quirk flag is the inverse of the reservation mode bit, the replacement
+inverted the condition and selects the wrong update path for every interrupt:
+non-maskable interrupts take the direct update path again, which reopens the
+race, while maskable interrupts needlessly go through the two step update.
+
+Restore the original condition so that the direct update path is selected when
+reservation mode is enabled, which also matches the comment above the check:
+direct update is possible when the MSI is maskable, which is the case when the
+reservation mode bit is set.
+
+  [ bp: Massage commit message. ]
+
+Fixes: b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI quirk")
+Signed-off-by: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Koichiro Den <den@valinux.co.jp>
+Acked-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: stable@vger.kernel.org # v6.1+
+Link: https://patch.msgid.link/20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com
 ---
- drivers/net/wireless/mediatek/mt76/mt76_connac_mcu.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ arch/x86/kernel/apic/msi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt76_connac_mcu.c b/drivers/net/wireless/mediatek/mt76/mt76_connac_mcu.c
-index 2ac3b757942e..931dc550c47e 100644
---- a/drivers/net/wireless/mediatek/mt76/mt76_connac_mcu.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt76_connac_mcu.c
-@@ -3035,12 +3035,9 @@ s8 mt76_connac_get_rate_power_limit(struct mt76_phy *phy,
- 				    struct mt76_power_limits *limits)
- {
- 	s8 reg_power, sar_power;
--	int tx_power;
--
--	tx_power = 2 * phy->hw->conf.power_level;
--	if (!tx_power)
--		tx_power = 127;
-+	int tx_power = phy->hw->conf.power_level * 2;
- 
-+	tx_power = min_t(int, tx_power, is_connac2(phy->dev) ? 127 : 63);
- 	reg_power = mt76_connac_get_ch_power(phy, chan, tx_power);
- 	sar_power = mt76_get_sar_power(phy, chan, reg_power);
- 	return mt76_get_rate_power_limits(phy, chan, limits, sar_power);
--- 
-2.53.0
-
+diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
+index 66bc5d3..da5f44a 100644
+--- a/arch/x86/kernel/apic/msi.c
++++ b/arch/x86/kernel/apic/msi.c
+@@ -62,7 +62,7 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumas=
+k *mask, bool force)
+ 	 * - The interrupt is not yet started up
+ 	 * - The new destination CPU is the same as the old destination CPU
+ 	 */
+-	if (!irqd_can_reserve(irqd) ||
++	if (irqd_can_reserve(irqd) ||
+ 	    cfg->vector =3D=3D old_cfg.vector ||
+ 	    old_cfg.vector =3D=3D MANAGED_IRQ_SHUTDOWN_VECTOR ||
+ 	    !irqd_is_started(irqd) ||
