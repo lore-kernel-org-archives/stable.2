@@ -1,58 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795146845;
-	b=KkfIuUa8VZk+YomkHKYh/v0HdAMR0OxKVLUk2dsgk7XemII+2KB8iySJFGaHgG3PKT8U
-	 QGONrbUq5S70g92pdgvBxk9T986Ukja4/+Sma66wLgL5evMOI7cQHsA07xQt96gspHKWi
-	 HssxNmV5dCzupZHgJWCiKnwgcwIVpzeof9n4YPy6+lanY75Y47Dx9XMHmFBT9+izmOP6Z
-	 E4QvsfIJmdErHoABelrCGHpFlVVnps/vYRHb7chqwp9aVzuLRQDs0okUw4rnLOalhxtg/
-	 AtOevac+XHfsf7qVsqqa6SWwUPviGXyBh6CbTwkCZf0do160rEp2pJa7OwoaJdttgEg==
+	t=1795146933;
+	b=ELwDFFKH/b6wPgUWezqEXc3wxzlkfe3GRiNmL4T+TkI7cAXHTPzyvPW7xN6e5mTDtdQA
+	 /s2hTmefA8T2gDjGOgj4ZfpjTQjNujvPM29Zrxip/U0mvFlPJP5mPh9W/Gc6RPuSWLf9B
+	 2+5cdo0zJGcZbM25fY5xVPGpfY/XnwKhGAgokKr9SnfGbW3flr0UA3zHIlVBKBpfCLADf
+	 vYPUirfB2yD2P5eOrOWIf9G7xqXQO6I6QjCWcb8ibM7bAB+YaTA+h6alKahgV7jdmuT76
+	 LGi1KHwxYYSFoSc/hnLCk/d0XTksfumOOHPryuCfs+AbFqLh4FKbpazLrRWSNJqqThA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795146845;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=wp7H0qwktQKIubHbagjHBZr6/G8XhijmuXZeStGP5Ec=;
-	b=drgF4M4jcQjavSXMWZAvWB6/JtCGF649x9ISccC/cmr+IZji6sO0NN1EHVKuSZ3i6QNW
-	 7pxwYBCY6t2c/6SYNKnuoRbWyY4Rb4CAGgUQhL33B4uGumIBe6uhEdt0uMq7RUOUitmhr
-	 B91fV3WH726Po05RogX8fxiiFICZhJqCstMvdBe2qNx0Z/Hj7NcPkXWBIu342O9NxH1mm
-	 H2YVXrhuBMSMtbRQ/eO2F54tE2OcDzU14ncZLBAnNMK2V9sglc4TpPyEpvkUjt9W2Qge3
-	 QcL0yRK1ZK2Tz0jwdL/GjgbXSHDvD5Dj+mbxp6t04cXMxBT0P3Q0/AocU/QUzRKdooA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795146933;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Wmcb4dTMJFIsR3cB+IE3EGHuT+3Q3Ct6EhJsH00YYO4=;
+	b=K2qkrM8crab8bLG21BFyMXI/5SkeO6FPLSGfCdpMOdn6bZyy5V9cObB5/jFNqQJ5Cv06
+	 C6h/951JqF9qztlOeF0ZCRhccEGPIvgx3715nYe0h/wQY1fgjXgpave0c0HhRJyf5saS2
+	 ZG9P7LHQRaQXXZQE4inTSOxkFUqIn+WLtfNSvP/9xb1xe9oxCiqO7m77zaIPEiRsUaDBr
+	 badi34Y5KouijF1xOzGM1nurJrl71kUgkq4ql+WaAOHoDUDbN25in1bJzXk3NCHq59z9d
+	 ER5k8uXw7jwhC7mGOVf4VHPrMCEZrcarz5ELtHFGN8fuLsAW19PpAZV6nSrzy99II+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ealWSAx8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=codewreck.org;
+	spf=pass smtp.mailfrom=codewreck.org;
+	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=zR7qOTyT;
+	arc=none smtp.remote-ip=62.210.214.84
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01A1606A33A;
-	Fri, 20 Nov 2026 03:54:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A851E606A320
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 03:55:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A851E606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ealWSAx8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E5211F000C4;
-	Fri, 20 Nov 2026 03:54:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795146845;
-	bh=wp7H0qwktQKIubHbagjHBZr6/G8XhijmuXZeStGP5Ec=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ealWSAx8Yh0AmxVLJakJviPQZra82kSdiWOt+WN37PIaokoMXkGaDjdMNaUY0CENn
-	 2IaxGvF46dIRvvEtWpD7j1+Pzka/7ahZB6gSiwCuNaJRtAHmhixIiWak380cLm7Csd
-	 ozIRZhDqXG5g3Dks2katSigwdvx1YsO+566XlXGdmiJ2UtvdrByoDErv3SXe3AoDJo
-	 TUtKgTKmh99SnmzeU4hbTgky44w2XevfwUJeAwsTP8fkRr++Apk9AiiA9bluurYd32
-	 lZAwLmPvqiN/78seGTCjYH6rKT8ZvA8fTtYlw1Cs6RZwgXUVlnR2o/eRCiwVKRJE9g
-	 m+Cbtfcp3vEzQ==
-From: Namhyung Kim <namhyung@kernel.org>
-To: linux-perf-users@vger.kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- TAKANO Mitsuhiro <takano32@gmail.com>
-Cc: Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>, 
- Ingo Molnar <mingo@redhat.com>, Mark Rutland <mark.rutland@arm.com>, 
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261111101625.2204836-1-takano32@gmail.com>
-References: <20261111101625.2204836-1-takano32@gmail.com>
-Subject: Re: [PATCH v2] libperf: Handle an evsel without an fd array in
- enable/disable
-Message-Id: <179514684440.638421.13429530060315684654.b4-ty@b4>
-Date: Thu, 19 Nov 2026 19:54:04 -0800
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=zR7qOTyT
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id ACC4114C2D6;
+	Fri, 20 Nov 2026 04:55:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1795146922;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Wmcb4dTMJFIsR3cB+IE3EGHuT+3Q3Ct6EhJsH00YYO4=;
+	b=zR7qOTyT9luajpwgtLj2ZUzHQtw0UHTUOIs2yCvXGcUhCYB93vXne4Vu2lZuxACxdS4BZN
+	K5nxVDH9V39RxbHIp4QoIGMbOl0g//izPSZgLYcC6QCQO2ZL0JQKdF9NYzTFs9Y4hpR9Pi
+	aBg9dx+0hvnC8IRKdMcfcJBx58ZjkQmecOJ//ae0chUoRFO37TdJSTTE52NfUYQZddMvto
+	lLPXPJ06UFR565k2o8AK2BvdVJzn2S4L/blun8SAwurOaApDD2WsA4g91sz7fvwv6gbcg0
+	2NVZmygUHNvLmPejotYdbzd+wdVYGG76IxqxkRoXHEarty1uUqAac7FOykhNKw==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 2193485e;
+	Fri, 20 Nov 2026 03:55:18 +0000 (UTC)
+Date: Fri, 20 Nov 2026 12:55:03 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org, patches@lists.linux.dev,
+	Aristo Chen <aristo.chen@canonical.com>,
+	Vinod Koul <vkoul@kernel.org>
+Subject: Re: [PATCH 7.3 1238/2651] phy: freescale: fsl-samsung-hdmi:
+ initialize default rate
+Message-ID: <av_El2-tHN0DJRC5@codewreck.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+ <20261118150332.571312313@linuxfoundation.org>
+ <20261118223142.GA597634@francesco-nb>
+ <20261120020908.2320910-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,28 +74,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261120020908.2320910-1-sashal@kernel.org>
 
-On Wed, 11 Nov 2026 10:16:24 +0000, TAKANO Mitsuhiro wrote:
-> A group led by a tool PMU event is opened with the members' group_fd set
-> to the leader's file descriptor.  For a tool event that descriptor comes
-> from open("/proc/stat"), not from perf_event_open(), so a member the
-> kernel refuses is marked unsupported; perf stat then releases the fd
-> array of that member while the evsel stays in the group.
-> 
-> Enabling the group goes through evsel__enable_cpu(), which enables the
-> members of a mixed PMU group from userspace because the kernel does not
-> do it along with the leader.  The member has no fd array left, so
-> perf_evsel__run_ioctl() reads its loop bound through xyarray__max_y()
-> and dereferences a NULL pointer:
-> 
-> [...]
+Sasha Levin wrote on Thu, Nov 19, 2026 at 09:08:58PM -0500:
+> Dominique, the 6.12 NULL dereference you bisected is this same patch:
+> 6.12 does not set cur_cfg before the clock is registered.
 
-Applied to perf-tools-next, thanks!
+Yes!
 
-Best regards
-Namhyung
+Adding commit 41db46233467 ("phy: freescale: fsl-samsung-hdmi: Refactor
+finding PHY settings") on top sets cur_cfg correctly and also fixes the
+NULL deref, but I definitely agree with dropping patches at this point
+(this cycle has been big enough!!), thank you for all the work!
 
-
+-- 
+Dominique Martinet | Asmadeus
