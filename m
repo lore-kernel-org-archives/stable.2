@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795207191;
-	b=UgLbTelguT4Z6P3/MOHBXM4rIF3MDaxMmZS3sw9G02+hPV+knrrNUy0Mm+1dnLXgIMzf
-	 jQSchbgY4EwGhj5Qsu8qhxI8Qeplw3Mb/WjWEvUAJhPYtjraZy+QLaYubpVFYtpz1F5+b
-	 8R0HH5j8bIwkg0irjPKtQ001BWp6x6wcFnpQHJEZAOvykaDg6llWOqp/Ysfudbnu6hiZv
-	 MbU9QI+RctSPnu3J9kXlTZvVia0S1aG6ahSzZQdxAHv0ZRlTQj4bAuTpbgaIumIxsMS1B
-	 wG5zt9H3sISM3ywi3xec+hgKN6ZmNDtRXwijZe9fL5HVtcZOkNWdhja3VHZt7qUyntQ==
+	t=1795207187;
+	b=aIGCxS5+7PRvAwAGRVJgABfNhgmksPeQBvLANCYk3IuWaKb7IpeCSFAYlH7BBQ19TtV3
+	 FRe3yuKxxCQEC94QWLncqOQ/NRLVtTTxK7jEl8kXfSmEIwiuANiERv8GDJZgSAQz49HiG
+	 nQTwp7MciXSo55HlRBqihozHb8OihczL/j3bGcUACi8fMCIZv+9ddZa40BxHqLhZIU6Vk
+	 1MHZDZkx+j7EHvZrCBQC1S2Oflz4gO7QNPZ7uGXr9marMweKrN9Sq0vjLXJxU8fvqK2k9
+	 n9cYhY1akpsnE4Yal+PjGUQ1ytd5Icw4I6Wl96b3uVoaeODXat0wGcvI5GJNdc6Ujig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795207191;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795207187;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=y4ktv8LnI0QyrmsVLYgwBkh9j/OSk33rJ3hww2GTZ6E=;
-	b=SPaDd23sj39E0MFnh0VRmqGv3MwwCRlUynhQrX1tWIs9zt0vptMd/0O+B0u0qGfmPGLY
-	 tSLvn/eXyA5hwjfMf52ndE+mzzixesxq8hWz8sZtfxHKYjOhx1T11YhS3yEljnNrmXeWI
-	 Ha9u8sS7mfDbL6F7cp2nzh1n6XuoNpaDrr1pA6BV7yGwIKRCh3MgKARHDupUKOHYBfa3g
-	 f8+DiarHDpmPGJsdCgGyuPRhh4Ardz3lvHKo4Rksj5cgvJdA923V1kBrJqih0KGY+H8Jw
-	 xL0NfPiayLz7L+U70m3jfoVn/yMu71JeIzgCZvNgbmGaOE1ngBTiHOuiJPW4xeqPOAw==
+	bh=h3zs5hgs44WM0UBZAL57hHU1qVZrIOi2lXkg7M8Oprg=;
+	b=jixg7yYvWt382cq6bOGmoTIyxizTUmTLmImqCkiVLvxK0ONDGNBglJzezVPNN4A5VXiK
+	 MO7Uu1wX9cnhRLqFCLY5t9nX3jO8RoL044SHyHnlkRkMlWkiR2DsgmHv8qrDPXaBH//xf
+	 gEgO3pOREBPQNCLU0yvbSf5Zxl7daVNcuC1Wy5GdReNDOMdKXJa+PGp431zzmdJ+MzQN4
+	 clUqWyf4CeI7DcDaJBqJr9MIM2uncbD0ZgIoYolDZ4hY6Hq1lPl5C7o2OU92hWHejTptV
+	 eLgipPS7cVEp/CK5f0Mxk7DH8qNPauKNEc6xclHGseTK8a9Ypk/jVn44UmuyiSHZcBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIiuzBtC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=etuctfcS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8AB606A6CE;
-	Fri, 20 Nov 2026 20:39:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58933606A33D;
+	Fri, 20 Nov 2026 20:39:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIiuzBtC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39D1E1F000C0;
-	Fri, 20 Nov 2026 20:39:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=etuctfcS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E0361F000CF;
+	Fri, 20 Nov 2026 20:39:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795207191;
-	bh=y4ktv8LnI0QyrmsVLYgwBkh9j/OSk33rJ3hww2GTZ6E=;
+	s=k20260515; t=1795207186;
+	bh=h3zs5hgs44WM0UBZAL57hHU1qVZrIOi2lXkg7M8Oprg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eIiuzBtC0vqpkqnfygCEYPwzId72f2L5Tc0hL1kIYPCqGZpJz4ZmBPbIZRZm+Q1G3
-	 YGIow38MMiqKr1+S+twDXERppuoxtVDHScN5xQ75nDe+QFXKv75YGcZFwJHRsUrKPz
-	 6cDpyekhEamuKJnormtdGe5FScpH59INK7We/EAWV0bTaCOMdTFbazNYT3aEu6GVEA
-	 JKsT3OCaQxebuFlwQZwS2BM8n5hkia4RU5pVl3NsOGh4IiTzYQDCqQkICDARFlcHH0
-	 vk6YzxfDSqDiOGyEdP+/NcYHzD8ZNIq+ZiUrSEvIv0jPOuAsyV8lHrTC0pH3KiHvhz
-	 3k7JJm0UCrKhQ==
+	b=etuctfcSocmPen/gWdHcxqU+yP9MpOo6hHvKdj0ILIVp6NYdwK51drvRDgDzXspuT
+	 rpcSbHTo/jFujvaD1u5cOkjfAuZBJNX4G2Dg07m/h1dKNWFG7cqzqiyqG+gUGxnvrj
+	 D6RHswWn3IH6XVmPIv8MdAD3G5K796SiSm5+s/3nK+gmLTzYwChIiqXFYqkiY8jfR5
+	 izwmGWUMLTZssIjJRrOLd9E445F9SRlfqKL0B8Tg0hOYQsCN4cPt4YaXBhZJr9jP4E
+	 tZ8crhmge4MlqxZRVIsoebAd89fia7buS3BhPDalkiOIr4eMw9cQIU/A8pr/xm28Ld
+	 P1FKQRD68VO5g==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	Usama Arif <usamaarif642@gmail.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 6.12 0450/1756] Revert "rcu/nocb: Fix rcuog wake-up from offline softirq"
-Date: Fri, 20 Nov 2026 15:39:07 -0500
-Message-ID: <2026-11-20-1-daily-reply-0018@kernel.org>
+	bpf@vger.kernel.org,
+	memxor@gmail.com,
+	Yingke Xiao <inkxiao12@gmail.com>
+Subject: Re: [PATCH 6.12.y] bpf: Add tracepoints with null-able arguments (CVE-2024-56702)
+Date: Fri, 20 Nov 2026 15:39:04 -0500
+Message-ID: <2026-11-20-1-daily-reply-0015@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <417bce40-3566-4079-8241-2704cce5f7a4@oracle.com>
-References: <417bce40-3566-4079-8241-2704cce5f7a4@oracle.com>
+In-Reply-To: <CAMcAce-4MeO8rpx2rvDu77r-OpbFd9k0geOs8wZBoaMbYVkpDw@mail.gmail.com>
+References: <CAMcAce-4MeO8rpx2rvDu77r-OpbFd9k0geOs8wZBoaMbYVkpDw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,11 +62,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Could we include 0999f6156013, or retain the offline-CPU guard until the
-> IPI helper is removed?
+> [ Upstream commit c83e2d970bae ("bpf: Add tracepoints with null-able
+> arguments") ]
 
-Queued 0999f6156013 ("rcu: Remove swake_up_one_online() bandaid") ahead of the
-revert for 6.12 and 6.6, thanks.
+I can't take this one:
+
+ - The patch is whitespace-damaged and does not apply.
+ - It adds 5 of the entries c83e2d970bae ("bpf: Add tracepoints with
+   null-able arguments") adds, with no reason given for leaving the rest out.
+ - It lacks the "From: Jiri Olsa" line and the upstream sign-offs, and
+   carries a Signed-off-by from Kumar that is not on the upstream commit.
+ - CVE-2024-56702 is cb4158ce8ec8 ("bpf: Mark raw_tp arguments with
+   PTR_MAYBE_NULL"), not this commit.
+
+Please send a backport of the full upstream commit with git send-email.
 
 -- 
 Thanks,
