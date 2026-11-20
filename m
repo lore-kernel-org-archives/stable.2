@@ -1,123 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795143102;
-	b=pQ/yQHOTM92uYWK5EexRYXdyLZYl6UMg6p7hn7oOFIKtdKfFb5BDqY0EVt/nlpLqlTox
-	 9eWJQ+LgHyYIpT7J7rCuM6WJUBbvap7Ol2OSsSDtSZ+v4vGLsk/6/9iSNaF/NCZ4TgbRq
-	 Koyv3S617+aRO+WtnrzDWW9uJGCG0yyzyRdfva9v3AyYn5/W9J3XgqRkq73c1kJHkPXVD
-	 buCQqrXnnY70/rZ+d6eh/9ME0MKdcpNZ4IuJiXwetcSixmramIzZl6UuyIA+wvqxGBRkB
-	 MIxCNjKSx+ed4HTUs1AotO7CC5ueojVazLSp0Q2ZL/tLN1Vqi6EWLTLPcPVtKG7qiVw==
+	t=1795143157;
+	b=ZQtbSxlzgou6S2SL7EDaCIvLTRykI/uZ1DZtQFKTQJiTNQbAgrFabFWsP7mtMYwJeEfL
+	 c3V1DcBnfKChgfmRmhc1c67+uljegSnHCjO5tR/EuRQK3kbrnWGwR4ADWV4h1crlqbV1x
+	 ZlONXa7CDc109XXJKzB/tu/7Mqpxh+tPu2CieXKBTLB2423aEb4HnU7Yoy4MjjKpb0KAb
+	 o4GKrD06tswNIrTyDZhTQqDfyNP3BwvkRHOKL5UtapMM/vv6qDZNbyNl83qzAcuUVtPVJ
+	 9rp9svBRDhIZSxjlrJyfKZF5XvnMLWl02tu/k3+xade0FdolpsckR3OD3jAfehr1QEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795143102;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=eGfAtI9kyl38J1trJHjzM3izwRkrfzjC6sxGZRhszQ8=;
-	b=l/ZW2RjubSZrJ5YldhkrrImHt9CXnR1mMuNOfOwHZMK1UvWttCMRzkEf+zfbUrNM2YYv
-	 FQVN9RbuKnVkvNdkM4np7yklBxF4wSQfn5ZhkQ9zBR46x8toxq6HWeJn/5aBZaQxVD7ao
-	 GYHUX3M/1oYfQADzs2WdonPmOwE4/mwySpaGny+m6Exfk79wS+8XE/LxQdqrrScdZgXSb
-	 2iLtbKKosCmUvmHrEk3juC2wY21DBJ1VMsDWezNFi/BZlgMH1rkL/fH15RmVFw+taQREA
-	 z/N7iiHYAtKpNtuAE9D79IntH0iU4vdBpEXIpE8Bbycko9OJQ8YwKRpABaVJPoJgsVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795143157;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=R0byDOCbMpV3cQA2Ji1YPCftT8TMg7Mfe6FkmiCQqg8=;
+	b=2mu/yK+gbdnDEaXqldN3EU0q3hos6V9vfVY4vzM9MVbjMNXJYuykwE7U1sYnXewqC7YJ
+	 N63oB5isEFB9i2K96u3puHetCi23v4N/xQOJsP2KQeQU8IsJJYwPVHIZZBJkH3GBOHDrC
+	 vbEZgfcCjvUTrUhCRb4QfN2wzvF16s4WQX8Mk/CcxC1OJAQPRbMuVhygyNr+ypeE/lnrS
+	 5LBXoo8UFi+q+Ohqlet4v0MwutV5CmSAyhX9StetonT6w//SRJZRP+rFlFjMnSEQY2Eb/
+	 khCrDdYJXiQg+1LbApgYSdGFn2oUzBTvmxntK5yE9lod2uA7b0oauyg7aRGAr0wDCdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=seanlyon.dev;
-	spf=pass smtp.mailfrom=seanlyon.dev;
-	dkim=pass header.d=seanlyon.dev header.i=@seanlyon.dev header.a=rsa-sha256 header.s=fm1 header.b=l7zTENoZ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=YAenRQ9n;
-	arc=none smtp.remote-ip=202.12.124.159
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OplKmHka;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF3A606A325
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 02:51:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABF3A606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seanlyon.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1446606A320;
+	Fri, 20 Nov 2026 02:52:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=seanlyon.dev header.i=@seanlyon.dev header.a=rsa-sha256 header.s=fm1 header.b=l7zTENoZ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=YAenRQ9n
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 0C2CE7A01FD
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 21:51:41 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Thu, 19 Nov 2026 21:51:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seanlyon.dev; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1795143100; x=1795229500; bh=eGfAtI9kyl
-	38J1trJHjzM3izwRkrfzjC6sxGZRhszQ8=; b=l7zTENoZN7JNl6iF4eu20r97po
-	rzR1oyXoqmS8tgFzvlYk7JBjBgNUJ28xmltVoD3CaMCnfrolWtOlMvELos+u8eC7
-	sw05110XxB8UPkmVttnp0ssElBrbPOStfXnQu4ikjwaJpfWyxbWiZvXeNLdxDqUZ
-	DXouSiTRwuI8S6o/zleXdJLguqZZ0cldSgPqbdHSR35okRRefyjO1Whg6e3vOVWE
-	8ia67CUK6wt+zvEh5+eSQ5ZFgWDPChhY8UJ0NrnB2KF8wzS6ZyVajVi00BGguXpV
-	6koMer2heYmKd3wUd3N3HPNvgKsO0XfPefMMRT05t9MlFBxpE4A8yAQrkpMQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1795143100; x=1795229500; bh=eGfAtI9kyl38J1trJHjzM3izwRkrfzjC6sx
-	GZRhszQ8=; b=YAenRQ9nTmFpi0n06vo8DwHbHTA9eMY/HFmvniNBPYfZx5CloaE
-	fZIZjUUwpkkRwdEbA/R8Rpg0CbDctuHdvZcUP2Z7pXrXqkkMMblnDP5fnSNXc6JL
-	TpD3LDVaewspfuo51Jhs+kEFEczU+KIwLEzD5uqLnEGwA4Yesfhovwn+Eoij5QmW
-	D44dhsCp3ex6PvBtwsaQ0O5IBv0xUXedkA9sykEuWo/haSHWu+82rmtJ1DdoE/Jf
-	UPLzYUj15PjrJUDwf7n88iyj/xWb8aRCFaQXpWFtLm4BKtjWVCctitXkg0r8rnks
-	GJVwsoccB/UJDKU6xllms4Bx9Yjf6Gof/Sw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=seanlyon.dev a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795143100; d=seanlyon.dev;
-	mf=PHNlYW5Ac2Vhbmx5b24uZGV2Pg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:YoWE1aZMdvTUd2ef7KO4oEf8NouMEG1NuMCEePAuo7IgZOS
-	oVwP3FlgcMA1YXikgJEx8VoGl7KoxRlKFa6cQgDFeedUzoQN22E3Ab8zS3Dvr6LP
-	BE99XUW1/sVLcKgFcXDJ4cQ4lg202bw2hLmM45oCMDrRdqg6Ae7ceofeIpfryHpP
-	l3gEZea7J/M7ynSEPL7yPInFsoiJw1UuTMv6qKhCSaH8pBbvkRbEg1aiZ8Ktc7WD
-	YKsl/uyMkmlpceR8AJW2zq6C11uXjHynH9c0A0G9poLLCQbeZPEEq2PF9SVDxjvR
-	pMPd6rgiAU9jX+O2jfNGC8zaeKIc0ADqS9xUTzg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:d4R6zsxUJ3nWZ33S2TESEzabliviX49L7PBOKLUxx1s=:UZf5nWPtx6oc53tNqsnCxw4a5bNtZ3wjBy68QPC81ro=;
-X-ME-Sender: <xms:vLX_ar-WY6P-JzfK65w1YqeER1-x3LCxfS6Yx4QDwe4mwnxPoNw_5Q>
-    <xme:vLX_ajkY7oAj22XuuJNb9FFfz9R2f6ReVGUhk_M9i6Q62demLyV34aj1mkV_CnfBQ
-    danZ5WfXNdw4FXPSV4XPSI3NGsJOalbnmSy7tCq6TYKkAycuVdUTNQ>
-X-ME-Received: <xmr:vLX_akhtw5oXqOkszvyB-Gc0uAI6pc1vDQb2w5F5mRGiSvC-FcZ7lcRgtJL-U12WLR0t78QODaNxnWelQatU5AvLQ-Q>
-X-ME-Proxy-Cause: dmFkZTGLuheel4IkDeQJKZsYVqt+ZkTlooqvIH1sGgPCN74xucbqrfqeqIJnUZKGb5vpW7
-    6wQ6kIGZUa68gW5mJIFbTwxXfxV9Ls9RXIit317iEAxTNnxAJ1hIgbMgrWx1PFmthxTtqp
-    CYsTJsT/IIq8DJDxqjVOgWm34x7XnQLgbfiFJI1CFisdaYcypkaMMSPmSkVmKpcFfEHd2v
-    CuEZpJLyKc+Uqooi/VYtHvPNApM2kUQL8aq7NWQ2KeRx3X0JG1a4uSPLPd7ys8japO24Rh
-    qmHwA2o+EbAG5dJmGdp7pDSF//x+GlBcnzNVwyvtdAvYdjmuhwqZUjehm4dJpxl70/jIDI
-    whhCk8D/MelM/IBi3B51U6F6jfmw/dvoXLNO7lafC6v+XQMibHAKGd7BgK9B64Ryz4BH0i
-    0r39Jzf2eE4yO74bV9S1eLteA1TaE4aYEvwxaEiuTWm3XuhM8ZQm7h7YLjdRwrtORr0DCl
-    imvGxeytgrXO+H9C7oH5pHipN0K0IQ7W+3w2lwYC0vcgdbDqhWHtXwgJJMxmisGRXclljx
-    UyJjmI+dpGeiK0592Jy4Qm2Z6eOGfrPPBFrdEaf87RUo5YNMj40/au685r148mkC/wttBc
-    Sg0UmpBCnqg6HtZLYalwZmR/X7UuttsgXe24PDHUYawi+rVK73puvZyZqqQA
-X-ME-Proxy: <xmx:vLX_arYhN_toWF6-mcjOSLvjBIEP5sAINQWTvNbz7M6ZyUMh085Zfg>
-    <xmx:vLX_aoGX9uFkm6sAvRFaZAOnsIx8K0b-iYt34PjGxM1C5PcDAtTS9g>
-    <xmx:vLX_aob-YwuLta3zPyiuUeAUfmeimxnpEu3R7In5GoNdq6hqKr00xw>
-    <xmx:vLX_ap3kkZHwp0rT-Ei6CTiviEXUPDvXbzx-GbjKA5RMDIgV5E4EQg>
-    <xmx:vLX_asCGULIRp4g_r6Z6BKZMZWcvvBOWGcH0m4QTnlSQRLlb3tkiYp0S>
-Feedback-ID: i07c64b5b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 19 Nov 2026 21:51:39 -0500 (EST)
-Date: Thu, 19 Nov 2026 21:51:39 -0500
-From: Sean Lyon <sean@seanlyon.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.3 0000/2651] 7.3.6-rc1 review
-Message-ID: <av-1u3vCWASDWVS0@ncase>
-References: <20261118150247.972732815@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OplKmHka
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B33F51F000C4;
+	Fri, 20 Nov 2026 02:52:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795143157;
+	bh=R0byDOCbMpV3cQA2Ji1YPCftT8TMg7Mfe6FkmiCQqg8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OplKmHkaXP0+9LAR+1s78FFbADek7xjUP8lCFnHJAHEe2AR+mmsU2BLpfjlyO4cSG
+	 DIsark2S4lCPmElRHghfXIizkXzkWND7304LIEeP+qwEqY+UegBkgtmIdDWQTYC433
+	 MenIYqM9E1ATX9aASYkGrP+vpouC/gjvlqu1P05E2QBhwh1FwAoqHzqwW14lrttXVG
+	 tERf2wrrxivL42/IFQVBUtoPG9SCW+XYF7qpYgTA5h6D7PiMqBd7tm0MlgkrFq6VpY
+	 Lj8ftVfZaOZYJ1kMc1IznkJVlkJvRFA4b0jwE42eRzRqlN8huoOta+NVrQaBcx679O
+	 B1I+tomvnEhxQ==
+Date: Thu, 19 Nov 2026 18:52:36 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Sahil Chandna <sahilchandna@linux.microsoft.com>
+Cc: linux-hyperv@vger.kernel.org, netdev@vger.kernel.org, Haiyang Zhang
+ <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
+ <decui@microsoft.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Wei Hu <weh@microsoft.com>, Konstantin Taranov
+ <kotaranov@microsoft.com>, Simon Horman <horms@kernel.org>, Erni Sri Satya
+ Vennela <ernis@linux.microsoft.com>, Aditya Garg
+ <gargaditya@linux.microsoft.com>, Manish Awasthi
+ <mawasthi@linux.microsoft.com>, Breno Leitao <leitao@debian.org>,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ paulros@microsoft.com, stable@vger.kernel.org
+Subject: Re: [PATCH net] net: mana: Set 1 usec / 1 comp as default and
+ minimum interrupt moderation
+Message-ID: <20261119185236.09603dbd@kernel.org>
+In-Reply-To: <cc705453-0794-494f-adb9-b6fb71254ba7@linux.microsoft.com>
+References: <20261113204427.1922848-1-haiyangz@linux.microsoft.com>
+	<cc705453-0794-494f-adb9-b6fb71254ba7@linux.microsoft.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -127,24 +69,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 18, 2026 at 03:20:40PM +0100, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.3.6 release.
-> There are 2651 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Thu, 19 Nov 2026 15:52:40 +0530 Sahil Chandna wrote:
+> LGTM, Reviewed-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
 
-Built, booted, and tested on hardware for x86_64:
-
-- AMD Ryzen 9 5900X, Nvidia RTX 3080 (nouveau)
-- Intel N100
-
-No regressions found.
-
-Tested-by: Sean Lyon <sean@seanlyon.dev>
-
-Thanks!
-Sean
+The tag needs to start at the start of the line, otherwise tools wont
+pick it up.
