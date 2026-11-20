@@ -1,115 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795147089;
-	b=svmHlzzciXbPR2QKugz4mte5zpNMx3DDIQsuypyFeOLxTKDRWWait22ikGnjLPFYsMgM
-	 adIWJpRymIkY9pW0ej+UfweCa3SrgK737FbrBPVND8A7423IjT3debBO1mlWmllsOVh/N
-	 zuvlmUGCkSjC3gh1KIVuEwyo8EmfaRLn96ZmCg9yYWsxbEYldYN7EbQOkEUavsta9dQlL
-	 DMrZYmj+NbcQiBHW0yF8dBr/Viqf3XWdhuRiamxcVI1KU7RbQjA/ML3W9PwRXfOxgpm4p
-	 mO7Pclosam60dI23ZUo60RpJKcCqfGG7y1eyuWORuPgMaxPcpyZ1+cM250/D5/Uqyfg==
+	t=1795147415;
+	b=aBF1Zu375fV2rUItZcBo/FOO/w2XQIOmZXQY9zZGdFHuc8YRFzp5XyXh6rNQ/gxBv69v
+	 0sxETt2w1jw8JulNFt4tbYI0OtmtUV7jp1HOf1+6etPNr1JnLsfBRsHZIvTadRbTOSGf8
+	 gmEKUZBacEvI2KCMD7nPWD4IVFtGf55aaV0U0/HzJcGlrGx7/oqqnSVLmZUJlpk9XFbO/
+	 JWEhaAcNI5OjYaHHZ7/4CPAzroFhaU+73fSuSXjxJDN3fZLQZas/WkdkxatOX2R0NwZF+
+	 rQwdHIczKeNkJERN0sn9war1M+88cVSNzyInCUumBOczLuhjo3KxgTVRvNbQsoy5XOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795147089;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=uLsKXEDhwGYD4vln9h1lh8iifiE+0MXQN0SUM4cCLMc=;
-	b=rOuAdjisdXK7QiUwhCdn7clG/YEk4GF21wnlU/OXpPvLn6FU/byxshqX8B337vWQySKh
-	 0/HlKMnU8u1PUN6EgCycGls+/WbkaGC6QEgd1ZgL7KIV20+h96W00pjfLKsTk6j2ZVVT9
-	 oUxLIICXbpoOX6V/PTPAtJ5aVB6pi0gN3oaT4gJzHaHsv7i1+4TIqZ9E+QQz/xfI/a+XC
-	 2DoJbizuD4+LSgOnJlByPVt9x9oqdX+lv60Mja5ialcYGY3WeJUdxp0NP0aYeVCtar4Wu
-	 yW5u+boSbaxTfa5bYlgUAmqjzwf5rVrq8flGHm0dbP1iwD+93hf4sVgFeQX+GdNjQZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795147415;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yXYdj9nyuM4v8jiGLwhF31o5qWrZcD3zaXor3EN0gEE=;
+	b=RuJW64Q7KNbD4H6kIBWgqQLhHXH0r+heO2am/VWVptUDplfc1GVq07Z2oTzA/GLCYy6j
+	 VthON/AIwvObffn9qwsU/hTk6xVY0exFuyGDOeV0W5QFbtOcmQR9HGJeCNNUU9d2thkHQ
+	 Ij3bbmmL2bEbFYrDMIAGwCakE2YWfbcQuzS0d+kw4PxMzG/v1nQVfjPqbOOQx/T/GXXua
+	 3ko7PbXzA4XcFZ8lcbaB82ZjHe2H5Y78dl4zqNjlNE3cMwssCJHSk1Yy3/0scUPDGzQWh
+	 jS0n5WRsN91KPSznjAW4L8EGpzJc/Ju72lMzRSLOMqkjk6r3goVbAeY2vXOS4p9ZJag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=f9DHTC0K;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="rPsUV/JI";
-	arc=none smtp.remote-ip=202.12.124.145
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0QMy9xVi;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B883606A325
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 03:58:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B883606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562D7606A330
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 04:03:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 562D7606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=f9DHTC0K;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=rPsUV/JI
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id E409F1D002CC
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 22:58:07 -0500 (EST)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-03.internal (MEProxy); Thu, 19 Nov 2026 22:58:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1795147087;
-	 x=1795233487; bh=uLsKXEDhwGYD4vln9h1lh8iifiE+0MXQN0SUM4cCLMc=; b=
-	f9DHTC0K9e7U7aEPG4E7BiobwHY8HmqeZvPCGH7HP+cGDTiH39jRj+Nc4Xab1hiY
-	XLH39oY+kNpur8kLKy2RRUjse4YUkRRF6hgB9YAM9QapJ24gzIqSatOQVivifp6n
-	04Gg2NjWbB0aVg3WMwMfGl6kUf4w99rR35VSR9jFJ6rRg4H76cfTzQghTq/fxvD0
-	cPPfYhOQKB2AdM9mXAc9fyQ26QIEH/FH+Trpdmo2j6q1N/C9iP1ABH5yxLt0KI5s
-	pJfFV6+MYSZyYcUbHzFpBMv/3R/WCy4fZ2qUxH6dTmntfPspTcAYu41v1KmJ4XkF
-	htrgkFyhB/oqAa7oN8mlUw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795147087; x=
-	1795233487; bh=uLsKXEDhwGYD4vln9h1lh8iifiE+0MXQN0SUM4cCLMc=; b=r
-	PsUV/JIenWUfICsP0xqRw9Vd4B69PcTKzjY7sxRzSLqOCWBT0OSUGf1TZ6sy+X/r
-	1YbY5lDMGoMiK1IShhE14ykjMdPvm9pRylFFkakHjgrD219rnv9J8RqwzR15bxfh
-	+kYrIAXKQUmwSjekoMzVrUNren8YA8FBGBS1uFYzM+88JHjpuDGouMjKw73FM5Dc
-	JmIyWwh++JgpKngeEUPAzqZCHjkrZccmVJj5I3WGyUHzkCXW/8cRJ4ojp4ceGzK5
-	3O7T8CpJonOOkC4tOVyZNBr20fQj5lsMPAhYGShZdJE5Bl06KrvHaHq4l2W8lD5h
-	Z/EAFIBw/1CMfrhyabVaQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795147087; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:bBfDRROupa0hj2/zdnOPEFRDeyjU5Aef8jR+CxIEgWgz/Oq
-	fgW6tW7gYpmwsTzuf7y9TQKfsGrGRpfo4DPbOmc/uQCpxFKXJTSex94YY9OBFZmc
-	EJKzmNbMq5synHM0vZb2TQx6FIOhs0XPW2M2hNdVlX55OYnMEoc/IiF82vrp2fXH
-	VNBb/RL9/2gZ3+oIr284OvBBstYJxOev4Ruxz3q6YZ1krWOZnAshjW9UVlEMf3ug
-	yLwCXc4lZ/W+xeG0Gln5FTOfVW/To9Alvu+cUdWGfHVLAkJj1KJ/YVJTni+mK8K0
-	bjVbS2hX7Tb4BQsp0QVuB63/0w/i3ja6BWk0/Aw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:CaipM/szxdh5jNlELhKOkh0Iks+KbHBUkEqOottiWUY=:+hU6iUvmVtlhho0PKAKSHIC6/4zALy6S6Q7cMGRkSMo=;
-X-ME-Sender: <xms:TcX_ar-eNJzNpLxp4R0OkC1XDe6a1V4rV32MfU0jxT87qEG9Zm5IRQ>
-    <xme:TcX_arp4RZEI4RwLPc1p-AEf4PuNmuAuLDkvf6z9jfzmP3FnoclPBh3eddaWyJOjY
-    DWiQeOHq4e6vLS5nhNewQWFzLbOHC5gnQh3ebdZ2R4hll5_TDp8GQl8>
-X-ME-Received: <xmr:TcX_ahjDQCWTMIqsQkEXNOW8xyq_2tIqmLB46Eio2JjDGRnhAs6QpXljffUHd-LY_ZrkIX7-le8kNHN22O_FCs1m7p7TfhsI>
-X-ME-Proxy-Cause: dmFkZTFDyfYCSEZ3aLEtRQuMdExUXBO/ouLd0M829jFBQClPaz8n66R9zfy6U9KeTTiYSS
-    96sVhVREBicTnVdaRx/XDt+H4+mUbCnFaKHBStiqdidKA++nwEZOb/cipeyIxE1sTzvxIS
-    8xUKN5dHngT1nc9oUZNerj3V4Ew9Q2Ox652H4mpxLkQ1Y2kx8Woy4Q/Prt2o3fs1SXSLHZ
-    FoFYDHnLhKzFEYl06oRO5/ypZ8hHJDtVQ4fqzBlotRnyCMPfAxp1fBlbQEYLFXduLlZRgG
-    rI/hvLhMAukmzcKtEQfz98FnEGw5g/F/RXGRpzQhaHlYGvR5aCgInJ4CaERbdEDU5y2LYz
-    7UvVh9ufMrg9kCNbbUcvD3+j8QxTMRoYIPBrpH3ZQ/NnjEiK0KDmv4Hzg3jPOW/QCS+mfz
-    J0W7V9e/KH34/PYL6awDQfmCA8YUHiyDi11A2n0T6LPKKqXgCDhA7MD6wLzlofu0njmz6V
-    l7AgsfKXDJn5oJSC2UQLRYIbwgX+wNvXyHMrHjRGC6iY6Ug8pUBmKw1BRTrBNRdNsf7ai6
-    GiuiI6qnzmW9mSAxzOJLdSER25cAU24G8FJ2jEAcWO5OZM/IQ/w1SDGe536JG9ToWIsTAz
-    b8riGOrU+MU445Ks0ohaxR2IHvfCHgmuRu9jW54GUOTkmmQl4083J9k3gC4g
-X-ME-Proxy: <xmx:TcX_ahCy1icLOSVj-mImtF1ng4RXEFrI-l2zOTWj4712oR7KZQj6JQ>
-    <xmx:TsX_anuD7K_nM3j7smk8HJXl9TWaOEB8Y-jSv-50m-iJAccP_2gwcQ>
-    <xmx:TsX_aj6PgURTPVCaZHxEPJYFYOwAew9ZJS5xHF5WbpUoIKwZHxRMAw>
-    <xmx:TsX_apfX9LJt9M0qjAn_AuTsOvjzOgdZWx32q3ymYpYAmMrd3hTyoQ>
-    <xmx:T8X_aiy-sJGJo6CyOT4j_cunB5PSFwPetoG88sXM0DIuZFFsiaiSRp5v>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 19 Nov 2026 22:58:03 -0500 (EST)
-Message-ID: <1b91d4e9-cfce-4974-83fd-6e2b72ce0168@pobox.com>
-Date: Thu, 19 Nov 2026 19:58:01 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0QMy9xVi
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-385d8a00598so230621eec.1
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 20:03:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795147414; x=1795752214; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yXYdj9nyuM4v8jiGLwhF31o5qWrZcD3zaXor3EN0gEE=;
+        b=0QMy9xVihzdqUeuC2tXf4jH6W6ojo/2tnNh0uAc4vUeSpaPgFdS6xiOpbsBHSlt0mg
+         Yay4agX0tWmBpJH+LDsY8JPSD3DdwfTDKyi47L6e6U/yJffhpv4hAtU1c0u5CH+WRZhJ
+         nCmYSSWnii/9995khh1tO+9eCQyaA09F61WuVQrg0f+FnK3b9RAYu+Si0dw9ezgBkHQ0
+         sKxszHEFuTvPRF8GIUT3R2TsXRtvmFnGp5ZDfKTCEcu0dJ1mPQAUqzuTyL5/G9wwh05n
+         2tjyPqAVrahlL2iMxNED5I4y1Jh0O9nO6Kpf0+yFnvD4+jXPXaXc0XQUbNd1ugq4GLJM
+         4bMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795147414; x=1795752214;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yXYdj9nyuM4v8jiGLwhF31o5qWrZcD3zaXor3EN0gEE=;
+        b=Xsudty8RyhCB0kGjrl8XbOatuycJWlKrmQBopznUYxZm2K31c9srigRE88IggdVpjw
+         VkmQ5Yd61rRKaVrudmIkEFEmOZZioXYNkDe0kdDNH0PS1LmrNo2XW2qCUQLABtPLs6jG
+         P2NtaZBSImqzF7Y6VYA3RKBkyZxK+Gcz/aL20QOlH1nt0o9zXAS+dBptBSxK1C08P3sM
+         ehXOEyZoPhJaRbppdDUXtpV/tOCYsBZC/EOngJ3kqUptUwcf8BiKrmFvGuEHjMFmHzPV
+         QnHXcdvp/U1POigEcni/fzMqtWl/vB1CBYv7EkstV0Lii0jJDx9Jv7r7eiHvgUKN6j3J
+         0nHg==
+X-Forwarded-Encrypted: i=1; AL+hErF0OXD4xGAeiuBIWBbXwDacA2fhLV8QCItfsCTYPnCghCZqslSq+a0LCSRfqwR/lvx7ixoixI4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+HTStgYfub3wdiHUCLMd0980L45IwWog1uayJHhsf2uKI1Z0sh
+	7IO4z06BaxXkcXClcRWO8mq/O7Puc+wCcCxiW362COa/6rLNWXfc15ey
+X-Gm-Gg: AZFdTZfgH5uqpi2Hn1aaslMmvg9lrbt6NNcFxhTAuEcOEXiUJeW3mpNs2NWbKWXis4l
+	YSqYqbS5pyEIYR/SwxXpoi+V5DcCODaf4nMGF/bMG7J0vDEm0uCU3MF0+E2r8GI0HZALZzA58r2
+	bokKduTBcAE0fDqgHhphBZT9vrvQ5jsENMYhpxwjYHvS9HNQkU5tozYdI3mzOcniY6Op6LtO0sW
+	0+Djft5RiwZAB+FOK0kwVfjU9z+txWEYBmZE7pFe1wm2GGD9PjqBtW059fWSgrZeyg2S1Ce2ybB
+	h1bpVhJOemQueD4ngEMIYd7xwn/urMKlSMybzfrlPHsfW3jNTiBYbnGLZqY7wBFQ6M6TDu3eOog
+	4GRL7LfuS22hwpg06Y9/CmVOqRkVBqQgg0KQXxASgEF5KkbejfZTTrBlHP5gCeFFuodQGGugNWY
+	QOFV2+WeyNg5S/dfG15KPAsjikGidMN4ugynV36XbZ6Yq25716iSHPWkbX8LtkremTZUEW6gyLO
+	ZTMvd48cQzKirNVnBOUxN4HfTiKufYiRmSp7zui1H/2sRS1q2qiD4Mmj+cUKyTi37vHg4/v9V2M
+	YNDEmZ0WFTKBKj67MCZL8JvI8BSHONxr6w==
+X-Received: by 2002:a05:7300:10e:b0:385:4fef:bb1e with SMTP id 5a478bee46e88-38570c361e8mr1625006eec.36.1795147414494;
+        Thu, 19 Nov 2026 20:03:34 -0800 (PST)
+Received: from pve-server.rlab ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7f59sm3246104eec.6.2026.11.19.20.03.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 20:03:33 -0800 (PST)
+From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+	linux-kernel@vger.kernel.org,
+	chleroy@kernel.org,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCHv3 01/19] powerpc/mm/book3s64: unlock RCU before returning from mm_iommu_is_devmem()
+Date: Fri, 20 Nov 2026 09:33:00 +0530
+Message-Id: <c6cce4c4ad2b177cacfb7bfbb7bfd4a26fcd4612.1795147055.git.ritesh.list@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1795147055.git.ritesh.list@gmail.com>
+References: <cover.1795147055.git.ritesh.list@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,39 +104,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10 0000/1848] 5.10.275-rc1 review
-To: Sasha Levin <sashal@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Brett A C Sheffield <bacs@librecast.net>,
- Dominique Martinet <asmadeus@codewreck.org>
-References: <20261118145911.150052362@linuxfoundation.org>
- <2cc4e958-33bc-45f7-bbd9-c6763fa3a8d0@linuxfoundation.org>
- <20261120020908.2320910-7-sashal@kernel.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261120020908.2320910-7-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 11/19/26 6:09 PM, Sasha Levin wrote:
-> On Wed, Nov 18, 2026 at 06:02:21PM -0700, Shuah Khan wrote:
->> net/core/filter.c:5867:26: error: implicit declaration of function ‘seg6_get_srh
->> ’ [-Werror=implicit-function-declaration]
-> 
-> This is e8b084646b94 ("bpf: Validate the SRH which End.DT6 uncovers in
-> End.BPF"), which calls seg6_get_srh(); 5.10 does not have that function.
-> It is dropped from the 5.10 queue together with 434324c611a9 ("bpf: Pull
-> the inner header for End.DT6 in End.BPF"), which relies on it.
-> 427e751a231a ("bpf: Update the SRH state if End.B6 fails late") stays.
+Clang's context analysis reports:
+  iommu_api.c:380:1: error: __ctx_lock_RCU 'RCU' is not held on every path through here [-Werror,-Wthread-safety-analysis]
 
-This fixed the build for me. Thanks!
+mm_iommu_is_devmem() takes the RCU read lock to walk the preregistered
+device-memory list. On a match it returned true from inside the loop and
+skipped rcu_read_unlock(). Hence fix it.
+
+Fixes: b5952f8125ae ("powerpc/mm/book3s64/iommu: fix some RCU-list locks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+---
+ arch/powerpc/mm/book3s64/iommu_api.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/arch/powerpc/mm/book3s64/iommu_api.c b/arch/powerpc/mm/book3s64/iommu_api.c
+index 60d00c9e7f19..56d9aa6cc8e2 100644
+--- a/arch/powerpc/mm/book3s64/iommu_api.c
++++ b/arch/powerpc/mm/book3s64/iommu_api.c
+@@ -356,6 +356,7 @@ bool mm_iommu_is_devmem(struct mm_struct *mm, unsigned long hpa,
+ {
+ 	struct mm_iommu_table_group_mem_t *mem;
+ 	unsigned long end;
++	bool ret = false;
+ 
+ 	rcu_read_lock();
+ 	list_for_each_entry_rcu(mem, &mm->context.iommu_group_mem_list, next) {
+@@ -371,12 +372,13 @@ bool mm_iommu_is_devmem(struct mm_struct *mm, unsigned long hpa,
+ 			 * and the caller needs to distinguish this situation.
+ 			 */
+ 			*size = min(1UL << pageshift, end - hpa);
+-			return true;
++			ret = true;
++			break;
+ 		}
+ 	}
+ 	rcu_read_unlock();
+ 
+-	return false;
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(mm_iommu_is_devmem);
+ 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.39.5
+
