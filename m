@@ -1,72 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795145001;
-	b=bsDk+83Hzd1b9tT0zi0/8kuY7Nu6mNdue9dNcz+zA5bviKOMIzeud7qntsPcD5+C+G32
-	 LbZA6Glv/Rv0pGEfu4a3j5dipLtfyXrQAtelCQ7Xg787d8TaOuey5DHknAhnWlJoA6tQ0
-	 ipleYemWn+fsQCLY6Etatxajy4bnfGFzsamKx/dQ5LUcNnI4kn1SJykkDF/vnAFpFYckF
-	 YYBrhCFaQkmTV9b5Pc6Nvjj96C5yPdYL+MiX5D2k/7G3QlNegMxawr+cuFbzzJzbUDENA
-	 2/+kau8u7JcrPhVE5xyOcqruU314WphjK3Mgl8hshAs23RKK953GNSQAlMURoNHG0Gw==
+	t=1795145277;
+	b=0gU5sN86qbecs+ayGhnsuBKh0SiMNMG8tEXy0hfbqwiYtz7cVieuImr+Q1s6bN1AlANi
+	 mQPNmonWj3Ein8hdNXYbvgN0hre1VTNqGEBCtlLmStQfKTMlXQJeRyNCwaAiex7gJOu1d
+	 /GLEBy6t/aW2da0nyC5XJ3Z5AkQka7QiaTaLvzXSln3SUmu3cpuhIG0WJY+M4oDk05H+4
+	 LCHSpkJKNiSzZCIQRwWcEUTGlYg1Z4pqbXu1UqCYWikkItXzjuzI2E/nKT0Z7+x0YTl12
+	 HY1Quz4TfxWDuJi77bGzVC3WqqbBgLF3Y2mu1XhHbhCc5xisztZso7LURTw1egbcdCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795145001;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=QwSbqqhIeCd3lwJK3H6J77KqNCgiR19fVC1pv4z8yCg=;
-	b=r57Sx6mTeNhpTri8CGOgoPFhm+zcCOzSWayGhmBIKEbQ+nNk+F0Oy5f/Eeh0XdQZidbd
-	 YufSxFsjJIlpKDJtw8f4J0etI8Ia+jsY+SpcBXaP4kP2hInKh7joM7e5ssEZkv/GIXG9i
-	 3C88cfvxWAuAwyuehd/Pnt4EWnCWIPY5ZT1Rp0CSoSC/IBISSff/KXLYf7PxEbBOecv98
-	 6UNsZwpgLEF3WqZsxBOCw8b7HFV2sTz3BcDmd+AM+of/ZSgZElGLH3z6+9LHQQYkBYNEr
-	 DKi972dZomUarb105U+6sZWQ+LW1dFmpT7mGvdPOxdBk9UXgR6LreWtpQTZtfmwhI4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795145277;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Language:Content-Transfer-Encoding:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=+Dg095nuQm08w1mrGur5FXxR8nXjuDgQq1Pk8wkGwVI=;
+	b=AcSFJs1cd/ZCF7/xStV4GFQsIaGev3OJi6u6fCkK5owCpkfO3sVuKtVLPt61m1EBlCB+
+	 B3Kedi7X+K97gUBGJy0dV6wLqggSmIL1Bq1z22iSQIBio97UuN+GSSfiatj2tjVRQU3pm
+	 HBhNviBrKG2Kuxc1GOQD+2um4Z8IIdEH66wvUc53ngg869TKQQlnXPpirSnU51wMWgAYx
+	 m/nxBkY6ciVFzeG6WpUBoffyQHAfqRlG76dXV6Ts0fgOwDjfM0KxzA/xgFrTphAnZdyxp
+	 q2KIcqzY836cxZlIu+aFfCrghbsdiggdeSTo9/PAk00ti7hrjr1ze6dHsoXaUWPezEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=w6rz.net;
-	spf=pass smtp.mailfrom=w6rz.net;
-	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=smRbKp0k;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=bJdtSXo2;
+	arc=none smtp.remote-ip=113.46.200.220
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38124606A333
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 03:23:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38124606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5C9606A339;
+	Fri, 20 Nov 2026 03:27:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A5C9606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=smRbKp0k
-Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
-	by cmsmtp with ESMTPS
-	id UCHXxFebbAR1iUFDWxB4lR; Fri, 20 Nov 2026 03:23:14 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id UFDWxPbrAlaNKUFDWxKOaV; Fri, 20 Nov 2026 03:23:14 +0000
-X-Authority-Analysis: v=2.4 cv=UbpRSLSN c=1 sm=1 tr=0 ts=6affbd22
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=j10-6H-SaoHoQRfmf2MA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=QwSbqqhIeCd3lwJK3H6J77KqNCgiR19fVC1pv4z8yCg=; b=smRbKp0keZVyrUIkaO8OdNHX1v
-	XgWJGX+DNL/p+oMeAx/RJTNgqTZxQFdjupg541c8Vmp+4rPu1Q3fpZ3vwDVq6RwfQk+fvNHxdgsp2
-	+T1Z2lTzVu6Vaem6BNWD+LYB6yEGg+QO6Bm3i5v40nKPvZ2uqCMKcBsnJjyIKBD3kcDzcrK8nM+bD
-	zfUpQpUHOvCWN6pkvzQkh8h/L2k7pSQNsqXImU9jQtGFTSWTHSNnFz8+PX2sHPFS0udl3BODyk/Uh
-	d/BQfHllzkr+IPVjbuhipJvsw0m5HXPWRO65sGZiQgN9xA9zMiPn0hjVoJFS/aSfjvQOc7RVeXIdC
-	+BC/qGKg==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:55626 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xUFDV-0000000185z-2FvK;
-	Thu, 19 Nov 2026 20:23:13 -0700
-Message-ID: <508f60eb-3665-4aad-bb85-8180d4330898@w6rz.net>
-Date: Thu, 19 Nov 2026 19:23:11 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=bJdtSXo2
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=+Dg095nuQm08w1mrGur5FXxR8nXjuDgQq1Pk8wkGwVI=;
+	b=bJdtSXo2zsPNNAWZHoqmIPvvPsucTx4ac5NrM9rYFhJ0E8wOXluASdeBe9kfYY0AIPpR/asys
+	c6ETQCvnJrDpYQn0VZoOBlmVN4JhsRkQKTs9M+QbLBhTOJfxKheQYpVyRjNfMRpDncLXZzA5RzZ
+	a0FAogV0ZKyp4dOS0sOJPMo=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jW13S68TDz12LHl;
+	Fri, 20 Nov 2026 11:27:00 +0800 (CST)
+Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 143EA40683;
+	Fri, 20 Nov 2026 11:27:52 +0800 (CST)
+Received: from [10.173.125.21] (10.173.125.21) by
+ whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 20 Nov 2026 11:27:50 +0800
+Subject: Re: [PATCH] mm/memory: don't map hardware-poisoned pages in
+ finish_fault()
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+CC: Andrew Morton <akpm@linux-foundation.org>, Naoya Horiguchi
+	<nao.horiguchi@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R.
+ Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
+ Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
+ Hocko <mhocko@suse.com>, Kefeng Wang <wangkefeng.wang@huawei.com>,
+	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>,
+	<stable@vger.kernel.org>, David Hildenbrand <david@kernel.org>, Usama Arif
+	<usama.arif@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, Zi Yan
+	<ziy@nvidia.com>
+References: <20261119134236.3745231-1-kas@kernel.org>
+From: Miaohe Lin <linmiaohe@huawei.com>
+Message-ID: <a5c04d15-adc7-b7c2-fb1f-a68b0483fef7@huawei.com>
+Date: Fri, 20 Nov 2026 11:27:49 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,63 +78,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 0000/2151] 6.18.65-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261118150121.603863898@linuxfoundation.org>
+In-Reply-To: <20261119134236.3745231-1-kas@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xUFDV-0000000185z-2FvK
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:55626
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 39
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfLSV76LcY//rYSM5uAUMTbktyrNtEONmb8dji3C3VcNX13s9sTQ3ychqIbdDmzAlMSy+/GPjljt0aYtg9P3Xcw1JzuBAYyeX7tDUuXwqTVI+3VnpuNTt
- fkmkdHr6KirxcoE68sp1R6POaESrnCtJVpqFAde0r3fWaOYuR5bbQcfrlyUmQYvD0/m7x9KKs2sSsA==
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemk100004.china.huawei.com (7.152.185.74)
 
-On 11/18/26 06:28, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.65 release.
-> There are 2151 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 20 Nov 2026 14:55:45 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.65-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+On 2026/11/19 21:42, Kiryl Shutsemau (Meta) wrote:
+> When memory_failure() cannot split a large file folio, the folio stays in
+> the page cache with the poisoned page in it. do_set_pmd() refuses to map
+> such a folio with a PMD, so that the poisoned page gets its own fault and
+> SIGBUS. finish_fault() then falls back to PTEs, but maps the whole folio:
+> 
+>     do_shared_fault()
+>       __do_fault()
+>         PageHWPoison(vmf->page)
+>           // the faulting page only
+>       finish_fault()
+>         do_set_pmd()
+>           // backs off on has_hwpoisoned
+>         set_pte_range(vmf, folio, &folio->page, folio_nr_pages(folio), ...)
+>           // maps the poisoned page as well
+> 
+> A process that touches the poisoned page takes a machine check instead
+> of SIGBUS from the fault.
+> 
+> Map a folio with a poisoned page one page at a time. The poisoned page
+> then takes its own fault, which __do_fault() turns into SIGBUS.
+> 
+> Fixes: 43e027e41423 ("mm: memory: extend finish_fault() to support large folio")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+LGTM. Thanks.
 
-Tested-by: Ron Economos <re@w6rz.net>
-
+Reviewed-by: Miaohe Lin <linmiaohe@huawei.com>
