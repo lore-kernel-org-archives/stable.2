@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.93
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.68
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795177011;
-	b=D5w/yMstuRdbehco2et3xNYFdpIFHyCU3RZhEIo4lZiWo6ZHSBzBqgP0b1pj0uS13P4z
-	 y6yvs9P1OBZp29wq8OJeGKPLp9awJtifbLoX3k2piRS9eSmuiNohnGtckd+M4nZ88qYWq
-	 BnseMYPbFxjD7sePrmnT0RG5zPOKhxw0GgJdYx9O9Zv6JoxQKy8pgfoNSQJD8ym9++Bac
-	 deYPnPAEyJDXK+222/rIRH+4HqplP7DKCjXYnbEgDTn5fB4XLer6jc8jE/sPeeVpFNBlw
-	 re2nZ5ViQUpQZ/7+2abf397JP8wxNJqLH61+I7b2My2IoNN7KMSkYOEHgBCrdPY/cew==
+	t=1795177013;
+	b=UOnDXVPlTDnurSEw+CJ3ddoim5GW8RFeMWwq7B8qprjarSd9r6gDynTSaZd/jImGrPa6
+	 48wUsRVnpfdcG2jkakfV6QOWGoaquyqAH9MMVTVN1njL8+LTlld95yp1jkQbv4cwPlUhD
+	 n+Yt+MWzcZRVw1Uatci4y4bc8ExJwqstr5c8akKPIoZwj1tjkr42LNlbw2yHyXuRUJ4iW
+	 cDAGF0BKKXcyUMsiOXqixYwNYje4p/4t48sDxgLxdcjAkmFegOwxBSuPSTLMxGexpjz5e
+	 ZWmh67vSrOHLeeadsZ4oWmECsuenIxbKRG66zho/fTbqAyMfM4mQy2tfBJbnhfHZ3Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795177011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795177013;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=PSxLr1HHsETskvI6VvCsOfwe2CKjdeVgSnc6fyenuSA=;
-	b=jNnHWUJMZCjsxqcb9uUroW3wEZtZe+lVhp1BU2BdiuL1zsjxdoBSVqbZOxugve37s3w6
-	 fIS4qSFRC4uZA84YMwXm2+TnMvzNk2hVLhVTKF09hUJGOmh21+f/uOu3fttNOTTBImaQ/
-	 OPPIjovJrS4hnybU1jkA+p7P2nPQ0SnVgLyR4PdOLB1frV5kIGUwBo0pnCPIHZ2SR6wu+
-	 9cT9MJN0inUBkUSG88eZ9BtcUfRr+cDUdrZv8YTjZFXTd5zHahbJEqPAiSr53aC7PytfN
-	 qNYvdvOG31egWz5TVApagFHJXnCLuxRGiAndPZrSreao/8/ZakfJl7jDMYoiv1ar01Q==
+	bh=WFGUsPib7UYtVJ1BiXTL9SeVte53OesLIVWmVAJzm2E=;
+	b=eLE9KLBJbvt81R1Oy9JqsAaUO+P09EONroTv42fYAFleN3Wx0uqakijEVLmyI6pjJQec
+	 q2IhvIw4MA4RvfFnXOYwu9vEJq3oEjPNZH/mdnWAxSHyOoZUwfpbfaEJXEtccQL3rls+/
+	 mbVkoVy4lxNzGhs0TdeVmGMQy1j3lZhC+HzWyers0krpDcseUj/R4gJsBSnyBBMtS+8le
+	 pQmTa5do4WU4LyLn2aoN648mbPlFffvTaAITkkoty9SqitEQEmS2XvieMb2EnLwVE8vAN
+	 alP3SpifA3HUXFH++XpVuOoWB/ljwuCCieJiM/fUpV3GUPNXz/yYdVP6yuof0y1XYyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ew7t0BiM;
-	arc=none smtp.remote-ip=91.218.175.93
-Received: from mta0.migadu.com (out-93.mta0.migadu.com [91.218.175.93])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="U/QsRWSw";
+	arc=none smtp.remote-ip=95.215.58.68
+Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1688606A334
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 12:16:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1688606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE37E606A32C
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 12:16:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE37E606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ew7t0BiM
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U/QsRWSw
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8XiXryHIULlaN/y2rMXAN7tXMcBUgoQa55KwIlOF3YQ=;
+DKIM-Signature: a=rsa-sha256; bh=rMvHJji9BqzVdUvxXHqbG2A1RgJoNeZr1+rKa6jfFow=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795177008; v=1; x=1795781808;
- b=Ew7t0BiMr3e7CVmdSlurASVTZhKw1/jT/GA3R/abcw65m0Z+SuR+peAbPzIMnEzsqXjh7HZV
- Ozo/C2SWRz+SAS+NAZ8L+dZ27G5so1ghoVYUa1jPuYKd8sPaOQyFR9iLUfoFTchFMEdImD+sXiR
- eGbs+VozdluDtnHCmM4UrXPs=
+ t=1795177011; v=1; x=1795781811;
+ b=U/QsRWSw6sPavX2LMNl6AOJB6QRTZj2R3aBovDpVN1qqp12E6GKYJW0v9Z+tvXJt9x1PfXql
+ ydpRhX7JUUXv+dUfZfdY/dh5zszYlEk6tjpCgtq+COdg64wpP1qtzB1HKepYrWDLjjgdRTdIUgX
+ mKaSmZkYd+GcbneWr508BWZY=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b3526d582d4043ac;
-	Fri, 20 Nov 2026 12:16:48 +0000
-X-Mizu-Trace-ID: b3526d582d4043ac
+Received: by smtp.migadu.com with ESMTPS id d94a9313021c98ac;
+	Fri, 20 Nov 2026 12:16:50 +0000
+X-Mizu-Trace-ID: d94a9313021c98ac
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Catalin Marinas <catalin.marinas@arm.com>,
@@ -60,9 +60,9 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
 	linux-kernel@vger.kernel.org,
 	Fuad Tabba <tabba@google.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/3] arm64: pi: Add an ISB after mapping the FDT in the initial ID map
-Date: Fri, 20 Nov 2026 12:16:36 +0000
-Message-ID: <20261120121638.194154-2-fuad.tabba@linux.dev>
+Subject: [PATCH 2/3] arm64: mm: Add an ISB after remapping the KPTI page-table slot
+Date: Fri, 20 Nov 2026 12:16:37 +0000
+Message-ID: <20261120121638.194154-3-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261120121638.194154-1-fuad.tabba@linux.dev>
 References: <20261120121638.194154-1-fuad.tabba@linux.dev>
@@ -77,33 +77,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-map_fdt() maps the FDT into the live initial ID map with only a DSB
-before the caller reads it, so the read can fault on a translation made
-speculatively before the mapping was written. This early in boot,
-VBAR_EL1 doesn't yet point at the kernel's vectors, and the kernel fails
-to boot.
+kpti_map_pgtbl remaps a temporary slot with break-before-make, and
+kpti_mk_tbl_ng then reads the page tables through it. The make ends in
+a DSB alone, so the reads can fault on a translation of the slot made
+speculatively before the new entry was written. With the temporary page
+tables in TTBR1 the kernel's vectors are unmapped, and the boot hangs.
 
 Add an ISB after the DSB.
 
-Fixes: 84b04d3e6bdbc ("arm64: kernel: Create initial ID map from C code")
+Fixes: 47546a1912fc4 ("arm64: mm: install KPTI nG mappings with MMU enabled")
 Cc: stable@vger.kernel.org
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/kernel/pi/map_kernel.c | 1 +
+ arch/arm64/mm/proc.S | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/kernel/pi/map_kernel.c b/arch/arm64/kernel/pi/map_kernel.c
-index fb44cbdd2f292..f9338257adb7d 100644
---- a/arch/arm64/kernel/pi/map_kernel.c
-+++ b/arch/arm64/kernel/pi/map_kernel.c
-@@ -211,6 +211,7 @@ static void *__init map_fdt(phys_addr_t fdt)
- 		  fdt, PAGE_KERNEL, IDMAP_ROOT_LEVEL,
- 		  (pte_t *)init_idmap_pg_dir, false, 0);
- 	dsb(ishst);
-+	isb();
+diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
+index 12aacc74f7647..7ca36d59bf77f 100644
+--- a/arch/arm64/mm/proc.S
++++ b/arch/arm64/mm/proc.S
+@@ -262,6 +262,7 @@ SYM_FUNC_ALIAS(__pi_idmap_cpu_replace_ttbr1, idmap_cpu_replace_ttbr1)
+ 	orr	pte, pte, pte_flags
+ 	str	pte, [temp_pte, #8 * (\level + 2)]
+ 	dsb	nshst
++	isb
+ 	.endm
  
- 	return (void *)fdt;
- }
+ /*
 -- 
 2.47.3
 
