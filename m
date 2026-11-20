@@ -1,102 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795191331;
-	b=nrwFEM/IekHvCQJsL4u5SuPA0LWHyKGamzTkx+oPuW8GFThuBLFmnKXJHFbDKPj2rtzA
-	 gVYYsxWgzvJc3KaPWRILqfEC4N7RyEDRER95WVSB/cEMY1Zk4mMuLCN//QBIWpBkswlDn
-	 4rcTSqn6arVXNi/wN6iLMcyQqXqt0xKH7yc/JCWoHZJeJD/raQDcgIiVjuNVrDGfs3m9v
-	 Dq2uyRiFCh7sgnGNauEm7dsvIBmjA3czyd0desdbj2O9UM39uSichEUueFk1sFfRIMrDl
-	 3Ehsrc3Y5v+2fuwooXNJCFIVpGdcQXaZvNr7kD8FE7RcJDke85nsbb832aBJYbOWrnw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795191331;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=loVt9V3ThFSHRp9ExXhi7XkwLMVgNnjHRJCnHqctjnA=;
-	b=mM2rIKoEWIxcvdrmVK1epvQU/Z/cL5/prPaoH+MY1yD0t57utb/G2gjMHKgReoGJ6hEu
-	 OxVbC2l15RKPlA9182PvWZY7Qn8b3p/qe2KXkqn3QUYu36deWgSz3Ra4mscsmBbjBKd1J
-	 V0HIpub12U99bSB7Cuea3Jd2zVwx+8AAg36MvQHbAby5SLJ5NkhkM2dkUWzn0YgMhdpEs
-	 5Fiwzx+YviCE5Ek3LmAn1Oad89BO5KEDG1MGbcD2Is7NRw82Nq8aLqpDJTK5arqH7veEe
-	 TN3rbgRjibf+0iAvQa0E/cstF7okqoGNum6xrYaNVxPDzDr4pLBD+QNk6Ah824U07KQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=shUtPaBY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.174
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE9A606A333
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:15:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EE9A606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=shUtPaBY
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ae3b5b1027so999271fa.2
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:15:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795191330; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LjRVsuKeSqwOCi9o0fAGtpwBLgXTBJXKcrBjwCvvnKcaDaIyXNnGuFQiNTFEoO6mXB
-         lHYmoLJ8ciEilMoMchQMASnnKyahwYDZh1Mwp3stzE5meNoakd4thvPBf4DXEf3MDjXE
-         sgfcCl87Vlc1uiGjlYI4CjzYsZ8Uoyd2YNIwY7j6XjPqqHc9Mgm0QYH1NmbSxkyCWWRa
-         /Z/XGi/A2qGhIP8pPKJ8VoRg+FmSWfJoxAJgLfk7vE80HzgJeh0p88HCZ1H4GctFwsFz
-         TcDGbt87oy6o4f6t6QrtwjEHZL86IKvjyVVkixSEqL2vz8zFYgCNCYS3wJ8eXhuNXwn2
-         gVrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=loVt9V3ThFSHRp9ExXhi7XkwLMVgNnjHRJCnHqctjnA=;
-        fh=FoJgquq89bv/2YGCQymTJqQ+VNeiMxIU6lFhtsZ7wm8=;
-        b=mAbP0opHHkWsuvVLpofiKC29nrE0ND/AW5KLpYd0VuMctqQes0U7wwx57Mb+nvgnpa
-         i+NAGJ/ax/Abv55/9hIiaw/rmItZ1o2IWBCVGQ2BgwmyTBP+sm2yUQlprrK91XIpgK6J
-         KPZf5g47iQ5klfUjyv+bSCb8/rH3+tG3vaEHSAULsya2sM7tZHQqWqr29W5LYk81+mT6
-         lh4vc8Sr+dc+pfKp6FHAxppZAjClJdnuEesQbQNkv/AqHTomhIcNCnrKsPEhQUAAaxUi
-         aBMlnOzcYyaY7lzM7L9AN/a3r8Dncg56xCYoSgXYF2mFo2MV247bbk4ju1zKO1JOq68d
-         UMTA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795191636;
+	b=zaPPX64/cqdRvR/znzBAEkvD9Nno1Bx8W5Lcw8VmaOMjKgiJMKcbbXrPz1Z/TSSlOg7U
+	 xm2pcvv+hJNmHwimeVADbAugBNLWA7F9QE418qfeA8BZ6k3Qeio+qcDlJL1dYr5zbSVhW
+	 F4L8RJpooyX1h7+gMLkErMT22bhNhIEpqmOSgLIoE0HDZ+KVr1bcEdUgHcABFi9ZNMosL
+	 WEAB4soRBuFLFMttigIABj4kocoTxLuq9w0+jdoO2tYJvD3SpPBVAox0R90ynP5u1qCYg
+	 2pPOPpGOKuU8IShBxU3vI0cbDwS0dvrne7zWclZO+cAwkcvVqV4Ht1VaLCkI9eBgleQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795191636;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=vmvV8mNalTdSlPtHe2FtlIbyUlZmRF8mGQiZCHzGHp0=;
+	b=40wmehSuaJY5g7AJWMN0YZ+4o3s3moZtl4Pmv/TNMR4JZhfWe58/O58oGMwTNPPhEoWG
+	 u+u+BYPIvSi4L658OMBrkcU5NtcfaTdyZaVm1p96xJtZTxR1vuWZ3ABeypaSLG45v/BOQ
+	 PqHCjoEkMorXG+4fZoEA6Bn1hQp2lHY9yLFS23O9O3iIz00bGKk2n4gLrYe5sOW4UmfIc
+	 chkSa8epPrDOIlVLil0Eack1FSt9tEMZJBEkakWMht6NE7jpm3xiftn5iRKqslCIE9tWL
+	 4ozGQQRDGeF+P0PgVAVhYWHVS5dpWZjcQOhothemSLRc4fuuXRyn+xUgiLO0U+eZ9FA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0587606A320;
+	Fri, 20 Nov 2026 16:20:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0587606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795191330; x=1795796130; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=loVt9V3ThFSHRp9ExXhi7XkwLMVgNnjHRJCnHqctjnA=;
-        b=shUtPaBYoI7SsMO8gzvz7Ba6mbm82X7aCyC7rkBABKO/a8ni9olWuLKrqYQOx5IvgG
-         wEkJwPygSHLtbyvm6wXtF2B/1DGP78HaaBicpQKrwsZFRdE9XtY5k3lgcIH1gw2vjnAR
-         YTX3Lw42zCCUoWe3ZUkj1ijf2m8ffrcmDZaZF4zCEQiprqIVwL9mSaUEnXIK2pZma1h2
-         9HONHlnwX5eCZpUfJ5MkX9by8XVPTQ6rSloyLUj6E4ixufEX2DhAqlhvOAn5t+Cy7cdn
-         zvm5taG2USCSJMff40WWXbB6ORzqtxAUGXV3ZAezu6qE4WYtZmjm2/MEnV+L+WvMxQYw
-         vXmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795191330; x=1795796130;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=loVt9V3ThFSHRp9ExXhi7XkwLMVgNnjHRJCnHqctjnA=;
-        b=G0C7MjhTzZp3Da4lEzfNRiYiv0Hg5G2hKSp8GEk+Kx8ALzsJC68xNbgsCeWkzzrMIe
-         y8Aj89B2XF5QbPtnP7Wjl5qfsNVKJH3yT4H0EETBdB/2g0BCAk+lo02t4+9FpPZv+L4R
-         oGUeLgcoxziqshWC4UBbP4nUUiFFzL6OMDmStHZTn/MF+HIbfoxBtJThE0EGJmLOzg2o
-         xGnNczYG4ubJmYdMdJC5Ai45esCHHt8yKtYdgSTNyOCre0xt9NydRF2oaaMf5Oz6TSh/
-         wDUnSqrpddvwHSfLdSfiEuDKneIloIMKP7MARCY93Pl4QILBEgpBQjuSy3RjvSuCc0+S
-         qLEw==
-X-Forwarded-Encrypted: i=1; AL+hErGJ9gv5lE1fTe5LKUknlXYSNKAsDSJBhMSNmu8S1FMA2Y9VYw11rIqckO2YHqwdh0AKGUtKBxo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FWdMfZTpoGGtZJiLhkvpxVb56hRXe+saGH5MwmbfhNCGD4bww
-	E7ZdlIxXymsHfvjrLDkQUCZiCpfrd8hMzNvos9YLPyFoUUZ30TPIZHk0tIPGGjhMTos9sitfwdW
-	qwQI8kAQzrvXMPHAlLHCZXllocbT7tPQ=
-X-Gm-Gg: AZFdTZfhgwtmfvtUpTgNmuf7RG6ymwr6kdoepTGC/Hie9PqSOORY3VscabnLl8NfNGu
-	aue37BvyxMr2eI7RpaBJKDuXlOTmbh5VL6+8yEfy+oxGNFna6imGicX01OCnGYHrMAT2bQMqHgs
-	DiVRiLpSHCMOzcVKfv2BXxiL8iTPC6OC6pMzLNACUJQFjzi1g4ZhD7uRY0jioP5T5RL8KTZPJbX
-	MUuMZmtxYJiSerdDNleJf6W7ggGCzp86MRNYQdMtkn3R68KaGHiaSem3TjmVmKQ9ExLe6rjgeD/
-	iRxCb0YEbFpeXiRce8115cqXG5cff16X1g5bJgYpaNehuXEaQpvphr+0bN0+/a8XwW9eLLfc6/j
-	mL4y+w3eDhz7+nz9wv2601JOAHPO5b/r+y/UyHdbxCWD2YEmFJUvq73ty9dJSByUykEPLa11Wpi
-	nPR20jMdNVhlFJLCCFBIi+aNwUL7M/+fhsr2AKen58+a3kzOyHK03OtjHMlawdnaI5/FKVjtPKd
-	VIQrLhdUDY2B7hmIEvWEkwoN0OoPytKonW7fVVf8hqalTvoU3XIowns0dGlWkyCdABpwSPQsLI=
-X-Received: by 2002:a05:6512:4481:b0:5c0:ca1:46d3 with SMTP id
- 2adb3069b0e04-5c1bc7c5ee5mr1077254e87.5.1795191329406; Fri, 20 Nov 2026
- 08:15:29 -0800 (PST)
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=vmvV8mNalT
+	dSlPtHe2FtlIbyUlZmRF8mGQiZCHzGHp0=; b=b7y8gNHWficCkwy+ySEA8mfyLW
+	uiPYna96mBgP7VWRbHXqIpbNPdV+DFNI8sc+kpoCgU48i/Fog7DB+7L4i5BzW10L
+	eZ3RBIz1UkM/fgPMchjZlKVC0tkt6aOf7m01MYg2MWPsxdMx++BV2NdMokp/T5Qs
+	yk+PqAsb61rb5pJqA=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCGzAFGcwBrz2n0AQ--.56536S2;
+	Sat, 21 Nov 2026 00:20:23 +0800 (CST)
+From: 25031212351@stu.xidian.edu.cn
+To: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v3 1/2] media: hdpvr: don't recycle an in-flight buffer
+Date: Sat, 21 Nov 2026 00:20:21 +0800
+Message-Id: <20261120162022.5867-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,31 +58,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <2026111823-prelaw-chapped-13ae@gregkh>
-In-Reply-To: <2026111823-prelaw-chapped-13ae@gregkh>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 20 Nov 2026 17:15:17 +0100
-X-Gm-Features: Aa3M54rEBtnT1IaA7BSlka4nR4SeVWNl4HJ8gmgSPJH5dgQCodvn-YTnJoZk-D0
-Message-ID: <CANiq72=T71dZ4XWze+amCs=WNRnZL0GZ-jYXSzweLTOjKKkAmA@mail.gmail.com>
-Subject: Re: FAILED: patch "[PATCH] rust: bindings: derive Zeroable for
- bindgen's opaque array" failed to apply to 6.12-stable tree
-To: gregkh@linuxfoundation.org
-Cc: sashal@kernel.org, acourbot@nvidia.com, aliceryhl@google.com, 
-	nathan@kernel.org, ojeda@kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkCGzAFGcwBrz2n0AQ--.56536S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGw13Ww1fZFWrJFWUKFyDWrg_yoW5ZFykpF
+	WfKFWayrWDXFWDWr47JF47XayrGa1vgFW8CFW3Jas7CF45Jr1SvFy8try7uryrAr92yrWU
+	tFWI934fWr48ZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2vYz4IE4I80cI0F6IAv
+	xc0EwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ew
+	Av7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY
+	6r1j6r4UM4x0Y48IcxkI7VAKI48JM4kE6xkIj40Ew7xC0wCY1x0262kKe7AKxVWUAVWUtw
+	CY02Avz4vE14v_JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
+	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF
+	0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvE
+	c7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
+	v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x
+	07j-nYrUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUDD2sAYlgQcAABs4
 
-On Wed, Nov 18, 2026 at 12:23=E2=80=AFPM <gregkh@linuxfoundation.org> wrote=
-:
->
-> The patch below does not apply to the 6.12-stable tree.
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-I think this can wait -- please see the rationale for 6.18.y:
+hdpvr_read() gives a fully read buffer back to the device by moving it to
+dev->free_buff_list and marking it available. The buffer status is checked
+before dev->io_mutex is taken, but the worker can resubmit the same buffer
+in the meantime, and the buffer then has an URB in flight and belongs on
+dev->rec_buff_list.
 
-  https://lore.kernel.org/stable/CANiq72mXHMJv8sbkJZSjsexQunEkz9=3DSDhXytXX=
-ZZNcJXfJ2dg@mail.gmail.com/
+If it is moved to dev->free_buff_list anyway, the worker later tries to
+submit the active URB again, which triggers the "URB %p submitted while
+active" warning in usb_submit_urb() and fails the submission, and
+hdpvr_cancel_queue() no longer sees the URB, so hdpvr_free_buffers() can
+free the URB and its DMA buffer while the HCD still owns them.
 
-...plus we don't even have the pin-init crate in 6.12.y.
+Two readers of the same video device can reach this, as
+hdpvr_get_next_buffer() returns the receive buffer to every reader without
+removing it from the list, and hdpvr_read() is not serialized.
 
-Cheers,
-Miguel
+Only put the buffer back on the free list if it is still waiting to be
+read.
+
+Fixes: 9aba42efe85b ("V4L/DVB (11096): V4L2 Driver for the Hauppauge HD PVR usb capture device")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+v3:
+ - Split out of the combined patch sent as v2; no code change.
+ drivers/media/usb/hdpvr/hdpvr-video.c | 29 ++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/media/usb/hdpvr/hdpvr-video.c b/drivers/media/usb/hdpvr/hdpvr-video.c
+index 4290b2367fa3..98480a67287a 100644
+--- a/drivers/media/usb/hdpvr/hdpvr-video.c
++++ b/drivers/media/usb/hdpvr/hdpvr-video.c
+@@ -246,6 +246,25 @@ static struct hdpvr_buffer *hdpvr_get_next_buffer(struct hdpvr_device *dev)
+ 	return buf;
+ }
+ 
++/*
++ * Put a consumed buffer back on the free list, unless the worker has
++ * resubmitted it in the meantime: the position and the buffer list of a
++ * buffer with an URB in flight must not be touched.
++ */
++static void hdpvr_recycle_buffer(struct hdpvr_device *dev,
++				 struct hdpvr_buffer *buf)
++{
++	mutex_lock(&dev->io_mutex);
++	if (buf->status == BUFSTAT_READY) {
++		buf->pos = 0;
++		buf->status = BUFSTAT_AVAILABLE;
++		list_move_tail(&buf->buff_list, &dev->free_buff_list);
++	}
++	mutex_unlock(&dev->io_mutex);
++
++	wake_up_interruptible(&dev->wait_buffer);
++}
++
+ static void hdpvr_transmit_buffers(struct work_struct *work)
+ {
+ 	struct hdpvr_device *dev = container_of(work, struct hdpvr_device,
+@@ -506,18 +525,10 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
+ 
+ 		/* finished, take next buffer */
+ 		if (buf->pos == urb->actual_length) {
+-			mutex_lock(&dev->io_mutex);
+-			buf->pos = 0;
+-			buf->status = BUFSTAT_AVAILABLE;
+-
+-			list_move_tail(&buf->buff_list, &dev->free_buff_list);
++			hdpvr_recycle_buffer(dev, buf);
+ 
+ 			print_buffer_status();
+ 
+-			mutex_unlock(&dev->io_mutex);
+-
+-			wake_up_interruptible(&dev->wait_buffer);
+-
+ 			buf = hdpvr_get_next_buffer(dev);
+ 		}
+ 	}
+-- 
+2.34.1
+
