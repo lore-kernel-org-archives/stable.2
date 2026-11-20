@@ -1,79 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795133258;
-	b=la4j6ck8ouZhgUGpNPxaFAFDLimwJXmVlpZip/CawLVIUOTqdU5pe5jN90Et2c6rFSZS
-	 n/0xAaHS3NfOMtVs+jpO4tQypKuUyXsveDy0MQqlLFk4qRq21bxdKJKTL81ntyUigA50Q
-	 rROadY84vzexKL+53rEZubKW/3toCakC06TocmKDbY1McMJ/H4M/i3GIwpplr6C/Ifwg7
-	 Onx0z/VnXMb8FZGSO1PHEGdO5ks0PPKzlj9qZolg+z9c1NxD+iIu6B6+Y0zgcG9qHuYFL
-	 n1LzgrhCc5OBrerWPmGF+3Uqna0KnRitvO2M6pM1b4f1VgyvMrRkXSIKBFn8JeoEAhw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795133258;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kp6fkKnIImemnGcCbeJTUu/75Q8NuYHmcxO2NQ7WfyU=;
-	b=UcxpdlqCJxnBZ4ehDg+Xetvg2OOaoJGlOt8lXo9HdZSIyLQDhijuzTR8zPToOq8BRUzw
-	 dHgBs6bzKO+Gkd1jDXP7laltAK7vhbBOywNcdewF/DsgXwfJ4QCDTBbowMZKUJa1nLFZL
-	 be8n6+2G/ODWIOBu2FKziEZseDkGvTBpHntFK9aJKnRcl00GbWeEmDXAD+0O7GfUEm828
-	 +tQp94YOl/chLAI9/cHLS8b4ccZ+qW439prSmMb17rsXXi0vRDw0W6pkxZVkb4dCjFw5h
-	 lnnld+FqxUKD3EXtRrdS1aFNnU4uV0zO/GVIAb1cS/WFIpMP/vd+op8x4SWSZoayOSg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWA2C4NE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23D7606A325;
-	Fri, 20 Nov 2026 00:07:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWA2C4NE
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795133257;
-	b=dRF6pSxdxc2Odeyqrzc81G+J2x3cClSK4QhpA4awztwsvu0x5Rmi7x97EdlWJkVZa3I8
-	 tolINWwm75FJDlL1CxyUVSy+SVlTbdw1DodW05Am72lDzXt60Me8ExGMzg+fHhS6U9kGU
-	 Baf/ihiIfQVjJVtAqHtn6uwiyDzAd1LYGbrfZYIKDOFb35xEeb28aXRQQjlabszb24WE6
-	 GmwmJB5GUOUVyqiBRN0OMizQ/UJH35ql5b9oaZ2RiaM3z3XebScasuywkDJmskskUwEjE
-	 D/r2MFCneo9pwVeBQikWau+wsj0g1sK1xaY4zq55hK6XtwWUr1oum6fqXIpgf6tI87w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795133257;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kp6fkKnIImemnGcCbeJTUu/75Q8NuYHmcxO2NQ7WfyU=;
-	b=gqfiSCWKHTT4YR8xztkDxd/kc6cplkQzFW/dKzG+UB9nnvSSI4dMDuUfHTuBueXK5P14
-	 uBZ9x15jp2vIpQ4dl8hD1iKIUdqT8BmbDOu/KPvCUomDDa/ZPr0HaKr9xwZsbF0xgLngA
-	 YIx5rcfte1Hr2nf2TjtjG8hDijBjBZpthVolzys29br6FHsPloIdvVD0RAdtEQ04lvMrO
-	 KrIJ0CV1i+ATRocd2745v63faCIBU5w2RGENAsff73YoIcUytvQzkZc+JoN71Cw1PfMiU
-	 JOpYkiJMLE8x74XN+WgYVuj0yUC4IJ2un4IEBB/Sgn0uLFiTF+0CZlumcMjS7mEY1CQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795133477;
+	b=YCyO/BegcWY75DOadm4LhDSVrUzfRBecPjNyuvNpYYIaCgJa7S6LODKcKKUVxhJNKSTP
+	 PsScf5yAplqC6uupoGfw3T0Y2bMiqRTiKMFRejsxQx6NcsF2lsZ3GBJu/OKqS6LkZ9gfu
+	 0jFHNU87WaosBWsGYQ7MuKRQev2G7ecjWNjjiXRUkCVy5nQE12Y3PbIrnB5g19JmzSCn9
+	 5jl4znqlpxlV4JaqZuYQUeWrPGrhVhWIPRfE3ayhJ+Oi7dfx+Xf2PGFQI8TzZU0HY2ZUO
+	 A1vJsolm8SU2gj2PfvSTKtSO+gJ9pjIjZvhQxrK+XWlauRJnHQjp4IlSnUV08t8SaQg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795133477;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dX2sdwg6msO+2Hy2n1fUrye627ZQcDy+aS+NuM+NVo0=;
+	b=Oo0AW+uoUrGecKBysnTJv9TPCgspzl1/pwxv4giwE+ZoKC6b4SLWt9qDb0qfv6UzsZSa
+	 RjJBcK3FkmITrGpZLPdGxJZZlip5or44wY/rp4nRS4wTMBEF5aMP+2BHce1Svt4Qa5W9N
+	 D0tAC+O5prtDhL2+xxyVcdtBAiRiguo8kAWA3N8GpucKjxOX9q1by1FsqAJHrkCh52Fk3
+	 58UHGsLR6nroi+9m48/TlePAiAeregecdCoHeK+7RA2jM09xvMb3iiK4hoGDdz5UdP5N/
+	 2FQrenryGln6bbPNkojHUIs9F/LkkWkBA0K+s6FioQEYq5G2mW0RiKOOI41B1F4ijEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TJqzfke9;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0836F1F000CA;
-	Fri, 20 Nov 2026 00:07:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795133257;
-	bh=kp6fkKnIImemnGcCbeJTUu/75Q8NuYHmcxO2NQ7WfyU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=FWA2C4NEUVDmhrwTvFZB/VTf02pzDsye4w3VMXOBc90et2+CQJ55YtGAFmlMRDkBL
-	 TFkMJJcCCaqaEq4k8NhUwDT1FylemTJpx/O1vKDG3ELTzumowjEBql6fkfRE7a9mJs
-	 QJwIzOamcbqeLcp2iVlRJwrlUMz8X7b0hvMF0f7l6tETHlONR53KSUg0QZXRH+xskK
-	 qJiiRRce/41oPj3Kzx6YAr+xHQLHGKPy8b/Rgur+mFK5JPX8EcAyMu/pv0lgf3G66q
-	 Gkwugo94zZPuJSF4nEsIZcMiYAZ8kdpm+amz3l92luMsTWFcOT+9NgedkuFytq5pZr
-	 +iWEvJpvF3X/Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 89F56424DC;
-	Fri, 20 Nov 2026 00:07:35 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Thu, 19 Nov 2026 19:07:24 -0500
-Subject: [PATCH v3 02/11] leds: rgb: ktd202x: Fix an out-of-bounds read
- with unused channels
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEFA2606A325
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 00:11:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEFA2606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TJqzfke9
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8b2f59de176so327509b3a.2
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 16:11:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795133476; x=1795738276; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dX2sdwg6msO+2Hy2n1fUrye627ZQcDy+aS+NuM+NVo0=;
+        b=TJqzfke9jFntflzsu6R0AwzaFu1KNFLU8Cv8ipBv2rtoWTIDoqfa4z2rJQpQwPW6rL
+         AOSMR4Zx4c+j3qhAuY2j2geHE3njxRCSbUTTqPTTLQRFiIXxYIb7kEq3zvUQyzkTStja
+         MFoMDiR5ZFpGXlfotungxVz1P1pTJ/Asymf+IhJ305ug/IcsdkeVlby2kS5ydS4XKgJm
+         BAbxyKX1DTsbgaXIzQ1LX6ptXki2d0PIJbttKfykgChhYgt3/HT7/x1NPMfAxoaMS7Hd
+         b2XQLzaGXSmk0asB5G7Rb1Z6PUqAJJaAcW3UCTJBwwfmC/iarfy/LdqLB9LUROync6bN
+         US9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795133476; x=1795738276;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dX2sdwg6msO+2Hy2n1fUrye627ZQcDy+aS+NuM+NVo0=;
+        b=QBEXwLIaSPPmC+qat1yQ1juN2Abhngc24j8y5sFNVAEGMXMb4nJGaEFLuz/+87+aZm
+         5notcXgWdqicCOUlF/1ONl97jpEo33wxOt44M5UnB+xuNqwZ4u7ttzpzQcMRSNhl1Tri
+         fjXZjaWf5dwicaH31xJCOW6yMDStLTbamghXJzN1CTPkRuPKh53hP+icCOIdJcmgksEW
+         Bcr8FTvLL4OQO37RLS164M0ZEKg7lzTmrRczAEnlf32G7eisgX4rOCp/qDfwGI6c8YZd
+         YwFH0mIA5AzQIghyltXFWH9j27SK4Z8fJsOvz2DbHxU+f+GsbUB4l13Yw8xk8lISLnXv
+         R7Vg==
+X-Forwarded-Encrypted: i=1; AL+hErF+5JK7dDUY+yazSVVi8C8Cd7a+Lc3cbU6QrCeRjHc5WV+MEKfiO/UvyFjAQz4pQTxNimQgafM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z96NVvommYH1Z0ZO1PxaA6Dmhfo6+h+o7Xe/RTsIGw9ZCqww+RK
+	/hNrEcVY1LCTcqea8WFK/0p+m8sBB/B84d3wX3QnPlWo5kVO3Jy9WeOPucPz+xsg
+X-Gm-Gg: AYBFou19nGKOXRSoiHGTriB72NXxMTY8k71fqvCShf+jxjCPQg3QCZy8e8aLqPAsX5F
+	2YOXcz7GI7udH294is/HXFBVgb8wQHH59Jz5Rfq8nSKvhba1jr2vSraMti7qEN6PlVg7PgFB7fP
+	TqmuR09eq7POWLlVIfY2xR/UwfeqLc/DVMbiOwVxbA0NGdcnHfwMXhM/b/hygDD8tGUJogYFmfj
+	6hz2t86UncRdYWWO3GsGyDEnB9r3U38puhnHxemJ+cawsB8q60vJaAF070rab6e0ql/EYGoLt49
+	bO97OipYCH+YqTa3lBWzawssBYlXuxATVmsjNfffikpj1r1yADT2X4zHeO5wXQOYMt5Yx+oriEM
+	5YyF7MqgpVAJRAiLTR9DPTFtSsUG/0q3NG/C1Mbr/ymZvAqAOcTnK4CWna2wOZnqRvkaG/zRjXk
+	hpcBpRqMVG/WQX3B1WwXqQXSj1j5xHh83ocP9Djr/z335Cb52NC7r2/F5XdDHWxvIAhDc0LDeqR
+	j43ncCYLh1xmqjIIJSxfJBQKnDImek0oXeFNPKiYZEKXV/xrj2qI3roRV8OQOkHr0nfQ0UwHdvg
+	Lb3JVtRQuPIsPrsaIH9rV1G3GC+KJuS25aRX4FDnD+qexxnx64NbeCb74FE9Oo2zCVlZe2SPxt1
+	eATTA
+X-Received: by 2002:a05:6a20:914a:b0:3f8:c7b1:688e with SMTP id adf61e73a8af0-4014d4557ffmr1304618637.30.1795133476084;
+        Thu, 19 Nov 2026 16:11:16 -0800 (PST)
+Received: from macbook.localdomain ([50.35.8.165])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87285c05fsm604400b3a.17.2026.11.19.16.11.15
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 19 Nov 2026 16:11:15 -0800 (PST)
+From: Brian Martin <brayniac@gmail.com>
+To: Louis Thiery <thiery.louis@gmail.com>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: io-uring@vger.kernel.org,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] io_uring/net: don't charge the folio offset to truesize for managed frags
+Date: Thu, 19 Nov 2026 16:11:14 -0800
+Message-ID: <20261120001114.61077-1-brayniac@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261119232935.1708458-1-thiery.louis@gmail.com>
+References: <20261119232935.1708458-1-thiery.louis@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,92 +101,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-ktd202x-et6326-v3-2-98b836b1cddc@telaak.dev>
-References: <20261119-ktd202x-et6326-v3-0-98b836b1cddc@telaak.dev>
-In-Reply-To: <20261119-ktd202x-et6326-v3-0-98b836b1cddc@telaak.dev>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-doc@vger.kernel.org, stable@vger.kernel.org, 
- Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795133254; l=1981;
- i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=Q+4DpaSvY1AxhEa3mUDe02kBvFBM51CNN8lmDli4tPM=;
- b=ca/I6iY8wF50z9SzInW1G9cmH6hrhhaStUcyFzSzdJ3FD7Yfa6a9VN8dcZIUFO57fA2SzgJKd
- Z0jZWSWY004CwCEq3N4cp5O/x3p0WeEo8dpZbqxD3aUv+mRFujKwN1m
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
- auth_id=1404
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Joseph Telaak <joseph@telaak.dev>
+On Thu, 19 Nov 2026 23:29:35 +0000, Louis Thiery wrote:
+> Only the in-page part of the offset matters for how much memory a
+> fragment ties up, so use offset_in_page().
 
-The LED array is allocated for the number of child nodes, but
-ktd202x_chip_in_use() walks it up to num_leds, the number of channels of
-the chip. With fewer LEDs in the device tree than channels, for example
-two LEDs on a KTD2026, it reads past the end of the allocation and the
-__counted_by() annotation hides that from the bounds checkers.
+This is the change suggested in my report earlier today:
 
-Allocate one entry per channel.
+  https://lore.kernel.org/io-uring/CAC+fX10wVVSqGnfCg+aazorsCxB34sUDV-XJiBPd6R3Kuqc-7Q@mail.gmail.com/
 
-Fixes: 0ebdb7210943 ("leds: Add ktd202x driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joseph Telaak <joseph@telaak.dev>
----
- drivers/leds/rgb/leds-ktd202x.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+I applied this patch to io_uring-7.4 (0659e44ce739) and ran the
+reproducer from that report. With it, SEND_ZC from a registered huge-page
+buffer is charged the same as SEND_ZC without one on every row, for
+hugetlb and THP, including 8192 for a send that crosses a page boundary.
+On the stock kernel the same run shows the overcharge.
 
-diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd202x.c
-index 539cf425cdb7..e7e44d5612a7 100644
---- a/drivers/leds/rgb/leds-ktd202x.c
-+++ b/drivers/leds/rgb/leds-ktd202x.c
-@@ -537,6 +537,7 @@ static int ktd202x_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
- 	struct ktd202x *chip;
-+	unsigned long num_leds;
- 	int count;
- 	int ret;
- 
-@@ -544,10 +545,14 @@ static int ktd202x_probe(struct i2c_client *client)
- 	if (!count || count > KTD202X_MAX_LEDS)
- 		return dev_err_probe(dev, -EINVAL, "Incorrect number of leds (%d)", count);
- 
--	chip = devm_kzalloc(dev, struct_size(chip, leds, count), GFP_KERNEL);
-+	num_leds = (unsigned long)i2c_get_match_data(client);
-+
-+	/* Loops over the LEDs go up to the number of channels, not of child nodes */
-+	chip = devm_kzalloc(dev, struct_size(chip, leds, num_leds), GFP_KERNEL);
- 	if (!chip)
- 		return -ENOMEM;
- 
-+	chip->num_leds = num_leds;
- 	chip->dev = dev;
- 	i2c_set_clientdata(client, chip);
- 
-@@ -562,8 +567,6 @@ static int ktd202x_probe(struct i2c_client *client)
- 	if (ret)
- 		return ret;
- 
--	chip->num_leds = (unsigned long)i2c_get_match_data(client);
--
- 	chip->regulators[0].supply = "vin";
- 	chip->regulators[1].supply = "vio";
- 	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(chip->regulators), chip->regulators);
+Jens, if you apply this, could you add:
 
--- 
-Git-155)
+Reported-by: Brian Martin <brayniac@gmail.com>
+Closes: https://lore.kernel.org/io-uring/CAC+fX10wVVSqGnfCg+aazorsCxB34sUDV-XJiBPd6R3Kuqc-7Q@mail.gmail.com/
 
-
+Tested-by: Brian Martin <brayniac@gmail.com>
