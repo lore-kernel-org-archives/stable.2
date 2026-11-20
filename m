@@ -1,97 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795215589;
-	b=HFAfWPXsztRpHjm2Xj2a8DiGQj6bsSjVIyhnEHT+RaWQ9pvwJXY9Y9Z3jG//NqTiNX3i
-	 H2GY0B3nIUhljnb3eMMbCTfGZCmchECk2VMgy/tvQZly9RXsPkmP7GUc7ygZB3LjEMXqQ
-	 fDDB4TQyTGwxu4mHMYgwOZjaQBd80CXY01eFcVS7iNWqlwsRlNG11ObzV0UWNLYQVsnXD
-	 ZCsq38Sk6MckFVRWMYdNoSHME9l69pj0u+bGoB/g3ez90OBPYaAMpjyHUHspWTn54fiMc
-	 OffbHbbU9+Vc0BbjR7yLb58JR+TSYt6e9K/mv6TT0SLZiMd5WwvHpGgIjDiul7Falyg==
+	t=1795216045;
+	b=IzoEy/u0JthSNaElTtkJoJ/qCSqaSZb2fgra9+BTEaXwZ4vs3Nda/PyrHDRPtJdFUIZr
+	 M4BqT1SKQTEH+uenbikQsXiv9HV67Pj9rmdaSm0aEKiyyqNBdAdx7838kEZ+8aiU2e1xg
+	 wsDs8ALZVzLAr098+8YfPoJzL5xg9tEYalVqse97zrw7ntB5wYvzAd7gGySJNEufT3xzZ
+	 bCaAeJJK++Ttiwg2Ux1/Q5w4lAB/6o+WZPt13X7bRrz2uDGJhJbNr0vQBR4JA5vtji7Ap
+	 5pipDzs3nKF75b4t/arq3R2SqxvjBnEV57qtFCGqs5KJAHYxa/3Fnhx/etPZr1jfzLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795215589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795216045;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SVSQbGh8zYpL/nm46MbvuON7rY9JKSGB3zTi9I6pqNg=;
-	b=VdqQkVHQo/g/Kmg+1YsXrLeOD2QLZxTBZ0nZ5Rb5cZtjOz4qe1BKpPL895vniDDWivy0
-	 eBXCHQ+5/G636u92qj6ZJ8eGvpAkex988sx9NKgbDvoX7Mag6hzSQfaXodSVAtYPT0cwL
-	 oIU87JQOsLvXr2pg5Uk/kJdINmnattGE6dRYcruOGqn2qaGoAzkUDlCwqobQ4YL3QyJ6+
-	 RPBmzKyLi2gt30/DuLUNwyhGk8AHUkR5fKs3l6TbAOvYA4mv/+9sEzxo+GH9bCRhF3Kxh
-	 NO4S4S8BGKUQPBgVPIiBjMV86+vgguR3MYUSGxztfcZ9vx7vnFuif9Rb/w6p8diCk3A==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=A7lVlF6eAYb1EWlptLfI5ak3vIP6pO8uIB3MP+Hp924=;
+	b=lkQCLESsFSlc+M70jhR63AVOSaTEg+wnLqbPya9RjauPuFNYBKaW4+bwKkr9Ox1gjR0u
+	 eorzNTVmplOp9Oh3pJadzzEWB3cuDeuAgcAd4sPbJHTMl5bsBp68tBruNDr8xsnov3HHq
+	 +LqzLZUWNQIawxbpLfLabeQmbstcg0xpFvaBcw4fRI+YKSzjrBCw9ztuYT1ylOsoRCj9X
+	 zxmGGT8e14/qtNsYaRJJTnXUtSndsuxIOylmSFXfmm1o2ov4gBsk3c/ozsR/hma8BxUdn
+	 xZbK4pE7f94pY43sCQyeR5RxVgeSOpZl4uYCbVI/S72lf0giU70QHquV8UAf9vSPa0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IDDwoLwM;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YYXXXwQy;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBDCD606A6AF
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 22:59:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBDCD606A6AF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DBD606A6B6
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 23:07:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43DBD606A6B6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IDDwoLwM
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so17680155e9.1
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 14:59:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YYXXXwQy
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-490d59c3f0aso688208f8f.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 15:07:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795215583; x=1795820383; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SVSQbGh8zYpL/nm46MbvuON7rY9JKSGB3zTi9I6pqNg=;
-        b=IDDwoLwM+AcdFg5sxUKH41H46H4Hrx2xTaUMauB/92+3oqndlAdNyVy9t5GwuvMglb
-         b3HC/oIB0sejpbWCH4y7db7Gz3mZmcoxvVZ/j0/72IVl/h3eeSZxIFE206s9ISURrZ7j
-         sFtSUsFNwkdUUe9I2k/efF9/7x/cAuzCkOGrgFutCYXSizqDerT7JVVcUKicCZJqplq9
-         XTu/glDvJg2p9abIvQDL4MS5xkBd5GM7/N2OGARPNyk1V1rozu7ScFmSPfyXCkpGsIdu
-         EEliXWfo4ZgGRALY0m/LovSoUTI1YQCXqyi/yPJgk0Y8YPsH0pfspyQT1XpWvH+5EmgR
-         4RZg==
+        d=gmail.com; s=20260707; t=1795216034; x=1795820834; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A7lVlF6eAYb1EWlptLfI5ak3vIP6pO8uIB3MP+Hp924=;
+        b=YYXXXwQyZWgE9rOV0urd0gLkPcuhRXU6AkTzJNx556VbAWKGoJGm/RJT80ZsosiqvK
+         Fsior3n5yayuEKRGyjX8IggataSP1ymu+0H0lf2B9qJLVb6OHpbRxdL4PwLPCiSkEYhF
+         jHRKmS8eC6fBDpyhFMogXBA/UAXlymcVr7X9Y58w0cH9iwMX+hFIEpJ++D310EGtp/Lm
+         K0NdDPdUSLs4WZ2CTVlZowB2HjvLbsJ0RwMJEa7CIhTCdnjA4tm5tjx5aoFAeTxlpmA9
+         TI0X8KB0utc0u9BXqBBIyjBOBYw8wqt+iXyZLZEbQjWaLXYI59zCKzxr38XemM6XCUBX
+         Wp/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795215583; x=1795820383;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SVSQbGh8zYpL/nm46MbvuON7rY9JKSGB3zTi9I6pqNg=;
-        b=KqLspL4riPpZy307RTMrE281xL06O5G7f1HrTUoIFoAWohOhpT7LVnlERCSllTopkl
-         aj55NC6cOcRSpIOtDP9E7/AT27At+EZecqX3XUv1CMc6qpOBZA81BbgWDEaaH/9XAlI9
-         nK9T+1Yozla9tSXO5A5XEEgnl3R73O4oQB5rGh+e/GmHRgseV6WwuFYt6ig23IKBwJdg
-         bvTrpiUrLXkSy6CKU/6Rtd+AhE5Xvls+0zs3RdWveYujPvtzz7AhNXBsKHP/JjfFWcqu
-         zVximl0iPVdKdnWYBUkSLTZkU74RW62CA4Byfw8Zo7Y2LioC6Bm32rPzAZoOt03+HBwO
-         cUIw==
-X-Forwarded-Encrypted: i=1; AL+hErEytq4eJDDXqRXNTwUVYcuvHfPUPvOfo1Dzzo1lyUFkFGUJT9C1ZVqBl2bjrp/eJmmyKjdSXtE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/b9FnIuW34IXTzEFjSBKxP18lgB2zbtj5b7Cwq4Bh/Oign/abw
-	gQoKtOA0s34n22NtkT1ajbvRKsMkPmwa/onTbhhCvpXptXajtkHZQqW3g1CA
-X-Gm-Gg: AYBFou16aPzwSvUP9zJXEO94UKCAJHMWx14eZVbJ+Ztug87Y4M2weG+EzoN0mGMhaPw
-	xgYanxgHL1G/lpC88+0g2+jvYMyqS9kKqioFXA/10Tf3F0qEEUX0sAmDcUw8ruNpBTR8gNBQtsJ
-	5zMur40Vt4J2ZfVFpsq2xUob447uixrwEld3DnpHLTN/wVaSoi9E9P4dv52wxyKGpiRJOJVlfP1
-	Urqkyn0hJq7hra5vA7ApcRndCB/gtRR6SCSPXT9HSCDCVgRA68IpRaOBCRxb7NpR1Fz1oSEbaO9
-	ZPeQGh826voJgZXWo3P2ZZLCkloqlp/A6mHQYemOOZJUwBxERhF3hH5unBaGJNcqBvof3yABMq2
-	hc8dRrg8yaBEwu+B5FMfPYQqv1UAZ3uZkXhinKvnWStwWfiFRXDL/3WLNWHkiy3YC2n254M9flE
-	UCn050hEPBgBMIjouOPVCI2zLJYa5JVZl2xzeDSvWGNe+ZeuAeAUo8TpJLWN9AK/lT0LmQDCttX
-	UYOjAzmaA4nYGkLz3x+9ARdMD9Hwulu3Hnk0K/Q81/tSZUOzyB9Z/qGit6267MUKG5pNFrk60bY
-	L9WIETZ2TN8V0aTvVfZ0QmzfAJWB
-X-Received: by 2002:a05:600c:1548:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4bb88800013mr112919255e9.6.1795215583402;
-        Fri, 20 Nov 2026 14:59:43 -0800 (PST)
-Received: from localhost.localdomain ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88442995sm128863475e9.2.2026.11.20.14.59.43
+        d=1e100.net; s=20260707; t=1795216034; x=1795820834;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=A7lVlF6eAYb1EWlptLfI5ak3vIP6pO8uIB3MP+Hp924=;
+        b=MuLAwr4cx4rMzwq9LwEvKAt0dcvA6/y5tzqyFCzTImUPpltal+mmJ8BVTZmryXiJN1
+         iHJmpqXtJHo353bzsWnvxLbDgqoP1fkg1J7waTesAkh5IMy1y3pQrwAKr+wS3+BsjMQT
+         3/Gbn0/J51NjGQr/v87CbOpizyNmHpmP9ACwB0VEB1nj8udXaoxAzPouFC8HJVj3AKkY
+         ISmRdTbNXlWbaOtH/VSz1+ys4M8kEozVi5FRG0vzHpayGH6Oom6t9AvnkeyY3xrz9N1L
+         oCgL6NT+pnxWJXG+3bGpFJmapTFveDVQqWRlvZNSO486IF6wwrT1NuUHB+SqQFVxaJ9R
+         9gjg==
+X-Forwarded-Encrypted: i=1; AL+hErEdDSKFC8oHvLQfTkTdGZF7uNZ+mARU5rL6VBkEUuNtxe/cz71SvGCt7+z7ZlylLRn/ukKdqmc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9urlk81B5hZlU+Ii97X1GWEjCCw27jfDcPyOpNIdCiYUj1kyDy
+	z22ML9aHBVLt+yA7NQmScRqBSJu/FUwrk+edRZPvWGhEtPgBBghmXXRZ
+X-Gm-Gg: AZFdTZeDLQ0WAXP/YHKzJ3JPLt9tz9Nzslzb5sClwXWwMt3XkLLoomigFgFBQekBIAn
+	jsBhVGSFsQhB5yoSccici69Gbo5EyXrK1G4caw/nDKTA/9Rn1bhF6W2itNVsTH8UmHVOdShi5J0
+	zcrL/lmPG9HhIemiwqzDozbHfxXQbtDxG5KzpkFtEneF+Gi5kjQewMOUIxLpEZKosSe9j+4WE1t
+	9DZ1z2l3d2JNEYPzHwSRh11+1YIaTDPDg97UqAuKTT9K+uvaykVw36M23GuUwf36OBAoBNFsd/g
+	10DF9IMHg2wWAL20rvW7Q6dEwE9JOFogxSPvbZ4wqk1glu/lm4yu7XwOxg1JwED+MhNdgVrYErn
+	kDTRlT3DrFCopkrxVuNB3GI+JqBj2Quqc/oyHl75ZdSx6Gjyp2gg2PnbRyRXuDKdB0df/BKVMjX
+	T9bt01gIK0zZR9QcGgVI29coG6EAQkwMxK8z8Y0TRqJ1mA6fZpSj0GtIKI8zcMv9kbHHG077QeN
+	OZpo5bQKidG8ZiT3l757nnMudXKdTpQfh1NWm48NfSF/0TsxKfzi+WAToh5tyhh6jO6UjRWGovs
+	7Ad/P6Nh/d1JFBACzmCobS26kbdHNPNdtlO4W3fU6aJmuZSBpl0RJqu8xvRZnRacYKPA9M3ZOLA
+	BXHZuMTHAoArRteQt8j/ghBNJ+mym6CuiUpHIEO+9MeE=
+X-Received: by 2002:a05:6000:4a0e:b0:48b:451:4f19 with SMTP id ffacd0b85a97d-4abb7971c1dmr9888353f8f.51.1795216034439;
+        Fri, 20 Nov 2026 15:07:14 -0800 (PST)
+Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6ae2dcf9sm7945502f8f.32.2026.11.20.15.07.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 14:59:43 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: Jeff Chen <jeff.chen_1@nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	linux-wireless@vger.kernel.org,
+        Fri, 20 Nov 2026 15:07:13 -0800 (PST)
+From: Palla Raghunath <raghunathpalla.0209@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	Neill Kapron <nkapron@google.com>,
+	=?UTF-8?q?Micha=C5=82=20Nazarewicz?= <mina86@mina86.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
+	raghunathpalla.0209@gmail.com,
 	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v2 wireless 2/2] wifi: nxpwifi: validate command response size against buffer length
-Date: Fri, 20 Nov 2026 22:59:33 +0000
-Message-ID: <20261120225933.1148680-3-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261120225933.1148680-1-tristan@talencesecurity.com>
-References: <20261120225933.1148680-1-tristan@talencesecurity.com>
+	syzbot+6227549bd2c8a1ec8ba0@syzkaller.appspotmail.com
+Subject: [PATCH v2] usb: gadget: f_fs: fix use-after-free of ffs_dev in ffs_free_inst()
+Date: Fri, 20 Nov 2026 23:07:11 +0000
+Message-Id: <20261120230711.14330-1-raghunathpalla.0209@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,52 +104,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-nxpwifi_process_cmdresp() reads the firmware-provided resp->size field
-and passes it to individual command handlers that use it to determine
-how much data to process, but never validates it against the actual
-response buffer length. A firmware response with an inflated size
-field causes subsequent handlers to read past the buffer.
+When a function instance is removed through configfs, ffs_free_inst()
+first calls ffs_release_dev(), which takes ffs_dev_lock, detaches the
+dev from its mount and drops the lock again. Only then does it retake
+the lock and free the dev with _ffs_free_dev().
 
-Add a check early in command response processing that validates the
-declared response size fits within the response skb.
+Between those two steps the dev is still on the ffs_devices list. If
+someone mounts functionfs with the same instance name right then,
+ffs_acquire_dev() finds the dev, marks it mounted and points the new
+ffs_data at it. The dev is freed a moment later, and when that mount
+is torn down, ffs_closed() writes to freed memory. syzbot hit this:
 
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+  BUG: KASAN: slab-use-after-free in ffs_closed drivers/usb/gadget/function/f_fs.c:4427 [inline]
+  BUG: KASAN: slab-use-after-free in ffs_data_clear+0x543/0x5b0 drivers/usb/gadget/function/f_fs.c:2305
+  Write of size 1 at addr ffff8880237b1e4a by task syz-executor/11910
+  Call Trace:
+   ffs_closed drivers/usb/gadget/function/f_fs.c:4427 [inline]
+   ffs_data_clear+0x543/0x5b0 drivers/usb/gadget/function/f_fs.c:2305
+   ffs_data_reset drivers/usb/gadget/function/f_fs.c:2336 [inline]
+   ffs_fs_kill_sb+0x84/0x370 drivers/usb/gadget/function/f_fs.c:2180
+   deactivate_locked_super+0xbe/0x110 fs/super.c:586
+   cleanup_mnt+0x3d3/0x460 fs/namespace.c:1329
+  ...
+  Freed by task 17408:
+   kfree+0x1c5/0x650 mm/slub.c:6923
+   _ffs_free_dev drivers/usb/gadget/function/f_fs.c:4336 [inline]
+   ffs_free_inst+0x233/0x2c0 drivers/usb/gadget/function/f_fs.c:4152
+   usb_put_function_instance+0x95/0xc0 drivers/usb/gadget/functions.c:77
+   config_item_release+0x13a/0x2d0 fs/configfs/item.c:137
+   configfs_rmdir+0x885/0x950 fs/configfs/dir.c:1580
+
+Fix it by doing the release and the free while holding the lock once.
+To allow that, move the body of ffs_release_dev() into a new
+_ffs_release_dev() that expects ffs_lock to be held already, annotated
+with __must_hold() so the compiler can check that, and keep
+ffs_release_dev() as a wrapper for ffs_data_put(). A racing mount now
+either gets the dev before ffs_free_inst() runs, in which case the
+release clears its pointer, or doesn't find the dev at all.
+
+I was able to reproduce this in QEMU with a small program that keeps
+creating and removing an ffs function directory in configfs while a
+second thread mounts and unmounts functionfs with the same name. On an
+unpatched kernel it hit the same KASAN report within about ten
+minutes. With this patch applied, the same program ran for 30 minutes
+without any problem.
+
+Fixes: ecfbd7b9054b ("usb: gadget: f_fs: Fix setting of device and driver data cross-references")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Reported-by: syzbot+6227549bd2c8a1ec8ba0@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6227549bd2c8a1ec8ba0
+Acked-by: Michał Nazarewicz <mina86@mina86.com>
+Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
 ---
-Changes in v2:
-- Move the response size check after timer_delete_sync() so the command
-  timer is properly cancelled before the early return (Jeff Chen)
+v2:
+ - Annotate _ffs_release_dev() with __must_hold(&ffs_lock) so the
+   locking rule is checked by the compiler (Greg)
+ - Fix the comment to name ffs_lock, the actual mutex
+ - Add Michał's Acked-by
 
- drivers/net/wireless/nxp/nxpwifi/cmdevt.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+v1: https://lore.kernel.org/all/20261006204202.59604-1-raghunathpalla.0209@gmail.com/
 
-diff --git a/drivers/net/wireless/nxp/nxpwifi/cmdevt.c b/drivers/net/wireless/nxp/nxpwifi/cmdevt.c
-index fc1950a125b65..ebcfee8cb3872 100644
---- a/drivers/net/wireless/nxp/nxpwifi/cmdevt.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/cmdevt.c
-@@ -732,6 +732,20 @@ int nxpwifi_process_cmdresp(struct nxpwifi_adapter *adapter)
- 	timer_delete_sync(&adapter->cmd_timer);
- 	clear_bit(NXPWIFI_IS_CMD_TIMEDOUT, &adapter->work_flags);
+ drivers/usb/gadget/function/f_fs.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index c64a268e98a4..996fa0767de2 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -288,6 +288,8 @@ static struct ffs_dev *_ffs_find_dev(const char *name);
+ static struct ffs_dev *_ffs_alloc_dev(void);
+ static void _ffs_free_dev(struct ffs_dev *dev);
+ static int ffs_acquire_dev(const char *dev_name, struct ffs_data *ffs_data);
++static void _ffs_release_dev(struct ffs_dev *ffs_dev)
++	__must_hold(&ffs_lock);
+ static void ffs_release_dev(struct ffs_dev *ffs_dev);
+ static int ffs_ready(struct ffs_data *ffs);
+ static void ffs_closed(struct ffs_data *ffs);
+@@ -4147,8 +4149,8 @@ static void ffs_free_inst(struct usb_function_instance *f)
+ 	struct f_fs_opts *opts;
  
-+	if (le16_to_cpu(resp->size) > adapter->curr_cmd->resp_skb->len) {
-+		nxpwifi_dbg(adapter, ERROR,
-+			    "CMD_RESP: resp size %u exceeds buffer %u\n",
-+			    le16_to_cpu(resp->size),
-+			    adapter->curr_cmd->resp_skb->len);
-+		if (adapter->curr_cmd->wait_q_enabled)
-+			adapter->cmd_wait_q.status = -EINVAL;
-+		nxpwifi_recycle_cmd_node(adapter, adapter->curr_cmd);
-+		spin_lock_bh(&adapter->nxpwifi_cmd_lock);
-+		adapter->curr_cmd = NULL;
-+		spin_unlock_bh(&adapter->nxpwifi_cmd_lock);
-+		return -EINVAL;
-+	}
-+
- 	if (adapter->curr_cmd->cmd_flag & CMD_F_HOSTCMD) {
- 		/* Copy original response back to response buffer */
- 		struct nxpwifi_ds_misc_cmd *hostcmd;
+ 	opts = to_f_fs_opts(f);
+-	ffs_release_dev(opts->dev);
+ 	ffs_dev_lock();
++	_ffs_release_dev(opts->dev);
+ 	_ffs_free_dev(opts->dev);
+ 	ffs_dev_unlock();
+ 	kfree(opts);
+@@ -4363,10 +4365,12 @@ static int ffs_acquire_dev(const char *dev_name, struct ffs_data *ffs_data)
+ 	return ret;
+ }
+ 
+-static void ffs_release_dev(struct ffs_dev *ffs_dev)
++/*
++ * Same as ffs_release_dev(), for callers that already hold ffs_lock.
++ */
++static void _ffs_release_dev(struct ffs_dev *ffs_dev)
++	__must_hold(&ffs_lock)
+ {
+-	ffs_dev_lock();
+-
+ 	if (ffs_dev && ffs_dev->mounted) {
+ 		ffs_dev->mounted = false;
+ 		if (ffs_dev->ffs_data) {
+@@ -4377,7 +4381,12 @@ static void ffs_release_dev(struct ffs_dev *ffs_dev)
+ 		if (ffs_dev->ffs_release_dev_callback)
+ 			ffs_dev->ffs_release_dev_callback(ffs_dev);
+ 	}
++}
+ 
++static void ffs_release_dev(struct ffs_dev *ffs_dev)
++{
++	ffs_dev_lock();
++	_ffs_release_dev(ffs_dev);
+ 	ffs_dev_unlock();
+ }
+ 
 -- 
-2.47.3
+2.34.1
+
