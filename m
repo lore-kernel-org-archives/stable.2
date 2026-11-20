@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795159818;
-	b=3/wPmB/NWlVm6MnIN42cEEYdlbctTkaVQVJeJx5xzMF5OYyQa/o4JjAltHi7RebiMw7F
-	 AgO2fI/blC07sQXd6EDYeUx+usGKR5xy6Sfw0NKXr7oFkzuRRpKoeC2CquBG27KyWlmvh
-	 iQf1vKJpUIM8l8SplmfUODltWYAjWlqcgN/E/Gd9VjM9Hn7pNKznm4VGm5RuS3oMdq0Wt
-	 +kJaGNyNpE3Z9dLP80uHQAv2AGTR0samtqR4MCFtwhrl3LlE4S7zEyddMBDAW5437aX8z
-	 /3z1lgWDptAT2YBZ9mh09zTe1NzivQxZtNP0z4/0gTVB1wAzonp3YFj8G998cMKtGDA==
+	t=1795159819;
+	b=rEZ6QGiOH/h5iz0u86eR7gQdS7tJfXgisIrCZpQoh/Z/AE0IRvBn+dfFKzI+tkdVDQEC
+	 OLINCWVIC2MR7WNw+Tm3iMerVHBDCJ2qXPFCT5UxtI/eH0xUUPiPIMiUlpHIkligabD0l
+	 Jqjswo2CqbO4woxcoOGz7Nz68NprmuKYbpdnW/CsRjeTTkrxuUWJ3GQc0NZRNWPRBVwiq
+	 oqBIJOmlcWgjuZFnjD73pYoSy5+rB32HB4dD5jllEyYdpFjhWPYNTdDqZykH6bc3hAX9J
+	 dn1qUZxd8khLxpvbpHN9bYqEVioSRNyPbBjbLUqa0rslnZS77iX8sXAaJ+UtuXY8Kng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795159818;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795159819;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=BsISWkOXmbIAnvPLWbPfN/HcUT7N2zYzFqqNnKeORDY=;
-	b=tRbVdb1i066MbWca2Ks9oF7gUNPS9synbQ/ul2Z7QBGNZQAYRG81ndznTUTA93R1gbxw
-	 +7AbEm6As4RL0arqn/Ye8pN0RaAgjs6vAKx3duodhRg8o9weVMoua++ddW2V/fiuuxjuz
-	 p0UcCBMKojF9m6FQUYxHYAEEL3FdKKaz+74+Xg9HJLRrspYW5Srx8rjnUCRwSN4rTdWxH
-	 5GCznwh2RsmfUuxYl+fOyDs/ZZlXFk03NVXfqEYXf6PNw+SiSavfifh46qZV5lxctGwFo
-	 vuK7B0qPqJHi9tgE3A2KIQeyMLNy/rZnjDa8ITck6HVo/+d7lZdTyz8TQOTtexxVNBA==
+	bh=sf/md8bvtm448mpFbyId9jbWIjg9Hk3iICDBHBuUOiQ=;
+	b=4H5Y4DLHiXhMRVVtp4TTRz35PpIHFPK9psFXo3H3AfGqaeRtqJs03eBydyl5GULeSQsI
+	 5h/DXhg2wE8VLAEEJ8bYodFPLW1fhtEpoVEhTp0k2M9e47oOLTgDOKswv5p72n9zZZPWf
+	 +zSBB4s23YZfFfBDqFr2zQd5cgXXqty5o7BuikMVCMYTJwveYw88DcsPSKEGZ8sD9gIj0
+	 n+ktz1l2d0oqSw8FjwBYjNzMhb0NnxduFQTxqUoKT1jRxkE6jGP2NdHW3ObSFxdY4whbM
+	 5R+YmCN1RglBFR4VT7iQJ01QDOmN9glr2P/KxFBkX2PiWEVpJdAQ22Pxv3w1WcfZ3bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Zd6nHMnh;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=PYxAxU7z;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB436606A326;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EE8606A32A;
 	Fri, 20 Nov 2026 07:30:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB436606A326
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8EE8606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Zd6nHMnh
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=PYxAxU7z
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=BsISWkOXmbIAnvPLWbPfN/HcUT7N2zYzFqqNnKeORDY=;
-	b=Zd6nHMnhIDn1sQx+VDPw+BZdCKUruo3Fe8FGmeB3kMl+SeBszKv7Fn0IdJjth5nx2Lf4ZkyF0
-	b71Cjap40nZAjglYlqfyFfvxgwf4cjXQd2y+rmUDJ4RB3GMo9mZwCygpaJIwLsDV99DCgeQY1Cz
-	r9qoCzvER5Hhor7tOZKuHMM=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jW6RH6GD6z1T4Fj;
-	Fri, 20 Nov 2026 15:29:31 +0800 (CST)
+	bh=sf/md8bvtm448mpFbyId9jbWIjg9Hk3iICDBHBuUOiQ=;
+	b=PYxAxU7zA2Hdjh1LcCoTIgfpifY4IpdI+gOCW3MUG1QTYvjdBJCOV/N2/yAMPeazXrHKmMc7u
+	BpgdLj9LM+tUFVPI0JW3lnqY4dkkFOIQBHcWL5nldVQpEWos4eRsozHhpW2IcADlB7wCks2/YuK
+	P7WSVhXwC/QsmRRqkTuSZXM=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jW6Rf6h9Lz1cyPV;
+	Fri, 20 Nov 2026 15:29:50 +0800 (CST)
 Received: from whupemo500017.china.huawei.com (unknown [7.152.184.243])
-	by mail.maildlp.com (Postfix) with ESMTPS id 51FCD40685;
-	Fri, 20 Nov 2026 15:30:14 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id F1ED540561;
+	Fri, 20 Nov 2026 15:30:11 +0800 (CST)
 Received: from huawei.com (10.67.174.49) by whupemo500017.china.huawei.com
  (7.152.184.243) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 20 Nov
- 2026 15:30:12 +0800
+ 2026 15:30:10 +0800
 From: Ye Weihua <yeweihua4@huawei.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi
 	<peter.ujfalusi@linux.intel.com>, Bard Liao
@@ -61,9 +61,9 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi
 	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
 CC: <sound-open-firmware@alsa-project.org>, <linux-sound@vger.kernel.org>,
 	<stable@vger.kernel.org>, Ye Weihua <yeweihua4@huawei.com>
-Subject: [PATCH v2 3/3] ASoC: SOF: ipc4-control: Rebuild replay message after restoring data
-Date: Fri, 20 Nov 2026 07:00:42 +0000
-Message-ID: <20261120070042.279508-4-yeweihua4@huawei.com>
+Subject: [PATCH v2 1/3] ASoC: SOF: ipc4-control: Fix out-of-bounds backup restore in bytes ext put
+Date: Fri, 20 Nov 2026 07:00:40 +0000
+Message-ID: <20261120070042.279508-2-yeweihua4@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261120070042.279508-1-yeweihua4@huawei.com>
 References: <20261120070042.279508-1-yeweihua4@huawei.com>
@@ -81,143 +81,123 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
  whupemo500017.china.huawei.com (7.152.184.243)
 
-When a set-data request is rejected, sof_ipc4_set_get_kcontrol_data()
-restores the last known good data but replays the message built from the
-rejected data. For regular bytes controls the extension may come from the
-rejected data; for SOF_IPC4_BYTES_CONTROL_PARAM_ID controls the payload
-lives in a separate buffer that still holds the rejected data. The
-firmware therefore does not receive the restored configuration.
+sof_ipc4_bytes_ext_put() backs up ipc_control_data with
+kmemdup(..., scontrol->size), but scontrol->size is the current payload
+size, not the allocation size. Since the backup is kept after a
+successful update, scontrol->size can grow beyond it. When a later update
+is rejected, sof_ipc4_set_get_kcontrol_data() restores with
+memcpy(..., scontrol->size), reading past the end of the backup.
 
-Let the caller rebuild the message from the restored data and replay it.
-Move the param-id message setup into a helper so the payload can be
-reallocated with the restored size.
+Back up and restore the whole allocation (sizeof(*cdata) + max_size),
+like IPC3. This also restores the ABI header and payload for controls
+loaded without initial data. Recompute scontrol->size from the restored
+payload on every restore, including the copy_from_user() failure path,
+and only update it after the firmware accepts the new data.
 
-Fixes: db38d86d0c54 ("ASoC: sof: Improve sof_ipc4_bytes_ext_put function")
+Fixes: ebcfdbe4add9 ("ASoC: SOF: ipc4-control: Keep the payload size up to date")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ye Weihua <yeweihua4@huawei.com>
 ---
- sound/soc/sof/ipc4-control.c | 53 ++++++++++++++++++++++++++++++------
- 1 file changed, 45 insertions(+), 8 deletions(-)
+ sound/soc/sof/ipc4-control.c | 42 +++++++++++++++++++++++++++---------
+ 1 file changed, 32 insertions(+), 10 deletions(-)
 
 diff --git a/sound/soc/sof/ipc4-control.c b/sound/soc/sof/ipc4-control.c
-index ace3bf2f719d..8ed006efe17f 100644
+index e29c8d89284a..ace3bf2f719d 100644
 --- a/sound/soc/sof/ipc4-control.c
 +++ b/sound/soc/sof/ipc4-control.c
-@@ -73,14 +73,14 @@ static int sof_ipc4_set_get_kcontrol_data(struct snd_sof_control *scontrol,
- 		/* Keep the size consistent with the restored control data */
- 		scontrol->size = sizeof(*cdata) + sizeof(*cdata->data) +
- 				 cdata->data->size;
+@@ -56,18 +56,25 @@ static int sof_ipc4_set_get_kcontrol_data(struct snd_sof_control *scontrol,
+ 	if (!set)
+ 		goto unlock;
+ 
+ 	/* It is a set-data operation, and we have a valid backup that we can restore */
+ 	if (ret < 0) {
++		struct sof_ipc4_control_data *cdata = scontrol->ipc_control_data;
++
+ 		if (!scontrol->old_ipc_control_data)
+ 			goto unlock;
+ 		/*
+-		 * Current ipc_control_data is not valid, we use the last known good
+-		 * configuration
++		 * Current ipc_control_data is not valid, we use the last known
++		 * good configuration. The backup covers the whole allocated
++		 * control data, so the ABI header and payload are restored even
++		 * when the control was loaded without initial data.
+ 		 */
+ 		memcpy(scontrol->ipc_control_data, scontrol->old_ipc_control_data,
+-		       scontrol->size);
++		       sizeof(*cdata) + scontrol->max_size);
++		/* Keep the size consistent with the restored control data */
++		scontrol->size = sizeof(*cdata) + sizeof(*cdata->data) +
++				 cdata->data->size;
  		kfree(scontrol->old_ipc_control_data);
  		scontrol->old_ipc_control_data = NULL;
--		/* Send the last known good configuration to firmware */
--		ret = iops->set_get_data(sdev, msg, msg->data_size, set);
--		if (ret < 0)
--			goto unlock;
-+		/*
-+		 * The caller is responsible for rebuilding the message from
-+		 * the restored control data and replaying it.
-+		 */
+ 		/* Send the last known good configuration to firmware */
+ 		ret = iops->set_get_data(sdev, msg, msg->data_size, set);
+ 		if (ret < 0)
+@@ -628,10 +635,11 @@ static int sof_ipc4_bytes_ext_put(struct snd_sof_control *scontrol,
+ 	struct snd_soc_component *scomp = scontrol->scomp;
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct sof_abi_hdr *data = cdata->data;
+ 	struct sof_abi_hdr abi_hdr;
+ 	struct snd_ctl_tlv header;
++	int ret;
+ 
+ 	/*
+ 	 * The beginning of bytes data contains a header from where
+ 	 * the length (as bytes) is needed to know the correct copy
+ 	 * length of data from tlvd->tlv.
+@@ -679,30 +687,44 @@ static int sof_ipc4_bytes_ext_put(struct snd_sof_control *scontrol,
+ 				    abi_hdr.size, scontrol->max_size - sizeof(abi_hdr));
+ 		return -EINVAL;
  	}
  
- unlock:
- 	if (lock)
- 		mutex_unlock(&swidget->setup_mutex);
-@@ -287,14 +287,13 @@ static void sof_ipc4_refresh_generic_control(struct snd_sof_control *scontrol)
+ 	if (!scontrol->old_ipc_control_data) {
+-		/* Create a backup of the current, valid bytes control */
+-		scontrol->old_ipc_control_data = kmemdup(scontrol->ipc_control_data,
+-							 scontrol->size, GFP_KERNEL);
++		/*
++		 * Create a backup of the current, valid bytes control. Cover
++		 * the whole allocated control data, including the ABI header
++		 * and payload, so that the last known good configuration can
++		 * always be restored, even when the control has no initial
++		 * data (priv_size == 0).
++		 */
++		scontrol->old_ipc_control_data =
++			kmemdup(scontrol->ipc_control_data,
++				sizeof(*cdata) + scontrol->max_size, GFP_KERNEL);
+ 		if (!scontrol->old_ipc_control_data)
+ 			return -ENOMEM;
+ 	}
  
- 	kfree(data);
- }
+ 	/* Copy the whole binary data which includes the ABI header and the payload */
+ 	if (copy_from_user(data, tlvd->tlv, header.length)) {
+ 		memcpy(scontrol->ipc_control_data, scontrol->old_ipc_control_data,
+-		       scontrol->size);
++		       sizeof(*cdata) + scontrol->max_size);
++		scontrol->size = sizeof(*cdata) + sizeof(*data) + data->size;
+ 		kfree(scontrol->old_ipc_control_data);
+ 		scontrol->old_ipc_control_data = NULL;
+ 		return -EFAULT;
+ 	}
  
- static int
--sof_ipc4_set_bytes_control_data(struct snd_sof_control *scontrol, bool lock)
-+sof_ipc4_send_bytes_control_data(struct snd_sof_control *scontrol, bool lock)
- {
- 	struct sof_ipc4_control_data *cdata = scontrol->ipc_control_data;
--	struct snd_soc_component *scomp = scontrol->scomp;
- 	struct sof_ipc4_control_msg_payload *msg_data;
- 	struct sof_abi_hdr *data = cdata->data;
- 	struct sof_ipc4_msg msg;
- 	size_t data_size;
- 	int ret;
-@@ -313,16 +312,39 @@ sof_ipc4_set_bytes_control_data(struct snd_sof_control *scontrol, bool lock)
+-	/* Update the cdata size */
+-	scontrol->size = sizeof(*cdata) + header.length;
++	ret = sof_ipc4_set_get_bytes_data(sdev, scontrol, true, true);
++	if (!ret)
++		/*
++		 * Update the cdata size. Use the payload size from the control
++		 * data so that a restore of the last known good configuration
++		 * does not get overwritten with the size of rejected data.
++		 */
++		scontrol->size = sizeof(*cdata) + sizeof(*data) + data->size;
  
- 	msg.data_ptr = msg_data;
- 	msg.data_size = data_size;
- 
- 	ret = sof_ipc4_set_get_kcontrol_data(scontrol, &msg, true, lock);
-+
-+	kfree(msg_data);
-+
+-	return sof_ipc4_set_get_bytes_data(sdev, scontrol, true, true);
 +	return ret;
-+}
-+
-+static int
-+sof_ipc4_set_bytes_control_data(struct snd_sof_control *scontrol, bool lock)
-+{
-+	struct snd_soc_component *scomp = scontrol->scomp;
-+	void *old_ipc_control_data;
-+	int ret;
-+
-+	old_ipc_control_data = scontrol->old_ipc_control_data;
-+	ret = sof_ipc4_send_bytes_control_data(scontrol, lock);
-+	if (ret < 0 && old_ipc_control_data &&
-+	    !scontrol->old_ipc_control_data) {
-+		/*
-+		 * The new data was rejected and the last known good
-+		 * configuration was restored. Rebuild the message from the
-+		 * restored control data and replay it.
-+		 */
-+		ret = sof_ipc4_send_bytes_control_data(scontrol, lock);
-+	}
-+
- 	if (ret < 0)
- 		dev_err(scomp->dev, "%s: Failed to set control update for %s\n",
- 			__func__, scontrol->name);
- 
--	kfree(msg_data);
--
- 	return ret;
  }
  
- static int
- sof_ipc4_refresh_bytes_control(struct snd_sof_control *scontrol, bool lock)
-@@ -508,10 +530,11 @@ static int sof_ipc4_set_get_bytes_data(struct snd_sof_dev *sdev,
- 				       bool set, bool lock)
- {
- 	struct sof_ipc4_control_data *cdata = scontrol->ipc_control_data;
- 	struct sof_abi_hdr *data = cdata->data;
- 	struct sof_ipc4_msg msg;
-+	void *old_ipc_control_data;
- 	int ret = 0;
- 
- 	/* Send the new data to the firmware only if it is powered up */
- 	if (set) {
- 		if (!pm_runtime_active(sdev->dev))
-@@ -538,11 +561,25 @@ static int sof_ipc4_set_get_bytes_data(struct snd_sof_dev *sdev,
- 	if (set)
- 		msg.data_size = data->size;
- 	else
- 		msg.data_size = scontrol->max_size - sizeof(*data);
- 
-+	old_ipc_control_data = scontrol->old_ipc_control_data;
- 	ret = sof_ipc4_set_get_kcontrol_data(scontrol, &msg, set, lock);
-+	if (ret < 0 && set && old_ipc_control_data &&
-+	    !scontrol->old_ipc_control_data) {
-+		/*
-+		 * The new data was rejected and the last known good
-+		 * configuration was restored. Rebuild the message from the
-+		 * restored control data and replay it.
-+		 */
-+		msg.extension = SOF_IPC4_MOD_EXT_MSG_PARAM_ID(data->type);
-+		msg.data_ptr = data->data;
-+		msg.data_size = data->size;
-+		ret = sof_ipc4_set_get_kcontrol_data(scontrol, &msg, set, lock);
-+	}
-+
- 	if (ret < 0) {
- 		dev_err(sdev->dev, "Failed to %s for %s\n",
- 			set ? "set bytes update" : "get bytes",
- 			scontrol->name);
- 	} else if (!set) {
+ static int _sof_ipc4_bytes_ext_get(struct snd_sof_control *scontrol,
+ 				   const unsigned int __user *binary_data,
+ 				   unsigned int size, bool from_dsp)
 -- 
 2.34.1
 
