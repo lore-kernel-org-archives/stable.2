@@ -1,48 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.37.83.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795181039;
-	b=t30WyaQO0SRGXwLI4badCLKCtesNjC4ACOALeqfeQoSVCCrfS3jxIOT1f7DKIG/d8QAz
-	 DDIKG/M/Z4ssBHQxVM4FV2Tp4TbrbaFLcmLROq+Dqt2HImnNdiNRTec0dN25K+0L5I31+
-	 mPTgxsVlPXt01KocW6+TIQryyWdYVtqDBYJ7xrjr0MNJzj5oNi+JbEidDIGPvb2Xm4vjg
-	 1Y3CUHveKpY/0+C5txA5YtbtCyXbywHoUwxGNNKTlXTOguJ0gWrSvdpTvXQfW7NkvM6UD
-	 vN0mc9RX9eQvqkkStgnliO6qirCViycqnXH1cIPK97Br8Jq0+GKfjgmLJdOZF66A3cw==
+	t=1795181394;
+	b=n1RqLEZs1CvBPfNF+12M4NKZyavRJwkGJhdEfN/w77sbz0wzZEmFmLBu7ypqr6ffDs7P
+	 JjNEMpNkDyAiwE3clYyJqP8Uu7N1A7cSauOq0UG9sKCG68TYrUGPl20ehoIJ470pi4vc/
+	 defgJt5Rj0EBtgG8IGU7WwT2NPWm+0zHhoCHvT7Y2xGfu0PGWpZirIXR/S0QBIvb3Bwzs
+	 LFC2uuYMB6DqaMjJRZvSi2oNbHQmSjgHtF+HoNuAc6Bp81jLGPniETMV2OPPW1yG+SALb
+	 Tuovc6YRGoR8WPDlwbxqYHFT/mlggHM8LqTU6ttSciYGgQEiXBjelOrLySe+aityGwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795181039;
-	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=hTE6+QRY6OOVR29ouM37g0QVI5C2qsf7YT7gWZCXDrY=;
-	b=vCTDp6vbHJ59voiZHg6NX/ukehxDrR0xoMb/aWxDOfxjJHpNY7P0kpwC/XzDRvQcat47
-	 S6/sl/Fin3sTFRziQCu2tS7Bzxv/HlNaG0iNjG9FO6BPhcKBFqrxEWZvzGIGYpGEKPnlt
-	 9uKkRW0pCCm+mhSwAUbJ2sYsUVZ8ramvXAV5Vp1Y1ANyksn+ZjzGoMPENtxAnNV/8E1nB
-	 AQ7XVvI3VuU5YQd5Cb4PfK5Try9zzQxa7A6hmrYayoEzJEXnYa+LgAVxp0Cn+Si8UK92Y
-	 I0a9hy1vPtF2kfKgdB1ZbLpLEc38wn+jBVZlk+wrMIpS/UTKil/4+PTKLC66olCGhcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795181394;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=KIuubySBEKoRCjnxozdpuIhIHzXPI2vtLhHLMXp0fx4=;
+	b=LfB53z8N4g/Cyt3c/capiJhDAOpe0nH0RQuVbsVbOPYxdJPPEEL0qjyA45ide3DSkY+i
+	 /i/ApDtdvitcToDWgc1dvlL74nDRCWuEag9vyy87/bsTVA4nTgkSRIfJ8rq99mBf75vNh
+	 1Poic4LmkIjC2YrHc7l47S1gWvpqTWfjSSGd+xNOE4R4AJnKFJiGTffqIgzki7Bcvc3/G
+	 urd+zKasmetrmKkMazbx3kX/B+q7RcsGzSN+yefYB08phIP/Lmr/lq8h5zVMERykcbQoP
+	 ku7TmTMm0PwEWOPWWkVN8nH/MdtRPeKrqI1TvNfNgW2UghlurTwxCi4e+Xa3Vp1tu4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dfb.sh;
-	spf=pass smtp.mailfrom=dfb.sh;
-	dkim=pass header.d=dfb.sh header.i=@dfb.sh header.a=rsa-sha256 header.s=frkn header.b=eqXzPxtD;
-	arc=none smtp.remote-ip=54.37.83.207
-Received: from frkn.dfb.sh (frkn.dfb.sh [54.37.83.207])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="T+0q/4Ul";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6469B606A338;
-	Fri, 20 Nov 2026 13:23:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6469B606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dfb.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dfb.sh
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D59606A32A;
+	Fri, 20 Nov 2026 13:29:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dfb.sh header.i=@dfb.sh header.a=rsa-sha256 header.s=frkn header.b=eqXzPxtD
-DKIM-Signature: v=1; a=rsa-sha256; s=frkn; d=dfb.sh; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1795181025; bh=hTE6+QRY6OOVR29ouM37g0Q
-	VI5C2qsf7YT7gWZCXDrY=; b=eqXzPxtDg4/jPq8jNmjvD/W2pcF6Sb0y2Y0DaUi1zm9aFy4pxS
-	ZTHIW+FnZPsd+N0709o/wCblCQYkMV6F6JCaoLIed0bJG6y+OO5Ru95JWLiEcVhlWI6pIsu/55E
-	JvS40GT5y1uOnpmh7gDDoo2hsYeT6G2Gxf1aPULzlnVc66lZF9hrNhz5TzhO8B2HbXtdH+IPD/l
-	/4LnDD92Y60FUlIpdfFsiVo9DuXxtslbLz7lydMkUt8w1AN6iqlfMMsZ+GxejP3mxi930pA81l6
-	3JWuxhs7fs+03glw2eFucM/79s8zr6jlipXpWX213vWyermTx0AsHj9w5DalyDUyH1Q==;
-From: Vladimir Petrzhikovskii <vladimir@dfb.sh>
-Date: Fri, 20 Nov 2026 14:23:44 +0100
-Subject: [PATCH v2] vdpa/mlx5: Bound the KLM count of the user MR
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+0q/4Ul
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949861F000C4;
+	Fri, 20 Nov 2026 13:29:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795181394;
+	bh=KIuubySBEKoRCjnxozdpuIhIHzXPI2vtLhHLMXp0fx4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=T+0q/4UlfyZmiXdWBOBSwrYSzlx1WaHw/hwBWjGCtpHxAoHiLxvLq+1hQiQEnfs7w
+	 n2FHuYJjSQBV2K+tTMN8uj8FAGfQi3DMT2s/3z+cw0uVXaB+tM+oYp4ZRFHOMGYB5V
+	 p4tEr9cyi0vSt27LCkJgTUB0IRfkQtjYnJS9pao2e8CMAootYoN54lHxBA8Fv0GozH
+	 YhD+aWg0tdXJN0WSfNMhHF1b9o+8XzviHIcBfeJBLirfMk+X+IuWrwOZSuCn9AJJCV
+	 Il3OTOZehXVO90JKQk2dBkOR3abMDSMnjIJq+vL8RlEgWgosu1mdLv5YfVL02AW7R8
+	 +X2sPRBnZKnBg==
+Message-ID: <83804b12-39c7-41cf-8a70-2bab8b3fa2b0@kernel.org>
+Date: Fri, 20 Nov 2026 05:29:52 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,149 +51,155 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] virtio_blk: validate zone append sector from device
+To: Annie Kim <pulpannie@gmail.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+ Jason Wang <jasowangio@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, virtualization@lists.linux.dev,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261120063039.4155597-1-pulpannie@gmail.com>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20261120063039.4155597-1-pulpannie@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-b4-mlx5-klm-v2-1-5b37ace483ff@dfb.sh>
-X-B4-Tracking: v=1; b=H4sIAN9JAGsC/22OTRKCMAxGr8J0bRyC1IIr7+GwaCHYKj9OgwwOw
- 91tcesii5cveckqmLwjFpdkFZ5mx24cAmSHRNRWD3cC1wQWWZqdEdMSTA59t0h4dj2ostCnUCh
- LEmHj5al1y267VT/mt3lQPUVFnDCaCYzXQ21jq9c8kY+BdTyN/rP/MWMU/D85IyCoQplcYi4Vl
- temNUe2otq27Qu1etpdzgAAAA==
-X-Change-ID: 20261109-b4-mlx5-klm-798a398a159e
-To: Dragos Tatulea <dtatulea@nvidia.com>, 
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>
-Cc: =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, virtualization@lists.linux.dev, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Nikolai Kalinin <nikolai@kalinidze.me>, 
- Vladimir Petrzhikovskii <vladimir@dfb.sh>
-X-Mailer: b4 0.15.2
 
-create_user_mr() builds one indirect MKey that covers the whole vhost
-IOTLB. It fills each gap between two mappings with null KLMs, one per
-GiB, and never checks the total number of KLMs against the device
-limit, MLX5_CAP_GEN(log_max_klm_list_size).
+On 2026/11/19 22:30, Annie Kim wrote:
+> From: Hyokyung Kim <pulpannie@gmail.com>
+> 
+> The device reports the starting sector for REQ_OP_ZONE_APPEND completions,
+> and virtio_blk copies it into req->__sector without checking that it
+> still refers to the requested zone. A buggy or malicious device can
+> therefore make upper layers believe the append landed at an arbitrary
+> location.
+> 
+> Validate successful zone append completions before updating
+> req->__sector. The returned sector must not precede the request start
+> and the entire request must fit within the zone writable capacity.
+> Reject invalid completions with BLK_STS_IOERR.
+> 
+> The polling path may batch successful completions, so perform the same
+> validation before admitting a request to the batch. Invalid append
+> completions then fall back to the normal completion path and are
+> completed with an error instead of being reported as successful.
+> 
+> Fixes: 95bfec41bd3d ("virtio-blk: add support for zoned block devices")
+> Assisted-by: Codex:GPT-5
 
-With a virtio-IOMMU the guest chooses the IOVAs: the VMM (QEMU)
-forwards each map the guest makes to the vhost-vDPA device. If the
-guest maps one page at IOVA 0 and one at IOVA 2^58, the driver needs
-more than 2^28 KLMs. create_indirect_key() computes the buffer size in
-an int, which overflows: the driver allocates 336 bytes, and
-fill_indir() then writes 16 bytes per KLM, 4 GiB in total, far past
-the end of the buffer.
+This tag is not necessary.
 
-For a huge gap the count is also wrong: the number of null KLMs of one
-gap does not fit in the int that holds it, and rounding the gap up to
-whole GiB wraps.
+> Signed-off-by: Hyokyung Kim <pulpannie@gmail.com>
+> ---
+> Tested on v7.4-rc3+ using modified QEMU backend that returned incorrect
+> zone-append sectors on a memory-backed null_blk zoned device.
+> 
+>  drivers/block/virtio_blk.c | 50 +++++++++++++++++++++++++++++++-------
+>  1 file changed, 41 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+> index 2b462005c..8f88570b4 100644
+> --- a/drivers/block/virtio_blk.c
+> +++ b/drivers/block/virtio_blk.c
+> @@ -331,15 +331,45 @@ static inline u8 virtblk_vbr_status(struct virtblk_req *vbr)
+>  	return *((u8 *)&vbr->in_hdr + vbr->in_hdr_len - 1);
+>  }
+>  
+> -static inline void virtblk_update_zone_append_sector(struct request *req,
+> -						     struct virtblk_req *vbr)
+> +#ifdef CONFIG_BLK_DEV_ZONED
+> +static inline blk_status_t
+> +virtblk_update_zone_append_sector(struct request *req,
+> +				  struct virtblk_req *vbr,
+> +				  blk_status_t status)
+>  {
+>  	struct virtio_blk *vblk = req->mq_hctx->queue->queuedata;
+> +	sector_t req_start, sector, zone_end;
+> +	unsigned int nr_sectors;
+> +
+> +	if (req_op(req) != REQ_OP_ZONE_APPEND || status != BLK_STS_OK)
+> +		return status;
 
-Refuse a map that needs more KLMs than the device supports, or more
-than fit in a CREATE_MKEY command, before any key is created. A normal
-guest is unaffected: memory at 0-3 GiB and 4-68 GiB needs 68 KLMs.
+I would move this if outside of the function and call this function under this
+if. That would avoid passing status, make this function a void one, and avoid
+unnecessary function calls for commands other than zone append when the inline
+is not honored by the compiler.
 
-Found by an LLM code review agent auditing vhost-vDPA backends. We have
-no mlx5 hardware, so the fix is untested on it.
+> +
+> +	req_start = blk_rq_pos(req);
+> +	sector = virtio64_to_cpu(vblk->vdev, vbr->in_hdr.zone_append.sector);
+> +	nr_sectors = blk_rq_sectors(req);
 
-Fixes: 94abbccdf291 ("vdpa/mlx5: Add shared memory registration code")
-Cc: stable@vger.kernel.org
-Co-developed-by: Nikolai Kalinin <nikolai@kalinidze.me>
-Signed-off-by: Nikolai Kalinin <nikolai@kalinidze.me>
-Signed-off-by: Vladimir Petrzhikovskii <vladimir@dfb.sh>
----
-The guest kernel change used for the reachability check is available
-on request.
----
-Changes in v2:
-- Shorten the changelog (Dragos).
-- Use DIV_ROUND_UP_POW2() for the gap (Dragos).
-- Use mlx5_vdpa_warn() without rate limiting (Dragos).
-- Drop the kvzalloc() change and the comment on
-  MLX5_VDPA_MAX_KLMS_INLEN (Dragos).
-- Link to v1: https://patch.msgid.link/20261109-b4-mlx5-klm-v1-1-787b45145719@dfb.sh
----
- drivers/vdpa/mlx5/core/mlx5_vdpa.h |  2 +-
- drivers/vdpa/mlx5/core/mr.c        | 23 ++++++++++++++++++++---
- 2 files changed, 21 insertions(+), 4 deletions(-)
+req_start and nr_sectors could be initialized when declared.
 
-diff --git a/drivers/vdpa/mlx5/core/mlx5_vdpa.h b/drivers/vdpa/mlx5/core/mlx5_vdpa.h
-index 42f2f44b383c..1d84824ca429 100644
---- a/drivers/vdpa/mlx5/core/mlx5_vdpa.h
-+++ b/drivers/vdpa/mlx5/core/mlx5_vdpa.h
-@@ -32,7 +32,7 @@ struct mlx5_vdpa_mr {
- 	/* list of direct MRs descendants of this indirect mr */
- 	struct list_head head;
- 	unsigned long num_directs;
--	unsigned long num_klms;
-+	u64 num_klms;
- 
- 	struct vhost_iotlb *iotlb;
- 
-diff --git a/drivers/vdpa/mlx5/core/mr.c b/drivers/vdpa/mlx5/core/mr.c
-index b0c5ff23d022..d902f7ee9ab6 100644
---- a/drivers/vdpa/mlx5/core/mr.c
-+++ b/drivers/vdpa/mlx5/core/mr.c
-@@ -206,6 +206,15 @@ static int klm_byte_size(int nklms)
- 	return 16 * ALIGN(nklms, 4);
- }
- 
-+#define MLX5_VDPA_MAX_KLMS_INLEN \
-+	ALIGN_DOWN((INT_MAX - MLX5_ST_SZ_BYTES(create_mkey_in)) / 16, 4)
-+
-+static u64 max_klms(struct mlx5_vdpa_dev *mvdev)
-+{
-+	return min_t(u64, BIT_ULL(MLX5_CAP_GEN(mvdev->mdev, log_max_klm_list_size)),
-+		     MLX5_VDPA_MAX_KLMS_INLEN);
-+}
-+
- #define MLX5_VDPA_MTT_ALIGN 16
- 
- static int create_direct_keys(struct mlx5_vdpa_dev *mvdev, struct mlx5_vdpa_mr *mr)
-@@ -501,6 +510,7 @@ static int create_user_mr(struct mlx5_vdpa_dev *mvdev,
- {
- 	struct mlx5_vdpa_direct_mr *dmr;
- 	struct mlx5_vdpa_direct_mr *n;
-+	u64 klm_limit = max_klms(mvdev);
- 	struct vhost_iotlb_map *map;
- 	u32 pperm = U16_MAX;
- 	u64 last = U64_MAX;
-@@ -508,7 +518,7 @@ static int create_user_mr(struct mlx5_vdpa_dev *mvdev,
- 	u64 pe = U64_MAX;
- 	u64 start = 0;
- 	int err = 0;
--	int nnuls;
-+	u64 nnuls;
- 
- 	INIT_LIST_HEAD(&mr->head);
- 	for (map = vhost_iotlb_itree_first(iotlb, start, last); map;
-@@ -522,8 +532,8 @@ static int create_user_mr(struct mlx5_vdpa_dev *mvdev,
- 					/* We have a hole in the map. Check how
- 					 * many null keys are required to fill it.
- 					 */
--					nnuls = MLX5_DIV_ROUND_UP_POW2(map->start - pe,
--								       LOG_MAX_KLM_SIZE);
-+					nnuls = DIV_ROUND_UP_POW2(map->start - pe,
-+								  MAX_KLM_SIZE);
- 					mr->num_klms += nnuls;
- 				}
- 				err = add_direct_chain(mvdev, mr, ps, pe - ps, pperm, iotlb);
-@@ -539,6 +549,13 @@ static int create_user_mr(struct mlx5_vdpa_dev *mvdev,
- 	if (err)
- 		goto err_chain;
- 
-+	if (mr->num_klms > klm_limit) {
-+		mlx5_vdpa_warn(mvdev, "map needs %llu KLMs, limit is %llu\n",
-+			       mr->num_klms, klm_limit);
-+		err = -E2BIG;
-+		goto err_chain;
-+	}
-+
- 	err = create_direct_keys(mvdev, mr);
- 	if (err)
- 		goto err_chain;
+Other than this, this looks fine to me.
 
----
-base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
-change-id: 20261109-b4-mlx5-klm-798a398a159e
+> +	zone_end = req_start + disk_zone_capacity(vblk->disk, req_start);
+> +
+> +	if (zone_end < req_start || sector < req_start || sector >= zone_end ||
+> +	    nr_sectors > zone_end - sector) {
+> +		dev_err_ratelimited(&vblk->vdev->dev,
+> +				    "zone append sector %llu + %u outside valid range [%llu, %llu)\n",
+> +				    (u64)sector, nr_sectors,
+> +				    (u64)req_start, (u64)zone_end);
+> +		return BLK_STS_IOERR;
+> +	}
+>  
+> -	if (req_op(req) == REQ_OP_ZONE_APPEND)
+> -		req->__sector = virtio64_to_cpu(vblk->vdev,
+> -						vbr->in_hdr.zone_append.sector);
+> +	req->__sector = sector;
+> +	return status;
+>  }
+> +#else
+> +static inline blk_status_t
+> +virtblk_update_zone_append_sector(struct request *req,
+> +				  struct virtblk_req *vbr,
+> +				  blk_status_t status)
+> +{
+> +	return status;
+> +}
+> +#endif
+>  
+>  static inline void virtblk_request_done(struct request *req)
+>  {
+> @@ -349,7 +379,7 @@ static inline void virtblk_request_done(struct request *req)
+>  	virtblk_unmap_data(req, vbr);
+>  	virtblk_cleanup_cmd(req);
+>  
+> -	virtblk_update_zone_append_sector(req, vbr);
+> +	status = virtblk_update_zone_append_sector(req, vbr, status);
+>  
+>  	blk_mq_end_request(req, status);
+>  }
+> @@ -1242,7 +1272,6 @@ static void virtblk_complete_batch(struct io_comp_batch *iob)
+>  
+>  		virtblk_unmap_data(req, vbr);
+>  		virtblk_cleanup_cmd(req);
+> -		virtblk_update_zone_append_sector(req, vbr);
+>  	}
+>  	blk_mq_end_request_batch(iob);
+>  }
+> @@ -1260,11 +1289,14 @@ static int virtblk_poll(struct blk_mq_hw_ctx *hctx, struct io_comp_batch *iob)
+>  
+>  	while ((vbr = virtqueue_get_buf(vq->vq, &len)) != NULL) {
+>  		struct request *req = blk_mq_rq_from_pdu(vbr);
+> -		u8 status = virtblk_vbr_status(vbr);
+> +		blk_status_t status;
+> +
+> +		status = virtblk_result(virtblk_vbr_status(vbr));
+> +		status = virtblk_update_zone_append_sector(req, vbr, status);
+>  
+>  		found++;
+>  		if (!blk_mq_complete_request_remote(req) &&
+> -		    !blk_mq_add_to_batch(req, iob, status != VIRTIO_BLK_S_OK,
+> +		    !blk_mq_add_to_batch(req, iob, status != BLK_STS_OK,
+>  					 virtblk_complete_batch))
+>  			virtblk_request_done(req);
+>  	}
 
-Best regards,
---  
-Vladimir Petrzhikovskii <vladimir@dfb.sh>
 
+-- 
+Damien Le Moal
+Western Digital Research
