@@ -1,99 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795198136;
-	b=DcrVj59UlRavQrCAJkIzCk/07p8XQE2EExV1HwG7SjSqGagTFNPWznAdsvYL/lace7UR
-	 8QRH4g6QEiSbR3WXODE3PXYAPoxWaBhcGWz9vPDraUUQkTX1ztbBk6jAnqPqCg4xh5wy3
-	 wHcBeNvIujJxD3HPLkDw8F/AAVpZc2SEj7zdyex3GCKSUK12b3Ll0E9pS1Auep2gtObi/
-	 bsx9Yd0rqbAVbjsuSVnayiFXScOXI+Gc9qH2LL3m8Wq5om7xBNAIZr1BEQdmthBqalXvj
-	 hxqkiILjCPDbhyckgdOwJxHIr1Apol8+b4Ms9FuEXC2UbKCg2AdAeNQS5ZIkKG7kSaA==
+	t=1795198230;
+	b=q/IroS2vpINhpnCx3d5U/e3n3GYgeVWNrvLEjLddnoKjcFLkADsIMkz1BQvH/eB0DH5R
+	 eAgavpOGtvr0RXYvwT1Qz7/cdXis45WKY+afL2RrjYHFoscjQmjU214/LmeLkEvH2yC8V
+	 niEv6cmCaIJMfuOP+NkQuOqZqXW6g1qhQAXauFVPLJspbCtQrr2ZiWL+I44e/2RLlGG9S
+	 /1n+xvWLM7GEH5NSI1nJSjovK4cm5PzNAlGD7fs40+R92Ulai5/IuyZFdE/i9b5J9NaIf
+	 O2qGUyaZdRxata0Nx8bqPu+qkIoJHXwHghDVx/IHNADeo8dQSxtVz/7f/Zcx0WApraA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795198136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795198230;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=AdYm+HHLgR/sC/D+1yqxlL3neqfj1YS7RBw3yZu9BuU=;
-	b=YS6R0snZcgzn9T8lHJRLPPCHKA+OVcKFnTiKA4HOXCNijbgN1cI1+BmBcM4S+tBj6mwC
-	 W4qe/HSTZXabPZshOLVcJVe/NlZ1pqLi7NlNLZhuxtt1aLqvAwQKZtcoxsdjIsyU0nxkc
-	 9F+l7/a36F66rDNY9y8itS8MfrtkarSxw+w22PSMGIKVK4auG+k6y+1Z9g1UDChrIarPC
-	 pQ5cdl72hjWY6SHzefZHGM6J5iCQ6X16Ud13RrQ0pspPserPR45O+J7Vzll5QMWNJ9AXu
-	 y3l0sIKcFeMIFCM47Vyjhg1rHzy6WX4bL8A/g1OMVGxk5mHyIkF/InkEP9D5uJ94nAg==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=1U0puyPddAK/k0CBoSD8bUy1ngE3FQLTiHGb9GIY5PM=;
+	b=1H8yhH2LcnAlDcSYMMr5X7Nf1Jl6o+vOYQn8tzJrvnJH4vo0I8qRIK6snFRLGHt2ZjkX
+	 8WQ4c0MQwdOxd1wmZPXGCa3K/bujHv7wp2n+FLVyx6pp70gO1uOGwtsTvRpXEvPHTxUKN
+	 1f7A2liJbr9PTON/q8qlLicZggOjJz6+TdKey+Gl3xFODvL8zhTTa/RG8Vwb7+t+1RPWW
+	 SGZRks5tzCYjjkomok+xhFWlql4T2xPKtgNIr9oaHBIxF+Pwk3r89dCYQT0vsY6dhqS1A
+	 wpkGyLKPy9oGEd6vUSUXFFm3JAGCowaLiVbWq7rDR8i1s9lA9UJpoAqP6NsdbG9sU4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yFc1VxT+;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VgTUh3EU;
+	arc=none smtp.remote-ip=209.85.167.196
+Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com [209.85.167.196])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCBB606A89D
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 18:08:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBCBB606A89D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB9060A3819
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 18:10:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFB9060A3819
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yFc1VxT+
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15ea896ddc8so1947876c88.0
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 10:08:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VgTUh3EU
+Received: by mail-oi1-f196.google.com with SMTP id 5614622812f47-4b28d9537bcso780665b6e.0
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 10:10:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795198134; x=1795802934; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AdYm+HHLgR/sC/D+1yqxlL3neqfj1YS7RBw3yZu9BuU=;
-        b=yFc1VxT+yT2G1I/sGQRx4QibLodUnLsBaTiSPX4XJ0/pE8Jva6hBD3bLnvD/yNGTQp
-         uz9nguZM9AcuI9q4QQNXAClP6zHpfdRgmQ1nbf+drQcjiJfvlHeh9uKJtcLWxDQ9BcN8
-         0ySVL9Xj1upl9OvwyIQtqzNKBTaPmsSJr9VQlx0bC5R8IHXoUkCPkuQrDshql5pcDHc7
-         t/r3cfkLRToAOdxiRN4DWhyq0wY2GLff8p/bGpCnaj1X3kjIIy6Q9v5mO65dBQJIfZDe
-         tmzw8Lmj84ze00OeZ2ZWqnceTXtnkPhauJRjBeOxGO41qYPyYlc6zCYkNx8NjFouSd22
-         e0pQ==
+        d=gmail.com; s=20260707; t=1795198224; x=1795803024; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1U0puyPddAK/k0CBoSD8bUy1ngE3FQLTiHGb9GIY5PM=;
+        b=VgTUh3EUycmSbgOjP7Z0o8iKhKfaz/s16qBa2dIHG+6WIx00GZ7LlTEaQ0jHpVVmNi
+         xNMv5Z+G410uoEoP4Sd2c1vBLgFGdX6q4vUWQGyIc5qLNe0c9RBtNtlcZPYVqwT5wngD
+         NGm1zb38bpHlBGss6pFmB6LPxTg207bS6cbkL+oR68GGuMIhm46aSlWTlB6smlLBsJXY
+         iUlOioaWJoxWh8d1x5DSI5tCsBbH/b3njKIY0bisxGMV+c0bsDGIROlQjIq5OJk394J9
+         JwT8C95sYrnpmMnuhVtZQRVoDlACjp2zARu0qyY4unz8yQUVKwYNnjnYOskNbLxe+el2
+         mOGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795198134; x=1795802934;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AdYm+HHLgR/sC/D+1yqxlL3neqfj1YS7RBw3yZu9BuU=;
-        b=dYwYE3nPqJpfoo3pU9IKSK3RLedAJxMApC2XQ8syT+Yca4vyt7ukSOPbeCJPLi4N3w
-         cd9EhfQmm1s7mXncYKN7QZCLo/L9sXkBd0VgDjUT0HyPNVkjkxIMyecKML0Dpm2kz4VY
-         qswuqvy8KWP1DHPfTRGU5pTaV0Emm7vaoJwZhZSE1a8ow7kCVxawikIBSdox4w9EpOUA
-         NZTnoA0fyiDu5psQj+bj9NXw6vnNGqlReYutdAtLV/LOw6AL0goH6ZuPuHYkpDIXAjXY
-         rS3L/cYbRkMXlEB9bhxJEtbAtud6STjqyuGgNNl4QoBkTWQyVsQ6ZIT4p28rVY2lwQrG
-         BJqA==
-X-Forwarded-Encrypted: i=1; AL+hErEDJJOS6JSSSyFBGvwtPH2+epkT2G7KHndYxirAqdUqQ0aXoebmAMRjX0KWN3BxJgeiJFy2uwk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3GgZHP8CosNJLiyNe+xvMgPGWnlwJrvIgiGB5sQoznySZD6jT
-	K8h8O5TcwFPBTPD8jcYse3Mw0pE+w4/sAP0wPfeeJ5QuSmiWiJxrTTjp
-X-Gm-Gg: AYBFou0F7x7dMVSdvLtNaBDyieSrhNCIrJtrOWcxQtz2QPPL5ILXTBTm9+eIfanh6Lp
-	PGboHuJPG9ctmm2c7ywsuuIPJdv6Omm4B2b51G/bjQI2xS7llItAhhTTTnaaB2yfB+DFa8Ky+08
-	K7ai0/k1oeFBBm6XZAJYLeb8VhZ8Xaw+2vdHam6OWLJWHhG/LqUY79tqrtKcf5DgOzAPPwDK8Rw
-	9t0ryannEOtkpfYh1ZcTCvfrZwa8gQjD0S6+bRu/4UDC2AaUG6Os0fYvcz8bZRCvoYIGWGFhStU
-	95yYAQbrKZG3I1N/obH/ui6x7ero61JLRU9Nx1/czMH6ajh7yjITAzBaMuzJOFslpcC92FWf0eD
-	ypLZ1PGLUTDGUh6M9UoxW7oWsi102iWQPyqGy12ENfASXysVgl80Egvdgcrr0kplZ/VFg3Hmre5
-	g2MbDDkedP83O5v55FzTL9evSXSSt8NqfPvqZYhWdPs3tsbMGAyHeTw0VygWy9N/ujvjWjBWmiw
-	P9e5d6DK/eVVAQMD8kPvY4W5cBeNRSpQfjYoa/vjn7HSiYEobTAJlFSv5kK5zI5dBVhhQ//Divy
-	Y0SJfuL0pIprh4v4JElsQ2GsXN2g+4iNIlp92Ljd4kXQTy4CvKLQ/PWPamTR63YSODuO3cc=
-X-Received: by 2002:a05:7022:ea56:20b0:189:d6bf:7ec7 with SMTP id a92af1059eb24-1b5568a65ccmr3689459c88.19.1795198133548;
-        Fri, 20 Nov 2026 10:08:53 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:ea97:e47d:2ebc:210c])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5569bffd2sm7761240c88.0.2026.11.20.10.08.52
+        d=1e100.net; s=20260707; t=1795198224; x=1795803024;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=1U0puyPddAK/k0CBoSD8bUy1ngE3FQLTiHGb9GIY5PM=;
+        b=mQYbD6lvoihsFVmp69n8cGfCZpyLHCacZExinzg2wvGt4bQC8UAsLiIEbbosI5EzXY
+         32hbRANIBcl4zypTqCNU4GV5t/OJzRyl54TFBnctCDH2/220OROhpFM9o3rzRN0Di14e
+         4RMsvnyNwr6Hm494am7XqLdxIjWVnClp/6y+YPFI3cD23bhNCknw145iKr/DvE8JRbpn
+         802SK6ftM2n/M0e6kkkI61p4Lb8gARfgckKL27zAF/MhUSELWezojzvnMVh/EW46MtyC
+         bT3F+O9qqvGpIVsgDdu+FfheQ0F3Lu59WRsoCUXiNxaXOyHNiT0nRRK8EY4WiHMMYkZd
+         C1vg==
+X-Forwarded-Encrypted: i=1; AL+hErEp0oL+eNq9laRNLHqUNKQEg/Yw1ZRTF0CStAHvUFpLQ2c7FSvhBftrlujgXCbohExSq8Zh4Fg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NmB8s46zISCF6UQq4/fPAouz5FpS3zHblTn/A3kIys46no8Dk
+	Fb7ebEqFrDhfHCLdqe+PvYSpJOmVNKOBwLSiTcNBgjMt6a1kgCAj/qQa
+X-Gm-Gg: AYBFou0rl9tzMJNpGIHnalOHvAfyvnzZXjGaaBuKzJC2Fmp3mENE/m+N8oqJNVFdQwa
+	/ppaHd/HUmKJvS7RmQSIPdNV9StkJrPdIC+w5hPMu2hVEdDMoFc+MLG0/3Pmbg98J6rzn4AUxsm
+	aC090FpQ8QoV/EAKse/Z2H/SPnf7B3unnThQy4qSTA0nriNhhVifpSmRXPxTGBhqziWZjSWxHTt
+	es90LigJJeweXy/KqC3MoTwFWKbPSzdB/aHqDq5cSAN8k4VetRP18EG/LDgc1nDMqmGkIk5IfdQ
+	J8Dzm7mFe5hj9325oLyrE+HzIrdtbDCmnC+6aYp97uh/NatFLZ1FOhdwVFXj2vjoMpq/m63oive
+	x6jKmLnAZYdQCwcRPTtU5tQ2X7b7Ko4jkZDBBC3T1dJSWN7bIs1l21sIcXjICSHsI68owH8bFh2
+	TxQnXeWxLOPart9Utg+OgL3hVPH1Kjvm9tPmZMm7IQTLcgyQSOwaJAx1qjW2lDaIA1V9hsqMHPO
+	hRmrSFxfieBuWNQ+ltLnj0biHcPJLTFsY+cfm1yJCibdtGgqFXPVaet/vcnIFrt0JXggYnkvIVR
+	OratkU63lkFtTNAUHOdYlNsSHn7+VdCOh5XbC3VkqzMlcZRehxNUjIRNVUVnR11VdPene0gvdnf
+	heavJ5NJVB7ed4Vi7QRTU8WApoGb3h8RUOENvvTl0
+X-Received: by 2002:a05:6808:e85:b0:4dd:f8bb:e1bd with SMTP id 5614622812f47-5797bb9f526mr4100230b6e.13.1795198223670;
+        Fri, 20 Nov 2026 10:10:23 -0800 (PST)
+Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bc6108104esm3310383fac.14.2026.11.20.10.10.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 10:08:52 -0800 (PST)
-Date: Fri, 20 Nov 2026 10:08:49 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, 
-	Gideon Heinz <gideonheinz02@gmail.com>, Filipe =?utf-8?B?TGHDrW5z?= <lains@riseup.net>, 
-	Bastien Nocera <hadess@hadess.net>, Hans de Goede <hansg@kernel.org>, 
-	Edwin Velds <e.velds@gmail.com>, Stuart Hayhurst <stuart.a.hayhurst@gmail.com>, 
-	Andrey Smirnov <andrew.smirnov@gmail.com>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 04/14] HID: logitech-hidpp: disable works before
- stopping transport
-Message-ID: <awCMOvYf64DZfuWF@google.com>
-References: <20261120-hid-logitech-hidpp-v3-0-cfe2caa1d0eb@gmail.com>
- <20261120-hid-logitech-hidpp-v3-4-cfe2caa1d0eb@gmail.com>
- <r078ror3-9q6q-s581-35r4-63pnp1p93s85@xreary.bet>
+        Fri, 20 Nov 2026 10:10:23 -0800 (PST)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Fri, 20 Nov 2026 12:10:21 -0600
+Subject: [PATCH v2] drm/imagination: Fix the value of
+ ROGUE_COMPUTE_FLAG_PREVENT_ALL_OVERLAP
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,99 +93,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <r078ror3-9q6q-s581-35r4-63pnp1p93s85@xreary.bet>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261120-rbrue-suez-pvr-compute-overlap-flag-v2-1-ca2b0d3adb4e@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/5XNQQ6CMBBA0as0s2aMRUVg5T0Mi2kZoAnQZgqNS
+ ri7kRu4/Yv/NogsjiPUagPh5KLzM9QqzxTYgeae0bVQK8jPeaG1LlGMrIxx5Q+GJGj9FNaF0Se
+ WkQJ2I/V4KaqbZTIVmQIyBUG4c69DeTaZgsHFxcv7QJP+1f/+SaNG4tJcS9L3tjOPfiI3nqyfo
+ Nn3/Qt2kCcm1gAAAA==
+X-Change-ID: 20261118-rbrue-suez-pvr-compute-overlap-flag-3695ceab9ab6
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Donald Robson <donald.robson@imgtec.com>, 
+ Sarah Walker <sarah.walker@imgtec.com>
+Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Brajesh Gupta <brajesh.gupta@imgtec.com>, 
+ Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795198222; l=2520;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=hzVweLQWGGnWgZbDJhzZq3hPf28CyuB7MpyqTw8FFOg=;
+ b=0o+bvH90wEF2XntpIVzQMXCFEt6HJ+4fJF6Ul3mujWKykchEVKx1X1zs7uHyExO8r+821BE2Z
+ RFvPMyQygIKBfuQBY6OLYOPkMuwCJmkXWEPYn76OFTtv4nUtE7S/NLq
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-On Fri, Nov 20, 2026 at 02:51:29PM +0100, Jiri Kosina wrote:
-> On Fri, 20 Nov 2026, Dmitry Torokhov wrote:
-> 
-> > Device removal and the probe error unwind path cancel the connect-event
-> > and hi-res-reset work items only after closing and stopping the HID
-> > transport, leaving in-flight work handlers able to issue HID++ transfers
-> > or register power-supply and input devices while transport teardown is
-> > underway. Moving cancel_work_sync() ahead of transport shutdown is not
-> > sufficient because incoming reports remain active until the transport
-> > stops and can re-schedule the work items before hid_hw_stop() completes.
-> > 
-> > Disable both work items synchronously before closing or stopping the
-> > HID transport on device removal and on the post-I/O probe failure path,
-> > and drop the unreachable cancellations from early transport start and
-> > open failure paths where incoming packets have not been enabled yet.
-> > 
-> > On device removal where HID core enters with device I/O stopped and
-> > driver_input_lock held, temporarily re-enable device I/O to flush
-> > pending work handlers and disconnect input devices before stopping the
-> > transport. Clear HID_CLAIMED_INPUT and hidpp->input upfront so incoming
-> > reports can still wake synchronous commands without dispatching events
-> > to the disconnecting input device.
-> > 
-> > Fixes: 7bfd2927adca ("HID: hid-logitech-hidpp: Add basic support for Logitech G920")
-> > Fixes: ed80cc4667ac ("HID: logitech-hidpp: Add HIDPP_QUIRK_RESET_HI_RES_SCROLL")
-> > Tested-by: Gideon Heinz <gideonheinz02@gmail.com>
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> > ---
-> >  drivers/hid/hid-logitech-hidpp.c | 19 +++++++++++++++----
-> >  1 file changed, 15 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-> > index d5f53b35ac6f..0e1a9fd98faf 100644
-> > --- a/drivers/hid/hid-logitech-hidpp.c
-> > +++ b/drivers/hid/hid-logitech-hidpp.c
-> > @@ -4805,13 +4805,13 @@ static int hidpp_probe(struct hid_device *hdev, const struct hid_device_id *id)
-> >  	return ret;
-> >  
-> >  hid_hw_init_fail:
-> > +	disable_work_sync(&hidpp->work);
-> > +	disable_work_sync(&hidpp->reset_hi_res_work);
-> >  	hid_hw_close(hdev);
-> >  hid_hw_open_fail:
-> >  	hid_hw_stop(hdev);
-> >  hid_hw_start_fail:
-> >  	sysfs_remove_group(&hdev->dev.kobj, &ps_attribute_group);
-> > -	cancel_work_sync(&hidpp->work);
-> > -	cancel_work_sync(&hidpp->reset_hi_res_work);
-> >  	mutex_destroy(&hidpp->send_mutex);
-> >  	return ret;
-> >  }
-> > @@ -4819,15 +4819,26 @@ static int hidpp_probe(struct hid_device *hdev, const struct hid_device_id *id)
-> >  static void hidpp_remove(struct hid_device *hdev)
-> >  {
-> >  	struct hidpp_device *hidpp = hid_get_drvdata(hdev);
-> > +	bool claimed_input;
-> >  
-> >  	if (!hidpp)
-> >  		return hid_hw_stop(hdev);
-> >  
-> >  	sysfs_remove_group(&hdev->dev.kobj, &ps_attribute_group);
-> >  
-> > +	claimed_input = hdev->claimed & HID_CLAIMED_INPUT;
-> > +	hdev->claimed &= ~HID_CLAIMED_INPUT;
-> > +	if (claimed_input)
-> > +		hidpp->input = NULL;
-> > +
-> > +	hid_device_io_start(hdev);
-> > +	disable_work_sync(&hidpp->work);
-> > +	disable_work_sync(&hidpp->reset_hi_res_work);
-> > +	if (claimed_input)
-> > +		hidinput_disconnect(hdev);
-> 
-> This fails to build, because hidinput_disconnect is defined in hid-core 
-> and there is no declaration for it in logitech code.
-> 
-> I'll drop this series for now, please fix it and resubmit a version that 
-> compiles :))
+The firmware takes "prevent all overlap" from bit 1 of a compute
+command's flags; bit 2 is FORCE_TPU_CLK. The kernel has used bit 2 since
+the FWIF headers were added, so the firmware has never seen
+DRM_PVR_SUBMIT_JOB_COMPUTE_CMD_PREVENT_ALL_OVERLAP.
 
-Ah, yes, I un-exported it in my hidraw cleanup patch series that you
-just applied.
+On a GX6250 (MT8173), a compute job overlapping fragment work from
+another context hangs both data masters. With every compute job
+submitted with bit 1 set, a test that hit the hang on every run no longer
+does; with bit 2 set instead it still hangs.
 
-Hoisted by my own petard ;)
+Fixes: a26f067feac1 ("drm/imagination: Add FWIF headers")
+Cc: stable@vger.kernel.org
+Reviewed-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+Found while chasing GPU hangs on an MT8173 tablet (GX6250, BVNC
+4.40.2.51) under Mesa's PowerVR Vulkan driver: a compute job running
+next to fragment work from another context hangs the GPU, and Mesa's
+request to serialise compute never reached the firmware.
 
-I guess we need to re-export it now that there is a valid (IMO) use case
-to have it available outside of the hid core.
+The value comes from Imagination's firmware interface as carried in
+Mesa (src/imagination/vulkan/winsys/pvrsrvkm/fw-api/pvr_rogue_fwif.h:
+PREVENT_ALL_OVERLAP 0x2, FORCE_TPU_CLK 0x4), and the board confirms it:
+forcing bit 1 into every compute command stops the hangs, forcing bit 2
+does not. The other compute, fragment and transfer flag values in
+pvr_rogue_fwif_client.h match that header.
 
-Thanks.
+This patch was developed with the help of an LLM.
+---
+Changes in v2:
+- Add r-b, and Cc stable (Brajesh)
+- Link to v1: https://lore.kernel.org/r/20261118-rbrue-suez-pvr-compute-overlap-flag-v1-1-ae8b48a17dfb@gmail.com
+---
+ drivers/gpu/drm/imagination/pvr_rogue_fwif_client.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/imagination/pvr_rogue_fwif_client.h b/drivers/gpu/drm/imagination/pvr_rogue_fwif_client.h
+index 6e224400083a..967e903bdca6 100644
+--- a/drivers/gpu/drm/imagination/pvr_rogue_fwif_client.h
++++ b/drivers/gpu/drm/imagination/pvr_rogue_fwif_client.h
+@@ -74,7 +74,7 @@
+  * Flags supported by the compute DM command i.e. &struct rogue_fwif_cmd_compute.
+  */
+ 
+-#define ROGUE_COMPUTE_FLAG_PREVENT_ALL_OVERLAP BIT_MASK(2)
++#define ROGUE_COMPUTE_FLAG_PREVENT_ALL_OVERLAP BIT_MASK(1)
+ /*!< Use single core in a multi core setup. */
+ #define ROGUE_COMPUTE_FLAG_SINGLE_CORE BIT_MASK(5)
+ 
+
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20261118-rbrue-suez-pvr-compute-overlap-flag-3695ceab9ab6
+
+Best regards,
 -- 
-Dmitry
+Ryan Brue <ryanbrue.dev@gmail.com>
+
