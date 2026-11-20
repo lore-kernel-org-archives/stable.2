@@ -1,90 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795210090;
-	b=p7/DSR34bfXj/cWlMsvxFUxxuAE+4VIuUFax5yx2ueoERIhmKvvRUtRiRbSVsfrau7J3
-	 bAYKOYL4a4AenIlZQboG6gDD0sr5j0vbeqTmC3VOOirCt26E1YZ3M3fz3IrrQ58EjDjG4
-	 GgkHltzXYnscSoFQIcJIk0+LPw/MI2HTuhKtkjBEfmzjyqyvlfnINLz+GWKQjYUlzq/5I
-	 qEnBzyW46A+HZOk3mq7dWyD8GL4E/FY/G2SBsVpj/lXYCP0treI6zEBTSailQGygQUHby
-	 09fswh9esc7h5cK90MTwm4eYNYv+FfSBT12QjGR4Fr1NJcg/nC2pIVEmSgGhsZqTP5w==
+	t=1795210153;
+	b=ANGAdvP9Xr/wgjGdKMHmPj8igTw1f0wPgX3SbjHBjJR48k4vGfG31kyEtM6kl76yQeYZ
+	 2QVgJG3oAV0Q0bmAJYY0XeHs9YqAiJck3Xhwj0kL9BdOIuLMAYppWDkxRa7BAgdHqt0Eg
+	 jLbuuW2exbBkvgeyezfgxa2LXpPez6EPHsS3Atts1UuFh9lV1FzRe4xsP94BXbusVkwex
+	 fGy5i58QefBsE7Oszb2xvm0FJbcNaGC5+s77izEjiQd553YM713u9eplLbrcg/gdaMzJL
+	 DAqxDgINOm7EpgbDyYYAF+wvIt7uRCzVwD11vhyK5Hv1ezBoM3ssJ6smhMShspHM1Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795210090;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795210153;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=djWeAX1LeVmUiJ144ujbOmLsl/46HHhdv4BSJSqbZfY=;
-	b=3HyV7DJZ8jVaWjEs1owXr6Rs0/8KljK9J7wcTmvtg+xwqqGWEMXbhMJ3ksJ/iPZegPvW
-	 5ssMYvPdnZimAPtNLVB3k4b5GNCHAYvv4+rzDOb9J20FJtBVjkpm57WPNXdTpVI2UXJ/l
-	 41SVwUukyqFag1BaAkJdFu4xAfxZha5plD2YHxxaCS23sWMjX5QD2mwkE02cjnvGBn49e
-	 MmIK+b5FvJdkwkd2nKLunGBxhGXsFYlt2tAmsEtqm49SDnwhM6/z9VFQi2inaqLp0Xvi/
-	 kX/IFDH3EC8DCD5+iOdEO3G4ARb7QzQv5UGPFmb/hGRiX2VZKh8gZidtdmw3pcmngYQ==
+	bh=RtJF5VKE8u91+dvBTPTeMcNPvnfKxdIIH3R4flqEr6s=;
+	b=J+voev/Nk7XmUqudNgJ4tQEuFBLWDlFrpx+blPmkO4aUs6eCWjN0V5m95D7j4xcOEhub
+	 y3UiRruWQnQY6Og2Pv9haMzI7V836/0hiSQdl1k4qx+FpAsRHnmGfdWS8yrlAVWWJSedZ
+	 PYxcq/n84KdQygcm/rffDXnDxw/JL6q9kTBfywSMVhUDiyu3FLMwPjnG0kxiKMInYwPV6
+	 x06yqF/fi9BPmsY8InOuSJAbasLWK6T9ZjkP4iywxE9QTt7TT4bLGlkUAOxyLHYvSCR1t
+	 g/D4DY0XfunUIEOIa/m90sJtStGenFgZydtt42X3YhndAjY83WO4gapjEeCCOqJguuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Be6FxUvP;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GuQAj3sa;
+	arc=none smtp.remote-ip=209.85.221.176
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A2D606A6A3
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 21:28:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2A2D606A6A3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32638606A6A6
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 21:29:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32638606A6A6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Be6FxUvP
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb5f0c5348so632885e9.3
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 13:28:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GuQAj3sa
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5ee3e658c70so374711e0c.0
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 13:29:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795210088; x=1795814888; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=djWeAX1LeVmUiJ144ujbOmLsl/46HHhdv4BSJSqbZfY=;
-        b=Be6FxUvPoX7GO9DbG/L1PwSrJb1bWoAgimnvXCLJcHyXTjABEvlZqaXvx0p7gUIGHY
-         wgQPSL0IzvwaW2Yg364amqbZH104TuVp0MQoIJ3cTjoQwIKd1bDIIOwmipk1MyPDqAfx
-         SRn2cDCCEXNr0Er/UJTovDI+LFVihYGIIVVOeXmB7mAcazV3TNa7SCe1Vg0kPa2Uu+Gw
-         xEYMcUg2CWB2tMEo9Cd+j0FmK1JAqhFw//abMJKLYg8E9WV2ToiWZOxE+OShe3tnqPlD
-         +GjQn5F/JjU219eLfSfhTeVoQfQTzlhB5BE4wTA+z1Qbjxn7ucIFhashQy2DNtSpDL0G
-         5tmA==
+        d=gmail.com; s=20260707; t=1795210147; x=1795814947; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RtJF5VKE8u91+dvBTPTeMcNPvnfKxdIIH3R4flqEr6s=;
+        b=GuQAj3saQdXCDa9aobPR2y7rJ1ST8tMdTFd9D9LRo+H/hjqGMY5/LQGUIWb/r+jxFA
+         z+rvM8ElYpoaTxdwei476vbYYWpbwIgrU19fIzFT76zqhVnoads2aM5Ffv26F3PuMyw6
+         KFSVSRSLFkw9OeT2+/2fT2YnpxQByTfJeJSskmqJZ0m38817C1+m7ReZ4sBQQYWvqbip
+         0lGtd+ps+lSFBHSL3pPNovOZsiaJzpyznOLuhqnjudnA4Lz28YWTTuQjKo+ERugCKxH8
+         bc6N5XCBM1H3Gui2xqbSn3rW4nOlnGjkiM3YfKnE1ncOUr+qe6askR3Xz6U+kcCNwXfq
+         nqlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795210088; x=1795814888;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795210147; x=1795814947;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=djWeAX1LeVmUiJ144ujbOmLsl/46HHhdv4BSJSqbZfY=;
-        b=1bOTm0Oef6R6OPkTj009gPIEylgLzXMpzecnyYUA+9B6iYabFGzWCQ6BkA7nnm/v2b
-         +ZnCzoxuyAs04IGRKhYcx0Ls8Ap1J2+vpeGG6ymc63UcowEaUEqtuqBekEKYesTm7Nmq
-         Ej0IBzoWn5eKXTEHbiP2QKoA2xdBJsB6yw1XedTbfD5QT+j/zl/+cddIEw4Eb1M4N/fW
-         WB/3mhKlPbwJnRRX9OBpoP2LHu8ZWAEd0usdnJ6GzoykiC6keZqZn2xMtRerwMeRaK67
-         YBxMFKKENLS3IQB5k6sLf3F1UypZwRFmAemVySLkX+OYAc/a1RS2o9CpO/RYqDQzRSOm
-         2V/Q==
-X-Forwarded-Encrypted: i=1; AL+hErFjp8CD36f7tK3eHiGM/ZhDXr1b9RbptJu2Xf2lXXxMCvN/kGhPs3reaIKdQ/w7yhyoRYAKhLA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8BIRMr3cAZpjrqyVqTxAiOj7o6Vy0t/Gbmm0Usq+CRfnA2Trqn
-	cyD4awMLTwEHE/L/LAh0mYy7KHLOhSoFe87z8OMQ+w9n6De8PHkz1Rt5e1x3c+HhDNg=
-X-Gm-Gg: AZFdTZeVEL1EF1t7Ghx9yOGTkDzxGPjttUrBhKmbJIsB5R6h3Gh+lxpHZWfgEs/osTL
-	Thl5/+XLnomTpt56X9ldPqcJ5P7t7m3+zmVw37o09hPKWbdiicEjDeXtPn5slHgQ4BaftUIk8Vl
-	3azou3R9srFVHJ+GttKa8FAGINrfy/hQYTFOURRNps2JZsv+vt1blZjkLj895uP/1uI3odMPf+p
-	+hH/KqoxPmlf3i23WQ2F4OcoM1VT1OiU8mQi43OgbzaO/DwRa9QVe3MuMDiHckvFbnmmuzL6yw+
-	nhQvdSf3uCNsoH0zmwLEk2Fjo2ZiL7lS5fNRnGcEvQqSF6wErZJz1rugO851xPZH5H7Q22AO6MR
-	BQqSo4ClxUdYon4BRdH0U9k/3OLoFygIQPN483b8ZMV6z/s8VL86io4qQYf80q/Ti7cEEXTmDlZ
-	oLkYWiZW8pb/g6uHzvduxvU9OSHa7IxkqyWpt4mw7Jz92CeC73Gs4GPThKT2ndoTluQ1ZygBnLL
-	7PCc3LgaurySWvLs1JF+QiCPM2HcQrR6oGfwZu1bJLWzh7Xr/AdltVRl7HQ2Q1dzWX2sI/4Ax03
-	ywi7uhLDLIHHaEci7h9fiy5ct1dMWZz0WCr8PkJln6m3TaMrevzFMfniv661AFMjethzHr926aY
-	3JL6VOGJ/mDmlpOxZ8K0dlw7qWONuNl3zT8QMjVAQM9zyS3BzuBkmsXqEQVmqEXdn+Afe+OeIVj
-	IYZifnqWhn+z4Lm8ZoNsOqSbgSA0YuVCmVcy7zTnMxqlWcOqA=
-X-Received: by 2002:a05:6000:4308:b0:48e:6651:d82b with SMTP id ffacd0b85a97d-4abae12d0acmr10655671f8f.2.1795210087424;
-        Fri, 20 Nov 2026 13:28:07 -0800 (PST)
-Received: from ?IPV6:2a02:3100:65ed:8fc:216e:bbeb:a7f9:ea1d? (dynamic-2a02-3100-65ed-08fc-216e-bbeb-a7f9-ea1d.310.pool.telefonica.de. [2a02:3100:65ed:8fc:216e:bbeb:a7f9:ea1d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b205443sm7919950f8f.39.2026.11.20.13.28.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 20 Nov 2026 13:28:06 -0800 (PST)
-Message-ID: <967fd174-41f5-4ff8-834c-19483dcb342e@gmail.com>
-Date: Fri, 20 Nov 2026 22:28:04 +0100
+        bh=RtJF5VKE8u91+dvBTPTeMcNPvnfKxdIIH3R4flqEr6s=;
+        b=Ipl3HHxzIS4s6FKb5PTaR4pZKCi+D/7ykuSzs6I8gZ05QnwnDrsI8TAM4pxiXBT9qd
+         AuxQ5Ti8ONnY80RFchQHOjT31eRaeILRZYlkPSF0jzxAy8wIdPNYyEBac2rvw1NZI1My
+         BhOjbZjMKyzoX8CB4CnuIuXkR1Z/WJzE+E6O/Dh3sSST9GnX2kQvLk+8aC9MCv2kmKQf
+         HWWTLLaag9UukwbbXcLRC1f6APpwQVHMXVYq3GXZpdI5uZtChOBxxr1gU0xRBQDsbny8
+         AhVryLFnyQ31fis5s1r6nZGxi+dHDMCocCXzZEMQwA7m/gUStbh1XFtPtc18X8Knc9KG
+         Rfog==
+X-Forwarded-Encrypted: i=1; AL+hErE7o+oikOcFwhXv0H6B+6NS2Ja7KdfbfchuKfpfcNi2Se+GzbYQgHwfddnoO/p28G1kKfeUOa4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SVmBpqmB3orD8GdPh00hgNXSYmGSi19bJ3hvqoAgP7rEpG6Af
+	TXsqwjQC8UtnANVC9SnoAhntfqVIAl+ibHKHeZOdkddjmbYGWTp44622
+X-Gm-Gg: AZFdTZemJxgSyuCf7bm5ilXYOXsnC6xCJZxBVoV21EmYWBnlCa/VhLA40NBXT90C7HI
+	WElVc3t2ShechQ2I6XBdHF9B0wTwJD3GSh1dI4KAyAQR1Ks2VQwUHe7NIyqiJfmvEfJdHZebvOo
+	7ku6Yri0dOHMRCq2weURlAWSff8I9UJhAxlOnPvATwOJWttxEyAlvNadMzUcn8SxAbst+37QSDq
+	fI2qIefSP78P3ERQE/CHRfvKxS0m78ZNahwBZubJaLrR0MKhBux1omYcv0Lt5/LHAF27xswrmPy
+	u3jC3nwp9sg+3MJxunevpBgNInvvosanzPREmOqAtfR2TICH2hT4Y1cWk/AA+jCx/o154vnLw+4
+	/ktCi8BfkeEmB0vWVR1Q6qKqH0t2lykEJeXfLMDK80eG3qteYnkFvQyaJco0D7+8qg4eDirrkp2
+	CIetVP3Ry/V6jH7rDBcxxCfZns2bNyMNKdV0DBCJx+iLmjy1/dM2eCGEItUkHrphLzzS657KV6y
+	qxOZ/ooNsYFLC87tYobY1LmgpAqqGWKAle5Io3dI93B+d3IPq/4RgVxfNcPP+GAEmJc8d7X6/Ny
+	32Zy9x12m+TiZumURORM9mwp4Lk5ol21c8rmvJxcDTE=
+X-Received: by 2002:a05:6122:7ca:b0:5ea:fae8:e69e with SMTP id 71dfb90a1353d-5ee8aefbc08mr2508517e0c.11.1795210146967;
+        Fri, 20 Nov 2026 13:29:06 -0800 (PST)
+Received: from arch.localdomain ([181.80.89.146])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee8b4335e1sm3709291e0c.1.2026.11.20.13.29.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 13:29:06 -0800 (PST)
+From: Paulneja <paulnejacontacto@gmail.com>
+To: Jeff Chen <jeff.chen_1@oss.nxp.com>,
+	Johannes Berg <johannes@sipsolutions.net>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH wireless v2] wifi: nxpwifi: bound the pairwise-cipher OUI walk to the IE length
+Date: Fri, 20 Nov 2026 18:28:54 -0300
+Message-ID: <20261120212854.25239-1-paulnejacontacto@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,78 +97,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v10 1/4] net: hsr: keep GRO disabled on HSR/PRP ports
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
- shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
- qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
- bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
- liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
- lukma@denx.de, fmancera@suse.de, danishanwar@ti.com
-References: <20261117141922.20-2-xiexinet@gmail.com>
- <179514132000.3136.2415655157145361596@kernel.org>
-Content-Language: en-GB
-From: Xin Xie <xiexinet@gmail.com>
-Autocrypt: addr=xiexinet@gmail.com; keydata=
- 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
- sNySbH3veZ/55EtlXA==
-In-Reply-To: <179514132000.3136.2415655157145361596@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20/11/2026 03:22, netdev-bot+sashiko@kernel.org wrote:
-> So the SET reply says GRO is wanted but not active. A later
-> ETHTOOL_MSG_FEATURES_GET then reads dev->wanted_features in
-> features_prepare_data() and shows GRO as not wanted.
+nxpwifi_search_oui_in_ie() walks as many 4-byte cipher suites as the
+pairwise count in the RSN or WPA element of a beacon says, without
+checking the count against the element length. An AP can send a short
+element with a large count and make the walk read up to 1020 bytes past
+the end of the kmemdup()ed beacon buffer.
 
-This is intended, and the commit message says so: a GRO request on a
-member is dropped, not kept pending. While GRO stays off,
-ETHTOOL_SFEATURES returns no ETHTOOL_F_WISH and the netlink SET reply
-shows the bit as not applied. A later GET reads the stored request,
-which no longer has GRO; a SET reply and a GET can already differ in
-the same way for a bit outside hw_features.
+Pass the number of element bytes available at the suite list and reject
+a count that does not fit, as commit e667aee1c192 ("wifi: mwifiex: bound
+the pairwise-cipher OUI walk to the IE length") did for mwifiex.
 
-> Could the request stay in wanted_features, with only the computed
-> features masked here?
+Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+Cc: stable@vger.kernel.org
+Signed-off-by: Paulneja <paulnejacontacto@gmail.com>
+---
 
-Masking only the computed features is what v7 did, and it breaks veth,
-which adds and deletes its NAPI instances according to wanted_features;
-the commit message names the two failures. Changing veth is a separate
-matter and not part of this fix.
+Notes:
+    v2: shortened the commit message and dropped the Assisted-by tag, as Jeff
+    asked. No code change.
+    
+    An LLM was used to locate the bug and to draft the patch. I reviewed it by
+    hand against struct ie_body and struct ieee80211_vendor_ie and against the
+    mwifiex fix.
+    
+    Testing: no IW61x hardware here. The three functions were run verbatim in a
+    userspace harness under AddressSanitizer with a short RSN element and a
+    pairwise count of 255. It reports a heap-buffer-overflow read before the
+    patch and is clean after it. scan.o builds without warnings with W=1.
 
+ drivers/net/wireless/nxp/nxpwifi/scan.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/wireless/nxp/nxpwifi/scan.c b/drivers/net/wireless/nxp/nxpwifi/scan.c
+index 4eeba6700aa7..33779e21336b 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/scan.c
++++ b/drivers/net/wireless/nxp/nxpwifi/scan.c
+@@ -79,12 +79,20 @@ _dbg_security_flags(int log_level, const char *func, const char *desc,
+ 
+ /* Parse a WPA/RSN element and check whether its PTK list contains the OUI */
+ static u8
+-nxpwifi_search_oui_in_ie(struct ie_body *iebody, u8 *oui)
++nxpwifi_search_oui_in_ie(struct ie_body *iebody, u8 *oui, int ie_len)
+ {
++	const size_t ptk_body_offset = offsetof(struct ie_body, ptk_body);
+ 	u8 count;
+ 
++	/* ie_len is the number of element bytes available at iebody */
++	if (ie_len < 0 || (size_t)ie_len < ptk_body_offset)
++		return NXPWIFI_OUI_NOT_PRESENT;
++
+ 	count = iebody->ptk_cnt[0];
+ 
++	if (ptk_body_offset + count * sizeof(iebody->ptk_body) > (size_t)ie_len)
++		return NXPWIFI_OUI_NOT_PRESENT;
++
+ 	/*
+ 	 * PTK may contain multiple OUIs; iterate through the list and compare
+ 	 * each one
+@@ -113,10 +121,13 @@ nxpwifi_is_rsn_oui_present(struct nxpwifi_bssdescriptor *bss_desc,
+ 	__be32 oui = cpu_to_be32(cipher);
+ 
+ 	if (bss_desc->bcn_rsn_ie) {
++		int ie_len = (int)bss_desc->bcn_rsn_ie->datalen -
++			     RSN_GTK_OUI_OFFSET;
++
+ 		iebody = (struct ie_body *)
+ 			 (((u8 *)bss_desc->bcn_rsn_ie->data) +
+ 			  RSN_GTK_OUI_OFFSET);
+-		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui);
++		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui, ie_len);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -132,9 +143,15 @@ nxpwifi_is_wpa_oui_present(struct nxpwifi_bssdescriptor *bss_desc, u32 cipher)
+ 	__be32 oui = cpu_to_be32(cipher);
+ 
+ 	if (bss_desc->bcn_wpa_ie) {
++		/* data[] starts after the OUI and OUI type */
++		int ie_len = (int)bss_desc->bcn_wpa_ie->vend_hdr.len -
++			     (int)sizeof(bss_desc->bcn_wpa_ie->vend_hdr.oui) -
++			     (int)sizeof(bss_desc->bcn_wpa_ie->vend_hdr.oui_type) -
++			     WPA_GTK_OUI_OFFSET;
++
+ 		iebody = (struct ie_body *)((u8 *)bss_desc->bcn_wpa_ie->data +
+ 					    WPA_GTK_OUI_OFFSET);
+-		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui);
++		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui, ie_len);
+ 		if (ret)
+ 			return ret;
+ 	}
+
+base-commit: dcf495789037ab78d8ddf5844239cf85d92ac5f1
 -- 
-Xin
+2.56.0
+
+
