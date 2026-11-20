@@ -1,52 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795173377;
-	b=Z9bctU9qs/VtEaxHAz14hDXzGY2A/ILKxxufXn0REhUmD2dfa8ssjWiw2m3+pYA0jiUr
-	 Yq15sshkUh5eYcNRajoxqQ0vQdDpov0hn/Mtypv/a4BTJI0/hpj6AcbeIsYwJ/lW8UsJ+
-	 k4IjcE2eSP+9ovu8jeZNW+mtQ8Go97K0JKeJQdx4U8nkUP6bh9eWCYtC2ECaeaj7912ZQ
-	 9Ljn0hI8mZ/SbHk5ByMyyA1wrBv4j8NVs1X4c4bkK4JDDkkyJEEIpbYlZ6Ni+6zV7jNWP
-	 661gyU7a84641WLjqIrlrc2lfnRvAZ+gwZiqLuJEEb5RNPjQ1REtE326Pld/ToOkPHA==
+	t=1795173394;
+	b=YKVw+uwipdDraFwsZJhD2rLkSoVaZnlRk2IHv9diJh0qI2Ofv19rbwpfGRosOHoSyj0i
+	 UFHhspHUfG38ylp9LAsJff39oL2lKFqS4gmmF8hCMQq7h/w6BHIo00SFdnHldqPAm7QDW
+	 ER59yuAvW26s3qo+ALlpWr8/0ItSNqclUAqp/7T55IDk35JEkLocTDdfa8QokjoFC6bcN
+	 90eTsz9Gd6DSbUjzAmYCPmY5ansEy8N+5Uctd5HUqCk6oeXBk+zfei9yiDnUk1pGs0e12
+	 rp6zODIT814ko2ksU5+3c+MwgGlCxkrojQPBFD5z1l3v5BnezKRRF6Z8f35LCi6fEEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795173377;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pl136nzpOFQ345cNO6L/r1uz90t3NzllIlAz7VRcMtI=;
-	b=LMA27b4LpHPoVE5EW4x+xZDKtf0HVHQ+/GHROJ9mdLGCyUU9mUzbSkqkCaX8itayGd51
-	 KCI4VD0kp4CwVp90okjdqYncrUbuf0jkOcMSXeYEyA8x4H63ezWWFUOGLzTVoPqA8+QF+
-	 xX9oZF8KGhHvI4W0pxu5053G19uwWvdpiBeIM5AblCu70SHGEPIJeemlQWol7HlGeC6kN
-	 GZuDnywwZnmxsS2Y5rKCIVodUQ+S4BADEUA0loNZFZ5Kvxr6wnXY3C79pDKP2jLTQgD+u
-	 nxeuWp9XlSiTC1CgaFzfZqmwW/vJOmBVrBp2EV7o9bsUmglmvUUnjmI0vEGG5kq7wyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795173394;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1rA97F5/npt/N9vCtRHW4c9+9dN2t8X2ZribjEzABLY=;
+	b=KktHN+jyPoQVUNjhjvKcgvJEILldr1Ouj9XxQNRVnxmqQT4/4atXmqGYDlJ2HeG+a/Jl
+	 U1O5ITe3e+OkEqeInfssGDwQy/zwDtgUchpkOQd25RoziGfmIWAJSTnOxdzEkLMgmufye
+	 8663QPW75UkaAem5dgoN+rMdamB+bQdUabjuokMw69YD3Q7ki8PJm014VxRmopqTKWnr4
+	 rzxClIm/mzYNQ4SlA5EgNeB9THyHuE3kI+kcYMQCHlB0+RtQTasIWRRFG6biPcD+9EkZV
+	 n2lB38tjeIFFIbQ3nYv14qCJcl86HwDb4PXdBo7N2Ta0KfBzLUsojsvjchN6717JFDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zUySvkkH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luUsY8wS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E485C606A320;
-	Fri, 20 Nov 2026 11:16:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E7A606A334;
+	Fri, 20 Nov 2026 11:16:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zUySvkkH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9DC51F000C0;
-	Fri, 20 Nov 2026 11:16:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795173376;
-	bh=pl136nzpOFQ345cNO6L/r1uz90t3NzllIlAz7VRcMtI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=zUySvkkHhPiH3OWBBhmtbPX5N22IOKGeVTdc3jos3pj0U8ksV8GdleYy1i/sdZgnU
-	 fDrPAzJJtMEYCSbG+7qnnH9VcS4tGvjl2XPwDImU+5xFNR1U7FTob/VsFWLfkuapHl
-	 +YiHkeWBdYslE/3KxNS+ET0Em1HSiUoZdeijhRFc=
-Date: Fri, 20 Nov 2026 12:16:13 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Neill Kapron <nkapron@google.com>, linux-usb@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luUsY8wS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0E411F000CA;
+	Fri, 20 Nov 2026 11:16:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795173393;
+	bh=1rA97F5/npt/N9vCtRHW4c9+9dN2t8X2ZribjEzABLY=;
+	h=From:To:Cc:Subject:Date;
+	b=luUsY8wSZU63nKy52IFDDfqhhiq+t+o+hbbc/+Gd5ufIEz12jspoREg0hXHaDM0g2
+	 4vywmRiBQTJA9vtfNKZdpz/vBuQnEOMbD6wj4/QdQZAXihIoqmYtXdFWdonlCJ1TD1
+	 WWZJcI4PnLlKrTiUOX+vl+u2U7jCCeMDWw5F2AsDs5RwFz15dHivHC2RoB75rJBw9N
+	 gdOqhTarpq+gXjliwH93PoH5hpi3br5bYXk4lgcuOgxcptm8Twc+rtDvmJ1vN6pU3m
+	 3TwCyECKZPZxWoO6scqt8iVrSMKu0aFfNJyF3SEsoD2FHnZSY83xIaM9CV1iMXhbWq
+	 AjvfBKriIPurA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Chris Wilson <chris@chris-wilson.co.uk>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	"Paul E . McKenney" <paulmck@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v4] usb: gadget: f_uac1_legacy: fix copy_buf lifetime on
- queue handoff and free
-Message-ID: <2026112033-gummy-backward-5436@gregkh>
-References: <20261104125346.2552742-1-tristmd@gmail.com>
+Subject: [PATCH v4] dma-buf/dma-fence: Prevent misordering for error checks
+Date: Fri, 20 Nov 2026 12:16:16 +0100
+Message-ID: <20261120111615.2940647-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,103 +67,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104125346.2552742-1-tristmd@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 12:53:46PM +0000, Tristan Madani wrote:
-> From: Tristan Madani <tristan@talencesecurity.com>
-> 
-> f_audio_free() tears down the f_audio structure without cancelling
-> playback_work or releasing audio buffers.  The pending work can access
-> the freed structure, and queued audio buffers leak.
-> 
-> Additionally, f_audio_set_alt() and f_audio_out_ep_complete() transfer
-> copy_buf to play_queue without clearing audio->copy_buf.  When
-> playback_work later consumes the buffer from the queue, audio->copy_buf
-> becomes a stale reference.
-> 
-> Clear audio->copy_buf when its buffer is queued to play_queue, so the
-> pointer reliably reflects ownership.  In f_audio_free(), cancel
-> playback_work, drain the play_queue, and free copy_buf when it was not
-> queued.  Use IS_ERR_OR_NULL for the copy_buf check because
-> f_audio_buffer_alloc() returns ERR_PTR on failure and f_audio_set_alt()
-> stores the result directly in audio->copy_buf.
-> 
-> Fixes: c6994e6f067c ("USB: gadget: add USB Audio Gadget driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> ---
-> 
-> Changes in v4:
-> - Fix the root cause of the stale copy_buf reference: clear
->   audio->copy_buf at the two sites that transfer ownership to
->   play_queue (f_audio_out_ep_complete inside the spinlock, and
->   f_audio_set_alt alt 0) so playback_work consuming the buffer
->   can no longer leave a stale pointer (sashiko-bot)
-> - Simplify f_audio_free drain: no buf == copy_buf comparison
->   needed since copy_buf is now reliably NULL when its buffer
->   is on the queue
-> 
-> Changes in v3:
-> - Guard copy_buf free with IS_ERR_OR_NULL because
->   f_audio_buffer_alloc() returns ERR_PTR on failure (sashiko-bot)
-> - Attempted to detect copy_buf during queue drain, but that
->   missed the case where playback_work already consumed it
-> 
-> Changes in v2:
-> - Added play_queue drain and copy_buf free (sashiko-bot)
-> 
->  drivers/usb/gadget/function/f_uac1_legacy.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/usb/gadget/function/f_uac1_legacy.c b/drivers/usb/gadget/function/f_uac1_legacy.c
-> index 7c8d60c7e87d1..cba7b447b09e3 100644
-> --- a/drivers/usb/gadget/function/f_uac1_legacy.c
-> +++ b/drivers/usb/gadget/function/f_uac1_legacy.c
-> @@ -9,6 +9,7 @@
->  #include <linux/slab.h>
->  #include <linux/kernel.h>
->  #include <linux/module.h>
-> +#include <linux/err.h>
+Many users of dma_fence do things like:
 
-Are you sure this is needed?  If so, why here in the list?
+// Thread A
+dma_fence_set_error(f, -EINVAL);
+dma_fence_signal(f); // <- test_and_set_bit() orders against the above.
 
->  #include <linux/device.h>
->  #include <linux/atomic.h>
->  
-> @@ -338,6 +339,7 @@ static int f_audio_out_ep_complete(struct usb_ep *ep, struct usb_request *req)
->  	if (audio_buf_size - copy_buf->actual < req->actual) {
->  		spin_lock_irq(&audio->lock);
->  		list_add_tail(&copy_buf->list, &audio->play_queue);
-> +		audio->copy_buf = NULL;
->  		spin_unlock_irq(&audio->lock);
->  		schedule_work(&audio->playback_work);
->  		copy_buf = f_audio_buffer_alloc(audio_buf_size);
-> @@ -670,6 +672,7 @@ static int f_audio_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
->  			if (copy_buf) {
->  				list_add_tail(&copy_buf->list,
->  						&audio->play_queue);
-> +				audio->copy_buf = NULL;
->  				schedule_work(&audio->playback_work);
->  			}
->  		}
-> @@ -942,7 +945,15 @@ static void f_audio_free(struct usb_function *f)
->  {
->  	struct f_audio *audio = func_to_audio(f);
->  	struct f_uac1_legacy_opts *opts;
-> +	struct f_audio_buf *buf, *tmp;
->  
-> +	cancel_work_sync(&audio->playback_work);
-> +	list_for_each_entry_safe(buf, tmp, &audio->play_queue, list) {
-> +		list_del(&buf->list);
-> +		f_audio_buffer_free(buf);
-> +	}
-> +	if (!IS_ERR_OR_NULL(audio->copy_buf))
+// Thread B
+if (dma_fence_is_signaled(f)) // <- Does test_bit(), no ordering.
+	pr_info("err: %i\n", f->error); // <- Can be loaded first.
 
-How can it be an error?  This is usually a sign something else is wrong,
-right?
+There is no memory ordering between reading of the signaled-bit and
+reading of the error code. This can result in outdated, wrong error
+codes being evaluated by the user. That's a significant bug when we
+consider that fences' purpose is to propagate the state of jobs running
+on hardware.
 
-thanks,
+dma_fence_get_status() does take the fence lock, presumably to ensure
+ordering, but it is broken, too, because the read misordering can simply
+happen within the critical section.
 
-greg k-h
+It's not entirely clear since when this bug exists, but at least since
+dma_fence_get_status() was added, which is why its birth commit is
+marked as the Fixes commit here.
+
+Ensure ordering for everyone evaluating the error code centrally by
+using test_bit_acquire() in dma_fence_test_signaled_flag().
+
+Cc: stable@vger.kernel.org
+Fixes: d6c99f4bf093 ("dma-fence: Wrap querying the fence->status")
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+Changes in v4:
+  - Keep the hint at the function being opportunistic. (Christian)
+
+Changes in v3:
+  - Be more precise in code comments and commit message about how the
+    ordering works. (Gary)
+  - Update the function's documentation to inform about ordering
+    semantics.
+---
+ include/linux/dma-fence.h | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..64330bf52561 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -487,16 +487,23 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
+  * with the fence in any way. The user must, therefore, ensure through other
+  * means that fences get signaled eventually.
+  *
+- * This function uses test_bit(), which is thread-safe. Naturally, this function
+- * should be used opportunistically; a fence could get signaled at any moment
+- * after the check is done.
++ * Naturally, this function should be used opportunistically; a fence could get
++ * signaled at any moment after the check is done.
++ *
++ * This function provides acquire ordering. This means that all stores
++ * preceding the signaling of a fence are visible in correct order to users of
++ * this function.
+  *
+  * Return: true if signaled, false otherwise.
+  */
+ static inline bool
+ dma_fence_test_signaled_flag(struct dma_fence *fence)
+ {
+-	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
++	/*
++	 * The release counterpart is the test_and_set_bit() in
++	 * dma_fence_signal_timestamp_locked().
++	 */
++	return test_bit_acquire(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+ }
+ 
+ /**
+-- 
+2.56.0
+
