@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795190462;
-	b=1Sok3fZw6gSJyIrh2qRWlWuydNBdNgv/75HF5T18xug0wqe9bApSGfj9wEXjF+oVSxIk
-	 NqPqZUoU0Ob5up6dO3AQ6FRzsq/Uu2nMFBB3nPVG9I4O7wYPlEUIjnOq7lxbycUNphHtg
-	 m6drWoqmXLx3xc6nffbXc00geBEeuJcjJdVOwUWfZFYk+yJdBxCKQTBYXc0+THkIUDi8L
-	 5K18LbDVzQnvzugbJKf3UPKQueLdagYklP+HHWiolFO569HyGjALMgq84mGPeJugxkVdV
-	 A67r23e/pdZz1DjlmkdJ3BmS2vcRqVfX5wiZPw/gwJ9NuVa/6O0GunaMDi9rgn7YLCA==
+	t=1795190506;
+	b=CowUE7NwWgxPvYfVuzsHe+rSJRxKnCIB0Xm5pUrQeOYcRU/gb7W+YaNFIzHDwKqcYc26
+	 zS0ciSrm90Ga/b21rcYqNjzCHBLa4+FkVGY9n0oIz2jINIZSPo4tNgs6tOQRWst2Wh9EO
+	 YulleHTmnc+U2I0QISuy4+S77OCAkKxjGZc4X2eMeaFlKfM+JUXm1jkESV5biI8CLo8h2
+	 pakZa5F8v1rGAj3nOXEOqfF/YOehJKiwAzFgjvCQE//tiPB6yZlMdIy8bEtV2pRv/MKuz
+	 7HK5GFG27LOOzMSB2ld3wqwieaXuuGCh2fwdiVRqFLk3LcdGPHHreUNv0cH2WwzDryA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795190462;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795190506;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=uBZHDjcp8OHvO+9HMmytd8ayAJCp+xM1stb3TXPJ8UI=;
-	b=2YX2WyKUIg0gW2CbQuFaJHL+W5KF4mafTg8Gr7wg0OMcbGfuLRGfXpsypCJD1SrScvBe
-	 3Bfq7uA/JqInAShnS/MDrmX/145ILKrJP9OPlrnMPBVpjDjphzUK3CAcPSIwpMq+flplM
-	 X54igwJBe0fCOX3I0L1bcSZnxSWZWrGiPOfM2IPsRaqDzf84InBEaqlKpotnzxDuhKjNK
-	 hhkZ1kg7CqLIHYJJ5PvnKJ9PXmLsktf00ogFBHTs6Dv+3wNkUzWuijazO6D7oV/+o41GA
-	 GwZpOtcfF62/fmfg+xMP060uK9MUsqjwAH0LknAxdwZx4Gyt/ZKz/0ugTUPJFKGyiKA==
+	bh=NtVw7HJE+FU9DI3xWpl8Pyt0L7yMJpDS2sfT356C23w=;
+	b=dPft+KqNeRH7UlEfC/aPZA8fTt/Vj0fTfEpKtk/h29tzXvu6KT8B5cPHKBbdUEMOfRZs
+	 NLiGiDg3mv8ibx3v413qgr/DOqBQ5PDryB+fsxdQOIeJ6Op7dRW4R0Te+nGzuamw557rI
+	 89v0SoofEo0fg9iZBx7b4paNdYVqrLKCTVj5wDmFphd+2ijJ0BqyEOHbf1ZeoRcPcObE/
+	 ssaRi5aTU0mznm8RgGPyIrIt3ZQiYlPZS/0BqDku6ENQ98ZspaSAztysXMXEwj1kHIffc
+	 ND7YpF134bKaI8PLc5akJ1GCDi9R2Q7Rrhz0nkH/rxC/+sE5bBBhfTgYPfgCC58LKFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m4k51Ka8;
-	arc=none smtp.remote-ip=209.85.160.46
-Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XAXUnE15;
+	arc=none smtp.remote-ip=209.85.210.45
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6518B606A32A
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:01:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6518B606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556C5606A325
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:01:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 556C5606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m4k51Ka8
-Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-4ad881b6517so880561fac.2
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:01:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XAXUnE15
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-862df509d48so746513a34.0
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:01:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795190461; x=1795795261; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795190505; x=1795795305; darn=vger.kernel.org;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=uBZHDjcp8OHvO+9HMmytd8ayAJCp+xM1stb3TXPJ8UI=;
-        b=m4k51Ka8eU6xgJB0FiyfWWWXB69vi6/sEq6C8/NEdLlcSfvCwbegXzOw5x1U83KjDx
-         xFccbe8sLrISZot5sGEjLfOiERpg6RC4+loGxtKDkPTcfqh7r0FiwejqMOVU6t08pGe8
-         EsGwWh1f1WiEmhGf1TmDrtpSW1PG35N1nvQf5hYBxNsMbDKNEGQT3LiVfxTnjaYbRuky
-         yZx4W4pJ56MlPte5itCwVH/etJ67VvE5ov67qGnSIwEkcoxK9jlBK9Y9n9paCz4NZjrD
-         yK9f+sGXc/CmYA3IX/MjriafIkLO+HO7U0f1bj0/SnTjgwrrzV2dFD+hPFjTO9Aog+m2
-         p5cA==
+        bh=NtVw7HJE+FU9DI3xWpl8Pyt0L7yMJpDS2sfT356C23w=;
+        b=XAXUnE15xCXWUgDbFmuMCBMg4ffNmK383G4cW2vjVWZ0Y96B6uK1rt7PtSzIDEEfNF
+         DoSZDtVwTnHMSjXSDZbYSen6XFgwdJ11nlfGjRTbFg+2b0BNg9Y9nZ724IgwJfq9Nnr2
+         G7SOupfYUkuyQ4k560TgLLrWwgnAC7IugZNqvCeoCiEwGkdXnlqPVxvHkYjC410LNW22
+         512PQtAiYK68Wa2+nldfJZLooBuwx89dFBhYXzeLW75NlK0F1MAN9EiXx4MGqc/jYXH1
+         WulTezX3aDXms0TkxfSm4r66RKifVn59DH7QYvhKh9o7Xb1z5K38XMFLPFXUCuQHBrPL
+         IIgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795190461; x=1795795261;
+        d=1e100.net; s=20260707; t=1795190505; x=1795795305;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=uBZHDjcp8OHvO+9HMmytd8ayAJCp+xM1stb3TXPJ8UI=;
-        b=HP/u9UnUGIzFvmWWLIBa6FGouPZuZQ8wHl7TtP41CReGr8yeExB69XUUe+OMdUeo2h
-         wSCA+wLpIy4gde3mdh6H7sViJruGQZYvUCHmhudoUs2E+U6Quxiya3Rh2Ix+/DHcrn+8
-         AsdeOOYbp0UQZIb36A5tSelHvffVFy4BPUmPUEztznF7dHBdpA3/0lJGNXEXFYKeOT9W
-         DynpT3khu7rKEXAp3J/lh68hW2LR+LkmhEMckiNazl5/653ghonwdgDFc/BdxA390B8f
-         iWtH038wBwEYI7mQOBfdtAHJxmjZQNrbUVzRhyD/1YKEVKgqcpTwhiP8HhZVhQoO7ogr
-         O7rw==
-X-Forwarded-Encrypted: i=1; AL+hErHGdJEj/rRs0BLhnoYUcvaEpsR0fe5S29Fu4UP9+HTBL5y/PBzI2Hl27TlBCvp3/6MVQpBfP5s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z90wK9XZtIgyU1Kx7EtpHw2mDGQXG/aUtI/mqmygObJ3rMYwV3h
-	u0NLZDsTl1+HeEbxRbZ7st/H4GlOm4FC6XHxRKvUq6frZkqmN+UqMnIo
-X-Gm-Gg: AZFdTZciErZT9pSYUqdNwd4dZqVdmrItGHoyXGyoONf/Ft+521x7fPD7YUaPBMqXpMq
-	FJBkIQ16gG6MuWWCDB4J8Mpffzv5Bet6avKnj8QXRylglyLOITS+weEUAViMI8795ThMfyA0IpF
-	egoCmj54X1Rhrc6g+VVCt0hngbp3JnSgNqyOcHyR/h5ysUMt2b6KpJozDapw4tfc6Q7m+0LjE8f
-	jf6BBgVuXe+VCqEKGA3RkSQvhwW4L2W6FcPpnl8DT0CkGT6zbQKOtDrNWAEigQWH5uL8++VSeeO
-	DvagBIssjIn1Vb+B5vMdX7X09D5EMqh5gw11KOn7dFqN3m4U5IEQgT2aEXrkYtYjpfMq+yoePwN
-	EIf5llgfU1+bHr61ZYVHsx3zvpxTQMPgRfgZbmKd/24xMOlz5cn5rJqJmkTAhRyhxXlLplbbTCV
-	C5oXSYhXm46K7TtPF0I6W9+63wV2OZ9jQ4IIjTba5CuLM5vXlaLkMz1/5S35Ee7fBMETWrH5kiu
-	Ar0PjLO3ZGh/BxVrpbZp8tnO02wVxybBKm9PPI56+M3S9X4mOHUSgkajwjJNNu4gu1ZdTj7Co+a
-	57XAA1xKFI6wgrd4RQMCVFaBubMZR2i2uMTJN8BpsnunNbFcm2UFAJ2ZUuEUlqG61V97eXUKc4I
-	Mrhg9+/RozKgubQyvydXqO69twCQObvUpsJBduu4x+d4LuzHbZWGuKsJkoR77oZIWdtUOGTBBCf
-	eWxL86iN10NeLIrXzoJIHT1wPM0x+fTt5OZbTthCyReKQukNc4z1M=
-X-Received: by 2002:a05:6870:b93:b0:4a9:5bde:8484 with SMTP id 586e51a60fabf-4bc85402f1dmr3040217fac.51.1795190460802;
-        Fri, 20 Nov 2026 08:01:00 -0800 (PST)
+        bh=NtVw7HJE+FU9DI3xWpl8Pyt0L7yMJpDS2sfT356C23w=;
+        b=WYoyW8frYghU3r2k2mIbIMxYc7EHSUVSXao4r+w+15Ym4lwILVQV0TEKJrWI3d0MTZ
+         ZKYyIVdusBPbMVtW42ZJMOwzk1VVP+TknBHy0AgQb0BLbRW4uX2FCXj6Vr0wDYo1HewK
+         FiVHKBc4jpz9ohXzljp1AKR4Oh5p6WJmPQtGFCLyD5JKlOylnTOdpbtkQiyOh5TON9F3
+         ceT1k06VRfeyCj3uW4Iz+cn+02OmqMSyBvsrJH2W3Vzrcu5FsS8KENe3G5jlfEukruDF
+         gPzi98AfmQzLcDmqLgs7KdP8ULU/RF+w+2YA6dDbK52VJ26FpMPmXaiU9ph9CdzTkMdK
+         ecaQ==
+X-Forwarded-Encrypted: i=1; AL+hErF2jpaYbkTZZV7Xjq/UmwBoWft0uezvF39ZBRr78CwU6kI3/et61HN68h3DoTKWxtenOkG2ovo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+XtaQrTeQJjMOfe24iEad4qTdPief93DE+XyvuOrTHjqw5s14J
+	37qtN4OfH05qB54H8v1sygjyoMgnvUZ5pH9bEpD/ruFxvCUDvyZ0hbkJ
+X-Gm-Gg: AYBFou0Dd3SGGUWhBycheqUr10UMssq//PsGCVyFGfgBEbyQR2U4P3lJYQ3n0nnoIMD
+	nm2xdo2JhGNon7Y3NKWRznkKBv/AKhg/438j3Fypei/JcgUOwtWPcYN1WEVV3N3GJV5DMfImX3j
+	lQCc+o+LVUZYpkYXYm5eEXXoMUV1CghVikljH6m31Z187M2dZ/8+NzxMyCYDHPiLCTqSvSDAaqi
+	SILL4QQ8Pl9GeRwixFAfiGZBWGerb9ostYNPYefiaKOu5UJthov4Sjy/Go/WWr9qTAj1fzBJFVJ
+	s192u04icvLs/8yMcjUUvTtkn+hT5Qgu/y4sIyZOYoqJ6eAv9X6gb3YrMOq90spLbf3Fjn4f+aZ
+	rNJsXkdwhy6CIdyr2DM+kZZdRwaLyWcq8xlN86Wf6RMkunJcwv2S7PJZtuGJgOnRRHsUCj76+uu
+	gDFkBQ7sq+IubVdWqEb7yiUyVWzAHHQW5NvMda42JW2PSy71/sIEvj0/nFwHgx35DSqfm/okwD6
+	4Uzykpn0pX+tXjuRhMbKLIlGW+b5SSQ20B6Xx/vuvnf4LZ5yriFVotc41ogkNgEKHCgG6XvOYvl
+	Uo3JWG2Ph71nxKjcH9Dr2Xh2w6qeSG2CTe+WcMkKvPGylLmUW+WVdTufLYPKDkVwa/n5E5tY9Ol
+	iG8tob0FX+XwH01nwJxkXaImLM1FhDjoBhaCLv76AHuOx4ND7yebBVl3uGchAERj3kMRZw5xeME
+	kgV/ZqaKax8aN7Jjn0q9Vt+0AEPxnWQnC9okK8h/FS3mfCCoqMKZQ=
+X-Received: by 2002:a05:6830:3916:b0:845:614b:eab9 with SMTP id 46e09a7af769-863091a9d18mr3867703a34.6.1795190505053;
+        Fri, 20 Nov 2026 08:01:45 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bd044fc4besm2161534fac.7.2026.11.20.08.00.59
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168f3964sm2307408a34.14.2026.11.20.08.01.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 08:01:00 -0800 (PST)
+        Fri, 20 Nov 2026 08:01:41 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 20 Nov 2026 09:00:53 -0700
-Subject: [PATCH v2] mtd: rawnand: atmel: keep the HSMC clock on until the
- NFC IRQ is freed
+Date: Fri, 20 Nov 2026 09:01:35 -0700
+Subject: [PATCH v2] mtd: take a reference when opening an unpartitioned
+ master
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,211 +95,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-submit-atmel-nand-irq-teardown-v1-v2-1-7460e7c8c163@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ6CMBBFr0K6doRSgujKexgXpR1hDC3aVtQQ7
- m6LcW8ymz9/8ubNzKMj9OyQzczhRJ5GG0O5yZjqpe0QSMfMyqKsOS924B+toQAyGBzASquB3B0
- CSqfHp4WJw2VflKLYKd7olkXOzeGFXuuP0/mbI+SKKiRwumilR2idtKpPKxN0nsi5xVdIfU8+j
- O69Sk48cX4+zR8+cTiIiteVUI1AFMfOSBq2ajTsvCzLByGyZ7cEAQAA
-X-Change-ID: 20261107-submit-atmel-nand-irq-teardown-v1-f902307c18db
+Message-Id: <20261120-submit-mtd-master-open-reference-v1-v2-1-5c2e2ede4ea7@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOSw7CMAxEr4KyxtBU9CNW3AN1kSamNSJJlYQKV
+ PXuOO0JkOzFeOznWUTEQBjF9bCIgDNF8o5FeTwIPSo3IJBhLcqirKUsWojv3lICmwxYFRMG8BM
+ 6CPjAgE4jzBKU7JuqNtrgpRFMmtilz/bl3u2aMU/UKaPzRq8iQh+U02MeMf2ce79if6SYfPhuM
+ WeZOf8l4pLQNlIp3eoai+o2WEWvk/ZWdOu6/gDe9JtUCAEAAA==
+X-Change-ID: 20261108-submit-mtd-master-open-reference-v1-a1b756dcde47
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Boris Brezillon <bbrezillon@kernel.org>
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
 Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
+ stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.17-dev
 
-When the Atmel NAND driver is unbound on a system using the legacy DT
-binding, another device on the shared interrupt line can still cause the
-NFC handler to read registers after the HSMC clock has been disabled.
-The remove callback turns off the clock, but devres releases the IRQ
-only after the callback returns.
+With CONFIG_MTD_PARTITIONED_MASTER disabled, a flash device with no
+partitions still gets a /dev/mtdX node. Opening that node does not take
+a reference on the master MTD. If the driver unregisters the flash
+before the file is closed, the core can unregister the MTD device and
+its NVMEM provider while the file is still open.
 
-Register a clock cleanup action before requesting the IRQ. Devres then
-drains the handler before disabling and releasing the clock, both on
-removal and when probe fails after requesting the IRQ.
+Take a master reference for a handle on the master and drop it when the
+handle is released. A handle on a partition still takes a master
+reference only when CONFIG_MTD_PARTITIONED_MASTER is enabled.
 
-Fixes: f88fc122cc34 ("mtd: nand: Cleanup/rework the atmel_nand driver")
+Fixes: 264725e35fbc ("mtd: Clean refcounting with MTD_PARTITIONED_MASTER")
 Cc: stable@vger.kernel.org
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
 Changes in v2:
-- Use a devres action for clock cleanup so devres releases the IRQ first.
-- Link to v1: https://patch.msgid.link/20261108-submit-atmel-nand-irq-teardown-v1-v1-1-341643c83ee3@gmail.com
+- Clarify which handles take a master reference and what is released early.
+- Link to v1: https://patch.msgid.link/20261108-submit-mtd-master-open-reference-v1-v1-1-871aac8c6e05@gmail.com
 ---
- drivers/mtd/nand/raw/atmel/nand-controller.c | 56 ++++++++++++++--------------
- 1 file changed, 28 insertions(+), 28 deletions(-)
+ drivers/mtd/mtdcore.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/atmel/nand-controller.c b/drivers/mtd/nand/raw/atmel/nand-controller.c
-index b86d080bcb2c..ce5e13276d2e 100644
---- a/drivers/mtd/nand/raw/atmel/nand-controller.c
-+++ b/drivers/mtd/nand/raw/atmel/nand-controller.c
-@@ -263,9 +263,6 @@ struct atmel_hsmc_nand_controller {
- 	struct completion complete;
- 	u32 cfg;
- 	int irq;
--
--	/* Only used when instantiating from legacy DT bindings. */
--	struct clk *clk;
- };
- 
- static inline struct atmel_hsmc_nand_controller *
-@@ -2151,6 +2148,14 @@ atmel_smc_nand_controller_init(struct atmel_smc_nand_controller *nc)
- 	return 0;
- }
- 
-+static void atmel_hsmc_nand_clk_cleanup(void *data)
-+{
-+	struct clk *clk = data;
-+
-+	clk_disable_unprepare(clk);
-+	clk_put(clk);
-+}
-+
- static int
- atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
+diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+index b170c3144ca8..c51067ea19c8 100644
+--- a/drivers/mtd/mtdcore.c
++++ b/drivers/mtd/mtdcore.c
+@@ -1330,6 +1330,7 @@ EXPORT_SYMBOL_GPL(get_mtd_device);
+ int __get_mtd_device(struct mtd_info *mtd)
  {
-@@ -2164,6 +2169,7 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
- 	struct device_node *nand_np, *nfc_np;
- 	void __iomem *iomem;
- 	struct resource res;
-+	struct clk *clk;
- 	int ret;
+ 	struct mtd_info *master = mtd_get_master(mtd);
++	bool master_ref = mtd == master || IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER);
+ 	int err;
  
- 	nand_np = dev->of_node;
-@@ -2173,41 +2179,46 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
- 		return -ENODEV;
+ 	if (master->_get_device) {
+@@ -1350,7 +1351,7 @@ int __get_mtd_device(struct mtd_info *mtd)
+ 		mtd = mtd->parent;
  	}
  
--	nc->clk = of_clk_get(nfc_np, 0);
--	if (IS_ERR(nc->clk)) {
--		ret = PTR_ERR(nc->clk);
-+	clk = of_clk_get(nfc_np, 0);
-+	if (IS_ERR(clk)) {
-+		ret = PTR_ERR(clk);
- 		dev_err(dev, "Failed to retrieve HSMC clock (err = %d)\n",
- 			ret);
- 		goto out;
- 	}
- 
--	ret = clk_prepare_enable(nc->clk);
-+	ret = clk_prepare_enable(clk);
- 	if (ret) {
- 		dev_err(dev, "Failed to enable the HSMC clock (err = %d)\n",
- 			ret);
--		goto out_put_clk;
-+		clk_put(clk);
-+		goto out;
- 	}
- 
-+	ret = devm_add_action_or_reset(dev, atmel_hsmc_nand_clk_cleanup, clk);
-+	if (ret)
-+		goto out;
-+
- 	nc->irq = of_irq_get(nand_np, 0);
- 	if (nc->irq <= 0) {
- 		ret = nc->irq ?: -ENXIO;
- 		if (ret != -EPROBE_DEFER)
- 			dev_err(dev, "Failed to get IRQ number (err = %d)\n",
- 				ret);
--		goto out_disable_clk;
-+		goto out;
- 	}
- 
- 	ret = of_address_to_resource(nfc_np, 0, &res);
- 	if (ret) {
- 		dev_err(dev, "Invalid or missing NFC IO resource (err = %d)\n",
- 			ret);
--		goto out_disable_clk;
-+		goto out;
- 	}
- 
- 	iomem = devm_ioremap_resource(dev, &res);
- 	if (IS_ERR(iomem)) {
- 		ret = PTR_ERR(iomem);
--		goto out_disable_clk;
-+		goto out;
- 	}
- 
- 	regmap_conf.name = "nfc-io";
-@@ -2217,20 +2228,20 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
- 		ret = PTR_ERR(nc->io);
- 		dev_err(dev, "Could not create NFC IO regmap (err = %d)\n",
- 			ret);
--		goto out_disable_clk;
-+		goto out;
- 	}
- 
- 	ret = of_address_to_resource(nfc_np, 1, &res);
- 	if (ret) {
- 		dev_err(dev, "Invalid or missing HSMC resource (err = %d)\n",
- 			ret);
--		goto out_disable_clk;
-+		goto out;
- 	}
- 
- 	iomem = devm_ioremap_resource(dev, &res);
- 	if (IS_ERR(iomem)) {
- 		ret = PTR_ERR(iomem);
--		goto out_disable_clk;
-+		goto out;
- 	}
- 
- 	regmap_conf.name = "smc";
-@@ -2240,30 +2251,24 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
- 		ret = PTR_ERR(nc->base.smc);
- 		dev_err(dev, "Could not create NFC IO regmap (err = %d)\n",
- 			ret);
--		goto out_disable_clk;
-+		goto out;
- 	}
- 
- 	ret = of_address_to_resource(nfc_np, 2, &res);
- 	if (ret) {
- 		dev_err(dev, "Invalid or missing SRAM resource (err = %d)\n",
- 			ret);
--		goto out_disable_clk;
-+		goto out;
- 	}
- 
- 	nc->sram.virt = devm_ioremap_resource(dev, &res);
- 	if (IS_ERR(nc->sram.virt)) {
- 		ret = PTR_ERR(nc->sram.virt);
--		goto out_disable_clk;
-+		goto out;
- 	}
- 
- 	nc->sram.dma = res.start;
- 
--	goto out;
--
--out_disable_clk:
--	clk_disable_unprepare(nc->clk);
--out_put_clk:
--	clk_put(nc->clk);
- out:
- 	of_node_put(nfc_np);
- 
-@@ -2345,11 +2350,6 @@ atmel_hsmc_nand_controller_remove(struct atmel_nand_controller *nc)
- 			      (unsigned long)hsmc_nc->sram.virt,
- 			      ATMEL_NFC_SRAM_SIZE);
- 
--	if (hsmc_nc->clk) {
--		clk_disable_unprepare(hsmc_nc->clk);
--		clk_put(hsmc_nc->clk);
--	}
--
- 	atmel_nand_controller_cleanup(nc);
+-	if (IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER))
++	if (master_ref)
+ 		kref_get(&master->refcnt);
  
  	return 0;
+@@ -1435,6 +1436,7 @@ EXPORT_SYMBOL_GPL(put_mtd_device);
+ void __put_mtd_device(struct mtd_info *mtd)
+ {
+ 	struct mtd_info *master = mtd_get_master(mtd);
++	bool master_ref = mtd == master || IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER);
+ 
+ 	while (mtd) {
+ 		/* kref_put() can relese mtd, so keep a reference mtd->parent */
+@@ -1445,7 +1447,7 @@ void __put_mtd_device(struct mtd_info *mtd)
+ 		mtd = parent;
+ 	}
+ 
+-	if (IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER))
++	if (master_ref)
+ 		kref_put(&master->refcnt, mtd_device_release);
+ 
+ 	module_put(master->owner);
 
 ---
-base-commit: ec1e844b9486302a488abc03ea918db60709766e
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git nand/next
-change-id: 20261107-submit-atmel-nand-irq-teardown-v1-f902307c18db
+base-commit: 14b6830335eb6d70dec7a235094d66c22d38eb07
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git mtd/fixes
+change-id: 20261108-submit-mtd-master-open-reference-v1-a1b756dcde47
 
 Best regards,
 --  
