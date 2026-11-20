@@ -1,70 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795168527;
-	b=SK5pm4Gbnor08JOknlufSV+hgQY7ejcR+Z/lZj9SfJQgPnT7H+cMzepeSHBj2Nf0iR/0
-	 jp1gXR6TPSeSh5un8bmEnvDALCud3o6Fv6Ay2q/+q/TG6bAhJToyFydJV3GHbnxTonAkR
-	 BViroZ+3mUb61F1R9bNBxQ4/pK/tto8mFJXxW557Lu1AD3e9PWaSO07uuTuF9g1r+3+Z5
-	 GOey0r4p9piPrQ9s2bGRfKRrdaIkE/UneI2n9Wch6lZemVkCyCOC01i7797Wd3V8Reisa
-	 uF4J5yLkIxlAjh+vLVin10TnhwJybyQcUsvMDUZruC0BmxcPFUDEe2+FGXtwbpn82Gw==
+	t=1795168563;
+	b=ixm/BKvhXMoXXbC+T3Ct69BYU0IDOYPJqlaU8MudymgeZVA1maSMkP+2K9kAhsQNTTgT
+	 UBxPsRWtSOz/QjRLy/mIHMjfw91u2qQQtFwb785r1lMdUUoSztf0lCTWDbNMsvmbO8603
+	 a1W9/cFzsybxBl5bSbYUmx4DqCAIgA5oWAX9tuJbQX6288rT4Fcq4pVAkgMPHy0qO1Ppq
+	 NXsPa6453UeEaYYRfFz8E1kJ9ILOCe+EByA0FQILpKIl1g8UU/d+DWm02VLX3jxC10wsc
+	 /46kKwHnWiYHmuIyN1KP4oACC85tS/TMs3eMJf1BwAHYt/y+dmkgz055BaG0ZpBVhbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795168527;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=WBq1coYA+tKY6l3zjpWcUqa8zsToSF905MLNKiI0tu4=;
-	b=tyMCnQtmzIraSJn2QDToqR7MT/ayBC/qThjwuLSbumJovzs9T5CmFerKJwndCzZ2qCNu
-	 0BibGRDGFs+iRJgCliHKrIrxkViDihaD8Tm/MvcsVqAMdrkua2uSyR8YQYsn/qDnW4/Kp
-	 1yaMCcFz5MvITbDK/cVl6kai+JXQaIsYCnPAcNQks1W3qiH69B0mTlI3duKfyF/GcdJ9J
-	 aM33b7UVN9IkUeQfaYMReEfSg+NRTJypQMpmV5MyMBOC/weAL/slAes0szg3d3brgf/pt
-	 CPa1/1FcXJ+Cdpm3ViTciqIVF8ECy4U5vXtshdvYyekFe/cz0Eu9W4j0JIsPyf7+EmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795168563;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Organization:Content-Transfer-Encoding;
+	bh=cl+pmVy476uhB8d+g7wH1JjKqA6mI1kK5QAR+3Yzws8=;
+	b=qyosLsdCMPEur+yiWJIeWz4t3Vaz5xYihintzvMOGLQYbfVGt4FsLjJjSpaGYqQvmy3m
+	 IYtLY7NT16zX4XUU4eITsi3n3sNxceLa5UiKj2gbcUKd2cZS9t5NgTynNxi1+EzbVF5bo
+	 wEyVcCbfKUsYHmHRAt9e4KwxXjmdgYqPERuQJKiO1hu9QZbriYGqIW7hEjr7e67N2zF0I
+	 YIwUZGqR0yOO4l32Sk6IeBI95eEA4dcGjtjk2lv4t+sbb4zhENfCB6HgUVMkYY7JMo+AG
+	 7PcFxa9GsoS6xDHTSyN9hFNP/cZx4nAmhZAH3wHeLXbhuNu5G8+Cnp/lDK94i8UKVfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=bfBvu1k0;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="TCrU3/mm";
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66B6606A320;
-	Fri, 20 Nov 2026 09:55:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E66B6606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE709606A320
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 09:56:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE709606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=bfBvu1k0
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=WBq1coYA+tKY6l3zjpWcUqa8zsToSF905MLNKiI0tu4=; 
-	b=bfBvu1k0/EcVedOGEOLD5tB/aKzbSbP5h+6fHhj0F+VmHZJrE8GSoS8aWuTdX5wkxqQfLD8znGo
-	x5/AGcio30EQa1hGjQqtLw7KW9IxVhGtCPUke5hpzmvGTox5z6L3bJ0OOYd8rSwowPfrPg7ge8Qu3
-	sbwTQtIvhqKHbc/ef2f5ysWxtOAxPnk8qLlKxXbtWdh3gapDOui1ARZxyuvgdriUJf37iTwCVLB2D
-	6YroPHtNSbaSVCkjssly1PwTbSYzXGEPecpqbrPnVItMrVFZZCOUvgDOYKC5xRZpFX0UvPpxqO/yZ
-	YH9LX9xaKRoZzz5WevuimYby7tf1y1Ot/IAA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xULKs-0000000HYka-25SW;
-	Fri, 20 Nov 2026 17:55:15 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 20 Nov 2026 17:55:14 +0800
-Date: Fri, 20 Nov 2026 17:55:14 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Russell King <linux@armlinux.org.uk>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Demi Marie Obenour <demiobenour@gmail.com>,
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	Birk Skyum <birk.skyum@pm.me>, linux-crypto@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v12 0/2] crypto - qce: make algos optional and remove the
- BROKEN label
-Message-ID: <awAZAoNml0wYEiYM@gondor.apana.org.au>
-References: <20261112-qce-fixes-broken-label-v12-0-7b5b9c7083ed@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TCrU3/mm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795168564; x=1826704564;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=P2ogfKDcDzDZAGajZNcvLth4J7bBJT83aPIgKjngeTU=;
+  b=TCrU3/mmHKy7+PNQgGA6bfwV7C0A7ZF0k66EL9b41QkFA4dA0oFNgC33
+   n0iHhMa9JdoBMkNzfp/IfhMc3fuYoOvwv/ehiGOK0X6rdyJISBpYO//UI
+   BCSOsC5Q0/pJf99O98zHiAbyLZ7989M5DtfEU0P93uICFXwH1EW9wwnsN
+   1LXjFhwVdS4/tFXgyThS8FWIwCsM0UdGKJ/on8BQr7P74+/Ksgx+cYe5q
+   UBYuz+DZzr5J7IxhR8T/Vw/o0psiqMn1dD476OGjHPxhbW9cCIMjz1a9q
+   wbfZ7wkTc7Z7HStFiiSINqqVqI8woeKO7zcvZNmwjlsuI1iCTG7QBnP+P
+   w==;
+X-CSE-ConnectionGUID: 0r7UrHXfQTyBydvd/sm35Q==
+X-CSE-MsgGUID: 8qJRuFfJTPa8mZEpmrnwvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4072519"
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="4072519"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 01:56:03 -0800
+X-CSE-ConnectionGUID: qT2GeUoJQQOczIQFZ1GsLw==
+X-CSE-MsgGUID: Pcrd6OHtS0ySVRFeTNNn9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="10566989"
+Received: from lpankiew-mobl.ger.corp.intel.com (HELO jhogande-mobl3.intel.com) ([10.245.246.221])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 01:56:00 -0800
+From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+	Mika Kahola <mika.kahola@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] drm/i915/psr: Update planes when early transport SU start moves
+Date: Fri, 20 Nov 2026 11:55:38 +0200
+Message-ID: <20261120095541.1325118-2-jouni.hogander@intel.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261120095541.1325118-1-jouni.hogander@intel.com>
+References: <20261120095541.1325118-1-jouni.hogander@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,107 +82,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-qce-fixes-broken-label-v12-0-7b5b9c7083ed@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 02:20:07PM +0100, Bartosz Golaszewski wrote:
-> This is the follow-up to the three smaller series fixing crypto
-> self-tests in the QCE driver. It makes the crypto algorithms opt-in via
-> a module parameter and removes the BROKEN label so that the driver is
-> built by default.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
-> Changes in v12:
-> - Add module description in patch 1/2
-> - Drop dependencies from the series as they're all in linux-next now
-> - Link to v11: https://patch.msgid.link/20261022-qce-fixes-broken-label-v11-0-0d33c34fd0c3@oss.qualcomm.com
-> 
-> Changes in v11:
-> - Split out the patches making algorithms optional and removing the
->   BROKEN Kconfig label into their own series
-> - Link to v10: https://patch.msgid.link/20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com
-> 
-> Changes in v10:
-> - don't pass a NULL buffer to sg_init_one()
-> - fix byte order of the imported hash state on empty finalization
-> - don't recompute the CTR counter in software for every request
-> - reject skcipher requests with a too short scatterlist
-> - check fragmentation for empty CCM decryption requests too
-> - don't use a static loop iterator (duh...)
-> - initialize the return value in qce_handle_queue()
-> - Link to v9: https://patch.msgid.link/20260922-qce-fix-self-tests-v9-0-b1aa742e79af@oss.qualcomm.com
-> 
-> Changes in v9:
-> - Rebase on top of cryptodev/master
-> - Rephrase Kconfig help text changes
-> - Link to v8: https://patch.msgid.link/20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com
-> 
-> Changes in v8:
-> - Add a patch making the crypto driver *not* register algos by default
->   but only if the user explicitly requests it with the provided module
->   parameter
-> - Use the "offloader" name for the crypto IP instead of "accelerator"
-> - Fix device module table issues
-> - Make the core driver use a list (despite it only having a single
->   member now) of child auxiliary devices to register to make it clear we
->   have the intention of extending this once we start the work on secure
->   media playback
-> - Link to v7: https://patch.msgid.link/20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com
-> 
-> Changes in v7:
-> - Add follow-up changes converting the QCE crypto driver to auxiliary
->   bus, adding the core QCE driver under drivers/soc/ registering the
->   auxiliary device and removing the BROKEN Kconfig label
-> - Link to v6: https://patch.msgid.link/20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com
-> 
-> Changes in v6:
-> - Handle all zero-length HMAC finalizations (like imported state with
->   data already hashed), not only the genuinely empty message case
-> - Add an additional patch addressing the fragmented skcipher payload
->   issue
-> - Link to v5: https://patch.msgid.link/20260706-qce-fix-self-tests-v5-0-86f461ff1829@oss.qualcomm.com
-> 
-> Changes in v5:
-> - Dropped patch 1/8 that's already queued
-> - Use the pre-allocated fallback ahash for HMAC transforms (Herbert)
-> - Link to v4: https://patch.msgid.link/20260622-qce-fix-self-tests-v4-0-4f82ffa716c6@oss.qualcomm.com
-> 
-> Changes in v4:
-> - Remove remaining ECB and DES3 bits
-> - Pick up tags
-> - Link to v3: https://patch.msgid.link/20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com
-> 
-> Changes in v3:
-> - Remove even more algorithms and dead code in patch 1/8
-> - Link to v2: https://patch.msgid.link/20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Add fixes for the full suite of crypto self-tests
-> - Add Fixes and Cc tags
-> - Link to v1: https://patch.msgid.link/20260610-qce_selftest_fix-v1-0-1b0504783a46@oss.qualcomm.com/
-> 
-> ---
-> Bartosz Golaszewski (2):
->       crypto: qce - Only register algos if the user really wants it
->       Revert "crypto: qce - Mark QCE as BROKEN"
-> 
->  arch/arm/configs/multi_v7_defconfig |  1 +
->  arch/arm64/configs/defconfig        |  1 +
->  drivers/crypto/Kconfig              | 22 +++++++++++++---------
->  drivers/crypto/qce/core.c           | 13 ++++++++++---
->  4 files changed, 25 insertions(+), 12 deletions(-)
-> ---
-> base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
-> change-id: 20261022-qce-fixes-broken-label-e6aaf9624fe9
-> 
-> Best regards,
-> -- 
-> Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+With early transport the plane selective fetch position is relative to
+the SU area start. Planes are updated only when their selective fetch
+area changes, so a plane keeping its area while the SU start moves is
+left with a stale position.
 
-All applied.  Thanks.
+Update planes with a selective fetch area also when the SU start moves
+and early transport is in use.
+
+Fixes: b10c83af60cb ("drm/i915/psr: Disable linked plane sel fetch as well")
+Cc: Mika Kahola <mika.kahola@intel.com>
+Cc: <stable@vger.kernel.org> # v6.8+
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index bd16563603249..2c759f9e81fca 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -3114,6 +3114,8 @@ static int psr2_sel_fetch_apply_su_area(struct intel_atomic_state *state,
+ 					bool full_update)
+ {
+ 	struct intel_crtc_state *crtc_state = intel_atomic_get_new_crtc_state(state, crtc);
++	const struct intel_crtc_state *old_crtc_state =
++		intel_atomic_get_old_crtc_state(state, crtc);
+ 	struct intel_plane_state *new_plane_state, *old_plane_state;
+ 	struct intel_plane *plane;
+ 	struct drm_rect display_area = {
+@@ -3122,6 +3124,7 @@ static int psr2_sel_fetch_apply_su_area(struct intel_atomic_state *state,
+ 		.x2 = drm_rect_width(&crtc_state->pipe_src),
+ 		.y2 = drm_rect_height(&crtc_state->pipe_src),
+ 	};
++	bool et_pos_changed;
+ 	int i;
+ 
+ 	/*
+@@ -3133,6 +3136,10 @@ static int psr2_sel_fetch_apply_su_area(struct intel_atomic_state *state,
+ 	if (full_update)
+ 		crtc_state->psr2_su_area = display_area;
+ 
++	/* With early transport the plane position is relative to the SU start. */
++	et_pos_changed = crtc_state->enable_psr2_su_region_et &&
++		crtc_state->psr2_su_area.y1 != old_crtc_state->psr2_su_area.y1;
++
+ 	/*
+ 	 * Now that we have the pipe damaged area check if it intersect with
+ 	 * every plane, if it does set the plane selective fetch area.
+@@ -3154,7 +3161,8 @@ static int psr2_sel_fetch_apply_su_area(struct intel_atomic_state *state,
+ 		}
+ 
+ 		if (!drm_rect_equals(&old_plane_state->psr2_sel_fetch_area,
+-				     sel_fetch_area))
++				     sel_fetch_area) ||
++		    (et_pos_changed && drm_rect_height(sel_fetch_area) > 0))
+ 			crtc_state->update_planes |= BIT(plane->id);
+ 
+ 		/*
+@@ -3177,7 +3185,8 @@ static int psr2_sel_fetch_apply_su_area(struct intel_atomic_state *state,
+ 			linked_sel_fetch_area->y2 = sel_fetch_area->y2;
+ 
+ 			if (!drm_rect_equals(&linked_old_plane_state->psr2_sel_fetch_area,
+-					     linked_sel_fetch_area))
++					     linked_sel_fetch_area) ||
++			    (et_pos_changed && drm_rect_height(linked_sel_fetch_area) > 0))
+ 				crtc_state->update_planes |= BIT(linked->id);
+ 		}
+ 	}
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.53.0
+
