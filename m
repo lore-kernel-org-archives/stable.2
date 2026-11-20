@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795207182;
-	b=QY7KjRzOor8NEZZXW7Wd6adyTX0ER66bshaH6/mjxHpt5ZJUhocO99YyKB+jGKhMredw
-	 K7r5KcSQb1bNhn8Xjpvj6fBlVVBI3tZmHMYWTKGuMCF2FN33CAgbVN9xnKw4VqlPaMZz4
-	 zTai/p+RQXq5cb6moXwlI2uHuy2+m4hVrCov7Aj1Vq/ti9974FaaBMsdMZ6OHrjCpGkJE
-	 3Vf4NzcYOKT8NcqMgWcflOmLCMUWz6ntmDLFbJpKct7ktF6UNWrXV0+POhHFwyWeix4OE
-	 sKFCkBKTkksIU4t7hhAFoPr1/PeJJ5TiO9JjABeuWkk0pGwniDYZ8SQjBir1kkveAuw==
+	t=1795207184;
+	b=rkR4uTJxCc1DW51wbAuuVzXvYR4MmQ+fynD0I4XyNKU+i8w1NvKR0N6PcEkaUTP3wRFi
+	 r2A98mhJfC1QMpapkYPNQzV66PRHlm/LqzFYQlQkUNlrvFqpAvPctihGVsM+ToELhestk
+	 kPaEUNZob8XIy7V9dt7oS47UD3fRiB6Efb8gNJpif5esdObkrr3TIFDa6kR3qOkrkFvI+
+	 e2Bw/uj4DCVWpXFWzcStQ4Xw9odPms/5y0/CrxFkTXuzVkw8RYbBlwzKgKOWfUgmezM7+
+	 V+J+EmxwX6xD9E7Mvka6Vw3ogL/HHwjdPXNFJ7ZGUAKH03wJKth5x0mzzA2W/zXc2rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795207182;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795207184;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QNiyc/NInGi5E7fHNAN8stDOl+ptjDz0exmAKyr+rjk=;
-	b=0oA3xpRcg4rCJ3x20cetLqmXI1+n6JVelsJIGzooV32Uv16Qe3kNmiDmhNQHkFmyeYvL
-	 +g1GaG77A2UkfoT8jutWkkqMZp0HjbxJluKjt+XCpHt/0j3gJ1Iz9o3v3JR9v4IVFaiAa
-	 +l2V7WmdBYS6dvNevnbmY4uJUEnyFl0Q9bs74z60QjUtvVjr/5id+JjBYHo9gkesEDBmM
-	 6s4m9nHklAlxn+TOpRbyYky61RuCgzCmHqDLdPTzJ2P3eGrW6qAdTh/qYb+T/2eaCg054
-	 lXOZs0FX5iTiEoL3YYxt9Y6t4EBc2vPwjRZN9LeNs0np8/4fQooBEZF6/XgD7t6IqHQ==
+	bh=RQjHoQg2SeAtlNCOrDFf/6LByv3VuE1etO4z+1nXNYg=;
+	b=iuf6Tf5kvTr+C0Wmd0rYFwMD8ZSA0N6yPeoYSzrmXMf12jCcG4RHDgXV2mkxt841cwTg
+	 ToWT4InaMW00KgPDVue1YUn+0WES8VtBfuDqmsklmWXSikxjSR0hUuaYAcqDep5+NVdZd
+	 7SkLWS07rsj65oHFkao3m6AvTHmNU28llRKgeI/pcN3jii0vgMVV3S0FKBvjG7wOpkUEg
+	 obDZvUTkb167/HhWzBPxKmsy/l9TDi63GKqQ1DHdjWaXsH7c76Tix7LazaBjr4KhdXuIC
+	 wKa4GoGrJAfksYNsF60QDQXSzaXkdvWufeI+UY91OHfrpMgTjX2488dEB6LxOvjSWZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LW4fxCLl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SmQt5/oJ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A52606A6C8
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 20:39:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E990606A6FE;
+	Fri, 20 Nov 2026 20:39:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LW4fxCLl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B33251F000CA;
-	Fri, 20 Nov 2026 20:39:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmQt5/oJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50BF71F000CA;
+	Fri, 20 Nov 2026 20:39:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795207182;
-	bh=QNiyc/NInGi5E7fHNAN8stDOl+ptjDz0exmAKyr+rjk=;
+	s=k20260515; t=1795207184;
+	bh=RQjHoQg2SeAtlNCOrDFf/6LByv3VuE1etO4z+1nXNYg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LW4fxCLlXgtglZgvr4xHkNDKpysftmWBto4i/40/sTU9AfOcw2eCADS8EMj790ZWr
-	 07TKg3rtXneDJz9/ydCdT0DujGBBwP5aEY3ys8zmxk58BG4NEmNh6ilODyaY3x6ieR
-	 dDilUvdYvkOKyHNfCzB4Z4yzuzuzd5FxFjZaL+3O5oomSPf6feEUVrNeHSUeLUKltG
-	 rH8KPGvhaZ+3y8AsjggCUK6v8ZiC6hweyHOTe18X1rWSNeqU2O+ALzWU1oMnJN5o2a
-	 0nlXg4wnc4uf7RMVcrY707H1ZrPo/SnNdm8psjv7kH2IuLJTbzjsdsomTOAsOzoQgT
-	 EZ7/+eJ7Bcvzw==
+	b=SmQt5/oJ9bZbmyDto71PfevgmDEBgE+Us0fmbH14VbMSXi73GJBLMq+CnJml6nLNb
+	 ZC/r8m0IrlslQceu78B+DQNMs3JISUjxmcaJ3HHNI9rGQRBgaDv6c8YgiA4BGAdJjt
+	 hpB2cLlUpi2NsRD43FWpG4LZsj4B78PFnsL8lcFkws17Jws0xSk2oLMCVH/A29B2Wj
+	 4SedFKDX+HKxSxCPpGujgUkfDx1xFTLgz8umHoeU3OQa20TQOwlfUkBDXG9KWTzlOJ
+	 dUgcMvHgQUaL/OBSEGS8I/x8RzXhqAflcM3oIKHaV78A3BE9xvJ+BqP+KKOO1ZS7Gs
+	 soEDUZ6ijJRVA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	Miaoqian Lin <linmq006@gmail.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-Subject: Re: [PATCH 5.10.y] remoteproc: imx_rproc: Fix refcount leak in imx_rproc_addr_init
-Date: Fri, 20 Nov 2026 15:39:01 -0500
-Message-ID: <2026-11-20-1-daily-reply-0012@kernel.org>
+	patches@lists.linux.dev,
+	Tao Chen <chen.dylane@linux.dev>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: Re: [PATCH 6.12 1363/1756] bpf: Add show_fdinfo for perf_event
+Date: Fri, 20 Nov 2026 15:39:02 -0500
+Message-ID: <2026-11-20-1-daily-reply-0013@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <1795137196-10506-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
-References: <1795137196-10506-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
+In-Reply-To: <e454c187-a5ac-4662-a2b4-d186ad3777d4@oracle.com>
+References: <e454c187-a5ac-4662-a2b4-d186ad3777d4@oracle.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,10 +64,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> of_parse_phandle() returns a node pointer with refcount
-> incremented, we should use of_node_put() on it when not needed anymore.
+> Could we include the helper change from 823153334042 ("bpf: Add
+> support to retrieve ref_ctr_offset for uprobe perf link")?
 
-Queued for 5.10, thanks.
+Queued for 6.12 and 6.6, thanks.
 
 -- 
 Thanks,
