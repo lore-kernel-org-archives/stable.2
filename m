@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795141323;
-	b=d2kFOONWJQsCOJMoklpXUCVXtbhptxGYXcDcfU11tPAI9e7Lvf2GFg3UW+CI5MhwA8hE
-	 OsLjEbEF6LxtMOA5rNOk1Ad+ltnxs6AzC3dcIYpK5dKWAgGHxIrkZ0XqROhtb9fE/iHI4
-	 F5e9QdO+SVusMV1yi/3QBwUJ17aW+3AFt1YUemKDVlYsrEzb15ErFjrh9PYUAejWe8GsU
-	 TaNWVGuH2qnk8SqbCGvPbz2c6kFsj3iGhVmULSZCZgMdJ9J2soIEGp3y5dXUKC0huJObm
-	 bm7FbttAWBCe/uZqf1DOjCzSinDAoy5QOicmNFrx5n2awUy0UB+IHCgoeGkLC/2+L5Q==
+	t=1795141327;
+	b=xKk21sHVEf8EYPERtqcKWMRW6TuYygh9Y3chdAEKtKH0Xtcejn/VUdx6D5Rkh+558DJ3
+	 Zy9GnX/3GtuZ4v8HziAACXU7CUUZ70uApUHQufIkzDSqcao0PasUj6EMUN7srhntySku9
+	 W4PDxgB+RC2fg+3aLq+scJMFzuDqYCrpRijGE8Q7lqbkPCBE6GWV6AF/Ph44OhzZcOi8+
+	 pGg89Qh+BD6tXVk7LUhLxCAoXnFjhNkAo3Ttrf+/ZKJ4WoxI3c7hqCx8EePFUaodFtrFi
+	 tWjz8LokUROOomHMjwdhjbxdbYQcJoQ1YwcvZGWrhAvIheYrk3RA0kBQpWa0w5qBMLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795141323;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795141327;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=88EqaMcAVCVa0mUft6YesqlVkqgDXhu3IuFsh2jgQGo=;
-	b=jvIKYSc7FzY8nKKLKZ805DxMz5LYRQ8lQUMWdydrthLsEfLfddkgW2C52lcJ74EWHPP2
-	 VXfj3tXkleqLFgT6dx1AQeeVG2nKfuF74qxEKRwB9LO0IF+ajKzCwGKgztusN8CLr55Ed
-	 UkRygKIsjS61XUVN261R/IgeV/LSqB25Y+9IjrNcVw4lGJxnDrLUhN2jPEU/Bz2IuLgCu
-	 4G7Q2G1RkrUcPU6hXhnV0Asl+ZfYdDxX8k+4YEjckpJjF+JYhkrb2dqMZj36/Fp+gFJE/
-	 fZB8Ka6bemM9Y7YjH6nJ0ve2Kq4iflJOfo46SFAlqdSPWONJeY7oN0i/OwPXrHpizDw==
+	bh=5dvu3zNUsJdRmPMmPyJKE6OQ1/TPrIM97wi+LUF7hSs=;
+	b=4wN4R5Aczdt5GRNn4vI6FbnL1kNNjgyb+oOkkdrt38L3B8P0YJMJLWaD7aFmUIvel6d+
+	 xCCIYkYrnrJPBm/yJBG5JcGi6le31QpxTotLD1VaL1HiEPNyfymWjvsSfk/egK7om4x9V
+	 r5aHmgBmEEpOjUXaGLrs1l/3rSMUq3a3DlEF0q6DTpxdgjXjfmwOvtFSXLni4dPeNauLH
+	 5vUfGGC/XQx6L9xGFDYSxzoa+g3G+v3qSiRLlpc2juwt9yd6m7qYKHQp7ztXRU/yLjsqv
+	 H3rvz1n0jBdPkxTrP0MQQ+d3jd3s9ykzTkU0Pms5XHIh163rtSsgbD8tE4UKpSTLsxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hwbAeWXn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FahRO3RF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B7860A2602;
-	Fri, 20 Nov 2026 02:22:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740D960A2617;
+	Fri, 20 Nov 2026 02:22:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hwbAeWXn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE361F000C4;
-	Fri, 20 Nov 2026 02:22:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FahRO3RF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC7281F000C6;
+	Fri, 20 Nov 2026 02:22:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795141323;
-	bh=88EqaMcAVCVa0mUft6YesqlVkqgDXhu3IuFsh2jgQGo=;
+	s=k20260515; t=1795141327;
+	bh=5dvu3zNUsJdRmPMmPyJKE6OQ1/TPrIM97wi+LUF7hSs=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hwbAeWXnkShbg2VP8D/oqQVl+99+QSjWteEwKNT+Nz0EcBm2/PagbQQ22ySuXDISG
-	 PiKJ4TR1nhNY71grWUNw2yeafD9hlQ8RvuRZIdq5j+t1vVCRQRWL2t7weTiEmW+VQa
-	 i9eN3PNFyHHTQxF9RnDb4BYs9wDZyxSgojiD2kqlxfeSOINhqnHQpPw6g5k7/uDazM
-	 V1/NSqaHi9vHcL7TNgM/wQbQijQGZ2spJ33jX/RO8+9sh6u2LJyCJXRUUbOm/4G36F
-	 RrqnjNcJCdLn0+OLa82IMQPmC2M98Egu3je6NcOyE8ujK4Vak8H/nrNGQm6Js9EIKx
-	 vSLy6TkovKKZQ==
-Subject:
- Re: [PATCH net v10 2/4] net: hsr: refuse forwarding devices as HSR/PRP ports
+	b=FahRO3RFt67vKK1SWuNVpSW+qqt6m+bvoWT63PmZZgW5OBzuPHdL2u/GneW8ijRC2
+	 2JbsTCQ0bQH392x+uqWC7gh3Z8acm8P02m1UwQb16ItCDpgkcXwm7oD9qsUKY0B6WT
+	 csgUf0aBzlAZYJeI3sebK0CD9qU4loWHuDVNFC434N82OjJZgWDi3hBcq/AF6JzHEl
+	 wGP4rWMNYXk/zXBf78aY6ybtui+TiuNstmevtjCcIKXREcXHJeCxMqut0M+0Onh0L2
+	 Kz318/3uerFVjUCbDLK1XlbGrkvQxcM9FFZd5X3h2iD3IU+jijRtuMyHa/bWBsPynT
+	 BO5kdV/lheWsA==
+Subject: Re: [PATCH net v10 4/4] selftests: net: hsr: verify GRO policy and
+ ordered forwarding
 From: netdev-bot+sashiko@kernel.org
 To: xiexinet@gmail.com
 Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
@@ -52,11 +52,11 @@ Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
  bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
  liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
  lukma@denx.de, fmancera@suse.de, danishanwar@ti.com
-Date: Fri, 20 Nov 2026 02:22:01 +0000
-Message-ID: <179514132185.3136.17085396682149520983@kernel.org>
-In-Reply-To: <20261117141922.20-3-xiexinet@gmail.com>
-References: <20261117141922.20-3-xiexinet@gmail.com>
-X-sashiko-severity: High
+Date: Fri, 20 Nov 2026 02:22:05 +0000
+Message-ID: <179514132547.3136.13495496804508264681@kernel.org>
+In-Reply-To: <20261117141922.20-5-xiexinet@gmail.com>
+References: <20261117141922.20-5-xiexinet@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -69,10 +69,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -80,163 +80,106 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The patch addresses the seqnr_lock recursion only by refusing
-  certain port device types at attach time (bridge/OVS/bond/team…
-- [Low] The patch is tagged for backport as a seqnr_lock recursion fix
-  (Fixes: 06afd2c31d33, from v6.2, and Fixes: 430d67bdcb04), but it also…
+- [Medium] The single-producer ordered cases in hsr_ordered_forwarding.sh
+  can fail even when the kernel is correct.
 
 --
 
-net: hsr: refuse forwarding devices as HSR/PRP ports
+selftests: net: hsr: verify GRO policy and ordered forwarding
 
-This patch stops bridge/OVS/bond/team masters from being used as HSR/PRP
-slave or interlink ports. It also refuses a macvlan or MACsec device that
-sits on top of such a master or an HSR master. This addresses the
-seqnr_lock recursion that syzbot reported. The patch also refuses devices
-whose RX handler is busy or unsupported, or that already have a master.
-All ports are checked before any of them is modified.
+This commit adds two HSR/PRP kselftests, and both run one shared Python
+helper. hsr_gro_superpacket.sh checks the GRO policy on HSR members, the
+refusal of unsupported port types, and TCP forwarding from the interlink
+and from a PRP SAN. hsr_ordered_forwarding.sh checks the ordering of
+local and interlink data, supervision frames, concurrent producers and a
+sequence-number wrap.
 
-Closes: https://syzkaller.appspot.com/bug?extid=fbf74291c3b7e753b481
-
-> diff --git a/net/hsr/hsr_slave.c b/net/hsr/hsr_slave.c
-> index 4c4f8fe3d128a..a4dd64227db5f 100644
-> --- a/net/hsr/hsr_slave.c
-> +++ b/net/hsr/hsr_slave.c
+> diff --git a/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py b/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
+> new file mode 100755
+> index 0000000000000..17055d9329b3d
+> --- /dev/null
+> +++ b/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
+> @@ -0,0 +1,1468 @@
 
 [ ... ]
 
-> @@ -131,13 +163,56 @@ static int hsr_check_dev_ok(struct net_device *dev,
->  		return -EOPNOTSUPP;
->  	}
->  
-> -	/* HSR over bonded devices has not been tested, but I'm not sure it
-> -	 * won't work...
-> +	/* Forwarding devices feed HSR frames into another device's
-> +	 * transmit path and can nest seqnr_lock through a second HSR
-> +	 * device. A bridge, bond, team or OVS master makes no sense as a
-> +	 * ring or LAN port and is refused by type. A macvlan or MACsec
-> +	 * device is refused if such a master or an HSR/PRP master is
-> +	 * below it. Other devices keep their lower devices unchecked:
-> +	 * DSA user ports are uppers of their conduit.
-> +	 */
-> +	if (netif_is_any_bridge_master(dev) || netif_is_lag_master(dev)) {
-> +		NL_SET_ERR_MSG_MOD(extack,
-> +				   "Cannot use a bridge, bond, team or OVS master as HSR port.");
-> +		return -EINVAL;
-> +	}
-> +	if ((netif_is_macvlan(dev) || netif_is_macsec(dev)) &&
-> +	    netdev_walk_all_lower_dev(dev, hsr_lower_forwards, NULL)) {
-> +		NL_SET_ERR_MSG_MOD(extack,
-> +				   "Cannot use a macvlan or MACsec device stacked on an HSR, bridge, bond, team or OVS master as HSR port.");
-> +		return -EINVAL;
-> +	}
+> +def ordered_send(lab, sock, producer, first, count, port, segment=0):
+> +    """Send count datagrams, or UDP GSO aggregates of 16; return the payloads."""
+> +    expected = []
+> +    if segment:
+> +        sock.setsockopt(socket.IPPROTO_UDP, 103, segment)
+> +    blocks = 16 if segment else 1
+> +    size = segment or 64
+> +    for number in range(count):
+> +        payloads = [ordered_payload(producer, first + number * blocks + n,
+> +                                    size) for n in range(blocks)]
+> +        body = b"".join(payloads)
+> +        require(sock.sendto(body, ("239.0.0.9", port)) == len(body),
+> +                "short UDP send")
 
-[Severity: High]
-These checks in hsr_check_dev_ok() refuse ports by device type, and only
-at attach time. seqnr_lock is still held across the synchronous transmit
-to the ports:
+[Severity: Medium]
 
-net/hsr/hsr_device.c:hsr_dev_xmit() {
+Can the single-producer ordered cases fail on a correct kernel because
+this sender is not pinned to a CPU?
+
+ordered_send() runs in the main thread, and the main thread never calls
+os.sched_setaffinity(). Only the producer threads in ordered_concurrent()
+are pinned.
+
+The frames go through the veth t0 to the interlink dil. There is no XDP,
+and GRO is forced off on HSR members. So veth hands each frame to the
+backlog of the CPU that sent it:
+
+drivers/net/veth.c:veth_forward_skb() {
+	return __dev_forward_skb(dev, skb) ?: xdp ?
+		veth_xdp_rx(rq, skb) :
+		__netif_rx(skb);
+}
+
+The netif_rx path then calls enqueue_to_backlog(skb, smp_processor_id(),
+...).
+
+Threaded backlogs are always used on CONFIG_PREEMPT_RT, and also with the
+thread_backlog_napi boot option. With them, ____napi_schedule() only wakes
+the per-CPU backlog thread:
+
+net/core/dev.c:____napi_schedule() {
     ...
-		spin_lock_bh(&hsr->seqnr_lock);
-		hsr_forward_skb(skb, master);
-		spin_unlock_bh(&hsr->seqnr_lock);
+	if (use_backlog_threads() && thread == raw_cpu_read(backlog_napi))
+		goto use_local_napi;
+
+	set_bit(NAPI_STATE_SCHED_THREADED, &napi->state);
+	wake_up_process(thread);
     ...
 }
 
-hsr_forward_skb() then goes through hsr_xmit() to dev_queue_xmit() on the
-port device. The same pattern is in send_hsr_supervision_frame(),
-send_prp_supervision_frame() and the interlink branch of
-hsr_handle_frame().
+As a result, sendto() returns before the frame is processed. The same can
+happen without threaded backlogs when NET_RX is deferred to ksoftirqd.
 
-Can a plain veth slave still re-enter the xmit path of its own HSR master?
-For example, take veth0 as a slave of hsr0, with a tc egress mirred
-redirect back to hsr0:
+Suppose the sender migrates from CPU X to CPU Y in the middle of the loop.
+The backlog threads of X and Y can then run hsr_handle_frame() for dil at
+the same time. They take seqnr_lock in arrival order, so a later send can
+get a lower HSR sequence number and appear earlier on dil, da and db.
 
-hsr_dev_xmit(hsr0)
-  spin_lock_bh(&hsr->seqnr_lock)
-  hsr_forward_skb()
-    hsr_xmit()
-      dev_queue_xmit(veth0)
-        tcf_mirred_act()   /* egress redirect to hsr0 */
-          dev_queue_xmit(hsr0)
-            hsr_dev_xmit(hsr0)
-              spin_lock_bh(&hsr->seqnr_lock)   /* already held */
+The test still requires the exact send order in ordered_data():
 
-On the first redirect, tcf_mirred_act() only looks at
-sched_mirred_dev[], and hsr0 is not in it yet. hsr0 is lltx with
-IFF_NO_QUEUE, so neither the xmit_lock_owner check nor
-dev_xmit_recursion() would stop this either. veth passes every check in
-hsr_check_dev_ok().
+    require([row["payload"] for row in incoming] == expected_inputs,
+            "actual UDP ingress input set/order differs")
 
-That would be an AA self-deadlock on one instance with BH disabled. That
-is worse than the cross-instance lockdep splat in the syzbot report.
-CAP_NET_ADMIN in an unprivileged user namespace seems to be enough to set
-this up.
+It also requires it through verify_udp(..., input_order=True) in
+ordered_data(), ordered_supervision() and ordered_wrap(). ordered_wrap()
+is the most exposed: it sends up to about 65k warmup datagrams plus 256
+more, and all of them are checked with input_order=True.
 
-Other ways back into an HSR master also get past these checks:
-ARPHRD_ETHER tunnels routed through the HSR master, BPF redirects,
-stacked devices whose lower devices are not walked (for example
-virt_wifi over a bridge), and batman-adv.
+Would pinning the sending thread to one CPU for the ordered cases, or
+pinning the whole process in ordered mode, avoid this?
 
-The commit message acknowledges this:
-
-    Not covered are a tunnel whose route leads back through the HSR
-    master, a tc or BPF redirect to it, other stacked devices, and a
-    software device without an identifying flag such as batman-adv.
-    Narrowing seqnr_lock, planned for net-next, addresses that class as
-    a whole.
-
-This is still the case at the end of the series. There,
-hsr_forward_frame() in hsr_forward.c takes spin_lock_bh(&hsr->seqnr_lock)
-around hsr_forward_skb().
-
-The bug class covered by the Fixes: tags is still reachable. Would it be
-better to stop holding seqnr_lock across dev_queue_xmit() in this fix,
-instead of adding a denylist that the planned lock narrowing would
-replace?
-
-> +	/* A macvlan takes its GRO setting from the lower device, so the
-> +	 * member role cannot turn it off. Refuse at attach, before any
-> +	 * state change, if the lower device runs GRO; it can still turn
-> +	 * GRO on later.
->  	 */
-> +	if (netif_is_macvlan(dev) &&
-> +	    (macvlan_dev_real_dev(dev)->features & NETIF_F_GRO)) {
-> +		NL_SET_ERR_MSG_MOD(extack,
-> +				   "macvlan inherits GRO from its lower device; turn GRO off on the lower device.");
-> +		return -EBUSY;
-> +	}
-
-[Severity: Low]
-This check only makes sense together with the member-role GRO policy
-from the previous patch, "net: hsr: keep GRO disabled on HSR/PRP ports".
-It is an earlier form of the rejection that patch added to
-hsr_portdev_setup():
-
-    hsr_portdev_role_set(dev);
-    if (dev->features & NETIF_F_GRO) {
-        NL_SET_ERR_MSG_MOD(extack,
-                   "software GRO still on after feature update, cannot join");
-
-It is not related to the seqnr_lock recursion.
-
-This patch carries Fixes: 06afd2c31d33 (v6.2) and Fixes: 430d67bdcb04.
-The previous patch is only tagged Fixes: 5055cccfc2d1 (RedBox, v6.10).
-
-Suppose stable takes this patch into 6.1 or 6.6 without the GRO policy
-patch. Would this hunk then refuse a macvlan on a NIC or veth, where GRO
-is on by default, with an error message that does not apply to that
-tree?
-
-The patch probably won't apply cleanly there anyway, since the "Member
-role and feature policy" block and the interlink argument to
-hsr_dev_finalize() don't exist in those trees. A backporter may drop
-this hunk, but nothing in the commit tells them to.
-
-Could this hunk move into the GRO policy patch, or could a stable
-dependency note be added? Right now the commit message mentions the
-previous patch only in the prose.
+> +        expected.extend(payloads)
+> +        # Keep capture receive queues bounded throughout long wrap warmups.
+> +        if number % 8 == 0:
+> +            lab.observe(0)
+> +    lab.observe(0.1)
+> +    return expected
 
 [ ... ]
 
