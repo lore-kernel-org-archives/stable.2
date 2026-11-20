@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795189455;
-	b=NoAXFcFDoM0X47DYGsdTf05b1SferWjBCbI4ktXsjQvyWRTVd/wJ6gx128m/k/DBgr/I
-	 LmGzQh3Ej+gxddHZ5ghIlmVh487fLmFH7S6peKMmoqCq5qkBMR1tF8nVeD1sLiVxtMVBF
-	 bLCG9hS/rwp+Q+dU7/W65M0LSBEs6KGgX7KQ/05Eql0Sgw8tFScUwWa0LEGuf7r4QqkEp
-	 CdAffTwX/eCKWlUChfktdxzqz7vGZsN66StsLpBBz1cNX9yqA1pIgWD+evm3XKVbZxker
-	 JncB8uxzPdK8Mne/tD17w9AnHqwwTUfvFHoqSm8HGjl4oREjWuVXws79/7Wr+rKimeg==
+	t=1795189515;
+	b=pdLrxA2+VhgJJq/ZREFGqVIV6o2eZ9di+SoRNN+KMTRj0Bjc1Djcy5ScrzRfXZNgAXVr
+	 I+voqfoKl0XM1Zk1jlLt4b6BdtOaRTwNazf87QpTrauwAGr6o/JTf0LIXFcSvkzhk8dSr
+	 8+uS+uB9eq0dOLN32xWpyAfdWOtO8ltu2OQvwXov2Gb/KYTPY9eG9JK3e5+UwAOB7Gx2U
+	 L4WIXXSG1L+MYd2ImHOTCXXyae86zhWP1H4pDCOjCbMo1B9HLUluX5bMjQs8U+v95kJxh
+	 87X2TA0/1iq+mXZGf/0XEiA8tNdK5/M1Gbxu0Y58iqXgGL7lyDcGzZKO9zq75mQ9Gkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795189455;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=MpAFJKoRLBHWua5zVfwBOUWeo6j4cvTXzjQs1AqjA18=;
-	b=QBQU3ZgAS0wmjuFY+vBYZQCSv/ELGhrP6J4lrzLcFskSQ4/d586e1AMwRKplM+XVpEWI
-	 P3xM6dbFoViMcZKQMqZF30v8pKcq7hgAE5FFDvLvt33oZirNiNL7AGQN/vYmVwTPmiqEX
-	 koaJBJm6VkI3gP/luKBC9GPfTnMSQuPolkNqk7dMS8Blx++8wivND8QxhbSpNI0+lZeYq
-	 thf7bsx0P71tIQ9PKeOHqPY9+sUdPJwLOqS33Um1mXGv1xOtu6PTYZ6Nrdsp89rkc6Uiq
-	 xR73LxEnFmQQY7jmURRWryNGBgrugAwiO5Oqr5SgPhaiaaehFGg5jsuc3hVeBAseQnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795189515;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=apWQglMZ3WR6Lq4/1VhlQe/yInFiYTe1Kqw3Bxr/zls=;
+	b=kKwdfmoNg6jYRdPwtRJpXdpYZGIZCN44KWMJ6cSXcgT3j+ID7fDLoDeo5SMaqt+tJzQC
+	 5uhw9tKE/GSoYHhVgd+RxCNy28hnuVfAxsZGKFnvmVDyHxwAytWbmN/RtNz46rNa6nA+1
+	 cwGcuaNqaKcewxb9uzkDVAFyyB1N7Qf+7VrgcrUsbuYTj350QbOIvDjwM7RPZyWTXABcD
+	 WhiafhRfpUg5kwLiAbTHZ+pIJoYfVZNIEjjGK0MhfJmtlp3NZNtRXy0Ot3k6dHQEuoZVU
+	 jxvBdgIykaEcKXsQt14ObSp51SYh3sSfaNeyETbmdanTCuFd5E36o7WAUiPi30GiEHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lst.de;
-	spf=pass smtp.mailfrom=lst.de;
-	arc=none smtp.remote-ip=213.95.11.211
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UX8pBjDO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C82E606A325;
-	Fri, 20 Nov 2026 15:44:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C82E606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id A190E68AFE; Fri, 20 Nov 2026 16:44:09 +0100 (CET)
-Date: Fri, 20 Nov 2026 16:44:09 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Jan Kara <jack@suse.cz>
-Cc: Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, io-uring@vger.kernel.org,
-	linux-block@vger.kernel.org, linux-nvme@lists.infradead.org,
-	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
-	linux-unionfs@vger.kernel.org, bpf@vger.kernel.org,
-	linux-nfs@vger.kernel.org, stable@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>
-Subject: Re: [PATCH 07/12] zloop: take freeze protection when recording
- write pointers
-Message-ID: <20261120154409.GD28611@lst.de>
-References: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org> <20261114-work-fs-frozen_writes-v1-7-f5ae61c898b1@kernel.org> <20261116064820.GB2964@lst.de> <20261116-biegen-flaute-flanke-cebddae97444@brauner> <t73376p7ip4bvetjbqijzugvglhi2rdxsqt62l3uuqtmt3tqgk@2rlkkdy33hwk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1C0606A334;
+	Fri, 20 Nov 2026 15:45:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UX8pBjDO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04EA1F000CA;
+	Fri, 20 Nov 2026 15:45:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795189514;
+	bh=apWQglMZ3WR6Lq4/1VhlQe/yInFiYTe1Kqw3Bxr/zls=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UX8pBjDOnjLtEHZ5XE8CaPe0jP6PgAbXPkboIZzJ0jT3CprDUZjsJF78WumNAra73
+	 rId9XFyQaiyJb21WKGZz+COrDoHg3uYirXYVEiQiHdnJboXwp4TSAH4PbGrc+T4OQ5
+	 L4ot4SEhMHZREESAhmwdB9jYiFvi2g8ak6mCnFv5MhwZyfeSPaOkh772UnmkY7xwLl
+	 UZb21N2I+fkPP5s46acmKzhtzUPIDsEUFWQsN+15k9GiQL7kH5Jn9fu6GxXu0HnMxZ
+	 7/HBJDiqix1cePPZ0r0ReoiQvwW6tkrkTCqaqBKqDmQ9UaBPuyVFCaQFoOsOKZel/y
+	 kfDY2Sq/ARs+w==
+Message-ID: <f40f3cf8-73ea-4d77-b0d4-8e7afca54cd7@kernel.org>
+Date: Fri, 20 Nov 2026 07:45:13 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,32 +51,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <t73376p7ip4bvetjbqijzugvglhi2rdxsqt62l3uuqtmt3tqgk@2rlkkdy33hwk>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] zonefs: ignore RLIMIT_FSIZE above LLONG_MAX in
+ zonefs_write_check_limits()
+To: Ding Feng <dingf3ng@gmail.com>, Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+ Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261119031026.7985-1-dingf3ng@gmail.com>
+ <20261119031026.7985-3-dingf3ng@gmail.com>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20261119031026.7985-3-dingf3ng@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 16, 2026 at 12:57:09PM +0100, Jan Kara wrote:
-> On Mon 16-11-26 10:41:49, Christian Brauner wrote:
-> > Fwiw, the check can't go into __vfs_setxattr(), __vfs_setxattr_noperm()
-> > or __vfs_removexattr(). cap_inode_killpriv(), IMA and EVM call those
-> > from ->write_iter() via file_remove_privs() and kiocb_start_write()
-> > hides the freeze protection from lockdep for aio and io_uring. I have
-> > not bothered to figure out why. Maybe you already know? In any case,
-> > until that's fixed we can't place it there which means this doesn't
-> > catch IMA/EVM at which point this patch becomes pointless.
+On 2026/11/18 19:10, Ding Feng wrote:
+> zonefs_write_check_limits() follows generic_write_check_limits() and
+> has the same problem: it stores rlimit(RLIMIT_FSIZE), an unsigned long,
+> in a loff_t, so a soft limit between 2^63 and RLIM_INFINITY is negative
+> and every write fails with -EFBIG and raises SIGXFSZ.
 > 
-> It's because of AIO and io_uring - if you don't hide the protection from
-> lockdep, it will complain about it when returning to userspace while IO is
-> still in flight (and thus protection is held). Sadly lockdep does not
-> support releasing resources by anybody else than the process which acquired
-> it so we fool it in this way...
+> Keep the limit unsigned and apply it only when it is at most LLONG_MAX,
+> as the generic helper now does.
+> 
+> Fixes: ebfd68cd0c1e ("zonefs: Fix O_APPEND async write handling")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5 Frama-C
 
-Can we try to escalate this to the lockdep folks instead of piling hacks
-deeper and deeper?
-> 
-> 								Honza
-> -- 
-> Jan Kara <jack@suse.com>
-> SUSE Labs, CR
----end quoted text---
+Not needed...
+
+> Signed-off-by: Ding Feng <dingf3ng@gmail.com>
+
+I queued up this version in zonefs tree for-7.4-fixes. Thanks!
+
+-- 
+Damien Le Moal
+Western Digital Research
