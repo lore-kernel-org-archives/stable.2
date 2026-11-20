@@ -1,65 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795143157;
-	b=ZQtbSxlzgou6S2SL7EDaCIvLTRykI/uZ1DZtQFKTQJiTNQbAgrFabFWsP7mtMYwJeEfL
-	 c3V1DcBnfKChgfmRmhc1c67+uljegSnHCjO5tR/EuRQK3kbrnWGwR4ADWV4h1crlqbV1x
-	 ZlONXa7CDc109XXJKzB/tu/7Mqpxh+tPu2CieXKBTLB2423aEb4HnU7Yoy4MjjKpb0KAb
-	 o4GKrD06tswNIrTyDZhTQqDfyNP3BwvkRHOKL5UtapMM/vv6qDZNbyNl83qzAcuUVtPVJ
-	 9rp9svBRDhIZSxjlrJyfKZF5XvnMLWl02tu/k3+xade0FdolpsckR3OD3jAfehr1QEw==
+	t=1795143606;
+	b=MiTnqBwCT2NMzaxrK88Mk+QCgJuxcTOO5IaW6yvWkhoc5OT0YlSdV/ghAJlb8KKfZ6pZ
+	 ZTBsgAsEA6RdV0inROjitXnKREyvlXypgyMCaXddvTs6XRsDPOncxaADkayAnhPTquthd
+	 Jfh8APF80qC1L2BXiTFcbSuOlP1QGTEwWEU8xl0wutskbZ+NSnB2oVwPWiVSTaO0RNufo
+	 /8OKYcwHLhFZCIeUC+73uDUfL8OsbO7WrihlM0PIYApvdbM4NRRO5GwRjRNwX5izFWSpd
+	 tPbfgO0T3vJ6vU7zzN5i16HXJF06+bu6Tk3TkeUdyZu6a+UyG8gdfU/mN9FJ1TL5HdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795143157;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=R0byDOCbMpV3cQA2Ji1YPCftT8TMg7Mfe6FkmiCQqg8=;
-	b=2mu/yK+gbdnDEaXqldN3EU0q3hos6V9vfVY4vzM9MVbjMNXJYuykwE7U1sYnXewqC7YJ
-	 N63oB5isEFB9i2K96u3puHetCi23v4N/xQOJsP2KQeQU8IsJJYwPVHIZZBJkH3GBOHDrC
-	 vbEZgfcCjvUTrUhCRb4QfN2wzvF16s4WQX8Mk/CcxC1OJAQPRbMuVhygyNr+ypeE/lnrS
-	 5LBXoo8UFi+q+Ohqlet4v0MwutV5CmSAyhX9StetonT6w//SRJZRP+rFlFjMnSEQY2Eb/
-	 khCrDdYJXiQg+1LbApgYSdGFn2oUzBTvmxntK5yE9lod2uA7b0oauyg7aRGAr0wDCdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795143606;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=qktbnfEhNNez/lzMHTyNA/lbMwrcpXm/Mlb5Iq1ae+0=;
+	b=v74PTiAgtto8n3feOhZ8Uowz59hwmhqDapIBPkmFEOSDhoy86VSy+ccBxM4KOIj+yitf
+	 mitB9wt2egqWTkjp2b29AK45WgB8lIrj6gACMCHbLJ9jtc4Cyk3u+FDVytsKwmwh7y+Td
+	 t9imJ2Hx2/WvO2AgE8fGqmVdBwPl753IQ18G4BV0PEjQOCVkZn8ZnB9xxNPZ/3Ie21cwQ
+	 jaYvyHK5jPmHUDL2ByJKFJ5PSz55QYtbtUyJ7AFBN+lPiIUzLTCTzzQhlQ5wqJrijkAKD
+	 l0R9g76DjYNyoJZ61CEqgF8pq5qZIpgO3oXJUZXP4HgQbKLAfyMLY94+vIi07A2IBng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OplKmHka;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jlp4T34e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1446606A320;
-	Fri, 20 Nov 2026 02:52:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13A8606A320;
+	Fri, 20 Nov 2026 03:00:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OplKmHka
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B33F51F000C4;
-	Fri, 20 Nov 2026 02:52:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jlp4T34e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 469B21F000C4;
+	Fri, 20 Nov 2026 03:00:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795143157;
-	bh=R0byDOCbMpV3cQA2Ji1YPCftT8TMg7Mfe6FkmiCQqg8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OplKmHkaXP0+9LAR+1s78FFbADek7xjUP8lCFnHJAHEe2AR+mmsU2BLpfjlyO4cSG
-	 DIsark2S4lCPmElRHghfXIizkXzkWND7304LIEeP+qwEqY+UegBkgtmIdDWQTYC433
-	 MenIYqM9E1ATX9aASYkGrP+vpouC/gjvlqu1P05E2QBhwh1FwAoqHzqwW14lrttXVG
-	 tERf2wrrxivL42/IFQVBUtoPG9SCW+XYF7qpYgTA5h6D7PiMqBd7tm0MlgkrFq6VpY
-	 Lj8ftVfZaOZYJ1kMc1IznkJVlkJvRFA4b0jwE42eRzRqlN8huoOta+NVrQaBcx679O
-	 B1I+tomvnEhxQ==
-Date: Thu, 19 Nov 2026 18:52:36 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Sahil Chandna <sahilchandna@linux.microsoft.com>
-Cc: linux-hyperv@vger.kernel.org, netdev@vger.kernel.org, Haiyang Zhang
- <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
- <decui@microsoft.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Wei Hu <weh@microsoft.com>, Konstantin Taranov
- <kotaranov@microsoft.com>, Simon Horman <horms@kernel.org>, Erni Sri Satya
- Vennela <ernis@linux.microsoft.com>, Aditya Garg
- <gargaditya@linux.microsoft.com>, Manish Awasthi
- <mawasthi@linux.microsoft.com>, Breno Leitao <leitao@debian.org>,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
- paulros@microsoft.com, stable@vger.kernel.org
-Subject: Re: [PATCH net] net: mana: Set 1 usec / 1 comp as default and
- minimum interrupt moderation
-Message-ID: <20261119185236.09603dbd@kernel.org>
-In-Reply-To: <cc705453-0794-494f-adb9-b6fb71254ba7@linux.microsoft.com>
-References: <20261113204427.1922848-1-haiyangz@linux.microsoft.com>
-	<cc705453-0794-494f-adb9-b6fb71254ba7@linux.microsoft.com>
+	s=k20260515; t=1795143606;
+	bh=qktbnfEhNNez/lzMHTyNA/lbMwrcpXm/Mlb5Iq1ae+0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Jlp4T34eg6yU6s2UPlGM9DIqbFbUyKxQJR7O9/QF4ye8+OptxtRCgF9NO4UkV40gj
+	 Gdr1vexRy+5POOAKBbgpMYM+8QjZntZFxGaNnOzVV8kYmW5rtq/qYfL+os2smo0H21
+	 ZK9GQ+ZAuFUdxlyH6B83jRySLg8JIB51RwojmjckdVtDHV77n+gUb4+YEg3psDppIa
+	 cuQ2ExJ7vcKadPuVyEB9O0i8TdxMAXoZ+tJ1Od54dbSc2cXlkCQr0rAbggW0a7W3nk
+	 9q2ny2S5YAKZU1hrV8FDaG9id7uzlO6S0Cw0MYT8zXLpvoVtBOnDRCXdOOkPs1uHsd
+	 vMGLMhyGrgZYw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A3793808209;
+	Fri, 20 Nov 2026 03:00:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,11 +53,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: mana: Set 1 usec / 1 comp as default and minimum
+ interrupt moderation
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179514360504.3995675.11210185436639539772.git-patchwork-notify@kernel.org>
+Date: Fri, 20 Nov 2026 03:00:05 +0000
+References: <20261113204427.1922848-1-haiyangz@linux.microsoft.com>
+In-Reply-To: <20261113204427.1922848-1-haiyangz@linux.microsoft.com>
+To: Haiyang Zhang <haiyangz@linux.microsoft.com>
+Cc: linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
+ haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, weh@microsoft.com,
+ kotaranov@microsoft.com, horms@kernel.org, longli@microsoft.com,
+ ernis@linux.microsoft.com, gargaditya@linux.microsoft.com,
+ dipayanroy@linux.microsoft.com, mawasthi@linux.microsoft.com,
+ leitao@debian.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ paulros@microsoft.com, stable@vger.kernel.org
 
-On Thu, 19 Nov 2026 15:52:40 +0530 Sahil Chandna wrote:
-> LGTM, Reviewed-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
+Hello:
 
-The tag needs to start at the start of the line, otherwise tools wont
-pick it up.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Fri, 13 Nov 2026 12:44:04 -0800 you wrote:
+> From: Haiyang Zhang <haiyangz@microsoft.com>
+> 
+> The existing code sets interrupt moderation defaults to 0 usec and 0
+> completions, which may cause CQ starvation of our NIC HW, and TX time
+> out error like:
+> mana 7870:00:00.0 ens1: NETDEV WATCHDOG: CPU: 14: transmit queue 4 timed out 63434 ms
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] net: mana: Set 1 usec / 1 comp as default and minimum interrupt moderation
+    https://git.kernel.org/netdev/net/c/325e921a7aa1
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
