@@ -1,61 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795195422;
-	b=ClVANX233hU8Igt00yfVttcR/GiP8ErJNJnXAOoZyO6o1y9eRDKsk4Q/ezGDgpGPJ64R
-	 7O8+lW0H/SnlKKABxjhFHJ0MjNkyXito10OnR/bgZEKsZnkJMLTsszHoGIDyP2cv4XsAf
-	 taDO2WQ9kTbJJnZpLCRjF0W08xefG74mHrSNtEZABi/8e/ogFyATwTh9p1scgDBDwF36D
-	 kQEqdkSh3pZEWk3usb3B5JaLSMRSX+BtgevcchqKxxov8dGvyF5yC27Q4GZ1U8jmg1FhS
-	 IUBn8HdmR/lrd+QckT959Ids0tQQcyxAEgBrO6wHIDi2yho3d/oEPy5Ks0nvBGcN8Uw==
+	t=1795195796;
+	b=ko6nHqXA27hvct24VTFnhIwmWZeXkjM86CPwY3hlmbGWTLXJokNGhBu6OVuxR2g+V8jN
+	 ejQOheigVpdkOARBbm59OYf6myKDr0XgEc7OlXsSXnjX47CRl1Zp4EqzPO+BZi3RhLFhM
+	 pWCDqP7f/fXJQRvSK2nTJ+qTb3WceXP6fi17bGvxblPV6DiIEYZiINshryxndZOLsofFs
+	 SvxGPHU7MPR+iRyWPUgGXn8ao3lfHRSqJPEhLJOjfilOJX/6EC+mQDxJcivefnbpVSsh+
+	 LgxIc4KP07i/ZiYHyK9A9HoMjEY/WzlAVolLK8u6vh/+kWhacpVcoJRcMIT7GF39KvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795195422;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=O8lAAmJYNMttRCbkLCxzVsiSYY09/k9hIKkOCQQsnn8=;
-	b=jJgyyIobRVMwAQHzO7Ll7g3HK60pBYgip4nvytaHbCwPl09QPdKUoMoKeb+z4tW6NBQg
-	 nAZRiy7FYiltYtXGxvTSOIElFhjTIF6JZU+hg/kzVXrgLpAuJWcf2Auu2wWhizlEcsxls
-	 RpqaJTnzMIxUVoJOEBjlW7/jGSp21OuxNEokMfkDcEeuzRVYRAwatQa9049mDhFs0Upt0
-	 cvQqc6aNxJJZsPCVbx5hQnSKUBUtanl0Hfiir0+uRbr04HE/oDI3Fcxudh8ozl5+rFZRt
-	 wpJt45e3i4b4s3aQqT4nBOtW9tL7bIhnV/KFJerMGphho0lwq81hqeldFQa1G05+gWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795195796;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=oW/PveCuQ5JM7ohOUMNi3qcUSCoWuYEn+oLybhF/xoA=;
+	b=3A7bGLNAdk58Dgo4AA2MfkTN2AohiQ/LwNwTEo/1ob+zlqOAO/rIgpSBHKkJTuR3Nh7K
+	 hXW8xG0docTymWLlNtVnfSaPpEto/u2hS3AoIksMVo/6BSum/x3V9nEYQ+ONMn3TlMZtg
+	 BGcmWNSs/M4XPx+hbnGRYvm3lU3dqY1fYib29uXlV9GPkMxVT2Y69pME7e3tv69sy91ZK
+	 Qdy8+V+dv/3xHu+GqPZWNHn2Gqrb2YYKeOXi5sSiPX4ndzxrRVA0H6I7w6IlQllopo3k+
+	 HvyMSDMvsh0pyNO5J+f9AiMrUoGBQSQSq6VzoKoMdadR7oLEVX7fYA5/2WYVx94cH7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJ2wJEGy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P2VH1nKb;
+	arc=none smtp.remote-ip=95.215.58.19
+Received: from mta1.migadu.com (out-19.mta1.migadu.com [95.215.58.19])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83174606A337;
-	Fri, 20 Nov 2026 17:23:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A5860A2638
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:29:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18A5860A2638
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJ2wJEGy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FF8D1F000D0;
-	Fri, 20 Nov 2026 17:23:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795195422;
-	bh=O8lAAmJYNMttRCbkLCxzVsiSYY09/k9hIKkOCQQsnn8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TJ2wJEGyK5nusgibaGTC4VYyj94/Nf1swjR9aXI2aqsYshYgEnS1EkGzkUFxrEe+Q
-	 0EENSoVtFSuuI1djJ7gYG+1y5YzXnuRpkcUZBtnwRnEZKHwJGCO+hbXXcdi8a35/Yk
-	 YX4z5sgeaf4PspnnX3uKvvSF3nC9RmAk1+jUHG37PFbomiU+rehF7oPbW0HM85Avrz
-	 NPUGyEPe3tns+QA7GZWTHdsGXa927opDKxM6r0RK1CfWTcl7YGTaYb22WpeiScPuO6
-	 S2AT+AiG/e/3yKM5jFlwOMZflLi7KljpG2XejhY+G4zNpOsckaEYuCE0F5zpkHtqUH
-	 mzLKWfS0I803A==
-Date: Fri, 20 Nov 2026 10:23:39 -0700
-From: Keith Busch <kbusch@kernel.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Zakaria Belkadi <zakaria.belkadi@inria.fr>,
-	Caleb Sander Mateos <csander@purestorage.com>,
-	Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Kanchan Joshi <joshi.k@samsung.com>,
-	Anuj Gupta <anuj20.g@samsung.com>, florence.schadle@ssi.gouv.fr,
-	frederic.tronel@centralesupelec.fr, louis.rilling@irisa.fr,
-	stable@vger.kernel.org, "Martin K. Petersen" <mkp@kernel.org>
-Subject: Re: [PATCH RESEND] block: pin user PI pages for writing when ref
- tags are remapped
-Message-ID: <awCCG3FWbMHHvYd5@kbusch-mbp>
-References: <awBnB-55HQ54C1x6@infradead.org>
- <20261120162257.498238-1-zakaria.belkadi@inria.fr>
- <awB8OODx0fCFGc5G@kbusch-mbp>
- <awB_xd60To4UawrJ@infradead.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P2VH1nKb
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/HPVnKLrKCABmIOGSs3z7lVqaFWbyhWILXjO2++VUa4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795195794; v=1; x=1795800594;
+ b=P2VH1nKbPXZ4cCZlLKLKMlD/hOQ1muEvODtFi/+MYProSSpmsq7h4M09WnK00LWZrNHGOj7d
+ xeywB6wEsBRCnjvtqF22KUJ5mE+vgGEazTTNbq2vzngkqU4UqZSK/DE7CIv3/YEzkqDkHBfLrrQ
+ 9a82xBZ8CcFponccvpQznN58=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 8733609d355f8002;
+	Fri, 20 Nov 2026 17:29:54 +0000
+X-Mizu-Trace-ID: 8733609d355f8002
+X-Migadu-Flow: FLOW_OUT
+From: Bradley Morgan <bradley.morgan@linux.dev>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>
+Cc: Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bradley Morgan <bradley.morgan@linux.dev>
+Subject: [PATCH 0/2] powerpc/64: Fix some snafus in head_64.S
+Date: Fri, 20 Nov 2026 17:29:47 +0000
+Message-ID: <20261120172949.3494131-1-bradley.morgan@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,27 +70,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awB_xd60To4UawrJ@infradead.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 20, 2026 at 09:13:41AM -0800, Christoph Hellwig wrote:
-> On Fri, Nov 20, 2026 at 09:58:32AM -0700, Keith Busch wrote:
-> > > Agreed. I'll keep the PI iterator as ITER_SOURCE. In v2,
-> > > bio_integrity_map_user() will bounce the user PI buffer for REQ_OP_WRITE
-> > > when the integrity profile has BLK_INTEGRITY_REF_TAG. That way the
-> > > block layer can remap the tags in its own copy.
-> > 
-> > Can avoid bouncing? I think the remapping flags can be tied to the
-> > user's reftag check request.
-> > 
-> > If BIP_CHECK_REFTAG is set from the user setting IO_INTEGRITY_CHK_REFTAG
-> > on a write, we can map the PI buffer for writing. The user explicitly
-> > asked to have the ref tags checked by the device, and partitions require
-> > remapping them, so they've told the kernel to write to their buffer.
-> 
-> No, the user did not ask for violating the mapping direction.  The
-> whole remapping thing very much is an internal implementation detail
+While reading through head_64.S, I noticed two bugs in early
+secondary processor startup.
 
-Okay, fine. But can we skip bouncing and remapping if the flag isn't
-set?
+The first patch fixes a register mismatch on Book3E where the
+secondary thread entry point was loaded into r5 instead of r4
+when thread switching is required, which jumps to data and
+traps immediately.
+
+The second patch fixes non SMP kernels where secondary processors
+jump to kexec_wait without copying their physical CPU ID into r3,
+leaving the next kernel with garbage during kexec.
+
+Tested on ppc64.
+
+Bradley Morgan (2):
+  powerpc/64e: Pass entry point in r4 to book3e_start_thread()
+  powerpc/64: Set r3 to physical CPU ID before kexec_wait on !SMP
+
+ arch/powerpc/kernel/head_64.S | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+-- 
+2.53.0
+
