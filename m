@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795193376;
-	b=MOSICR3e9Vu+z1wi8iBKrqsqWj5GB6R0C1EoIYKyMcSoWPr2cUmRUTGrkMVPRUUUujs2
-	 fvtBx+4tYHgYEi4wW0bx/EhA9ofjz0rAafDHuqyd2uZjnmCFhLQSiBpnmkKOTs7IvS/Ff
-	 p33juWuAZeElMMV6eSnjz/hVlhyo0MPwa+bJQmAmVLvLU3/Ojqu35R+frsaStKmUfHKNx
-	 Mt0wIt3H7Gu6OGTPmvnUjJnAAKQWIsqZuWy2u2V81flzkmXH9rna9J6VCipR2AXtVV8kk
-	 dy1ublwhYAZwPj7tkKf02XQ2qIbjtRtTMozsFiVK70DGcluTM5umx6dEoZdP1GqYTcw==
+	t=1795193468;
+	b=OYrdW4hUhHOrSPgmGMzKfhWiEQUwKn63IbOyzxfFCr6ZvO26eezqhjExVyC0IOwGH8eX
+	 ax+Ha1cgoQmPrctSyXIC+pAO2jAxSBCjeiMx5+YAQ81+efjtBZUNfmbWnA50qTq4swqRV
+	 m82RCLEvM5pY8gr1R/J1sTu47Um3KEd3S3nMm3FaXHzYXvBlc1gM08KVVePdXO/adLs35
+	 xmjaV0473W9oUKmwALZsrah8I428RbTYPKrhVmqMb+775mCQM7WEWzjsMd/U2z/IY2CrR
+	 W/Jhlcwu1t82Wj0D2BlbtvEm4iJ9HFPKq/DfY5AfqhgUTCv3rrjdduLfwN9+C+JJofg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795193376;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=mn5he0+K8znliFOyTTFpEswHVtosrnYpIk2OlL8JzzI=;
-	b=GtQf4cM4dEC7t/uG+AW5kdQaf3IpBcjd5F6A+QYFSiTSa7Od01I6IZoM8WnDFwTwlALy
-	 tBKNdxwBJDykfRlA7BLyBU6Y3Q13QFOgw8/YWAAKrOF5CjjDG9dNl1EZWOPWljixectul
-	 y5sVWZGkE7i3Yyn5wzsAMVo5ugdP5ATDYjVz1DqmdKNOD9NHwF8q5GBiYSUwaBHxc/gp3
-	 3khg2uV9T+TUroDXQsUBJnyTBgcTSgP4kkmTtqQsUqV9t6VUVABpaH85ZkvuY27gvYLSD
-	 iXHsGaaBtBdFhb2xXieeWKJ9Y7RfVhPiM5KaHjQtw5UdJMdifLOXzt9GTrFksEcKBOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795193468;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=v9u6Il645wwqwPsIhsxeY14aJqFQtWTjPLxOKEgbEEw=;
+	b=S1+DgWcbHbFkXf7pitUvYHYASfit54w7kfRv/Hlvkx8mnAkn0JqwxvEgwXodvgFpHFuH
+	 n4iAZZNnguRVoYtT5aWDPcT/SJxQvm4GLEaGmoHlvQcHtw0174ncqZglo3kymVeDvP2r8
+	 RH7wjH7Oi/lHCzL+1RlGDzvjat5+14XKKj1c5+lgSlh86n1dtnHjA9LLvf+1OQhmV69aB
+	 z5AKPT/ruB4GN+5qEokrCTpsEtgsMz1+Lbh7fntBpe2uu8q2HnDxXz4v7ox5Wj/JpVxPI
+	 5TQ479i2kLccXg2llJ9jUtgWK3j2b2kfn3A/HvjZzy/Zh3Ddz+iiHKz1OXib9UvWm3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ql6WNg2N;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e4XFjb1Q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4562606A32C;
-	Fri, 20 Nov 2026 16:49:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4562606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238FF606A338
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:51:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ql6WNg2N
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=mn5he0+K8znliFOyTTFpEswHVtosrnYpIk2OlL8JzzI=; t=1795193375; x=2110553375; 
-	b=ql6WNg2Nu8sFlS3EIMSQyAIkckrq4/+slNOOEu0vGVMVyTF78qqTACSRwRnEjTfhMgC7Pswh+DT
-	7oq2Oam8IeVTW9o01SuI+sK5vCSNDlOiet//jU/BLRaLVe9QkB+UVkY4FEWVxPF0Jid0YgeMqsyVU
-	z844AVS3mUegD95RnMzqi2di0fpzL4DMppsBeTGDDNfpRyquAhfRomp+Il78tCA0ze9E60ZuHJN7P
-	DenGiy3+kFOwnMRZ4IzTG4rapHKzliHaa/ETA04XmkNXOwalFV2FFPMlyAFxSA65Yfbr4LgyyF52d
-	Vv0EJEwM9ChwKOGyrz5ik97RK0NAnQlj3Jbw==;
-Received: from [179.105.94.163] (helo=[192.168.0.4])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xURni-00000001wrv-1TkD;
-	Fri, 20 Nov 2026 17:49:26 +0100
-Message-ID: <3f029973-1a52-4118-acd5-4a433fb49710@igalia.com>
-Date: Fri, 20 Nov 2026 13:49:19 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e4XFjb1Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60E721F000E1
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:51:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795193467;
+	bh=v9u6Il645wwqwPsIhsxeY14aJqFQtWTjPLxOKEgbEEw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=e4XFjb1QUl+W/h3IkvvVOzp3emObeLDLbCfyF8DkzwaaaFAnsadwSLlKaB1v1T7p7
+	 QW9Y4NlliI56DoM6KyPPbHoZWRfcBzKLWnhiTi5c5LhHaLKHY2sWMvnDz5oZ5BS+ln
+	 q4eXmRWuZssZPnNuwQDEADNlAuOPhe03sSMcZayjfcJ2IWRwl93fOqlfD4ISGRZNZ9
+	 xH3/RC2dVKXqwWDxmIYuBEbic2qQyjacQadWmGijEB82k9dHqy92na7LXS7JqIylqc
+	 DlZoHoJ3+pqF5///bIKfWFccZ+K1Y6VPT4ERjXLRaGiujinJ5+steGn7lUH9DiugYx
+	 ndPWGuSzGtyPQ==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5c126f80426so1000682e87.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:51:07 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFE8OP5dMA1cU9FO0KNH284HN9sxshpEpLeb5VXtpZkn4DQCQkUOEcvi4xKTWYQxARmknGyz14=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+OFa9bhLmgCaxYIhHNVQcA9YM2xtEyXV9yfaE4z2FsyuH210kj
+	6uCHs1l/3Ozvc6ef0A5jVbEqxafXT4NwJSJNOQQ15PAg3Ml9HBypSjphoivPKmhPbKoThX+acCr
+	/r5kks76oDM4LVLicZPgOsPG3Z8N0g2c=
+X-Received: by 2002:a05:6512:1086:b0:5c0:53e:6662 with SMTP id
+ 2adb3069b0e04-5c1bc80756fmr1199028e87.12.1795193465789; Fri, 20 Nov 2026
+ 08:51:05 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,164 +59,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/v3d: Fix double free of query arrays on parse
- failure
-To: Xiaolei Wang <wangxiaolei01@kaihong.com>, mwen@igalia.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, tvrtko.ursulin@igalia.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Iago Toral Quiroga <itoral@igalia.com>
-References: <20261120022828.2612091-1-wangxiaolei01@kaihong.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261120022828.2612091-1-wangxiaolei01@kaihong.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261113045502.68053-1-yuz08559@gmail.com>
+In-Reply-To: <20261113045502.68053-1-yuz08559@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 20 Nov 2026 17:50:53 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0hNrr_+CBkOLpbfs7nrCCSfGT0_CPo=G3LB_dpetcKuZQ@mail.gmail.com>
+X-Gm-Features: Aa3M54phyBWRr-oW0bMbLB1lpYMkfBaYd3wcroDjrMDD1838N0GeOrSuvTqDZ6A
+Message-ID: <CAJZ5v0hNrr_+CBkOLpbfs7nrCCSfGT0_CPo=G3LB_dpetcKuZQ@mail.gmail.com>
+Subject: Re: [PATCH] thermal: sysfs: take the zone lock in the tzp attribute handlers
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Xiaolei,
-
-On 19/11/26 23:28, Xiaolei Wang wrote:
-> v3d_get_cpu_timestamp_query_params(), v3d_get_cpu_reset_timestamp_params(),
-> v3d_get_cpu_copy_query_results_params() and v3d_copy_query_info() -- the
-> latter shared by the reset and copy performance parsers -- free the query
-> array on their error paths through v3d_timestamp_query_info_free() and
-> v3d_performance_query_info_free().
-> 
-> The same job is then released by v3d_submit_cpu_ioctl()'s failure path
-> (v3d_submit_cleanup_jobs() -> v3d_job_cleanup() -> v3d_job_put() ->
-> v3d_cpu_job_free()), which calls the same helpers on the same query_info.
-> On these error paths query_info->count was never assigned -- it was only
-> written after the parse loop completed -- so the syncobj loop ran zero
-> times and no syncobj was put twice, but the "if (query_info->queries)" test
-> still succeeded and the dangling pointer was handed to kvfree() a second
-> time.
-> 
-
-====
-> Every failure inside the parse loop takes this path: -ENOENT from
-> drm_syncobj_find(), -EFAULT from get_user(), or -ENOMEM from
-> kvmalloc_array() in v3d_copy_query_info().
-====
-
-Needless paragraph.
-
-> 
-> Fix the ownership instead of the symptom: the query array, and the per
-> query kperfmon_ids, belong to the job and are freed exactly once, by
-> v3d_cpu_job_free().  The parsers no longer free anything; they only fill
-> the array in and record how far they got:
-> 
->    - query_info->count is set before the parse loop, so the helpers know how
->      many entries were touched when parsing fails halfway;
-> 
->    - the arrays are allocated with kvzalloc_objs(), so entries that were
->      never reached carry a NULL syncobj and a NULL kperfmon_ids;
-> 
->    - the helpers walk the full count but test every entry, so they put
->      exactly the syncobj references that were taken, keeping
->      put-count == find-count on all failure paths;
-> 
->    - the inline kvfree() of kperfmon_ids in v3d_copy_query_info() is dropped
->      for the same reason;
-> 
->    - the count argument of v3d_timestamp_query_info_free() and
->      v3d_performance_query_info_free() goes away, as the count now lives in
->      query_info itself.
-
-You don't need to describe every single detail of the code in the commit
-message.
-
-Please, make your commit message for human-readable.
-
-[...]
-
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-> index 1924e3440dc9..6ee64fbacae9 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-> @@ -95,34 +95,44 @@ v3d_sched_job_free(struct drm_sched_job *sched_job)
->   	v3d_job_cleanup(job);
->   }
->   
-> +/*
-> + * The query arrays are owned by the job: they are allocated by the extension
-> + * parsers in v3d_submit.c (which also publish ->count before they start
-> + * filling the entries) and they are released only here, from
-> + * v3d_cpu_job_free().  The arrays are zero allocated, so on a parsing failure
-> + * the entries past the last one set up are all zero and get skipped.
-> + */
-
-This comment is superfluous. Please, delete it.
-
->   void
-> -v3d_timestamp_query_info_free(struct v3d_timestamp_query_info *query_info,
-> -			      unsigned int count)
-> +v3d_timestamp_query_info_free(struct v3d_timestamp_query_info *query_info)
->   {
-> -	if (query_info->queries) {
-> -		unsigned int i;
-> +	unsigned int i;
->   
-> -		for (i = 0; i < count; i++)
-> -			drm_syncobj_put(query_info->queries[i].syncobj);
-> +	if (!query_info->queries)
-> +		return;
->   
-> -		kvfree(query_info->queries);
-> +	for (i = 0; i < query_info->count; i++) {
-
-Stop the loop at the first NULL syncobj.
-
-if (!query_info->queries[i].syncobj)
-     break;
-
-> +		if (query_info->queries[i].syncobj)
-> +			drm_syncobj_put(query_info->queries[i].syncobj);
->   	}
+On Fri, Nov 13, 2026 at 5:55=E2=80=AFAM Yu Zhang <yuz08559@gmail.com> wrote=
+:
+>
+> The thermal zone parameter (tz->tzp) sysfs attributes - sustainable_power=
+,
+> k_po, k_pu, k_i, k_d, integral_cutoff, slope and offset - dereference
+> tz->tzp without holding the zone lock:
+>
+>         if (!tz->tzp)
+>                 return -EIO;
+>         ...
+>         tz->tzp->name =3D value;
+>
+> For a zone registered without thermal zone parameters (tzp =3D=3D NULL at
+> registration - the thermal testing zones, ACPI thermal and every driver
+> using thermal_zone_device_register_with_trips(..., NULL, ...)),
+> power_allocator_bind() allocates tz->tzp and power_allocator_unbind()
+> frees it and sets it back to NULL, both under the zone lock:
+>
+>         tz->tzp =3D kzalloc(sizeof(*tz->tzp), GFP_KERNEL);
+>         ...
+>         params->allocated_tzp =3D true;
+>         /* unbind */
+>         if (params->allocated_tzp) {
+>                 kfree(tz->tzp);
+>                 tz->tzp =3D NULL;
+>         }
+>
+> bind/unbind run from policy_store() -> thermal_zone_device_set_policy()
+> under the zone lock when the governor is switched to or away from
+> power_allocator.  The tzp attribute handlers take no lock, so a read or
+> write of one of these files racing a governor switch dereferences a
+> freed tz->tzp or a NULL pointer.  The read side (0644) is reachable by
+> an unprivileged user.
+>
+> KASAN, one test thermal zone, one loop switching the policy between
+> power_allocator and step_wise and one loop writing k_pu, panics in
+> seconds:
+>
+>   BUG: KASAN: slab-use-after-free in k_pu_store+0xd7/0x130
+>   Write of size 4 at addr ffff8880064e5c94 by task init
+>    k_pu_store+0xd7/0x130
+>    dev_attr_store+0x46/0x70
+>    sysfs_kf_write+0xed/0x110
+>    kernfs_fop_write_iter+0x29f/0x380
+>    vfs_write+0x5df/0x950
+>    ksys_write+0xfd/0x1e0
+>   Allocated by task:
+>    power_allocator_bind+0x51a/0x600
+>    thermal_set_governor+0x86/0x170
+>    thermal_zone_device_set_policy+0x58/0xb0
+>   Freed by task:
+>    power_allocator_unbind+0xad/0xd0
+>    thermal_set_governor+0x57/0x170
+>    thermal_zone_device_set_policy+0x58/0xb0
+>
+> Take the zone lock in the tzp attribute handlers, as mode_show() and
+> weight_store() already do ("Don't race with governors using the
+> 'weight' value").  The governor already reads these fields under the
+> zone lock, so this also serialises the PID constant updates against a
+> running power_allocator.
+>
+> Fixes: f5cbb182586e ("thermal: power_allocator: don't require tzp to be p=
+resent for the thermal zone")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+> ---
+>  drivers/thermal/thermal_sysfs.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/drivers/thermal/thermal_sysfs.c b/drivers/thermal/thermal_sy=
+sfs.c
+> --- a/drivers/thermal/thermal_sysfs.c
+> +++ b/drivers/thermal/thermal_sysfs.c
+> @@ -258,6 +258,8 @@ sustainable_power_show(struct device *de
+>  {
+>         struct thermal_zone_device *tz =3D to_thermal_zone(dev);
+>
+> +       guard(thermal_zone)(tz);
 > +
-> +	kvfree(query_info->queries);
->   }
->   
-
-[...]
-
-> @@ -915,7 +885,8 @@ v3d_copy_query_info(struct v3d_performance_query_info *query_info,
->   		    struct drm_file *file_priv)
->   {
->   	unsigned int i, j;
-> -	int err;
+>         if (tz->tzp)
+>                 return sysfs_emit(buf, "%u\n", tz->tzp->sustainable_power=
+);
+>         else
+> @@ -271,6 +273,8 @@ sustainable_power_store(struct device *d
+>         struct thermal_zone_device *tz =3D to_thermal_zone(dev);
+>         u32 sustainable_power;
+>
+> +       guard(thermal_zone)(tz);
 > +
-> +	query_info->count = count;
+>         if (!tz->tzp)
+>                 return -EIO;
+>
+> @@ -289,6 +293,8 @@ sustainable_power_store(struct device *d
+>         {                                                               \
+>                 struct thermal_zone_device *tz =3D to_thermal_zone(dev); =
+ \
+>                                                                         \
+> +               guard(thermal_zone)(tz);                                \
+> +                                                                       \
+>                 if (!tz->tzp)                                           \
+>                         return -EIO;                                    \
+>                                                                         \
+> @@ -302,6 +308,8 @@ sustainable_power_store(struct device *d
+>                 struct thermal_zone_device *tz =3D to_thermal_zone(dev); =
+ \
+>                 s32 value;                                              \
+>                                                                         \
+> +               guard(thermal_zone)(tz);                                \
+> +                                                                       \
+>                 if (!tz->tzp)                                           \
+>                         return -EIO;                                    \
+>                                                                         \
 
-Leave this in the functions that call v3d_copy_query_info() and remove
-count from v3d_copy_query_info()'s parameters.
-
-Best regards,
-- Maíra
-
-
+Applied as 7.5 material, thanks!
