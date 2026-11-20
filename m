@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795207187;
-	b=aIGCxS5+7PRvAwAGRVJgABfNhgmksPeQBvLANCYk3IuWaKb7IpeCSFAYlH7BBQ19TtV3
-	 FRe3yuKxxCQEC94QWLncqOQ/NRLVtTTxK7jEl8kXfSmEIwiuANiERv8GDJZgSAQz49HiG
-	 nQTwp7MciXSo55HlRBqihozHb8OihczL/j3bGcUACi8fMCIZv+9ddZa40BxHqLhZIU6Vk
-	 1MHZDZkx+j7EHvZrCBQC1S2Oflz4gO7QNPZ7uGXr9marMweKrN9Sq0vjLXJxU8fvqK2k9
-	 n9cYhY1akpsnE4Yal+PjGUQ1ytd5Icw4I6Wl96b3uVoaeODXat0wGcvI5GJNdc6Ujig==
+	t=1795207192;
+	b=jYHAUSX0polJ23nk9b9XoA+I8T96kguQz3pytLGz84456fhgO/JD0ux/DL4KjbTKp0a0
+	 ZLR94u+6A7hSh+hMLDOqxzzsFZEwRQnygC52RGLlvLpSr/BOnv6d+vsP1ZK7dpeq4FXNm
+	 LAMb0dgHDCZaSuX6yNfLc74iJkWzJfvnWRFomrwpzKxymHco3ZJO5ekwsM314GWb34QXN
+	 gQKha9EWE508s3tvnSQlTQSioq+L2jJIq74B3ylPUgah0oKG1ybuOxYZranFkpgv3wjWU
+	 fS+KKOKBjGs0XLjXYdXNp6t6n7zbxxz6oonr7gXdOeJ6PzAf4T2vNQ1pDBhRP08hOUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795207187;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795207192;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=h3zs5hgs44WM0UBZAL57hHU1qVZrIOi2lXkg7M8Oprg=;
-	b=jixg7yYvWt382cq6bOGmoTIyxizTUmTLmImqCkiVLvxK0ONDGNBglJzezVPNN4A5VXiK
-	 MO7Uu1wX9cnhRLqFCLY5t9nX3jO8RoL044SHyHnlkRkMlWkiR2DsgmHv8qrDPXaBH//xf
-	 gEgO3pOREBPQNCLU0yvbSf5Zxl7daVNcuC1Wy5GdReNDOMdKXJa+PGp431zzmdJ+MzQN4
-	 clUqWyf4CeI7DcDaJBqJr9MIM2uncbD0ZgIoYolDZ4hY6Hq1lPl5C7o2OU92hWHejTptV
-	 eLgipPS7cVEp/CK5f0Mxk7DH8qNPauKNEc6xclHGseTK8a9Ypk/jVn44UmuyiSHZcBw==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=SXGcYSJjE18HEd7COUwvpeZIMq21m/Yk7b11F9sA7Rg=;
+	b=UQl00dE2SatzdBTXLNDKK++BInwPtJ7gZ+gxJWaIF5x53pmY8+EUpCWIgaL9ebbp9q4h
+	 wiZULWcaxtFZsdR4VqlgogE38W/edhxF8ULvcksHZ6+Y12YS1MwpwnuLkUGEGIhNyJG9L
+	 /FB2+4cEyXWcvhRhM2MbpVB9lWEnn5gkPd3fe2VTElc1VHiKW9xpB816W59SJOl7vIKQv
+	 Qx0mHHWSD6mYKnWju9aYLcnw2CDn2+Ob6FbiUmsdYl/UOsOCEgarfgAEWaRHl6ow4DwSq
+	 KlOrkd7cOL6hGLcP+dVANT8GV0NR+aomP3mt+ABmTdIjyPK6LoXTw5uIw1qQU5E1W9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=etuctfcS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dH+z4263;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58933606A33D;
-	Fri, 20 Nov 2026 20:39:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B414A606A6F7;
+	Fri, 20 Nov 2026 20:39:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=etuctfcS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E0361F000CF;
-	Fri, 20 Nov 2026 20:39:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dH+z4263
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856651F000C4;
+	Fri, 20 Nov 2026 20:39:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795207186;
-	bh=h3zs5hgs44WM0UBZAL57hHU1qVZrIOi2lXkg7M8Oprg=;
+	s=k20260515; t=1795207192;
+	bh=SXGcYSJjE18HEd7COUwvpeZIMq21m/Yk7b11F9sA7Rg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=etuctfcSocmPen/gWdHcxqU+yP9MpOo6hHvKdj0ILIVp6NYdwK51drvRDgDzXspuT
-	 rpcSbHTo/jFujvaD1u5cOkjfAuZBJNX4G2Dg07m/h1dKNWFG7cqzqiyqG+gUGxnvrj
-	 D6RHswWn3IH6XVmPIv8MdAD3G5K796SiSm5+s/3nK+gmLTzYwChIiqXFYqkiY8jfR5
-	 izwmGWUMLTZssIjJRrOLd9E445F9SRlfqKL0B8Tg0hOYQsCN4cPt4YaXBhZJr9jP4E
-	 tZ8crhmge4MlqxZRVIsoebAd89fia7buS3BhPDalkiOIr4eMw9cQIU/A8pr/xm28Ld
-	 P1FKQRD68VO5g==
+	b=dH+z42633h6ZHnq0cWt5DLWnyEYW24DsxmfJfjaPoOcThumezEMlziMP3CMHgizqN
+	 9SjCtDaird2TXWnzik7fv5ffSY1InK0sOAMN2nOY/AHgPYIpvQPRoRf14qLsz3VpQG
+	 3FwUS9aOjuyH+WBKtA6wwu9bdY4OcZgPHqkWGGY1OkiaYynEr5RlLGJXe5lR6zLMWC
+	 czUpNNqAmAGLfYJ/aVVQOaBmfiYo1+YETnncRelZPndSNzywg1lHkmzBwzW9051aoJ
+	 hlYxtcJOf/UKqprDoAG2AjDvTNQaSX3p0EYTJLqru1GB9lxZf9cEey7/WdqojpZH1S
+	 y0H+B18oucaAQ==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	bpf@vger.kernel.org,
-	memxor@gmail.com,
-	Yingke Xiao <inkxiao12@gmail.com>
-Subject: Re: [PATCH 6.12.y] bpf: Add tracepoints with null-able arguments (CVE-2024-56702)
-Date: Fri, 20 Nov 2026 15:39:04 -0500
-Message-ID: <2026-11-20-1-daily-reply-0015@kernel.org>
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	Ian Rogers <irogers@google.com>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	benh@debian.org,
+	Salvatore Bonaccorso <carnil@debian.org>
+Subject: Re: [PATCH 6.12 0695/1756] perf python: Initialize debug output on module load
+Date: Fri, 20 Nov 2026 15:39:08 -0500
+Message-ID: <2026-11-20-1-daily-reply-0019@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAMcAce-4MeO8rpx2rvDu77r-OpbFd9k0geOs8wZBoaMbYVkpDw@mail.gmail.com>
-References: <CAMcAce-4MeO8rpx2rvDu77r-OpbFd9k0geOs8wZBoaMbYVkpDw@mail.gmail.com>
+In-Reply-To: <awAMD5kuizXPSt-7@eldamar.lan>
+References: <awAMD5kuizXPSt-7@eldamar.lan>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,22 +64,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> [ Upstream commit c83e2d970bae ("bpf: Add tracepoints with null-able
-> arguments") ]
+> /home/build/linux-stable-rc/tools/perf/util/python.c:1374:9: error: implicit declaration of function ‘perf_debug_setup’ [-Wimplicit-function-declaration]
 
-I can't take this one:
-
- - The patch is whitespace-damaged and does not apply.
- - It adds 5 of the entries c83e2d970bae ("bpf: Add tracepoints with
-   null-able arguments") adds, with no reason given for leaving the rest out.
- - It lacks the "From: Jiri Olsa" line and the upstream sign-offs, and
-   carries a Signed-off-by from Kumar that is not on the upstream commit.
- - CVE-2024-56702 is cb4158ce8ec8 ("bpf: Mark raw_tp arguments with
-   PTR_MAYBE_NULL"), not this commit.
-
-Please send a backport of the full upstream commit with git send-email.
+Thanks, dropped from 6.12 and 6.18: python.c doesn't include debug.h on
+those trees.
 
 -- 
 Thanks,
