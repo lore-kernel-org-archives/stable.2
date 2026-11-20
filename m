@@ -1,97 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795162446;
-	b=3lAgFBPX7LdCj29LexwCPrAUR6EZO+NeBzSFTaV2b7tEzljkYWMp+x81zwzHvtVgixeY
-	 fsVvFCF3Jtfxj97jNUE3TxczxLCHrawCsUB1rnNxqt2bLVf/UaxKl6dNu5MfOlr99rAPw
-	 TzSU1S3+S4Ek6vFHgF1FSy8aFSyHHBXJRhAjMm8SXz7+nUxZlImouQ+lQkHlN1vqxo09v
-	 tk2rR6ZQkYSX/9GZGxbN1DRcHosXfof/zMK5J1D7X344RRyq+uY+vCLRXHNRXdlFSvi9Z
-	 yXb0qzOrQaUD4yHI0Ge6BIpqh/mAOr/ejNhh0UopSD6olW99brSpvt7xjLepHUgrz6A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795162446;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=T0QMJszuIflUVnI8KlcqSRkClwadTrIU4ZiU7YrghCU=;
-	b=3tt5aR+BMlc3lrUNTKmJIhk2XgFdxE43rLPxli76ogfCDLKYuiw9On1o5QRC7VBpfgvO
-	 CSikmSQ3/mGGlYPKj1jn1J8RUweOEXN66NoHchJQd0xbgUZXuWc64X9hZXqeUnSxiVxp5
-	 VXMqNf48hQEMcMV1AErb5B+PiJBxm+6D5sN9zga9Z11HwD5YQfe9+8kcDyKE35oKgy0h5
-	 iuJP96WXYTFb3lJ7662OIws9l7UuyFTB2xA8bIP/hL9H1Nik/3E/DerjgKTfrk6rAOL4U
-	 FZMDRjyCfp3nHRaY4QctCJ51xal4acIpOWXXJv+Nj3CiJ5RGQ2HB1+oV7zhhkkceSmA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="02Lc/GYw";
-	arc=none smtp.remote-ip=74.125.231.198
-Received: from mail-oi2-f6.google.com (mail-oi2-f6.google.com [74.125.231.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.23
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795162447;
+	b=WvXpsdGXS5xrpnFrW3iwSk35eMe/t0+g9APq8szkZURUI89+ka3MkhDu91f7Ywn2oelz
+	 NkNufxJvye/RpMNyeu6kAwl9Tyj+KRoo+tQw5hN3rS2NAlT8k9GTfuboxmXddq9WpoRd/
+	 hlOZgX/A+t36qMcenmlUNn9cAI5Trs0ZqYWNk1yVuqtja0csohqUAbCBrVcN953Figaql
+	 uKu4zZLCBxvUCCBNtBeiuakbBfKWbnp2q/rBnSg5gLWwdvsD6AmIVnDeNBRShPN3L0Bpi
+	 asicLqYwpSz37FdjBurt1u+CjqG2STWFB+0sX3xXhCgwWZMJM5juexCxHkJbTS17f+A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795162447;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=0ly9t7HEJbLrZLqXFWnIcLmEQbmdCtxY8ZwqFTFcfmU=;
+	b=QL/qhCR8vNHqVAoOn2APaNo38hjSojI79IWAKAD23xnUvdAwOJaQ0IqpnAdAnCsV2oHl
+	 TPuj5bnFhU6RDMsAzyCYUDixvtYleTsrtmshoN0jzLtSMDhWW6+TdKt7j4JlLGdZIKWz+
+	 3fmhzUyDB+yAVDcZoLiVtw97IyEusWrq4Oww9FDQGrK6uwxFlOnjgTRQegfAzddjbD56M
+	 pNz5+Nsc156DeN7v7WKSybh/F+hvIJWGrJcwO+eDA+rBIjoVq5dtQ/y8hO86atIcsJtK6
+	 yPWiULQBqZz0+oEfb9LMyMoO6LmyACXwYynUBGbtuH1nPKtRK43SrI1+voWIdQ2dQPw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oDGkFhHj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.23
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012023.outbound.protection.outlook.com [52.101.48.23])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45520606A33A
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 08:14:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45520606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387E360A2615;
+	Fri, 20 Nov 2026 08:14:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 387E360A2615
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=02Lc/GYw
-Received: by mail-oi2-f6.google.com with SMTP id 5614622812f47-550f311b527so288261b6e.1
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 00:14:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795162444; x=1795767244; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T0QMJszuIflUVnI8KlcqSRkClwadTrIU4ZiU7YrghCU=;
-        b=02Lc/GYw2gxzEmZruC8Z+5VLREVU/C4VyOlAiTMxbtK1EiR9O/InpVdhJt+jsuWdri
-         azz8I0igt9BvLiWPwUHwdpK0BHkPn4Lx8FuZqM4E9wyoyqch+PyPwaOBGlWraenWlBmy
-         aGiu/xLJvN5Eg8ammghkZk7ivQjJFM/+buBL9D0HCh/0P656asbkAQwatRP93Q0WwNJd
-         ShcYWOZPADssfVezfCfKh7pE+WJ21o+uIq6DqzhqRIn8YmMySwhWMlVzeDONdlO6kLLl
-         GatYTUYVUi0+ErEee8/+tAxo1dYdLt1DA3iqTS7u5nDLOa36q+Lm2WjY9Ut9DMeun4TU
-         Hnjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795162444; x=1795767244;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T0QMJszuIflUVnI8KlcqSRkClwadTrIU4ZiU7YrghCU=;
-        b=NV0TF9kA1GPfY1wXl0/klOukv9PHRee0u73dlJZW0C7SAcTwXBWx0xY4wRvaGI6irv
-         EwTAnyH5iuFTdZlCRIvC27Z7sF9IDHTETI+jjGPsf7G4keOCn5Kh/MPrp75O857EudGZ
-         YClzB3t99jRWdgrc+MlWl2ZbqVT0o3PX6hvipVQKe0iZSLo5Grram8CLRPu5NAbRl2up
-         +NOgHcXUrDfJJ/yJ3LUI6HRk23L+SpxABAgbGa3/eoCP1S5Ds/yfOBnrUnMNp9NYrRo1
-         64I3VmcxDP53Fabmr0ImNSReTBlX8bvruoy/2syRsGPgObhDvkdzw2O1Cegtj+sdMCKn
-         vB8A==
-X-Forwarded-Encrypted: i=1; AL+hErEUMeKciO8UVn0+fk76y4VINMBIETha2DDB+sAyPZvMXjw/etD084PegMNv+J8GyKH1Mc+jccw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mqoxloKnJ+eAVkMiY/k6APEUvHzp6T0kcEKKALGXY+6Y1uKcv
-	MHemfScbATMY/OX8VlHSK93KN2yP0ZkcFbL/1Hmv2KW0L9ElKsad2aC0
-X-Gm-Gg: AZFdTZcbz0fof2lACcwIcJ4qIihQnD2ZLF3nk39JtgFfBFgs9CMAMAkXN0L55haHjij
-	38Wty9yJ1yFcthEROc85Ef0ctCfpEwc3XQIQQt3f2eECICys2wgRsxIH3DS00izHG5YUFGPjdzC
-	t06Y1jOd3J2TtOLzWo2vL/svweVZGnL05NkwYb/pC2P1tTWMSf9PJzsZ4p75tfmjKlAe9VjP6ZX
-	Bzs3TznQJKNk+nbEBUWsAdsxyguG11GBTx96w63IV3caVB5H8wziCs5Mla/N8L4ObrinFxjH9QZ
-	+hSPAXxYZFgd1qD5CYeItnWTh0MOoXKx6/m1ytdaVVUCdraDZ42Azhm0tmnOAbEeEtLD9Eh2JmZ
-	mCo5a4E7nVLq1B94ZVBa1ikLKgfeL+sI66ZwYa7M9ph5bZe8CIEhmrtIsJMwqOIdYL8hm3Kum6g
-	O7UbB2R0ymhsQCJVpWLQXet04pkRsKI/OyTzXnHNgi/vvku06/fyLlYD6xIAJ9kYb6V3EV7SITN
-	s2bAFF1/79n4v+rRtoiBtgt5IZqDO4sMGRazjwTsaAkYQYSTF5B961Z7trNQ6TlnGzwpcgs/qOP
-	QDNoTqAs8Gw4Y42G2+jgakT7l6McKjqVUDZdFm+fpWDRkHdrrHyTqraR7iXzUPsvNsA=
-X-Received: by 2002:a05:6808:1387:b0:4f4:b62c:a3d8 with SMTP id 5614622812f47-57a0a937f43mr3229475b6e.33.1795162444278;
-        Fri, 20 Nov 2026 00:14:04 -0800 (PST)
-Received: from localhost.localdomain ([14.22.11.164])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-57a350548ffsm1497559b6e.11.2026.11.20.00.13.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 00:14:02 -0800 (PST)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: david@ixit.cz,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] nfc: llcp: fix double put of nfc_dev on interrupted connect
-Date: Fri, 20 Nov 2026 16:13:54 +0800
-Message-ID: <20261120081354.4098856-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oDGkFhHj
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XGYFzHnbKSFuc8DB10mMSpSrs+86ZA5pSeCrSo+b/ePHF1oi5wZs/ilmsftzMk9F9YF8d0hlgBLCf+tuUTSHuN6Rt/xUizPfZulegLtRoL++nUvHicPCXGYug3JfczxoYAEoQFMf4w7sjgLCVqRnSZL/iIS0R9jNTWD+e0AmviowBF5j+iEO6Cld0BEOFkmY5XRmulIXZCiQjDJFXkV6Il0pNJU1Dg9VOiuwrvE8lfPOx4o9b3GW1hv0N5aBDOYzHAVDTTyI5TN9bkBn1iAXptBByNlEufN9+CBFSejppwcTYjoZGEUSd+hsmp1MNHPqf9CRsO2A1PjPGdpV9fByrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0ly9t7HEJbLrZLqXFWnIcLmEQbmdCtxY8ZwqFTFcfmU=;
+ b=BTiP9Z4/d0ex2OGZMTsTbGrLE9XxOVhw7i6ocpOoO3gI0IkmUzGGyKj7z6U14LQmr0KvLD8gGbmz1AaisduwflPNURznYsfQCmn6Q1PPTdwy7tWa+CHiPrMM6g+Zixo7OretGjCzN2et6J51S8twUftT5r7+zE0PICOUvDOdZ7009cT2BxaCiETxVZ37oM3DnuLv8upD1wlm5d36Y9woBNf0jKf701sW4jdvYuCNWItCWDbrBoyvgQ3T4FjnqY66vdAn0Fw6SjrrC6mb79kV39HdKKWtixveUdQa9L1EYUjz1prYS7Bxt9GhF9cQeMuft7c1XS3sQDPHK1NwR+ksRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0ly9t7HEJbLrZLqXFWnIcLmEQbmdCtxY8ZwqFTFcfmU=;
+ b=oDGkFhHjoCDxkJO5bFVdG64LL4HyRSqxXpIgRfg30+kOJ6Dqx52wzL8yVQyoc+d6URfBrVLPkJPByoANln8Mr3gOdGiyMNYWLcqDVsYo7ReYl6EM82d2ga3A7jeT+hsRvliPanvxy+wgKRKpCIk8YoGSg6iLKmvGXHjuKVj4/EW5hMR3kR+dPzZYRphf04G8p04zNP8fvCg4qzdwPicKAm34YNodMX1ifErT8ApZ60U99BlASEKbBYawhxjtBmb7ashzkiAzEXTFYvx+wtAC+1tg6IHOjLRu/7SI0lYtyYGHqBFBYG069mQ6JJBGQYxw4g5I4ue9VYk1zZrEPtl/LQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
+ by PH7PR12MB7818.namprd12.prod.outlook.com (2603:10b6:510:269::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Fri, 20 Nov
+ 2026 08:14:03 +0000
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
+ 08:14:03 +0000
+From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yi Lai <yi1.lai@intel.com>
+Subject: [PATCH v7 1/8] gpiolib: wait for pending label frees before cleaning up desc_srcu
+Date: Fri, 20 Nov 2026 10:13:53 +0200
+Message-ID: <20261120-gpiolib-chip-removal-v7-1-aambrozewicz@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261120-gpiolib-chip-removal-v7-0-aambrozewicz@nvidia.com>
+References: <20261120-gpiolib-chip-removal-v7-0-aambrozewicz@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TL0P290CA0005.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:5::16) To PH7PR12MB5974.namprd12.prod.outlook.com
+ (2603:10b6:510:1d9::19)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,119 +105,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|PH7PR12MB7818:EE_
+X-MS-Office365-Filtering-Correlation-Id: d61ae9ff-424f-45ff-b6b0-08df46de3d3d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|261022075727099003|11063799006|261026140227099003|261021123027099003|261009223027099003|261021121427099003|261102123227099003|10067099003|261022105027099003|56012099006|261028144727099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	k0E6z7CRzF3TSOH6NshZOwvvucYmG0XLV6QOfN51BdakmcR8WP/UDRfjqHWsPThtD09qTj2/ckjdr6cNJu2cNMMczJq6wfflIeTVFWewxzbvIH4b8lXYZzdYOfIYDzFT/lrBTSr14F7Onu67FtlYIP+PEkr7tUoFkB8pu2CXJYW8AXz5hZb4AzNlrCHy9Vr4cYVRZk/6qC8R6PVDAyUMon2N7fQB6m5GyXZsCJh+fML88PuIx8Vs+lIC9kccMENF6lTjK56kynV27z2AiFAzk3stVP0+XrL7PqkcIuuokRbRi5oC83n/cL4Z4r2MYngB1tL4B+RKRRCvtOhtVxIIadV1RD0v0HEt4IYSjqaQ66E/52+J+RAkZt/3eUelpidk8+OghnvrWU9w3Ls1Dmne2KqBrpf5tW4wEpSzNMKBL8LuyNUrKc9h/odz8GCE3ldtoZuz74q7kSFKnRc5OZjGvhcnsV6v5LaPSlMARQ30clxzxmpr/gIS2vEm6SaDugAdrhO0LB3ECS4Be3rgHKvQ3cCsQ2yi00grD4SZpC48jtHB7r4m8ZPe/wsTEZlwgBN73mewpZZTmVSOBOG2cKAFc0wlYze0+/lQRrsYvp0eo9mAXk0DqHsPMlXs43fPMkTH6bGv1m/W3Q9GjcR1yj3H/5+e6zHTObB2bqmDNaMFMXI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(261022075727099003)(11063799006)(261026140227099003)(261021123027099003)(261009223027099003)(261021121427099003)(261102123227099003)(10067099003)(261022105027099003)(56012099006)(261028144727099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?o1TK0Xy6BGgDgVD2AsNK/8w1Cw+3sdTs5o/Ndcdr1HP8WEhUadGipjRpcAdg?=
+ =?us-ascii?Q?uxTG3wxME4P6LHxurfBakqjUZFtK6ZqysH6YDlIPX4dPzHn4k7PQ/q7SUpcI?=
+ =?us-ascii?Q?qZvP+XKw09KZDivNKvVhHn6eN4I0kMdQuq8eo47ACyVRrj6SKr7ycIlyqpmN?=
+ =?us-ascii?Q?Be8/XZShEfIYI4Nz/CW/Ru1sJcS0Gw4xU19yj6lfrxt8RPvbMLQWxG0Cq+ro?=
+ =?us-ascii?Q?18j0H2u03h3ajv8oafq2vQucbZibUV84XJE+fc57jlIjDEgxPs6N3vHRDXHT?=
+ =?us-ascii?Q?bm7nmK/5v0/mTHJKEOXZSL+e7UxDtldWoDQrsTgzq0RCsJD52b2O0IStz+Dm?=
+ =?us-ascii?Q?gJp+OoWjSGNdqLBTXDWleaWXFlQxFUtEf0wjwgS48bXOKI9IVaQQlLUWkHmu?=
+ =?us-ascii?Q?CpS8xCzB50xqQ90GnFOMDODJgXoahO4HFxU7Uhel4i4Gh0m6TLojwb3xKoYa?=
+ =?us-ascii?Q?pOePBPKT/nhaQWB2EVHwAP0b0e9RNfMF02h9MHn4iR5RjAMxKV5MlF97ps4K?=
+ =?us-ascii?Q?LsVSGjQAulv4fo/RqErQOb2WCetJL8LJghsv8T1qZuULV6xwxqp31+7+9grI?=
+ =?us-ascii?Q?G4VU52NPUNgnEa62KNYp5RD4ia3wIkKytFNju9qEcK68wJ2IUKWqMqsRzyGd?=
+ =?us-ascii?Q?MyqoJi6dABz07IyChQe0LZnJR0mRegbir1DT+dUJBdCC0wrNSuqmt6oAOXLP?=
+ =?us-ascii?Q?iEtX64/qAqgvBAvBi5FijSnLMyfZl+JLwd5DdcWOng0sV94fzANhqJmwraHt?=
+ =?us-ascii?Q?lDxiNsvSZuDm5UYbT9crcDWslovMcQJVaxlr/WNPqkp0rt3Vfc03eZn8WHZD?=
+ =?us-ascii?Q?h2tmiwsIf6tBqFFLtsilQSrpsbO9WV+xhqiJRjC7DiFFrhoWFxSq7SuxwwUG?=
+ =?us-ascii?Q?hAqcyaNGkPF/CflqL7f/ltchca8nfBkEv37pCzSobPkd8XGzsjGBGBQgPD5L?=
+ =?us-ascii?Q?yE5a7BW2ygWSyqqzdZ+XcVGqmGaSSEh1qNbUbsX4e24RHQEV1odmgBwldir/?=
+ =?us-ascii?Q?d8rqANtMBfuGJRoTtP0LwbTojp5gItPRYfiK5TAB5biirdmQ82+6GYvyk8ih?=
+ =?us-ascii?Q?MxIsg2JHTyWiQZY1KHVQNxOKar2zbNmQ7ZM7HNcyiLoN6LMJ4X/vC8Whwevv?=
+ =?us-ascii?Q?IinhFvJt2owBn0RF0CT6BWgPwTjL11lMfE76V3PegPuYz6c1TpspxFXuRX12?=
+ =?us-ascii?Q?F3jWCxPmwigg91Hc1aOZeNvXGS2+BQsjcvQoz1589bQNQAplElmZ4uSEO0dx?=
+ =?us-ascii?Q?3SFY0A3LntLkmj6+vRV0tS/kvGZKj3AvMWZyo4RI0/VsYLskvbXY4cHkKZNd?=
+ =?us-ascii?Q?JUblcOvX2dWJTRhpqUNlGmwU1zOTMJBQecSL7eCJ56w+iDJvP4kbMRcLHPfv?=
+ =?us-ascii?Q?QrCZWcUsj4zXQAWUOHg8pzNa0jN/092hBRba9LakuVG/SRbaTZAQS801gXmn?=
+ =?us-ascii?Q?pSu/wsfhesgqD0i1Yi1VtWvNJcJP/4df1OVbwHQoO9SiDH2pO5KI77sOF2oI?=
+ =?us-ascii?Q?bvG6xhkcGvykYtU5FZ5DkXPQaDhnC7X0GkQlu1HiPDFtX5Ywt2KmILf/QbC8?=
+ =?us-ascii?Q?oe/JVeAOaJ6mD9jY6QDcl2gkR2kmJzs1eTaw/mVkeGdEnfEXOOnG2/t/3mQr?=
+ =?us-ascii?Q?r9wDeB3ZoEvfQ0Ya6ZdxnsiAEAecR6/NeqL7868y5iHEJhlOOznA83kEa0Nb?=
+ =?us-ascii?Q?Gkd0W+3jPp/c8YDZJ76r9WbHrSooF8cUZB4OjNz7I8RdR9BwaxN5HAdRhEg0?=
+ =?us-ascii?Q?cr3TLjFduA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d61ae9ff-424f-45ff-b6b0-08df46de3d3d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 08:14:03.6791
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4fWgk+Ina8rwPnGJWSCgsxlMx4nsiDd47ZjayUWdJ7uauqbuByBRGLEUJkmTs+c/iLXNs0NB7VNKVPZltYbZ/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7818
 
-llcp_sock_connect() takes an nfc_dev reference with nfc_get_device()
-and always drops it on the error path when sock_wait_state() is
-interrupted.
+desc_set_label() frees the old label with call_srcu() on
+gdev->desc_srcu, and gpiodev_release() calls synchronize_srcu() before
+cleanup_srcu_struct(). synchronize_srcu() waits for a grace period, not
+for queued callbacks. Once the srcu_struct uses per-CPU callback lists,
+a label freed by gpiochip_free_hogs() can still be pending, and
+cleanup_srcu_struct() warns:
 
-While the socket waits for the peer, nfc_llcp_recv_cc() can already
-have claimed it: the CC handler moves the socket from
-connecting_sockets to local->sockets and the reference now belongs to
-the socket. It is dropped exactly once, by nfc_llcp_recv_disc() or by
-llcp_sock_destruct().
+  WARNING: kernel/rcu/srcutree.c:706 at cleanup_srcu_struct+0x239/0x330, CPU#0: init/1
+  Call Trace:
+   gpiodev_release
+   device_release
+   kobject_put
+   devres_release_all
+   device_release_driver_internal
+   platform_device_unregister
+   gpio_sim_device_deactivate
 
-If the interrupted error path still unwinds that reference, the
-nfc_dev kref is put a second time. Once the refcount underflows, the
-device is released while it is still registered and in use:
+Use srcu_barrier(), which waits for them.
 
-e.g. on v7.4-rc3 (KASAN build):
+Reproduced with a hogged gpio-sim line, setting the chip live and back
+on a 4-CPU guest with srcutree.convert_to_big=1: it warns within 60
+cycles; with this change, 1000 cycles pass.
 
-  KASAN: slab-use-after-free in klist_next
-  Read of size 8
-  CPU: 2 UID: 1000
-  Read: klist_next <- class_find_device <- nfc_get_device <-
-        llcp_sock_connect <- __sys_connect
-  Allocated by nfc_allocate_device <- nfcsim_device_new
-  Freed by kfree <- device_release <- kobject_put <-
-       llcp_sock_connect <- __sys_connect
-
-The freed device is later used by nfc_llcp_tx_work(), which trips a
-KASAN use-after-free write in mutex_lock().
-
-Check whether the CC handler already claimed the socket - it is the
-only path that links a connecting socket into local->sockets - and
-leave the references with the socket in that case.
-
-This issue was discovered by Tencent CodeBuddy Security.
-
-Fixes: ff353d86a92e ("NFC: LLCP connect must wait for a CC frame")
+Fixes: a86d27693066 ("gpiolib: fix the speed of descriptor label setting with SRCU")
 Cc: stable@vger.kernel.org
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Tested-by: Yi Lai <yi1.lai@intel.com>
+Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
 ---
- net/nfc/llcp_sock.c | 50 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 49 insertions(+), 1 deletion(-)
+ drivers/gpio/gpiolib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
-index 1e5ee4bcde68..22b2f65e984a 100644
---- a/net/nfc/llcp_sock.c
-+++ b/net/nfc/llcp_sock.c
-@@ -683,6 +683,36 @@ static int llcp_sock_release(struct socket *sock)
- 	return err;
- }
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index 63cc4064bfa4..82e0be8864f4 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -898,7 +898,7 @@ static void gpiodev_release(struct device *dev)
+ 	struct gpio_device *gdev = to_gpio_device(dev);
  
-+/**
-+ * llcp_sock_on_local_sockets() - check if a socket was claimed by a CC
-+ * @local: the LLCP local the socket connected on
-+ * @sk: the socket to look up
-+ *
-+ * nfc_llcp_recv_cc() moves a connecting socket to local->sockets when the
-+ * peer answers with a CC frame.  Only that path links a connecting socket
-+ * into local->sockets, so membership doubles as "the peer claimed the
-+ * socket".  The caller must hold lock_sock().
-+ *
-+ * Return: true if @sk is linked in local->sockets.
-+ */
-+static bool llcp_sock_on_local_sockets(struct nfc_llcp_local *local,
-+				       struct sock *sk)
-+{
-+	struct sock *s;
-+	bool found = false;
-+
-+	read_lock(&local->sockets.lock);
-+	sk_for_each(s, &local->sockets.head) {
-+		if (s == sk) {
-+			found = true;
-+			break;
-+		}
-+	}
-+	read_unlock(&local->sockets.lock);
-+
-+	return found;
-+}
-+
- static int llcp_sock_connect(struct socket *sock, struct sockaddr_unsized *_addr,
- 			     int len, int flags)
- {
-@@ -781,9 +811,27 @@ static int llcp_sock_connect(struct socket *sock, struct sockaddr_unsized *_addr
+ 	/* Call pending kfree()s for descriptor labels. */
+-	synchronize_srcu(&gdev->desc_srcu);
++	srcu_barrier(&gdev->desc_srcu);
+ 	cleanup_srcu_struct(&gdev->desc_srcu);
  
- 	ret = sock_wait_state(sk, LLCP_CONNECTED,
- 			      sock_sndtimeo(sk, flags & O_NONBLOCK));
--	if (ret && ret != -EINPROGRESS)
-+	if (ret) {
-+		if (ret == -EINPROGRESS)
-+			goto out;
-+
-+		/* If the CC frame was processed while we slept, recv_cc()
-+		 * moved the socket to local->sockets and the dev/local
-+		 * references now belong to the socket.  They are dropped by
-+		 * nfc_llcp_recv_disc() or llcp_sock_destruct(); unwinding
-+		 * them on this error path would put the nfc_dev reference
-+		 * obtained above a second time.
-+		 */
-+		if (llcp_sock_on_local_sockets(local, sk)) {
-+			if (sk->sk_state == LLCP_CONNECTED)
-+				ret = 0;
-+			goto out;
-+		}
-+
- 		goto sock_unlink;
-+	}
- 
-+out:
- 	release_sock(sk);
- 
- 	return ret;
+ 	if (gdev->line_state_wq)
 -- 
-2.43.7
+2.43.0
 
