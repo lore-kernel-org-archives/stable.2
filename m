@@ -1,72 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795202448;
-	b=dX9y6MLA/Kpwr8JCRlT/mFFESHl5ddjVtbzn+6KF+AcNFk5xRpCFnBFEdG9ktSH5FLWE
-	 Ywdq6/gaSzcGu2gu0DFfyo3ikvBYHgRUAQ9yVXu+NwHfSRfLfLTXC96cN3lDCj1SHJK9R
-	 xl3FkotZcV58UbLuk2b9pr1Laztd8L0e6ulMUt54ngLUUSb4PiiRk46GWXcvBlC2cY1l9
-	 u5tHRLc4O9TC/lcOtTBDwpc/M45DG/wsQk88fUlgyI1Ye4jMfBp9JfEd8BP7+9eJfYuAo
-	 V3fjQwybtsvCXjcns5FhRtKwaEFM1TfSG0feh4hXZ0vfJJf9yJPaTD3tOCswM+aQ+8Q==
+	t=1795202623;
+	b=NYTyJIoL/nuyl8KNsWMEG5aA/GJx+7m+RFY+qi1MDfFHAK13Duvdc2JL7ITIt4dnwO+5
+	 +wy5gmEIf70DZLg35+jI0Z05C/r8xQLu7vD28GSmvPtYNu8bonMH5pFhtKnw9Jg2uHdu0
+	 JvHPchfLh1dXGZf+POZCwbKswgX3cvvwBEM3Yhgc5Di6QRfIosI/5Ej72amn0RdiA1K6Y
+	 4nv3bPHuu8sGkqjTFy7Of3JH+5UIOq7iHU34lI+gtAk2EscPo3JyyokNZmY00fj6C4bXL
+	 qEtDTmxf2m0Th6SNY18tPAy3+wrL2pbXvPr1MrzkA4lMiJNJcO0KBajwR/31hOJK8jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795202448;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=5n7hU92/hTAahTaIujkTsWGLRtB7NISm8chiqkmyJDg=;
-	b=erw01eEihsgDVd+l/G1q8VaalHWHorG6KjMkoOakD0Nt45DBhtb/nnW0o4w1dBgtYh4o
-	 Jn2gvJhMsxslPp+A6qTC10r1POf0DXT+xILOChf59tY1x/ZP1C86uW/TpokDbtEcG1cco
-	 u2TQWu6RFAXVfg/8kAy8aXnqeqxWKHInxdfBW/G3vGs3vsRC+n/3PtkAc6mR52DyfpLHl
-	 13WABYX3KrqnAL7J/lWm3h4aOTpSMcV97pSF8Dopt1ab8Fp2L/Qv5ZJ1Fp6LYmTIN5To5
-	 gY42Sz8TU0+OkK6FuWyWJga/60LTPXsB2axccnR29U7XSpcTye+aJ18S6w2GI4wEWeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795202623;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Q/7W+N8PGRXVivlXwZfu/zXqRkAwgaijwKLj6Vh41I0=;
+	b=ArmSCpnAb5T5fN6+up10Q0GHuSXNaIeDXKG1yXEsIsbsx6ODSBX89d4y+4Wp8h0/FoNF
+	 WXBsuZcybsbd68UM1YvZqWrElnEcX7ER1I9qGuDV6zrCy/pCR5hriyh2h46IVped0G/OT
+	 xa6JUDWR9bKxROGk/ZRuC8SNUNKqy0n2KE5/tM0JkogwtZP/yokMBt1y/EY49McwHqDmw
+	 vpamKHERoAxEeGEmX0cb+AU/OXyLyE2ZbYgf7Dg5CSt08ofaQuMz3PIXWFPr2GF3oRWH6
+	 nw0y3jwp2vg1W3O51+JRwZV68D8L5Rg9UsZCdqE/T1ZErsH/aFA96BVmNUU94n/3TOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=mWUIpTKB;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=trailofbits.com;
+	spf=pass smtp.mailfrom=trailofbits.com;
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=a1UIf7R7;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F40FA606A6D9
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 19:20:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F40FA606A6D9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B7F606A6C8
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 19:23:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8B7F606A6C8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=mWUIpTKB
-Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
-	by cmsmtp with ESMTPS
-	id UIbMx6urOyb4YUUAAxZGCS; Fri, 20 Nov 2026 19:20:46 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id UUA9xUcg4xqjjUUAAx2UNy; Fri, 20 Nov 2026 19:20:46 +0000
-X-Authority-Analysis: v=2.4 cv=bZxrUPPB c=1 sm=1 tr=0 ts=6b009d8e
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=H1xHdJbw_7IDupmx:21 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=kXaYdxMDRVOPY9whCecA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=5n7hU92/hTAahTaIujkTsWGLRtB7NISm8chiqkmyJDg=; b=mWUIpTKBK8cp
-	uU2skt3T4IAFceK6GL5mPGPVxfgiexxQYUmBu3a75swLgWJk1J/qCd5Beq8bdgOPwYMiNwZOpugXN
-	YMlNi7uWgp0iL1ERt4XZqdM8GD6SNvCyMsJSPHzCcfwgoy1xeFYa1vYUvXgH2M0S/Ye7z5xFGeG9E
-	pd8wAA8G/6VRF2G0d7pIOgYi/WPM9tOX8inlbbU9mg2QsmBHye4illg4+WgHVpygJlja76otE1uXR
-	rIy2MO1CGGHSN5bN5H46KLd7GZOM/x//MDGn5R92QigylNvKmedEtSTedJVkJzJC0HKgD0N+7R26S
-	slqW5f6At9BWAGjXQJhJzw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:35344)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xUUA9-00000001V67-1ka0;
-	Sat, 21 Nov 2026 00:50:45 +0530
-Message-ID: <38e5fb82-c883-4e49-9fe4-b77a122a586f@roeck-us.net>
-Date: Fri, 20 Nov 2026 11:20:44 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=a1UIf7R7
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3b402824d07so939486a91.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 11:23:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1795202622; x=1795807422; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q/7W+N8PGRXVivlXwZfu/zXqRkAwgaijwKLj6Vh41I0=;
+        b=a1UIf7R7KD/wYIUwBDgkTcz/P1Z86Z3/Ckat+nwKTOtGYAmAzlaOyO3YF8zmNLmiV1
+         w/QRe0B0uf+dx2HpWVh67hf8e4emw0O+AM+LrsXLbSbLwVg7JwoflThxDKi/bsZaOf0U
+         ptBeFUKuzH5Yo1Nsxnz/sx8Nzhb+u862g3aokXk5pmG+pLti1dA8JxyG4qzpRquX8gj4
+         hR6447JnRlVFhUHTUX2AtWrvUuNt3Jt9emzG3YxTUuDT9YZ/ugri3IG+lmBs99omBl86
+         XWe6dWPQp17ElVSwXRxbhP62tqpv/tCt4ihGepxTzBaAV+e/3o/P0rDg8YMtqH1zWnq4
+         4YTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795202622; x=1795807422;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q/7W+N8PGRXVivlXwZfu/zXqRkAwgaijwKLj6Vh41I0=;
+        b=Pv5bQZzdKt6b+r6d1NQvVavqTeYzhtsoKn78TtCMloaofgkFMshnZDm58Vcg4fl1M+
+         yichkNQwFTSvhVxylJWjWL+9csTGA6TVua1pQul00D9/THCSzv/a+VfScpwIuIPMEmwz
+         Gk6suSPpZitlHUH8Ud9u67XWss3Gh8Mlc+NXQbsL9mw8oqK918KhQp8UMV+MbfVTaIRV
+         5F5L8pLvKw3whJ1IEKW69JnnLV1K5rnvS8BKQcj0AkwubXSI+t3A3RUKrN4Mcua1myoF
+         1nTX0wDX1Fq1XMyJwKRxPqPzSZtHwcrtWdIMO6q4zN4Rd4OBkNFsJghfYFw/svnH2Lkc
+         mDJg==
+X-Gm-Message-State: APuU4Z9odAa29Gj/9XJBbxaukRfTIq0yI3AvEtZdY700zhwJCkcfG3Bp
+	np5vXWVGwWNjR+X51Jw2d5ZR2060g63CE2G0EY9hetEBV/SEVWOUcHtqhCv5yDNqsg2PjzyGNhZ
+	AcCLb
+X-Gm-Gg: AZFdTZf436tE2fKsAJ5H+mXb/iokg4X4QP+veYTeLW7J8Sx03olOewFT++6xb2gTWG/
+	rhnL4+iWOJRuHmBblzoRarbg+R6AUzZq4qHllLjSfTTHYT5ZBhbsahDXn2+rGz03ujpNVr+mk7J
+	2ghsRCb+MDBOijI51jYNtj0FVo4djHRS9589LE3ObvNN6V/dvEJGQtghlRvX/RAMgBT6D4jJe/0
+	gFTt0N7Q+fGNhe2CHpZSeLzh8dbea8O4DpHaWUoukmpnR/AX3okGD2u5t2t+jmG7Lsre0XsyRKE
+	O2AB3jPW46dtwIbhM9yQtCnrPHc4bWK+uRipGHbIG3FbkXZjNyg+TSks0P+efHWCqtn1QObjPsm
+	NS3a+vsn6ceMiPPfJZmws65Jk3LtU6bb58ZNQJnSmvvqnnbfBA0vd4oY7yeBzVGL1oQRJZiPAMj
+	Xoyv8mdyReO0jupPzJwyWQ734QoZVTkwUlmMt0KQ0vNAdR85xu8gb1PWDhOUfoK0NWT9mmH3B/9
+	1GoH/Box6FYvjRJM4/IpXex10SFlmrRzP8AF9a3EbGWoeAGZcmJj9UAKLVH5yOurV2LmU6NWOC2
+	GIDn46rST3dGo5+MYqdvgdpW6BSYBkpXyBQouvuUtbt4tNPi1imDra/1tqnspe4VHrZU1HZaJ1B
+	BEx25x+D//26w8GTFcSSH/iU=
+X-Received: by 2002:a17:90b:17cd:b0:3ab:4f1:4f76 with SMTP id 98e67ed59e1d1-3b41c900b24mr3971595a91.24.1795202622295;
+        Fri, 20 Nov 2026 11:23:42 -0800 (PST)
+Received: from localhost.localdomain ([2603:8003:6d40:6669:dd51:675:4b81:7ba])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b40578d771sm8367651a91.1.2026.11.20.11.23.41
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 20 Nov 2026 11:23:41 -0800 (PST)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: andriy.shevchenko@linux.intel.com,
+	lenb@kernel.org,
+	linux-acpi@vger.kernel.org,
+	rafael.j.wysocki@intel.com,
+	rafael@kernel.org
+Subject: [6.18.y] Please pick ACPI platform parent lifetime fix
+Date: Fri, 20 Nov 2026 14:23:36 -0500
+Message-ID: <20261120192336.26131-1-artem@trailofbits.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,104 +97,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] watchdog: omap: Do not read the counter while the
- watchdog is stopped
-To: Nhat Tran <nhat.tranminhk2@gmail.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: linux-watchdog@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261120124009.24264-1-nhat.tranminhk2@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261120124009.24264-1-nhat.tranminhk2@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xUUA9-00000001V67-1ka0
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:35344
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfHvJRUhkeOaUBGBWCZgsbWXPjPFVLKsPDrGEOIaUI0W63EGI8pID7/diNanFP+o0l0vPXmH3g6AUhdo0u7y4OXhIHjhLY6HcduEhvty+sjzJXj7awEE2
- GBM268uoQtJTtqqJh+l96r9N5k4SvgCvR92LWBFsCYzXmXgmwyksSTZ0h0gqbNHaHxTSczcUhPkZyGrC7LKCIdhr7zelP0FTaPkxlhm7d0w5bumXMApL0Cnj
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/20/26 04:40, Nhat Tran wrote:
-> omap_wdt only holds a runtime PM reference between omap_wdt_start() and
-> omap_wdt_stop(), so the module is idle and its clock gated whenever the
-> watchdog is not running. omap_wdt_get_timeleft() reads the WCRR register
-> unconditionally, but the watchdog core calls ->get_timeleft() from the
-> sysfs timeleft attribute without checking whether the watchdog is
-> active.
-> 
-> With CONFIG_WATCHDOG_SYSFS=y the attribute is world readable, so any
-
-The watchdog can also be stopped while the watchdog device is open, so the
-problem is a bit broader than that.
-
-> unprivileged user can trigger an external abort on a stopped watchdog.
-> On a BeagleBone Black (AM335x), with panic_on_oops set:
-> 
-
-Seems to me the proper generic fix should be in watchdog_get_timeleft(),
-which should return either return the configured timeout or maybe 0
-(I am open to suggestions) if the watchdog is not running.
-
-Thanks,
-Guenter
-
+Hi,=0D
+=0D
+Please pick commit a9ba4dd2f18bf3f439d9ef0d8f375f90360ba1bd ("ACPI:=0D
+platform: Use acpi_bus_get_primary_device()") for 6.18.y. It fixes=0D
+CVE-2026-100072.=0D
+=0D
+acpi_create_platform_device() looks up the parent's physical device with=0D
+acpi_get_first_physical_node(), which does not take a reference, so in=0D
+theory that device may be freed while it is still in use. The fix takes=0D
+one reference with acpi_bus_get_primary_device() and holds it through=0D
+resource inspection and platform-device registration.=0D
+=0D
+The fix is in 6.6.160, 6.12.114 and 7.2.6, and in mainline since 7.3.=0D
+6.18.y received only its prerequisite, upstream commit 72530e1f72b0=0D
+("ACPI: bus: Introduce acpi_bus_get_primary_device()"), in 6.18.57; the=0D
+fix itself did not apply to 6.18.y at that time. It applies unchanged=0D
+since 6.18.60, which picked up the ACPI scan changes f234fdaae1ca,=0D
+7617cc05df28 and ab06eb920401 that it depends on for context.=0D
+=0D
+Compiled drivers/acpi/acpi_platform.o on 6.18.64 from a cumulative=0D
+x86_64 tree using allmodconfig. No kernel boot or runtime test was=0D
+performed.=0D
+=0D
+An LLM was used to check applicability and stable-queue history and to=0D
+draft this request; I reviewed the result.=0D
+=0D
+Thanks,=0D
+Artem Dinaburg=0D
