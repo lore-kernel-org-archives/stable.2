@@ -1,53 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795177520;
-	b=0XTUKb8ADro14nY1mHMn+kwL+S0vwspcwIsS7FF0z8gBUnRYA4RvsDSTTFtoE/tQAS4v
-	 JbDMQYVfgfkIONjIklQmQW3mAQUHImbHQxcSJUka34lPnuV0UPi5rF79E1UudHdpTG4Rq
-	 VVht8r3+dLL9tSivUfszCyC2bZFM/yneeRQ3dEy6QFMbgVsAQaOhHtCh9g34gBbv6aGwo
-	 iSTiX8/Qi3DcjTZQUDw4ZL6RHoJc7bZ7g9bRe+xmCiTXVs1glhfTkoLPAFc5iZDeWxX4r
-	 4gxr03/KzUm1jjwHUg7/JkYXw7tA/xEm7UEaK7Tpxlq58Vd6gR7/V5GDQmAvZXLIIkA==
+	t=1795177597;
+	b=JcKiNSA9I981ppZvlxn/RxgpVZM7IWRG3PbhO5cJrmhSI6tXKLybZohAzk+mIt7nTaoq
+	 hyh+8MEEZl4xdoGW743/3dEOWbvxGr6ao/mWHljskexyKqiD5OyrxX+M9SSFku6lUxMrX
+	 nRC6sFhJenRI59TzDvKVrPImInBJcnvSxAQNbI+wvJT6k2CgKUS5RyPJVayjMFsutiWJW
+	 3Qtxs7vvVX+pP9AbFvt3iD1DAfaytW+WZtGqe4Pmdxe0qh9+l4LEzJHTInfA+eKjiuySb
+	 uRYQDIvL2Wqt+sOtYI0xVAXZ3hlxi5KNI1JgBCtjv+z8chutm00tUyBc82tfkNjf9cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795177520;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8q9/TMmLVp1fSuWDi6PaMbIvtn4/2YX12Iruh/57dQs=;
-	b=2msqupHEPc05qHQ48rg8KRJtaB7P7CoUNUM6KpTWEq4kf98kVu0NAKkE9yFTJWPZxswe
-	 nIz+jZlawgHQi6V6VceufKtfk7HmKXO22eo7hcdgLFzpPFIT/pIZHJucz0KkM+AgLN1g9
-	 l/2XzV1/hI0AWfemFZel3cp1h2jmbg99NpnxAbPBn7tCbU0o+XOxPrpD9XkzuY7SZwVzX
-	 YF4e+Xl10TcC8IssRC93y56LWEEQdAhzLMmFYSCzQ541oAUJ3yH651twgEXhT7YSKFJSX
-	 PvwOvFsIAQiqGC44mmtCANJEnl0E9Cg1qFHnxpOpGX1UngCG6WlNoxsDZIn12Jy/g0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795177597;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=I3G768SLhqBwcqMXJfbPX0ci4T8MgwSXdL6Wve6YoBU=;
+	b=uqxqG0KdcdkifqRSnSLBcf2YAKeINtxHyfgjR3QzrDOUPW78bx/YFqyuQgoyx+UUIkBK
+	 V8jeMHsJ0qjPM7qn2OH/s4r/gcA27yCG76O4cwzSPJKTGnKiAdcLNBJncReZ/o8X1SIJN
+	 KYYlREUdj3na02xjiyF9F/pfcaz/kW+E5pLArFmXP6mTaV76JYlsVCyr2Qd1D1Tx/aHSr
+	 B6Aw7w/6ICPw78oGZHSGj4eN4a3LE00nCJseJnhhF29oGm9CyotXmZ+yRwLiqqpZ/T+Wl
+	 pHrb7OU5n2F1c0k65ZGSH24t4NNJS998zlp3PJ9JPa9xEdFsB60uMYkQAAkLKy2e1AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U5OcW6xd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKcab7C1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1080606A320;
-	Fri, 20 Nov 2026 12:25:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E02606A33A;
+	Fri, 20 Nov 2026 12:26:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U5OcW6xd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5EA1F000C6;
-	Fri, 20 Nov 2026 12:25:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795177519;
-	bh=8q9/TMmLVp1fSuWDi6PaMbIvtn4/2YX12Iruh/57dQs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U5OcW6xdu/HCWTM9/0b/zElK1hYihCStgMLaSefb3VM57bezMv+Lz7k35MI4bWECw
-	 LHA+D/JN0QZgV6Wp8tYwJObrGLdS4ayiZhLXvmsa/Z3jPGYH8NuLRQg57QC7Cll4aP
-	 7lY4XcVq0HpmhBsE1w0c+YDZMpjMBY56JXm+0Tgg=
-Date: Fri, 20 Nov 2026 13:25:16 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>, linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH RESEND] usb: mtu3: don't run gadget completion callbacks
- with interrupts disabled
-Message-ID: <2026112008-gown-cloud-258c@gregkh>
-References: <20260929-usb-mtu3-gadget-completion-callback-fix-v1-1-8b75b48fab96@gmail.com>
- <b0c42b21-6b28-49fd-ac07-7af1456de4b9@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKcab7C1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB12E1F000C4;
+	Fri, 20 Nov 2026 12:26:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795177596;
+	bh=I3G768SLhqBwcqMXJfbPX0ci4T8MgwSXdL6Wve6YoBU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=TKcab7C1R9cGiTnawXGCIuQ4YfvOE8xeZpbqHAh8PRhcxQDF/zSOOT9ntUkuCTOAZ
+	 2anxMbpo3Ok8rAZmg2et4tx8PaHSkQ6LEb3DbFhjefmIVXdwRy1z7yCMyMzSESwNmr
+	 E0vf+bjVfGT45e6Q+lBkkkeNA6uvtAZhfRjrx7LyGXSRFKvLrf+PwmKeIGeUQv3Iem
+	 HaN660JjvcTr3hLRC+pTEW+Wvs9buXOa2LtpFEtjZZw/pyQZ0dT4/dd+mCTnvYku4o
+	 7+zhkU+gdMgpR+QyR4SrAPBEGlypiLqSkrVhdTQns4i24mrtp2/uh8UebHq7l8uxgv
+	 zrQn7c/fLhwMg==
+From: Michael Walle <mwalle@kernel.org>
+To: Pratyush Yadav <pratyush@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ haibo.chen@oss.nxp.com
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, michael@walle.cc, Haibo Chen <haibo.chen@nxp.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20261023-spi-nor-fix-v5-1-bb6e0ce21169@nxp.com>
+References: <20261023-spi-nor-fix-v5-1-bb6e0ce21169@nxp.com>
+Subject: Re: [PATCH v5] mtd: spi-nor: clear the default read_sr2 opcode for
+ Octal DTR flashes
+Message-Id: <179517759444.1010165.14064662323338062426.b4-ty@b4>
+Date: Fri, 20 Nov 2026 13:26:34 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,17 +64,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b0c42b21-6b28-49fd-ac07-7af1456de4b9@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-On Sun, Nov 01, 2026 at 09:45:16PM -0600, Ryan Brue wrote:
-> Hi Greg,
-> 
-> Gentle ping on this one too. Similarly has had no comments since the resend
-> on the 29th of September.
-> 
-> It fixes the softirq WARN in the commit message, which any gadget function
-> that reaches netif_rx() (u_ether in this case) hits on mtu3.
 
-I see no context here :(
+On Fri, 23 Oct 2026 15:11:54 +0800, haibo.chen@oss.nxp.com wrote:
+> The core defaults opcodes.read_sr2 to the legacy RDCR opcode (0x35), and
+> spi_nor_cache_sr_lock_bits() reads SR2 during spi_nor_init(), i.e. after
+> the flash has been switched to its runtime protocol. On an octal flash
+> running in 8D-8D-8D mode the opcode is extended per cmd_ext_type (e.g.
+> 0x3535), but RDCR is not a valid register read there: these parts access
+> their status/configuration registers through a vendor-specific indirect
+> space, if at all. The flash does not answer, the register read times out
+> and probe (or resume) fails (on i.MX FlexSPI: -ETIMEDOUT and a controller
+> WARN(), seen with a Micron MT35XU01G and a Macronix MX25UW51345G).
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] mtd: spi-nor: clear the default read_sr2 opcode for Octal DTR flashes
+      commit: d4d6fbd84fe7cb60f8fce048dbb8362b69704078
+
+Best regards,
+-- 
+Michael Walle <mwalle@kernel.org>
+
