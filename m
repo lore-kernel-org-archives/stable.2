@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795171235;
-	b=Xemw15Am2eboSPjhtoSmj6oeHKNSwxh/N4X7pnT1I1LXUcWM25nZr4qJAo1+OtYj9PsZ
-	 XLY/FJ3/FDP/01luIsSSsDSqR83AuuwQ847ARFShaQda/eaakOQVUwfjqr07JTRM+Two5
-	 pSpge++Th+F5LxRykxuu8OOTKT+u4a2mksXg/0UVttgVHLoRGR59JU/PByCxoINU10eGW
-	 yCXPUjj3a9uZtKy+UmjaQKa5rNurK5BOBAsB2w/hGW73emf0w9ePqEhbmuooz3NYRKabu
-	 PeKyHlMGtMWDK8BMzmI9fHvakQEJZ1gLrhAqt+jeB+REn6tHBYwIcCAeGXrN/cv+8Sg==
+	t=1795171237;
+	b=zvV6+78FZ6jzGKoxqV7WrY8OtqlH53WaiTO3euHZbB0reH+yA4X/WARcQDyNgpSVqEDn
+	 6COVhF26Du9BUO1iQ3HLTqst71W5SPSQS2TstcaFCjs7okDt5yTQgiU1l4mIAsMNFrPxM
+	 o06Fv0Mcx2shZJZtwfxX4QXycmldK9nzTPk+N6it/Xg77qgng7Fzk9MRBOztzIvudE1sW
+	 A0PosrbeC+4sXyQgEZ0QuXSS07Y/0NdlTmwUMpk0SiQIc90hLuNCOk5pckhcew6PHHH6U
+	 MYcXFHSPE4N8kYO7Z3R2erfv4rhc2hE/wka9kINa5NKDpvKgpOgiZsuYvv5CMvYNxFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795171235;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795171237;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=hHlxygDCb53QOZol2Y7OOBQXofD0V8rGJEydBMdsadE=;
-	b=Di5yFFOYCnOwo7kNNMUtBnPA5cBMG3JhhR0iwPHYJNuohxTZtB9pU6PraY/vR81wiVP2
-	 06WS2CtE+FQ2xQKeE1f9B0on7DyEtLvfnp/Fty/Ut6Jw6Gb8Na9NtFeCRFiRl4yECVY46
-	 4imMXabqRRh1c+g4vCZ7YGY7FBgp8KOsPVm/QJANkwiX6HUrl4tAgVHdKikHZESjqLATt
-	 fyFQLRS8CApYtm+GtCg7KAtsfI+BvPPf0GPwT6qU2GoR1VwQrXa9j5mGy84S9QzMUm+wl
-	 PZL8EQ/DKn+BrjKhcBtmWwLcQHc4ywH8wEXBzjPEpmD/gIOv5ydEM+cdZFkG+pFqGxg==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=wWjEO3N90Ag9CCKCLSbaqSxSbDsFMtzLcLHXCqLa5hY=;
+	b=h073+wOJ4LvItSQCnPyJ616RIy/GgJA/OUYJgt4mC8yAZjege960+QFDpff6JU2U3PPv
+	 Cknjh5s0DK/3x1/6Cg29Rib3w63luGEoy+MG5zXzbarJ8nE/uVJnYn+qVuUglI7OrV1JW
+	 b9jB0YLOKRmOrKbfhLm1oJLIv+0NJ0Bz59KkY8pLsVpr5sdsIxZ0NrpyTrWDjTZYkLlRW
+	 EJ2NavlQ/YwGQUXYnSA/qaA+DRhm7rHBpKsCUseIw72R7pTwJfKikiotAysc+QlM8XKom
+	 L6gmzIKr08VkpLR0BuWCEEdVJy7KemDBqozPG7+Nt5XJX8T6PTjPnyVC/IcbtUB8LtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qRkNbdjt;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VLLqvFjT;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ACC5606A325
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 10:40:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ACC5606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95EA3606A330
+	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 10:40:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95EA3606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qRkNbdjt
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso4916875e9.1
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 02:40:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VLLqvFjT
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4ac109a8a12so338813f8f.3
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 02:40:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795171234; x=1795776034; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hHlxygDCb53QOZol2Y7OOBQXofD0V8rGJEydBMdsadE=;
-        b=qRkNbdjt/R5ARXJLF8HE9/pIUpUGMeZP8BgzS8Kk2/ZgVYCpNm9A5w/95ZvR7tL4qI
-         2rKHumL4v01U/RXiMzZa8DJ8qHIr+7E8cTpd2ib07/GnHtwWoXd8znI4MClu0FpRwBEt
-         JHZhLv9zddnYVl6f/oOClp53+huipAPWmgdw+6nYk5vp/1W7J/Ubwb6+wMqHpcYUrWDU
-         gvaUXyI2dqF6NKDx+r5B+geCdCZB3orD1xDjEVeHCshWHAqf1qyaAJs2mjPZ4kx5FBc/
-         UxgNamte/iDLp6LYMnNh2/OX3BOe0b1fFbJGJ/hHahQ6nbe6FIpbXicIa5gfjZQMqYn/
-         NVpA==
+        d=gmail.com; s=20260707; t=1795171236; x=1795776036; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wWjEO3N90Ag9CCKCLSbaqSxSbDsFMtzLcLHXCqLa5hY=;
+        b=VLLqvFjTEGLEuGf1KgYPthxjvOGPS++cPjWxcgiEdKC5A4yVI7SB7vmmXlXIT//lV4
+         yrMvsSv3U3aPEA98N6fxjniuOunmcApDd3r4F9FMOsu5gDiapE7ZVhO6/cj8Pfdf1CjU
+         M2NrcI9Z8heP4VVbmAE1QUbhaMoH6XKTYeInnozH3ntXMPESwxEXbyzkYQ/0/WxPrH1E
+         0b2Q546I+MPggwmQA/UsiW7Ye0DPHtR+4uBVANWIRfWYitcqFaK+5Ch2AlSEZDrMoFy/
+         kfDQ9Lk86mqe5lsF2ZjspAcS7BR0W5/QF573ABAMynFjwFM8O/4mOoR8YiZI/FC9flWp
+         NChg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795171234; x=1795776034;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hHlxygDCb53QOZol2Y7OOBQXofD0V8rGJEydBMdsadE=;
-        b=XBgVdrqbkIWZyCeeK5pHJ1jbELIa59aUi/On3I6+EKIc5rBm/GeqmHU5FBfZqANNSc
-         E71tGKesf/QpP5ise7QhMK00VKKg5Y7nRIA9y4/YFWVwrFMFVXT69jx4f1nB+9ytaAqq
-         ZBVBm/1K3fGItxyIJo/jcHeszUBNnZI/pS5cguNuknEQf3pSVmpXtpS1saD3pVWmc0O5
-         UMo1ZjpFmHkXcDzpIRTFbxBtJoOtP4CxEWmKw7SRKK41Jbs6KzC/4EBtW6FROOe5JyH1
-         YwX318OSCNMdcsDktbaST11aV9p81vRtqj8Vp/MWpCauegRAHbOR4xVPgeAjBgrrlgJv
-         nRWg==
-X-Forwarded-Encrypted: i=1; AL+hErE3XSP3tN2pUb9KzABgYRt3HbbnLvhW+hPdqtl3QbrEK1FYTvlBZgtZB89pCDfcNZ+vcLeleHw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+RdABixbadSANO+jGn3l8CYCz5Rm/gggt9aCuz2sNUvVFegGkY
-	ZxGZxeNpDVx9NYt66oHGpW8jbmD8p1JHTUd22rXOFcz5ucLkPAv8HdKz
-X-Gm-Gg: AYBFou2zm/mn2Cv2+V/K1osMJZD7JIqE2NOypidbUJiCWbnFuL3jWRmH8+pdD9uAbwp
-	k/1kx26BJh2APuOpx35RAj7ph0bsc5TR2QZA+xamLebctYiJictPTCWsnOqBJgjt5WNWwLk5A1d
-	3G8cICCAfzTKGiuU8qBMN/EE4abYvyjooExTYyPLgptx8OJhpezIKr8r8LR8v9DFQ/sWcVgReU9
-	+aF5SrdUquuCdj+4565b0p73cyJjHHqLJySTcN2i3JfuzOICLImtWiL93qlViHDlt0M31d9ikYI
-	/a5sH701BH2CIjfW/r3OcLfwVbOI9ppGetjlkcITLkgOIpYYbfUsljJvVzAujnWvFASUp/LLWo4
-	R5Q3BJh6vOJaQJfsO8diH/p30auUHIWk0DoeDBKZFsndtV75x3U+oQ+/B1cpAgIpn0zYkd16/mP
-	0ApKLpsp37+LI63QDsdXKT9i4yhgo3GlIHwOFt8o4QvbcrZ/gmk4AHTAiFihtBl0XplxzRd+KV1
-	+OnSartgs7zb6v9nuIyYq1wQViqsqwqpn9eWXwBEHolJ5xZp4/EApSGeVI2Q/ky7wEX5od4PR/d
-	j+mqBWlcUodeLNiqwOQXpnVxIPV4S/jea+g6bTgukq0f2rWuLF8oenICFQt/MVftarqxYjYZbcz
-	fXuHSoZJvLNp+lws1C0K6fhZ+2qleBxx7w910BQAPZE+tvM3X/do=
-X-Received: by 2002:a05:600c:848d:b0:4a5:1cf1:b7bd with SMTP id 5b1f17b1804b1-4bb88810b2dmr54158015e9.16.1795171233380;
-        Fri, 20 Nov 2026 02:40:33 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795171236; x=1795776036;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wWjEO3N90Ag9CCKCLSbaqSxSbDsFMtzLcLHXCqLa5hY=;
+        b=C6aw1KyUUCBKnahm0q1V+kfYrqU6rPN9YX6F/F/G5TOQcXO+rF1W1lg99I3yePH/b+
+         AnALOGKhBjfvXN3fUmavh6iFBSEftYSb4pNXcXaZdRYwVPY/B4EJPbI6jmhPY2ty5RSn
+         kLDNeUj1mZEmvUWPDAoEkJ2xyACVxtEw7oEHZa4IXDzWBzq+l3Z3VwQRJqERWAnJdnB9
+         2+f6gIc/vQNQxDxyTxBU7Yv6PccyJ+Cxxri6WfLHuAvT3PfZrjRjvppiU4NJXlO4jfCD
+         D/MFvyVW7s32K2vd9fmFktUx1nCaE4FaPPotiSAJmH5syELr/xgu790nstCVc/6K72oX
+         Fovw==
+X-Forwarded-Encrypted: i=1; AL+hErHiuMTG84MzW4Q7ph3iY4eZ2rCGEtKIW7hjKZNZQavaJgp3wcIHHH8BdxCoonoU3e3nDjzdZvg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+j29Syp8D5hhSpg6vDkuUj0ZeGVHgiSchfxzJLM7xTj2FExj9S
+	J3kpa5yvdJZaJ5NDt3KwSPwro1SZnvl4zSc4PPQKvH7LUHYnaISxPcAO
+X-Gm-Gg: AYBFou1JqcWkD9LN4uKoiMAWCCU4zeJ5UxFp9b5jW5JpSuz5ZclcSH9kyBjIN+L5u3Q
+	uSuP+cghkS7kwKlV9DzcWUuJOUwSPNcSSqbMMZulu7LAe/9X2pvAt46CHCpe40MyoNSTM6n7J2r
+	tMqFBGsY23lYLmdLDuqFzsh5Ad4WPGljgWqesPGevXxtWSxOH9rebxPxiAYZRlb7kxlQiMH9T0H
+	ks/071Gsu5fBIubnyorPicic/3sTPhzT/itH8HwW0pghZGubYK7roEOsbDHnTDjFrzdxkgPr933
+	Hzu1H/lCft2jiPrpL/hxYfxpKYzzvu/rrkfopGoGnZJoZM1x3UbKqBqPHfPrXZ5k86rvLEEGl9H
+	8PDudC/ffA+S0A8XAE06UR+UZpsxRRtkVuQnbAWG/ccM5HX6kPakd9nvvh89aMwsmPcZl+nS+RU
+	3uSIQDxXLIuyO6TmtvF4W8ABI9mEB/sO5JNZ/PBhlDpcctr3J+ov18V0lnG8isUdBj60kiGd7gw
+	clXxBjFkfNz4a/etvXcJ1Bk/ti4TB/prfxGpj6KSupiXdYnUQQPUSudZm64GA675u4hhnY0Frr+
+	o//gKDdD06Ypkau4MaP1UqpM/ELdVfgDI2uFUhXUst9ALiD22HaIOwT4OpCUdGr3v7s+Vq5VKgo
+	MtBMA1NmnMpfmXMos0eqgPtF6YVUKIiqpAr0Pxqdu2fbxWBig4Sw=
+X-Received: by 2002:a05:600c:8b11:b0:4a1:dda8:eb73 with SMTP id 5b1f17b1804b1-4bb8881c630mr62257765e9.27.1795171235703;
+        Fri, 20 Nov 2026 02:40:35 -0800 (PST)
 Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at. [80.108.121.211])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb895eec06sm22297535e9.2.2026.11.20.02.40.30
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb895eec06sm22297535e9.2.2026.11.20.02.40.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 02:40:32 -0800 (PST)
+        Fri, 20 Nov 2026 02:40:35 -0800 (PST)
 From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Subject: [PATCH 0/7] drm/etnaviv: Report GPU clock changes to userspace
-Date: Fri, 20 Nov 2026 11:40:26 +0100
-Message-Id: <20261120-etnaviv-gpu-freq-trace-v1-0-445fc6eacddf@igalia.com>
+Date: Fri, 20 Nov 2026 11:40:27 +0100
+Subject: [PATCH 1/7] drm/etnaviv: Don't set up a GPU on resume that is not
+ initialized
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,10 +95,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2MQQ6CQAxFr0K6tomtAolXMS5G6GA3A3aGiQnh7
- jbK8v389zbIYioZbs0GJlWzzsmBTg0Mr5AmQR2dgc/cEVGHUlKoWnFaVowmbywWBsGW5cr0vMS
- eR3B5MYn6+YXvjz/7efV+OcZ9/wJRgfV6fQAAAA==
-X-Change-ID: 20261116-etnaviv-gpu-freq-trace-52e421b3f72d
+Message-Id: <20261120-etnaviv-gpu-freq-trace-v1-1-445fc6eacddf@igalia.com>
+References: <20261120-etnaviv-gpu-freq-trace-v1-0-445fc6eacddf@igalia.com>
+In-Reply-To: <20261120-etnaviv-gpu-freq-trace-v1-0-445fc6eacddf@igalia.com>
 To: Lucas Stach <l.stach@pengutronix.de>, 
  Russell King <linux+etnaviv@armlinux.org.uk>, 
  Christian Gmeiner <christian.gmeiner@gmail.com>, 
@@ -106,66 +106,68 @@ To: Lucas Stach <l.stach@pengutronix.de>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: kernel-dev@igalia.com, etnaviv@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Christian Gmeiner <cgmeiner@igalia.com>, stable@vger.kernel.org, 
- stable+noautosel@kernel.org
+ Christian Gmeiner <cgmeiner@igalia.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-Userspace that converts GPU cycle counts to time, like Mesa, needs the
-core clock rate a job ran at. The thermal cooling device can change
-this rate at any time, and userspace has no way to learn about it.
+From: Christian Gmeiner <cgmeiner@igalia.com>
 
-This series adds a CLOCK_HISTORY ioctl that returns the last clock
-rate changes of a GPU with their timestamps. Userspace compares them
-with the fence timestamp of a job and knows the rate the job ran at.
-A trace event reports the same changes.
+etnaviv_gpu_init(..) can fail, for example for a VG core with FE2.0,
+which is ignored on purpose. The device stays bound and is runtime
+suspended and resumed later.
 
-For this a job must run at a single rate. Today the cooling device
-changes the clock while a job is running, which can also hang the GPU.
-On a GC7000 rev 6009 I toggled the cooling state every 200 ms during
-glmark2 runs and got 25 hang recoveries in 24 runs. With this series I
-got none in 34 runs. So the first patches fix the cooling device:
+etnaviv_gpu_rpm_suspend(..) sets the state to identified without
+looking at the old state. So the next resume programs the clock and
+runs etnaviv_gpu_hw_init(..) on a GPU that is not initialized. An
+unbound GPU keeps the identified state as well, so the next bind sets
+it up before it is reset.
 
-- Patch 1 fixes the GPU state after a failed init and after unbind.
-  Patch 4 uses this state to decide if the clock can be changed.
-- Patches 2-4 change the order of the cooling device registration,
-  skip requests that keep the clock and close a race with runtime
-  suspend.
-- Patch 5 makes a clock change wait for the queued jobs.
-- Patch 6 adds the trace event.
-- Patch 7 keeps the last 256 changes in a ring buffer and adds the
-  ioctl to read them.
+Go back to the unknown state when etnaviv_gpu_init(..) fails and in
+etnaviv_gpu_unbind(..), and keep it in etnaviv_gpu_rpm_suspend(..).
 
-Tested on GC7000 rev 6214 (i.MX8MQ), and with backports to 6.6 on
-GC7000 rev 6009 (i.MX8QM) and to 6.12 on GC2000 rev 5108 (i.MX6Q,
-FSCALE path).
+Seen on an i.MX6Q with its ignored GC355, and with its GC320 on every
+bind after the first.
 
-Link to the Mesa MR implementing the userspace side:
-https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/46538
-
+Fixes: 647d817d8071 ("drm/etnaviv: better track GPU state")
+Cc: stable@vger.kernel.org # 6.6+
 Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
 ---
-Christian Gmeiner (7):
-      drm/etnaviv: Don't set up a GPU on resume that is not initialized
-      drm/etnaviv: Register the cooling device last and unregister it first
-      drm/etnaviv: Skip cooling requests that keep the clock
-      drm/etnaviv: Don't change the clock of a suspended GPU
-      drm/etnaviv: Change the GPU clock between jobs
-      drm/etnaviv: Add a GPU clock change trace event
-      drm/etnaviv: Add an ioctl to read back GPU clock changes
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/etnaviv/Makefile               |   5 +-
- drivers/gpu/drm/etnaviv/etnaviv_drv.c          |  20 ++-
- drivers/gpu/drm/etnaviv/etnaviv_gpu.c          | 240 ++++++++++++++++++++++---
- drivers/gpu/drm/etnaviv/etnaviv_gpu.h          |  12 ++
- drivers/gpu/drm/etnaviv/etnaviv_trace.h        |  62 +++++++
- drivers/gpu/drm/etnaviv/etnaviv_trace_points.c |   9 +
- include/uapi/drm/etnaviv_drm.h                 |  62 ++++++-
- 7 files changed, 378 insertions(+), 32 deletions(-)
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261116-etnaviv-gpu-freq-trace-52e421b3f72d
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+index 6a4aab75ebba..2a15ae6135f5 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+@@ -951,6 +951,8 @@ int etnaviv_gpu_init(struct etnaviv_gpu *gpu)
+ 	return 0;
+ 
+ fail:
++	/* the GPU is not used, a resume must not set it up */
++	gpu->state = ETNA_GPU_STATE_UNKNOWN;
+ 	pm_runtime_mark_last_busy(gpu->dev);
+ pm_put:
+ 	pm_runtime_put_autosuspend(gpu->dev);
+@@ -1874,6 +1876,9 @@ static void etnaviv_gpu_unbind(struct device *dev, struct device *master,
+ 		etnaviv_gpu_clk_disable(gpu);
+ 	}
+ 
++	/* the GPU is not initialized any more, a resume must not set it up */
++	gpu->state = ETNA_GPU_STATE_UNKNOWN;
++
+ 	if (gpu->mmu_context)
+ 		etnaviv_iommu_context_put(gpu->mmu_context);
+ 
+@@ -2019,7 +2024,8 @@ static int etnaviv_gpu_rpm_suspend(struct device *dev)
+ 
+ 	etnaviv_gpu_hw_suspend(gpu);
+ 
+-	gpu->state = ETNA_GPU_STATE_IDENTIFIED;
++	if (gpu->state != ETNA_GPU_STATE_UNKNOWN)
++		gpu->state = ETNA_GPU_STATE_IDENTIFIED;
+ 
+ 	return etnaviv_gpu_clk_disable(gpu);
+ }
 
-Best regards,
 -- 
-Christian Gmeiner <cgmeiner@igalia.com>
+2.56.0
 
