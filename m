@@ -1,66 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795245022;
-	b=cjYvkjaOqJCwCN4bg4AWJJ+0fyZvH5rf+XnxTL/gIKWcKEMGCZyemUshiHg7pseNpvMY
-	 8iebfXbpq5LJqY5y/s6qwqFdXu00Tg/DNbIfyJ6ulkKVT3qQ6Zjtjq92k8ztDkfLk5zKV
-	 nW5MKtViCBww4wN2mF5h3G3qGU+wN6r4nyi0sp0FsNOTu3GqTMfj8hCJPA0X7EE31Hkq6
-	 yOOap/dHUoao2GcKzTMEJV4dsl1nsiSEPHjObd642b0SexBINTeIcTECdSbFGa2DfK7D4
-	 egJ6TE9ZVF5M2J2yanUTrJ8V9dEsQmFjo3QlhOqUl8OeqadP8842Ihohzs4amXL8Uaw==
+	t=1795245307;
+	b=oqNym7p77jUxi/KC35/YvAPn/na5JwDYhZBNX9g6Lk2FaI9biVK81QBm0anCQJ3p5yBB
+	 VgLcUNmrOUi0XYl555TKc0MQMKJ/5KI+5n5xZbBeMtkGeKuj/yUCVzetL6keqGnvm6LRC
+	 vPStJAiZqBeJFvRkgzQBrqNPa95oZZlZRh/TV57GJGFAyox+6c6iDYl6Wa1GWSW/sBBEq
+	 U1EHvRdO2lygj1J5YFWUNePJvzqoHP4i+DjGcXtYY3qC+Vl41qKvecK9cry0CZEodj0qs
+	 hZ+0RkmTG106T/UFrZ0wEehA2TjCOnR72hGGDfTWTUXQAmle9U/buFjctpJHHbGeYMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795245022;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Originating-IP:Date:From:To:
-	 Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:X-NTES-SC:
-	 Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	 X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=l9jASBEgotthRLTerUHgx8TWO42Ho+1jhMVptJyT9KQ=;
-	b=dcuUPzU90P8wslaPpQRPEhcyB+WjuHuRyTqgwH+f4guU2NzmeThfYZpl+VbO8l3/a3zY
-	 Xl9/I5LbqRTTanOFCpOSfJkqSkhXmHkiHFlFY8qRILd13tFca+fzNXMhyfqGWUmyQI4Vs
-	 LWwbad9oig5EVa8DPY0e7STvaLqyLGz70/2gBlwu1QR5Yq4IqVfqqf/JhtLLneA/qqz5H
-	 LWImtizbJi+iMPxiPcGgUlzInKPGaVJq/xY0lUmGNmf4c1MsrqSFYt8ch+MHWMN1daJ2q
-	 QXOQZYHJ3EcRbVp3bH6nKBibZwkKFbY6u4TAdHUA07xKGyfVEHJsMELq2fhJNhyYibA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795245307;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=jphhe9W5UCk3gjzh2JeM6aA2VjvVddfIzmTZSGQzdgk=;
+	b=I1d65z6iCn7/hmlIYHhojbOUN5U+fkOomBf50dLsnvvMe5AGZwDUs+q0ACkhnE+wIH9j
+	 kjmOnfuRIMRnKn/ApDlBCir9+00HHlkuOpecNtSfRzinXJJJQcpKeY/sSGcvYEvyEZPJH
+	 aeYeCMfjpXIs0Ls1tPVw0XJuATpbXRivSUWrclVXP/LyGE301YrZFUZFFsaJwKBCcGNzu
+	 tZPXKOAncIxp3WHm2zDfHpOeo/AQZ33xxJA38hZ9oYay7T1mOqK63aoVJE+KRwPpQrVz6
+	 um2sWjNOPgB0QHJkAIeM1YFZGsg9eX7GUpftk8+hGgSxKKQJ+IT8TvUcG+23k3HvumQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Zv88Z9lO;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=KRAkMRMz;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B70606A688;
-	Sat, 21 Nov 2026 07:10:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9B70606A688
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B15A606A330;
+	Sat, 21 Nov 2026 07:15:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B15A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Zv88Z9lO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=l9jASBEgotthRLTerUHgx8TWO42Ho+1jhMVptJyT9KQ=; b=Z
-	v88Z9lOHRw2bkzePkFIln61pf4ybYfGHwE+EgQlFGYlZ5J/bYMwb6G0CazaVZgb6
-	hPRNs8GLnEGWJPs2s1vzGXlaanOWYJfuRPrTCg4VapPSVUYPTYBf8rvQ+F7fQYxM
-	Qgz3rfr3eU+bImWp9GyyYjLropg2G1QHrIhsdCYYV0=
-Received: from slark_xiao$163.com (
- [2408:8459:3c50:9f35:fc69:5c53:4489:28a4] ) by ajax-webmail-wmsvr-40-123
- (Coremail) ; Sat, 21 Nov 2026 15:09:43 +0800 (CST)
-Date: Sat, 21 Nov 2026 15:09:43 +0800 (CST)
-From: "Slark Xiao" <slark_xiao@163.com>
-To: "Jeff Hugo" <jeff.hugo@oss.qualcomm.com>
-Cc: mani@kernel.org, mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re:Re: [PATCH] bus: mhi: host: Only expose controller sysfs
- attributes on the controller device
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <ca6de262-80e3-4c38-8f3c-122712d3f54d@oss.qualcomm.com>
-References: <20261111115659.11943-1-slark_xiao@163.com>
- <826c1746-137b-4a5a-968e-8e0449a25e78@oss.qualcomm.com>
- <3cb75687.54e4.1a1ed794488.Coremail.slark_xiao@163.com>
- <ca6de262-80e3-4c38-8f3c-122712d3f54d@oss.qualcomm.com>
-X-NTES-SC: AL_Qu2SB/6fu0Ej5SaYZukckk4WhuY7WcOyuPkg2YZSc8gEvirO/xonfGJYDUvy7c+/BQ+RrhuIeRxKzcRzcaZZKDZMTi80Efs7q4f01oQEZg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=KRAkMRMz
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A8E7440E019C;
+	Sat, 21 Nov 2026 07:15:03 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id Eh9b41Hgcbm8; Sat, 21 Nov 2026 07:15:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1795245300; bh=jphhe9W5UCk3gjzh2JeM6aA2VjvVddfIzmTZSGQzdgk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KRAkMRMzGvaaTbQZeWRcJDP7JApPv4vvgEEXB0iHkyPT/kcEV3qlPMnBIBmdDkn2o
+	 xXawBFlgPOKCKUxEN6JzZ53RcodD0bs5U1wSxGPdkkllxodjBNJnqcFFk7GvOxTqbp
+	 Bz6ZmXQPS2bSvo5ax3aHWOhbclNW8/l4N2gD201baFoP+qU1+DpLkWQlOl2gT7Atjy
+	 PY/BXuJjtudsAO35NXCgXCU5ct+WjMzFzHjX1r112pNarFzvIuN/eIfKGFNW+qbJSd
+	 9Q7ZdhEfcShWglKUBJ+8WFxFBcFxVGgZEAX7i+pCKEQSQZPZLGqb0JhRNDfyLM+M0Q
+	 c20WUsaqJCEWBbuMl0QnFsFvYZ5A0Dh8iCDamdTsf+8h98JTdBafMAe1LOQRjojnLJ
+	 blur85K83lZe1ouPfuvatlMsaF7Wm9ltPLjhbIqBqWpd9ytxSYF++lusNV+NANs9Rp
+	 MZCX0yTjI6O/dgygCX4DUxdyF60BV6bmp6JJz+u5Xbu3WHvFX+mNO11489S7oEeeQb
+	 RE9Q+LasADwPRyHK++PyJBb3QNNkV8UTIoYVPT+JJ1R11uIsIWx9pRszzUgiHS9lZy
+	 MqCzWd7Gm2SuRm6vV5lwfvSaaClzRIsBu3auQpDxmPkA3XTqQE+FIT/FaBPtM2BOzP
+	 RS9VnAbp8fKdfc3GGYanG/ms=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2b])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id DB59240E015B;
+	Sat, 21 Nov 2026 07:14:45 +0000 (UTC)
+Date: Fri, 20 Nov 2026 23:14:42 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Tina Zhang <zhang_wei@open-hieco.net>
+Cc: Dave Hansen <dave.hansen@intel.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	dave.hansen@linux.intel.com, david.laight.linux@gmail.com,
+	dengqiming@hygon.cn, hpa@zytor.com, linux-kernel@vger.kernel.org,
+	mingo@redhat.com, puwen@hygon.cn, stable@vger.kernel.org,
+	tglx@linutronix.de, x86@kernel.org, yangzhen@hygon.cn
+Subject: Re: [PATCH] x86/cpu/hygon: Work around XSAVES Erratum 1386
+Message-ID: <20261121071442.GDawFE4rWdzLeaqjoH@fat_crate.local>
+References: <b04950ad-d655-4ca2-8cbd-59360509d25b@intel.com>
+ <89a5aef2-ea88-43d7-adcc-3f6b7374932f@citrix.com>
+ <46d14366-dd1f-45f4-abc3-4d9dd8c32e7b@intel.com>
+ <991d9608-fb44-4bcf-8ee8-b0a398899217@open-hieco.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,89 +86,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <c12e013.1776.1a1fcf0853d.Coremail.slark_xiao@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:eygvCgD3x263QwFrbpNyAA--.102W
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC6BcZfWsBQ7cKXQAA3S
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <991d9608-fb44-4bcf-8ee8-b0a398899217@open-hieco.net>
 
-CkF0IDIwMjYtMTEtMjEgMDA6NDU6MzAsICJKZWZmIEh1Z28iIDxqZWZmLmh1Z29Ab3NzLnF1YWxj
-b21tLmNvbT4gd3JvdGU6Cj5PbiAxMS8xOC8yMDI2IDEyOjA1IEFNLCBTbGFyayBYaWFvIHdyb3Rl
-Ogo+PiAKPj4gQXQgMjAyNi0xMS0xNCAwMjo0Mjo0NiwgIkplZmYgSHVnbyIgPGplZmYuaHVnb0Bv
-c3MucXVhbGNvbW0uY29tPiB3cm90ZToKPj4+IE9uIDExLzExLzIwMjYgNDo1NiBBTSwgU2xhcmsg
-WGlhbyB3cm90ZToKPj4+PiBUaGUgc2VyaWFsX251bWJlciwgb2VtX3BrX2hhc2ggYW5kIHNvY19y
-ZXNldCBhdHRyaWJ1dGVzIGFyZSByZWdpc3RlcmVkCj4+Pj4gdGhyb3VnaCBtaGlfYnVzX3R5cGUu
-ZGV2X2dyb3Vwcywgc28gdGhlIGRyaXZlciBjb3JlIGNyZWF0ZXMgdGhlbSBmb3IKPj4+PiBldmVy
-eSBkZXZpY2Ugb24gdGhlIE1ISSBidXMuICBNSEkgY2xpZW50IGRldmljZXMgKHRoZSBwZXItY2hh
-bm5lbAo+Pj4+IGRldmljZXMgc3VjaCBhcyBtaGkwX0RVTiBvciBtaGkwX01CSU0pIGFyZSBhbHNv
-IE1ISSBidXMgZGV2aWNlcywgc28KPj4+PiBlYWNoIG9mIHRoZW0gZW5kcyB1cCB3aXRoIGl0cyBv
-d24gY29waWVzIG9mIHRoZXNlIGZpbGVzIGV2ZW4gdGhvdWdoCj4+Pj4gdGhleSBhbGwgb3BlcmF0
-ZSBvbiB0aGUgc2FtZSBtaGlfY29udHJvbGxlcjoKPj4+Pgo+Pj4+ICAgICAkIGxzIC9zeXMvYnVz
-L21oaS9kZXZpY2VzL21oaTBfRFVOLwo+Pj4+ICAgICBkcml2ZXIgIG9lbV9wa19oYXNoICBwb3dl
-ciAgc2VyaWFsX251bWJlciAgc29jX3Jlc2V0ICBzdWJzeXN0ZW0gIHVldmVudAo+Pj4+Cj4+Pj4g
-VGhpcyBpcyB3cm9uZyBmb3Igc2V2ZXJhbCByZWFzb25zOgo+Pj4+Cj4+Pj4gICAgIC0gVGhlIGF0
-dHJpYnV0ZXMgZGVzY3JpYmUgdGhlIGNvbnRyb2xsZXIsIG5vdCB0aGUgY2hhbm5lbC4gIFRoZWly
-Cj4+Pj4gICAgICAgY2FsbGJhY2tzIGFsbCBkZXJlZmVyZW5jZSBtaGlfZGV2LT5taGlfY250cmwg
-YW5kIHJlYWQgQkhJIHJlZ2lzdGVycwo+Pj4+ICAgICAgIG9yIGlzc3VlIGEgY29udHJvbGxlci13
-aWRlIFNvQyByZXNldCwgc28gd3JpdGluZyBzb2NfcmVzZXQgdGhyb3VnaAo+Pj4+ICAgICAgIG1o
-aTBfRFVOIHJlc2V0cyB0aGUgd2hvbGUgZGV2aWNlIHdoaWxlIGxvb2tpbmcgbGlrZSBhIHBlci1j
-aGFubmVsCj4+Pj4gICAgICAgb3BlcmF0aW9uLgo+Pj4+ICAgICAtIG9lbV9wa19oYXNoIHJlcG9y
-dHMgZmFpbHVyZXMgd2l0aCBkZXZfZXJyKGRldiwgLi4uKSwgc28gYSBzaW5nbGUKPj4+PiAgICAg
-ICBmYWlsaW5nIGNvbnRyb2xsZXIgcHJvZHVjZXMgb25lIGxvZyBsaW5lIHBlciByZWdpc3RlcmVk
-IGNoYW5uZWwKPj4+PiAgICAgICBkZXZpY2UgaW5zdGVhZCBvZiBvbmUuCj4+Pj4gICAgIC0gVXNl
-cnNwYWNlIGhhcyBubyB3YXkgdG8gdGVsbCB3aGljaCBjb3B5IGlzIGF1dGhvcml0YXRpdmUuCj4+
-Pj4KPj4+PiBNb3ZlIHRoZSBhdHRyaWJ1dGVzIG9mZiB0aGUgYnVzIGFuZCBhdHRhY2ggdGhlbSB0
-byB0aGUgY29udHJvbGxlcgo+Pj4+IGRldmljZSBvbmx5LiAgbWhpX3JlZ2lzdGVyX2NvbnRyb2xs
-ZXIoKSBub3cgaW5zdGFsbHMgdGhlIGdyb3VwIHZpYQo+Pj4+IG1oaV9kZXYtPmRldi5ncm91cHMg
-YmVmb3JlIGRldmljZV9hZGQoKSwgd2hpbGUgdGhlIGNoYW5uZWwgZGV2aWNlcwo+Pj4+IGNyZWF0
-ZWQgYnkgbWhpX2NyZWF0ZV9kZXZpY2VzKCkgYXJlIGxlZnQgdW50b3VjaGVkLiAgTm8gZnVuY3Rp
-b25hbAo+Pj4+IGNoYW5nZSBmb3IgdGhlIGNvbnRyb2xsZXIgZGV2aWNlOyB0aGUgZmlsZXMgc3Rh
-eSBhdCB0aGUgcGF0aHMgbGlzdGVkCj4+Pj4gaW4gRG9jdW1lbnRhdGlvbi9BQkkvc3RhYmxlL3N5
-c2ZzLWJ1cy1taGkuCj4+Pj4KPj4+PiBOb3RlIHRoYXQgdHJpZ2dlcl9lZGwgd2FzIGFscmVhZHkg
-aGFuZGxlZCB0aGlzIHdheSwgdGhyb3VnaCBhbiBleHBsaWNpdAo+Pj4+IHN5c2ZzX2NyZWF0ZV9m
-aWxlKCkgb24gdGhlIGNvbnRyb2xsZXIga29iamVjdCwgd2hpY2ggaXMgd2h5IGl0IG5ldmVyCj4+
-Pj4gYXBwZWFyZWQgb24gdGhlIGNoYW5uZWwgZGV2aWNlcy4KPj4+IEkgYWdyZWUgd2l0aCB0aGUg
-cmF0aW9uYWxlLCBidXQgdGhpcyBkb2VzIGFwcGVhciB0byBjaGFuZ2UgdUFQSS4gQXJlIHlvdQo+
-Pj4gc3VyZSBubyBvbmUgaXMgdXNpbmcgdGhlc2Ugb24gdGhlIGNoYW5uZWwgZGV2aWNlcz8KPj4+
-Cj4+PiAtSmVmZgo+PiBIaSBKZWZmLAo+PiBGb3Igb2VtX3BrX2hhc2ggYW5kIHNlcmlhbF9udW1i
-ZXIsIGFsbCBpbnRlcmZhY2UgcmV0dXJucyBzYW1lIHZhbHVlLgo+PiBJIHRoaW5rIHRoZXJlIGlz
-IG5vIG5lZWQgdG8ga2VlcCB0aGVzZSBpbnRlcmZhY2VzIHVuZGVyIHRoZSBjaGFubmVsCj4+IGRl
-dmljZXMuCj4+IAo+PiBGb3Igc29jX3Jlc2V0LCBpdCB3cml0ZSB0aGUgcmVnaXN0ZXIgZGlyZWN0
-bHkgYW5kIGl0IHdvcmtzIGZvciB0aGUgZW50aXJlCj4+IGRldmljZSByYXRoZXIgdGhhbiBhIHNp
-bmdsZSBjaGFubmVsLgo+PiAKPj4gU28gSSB0aGluayB0aGVyZSBpcyBubyBwcm9ibGVtIHRvIHJl
-bW92ZSB0aGVtLgo+Cj5UaGVzZSBhcmUgdUFQSS4gVGhlIGdvbGRlbiBydWxlIG9mIHRoZSBrZXJu
-ZWwgaXMgdGhhdCB3ZSBkbyBub3QgYnJlYWsgCj51c2Vyc3BhY2UuIEl0IGRvZXMgbm90IG1hdHRl
-ciB0aGF0IHRoZWlyIGV4aXN0ZW5jZSBpcyBhICJidWciLCBpZiB0aGVyZSAKPmlzIHVzZXJzcGFj
-ZSB1c2luZyB0aGVtLCB0aGVuIHdlIG11c3Qga2VlcCB0aGVtLgo+Cj5JIGNvdWxkIGFncmVlIHdp
-dGggeW91IGFzc2Vzc21lbnQgdGhhdCBoYXZpbmcgdGhlc2UgaXRlbXMgb24gdGhlIGNoYW5uZWwg
-Cj5kZXZpY2UgaXMgYSBtaXN0YWtlIChhbmQgSSBkbyksIGJ1dCB0aGF0IGRvZXMgbm90IGNoYW5n
-ZSB0aGUgcnVsZS4KPgo+U28gZmFyIHlvdSBoYXZlIG5vdCBwcm92aWRlZCBhbnkgZGF0YSB0byBz
-YXkgdGhhdCB1c2Vyc3BhY2UgaXMgaW4gZmFjdCAKPm5vdCB1c2luZyB0aGVzZSwgYW5kIHRoZXJl
-Zm9yZSByZW1vdmluZyB0aGVtIHdvdWxkIGhhdmUgbm8gaW1wYWN0Lgo+Cj5XaXRob3V0IHRoYXQg
-YW5hbHlzaXMsIEkgYW0gc29ycnkgdG8gc2F5IEkgYW0gdW5jb21mb3J0YWJsZSBwcm9jZWVkaW5n
-IAo+d2l0aCB0aGlzIGNoYW5nZS4gIE1hbmkgaXMgZnJlZSB0byBpZ25vcmUgbXkgY29uY2VybnMg
-YW5kIGFwcGx5IHRoaXMgCj5wYXRjaCBhdCBoaXMgb3duIHJpc2suCj4KPi1KZWZmCkhpIEplZmYs
-CkkgdW5kZXJzdGFuZCB5b3VyIGNvbmNlcm5zLiBXZSBtdXN0IGVuc3VyZSB0aGF0IGludHJvZHVj
-aW5nCm1vZGlmaWNhdGlvbnMgZG9lcyBub3QgbGVhZCB0byBhbnkgdW5pbnRlbmRlZCBzaWRlIGVm
-ZmVjdHMuCgpJIGNoZWNrZWQgdGhlIGltcG9ydCBoaXN0b3J5IGFuZCBmb3VuZCB0aGF0IGJvdGgg
-c2VyaWFsX251bWJlcgphbmQgb2VtX3BrX2hhc2ggd2VyZSBhZGRlZCBieSBNciBCSEFVTUlLIEJo
-YXR0IGluIGNvbW1pdAoiMjFjYjliMThlZGVhIGJ1czogbWhpOiBob3N0OiBjb3JlOiBJbnRyb2R1
-Y2Ugc3lzZnNlbnRyaWVzIGZvciBNSEkgIi4KVGhlIGNvbW1lbnQgYXMgYmVsb3c6CiJPRU1zIG5l
-ZWQgdG8gcmVhZCB0aGVzZSBkZXZpY2Utc3BlY2lmaWMgaGFyZHdhcmUgaW5mb3JtYXRpb24gdmFs
-dWVzCnRocm91Z2ggdXNlcnNwYWNlIGZvciBmYWN0b3J5IHRlc3RpbmcgcHVycG9zZXMiCgpBY3R1
-YWxseSBJIGhhdmUgdG8gc2F5IHdlIGRvbid0IGhhdmUgc3VjaCBhIGZhY3RvcnkgcmVxdWlyZW1l
-bnQgZm9yIAp0aGVzZSAyIEFQSXMgZm9yICBhbGwgIEZveGNvbm4gTUhJIGRldmljZXMuIAoKQW5k
-LCB3ZSBjYW4gc2VlIHRoZSAiV2hhdCIgZnJvbSB0aGUgRG9jdW1lbnQvQUJJL3N0YWJsZS9zeXNm
-cy1idXMtbWhpOgovc3lzL2J1cy9taGkvZGV2aWNlcy8uLi4vc2VyaWFsbnVtYmVyCi9zeXMvYnVz
-L21oaS9kZXZpY2VzLy4uLi9vZW1fcGtfaGFzaAovc3lzL2J1cy9taGkvZGV2aWNlcy8uLi4vc29j
-X3Jlc2V0CgpJIGJlbGlldmUgdGhlIGZvcm1hbCBtZWFuaW5nIHJlcHJlc2VudGVkIGJ5IHRoaXMg
-cGF0aCBpcwogL3N5cy9idXMvbWhpL2RldmljZXMvbWhpMC9bVEFSR0VUIFNZU0ZTXSBvciAKL3N5
-cy9idXMvbWhpL2RldmljZXMvbWhpMS9bVEFSR0VUIFNZU0ZTXS4gQnV0IG5vdCAgCi9zeXMvYnVz
-L21oaS9kZXZpY2VzL21oaTAvbWhpMF9EVU4vW1RBUkdFVCBTWVNGU10gb3IKIC9zeXMvYnVzL21o
-aS9kZXZpY2VzL21oaTAvbWhpMF9ESUFHL1tUQVJHRVQgU1lTRlNdLgoKVGhlc2UgNCBBUElzIG9u
-bHkgc29jX3Jlc2V0IGFuZCB0cmlnZ2VyX2VkbCB3b3VsZCBiZSB1c2VkCmluIGRhaWx5IGRldmVs
-b3BtZW50IG9yIHVzYWdlLgoKSW4gb3VyIGxvY2FsLCB0aGUgZnJlcXVlbmN5IHNoYWxsIGJlOgp0
-cmlnZ2VyX2VkbCAobm9ybWFsKSA+IHNvY19yZXNldCggcmFyZSkgPiBzZXJpYWwgbnVtYmVyPW9l
-bV9wa19oYXNoKGFsbW9zdCBuZXZlcikKCkhvcGUgdGhpcyAgZXhwbGFuYXRpb24gaGVscHMgeW91
-IHVuZGVyc3RhbmQgdGhpcyBpc3N1ZSBmcm9tCnRoZSBkZXZlbG9wZXIncyBwZXJzcGVjdGl2ZSBh
-bmQgb3VyIGFjdHVhbCBuZWVkcy4KClRoYW5rcy4gCg==
+On Sat, Nov 21, 2026 at 02:46:31PM +0800, Tina Zhang wrote:
+> I'll extend the existing erratum_1386_microcode[] table with the Hygon
+> entries and make Hygon reuse fix_erratum_1386() instead of duplicating the
+> workaround in hygon.c.
+
+Sorry that I couldn't jump in here earlier. Those folks are all giving you
+confusing ideas, don't listen to them... :)
+
+You simply need to copy the amd.c code and adjust it with your numbers.
+
+The reason why we're copying and not sharing code with AMD is because AMD
+cannot test on Hygon and thus risk breaking Hygon or you vice versa.
+
+So we have it all separate, that's why there's a cpu/hygon.c.
+
+Once it all settles and once we absolutely cannot live with the mini code
+duplication this causes, then we can start unifying.
+
+But that time hasn't come yet. For now we will do all separate.
+
+Thanks and sorry again that I couldn't jump in in time.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
