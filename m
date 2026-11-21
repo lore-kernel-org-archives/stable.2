@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296706;
-	b=RV9W+SM3NLrF6U3ID1sK7I+Evz9XX4BTTagTDCJkL+C9BPWehYtCQ/PTzDYP047p6QTf
-	 OEgypMCMe9T0a2voLCWY0eRkdLvDSMgdDQXcM1/0z6+2W+Bc2FIcgJ0ZpIql/+UEMi6Se
-	 NUdT5Sc8mb1MN7ALzSm6qbR25Kff5D8g3DGJXuxa1g8Qjhf1+56NDiWccoV8zJKsUkIvk
-	 287zxyvZlu8Zira/uyTvnFYMchm3e6xbPERU9aq7afE0HfzLymtf8R2WR5A2wijZk87VL
-	 xVLLrHcHw9HF1Vb6uhFtRXZIs37GX3RvsFFI2BdG0uVrcBg7a85JHp/FLxtTr4gmBkA==
+	t=1795296708;
+	b=AbU+zv15cqzJFfGXuIfp8MKHqUmB3B1NHwPJQDth6hvehQg12FGkIo0VJHd1dKw8khZc
+	 B+nDV2D70tmnxXvZyBLyBfycDZKlL9bxW2Bn3oUwrMOOmNdYARXc7wtejau4PuVFjFvRb
+	 mMwe0P2jnma4iu1xhtW+zlvq8KEsLtXu8+Nq/kcFyMZjqA7er9XlN6oWpHfl0yqbdf00o
+	 TiWyIbpbclAin5KLkshQ6x7XpJ2KxlYygm1N13n+XuXs+59hViPM5TpgOc9RPU8iASQXs
+	 wTY9/DIvyx8uLrGVWKJqxct8gVrj9jWvqdxLgBcz2il8aKxKeDzn5mWHjtZGV+zl6NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296706;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296708;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=fgYK0WdNPyZ2No6tbroW9YiDvuBSMrnuztXxUFY5BLk=;
-	b=hI8RzC5AH3yRDcQuCezxgm353yzVdgVloQnqyEeXrRcf4VqyBZtgMHXsWH1EkFzOyN3Z
-	 PVbXNiahc439RxecS30MYv6+WDULPK4A9uxK253e5IcohbNRQm7Vhm45cb03uT16a5lks
-	 4JDs4rGDfJnzh/961YNWfnZB0ZDXJHkEfR9hlBWAqu/TvDs/dw/zZN0UhWU2AAjN1AWY+
-	 ypT1/OSurnozRF51Krk5Y4sLuLYNWqk29kY9SoP52bpzbp+brE92szk3ExN1gZE5Xqqyo
-	 REU0BJ6AXSErC/ldZlubqmE5JHLGy5MJyI9f+fRyVfXcwTo1iaNbJEBXzy0zGFrtnNQ==
+	bh=1TGb1HhBHaH/d1MYOQsGF3DmTAkDgPfuSZpXLmC/h6Y=;
+	b=pCQqbu3fFzCU0jiGtAvCpjySgy0Ho6mHsHAcckH0G+xiRdi9kOlddhj2jvSMT9326GA1
+	 RXgfJZblC25SlDbNwG6ucGm+IjVtzkFu3Uux6yMReBhPryH+YtQ+ru4D2DJ2YPd5BIk/M
+	 JqbVTVTmX/MQd7cCxWM2hqpNbJqRfVlAOgLRKOHV75V7W7WVhlx8YUfp64m3eCVRDFlVD
+	 G0J/0z63SRkBSV40cuHn1NPeaYbZDrZnEkHUlqIgLs8C/5pVOo0FktlYCrfqTJp47CxYA
+	 ontzY94qaDaIDGeqMNm2KKhuBVqbrzvTwdMXJC35SAH5nplm3DFVkeeZmX//AJPcy/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=JAT4XZEW;
-	arc=none smtp.remote-ip=209.85.161.53
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=H3r2WzVJ;
+	arc=none smtp.remote-ip=209.85.161.47
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73110606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73110606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9AC606A320
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD9AC606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=JAT4XZEW
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6de2f213b7aso909404eaf.0
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=H3r2WzVJ
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-71ab5e64742so1261889eaf.3
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel.dk; s=google; t=1795296705; x=1795901505; darn=vger.kernel.org;
+        d=kernel.dk; s=google; t=1795296707; x=1795901507; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=fgYK0WdNPyZ2No6tbroW9YiDvuBSMrnuztXxUFY5BLk=;
-        b=JAT4XZEW0aE9dO4wwyj67eId+YBEhzTWX6cuKzfJf41nD/JQCngWZrZfjaXBk+DJaG
-         p5GRH3wr1lf27P17a8aOg6k/JbUCH9LoQhXcwtX7P6O5rzVeGnejOljCudcn0AMfdIqa
-         FjcNO0Z4A0HXGVarDJY8mo4ZvQueieQAkBuXayAelL14/T04YXjdhiOJFPbN1b7R8dZ2
-         0txewZtOogeqR/wW4oIEmT5jUHTeLkPEY+EgGiHZeIdH08MlV0siBqEGsgyBD48VuNX5
-         0jR26dPLFTrp7wKAvs8o80q95CN5mCW6AndbZ/0OXPgPjzuTC2n3KyD1vWfYe8ITcveS
-         uK8A==
+        bh=1TGb1HhBHaH/d1MYOQsGF3DmTAkDgPfuSZpXLmC/h6Y=;
+        b=H3r2WzVJR0AWC0O1N9oymOeI37Do2jyyf+Tl8awIwjjMZ4HuFywF3VsohwXM1JroWy
+         P5UoJ9WUlAasTtX7Mh0QQw4lfrP58qfW4UKBJmfDJ+aMtak2quL8T2xVMqUlqpnvJoui
+         0FSJIZBd+wbg6K37GeSno44EEA/kJfbpMh+bhU5nUq37pL9LvWtT1uloSd2XQzlsZIkd
+         /L4MtpjtpVLdXGTG7EEwBZBe+wIe93/h4cMG6myV2yrX27b8TEHTSbgeQUjzaNjC0CpD
+         iWM+k02il+MPOEa9TdHTY5y6K89ljqWjRfzzfp+8aQINQlsv/whpaCATJbpm+GReAXtF
+         DoGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795296705; x=1795901505;
+        d=1e100.net; s=20260707; t=1795296707; x=1795901507;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=fgYK0WdNPyZ2No6tbroW9YiDvuBSMrnuztXxUFY5BLk=;
-        b=Hnl0lYomlwNrtaxTuupMFqZjYSHZOHuZdso2JIsgvjiCwXaiWQECP/Zs8q8d9z+jbC
-         YFgpMiJan7G/GVcJpAyU0oZ4AtZfsE2NAhIrqhbUIYxV+obdwNll27b8mc50iyX/AYyE
-         //cXAnqpmkeRAhtT8Pbwm4hlFCKTEeikycQ7n3dzZZeT7oVBMdeVUTCfsDPMuVoSowFv
-         eGnztcwlc3SGkMB3UZYUBhqXZra0YJps5/nbvg2Fkmbqsx7aekOXLtZm4Cq9Lo0MvGMl
-         spV0N64pjiV25T1KaybBZSAM6BsBWiIVBFwprbHilLlBdTo9m3WAncu4tE6MPHNO1pRW
-         T38w==
-X-Gm-Message-State: APuU4Z8O1bhsvA9y0hlBy/GSrVOrfPgODUIxvdteyFIxFVEwiXPW5gyB
-	+X5mcHSIuM2CF+h0vv9PSDMCLnu7Z0yjLWkisAROFkv+lku87VHjbCx2mfJCZgVRxQOJ3qYCZ4x
-	W7YjYMEo=
-X-Gm-Gg: AZFdTZfmWzlVbgWzxCeN83OHm9TZPdK3pXxrEapGStX9uPcCirxWrDK3J9tILSh2baN
-	8veoiE4UxXx00w6NmOqrDXUpT4S4Pq9E4PDdM5vSUq0O1EPSoLbFg5yritcaRftVGGolOwEBF4J
-	HJ3qpbBjT/ZAdG1SpbVifw5UEffIJW+HH2NqbHe7zz3Q7riq9Lr2pWXKM2vhC15rzUnNwKq4NWw
-	GN90g5g+LFS2COboh4SctE8fITP0kC9/R+32cdzQHD+AZCitiO2klJmMNj4/RSqKfU+N4KgLdCk
-	8sNR9qghcGkFrcqYQs2XfVVHktbK1py+EGRGyeeJqAYnWvggFTl2oPrkGo+jgJXTQAf0SIBDPI2
-	VZGb0lDrsflpnMExieh9xtXoHo/RJ6+GsgUAJnCkTAAnakE9DXQcChOJz3JSAapn/S66KRl8O6K
-	2WNAToI2e1DKKBkZqyquwLIgQ7zyn3UMDnftoZopYLPIfLzoN6j3V+3at77IL4kfDigOgNKnr+t
-	8kkTmOINijOJgUWWgXRQ+53d/prs8mtH6NkrVYQMXJZh6S10vPMUMHlP24PUbSrs7IHV7ZKi1C8
-	7tcNuZUuXCyzwUtTDrWTwkZ4a0F1yP82RypI6nkbeMrrII46spfvs2Ud/LRFi5iFxcUr9xntnWJ
-	5WsfmZtiUiGtvOaz3XLaSVHNOejun5pzpASXz
-X-Received: by 2002:a05:6820:1387:b0:71b:1d8c:af83 with SMTP id 006d021491bc7-71b39038c51mr5660581eaf.0.1795296705452;
-        Sat, 21 Nov 2026 13:31:45 -0800 (PST)
+        bh=1TGb1HhBHaH/d1MYOQsGF3DmTAkDgPfuSZpXLmC/h6Y=;
+        b=FPG+8j57LE5FsVV/UIDSA3ZuQSe//tftqMPFAFkYxt6P/rPMJxf6C4XQMu8A+T9Uoa
+         hvYNazsa/XzMb4Gk9w2B/G9+BKCJsnlpmoGUv41Xyr1KidjX0JLE5wyw8R2paJQYzlre
+         eruKkUQmaEX0KjQBKkdYvBfkSMCMhiPUYGLBEPaPjDhDuV+B54SqXKeqg77o2LtgA2ZA
+         14E7b7dyzD9bii8BAmvL4GWfmi6j8UdDswFcjFjvdG3muhhSowykxJsulv6RtSCJYa/c
+         FThRcP0AJzNvfA7BZs5hC+XXd67bw81LcQsW//0rb3En0+dlHO+ZZpdGV/mFWrLFY4wE
+         O/lA==
+X-Gm-Message-State: APuU4Z9CWle/Ui8/3N22vmXC3hyhwZ5TJT+NkpDJCoIjcqN6Loz+PvcM
+	zTul/1H+GHGqU0GlyM6IWbk7+h9s6Bt51D61dmEw7itE47XyPrm+0LIBFaWP2E1SjGYrbf6cPax
+	AWVbCrRc=
+X-Gm-Gg: AZFdTZdQohwclUdIVYTsCwBTV9kJ/k02lgJ0JJI7oWOtypVoBBSLbF/lrXwCX2z8zrE
+	LquRQLsTybr5mJ2j5QYeMQp8YkqX7HJGt9AnSHV//FD5alseHyCpH/7HwKVx2w9FEEErmYCbLqd
+	Vl2pZQc4DmlWDz7kRWnzKabCyzE0eyyGcAibfqCWSvhSdSSwm2qm7wSCAzPwvxBDxZ3FfVVZA9t
+	uqrOBzX0UjayQ3WKlygpiCoboih1iIXchwckO71ksoeWHm0mg/jStuVt/DyTBy3iN6KuKhSCNni
+	EZ81PBT23tpGLE2FRnL6zikWmOn++ojaegVIKtFaOV9Si7PWmSiyGseheyJ6yHBNHfrC1CnSKjv
+	EP06Jngt3yfbi9GN0lYydWzUzFiYOJ8FncxoY6bJd1MYrYASuAjNnhUP2bGo/MzWx1LK3SxuVwo
+	xkfqdDh9tnBpBCU+iwHbqdAo/A3lwcd3LmyuqHA8GnllqKOCyFOnlEjAV/Li2ARC0hPzaWs+ImA
+	yPtLMAcGmwg5mmAOrCrQxJ9zo80a9Sem3Hj05q4CxuoDNu08ZKiY1NeOMAJRkB68ZfToSo4xdOq
+	McetE/B0b0IYX3vi1m+syrM5uw+UG6w6hqBUTDyEtrkDCj/8qiV9x2CHbTH+cNmJXc3/NB95xWK
+	zdkb9v7TyRTXxqKp+Esz4oI7GudOYxfkKaCyf
+X-Received: by 2002:a05:6820:f026:b0:714:b51d:f513 with SMTP id 006d021491bc7-71b392990c9mr5903408eaf.13.1795296706754;
+        Sat, 21 Nov 2026 13:31:46 -0800 (PST)
 Received: from r7625 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b380e4a6dsm4669694eaf.13.2026.11.21.13.31.44
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b380e4a6dsm4669694eaf.13.2026.11.21.13.31.45
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 13:31:44 -0800 (PST)
+        Sat, 21 Nov 2026 13:31:46 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 4/8] io_uring/rw: fail soft links on IOPOLL short or error IO
-Date: Sat, 21 Nov 2026 21:31:33 +0000
-Message-ID: <20261121213137.1789687-5-axboe@kernel.dk>
+Subject: [PATCH 6.18.y 5/8] io_uring/timeout: don't rearm a multishot timeout on cancel
+Date: Sat, 21 Nov 2026 21:31:34 +0000
+Message-ID: <20261121213137.1789687-6-axboe@kernel.dk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261121213137.1789687-1-axboe@kernel.dk>
 References: <20261121213137.1789687-1-axboe@kernel.dk>
@@ -99,39 +99,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yang Xiuwei <yangxiuwei@kylinos.cn>
+From: Cheng Yongkang <teel4res@gmail.com>
 
-Commit 4d3db66c5363dcf42c3d43ebaea330ac2d1888bb upstream.
+Commit 97d4a585db2b91d855f957be0a9f126068c5be93 upstream.
 
-io_complete_rw_iopoll() updates cqe.res when the transfer does not
-match the requested length, but it does not call req_set_fail().
-Soft linked requests then still run after a short or failed IOPOLL
-read or write.
+io_timeout_complete() does not check tw.cancel. When it runs from
+io_cancel_local_task_work(), a multishot timeout that has not reached
+its count still posts an IORING_CQE_F_MORE completion and rearms its
+timer. With a zero interval the timer expires again right away and
+queues new task work, so the drain keeps running it until posting a
+CQE fails.
 
-Fixes: b66ceaf324b3 ("io_uring: move iopoll reissue into regular IO path")
-Signed-off-by: Yang Xiuwei <yangxiuwei@kylinos.cn>
-Link: https://patch.msgid.link/20261114072246.741950-3-yangxiuwei@kylinos.cn
+Normally the CQ fills up quickly and the request then completes. But
+if userspace moves the CQ head far ahead of the tail, for example to
+cq.tail + 0x7fffffff, posting keeps succeeding and ring teardown is
+delayed for a long time.
+
+Don't post another CQE or rearm the timer when tw.cancel is set, so
+the request completes through io_req_task_complete(), like the poll and
+linked timeout task work does when cancelled.
+
+Fixes: ea97f6c8558e ("io_uring: add support for multishot timeouts")
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+Link: https://patch.msgid.link/20261116044519.281756-1-teel4res@gmail.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/rw.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ io_uring/timeout.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/io_uring/rw.c b/io_uring/rw.c
-index f46d08bbe9d8..48ef87b4697b 100644
---- a/io_uring/rw.c
-+++ b/io_uring/rw.c
-@@ -618,8 +618,10 @@ static void io_complete_rw_iopoll(struct kiocb *kiocb, long res)
+diff --git a/io_uring/timeout.c b/io_uring/timeout.c
+index 2637c8bb61a0..36c8f3dae27a 100644
+--- a/io_uring/timeout.c
++++ b/io_uring/timeout.c
+@@ -76,7 +76,8 @@ static void io_timeout_complete(struct io_tw_req tw_req, io_tw_token_t tw)
+ 	struct io_ring_ctx *ctx = req->ctx;
  
- 	if (res == -EAGAIN && io_rw_should_reissue(req))
- 		req->flags |= REQ_F_REISSUE | REQ_F_BL_NO_RECYCLE;
--	else if (unlikely(final_res != req->cqe.res))
-+	else if (unlikely(final_res != req->cqe.res)) {
-+		req_set_fail(req);
- 		req->cqe.res = final_res;
-+	}
- 
- 	/* order with io_iopoll_complete() checking ->iopoll_completed */
- 	smp_store_release(&req->iopoll_completed, 1);
+ 	if (!io_timeout_finish(timeout, data)) {
+-		if (io_req_post_cqe(req, -ETIME, IORING_CQE_F_MORE)) {
++		if (!tw.cancel &&
++		    io_req_post_cqe(req, -ETIME, IORING_CQE_F_MORE)) {
+ 			/* re-arm timer */
+ 			raw_spin_lock_irq(&ctx->timeout_lock);
+ 			list_add(&timeout->list, ctx->timeout_list.prev);
 -- 
 2.55.0
 
