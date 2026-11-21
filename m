@@ -1,71 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795284176;
-	b=lnm//N/i42Fw9mLmKGfQ3a2oXqi/vwfT4BbyOEa44L7UGjlK/Rt3PwYGzpllHN5GR4Qx
-	 j+KhTkj4ooCxwvrSHinbbpA9s0la2muFgYHG1v8MQpgk/w4XFm/x3KLwHIxApJTptX87x
-	 30T18aApasjbJdLfjGpTlNznsHif1cF9E0q8r/dDh9JYLVwzcoWsrtk6j99lWB9zVNOhL
-	 BZRqhKNa2CA9+xNpbC/Ixw9c7CM8SM8wVd4B/lQsu1uubZM4RudGGi38duTUTIWGwn8hH
-	 prGiy7RWhcYoNVqsQ9drWJvRO3uLaguiY9fTcNVWAMcfne6227aOBvZzBS8HZRMt1ew==
+	t=1795284332;
+	b=SryxcBmskxs7TyQN0Oxvr7aR3LDaQRFkX6Alt5aBIEDqVDBcDI4Wd7/SBxjFe5JTQ/Nz
+	 PcpM4tBrCVYSqXSZdAY3BvmvuPbaYqIZUBRiBwk4kQglmmEt2CsoZsf3NO5q80y2KuKhh
+	 0sozw61NdkA34mb4HWF6Puz80Q4S1iYR4oFb2zUDxBY4ZDtXYhJfHJyeR/aY10fJNt+dZ
+	 gRZbdw2XQXJyeQVyB75QAjT9w8VIdmTEc85Fkpv1gzptck/rfqhAxLItviqypAbXtjJC5
+	 63zuHZobzBFcRIkZp15DbtBJ6NqR//PdZ1ZgCueNURaQKPI9B0n156pCS6pQAW+SWlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795284176;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ZjOww6Av4TYuUIUrHXUPGTFtUR3yqkQIr555NuUOYP4=;
-	b=LfTCDYTj0duGugKfQEpl/GtaL9oqAOSpFGbx5NjfCahgytUuKYILSuWjqwxRrejSQhBe
-	 ZWb1sfO0IBmiDKjdo2UpgAHh1ZHeTP6pNRg+x0JFQEEN0I/eez2LE7PH2thIDYgepmZtR
-	 jtF0Ym9wtj4pzOHI3nJxGTehIJ9J222AcKtvFBlCDkBIeYKOON8/EO9/oF8uAfSjn0+5X
-	 LBi9EItiGXZVbUccCwlm3yZz4Iw5DVZUCb62gFyKxMyGfc/Tg1JpqH42zoK5DuNWRnuDv
-	 oaoI4jq3uweVXS6B1m+kUm0cOlUkp3FUBpQRUpeSIJyNfx6gu+On039TQf8R135aUFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795284332;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=pYt6gsq2OH3wlZNEVbjnaadPXz5Sn2AC2yTJX2nCaPA=;
+	b=O3bS75wt+QMIeucFqBn+FVAuJ8p0vaQ9F4GU05NfMHODohZVjvCkfp306BnSo/Q4RAPD
+	 4c3GcIjNpZ2V/nYfjH7rHIvqpCMpFlnDH6WUOFZAs8hwQNgGENduXbj4GeM7FA3Npl+BV
+	 1m90JWi5PD8m7uDQApcaahN9GtNXxz8c/To40c069v1YDzY23hSqqG31iNcNHpHGrBpwp
+	 gP/R5A7okRE5Nnm1L3LNAt0bEMywfeCb//CTnnJYKaRtzsRCeYRPWsSylEoywORxi9ee7
+	 9HRQxdZDrLlQd2U1eH3RQLUeIHe0Pwj+pQa1glm59/pnC5PCLG5xVzt70PwuXDNbUqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=NQy5ayoe;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GyhEwY5X;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96557606A32C;
-	Sat, 21 Nov 2026 18:02:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96557606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9A8606A32C;
+	Sat, 21 Nov 2026 18:05:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=NQy5ayoe
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=ZjOww6Av4TYuUIUrHXUPGTFtUR3yqkQIr555NuUOYP4=; b=NQy5ayoerTWJL/iw2Dp7R0pY/8
-	9OYzjOKz3wZJGygM/bkvVNRK6RArDIz2w9i8ryW+/3jGc+ENmmttk+4SA12zROqWAiPKx+ezFx6Xe
-	A10j5IRJj8/yXoTScm0agc9zOEk+yptuWcZ8jaCz0lFFE8tHTvpiuizaw3acnuc1d5XY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xUpQ6-000TX2-Q4; Sat, 21 Nov 2026 19:02:38 +0100
-Date: Sat, 21 Nov 2026 19:02:38 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: aiyengar1990@gmail.com
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	LABBE Corentin <clabbe.montjoie@gmail.com>, netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	Russell King <rmk+kernel@armlinux.org.uk>,
-	Nicolai Buchwitz <nb@tipi-net.de>, stable@vger.kernel.org
-Subject: Re: [PATCH net] net: stmmac: dwmac-sun8i: Limit the MTU to one
- descriptor buffer
-Message-ID: <7dee2bac-9892-42df-b2d3-62d648af3452@lunn.ch>
-References: <20261121-sun8i-emac-mtu-limit-v1-1-22492842d318@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GyhEwY5X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 413AF1F000C0;
+	Sat, 21 Nov 2026 18:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795284332;
+	bh=pYt6gsq2OH3wlZNEVbjnaadPXz5Sn2AC2yTJX2nCaPA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GyhEwY5XLGQoSMrD1HQGMj9zW4Rdym9pWExcDFB/ayobWxHFH7sIKfk3+rfnKXVB8
+	 qYkSZ9eUBQbrtLtsM572AqKBwluP5rCBPSDHbAu48EZEmG51G9ROBO5Zcr9y9+FYxn
+	 vQ1UOMKnDDEv+fUJEeC3URphLewaCrG2b4iZb7xbCEi/xNZJe/4WUjtuRKu6iiHZCm
+	 2eDRg4CGWHOAY286LDDKC2SlsEQXZk5Tyt1k/SxSA5Zis6/iSvxTCvgOikdAmzm6mm
+	 Zo2I0mkJyX0p+FqaFoFX8agcGTOuU4dJEyQGiOVGd24+s4XOYlKqHnUFkhJVoxfhix
+	 S9mFo8P6WiQNg==
+Subject:
+ Re: [PATCH net v2 3/5] net: wwan: iosm: bound the ACBH command chain walk
+From: netdev-bot+sashiko@kernel.org
+To: fangxy@xiaopeng.com
+Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
+ netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
+ johannes@sipsolutions.net, maoyixie.tju@gmail.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, zhugl3@xiaopeng.com
+Date: Sat, 21 Nov 2026 18:05:30 +0000
+Message-ID: <179528433079.3135.7229744100791190249@kernel.org>
+In-Reply-To: <20261117173940.34970-4-fangxy@xiaopeng.com>
+References: <20261117173940.34970-4-fangxy@xiaopeng.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,27 +65,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261121-sun8i-emac-mtu-limit-v1-1-22492842d318@gmail.com>
 
-On Sat, Nov 21, 2026 at 04:43:41AM +0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> Russell King pointed out in [1] that max_mtu ignores the 11-bit buffer
-> size of normal descriptors. dwmac-sun8i always uses them in chain mode,
-> so a frame must fit one buffer, but max_mtu is SKB_MAX_HEAD() (3712 on
-> arm64). Sashiko asked in [2] for this to go in as a fix.
-> 
-> On an H616 the RX DMA fills 2044 bytes of a buffer and
-> ndesc_get_rx_status() drops a frame that spans two. On TX the MAC cuts
-> a frame after 2048 bytes (TX_FRM_LEN_CTL is clear). At MTU 2033 no UDP
-> datagram gets through in either direction.
-> 
-> Limit the MTU so that a frame with two VLAN tags and the FCS fits 2044
-> bytes (MTU 2018). MTU 2019-2026, which worked without VLAN tags, is now
-> refused.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Is this problem specific to the dwmac-sun8i?
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-   Andrew
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] This patch adds a new early return to ipc_mux_dl_acb_decode()
+  in drivers/net/wwan/iosm/iosm_ipc_mux_codec.c: `if (block_length <…
+
+--
+
+net: wwan: iosm: bound the ACBH command chain walk
+
+This patch reworks ipc_mux_dl_acb_decode() so that every command offset
+in a received Aggregated Command Block is bounded by skb->len. It also
+validates next_cmd_index so the walk always moves forward. It removes
+the array_index_nospec() call and adds a sanity check on
+acbh->block_length.
+
+> diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> index 65421f6b4c91e..a8448e273c021 100644
+> --- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> +++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> @@ -526,30 +526,60 @@ static void ipc_mux_dl_acbcmd_decode(struct iosm_mux *ipc_mux,
+>  /* Decode an aggregated command block. */
+>  static void ipc_mux_dl_acb_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
+>  {
+
+[ ... ]
+
+>  	acbh = (struct mux_acbh *)(skb->data);
+>  	block = (u8 *)(skb->data);
+> +	block_length = le32_to_cpu(acbh->block_length);
+>  
+> -	next_cmd_index = le32_to_cpu(acbh->first_cmd_index);
+> -	next_cmd_index = array_index_nospec(next_cmd_index,
+> -					    sizeof(struct mux_cmdh));
+> +	/*
+> +	 * The uplink encoder leaves block_length at the ACBH header size.
+> +	 * It cannot delimit the command chain, so use skb->len to bound
+> +	 * the command offsets.
+> +	 */
+> +	if (block_length < sizeof(struct mux_acbh) || block_length > skb->len)
+> +		return;
+
+[Severity: Medium]
+Could this new check drop every downlink ACB without any message on
+some modem firmware?
+
+Before this patch, the DL ACB decoder never read acbh->block_length.
+Firmware has never had to keep it between sizeof(struct mux_acbh) and
+skb->len. If the check fails, the function returns without logging
+anything and the whole block is thrown away.
+
+The comment above says block_length cannot delimit the command chain.
+The loop below already bounds every command offset by skb->len. So the
+check doesn't seem to add memory safety. Its only effect is that
+commands can be dropped.
+
+The only evidence of what this field holds comes from the host's uplink
+encoder:
+
+drivers/net/wwan/iosm/iosm_ipc_mux_codec.c:ipc_mux_acb_init() {
+    ...
+	header->block_length = cpu_to_le32(sizeof(struct mux_acbh));
+	header->first_cmd_index = header->block_length;
+    ...
+}
+
+ipc_mux_acb_add_cmd() never updates it. That doesn't match the
+kernel-doc for struct mux_acbh in iosm_ipc_mux_codec.h:
+
+ * @block_length:       Length (in bytes) of the Aggregated Command Block.
+
+It also suggests the modem doesn't rely on this field in UL ACBs.
+Nothing in the tree shows what the modem writes in DL ACBs.
+
+If a firmware writes 0 here, or a value larger than the transfer,
+wouldn't every DL ACB be dropped? Some of the effects:
+
+  MUX_CMD_OPEN_SESSION_RESP is never processed. ipc_mux_session_open()
+  then times out waiting for acb->got_response and fails.
+
+  IOSM_AGGR_MUX_CMD_FLOW_CTL_ENABLE/DISABLE are never applied.
+  session->net_tx_stop and session->flow_ctl_mask are not updated, and
+  no FLOW_CTL_ACK is sent.
+
+  LINK_STATUS_REPORT is never answered.
+
+The ADB path isn't really a precedent. mux_dl_process_dg() checks each
+datagram index against adbh->block_length as well as skb->len. ACBH
+block_length, by contrast, was never read on the DL path before this
+patch.
+
+The check is still there after the later patch in this series, "net:
+wwan: iosm: validate the command parameter length".
+
+Is the block_length check needed here, since skb->len already bounds
+the command chain walk?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261117173940.34970-1-fangxy%40xiaopeng.com
