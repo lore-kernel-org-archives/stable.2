@@ -1,53 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795299513;
-	b=CrX3zeDQ41HyiYdoOoIJzBBs297GJnmZc4pIWzsX9q9tFyzjwMEx1lRkFpuwOMsnZXoZ
-	 Kz2Mb1ae1L9d2JkwhfHE/JYzHBv5ndYDUR9dXdAl7G0bYJh7oxk28pwjvScNQQz0jb2Hd
-	 Q5V7HcN9+IzU90RnW1s0FuNd7HgDtq2XbCgStvF8/XE+k01cr/+ATLeszf03VeGp4IGPp
-	 /2r2Ys/ROBhIh69t0EZeStNGgGtZFVx5mLzVfoCvbYcOA2vQ1N4SSfqlhGtHXfkJEKsXv
-	 awx9w+Xihp45SaG+Pi81Q9AhQJGvI13VwMl54sajiqjjlABhGeKa8FnuNFZucYvACZg==
+	t=1795299524;
+	b=q120wdv1zIOu+Xa2MBOiuaiJpYl+L/0YgpC0IjqrsfCO0DLxNzXwM6AI31Zeuw0tFRNf
+	 iZ1umOosBYAZRdn3PQ8hTdYd4TUm9tIJtMU7/Y3OrB7AhExpP9a+bpEwXIUlKK6k5ppk7
+	 dbk3IxWSXZ4DSTbdTUnvh6mdUcVsAZyxgVeYnokGbnyKSpen1T06Vb7p0Ud4IuOmy+h0O
+	 1tJ422t4HBQW+RGjJ+wDjfp3LMC/tl+w5TkMag/slhLNMdc54EGCrFTtKnth4I24zHbEY
+	 dV3CYBY2IUePZqjq/ZfTo1qiWWEkmK+usx9Kkf28nBJ4oDRKA2WRwrDoRx78d34brKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795299513;
-	h=Received:DKIM-Signature:Date:To:Cc:From:Message-Id:In-Reply-To:
-	 References:Subject;
-	bh=jc0e9w5B/WyGX+EuQP/e+iqjqymm8yhUQoI3phbuDaY=;
-	b=muoB4C1O9/Ilpq6i1ZH4ua8IygliWZUi0YTyzdNB+WF9bOY5W1bksf82Bq/LBDBvvU/F
-	 qEu1ekJPecR8+6BRn1WhLNqi44K6tpMvrFCYxiEvDnsaviKzq430B6Ei/1yjira+X2oyw
-	 4bOTujDbRaQfCwJSvCa+z165H30WW6DN3Nk+rzM8lXIXxWSF2Rs+GJrwTCtw90nSTiQoV
-	 jFTuXqZ/wN3JeAPZoVMxnR2bAP38KyFxChI/AW1vRjqDX4s3nOFpJbVBd/yspJYpbe2sY
-	 UJ6V9+o6KTki1WquvbOY5ib00eXwdLWzy4If5V4hNyykYC/c6FxvACqKB7XhwPCp6KQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795299524;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=bKmfnZpMlxZs3VosRLaMSMo2NrwoC5TkZGrhQMAxPpc=;
+	b=LQpL7Y5fqGsRp2VlOpIrOn8XmqkpkPkqu008q6DaiOJMdV6BCFhpl3lfdPNmW7+t9+rr
+	 rbvTceszHGGbNm+4vsYDaO3sx/hK1p1qRGjQmxSiBd2kMqzzLXv3uhXMncq+/ew4ilhRU
+	 xtD5/54hE4C8wRYavLs8nC9GUxh6QjhF9HFofTwD78nrwikmgqPGov4B+JSV34ItZ1lXB
+	 CtCXgDyrzYk5c+t7cFNyKiLAzarBY5jJIMLdt3SfJ4WzfS57zT0F05P7AxSMWaqlw07Sm
+	 rFH/sGPr2ubtCEl21VK2jaucmYi1bYEg7jsGyfU0Q4PV7umHWBGDnz5+8SVuwUVYudw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=msTCBmdx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jwXlw7TJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F255A606A33F;
-	Sat, 21 Nov 2026 22:18:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0874606A320;
+	Sat, 21 Nov 2026 22:18:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=msTCBmdx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C76D1F000E6;
-	Sat, 21 Nov 2026 22:18:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795299512;
-	bh=jc0e9w5B/WyGX+EuQP/e+iqjqymm8yhUQoI3phbuDaY=;
-	h=Date:To:Cc:From:In-Reply-To:References:Subject;
-	b=msTCBmdx/suzcgkscRklorUgg/8vtfuieQdHp9uhxXagQtLOwDnOXCi3AJ7WQpABL
-	 +wwJrGEuXhSaVHGEX3Wl1wL3Kgc6esez2FUElfc+kH+LiUE//NDY2EPrfQO4VidCpk
-	 4PUexmk42ZsdgF889/XL/Zpp0jKH6VEZGlksVkFo=
-Date: Sat, 21 Nov 2026 14:18:32 -0800
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Nickolai Zeldovich <nickolai@csail.mit.edu>,
- syzbot+73641b60a3bc11dfca8c@syzkaller.appspotmail.com,
- Baoli Zhang <baoli.zhang@intel.com>, stable@vger.kernel.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Message-Id: <08ceefcb212e4dda9767389fe7f162a8.2@linux-foundation.org>
-In-Reply-To: <08ceefcb212e4dda9767389fe7f162a8.0@linux-foundation.org>
-References: <08ceefcb212e4dda9767389fe7f162a8.0@linux-foundation.org>
-Subject: [PATCH v2 2/2] xarray: initialise the offset of a new root node
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jwXlw7TJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F0D41F000C4;
+	Sat, 21 Nov 2026 22:18:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795299524;
+	bh=bKmfnZpMlxZs3VosRLaMSMo2NrwoC5TkZGrhQMAxPpc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jwXlw7TJijAaP6GGkSbDQz72ejxs+kitTrHVMUI64Ok9kX1sIBwXIr0f9zowoQlnN
+	 m2Zke8Ii/NRGe+kq3yCxDaPD+UyjfQszYHFV3vc+KHSMc06IDqkwh3aECzBFoUHVzq
+	 BWP+kqe6ITwZTpTfXGUaf0YlfgY55xRyCVEkzGwF+6zQgSyHTAsiAZeJUBMo113hY5
+	 lUjRE/d9YcoK2cByzp3YZFFOdPXfV+YiAPshOrXgTZkGdcZQw5nql3Sv5D/Qr43ztR
+	 zbKhrxkAR3AsfovCK4mLOeaok9AWEs/9c+3AwPMP6MgZp8Lpguz2TlLAweBNeE+lXb
+	 VqF5JvEID3hmw==
+From: SJ Park <sj@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 0000/2642] 7.3.6-rc2 review
+Date: Sat, 21 Nov 2026 14:18:36 -0800
+Message-ID: <20261121221836.135557-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261120055248.913352689@linuxfoundation.org>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,61 +75,27 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+On Fri, 20 Nov 2026 06:58:20 +0100 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-xas_alloc() sets node->offset only when the new node has a parent.  A root
-node can retain a nonzero offset from its previous use in the slab.  While
-xas_expand() links that root below a new one, an RCU walker can read the
-stale offset and then the new parent pointer.  It can resume at the wrong
-slot and report an entry at the wrong index or skip entries.
+> This is the start of the stable review cycle for the 7.3.6 release.
+> There are 2642 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 22 Nov 2026 05:44:39 +0000.
+> Anything received after that time might be too late.
 
-Initialize the offset to zero when allocating a root.  The old root
-already has that offset when xas_expand() links it beneath the new root,
-so remove the store to its offset during expansion.
+This rc kernel passes DAMON functionality test [1] on my test machine.
 
-Link: https://patch.msgid.link/20261024014344.830116-1-nickolai@csail.mit.edu
-Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <syzbot+73641b60a3bc11dfca8c@syzkaller.appspotmail.com>
-Closes: https://syzkaller.appspot.com/bug?extid=73641b60a3bc11dfca8c
-Tested-by: Baoli Zhang <baoli.zhang@intel.com>
-Tested-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: <stable@vger.kernel.org>
----
-akpm: Tested the two-patch series on x86-64, with the new test present on
-both kernels.  Without the fix, 64 runs of the test each failed both
-root-offset checks.  With the fix, neither check failed and all XArray
-checks passed.  Both kernels used the same configuration and test setup. 
-This tests the stale root offset; it does not separately reproduce the
-concurrent RCU-walker failure.
+Tested-by: SJ Park <sj@kernel.org>
 
- lib/xarray.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+[1] https://github.com/damonitor/damon-tests/tree/next/corr
 
---- a/lib/xarray.c~xarray-initialise-the-offset-of-a-new-root-node
-+++ a/lib/xarray.c
-@@ -387,6 +387,8 @@ static void *xas_alloc(struct xa_state *
- 		parent->count++;
- 		XA_NODE_BUG_ON(node, parent->count > XA_CHUNK_SIZE);
- 		xas_update(xas, parent);
-+	} else {
-+		node->offset = 0;
- 	}
- 	XA_NODE_BUG_ON(node, shift > BITS_PER_LONG);
- 	XA_NODE_BUG_ON(node, !list_empty(&node->private_list));
-@@ -617,10 +619,8 @@ static int xas_expand(struct xa_state *x
- 		 * Now that the new node is fully initialised, we can add
- 		 * it to the tree
- 		 */
--		if (xa_is_node(head)) {
--			xa_to_node(head)->offset = 0;
-+		if (xa_is_node(head))
- 			rcu_assign_pointer(xa_to_node(head)->parent, node);
--		}
- 		head = xa_mk_node(node);
- 		rcu_assign_pointer(xa->xa_head, head);
- 		xas_update(xas, node);
-_
+
+Thanks,
+SJ
+
+[...]
