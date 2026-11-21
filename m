@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795277003;
-	b=vKysGq4Mgxknh7+i5GkpUY7XrqFfEwSN5Ws4e9kAO/fyGPRVNLCcFJG7Qzphh7/f22va
-	 wKWu5zL6BKygdeay5WmRX6g6hqKF7dzolZmA5P8ER4x0D+CkTB1wRQxtnfOFrS/l03wdQ
-	 PTrkC1VdWwGrBsyq3J6vOOYchseAKet6BOa0/LAreAWGGqFc7miKFDcikzvXHN5asZstB
-	 4kPBj3jEBlcV+x+UmexG3bK3XA5cwx/CWJQ3EKUapghkhCea36gs7QAdCnlQ2H+1Wc0W5
-	 b6xjpymdwcnuC+NJVsyjA6TnEW3Um1maEveptQVhXBDnS5MYcrakCTsCDrXFUdpsDrA==
+	t=1795277009;
+	b=VPbpy97YSj4JNkfGN4tZG/MctvYY5UfDL2LQQ6WUDfKO8hio6EkMpbHCzaOVLXetXJlP
+	 yD4tKsfqOmfOHU/cNj5gGK5nQJpnBRG0i3/jfjbaajL+BjlT+xYzkUEOwrkS+tqGfRtf8
+	 LGLtmxc+JwQkxqYNGEbTmKmjHQPOoChwkgwokrG9mR6+/l3jLi3pW4cOFZtWp+QLGld+E
+	 OJR9g427R19etLie4ozYMPdjabn2MUGGmVrBuUL4M6V5EPlm2wB6CIFc2TRKglul4+S+K
+	 0eGQBRzWnXLdKfyhq9kzt6wQjNM4xfpUIm3tfpGC8kX0TpH5J5oM3rakzt3bONg9WCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795277003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795277009;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=LId/pfdNK+kcwrBUkujBAEx5NAsbcSjlaxfY3IRiHMQ=;
-	b=NUz4ghE4z45JVmx6jS72vpEuCqSOOdE+ZqfcghbVgFasgFk98PY7tjy9yd+e6xh4ehAi
-	 2tBrNN4yoLFLalZf/s39ThT1/k22Wxy8C1t0qq7DLpJfnsPqAj1MguYTHIFYjikRkREj3
-	 kvvcB9eYMk+YTLUUcLK9OegIHoiKjGfSIBc69w77smGd96sMCDc3myEFL9JExxc1Fai2o
-	 e7q9qWcC4hzIdmSiCjqcGgKgfAv/C7I/7qXc7AsoUgdX/kz3586SuEjalAy3Z+UpHtII/
-	 2yNfn4700KexLZASgEUWQfbzzEkuKPyQMV5Eu3+rJAWmxQOcyLHu96XzfaP3we6P7Rw==
+	bh=gBgp43T//fAyhbIagABTzJUOBXpFMWAcovwgcCINvMY=;
+	b=hMV2YU9RxkkhRA2gh/6mgKSTo5dHLQhavkrojXbnCnQ82kY6hkmBMtaDXFOtH/Qprfsh
+	 dLD9ojnLmi/RVdpO/YGKrfQ9MSxSpmCTqgoxhkzxYXaEwjhq+1CesWfAPjpMMS667qpuW
+	 nDO2DYUyJ+x73IPs9wyyN6hc4yY5Ht0faHlxHHtDlIEVJjWo+/d3AIvUJ5LbLF749+neS
+	 Z9r9ogsnu+wHVtCLEAHXQyvsPavt1jZU8Aa8uxh44N4FfA4ITw/FAezpKiQVu8JD7e+k3
+	 fyeg4zNp6B1UoJPLL7eSLexpBc85vexbwpJ7DV4wDZtbTxF3ThYqhgdFS7y/hbRg02g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W+Kgbu0c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ak006B3p;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDDD606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 16:03:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F39606A320
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 16:03:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W+Kgbu0c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A60DA1F000C0;
-	Sat, 21 Nov 2026 16:03:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ak006B3p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69631F000C6;
+	Sat, 21 Nov 2026 16:03:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795277003;
-	bh=LId/pfdNK+kcwrBUkujBAEx5NAsbcSjlaxfY3IRiHMQ=;
+	s=k20260515; t=1795277009;
+	bh=gBgp43T//fAyhbIagABTzJUOBXpFMWAcovwgcCINvMY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=W+Kgbu0c6J7SGfPQ62/PPeyc4fUL1Z6sm4hDkdNeYNV90392EaD2iD8hCMRfL9q/H
-	 EkjPSGjTuwn6j5ALU6yA2mau7ArCdK+LGHOgFDz4gTkjiQsMqq3MKun2ypLTSSN+hm
-	 7L+fqa6neyZgUoZ3XbM1HEvyFNXkRyoeyWfbELQTTOwb8phr7+nF83wMfj1d2JewLq
-	 RB74X9qZCCq8HDGAJbJet/enCNUSbqw0gEotGLbEc5fSNusnqM48mxWN8Sm3kI8iGQ
-	 WbjWR9KGSl4RGGag1na8PxxH3bT5lSZ0VIdRL6V1IfuQ8aDi2QpVyW3bMyJ6xiatkI
-	 2uQgjwRcmPQGA==
+	b=ak006B3phr9aYX1dvUEK//5L6VTHWrdhu9WnRwm2fYmRWlUHoS1ePI+w4EvWAekDZ
+	 pfEQvPaBb/8y9ySRdfFXJXiji/6965/4iQuc450ZgdpA4eRPkVIpJprJ9HPjsEWtWC
+	 iBKyW7ogSWyQdjceZD02Gn6MoraSsAVHGzeVB9ko8IneoEbiQBjfigplDV+e5fjG/+
+	 3+zuJ6HN5sRBsHvCed+BsSgeDlCcaPCic5jXJ+VS5HbniaOT+pJQ+d7wuPwCi7toWD
+	 jHXyC9gdXzxbmCxy0knaNiUvWgZ05c1ax1L0TxPQIT4FV20+hcprMuTfgqkvQKAd32
+	 ANfUwy2ENl7TQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Sat, 21 Nov 2026 16:02:28 +0000
-Subject: [PATCH 2/7] mm/vma: lock VMAs before taking mm_all_locks_mutex
+Date: Sat, 21 Nov 2026 16:02:29 +0000
+Subject: [PATCH 3/7] mm/ksm: only interrupt unmerging on a fatal signal
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261121-some-more-ai-fixes-v1-2-236e925d9b64@kernel.org>
+Message-Id: <20261121-some-more-ai-fixes-v1-3-236e925d9b64@kernel.org>
 References: <20261121-some-more-ai-fixes-v1-0-236e925d9b64@kernel.org>
 In-Reply-To: <20261121-some-more-ai-fixes-v1-0-236e925d9b64@kernel.org>
 To: "Liam R. Howlett" <liam@infradead.org>, 
@@ -73,121 +73,83 @@ Cc: linux-mm@kvack.org, Chris Mason <mason@kernel.org>,
  Josef Bacik <josef@toxicpanda.com>, 
  "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4094; i=ljs@kernel.org;
- h=from:subject:message-id; bh=LrpiwotdXkJz5/ABY48wAzoP5uiMEH0O95S+K/32rIg=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIZD2xP/HWsKIUv41ZP+9YPG7MeHpby+H3+0Y7fS5IML
- SQkjq/b3VHKwiDGxSArpsjy/Iv4/iCRsHmdF/zdYOawMoEMYeDiFICJRBgx/LOb8MhgJ+Ph3QUr
- BNlftZrKc5Y92eNpvezaCp/7PKsKYxczMsx9wiXqmj+37mTH6T7L8vANmrs26z3KkTpWzfDi/G2
- nEgYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2738; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=QhRySLL1rZVazQ5Q24cttAAXFpF2eDQxUeouxBVErqQ=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIZD2x/fP3tM6svkwPnLRZP8HzoZMqlGCP06fyNO5E9K
+ a5H1Sc6dpSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiFb0M/x0a7duW1MstOBZ/
+ N8aoe37L8vXVTZ3HODwMii7dfrt5y0FGhnee3bcnXz/C/8F1iR0f1/L62bVdd99mzj7/qtWuaon
+ 9Zi4A
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-If an mmu notifier is registered for an mm while one of its page faults
-sleeps indefinitely under the VMA lock, the registration of mmu
-notifiers for every other mm can hang un-killably.
+Commit d952b79136a6 ("ksm: fix endless loop on oom") added a check for
+pending signals on KSM break, so that a lengthy unmerge could be
+interrupted, with the system call then restarted via -ERESTARTSYS.
 
-mm_all_locks_mutex is shared by all mms, so its holder must not wait for
-something that has no bound.
+However, it assumes that the callers can always restart whatever system
+call started it in the first place (the commit message questions whether
+this was wise).
 
-However, mm_take_all_locks() calls vma_start_write() on each VMA with the
-mutex held, and thus waits for the readers of the VMA.
+Well, it turns out that it was not wise, as this baked in an implicit
+assumption about system call restartability, and it was and is not safe for
+mremap().
 
-Since commit 4ed4379881aa ("mm: handle shared faults under the VMA lock"),
-such a reader can sleep in ->page_mkwrite().
+mremap() holds an mmap write lock over the operation, which an -ERESTARTSYS
+drops, meaning that the restart is not in a consistent state.
 
-Consider fuse_page_mkwrite(), which sleeps until the FUSE server replies to
-a write request:
+This was made considerably worse with commit d23cb648e365 ("mm/mremap:
+permit mremap() move of multiple VMAs"), which can result in data loss if
+you encounter this issue.
 
-    mm A, thread 1          mm A, thread 2         mm B
-    ==============          ==============         ====
-    lock_vma_under_rcu()
-    fuse_page_mkwrite()
-      folio_wait_writeback()
-                            mm_take_all_locks()
-                              mutex_lock()
-                              vma_start_write()
-                                                   mm_take_all_locks()
-                                                     mutex_lock()
+Consider an mremap() specifying MREMAP_FIXED | MREMAP_DONTUNMAP of two
+KSM-mergeable VMAs, where a signal becomes pending part way through:
 
-Fix the issue by locking the VMAs before the mutex is taken.
+    first pass                          restart
+    ==========                          =======
+    unmap tgt1 range
+    copy src1 to tgt1, move page tables
+    unmap tgt2 range
+    break_ksm(src2) = -ERESTARTSYS
+                                        unmap tgt1 range, which now
+                                          holds the data from src1
+                                        copy the now-empty src1 to tgt1
 
-Additionally, make the VMA write lock killable so a fatal signal returns as
-quickly as possible.
+This results in the user observing a successful mremap() but with src1's
+data missing.
 
-Finally, update the comments to reflect the change, dropping the lock
-ordering list which begs for bitrot.
+Without MREMAP_DONTUNMAP, remap_move() would find a gap at the start of the
+range on restart and fail with -EFAULT there instead.
 
-Note that the lock order at the top of mm/rmap.c doesn't appear to be right
-- the hugetlb locks are taken after the VMA write locks. However, this was
-already the case, and can be addressed in a follow-up in any case.
+Fix the issue by only breaking out of an unmerge if a fatal signal is
+pending, returning -EINTR when we do. This makes KSM unmerging consistent
+with many other signal checks in mm.
 
-Target commit 4ed4379881aa ("mm: handle shared faults under the VMA lock")
-as this is where it became possible for VMA lock readers to sleep in
-->page_mkwrite().
+Target commit d23cb648e365 ("mm/mremap: permit mremap() move of multiple
+VMAs") for the fix as this made the issue significantly more impactful.
 
 Reported-by: Chris Mason <mason@kernel.org>
-Fixes: 4ed4379881aa ("mm: handle shared faults under the VMA lock")
+Fixes: d23cb648e365 ("mm/mremap: permit mremap() move of multiple VMAs")
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/vma.c | 29 ++++++++++++++---------------
- 1 file changed, 14 insertions(+), 15 deletions(-)
+ mm/ksm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index 09bbcdb4971b..f8cf319ff9cf 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2375,15 +2375,10 @@ static void vm_lock_mapping(struct mm_struct *mm, struct address_space *mapping)
-  * mapping->flags avoid to take the same lock twice, if more than one
-  * vma in this mm is backed by the same anon rmap or address_space.
-  *
-- * We take locks in following order, accordingly to comment at beginning
-- * of mm/rmap.c:
-- *   - all hugetlbfs_i_mmap_rwsem_key locks (aka mapping->i_mmap_rwsem for
-- *     hugetlb mapping);
-- *   - all vmas marked locked
-- *   - all i_mmap_rwsem locks;
-- *   - all anon_vma->rwseml
-- *
-- * We can take all locks within these types randomly because the VM code
-+ * Mark all vmas locked, before taking mm_all_locks_mutex. Then take remaining
-+ * locks in the order mandated by the comment at the top of mm/rmap.c.
-+ *
-+ * We can take locks of the same type in arbitrary order because the VM code
-  * doesn't nest them and we protected from parallel mm_take_all_locks() by
-  * mm_all_locks_mutex.
-  *
-@@ -2400,20 +2395,24 @@ int mm_take_all_locks(struct mm_struct *mm)
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 623a2cdb3924..5d320a200951 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -627,8 +627,8 @@ static int break_ksm_pmd_entry(pmd_t *pmdp, unsigned long addr, unsigned long en
  
- 	mmap_assert_write_locked(mm);
+ 	if (ksm_test_exit(walk->mm))
+ 		return 0;
+-	if (signal_pending(current))
+-		return -ERESTARTSYS;
++	if (fatal_signal_pending(current))
++		return -EINTR;
  
--	mutex_lock(&mm_all_locks_mutex);
--
- 	/*
--	 * vma_start_write() does not have a complement in mm_drop_all_locks()
--	 * because vma_start_write() is always asymmetrical; it marks a VMA as
-+	 * VMA write locks do not have a complement in mm_drop_all_locks(),
-+	 * because VMA write locking is always asymmetrical; it marks a VMA as
- 	 * being written to until mmap_write_unlock() or mmap_write_downgrade()
- 	 * is reached.
- 	 */
- 	for_each_vma(vmi, vma) {
-+		int err;
-+
- 		if (signal_pending(current))
--			goto out_unlock;
--		vma_start_write(vma);
-+			return -EINTR;
-+		err = vma_start_write_killable(vma);
-+		if (err)
-+			return err;
- 	}
- 
-+	mutex_lock(&mm_all_locks_mutex);
-+
- 	vma_iter_init(&vmi, mm, 0);
- 	for_each_vma(vmi, vma) {
- 		if (signal_pending(current))
+ 	start_ptep = pte_offset_map_lock(mm, pmdp, addr, &ptl);
+ 	if (!start_ptep)
 
 -- 
 2.56.0
