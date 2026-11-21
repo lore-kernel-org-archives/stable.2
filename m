@@ -1,87 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795285018;
-	b=t4j8bWobSolcygs52Z10ADoGd5T74fxfbb7GNgVZo+xc8KmlntCQYkMDfzZnTcyDGDxO
-	 p8rF50k0NZAk3qDNXBH2LT+rm6wdEUrnXuJEIFzNZ33h7v/5smyBPpLZCpRd1irlACdKc
-	 FGGgWE0CnZYubfPEh17FspjTQFQkTy7gNqjSFjli5yM6tllslj8tIoFT3KnoLiFG4gM6p
-	 fhrOWEgLFDSqBUVjUvzaH9ZO1tWgdnb53Wmv7M2OpjrGnTuR6Y8B0PQgsT9OZo9n9a4ys
-	 l2gYsV60cTj6DZBfxUnuVj/OHRfXy6YvYzHo4/7+vptNZLAn+SEBv5XQcgZ3l39SCSg==
+	t=1795285253;
+	b=aaaIteSQ9nRWECI+XC7iaKEIaf3s3yzqKxUEj+3X36OSCVuKHP8O1lyQmPcvbqgCRMF1
+	 NIxVOpbwrPo3x38frJwrU2dMF9vnSwsZrYelSfpeUVTR+zY4zGQcGPwkXfTrK6+ivEdlO
+	 yc7natQIv5/KMgZXjc3TcPOn2JbH8637BWpbRtF/9wQXZJfI1KyTMHK7BznAb/2Vpx987
+	 hBBbqDH7MryKHKO+eHwIjliB2F8Ku5JE9S4zGPKBfA1a2VTMabW3uZ+URH7a9plQftDXk
+	 pVdSVGLS9WxD3SwDxOw9RHhMCQIrhBtUWlYrhE/v6ssY28Z34xRjvP0CCBmTeNHObiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795285018;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:To:Cc:Subject:Content-Language:From:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ARwkt46ETU4QfSlYk1Se4q8695h+2dXA0luysQXlL7E=;
-	b=fQ5Aw/KEfUcWBjTRH9j1cU8rpQ0OHTk/UyDPbQZnvY1dvPN9QX3DMSM+PqRNtHn33nUR
-	 EvXJG3OtYDB5EpPZQlQ6gb9a+9m4dTm4L/q10UC7kcsaHA1AsDhUhfnnWoeQkhX00mAzc
-	 oyFVbm4A+3vgVy6Ii4/q0V/3i7+Ob47soL0PHRg4yv5K7rnEfaf/8QvQKMq/pYB/1j/eC
-	 RPHjvxSo5/IM/Hs99+mycV2SsknIG0asXDdl/J4/L1WeKKDrYvhf9+toZzrwXehma9zI4
-	 4CzLg5H1NCZuHenecNNvuGJ7OdnoJ2oOX8oyc5YmdmLYrnJi2EfW83s+RRhEnlcWUFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795285253;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=UxWNGLEx+/y5+pkDhn0vOJ8y7NZhdTkUk3GIpLbhKiM=;
+	b=E/byDXCGn3JFz0KLMx92o3pdDBUf3kCELLXtPXB+FjPPlVpDrROfQrrzQL2wEuxabpqc
+	 S1kJiMDVjnNZZRWl/PWDRKjzbChTiA3u0FwGtgaUVaFuVg/4yDGDXeWsbaFB8dzB53zeP
+	 036eNAktzPbZQhsdDdsxSfP0zHIjgOiRzbyoy4R669qcywWMl+8j2lqjRTM8q7MTsWJnY
+	 ItGIPOM2BH1Zz53+hRdcsJGNTvUa7o/DBBUhxsZBpEymoQD9kqoVUFBluHQH5i5Zywh4Z
+	 UBTg6rPWR4AtnvKJJoZZhRxYO8DTvB7+ph6iLCY51mTdWAjJRnQ75yTAtThvgsNGqPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=srraWEtX;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF8A606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 18:16:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABF8A606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=srraWEtX
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e3b22e971so1042258f8f.0
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 10:16:57 -0800 (PST)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0935606A335;
+	Sat, 21 Nov 2026 18:20:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0935606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795285016; x=1795889816; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:from:content-language
-         :subject:cc:to:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ARwkt46ETU4QfSlYk1Se4q8695h+2dXA0luysQXlL7E=;
-        b=srraWEtXHC8ArGjTC1vVDJjfpp8nH6SXhOOdUYfFG+5tZiyEjUjYQ7ERvGe+PoRWFh
-         weHFc7Pt9MDGP2xPbN7YyMoECGcbPbgZWzMM0JbgEvUqz6U7bVCXIH6AqFbsJMY/PC9M
-         m7GN1hQZpG4fzxJbaf9RgwA8+/ZbgjCgiSzoVc/54OQfyl6nC/hv8ZK7NlMIfvoZAsUS
-         hia0NmZ9lTcZJvdcO4Lo8drF4EjUu0nv1A5pDWDq7HFMhSzJlNhwTXUyxciLfeUIo2au
-         sb94xCyOo05RSIdRZfR/Eg2dSgwkjEnDEyZnqQXa6vkpRxdMbzl6f51v5BQpYrI3IjcP
-         0xuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795285016; x=1795889816;
-        h=content-transfer-encoding:content-type:from:content-language
-         :subject:cc:to:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ARwkt46ETU4QfSlYk1Se4q8695h+2dXA0luysQXlL7E=;
-        b=tJQUsgztvUR8KXb6WxPKuq8WWPAxprjia1d4mVsd9tYXWsMKbmWGtlUOwKnqw0E5SX
-         mIOAhtETCHGxl8CEYyEebsHNnLoEKeG9qgzbhvvfdgZo6ajyi1cJ6zqmasoTCnzlotlL
-         UuaNDmMJ111jTanbaT6tRh1TNR5zx/+6dpMDmOfq/LEbPteGeWLDIO10NE9I0wnorwmM
-         dGB3bv+Y3omykhkIH0aTNRQ+OC9VMz3nA/tu1ouYBHucKsNTM8ahVINJMBN8OM5qnXhu
-         vvtx2mx8fzVSR/mV+RTfahBYOEwAK09ZdAzTBbPT2tVfkWkst/g8s18274lcNlWHo/PA
-         QHTg==
-X-Gm-Message-State: APuU4Z9HN+8qVfFq+Ipz5nlMpYGHFtJDqBw8fqZOM1NnEGKJFS9it7JK
-	YAy7+3Dw9aOcc5lBCZGSWgILJtOY8ic1btwGkcfdqEab6nyP1x1p/nWwbK2ueUQN
-X-Gm-Gg: AZFdTZckZCWp3xgnRdFBO+R3mFyvfnlRliBPJ7M1/jPUu4zYkmHBiZHKZUcPDY0JCua
-	WnE88nzZ0lNBuqRIe/Ku/OOdm+w4bpLBICt/Y3wIpYLI8x4fkDv7acWX1x1/XdmunyMoecj8Vyj
-	2PlNvdyAqGddG5ULLrqjj4gwdkKeBT6TtROdXVzcHWaVNl4xHgtPCSHZTCO37rJFZyNdxtBwAQy
-	eJQOvgIOUQOU8bWqupk1Yz7J+oT6FHYbPUX1pBgVyfV2rmqjscjZ/RrE/zfLacKZkgj6jE4buvl
-	czWWrV0ZJy7F+Sdii7A6B4EB0JGZRTHvuKoALV3Fx81IVH0cQdi19FRYkxb8LfosydGf8ckpsVZ
-	1Vf8VRUBdpS6oHgiDORDOQQErjfl0ofkLbdFYUjNsdm0RMwVbYv43IqbDKgGPyRjOTnmo27qUhY
-	JxFh3P1vG3lbNkRne6PNVzaqyvUU29IT6wPiUFyyDt+CxClat3m0DUguhUb+9tl3BlLY7HYXxoc
-	T3ZI+FitTl23muTj4L7JUI8SwwYMdRC88RfB3TyfZyHrcyLIZgW/npdTRYpXQEX/SxWBS+9DIlA
-	TVVPAOrWOidfEx+spQW0FS7BiIweKzkWXNM3Vo9l9hK/73YRrPHaRehH0FC+7bO6ROgCEQudQXH
-	3tr+0X7X9SVaiRojwTR7Nnbof1a8IQZTJ76hSw8G7/TCmYMnBWrd8laJA3iMp7oVysZ5Dj6hGD+
-	IJBYacgXrYAAqSsf3gIpMMB0D+l2YYr7ZRUA/A3HrZlT0tsiKWcl8bo0+Jqg==
-X-Received: by 2002:a05:600c:4504:b0:4a1:9078:911 with SMTP id 5b1f17b1804b1-4bb888284d7mr154526845e9.31.1795285015871;
-        Sat, 21 Nov 2026 10:16:55 -0800 (PST)
-Received: from ?IPV6:2a02:1812:1423:2e00:b41c:537d:f8c3:65e5? (2a02-1812-1423-2e00-b41c-537d-f8c3-65e5.ip6.access.telenet.be. [2a02:1812:1423:2e00:b41c:537d:f8c3:65e5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88f643adsm84736485e9.1.2026.11.21.10.16.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 21 Nov 2026 10:16:55 -0800 (PST)
-Message-ID: <aac8e196-3fbb-4445-b154-5b9129dde41e@gmail.com>
-Date: Sat, 21 Nov 2026 19:16:55 +0100
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=UxWNGLEx+/
+	y5+pkDhn0vOJ8y7NZhdTkUk3GIpLbhKiM=; b=wQTXMcWui6mvauhe73rNLE8o+V
+	+UNmIFY50RzTpbzx8LOAyqelAYoUFtdzrJZPBN8y45uhk7NXPZS/CY+bCJ4X3kZQ
+	nIUk4eoEOzk+aoa7BYsxtOr/jq8kMnymPW98ZmVcer7g9oOXMhL1DdVAsfUqgIf2
+	svxThI7FTZUp4BBzE=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.70])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkCmxPr54AFrVWUGAg--.50854S2;
+	Sun, 22 Nov 2026 02:20:42 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] media: dib7000p: fall back to 8 MHz for an invalid channel bandwidth
+Date: Sun, 22 Nov 2026 02:20:40 +0800
+Message-Id: <20261121182040.18514-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,37 +57,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: stable@vger.kernel.org
-Cc: jack@suse.cz
-Subject: [6.1.y] udf: VAT inode size checks
-Content-Language: en-US
-From: Aymen T <atijari00@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkCmxPr54AFrVWUGAg--.50854S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXFy5try3tryftFW7tr1DWrg_yoW5tr4Dpa
+	93Wr9rKF95tw1xAFZrJw429F1rJw4FyFZ3G347W398ur15XrW3Cr95ta12gF1UJ34SyFyY
+	va4UCFZF9rW2yw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
+	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6ryl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjxUkuMNDUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUED2sBtkkSPAAAs3
 
-Hi,
+dib7000p_update_timf() derives the new TIMF value from the channel
+bandwidth:
 
-Please consider these two for 6.1.y:
+	state->timf = timf * 160 / (state->current_bandwidth / 50);
 
-  5163e6ee1ea7 ("udf: validate VAT inode size for old VAT format")
-  49f771d14578 ("udf: validate vat20->lengthHeader and VAT inode size in udf_load_vat()")
+current_bandwidth is the bandwidth userspace asked for through
+FE_SET_FRONTEND or DTV_BANDWIDTH_HZ, in kHz.  Zero is a value the
+driver can be handed: dtv_property_cache_sync() maps the legacy
+BANDWIDTH_AUTO to bandwidth_hz = 0, and its OFDM bandwidth switch has no
+default branch, so an out-of-range bandwidth leaves the cached value
+untouched, which is zero until a valid one is set.  Tuning then divides
+by zero once the demodulator reports a lock:
 
-6.1.192 still computes the old-format VAT entry count without checking
-the inode size:
+	divide error: 0000 [#1] SMP KASAN
+	RIP: dib7000p_update_timf+0x85/0x1e0
+	...
+	dib7000p_tune
+	dib7000p_set_frontend
+	dvb_frontend_swzigzag_autotune
 
-        map->s_type_specific.s_virtual.s_num_entries =
-                (sbi->s_vat_inode->i_size - 36) >> 2;
+dib7000p_spur_protect() divides by the bandwidth as well, after rounding
+it down to 100 kHz units, for the devices that enable spur protection.
 
-so a VAT inode smaller than 36 bytes gives a huge s_num_entries, and
-udf_get_pblock_virt15() then reads a VAT entry far past the VAT data.
-On 6.1.180 in QEMU, with a crafted image on a USB stick, that value
-became the LBA of the next read.
+The demodulator is reset with an 8 MHz bandwidth and dib7000m falls back
+to that value for a zero bandwidth, but dib7000p never got the same
+handling when both drivers were converted to the DVBv5 parameters: the
+old BANDWIDTH_TO_KHZ() mapped a bandwidth it did not know to 8000, the
+new one divides by 1000 and returns 0, and only dib7000m was given the
+fallback.  The same divide error has been reported on real hardware with
+kernels 3.10 and 3.19 but was never fixed.
 
-5163e6ee1ea7 applies cleanly to 6.1.192. 49f771d14578 needs fuzz on
-its first hunk, because 6.1.y doesn't have the udf_block_map() error
-handling that surrounds it in mainline; the resulting change is the
-same two checks. I can send it as a backport if that's easier.
+Use the 8 MHz default when the requested bandwidth is zero or below the
+granularity used by those two divisions.
 
-Thanks,
-Aymen
+Reported-by: gary smith <kaisersose77x@gmail.com>
+Closes: https://lore.kernel.org/r/CA%2BfUvsiNVBvo3%2BfjvDcQr0Rc%3DPp5pQA1qL_cYq46NCN5z5K%3D6g@mail.gmail.com
+Reported-by: Adam Baker <linux@baker-net.org.uk>
+Closes: https://lore.kernel.org/r/550B4F8D.7070905@baker-net.org.uk
+Fixes: c1f814f49904a ("[media] dibx000: convert set_fontend to use DVBv5 parameters")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/dvb-frontends/dib7000p.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/media/dvb-frontends/dib7000p.c b/drivers/media/dvb-frontends/dib7000p.c
+index 48d84a05ddfa..dd3181aed2e4 100644
+--- a/drivers/media/dvb-frontends/dib7000p.c
++++ b/drivers/media/dvb-frontends/dib7000p.c
+@@ -1515,6 +1515,20 @@ static int dib7000p_set_frontend(struct dvb_frontend *fe)
+ 	struct dib7000p_state *state = fe->demodulator_priv;
+ 	int time, ret;
+ 
++	/*
++	 * dib7000p_tune() scales its TIMF and spur protection settings
++	 * with the channel bandwidth and divides by it: by bandwidth / 50
++	 * in dib7000p_update_timf() and by bandwidth / 100 in
++	 * dib7000p_spur_protect().  A zero bandwidth, which is what the
++	 * legacy BANDWIDTH_AUTO and an out-of-range bandwidth from
++	 * dtv_property_cache_sync() leave in the cache, or one below that
++	 * resolution, divides by zero.  Fall back to the 8 MHz default
++	 * the demodulator is reset with, as dib7000m does for a zero
++	 * bandwidth.
++	 */
++	if (fep->bandwidth_hz < 100000)
++		fep->bandwidth_hz = 8000000;
++
+ 	if (state->version == SOC7090)
+ 		dib7090_set_diversity_in(fe, 0);
+ 	else
+-- 
+2.34.1
+
