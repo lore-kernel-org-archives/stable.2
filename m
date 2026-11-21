@@ -1,62 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795230863;
-	b=jX+YG9GBxdnFGIAvHE6QUF7jrbsxzl2zDL0LsnW1nREHbOCSKDpVUZ+6mLxM4ew4vsbp
-	 gmQmbJf7VyhoyOsFOSj2sekFt0SFeKXt3yb7YvNgiJz/w4Yrm3jPybyqUTENTmagkwCt6
-	 z/boc847tZrvgj7o/aWOS25M5rCGHCESGtM8oqLLE+AByUbnvJsFn2hDQ3QYlL8mEUg+j
-	 qOynJ7MbL+A+p28C1c8T5H4pj3r5TxixwwuG/+ZckiTArwwbO+D7OAw5bJFhRV8UnloMl
-	 uRKIkOyU+jqJfwnVTT5t4qiTPWYv9oEjhNJhp7tkemI/kbnh33ASFKoYIHomGaKEKsw==
+	t=1795230984;
+	b=y5rK9e8rHrC+8lFKcAanE50tuLeFK6z8ctNj0SSOtdyM8zmO+aJ6cPTy/1zb/dpdjOqX
+	 AgB3LOqgFOr0+GLyNoiimOupuYv8FIoY4bYrVLpxe/+Ij3iSJEGwpg0V53UPKGUQ/DsJ0
+	 mNl37V9zb/hlqeBXfuMyfsUEx/UGEvxqXRoOj5WLUxIYTV1fFMDP4hTrcBR3wft3+rs4e
+	 EIT4wPnAC3jIG+6odK4cU6LRsMtn6uKW7iriE/zCAxsI+za830xUpbxoyDKXeCGf5keBs
+	 928KSULuJC9RZtrjNrY7Hij2wa4uOdqnmEyGGuk2sosVDO26pNbaKCNZhV/7oS/TIrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795230863;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795230984;
 	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
 	 References:Date:MIME-Version:Content-Type;
-	bh=8d6Im6PTk3WGdL/i8PPRCcoHusMyMhbP1LsxiBFyWXo=;
-	b=2J5r2CRaZP/dwKoZX+HCLAYoMxLasBfBlaYRiFJEqETK0eqrMrtIC6c0+TBieyjhJUMH
-	 GBkCnzEhZuRgAi5u/MRppc3NITdGWuioKOTescIgPmUMEU5jMk2U966G31CmUSCjj/cP1
-	 e97TMxa4C8aZK1gE2DaNCzaTgaPB8vvpDVuy90PsYPOXzlg/guejQVn26kvy0XABS33u8
-	 NQQwS/GE285RHuH1RsTEXUI4cmUkmcetBkQ9HQhZD3foerGVXEsHjWWfutCOiCTQJTxif
-	 6CS98iFoijWeYFu56j9jELAmahsr37RJ2dZSuyQ3dbiCE/qMWfPpG3mo8CAgfcmwPAA==
+	bh=z4JmJpyrRgzHu+3G8EmT55HXsSsi7vTo1K5T+x6DQvk=;
+	b=cmeUj6dx8MsLxMqU1t4ILQc2WrjNGX6VLq6HBbxnjszX74yYJfNEgRKcTCH1O2qykphp
+	 sYgR5/R+k7GMx+TjbT/pEGwYCP6eqhvfCoC6qo+kv93LeIEKGeKHcTFhEcNNPHKclnFT/
+	 taM6w6N3XSm1lYdBJzHmpNGBmm+1OJN/5V8pybDPr+aZXze+Bi90gZN5xoADRCQHUovCp
+	 rvHzOBZlOtoLmjqyNZ2sHIAfdLXhE0FxiCVy2X1ipXMxXwi9d6dk3qeJ+ZP1p0VdfKWNH
+	 GUpCywO0THKrZN0H0p1Dv347j3jycC5geBEjneaXeNM5ztZyUl16mjRBFXrRacjU2tQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehfbIoDd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N8TkIUNd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D606606A334;
-	Sat, 21 Nov 2026 03:14:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C56606A686;
+	Sat, 21 Nov 2026 03:16:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehfbIoDd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6AC1F000C4;
-	Sat, 21 Nov 2026 03:14:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N8TkIUNd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D2411F000C0;
+	Sat, 21 Nov 2026 03:16:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795230862;
-	bh=8d6Im6PTk3WGdL/i8PPRCcoHusMyMhbP1LsxiBFyWXo=;
+	s=k20260515; t=1795230983;
+	bh=z4JmJpyrRgzHu+3G8EmT55HXsSsi7vTo1K5T+x6DQvk=;
 	h=To:Cc:Subject:From:In-Reply-To:References:Date;
-	b=ehfbIoDd/Tt1a6Oc+SweuGZuUfRJBIJAxV0FfDZs0/7tkEhZHMiKJ70zDIM6C+nxE
-	 KG3jgsgdC1ZNPAAq2rMJkGpLEK3z1G0KQwdCfYrRbup5CZQ7FVugWRsPEPUEDtNMxu
-	 vp7JA/WpIg+i8kYby1ZmG3ll/m/1YWUM4mE9jOY+xp59TccwCRNEw1lV51Gd5D/6oq
-	 /Pkj0PVSr9I6Aklp9MRrqA5uORla3mVJWrb23Ir43uIPJtTa8XD5le9CcwavFB3c1P
-	 QPpo4qKNihMJfHxwpQe7bN4mxHQQEOm5urYe1QDy3tNIkk74Fgdu+8uNndFlOJV8f2
-	 VrZMtCbsooJIw==
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Keith Busch <kbusch@kernel.org>,  Zakaria Belkadi
- <zakaria.belkadi@inria.fr>,  Caleb Sander Mateos
- <csander@purestorage.com>,  Jens Axboe <axboe@kernel.dk>,
-  linux-block@vger.kernel.org,  linux-kernel@vger.kernel.org,  Kanchan
- Joshi <joshi.k@samsung.com>,  Anuj Gupta <anuj20.g@samsung.com>,
+	b=N8TkIUNdBjoIgoAZXG2QMIJWPYKV4e9UvXLzUikCGzrq/VucMz3oE9+QOlOp+aqpX
+	 JyU7p+gM8HwKpLyWoDxI2kg3NdeJ/a1BjOTTp8t/n1QS4nYULZLw9jNVxZom1ucpI3
+	 BuMzk6LZUy/X8kQwXoPEfqkWNqUxwsIi60Tae3aCN99szrtI36d7YT/5ishifSV5PP
+	 lvaj01d0eBzt9cCRpM3m3KGkeLb/43VU/q0tbcZ5HkQLmyJsN8QMu44HSpOIuYvsqN
+	 3zgH7oFatVuXwWP+BLv0+3uAbeg7oD8rVXdCkChR+itHov8j6Zo39MsmHXXEsNnw2H
+	 l3ugl9wpLcE6Q==
+To: Zakaria Belkadi <zakaria.belkadi@inria.fr>
+Cc: Jens Axboe <axboe@kernel.dk>,  Christoph Hellwig <hch@infradead.org>,
+  Caleb Sander Mateos <csander@purestorage.com>,  Keith Busch
+ <kbusch@kernel.org>,  linux-block@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org,  Kanchan Joshi
+ <joshi.k@samsung.com>,  Anuj Gupta <anuj20.g@samsung.com>,
   florence.schadle@ssi.gouv.fr,  frederic.tronel@centralesupelec.fr,
-  louis.rilling@irisa.fr,  stable@vger.kernel.org,  "Martin K. Petersen"
- <mkp@kernel.org>
-Subject: Re: [PATCH RESEND] block: pin user PI pages for writing when ref
- tags are remapped
+  louis.rilling@irisa.fr
+Subject: Re: [PATCH v2] block: bounce user PI when writes may remap
+ reference tags
 From: "Martin K. Petersen" <mkp@kernel.org>
-In-Reply-To: <awB_xd60To4UawrJ@infradead.org>
-Message-ID: <yq18q2mnb36.fsf@mail.kernel.org>
-References: <awBnB-55HQ54C1x6@infradead.org>
-	<20261120162257.498238-1-zakaria.belkadi@inria.fr>
-	<awB8OODx0fCFGc5G@kbusch-mbp> <awB_xd60To4UawrJ@infradead.org>
-Date: Fri, 20 Nov 2026 22:14:21 -0500
+In-Reply-To: <20261120195644.19511-1-zakaria.belkadi@inria.fr>
+Message-ID: <yq133sunac9.fsf@mail.kernel.org>
+References: <20261120195644.19511-1-zakaria.belkadi@inria.fr>
+Date: Fri, 20 Nov 2026 22:16:22 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,23 +66,15 @@ MIME-Version: 1.0
 Content-Type: text/plain
 
 
-Christoph,
+Zakaria,
 
-> We could fine tune based on if we need remapping due to partitions, if
-> we limited remapping to partitions, but I think Martin last time
-> voiced an opinion that remapping could also be used to pass in
-> arbitrary tags (which always felt a bit odd to me).
+> +	/* Reference-tag remapping must operate on a private copy of user PI. */
+> +	if (bio_op(bio) == REQ_OP_WRITE &&
+> +	    (q->limits.integrity.flags & BLK_INTEGRITY_REF_TAG))
+> +		copy = true;
+> +
 
-The application has no way of knowing what the first ref tag should be
-except in cases where it is writing directly to a single block device.
-Once the storage configuration involves multiple devices, or when
-writing to a file, the concept of the user-visible ref tag being
-LBA-based goes out the window. All the application knows is that it is
-writing to block N of a given file.
-
-That's why we then allow the application to pass in the seed value to
-validate the PI against. Just like DIX and ILBRT/EILBRT, except this
-particular translation happens at the application-kernel boundary.
+Reviewed-by: Martin K. Petersen <mkp@kernel.org>
 
 -- 
 Martin K. Petersen
