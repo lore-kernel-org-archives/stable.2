@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795264778;
-	b=CimKtpKvmk+ZcA5yQbxnYWSukj0yhfD/2fdnW4sUt96v9BO0v2oe3ULEPqCsQ8mdw+Si
-	 W55hEyiDEgzurzXGsz66Y2gugiZws4Su0OTmA6r1GLXRJQxNyZJ8lZ7Cm4hL9iIY9z4B1
-	 KWlj/AqWrPkqNXuekrL4ijB35ddBwy10BfxLN41riVgSTBGU2/HdzGqhmCsYkxw4D1L7l
-	 8u8CzfB7kscJNiHd/8CPa8vHtKqVDVfjMZyUVfvyFVucQAWgeWi4gtMXZF3r8gAC26n7/
-	 TGcm5o0Y3EQEtZ519L2zDatysppKuIguTh0EBJNTbBFjRM/RJoBBLtsfoZdjmOa2MLQ==
+	t=1795264878;
+	b=5LnkQKVUhbgevic429qBFV/b+k3qD3jaMmRQPzhKqZ3JldHJ3elnSWl4NmjZQpQTvbmz
+	 NC1AmfCWGk2+xUNCXktqiEMePja/4nlCBYTHa7Cfl13e94pKeYkqfxoVnCCSg88K6uJq6
+	 7ldXI7UHgq05WTABhNayU2ICq9xuwg5Zde5bDMmixTXMaSESH67fOXx84Amk8UCw0MqOx
+	 q2anUK0mrRmOqDjfC2iKQ+c6swWMx9l9T2HW9aAZA6oC+2hnplvXIOgW7oEiewo63zais
+	 Wk/euIAbkucK1+pfv1gVUnLZH7kfzml7BRKfHw+hDfuSun1B5kGNdelWzY+Q/Og4k0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795264778;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795264878;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=7kRaZlBYwQKaGUWsSpXvjXWu3lCWTflVYkINEhdc9Mo=;
-	b=y0TDnP9kvs8CpVvektq7hIbEVwurZQ9aJZIHUBzgzvMr1oz2cJwdJGTW09PYAKqLDBLR
-	 oGLryaHKoQsci8I6u5HepeXCl1zA65XiN0MhD+z75yP9TBaPl7c92CnRZg1RGn2mKhj1z
-	 gY8LvBeiT3+yg/4r5fpey0vVnm1WIpLyyiWh83AtCTSoMN/dOEGaKEegAs1WYtPhnmE1C
-	 L/ji/djhnzJygIra8DsXPC6ow7aSx51hxJOd3bNGAhkg7aabwBy24TYqpV5IVXwYO2CH3
-	 qT7tT2I7o6UwG8LzxjREgylHRMEGsnEV1rY7KKIbusEuVcMdQF0a9LSCgdLIOZI3TQA==
+	bh=c164Hmbr735n5mNaKtM6iTMF9AUxTNwADbTKvfj5lqY=;
+	b=eZSoOiP4Lw+6w5g7sJcc9qFSkSOZf9otp7DItJE9p3BK9Q3nAazNjvtEd61UM4SwoViu
+	 hJwVcjVUquz5gxKSugSnEeXTcMCEPw5nqNnW7R2+ris+ekrYVG2tYvrjVA4yprbhtbUfX
+	 um/xzE7UGVj2+gBhB2fIo0niVAt4bS43bceRExhDMtYLPBuIfz0FZCTOcqehUWnRYb6jC
+	 pUUQ47pRVBnotrf+KgimdDzNl3fiOCodU+SIZ+zqeWKXl6evMoPR58+62c2dnviL3fms8
+	 XkRNbuZNWROGJH3VFJ2JOjwNSFbJ/u5Dvs1PkoSG8+3tkXq0m0amaYSl3wmxwrjLBeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A7q/Cux+";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XETjTlsV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7D3606A332
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 12:39:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0265606A320
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 12:41:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A7q/Cux+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC8D01F000C6;
-	Sat, 21 Nov 2026 12:39:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XETjTlsV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B1C21F000C0;
+	Sat, 21 Nov 2026 12:41:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795264777;
-	bh=7kRaZlBYwQKaGUWsSpXvjXWu3lCWTflVYkINEhdc9Mo=;
+	s=k20260515; t=1795264878;
+	bh=c164Hmbr735n5mNaKtM6iTMF9AUxTNwADbTKvfj5lqY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=A7q/Cux+9C9ZMCksUHX1QSLLT/swgOvr8Pw0Ap3u7eb2qdoixd9E7mr3aJaWtnQsZ
-	 0Bmvw9DwzF08JgOoVrk35M2qQLXK5pN3VhhKYIopvEfHHaN2qq4cIRY+6HDL+m1zHj
-	 M4pq1PrralIPB6BIIeBXsktubuebNv1uivvFUy7iiZCq1okQeCgQPPfNimybWldepB
-	 lEMOVFMaOj4qFeTJMAz0+E+xM73JSdxe50LWhOZpATp9djgCirluirc3nqaYNmKzCK
-	 B+Vn1k9LZEpXcf6DW4+76nUr1saZIQVAzkQHf32C9J4Dzvp3UD4J6s2WH5FODkbphN
-	 6y9KoP5HubEnA==
-Message-ID: <bb3b0f93-f86c-41d8-80a6-2e7691147434@kernel.org>
-Date: Sat, 21 Nov 2026 13:39:31 +0100
+	b=XETjTlsVsLXlnYtr4HaCo3KD/0wwyfOgv9/6YcSrTwzLDDddus/bgbajmCX2JaDTc
+	 yyzwzt6t1vd4pUsuCakjuppiVrAPh0L/91M5cV6jj+4L3XQ9BLNsW2smLRT696/tlq
+	 Rqeymmat/niMyLDypJmXzFf4CBxe0bxWC3rC4Mzeagn6jB/lVhClGvgrp3G1Pb/J8e
+	 1zmrUqtYwotOZgRPpZVrbPai9DeUdnooCp67T7s3OJ/ydEApHZZuyyV/cHLOuqvNgL
+	 7Igd1A0tTnUEwfKF+biRNjqKrt/uDpBe0x6FzKq2mnb+JxQIVsjIliVKOI+NsGXakD
+	 r0RtAbS8uPvzQ==
+Message-ID: <bc42fbba-1c35-4d81-b28f-6b1324b34ebd@kernel.org>
+Date: Sat, 21 Nov 2026 13:41:12 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,16 +52,18 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] [v3] mm/mempolicy: fix copy_nodes_to_user() for odd
- inputs
+Subject: Re: [PATCH 2/2] [v3] mm/mempolicy: replace copy_nodes_to_user()
+ interface with put_nodes()
 To: Arnd Bergmann <arnd@kernel.org>, Gregory Price <gourry@gourry.net>,
- Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>
-Cc: larips <larips950@gmail.com>, stable@vger.kernel.org,
- Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, larips <larips950@gmail.com>,
+ stable@vger.kernel.org, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
  "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Johannes Weiner <hannes@cmpxchg.org>, linux-mm@kvack.org
 References: <20261120185248.823415-1-arnd@kernel.org>
+ <20261120185248.823415-2-arnd@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -108,56 +110,115 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261120185248.823415-1-arnd@kernel.org>
+In-Reply-To: <20261120185248.823415-2-arnd@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11/20/26 19:52, Arnd Bergmann wrote:
 > From: Arnd Bergmann <arnd@arndb.de>
 > 
-> copy_nodes_to_user() is broken for compat userspace in three
-> distinct ways:
+> The get_nodes() function handles copying node masks from userspace,
+> while copy_nodes_to_user() copies the same masks to userspace, but
+> with a different argument order and slightly different meaning of the
+> same variables.
+> 
+> To make that less confusing, change copy_nodes_to_user() to look more
+> like get_nodes(), using similar name and arguments as well as adjusting
+> the maxnode value once, and restructure it for readability.
 
-"Three" but below you list two. So I assume this should be "two" ?
+Could briefly mention here the change in get_nodes() for consistency.
 
 > 
->  - Passing a power-of-two size plus 1 as most normal userspace
->    does can end up calling compat_put_bitmap() with the wrong
->    size, copying an extra 32-bit word from the stack into
->    userspace and overflowing both arrays as compat_put_bitmap()
->    expects the actual number of bits, not the number plus 1.
-> 
->  - Asking for an odd number of 32-bit words rounds up the
->    userspace buffer size full 64-bit words, leading to
->    an out-of-bounds access in userspace.
-> 
-> Fix the calculation of 'copy' to be based on the userspace
-> word size and use this to for calculating the final number
-
-s/to for/for/
-
-> of bits to copy as well.
-> 
-
-You might also want to link to Gregory's test case.
-
-> Reported-by: larips <larips950@gmail.com>
-> Reported-by: Gregory Price (Meta) <gourry@gourry.net>
-> Fixes: e130242dc351 ("mm: simplify compat numa syscalls")
-> Link: https://lore.kernel.org/all/20261117101910.1820066-1-gourry@gourry.net/
-
-Should this be a Closes: for Gregory's report?
-
-> Cc: stable@vger.kernel.org
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
 > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 > ---
-> v3: don't introduce a bug that skip setting a 32-bit word to zero
->     where needed.
-> v2: as Lorenzo pointed out, the off-by-one mistake is part of the ABI
->     and cannot change, we just have to use it consistently.
-> ---
+>  mm/mempolicy.c | 48 +++++++++++++++++++++++++++++-------------------
+>  1 file changed, 29 insertions(+), 19 deletions(-)
+> 
+> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> index afe614efb77c..b240acaa8cf1 100644
+> --- a/mm/mempolicy.c
+> +++ b/mm/mempolicy.c
+> @@ -1736,7 +1736,9 @@ static int get_bitmap(unsigned long *mask, const unsigned long __user *nmask,
+>  static int get_nodes(nodemask_t *nodes, const unsigned long __user *nmask,
+>  		     unsigned long maxnode)
+>  {
+> -	--maxnode;
+> +        /* User space passes the number of bits plus 1. Fix that up. */
+> +	maxnode -= 1;
+> +
+>  	nodes_clear(*nodes);
+>  	if (maxnode == 0 || !nmask)
+>  		return 0;
+> @@ -1769,31 +1771,39 @@ static int get_nodes(nodemask_t *nodes, const unsigned long __user *nmask,
+>  }
+>  
+>  /* Copy a kernel node mask to user space */
+> -static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
+> -			      nodemask_t *nodes)
+> +static int put_nodes(unsigned long __user *mask, nodemask_t *nodes,
+> +		     unsigned long maxnode)
 
-I can fix the description up when applying.
+Two tabs here here is the preferred way in MM. Can fix that up when applying.
+
+>  {
+> -	unsigned long copy = ALIGN(maxnode-1, BITS_PER_LONG) / 8;
+> -	unsigned int nbytes = BITS_TO_LONGS(nr_node_ids) * sizeof(long);
+> -	bool compat = in_compat_syscall();
+> +	const bool compat = in_compat_syscall();
+> +	const unsigned int word_bits = compat ? BITS_PER_COMPAT_LONG : BITS_PER_LONG;
+> +	unsigned long bits, node_bits;
+>  
+> -	if (compat) {
+> -		copy = ALIGN(maxnode-1, BITS_PER_COMPAT_LONG) / 8;
+> -		nbytes = BITS_TO_COMPAT_LONGS(nr_node_ids) * sizeof(compat_long_t);
+> -	}
+> +	/* User space passes the number of bits plus 1. Fix that up. */
+> +	maxnode -= 1;
+>  
+> -	if (copy > nbytes) {
+> -		if (copy > PAGE_SIZE)
+> -			return -EINVAL;
+> -		if (clear_user((char __user *)mask + nbytes, copy - nbytes))
+> +	/* Don't exceed what would fit into a single page. */
+> +	if (maxnode > PAGE_SIZE * BITS_PER_BYTE)
+> +		return -EINVAL;
+> +
+> +	/* Process full words, which depend on the user space ABI. */
+> +	bits = ALIGN(maxnode, word_bits);
+> +	node_bits = ALIGN(nr_node_ids, word_bits);
+> +
+> +	/* Clear anything we won't copy below. */
+> +	if (bits > node_bits) {
+> +		if (clear_user((char __user *)mask + node_bits / BITS_PER_BYTE,
+> +			       (bits - node_bits) / BITS_PER_BYTE))
+>  			return -EFAULT;
+> -		copy = nbytes;
+> +		bits = node_bits;
+>  	}
+>  
+> +	/* Finally, copy the bitmap. */
+>  	if (compat)
+>  		return compat_put_bitmap((compat_ulong_t __user *)mask,
+> -					 nodes_addr(*nodes), copy * 8);
+> -
+> -	return copy_to_user(mask, nodes_addr(*nodes), copy) ? -EFAULT : 0;
+> +					 nodes_addr(*nodes), bits);
+> +	if (copy_to_user(mask, nodes_addr(*nodes), bits / BITS_PER_BYTE))
+> +		return -EFAULT;
+> +	return 0;
+>  }
+>  
+>  /* Basic parameter sanity check used by both mbind() and set_mempolicy() */
+> @@ -2054,7 +2064,7 @@ static int kernel_get_mempolicy(int __user *policy,
+>  		return -EFAULT;
+>  
+>  	if (nmask)
+> -		err = copy_nodes_to_user(nmask, maxnode, &nodes);
+> +		err = put_nodes(nmask, &nodes, maxnode);
+>  
+>  	return err;
+>  }
 
 Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
