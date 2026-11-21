@@ -1,94 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795244895;
-	b=1rsWm0xxJcJOaFj59bsj8Rnr1aNRQTCNZj10DvzpzB8ivjQWACx7BTRB6qSE/QGJI2dH
-	 uz0aEMtr07CvHM5MAtwx1asuEmL7yqAe2F+/buYXl7r9goAB5tGr/74mEp8QkR5vXmh9I
-	 57NTtQ/OHEfzw9GKowyTxUrbR+49iUTL2HtwY4qD4jFqJHCv1G6LBZ53BuHR5qb0zUv3P
-	 KUff/50wMDPdEwDjd5o1JzluiKF+pFtqHsgpngVQyVpGcahBdN6vNGTlIM5iZFhSQe1jT
-	 0zFggdCwATkvZfCrN/FPyWDRT8pwt7y1dmYk7B1bwtxrEl83U60tjAOiQaUyah8GiQQ==
+	t=1795245022;
+	b=cjYvkjaOqJCwCN4bg4AWJJ+0fyZvH5rf+XnxTL/gIKWcKEMGCZyemUshiHg7pseNpvMY
+	 8iebfXbpq5LJqY5y/s6qwqFdXu00Tg/DNbIfyJ6ulkKVT3qQ6Zjtjq92k8ztDkfLk5zKV
+	 nW5MKtViCBww4wN2mF5h3G3qGU+wN6r4nyi0sp0FsNOTu3GqTMfj8hCJPA0X7EE31Hkq6
+	 yOOap/dHUoao2GcKzTMEJV4dsl1nsiSEPHjObd642b0SexBINTeIcTECdSbFGa2DfK7D4
+	 egJ6TE9ZVF5M2J2yanUTrJ8V9dEsQmFjo3QlhOqUl8OeqadP8842Ihohzs4amXL8Uaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795244895;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jggiWoga1NJk7y9SQGC+twyNAV0WmO0xloKYic2KKGU=;
-	b=reV/qONwAApBVzLP5biOZZq9z0KuyNYtCtnO1/pPq/t8eJ39vReG+zvie9xGIW3PUoGC
-	 IVAMQzWLQx4VJgUWBbVraGiPd1AWVt6EBBVYzQ6GQrDMprj/RUqJ34hcaj/irvzsgO2Yz
-	 /KtN1tIpsV1ztLJS1fiDukvJoU53ZgFGvyzEPV69lG6fZsKSBqsLTr5VuB/UPmU0G2BUq
-	 wYPxBcr+CP+MyCh414ih/LEhkiMiQm/aoqWEHXzzDUeEIXjGk5nwYIp/Up581RVJK9u2n
-	 A/KuCUfBkXIcSj03yBOcBRr8FJon5mui+a6IDv31Jl3qGZyGu1clQtEpqnk9S6V4F3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795245022;
+	h=DMARC-Filter:DKIM-Signature:Received:X-Originating-IP:Date:From:To:
+	 Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:X-NTES-SC:
+	 Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	 X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=l9jASBEgotthRLTerUHgx8TWO42Ho+1jhMVptJyT9KQ=;
+	b=dcuUPzU90P8wslaPpQRPEhcyB+WjuHuRyTqgwH+f4guU2NzmeThfYZpl+VbO8l3/a3zY
+	 Xl9/I5LbqRTTanOFCpOSfJkqSkhXmHkiHFlFY8qRILd13tFca+fzNXMhyfqGWUmyQI4Vs
+	 LWwbad9oig5EVa8DPY0e7STvaLqyLGz70/2gBlwu1QR5Yq4IqVfqqf/JhtLLneA/qqz5H
+	 LWImtizbJi+iMPxiPcGgUlzInKPGaVJq/xY0lUmGNmf4c1MsrqSFYt8ch+MHWMN1daJ2q
+	 QXOQZYHJ3EcRbVp3bH6nKBibZwkKFbY6u4TAdHUA07xKGyfVEHJsMELq2fhJNhyYibA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=swWh2SPr;
-	arc=none smtp.remote-ip=209.85.210.43
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Zv88Z9lO;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227AB606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 07:08:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 227AB606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B70606A688;
+	Sat, 21 Nov 2026 07:10:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9B70606A688
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=swWh2SPr
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-843b6f8e2c7so1369918a34.1
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 23:08:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795244894; x=1795849694; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jggiWoga1NJk7y9SQGC+twyNAV0WmO0xloKYic2KKGU=;
-        b=swWh2SPraKH11s8llPywjH2PX9jXWQPMOYAoqePeiNUBsAZGN9QUOLJmcpjc6G7iJn
-         8gn7kg6htd0zgX45ftC+OHCgiXplujt3uG0MiDbu2Ripsad+Pwhl1gQmGGXVJnVTDVs+
-         CeBT/CvO2So1aPA5ZRhcT5RXfHqo0vQ9OzCjSQ6LbpLKPyFkti24ub/4UBs1c7og5yD7
-         FeaefATMtRz92ehVx+OjwUHpdaVR0g/l1VNvn9kt/iZLjMGXi8x2yOHLQrpIOCnUVdE3
-         sNjQNb2OPXbOD+eEiKAznKKxp+0m2QA1vmQybPO9c8CSPsiDvKAm/M3BrPSl66cbHhvb
-         2V7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795244894; x=1795849694;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jggiWoga1NJk7y9SQGC+twyNAV0WmO0xloKYic2KKGU=;
-        b=jOGkXsVQVhuHEQsmUkMuLBpnIy0L+iqdN1zIQclm3JfFBq9zyi8T7PuWNnxpF1w8GL
-         42ioMQ1QYAjpypIzbOOyR2soMhB+7R3E6iPxkwglagd33jZLoXmfwh/4NE0CAnAUp3Kq
-         9Gq0jkNXCe4le4PvyWrPgaV6++Xz16SzOR9gAg3sACHsv7bmLb5fk9yeTqiY8GDpWASx
-         +kfLGJdD6gG9MOzP2TOz6v04mHnQN5sW1oFIM3PRlTg/Q1sf3W0MGuv2jiRRPYp48C/D
-         CvvKRmVJ+mK5Y5msbmtkZrdVH9yMhsfNtTrqhPCUiu5fso0BqwynEGwQ3oD9yGI2yRSL
-         I9yw==
-X-Forwarded-Encrypted: i=1; AL+hErEC8aa1BtfXQuOjSt+mkfUqlF2OmS4e39MPn9jArhgCRvOs2HIelWsosJQtsjb/dF5xgv+GdNM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3M/q1pirkf8g23ipY6PXdY/WSVkJ1ktmaMeZ33gIx72PuIsvX
-	V8MlUgHeC1Eu8YkS5mfBVOznzJQqWoqDiAwYrlwbldtBRcQNOJm/12/o
-X-Gm-Gg: AZFdTZcVECVRZfsdYqwV+OLZ0i3e+Lx6HSBi/vdp94Sbdyqda/LhQ7t5Xvd+NnosDUj
-	WOj+p5eDbWGz1yn/gfbmaABO0ay1yOaVBlgPLKfhDxx69xAZdwfeCC7TYCE/rZZgXUQYXKJTttU
-	ndROo7NM/V5fuRHSRdlJ4V8Trew+6x+tjECxTvIbFSe+X4Grj1F4cVboVmH+qRGUs0g7Nd5SkQA
-	AhGrXbopN9BAjxw/VzN0X4LPEnrKhDa/O0ElOa1itcCpsTHhemGYigcjONmTqK3rVPjSOEGr+Yg
-	0PaZ2Lx1vkOWE0zr32Tf6ZEO64MmT6onoS7KVqeweMyYVpBOxw/IJHyPq1mJw0ph2p+DW3CdrOE
-	RqYgltnxzECitrBUZVdBmrnASkkLb8EkpfueolBR+qPM/QmplfFZPUqeYyxNORyZR5nnG7nyt6F
-	z6H03oLj1LKyz8stejGTdOQmUWL9rQ5itKZHELHOphiKtHYgI/RMcU8cJhkbb5iQbEeMMkjowZ9
-	5Vwi2/8C82ckpTTwijW3/MCUWJ53eL1kgQSZ459BEAZv4ZzCJF4p+qNrvCarjpzBt4kH3wZt4Xx
-	McZ6HNtUa3ilIA7j5C1Z6OxsxaUTu/guIm6mgVV5XnJxtqBSpnhE1FLzrVkqu1q029lCkg23HJG
-	wo155+Ca57tmhz0k=
-X-Received: by 2002:a05:6830:44a2:b0:862:bda5:b88b with SMTP id 46e09a7af769-86315a0c16cmr6284627a34.21.1795244893993;
-        Fri, 20 Nov 2026 23:08:13 -0800 (PST)
-Received: from hyprland ([189.146.113.144])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168dd6d8sm3737609a34.10.2026.11.20.23.08.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 23:08:13 -0800 (PST)
-From: Alfonso Villalobos Ulate <alfonsocvu@gmail.com>
-To: westeri@kernel.org
-Cc: andreas.noever@gmail.com,
-	YehezkelShB@gmail.com,
-	linux-usb@vger.kernel.org,
-	Alfonso Villalobos Ulate <alfonsocvu@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] thunderbolt: Re-add host router DP IN adapters after DPRX failure
-Date: Sat, 21 Nov 2026 01:08:04 -0600
-Message-ID: <20261121070804.26185-1-alfonsocvu@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Zv88Z9lO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=l9jASBEgotthRLTerUHgx8TWO42Ho+1jhMVptJyT9KQ=; b=Z
+	v88Z9lOHRw2bkzePkFIln61pf4ybYfGHwE+EgQlFGYlZ5J/bYMwb6G0CazaVZgb6
+	hPRNs8GLnEGWJPs2s1vzGXlaanOWYJfuRPrTCg4VapPSVUYPTYBf8rvQ+F7fQYxM
+	Qgz3rfr3eU+bImWp9GyyYjLropg2G1QHrIhsdCYYV0=
+Received: from slark_xiao$163.com (
+ [2408:8459:3c50:9f35:fc69:5c53:4489:28a4] ) by ajax-webmail-wmsvr-40-123
+ (Coremail) ; Sat, 21 Nov 2026 15:09:43 +0800 (CST)
+Date: Sat, 21 Nov 2026 15:09:43 +0800 (CST)
+From: "Slark Xiao" <slark_xiao@163.com>
+To: "Jeff Hugo" <jeff.hugo@oss.qualcomm.com>
+Cc: mani@kernel.org, mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re:Re: [PATCH] bus: mhi: host: Only expose controller sysfs
+ attributes on the controller device
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <ca6de262-80e3-4c38-8f3c-122712d3f54d@oss.qualcomm.com>
+References: <20261111115659.11943-1-slark_xiao@163.com>
+ <826c1746-137b-4a5a-968e-8e0449a25e78@oss.qualcomm.com>
+ <3cb75687.54e4.1a1ed794488.Coremail.slark_xiao@163.com>
+ <ca6de262-80e3-4c38-8f3c-122712d3f54d@oss.qualcomm.com>
+X-NTES-SC: AL_Qu2SB/6fu0Ej5SaYZukckk4WhuY7WcOyuPkg2YZSc8gEvirO/xonfGJYDUvy7c+/BQ+RrhuIeRxKzcRzcaZZKDZMTi80Efs7q4f01oQEZg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,130 +70,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <c12e013.1776.1a1fcf0853d.Coremail.slark_xiao@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:eygvCgD3x263QwFrbpNyAA--.102W
+X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC6BcZfWsBQ7cKXQAA3S
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-When DPRX negotiation fails, the DP IN adapter is removed from the DP
-resources and is only added back on a hotplug event for that adapter.
-Host router DP IN adapters never get such events, so after one failure
-(for example when the GPU feeding it is runtime suspended) the adapter
-stays unused until the driver is reloaded.
-
-Re-check the host router DP IN adapters when a DP OUT adapter appears
-or a device router is plugged in, and skip adapters already on the
-list. Keep host DP IN adapters in adapter order so a re-added one is
-paired with the same DP OUT as before, instead of swapping monitors
-with the other host DP IN.
-
-Tested on an ASM4242 host with a CalDigit TS5 Plus dock.
-
-Written with assistance from Claude Code (Claude Opus 5.5), which
-proposed the code changes and drafted this message.
-
-Fixes: d6d458d42e1e ("thunderbolt: Handle DisplayPort tunnel activation asynchronously")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alfonso Villalobos Ulate <alfonsocvu@gmail.com>
----
- drivers/thunderbolt/tb.c | 52 +++++++++++++++++++++++++++++++++++++---
- 1 file changed, 49 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-index 57c11ba13459..4a43da6817a2 100644
---- a/drivers/thunderbolt/tb.c
-+++ b/drivers/thunderbolt/tb.c
-@@ -109,6 +109,29 @@ static void tb_queue_hotplug(struct tb *tb, u64 route, u8 port, bool unplug)
- 
- /* enumeration & hot plug handling */
- 
-+/*
-+ * Insert a host router DP IN adapter so that host DP IN adapters stay
-+ * in adapter number order. A DP IN that is re-added after it was
-+ * dropped (for example because DPRX negotiation failed) then gets
-+ * paired with the same DP OUT as before, instead of swapping DP OUT
-+ * adapters (and therefore monitors) with the other host DP IN.
-+ */
-+static void tb_add_host_dp_in(struct tb_cm *tcm, struct tb_port *port)
-+{
-+	struct tb_port *p;
-+
-+	list_for_each_entry(p, &tcm->dp_resources, list) {
-+		if (tb_port_is_dpin(p) && !tb_route(p->sw) &&
-+		    p->port > port->port) {
-+			/* Insert before the first higher numbered one */
-+			list_add_tail(&port->list, &p->list);
-+			return;
-+		}
-+	}
-+
-+	list_add_tail(&port->list, &tcm->dp_resources);
-+}
-+
- static void tb_add_dp_resources(struct tb_switch *sw)
- {
- 	struct tb_cm *tcm = tb_priv(sw->tb);
-@@ -118,6 +141,9 @@ static void tb_add_dp_resources(struct tb_switch *sw)
- 		if (!tb_port_is_dpin(port))
- 			continue;
- 
-+		if (!list_empty(&port->list))
-+			continue;
-+
- 		if (!tb_switch_query_dp_resource(sw, port))
- 			continue;
- 
-@@ -130,7 +156,7 @@ static void tb_add_dp_resources(struct tb_switch *sw)
- 		if (tb_route(sw))
- 			list_add(&port->list, &tcm->dp_resources);
- 		else
--			list_add_tail(&port->list, &tcm->dp_resources);
-+			tb_add_host_dp_in(tcm, port);
- 
- 		tb_port_dbg(port, "DP IN resource available\n");
- 	}
-@@ -1421,6 +1447,16 @@ static void tb_scan_port(struct tb_port *port)
- 		tb_sw_warn(sw, "USB3 tunnel creation failed\n");
- 
- 	tb_add_dp_resources(sw);
-+
-+	/*
-+	 * Host router DP IN adapters may have been dropped earlier
-+	 * (for example because DPRX negotiation failed) and they do
-+	 * not get hotplug events of their own, so re-check them now
-+	 * that there is potentially a new DP OUT to pair with.
-+	 */
-+	if (tcm->hotplug_active)
-+		tb_add_dp_resources(sw->tb->root_switch);
-+
- 	tb_scan_switch(sw);
- 
- out_rpm_put:
-@@ -1971,8 +2007,10 @@ static void tb_dp_tunnel_active(struct tb_tunnel *tunnel, void *data)
- 		 * also tear down the tunnel and try to re-use the
- 		 * released DP OUT.
- 		 *
--		 * It will be added back only if there is hotplug for
--		 * the DP IN again.
-+		 * It will be added back if there is hotplug for the
-+		 * DP IN again. Host router DP IN adapters do not get
-+		 * such events, so they are re-checked whenever a new
-+		 * DP OUT or device router appears instead.
- 		 */
- 		tb_tunnel_warn(tunnel, "not active, tearing down\n");
- 		tb_dp_resource_unavailable(tb, in, "DPRX negotiation failed");
-@@ -2234,6 +2272,14 @@ static void tb_dp_resource_available(struct tb *tb, struct tb_port *port)
- 	list_add_tail(&port->list, &tcm->dp_resources);
- 	tb_exit_redrive(port);
- 
-+	/*
-+	 * Host router DP IN adapters removed because DPRX negotiation
-+	 * failed never get a hotplug event of their own. Give them
-+	 * another chance now that a DP OUT became available.
-+	 */
-+	if (tb_port_is_dpout(port))
-+		tb_add_dp_resources(tb->root_switch);
-+
- 	/* Look for suitable DP IN <-> DP OUT pairs now */
- 	tb_tunnel_dp(tb);
- }
--- 
-2.53.0
-
+CkF0IDIwMjYtMTEtMjEgMDA6NDU6MzAsICJKZWZmIEh1Z28iIDxqZWZmLmh1Z29Ab3NzLnF1YWxj
+b21tLmNvbT4gd3JvdGU6Cj5PbiAxMS8xOC8yMDI2IDEyOjA1IEFNLCBTbGFyayBYaWFvIHdyb3Rl
+Ogo+PiAKPj4gQXQgMjAyNi0xMS0xNCAwMjo0Mjo0NiwgIkplZmYgSHVnbyIgPGplZmYuaHVnb0Bv
+c3MucXVhbGNvbW0uY29tPiB3cm90ZToKPj4+IE9uIDExLzExLzIwMjYgNDo1NiBBTSwgU2xhcmsg
+WGlhbyB3cm90ZToKPj4+PiBUaGUgc2VyaWFsX251bWJlciwgb2VtX3BrX2hhc2ggYW5kIHNvY19y
+ZXNldCBhdHRyaWJ1dGVzIGFyZSByZWdpc3RlcmVkCj4+Pj4gdGhyb3VnaCBtaGlfYnVzX3R5cGUu
+ZGV2X2dyb3Vwcywgc28gdGhlIGRyaXZlciBjb3JlIGNyZWF0ZXMgdGhlbSBmb3IKPj4+PiBldmVy
+eSBkZXZpY2Ugb24gdGhlIE1ISSBidXMuICBNSEkgY2xpZW50IGRldmljZXMgKHRoZSBwZXItY2hh
+bm5lbAo+Pj4+IGRldmljZXMgc3VjaCBhcyBtaGkwX0RVTiBvciBtaGkwX01CSU0pIGFyZSBhbHNv
+IE1ISSBidXMgZGV2aWNlcywgc28KPj4+PiBlYWNoIG9mIHRoZW0gZW5kcyB1cCB3aXRoIGl0cyBv
+d24gY29waWVzIG9mIHRoZXNlIGZpbGVzIGV2ZW4gdGhvdWdoCj4+Pj4gdGhleSBhbGwgb3BlcmF0
+ZSBvbiB0aGUgc2FtZSBtaGlfY29udHJvbGxlcjoKPj4+Pgo+Pj4+ICAgICAkIGxzIC9zeXMvYnVz
+L21oaS9kZXZpY2VzL21oaTBfRFVOLwo+Pj4+ICAgICBkcml2ZXIgIG9lbV9wa19oYXNoICBwb3dl
+ciAgc2VyaWFsX251bWJlciAgc29jX3Jlc2V0ICBzdWJzeXN0ZW0gIHVldmVudAo+Pj4+Cj4+Pj4g
+VGhpcyBpcyB3cm9uZyBmb3Igc2V2ZXJhbCByZWFzb25zOgo+Pj4+Cj4+Pj4gICAgIC0gVGhlIGF0
+dHJpYnV0ZXMgZGVzY3JpYmUgdGhlIGNvbnRyb2xsZXIsIG5vdCB0aGUgY2hhbm5lbC4gIFRoZWly
+Cj4+Pj4gICAgICAgY2FsbGJhY2tzIGFsbCBkZXJlZmVyZW5jZSBtaGlfZGV2LT5taGlfY250cmwg
+YW5kIHJlYWQgQkhJIHJlZ2lzdGVycwo+Pj4+ICAgICAgIG9yIGlzc3VlIGEgY29udHJvbGxlci13
+aWRlIFNvQyByZXNldCwgc28gd3JpdGluZyBzb2NfcmVzZXQgdGhyb3VnaAo+Pj4+ICAgICAgIG1o
+aTBfRFVOIHJlc2V0cyB0aGUgd2hvbGUgZGV2aWNlIHdoaWxlIGxvb2tpbmcgbGlrZSBhIHBlci1j
+aGFubmVsCj4+Pj4gICAgICAgb3BlcmF0aW9uLgo+Pj4+ICAgICAtIG9lbV9wa19oYXNoIHJlcG9y
+dHMgZmFpbHVyZXMgd2l0aCBkZXZfZXJyKGRldiwgLi4uKSwgc28gYSBzaW5nbGUKPj4+PiAgICAg
+ICBmYWlsaW5nIGNvbnRyb2xsZXIgcHJvZHVjZXMgb25lIGxvZyBsaW5lIHBlciByZWdpc3RlcmVk
+IGNoYW5uZWwKPj4+PiAgICAgICBkZXZpY2UgaW5zdGVhZCBvZiBvbmUuCj4+Pj4gICAgIC0gVXNl
+cnNwYWNlIGhhcyBubyB3YXkgdG8gdGVsbCB3aGljaCBjb3B5IGlzIGF1dGhvcml0YXRpdmUuCj4+
+Pj4KPj4+PiBNb3ZlIHRoZSBhdHRyaWJ1dGVzIG9mZiB0aGUgYnVzIGFuZCBhdHRhY2ggdGhlbSB0
+byB0aGUgY29udHJvbGxlcgo+Pj4+IGRldmljZSBvbmx5LiAgbWhpX3JlZ2lzdGVyX2NvbnRyb2xs
+ZXIoKSBub3cgaW5zdGFsbHMgdGhlIGdyb3VwIHZpYQo+Pj4+IG1oaV9kZXYtPmRldi5ncm91cHMg
+YmVmb3JlIGRldmljZV9hZGQoKSwgd2hpbGUgdGhlIGNoYW5uZWwgZGV2aWNlcwo+Pj4+IGNyZWF0
+ZWQgYnkgbWhpX2NyZWF0ZV9kZXZpY2VzKCkgYXJlIGxlZnQgdW50b3VjaGVkLiAgTm8gZnVuY3Rp
+b25hbAo+Pj4+IGNoYW5nZSBmb3IgdGhlIGNvbnRyb2xsZXIgZGV2aWNlOyB0aGUgZmlsZXMgc3Rh
+eSBhdCB0aGUgcGF0aHMgbGlzdGVkCj4+Pj4gaW4gRG9jdW1lbnRhdGlvbi9BQkkvc3RhYmxlL3N5
+c2ZzLWJ1cy1taGkuCj4+Pj4KPj4+PiBOb3RlIHRoYXQgdHJpZ2dlcl9lZGwgd2FzIGFscmVhZHkg
+aGFuZGxlZCB0aGlzIHdheSwgdGhyb3VnaCBhbiBleHBsaWNpdAo+Pj4+IHN5c2ZzX2NyZWF0ZV9m
+aWxlKCkgb24gdGhlIGNvbnRyb2xsZXIga29iamVjdCwgd2hpY2ggaXMgd2h5IGl0IG5ldmVyCj4+
+Pj4gYXBwZWFyZWQgb24gdGhlIGNoYW5uZWwgZGV2aWNlcy4KPj4+IEkgYWdyZWUgd2l0aCB0aGUg
+cmF0aW9uYWxlLCBidXQgdGhpcyBkb2VzIGFwcGVhciB0byBjaGFuZ2UgdUFQSS4gQXJlIHlvdQo+
+Pj4gc3VyZSBubyBvbmUgaXMgdXNpbmcgdGhlc2Ugb24gdGhlIGNoYW5uZWwgZGV2aWNlcz8KPj4+
+Cj4+PiAtSmVmZgo+PiBIaSBKZWZmLAo+PiBGb3Igb2VtX3BrX2hhc2ggYW5kIHNlcmlhbF9udW1i
+ZXIsIGFsbCBpbnRlcmZhY2UgcmV0dXJucyBzYW1lIHZhbHVlLgo+PiBJIHRoaW5rIHRoZXJlIGlz
+IG5vIG5lZWQgdG8ga2VlcCB0aGVzZSBpbnRlcmZhY2VzIHVuZGVyIHRoZSBjaGFubmVsCj4+IGRl
+dmljZXMuCj4+IAo+PiBGb3Igc29jX3Jlc2V0LCBpdCB3cml0ZSB0aGUgcmVnaXN0ZXIgZGlyZWN0
+bHkgYW5kIGl0IHdvcmtzIGZvciB0aGUgZW50aXJlCj4+IGRldmljZSByYXRoZXIgdGhhbiBhIHNp
+bmdsZSBjaGFubmVsLgo+PiAKPj4gU28gSSB0aGluayB0aGVyZSBpcyBubyBwcm9ibGVtIHRvIHJl
+bW92ZSB0aGVtLgo+Cj5UaGVzZSBhcmUgdUFQSS4gVGhlIGdvbGRlbiBydWxlIG9mIHRoZSBrZXJu
+ZWwgaXMgdGhhdCB3ZSBkbyBub3QgYnJlYWsgCj51c2Vyc3BhY2UuIEl0IGRvZXMgbm90IG1hdHRl
+ciB0aGF0IHRoZWlyIGV4aXN0ZW5jZSBpcyBhICJidWciLCBpZiB0aGVyZSAKPmlzIHVzZXJzcGFj
+ZSB1c2luZyB0aGVtLCB0aGVuIHdlIG11c3Qga2VlcCB0aGVtLgo+Cj5JIGNvdWxkIGFncmVlIHdp
+dGggeW91IGFzc2Vzc21lbnQgdGhhdCBoYXZpbmcgdGhlc2UgaXRlbXMgb24gdGhlIGNoYW5uZWwg
+Cj5kZXZpY2UgaXMgYSBtaXN0YWtlIChhbmQgSSBkbyksIGJ1dCB0aGF0IGRvZXMgbm90IGNoYW5n
+ZSB0aGUgcnVsZS4KPgo+U28gZmFyIHlvdSBoYXZlIG5vdCBwcm92aWRlZCBhbnkgZGF0YSB0byBz
+YXkgdGhhdCB1c2Vyc3BhY2UgaXMgaW4gZmFjdCAKPm5vdCB1c2luZyB0aGVzZSwgYW5kIHRoZXJl
+Zm9yZSByZW1vdmluZyB0aGVtIHdvdWxkIGhhdmUgbm8gaW1wYWN0Lgo+Cj5XaXRob3V0IHRoYXQg
+YW5hbHlzaXMsIEkgYW0gc29ycnkgdG8gc2F5IEkgYW0gdW5jb21mb3J0YWJsZSBwcm9jZWVkaW5n
+IAo+d2l0aCB0aGlzIGNoYW5nZS4gIE1hbmkgaXMgZnJlZSB0byBpZ25vcmUgbXkgY29uY2VybnMg
+YW5kIGFwcGx5IHRoaXMgCj5wYXRjaCBhdCBoaXMgb3duIHJpc2suCj4KPi1KZWZmCkhpIEplZmYs
+CkkgdW5kZXJzdGFuZCB5b3VyIGNvbmNlcm5zLiBXZSBtdXN0IGVuc3VyZSB0aGF0IGludHJvZHVj
+aW5nCm1vZGlmaWNhdGlvbnMgZG9lcyBub3QgbGVhZCB0byBhbnkgdW5pbnRlbmRlZCBzaWRlIGVm
+ZmVjdHMuCgpJIGNoZWNrZWQgdGhlIGltcG9ydCBoaXN0b3J5IGFuZCBmb3VuZCB0aGF0IGJvdGgg
+c2VyaWFsX251bWJlcgphbmQgb2VtX3BrX2hhc2ggd2VyZSBhZGRlZCBieSBNciBCSEFVTUlLIEJo
+YXR0IGluIGNvbW1pdAoiMjFjYjliMThlZGVhIGJ1czogbWhpOiBob3N0OiBjb3JlOiBJbnRyb2R1
+Y2Ugc3lzZnNlbnRyaWVzIGZvciBNSEkgIi4KVGhlIGNvbW1lbnQgYXMgYmVsb3c6CiJPRU1zIG5l
+ZWQgdG8gcmVhZCB0aGVzZSBkZXZpY2Utc3BlY2lmaWMgaGFyZHdhcmUgaW5mb3JtYXRpb24gdmFs
+dWVzCnRocm91Z2ggdXNlcnNwYWNlIGZvciBmYWN0b3J5IHRlc3RpbmcgcHVycG9zZXMiCgpBY3R1
+YWxseSBJIGhhdmUgdG8gc2F5IHdlIGRvbid0IGhhdmUgc3VjaCBhIGZhY3RvcnkgcmVxdWlyZW1l
+bnQgZm9yIAp0aGVzZSAyIEFQSXMgZm9yICBhbGwgIEZveGNvbm4gTUhJIGRldmljZXMuIAoKQW5k
+LCB3ZSBjYW4gc2VlIHRoZSAiV2hhdCIgZnJvbSB0aGUgRG9jdW1lbnQvQUJJL3N0YWJsZS9zeXNm
+cy1idXMtbWhpOgovc3lzL2J1cy9taGkvZGV2aWNlcy8uLi4vc2VyaWFsbnVtYmVyCi9zeXMvYnVz
+L21oaS9kZXZpY2VzLy4uLi9vZW1fcGtfaGFzaAovc3lzL2J1cy9taGkvZGV2aWNlcy8uLi4vc29j
+X3Jlc2V0CgpJIGJlbGlldmUgdGhlIGZvcm1hbCBtZWFuaW5nIHJlcHJlc2VudGVkIGJ5IHRoaXMg
+cGF0aCBpcwogL3N5cy9idXMvbWhpL2RldmljZXMvbWhpMC9bVEFSR0VUIFNZU0ZTXSBvciAKL3N5
+cy9idXMvbWhpL2RldmljZXMvbWhpMS9bVEFSR0VUIFNZU0ZTXS4gQnV0IG5vdCAgCi9zeXMvYnVz
+L21oaS9kZXZpY2VzL21oaTAvbWhpMF9EVU4vW1RBUkdFVCBTWVNGU10gb3IKIC9zeXMvYnVzL21o
+aS9kZXZpY2VzL21oaTAvbWhpMF9ESUFHL1tUQVJHRVQgU1lTRlNdLgoKVGhlc2UgNCBBUElzIG9u
+bHkgc29jX3Jlc2V0IGFuZCB0cmlnZ2VyX2VkbCB3b3VsZCBiZSB1c2VkCmluIGRhaWx5IGRldmVs
+b3BtZW50IG9yIHVzYWdlLgoKSW4gb3VyIGxvY2FsLCB0aGUgZnJlcXVlbmN5IHNoYWxsIGJlOgp0
+cmlnZ2VyX2VkbCAobm9ybWFsKSA+IHNvY19yZXNldCggcmFyZSkgPiBzZXJpYWwgbnVtYmVyPW9l
+bV9wa19oYXNoKGFsbW9zdCBuZXZlcikKCkhvcGUgdGhpcyAgZXhwbGFuYXRpb24gaGVscHMgeW91
+IHVuZGVyc3RhbmQgdGhpcyBpc3N1ZSBmcm9tCnRoZSBkZXZlbG9wZXIncyBwZXJzcGVjdGl2ZSBh
+bmQgb3VyIGFjdHVhbCBuZWVkcy4KClRoYW5rcy4gCg==
