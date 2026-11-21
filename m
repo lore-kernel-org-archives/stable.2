@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795253415;
-	b=2okQh0pz/92vOst6TTMAGAuqmhXEOFH8DEgKzCAlqu1+Ac7Sgzwbq0yCtrSwW3GWFUFJ
-	 uiykPdlQw5mlQnROoaQwhOwguw7prVqR7J2YHVHwqrv8Bj550derXOg3+aFHPSWZ0dCr5
-	 zAkDklMA0DTVhS3vZpvxUXcX66d7GAugkmozZCL7FT/PB/tuYIPZan/wm59F0dChQvN8j
-	 xc9bObHhBlbUD8M2OcpZMo+NyOngiY4U57WC7/MrIeyfn2v2HvHWys+DsNjM3dUWS2WnW
-	 BhFLgIXmBqXVi3X1/O0WN6Ei7bQd+unkUSnMAC68bTvi6R36lDHn2xQ+fzT8lK8xXUQ==
+	t=1795253666;
+	b=pNk7qUEZaUojswqiRCUk+XgYKNzzr+kkkSolpDj0c3eal7hg1k1DQFRQ1a2/vrvn3s/W
+	 UpPFeM3ELv3JZ4VnjoRBGuHQ5F5X+4JKB6N2A1i6lH6sLJSbDysOt48r3ngE5X3Rm1ms0
+	 QGGC3ZEX4QXDZMqkNoNpyGyI1BVJrSUvfBoARKrPAwRlt2iozlgSMbrHpsA2luwWDPk9H
+	 NxeG5H3+idtxMwsWgEoaY78Oi+ZAYbqaLCeERUwZT88h/ntREVpzMnWxGDA9TtPIGz7fo
+	 Qu6qotivJB4E99l/Bp/5oNKr4/j77Q11P4blrkX8uvWfBJHbbSH41424l2It9pp3XDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795253415;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=S1fow+tcHSCPQnCraqLiE7sTVQfos47VnR/u8cbK+IQ=;
-	b=t7jA3+LtCMkApLP+grR8JkpT6rl2nwpYCbqEw11S/2iorAbJyJbZZF5bph5EnjECeFRp
-	 bV9L9oKvjn0FPFkKB4FEzFpeJIoTdvwHbP0WxIJoTaOVzCpOm4moAsLly3z0HWoG48L05
-	 ZFv3bVtBrcpYrVITEt5GN4VVsS5gG0mRtpVDtIBgkOjdimHR7f1+3sfXuzlOl+f987a+B
-	 DNpSo+L1FN+9EePHb8CkvXb0Y4hv3FaDvw30vdqZ1OvsGt1G2WPawWpQPiRJtNsUUaq0B
-	 JfVMLZNPgz0kAFSXPigtmtVu6oqRGQ2+qFqH7kcSdeBaLLgrRaWcD1hPs0BeP0SuW3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795253666;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9v8g6X3WDYfoIYNgraXq6dzuu3lA8FjW9iHHqy+DMxA=;
+	b=zCqWO9/qWqj2l51AE6k1oEHqVLB+GRkthwVAFZH7XUKs8sMvEudye+llaSnmgBZxvuTL
+	 JRCa4Em4L8LGOwg6X6j6I2PXVhp0/yC2ItzAsMnyfETYuhiXjY5WOmpYiwKOGfapc0Cqf
+	 2Wo2XKZMMkMrDnMF/i4BgL3FXHhIMf9lSDOM3elR8yJvQA2M7CqLje9v3+/8cKr0Bu7J9
+	 Sp67N+ds4xT+nb2i7k4frTm6ZDN/XArQI9nQGW6V00cQ5LdriuMXQT9kmO+xXIBzAfrIP
+	 82mkf+mMfilEDTD8zSbAVDZLtNZ1WFVwy8vAa4L8lZO0XxGNv9mjBi+2+LRxucydGlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F0E36606A325;
-	Sat, 21 Nov 2026 09:30:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0E36606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=S1fow+tcHS
-	CPQnCraqLiE7sTVQfos47VnR/u8cbK+IQ=; b=EMfd78ByRlHfslwxV15TylNw4q
-	raRpyYUqc/R3MnfE2j4SfZdW3fG2EKsCOp11GTZrVI8IBRFieSSnCNQJzAoIlUj1
-	aeYNp6kcK91pg4l83sf7OAYS4f8ce6rgmiDmA/eC/xJaZsEIDsuGLk3kk7tPE7XX
-	pdESg0v02UZmEi41k=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.70])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDW3gGaZAFrlJH_AQ--.51524S2;
-	Sat, 21 Nov 2026 17:30:03 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Takashi Iwai <tiwai@suse.de>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] ALSA: line6: Kill URBs before releasing the PCM buffer
-Date: Sat, 21 Nov 2026 17:30:01 +0800
-Message-Id: <20261121093001.18469-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMpn4nlx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A31D606A325
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 09:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMpn4nlx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E24B1F000D0
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 09:34:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795253666;
+	bh=9v8g6X3WDYfoIYNgraXq6dzuu3lA8FjW9iHHqy+DMxA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YMpn4nlx9yqW6GSDHuCv/vofPRpw5pSQsOb1xZNTG4j2BCqXQ5xhe73vu0kgQKsfJ
+	 HQkDht/XJ6OehNVZoGOERQAaTs31SpUkXnt/066aDrH+GmyR4cFNdBFa0telPPQezI
+	 ZfCnf1iDdk20ce5G2u2rpO9JFQbSa16uufEJBGRkG2NCUbPDjQ3Eu4u35hapUCeHJ4
+	 y3XD+QIPcTBnzKLlA+SisFDqBzuYJvs3446TUh5nXnsYBCTFurU1H/Y6GuPtip09bF
+	 JGkZVSQe92s6m3RU4NHlpdMo9FzhsM14gj9f9nnv90XVIWLXGGdYbNRr2fsL7lXrvf
+	 O6lIAMdL9rfcA==
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4bb70074ab2so16837645e9.0
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 01:34:25 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEHVLyy2qberIUiOEhI1ZKd4yLgsGUh9i7uG/X9oxbSGeBcXdfWUEVqsOD/fSyD8R8ZPFm01bQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9jjb3yJUdvkdoFyIvMVY67mZxa5PSoiBXukRWSl+9dJJGQ/pPB
+	7u84gewVQK599hhwrom4Z/0meImHvXuFTzAWDDQT3aXwNY8kGfpJH1q0VWqXVyr7kMtwY1+cfK/
+	CNlxxMsu98uZSoupBeKfsoCvVKBU6NSQ=
+X-Received: by 2002:a05:600c:468b:b0:4ab:cc03:7f60 with SMTP id
+ 5b1f17b1804b1-4bb8881b511mr128890735e9.18.1795253664679; Sat, 21 Nov 2026
+ 01:34:24 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,106 +59,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkDW3gGaZAFrlJH_AQ--.51524S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGw1xXrW7uF17GrW7Gr4DArb_yoW5trW8pF
-	yrua4YyFZ8JF12krW7Jws5Ww1Sva1kXF9rGF1UCrWrAa13G3Z0q3Wavr45Wr4UCF40va4a
-	vFW5tw4rGr15Ca7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4fMxAIw28IcxkI7VAKI48JMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8RbyJUUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUED2sAYlijTwABsz
+References: <20261118053926.845109-1-hj351016@gmail.com>
+In-Reply-To: <20261118053926.845109-1-hj351016@gmail.com>
+From: Guo Ren <guoren@kernel.org>
+Date: Sat, 21 Nov 2026 17:34:12 +0800
+X-Gmail-Original-Message-ID: <CAJF2gTQMLzX7ANcPtM-5yokRW-17C2cpbBOOx4ip1qpxnhTuCw@mail.gmail.com>
+X-Gm-Features: Aa3M54p_k23V3n3S-vJbFZ6t12-Zbu1Qx524on7iW-P5egmHQu9WaiGNlcA1_fg
+Message-ID: <CAJF2gTQMLzX7ANcPtM-5yokRW-17C2cpbBOOx4ip1qpxnhTuCw@mail.gmail.com>
+Subject: Re: [PATCH] riscv: ptrace: Initialize cregs before copyin in compat_riscv_gpr_set()
+To: Hyunjung Ko <hj351016@gmail.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Oleg Nesterov <oleg@redhat.com>, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-line6_buffer_release() frees the stream buffer after
-line6_wait_clear_audio_urbs() gave up waiting for the URBs that are still
-active.  The buffer is still referenced by those URBs, and the completion
-callback of such an URB resubmits it from submit_audio_out_urb() with
-line6pcm->out.buffer already set to NULL, which ends up in a NULL pointer
-dereference in the memset() in submit_audio_out_urb().
+On Wed, Nov 18, 2026 at 1:39=E2=80=AFPM Hyunjung Ko <hj351016@gmail.com> wr=
+ote:
+>
+> user_regset_copyin() only copies `count` bytes, so a PTRACE_SETREGSET
+> request with a short (or zero) iov_len leaves the rest of the on-stack
+> cregs uninitialized. cregs_to_regs() then copies all of it into the
+> tracee's pt_regs, where the tracer can read it back with
+> PTRACE_GETREGSET.
+>
+> Fill cregs from the current register state first, so that a partial
+> write only updates the registers it covers, as riscv_gpr_set() does.
+>
+> Fixes: 4608c159594f ("riscv: compat: ptrace: Add compat_arch_ptrace imple=
+ment")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+> ---
+> diff --git a/arch/riscv/kernel/ptrace.c b/arch/riscv/kernel/ptrace.c
+> index a005574..32227b7 100644
+> --- a/arch/riscv/kernel/ptrace.c
+> +++ b/arch/riscv/kernel/ptrace.c
+> @@ -584,6 +584,8 @@ static int compat_riscv_gpr_set(struct task_struct *t=
+arget,
+>         int ret;
+>         struct compat_user_regs_struct cregs;
+>
+> +       regs_to_cregs(&cregs, task_pt_regs(target));
+> +
+>         ret =3D user_regset_copyin(&pos, &count, &kbuf, &ubuf, &cregs, 0,=
+ -1);
+>         if (!ret)
+>                 cregs_to_regs(&cregs, task_pt_regs(target));
+Yes, we need to initialize cregs from the target's current register
+state so that partial writes preserve the untouched registers.
 
-While the URBs remain queued, the host controller can also write the
-received isochronous data into the freed buffer.  Such a write does not go
-through the KASAN checks, so it silently corrupts the freed slab object;
-the corruption was observed as a bogus KASAN quarantine entry that later
-led to a general protection fault in qlist_free_all().
+Reviewed-by: GUO Ren (XuanTie) <guoren@kernel.org>
 
-The active_urbs bitmap cannot prove that the URBs are gone:
-line6_unlink_audio_urbs() is called outside the stream lock and only marks
-the URBs that are active at that moment, so an URB resubmitted by a
-completion callback right after the scan is never unlinked and keeps being
-resubmitted after the stream was stopped.
-
-Set the unlink bit for every currently active URB under the stream lock,
-so that the completion callbacks cannot resubmit them, and then kill them
-synchronously.  usb_kill_urb() waits for the giveback, hence the buffer is
-no longer referenced by any URB when it is freed.
-
-Fixes: 63e20df1e5b2 ("ALSA: line6: Reorganize PCM stream handling")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- sound/usb/line6/pcm.c | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
-
-diff --git a/sound/usb/line6/pcm.c b/sound/usb/line6/pcm.c
-index 2932eaf157f4..e05fa20cf4ed 100644
---- a/sound/usb/line6/pcm.c
-+++ b/sound/usb/line6/pcm.c
-@@ -134,6 +134,31 @@ static void line6_wait_clear_audio_urbs(struct snd_line6_pcm *line6pcm,
- 			"timeout: still %d active urbs..\n", alive);
- }
- 
-+/*
-+ * Mark all currently active URBs for unlinking and kill them.
-+ *
-+ * The unlink bit is set under the stream lock, so the completion
-+ * callbacks cannot resubmit these URBs any longer; usb_kill_urb() then
-+ * waits until each of them is given back and hence the stream buffer is
-+ * no longer referenced by the host controller.  This function must be
-+ * called from a sleepable context.
-+ */
-+static void line6_kill_audio_urbs(struct snd_line6_pcm *line6pcm,
-+				  struct line6_pcm_stream *pcms)
-+{
-+	int i;
-+
-+	scoped_guard(spinlock_irqsave, &pcms->lock) {
-+		for (i = 0; i < line6pcm->line6->iso_buffers; i++)
-+			if (test_bit(i, &pcms->active_urbs))
-+				set_bit(i, &pcms->unlink_urbs);
-+	}
-+
-+	for (i = 0; i < line6pcm->line6->iso_buffers; i++)
-+		if (test_bit(i, &pcms->active_urbs))
-+			usb_kill_urb(pcms->urbs[i]);
-+}
-+
- static inline struct line6_pcm_stream *
- get_stream(struct snd_line6_pcm *line6pcm, int direction)
- {
-@@ -172,7 +197,7 @@ static void line6_buffer_release(struct snd_line6_pcm *line6pcm,
- {
- 	clear_bit(type, &pstr->opened);
- 	if (!pstr->opened) {
--		line6_wait_clear_audio_urbs(line6pcm, pstr);
-+		line6_kill_audio_urbs(line6pcm, pstr);
- 		kfree(pstr->buffer);
- 		pstr->buffer = NULL;
- 	}
--- 
-2.34.1
-
+--=20
+Best Regards
+ GUO Ren
