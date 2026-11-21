@@ -1,41 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795251717;
-	b=xQnJa8w0YVs5w81JAzuebsQqqH1vRi9QUU7iftW6LFmMkHmp9WiLwvL2jCbgcTSdefwr
-	 vr/xwjHXJMRqfoWsjhnOmubEBkJEGdRA3or1JHlDOW4fVCNul2ZE0J4J8xtaTzLUo8oa0
-	 GtgJxvfKZ6KPz5alfa76BGZP4fmOa4Z7zgFlUDfMx/aIRMUMnIoMbf8jVnRaBwFoS6CX6
-	 X4FYM8/Ak3FdFvzbIV947O0bjl3Jq8k2UdIaWYt69qeJUotT4iYNDp7j5kqJReOFwf3MM
-	 pXU/npYLkFSSKXkvZLW4VOv3ALFRGVNsAabo6z//MuTJ8Vn6c4K0NbbXoc6T91z8SPA==
+	t=1795252615;
+	b=cqSbRURvnppUg743Y2HVmlMDgcT1+syJlb9VQoY1kKAeM/x75024i4/ssi5gAr1rqu3c
+	 Hi5m48UIOsmwF6/0MO3Fh6DLzozwvkoiwe4quVN1NbI8kNjYSXhia40DwVFSup2Zh7jfj
+	 JuFjsHftmo8XpRH8r4epIO8xZYW+K8+XO8HGkhSU7eazI8pyyEKpT8jg/87RRoSzbCNQz
+	 r9dU/CUHrBXroHjHe52ddy4RjswvofxvXFPCE1NcKZOtnUYbioLlaw+0uIPLzmY/83qPK
+	 +gCeOMVGFNjOsaiHVM7m2eZqhRsfWBELLWvOdQdy+B1I8fn47q88xY1s7//v+kuOcnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795251717;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=LfWgHm+yVJwo0h5E+Nq+uWV/+0H6oyPCS8OFYHRQwIY=;
-	b=T0UbTtkBQKH2cerF7qUWJ9snzC0AFDKZdJ3QBKr7juxmYWOLYvi8w4IjXuhJhbiLW3vB
-	 OUY1lBPz8Wk8Z7wQWVP9/9l4zt9Bb+xHz3ZuiX7vbkg2GPxFO5FAYVjay8M4HKHkIXXYS
-	 sPkKi8L0+Ty+eaNLZ5AKKg1eLh1xukDjsuZDv/+Dxi9SXRa+/yXIy5zwltoJjqgsmFSp6
-	 5Q82V1WGcGnSIDRazDbUvaoS+fVPBjMecPNWAa4pzEwXJpSHaQoV3UfwMj3tfqUrdH21H
-	 TB1UP0x6vSy+PytD2t39dnY593BKTpaK6W/+MXYqV+eqcpla6LvMVTURl4lbP5zn4xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795252615;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=tOLRbk1pvSirOCEBKlCoSltr6Jt7C5tsmx6tQdtsMjs=;
+	b=eXubks5aW9vE6XrRVc72QNiphXAjPfS/nHeNMWfhsn3n7uUaNYKTK0IWcSVTXxipIBoW
+	 Ch4F9tsoxkZMPq76cYJivRd+MV/nH54+KcituXhuJnmy0Iu8kbijIS7wZIEsxa9B/8Pab
+	 bKD/jxVzKLg+mGPpqvsjO77O/dIrqDJ/XlxRQ+QsfFjAdVRzkBtzSw6LpG7EKxeGyOY1a
+	 6MoQUbE9753Yu4lJAW+xOaFRVOC93CLmEIzwoJaCMQS4CnqMhPgBOZa4Pp4/Adu/IjQ2s
+	 xObiRvVmw/tlWrGX9gQcQIXa+3A5opaG4Q3dUSUwS8WdMsmrKVAF+g8Um3USpq32eAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.125
-Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ujXkoVUZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3C6606A325;
-	Sat, 21 Nov 2026 09:01:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED3C6606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09535081|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0555111-0.00252878-0.94196;FP=2149251770222117977|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045099153;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.k74fNZl_1795251702;
-Received: from 192.168.1.4(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.k74fNZl_1795251702 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sat, 21 Nov 2026 17:01:44 +0800
-Message-ID: <ead55973-6234-45c7-848d-fe2f53839f73@open-hieco.net>
-Date: Sat, 21 Nov 2026 17:01:42 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B921C606A320;
+	Sat, 21 Nov 2026 09:16:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ujXkoVUZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B83371F000C4;
+	Sat, 21 Nov 2026 09:16:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795252615;
+	bh=tOLRbk1pvSirOCEBKlCoSltr6Jt7C5tsmx6tQdtsMjs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ujXkoVUZt/uE4hYFhXuFq6zfccUNOcJBiLt6y4DuUxCFI+d9nKtoiLT1aFj0xnAYc
+	 vTcgAkUILkrTVqiRVVpqtGo1n0PVmcDXIv9pQqlgBxS4sblvb8ObmyAN1ygrt3BJik
+	 M00EsUQTX7+HtkqLurgASIMJlvh+Eez7BY7eQu50=
+Date: Sat, 21 Nov 2026 10:16:52 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: memoriaru@foxmail.com
+Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org,
+	badhri@google.com, stable@vger.kernel.org
+Subject: Re: [PATCH usb v4] usb: typec: tcpm: exempt Soft Reset from the SOP'
+ MessageID duplicate check
+Message-ID: <2026112138-turban-cornbread-efa1@gregkh>
+References: <tencent_443620EAE95525A375BB2D8A653406630A07@qq.com>
+ <awBIRnc9lBkdVhEK@black.igk.intel.com>
+ <1795204200.cover.tcpm-v4@foxmail.com>
+ <tencent_D1222948818CA62395FED66DB7F2967B1809@qq.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -45,70 +57,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/cpu/hygon: Work around XSAVES Erratum 1386
-To: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, dave.hansen@linux.intel.com,
- david.laight.linux@gmail.com, dengqiming@hygon.cn, hpa@zytor.com,
- linux-kernel@vger.kernel.org, mingo@redhat.com, puwen@hygon.cn,
- stable@vger.kernel.org, tglx@linutronix.de, x86@kernel.org, yangzhen@hygon.cn
-References: <b04950ad-d655-4ca2-8cbd-59360509d25b@intel.com>
- <89a5aef2-ea88-43d7-adcc-3f6b7374932f@citrix.com>
- <46d14366-dd1f-45f4-abc3-4d9dd8c32e7b@intel.com>
- <991d9608-fb44-4bcf-8ee8-b0a398899217@open-hieco.net>
- <20261121071442.GDawFE4rWdzLeaqjoH@fat_crate.local>
-Content-Language: en-US
-From: Tina Zhang <zhang_wei@open-hieco.net>
-In-Reply-To: <20261121071442.GDawFE4rWdzLeaqjoH@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_D1222948818CA62395FED66DB7F2967B1809@qq.com>
 
-
-On 11/21/2026 3:14 PM, Borislav Petkov wrote:
-> On Sat, Nov 21, 2026 at 02:46:31PM +0800, Tina Zhang wrote:
->> I'll extend the existing erratum_1386_microcode[] table with the Hygon
->> entries and make Hygon reuse fix_erratum_1386() instead of duplicating the
->> workaround in hygon.c.
+On Sat, Nov 21, 2026 at 03:25:35AM +0800, memoriaru@foxmail.com wrote:
+> From: Zhang Hewei <memoriaru@foxmail.com>
 > 
-> Sorry that I couldn't jump in here earlier. Those folks are all giving you
-> confusing ideas, don't listen to them... :)
+> The PD message duplicate-check and the SOFT_RESET state handling treat
+> the SOP and SOP' channels differently:
 > 
-> You simply need to copy the amd.c code and adjust it with your numbers.
+> tcpm_pd_rx_handler() exempts PD_CTRL_SOFT_RESET from the MessageID
+> duplicate check on the SOP path (USB PD spec 6.6.1.2 note: a Soft_Reset
+> message always carries MessageID zero, so the duplicate check must not
+> drop it), but the SOP' branch of the same switch has no such exemption.
+> A cable that sends a second Soft Reset over SOP' (MessageID zero again)
+> has that message silently dropped by the rx_msgid_prime comparison, and
+> the cable-side re-negotiation stalls.
 > 
-> The reason why we're copying and not sharing code with AMD is because AMD
-> cannot test on Hygon and thus risk breaking Hygon or you vice versa.
+> Exempt Soft Reset on the SOP' path the same way the SOP path does.
 > 
-> So we have it all separate, that's why there's a cpu/hygon.c.
+> Found by code inspection; a software TCPC stub was built for the
+> responder path.
 > 
-> Once it all settles and once we absolutely cannot live with the mini code
-> duplication this causes, then we can start unifying.
+> Fixes: 6bd181ba60e1 ("usb: typec: tcpm: add control message support to sop'")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhang Hewei <memoriaru@foxmail.com>
 > 
-> But that time hasn't come yet. For now we will do all separate.
+> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+> index bb90211..89e280b 100644
+> --- a/drivers/usb/typec/tcpm/tcpm.c
+> +++ b/drivers/usb/typec/tcpm/tcpm.c
+> @@ -4200,7 +4200,8 @@ static void tcpm_pd_rx_handler(struct kthread_work *work)
+>  		 */
+>  		switch (rx_sop_type) {
+>  		case TCPC_TX_SOP_PRIME:
+> -			if (msgid == port->rx_msgid_prime)
+> +			if (msgid == port->rx_msgid_prime &&
+> +			    type != PD_CTRL_SOFT_RESET)
+>  				goto done;
+>  			port->rx_msgid_prime = msgid;
+>  			break;
+> -- 
+> 2.39.5 (Apple Git-154)
 > 
-> Thanks and sorry again that I couldn't jump in in time.
 > 
 
-Thanks for clarifying, Boris, and no worries.
+Hi,
 
-I'll keep the implementation and microcode data self-contained in
-hygon.c, as you suggested.
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
-Andrew's pointer to the existing AMD workaround was still very helpful.
-I'll follow the same established pattern for Hygon, but keep the actual 
-implementation separate from AMD.
+You are receiving this message because of the following common error(s)
+as indicated below:
 
-Dave's suggestion to describe the affected processors with x86_cpu_id
-tables also makes the model and stepping selection much cleaner. I'll
-retain that data-driven organization in the Hygon-specific
-implementation instead of using explicit family/model checks and a 
-switch statement.
+- This looks like a new version of a previously submitted patch, but you
+  did not list below the --- line any changes from the previous version.
+  Please read the section entitled "The canonical patch format" in the
+  kernel file, Documentation/process/submitting-patches.rst for what
+  needs to be done here to properly describe this.
 
-The next version will therefore keep the workaround entirely in hygon.c, 
-while following the AMD implementation pattern and using the CPU ID 
-tables for the Hygon-specific processor and microcode data.
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
-Thanks everyone for the review and guidance.
+thanks,
 
-Tina
-
+greg k-h's patch email bot
