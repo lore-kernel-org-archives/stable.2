@@ -1,96 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795265789;
-	b=fHWjOZZOynzH8H4doCKeJUCeNgAHjVpifPnlc03Vh9iOrNsAPrpr/C1gS9NWARMHyY/c
-	 jo7NNu14N1b8I6lobBRQ+f+DlRdCw9SBVJytWZQEEt82WAk5AK/We2+N3Y6SY428HDHK5
-	 r0Zda7mU+UyBIGzNJaa6ijtAH4aRVTlLY830LLzeDaNJkKvD/p5p4D9WgdlagS/q0t6I6
-	 /d4gqgOM8Dh6b+IEy1SvPFHF0PUWwYMadLZA6s7lgwKff6W/vzCit5QVxmdN52AhL0R5w
-	 ioVsjQ0NzMa/kLKs0iuFuMgutaGrO7x1EiBt9fc4qPc3M+ifsm88kxdEUvSRsQ5Riyg==
+	t=1795265824;
+	b=MSPMuKvy/GdknuaU8139LOwuAbnl+VLYh8DPoUaJOY+KHcbPrpiIevwmV1oEQMANY/y1
+	 srHEe1gNqIY1dH9gOVd3KsRq8XyOumNHKvTLF5j2nWHIu3vJnpBFFUHa0pSscXEK4GnDk
+	 Dl+aRD7ROvuFOQLB9K7RTBba33/1t+UstjOj21kcJjmQJAsKFqeOjddjuP3XEwEkaT7Ud
+	 THjsBcdwWlg2nbfW0OTA5ROxJD03qfOhht/vFGcWPXNDcTV8YSE7t1US8jas9Of7s295X
+	 MWCl0znDaCc7gmMPJA+gBeyWCiOO1eB8urMKtTvGME2wsIdZgbxUjWukybFIOhK8CEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795265789;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=07/4JrGFuPyurQiM3Uinhn/hEI7MknMnN0pCON2rlT0=;
-	b=ns+df+eVMof1jcCcylUyO3mYnHL4U9L289MUDOxvOxERM0TCDeH0YVREB3Wg89YpiiqP
-	 ed5TwUr/e1s4WrnJQBttSkXH7mllbC4TMvBy+6R/eSzW1CdxqXpcNxcoYq6RRuu91FR2A
-	 Qluv2rr7v+TsmPLz9mwZlw/RqW04U9xPKx0rAhlYqHRUByvFdodRAU9WmvGSR18qBQJ00
-	 ofYcye+7eqfpxOW9YBpqY4HsNjRgrfCsOH8Sjy5cm6jKE60kNBxbk+ft8rS9/NMHwM//K
-	 Hzmz9XIfuvODlbYb0NLaR2ltm4U6BzzktHJr2kViP8EKG6vkd4ZdfjoRnr2m3jjBiXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795265824;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nZlfSaU/KRR8LRuEz4bVGpZ1H+cZ7rUX3HbAVDD7qV0=;
+	b=V1HvUNJoJX4IsIK688qRLguIFfUJkmSUqnry95fAxSA18bcO4oGKOvp+UFq01Covx7Nd
+	 +rv130MNFmaFc1rirj0buCP9KOnO4VMtrgpX+fhy8rzcYi0P10ZLPLP7QvzM+prXd0vfm
+	 ZyNouKLSJb0o673HaQx6v9w3Uoz0a07YNHPZyIz6t3e1ssknmzoZlG3/DylAK+3cYqWZs
+	 374Y8MaUJn5+IhulV7LfazuFA0gbbmxyt777i8xO6gjmmBtDVqMDda4Wy9aYuJvs8PgfM
+	 UtbDWcCx5cDk4B1ZYZ2AHvxQ/PDAjrmY2rqSCWFqbhXFciXnXW6bQFROEXbFCw6FUYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="L/dNKliY";
-	arc=none smtp.remote-ip=95.215.58.138
-Received: from mta1.migadu.com (out-138.mta1.migadu.com [95.215.58.138])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="2ZEOr/Jc";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9D1606A32A
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 12:56:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC9D1606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45599606A320;
+	Sat, 21 Nov 2026 12:57:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L/dNKliY
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PNi6Kuu+c+QiWIOerMy/ddXpNesF2DeX0czoKOwkc4w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795265787; v=1; x=1795870587;
- b=L/dNKliYqWqvxuIfd31OcNC3XCC0emE8758pKAwpDSNaL/RClBxO16nhFLSQrKwQJxK6D4np
- H5lL0w9zk5wMvF573c57pnLLDytlbvs8bDHX2eT6fw1QMoH/an1dQE2dG5NQ+hGPhdi6CPP8WBd
- 1+4gkwESRajnu9yWCkN3TjXc=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a6e8f47a5bb9cfab;
-	Sat, 21 Nov 2026 12:56:26 +0000
-X-Mizu-Trace-ID: a6e8f47a5bb9cfab
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: stable@vger.kernel.org
-Cc: Samarth Narang <samarth.colleges@gmail.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Xu Xin <xu.xin@linux.dev>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	=?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>,
-	Andrea Arcangeli <aarcange@redhat.com>,
-	Peter Xu <peterx@redhat.com>,
-	Bobby Powers <bobbypowers@gmail.com>,
-	Brian Geffon <bgeffon@google.com>,
-	Denis Plotnikov <dplotnikov@virtuozzo.com>,
-	Doug Gilbert <dgilbert@interlog.com>,
-	Hugh Dickins <hughd@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Martin Cracauer <cracauer@cons.org>,
-	Marty McFadden <mcfadden8@llnl.gov>,
-	Maya Gokhale <gokhale2@llnl.gov>,
-	Pavel Emelyanov <xemul@openvz.org>,
-	Rik van Riel <riel@surriel.com>,
-	Shaohua Li <shli@fb.com>,
-	James Houghton <jthoughton@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	SJ Park <sj@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Mohammed EL Kadiri <med08elkadiri@gmail.com>
-Subject: [PATCH 6.12.y v2] mm/ksm: fix userfaultfd protection during merge and unmerge
-Date: Sat, 21 Nov 2026 20:56:16 +0800
-Message-ID: <20261121125616.96127-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261111082901.32704-1-lance.yang@linux.dev>
-References: <20261111082901.32704-1-lance.yang@linux.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2ZEOr/Jc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 647291F000CA;
+	Sat, 21 Nov 2026 12:57:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795265824;
+	bh=nZlfSaU/KRR8LRuEz4bVGpZ1H+cZ7rUX3HbAVDD7qV0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=2ZEOr/JcysBMblgGVp4X2qAr+SvVXtlUwycEuPrSVHpDO4Xr7Zqs8frBgLD5M+YLi
+	 F6dhmftHC2a2zzId3o2QEFz0lfD/5Bj9NeuG7JDv1BK21ExAVEjAtNunOvm9DNnSQD
+	 dIx8phoXWW8VtPdQWz5UtWMLUxuGgps3yJBzTncc=
+Date: Sat, 21 Nov 2026 13:57:24 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Tanuj Sharma <ertanuj96@gmail.com>
+Cc: ntfs3@lists.linux.dev, almaz.alexandrovich@paragon-software.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] ntfs3: fix out-of-bounds write in do_action() bitmap
+ operations
+Message-ID: <2026112152-delivery-synopsis-ada7@gregkh>
+References: <2026112132-spending-smoking-5e7d@gregkh>
+ <20261121122417.72854-1-ertanuj96@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,107 +55,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261121122417.72854-1-ertanuj96@gmail.com>
 
-KSM loses userfaultfd protection when replace_page() builds a new PTE from
-vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
-through ordinary COW instead of userfaultfd write protection handling.
-For RWP, a merged page also becomes readable without faulting.
+On Sat, Nov 21, 2026 at 05:54:17PM +0530, Tanuj Sharma wrote:
+> In do_action(), when replaying log records for ATTR_ALLOC attributes,
+> the buffer is allocated based on bytes_per_index (typically 4096 bytes,
+> kmalloc-4k) but bitmap operation bounds checking uses lco -- a larger
+> value derived from lcns_follow << cluster_bits (typically 8192).
+> 
+> This allows SetBitsInNonresidentBitMap and ClearBitsInNonresidentBitMap
+> opcodes to write past the allocated buffer into the adjacent slab object
+> when processing crafted NTFS images with malicious $LogFile records.
+> 
+> The bounds check compares against lco (the full LCN extent size) but
+> should compare against the actual buffer capacity. For ATTR_ALLOC, the
+> buffer is only bytes_per_index bytes, allocated here:
+> 
+>   if (attr->type == ATTR_ALLOC) {
+>       t32 = le32_to_cpu(oe->bytes_per_index);
+>       if (bytes < t32)
+>           bytes = t32;
+>   }
+>   buffer_le = kmalloc(bytes, GFP_NOFS);
+> 
+> But the bounds check uses the larger lco:
+> 
+>   if (cbo + (off + 7) / 8 > lco || ...)
+> 
+> With bytes_per_index=4096 and lco=8192, any bitmap_off >= 32768
+> (byte offset 4096) passes the lco check but writes past the buffer.
+> 
+> Fix this by computing the bounds limit as the minimum of the buffer
+> extent (cbo + bytes_per_index) and the LCN extent (lco). This ensures
+> bitmap operations cannot exceed either the allocated buffer or the
+> on-disk extent, and also prevents a crafted bytes_per_index larger
+> than lco from weakening the existing check.
+> 
+> Found by code audit and confirmed with a crafted NTFS image that
+> triggers the OOB write on mount.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
+> Signed-off-by: Tanuj Sharma <ertanuj96@gmail.com>
+> ---
+> Changes in v3:
+> - Fix coding style: move bmp_limit declaration to function scope,
+>   remove bare blocks
+> 
+> Changes in v2:
+> - Resend with proper formatting (git send-email)
+> 
+>  fs/ntfs3/fslog.c | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+> index 1879d04e3cd05..373d84545a8fe 100644
+> --- a/fs/ntfs3/fslog.c
+> +++ b/fs/ntfs3/fslog.c
+> @@ -3125,6 +3125,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+>  	u16 roff = le16_to_cpu(lrh->record_off);
+>  	u16 aoff = le16_to_cpu(lrh->attr_off);
+>  	u64 lco = 0;
+> +	u64 bmp_limit;
+>  	u64 cbo = (u64)le16_to_cpu(lrh->cluster_off) << SECTOR_SHIFT;
+>  	u64 tvo = le64_to_cpu(lrh->target_vcn) << sbi->cluster_bits;
+>  	u64 vbo = cbo + tvo;
+> @@ -3751,8 +3752,12 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+>  		off = le32_to_cpu(((struct BITMAP_RANGE *)data)->bitmap_off);
+>  		bits = le32_to_cpu(((struct BITMAP_RANGE *)data)->bits);
+>  
+> -		if (cbo + (off + 7) / 8 > lco ||
+> -		    cbo + ((off + bits + 7) / 8) > lco) {
+> +		bmp_limit = attr->type == ATTR_ALLOC ?
+> +			min(cbo + (u64)le32_to_cpu(oe->bytes_per_index), lco) :
+> +			lco;
+> +
+> +		if (cbo + (off + 7) / 8 > bmp_limit ||
+> +		    cbo + ((off + bits + 7) / 8) > bmp_limit) {
+>  			goto dirty_vol;
+>  		}
 
-Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
-have to handle unmerging.  An existing KSM page can be protected with RWP
-before MADV_UNMERGEABLE, so unmerging already needs fixing independently
-of preserving RWP during merging.
+Did you run checkpatch on this?  Why are these { } needed here?
 
-Unsharing replaces a shared page with a private one and should leave
-userfaultfd protection in place, as do_wp_page() already does for write
-protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
-can proceed to do_wp_page().
+>  
+> @@ -3764,8 +3769,12 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+>  		off = le32_to_cpu(((struct BITMAP_RANGE *)data)->bitmap_off);
+>  		bits = le32_to_cpu(((struct BITMAP_RANGE *)data)->bits);
+>  
+> -		if (cbo + (off + 7) / 8 > lco ||
+> -		    cbo + ((off + bits + 7) / 8) > lco) {
+> +		bmp_limit = attr->type == ATTR_ALLOC ?
+> +			min(cbo + (u64)le32_to_cpu(oe->bytes_per_index), lco) :
+> +			lco;
+> +
+> +		if (cbo + (off + 7) / 8 > bmp_limit ||
+> +		    cbo + ((off + bits + 7) / 8) > bmp_limit) {
+>  			goto dirty_vol;
+>  		}
 
-- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
-  break_ksm() then reports success with a KSM page still merged.
+Or here?
 
-- With asynchronous RWP, protection is cleared before unsharing.
+thanks,
 
-Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
-FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
-private copy as well.  Unsharing can then complete with RWP still armed
-for a subsequent access.
-
-Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
-Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
-Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Xu Xin <xu.xin@linux.dev>"
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jérôme Glisse <jglisse@redhat.com>
-Cc: Andrea Arcangeli <aarcange@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Bobby Powers <bobbypowers@gmail.com>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
-Cc: Doug Gilbert <dgilbert@interlog.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Martin Cracauer <cracauer@cons.org>
-Cc: Marty McFadden <mcfadden8@llnl.gov>
-Cc: Maya Gokhale <gokhale2@llnl.gov>
-Cc: Pavel Emelyanov <xemul@openvz.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Shaohua Li <shli@fb.com>
-Cc: James Houghton <jthoughton@google.com>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Sean Christopherson <seanjc@google.com>
-Cc: SJ Park <sj@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
-Cc: <stable@vger.kernel.org>
-
-(cherry picked from commit 990d6c2194a938a19a8cf94c6cfd75171345089b)
----
-Backport to 6.12:
-- Use the older pte_uffd_wp()/pte_mkuffd_wp() helpers.
-- Drop the mm/memory.c changes. 6.12 has no RWP support.
-
-v1 -> v2:
- - Rebase onto the stable queue and move the uffd-wp check below
-   the soft-dirty block (per Sasha).
- - https://lore.kernel.org/r/20261111082901.32704-1-lance.yang@linux.dev/
-
- mm/ksm.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 9a98aa97317a..6d7b21636f54 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -1413,6 +1413,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
- 	if (pte_soft_dirty(orig_pte))
- 		newpte = pte_mksoft_dirty(newpte);
- 
-+	/* Preserve uffd-wp when replacing the page. */
-+	if (pte_uffd_wp(orig_pte))
-+		newpte = pte_mkuffd_wp(newpte);
-+
- 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
- 	/*
- 	 * No need to notify as we are replacing a read only page with another
--- 
-2.49.0
-
+greg k-h
