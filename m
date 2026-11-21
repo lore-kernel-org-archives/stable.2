@@ -1,82 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795245307;
-	b=oqNym7p77jUxi/KC35/YvAPn/na5JwDYhZBNX9g6Lk2FaI9biVK81QBm0anCQJ3p5yBB
-	 VgLcUNmrOUi0XYl555TKc0MQMKJ/5KI+5n5xZbBeMtkGeKuj/yUCVzetL6keqGnvm6LRC
-	 vPStJAiZqBeJFvRkgzQBrqNPa95oZZlZRh/TV57GJGFAyox+6c6iDYl6Wa1GWSW/sBBEq
-	 U1EHvRdO2lygj1J5YFWUNePJvzqoHP4i+DjGcXtYY3qC+Vl41qKvecK9cry0CZEodj0qs
-	 hZ+0RkmTG106T/UFrZ0wEehA2TjCOnR72hGGDfTWTUXQAmle9U/buFjctpJHHbGeYMg==
+	t=1795246351;
+	b=vtMH/A9N4Cs03zUS3Qxr3hjXA6gEJUHOg2FhvhURLUNc/acSYKTXMTsen57HP7aG5NJa
+	 HNhxOUAo7qVmkjN5r4DhCH2hBVxmbWYlz0beTgYcCwr7dIzI2LPIe/ZRkv+A8FtezEMGm
+	 3wNhiqr6rPAdl93F3pG8ZwrOmPGNFrtylIrUqLd5gxsboaoEfY1W3NAgh9QnIwiMFUILm
+	 u/xGa3dZjJxAkcGJ8iiiJlRNCIGs90LKkRpIA9MqY+a8NtdcAG0Bxb1OY71mxu4Ur7XQd
+	 rbCz+BVMV0TMZ8z7J10zlbbFOKWXJgcrdG2ijOXaXmQ90Dq6/8MehOxsYUcuC8r6b0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795245307;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=jphhe9W5UCk3gjzh2JeM6aA2VjvVddfIzmTZSGQzdgk=;
-	b=I1d65z6iCn7/hmlIYHhojbOUN5U+fkOomBf50dLsnvvMe5AGZwDUs+q0ACkhnE+wIH9j
-	 kjmOnfuRIMRnKn/ApDlBCir9+00HHlkuOpecNtSfRzinXJJJQcpKeY/sSGcvYEvyEZPJH
-	 aeYeCMfjpXIs0Ls1tPVw0XJuATpbXRivSUWrclVXP/LyGE301YrZFUZFFsaJwKBCcGNzu
-	 tZPXKOAncIxp3WHm2zDfHpOeo/AQZ33xxJA38hZ9oYay7T1mOqK63aoVJE+KRwPpQrVz6
-	 um2sWjNOPgB0QHJkAIeM1YFZGsg9eX7GUpftk8+hGgSxKKQJ+IT8TvUcG+23k3HvumQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795246351;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vZXEIX5bRG+X47GzywXngypFAMMr6NGpMI+nKBGpwCc=;
+	b=yJlLABEsWWG+4YFouf4WCFTNQrdzu236kOAVoEo6muuVYFoHl7Ov3k5xtp2DaU6CeWug
+	 rPYv3asFnXie5lnfcBHXTjKOPiAJqgoODWYPmgRGCg3C4FUgj3kseWmR/RZ1SVUJqyYJX
+	 ClaLDS7Ck/dJabUmNg3nSkwZPSpx1R0Mz1z5w5YaiFvZ/FWiIfBo57fMpqv1OF7guqnE2
+	 cuICYd4WaceXVVKHOw/CM5Ys8CpSzvCLKLeW33R8dJv2GrNP8XcFhpILWBNf6YP8TF6IG
+	 3toN+nrxn+W9iUq1KrZxe/45IdhRXCtNmmM0M45DLYx40Mfr5Ar8Uhsubv39jyWWw+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=KRAkMRMz;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qI5s+qRP;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B15A606A330;
-	Sat, 21 Nov 2026 07:15:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B15A606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63187606A320
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 07:32:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63187606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=KRAkMRMz
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A8E7440E019C;
-	Sat, 21 Nov 2026 07:15:03 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id Eh9b41Hgcbm8; Sat, 21 Nov 2026 07:15:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1795245300; bh=jphhe9W5UCk3gjzh2JeM6aA2VjvVddfIzmTZSGQzdgk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KRAkMRMzGvaaTbQZeWRcJDP7JApPv4vvgEEXB0iHkyPT/kcEV3qlPMnBIBmdDkn2o
-	 xXawBFlgPOKCKUxEN6JzZ53RcodD0bs5U1wSxGPdkkllxodjBNJnqcFFk7GvOxTqbp
-	 Bz6ZmXQPS2bSvo5ax3aHWOhbclNW8/l4N2gD201baFoP+qU1+DpLkWQlOl2gT7Atjy
-	 PY/BXuJjtudsAO35NXCgXCU5ct+WjMzFzHjX1r112pNarFzvIuN/eIfKGFNW+qbJSd
-	 9Q7ZdhEfcShWglKUBJ+8WFxFBcFxVGgZEAX7i+pCKEQSQZPZLGqb0JhRNDfyLM+M0Q
-	 c20WUsaqJCEWBbuMl0QnFsFvYZ5A0Dh8iCDamdTsf+8h98JTdBafMAe1LOQRjojnLJ
-	 blur85K83lZe1ouPfuvatlMsaF7Wm9ltPLjhbIqBqWpd9ytxSYF++lusNV+NANs9Rp
-	 MZCX0yTjI6O/dgygCX4DUxdyF60BV6bmp6JJz+u5Xbu3WHvFX+mNO11489S7oEeeQb
-	 RE9Q+LasADwPRyHK++PyJBb3QNNkV8UTIoYVPT+JJ1R11uIsIWx9pRszzUgiHS9lZy
-	 MqCzWd7Gm2SuRm6vV5lwfvSaaClzRIsBu3auQpDxmPkA3XTqQE+FIT/FaBPtM2BOzP
-	 RS9VnAbp8fKdfc3GGYanG/ms=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id DB59240E015B;
-	Sat, 21 Nov 2026 07:14:45 +0000 (UTC)
-Date: Fri, 20 Nov 2026 23:14:42 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Tina Zhang <zhang_wei@open-hieco.net>
-Cc: Dave Hansen <dave.hansen@intel.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	dave.hansen@linux.intel.com, david.laight.linux@gmail.com,
-	dengqiming@hygon.cn, hpa@zytor.com, linux-kernel@vger.kernel.org,
-	mingo@redhat.com, puwen@hygon.cn, stable@vger.kernel.org,
-	tglx@linutronix.de, x86@kernel.org, yangzhen@hygon.cn
-Subject: Re: [PATCH] x86/cpu/hygon: Work around XSAVES Erratum 1386
-Message-ID: <20261121071442.GDawFE4rWdzLeaqjoH@fat_crate.local>
-References: <b04950ad-d655-4ca2-8cbd-59360509d25b@intel.com>
- <89a5aef2-ea88-43d7-adcc-3f6b7374932f@citrix.com>
- <46d14366-dd1f-45f4-abc3-4d9dd8c32e7b@intel.com>
- <991d9608-fb44-4bcf-8ee8-b0a398899217@open-hieco.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qI5s+qRP
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e9e53d011eso13617135ad.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 23:32:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795246350; x=1795851150; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vZXEIX5bRG+X47GzywXngypFAMMr6NGpMI+nKBGpwCc=;
+        b=qI5s+qRPc8lOrId2pgvo/2iBSN/HidJP3kKtKe5Ref0DOKJB8y9o6Sl6ruSIUVdTxu
+         luFddQp1/bbZokmYJs5Y4+QmshC+0KoM4JuTA/6kZ+qDbBUm5jLZlgeEJ71FuwES4Nre
+         bCnX1om5e4PhAUnuMy8IzexWQej5EpbWDk2rjFiMVnRsoKqQghq7LIPSG3QAW5t6SILv
+         cPTTgx8pC1Opcp2W4FJQbsFgdYRaB4I6nv8FwC1NPsKsy7SDwIiVTVISZRFpRzNJqBRl
+         fCfFi8vA55yD8RrU4uEeMRWOANIWukzcbubMKu9nKBFhAavfQH8i18W5yICVfo/PZwcV
+         91Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795246350; x=1795851150;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vZXEIX5bRG+X47GzywXngypFAMMr6NGpMI+nKBGpwCc=;
+        b=nX39a9vWk4bp+W2A4lcIO8XeyQJ376QdOQsAy6//HY73I1VHw+iIP37EiUimIfx0ty
+         xClzNeGYCaWd2pVKDoQmv3W4rvNwKH5q4c9yCl4JsugiS5ezTRJbh3+KjJesXAD+wMnH
+         0XfgrwxApUCgMNFBiRmRfrFeLdPAjLR0Q2nF7kBbsn338zk3Vky59+P8WyJkEDl/HuYN
+         kc0EydBT245CKWGcW6CmOyJj1ye9zYMrxZpAGa2nVITXrgDABxyum0nHqx6Ir6wRL3Hs
+         BK5VnOmZ1crr8narZfYkno4k0eZmxw1ZZHG+pF4UubLWTReYVieRWb219PXxqYo0D62g
+         V8Yg==
+X-Forwarded-Encrypted: i=1; AL+hErERH5wBDAhUk2mo8rMG14S1iMVgV1qsEb4ASws4V4ebzXb87DNjtjHaOd9X+jBgP8dA4xnxKFo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+jLYxlF3CiLs2LpwDNyTDqYw4FZutijFouVb3A6M2j+QM2bZms
+	pEat8jbQIzfMUeKmJUbSDPhw0+MU7woU+YqJeviWvi964NMx7eD/5VsL
+X-Gm-Gg: AZFdTZewyP+pdtnNvxqCYcvfvL7OPp4G8gRcM08cSE09nT7ZoZh5vnNv879v20tesmY
+	1bpMP5a3QoSDGueL4iN4BdqcuchKZd9rbJ0fV+5FmVVP6Ci4oxBasnXcYRoiIljbrjteJzE0qvB
+	ZUw2AhnwTdB3xMqFgP1QNt4jBawFA/40a0EzmjKVxmTFqunQymVgygKLjSN6dANQhv+tFmNypMC
+	vrM70U1fpmiKnrsFd+pGysj/Oa7S/7aC0eBP7Ceuh0Q81akpF8KKtDufvWgdtkOhqgqWRIOYn+p
+	B4F3Z5H6rmNdzvmNGaHAnXMSJgohre+QEGzdh38Ri/oI4iFP5VX2rn53utk+bK1/NRA1ARV+7P/
+	XUs2wnGTht787nbBAWhbuYTwk29bJOLua59qxC6GM0Gv5+RJ+i1fMK8pst/j+xP07Qj4K2O+yrY
+	gHPhSXg1hufOpX6VX06TvhVDPzTSwIa2ylKHQvr701RkfeoJjVwFACT0BraUtYeM/Nz46szsMOj
+	Z5/wVt+q3jzD6gOOKIDKA4wU4vYWf3om+ZP5YGNgA9Uk5b/5WOKKD9Dr2hw8oKiJkJCtbd1PjHz
+	w1x3wSXoBimtD0SQf9C0eRdq51db0K4hQABe2irTvj9dkQ==
+X-Received: by 2002:a17:902:dacc:b0:2ef:d54b:fb64 with SMTP id d9443c01a7336-2f03f16ca9amr57805835ad.47.1795246349410;
+        Fri, 20 Nov 2026 23:32:29 -0800 (PST)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0ddf40sm23423465ad.37.2026.11.20.23.32.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 23:32:28 -0800 (PST)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: akpm@linux-foundation.org
+Cc: hannes@cmpxchg.org,
+	mhocko@suse.com,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	muchun.song@linux.dev,
+	penguin-kernel@i-love.sakura.ne.jp,
+	tj@kernel.org,
+	mkoutny@suse.com,
+	chris@chrisdown.name,
+	cui.tao@linux.dev,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: [PATCH v3] mm: memcontrol: don't miss processes whose leader has exited in OOM scans
+Date: Sat, 21 Nov 2026 15:32:22 +0800
+Message-ID: <20261121073222.834282-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,34 +107,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <991d9608-fb44-4bcf-8ee8-b0a398899217@open-hieco.net>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 21, 2026 at 02:46:31PM +0800, Tina Zhang wrote:
-> I'll extend the existing erratum_1386_microcode[] table with the Hygon
-> entries and make Hygon reuse fix_erratum_1386() instead of duplicating the
-> workaround in hygon.c.
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-Sorry that I couldn't jump in here earlier. Those folks are all giving you
-confusing ideas, don't listen to them... :)
+mem_cgroup_scan_tasks() walks with CSS_TASK_ITER_PROCS, so it sees only
+thread group leaders, plus a dying leader that still has live threads.
+Moving a process whose leader has exited, by writing its PID to
+cgroup.procs, moves the live threads but leaves the leader behind, as
+cgroup_migrate_add_task() skips exiting tasks.
 
-You simply need to copy the amd.c code and adjust it with your numbers.
+The destination's OOM killer then cannot see the process.  If it is
+alone there, every attempt ends with "Out of memory and no killable
+processes..." and the charge is retried indefinitely, and
+memory.oom.group kills nothing; otherwise another process is killed in
+its place.  The source's OOM killer still finds the leader, reaches the
+moved threads' mm through find_lock_task_mm(), and kills a process that
+has left the memcg.
 
-The reason why we're copying and not sharing code with AMD is because AMD
-cannot test on Hygon and thus risk breaking Hygon or you vice versa.
+Walk all tasks and let one task of each thread group in the memcg stand
+for it: the first one that is not exiting, the first one that has not
+exited yet once the whole group is exiting, or the leader once every
+thread has exited, so that an OOM victim stays visible until it is gone,
+as the leader does today.  Exiting threads left behind do not count
+while the group has live threads elsewhere.
 
-So we have it all separate, that's why there's a cpu/hygon.c.
+Tested in a VM with memory.max=64M: in each case above the process using
+the memory is now killed, and a process whose exited leader was not
+moved, or whose leader is alive, is killed as before, with and without
+memory.oom.group.
 
-Once it all settles and once we absolutely cannot live with the mini code
-duplication this causes, then we can start unifying.
+Fixes: f168a9a54ec3 ("mm: memcontrol: use CSS_TASK_ITER_PROCS at mem_cgroup_scan_tasks()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+---
+v3:
+ - Rebase on "mm: memcontrol: don't lose track of exiting OOM victims"
+   in mm-hotfixes-unstable and keep CSS_TASK_ITER_WITH_DEAD
+ - Let the leader stand for the group once every thread has exited, so
+   such a victim stays visible as it does with that patch alone
 
-But that time hasn't come yet. For now we will do all separate.
+Moving the exited leader along with its threads came up on v1, and
+there has been no answer from the cgroup side.  cgroup.kill had the
+same case: da13e0e72a73 ("cgroup: fix cgroup.kill for exited thread
+group leader") walks all threads instead of the leaders, and
+5f4a3f743acc ("cgroup: don't kill migrated processes through their
+exiting threads") then had to keep an exiting thread left behind from
+standing for a process that has moved out.  This patch does the same
+for the memcg scan; the second case is what the live_elsewhere check
+covers.
 
-Thanks and sorry again that I couldn't jump in in time.
+Retested on mm-hotfixes-unstable 2ba4d2c9ae3c: the cases in the
+changelog behave as described, and with the reproducer from the review
+of Chris's patch, memory.max=400M, 10 runs, oom_kill is 1 in every run
+with and without this patch.
 
+v2: https://lore.kernel.org/all/20261027144016.2582880-1-zhanxusheng1024@gmail.com/
+v1: https://lore.kernel.org/all/20261026120248.2188024-1-zhanxusheng1024@gmail.com/
+
+ mm/memcontrol.c | 44 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 41 insertions(+), 3 deletions(-)
+
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index afbb638e7e1c..3355341666db 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -1426,6 +1426,44 @@ static void invalidate_reclaim_iterators(struct mem_cgroup *dead_memcg)
+ 						dead_memcg);
+ }
+ 
++/*
++ * Let one task of each thread group in @memcg stand for the group: the
++ * first one that is not exiting, or, once the whole group is exiting, the
++ * first one that has not exited yet, so that an OOM victim stays visible.
++ * The leader is not enough: a group whose leader has exited can be moved
++ * without it.  Exiting threads left behind in @memcg do not count while the
++ * group has live threads elsewhere.
++ */
++static bool mem_cgroup_scan_skip(struct mem_cgroup *memcg,
++				 struct task_struct *task)
++{
++	struct task_struct *t, *dying = NULL;
++	bool live_elsewhere = false;
++
++	guard(rcu)();
++	__for_each_thread(task->signal, t) {
++		bool here;
++
++		if (READ_ONCE(t->exit_state))
++			continue;
++		here = mem_cgroup_from_task(t) == memcg;
++		if (!(READ_ONCE(t->flags) & PF_EXITING)) {
++			if (here)
++				return t != task;
++			live_elsewhere = true;
++		} else if (here && !dying) {
++			dying = t;
++		}
++	}
++	/*
++	 * Once every thread has exited, the leader stands for the group until
++	 * it is gone, as with CSS_TASK_ITER_PROCS.
++	 */
++	if (!dying)
++		return live_elsewhere || !thread_group_leader(task);
++	return live_elsewhere || dying != task;
++}
++
+ /**
+  * mem_cgroup_scan_tasks - iterate over tasks of a memory cgroup hierarchy
+  * @memcg: hierarchy root
+@@ -1456,10 +1494,10 @@ void mem_cgroup_scan_tasks(struct mem_cgroup *memcg,
+ 		 * torn down. Keep it visible so oom_evaluate_task() can
+ 		 * back off while there's still memory to free.
+ 		 */
+-		css_task_iter_start(&iter->css, CSS_TASK_ITER_PROCS |
+-				    CSS_TASK_ITER_WITH_DEAD, &it);
++		css_task_iter_start(&iter->css, CSS_TASK_ITER_WITH_DEAD, &it);
+ 		while (!ret && (task = css_task_iter_next(&it))) {
+-			ret = fn(task, arg);
++			if (!mem_cgroup_scan_skip(iter, task))
++				ret = fn(task, arg);
+ 			/* Avoid potential softlockup warning */
+ 			cond_resched();
+ 		}
+
+base-commit: 2ba4d2c9ae3cfdad96ee925c92b14d7acd886954
 -- 
-Regards/Gruss,
-    Boris.
+2.43.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
