@@ -1,89 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795219019;
-	b=x8JIUkvmQH1B5qm9vEEsQUiIsb+CyVDrRcrHW7gJBqFxsrssSTCmhzPEj9vqs7yonGLP
-	 e5FcOMrLsujhU3TzQy9bX36x493KKA7/T3D1XGkP7llFTBY2YZcOvFeb6c8xrSd+ttft8
-	 5e6Pic/ajZINPuYUAxd6ANvGKke84uq6nJJ/6l8AsOuOOLOtfGLFRuqWvbzhClq6mFbn3
-	 6gsLlcySAoJiLi+hongEE5rzJXwM09thtS1SSDesvp9aYBaGtlwmMfzFbNGKugfCBoyWM
-	 MwaiisIpZx75y04X3jruw3uYjm1HOsqMJ9fZBBH7LeAPwsRDv9u3vtaSIQvc5DlcU4A==
+	t=1795219342;
+	b=piIxPLfOJusTrvztTpWSLOWDhd+bygqg8ZkUI84AVqgq1qIuU+LAqkeDOf0UzFsJ0Q6f
+	 MKORU5Ft6qWXFHCOR3upAbEHtfr6W3q0f9u4oCUknW0+Z1ql2LzDDid60BcdqfTDaNBAF
+	 WoRavN+iOKtYdFiU5hLgJ/0OtRmviNbZnNbr1rEMkT1YCehyUF2TGUG916Yxura3m4AA4
+	 8+HOQ6T3zr9j9ut2SjayMvAYqgqcmU5J2V1A1g8Zlfh2PTOE9vY2Rux8Raz/Qgls6LQod
+	 g1SP1oOILznOi37swLtdvfW9/NBQrrUjPJ0ZdzNU/GlLlrp5CSBhhJh+K4EsFK2BRSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795219019;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kVgYuwZfK6/XOH25sVcw/XaxSILhNtXWSKbZSzmcIJo=;
-	b=2Qfya//TcpixEn/OuUOrI3k9hIcVWoN7QGrJVF2V9I5exxGjx0P5BqqHIIXptqJh6pwq
-	 iNkwL4CvSfUpvG0gE43n9h1Ag+jUQqFzmTGGfacWWe2n/tAxdJQ5BSHefJk/y8NjFj2U0
-	 tD6FJNmEIUJsBn0VlNVTeI8ZwN/c7ZLBa3kDWBI46YoGdXKiVA9mOmroDYAAcfIkeXZ4v
-	 kMzPwy3ghiOhibtbJ6BISd4aJqCXos1f4kGrwlhrs7nAf5kniwyHkec9pOKBS7skz/dBS
-	 iAMyaIlYg452or+Y8shfGU0eL1akt4HE1o7wk2KeeKtOp4K7qOAZ2qkXk7OKQkUJhvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795219342;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=5oT62WpkqvQG1bllCQZAHu6BEqx9AIMOrpuD6eCPtoI=;
+	b=SFuk0m/tSBVornvOTDr0b7ma42hXsdntmgxoZMqJkAgzyv4MPXiaxXSMIkdOX+PlzoMZ
+	 MUIqL13Vx0DW82L48QXkAWUtn0Y0ySm2vQFCFdptLPf0T3cWV63XGUJ/nmELVCCjStL5I
+	 RjmAt6j4ftzQyIG0JvB5RKDBBncQjV3UAW4jX1PKunCZIGDqXR3l6+Wih3LdqVnbNx9jm
+	 hmUBSP8sOjSZwNsvsnO2gjpc/IeHScFfn4qrygAaFfbxEgPOxDwPB8TK0sDWkxrAyp0jD
+	 1PRNLetKRH9kibTMBYWQnVkzB4bug/FHU2MeLDfhe6fafleHsZZ7zsc9yJbwggpcZ9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iyiVdIbB;
-	arc=none smtp.remote-ip=209.85.160.169
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5GJRzs9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C468B606A690
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 23:56:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C468B606A690
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DAB606A69B;
+	Sat, 21 Nov 2026 00:02:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iyiVdIbB
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-55c38cdd5b7so10611821cf.2
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 15:56:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795219017; x=1795823817; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kVgYuwZfK6/XOH25sVcw/XaxSILhNtXWSKbZSzmcIJo=;
-        b=iyiVdIbBJScr0uHl2CQqYIrz2MuH/xjWhEzXjma2JGWT6Db/ZRCQUSwiY5aPIpLP4R
-         7hEUXeBBhzf3k/r6Vm66nztnJmVhot2/zAcsdnEN4716/uzrqGpUn11P2o55gGtn8F4C
-         4sJ43zIzyWChPNJJyAUQCeolFKSReqIUd42/iCcVfa82alUjLpOLGrOP0LwE6OcrnJli
-         ymkGRP0afLpzEwJC1RF8OkUn8sHpA5S1wO5+e5fAdT5XNLOEKVSteJRBarNRdrZH85Er
-         UyES5j2EzW1FRdzQweKIgAG/IxOX+bD98ynB4q70fapDjK/QoHJmCieVdu2gdTjmrXyU
-         O6Bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795219017; x=1795823817;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kVgYuwZfK6/XOH25sVcw/XaxSILhNtXWSKbZSzmcIJo=;
-        b=c59T4tmSk3EUmbcOCX2jS+vMZepBGRbNfWJdBaLChqTJToMrZl215sWkEzLTp2r3fk
-         bcqIWGCcA7fpXQ+RBD6hpc7srJe2gRV79rtVfi/dKwzRY6cr8KrK1hMVuxkAOcLT1Yxb
-         u1iENuR1t4tdP0TZrju2hL/JfZR2XZlklGwXHJ+HSWqusG2KdEvWbdzsnzvW3s9M+NUU
-         n+xTtoC0R2jST+W7ksNh1pgjxqgd6+Irc1x+4qDrS5eso7E2DiM9QhEZZwa9aJKA+izk
-         7mXs1GYeA0Xw0vfWKMnQMSeEHIXoVIDeNqegk5BUQs9UUZXQaHOScyEXomByw0WN6nCC
-         VoXA==
-X-Forwarded-Encrypted: i=1; AL+hErFDisUQnBgODzqnGopU19ha0/1S6Ayxvh7JrsLM8s9IB2VeN1VSj/LBo8MJoxqMziBFSoAbXI8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/mQT9hyCsHFTCaVGXFXq9FLHSEWGnb0lwApZWI3F/zIEDtFTq
-	Wq4gPwEHi/fZ3upud+j11shg79Tg5ENhPX2toe2CTn+90RYjEOs8/Rw8
-X-Gm-Gg: AYBFou1OjsUEHyr8DUuPMOVFNdh5UQRC2MYAvFpTVi4UeEiocGTzk6VpWPU6ldaT00n
-	3G2faiTsBftGs9LrF0UcFnIUw4ezQDvYLzszN2diuPAqn4+AhOaSEf1Rnv8R8SGddjr7zkgOjh2
-	g60dfT97TcDZy/HluPiDIvdzTwTqfAtlYw94RlFsXlowmy5Si73C/73VUf78fp23W+0DmIKnzfl
-	nbgJyyGbuYKdPTBGgLXAyHv3wWnnHJlDy976vzyh9A0v3qB3fdGOHwF9fhYCLCmmrCJnNby8Z76
-	4NqOaVKl1C0MMmyGwJVwKoEegYYFriJEaKnunSHoWcXOwO8WXKZmyfbDtFPtwmJEleYgSi7FcpC
-	oES0GjSTGTMyDyUo/MpptzfxbnEw/yStYZPgul3QyVm6Y7Qx2wmQ/Ndn4prs/1YrlOmn1Qpnrqc
-	dySGuFybhxlllVhcKeplXAGBqgYDaOt21z8HKZCZ5MA2nzptSkVBYwyqIKlsp5M5WduCQ4A8mw2
-	nR8oQEVskSFMA3mFvboFd1GUYsPEYuq1tX9bh5KMbXXlrUvXb6poF1kRJ17glJ+Rj41kn929Gir
-	TgHPetUfPTKLCjz1jKgtc6L//AlS9vc2YqSKrkGWzbZQEZ0eKFF/UMyUMgpjeLyzwgLKdYL569d
-	izCQ=
-X-Received: by 2002:a05:622a:5590:b0:536:3a49:f76 with SMTP id d75a77b69052e-55d76a1f01dmr81789071cf.27.1795219016833;
-        Fri, 20 Nov 2026 15:56:56 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-92134a16754sm39125006d6.39.2026.11.20.15.56.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 20 Nov 2026 15:56:56 -0800 (PST)
-Message-ID: <e3d03f4c-0c66-46d1-8fbe-554642eebe34@gmail.com>
-Date: Fri, 20 Nov 2026 15:56:53 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5GJRzs9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43AD71F000CF;
+	Sat, 21 Nov 2026 00:02:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795219341;
+	bh=5oT62WpkqvQG1bllCQZAHu6BEqx9AIMOrpuD6eCPtoI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=n5GJRzs9Z485qqcpHhRULwoD0w+4HXDdouFYqJZvFqbNqEtIj/LoieLf/eEa3yf3H
+	 IgFe1HRN4ugJ4jQ2Fxoluy9faWOfAEL432IbD7XmvVvrCJTalonTnP16yaHnPltW+Z
+	 TKQsRpxOvB/MgkzcbF8OfQommkTl0Mqfl2x3WxXgzjinZLPBhVwBjWhdGdJLFh6a8B
+	 qMvHyV0kRA1rW4xKu38/XMpAxjQn4F0yxEWOdmm1euPxzUdY6f0crUEYRU28hhhe9k
+	 PiG7uM5vQ3ornX44PSWB7MZ2+uwiPsmSa0wvqoq3AWYrNDUkWmCcDDbq9cQF90rnAr
+	 qPFCd3H+10CaA==
+Subject: Re: [PATCH net v10 05/10] can: rockchip_canfd: cancel bus-off restart
+ before closing the device
+From: netdev-bot+sashiko@kernel.org
+To: 1579567540@qq.com
+Cc: mkl@pengutronix.de, kernel@pengutronix.de, mailhol@kernel.org,
+ heiko@sntech.de, socketcan@hartkopp.net, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ wg@grandegger.com, linux-can@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Sat, 21 Nov 2026 00:02:19 +0000
+Message-ID: <179521933978.3131.189047644390163242@kernel.org>
+In-Reply-To: <20261119-rockchip-canfd-restart-close-v10-5-df23913aa33a@qq.com>
+References: <20261119-rockchip-canfd-restart-close-v10-5-df23913aa33a@qq.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,45 +68,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 0000/2642] 7.3.6-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261120055248.913352689@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261120055248.913352689@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/19/26 21:58, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.3.6 release.
-> There are 2642 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 22 Nov 2026 05:44:39 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.6-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+Low priority / nit picks for your consideration:
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+- [Low] The commit message says late restart work (queued by a bus-off
+  IRQ after the early close_candev_cancel_restart_sync() in…
+
+--
+
+can: rockchip_canfd: cancel bus-off restart before closing the device
+
+This patch adds a call to close_candev_cancel_restart_sync() at the start
+of rkcanfd_stop(), so that a running bus-off restart is cancelled while
+the IRQ, RX offload and controller are still available. Echo cleanup and
+the final restart cancellation stay in close_candev().
+
+> A bus-off IRQ can pass the scheduling check before close, then queue
+> restart work after the early cancellation. The final cancellation after
+> free_irq() drains that late work so it cannot survive close.
+
+[Severity: Low]
+Is this explanation complete? Late-queued restart work does not have to
+wait for the final cancel. With a short restart_ms it can run anywhere
+between the early cancel and close_candev().
+
+That window covers rkcanfd_chip_interrupts_disable(), free_irq(),
+can_rx_offload_disable() and rkcanfd_chip_stop_sync(). The final
+cancel_delayed_work_sync() in close_candev() can't undo a restart that
+has already run there.
+
+In that window, only this check in can_restart() stops the restart:
+
+drivers/net/can/dev/dev.c:can_restart() {
+    ...
+	if (!netif_running(dev))
+		return -ENETDOWN;
+    ...
+}
+
+Without that check, the work would reach rkcanfd_set_mode():
+
+	case CAN_MODE_START:
+		rkcanfd_chip_start(priv);
+		rkcanfd_chip_interrupts_enable(priv);
+		netif_wake_queue(ndev);
+
+That check, and the "scheduling check" in can_bus_off():
+
+	restart = priv->restart_ms && netif_running(dev);
+
+both come from the earlier patch in this series, "can: dev: check
+netif_running() before bus-off recovery".
+
+Neither the commit message nor the Cc: stable tag names that dependency.
+The patch only needs "can: dev: add close_candev_cancel_restart_sync()"
+to build. So a backport that takes this patch and the helper, but not
+the netif_running() patch, would build cleanly and still have the
+restart-after-teardown race.
+
+Could the commit message say that late work which runs before the final
+cancel is stopped by the netif_running() check in can_restart()? Could
+the netif_running() patch also be listed as a stable prerequisite?
+
+> diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net/can/rockchip/rockchip_canfd-core.c
+> index 1cae86973da5a..59a79fe057e66 100644
+> --- a/drivers/net/can/rockchip/rockchip_canfd-core.c
+> +++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
+> @@ -758,6 +758,7 @@ static int rkcanfd_stop(struct net_device *ndev)
+>  {
+>  	struct rkcanfd_priv *priv = netdev_priv(ndev);
+>  
+> +	close_candev_cancel_restart_sync(ndev);
+>  	netif_stop_queue(ndev);
+>  
+>  	rkcanfd_chip_interrupts_disable(priv);
+
 -- 
-Florian
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261119-rockchip-canfd-restart-close-v10-0-df23913aa33a%40qq.com
