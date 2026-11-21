@@ -1,54 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.62
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=99.33.87.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795224224;
-	b=jqx2TuSnodvEyV9GI/cXjgJW6HbWL8AhO4Oq5220T0ryY9kS6TGt3Giesqw6zawogyDO
-	 ZITm/YpvnTXp9a0CBy+5F17s7Hj0CJ5ghkfuAeu0hPSI6PbsUKGgawGvbgGqlSipUtC9O
-	 Yp6GHQC7nxvbJsz9JmPmyn98Qkf+FRoYZ/jegnbuZosM06+wQFfPhxwN6jJpkeAA1YULv
-	 95Q4MENQmdHsngOrjyGW6iK2cM+FA4vRdhHs9td4diaxcaGfud4MIrylT7c5+6xAvPMqV
-	 RTpJod45PaUnGZTivos8uF8RpkwexEV6J78Qmt7V5M+bk5/dIpDnVEmD2YvExNHbKAQ==
+	t=1795224576;
+	b=J0ODCgfYdmna+uaQlJSIXPERC+aKMx7wiAzbOJBSFmL1mptYQjg3hliokRhUX35Lz/7r
+	 9+jhsS8bY3lOftEgzyV+jxs0Q7HJjcLLqWfuM0hn1KxwXARnInGlan8FHxLWgo1EmTI83
+	 iZl/Q4cCW26hSU84QuAPQR+Mb3VOXYy1edzfYdWE8hKnB0pQOWQ+3P6D8UNeJQMe935TL
+	 McJlzxB/G+VQk94q679WkqNDjSKsICsHkhtxiy+NpAakwMcwuszf/q5CH0M3qKBh6Swm5
+	 zFboPB42KOG+KCrOhCzGZhLuGJN6tlW8djmJEVRTnzwanomtCCuBrlyHNZmV2LtPZWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795224224;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Xz5cC2O8b4PhD3G6RP3szPC99+TsfFt+jwewiS/quyI=;
-	b=fYxN35Mf5/laIbwQaLGiQc5VKUMGh0f4c/Net+ntqzVjKstSV4KgCPk1sWiqz4aS2eUY
-	 CWG+EiHozL4ZGml7fUtdSCXIWiCSoZbk/x16LgII62sfDuNJTQR3xeiWZdNriMM0aByjW
-	 ephcbdU30HI/Wpp+orZv5hrLwl4I+d7pJWOZ0uzFc1ne+b0G8111Stoj8S2VlAOF2X7l/
-	 3Ieqsv1RPwCTFcLBDiT9/vdxssCohaR2FInvInYtkXfhust4XfJ4YiCgtCiEptedN0efi
-	 jSRfblES5gGwl8aNHeksbVlgOP5fekpG9ZSvjf2Wnb0HgH3SCMnaxsf//Jt8whYnQHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795224576;
+	h=DMARC-Filter:Received:Date:From:X-X-Sender:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:MIME-Version:Content-Type;
+	bh=9FL9NdAaHkUAR72XW5UibBcROfDZ4xitgUbBNOiHdmc=;
+	b=hUVlhSEPgMgyUF8n2eoQD6/a2Lo46Eiryb6gL4IPBHEt8dpOHW9ZeZlQJ5XC3jLAp8y/
+	 Rd2aJela1/sEtXH30OKg1Sq1ZZxICDUsfevSpiDK9u/j/2U0SxE5b6/2VJx/F4R4XuDGO
+	 h9skkgXw5Hby8b7qvkZNknbaUDllktV/04dmKRScSoNp5+BzbtDi5vxT5PSidZdDOqo6Q
+	 D69F7hls4+/DXfR5+v+fbi89aovXPKTWoZ+8SXH0v6aWnD9pGSTwOVkzF4CsUj5WivgjE
+	 HKnAKJESXwhTj8JriUlk4J7WMu2XnOMzp9U3vDfu4tI2+ejI4A2zUsQ6rKRfb0lItQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bKCr41IE;
-	arc=none smtp.remote-ip=95.215.58.62
-Received: from mta1.migadu.com (out-62.mta1.migadu.com [95.215.58.62])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=aaazen.com;
+	spf=pass smtp.mailfrom=aaazen.com;
+	arc=none smtp.remote-ip=99.33.87.210
+Received: from mail.aaazen.com (99-33-87-210.lightspeed.sntcca.sbcglobal.net [99.33.87.210])
+	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D6E606A338
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 01:23:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00D6E606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bKCr41IE
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dx6Spe2vDjy+a5xjpfUPvPXuaxBXphqlSthJWpmUnwg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795224222; v=1; x=1795829022;
- b=bKCr41IELwfn3Z45mSvylQXfnL3015HXb9GK96avk2/HTfTmNTzbhJRUkzaOvA7Xv1y7c/Sb
- HkSXeueAMFlXgKJRADmPAcsKqnfvyeP9SzmeuV9SrejlSdaYDi2E1UIs/4KWKfL0fMiYbMDYEDq
- 6yub7YMlszO24BUozCca6MVU=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ecbfa4d686ec920a;
-	Sat, 21 Nov 2026 01:23:42 +0000
-X-Mizu-Trace-ID: ecbfa4d686ec920a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e9ec7734-6cbe-4bc8-8ee1-d7347640fb8e@linux.dev>
-Date: Fri, 20 Nov 2026 18:23:34 -0700
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5B6606A6A4;
+	Sat, 21 Nov 2026 01:29:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B5B6606A6A4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aaazen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aaazen.com
+Received: from localhost (localhost [127.0.0.1])
+	by thursday.test (OpenSMTPD) with ESMTP id 4903d535;
+	Fri, 20 Nov 2026 17:29:30 -0800 (PST)
+Date: Fri, 20 Nov 2026 17:29:30 -0800 (PST)
+From: Richard Narron <richard@aaazen.com>
+X-X-Sender: richard@thursday.test
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+    linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+    akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+    patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+    jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+    rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+    achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 0000/1736] 6.12.119-rc2 review
+In-Reply-To: <20261120054951.366579794@linuxfoundation.org>
+Message-ID: <46e267f7-5027-a34f-aa43-3d70ecc991db@aaazen.com>
+References: <20261120054951.366579794@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,78 +56,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/balloon: fix NR_BALLOON_PAGES accounting during
- page migration
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jerrin Shaji George <jerrin.shaji-george@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: linux-mm@kvack.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Shao Mingyin <shao.mingyin@zte.com.cn>
-References: <20261120-b4-balloon_nr_pages-v1-0-d8944b587819@kernel.org>
- <20261120-b4-balloon_nr_pages-v1-1-d8944b587819@kernel.org>
-Content-Language: en-US
-From: Nico Pache <nico.pache@linux.dev>
-In-Reply-To: <20261120-b4-balloon_nr_pages-v1-1-d8944b587819@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
+On Fri, 20 Nov 2026, Greg Kroah-Hartman wrote:
 
+> This is the start of the stable review cycle for the 6.12.119 release.
+> There are 1736 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 22 Nov 2026 05:44:39 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.119-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+>
 
-On 11/20/26 3:34 AM, David Hildenbrand (Arm) wrote:
-> balloon_page_migrate() doesn't update NR_BALLOON_PAGES in two scenarios:
-> 
->   (1) If the new page is on a different node than the old page.
-> 
->   (2) If the old page was deflated but the new page could not be
->       inflated, effectively deflating the balloon.
-> 
-> Consequently the "Balloon" values in /proc/meminfo, the per-node meminfo
-> etc. will be wrong.
-> 
-> Fix it by adjusting the "Balloon" counters accordingly just after
-> conditionally adjusting the manage page counts.
-> 
-> This has low urgency.
-> 
-> Fixes: 4d689474e1b2 ("balloon_compaction: update the NR_BALLOON_PAGES state")
-> Cc: stable@vger.kernel.org
-> Reported-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> Closes: https://lore.kernel.org/r/20261115004708909xx05JgB9nXnOCG0zL7h_K@zte.com.cn
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested on   AMD  amd64 12-core and 4-core                systems
+and    on Intel x86-64             4-core and x86 1-core systems
 
-Acked-by: Nico Pache <nico.pache@linux.dev>
-
-> ---
->   mm/balloon.c | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-> diff --git a/mm/balloon.c b/mm/balloon.c
-> index 96a8f1e20bc66..b31543dd4d4d2 100644
-> --- a/mm/balloon.c
-> +++ b/mm/balloon.c
-> @@ -310,12 +310,17 @@ static int balloon_page_migrate(struct page *newpage, struct page *page,
->   			adjust_managed_page_count(page, 1);
->   			adjust_managed_page_count(newpage, -1);
->   		}
-> +		if (page_pgdat(page) != page_pgdat(newpage)) {
-> +			dec_node_page_state(page, NR_BALLOON_PAGES);
-> +			inc_node_page_state(newpage, NR_BALLOON_PAGES);
-> +		}
->   	} else {
->   		/* Old page was deflated but new page not inflated. */
->   		__count_vm_event(BALLOON_DEFLATE);
->   
->   		if (b_dev_info->adjust_managed_page_count)
->   			adjust_managed_page_count(page, 1);
-> +		dec_node_page_state(page, NR_BALLOON_PAGES);
->   	}
->   
->   	b_dev_info->isolated_pages--;
-> 
+Tested-by: Richard Narron <richard@aaazen.com>
 
