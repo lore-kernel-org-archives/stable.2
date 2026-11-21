@@ -1,89 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296684;
-	b=3P5Rq89BNKB/cBSmpI7celkAXE0XQAt8j0vOHPTSwPLpVeyZdHRmTH3mlIoXVolUa1cv
-	 AC72L16lvVPfqiGIH+jNNl2lsU+qiTNjYKt3ZZwDYDSwSWBfOlRGtw1i9fWARIIAMM9kL
-	 xuQnep0s73POofCiLTKvgwnfjn59/EHsMRH9W+dNThkhwcHwlvEwikLpR7zfihsQSBlFf
-	 UA0wOPqXbcRbjwPa7w5KvzG6gUvtyWkzubx/kEwsCoF9HpbuwjY23VdTgIAj97uMuRdOo
-	 OOKkb5EMv5Rp8T6oABCkNtpT3KVBJ/HW20+Y8NKHQt6dUgcKYdjjk0Jx9mKv0x11wDg==
+	t=1795296685;
+	b=C5NQebRmhAH+mixYQfS9kDMdGWhr/JexrRL+1QEDYOgKDpmAyJ4VBRE6iJ1/yyJqdlhj
+	 G/KE+2LWhk/QsE3b5H1Hr5m9p031S1Rqz8mlyKwLDIfIdKUfNH5YKefW0kRLRdstGkgtT
+	 49wYuiUwbDyzOXCfftmOIzPTlJymwZGBNSCb2h36TEuYKlfiCK0G/s2TqVTcQmOFDb1HB
+	 v9bmqAxJjeTcuJqZC/6icm3YN2LKbmY++rBl9wx9ovbNe15cht0RQ6/CAdz1nzBrOO5ok
+	 liYGvQ47rKOwfJ9Er93xo43QD0JRJLKR01fHH4kCUiLZz0SLom3De0Mvt2NJ+521ntw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296684;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296685;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=H5/GfQIvQW91+SewK3v9bmx10ipmKdbvggx80FKBcJY=;
-	b=4xUBz1fOqbF4SOydB0zdFEyeq4nJ//mDioFW2jXhZcqT1f9jj1wsgvtb6Xyh6bPQoMer
-	 e6TntL32XT+M1y4YFMVmL6ZzzyydnUoWL9YREM+hZ7TYIa9RlpPeYCYH/fpCUfYYGC+lP
-	 RQQZWLbUIlLN/9k/2dWF3ZwcwjKb15wLfO5kAWI5KG4cG/Yt/8HPXKm6sQ5e5An5R5Q3a
-	 C7pIxa8b18UgLahWXcU4gq4SLhwKn58XVG10E59ZGU1LRFPuHNNQyLYn3g1qFcb2eSi8u
-	 /iqtIAgLmLRMozopnnmwxe+/9rgB6MItoHYPFkKc5LVhjwZIMOAW3NnTZ1vyDnoM3tA==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rJHJC5cHLw6GZB+zdPHIAh1R+JjJ7/7IrlWpDoYyf8Y=;
+	b=teS6aB4KuMAeEBIDKwvn+nqrZ2EznTJgdUxo31jJdDsJYU5iD7R3NJfPDI5K/QwyZ66G
+	 DHZ1TdCtV9Q3ArperVdXwUe/9sIEN7HHfgyP6DqR/kdeB2Wz688MIS8YFJEVYhXdBhvPV
+	 W/twAju9ZaTRdPpsCcvZPufVFf4B/Y/G9jnP47iCbjAmjzj0nwkJ3W1CurS3CDTX7OcoX
+	 K5IH6F4mTglaJ2RCYOw4DGNGAhenPtsrE0vcVEemRZTZNCSq46ONDHJ1pFqYR4B5cOVwt
+	 cWbFsqFOaiu+yYOicirrpxcIfO15eYJGoQvR11vSOiW+bDV1N8rBoQIZDekBdDzgjsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b="j/nR9zqN";
-	arc=none smtp.remote-ip=209.85.210.42
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=gUddsAW0;
+	arc=none smtp.remote-ip=209.85.210.47
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F7E606A32A
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38F7E606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82AA5606A332
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82AA5606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=j/nR9zqN
-Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-86288992de5so1628924a34.1
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=gUddsAW0
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-862df509d48so1646252a34.0
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel.dk; s=google; t=1795296683; x=1795901483; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H5/GfQIvQW91+SewK3v9bmx10ipmKdbvggx80FKBcJY=;
-        b=j/nR9zqNTIKeA84oTV866B/MXTreMq8wN7JBrwMWl+e3aii2mcbSzxfCbXMyfOluZ7
-         aiJT5O46u8zGPgdt1WrLqcZDTf39Hfm2GR3zxR09s8yNH7fKvd5FZO9lOkMwoq5vJyZ+
-         jSzWJfWiGMvjamDcpE7m1PYfxokiy2p59ArKAJiN88sWKtBAbWmtd3DW132M4nPqgKTM
-         kT2P69wb468OG+cUNpE9ZGoTLMQJ7GBgg5WzqbM/80vGkh7KHD7WYpUH0L0695VbacYa
-         6M8vOUOFE0F0WiYmEEXbKYAiRGWRCAl3DUkNDCJIpww7Cg1qI4uAcYVUACmX/ZMImxVC
-         Nbzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795296683; x=1795901483;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=kernel.dk; s=google; t=1795296684; x=1795901484; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=H5/GfQIvQW91+SewK3v9bmx10ipmKdbvggx80FKBcJY=;
-        b=VFRp65spk8qwYKxX/1JU1tC59F5nhuPcO29oF3VF4nqcMENiXio5dp64yNRE2NJ6Kf
-         UGuJjKqcpxb3fDHs8iedp4pnAgS+LEWdjVxusC1M7QsxXDKzkk8/PJLPKgDwHfjT9Tgl
-         XZvIJ+8A5ZDtIplo3OJYxPo8Y0dsv7ny4Mu5VSt44TQKOIecuJXR3Acvh2MYT5yw+ao7
-         4TEane9sOuyN2ZZHOc4rRxrJ/G8ozsr3+L1ljiMyjV90q4vRJoMEAzBx3tbvV6gkvJ7o
-         K0Cytv15lUxnubMhqDIoVnl/MGAkkIPpl1YTS2fSHY2ZCOKDdNGhRu9MVUgXjiytFPB7
-         indA==
-X-Gm-Message-State: APuU4Z+0RrhdCCDeFWTF+mWZu0qquWOaecnvzL5IoVobEjZ6y+WN8wmm
-	AoleJ8iATwz+wRE4s5H3z53LkNonPyqsodW8bbirsNWg4rPcddKHEUAwIxIr0f2JpOSvHfAyffr
-	L7HoFS34=
-X-Gm-Gg: AZFdTZd6BnNvIYtIC65iMc4qjUJCc6MZ+vIq+O8STShRn5q7wfe2P9TsQv0H/Vz6s9I
-	mtqPCjMPqYa3DiRisWZptQG09v0J/ggE82Y7oZm2Ml5tGVjZ3lhrR6X2dGS2OrwjxbgcSrWheOh
-	EVf0EQOJUxGr0CKbpzPsuPx/eW5cGEME3Rm0JBDdU2wXg3tSFUd8+nW7ISOkov40qsWOFoWZYDP
-	wB11VuFWe4O2efrmCNu+ODWk5S6FHyTjCfE9FJcHqWqIjQIxeiu+LEgSttZD5qcFO6fm61n8huP
-	ESHSx2jjHgZr6s5ZUxMxtotaZgKEUhXEmWzrfvR1zvuNnuVLVxhq906fUZdzxyQrrCTRTicCGIz
-	b97TBylPi/+qlhEdtd9fX+5mlbu5oHigZ/kszO9eJcnGaY/hGm0Gv3vUfbkRjZmFPAmWDor+TBy
-	cD45vYnSQizHTY1N5zsiGPpYs9HSBlBylQkWvGBdBhR6e/OI8dV/hMenZSZ1JgiJB0oZ/wV1QRN
-	bfkObgCfHT7x7jMJoLjd2mXA+pgitc4Cvl6hAG1yYtgihYfEOwIMIMBxOAzHCGPEb1XdhBbnxB5
-	THvHqJhKJoatlHSxLk1gsnVB0c1Y/EP459DjpyK4NlzBalQ4qVkQ3Uv3ybbzaysawweJsOHtzvU
-	cBLBpz0/n46OLnWDjvaM9d+E+xEZgLxzIuHTBUA==
-X-Received: by 2002:a05:6830:2543:b0:847:b333:229f with SMTP id 46e09a7af769-86309211342mr7202785a34.19.1795296683194;
-        Sat, 21 Nov 2026 13:31:23 -0800 (PST)
+        bh=rJHJC5cHLw6GZB+zdPHIAh1R+JjJ7/7IrlWpDoYyf8Y=;
+        b=gUddsAW0whmEAcjFDwNxOCln+2mah2VNdqT0TuUSipxFw5Rm5HFR94gTSHiusSU87c
+         BY9tRCkGY19xoTtvB8jThxkyEBJNekWRy4x2gsISfNYscLE55wKruFkEsI+GIkIF4e03
+         YKpby/ntUmBHNOQWG7sPoJrH/n2i/GsomoNiOKkMGGon6ZTIwKg91vu+woJdYf11dew4
+         dNeUVeMzPYg0qdgzAB+VEhznHWwppg5lph2x1ANWtiDWkZgZdGIlSTUmVe8VRT5rVzEB
+         MsDApYVJq6MyqwDbhk8DBCkRH4Kcq0vUZYw7WCvLPtH8tmijOFYI+94/SKJZu19CAsjk
+         DSMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795296684; x=1795901484;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=rJHJC5cHLw6GZB+zdPHIAh1R+JjJ7/7IrlWpDoYyf8Y=;
+        b=PPUidlAkpnfZKHPRT3GDsT5HjBI64C/PlWb8IgMZ2SgCJ7RTW0PCrMYdNM+d8/T6ce
+         vI+ytkUY89kQ1VY9me4Z5Z9kNB8lB3O3vWsoOTRswYjPeufzsOrkPlcdOoPpzXyKEVEu
+         XdsiLTqMpE53lrMhm11DqFCbKICpbEqtimZizh6sAM1Fl3UtsFihI2VWFebNbr5KUIP5
+         +YfMajT5tTPZH+jVenEW/XoR90jsD/nnqVPoMB+vzNd8xf/bFVV0NN22neDa3n1DTbcK
+         Jyd+DVUuB0X95pJKIkMBTQTdJwiQd/wQS96kddeqg3d8W5F7nTa7gAzET+ihQ7Mk0y8m
+         Ysyg==
+X-Gm-Message-State: APuU4Z+Q4KTOe/n98xDJcXHeX9sLqoBWcxGFO0GhzVzl710h9qjahbzD
+	tB7p3khtHhmEpnS0fOaPKQVFQz+VI9kmPs8IYqpGvqX4vJtoyZYahh93yjoCqSc4stEP1wpOm5g
+	4wJ+OAwg=
+X-Gm-Gg: AZFdTZf5M/oVA4kYH//mVf8WAylK6DOS1zrmJkmJGEgj2eCFFJ48pTAOSM7Fj5shFxI
+	9C+4LXRPvXnf/lOQgHwiw7klZg7EqT4uQumV/RQobbOwry4AbAJoJ3G/gm0bfJ/44UbkkOWS0rZ
+	ZftIxDWnGW2fzBwS8oxAdQt/9ysvLgZdwGPg6eGN1kQIBNlDnzf6RhAjwxGKs6mlLrNz7IHZTs0
+	CONUZiOXqM572rO988cRl70Z894U612wY8MMEPMa7PpKHTaGzxkzuJtdsTXPGTpVsdUq74SSmxV
+	0hKwInxLcTzgA0UOJaflvDhoImhbfymGbxMYNyZJgAPFcrCib1Oqw/mjkLHYWodUboUjasNGS0i
+	zY8v6nFdYK1P9Nm+z3roWrCmtm9pFa7n1Ud69vn25z6KCCGEySWp3RTJFPpZLv0WV4PvzYmNKxT
+	T/Hh/3YduWxgRNYG4aSOG/xoSHOnCM4T20zX9KL3+/265FZV353gj1yrOzDxXinQVWclEuhh5vn
+	egzCQ7gXIv4SSSC1Z9K+y3m3nOlzDFHL3t0cQ+QPktQX/HkVRNvdjgSfJZQoZBhk211m9baJci2
+	7Q5uyWdv5Mv6cDUkNo7w31cfd5Ga4XOQBUk9kWzmyiUPSG+jpX/gFyxW+2j4xxo1LN0jy77TIaz
+	S+5JBxDnVo684+MvM9kcQ2gx2i/yizXoLcqEH
+X-Received: by 2002:a05:6830:3916:b0:845:614b:eab9 with SMTP id 46e09a7af769-863091a9d18mr6997287a34.6.1795296684424;
+        Sat, 21 Nov 2026 13:31:24 -0800 (PST)
 Received: from r7625 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168f6d33sm4946113a34.18.2026.11.21.13.31.22
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168f6d33sm4946113a34.18.2026.11.21.13.31.23
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 13:31:22 -0800 (PST)
+        Sat, 21 Nov 2026 13:31:23 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.12.y 0/9] io_uring fixes for 6.12-stable
-Date: Sat, 21 Nov 2026 21:31:12 +0000
-Message-ID: <20261121213121.1789042-1-axboe@kernel.dk>
+Subject: [PATCH 6.12.y 1/9] io_uring: enable toggle of iowait usage when waiting on CQEs
+Date: Sat, 21 Nov 2026 21:31:13 +0000
+Message-ID: <20261121213121.1789042-2-axboe@kernel.dk>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261121213121.1789042-1-axboe@kernel.dk>
+References: <20261121213121.1789042-1-axboe@kernel.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,114 +99,150 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Greg,
+Commit 07754bfd9aee59063f8549f6e4d455eae636ecc7 upstream.
 
-Here are io_uring fixes for 6.12-stable. All 9 patches are in Linus's
-tree. Patches 3-9 came with the io_uring-7.4 pull, merged as commit
-78d9aedf2342 (tag io_uring-7.4-20261119); the others were merged
-earlier.
+By default, io_uring marks a waiting task as being in iowait, if it's
+sleeping waiting on events and there are pending requests. This isn't
+necessarily always useful, and may be confusing on non-storage setups
+where iowait isn't expected. It can also cause extra power usage, by
+preventing the CPU from entering lower sleep states.
 
-They apply on top of v6.12.118 plus queue-6.12 at stable-queue commit
-3dd4b2d3c1f7, and also to v6.12.118 alone.
+This adds a new enter flag, IORING_ENTER_NO_IOWAIT. If set, then
+io_uring will not account the sleeping task as being in iowait. If the
+kernel supports this feature, then it will be marked by having the
+IORING_FEAT_NO_IOWAIT feature flag set.
 
-Patches 1, 3 and 6-7 needed changes for 6.12; the [axboe: ...] note at
-the end of each says what was changed and why. The rest are clean
-backports.
+As the kernel currently does not support separating the iowait
+accounting and CPU frequency boosting, the IORING_ENTER_NO_IOWAIT
+controls both of these at the same time. In the future, if those do end
+up being split, then it'd be possible to control them separately.
+However, it seems more likely that the kernel will decouple iowait and
+CPU frequency boosting anyway.
 
-Patch 1/9 (io_uring: enable toggle of iowait usage when waiting on CQEs)
-is a feature, not a fix. It is in stable because the QEMU developers
-asked for it: QEMU uses IORING_ENTER_NO_IOWAIT and wants it supported on
-all current stable kernels. Nothing changes unless the flag is set.
-
-Testing: ran the liburing-2.15-75-ga10946dc test suite in KVM guests
-(PROVE_LOCKING on) on the baseline v6.12.118 kernel and on the patched
-kernel, which is v6.12.118 plus these patches and the other io_uring
-commits already queued. The patched kernel failed exactly the same tests
-as the baseline. The failures that remain are on both kernels (napi-test
-timeout, send-zerocopy, timestamp and similar). No new dmesg splat
-(WARNING, BUG, lockdep, KASAN, Oops). io_uring/ builds without warnings
-on the release plus queue plus patches.
-
-CVE assessment, by the io_uring maintainer:
-
-Should not get a CVE:
-  1/9 io_uring: enable toggle of iowait usage when waiting on CQEs
-      Feature, not a fix. IORING_ENTER_NO_IOWAIT only skips setting
-      in_iowait; nothing changes unless the flag is set.
-  2/9 io_uring/napi: don't end the single NAPI busy poll early on
-      need_resched()
-      The single NAPI busy poll ended on the first need_resched() and
-      slept for the rest of the timeout. Busy poll duration only, a
-      performance bug.
-  3/9 io_uring: fail soft links on negative IOU_COMPLETE results
-      io_issue_sqe() now calls req_set_fail() for negative IOU_COMPLETE
-      results, so IOSQE_IO_LINK dependents of a failed request are
-      cancelled. This only changes link semantics of the caller's own
-      requests.
-  4/9 io_uring/futex: fail soft links when cancelling a wait
-      __io_futex_cancel() now calls req_set_fail(), so linked requests
-      are cancelled. Only the caller's own link chain is affected.
-  5/9 io_uring/rw: fail soft links on IOPOLL short or error IO
-      The IOPOLL completion path now calls req_set_fail() when the
-      result changed, so linked requests are cancelled after a short or
-      failed read/write. Only the caller's own link chain is affected.
-  6/9 io_uring/timeout: don't rearm a multishot timeout on cancel
-      A cancelled multishot timeout was re-armed from the cancel task
-      work. A zero interval plus moving the CQ head far ahead only
-      delays teardown of the caller's own ring; the loop goes through
-      hrtimer and workqueue, so it reschedules and holds no spinlock.
-  7/9 io_uring/rsrc: keep the old file when a file update fails
-      The old file was dropped from the registered slot before the new
-      fd was checked, so a failed update left the slot empty and posted
-      its tag CQE. Only the caller's own file table, no refcount or
-      lifetime problem.
-  8/9 io_uring/kbuf: initialize arg->out_len from arg->max_len in
-      io_buffers_select()
-      Legacy provided buffers ignored sqe->len and used the full
-      buf->len. The copy is still bounded by the length of the buffer
-      the app provided, so this is data accounting visible to the app
-      only.
-  9/9 io_uring/io-wq: apply the current cpuset to new workers
-      New io-wq workers took a stale copy of the cpuset, so they could
-      run on CPUs the cgroup no longer has. cpuset is a CPU placement
-      control, not a privilege boundary; the worst case is scheduling
-      interference.
-
-Cheng Yongkang (2):
-  io_uring/timeout: don't rearm a multishot timeout on cancel
-  io_uring/rsrc: keep the old file when a file update fails
-
-Cinq Prairie (1):
-  io_uring/napi: don't end the single NAPI busy poll early on
-    need_resched()
-
-Jens Axboe (1):
-  io_uring: enable toggle of iowait usage when waiting on CQEs
-
-Mikhail Malyshev (1):
-  io_uring/io-wq: apply the current cpuset to new workers
-
-Siddharth Chintamaneni (1):
-  io_uring/kbuf: initialize arg->out_len from arg->max_len in
-    io_buffers_select()
-
-Yang Xiuwei (3):
-  io_uring: fail soft links on negative IOU_COMPLETE results
-  io_uring/futex: fail soft links when cancelling a wait
-  io_uring/rw: fail soft links on IOPOLL short or error IO
-
+[ 6.12: only the NO_IOWAIT flag bits are added, the EXT_ARG_REG and
+  RW_ATTR bits before them don't exist here. io_get_ext_arg() has no
+  ctx argument. ]
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+---
  include/uapi/linux/io_uring.h |  2 ++
- io_uring/futex.c              |  1 +
- io_uring/io-wq.c              | 44 +++++++++++++++++++++++++++++++----
- io_uring/io_uring.c           | 39 +++++++++++++++++++------------
- io_uring/io_uring.h           |  1 +
- io_uring/kbuf.c               |  1 +
- io_uring/napi.c               | 31 +++++++++++-------------
- io_uring/rsrc.c               | 25 ++++++++++++--------
- io_uring/rw.c                 |  4 +++-
- io_uring/timeout.c            |  3 ++-
- 10 files changed, 102 insertions(+), 49 deletions(-)
+ io_uring/io_uring.c           | 31 +++++++++++++++++++------------
+ 2 files changed, 21 insertions(+), 12 deletions(-)
 
+diff --git a/include/uapi/linux/io_uring.h b/include/uapi/linux/io_uring.h
+index fdd7b931ea1d..e777e6b128e8 100644
+--- a/include/uapi/linux/io_uring.h
++++ b/include/uapi/linux/io_uring.h
+@@ -518,6 +518,7 @@ struct io_cqring_offsets {
+ #define IORING_ENTER_EXT_ARG		(1U << 3)
+ #define IORING_ENTER_REGISTERED_RING	(1U << 4)
+ #define IORING_ENTER_ABS_TIMER		(1U << 5)
++#define IORING_ENTER_NO_IOWAIT		(1U << 7)
+ 
+ /*
+  * Passed in for io_uring_setup(2). Copied back with updated info on success
+@@ -554,6 +555,7 @@ struct io_uring_params {
+ #define IORING_FEAT_REG_REG_RING	(1U << 13)
+ #define IORING_FEAT_RECVSEND_BUNDLE	(1U << 14)
+ #define IORING_FEAT_MIN_TIMEOUT		(1U << 15)
++#define IORING_FEAT_NO_IOWAIT		(1U << 17)
+ 
+ /*
+  * io_uring_register(2) opcodes and arguments
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 09551e3907f9..630b306a849f 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -2532,8 +2532,17 @@ static int io_cqring_schedule_timeout(struct io_wait_queue *iowq,
+ 	return READ_ONCE(iowq->hit_timeout) ? -ETIME : 0;
+ }
+ 
++struct ext_arg {
++	size_t argsz;
++	struct __kernel_timespec __user *ts;
++	const sigset_t __user *sig;
++	ktime_t min_time;
++	bool iowait;
++};
++
+ static int __io_cqring_wait_schedule(struct io_ring_ctx *ctx,
+ 				     struct io_wait_queue *iowq,
++				     struct ext_arg *ext_arg,
+ 				     ktime_t start_time)
+ {
+ 	int ret = 0;
+@@ -2543,7 +2552,7 @@ static int __io_cqring_wait_schedule(struct io_ring_ctx *ctx,
+ 	 * can take into account that the task is waiting for IO - turns out
+ 	 * to be important for low QD IO.
+ 	 */
+-	if (current_pending_io())
++	if (ext_arg->iowait && current_pending_io())
+ 		current->in_iowait = 1;
+ 	if (iowq->timeout != KTIME_MAX || iowq->min_timeout)
+ 		ret = io_cqring_schedule_timeout(iowq, ctx->clockid, start_time);
+@@ -2556,6 +2565,7 @@ static int __io_cqring_wait_schedule(struct io_ring_ctx *ctx,
+ /* If this returns > 0, the caller should retry */
+ static inline int io_cqring_wait_schedule(struct io_ring_ctx *ctx,
+ 					  struct io_wait_queue *iowq,
++					  struct ext_arg *ext_arg,
+ 					  ktime_t start_time)
+ {
+ 	if (unlikely(READ_ONCE(ctx->check_cq)))
+@@ -2569,16 +2579,9 @@ static inline int io_cqring_wait_schedule(struct io_ring_ctx *ctx,
+ 	if (unlikely(io_should_wake(iowq)))
+ 		return 0;
+ 
+-	return __io_cqring_wait_schedule(ctx, iowq, start_time);
++	return __io_cqring_wait_schedule(ctx, iowq, ext_arg, start_time);
+ }
+ 
+-struct ext_arg {
+-	size_t argsz;
+-	struct __kernel_timespec __user *ts;
+-	const sigset_t __user *sig;
+-	ktime_t min_time;
+-};
+-
+ /*
+  * Wait until events become available, if we don't already have some. The
+  * application must reap them itself, as they reside on the shared cq ring.
+@@ -2660,7 +2663,7 @@ static int io_cqring_wait(struct io_ring_ctx *ctx, int min_events, u32 flags,
+ 							TASK_INTERRUPTIBLE);
+ 		}
+ 
+-		ret = io_cqring_wait_schedule(ctx, &iowq, start_time);
++		ret = io_cqring_wait_schedule(ctx, &iowq, ext_arg, start_time);
+ 		__set_current_state(TASK_RUNNING);
+ 		atomic_set(&ctx->cq_wait_nr, IO_CQ_WAKE_INIT);
+ 
+@@ -3363,6 +3366,8 @@ static int io_get_ext_arg(unsigned flags, const void __user *argp,
+ {
+ 	struct io_uring_getevents_arg arg;
+ 
++	ext_arg->iowait = !(flags & IORING_ENTER_NO_IOWAIT);
++
+ 	/*
+ 	 * If EXT_ARG isn't set, then we have no timespec and the argp pointer
+ 	 * is just a pointer to the sigset_t.
+@@ -3399,7 +3404,8 @@ SYSCALL_DEFINE6(io_uring_enter, unsigned int, fd, u32, to_submit,
+ 	if (unlikely(flags & ~(IORING_ENTER_GETEVENTS | IORING_ENTER_SQ_WAKEUP |
+ 			       IORING_ENTER_SQ_WAIT | IORING_ENTER_EXT_ARG |
+ 			       IORING_ENTER_REGISTERED_RING |
+-			       IORING_ENTER_ABS_TIMER)))
++			       IORING_ENTER_ABS_TIMER |
++			       IORING_ENTER_NO_IOWAIT)))
+ 		return -EINVAL;
+ 
+ 	/*
+@@ -3786,7 +3792,8 @@ static __cold int io_uring_create(unsigned entries, struct io_uring_params *p,
+ 			IORING_FEAT_EXT_ARG | IORING_FEAT_NATIVE_WORKERS |
+ 			IORING_FEAT_RSRC_TAGS | IORING_FEAT_CQE_SKIP |
+ 			IORING_FEAT_LINKED_FILE | IORING_FEAT_REG_REG_RING |
+-			IORING_FEAT_RECVSEND_BUNDLE | IORING_FEAT_MIN_TIMEOUT;
++			IORING_FEAT_RECVSEND_BUNDLE | IORING_FEAT_MIN_TIMEOUT |
++			IORING_FEAT_NO_IOWAIT;
+ 
+ 	if (copy_to_user(params, p, sizeof(*p))) {
+ 		ret = -EFAULT;
 -- 
 2.55.0
 
