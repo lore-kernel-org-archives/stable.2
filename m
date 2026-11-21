@@ -1,49 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795258915;
-	b=wQPXE5v4FI/0uTftG1CxqNmEKz5JuEmIIH/TTj0ApWMk3Z6lvVJ+4slurT+UQwcsEpaY
-	 ehJXMsqCxaBYQpPX+qrwvvSw8r6tuQ5i6OabgnCfpwHZ8qP9E/52r+kPZ7SyGcpjl2QkZ
-	 Ff62hAyG5y5nC9OUgmw46+en3gjKu7+C6nCSMa+/CAutKCGJlt19tS9/zTs06H8kk/w0/
-	 h1BoK/6CTM321kXBo1mPlITh0Lzy796xg859EF2Ys7hPwB1nMDpV/I2pO0U5oypc5sJGj
-	 ltX+24E5jjoF4LXnpWD5eeaOiPa9iI7BpDZEwNM+wG1gBgp6PXNw9KOn1oDM0TatLvw==
+	t=1795259438;
+	b=FkUzTpWqKRRqnFrvAc8f5SEnvvirbTrTuLBmpPHCRqprLM94dfBB4JKkuOrTvYwD2eu6
+	 vO1JfaiC2HEvy5s34JpesBrKnkSJpH2UG0s/lLdDWwFFfsiYdLlS0QY+w5T9Z0HiQjRFP
+	 ebt4ukc/c4YgYckmbRNE42+eYvp0ZNb8tjRPyjut2YY5VNgsyi6bAA8EKNgEL9J/ok0HE
+	 QRHO/FKVdUkw1nj18aux0WY23uaGiaHsQFChsx7Mv+KwNSuBahZPgkWwbXu4biiIKkNZY
+	 xNvF/SP6LP6k9oYoXaUJ1NI2oUMEBRnW9TFll8gGlQhCyl2GIXT4VBELqLCqSE9fi5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795258915;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=TWf+jlBIQBGwk4QT4KRo+cGa7wFWGG2xF2hmkjUB8u0=;
-	b=DSAPAyNCi+GsU3aG11K1zNX+2Reo7+W1kG50RB37Jr/bx39d+7jugMZ+FemQpXpJbd6+
-	 eD4DqMbJMzQSu8tnU8uIexhUaGT6QJD22SS4XEkdtwgL6gqEwcJHQObfy7+yCyaLEhHft
-	 8XHKTpkU4yRFDiK1CtU25iqmBrGd3psNGtqj4c177aRxbFBxjMYAbcP3GJ/L9SMpeFKUA
-	 mcQTXLQm1e6SU8xp+48GOdBR9/9XcwTSIBVxmdWXPBQr+ehhmvR0aErPwWscZ/ZTryVjJ
-	 1MgicW7DyIFZGQ7m167LYc5Wjdrsxzy/8SWj3uKx+mVywKun/nfkH1kWyp4zLHQbf1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795259438;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Ys3XKvaPTyX1fHC0lV0pst+tfGk0hnlCs8SXas4gV8I=;
+	b=hVTXgMpTh/zWRKSQm4aizydqmOaqqNJydEVorCXqHFJ0LOyXqvrW28pjkO/DM4eYmirB
+	 IHobbs8ycjyRHYC8Reei8J8A0brJYEoQGcwQ3KWhxQspO6Irib91sFlYds9Q5FaCxaqku
+	 oO8pGMZtM2coKqgUPKZDux1D15pbWd3dGbAJBxysGHNytdYLVVokj2+2H1qauFSTZD8Nm
+	 UEynlGJwSnJDdgeJripGvJEsMJnDgBiQW/V8IrEBO2Io49QzRPbU0WQadG1z8xcIfRjtT
+	 7DI2FaPB4OGfNgbmuNBzJNALeVLVpCAxme4zC8kvPJfDsvXVZnFa4TZ+jA9cjVOqQNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=m+MLl17U;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A2370606A320;
-	Sat, 21 Nov 2026 11:01:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2370606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=h-partners.com;
+	spf=pass smtp.mailfrom=h-partners.com;
+	dkim=pass header.d=h-partners.com header.i=@h-partners.com header.a=rsa-sha256 header.s=dkim header.b=abr1Sa2Z;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4437D606A320;
+	Sat, 21 Nov 2026 11:10:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4437D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=m+MLl17U
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B29761575;
-	Sat, 21 Nov 2026 03:01:50 -0800 (PST)
-Received: from [10.57.93.173] (unknown [10.57.93.173])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A85D23F673;
-	Sat, 21 Nov 2026 03:01:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795258913; bh=b606/LbDulrarsbGOfDsZnPHYpPyDvJEr5RossCWTCI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=m+MLl17UBpYuoJHPoix2uCTLkZOTjwAdDBLO2DuGlFrb/3ap/qbaoRqkWqHw5FDPJ
-	 rYPl8cGGuPCr3y3My2HROvuBYmb8cU5lAsrv89CKDDSQ+Linu+MNsLN6Pb5ivVmjW3
-	 OFeIq2rlrbSU+itEgTGbAVIriMtbruJm30MnGltQ=
-Message-ID: <6782b5ee-3dfe-4076-a79c-fbeb2c2ac7da@arm.com>
-Date: Sat, 21 Nov 2026 11:01:49 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=h-partners.com header.i=@h-partners.com header.a=rsa-sha256 header.s=dkim header.b=abr1Sa2Z
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Ys3XKvaPTyX1fHC0lV0pst+tfGk0hnlCs8SXas4gV8I=;
+	b=abr1Sa2ZDCOp+djgHKJwfTXizfPE4F8N0k1zXffDKOkRf8YayZhTlvrm8f5MIOE3k2rIO3eYF
+	JDE9OahmcFTufkhbCCmcHVStpNSkEtAclvCsU/7RBP25SIAdQa/lC5NquWyD+I/GbwL05XTOLxz
+	KegOQ86fmTMfoewnFN3On0g=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jWqHN2M3Vz1prKM;
+	Sat, 21 Nov 2026 19:10:08 +0800 (CST)
+Received: from kwepemr100001.china.huawei.com (unknown [7.202.195.168])
+	by mail.maildlp.com (Postfix) with ESMTPS id 10F8540579;
+	Sat, 21 Nov 2026 19:10:23 +0800 (CST)
+Received: from huawei.com (10.50.159.234) by kwepemr100001.china.huawei.com
+ (7.202.195.168) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 21 Nov
+ 2026 19:10:13 +0800
+From: xietangxin <xietangxin@h-partners.com>
+To: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+CC: Dmytro Linkin <dlinkin@nvidia.com>, Vlad Buslov <vladbu@nvidia.com>, Jiri
+ Pirko <jiri@resnulli.us>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
+	<syzbot+bbd81e1e2276c534dea1@syzkaller.appspotmail.com>,
+	<gaoxingwang1@huawei.com>, <huyizhen2@huawei.com>, Xuanqiang Luo
+	<xuanqiang.luo@linux.dev>
+Subject: [PATCH net v2] netdevsim: fix rate node leak during reload and removal
+Date: Sat, 21 Nov 2026 19:08:58 +0800
+Message-ID: <20261121110858.1337003-1-xietangxin@h-partners.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,74 +74,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: mm: Don't defer the barriers when installing a
- fixmap entry
-To: Fuad Tabba <fuad.tabba@linux.dev>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Yang Shi <yang@os.amperecomputing.com>, Kevin Brodsky
- <kevin.brodsky@arm.com>, Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Fuad Tabba <tabba@google.com>, stable@vger.kernel.org
-References: <20261120121638.194154-1-fuad.tabba@linux.dev>
- <20261120121638.194154-4-fuad.tabba@linux.dev>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261120121638.194154-4-fuad.tabba@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemr100001.china.huawei.com (7.202.195.168)
 
-On 20/11/2026 12:16, Fuad Tabba wrote:
-> In lazy MMU mode, __set_pte(), which __set_fixmap() uses, only queues
-> its DSB and ISB, but a caller can dereference the slot as soon as
-> __set_fixmap() returns. On a CPU with BBML3, runtime changes to the
-> linear map are made in lazy MMU mode. With 4K pages and 39-bit VAs, for
-> example, such a change can update a top-level entry, which
-> set_swapper_pgd() writes through FIX_PGD. That store can fault, and the
-> kernel then warns about a spurious translation fault. When kgdb stops a
-> CPU in lazy MMU mode, its breakpoint writes through FIX_TEXT_POKE0 can
-> fault the same way, and fail.
-> 
-> Emit the barriers directly in __set_fixmap().
-> 
-> Fixes: 5fdd05efa1cd3 ("arm64/mm: Batch barriers when updating kernel mappings")
+netdevsim allows switching the eswitch mode to switchdev with zero VFs
+and creating rate nodes on such a device. However during device teardown
+nsim_dev_reload_destroy() only drops the eswitch back to legacy when VFs
+were configured, so the rate nodes are never destroyed and trigger the
+WARN_ON(devlink_rates_check()) in devlink_free():
 
-My memory might be betraying me, but I think this change went in before BBML3
-(BBML2_NOABORT)? In which case, the bug is only exposed by the latter series?
+  WARNING: net/devlink/core.c:544 at devlink_free+0x18c/0x26c, CPU#2: bash/5032
+  Modules linked in: netdevsim ...
+  CPU: 2 UID: 0 PID: 5032 Comm: bash Not tainted 7.4.0-rc3+ #77 PREEMPTLAZY
+  Call trace:
+   devlink_free+0x18c/0x26c (P)
+   nsim_drv_remove+0x9c/0xb4 [netdevsim]
+   nsim_bus_remove+0x10/0x1c [netdevsim]
+   del_device_store+0x110/0x190 [netdevsim]
+   ...
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> --->  arch/arm64/mm/fixmap.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
-> index f66a0016dd02d..951004ad700c3 100644
-> --- a/arch/arm64/mm/fixmap.c
-> +++ b/arch/arm64/mm/fixmap.c
-> @@ -127,7 +127,9 @@ void __set_fixmap(enum fixed_addresses idx,
->  	ptep = fixmap_pte(addr);
->  
->  	if (pgprot_val(flags)) {
-> -		__set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
-> +		/* The slot must be usable on return, even in lazy MMU mode. */
-> +		__set_pte_nosync(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
-> +		emit_pte_barriers();
+The rate nodes are also left behind on the devlink reload path, where
+they trigger the WARN in devlink_reload_reinit_sanity_check() instead:
 
-I wonder if it would be clearer to wrap __set_ptes():
+  WARNING: net/devlink/dev.c:437 at devlink_reload_reinit_sanity_check+0x110/0x148, CPU#3: devlink/5205
+  Modules linked in: netdevsim ...
+  CPU: 3 UID: 0 PID: 5205 Comm: devlink Not tainted 7.4.0-rc3+ #77 PREEMPTLAZY
+  Call trace:
+   devlink_reload_reinit_sanity_check+0x110/0x148 (P)
+   devlink_reload+0x218/0x228
+   devlink_nl_reload_doit+0x3dc/0x5b4
+   ...
 
-lazy_mmu_mode_pause()
-__set_ptes()
-lazy_mmu_mode_resume()
+Evaluate the eswitch mode check unconditionally, so rate nodes are
+destroyed whether or not any VF was ever configured. Note this also
+resets a zero-VF switchdev device back to legacy mode on reload, like
+the existing VF case.
 
-I notice that ptep_try_set() is also using emit_pte_barriers() directly, but
-that feels like a layering violation to me.
+Reproduce by:
+  $ echo "10 1" > /sys/bus/netdevsim/new_device
+  $ devlink dev eswitch set netdevsim/netdevsim10 mode switchdev
+  $ devlink port function rate add netdevsim/netdevsim10/n1
+  $ echo 10 > /sys/bus/netdevsim/del_device
 
-Thanks,
-Ryan
+Replacing the last step with "devlink dev reload netdevsim/netdevsim10"
+hits the devlink_reload_reinit_sanity_check() WARN instead.
 
+Fixes: 885226f5680e ("netdevsim: Implement support for devlink rate nodes")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+bbd81e1e2276c534dea1@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/netdev/6af9824c.920b2b3a.148c65.0009.GAE@google.com/
+Reported-by: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Link: https://lore.kernel.org/all/17cc4251-04ae-41a7-a872-fc5cf525b58f@linux.dev/
+Signed-off-by: xietangxin <xietangxin@h-partners.com>
+---
+v2: add reload path description
+---
+ drivers/net/netdevsim/dev.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
->  	} else {
->  		__pte_clear(&init_mm, addr, ptep);
->  		flush_tlb_kernel_range(addr, addr+PAGE_SIZE);
+diff --git a/drivers/net/netdevsim/dev.c b/drivers/net/netdevsim/dev.c
+index c6b17b387327..b483c25dfecd 100644
+--- a/drivers/net/netdevsim/dev.c
++++ b/drivers/net/netdevsim/dev.c
+@@ -1700,11 +1700,10 @@ static void nsim_dev_reload_destroy(struct nsim_dev *nsim_dev)
+ 		return;
+ 	debugfs_remove(nsim_dev->take_snapshot);
+ 
+-	if (nsim_dev_get_vfs(nsim_dev)) {
++	if (nsim_dev_get_vfs(nsim_dev))
+ 		nsim_bus_dev_set_vfs(nsim_dev->nsim_bus_dev, 0);
+-		if (nsim_esw_mode_is_switchdev(nsim_dev))
+-			nsim_esw_legacy_enable(nsim_dev, NULL);
+-	}
++	if (nsim_esw_mode_is_switchdev(nsim_dev))
++		nsim_esw_legacy_enable(nsim_dev, NULL);
+ 
+ 	nsim_dev_port_del_all(nsim_dev);
+ 	nsim_dev_hwstats_exit(nsim_dev);
+-- 
+2.43.0
 
