@@ -1,110 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795234455;
-	b=Ayj02c+DUXMpq1V852DLjPBNukPjrp4ni58mDGf1KapPynkx3yuEk4ngdry0BiLKA+33
-	 Zy+x9y1kgKQsyeI8e+Bmfv2cp2bliuKCHapwdpaI4TuGZowNpeWkwp7/ifpkC+3JdNHFH
-	 P6Sjz4Ly/QR4oCLEadBx7aX59E2sfwnnhgCSoZuRNADVD/VpchnhBDZvJIbNCsNIg981n
-	 riCrLN6f8r65WacQ57tN90WOES/ci6F+aGNvEf4q6Njs+KhovEzNWuNaV3gmcDPVrph8A
-	 ff7uqXS4PhLFCYF6UwlvEhqM3ldin3LCOYMVuJD80f7KVYhj6sbcJg8u6C/0JpAaZjg==
+	t=1795236222;
+	b=ozrzyD6kLpy+sM6aMtilnrDOhJ2PHXa0HkD1D/ZmEOquL6KFlrzgkr9mUnFNHmB2Ze+9
+	 jHwKRQqfJZ56FirgANTnl6bhiJTP1Wb2lCPLJ1S1jqKN+Xg63araN1QukU2FRRP7xZYvS
+	 2rWbB/gXqPT31PTBOQGECfX/7bK9+xDAcxEXJXmo5RtYewLgrzfjU7TaVcRG4iBmsoOYu
+	 REfUBWb6z4xhgfLziiXIcX2Rf80QtdSXxjSOwX7AVkmfTKMiswHMjPK3bcq84CyuPA/QB
+	 8igz/QsYzEYaQplXR+R3qBZBOFAA2yAo2EkcFZOyWUbKPu6HsTEQxM1il+qVBl3qoMA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795234455;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=s1oUBUVsJdLlZK0BnMYfKVB2CVE8s/YWPNE5QQrqzaA=;
-	b=EFk0Sko+p2LnYyZXtfyI2svQGa3TOZT1vCmUaLv1jgGcEcldQlo+desLnwnUYmrQGByU
-	 ncvvu5e5ATuE2Cg7KifMQ5ldg3fkG+I0vv5r8hTQQMC/daGKbSyAqAgZqQjHmd7UwbUuJ
-	 T1+YBZn6YcBzZzI6ROQfHjuHXPGHy1Ea3N+mZQbjgkhAQD83Y4HmeclqEINXgPnVEaRND
-	 Tl0FmFqeGih4BN/vbwg3Lhn+GdQAAO/N3Sv0B679VRiqzru1NJMx+iAGWrY3b7rEimIWZ
-	 J51405MATxjWyWVi0ReSAa4UmIRsymdazLcPmUtV5Mxy125YJOyFTB9F91m8jQwpwKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795236222;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qY1ub7c2Cr86Gjk2134FfcaG8nBCJXS7pPNCP9Kqc4I=;
+	b=I2BDylpObafHjLerzxJ1PvykedyajQkj4NAt8gvR5KP66lnkKfX8g9fUI90IACOCfD7E
+	 Jjp/UXK/SBqN8N6iZSsIc7/PD/0Vin3pZFJO8BqYrWZv+FIDGKH0DGFNZWOZ1cnPVCLey
+	 BlllvQycVtGDRodWBhZYqQZGWdomUv1rvXlcql3Y6sgDfdZkyfzh7C2afyoakuravKHXa
+	 4IO/fMI5+He9h3XMnFkF6YUnTLQbTqeK70IIVrckBTIygJifkpvIVrkAuswG51gfT660F
+	 DCpILhbMEJ6ywroJDhKLh+hMmGD7K1Wr53jr0XBZFXKI6VBguRnZaNveBqEh7w+LUQQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=perfloop.ai;
-	spf=pass smtp.mailfrom=perfloop.ai;
-	dkim=pass header.d=perfloop.ai header.i=@perfloop.ai header.a=rsa-sha256 header.s=google header.b="eD/tFb9W";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.170
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLVVxOgO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477AE606A684;
+	Sat, 21 Nov 2026 04:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLVVxOgO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795236221;
+	b=DcnpDD8O83wYnQO1NrjM3K3l/Nb8THCUEln8TR/zRxEFNC1KttO6xTR+jlC3oSDZZ5oN
+	 XdaMqBRppD83gG2AVUGu+fiN+i6OnKWUNU8m8vHPNy+OQd/sDwiPY5iFU4pk43JL508D8
+	 2JPXNyoWR9e3FHcK+TOyXs2f7CNdAJMAIYC4YyuSGb0wXZlZwh4gWib5wY2grARl2jOHe
+	 ywi/FzrHqsOiPZWZQbEcpV7mCKxHfrR/eThtKEBkq18zOcyKC8yCxQ/GYYawYHZ8VZEY3
+	 iwiKBLVB4v/Uslph7q6XXY4ZtFBA3fhdgIa9+PPY2/nsYQYfSV7B5RPLAuGE9v1RJhw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795236221;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qY1ub7c2Cr86Gjk2134FfcaG8nBCJXS7pPNCP9Kqc4I=;
+	b=I73CmzviqKGLobaBM47Z+OIuBcaYpGvoXExiSwgKTQCUsNxaLNZIm8rRtmBnzxk/tdzs
+	 TWANhRzg04eKt6Je5mheekju/fNJl914mDxx9yePz36fYBc6rKW0V/rqbpvkfXsaR5dgO
+	 EHZFCMkV0jva6veoMZUZGiu6yJ1HKaAXO660jdhFRxUuZdbDq0hAeMMF1qw32EcxjA4nf
+	 hWsWqxtOSqLUNr1kJRexZNo0jSMS9zdDi8gGXoRS9hIWvEO0cBh88U+e4lFCnKBHjZmZY
+	 bDymyR4bmNVn4m6qUw+Ci2fB47Lw3qC9ikTXO/D+XGCbSk+m/529VTI1xLGxLJEvBTg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD1E606A685
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 04:14:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DD1E606A685
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=perfloop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perfloop.ai
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=perfloop.ai header.i=@perfloop.ai header.a=rsa-sha256 header.s=google header.b=eD/tFb9W
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4d198f1a591so1526384b6e.2
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 20:14:07 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795234446; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GaFCm0dSn0z1WfmQpPi7WPn5WOvniPAtBPtjAS9jtBaB2KmpjR2Hoe21wdh5WPXYfp
-         YTj9AYijBY9rBWRtjyfg3Zw+Xshde1F7+1nnLmtPMSHAAWkmxSdLSAEQ++fg+DNVpzVj
-         JDqSKF28PnYt7UK2hXpq342nZo5MyCQLNgEWcf7n6HPhDBAKTxzAG6rZrN9c1aazR+xO
-         Cnnc8qQaA8M6jNhR3dcDXnFzcqhLU88/o/sWm+2i6LlcjHp/pBIpY4yDK/CIGjIzOGAd
-         a6o+I8FDb9NNF15SSP3zAv2EIHGSg5FK5FjB8eSqC2FXueRKUlUsyZGriVD0eIn2fO2s
-         xvVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date
-         :mime-version:references:in-reply-to:from:dkim-signature;
-        bh=s1oUBUVsJdLlZK0BnMYfKVB2CVE8s/YWPNE5QQrqzaA=;
-        fh=FRaljPhrk32STkRVW/V4qiyVndDH8qXpEU7IYi+VwJU=;
-        b=Hb/kGnauOtpHfOdInfx26fLNKXF4qyZfstpcp0izpQfN3+8Fk8p+Q88GXMBAlX7xLV
-         vAum63a2GUPWord5IJCdsVHD39U9D68ic3ftvTlPEcUjdl0U1A6zGYDYHgAvLqKiV/w6
-         XRyaoT9TIMfT7+AdXOMypANoNDC4fzG5vZpQBd2u3PRU/MIKahFQTk++pwtIadzD0UKZ
-         DJZXfqzf1skjFD8+9ifJQSIVhNfTxVPkC0bjdW8c7P2Gq98XU2z18LyfE1hu2Zlc4Wyk
-         or6HuazukSLddpy6ib2CYJAjC9Rft+oQ1tIKM8owcwbkqLQdcrtHpTAtvb5BjBDqH96/
-         DmLg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=perfloop.ai; s=google; t=1795234446; x=1795839246; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:mime-version:references:in-reply-to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s1oUBUVsJdLlZK0BnMYfKVB2CVE8s/YWPNE5QQrqzaA=;
-        b=eD/tFb9W0QTkZfqXX2nY5syzxoHKkMcvyjIGZ7Wk1DVYUwMwEfvGxY+UxaJ2PAVwxY
-         uQ/yNcPc2mIkQA6v3NAk7JWhYcWgCV7X02rDRlNSgR1+E5S1Fym992p5q/+xwqH3bDUS
-         2aW/FfCl3UW3jPngIzEVKSbwo5eRz+f2bPx56lLGX3nsqCCgBv3SpKk9Zi2NLLKeVVrI
-         Tp6jDVbYVE9rx/Ovu/yF5YQ9gOb9ZPscWckCvNdwJlZTuSfB58YOWRs3Wxmfv5tuJgGQ
-         nZzej4qYVdSJCcmyF41kXyDYTRcohlHjMIiB0AZQ98VGF9YidyUsb5LwXWmYNVB8SoeR
-         jrXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795234446; x=1795839246;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:mime-version:references:in-reply-to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s1oUBUVsJdLlZK0BnMYfKVB2CVE8s/YWPNE5QQrqzaA=;
-        b=oHJHeLty37wokY/Ju/h0ch3NctaG2Dhy0BlwmRRrDlMMLU/eg1PrYh4hlshdg2sGoT
-         Y3ZALSRicZ8pEkGagski7W7RfNu1KLNGXJzJDLvpq7WE/IR1XFMZnu8v2DcA83V05v9g
-         kY3ZEHp8t/9HZQ5QyW51BYko+70ie9UjkAP9ribT49VNsFbeLw5QKKDIghdrOKzrM3ux
-         R8UJGG4BrhFbNZ/rJgbtaX8RkgLK6y/XZ8+jGp/OSvw7eUmBQvRriWSEMC8ky32wDu2Z
-         mn7AwXwmOV4u23+rh87/baeUKw2aTEw5HIdsVNgY2XdBbfKofdmN6FSv5zTeM/ehHNOE
-         eExA==
-X-Forwarded-Encrypted: i=1; AL+hErFrtRyvIsHzys0qHZinU2hs5Z+sTPE1w8LiH/iHSQIE89dT3x52UxMk0xhRWT0lQYAmpW3J7Ds=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/oAR7fHIw8Nx+QfcvMcBrbDuKGmAy87WbcjmO++LIH5M3A8PbJ
-	tCrHn0RCpPk1goIEMAJQG6J/UYFjC5uwQ5SYY+3ETLz6q6SZA1CCLw4kXwdacIFo721Z9GtKsYD
-	jLCdjNJhR2reSK1B+ahcv/Id2GYK7ngdltjREbanNw0g=
-X-Gm-Gg: AYBFou0b1XHljhD4i3/xYTvUFOb/giYTAgkU9BynWKbENQWzpytZx3eE3bD5UEYfp2c
-	TY8MjzyF7bVUS1RJQesOj4gndSS+CPUFFqDu7UhhBQ9v6dRrT32K2KrlnuufabVkX/7h08FYIPo
-	TwEC69RIRCe3C+kGeSnl4XaxjJy9/GBzV2R/s2rYd5nctbLSq2tjk8H4U0+7mwheww7DPvJq02d
-	XdusE+pZErCTuCbGHpZHwqJi1P0i0vP4OmiqZVuNCCqO7Z/eIDrEd3PPoxEWex0lHQSvok3+ibW
-	er+cwowi1LJQQwrJEwZNk5MzrOkQnmaMdGveJcUDHVFES67xL6SzWleD8V8UOrW08tsGgSuFYVQ
-	BxuHYup8r6d4xMS3C9PEl/lGZmVrTdKQY0blctDhLYmaOML/THk9yJ5yObJ7Npp43SvQugtO42U
-	VCoydirRj9cwfaAGXfAP2F1W2Rs/cIVHhWBrlnVUtXkkwlKHguwjyGKW8Rtn/dH6VXA7Gqiti4a
-	PEOXhjCLKzbx3Ty5mCvjH48ky0BhnxTfqTWU9ZqpmydKzZZeg3+BzLl5h/McGMm1xGUXszOevvJ
-	D9RN9sTjs+YDLjhGPkevfwSr7gSikx7srSYlOk37Vw==
-X-Received: by 2002:a05:6808:1645:b0:503:8f9d:f11a with SMTP id
- 5614622812f47-57a0a10c7a2mr5856561b6e.29.1795234446035; Fri, 20 Nov 2026
- 20:14:06 -0800 (PST)
-Received: from 202080787392 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 21 Nov 2026 04:14:05 +0000
-Received: from 202080787392 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 20 Nov 2026 22:14:00 -0600
-From: =?UTF-8?Q?Tom=C3=A1s_Senart?= <ts@perfloop.ai>
-In-Reply-To: <CAEEBa3XJt0XU+5pXNQz_tjZyPEeEnY67i_QGupOnHLnXB=BVDw@mail.gmail.com>
-References: <CAEEBa3XJt0XU+5pXNQz_tjZyPEeEnY67i_QGupOnHLnXB=BVDw@mail.gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 566EE1F000C6;
+	Sat, 21 Nov 2026 04:43:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795236221;
+	bh=qY1ub7c2Cr86Gjk2134FfcaG8nBCJXS7pPNCP9Kqc4I=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=mLVVxOgOYeEKxCC+VkEc6H8AVCkDs9FazYBCCJSneEI9T5Zjjjc2/2N9VJ0DnRdon
+	 r2PfqhPgKwYSFL9QsngdIpR6CbjYbyzFzHTH2xtKm9z0Kdn4jpaoFnf/3nZbNF9vEP
+	 7anPkktAsh3fdqCIBzaiG1tWhWbjODeB6FATwMAJ41hA9eKtTZBWZ/2PE6s/6vlzXf
+	 GJ3zNURvoBmuEReCB9VvqwaJSBvAL37KOb6J8NMDZF56/Ekel2+S40Pf5hfNL8H4U8
+	 7bAReJbpAnUuL+fM6jYh4CVj9toRQ3fUomc8htHElD3hN/WOWBBOelOiI+GGeKaNdy
+	 i1Hp33z7CtK0A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A8DF74BAF8;
+	Sat, 21 Nov 2026 04:43:40 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Sat, 21 Nov 2026 04:43:41 +0000
+Subject: [PATCH net] net: stmmac: dwmac-sun8i: Limit the MTU to one
+ descriptor buffer
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,114 +83,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sat, 21 Nov 2026 04:14:05 +0000
-X-Gm-Features: Aa3M54opRXm5ReTm4e3sjvrgM48zr-FpYqoMbn_tWRbU6Gsjp5HSemBksayrHS0
-Message-ID: <CAEEBa3Un8x208Ox=20TTmGgcmdMSTCC41fB7SWP7uuY1N3xLPw@mail.gmail.com>
-Subject: [PATCH v2] jbd2: fix fast commit recovery failure when the FC area is full
-To: "Theodore Ts'o" <tytso@mit.edu>, Jan Kara <jack@suse.cz>
-Cc: Harshad Shirwadkar <harshadshirwadkar@gmail.com>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261121-sun8i-emac-mtu-limit-v1-1-22492842d318@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBAAv1L27EITdbF+RXpI47ZdMVGyiRRK/
+ 260xxmYWUE5CStcmxUSf0TlFSuYQwN+dnFilHtlsK0lY6xBLfEiyMF5DLngU4JkJHLdkVo6dXS
+ Gmr4Tj7L8tzeInKHfpZbhwT7/hrBtX+W/R0x9AAAA
+X-Change-ID: 20261121-sun8i-emac-mtu-limit-66a936064965
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ LABBE Corentin <clabbe.montjoie@gmail.com>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ Russell King <rmk+kernel@armlinux.org.uk>, 
+ Nicolai Buchwitz <nb@tipi-net.de>, stable@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795236220; l=2306;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=nONg0VC5sVpR9PeT7YPsWCSGoSka8xMNeopCkcw71rY=;
+ b=DUJUge213peq89DZSTZEFm8M6OTH3hROkg8KyslR/EHROF2fN+9kaQ/gVJtPjSlgug0E9VIqK
+ Q+Lvc+ZVqaUC1r3MJHA11IMqj8aJbOiLbvfs2DWW8RNLceQht0q7TVb
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-jbd2_journal_load() sets j_fc_last to s_maxlen, which is the first block
-past the end of the journal, and jbd2_fc_get_buf() never hands out a
-block at or beyond j_fc_last.  The recovery loop in fc_do_one_pass()
-nevertheless runs while next_fc_block <=3D j_fc_last.  If ordinary fsync
-use has filled every usable fast commit block before the next full
-commit, recovery reads one block past the journal and jread() fails
-with -EFSCORRUPTED ("JBD2: corrupted journal superblock").  The
-filesystem then fails to mount after a crash until e2fsck is run.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Stop the loop at j_fc_last.
+Russell King pointed out in [1] that max_mtu ignores the 11-bit buffer
+size of normal descriptors. dwmac-sun8i always uses them in chain mode,
+so a frame must fit one buffer, but max_mtu is SKB_MAX_HEAD() (3712 on
+arm64). Sashiko asked in [2] for this to go in as a fix.
 
-That alone is not enough.  ext4_fc_replay() calls
-ext4_fc_set_bitmaps_and_counters() only when it is called again after
-fc_replay_num_tags has reached zero.  A TAIL tag always ends its block,
-so the call that handles the last tag returns JBD2_FC_REPLAY_CONTINUE
-and the finishing call used to come from the next block.  When the last
-fast commit block is the last block of the journal there is no next
-call, ext4_fc_replay_inode() has already cleared the inode's blocks in
-the bitmap and e2fsck reports a block bitmap difference.  Do the
-finishing step in the same call that consumes the last tag, and drop
-the in-loop copy, which would otherwise run it twice.
+On an H616 the RX DMA fills 2044 bytes of a buffer and
+ndesc_get_rx_status() drops a frame that spans two. On TX the MAC cuts
+a frame after 2048 bytes (TX_FRM_LEN_CTL is clear). At MTU 2033 no UDP
+datagram gets through in either direction.
 
-Reproduced in User-Mode Linux with 1 KiB blocks (mke2fs -J size=3D8,
-63 usable fast commit blocks) and 4 KiB blocks (default journal, 15
-usable blocks): with the fast commit area exactly full the unpatched
-kernel fails the mount, and with one block fewer it recovers.  With this
-patch mount succeeds, the file has all fast committed data, and
-e2fsck -fn exits 0 with no differences after recovery, for the full,
-one-block-short and three-fast-commit cases at both block sizes.
+Limit the MTU so that a frame with two VLAN tags and the FCS fits 2044
+bytes (MTU 2018). MTU 2019-2026, which worked without VLAN tags, is now
+refused.
 
-This bug was found with Perfloop, an automated code analysis tool. The
-fix, this message and the reproducer were written with AI assistance and
-reviewed by me.
-
-Fixes: 5b849b5f96b4 ("jbd2: fast commit recovery path")
-Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
+Link: https://lore.kernel.org/r/E1vLJcL-0000000ExBL-0GFe@rmk-PC.armlinux.org.uk [1]
+Link: https://lore.kernel.org/r/20261112-sun8i-emac-jumbo-v2-2-aca0cf23cf17@gmail.com [2]
+Fixes: 9f93ac8d4085 ("net-next: stmmac: Add dwmac-sun8i")
+Cc: Russell King <rmk+kernel@armlinux.org.uk>
+Cc: Nicolai Buchwitz <nb@tipi-net.de>
 Cc: stable@vger.kernel.org
-Signed-off-by: Tom=C3=A1s Senart <ts@perfloop.ai>
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-v2:
-- Please do not apply v1. v1 only changed the loop bound. As the
-  Sashiko review pointed out, a full fast commit area then mounts but
-  skips ext4_fc_set_bitmaps_and_counters(), and e2fsck -fn reports
-  "Block bitmap differences: +2113" (4 KiB) and "+32769" (1 KiB) after
-  recovery. ext4_fc_replay() now finishes the replay in the call that
-  consumes the last tag.
-- The reproducer now runs e2fsck -fn after recovery.
+Tested on an Orange Pi Zero2 (H616) on net/main with and without this
+patch (RX fill measured on v7.3.5). Claude (AI) helped write this patch;
+I reviewed and tested it.
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Tested on torvalds master 65e4fd942f72a9dba0e4e257290c4fa1aa756854,
-under User-Mode Linux only, with one journal size per block size, and
-only with INODE fast commit tags (no create, link or range tags).
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+index 2ece7ba9dd73..1f4fa722529f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <linux/clk.h>
++#include <linux/if_vlan.h>
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
+ #include <linux/mdio-mux.h>
+@@ -1208,6 +1209,7 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
+ 	plat_dat->mac_setup = sun8i_dwmac_setup;
+ 	plat_dat->tx_fifo_size = 4096;
+ 	plat_dat->rx_fifo_size = 16384;
++	plat_dat->maxmtu = 2044 - ETH_HLEN - 2 * VLAN_HLEN - ETH_FCS_LEN;
+ 
+ 	ret = sun8i_dwmac_set_syscon(&pdev->dev, plat_dat);
+ 	if (ret)
 
- fs/ext4/fast_commit.c | 9 +++++----
- fs/jbd2/recovery.c    | 2 +-
- 2 files changed, 6 insertions(+), 5 deletions(-)
+---
+base-commit: d5b89d55a322b632e2b465b392a4c1d9d338db9c
+change-id: 20261121-sun8i-emac-mtu-limit-66a936064965
 
-diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-index 0cac890cf370..5d9b95817ac6 100644
---- a/fs/ext4/fast_commit.c
-+++ b/fs/ext4/fast_commit.c
-@@ -2608,11 +2608,8 @@ static int ext4_fc_replay(journal_t *journal,
-struct buffer_head *bh,
- 		ext4_fc_get_tl(&tl, cur);
- 		val =3D cur + EXT4_FC_TAG_BASE_LEN;
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
--		if (state->fc_replay_num_tags =3D=3D 0) {
--			ret =3D JBD2_FC_REPLAY_STOP;
--			ext4_fc_set_bitmaps_and_counters(sb);
-+		if (state->fc_replay_num_tags =3D=3D 0)
- 			break;
--		}
 
- 		ext4_debug("Replay phase, tag:%s\n", tag2str(tl.fc_tag));
- 		state->fc_replay_num_tags--;
-@@ -2656,6 +2653,10 @@ static int ext4_fc_replay(journal_t *journal,
-struct buffer_head *bh,
- 			break;
- 		ret =3D JBD2_FC_REPLAY_CONTINUE;
- 	}
-+	if (ret >=3D 0 && state->fc_replay_num_tags =3D=3D 0) {
-+		ext4_fc_set_bitmaps_and_counters(sb);
-+		ret =3D JBD2_FC_REPLAY_STOP;
-+	}
- 	return ret;
- }
-
-diff --git a/fs/jbd2/recovery.c b/fs/jbd2/recovery.c
-index cac8c2cd4a92..a59de33a2a4a 100644
---- a/fs/jbd2/recovery.c
-+++ b/fs/jbd2/recovery.c
-@@ -242,7 +242,7 @@ static int fc_do_one_pass(journal_t *journal,
- 	if (!journal->j_fc_replay_callback)
- 		return 0;
-
--	while (next_fc_block <=3D journal->j_fc_last) {
-+	while (next_fc_block < journal->j_fc_last) {
- 		jbd2_debug(3, "Fast commit replay: next block %ld\n",
- 			  next_fc_block);
- 		err =3D jread(&bh, journal, next_fc_block);
---=20
-2.55.0
