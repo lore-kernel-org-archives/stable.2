@@ -1,98 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795279003;
-	b=peJf82qZeLvh8SSPVE2XKnpcskanJy7+SlastqRoHZs30BxWLQYeMaCz1KVSh6p+b/u9
-	 IZERsNQ8p35n1yAXR/SUAs1nrcQ5/X0ERdHt8NWZuC6QlfBIWb687YJdhFQedEXO/WkOJ
-	 JDOslFdABoq3LG946xAda4w0buL5fziHPU8KYzr9KviLSLjMHxqZQFCteZ34mFW0O9Mne
-	 42T+HihZ8dOCU2cuUkwF/OtITjOvDOcG8n9m3X7I3y6rouqQXW30r4X15K7G51M7rvBXb
-	 zzwybM6XWSXhItctJGy3YOPQ4IkDwOQAeGNyL0goW6GW8/1RP5+ICid0QGFIDmBernw==
+	t=1795279145;
+	b=x/c0VZAHElCCiXMz+8SuAvcSONESoHwgGe0Q/hEA7OEdDqezed3SBfqx8tqNjeJSs02i
+	 MPz/A9uOk00FGGFNYGq4R8v2PFimFUCiFZ7enatWh3hfjlQgXTlAF0pbanPiCOlmlc2EO
+	 Zt5LQYz4bb26AugDN9MtoF2JxAiJODpeqm3K0PqqbevS+dRlVZql3xdMD1S3b8Vq5KO4b
+	 FYhDbWoJbQxKkuRY7yvVYonvpq/Hvd7VwVdvWJkp+FGs+RxfOTLIYrH07VNwHKUBma6Mu
+	 eK3eKNeyKtdZ5VyYkMa+po25e9itMb9b9VDWM3TII0YZQp8sAdE1XpxhVcsECtqcbVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795279003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795279145;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hn7c/Dz84tJJhV+0Auq9iY8AybuWUE55EkzU/GyhEek=;
-	b=xymWLmK++nwp7Bd2tS89qm6MUqinxlALmZa8XKNaryFkIkpG5Ol//CI1ro8BM9wQMUhM
-	 NDasxhNgT0hUZ8/UWAUPoPT8Hn8SltVgvwIRAhcLl8aJMg0sA64AnzcACSbrCAtrWB2zz
-	 4DDL2hxUssYSxvL8UCrQoO9LqY0IsjZCQE5V/0FUfggmmPqZ5MaOQLNNNO1GI6bPSVsEb
-	 Mdz/k4yegzAFMfBzQ9moHOcYLWKPCQk5qNaxD0RWXrJIeeCeZpeNrlTWmZpMhOx/ho0Bw
-	 zP+50Xmn8BlypKYVxCF4Mnr+lVyLw8dJTogQqX+sVR4b8XdsNPd/OScDL/yj9RiLg5A==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Subject:From:To:Cc:
+	 Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=UvpOy7GOb9rkObKegTI8SaLmn0rbNgwEAUXCgiEk9Sg=;
+	b=3/R+WmWyvfEa/uRVBzsEtDGaWtj+3iDt+Cnri0idjeQrxtTNWvGszoyf+RCNrA63LQyy
+	 Gh98wq4jnZtNhE5bJD5RjlH234k26DPnmOIB6MQG4Jb0G+vX/w0+n2fiWzInwZCSwEQjT
+	 WClk1bdGwe1h/u/MXN1qvycgqoo6eUWae+Ol7Jv0/T71Im3PpTpquRYziLna3xpl7htDJ
+	 vrChGMqnAqGa8zmt3iBJ0AOxjxv2SnQftGqY4spTv4AtfWX6hbfUGGBgz1YFQv7QC+g9Y
+	 HaqnJVWDYgYsWUGLk9Lxg6yJaLRr8BjOnpvmHY5i4uJIR+CBcQJk/rv+RlusJsX8Icw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NEvYbR1k;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f+MzvHFf;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4D4606A33E
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 16:36:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B4D4606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00573606A32C
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 16:39:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00573606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NEvYbR1k
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso803287a12.3
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 08:36:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f+MzvHFf
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso1688729f8f.2
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 08:39:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795279002; x=1795883802; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hn7c/Dz84tJJhV+0Auq9iY8AybuWUE55EkzU/GyhEek=;
-        b=NEvYbR1k9Cv3Ee/WcKYPovFDDTagOL9m7pCRpFexMh07IbJqbozQHwlm0WguF1dgm5
-         G3VbQUt/2UMowNrA5HXshcI1ni6YBVp4dc0ZcIzJcLl5XR7F+sIGTOVKVLdV9SRgzmum
-         mTfmrAmBftSSImEIP2fdUFfS8vPzCuDcIYjClGyfQGlE/T874D6ZzLWzNuh4rUNXn0R7
-         QkjOB6hcOJLFtLdWO1kwQmU8VwCkhyPoKUglkRx5FiQsrVNMtgSEg1/XedT/9/4U/8zR
-         tcEOWZvzZEBnoozKrc+YZWLSSIcPRcM6LxwUTFjJj7WluuoiINubGErjJ2G8amP3T3Qk
-         ORBw==
+        d=gmail.com; s=20260707; t=1795279143; x=1795883943; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :cc:to:from:subject:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UvpOy7GOb9rkObKegTI8SaLmn0rbNgwEAUXCgiEk9Sg=;
+        b=f+MzvHFfqQ9WcbUSNKxJj1Ic+3RE+07hDar/TjwNI5eDF9Qio/PkinckXvA/B9AC4q
+         SQZJsP69aC01AzYvoojV9pj8fpG7bmLXfjM83jVrB2QwD/3JahcKWGlzGFztuyk0SE4l
+         C9Wbx73I5pQxtxIQRauurGKZZZyWH5csSjD/6BUu7b12cLSa3ufRkyAOlSZ1VFUUp8yh
+         kOCQ65OkPWm/SEe+z7C3wxy37KuDBaElNZeOtipOTXYGi8uAczrYwqeotlRWPxz+64i1
+         Y4I2dkkPzLS8XuAQt+7hkD3x8jdYamrzMoUaPT6rjiwk4aNIvDAIqodTht+Mnk96mZA4
+         IbjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795279002; x=1795883802;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hn7c/Dz84tJJhV+0Auq9iY8AybuWUE55EkzU/GyhEek=;
-        b=Zkoce0CPJMy0ghvUg03N84iRg99yc9rcfiKZvC192BRY4DUds7XxOnJ5Xg8IopiFpI
-         z7pxHVpTI2Yoh/sP/ybfaWihj3Vc0IUgLS1VwGPjpqgMW80RJJ6nNe1Kd9Owv9CqguQw
-         Zpk2MaXTz7KDC4QopJnyDXlnuIXv6TTalj3DPzNxb0XxXkgGLUz/c4SUAFKywZ4iCPDt
-         dYvMeQX1Xqj9sWRZMF7TO7CQWa3oDLylNZmUdwMR4u90Zl+/yXas5VHbl1yLClReKdjR
-         bgAqItWbsoXoK+2vHOLVZ27C6cGww44H6cxmWeEpN+SHsZUwGbCUDwzcL8JtX/dGkBG4
-         HPgw==
-X-Forwarded-Encrypted: i=1; AL+hErFtxHsmNYctwr+JfAKHmrtiaHJWle+Kup3NYO0sNoSRG4/5E/KbdH6RldBs4MTTbsB4T1AgVlc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RFdOImYDYa3d7zm5D1YRq57oQaHG8FiDBiz7B2fyqksC9kBld
-	+eU08THXSFaY3waMuU6+quk09lkYptFf5kg8aMzcCRB9gET0RQXk4T0R
-X-Gm-Gg: AZFdTZfbptLvy5Z/redAdph6KscLCO9NFFXObbHYPBoBdm8LzqzWTVlDR1Hd8yiplkn
-	lfjHSaU5mhNHNeQSETP/jFSYeDKKLBJxAtegbqNSB7oQ7RYA+jyFAt5p5gIGDF2DLCgprZS3Rff
-	atZYlyO37fdm/TBCUxGcD5NMHVQClUslp0KwDpRTT1oix/YlqZFjPbuz3hx0vHmNbkyrz8uzI/v
-	HI/LX+Eba/R7lA83xgrcQN2YibP2mw1g2Vrv+QdrPAUzU9ebDbTPTL1jMZ+iTG3im7zLiHFpCmp
-	ZuhTz8+IKw5tneCUOfRDAeYe/JqV7D+aA0eqQ/XqqpiIh+DPg9ZD7utI8MavOSu2cqYoMe5esgD
-	HfOHUFeuo9J8bYZhc08NRB56kD1EqtVzVnz747qCZzj91Hq1BQFuFnYZ0NmWQFxe7N4dwljD6gs
-	7P1f8t1RBBWYKEgODH7nhvo3BAQkSOuE02oq23kSqrbMq6HvHWHNwzvieaFxR7KdlaVxWwaAo7C
-	S5DGXnxjeZhBDFZrLvMprD37Vb2j/eIBudoDzCo5y0NQgouyIbTDOV4tpU8tSlpj+Gxe2X4XRNg
-	zfzlVz3FzYcluPQImu8Pw2PoqHp8XoPpV8DnzpVz5dSP4vebkuwzF7xU3mQn/rNF5CJ/Viv8l4h
-	AUy8I
-X-Received: by 2002:a17:90b:17cd:b0:3ae:6fda:78b1 with SMTP id 98e67ed59e1d1-3b41c95b6bcmr5815185a91.43.1795279002278;
-        Sat, 21 Nov 2026 08:36:42 -0800 (PST)
-Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:8549:3fe7:526f:af9])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d11753sm12357403a91.5.2026.11.21.08.36.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 21 Nov 2026 08:36:41 -0800 (PST)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Hemanth Selam <hemanth.selam@gmail.com>,
-	Morning Star <alexbestoso@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Zhao Li <enderaoelyther@gmail.com>
-Subject: [PATCH rtw-next 3/3] wifi: rtlwifi: rtl8192cu: don't mark undecrypted frames as decrypted
-Date: Sun, 22 Nov 2026 00:35:47 +0800
-Message-ID: <20261121163547.37019-4-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261121163547.37019-1-enderaoelyther@gmail.com>
-References: <20261121163547.37019-1-enderaoelyther@gmail.com>
+        d=1e100.net; s=20260707; t=1795279143; x=1795883943;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :cc:to:from:subject:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UvpOy7GOb9rkObKegTI8SaLmn0rbNgwEAUXCgiEk9Sg=;
+        b=g6YhWU1DjUaD1YM0KrylNGllKAS/R1+HElzUktJsU4isKABL+cw9LhhZ/GiVyWbWS2
+         Jfblr8Tj3Ju1R7DffBSybeX/ftyA7l8TC5B1mJhVPQ92lBQ8npe+E2QKqGpUUO9rdq8j
+         C7/1ODFcsALqF1N4S8Ofryi+Nxicz0Q2XkTm4x65OSE3gV3HRa6syM/swGZlamvbkfW+
+         DGcqt5sUCTKeocWylU1hv8LjKP/SQBaj9bd+4QaiYC8D7xsnJlcD8KKOD59aGIRZhEr/
+         ug+z9FKaDFRCaIR/QDwySN/WSbh90/vZ2MSQMRuXMBRrX55Fc9OhPe7HoodZ0Yvdxese
+         +lKA==
+X-Gm-Message-State: APuU4Z9wAzPhJZrvZKyGYa7oNfaPsFjWii3DD2zlXcMlq3Hmg2bUlglj
+	rDkFdzPDkyhc/on/bW+s/ZEc79hRvuZhkaocOTOE/wwJ+FnzCyEDK87CSKhefALCbYfz94Dl
+X-Gm-Gg: AZFdTZc4L6tUOTbUzX/bp1nKB5SVDRe/Bkv7NQBfvNt8rUizmL03PnsyDooCqcSM/kX
+	JfI/8v6VwJ6XpLkDxs8epfaNxsM0CXZksxOHjCa8KCYNn1Aa0THcTZcx/EDs9UqBCF2KvF+qfcl
+	Fmd9gkHU1/Z3CtveivHN/sYf+g5vkdYgRafoJ1LyhZbf5+LWkt1NvJo8zGEKYkkryZ7EZMhVsEf
+	Q1Gsyd70k8HEWwBNF2/LP42m5rG7zJfylfMDtVY2awux5Ug2IFzKY2bzLr9TCewGTCp+82a+eXR
+	VPJ6dlJxwXw2v0OCCYWMBA91aPf6aqh02OxQLvPE4JtLUVB7Fjr53HSnvySkAQ7GhS6ofLGRZ1H
+	3KGvutda8l9ndZnlYEHcxHXoboZN9W8DZPqAsbLT2w35W4KmrVE92DxR3WmH7LtJYhkjTxE+Gim
+	O1T1oYzOVgQs0tooci1ymaHdPrBiMgfEX70bf2zPbTSabOhLE5irpqU2nFWmWrUgh/hDHYQ6Xkn
+	fHhkVmc4EZf4AUPseQNZogHSuc3hoFVtLP/z4voIxcG1RkfbrXE9YF0W+FUS9f7FB+pTq64y7G6
+	CTyrZvr00p8/UvP7vgXdbhmcNi/1H8LbPGgutj9Sm5Ny
+X-Received: by 2002:a05:600c:5246:b0:4bb:60ba:49e0 with SMTP id 5b1f17b1804b1-4bb88930707mr157734315e9.26.1795279143087;
+        Sat, 21 Nov 2026 08:39:03 -0800 (PST)
+Received: from [10.77.1.44] ([94.188.8.172])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf61b8sm11212895f8f.19.2026.11.21.08.39.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 08:39:02 -0800 (PST)
+Subject: [PATCH 0/1] scsi: target: iscsi: fix use-after-free in iscsit_stop_session()
+From: Vitalii Dodonov <dreamer.two@gmail.com>
+To: linux-scsi@vger.kernel.org
+Cc: stable@vger.kernel.org,target-devel@vger.kernel.org
+Date: Sat, 21 Nov 2026 19:38:57 +0300
+Message-ID: <179527913740.32224.2426414360492240680@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,90 +93,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The receive descriptor's SWDEC bit is set when a frame still needs
-software decryption. It is also clear for a frame that was never
-encrypted, and for a protected robust management frame, which the
-hardware leaves for software to decrypt. rtl92cu_rx_query_desc()
-nevertheless sets RX_FLAG_DECRYPTED for every frame with SWDEC clear,
-in two places.
+The iSCSI target panics with a general protection fault inside
+iscsit_stop_session() when a session that has more than one connection is
+torn down while another thread closes one of those connections.
 
-mac80211 then accepts an unprotected unicast data frame although a
-pairwise key is installed, and unprotected deauthentication and
-disassociation frames on a connection that uses management frame
-protection. For a protected robust management frame it skips software
-decryption and MIC verification, so a forged frame is accepted and a
-genuine encrypted one, such as an SA Query from the peer, reaches
-mac80211 still encrypted. A station in radio range can therefore inject
-plaintext data into an encrypted connection, or end a protected one, by
-spoofing the peer's address.
+iscsit_stop_session() walks sess->sess_conn_list with
+list_for_each_entry_safe() and drops sess->conn_lock inside the loop.  A
+connection that is being shut down concurrently runs iscsit_close_connection(),
+which removes itself from the list with list_del() under the same lock and
+leaves LIST_POISON1 in conn->conn_list.next.  Pinning the next connection with
+iscsit_inc_conn_usage_count() keeps the object alive, but not the list links,
+so the following iteration computes conn_tmp = list_next_entry() from the
+poisoned pointer and passes it to iscsit_inc_conn_usage_count(), which takes a
+spinlock at *(conn_tmp + offsetof(conn_usage_lock)) and faults on
+0xdead000000000004.
 
-Set the flag only for a protected frame that is not a robust management
-frame, as the rtl8188ee, rtl8192ee, rtl8723ae, rtl8723be and rtl8821ae
-drivers do. rtl8xxxu, which supports the same chip, stopped trusting
-SWDEC alone in commit cbfbb4ddbc85 ("wifi: rtl8xxxu: enable MFP support
-with security flag of RX descriptor"). The header is read before the
-receive path strips the driver info, so test the Protected bit first,
-which needs only the frame control field, and read that only when the
-URB holds it. When Protected is set, _ieee80211_is_robust_mgmt_frame()
-also reads only frame_control.
+Crash, 7.3.0-11-generic, LIO target with MaxConnections=8, Microsoft iSCSI
+initiator holding 8 MC/S connections, graceful reboot of the initiator while
+I/O is in flight:
 
-Found by code review. Compile-tested with W=1.
+  Oops: general protection fault, probably for non-canonical address 0xdead000000000004: 0000 [#1] SMP PTI
+  CPU: 0 UID: 0 PID: 9028 Comm: kworker/0:2 Not tainted 7.3.0-11-generic #12-Ubuntu PREEMPT(lazy)
+  Workqueue: events iscsi_target_do_login_rx [iscsi_target_mod]
+  RIP: 0010:_raw_spin_lock_bh+0x18/0x50
+  RDI: dead000000000004   RBX: deacfffffffffcb0   R15: deacfffffffffcb0
+  Call Trace:
+   ? iscsit_inc_conn_usage_count+0x1b/0x40 [iscsi_target_mod]
+   iscsit_stop_session+0x7d/0x1b0 [iscsi_target_mod]
+   iscsi_check_for_session_reinstatement+0x1e1/0x290 [iscsi_target_mod]
+   iscsi_target_handle_csg_one+0x135/0x160 [iscsi_target_mod]
+   iscsi_target_do_login+0x32/0xe0 [iscsi_target_mod]
+   iscsi_target_do_login_rx+0x2d2/0x420 [iscsi_target_mod]
+   process_one_work+0x1dc/0x3f0
+   ...
+  Kernel panic - not syncing: Fatal exception in interrupt
 
-Fixes: 29d00a3e46bb ("rtlwifi: rtl8192cu: Add routine trx")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-No new W=1, sparse or smatch warnings.
+The same fault is reachable from the logout path:
+iscsit_stop_session <- iscsit_logout_post_handler <- iscsit_response_queue <-
+iscsi_target_tx_thread, with the identical 0xdead000000000004.
 
-AI assistance was used.
+Where it was first seen (field report).  A Proxmox VE host (7.0.14-9-pve,
+later 7.0.14-28-pve) exported zvols through LIO to Windows 11 clients using
+the Microsoft iSCSI initiator with MC/S.  The host had been stable for 95 days
+with MaxConnections=1; after raising it to 2 there were four panics in one
+night, all with the same general protection fault at 0xdead000000000004 and
+the logout stack above, and the journal of one of them contains "Received
+logout request on connection that is not in logged in state".  The panic also
+reproduced on 7.0.14-28-pve, so it is not tied to a single build.  The module
+carrying this fix has been running on that host for 9 days with
+MaxConnections=4 and 72 active iSCSI connections, without a single panic.
 
- .../net/wireless/realtek/rtlwifi/rtl8192cu/trx.c   | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+Reproducer (any MC/S-capable initiator; open-iscsi does not implement MC/S, so
+a Microsoft iSCSI initiator was used):
 
-diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192cu/trx.c b/drivers/net/wireless/realtek/rtlwifi/rtl8192cu/trx.c
-index d6c35e8d02a5..aceedc37e5d2 100644
---- a/drivers/net/wireless/realtek/rtlwifi/rtl8192cu/trx.c
-+++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192cu/trx.c
-@@ -295,11 +295,14 @@ bool rtl92cu_rx_query_desc(struct ieee80211_hw *hw,
- 	struct rx_desc_92c *p_desc = (struct rx_desc_92c *)pdesc8;
- 	__le32 *pdesc = (__le32 *)pdesc8;
- 	u32 phystatus = get_rx_desc_phy_status(pdesc);
-+	struct ieee80211_hdr *hdr;
-+	unsigned int hdr_off;
- 
- 	stats->length = (u16)get_rx_desc_pkt_len(pdesc);
- 	stats->rx_drvinfo_size = (u8)get_rx_desc_drvinfo_size(pdesc) *
- 				 RX_DRV_INFO_SIZE_UNIT;
- 	stats->rx_bufshift = (u8)(get_rx_desc_shift(pdesc) & 0x03);
-+	hdr_off = stats->rx_drvinfo_size + stats->rx_bufshift;
- 	stats->icv = (u16)get_rx_desc_icv(pdesc);
- 	stats->crc = (u16)get_rx_desc_crc32(pdesc);
- 	stats->hwerror = (stats->crc | stats->icv);
-@@ -316,15 +319,18 @@ bool rtl92cu_rx_query_desc(struct ieee80211_hw *hw,
- 	rx_status->band = hw->conf.chandef.chan->band;
- 	if (get_rx_desc_crc32(pdesc))
- 		rx_status->flag |= RX_FLAG_FAILED_FCS_CRC;
--	if (!get_rx_desc_swdec(pdesc))
--		rx_status->flag |= RX_FLAG_DECRYPTED;
- 	if (get_rx_desc_bw(pdesc))
- 		rx_status->bw = RATE_INFO_BW_40;
- 	if (get_rx_desc_rx_ht(pdesc))
- 		rx_status->encoding = RX_ENC_HT;
- 	rx_status->flag |= RX_FLAG_MACTIME_START;
--	if (stats->decrypted)
--		rx_status->flag |= RX_FLAG_DECRYPTED;
-+	if (stats->decrypted &&
-+	    skb->len >= hdr_off + sizeof(hdr->frame_control)) {
-+		hdr = (struct ieee80211_hdr *)(skb->data + hdr_off);
-+		if (ieee80211_has_protected(hdr->frame_control) &&
-+		    !_ieee80211_is_robust_mgmt_frame(hdr))
-+			rx_status->flag |= RX_FLAG_DECRYPTED;
-+	}
- 	rx_status->rate_idx = rtlwifi_rate_mapping(hw, stats->is_ht,
- 						   false, stats->rate);
- 	rx_status->mactime = get_rx_desc_tsfl(pdesc);
--- 
-2.56.1
+ 1. LIO target with MaxConnections=8, no CHAP, generate_node_acls=1.  The
+    value lives in configfs and is not exported by targetcli:
 
+      echo 8 > /sys/kernel/config/target/iscsi/<iqn>/tpgt_1/param/MaxConnections
+
+    With MaxConnections=1 the extra connection is refused with
+    ISDSC_TOO_MANY_CONNECTIONS and nothing happens, so the target has to be
+    configured first.
+
+ 2. Initiator: log in, for example on Windows
+
+      Connect-IscsiTarget -NodeAddress <iqn> -TargetPortalAddress <ip>
+
+    and then add the remaining connections to the *same* session, one call
+    per connection:
+
+      iscsicli SessionList                 # take the "Session Id"
+      iscsicli ListInitiators              # -> ROOT\ISCSIPRT\0000_0
+      iscsicli QAddConnection <SessionId> ROOT\ISCSIPRT\0000_0 <portal-ip>
+
+    Repeat until the session holds MaxConnections connections.
+    AddIScsiConnectionW() does the same thing programmatically, and the
+    "MCS..." button in the iSCSI Initiator GUI (target -> Properties ->
+    Sessions) as well.
+
+ 3. Bring the LUN online, mount a filesystem on it and start writing to it.
+
+ 4. Reboot the initiator gracefully while the I/O is still in flight; repeat.
+    The stock module crashed on the 2nd-4th cycle (2 panics in ~20 minutes).
+
+Results: stock module 2 crashes in 8 cycles, patched module 0 in 118 cycles
+(the target stayed up for the whole run).
+
+Patch 1/1 takes a snapshot of the connections, with a reference on each, while
+conn_lock is held, and then works only on that snapshot; the order in which the
+connections are reinstated is unchanged.
+
+Vitalii Dodonov (1):
+  scsi: target: iscsi: fix use-after-free in iscsit_stop_session()
+
+ drivers/target/iscsi/iscsi_target.c | 68 ++++++++++++++++++++---------
+ 1 file changed, 47 insertions(+), 21 deletions(-)
