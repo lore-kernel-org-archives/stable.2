@@ -1,50 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795254225;
-	b=ZQUyW33Jjbeg0UtQFirLNycTkp3KS4c3CSEIKnHYUFfwh4TEuGsr7idcwclGa6CebpXW
-	 xFi6euVRTfvlA+hTe/t67W/nr97RaqkEF1WzaOU6J9ct3FU4XRBA9xTY0ZQiBIENi6jHv
-	 UgCNk77gujHjDE708Rc4nQHYeeweduR4PogC8qH2X+/iiHnfhGhkHhtmsNs1LrMu5T6Bt
-	 Oh21TUGa7HXVwXer4vHakQyl/crNhSg+KeRLrGmTZQa78V9KH2nsX27oaOm/Z0eOHQM1f
-	 cjlClgLXJIR4VcBoP3SlAQe1SUUO9rX+26Qmz8xug4+TS+vbyyJ13QfFyZMk63uk6zA==
+	t=1795254352;
+	b=XKwF3kDa1YuyoxT1vmzHvgX2Qw6/jCfxZMOuRtf1JfgufWY7RLkDUsZFj4baUaoyvSIi
+	 kAkPpnMLaRGJgk7fJwyzeNIwkayT5Kb3V/kgXwUkvijYMfVqLBQTUQpb9/iSqFQanpXsb
+	 C/7WmE6LvqJeUSvFyLC4oa+nsevKFub+H+HzSAa66NaRIHwc7K5YY5/cdwu/T2uKh1QLQ
+	 nnbtIfnaneiISJJ/+uP54RmUxt1UfslDHlBUkYXJeWRMvcwRdoDwCek/LGxz6IJBVz0iI
+	 O44pHImPTASbe/rsF/3ruI2BC54eOyOr6Nl+ibPXjZAViDukFbuKSc+lFe+V+VetklA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795254225;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=z+aEWnt2ulJEOd/rZgLmfZW3wOAZN9sdeAZ+G9aUovU=;
-	b=4bx76QDzah51IRgg1HivWHtdh0oeQpSr0Qi5GJaW3HcUwqEHjWFINKNdkCj8ezJiuEfD
-	 t/kR+bqmx4E1MnWPWD3esboIooARongZTnvaPZo9rQUjulFzjumTyPpfNDXdVM+S+YV1u
-	 Ds9HZgLcF0f1ld+sSPG03EHE1Dl36KaVT4AGnBwn6aTvUnV13O1E7rW06q1ltTGS+TQ95
-	 SSpqRtfsxm/Ivc1zKkhNf8UIbzST5TdZoBgSi01mP+452siFv/bGy7CEiCzpBuTI9YDrN
-	 KObrIXR2TZ4x6rDTxHmfz2Vx46PTaP06FrtL6YoTnE6W78qJ+84L6BIMXnclUZ5bxmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795254352;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=CHj6ANP9LzC53BHT4QiDAxfHHlrC+wp5JFq9rYP4O7c=;
+	b=3R+yevYGPw7uS0RPVBcQwq0lyZm66+CPKGhtZ7ABh9EinyPUlD5pbJojuz+6gaMraK92
+	 AbpDh4G6F/yPjFK4kjErGbniKpY6Whp3xDiBvNYhb9SK2baDdlakO5EoGJj7PBWxDLES4
+	 rakawq7yI031I7FLDl+CdOIb/d0AwlBXmqcHmwbirffp5pJItbuPaKEtc4sIE/kH/NOWD
+	 swWiXDUcV2ytOhus7J8DEyIgTFAVROsKux2BFpPnCiPzG/DXhQTj9qr/AJZM2F2VQG7Xj
+	 CwlXvCfQ22PWKWqBGQboO/TUurL6WaNHnp/Td7sqtpMczrUfLwpAipJO7nj6QnMdX1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uK1hPum3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B668606A320;
-	Sat, 21 Nov 2026 09:43:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uK1hPum3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 413FD1F000C4;
-	Sat, 21 Nov 2026 09:43:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795254224;
-	bh=z+aEWnt2ulJEOd/rZgLmfZW3wOAZN9sdeAZ+G9aUovU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=uK1hPum3pMYBzlvfWRPwP61d7pQIohBnjhCMqdlt+OX8EQOQHt7SyyuofwfDEhF5D
-	 2dMo9NpumcCHVqD3Pi4+huBLer0jbQy6EK7skzdJYYhdtZILlXAbXRrJ9zp2N/zfh5
-	 PEGPv9wKWeBe7FRHJXaSH2cFA5FY1B17nFEvGrqs=
-Date: Sat, 21 Nov 2026 10:43:41 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Tanuj Sharma <ertanuj96@gmail.com>
-Cc: ntfs3@lists.linux.dev, almaz.alexandrovich@paragon-software.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ntfs3: fix out-of-bounds write in do_action() bitmap
- operations
-Message-ID: <2026112159-sampling-unmade-c123@gregkh>
-References: <CAAnb6FRwYjE0jXUxqFHKu8ZAmLyX_+hwpjSuuD1RHjKGVeAOcg@mail.gmail.com>
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1DBD0606A325;
+	Sat, 21 Nov 2026 09:45:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DBD0606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=CHj6ANP9Lz
+	C53BHT4QiDAxfHHlrC+wp5JFq9rYP4O7c=; b=ejbABg0AbfXNwxNkcWAChSAq5u
+	OA5waN2STaDK4eLCG4FX/xqgxkgWhCNgliyotJ+ihm2EmZ4wJ0mNJgww4y/nD6mZ
+	tX8gT2x02lcIcmcYdq4CpAIEPlW6cmFLdHgVz+0F1TGzz0TrRqrW1Otpa992qWfT
+	4HqBjYWFofD0zGwyg=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.70])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkD2GwI_aAFr1F0AAg--.63532S2;
+	Sat, 21 Nov 2026 17:45:35 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>
+Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH net v2] can: dev: reject unusable bit-timing constants
+Date: Sat, 21 Nov 2026 17:45:34 +0800
+Message-Id: <20261121094534.5221-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,100 +59,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAAnb6FRwYjE0jXUxqFHKu8ZAmLyX_+hwpjSuuD1RHjKGVeAOcg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkD2GwI_aAFr1F0AAg--.63532S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJw1fKw4rCrW3KF15KFyDWrg_yoWrZry7pF
+	s3JF98Ka4qvw4jvw4ftwn7AayrG3ZaqrySkr97t3sakwn8X3WFkrWUGw45u3W7Gr47AFy2
+	qFWqgr43Gw45C3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4fMxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8RbyJUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUED2sAZMnEuAAAs2
 
-On Sat, Nov 21, 2026 at 07:52:32AM +0530, Tanuj Sharma wrote:
-> Hi,
-> 
-> This patch fixes an out-of-bounds heap write in the ntfs3 log replay
-> path triggered by mounting a crafted NTFS image. The buffer is sized
-> by bytes_per_index but bounds-checked against the larger lco, allowing
-> bitmap operations to write past the allocation.
-> 
-> Thanks,
-> Tanuj Sharma
+can_bittiming_const_valid() is the hook register_candev() uses to verify
+the bit-timing constants a driver registers, but it only looks at
+sjw_max.  The values can_calc_bittiming() actually depends on are not
+checked.
 
-None of this goes in the body of the email.
+gs_usb builds its struct can_bittiming_const from the response of the
+GS_USB_BREQ_BT_CONST control request, so the constants come from the USB
+device.  A device that reports brp_inc = 0 crashes the kernel with a
+division by zero as soon as a user with CAP_NET_ADMIN configures a
+bitrate:
 
-> >From d6abed28f9eb5941da61bbe2b59876f93b4c75de Mon Sep 17 00:00:00 2001
-> From: Tanuj Sharma <ertanuj96@gmail.com>
-> Date: Sat, 21 Nov 2026 02:15:09 +0000
-> Subject: [PATCH] ntfs3: fix out-of-bounds write in do_action() bitmap
->  operations
+  Oops: divide error: 0000 [#1] SMP KASAN
+  RIP: 0010:can_calc_bittiming+0x3dd/0xcd0
+  Call Trace:
+   can_get_bittiming (drivers/net/can/dev/bittiming.c:146)
+   can_changelink (drivers/net/can/dev/netlink.c:594)
+   rtnetlink_rcv_msg (net/core/rtnetlink.c:7137)
 
-Neither does this, just send the patch using git send-email or the like.
+brp_min and the time segment minima are just as fatal: with brp_min = 0
+the prescaler can stay zero and is then used as a divisor in the same
+loop, and with tseg1_min + tseg2_min = 0 the unsigned loop counter wraps
+around instead of terminating.
 
-> 
-> In do_action(), when replaying log records for ATTR_ALLOC attributes,
-> the buffer is allocated based on bytes_per_index (typically 4096 bytes,
-> kmalloc-4k) but bitmap operation bounds checking uses lco -- a larger
-> value derived from lcns_follow << cluster_bits (typically 8192).
-> 
-> This allows SetBitsInNonresidentBitMap and ClearBitsInNonresidentBitMap
-> opcodes to write past the allocated buffer into the adjacent slab object
-> when processing crafted NTFS images with malicious $LogFile records.
-> 
-> The bounds check compares against lco (the full LCN extent size) but
-> should compare against the actual buffer capacity. For ATTR_ALLOC, the
-> buffer is only bytes_per_index bytes, allocated here:
-> 
->   if (attr->type == ATTR_ALLOC) {
->       t32 = le32_to_cpu(oe->bytes_per_index);
->       if (bytes < t32)
->           bytes = t32;
->   }
->   buffer_le = kmalloc(bytes, GFP_NOFS);
-> 
-> But the bounds check uses the larger lco:
-> 
->   if (cbo + (off + 7) / 8 > lco || ...)
-> 
-> With bytes_per_index=4096 and lco=8192, any bitmap_off >= 32768
-> (byte offset 4096) passes the lco check but writes past the buffer.
-> 
-> Fix this by computing the bounds limit as the minimum of the buffer
-> extent (cbo + bytes_per_index) and the LCN extent (lco). This ensures
-> bitmap operations cannot exceed either the allocated buffer or the
-> on-disk extent, and also prevents a crafted bytes_per_index larger
-> than lco from weakening the existing check.
-> 
-> Found by code audit and confirmed with a crafted NTFS image that
-> triggers the OOB write on mount.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-> Signed-off-by: Tanuj Sharma <ertanuj96@gmail.com>
-> ---
->  fs/ntfs3/fslog.c | 20 ++++++++++++++++----
->  1 file changed, 16 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-> index 1879d04e3cd05..85590f56587c2 100644
-> --- a/fs/ntfs3/fslog.c
-> +++ b/fs/ntfs3/fslog.c
-> @@ -3751,10 +3751,16 @@ static int do_action(struct ntfs_log *log,
-> struct OPEN_ATTR_ENRTY *oe,
->   off = le32_to_cpu(((struct BITMAP_RANGE *)data)->bitmap_off);
->   bits = le32_to_cpu(((struct BITMAP_RANGE *)data)->bits);
-> 
-> - if (cbo + (off + 7) / 8 > lco ||
-> -    cbo + ((off + bits + 7) / 8) > lco) {
-> + {
-> + u64 bmp_limit = attr->type == ATTR_ALLOC ?
-> + min(cbo + (u64)le32_to_cpu(oe->bytes_per_index), lco) :
-> + lco;
-> +
-> + if (cbo + (off + 7) / 8 > bmp_limit ||
-> +    cbo + ((off + bits + 7) / 8) > bmp_limit) {
->   goto dirty_vol;
->   }
-> + }
-> 
+The maxima need bounds as well.  can_calc_bittiming() doubles the sum of
+the maxima for its loop bounds and walks the time segments from the
+maxima down to the minima, and both it and can_fixup_bittiming()
+multiply the prescaler by the bit time.  Values close to U32_MAX wrap
+those computations around, which ends in a division by zero or in
+billions of loop iterations with RTNL held.  Reject constants whose bit
+time exceeds what CAN controllers use and whose prescaler range does not
+fit into 32 bits.
 
-The patch is corrupted and can not be applied :(
+The 32 bit overflow of tsegall * bt->bitrate is not caused by the
+constants but by the bitrate supplied from user space, it is a separate
+problem.
 
-thanks,
+Reject unusable constants during registration, so that a device or driver
+handing out such values fails to probe instead of taking the kernel down
+later.
 
-greg k-h
+Fixes: d58ac89d0d38 ("can: dev: register_candev(): ensure that bittiming const are valid")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+v2: https://lore.kernel.org/all/20261121064449.9706-1-25031212351@stu.xidian.edu.cn/
+- reject constants with an inconsistent minimum/maximum range
+- bound the maximum bit time and the brp_max * bit time product, so that
+  large but non-zero constants cannot overflow the loop bounds or the
+  prescaler arithmetic
+---
+ drivers/net/can/dev/dev.c | 35 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+
+diff --git a/drivers/net/can/dev/dev.c b/drivers/net/can/dev/dev.c
+index 769745e22a3c..db541f935d10 100644
+--- a/drivers/net/can/dev/dev.c
++++ b/drivers/net/can/dev/dev.c
+@@ -595,15 +595,50 @@ static int can_get_termination(struct net_device *ndev)
+ 	return 0;
+ }
+ 
++/* Upper bound for the bit time in time quanta. The bit times of the
++ * currently supported CAN controllers are well below it, the limit keeps the
++ * time segment scan in can_calc_bittiming() bounded.
++ */
++#define CAN_MAX_BIT_TIME_TQ 1024
++
+ static bool
+ can_bittiming_const_valid(const struct can_bittiming_const *btc)
+ {
++	u64 bit_time;
++
+ 	if (!btc)
+ 		return true;
+ 
+ 	if (!btc->sjw_max)
+ 		return false;
+ 
++	/* can_calc_bittiming() rounds the bit-rate prescaler to a multiple of
++	 * brp_inc and divides priv->clock.freq by brp. A zero brp_inc divides
++	 * by zero directly, a zero brp_min lets brp become zero.
++	 */
++	if (!btc->brp_min || btc->brp_min > btc->brp_max || !btc->brp_inc)
++		return false;
++
++	/* The time segment loop counts down from the maxima to the minima.
++	 * Zero minima make the unsigned loop counter wrap around, a minimum
++	 * above its maximum makes the loop bounds inconsistent.
++	 */
++	if (!btc->tseg1_min || btc->tseg1_min > btc->tseg1_max)
++		return false;
++
++	if (!btc->tseg2_min || btc->tseg2_min > btc->tseg2_max)
++		return false;
++
++	bit_time = (u64)btc->tseg1_max + btc->tseg2_max + CAN_SYNC_SEG;
++	if (bit_time > CAN_MAX_BIT_TIME_TQ)
++		return false;
++
++	/* can_calc_bittiming() and can_fixup_bittiming() multiply the prescaler
++	 * by the bit time, keep the product inside 32 bits.
++	 */
++	if (bit_time * btc->brp_max > UINT_MAX)
++		return false;
++
+ 	return true;
+ }
+ 
+-- 
+2.34.1
+
