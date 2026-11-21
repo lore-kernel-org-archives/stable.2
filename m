@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296705;
-	b=v3xXJlVKLYUcmC6940R5KSvI/FL+MWv4ko1hpV7RLnVPMwnQ9o8EAFYKkdjNWKsrzOkj
-	 O/G168SR/GcWWLSYjeEiLFiMjhvU79DCUd4LmCg+WUousbl0+JeNgYdrkPn7qrBg8Y6QG
-	 7Hw1J/npDdD/MCji6GE4YNslWsJ6GtL+FLpwwSDI0dZazSJW5ATQzOgnEip4UTJnQ4Cgd
-	 Oe9q6dYHk20cx0tdRBp8y1XI4NdDNO6MjhCFlIRG8rBo6iIglVEl9obHZffO8sSaJ1rrH
-	 i7JSV353Dga1FtMuv+4MzAkwQQaaxeRLWYd6gntsmsaGQl1bhwbS4OR/9XJCYQ6yn2A==
+	t=1795296706;
+	b=RV9W+SM3NLrF6U3ID1sK7I+Evz9XX4BTTagTDCJkL+C9BPWehYtCQ/PTzDYP047p6QTf
+	 OEgypMCMe9T0a2voLCWY0eRkdLvDSMgdDQXcM1/0z6+2W+Bc2FIcgJ0ZpIql/+UEMi6Se
+	 NUdT5Sc8mb1MN7ALzSm6qbR25Kff5D8g3DGJXuxa1g8Qjhf1+56NDiWccoV8zJKsUkIvk
+	 287zxyvZlu8Zira/uyTvnFYMchm3e6xbPERU9aq7afE0HfzLymtf8R2WR5A2wijZk87VL
+	 xVLLrHcHw9HF1Vb6uhFtRXZIs37GX3RvsFFI2BdG0uVrcBg7a85JHp/FLxtTr4gmBkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296705;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296706;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=AlZliGV21Pfbn5adqbBiR/1lnKgw5vwILbM3uHvr/H8=;
-	b=RCs+HmvYzQaZoiK5etaRh6xf8+xNwvpiXQGE5TbDbCinvBy0m+3fN6dFTKAgJisMLwz/
-	 mU5JAQP+ggAJf3jVQVxH+wmOPB2nDXdnCV9dnoS8asTTkah1Rh1GBCohVxS2MCXv1YWkw
-	 Z1Kx1Y7p7MvLVWzPTsrw8Klcml14M3LhPs8Z71Sa29V8W8bMlrOc/J6bR/+EzDM5tkrpR
-	 1oWGS4sgWpEqiPM14qmNyVYzDIJz0UTEmhDRbVgJSZuMvkRm/PYRRwokyROFu/6rMt5fB
-	 prTcSS4kCFFRZ21sOPMD33GHLOzuzXZI6+lzesR7wgn55Zpaufpmwq/IXymb48uQbag==
+	bh=fgYK0WdNPyZ2No6tbroW9YiDvuBSMrnuztXxUFY5BLk=;
+	b=hI8RzC5AH3yRDcQuCezxgm353yzVdgVloQnqyEeXrRcf4VqyBZtgMHXsWH1EkFzOyN3Z
+	 PVbXNiahc439RxecS30MYv6+WDULPK4A9uxK253e5IcohbNRQm7Vhm45cb03uT16a5lks
+	 4JDs4rGDfJnzh/961YNWfnZB0ZDXJHkEfR9hlBWAqu/TvDs/dw/zZN0UhWU2AAjN1AWY+
+	 ypT1/OSurnozRF51Krk5Y4sLuLYNWqk29kY9SoP52bpzbp+brE92szk3ExN1gZE5Xqqyo
+	 REU0BJ6AXSErC/ldZlubqmE5JHLGy5MJyI9f+fRyVfXcwTo1iaNbJEBXzy0zGFrtnNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=jGiSkfuW;
-	arc=none smtp.remote-ip=209.85.161.45
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=JAT4XZEW;
+	arc=none smtp.remote-ip=209.85.161.53
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23794606A32C
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23794606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73110606A320
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73110606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=jGiSkfuW
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6d290b10a35so821457eaf.2
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=JAT4XZEW
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6de2f213b7aso909404eaf.0
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel.dk; s=google; t=1795296704; x=1795901504; darn=vger.kernel.org;
+        d=kernel.dk; s=google; t=1795296705; x=1795901505; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=AlZliGV21Pfbn5adqbBiR/1lnKgw5vwILbM3uHvr/H8=;
-        b=jGiSkfuWO7ylpUg0DqN8aH1BSP9Db20gnHQEl6YrfX91FGT5AHLLrOhU5/VF6r3W1T
-         YhURKdBNqoSF2E8JeTVXsEHJNpBrG3+leHR6TNuxGxzfeVICOGAIntZktTF8yHCGJilV
-         pmdX9EP1IMJBWnNQmoxjE5v3MfoBCxUpF2zjDOOkv8pNdwDFLxAUAkjJH1o7fzCoBvY5
-         uFSTVqPvZIhDkic/7HaIZswFTxN1QEQUIpx0Kegdpz/pKKPvX6JTHRkCSErk8T1rTOUs
-         Fovprtv9EOovVcsFFcL/9GZb4NzgKY72SkkCuaxofi4M0+gGgRVR9uhc1vgSnUwuSHMw
-         8Huw==
+        bh=fgYK0WdNPyZ2No6tbroW9YiDvuBSMrnuztXxUFY5BLk=;
+        b=JAT4XZEW0aE9dO4wwyj67eId+YBEhzTWX6cuKzfJf41nD/JQCngWZrZfjaXBk+DJaG
+         p5GRH3wr1lf27P17a8aOg6k/JbUCH9LoQhXcwtX7P6O5rzVeGnejOljCudcn0AMfdIqa
+         FjcNO0Z4A0HXGVarDJY8mo4ZvQueieQAkBuXayAelL14/T04YXjdhiOJFPbN1b7R8dZ2
+         0txewZtOogeqR/wW4oIEmT5jUHTeLkPEY+EgGiHZeIdH08MlV0siBqEGsgyBD48VuNX5
+         0jR26dPLFTrp7wKAvs8o80q95CN5mCW6AndbZ/0OXPgPjzuTC2n3KyD1vWfYe8ITcveS
+         uK8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795296704; x=1795901504;
+        d=1e100.net; s=20260707; t=1795296705; x=1795901505;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=AlZliGV21Pfbn5adqbBiR/1lnKgw5vwILbM3uHvr/H8=;
-        b=SHm2bukEtYEJ9Wz80SrcNR+aSGbQ2jK5om3N+GdVP9Bd3d5GGsTN+Mnxl+o2IVkVaB
-         8bjMVN3wNbgZRc7PqAefJqgl6OwctUsqvAiCroD9gP+7cK3mkbvgrlWCc2jCLR+FI+/Z
-         AbfTikxfab7elYxSbxTHqstqM5GWCU9hsn2EqGVUn81DQMin5dbaVUcE+gkg4Ag+AfQH
-         KlWi2Kqu3TWfPIYjvjc9VMasfvP68YubKWd79VzgtrjaP339U+oq8tT9IQhs7e3uBNC5
-         rV8Xp9tJjznFi97c0AhnSiRrOky7uvEjrpj0be01Qq52O3XqBaPYKScQ8UKmYsuE0Ovw
-         Livw==
-X-Gm-Message-State: APuU4Z/EfXlnEYKlG0H7dBOk0rMolU8YF3KC1h3zz7HjKwx1FZ0TsONm
-	EFxFAc4r2z8bmAA/zJWnay2YLZq26YZUIlf8/BOD/L1Q/pG2BZ96ZTwh103PYYxGtpWMHHEwU32
-	Ljnu/G6A=
-X-Gm-Gg: AZFdTZe2gMryZGKJOl+J0ePy+8MJkAgEjkXaTq/yFSkTq9XPkAX/dsEFyqSUiwS5EQW
-	gCxpR/mLbtJwXSBnHvRi0UNyVgnzpyW0+bFs1yH27rn4n0mytU1cj8DbFwZ5uin9boGLF/472SZ
-	d4xSEWrELARFgiY3VbfQE5x79b4E94GEqQbSOXAXpMs4qE0Y4yNyinPiMayqDIrx3rgzAF2qqzA
-	MAnUECoHIxv9H6/6RqzrNAmMKKkmZPYsQhH5Pt3CQYtYTL7IDSmlWdoUqqUrRCUieDbGkQUkgAQ
-	utk7J5vWxumuWXUh8rdft5yUykr4OG3vRaXSemkYDG4QYFdloIZFlIAWQEXU/VpQeoRG9kzDQLy
-	PngrRo1Ir9OORrUCtDkXbr4+pqPgs/diNQM2SpugIvzM545L0FkGQbYyxYBTEa2gb0zLFz0RlVK
-	8AcrEyv+VYKSf/CW8l05Q45EuL31LDeq4TpvpB+79qv2peO+dIY+yVK8AwOUAUurupOCLSOWlEo
-	gK7k8tmGEydcIRCTGyY39KM/YRS7BOAn3WYfg/Ywflb0KHT8HysLrQcWPqKhLKJY75sBvCmqDB0
-	OSubAhwxywIXFk5wmwwLlsS2FLjTyV9PH4OWeMXepRO+laBBJ3gpsOVcKi0WB+anH4fWWVOwE1O
-	5RvfWTypehTYfBlx6LCxKPbB8i7Q0XiDHNDAzXFSg8qa6DD/UCi63/hJGrw==
-X-Received: by 2002:a05:6820:8598:20b0:6f8:a519:d930 with SMTP id 006d021491bc7-71b39480550mr4192296eaf.34.1795296704060;
-        Sat, 21 Nov 2026 13:31:44 -0800 (PST)
+        bh=fgYK0WdNPyZ2No6tbroW9YiDvuBSMrnuztXxUFY5BLk=;
+        b=Hnl0lYomlwNrtaxTuupMFqZjYSHZOHuZdso2JIsgvjiCwXaiWQECP/Zs8q8d9z+jbC
+         YFgpMiJan7G/GVcJpAyU0oZ4AtZfsE2NAhIrqhbUIYxV+obdwNll27b8mc50iyX/AYyE
+         //cXAnqpmkeRAhtT8Pbwm4hlFCKTEeikycQ7n3dzZZeT7oVBMdeVUTCfsDPMuVoSowFv
+         eGnztcwlc3SGkMB3UZYUBhqXZra0YJps5/nbvg2Fkmbqsx7aekOXLtZm4Cq9Lo0MvGMl
+         spV0N64pjiV25T1KaybBZSAM6BsBWiIVBFwprbHilLlBdTo9m3WAncu4tE6MPHNO1pRW
+         T38w==
+X-Gm-Message-State: APuU4Z8O1bhsvA9y0hlBy/GSrVOrfPgODUIxvdteyFIxFVEwiXPW5gyB
+	+X5mcHSIuM2CF+h0vv9PSDMCLnu7Z0yjLWkisAROFkv+lku87VHjbCx2mfJCZgVRxQOJ3qYCZ4x
+	W7YjYMEo=
+X-Gm-Gg: AZFdTZfmWzlVbgWzxCeN83OHm9TZPdK3pXxrEapGStX9uPcCirxWrDK3J9tILSh2baN
+	8veoiE4UxXx00w6NmOqrDXUpT4S4Pq9E4PDdM5vSUq0O1EPSoLbFg5yritcaRftVGGolOwEBF4J
+	HJ3qpbBjT/ZAdG1SpbVifw5UEffIJW+HH2NqbHe7zz3Q7riq9Lr2pWXKM2vhC15rzUnNwKq4NWw
+	GN90g5g+LFS2COboh4SctE8fITP0kC9/R+32cdzQHD+AZCitiO2klJmMNj4/RSqKfU+N4KgLdCk
+	8sNR9qghcGkFrcqYQs2XfVVHktbK1py+EGRGyeeJqAYnWvggFTl2oPrkGo+jgJXTQAf0SIBDPI2
+	VZGb0lDrsflpnMExieh9xtXoHo/RJ6+GsgUAJnCkTAAnakE9DXQcChOJz3JSAapn/S66KRl8O6K
+	2WNAToI2e1DKKBkZqyquwLIgQ7zyn3UMDnftoZopYLPIfLzoN6j3V+3at77IL4kfDigOgNKnr+t
+	8kkTmOINijOJgUWWgXRQ+53d/prs8mtH6NkrVYQMXJZh6S10vPMUMHlP24PUbSrs7IHV7ZKi1C8
+	7tcNuZUuXCyzwUtTDrWTwkZ4a0F1yP82RypI6nkbeMrrII46spfvs2Ud/LRFi5iFxcUr9xntnWJ
+	5WsfmZtiUiGtvOaz3XLaSVHNOejun5pzpASXz
+X-Received: by 2002:a05:6820:1387:b0:71b:1d8c:af83 with SMTP id 006d021491bc7-71b39038c51mr5660581eaf.0.1795296705452;
+        Sat, 21 Nov 2026 13:31:45 -0800 (PST)
 Received: from r7625 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b380e4a6dsm4669694eaf.13.2026.11.21.13.31.42
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b380e4a6dsm4669694eaf.13.2026.11.21.13.31.44
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 13:31:43 -0800 (PST)
+        Sat, 21 Nov 2026 13:31:44 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 3/8] io_uring/futex: fail soft links when cancelling a wait
-Date: Sat, 21 Nov 2026 21:31:32 +0000
-Message-ID: <20261121213137.1789687-4-axboe@kernel.dk>
+Subject: [PATCH 6.18.y 4/8] io_uring/rw: fail soft links on IOPOLL short or error IO
+Date: Sat, 21 Nov 2026 21:31:33 +0000
+Message-ID: <20261121213137.1789687-5-axboe@kernel.dk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261121213137.1789687-1-axboe@kernel.dk>
 References: <20261121213137.1789687-1-axboe@kernel.dk>
@@ -101,31 +101,37 @@ Content-Transfer-Encoding: 8bit
 
 From: Yang Xiuwei <yangxiuwei@kylinos.cn>
 
-Commit 9a7cbe50dd95594d6fb3c57b8454ace58d8d8d0a upstream.
+Commit 4d3db66c5363dcf42c3d43ebaea330ac2d1888bb upstream.
 
-__io_futex_cancel() completes the request with -ECANCELED but does
-not call req_set_fail(). IOSQE_IO_LINK dependents then still run.
+io_complete_rw_iopoll() updates cqe.res when the transfer does not
+match the requested length, but it does not call req_set_fail().
+Soft linked requests then still run after a short or failed IOPOLL
+read or write.
 
-Fixes: 194bb58c6090 ("io_uring: add support for futex wake and wait")
+Fixes: b66ceaf324b3 ("io_uring: move iopoll reissue into regular IO path")
 Signed-off-by: Yang Xiuwei <yangxiuwei@kylinos.cn>
-Link: https://patch.msgid.link/20261114072246.741950-2-yangxiuwei@kylinos.cn
+Link: https://patch.msgid.link/20261114072246.741950-3-yangxiuwei@kylinos.cn
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/futex.c | 1 +
- 1 file changed, 1 insertion(+)
+ io_uring/rw.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/io_uring/futex.c b/io_uring/futex.c
-index 6f756de08705..5986ce2a121e 100644
---- a/io_uring/futex.c
-+++ b/io_uring/futex.c
-@@ -104,6 +104,7 @@ static bool __io_futex_cancel(struct io_kiocb *req)
- 	}
+diff --git a/io_uring/rw.c b/io_uring/rw.c
+index f46d08bbe9d8..48ef87b4697b 100644
+--- a/io_uring/rw.c
++++ b/io_uring/rw.c
+@@ -618,8 +618,10 @@ static void io_complete_rw_iopoll(struct kiocb *kiocb, long res)
  
- 	hlist_del_init(&req->hash_node);
-+	req_set_fail(req);
- 	io_req_set_res(req, -ECANCELED, 0);
- 	io_req_task_work_add(req);
- 	return true;
+ 	if (res == -EAGAIN && io_rw_should_reissue(req))
+ 		req->flags |= REQ_F_REISSUE | REQ_F_BL_NO_RECYCLE;
+-	else if (unlikely(final_res != req->cqe.res))
++	else if (unlikely(final_res != req->cqe.res)) {
++		req_set_fail(req);
+ 		req->cqe.res = final_res;
++	}
+ 
+ 	/* order with io_iopoll_complete() checking ->iopoll_completed */
+ 	smp_store_release(&req->iopoll_completed, 1);
 -- 
 2.55.0
 
