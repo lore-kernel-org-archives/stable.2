@@ -1,66 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795295862;
-	b=XBg+Ydq9ULMHasVwRG4QksrCdvp0gIKX9KgCNcJp8gOLGcqcHXeZvqjSkGHsiYdoh702
-	 eWVDtEBC3gVC3OiAjsMQK5cawbwr5B28neKChmBKjxAn/ytcndNyizWZWrkFkvaoSQkxs
-	 VQo20Zmz7Q3AA+2m+qPEn74CRu7Afpe3nRTV5E8JQ9aCkqcON8RWbLd2OTthzecgd7DXo
-	 f2T8/3HjUU55pqQbzhlSJdhGADzXEWtMRnLORqP1eM+pQnIl2GsU4iz2WHvunQ7zn85cZ
-	 hg7GuVwvOluTlOoSFZNmsaTvFPsLejQpryt6ghw3mY1dZQX5TLANsNvprzuHi6fVaXw==
+	t=1795296082;
+	b=y68GnzmhMu2/F54ouJ1UoN2owZlNiYHgxrHPX6QcUWBM5C0y8Lc/rIpQz1FwKM7GMm4M
+	 SvVUp/Hd2NDi7CEJUE4T7UA4YKtIzEUgnbzfoAAmCE6N9p6HM5+A98nij39fkdHJI8gbJ
+	 SRrGWUJdnyitytbzdUwiumqLjOGlxmpzxUn1DchJdjJTGRHvTkPm0One0nsyxaVuRe+HV
+	 1vHfTHPDVCv/kTZy+7La8QO7IWdphlYprlBAM3hAbFfeAZjTDiskH9oQfSNn1mHeTyrYk
+	 ZJLOMPQ/F789GgfPxIpX6BdoB6K7mXczHqEzt252gAdxa245Q001LG57NKB+mQdxrYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795295862;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=3CgYEOCuySKfkNOqIxxRN+n3wk7VUoG7yJZDvZ1nM8s=;
-	b=ywStawXJHARgLP9byiCY1F27I/BvWUhdUTNRnjU5FKfa5Hg/+OIvT/rq6dWAwajtNnX1
-	 mn7Mpo93+L6O+LQv1QbmZF2I9a7a8DYQ2hKm4KlK4h8XB6TbqNsFDER2nCoWOv+4XrdfB
-	 jUbNhmhKlK/nspN2ltHGFxm1iy/C5YXEqvm3k6jAebpwTSjO1A34bc52W30IUTXZ1wK6p
-	 dtWSOoldA/aIcQXSGMQX2uSKwvy3TFjbR2TSgwLG8jbihFduMDkTokoqSFkoQZ/VpNpmU
-	 DrdseGj3IZVjO5JruzHA7BlNhya8Fxl/CtP/8i3qS0KqdZk+VYZzwAxn/td5dZr10/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296082;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Date:Message-ID;
+	bh=O3ljys2G/dfGrzQSHlcDxa7rlNuO9sIfulWEdwLNsJ0=;
+	b=2IWF7cEmS1OTFGIahSEXTjBnlNrhUJPAV1M1hzU9TwNMGhS8qYnBTOVFAYiBOPLQxBXN
+	 T6cDiznf1ccNPJdeMCvXRR7GR8qGdFa5vuT9UGuDb26Bby+r/DJUCn2wAGW4yAaYOQkp+
+	 1+P8kCde4IVLOsroETsZAQ0s9Oeeahk2R8wE0GtEyqCpBWRHjmPxa9JHyd2BglsViTnJq
+	 5tXBH7NcaiuBMTBtaS5VvjA0uqN93/yxhuhNpEyHLclCUBh9b0jH9mqKArfoTZM5yaDjx
+	 4Amoet/njXam7gldNIvpdwHbN9kvmybBS7m5ZJeeeLP7c7D66/i7v7jrgt4Rv0p4WXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tmop0Iwu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i8Rz2RMp;
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE8F606A330;
-	Sat, 21 Nov 2026 21:17:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA02606A32C
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:21:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBA02606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tmop0Iwu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA1471F000D4;
-	Sat, 21 Nov 2026 21:17:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795295862;
-	bh=3CgYEOCuySKfkNOqIxxRN+n3wk7VUoG7yJZDvZ1nM8s=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Tmop0IwuxMegvTe6zdSoy6VYlMPeeNhp0bvnxZsam6EzXeFi/aQ0ILKwnxk5wXqe6
-	 8DIGxDA+v2Rfw0BbkgpD8Y8XJTHaee18R+8MXO+nrDM/mPUHJDAzfP9T6hF0CfZZ1q
-	 uj7cNUs0DnoiAChSGk8EXxK3y47jVK47vzN5RMSFTFKeVulSz+u4ThFNbyvcVxx1jP
-	 y0tDUWNHtqUeJ+5EX5tvaOSrTmW02JIBvyV43fRLM7zaCwj9mB8ouxG5cAIoZk3lmG
-	 UvgY6EOyJRdymWTvkuzjLIPz3OzsNHpOmQJ9rj1z3mz/a9Kixwda9uTwLSulqNWt46
-	 d3YkcrPRZuWKg==
-Subject: Re: [PATCH net v6 4/8] ipv4: icmp: don't quote decrypted payload in
- icmp errors
-From: netdev-bot+sashiko@kernel.org
-To: toddfreed@meta.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
- bjorn@kernel.org, borisp@nvidia.com, cratiu@nvidia.com,
- daniel.zahka@gmail.com, dsahern@kernel.org, dtatulea@nvidia.com,
- edumazet@kernel.org, idosch@nvidia.com, kuba@kernel.org,
- john.fastabend@gmail.com, leon@kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org,
- mbloch@nvidia.com, pabeni@redhat.com, raeds@nvidia.com,
- rrameshbabu@nvidia.com, sd@queasysnail.net, saeedm@nvidia.com,
- shuah@kernel.org, horms@kernel.org, tariqt@nvidia.com, weiwan@google.com,
- willemdebruijn.kernel@gmail.com, stable@vger.kernel.org
-Date: Sat, 21 Nov 2026 21:17:40 +0000
-Message-ID: <179529586053.3135.7106623626318776669@kernel.org>
-In-Reply-To: <20261117203137.804424-5-toddfreed@meta.com>
-References: <20261117203137.804424-5-toddfreed@meta.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i8Rz2RMp
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4322d310e7so370074066b.0
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:21:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795296079; x=1795900879; darn=vger.kernel.org;
+        h=message-id:date:content-transfer-encoding:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O3ljys2G/dfGrzQSHlcDxa7rlNuO9sIfulWEdwLNsJ0=;
+        b=i8Rz2RMpPmkXYItSIndpWJR63ShbcEOT18h3HDALB8+aTuOXp4xTJl0bXxP5lQ8Su3
+         E382aOfjHM96onbffE4BozXFmdo5gHP3RvxEg5KXM33RJL/vSmFp16Wtjd8BBedvHhgW
+         1iVU/K1qLjSptz5Yfltsg+Pudxm/+TbBWQOFPx+tVxAQhS8PMrW6XYqtk242qjuUvHGp
+         qnpLBWi5bevQxy9wxEdfLIwsD/K87xZHuH9/1TudVpGLrDLz6Ir8Zzo5Fed3UlYCQpBu
+         +dSqoOWTHFtfYm9IpDMTtsHZKW9o8LuBFQHc4q0zR4lsKsUGfdVGttxQSb2z0MremoYk
+         he4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795296079; x=1795900879;
+        h=message-id:date:content-transfer-encoding:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O3ljys2G/dfGrzQSHlcDxa7rlNuO9sIfulWEdwLNsJ0=;
+        b=pg1GzMqRsnw7PqentyyK2codiCbh6Qaylg3fl6zZ0RNgnFyo9SWdptF9Zfp9JwZbIm
+         XHcvSIkLArj9vqmTaDSqp9Zt5k0UDrkWdxpTZYwFtAUzI7oCbLxJv4iat44J7nzh9N/O
+         eOLDfDHGVMdhJ/YWPEgDmfVquuUDnYXmyGuHxB4vePgAgbmOjFaW8EOR9y33d62DfRa7
+         fLoE08R2mkATgd9/v8zrZal7vtFoiHSCK9VKTW0lGgZyt9LcN0I03Z1XGJZQeOGy/Fie
+         3qqJA5ryj0c3bwJ6oQAhnpJVWK3Wuv7GOfe7eZg1tROd3moPpJufk9/Dk0RuSUWvgcrD
+         s68Q==
+X-Forwarded-Encrypted: i=1; AL+hErH9Td1fhLU8tBf13S/JcCAleOLow8YZ5HZFgKW2e268aJ2pRmTUBK5QRlwuB6P3YDz3iyBTsio=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3RyE0k12knGHnVqF2m8Vt/HjKqgiRww6QG24AXe8eHtbyLpdw
+	CNmIY2xNlHnAiWWjUCikVi2vz9ceSNTQMXI1jsMWijo/ihQGgNPCXoBhNLj1BTt/zeA5kw==
+X-Gm-Gg: AZFdTZcSAVXYNU5V64ZLZHTLvKD8ob59Q5TSO4v6yQPq5dYxydBTJMX6yWGXdQq/KAS
+	OKcO3VKytPh1Qw7VdKimB0pa2ckGelYVR/5tBpKoQzrZPwiirN1VZ1KPVcNlGnzFr2HJCcnxNj3
+	+Eg8yiynlRxPorObAzOHvJ+OWxTHvUiUwqHY8wxiGZC4C+fz4pCpZZq6Xu0Fx4gGHra67y0Nsd1
+	X/gi7L4T2Wvz3eh5DmUkS0CL1HXP2Evl5A9qlEU9szUygEgTwPPQvUxt8/aPjaQ4jkSgoOjj/3U
+	nYSx4RVA4dYzDLuGQQb6pippBSsUDQSOSgkuJqYBBZziYCDWMHFqhw//19ccS9C9kGCqk30WnQ5
+	mJwAjQjWZbOm5ShPIpX4YmeVCJpWpDMWRvecLKsJAKBsL4DMItDrNR9UROdj2fqufw0wJ5CgAWL
+	7hsbEnQBfZkla0GYiVdWEJSDv7bu1g3P+zmaKirkKpY5U3UDZCgMK00w75AqCQwZpcItlwW7M56
+	aNbCrfcCRylDlVYBIx02tCCbA5ZfcXjV+8jC+dwkkVt/g5ImeFRPjrKuTXOoq/gvgjZWe/+m8Px
+	tYa77XNSCjEQy6yPKRwRrXAoiPg=
+X-Received: by 2002:a17:906:7f01:b0:c4d:2867:281c with SMTP id a640c23a62f3a-c513a89466dmr477367466b.1.1795296079086;
+        Sat, 21 Nov 2026 13:21:19 -0800 (PST)
+Received: from [172.17.0.1] ([2a0c:db40:0:80df::2])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ad010a6sm243362266b.7.2026.11.21.13.21.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 13:21:17 -0800 (PST)
+From: Konstantin Nikiforov <helllamer@gmail.com>
+To: linux-raid@vger.kernel.org
+Cc: linux-bcache@vger.kernel.org, regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Yu Kuai <yukuai@fygo.io>, Song Liu <song@kernel.org>,
+ Coly Li <colyli@fygo.io>, Kent Overstreet <kent.overstreet@linux.dev>,
+ magiclinan@didiglobal.com, xiao@kernel.org
+Subject: Re: [PATCH] md/raid5: complete unsupported discards successfully
+In-Reply-To: <179299857972.12222.2729359466842183358@gmail.com>
+References:
+ <CAO96y0V6oncv54ihXnHfJMYiG_QAQ-NM8BOdqPDXKL8r8-kR9Q@mail.gmail.com>
+ <179299857972.12222.2729359466842183358@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,103 +100,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Date: Sun, 22 Nov 2026 00:21:15 +0300
+Message-ID: <179529607529.5.3302391929789139470@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi Kuai,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+I built and tested md-7.5 with b964c9240a37 on the machine from the
+regression report.  The reproducer passes and the machine runs without
+backing-device errors.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Tested tree
+-----------
+md-7.5 tip c526b7cd32f7, based on v7.4-rc2, with b964c9240a37 applied.
+Built as 7.4.0-rc2-md75+ (x86_64, Arch config, gcc 16.2.1) and booted
+on the affected machine.
 
-- [Medium] The patch blocks decrypted-payload quoting only in
-  __icmp_send() (net/ipv4/icmp.c).
+Reproducer
+----------
+Three 256M loop files -> raid5 (64K chunk, metadata 1.2) -> bcache
+backing device.  devices_handle_discard_safely is left at its default
+(N), so the array takes the raid5_discard_limits() path changed by the
+patch.
 
---
+  md125: discard_max_bytes=2199023255040, discard_granularity=131072
+  blkdiscard 8M on md125: exit 0
+  bcache1 over md125: discard_max_bytes=2199023255040
+  4x blkdiscard 8M on bcache1: io_errors=0, no
+  bch_count_backing_io_errors lines in dmesg
 
-ipv4: icmp: don't quote decrypted payload in icmp errors
+The same reproducer gave io_errors=4 with the unpatched 7.2.11 module.
+With the patched 7.2.11 module, and now with this kernel, it stays 0.
 
-This patch makes __icmp_send() skip the error when the invoking skb was
-decrypted by the device. Locally originated skbs are the exception: if the
-error is routed to a local address, it is still sent. The netdev and bridge
-nft reject paths are left to a separate nf-next patch.
+Affected machine
+----------------
+3x ST1000DM010 (no TRIM) -> md126 raid5 -> bcache0 (NVMe cache
+attached, writethrough) -> LVM -> ext4/btrfs root.
 
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023234640.1459291-1-toddfreed%40meta.com
+Since booting 7.4.0-rc2-md75+, md126 and md127 are [UUU],
+/sys/block/bcache0/bcache/io_errors is 0, and dmesg has no
+bch_count_backing_io_errors or md/bcache I/O errors.
 
-> diff --git a/net/ipv4/icmp.c b/net/ipv4/icmp.c
-> index 90c0e22c29bea..e11008aa4cecd 100644
-> --- a/net/ipv4/icmp.c
-> +++ b/net/ipv4/icmp.c
-> @@ -979,6 +979,18 @@ void __icmp_send(struct sk_buff *skb_in, int type, int code, __be32 info,
->  	if (rt->rt_flags & (RTCF_BROADCAST | RTCF_MULTICAST))
->  		goto ende;
->
-> +	/* Don't send parts of a decrypted skb onto the network. A received skb
-> +	 * was decrypted by the device, and the transport header may have been
-> +	 * encrypted. The different offloads can't be distinguished in all cases
-> +	 * so simply don't send the error.
-> +	 *
-> +	 * A locally originated skb to be encrypted may be quoted if its source
-> +	 * address (target of the error) is local.
-> +	 */
-> +	if (unlikely(skb_is_decrypted(skb_in)) &&
-> +	    (skb_in->skb_iif || !(rt->rt_flags & RTCF_LOCAL)))
-> +		goto ende;
+Caveat: the local workaround (udev rule zeroing discard_max_bytes on
+md*/bcache*, plus nodiscard mounts) is still in the initramfs, so the
+HDD-backed array has not received discards on this boot.  The loop
+reproducer is what exercises the changed code path.  I can do a
+no-workaround boot and a scratch-LV discard test if you want that
+before this goes to stable.
 
-[Severity: Medium]
-This check only covers ICMP errors sent through icmp_send(). Can a
-decrypted payload still be quoted in cleartext by the other IPv4
-unreachable builder?
+Note: 7.2.y is EOL (7.2.15, 2026-11-01), so the "Cc: stable # 7.2" is
+stale; v7.3.5 still has the old code, so the fix is needed in 7.3.y
+once this reaches mainline.
 
-nf_reject_skb_v4_unreach() in net/ipv4/netfilter/nf_reject_ipv4.c is
-unchanged by this series and has no skb_is_decrypted() check:
+Tested-by: Konstantin Nikiforov <helllamer@gmail.com>
 
-net/ipv4/netfilter/nf_reject_ipv4.c:nf_reject_skb_v4_unreach() {
-    ...
-	len = min_t(unsigned int, 536, oldskb->len);
-    ...
-	nskb = alloc_skb(sizeof(struct iphdr) + sizeof(struct icmphdr) +
-			 LL_MAX_HEADER + len, GFP_ATOMIC);
-    ...
-	skb_put_data(nskb, skb_network_header(oldskb), len);
-    ...
-}
+#regzbot fix: md/raid5: complete unsupported discards successfully
 
-It is called from nft_reject_netdev_send_v4_unreach() and
-nft_reject_br_send_v4_unreach(). The nskb comes from a fresh alloc_skb(),
-so its decrypted bit is 0, and it goes out through dev_queue_xmit() or
-br_forward().
-
-With a netdev or bridge family reject rule matching device-decrypted
-traffic, this would still send up to about 508 bytes of kTLS payload, or
-the PSP-covered TCP header and payload, unencrypted.
-
-nf_reject_skb_v6_unreach() in net/ipv6/netfilter/nf_reject_ipv6.c has the
-same gap, with a quote of up to 1220 bytes. The icmp6_send() side is
-handled by the later "ipv6: icmpv6: don't quote decrypted payload in
-icmpv6 errors" patch in this series.
-
-The commit message says:
-
-    nft reject in the netdev and bridge families builds its own
-    error (nf_reject_skb_v4_unreach()); a separate nf-next patch applies the
-    same rule there.
-
-This patch carries Fixes: 784abe24c903 and Cc: stable. A stable backport
-would then make an inet family reject of a decrypted packet send nothing.
-A netdev or bridge family reject of the same packet would still send
-plaintext.
-
-Should the netfilter builders be fixed in this same series, or through
-nf/net with the same Fixes: and Cc: stable tags, rather than nf-next?
-
-> +
->  	/* peer icmp_ratelimit */
->  	if (!icmpv4_xrlim_allow(net, rt, &fl4, type, code, apply_ratelimit))
->  		goto ende;
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261117203137.804424-1-toddfreed%40meta.com
+Thanks,
+Konstantin
+DeepSeek Harness 0.2.2-rc.5; model: deepseek-flash
