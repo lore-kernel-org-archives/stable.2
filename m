@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795303119;
-	b=kWxN3qLnOWqG80P3sYiK+fjggqX5c5B3TQop3kCO0cC32TkZaED8Rc6GfXt6Tr8oQ7pv
-	 3M9qVin5C0RV41Aih2AX3/xaLy0alq2DAvQHxvmfNMsZNWX/8+EL+q/y7+yOWSehP0iq+
-	 X6lVKqrgHWwmbfyOU+CNaONusqzorw2C+DWUZytL1t0oSEyn4OzMNNug5bXL09LN5f7qg
-	 9VCXaBwsOjhJYrfvtaX37N4g1/Yr8DeEBorz459Pzq2dfppWmx2PJ9oiyk+fHfQoJ0h2+
-	 3uq9mlxglrYdnK4UZFXiwFedhU0zDvVtaHycU51e9e8QacEDiSHaXlCXpHo4/Yht97A==
+	t=1795303118;
+	b=XwjvjydpX52YrFvuiyLZGnORsQLKW5MRNC6+qfoqE+HLEpy0mcHdLDwDOZt+bsUiHlos
+	 MHep/qcFgGEyx20Ed0X0ejuV//vRK3oC+p+a5luxdrUVvvxzr70nRFdV68OsemvFg4y1u
+	 8t4q4FKjB6/hEgTJ3Bxo5PO7q+fv54Lm+YVwX0fBWQSMIMWHiSQjOhS9FIUXBajpdkDZh
+	 br1Dz3iLBgxGd+NVib/hVVX8FZsa/OWi+ovvvRyWRmmb/dtWbyyNYrqx7nId5eA4Bq+BY
+	 bOXf5xguWH36rWOafyMkWvOz2XLMr1j1vbwQTKuVSgmlFVc814SSSCtNSbF09pXVWTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795303119;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795303118;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=OmQA8w8TiDFNVOcBCsrodxB2z/WYpL97V8Uh0g4rbSA=;
-	b=f2kEpDzeoutP3c7I+VAztGtBo999QzGi+bkcSRW/qV/BHTKmHzvicQCGt0BkPfOV3+nv
-	 ZBqDrw+3OPBuh6WpGcaWwmTdm8slr6Ok0MXgVVdJLUzi6yDce65Ct2qOIwK3441pCrsX5
-	 x5mxZFNaDPVY8mBP0Ojsz8N4ORRxlvU6CeDlKtK+L4zdk69Xy5MKlvv+Rpu/wlWUn+XDY
-	 Vq0flay7ojQyOshkKgq0kJxbDVSDfSRT0MSKbIFmLlm3x4dMid+K4YFJK0DVhcZ1SZMWK
-	 wTaAJvuCDsUG3PAxotHj96S5ouTSfvEJu/UsfijmF4iwuvE0R18bDk+rplaMHWhOQ5A==
+	bh=b4KBBoR+uL9MaPy4jrx7J64irJ65nrCVt6sPTidn7hg=;
+	b=DS8mnyhNIJYVVMmT8FQ+qG6dwT2pP7ocolQLhOLiKi0+YYxmxoY7VYX7LbHurpzDCfs3
+	 xz9WxI6Re6wcWseEl6TGo9DrCR/o8vd0ppErntgSmz16+bNvZUlrbTLMQYZRoDezg1+DB
+	 atE9H1XPebw11ZHaxxoCtkL4fGvRU+0ruKd0KD0axK7imfRo4Q/U9cviQlC54hUVrbcdv
+	 XwFbWPTNW/JfPlkXBqiKfIYxP3mGy+nId+R3gHTwQDq/rPH/xIl9WGq53efn3YYP8yoZl
+	 cbPOcKgeT5H2HHOO/iOTf0Jyl/FzqK269SXiHeAOHVi1SttXfPnOftHiaQbVXt/75Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F4AfGPBP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CiA12YsI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E2D606A335;
-	Sat, 21 Nov 2026 23:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F4AfGPBP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7B571F000C0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C63606A320;
 	Sat, 21 Nov 2026 23:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CiA12YsI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B71561F000C0;
+	Sat, 21 Nov 2026 23:18:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795303119;
-	bh=OmQA8w8TiDFNVOcBCsrodxB2z/WYpL97V8Uh0g4rbSA=;
+	s=k20260515; t=1795303118;
+	bh=b4KBBoR+uL9MaPy4jrx7J64irJ65nrCVt6sPTidn7hg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=F4AfGPBPkv1KuRM+0ej8g2nycut8iZ7fHjvhKC28hnndqHJsu/jGu83Cn7Q+To2W5
-	 KC9bq/T/ky4hp7FQ0DNZEv9Oy7rGwzyVKdCoJS8gVGGhT9nZOlnqQKTfTApU7fksKT
-	 vl4UFkqzWPCgXRirqjDcIVk/gg1PR0/1GZl6dgwM2NmvZApsoCYtBRoBQka5R2I03l
-	 osq26cy/SriSZLJEy8su6xVGvV0nnvR9mitiWdUD1W5VmPOwUC2Bl/dXC6fyiuinNu
-	 BEYmQnzCahl2ewf01/2T4/oYg4tyBFcm39inYqDFlCVH3cV+3Ud2yIyjtPVJbpBmJk
-	 Ix2rXzkotb8Tw==
-Subject: Re: [PATCH net v4 2/2] net: atl1c: free the RX buffer when the
- descriptor reports an error
+	b=CiA12YsI5p0iDT457SnR+mIafVsM4aZrKlLqc7Pu3RTmWje3NjViV8Gy1CnLH8UPd
+	 uETGOOnp8g0YrTvlGj/g6zK77P7EbQkEp0btTeGgL7wgKdVE0vhHCuGG/B6vYi68uV
+	 PO7E5L0aVArQNIQJzjziFTMoRHFLY2lVbSnNF8c0lK5q/gtlxmBe3+vHZlBS/mUjIE
+	 Tvc1btb879SPorb/nMiF/WsZayL95x3an6/BqyGfYNcYU/Lmg6L2vQHvQteNJQuNUN
+	 MWBxDmp429O4Pf9IH581n0y/lQ7VJzHZxbJOBW1bHDo2p8pakuWf0WmpyvdEm1BYa2
+	 17ax0xQZYPwAw==
+Subject: Re: [PATCH net v4 1/2] net: atl1c: wait for in-flight RX polls before
+ the link-down ring reset
 From: netdev-bot+sashiko@kernel.org
 To: federico@rimpianto.com
 Cc: chris.snook@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
  edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 21 Nov 2026 23:18:38 +0000
-Message-ID: <179530311840.3135.8141689247648916052@kernel.org>
-In-Reply-To: <20261117225521.19689-3-federico@rimpianto.com>
-References: <20261117225521.19689-3-federico@rimpianto.com>
-X-sashiko-severity: Medium
+Date: Sat, 21 Nov 2026 23:18:37 +0000
+Message-ID: <179530311729.3135.17859147482038356358@kernel.org>
+In-Reply-To: <20261117225521.19689-2-federico@rimpianto.com>
+References: <20261117225521.19689-2-federico@rimpianto.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -64,10 +64,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
+Critical: 0 · High: 1 (1) · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -75,205 +75,184 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] In atl1c_clean_rx()
-  (drivers/net/ethernet/atheros/atl1c/atl1c_main.c), the RRD valid bit…
+- [High] This patch does not close the RX race it claims to fix.
+- [Medium] atl1c_rx_poll_sync() waits with no time limit for
+  NAPI_STATE_SCHED to clear and gives up only when __AT_DOWN is set.
 
 Pre-existing issues:
-- [High] This patch adds a new schedule_work(&adapter->common_task) call
-  (atl1c_clean_rx(), line 1939) in NAPI context.
-- [High] The reset branch of atl1c_common_task() (lines 363-367) calls
-  atl1c_down()/atl1c_up() without rtnl_lock and without taking…
+- [High] This problem wasn't introduced by this patch, but the same link-
+  down reset still frees TX buffers while TX NAPI and transmit can run.
 
 --
 
-net: atl1c: free the RX buffer when the descriptor reports an error
+net: atl1c: wait for in-flight RX polls before the link-down ring reset
 
-With this patch, atl1c_clean_rx() unmaps and frees the skb for RRDs that
-report RRS_RX_ERR_SUM or RRS_802_3_LEN_ERR. Before, those buffers leaked.
-Each RRD's RFD count and index are now checked against
-rfd_ring->next_to_clean, and a mismatch schedules an adapter reset. The
-RRD ring is also zeroed in atl1c_clean_rx_ring().
+This patch adds atl1c_rx_poll_sync(). In the link-down path of
+atl1c_check_link_status() it is called after netif_carrier_off() and
+before the MAC and DMA rings are reset. It waits for NAPI_STATE_SCHED to
+clear on every RX NAPI, and stops waiting once __AT_DOWN is set.
 
 > diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-> index e9baee8fa7e5e..5d00f2489d154 100644
+> index eddd8406867f7..e9baee8fa7e5e 100644
 > --- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
 > +++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-> @@ -933,8 +933,9 @@ static void atl1c_clean_rx_ring(struct atl1c_adapter *adapter, u32 queue)
->  		buffer_info = &rfd_ring->buffer_info[j];
->  		atl1c_clean_buffer(pdev, buffer_info, 0);
->  	}
-> -	/* zero out the descriptor ring */
-> +	/* zero out the descriptor rings */
->  	memset(rfd_ring->desc, 0, rfd_ring->size);
-> +	memset(rrd_ring->desc, 0, rrd_ring->size);
->  	rfd_ring->next_to_clean = 0;
->  	rfd_ring->next_to_use = 0;
->  	rrd_ring->next_to_use = 0;
-
-[ ... ]
-
-> @@ -1914,47 +1909,59 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
->  		if (work_done >= budget)
->  			break;
->  		rrs = ATL1C_RRD_DESC(rrd_ring, rrd_ring->next_to_clean);
-> -		if (likely(RRS_RXD_IS_VALID(rrs->word3))) {
-> -			rfd_num = (rrs->word0 >> RRS_RX_RFD_CNT_SHIFT) &
-> -				RRS_RX_RFD_CNT_MASK;
-> -			if (unlikely(rfd_num != 1))
-> -				/* TODO support mul rfd*/
-> -				if (netif_msg_rx_err(adapter))
-> -					dev_warn(&pdev->dev,
-> -						"Multi rfd not support yet!\n");
-> -			goto rrs_checked;
-> -		} else {
-> +		if (!RRS_RXD_IS_VALID(rrs->word3))
-> +			break;
+> @@ -248,6 +248,26 @@ void atl1c_reinit_locked(struct atl1c_adapter *adapter)
+>  	clear_bit(__AT_RESETTING, &adapter->flags);
+>  }
+>  
+> +/* atl1c_clean_rx() looks at the carrier only when it is entered.  Once the
+> + * carrier is off, wait for the polls that are already past that test, so
+> + * that the link-down path can reset the RX rings.  A poll that starts later
+> + * sees the carrier off and leaves the rings alone.
+> + *
+> + * A disabled NAPI keeps NAPI_STATE_SCHED set, which is why this is not
+> + * napi_synchronize(): stop waiting when the interface is down.  atl1c_up()
+> + * gets here before napi_enable(), and atl1c_down() quiesces NAPI itself.
+> + */
+> +static void atl1c_rx_poll_sync(struct atl1c_adapter *adapter)
+> +{
+> +	int i;
 > +
-> +		rrs_word0 = le32_to_cpu(rrs->word0);
-
-[Severity: Medium]
-Should there be a dma_rmb() between the RRS_RXD_IS_VALID() test on word3
-and the read of word0 here?
-
-The notes after the commit message say the missing barrier is
-pre-existing and will be fixed in a separate patch. Before this patch, a
-stale word0 only made one poll stop early. Now the RFD count and index
-taken from word0 decide whether ATL1C_WORK_EVENT_RESET is scheduled, and
-that runs atl1c_down()/atl1c_up() from atl1c_common_task().
-
-On weakly ordered CPUs such as arm64 and powerpc, the control dependency
-on the word3 test does not order the later word0 load. So word0 can be
-read before the device's RRD write is visible.
-
-The RRD ring is zero after open, because dma_alloc_coherent() zeroes it.
-With the memset added to atl1c_clean_rx_ring() above, it is also zero
-after every reset. On the first lap after open or reset, a stale word0
-would then be 0 and give rfd_num == 0, which hits:
-
-	if (unlikely(rfd_num != 1 ||
-		     rfd_index != rfd_ring->next_to_clean ||
-		     !buffer_info->skb)) {
-		...
-		set_bit(ATL1C_WORK_EVENT_RESET, &adapter->work_event);
-		schedule_work(&adapter->common_task);
-
-Could this produce a spurious "RRD out of sync" message and a full MAC
-reset that drops the link? The reset zeroes the ring again, so the next
-lap is exposed in the same way.
-
-Without the memset, a stale word0 at slot k would still hold the
-previous lap's value (count 1, index k) and pass the check.
-
-Would a dma_rmb() right after the RRS_RXD_IS_VALID() test close this
-window?
-
-> +		rfd_num = (rrs_word0 >> RRS_RX_RFD_CNT_SHIFT) &
-> +			RRS_RX_RFD_CNT_MASK;
-> +		rfd_index = (rrs_word0 >> RRS_RX_RFD_INDEX_SHIFT) &
-> +			RRS_RX_RFD_INDEX_MASK;
-> +		buffer_info = &rfd_ring->buffer_info[rfd_ring->next_to_clean];
-
-[ ... ]
-
-> +		if (unlikely(rfd_num != 1 ||
-> +			     rfd_index != rfd_ring->next_to_clean ||
-> +			     !buffer_info->skb)) {
-> +			dev_err_ratelimited(&pdev->dev,
-> +					    "RRD out of sync: RFD count %u index %u, expected index %u%s; resetting\n",
-> +					    rfd_num, rfd_index,
-> +					    rfd_ring->next_to_clean,
-> +					    buffer_info->skb ? "" : " (no buffer)");
-> +			set_bit(ATL1C_WORK_EVENT_RESET, &adapter->work_event);
-> +			schedule_work(&adapter->common_task);
+> +	for (i = 0; i < adapter->rx_queue_count; ++i)
+> +		while (test_bit(NAPI_STATE_SCHED,
+> +				&adapter->rrd_ring[i].napi.state) &&
+> +		       !test_bit(__AT_DOWN, &adapter->flags))
+> +			usleep_range(1000, 2000);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but this schedule_work() is a
-new producer for common_task that only napi_disable() can quiesce. Can
-common_task be queued again after it has been cancelled, and then outlive
-the adapter?
+Does the __AT_DOWN exit leave the RX race open? Both places that set
+__AT_DOWN do it while the RX NAPI is still live.
 
-atl1c_close() cancels the work before atl1c_down() quiesces NAPI and the
-IRQ:
+atl1c_close() sets the bit before cancel_work_sync(). napi_disable() only
+runs later, in atl1c_down():
 
 atl1c_close() {
+	...
 	set_bit(__AT_DOWN, &adapter->flags);
 	cancel_work_sync(&adapter->common_task);
 	atl1c_down(adapter);
 	...
 }
 
+cancel_work_sync() waits for the work item, and the work item is the
+thread doing the ring reset. So at that point nothing has quiesced NAPI.
+
+atl1c_down() is used by suspend, MTU change and ethtool. It sets the bit
+before its napi_disable() loop:
+
 atl1c_down() {
-	atl1c_del_timer(adapter);
-	adapter->work_event = 0; /* clear all event */
 	...
+	set_bit(__AT_DOWN, &adapter->flags);
+	netif_carrier_off(netdev);
+	for (i = 0; i < adapter->tx_queue_count; ++i)
+		napi_disable(&adapter->tpd_ring[i].napi);
+	for (i = 0; i < adapter->rx_queue_count; ++i)
 		napi_disable(&adapter->rrd_ring[i].napi);
-	atl1c_irq_disable(adapter);
-	atl1c_free_irq(adapter);
 	...
 }
 
-An RX poll still running in this window that hits an out-of-sync RRD
-sets ATL1C_WORK_EVENT_RESET and calls schedule_work() again. The existing
-ISR_ERROR path in the interrupt handler and atl1c_link_chg_event() can do
-the same.
+In either case the work item leaves this loop and goes on to
+atl1c_reset_mac(), atl1c_reset_dma_ring() and atl1c_configure(). If the
+bit was set after atl1c_common_task() checked it on entry, the work item
+does not wait at all.
 
-atl1c_remove() then does:
+Meanwhile, an atl1c_clean_rx() that has already passed this check can
+still be walking the RRD ring on another CPU:
 
-	unregister_netdev(netdev);
+	if (!netif_carrier_ok(adapter->netdev))
+		goto quit_polling;
+
+Can atl1c_clean_rx_ring() unmap and free buffer_info->skb while that poll
+unmaps the same buffer? The poll could then pass the freed skb to
+napi_gro_receive(), or free it a second time.
+
+The code comment says atl1c_down() quiesces NAPI itself, and the commit
+message says the same:
+
+    For the same reason the wait gives up when the interface is
+    down: a disabled NAPI keeps NAPI_STATE_SCHED set, and atl1c_down() has
+    quiesced NAPI on its own.
+
+That does not seem to hold when the exit fires. On the close path
+atl1c_down() has not run yet. On the down path napi_disable() has not
+started or has not finished.
+
+This loop also polls another context's state bit, and its exit condition
+does not synchronise with the poll. Would a fix need real serialisation of
+the work item against close and down, plus a wait that ends only when the
+poll has finished?
+
+[Severity: Medium]
+Can this loop wait forever when the RX NAPI is in threaded busy-poll mode?
+
+An administrator can set NETDEV_NAPI_THREADED_BUSY_POLL through
+napi_set_threaded(), and the driver does not need to opt in. In that mode
+napi_threaded_poll() keeps NAPI_STATE_IN_BUSY_POLL set, and
+napi_complete_done() returns early without clearing SCHED:
+
+net/core/dev.c:napi_complete_done() {
 	...
-	free_netdev(netdev);
+	if (unlikely(n->state & (NAPIF_STATE_NPSVC |
+				 NAPIF_STATE_IN_BUSY_POLL)))
+		return false;
+	...
+}
 
-There is no cancel_work_sync() or flush_work() between the two. If the
-worker has not run by then, the queued work_struct sits in freed
-netdev_priv() memory. atl1c_common_task() would then run container_of()
-and test_bit(__AT_DOWN, &adapter->flags) on freed memory.
+With the carrier off, atl1c_clean_rx() jumps straight to quit_polling and
+calls napi_complete_done(), which does nothing. NAPI_STATE_SCHED therefore
+stays set for as long as the interface is up, and __AT_DOWN stays clear.
 
-Would a cancel_work_sync() once NAPI and the IRQ are quiesced avoid this?
-That could go at the end of atl1c_close(), or in atl1c_remove() after
-unregister_netdev().
+The work item would then never get past atl1c_rx_poll_sync(), so the
+atl1c_irq_enable() call in atl1c_common_task() is never reached:
+
+	atl1c_irq_disable(adapter);
+	atl1c_check_link_status(adapter);
+	atl1c_irq_enable(adapter);
+
+Device interrupts stay masked and later LINK_CHANGE and RESET events are
+not handled. The carrier also stays off after the PHY link comes back,
+until the interface is brought down. Before this patch the link-down path
+had no such wait.
+
+> +}
+> +
+>  static void atl1c_check_link_status(struct atl1c_adapter *adapter)
+>  {
+>  	struct atl1c_hw *hw = &adapter->hw;
+> @@ -265,6 +285,7 @@ static void atl1c_check_link_status(struct atl1c_adapter *adapter)
+>  	if (!link) {
+>  		/* link down */
+>  		netif_carrier_off(netdev);
+> +		atl1c_rx_poll_sync(adapter);
+>  		hw->hibernate = true;
+>  		if (atl1c_reset_mac(hw) != 0)
+>  			if (netif_msg_hw(adapter))
 
 [Severity: High]
-This is a pre-existing issue, but this patch adds a new trigger (an
-out-of-sync RRD) for the reset in atl1c_common_task(). The existing
-triggers are tx_timeout and ISR_ERROR. Is that reset path serialized
-against other callers of atl1c_down()/atl1c_up()?
+This is a pre-existing issue, not introduced by this patch, and the patch
+notes list it as not addressed. The same link-down reset also tears down
+the TX rings without quiescing TX:
 
-atl1c_common_task() {
-	if (test_bit(__AT_DOWN, &adapter->flags))
-		return;
+atl1c_check_link_status()
+  atl1c_reset_dma_ring()
+    atl1c_clean_tx_ring()
+      atl1c_clean_buffer() on every tpd_ring->buffer_info[] entry
+      memset(tpd_ring->desc, ...)
+      next_to_clean = 0, next_to_use = 0
 
-	if (test_and_clear_bit(ATL1C_WORK_EVENT_RESET, &adapter->work_event)) {
-		netif_device_detach(netdev);
-		atl1c_down(adapter);
-		atl1c_up(adapter);
-		netif_device_attach(netdev);
-	}
-	...
-}
+atl1c_clean_tx() checks neither the carrier nor __AT_DOWN. It walks
+next_to_clean up to the hardware consumer index and calls
+atl1c_clean_buffer() on the same entries.
 
-It takes neither rtnl_lock nor __AT_RESETTING. atl1c_change_mtu() runs
-under rtnl and takes __AT_RESETTING before its own atl1c_down() and
-atl1c_up(). Nothing keeps the two apart.
+atl1c_xmit_frame() checks only __AT_DOWN, which the link-down path does
+not set. netif_carrier_off() does not stop the TX queue right away; that
+happens later through linkwatch.
 
-Suppose atl1c_change_mtu()'s atl1c_down() runs while common_task is
-between napi_disable() and napi_enable(). The second napi_disable() takes
-netdev_lock() and waits on NAPI_STATE_SCHED, which is already set.
-common_task's napi_enable() then blocks on netdev_lock().
+Can both contexts unmap and free the same TX skb here?
 
-Can this deadlock while atl1c_change_mtu() holds rtnl?
-
-Other interleavings look like they could unmap and free the same RX
-buffers twice through atl1c_reset_dma_ring(). They could also call
-free_irq()/request_irq() twice.
-
-The previous patch in this series, "net: atl1c: wait for in-flight RX
-polls before the link-down ring reset", describes the same
-napi_disable()/netdev_lock() deadlock for the link-change work.
-
->  			break;
->  		}
-
-[ ... ]
+Can atl1c_xmit_frame() keep queuing TPDs, or touch an skb that
+atl1c_clean_tx_ring() has just freed, while the ring indices and BQL
+state are being reset?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261117225521.19689-1-federico%40rimpianto.com
