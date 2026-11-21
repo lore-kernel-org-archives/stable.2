@@ -1,88 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795228575;
-	b=pJPm3zb+RBdWRqv4iwU+fvleqs3cd9c0oc21F6hMOUavZEIOQ+a4whIumLUislnfRpdn
-	 Dks+xsYf/0c3SEe89U538oaOJNY5MfkwUfBg30Y+QhMJC+uSq3vrBttU8yNtl1iPGQqSW
-	 P6CoFDBLrqTTM1HLvhlzcW6HRc4YzOvyr77MnbeZM0KM0YxUNm/iwptawK7GoPFhCB0m7
-	 Ut8eY5QWoWgUXX/ldqQHLp8TPumqtuIL+nA47wkPHGvINeXQLmia1sirIKAXIsdoQC3RM
-	 vIsjEzppfRhwNMfsmtcurAdfJLvruBt2a/g9QAQXNVOMW7QJzT93Ke4KyRlt4yCsJdA==
+	t=1795229804;
+	b=IIv6GybDdw1FkvucXyZeiC4KixlfD1G1iCmcGwwWhPTDp9CfyvzXHLPdBNmYnyATwbKL
+	 Eh95F522PuWH7HR7V/vW8PJ6wz37E9AG/escjDLmIXrPgIlVDwy2q2+Fbw9Xeg8jkn45R
+	 MFqgi4k3129+01lE/2ewjbWloragM8+Wwsoc8dfFEUVrU0ofEUAg/ngszP/eKUCxo7HHn
+	 3cET6cAa/1hHGDySphYHJb+2xtHugKSbeggzWLaxpPx7uIoeYHVC9bDiGcbX+AVeRLPKo
+	 TJFFTdI7W+9dxvMseJtIq1QMMhDdoHFudp10dque9FjV+gtIHL5ncTd6I9sE1aXM3xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795228575;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795229804;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ytKdWC4PKOBa2qHZovVgrsdqwkaFMvswDEZlScEeocU=;
-	b=JI1dsVtk15RZiD2aAxixUfBtuWyQ7u/+bS2va2cFfs6lGimnL9pJShDRBmJiSDKAIQ9e
-	 TPiQ9ecyFYShwwZJSCQzpKnIXP8FK/kenyYNwyqWDeuxXqSNhWkn6IBBuduwALxfCy8jC
-	 E2m5QKQO0ERNnf7tmUjQe3n7E34uk2VKlgK4Nb4LTJqboYQyCxFyD7xK7SKvuuuR2izvf
-	 p74bGZBLGIgvNxfcEHZvorCpgZqurXzpa99Gk7ToePsXZFHHTu3SUma0hihuGN0ahTpK0
-	 S4/Z9ORGTg0BAz0nGNQxaoROcTPJZSiwKBWMgdG8jktPVPIF6Ph+S9uaz72HHBqw2cw==
+	bh=sQ0URJXLHPyhV0pqjQJeFam3yZqKvnQul1dVgNuKRU4=;
+	b=GbfpFw/aJWk+HkZkX1303jEZY29YnBae3bTdiUmQWHT5hTnemMbQ1sldu6BX5CXciIq+
+	 Oq6lye2AtRa1MpPNpZNaMxUYWz9EscPwhaCrP0DZhSBsvg/9Bc78MoyeK1Mdsw6NxalF1
+	 1vnKqrEl99da2RM7fbhp1LtHa62ekn9b5Zzwnu94tQekTrPz2BYpjZMx2gqomFFji9Xgq
+	 mjKgkXZYaDiV5OfItrEUkaZAB8O3sAZB5rjDMMvnslMbs74AujAL89oAjRgR+tbuB012q
+	 GjWHh3aBBMl4mNUhqgjRfapUA9XOKel/M9aDgAEuWZ0tsvj9PbwMV0l6Nx0m8mqfIeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=BpyINFST;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g9Bi0j63;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD94A606A6B1
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 02:36:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD94A606A6B1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F747606A6BD
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 02:56:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F747606A6BD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=BpyINFST
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb70074ab2so15455785e9.0
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 18:36:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g9Bi0j63
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-385d8a00598so1842742eec.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 18:56:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1795228573; x=1795833373; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ytKdWC4PKOBa2qHZovVgrsdqwkaFMvswDEZlScEeocU=;
-        b=BpyINFSTO7cEoxrmXDJd1l0wc8dtcZtXl0P9rUOO27H+8VbcgqunK+1rV6k4EkHgAw
-         6ELwCFFSyR+8f8UIwpozBHV9ZkIOPgKdk90e8r6dq7N5ZZHuDigHOpdM6ew1ZIrfNeqx
-         C/9kWV//0/Irb/xIG5QYuOfOSSFOv19wA4K4BKRnIK67Hr5tI+zXDPt5YtS+jyLU1Rpi
-         mEWKj+8cN6BOrqEgc3KUeVnJmvnPyASKFlR0QH5FWubfK0SKdBt5Mf/gIRGkiIDE+XIs
-         /oDDjQpF3wmqh5+9KP81fDHdXLiHCeo3w3ji9j+S8gZd3ZLuD73kSRL7T7gl/2tjlvbZ
-         tDVQ==
+        d=gmail.com; s=20260707; t=1795229802; x=1795834602; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sQ0URJXLHPyhV0pqjQJeFam3yZqKvnQul1dVgNuKRU4=;
+        b=g9Bi0j638butKQqrJh7k3KCV/lIMMA+ErsuPa1dWZlOUuaBred/EkLCNPnCIcLvuZ3
+         gKYp+t4eSAhv3PBOKvKNjoFr6XldgWtmyhPbpcnf0PVdCgrBqBWvDCMTFDaN8OMRgygM
+         DenAySF+lbxJ/EVfFwP3SO2YyyivEWAcX1RANpsvtHozHj8U2cxosOrNmZDKO7o4KJAH
+         7Yv66Cjie6HXrTscNPQG+ZA3GObk4+gGCH52582Mgf7jFfGRQ5iEyDFBl4FN8OBPa78s
+         hz2JpkqSOlrsSkLPi7Zn1P2aj5/JZzZ8Ybs9WpzgZMa69ggJl//2Z+uxjj1Bu9V15jiT
+         u2zA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795228573; x=1795833373;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795229802; x=1795834602;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ytKdWC4PKOBa2qHZovVgrsdqwkaFMvswDEZlScEeocU=;
-        b=Jxe6dOwNgOtHlqbXj27Uu/pR0MSLCrBEhenOO0+P2rJ3J1SSK+OkflT4lCB31Vk2xG
-         Bh50VbSBoEKA0HVFPFd/gjoUdo3ScAJ0qQHfK1vH7d6DeKwebPtWofGlune7tR4Xt6I8
-         zl2KEh0JpytlzQf2FAjv0NR1n03yO4l9i+z36JzVDYS1tnPjV9lHjqOYAZFX3VGXedT7
-         vFvtahLxClKVmX9XQP4nKVFeCjvIy+hd+8Yr5iRCPjr6fTWbP8FR11ucxn/BwdaTf0j/
-         42a7JxFepUQZ4Lv2fy/WxY0pBXf/Ar9Ushn+wvIEQZZ6kBrpLGnqbA93LxvdUCfI4uwW
-         SR7A==
-X-Forwarded-Encrypted: i=1; AL+hErE2qetqNA+9SgUs9/mMrdEcmgxyv1sruaa1EYyABz3LzXWweJqL/f9b0Y68uE0OuoPkeRsT13c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8JPodEOBz5eaSwOkSDNLsgAyaBaEty9IigOP09uyOIXUV4mxRH
-	1f8ItvgCi1VCtYx1Bi46EqmHy8Z5WVnfl7SfPvWEaP1iAn0z5C7spT0=
-X-Gm-Gg: AYBFou0+nKDmpY0jMmPgJ+OHAGz5WOY2tJRkElLnNltb8DwJtULz2bfqah+GFQMaMnQ
-	0j/QsHF50lnvDjVE9suIJr2VexdakkCFwEjj/qmc5EDgHtglY+QK/kgmHIrCazYo6ZIMFTbkpGP
-	WEjwh+QSuLqs0OoQ9WEjgHNLbxuGZGQF0oLzRbKNWCoeeXikUKs6o3RUJjqWzq2qwGru7lVkkPt
-	2aq4HIiW8XsCmtkZNZgIff5WU5cTGsmyo9VCs9e14mEGqb0zjtM/w143pXKGx5nC0BhSdyKZbHC
-	lBm4acQmanWhWcTYgd77kk7V/IG5wxyO3qVXnHmNGpmkSF1159f1BHvPpNnOMSzCEU696xLV3cw
-	cP04w7ZrejTzzts4BCjRBMncosnh6TJ+4r7OaX8T2IYH6AgNv530M9zFFXkrmD8qQlGrY5w8+wo
-	Bn4UkwXktfNAWGsFUvmeQkBtqVVOqTnPfjamH7w5Si0XVfg0Ltu0amyHWvXuwf6rHs/C/Vw6WoW
-	TD2beJfYKhAdqZq4iEuX/1kw/lAQEEnXhuZENNyBfrY1meqKbd0GnjvpmX/ut24w98geFuCmwht
-	wjDrUKfODRIBWhCg2QxHZ3L1Xp9Hl84VEocC/aVFoQmmD0Rg0x58qRthoGnYeoED8JX/Ptq/2A4
-	0qkKfmnn6qHY0tUsyP3KMM41wwA==
-X-Received: by 2002:a05:600c:4515:b0:4bb:659c:b8db with SMTP id 5b1f17b1804b1-4bb88813b27mr117200775e9.12.1795228572531;
-        Fri, 20 Nov 2026 18:36:12 -0800 (PST)
-Received: from [192.168.1.3] (p5b2ac65d.dip0.t-ipconnect.de. [91.42.198.93])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88402ce9sm106722515e9.0.2026.11.20.18.36.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 20 Nov 2026 18:36:12 -0800 (PST)
-Message-ID: <ff148281-de3c-4ce1-8d8a-86a9299f73cf@googlemail.com>
-Date: Sat, 21 Nov 2026 03:36:11 +0100
+        bh=sQ0URJXLHPyhV0pqjQJeFam3yZqKvnQul1dVgNuKRU4=;
+        b=yD7Q719GgFiRorXHBpPYX0V834TZtlTkcCxuhsmyErISpngc8D21FURe4QyR2BN8gb
+         Z4YXLgPOlc0Z99OH3wvfVqb7ffOQiDyPocgxPcZCjk1Fba8I1Uhn/XGnNiDv/oUIw4JF
+         wK5VkJJlSOz7t0Hkt/N8Ug+5QZwHery+EQ4w5yDCrKx/cVCt7e+Xzj4lyz7EhL4l3w5l
+         4lHuI1r6JWaIHKmNqiJQIyq++Vp3i1PgUfvp1ro+3x1vrsAgOQ//qQWK1GarLdx+y3JX
+         cg3zpnsnY0kRNDBTGMbr3nvdGwc6wl7wApOG7s6d8eTPqUNeRJMCpZN4adkjVUntBuNp
+         FZQA==
+X-Forwarded-Encrypted: i=1; AL+hErGyop+UIhUMiDduB+YsRLjvwAM7FvaQtQ1uJSmy0T2/lAyaxX4Bifuj7t7YO7xLwUBP/Csfbuk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8UAOO0FJSWQFJWct733ggOnpWIb/CEnxiAvogKWKqiJ84C08Ol
+	0dD0nxJJhvhqlDiBdhKmUlfbO/llzKg8R2IakxyZPkfvE6ORuAW1q3rA
+X-Gm-Gg: AZFdTZfE9vRoVt2Ij6/wr7NJY6JCzCGI0VrRykNPVSyt9ZmJpAZslNwXiopfR+nGkhI
+	27enADBFb2YiKfjWMXbw0VfqomZnmFmnmK/HMJ+x0cGt9idQc60Fc1A17Zn0Vsd2lyprN9uYDtQ
+	Sy2QSikBMFhU2jW7pj5NhqqrBzyHcUG7yCQVcTBHJHlehEzIj+NipEA1VG/TEUuhQQ+qnsYO4Ps
+	ZJ114DZmDyjgz8EAkqOIthX0ZkXJlWvtBtAHq7gHcHG/DxtpA3aJ6gfY6VMsylIis3QWPXzy0Qy
+	mpGSRYvm+QOsyb+Nxzkf18Mj0iGqIVhq5hB5AhFMlOuh1qtVOtIv4JVtvtQccizTxVMSab0xZtB
+	Uy7dkitxTeYEResW7pvOsPI/Lp0JD4e0u7HwyGl9hcp5qxIdBL305DDM6P4xcyrjNMLIqDs2HS3
+	EgmPBgQqi6AQn+ccffcG+ImOgmapMcyznbLxyh2CQdQ2E1OP50UmbPnOcBtWtPuJfRjoVGdENhi
+	Q8qMyjqWQmgfgLWpf7A2N92u87dvhRkljK/Yp1SA/2PENCwWPR0WmzNO7lJd8xOB/UipLKW7wz0
+	OG6jTGsJp6YV0q6JQJiBwRV4inxjbEit5oTiupZZeM0qy7R9JtV1tKjMMUILE+XWD/O3k531/hP
+	Rx6CABqtv9P/+F2+Hss+tHNqaPDgXlQ4MkChOjy4n/LfdBCiaUAoS3OrG0XcACo6BqJuEASvIov
+	i9/Q==
+X-Received: by 2002:a05:693c:8641:20b0:383:50b7:1d78 with SMTP id 5a478bee46e88-38571223ee7mr5312730eec.40.1795229801565;
+        Fri, 20 Nov 2026 18:56:41 -0800 (PST)
+Received: from localhost.localdomain (206.135.124.34.bc.googleusercontent.com. [34.124.135.206])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385667decc2sm12071967eec.9.2026.11.20.18.56.35
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 20 Nov 2026 18:56:41 -0800 (PST)
+From: Yifan Feng <evanfengff@gmail.com>
+To: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Yifan Feng <evanfengff@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] mm/damon/core: fix damos_walk() hang with zero watermarks interval
+Date: Fri, 20 Nov 2026 18:56:26 -0800
+Message-Id: <20261121025626.75981-1-evanfengff@gmail.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,43 +100,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.6 0000/3308] 6.6.163-rc2 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261120055324.975889935@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20261120055324.975889935@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 20.11.2026 um 06:57 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.6.163 release.
-> There are 3308 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+kdamond_wait_activation() cancels damos_walk() requests while all
+schemes are deactivated by their watermarks.  But it returns without
+waiting when the watermarks check interval of a deactivated scheme is
+zero, which is the default of the DAMON sysfs interface.  The kdamond
+main loop then runs with all schemes deactivated.
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
+In that state, kdamond_apply_schemes() finds no scheme to apply and
+returns before it calls damos_walk_complete().  The walk request is
+neither completed nor cancelled, so damos_walk() waits until the
+watermarks activate a scheme again, possibly forever.
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+For example, with a scheme that has the free_mem_rate metric, zero
+interval_us and a high watermark below the current free memory rate,
+writing update_schemes_tried_regions to the kdamond state file never
+returns and cannot be killed.  The writer holds damon_sysfs_lock, so all
+other DAMON sysfs writes including "off" fail with -EBUSY meanwhile.
 
+Cancel the walk request in kdamond_apply_schemes() when no scheme is
+activated, as kdamond_wait_activation() does for a non-zero interval.
 
-Beste Grüße,
-Peter Schneider
+Fixes: bf0eaba0ff9c ("mm/damon/core: implement damos_walk()")
+Cc: <stable@vger.kernel.org> # 6.14.x
+Suggested-by: SJ Park <sj@kernel.org>
+Signed-off-by: Yifan Feng <evanfengff@gmail.com>
+---
+v2: cancel the walk when no scheme is activated, and leave has_schemes_to_apply as it is (SJ Park).
+v1: https://lore.kernel.org/r/20261118235012.14859-1-evanfengff@gmail.com
+QEMU: -ECANCELED instead of the hang, 20/20 walks of an activated scheme pass; kunit and 13 selftests pass (2 need drgn).
+Found and written with the help of an AI coding assistant.
 
+ mm/damon/core.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index b8678a53b0a9..2748f9199924 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3492,9 +3492,13 @@ static noinline_for_stack void kdamond_apply_schemes(struct damon_ctx *c)
+ 	struct damon_target *t;
+ 	struct damos *s;
+ 	bool has_schemes_to_apply = false;
++	bool has_activated_schemes = false;
+ 	unsigned long max_region_sz;
+ 
+ 	damon_for_each_scheme(s, c) {
++		if (s->wmarks.activated)
++			has_activated_schemes = true;
++
+ 		if (time_before(c->passed_sample_intervals, s->next_apply_sis))
+ 			continue;
+ 
+@@ -3506,8 +3510,12 @@ static noinline_for_stack void kdamond_apply_schemes(struct damon_ctx *c)
+ 		damos_adjust_quota(c, s);
+ 	}
+ 
+-	if (!has_schemes_to_apply)
++	if (!has_schemes_to_apply) {
++		/* The walk cannot be completed while no scheme is activated */
++		if (!has_activated_schemes)
++			damos_walk_cancel(c);
+ 		return;
++	}
+ 
+ 	max_region_sz = damon_region_sz_limit(c);
+ 	mutex_lock(&c->walk_control_lock);
+
+base-commit: 4405c18c95d2d0f99f6c581ef0ee8591a1aa6ccd
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.39.3 (Apple Git-146)
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
