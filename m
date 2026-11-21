@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795278028;
-	b=d+wIHM6UxQgipKijoF7tZui9+mQwjZrC0+uGa4yeIH1lFSfbxznmkUfmX+xW3eawUtgX
-	 uE/TcBN4u78TZFY0RhVkZdGqJxzrcGrcBSPJ8Tp3KuUP40KprMzNfaSiQytRg07DZqT96
-	 H7wEHHA+3dvRm46zT6H4xoxO3KhNaclPpMcJq+kD8Kh0K1wyrI2HM2EGbbyhWrORmwguO
-	 MzCnQzHlYYPimwPIkTVBLy3GobHhyfGi65uYDSJdtgQjFe8OqDvOu0S8yWiDZNbvwoK1R
-	 0UDtcZPF0JZUmbHiTtJosHVmO3zVIwxDWJkjXIegvfUCOym0s1yTLOOjfZZIXDj5QBA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795278028;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=P8b51MoAA5S/ewoDjPx3DscZG+txaLOnVX8+xCfFlZo=;
-	b=UyWdZmnxU+l6Z0feHcn/I1EzLxbg0WGo6IfJfIZYXE6tXWrDLQgLrZ1N7r/NsMG3sNhr
-	 IoBSOKmfPCHDGC9RqBTOQt6tOu9ITdquVwZPWml9HfTlvkZgO/38nZvVufkYBBmoi810Q
-	 4rGX8NUzp+8EN1VmHDzmXAIDmNU8JFU83isl6lSMJtc6duLdiPXGD6QXemTNPxXenUSPJ
-	 DL9v4Dap8WyhN7EYY+Ro03apllmM5mJ+vsiAhBFtDSnX6qTwDuLn2r1QlQj8wnpYcO7TO
-	 6+QBGIuejqqbl/qejOBhD+CW01XLAXEHDt6sLX+vxKNxKRh734/uxDfOclo/6I53nCg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJ1uGpPu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7326606A338;
-	Sat, 21 Nov 2026 16:20:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJ1uGpPu
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795278028;
-	b=Sux70eqXfoxNm/NX/VMgzTiI7krD5bynkcg7JBK4oiM5vF1BH3taoERhMwbCh5ezZbRm
-	 cq0KWN/ztVNNzN59WzgReBekW7ZjKTAhuKSWHr/EDL29bg7EU07oFdcBxp7c285uUUV59
-	 SfkJvz/t3IvGM0GFQMDVZRSd2WTKMT1lsr6mnampYt0+u/jJaqz3glKpIzOLHRr0//gQd
-	 YO1wqBVi/Sq/DTkwbbJFNRA67LtZIShJ/KjG7E6WwzX4sIvxheNyaTSMDkX0FCrW0asqQ
-	 5Xa+yd0/lknn1fNcx/yOD7EoP14Kwar/t2yaAsxjTV0H+PldhMkD9D5vAmvXJXs1bug==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795278028;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=P8b51MoAA5S/ewoDjPx3DscZG+txaLOnVX8+xCfFlZo=;
-	b=k0qk6zP2j5+pgE21CQM0uDnz6ZWcdBqpuG7HsekLc1XHqxzr02IvgcLSNFwi0ANBZ+Kt
-	 qqPef/LVYvu5A8lsopK3Vr1X3XCUDMulElGFOyC3EfdR/QqCECZ2Mt1Q5+3Ii6s6JeDFu
-	 7Gfpg9Bt6hx9YR9lZfaearECWJ65tPRfim2LurYcwB1glRdkboded1vts9Jrk1Ib9o/nN
-	 jbnFOW2TqeyAhrU0jMYkexCNFhifFgN+9okGYcgCAwbBaNdylHj1ubAMKFM16+/PX8zwI
-	 lGH6HjON1LE5BOfvVlG6bsLGXzFxJpobEz8TlpqIZYwoOM8PARxg0SvphTFvqTyolcw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795278987;
+	b=aPLBoww0E3b7rXpZFy68ViN1ZLm0mB3iiMmIuP0avJjJOL/xDdY6I05Bk4Nake7x3HZ7
+	 CxMJTh83J6l1wY/yJo6hrWRNBXsKGDeqJbDaHBy/rV8jRz+FoSqncu75bNdMAqv0ksq5h
+	 KzQFyjZEp4PNCNtdpimNLTQ0tPYOxCZrEgnEUwp3uOKBaXnfLrY95TQjU/tA2WMnHOpKW
+	 /UfypvqF3GUPRe+BzFQzUbUNpp6xwHNgTyW1jRkmua+UFDbMZAR7MfIK7nlF3vX+rDVCR
+	 j4/7gSiG8tEFogmv7D96LpLbulvLlM1itLbPUScgXUuGL2ixLHjusGyUScjWquHi2kw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795278987;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=JdxWEIL0M9ex9lHBtx8gNprPKuZ5+30UhfHTwNk0jrM=;
+	b=xUtkXIR7kdet4bBIduTLHZYHfnDw1R2FdlN8xdLQkR311GG7F4WbgJRaM/avgm8U/wFS
+	 IZs3k9XvdoLaHj79mj2WmFdJtWC6RiSQ6Ot7lT2stakarw8hhyXlsOQRo4npo2dOj465r
+	 VITe9qw/TfoPkqvORZANkK4ufGfq3rIKvOC5HTeH6dRwOHVQkoYemnExuvSFyHsh9utoG
+	 44AYS8XEPoULnNtWJLAIeCTULVJPz7nMHR3/ektTleBVaD6wA6E6tBlaUSD6SIvdCWe1I
+	 +3flt2LziI8cKu36pIJMH2iSg/XjBqGFdTH6vAbIgTn4k7zwwBvkTbrUbEPqxNgUGVQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E77nioXE;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CF46A1F000C0;
-	Sat, 21 Nov 2026 16:20:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795278028;
-	bh=P8b51MoAA5S/ewoDjPx3DscZG+txaLOnVX8+xCfFlZo=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=kJ1uGpPuPIKLffZcvp6bqvi/zlTT21dA8IzZt5Un3Z8yAsmt4wVmwt+04TUAA+ngY
-	 5mW1/onElvutu45MpzKppKLQ7upnhGNtoHO1WXIiJcwPLi04pg1By1xMWDEZyf3I3Z
-	 Hng3lQQZGdwbrZURQoYlzuYZQaYHdggXA4vp+Jz+N1dwfdKbTObeSQ+T+eQ9iYc7uR
-	 w99xMC3RpORZH5jB1HSL42r75uJBbMJVavTkgWj5gJTgLAObuZguJwZBY1WB6mr9z9
-	 rEhC3vxo+r9iht04clfqhf1YJswMYnuuk414hlpfRAG9pvFLoParxYKYxSN/eIEa+S
-	 3REk0aF9mSwnQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2CEE34BCFB;
-	Sat, 21 Nov 2026 16:20:27 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Sat, 21 Nov 2026 18:20:20 +0200
-Subject: [PATCH] i2c: mediatek: fix probe when vbus supply exists in
- subnode
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB6A606A33D
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 16:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDB6A606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E77nioXE
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ae1da332bcso979057a91.2
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 08:36:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795278986; x=1795883786; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JdxWEIL0M9ex9lHBtx8gNprPKuZ5+30UhfHTwNk0jrM=;
+        b=E77nioXEx6DTUNqfNXcdKo0zWowoSzsXLv5vkooVBnbC5TteHUj+9qERJY65168DJQ
+         V+Bd4PTUI4E5MJQC53YkSuvqb2BzNwm68zCA1RzD4ISJLxD/JaV/0MrKJOqpDdt6gHQ4
+         CPBXPatc0Sg02709BK1LCNdJa9aUi902nGLvs0TXOhNMciVSbPnpBASRG5KX0Yqoldf8
+         aYfYvYS0rd+xtDgITDIneWq/Pa4oPH3/lso75yL4UxHWr9WjW/PhW4OAwgitrVPq8CKT
+         5cJSjVOK5BJPo6G/kHYFPLd0aZG+PwTLmA2KHN0vYc5lR0Afho31kl8+weh3IytCA+mJ
+         xGvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795278986; x=1795883786;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JdxWEIL0M9ex9lHBtx8gNprPKuZ5+30UhfHTwNk0jrM=;
+        b=h6TJHFXQdpLMIQYSa6PCRJGyGmI1izZJhNrvEsolXhIenXkFOPYKm465S7cOu3S+Qp
+         1yR8u5YhZ3qwFdCZTuOVDDNcWWhRtxuBGvD6zKZ2izG+gqSH09oZbCJ+ee2lhkM3UQAB
+         SeNwW5OjfsjKMP7ytkny37OuEtXOFx/czD9oHz+Sw9JEeGgS6rqhbZ50sDkaeV/e/9P7
+         9Z/fGuQBZTvXuboHR+FCOV9KH7OaN0RRP1GMTzoLBXxcg5wsFsAfDvS8SxB4Owaz+r/N
+         09m2Q2hRBDN991lcRXxaqp8jchgBmwytzR5lYYqpVbHAoyz9Wl7tO10shaxoongSOXRm
+         ugUA==
+X-Forwarded-Encrypted: i=1; AL+hErFW3FKf2gknPQo0Nf+MGK6wRcgRF50clB3FkUaJFsWJKthDAwxwgMuz7cAYc8vlwzxUwdvwoTE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9bmABLXWFZUVY3iAaEU8A56ei1scwlOU/ztMq8bbVITPyjg4kh
+	OYYrFfDju1QQHWVMZ4H324BXdna7Ta/xNDr1DnfP87vQn9PVVQIlvsBe
+X-Gm-Gg: AZFdTZcHXumFbCfGiZAfYov7A6xGFAlyuIKZdeAXp/gcBt6cC+z1yT53KNwFfA32jXk
+	8ywwbe3ibStkT9/KrOtVd1O67agQvYMK2Zbxr2gQufvHiQXuVqkl0Dh1whkN7isDHCjyw0D6pXF
+	SZHrlPE4L02HFQERmIQyipvGBXfuD5OQXgr8Yvi2uB9HKZa/ahb9BMO8TrnvWr7+pnThJ89xjNg
+	QlRrYK+eEY8Q7zzYIXuYi9WBr35EOH483Nip4lz8EDhiJgXC6bNAwHKb+wj7QR/zQR7Xis6MunC
+	dWnH24aJwApBuohHt4cBcWvyU+OwtFdVvMOai31F06iGCQPnKLwN2vMwav4RA0yDV5YscfFi3JY
+	GIMnE2Dgr2ZrcW8/f8QS/WgSAIFKE9bk9ffYHFELbdoSvtCN6YbA/2YIGv9mEm7Y+WhYmpNoiWG
+	Nx/yhCUgIAK7eYtdb8D+MaFTSKeg1jN3asTZix8tDOLjfANEp0qysVCAcQxGn7aJQfx+CR0BPr2
+	1xl91GxtUK9fXalI86deejHskfqtXRqRXhIj+yZRgYSj8nkKPyv/dAFWOTSw1yUQNSQMoaK54E8
+	IqzgB3wH5A83iYwtL4Brvh27UZjZNP67TT+ekj2yW7rjRqIm+nGcxYsOd+4OmWZYOh0RqDfia8/
+	79+CW
+X-Received: by 2002:a17:90b:390c:b0:3a7:9e3d:b3 with SMTP id 98e67ed59e1d1-3b41c9beafamr5939261a91.66.1795278986142;
+        Sat, 21 Nov 2026 08:36:26 -0800 (PST)
+Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:8549:3fe7:526f:af9])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d11753sm12357403a91.5.2026.11.21.08.36.19
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 21 Nov 2026 08:36:25 -0800 (PST)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: Hemanth Selam <hemanth.selam@gmail.com>,
+	Morning Star <alexbestoso@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Zhao Li <enderaoelyther@gmail.com>
+Subject: [PATCH rtw-next 1/3] wifi: rtlwifi: rtl8192ce: don't mark unencrypted frames as decrypted
+Date: Sun, 22 Nov 2026 00:35:45 +0800
+Message-ID: <20261121163547.37019-2-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261121163547.37019-1-enderaoelyther@gmail.com>
+References: <20261121163547.37019-1-enderaoelyther@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,104 +102,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261121-6768-i2c-v1-1-98d51691fd8d@protonmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBCF4VeRWWvSdjHKq4hFL4OxQFpEIt5ds
- fyS/5wLEkWmBE1xQaSDEy9zhioL8KOdBxIcskFLjUppJbBCI1h74WxNQZoejUXI+Rqp5/O7arv
- faXcT+e3dw30/VVDJVGwAAAA=
-X-Change-ID: 20261121-6768-i2c-ba9ed08f68a6
-To: Qii Wang <qii.wang@mediatek.com>, Andi Shyti <andi.shyti@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Hsin-Yi Wang <hsinyi@chromium.org>, Wolfram Sang <wsa@kernel.org>
-Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- stable@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795278019; l=2465;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=YhzKgoIIxqqoXlohk7kgtxKoK2RDTSFs2xMuyiqhthw=;
- b=fHfVZgp/Esnl363UzJY2eHoY6j4V+b5/DJ2MTSVJbV40V9QK1dWxF5n4nr8xnbkMsti/UTtIr
- DINIFR8GHXTAmAX8PP2F2yTuL3XeyhLXtFNoFZJhsh2mLh5FPICt19y
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Roman Vivchar <rva333@protonmail.com>
+The receive descriptor's SWDEC bit is set when a frame still needs
+software decryption. It is also clear for a frame that was never
+encrypted. rtl92ce_rx_query_desc() nevertheless sets RX_FLAG_DECRYPTED
+for every frame with SWDEC clear except a protected robust management
+frame, including unprotected data and management frames.
 
-Commit 9029b9b2ae13 ("i2c: mediatek: mt65xx: add optional vbus-supply")
-added an optional vbus-supply lookup in mtk_i2c_probe(). However, when
-the i2c controller node itself doesn't define vbus-supply,
-devm_regulator_get_optional() falls back to of_get_child_regulator(),
-which recursively searches all children nodes for a matching vbus-supply
-property.
+mac80211 then accepts an unprotected unicast data frame although a
+pairwise key is installed, because ieee80211_drop_unencrypted() passes
+frames marked as decrypted, and it accepts unprotected deauthentication
+and disassociation frames on a connection that uses management frame
+protection. A station in radio range can therefore inject plaintext
+data into an encrypted connection, or end a protected one, by spoofing
+the peer's address.
 
-If a device on the i2c bus (such as a USB-C connector) defines
-vbus-supply, the i2c controller mistakenly binds to that regulator.
-When that regulator is provided by another device on the same i2c bus,
-probe fails permanently with a circular -EPROBE_DEFER dependency:
+Set the flag only for a protected frame that is not a robust management
+frame, as the rtl8188ee, rtl8192ee, rtl8723ae, rtl8723be and rtl8821ae
+drivers do. rtw88 dropped the same assumption in commit 0649ff58a0f6
+("rtw88: Don't set RX_FLAG_DECRYPTED if packet has no encryption").
 
-For example:
-&i2c7 {
-	charger@55 {
-		smb1351_otg_vbus: usb-vbus { };
-	};
+Found by code review. Compile-tested with W=1.
 
-	typec@60 {
-		connector {
-			vbus-supply = <&smb1351_otg_vbus>;
-		};
-	};
-};
-
-Ensure that i2c bus has its own regulator using of_property_present()
-before calling devm_regulator_get_optional(). This resolves the issue
-and makes both devices probe correctly.
-
-Fixes: 9029b9b2ae13 ("i2c: mediatek: mt65xx: add optional vbus-supply")
+Fixes: 0c8173385e54 ("rtl8192ce: Add new driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
- drivers/i2c/busses/i2c-mt65xx.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+No new W=1, sparse or smatch warnings.
 
-diff --git a/drivers/i2c/busses/i2c-mt65xx.c b/drivers/i2c/busses/i2c-mt65xx.c
-index 45d0d7156d6e..042244c7d89d 100644
---- a/drivers/i2c/busses/i2c-mt65xx.c
-+++ b/drivers/i2c/busses/i2c-mt65xx.c
-@@ -1415,12 +1415,14 @@ static int mtk_i2c_probe(struct platform_device *pdev)
- 	i2c->adap.quirks = i2c->dev_comp->quirks;
- 	i2c->adap.timeout = 2 * HZ;
- 	i2c->adap.retries = 1;
--	i2c->adap.bus_regulator = devm_regulator_get_optional(&pdev->dev, "vbus");
--	if (IS_ERR(i2c->adap.bus_regulator)) {
--		if (PTR_ERR(i2c->adap.bus_regulator) == -ENODEV)
--			i2c->adap.bus_regulator = NULL;
--		else
--			return PTR_ERR(i2c->adap.bus_regulator);
-+	if (of_property_present(pdev->dev.of_node, "vbus-supply")) {
-+		i2c->adap.bus_regulator = devm_regulator_get_optional(&pdev->dev, "vbus");
-+		if (IS_ERR(i2c->adap.bus_regulator)) {
-+			if (PTR_ERR(i2c->adap.bus_regulator) == -ENODEV)
-+				i2c->adap.bus_regulator = NULL;
-+			else
-+				return PTR_ERR(i2c->adap.bus_regulator);
-+		}
- 	}
+834fc28d7880 (7.4-rc1) fixed "managment" in the comment this patch removes;
+with the old spelling in the removed lines it applies to 5.10.y through 7.3.y.
+
+AI assistance was used.
+
+ .../wireless/realtek/rtlwifi/rtl8192ce/trx.c    | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/trx.c b/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/trx.c
+index 99472053ccff..3d11ddf86136 100644
+--- a/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/trx.c
++++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/trx.c
+@@ -300,20 +300,13 @@ bool rtl92ce_rx_query_desc(struct ieee80211_hw *hw,
  
- 	ret = mtk_i2c_parse_dt(pdev->dev.of_node, i2c);
-
----
-base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
-change-id: 20261121-6768-i2c-ba9ed08f68a6
-
-Best regards,
---  
-Roman Vivchar <rva333@protonmail.com>
-
+ 	rx_status->flag |= RX_FLAG_MACTIME_START;
+ 
+-	/* hw will set stats->decrypted true, if it finds the
+-	 * frame is open data frame or mgmt frame.
+-	 * So hw will not decryption robust management frame
+-	 * for IEEE80211w but still set status->decrypted
+-	 * true, so here we should set it back to undecrypted
+-	 * for IEEE80211w frame, and mac80211 sw will help
+-	 * to decrypt it
+-	 */
++	/* SWDEC is clear for plaintext too; mac80211 decrypts robust mgmt */
+ 	if (stats->decrypted) {
+-		if ((_ieee80211_is_robust_mgmt_frame(hdr)) &&
+-		    (ieee80211_has_protected(hdr->frame_control)))
+-			rx_status->flag &= ~RX_FLAG_DECRYPTED;
+-		else
++		if (ieee80211_has_protected(hdr->frame_control) &&
++		    !_ieee80211_is_robust_mgmt_frame(hdr))
+ 			rx_status->flag |= RX_FLAG_DECRYPTED;
++		else
++			rx_status->flag &= ~RX_FLAG_DECRYPTED;
+ 	}
+ 	/* rate_idx: index of data rate into band's
+ 	 * supported rates or MCS index if HT rates
+-- 
+2.56.1
 
