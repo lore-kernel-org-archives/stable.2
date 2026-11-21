@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795277805;
-	b=oCShDGw+R/E5an9Nxn59Tbd9v12Ja+O1bDIu9ixxlRsvtk7Wfz3jvNCTpl1mUG2sKlvs
-	 BXHIBQ0JFCF3NCP6axCnAYOSX2SbwpjYoDHJ/yzS+oHt+2u1bLjEKWZRNAxjB81rhEhcX
-	 zAH8e94wAHRxNizOog9lAkp+A4yVYB0maqT8PbWLppsQtY5tKZBjqJmQD2wMPafp93bFY
-	 LwgAGecHHaURlbtntF5Zaf0IclktbM69jSPk917m+lr2bg+iWryY2ipKJ8HzA91e4E9gP
-	 5FY3+qgKV96K6/1L71eBFoijcelHo7qh+zDTLMN+DJ4aQyxf55WheN/jOAnQRtzkBJQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795277805;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=ZElA5s/21HS1XF60gGGTbmjKeurE3z0LWPC8MyE6+Ew=;
-	b=AZ2mxHxez1R50/IIHT+7U17CNWs/KziBnzmCJglha86opAAzghaZhRAFYLRJH9QR4ptT
-	 +NwIsT+Zf2Cis5TRWzyHkcEoByPlo5QhGEDquEHixWL8ojl2xP+SDf0kRtF81FQfmDMSL
-	 pi8VoDpJfp0EkP5TolvbWfGNa0Idb6dXUgYqBt0+ZoTs/IAWK0b79rEJBLhwg5gvgcZ+V
-	 lBubLNjD4klWyO9F7QrzoTyCBFc2mNz4QzDOzd+Bk8hl4QdXb7WVcg2eWTLqQZCRKi7jb
-	 0UrDvm/KKqwN1cCX9CKqi65XGYKqDEuj0ElYrF9ubdUcEh2C5e5tAMLrdW+JvJQSaBw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBEFC606A32A;
-	Sat, 21 Nov 2026 16:16:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBEFC606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=ZElA5s/21H
-	S1XF60gGGTbmjKeurE3z0LWPC8MyE6+Ew=; b=Mftu4QvyDpsxjqimkG9O9vc82z
-	Br6ovLe8d6kfAWzddNo928RzckxX61MEyvdnCmQ/R+OEginAj21OAXRzoknIuwCL
-	N9Xk4KmkseSdwtJRFmUWzmIrSlUo2O2UmICiblIfOOF8Tru/Pt1BVxSpoosPNETP
-	ry3Cpyeg/HDYti0Rc=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.70])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDm6fzfwwFrIHEEAg--.57256S2;
-	Sun, 22 Nov 2026 00:16:32 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Lachlan Hodges <lachlan.hodges@morsemicro.com>,
-	Dan Callaghan <dan.callaghan@morsemicro.com>,
-	Johannes Berg <johannes@sipsolutions.net>
-Cc: Arien Judge <arien.judge@morsemicro.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] wifi: mm81x: kill the bulk URB when the wait is interrupted
-Date: Sun, 22 Nov 2026 00:16:31 +0800
-Message-Id: <20261121161631.2552-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795278028;
+	b=d+wIHM6UxQgipKijoF7tZui9+mQwjZrC0+uGa4yeIH1lFSfbxznmkUfmX+xW3eawUtgX
+	 uE/TcBN4u78TZFY0RhVkZdGqJxzrcGrcBSPJ8Tp3KuUP40KprMzNfaSiQytRg07DZqT96
+	 H7wEHHA+3dvRm46zT6H4xoxO3KhNaclPpMcJq+kD8Kh0K1wyrI2HM2EGbbyhWrORmwguO
+	 MzCnQzHlYYPimwPIkTVBLy3GobHhyfGi65uYDSJdtgQjFe8OqDvOu0S8yWiDZNbvwoK1R
+	 0UDtcZPF0JZUmbHiTtJosHVmO3zVIwxDWJkjXIegvfUCOym0s1yTLOOjfZZIXDj5QBA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795278028;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=P8b51MoAA5S/ewoDjPx3DscZG+txaLOnVX8+xCfFlZo=;
+	b=UyWdZmnxU+l6Z0feHcn/I1EzLxbg0WGo6IfJfIZYXE6tXWrDLQgLrZ1N7r/NsMG3sNhr
+	 IoBSOKmfPCHDGC9RqBTOQt6tOu9ITdquVwZPWml9HfTlvkZgO/38nZvVufkYBBmoi810Q
+	 4rGX8NUzp+8EN1VmHDzmXAIDmNU8JFU83isl6lSMJtc6duLdiPXGD6QXemTNPxXenUSPJ
+	 DL9v4Dap8WyhN7EYY+Ro03apllmM5mJ+vsiAhBFtDSnX6qTwDuLn2r1QlQj8wnpYcO7TO
+	 6+QBGIuejqqbl/qejOBhD+CW01XLAXEHDt6sLX+vxKNxKRh734/uxDfOclo/6I53nCg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJ1uGpPu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7326606A338;
+	Sat, 21 Nov 2026 16:20:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJ1uGpPu
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795278028;
+	b=Sux70eqXfoxNm/NX/VMgzTiI7krD5bynkcg7JBK4oiM5vF1BH3taoERhMwbCh5ezZbRm
+	 cq0KWN/ztVNNzN59WzgReBekW7ZjKTAhuKSWHr/EDL29bg7EU07oFdcBxp7c285uUUV59
+	 SfkJvz/t3IvGM0GFQMDVZRSd2WTKMT1lsr6mnampYt0+u/jJaqz3glKpIzOLHRr0//gQd
+	 YO1wqBVi/Sq/DTkwbbJFNRA67LtZIShJ/KjG7E6WwzX4sIvxheNyaTSMDkX0FCrW0asqQ
+	 5Xa+yd0/lknn1fNcx/yOD7EoP14Kwar/t2yaAsxjTV0H+PldhMkD9D5vAmvXJXs1bug==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795278028;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=P8b51MoAA5S/ewoDjPx3DscZG+txaLOnVX8+xCfFlZo=;
+	b=k0qk6zP2j5+pgE21CQM0uDnz6ZWcdBqpuG7HsekLc1XHqxzr02IvgcLSNFwi0ANBZ+Kt
+	 qqPef/LVYvu5A8lsopK3Vr1X3XCUDMulElGFOyC3EfdR/QqCECZ2Mt1Q5+3Ii6s6JeDFu
+	 7Gfpg9Bt6hx9YR9lZfaearECWJ65tPRfim2LurYcwB1glRdkboded1vts9Jrk1Ib9o/nN
+	 jbnFOW2TqeyAhrU0jMYkexCNFhifFgN+9okGYcgCAwbBaNdylHj1ubAMKFM16+/PX8zwI
+	 lGH6HjON1LE5BOfvVlG6bsLGXzFxJpobEz8TlpqIZYwoOM8PARxg0SvphTFvqTyolcw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id CF46A1F000C0;
+	Sat, 21 Nov 2026 16:20:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795278028;
+	bh=P8b51MoAA5S/ewoDjPx3DscZG+txaLOnVX8+xCfFlZo=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=kJ1uGpPuPIKLffZcvp6bqvi/zlTT21dA8IzZt5Un3Z8yAsmt4wVmwt+04TUAA+ngY
+	 5mW1/onElvutu45MpzKppKLQ7upnhGNtoHO1WXIiJcwPLi04pg1By1xMWDEZyf3I3Z
+	 Hng3lQQZGdwbrZURQoYlzuYZQaYHdggXA4vp+Jz+N1dwfdKbTObeSQ+T+eQ9iYc7uR
+	 w99xMC3RpORZH5jB1HSL42r75uJBbMJVavTkgWj5gJTgLAObuZguJwZBY1WB6mr9z9
+	 rEhC3vxo+r9iht04clfqhf1YJswMYnuuk414hlpfRAG9pvFLoParxYKYxSN/eIEa+S
+	 3REk0aF9mSwnQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2CEE34BCFB;
+	Sat, 21 Nov 2026 16:20:27 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Sat, 21 Nov 2026 18:20:20 +0200
+Subject: [PATCH] i2c: mediatek: fix probe when vbus supply exists in
+ subnode
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,80 +83,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkDm6fzfwwFrIHEEAg--.57256S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47tFWrtw17KFWxuFy8Krg_yoW5JF1xpF
-	48u34jkrZ8tr1qkw4kGwsF9r18Aa12qa9rCFs5Kwn5Crn8twn3CFy0gFWYgF1vkw1kZa42
-	vr4YqFyUWr9xCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Fb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Jr0_Gr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
-	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
-	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
-	1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
-	WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcS
-	sGvfC2KfnxnUUI43ZEXa7IU0qjg7UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUED2sAYljOOwADso
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261121-6768-i2c-v1-1-98d51691fd8d@protonmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBCF4VeRWWvSdjHKq4hFL4OxQFpEIt5ds
+ fyS/5wLEkWmBE1xQaSDEy9zhioL8KOdBxIcskFLjUppJbBCI1h74WxNQZoejUXI+Rqp5/O7arv
+ faXcT+e3dw30/VVDJVGwAAAA=
+X-Change-ID: 20261121-6768-i2c-ba9ed08f68a6
+To: Qii Wang <qii.wang@mediatek.com>, Andi Shyti <andi.shyti@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Hsin-Yi Wang <hsinyi@chromium.org>, Wolfram Sang <wsa@kernel.org>
+Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ stable@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795278019; l=2465;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=YhzKgoIIxqqoXlohk7kgtxKoK2RDTSFs2xMuyiqhthw=;
+ b=fHfVZgp/Esnl363UzJY2eHoY6j4V+b5/DJ2MTSVJbV40V9QK1dWxF5n4nr8xnbkMsti/UTtIr
+ DINIFR8GHXTAmAX8PP2F2yTuL3XeyhLXtFNoFZJhsh2mLh5FPICt19y
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
+Content-Transfer-Encoding: 7bit
 
-The driver waits for each bulk transfer with
-wait_event_interruptible_timeout() so that a signal can abort the wait.
-Only the timeout path kills the URB; when the wait returns -ERESTARTSYS
-the function returns with the URB still submitted.
+From: Roman Vivchar <rva333@protonmail.com>
 
-The URB then stays in flight on the endpoint and the next transfer on the
-same endpoint calls usb_submit_urb() on it again. The USB core rejects
-this with the "URB submitted while active" warning and -EBUSY, so every
-later register or memory access fails and the driver gives up on the
-device. The late completion can also clear the shared busy flag and wake
-a subsequent transfer, which then reads a stale buffer.
+Commit 9029b9b2ae13 ("i2c: mediatek: mt65xx: add optional vbus-supply")
+added an optional vbus-supply lookup in mtk_i2c_probe(). However, when
+the i2c controller node itself doesn't define vbus-supply,
+devm_regulator_get_optional() falls back to of_get_child_regulator(),
+which recursively searches all children nodes for a matching vbus-supply
+property.
 
-Kill the URB on the interrupted path as well, so that a transfer is
-never left active once these helpers return.
+If a device on the i2c bus (such as a USB-C connector) defines
+vbus-supply, the i2c controller mistakenly binds to that regulator.
+When that regulator is provided by another device on the same i2c bus,
+probe fails permanently with a circular -EPROBE_DEFER dependency:
 
-Fixes: b1906cea00b0 ("wifi: mm81x: add mm81x Wi-Fi HaLow driver")
+For example:
+&i2c7 {
+	charger@55 {
+		smb1351_otg_vbus: usb-vbus { };
+	};
+
+	typec@60 {
+		connector {
+			vbus-supply = <&smb1351_otg_vbus>;
+		};
+	};
+};
+
+Ensure that i2c bus has its own regulator using of_property_present()
+before calling devm_regulator_get_optional(). This resolves the issue
+and makes both devices probe correctly.
+
+Fixes: 9029b9b2ae13 ("i2c: mediatek: mt65xx: add optional vbus-supply")
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 ---
- drivers/net/wireless/morsemicro/mm81x/usb.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/i2c/busses/i2c-mt65xx.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/wireless/morsemicro/mm81x/usb.c b/drivers/net/wireless/morsemicro/mm81x/usb.c
-index ec94936b157b..3b3ffd94e4d6 100644
---- a/drivers/net/wireless/morsemicro/mm81x/usb.c
-+++ b/drivers/net/wireless/morsemicro/mm81x/usb.c
-@@ -257,6 +257,7 @@ static int mm81x_usb_cmd(struct mm81x_usb *musb,
- 		msecs_to_jiffies(URB_TIMEOUT_MS));
- 	if (retval < 0) {
- 		dev_err(mors->dev, "error waiting for urb %d", retval);
-+		usb_kill_urb(ep->urb);
- 		goto error;
- 	} else if (retval == 0) {
- 		dev_err(mors->dev, "timed out waiting for urb");
-@@ -366,6 +367,7 @@ static int mm81x_usb_mem_read(struct mm81x_usb *musb, u32 address, u8 *data,
- 		msecs_to_jiffies(URB_TIMEOUT_MS));
- 	if (ret < 0) {
- 		dev_err(mors->dev, "wait_event_interruptible: error %d", ret);
-+		usb_kill_urb(musb->endpoints[MM81X_EP_MEM_RD].urb);
- 		goto error;
- 	} else if (ret == 0) {
- 		/* Timed out. */
-@@ -436,6 +438,7 @@ static int mm81x_usb_mem_write(struct mm81x_usb *musb, u32 address, u8 *data,
- 		msecs_to_jiffies(URB_TIMEOUT_MS));
- 	if (ret < 0) {
- 		dev_err(mors->dev, "error %d", ret);
-+		usb_kill_urb(musb->endpoints[MM81X_EP_MEM_WR].urb);
- 		goto error;
- 	} else if (ret == 0) {
- 		/* Timed out. */
--- 
-2.34.1
+diff --git a/drivers/i2c/busses/i2c-mt65xx.c b/drivers/i2c/busses/i2c-mt65xx.c
+index 45d0d7156d6e..042244c7d89d 100644
+--- a/drivers/i2c/busses/i2c-mt65xx.c
++++ b/drivers/i2c/busses/i2c-mt65xx.c
+@@ -1415,12 +1415,14 @@ static int mtk_i2c_probe(struct platform_device *pdev)
+ 	i2c->adap.quirks = i2c->dev_comp->quirks;
+ 	i2c->adap.timeout = 2 * HZ;
+ 	i2c->adap.retries = 1;
+-	i2c->adap.bus_regulator = devm_regulator_get_optional(&pdev->dev, "vbus");
+-	if (IS_ERR(i2c->adap.bus_regulator)) {
+-		if (PTR_ERR(i2c->adap.bus_regulator) == -ENODEV)
+-			i2c->adap.bus_regulator = NULL;
+-		else
+-			return PTR_ERR(i2c->adap.bus_regulator);
++	if (of_property_present(pdev->dev.of_node, "vbus-supply")) {
++		i2c->adap.bus_regulator = devm_regulator_get_optional(&pdev->dev, "vbus");
++		if (IS_ERR(i2c->adap.bus_regulator)) {
++			if (PTR_ERR(i2c->adap.bus_regulator) == -ENODEV)
++				i2c->adap.bus_regulator = NULL;
++			else
++				return PTR_ERR(i2c->adap.bus_regulator);
++		}
+ 	}
+ 
+ 	ret = mtk_i2c_parse_dt(pdev->dev.of_node, i2c);
+
+---
+base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+change-id: 20261121-6768-i2c-ba9ed08f68a6
+
+Best regards,
+--  
+Roman Vivchar <rva333@protonmail.com>
+
 
