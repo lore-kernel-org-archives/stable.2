@@ -1,56 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795258803;
-	b=DltneWjzX9e9yikxzKRyDQZcDND+8oDMrvn5vxoNr/uYoGyPxKqEgswcJv/EB8Ye5cuZ
-	 F0cj8jPJ552sX73mr3BdOlXGD84hwjxrruCSB+tYE2Wsc8DOPmvWWUSgt223n4A6pM3Zs
-	 uxCwIzCCRJvQgtCVQyDkjXCuYQjLbftuvU2y5lKc/xgLTJz54Ps/DCd7oGi4+158jTB1W
-	 kiJOolW1eIpKbRSl1eXkNVdADM5X3Bl0eXg9IN6wERa61l8aP1/kpAycqIzK/IYNTqGfk
-	 jX/4jJc3hgDh1cCBEU3E/llOY3FGdc+LCVsLIcDsoZS0AmbI4nR+ywb4382zw7HT/Ug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795258803;
-	h=DMARC-Filter:DKIM-Signature:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:From:To:Cc:Message-ID:X-SimpleLogin-Type:
-	 X-SimpleLogin-EmailLog-ID:X-SimpleLogin-Want-Signing;
-	bh=mxpwphme3p8/7+XLeJahR1+ecqy/PNzspX4y3gTC0ps=;
-	b=IQFi7VmHMNQkvTBd+7YYjzp37OX77BypYWrqC+8bI+Tc2PSvKL1fStvrmokjOojqxonh
-	 KK286oRCn+88a2pxtEhHXXUVeSMwb07mQBK4pojdh6GamZTwnfcM8xpBVsRQbOd2LLNcK
-	 4UVQCRqJ7FNTOYfF4Vv+W7c1iHCKs6WzfCBOmsiekKa3vjvK1ySzNMP9TNSxrRzfpFdy7
-	 g+Wi/uTrmlbfJY+QlEUO2bHyRnl2U16PxEfgc6MDsmGl8EHfoeAGa6DmtlhNyluEwlaE/
-	 owmX1OSe1D71/wm1dnVAu9ZSkHG6kj1MekAsbAQft889RLc2gACnbh89jIOiHMWcnxg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=8alias.com;
-	spf=pass smtp.mailfrom=8alias.com;
-	dkim=pass header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=QYWoH2er;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.173
-Received: from mail-200173.simplelogin.co (mail-200173.simplelogin.co [176.119.200.173])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579A9606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 11:00:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 579A9606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=8alias.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8alias.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795258915;
+	b=wQPXE5v4FI/0uTftG1CxqNmEKz5JuEmIIH/TTj0ApWMk3Z6lvVJ+4slurT+UQwcsEpaY
+	 ehJXMsqCxaBYQpPX+qrwvvSw8r6tuQ5i6OabgnCfpwHZ8qP9E/52r+kPZ7SyGcpjl2QkZ
+	 Ff62hAyG5y5nC9OUgmw46+en3gjKu7+C6nCSMa+/CAutKCGJlt19tS9/zTs06H8kk/w0/
+	 h1BoK/6CTM321kXBo1mPlITh0Lzy796xg859EF2Ys7hPwB1nMDpV/I2pO0U5oypc5sJGj
+	 ltX+24E5jjoF4LXnpWD5eeaOiPa9iI7BpDZEwNM+wG1gBgp6PXNw9KOn1oDM0TatLvw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795258915;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=TWf+jlBIQBGwk4QT4KRo+cGa7wFWGG2xF2hmkjUB8u0=;
+	b=DSAPAyNCi+GsU3aG11K1zNX+2Reo7+W1kG50RB37Jr/bx39d+7jugMZ+FemQpXpJbd6+
+	 eD4DqMbJMzQSu8tnU8uIexhUaGT6QJD22SS4XEkdtwgL6gqEwcJHQObfy7+yCyaLEhHft
+	 8XHKTpkU4yRFDiK1CtU25iqmBrGd3psNGtqj4c177aRxbFBxjMYAbcP3GJ/L9SMpeFKUA
+	 mcQTXLQm1e6SU8xp+48GOdBR9/9XcwTSIBVxmdWXPBQr+ehhmvR0aErPwWscZ/ZTryVjJ
+	 1MgicW7DyIFZGQ7m167LYc5Wjdrsxzy/8SWj3uKx+mVywKun/nfkH1kWyp4zLHQbf1w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=m+MLl17U;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A2370606A320;
+	Sat, 21 Nov 2026 11:01:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2370606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=QYWoH2er
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1795258796;
-	cv=none; b=h3a+LJMicfPgCWz4UF4JbXy+QxJBCSIXyUo/w6OYWtV99CSxAYlJ6sLIfK8fIKTrrkAlComdntjLH4yqNNXhtef291VL3MCmTGEl7iFMgRYWBRjILOPMp7TSHOZyFvLTsimQF1cq0Zd/Ys/oQJoog8dXL6bCSJbc5BPBmgNaiGuWW8Nf3Xm82ma9/vlTUH6BsiLi2UIT/meCajjxk6ASJH2xK9STJ5lCcO55ccFrWgLgLXsLNSbqsgh8AbvMCcYbs/6vMU8hP/wqgVKRaxkR1JB5Fr24HgoXKYLRjODyRG1i1Mmqvue6+iam2w3AscVwsmX1snjLL+cL20+gPdua9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1795258796; c=relaxed/simple;
-	bh=mxpwphme3p8/7+XLeJahR1+ecqy/PNzspX4y3gTC0ps=;
-	h=Date:Subject:From:To:Cc; b=EA9upLh9WiOj3WVqwdsp9J8OofT3eA0ZDiHjQnJQoiaXp355qT5GJqaqn3mp6zazqCZbLPGQBqa6CrZGKTBoMPME3bKjZPYTaFQ/qZHIjW79IDLfAmqPhyo2gyYjmoOcJYi960FcPk50/D+TI9tPzn184X9RnewqClNK3OA9wlNo0bbV9ZpSKC2hDf7T2Rh4F3qnWu9/op27ZSExVfLG7f+K3B5wjOgo/9N1EsoEfpUDWbkOm3bTkMfFhnXnxwXDnguun7M9wQv6qJ/SjL8hx97Lz+Fd5vClFofOmSMIBLBUVqmroceeBkez9uWjPnrbOIvbWYvSvnCZdExYBdJOFw==
-ARC-Authentication-Results: i=1; mail.protonmail.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=8alias.com; s=dkim;
-	t=1795258796;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=mxpwphme3p8/7+XLeJahR1+ecqy/PNzspX4y3gTC0ps=;
-	b=QYWoH2erMYlhx/F290X/HvoP3pwPXxcY/K/IbNOMhUWtoKBIOsPFlruWNuBtQV/i/Njw9Z
-	FWU7rusE3g8swhX8qRsBGvRoSLmGp8nd2oj8eMQWbvaBovibBWN0Y7PmldYrKOdj93dgHA
-	jpvE8Loa7XYpck4w1PECxfsIvysj6mo=
-Date: Sat, 21 Nov 2026 11:59:54 +0100 (CET)
-Subject: [stable request] Backport TAS2781 calibration address fix to 6.18.y
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=m+MLl17U
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B29761575;
+	Sat, 21 Nov 2026 03:01:50 -0800 (PST)
+Received: from [10.57.93.173] (unknown [10.57.93.173])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A85D23F673;
+	Sat, 21 Nov 2026 03:01:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795258913; bh=b606/LbDulrarsbGOfDsZnPHYpPyDvJEr5RossCWTCI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=m+MLl17UBpYuoJHPoix2uCTLkZOTjwAdDBLO2DuGlFrb/3ap/qbaoRqkWqHw5FDPJ
+	 rYPl8cGGuPCr3y3My2HROvuBYmb8cU5lAsrv89CKDDSQ+Linu+MNsLN6Pb5ivVmjW3
+	 OFeIq2rlrbSU+itEgTGbAVIriMtbruJm30MnGltQ=
+Message-ID: <6782b5ee-3dfe-4076-a79c-fbeb2c2ac7da@arm.com>
+Date: Sat, 21 Nov 2026 11:01:49 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,29 +53,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: mm: Don't defer the barriers when installing a
+ fixmap entry
+To: Fuad Tabba <fuad.tabba@linux.dev>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Yang Shi <yang@os.amperecomputing.com>, Kevin Brodsky
+ <kevin.brodsky@arm.com>, Anshuman Khandual <anshuman.khandual@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Fuad Tabba <tabba@google.com>, stable@vger.kernel.org
+References: <20261120121638.194154-1-fuad.tabba@linux.dev>
+ <20261120121638.194154-4-fuad.tabba@linux.dev>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261120121638.194154-4-fuad.tabba@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-From: linux-kernel.supreme403@8alias.com
-To: stable@vger.kernel.org
-Cc: tiwai@suse.de,linux-sound@vger.kernel.org
-Message-ID: <179525879604.6.759418222472508172.1791565667@8alias.com>
-X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1791565667
-X-SimpleLogin-Want-Signing: yes
 
-Hi,
+On 20/11/2026 12:16, Fuad Tabba wrote:
+> In lazy MMU mode, __set_pte(), which __set_fixmap() uses, only queues
+> its DSB and ISB, but a caller can dereference the slot as soon as
+> __set_fixmap() returns. On a CPU with BBML3, runtime changes to the
+> linear map are made in lazy MMU mode. With 4K pages and 39-bit VAs, for
+> example, such a change can update a top-level entry, which
+> set_swapper_pgd() writes through FIX_PGD. That store can fault, and the
+> kernel then warns about a spurious translation fault. When kgdb stops a
+> CPU in lazy MMU mode, its breakpoint writes through FIX_TEXT_POKE0 can
+> fault the same way, and fail.
+> 
+> Emit the barriers directly in __set_fixmap().
+> 
+> Fixes: 5fdd05efa1cd3 ("arm64/mm: Batch barriers when updating kernel mappings")
 
-Please backport ba39a31448857da3b848174c9130b466b3ccddba
-("ALSA: hda/tas2781: Prevent throwing away custom calibration addresses"),
-which landed in v7.4-rc2, to 6.18.y.
+My memory might be betraying me, but I think this change went in before BBML3
+(BBML2_NOABORT)? In which case, the bug is only exposed by the latter series?
 
-The driver ignores custom UEFI calibration register addresses with
-non-basic DSP firmware. On the ASUS TP3407SA, this sends factory speaker
-calibration coefficients to the wrong registers. The fix was tested
-successfully on that model with 6.18.59 and applies cleanly to 6.18.64.
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> --->  arch/arm64/mm/fixmap.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
+> index f66a0016dd02d..951004ad700c3 100644
+> --- a/arch/arm64/mm/fixmap.c
+> +++ b/arch/arm64/mm/fixmap.c
+> @@ -127,7 +127,9 @@ void __set_fixmap(enum fixed_addresses idx,
+>  	ptep = fixmap_pte(addr);
+>  
+>  	if (pgprot_val(flags)) {
+> -		__set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+> +		/* The slot must be usable on return, even in lazy MMU mode. */
+> +		__set_pte_nosync(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+> +		emit_pte_barriers();
 
-Test report:
-https://lore.kernel.org/all/179364849173.6.15547077920953953013.1741098232@8alias.com/
+I wonder if it would be clearer to wrap __set_ptes():
 
-Thanks.
+lazy_mmu_mode_pause()
+__set_ptes()
+lazy_mmu_mode_resume()
+
+I notice that ptep_try_set() is also using emit_pte_barriers() directly, but
+that feels like a layering violation to me.
+
+Thanks,
+Ryan
+
+
+>  	} else {
+>  		__pte_clear(&init_mm, addr, ptep);
+>  		flush_tlb_kernel_range(addr, addr+PAGE_SIZE);
 
