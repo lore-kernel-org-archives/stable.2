@@ -1,53 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795285253;
-	b=aaaIteSQ9nRWECI+XC7iaKEIaf3s3yzqKxUEj+3X36OSCVuKHP8O1lyQmPcvbqgCRMF1
-	 NIxVOpbwrPo3x38frJwrU2dMF9vnSwsZrYelSfpeUVTR+zY4zGQcGPwkXfTrK6+ivEdlO
-	 yc7natQIv5/KMgZXjc3TcPOn2JbH8637BWpbRtF/9wQXZJfI1KyTMHK7BznAb/2Vpx987
-	 hBBbqDH7MryKHKO+eHwIjliB2F8Ku5JE9S4zGPKBfA1a2VTMabW3uZ+URH7a9plQftDXk
-	 pVdSVGLS9WxD3SwDxOw9RHhMCQIrhBtUWlYrhE/v6ssY28Z34xRjvP0CCBmTeNHObiw==
+	t=1795286059;
+	b=of2figN3RCv3E627o/mLgZaTyasaKxDeg+2iosKZoD7yAKuPtVdnrHZTj5aukbF/RQXY
+	 bFagTtJwGkwX7POg6I8aNoO+AN1bTrjC35G4IsAlkmDi4+zdLSRa9qO4U07tCRNnNHUpS
+	 +vtcx/d2sUVoqQi6Hl1OH35aL0dDXcbQmvc4P4Boki62UyXBmWFReV48gkIlQ9RshoFsa
+	 CnDyIIYIIqZVbfFqfCrTvHgG9Al7VMV8+GyRhwxbQPe/UIwqLwFUfhwe5+GevpqoNvogc
+	 3jZ1eR4+UJsifQ8O6UiJoLJUB8Dm367UD0nst4UJiS7VAeSjX/g9HSOzTc9jmYK2/5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795285253;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=UxWNGLEx+/y5+pkDhn0vOJ8y7NZhdTkUk3GIpLbhKiM=;
-	b=E/byDXCGn3JFz0KLMx92o3pdDBUf3kCELLXtPXB+FjPPlVpDrROfQrrzQL2wEuxabpqc
-	 S1kJiMDVjnNZZRWl/PWDRKjzbChTiA3u0FwGtgaUVaFuVg/4yDGDXeWsbaFB8dzB53zeP
-	 036eNAktzPbZQhsdDdsxSfP0zHIjgOiRzbyoy4R669qcywWMl+8j2lqjRTM8q7MTsWJnY
-	 ItGIPOM2BH1Zz53+hRdcsJGNTvUa7o/DBBUhxsZBpEymoQD9kqoVUFBluHQH5i5Zywh4Z
-	 UBTg6rPWR4AtnvKJJoZZhRxYO8DTvB7+ph6iLCY51mTdWAjJRnQ75yTAtThvgsNGqPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795286059;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=pZwAAsxZcP3F0DIRuj83h9LceocBWHM2k4wu68EYJlk=;
+	b=a27sezvclNYvzljFoXvdrFvReNNNgsmK/EomCUAfzeTwVHGlw3iLmifbriFImL8IRvV3
+	 ySSP2h29rAQnr8rPcuf8AkfsgQWD1hPpjtmbw8OYIXbqDkMDd/ACJYKEUSCbozoJFm+q4
+	 EHYOGQzFlJdf9F8atC/NCsWahB0FJ+0XHVFlRQSSkUI7z8VFGwPO/V/JFar+c7dXwX/Z3
+	 1aAQm3Q7Bf0/690Y6P5tpOPhM2wNjyuSeR6Xzjo2l6JwqY9DnGMwKSyY/vXMU97PBzEvF
+	 BEkuR4rUS/bVJuKIfH6Xkv0PM9cWMV602SXWW6LBZpwSSTTy2KlfWWawNh7uUdHKmuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0935606A335;
-	Sat, 21 Nov 2026 18:20:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0935606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ib6aRbCf;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71602606A32A
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 18:34:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71602606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ib6aRbCf
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2efc4a84e75so29995ad.1
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 10:34:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=UxWNGLEx+/
-	y5+pkDhn0vOJ8y7NZhdTkUk3GIpLbhKiM=; b=wQTXMcWui6mvauhe73rNLE8o+V
-	+UNmIFY50RzTpbzx8LOAyqelAYoUFtdzrJZPBN8y45uhk7NXPZS/CY+bCJ4X3kZQ
-	nIUk4eoEOzk+aoa7BYsxtOr/jq8kMnymPW98ZmVcer7g9oOXMhL1DdVAsfUqgIf2
-	svxThI7FTZUp4BBzE=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.70])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkCmxPr54AFrVWUGAg--.50854S2;
-	Sun, 22 Nov 2026 02:20:42 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] media: dib7000p: fall back to 8 MHz for an invalid channel bandwidth
-Date: Sun, 22 Nov 2026 02:20:40 +0800
-Message-Id: <20261121182040.18514-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=google.com; s=20260707; t=1795286059; x=1795890859; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pZwAAsxZcP3F0DIRuj83h9LceocBWHM2k4wu68EYJlk=;
+        b=ib6aRbCfOGwQE6/BATIR+ceYurjtyrXkoCQHVhE028ha+RoKuL8pR1qHFqJyREFiKp
+         z8p0CuAQU2n88ax0i8wGZlB6nXui7WzmCSc2h0hXq3v6IsM2CXQWpqyyv1iALwoW9ZwQ
+         NvataTs2P5rQ8WJAEEhfk4cuMQ3PG9jA2yrPBuWooin0pTdFTUTZ1coIiZTEa9+r7lfk
+         /QPClRGwXRDRWTQToXdR4j3aUxsV8XrJ0tuosKcEP/cfY524JSaePMdH0+JNm6/o/sx7
+         xw+9VJpw6BCTn+81JZihzC1VDOlc+XArW/7P8L2u8Sv1dC3L49WMbrDg/NKIXjBupZvt
+         KuLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795286059; x=1795890859;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pZwAAsxZcP3F0DIRuj83h9LceocBWHM2k4wu68EYJlk=;
+        b=i9igdzb2mY+InU7OHF/XQnYmvyhngw33s0oEOwY/DeDW4WaE7QFr5tA3EOo0wMD7tO
+         b25wsjM7RTUh3hg6il9iSzX5poL/PurLcJk1x4jnzKIJoBP50fD63Zuo53iUkaf+b6Ei
+         L1ALUB6meG+LlN/abjPh3YdfBWZPuY5QH8F94ratFx/E1A5Dr8vO6/AP9KMNYprYNlYG
+         I9IOlbOzE2ZI28kk3aumhXNzA4uhqX6hGAfFjLV42XId5DOZNQcWh3718xHIsfUjCjAC
+         PrsJmr5hU+fHtgL90YPiZC4/hBhumhhfYwdMAoNCQLF5s66VGKiS9V+yG+6dNoAY/j0m
+         WYVQ==
+X-Forwarded-Encrypted: i=1; AL+hErHJIj7VsIAO8BNpadIE/kgAr9GnNNyzPhf952AZI/SZH+f7vzlq+WI9ZlRJqbF4JCcxchd5NqU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9A4HtotHaX7cT/Vo4wP+L3nrjV5SRq2BHO2BKJP6xYM6ZP2zkU
+	LDMMai0ND+lQEmuL3aw86qxHb5D3dBbY4nPF/FnptpQ+vMUi7tte/LfoHIJzSTfqhQ==
+X-Gm-Gg: AZFdTZfed1Ho2xFTFcF6ysuMBT4SKC39biCV8RXM/qPuALDTFzf3lpjSEXPWxEEdYKM
+	1mrj+6eD3YPdnSVIjCH+W6XVIJQnBLPCosKTU/znLFVamykEUDCI4IxTFRVia8C4DwkxzA9a/pv
+	c4gdEDaKH2xKh0+kx9DwUNrRqNtb2elRghwbXc5f+lqSi6DxA0hed+Ax7vROmPUXX/V/DBCeAv1
+	6cS4AmyEUl4/+N1lG9lAMdZEl6T1imYY1SFqLl2VYjKcofpsU8lCO9Sfu5zYEof3IQtW8nNB7rZ
+	iT3EGUgQFjtbhmGYrCGKDm5xltsy4895qFF+dqanZQfgj4dmfQsx9CC6gtg3aD+BfTtpPUB58jh
+	H5HVwgdEDctCjAh4Y/7Yqhsg76QR70jIGiF9/WfFWEe8Sf+pUq+Tct/rYjmJPjPOQRP8Srq1+2Q
+	AHyzmFN4ldw5g0McJt+BXNI4cv685a4TXPQXKSwhN8qn/SHKQeLVbALpcE2KXO3BeODvY3mDFLu
+	QJaIQJsVGrZv9w3uoPSI0tZlgoYqi+iBpIq9oKz7l876dOTB0MOZ+ZDvjVOpdjchcfeF0nWpKcY
+	QaI+lE/7BSHZYtM8D8VefGdDMhDFw4sjyPGjzx/CUH57ySXJiFTxbil1LAeEjXWIaZYMDE4J4/Y
+	OgBQITEO6c1YQntuSwbEZYReinhooR/iCe4ZMsG6KduI9oSK1Wy2M6p0rBdKJv/uTETdTj0SQVj
+	ywAq5Iwoswar0nFv5FBqvIsrOltrHVQhZeEU+gR/CNCdT7epB4bvxUo6rKuJJfynt43xhg
+X-Received: by 2002:a17:902:e950:b0:2e6:12af:5b04 with SMTP id d9443c01a7336-2f0615b8824mr3806955ad.0.1795286058213;
+        Sat, 21 Nov 2026 10:34:18 -0800 (PST)
+Received: from google.com (130.155.125.34.bc.googleusercontent.com. [34.125.155.130])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b6fe711sm2350677a91.1.2026.11.21.10.34.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 10:34:16 -0800 (PST)
+Date: Sat, 21 Nov 2026 18:34:12 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] rust_binder: report EINVAL for unknown handles
+Message-ID: <awHkJIAjp7FuTxia@google.com>
+References: <20261118-binder-unknown-einval-v1-1-ef4ece277b26@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,100 +110,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkCmxPr54AFrVWUGAg--.50854S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXFy5try3tryftFW7tr1DWrg_yoW5tr4Dpa
-	93Wr9rKF95tw1xAFZrJw429F1rJw4FyFZ3G347W398ur15XrW3Cr95ta12gF1UJ34SyFyY
-	va4UCFZF9rW2yw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6ryl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxUkuMNDUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUED2sBtkkSPAAAs3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118-binder-unknown-einval-v1-1-ef4ece277b26@google.com>
 
-dib7000p_update_timf() derives the new TIMF value from the channel
-bandwidth:
+On Wed, Nov 18, 2026 at 11:25:40AM +0000, Alice Ryhl wrote:
+> Currently unknown handles are reported as ENOENT, which userspace
+> doesn't treat as a fatal error. However, providing the wrong handle is a
+> fatal API violation, and indicates UAF in the userspace process.
+> 
+> Thus, change it to EINVAL to match C Binder and make userspace treat it
+> as a fatal error.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+> ---
+>  drivers/android/binder/process.rs | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
+> index e97213250beb..406d80cfff08 100644
+> --- a/drivers/android/binder/process.rs
+> +++ b/drivers/android/binder/process.rs
+> @@ -958,7 +958,7 @@ pub(crate) fn get_node_from_handle(&self, handle: u32, strong: bool) -> Result<N
+>              .lock()
+>              .by_handle
+>              .get_mut(&handle)
+> -            .ok_or(ENOENT)?
+> +            .ok_or(EINVAL)?
+>              .node_ref()
+>              .clone(strong)
+>      }
+> 
+> ---
+> base-commit: 917fcbf033154a6c8d83cfa6c88f012b71eb37b2
+> change-id: 20261029-binder-unknown-einval-10407d1ebb1e
+> 
+> Best regards,
+> -- 
+> Alice Ryhl <aliceryhl@google.com>
+> 
 
-	state->timf = timf * 160 / (state->current_bandwidth / 50);
+LGTM,
 
-current_bandwidth is the bandwidth userspace asked for through
-FE_SET_FRONTEND or DTV_BANDWIDTH_HZ, in kHz.  Zero is a value the
-driver can be handed: dtv_property_cache_sync() maps the legacy
-BANDWIDTH_AUTO to bandwidth_hz = 0, and its OFDM bandwidth switch has no
-default branch, so an out-of-range bandwidth leaves the cached value
-untouched, which is zero until a valid one is set.  Tuning then divides
-by zero once the demodulator reports a lock:
-
-	divide error: 0000 [#1] SMP KASAN
-	RIP: dib7000p_update_timf+0x85/0x1e0
-	...
-	dib7000p_tune
-	dib7000p_set_frontend
-	dvb_frontend_swzigzag_autotune
-
-dib7000p_spur_protect() divides by the bandwidth as well, after rounding
-it down to 100 kHz units, for the devices that enable spur protection.
-
-The demodulator is reset with an 8 MHz bandwidth and dib7000m falls back
-to that value for a zero bandwidth, but dib7000p never got the same
-handling when both drivers were converted to the DVBv5 parameters: the
-old BANDWIDTH_TO_KHZ() mapped a bandwidth it did not know to 8000, the
-new one divides by 1000 and returns 0, and only dib7000m was given the
-fallback.  The same divide error has been reported on real hardware with
-kernels 3.10 and 3.19 but was never fixed.
-
-Use the 8 MHz default when the requested bandwidth is zero or below the
-granularity used by those two divisions.
-
-Reported-by: gary smith <kaisersose77x@gmail.com>
-Closes: https://lore.kernel.org/r/CA%2BfUvsiNVBvo3%2BfjvDcQr0Rc%3DPp5pQA1qL_cYq46NCN5z5K%3D6g@mail.gmail.com
-Reported-by: Adam Baker <linux@baker-net.org.uk>
-Closes: https://lore.kernel.org/r/550B4F8D.7070905@baker-net.org.uk
-Fixes: c1f814f49904a ("[media] dibx000: convert set_fontend to use DVBv5 parameters")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/dvb-frontends/dib7000p.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/media/dvb-frontends/dib7000p.c b/drivers/media/dvb-frontends/dib7000p.c
-index 48d84a05ddfa..dd3181aed2e4 100644
---- a/drivers/media/dvb-frontends/dib7000p.c
-+++ b/drivers/media/dvb-frontends/dib7000p.c
-@@ -1515,6 +1515,20 @@ static int dib7000p_set_frontend(struct dvb_frontend *fe)
- 	struct dib7000p_state *state = fe->demodulator_priv;
- 	int time, ret;
- 
-+	/*
-+	 * dib7000p_tune() scales its TIMF and spur protection settings
-+	 * with the channel bandwidth and divides by it: by bandwidth / 50
-+	 * in dib7000p_update_timf() and by bandwidth / 100 in
-+	 * dib7000p_spur_protect().  A zero bandwidth, which is what the
-+	 * legacy BANDWIDTH_AUTO and an out-of-range bandwidth from
-+	 * dtv_property_cache_sync() leave in the cache, or one below that
-+	 * resolution, divides by zero.  Fall back to the 8 MHz default
-+	 * the demodulator is reset with, as dib7000m does for a zero
-+	 * bandwidth.
-+	 */
-+	if (fep->bandwidth_hz < 100000)
-+		fep->bandwidth_hz = 8000000;
-+
- 	if (state->version == SOC7090)
- 		dib7090_set_diversity_in(fe, 0);
- 	else
--- 
-2.34.1
-
+Acked-by: Carlos Llamas <cmllamas@google.com>
