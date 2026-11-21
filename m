@@ -1,93 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.1
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795265565;
-	b=PMMg6e1fjfPw7oqBdZ7xOvDbb7Ve37TPkcm7qgtozMd+8HmC4Ca9K5VnrpREyQViBmKL
-	 6ZtvjXOy35eS+O4SNU9FtXsk7JJaWjqWVhqju/zyEaKxcIXyrzzJL9DC/KBtZnPN1MDNf
-	 i71A1nwz1w4jGhD3B+KwKrFPVm3Onkd5RI2bL7ueMfbpK0wcVAOu62j72Hk3NbXCFTAuz
-	 frJtjKSzsd+qQ1zWP4B6104R25JTZkSsxrUMhH6wWmUNVPy+UhNSsRuTaiTjtku4THvy9
-	 tZn4Z/irL0JQx9zCMStfsW3dPXuD7CWZkZEli4dYqLMaMO+Gu32iVUvRiofQn249WQA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795265565;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=c9RBokNlJTUyOl6hS2JAefnEUkSVy9b80NgcIVvxsbc=;
-	b=CWLjmb9a4zkMC9nseUBg5t5U5q9EcTs0qPc8SqW9Bohgm7IALxpnt2M7B18A0k0RAuy6
-	 3qD8rDtBiR3q5x0FpuZDmHweG10ihwsfgB7EETfSxjxs8D5NIbjwvf9vjHK6+WL2Rvu9N
-	 ludr6tmlqt19UKXKFiEv1zasihKtNdfIHv2xgCywlK1EQxzPzQ+H78OpcLLVZ7Yiu5/If
-	 1/Ies7FT0XkuK5aKzwbApdez9TsOngMDU/wjsZkg6qBPb8GT1tV7QuSu+zWEzjQKXpEhy
-	 kIhNym1YrE5O3+BV0yZ14E/uW4McFgYpTxNo1mggN57tqiSXRjJjir5uF19vl+l2I3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xMoEi3lz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.1
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010001.outbound.protection.outlook.com [52.101.46.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.139
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795265641;
+	b=o/o5aecsVBfdShSICy3bK9XHKNttiwDC6vJ3UROKBwRat+kCny2MxMYw+haAvKTOMFjt
+	 sjFoTK3pCKwkRa4+JGH1VFBRfvsl1T+f1mlS+pfSIheSuIri8/nssgoprF/OyrQ0DxDHk
+	 5B20bndJZNl0RBya/pgnE4nrAUXLKeFEA9EwACp50PkoUm7YpdsLz7m2oaVVsjgXW9Bbk
+	 nNJB2rLDE0bLmUrNOghwjMamsfIXorXiaYaEGWLuLNO0vx3jq77AhZGKV7nVNeQnDGvUq
+	 iPpoSrPUT5b018PHjK4W+7i3OUfS+J8ZUD0aT8tpsbJ7nXd3ptg0K+dXVkSNqRBX4Hw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795265641;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=FgvFBR0X911CFkft+m8BaNuu7kHa0PuRcgZI2MmyPWU=;
+	b=0jJH8Uc4ZRqnZtUlU0aaL8Ur7BXy4yfEztGo1keKSwsjxPVt3HwK601yPXvW21qNcwAB
+	 qhj5PNKsxVzTom8DMeQvEctJJ7RpCoFMPsvCmYWwrcDGjWmJgS243gKeK8j4B8xzUYcWg
+	 PRVwz5gA4J5XauEgqrCrBx71cNGnceYaiYOZWGdksTOS2D39yquQ1WSSdzzkjE15PQ7SU
+	 PUAlxVu1P1S2Nwg3ixQc50BfBiFfxyyM7rFpd6xxGDK7eGJPNI998g6TsPCsGID4G1RXo
+	 4YX+Rw47IxfzF4jWHBG8wMwI8aTXJtjN59NQggWLYQdynTaPdDR7PFQ1uyv7YsmTjSg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z39VZU0d;
+	arc=none smtp.remote-ip=74.125.225.139
+Received: from mail-wm2-f11.google.com (mail-wm2-f11.google.com [74.125.225.139])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A7F606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 12:52:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6A7F606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6B8606A32A
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 12:54:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E6B8606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xMoEi3lz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k1MdK8GOT77YVzt845TcAYnO9lL4tHMcTmpC6ITVbLqFEC+YfBlf5aa0nTxM/yhAVfpMK2MIcBiIgNR34Q/Y+q7CYzpB5cioW4jcBWgm6nx6avggcwc3LRxUi5WqPDh9Xq0dg+uLsqqbFSVxN5/zaUldcCAEcolUKS7NcFvpVE3TS9dNnu1AVLs81sDMiTLTYiDhR5qlW/nTXnB3iJIUln8zshpACATzWz4rIrc8nV2G1tatbwJEAkRaMjmGn434CgnWJYdFmqOF1eh5SwthvR+GLmHqwLvsU50vj1dUhZr+lZSkV1rj0i79yw3V/AJpIklzRh8BY3BeH07hCwpiag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c9RBokNlJTUyOl6hS2JAefnEUkSVy9b80NgcIVvxsbc=;
- b=E1r6S62uGBTpkTBxJ7ieF6SDeUeXGROmhctJK+KyQ5dIc/CP0+nALglFwfaLA/qgDBx/7WExapAni+OxPJoL5fI/YsKUXnsxUrPnkpbuJRUSJmS/Xnrty58h49dXXRHO+UgNFBwE/Vh/S+MPQk1CVNBOSMDpz59H49l5+t8/FlmXLgj6x8bGVlBXl1GjqwMjr0kgSw5h8btInkHtwUDmTsstpPNgTrNij9++30opTIEXsQ2BzfTvLeFBke+E19slfF9kYeiUruwSBA/9CUgKOwOhnUjb3TxJ9QfrYu5/sko0YbjCNPJLhWUoIxd4u6MMCh1SYPANXshF1NgEkTne7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c9RBokNlJTUyOl6hS2JAefnEUkSVy9b80NgcIVvxsbc=;
- b=xMoEi3lzURlG4qhNaIdqj+QcxLN67sFXlgW14s89aVFyCWqt0+hWovcGIOOWJHMMPWGqoWWGtDo0tCZUIKKb5CLzBhS/EvwO1+Bp/G4fPQdZsQsa0RkgccUbQKrEgRslldcafWRQ8D04gvy7T4E22H3fwMK+QQlVrG9oRfCqVGU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
- by DM6PR12MB4484.namprd12.prod.outlook.com (2603:10b6:5:28f::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Sat, 21 Nov
- 2026 12:52:41 +0000
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0639.011; Sat, 21 Nov 2026
- 12:52:41 +0000
-Message-ID: <bd7566e1-66bc-43bb-bd41-f1170e32b8f1@amd.com>
-Date: Sat, 21 Nov 2026 18:22:35 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iommu/amd: do not remove the shared IRQ domain on
- intcapxt failure
-To: Chengyu Liu <lui2012qwq@gmail.com>, joro@8bytes.org
-Cc: suravee.suthikulpanit@amd.com, iommu@lists.linux.dev,
- stable@vger.kernel.org
-References: <20261104072241.1617661-1-lui2012qwq@gmail.com>
-Content-Language: en-US
-From: Vasant Hegde <vasant.hegde@amd.com>
-In-Reply-To: <20261104072241.1617661-1-lui2012qwq@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0266.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1f1::14) To BL4PR12MB9505.namprd12.prod.outlook.com
- (2603:10b6:208:591::16)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z39VZU0d
+Received: by mail-wm2-f11.google.com with SMTP id 5b1f17b1804b1-4a5f76661b5so6536865e9.0
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 04:54:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795265639; x=1795870439; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FgvFBR0X911CFkft+m8BaNuu7kHa0PuRcgZI2MmyPWU=;
+        b=z39VZU0dqtn9kYyfaDyAKgib3xIksgKtBeCjirM1HX6p41OyYALNbz1anmDI2lV8LF
+         Er9SMg2QxA8pNL0XSCDYLp50q/ehl6lm6xmPAjJyQVdMVw3nhODjnd5YFEKd93DV8cVE
+         ewCsLFReMnfVYa2rT1INKMu+Deo0yNvgCIhpJXm/rZTvRfej8J0T8vX0EouyRm2xr25f
+         35liin1vll/j4c0WcQh4FiACL0sU88kujT5RMucj+EsoG4i2oNdOpHZR+e33VkKqQNcA
+         XxBDviTStAyGK3xU7B3UmZitisOjzCleyhmAGtXrx0Ekv9cHQECCED63DgpR8bQpurn5
+         iutQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795265639; x=1795870439;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FgvFBR0X911CFkft+m8BaNuu7kHa0PuRcgZI2MmyPWU=;
+        b=pluqPY1YyusSiUYbWIddKlFwgMV7JEoviz7le8F6blY+FRlNRSsKqYaf66RqLDZsVA
+         B7EAWaVur8ADuVuCb8CLjhaPb9XwKPxzCE0v+NW7Q8ci0uAVlNm9ZcLvFWiuXDAPhi6z
+         9QUM8yRCghZz69hoMIhyA5YsMQGaFWxcolVVJNb7kDH0T1RgiQdHvCC5OR7GIS2cb67Q
+         civ7Rp+YS2ZDEYO9q7JOEEgnxHQaL/WmT1ctRqqHZzjnoIDWqoT9uBpArN9HcvKfbKE9
+         x2LDG2OAeusgdsVKAxlI/8IezqH3/YNocKvNZ3STaEgFaIPExIZh0bGOgGcBvSLQUpY0
+         ZjXw==
+X-Forwarded-Encrypted: i=1; AL+hErEz3Q+fyp4F19D2TZnxvUulusFtJgU50ZK7hj7RixYqHE/AJU3cg6RACy1H/CaW3VJP33aknY8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JZxp8DHpZenTdwwrGWTBxyppK2VVnAqNffGD7zhGvMFbMmctS
+	ZvGIETb7Kv+BnzNlFcLzcWIDNfzNGaP62ER8h7JElX7987qrC/95J5X7
+X-Gm-Gg: AZFdTZdgbdieeTgJD5HL44sAWQOu49CIeyDX9S82S9MdBjQzEUWzdyR52tG9NSjxnKs
+	2OmTVajdTxapDRwHi/1Du6T7DR8EdlfVYGnQijIzx36m2qehKCrup0KEuvxxYJJySjMF7HLSZCO
+	VaB5PpN4WpyCVHug/n89usqehAeRtXMbDhkKBAdWluaMNolfvgbh7/O7wUtRQgSwsOqOfpYaLCO
+	+hsh251zNRoIW7RvA0jKpXuF6vDR22w2FGnksmSS35YLnWs0lZFRKARbE5HwzmYnAQOyYpBCz1D
+	YW850mpcY1PqaNh8ioPC+DNaN3bN1W+yVchXuF6WRWHBaSQVz77/ecESlJ3x5uu3n3NWxOZBanx
+	8dP+3HhrFv9wSEDxn9+rMIEPqXm2p8e5N47kW2eAttDHhucPx/h04/GpnHwCtM4AfRoB+nj1mMc
+	AL71MjYU+XG0ajmv4aEPkdlsJB/h94/6KNzffiAt9Fo3IZPVt31MKGYczEXHRWSbonSiuJGW42h
+	TRrmqdkmKejm28qhkKTgGaIRPchu+fx3J+OON5ZVvKhky0fS5tCSvr28avFif79pafX1mJC/8f1
+	Jdt3Yld3d/PhAFbzSZbSih5QHx6g3rm/wiK9P27UMMvFHA==
+X-Received: by 2002:a05:600c:674d:b0:4a0:1fb9:2f51 with SMTP id 5b1f17b1804b1-4bb88808263mr145949025e9.14.1795265639269;
+        Sat, 21 Nov 2026 04:53:59 -0800 (PST)
+Received: from bullo-XPS.home ([2a01:e11:1020:c3f0:892:8c82:19f1:6d0d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb9066f6e6sm40009215e9.3.2026.11.21.04.53.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 04:53:58 -0800 (PST)
+From: Bullo27 <matteo.bulloni.27@gmail.com>
+X-Google-Original-From: Bullo27 <matteo.bulloni@mail.polimi.it>
+To: platform-driver-x86@vger.kernel.org
+Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Matteo Bulloni <matteo.bulloni.27@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] platform/x86/amd/pmc: Add T14s Gen2 AMD (20XG) to s2idle quirk list
+Date: Sat, 21 Nov 2026 13:52:07 +0100
+Message-ID: <20261121125207.12284-1-matteo.bulloni@mail.polimi.it>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,105 +98,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|DM6PR12MB4484:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf2b2135-d133-43fa-8e4e-08df47ce545d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|10067099003|261022105027099003|56012099006|11063799006|261009223027099003|261009221227099003|261026140227099003|261026121527099003|261028144727099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	FS/2RY5kShMNS6f9w8U8kepItwtZx9YZwTMMXFPqhw9Ydcxc356tcsMWlmQQvGyfCHIeNcSU3W4qJPviwXwOVC9bQ2141FIZi/3svcj6kSaCcaMJpTJH+rhvXyAMmP0+4Fe5zZa2n+u9geksNUhNY4RR1WOB+51Csj5kyGvZWEJi2cGFKgEh+pQ7N7X7hOAtrGRx7m9cj9mif/j07T91T9VhFaxcj7JPogY+JtYAeXf1mR1MZVVNZyB2lo4kBG5qy1kCvFvW33740IhpxafRgZHgOeQRvha9IQkI/pz+Ik+dQcfFpAWTROgELRuZOZbdboJn2AvM3jNIxRHkJxn+98AXlA16z0RHcg5izOXQl7izRNVnmsHb0FT2VyOxYn4lPRGMJrzlV20HdcfiA1uZOmBZ0xNaadvhSHVBkFHLcBc0Nh3n7SiOlj+7q99RIRPeM+NwYX5rBCtbi2IpE+Xw/9epPjMTeQTswAU1iEu2SynbuyanFtUPFFFAuufS+1KNJ0658INW7hm0TzGk/kg9kTeZXVOcI74pYL2HP6dnUSRrOrt8n3E9tyDPuJtZvk0mpT1HN5vWdn2BzvNrdJ3Kg3NQQTGgiVH8gw0vCsntG7/q5stR6i7qNVpzjjbhzSwZ
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(261022105027099003)(56012099006)(11063799006)(261009223027099003)(261009221227099003)(261026140227099003)(261026121527099003)(261028144727099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ei9RWHhqcVZJWkdUWnE0RE9meFhNdW9zVDdINHAxakIrdzNyTjlBYTh2dWd3?=
- =?utf-8?B?K2xWM2ZIaE03WUZXVDFmVGdIcldDRXBWVVJzMEpqUGg3dFhtNFlvQ0czYzl4?=
- =?utf-8?B?RVZtUVo1bE1IOWx3bENWUkZqNnBRQjBQck9ZT3RRVjU5MGpaUlJzVWlFb2Nv?=
- =?utf-8?B?TkZTRDhDaVJpUHVSY2dQc1pla3Y4VEVrK2toVG5zNk1ZTDl0ZUNkZ2hiQzNG?=
- =?utf-8?B?NEpyRWJSSGVoYkdtWGc5NzFBT0pCV01EelVWNWozQXVCcmxYMjQ2ZndTYUwr?=
- =?utf-8?B?TWJ2SzBkNy9zMTV2TCttb1d4SUdZbGI2ZDVNRnRvZndUaWt6VFE2cDV5MGgz?=
- =?utf-8?B?UFZPYTN5dW1xZ3lpMzZ5bHJQcFI3RzQyZUMyTEo2QVpRMVRxaFJiN1hnNUlq?=
- =?utf-8?B?OFZSOHQvVTZxcWw3UlpvMzlQWnRma0ZDY3loTTY2REt1Qzl2d256UzBOOXNF?=
- =?utf-8?B?cStDUmh2enVETXd0cXRUM21UQ21kWDRvbXdKUXplL005bUZZRXVGYXQ1cDJP?=
- =?utf-8?B?dXY3dHZ0VHFzSHgvVXJaRGcwTXNtNTM0dGk3YTlCNFFpYWtTMHZqRlV1eDZo?=
- =?utf-8?B?UjFBbzFrQzdaVnlQTDd0MXhtK29Jcm90OEVhbjJyb1QzaWU1WUNsM3JWampx?=
- =?utf-8?B?akJwMmxtZ0tFOGF4TElKQUM1bzFWaHluZ3pqSEx6R2kxYWpwZXA1U2Y0dUdv?=
- =?utf-8?B?MngyTDFSUDM5Ui9rUlkxUVRSV3V4VHpvUVdYZnE1YTJRU1pOSVJlcmF3V0N5?=
- =?utf-8?B?MytZSmk5cERzcGNua29XQ0ljTFo0VHhDYUF2cWY5amdLQmorWUlTWXJYOWZP?=
- =?utf-8?B?RjNZdnFEVUNScGN1V2FwQm02ODBNZm1kMjlaUnlCQnRVQmpmNjhPbG95Y2p4?=
- =?utf-8?B?aksveHR6RVkxN2dFV1BuS0NUNHMzUHRvc1R4VEpaVHlvcmdZeHQ2bEhzQlVa?=
- =?utf-8?B?QXI2ZnNVVW9ZMkhHWk9ES3grWHE3eTY4eVNqUjgwRXZBOWpTeUlyOExIc1E1?=
- =?utf-8?B?NlI0NGZRYW1nNlRZbmdLMXNhSXNuT1Frc2ZtelZTcjEyMHgzMUxmWURhSk95?=
- =?utf-8?B?WDM2Rll2eXRqZWF4YjNDb0tYcyt1aUl5VlFJTzJSbnBqMU9NK1lsSnRCMm1E?=
- =?utf-8?B?U1VSR1BJVEs3aTFmcnR0WXpwZXZRQTNNVW5ZN0JVaElaaG5UM2xoVTAvck9q?=
- =?utf-8?B?SXRvUk1JQVVDcmZpWVd3RFNmT2crcDREYzZzSXBoRUh0U0Jzak1LQmJOeDBm?=
- =?utf-8?B?R2RURzRCQzZHeWVlb2pBWmJXL1ZOL3g0b2xIdTNjSGNaKzNvRThwQXpwSkli?=
- =?utf-8?B?OWlHTmczdmFzeFJRTDZqbGdYZ29MdCtlQm0zb1pheGZQd21DSmw4TUl2UnBT?=
- =?utf-8?B?SHdicEVMM0hwcUhRd1VDTkZ5RlhjNlZidlMvR0UzWVplK1V0bm04UDZLVjFR?=
- =?utf-8?B?aCt1Y1BKQm9uV0xwT2tRUEIrTVZWaVVRYWY3cnVZT2U5Vitmck93ZmlSdjVG?=
- =?utf-8?B?bEJVd05hYkNkRDhHTitNcVRIODRCd05zbTJ0TW56RjdjYlI5bXZTYjZWck5O?=
- =?utf-8?B?Wko3RnExM2didGRLK1o0dE1wQ0lOZUtHSmdDRVREcGNSSGNZSFpINi9MeUkv?=
- =?utf-8?B?bXQxOXAvTjZ4WkRUM3Z1dEh1TzRQTXMyNTZleURnSFozZ25FSFg4VmdjNXNq?=
- =?utf-8?B?TnRkejAzU29ocndEWk9hQThyenlGSnpTS1pQU21FSzhuUjJQTFp1T3AxZC9z?=
- =?utf-8?B?QkVhS2FSYy9LTTRJZndGWU5lU3dpNVZjMmRqNkVNN1dVdHlicGRORlBjeGVr?=
- =?utf-8?B?Y200Ty9VK3BHOWE4b3lEa3Z1aGtLTHlORTRsT1hwY1pNRXp6aExQUWxwSkNo?=
- =?utf-8?B?TE82OUlqWEIzUC9SdGNid216ODVHM0tCZjFROHo0RGM5bWhEd0c5aWJmTlRq?=
- =?utf-8?B?cmU0RGNqZ2xlMkFuYVFJN3lxRm03dHJJeXdvQ3dBaDFDZDl0c012UEZuL3JP?=
- =?utf-8?B?SlBJdEVoM2lxRnJRV1ZrUDNpczFOeHA0WXJGMWVnQ1huRHpUanRUM3IwYlpQ?=
- =?utf-8?B?d05Td1h6RThybVE3aTJiejBpSCtTc1A1c2RpeXVneFNPVitwZ25LOHQ2azBU?=
- =?utf-8?B?bEZUdUhZc0plK0xSMHAvbFBCUDRVMmZNd3Y0VE1kR2tGbEUxbGwwK3JEUnNa?=
- =?utf-8?B?S1M0emh6b2FGY1JYa1JqRXRQSUVOdmpRUnhpVXkyU1YyK0Z5N1ZWR2w3MmZn?=
- =?utf-8?B?bmlReWswTjFySXBYQUgxc2w1OGJmYW9DNy8yTHZhTWVrQnh4czVLNDlXSVJ4?=
- =?utf-8?B?emdZN2VrK3F5NldaeHpHYjcxeE1LODBZbEZWUzJHcFhXSUk1Wk1Jdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf2b2135-d133-43fa-8e4e-08df47ce545d
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 12:52:41.7521
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: moWn9jRNJPb09XUpzLKpX2WNQW750prx5rPuPca2KAnp/jRo9Royax97IADSpngCPqL0BL06ggqOAU0yEXegeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4484
+Content-Transfer-Encoding: 8bit
 
+From: Matteo Bulloni <matteo.bulloni.27@gmail.com>
 
+The ThinkPad T14s Gen 2 AMD is sold under two machine types, 20XF and
+20XG, but only 20XF is in the s2idle quirk list. On 20XG machines the
+Lenovo BIOS SMI handler runs during the NVMe D3->D0 transition, so every
+resume from s2idle stalls for about 10 seconds with a black screen.
 
-On 11/4/2026 12:52 PM, Chengyu Liu wrote:
-> [You don't often get email from lui2012qwq@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> iommu_get_irqdomain() lazily creates a single irq domain and caches
-> it in the global iommu_irqdomain, shared by all IOMMUs.  Both
-> failure branches of __iommu_setup_intcapxt() call
-> irq_domain_remove() on it, which frees the domain, but the global
-> pointer is never cleared and keeps handing out the freed domain.
-> 
-> The failure does not prevent reuse: register_syscore() runs in the
-> IOMMU_ENABLED init state, one state before
-> amd_iommu_enable_interrupts() runs in IOMMU_PCI_INIT, and the error
-> paths never unregister it.  On resume, amd_iommu_resume() re-runs
-> amd_iommu_enable_interrupts(); for an IOMMU whose setup failed,
-> int_enabled was never set, so __iommu_setup_intcapxt() runs again,
-> gets the freed domain from iommu_get_irqdomain() and passes it to
-> irq_domain_alloc_irqs().
-> 
-> The shared domain also makes a single failure affect the healthy
-> IOMMUs: if IOMMU#0 set up fine and IOMMU#1's setup fails, the remove
-> frees a domain that still has IOMMU#0's irqs mapped, tripping the
-> WARN_ON(!radix_tree_empty) in irq_domain_remove().
-> 
-> Keep the domain alive on failure; a later attempt (including the
-> resume path) reuses the cached domain.  The request_threaded_irq()
-> failure branch still backs out the allocated irq via
-> irq_domain_free_irqs().
-> 
-> Found by static analysis.
+Measured on a 20XGS08D00 (BIOS R1NET68W 1.38, Ryzen 7 PRO 5850U) with
+pm_print_times: every PCI endpoint's pci_pm_resume_noirq returned after
+~10.32 s, all finishing at the same moment. With the s2idle_bug_mmio
+workaround applied for 20XG, the same callbacks take 38-82 ms and the
+stall is gone.
 
-I have a slightly different patch for this issue which handles all scenarios.
+Cc: stable@vger.kernel.org
+Signed-off-by: Matteo Bulloni <matteo.bulloni.27@gmail.com>
+---
+ drivers/platform/x86/amd/pmc/pmc-quirks.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-https://lore.kernel.org/linux-iommu/20261105040016.398718-6-vasant.hegde@amd.com/
-
--Vasant
+--- a/drivers/platform/x86/amd/pmc/pmc-quirks.c
++++ b/drivers/platform/x86/amd/pmc/pmc-quirks.c
+@@ -56,6 +56,14 @@
+ 		}
+ 	},
+ 	{
++		.ident = "T14s Gen2 AMD",
++		.driver_data = &quirk_s2idle_spurious_8042,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "20XG"),
++		}
++	},
++	{
+ 		.ident = "X13 Gen2 AMD",
+ 		.driver_data = &quirk_s2idle_spurious_8042,
+ 		.matches = {
+-- 
+2.43.0
 
