@@ -1,95 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.169
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795237797;
-	b=C2cQ+JgKXCt4ubkDMpvi/Gjk7ZxdE+celOaYet66WL3M3lBFXW0r+gjq4iNRWlWjAru+
-	 QVDJ4o4h3QCJV+Dnh9Bybbt+VEQ1db3G/4QUpKyNJB1m++NU7AulvdFZ/G64aLXMD1Nuf
-	 CMKlB84YgRpt4eZTpVBmUlNFMcZp0noN9CdJJBsZP9VfKbT4ZqY+Linzou9vslaPXvEXe
-	 EL3XPa7EVUMI2SJSKb2B8SaVqr2B/ZJuJr8atNWw425aGmaXjboeOQpE6FmmLlQeZkymP
-	 OylmnNnCREivkh6IfEjDMKEx2ZQ5BssvBpNsQq1oPHeyvBeijJKRrD2Rj73IQCwzeSA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795237797;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=S7WcCb4GXIdQwz10dJ96xm9gKSchZu1/vzbqi9dXqMg=;
-	b=1pbvMYDACXefLanRTEIVbPqm0/9ytJ3BKcXd1GfYsxJLBRRC3nSSDg3qCJje3/fWsmma
-	 Tf3U/sJudz56kNBvpYY5Q2FT/cIgCyXNB0MeAnoLlFatwRvGrNhSEWHGqlDr3p4uH3R0d
-	 yk4/CthZ6XIH43dDcO+dUGfqBC1ymLMN/1jHyQZ+7dtknXTeCqRPocCEb+ZGC0owCItvC
-	 YRzz4fMAE85eN+fNCAXLeDr0Cewq0fYVx6Fmdwcre28LYVaLBbwfnEOlLj5lwr7abmn5O
-	 QUBRytoHcdZuVlJB/jgRoVL7+yJGhSOIf2uWBzS0pNNp6cbP0Nkf41Xb3yepOE1c0sg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XDIEs0yq;
-	arc=none smtp.remote-ip=209.85.221.169
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.39
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795238354;
+	b=0Rz0xDt0BuFJuYzo7c3eOs3E+kYR3P8SXqOro8BJUE737u837HkbVnXonQrqmSimnUNp
+	 saU/ojbsTeW/lr2UVFaXWQ/MglyRQTWWnnDXTgsG5PawiIVVZvs3g7j2sQCvwKnuHXOCA
+	 Vy4eBUWSwpQEM+Kh5w4i1TSiJJ6en9CoYpPZfGnCJaWPNey7lDOGr1yvnvXfnwXl+8khK
+	 f9gcLQgjvOJLVazrjlEPxfRsZvyrkEoCd6cnvNVUTEzv3Oe8QkhZzBo2JVrq8pQgF5Os9
+	 U7ID5edWHxbqa8olF1u0jJdQfzNGV5J0miul9nPyuyBsqNV3LKRDSsTf4Jjv04eJOEA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795238354;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=GUBPwEi7oMaEgzwb1Hi2j1ZA2DRZCp7QdZDE9yZgJVs=;
+	b=tYb5j5gqXN2g/Jt6sTyfHhAOq3Wi5PhFRHKh80l5WhwhAYhGy3s/nXA8kXFJ0ufBt+9T
+	 T0PHZhNkjYHio0Co359oABQJhg8niRGSYh2JkdcckME3IZn/JP1jtN2caMFvcPV7+Asil
+	 4BqhLnkXRW23nUymTzcv9KvnNCFeZiZLCFZtg217gDPEWJNy+qn2SnnniGif00ACDlEMI
+	 9iPdSLGmK4lk4CBEr93Rxi7kBLGV/anBRojXp3LXolGqBzLwk4laQDQjXHp75JGGGoPSj
+	 clsLbq9avcXfNPJz/jZA3BWV8wC3Ce5F0Bf7AlJt8onBEB/d0W6NH7IKILedui22Zxg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mWBZxaZy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.39
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012039.outbound.protection.outlook.com [52.101.48.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B264606A6A3
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 05:09:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B264606A6A3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D8D606A693;
+	Sat, 21 Nov 2026 05:19:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72D8D606A693
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XDIEs0yq
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5ee3e658c70so438812e0c.0
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 21:09:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795237789; x=1795842589; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S7WcCb4GXIdQwz10dJ96xm9gKSchZu1/vzbqi9dXqMg=;
-        b=XDIEs0yqjH15ucrcoBreDFlgrftYsHcm1IITjL8fn+lBTce2BsUSYt0EPgtbxWjlGW
-         dMx5SPAg1BNOuyJVlY1fugyvq79MuATYL9iyWpxfpnpRTNuYLEqUAFv0oGo1+KrkaPfS
-         LqzDAwfr4/M4t8la6iVlnN1bEVrHbh2+dPqsB06CEisJEAzU6PI5im1jng6jayDT96SS
-         g0NAMuLWZ3r/esbGQ4SvsXpTS+fYV/7XHH6LBVcL0QNcj3OOgSiUkikVzWizj7GgIhyO
-         AJ5Xv6OzbJ9ke+ntVjseRIlx5jl71mf8m91gLSkOrToUgRFdKDftV58EeKCUYplntrc8
-         2rag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795237789; x=1795842589;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S7WcCb4GXIdQwz10dJ96xm9gKSchZu1/vzbqi9dXqMg=;
-        b=rzFbgcHQSUNPIjMw3X5tyBFCTGSbYbUZje32GBbaUUaa5L5QAVKfYzrtfjc7tA3eQ8
-         fb3B+yqiyNsYRWl4tR5W2tSvZLvScBMrbvbAvbX1KlYNRQJAtRK3uaGX0IKQu4P7LJZA
-         R9le8PHZbJNAvUlqqJsgQsb8ZuI25MuHaz6Ntwt7ngupW2qntiH4cRLALhZyn88Gu5ml
-         nzY7bur0lHCi+jr/7uaMphJKByyP1js56FQT/YX40MWuFbrqnusAK1NWZ7FQAhs1CU37
-         AGox8Que23sXpCZLufL6UOlO6GOXW/6+/dwpmhiVJxSy4+paDvQpTpZtKP1WE32zFf21
-         vzEA==
-X-Gm-Message-State: APuU4Z8TQB1QMnHwxpyd7BAix0FxAZkg+rtyvxf+xGhoZb/kZ0AdZe6S
-	HGTCVRep8OEIz6zlVBeEBqXO8NN1XSAveavWKHgn09PoAyVWiO6qRDwh8H4yLTMO
-X-Gm-Gg: AZFdTZfrmUBjwWRfQ+ngSKAtAjvc2oWL3cti/Ckd4aKd/cULxQE7r+hbmppIYlcldhB
-	0yOEo5KJnYklEUzGRV+vquZKDGcxiZjofzbmBfCZA8GH8B3agKpWxRim5UIUSOuwk6qtHbHlxdR
-	+u9ARjf11Hu9HpxZzJpElkJK0zPEM7G7cafEoNkAOsTy7+8oQngpq/iHW7adBODxj0ZlM2njUGJ
-	DN0KO5br/XUc1FfRGznxwlJUWpzN6f2Wj4uj4SRNxl8v2ec57UwnMdVas5hr1sMc4ol/Y2x4g/O
-	wJUjLCzMSxDjwHvaeuEwW/wSMJ797UX6pw2qY6gWQFFxhmxyIO9tV0Jo0sN2uEx16rVqfZPyZBs
-	AJsZosU1Q6vpVhMlCqbd9mTJqdIifefzKKn4luiwse4PTfJP7YOZxJRVsNIvjcAEWHGZuoWD9/o
-	R/kxkZpcDN5m3MLcFVtvY5Hu3zKOXIAUqquwPosgERqP2bowq3AKAKNakV+sHGf0CjM7uqQizRY
-	/8pf5MbfoGI18QMfepcmZ8OC0bUSN5nesTjwjOj02zke9X+4kjom4iA5L/XEQ/1kEHIV91otcpC
-	E8nVcCRdo2fvigQ+Bt/cXufvJQlQfLFHspPi2jsTiIlKdDzSfPQ5KRDru5AsP989mIAWRWgjDP4
-	yEe3biHOjFD9NtI94h344v44pco4XgLe/PDnHokhw5aU=
-X-Received: by 2002:a05:6122:130a:b0:5d4:1193:73d3 with SMTP id 71dfb90a1353d-5ee8af25ffdmr2358738e0c.14.1795237789069;
-        Fri, 20 Nov 2026 21:09:49 -0800 (PST)
-Received: from localhost.localdomain ([207.174.22.68])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee8b556db7sm4451930e0c.4.2026.11.20.21.09.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 20 Nov 2026 21:09:48 -0800 (PST)
-From: Yingke Xiao <inkxiao12@gmail.com>
-To: stable@vger.kernel.org
-Cc: sashal@kernel.org,
-	kpsingh@kernel.org,
-	Xianrui Dong <dongxianrui1@gmail.com>,
-	Amery Hung <ameryhung@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Yingke Xiao <inkxiao12@gmail.com>
-Subject: [PATCH 6.12.y v3] bpf: Reject NULL data/sig in bpf_verify_pkcs7_signature
-Date: Sat, 21 Nov 2026 13:09:24 +0800
-Message-ID: <20261121050924.97828-1-inkxiao12@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mWBZxaZy
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fpCjm2gBBJx5YogTe8DsaghiGKC7vGC8KlRNCNQAEzHfMrhi4MCsiMYLMOyWVLHDmFnwTumDTwcd694Oh3k1F05koR6dQwjhyt5J7JbQf49TBnGUChGBsXDm2RThI64yFdu5/f8sQVBUIGjM+31wyUzdFBq6BHEMSD3TG4cprQsdgaBZ6TbF+LEAqxVX7iHInZAWC5C597McIW2RPJLwTloXB4pzj/KIfPoG84NitmzSHoFVrcv/hGPLHs0lUINXU72Eu042tCmsr3X4Ue2pLyE+woU8okOww9O21isPhFohyA6fv0I7Bk6g2V1CF9gUmx/I102PMlyWzjqfmOcM2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GUBPwEi7oMaEgzwb1Hi2j1ZA2DRZCp7QdZDE9yZgJVs=;
+ b=ImbuzGddYbryr6mw0synHCsAUbetlxiMyYXqtVJtwN4rb48+CaGb/uWf+Xiq8KlDY2nJNqT8ahIb1wXmw/Wd5XsiIKg7w4+wNznq1oqFbocNBzuds1OH8NHtuG7Mq01uuy8KQXZKm9GoTtPk06mzAE/+2ZZBHqfrrjp6Fr+arrVZK5YwETlZIBHGjESgJ90HSSHrl9MTLhtqbgAuHMM10CbFqWNTWtesOwq1uyhRI1t7X0vOPfgRvqILeQ+SXSj6iysMgFXC1RraFoWD96j/4WWN2gCE43uj7URSglVR5b8zxu/QbjBc7XjTIvMO3C/ZujnDAb62kyvVP6ncbPUCaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GUBPwEi7oMaEgzwb1Hi2j1ZA2DRZCp7QdZDE9yZgJVs=;
+ b=mWBZxaZy0Gm0jhT4UNgxQwr0BFkikXLdqpvK3+MOBWI7O7UFUEnwCjoHy2MSusfIvtKJlXreK/DZAcn92+jpH6OjSzt4AqFIh2gluOVaZSH7lRqBj+DM5orU7rUZqL2beRa/Q37VuwJZUz6/5IqTmLoZMHQpdA9ZAWaYyv0KzB9nW/NCQgGNdu4F/3Jzno/WUXkU736R8wdsutwEp2bF6RrEV7OqBhG2BSe+4NJm3oE97A4/CUnN5Qbjn4YL/Y4vfBTrHAMasFvDvxg1QQnbG+9xXZK4+DenUAU40yKkZTaabRGg0lFu2fdusyqYIEtoIRxbQdlzGsyO/LeUhkHBBA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
+ by DS0PR12MB8017.namprd12.prod.outlook.com (2603:10b6:8:146::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Sat, 21 Nov
+ 2026 05:19:05 +0000
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0639.011; Sat, 21 Nov 2026
+ 05:19:05 +0000
+From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+To: Kent Gibson <warthog618@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v7 7/8] gpiolib: let the character device free its IRQs first on chip removal
+Date: Sat, 21 Nov 2026 07:19:01 +0200
+Message-ID: <20261121051900.4118973-2-aambrozewicz@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261121044657.GA17013@rigel>
+References: <20261120-gpiolib-chip-removal-v7-0-aambrozewicz@nvidia.com> <20261120-gpiolib-chip-removal-v7-7-aambrozewicz@nvidia.com> <20261121044657.GA17013@rigel>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TLZP290CA0004.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:9::15) To PH7PR12MB5974.namprd12.prod.outlook.com
+ (2603:10b6:510:1d9::19)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,67 +104,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|DS0PR12MB8017:EE_
+X-MS-Office365-Filtering-Correlation-Id: 067d1c6a-6c28-49d7-5cf8-08df478ef60c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|261026140227099003|261022105027099003|261022075727099003|261028144727099003|11063799006|10067099003|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	wT32pMd5iW0279BTBKlTPnybw8xvojDyfCY7+WxHmyPd0FJz3u0j+9evqDqXLFacphH1y1RRAg78poXTjeieYikmcXV/42WBP37VfJtwEU5SQkDHuJTBsHGCD4b40cJxEawdbVcPYS33PtN0RQZWasA8/Ujk/a3mTZuomw102MK8KryalMiBSgQKkB3dx19KS9yzxOpkXhBe4985uR0H3lVPa+kuQf/JheVGt8Ps44q6pfjdtAzmbCfpBNaR2GAb5X4rnYGE0ysf6TPIGe5Y1XdT58GHnOaJW/HUkwPTEA5JnkLk8t9UFNqxeYkiWRtSL53nkJJagoQuXu3yJmJCl97UyfkZaQTSxSsHCp0pTemBn6d7GpaLb9LLD62FM3IEnDmVn2vVELeFFpAjz7LtTOSgB2JsI770BX2zQ5nOC40og+8c7kCfwrpNCOZDd8pHVK/wupBE780+GDls+LDnHxT2f57XAmlpWEcqdqbTGpkV3PlH4hQltqwu2pjK/3ZtYXglDJbhdYcCa9/I1FS3DJ7csKa7Ch/ngZFafRvmDZywz82kk2WphGuqz3cYAZ7bXk7PeBsBIzihPnw/+hAL7PeaLXn4iJe+noGrzx5vvylxln3deyWXkKUZ6EVZ3K5vYqySSGLHsUZ/1thqv8rHXd7NmHw+IX3t+VO1345C/MM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(261026140227099003)(261022105027099003)(261022075727099003)(261028144727099003)(11063799006)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?kiK9eqhI1z2yMjr3pQg8raajs17YbIpotIncLPEqNns+Bk/rLDYTCxJfr8F0?=
+ =?us-ascii?Q?qv/KDKdvbmGRrcAeS1UgoiidkfL1gb4iNau0S6J7WfajMxrYncV3Ak7HlskT?=
+ =?us-ascii?Q?aoxP1nxhdbk+7wXv3ugyNQNaccwi1YStBs+AsHJaU4+mDHva1Pj8lHyJ9cmq?=
+ =?us-ascii?Q?eXeUZR1QO0uNrxEWYOwQhz/jWoyjzWp6g/HqztDtNOxsXumsL5VZw8pshiAa?=
+ =?us-ascii?Q?zlMOk8C2H+fG2EBexAd1N5B/J57hoCiwGnxYpS67xdz9+pkL9Mrik1bQkcMG?=
+ =?us-ascii?Q?Mf/VlQ1oRo09MRuAEzDsWf5eDjU87gkCGkTKevcHFPeJE4Iu5vZFncYsDb5n?=
+ =?us-ascii?Q?oRCB+zC9QB3HEvf0Zf65v/gu3LNSScetCLyfU/Uh2ryrMKMzFgx4SZkTGiYP?=
+ =?us-ascii?Q?yaVt0MTL4s9sgILiEKW6fc8wbeMagZIVwcgMio8WXlVIqyWAv4XvhRyOuTvU?=
+ =?us-ascii?Q?vG6ABE0H2N26BY86IdEvtY9trUiHIwMZJe79K9/Z1I6nu/tDDp+CbxD7kmay?=
+ =?us-ascii?Q?gMORgXU3V1WjIUvHFyXHAZdyBnsM8o7ODzyXDwQC3hSQ8Pd6OsADYI3Bzv05?=
+ =?us-ascii?Q?K+FgcfmTlMhgQX95lmofKg3eTNzG5x5UaLBCHH49FXsEtmNKlAsyqKpxc9qj?=
+ =?us-ascii?Q?6jRO7XOuFAgOqOLG9Puy8J6mZxyr/LFK01ETkpxDdISxsQA/qNsAz8JuChbW?=
+ =?us-ascii?Q?h48Dr4ueEG/9OgGN0n2CLbMzKM3Wwkti412pAJkNRxA9dRDJIHPrPQ1vIHhY?=
+ =?us-ascii?Q?+4ps0ZE3IqLmubLmew10fa3Aso6s/7gV4oycMHHlIhlT7sc6uYb8F38cmJwj?=
+ =?us-ascii?Q?Pzh/FaB7fTWw6F7SkqkTKwYMbHqJ4oTD6Ml4sgg1KfLInsDGDCuAyeIhUQ2W?=
+ =?us-ascii?Q?3BEtJphr1CmJLWC9iYUs5ljvaSZI8/4/SP+iBmJDy1DxPGRebZe66wbAT9Te?=
+ =?us-ascii?Q?c2eawSn+JXcA7ty0eLeHaLJHYjS5yv83nRoIfNDtpGERZfkPvrJ0kNZVGT4T?=
+ =?us-ascii?Q?hUpwQFgTMRZD2Hcd1arrGr3aSQYl2n45edO6fCsuHW68lJGA3FFDbf765mLj?=
+ =?us-ascii?Q?umM07aJKb6iCjEey+NSPbp/ZzZNMxj8bOk4CqFFwiIhCi4kqR4U5P4mNqnuq?=
+ =?us-ascii?Q?kYPWz8S2ilMCy46x/m3XVnnLaux9OuJ4ldXGXXFUh35kuz2s2p7wvgdfGK82?=
+ =?us-ascii?Q?S3z0uOu6/4w/KZFJPI58UrPrISmIkHgGCxm8a4qEkzFpPVY9NV9GsOJZcWLt?=
+ =?us-ascii?Q?mgVIJmtCQAmbrd3z3qRceF9PK4gjKcPDU8FPNszLehPwXj0K/EDyMQm7n5+B?=
+ =?us-ascii?Q?eyPzaD2GbaRKXt/RJbB5XYnUxjGEQXchKOArRyh3MkfAkNr9dXPFoyrc620U?=
+ =?us-ascii?Q?F0VT86bv9us5QbAs4HhzgNIJ/RgtDVVH6sobwsoaZqMK6qCbHM8G3VvU3D89?=
+ =?us-ascii?Q?YBuFxllpfbcqwMsIXlXF/DtFaJKeMO9G+3I9svLEwEU9mjH5a6ima1KkMQ/L?=
+ =?us-ascii?Q?ZoMy6CHzgU5w92uPxFrzeIh2kuE2Yhil3rhp9vBZlOf/fAVlN8iKXKhn0C9a?=
+ =?us-ascii?Q?6peVJJjePj0TvK/SCdp15ivqQkaXWNvgARyraogTUyhkNEf4OBSoaMUvZn0r?=
+ =?us-ascii?Q?hD8GKzl+BfCY4Xi99DnL/ruMEy36mmdCRxk0XUTxgE97QQZpPHwbZIjCY1Fm?=
+ =?us-ascii?Q?TTxdD9cfimikqMgJJUGypnFvJKctsuum5AjV2fxUiWD7GfDrlaGhnY3j2aWg?=
+ =?us-ascii?Q?3E/86/R4jw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 067d1c6a-6c28-49d7-5cf8-08df478ef60c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 05:19:05.3411
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aJP8UKgaElRUXnSakO5cg6adyGPSRG4aVs1MqBiuuUDWbHKHyXP671G3WhQz3Lr2TOo3A0j2jGrMZAkXFKjUDg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8017
 
-From: KP Singh <kpsingh@kernel.org>
+On Sat, Nov 21, 2026 at 12:46:57PM +0800, Kent Gibson wrote:
+> > @@ -1690,7 +1697,6 @@ static int linereq_create(struct gpio_device *gdev, void __user *ip)
+> >  			return -ENOMEM;
+> >  	}
+> >  
+> > -	mutex_init(&lr->config_mutex);
+>
+> What is the rationale for relocating the mutex_init()?
+> Looks like a gratuitous change, and if this patch is going to be
+> backported then it should be kept minimal.
 
-[ Upstream commit 49b18315be4eecfc36b75f4aecb4d40a87d68a20 ]
+It is needed: linereq_free() now takes config_mutex, and __free() also
+calls it when linereq_create() fails after allocating lr. The first such
+failure, kstrndup(), returned before the old mutex_init(), so it would
+have locked an uninitialised mutex. I plan to say so in the commit
+message in v8.
 
-__bpf_dynptr_data() can return NULL (FILE dynptrs, any non-contiguous
-backing). bpf_verify_pkcs7_signature() forwards the pointer to
-verify_pkcs7_signature() unchecked, causing a NULL deref in
-asn1_ber_decoder() reachable from a sleepable BPF LSM at lsm.s/bpf.
+> The lines removed/guarded were added in patch 3, so note that this patch is
+> dependent on patch 3 in the description[1].
+[...]
+> The line removed/guarded was added in patch 5, so note that this patch is
+> dependent on patch 5 in the description[1].
 
-NULL-check both pointers and reject with -EINVAL. Mirrors the guards
-already in kernel/bpf/crypto.c.
+Agreed, I plan to note both dependencies in the v8 description.
 
-Fixes: 865b0566d8f1 ("bpf: Add bpf_verify_pkcs7_signature() kfunc")
-Reported-by: Xianrui Dong <dongxianrui1@gmail.com>
-Signed-off-by: KP Singh <kpsingh@kernel.org>
-Reviewed-by: Amery Hung <ameryhung@gmail.com>
-Acked-by: Song Liu <song@kernel.org>
-Acked-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://lore.kernel.org/bpf/20260520024059.313468-1-kpsingh@kernel.org
-Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-[ In 6.12.y, bpf_verify_pkcs7_signature() lives in kernel/trace/bpf_trace.c
-  instead of kernel/bpf/helpers.c. Adapt to kernel/trace/bpf_trace.c. ]
-Signed-off-by: Yingke Xiao <inkxiao12@gmail.com>
----
- kernel/trace/bpf_trace.c                                    | 5 +++++
- tools/testing/selftests/bpf/prog_tests/kfunc_dynptr_param.c | 2 +-
- 2 files changed, 6 insertions(+), 1 deletion(-)
+Thanks for the review.
 
-diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
-index bac2db7..41e237d 100644
---- a/kernel/trace/bpf_trace.c
-+++ b/kernel/trace/bpf_trace.c
-@@ -1384,8 +1384,13 @@ __bpf_kfunc int bpf_verify_pkcs7_signature(struct bpf_dynptr *data_p,
- 
- 	data_len = __bpf_dynptr_size(data_ptr);
- 	data = __bpf_dynptr_data(data_ptr, data_len);
-+	if (!data)
-+		return -EINVAL;
-+
- 	sig_len = __bpf_dynptr_size(sig_ptr);
- 	sig = __bpf_dynptr_data(sig_ptr, sig_len);
-+	if (!sig)
-+		return -EINVAL;
- 
- 	return verify_pkcs7_signature(data, data_len, sig, sig_len,
- 				      trusted_keyring->key,
-diff --git a/tools/testing/selftests/bpf/prog_tests/kfunc_dynptr_param.c b/tools/testing/selftests/bpf/prog_tests/kfunc_dynptr_param.c
-index 8cd298b..04aaf4c 100644
---- a/tools/testing/selftests/bpf/prog_tests/kfunc_dynptr_param.c
-+++ b/tools/testing/selftests/bpf/prog_tests/kfunc_dynptr_param.c
-@@ -14,7 +14,7 @@ static struct {
- 	const char *prog_name;
- 	int expected_runtime_err;
- } kfunc_dynptr_tests[] = {
--	{"dynptr_data_null", -EBADMSG},
-+	{"dynptr_data_null", -EINVAL},
- };
- 
- static bool kfunc_not_supported;
--- 
-2.56.1
-
+Adrian
