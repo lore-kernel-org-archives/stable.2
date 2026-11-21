@@ -1,104 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795275009;
-	b=5dZeiuV35ohsZfzGy+MXFgX/O00drGoecrR1t7Pfp5urHUC92JaWgrkKQ/fBQCAhttp5
-	 B0ezcDZkkwXD4CqX6ZrxUEjiHbPKA8R9QEH1iXT8QRtmDoPbmtlu6fyIA4zKyG2Fsd8gq
-	 lt70oj1Lfl4mFOyo52z8T5+5CW1AbjE3KlaltTLNIR38hi7O1Pm11YVWY/fpevmdb4C/a
-	 tO5qdpS2iapijLezNaGoY3ETMHphSczoHfYSkrAbqGw9SxmRGELXIgznNpdXHhRhW4vVs
-	 1NTtjkOugv8Od/zU5Jp7rZqwwSOc2nJKhZnV3004LlkVce7gp/U0s34P0eCWLpFZKSw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795275009;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=U8Q3AHE2krE4WjwTcA1MAoOcsg1cPYEXK33XekqHDG0=;
-	b=BlW16ltrkjkSlBZpgEysb+hzci8kJLCvfo2egBsHwLXmrxQQPQPIAZ4kS2xQVkYY+P7f
-	 dW0vW/Ya7orzjf7EClkcqAAG3klKgfD7QO0jbnRbzvuLcLQlYBsJUk9/oM21Uha5TyGaQ
-	 dMKrnsbukVDNFNGxOQSnLngiDvVEvPP56oqSrqgK1XkBT4kdvQ1HW5tFhOj5A7Of7/QYn
-	 Pp9E0fZ81LHLF0f+iaX/+AskoUnFrHGysX3kB7VbPOQwmHR+BJYnzu5CCMbvIYewkDlrE
-	 M6WaHXAXUWlvSFIZ7sP83P7oZqySBTMv1Zmskj1QI6I2fA+WRuz4NBSLl5lKwZwQQ9Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ChAgozdk;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795275360;
+	b=UT84ifZBpds51qypIY5f27+ernAlqYe/dZMgzAAdsQvnleIUmXI9ZXDIRQ29tqXXAVLx
+	 KUjapOHoDlWDvLnpRP3qmGSiuKyrPc+NH7XP9TUgy+uMH1FU8RhQDakBNgc+mvcjAKHK+
+	 wFAlLXfOZoRDwY/cC1We3oeU6YsXQ6R2PQdUlccxPxy7HPQWh5hTJ1M2U6YUbAWz0ryhz
+	 ro76cVNRQNEESVt1vCR40Lg72Jjt/lqShpFHgSaFlPsoTNOb/HVdXUveouu4xF+oAuBKG
+	 SVhF1jGkL0ekMhCZnBe75WJMhlHT/9uQC3v50Va55opzcpCg3NA7x0DrtAdvC0cp+TQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795275360;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
+	 To:Cc:References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc;
+	bh=dNaE+tA9+RJtiKaqQBYAx3F2MnPERIp+CZXIiIOH04Q=;
+	b=mkAwbNKx4L+IU+ECqAs+JUL9/QQqZjYBFSbu11WABH/vRbrsp6k7uSdN2Dk3TiRHxaQX
+	 0h3bza1oRFQfItRxfTnZNh1murqzRSNtLq1JK9nnPV7vTfPNmwbolhnC3mZ6RcHW0810X
+	 QxHtubVz821CAfKXJdIYFnXNQJQW9lRcgRv16gxGCOi7/FGR0DRA6sc9n1LgfZPrDFNwZ
+	 6+fmDsQyczLfyNCMWpVDMwzJ0aMOZPcdEFXlHTlMNM3jzGV2R9OnUx0T0WcZ6We97zGxf
+	 2F21OlsnlK2X1oMU/mIUZaKFkHVc/9vSpN+5QWQBwqKQMJ71TuqxKcV4Bx9fY4x/MPQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oracle.com;
+	spf=pass smtp.mailfrom=oracle.com;
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=I1KVpKGX;
+	dkim=pass header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=Xjojhns1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5D9606A32A
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 15:30:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC5D9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550DC606A698
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 15:36:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 550DC606A698
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ChAgozdk
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4bb77a462c6so22614915e9.1
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 07:30:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=I1KVpKGX;
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=Xjojhns1
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ALF2Rf0508545;
+	Sat, 21 Nov 2026 15:35:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=dNaE+tA9+RJtiKaqQBYAx3F2MnPERIp+CZXIiIOH04Q=; b=
+	I1KVpKGXc+2MvICjvyIA+2+xEVkY6J0DLSU2xOA7zooWGW3qH3ZK0kusD+XZDBir
+	0XV3oc1WdzO0WTPzdTKFy/dk0AQNXNO6DjKidDPELsgZuXt1KHZtFidT5di18S5L
+	ONgm220FX10OxV2iGQd9fTpxYBKjwpkCIdlC4cGfYg+zA32oqWmGg1I1LYVgperX
+	S6TNV89GUd3SgO+x8O+yhtYxq6Tf4l5v9cO/ZrnTZwDmTrxCkznU/5uWWoeHjmbq
+	S2kzhaPagUfMkB/h4X9yEnMtq+aDOuFeh1pHWO0D1UHZABdEGuPpQoi9Q+5hO6yI
+	s+CUxXaKnCUJynqADxK3pg==
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4j34ts882y-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Sat, 21 Nov 2026 15:35:30 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6ALFXeao2828472;
+	Sat, 21 Nov 2026 15:35:29 GMT
+Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11013053.outbound.protection.outlook.com [40.107.201.53])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4j39pbm313-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
+	Sat, 21 Nov 2026 15:35:29 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QEpRi4zABuSx/0VNewk0WCpWRBMingjBMVUjQmDNu75cll1gV2/w6e7RxRsg02HH5ZU0v193XOnS7FFGBImLL340F7wneYPP4Z4Oc7uKkQxvEuJxWRaMhgTG+kL71x5nVISwgxCYnznSnnMOqwGjbkG+CGrixRafNNHnhj2WLLF2/catWBLYler2Be97wz0ejuYeUj9YYDqN9fe1JlgGrFtl021fixXb45alSKL86Y80qyAiTumSOTxX9om4+DsyaAi1izMqSncw9ng9zMVar4tcFPQPXP3m5qIBvF+5Xg+za+WO8RKTuap5+Jz+HlrnproSfqeSfPexUHgYtmAbxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dNaE+tA9+RJtiKaqQBYAx3F2MnPERIp+CZXIiIOH04Q=;
+ b=agOE7b20xJawFhHpfy9r7cnQj+0uZTXuam2s9d2gYfjoiLiJj/+WkeLlmIrHgNQ5V9lf43qN0fdr3CLh0pEzvNEzVi/iUfmbj0DfTsSXyjAygzj4JidyRewrdumDs8zJe63mT342R6Nt0Y/e59mAJ1oG9xhI+43X7KuI4g4aiCOvFZEnDH5dOzepc5uh17MLsdAwyTb+znvA8EZeC0wWxcMBFx3w8s9N7x+ue8+tNZRiFejrWhKDdIJiAp7MUl89doCzLqcc32ksBBSz5arxRHZLSNSRcRbc28ZiDTDuyxFGFxTpUU5NrQKTx65rEhvcOc7SbzVNDvk3uJklbk+WLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795275007; x=1795879807; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U8Q3AHE2krE4WjwTcA1MAoOcsg1cPYEXK33XekqHDG0=;
-        b=ChAgozdkUP7cXMhO0ipL9UB0ajIAvHMPZH8Hzj74ECxrgVHwUrKzCpuTfFy0kAb+Sv
-         W7/Y5HMP47LIxhEE3iBcn91DEt9KoaH19Zn+INhZxVZ2V+dHP7QNPzAkKq0XzTfzaOeE
-         drcs/XzTRcSUvJyLbUQEzH8LheweLbkWTTFGe4Wc6PLLMNoLHaoanGia0RqTK7uGNOxq
-         2bcY34N31bMRKwppKuOxPqw/VzemJ/hxt4MJncPiLQQxlR/zEgUI3nBBO7D0oSIe0K0X
-         ba1efB2PmMIAiDIZXXl4KhzRMDfIIsK+qXiCewvbql6QPlMZ5FFn5ftK/TJ9uewGSqG0
-         BbCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795275007; x=1795879807;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U8Q3AHE2krE4WjwTcA1MAoOcsg1cPYEXK33XekqHDG0=;
-        b=Min0O2gCItJYs8wcxnWap+gRdyWGIsNXn598uE176M9ydM2CAe4cpzoXMEnvM9FZEp
-         LutY1n5lCUfJanC1pqKJN8l4U5qSc4M064jGVoErDGCVmWoWxYaZKD4HCYm89vhqd9/X
-         itR/JcuZrTWXcROUBK1+fpHs/FGiXtmEYq7v87qtddFWia5RP4Dz8azBNf7dDQpbOAMQ
-         W0tbXrkfqk6Xedcf7yalEncbqhKWMC5fotQDKb5ovIPZVnuAZ6ySuK/I/uMunm3YHpXN
-         lLMDAiAkyDdPOtI1+NoueB78Fhb2fyBAl1/eW2hPKR1ibi04cgek23Q+6qeNS2pvxH38
-         s53Q==
-X-Forwarded-Encrypted: i=1; AL+hErEaieQTMNxhmwgkauGaIYvXojltwE9xL7olk8MrHmSBQhNUD7BHLSE0/8B826iAx3F2XOgA3TI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//lpi1FXBe6zKgVt964CdyJ2UDKFs4OgR1DdBzKww1LWhuAbyR
-	KNPka3rsKaz3qroeTNjd8wiUIH/2PshOnti4tNwgCDgLLtquodCP/ZM/WEP0UALB2sY=
-X-Gm-Gg: AZFdTZf08Mx4cL9gRFt/ZwdAer1dcchpZdw62/F+JUBekiFojsltJJsYbBDVyHHMmCq
-	os7Zg+59gAQy3ufNy+bbI3w8kb2CCwSBcXdZkQafHT0YPhVrxWvw39BL+s0bQawKpdBfL6Dnkp7
-	Vjr4U8VqAQetPlqUBY+b+B7Rp9gEdeOhj4Cn6M6PfmU4ufwpq3hONdEtbzMKvYprwwb98pWtwdu
-	YfARi4iMRZml5jbEhFTXsSNFOmdAV+PzpUf5AZ3frl+5WZPQHLQ0kl2dXDO/yFAlrjfzqxeANLY
-	RTJRobLxD/Nm1Vo5sY13sXFr7ojY5hgIQEw1MF5I+8i75wKoUyjDkgOHRsz1rh0luVTeQMnJxpN
-	tk+B2NJt/4XDMaOd1pv9qs35Uu6P1UbpaL+/iqBdhT+aU9jejEMytHAYH/dXzgfMqNkXSVKz213
-	E/kMlsO68yzO6bgXN1uqXeGBHky8J386+UatHfizavuQolL1L9ZXbBamwT2QDyzcwyCyGUAW0ku
-	eTIuRj7UsolhDyOhR1Bns8Mf7g3xMHc+9Q5Vs0iQbEVboHHBqqet89ox/En9FYPr6xENljSumo+
-	ItuMGeat3nRkrvcCsawVpozBeaDkc9WXuoCU7y83kqLoViqdtH8TXt6wbuOdTN1H/z0SOu6gpJj
-	d4nAoANOPtVt7BT8NQVgPAk+FXR8F2LWAB4Z74CU+/yvq4CEV3YHAJF9k9EkKZBTKpEpJ/hVEsw
-	i0cx0j22Ut6chqoZMIHFzfJ/+CU6g+2eW6FwfvdTdrb8+l8TxbNuA8atdZNAk=
-X-Received: by 2002:a05:600c:4f81:b0:4bb:5e8c:13bc with SMTP id 5b1f17b1804b1-4bb88805902mr139219285e9.7.1795275006740;
-        Sat, 21 Nov 2026 07:30:06 -0800 (PST)
-Received: from localhost.localdomain (static.253.42.225.46.clients.your-server.de. [46.225.42.253])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884ab091sm268540285e9.11.2026.11.21.07.30.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 07:30:06 -0800 (PST)
-From: Vinny Horgan <vinnyhorgan@gmail.com>
-To: Richard Weinberger <richard@nod.at>
-Cc: linux-kernel@vger.kernel.org,
-	upstream+x86@sigma-star.at,
-	rppt@kernel.org,
-	peterz@infradead.org,
-	hpa@zytor.com,
-	x86@kernel.org,
-	dave.hansen@linux.intel.com,
-	bp@alien8.de,
-	mingo@redhat.com,
-	tglx@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] x86/Kconfig: enable ROX also when STRICT_KERNEL_RWX is present
-Date: Sat, 21 Nov 2026 16:30:03 +0100
-Message-ID: <20261121153003.2499592-1-vinnyhorgan@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260625090627.1501095-1-richard@nod.at>
-References: <20260625090627.1501095-1-richard@nod.at>
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dNaE+tA9+RJtiKaqQBYAx3F2MnPERIp+CZXIiIOH04Q=;
+ b=Xjojhns1WbehnZtS7JGvapsMAswafPdb9QlcETC0T4rWgOJhpB2Y/N65ityc50zPtRvaSMvxs1c+amHkafhtj2H9C2qTya2arWPgPRy41idphgVGFVz4NLByR5CVLYjGZqVkNYrQ5ofNAY954YJUqe4rpLQFX/rtbNVVhZsJQXw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oracle.com;
+Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
+ by FT1PR10MB180751.namprd10.prod.outlook.com (2603:10b6:170:22::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Sat, 21 Nov
+ 2026 15:35:26 +0000
+Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
+ ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
+ ([fe80::2444:1d33:3ce:d83a%6]) with mapi id 15.21.0615.009; Sat, 21 Nov 2026
+ 15:35:26 +0000
+Message-ID: <6389e16f-c7ec-4bd9-aa46-9abf015fb19c@oracle.com>
+Date: Sat, 21 Nov 2026 21:05:18 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 1213/2214] inet: frags: limit the truesize of a
+ reassembly queue
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+        Sasha Levin <sashal@kernel.org>
+Cc: patches@lists.linux.dev, Kyle Zeng <kylebot@openai.com>,
+        Florian Westphal <fw@strlen.de>, Eric Dumazet <edumazet@kernel.org>,
+        Ido Schimmel <idosch@nvidia.com>,
+        Jiayuan Chen <jiayuan.chen@linux.dev>,
+        Wang Zhan <wang.zhan@smartx.com>, Paolo Abeni <pabeni@redhat.com>
+References: <20261118150009.797899913@linuxfoundation.org>
+ <20261118150100.329194686@linuxfoundation.org>
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Content-Language: en-US
+In-Reply-To: <20261118150100.329194686@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR5P281CA0023.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f1::15) To SJ0PR10MB5834.namprd10.prod.outlook.com
+ (2603:10b6:a03:3ee::16)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,31 +135,259 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|FT1PR10MB180751:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce724766-2fc1-46e3-43b3-08df47e510ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|10067099003|5023799004|4143699003|56012099006|261021121427099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|261009223027099003|261102123227099003|261028144727099003|261102130727099003|22082099003|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	oMLBCWWqamALLeY5Y5yamLN4Iu8ckyJ5yQw6/Fubz1f/I/W7FM8XlAcFZAnLlhy+9Ij7Exkfukv7tTDS2umPl3fDLVn0irf/aZVu9DhXMQ2L8W/6WTpAjBZm5xH6tpDiWe0Lu6l6A/v4L+3EbNi+rfAww4+zNHteyA5rKiys9BI+yWNxLw3JbdtzJKj4ccWQgfMQnryMpn953fYCkZRtiLoUkB9aG/mn/Hs5lMZmjmJoX+R2wRe0VlyzdKHavKikQOy0OZXE5T+sMARHkuGgNn1viMWM1+4WpNEz2IgomZV8Yne9iigssDxEWvVQwgBO+9bfMi6G3RModuNYRiSi4iRYBoZCSWsW11tLXSwVsnB92VWeb7Noxn0lm04GHvalkFKQx1DcU8X5lhnoYAzhkAAeBbI4f6nvw4xknsAHHKRqSqoBITv8ktA2qwg6AHaru4IE6gh/lyo+nwBRYz9b8pERq4+eXR29g49rvQ2heYH2etmChYdtTGVJmt6zSCeQkGwwV9HkeoB+LX2ROCeTfvgG9j4YctfFfGdOzxZnzBW7nBwyAZPgex5SrMYixDi072sdbjF+JbLtN8U/0pHn2evFIecCNcPar0gGQx+/GKPcPo93aDuh0Rcc+yWy6wRs
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(10067099003)(5023799004)(4143699003)(56012099006)(261021121427099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(261009223027099003)(261102123227099003)(261028144727099003)(261102130727099003)(22082099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZlFBaW0zSGtmT05TYmJ3dDFFREJWd29zclR6M3RRUlBuT3IxNVhnVUoxRUhF?=
+ =?utf-8?B?MERtWTJmNFVHNFhnb09NRTAwNVFnREZJRzQwMmh0V3hhS0IzTisvYlFEVHk3?=
+ =?utf-8?B?ckMyczF1dHJMZDJZN0Y1WDFzcGNVazFFV1ZmTzBKblF1R3g3SThxMUlNWWJx?=
+ =?utf-8?B?OEovWHdxQmxiODlkTmRBZm5KZDhVdkZydWI3MXplbkUwVUovakpZOUMxV3cy?=
+ =?utf-8?B?RkRIVUpFaGdGdFR4bU1mRWJBVXZSMjlCdUVaNE80TjVMUWpCL09KdnV4Zklh?=
+ =?utf-8?B?RFdxdHpYM3E4OENxK1Fqc2liUWEyZU5sa242ZHZpM01PZGRIY29ocUd0Wk5G?=
+ =?utf-8?B?NGFqTTJESWhWYTUxTnI5enJDRzdqWEtINUFxUFpQbXlLc05lZnJ1RXR5NEhZ?=
+ =?utf-8?B?NnVQMnp5NUpJdHhwRWV5SnlHeExGQXlCcTF2WWFUUEZPQ2VMVGJ6dUtKaFBP?=
+ =?utf-8?B?UjN5RXlma2IwZGhJRThDNFV6SmowM1dGZW5ZR293WGNRa29CMmNJOXN1L3pG?=
+ =?utf-8?B?Y0N1RUFQZnRnMkFaQktKdHkzMTJLV0M3WGRPYzlGRnRURGRNMkxmUE5LY0N0?=
+ =?utf-8?B?QzNydjZrODJyRU9wUkZFWWVOU1VRZ0Nldmp3emNiN0tDODdnd2lOZmcxRDJ2?=
+ =?utf-8?B?aWttUzlhemZIZ0VvZzVRNXhiNEN3Q21xNW5hZDJ6aHVKM1dPY2RHSVZ6UFZa?=
+ =?utf-8?B?ZGpYQmNwMU5ianlzYldtb0VRUDBBU2xDeitRSElNRkxIMkt5UEwwZGphQllZ?=
+ =?utf-8?B?dHZXTkpDa05DOEo4aWRwV0xVYjFlK29oalZBWFNMQUdvemtwblEybUhHSDdD?=
+ =?utf-8?B?TTZQNUhVUG5FdWl4cm5XYUxJZFpzQ1l5TG5xaDAva0R2WDZHSEV5Wk0rZ1F3?=
+ =?utf-8?B?VzhFOFMweGRhUkNOcUtPRUpZZHpFa3ZZSTE3NndDdUpXdDlySUZzNzhDT1dO?=
+ =?utf-8?B?OGVyZWJwb210MjVmclQvcWdOY1RkOGh3OXlnNnVGMjNCUXdzRGlmRUt4dm1u?=
+ =?utf-8?B?bk55bjYrMUtPLzVmVUpBRU8yVnBiUnJMc3pZUDhsdnhJVmswczZCdW5mVlZK?=
+ =?utf-8?B?Q0RzcHBuazg0VHE0dzhzRmI2QjFJUnExb3JzQ3owU1dacXUvcnB5UVlrNFBT?=
+ =?utf-8?B?eGdLdzB6WjhSaVlLbE83NmFSaDFWSUxaYXdBZGMydWRoUEZhcXlXZHhVbzZU?=
+ =?utf-8?B?bkNLckM3NVlmeGYxVVl4NndxcGYxcEpjWVBnN0lKeS9ScHJxWGxEdHBMUk05?=
+ =?utf-8?B?Skd3aUZmR2p4dlJIT2twd2ZXMkdSaHhLQ3JQWTJtdi9RWVl3djVkUktkbkdB?=
+ =?utf-8?B?RjR3ZGMzNWlaSE5aOXlzN0paazFoMVROcUNUSURYTjN6R0FjWHRJVWsvRjgr?=
+ =?utf-8?B?WUZVQXZ3WTRlNkhxQUxiSjBMak1xR3ZsaWp6VHlxRWRrbXlLSFhBRlFsN3M5?=
+ =?utf-8?B?Y3ZCOEwyb1ViSjRORkFpM050TU5GbzR2VkorQklHZDBqa3RBY2NyeDFxMk5V?=
+ =?utf-8?B?bEJnYWU5YmxadHkvV0pERFFHQUlXaUJwM2F1Nm1CYmdVc3ovM2RyOUhoUHNx?=
+ =?utf-8?B?TmozU3FkSFAyNnduOE9hb0ZtOFpwdHp3dTc5cmczcXIvbnROWFd1OXJLT1BL?=
+ =?utf-8?B?eTlaY3NpNWl2cEk1VkFJbmQyQzJSa05SNjNZY2VhQ1EyeStxY1d3bFJEaEtn?=
+ =?utf-8?B?NjJQLy9FRXNTUk02VXFzQkVqMTBaVU9MVWFQWHBxMTJ3K0cyZUhPUHBMTHlr?=
+ =?utf-8?B?THF0K2FZbVdrNjZCSWl5cDB6cGdQa1U0OWdiVmpQNUxOV0JHeGhyWk9QTk9B?=
+ =?utf-8?B?QUw4cDA5UVdxaEgyNHU1dmw5NHZobFdjNmRycEU4UFQrQVNIQnQzMHFGMWUv?=
+ =?utf-8?B?QU5XY0JYbHJFbHhTT2pISTkybFFwZDZzSGJQa3Z4M2xpY0Y5NEJmdXMzbWNS?=
+ =?utf-8?B?UkZjYmQ0b1B6N3hSdkhZdHdsaitEVVkzMDJxbFdZeHpCUTk0VksvRFd2ZDFk?=
+ =?utf-8?B?R1FsUGsrRVhzRjFFVGVOUnVtTHNyUE9nczVVTXN4b2VSWEw4Ri8vSVVQdEFZ?=
+ =?utf-8?B?bVhDTjdreHVoR09QVmNMelpDeUVjcjhoRkFWaXNJYUU2NWdTdTJmODV0SWI3?=
+ =?utf-8?B?bmpsK2U2bTkwZTN3MzhOOVJxbm42WjA3V1ZBM1pYZHRLTnB1VUJKaXV4U2Vt?=
+ =?utf-8?B?WkVHdTBDVDIyeXdmVFh6MWQyWDBHeUtDYlFvWWlJbjhsbUJLbHFmYU1sSG4r?=
+ =?utf-8?B?eDNLTjdMR2M1eXlpejhmdWpiS0JzWjdpQTFWemZXSS9YZUIzUEN5QTdDQUZt?=
+ =?utf-8?B?bUFneUlIUE1GQktUUFRDdnR2NFNXb2QxaGhKa0FOdUJMb0R5VUE4Mk9HRUFM?=
+ =?utf-8?Q?kUWCh06PBKZn/VYh5YcG7o1dMurXAW7mrb/Up?=
+X-Exchange-RoutingPolicyChecked:
+	SuOyVC0WWljwnS4AedRbSAlX41u4ikhhuXFERj+bdm7MhVV2rfc8YAlGu5UuhQIglCP7H/6srbnm3QZNYuFHsJOcZahIfYMeVT20uGw38n4gP5WmfIsd0gBBxUhZpVH4i20NMgUxgvZP2TFa4KzGkO0JIDvOTbrcsvtiq/Yqxsc9KqgIvF0qG6ZS7kFGrOAvOpeTvHG/CfSPgkaeIQLTdmCwuALsMsk8/0bCtLD3J/eRCCyKbRFkvN1erMhBAU0yJaGUSFrbctMy3wB5615auNq4w0OQJrLzyZTtf975BONH2eruSWldpDVnrvBH+fQC1EugOjr9ifb+Op1trJNq5w==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	UZ6w9GKMRgiaImnaBwW1ZCMbbK3pM+3hLQEw4pg5NDrCNeflWN+OtMQXRSkkrYfMuUpi+3Wtt4i7Ls5BeRkXJPby4AV1hrRgbB5bSmnlMsCa/Z+XwZ+jv2JgdhzPXYDF+09Em7+EBe59wW6pDiW0F3u49Ak43jcQPUY5L/XNdH4FiNLchQPzZem9nl7t4GTZZkncrN6Cb6Dr14vQa7WeqbcDteLUhOJH5ERMlqkCoG53Cfmdqurca0LUisP22TBCIhDaceF0qdatly4WQKKKjXOSB+FlWnkeFxwct63R8ZXCINwwz/WMK2huYQeSa9j6xU+KJJRjmbmLwJnZKoQvZSFcy/X/fzfWtOTDi7IADstf6x6ZAb0eRe83BiApy2z5NIL/0cXhitQvZGDne8Zpnrj5xH6JX6M6pk6pbeLyBK/wfnDOI9NPIzh5f4vHvuv2c04fF6GxVnjMVtd+JwUAPMVJTvcwL1PDPUieacUfVdkD/+TiiGFy34Vd9CnHSps5JiVkRSYpmwlX1Qu57pNj0/m+ErzzHi9H0eKMjCMmLOfBLIa+oy4ZYuvQi+QMErVNrw7XtL0ShkszcMLmgkC1Bx+vT6Jz5iEHctoUfEwAH7o=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce724766-2fc1-46e3-43b3-08df47e510ba
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 15:35:26.4711
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r9maSaFi450RtQP4OQXdWbgkkG+9riwLAgh1uBS4KqEU0vBYViHqTcgHFrnlQw5y928RDqZ23ybu8IdXLQMJL6oZVWNtU29S51LbfmvvWXO6k1gc2RyL7dK+17xh3uNz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR10MB180751
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-21_04,2026-11-19_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ lowpriorityscore=0 mlxlogscore=999 adultscore=0 phishscore=0 suspectscore=0
+ spamscore=0 bulkscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.22.0-2611040001 definitions=main-2611210061
+X-Proofpoint-ORIG-GUID: egQk5lWy3xpIgRoNEQKh0pgSCWGtvc1_
+X-Proofpoint-GUID: egQk5lWy3xpIgRoNEQKh0pgSCWGtvc1_
+X-Authority-Analysis: v=2.4 cv=YP8KWhGx c=1 sm=1 tr=0 ts=6b01ba42 b=1 cx=c_pps
+ a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=7Gl3-_t3PgB9XO-mQDs3:22 a=bC-a23v3AAAA:8
+ a=VwQbUJbxAAAA:8 a=LG5T7v2SAAAA:8 a=Ikd4Dj_1AAAA:8 a=YOhUVxJuAAAA:8
+ a=20KFwNOVAAAA:8 a=05i2wL_Fj_YP-8mxkwwA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=ChOrQ5FjrQQUR65FPv4f:22 a=5yU3S35YU4bGjq-dph-N:22
+ a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12100
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIxMDA2MiBTYWx0ZWRfX4SpGoa7K2XRP
+ UZU8q4bCtwACPeFVA14dDZUt8jT85DiKasnRUKFx8OWLmIhnY/gk/hcXHvhXd/0BWnAONtizx/q
+ FhZLkgpzvaZiyOrCs8Bbi8PGuArJkhLApL0uACw50P1JXGCpacg+
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIxMDA2MiBTYWx0ZWRfXzggKoM984l9v
+ md6AWJL0qL7A7sUwMT6rXhvO6MZlx/ghib9U/nJFFtEZ6VlASFCEGSAtpOJ7tFH1Aka1NxPOPPE
+ nqWQGK6YdlrRXcXe5z00jLjyqUazcs+KKSxAQqPzqNjYkIBTd2IW/qMO4KR7hgE/6rX+EkYt2cW
+ o9EUyiewp/ixPCFhg9YSKfmM9rj1dzxaV7FQWLQqFG5q5aCSvuXOylGDc5SFxDnjZu5CzJNxqMT
+ e/c/8PyFodDmB4PIB1/0PIUxo0uuBAypRObMPh3jq1Cg0oWqhOh47WBL2e6c1zwQ0TKKLyPqTXl
+ l/dpy5Xd2BNGFcvEWD98rzYLXmY1oSrDcXh91Zqr5VqMG8aLooI/bq3QIDnOwxfGmR4ltrjEyX8
+ Z0Ooph8gWPWUFYeVNhcgPyiONJV/to1gGLeMRauTjojaW9dw8Y3pTz3Yw6QcfviilmkQUIMMcax
+ j+lvBBq2uR8UawUkaQUi6uVxTIYppnqP2X7vyt0k=
 
-On Thu, Jun 25, 2026 at 11:06:27AM +0200, Richard Weinberger wrote:
-> Running a kernel with CONFIG_MODULES=n causes the W+X page dectection
-> to trigger:
-> x86/mm: Found insecure W+X mapping at address 0xffffffffc033a000
+Hi Greg/Sasha,
 
-Same here, on a ThinkPad T490 (i5-8365U; "Spectre V2 : Mitigation:
-Enhanced / Automatic IBRS", "ITS: Mitigation: Aligned branch/return
-thunks") with a CONFIG_MODULES=n kernel based on 7.3.4:
+On 18/11/26 8:18 pm, Greg Kroah-Hartman wrote:
+> 5.15-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Eric Dumazet <edumazet@kernel.org>
+> 
+> [ Upstream commit 3ae20e4697eb969104fe4b1e98a675f0100382b6 ]
+> 
+> The truesize of fragments in a reassembly queue is only bounded by
+> the per netns ipfrag_high_thresh sysctl, which has no upper limit.
+> 
+> inet_frag_reasm_finish() sums the truesize of all fragments in an int.
+> If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
+> adjustment of the socket owning the reassembled skb can cancel its own
+> reference, leading to a use-after-free of this socket.
+> 
+> This can be triggered from an unprivileged user/network namespace,
+> raising ipfrag_high_thresh and using padded TUN packets, which keep
+> a large truesize after being trimmed by ip_rcv_core().
+> 
+> Track the sum of the truesize of fragments in each queue, and refuse
+> a fragment that would make it bigger than INT_MAX / 2. Callers kill
+> the queue on this error. This bound is far above the needs of
+> legitimate traffic.
+> 
+> Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
+> Cc: stable@vger.kernel.org
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Cc: Florian Westphal <fw@strlen.de>
+> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+> Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+> Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> Tested-by: Wang Zhan <wang.zhan@smartx.com>
+> Link: https://patch.msgid.link/20261030081225.2575462-1-edumazet@kernel.org
+> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+> [ sashal: moved the truesize reset from inet_frag_queue_flush() to ip_frag_reinit() ]
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   include/net/inet_frag.h  | 9 +++++++++
+>   net/ipv4/inet_fragment.c | 4 ++++
+>   net/ipv4/ip_fragment.c   | 1 +
+>   3 files changed, 14 insertions(+)
+> 
+> diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
+> index 63540be0fc34a..0114941b4c873 100644
+> --- a/include/net/inet_frag.h
+> +++ b/include/net/inet_frag.h
+> @@ -72,6 +72,7 @@ struct frag_v6_compare_key {
+>    * @meat: length of received fragments so far
+>    * @flags: fragment queue flags
+>    * @max_size: maximum received fragment size
+> + * @truesize: sum of the truesize of queued fragments
+>    * @fqdir: pointer to struct fqdir
+>    * @rcu: rcu head for freeing deferall
+>    */
+> @@ -92,6 +93,7 @@ struct inet_frag_queue {
+>   	int			meat;
+>   	__u8			flags;
+>   	u16			max_size;
+> +	unsigned int		truesize;
+>   	struct fqdir		*fqdir;
+>   	struct rcu_head		rcu;
+>   };
+> @@ -174,6 +176,13 @@ extern const u8 ip_frag_ecn_table[16];
+>   #define IPFRAG_OK	0
+>   #define IPFRAG_DUP	1
+>   #define IPFRAG_OVERLAP	2
+> +#define IPFRAG_TOOBIG	4
+> +
+> +/* Max sum of the truesize of fragments in a queue. This keeps the sums
+> + * done in inet_frag_reasm_prepare() and inet_frag_reasm_finish() well
+> + * below INT_MAX. Legitimate traffic stays far below this limit.
+> + */
+> +#define INET_FRAG_MAX_TRUESIZE	(INT_MAX / 2)
+>   int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+>   			   int offset, int end);
+>   void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
+> diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+> index 6e6b46ebfc407..fb5973ffe4d67 100644
+> --- a/net/ipv4/inet_fragment.c
+> +++ b/net/ipv4/inet_fragment.c
+> @@ -384,6 +384,9 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+>   {
+>   	struct sk_buff *last = q->fragments_tail;
+>   
+> +	if (skb->truesize > INET_FRAG_MAX_TRUESIZE - q->truesize)
+> +		return IPFRAG_TOOBIG;
+> +
 
-  x86/mm: Found insecure W+X mapping at address 0xffffffffc03f3000
+I ran an AI-assisted backport review, and the finding looks correct to me.
 
-With this patch on top of 7.3.5, the same machine and config boot with
-"x86/mm: Checked W+X mappings: passed, no W+X pages found."
+In 5.15.226-rc1, this commit makes oversized fragment queues count as
+overlaps in IPv4 and IPv6. The new size limit works; the defect is
+incorrect ReasmOverlaps statistics.
 
-Tested-by: Vinny Horgan <vinnyhorgan@gmail.com>
+The new fragment-size limit returns IPFRAG_TOOBIG. The older IPv4 and
+IPv6 callers count every nonduplicate error as an overlap.
 
-It doesn't seem to have been applied yet: arch/x86/Kconfig in v7.4-rc3,
-tip/master and next-20261120 still has the old condition.
+net/ipv4/ip_fragment.c, ip_frag_queue(): (Code spacing adjusted.)
 
-QEMU without KVM could not reproduce it: TCG offers no IBRS, so
-spectre_v2 falls back to retpolines and no ITS thunk pages are
-allocated, with or without indirect_target_selection=force.
+5.15:
 
-I found this, and wrote this reply, with the help of an AI assistant
-(Claude) while building a custom kernel for the T490; the results above
-are from that machine.
+     insert_error:
+         if (err == IPFRAG_DUP) {
+             kfree_skb(skb);
+             return -EINVAL;
+         }
+         err = -EINVAL;
+         __IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
+
+Upstream (3ae20e4697eb):
+
+     insert_error:
+         if (err == IPFRAG_DUP) {
+             SKB_DR_SET(reason, DUP_FRAG);
+             err = -EINVAL;
+             goto err;
+         }
+         if (err == IPFRAG_OVERLAP)
+             __IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
+
+IPFRAG_TOOBIG reaches the unconditional increment even though no
+fragments overlap. This result is new in the backport.
+
+Let us not drop this but somehow deal with fixing statistics later.
+
+Thanks,
+Harshit
+
+>   	/* An IP fragment is never a GSO packet, but an untrusted source
+>   	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
+>   	 * that reach the reassembled skb, whose head keeps the first
+> @@ -446,6 +449,7 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+>   
+>   	FRAG_CB(skb)->ip_defrag_offset = offset;
+>   
+> +	q->truesize += skb->truesize;
+>   	return IPFRAG_OK;
+>   }
+>   EXPORT_SYMBOL(inet_frag_queue_insert);
+> diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+> index 5cdc65a5c010b..00dff2c866154 100644
+> --- a/net/ipv4/ip_fragment.c
+> +++ b/net/ipv4/ip_fragment.c
+> @@ -263,6 +263,7 @@ static int ip_frag_reinit(struct ipq *qp)
+>   	qp->q.rb_fragments = RB_ROOT;
+>   	qp->q.fragments_tail = NULL;
+>   	qp->q.last_run_head = NULL;
+> +	qp->q.truesize = 0;
+>   	qp->iif = 0;
+>   	qp->ecn = 0;
+>   
+
