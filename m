@@ -1,79 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795266583;
-	b=re1f6er+9alshASseLgrlGYbpgS6KtIcC8ofjyYGCrNE+8AcW7ucNThmB17veMgJZ6rH
-	 7cSoUGOWStCEYVGUUqiqeQZa9xPmc3aXAL8Esp2I2yKNKRNBzIDwmMTVbcnf8YcTHz3bl
-	 T+HSoBDlOSn64AOtO1bncWrqz0L+FKBs01UbCFlly8uyDnPNKBnUSuMaZWuqdOqSpunRc
-	 ocJTHxeJDn8pCqEQWUNGFa8uxuwCa3emD5vzVHq4weOPkOikWKaNCgsDgJRz6qsrYrUZ9
-	 NA2wg5XwxlrAYfE00VJeIYsDzgK+b3q81Wtc3XBgT8L6h0MPy5MdBDJ+jTsQGxEYHSQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795266583;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=j99TQFDHfLJ6aeyS1qzJokJ79GqgAG9QmgsuNLNuiHg=;
-	b=Da7ROQhSgNjceq7EIVd3vST6V/prMA/qNCg0+AG4ECmcPRoJvbVimeddyN0LxQZgcHYk
-	 ZGAj7mAufrDU0sZe4R69l8iTmptpxhB6LFzjLZivLOEMD6bwWq98PNtEN5IKmNGeEj2I8
-	 uEAS2NSmYDJ4nuAk2Htl8VT2nGKCvIl/ZxaHXo3AP9MxNgHKPXnpo1Do6LpzJ1SORy3Fw
-	 vW2lGzWn8oBqIAtq1AgLGpPCRdrb+lNJsQD7Uyp260RdGQVpX8EGny0RjApqnBV6Sywh9
-	 /wkBVPMKXBfn+GJFmp7IRnrjJlpVlTYxZT/WKPNZTXDKoK57YEbHx9BEPwmS2Emji/g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ANsMGi6+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC916606A320;
-	Sat, 21 Nov 2026 13:09:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ANsMGi6+
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795266582;
-	b=u1FOeiqfVg0AvW1ElAq/S1RNSuSZxa8uTVbTYYdmnt0hB/NonlN3Ss7uagpjZTi3bp98
-	 FeM8ojtvY3YVz7jJCedyHBZJ9gda+r+QjYt996q4pr+2iOz6xKmDBurFgSsqfLc+f9MM3
-	 SNXlXIZeUKc9WcxpObyyZt5LQBH7SH5kN+396ZIGaej17oTs73SQeMM+mxI8X1YncyaXt
-	 yelowr1h1Arkc4j0iXcLMq88VOmY5XYwvhzjBkiJAt/8VpR+Q3Mojtl4TVn4c6S2ZurQm
-	 4jWocWY2SZZ1i/e/itjzUHYFomgDkVsfZqqEkwoLIilZP6AO0uPN28Su6IqzYHuf9rA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795266582;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=j99TQFDHfLJ6aeyS1qzJokJ79GqgAG9QmgsuNLNuiHg=;
-	b=zfsdJlTgFjLzHAwNM2DV+wl2/i8wI7szhK9BnWIXv0KLDJwq255gVuFJATXHINEmt8db
-	 8Mm2s00IbGSmJohAe6CV33ZEVVyqRpfyCbqbnI3oqeWjHg7V4Ef7nnbpYdzf8Y9LURBJL
-	 L9DBunonT+5D3+VWe3YSx6CVr2aiuYAJ9F+14uyH+b7Msht8uVDC8eI8WU8NVM5sbD/Wz
-	 k5G5TruVv3slgsxRpByN+YJdpRoL9DXE+j5S9a0EHThc9s9WiZ9r02FqUEHA4/rlNRMgE
-	 5Ncx7wkq9uHYfavD4kCXSvKpYZWxzvu5Xk9725a8/B3ZfA7qruokhavhrxiWVaiWJuA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795266841;
+	b=YVUPJ0nOk3yQwPgFnB7C4Lx2mSUcSkLrsEufcDeM9GWYyk9WQg544QSZXfnuqhscmYtv
+	 nPU8EqdB9/BnMNyviP1bD38BdRVa2GHzlogzZTwO131JqnkS1gUxC6F8QZSGWkXv5fb5B
+	 1GcZmE3Tph/lkpVibgJP17htvUbuV0VllIxL9L7eIfL33cmggY5XAUUuU6yudPJcbFb8z
+	 agEVh5hY8JuS9mh027tByShUBQkvKXfIXxL18CyZPogXBvRtCouXg+Hf3SonvHSc9AfCA
+	 yAgwHrtCGx/KtvInr0Y7xouFo3fc8CZ2O+eGed8RA0okfTbOdNnrhWvE41saUZwoKHQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795266841;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3uk1V2g2BrgRRimIAVfUYX/6Cv+bp9NcizxCwFi/VHA=;
+	b=0XcZ1nZnf1eswWSECDeZBSNbl06wGugUpEM36QA7Nr3SQAbANF2YlWSCoQKobk11rC0i
+	 99IaEgQTI5iq53PqTBizhUMlL1AQCrwuo/59HeiWLcz62CeHi+YHjMvlYGmmBS8JhbYfq
+	 wCy4PkT8vdhs3gqJ7eLVX/djtiOS7KOk9RXFzK1GXYIlALnwicUQ7ORDeSmyQrKwqiPUN
+	 CsQuVtOtGNSB78+44z7mHJbxfi4iqyXZa63ltHvSTlnmZr7BNRZLSgFFDenLZMZbO9OCE
+	 O16aKweXrnHift6KIdIyv9iWBiBIh6MZvRk9soiBElpCCPH+CblczHIj/zUyKM1xHUQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MB7L0WjR;
+	arc=none smtp.remote-ip=209.85.221.169
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 129961F000C0;
-	Sat, 21 Nov 2026 13:09:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795266582;
-	bh=j99TQFDHfLJ6aeyS1qzJokJ79GqgAG9QmgsuNLNuiHg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=ANsMGi6+LfPvxtcA1sBJn9xOssv9/ZURhAwdyw1tIeEFancZCR6xv+zzNm2o1tpDV
-	 PT+ZDw8lY314Q2pHJqQmrtGjqg381mb3YxO1cSGg9y5KjLyzFGqCVKQyC7GhYKc4Cg
-	 kqqLT087gH4yHf4OaohUZZUuH3I5Tn+Zzn39c7HZEMq4kT0HqK2+4lDZGF4xgmCwWG
-	 yb9bJJJY+2doodXpQBYyWvFbMVQ+BI4/ZSL4y3ZmmHVwP465LC8eDKFRGylMEVIBfx
-	 MdAdW0gHF35ugV8aTJql2yCI2N6Z8jrlBwX678P8LVBZGZOw77TRaQsex6HUQUYhi5
-	 8G1Hq7+eiiVPQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9A2CE4BC52;
-	Sat, 21 Nov 2026 13:09:41 +0000 (UTC)
-From: =?utf-8?q?Aykut_C=C4=B1nc=C4=B1k_via_B4_Relay?= <devnull+aykutcincik.ogr.eskisehir.edu.tr@kernel.org>
-Date: Sat, 21 Nov 2026 16:09:40 +0300
-Subject: [PATCH] ext4: discard inode preallocations when indirect block
- allocation fails
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1D6606A320
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:14:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E1D6606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MB7L0WjR
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5eadef147ffso1465463e0c.3
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 05:14:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795266840; x=1795871640; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3uk1V2g2BrgRRimIAVfUYX/6Cv+bp9NcizxCwFi/VHA=;
+        b=MB7L0WjRuxNm2sDbU53jnYFLwRyTA18s2ge80AXr79j5l+UllV+6IQBAfdXVuwCYnn
+         nAhqlqG5Ke4YnpNKYl1nv7xPjY4MUtHiESzbDffGoSSJVA1VC4f2T8x5plegXTg2gyUP
+         GcLEXIQKTPOkZ6djyA23AlKEygitFg9S5y4V8kCulbw91NUjI3weV5biL/6rLowx7Jnc
+         +LeqroPNE8litre6N/7LPYo7UbBCZ9MZEaxwkv980WhEThRe+x6ukRteraFveS1XMmVy
+         dUxsE4abhlrIOaNKb+myoVNndM/KoJj5tlRjHKmJytgq+qhh9Xi7CuUnvt11iLE9zMp/
+         SaRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795266840; x=1795871640;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3uk1V2g2BrgRRimIAVfUYX/6Cv+bp9NcizxCwFi/VHA=;
+        b=LT097SxLEVaMOd9jrEAu3jGjLr1/iTesqwHTSArCA2EK07LuG2BqiigqRXuP37v3Uo
+         noe4u89KpyLoTrB5DUWgANUCyCLp7vU+LfA0vcJt8X9YoNQra4lOBTNMe67dFqED/xJA
+         umXCCQmdRTGEAkj6pL6ZFqFWiKibYykHNUBvCReHKlGMVMu8oIUT9r1eE8b8wrQ6lhew
+         eR/hS9vQV8gkaaQZtrv69kN5SzbzXatGmYKg4wVI/2xM6QGImYHL74+s9835SwEeX+h7
+         DHa8cS+dbHXOksQpupcorTudnJ2NKI8yLM2NBe7jM68vfpSm6DRsSgmvBFVRWvQRxMP0
+         CwKw==
+X-Forwarded-Encrypted: i=1; AL+hErEFGPldtu+QRTysf2QQkbu7r2sJo/N8dY8ao37qu1Bc97MhN340jCf/n+bX8plI1Hzqv1Gz6aQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+gcLtmHZVqk4xbNBuNSZLahTD3oRbVwj23jwhaUm6rKSdSpTLH
+	rKh9qF/67zLeEO12ab2YlUMO4x+rBBu8Wyfg4ZSVy0RJ3f5ePbIqgJa8cy8NQ9T9GlU=
+X-Gm-Gg: AZFdTZerD8wCtSUHO/KAyYAxGGXVUNEhLjRuJCLeie349tF+oi5wrcYLmAcVm69iWg9
+	HQOK+bgGERfFb8VrDniSGepG6qWaZI5ly3ncciPpRcV3MArcPXZPBrS11YqQsKcW9dP9+oHTnkq
+	53PQ22sF+LqM8LVsXYR77t2VDBclXzTYv3Bu+v0QEniAituoQL7hHkjglm0kr5Fq9CPLv8MDjF7
+	ok5NT8RkgUBvQPpn7jsl2JVzoqnmMT7PWm0eleIR+Afi/J+JOu+86w4TPhz/oROShXrYVupVzP4
+	BbhAN3AMCuEqPcE/VYT6ncs5LktpbkJdiEWIMJ7Alxggc8PdQd0nbf8dO8REbrPOJCwgWupdz/O
+	amoxUCqdzA69gDuiOGzJs3JDNEbWSAcNR1VtNG/VF36wRdxg864ohj2DBvZaNx/Awx22ni2Z4+8
+	ZRx25T0xxu5ufkoUp/if7+RNS542TX0HRFNtTAG3xAJLflAhHBg/Wkc3xQbXA0Rs1HeomJbpXYM
+	0YIv3XDzYkrOOvxGenpE62tC88irP9F5soICUAbTRzpqzVzxb5jsPNmd/t5lKdRgMUXfID4UP0g
+	xqe4WGlEKRNBi1nUu4O8h/GJcNtNSFp7y6NbL8UEAEbPKbY=
+X-Received: by 2002:a05:6122:4201:b0:5ee:a81:e77 with SMTP id 71dfb90a1353d-5ee8af0e023mr2950746e0c.6.1795266840149;
+        Sat, 21 Nov 2026 05:14:00 -0800 (PST)
+Received: from localhost ([2804:14d:5cd5:542e::1a7f])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e6dfc0b22sm5702260241.6.2026.11.21.05.13.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 05:13:59 -0800 (PST)
+From: "R. V. Lobato" <vieira.lobato@gmail.com>
+To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, regressions@lists.linux.dev
+Cc: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>, Ilia Mirkin <imirkin@alum.mit.edu>, stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [REGRESSION] nouveau: GM108 hangs at boot since "drm/nouveau/devinit/gf100-: try to avoid double-running vbios scripts" (6.18.64)
+Date: Sat, 21 Nov 2026 10:13:50 -0300
+Message-ID: <20261121101350.bab69dff11a2@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,181 +93,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261121-ext4-ind-discard-pa-v1-1-ee92928f7797@ogr.eskisehir.edu.tr>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMPQ6DMAxA4asgz7WEI/6vUnUIiQPuEFBMERLi7
- k3L+A3vnaCchBWG4oTEu6gsMYMeBbjZxolRfDaY0jREhpCPrUKJHr2os8njarHrQ1VTHXrbtpD
- LNXGQ4399vm7rZ3yz234ruK4vugv123cAAAA=
-X-Change-ID: 20261121-ext4-ind-discard-pa-89f4515f9a77
-To: Theodore Ts'o <tytso@mit.edu>, 
- Andreas Dilger <adilger.kernel@dilger.ca>
-Cc: Jan Kara <jack@suse.cz>, Baokun Li <libaokun@linux.alibaba.com>, 
- Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
- syzbot+d79019213609e7056a19@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, 
- =?utf-8?q?Aykut_C=C4=B1nc=C4=B1k?= <aykutcincik@ogr.eskisehir.edu.tr>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795266579; l=5732;
- i=aykutcincik@ogr.eskisehir.edu.tr; s=20261121; h=from:subject:message-id;
- bh=u2mp19xud4/0B/he8gKsRnxVzIf7SqxhCwexE7gjAkI=;
- b=jvo/6FBjNLAM0qCcxCqG6yF3tGE/Bv4Rm08gWTz5D56f2ECKbkB54ESwzFkyb4oB5cLve0xAD
- T3i5HTF05NWBpyH5eeyQHzEdh/jcwzDQHLC7KLKocJFT/HxC8PlIdVW
-X-Developer-Key: i=aykutcincik@ogr.eskisehir.edu.tr; a=ed25519;
- pk=0VzUGJI+NLEekrIgYW4SWfh5kCTg8XsSWzEwmTagNes=
-X-Endpoint-Received: by B4 Relay for
- aykutcincik@ogr.eskisehir.edu.tr/20261121 with auth_id=1593
-X-Original-From: =?utf-8?q?Aykut_C=C4=B1nc=C4=B1k?= <aykutcincik@ogr.eskisehir.edu.tr>
-Reply-To: aykutcincik@ogr.eskisehir.edu.tr
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Aykut Cıncık <aykutcincik@ogr.eskisehir.edu.tr>
+Hi,
 
-When ext4_alloc_branch() or ext4_splice_branch() fails after the data
-blocks have been allocated, the blocks are released with
-ext4_free_blocks().  For an indirect-mapped inode these blocks usually
-come from the inode preallocation (PA), and ext4_mb_use_inode_pa() has
-already subtracted them from pa_free.  Freeing them does not return
-them to the PA, so the PA still covers the logical range while pa_free
-no longer accounts for it.
+The 6.18.64 backport 15465d681517 ("drm/nouveau/devinit/gf100-: try
+to avoid double-running vbios scripts", upstream 2139cb633d48, review
+patch 426/686 <20261113153835.372076643@linuxfoundation.org>) breaks
+nouveau on my GM108 laptop GPU. The machine hangs during boot.
+6.18.63 works. Reverting only the gf100.c hunk of this commit on top
+of 6.18.64 fixes it.
 
-Writeback retries the same logical range after such a failure, for
-example after sb_getblk() returns NULL with -ENOMEM for an indirect
-block that lies beyond the end of a shrunk loop device, and
-ext4_mb_use_preallocated() picks the same PA again.  This time pa_free
-is smaller than the requested length and the BUG_ON() in
-ext4_mb_use_inode_pa() fires:
+Hardware: HP Spectre x360 15-bl0XX, BIOS F.04, Intel HD 620 (i915,
+drives the panel) + NVIDIA GM108M [GeForce 940MX] [10de:134d], no
+display engine, runtime PM enabled.
 
-  kernel BUG at fs/ext4/mballoc.c:4779!
-  RIP: 0010:ext4_mb_use_inode_pa+0x557/0x890
-  Call Trace:
-   ext4_mb_use_preallocated+0xd96/0x1440
-   ext4_mb_new_blocks+0x72d/0x4900
-   ext4_ind_map_blocks+0x142c/0x2210
-   ext4_map_create_blocks+0x2be/0x5c0
-   ext4_map_blocks+0xbb2/0x1480
-   ext4_do_writepages+0x1dba/0x3a60
-   ext4_writepages+0x370/0x770
-   do_writepages+0x288/0x600
-   filemap_writeback+0x203/0x290
-   file_write_and_wait_range+0xf7/0x170
-   ext4_sync_file+0x418/0xdb0
-   do_fsync+0xda/0x240
+On 6.18.64 the VRAM size is garbage and the boot stops shortly after:
 
-If the BUG_ON() is not reached, the mismatch shows up later as
-"freeing already freed block" and "ext4_mb_release_inode_pa: free N,
-pa_free M" errors when the PA is released.
+  nouveau 0000:01:00.0: NVIDIA GM108 (1180d0a2)
+  nouveau 0000:01:00.0: bios: version 82.08.62.00.15
+  nouveau 0000:01:00.0: fb: -1159778304 MiB GDDR5
+  nouveau 0000:01:00.0: bus: MMIO read of 00000000 FAULT at 6013d4 [ PRIVRING ]
+  nouveau 0000:01:00.0: bus: MMIO read of 00000000 FAULT at 10f65c [ PRIVRING ]
+  nouveau 0000:01:00.0: bus: MMIO read of 00000000 FAULT at 17e280 [ PRIVRING ]
+  (no "drm: VRAM", no "Initialized nouveau"; the system hangs)
 
-The extent-mapped path has handled this since mballoc was added by
-discarding the inode PAs before freeing the blocks in
-ext4_ext_map_blocks().  Do the same in both indirect error paths.
+On 6.18.63 the same machine prints "fb: 2048 MiB GDDR5" and nouveau
+initializes normally.
 
-An AI coding assistant (Claude Code with Claude Opus) was used to
-analyse the syzbot report, write a reproducer, trace the root cause with
-temporary printk instrumentation, and draft both the fix and this
-changelog.  I have reviewed the change and verified it as follows:
-without the fix the reproducer hits the BUG_ON() deterministically in
-QEMU (virtme-ng, KASAN and lockdep enabled); with the fix it ran 3/3
-times without BUG, KASAN or pa_free reports.  The ext4 KUnit tests pass,
-and a copy/write/delete workload on a no-extents filesystem leaves
-e2fsck clean.
+My reading of the cause: the new code in gf100_devinit_preinit() runs
+the VGA CRTC check only when
 
-Reported-by: syzbot+d79019213609e7056a19@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d79019213609e7056a19
-Fixes: c9de560ded61 ("ext4: Add multi block allocator for ext4")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aykut Cıncık <aykutcincik@ogr.eskisehir.edu.tr>
----
-The syzbot reproducers no longer mount on current kernels (bigalloc with
-s_first_data_block != 0 is now rejected), so I used this reproducer instead:
+  !(nvkm_devinit_disable(base) & (1ULL << NVKM_ENGINE_DISP))
 
-  truncate -s 4M img
-  mkfs.ext4 -q -F -b 1024 -O ^extents,^huge_file,^has_journal,^metadata_csum,^64bit,^flex_bg img
-  losetup /dev/loop0 img
-  mount -o errors=continue /dev/loop0 /mnt
-  touch /mnt/f
-  ./shrink /mnt/f /dev/loop0
+The guard expects nvkm_devinit_disable() to return a mask of disabled
+engines. In 6.18.64 it calls the void ->disable() hook, which disables
+subdevs with nvkm_subdev_disable(), and then always returns 0. So the
+guard is always true, also on boards without a display engine. On
+GM108 the VGA CRTC reads hit the PRIVRING fault at 0x6013d4 and, I
+infer, return a nonzero value (I did not log it), so post is set to
+false, the VBIOS init scripts never run, and the memory controller is
+left uninitialized.
 
-shrink.c writes 64 KiB, shrinks the loop device to 32 KiB with
-LOOP_SET_STATUS64 (lo_sizelimit), then rewrites and calls fsync().  The
-indirect block now lies beyond the end of the device, so sb_getblk() fails
-and ext4_alloc_branch() returns -ENOMEM.
+nouveau.config=NvForcePost=1 lets the machine boot, but only fixes the
+first init, because force_post is cleared after the first preinit.
+On every runtime resume of the GPU the check skips devinit again:
 
-shrink.c:
+  [   35.770421] nouveau 0000:01:00.0: Enabling HDA controller
+  [   35.805652] nouveau 0000:01:00.0: fifo: fault 01 [WRITE] at 0000000000120000 engine 05 [BAR2] client 08 [HUB/HOST_CPU_NB] reason 02 [PTE] on channel -1 [007fd38000 unknown]
+  [   35.806084] nouveau 0000:01:00.0: fifo: SCHED_ERROR 20 []
+  ...
+  [   75.453651] WARNING: CPU: 0 PID: 1081 at nvkm_runl_cgrp_get_cgid+0x79/0x110 [nouveau]
 
-  #include <fcntl.h>
-  #include <linux/loop.h>
-  #include <stdio.h>
-  #include <string.h>
-  #include <sys/ioctl.h>
-  #include <unistd.h>
+Counts per boot:
 
-  int main(int argc, char **argv)
-  {
-  	static char buf[64 * 1024];
-  	struct loop_info64 li;
-  	int fd = open(argv[1], O_RDWR);
-  	int lfd = open(argv[2], O_RDWR);
+  kernel                        runtime resumes  fifo faults  SCHED_ERROR  WARNINGs
+  6.18.63 (two boots)           25 / 30          0            0            0
+  6.18.64 + NvForcePost=1       2                31           103381       39
+  6.18.64 + gf100.c hunk revert 3                0            0            0
 
-  	if (fd < 0 || lfd < 0) { perror("open"); return 1; }
-  	memset(buf, 'a', sizeof(buf));
-  	pwrite(fd, buf, sizeof(buf), 0);
-  	if (ioctl(lfd, LOOP_GET_STATUS64, &li)) { perror("get"); return 1; }
-  	li.lo_sizelimit = 32 * 1024;
-  	if (ioctl(lfd, LOOP_SET_STATUS64, &li)) { perror("set"); return 1; }
-  	for (int r = 0; r < 8; r++) {
-  		pwrite(fd, buf, sizeof(buf), 0);
-  		printf("fsync %d: %d\n", r, fsync(fd));
-  	}
-  	return 0;
-  }
+The revert I use (restores 6.18.63's gf100.c exactly):
 
-With the fix applied, fsync() in this reproducer still does not return,
-because writeback treats -ENOMEM as transient and keeps retrying.  That
-behaviour predates this patch and is not changed by it.
-
-Two related problems in the same error paths are not addressed here and
-can be sent separately if wanted:
- - ext4_splice_branch() does not undo *where->p = where->key on failure.
- - The blocks are freed with a quota update even for delalloc-reserved
-   blocks, which can underflow i_blocks.
----
- fs/ext4/indirect.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/fs/ext4/indirect.c b/fs/ext4/indirect.c
-index a495080df710..3b4ec1c3d5ec 100644
---- a/fs/ext4/indirect.c
-+++ b/fs/ext4/indirect.c
-@@ -389,6 +389,11 @@ static int ext4_alloc_branch(handle_t *handle,
- 	return 0;
- failed:
- 	if (i == indirect_blks) {
-+		/*
-+		 * The data blocks may come from the inode PA, which already
-+		 * counts them as used; drop the PA so they are not handed out twice.
-+		 */
-+		ext4_discard_preallocations(ar->inode);
- 		/* Free data blocks */
- 		ext4_free_blocks(handle, ar->inode, NULL, new_blocks[i],
- 				 ar->len, 0);
-@@ -493,6 +498,8 @@ static int ext4_splice_branch(handle_t *handle,
- 		ext4_free_blocks(handle, ar->inode, where[i].bh, 0, 1,
- 				 EXT4_FREE_BLOCKS_FORGET);
- 	}
-+	/* See ext4_alloc_branch(): the data blocks may belong to the inode PA. */
-+	ext4_discard_preallocations(ar->inode);
- 	ext4_free_blocks(handle, ar->inode, NULL, le32_to_cpu(where[num].key),
- 			 ar->len, 0);
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
+@@ -27,7 +27,6 @@
+ #include <subdev/bios/init.h>
+ #include <subdev/bios/pll.h>
+ #include <subdev/clk/pll.h>
+-#include <subdev/vga.h>
  
+ int
+ gf100_devinit_pll_set(struct nvkm_devinit *init, u32 type, u32 freq)
+@@ -100,25 +99,6 @@
+ 	 * can use it as a reliable way to know whether we should run devinit.
+ 	 */
+ 	base->post = ((nvkm_rd32(device, 0x2240c) & BIT(1)) == 0);
+-
+-	/*
+-	 * However some VBIOS init sequences miss this bit. So fall back to
+-	 * the nv50 method of checking if the bit is not set. Running the
+-	 * VBIOS multiple times may have detrimental effects.
+-	 */
+-	if (base->post) {
+-		u64 disable = nvkm_devinit_disable(base);
+-		/* magic to detect whether or not x86 vbios code has
+-		 * executed the devinit scripts to initialise the
+-		 * board. only works if there's a display engine.
+-		 */
+-		if (!(disable & (1ULL << NVKM_ENGINE_DISP))) {
+-			if (nvkm_rdvgac(device, 0, 0x00) ||
+-			    nvkm_rdvgac(device, 0, 0x1a)) {
+-				base->post = false;
+-			}
+-		}
+-	}
+ }
+ 
+ static const struct nvkm_devinit_func
 
----
-base-commit: c44104f3642da720164042623e4832836aefdd8e
-change-id: 20261121-ext4-ind-discard-pa-89f4515f9a77
+A proper fix probably needs the guard to test whether the display
+engine actually exists (for example nvkm_device_engine(device,
+NVKM_ENGINE_DISP, 0) after ->disable() has run) instead of the return
+value of nvkm_devinit_disable(). I have not tested that. I have only
+tested 6.18.y; I can test patches on this machine.
 
-Best regards,
---  
-Aykut Cıncık <aykutcincik@ogr.eskisehir.edu.tr>
+#regzbot introduced: v6.18.63..v6.18.64
 
-
+Thanks,
+R. V. Lobato
