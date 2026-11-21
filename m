@@ -1,72 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795301224;
-	b=PwQqA8WJuiY5eHyE+88rOiYfTV4WDImohLNaEk6ZTVb66nxgoa43dao+YTldOQObY7bp
-	 L3n4+nnn2KQJM5OcXzz6+y8E5h62hfoNyfkclcmOkFyHpHWwGGFdz1FGZDu84Rm0Be7LA
-	 9tk2lqt40W9WF/+ciOr9WLGuAFZCuzxhO3QZegweA/ffkKrzg7xN06vYFU1gHrXjxhDno
-	 aAuiYi7DoF5LOs1x6s+MdZhN7Gs6rh3GXpHDGwPywaV3vtz9mOt8Ej0tM6w0mLtmlVBgq
-	 ATNPXDdV58Ob+FsGpR5WGTl3PLzmTvJFZZwxRTmlyFQJoW4/0YJ3lTBvoVHCa/b27lg==
+	t=1795301480;
+	b=H9TJkHDl2mc/g2UEaTnO0tACbOOkspw2yC2Np4ho2FiMmmcgeSNpFHVtHRuwbmTAwAtM
+	 ddfe6rgf+WlrBn9tifWt+BLtnLOWyEe1nms2Zuz2PflZML8n1Oc7N3uOEk6xvRAdu/ikg
+	 bu7OzuUCZx8GTUdRxSyNckeoBl2+T5RNYJE7Ftdl+9nRlbKOn5Bqtbsdy2hoJKbEJVZtd
+	 paJlggC1zaA1WOIetCaX9SeB0upmLa67jSmfNJvcWsA2iKabTXLHtmVUV6FPemOxlNlio
+	 wjHvm0sivOJhCoErLdHM0UNxdepjgEATFO7LdN4TVbBhdHw1oevzbcvJA4HalW1tZqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795301224;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XT8m1CKSI+00WLR+pPujkQ1Ddqhzv/L1jEX7o9vDjA4=;
-	b=xzgEQUkEdvfUdGeAcN50XZ94lzQfFzeuhaAGycMPjA+A2p2VR+I++47ytGdHelQhtyrw
-	 mGKq/NNI+3ttee0IaKkE8TacnDtRPUX6Pq6G78z+0RlbfsSct0iy2g8aN7Ywb8o98yrp2
-	 Fe0msBHObwP8AD8wg+kTGctM5JFzhSfWwulGW609718a1SqYxOv3yQ75b79TNbp9R8IQ+
-	 FUv6wHPCQPkJAtgoRg7P1kv2EQiqxzD7eVL2aXxReBMa6CFmLGaYfIqqDFxd5f+IT5zSv
-	 kdrLj26DQOMnYPr4TiIXRXwfqUXTpJtDbkDrDvxchWd/pKh9sASONrRMyXjLDSsM91g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795301480;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=M7DMWBB94yLZqEaPSWigGMEGI/4GG3JhAn9LfYKnXPE=;
+	b=MBsioISdMFG2YmRDTN9AAORlbSylRO5L+1723NrnYvSmtMchEc/HYYxQU/2fCY0UbY9N
+	 ZmO1A/WNuRa2mmNZhz9M1jWbqbVcZ9RFOgZ27vd6LQUpHUHeQc7kAzqjWgzb0QeInum69
+	 OVSo97uFtIeebrSjgprOeE9vy/jGtzvWb5WaHpm35mv4QNNCJR+T4DQ4pG0lPEhq7CdSy
+	 hixuZYrP5TA2aZWh8oByYo0dKPNRC+VEAPW3BHwnM8vSQEi6jtRDrKyZ/oxg2AlGCd6PA
+	 SHvZwqhelmnJirTm8rAPQN0j7oK3mmnsZtJ2hGx3RGlCV5oTfEIOl8FpuUoxRDO7s/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nHX+hHkD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b+fJSMXm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B24F606A320;
-	Sat, 21 Nov 2026 22:47:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA86606A331;
+	Sat, 21 Nov 2026 22:51:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nHX+hHkD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 006341F000C0;
-	Sat, 21 Nov 2026 22:47:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b+fJSMXm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B1E1F000CA;
+	Sat, 21 Nov 2026 22:51:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795301223;
-	bh=XT8m1CKSI+00WLR+pPujkQ1Ddqhzv/L1jEX7o9vDjA4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nHX+hHkDqFXQZvbVcZe6n0xcFEiamNcC98WZLT+DjPTW+Z7ZdGb0e9F+EYH3pIDQQ
-	 X6ae5Awxs3xaby9wJfEPNDb3vNTJ/UeS/Vsr1ZVLzCN77Hq90u0Bi4fJ7u8Ke2ksMT
-	 P0AS8n+8G3Jb/wJL5U4jDAIqg2gi8+gQ5pA8Tf5ovIAwWXvoFzV9VtTBxYwCBSVeoG
-	 WTkMZtB4x55/2N6AFWYwXJA5lJ5xPAMP5J4DyFtrOh6FZwShP0EfjOvVxggGz2Phee
-	 Ip9xMEMw6TsbHx8t7BuMJkAwYIlKI3z3WrKF6GpkfLHwISjQWdGVDQYIXnDGALo+9E
-	 I+zNgE92eaUSg==
-From: SJ Park <sj@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 5.15 0000/2178] 5.15.226-rc2 review
-Date: Sat, 21 Nov 2026 14:46:55 -0800
-Message-ID: <20261121224656.154536-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261120055015.328810133@linuxfoundation.org>
-References: 
+	s=k20260515; t=1795301480;
+	bh=M7DMWBB94yLZqEaPSWigGMEGI/4GG3JhAn9LfYKnXPE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=b+fJSMXmBh79PHQmv8iixzQ57TVwBz1eAqyUajITE23tX6XJO9bYLoFobVPEu8Bnb
+	 dvJBNK89U/PpIHOPCoyYDT1qx+0qdmKaiQB4zqoXMiN/6Hq9CXcJsqPEXLLZyBqIm3
+	 TScpqY23WT04z3kejVElUuzqV1pxh5JIbhhbr6X00CSjeNPSvUgfHlNRTFAARt1j+9
+	 5AvmrtAHKamEFYySoyLnGgqeh5BuqQIRNjYDMSHgFrUUC51hwYMcfgwQrY+xS2o9pU
+	 s5UjYkerquQjbAbkm19TtwugK+kvMtNLPIcQtSVB3kfSv49DVcO7b3wBVWqJhHJPnd
+	 4zzX1xABklZ5w==
+Date: Sat, 21 Nov 2026 22:51:14 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Lee Jones <lee@kernel.org>, "David Lechner" <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>, <linux-iio@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH 05/10] iio: adc: stm32-adc: Detach chained IRQ handler
+ before removing domain
+Message-ID: <20261121225114.41f87da3@jic23-hlaptop>
+In-Reply-To: <a449f513-5d7f-4478-a389-9c47dd0ecddd@foss.st.com>
+References: <20261119153151.1397003-1-lee@kernel.org>
+	<20261119153151.1397003-6-lee@kernel.org>
+	<a449f513-5d7f-4478-a389-9c47dd0ecddd@foss.st.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,23 +67,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, 20 Nov 2026 06:57:07 +0100 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+On Fri, 20 Nov 2026 18:23:19 +0100
+Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
 
-> This is the start of the stable review cycle for the 5.15.226 release.
-> There are 2178 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+> On 11/19/26 16:30, Lee Jones wrote:
+> > stm32_adc_irq_remove() disposes of the child IRQ mappings and removes
+> > priv->domain before clearing the parent chained IRQ handlers.  Because
+> > the parent hardware interrupt lines remain unmasked while child devices
+> > use dummy_irq_chip, an interrupt arriving during teardown invokes
+> > stm32_adc_irq_handler() after irq_domain_remove() has freed
+> > priv->domain, and irq_set_chained_handler() also leaves handler_data
+> > dangling.
+> > 
+> > Detach the chained handlers and clear handler_data with
+> > irq_set_chained_handler_and_data() before tearing down the mappings and
+> > removing the domain.
+> > 
+> > Fixes: 1add69880240 ("iio: adc: Add support for STM32 ADC core")
+> > Closes: https://sashiko.dev/#/bug/linux-27c38690-bc20-43aa-a3fc-1ddd6f1bb74e
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lee Jones <lee@kernel.org>
+> > ---  
+> 
+> Hi Lee,
+> 
+> Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+This one seems a little more likely to be hit in practice, but
+it doesn't apply to the fixes tree due to some other recent changes and
+I'm lazy.
 
-This rc kernel passes DAMON functionality test [1] on my test machine.
+Hence applied to the testing branch of iio.git to line it up for next
+merge cycle. We are getting late enough I should be keeping fixes to critical
+stuff only and I'm going to assume this one isn't.
 
-Tested-by: SJ Park <sj@kernel.org>
+Jonathan
 
-[1] https://github.com/damonitor/damon-tests/tree/next/corr
+> Best Regards,
+> Thanks,
+> Fabrice
+> 
+> >  drivers/iio/adc/stm32-adc-core.c | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+> > index 4b532db3db62..13b75475046c 100644
+> > --- a/drivers/iio/adc/stm32-adc-core.c
+> > +++ b/drivers/iio/adc/stm32-adc-core.c
+> > @@ -467,12 +467,12 @@ static void stm32_adc_irq_remove(struct platform_device *pdev,
+> >  	int hwirq;
+> >  	unsigned int i;
+> >  
+> > +	for (i = 0; i < priv->nb_irqs; i++)
+> > +		irq_set_chained_handler_and_data(priv->irq[i], NULL, NULL);
+> > +
+> >  	for (hwirq = 0; hwirq < priv->nb_adc_max; hwirq++)
+> >  		irq_dispose_mapping(irq_find_mapping(priv->domain, hwirq));
+> >  	irq_domain_remove(priv->domain);
+> > -
+> > -	for (i = 0; i < priv->nb_irqs; i++)
+> > -		irq_set_chained_handler(priv->irq[i], NULL);
+> >  }
+> >  
+> >  static int stm32_adc_core_switches_supply_en(struct stm32_adc_priv *priv,  
+> 
+> 
 
-
-Thanks,
-SJ
-
-[...]
