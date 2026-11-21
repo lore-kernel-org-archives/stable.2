@@ -1,90 +1,90 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296659;
-	b=G1l0jpf8EzJ8Do/+4A866rvwWHNzMIgGRIHfxJhs2D7Yzzr9cIRDUCsleJA326m+w3VX
-	 jXVordtUpW//xIkBxHxgN6EHxIORUjZ90SdQrJu2sTGoPc73Pc+paVp9+EzhPW6et/4p6
-	 1os3x7KdZZ97dMgD5t24ZPh8D1geTN9LafaQBSXxjqY5JC5uk1+qtwfauIU4YC6nnqh1r
-	 ZYk4EW+9kX87O36R5KK6nZckoktv+2GN+sBi7DpX3XxosldutE75JB99oJclQvzY8JjNH
-	 6Z66iNAC6BYnT5H/oYFuexuUj3P8MvPAeM+SZNjCP0LZZmsJGW8uDv1l2bADngNbyag==
+	t=1795296660;
+	b=hgAfGOA+4WXA0jlrQBnkcyj6KrYl5AZrYX6Ju2GMP0SHZPHOl8yD295XR3oa200Ctwu5
+	 aRA3vLSD/frlJ0WWjkbT3rrPGY1tY5/yiVNL1WSCGkCZJIHWi5lzUk3+y1WAYegxR08Dj
+	 cB3dSOuRJ/rLXo5Er5c5PH45Z0NKHuePOq+fmrTNvlsaciH+RqDlrmGDZUcZO8AYrL4Sv
+	 5+/VpD0SjwHUMzJJdQqi/3C5Keg4z0H4w/lO8n+ObJA0NSIzGaL/F77FTQ0Q2hYu47qQB
+	 aJYUF/btMGTrREKrw/XbnftjCWJZxfnbilKQeifhR0boszcgbd0cDfCwJVq3iCPv/Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296659;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296660;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=EkcmbvlZ+E706tSiZaTreanvkbCLPYgRbMIyrfNqRro=;
-	b=NACFTsCA9qnDf6z8MdW3SASAuijc20BfQecdEsGFlSp5TkJgWTOMu3X6tNrObY+uBIim
-	 aGM1jUBhcEbKrhiwhgvmP6148YenJViLdQaGYWl/nCBxsb2gOO5lzZ/OUhexpSoXw6RQ4
-	 7SQLo0MPVCP+vNf7Gw5y4igHZcap5w5tan8w7Fi25ek7wa5r2r5SQnVuDte3g5wD+UADv
-	 8XJQk8AcvrbfvCkfQ1psPJuEzs9oWKrYUdSOEBmg/LhyToQPbf7/SyFf5bfcIO3HHFI6b
-	 f+ON7M3VxGXAD8SKFSqrD2+PI+au/TYvbKRXKPiR/PrvBYV47eYlLpiBSKSJJKdjyRA==
+	bh=SXokKDX2FRYdfasi8OubBdj/zcnTHgK0c+jbCiPd+bA=;
+	b=AZfwiix3STTfTylgXqVeyuGPprgZbRvClg3Rcp9o+xEGMTdkjHQz63SPK2GI1kYgJgLw
+	 qA/s9oX5gIdPptkRaWbMaMob93lqYFIJulApqHrL4uxhoRKQUkSeqcPzPn7Aep3Yo4D0d
+	 Csucdpf104f3Q/EC6uWIhB989fETtKQ30SQsJS9vWFklPNql4VDVjewOvUaZxUjoaImoq
+	 FOMCkWW6ztwtgJvYjEa3mMkDDqXG3BcYDseriqcvQb0fdLqy+hA9muKRascC6xmzQ1lHT
+	 S6fyrlN0AvwSZYDdxty9tUB0vxaD3G0jxZ7HU7TEm7pBK/Rkqmy7hAuY8PR8+NxneKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=HIvAM2Gv;
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b="s5E/ROqu";
 	arc=none smtp.remote-ip=209.85.161.42
 Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A04606A334
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:30:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43A04606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DCD606A32A
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37DCD606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=HIvAM2Gv
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-70b875f6f1fso1700234eaf.2
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:30:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=s5E/ROqu
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6d68de53053so1517347eaf.0
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel.dk; s=google; t=1795296658; x=1795901458; darn=vger.kernel.org;
+        d=kernel.dk; s=google; t=1795296659; x=1795901459; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=EkcmbvlZ+E706tSiZaTreanvkbCLPYgRbMIyrfNqRro=;
-        b=HIvAM2GvZJI2ueLJZOECyMWINdrGoYv5KUa0i38WEx9+sXR716fMwKHAlGTZOairiq
-         o+eFABSzci2y3KpJPSliDb/McJqNkltsNrCJkOAYDSoNn10t+h6q9j5l3Uni4xFHdhD4
-         0jcjaq6ijoL+5OA+koUeNRJuY/SaieZLdHeRElM6fhi+YYCI/42hZq6qgmxg9kM8LwRY
-         AhkTcDCxOsr+kHBxsc1YnI0kIH/febjxTLJEtA8jsEG57XeChm+t1e7I2dmPznAuRDQC
-         2a5U3sdjfyaD/XEbamFaFOeFmeNYMcX+ZYcv4TwroeZuja8H6QSJg6jdYCGVloRN6O0h
-         x0FA==
+        bh=SXokKDX2FRYdfasi8OubBdj/zcnTHgK0c+jbCiPd+bA=;
+        b=s5E/ROqujPIx0UMEO/0zd7W2hQkXnRLArIu7ZRCd5Hr/L44aGwfSdlM2aIWOGAaKfh
+         iq88KqzNu/rNgx7gsogBkpKYORdUrJ0jHkRROM2Pq4mrqdmIlkY1/gb/lR1O5RBpOiTL
+         kYtDYLW5QzEoEE9zlfOOdFG1to7k1ZcygrucoL1zCXctuY/EBljJAxS4cid/Gm0KWsyk
+         0+6rNFo3JNP9mvn2ziu7E1kushw2WyW/J4OYuQ0+rOJr7eviKB6n2O7V77jk5Qdmf8Pz
+         9FeVt1MnIx5B4UR/Z5fKVxrXuVB9lfOQYo8IFKxrANjXD9b+Yr6cUGONJwg93NEvNRa7
+         iWuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795296658; x=1795901458;
+        d=1e100.net; s=20260707; t=1795296659; x=1795901459;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=EkcmbvlZ+E706tSiZaTreanvkbCLPYgRbMIyrfNqRro=;
-        b=EEphx9lZDxG4pYPcxUQnHul38cJZjeOt1qqoQVHCCFwD9GGVdXtkE/mN9nrvrSz7Ck
-         jmu0LvvcDXfn9e/6XuxMtftzSQtLrNSNohR+P9JG3XBv/zY2MAKGKvXdFDqKwEkaxt6+
-         /rFaq6/TwUFNqXbsdEzhiP67VKM4JNw3r2YwGG6lUR/HN2H2EUkbS0fjA5i32jTLQ59v
-         eQRDeCqsNleh4DdEQs4XPQ1nFdhJU4JuRZsHTgLDHgEJm23bRqE3fL0zl1i/B13JFiFs
-         1g44yDjKk2PYj5YTQZ7E7MhVqZJsrQlAKlZBUM8mj8RoLlF4xFFQLdKIUFJCQGZEeSNw
-         V0cw==
-X-Gm-Message-State: APuU4Z88DMaNDUy3zMtx/eipB6ApjEVnqTHHEos3Z3aZJcWGLnMtzTaQ
-	cdQ93M2vDgZfZv0hesu0rN5yZgOl1RB2aZfKoKjuyfklDTn/ErXjvNNmrApDrSVyECLngLrruz7
-	6X6mFK7Y=
-X-Gm-Gg: AZFdTZd/Idxsc5qgAb2RYJwRVkRROYTzQ6uuM5lpnoZqzZAG2wv4A5qMo7gdPtjU9nZ
-	mn1UjeLhp7NhgN2+e6mHBuEHu4hzO8WDOm/mhZb4m8uH9RReuuN9CmAJYJMlm46tyuuigUEWxls
-	LTHuDZCnth1s10bB3F2OWFhdxMV7x7z1miu4p6Z8vsnS2LtEURcxlsSopNCqZR+AETlSvXqkLZF
-	s45unYGr0CEifB44TbJ59w7FjrkPlQbg3uN6/w3VY2DIKk4ETNdgn+zk2Wu+AURt29ZpLVJMi0p
-	KpS76szHiCFM+br9lybVB/CpYaPZy++3AYtgCARdMpIsnaqdnlxKsR8HNlIPRtH0yCFv9UfluDE
-	i3yqPnZLYy3h30aNLyz9M4DetvlbrB8ixdEyfFOzYSou75saipKodDL8+tGd+6viVJpwB4k2gmG
-	esmgMSsmrGJQMWkGAeZKo6l9DKxdDgH0TiPyTh+ms+k6Xan18NUUr+suEUt61cu5rm0c1/paqyn
-	tO/BzWpv+qudOCEynUoEfI+VL6aE6iPItTz8JGws7//3rpeFR9RYnnhHBk2+8hsbnd1ziUQyzHz
-	E6F8FkHLiyGyUNcEvPfGLDYhrVvAcBJlSK+bUPoBktLBB19wkQHHhSKSag+aNI1D1PrwRA/ofti
-	2lvM8LFjlVGGh3fg0+Q991/TwY8r/hOMlOuTC
-X-Received: by 2002:a05:6820:a10e:b0:6e1:d890:3825 with SMTP id 006d021491bc7-71b39402c96mr4775405eaf.18.1795296658104;
-        Sat, 21 Nov 2026 13:30:58 -0800 (PST)
+        bh=SXokKDX2FRYdfasi8OubBdj/zcnTHgK0c+jbCiPd+bA=;
+        b=HnS8tT5kxdtjDU/RJKEUD85pfBfmHETxvECyDhxVXgyk4Gsm2UGxUF3QZvUvUQ7OTw
+         dHDnTxNM3ntrvs98t4mMq0m86nXWuxD/ab9bY9gXyznUySIFeZkGwazf3xawi0lge/OH
+         h89915m7nuJ56FA4cM6GNw2cd3a6fJUoZv33jRr8u+86KFCbrtrKE+l2G0bSHdHoiXur
+         PN45DdGaNxBG1+IKNGTOLs11usJfc/VYZ6kBog3SBHsXCtWnTJxH9/SDecM207WEmNq9
+         +fGloT7i35sUoiSlMKg938eZK43vzhOZ4dEJ4qdKEKRxCsSVqYoWoLGW2x90mLeq65WQ
+         c0Rg==
+X-Gm-Message-State: APuU4Z9ZfTb65HlpMgg53k8eHjsE6GjCTrbHCK/bZOrDP5ebzojq8Jhr
+	hHdC3dUiS9gI1OW0a2PZOKlPLXasFzZ/iG2VSOCBij+WDIxUxfBJMWZH+SjiERKOxzTnB+ejM6F
+	AkKzeDyY=
+X-Gm-Gg: AZFdTZep0ZTWYdqzfNGvsV0O2ajCvqZ6YmQ42KLSNMPW5oDNZJdzVy1/qM8/on3ZjcW
+	nAIsIUj7p8FrT4KxaTvIVDT1i52n844nnqccsNJ00QXsaTHR4vsNG5JSwTl2sRXM0xsgy5UnZJj
+	ctDofjl2iHDfEOopG/hWkPksvwqgXl4gdETDsglcA5T+FGXwiKdLDNEJ/ZT5b+bqikJ3HCcY+oc
+	Okc6yq90+47bR//OnXPCZAtvwXnxY2XfGX87w9yoc7IIEOFf7QzrX1y3wCwYw4RM7+XdDSoHwWJ
+	EYpc8IiAO7tefKL7llUZJOo6mghOeFipBECA+DaEjVJaGKxrorTCzpennK7++5bWVk6WdSbvpJB
+	tRMA7Gc0LhRjNWHDZcKYnZOEP4ZgS3ONaQjzusj05DE2xV5cQbSEko6sCCdhhClxqKWHyRc1eWW
+	Zms58OqaDsgqGieslPTf35/tlZBbFYCQowbXc6C4zQoY5fAPhVo6ylSDxqvxvt0ZA5ron9Wy2dq
+	bdWmdeqmN0A0eNaFB2CmMitXLdjJI6TLcmTbiiRulDcQ072kFMMh1yc2d2WqTUy0SXNAVrllQsb
+	lzUFuY1R5MfOZlGOOctxjN0CbbFPw6jJXQwUyHC6MbsO4Aor4sN7ACYQWWjBUkTBk/q2AweCLSv
+	hETIq8BBmnNIfA8uH8krccJE4X0b5wyWngZ/C
+X-Received: by 2002:a05:6820:2509:b0:71a:edb5:3aa8 with SMTP id 006d021491bc7-71b395919b7mr4419531eaf.81.1795296659210;
+        Sat, 21 Nov 2026 13:30:59 -0800 (PST)
 Received: from r7625 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b38015c46sm4469155eaf.4.2026.11.21.13.30.56
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b38015c46sm4469155eaf.4.2026.11.21.13.30.58
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 13:30:57 -0800 (PST)
+        Sat, 21 Nov 2026 13:30:58 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.6.y 05/19] io_uring/rsrc: keep the old file when a file update fails
-Date: Sat, 21 Nov 2026 21:30:35 +0000
-Message-ID: <20261121213049.1788332-6-axboe@kernel.dk>
+Subject: [PATCH 6.6.y 06/19] io_uring: cleanup handle_tw_list() calling convention
+Date: Sat, 21 Nov 2026 21:30:36 +0000
+Message-ID: <20261121213049.1788332-7-axboe@kernel.dk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261121213049.1788332-1-axboe@kernel.dk>
 References: <20261121213049.1788332-1-axboe@kernel.dk>
@@ -99,84 +99,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Cheng Yongkang <teel4res@gmail.com>
+Commit 42c0905f0cac9a86d2cb8138665a6d62ea607078 upstream.
 
-Commit e5a346e4309d720c47fe8331a00068608fad47dd upstream.
+Now that we don't loop around task_work anymore, there's no point in
+maintaining the ring and locked state outside of handle_tw_list(). Get
+rid of passing in those pointers (and pointers to pointers) and just do
+the management internally in handle_tw_list().
 
-__io_sqe_files_update() resets the slot before it calls fget() on the
-new fd. If fget() fails, the fd is an io_uring file, or the node
-allocation fails, the update stops and reports that entry as not done,
-but the old file has already been removed. Later requests that use the
-slot fail with -EBADF, and if the old file was registered with a tag,
-its tag CQE is posted as if it had been removed on purpose.
-
-Reset the slot only after the new file has been checked and its node
-allocated, as io_install_fixed_file() does. Removal with fd == -1 still
-resets the slot right away.
-
-Fixes: c3a31e605620 ("io_uring: add support for IORING_REGISTER_FILES_UPDATE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
-Link: https://patch.msgid.link/20261116044531.281978-1-teel4res@gmail.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[axboe: 6.6 has no rsrc nodes for files, the old file is queued for
-removal with io_queue_rsrc_removal(), which can fail. Get and check the
-new file first, and only remove the old one once that has succeeded]
+[axboe: 6.6 runs normal task_work in LIFO order, as it doesn't have
+170539bdf109 ("io_uring: handle traditional task_work in FIFO order"),
+so call handle_tw_list() without llist_reverse_order()]
 ---
- io_uring/rsrc.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+ io_uring/io_uring.c | 29 +++++++++++++----------------
+ 1 file changed, 13 insertions(+), 16 deletions(-)
 
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index ba1dedaaa7c4..0cc498a0673d 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -369,6 +369,7 @@ static int __io_sqe_files_update(struct io_ring_ctx *ctx,
- 		return -EINVAL;
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 8bbcab4d1d7c..96474d9ebef8 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -1197,10 +1197,10 @@ static void ctx_flush_and_put(struct io_ring_ctx *ctx, struct io_tw_state *ts)
+ 	percpu_ref_put(&ctx->refs);
+ }
  
- 	for (done = 0; done < nr_args; done++) {
-+		struct file *file = NULL;
- 		u64 tag = 0;
+-static unsigned int handle_tw_list(struct llist_node *node,
+-				   struct io_ring_ctx **ctx,
+-				   struct io_tw_state *ts)
++static unsigned int handle_tw_list(struct llist_node *node)
+ {
++	struct io_ring_ctx *ctx = NULL;
++	struct io_tw_state ts = { };
+ 	unsigned int count = 0;
  
- 		if ((tags && copy_from_user(&tag, &tags[done], sizeof(tag))) ||
-@@ -386,17 +387,8 @@ static int __io_sqe_files_update(struct io_ring_ctx *ctx,
- 		i = array_index_nospec(up->offset + done, ctx->nr_user_files);
- 		file_slot = io_fixed_file_slot(&ctx->file_table, i);
+ 	do {
+@@ -1210,25 +1210,26 @@ static unsigned int handle_tw_list(struct llist_node *node,
  
--		if (file_slot->file_ptr) {
--			err = io_queue_rsrc_removal(data, i,
--						    io_slot_file(file_slot));
--			if (err)
--				break;
--			file_slot->file_ptr = 0;
--			io_file_bitmap_clear(&ctx->file_table, i);
--		}
- 		if (fd != -1) {
--			struct file *file = fget(fd);
+ 		prefetch(container_of(next, struct io_kiocb, io_task_work.node));
+ 
+-		if (req->ctx != *ctx) {
+-			ctx_flush_and_put(*ctx, ts);
+-			*ctx = req->ctx;
++		if (req->ctx != ctx) {
++			ctx_flush_and_put(ctx, &ts);
++			ctx = req->ctx;
+ 			/* if not contended, grab and improve batching */
+-			ts->locked = mutex_trylock(&(*ctx)->uring_lock);
+-			percpu_ref_get(&(*ctx)->refs);
++			ts.locked = mutex_trylock(&ctx->uring_lock);
++			percpu_ref_get(&ctx->refs);
+ 		}
+ 		INDIRECT_CALL_2(req->io_task_work.func,
+ 				io_poll_task_func, io_req_rw_complete,
+-				req, ts);
++				req, &ts);
+ 		node = next;
+ 		count++;
+ 		if (unlikely(need_resched())) {
+-			ctx_flush_and_put(*ctx, ts);
+-			*ctx = NULL;
++			ctx_flush_and_put(ctx, &ts);
++			ctx = NULL;
+ 			cond_resched();
+ 		}
+ 	} while (node);
+ 
++	ctx_flush_and_put(ctx, &ts);
+ 	return count;
+ }
+ 
+@@ -1277,8 +1278,6 @@ static __cold void io_fallback_tw(struct io_uring_task *tctx, bool sync)
+ 
+ void tctx_task_work(struct callback_head *cb)
+ {
+-	struct io_tw_state ts = {};
+-	struct io_ring_ctx *ctx = NULL;
+ 	struct io_uring_task *tctx = container_of(cb, struct io_uring_task,
+ 						  task_work);
+ 	struct llist_node *node;
+@@ -1291,9 +1290,7 @@ void tctx_task_work(struct callback_head *cb)
+ 
+ 	node = llist_del_all(&tctx->task_list);
+ 	if (node)
+-		count = handle_tw_list(node, &ctx, &ts);
 -
-+			file = fget(fd);
- 			if (!file) {
- 				err = -EBADF;
- 				break;
-@@ -409,6 +401,19 @@ static int __io_sqe_files_update(struct io_ring_ctx *ctx,
- 				err = -EBADF;
- 				break;
- 			}
-+		}
-+		if (file_slot->file_ptr) {
-+			err = io_queue_rsrc_removal(data, i,
-+						    io_slot_file(file_slot));
-+			if (err) {
-+				if (file)
-+					fput(file);
-+				break;
-+			}
-+			file_slot->file_ptr = 0;
-+			io_file_bitmap_clear(&ctx->file_table, i);
-+		}
-+		if (file) {
- 			*io_get_tag_slot(data, i) = tag;
- 			io_fixed_file_set(file_slot, file);
- 			io_file_bitmap_set(&ctx->file_table, i);
+-	ctx_flush_and_put(ctx, &ts);
++		count = handle_tw_list(node);
+ 
+ 	/* relaxed read is enough as only the task itself sets ->in_cancel */
+ 	if (unlikely(atomic_read(&tctx->in_cancel)))
 -- 
 2.55.0
 
