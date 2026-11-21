@@ -1,69 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.69.43.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795264255;
-	b=1ZjAL27ik3r8pArHrOxG6tMK72JtksVOTp0Lxbp68oLYgkI7vrAP9HJjdu4Fb2TzapQu
-	 rYMR9OYaC9+gdrNiSn3Z+Z83poyR6inOzi/pL/am3eRkJst3jMhYCF0BehlhhrrNxYmR6
-	 DUTeS0FsR9N9p6u9qzqLC/06386r0HUn0hw901ld+sVxeSIr8y64FsWnspN2m0whQTXv1
-	 M+fIzKfuWA9Zb4nYkXCR2qpAFcCYHT+ihT+JDfLpC5xXsiFqIFQ90Qp9P/o9j4APg9FA4
-	 gv4EzfzDJgann3voeOVVbdyBgkcOO97uS/qUOBc3Sjpgdhv9w+abIc033xoDuU49QaA==
+	t=1795264383;
+	b=m+m05zcRg6e+tpkyxkR81sCyHFwmz88A7nbE5Gl468TOBcF2prAuRhgGA7ZWidUAFS6i
+	 5/8NrXqYk2TgurDrboVOI1g5EXfeCVwb1TWM/tfSZ4Fvz9cRH+sYcgzi4cUF3N2bHtqke
+	 Vl37zjlcFxdvgQUFT2dWHP50+mWGH+elvFZMhKBP45Ak16TBnDNwHlAxcve470DakMBf7
+	 LdWqWfeZQyv0pglxVb2WTmi4g5QlSCo+xNw/rvgMUu1R4rHFzgD27MaP0NX6x2VJp73Uu
+	 YoOmo4dhl8lz1u5+uaAdd+EeAfbk950gw725FusOpUKyTOXQ2XJ6JxPrqnx3UJwsnog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795264255;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=NvdKb50ja2nv9naVYzdyhx+yIDMWqCwfYQ8Ecq0us9Y=;
-	b=oddHZYTjfKoh76CTB0mk1vjdEEgisKtSmNKk0c5hj3jabp+qQbPrjjRO012dFuCAqUN+
-	 wvBr3pgjHPtmEjZoDvPP6r9oj9WvBc8DcOjaAC2igrkR7CKC/gpw97SazL6kfCjqBcsND
-	 LKSDVg8V8hlkcW+fDKIByJcQZ7PP6Ej91Q/ddwaTqw9NU5VSX/06fkGFQvyXjyk5L2GEd
-	 F/zai2i6sPxdVoRUl9nRD1ivFZLGpDmavlfZcdjK6ZKf4Uv+lki/ayxhPxYsu6qIaYYT6
-	 UDNxhUZ9oWasvVzUEtA8PefuYP1ygeO/MY/oIZx7e4jiPlfT63Hj2a2El2RbH7IVcNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795264383;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=cNTODI7JrIIu1DnD7iwwKJNOM2aZnndQZB/sdyIkwEI=;
+	b=QgJiK5vjpVFBXIBO6UbUilxXkPPO94XlFj6OkewsdQyNZ0lFk4hkgJyDrSkBuPuNAonZ
+	 Taas0l/6gpRFTfuHIBGo91uDqdpTYcDMhUV/Q2rDWzEt1JHpqOU1Pxf9LSKCcNaPFYmxN
+	 W3mTgYy+RFiQwhOQoc2rlaDcRcqFUa2snezBpWZQ7kuxXVaMN1zFXZoRj/6BSezJMrrOu
+	 cOyI701juIYrAcVIv6vHQCrI9XyP5jwc86Iqsx8SmqnHm7l1Z0T4BwD4sKTOhECHgPrV/
+	 qMfjlOOe9Hg4G69Mx890VlzF7AkVC5jJqDqfUqyNJdR1n7q8eiGTaWZylcD5Q0KTZ7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vozeler.com;
-	spf=pass smtp.mailfrom=vozeler.com;
-	dkim=pass header.d=vozeler.com header.i=@vozeler.com header.a=rsa-sha256 header.s=max-2024-2 header.b=czjgOx0g;
-	arc=none smtp.remote-ip=80.69.43.37
-Received: from imap.hinterhof.net (imap.hinterhof.net [80.69.43.37])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=o6Kux1qO;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87060606A32A;
-	Sat, 21 Nov 2026 12:30:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87060606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vozeler.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vozeler.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C02606A320;
+	Sat, 21 Nov 2026 12:32:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5C02606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vozeler.com header.i=@vozeler.com header.a=rsa-sha256 header.s=max-2024-2 header.b=czjgOx0g
-Received: from dp.vpn.hinterhof.net (i59F45518.versanet.de [89.244.85.24])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256
-	 client-signature RSA-PSS (4096 bits) client-digest SHA256)
-	(Client CN "x201t.vpn.hinterhof.net", Issuer "Max Vozeler" (not verified))
-	by imap.hinterhof.net (Postfix) with ESMTPS id A38C68FB862;
-	Sat, 21 Nov 2026 12:30:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=vozeler.com;
-	s=max-2024-2; t=1795264249;
-	bh=1jQ8jSmnuUwyckou/IUtpXO7t6jYpOfstTV/OBJ0Xb4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=czjgOx0g3/Asbj6YQMK/YD9cgSpMF8zM8dabdrbCTquTgU62yiaC8s/se//zNJg9i
-	 nmtm290uW+2eclh1PqHuqBUdQhruDXYWjsr9zAPHdDEHXbnpyMLCBjy1jkXRoWkF5y
-	 8euF0eNqqlspt6f4OTMA1l5QSHqKvfa204C05OYBi36Way4lLMaqYumOfLlqq9kJpu
-	 v5qBYtNU+gk3lLHgpWl/AQ6lFZCuvdCcrZQmIKQuaPKumB9DiwJgxs5S6sgiDaRrGa
-	 jzfHQXcb+VRlxGkWdc1oQ3IGO23S0p3j2OJrXCCVDWJEw4Op/AD99PFm/ojbajht3D
-	 hSJZnLhouo6FQ==
-Received: by dp.vpn.hinterhof.net (Postfix, from userid 1000)
-	id 43B2826018A; Sat, 21 Nov 2026 13:30:49 +0100 (CET)
-Date: Sat, 21 Nov 2026 13:30:49 +0100
-From: Max Vozeler <max@vozeler.com>
-To: Chuck Lever <chuck.lever@oracle.com>, Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Chris Mason <clm@meta.com>, Jeff Layton <jlayton@kernel.org>
-Cc: linux-nfs@vger.kernel.org, stable@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [Regression linux-6.1.y]: NFSv4 server: sec=krb5p mount fails
- with EIO in 6.1.192
-Message-ID: <awGO-R42ggk_WEga@dp.vpn.hinterhof.net>
-References: <awBIdxOJ4XSXuc7S@dp.vpn.hinterhof.net>
- <awFyZbQE8pDyOxUy@dp.vpn.hinterhof.net>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=o6Kux1qO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=cN
+	TODI7JrIIu1DnD7iwwKJNOM2aZnndQZB/sdyIkwEI=; b=o6Kux1qOJa9aLU1HqZ
+	i408TbCIsl5Ud1udoRSLaNquOo8R2uGjqDk+/ZwUGI+JolE05YZKdvQ327DwLqk/
+	Tu5rfoHkibw8PbxKr+ofgzVygTeCzGEP6C6OHiGHjB6Lm5fKMLimej8bEKrqchrI
+	IhByvHzlqZEcfzEzvuz6iKYaU=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD31BBejwFroa+1JA--.58410S2;
+	Sat, 21 Nov 2026 20:32:30 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: mchehab@kernel.org,
+	hverkuil+cisco@kernel.org,
+	atharvd440@gmail.com,
+	u.kleine-koenig@baylibre.com
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: cx25821: Fix a potential leak in snd_cx25821_hw_params()
+Date: Sat, 21 Nov 2026 20:32:16 +0800
+Message-Id: <20261121123216.535327-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,81 +64,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="1fHbNZ7pjevDWFIY"
-Content-Disposition: inline
-In-Reply-To: <awFyZbQE8pDyOxUy@dp.vpn.hinterhof.net>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD31BBejwFroa+1JA--.58410S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AFy3XF13Jr4rKFW7Cw45Jrb_yoW8Xr47pa
+	yavwn5GF4xJF48W3W8Gw109a98JwsYgryIgFWDZwnxZFnIqr4rtFyFqas5Wr1Yk3yfZFnx
+	XFs8uw45Gr1rJFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEQJ5UUUUUU=
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7R8WhGsBj18-WwAA3+
 
---1fHbNZ7pjevDWFIY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Add an error path to free the memory allocated by cx25821_alsa_dma_init().
+Also move cx25821_alsa_dma_unmap() to the goto label to unify the error
+handling.
 
-#regzbot introduced: 82cf21374fb7ee55b37be9afb6704ba0eeffb236
+Fixes: 8d8e6d6005de ("[media] cx28521: drop videobuf abuse in cx25821-alsa")
+Cc: stable@vger.kernel.org
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+ drivers/media/pci/cx25821/cx25821-alsa.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-On Sat, Nov 21, 2026 at 11:28:53AM +0100, Max Vozeler wrote:
-> On Fri, Nov 20, 2026 at 02:17:43PM +0100, Max Vozeler wrote:
-> > after upgrading an NFS server (Debian bookworm) to 6.1.192
-> > (Debian linux-image-6.1.0-55-amd64), NFSv4 clients fail to mount exports
-> > using sec=krb5p with EIO.
-> > 
-> > Downgrading the server back to 6.1.190 (linux-image-6.1.0-54-amd64)
-> > makes things work again.
-> > 
-> > Good: 6.1.190 (Debian linux-image-6.1.0-54-amd64)
-> > Bad:  6.1.192 (Debian linux-image-6.1.0-55-amd64, linux-image-6.1.0-56-amd64)
-> 
-> Reproduced with vanilla 6.1.191 and 6.1.192
-> 
-> Good: 6.1.190
-> Bad: 6.1.191, 6.1.192
+diff --git a/drivers/media/pci/cx25821/cx25821-alsa.c b/drivers/media/pci/cx25821/cx25821-alsa.c
+index f963ae79f685..1bf4fb96db1c 100644
+--- a/drivers/media/pci/cx25821/cx25821-alsa.c
++++ b/drivers/media/pci/cx25821/cx25821-alsa.c
+@@ -529,14 +529,13 @@ static int snd_cx25821_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	ret = cx25821_alsa_dma_map(chip);
+ 	if (ret < 0)
+-		goto error;
++		goto error_free;
+ 
+ 	ret = cx25821_risc_databuffer_audio(chip->pci, &buf->risc, buf->sglist,
+ 			chip->period_size, chip->num_periods, 1);
+ 	if (ret < 0) {
+ 		pr_info("DEBUG: ERROR after cx25821_risc_databuffer_audio()\n");
+-		cx25821_alsa_dma_unmap(chip);
+-		goto error;
++		goto err_unmap;
+ 	}
+ 
+ 	/* Loop back to start of program */
+@@ -550,6 +549,10 @@ static int snd_cx25821_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	return 0;
+ 
++err_unmap:
++	cx25821_alsa_dma_unmap(chip);
++error_free:
++	cx25821_alsa_dma_free(buf);
+ error:
+ 	chip->buf = NULL;
+ 	kfree(buf);
+-- 
+2.25.1
 
-bisect points to
-
-commit 82cf21374fb7ee55b37be9afb6704ba0eeffb236
-Author: Chuck Lever <chuck.lever@oracle.com>
-Date:   Mon Jan 2 12:07:07 2023 -0500
-
-    SUNRPC: Convert unwrap_priv_data() to use xdr_stream
-    
-    [ Upstream commit 42140718ea26c47fb06c679451a6aa6703545136 ]
-    
-    Done as part of hardening the server-side RPC header decoding path.
-    
-    Reviewed-by: Jeff Layton <jlayton@kernel.org>
-    Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-    Stable-dep-of: a919c5c88769 ("SUNRPC: svcauth_gss: enforce krb5 token minimum length")
-    Signed-off-by: Sasha Levin <sashal@kernel.org>
-
-This seems to have been part of a larger series, only parts of which
-were backported for a919c5c88769 ?
-
-Best regards,
-Max
-
---1fHbNZ7pjevDWFIY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline; filename=bisect.log
-
-git bisect start
-# status: waiting for both good and bad commits
-# bad: [08889840163ebcdb7e24bf7ec311bc2e6fc3aaea] Linux 6.1.191
-git bisect bad 08889840163ebcdb7e24bf7ec311bc2e6fc3aaea
-# status: waiting for good commit(s), bad commit known
-# good: [79807e970724c1f90cee1316361d61b80db4eef6] Linux 6.1.190
-git bisect good 79807e970724c1f90cee1316361d61b80db4eef6
-# good: [91c2a5d201daf66fa3f42b8a383bb89174bde2c8] serial: core: fix infinite loop in handle_tx() for PORT_UNKNOWN
-git bisect good 91c2a5d201daf66fa3f42b8a383bb89174bde2c8
-# bad: [ab8c8e027fa8f9314340a96999dd3309b7f80d61] fbdev: ssd1307fb: defer I2C transfers from damage callbacks
-git bisect bad ab8c8e027fa8f9314340a96999dd3309b7f80d61
-# good: [35b46918d5deee01fade7e2f2075a7c238a2a0e8] cifs: prevent readdir from changing file size due to stale directory metadata
-git bisect good 35b46918d5deee01fade7e2f2075a7c238a2a0e8
-# good: [91abd8383fd0588d1fcc31120d6344150a64ba5a] net: sched: cls_api: add filter counter
-git bisect good 91abd8383fd0588d1fcc31120d6344150a64ba5a
-# bad: [ed126ca71d4d949ad99f40b974a8f7685e808f8b] net/packet: defer vmalloc TX_RING free until skbs finish
-git bisect bad ed126ca71d4d949ad99f40b974a8f7685e808f8b
-# bad: [82cf21374fb7ee55b37be9afb6704ba0eeffb236] SUNRPC: Convert unwrap_priv_data() to use xdr_stream
-git bisect bad 82cf21374fb7ee55b37be9afb6704ba0eeffb236
-# good: [8da6f765098d46e5b3178ef4b2f8273c9ba1d3bb] SUNRPC: Rename automatic variables in unwrap_priv_data()
-git bisect good 8da6f765098d46e5b3178ef4b2f8273c9ba1d3bb
-# first bad commit: [82cf21374fb7ee55b37be9afb6704ba0eeffb236] SUNRPC: Convert unwrap_priv_data() to use xdr_stream
-
---1fHbNZ7pjevDWFIY--
