@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795253283;
-	b=bhcCRe/Kn31WZf/3tY89Uf+azXBYUCpO6BCmldQvml/Ac7Fnz+7U0FNVNq+q8ks8OAsn
-	 ji0zrUWTUm2laqSzBQh8RATGF1qAaWrR1v8cbcowC+2qtIF+WNhfDDU5x0JFH6hDrCPtj
-	 IfUVfLC0sNvuFLqkTYLM0neSCzPbVCQ1DxFJtBI4uPl5MppbCivcujV5NdFsmGr6rpPAy
-	 rk6jgbxhC36btzFexeFALzp/+quoO33fY618iUgHLX8iBt5idZUiHnGCX0DdH0soAVNSs
-	 c4/5YXQastQSIagc7C3vMEzghdZWXBid5rPYKOUejoZsn+E0e0GqzyRObgHYukVTY8Q==
+	t=1795253415;
+	b=2okQh0pz/92vOst6TTMAGAuqmhXEOFH8DEgKzCAlqu1+Ac7Sgzwbq0yCtrSwW3GWFUFJ
+	 uiykPdlQw5mlQnROoaQwhOwguw7prVqR7J2YHVHwqrv8Bj550derXOg3+aFHPSWZ0dCr5
+	 zAkDklMA0DTVhS3vZpvxUXcX66d7GAugkmozZCL7FT/PB/tuYIPZan/wm59F0dChQvN8j
+	 xc9bObHhBlbUD8M2OcpZMo+NyOngiY4U57WC7/MrIeyfn2v2HvHWys+DsNjM3dUWS2WnW
+	 BhFLgIXmBqXVi3X1/O0WN6Ei7bQd+unkUSnMAC68bTvi6R36lDHn2xQ+fzT8lK8xXUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795253283;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0bSx2JclMF4MRpUkB5cyQcV3F1zjv1EmvhDRj9fFHOM=;
-	b=2ja0nfbFSlaYR67xuC6dh5IUX+jPIaw2Z8OPoG3+Xt5fbMuR3asqfS+x/Y8VAvbJa875
-	 Noa0zSQtnKmqMfhXgNLRm7lA9klKglkZy2parCPrygZQygzfJ6vlNl49A73/tneHezLm+
-	 mtbTy4jHAwKc/2FUkmCwsi57YTP8qtPiU5B7TH6P0eVIbyyDxm67ZGTczxvSBr7MdWF6c
-	 SYb3/jtS8lp2lZqLyhRu95/AupS06NEed9psBf+PdjrRNBqXkNGy5hqWiLwY7kbUDZxdf
-	 EOXsIjJ+zoK/Z2+O2oPQz/q98bvWWeT5fUfQ72LV06ujO90q548mjFgOHeZ8NrbqmNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795253415;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=S1fow+tcHSCPQnCraqLiE7sTVQfos47VnR/u8cbK+IQ=;
+	b=t7jA3+LtCMkApLP+grR8JkpT6rl2nwpYCbqEw11S/2iorAbJyJbZZF5bph5EnjECeFRp
+	 bV9L9oKvjn0FPFkKB4FEzFpeJIoTdvwHbP0WxIJoTaOVzCpOm4moAsLly3z0HWoG48L05
+	 ZFv3bVtBrcpYrVITEt5GN4VVsS5gG0mRtpVDtIBgkOjdimHR7f1+3sfXuzlOl+f987a+B
+	 DNpSo+L1FN+9EePHb8CkvXb0Y4hv3FaDvw30vdqZ1OvsGt1G2WPawWpQPiRJtNsUUaq0B
+	 JfVMLZNPgz0kAFSXPigtmtVu6oqRGQ2+qFqH7kcSdeBaLLgrRaWcD1hPs0BeP0SuW3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=QDr60wB2;
-	arc=none smtp.remote-ip=185.70.43.20
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2164B606A320;
-	Sat, 21 Nov 2026 09:28:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2164B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=QDr60wB2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1795253280; x=1795512480;
-	bh=0bSx2JclMF4MRpUkB5cyQcV3F1zjv1EmvhDRj9fFHOM=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=QDr60wB20CgBUF7pMQfUcjrMG7OUeSpzXSersWUnx/xquzjBmnBAwqsZCT2ezmb0S
-	 LN2JfEWgEUG8Yn4Zz+NQ3y1D1tgaSRv1vioeOfE9EcMvdANdPohMWa32M/lLYpsvwa
-	 JUsVnp2lCo3kUAfh422+CTNO3E1qfez8mmOBG0/xn/7Dg5BM512+LembbA23C77o4V
-	 LVDJvb/7W/G9loP/eez+k7ZEORauR65ClCVhmMkjp7UpS1FFtmdCBwEVfGNTXHQxPT
-	 ASLOVdMtjVmMBDcwtDgmUK5/+oxZgcUIr28LZ/BGrwtLPuqORZCN4bI6jNQrRfbmXt
-	 /U4quOkgqpMOQ==
-Date: Sat, 21 Nov 2026 09:27:54 +0000
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>, linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH wireless] wifi: brcmfmac: fix join parameter length in IBSS join
-Message-ID: <20261121092746.2917397-2-ca@modelmiser.com>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: 34466270bf4f03036581e02031ff89cba1ae6c7e
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F0E36606A325;
+	Sat, 21 Nov 2026 09:30:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0E36606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=S1fow+tcHS
+	CPQnCraqLiE7sTVQfos47VnR/u8cbK+IQ=; b=EMfd78ByRlHfslwxV15TylNw4q
+	raRpyYUqc/R3MnfE2j4SfZdW3fG2EKsCOp11GTZrVI8IBRFieSSnCNQJzAoIlUj1
+	aeYNp6kcK91pg4l83sf7OAYS4f8ce6rgmiDmA/eC/xJaZsEIDsuGLk3kk7tPE7XX
+	pdESg0v02UZmEi41k=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.70])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDW3gGaZAFrlJH_AQ--.51524S2;
+	Sat, 21 Nov 2026 17:30:03 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Takashi Iwai <tiwai@suse.de>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] ALSA: line6: Kill URBs before releasing the PCM buffer
+Date: Sat, 21 Nov 2026 17:30:01 +0800
+Message-Id: <20261121093001.18469-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,85 +58,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkDW3gGaZAFrlJH_AQ--.51524S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGw1xXrW7uF17GrW7Gr4DArb_yoW5trW8pF
+	yrua4YyFZ8JF12krW7Jws5Ww1Sva1kXF9rGF1UCrWrAa13G3Z0q3Wavr45Wr4UCF40va4a
+	vFW5tw4rGr15Ca7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4fMxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8RbyJUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUED2sAYlijTwABsz
 
-brcmf_cfg80211_join_ibss() builds the length of the SET_SSID payload in
-steps. It starts with the SSID record (36 bytes), adds
-BRCMF_ASSOC_PARAMS_FIXED_SIZE (14) when a BSSID is given, and adds
-sizeof(join_params.params_le) (16) when the channel is fixed. With both a
-BSSID and a fixed channel the result is 66, but struct brcmf_join_params
-is 52 bytes (sizes as on x86-64, where __le32 is 4-byte aligned). The
-length is passed unchanged to the protocol layer, which copies that many
-bytes from the on-stack record (brcmf_proto_bcdc_msg(),
-brcmf_msgbuf_tx_ioctl()), so 14 bytes of kernel stack beyond it are sent
-to the firmware.
+line6_buffer_release() frees the stream buffer after
+line6_wait_clear_audio_urbs() gave up waiting for the URBs that are still
+active.  The buffer is still referenced by those URBs, and the completion
+callback of such an URB resubmits it from submit_audio_out_urb() with
+line6pcm->out.buffer already set to NULL, which ends up in a NULL pointer
+dereference in the memset() in submit_audio_out_urb().
 
-When the channel is fixed the whole record is in use whether or not a
-BSSID was given, so set the length to sizeof(join_params) in that branch.
-The other three cases (36, 50 and 52 bytes) are unchanged.
+While the URBs remain queued, the host controller can also write the
+received isochronous data into the freed buffer.  Such a write does not go
+through the KASAN checks, so it silently corrupts the freed slab object;
+the corruption was observed as a bogus KASAN quarantine entry that later
+led to a general protection fault in qlist_free_all().
 
-The double count dates from the commit that added this calculation: the
-BSSID case counted WL_ASSOC_PARAMS_FIXED_SIZE, and the existing
-wl_ch_to_chanspec(), which that commit called after the BSSID case,
-added WL_ASSOC_PARAMS_FIXED_SIZE plus one chanspec again.
+The active_urbs bitmap cannot prove that the URBs are gone:
+line6_unlink_audio_urbs() is called outside the stream lock and only marks
+the URBs that are active at that moment, so an URB resubmitted by a
+completion callback right after the scan is never unlinked and keeps being
+resubmitted after the stream was stopped.
 
-Fixes: 69274f020a92 ("staging: brcm80211: Fixed ibss join/leave functionali=
-ty in brcmfmac driver")
+Set the unlink bit for every currently active URB under the stream lock,
+so that the completion callbacks cannot resubmit them, and then kill them
+synchronously.  usb_kill_urb() waits for the giveback, hence the buffer is
+no longer referenced by any URB when it is freed.
+
+Fixes: 63e20df1e5b2 ("ALSA: line6: Reorganize PCM stream handling")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
-Not run on hardware, and no reproducer was run. Reaching the line
-needs a brcmfmac device in IBSS mode and a join with both a BSSID and
-a fixed frequency:
-  iw dev wlan0 ibss join <ssid> <freq> fixed-freq <bssid>
-The four lengths (36, 50, 52, 66) were checked at compile time against
-the driver's headers on x86-64, and cfg80211.o builds with W=3D1.
+ sound/usb/line6/pcm.c | 27 ++++++++++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
 
-Not checked: that firmware accepts 52 bytes in this case. It is the
-length the driver already sends for a fixed channel without a BSSID,
-from the SET_SSID fallback in brcmf_cfg80211_connect() when a channel
-is known, and from the AP start and stop paths.
-
-Also not checked: on msgbuf the same length bounds the copy of the
-firmware's response back into the record (brcmf_msgbuf_query_dcmd()),
-so a response longer than 52 bytes would be written up to 14 bytes
-past it. Whether firmware returns data for SET_SSID is not known here.
-
-The BSSID-only length (50) is left alone to keep this a pure fix.
-
-Based on wireless/main dcf495789037. It also applies unchanged to
-wireless-next/main e1dd8486807c, where the length goes through
-brcmf_set_ssid() (39cae1c203a3) and is still passed on as is when the
-firmware does not use versioned join requests.
-
-Tools: the over-length was flagged by an AI model (Grok 4.7) asked to
-check notes on the driver's firmware interface against the source,
-and confirmed by an AI assistant (Claude Fable 5.2) reading the code.
-The patch, this description, the size check and the build were done
-by that assistant.
-
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/=
-drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 46714d871260..9e5955a98051 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -1901,7 +1901,7 @@ brcmf_cfg80211_join_ibss(struct wiphy *wiphy, struct =
-net_device *ndev,
- =09=09=09join_params.params_le.chanspec_list[0] =3D
- =09=09=09=09cpu_to_le16(chanspec);
- =09=09=09join_params.params_le.chanspec_num =3D cpu_to_le32(1);
--=09=09=09join_params_size +=3D sizeof(join_params.params_le);
-+=09=09=09join_params_size =3D sizeof(join_params);
- =09=09}
-=20
- =09=09/* set channel for starter */
-
-base-commit: dcf495789037ab78d8ddf5844239cf85d92ac5f1
---=20
-2.43.0
-
+diff --git a/sound/usb/line6/pcm.c b/sound/usb/line6/pcm.c
+index 2932eaf157f4..e05fa20cf4ed 100644
+--- a/sound/usb/line6/pcm.c
++++ b/sound/usb/line6/pcm.c
+@@ -134,6 +134,31 @@ static void line6_wait_clear_audio_urbs(struct snd_line6_pcm *line6pcm,
+ 			"timeout: still %d active urbs..\n", alive);
+ }
+ 
++/*
++ * Mark all currently active URBs for unlinking and kill them.
++ *
++ * The unlink bit is set under the stream lock, so the completion
++ * callbacks cannot resubmit these URBs any longer; usb_kill_urb() then
++ * waits until each of them is given back and hence the stream buffer is
++ * no longer referenced by the host controller.  This function must be
++ * called from a sleepable context.
++ */
++static void line6_kill_audio_urbs(struct snd_line6_pcm *line6pcm,
++				  struct line6_pcm_stream *pcms)
++{
++	int i;
++
++	scoped_guard(spinlock_irqsave, &pcms->lock) {
++		for (i = 0; i < line6pcm->line6->iso_buffers; i++)
++			if (test_bit(i, &pcms->active_urbs))
++				set_bit(i, &pcms->unlink_urbs);
++	}
++
++	for (i = 0; i < line6pcm->line6->iso_buffers; i++)
++		if (test_bit(i, &pcms->active_urbs))
++			usb_kill_urb(pcms->urbs[i]);
++}
++
+ static inline struct line6_pcm_stream *
+ get_stream(struct snd_line6_pcm *line6pcm, int direction)
+ {
+@@ -172,7 +197,7 @@ static void line6_buffer_release(struct snd_line6_pcm *line6pcm,
+ {
+ 	clear_bit(type, &pstr->opened);
+ 	if (!pstr->opened) {
+-		line6_wait_clear_audio_urbs(line6pcm, pstr);
++		line6_kill_audio_urbs(line6pcm, pstr);
+ 		kfree(pstr->buffer);
+ 		pstr->buffer = NULL;
+ 	}
+-- 
+2.34.1
 
