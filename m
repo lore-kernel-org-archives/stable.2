@@ -1,89 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795265315;
-	b=tEhXlZbsKm23r8EWgq6RTTrduvHqTvCkZsWOOKzKJv3KH+EDxiJ1LPlA9z8Pqe3SUc1x
-	 MlfAXCUEw/Yj6qUkBwBILM4MgJbKKBthZ4grW0OOEGnY75iX8xKNnbP4O1jiy6VlL1uZW
-	 0Bn8TTXgY10p7jiVyfLgOchatCNbpslNF/cNhERmtkWTVkZQPguIaw7qtfkjm5lb4ZKCx
-	 XHokTLo52S1GEoQzP88Yx9Z2KdH18slAJn3jux/zA5nvPJv/p/OB4Y2pLAlrQW4yiHMWo
-	 ydoNgpbdb4WrIrAnUdP70YVXhk7+RGT1uH6HhsaGFq/37Jog3o08BIn7nzqWpApFwCA==
+	t=1795265451;
+	b=jW/f2E/YQyiuVaEIBy6MQsQu6HoQ/srH8M5CvmZIIZjA1c62HazQgnWn/KTsxtuJ78Sd
+	 NGittJHsQRVfhAYa5I3qEHynRPZQ81wc+G9JN4M85vvUTK8SrFMSP7XzawVcVMhk5A7Re
+	 Hdc47MHDACe8j+gGoDRppoGaxnPw70ikVb+EjKivpuP9Ck/fAsXGLIa4ecsm9cTA7823I
+	 ZM+F9Wv5VFMf5rM9+EW86thbM6I1KAA9dcEjhlDlcptPDF66cy/J05tyy5N3AmbeBgTgj
+	 8i/dbZ/+lUAtDWhcf5sZ2T/ywi0AKJm1Lg7jg2XRgbRYywPs6JDE2EI6iWq4kMOPbJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795265315;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795265451;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=FgvFBR0X911CFkft+m8BaNuu7kHa0PuRcgZI2MmyPWU=;
-	b=I6rDob004hhXfrWZHZq1+0BhH812R3su6OlUyt+zxWw/MvP54Tnf3BfJNbuu7c76QsD1
-	 8CBOeiOyVG7Jhs1RVXPjdgoriraLw0VEmYHTtH0o8icSs4u5tq0c2qXpO/PjKE6FF5yh9
-	 FG8kj/Ln0oeZFnqlebDvHFkdgcNEgG5nU0I2F53mTlAZXd3eOxpL22CfeXSawHpAFB/WO
-	 ibyIP1VwtiU+ju9QBQJUifCcr6ztM/U8n8bJncrxuH6+pVKoA6w657d65dKVdyRrnuB9T
-	 /i4GCuhEM2clu9FbzanjZmsTrh7wCyKXxd6kTXPRmlDhQw+D7Lye06ueqJmIrne9xeg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=a+JvEByhjl3Q0eRtUPeklA/fZjCl5bKRc9fdhPzK8Ac=;
+	b=ZQ6nwRWk+FGAG8ygnzLnh0dy/b81LNpaXWr0xMQonNsA4I7iClOlPg8dRSYuaPDHVloQ
+	 9ZEZQJPd+2f8IPhwNBk2ASh6uKKOTxsObdOzeYe8Xsh6rpRWoDhfR/v62mVoGLkURlUS5
+	 RMa9WBgL/CQTh5w+ClxhLYMMh0MopccvsAVDCfQJKx4ev6oth3phh+oaO7gS/oKBhQETa
+	 rM7AnX7C5PfHxa01+Pc/19Q3nOwi+m9Qmndc0vJyLXPiRoaZpngp1W7F2SSGh7crYqmUd
+	 kV4Bq9paezFQgtSfD7UbLrcDI5Z+2mYybGYAw1+8RglvyHfQ1CDKSJwHc/+rZgwTMTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uend4jGG;
-	arc=none smtp.remote-ip=74.125.225.138
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Imsir6fH;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5208606A330
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 12:48:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5208606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D075A606A330
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 12:50:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D075A606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uend4jGG
-Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-4b76b2f6bd9so3354095e9.0
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 04:48:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Imsir6fH
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso12809785e9.1
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 04:50:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795265313; x=1795870113; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795265449; x=1795870249; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FgvFBR0X911CFkft+m8BaNuu7kHa0PuRcgZI2MmyPWU=;
-        b=uend4jGGCxFejBsdJ3oJSBWKtcxush/+2myIp/OpATHcWrfYR7rurPdB0Im2IJDpiK
-         n2HWgafbTlceIM4yq3IlxFNg9PDyTiRXn5T6Lnjln7WffvULmoS6QwgLDpD15eABi7GI
-         zy5npyNmxM1ux0RMLpCYzEZmui+bL9j6Nk1f3fzu0hN4GIHhuGD1yXFy2ckiXnjxXBbq
-         ODGcViF5vCFm3VykPI/zncp86bLK/+TkMQsHZ7jnWAp4uxOuB/GDcV1pCAtuhHsx/xK0
-         L/LCE/FBSMXrMUQRioNuwTKWsMvlfZZIix4stPhU+TLe/SptaqVCyEFFysMG+em4sZWp
-         aQvA==
+        bh=a+JvEByhjl3Q0eRtUPeklA/fZjCl5bKRc9fdhPzK8Ac=;
+        b=Imsir6fH8V7hOExu52NV554HH3pwtbhoLh70BMUw8H1FaFiWt7W9gMtzLxzyAWqEK7
+         PDd4FwlbIR16ulmMWV/RrrEnkjme74mNISBwO15zVGJctYBCbuEexnAVhvDw7EChJweE
+         CNJLlHu9Ia5dmdb8RBOiBLwhc4OjapiV+Cd5c2mU4ujK3opQq7DLiS0fxDOUOEmQUNcn
+         Oc/JxNmuUt/GSKQYXe7LuWKLqWlVmLBpBDpHOHXdMcuoVtBhj0Cs7C48GQHHVRpGJLnx
+         57FfYipZk9L0sk23f1CityQxeUziuI/F0K8U0AB14i0DdHS5Ft9RaNWxa8xeiGMaq5aa
+         bU8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795265313; x=1795870113;
+        d=1e100.net; s=20260707; t=1795265449; x=1795870249;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FgvFBR0X911CFkft+m8BaNuu7kHa0PuRcgZI2MmyPWU=;
-        b=PnAFO7GhghySZK3gLUNN3Xwx8OuOnZDEQhWP2c7NMHg1qTxJls8RAZp+xeLVJ5VOI7
-         vrAIfVGeDvBViNtlaR8cgq+pQF8QXjowh5Eor1rWvU4llpjAgHf0VNyC5wse69gxIPJe
-         HxykO2Qxp6/yYarKp/O1eBe69lxrN/tvAAoGe0nC1kAe2Huf2pJxYa/EDc+W+Jkvg3rY
-         8isz8Pk3vByM6VGQt3ZNrL83zhUTryN3cIwB2lFHy5TbtSAyjgwPAi7bZ4zFKyIyLnHq
-         InbcrlVCvytgRfvmFE/nKa0gB3tgvGb2Id7YHjs3tMip0e3FggpPCYNo/XeToaocavSq
-         2D/Q==
-X-Gm-Message-State: APuU4Z9wse/UorLR5rp+FR+pYwN7T4+y0C9eOv3Eg1aCTO9DaSagWwOu
-	JRfbgsVGz9OknmNctaAaxgU/TJDIpkUglv9ccw81dwbpo2RSrizs//XA
-X-Gm-Gg: AZFdTZdMYHk/9+fXa3wtFaDsy2p5OQIzR/65P+yYGnwpdqbd02FJ+UAPtJfTRFpwR7M
-	I3MpHi/T1ULkRYCc9AugsWL3XHRm+lUwf1MM5qOW5MBSJpM0ZIeOQtjAodHOIvxwTdIjnEx4nO+
-	RuC9h8266mixUodzQbOcR7+1vmj/gpY9h3o6FTHPTU3hvYcyy+BtHVvFV2ODwYIdvBGV/PFrVf4
-	v3iocQWLymO93TEjoN7Z6wxCjN4QGP+zicEhuCDvcd9TzFhT8/77W/J/CBe9KmI9tGtS1S2YOiA
-	K2WpFv/Gur252GYODZ04SeAxuSOF1tagD0/MkX6Ro0LoUKRhcINL+JWktLhE/0ZW+RdijZwChyy
-	rCaNHuOVd8wZeM9IU8S/cx44S7GyX3Ahcqp/KN670Jl/se0qrjC5K5+DQiDnjlq2d8vRII8R1n+
-	g1TfAa7xuLsgFIand+u5L+kz9kM8A8Jv8rt46NjixUb9dlFUPoKeBwNqux0hJ5cZ380KljcWoeU
-	G6clroPWC7d+MRTbQDA4QP8oLrn9SG2eOqndB4CA1IBt54P0tCVY8EQOKwIhN1yoDSWC6oLG9CO
-	0dGNmXNWkuAMNsqvJgaS6SV79+jIKiwK4hwxIJnORpurjA==
-X-Received: by 2002:a05:600c:a55:b0:49f:ce78:356d with SMTP id 5b1f17b1804b1-4bb88827db0mr145226565e9.30.1795265313087;
-        Sat, 21 Nov 2026 04:48:33 -0800 (PST)
-Received: from bullo-XPS.home ([2a01:e11:1020:c3f0:892:8c82:19f1:6d0d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8849e598sm153428355e9.8.2026.11.21.04.48.32
+        bh=a+JvEByhjl3Q0eRtUPeklA/fZjCl5bKRc9fdhPzK8Ac=;
+        b=dHglI1AIBjMcjlQP6fzuI8+s1eugnkkb8tfhcdpNniwdzQAFzR+DFmYFa99uR61wYW
+         4qFp1lEYWvKBmtE+m2ZLJ33NmA1XRrB9EWeDBD9rg1hkfrfDpmzFm5pTxoSNGKBM3Lc+
+         udabrB8qdg+LxBTNNFtC9xfXMMsu3qOMrSTe1OBZznQpInH8fEMTdmxMN2GgLWWBp8js
+         SnnLfPrr7VqV3yR8KfXMxoey9ZZW6m6PLQkmuqAeDLkF5FwmedjHU51gh6hT7zvS7G7n
+         vgygmAOFM3YSMF4nYKHRddNwVh0LuHysKg/OpQRy83c5HDJ/ArYbqQQn+qhiNGQ0TsRE
+         5ujA==
+X-Forwarded-Encrypted: i=1; AL+hErHpEgT7GzqGVZQ45E9A3WPSy8DeshHRJhJa9YrwZPw+eqnPvl4tbUJfd/VHJSbRd+j/EV+UI9k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+T6ZQ23J5KJRFcPuWXBOCzVSxtzROewVYmH2erPGyv042AE5ov
+	bbk8T3Iq8kxy7Dpl5BERRhax5sdVG2HUmBq+OSNhd4IKBKqBHk3DGV8=
+X-Gm-Gg: AZFdTZfUg9w/YEkIWF4ltVLw8FjKWnd407Y3UJcc+c0frMBA/O9/Ep/zzOdXpUW4YHP
+	XFaK9lh4Fbsnj7la9fo0pfbKPIF5qRjWygjxsKH/eQMIoqA/y/m1yWEDzM6v1U2gv4vwPZYGx8h
+	9hfWUeQmszSCI4oHIj34Ija2nWdwX4DKeJzIPuaxeoHmugejYRuQIHBbuVHC3mhngJPliQO5Vst
+	HgVynaLq0TnsYRMDYHD/oOW9JnwM6aGMhTIz/WFEypfiL06XipC20H3WGTOGuZZUJExtTESFxkM
+	61m66cONAQoZcaMqCDGbWbRR0qInOuH7zu8yO5lxyuyyuuh+e/5375xZMmnHqFsf5mjcGCwGnAV
+	utOPhPzSpqBdO9R32Ni8EAicWVuGg1DN8HNejLaQlpS5Poh3zkHAyMFxxqvzQEu+0OGzRpRYqeO
+	5j2+3WQJQFJO8fXXROx7qfcfa9zwoSoYnFxnttJI3PibSKTSBJ3nfbWdtkaJMtCvnp4TcDfYrBL
+	CilG7LG9a51tiX92LhO0cCKqrHgtvzc3fw8UVdC42flwvfdo7bNZuIQWeLS40ecDfS+azw3ah+f
+	/FlFgjSETavLRbIOZLet7/DZABPcOoGRuFU1
+X-Received: by 2002:a05:600c:820d:b0:4bb:6cef:d14b with SMTP id 5b1f17b1804b1-4bb887c34f1mr145440935e9.2.1795265448967;
+        Sat, 21 Nov 2026 04:50:48 -0800 (PST)
+Received: from localhost.localdomain ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf685asm10803003f8f.20.2026.11.21.04.50.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 04:48:32 -0800 (PST)
-From: Bullo27 <matteo.bulloni.27@gmail.com>
-X-Google-Original-From: Bullo27 <matteo.bulloni@mail.polimi.it>
-To: matteo.bulloni.27@gmail.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH] platform/x86/amd/pmc: Add T14s Gen2 AMD (20XG) to s2idle quirk list
-Date: Sat, 21 Nov 2026 13:48:12 +0100
-Message-ID: <20261121124812.12165-1-matteo.bulloni@mail.polimi.it>
-X-Mailer: git-send-email 2.43.0
+        Sat, 21 Nov 2026 04:50:48 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] KEYS: protect construct_key type dereference with key semaphore
+Date: Sat, 21 Nov 2026 12:50:39 +0000
+Message-ID: <20261121125039.2532663-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,42 +103,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Matteo Bulloni <matteo.bulloni.27@gmail.com>
+From: Tristan Madani <tristan@talencesecurity.com>
 
-The ThinkPad T14s Gen 2 AMD is sold under two machine types, 20XF and
-20XG, but only 20XF is in the s2idle quirk list. On 20XG machines the
-Lenovo BIOS SMI handler runs during the NVMe D3->D0 transition, so every
-resume from s2idle stalls for about 10 seconds with a black screen.
+construct_key() reads key->type->request_key without holding key->sem,
+then calls the resulting actor function pointer.  While the
+sys_request_key() syscall path holds key_types_sem for reading (via
+key_type_lookup()), which prevents concurrent type removal, in-kernel
+request_key() callers pass struct key_type directly without holding
+key_types_sem.  If unregister_key_type() races with such a caller,
+key_garbage_collector() can retype the key to key_type_dead and the
+module text backing the original request_key method can be freed before
+the actor call executes.
 
-Measured on a 20XGS08D00 (BIOS R1NET68W 1.38, Ryzen 7 PRO 5850U) with
-pm_print_times: every PCI endpoint's pci_pm_resume_noirq returned after
-~10.32 s, all finishing at the same moment. With the s2idle_bug_mmio
-workaround applied for 20XG, the same callbacks take 38-82 ms and the
-stall is gone.
+Take key->sem for reading around both the key->type->request_key lookup
+and the actor() call, consistent with the approach used by 925c84e3cc21
+("KEYS: Protect the read method check against type removal"),
+51bcd09b9ffc ("KEYS: Protect the update method check against type
+removal") and bab48a104447 ("KEYS: Protect the pkey method checks
+against type removal") which protect analogous method dereferences in
+the keyctl paths.
 
+Fixes: b5f545c880a2 ("[PATCH] keys: Permit running process to instantiate keys")
 Cc: stable@vger.kernel.org
-Signed-off-by: Matteo Bulloni <matteo.bulloni.27@gmail.com>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/platform/x86/amd/pmc/pmc-quirks.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Changes in v2:
+- Hold key->sem across the actor() call, not just the type pointer read,
+  matching the established pattern from the three prior fixes (Sashiko)
+- Clarify that in-kernel request_key() callers do not hold key_types_sem
+  so the race is reachable outside the syscall path (Sashiko)
 
---- a/drivers/platform/x86/amd/pmc/pmc-quirks.c
-+++ b/drivers/platform/x86/amd/pmc/pmc-quirks.c
-@@ -56,6 +56,14 @@
- 		}
- 	},
- 	{
-+		.ident = "T14s Gen2 AMD",
-+		.driver_data = &quirk_s2idle_spurious_8042,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "20XG"),
-+		}
-+	},
-+	{
- 		.ident = "X13 Gen2 AMD",
- 		.driver_data = &quirk_s2idle_spurious_8042,
- 		.matches = {
+ security/keys/request_key.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/security/keys/request_key.c b/security/keys/request_key.c
+index 22cd66a44da56..60a8cb5924e11 100644
+--- a/security/keys/request_key.c
++++ b/security/keys/request_key.c
+@@ -241,10 +241,12 @@ static int construct_key(struct key *key, const void *callout_info,
+ 
+ 	/* Make the call */
+ 	actor = call_sbin_request_key;
++	down_read(&key->sem);
+ 	if (key->type->request_key)
+ 		actor = key->type->request_key;
+ 
+ 	ret = actor(authkey, aux);
++	up_read(&key->sem);
+ 
+ 	/* check that the actor called complete_request_key() prior to
+ 	 * returning an error */
 -- 
-2.43.0
+2.47.3
 
