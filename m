@@ -1,54 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296432;
-	b=YB4GVVflrmhTXO3osY42JQbVvIF/jgng/FjG2rDwu61D0m6/MbuOMFEfMDf24iGC+Vkz
-	 2lbNWIpGOzpafItq6nltKUK+uTTzVO12q52AF1Lthb7MIU/NPqoNGm65gfVVE2Hz9tMop
-	 /+oTx5Gta+2dR0JRdrhVNGRvLMo0PBcgBjjfTeT4gZAALZwAhsOyDWd8lJjJgaJT/i2xp
-	 b/4Y0HeFBAWsWBmryrmNQcqJBFwQB7Q+p/n+BYUCjTO7169mUZt8rsgS+v2P8uHM/nxJ8
-	 sdvPXYjwFXqqHYCkhUj7NQrWWCe0RntXsvUzzf42JM0957FjXc+QMnlqmNULNnXxIPA==
+	t=1795296527;
+	b=Asxdzh0myoLr0ArhNvlllcOnwsmXhUF4tKOA1vwW4I7R++bxGX1DyWbGj+LPBGudOgfj
+	 +BlCz41ki/gOv/G0XeYlQsXGADXhyAAfeQLFvv0IsxZO7dqZuxgfMFp/gyNRX/rLSO5zg
+	 cuZ5Hz63w4D+ub3eTFXirqoxtnwvlxamD3jgD04yWSc/dmRK0NK8dyBxm1aOGiEW3qMre
+	 Bx5hC5VleQz5IIqtqQs0gHA01knscn6wm+lJB23ummG0/w2QeWtzbLzi8cFvqXVI1pw/4
+	 FP+7GAZQywsf8sGxGMh+Az7md870O+v+xG7VTVXLYQs58mz9utzrZMD2A/HX00/GoSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296432;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wTQhRjOCjFPLMuMZMUIfh4QWuDPBy9MWRjMzD2TViXQ=;
-	b=rm873ry0NAeqvhXxc1rpz8/lJ19hjrvQeX9N9ei0qt5Ad+F/g74VVqcYTm8d3jvAhoXL
-	 t73A6A8Pi+e8Hsj+x6KHoF2Dk9vdk4iLlXVZQ5toccyyavU/l1tfDF6UdXskt1O9d37WE
-	 d2qTyU3JwxLH/IsBJD57FRdY4/63a1+6RzmR0RqYdVMQnlb60iFXXFZNiaZpH2TpTSSMU
-	 zngnwk+rOA+9hZgKl1KVvzQ+cCMs0Z3MAg8LCOXBHuQFTUgWLFoUIrt6bh38Q12U8xhF8
-	 FUBdZi55/z4U48M3jjJvbAwKfFT4R/MEFFiPIiifvGIpAas0BEAWccmM8SdCMtEzscg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296527;
+	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
+	 Message-Id;
+	bh=2ANdwTkgFnCLX2uiC/ZRicSZlvifAWnMnZbQZwNu3GQ=;
+	b=p8byNWgVL63lTBqUK+1av5unNiANjgYKcNPYmWW5oAlCmyylhXQJo5QX7gWSp7m90hWi
+	 nnpeKHFjBIuuvv0FX0XgfrsPxdRC/CHEEfndEh0y5KHM8kD82eL3OgJrnYY/KUCYs9rzU
+	 WchKLSmmDMuE5H0wcnun/NkXDNv3AcDUx4ewn7nfyh71tH5e8qDMHsXPFZdqhrTNFsuP7
+	 aXM21+ay8flJkRy6nZOt5XdecFB87RUU1x2qRIBM4QJGCRTqFWVynnq1CVUVYMatn/96w
+	 fHkMTd1+TyIUT+XH51U0mdManVBESUHOF5JZWLUeRZ+rEJ0NQASGC44OxtjC/1jfGAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mHTXDwTh;
-	arc=none smtp.remote-ip=95.215.58.50
-Received: from mta1.migadu.com (out-50.mta1.migadu.com [95.215.58.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=L5qY7ndM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2869E606A32C
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:27:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2869E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9F1606A320;
+	Sat, 21 Nov 2026 21:28:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mHTXDwTh
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3x2ckrVI3z3NW2CiWPXuClHX9YfabFhGAYUL/kc5S9Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795296428; v=1; x=1795901228;
- b=mHTXDwThfaWQ+Y/UjT8R4P7zqZZZ1HKtPhsuUa+YaNy+gLwv92kzqaTjRAKvANRRQL+32twq
- LXAUw9Gt4DkL9gdt3JQ3A0Qn78eUE+iSMcEAxc6kxksVMI6w2/OYQ/U5pHv/auN3FV8pT4LA9YP
- Nz9m0us4b/fpy2BpSN4eLR/g=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 79f3b7fd43fc4ced;
-	Sat, 21 Nov 2026 21:27:08 +0000
-X-Mizu-Trace-ID: 79f3b7fd43fc4ced
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6462f655-303b-4df1-9ef0-b82bc482b55f@linux.dev>
-Date: Sat, 21 Nov 2026 13:27:01 -0800
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=L5qY7ndM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F101B1F000C4;
+	Sat, 21 Nov 2026 21:28:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1795296527;
+	bh=2ANdwTkgFnCLX2uiC/ZRicSZlvifAWnMnZbQZwNu3GQ=;
+	h=Date:To:From:In-Reply-To:References:Subject;
+	b=L5qY7ndM941SMfKhZJKKInr2YlOLDyyKt2hPYrjVxfKnmtHlsJelqzZdr114up8u/
+	 FtpgpB0bh+C1cJopFYK/hhGxdcWhPgzIXsy9+wASJMQVC6pCVThrnpNbn70apnlPjY
+	 WyppVYGKS/Z6yEir+T5Vyu7xiXPhdDOTI+Cl/fUw=
+Date: Sat, 21 Nov 2026 13:28:46 -0800
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,
+	shubhang@os.amperecomputing.com,shuaibinglu@126.com,shuah@kernel.org,
+	sh@gentwo.org,manfred@colorfullife.com,jan.koester@tuxist.de,
+	dave@stgolabs.net,cl@gentwo.org,teel4res@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+In-Reply-To: <179328314077.648427.7284615104475689945@gmail.com>
+References: <179328314077.648427.7284615104475689945@gmail.com>
+Subject: + ipc-msg-align-compat-version-0-msqid_ds-with-native-ipc_old.patch added to mm-nonmm-unstable branch
+Message-Id: <20261121212846.F101B1F000C4@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,130 +54,121 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RDMA/rxe: reject ODP accesses that wrap the iova space
-To: Yiran Qiu <eritque-arcus@ikuyo.dev>, zyjzyj2000@gmail.com, jgg@ziepe.ca,
- leon@kernel.org, "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261120060000.302440-1-eritque-arcus@ikuyo.dev>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <20261120060000.302440-1-eritque-arcus@ikuyo.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
 
-在 2026/11/19 22:00, Yiran Qiu 写道:
-> rxe_check_pagefault() decides whether an ODP access needs a page fault
-> by walking its pages, and bounds the page index against the umem inside
-> that walk. When iova + length wraps past 2^64 the loop does not run, so
-> neither that bound nor the HMM_PFN_VALID and HMM_PFN_WRITE checks apply,
-> and no fault is taken. __rxe_odp_mr_copy() and the atomic write and
-> flush helpers then index map.pfn_list[] with (iova - ib_umem_start()) >>
-> page_shift, which the registrant controls: ib_uverbs_reg_mr() only
-> requires the MR's iova to share the page offset of the user address. The
-> entry read past pfn_list[] goes to hmm_pfn_to_page(), and that page is
-> copied to or from the peer.
->
-> rxe_check_pagefault() also keeps the index in an int, so an index of
-> 2^32 or more can be truncated to a value that passes the bound, while
-> the flush and atomic write helpers use the full unsigned long.
->
-> Reject a wrapping range in rxe_odp_map_range_and_lock(), before the
-> fault path, whose umem range check wraps the same way, and keep the
-> index in an unsigned long.
->
-> Found with afb-afl, an LLM-driven kernel audit/repro pipeline; the fix
-> and this changelog were also drafted with LLM assistance. Reproduced on
-> an unmodified KASAN build of mainline by an unprivileged user with a
-> self-connected rxe QP. An RDMA READ at the end of a two-page ODP MR
-> whose iova range ends at 2^64:
->
->    BUG: KASAN: slab-out-of-bounds in rxe_odp_mr_copy+0x35f/0x410
->    Read of size 8 at addr ffff8881037a2210 by task kworker/u16:0/13
->    The buggy address is located 0 bytes to the right of
->     allocated 16-byte region [ffff8881037a2200, ffff8881037a2210)
->    Oops: general protection fault, maybe for address 0xffff888103d0c04a: 0000 [#1] SMP KASAN NOPTI
->    RIP: 0010:memcpy+0xc/0x30
->
-> An ATOMIC WRITE to an MR whose iova is 2^44 above the umem start:
->
->    BUG: unable to handle page fault for address: ffffed11202b3194
->    RIP: 0010:rxe_odp_do_atomic_write+0x131/0x2f0
->
-> With this patch both are NAKed with no report, and an in-range READ and
-> ATOMIC WRITE return the same results as before. The wrap was not tried
-> on the flush path. The rdma-core v65.0 tests, ODP included, pass on rxe
-> with and without this patch.
->
-> Fixes: 2fae67ab63db ("RDMA/rxe: Add support for Send/Recv/Write/Read with ODP")
-> Cc: stable@vger.kernel.org # 6.15.x: 7797bbb0e86f: RDMA/rxe: bound the ODP page index against the umem in rxe_check_pagefault()
-> Signed-off-by: Yiran Qiu <eritque-arcus@ikuyo.dev>
-> ---
-> Tested on mainline 4405c18c95d2 (v7.4-rc3+) in QEMU. Applies to
-> rdma.git for-rc and for-next.
->
-> This completes commit 7797bbb0e86f, whose bound sits in the loop that
-> a wrapping range skips; stable trees need that commit first.
->
-> Without KASAN, an RDMA READ or WRITE at the end of the range reads or
-> overwrites a physical page the registrant chooses. On a lab kernel with
-> CONFIG_RANDOMIZE_BASE=n this was taken from an unprivileged user to
-> uid 0; with KASLR the chain also needs an address leak. The rxe link
-> has to be created by an administrator; the trigger needs only the
-> uverbs device. A reproducer and the test logs are available on request.
->
->   drivers/infiniband/sw/rxe/rxe_odp.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/infiniband/sw/rxe/rxe_odp.c b/drivers/infiniband/sw/rxe/rxe_odp.c
-> index 9d27244f89bc..2ab64f128e57 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_odp.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_odp.c
-> @@ -125,7 +125,7 @@ static inline bool rxe_check_pagefault(struct ib_umem_odp *umem_odp, u64 iova,
->   	bool need_fault = false;
->   	u64 access = HMM_PFN_VALID;
->   	u64 addr;
-> -	int idx;
-> +	unsigned long idx;
->   
->   	if (write)
->   		access |= HMM_PFN_WRITE;
-> @@ -171,6 +171,9 @@ static int rxe_odp_map_range_and_lock(struct rxe_mr *mr, u64 iova, int length, u
->   	if (unlikely(length < 1))
->   		return -EINVAL;
->   
-> +	if (unlikely(iova + length < iova))
-> +		return -EFAULT;
+The patch titled
+     Subject: ipc/msg: align compat version-0 msqid_ds with native IPC_OLD
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ipc-msg-align-compat-version-0-msqid_ds-with-native-ipc_old.patch
 
-Using the followings instead of the above.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ipc-msg-align-compat-version-0-msqid_ds-with-native-ipc_old.patch
 
-"
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-u64 end;
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-if (check_add_overflow(iova, (u64)length, &end))
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-     return -EFAULT;
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-"
+------------------------------------------------------
+From: Cheng Yongkang <teel4res@gmail.com>
+Subject: ipc/msg: align compat version-0 msqid_ds with native IPC_OLD
+Date: Thu, 29 Oct 2026 07:12:20 -0700
 
-makes the 64-bit wrap-around check explicit and avoids ambiguity from 
-implicit integer promotions.
+The compat version-0 IPC_STAT path copies the 64-bit counters into the
+16-bit msg_cbytes/msg_qnum/msg_qbytes fields without clamping, and leaves
+msg_lcbytes/msg_lqbytes zero.  A queue with 65536 bytes, 8 messages and
+q_qbytes=200000 is reported as cbytes=0, qnum=8, qbytes=3392,
+lcbytes=lqbytes=0, while the native IPC_OLD path reports the clamped
+counters and the full values in the l fields.
 
-Except that, I am fine with this commit.
+The compat version-0 IPC_SET path reads only the 16-bit msg_qbytes and
+ignores msg_lqbytes.  A caller following the old ABI with msg_qbytes=0 and
+msg_lqbytes=131072 gets q_qbytes=0 and the queue stops accepting messages,
+while the native IPC_OLD path falls back to msg_lqbytes.
 
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Mirror the native IPC_OLD handling in both compat version-0 branches:
+clamp the counters to USHRT_MAX and fill the l fields on stat, and fall
+back to msg_lqbytes when the 16-bit qbytes is zero on set.  The compat
+IPC_64 branches and the native paths are unchanged.
 
-Zhu Yanjun
+Link: https://patch.msgid.link/179328314077.648427.7284615104475689945@gmail.com
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Christopher Lameter (Ampere) <cl@gentwo.org>
+Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: Jan Koester <jan.koester@tuxist.de>
+Cc: Lu Shuaibing <shuaibinglu@126.com>
+Cc: Manfred Spraul <manfred@colorfullife.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Cc: Shubhang Kaushik <shubhang@os.amperecomputing.com>
+Cc: <stable@vger.kernel.org>
 
-> +
->   	mutex_lock(&umem_odp->umem_mutex);
->   
->   	need_fault = rxe_check_pagefault(umem_odp, iova, length, write);
+ ipc/msg.c |   29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
 
--- 
-Best Regards,
-Yanjun.Zhu
+--- a/ipc/msg.c~ipc-msg-align-compat-version-0-msqid_ds-with-native-ipc_old
++++ a/ipc/msg.c
+@@ -687,10 +687,17 @@ static int copy_compat_msqid_from_user(s
+ 			return -EFAULT;
+ 	} else {
+ 		struct compat_msqid_ds __user *p = buf;
++		compat_ulong_t qbytes;
++
+ 		if (get_compat_ipc_perm(&out->msg_perm, &p->msg_perm))
+ 			return -EFAULT;
+-		if (get_user(out->msg_qbytes, &p->msg_qbytes))
++		if (get_user(qbytes, &p->msg_qbytes))
+ 			return -EFAULT;
++		if (qbytes == 0) {
++			if (get_user(qbytes, &p->msg_lqbytes))
++				return -EFAULT;
++		}
++		out->msg_qbytes = qbytes;
+ 	}
+ 	return 0;
+ }
+@@ -721,9 +728,23 @@ static int copy_compat_msqid_to_user(voi
+ 		v.msg_stime = in->msg_stime;
+ 		v.msg_rtime = in->msg_rtime;
+ 		v.msg_ctime = in->msg_ctime;
+-		v.msg_cbytes = in->msg_cbytes;
+-		v.msg_qnum = in->msg_qnum;
+-		v.msg_qbytes = in->msg_qbytes;
++		if (in->msg_cbytes > USHRT_MAX)
++			v.msg_cbytes = USHRT_MAX;
++		else
++			v.msg_cbytes = in->msg_cbytes;
++		v.msg_lcbytes = in->msg_cbytes;
++
++		if (in->msg_qnum > USHRT_MAX)
++			v.msg_qnum = USHRT_MAX;
++		else
++			v.msg_qnum = in->msg_qnum;
++
++		if (in->msg_qbytes > USHRT_MAX)
++			v.msg_qbytes = USHRT_MAX;
++		else
++			v.msg_qbytes = in->msg_qbytes;
++		v.msg_lqbytes = in->msg_qbytes;
++
+ 		v.msg_lspid = in->msg_lspid;
+ 		v.msg_lrpid = in->msg_lrpid;
+ 		return copy_to_user(buf, &v, sizeof(v));
+_
+
+Patches currently in -mm which might be from teel4res@gmail.com are
+
+ipc-msg-align-compat-version-0-msqid_ds-with-native-ipc_old.patch
 
