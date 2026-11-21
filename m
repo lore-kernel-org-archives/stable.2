@@ -1,94 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.212
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795293990;
-	b=HvqhyR7u6cGvTsFZVSnRMakn2V0ruZAQNMOFvibAcRaChNi163U84saN6OVdLm37Eh9k
-	 K73D7Ks9yE7v5aUcgk0t80t4kW5hW7ehMNsHvZFMwGHonir0Ag3ZMujPApNXEOUoVE3Ux
-	 vOP5pDYImIrls/HLuHSV9FPapvgZcHUL7potuTNfy0FF0xx2b9vh39Sx25eteArSdYV+b
-	 8uW+0jTlsEdpskkTvPHXTTNha0eCXjIl9Fikj1Mohs6CSKYcJIgc+Ms/cmtc4C09bUNcY
-	 x1AGuq5PoJkhrwYhkyWBpDfitYKnuV3VRWYc4aFyH+JyV37Oua70WMB4/BORnMqnl7Q==
+	t=1795294384;
+	b=ugZ+S5sZc65tmgGT3gWsWsoqpJj6lRBG/vRIj8i8Xk9EdQTykOcvY3qkyS/6A92AwDlA
+	 ELISRfTxQF2CfXP5GyL79iwuGO9cFMsHXcuwlM2UFudz4byqm+yWuU6y5yVLSE/+MpNHr
+	 Rl29/8SLnGpnhxLtNOfDGNyz4LKK30HjIuV/SuTHzo/hG4sBYwfuMLfD89RgRuwczK60Y
+	 ucP7AR9f0Di97GHLFhOlYWA2HyM2wbNyoafhRCrrjaz5xHLNnhkDpKLLtFVUCIBxnNkZP
+	 SPB2P4e/O1hQ+uemgwaTaEnOzw51/7LY1KbYyyjTOgJ+hiSZ/1d7BhjhZAKNvSVm2aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795293990;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795294384;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=3dROjGZCNE551sXOSnZVVsDb5S4//gNDdIiMvX1YD/E=;
-	b=b7qBA+/kkDriLHREqInKjQ50jy3R7quYYz/Op6/42IgwkfTRp78ozq8PEYOVgG/58Xe7
-	 7sT6xu32Y79w+JSfoMkyUtFQVVFZ340QVTpW1w2ctyt/1ExSw24qY6LnFbzVZ+LV8lkD6
-	 rViTSosXxCfxwKq0HVYuJUC+9TrVQk0ziCeM4V5PT8YcnzPsppCcK4Pv9HPh9aGZI5k1Y
-	 LeoE+cF1l0BXdTQyyFiqkULSSAkNVajcVFK8zsI3dAMN7uU4tqXz3K4kfRJ3pvxAYPGW3
-	 e2lDqLb255dCz72bpN0X4Vys2qasqDGtG8wa+nH0y8tA4kQ1GJg9iE/QDEV2PUUW12w==
+	bh=cC872EySsMC8eMJI+Qe7C5GebioHolwF5sIbQy0Rd28=;
+	b=dI9Pb382klI8OYqI9c792QQu2rq8L8TUlvfq39Ls+WJg71PwoGHrmJRDmIuBrG2ASDnr
+	 v3HCA0OPY8FuVblMonKJpadmBqgpVFiNKLUv/IFQRY0qCm2VqMHcCR0zpwkDhYhgCMWhl
+	 HQC/jwMQ8XEa5lDRRq4dkovZGjph/DoHpJXQl6kqYQ1pPB/rJLJF3UsayWRn7AnUVSQoa
+	 KG+m2Kxbix0cuUAM7zXv3vn6mXRUw2t/7hpfGEC9tgQvqI096Z5eLXpgV9rXEXbVk+PRl
+	 O4VhgBku2HAWuQDe5rsMNgVvR79DTrfPOvH2FmFfY32bOiLLP2hm+kqUF20tl44tdWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cm3NRQ+h;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=N9iG+ZGZ;
+	arc=none smtp.remote-ip=95.215.58.212
+Received: from mta1.migadu.com (out-212.mta1.migadu.com [95.215.58.212])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D69606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 20:46:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6D69606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBC3606A32C
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 20:53:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EBC3606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cm3NRQ+h
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b9c51097e2so722505b3a.1
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 12:46:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795293989; x=1795898789; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3dROjGZCNE551sXOSnZVVsDb5S4//gNDdIiMvX1YD/E=;
-        b=Cm3NRQ+himgMCRSGF7x3bxAvLJEDq7eK3ClrL11yur+/cYppSjoErValcHG54qVL8q
-         KeHUdt3EryIdsjU5vCq+shBOEHWjIByKj5RJn9Riq1/5gX+HSpeaLcl/Izx224bLV9Wu
-         x0v6JbKInmHgTxiAwCBsCD7tG4zKR+ZphSvkGUYId3DrHCJ5N8HkP0ZCiDB9f19HsvfR
-         krcSoGGZbhHKwgh2xSs+BwgfCC0OsCNMxN0gOjHJvppy/hnIHq2TnQw/wRw6pPEX0s1D
-         r8cBbUzeCgNYuX0fqYV6Qkn0HlkfmU4UbtL+/nLKNmnURTYWCWcj/17sbxgV1bjO32oT
-         LzNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795293989; x=1795898789;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3dROjGZCNE551sXOSnZVVsDb5S4//gNDdIiMvX1YD/E=;
-        b=veSOPL77rrm2uF9NTZlcTHGu4UGQrSlq2F+3sibqJMBrftTh0k/iO/jP4yr3fDE10t
-         FDsSnXDi4lwV48nE/nA7TqT17ZPReK82wHlw5jCmHkpaoA15F2aunqVxbtA6N1kFdSjZ
-         w3GJ/SAhrlUr1s0Uj5DGczUI9HoG+zgUBIQv05AMdWGiW8ZSywsrG3CI1jjAPqRu7Ajl
-         BFXQBmUTwyS9CZ8EOvrh+3Un1F8mrkPLHBqHDHA9YRcqcVpcmMozdzLD6GTmZiR/Zmtg
-         3X+GpUbTCyKA2lBrM2oDNa/uFWvARFqEIyCsHnY7HaNIXixgH/BeMIYBfkHvq0sJPp1Q
-         qOBQ==
-X-Forwarded-Encrypted: i=1; AL+hErHjvvr64b/liGEXJ9jZ2d8SzjcVBXRV/Zg4+N003e3dILXjft5AS9sjoGRDBOFHFnGfxQBKdOY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iDE8ydZyfh2X6sLuUZjxrcwtUM95OvCFLzf6+obV1gwbeOy+9
-	WImxaEwkhCa0OMJ2IJg9I6sedRTGW8mme25l+x/2nQZFUrzHnzorirIrUyjYTpFHGaY=
-X-Gm-Gg: AZFdTZc2rBZh9jeUeZO1hqV1q/kAlT2d9OOHHZkst3VOcV5PIk0ciFkjrcCVmYp9uJa
-	0mrAYR1niHNScJxkTQ4rAbNND5eX+ZHNxnEkmOyT+A2S0zV0XsQecda5fhAMc8SPKtjwAtv25sk
-	yD/sM1cWwEUmpt5ZJTVunKZGq2VjOhtrhp5XX5rNbjh1YxgW/hgzq3otQ8OcUJAV/Q8TLhBA+w6
-	hPVsQKxntCSK5xeSpAckXIInpx73hyAMiMQybcG/619SmSZuXq2dFwHY9r5IcLq2qNKtHmyiCmL
-	JkQhTeNiRutmCGMGFnz09RGtNhJp0xzIq1xfBlH6uX4OU1jIsJie9QeIHvgxqfCLUYVG9hh1hMN
-	DAgBU66+dVHdkAAcqExuaMvZrDQ4LXaung5xxaifC4oC+AIxY2nPZ/v94raM+FGGjnOoij0cLJ9
-	4VH8hBeRR9XwFwsgb+2C3kvWHJgsXNfqU7ernctigynGf6aHWZ/IiW4FNBd1Zgyf2oPdTyhJDWr
-	ktXUhzl+LKuHZQgmXacgTEJ9CwaIU8hXQg1rRL8HMSKr0ljYl1G6yXffaBsVRzBrbfDWWUFVtdA
-	T1/QFC6N/vPSgDBlteyyLXWeZx/QGwdtGh4ZbRBpFxU0nw9kiMxG
-X-Received: by 2002:a05:6a00:2ea5:b0:873:e3b4:5d4 with SMTP id d2e1a72fcca58-8c8793b8d04mr6434190b3a.2.1795293989190;
-        Sat, 21 Nov 2026 12:46:29 -0800 (PST)
-Received: from d.home.yangfl.dn42 ([2a09:bac5:6213:28::4:379])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87285c263sm3091141b3a.11.2026.11.21.12.46.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 12:46:28 -0800 (PST)
-From: David Yang <mmyangfl@gmail.com>
-To: linux-watchdog@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	stable@vger.kernel.org,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Jongsung Kim <neidhard.kim@lge.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] watchdog: sp805: re-enable the clock in the restart handler
-Date: Sun, 22 Nov 2026 04:45:25 +0800
-Message-ID: <20261121204528.2435533-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=N9iG+ZGZ
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fTypxto2RUCo6/a5JpNf0L5VcBFjct/hjtzGvcTcedo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795294381; v=1; x=1795899181;
+ b=N9iG+ZGZKWBhrj0qAGkiVJ8lnPVDTgkN+VlyoY2WfbqO/laH+7mP0TGlHrHlu6FHnwygbMI8
+ /Ca9/2pyxrIKYhhphkCbqs4gj9+nvilfAJU5UE+03G6Tyy02E5CviJA6G30e72YbKKJ/1MWVtRY
+ QOC86GJNVfngPZnXktSEdDhI=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a173131b567a5674;
+	Sat, 21 Nov 2026 20:53:01 +0000
+X-Mizu-Trace-ID: a173131b567a5674
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6f390b6c-b0d6-4b37-929b-a426282556b7@linux.dev>
+Date: Sat, 21 Nov 2026 12:52:54 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,79 +58,184 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] RDMA/rxe: Do not re-execute completed local ops after a
+ retry
+To: Mohamed Khalfella <mkhalfella@purestorage.com>,
+ "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+Cc: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261113230831.2682071-1-mkhalfella@purestorage.com>
+ <e432178a-6e73-4096-9f59-5c5d2bc9d682@linux.dev>
+ <20261115173618.GD34016-mkhalfella@purestorage.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20261115173618.GD34016-mkhalfella@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-wdt_restart() fail to reboot the system if the watchdog counter clock
-was previously disabled: If userspace cleanly stops the watchdog, the
-core calls wdt_disable() which disables wdt->clk. No reset comes.
 
-Re-enable the clock in it as in npcm_wdt. The watchdog .restart()
-callback runs in atomic context: get the clock with
-devm_clk_get_optional_prepared() at probe time and keep it prepared for
-the lifetime of the driver, so the restart handler only needs
-clk_enable(), which is safe in atomic context.
+在 2026/11/15 9:36, Mohamed Khalfella 写道:
+> On Sat 2026-11-14 11:05:39 -0800, Zhu Yanjun wrote:
+>> 在 2026/11/13 15:08, Mohamed Khalfella 写道:
+>>> Local operations (IB_WR_REG_MR, IB_WR_LOCAL_INV, IB_WR_BIND_MW) are
+>>> executed inline by rxe_requester() through rxe_do_local_ops(), which
+>>> marks the wqe wqe_state_done and advances qp->req.wqe_index past it.
+>>> Unlike wire operations, nothing is posted to the network and no ack is
+>>> expected.
+>>>
+>>> The completer only consumes wqes from the head of the send queue, in
+>>> order. A done local op wqe therefore stays in the queue until every
+>>> older wqe has completed, so it can sit behind a SEND or RDMA WRITE that
+>>> is still waiting for an ack. With nvme-rdma, which posts REG_MR + SEND
+>>> for every I/O, the queue regularly looks like:
+>>>
+>>>     SEND(A) pending, REG_MR(B) done, SEND(B) pending, REG_MR(C) done ...
+>>>
+>>> When a retransmit timeout fires or a NAK arrives, req_retry() rewinds
+>>> qp->req.wqe_index to the consumer so that every unacked wqe is resent.
+>>> Its loop skips wqe_state_done entries when resetting DMA state, but
+>>> rxe_requester() itself has no such check. After the rewind it walks
+>>> forward through the queue, reaches REG_MR(B), sees WR_LOCAL_OP_MASK and
+>>> calls rxe_do_local_ops() on it a second time.
+>>>
+>>> rxe_reg_fast_mr() rejects the repeated registration because the MR is
+>>> already RXE_MR_STATE_VALID, not FREE. The wqe is given
+>>> IB_WC_LOC_QP_OP_ERR and the QP is moved to the error state. The
+>>> completer then flushes the entire send queue with IB_WC_WR_FLUSH_ERR,
+>>> including the wqe that failed, so the consumer never sees the real
+>>> error status. nvme-rdma logs only "SEND ... failed with status WR
+>>> flushed (5)" and tears down the controller.
+>>>
+>>> Any packet loss that triggers a retry while a later request is queued
+>>> is enough to hit this. On a soft-RoCE setup with a few hundred lost
+>>> frames per run every controller reconnect traced back to the same
+>>> rxe_dbg_mr() line:
+>>>
+>>>     rxe1: mr#776 rxe_reg_fast_mr:  mr->lkey = 0x3084c not free
+>>>
+>>> Skip local op wqes that are already done when the requester reaches
+>>> them again after a rewind. Advance wqe_index past them exactly as a
+>>> successful execution would and continue with the next wqe. The MR keeps
+>>> its registered state and the completer still reports the wqe in order
+>>> with its original status. Only local ops can be in wqe_state_done ahead
+>>> of the consumer on an RC QP, since wire operations stay pending until
+>>> acked, so the check cannot match anything else.
+>>>
+>>> Fixes: 001345339f4c ("RDMA/rxe: Separate HW and SW l/rkeys")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+>>> ---
+>>>    drivers/infiniband/sw/rxe/rxe_req.c | 14 ++++++++++++++
+>>>    1 file changed, 14 insertions(+)
+>>>
+>>> diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
+>>> index 4f353abd76f5..fdb55366d668 100644
+>>> --- a/drivers/infiniband/sw/rxe/rxe_req.c
+>>> +++ b/drivers/infiniband/sw/rxe/rxe_req.c
+>>> @@ -723,6 +723,20 @@ int rxe_requester(struct rxe_qp *qp)
+>>>    		goto err;
+>>>    	}
+>>>    
+>>> +	/*
+>>> +	 * A retry rewinds wqe_index to the send queue consumer. Local
+>>> +	 * operations that were already executed may still sit in the
+>>> +	 * queue behind an unacked wqe waiting for in-order completion.
+>>> +	 * Re-executing them fails (e.g. REG_MR on an MR that is no
+>>> +	 * longer free) and would move the QP to the error state, so
+>>> +	 * skip them instead.
+>>> +	 */
+>>> +	if ((wqe->mask & WR_LOCAL_OP_MASK) &&
+>>> +	    wqe->state == wqe_state_done) {
+>>> +		qp->req.wqe_index = queue_next_index(q, qp->req.wqe_index);
+>>> +		goto done;
+>>> +	}
+>> I understand the need for this check to prevent already-completed local
+>> operations from
+>>
+>> being re-executed after a retry rewinds the WQE index.
+>>
+>> However, this check is currently placed in the common `rxe_requester()`
+>> path, so it is evaluated
+>>
+>> for every WQE, including normal SEND and RDMA WRITE operations.
+>>
+>> Since this condition is only relevant when a retry causes the requester
+>> to revisit an already-completed
+>>
+>> local operation, it is expected to be very rare in the normal execution
+>> path.
+>>
+>> Could we move this check into the existing `WR_LOCAL_OP_MASK` handling
+>> path, or at least mark
+>>
+>> the condition with `unlikely()`?
+>>
+>> I would prefer moving it into the local operation handling path, if the
+>> control flow allows it, so that normal wire
+>>
+>> operations do not pay the cost of an additional state check.
+>>
+>> This would keep the fix while minimizing its impact on the common fast path.
+> diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
+> index 12d03f390b09..8bd1f9b1ce06 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_req.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_req.c
+> @@ -707,6 +707,13 @@ int rxe_requester(struct rxe_qp *qp)
+>   	}
+>   
+>   	if (wqe->mask & WR_LOCAL_OP_MASK) {
+> +		/* Retry rewinds wqe_index, skip it if already done */
+> +		if (unlikely(wqe->state == wqe_state_done)) {
+> +			qp->req.wqe_index = queue_next_index(q,
+> +						qp->req.wqe_index);
+> +			goto done;
+> +		}
+> +
+>   		err = rxe_do_local_ops(qp, wqe);
+>   		if (unlikely(err))
+>   			goto err;
+>
+> Does something like the diff above work?
+>
+> Also, sashiko marked a high severity issue [1] in this version of the
+> patch. I am not familiar with this codebase enough to know if this is a
+> real issue introduced by this change or not.
+>
+> Is the issue reported by sashiko real?
+> If yes, is it introduced by this patch?
+Hi Mohamed,
 
-Link: https://lore.kernel.org/r/20260911031916.A8E051F000FF@smtp.kernel.org
-Fixes: 6c5c0d48b686 ("watchdog: sp805: add restart handler")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
-v2:
- - include a Fixes tag
- - use clk_enable() in the restart handler
-v1: https://lore.kernel.org/r/20261120201029.1685193-1-mmyangfl@gmail.com
- drivers/watchdog/sp805_wdt.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+I reviewed sashiko-bot's comments and agree they are valid.
 
-diff --git a/drivers/watchdog/sp805_wdt.c b/drivers/watchdog/sp805_wdt.c
-index a14ff7ac0db4..4e4febc52853 100644
---- a/drivers/watchdog/sp805_wdt.c
-+++ b/drivers/watchdog/sp805_wdt.c
-@@ -138,6 +138,13 @@ wdt_restart(struct watchdog_device *wdd, unsigned long mode, void *cmd)
- {
- 	struct sp805_wdt *wdt = watchdog_get_drvdata(wdd);
- 
-+	/*
-+	 * For reset, we start the WDT clock and leave it running.
-+	 * The clock was prepared at probe time; only clk_enable() is
-+	 * safe in this atomic (restart notifier) context.
-+	 */
-+	clk_enable(wdt->clk);
-+
- 	writel_relaxed(UNLOCK, wdt->base + WDTLOCK);
- 	writel_relaxed(0, wdt->base + WDTCONTROL);
- 	writel_relaxed(0, wdt->base + WDTLOAD);
-@@ -156,7 +163,7 @@ static int wdt_config(struct watchdog_device *wdd, bool ping)
- 
- 	if (!ping) {
- 
--		ret = clk_prepare_enable(wdt->clk);
-+		ret = clk_enable(wdt->clk);
- 		if (ret) {
- 			dev_err(&wdt->adev->dev, "clock enable fail");
- 			return ret;
-@@ -208,7 +215,7 @@ static int wdt_disable(struct watchdog_device *wdd)
- 	readl_relaxed(wdt->base + WDTLOCK);
- 	spin_unlock(&wdt->lock);
- 
--	clk_disable_unprepare(wdt->clk);
-+	clk_disable(wdt->clk);
- 
- 	return 0;
- }
-@@ -253,7 +260,11 @@ sp805_wdt_probe(struct amba_device *adev, const struct amba_id *id)
- 	 */
- 	device_property_read_u64(&adev->dev, "clock-frequency", &rate);
- 
--	wdt->clk = devm_clk_get_optional(&adev->dev, NULL);
-+	/*
-+	 * Keep the clock prepared for the lifetime of the driver:
-+	 * wdt_restart() runs in atomic context and may only call clk_enable().
-+	 */
-+	wdt->clk = devm_clk_get_optional_prepared(&adev->dev, NULL);
- 	if (IS_ERR(wdt->clk))
- 		return dev_err_probe(&adev->dev, PTR_ERR(wdt->clk), "Clock not found\n");
- 
+Please update the patch accordingly:
+
+Consumer index overtaking wqe_index: Consider looping/batch-advancing
+
+qp->req.wqe_index past consecutive completed local ops so rxe_completer()
+
+cannot overtake it after a retry.
+
+Fence & IB_QPS_SQD stall/deadlock: Check send queue boundaries and
+
+concurrency/state ordering around req_next_wqe() and fence checks so
+
+completed local ops are skipped before those checks block or deadlock.
+
+And please do not add overhead in the fast path since this will make bad
+
+difference on the whole system's performance.
+
+
+Thanks,
+Yanjun Zhu
+>
+> 1- https://lore.kernel.org/all/sashiko-outbox-213867@kernel.org/
+>
+> Thanks,
+> Mohamed Khalfella
+
 -- 
-2.53.0
+Best Regards,
+Yanjun.Zhu
 
