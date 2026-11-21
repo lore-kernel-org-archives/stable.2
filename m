@@ -1,65 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795220150;
-	b=K/ESx849LltVTzlXxjqJQT0khtc/QcWb1h+164RHPv8/KMVyO1XusnghRAVYwLaitTAo
-	 lYSK+sWxoJk/nRLNcgoVP75MxI3qIBOG+86d4JgUktVt2BO0n5LQDBGbAAsCmWA5n7fAx
-	 hVeuOTag4hr5erm1XFeZiKMCK/wVx//renzoFZxfDCi2XpsCSp+PkaLYqDaTLOqjtxV3R
-	 l2s5EXouRVWfpVTgxlyB0IOiWtua0gcaD0+rPAsrXpowcT2ZBgbbPLINx90Sviu+9BYuY
-	 pHiLHqki8DGC6IS+bUxXROwdSIqeAHaUcaxbLYy1RYKO4cv4UsUrA9IM8A9xvLEltng==
+	t=1795220993;
+	b=HxoX5bBNaSqHZdp5eU0aEzwS/8XlFTAmXzwPHLbv+zYDuADyx+4KeeBBYfoTbksRXeaX
+	 nWYd8erY4+H3E+ap2sVypz+7clXGHnF3jKCzhp1gSWydIpVgHM9icuO12AZGUzlOaW4zd
+	 U8ZPbswZzjrZrIoJgsWujkklcKjglz4zhX6kYlp1B9j/OXhON4D3woBHBev0Su4gCkc/4
+	 49UgwdCFxdDJOtIfjQm44e3tPsvYU64rPXhNrr4IKTcftHxQ+52tW1JxpwnwGKbdUb7lb
+	 SCZs1XrUCZsjksyd/FR95TweBx4hxbXZHXHSg2EGshgvCqHryuzD70780ZMLcS4/1Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795220150;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-SRS-Rewrite;
-	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
-	b=RJQyZ905Y2hzaz0uGQvFSdCQuFF9WXD7l2XVXGvoEC5UJJyX/QCdgTIgci3T0sZufs6X
-	 PsfQvKbM0Xp9Bdkq4AIHzMNjPGRnnfjAYTNME3yuRXn4Aszo5kItNdGacq6n7HkGWDrRt
-	 SmMJ0rUECgDIuJbS1xdyAfmiFZXx+7Sc4+n3KyAhVQydNy3vnXAzruC72fvLKqVkRhMSQ
-	 4K2xWFOzqystL5XnPMNgIccqdR9rDizvt24aTmhZtj42Dxmf/uPfn3rbWqzMehJVFCCYc
-	 A7jrVRs7StfsfnQRYg5p0s9AiUw+0UXsj3e51WgLWhe2dwhcq4iykA96Qm6gvAkbnsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795220993;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rD7rpVjyDNmPoXFf48R53o3A1muaq1HYLrGi/n8jnLQ=;
+	b=STjYt+JyKY1K7y+sebdGJdmVs0K7vaEkjuGHT13PIZop2BqZYuQWFf+7wqt1K4rLc7ny
+	 ctSo+10bav9Z4MWWPpwuwVH6u6TpwNRJPILb3xyq5S3K42PHfPV4qSFIid38ghttPH0ow
+	 vLh1WdHO+vzg4aUe8GhwFZosqiVHV5cw5CoyiCS5cn8iXIJyvd5eTIor4EmHC4OmPjZFJ
+	 2OX7IAHAdkwrI4Bsyv8hPnsBNESiEbLXXzLkDKbe+xhsxnA8j80PUlUaD1DQMHtp2ySY3
+	 oSfcwNb+2lx12mbVnadJqMp6xUV6tf06mai9/m0qrhB/BRbXL2DSJMeQAtF1q0Phgnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=RWmai70G;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoS50GYo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 512EC606A6A9;
-	Sat, 21 Nov 2026 00:15:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 512EC606A6A9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389FE606A69B
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 00:29:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=RWmai70G
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=; b=RWmai70G3+RNrvm1FC4pqG+E+v
-	PZMwRIf92iDHgH+5Og71XVk1TNkK8ujUR0OMfE0TlFNuIJfq1/nsF2KesJRGF9fBgy2hpAOSVSiyS
-	rzETyWX5vvCRKht/Vv+5+4RtOGIzaz0Dcawd8yvj7sHUJJnBTdiYtcOaeLJvuED7nPGChXcBeM/O+
-	dNcweeTHE//gs8f6aHk177Yn9JkcUJBy4eoSofamJE6dqFcfWpxipmTLyJvrNz0tXcpSuYindzLQu
-	faUpKNIQWvkT6yig16nNpkplVg/r0kpUzAzcCdMC5yBPgQtfmmIdeBHKLb4jgq0mQCsf76ZOmw2lJ
-	7SvtA9rQ==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xUYlb-0000000GUKB-3jZF;
-	Sat, 21 Nov 2026 00:15:43 +0000
-Date: Fri, 20 Nov 2026 16:15:43 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Zakaria Belkadi <zakaria.belkadi@inria.fr>
-Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
-	Caleb Sander Mateos <csander@purestorage.com>,
-	Keith Busch <kbusch@kernel.org>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Kanchan Joshi <joshi.k@samsung.com>,
-	Anuj Gupta <anuj20.g@samsung.com>, florence.schadle@ssi.gouv.fr,
-	frederic.tronel@centralesupelec.fr, louis.rilling@irisa.fr
-Subject: Re: [PATCH v2] block: bounce user PI when writes may remap reference
- tags
-Message-ID: <awDir_gtJsYf7z2A@infradead.org>
-References: <20261120195644.19511-1-zakaria.belkadi@inria.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoS50GYo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9AD1F000D3
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 00:29:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795220992;
+	bh=rD7rpVjyDNmPoXFf48R53o3A1muaq1HYLrGi/n8jnLQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VoS50GYoz23WScli6OCrp42uoHzt0bSQGlahzkogaCoa8UR883PfS997g1VhGOemb
+	 omAUOjA4Nf0X0OqCDviwY/JzfotusUP6WjNa3lqJDY+ihoDasF00d8NCWPdJha2i5t
+	 78L6SrETey3o6UscVz+u7vm1/3ytBWjt0WnQZtaiK2eb003Z0HvDjckheuSHierV7y
+	 +gzlFMpmnV4V/h73CFpKv83szNdhG/xiLZcy8I1YGIQ0wDfqSmvSlaeb3sCaYvIQF3
+	 ZDpI2nmBHRj8QQf7RSlSjQcq32YF0YxQzKYZHyR3ELsfWuixpCd0C8+4yBDDl/riap
+	 soaBFAb7Y0UYg==
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6ba1e22ff4dso1702441a12.2
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:29:52 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErG79gKaQw5ts6EdtYSiBPdepNVr3cMjYmdeQ2xms+d+TH+/ZUDJOTBziwra4ogN8oDKwkcyVR8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9B+maIYKHl/b9DVom+JCpJ2gwwqFF/lZcGgF+WcR3gKpx0Cm65
+	B6Sy9HqnfYAqKDsyik3ZZ0WQOe6t+rvbOGsYIiLOQ4adk8VMOTEPqDA3FJp+QjmTHabqTbXSO+b
+	jxSiSHIvs0ZbuVSMOSw/8sWYiIIOVxvg=
+X-Received: by 2002:aa7:cd65:0:b0:6b5:823f:3462 with SMTP id
+ 4fb4d7f45d1cf-6ba37e83f29mr2483897a12.19.1795220991152; Fri, 20 Nov 2026
+ 16:29:51 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,12 +59,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261120195644.19511-1-zakaria.belkadi@inria.fr>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+References: <20261120163436.15296-1-icb@fastmail.org>
+In-Reply-To: <20261120163436.15296-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 21 Nov 2026 09:29:38 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd--8hWBZByqGjt3d8E65uJSS8iyc_VgucMvXuE99MRNhQ@mail.gmail.com>
+X-Gm-Features: Aa3M54qE1Zkgvchom1ErPwtXwjTD47R_3zEhhGyatIfGzxipZ6T7uhWeq9rzynY
+Message-ID: <CAKYAXd--8hWBZByqGjt3d8E65uJSS8iyc_VgucMvXuE99MRNhQ@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: check the ACEs after an NFS mode ACE in a DACL
+To: Ian Bridges <icb@fastmail.org>
+Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Looks good:
-
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-
+On Sat, Nov 21, 2026 at 1:34=E2=80=AFAM Ian Bridges <icb@fastmail.org> wrot=
+e:
+>
+> An allow ACE with SID S-1-5-88-3-<mode> supplies the POSIX mode
+> directly, and parse_dacl() stops walking the ACEs at the first one.
+> The same walk checks each ACE and maps its generic rights, so the ACEs
+> after the NFS mode ACE are neither checked nor mapped. set_info_sec()
+> still stores the entire DACL and the request succeeds, but part of
+> that DACL can have no effect.
+>
+> Continue checking the remaining ACEs and mapping their generic rights,
+> while preserving the mode from the first NFS mode ACE.
+>
+> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ian Bridges <icb@fastmail.org>
+Applied it to #ksmbd-for-next.
+Thanks!
