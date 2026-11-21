@@ -1,54 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795267975;
-	b=CW9NP6R6Pj6lyWXw8rVd52ORUDxoKNB2MEj3IUS+s+RVUyUF5+9xhdVhGKxIeQrQu6+n
-	 L6Gj13qmQE1Z3uDIdg6NrExGq1I2PNmmfqb0bPgJBTnjfuh64VKpsuUhLzc2sr1AZ5Kvj
-	 8b9Hk7q9gadl3tyFAv+2WWcnaqO5Fit9J8+Mvo/K3Ttz2YmitwZfTmk7sp6HeaIoC8pLi
-	 JgCvAGcEqLcB2faTo0i5YaT9TpI/R0jtKe7cWc5dR63Qulph8chTT7+zCy1L9LjVNbSx3
-	 LHlH8AV5paccw6ps6nIbTvwevX6MnahXekDXfsytRMNA90Ebqjfg5pYa2UhqjedAjTw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795267975;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=JkdwCAEutEIfwhJO9SpdIcsXM2DUuJk895w0Ed5CRkg=;
-	b=C3ELnhhtKuRPi6g+NiQWIJIKHJb5Hsbnsk6FL10HsXaG62GWv5Asta4b0QkZ32+EZsvh
-	 ClJfnbN0E7BbP5P3E30+6vNlRsth/Uz0bLRHkWM2jvbBntLReqKtr34wkGR0ahmyIUa3v
-	 K/tQg0XcojsleoEcUMKVyx1y8gnglsF75dMdWAX4rHbxZcxFb1qcsvVa46Ht9gWRlcmL3
-	 BFlXbQnFDkqrC06rxnMCxTJ+aKx+IUPA9/vU3tBU1alac/Itwoh0wydDEt/O/2RiNZGwD
-	 F8hEeC4NE3ujZjR1m3qRo2vOr2ZsWAcpvcQjYDhmv0TDfY+dvG+53GE5UU/qU/pCH7g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1F036606A320;
-	Sat, 21 Nov 2026 13:32:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F036606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795268594;
+	b=qDJTE/BotVzzKvHGY5j/J7xgzC/Wz0Zol2NxBoxWlTw/2t0vXuZLm50Y3IMB4/6tNPo9
+	 NWw0VZOz9HB0XcmB7ZopZwnnEhGxsEkNhEpMw0aY2q6mHKI+ljh5beHrsyIEILjL+/RCv
+	 cL+18OGlhnISoG7aRWbfyiAKcHdkoiqzu7Sp2qep0UcvgwyMDAiLRm73eZkXlRdZ6ppZW
+	 Pt54EoBFkG/90hHW8hRnRUepXxA8bMdzIK0HXk4As2+EFzHFfOry7tpeKX8KFWx2BOOv4
+	 2O1oejkFQPt3APsI55yJRX18SIAkmfeW6T857h8MM6FeWMX7NK2GHrHGMnZZIYhm6CQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795268594;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
+	 To:Cc:References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc;
+	bh=AY/bUgRIJ5kQvaWogb9cZR0rDMepgQoRQgaNUWD6Ebs=;
+	b=uTbZKaV+itCT5QdskHrr1Bjd55Iwesr2te1nAFCAbI1DMz4Q4UUal0GupjmTG0g87mQv
+	 /wYVi7DlzOgauVAPGBps6S843I8qbiHmICXUd44fq2rYL09K/YshKrdl/aGdqTkwHQglu
+	 NU5p8HEoz/s4cRNLl119pXHhMdCluQksDM8PiPVUoMTEXBsAwhtKng425DPub2Y5NnyaK
+	 wnBr4KY3MdCEwQX1vgfeIUqZRxJ/P0y96eTKS5KMoL6eU2Xe0deIuBQAPsD3cu8HsjLHL
+	 DJeEBz3mEiGefRb1tLstSI0dOece96jZQykCyY86lr9X5CcTLsHiVW8d5oe4HEqsuVg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oracle.com;
+	spf=pass smtp.mailfrom=oracle.com;
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=hk553Umd;
+	dkim=pass header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=is9Znuc2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C74606A320;
+	Sat, 21 Nov 2026 13:43:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9C74606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=hk553Umd;
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=is9Znuc2
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ALDhBBq378088;
+	Sat, 21 Nov 2026 13:43:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=AY/bUgRIJ5kQvaWogb9cZR0rDMepgQoRQgaNUWD6Ebs=; b=
+	hk553UmdC6l4nfh0u8IFFas1nHxjKHDbEUNPXYV5Btnlf5FV2Caduw5Y7Bfs0yYn
+	LGdZXQZ7u+NzJdASVUNqP/xwdtsxZoX+UQBlRjTwQwwlrL5AY3H0sPPIfEdp4nmd
+	uwrL2hZtT/z7QdI7n5eMxulwnAByKh9c31nSDkGaq5uZM0YOqLJVHg7Ise+mPQuK
+	DVa4YkEgDcaUPsophwy8PaVm9tjaXx515zZHMHWqG54nyWbjcD+t3lFa8Fp/FWB8
+	QHbpD3XmcdxbAlZ9H0JMYgUix9sYBKHS95RG41XBPTS+Z2a91to5xykLdNEOHa3N
+	zdXvVKlHcoWgmJNa17svZQ==
+Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4j34ts86n2-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Sat, 21 Nov 2026 13:43:10 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6ALCI0fB2582066;
+	Sat, 21 Nov 2026 13:43:10 GMT
+Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011040.outbound.protection.outlook.com [40.93.194.40])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4j38wf3gqq-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
+	Sat, 21 Nov 2026 13:43:09 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YyMO8ri7EiEvtQ1J9WcnGjwvE28b1XwsJBGu6chhEkTmMz+G1ICSm3gjMZXngtV13IDeMvltf1lIJez3Y75ZCOUvWLYlLW4A0Zt+iw7M4GFfDwagorJByNJxNzffHDNVV9M79x5G6fqipLR5eB8235aGbHytmDaMV5i0uADguS3DXlpd6oJ7yhshvzKEOqhPvbIikYGPlzBn3nfUMNzcU5+GGWkdEotc4tLhjZV2+2j4HEIHo7Zccb3mUH1V7Efu9Xp0kKuu2/JiSmuKGw63JLdP3CgMUaLeEsH4mjWShXxbtpzp77IPGUQQntXo+vywDSyqkZNlrinGcCbLJqPm9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AY/bUgRIJ5kQvaWogb9cZR0rDMepgQoRQgaNUWD6Ebs=;
+ b=L3DM+C62YV8tG3eTBjJZymIbxVSA+pLUk8LZvnc9EFBizosc4ptO3AybkRtVG3jKg6nOO9nhBS/MLVSIuDLlGrr5+HteC82bhda2VXhY6rWyGWGRPMTw7nYXkHCLssMV4zNseuG9qDjLoWEQknUVq8X7lBmsnzq/4bFTZiCMGPWrkeB925vMt1xsoWNBFlSO1buxGVV8gj2r2yK+hynm7A0IOzqMvQGoZ5zzCWmuBqLYlJhKQYPIb5npqLBF0NyE0HXNZ7lpCJT83F7slmMg/najg+GfmjkUqkbD4wHgieHRtZvvle6l6Aj1oWnq+OwNVcLAYSkQgDpn6B6vVnNivQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=JkdwCAEutE
-	IfwhJO9SpdIcsXM2DUuJk895w0Ed5CRkg=; b=Mjbf1JLfvyZGwEl4bNTmB+A5IX
-	A3F9pVBrGSn901WenGCPrmllMQOZS5aHE3gGCNl9pIiddztVSEzLOIIXLqyZNjiV
-	rvTJNWiaZz6egh00Ekky1Ss2gbp1KTRElKuKu9ecd1essMQChXSYyCWg9uD2tJJQ
-	WmBPpUtzYYur/C2r0=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.70])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCW1_x7nQFryewCAg--.24087S2;
-	Sat, 21 Nov 2026 21:32:43 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	James Prestwood <prestwoj@gmail.com>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] wifi: mac80211: handle failure to re-add interface on address change
-Date: Sat, 21 Nov 2026 21:32:42 +0800
-Message-Id: <20261121133242.6550-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AY/bUgRIJ5kQvaWogb9cZR0rDMepgQoRQgaNUWD6Ebs=;
+ b=is9Znuc2BD8BKfEKL4vmNQnWpV7r44F9CcexHrcl+HogPq8C8HJHZcFpEbvk2cOi4JdF/LvlJfX+4KrZZ/AwT7SUAWmiek3MgW2ygU3XjfoBdfCKerCOx6KJwhWOOe5zlldFgxPmjw0jryDkkSH0wMxDFMn48+nYh19Sv+99HYs=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oracle.com;
+Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
+ by SA1PR10MB997556.namprd10.prod.outlook.com (2603:10b6:806:4b2::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Sat, 21 Nov
+ 2026 13:43:07 +0000
+Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
+ ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
+ ([fe80::2444:1d33:3ce:d83a%6]) with mapi id 15.21.0615.009; Sat, 21 Nov 2026
+ 13:43:07 +0000
+Message-ID: <c9347c65-780a-4676-973f-a6dc8970574c@oracle.com>
+Date: Sat, 21 Nov 2026 19:13:01 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 0756/2214] NFSD: Set nn->cld_net before registering
+ the cld pipe
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+        Sasha Levin <sashal@kernel.org>
+Cc: patches@lists.linux.dev, Chuck Lever <cel@kernel.org>
+References: <20261118150009.797899913@linuxfoundation.org>
+ <20261118150041.981632372@linuxfoundation.org>
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Content-Language: en-US
+In-Reply-To: <20261118150041.981632372@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0091.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::11) To SJ0PR10MB5834.namprd10.prod.outlook.com
+ (2603:10b6:a03:3ee::16)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,97 +131,211 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkCW1_x7nQFryewCAg--.24087S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXryxXr1DJw1kXr48Zr45GFg_yoW5Xr4UpF
-	W5CrZIkryDJr43Gw43Ar47ua45CFs7GrWrCFnrAa13uF1Sgry3ury09a4j9FyfCFW8A342
-	yF90yr45WayDCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6ry8MxAIw28IcxkI7VAKI48JMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0niSPUUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUED2sAYljOOwABsq
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|SA1PR10MB997556:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5685afd8-1e0a-46cc-4d18-08df47d55fe5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|4143699003|5023799004|56012099006|261022105027099003|261021121427099003|261021123027099003|261009223027099003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	KEV8fa8MEdrlgZCDHAywLSYdgnZDhB5o5Z83U/lXLQuhEpYGaDZ3u094RrHG7WSPQMnRLPSyYxhJaMrfCLAzB1hjAj2qhAM/OpVsWFnKXrM4NPZKbxHYjTnnhdrCgAQ80o1nKdyA7JTnTWo9jzTex9RuTCAvnI+J80+LJOyCSaZfSb6rCvmQ7Ozl4THFMaLi7kSqf6HA7+jsaMfh/4UVIIq3LGBaLRtf0vcV2krxPCZiuE+m3lKfBdOVz3FM/++1VhJOqGI8Ak2fphMadgNpL/ON/ftB3SaCP79Pg8vFASZDF+JN3U7BFHWqlevl9UXOkw87S/S9DTeWqsHPeMuimavS0CenUP79tUVgZ91zarXp00LRFCBdkMfEyKt/uzPv7BK52MYRZGhFdca2Xf7y5UG7KQbwrCi+cQs67e/ebQXQgNUh3/RTyJIJpLq9YBLmOk1QCcqomW4io9OW1M8X+nf8ly4jfisXCObb3cpban0BLsS/kPV4eJewFaQB32LxwhboYg3BcG7VZ0LUDqV4CoheStNNmWTQOo3kUAOpk/sp9CuTWfdSUOG3f19kDoyGt9sGnxE60JhJSXG59UFI6A3g3YW5OXUSno2hUyooONVS79oZeMb6BeE78VoVzJxp
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(4143699003)(5023799004)(56012099006)(261022105027099003)(261021121427099003)(261021123027099003)(261009223027099003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aTNldThKYmNLMzA1S2NOZ0YzQVFpblN3TmZvWmhLTEdOYzEzS1hTWXNLWkZW?=
+ =?utf-8?B?RWFOcWxmTXlTQ2R1UnFOajJKU2c1TGZlU2VmUjdSRFNXNUtIOTJrcVRNUUJk?=
+ =?utf-8?B?dCszYjJwQm1VUWdqTVZncTlZSUZJU3B1b2JNRU4yV1o5VFQ4K1lNL2M1dExz?=
+ =?utf-8?B?QTlQRjN2eUs2Q1FqeGlHS3dTUERzSFFuN3JEZ2hreFlNOXF0cWFWNVNaRHNh?=
+ =?utf-8?B?cVp5REVOcGdnZ25yU24vWEVicUh4NUoxenBjVGRhK3FlZU0xVlp1aURERlcx?=
+ =?utf-8?B?d0twQ1dxaGplRFB0K1dZcDlDMFJYb1VCanB2VzMzQUk4Z3grbUM1dDFseXhj?=
+ =?utf-8?B?L1l0NjZaNkZIRGE2NTdmdXU2WVRFc2JvM0t2TXFocCtpTTF3WVJCeU1Lb1FN?=
+ =?utf-8?B?dkVqL0lFOU5NYlhIYm5rUnl3dUlLVFJERFN4RnZkc2Z4WktOTXZVaUFDVEd2?=
+ =?utf-8?B?ckFLM2QvSnNFTUk2WVRnZk0xcHJaUmV5WUhNdjN2WVMvcWE1ZzFiRzNkd0ho?=
+ =?utf-8?B?WjNGcml4cVhWMkVnbkxTdXIvSW5yZkpRWkdQbnJLc29YeFBKMllsTDJlSkc4?=
+ =?utf-8?B?VFZkTk50Um1QY2RxbXBvV3FPSk1ReXFrM2sxUUhuOGxaK0s4Qks4OXBqOTVr?=
+ =?utf-8?B?ZW4rY3cvRjB3azVjd081UzVFV2FZMVBnMXEvMzJaTENrTFltWVh2SFBteXNE?=
+ =?utf-8?B?Z0E4VkpvUkEwT2JpR3E3LzEveVo3NUpnZVpvUjlyb3pzMERza1Zla0tobWZl?=
+ =?utf-8?B?RkMzcUg2Tlg1clFFYll3eWwxR2VyaVRhY1ZOVkhmeDlXNHIyZUZPSUk4cmJx?=
+ =?utf-8?B?dTYyUElDeFBiVjhGb1ZrQ09WMTNBeFd5OWgrak5lWVhtQnM3eG9iU09rNmha?=
+ =?utf-8?B?bnphM0NnWEs0N1JQd0FMVXZhQUMzdlUyUmxXdTJlenVpNGpJYzBSU2xpdHVi?=
+ =?utf-8?B?aDByMDdzSzNBQUZUNTdET2w0c1VYellKRTh4RThua24vdzl4ZmdoYlN5d2tx?=
+ =?utf-8?B?NUZrTDdqVkRvd2Y3MzZyejY5MjY4Sm5ibnd2amFGcnhCWE9xYTNROTZ1b2I1?=
+ =?utf-8?B?WXc4cVdUR00rWFNKbnZjUTVOcjFhYWVlWStqemVkY1R1R2ZHWThVUEFPRlNs?=
+ =?utf-8?B?MEw1QkZaNzdoMFhzY0NQMTk5Wk1PMmU1UVRZL1lPRFhFMlNlcFNJeDE3S2Va?=
+ =?utf-8?B?bU5SVVZXWm9RTzBSV2tHRFpxVm9HaXFqdmhEVVFmeWlKaUtSeHJZaWdoaEJD?=
+ =?utf-8?B?dGY0QXVvTXZpYllrMFhlOW5VWWVZR0lweEpFaFNFYXhRUE9Gbnc3SGpDT3dJ?=
+ =?utf-8?B?WFNNN1ZIemNoVHdoSFdDcjUxK3gzRWt0LzhrOEcxVWV0MTc2QUR0TFpCaFdO?=
+ =?utf-8?B?MHVvUUc5QkpDYXpZWmIvRTd6bHExakRpQUhwbzNXNmg1eHdQUm0xRGZDMFdS?=
+ =?utf-8?B?ZlU2RDhTSGdERE1pQVE3OWd4b1R6b3czYURZTU9sMnlza21PbzU0WXpNL2dM?=
+ =?utf-8?B?VXdQRzRIYkFkRkF0dmhVWTVRVEN0alBIdXZ4cTdSQ2lWajdOSFlTNnM5U2Ji?=
+ =?utf-8?B?bm9EVHNGa0F0VGZBc1ZVaDhMU0JNV2FRdjN6bmJ5RWwvOWEvUzBFcnJrL2ky?=
+ =?utf-8?B?eU5BVkVPR0ZZZHkvMXNrMFJtaFlqNTYxSmtmUFhFSU1IQ2JOZE01azFlZk03?=
+ =?utf-8?B?WlpKcGRCd0lkM1hiUlJWZ0UvOVV4QkltZzRjdnRQYndpREdYVmpIOXVHc0FY?=
+ =?utf-8?B?QnZWeWtWSDBkNzlZTHhjTTdHSUZ2V3k5MkxwdG1QbjBoRyt4RG5GUFFkcW43?=
+ =?utf-8?B?alNJYnd6eWxTRnJtMno3aEgxQ0s4ZE1vNUV5Q1hPZVBmUHp4VytsdDBkYzlK?=
+ =?utf-8?B?dTRFdWNxU2xocHZTV09ONTlRNWZkL2xJS0ZtRW1tRkduMGJzamVDNmkxTXVO?=
+ =?utf-8?B?NFJiNDNIUno1WVFPUDMwNHczWkRxWFRGMWNqV1dqa0ROUjdzSFYrbTlwSy80?=
+ =?utf-8?B?UFZsTnc0Y1dlSlAzV2VoK3haU3NHVGxrcGliTDRKcHJwblRiaWh6VWI5c1hG?=
+ =?utf-8?B?NWx3MDZZQlljdWx5TjdQOXRaekgxU3o1RGZKdjVBRWhKRlNkS09uMUxSS1lY?=
+ =?utf-8?B?N0ZHSGs1TVpuZXRyNkQ0VG95QlhRVGZRdnRxdmN3dm1oZmJSd3RJQm5GV3c2?=
+ =?utf-8?B?b1czSXNoOFh0K29VMkYwR3RKcXdPOUtiNUhoWXlOZktUSko0UXJYSnZpcUpV?=
+ =?utf-8?B?ZWlHSnEyY0R1YjJqK3NSM01HYm8vUFNibDF1Q1pSMG94WDJZVTlvc0l2SlBL?=
+ =?utf-8?B?TzVwZU9DbDExQ2V3eUQxSWJGeTA4Q0U3RVJHZDBBTmhHM0JHUzRoZzkwSm9C?=
+ =?utf-8?Q?Pd1G/Ft0zHoPgGvANWA0Q5wzOYij65NgEuETv?=
+X-Exchange-RoutingPolicyChecked:
+	EpLSY7x++dc0oKR/RMvRxce99TL5fyykli9nEGHl8GsoJkaew2mVmhre/kXBtaBZmyg2z2247CzymdLQjxqHbpiWEf38cf7HlsbBBA+u7sD7h8Gk7HIBFcP3RyhpKgFD9IQWX/g1OTc7HS06Ix6hHeUX7amQnPL4a0xgJdLyk1dgYE7iw82cWq16hnLitGS2rJFEh16Oq4io+BAQKOtibKDPq37EhLbGfLxYYtHN3OwQmV8Qyi6dXzzRUZic3JRwLTWymt4rkPy3kJ+Nppp4S0VQTCsgmc6sEYfphYsypLUB4ziqSRDJIV16sfNrQ8bmfPYSqL4623cMrv7yanqJQA==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	uin4D5fZwwFTKoo7VWqtOFe1f/jRoqrJYeF3oYUfL7lEf6DqBHYSYo4kKYEol7sGpuwHm/s2xnklmycr34kTosqqhopsh1x/omnMrx938fvJ2PK8AuzYKmDokB5h8SX/08CXvdik6zIVP+vb7m4Xj/xhxoEVx0PYS6A6SBbutx62xMbquicjMq35apwKak+ywLQkQZikbVzXh6IGy5N8678aRqy7QxnVR1xhmhXR4J+ibe0tuCCPgbOCwHMGd7vAgznyhEyHuz5X/WU0WK28cnNoncrm0Fstqsuu7MLnilSLVgKfdegP07N0OpOB67yYO/e61IRTfwD28h6MVuokuTXVu3bWmyVwBcwWbYOSHaYW0CkqXHS61S2QkgKRp2E4gaqF+D8jOboKt/ZOR70E5GY2kjURlnUw9UcG0nRevE5ull/is+FEYYh21TtxC0yMTXAG5vXm0aIxxgSEHfY/ez2H/wF2rUhLhXQit30NYE1cBFC2rQ7D4RZf6Zoe/UxbLZLFyPhz5Z1MPr8/wtC5qf/vCFKoyMxQHvY5mCmmozzwbN4BiUOBrfvfF2CJyEscrW2FEHruV0ntPfGb3hjZ7/MGyP8/Tjc6AuY792RCEUM=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5685afd8-1e0a-46cc-4d18-08df47d55fe5
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 13:43:07.3251
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jw6PPZ21ftiNO7TKqlmPgHrLTeERP/ShHLA2pH8GIDZIFsvK4jjQ1zhz/5wbHfPSec0hF1U8ZlZnzbpyLWJKFcx0buBCOBj7PE0416P6zvR30ILELmZkr5EP1u+CVVMU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB997556
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-21_03,2026-11-19_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0
+ adultscore=0 phishscore=0 mlxlogscore=999 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.22.0-2611040001 definitions=main-2611210054
+X-Proofpoint-ORIG-GUID: qIjgqcnMmQeRaIfZH7sZJWMtuZTrOLsQ
+X-Proofpoint-GUID: qIjgqcnMmQeRaIfZH7sZJWMtuZTrOLsQ
+X-Authority-Analysis: v=2.4 cv=YP8KWhGx c=1 sm=1 tr=0 ts=6b019fee b=1 cx=c_pps
+ a=qoll8+KPOyaMroiJ2sR5sw==:117 a=qoll8+KPOyaMroiJ2sR5sw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=7Gl3-_t3PgB9XO-mQDs3:22 a=bC-a23v3AAAA:8
+ a=VwQbUJbxAAAA:8 a=6TNuU9ksUjpCRJWRISYA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22
+ cc=ntf awl=host:12101
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIxMDA1NCBTYWx0ZWRfX3K6GwkFprawj
+ K0ouNIHaNYlIEij9a/nmz1p+AZcZlCI7D50u3jlHhH+vl89uFI3ZZV/o2dOAB2rXzcmU5uaHmu7
+ 7+8H4gGRmeYRl2s8xu7WGSwp46nzACwqR0ZdWWMZqGoFZ9VhG5Mz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIxMDA1NCBTYWx0ZWRfX6R5GlmbCmrok
+ Hff8fJv90wfr4W9NyuG3wpogLpOOurp+ZQmrVeBBiH/PEWFQMB8ffzsNGbts14SAGQB+aAIHZ8x
+ 3Qlr/cmJsVfEayeaxdcDMOeh2HJQGMh1p1KBeJbemHWzEN+Ze5xbridjJBx7g/Lq2ycJgtwJhYv
+ FJHO+y/tIs7vgAiRy8LcXaB71GPMfHO7uyvMlshBVOEXzj7z9hxaQlWkOIPQDMDFeuidk0rl3L9
+ kMlOXvSOyUE4XKmkUtTVZK6HTRgyq+l2qR2G8TezxZ9xhtjS02noT2gnC6dotzEqelvNbul3XIT
+ OEfGFsPdYE+ou0VgjXxkrd5tsNB0yV71MtewkpkrGbpElE88o/y7MwJJzpdKzUWnlHhUfdA/Jwh
+ lJHRl7XAuLBEUBTiqQO+VQzqWtJw7LOZaJu1eno1Y1dRZMwBSGLTHU31pmxORz3GlniIgnzPBQt
+ 0mDiYfeVIeAxpzdGXYQRc5han+iED3CTSMkCaciI=
 
-Changing the MAC address of a running station interface makes mac80211
-remove the interface from the driver and add it back with the new
-address.  The code assumes that adding it back cannot fail and only warns
-if it does, which is not true: drivers may legitimately refuse to add the
-interface, for example a USB driver that has concluded its device has
-disappeared.  rt2x00 returns -ENODEV from ->add_interface() once it has
-seen too many consecutive -EPROTO errors and marked the device as gone,
-which produces
+Hi Greg/Sasha,
 
-  WARNING: net/mac80211/iface.c:306 at ieee80211_change_mac
+On 18/11/26 8:10 pm, Greg Kroah-Hartman wrote:
+> 5.15-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Chuck Lever <cel@kernel.org>
+> 
+> [ Upstream commit 14996e662f3b734427e2d645cacffc27b779f7d1 ]
+> 
+> rpc_mkpipe_dentry() instantiates the pipe's dentry before it returns,
+> so the cld pipe can be opened as soon as nfsd4_cld_register_net() has
+> run. __nfsd4_init_cld_pipe() does not store the new cld_net in
+> nn->cld_net until after that call. cld_pipe_downcall() reaches the
+> cld_net only through that pointer and takes cn_lock without checking
+> it, so a write() that lands in the window oopses.
+> 
+> Store nn->cld_net once @cn is fully initialized and before the pipe is
+> registered, and clear it again when registration fails.
+> 
+> Fixes: f3f8014862d8 ("nfsd: add the infrastructure to handle the cld upcall")
+> Cc: stable@vger.kernel.org
+> Link: https://patch.msgid.link/20260901-alemi-v2-6-e163f94a3a6e@kernel.org
+> Signed-off-by: Chuck Lever <cel@kernel.org>
+> [ sashal: adjusted context around dentry-based pipe registration where cn_has_legacy is initialized unconditionally ]
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   fs/nfsd/nfs4recover.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+> index e0cb4856ca565..21917c024fb20 100644
+> --- a/fs/nfsd/nfs4recover.c
+> +++ b/fs/nfsd/nfs4recover.c
+> @@ -1014,6 +1014,13 @@ __nfsd4_init_cld_pipe(struct net *net)
+>   	}
+>   	spin_lock_init(&cn->cn_lock);
+>   	INIT_LIST_HEAD(&cn->cn_list);
+> +	cn->cn_has_legacy = false;
+> +
+> +	/*
+> +	 * The pipe's methods reach @cn through nn->cld_net, so set
+> +	 * it before the pipe can be opened.
+> +	 */
+> +	nn->cld_net = cn;
 
-and, worse, the address change still returns success to userspace even
-though the interface is now running but no longer present in the driver.
-Any further address change then attempts to remove the interface from the
-driver again and trips the check_sdata_in_driver() warning.
+I ran an AI-assisted backport review, and the finding looks correct to me.
 
-Handle the error properly: keep the remove/add sequence, but propagate
-the driver's error to userspace instead of warning about it, and reject
-further address changes on an interface that the driver no longer knows
-about.
+This commit in 5.15.y publishes cld_net before registration but
+retains the later dentry assignment. A concurrent rpc_pipefs mount can
+create a pipe whose dentry is then overwritten with NULL.
 
-Fixes: 3c06e91b40db6 ("wifi: mac80211: Support POWERED_ADDR_CHANGE feature")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- net/mac80211/iface.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+In nfs4recover.c, __nfsd4_init_cld_pipe() now publishes cld_net before
+registering the pipe: (Code spacing adjusted.)
 
-diff --git a/net/mac80211/iface.c b/net/mac80211/iface.c
-index b6ed6541bc42..f3105d0564de 100644
---- a/net/mac80211/iface.c
-+++ b/net/mac80211/iface.c
-@@ -279,6 +279,15 @@ static int _ieee80211_change_mac(struct ieee80211_sub_if_data *sdata,
- 		if (ret)
- 			return ret;
- 
-+		/*
-+		 * The driver may have refused to add the interface back
-+		 * after a previous address change, e.g. because the device
-+		 * disappeared. In that case the interface is not in the
-+		 * driver, so don't try to remove/add it again.
-+		 */
-+		if (!(sdata->flags & IEEE80211_SDATA_IN_DRIVER))
-+			return -ENODEV;
-+
- 		live = true;
- 	}
- 
-@@ -300,10 +309,15 @@ static int _ieee80211_change_mac(struct ieee80211_sub_if_data *sdata,
- 	}
- 
- 	/* Regardless of eth_mac_addr() return we still want to add the
--	 * interface back. This should not fail...
-+	 * interface back, but the driver may refuse, e.g. if the device
-+	 * disappeared in the meantime.
- 	 */
--	if (live)
--		WARN_ON(drv_add_interface(local, sdata));
-+	if (live) {
-+		int err = drv_add_interface(local, sdata);
-+
-+		if (err && !ret)
-+			ret = err;
-+	}
- 
- 	return ret;
- }
--- 
-2.34.1
+     nn->cld_net = cn;
+
+     dentry = nfsd4_cld_register_net(net, cn->cn_pipe);
+     if (IS_ERR(dentry)) {
+         ret = PTR_ERR(dentry);
+         goto err_destroy_data;
+     }
+
+     cn->cn_pipe->dentry = dentry;
+     return 0;
+
+If registration finds no rpc_pipefs superblock, it returns NULL. A
+concurrent mount can then create the pipe and set its dentry before the
+last assignment above overwrites it.
+
+Upstream (14996e662f3b) returns only registration status here:
+
+     nn->cld_net = cn;
+
+     ret = nfsd4_cld_register_net(net, cn->cn_pipe);
+     if (unlikely(ret))
+         goto err_destroy_data;
+
+     return 0;
+
+Upstream leaves the dentry assignment to rpc_mkpipe_dentry(). In 5.15,
+losing that pointer makes teardown skip rpc_unlink(), leaving the live
+inode pointing to freed pipe data. The parent published cld_net after
+the assignment and avoided this race.
+
+Lets drop this ?
+
+Thanks,
+Harshit
+
+
+>   
+>   	dentry = nfsd4_cld_register_net(net, cn->cn_pipe);
+>   	if (IS_ERR(dentry)) {
+> @@ -1022,11 +1029,10 @@ __nfsd4_init_cld_pipe(struct net *net)
+>   	}
+>   
+>   	cn->cn_pipe->dentry = dentry;
+> -	cn->cn_has_legacy = false;
+> -	nn->cld_net = cn;
+>   	return 0;
+>   
+>   err_destroy_data:
+> +	nn->cld_net = NULL;
+>   	rpc_destroy_pipe_data(cn->cn_pipe);
+>   err:
+>   	kfree(cn);
 
