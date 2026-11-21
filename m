@@ -1,47 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795295858;
-	b=27WkOz3q4G7YAbuhXk/+4e8Tyf6LuCxdthCs82QfJaJUflS3B5MbsQA+VQQAxhp8/ngT
-	 pzomrxxi8iJq4azfqH1CwPLEQvsT2KYIr7bh+k6m04lPwmHLLem7C7wrPsL8z5Z2dIC1x
-	 hxj4KpRmCbCO11ICO1komN1SEnYz2xGM/bFH9Only6JgZl679Exc4KZWiE5JZ/HPzks1i
-	 Ck+yu5g7knTJWKjDn00RsUQRlaek+gQftm98dk+Q/KSzGzhALrBY9kyBaJAAFHgo9YtxC
-	 tNN+Tb7XeicsDbB1LBiSduyeQMFHL1/2fuhvRPh3nfHtfGZivMAUDqfdR5hHoKXGMhg==
+	t=1795295860;
+	b=4LWfZQGV8EAqUVMRwCg46djKp9KfTG0rNZ7tD3V05K+nef/dAIC0oTQ85KeydY8ojmxt
+	 0oSWw3yOOwdALv8YNHF1bKuPugWvFprAKInNXFrchjOo24YyVYggNFwNh0yzRAT2Aj3GM
+	 avA8l9IlHnknjxebTdxv05FiQevfxmdaDLbbPkFd95HfktQq1r9MAvXM9xn6ZMjGQEHZR
+	 YKdwK3T5MCxCWcowQ+9gJ1FDwuN4DsjnrHXV31jBfmK/TYBdJ74wUbRR7i0vpWpG67nDC
+	 rOdg+PbYHluIH0H6T7nc7bZvoSZR2QvMV3v+exGUtdy4wbglTOgh5TQLcoRuZYH1UHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795295858;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795295860;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=ygaWC6fgtJ0AI6XqKUC+g0lmWjmeS9cByt38tmYUkoo=;
-	b=OneohYNGlT3x9aeezKfPSuls3agC2Aaoiu57VLL8dwIQW6zFUXD9CrZ829pKKcnOePLh
-	 nXYVrRYQ89gBvNEGpwJjlO4GDAG7z2i0LJIpqatNXupB79RP0hS3hnsTQA2JkpTjFPXfF
-	 cqYhvp+s+rUrWAtdmtYYKq9fm2HlCi9SA6ShrrU6uXr57qckc28p5jjAVD/4d6cLR0tKG
-	 JgaATAskirqHleJUhmi55RQ+4lab3W144j8L63CB5pTLemOHNQUu2AoWb9C0mjXsn3sPb
-	 oBf8e6QiT+Wa0+aae6YcZ8xEy00nOd6tiLjYClrcO8jwUzg4K1Dj3WfPE9uUwq9WITA==
+	bh=lt4/3eo5Ro++Q5zvwoZ/Jj9GGpOvoIsabAfw4HW8+cg=;
+	b=30Qi6bE8vJIExCjwgbuHPEa2YU2yz9uMioylW+ur0NPKOEXfw50EFkEYdedYX8a86HXW
+	 MV6IoCXCAAIyxNN8iSbOWDTR/T6r6ZoiG3pRIH7V8q2LIyB9y0omFR9D8fQHAongxg1pE
+	 dhw7BIuiff9RBwjbnDOKt1v9NlqxPcy/V9GHytO9jsSRYOPT9+1K6Hu2VljgXKxN1rJwY
+	 ALIeq1zYVLqKrIpw1oq7QmopyP/PleE2HeMvawD0wSd7YIvq/1F6U4cQTkEJWgIBya6E1
+	 TD/jCOgJMCvoUUhLusCJPGPUmuMMVOwezB27RBym3fBawdxJySfRSyCx/KypRoyv4/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YxLAt8xf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JpC8NfqZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84234606A320;
-	Sat, 21 Nov 2026 21:17:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C950606A332;
+	Sat, 21 Nov 2026 21:17:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YxLAt8xf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86BA01F000C4;
-	Sat, 21 Nov 2026 21:17:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JpC8NfqZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0D31F000C0;
+	Sat, 21 Nov 2026 21:17:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795295858;
-	bh=ygaWC6fgtJ0AI6XqKUC+g0lmWjmeS9cByt38tmYUkoo=;
+	s=k20260515; t=1795295860;
+	bh=lt4/3eo5Ro++Q5zvwoZ/Jj9GGpOvoIsabAfw4HW8+cg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YxLAt8xfR5Vy1T3842E1byod408YGAEvPTYO8bGB8k/Dk5SqMeKT9O+9sDAc7OVXn
-	 wm//mgLp6rGzxqRexTXiy/jwAthqJQkLwhCldUUvlpzMimgP0bmLSi7ZUpuCq06RaY
-	 CDbrQSQKcNq1Sa69s/0Qeh3oHoJq5VSMLhupZa/cfTVfZuJkoy3eHOm8TkdV4+w6W+
-	 /ttByNLZ/Hi7TRXXNYZD82Cw5c5irkrx9/p0NVo48TuwQZggqsuRIo4MNjPWj3CTJu
-	 9nOpA4DCbIOIJ9V1OsdxlndQGUdErg5EYeDjwJZ09u8bfDmT10CRK3mrjHtDONU17z
-	 mr9M9EOBV6T3w==
-Subject: Re: [PATCH net v6 1/8] net/mlx5e: ring the tx doorbell when an accel
- offload drops a packet
+	b=JpC8NfqZMbRIt59udK2ewxT4+VudKYaomNTJjr3ivV8JDEcmcU/eFQBRE+Mt2zigO
+	 lNpTgrmGOSVGY5JHqmgZPyg0TyKPvbXkLBMVqNkcatw0Q32KDxymmz1t1bHd029nGV
+	 WWD9fUOyGPQ4wHz0MllqI70nkoh+VagD6j0Fc86E534CfAKmeJLjsrGJsStpaoPT+z
+	 W5+wOJgsBn7NDEA3QipKDFchGE619+KQC71jQoWfEZ9nU2ttDcqxD8ykXxUjOTeZSJ
+	 x/lsdqheW3s6LhbhSnw4R9PUUp3Iu1XCKF8QXcxq6HzKt96x0W9bPYqvv5n0cpl7du
+	 MbHcr8A9wWOPw==
+Subject: Re: [PATCH net v6 3/8] net: don't fragment decrypted skbs
 From: netdev-bot+sashiko@kernel.org
 To: toddfreed@meta.com
 Cc: netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
@@ -54,10 +53,10 @@ Cc: netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
  rrameshbabu@nvidia.com, sd@queasysnail.net, saeedm@nvidia.com,
  shuah@kernel.org, horms@kernel.org, tariqt@nvidia.com, weiwan@google.com,
  willemdebruijn.kernel@gmail.com, stable@vger.kernel.org
-Date: Sat, 21 Nov 2026 21:17:36 +0000
-Message-ID: <179529585606.3135.5694313033561024003@kernel.org>
-In-Reply-To: <20261117203137.804424-2-toddfreed@meta.com>
-References: <20261117203137.804424-2-toddfreed@meta.com>
+Date: Sat, 21 Nov 2026 21:17:38 +0000
+Message-ID: <179529585831.3135.9494126075737773087@kernel.org>
+In-Reply-To: <20261117203137.804424-4-toddfreed@meta.com>
+References: <20261117203137.804424-4-toddfreed@meta.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -77,107 +76,63 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The new mlx5e_tx_check_stop() call in mlx5e_tx_flush()
-  (drivers/net/ethernet/mellanox/mlx5/core/en_tx.c:368) can count one…
+- [Low] In ip6_fragment() (net/ipv6/ip6_output.c), the new
+  skb_is_decrypted() refusal at lines 932-939 runs before the…
 
 --
 
-net/mlx5e: ring the tx doorbell when an accel offload drops a packet
+net: don't fragment decrypted skbs
 
-When mlx5e_accel_tx_begin() drops an skb, this patch makes mlx5e_xmit()
-call mlx5e_tx_flush(). That closes any open mpwqe session, posts a nop
-and rings the doorbell that earlier xmit_more skbs had deferred. It also
-adds a stop_room check to mlx5e_tx_flush() after the nop is posted.
-
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c
-> index 14479da98f427..006bf976def1a 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c
-> @@ -365,6 +365,7 @@ static void mlx5e_tx_flush(struct mlx5e_txqsq *sq)
->  	};
->  
->  	wqe = mlx5e_post_nop(&sq->wq, sq->sqn, &sq->pc);
-> +	mlx5e_tx_check_stop(sq);
-
-[Severity: Low]
-Can this count a single queue stop twice in sq->stats->stopped?
-
-mlx5e_tx_flush() starts with mlx5e_tx_mpwqe_ensure_complete(). If an
-MPWQE session is open, that goes into
-mlx5e_tx_mpwqe_session_complete(), which already runs a stop check:
-
-mlx5e_tx_mpwqe_session_complete() {
-    ...
-	sq->pc += wi->num_wqebbs;
-
-	session->wqe = NULL;
-
-	mlx5e_tx_check_stop(sq);
-    ...
-}
-
-If closing the session leaves less than sq->stop_room free, the queue
-is stopped and stopped is incremented. The nop then advances sq->pc by
-one more, so free room has only gone down, and the new check also
-fails. mlx5e_tx_check_stop() does not test whether the queue is
-already stopped:
-
-mlx5e_tx_check_stop() {
-	if (unlikely(!mlx5e_wqc_has_room_for(&sq->wq, sq->cc, sq->pc, sq->stop_room))) {
-		netif_tx_stop_queue(sq->txq);
-		sq->stats->stopped++;
-	}
-}
-
-When the nop completes, mlx5e_txqsq_wake() wakes the queue once and
-increments wake once. That leaves stopped one higher than wake. These
-counters are reported as the qstats tx stop/wake values and as
-tx_queue_stopped/tx_queue_wake in ethtool.
-
-This can be reached from the new accel drop path below. It can also
-now be reached from the existing DMA error paths in
-mlx5e_sq_xmit_mpwqe() and mlx5e_sq_xmit_wqe(), since they call the same
-helper.
-
-The PTP path in mlx5e_txwqe_complete() already avoids this:
-
-	if (!netif_tx_queue_stopped(sq->txq) &&
-	    mlx5e_ptpsq_metadata_freelist_empty(sq->ptpsq)) {
-		netif_tx_stop_queue(sq->txq);
-		sq->stats->stopped++;
-	}
-
-Would a similar netif_tx_queue_stopped() guard work here?
-
-Only the statistics are affected. The queue still wakes when the nop
-completes, and no packets are lost. The normal mlx5e_xmit() path can
-already skew these counters the same way, through
-mlx5e_tx_mpwqe_ensure_complete() followed by mlx5e_txwqe_complete().
-Later patches in the series do not touch en_tx.c, so this is still
-present at the end of the series.
-
->  	mlx5e_notify_hw(&sq->wq, sq->pc, sq->uar_map, &wqe->ctrl);
->  }
->  
-> @@ -672,8 +673,13 @@ netdev_tx_t mlx5e_xmit(struct sk_buff *skb, struct net_device *dev)
->  	}
->  
->  	/* May send SKBs and WQEs. */
-> -	if (unlikely(!mlx5e_accel_tx_begin(dev, sq, skb, &accel)))
-> +	if (unlikely(!mlx5e_accel_tx_begin(dev, sq, skb, &accel))) {
-> +		/* The skb was dropped: ring the doorbell which the previous
-> +		 * ones may have deferred to it
-> +		 */
-> +		mlx5e_tx_flush(sq);
->  		return NETDEV_TX_OK;
-> +	}
-
-This is the new caller that reaches the double count above. It needs a
-PSP, IPsec, MACsec or kTLS drop while an MPWQE session is open and the
-SQ is close to full. The commit message says the next patch makes the
-PSP drop reachable from user space.
+This patch makes ip_do_fragment() and ip6_fragment() refuse to fragment
+skbs that have skb->decrypted set. Without it, the resulting fragments
+can be sent out in cleartext. In ip6_fragment() the new check sits after
+the existing too-big checks so that PMTUD for a local socket keeps
+working.
 
 [ ... ]
+
+> diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+> index cb648c8394310..5b19683f08e03 100644
+> --- a/net/ipv6/ip6_output.c
+> +++ b/net/ipv6/ip6_output.c
+> @@ -929,6 +929,15 @@ int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+>  			mtu = IPV6_MIN_MTU;
+>  	}
+>  
+> +	/* PSP and TLS offload need the packet's L4 header, which non-initial
+> +	 * fragments do not have. Checked after the too-big checks above,
+> +	 * so that PMTUD for a local socket works.
+> +	 */
+> +	if (unlikely(skb_is_decrypted(skb))) {
+> +		err = -EMSGSIZE;
+> +		goto fail;
+> +	}
+> +
+>  	if (np) {
+>  		u32 frag_size = READ_ONCE(np->frag_size);
+
+[Severity: Low]
+This isn't a bug, but the commit message says:
+
+  in ip6_fragment(), check skb->decrypted after the too-big checks, so
+  that a local socket still gets PKT_TOOBIG for path mtu discovery.
+
+ip6_fragment() has one more too-big check after the np->frag_size clamp,
+and the new check now runs before it:
+
+	if (mtu < hlen + sizeof(struct frag_hdr) + 8)
+		goto fail_toobig;
+
+A decrypted skb that would have reached this check is now dropped with
+-EMSGSIZE, and no ICMPV6_PKT_TOOBIG is sent.
+
+At this point mtu is at least IPV6_MIN_MTU. So the bypassed check only
+fires with about 1265 bytes or more of unfragmentable extension headers,
+and the packet is dropped in either case. The code comment says "the
+too-big checks above", which is accurate.
+
+Could the commit message say that the check comes after the ignore_df and
+frag_max_size too-big checks, so that it matches the code?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261117203137.804424-1-toddfreed%40meta.com
