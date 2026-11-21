@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296668;
-	b=fRajIdQtc/Q4Nacix7cJ+4SSp5mTcfGEhJIYZB4ACLNOlrzOBE7oXiGT01vs1czUwvq2
-	 PrBoH97uW/Y+Pur7jtYWdsoqr/Cs+vkvsFkGSCmdVquE72VKvf4XlJ+AO3tQURDZPlql6
-	 8sBHw3mfKKL4tBgUWZtE6m1ybJVRJwNc36QLlPuPdLWUndgy/Sf5HRAASa77V7F5gCCOD
-	 1FepmmtJS9l+r68M1KukZ8wGzfrAfzmcW4dZNIp+PFBFrnhjOXlxzULOGfpLmFxIps+qy
-	 Jm9wPKO47NLJ8bV9eLc2jegbEw2oRvTMowxxmyqd8FLGxnMO8DjzBslOAtnuIZKFuPw==
+	t=1795296670;
+	b=ePh1fQ9WTeVzegjgU5C3BUOinOAfY7VwIWOsxCzUyGJvVfdJfwsuqlOwvvO0bd0HmPs2
+	 EqkTD6EPjdATbQcdUPtHbo5soNC9IbhIGEn/ggdFgZRVGbNTb0OztXlclod9xn/zFOs8j
+	 HQ5UJavAxlRRq2hWsL+vPrY9XPzhb5fB85oGkdlhswJAV9lL3YbArseX6TBknfefZnIrk
+	 TIFGU+pSRjWhRM5zJr2ow/2ORsXBy3ntbWR0Z1By8+RSHVMVJ7cBTF9q2ptjIl5fM17rc
+	 0sqpx+2OI8j4TrNfuEF+Q1VMGYP1xWBO4IU4xwTP0+JodzPiESqj9bCsvWXQQcbZUgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296668;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296670;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=S97ULSIGGgJKAMh+U7+sSDqPn7W8GLiCd95pTfSgMAI=;
-	b=1wtbK2QHqY7ELmhLDQbkc91OFwelbnqzQQp1sq6UPYbJqmPDj+TeGX6j6pjtlPYJGgkM
-	 74Aaf9dRqYlGXtCkaaVgronWb7FeWX3yfHvd/tk8ThmlAAItLcW5u+W+bhZVJDc6tyC+1
-	 3cAxp7u/Z/a14eN/g2+FukemgFB/O9os2Y2bixrTWIt0I+w9HxoKWaQexuAxvpdn9pkHg
-	 VJzLQU8v4hGRyRwTj3CyZzsCmJ+LxHKhK8cpHUlAVcs2VoYwjF2NF5hWGXhJs6+BrTGLx
-	 y5UvKvzksIuGkcWLwizHGLQl/X42Jdb5EarX+B1tKgqAx7xXy/Wt58YJhzMZBTbRB6A==
+	bh=voK/m/0LjKsE69Vx8vfpwezNjXzx9PXLhXcwUwPwAtg=;
+	b=f55Z6QE1CaDqWjLwSd1MMNYlJCW3gJP2wECu4ZD6HYkx/TPzvVDsbU9KTfxtE2TB9SZN
+	 THGkMXe3/hcd9LUJ1VI8q9WvH95CrKVFnYcekigbfnjGVCyWo3+GW0uTJoFPlPUOCZFlu
+	 nmoZaUiVANW8C3awhlW25e0MDogxAGtQl9lm8zCe0Nh6hFjbW8EmrqLofbqFvw0C9CcNj
+	 XcHw5PjpRSDBb41gd60sZP0zznq2RUytxTi3gMUxWEBJutxwe8A6PijRAsAJZt49TGeaX
+	 Z85vCmf0ejm4XixUSu+wrX9wTkMBFjEdCcwBcwHKtIQevs5sBfoPeUVYC5giR1O/caw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=WM2CEPPV;
-	arc=none smtp.remote-ip=209.85.161.42
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=zcjwQcwz;
+	arc=none smtp.remote-ip=209.85.161.49
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494EB606A33B
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 494EB606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABD8606A682
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ABD8606A682
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=WM2CEPPV
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-71aea92f666so1379001eaf.2
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=zcjwQcwz
+Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-71ac798b8bbso1374215eaf.1
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel.dk; s=google; t=1795296667; x=1795901467; darn=vger.kernel.org;
+        d=kernel.dk; s=google; t=1795296668; x=1795901468; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=S97ULSIGGgJKAMh+U7+sSDqPn7W8GLiCd95pTfSgMAI=;
-        b=WM2CEPPVe7a/CB5WkhpHaEZ6nxkn0I+6Q3kop2ve2d156Zm7c9XFNpddIgGC7z+SmV
-         2Z7zSseSVwsHZAUje/aKwWqzoANVPkuZOf1UVm/ZAw+lHryfQGxzST61TXVyGKMY+YON
-         iwLJGPv6tTnNQVJt+o+mA56e+tGt6DWr6SND6B47Ru/I5xC3uTzVWTeI/cWvus7446Ot
-         BvNyinKW9PcX/yc51jf4zpz5HUf5FPP5swL0QwDGQmoCu8IJ9H7erG7PL1Uao2G7vYQ6
-         cowwP1RNJZHSI5yYa402W+CBBgryxryfrGiWDwLmpwYe9KyKPgACA12/Ke9FqUhM7f9Q
-         ymXw==
+        bh=voK/m/0LjKsE69Vx8vfpwezNjXzx9PXLhXcwUwPwAtg=;
+        b=zcjwQcwzbaT/2sIxdkhkDuQ9ZRyMcKQAbLgvE5mtDbV6pX6ZnrxsYrBbG+jEc4STnr
+         mw1729+MQFJkslmoZSW89xDoSCm6SxFpcsA8fZ7z5nSED0GdbL3ZHWbX1LGXeFshtgvV
+         U20o5qNwVmuv/tSLhI4YSAe2E5Bz3vPjq3+8nudasw3SK8FjOEpDRJX6mA1X2ODDLuIk
+         K7j0t/G+/gFC0ygIYPMyQnJXI5bDZ64jUP9UFBI1MqblCFAWYgITbJgTTFNq20YDAKDc
+         1VaSbW4oicths/wYX95TGRqJ5kO0HiJpKQ8QISJr9kw52GXMFHza0GZ2TQ/D4qL075Bp
+         DxMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795296667; x=1795901467;
+        d=1e100.net; s=20260707; t=1795296668; x=1795901468;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=S97ULSIGGgJKAMh+U7+sSDqPn7W8GLiCd95pTfSgMAI=;
-        b=XmL0DpWbgVeMZRWIi2IQ0VOZ3sHrjCco/yUJU8BSCueRyplYYNTjGyYEA3701POuJB
-         c10D14ppdrWPIV3WsMZQJh7Qt6Jq1G4JCGGTttO+1xw/fnUEz7arPYu1VahVQL1Muocv
-         Lv4X7NvLmpuf1LM7Nu31hqLdy2VuwC7Q5shmuyRby3ziF9VcQMs1Zg9it9Vj49OF27xt
-         E6WoMkT0TCe4wrDJoCZF66ZpBPLlKdMxkf1tZ1nYkva9cz8OLDBTtSxEgb4zuiIuNUs1
-         Gu3WBu4pw689aZZhC9CQmc+2p845qx44FyXlqueyeSRVkV99OgVko7VmSq2IJ0oVVTnT
-         3ikQ==
-X-Gm-Message-State: APuU4Z9uyQjEjxIo0copPQ2AuhLdLKx4zAEdu5kxFzZe5xjaIbXHBRls
-	NIIrM/c3orfxBSvwRoPIh4T3ebww2t/xKmGjOM+tZD79JpZtFvaYY7rl7Nc6ia+FVpKV7auQ7a0
-	AiHHDw1w=
-X-Gm-Gg: AZFdTZedN+goWl6XeBMWRUVoNDMn7lB4MSGxLXwmac/1S3VbDlcvEzY7mbtY8MsE8K3
-	w4N5QmDnRon84KAKJUp23A9fbNEPuDjmqTa7y3N2tx8nJXlt81cBK+W9J8ULs9cxjrY9Ylb55DN
-	Mya44sgfE4HGpgzh5SR6ZFclQOEXzFGjISTro1C1szzEveKdhIbAvlm3XLez/DFNRuIBMmmyMTD
-	TSNFYpBUodjq7PJT0TQ8BizW94irOsvKYBxAZ5jwk9qEKoMrZZ7ScqvL5hL3uYqeHKlh7ppu1H/
-	+TGsoCc8aJEMcJfPubMAfYB/133bOYZs5Nw1UIyBqiEDjiWak0rk3MKYAIzFADYMtcR5g71GaRw
-	SDeeaGvyjtsGPNtKbMq6uyC5VPqzm0yMIqnNyaNlwOy1RNRqje7F6kL2v32ggRhwe6sprYGCMmY
-	t3ivTEZbH6b83NIxgEmaGNs/XlOnvX9gDZ8x85/OizUgp1noaUwmp7terJcBhqyhxZhE7DtfNgh
-	O+IXT7grvuYkQqDMxhSTsCG5koP3wwqDL8Hpvw4sSX+S9QGqE0DB9HjCNvOaVCdqgdLL+uoAUrm
-	5fNEzJvnc0etfbYSEHjbc88FObjAhrb71vlyJDqf3+nWF/sVw+uPESzNm1axMsTAySc5Fw5VARN
-	d3SGpd5UgyVJOkDeWOnRhAFCOY8XMh1ncdq37
-X-Received: by 2002:a05:6820:1344:b0:70d:d3a7:24bd with SMTP id 006d021491bc7-71b394dca33mr5175620eaf.49.1795296667247;
-        Sat, 21 Nov 2026 13:31:07 -0800 (PST)
+        bh=voK/m/0LjKsE69Vx8vfpwezNjXzx9PXLhXcwUwPwAtg=;
+        b=GX9Pio318v2q9/eWApYJTICtGFakjBVLNSP7xyQRBKFKOQRtyYkfAExS+Kn6lU1rtS
+         7D35gaGgioZfCllbdcy18H5kfbyJqfDFg3ukFFW2+Hqdo2FEHGrMMCpMk/c6mpo12w/p
+         tcZEeVLPEG558o7Fwx8seGDTm3aGPfDK8OycN1QNrRuAwHSatRuN/WgIg7QOd+pHrB83
+         PyMlJEsP2x5D6zkHwvVbNi5HJ/RAr4ZXD7V2xA3w9/3qPk5K8MbHFK+tGf9W42SZPQVu
+         /yJYd9l5A5+AhrRMfvDP/CxjEnUF9FKMOmai3LaBxFCq8/NrjoY8l+aluV2W8vMHoFKn
+         Sg7A==
+X-Gm-Message-State: APuU4Z/CQiDr1QVRIssjzOYUv7apmYWH+DSEI3gim1Rr1uCaav6tV36H
+	O+nvm2GKRwLc/cJpxLeLLWBz+4bMEVXBpn4r8wuCAgUPOMPapjMhn1rCLHCjKwRtyulhfQT03tb
+	BFcxucMg=
+X-Gm-Gg: AZFdTZewSM/sLMoqRjH+yhY8Q1KS8NrGE3nuRgne47iTRL9dkdWWKUaMSmXVmdecEPk
+	n88cKIybmL85lx15AL3SFmU4WbAi9ol/Wb8/C0iZ+5pG7fCrLsvtCWTQeCn1gK6kPd/mdKFKbjM
+	UCgj1OXboShzACKJFJjvHycGk6JtZue453W/XA+sCGuQk/U3OoPvId0CxYzt1StgHzJVP98R8f8
+	NxAkKX1REcHTHExw1uL8e0dgZ4ZtlBh9PrUDb78AVd4TUEUhz6OqNjBp9sujQSI+LTlLU3V8Iy2
+	WGwKv3KII7P00Wv6nVX9FW3LcxLQmtHVh2pzYkan0Ekq/NPYMCuYy49Sy1d8b8u5Bdfd7LdCuNI
+	zstAq+G2k7G4Y/idOCEi4s960Ls15rCO1GBwxL4x2K9UxA+HpXjNYkQgu+1fgH9ARTx+h6PHJ1L
+	ZlbmqKYv2V1oPMLkHECF9SAPNa+NEkqm7zxYvSntm1KOnXr+XdhHk7AZ+XAJEvx7VvmUcczNUZg
+	j23+yhKeS/n3MJNiBbgHY310jntQG3CkYu9+eXxG+HYJGp+/2cEh4lfoyN5xCln/7TsvNP/Z6IX
+	aF7phSHIMUgWFUJF1zHxSFBpEAfv0W96GzK54GcSP2HEt10QczLKmZKgnTQrPda4Q60s1H7AytA
+	gCQ6/PnvmUhWZF3VDT07TQna4Nrv9FTAEP8k/
+X-Received: by 2002:a05:6820:8597:20b0:71a:f794:49a3 with SMTP id 006d021491bc7-71b3961a87emr3997419eaf.73.1795296668566;
+        Sat, 21 Nov 2026 13:31:08 -0800 (PST)
 Received: from r7625 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b38015c46sm4469155eaf.4.2026.11.21.13.31.06
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b38015c46sm4469155eaf.4.2026.11.21.13.31.07
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 13:31:06 -0800 (PST)
+        Sat, 21 Nov 2026 13:31:07 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.6.y 12/19] io_uring/sqpoll: ensure that normal task_work is also run timely
-Date: Sat, 21 Nov 2026 21:30:42 +0000
-Message-ID: <20261121213049.1788332-13-axboe@kernel.dk>
+Subject: [PATCH 6.6.y 13/19] io_uring: signal SQPOLL task_work with TWA_SIGNAL_NO_IPI
+Date: Sat, 21 Nov 2026 21:30:43 +0000
+Message-ID: <20261121213049.1788332-14-axboe@kernel.dk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261121213049.1788332-1-axboe@kernel.dk>
 References: <20261121213049.1788332-1-axboe@kernel.dk>
@@ -99,43 +99,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit d13ddd9c893f0e8498526bf88c6b5fad01f0edd8 upstream.
+Commit dbcabac138fdfc730ba458ed2199ff1f29a271fc upstream.
 
-With the move to private task_work, SQPOLL neglected to also run the
-normal task_work, if any is pending. This will eventually get run, but
-we should run it with the private task_work to ensure that things like
-a final fput() is processed in a timely fashion.
+Before SQPOLL was transitioned to managing its own task_work, the core
+used TWA_SIGNAL_NO_IPI to ensure that task_work was processed. If not,
+we can't be sure that all task_work is processed at SQPOLL thread exit
+time.
 
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/313824bc-799d-414f-96b7-e6de57c7e21d@gmail.com/
-Reported-by: Andrew Udvare <audvare@gmail.com>
 Fixes: af5d68f8892f ("io_uring/sqpoll: manage task_work privately")
-Tested-by: Christian Heusel <christian@heusel.eu>
-Tested-by: Andrew Udvare <audvare@gmail.com>
+Cc: stable@vger.kernel.org
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/sqpoll.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ io_uring/io_uring.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
-index 3849252f6135..b1428f91b5ee 100644
---- a/io_uring/sqpoll.c
-+++ b/io_uring/sqpoll.c
-@@ -253,11 +253,13 @@ static unsigned int io_sq_tw(struct llist_node **retry_list, int max_entries)
- 	if (*retry_list) {
- 		*retry_list = io_handle_tw_list(*retry_list, &count, max_entries);
- 		if (count >= max_entries)
--			return count;
-+			goto out;
- 		max_entries -= count;
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 895011a3d8ce..4c88bd805b8c 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -1412,8 +1412,8 @@ static void io_req_normal_work_add(struct io_kiocb *req)
+ 	if (ctx->flags & IORING_SETUP_SQPOLL) {
+ 		struct io_sq_data *sqd = ctx->sq_data;
+ 
+-		if (wq_has_sleeper(&sqd->wait))
+-			wake_up(&sqd->wait);
++		if (sqd->thread)
++			__set_notify_signal(sqd->thread);
+ 		return;
  	}
--
- 	*retry_list = tctx_task_work_run(tctx, max_entries, &count);
-+out:
-+	if (task_work_pending(current))
-+		task_work_run();
- 	return count;
- }
  
 -- 
 2.55.0
