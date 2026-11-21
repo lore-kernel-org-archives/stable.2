@@ -1,89 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795222571;
-	b=21zwbixO2V4/Y5u45SKoevTUsbudNmq3ELAmAJWm1E70xaokopdFDEe6uvcMl+igWLNA
-	 atKP4Dpj1VtpAtsMXFZRzXAantyG1oNuq+qL9+LvUddWSG4S3+gwXKdC2dRZBuPX0MY6E
-	 5fW8g/wv7Z3bNhTAquHVvFa9LxuXlW699JtYc1n4AWQhobRUSNMqLX9ZtPA4gpGzlVdmP
-	 iaqE482vVe30R3KZjiqfZWF1E/cdCk7x6L0oe8OCF3O5Qocbdhkcw+qDFQCi7RywApXsb
-	 6n+8bOMghXLBQOCH6yLEXQslAbKII+I2g187/pPdlWMY0GhtSYHmiwjPo5rnqC3S09g==
+	t=1795222672;
+	b=l9sFBnoADtKbRNthR8rv/Dxp91J1mmAGF7KTt1XVeCSN8LUOViXy6GCAXEsU/zYc5XHr
+	 /1coEnu2umOuRDhlbHHiSNh6W+5EzpqBNLTyH44Yi48f6jv33tGi+bZ5oeUhiLpnTz0bL
+	 twhLl0ewnMz/S9D2nltZzLEFQgbraqaH5R8YfjwpyL7Kr1xmVcUlpHPGH8hiQYh5JcYCe
+	 GDo5yCYfkrIcnpPaJwtEyT6dvcKoe4BzwTmSx3AayzdDIiIO9PObopfGGet2lbjbLrqIA
+	 rAcbXtdYU54ttghdzDSlwkGZIlNco8DULBpzQ+UpFZ4eY4+yg6XwKCvabJRbv5/bbSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795222571;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=i3GTOPnQyWclBIu+6MA2Oe59A19a3zhTv3uiRFaf8C0=;
-	b=ViPvkxZFw7Wxjay4IgqQ70JaPzgtBiDiXGGaHUAAS46fmEqe986JQAj8XCqB7xseKS9C
-	 lAFLkneggMWKPVMaaAwourOR5LQ+GR6OPvIoQWFeUBxCTOKPYY2bje9sVuSsHTxID6iCq
-	 fl2OpKo0fA9JiD5nR+j6ojyCGxwSuSPgFAMLcBpDFIBpdhCIl7qeoheEUKIpaQgiWpoc0
-	 7YpBFUpFe5deyo2KNUdwkWof7NfrSPI9OcfN5GTTur3vULZEihR0W2jRc4cGIfFRObl/A
-	 WTfhx+F3M5YJK3iRWeVhQ08ACW+SrDzfxGBL8RNf3jnQ2BdKXgpS6HPlb8WzusU9B8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795222672;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=pYuaPAfIlTcB1O8Ap0wBAp+pFIs1WlVk3EpGd7ruOeQ=;
+	b=eC0+ICx+bCXQqtVhNxtbglww6McDZrFaX0fYDM/9FOrM4/MuFW1hYrPRNRrAUeJDSRDk
+	 ftFZDN3PAtRm8UBSPuEyQGTZJ2lf7I0r1musdDlcbLn24RaTZQUd5dEEeR61F2mzBm8eY
+	 BjzVRecoBIQkGxLtTgX2PFvx3vHc67dPQE40EStHE58UHLVYVUnp+VTcd7twESyqYsyYP
+	 MHBYqEf6bJDDKR1lL3+vIjHX90QDvxJWuw6sq2QpaK3pEkO/MlrQ7EHS2R2DX97v1M89C
+	 Oui3p79dvUsYtfCXXW05ppjD3OmpX7/R7//6OCIytOOAGVmkcvZI1So+ar9lm4cIoug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ofGMIfmj;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OrPwbDK8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397F2606A6AD
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 00:56:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 397F2606A6AD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39418606A6A4
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 00:57:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ofGMIfmj
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4bb64c99d2fso15419395e9.3
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:56:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795222567; x=1795827367; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=i3GTOPnQyWclBIu+6MA2Oe59A19a3zhTv3uiRFaf8C0=;
-        b=ofGMIfmjUmPZDpbiK6zzZMK5vFaD59tJ4YjxAYXxfl+KJD+gDOdi0nIWE0DDLYzNPV
-         NSpufJVrv1sdgw/vRTDF8nkZ5Qg42Lfw0TxabFiDMmhTaD3/tFkPGKnDindJHhv6+thi
-         Rt+50uQUnNYolC3Rpj/0VvgeXe3p0nK6MmOYK3bHcGVoTDFC5v2BGfKFabtqnuRaFNog
-         7nkJhKDchbITOleWddiXZWAC7aRJC/qc8DqfjmCH99H+TSiinqLsDKCvoaDPLUqykw0B
-         KCwlK4+nBTVzCxX3d9uS+xWfQyAY+uhuLZ2RLiXwKH608nOKEmEq7m2f3xZJqgMELpbb
-         UVfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795222567; x=1795827367;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=i3GTOPnQyWclBIu+6MA2Oe59A19a3zhTv3uiRFaf8C0=;
-        b=Z+pvwul66pKK0LQLFJHpKBfRHTkfjMaLB9tKJtVm7MvwXLRLmesPwCPO7K13LUc+bz
-         E31IEPzCnZipCfgIzfqTYdUIAby0hOv5mVDs2BpJ7/y2G1/VheJL9poe7/d/6E4UJVNz
-         qoW/c8EPZ61Xy/JYLJ6XpqwEGtFP7tb2D6Iw/iZ7ovBtFG51MWQ9XK8upD1W6jcax7DZ
-         Qw5rEHmN85KNHJVCv3okVEVP/7hs3ZYyAy1OOpo66TwysKD/OhjeDsVdtQZLV98G6L8s
-         Y0Dwgfs+lM2GdjUyIG3qOLaoIqie9TtT49Vn3gFHQ6iJAsfcIK0WNycuVkjW1+ozfj9S
-         sQ6A==
-X-Forwarded-Encrypted: i=1; AL+hErHlyePpEeu0C8wMQRF/wDRgPjpQMyXgMlbFV+3zaUNGVqFRATgRwI1RY9C1FgDsqHta9SUZlKA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9bbxZJSZKOsUXOI9trbPcxN11+/ETck1PrPhJx+lC9Gxry5ydO
-	kgNQYwtLd8cKGRTm1rpX6mOOVlYExuSuv0/ygBBOwLl+gFYeBVdmSsHZ
-X-Gm-Gg: AYBFou1ZlxytFHltoz4cVBqbT1x/oonKqiAnWV+mW1cr0C0nTno1dvnmJKbF7tqi2pO
-	wDmjADWQEizUwPgtoTFfaSc6SreHRhzX7uLM8ykFUdV6r0s/qNPuU5kynOK9KpPU8Idu1+LZ+BF
-	A5IMXqqk5JuDqpCEWrxABvxev1NCziqT4IxhgzP7gZvPsMPTUEHgjXqtg1OP7F7onSPnfm4BoZx
-	eUF9mcf147JhgktqP89v2iBnKd/Y3QQqGfueWQeAre7CQSktzOBhkzCTmcZ/yCskTRaO5S9bxUm
-	2XuTuNhpY6S7iYHbWxmyAt9LoRdY0LH7F/JPWBx1sLzv3qSSB7dprVFkW0fydN8VzzWMB/zI/Lo
-	P87vx0X3oI6GmsLJHWArW4HUJ1O1Q/cO+l6sPeZ7p54xqoqhxLDjwwlDJCqU6ri3TREclQAWyca
-	jMq49iOdIPPgbBA/xUfyiMKUDuTsjiX4rqEe6exKwvj2e4CW362b9KLX5IjedZ9uHyTQOP8Ru0t
-	o9J5Pz2dcWPUxVqoqtLUnEaeM3xr3MEpp3FfbpsHUxpYSN5uXBdriFFoW6/LwIRYtH2onC1MO9V
-	hsFKtUaOQM1dywX8l8t6zBPnrb5I1nDYVPcSqJSbINSCeMAKPxBrC+/ndjsQ3Lg9Sfwv+qbieV2
-	5g9C0
-X-Received: by 2002:a05:600c:8184:b0:4a3:5a7b:6002 with SMTP id 5b1f17b1804b1-4bb8881e969mr101042085e9.28.1795222567564;
-        Fri, 20 Nov 2026 16:56:07 -0800 (PST)
-Received: from [192.168.1.15] ([185.69.144.65])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b2c5sm152290885e9.5.2026.11.20.16.56.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 16:56:07 -0800 (PST)
-From: Dale Whinham <daleyo@gmail.com>
-Date: Sat, 21 Nov 2026 00:56:02 +0000
-Subject: [PATCH] firmware: arm_scmi: Don't mark OPPs as turbo without a
- sustained frequency
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OrPwbDK8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B2A1F000D1
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 00:57:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795222671;
+	bh=pYuaPAfIlTcB1O8Ap0wBAp+pFIs1WlVk3EpGd7ruOeQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OrPwbDK8c8VgXaGVC4EZ0R3FQT+UV0oocsU5RvXjR09bMWaxfjfkY3BvOQUioYdHA
+	 wvoRyGTzLi6OwFryuRPY/G4wsf/P0xkgH91xeBpW0A6zB/6N6V382gez3ZH8n3t1Xt
+	 J1C2Toxer3RzZg7+ZgGHjNa3/Tppvj1EP31XmHh53QF7zDeuYdIsLuA3gr5rF2tGJF
+	 t+1DBaU8odFD+f6AI/UVXfm3YiQN/Aakwxlwx7IzLSY6PjTc1b8Vqb6CI2yJuzXHat
+	 LM9tQXdRZqlP90apyRqDgFg+kE7VbjceAXMn3Fc+PubgWJbQ44N0yGNOv2kT3yF3Li
+	 /cv9N607NiP9g==
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so2210042a12.1
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 16:57:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGt+vX0LE1Aw3CQ7Ox1JK8FPgl+A0KgH1VF5ViJrOzWfifDHTTyFJrypCaUAoR7634nyGrz+IU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+HeXLVUaCd2Q20uyc/xcB7J95h9ZiKhxuG5uYpYpApKS14iw8
+	DZn015RfShQOTMEiAHkPdlOMkuOBpHesB3EpmOA26/nnVyJDUwtULrC1xkqoEaIj6XcXOZQvmbG
+	M/thnHjEcbGQHIqpEfFgL6FXZNKxY0Ts=
+X-Received: by 2002:a05:6402:13cc:b0:6b8:854:da16 with SMTP id
+ 4fb4d7f45d1cf-6ba37e64b3emr3750928a12.18.1795222670218; Fri, 20 Nov 2026
+ 16:57:50 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,78 +59,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261121-sp11-noturbo-v1-1-37e1083cec5b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxG4asgz0SqDerQqyAGEn5ad0hQDAgJc
- XdSOn7DewcZssLoVR2UsalpigVcVxQ+Q3zD6VhM8pAns7CzmdnFtKzZJ+cRRogENNxSSeaMSfd
- 71/V/2+q/CMvvQed5Abh+Od5wAAAA
-X-Change-ID: 20261121-sp11-noturbo-becde22ce314
-To: Sudeep Holla <sudeep.holla@kernel.org>, 
- Cristian Marussi <cristian.marussi@arm.com>, 
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Dhruva Gole <d-gole@ti.com>
-Cc: Haipeng Lin <jimmie.lin@gmail.com>, arm-scmi@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Dale Whinham <daleyo@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795222566; l=2027;
- i=daleyo@gmail.com; s=20251214; h=from:subject:message-id;
- bh=zMtLMtQ+dyPR6vWexg5Efr75uQzulLUBjfV4ysHWXLI=;
- b=/0FvWqPNrFnVvgEwryZLXaamwpG38yrLu4Qie4Ux5eNj5z8zCxsJo8BFsvWf6INyW31eItzll
- jyRFhEZ4DfrCE7Lnvk3W36ChLSg6Ia9sphAiI9nIjeD6SMTLbxVZlRk
-X-Developer-Key: i=daleyo@gmail.com; a=ed25519;
- pk=M4mvgx1TB2TniKaedTDsO3PbLKgFosJuegXRXPbn2Ds=
+References: <VE1P190MB0877D026E2C3905F0324B46F85782@VE1P190MB0877.EURP190.PROD.OUTLOOK.COM>
+ <ee94181c-784f-4f9b-8697-cca5abec6b07@163.com>
+In-Reply-To: <ee94181c-784f-4f9b-8697-cca5abec6b07@163.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 21 Nov 2026 09:57:36 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8VV8hjeEqRLJ-HBDA3Dzw9bX45e6dWpie4soeZ8TBvDQ@mail.gmail.com>
+X-Gm-Features: Aa3M54rjQHmBi5vJgpb0m5wm04L5meK5CixRNCQCinayId8QPwf-7sPCDRN0boc
+Message-ID: <CAKYAXd8VV8hjeEqRLJ-HBDA3Dzw9bX45e6dWpie4soeZ8TBvDQ@mail.gmail.com>
+Subject: Re: [REGRESSION][NTFS] Linux 7.3.4 mounts 64K-cluster NTFS read-only
+ after $MFTMirr record 24 mismatch
+To: liubaolin <liubaolin12138@163.com>
+Cc: "d3nchk@outlook.com" <d3nchk@outlook.com>, "ntfs@lists.linux.dev" <ntfs@lists.linux.dev>, 
+	"hyc.lee@gmail.com" <hyc.lee@gmail.com>, "zenghongling@kylinos.cn" <zenghongling@kylinos.cn>, 
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If the firmware reports a sustained frequency of 0, every OPP is marked
-as turbo. With boost disabled, cpufreq then has no usable frequencies and
-fails to create a policy for the domain.
-
-The Surface Pro 11 (X1P64100) CPUCP firmware does this for the two
-clusters that have a core fused off.
-
-Treat 0 as "not provided" and don't mark any OPPs as turbo.
-
-Fixes: a897575e79d7 ("firmware: arm_scmi: Add support for marking certain frequencies as turbo")
-Cc: stable@vger.kernel.org
-Tested-by: Haipeng Lin <jimmie.lin@gmail.com>
-Signed-off-by: Dale Whinham <daleyo@gmail.com>
----
-From decompiling the CPUCP firmware: it reports as sustained the first
-LUT entry rated for exactly the cluster's fused core count, or 0 if
-there is none. On X1P64100, clusters 1 and 2 have 3 cores but only
-4-core LUT entries, so they get 0. X1E80100 reports non-zero values and
-is unaffected.
----
- drivers/firmware/arm_scmi/perf.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/firmware/arm_scmi/perf.c b/drivers/firmware/arm_scmi/perf.c
-index 0116ffb2b279..d4394984a0f5 100644
---- a/drivers/firmware/arm_scmi/perf.c
-+++ b/drivers/firmware/arm_scmi/perf.c
-@@ -879,8 +879,13 @@ static int scmi_dvfs_device_opps_add(const struct scmi_protocol_handle *ph,
- 		else
- 			freq = dom->opp[idx].indicative_freq * dom->mult_factor;
- 
--		/* All OPPs above the sustained frequency are treated as turbo */
--		data.turbo = freq > dom->sustained_freq_khz * 1000UL;
-+		/*
-+		 * All OPPs above the sustained frequency are treated as turbo.
-+		 * A sustained frequency of 0 means the firmware didn't provide
-+		 * one, so don't mark anything as turbo in that case.
-+		 */
-+		data.turbo = dom->sustained_freq_khz &&
-+			     freq > dom->sustained_freq_khz * 1000UL;
- 
- 		data.level = dom->opp[idx].perf;
- 		data.freq = freq;
-
----
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-change-id: 20261121-sp11-noturbo-becde22ce314
-
-Best regards,
---  
-Dale Whinham <daleyo@gmail.com>
-
+On Fri, Nov 20, 2026 at 11:26=E2=80=AFPM liubaolin <liubaolin12138@163.com>=
+ wrote:
+>
+>
+>
+> =E5=9C=A8 2026/11/20 20:49, d3nchk@outlook.com =E5=86=99=E9=81=93:
+> > Hello,
+> >
+> > Resending in plain text because the previous HTML-formatted message was=
+ rejected by the regressions mailing list. Apologies if this creates duplic=
+ates for other recipients.
+> >
+> > I am reporting a regression in the in-kernel fs/ntfs driver (NOT ntfs3)=
+.
+> >
+> > Environment:
+> > - Distribution: Debian 13, backports kernel
+> > - Working kernel: 7.2.12
+> > - Broken kernel: 7.3.4+deb13-amd64
+> > - Device: /dev/nvme0n1p1
+> > - Filesystem: NTFS 3.1
+> > - Cluster size: 65536 bytes
+> > - Mount options: defaults (including errors=3Dcontinue)
+> > - Driver: fs/ntfs/ntfs.ko.xz
+> >
+> > Kernel log:
+> >
+> > ntfs: (device nvme0n1p1): check_mft_mirror(): $MFT and $MFTMirr record =
+24 do not match. Run chkdsk.
+> > ntfs: volume version 3.1, dev nvme0n1p1, cluster size 65536
+> > ntfs: (device nvme0n1p1): load_system_files(): Errors were recorded dur=
+ing mount. Mounting read-only. Run chkdsk.
+> >
+> > This volume worked read-write with kernel 7.2.12. After upgrading to 7.=
+3.4, it is forcibly mounted read-only, making normal file operations imposs=
+ible.
+> >
+> > Windows chkdsk has been run repeatedly, both through the GUI and comman=
+d line, including dismounted-volume checks. The issue persists after reboot=
+ing into Linux.
+> >
+> > I suspect commit 749357bd48c16c4cdc09093450deca609492f012 introduced th=
+e new read-only behavior for this case.
+> >
+> > There is also a potentially relevant NTFS compatibility issue: modern W=
+indows may not keep all $MFTMirr records synchronized on volumes with large=
+ clusters. Here the mismatch is reported at record 24, beyond the first 16 =
+records.
+> >
+> > Please investigate:
+> >
+> > 1. Whether the comparison of MFT mirror record 24 is valid for modern W=
+indows-created NTFS volumes with 64K clusters.
+> > 2. Whether this is a false-positive filesystem corruption report.
+> > 3. Whether errors=3Dcontinue can be honored for noncritical MFT mirror =
+mismatches, while retaining mandatory read-only protection for Windows hibe=
+rnation and genuinely unsafe filesystem states.
+> > 4. Whether a fix can be backported to the Linux 7.3 stable series.
+> >
+> > This regression prevents normal read-write access to this volume.
+> >
+> > Thank you.
+>
+> Hi,
+>     Thanks for the report and the detailed logs.
+>
+>     I checked 749357bd48c1. It didn't introduce the mirror comparison,
+> but it did make errors recorded during mount force a read-only mount,
+> even with errors=3Dcontinue. That explains the change in behaviour you're
+> seeing.
+>     There is a known compatibility issue with the comparison itself.
+> On volumes with large clusters, Windows 10 can leave later records
+> in $MFTMirr out of date.
+>
+>     ntfs-3g already handles this by comparing only the first 16 records,
+> or fewer if the mirror is smaller. See commit 85e208176ffd ("Stopped
+> checking matches of MFTMirr against MFT at record 16").
+>    fs/ntfs still compares the whole mirror. With 64 KiB clusters and
+> 1 KiB MFT records, that means records 0 through 63. A difference
+> at record 24 could therefore just be a stale mirror copy, rather
+> than filesystem corruption. Your report looks consistent with
+> this case.
+>
+>     I'll follow the ntfs-3g approach and limit the record checks and
+> comparison to the first 16 records within the mirror. We'll still
+> read the full mirror and check its location, and leave the mirror
+> writeback range unchanged.
+>
+>     This should allow read-write mounting in this case, provided
+> there are no other errors. We shouldn't need to relax the general
+> errors=3D handling or change the read-only protection for hibernated
+> volumes and other unsafe states.
+>
+>     I'll include a Fixes tag and Cc stable so the patch can be
+> considered for the 7.3 stable series after upstream acceptance.
+>
+>     I'll send the patch shortly and CC you. You can then give it a
+> try and let us know whether it resolves the issue.
+Okay, Looks reasonable to me.
+Thanks for checking this!
