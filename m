@@ -1,55 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795225569;
-	b=xVdc/jGVLkCHb7ouAvOFnAzn9rLewoaP/R5Y+h/x7onIGYtjFfV3Dn0ZXbsc0SG2uq4P
-	 K9ljlAiMzgfc6aptpcukp2Dr1PUTLH4NAMyytBywqKhxgtJfn3sAn6EpdoJF/GblfcxXt
-	 Ruv7RoLts1/dOgYvfTx4OKoB1GXJCHylfItjsN3JdOsxKR/06nr0HGr1uw5E/RvL0tozp
-	 cwEsUSVHftMxYOdeVrNBd9UIXng/TohLd16LYbQ+Ia5oq82S1vUzQCQVvaJVqIWyNjb9U
-	 aqGcMMR76IopIoWg8uEjjRzVdOoOck4CIEdtCJmUnr88b+8WoORbBJHAMwit18zC1qQ==
+	t=1795225894;
+	b=yDQLtL8UV2GC4Wd6GHRpACs9NxDZ8bAQmWS5+I9hlv+wGdPIUpSIo/JXangVe1UYfVqs
+	 8Gr1RAxKpEle0lF+ZBCbavmU8H/qHDuSr6gITD1Vu3Y42UORVVgyem9P4GtlkoDTZJ3cj
+	 yIBLIj6ys0koJmAdTf7qloTlaUkOpAyc+EdemWe+cdtRhjVAoHcLCN0iregqcSB9eAUcz
+	 n+y4W5d9a8176fmu6j+c3mmp/RHlKLV43v9FaqMn8ht3HHTdeBvxzidO+SCvBwm+nMXOc
+	 q5ScrUes3RSignNDRDH9kOn+vhOwYOUW64IlZ+5oPYdUEXgQOnflwpYSo50n7Xampmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795225569;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=pXIcTl4aGxKY1y3Sv/7qakiKJPc0ii9R0dmFyBolSnA=;
-	b=OxSNymPY9gqBOjlp5N1PgrH9BLndw96zO+cpBKfgWI2py7rM63jwK3mZ47+1YodhZsI8
-	 nKEcPoUBjmdb1NqcxrwWr1qO+qVgWei/24asVPResgI4ndtD6cCFI6AHDcU4OhZG782Nx
-	 ioBPAmXXp9loX5Lfc7fI38lFvI6ZReoYnG0TqI3bQiylQ8bSP4+vJYtnvcF6hED3uCurI
-	 4xc8SYIViLbLd+Ogsg1087h30OVyAS3OKbtdFlWD3Yq3+5HVrdAA8PqbSyeg0oHIBywC/
-	 DRm6IprQnt15BkxMoU8Yf/9S5zrpkzi4iFYDsRz/qTSKofzXCJsDbV8Mdr9LocIXVRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795225894;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZhsI3lhwD+t6nMHv4Tk5Gvew3vT8WrKD/K7/YEVJPaw=;
+	b=ikiWO+NYoPNhxenpbSTVJN/e85ApEcoyQyqQ64xuY/3YYQaVajP5DhpumROaHCJBqCsk
+	 Jz1oULzTVlRPliI/K8F2vgZaKh/su2LUErfpNTEHfc+yHDIiiEllpfiaMomb2QaCMwUnB
+	 tKN5emsIohEJGyB2ng8V+kcdg92A1isCRTkWs8UdNFaGxNfUZa83Hza0zfJ20TQiTA7SO
+	 F3mIrkQkRyRZNwqIrApXiXeZ8/pGLyV7MP1QixQ7i32r8lN0aiep1Qt6m6keK3dp6algf
+	 7MxQAVQG+Eq6dLSj8OEYhJ3zX2q04NkFwj20zg/KaAllO8tr38s5tpkuti5ZFrsRnKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aSincsPm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=GriKDtLc;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22747606A6AD
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 01:46:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6738606A6BE
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 01:51:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6738606A6BE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aSincsPm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499F61F000D1
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 01:46:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795225568;
-	bh=pXIcTl4aGxKY1y3Sv/7qakiKJPc0ii9R0dmFyBolSnA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=aSincsPms+qTVHlLXexSWGgDMf5MnjPq1famBGJqUuqRCvMCWeJq47JdrRPyTNzUE
-	 ZoZ+kg+pRL3MGIJz4CI78PxnON7Yq2NfsXEv4w/6IVANtmLsrJ604v0wncaYudeFYo
-	 6hhpo3Vd9Gfi+RcEORjoEzAnuIAUKjojh+lqNLV78Dh9qg7u/vGC6qC+XwJpuR+zGf
-	 Nt0fdUV0vXTzgtx08MylCfiqSnfdki/71USUDLSm9sdWcsZlpxGpIaQ7CGfrQ6sltS
-	 YysKxbLyuKqwOu1tIQ0bw4rTIfWlDIjJxBxRGeLwzEIGDtZZiVAWMgLAHAbB62ts96
-	 xU0/VkuvcMaHA==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4cdc606b47so275159466b.0
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:46:08 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErExzu/1IXN53nkpcBn3oRECQKmh8gJ61yA8hk3ImspN2L6VHGY+n3toL8kL6/rL08DgNPfMp9o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9UjUBcMmLXCig/C030lHgKmt/XD0JEHT+SeGZbh1ZB1xITmDPu
-	OJ/1hnl+y8X0xX6igXJjSXl4sjRuLFCoE0pEXaRLwZkqCTIMe5lHg8RL77D77vA/vktjJlQ4VEb
-	AjS+157lV+aJWLWODs4+0I0Uxir1L+Cw=
-X-Received: by 2002:a17:907:6ea9:b0:c46:645f:cee2 with SMTP id
- a640c23a62f3a-c513a3ab024mr492513266b.4.1795225566975; Fri, 20 Nov 2026
- 17:46:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=GriKDtLc
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so15095795e9.2
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 17:51:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1795225891; x=1795830691; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZhsI3lhwD+t6nMHv4Tk5Gvew3vT8WrKD/K7/YEVJPaw=;
+        b=GriKDtLcKMPkRF/s4LcGU+eYEMs7fQYr22/aNjOx4fsc6pWNjyZ3GImkVKDKtSL7x6
+         zWDh5CHOzoo9TAfFQy7nb5hkSoqJ2bSL/qgWuP1EqmHCp77whYR9V+NmP37krlDqJP7Q
+         76m+Y6tk9gUFlnCl4fqfhcxRIkZ7lkTlS7pexjcffvLFP3VaK+a6KWh+HXC7Bew+ngRI
+         AzM9p67nKW+D7oQzpkx4i2gH4GrKTlB3KwrxBtxxuxA9WGpCLyqmmOHSrz2NhfhzxwHP
+         d6tFLfUX+a4OQM9Kj3StAxUJzqL7NWKBWUdJll9GB+CWWnC9SC4xcMCeEd2PJe9Xq7rr
+         uKcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795225891; x=1795830691;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZhsI3lhwD+t6nMHv4Tk5Gvew3vT8WrKD/K7/YEVJPaw=;
+        b=bft3z41urp1cWLuRWjys2IXRFLUiXcJtwM+U0cAxEa1rCOrV4INRMVvFfR2h8DFcnk
+         3ULZgofgHUrb9ej3usam0X8UPOA3FUc4Mkl8E44y4Q+M+S29PrJZoTpV4C+P6CFUA7WE
+         nTJZl8ox4qF+AJ42bHpxWfUWadnJIBLaLaZYMyaDxXTi8+UBu5DhhdFzPqS0YuwlM17F
+         V6tCF95d1aP5u3vJMXomPjCQ3j/9eQKypm8buS8h1gFaI7Evwr8Ba/1g83lmPh4pkoKe
+         FO11wsW1BOG8CLjfOCl0vRtrAT0ZquG8uXo3pMpCDc3nVy0czjTVlnTJBHkeh0x3H4i/
+         OsmA==
+X-Forwarded-Encrypted: i=1; AL+hErG73Rzz/n6JdzcsRPqobA+gPlhqvNNIukT+VIZLZCe83uVfOQJWVAae5SeRsfw8YlVggaAcRl0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ivEMycrgz9X42bzNnaBjMUnX0K9ajkfFtwQKxQBT/f5zm4xqM
+	XJVu1SsO3YBMdAUT+KcVf67MHXR40TfzTM6qUjB88RhS5O9J4ZZqwXU=
+X-Gm-Gg: AYBFou2T7sN3isQJgnAjUcwLvNogvtSlQaMAVh5Cyov8/nQh8RxFOB43n3H6LBozkbC
+	TDQz2XLPJ4YuXfL+dZgaQJnbdKy2X31XsX51i3hFTrs8gkYfE3uPV1Mkn+HkNJVuxUMWDosnS4+
+	NpVhwKq0YedzPSr8CPpYRuFsGhYrH9+wIdnUnw3kcvjUDfx5MntX+sYe2BaDZesbNtjaL4O7jCA
+	j4OaJnTi2HjPXxiya8pY9Vf6dcJNMCPYXH6dz5d6Pci03f+6suFNkL2tS8mkeCFKSo7Ldr/BEei
+	WooOSlKtt0dzRx47lakDbLa+8rjd+Juwo3uwLSBEw6fGo4MJanF2ByObr0udBOSHjm+48gM6X28
+	3YtEvR/A/QjUilsLVzGjE0NBtlAZopeqpLy4w2tzUXlfjCwNGpqhbmfqNanOjK69AXQ/oGUfl28
+	oF1p7V6UbxCe827VZwtASgbRbOH0dZ+FTTJBcU3AdqEIc0QbtaGRxlpKramIumnbgA3IcYfFEuJ
+	LRL0K0a1HBgaPdQicP5QNUQuhhFHQS6XSCc7zpSrf3amJCOtfQdAjudGmhsY3ipxsUXQZxwjJk4
+	/9JC2X/IvsjFuRSrBeJ1EGOV6QcKS0ILBPZhLhnA6UoQbzwNNA9reaoHmCSceFqah8EdSXjqT6j
+	2MJ0=
+X-Received: by 2002:a05:600c:a51:b0:4bb:5f43:23bb with SMTP id 5b1f17b1804b1-4bb88828173mr107576685e9.33.1795225890849;
+        Fri, 20 Nov 2026 17:51:30 -0800 (PST)
+Received: from [192.168.1.3] (p5b2b4923.dip0.t-ipconnect.de. [91.43.73.35])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb85399d52sm150309475e9.6.2026.11.20.17.51.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 17:51:30 -0800 (PST)
+Message-ID: <4f3c5405-fde4-43af-9624-6a28041e673c@googlemail.com>
+Date: Sat, 21 Nov 2026 02:51:29 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,29 +92,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <VE1P190MB0877D026E2C3905F0324B46F85782@VE1P190MB0877.EURP190.PROD.OUTLOOK.COM>
- <ee94181c-784f-4f9b-8697-cca5abec6b07@163.com> <CAKYAXd8VV8hjeEqRLJ-HBDA3Dzw9bX45e6dWpie4soeZ8TBvDQ@mail.gmail.com>
- <2a3b2050-76c0-44d2-a5a4-236003247f74@163.com>
-In-Reply-To: <2a3b2050-76c0-44d2-a5a4-236003247f74@163.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sat, 21 Nov 2026 10:45:54 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9XO4X-A+rNsvuehhi-1gaBwvz0C+=omqFnVT_Zsm9-kg@mail.gmail.com>
-X-Gm-Features: Aa3M54o5N-SYmHy7MpzLD1unR02bORgYmyLXpo_wA_f7P54pXZcJIo0YYREgCws
-Message-ID: <CAKYAXd9XO4X-A+rNsvuehhi-1gaBwvz0C+=omqFnVT_Zsm9-kg@mail.gmail.com>
-Subject: Re: [REGRESSION][NTFS] Linux 7.3.4 mounts 64K-cluster NTFS read-only
- after $MFTMirr record 24 mismatch
-To: liubaolin <liubaolin12138@163.com>
-Cc: "d3nchk@outlook.com" <d3nchk@outlook.com>, "ntfs@lists.linux.dev" <ntfs@lists.linux.dev>, 
-	"hyc.lee@gmail.com" <hyc.lee@gmail.com>, "zenghongling@kylinos.cn" <zenghongling@kylinos.cn>, 
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.1 0000/2812] 6.1.193-rc2 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261120055200.707545519@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261120055200.707545519@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> Hi Namjae and Hyunchul,
->     Thanks for taking a look. I sent the fix last night:
->     [PATCH v1] ntfs: limit MFT mirror comparisons to system records
->
-> https://lore.kernel.org/all/20261120155021.1618964-1-liubaolin12138@163.com/
->
->     I'd appreciate your review when you have a chance.
-Checked it. Thanks!
+Am 20.11.2026 um 06:57 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.1.193 release.
+> There are 2812 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
+
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+
+
+Beste Grüße,
+Peter Schneider
+
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
