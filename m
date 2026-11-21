@@ -1,97 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795263866;
-	b=WymCSCpviDlAUjiadOfcxEsVL0YbV0oial44NdWlb50mft3lRYxYye4UM9f1usZHBH44
-	 Qz2Y7h2u+GE41IgZTlNcCh1mEUow3vZPycoFTO/aUn/mw1NH3iWuH/GqnncACf90EpFSU
-	 TWkqZf0iwz/T4nMRfxKt+L277r627meSj6Tb5I4eZOU3Xq2FvJ57a6KqCBqdkcMpGDjcT
-	 knJo3AQQ/6u2lcbPVvQOCeL7fi27RApufdJyhHMK8sqnI4wesjkbYrfFaPIsSCZsoS+JB
-	 dmfOOA7pZM8PsRgn99c5tTCX5aMZsy9k+Cek/XsZQPzerdKgJbupqD9oyJroBnVLpeg==
+	t=1795263983;
+	b=0+HV0ZtD8VqONnbrDXhumKkp2ClNTj6EQ9YzHuWzFjtAhfHNC9ACfiAWAUKg906fQg9S
+	 HhAI4BeldzSoxfuGucA6RJAqUhpwQp4BKOC+Y+YStcxPXi54tpWAhqzT5g6onaT5QBQCM
+	 RRBhgqBy095fifb0UQFefZbX/rSDKrsTLWdsJTQxlnF0UW1/PZfH6DIKvkT7w+IIzFZVo
+	 Izl8UWR4LWKzAikqWo9d0xbcxjdSQu2hvJ9a0j6p5WFv3yQF1aBHsdJNC0LyUlQhVa2hL
+	 lI8q0WgLkClfWehxzpVeRpsWdJZmi9gKFwdVVE04muKQ5X3mf/3zZU7YcVsTI6OUTsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795263866;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=i6Qv8wZdxu9JFYsmpOYL26yXLDHBJkV6sn6Hsg9cqy8=;
-	b=MrYrUHmdvrpOIecTTp8UQ9N4tF0ECA1FW9je6mzsdmuLcQ8R6qXP9nX4XdROQS0QU1e+
-	 R5KJvw+buinlRDEj81NM0Nl5SCdm2f4lvckJ4cWMCgKb6zvrxRPVPiyuLg65vNpIKJ1YE
-	 Zgp1keDxxTD7iup1wMzcrHGYOT05XIwVEKpKY7lHAfYGVn45YOO7A0BUO/x/bJxje4rm1
-	 /35r2PkNeHhlYehGB0Wa0Caah8ZnIOS4hxU+V+QRg5+OiJtwW8CyMtiezA92pfAiI3Phm
-	 xHGyip0LUijmj9AyYviPmUC1AZZizdUusGI+dLGvJp0R/D1nuFWXYlCW4gS4eTVdCNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795263983;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=C0neY9nO3KCbPA/3zfsAmJZKfNu+EcSR5phNhBE+ICg=;
+	b=DhIj0xdtfd/sGSHWvqrFVinQb5N0RPNMG9oSUWP9vk2lvK580mEMwIq3zI/DFxoO14TY
+	 m0BCOX8ewu5plIF2MF2cJjPe/P+ePnNA7ntIW0ni1I/WXWgyifnJKolaDqC9DhUoYaLcT
+	 pzY7J1wQDak3/KXxgtwdygz8ojfQQtNis1VSx9xRgBJ56+SgV/1/gAkh7OI9a3RTREkpA
+	 xvJejQ4pXYyIfT/bMQV7alFm1n22fWFmAWd7LuTkFpCbNTdxudDg/lacQQ4MRNENRPoei
+	 LfNnf/GwA3AgYU9qwsmYHtf+oD1VFoJg9+tr99jhOYLv21I6j4vTOYD7aAu3ek+5Kbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mlj210yX;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lBJKd2gZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9CC6606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 12:24:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9CC6606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055B2606A320;
+	Sat, 21 Nov 2026 12:26:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mlj210yX
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a2761c69fbso3788340c88.0
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 04:24:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795263865; x=1795868665; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i6Qv8wZdxu9JFYsmpOYL26yXLDHBJkV6sn6Hsg9cqy8=;
-        b=mlj210yXvSRbMgy2A3+qsQtbS/9BHBbYy4xOJF2/2eM9BGeuKpAzbkgrTPUjujlrPP
-         dpRkqcgJzQg+t4LF7B2kmYjvIaLovHwkQ3bULS/Hj9RI2S89U4sFsmU0FkAEFcVjMMkz
-         cNJ3ua6u8jRyy7XCgWNi2yi17LIcmGROZaIU9t/L+P9DQ4BFOaoXS4Zx3fORoWKVfXjS
-         8xTDLlVVJhMsj1xCRVzMJB9jtQTBG8Aul0xDuGGTewttQCCRvUrw7uXyl0qgzMFNRsDl
-         zkLd8rzc3HSCATYRsuBgd/iHFW6lw7W/xMIrY+vD3wjjhj0nRFEkuSrP6W3uw5ozRNq7
-         +KuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795263865; x=1795868665;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i6Qv8wZdxu9JFYsmpOYL26yXLDHBJkV6sn6Hsg9cqy8=;
-        b=OLXKVv/ZdIL9Ejn16YjZLzuJZX41wWTHkBsXIxqSeP1cO+Dxb35h1nn5kmEnw8AOJH
-         yFQ7wJtLuxg8SQvqoxxNcIHr7ltGJ3HImPQatcrfL4jA0HPVQhI/GGD/0E4n/4xlEM7Z
-         geOVSBWMGZQalwe5fGzdiM0j0MdBbORqd1GTsf/1cnJzzGpyEn0XbNVCtL2Bw2ecpM0T
-         TxxgiiposHjWkhb3kbTZGZJO1E0TFEke6TxwA8Vvbg2VYsUaZx4kBPZ3LQ7sPKJZI8w7
-         gv0+o6nrbNwYuUAkxippp7ubRoWn4mt1H1yTRwZdDWxE2l07ssdGciNOSNYQfaLW1uM6
-         fQ2w==
-X-Forwarded-Encrypted: i=1; AL+hErHyHnGYzAqaxB8N68FNEsXrsAERCci/vjgO2SvNDRhM84ql74fGIEzFgids4qjCq59zHvrpsOM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8rtqBEUb1C/fga4LS7nYi+jFNqv9KP5/LItg4AjF97oBze0UU6
-	G0l2Yq9oolIMB9VHnZekERr+CAD2DpfVVRWc/VYEHQtfcLBbwVwQQUEM
-X-Gm-Gg: AZFdTZcRN+F/CexoVCzIHct4MQANQWqv6qWMg2lN61gGd86hBkyLEyd5h4F1tBgVv5L
-	0TFa03Efvwv+k3xwxfoBDcejeyb+93Er2sBliw1mVNuyZpB6jW+o6BYYXwALtgNjJez0pBRjNd+
-	tzl6hTgMwzZMJ5f/tsa0puM/ZlnWpRyjrfJU0LMEnL5ezHKXxfXa1E9hDuJAByK36BegoyJzkoW
-	fFs/gfxKpArQRjMolKo3eQQYDQxmG2nPJTn1/x/f8PJvWE4OR5NRwmwuly4SZuIkPl84poUTd1n
-	rY32ORXgJnrrvi1ln5d1hT/DQdv4lQF0lZf/Lmhc1QhdUytbvG7lXtHQ/lVJre4S4VVQKOGWmU5
-	62xab/FhWaUCjk6gcqKMlHKRy/MYL1trYdjN0kZ5X9yLeSZMu6ltIQbe6iNbgn92jVklalJNkC5
-	pe2WCzgtz0oMd6+crCbIocvoKYWfG1O+fEt9xPkw1pGlochkqhw+eDDAetrze3wDu2xjvmmzfQb
-	5b51ogDzse5ILy+UX+yF/3O3bxWzy/XLYTTsUp50OYd2257OKe1pRVgnzFxt9tAwjO/Mts9Mwh3
-	9aB5wgXIDLe7SX+QX30wxHDPpIxktjgR06vRE6fpVLYjsTYvjmf6bAVdD1411pILyA3aj/0fom0
-	3dMxJoCzLNam1SdA3lcftYrA1
-X-Received: by 2002:a05:7022:e80e:b0:1b5:3b6e:e1ed with SMTP id a92af1059eb24-1b55690bcf3mr6730337c88.32.1795263864702;
-        Sat, 21 Nov 2026 04:24:24 -0800 (PST)
-Received: from ip-192-168-31-150.ap-south-1.compute.internal ([2409:40d2:10d7:e30e:302e:83a2:5a33:afcc])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567ff27bsm14733690c88.6.2026.11.21.04.24.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 21 Nov 2026 04:24:24 -0800 (PST)
-From: Tanuj Sharma <ertanuj96@gmail.com>
-To: ntfs3@lists.linux.dev
-Cc: almaz.alexandrovich@paragon-software.com,
-	linux-kernel@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	Tanuj Sharma <ertanuj96@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] ntfs3: fix out-of-bounds write in do_action() bitmap operations
-Date: Sat, 21 Nov 2026 17:54:17 +0530
-Message-ID: <20261121122417.72854-1-ertanuj96@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <2026112132-spending-smoking-5e7d@gregkh>
-References: <2026112132-spending-smoking-5e7d@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lBJKd2gZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C998D1F000C0;
+	Sat, 21 Nov 2026 12:26:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795263982;
+	bh=C0neY9nO3KCbPA/3zfsAmJZKfNu+EcSR5phNhBE+ICg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=lBJKd2gZtJqmOhALUfIZFUGEvMU9nWGSgsPCQlQVBuILcl3ryODy3jrX3L+5KxaNE
+	 A5/UKy/VB9vg4xYZhigz4P5PaLg6q1sMJT26HWNFfUv4AiGMxWPn7/En1V+bzGAWZ5
+	 VnEF0dOMlckg76+ITSXFVB4vjFF5pTCqrn2L8KbdQ+SSEWVkRnqQ6/0ZBXkJYcFbMz
+	 ftRuhMvhUqewdzBr+hYn/LvI7xnCqMSiKxGDJT8W4F4NOTXhnuQ1sQ2OPsDwmJ0IDx
+	 2Rig2v2Ew16plr0Ar6yUMRxKRLYoYEh+XLDaTaoxTeXyM6DEL4tncZsQ13OigoyRT5
+	 qgkzmGsCcGG4w==
+From: David Hildenbrand <david@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Nico Pache <nico.pache@linux.dev>, 
+ Jerrin Shaji George <jerrin.shaji-george@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, virtualization@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Shao Mingyin <shao.mingyin@zte.com.cn>
+In-Reply-To: <20261120-b4-balloon_nr_pages-v1-0-d8944b587819@kernel.org>
+References: <20261120-b4-balloon_nr_pages-v1-0-d8944b587819@kernel.org>
+Subject: Re: [PATCH 0/2] mm: two NR_BALLOON_PAGES accounting fixes
+Message-Id: <179526397954.4537.13435944828068166975.b4-ty@b4>
+Date: Sat, 21 Nov 2026 13:26:19 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,100 +66,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-In do_action(), when replaying log records for ATTR_ALLOC attributes,
-the buffer is allocated based on bytes_per_index (typically 4096 bytes,
-kmalloc-4k) but bitmap operation bounds checking uses lco -- a larger
-value derived from lcns_follow << cluster_bits (typically 8192).
+On Fri, 20 Nov 2026 11:34:41 +0100, David Hildenbrand (Arm) wrote:
+> two simple fixes for NR_BALLOON_PAGES accounting. I can take both
+> through the mm-core tree.
+> 
+> I tested patch #1 briefly in a QEMU VM with two numa nodes.
 
-This allows SetBitsInNonresidentBitMap and ClearBitsInNonresidentBitMap
-opcodes to write past the allocated buffer into the adjacent slab object
-when processing crafted NTFS images with malicious $LogFile records.
+Applied, thanks!
 
-The bounds check compares against lco (the full LCN extent size) but
-should compare against the actual buffer capacity. For ATTR_ALLOC, the
-buffer is only bytes_per_index bytes, allocated here:
+tree: mm/core.git
+branch: balloon-7.5.misc
 
-  if (attr->type == ATTR_ALLOC) {
-      t32 = le32_to_cpu(oe->bytes_per_index);
-      if (bytes < t32)
-          bytes = t32;
-  }
-  buffer_le = kmalloc(bytes, GFP_NOFS);
+Applied patches will appear soon in mm-next, followed by linux-next.
 
-But the bounds check uses the larger lco:
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
 
-  if (cbo + (off + 7) / 8 > lco || ...)
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
 
-With bytes_per_index=4096 and lco=8192, any bitmap_off >= 32768
-(byte offset 4096) passes the lco check but writes past the buffer.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
 
-Fix this by computing the bounds limit as the minimum of the buffer
-extent (cbo + bytes_per_index) and the LCN extent (lco). This ensures
-bitmap operations cannot exceed either the allocated buffer or the
-on-disk extent, and also prevents a crafted bytes_per_index larger
-than lco from weakening the existing check.
+[1/2] mm/balloon: fix NR_BALLOON_PAGES accounting during page migration
+      https://git.kernel.org/mm/core/c/99d23a24
+[2/2] vmw_balloon: account 2 MiB pages in NR_BALLOON_PAGES
+      https://git.kernel.org/mm/core/c/7e980d06
 
-Found by code audit and confirmed with a crafted NTFS image that
-triggers the OOB write on mount.
-
-Cc: stable@vger.kernel.org
-Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-Signed-off-by: Tanuj Sharma <ertanuj96@gmail.com>
----
-Changes in v3:
-- Fix coding style: move bmp_limit declaration to function scope,
-  remove bare blocks
-
-Changes in v2:
-- Resend with proper formatting (git send-email)
-
- fs/ntfs3/fslog.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
-
-diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-index 1879d04e3cd05..373d84545a8fe 100644
---- a/fs/ntfs3/fslog.c
-+++ b/fs/ntfs3/fslog.c
-@@ -3125,6 +3125,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 	u16 roff = le16_to_cpu(lrh->record_off);
- 	u16 aoff = le16_to_cpu(lrh->attr_off);
- 	u64 lco = 0;
-+	u64 bmp_limit;
- 	u64 cbo = (u64)le16_to_cpu(lrh->cluster_off) << SECTOR_SHIFT;
- 	u64 tvo = le64_to_cpu(lrh->target_vcn) << sbi->cluster_bits;
- 	u64 vbo = cbo + tvo;
-@@ -3751,8 +3752,12 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		off = le32_to_cpu(((struct BITMAP_RANGE *)data)->bitmap_off);
- 		bits = le32_to_cpu(((struct BITMAP_RANGE *)data)->bits);
- 
--		if (cbo + (off + 7) / 8 > lco ||
--		    cbo + ((off + bits + 7) / 8) > lco) {
-+		bmp_limit = attr->type == ATTR_ALLOC ?
-+			min(cbo + (u64)le32_to_cpu(oe->bytes_per_index), lco) :
-+			lco;
-+
-+		if (cbo + (off + 7) / 8 > bmp_limit ||
-+		    cbo + ((off + bits + 7) / 8) > bmp_limit) {
- 			goto dirty_vol;
- 		}
- 
-@@ -3764,8 +3769,12 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		off = le32_to_cpu(((struct BITMAP_RANGE *)data)->bitmap_off);
- 		bits = le32_to_cpu(((struct BITMAP_RANGE *)data)->bits);
- 
--		if (cbo + (off + 7) / 8 > lco ||
--		    cbo + ((off + bits + 7) / 8) > lco) {
-+		bmp_limit = attr->type == ATTR_ALLOC ?
-+			min(cbo + (u64)le32_to_cpu(oe->bytes_per_index), lco) :
-+			lco;
-+
-+		if (cbo + (off + 7) / 8 > bmp_limit ||
-+		    cbo + ((off + bits + 7) / 8) > bmp_limit) {
- 			goto dirty_vol;
- 		}
- 
 -- 
-2.43.0
+Cheers,
+
+David
 
