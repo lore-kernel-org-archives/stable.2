@@ -1,115 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795230687;
-	b=30k4on792u3Ckcm3cbLvcOS8fMgwLVwJA1r0iYZgyYEGQVszBlbWZV2gnlYHuZ4hxfV0
-	 xngu3Ut314etRlXtWshOR0/lrPApwlEEpO1kPcJ7WOp5+rSxEsU5Bk2ziFY8rm0UNdXye
-	 25TOeamllOsKjk5sfCZqzhhNKN9p8QhsGB0TkfKkquDHxJuGzCRtzPULuWEQ5jR3/QwGZ
-	 8kCmDfaeWRj7Edru4Fps/XyaLVboRiujNW0d9UV6rrBpjkVaT8glqUoMgiRRcWLHJXknN
-	 BIf8Jlu8p0Ac2FHs53BfIEpVd/bWaeshSWUyZE/WzU6V+6FaZk7y/ypRZV/KKBKMSmQ==
+	t=1795230863;
+	b=jX+YG9GBxdnFGIAvHE6QUF7jrbsxzl2zDL0LsnW1nREHbOCSKDpVUZ+6mLxM4ew4vsbp
+	 gmQmbJf7VyhoyOsFOSj2sekFt0SFeKXt3yb7YvNgiJz/w4Yrm3jPybyqUTENTmagkwCt6
+	 z/boc847tZrvgj7o/aWOS25M5rCGHCESGtM8oqLLE+AByUbnvJsFn2hDQ3QYlL8mEUg+j
+	 qOynJ7MbL+A+p28C1c8T5H4pj3r5TxixwwuG/+ZckiTArwwbO+D7OAw5bJFhRV8UnloMl
+	 uRKIkOyU+jqJfwnVTT5t4qiTPWYv9oEjhNJhp7tkemI/kbnh33ASFKoYIHomGaKEKsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795230687;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=R8xhVddauQYCNhO1z3ZGmw22iFacrhkUe2K9cVCZ8Xc=;
-	b=huZ/pKUyGCGRrX4jKtUoH59aEQXj9kvZwN34a8yULodfPMCmlx6wKJsXGhj4WAMAIzvc
-	 SVzDQwhV1rFRVr/69JG4LT5VAjz3tCbaBAt01Iu0S1HUWPPDesnWdzQdqD3f9qcSVVdcs
-	 40HBao/3oAW7fNdh+CLsPTBW1Unu10VEBqFG3J4yUERqFjrlnW2VDM/PCe6axH9oXi+Lj
-	 xrk0QEEl/IZq9vMQrcJ7AAV9gM4jxEvBKxN4sG/y1B5XwMKNAVONvd7Rqr++9jWqRlPbn
-	 N6XiyJCXrZRygGdLB4O8RVxBvU50uxn/puqzxzcCfaObBhzmiEMm9hb5Oy6Gr41agsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795230863;
+	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
+	 References:Date:MIME-Version:Content-Type;
+	bh=8d6Im6PTk3WGdL/i8PPRCcoHusMyMhbP1LsxiBFyWXo=;
+	b=2J5r2CRaZP/dwKoZX+HCLAYoMxLasBfBlaYRiFJEqETK0eqrMrtIC6c0+TBieyjhJUMH
+	 GBkCnzEhZuRgAi5u/MRppc3NITdGWuioKOTescIgPmUMEU5jMk2U966G31CmUSCjj/cP1
+	 e97TMxa4C8aZK1gE2DaNCzaTgaPB8vvpDVuy90PsYPOXzlg/guejQVn26kvy0XABS33u8
+	 NQQwS/GE285RHuH1RsTEXUI4cmUkmcetBkQ9HQhZD3foerGVXEsHjWWfutCOiCTQJTxif
+	 6CS98iFoijWeYFu56j9jELAmahsr37RJ2dZSuyQ3dbiCE/qMWfPpG3mo8CAgfcmwPAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=iW8IY+Dr;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=urHHX4ed;
-	arc=none smtp.remote-ip=202.12.124.158
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehfbIoDd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB61C606A682
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 03:11:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB61C606A682
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D606606A334;
+	Sat, 21 Nov 2026 03:14:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=iW8IY+Dr;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=urHHX4ed
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 4B0357A0426
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 22:11:20 -0500 (EST)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-05.internal (MEProxy); Fri, 20 Nov 2026 22:11:20 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1795230680;
-	 x=1795317080; bh=R8xhVddauQYCNhO1z3ZGmw22iFacrhkUe2K9cVCZ8Xc=; b=
-	iW8IY+Dr7HZjD7BysCBRzxseyllsHHI3VtylsFq8BjBfGuG/xgCYp7vnc/MEiHi8
-	ORLDWydjogAclx2ZB77K6cP4dScpIHCrPvT3YWcOhbkrqTmf+KIEK+3HpsvFiURy
-	PybByQ5zjDX2ZQ6myVmuw3jfrxNyFWhQq7fI87TAI6TC+6i7QgGm7kpfvdbYD+Vu
-	0FI+C7R6jBHjRZefP5t1G/yZH/C0iv/1b5UbO18S6pbs9spTo08r+Q6JB0oD9hu6
-	jUignUJhjMp6DPQEe1TeZyTOzcFbLe0BIO4T5dYxzbg8G01/0niMZBXYpkLVsNC+
-	8TTIPeHnZv7dVViCiGmE4Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795230680; x=
-	1795317080; bh=R8xhVddauQYCNhO1z3ZGmw22iFacrhkUe2K9cVCZ8Xc=; b=u
-	rHHX4ed5gaFqZHjb4zPYrTY/tjYHlL7+KqAKOzMwpsEYrSmUl+5YJ7BOxE9Pwbns
-	pEUZY3uK9Cvq7GLkpV7LFlGBUe+FMyO+zk/oOsQifv2NkbB2URLRCEynQYRqnM9d
-	0urLgw96nkLxas3r45aYtZGY7MmhbmhD7WDupxu2K1YAeeimxQX1xg36/kxaK+pf
-	mPVQElndnJpfcK92+ewJtBfFd4h37/dVE/YcohFXY6M+/BL/FRx5gfJ7yzNS1xqy
-	iIDo5BbczAGYm7kQ7mrq3nMZcPUNkFP+r6q16S9Vk5au5bVJ79h96IuWmbYhzFTe
-	5Tj1susAmJ8t4cW2pcsXw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795230680; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:MazjCxu88X44s/LZ7QW0OI9gFZO39VckG9MC4Ttt6jUBjPQ
-	rLOubnwCaF9KD575r6/feAzAErVk1uZqz4x0ESXD73ilPAN3E9R7kJ0UypWS8uNV
-	yEZifBSGc1d+BRWvn1vHWsz9eTrNkHrducjxMDZcwpRVL+Vyy0Cf6Ml7JTKLfq41
-	AIdjLLoyr24aBlS7wFk+Sn2gqnDxjr/mPXkw0BLSKPMuL2h5OzofzvJoWUIWx6U3
-	NPEB+cYVH1lVNs1P96g2/cDQ3tM/corkjlQfg6xFJNREt4uWaN369gxgUoxkGWDp
-	HZNnDVX9ZVuT7MBaLLpcBFgyOryXvl5JYeGLDoA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:Jwq6Ga0aWchymV9EQFFGRjdrMrtwwjxRHJuVwYW9e38=:UwHhF0XR/gykUXEqs5hr6zVsM95RsZ54NeguETZHNhs=;
-X-ME-Sender: <xms:1wsBay0O1pZDI31hg8y7n85t5RRj2qeIhW2zDPCKFDcufHB-e3l1hQ>
-    <xme:1wsBaw_GX31tnO9I1bh_37RtRLqm3jrbF6AnMu98AzeM3XmwkV0V9HGSM0oKBGIU6
-    bvb8QpYHtBYA62LeWKhQuuqc9FIrtB-sUYb8nhncjdhD3EmruEKC8ZT>
-X-ME-Received: <xmr:1wsBa2a1oA7fK4Wg_uR0KfHySNNIK85R6J_PrsxQU18O172aNHotjJ-LIgFn2XMWCeASOU8ZzOgEPlV3g8_Vfwc9O5pnbOLS>
-X-ME-Proxy-Cause: dmFkZTGf4PqXj0leBYzwi7h6paOeUgcxnGsUESJqkMcnzwRNO40gtGVOPqm1qJZXpVRrOq
-    wZY18N3/OXRFehtjymQ9Uhef22D9t2uu+yfrErjnJzcKzQLyLYwmgGEDVLJ8skRlnjdMHe
-    P2vraea/4yKISih/uwD3VLZtuK3Pw9t+nCXAZfCu2GkKZf656il5D+mGelW/3vd1b2lxnt
-    q+c0MSPYli5UDqwt+NuP6MEDASEw+hTfbpCt4he19kz+EQpl3UnWChyI7O7OHFcb2jTN14
-    hoLAMtSa5CYnZLwdzc8qPleMXWiOZqBYjtLsJcDUnf0+jae23BydsaHpuUy8j0uH84xCQS
-    fpQMZ1ZIE1mCpw6oRzT1CiCaCAY+ZyRFg9Geg3hHCvPtG1Vnu32k3boH8EJRPyjDGeBT5m
-    olVVdzNAoPXUE+kmWusLvERTyrkSvVYl2C8JwmVN9DViBhfDoU4jBcarOUImgmsrk0Zfmk
-    6QLiOM+A3rc9BMulJjdFxRYRikxtY7bVX8Gorpna2OxPpxs9VGunhChqxJmE36ngA3PzxO
-    VpgVBCIcEndE7lrIVR3b+3jAxz6VNYxxba6I+94YUfz44wz2gLdVjbv1x0OcWRvK43U4xE
-    hhNv86p1Yyz4KsR4rcwwGlGWCuxBNrAL4cLKmdEoDIfUno3ccjurbQs6dmfg
-X-ME-Proxy: <xmx:1wsBa3zK4Z51Ak_0jBeqET3w6u3Ig3tWABhxyT3IeimP5_Mq8fNWPA>
-    <xmx:1wsBa89Xyi-VuSRRby-UCAGXQwHS_NJyGZXnfPw3vR6UizoeHP2Tpw>
-    <xmx:1wsBa7zzOlnWY_CWouWU1zYj0Sl7RpIkw9OzTb3CiAbJzPGGNj2I6Q>
-    <xmx:1wsBa5vQLri8G51TJZmEMi7WVkf5kqzvjCmvGAr3-rG0fx-hvlHjuQ>
-    <xmx:2AsBa_bAoMdg9ll0ZuylAYhJklX5vxJTJgGwFfhXs9XH_2TSDl-LYqTv>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 20 Nov 2026 22:11:17 -0500 (EST)
-Message-ID: <25582513-f75a-4ef2-8659-7b28d444e962@pobox.com>
-Date: Fri, 20 Nov 2026 19:11:16 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehfbIoDd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6AC1F000C4;
+	Sat, 21 Nov 2026 03:14:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795230862;
+	bh=8d6Im6PTk3WGdL/i8PPRCcoHusMyMhbP1LsxiBFyWXo=;
+	h=To:Cc:Subject:From:In-Reply-To:References:Date;
+	b=ehfbIoDd/Tt1a6Oc+SweuGZuUfRJBIJAxV0FfDZs0/7tkEhZHMiKJ70zDIM6C+nxE
+	 KG3jgsgdC1ZNPAAq2rMJkGpLEK3z1G0KQwdCfYrRbup5CZQ7FVugWRsPEPUEDtNMxu
+	 vp7JA/WpIg+i8kYby1ZmG3ll/m/1YWUM4mE9jOY+xp59TccwCRNEw1lV51Gd5D/6oq
+	 /Pkj0PVSr9I6Aklp9MRrqA5uORla3mVJWrb23Ir43uIPJtTa8XD5le9CcwavFB3c1P
+	 QPpo4qKNihMJfHxwpQe7bN4mxHQQEOm5urYe1QDy3tNIkk74Fgdu+8uNndFlOJV8f2
+	 VrZMtCbsooJIw==
+To: Christoph Hellwig <hch@infradead.org>
+Cc: Keith Busch <kbusch@kernel.org>,  Zakaria Belkadi
+ <zakaria.belkadi@inria.fr>,  Caleb Sander Mateos
+ <csander@purestorage.com>,  Jens Axboe <axboe@kernel.dk>,
+  linux-block@vger.kernel.org,  linux-kernel@vger.kernel.org,  Kanchan
+ Joshi <joshi.k@samsung.com>,  Anuj Gupta <anuj20.g@samsung.com>,
+  florence.schadle@ssi.gouv.fr,  frederic.tronel@centralesupelec.fr,
+  louis.rilling@irisa.fr,  stable@vger.kernel.org,  "Martin K. Petersen"
+ <mkp@kernel.org>
+Subject: Re: [PATCH RESEND] block: pin user PI pages for writing when ref
+ tags are remapped
+From: "Martin K. Petersen" <mkp@kernel.org>
+In-Reply-To: <awB_xd60To4UawrJ@infradead.org>
+Message-ID: <yq18q2mnb36.fsf@mail.kernel.org>
+References: <awBnB-55HQ54C1x6@infradead.org>
+	<20261120162257.498238-1-zakaria.belkadi@inria.fr>
+	<awB8OODx0fCFGc5G@kbusch-mbp> <awB_xd60To4UawrJ@infradead.org>
+Date: Fri, 20 Nov 2026 22:14:21 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,46 +66,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 0000/1736] 6.12.119-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261120054951.366579794@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261120054951.366579794@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 11/19/26 9:57 PM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.119 release.
-> There are 1736 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 22 Nov 2026 05:44:39 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.119-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+Christoph,
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+> We could fine tune based on if we need remapping due to partitions, if
+> we limited remapping to partitions, but I think Martin last time
+> voiced an opinion that remapping could also be used to pass in
+> arbitrary tags (which always felt a bit odd to me).
+
+The application has no way of knowing what the first ref tag should be
+except in cases where it is writing directly to a single block device.
+Once the storage configuration involves multiple devices, or when
+writing to a file, the concept of the user-visible ref tag being
+LBA-based goes out the window. All the application knows is that it is
+writing to block N of a given file.
+
+That's why we then allow the application to pass in the seed value to
+validate the PI against. Just like DIX and ILBRT/EILBRT, except this
+particular translation happens at the application-kernel boundary.
 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+Martin K. Petersen
