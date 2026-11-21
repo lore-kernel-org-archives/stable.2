@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795295864;
-	b=qovaG4/rxu/iENdI8wgmoxQ+lWVuQQ1a1x2LM0Jt29v+ubznvx+1hizH1/gIrs1U6nxy
-	 NtKGrC5nlxAizO3ZQy3qYRU/vdzb7ibVMIT71763ZhUC3tdzckyrgcJ59D+ln/+wkpWlS
-	 1CEHpQVenjqweyNhDETbMn17Kq5otPhaW3ufvMGmMVVtutVG+tIZZPv+6nnukvqUWmybS
-	 2eR9FpFe+YMwfyUkoiEpIzm8xhH/lFtUMkgjyMrDPQhG/E7Rzj9FEep13KvBQS4eP59Ao
-	 CFwq9qrAd0nx/QsfRon5XAx5m4zZGHoebQFeOWx3YAIA3jzH3ycAKdyladUYhJX8RBg==
+	t=1795295862;
+	b=XBg+Ydq9ULMHasVwRG4QksrCdvp0gIKX9KgCNcJp8gOLGcqcHXeZvqjSkGHsiYdoh702
+	 eWVDtEBC3gVC3OiAjsMQK5cawbwr5B28neKChmBKjxAn/ytcndNyizWZWrkFkvaoSQkxs
+	 VQo20Zmz7Q3AA+2m+qPEn74CRu7Afpe3nRTV5E8JQ9aCkqcON8RWbLd2OTthzecgd7DXo
+	 f2T8/3HjUU55pqQbzhlSJdhGADzXEWtMRnLORqP1eM+pQnIl2GsU4iz2WHvunQ7zn85cZ
+	 hg7GuVwvOluTlOoSFZNmsaTvFPsLejQpryt6ghw3mY1dZQX5TLANsNvprzuHi6fVaXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795295864;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795295862;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=tcvRTnOwn9O3TTbSJaDM4Da7hwCv/Q3I4UX7KXPCWZQ=;
-	b=wrmvZiukxOpw+SwFbHQxrC/cHvohNAvOPc33xqT4J6AQZ3seN87cL8aIl9iWRxT2I7D6
-	 D5QuacekTcmw+do++rlUi9Cz4qG1G1/skHG/D5jLukQql3aZ3BwrAaNGc2/Xvzv7e/VJi
-	 pHBxJnsYb+Gcx42//+KSKId9vPxPrX5ylllc2F1Hieql267IfZWHooBa/6kENOt+x4uum
-	 B5qgDA4tuxLrZeN+64m7O2DtYREcOQXiAxm4s8ZlD4ZlVgQsXbhEgU6wI63iqYa0s+plv
-	 5e7C6rUO/lR8IW1G1s7zEr43ktBvkiUnDRbOieenA6txUhjehM5B2Q+9+3N9ovvaJRA==
+	bh=3CgYEOCuySKfkNOqIxxRN+n3wk7VUoG7yJZDvZ1nM8s=;
+	b=ywStawXJHARgLP9byiCY1F27I/BvWUhdUTNRnjU5FKfa5Hg/+OIvT/rq6dWAwajtNnX1
+	 mn7Mpo93+L6O+LQv1QbmZF2I9a7a8DYQ2hKm4KlK4h8XB6TbqNsFDER2nCoWOv+4XrdfB
+	 jUbNhmhKlK/nspN2ltHGFxm1iy/C5YXEqvm3k6jAebpwTSjO1A34bc52W30IUTXZ1wK6p
+	 dtWSOoldA/aIcQXSGMQX2uSKwvy3TFjbR2TSgwLG8jbihFduMDkTokoqSFkoQZ/VpNpmU
+	 DrdseGj3IZVjO5JruzHA7BlNhya8Fxl/CtP/8i3qS0KqdZk+VYZzwAxn/td5dZr10/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GTJa/YqV";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tmop0Iwu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E70606A334;
-	Sat, 21 Nov 2026 21:17:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GTJa/YqV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B35B1F000CF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE8F606A330;
 	Sat, 21 Nov 2026 21:17:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tmop0Iwu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA1471F000D4;
+	Sat, 21 Nov 2026 21:17:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795295864;
-	bh=tcvRTnOwn9O3TTbSJaDM4Da7hwCv/Q3I4UX7KXPCWZQ=;
+	s=k20260515; t=1795295862;
+	bh=3CgYEOCuySKfkNOqIxxRN+n3wk7VUoG7yJZDvZ1nM8s=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GTJa/YqVEp4Gt0S+Fx0JQjrXfuKdmeejH3MqQfeQrJjiaONe+UCxzDKqJ6CSJGRFh
-	 OC/LyocHpo735f0ArPe438Y+fBXOnWNMaMSkJXgx/E7VUJEa/iX3Y/eOwynIAIuL7R
-	 xRvWoNnILZFElNfVAoyoayMrTCUEQ7fz1g8OuJNm9nHi+/gsV1i2nRZkyItzNEpjvV
-	 DL3mOvK5EDtbXb7Rj90JvpZKDXKbfm6sIWPiFE7HdcF/TXahV0cw82qa/eTWKrwynu
-	 9D4RMSAQ9J+GyPxwTR4rpqAmDMq26fijY79LBxG2NsVz8eSPJkBHvxfNJkn3loFzrg
-	 VqZBOpnRZEKEA==
-Subject: Re: [PATCH net v6 5/8] ipv6: icmpv6: don't quote decrypted payload in
- icmpv6 errors
+	b=Tmop0IwuxMegvTe6zdSoy6VYlMPeeNhp0bvnxZsam6EzXeFi/aQ0ILKwnxk5wXqe6
+	 8DIGxDA+v2Rfw0BbkgpD8Y8XJTHaee18R+8MXO+nrDM/mPUHJDAzfP9T6hF0CfZZ1q
+	 uj7cNUs0DnoiAChSGk8EXxK3y47jVK47vzN5RMSFTFKeVulSz+u4ThFNbyvcVxx1jP
+	 y0tDUWNHtqUeJ+5EX5tvaOSrTmW02JIBvyV43fRLM7zaCwj9mB8ouxG5cAIoZk3lmG
+	 UvgY6EOyJRdymWTvkuzjLIPz3OzsNHpOmQJ9rj1z3mz/a9Kixwda9uTwLSulqNWt46
+	 d3YkcrPRZuWKg==
+Subject: Re: [PATCH net v6 4/8] ipv4: icmp: don't quote decrypted payload in
+ icmp errors
 From: netdev-bot+sashiko@kernel.org
 To: toddfreed@meta.com
 Cc: netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
@@ -54,11 +54,11 @@ Cc: netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
  rrameshbabu@nvidia.com, sd@queasysnail.net, saeedm@nvidia.com,
  shuah@kernel.org, horms@kernel.org, tariqt@nvidia.com, weiwan@google.com,
  willemdebruijn.kernel@gmail.com, stable@vger.kernel.org
-Date: Sat, 21 Nov 2026 21:17:42 +0000
-Message-ID: <179529586258.3135.12190616828136497053@kernel.org>
-In-Reply-To: <20261117203137.804424-6-toddfreed@meta.com>
-References: <20261117203137.804424-6-toddfreed@meta.com>
-X-sashiko-severity: High
+Date: Sat, 21 Nov 2026 21:17:40 +0000
+Message-ID: <179529586053.3135.7106623626318776669@kernel.org>
+In-Reply-To: <20261117203137.804424-5-toddfreed@meta.com>
+References: <20261117203137.804424-5-toddfreed@meta.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -74,7 +74,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -82,107 +82,91 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The fix is incomplete on IPv6.
+- [Medium] The patch blocks decrypted-payload quoting only in
+  __icmp_send() (net/ipv4/icmp.c).
 
 --
 
-ipv6: icmpv6: don't quote decrypted payload in icmpv6 errors
+ipv4: icmp: don't quote decrypted payload in icmp errors
 
-This commit stops icmp6_send() from sending an error about a received skb
-that the device has decrypted (skb->decrypted). An error about a locally
-originated decrypted skb is still sent, but only if its route goes to a
-local address (RTF_LOCAL). This follows the earlier IPv4 patch for
-__icmp_send().
+This patch makes __icmp_send() skip the error when the invoking skb was
+decrypted by the device. Locally originated skbs are the exception: if the
+error is routed to a local address, it is still sent. The netdev and bridge
+nft reject paths are left to a separate nf-next patch.
 
-> diff --git a/net/ipv6/icmp.c b/net/ipv6/icmp.c
-> index d8203ebad8827..574a42d279e03 100644
-> --- a/net/ipv6/icmp.c
-> +++ b/net/ipv6/icmp.c
-> @@ -778,6 +778,15 @@ void icmp6_send(struct sk_buff *skb, u8 type, u8 code, __u32 info,
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023234640.1459291-1-toddfreed%40meta.com
+
+> diff --git a/net/ipv4/icmp.c b/net/ipv4/icmp.c
+> index 90c0e22c29bea..e11008aa4cecd 100644
+> --- a/net/ipv4/icmp.c
+> +++ b/net/ipv4/icmp.c
+> @@ -979,6 +979,18 @@ void __icmp_send(struct sk_buff *skb_in, int type, int code, __be32 info,
+>  	if (rt->rt_flags & (RTCF_BROADCAST | RTCF_MULTICAST))
+>  		goto ende;
 >
->  	np = inet6_sk(sk);
->
-> +	/* Don't send parts of a decrypted skb onto the network, see
-> +	 * __icmp_send(): no error about a received skb. Before the rate
-> +	 * limit, so that such an error costs no credit. The check of a
-> +	 * locally originated skb below needs the route of the error, which
-> +	 * is looked up after the rate limit.
+> +	/* Don't send parts of a decrypted skb onto the network. A received skb
+> +	 * was decrypted by the device, and the transport header may have been
+> +	 * encrypted. The different offloads can't be distinguished in all cases
+> +	 * so simply don't send the error.
+> +	 *
+> +	 * A locally originated skb to be encrypted may be quoted if its source
+> +	 * address (target of the error) is local.
 > +	 */
-> +	if (unlikely(skb_is_decrypted(skb) && skb->skb_iif))
-> +		goto out_unlock;
+> +	if (unlikely(skb_is_decrypted(skb_in)) &&
+> +	    (skb_in->skb_iif || !(rt->rt_flags & RTCF_LOCAL)))
+> +		goto ende;
+
+[Severity: Medium]
+This check only covers ICMP errors sent through icmp_send(). Can a
+decrypted payload still be quoted in cleartext by the other IPv4
+unreachable builder?
+
+nf_reject_skb_v4_unreach() in net/ipv4/netfilter/nf_reject_ipv4.c is
+unchanged by this series and has no skb_is_decrypted() check:
+
+net/ipv4/netfilter/nf_reject_ipv4.c:nf_reject_skb_v4_unreach() {
+    ...
+	len = min_t(unsigned int, 536, oldskb->len);
+    ...
+	nskb = alloc_skb(sizeof(struct iphdr) + sizeof(struct icmphdr) +
+			 LL_MAX_HEADER + len, GFP_ATOMIC);
+    ...
+	skb_put_data(nskb, skb_network_header(oldskb), len);
+    ...
+}
+
+It is called from nft_reject_netdev_send_v4_unreach() and
+nft_reject_br_send_v4_unreach(). The nskb comes from a fresh alloc_skb(),
+so its decrypted bit is 0, and it goes out through dev_queue_xmit() or
+br_forward().
+
+With a netdev or bridge family reject rule matching device-decrypted
+traffic, this would still send up to about 508 bytes of kTLS payload, or
+the PSP-covered TCP header and payload, unencrypted.
+
+nf_reject_skb_v6_unreach() in net/ipv6/netfilter/nf_reject_ipv6.c has the
+same gap, with a quote of up to 1220 bytes. The icmp6_send() side is
+handled by the later "ipv6: icmpv6: don't quote decrypted payload in
+icmpv6 errors" patch in this series.
+
+The commit message says:
+
+    nft reject in the netdev and bridge families builds its own
+    error (nf_reject_skb_v4_unreach()); a separate nf-next patch applies the
+    same rule there.
+
+This patch carries Fixes: 784abe24c903 and Cc: stable. A stable backport
+would then make an inet family reject of a decrypted packet send nothing.
+A netdev or bridge family reject of the same packet would still send
+plaintext.
+
+Should the netfilter builders be fixed in this same series, or through
+nf/net with the same Fixes: and Cc: stable tags, rather than nf-next?
+
 > +
-
-[Severity: High]
-Does this cover the NDISC Redirect sent from ip6_forward()? That path also
-quotes the invoking packet, but it never goes through icmp6_send():
-
-net/ipv6/ip6_output.c:ip6_forward() {
-    ...
-	if (IP6CB(skb)->iif == dev->ifindex &&
-	    opt->srcrt == 0 && !skb_sec_path(skb)) {
-    ...
-		if (peer && inet_peer_xrlim_allow(peer, 1*HZ))
-			ndisc_send_redirect(skb, target);
-    ...
-}
-
-None of these conditions look at skb->decrypted. ndisc_send_redirect()
-then copies up to about 1200 bytes of the original packet into a new skb
-from ndisc_alloc_skb(), and that skb is not marked decrypted:
-
-net/ipv6/ndisc.c:ndisc_send_redirect() {
-    ...
-	rd_len = min_t(unsigned int,
-		       IPV6_MIN_MTU - sizeof(struct ipv6hdr) - sizeof(*msg) - optlen,
-		       skb->len + 8);
-    ...
-	if (rd_len)
-		ndisc_fill_redirect_hdr_option(buff, skb, rd_len);
-
-	skb_dst_set(buff, dst);
-	ndisc_send_skb(buff, &ipv6_hdr(skb)->saddr, &saddr_buf);
-    ...
-}
-
-ndisc_fill_redirect_hdr_option() calls skb_copy_bits() starting at the
-network header of the original skb. The decrypted L3/L4/payload bytes
-would then go out in cleartext inside the Redirected Header option.
-
-sk_validate_xmit_skb() drops the forwarded packet itself ("unencrypted skb
-with no associated socket"). That leaves the redirect as the only way this
-plaintext gets out of the host.
-
-On IPv4, the call chain ip_forward()->ip_rt_send_redirect()->icmp_send()->
-__icmp_send() reaches the check from the previous patch, because skb_iif
-is set. The commit message says:
-
-  as in the previous patch for icmp, don't send an error about a received
-  decrypted skb at all
-
-For redirects, though, IPv6 does not match IPv4. Nothing later in the
-series seems to change this.
-
-As for how a decrypted skb gets to ip6_forward(): the mlx5 PSP RX decrypt
-rule in setup_fte_udp_psp() matches only on ip_protocol == IPPROTO_UDP and
-the UDP dport. It does not match on the destination address.
-mlx5e_psp_offload_handle_rx_skb() then sets skb->decrypted. With
-forwarding enabled, a PSP packet sent to a non-local IPv6 address would be
-decrypted and then forwarded.
-
-kTLS RX offload can also produce a decrypted skb whose destination is no
-longer local. One example is when the local address is removed while the
-offload is still active.
-
-The !skb_sec_path() condition already keeps redirects from quoting frames
-decapsulated by IPsec. Would a similar skb_is_decrypted() check make sense,
-either in the redirect condition in ip6_forward() or in
-ndisc_send_redirect()?
-
->  	if (!icmpv6_xrlim_allow(sk, type, &fl6, apply_ratelimit))
->  		goto out_unlock;
->
-
-[ ... ]
+>  	/* peer icmp_ratelimit */
+>  	if (!icmpv4_xrlim_allow(net, rt, &fl4, type, code, apply_ratelimit))
+>  		goto ende;
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261117203137.804424-1-toddfreed%40meta.com
