@@ -1,64 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795298103;
-	b=ihWJAMl1wTw4aa0Xm0FSdu6B3K5Ykzl4U1w5mOv2wKcjSBsJ7wV3bi2guXmasM3tclJJ
-	 6Q22Yip1SgmKBqadl5JRlNObSplUdWzuSwNqBHozRaleLzF7dLS+BP40m/Ycpa0Xh4Mbv
-	 63/DjAgyS1zIFMnqmBoStS9OOGbmHjU4+IL1ZKjSRDYjSXIGj0nl7qNrmKzHEl9g2jUDI
-	 QzVWyZkPBGi/qCvo319KSVZjlM2cB+CZqy96O4pNjVW9IVwfurvUyTcyjVHSUJAqz11J7
-	 4kSfpiYCf0D1YfrNLqHTHaPDJqA1z1uFmU52VOIxo0B6jS8y7zD4y8G68xayPpKMI6g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795298103;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=kGmVY32+NuAnAOyP2Ctly8NmP20icvToykE7n9QXz6o=;
-	b=hZEX3fvViEsdhxTbJSyLYGHhtCNGlEJxZRRji4aDm1265XIVbNiRZDHfzkdlbbahQhXS
-	 kiRyBE7Vl9nmGskCTrrXewAskXDWnDagvDqV6M8bTubaCvRe+aHiNzLA3HA/KgvnI8h+w
-	 j2YkbU4qdbC51dL6XVKGjo95jivZPxfAdYT0lBFxbWNxJldejozoTBOxlfNkyTwcb9nAH
-	 K7iOekYOFSvm1cAMYDkI315ABSckjUoK6i41EJvUqphCZGXBs5YwogVVqr9/lzjV4ZMHE
-	 6h9sL+sA/N2BObm968D/+xFRFLcBDxricaZ6Yojl29h+tpq9jA85UQlXuke6M6n8mGA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ikuyo.dev;
-	spf=pass smtp.mailfrom=ikuyo.dev;
-	dkim=pass header.d=ikuyo.dev header.i=@ikuyo.dev header.a=rsa-sha256 header.s=s1 header.b=nRBHZWKB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795298143;
+	b=WAHifjXXEoJm/edug5ggD+PChsfn5vBzM1r8uTvFAIMfQ867S+bvVJeZTMXxlS1ZgYjf
+	 /32NGkpLj6vlWXmY5yidQfvA/EzxGCHkIsJ3yMOWs5FiStOTI5d/VXLDKqdrO6LykIkHf
+	 xCqPoapxVr+bRHfedSN+4DsbnIXCv2rhrtIv7E2qD65QCqo2rVsZrL3wU6/2knYikM5DR
+	 +Y5d1vlcwmhIkU93hudSe2jW+O9TEpygyFw/3tTRHSb/L09gyQjce+ocCPVz6OGOoulof
+	 1PWOPLcqrhhD5V4mTXfehCz/hxf0I19B6IhBgZn4LrMzTy9XbuDoHeO8UMBJax1s7ZQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795298143;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Date:Message-ID;
+	bh=KCjUtohJo1syh5AF9wt+LVHJxvbyrd0qzAwW5js+pGw=;
+	b=EQJZlpflqKq5XIlCy1HHTesR09hZrva1s2m8v9pKqQIOKMmEl0evVp6TWUua+3iooZiX
+	 F2sGme9uJhiSrFyC3/wjmubzQlinfK9lGKieyiYsfHELWKb/3yh4ANSZSMYS20+ZhQ/+7
+	 Y0ME8fzqXTE/x0N0CdUFtmvx5sMGSw5UlbifyDjoYdbMCQQrRR3c6m1vAhL4dy6jp/ERj
+	 DHLd3ydunixatBgpls9G3dmYbo1cwIna+uXSzeYGp8RN8lOKZYggX6ymsX35P5sw4vymN
+	 OzbT7yzZWChjtm1VX/eBNxISDNvmBEGCAI60QN1X4xefKGdMKcoYeZGjwcGJdeag4Jw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=elRo4E8e;
+	arc=none smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895F3606A32A;
-	Sat, 21 Nov 2026 21:55:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 895F3606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ikuyo.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ikuyo.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B265E606A33C
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:55:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B265E606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ikuyo.dev header.i=@ikuyo.dev header.a=rsa-sha256 header.s=s1 header.b=nRBHZWKB
-ARC-Seal: i=1; a=rsa-sha256; t=1795298088; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=QaZ7rLkI5vmOwQeLKl2spOxwWwBJ0xY+Bw3NGfPN1aPelR2XJEIKV8hkeQKE4Pkl3PFjjJCwNQ4SRZ1XWkGOQPLFtJfcRzPVuEX5NtFG1z7B/GK5Xw2qSeiSFrssyKGn4aHultw5GcUzssINW8zFRjVeKpwyRVQmsoWEvkoFs44=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795298088; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=kGmVY32+NuAnAOyP2Ctly8NmP20icvToykE7n9QXz6o=; 
-	b=isqL+VgOxQKksE1nDIndVfIiY7jwro06dAp1D7kS3bj9gDTX+Dn3scLAdCDg+o0piIosHyiisdmRPtpgAwHQecToSFmd4naAmqrYX5jV9dSFk2ZQpgcm5lDv+r/o6dhkLRi/jhlQ+etQuS+eQzpc+9u7gvr2UaErJksRqXvyyiQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ikuyo.dev;
-	spf=pass  smtp.mailfrom=eritque-arcus@ikuyo.dev;
-	dmarc=pass header.from=<eritque-arcus@ikuyo.dev>
-DKIM-Signature: a=rsa-sha256; b=nRBHZWKBgcuZFcHnhCiAXZ2OUOMgfBvW72meeMVm6xGUWOYS4BS49buL67uxf8JkWmEUwZrb1CBfZXJm05Uo4Nel8nHXPYWjx5nydTl5pAyf3HxDSLJDRZDe2l6SLcfDmJReRCSzTJNPWBMPZaT38n54vHG+WWF0An7uNsbfGjviiMjAGGIcCeJ48iSWfH1piuo5ZgYvI9NNBtP4tkp1Y+VjpuBZUcHafBi4jI6I0ptuV9NjbHvt0gFfgpihR72vSPX4yUpCWmsHEdWzmVLz4v/ELs47IW5jFK3QClaPaflydYIS0FyuBMj+fFypBZo8XgZYZaDZm8/M2uOwDaQA7g==; c=relaxed/relaxed; s=s1; d=ikuyo.dev; v=1; bh=kGmVY32+NuAnAOyP2Ctly8NmP20icvToykE7n9QXz6o=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795298086613432.94013479921193;
-	Sat, 21 Nov 2026 13:54:46 -0800 (PST)
-From: Cygnus Qiu <eritque-arcus@ikuyo.dev>
-To: zyjzyj2000@gmail.com,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Cygnus Qiu <eritque-arcus@ikuyo.dev>,
-	stable@vger.kernel.org,
-	Zhu Yanjun <yanjun.zhu@linux.dev>
-Subject: [PATCH v2] RDMA/rxe: reject ODP accesses that wrap the iova space
-Date: Sat, 21 Nov 2026 16:54:26 -0500
-Message-ID: <20261121215426.50988-1-eritque-arcus@ikuyo.dev>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=elRo4E8e
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c516a160d24so17393566b.2
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:55:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795298141; x=1795902941; darn=vger.kernel.org;
+        h=message-id:date:content-transfer-encoding:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KCjUtohJo1syh5AF9wt+LVHJxvbyrd0qzAwW5js+pGw=;
+        b=elRo4E8eL6Ff9JTxWokGSChCv6ga6xjLaxbwG4IuokCWQcX+8wY/4TwbB9eLmqPNvd
+         Fh3vzMvwpzy/pOr2RX9SlCQFI+Hjk0445UVSnhuh4ztDmhLZM+VCJtLlSDSy7y76lSic
+         c37MaL4b1Qz4CtJy8OeIs3V21nTsac4UlO4hgwJ8SnYbq9OyCNug0iwYSaixQfjAzjpY
+         qPi9C6xCmDJPR0eKep0Rxz3wp82ZhOkjc38M9DvXOyC5JPcdEuj9G7TBP8QX4eJJsx/n
+         sOs4jdQxDBwnYwTPuxSdyz7MRdh2JqrOe9sBMUh6XX6rEf5X3LuB5PNqbH0zit7TtGC9
+         NUCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795298141; x=1795902941;
+        h=message-id:date:content-transfer-encoding:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KCjUtohJo1syh5AF9wt+LVHJxvbyrd0qzAwW5js+pGw=;
+        b=07yXvzI/9yJemHBrQOVl9f9IvUtomGAOm5mqJvzTQbGRedKg8Bb8xzN/Ixlp72k9tY
+         lrrU68zTzvVHN5RhlTNl79XwryfTMSAZSW+ZhzlBLj3j9lxe5YKbeXxZgi/PMkWtR2nH
+         c9YdbUv5pSfkujNlsJU2GV4s/iRIhdGCaNQZ5Zo4PGfzUoDNPPgN0fqIyR3OTZHJs/i9
+         BgWfufkCkw5EOW955sfp55cE6V/ryvq2UKC895Fiwxcy4575nNWsNTjEchg9IcJXQaiv
+         JkIH6TPLadx5i9872l0rRU8fijYVAPa4iv43ZsBQJj6my7nAfh2D3bVVTTxys224UvTp
+         AQtg==
+X-Forwarded-Encrypted: i=1; AL+hErF2t0qg8qc/6L8tq02c2/24OutrGn0A05GwmZKd/osOV4LlKwlUh4xXGfA+AmTcJvcVPTxkPE4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qhJIrroa9jLpWOJEmdM2V0OYjxEwPcBHEkbWNpeXo+9GfzvVS
+	Q7ejO2nGmiKL7zK+MtwMus2A1aTF7CZuFwtmsK67E4nXkbITcr/9B6Cx
+X-Gm-Gg: AZFdTZc4Ua3UaQ1e/d50f8OmCVyNJzae0fuzKvWmKxsXC2JuI6ad95dpm+FvV+NJI0x
+	ZyWz6rklHJJ6NRiNbaD9cC2bAww7K+inrTHhMa4ku1bo26A9BJknywQiNN00cbcBoWCMMiCHM1i
+	lezXszh86UIWqJf3sWaMD6JTnDzWIKTSUDlzK53uQl/5Em6WNI0vyzAp+4h/M51N2GViVIe7DYh
+	dnCVbDH58StfyshKIwURzs2tA8sYuiMkDhRqDw+8WFYZ+hLx7z0BJQfEACVIiPlgua0KshqilJI
+	lzi/Je18VlNeQyWlaWShROXSmkb+MOHBJZJQCelVETVB+yVyrju3YIGihg2o101p8pkYaLgK9Q8
+	5D2eoXJdjZOPgZdPsOMDh9PtNLi4/Q7hEZPORzX0Q2KeFYWALD2SRzpF1Q4CWXFicYgXvCfF7Py
+	Z1EQ7+EjMFDBrFxfZgBSQoN7javSP3FNaMMhGBBlDEpZ1agmtkRF0QXtgQOeDOcrbwmdGXL41Eu
+	RFOomTNZcBHF2/hXkUdtNPO3D6wJurZ6rYOuKnl3wPL48xSVF6qYe4lLZL61Xtws5drBkQkbCBG
+	IcG+ytkJfCYWrMWxLsC63fxxxBDguPrz
+X-Received: by 2002:a05:6402:13cc:b0:6ba:88b9:71e6 with SMTP id 4fb4d7f45d1cf-6ba88b97656mr636301a12.14.1795298140925;
+        Sat, 21 Nov 2026 13:55:40 -0800 (PST)
+Received: from [192.168.1.182] ([2a0c:db40:0:80df::2])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370faeeasm3038747a12.22.2026.11.21.13.55.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 13:55:39 -0800 (PST)
+From: Konstantin Nikiforov <helllamer@gmail.com>
+To: linux-raid@vger.kernel.org
+Cc: linux-bcache@vger.kernel.org, regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Yu Kuai <yukuai@fygo.io>, Song Liu <song@kernel.org>,
+ Coly Li <colyli@fygo.io>, Kent Overstreet <kent.overstreet@linux.dev>,
+ magiclinan@didiglobal.com, xiao@kernel.org
+Subject: Re: [PATCH] md/raid5: complete unsupported discards successfully
+In-Reply-To: <179529607529.5.3302391929789139470@gmail.com>
+References:
+ <CAO96y0V6oncv54ihXnHfJMYiG_QAQ-NM8BOdqPDXKL8r8-kR9Q@mail.gmail.com>
+ <179299857972.12222.2729359466842183358@gmail.com>
+ <179529607529.5.3302391929789139470@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,105 +101,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Date: Sun, 22 Nov 2026 00:55:36 +0300
+Message-ID: <179529813639.2.16814857958553170519@gmail.com>
 
-rxe_check_pagefault() decides whether an ODP access needs a page fault
-by walking its pages, and bounds the page index against the umem inside
-that walk. When iova + length wraps past 2^64 the loop does not run, so
-neither that bound nor the HMM_PFN_VALID and HMM_PFN_WRITE checks apply,
-and no fault is taken. __rxe_odp_mr_copy() and the atomic write and
-flush helpers then index map.pfn_list[] with (iova - ib_umem_start()) >>
-page_shift, which the registrant controls: ib_uverbs_reg_mr() only
-requires the MR's iova to share the page offset of the user address. The
-entry read past pfn_list[] goes to hmm_pfn_to_page(), and that page is
-copied to or from the peer.
+Hi Kuai,
 
-rxe_check_pagefault() also keeps the index in an int, so an index of
-2^32 or more can be truncated to a value that passes the bound, while
-the flush and atomic write helpers use the full unsigned long.
+A short follow-up to my tested-by report: I removed the udev rule that
+zeroed discard_max_bytes from the md75 initramfs and disabled the host
+copy, then tested the real HDD-backed stack with an actual discard.
 
-Reject a wrapping range in rxe_odp_map_range_and_lock(), before the
-fault path, whose umem range check wraps the same way, and keep the
-index in an unsigned long.
+Same kernel: 7.4.0-rc2-md75+, md-7.5 tip c526b7cd32f7 with b964c9240a37.
+The stack advertises discard again:
 
-Found with afb-afl, an LLM-driven kernel audit/repro pipeline; the fix
-and this changelog were also drafted with LLM assistance. Reproduced on
-an unmodified KASAN build of mainline by an unprivileged user with a
-self-connected rxe QP. An RDMA READ at the end of a two-page ODP MR
-whose iova range ends at 2^64:
+  md126:   discard_max_bytes=2199023255040, discard_granularity=1048576
+  bcache0: discard_max_bytes=2199023255040, discard_granularity=512
 
-  BUG: KASAN: slab-out-of-bounds in rxe_odp_mr_copy+0x35f/0x410
-  Read of size 8 at addr ffff8881037a2210 by task kworker/u16:0/13
-  The buggy address is located 0 bytes to the right of
-   allocated 16-byte region [ffff8881037a2200, ffff8881037a2210)
-  Oops: general protection fault, maybe for address 0xffff888103d0c04a: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:memcpy+0xc/0x30
+devices_handle_discard_safely is still at its default (N), so this is the
+raid5_discard_limits() path the patch changes.
 
-An ATOMIC WRITE to an MR whose iova is 2^44 above the umem start:
+I created a 1G scratch LV on vgpcrd5 (dm -> bcache0 -> md126 on the three
+ST1000DM010 HDDs) and issued one 64M discard:
 
-  BUG: unable to handle page fault for address: ffffed11202b3194
-  RIP: 0010:rxe_odp_do_atomic_write+0x131/0x2f0
+  blkdiscard -o 0 -l 64M /dev/vgpcrd5/discardtest-md75
+  exit 0
+  /sys/block/bcache0/bcache/io_errors = 0
+  bch_count_backing_io_errors in dmesg = 0
 
-With this patch both are NAKed with no report, and an in-range READ and
-ATOMIC WRITE return the same results as before. The wrap was not tried
-on the flush path. The rdma-core v65.0 tests, ODP included, pass on rxe
-with and without this patch.
+So the real bcache -> md126 -> HDD path also completes unsupported discards
+successfully, not just the loop reproducer.  That was the last test item
+pending from my earlier report.
 
-Fixes: 2fae67ab63db ("RDMA/rxe: Add support for Send/Recv/Write/Read with ODP")
-Cc: stable@vger.kernel.org # 6.15.x: 7797bbb0e86f: RDMA/rxe: bound the ODP page index against the umem in rxe_check_pagefault()
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-Signed-off-by: Cygnus Qiu <eritque-arcus@ikuyo.dev>
----
-Changes in v2:
-- Use check_add_overflow() for the wrap check, as Zhu Yanjun suggested.
-  The tests above were re-run on v2 with the same results.
-- The author name changed since v1; the address is the same.
-- v1: https://lore.kernel.org/r/20261120060000.302440-1-eritque-arcus@ikuyo.dev
-
-Tested on mainline 4405c18c95d2 (v7.4-rc3+) in QEMU. Applies to
-rdma.git for-rc and for-next.
-
-This completes commit 7797bbb0e86f, whose bound sits in the loop that
-a wrapping range skips; stable trees need that commit first.
-
-Without KASAN, an RDMA READ or WRITE at the end of the range reads or
-overwrites a physical page the registrant chooses. On a lab kernel with
-CONFIG_RANDOMIZE_BASE=n this was taken from an unprivileged user to
-uid 0; with KASLR the chain also needs an address leak. The rxe link
-has to be created by an administrator; the trigger needs only the
-uverbs device. A reproducer and the test logs are available on request.
-
- drivers/infiniband/sw/rxe/rxe_odp.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_odp.c b/drivers/infiniband/sw/rxe/rxe_odp.c
-index 9d27244f89bc..f28b5008aae4 100644
---- a/drivers/infiniband/sw/rxe/rxe_odp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_odp.c
-@@ -125,7 +125,7 @@ static inline bool rxe_check_pagefault(struct ib_umem_odp *umem_odp, u64 iova,
- 	bool need_fault = false;
- 	u64 access = HMM_PFN_VALID;
- 	u64 addr;
--	int idx;
-+	unsigned long idx;
- 
- 	if (write)
- 		access |= HMM_PFN_WRITE;
-@@ -167,10 +167,14 @@ static int rxe_odp_map_range_and_lock(struct rxe_mr *mr, u64 iova, int length, u
- 	bool write = !(flags & RXE_PAGEFAULT_RDONLY);
- 	bool need_fault;
- 	int err;
-+	u64 end;
- 
- 	if (unlikely(length < 1))
- 		return -EINVAL;
- 
-+	if (check_add_overflow(iova, (u64)length, &end))
-+		return -EFAULT;
-+
- 	mutex_lock(&umem_odp->umem_mutex);
- 
- 	need_fault = rxe_check_pagefault(umem_odp, iova, length, write);
--- 
-2.56.1
-
+Thanks,
+Konstantin
+DeepSeek Flash v4.1
