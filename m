@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296672;
-	b=um8IvGreYpheM4fMw49HS5cH6E92WsJNKkMCp3bybL1QkjNqRsGEUAMAtWowOFF8p+m5
-	 mqFoRnfDasKTcy23hW5RaiiIesqyzEBptEbHbFGy3bQSdmfqaZsoa7w33TqpEqr7szLsF
-	 Dd3raLvja9AJ3l2P5B49H2sYPHGG9hJo2CsA3pn0NL6qimvbhut0FRNXuNhY5muLz5YJN
-	 HzYnKFAxkVL6vcRscRWmh/wbr4vSMgckPpszaNuEoYSk9mJhzy9IYwDSYcoDLOLFkIXDP
-	 9d8VgMWgoIls63jKWQ0hT6Ub3tbIlicNOBMS6mxY+LJJmPbz5+CiTok6qHGkXCYQwXA==
+	t=1795296673;
+	b=amYwzKA0lE68vpG4SNtsjcIyYaukHC29Co4FaelRpdzrCIBJDDBgwOo48xpey0pPOtP6
+	 WWQCVq+5Iu+eZH6RfPC+b1YN+Y+HdXCczCm6uNs8RYUFLthg85lB6I2x1MT+rdAnjkgdK
+	 9cWIXmz/5y7FlLclpD0dyo0JHqZPiSQq1mKd2VARFY2/MHPjdfgFvBsohBtFOllhd8aJK
+	 mv7kM05tX32ABhJTxvigzOz1AJPTPHj7n2msyi6nl+UvuFoELe/xGLuF7+tgcnQ4eNma5
+	 yEkXUqHOfdIvKXMYR/x28b7OAvXHTsC4L0+mMMsmIXwH6u33y4+TbpdJc3ZsP0YBLCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296672;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296673;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=r87AXnhJRL20Dfhvc3pFQMn35AB0EEJgUdq/dBnLMmY=;
-	b=cBaN4GaLTkJlycxwfADkowwM7Ce/EvGmhZKx57XQTuh6yXXUyQGo7RR3WShJcZykHe7e
-	 FnGBPDx/pTBj98EheyXbud6IGjo17VxXRV0eyQ+ivlHokgG4Lvoerh3YKlgjPi2GPTSHx
-	 cyKPQVmduiZYmlNVArVTL3+OiCSZqq6pV02zlZS2exE6IED64ZGdbCyiSBwpL7bVnhLnv
-	 nR1xAeIOCQussZ1HDoeUYJpdAQOAPPGOHL1+jxfAeS2f55NMnlD4dZaG/zpWl+O4D44tt
-	 TGlmK5QJ6rrF5UgradqT58IToYL58lFBkmNl1e+miZdsCRnp0DAIxlnCPCbkRug8u+g==
+	bh=XIhDBhVDX59yPKxbJx8GKaQ6cMq3Bl8uAn3ypQ5mGGg=;
+	b=RFoA0FKCZZazNjsUXHg+r2kfvlJSzBZqyNwUYa4qPHIvCjjCRCpecesMUHa8IzzBYRio
+	 /oPi+7/PFpbPsX+N0T0oW0dkSqPmIIldTMW5HNc9at8Z0v49Fu9D7wU7YOnW9GUl7kfKD
+	 jXFqGaTcQ7qAU+57U+wgmrvxCV+1+ddngDyK/1e+NRirojkpSf5ItVMHezetei3X46mHE
+	 6kxWZfnVQ5BieSX/UU2uuzFAWcLF9/pvtU5pl8gGTUoQ49OSIbXnBRRUHVlGNyIhN0WCt
+	 fDVbWj+DNHgHe5ARSBzFPIeqvJJgNsQT6s+/vULW74SUtuk/04fhjkjvFBoxnpsLATg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b="YgQs/ic8";
-	arc=none smtp.remote-ip=209.85.161.51
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=QT9Augyf;
+	arc=none smtp.remote-ip=209.85.161.45
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD86606A6A9
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CD86606A6A9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77346606A330
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77346606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=YgQs/ic8
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-702fd86d674so1402397eaf.2
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=QT9Augyf
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-702fd86d674so1402410eaf.2
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel.dk; s=google; t=1795296671; x=1795901471; darn=vger.kernel.org;
+        d=kernel.dk; s=google; t=1795296672; x=1795901472; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=r87AXnhJRL20Dfhvc3pFQMn35AB0EEJgUdq/dBnLMmY=;
-        b=YgQs/ic8p1qiyQjfxGYO3n88/SfMaTgbBX0frQZdIjz7mlko/oYS3sSSdCULCJ5yYn
-         eeZ3VWmCyPzInDfGYQ0VYT/1caNDiszWd6bNpy1KeLF3HEYvvqWgf3Y7rqteMq/op/yf
-         Xcur9/4NHgMjLZsle/CJF7u5s6HC4BtjGNux3NkwbYVIfSMOzg/AWI5AKlVuJIa/X5CI
-         DRc/x4e2tQuPiRE7aCfI113K3gekB3wOddaMcGujhjLQKyqdgGB+qS5hgmbYtW/PseN/
-         Q3LCzSRFhjsBYzdBK95UbzKxZXgqsNyczs2W8xKUxC0bKGGTQNT4ZKG5AERFWmrgQlVf
-         z0ZQ==
+        bh=XIhDBhVDX59yPKxbJx8GKaQ6cMq3Bl8uAn3ypQ5mGGg=;
+        b=QT9AugyfHRzjmQe3vuNYiWk8f11AUGstz6Vt5fkaG7BS35BNbIbanhe75ND8xcf639
+         kDaOEGFXwMgpVtnE3qNLIPemArYF/oX9nGnNgUaNNsc3xaF78NxVdnTPU7YDAMhOxe6V
+         P3OC9wBaMYvEJydftFSLnsrioTL/2ZVx4N8mExzLncRacZQmFTzxBLI9UDP4CjgOYTU/
+         JAYzSn0zYfDTOHGTUVrn8rePYDNMxe0YnobaN5M3Prbx2+69J94FtoDwcw7baMlbk2W4
+         7TGHLdn3No2E72LsPEQEQLsz0c9fvCGoVLCW/Hvg3YAM6/SutMfkg3QbAACw1qeaH1eH
+         bXWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795296671; x=1795901471;
+        d=1e100.net; s=20260707; t=1795296672; x=1795901472;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=r87AXnhJRL20Dfhvc3pFQMn35AB0EEJgUdq/dBnLMmY=;
-        b=YmY5quhTABGXLic8AShsQ3aaPjK7OSbA5pTaM0qOAZL21QpnmL7lqutJf7g1QCoUWv
-         /9kJWNdtSHhazGeoZxgi/3MUAETopythx4u12GiFrFH4z3waaqSnn5h2dt7GteUO2atX
-         Alp9P6/8FZdzQkiPhL1qVENU0uRCJtwv160ZYD76kUsoruQgQdTZwgGVsKKzauX8tGOz
-         d3B9pwSSOkkPgNapzpgelRW+p+xEma0x1ZGW1Eo11ilpiC03sc80fgVAkCODxMvcCMnE
-         MdxUddsl6NPp2zI5nH4ke6/bf473RMm8UwRCPHlYIT5TcspeB8KDouR3k2WPFnlZe6JC
-         JDYw==
-X-Gm-Message-State: APuU4Z8YpyZZdmin6r3oV5TX7gxJyQaU0BB0zwBvZ/cbMG78fRhmADCb
-	iPtoMroglRS5byrNAMCNvi1vVdNXyH6lgBbVjXXsx/ye3C8nbMySZb1DNwNAMx3wgL1+Ij1X46C
-	9HpuBgRc=
-X-Gm-Gg: AZFdTZeRkDVCsMwbZpnLLMNGC8J1RMr8juoCFCKzzLMgTMmvPjyOih7GdfFf/IEmqOF
-	zmHunWLvYfLffb8ffvitaARlL4oo2G82S8gUpqgk08Sb6OhOmU2ID23cmmTZQUPH6n9yf4DC2xG
-	ZOixM/D8ogmQdfoDjWeW9o6eYnGU4yIH7UVr7Nfj3JKWlXBEzByG9nIiMPuimRhMaaDwubUjely
-	WwlL1hPf1RSFBe1ah9ix3Pl7v0kDwI3A7ij7DQ1yGF4L2W3oKo4Nt4sJ3c0GX6NbsyYucorCq2T
-	Pf8x6jahKbGW1LQrv6FfsCORJit5xgvjlAVYJ/QiVqXOEEng0ej5s8v8eEPeTqxtNFUsd31TXOz
-	nWUMYCHnoI0ABuR69WRsEU/YhfOid1ii/+hnfm8+ScUPlOiF7hFLRWmPBIZw9Ot6q3+hgwJNEA2
-	e55ChFEBw4QRYHPv1ApoaLOE2wQJG7RaeRYIrqE6JjSPM6CZuTMZZsbg9w3skmdb7KJ8+SHT8bs
-	IjwcIxS3MldKfENooFmYbkDEOpSZZJkGSJugpaljk9RFT64mZuJRfp5s2L7H8CIsVF1zk/TAdId
-	m6gpouAZowi8kPWZEMk5dV7wPLBT1+JtUtJHCfAxiMSm4ioEN9juUX9t//0coJE9QTOO/ovWIdh
-	9vGb68x2uVSJdv5Jh/Phqz8bKvbqocf9AFPUL
-X-Received: by 2002:a05:6820:4185:b0:6b6:c3d2:702e with SMTP id 006d021491bc7-71b392991bcmr4812986eaf.9.1795296671088;
-        Sat, 21 Nov 2026 13:31:11 -0800 (PST)
+        bh=XIhDBhVDX59yPKxbJx8GKaQ6cMq3Bl8uAn3ypQ5mGGg=;
+        b=QuVd1Pd7QV+vMVFyii5eFBO8aY78iuEmj14D2BzictHiFMRxRW073cOzpuw94/xt5h
+         aMLd71WkbBEopBn9XgYYmdFA5aPmufPaMpMvThOgiJf5gLasFRj7vpg1bf0+S0id60Mt
+         hISOm4YZf/iWCfxoWeEYkl5wY6TUID5QDuLGPyADbSlJ3LJycjnnGjlmg7vvm1NPwRAI
+         R9UWp+WLsq0E2zFPpxZonJr19oUDpvibsluZEv4h2znzXPtauKNowm27tOG22BjcPJ/e
+         /Q+Dpeb2tizR/fBz3crdwdSdEuRkdXzdMjsYn+qcSy1ETrs9ZKmBSEV8S496Dkh84aoj
+         t9+A==
+X-Gm-Message-State: APuU4Z9/xRbHMsdLOsZuxK4OWFamjAyL3qqKOPOwd82pn4DZI2BMAbwT
+	YTuTKK59rJG9/aTxNveFjj6odBD8ZH1hmj2x+UcSKz/x39Ic6Gqp+pHmlQD5iWV/aCWuzCz+bkd
+	8gMhWHQc=
+X-Gm-Gg: AZFdTZcDf1L3TIB5X0oiYWF7pdesApvaIY6eEB1UfD1xY649LAsrUkV4vFAFx2eCYSd
+	aU7a23+5xUyPtGrd/vNBJ24+esjTl+IW5I4SgcAVPPm9Cvpr8F5eUL7s4l5zcp+pjhWtKHeyVct
+	TOwa5er47Hl28GcSaPkUlyURd6HkwOQDfSbbwEY8tFWA1q2uYRlBsqu6YMo3gQXNJzVL6j1wUoH
+	7vYtbkG6RjI4kFnPm22qKu92AuMJRqpe/NyAmvXz26adMWn+VnDgNIfwQDA4GDfaohVMkVkFDag
+	k7pZ8NkmmUutFF8XVQQ8oHpFUuaETJmT1NOrhD7FUBbUZLDVdjQwZPZ7p/4E/n4AxgHjcdOgkkn
+	9OHYMMc1zfZbiMlDgMaADYT4E2yfdwLnqZIvjJ/L1laSwaHo1wPh3Mrmfnu7IFj194+MVV1RjlJ
+	Ke4mypGB3jL7BuRSLoW1A5n+WIgrQ4nihsU8lmebRJ50MJqtNupjSstomuo+IdqXLz64/IxqJDb
+	lQYRpyaTXRu1zP3a3LUIzcSc1jsncSc31ur5hrBLdhJYP63dX6++sKYgGB9mXN1ivCCbZelVDJ/
+	HulTyRe8Sy1DmBZDXg36qekYvAaVQ4C32/zJrnfdUh1I97rkOirD+g4ov/q1AxJmIS8m8spzFEV
+	0HzK12ncyQzy2+STX2sdXrqoSObsK1HEAAqno
+X-Received: by 2002:a05:6820:a703:10b0:71a:e9b1:65e3 with SMTP id 006d021491bc7-71b39631876mr3862484eaf.81.1795296672404;
+        Sat, 21 Nov 2026 13:31:12 -0800 (PST)
 Received: from r7625 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b38015c46sm4469155eaf.4.2026.11.21.13.31.09
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b38015c46sm4469155eaf.4.2026.11.21.13.31.11
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 13:31:10 -0800 (PST)
+        Sat, 21 Nov 2026 13:31:11 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.6.y 15/19] io_uring: don't touch sqd->thread off tw add
-Date: Sat, 21 Nov 2026 21:30:45 +0000
-Message-ID: <20261121213049.1788332-16-axboe@kernel.dk>
+Subject: [PATCH 6.6.y 16/19] io_uring/sqpoll: zero sqd->thread on tctx errors
+Date: Sat, 21 Nov 2026 21:30:46 +0000
+Message-ID: <20261121213049.1788332-17-axboe@kernel.dk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261121213049.1788332-1-axboe@kernel.dk>
 References: <20261121213049.1788332-1-axboe@kernel.dk>
@@ -101,48 +101,55 @@ Content-Transfer-Encoding: 8bit
 
 From: Pavel Begunkov <asml.silence@gmail.com>
 
-Commit bd2703b42decebdcddf76e277ba76b4c4a142d73 upstream.
+Commit 4b7cfa8b6c28a9fa22b86894166a1a34f6d630ba upstream.
 
-With IORING_SETUP_SQPOLL all requests are created by the SQPOLL task,
-which means that req->task should always match sqd->thread. Since
-accesses to sqd->thread should be separately protected, use req->task
-in io_req_normal_work_add() instead.
+Syzkeller reports:
 
-Note, in the eyes of io_req_normal_work_add(), the SQPOLL task struct
-is always pinned and alive, and sqd->thread can either be the task or
-NULL. It's only problematic if the compiler decides to reload the value
-after the null check, which is not so likely.
+BUG: KASAN: slab-use-after-free in thread_group_cputime+0x409/0x700 kernel/sched/cputime.c:341
+Read of size 8 at addr ffff88803578c510 by task syz.2.3223/27552
+ Call Trace:
+  <TASK>
+  ...
+  kasan_report+0x143/0x180 mm/kasan/report.c:602
+  thread_group_cputime+0x409/0x700 kernel/sched/cputime.c:341
+  thread_group_cputime_adjusted+0xa6/0x340 kernel/sched/cputime.c:639
+  getrusage+0x1000/0x1340 kernel/sys.c:1863
+  io_uring_show_fdinfo+0xdfe/0x1770 io_uring/fdinfo.c:197
+  seq_show+0x608/0x770 fs/proc/fd.c:68
+  ...
+
+That's due to sqd->task not being cleared properly in cases where
+SQPOLL task tctx setup fails, which can essentially only happen with
+fault injection to insert allocation errors.
 
 Cc: stable@vger.kernel.org
-Cc: Bui Quang Minh <minhquangbui99@gmail.com>
-Reported-by: lizetao <lizetao1@huawei.com>
-Fixes: 78f9b61bd8e54 ("io_uring: wake SQPOLL task when task_work is added to an empty queue")
+Fixes: 1251d2025c3e1 ("io_uring/sqpoll: early exit thread if task_context wasn't allocated")
+Reported-by: syzbot+3d92cfcfa84070b0a470@syzkaller.appspotmail.com
 Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
-Link: https://lore.kernel.org/r/1cbbe72cf32c45a8fee96026463024cd8564a7d7.1736541357.git.asml.silence@gmail.com
+Link: https://lore.kernel.org/r/efc7ec7010784463b2e7466d7b5c02c2cb381635.1736519461.git.asml.silence@gmail.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[axboe: 6.6 has no tctx->task, use req->task like the commit message
-says. With SQPOLL all requests are allocated by the SQPOLL task, so
-req->task is that task]
 ---
- io_uring/io_uring.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ io_uring/sqpoll.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index 4c88bd805b8c..3108af4514eb 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -1410,10 +1410,7 @@ static void io_req_normal_work_add(struct io_kiocb *req)
+diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
+index b1428f91b5ee..bde67560ace8 100644
+--- a/io_uring/sqpoll.c
++++ b/io_uring/sqpoll.c
+@@ -280,8 +280,12 @@ static int io_sq_thread(void *data)
+ 	DEFINE_WAIT(wait);
  
- 	/* SQPOLL doesn't need the task_work added, it'll run it itself */
- 	if (ctx->flags & IORING_SETUP_SQPOLL) {
--		struct io_sq_data *sqd = ctx->sq_data;
--
--		if (sqd->thread)
--			__set_notify_signal(sqd->thread);
-+		__set_notify_signal(req->task);
- 		return;
- 	}
+ 	/* offload context creation failed, just exit */
+-	if (!current->io_uring)
++	if (!current->io_uring) {
++		mutex_lock(&sqd->lock);
++		sqd->thread = NULL;
++		mutex_unlock(&sqd->lock);
+ 		goto err_out;
++	}
  
+ 	snprintf(buf, sizeof(buf), "iou-sqp-%d", sqd->task_pid);
+ 	set_task_comm(current, buf);
 -- 
 2.55.0
 
