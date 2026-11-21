@@ -1,127 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.48.52.25
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795277242;
-	b=O+kvLBUZ4J3H9deBUA3ImwA3aMytL5FKxW1CxaSWnc8CtalVa/kHuDxIB35bpllU5/p8
-	 yY+EPnsE8+3uKZU/bdY0vdSqO+/pjgL+FxjM0nIWFVpj68sk1h51wqGcYFf4TcUaiUe+4
-	 AUOx/WDZHO7GjSxUGoDPU6m4X3nmcJws7gE12OMTX6pX6Fa7QMiO/R5VEiJuMSysjJQoi
-	 Snc97la1/CL4rhPzxUbzQKHfgFjn7b/IHogPsyl6IHLjG9kHjPno3m5OI+/Bb4suuAoI6
-	 qfVtHzyY++pHOIxRxCJzjLWYevuMfq2peVqtbfnHRhm9pKvyxufVk/f/1SsPIIo3fnw==
+	t=1795277300;
+	b=UK3B5sWyjf2isu9xP2eNsOoJwOr1PECpu7rgiV8RNaYfL9FOXiBywetGdNTMJPOmFIIa
+	 F2cBkCEaQHIGh2rJYA4oSEtGguQ9p06DJvE8pVpiMnah5dHaHRINJaA9t25crgb/9nqGn
+	 6Ga0bwMiD4BpC4XQM29soqIx6ewG2TKyKkG1RD6G/ERgPFxx+J00YL3UvUHl3U+g2WBE8
+	 H2x4g/WaqEzvMt+7IXFDWDB2fPy0wicH01a+e75TJuXpNmEDFAXK9wd3x3WuCRwug8l1/
+	 HjMRDfz1/QbPR7yr4JSPTYDYid89rfEl12uYTA09Av1qZ8l4FZg9GW26hX1e9Ml4ySA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795277242;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
-	 To:Cc:References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID;
-	bh=PumUfQr/dkVXQx904OhDKa6Er31j6YLGLv4AnhzIpok=;
-	b=lldFYtyaSaPug7m0KVhzNLEiMNgqchwXejK292a+8I8K4rN6QEy7JRchvCpW9khzO6aP
-	 /z1fwsuJfg+g9J2yRbBirnH31CBXzQi4LGehHfBot8QPwYT4YIorlc+ktfWB0oZAa8/kh
-	 rDzyjiov0o6wxbSHdNQvcg/ym98XwqI+4+PUeAHYzQMyfUiTZxhA6YcvUH9xbhlDfdqYE
-	 4ZI1yjYQRnFyRg9BvXurFisOsIkO5UaX1ULEHeGAK5GWh3wXO++sNYbyUUZT9k25NSS8Z
-	 ZU02j53VtW2RznIGb5bJfuGAe+KD4RGCreM5st+czksTYvVf1U1Wm1rsRBEdiVOcRrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795277300;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:Jabber-ID:X-GPG-Key:X-GPG-Fingerprint:X-GPG-URL:
+	 User-Agent:BIMI-Selector;
+	bh=T7QCWRyUzgCmXFFsU24+pNj6FeTn5AFMkdvpDZELwrU=;
+	b=2iCiYfqBZiGvooD6JjgzwErJQkmGjxt1J6hF8+c8Y9BRKJw+3Jg3YxpU013nlf0NrAxK
+	 i53yfeYpVPR0B91ETaOxzTW4AJPtpRfhRVcKsMV27ntCgg9VSksRUfoBpZugbD/FzhefP
+	 wjvCvoVtJfrAtWq2ixs9A4JGikVfBQvjsrzZ6dRJMrChuTbv6Y1BEcBqkudw5+1SKIDgH
+	 1OVm2a6LSXFrsvylx4tCFNjrdKjISP8fSMDJuE7bSD3dPWsyDohw7lJo6ZQCo2oUboOEW
+	 LoNgxgCkYEpi2PrsTkCYNg2lmCQF7+1ff6r/ylfKVsBCOdjcrwL2rb6RbK/8f8C/peA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oracle.com;
-	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=bTTzCqYg;
-	dkim=pass header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=lHgIsQOj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	dmarc=pass header.from=jacquin.bzh;
+	spf=pass smtp.mailfrom=jacquin.bzh;
+	dkim=pass header.d=jacquin.bzh header.i=@jacquin.bzh header.a=rsa-sha256 header.s=20240222.rsa header.b=FMF4jTAW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.48.52.25
+Received: from mx.eu-west-1.pants-on.net (mx.eu-west-1.pants-on.net [52.48.52.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B85606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 16:07:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02B85606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3578A606A32A
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 16:08:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3578A606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jacquin.bzh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jacquin.bzh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=bTTzCqYg;
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=lHgIsQOj
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ALEhlYd2935184;
-	Sat, 21 Nov 2026 16:07:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=PumUfQr/dkVXQx904OhDKa6Er31j6YLGLv4AnhzIpok=; b=
-	bTTzCqYgr9WjvKvyRLWm9o06B1ubbH/LfqkRTU1K96vmdOA/o5Fc3yBNkJdCOvp1
-	F1tkyT36v6vzxJmlPFnCmVc/jYMVHKX6hcIkl85TK/xgEkXvBRieA47rXWU2rykZ
-	HMne96EbsuvM9qciZubrxk+DAPMxR0MTGTelKXem3VNVU1hRxScIaEY/Xfzrd74r
-	OwYG888dYpWe8OzS6X6gSxDXgT+Y1kQ/4wDcnRPUlU063sVzFrUyXRb0h7WJgKrB
-	BEyp7x3Mx+liKwLG7bDdQHxOItnN7NKgtIDwgjlVLHIwxkbbpUcn63h3pRIc4CKR
-	wtwnEk80kbHyx+x+KuysQA==
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4j34t7g8h8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Sat, 21 Nov 2026 16:07:11 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6ALFXUaf2902445;
-	Sat, 21 Nov 2026 16:07:10 GMT
-Received: from bn8pr05cu002.outbound.protection.outlook.com (mail-eastus2azon11011006.outbound.protection.outlook.com [52.101.57.6])
-	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4j38wf5at2-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
-	Sat, 21 Nov 2026 16:07:10 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Od0zlAZkWiQiXzey+cSbZFG2H4jqjHqq9KAt+wS32oxREI3gumoRM3bWPqIvosxRUgvxeIB/ZSAV70pUndaT/QitGN1knuo1gBKA9pqYKe7AGhZw0rVNlLB0rQi8kfLxhvSlFts600VQegTW72gwq+17wtIzhe2Y0WFlIADVCKPZknmg/80DzINxf2/PDvZjc4D862KA7vubux3EeHNUW+RJ7xzVEsVQL/6ir/2n2ySVzYj5as0qHOJbNiqSV05BGgLIFkUW1AxA8y0SUnsjXp7FlcvNcKWXWbo1lYPrh5l59LNAc2mCoezna8lKowxRnABuYoEwXLY6nCX4Iuq2pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PumUfQr/dkVXQx904OhDKa6Er31j6YLGLv4AnhzIpok=;
- b=vFFYNsxOrjqT2iujRNhcUAumFMTqLgWpamXdf6/ah/JG0+nxks3XiRtuWn/zgFH3BzaTHCIRoLVlB6MstUIrALjJBb44/aGAuDZaHvj0O579+5eNSJJhF98+iV7NJKPQhlaisyX+T3fiEzAAlFgyWmmrFnS8+h3ANbDA8Pz7j3S6aFvqMG3YGUG++8/ap5vX1qqfRlUQk5LTpVa+V2W1XOIgEkCAyQgefqIol2SNY/Yfd1Qn/CW0PTJzxOt5IRI4wvvmkff5wZ4c0voIqG9PIhx2w2szPJ6au9Lc49nR9c7lq9qFUX2IITRn9TkUPWNiFKPRAdewuE4+fGkXN15bQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PumUfQr/dkVXQx904OhDKa6Er31j6YLGLv4AnhzIpok=;
- b=lHgIsQOjW1H4hWMugFuVe5/YIx/SfzVQgCZ+jTHeMfCTjee+gNcnZp4iYRujNmJXo6BVDiNN4BHa+w4yBnGWHy6xctgvDbUgQnU0+8+8cbQ/yUNz8dvV4RmBLM07NSJ0BdSDxkrokcB1a57dY8vPBQWMhIhbuK8du4AASCTtu84=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
- by PH7PR10MB6580.namprd10.prod.outlook.com (2603:10b6:510:207::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Sat, 21 Nov
- 2026 16:07:08 +0000
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a%6]) with mapi id 15.21.0615.009; Sat, 21 Nov 2026
- 16:07:08 +0000
-Message-ID: <9df186ab-8f92-4d14-a5fc-f5fceec4137b@oracle.com>
-Date: Sat, 21 Nov 2026 21:37:01 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 1811/2214] ALSA: core: Fix unintuitive behavior of
- snd_power_ref_and_wait()
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, WenTao Liang <vulab@iscas.ac.cn>,
-        Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>
-References: <20261118150009.797899913@linuxfoundation.org>
- <20261118150123.928813703@linuxfoundation.org>
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Content-Language: en-US
-In-Reply-To: <20261118150123.928813703@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0150.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b9::8) To SJ0PR10MB5834.namprd10.prod.outlook.com
- (2603:10b6:a03:3ee::16)
+	dkim=pass (2048-bit key) header.d=jacquin.bzh header.i=@jacquin.bzh header.a=rsa-sha256 header.s=20240222.rsa header.b=FMF4jTAW
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=mx.eu-west-1.pants-on.net; s=20240827.rsa; t=1795277298;
+	 b=aeraqTG1hgmB2Altaterfl0m950IoV7V3k0Gtuk4w/KE2oAzhSKthjb4A/5GXQ5+WfPwUGRlqC
+	  7rDdDaUn46EzyTIs91SuvwHg8wn8Y07N1krXkunyPE1H1m5jwn1PvAjAf3rAsF/7ZybIrvd6W4
+	  5oHdrjGPvaBSYzf6Vuq3blFnyx41WKC5vgvlVA4EK/Hn+8iG9ObMs24jdEbkTFV60C2AHNzd82
+	  iVeivVsxVyFzIjbQdRNi0wJ2q3hkfNecgWusJ4cxaHlIbi6pkLeoT3zhF0JNtFMdyXf5QstHuB
+	  Klo2LdCPrIbhA4WcFqwS6WNQqQeBTwmyBTIjdOxCFDQ/Ow==;
+ARC-Authentication-Results: i=1; mx.eu-west-1.pants-on.net; smtp.remote-ip=2001:470:1b3f:100:1d9b:8401:5f90:f557;
+	iprev=fail smtp.remote-ip=2001:470:1b3f:100:1d9b:8401:5f90:f557;
+	auth=pass (LOGIN) smtp.auth=bertrand@jacquin.bzh
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=mx.eu-west-1.pants-on.net; s=20240827.rsa; t=1795277298; x=1797955698;
+	bh=58fm3CVXeRLG5UHErYGGTdUQJcERXxICyF2XTo1Ffts=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature;
+	b=PKxceUVknpWr7ZEO8v27EpLcLvPrSFtaEMx46FnDRBkhoCR43mgL6NiyuWQzRjiP2L9Gg5LayH
+	  XLd6+y3CtVnwVYbEwQt+yJgZulKSppLP5u6tiSWI9RymyNMfWZixPiSDsfcnjEdnk8Rl/ry7yw
+	  yY3s+6Lp7jxaEUKkyL+Libw7gkVYbd6zjxxOZT8nCFSK6JVWolR9+YJdj+xghKGJmakT0yf2l6
+	  qbcL+y5AGzvsDy2PXpQBxNHsLijBITBaSN+01LE7DQi18QTdQwbYrnQKsd3uJOuzRXxR+OO6Dy
+	  v8PswCZnK6vVK8DFG8YINEx4g5sNkGUwxoN29UzvrbV5dg==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jacquin.bzh
+	; s=20240222.rsa; h=BIMI-Selector:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:
+	List-Owner:List-Archive:Author;
+	bh=T7QCWRyUzgCmXFFsU24+pNj6FeTn5AFMkdvpDZELwrU=; i=@jacquin.bzh; t=1795277298
+	; x=1797955698; b=FMF4jTAW0OYIr19KhDCpCX7iyPX4DwX5Xc2T5cGuwPdL1tnNB06PFSyo+Uf
+	icnj005xez7v0pfRbpwgcorE3DtlLgIMrQ+poJTZfdP6Pmkz00Zi2lDpdo17zyU9717kDw2psYcdN
+	FOmVZu/NtPUs49vS9Mwn34dv7K6iKhvsXZUxlCAdYtA1WLl/O/u2iKPzNrFkqIXbnZO9LGMovVhPY
+	uFC223bwZHrNVUAuXfM9mGlVdqQTv0tS3cmxrfwR/jWD1IZHJxXmUw4ojx6saV0tV7HtVswa5P/KL
+	iZ2choLEiqO3yjo5VOauonL9r5ZN3MEySBUjSg+YczgBgfvAtmKQ==;
+Authentication-Results: mx.eu-west-1.pants-on.net;
+	iprev=fail smtp.remote-ip=2001:470:1b3f:100:1d9b:8401:5f90:f557;
+	auth=pass (LOGIN) smtp.auth=bertrand@jacquin.bzh
+Received: from lady-voodoo.lan ([2001:470:1b3f:100:1d9b:8401:5f90:f557])
+	by mx.eu-west-1.pants-on.net
+	with ESMTPSA (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	id 1xUndR-00000000Wbi-0100
+	(envelope-from <bertrand@jacquin.bzh>); Sat, 21 Nov 2026 16:08:17 +0000
+Date: Sat, 21 Nov 2026 16:08:13 +0000
+From: Bertrand Jacquin <bertrand@jacquin.bzh>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: heikki.krogerus@linux.intel.com, venkat.jayaraman@intel.com,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: ucsi: Fix NULL pointer dereference in power
+ level debugfs
+Message-ID: <awHB7a-zLM3GpC9C@lady-voodoo.lan>
+References: <20261010120357.4937-1-bertrand@jacquin.bzh>
+ <2026112040-splashy-power-2d46@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -131,223 +93,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|PH7PR10MB6580:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1943351-4794-4914-eaa8-08df47e97e22
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|5023799004|4143699003|261021123027099003|261102130727099003|261102123227099003|10067099003|261022105027099003|261021121427099003|261026140227099003|56012099006|261026121527099003|261009223027099003|261028144727099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	IiFUj+E/Csqu7cM0m69yLxphrc+VlE5TOB0LIaIU6A4TyzjJFPQ0mN8bsdkGPS7d99x5R3jTvn5CNpo/KnzKjgyZcRmHe0PJEyk5L3NJi1XFbwHlnJBWzLaME5aNmU7CaNdOJbc7cNMEVCOkS1xWDqwHqC/BMbDRKkSXJxw8DNlaedEbEdD0QNRaaNDK2hOV4ITw2moz9/ThPK5M1FmieAJAZi7/AHLcugVLYSRS4mO8pTs/mne0befdSLHjxXWkmJWu2Bzi9RQorGGlNw/TxLmuoy+EoWlgQ96r1fq/nyFxYpqKS/9HJqyl0NoA+BfM/tTrX6btJqwiyeY2s2hsKplvwQgt6dFaEcEsrid/pCzVt4OK0ML57ato5xRsYrRmwXPxXDfA5E7hIqAKXmjqG5/DuD1Za5aO6NKyzF53rKps1crih0c31d1MNFvFTErLim8cfVJFoY/Zp04PSQcxDlJqU3g2nee3XWnIPb21bJbiu/Hj8ifhPZTiICFyBg0FQDQ1H70Sngr/SEEbkh5oh7FNInrd3FYcwXHJDHtuIs8h0O+s41J9WfbmwxuD/7eh+wbzY9Bo1jkbVKhKrJhMGSri9AcXH3qNZAdHKFB2/h4VzHiDqTG7IW+wjSx+9g9N
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(5023799004)(4143699003)(261021123027099003)(261102130727099003)(261102123227099003)(10067099003)(261022105027099003)(261021121427099003)(261026140227099003)(56012099006)(261026121527099003)(261009223027099003)(261028144727099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Ujl0dDBRZmFEMnVWeUFCQStwelBjejdDUk5xSUF5aGlxak5LWCtiZzRZemRB?=
- =?utf-8?B?ZGYrYXZyak5nYk8zZjRWQnVRU0VsMUZsSm9GSFZYSlAvY0RmU2Qrc3ExMzRy?=
- =?utf-8?B?T0IyQnhxS29iKzUvVFoxejNrZlArbmg3anQvTzhsSkFWRWFQOXZlTkFja28r?=
- =?utf-8?B?REQ1Y2NJb3BnM0pkSjBaSTlGRmZTRFNVR1ZGcEpURWZWNFhIbHY5NUZ3a2tj?=
- =?utf-8?B?T0JEYXBURGhJeXJoSWJqU2tVdlREQVZSK1d3UmdkZk9nM05YcmVtenR6bjNL?=
- =?utf-8?B?MkNYQTI5aVBFY0kweHNjY3paVUlTTTVzRXp5Y0lMbE9MZlZMVHdhR05ZbEVp?=
- =?utf-8?B?eEdLU1Z6VFN5aEU0dmFNelN1NjdONXdFU0pWUUd5U0pOcjJQZy9Sa0FoNlk1?=
- =?utf-8?B?aURBVHRSVjAwNEt3R3VzUmtkb2w5bCs2dkZDMEpLb1Mvc2tHRmErNFptUFZv?=
- =?utf-8?B?cFJKcWVWbG10TXREMEhsU1JjSTh6UEF4M3N6NmxhZ2Jlb2lmTGlZUzNETXRM?=
- =?utf-8?B?YW9hTW5XZW9MVy9YUzdHZDFrL3JOTndkRmljVzRUSitzOUJ3NjY3ZmYvc3ZG?=
- =?utf-8?B?OE0xcnNKb2V4d0ppMjlVaDBUNWVQMzNHakpkemxUZ1R3TW9EWlJnS1NaOW5l?=
- =?utf-8?B?cDhtbEU1aEZlV3JPOUVMRExwN0g3K29wUUdKamI2N2czaDJHeXpQYmtKYnB4?=
- =?utf-8?B?RUozQkxVdDFzSUExa2N4ak1zWmZMTVA5ME96MjhNK1JNTUV3MzNzVmhLYmtr?=
- =?utf-8?B?SEgzSkZoQkRYS29COUpXMVRiRGlzQU5OS1plSEJqMmEwRVZTa05UMWwxalYw?=
- =?utf-8?B?bUNYYldIczVWRmY5elYwenhaRy8zZ3d3NkVkZWlhZzA0djBDWUhFcjNJZ0I1?=
- =?utf-8?B?UENieGtTUUpWMzViTittZEZjeHBHT2xNMGd0TXpXZFZTbzJjMTBrVGJ2Sk9h?=
- =?utf-8?B?ZW1jTVJNSHhjalhoNFMvZGRtLzB2NFM5WW1hVW9QWS9yR3cydWRnbFp5Skgx?=
- =?utf-8?B?OFpGSXBZTm9obU9sT2FnZ1ZobWxwdnppT3RZUTYyUFJ3c2l2bGV4SFFDenFx?=
- =?utf-8?B?OWpjYk5sYWt5cDJoNmt6OVFtRHdUcmxtYndlUzZKbDlFTXNXa2VJKzg1cWRa?=
- =?utf-8?B?d0lWV1FrYWR3dExVdHB4WkkvMG9iMjJWeGFNNWN1blEzU09QeXMwY1VqOFMw?=
- =?utf-8?B?WWFheWUxYmRaQnAzcUNZYUFZamh3NmlzemxEdm91cW5hMCtuRm5LVUxIQTVu?=
- =?utf-8?B?cTJxVHNFTENCY1Q0WlE2TnJ3cDBwcWhualhzc2tZbE5qU0RHVGk0OEFyaHhh?=
- =?utf-8?B?djFMSXc3MTdydDZvN0dmRFgwWlBncVc2NGs4UTQyV2JHSFQ1MjQ1ckNZWUlQ?=
- =?utf-8?B?S0E0eWtVcENCSk9WYmcwc1FSS2gvaWFLcnQyV1dWcThGNUxYaXhZWTJDUTNK?=
- =?utf-8?B?clQ1Y1pzNFpNR3N3b0ZkTkNXdDdiQ0hUODl4eEhDa21QMGhNN2dzT2pIRmNW?=
- =?utf-8?B?c2lobjdaN0FyblhocjBsOFBmMjgrZWdyYUNBK2ZBN01JSEI4QVdMcHE4c1U2?=
- =?utf-8?B?MjZISDJHa3oyV2tFMjhVWWVIMnpwSWgwNTh3QzU5cktxdW12UzFUQnQvUnFE?=
- =?utf-8?B?YWJzOFBHZ2RjUC9TSFp4VmV1MVJoT3d3VXJHVHdSUnpOVHVMUXJxMGRLbW4z?=
- =?utf-8?B?QkM1Y2ZENitJRi9aMm9FalBWSXlhUHdJMXRtcjZmZFZFWFlBWjVXeTRWT1J3?=
- =?utf-8?B?aUd4OVI2S3U3cXRyVXhOenRuN0s3QXhKUGc2bmFjN2RNRklhRFp2bU1weHht?=
- =?utf-8?B?aDZVdGtMN1VwZXozNlNERHR4UXRhMHV4M0w0ejVLMmZUWG1hWHpnVi9FcXFE?=
- =?utf-8?B?QjBuS05IeHFFbER4c0NsZ3d5aHJqMGJaRFR2SWZsQkcwQTJ0NjB3dzF1WGJh?=
- =?utf-8?B?K1crTHFuZVNLQnRMaVZPNWYyRm1tMGN6VVFzN3FhWktiLyswcU00a0FSY0t3?=
- =?utf-8?B?S0hOVjRyMmpPSVNrVWxObDZFQ21JR2VDQWh5NHgvQmZVajRWaUg1UkJ5SVJm?=
- =?utf-8?B?RmpEYlpMTzY4UGIwQ0lybFAyN2F1WUNZbFlPQm1jN2tuRHpMdjZRVkJJbUs2?=
- =?utf-8?B?QVNTR0gweWdoOGorSzdpNXJGc0p6QlluTHlzaVBmdjRhK2xrNEc3ZGt1MktQ?=
- =?utf-8?B?S3gzc1VMQVpJcHI2K0JhTTJhZFVKQWsyUFp2QmM2VUxoTzVqYWhNY1RVZDFI?=
- =?utf-8?B?QzJWajIrRjB5MkNrQXQxeFRFakF6SUsxK1RoQnB1VlpCNGxhM2xUajZWOW9S?=
- =?utf-8?B?ejBsUEk4ZEptdjB2cW9qZVRnWDNMdW4zWDc0MEtHb0FqR3VoT1dvRFdtRVhL?=
- =?utf-8?Q?pfhyst1Yv2Iv54gjLkYijyOCg9Dr+kKN76t4W?=
-X-Exchange-RoutingPolicyChecked:
-	oJHXrVyGFgF7PoWPuJFowcx/CLaTJiPWAfGtmg8KjKjjjfkc/72/DuWdJ1voQNo2bXNOahAthjXCDmJqwyzmn+Bu0pylEr893r6kLOyJ0KMNtV1NIUifErvNSR2Fpm/DtcItQhETtO+tDmJ6kZa+IyGkq0wZeywFyTpD+WsKvObJHyU4Bpg/2blqwF4KL+fOvuRML+uLPbCtCXfnEavFa/56hz/V2vOZ1e+nRqvUPDuha6UoAQkNJVKFQSp+47Rp9zOScc22OPmmf6R71u7VpmFi6vuOsn4wI+w9Bb2VtOSuBRR6zU3RVBahi8UCwz6xp0nA5px/awnrFbNdRjKZYg==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	+eE0gKWUBe5my/Ot6bCCDXzYE9mQSiOIEsrwEXnCqg4Flx3dB2ii9Ied2SWlbfqPJKQCLIBb+j7hyQRMQBu6+2EJPCaYzXB3nAbOlcAGL8nDH8D+l9VeBpIUbgDy0JF0bfhIWs+XwXWhMSL/7PvlcZJvFyhK8gtgKtNLXh/bExFlwtv8IRJFqMe7GkGgdaxTH+6iGSV9jslmTKPoPDcH7tL64ZSCi5Zx4ZqIBpKQdEELTmEZrLkVzQ8aMpsjZ9nSS/o+6+Fvj5b+92S3jRSlqApWLZN3WGMT6NslE7sOowfC2oRAS782ImubGkT+R2JIDMK4ulIK8pH6i5TIlekZqpFBb67UjhVf1mYXjidEzD3VGDmMAZ8wbkUb0VhYVeaxAes+oRQ/+GVx8e9nFjjD1uV90fX1TdXAEOcvzqLNN2lFecIkPIxCyAuTPIBiEB0UVjC8Ea+0L6RpHTU1rgiXlqtR57JC6RETyeP/5yjmKlvufnxaugOflqedulxGJX9n6sieIXZeGCHAvL7kjIB8GSF7uX83ptEyksG3snkHCv6rqWY2vpNmIAQhUkDCOhjXQl6N2oN/lXna+YjTH8/jwy9NOLWYma2SjGivpE4ScVs=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1943351-4794-4914-eaa8-08df47e97e22
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 16:07:08.0084
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: euqjBAXk9KB6W3qKOFd6G7iN1Urr0Z+khF6zkfpPR9OiUe8PDlauvSPmUsv5yJI0sRfwKTcmj4qBt1SGRvDdTOjpwOELdRLtiIGrh1eLU7Sw2B4iufJqZwbW5R9+0pLU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB6580
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-21_04,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- suspectscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0
- adultscore=0 phishscore=0 mlxlogscore=999 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.22.0-2611040001 definitions=main-2611210063
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIxMDA2NCBTYWx0ZWRfX9JLqFNSbmABG
- Gb/CDyAvjGWYGfS8jzdVFt4DJzjWYekouyhPDSmbletFIUpqioB/RmlJF1b34GXWywTsSSwQSE6
- C0pECfmWueUX4okefDJ62TtUlzZhw1WT5ftGdxiEJwnPxikcwD19
-X-Proofpoint-ORIG-GUID: 0pwZdZu5Z_qs5UMZ34L3bXGdmrQWRY6-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIxMDA2NCBTYWx0ZWRfX7XJAKTcp3+oJ
- VOlQirgRsneKDZcD7SxeZBVt6/MFX5qsRDhFA5NORD3QBXN9Ha5lMK323wNswWtizzSSy41xNx3
- EX3kbild8716mEDUlbRQ/nkU5yTxJ/FujBVWpoP4hXJ1UtR7TNoK5BpjnehIBW54AC0GXh7h+A1
- sxHllaAzRTFwGTkjFm6oUocP+PB55iuPlVILdq3/0F8OW/wuyIEYQACSy/wfBdjkQPugfTKu4kh
- CL5LSXwmxTI/G9i7tKrfXeyTxhCL2sKBENNlp6NJGqlcgNq1P+X9DH/jhCrgOg/DkAO0q0FSJlq
- MR0XBRqlp6LK3GXbb4gDiNd3RaVQlKuF14uwOnmx7blhGUkQUiZyjjF4IBjIYEakL68RJBjOnBG
- Xi4wccvS2TihnhzE+hUvB4mU8HUTU87nip5lIGm+coWQ2nv4TLFKsfoYoUvyxKkBAh/2QsdUayl
- b783bnFytEnHyybQOOTSWceztrzKAjhRJWAN+JLU=
-X-Authority-Analysis: v=2.4 cv=Cocq4X4D c=1 sm=1 tr=0 ts=6b01c1af b=1 cx=c_pps
- a=qoll8+KPOyaMroiJ2sR5sw==:117 a=qoll8+KPOyaMroiJ2sR5sw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=EIcjfB9IiI4px24ztqRk:22 a=VwQbUJbxAAAA:8
- a=bC-a23v3AAAA:8 a=Q8nEdJANQLrPJ0FpOxsA:9 a=QEXdDO2ut3YA:10
- a=FO4_E8m0qiDe52t0p3_H:22 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22
- cc=ntf awl=host:12101
-X-Proofpoint-GUID: 0pwZdZu5Z_qs5UMZ34L3bXGdmrQWRY6-
-
-Hi Greg/Sasha,
-
-On 18/11/26 8:28 pm, Greg Kroah-Hartman wrote:
-> 5.15-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Takashi Iwai <tiwai@suse.de>
-> 
-> [ Upstream commit b113a891252c3fa4fab11ec8c2894a22ecaf278c ]
-> 
-> snd_power_ref_and_wait() takes the power refcount and doesn't leave it
-> no matter whether it returns an error or not.  However, the majority
-> of callers don't expect but just returns without unreferencing in the
-> caller side upon errors.
-> 
-> For addressing the potential refcount unbalance, rather correct the
-> behavior of snd_power_ref_wait() to unreference upon returning an
-> error.
-> 
-> Note that the problem above is likely negligible; the function returns
-> an error only when the sound card is being shutdown, hence it doesn't
-> matter about the power refcount any longer at such a state.
-> 
-> Fixes: e94fdbd7b25d ("ALSA: control: Track in-flight control read/write/tlv accesses")
-> Reported-by: WenTao Liang <vulab@iscas.ac.cn>
-> Closes: https://lore.kernel.org/20260612022121.14329-1-vulab@iscas.ac.cn
-> Link: https://patch.msgid.link/20260614090507.772540-1-tiwai@suse.de
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> Stable-dep-of: a69138357354 ("ALSA: core: Add missing barriers for power_ref vs card->shutdown")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->   sound/core/init.c | 11 ++++++++---
->   1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/sound/core/init.c b/sound/core/init.c
-> index 29d7a9082352d..b3c70ffa295bf 100644
-> --- a/sound/core/init.c
-> +++ b/sound/core/init.c
-> @@ -1138,7 +1138,7 @@ EXPORT_SYMBOL(snd_card_file_remove);
->    * typically around calling control ops.
->    *
->    * The caller needs to pull down the refcount via snd_power_unref() later
-> - * no matter whether the error is returned from this function or not.
-> + * when this function returns 0.
->    *
->    * Return: Zero if successful, or a negative error code.
->    */
-> @@ -1151,7 +1151,11 @@ int snd_power_ref_and_wait(struct snd_card *card)
->   		       card->shutdown ||
->   		       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
->   		       snd_power_unref(card), snd_power_ref(card));
-> -	return card->shutdown ? -ENODEV : 0;
-> +	if (card->shutdown) {
-> +		snd_power_unref(card);
-> +		return  -ENODEV;
-> +	}
-> +	return 0;
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="GYTIzekBzJjw16ds"
+Content-Disposition: inline
+In-Reply-To: <2026112040-splashy-power-2d46@gregkh>
+Jabber-ID: bertrand@jacquin.bzh
+X-GPG-Key: 0xA3B5C016618D9AAA
+X-GPG-Fingerprint: D71B FE62 F66F 3C8B 1A25 A461 A3B5 C016 618D 9AAA
+X-GPG-URL: https://keys.openpgp.org/vks/v1/by-fingerprint/D71BFE62F66F3C8B1A25A461A3B5C016618D9AAA
+User-Agent: All mail clients suck. This one just sucks less.
+BIMI-Selector: v=BIMI1; s=default;
 
 
-Hi Greg/Sasha,
+--GYTIzekBzJjw16ds
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I ran an AI-assisted backport review, and the finding looks correct to me.
+Hi Greg,
 
-In 5.15.226-rc1, e28afa34b037 makes snd_power_ref_and_wait() drop
-power_ref on shutdown failure, while control callers still drop it
-again. The error path decrements the reference twice.
+On Friday, November 20 2026 at 13:29:13 +0100, Greg KH wrote:
+> On Sat, Oct 10, 2026 at 01:03:57PM +0100, Bertrand Jacquin wrote:
+> > ucsi_register() creates the debugfs entries right away, but
+> > ucsi->connector is only set by ucsi_init(), which runs later from
+> > ucsi->work and only publishes the connectors once the PPM has been
+> > reset and all ports are registered. Until then, or for good if init
+> > fails, ucsi->connector is NULL, yet the peak_current, avg_current and
+> > vbus_voltage show callbacks dereference it unconditionally.
+> >
+> > On an Intel NUC13ANKi5 whose PPM never answers when CONFIG_ACPI_EC=3Dn,
+> > reading those files after the failed init oopses:
+> >
+> >   ucsi_acpi USBC000:00: error -ETIMEDOUT: PPM init failed
+> >   BUG: kernel NULL pointer dereference, address: 000000000000045c
+> >   #PF: supervisor read access in kernel mode
+> >   RIP: 0010:ucsi_debugfs_register+0x291/0x420 [typec_ucsi]
+> >   Call Trace:
+> >    <TASK>
+> >    seq_read_iter+0x1e4/0x4c0
+> >    seq_read+0x12b/0x160
+> >    full_proxy_read+0x9a/0x1f0
+> >    vfs_read+0xba/0x320
+> >    ksys_read+0x74/0x110
+> >    do_syscall_64+0x79/0x240
+> >    entry_SYSCALL_64_after_hwframe+0x71/0x79
+> >
+> > Return -ENODEV from those callbacks while no connector is available.
+> >
+> > Fixes: c851b71fd6cd ("usb: typec: ucsi: Add support for READ_POWER_LEVE=
+L command")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Bertrand Jacquin <bertrand@jacquin.bzh>
+> > ---
+> >  drivers/usb/typec/ucsi/debugfs.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> >
+> > diff --git a/drivers/usb/typec/ucsi/debugfs.c b/drivers/usb/typec/ucsi/=
+debugfs.c
+> > index 77a0dd75edd3..911a151ac16a 100644
+> > --- a/drivers/usb/typec/ucsi/debugfs.c
+> > +++ b/drivers/usb/typec/ucsi/debugfs.c
+> > @@ -92,6 +92,9 @@ static int ucsi_peak_curr_show(struct seq_file *m, vo=
+id *v)
+> >  {
+> >  	struct ucsi *ucsi =3D m->private;
+> >
+> > +	if (!ucsi->connector)
+> > +		return -ENODEV;
+>=20
+> What keeps connector from changing to NULL right after you read from it?
 
-In sound/core/init.c, snd_power_ref_and_wait() now drops it before
-returning -ENODEV: (Code spacing adjusted.)
+ucsi->connector never transitions back to NULL. only ucsi_init() writes to =
+it
+through ucsi->work where it's assigned only once, after all ports are
+registered. Every failure path before that assignment leaves it NULL and ne=
+ver
+cleared afterwards.
 
-     if (card->shutdown) {
-         snd_power_unref(card);
-         return  -ENODEV;
-     }
+The only end of its lifetime is ucsi_unregister(), which calls
+ucsi_debugfs_unregister() before kfree(ucsi->connector).
+debugfs_remove_recursive() waits for in-flight readers to drain (the
+full_proxy fops hold a debugfs_file_get() reference and
+__debugfs_file_removed() waits on active_users_drained). Any read
+after that fails with -EIO. So no show callback can run once the
+array is freed.
 
-But snd_ctl_elem_read() in sound/core/control.c still drops it after
-either result:
+A reader can therefore only see NULL (init still pending, or failed
+for good, as in the reported oops) or a valid array, and the check
+handles the NULL case.
 
-     ret = snd_power_ref_and_wait(card);
-     if (!ret)
-         ret = kctl->get(kctl, control);
-     snd_power_unref(card);
-     if (ret < 0)
-         goto unlock;
+Cheers,
 
-Upstream (b113a891252c) returns on failure first, in
-snd_ctl_elem_read_user():
+--=20
+Bertrand
 
-     result = snd_power_ref_and_wait(card);
-     if (result)
-         return result;
-     result = snd_ctl_elem_read(card, control);
-     snd_power_unref(card);
-     if (result < 0)
-         return result;
+--GYTIzekBzJjw16ds
+Content-Type: application/pgp-signature; name=signature.asc
 
-A control operation waiting outside D0 when shutdown occurs takes this
-error path. The double decrement can make teardown wait forever or
-finish its wait too early.
+-----BEGIN PGP SIGNATURE-----
 
-Let us drop this ?
+iJEEABYIADkWIQSg5iBnnersLYwElb5VNIcfLi6T2gUCawHB7RsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQVTSHHy4uk9qw+AEAvZ8B18m9//IL7NJkDi/w
+pIafHYGz3lnNS0AO97123uQBALh65kt7IvInscJ3ksEIje2IoJiWyBmntSFLzBuw
+TzkN
+=KBWo
+-----END PGP SIGNATURE-----
 
-Thanks,
-Harshit
-
-
->   }
->   EXPORT_SYMBOL_GPL(snd_power_ref_and_wait);
->   
-> @@ -1168,7 +1172,8 @@ int snd_power_wait(struct snd_card *card)
->   	int ret;
->   
->   	ret = snd_power_ref_and_wait(card);
-> -	snd_power_unref(card);
-> +	if (!ret)
-> +		snd_power_unref(card);
->   	return ret;
->   }
->   EXPORT_SYMBOL(snd_power_wait);
-
+--GYTIzekBzJjw16ds--
