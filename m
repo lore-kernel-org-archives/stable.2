@@ -1,78 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795288789;
-	b=fajYxMdaFZAomjOJYSxowPhjDCi7xVXImon926OH7V0wHBUIq1WcdO08+/bPNF2gA3FU
-	 rxhh8MJaBTvnP/Ch6h0XwBZX3KC1CymSdPZPGUNNv6KZSIFce+Zx+bfXpSeu9eYv0HSYy
-	 EE3fBKWeyVhX1U1zEO+JKRVSjEaz6CgAMBSUNzwdad3bBidIr/z+pSvTqnlfFPziCsv3n
-	 T6GLUlN8V4gPIrbgY3779Fx8AzqNZYwRfZg4nqh3pCHnnzkJUELDI+W9vlkJhzr+UiY/R
-	 +TM5+HN9StUwjdImA/gfLRUHn0ErPaj8KfvyeOAUXUMWhNVMQUzVwA/bzrdRPELkfLQ==
+	t=1795288938;
+	b=2gfj1HOEUTsClN9VaYZiTpbHjyGmSemH2f8/wkdiz2/QzbbSDWHiEp2kEmMBlrBQw56V
+	 5nv5msgQov61MRrdsPt2/9hGOv4aD9K5IOitN0Phvpk2JT80XcS4ke6b9jwfF0iXIVVjz
+	 69b4CYb2cMy3nwO/MUbYC9KD/u0c+SSUPSLeRNy9xmxIH45Vjg93XAz/WoZ1XWHFmYm/G
+	 wx9BI1xfVqf/Q/FWqdgHujDlFwBKDGid8JByhqlPIhMjouGbn5onwqHyYMLQa4j+/OuEV
+	 xiKeBivra629frIvrOyDw79SMG1MnxqYdqA/kOqiz4rMv6GEDp7QHMhV7eM1rDn3Q/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795288789;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=6SrPi0bx6GHMMCmA6LUjcTk40O7E8I1mi6dEbN9j2Pw=;
-	b=hCyzXOoEluRsR6mxO1PP0SlgqGp/dgy4QTjWzKGabi2Ktx6+kGUuwPqAO1tUb533XGW1
-	 M+qwQvMC7k+zbmQmQ8gYCbFzfwXRUuDGWGOsj9nd/2FSQauNxmUGUBxCkUKmdSRwj+izi
-	 +09FHLZunsyDTkX6RQtW3wuS+JF1qK1NEtANgsa3cRmcVTUTg1fXFN4zzAeudYgdLmB9/
-	 RcU/5RigsZ+TctMhZSfycLFmw66u57lLwAI3J1ZwJGZcX6gMIbuFwadpPq6FTf6RAH5td
-	 G/DEcYc5o2L9cIGCQzi7tcQwnKxbFLlU3+Fl46tc071/zdQoYR1CdTVaUbVBhU+VCBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795288938;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=jRSWqbYA2cl6HiXR/+G7WQM88W3YYY56d8wMra2Uv6A=;
+	b=j3xYC+TuCVmI74S9bBTrVYdtL5MezZdwyTDrvevp/HYlMSRJW/YJBSoTcEpi9yjycE4a
+	 vd04Z0a02YqpihB/QQmMIKKRBo0HZoTwpJE6KVOnYeFC9+ThTRwnWKEDdr0Zv2G8Szjpx
+	 suo0Kb6/evwBMrTUf5fQ+f8PNqevRKgBRNr3wxvEhVA/gRWMWGeCeyjfKgSaj8nYngRaz
+	 ivXVId2kiPfiuY0h8P3bK48GpJc+LTyHsNSCGLQfkFsMDq693d85NS9qbpOa6soD3GQXK
+	 ENFAjrl0ZYb+YZU3bsH1tTaQnpkpHuOPapGM6cINsZ8fShpWOcd7pj2i9I3lAOqE24g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=SUdyUo3B;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=xCJH3yBl;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=5mJDcjln;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8D8606A320;
-	Sat, 21 Nov 2026 19:19:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E8D8606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2941B606A320;
+	Sat, 21 Nov 2026 19:22:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2941B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=SUdyUo3B
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 37BF540E0218;
-	Sat, 21 Nov 2026 19:19:40 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id dbxgZAZ7WSbB; Sat, 21 Nov 2026 19:19:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1795288776; bh=6SrPi0bx6GHMMCmA6LUjcTk40O7E8I1mi6dEbN9j2Pw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SUdyUo3BZP7LdTG1nKwjE3gy0EoBtvxEGR7xdyrVw1v32JjOHf2xZ8RRvbCvaF/Nj
-	 7QW3X9l5D/E+9Kkc3TpPger5kKYZ+yy12epBCvoB9+sbUwD+Q2LraeqQdS0EXsa1na
-	 uDg1iTZOeMPHqR22mH7YN/9tC6ysvQZSx7ZYopfQ3eX8/WsuMouvFk6E1b1n2a36az
-	 S4HLr7fs8RyE8s31yZCaRvbYdZei1vaDumPYmGJPIFTpBNVLaumsRoOuzxfKv/PJVI
-	 9Tm+HRsu2qkThp9xUvUDe/6FCyN3YdB1nTFnUso1f5siWks0kSdwIfIrJjw7vFWH1/
-	 GX9yfIw6hyyzu1rm+jWENLyC1Qlokdzn2vsKaGujZ5cWdFPEV4oipNz7HohMHA5DW6
-	 qYiHsV9eGDNBjZvgF68FQ8hEduJmbzLmODpCK8CAddERy21Zx5ntWjc/59H8SJlzrq
-	 cUJB6CEE58avCGVTeZDzfhSy5n7ACxh6KhOmDtqsMNm4zddj8s81G9r+pDARahqTZF
-	 yfhs7XKsr0BAuF56zOKMgVyzK3rLFDGDbv+B/It3oD9CQ5tGMLJZ0X6Nnl5i9se133
-	 7+lZ2Ro03c17M0eZs1WusxSaLkeqo/wGbWHB7LeropVuANj1lV/xkGJ1VE6gHRDqVI
-	 hNC4j0ZY0yHVD/3alx+cXOjU=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E47BC40E015B;
-	Sat, 21 Nov 2026 19:19:22 +0000 (UTC)
-Date: Sat, 21 Nov 2026 11:19:19 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Tina Zhang <zhang_wei@open-hieco.net>
-Cc: x86@kernel.org, puwen@hygon.cn, tglx@linutronix.de, mingo@redhat.com,
-	dave.hansen@linux.intel.com, andrew.cooper3@citrix.com,
-	david.laight.linux@gmail.com, hpa@zytor.com,
-	linux-kernel@vger.kernel.org, yangzhen@hygon.cn,
-	dengqiming@hygon.cn, stable@vger.kernel.org
-Subject: Re: [PATCH v2] x86/cpu/hygon: Work around XSAVES Erratum 1386
-Message-ID: <20261121191919.GAawHutzJsmVu7m3Tz@fat_crate.local>
-References: <20261121105320.478279-1-zhang_wei@open-hieco.net>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=xCJH3yBl;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=5mJDcjln
+Date: Sat, 21 Nov 2026 19:22:12 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1795288935;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jRSWqbYA2cl6HiXR/+G7WQM88W3YYY56d8wMra2Uv6A=;
+	b=xCJH3yBlsfoVRdQTE/WzpG3hcpavsHOvEhGLv4ZiQpYzNu2vtw+OnJQCfqHSV+uYrboOdi
+	nsSzHXlp2mF/gmkPLlgKxmpcHAn1SRV4S+PIU8j7IXq1qJ+zt7IIanHBTykbyP9KJEuDup
+	YJ+JDYwXbdmir1a+0LkKQtpQm5to+Y0q9c3rP9LIeTxVgHF6pS+KQFCSY/y3e+Nr2GOAmq
+	KkZzo6xbf3XdIAnItCH+rOHg61JJRKisxTl5Bg9xoKvXlI8VmEqt01sgAD6/aCykNLjxxk
+	jNsiJKW6gCPlbJEoNSbKwT+QzlPXyfNQb1SUX+2pxdiz3j/L4nKSSzQtRE6oIw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1795288935;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jRSWqbYA2cl6HiXR/+G7WQM88W3YYY56d8wMra2Uv6A=;
+	b=5mJDcjlnJQBKKBjS5ffQV+JjpD4IkBU1c4ujhbbXU/sS/ZMHOUWda6FC9c9dpMhdJP/Y4Y
+	eTBBMIVyN/M9p9Ag==
+From: "tip-bot2 for Richard Weinberger" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] x86/Kconfig: Enable ROX also when STRICT_KERNEL_RWX
+ is present
+Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Richard Weinberger <richard@nod.at>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Vinny Horgan <vinnyhorgan@gmail.com>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260625090627.1501095-1-richard@nod.at>
+References: <20260625090627.1501095-1-richard@nod.at>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,64 +81,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261121105320.478279-1-zhang_wei@open-hieco.net>
+Message-ID: <179528893241.92412.16620607999563559576.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Nov 21, 2026 at 06:53:20PM +0800, Tina Zhang wrote:
-> The XSAVES malfunction described in AMD Erratum 1386 also affects
-> certain Hygon Family 18h processors. Under specific conditions, XSAVES
-> may fail to save XMM register state, allowing stale register values to
-> reappear after the state is restored.
-> 
-> The failure mode is documented as Erratum 1386 in "Revision Guide for
-> AMD Family 19h Models 00h-0Fh Processors", Publication #56683 [1].
-> 
-> None of the affected processors enumerate supervisor XSAVE state
-> components. XSAVEC is therefore equivalent for their enabled state
-> components and is not affected by the erratum.
-> 
-> Family 18h models 00h through 06h and model 10h are affected. Other
-> Family 18h models contain the fix in hardware.
-> 
-> For the following model and stepping combinations, the minimum
-> microcode revisions containing the fix are:
-> 
->   Model  Stepping  Microcode
->   04h    0         0x9040000f
->   04h    1         0x9041000f
->   06h    0         0x9060000f
->   06h    1         0x9061000f
->   10h    0         0x91000004
-> 
-> These are the only known steppings for those models.
-> 
-> Disable XSAVES on affected processors unless a matching model and
-> stepping entry identifies a sufficiently recent microcode revision
-> containing the fix. This allows the x86 FPU code to use XSAVEC
-> instead.
-> 
-> [1] https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/revision-guides/56683.pdf
-> 
-> Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
-> Tested-by: Qiming Deng <dengqiming@hygon.cn>
-> Reviewed-by: Zhen Yang <yangzhen@hygon.cn>
-> Cc: stable@vger.kernel.org
-> ---
-> Changes in v2:
-> - Keep the workaround self-contained in hygon.c while following the AMD
->   implementation pattern.
-> - Describe the affected processors in an x86_cpu_id table instead of using
->   open-coded family and model checks.
-> - Add a reference to the public Erratum 1386 documentation.
-> 
->  arch/x86/kernel/cpu/hygon.c | 41 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 41 insertions(+)
+The following commit has been merged into the x86/urgent branch of tip:
 
-https://sashiko.dev/#/patchset/20261121105320.478279-1-zhang_wei%40open-hieco.net
+Commit-ID:     ae3398a7da224e1cb14a04ce8e9da66fc2948121
+Gitweb:        https://git.kernel.org/tip/ae3398a7da224e1cb14a04ce8e9da66fc29=
+48121
+Author:        Richard Weinberger <richard@nod.at>
+AuthorDate:    Thu, 25 Jun 2026 11:06:27 +02:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Sat, 21 Nov 2026 11:06:09 -08:00
 
--- 
-Regards/Gruss,
-    Boris.
+x86/Kconfig: Enable ROX also when STRICT_KERNEL_RWX is present
 
-https://people.kernel.org/tglx/notes-about-netiquette
+Running a kernel with CONFIG_MODULES=3Dn causes the W+X page detection
+to trigger:
+
+  x86/mm: Found insecure W+X mapping at address 0xffffffffc033a000
+
+The W+X pages come from __its_alloc() with type being EXECMEM_MODULE_TEXT.
+Without ARCH_HAS_EXECMEM_ROX pgprot is PAGE_KERNEL instead of PAGE_KERNEL_ROX.
+
+Fixes: 47410d839fcda ("x86/Kconfig: only enable ROX cache in execmem when STR=
+ICT_MODULE_RWX is set")
+Suggested-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: Richard Weinberger <richard@nod.at>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Vinny Horgan <vinnyhorgan@gmail.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260625090627.1501095-1-richard@nod.at
+---
+ arch/x86/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 58dce0b..3159852 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -84,7 +84,7 @@ config X86
+ 	select ARCH_HAS_DMA_OPS			if GART_IOMMU || XEN
+ 	select ARCH_HAS_EARLY_DEBUG		if KGDB
+ 	select ARCH_HAS_ELF_RANDOMIZE
+-	select ARCH_HAS_EXECMEM_ROX		if X86_64 && STRICT_MODULE_RWX
++	select ARCH_HAS_EXECMEM_ROX		if X86_64 && (STRICT_MODULE_RWX || STRICT_KERN=
+EL_RWX)
+ 	select ARCH_HAS_FAST_MULTIPLIER
+ 	select ARCH_HAS_FORTIFY_SOURCE
+ 	select ARCH_HAS_GCOV_PROFILE_ALL
