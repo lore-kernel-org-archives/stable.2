@@ -1,49 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795257736;
-	b=GNCnYZCFu0BYgxz7iW9BdvfQsuDn5YXRr5HMJkfdonsDiLWrwG9d/5wQjlSxnV1R5e3X
-	 0gpFW1N5++jiZUeKVs0byM72lp/IQvU1uTdSQNI4hhWGuHc78bqw9CU3//7vX4Zq+7BQD
-	 emDnh0/aSrJ0JosNdicKBKCH3QJorGk0V9MC8YJGKpqD+hwHbhQefDfiLJ23CKJJw8y6U
-	 aKHChg6/jE+eenqxfH7i0tJBW35RqfGIKUX/yphINTP95g1GubBHaNNOITSKcuZX5W/m/
-	 am9yEwVzCGQgGYEs4Yms2GLaakb5vgoAANRU3L3k7UhppSgZvlNVwVanZKTDJppVr1w==
+	t=1795257824;
+	b=IJVc0FVAIeNaFYOQ/Tk6z6oemuUeKOqLHkVm4oq3oPHMHCa6MTay0Hsipgv6zv7T29FN
+	 wlKVS//q+ZgFQNdCf8XVGQjHGjIjQuhIRAud3U93rlPzH5RrUfMahqsyzPcjERQ/B61iy
+	 njbN8O0Hyf/4EQlBwVKhbQ2PZ0Y1PN3hmnvFzN7i5iMMn14FsX0MBpZqu2OmbdUWX+iFG
+	 A/xs+/I4XewKCUkT2ZkZNUDH7EVPaK0h1/uTB5x2+/UG6ivOuPzMQ83k7NUQ+jQAxpy1K
+	 RxJks8RFi6KwfmE8jp0M/AimQ9kAz1hsh/j5BVGDWtKGHRfawJROEXSD/4LGO48t6BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795257736;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Yj6YhJZae49Tw0DKv2iw0HLLaEXFAkG+q7uMo0BJK1M=;
-	b=ZvVLLnnE2uH8b8ztqzXRKBE5LdhL0R00RMqoFVwu8Xkk+DTW+3Y931xCKs8sD5IbPjbQ
-	 aIzwVW2CK8sTbOrnOYg7QmZ9iaoG1ZPZVX2u1Kxe93VLI0Vppgsce5qIuO9l3s0RDtEre
-	 m1E51Ec9KmjxmzZvZKTxzCmSI95XZ/hUvIJsI/ze6edD2WJKyTwkUP2dO861cgOnv4yjD
-	 +/vn9L3DgCzTe0llpWuTueNoybgJIp9p7vKlHdObj3zRr5Dc8cBPXCyxuE9hoQAN6RZhw
-	 3lRWV00wbL+ZM4TSFEuVvZBZbq6c/+B1INiTU0F257x9Usmy+GZ5Hzdu8eX/y/TXHrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795257824;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5qFrHybFgn3xA42XyK9cEuXKRJg4yf4XyYywjW290pU=;
+	b=tB3ZWAu32BN0YM9NV05zyqyBFwpmLmZzvsgxmGGkKFRhnWjGDVBnOnazCPHLHIw4RmfU
+	 dHCz9GWE/jCcaY6wxRIxrIi9D5lbPX1Ov9xM7t1qzGY0R2CEe/AeT7K7kc5pTT4eBT21Q
+	 MVQPCo8ywQB1uB0ZyK1bmoPDVME/90329bTlvcfYX2BG8doZB4xEFULplYl3DBVyE4O/z
+	 1ExGw9nGdcDgDyxmB1oXsymVWBTUtiX4OMR+pbt724UzOZ3dVhj1EcLtui3AoOffPn1GC
+	 yyFkmWt2GaKqq23pkvIAUB2nUHTsCkXlQt/+fdkYvEc1zfM9swEv1fBHnNhXZGupjqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=oy7tTvfm;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3071606A320;
-	Sat, 21 Nov 2026 10:42:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3071606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCyJLkO5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B23606A320;
+	Sat, 21 Nov 2026 10:43:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=oy7tTvfm
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E7C8F1575;
-	Sat, 21 Nov 2026 02:42:11 -0800 (PST)
-Received: from [10.57.93.173] (unknown [10.57.93.173])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E33D03F673;
-	Sat, 21 Nov 2026 02:42:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795257734; bh=iL8eR8LtS02jD0fPEipVhs7PZCrNJt53A3HgRmlu1nE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=oy7tTvfmqCGu0HNi4kMZuliqPxj9S4Sg/F1R9gMt1ti70b/jdNnoI2j+XJJraGBRs
-	 6zWwas8zsHWk+kpMPDns3rt2CAp0k3ryRfHT4apcesHp/t4pHYKqG0O1U155bD3god
-	 n7+8Vxqr/TFa/r6QaMYXTbopuoDxgIv7+mptE56w=
-Message-ID: <5f9eae39-b82c-4fb3-9bea-c49a6b7baf25@arm.com>
-Date: Sat, 21 Nov 2026 10:42:11 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCyJLkO5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3114D1F000C6;
+	Sat, 21 Nov 2026 10:43:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795257824;
+	bh=5qFrHybFgn3xA42XyK9cEuXKRJg4yf4XyYywjW290pU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mCyJLkO5qU1yecQLntXP9mZJ02uePt0B2S82MR7Q1IojntTzrqruWZ5Oq9DqfYFTS
+	 WXWRJ8744YfWdqNDKhyrhNwwT1chaU1ZLJ5cZ8U4uC4canysDHdCY2fjIdp3Y/loJv
+	 5aBfnnGGAgjFD7uc5sVwKJgMBAsddij4MoYTGZDioZN2D5ftBFIu27rmygsGdOZNo8
+	 W+lPIPvXUqmpEHG5B70JRrAgkfB5S5rHRby8+/ZBugd6jt5TYP0WrMnGf4mOVk3pgo
+	 xvvhzn0sxGLQib98lxRgZcNKE7/eBuq+5vws/nHZWIl/KSg4xRUXB1cJ29naJTVVhL
+	 kackkBgXVImow==
+Date: Sat, 21 Nov 2026 11:43:40 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, =?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, 
+	Luca Weiss <luca.weiss@fairphone.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] dt-bindings: media: i2c: dw9800: Redocument
+ DW9800K
+Message-ID: <20261121-judicious-vengeful-ant-f9bcb1@quoll>
+References: <20261119-b4-dw9800k_cleanup-v4-0-df26c431595e@fairphone.com>
+ <20261119-b4-dw9800k_cleanup-v4-1-df26c431595e@fairphone.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,59 +64,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] arm64: pi: Add an ISB after mapping the FDT in the
- initial ID map
-To: Fuad Tabba <fuad.tabba@linux.dev>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Yang Shi <yang@os.amperecomputing.com>, Kevin Brodsky
- <kevin.brodsky@arm.com>, Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Fuad Tabba <tabba@google.com>, stable@vger.kernel.org
-References: <20261120121638.194154-1-fuad.tabba@linux.dev>
- <20261120121638.194154-2-fuad.tabba@linux.dev>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261120121638.194154-2-fuad.tabba@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261119-b4-dw9800k_cleanup-v4-1-df26c431595e@fairphone.com>
 
-On 20/11/2026 12:16, Fuad Tabba wrote:
-> map_fdt() maps the FDT into the live initial ID map with only a DSB
-> before the caller reads it, so the read can fault on a translation made
-> speculatively before the mapping was written. This early in boot,
-> VBAR_EL1 doesn't yet point at the kernel's vectors, and the kernel fails
-> to boot.
+On Thu, Nov 19, 2026 at 10:51:23AM +0100, Griffin Kroah-Hartman wrote:
+> The DW9800K's properties are too different to justify sharing the same
+> bindings file as the dw9719, Create a separate bindings documentation
+> for the Dongwoon Anatech DW9800K with its updated properties.
 > 
-> Add an ISB after the DSB.
+> More specifically:
 > 
-> Fixes: 84b04d3e6bdbc ("arm64: kernel: Create initial ID map from C code")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-
-I did a quick audit of all the other DSBs without ISBs in the pi code and I
-think the rest are all correct because they are not synchronising stores to
-_live_ tables so there can't have been any speculation with the old invalid value.
-
-Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
-
-
-
+> The DW9800K did not share the SAC1 and SAC6 modes
+> that the DW9719 used.
+> 
+> Description of vcm-prescale does not match the calculations labeled in
+> the DW9800K datasheet for how clock diving rate is computed.
+> 
+> New property timing-control introduced to offer more fine-tuned dividing
+> options available to the DW9800K.
+> 
+> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 > ---
->  arch/arm64/kernel/pi/map_kernel.c | 1 +
->  1 file changed, 1 insertion(+)
+>  .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
+>  .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
+>  2 files changed, 91 insertions(+), 1 deletion(-)
 > 
-> diff --git a/arch/arm64/kernel/pi/map_kernel.c b/arch/arm64/kernel/pi/map_kernel.c
-> index fb44cbdd2f292..f9338257adb7d 100644
-> --- a/arch/arm64/kernel/pi/map_kernel.c
-> +++ b/arch/arm64/kernel/pi/map_kernel.c
-> @@ -211,6 +211,7 @@ static void *__init map_fdt(phys_addr_t fdt)
->  		  fdt, PAGE_KERNEL, IDMAP_ROOT_LEVEL,
->  		  (pte_t *)init_idmap_pg_dir, false, 0);
->  	dsb(ishst);
-> +	isb();
+> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+> index 8e8d62436e0d0c4f9af9e52262b23881abd37cec..38db0764c0f70ad49295dcddc182b7e100a68b29 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+> @@ -21,7 +21,6 @@ properties:
+>        - dongwoon,dw9718s
+>        - dongwoon,dw9719
+>        - dongwoon,dw9761
+> -      - dongwoon,dw9800k
 >  
->  	return (void *)fdt;
->  }
+>    reg:
+>      maxItems: 1
+> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..99f3b506cf12c63ddef1e3d18fd59179a5e7800c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
+> @@ -0,0 +1,91 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9800k.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Dongwoon Anatech DW9800K Bi-Direction Voice Coil Motor (Bi-VCM) Controller
+> +
+> +maintainers:
+> +  - Luca Weiss <luca.weiss@fairphone.com>
+> +  - Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+> +
+> +description:
+> +  The Dongwoon DW9800K is a single 10-bit digital-to-analog converter with
+> +  +-130 mA output current sink capability, designed for linear control of
+> +  bi-directional voice coil motors (Bi-VCM) in camera lenses. This chip
+> +  provides a Smart Actuator Control (SAC) mode intended for minimizing
+> +  mechanical vibration.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - dongwoon,dw9800k
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vdd-supply:
+> +    description: VDD power supply, can range from 2.3V to 4.8V
+> +
+> +  dongwoon,sac-mode:
+> +    description: >
+> +      Slew Rate Control mode to use: direct, LSC (Linear Slope Control) or
+> +      SAC2-SAC5 (Smart Actuator Control).
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum:
+> +      - 0 # Direct mode
+> +      - 1 # LSC mode
+> +      - 2 # SAC2 mode (operation time# 0.48 x Tvib)
+> +      - 3 # SAC3 mode (operation time# 0.72 x Tvib)
+> +      - 4 # SAC4 mode (operation time# 1.20 x Tvib)
+> +      - 5 # SAC5 mode (operation time# 1.64 x Tvib)
+
+That's ABI break, although you explained the reasons, but ABI was
+released and I think this can easily support older ABI while fixing
+things: simply use old values without SAC1 and SAC6.
+OTOH, how did DTS work with value =2 (so SAC1) and =7 (SAC6)?
+
+
+> +    default: 3
+> +
+> +  dongwoon,vcm-prescale:
+> +    description:
+> +      Indication of VCM internal clock dividing rate select, as one multiple
+> +      factor to calculate VCM ring periodic time Tvib.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum:
+> +      - 0 #  Dividing Rate -  2
+> +      - 1 #  Dividing Rate -  1
+> +      - 2 #  Dividing Rate -  1/2
+> +      - 3 #  Dividing Rate -  1/4
+> +      - 4 #  Dividing Rate -  8
+> +      - 5 #  Dividing Rate -  4
+> +    default: 1
+> +
+> +  dongwoon,timing-control:
+> +    description:
+> +      In LSC mode (252 + value * 4) * divider value in microseconds
+> +      In SAC mode (6.3 + value * 0.1) * divider value in milliseconds
+
+This should use property units, so microseconds.
+
+Best regards,
+Krzysztof
 
