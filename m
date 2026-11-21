@@ -1,57 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.219
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795258420;
-	b=Bz6GdkcxkS4gqE2Mu7+YP3jkAjN7J3jiX+Sqo+DrKg6lZs5VNERnUMHv7CNBajuvqLEw
-	 dvB+xhddT2JTFY+9lpWcXTED8jA0OQ35usZOt8IuB1xqQ8yL6Yeu1D894raGbme1mVkVt
-	 sEY7jzyYJlF5ZKHQNwWpRW9q6A1jUy01tlgOSmyQ/UjEIV4xPcgALmXwWBWtiqrH/W66F
-	 gL4ioTitCJqW9Pe5VEeN3aaYfDzeH4VGfG5PcpVuLxnzxUMKoQVPKwpl86yocelMR5fca
-	 cXRZNBB2noGfOb4agl97utRW7rxmyk70xgFTyMsIMx9uHPc3A6b8nmz0aqvtMsXbS5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795258420;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=l50CAtQzNadHFSzuTTVRJIlupCKXXjl5rlQxFti5jps=;
-	b=zWzl4GotwBr6jARWTU6ke6gevNqfkC++WNIJakuiuU3v5q+gRjtK42nMYzH9ITEPALJH
-	 6fQ/7gnmTlWYg+skzp0+YmoRTc95+Iq8M1BMEWqUmYuyNtstQt4lUFFBC0j6qNkSzqZAS
-	 i7UICSZur340erTYQoajqqENa7Rmg27i5jX/0deFJQUYhqTkM3sHkf4+hwEa4dpAFtKgO
-	 of6Wlrpo9i2ijP2X6Mnooxx6G7j9yL30l0WugzmI3LW600k5wXrOP4/MPpxJisg0kTpls
-	 6EmCqWdmuHCCiLLtKW3QlQqrLejqvxaV5/ZUZ8oOQ6eA4ErfTKT0F/GRyv6152+w9Xg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.219
-Received: from out28-219.mail.aliyun.com (out28-219.mail.aliyun.com [115.124.28.219])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795258803;
+	b=DltneWjzX9e9yikxzKRyDQZcDND+8oDMrvn5vxoNr/uYoGyPxKqEgswcJv/EB8Ye5cuZ
+	 F0cj8jPJ552sX73mr3BdOlXGD84hwjxrruCSB+tYE2Wsc8DOPmvWWUSgt223n4A6pM3Zs
+	 uxCwIzCCRJvQgtCVQyDkjXCuYQjLbftuvU2y5lKc/xgLTJz54Ps/DCd7oGi4+158jTB1W
+	 kiJOolW1eIpKbRSl1eXkNVdADM5X3Bl0eXg9IN6wERa61l8aP1/kpAycqIzK/IYNTqGfk
+	 jX/4jJc3hgDh1cCBEU3E/llOY3FGdc+LCVsLIcDsoZS0AmbI4nR+ywb4382zw7HT/Ug==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795258803;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:From:To:Cc:Message-ID:X-SimpleLogin-Type:
+	 X-SimpleLogin-EmailLog-ID:X-SimpleLogin-Want-Signing;
+	bh=mxpwphme3p8/7+XLeJahR1+ecqy/PNzspX4y3gTC0ps=;
+	b=IQFi7VmHMNQkvTBd+7YYjzp37OX77BypYWrqC+8bI+Tc2PSvKL1fStvrmokjOojqxonh
+	 KK286oRCn+88a2pxtEhHXXUVeSMwb07mQBK4pojdh6GamZTwnfcM8xpBVsRQbOd2LLNcK
+	 4UVQCRqJ7FNTOYfF4Vv+W7c1iHCKs6WzfCBOmsiekKa3vjvK1ySzNMP9TNSxrRzfpFdy7
+	 g+Wi/uTrmlbfJY+QlEUO2bHyRnl2U16PxEfgc6MDsmGl8EHfoeAGa6DmtlhNyluEwlaE/
+	 owmX1OSe1D71/wm1dnVAu9ZSkHG6kj1MekAsbAQft889RLc2gACnbh89jIOiHMWcnxg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=8alias.com;
+	spf=pass smtp.mailfrom=8alias.com;
+	dkim=pass header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=QYWoH2er;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.173
+Received: from mail-200173.simplelogin.co (mail-200173.simplelogin.co [176.119.200.173])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE1D606A320;
-	Sat, 21 Nov 2026 10:53:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BE1D606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07258849|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00391736-0.0256318-0.970451;FP=12386842946356973035|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033065158064;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.k75knxJ_1795258402;
-Received: from localhost.localdomain(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.k75knxJ_1795258402 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sat, 21 Nov 2026 18:53:27 +0800
-From: Tina Zhang <zhang_wei@open-hieco.net>
-To: x86@kernel.org
-Cc: puwen@hygon.cn,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	andrew.cooper3@citrix.com,
-	david.laight.linux@gmail.com,
-	hpa@zytor.com,
-	linux-kernel@vger.kernel.org,
-	yangzhen@hygon.cn,
-	dengqiming@hygon.cn,
-	Tina Zhang <zhang_wei@open-hieco.net>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] x86/cpu/hygon: Work around XSAVES Erratum 1386
-Date: Sat, 21 Nov 2026 18:53:20 +0800
-Message-ID: <20261121105320.478279-1-zhang_wei@open-hieco.net>
-X-Mailer: git-send-email 2.43.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579A9606A320
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 11:00:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 579A9606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=8alias.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8alias.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=QYWoH2er
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1795258796;
+	cv=none; b=h3a+LJMicfPgCWz4UF4JbXy+QxJBCSIXyUo/w6OYWtV99CSxAYlJ6sLIfK8fIKTrrkAlComdntjLH4yqNNXhtef291VL3MCmTGEl7iFMgRYWBRjILOPMp7TSHOZyFvLTsimQF1cq0Zd/Ys/oQJoog8dXL6bCSJbc5BPBmgNaiGuWW8Nf3Xm82ma9/vlTUH6BsiLi2UIT/meCajjxk6ASJH2xK9STJ5lCcO55ccFrWgLgLXsLNSbqsgh8AbvMCcYbs/6vMU8hP/wqgVKRaxkR1JB5Fr24HgoXKYLRjODyRG1i1Mmqvue6+iam2w3AscVwsmX1snjLL+cL20+gPdua9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1795258796; c=relaxed/simple;
+	bh=mxpwphme3p8/7+XLeJahR1+ecqy/PNzspX4y3gTC0ps=;
+	h=Date:Subject:From:To:Cc; b=EA9upLh9WiOj3WVqwdsp9J8OofT3eA0ZDiHjQnJQoiaXp355qT5GJqaqn3mp6zazqCZbLPGQBqa6CrZGKTBoMPME3bKjZPYTaFQ/qZHIjW79IDLfAmqPhyo2gyYjmoOcJYi960FcPk50/D+TI9tPzn184X9RnewqClNK3OA9wlNo0bbV9ZpSKC2hDf7T2Rh4F3qnWu9/op27ZSExVfLG7f+K3B5wjOgo/9N1EsoEfpUDWbkOm3bTkMfFhnXnxwXDnguun7M9wQv6qJ/SjL8hx97Lz+Fd5vClFofOmSMIBLBUVqmroceeBkez9uWjPnrbOIvbWYvSvnCZdExYBdJOFw==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=8alias.com; s=dkim;
+	t=1795258796;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=mxpwphme3p8/7+XLeJahR1+ecqy/PNzspX4y3gTC0ps=;
+	b=QYWoH2erMYlhx/F290X/HvoP3pwPXxcY/K/IbNOMhUWtoKBIOsPFlruWNuBtQV/i/Njw9Z
+	FWU7rusE3g8swhX8qRsBGvRoSLmGp8nd2oj8eMQWbvaBovibBWN0Y7PmldYrKOdj93dgHA
+	jpvE8Loa7XYpck4w1PECxfsIvysj6mo=
+Date: Sat, 21 Nov 2026 11:59:54 +0100 (CET)
+Subject: [stable request] Backport TAS2781 calibration address fix to 6.18.y
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,123 +60,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+From: linux-kernel.supreme403@8alias.com
+To: stable@vger.kernel.org
+Cc: tiwai@suse.de,linux-sound@vger.kernel.org
+Message-ID: <179525879604.6.759418222472508172.1791565667@8alias.com>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1791565667
+X-SimpleLogin-Want-Signing: yes
 
-The XSAVES malfunction described in AMD Erratum 1386 also affects
-certain Hygon Family 18h processors. Under specific conditions, XSAVES
-may fail to save XMM register state, allowing stale register values to
-reappear after the state is restored.
+Hi,
 
-The failure mode is documented as Erratum 1386 in "Revision Guide for
-AMD Family 19h Models 00h-0Fh Processors", Publication #56683 [1].
+Please backport ba39a31448857da3b848174c9130b466b3ccddba
+("ALSA: hda/tas2781: Prevent throwing away custom calibration addresses"),
+which landed in v7.4-rc2, to 6.18.y.
 
-None of the affected processors enumerate supervisor XSAVE state
-components. XSAVEC is therefore equivalent for their enabled state
-components and is not affected by the erratum.
+The driver ignores custom UEFI calibration register addresses with
+non-basic DSP firmware. On the ASUS TP3407SA, this sends factory speaker
+calibration coefficients to the wrong registers. The fix was tested
+successfully on that model with 6.18.59 and applies cleanly to 6.18.64.
 
-Family 18h models 00h through 06h and model 10h are affected. Other
-Family 18h models contain the fix in hardware.
+Test report:
+https://lore.kernel.org/all/179364849173.6.15547077920953953013.1741098232@8alias.com/
 
-For the following model and stepping combinations, the minimum
-microcode revisions containing the fix are:
-
-  Model  Stepping  Microcode
-  04h    0         0x9040000f
-  04h    1         0x9041000f
-  06h    0         0x9060000f
-  06h    1         0x9061000f
-  10h    0         0x91000004
-
-These are the only known steppings for those models.
-
-Disable XSAVES on affected processors unless a matching model and
-stepping entry identifies a sufficiently recent microcode revision
-containing the fix. This allows the x86 FPU code to use XSAVEC
-instead.
-
-[1] https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/revision-guides/56683.pdf
-
-Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
-Tested-by: Qiming Deng <dengqiming@hygon.cn>
-Reviewed-by: Zhen Yang <yangzhen@hygon.cn>
-Cc: stable@vger.kernel.org
----
-Changes in v2:
-- Keep the workaround self-contained in hygon.c while following the AMD
-  implementation pattern.
-- Describe the affected processors in an x86_cpu_id table instead of using
-  open-coded family and model checks.
-- Add a reference to the public Erratum 1386 documentation.
-
- arch/x86/kernel/cpu/hygon.c | 41 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
-
-diff --git a/arch/x86/kernel/cpu/hygon.c b/arch/x86/kernel/cpu/hygon.c
-index ec51c2b9a257..2546b44af981 100644
---- a/arch/x86/kernel/cpu/hygon.c
-+++ b/arch/x86/kernel/cpu/hygon.c
-@@ -10,6 +10,7 @@
- 
- #include <asm/apic.h>
- #include <asm/cpu.h>
-+#include <asm/cpu_device_id.h>
- #include <asm/cpuid/api.h>
- #include <asm/smp.h>
- #include <asm/numa.h>
-@@ -170,11 +171,51 @@ static void early_init_hygon(struct cpuinfo_x86 *c)
- 	set_cpu_cap(c, X86_FEATURE_VMMCALL);
- }
- 
-+#define X86_MATCH_HYGON_MODEL_STEP_UCODE(model, step, ucode) \
-+	X86_MATCH_VFM_STEPS(VFM_MAKE(X86_VENDOR_HYGON, 0x18, model), \
-+			    step, step, ucode)
-+
-+static const struct x86_cpu_id erratum_1386_microcode[] = {
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x00, 0x9040000f),
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x01, 0x9041000f),
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x00, 0x9060000f),
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x01, 0x9061000f),
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x10, 0x00, 0x91000004),
-+	{}
-+};
-+
-+static const struct x86_cpu_id erratum_1386_cpus[] = {
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x00, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x01, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x02, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x03, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x04, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x05, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x06, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x10, NULL),
-+	{}
-+};
-+
-+static void fix_erratum_1386(struct cpuinfo_x86 *c)
-+{
-+	/*
-+	 * Work around Erratum 1386.  The XSAVES instruction malfunctions in
-+	 * certain circumstances on affected Hygon processors. Clear the feature
-+	 * flag only on microcode revisions without the fix.
-+	 */
-+	if (x86_match_min_microcode_rev(erratum_1386_microcode))
-+		return;
-+
-+	clear_cpu_cap(c, X86_FEATURE_XSAVES);
-+}
-+
- static void init_hygon(struct cpuinfo_x86 *c)
- {
- 	u64 vm_cr;
- 
- 	early_init_hygon(c);
-+	if (x86_match_cpu(erratum_1386_cpus))
-+		fix_erratum_1386(c);
- 
- 	set_cpu_cap(c, X86_FEATURE_REP_GOOD);
- 
-
-base-commit: c44104f3642da720164042623e4832836aefdd8e
--- 
-2.43.7
+Thanks.
 
