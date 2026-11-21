@@ -1,136 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795267584;
-	b=k54ifRCkBRKsVIq7seZEZSqOWn/ZbxXCqMER6xVl9DcJ9Z5o259OQSZPMU4gD6Vfb4LR
-	 mjvz+IB60r/Da2PJ80FRgvoeU7tBXy3zIybwefaMJ2sTdDPReUn9+adAutziTb2BmWl9Q
-	 /58z/6vcWWWJPCEzzFXC+N8RoB89apFPNpA3BpC77rbM6+pf+/KyPmtZ56EkrexO8qDGj
-	 yTWBZz7Zq5SEzorU4PbeEVKHqjYjw3Qm3lxmZt6PJYEg0V1h+P7Li+b6MueqxWvFrJGI0
-	 6Sgl9E6HmLzfoe9pKcGUPy0E8Ucdjnk3H/lNY7CtsyQ9pPMMenakBKfXTTXcQv6owQA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795267584;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
-	 To:Cc:References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID;
-	bh=tPnqgvFCwMmJ4MHzaJ6X5JLO2/YKyz6gyWkvZc4PpEg=;
-	b=VtlX4+15F5Tzpy5vxUsArOp+XmZx21NskJ1RJHwv/JVbjG3Nvuzz3V4JQRpSmrf6S9cZ
-	 lp2EyLhT7I0Oj5+rPEnDoWevIJlGKUm7Cvrx4DKtGtp3OxcNptGK6Xe4PyTmFUf8e5MTE
-	 rNGFtLiRQ1iTkyYVJxDCpuwqeKLI83Ci3HaaVUXLeY7LvHc3oc8BJoLARPMa4hp1aAaTs
-	 +PaM2NKr7asOPZm7KIlbD/KFIzsRSqHzBGGikHX+TsaxtqU84EiIPUxr8gfjXcMMIcc13
-	 1u1uWlkXX2NVG32PPzzt6B8S8kJ7R51sT8ZzhMJBgIWFi2copWCyz5gql35qwUSR0TA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oracle.com;
-	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=nIigFKPf;
-	dkim=pass header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=GAyXBeye;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795267712;
+	b=X4wvVm8+x3s65wq1ZRTvBpp+d+jyitTGtPPn+enGJobw7b4IzRP3pj/en1GP8QHNubN9
+	 3lBZ0pGY1iFZ+YtZB5PQX0mbx2Fppth9x2Y2owH70THl3mKpqJ6DkwgzYTCF3PzpTk4H3
+	 CP9rePbk5BNyKHtAs2MVt/OLV1pIxddxYjOMDIoag3EOxLkRcjemr4ydiTpfkavvHDMZl
+	 NzzAzG1/y0pIYfTFzfkuk3rk6o+11bLPuXurmWhiHRmyYI87L4WPB1ByWgdIBHR2Cmdl/
+	 QeBpkOX2SfJTH/PlU9zE3Km/zFCEemY69RSKI3vL9nDJ0aop+mP8v9QY5x/a8Bts6Nw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795267712;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=kDNbZxXOaisBTyYZgGVkrcz49v41G3fPzDPbhhCuzWk=;
+	b=0tDzH3XbF4aMqGFaZz36hifEHk+yYHh+Oh9xny2goOcDmB96mX5F/yprR0HZJ11aBCAs
+	 4EV6bhMjXNj7MNNjAw9x3/MF3dSILuJawiPwd5m1jdyWlKXbYMnrd4tRmNgaxQXhRlTbd
+	 7RvHnG2qev6d0abIL1pVwIcRNRjCXXu1RwtZ0WPrDVDVAle/PWmEQwz8Qaw7u1F2N8hDa
+	 HE7rs2jMeYicwd+wFj5wKVA7bB0LTtJgJFQCm+5aNOoYZpjOPJHY0Oekd+hCIaiCsmWtd
+	 Bp9hj6ul5hapjIo1ZWAjve9UevDhCSHafgWo+mif+Ll4uEQbJ5b7xOCMYuOai/ilzHg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f2qtp1le;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEF4606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:26:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FEF4606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A9F86606A320;
+	Sat, 21 Nov 2026 13:28:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=nIigFKPf;
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=GAyXBeye
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ALCpp3w502420;
-	Sat, 21 Nov 2026 13:25:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=tPnqgvFCwMmJ4MHzaJ6X5JLO2/YKyz6gyWkvZc4PpEg=; b=
-	nIigFKPfF3e1Ds7MWMgNxv3y9Dep8U09fXxJmGUYJHRyXS3/zVkX+YvEzSzeer14
-	yJlbRCgxvoLbLkjzB6EglOpKmFv7y5odgrvDvr1pjR8QZFHwc0pkvYwcmxSSIajI
-	gNaYfteba/NsKCoYK+EkWYAjcaVkXa/9ml2Pp7Vx1mechl+3/V1edeJ6piV16A1h
-	mKagSV4d5KLMGEHhqSztCzsWHivhfyJAp3NivmcBdhSu4UTfmZvlarh4UIUOxjLQ
-	qIf8k5IT7f35lm+AbVnp1evs0lkGXZeyK1DfP4xvSeq7uuQ7J9qQfTQw4Casv+2m
-	kLIgsyTt4W/xs4jxKPrJAg==
-Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4j34r6r6k4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Sat, 21 Nov 2026 13:25:41 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6ALD2vPI3777953;
-	Sat, 21 Nov 2026 13:25:41 GMT
-Received: from bn8pr05cu002.outbound.protection.outlook.com (mail-eastus2azon11011025.outbound.protection.outlook.com [52.101.57.25])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4j31qybtv2-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
-	Sat, 21 Nov 2026 13:25:41 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j/fhRYUEk0vmqO39hBP/JZ/dfyWPai/0mgq9D5VxgUoxofVopnlhcr4gFzdyMhQqq16WTj/cm6yHTda/aoGXqMMWHUjZ3jdQrw7S4Jl3BSxDQW5WpcpN0MfqoIOYXH4/7NIPQVy1Y52yC5E5Npe5vda3mbS7mdCYFWwegOp55JHTw3xcPTb8V9c5hxZJMLAEmqBDGOLVPtBn9iZTUtxQCQGdvHnyra2fyo9JxT2Ny7EJ2PIJjzi+0UNQmJYbtezp8A/mDWYoxoBBM8RBmNAWHUzchFf7Cmf1J0VU7ScLpl5lEOWNAEYcE82LBLovSgznCFauIKh11FKakmc4Asq3cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tPnqgvFCwMmJ4MHzaJ6X5JLO2/YKyz6gyWkvZc4PpEg=;
- b=fhoUKbU8BR8KKGEAYvcjrvlEmpUG1la2GWOyuQbzuYMYMBuiNnvD2KcKIfdH1aqKt3hR4y54T/EAJBdXbG4BOQ8AE1yA3RMGfdkoNF3sYONTgWZmlREgFwnvX8ZevxgKcPB3t0mnvIO1PD66+vCeOdVdVDUAsYFTvOUbdIsmoSpJRAi1dq+oKwLMw6p6FfhU3t4RtVnDEJt1lLts6mBltt/QW5M6LGyP6JNKg+uKHLZ/YGMGfoLD99eEeo54a0W983WE/RLtxAsvEQRT+mxc5JUhtjOT8NW3zKexHwNPYIg17qxeeR7Z64QqEaipzQLtW/2zrTaTsSnC/hvu8F6itw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tPnqgvFCwMmJ4MHzaJ6X5JLO2/YKyz6gyWkvZc4PpEg=;
- b=GAyXBeyeIkBw2hod4bsU3z1DTx8BAgRC2qBgFUxQWHunA0uCRcFJYnXMGBRYVDrp7buYCPDrlWQP39SJB6OX0+RP0hTZr9IYtLjQmUdPc0QpdRmKporL8H8enbkrL73SKE5cE6xV7lYd5Kl0IE+RXV5LSGG4J3g3fGuCX8FQBE4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
- by CO1PR10MB4467.namprd10.prod.outlook.com (2603:10b6:303:90::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Sat, 21 Nov
- 2026 13:25:37 +0000
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a%6]) with mapi id 15.21.0615.009; Sat, 21 Nov 2026
- 13:25:36 +0000
-Message-ID: <f6984afc-c689-48b9-89e2-950408695005@oracle.com>
-Date: Sat, 21 Nov 2026 18:55:27 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 0621/2214] mm/page_alloc: do not boost watermarks in
- kdump capture kernels
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
-        Sasha Levin <sashal@kernel.org>, hbathini@linux.ibm.com,
-        Michael Ellerman <mpe@ellerman.id.au>
-Cc: patches@lists.linux.dev, Yuanhe Shu <xiangzao@linux.alibaba.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-        Johannes Weiner <hannes@cmpxchg.org>,
-        Brendan Jackman <brendan.jackman@linux.dev>,
-        David Hildenbrand <david@kernel.org>,
-        Mel Gorman <mgorman@techsingularity.net>,
-        Michal Hocko <mhocko@suse.com>, Suren Baghdasaryan <surenb@google.com>,
-        Zi Yan <ziy@nvidia.com>
-References: <20261118150009.797899913@linuxfoundation.org>
- <20261118150036.223618798@linuxfoundation.org>
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Content-Language: en-US
-In-Reply-To: <20261118150036.223618798@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0180.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9f::9) To SJ0PR10MB5834.namprd10.prod.outlook.com
- (2603:10b6:a03:3ee::16)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f2qtp1le
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E69F81F000C6;
+	Sat, 21 Nov 2026 13:28:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795267712;
+	bh=kDNbZxXOaisBTyYZgGVkrcz49v41G3fPzDPbhhCuzWk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=f2qtp1lemvblFmUy2qlArDDs1OdYxtd6qgLFU5qNkY4MgBdEMsuT0pCFq/dctZC+c
+	 S282KNo8jmbO6TSh+OD0AwTij4ZYtFprDCbEJ59U3lFi1YHKA7FrOIsOb7EuweIGrT
+	 qjv1XrslgPf4prUqreGjp14tRs5h1rX0TFVQXMenzaiWfrfrfCpwcyomyDqjPIE/Ej
+	 sI2kaxAXuqtkh53gyt1+EwYRDYv6eBGWiccrLean8ME1u/sBuA8xpqyZ9hpEOTfSAj
+	 wZvo/qlWIW9T2PhU8zNuO/qNSZq/t5Hs+CR8aDfM3kHaEc7KTNMJq4CG0dyRfYKClX
+	 vGnBU5uFh9Jcw==
+Date: Sat, 21 Nov 2026 15:28:28 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Sinan Turunc <enscrpt@pm.me>
+Cc: David Howells <dhowells@redhat.com>, paul@paul-moore.com,
+	jmorris@namei.org, serge@hallyn.com, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3] keys: serialise key instantiation against
+ keyctl_chown_key()
+Message-ID: <awGcfFldbGuXWBJL@kernel.org>
+References: <20261121111246.3478-1-enscrpt@pm.me>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -140,246 +59,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|CO1PR10MB4467:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8e71181-f7f4-494e-0b6a-08df47d2edc3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|18002099003|22082099003|261009223027099003|3023799007|261021135927099003|261021123027099003|261021121427099003|261026140227099003|261026121527099003|261022075727099003|261022105027099003|261028144727099003|4143699003|56012099006|10067099003|261102123227099003|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	Nupa1kBPxfsBo4yEIB211aaBYzj/wMp7Qh+7cSdmqoGIRkIswm4QDUacNAkpx4JFyO1FbHqSOAC4FibdWFkCVZ2Qxja0GYIa+Y5B7m9+Ue0Wfpw9iN2SE1xpIhr72SWVwEjqRnTnquq9USH7i1+hjL9TlRgevmsv894iFhmIR2Z+seKO3JoC4e8w5YKwcI/qDpVck1akiADNtn8okw5+uhhqMNbhgnYzPXVcbeQFIrogGkByeyB2w6vzgI4rJ7b+R2sVl0+2RlDvE8uGgnzIJbqR2FeYkXfhPvuVtmW8XNzteRa6uDzDZpFzGYOlR4aYCQK8YGrxhbrwMbDyN+jeRAyTmkdJAhHf5hj1E/z13O4oK1Slm3412iMwtrbG9Bz8SlL46Tpguc2+z+hiw4MwFj7yYY1Wxhnsr/kAlnK9ThsM/wBwP1LtJVqrKMHgAGDTjKREcdlWnp4XzEvEXDqyzMbDHMuFup0Nk1Bx8tOHFWMfHWmWtMMVVqa2ImpKcD++by1EhbVqo6orcFXQoNNoXPW+pKCykfN92y5Fm692FnXni9PK2Gi8DWT83B3y2aNSWZEsoH7Y7RU+dnhhQRgLxqULMUESNIZHd0aJkEYGH7Q=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(18002099003)(22082099003)(261009223027099003)(3023799007)(261021135927099003)(261021123027099003)(261021121427099003)(261026140227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261028144727099003)(4143699003)(56012099006)(10067099003)(261102123227099003)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?enp2RlNMN2hvaG1ZVmNQTEdKMGxVei9HdTVUMnhOcVdpdy8vRWRjTVc2dkNL?=
- =?utf-8?B?aHl4VllhNzZZZ1g2NDIrU2pGZk1WY3pCUGtzTEhjNXRRQ3htVk4yKzFVay9w?=
- =?utf-8?B?WFBHQ2pCOHQwQ1J5YjIwT0FSZHBCSEd3TG5WSXpoZGpPVm1QR3VLaThMUU5q?=
- =?utf-8?B?YnBpTlNoZTh3eXAydldFOW9wdUdwWnJjdFNjMkFTMlZCWVVHZTdpSEhlVnZo?=
- =?utf-8?B?UHJueWtBSjNhT25wVllpbWE4Y2lwK2V5M1JlSzRpTFB1MDUvVWFyaEZvaGRV?=
- =?utf-8?B?SzF0VTNRTFhndkt2N0ErQ2tpUllhck5pZlF2UmI3SnZkbmlvTnNERG1oUFV5?=
- =?utf-8?B?N2piUVAwMkVLL2dqZzdhb296c2dYMlUvL2ZjWCtYSFdhNVFhMnBaeC94TkxQ?=
- =?utf-8?B?M0Vpcm1PcVF5Y2FEeUlyVkZvblhHaEpvLzJGWmhTMGVMcWROTjN6REtFUEYw?=
- =?utf-8?B?YW9UVzJHUzRBRHBiRmxHUklyRG94NnVjRFhsSDFvblFjRVZXU2xxenNnRnNU?=
- =?utf-8?B?UE9pRkVjbTJhaG1IaWE2R09ZZlVEM3A2Z3kzUlVDb0x6NTJ3TVFQVUpQTFFn?=
- =?utf-8?B?SUNrSXlER0NpOHk1MHhaVlQ4bE5UeE55RnNOdTJXUWk2cW5sZjdIM2JiWUVG?=
- =?utf-8?B?NlBDRjgzYnJUWXEyWlptenlSdlFZNGhtOVh6bVlsK0I4TjdPa1UxbGs4MG5v?=
- =?utf-8?B?bXptS0d3MTFRQVJDczdORGNRd2JEaWR0Q0IrQmFDNkowdVlJWG5xem5wRmlY?=
- =?utf-8?B?UjNYaUR4ZmdXaGhPUlE0V3FBNmdKdkNCYng5RDA5YmgyQWVlQ3dUTU00MURm?=
- =?utf-8?B?cnhzQXVOMGhFcFpmOCtZOE5wRDRuaUkvNjF6V0Rqd3hHZjd5WDYzQU1kUkpP?=
- =?utf-8?B?VEhMRUpETEZPVHEvOGtRRzFrYW8zTUNRMUpkcEluTDlTaldIbWJZZjlOTmZy?=
- =?utf-8?B?Y2FLSGJHUGF5bjUvZ3h5YjFvWFJ6YVJBay9nQzZ3S1FzbGVOcGhodnliWGxy?=
- =?utf-8?B?ZE1yTDVYTllrNE1ycDhMU0gxWThBM0VXM1o4OGpVeFZwSVd2K1Y3MjBFZjlw?=
- =?utf-8?B?SS8wRSsvQjQvSTIrbSszd01FUmtoMUhSSG1JYVZGMVk0L216WDEzUUVhSldP?=
- =?utf-8?B?TDZ0WFJGditFTWtrWlYvVHhHT2JyLzR1QnZsMSthaEpza3JlQ256bVFrRnN3?=
- =?utf-8?B?MW9DdHR4dStDVTFzWjAxa2VXcGQ3NncyQTEzKzRlb0lZa2ZmYVpEWE5VNE8v?=
- =?utf-8?B?aDhPSkczeXFtZXJUTHpnRDd6NVl6VXFQbmNqR1dhdGZ5TyszMFE3S2pSd3ZX?=
- =?utf-8?B?NVQ3d3Ixc1MwelRhZWJHRUFuR09HcjJ5VElUT3JkdExNOUZWU252MGcrZVpa?=
- =?utf-8?B?TU9HOTdDeGRONHA2MXB3NmwzN3hXbDB3eGJZMEkzdXhBZFVNd0N0RmFPY2RL?=
- =?utf-8?B?U3FnaFNoczZpelhwRnhoR2lVV29TMFdSZlphTEl0NDcrZEFLVzEwYk9TWDcy?=
- =?utf-8?B?UHppZGsranYwSGNXS2FjU1JUemh5THV5d1U2QmtWblRaeEZacFlzKzhTOGdS?=
- =?utf-8?B?Mnl1cWJVOUhPMG9LTklWQlJkZE9adTIwSFdSWGNjUjFRRWh4SmJSTXNyWVZv?=
- =?utf-8?B?N2xmNjN0SG5BOUU0WFlSRmU0L1NoalU2MDk4QW5LTVVNeCtSdDUrdUhVY08x?=
- =?utf-8?B?RVZRK1VXKzUzTlprVExHRStSME5DS20wbXU1dTlwUStrV2lVZWpQQVAxMENZ?=
- =?utf-8?B?L3RQRFd3bExSaEdYdjhMTWE3T0xrTnlOenI2M1MySlBWYTl3S1VZcjJVOEVS?=
- =?utf-8?B?ZmMrSzlPRVJ3SGRSc2E2Yks5cGp4TkxrTit2ME1sYU4vVU5MTXkvbFBUcG8r?=
- =?utf-8?B?RGNZSU9PVHZRb1BUWkxqWmdqb2xPSm8vc05lL1FxcXhWVnMzcUdXYlRMTzRV?=
- =?utf-8?B?OGJRdk50VDlXdnBXVHIvVDBwdFFCSzNNQkFYSE53OG1RQm9aUlZRWW8ySmp4?=
- =?utf-8?B?Y25XNERGSTNRbnluWmNRdzIzV1MzY1JkQVZQM09WK2FIakJIMk9hcXJKM1JR?=
- =?utf-8?B?eFZaQWlUV3duRmo1S0piMlE4bW5BSVRNVWFmTVlQa0c1ZVVGbkswMVBCbmpJ?=
- =?utf-8?B?T29IeWU0eXBCQW1CNEpGRHBGUUZqckk5NjhrZktvcUpUdmZSb2pGS2pOZVFs?=
- =?utf-8?B?YzUrT2pGSnhzZnRYVFRyRDl0Z3ZrVGZCbHFqTjNoalh2T2ZQN1hpZTU0RE1j?=
- =?utf-8?B?aDhXTGp3ck1RY1ViZHlKY1d6U3hnQ05lYlZGMFNFZnMwMTdMcU90VFJMTmU0?=
- =?utf-8?B?OURXdEp6bkpDc3VvRzc4N1BjbFN2M3BPSDFTUnhMMmxEbzQ0OUczbExCeTdL?=
- =?utf-8?Q?HMEKLeIcNWBoxxFk=3D?=
-X-Exchange-RoutingPolicyChecked:
-	FzcNOSl3BejL8J1KkclzJoBiL2bq1n9Q21dQm7Uo1WWDMQR61n7URISuX5rh0wlouO425TXxXjjERFe2ZAUfAxxZpLGyZLNcUk7AD7hOKRywDHpM1b2bz5sLcTKd8OW/iR1k1l4RxL2CAP6Ec0JgfZWe/WYnUhYcpmvP2UDXC/MlLBbEdGs13SmVvN8rQ+KsN56vtXcqymhzX1Y1MB4NjyYN2+/o9w2eyF0MpD6jw0v1wdj1Io6LXRSM62yKhTo8kPZrzFX8zSBJB/Y2gZ5hWe6hNl81gDfWNwhgo6FELx/BcvHpMhfSDpBDzDzHT/BI4VwQGeQMNq4ed0rXp/WXiw==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	n6hR7sFPIk+DE9btkslpUEPa0x2S71wbUzVbpjl7QziTwbyXxnMlfM+81WikOJO1H7n117DsY1rT6Xqn81sEkD+wEqA3pJmS9vcLk4XkBkWbnSrccmpGsAcPWkQPoBslu3W+2RyQTEXJn59l2wQrvtXsYyjWZghDec/0RGbZdUWb5uw2HUAuC+P052AVlWyZCoBVnygg+d+YjxzSGVNuyqcH0vmMbwYKMWCxqMV7HWC03YW1CxodXkn8ygNpHb2rf2of7pgsHYV0mBpWlN4hnxR5f4nhWfRTKWs/rMohmXJzB97ozIjetDgtdROhAqG+fpn9qRuZUD4TRLK4zO38GEzXYxsw3fEBuG7yKBl/CqYa7tjnz8PeUiWpIEd34qApXT2JZWcT5T0W7u1d8d4vfK38JTXtYtZ9pTBbNH+FE11uKtL9drxltbV85SQq4e47m++5UZhoaGdEHMD4LHjTlL8ubbUXEaeOiSDV7wO+d3oBW05h1MuERCcrH/eiVCJoT4wkn859ALWqX5BzuTq+FOSK2u6UBJDfAxo86PgLxH9oGmufK3Uh4Zzp8uAvajbC8/5Bswf1CUrLV1vWc/PKPUQOj3bKpnlcHqgPN1lUquA=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8e71181-f7f4-494e-0b6a-08df47d2edc3
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 13:25:36.8355
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wYvc7eS4l2CdVkNl1kBQVBC0Hee5B/M8wfjgnUlhM2C6RCPJvqF4y1ANFkaRczhRtXeRu+jNjuIoCjcyo4VQykHi9+1xYdn0PrK2c1uMMQhpkbkhUNp/rjO9wnlvzySm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4467
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-21_03,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- phishscore=0 lowpriorityscore=0 mlxscore=0 mlxlogscore=999 malwarescore=0
- spamscore=0 suspectscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.22.0-2611040001 definitions=main-2611210053
-X-Authority-Analysis: v=2.4 cv=M5bYuCws c=1 sm=1 tr=0 ts=6b019bd5 cx=c_pps
- a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=RD47p0oAkeU5bO7t-o6f:22 a=VwQbUJbxAAAA:8
- a=SRrdq9N9AAAA:8 a=Z4Rwk6OoAAAA:8 a=ufHFDILaAAAA:8 a=yPCof4ZbAAAA:8
- a=R_Myd5XaAAAA:8 a=iox4zFpeAAAA:8 a=1XWaLZrsAAAA:8 a=Ikd4Dj_1AAAA:8
- a=VjHLBOUH5hRGT17idMYA:9 a=QEXdDO2ut3YA:10 a=HkZW87K1Qel5hWWM3VKY:22
- a=ZmIg1sZ3JBWsdXgziEIF:22 a=L2g4Dz8VuBQ37YGmWQah:22 a=WzC6qhA0u3u7Ye7llzcV:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIxMDA1MyBTYWx0ZWRfXzfdQ5mDNIAxN
- 2IR70AnK7Qbb0/gtLya8QHHqzojv9852avSwU6/PEvqMyebEsdvvhMROyaoiZzsnjZggeTdmDcB
- 7iEMwwGaeTh3eLcYKKjP/lQPqDrPADTtRLtPlDWi/wD/wmZtXdpapln5f63j+OShckr3xhg2AE3
- wxWyGxMFHeht+Qj1aktXe8uPELskc+oDMkOtccxbBFly6ByGXQpdtNo7EHxzo9f34ye2VF0ZLnJ
- JbomoATj6fWqAHHfgaw4gMq2JrSP4OpF8iX9NhOnrPfh0YC33nx9Oywrgvh9klv6isvWZAx97Qf
- kTdHSovhH69EM3taRVALuHBRCI0nYP6PraqmSRBJ1npnQXxX7vKaHjGeOPvjAIAX9kX9wwZqubR
- j0KQt1Je13SrmHXFQ8RQxCNqOqD6VHEp84qZr5TXVIB620u0JMzxmzXdajj9vv+cFyffIYQF+rz
- IklttpipllCnvDGztyA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIxMDA1MyBTYWx0ZWRfX4CvLZFnExIGR
- nqlzHvrQ5UmfbahIZP6sJyuQ6/I9+uR9YZM90O2bft+VC2mL9o19XlyRJqrJ1M9cKgmmI3n2djr
- T46Erznbc5uFDjDK+TpnhJZGpk3JtuX5BQi2FwXQfHG4V+AwUM48
-X-Proofpoint-ORIG-GUID: EmjZEOZkI1m01oNaNgv3cXI1Vq3OzjFd
-X-Proofpoint-GUID: EmjZEOZkI1m01oNaNgv3cXI1Vq3OzjFd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261121111246.3478-1-enscrpt@pm.me>
 
-Hi Greg/Sasha,
-
-On 18/11/26 8:08 pm, Greg Kroah-Hartman wrote:
-> 5.15-stable review patch.  If anyone has any objections, please let me know.
+On Sat, Nov 21, 2026 at 11:13:07AM +0000, Sinan Turunc wrote:
+> keyctl_chown_key() looks up the target key by calling lookup_user_key()
+> with the KEY_LOOKUP_PARTIAL flag. That flag lets a caller with
+> CAP_SYS_ADMIN change the UID of an uninstantiated key during construction.
+> When the UID changes, keyctl_chown_key() replaces key->user under key->sem
+> and drops the old reference with key_user_put().
 > 
-> ------------------
+> __key_instantiate_and_link() and key_reject_and_link() hold
+> key_construction_mutex during instantiation, but neither function takes
+> key->sem. Both functions increment key->user->nikeys, and
+> __key_instantiate_and_link() also calls key->type->instantiate() without
+> holding key->sem. When a key is in quota and its size changes,
+> key_payload_reserve() reads key->user seven times without key->sem. Those
+> reads include spin_lock_irqsave(&key->user->lock, flags) at the start and
+> spin_unlock_irqrestore(&key->user->lock, flags) at the end.
 > 
-> From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+> If keyctl_chown_key() swaps key->user between those two calls,
+> key_payload_reserve() unlocks the new owner's spinlock and leaves the old
+> spinlock held. By source inspection, key_user_put() can also kfree() the
+> old struct key_user while instantiation still dereferences it. That struct
+> key_user use-after-free was found by reading the code and did not trigger
+> during our KASAN runs.
 > 
-> [ Upstream commit 331f94007d79b3c02d3098eea469a92aea3efc2c ]
+>   =====================================
+>   WARNING: bad unlock balance detected!
+>   7.4.0-rc2-g23c62304dde2 #3 Not tainted
+>   -------------------------------------
+>   request-key/163 is trying to release lock (&candidate->lock) at:
+>   [<ffffffff82698fff>] key_payload_reserve+0x29f/0x370
+>   but there are no more locks to release!
 > 
-> A watermark boost is not confined to one watermark: wmark_pages() adds it
-> to min, low and high alike, so every watermark check sees it, including
-> should_reclaim_retry() and the last ditch ALLOC_WMARK_HIGH attempt in
-> __alloc_pages_may_oom().  Once the boost exceeds the memory still free the
-> allocator gives up and invokes the OOM killer, and a capture kernel that
-> is still booting has nothing to kill: the boot panics and the vmcore is
-> lost.
+>   other info that might help us debug this:
+>   locks held by request-key/163: 2, on CPU#3:
+>    #0: ffffffff871c10a0 (key_construction_mutex){+.+.}-{4:4}, at: __key_instantiate_and_link+0x38/0x370
+>    #1: ffff88800de4a8b8 (&candidate->lock){..-.}-{3:3}, at: key_payload_reserve+0x160/0x370
 > 
-> Seen on an arm64 machine with 64K pages, CONFIG_PAGE_BLOCK_MAX_ORDER=10
-> (pageblock = 64M) and crashkernel=512M, running a distribution kernel
-> based on 7.0.14.  A high order UNMOVABLE allocation fell back to a MOVABLE
-> pageblock while the capture kernel was still in do_initcalls():
+>   Call Trace:
+>    lock_release+0x286/0x2e0
+>    _raw_spin_unlock_irqrestore+0x1a/0x50
+>    key_payload_reserve+0x29f/0x370
+>    generic_key_instantiate+0x42/0x230
+>    __key_instantiate_and_link+0xd7/0x370
+>    key_instantiate_and_link+0x40d/0x4b0
+>    keyctl_instantiate_key_common+0x2d2/0x450
+>    keyctl_instantiate_key+0x167/0x180
+>    __do_sys_keyctl+0x391/0x550
 > 
->    Node 0 DMA free:68096kB boost:65536kB min:68160kB
->    low:68800kB high:69440kB managed:479168kB
->    Out of memory and no killable processes...
->    Kernel panic - not syncing: System is deadlocked on memory
+> Take key->sem for write with down_write_nested(&key->sem, 2) inside
+> key_construction_mutex in __key_instantiate_and_link() and
+> key_reject_and_link().
 > 
-> The zone was not short of memory.  Subtracting the boost gives min:2624kB
-> low:3264kB high:3904kB, so the 68096kB still free sat 17 times above the
-> high watermark and the allocator would not even have entered its slow
-> path.  The boost supplied 65536kB of the 68160kB min and by itself put the
-> zone 64kB under water.  It is that large because boost_watermark() clamps
-> it with max(pageblock_nr_pages, max_boost); watermark_boost_factor alone
-> would have allowed 5824kB.
-> 
-> Commit 14f69140ff9c ("mm: limit boost_watermark on small zones") already
-> tried to protect capture kernels, but it infers them from the zone size
-> and skips the boost only below four pageblocks.  arm64 64K pageblocks were
-> 512M then, so the guard reached zones up to 2G;
-> CONFIG_PAGE_BLOCK_MAX_ORDER can cap them at 64M, which shrinks the guard
-> to zones under 256M and lets this 468M zone through.
-> 
-> kdump is a property of the kernel, not of the zone, so test for it
-> directly.  A capture kernel exits within seconds and never uses the
-> fragmentation avoidance the boost buys.  Normal kernels are unaffected:
-> the size based check still covers their genuinely tiny zones.
-> 
-> Passing sysctl.vm.watermark_boost_factor=0 to the capture kernel does not
-> cover this window: sysctl.* parameters are written through procfs by
-> do_sysctl_args(), which runs after do_initcalls() where the panic above
-> happened, and watermark_boost_factor has no early_param of its own.
-> 
-> Link: https://lore.kernel.org/20260916112545.3707893-1-xiangzao@linux.alibaba.com
-> Fixes: 1c30844d2dfe ("mm: reclaim small amounts of memory when an external fragmentation event occurs")
-> Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-> Cc: Henry Willard <henry.willard@oracle.com>
-> Cc: Brendan Jackman <brendan.jackman@linux.dev>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Mel Gorman <mgorman@techsingularity.net>
-> Cc: Michal Hocko <mhocko@suse.com>
-> Cc: Suren Baghdasaryan <surenb@google.com>
-> Cc: Zi Yan <ziy@nvidia.com>
-> Cc: <stable@vger.kernel.org> # v5.0
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sinan Turunc <enscrpt@pm.me>
 > ---
->   mm/page_alloc.c | 12 ++++++++++--
->   1 file changed, 10 insertions(+), 2 deletions(-)
+> In v3 I removed the tool paragraph and the two lockdep subclass sentences.
 > 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index cfbfd6309c250..396961cdf93be 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -53,6 +53,7 @@
->   #include <linux/debugobjects.h>
->   #include <linux/kmemleak.h>
->   #include <linux/compaction.h>
-> +#include <linux/crash_dump.h>
->   #include <trace/events/kmem.h>
->   #include <trace/events/oom.h>
->   #include <linux/prefetch.h>
-> @@ -2612,10 +2613,17 @@ static inline bool boost_watermark(struct zone *zone)
->   
->   	if (!watermark_boost_factor)
->   		return false;
-> +
-> +	/*
-> +	 * A kdump capture kernel exits before a boost can pay off, while
-> +	 * the raised watermark can exceed the memory left for the dump.
-> +	 */
-> +	if (is_kdump_kernel())
-> +		return false;
-> +
+>  security/keys/key.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/security/keys/key.c b/security/keys/key.c
+> index 3f1f0fc..df31d10 100644
+> --- a/security/keys/key.c
+> +++ b/security/keys/key.c
+> @@ -441,6 +441,7 @@ static int __key_instantiate_and_link(struct key *key,
+>  	ret = -EBUSY;
+>  
+>  	mutex_lock(&key_construction_mutex);
+> +	down_write_nested(&key->sem, 2);
+>  
+>  	/* can't instantiate twice */
+>  	if (key->state == KEY_IS_UNINSTANTIATED) {
+> @@ -473,6 +474,7 @@ static int __key_instantiate_and_link(struct key *key,
+>  		}
+>  	}
+>  
+> +	up_write(&key->sem);
+>  	mutex_unlock(&key_construction_mutex);
+>  
+>  	/* wake up anyone waiting for a key to be constructed */
+> @@ -609,6 +611,7 @@ int key_reject_and_link(struct key *key,
+>  	}
+>  
+>  	mutex_lock(&key_construction_mutex);
+> +	down_write_nested(&key->sem, 2);
+>  
+>  	/* can't instantiate twice */
+>  	if (key->state == KEY_IS_UNINSTANTIATED) {
+> @@ -632,6 +635,7 @@ int key_reject_and_link(struct key *key,
+>  			key_invalidate(authkey);
+>  	}
+>  
+> +	up_write(&key->sem);
+>  	mutex_unlock(&key_construction_mutex);
+>  
+>  	if (keyring && link_ret == 0)
+> -- 
+> 2.56.0
+> 
 
-Hi Greg/Sasha,
+Thank you looks good to me.
 
-I ran an AI-assisted backport review, and the finding looks correct to me.
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-Verdict: lets try backporting b098f1c32365 ("powerpc/fadump: make 
-is_kdump_kernel() return false when fadump is
-active"). ?
-
-In 5.15.226-rc1, this backport disables watermark boosting during active
-PowerPC fadump because the older is_kdump_kernel() also returns true
-there. Upstream excludes fadump from this test.
-
-mm/page_alloc.c:
-
-     if (is_kdump_kernel())
-         return false;
-
-The difference is in is_kdump_kernel() (spacing adjusted).
-
-5.15, include/linux/crash_dump.h:
-
-     return elfcorehdr_addr != ELFCORE_ADDR_MAX;
-
-Upstream (331f94007d79), arch/powerpc/kernel/crash_dump.c:
-
-     return !is_fadump_active() && elfcorehdr_addr !=
-         ELFCORE_ADDR_MAX;
-
-Active fadump also sets elfcorehdr_addr, so the generic 5.15 helper
-returns true for it. This newly disables boosting in that case; the
-parent had no such early return.
-
-
-Thanks,
-Harshit
-
->   	/*
->   	 * Don't bother in zones that are unlikely to produce results.
-> -	 * On small machines, including kdump capture kernels running
-> -	 * in a small area, boosting the watermark can cause an out of
-> +	 * On small machines, boosting the watermark can cause an out of
->   	 * memory situation immediately.
->   	 */
->   	if ((pageblock_nr_pages * 4) > zone_managed_pages(zone))
-
+Br, Jarkko
