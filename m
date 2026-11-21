@@ -1,63 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795231508;
-	b=y7DQ44+z+BCpxtghnQRJDyHMqDh3Cj36XCN6VWeL/0ytIKsdlSt9X0iIBLs4pF+hT/Wn
-	 aYn640Y0V7sYUn7fq7ZUyp4HKS5SuBXnuuFLvkeL1VAbtaZu3RwMumsTBuAocpQJ2QaSD
-	 HImN/LfxiKUBnbocb7YL/RVVU7R3Og+GHpWBxiU6e3RrzICpEokkdtJpxhqHm+oGFMH8D
-	 YjlK0kK34Q/csQ+A22eJA0OeAFIch6up6prwto7zbjguWJXb/MyZdLT1a+qQjAuvzodMY
-	 AfL2f6VYhTl2am0gEW2f12bXqXASos/u9p2UMwokFalB5AVyfKanSsu5FG9e9Qgcthg==
+	t=1795233624;
+	b=SacVV1RH6ig367Fv3durdnEWOFuAyQ4IABa85Dh96IpgCVnl3Gobj8jCXC0OLd6Esj7i
+	 NUi2X7VuGyeurzAPcr1DCDuWHkg0OsyE1qfwF4+Bdt0vFtJ6FZXam6RxUDKuZHJD/7WYC
+	 3HkdLzWEGMrTX7WRjPZPIiyHSyd++SQW7iR0b5CR4FzA43tXJ+oEZC9jYR0yz5yQ2zJYz
+	 aEdZvw63B2QMLSpY2O0QchX2XFVnXpi4eVTWAwsE71myakNxt5IGRbHBC+DBYfpRbg9n0
+	 8iOd6Hvhl7bAYL9oDtBEYijTR8n5xyGFwOp0JH+NnFH7NNwuCj+ol7d15NUV5V3Y//g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795231508;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ywvcXdEzMlpkXyBIr8U6P5Bs89wJlEBGndZBQ01hhDU=;
-	b=ymaD1cRxzcJg7snkan1pqF+aH21E4o8mGkGhay9gCfhy0mJXorMmRdChlgPf5F4/P9cz
-	 hmBNh+IVTHAHpaG/Udp/y29tzc6HyZL21+0kXf4IUV3jbccAjJzBc2gJMMlwQC/9tUb7q
-	 ZgadvhF4H02tAkGgAmtwQClRcGf6tRE0hOXesdalPC8t47dzQv6N6V2fo/AWdyCXHeSHV
-	 z7y8BkHaMOj9r5eFE1EHTBH2vWnGQ24CgoSaJN53JObAg+b5S3j17tZ0LK9H8KYy1SiEZ
-	 OhEDHZrgqItNw6MrwhffpYK/FayyfLT8PcAGNqDlR0yB1MFZiALlNdHECmFz+QFYzQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795233624;
+	h=DMARC-Filter:DKIM-Signature:Reply-To:Cc:From:X-Original-From:
+	 X-Lms-Return-Path:Received:Subject:Message-Id:References:Date:
+	 Mime-Version:User-Agent:To:Content-Transfer-Encoding:In-Reply-To:
+	 Content-Type;
+	bh=TD4DOOWtXLG4XrTTuyoATbkrW2K9xh29mQrnzRVMTDs=;
+	b=P6nTmbAM15qDoUC7YUnnzef1LDDneu7SrXFYJKFLjx+qyEJQlmO9HXIVMmVuoH4AkI2I
+	 wyN1AR0JeJbCkvbui6cngZmxkee/qU5YUX8jX7ou6einQYXDDhb2HsJ6ofZk6Z6btvABj
+	 vnubjDxJCAgKcyVPZ4djCCT3mxUdotQwg6auBhfaKQznoBmwjUoFeHPPi1zancm8pqery
+	 vMUyVuEWkyX+SkTpnTlanC72UALLvGEuqDRe4g8MUJrrNmxYe4W10lV95+N/cU36zJlsT
+	 uJ5cgpdZGBHYZTT3nOqT1pKW+Ew8SRYJc4ev62E8KJZqg1vaV93fXeLanGqPgReWE7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiwMZ6PT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=Y4F+6kEn;
+	arc=none smtp.remote-ip=209.127.231.53
+Received: from va-2-53.ptr.blmpb.com (va-2-53.ptr.blmpb.com [209.127.231.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777AA60A262D;
-	Sat, 21 Nov 2026 03:25:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEFB606A681
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 04:00:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CEFB606A681
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiwMZ6PT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB8BB1F000CA;
-	Sat, 21 Nov 2026 03:25:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795231508;
-	bh=ywvcXdEzMlpkXyBIr8U6P5Bs89wJlEBGndZBQ01hhDU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RiwMZ6PTyy7rPgR1kvw6yGdXBOExU75JbBV+y7ysSpLaFr1ahk88FVRayf7d4Wkbd
-	 TT0Mj2ONjcp981U0RvaHTF4nAvvCiHcS+Had42dRPNs2d6xaVWozBh7TG0IR71Xcic
-	 j/vg9qfZBntkKlCZhAdVuWMphmXhbNp5am1zLsdPUfHXpofaZ5ozeca19DPwXsh2zw
-	 9i74cVn7t54b76a7/wnEFzslKpgI497ZvYYapx1z/6HMxttSgnkd8o7LDMIDRoDGwh
-	 JpLc1pJOhfcW/fy4frWQfk2gtlKpZDTNxSXeFBPg0MbaPW05V4U8ay6WE4JgdTN6jo
-	 JO61mxCpu3f4g==
-From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: Sathya Prakash <sathya.prakash@broadcom.com>,
-	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
-	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
-	Ranjan Kumar <ranjan.kumar@broadcom.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Louis Sautier <sautier.louis@gmail.com>
-Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	MPT-FusionLinux.pdl@broadcom.com,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: mpt3sas: Fix out-of-bounds cpu_msix_table read on CPU hotplug
-Date: Fri, 20 Nov 2026 22:24:53 -0500
-Message-ID: <179523145631.420187.8247268740882578143.b4-ty@b4>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261118201316.326943-1-sautier.louis@gmail.com>
-References: <20261118201316.326943-1-sautier.louis@gmail.com>
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=Y4F+6kEn
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1795233613;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=TD4DOOWtXLG4XrTTuyoATbkrW2K9xh29mQrnzRVMTDs=;
+ b=Y4F+6kEnXA+q6SWPQd0nkmO/yr3dcRinJviMiuBNwn3N9mjHJXy5oOInTFQM2jkZMT3nV9
+ /r2Xkt0RC5Q4uhcMdHz8GnjqzqXONd4p8k8fajmORTffLFcGlFDEl+GgnJrXN8mq+vIq3k
+ H0XVXsLdz4G25n+46l7YiKIk0mjyVASeeX9CiHpqofY6RMKf0afZIBKOty5XIa7FQdDExf
+ hsc9Uhwer0Zxqa0oXKa3GqBw+r07q4E2TE4Yz62p6g1GNn/kiOmPVavf4PfzyCz0/I/LbZ
+ +L6nVBu1TQTveeY6AFzd3FQhNllTfrerur6VmJeVWs0ixxob4aN9yEEVPCPOSw==
+Reply-To: yukuai@fygo.io
+Cc: <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Li Youhong" <liyouhong@kylinos.cn>, <stable@vger.kernel.org>
+From: "yu kuai" <yukuai@fygo.io>
+X-Original-From: yu kuai <yukuai@fygo.io>
+X-Lms-Return-Path: <lba+26b01174d+504b6f+vger.kernel.org+yukuai@fygo.io>
+Received: from [192.168.1.104] ([39.182.0.159]) by smtp.larksuite.com with ESMTPS; Sat, 21 Nov 2026 04:00:12 +0000
+Subject: Re: [PATCH v2] md: fix stop_sync_thread() hang on new sync in idle path
+Message-Id: <df8d28a5-5455-416e-aa72-ddfe5027f9f7@fygo.io>
+References: <20261113010909.30324-1-dayou5941@163.com>
+Date: Sat, 21 Nov 2026 12:00:08 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,25 +64,48 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: "Li Youhong" <dayou5941@163.com>, <song@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261113010909.30324-1-dayou5941@163.com>
+Content-Type: text/plain; charset=UTF-8
 
-On Wed, 18 Nov 2026 21:13:16 +0100, Louis Sautier wrote:
+=E5=9C=A8 2026/11/13 9:09, Li Youhong =E5=86=99=E9=81=93:
 
-> mpt3sas_base_attach() allocates cpu_msix_table based on the highest CPU
-> online at probe time, but _base_get_msix_index() indexes it with
-> raw_smp_processor_id() without a bounds check. Once a CPU with a higher
-> id comes online, I/O submitted from it causes an out-of-bounds read of
-> the table. The value read is sent to the firmware as the reply queue
-> index. When it is not a valid queue, the IOC faults and I/O fails.
-> 
-> [...]
+> From: Li Youhong<liyouhong@kylinos.cn>
+>
+> stop_sync_thread() waits for either MD_RECOVERY_RUNNING to be cleared,
+> or (when MD_RECOVERY_FROZEN is clear) for mddev->sync_seq to change.
+> The sync_seq counter is only incremented when a sync thread is reaped
+> in md_reap_sync_thread(), not on the md_start_sync() not_running path.
+>
+> If the previous sync attempt took the not_running path, sync_seq does
+> not advance. If mddev->thread then queues and runs a new sync in the
+> window between flush_work() and wait_event(), that new sync may start
+> a real sync thread, leaving MD_RECOVERY_RUNNING set while sync_seq is
+> still unchanged. md_idle_sync_thread() then waits until that new sync
+> thread is reaped and sync_seq finally changes, even though it only
+> needs to wait for the current sync attempt to finish.
+>
+> Fix this by incrementing sync_seq on the not_running path as well, so
+> that the wait condition correctly observes the current sync attempt has
+> completed.
+>
+> Fixes: f52f5c71f3d4 ("md: fix stopping sync thread")
+> Cc:stable@vger.kernel.org
+> Signed-off-by: Li Youhong<liyouhong@kylinos.cn>
+> ---
+> v2:
+> - Fix the Fixes: tag to reference the upstream commit f52f5c71f3d4
+>    instead of the stable backport a17d1bca5aba.
+> - v1:https://lore.kernel.org/all/20261112092634.1700963-1-dayou5941@163.c=
+om/
+>
+>   drivers/md/md.c | 1 +
+>   1 file changed, 1 insertion(+)
+Applied
 
-Applied to 7.4/scsi-fixes, thanks!
-
-[1/1] scsi: mpt3sas: Fix out-of-bounds cpu_msix_table read on CPU hotplug
-      https://git.kernel.org/mkp/scsi/c/14bc5d239ddd
-
--- 
-Martin K. Petersen
+--=20
+Thanks,
+Kuai
