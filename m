@@ -1,100 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795246631;
-	b=0IWs5V6G27TW06Tl2t7mMfLfStWM2M4sW11Ltb1TIhziDBAOVvr/gHFCNDdxMzdspU1K
-	 /Eu79RpeDKdCXa+no6pc3cDGSjqx3hF3A/cYEHi+ieTJGymhT5ZyrMWsPBIQlPtvKI8zI
-	 xuXZ683fZvJzDG7By3K6EhI+bnrqZoljtgWqY1OzjjBReT5TjSO4QosgawUTd2w6kB9RM
-	 ZvIQlUyibeuKRok74JM1rlegAXUVpvEHH2O+60NgEg6a1LugQRZGM7p/uIiK5qNozyMOG
-	 ECEgG13MZQsDngpF/1uUOg85WTU0J5Tflevk3YOJimhTtXUlYkE5OaG7TDArORK/xNQ==
+	t=1795247378;
+	b=kilKKHiKdm+O/8E4nYDEXSDhM5SmZE/GyeKiSTHMatpUNs1TvYHI/5e3Fb+7Y4NHjxiN
+	 XoVkWkNqSUu6diuLnt21Xj61svbq4trYuIsXkV5bSdScekvHQQQj515ur1p1i1HrLBhvk
+	 i6vGhGu84PP2mamQdhH0czsxFAj3iTwuRAmwDZeJ6d4btXwcLAGtFVspExyzMjRz5oaMH
+	 4EyLjG6ZPlGSv9+JYDl5RyY4NBbRyJ3x/X0qPKpYL054VxMqO2I6FOaEOYvFatLGD465H
+	 BWueXAf2RAC8Lq5KFWUg0nLAEYeeCbsaSSUx5zUAeO9ORhfW/eMxwm/hSd2LGPrOr8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795246631;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=oKJbFsXVmFySjrD7iPV/I2lv8ymeZ/7zHMMUw+Z1AIk=;
-	b=2cGYP15Uso+2i2i1EXJ6yRu1bOjsYlQvxyT73Qz7q3bfikqXCIiSAd7OxX2Uj9YC1//2
-	 qjosx7ZQG2pl/rlnE4kCMKiojnC0mGhtRM00QUi0wtxpI87miiE9Pumr9eSBo33Bf11AG
-	 b1w/hQfMO+XL8leeO7zS5afkMQB9Ixb/G08stjjz5ehyPsOhJ8ZVSrJKBdTjQ12r98lK1
-	 6zb0aqYSIeAHkYcnWqs9LnTQVhMi3jFNNxzp9oZVYR0WlMLI34UMNSaW8JtZ/Lij0plbq
-	 eh10lwYFkqrSzIdUl5Mw6KtSYr5bWV6X/4qIYwBNZkdIreyco1hOD/cR/kV377ItZHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795247378;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=iLcinoRHQQpGqpB7RbYpvqsBws/0VYTm7Rl5LRYYZVQ=;
+	b=CwQS38bORKysxliczIhdM300BF1SCz5uaypXKd0cvrZFPKVibQMWDciHXsLEMSLqOj0N
+	 H4FbcH0JCramvFILApiXFWr/GVhD2pi+X0T+YSr64jAZQURTiUbo/bo+JfCTaLPPW+1Wb
+	 8AnfabTRWks7XsbiFr6UP9uMVCo/FpEwQog5zg9fr4WAGYAqH9r4wVAtxJ3vHXBW6BioE
+	 WS58I+Zk1Mc4jv2cNj++9bhB3H5bYTrdqsS4SPIbU/xw5UP+A5zOXlWN58tFgUwVHiATS
+	 1en7E2BFG9V/GnzPHVz24e6AtAAyoJ1X2RhO+OIUpjeIT59V030cmphwt6CMR3ccAZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=luxonis.com;
-	spf=pass smtp.mailfrom=luxonis.com;
-	dkim=pass header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=Kc9Ib98R;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fbbvA+FR;
+	arc=none smtp.remote-ip=203.205.221.231
+Received: from out203-205-221-231.mail.qq.com (out203-205-221-231.mail.qq.com [203.205.221.231])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164FA606A325
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 07:37:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 164FA606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=luxonis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=luxonis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8AC9606A320
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 07:49:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8AC9606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=Kc9Ib98R
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e09aa5264so880536f8f.2
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 23:37:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=luxonis.com; s=google; t=1795246629; x=1795851429; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oKJbFsXVmFySjrD7iPV/I2lv8ymeZ/7zHMMUw+Z1AIk=;
-        b=Kc9Ib98RxwddyjrGkiLXxpmVqLPSynnLxtQ1LjdjQFRMM3prBT1tjJ1xxZx5fR1+lm
-         5mUEZt0AZ9XNhWQrIUj63WGkpsMuDsdJCO9HPeWg5N+muf+NvvLiww2zTY8s/vij88f/
-         EqbtOUzCsx7kmD++xYp7iQiUwO2L2W7/IiUYE2nqeQDNtE2Dwuj8FLr/exoP0CgMBhXv
-         RmsaXnmDwt9U9jYZivSrbeosy//TqgnWgV1vqn+95NDHKZIESF6yXA/m8mWy74C8722q
-         s/+peetHzFRt+DTUkpv8PMKyRQW5aPzfkqwfA6pk6rWh3ZGlVmh3qxSRGL9JPKqE9y/P
-         N7+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795246629; x=1795851429;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oKJbFsXVmFySjrD7iPV/I2lv8ymeZ/7zHMMUw+Z1AIk=;
-        b=sBgrd+PzwL3A0+Bm6UdXZCimysgqV88fugCa4NILTVc6TtcllnKuI1Wu00UV5//JEH
-         c8RZnv42Z0C/pvP+7JR/d9mQ+ecAjVIokI4Ikx25HanpwzP+hdFP0wZ43etnvShpQxXc
-         l3e6fdrDClRlaXOHGEVgd/onkArP4kFEjCg2e/I0ZP+9FxIto3UvvWGVJPitjTKo0jlC
-         1wnfHpCXUs5DYHlBGEq/pnhfzAkhAZVi1O9sDcAiU3wMp67+IV6FSEUKCMFwQF48nDI5
-         hFit05AeeVj4+diEmMZt0ImcG0Q3DG15BHvnhhTgwMPJjcL02Vb94LMQTgQt1cAUr/Ld
-         mx3g==
-X-Forwarded-Encrypted: i=1; AL+hErH7/OIcM7OPPG2gBaHaVVR9zh4nW83/EIYe+6Asloq/JH5B4A2cTIHg1VKaFupkZfTVm4EPYSE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/oC2G6ywPplR6zlHyrp4PI3/LqPSuAdxPJAT5Dkq0+zinoWBLd
-	xpVMXC4X/DS4lazaj6veXry2+0jHYtpFbrXE9Aa9+DqC7dBsb+uC/wjWbZRDKsRxEuw=
-X-Gm-Gg: AZFdTZdG+ytUfIgwGJBMOb5cyLbZ82kYNRbgOr3ixf+qeQJwtPTgLlZGgEpkOQhHfzE
-	N7w81RJS7bEUBVEMVxjtD7InTo+xOpki3H395JNl8eehv8jzqFGYmHM382pSGwKvj9i1DS/fMIu
-	7jcMSwOJHxykIVhp+w3MKKa4MUOtAjVbD7+DS7qTra9TyENYBQhhEbHNyZuSrS5+uhBVXKX0ZAA
-	ytK5V/sOy7KUho9bIbmmtACw08KLQMGDkDMojpD+QFmHSs/xHxa7DlTSjpeO3I4xQvqkBC07LHY
-	D665NZEnYtc3LiYF64WtTS6WeLOt69jZMf8mBD1fYXULyGOjQwBNbXrBsNZyTvSHVraO1qhW25V
-	Uv1TVlbm+QuB98ltHVYryoA28zdBB3Vc5FUFSIDFv3lWD02zyYooaqS5U0o9I2dDyALnagt6j06
-	bX6onha28RQ/diJj4I+Kd54r9Tz26/dfrBEuH2AQJyepehDuN0w1e3cSHnCq4BzaE1UlgdES61e
-	vm3uxEGMocij0DorrA0rEoCqQC+DpQ1D2wdWfEsDsw/oHrAYYHABP3S2pBGrxV8PfkvEJYtECKN
-	d/Neyp9wcfkj5nDK/tD8rqYtrodH55pG2zhpMHs68Fbl9UDBawv0KsH5zK+wnGCuJWA/gg==
-X-Received: by 2002:a05:6000:2602:b0:48a:f404:695e with SMTP id ffacd0b85a97d-4abb5518f07mr11610591f8f.50.1795246629309;
-        Fri, 20 Nov 2026 23:37:09 -0800 (PST)
-Received: from JureBuildPC (46-150-36-237.static.telemach.net. [46.150.36.237])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67f281sm9508933f8f.22.2026.11.20.23.37.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 23:37:09 -0800 (PST)
-From: Jure Rebernik <jure.rebernik@luxonis.com>
-To: Heiner Kallweit <hkallweit1@gmail.com>,
-	nic_swsd@realtek.com,
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sunil Goutham <sgoutham@marvell.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	linux-kernel@vger.kernel.org,
-	Jure Rebernik <jure.rebernik@luxonis.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] r8169: clear RxOverflow before unmasking interrupts
-Date: Sat, 21 Nov 2026 08:36:52 +0100
-Message-ID: <20261121073652.410916-1-jure.rebernik@luxonis.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fbbvA+FR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1795247375; bh=iLcinoRHQQpGqpB7RbYpvqsBws/0VYTm7Rl5LRYYZVQ=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=fbbvA+FRNXczTapsO3RJdGTVycvvhiEsNQO3CDNr0I9GyRwaFRBimhWHFTFSb4Qjl
+	 c6wHnNaEY3mEI1njqjdpC9pzh4kXve3B9W+9uc0GTIvesh942rT45U84CykkMsXEiC
+	 jwInIqL8yMT76YcwAB+6H2TCn5c33Hemj9FfTgQE=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-XMAILINFO: NMF8M2bwIxE1fM67/ApOI8rE5vkr2L5vHqFC/04+JAPMM4YLpcaV8NR3cl1J1S
+	 HfGJ+fYkalur0uwkQ2/TRQTrLI6S2Z/YK8Vo5B9LQHC1Qjvfr5fwQ7JWuh2ksqPKPczWGQAY+einR
+	 Qcjnksa48T1U1h9meYFjeB0cyCdEP4FsfB15Qa/gldIGhYLnnMXqQOIWiBT49wvVRiFAn3ts9WYT7
+	 q6y7SWmTisRBcRkbGsXc3Z1yz5i1cx5B8SqFYeFGDiTGboZ5IC3PvJw2zIj6IZ80XUdHnK3vkh5cs
+	 9gel50hfITLldq9sqzhPog574DrLaC45ry+B7GU+50lVSWsKM2eawS3uW3OY09KP0u4c7Q9b+Yhbr
+	 yJrOULAbiIxy3Tnj/pDGfUAB1k6Q/TfK6WDFkT4/u2Veicab/hT4amFf0/+BWrdpKV2SzeqNfJJZB
+	 mDFbGN/GLRhJ38fWbeV8FqCaLTdezHVVr/8JXrqgEef8IisOiMmgmtNK/UhkXK5VmQiOFAs7Hdg62
+	 QW2alhgpCgWnjA8HR3GmgJ7oWNM6kUn3cRSOHbtKVKbaWx+fVTSe0z2IdDG5ldgSeL5SIekSQVkoo
+	 NvWQKRsHc+fDqOCmIUkYlzNYxAJQJhC/wYrvRoYI+WIH1KGEUqMvm0OYZ5GlQylComEpM0oe7nVY0
+	 emJ/36OhQeKv7GesVWDdss+7m7/h7qx9HjSBz2NaJxnasWvL1bCRBvmCVXElGOD1iueNVSqN6FCpe
+	 SPbHwTHj9mwsr6om+/K3cPCum93zLiX2Zpl+m9v0g1MBBD42aWk7u5RCVg483prFuvrD+WC78c7rp
+	 vO4WQjoaL2MXLxdH6UXs32EpgC35wHCyY2B2Pe9EJL8eIuIuvNkheHtlMMr1619GqVTeKbp0LPrm1
+	 XEcYMK+SQXuFZI1/Us7NMfUsG1EGapRMUpuHRCrWSXHUEjCyH92yKtJpGK9MA0md9xaHpXKqfUg7u
+	 3OmWxI1dhRvAN+CRENAj4i4rG0uEDgr9xCd/APX6jNpwV5lF1eCjl2kn/wUQnohGfKUV4UaZwSAz6
+	 bxuMp/fQQXA4kZLkDztpQvgrSa68tjuzupvgT+yqmBaBgK5dQdy8NZx0osqk76DEwKsM6harlYSDw
+	 dOvxZQXHPYO+Ow==
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?bmV0ZGV2LWJvdCtzYXNoaWtv?=" <netdev-bot+sashiko@kernel.org>
+Cc: "=?utf-8?B?bWts?=" <mkl@pengutronix.de>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>, "=?utf-8?B?c29ja2V0Y2Fu?=" <socketcan@hartkopp.net>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?Y29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?c2toYW4=?=" <skhan@linuxfoundation.org>, "=?utf-8?B?cmR1bmxhcA==?=" <rdunlap@infradead.org>, "=?utf-8?B?d2c=?=" <wg@grandegger.com>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, 
+	"=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v10 08/10] can: rockchip_canfd: retry the outstanding TX buffer
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,119 +69,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Sat, 21 Nov 2026 15:49:32 +0800
+X-Priority: 3
+Message-ID: <tencent_C2353675D108CA2C26008C5405302266F80A@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261119-rockchip-canfd-restart-close-v10-8-df23913aa33a@qq.com>
+	<179521934391.3131.16575184154447420964@kernel.org>
+In-Reply-To: <179521934391.3131.16575184154447420964@kernel.org>
+X-QQ-mid: xmsezb41-0t1795247372t59iwxlbh
 
-When the RTL8125B runs out of RX descriptors it sets RxOverflow
-(RxDescUnavail in the vendor driver) and stops receiving. It does not
-start again when the driver returns descriptors to it, only when
-RxOverflow is cleared in IntrStatus. Since commit 6994520a3328 ("r8169:
-disable interrupt source RxOverflow") nothing may clear it:
-
- 1. The ring fills. The chip completes the last frames (RxOK), then
-    sets RxOverflow and stops receiving.
- 2. rtl8169_interrupt() read IntrStatus before RxOverflow was set, so it
-    clears only RxOK.
- 3. NAPI empties the ring and unmasks the interrupts.
- 4. The stopped receiver raises no new RxOK, and RxOverflow is not an
-    interrupt source. Reception stays stopped, and every frame is
-    counted in rx_missed, until another event such as TxOK makes the
-    handler clear all status bits.
-
-This was observed on a machine in real use: an RTL8125B (XID 641) on the
-PCIe bus of an arm64 Qualcomm QCS8550, running v7.2.6 and receiving UDP
-at 800 Mbit/s while sending nothing. Reception stopped for seconds and
-a single transmitted packet restarted it. During each stop, a debugfs
-dump added to a test build of the driver showed IntrMask 0x2f,
-IntrStatus 0x50, NAPI idle and all 256 RX descriptors owned by the NIC,
-and writing only RxOverflow to IntrStatus from user space, through the
-sysfs PCI resource mapping and with nothing transmitted, restarted
-reception in 17 of 17 stops. The order of steps 1 and 2 is inferred
-from that state, not traced. Reproducing the stall itself needs no
-kernel modification.
-
-Clear RxOverflow in rtl8169_poll() once NAPI has emptied the ring, right
-before unmasking. This restarts reception without making the "ring
-empty" condition an interrupt source again.
-
-Testing, on v7.2.6 with an RTL8125B and inbound UDP at 800 Mbit/s in
-30 s runs:
-
- - A test build with a module parameter that switches between the old
-   and the new behaviour on the same boot, 75 runs each:
-
-     old: 9 runs lost more than 1000 datagrams, 1041366 lost in total
-     new: no run lost more than 1000 datagrams, 846 lost in total and
-          at most 184 in one run
-
-   The 846 equal the NIC's rx_missed count over those runs. The NIC
-   dropped them while the default 256-entry RX ring was briefly full;
-   reception did not stop.
-
- - This patch as written, without the module parameter: no run of 20
-   lost more than 1000 datagrams (166 lost in total due to the default
-   256-entry RX ring). With the unchanged driver on the same day, 3 of
-   10 runs did (237264 lost in total).
-
-On this tree the patch was only built, not run; rtl8169_poll() is the
-same here as in v7.2.
-
-The investigation was done with an AI coding assistant (Claude Code):
-it wrote the HIL test scripts, the debugfs instrumentation and the
-register tools used above, proposed this change and drafted this
-changelog. I reviewed the change and the evidence, and the test
-results above come from runs on our hardware.
-
-Fixes: 6994520a3328 ("r8169: disable interrupt source RxOverflow")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jure Rebernik <jure.rebernik@luxonis.com>
----
-
-Notes:
-    v2:
-    - Clear RxOverflow in rtl8169_poll() instead of making it an interrupt
-      source again, as there should be no "ring empty" interrupt (Jakub)
-    - Describe the race step by step
-    - Same-boot A/B test results
-    
-    Keeping the v1 approach also fixes the stall: with RxOverflow in the
-    unconditional init of tp->irq_mask, as Jakub suggested for v1, 0 of 76
-    runs lost more than 1000 datagrams against 5 of 76 with the old mask.
-    I can send that version instead if it is preferred.
-    
-    With the RX ring raised to 1024 entries, which this patch does not do,
-    and v1 or v2 of this fix, 20 runs on two boards lost no datagrams at
-    all.
-    
-    The patch changes only rtl8169_poll(), the single-vector path that
-    RTL8125B uses. The multi-vector path added for RTL8127 after v7.3 has
-    its own poll handlers and is not changed.
-    
-    v1: https://lore.kernel.org/netdev/20261101102720.702600-1-jure.rebernik@luxonis.com/
-
- drivers/net/ethernet/realtek/r8169_main.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-index f151ab681393..99b0a410f58e 100644
---- a/drivers/net/ethernet/realtek/r8169_main.c
-+++ b/drivers/net/ethernet/realtek/r8169_main.c
-@@ -5670,8 +5670,14 @@ static int rtl8169_poll(struct napi_struct *napi, int budget)
- 	/* rtl8169_poll() is used only when there is a single RX ring. */
- 	work_done = rtl_rx(dev, tp, &tp->rx_ring[0], budget, napi);
- 
--	if (work_done < budget && napi_complete_done(napi, work_done))
-+	if (work_done < budget && napi_complete_done(napi, work_done)) {
-+		/* After running out of RX descriptors the chip does not
-+		 * receive again until RxOverflow is cleared. The ring is
-+		 * empty now, so clear it before unmasking.
-+		 */
-+		rtl_ack_events(tp, RxOverflow);
- 		rtl_irq_enable(tp);
-+	}
- 
- 	return work_done;
- }
--- 
-2.39.5
+SGksCgo+IFtTZXZlcml0eTogTG93XQo+IElzIHRoZXJlIGEgbGltaXQgb24gaG93IG1hbnkg
+dGltZXMgdGhpcyByZS1hcm1zPwo+IAo+IHJrY2FuZmRfY2hpcF9zdGFydCgpIGVuYWJsZXMg
+UktDQU5GRF9SRUdfTU9ERV9BVVRPX1JFVFhfTU9ERS4gSWYgdGhlCj4gcmV0cmllZCBmcmFt
+ZSBuZXZlciBnZXRzIGFuIEFDSyAoZm9yIGV4YW1wbGUgdGhlIGJ1cyBpcyB1bnBsdWdnZWQg
+b3IgdGhlCj4gb25seSBvdGhlciBub2RlIGdvZXMgc2lsZW50KSwgdGhlIGNvbnRyb2xsZXIg
+a2VlcHMgcmV0cmFuc21pdHRpbmcgYW5kCj4gVFhfUkVRIHN0YXlzIHNldC4KPiAKPiBVbmRl
+ciB0aGUgSVNPIDExODk4LTEgZmF1bHQgY29uZmluZW1lbnQgZXhjZXB0aW9uLCBhbiBlcnJv
+ci1wYXNzaXZlCj4gdHJhbnNtaXR0ZXIgdGhhdCBzZWVzIG9ubHkgQUNLIGVycm9ycyBkb2Vz
+IG5vdCBpbmNyZWFzZSBURUMuIEJ1cy1vZmYgaXMKPiBuZXZlciByZWFjaGVkLCBzbyBya2Nh
+bmZkX3R4X2Rpc2FibGUoKS0+cmtjYW5mZF90eF9yZXRyeV9zdG9wKCkgbmV2ZXIKPiBydW5z
+Lgo+IAo+IFdvdWxkbid0IHRoaXMgd29ya2VyIHRoZW4gdGFrZSB0eF9sb2NrIGFuZCByZWFk
+IFJLQ0FORkRfUkVHX0NNRCBvbmNlIHBlcgo+IGppZmZ5IHVudGlsIHRoZSBpbnRlcmZhY2Ug
+aXMgY2xvc2VkIG9yIHJlc3RhcnRlZD8gQW4gdW4tQUNLZWQgZnJhbWUgYWxzbwo+IHN0YWxs
+ZWQgVFggYmVmb3JlIHRoaXMgcGF0Y2gsIGJ1dCB0aGUgcGVyLWppZmZ5IHBvbGxpbmcgd2l0
+aCBubyBsaW1pdCBpcwo+IG5ldy4KPiAKPiBJbiB0aGUgc3B1cmlvdXMgbWF0Y2ggY2FzZSB0
+aGUgc3R1Y2sgcmVxdWVzdCBpcyB0aGUgdW50cmFja2VkIGR1cGxpY2F0ZS4KPiBUaGUgcXVl
+dWUgdGhlbiBzdGF5cyBzdG9wcGVkIGV2ZW4gdGhvdWdoIHR4X3BlbmRpbmcgaXMgMC4KCk5v
+LiBBIG1pc3NpbmcgQUNLIGFsb25lIGRvZXMgbm90IHN0YXJ0IHRoZSB3b3JrZXIuIFRoZSBk
+cml2ZXIgbXVzdCBmaXJzdAppc3N1ZSBhIHNvZnR3YXJlIHJldHJ5IGZvciBlcnJhdHVtIDYu
+IEVpdGhlciBUWDBfUkVRIG9yIFRYMV9SRVEgbXVzdAp0aGVuIHN0YXkgc2V0LCBhbmQgdGhl
+IGludGVyZmFjZSBtdXN0IHJlbWFpbiB1cCB3aXRob3V0IHRoZSBjb250cm9sbGVyCmdvaW5n
+IGJ1cy1vZmYuIFByb2xvbmdlZCBwb2xsaW5nIHJlcXVpcmVzIGFsbCBvZiB0aG9zZSBjb25k
+aXRpb25zLgoKSSB0ZXN0ZWQgdGhpcyBvbiBSSzM1ODguIFRoZSBmaXJzdCB0aW1lIHRoZSB3
+b3JrZXIgdG9vayB0aGUgYnVzeSBwYXRoLApUWDBfUkVRIHdhcyBzdGlsbCBzZXQsIHNvIGl0
+IHNjaGVkdWxlZCBhbm90aGVyIHBvbGwuIEJ5IHRoZSBuZXh0IHBvbGwsCmJvdGggVFgwX1JF
+USBhbmQgVFgxX1JFUSB3ZXJlIGNsZWFyLiBJIHN1c3BlY3QgdGhlCnByb2xvbmdlZCBwb2xs
+aW5nIHlvdSBkZXNjcmliZSBtYXkgbmV2ZXIgb2NjdXIgaW4gcHJhY3RpY2UsIGFsdGhvdWdo
+CnRoaXMgdGVzdCBhbG9uZSBjYW5ub3QgZXN0YWJsaXNoIHRoYXQuCgo+IFtTZXZlcml0eTog
+TWVkaXVtXQo+IAo+IElzIGl0IHNhZmUgdG8gcmVsZWFzZSB0aGUgZ3VhcmQgYXMgc29vbiBh
+cyBib3RoIFRYX1JFUSBiaXRzIHJlYWQgY2xlYXI/Cj4gCj4gcmtjYW5mZF94bWl0X3JldHJ5
+KCkgc3RhcnRzIGEgc2Vjb25kIGhhcmR3YXJlIHRyYW5zbWlzc2lvbiBvZiB0aGUgZnJhbWUg
+YXQKPiB0eF90YWlsLCBidXQgaXQgY3JlYXRlcyBubyBlY2hvX3NrYiBzbG90IG9yIHBlbmRp
+bmcgY291bnQgZm9yIGl0LiBDbGVhcgo+IFRYX1JFUSBiaXRzIG9ubHkgbWVhbiB0aGUgaGFy
+ZHdhcmUgZmluaXNoZWQgc2VuZGluZy4gVGhlIFJYU1RYCj4gc2VsZi1yZWNlcHRpb24gb2Yg
+dGhlIHJldHJpZWQgY29weSBtYXkgc3RpbGwgYmUgaW4gdGhlIFJYIEZJRk8uCj4gCj4gVGFr
+ZSB0aGUgb3JkZXJpbmcgdGhlIGNvbW1pdCBtZXNzYWdlIGRlc2NyaWJlcywgd2hlcmUgdGhl
+IG9yaWdpbmFsIHJlcXVlc3QKPiBoYXMgYWxyZWFkeSBjb21wbGV0ZWQgd2hlbiB0aGUgbWF0
+Y2hpbmcgc3RhbmRhcmQgZnJhbWUgaXMgcHJvY2Vzc2VkOgo+IAo+IDEuIFN0YW5kYXJkIGZy
+YW1lIFMgbWF0Y2hlcyBwZW5kaW5nIEVGRiBmcmFtZSBCIGF0IHR4X3RhaWwuCj4gICAgcmtj
+YW5mZF9yeHN0eF9maWx0ZXIoKSBjYWxscyBya2NhbmZkX3htaXRfcmV0cnkoKSwgYW5kIEIg
+aXMgc2VudCBhZ2Fpbi4KPiAKPiAyLiBCJ3Mgb3JpZ2luYWwgZWNobywgc3RpbGwgaW4gdGhl
+IFJYIEZJRk8sIG1hdGNoZXMgZWNob19za2JbdHhfdGFpbF0uCj4gICAgdHhfdGFpbCBhZHZh
+bmNlcyBhbmQgdHhfcGVuZGluZyBiZWNvbWVzIDAuCj4gCj4gMy4gVGhlIHJldHJ5IGZpbmlz
+aGVzLiBUaGlzIHdvcmtlciBzZWVzIFRYX1JFUSBjbGVhciwKPiAgICBya2NhbmZkX2dldF9l
+ZmZlY3RpdmVfdHhfZnJlZSgpIHJldHVybnMgMiwgYW5kIHRoZSBxdWV1ZSBpcyB3b2tlbi4K
+PiAKPiBbLi4uXQo+IAo+IFNob3VsZCB0aGUgZWNobyBvZiB0aGUgcmV0cnkgYmUgYWNjb3Vu
+dGVkIGZvcj8gSWYgbm90LCBjb3VsZCB0aGUgY29tbWl0Cj4gbWVzc2FnZSBhbHNvIG1lbnRp
+b24gdGhlIGxvY2FsIHBoYW50b20gUlggYW5kIHRoZSBtaXNhdHRyaWJ1dGVkCj4gY29tcGxl
+dGlvbj8KClRoZSBkcml2ZXIgYWxyZWFkeSByZXRyaWVzIHRoZSBmcmFtZSB3aXRob3V0IGFs
+bG9jYXRpbmcgYSBzZWNvbmQgZWNobwpzbG90LiBPbmNlIHRoZSBvcmlnaW5hbCBlY2hvIGhh
+cyBiZWVuIGNvbnN1bWVkLCB0aGUgcmV0cnkgZWNobyBjYW4gYmUKZGVsaXZlcmVkIGFzIG9y
+ZGluYXJ5IFJYIG9yIG1pc3Rha2VuIGZvciB0aGUgY29tcGxldGlvbiBvZiBhbiBpZGVudGlj
+YWwKc3VjY2Vzc29yLiBUaGlzIHByZWRhdGVzIHRoZSBwYXRjaC4gVGhlIGd1YXJkIGtlZXBz
+IG5ldyBzdWJtaXNzaW9ucyBmcm9tCm92ZXJ3cml0aW5nIHRoZSBUWCByZWdpc3RlcnMgd2hp
+bGUgdGhlIHJldHJ5IGlzIGFjdGl2ZS4gSXQgZG9lcyBub3QKaWRlbnRpZnkgdGhlIHJldHJ5
+IGVjaG8sIGFuZCBJIGRvIG5vdCBjdXJyZW50bHkgcGxhbiB0byBmaXggdGhpcyBpc3N1ZQpp
+biB0aGlzIHBhdGNoLgoKQmVzdCByZWdhcmRzLApDdW5oYW8gTHUK
 
