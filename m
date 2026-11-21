@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795274880;
-	b=Pgc3t5hTLZj59RzAk40BIuWhgOuPYDOs1Awuf7rEl2n14TPfwfJXn/OHv1CGek73MXgx
-	 tZ1yc+ZyVFFFPg58q5MlCU24yat6hcRhH0Ah+uNoN5J5dp7r8tqN65lZJ/UxnZBGMavm3
-	 J9yxI2GslCmCE1+p9laoHRjsE/yjiMlWAFHfFbeOk9EiEflnJE1iV+iOXW0NFGI7ZBjtA
-	 I2Y/VITmitPhJ/8RKlMD0Eb33W0V0DxTntcz5H1aei1W1TcNsDi6l8Ezi4IpawMBOmx8V
-	 vau+03Chu0DYQXuytc7AcsRVHp3iAzBKuSVbG6gUPUXP8RWlxCmk8PWxgsKZ9UfJ5pA==
+	t=1795274876;
+	b=Ibxr5U68gSeswP68yBUT9ijyj/p4LfHYzZs2jeGYe9yA5pJz0MLue4xZ5Jw9iks5q6lk
+	 sKyRx9KW3u8yhOx3VmTn1IB6DcNqWFQ/LVWawSCw2tMCSPGGW4IEiWTLgXpgMstPWWIRu
+	 pEgVSxAB0wOayDoxeOmWrYwrQlrlaKlTsyic9us9g/F1WxBFB/tzggDBdk7PXwkbeqebG
+	 DTdzbeJmBLIvTKyeDqMR3N75XWCqZtpu9j8WDbJC7e3+7PNwsC8jPEegO52jpQJWiSxU5
+	 rrf6IpIcKlmFlovQ+OJxFoAHazVPpV4huBJFFcBX2FCWpBNZsgh55xbMWYqYBb4CB/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795274880;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795274876;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sAkmsL5Pjh41F+E/anfhN68kywwizExW2cPiAYhQH3E=;
-	b=lOJQN7cj+BP2wpznFd8ZOvJursb6xVC42wTsVHk6EOaRAdAE0g3zidpLERrBWuGz7fvG
-	 tSjl+JF1y39u+W27EG6MT/MPhmDQZ+ibZVEMltU2TQx+7lmiut4PD+pem+/PfxNEdy+7H
-	 tBvL/yuJqaheqq+0YRHJbkUUoOGAGnTxLWtd3DL5c6LR25qbscNPuYizmECJfKW03xfxE
-	 +QP/Vk5eNxfCO0MW+RWxQnSMcjb0D2Dur5LiffRCCgGHUrf2hOWF1gPJCyXmYXRv/Ph1z
-	 xJ64B1WPJVo71IDHvCfU8FkLdvtMcYfspzMLd7maiCBGJXkrmsNDh4rZNwKj2dH9r9w==
+	bh=FRrGU7jI02/74YNAonFZt75GvbnqAEAOxEjE7e5zkuA=;
+	b=x1hZxP3pc+z/2Bd4vbcPSiZDDyEF8ReM1opLtCLOqvPyRfriZY82lhnf4h5bso2lbZVK
+	 qSQ7ulLa1vkF+mTFLNFRVDJTVgdRyQ4ZRrtjrO1CFNfNfdNYRUTSjse+evLfbdl+bQT1a
+	 xTHj7GF2phh+P9El1YK2IFK7m1wbBzTMpH+1cZz5LclFGFv+bNGGQtHHZGlN4LVXdIJzj
+	 C6z2kDGHs5NCUBCA24onkjRNIYQOtxOisy2S44GOA67dPpMRClIHUatVxJAuWgd7o8cYu
+	 RrGFX7CdcZedncKzOFrOIuv//Rd2L5388lg9eeFfWAdIQHYw8V1WRqrrqpsV4k86ekA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dLkgt7Aq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hmOvM/H+";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B52606A320;
-	Sat, 21 Nov 2026 15:28:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444FD606A680;
+	Sat, 21 Nov 2026 15:27:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dLkgt7Aq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3FF1F000D0;
-	Sat, 21 Nov 2026 15:27:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hmOvM/H+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57F0D1F000C0;
+	Sat, 21 Nov 2026 15:27:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795274880;
-	bh=sAkmsL5Pjh41F+E/anfhN68kywwizExW2cPiAYhQH3E=;
+	s=k20260515; t=1795274876;
+	bh=FRrGU7jI02/74YNAonFZt75GvbnqAEAOxEjE7e5zkuA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dLkgt7AqkZT15bSnhGdbtdrGBW34Z9DtMCH3TGoYlhI+p7yjaYvGg+JxubGRsMWfb
-	 KU22vEvH7lhNB/jg7hEM5BGOvRUcVdlIeeTwYIBDkkpZ5sxevNptThbfXO9dn5FG1k
-	 1LfEhzfHMFjDVtC6CLwfjan00kv2aGEDq/5Dubot5MaM3SN5JtB98MMwe/jRRntg+x
-	 cQCyZoGWbdBAMvcFOctfLQ8Y7Irykhy3FZl+S3QFJ5TfDCSVMmrdsWuXRbIX/jHB1Z
-	 Aw2xJ+9980U84pkZxV3aJbd6DaUiX/jyJVZvdzBdy95yn4NrvYe/ytj+qybjwXbjXm
-	 FElAsBKMB3MEQ==
+	b=hmOvM/H+H6iH1IRoUqFS+1jWKB6XByMU/tyY/x5wHVEk26Jw7PldIRmPIRxMNM/4d
+	 YGmX4U5EvHTdzQWvc9HA2/RIdz3/CfO5xM/0QI0qbb2R/P70UN1GmVMJoyJdmx7bN/
+	 2WZRyA0wLD0QVNcywRAkf8v7WdqMAelZSP/maFkUkjBsL+oA/p1Cl8zw1E1Os4Zxiq
+	 D//196KWkADFqq/WKo7mtzffeOdBz996ElTz5u5UbQJKXZntj17/p+rzV2/zcbYxw0
+	 mddhMOcaop31QhzQ98cDXp01OsXUa5JrV2Z5tbN07W/HtaX/cW47CGEPoGZEa1YJE0
+	 QKts25sKZ3utw==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	Devin Wittmayer <lucid_duck@justthetip.ca>,
-	Eason Lai <eason.lai@mediatek.com>,
-	Hans Buchheim <hbuchheim@gmail.com>,
-	Sergei Melnichenko <sergei.melnichenko@gmail.com>,
-	Felix Fietkau <nbd@nbd.name>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 5.15 0591/2214] wifi: mt76: fix memory leak in USB TX path
-Date: Sat, 21 Nov 2026 10:27:40 -0500
-Message-ID: <2026-11-21-1-daily-reply-0012@kernel.org>
+	tiwai@suse.de,
+	linux-sound@vger.kernel.org,
+	linux-kernel.supreme403@8alias.com
+Subject: Re: [stable request] Backport TAS2781 calibration address fix to 6.18.y
+Date: Sat, 21 Nov 2026 10:27:36 -0500
+Message-ID: <2026-11-21-1-daily-reply-0008@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <7ba937e2-8cb7-4e87-82a2-878b06f88478@oracle.com>
-References: <7ba937e2-8cb7-4e87-82a2-878b06f88478@oracle.com>
+In-Reply-To: <179525879604.6.759418222472508172.1791565667@8alias.com>
+References: <179525879604.6.759418222472508172.1791565667@8alias.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,15 +62,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> In 5.15 the freed packet stays on status_list, so a later status walk
-> can access freed memory. Before this backport the USB error path
-> leaked the packet instead.
->
-> lets drop this and fix it later ?
+> Please backport ba39a31448857da3b848174c9130b466b3ccddba
+> ("ALSA: hda/tas2781: Prevent throwing away custom calibration addresses"),
+> which landed in v7.4-rc2, to 6.18.y.
 
-Dropped from 5.15, thanks. 6.1 and 6.6 keep it: they have 2a9e9857473b
-("mt76: fix possible pktid leak"), which releases the pktid on that error
-path.
+Queued for 7.3 and 6.18, thanks.
 
 -- 
 Thanks,
