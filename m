@@ -1,115 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795230465;
-	b=VsTOvsjs5Vn0J82iHe5EEatgX6/YJzWfBlaJ+XWDwVMpTZRETJouFBMAuKDeDEkd3rSy
-	 PEEO/mBrRyANnc5iRZbfQDDbXrZK0GTQ5z6uuZ8+c+JOGJ6QG4RWuzBXQHJ7MdOcJZ5gx
-	 f4CCk8PEC4HlE3zsZtOYucQso/lcdkmNFbAfTbGbvix/Vp/DxgBrXN3eFejVWUNo+VkSl
-	 VWEl6CeOQ/0zc+tdbAdVMce056qZsvgnJ9d5f//qwVN0QIS8Nb/Vw2D3VAYvXPMMvm7SY
-	 zK6TtYkZ7BCsI1R9EoEd0j+Yv+gnNLPenP2o4/s+22KLgMp97S7h3qeGJJ6FfcqlKag==
+	t=1795230607;
+	b=4ZmBgW6aRQ1wAhJQhqPElNzjooQ6egyE2F3Tem9oPspZDd1YarcH3lKKL2A7IsbzYlci
+	 mW1vNu4G8FJ6ySdwLI9E6hAblPNfxAquYzZLLrhQ/eWbWM0MUGzPIxBQGDK3Ky5xqud1m
+	 q8owMVX6YGhfrA1fL9Ns0KdOg61z97Z8iXIDf++tZ0lYVYZLMcGzzeOP0G0376QomQlvP
+	 rP7Pee+tZagBrznp82xHesUrj8GTLb+Rgsz3QUrxRvEDmo728YC8u/DQfvgYl9ZA9hw76
+	 ukNNJr0Y9Mj4FT+I0qcYfbxAApEU5ynOWbkPcwLLFcwV5y0rNT0ThMYl1ZQXUCaiazw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795230465;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795230607;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=J9Wo1LLPgZ0M2/7qgQRwy1GrGfua6oHX8t96KgKN3XI=;
-	b=y0uxOXQaBP7SP2v3f0VGZkk+kvLjrjULCNC4TJocNxxOBELIUbN1nzxgEp/ERtq0EeL9
-	 kUmB6b6QV6NY6FZMkFe7HWD8qReoAWHXDoFc6jLlaXypzplwp0i49XlCDRyHXHTUGdE7+
-	 gsFFQn6h0FHn1C5FBX6PK3VLvuFbRmz/l2JhbA28Cn3hZO7xzOBWmVsTlqyX6GJ+jHilw
-	 6U7nHaWuGf0r2/UV2uF2fWX4FozNG6YyA95mCsOGpD8A7QquZVZFTb6xwu9R1XKT4PJy6
-	 RIQkE/4CK6rt29FVYRx9nR/siRd7VdDfXbY5NX8gEj7vOlenUo6rF6VtawIZQwQiTAw==
+	bh=Kk0j6F4u8RyOwIi48XCNaJybmEVI2lLpJDiNK74Ze0s=;
+	b=oZBYRWvMe/1UXdxfBi1zlP/a8HiGLv8jk8RYajU6XppA6qU7h+YmXQjT4zu2OOIH+1D/
+	 Gb3kD5yrptO+HV3OlN6vHgofP6/pIhqZvSEqDOjeeV3MxDPAGyM95g3KyyYK/EKEaIyhE
+	 CxQry7Y4+UGSiIEfRCPcd5iH5D2D4L1HX7x9lXZ3totaIwuy3Vng88ZH3kJE7/ymVcNJb
+	 JZAhh8Q6exO53HhoLpk+qchuu9SVfwhPsdq1AZSgbFy41I/WPS/yUG5sfle0+JLyGWD2F
+	 3MitRG+C9IQr7DYXvSCP23onr9B6n/qAwyr+PXuqbwL6AAtoykWdho4jlmAjFCGsK/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=Lmxs8yCT;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=z6omCf2p;
-	arc=none smtp.remote-ip=202.12.124.158
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KsnBmaIa;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7708D606A32C
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 03:07:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7708D606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9D7606A69F
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 03:10:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C9D7606A69F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=Lmxs8yCT;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=z6omCf2p
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id CB54D7A0421
-	for <stable@vger.kernel.org>; Fri, 20 Nov 2026 22:07:34 -0500 (EST)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-12.internal (MEProxy); Fri, 20 Nov 2026 22:07:34 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1795230454;
-	 x=1795316854; bh=J9Wo1LLPgZ0M2/7qgQRwy1GrGfua6oHX8t96KgKN3XI=; b=
-	Lmxs8yCT3kQR5DYslADig4HlNI6WwLgHdmY41GNOzFs49szI7qiWR3uxaup+VA3i
-	9z2457CgwGWwKMEEVcuavIsmBI279x7ZDKRrV9z3WRSjLj1NCbVYL/jtTy2Brn6j
-	e20TahmM5mzWKg9x+IufVpj2J4XtIYNiZzKk2beHoqgLELl+mMjgSrmMcMkaOhm2
-	iyeznuax2//Y5WMJVRZtcFn3V68e+tDeEF7IhTuRcgSIPg15K13kpLq9UN5Z5nqk
-	6i0mzVjwU5CEkl+cz9jxbZceDqbmTMVH/idzwYHnIaYp/yMLakeLdQqb9lNFLNV5
-	r2SK7lV66Xr7S4igtgmp5w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795230454; x=
-	1795316854; bh=J9Wo1LLPgZ0M2/7qgQRwy1GrGfua6oHX8t96KgKN3XI=; b=z
-	6omCf2pzRb5ltPzb6LdOizokrVLdiUSe7pWhh3KOTPnnd5cCDAWb6Vnsi4rCKp9J
-	4pXGVi02mlKp90PWlfnnCVAeFNx+/f1NQF5wGOZQxyx+H2CpSNAImUsEYDvx24Iq
-	s00Kzr8litmonhnVWwMrpHVIq8vblOBGn/VK0mDs1kJwzkNpQLhlDX6D0PAHxgDp
-	6RyIM5q4I4OIN5FUwf4cagfltzM4SfgZDZja8MWqmu2p2bRFb6JXpX8b04kaF8V1
-	z8Ayf5mH096iuxgA/YWVhL7D/89oak4v1Jr5qm7/QDkqYIo6Na/NbUgUIu/Ol6l1
-	Oig3bhh7ru28Q2P+dBNoA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795230454; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:CSQzw4tEyGiP9A1HOmRNXqfExlvYn+1t4z6gK1zzBVt2jqe
-	vkq7UsQvhJCF5YBBPUL578bIZqqhH8r0kBSFEh43bL+HLaVoiMMc03sM9IaYskNe
-	9yavWsC/E0xQv7zpNNszCN69U1vV8fpbtSPVg+e8kVWviAzp+dKnAV5DMcC8ZaV7
-	XmZN6GzpaV4zTkz57Q9iwXKBNo3bmaH7ZY600wEjHy7/4BTYBNiqw9pHK3uGam4/
-	zl8m282HJ6VUAQ01qHDNmOhmiu2/s/pgmRwnWjY8dvXv6sziNfndgUhVGaUx2SiO
-	vItp1BWMqLzNGZDkA7KqsL8gZWWE275D8m30ZGg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:I09901pHR4NWv3tPw63KpbQgEj0LoAhrK7VIY9URF7o=:bE6K/d0CVO9JyMKrakrnNgv3ETaOBmQDJ118Xg8omA8=;
-X-ME-Sender: <xms:9QoBayrEYiwOUL4A_NxWwCEjgTtsy8YsPkP0BJw0TZmDhxDnFNOYEQ>
-    <xme:9QoBazMitxdzZl1zmnOz1RLwos7bgJlvIGplxSUr0Ej2fAYKwBs3Bw0gcq51N1ce0
-    r0qk_rBmF87krZmwvVWMU99c6zV0aUSR8EGBHtn4xcFE0QycEqI0Fc>
-X-ME-Received: <xmr:9QoBa6021enrwpC13DmYAbJnjm6nFMsu4ffl5iv4JQvdOUY3l52oE6-ntFXhSoRtjOOXi0grS9lz9tVD_ezoR0bG_3Zk6v3C>
-X-ME-Proxy-Cause: dmFkZTF73W6XvnW3/sgv8AYOLneXpXLnNrt0sgIJOGt1T133vMgQby97HXEjs22lOwgey5
-    NGftX/J9V0Z8Cv3wY4x3CURqA6X+HKWZ7r8qQo87MrKku5/hqm5/ExxN0VpMyTY6biEqvk
-    ujj4Ax1RLUCGabxEA969POXGBXQL+UXDTvx7DlYMGWLkZY9Usik+EfK6HGr9H+baLmMgtu
-    t5OuEw6/6XFlxPd+oQrwZxWDBldpr+77scFS/ZBBhEWgm+H46hivy2Am9U6ak8MGa1cK+y
-    vVkPen1YUTeHZvDZHi31EtG9JGacbONCa7HtwqWRL4PnYnPUjoDXZYwflGiT4Is6okibae
-    ofl1a9knIj7O+fxIpB6cheb+AUpGxIB9Zb+ZZHlRFDxd93k5CwsLHM2AtI50hrG3kBT8Mu
-    MFHwJbMziSRpnlsac9zPYYNICxH884hKB73SJw8hqnITIBv3Q9Dx+o2/SOPWL5iSJYWrZ+
-    dLFBUUnKE9SiAQZu+jLNyUB/dfw9TpKIQmm0dC5INGYUhKKUWwVRw5/+9JqkQvRwLpubGs
-    Sg1kDGod2gktjlV6m5UV7VzuaCCbUfE0k0Zxf3lfArXqnFct5GcDrmez7cDjBx11IFVegj
-    P/0XkMMSbN01C1a+HUbYwKCEYd/XAzT6TgXjnlR+OVGw2pOV/0xfUuDgCqpw
-X-ME-Proxy: <xmx:9QoBayBr8JkAA9YxfY7gT5WoG1f8rGbjS064QyGVfEBvc7RFzkMOvA>
-    <xmx:9QoBa3KMnI4dRTootzF2LiS0V8Wp72PGcVHgryMM8SSeLlVwnlCBRQ>
-    <xmx:9QoBa7nuj8V3iI5ez8JyI8YgvmpuHjTsDvAVWRsMQ7_B5ueWoWt8yg>
-    <xmx:9QoBawbXVbgEp2GWt-XDQwSJJD01dchHRmhUtvoLs7eH0WC1W0gaOg>
-    <xmx:9goBa4LaVlwAFbi91TXMMCAi7YzL2pVUyi9E0xJZtfprXos4BXXGyyhI>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 20 Nov 2026 22:07:31 -0500 (EST)
-Message-ID: <049338b0-ce72-45a7-a8f4-efa7f3f85444@pobox.com>
-Date: Fri, 20 Nov 2026 19:07:30 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KsnBmaIa
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-38587f3de36so1824268eec.0
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 19:10:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795230601; x=1795835401; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kk0j6F4u8RyOwIi48XCNaJybmEVI2lLpJDiNK74Ze0s=;
+        b=KsnBmaIaRGc5OUE0Ft0dc+1GePSOdQ5k+IWHdHyRvwT9Hhhw3KaJXrW/fuTQc2vod2
+         EZsCawxL7ZSvd74RNTzC5GL7VbiOx1NyW7Xjbu5pcmQT1l3kf1fp6q1G7lYISYKGxMwW
+         GhTvpmmh9Y4Jxi/PwD6MHfjdwHYJWZqcbKoxuRXmPiVvqnzl/TR6Vx+VR8XByUUIBUxK
+         2LOkMW3qRDol7f4xv38JQUMjO1HqwsmfvGEO687iku6fz/T0kpZO9q6+5JjP35fkgEMD
+         csc/JxIw38NXVMZF3xyhuvc7PMZCuMPUw6ZXXk24RlqbOO9DCxZITpAHdaFApv6LXYzK
+         2yvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795230601; x=1795835401;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kk0j6F4u8RyOwIi48XCNaJybmEVI2lLpJDiNK74Ze0s=;
+        b=gGSx7s0DIQAwjbXh02lRvxuv7Jqt64gbsE5RDB8s/IMANMv9NRJYjrT4igLs0YvyAJ
+         lRQOdHes3PqvPopUHqSODpy/5Nsyp82npf8/AAw1wWb51SzFfIEdmW6PaL+zFpq2FdzK
+         qCwaFt6IxUIzfKS/hFTt/tiTfaoh3WhegKCDDNEjQX2vyWnHLu2THpbWn7WtdsBIEYjk
+         T3c11BYEQfNSHWLrp9/uIYfOKvP9SSxTkNVmAEiqf6zV9N/gTPnZxbFPh6PknGtUckfF
+         VHvjgt9Rax+wkpHL0PSEG1JyIHImSdhkOz+iiQeVzgJNVR8k0r6YGC8HPn3X7VHRql1q
+         zA1w==
+X-Forwarded-Encrypted: i=1; AL+hErEghwPxTX/D3FA50NbDR++RBfesv9kGuAMc2rM4YMiHKBSSr76+s+rP+EQsB5EvajfndZ0IBjs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+QUNG4M5QvUfAvdrOx5rAHbQhobZD4iO06JmAzBS+IkS82w9SV
+	e17dCYTJ7fDERwfHQ5rW3DRRPzWxuV7xOAMnjX9pCninnpIGDZxjdjSr
+X-Gm-Gg: AZFdTZfnZKYyh8NbTtmGE3OQ2SYXs6cqtEt3cRO5yWRk7RdfIjaL15Dul4DeYsb3I4f
+	rVsFqayCdBwtpQ7KZY8qyt5jMAaPzwJsCYcnumvfiEJUo0Kq9+10YGHGxGfLPhSpxjrCk5IUYs1
+	5UiJmKlQfbUoqth8arDHRZR5k93wcrFkmndRKIFI4XlGCuYF/ou8KeqSrfI+YPoLuNSfBWBwV0g
+	lSomeztOURX07G+WuQtc0jxUB+QbkfObu65RjRsPFJgPRcixmytiEKmQ785GN0Vu05lVEDuCgIF
+	NxYiBLpT7H0k3GROJqe1vN0Z/esGdPJJ1fSBgW+a4gfho0JBe6f5K0tTTTMME220OcYEnd8HKfJ
+	0zX2iylmGDWub6pq+x4UYM6v2ZJr2YGAGz46oBjceFjI0+1D1Fu2Kh59LhCP/OVTpa0xEFroiCg
+	SHF3EcPvhuhWWFQUy1ZZ60WScRtLNmiK19j7TSzlF4vxEa3/NBe1UOPmfxd4wP7z7JLlJjHTfdn
+	lG/Pg4C1VNnFI6YpCZvh73HgSbEI0djBin1JwN3LoC6oGwXVnKRVwtTfRF1ResIXWuDAjQuM2Qp
+	ToCyd9FXQ02YioRO2ixTSGZSKYiK6k2tebfY6EaJWiat7NJDOGSy1JgozT8BBZQ1dStXB1DV
+X-Received: by 2002:a05:7301:6285:b0:369:f182:8e99 with SMTP id 5a478bee46e88-38570554684mr5874137eec.35.1795230601058;
+        Fri, 20 Nov 2026 19:10:01 -0800 (PST)
+Received: from fred-server.tail1cd3ef.ts.net ([2600:381:4c20:1067::7ff])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e99fdsm15806890eec.5.2026.11.20.19.09.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 19:10:00 -0800 (PST)
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Cc: ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Tom Talpey <tom@talpey.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fredric Cover <fredric.cover.lkernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] smb: client: convert DFS prefix from cache charset on reconnect
+Date: Sat, 21 Nov 2026 03:09:51 +0000
+Message-ID: <20261121030951.1470502-1-fredric.cover.lkernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,40 +102,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 1870/2651] Bluetooth: L2CAP: take chan->lock for
- l2cap_chan_add/ready/del
-To: Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Pauli Virtanen <pav@iki.fi>,
- Eulgyu Kim <eulgyukim@snu.ac.kr>, Jaeyoung Chung <jjy600901@snu.ac.kr>,
- Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-References: <42da5e9b-1db9-410e-9c72-9f9f4e9489f7@pobox.com>
- <2026-11-20-1-daily-reply-0001@kernel.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <2026-11-20-1-daily-reply-0001@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/20/26 12:38 PM, Sasha Levin wrote:
->> Now I get the following when building the current 7.3 stable-queue
->> (commit 5252483124e6cf016c4a6f41fe1e44f5e1949648) with clang 23.1.6,
->> same config as before:
->>
->> net/bluetooth/l2cap_core.c:128:9: error: mutex
->>         'l2cap_chan_hold_unless_zero(c).lock' is not held on every path through
->>         here [-Werror,-Wthread-safety-analysis]
-> Requeued the L2CAP/6lowpan patches for 7.3 together with 15ad901d92a2
-> ("Bluetooth: L2CAP: avoid maybe-return-locked in l2cap_get_chan_by_scid/dcid"),
-> thanks.
+The DFS referral cache stores paths and target strings in UTF-8
+(cache_cp), whereas cifs_sb->prepath must be encoded in the mount's
+local charset (cifs_sb->local_nls).
 
-I have now retested 7.3.5 + the current stable-queue (commit
-3dd4b2d3c1f7915277082781d6dfbe71d7d41800) on my ThinkPad T14 Gen 1
-and my arm64 VM. Builds successfully, works well, no regressions
-observed. Thanks!
+When reconnecting a DFS link in tree_connect_dfs_target(),
+dfs_cache_get_tgt_share() returns @prefix in cache_cp, which was
+passed directly to cifs_update_super_prepath(). On mounts using a
+non-UTF-8 iocharset such as iso8859-1, this overwrites
+cifs_sb->prepath with UTF-8 bytes. Subsequent operations then
+re-encode cifs_sb->prepath to UTF-16LE using cifs_sb->local_nls,
+corrupting non-ASCII characters on the wire and causing lookups to
+fail with -ENOENT.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Add dfs_cache_local_path() to convert a path from cache_cp to a
+caller-specified codepage via UTF-16, and use it in a new
+set_super_prepath_from_cache() helper called by
+tree_connect_dfs_target() so cifs_sb->prepath stays in
+cifs_sb->local_nls across reconnects.
 
+Tested against Samba with iocharset=utf8 and iocharset=iso8859-1
+across multiple smbd restarts.
+
+Fixes: c870a8e70e68 ("cifs: handle different charsets in dfs cache")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+---
+ fs/smb/client/dfs.c       | 18 +++++++++++++++++-
+ fs/smb/client/dfs_cache.c | 31 +++++++++++++++++++++++++++++++
+ fs/smb/client/dfs_cache.h |  1 +
+ 3 files changed, 49 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/client/dfs.c b/fs/smb/client/dfs.c
+index 788cdda9a573..efef00c33321 100644
+--- a/fs/smb/client/dfs.c
++++ b/fs/smb/client/dfs.c
+@@ -404,6 +404,22 @@ static int target_share_matches_server(struct TCP_Server_Info *server, char *sha
+ 	return rc;
+ }
+ 
++/* @prefix is in the DFS cache charset, the superblock prefix in the mount charset */
++static int set_super_prepath_from_cache(struct cifs_sb_info *cifs_sb, const char *prefix)
++{
++	char *lprefix = NULL;
++	int rc;
++
++	if (prefix && *prefix) {
++		lprefix = dfs_cache_local_path(prefix, cifs_sb->local_nls);
++		if (IS_ERR(lprefix))
++			return PTR_ERR(lprefix);
++	}
++	rc = cifs_update_super_prepath(cifs_sb, lprefix);
++	kfree(lprefix);
++	return rc;
++}
++
+ static int tree_connect_dfs_target(const unsigned int xid,
+ 				   struct cifs_tcon *tcon,
+ 				   struct cifs_sb_info *cifs_sb,
+@@ -444,7 +460,7 @@ static int tree_connect_dfs_target(const unsigned int xid,
+ 		rc = ops->tree_connect(xid, tcon->ses, tree,
+ 				       tcon);
+ 		if (islink && !rc && cifs_sb)
+-			rc = cifs_update_super_prepath(cifs_sb, prefix);
++			rc = set_super_prepath_from_cache(cifs_sb, prefix);
+ 		break;
+ 	}
+ 
+diff --git a/fs/smb/client/dfs_cache.c b/fs/smb/client/dfs_cache.c
+index 02864f7acefc..168f563d5ef6 100644
+--- a/fs/smb/client/dfs_cache.c
++++ b/fs/smb/client/dfs_cache.c
+@@ -105,6 +105,37 @@ char *dfs_cache_canonical_path(const char *path, const struct nls_table *cp, int
+ 	return npath;
+ }
+ 
++/**
++ * dfs_cache_local_path - convert a path from the DFS cache charset
++ *
++ * @path: path in the DFS cache charset
++ * @cp: codepage to convert to
++ *
++ * Return the converted path, which the caller must free, or an error pointer.
++ */
++char *dfs_cache_local_path(const char *path, const struct nls_table *cp)
++{
++	char *tmp, *npath;
++	int plen = 0;
++
++	if (!path || !cp || unlikely(!cache_cp))
++		return ERR_PTR(-EINVAL);
++
++	if (!strcmp(cp->charset, cache_cp->charset)) {
++		npath = kstrdup(path, GFP_KERNEL);
++		return npath ?: ERR_PTR(-ENOMEM);
++	}
++
++	tmp = (char *)cifs_strndup_to_utf16(path, strlen(path), &plen,
++					    cache_cp, NO_MAP_UNI_RSVD);
++	if (!tmp)
++		return ERR_PTR(-ENOMEM);
++
++	npath = cifs_strndup_from_utf16(tmp, plen, true, cp);
++	kfree(tmp);
++	return npath ?: ERR_PTR(-ENOMEM);
++}
++
+ static inline bool cache_entry_expired(const struct cache_entry *ce)
+ {
+ 	struct timespec64 ts;
+diff --git a/fs/smb/client/dfs_cache.h b/fs/smb/client/dfs_cache.h
+index c99dc3546c70..636eb1554311 100644
+--- a/fs/smb/client/dfs_cache.h
++++ b/fs/smb/client/dfs_cache.h
+@@ -53,6 +53,7 @@ int dfs_cache_get_tgt_share(char *path,
+ 			    char **share, char **prefix);
+ char *dfs_cache_canonical_path(const char *path, const struct nls_table *cp,
+ 			       int remap);
++char *dfs_cache_local_path(const char *path, const struct nls_table *cp);
+ int dfs_cache_remount_fs(struct cifs_sb_info *cifs_sb);
+ void dfs_cache_refresh(struct work_struct *work);
+ 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.53.0
+
