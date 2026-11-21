@@ -1,128 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.177.32
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795275733;
-	b=zRyZagrCNKtT3K8BL8JA6bvdGhYlmOCigB9rGdGVZqf7NBLsk2PHrWwhaLBxNJrTYJ+x
-	 kzsV1Dvttba9tvb8HwGlMFo7dQqbWlLQB+Yj6BUt399ALM5LoEzVnX+tlQ9dADq0RTRom
-	 FTlfkigEg3TVzC0bIStkVyVo6uQ1M1pfa/axhngri2OIXJx40AUnu3ZX9ze4N9Gs3rrbi
-	 4fHTNKxI+vJPwnsOguPQvCFSFnIiOlc1xxMs0W3+L5V8GtXvjTK8OC6XimDw98IAnwq7x
-	 2I2zNPItmQRoAqfeykYLV3VczaosuEjyb24yMm0iNUqEnqWz03sRr7cBPSf625ehB1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795275733;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
-	 To:Cc:References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info;
-	bh=hUqg8kER6+SaMXn3EsMiYl2OOox43wBm5iwx2S6Z3iY=;
-	b=HW8cEJSyu4LQo3uedJAXDvCZzrM7gbdR5ZtUF0vzMmhsMcW1dwes+6g77iJIu0FXmD0L
-	 eJc/0V/T5xoU+fkA4hYlsMM/HUvRwu07tVcS4YcjJ+JjwSJ20WMd14LSZx5lq1Wp2046J
-	 Czj30PPO1hIrpyx7XjHfNNZMSAYG0c8vuxwv/GPo/9qiPoJao8dV2gtd/fSQTVIjPJzUR
-	 mv1IfXoVYMGpt8DIC66EePa6ltDPrUfJe2+RNSSTJnN9eRfgo3z9tu1eZehNL9EsuUzp4
-	 X4orxse5qipbEHFOfoGuqquIHlI1E9bJ88+77QoDe3Ot2oNSAd/QWU+oVhdQasAm9zw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oracle.com;
-	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=UmAzbgZc;
-	dkim=pass header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=BGs5+8MR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.177.32
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795276640;
+	b=KkPN2ZNd6hcwtcZdWZmbTSvT4N9XZyRcw3jUIRtcAWItA1lOhAzyimExmUM4KXiMsrbh
+	 qNiODz3qg25GJ9wejmhzFVlQggW0gQGtY4mwFeILBnp0xF2nvLuGzA1aGW/HqaWp0aao9
+	 QA5wIIybmrb4KeGzF3CwzBlpcSnu8I3SDnmeDf1HXuCQfukyDsPMLZ0O95hpjz8FjaMmT
+	 Vb3v8mzJrEC4BjukTii53rEfaDI6BAki1WyuB7qnNc0Hv94vl6HIGoJYNp/oxOiZew2Vu
+	 NZ5fYw1s8ovviPjOO72/gFg8KWrYS6eythJYszLXuE7U2SnVZiWIll8MDe0/bm+WJIA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795276640;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7jYx29lk0VQ+rDyH5VI1Dp1pxPOIzH/Tyj7l1x2+Cvw=;
+	b=FqSKFmTStGh6yseq80wkN3bv9nDIhkAC10/PJ4J/qxCQHWmC+qwA31h/N1H6iWnvpi43
+	 PXEaRpmh72g4QK5tnIYccMeS+wdct0UQq7ZJlR0jha3r9XwOOKlhRu98xxC88sVWGiP5t
+	 nox6w4O+m560lIm3y8ydPlRvK7T6X6lBIut1FaBhLNtE+ZPG+7NV8WO0iTl+wBwJsJTb+
+	 5vv9fJM0zcTySb+0muQ2aN3zr+8tkIEbWk1IaJQZnQ6i0rDifTE2ODl3QUWswXPAwZnl+
+	 oR77QDi7qYGPr/MCx9LKR2A30IxsNCWSUfrPsz+7woP5kcUnpl5Pgtmxm+fk0P5t9QA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qWChVtZ0;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03D1606A320;
-	Sat, 21 Nov 2026 15:42:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F03D1606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20089606A32C
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 15:57:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20089606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=UmAzbgZc;
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=BGs5+8MR
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ALFU2ox2328227;
-	Sat, 21 Nov 2026 15:41:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=hUqg8kER6+SaMXn3EsMiYl2OOox43wBm5iwx2S6Z3iY=; b=
-	UmAzbgZcg2s/lp6mVPCJhYl3HeRzWFCEGpE1K3EMBXW3mSNL970YJQpn5+cszSxK
-	PhiTd2lFojy0AeATcNdscSbkVXqGPNLZekplsRBgohPP2FGLbi/HaNR6ik3tRec5
-	8z7qRRXfxRPk6uMI+LAMkXOKZIudRo8QI+q3PvNPpqkatCVSeeeGhHmzJ1rfTanE
-	EnAkhBKKu+nhFXDKXMUAm/4DMPXXq4p7Lxsw05TLdcWf+2kEjgNls0BCh9fOYuta
-	DaQ9QHHxBKRTjYN2wj8fBHoFZJ0IW/ctzVE65+oqTPitMhbSF446jiwvqDJtjm8w
-	a82tYTzkt7sIYUvUpc2Psg==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4j34t508jv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Sat, 21 Nov 2026 15:41:57 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6ALFXMas2828255;
-	Sat, 21 Nov 2026 15:41:57 GMT
-Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012064.outbound.protection.outlook.com [52.101.48.64])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4j39pbm5f3-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
-	Sat, 21 Nov 2026 15:41:57 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hDnKAOovO8xmH4APh9zgk2pxz4LrsDUe46pGMWdwYMNdY6Axbh28EBml2wOvZ4FmZ8pOTuGUoHCRIApvv0OTl5i4M8KTCFQ+Zbs6v+jlZm4rvvaM2hv8T4tvsR83vUT9fk5410iqEnKfu1FEmSgyPs1rEZ/1N7Ptt1w6FIrBc25L56bbRKUYHasHUBPIn32XcgtAROX2zcHWdhNNLPmLJF0/qI+aOaq1YDjyw7tgnfkDvgvcU9JTX8nC7DvzRhd0ZzCCSLDtp29m3vriDNR9Um/dkAfZvbXPS6FZ3iJ0h9R+7PxbHys2Dqx2DaCxH3MVcd7BRW6uSLAk2uyORCD22w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hUqg8kER6+SaMXn3EsMiYl2OOox43wBm5iwx2S6Z3iY=;
- b=zU20O6VxYQRHsdq6ZbEcU/aXX7cPZuw5t2USC5mGIx2SF2muJpd238HQYHYLfiKzxND6ual8e8CKEIzfnqLqtr0dHCbq9WfnDE5mklzRSE73K5q6dojYNoZiO79CKAN26yvIImznSHZqA65rMxY//rWJrkBQxNE9y76qtnVcVBh/pBHeipmfLe4SvL4e77OERciYfvDXXbVt/Xp/dxA+xEFLt/a4pfRSw7ek2TTgE8c136Ah2d6qS+NhjOg1a02E7ZQgkrvj9MFTzNhHV61AsftD9MRBQae5euv3GUPJif7xYBIdGD+5ZVfqv/W9zgTFWIzkL+Oxaweh/uZwBAsoXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qWChVtZ0
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-38692f62b22so2532922eec.0
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 07:57:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hUqg8kER6+SaMXn3EsMiYl2OOox43wBm5iwx2S6Z3iY=;
- b=BGs5+8MRIBQSAOoMe4EVKZ16LktYMtba4DyBnU4ZSRBwl9yfJvfK9cJks3WOV+sPYm5J6wydh7hMnOIV4gjUIbhJ/DQ54X6/697v5Vt6LKF3sq92zRevYZtgxVcCX+yxEsbt/Eppmx5QWYGpK6wgzO7aENq1oNQEX9FabyhnVZ0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
- by SN4PR10MB5559.namprd10.prod.outlook.com (2603:10b6:806:202::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Sat, 21 Nov
- 2026 15:41:52 +0000
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a%6]) with mapi id 15.21.0615.009; Sat, 21 Nov 2026
- 15:41:52 +0000
-Message-ID: <1df2aa0e-0cfc-4d21-85a3-d74e4ea83d3d@oracle.com>
-Date: Sat, 21 Nov 2026 21:11:45 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 1289/2214] drm/amdgpu: Only enable HDMI audio if
- display supports it
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
-        Sasha Levin <sashal@kernel.org>
-Cc: patches@lists.linux.dev, Alex Deucher <alexander.deucher@amd.com>,
-        renpanpan <renpanpan@kylinos.cn>
-References: <20261118150009.797899913@linuxfoundation.org>
- <20261118150103.128986610@linuxfoundation.org>
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Content-Language: en-US
-In-Reply-To: <20261118150103.128986610@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0051.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b8::13) To SJ0PR10MB5834.namprd10.prod.outlook.com
- (2603:10b6:a03:3ee::16)
+        d=gmail.com; s=20260707; t=1795276638; x=1795881438; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7jYx29lk0VQ+rDyH5VI1Dp1pxPOIzH/Tyj7l1x2+Cvw=;
+        b=qWChVtZ0aUsopnqGgFXKl69UxHOk8YCl9EkEWEMNZiPzUm2AN8h0KmXppQKOTsuqHD
+         Vr+ufazjphT67IO1MT6M70kvyP5LCLVEHSsFZJjo82qkRR2isOgZd1oq5+WpcSU3dVUW
+         45vfvvGHFa9QyKky/DvBlUk11aVTZD6vGnTmxQp6IWXMRJMIUm06rdy7nb04RJ+3X+dq
+         6/b6a3FGYMdGZRBYloBLopj/naVQw5jpIbx07hgRzhVpk0/HXG+o8s/jdLpnB1Qw7/8+
+         brujktESsOCEpoOwHfmmEpzUm4flpP1A6woA4vhLYfxkn84Vwhf7Udn9V0NO6LXb7bA1
+         FZDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795276638; x=1795881438;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7jYx29lk0VQ+rDyH5VI1Dp1pxPOIzH/Tyj7l1x2+Cvw=;
+        b=oH0aSX2DNBqi3hb+dUUVnDgQjqw06xY+jmzlPAHF3OTGqLlHeJxyEIoCawn2t6yljo
+         MZ55ArQj1QaK6SVnCWv/7707Ihkh7O2sDbxMk6nSD9AJ+OW8BFr+Wencxq6eqAazxQP+
+         udKjcLRMMZV6ey5vF+9KGRmEE5ddOXtePy5pGfw5PvjDZdq+r6kYsy7TWeSSR+SezzbE
+         km4ho7vC7LlYI40A/LHHV3VUjbeMnv+1NYBIpkETmy5OgUdrruxGSEYhz8djWFicLzgB
+         wQnt3AFKPf+2LYbwdLXagOd8z0pihVzU7xDaC3wZ5ZpFvyh9oHEldEhe9G4kSa9k5xzS
+         aguA==
+X-Forwarded-Encrypted: i=1; AL+hErHPfQCAwTB8jNkSUEmeGtxZtAjhwP0bS8nYqTXOhMy/K0u8fDQDx85aW7iOn2FukI/IZzDb1ME=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9jvGRk0CxLROUkp0Wlfrsl0Qri9sckicrTWUM00raxls8joku6
+	xvrRCtcaYu9IA4seSHk1kruj0792w4y9mUDYFDz/11uN0vvd3wN1rceh
+X-Gm-Gg: AZFdTZflvMSmosZxFMP004Xscj8zY08EFHuKWIzelvtdIzEDCoLw8KUU4lxdZJZa09R
+	9ja0PUTnf1SBydlKGgWOab5F8pI2fxzrLMF+LvWDDZ8y1Oo5a7nACeUfKKQ1EmV6gsL8XPkZbd5
+	blBCbTHuswFLTBe0bEaqQb5JPEraBBLG1HF56KRKEKcM6Rqjq5m8pJUUuMgKL9O8TIZ1H3EJSy7
+	V9VlH0ZDHTR4irJws8AxJiRPrAYAAWNd2O/YPwMeI7eBLZmC//BIIfDdRqE6BlmCWOgJovUUHCp
+	T+npSmynkhkUCGJc/JqxqOXPbKMyQB0ioAuvUZlOyKLiXM3n+JPcWABX+YfJjj361+p1zETNpbP
+	/ARpSPfnd69i7HxlMJvfk6GX/hneqI2Wi3NbMBdPCIEWXQYA0wjGKvxZWa61PHzTqxL5KMxEKsw
+	r62b1Cwd3sLyafZsAEhherorWzDwvsZjW7Ibd/xO2faD1aZSIVpa492TBNc0LShSiJ6FhHSBzlZ
+	SwZB/9YVX0Qz7m0rzA7WWfVUNSeBESkzoeSSwaJI7DOcXnXZOlpEV2lDHLOo/nTByC9dugl5g1a
+	RKrqgmHZ5CkSYtX9AuNOnK1eKZ8vXLBqQTvEO5RKu+sWsZ3DBw3xphBmK3E=
+X-Received: by 2002:a05:7301:3a82:b0:374:ea35:9069 with SMTP id 5a478bee46e88-3856fb67380mr5886149eec.39.1795276637942;
+        Sat, 21 Nov 2026 07:57:17 -0800 (PST)
+Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:8549:3fe7:526f:af9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7f59sm20136479eec.6.2026.11.21.07.57.10
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 21 Nov 2026 07:57:17 -0800 (PST)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael McAllister <me@michaelmcallister.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	stable@vger.kernel.org,
+	Zhao Li <enderaoelyther@gmail.com>
+Subject: [PATCH v3] Bluetooth: hci_serdev: stop write_work before closing the port
+Date: Sat, 21 Nov 2026 23:56:48 +0800
+Message-ID: <20261121155648.1151-1-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -132,223 +99,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|SN4PR10MB5559:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a07f0cc-e6f9-422d-0e9d-08df47e5f694
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|261028144727099003|261021123027099003|261026140227099003|261022105027099003|261021121427099003|261022075727099003|261102123227099003|5023799004|56012099006|4143699003|10067099003|18002099003|22082099003|261009220027099003|261009223027099003|261009223327099003|261009221727099003|261009221227099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	f29gJ0jE+z+8QiUQXIOCn8sj+o8lTVbL8VzGtzKh3E7ZHmeahnhlZWlfE9lkNV39oMUxgNookKQPjZ3gBHXgT4Hhse3Bh2ohA7Mgwjc3wBRxSARpr00f3o8nM9OFPMGYf9raVsAXSy098G45BtGXF/SX3p3gXM0J/wcOl8QF+6is6aZQok76QTC7ST+Uu3xqiR1cQ7WJgla6Tln9aFK9t2Vtuv75LPPF3bMww4v5TFPCennkgjef4KpWzrmx8IXUUroEdhelgCziYxZpEjFIWGdSx8JPfsXeMPCY/5lgVdLtu966/P1j58vBvE3ukfyI2YjZ/LPKKsCa0kfchM4iN4IjLLSK5HM3pGijSoNdNXMQxQ12uUQEgVx2J4WQWpvZAkzbGaMRmUOd6Ns3kMC/NcEl3XiJ+8mpLAd9iOwazVGoWoG4qUhOr5G64j0hA1A5QSfPac/QCmAj0RQfDlKLOkM+yCDSQHZrD6ZE/0eVUDqTt73/TnXVQFhPcKFitUwlcEdZfD9+yhxpVMc5oSnn8ny+niFdlLb5XAds2jR3MuL/A0dgyxY4FjBV48T9xcipGfBG/Tp9z5gJ4oDE0sYCjxoY1jBKDrem5J1MvrYwgyzrH6jF7XYMltjAo3YgJc1Uk1WBZSwCPtAYIguFADWM2SV1VzMxufRcwVH2w1gr/ak=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(261028144727099003)(261021123027099003)(261026140227099003)(261022105027099003)(261021121427099003)(261022075727099003)(261102123227099003)(5023799004)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003)(261009220027099003)(261009223027099003)(261009223327099003)(261009221727099003)(261009221227099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z1VJZVZLNDdXY0dYS0JCV2ZVL1RwMmFsUzJHbXFIZGhnMEt4SDQ2TVNwaW5w?=
- =?utf-8?B?RnE0OEFzZ2lucWRmejBRUzdDb05zMUlXb3FtZUlhRHJLWG1BVElKWjlJc3lB?=
- =?utf-8?B?K1JKLzVndjFZU1g2QU1rZ2NqMERGYWhlaHZraEpSeDUyc096Q3FsN0NON2wz?=
- =?utf-8?B?ai85Q2JaVnB1eFQrS2IzTk1kWmYzMEkzWHFBQWdoLzlLU2NoSXliRmZZYm5x?=
- =?utf-8?B?ZVlWaHliWnRyYTRZZm9oVHZBQlFsbTVKbkcybWsvV0RKZzZBK1lHTzhuLzN1?=
- =?utf-8?B?d0p0cFcvUjY5TVRVQmdQUTRjY0N6RFJaRFllT0l3ekpTQWYyZHpzbVBwNklD?=
- =?utf-8?B?eGYzU05aQSs0aFhrQjRWbTBrUklLUEllTm9jRjdoaytwdExiSjNsNHB6WEtx?=
- =?utf-8?B?aXFoeEx5RkdtazVoN2E0dWFHTXJrQjRESXRNMG5vV0FCU3BjRzkxYUF3alM3?=
- =?utf-8?B?ZnowcmFFc1NrLy9FeGY1SzlyK3JoajlyalIxQ2dORlNIOGhxcVpkalRzNFA5?=
- =?utf-8?B?NU1tS0NQN2d6Q0UyYnVsUGVBczBHWUM4bElDc1lHMVlMTHZYNEdMUFJjeVRS?=
- =?utf-8?B?OURjcjVTN2tKTUZCbmZoY0NoeVh6R0l0amVnMXRQZFBVWit0S1kxZVgvbXUr?=
- =?utf-8?B?SFJkNTVzTUd3ZHlJVGVtTHRuS2piVGhFRjhkWGNDeU9tbStOTnJzbjVYWkxU?=
- =?utf-8?B?R1h0NGdBZ1JEQmRNa1NTUmYvMk45MnZaUFpXYVlybC9GbGtCZkdvM2ZMc3c4?=
- =?utf-8?B?MDU4aTkwcEdZSk85U0ZPK0ZYNmNLNTNnM0liMUJYUkR3VWtaalVyVDFsbWRW?=
- =?utf-8?B?Ry9nR0Y4Q3Q2a3VDeVRTQUQ3azYzeVBYMXByMk85Sm9zOHZrTlp2YXl0Ym82?=
- =?utf-8?B?cnZSWUREWWU2RUtkSU5lYVZPZSt3TVVqN0gya0FHd2FmbWlqUzlXRmRCUGlx?=
- =?utf-8?B?UkpJNVpod0FvVnNkYyt1TGFxTThLc2FKb2l0ZzhZdzdhQTIvQWVoOW1zN3Ja?=
- =?utf-8?B?UFhZWXp6OGwwYTRvRlVUdE52VWdkZmJwVE0rOVVEZTYvS0xFNGN3SWhOa2JT?=
- =?utf-8?B?ZWlPQVRJM2sweGFPdDhuMzIxNTdtL2RFei9sc0JQZlNwVm5hckIrVEdLUmZ3?=
- =?utf-8?B?WmV5MWFOeW5jMm9sc0ZPWWJYVEU1d1ArbWwvRjhKSlR2ZkpJUnAvenA3andH?=
- =?utf-8?B?cUNTRE1hOXlpdHVGWkFudWlsYkdZMzBycXM3cnR3WDF6ZzEzMHNvOW84Z2h6?=
- =?utf-8?B?ZXZZeXIvNHRSNzJOQUJiM1RSbDFxd203bUNlOFVndERzK2JHMXI1bDJrcEVl?=
- =?utf-8?B?OVBaeDJxa3JmZXF0VG9uMEhMRmMrZzB3VGFZenoyTHdoUG1KSzQwSE5CSEtR?=
- =?utf-8?B?L1dpZkp2SWR3VmxsdTl0V3p0VXVBMkxIZFJkTDJSMVpXcXRGSEhwdEFiZlZZ?=
- =?utf-8?B?dk1YSXVkL0dQUW54b0hwZ3BJdGVrMnprRU5rdkNFR3lCazFWaGxoZ0U2bTUx?=
- =?utf-8?B?bzdEN0J6dnljRGlwd3lCZmE5bWZXWXNNL2lpaitiYzdsTTBiZkpPWGJLL3Fx?=
- =?utf-8?B?RU1VaHRrM1lCTllsTG5iWGhXOXhZamthMldLQjVwenhJcjduYlNWZWp6UFhR?=
- =?utf-8?B?YnJXRVhiSks3S2VKQjJmYXN1b01zTWVTQWRLbktmRmdPNk5ZYjlKd3drSmov?=
- =?utf-8?B?ZGhSZVJtV0hVZElveFFheGtlY1llSTluL2NTZ1hqZHVrcE15UGhDelpPUzRz?=
- =?utf-8?B?QXNiRDc3SjFzclBsbmUreVJINy9DRmtRRlExRHFYZjUzTlNpbnpDVzgvbkRW?=
- =?utf-8?B?UTVWaEhqSGFyZHNUSnRiY2ViTGc2V0ExMTJaWDhnSFJBZU9FMjhXQUptZ21w?=
- =?utf-8?B?Y25CblBxU1EzQlkzSE5VQk54c3pIQno3eWtlK01pc3Eva2ZJekRQUjdYRkNx?=
- =?utf-8?B?NzJleEgzMHJKTVlsTGo3ZitxYmE3SHVzaDU1U00yc3FxbHVSa2ZDV0wyYVNT?=
- =?utf-8?B?a0tJbkhmc3VhbWNDbCtONTVPaVNzWUpIMWp4L01VUk92MWRSQ1J3ejE0QVMr?=
- =?utf-8?B?eXMrZE9mVkN2SCtjcENmZEZVQjVaTlF0RVJnT3BqTUlvbGoxMmVRV3dBT25t?=
- =?utf-8?B?VHhWRk5RdnM3SHhYdGZZZW9QaTdnOVJQTU91K2J0TmlLV3JpMDA4NXYwOGhV?=
- =?utf-8?B?MGZvM1dNYmFsem1LeVdFNGt3elBjd3FDODdwSzhqcEppOGRlUlp4ZEFsM2JD?=
- =?utf-8?B?KzRHNVhZc3hRZTRRb2FCSFNFN0poN2dhYW9kdXFWenNVeVVXVGNnaEtleEZN?=
- =?utf-8?B?a2lJTkY3Ymh0R2xkUGRvUnlPRHRzaDQrbHpIcGg4dHYvK2RIdlk5OUMycitq?=
- =?utf-8?Q?JqaZ59HvkF2JivPWlPj38BIc1YmyxKM74F8v4?=
-X-Exchange-RoutingPolicyChecked:
-	UuuCIoiUSJR2+wOIzgSOHNoYNsYTR/Pi24xHyAiQnNWX0C8s4P6bkJRmUmOpp2sGbj6mx5U19C+cxFSWafnovrq7JNvMFhldgnwyqQrdDLkPl37om5CDJUlD1vlSYFNSqnTjJWhizLriVUpACLeXHc7zYJqNbzuw2VfAUS19OSBtRFecoxaM9tfQetnefI0l1xkTeWdLSYRp6p3+G3HR6Qv8gIVg07jicSj1TVth0ClErUM/z5Oi1g9Kw7fJrPTWYikOF1o3o2Go/R7woZTygh5GBVo5kBTamK+ZO/mYP+zNU72zkAKgt9DQSUMpKtdqC/rhI0oYTnwDrtF0Jmk/Nw==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	VUHZVlPAykI5dR3R/ouiSTJwREaWdxH1VfzbW8YufWBLYQNt3vt2JdlU9GEKXE5Ye4kpSd4Z0XBOPhdotPWtM5IyG5fTUvvHnsjdEz/JsESVXM6hW2PY36kohSlyeLjq07YtrTt4ewNVnT04FIEa5NmtxBRD0bDW/RZqP2vXdoDZAxzdSNgGKj4xLxkcn1BGdd9PKZIEJOjcE9//3UeNBJF0C3zKkDgD+vsiO8QswRgN22IdldqYeGV/O/EePAByBSnHjR1Wd/K7qOyrFrbNkQXJQe6mYCoxUkKNTw71YxVF7UsRmQRQ+SfUot05QWdcuNV8rFcehXstZeP7a5VgwmGxODpVDU0Ys/dAvf/X73oG8z7yDD/NcW8H7KfAXLWJ0Tu98DkiiMlgyAhPIMXu2s2qrl/6EBVmOuk4qQfD2BWnCFJ0i1/5fZci9R8ZPr1DtXD16j/eIY95XdG+bls3oPr5NilRMlhMOlJrazGGR70nfoTwC/Ueql0VcTcu7DHL+XnvmMJYwMTvoPr0ZLgW+q4QMDO9KGMYzKiV1wEPqtH9qA8o0yFAYe2i5G+HX/qXzEZiUY4cMBN7Riyj45WVHSUsFv5wC1hapckoq1+Gb0w=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a07f0cc-e6f9-422d-0e9d-08df47e5f694
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 15:41:52.2117
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PiG3aM8C+SAOYS9oj0v7CtbY5xtoyV7grq/EX2L4YMoCdLpKEml2ngdVAyYeBwiU8ZMOmxJA4Dmawq1aXaJ9e6/anOeVLdgeTBeuoBvnPmRG+nS6s0trWUtQsxDIDc+i
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR10MB5559
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-21_04,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- lowpriorityscore=0 mlxlogscore=999 adultscore=0 phishscore=0 suspectscore=0
- spamscore=0 bulkscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.22.0-2611040001 definitions=main-2611210061
-X-Authority-Analysis: v=2.4 cv=dJIzC+Zb c=1 sm=1 tr=0 ts=6b01bbc5 b=1 cx=c_pps
- a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=3I1J8UUJPc9JN9BFgKH3:22 a=zd2uoN0lAAAA:8
- a=VwQbUJbxAAAA:8 a=u56hqi7jsX8yg3cP7pcA:9 a=QEXdDO2ut3YA:10
- a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12100
-X-Proofpoint-GUID: f2p8QsPMbT2FKqsN1RbhsabPjrLvz-Zd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIxMDA2MiBTYWx0ZWRfX3lGLgwcH4+K7
- HpDiYPu1Hts17uVUVRtJCZEMIoSB5rvIxpNhYmkL/+sgk4VH6FlbkFPwO8uZC6RfQqP1vt5a0ZN
- wovzNt8Tnn0vnxuLGynVCuKMwbZxvhVVOFsSx7eQXxFqzBlgMJ/eAngbQec8GJ8h9qMACogqxYO
- HPzuKx5Pvv4oGueNRwYifa4kYyu9d+T2VcOZxb9HATz/hRjYpyaNV3IOWyFRuAErZc7XtawpwbB
- tWC5krCaUAi8Tk3MSvqXj4to9EPdTaWx8QG3LN33P4bXqJi1mMIPmPoaQgnmUC91Q6JZX4ldeuZ
- RsMpYwmLPvoC56znLsraqP6mhNLbOQgWbl5xkKqa15W1snHoBHXLDMaKK1ukZIp4OWvgRR9eWr5
- xj0LBWPf46Qsy7rdDJPiWHysLQMjPzbLe5HtePFrOzsaUwQjUpgrx/22Zc1Jl9RbuwCik0RTtW/
- o18+G7zjBASMmQJJhb5ewRxV+TO3IKehO/bl6Qv4=
-X-Proofpoint-ORIG-GUID: f2p8QsPMbT2FKqsN1RbhsabPjrLvz-Zd
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIxMDA2MiBTYWx0ZWRfXy/1yTA3ovE/3
- eVENdT5PY+MaDStCwTh6swo5+uKSQFqAatm6HSDb3XkF5Wj8ih7eVt6ag3UT/SNLFYsZ8A2uCTZ
- uqpTzX7ck6NnGeU2P2JZ1AWD3V8Zj6TGacepXwulizsUcirPheN/
+Content-Transfer-Encoding: 8bit
 
-Hi Greg/Sasha,
+With HCI_QUIRK_NON_PERSISTENT_SETUP, hci_uart_close() closes the serdev
+port without keeping write_work off. The hci_uart_flush() call right
+before closing re-enables write_work and may replay a recorded wakeup,
+and hci_uart_tx_wakeup() queues it from any caller that passed the
+HCI_UART_PROTO_READY test, such as the serdev write_wakeup callback.
+write_work can then call ttyport_write_buf() while ttyport_close()
+releases the tty, so it writes through a released tty.
 
-On 18/11/26 8:19 pm, Greg Kroah-Hartman wrote:
-> 5.15-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: renpanpan <renpanpan@kylinos.cn>
-> 
-> [ Upstream commit 0de95c96655c8a12df62e47871016f49e5cd8618 ]
-> 
-> The amdgpu legacy DCE audio path (dce_v6/v8/v10) unconditionally calls
-> audio_enable(pin, true) at the end of afmt_setmode(), regardless of
-> whether the connected display advertises audio support in its EDID.
-> 
-> This causes a phantom HDMI audio output to appear for displays that
-> have no audio capability (no basic audio bit, no Audio Data Block in
-> EDID), because the GPU sets the AUDIO_ENABLED register bit, which
-> drives the HDA codec's ELDV pin sense, making the codec report the
-> jack as audio-available.
-> 
-> The radeon, nouveau, and dw-hdmi drivers all gate audio enablement on
-> display_info.has_audio. Apply the same check to amdgpu's DCE
-> afmt_setmode functions.
-> 
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: renpanpan <renpanpan@kylinos.cn>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> (cherry picked from commit 842a45c68e0355eea47796551c8761c0c77e8ce0)
-> Cc: stable@vger.kernel.org
-> [ sashal: Replaced unavailable connector->display_info.has_audio checks with drm_detect_monitor_audio(amdgpu_connector_edid(connector)). ]
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 5 +++--
->   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 5 +++--
->   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 5 +++--
->   3 files changed, 9 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> index 0b872bc71b70d..d77daf89a9dd9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> @@ -1738,8 +1738,9 @@ static void dce_v10_0_afmt_setmode(struct drm_encoder *encoder,
->   	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
->   	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
->   
-> -	/* enable audio after to setting up hw */
-> -	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
-> +	/* Only enable audio if the display supports it */
-> +	if (drm_detect_monitor_audio(amdgpu_connector_edid(connector)))
-> +		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
->   }
->   
->   static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enable)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> index 5e21eb88b2e71..429c97751e5ca 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -1702,8 +1702,9 @@ static void dce_v6_0_afmt_setmode(struct drm_encoder *encoder,
->   		dce_v6_0_audio_dp_enable(encoder, 1);
->   	}
->   
-> -	/* enable audio after setting up hw */
-> -	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
-> +	/* Only enable audio if the display supports it */
-> +	if (drm_detect_monitor_audio(amdgpu_connector_edid(connector)))
-> +		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
->   }
+Move the flush into __hci_uart_flush() with a resume_tx argument.
+hci_uart_close() passes false when it is about to close the port, so
+write_work stays disabled and HCI_UART_SENDING stays set after the
+flush. It then clears HCI_UART_PROTO_READY under percpu_down_write(),
+which waits for any hci_uart_tx_wakeup() already past its
+HCI_UART_PROTO_READY test, and closes the port. Only then does it clear
+HCI_UART_TX_WAKEUP, re-enable write_work and clear HCI_UART_SENDING: the
+next open reuses hu and does not reset tx_state, and a stale SENDING
+would stop every later wakeup from queuing write_work.
 
+Found by code review. Compile-tested with W=1.
 
+Fixes: de8892df72be ("Bluetooth: hci_serdev: Close UART port if NON_PERSISTENT_SETUP is set")
+Suggested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+---
+v3:
+- Add __hci_uart_flush() with a resume_tx argument and call it from
+  hci_uart_close() instead of repeating the flush. write_work is
+  re-enabled only after serdev_device_close() (Loic Poulain's review of
+  v2).
+v2:
+- Clear HCI_UART_SENDING and HCI_UART_TX_WAKEUP after cancelling
+  write_work. A pending write_work cancelled there left SENDING set, so
+  the next power-on never queued write_work (Sashiko's review of v1).
 
-I ran an AI-assisted backport review, and the finding looks correct to me.
+v2: https://lore.kernel.org/linux-bluetooth/20261120062048.40310-1-enderaoelyther@gmail.com/
+v1: https://lore.kernel.org/linux-bluetooth/20261118124821.3990-1-enderaoelyther@gmail.com/
 
-In 5.15.226-rc1, this backport gates HDMI audio on a detector that reads
-only the first CEA extension. It leaves the pin disabled if audio is
-advertised only in a later collection that upstream recognizes.
+Merging with Michael McAllister's hci_serdev v3 series (Patchwork
+14989810-14989814):
+https://lore.kernel.org/linux-bluetooth/179484638195.54009.16928291772826938293.wcn3950-poweroff-v3-1@michaelmcallister.org/
+- 1/5 adds "if (hci_dev_test_flag(hdev, HCI_UNREGISTER)) return 0;" at the
+  top of hci_uart_flush() and hci_uart_close(). The flush check has to
+  stay in hci_uart_flush(), not move into __hci_uart_flush().
+- Once hci_uart_close() is past its own check, __hci_uart_flush() must
+  always run disable_work_sync(), which the enable_work() after
+  serdev_device_close() balances. Otherwise write_work is not disabled
+  during the close and the enable underflows the disable count.
+- 2/5: use hci_uart_serdev_close(hu) in place of
+  serdev_device_close(hu->serdev) in the close_port branch.
 
-In dce_v6_0.c, dce_v6_0_afmt_setmode() uses: (Code spacing adjusted.)
+This needs ee43bade37c4, which no stable branch has yet, and
+disable_work_sync() from v6.10. With the flush body of ee43bade37c4
+backported it applies as is to 7.3.y and 6.18.y and, with the older
+test_bit(HCI_QUIRK_NON_PERSISTENT_SETUP, &hdev->quirks) context line, to
+6.12.y; 6.6.y has no disable_work_sync().
 
-5.15:
+No new W=1, sparse or smatch warnings.
 
-     /* Only enable audio if the display supports it */
-     if (drm_detect_monitor_audio(amdgpu_connector_edid(connector)))
-         dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+AI assistance was used.
 
-Upstream (842a45c68e03):
+ drivers/bluetooth/hci_serdev.c | 26 +++++++++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
 
-     /* Only enable audio if the display supports it */
-     if (connector->display_info.has_audio)
-         dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+diff --git a/drivers/bluetooth/hci_serdev.c b/drivers/bluetooth/hci_serdev.c
+index 194f11251cc5..9f038ab65a73 100644
+--- a/drivers/bluetooth/hci_serdev.c
++++ b/drivers/bluetooth/hci_serdev.c
+@@ -91,7 +91,7 @@ static void hci_uart_write_work(struct work_struct *work)
+ /* ------- Interface to HCI layer ------ */
+ 
+ /* Reset device */
+-static int hci_uart_flush(struct hci_dev *hdev)
++static void __hci_uart_flush(struct hci_dev *hdev, bool resume_tx)
+ {
+ 	struct hci_uart *hu  = hci_get_drvdata(hdev);
+ 
+@@ -112,11 +112,19 @@ static int hci_uart_flush(struct hci_dev *hdev)
+ 		hu->proto->flush(hu);
+ 	}
+ 
++	if (!resume_tx)
++		return;
++
+ 	/* Resume TX and replay a wakeup recorded while it was stopped. */
+ 	enable_work(&hu->write_work);
+ 	clear_bit(HCI_UART_SENDING, &hu->tx_state);
+ 	if (test_bit(HCI_UART_TX_WAKEUP, &hu->tx_state))
+ 		hci_uart_tx_wakeup(hu);
++}
++
++static int hci_uart_flush(struct hci_dev *hdev)
++{
++	__hci_uart_flush(hdev, true);
+ 
+ 	return 0;
+ }
+@@ -150,22 +158,34 @@ static int hci_uart_open(struct hci_dev *hdev)
+ static int hci_uart_close(struct hci_dev *hdev)
+ {
+ 	struct hci_uart *hu = hci_get_drvdata(hdev);
++	bool close_port;
+ 
+ 	BT_DBG("hdev %p", hdev);
+ 
+ 	if (!test_bit(HCI_UART_PROTO_READY, &hu->flags))
+ 		return 0;
+ 
+-	hci_uart_flush(hdev);
++	close_port = hci_test_quirk(hdev, HCI_QUIRK_NON_PERSISTENT_SETUP);
++
++	/* Keep write_work disabled until the port is closed. */
++	__hci_uart_flush(hdev, !close_port);
+ 	hdev->flush = NULL;
+ 
+ 	/* When QUIRK HCI_QUIRK_NON_PERSISTENT_SETUP is set by driver,
+ 	 * BT SOC is completely powered OFF during BT OFF, holding port
+ 	 * open may drain the battery.
+ 	 */
+-	if (hci_test_quirk(hdev, HCI_QUIRK_NON_PERSISTENT_SETUP)) {
++	if (close_port) {
++		/* Drain wakeups that passed the PROTO_READY test. */
++		percpu_down_write(&hu->proto_lock);
+ 		clear_bit(HCI_UART_PROTO_READY, &hu->flags);
++		percpu_up_write(&hu->proto_lock);
++
+ 		serdev_device_close(hu->serdev);
++
++		clear_bit(HCI_UART_TX_WAKEUP, &hu->tx_state);
++		enable_work(&hu->write_work);
++		clear_bit(HCI_UART_SENDING, &hu->tx_state);
+ 	}
+ 
+ 	return 0;
 
-The 5.15 drm_detect_monitor_audio() path only uses the first CEA
-extension it finds. Upstream's display_info.has_audio includes later CTA
-and DisplayID collections too.
-
-DCE v8 and v10 have the same change, maybe we should provide equivalent 
-audio detection before using this gate; upstream uses 0374ffa507d8 
-("drm/edid: parse display info has_audio
-similar to is_hdmi").
-
-Thanks,
-Harshit
-
->   
->   static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enable)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> index f3b0642f9d9d2..dc72c04d9b7f7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -1667,8 +1667,9 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
->   	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
->   	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
->   
-> -	/* enable audio after setting up hw */
-> -	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
-> +	/* Only enable audio if the display supports it */
-> +	if (drm_detect_monitor_audio(amdgpu_connector_edid(connector)))
-> +		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
->   }
->   
->   static void dce_v8_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+base-commit: cf357cfc025e7f72851479ed3fb60d5f16413c1b
+-- 
+2.56.1
 
