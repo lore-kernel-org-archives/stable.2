@@ -1,93 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296712;
-	b=4x9J6Gmf6b4OuI+52CclsU4vYJ5de76ZlvG1mtZUBXFUWNKP2Qf6ubuXvi9g/5uDwKf/
-	 gWLKkG5gV58psXbaayf+ws/Iz8KYXCQY+hguY2kti/3+Wf5JNlgFciEjNikspOtM5BNfQ
-	 FL+UxL1AUvPMvHqoGUAJVzhCZ6WvC23d7HswjUMqQX46ThJiMSua0w89EGu6QP/6KYDdB
-	 n9lLo5nCeVFpQX5DVS4sUOXf7N53Akzb17ltGlD/nHxOa+/M7LAog4mCNlK1Az4xMqRv4
-	 q/FhgYMe2IIdBby5PaQTbPPAvlTaA20G2SRWN4J59sDvca/riCkn9fSebolbAnnfgnw==
+	t=1795296717;
+	b=v7/+bw/7qa5EgfGZ56KYUoJWFxdvCP6w5iMpce5VR623lZE+83RRNPKiqIV4Oi/h2uTm
+	 +HLtre+Xkw9S2W7Bmu5O1j19406J+cGMh4mkybz7o7lXF8Cg4pygQXLcaPb1pJp39srLT
+	 tegPvKKPyXddvp5cjEBv4ymDGGpUJsnk10/1TxKt5fj8iHkBmZvs40nZeF1ilVtNGaDNc
+	 AHr8YsqVQJxPbvhYF6tt67U27GXoFnZRIn6NuH/1J/gk0byFX1R3etfdH+hbe/5xL50QM
+	 kp0ihzkf6TST5weRRf4rh0c+YuHnAA9qwRPq5Tzysu0vVNOdf/qzPUy+tmObQOje/mQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296712;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296717;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SsSRAihF7rV2AchLcWNYmsnwzdG8HHn/bpPv2Vi7cc4=;
-	b=fiSkLDTqhRm8mI7O9+zUcVaHEIUdMrtCTa0U8kBNXRnI68OqgywwCbGjLVxHLQxitQ8T
-	 GMMNY1y172/83SzzLsH8sFebkERjBcglwUW1kO4CiPXwq+b5kVMTNVE+y5kmHvhVPaqjK
-	 zxu6t+L5nWHSXEWN4Vo9ic7a57kD8porQzfutw5/PfdECYpMHN6aSOZo129OAATAlPZS8
-	 P29tqHGLb4TcuGO+ZmgQi9ljFr8DciUTqBZa6ozFBBBv+g5d0XDw74E9B4KWZIpXX+CrW
-	 /nqlrjgqNtFRsW4v1CgQ6paHeWjbHFDzUMKgg0AvXE/c91tEYqSvVd7NVBWt7of4a3A==
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=PkiVMft/FJgfSsIyHDQhN1tpNcnaj6QFNY+41GhTK3U=;
+	b=2hTpAsxQVYsZaA40z62SYf2+XEdUJCFkq3qXyzriULUcWIBG0N+fvSJk7Ay4oFVmg1W7
+	 77rqHX1hlfG7i+kgM+wG3c/KRlNpR7VSkI29/L3+GH5dcbx1LsgDblrKGl+n8CQ3vnKsR
+	 ixZZgnbhn0/B+xOcf4avEwvEqYTjscshLgQxY2ccKbHtySh55GLd1Mfl888PTSTDk/yrp
+	 V7qYlhGacCr8BUMw8Smx1q81NEGjlezRb1mt1Tf7+EXrGJYlD4E8H0I98gOe+CqDZbmFP
+	 1ot+t6Xcv8f3yUiudN2r+Akk0GzGGFStWZGkwH2WOInBq3jurAze6UEcr6LL5lrkm3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=WSHJOb+g;
-	arc=none smtp.remote-ip=209.85.161.41
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=r0yylS96;
+	arc=none smtp.remote-ip=209.85.210.51
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9333606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9333606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24AB7606A32A
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24AB7606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=WSHJOb+g
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6ddef424972so1733433eaf.3
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=r0yylS96
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-8479f46ecd8so836299a34.0
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel.dk; s=google; t=1795296711; x=1795901511; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SsSRAihF7rV2AchLcWNYmsnwzdG8HHn/bpPv2Vi7cc4=;
-        b=WSHJOb+gvCeZ8Hbwcr7Y9Dzbsc6UqJgKPbv8zmhYAmV6BQwP/Hx04Ydv5hl640AzVN
-         BMxQiXj3T21mqlwyScMpD30RagWRAZ18sObCsgrR5czx8TYulJIegrURj3g+jRC74W+v
-         MifciG05Devv73GoUvtAAP+debxXMIZ2QrhRLVBfXy9uqxvcr4wzCQgcofbD+epUhew8
-         G04QKvOIb8SXqAuviBHuMdz4jE720CLOpmKa3oXJ4AK9bYgVv0Uy+K3bem3q2N4hXDwE
-         nTOUj+O9sLSvCFj0pHBC7Rv+lePMH2vcAVJBglgZutShHy5AwfVrQCVlST8v+iewMQpR
-         MZ2A==
+        d=kernel.dk; s=google; t=1795296716; x=1795901516; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PkiVMft/FJgfSsIyHDQhN1tpNcnaj6QFNY+41GhTK3U=;
+        b=r0yylS96sYoXm9WXhmum9+nmz8VfGLvQ7Q4Hikx6Ai6kQ1wUgFQ9rxljtJo85RAazp
+         44j/GxLhpXszLwClk4IFJUDgexbkVCqNKAZXO0SEFgOxKai6PVQBSvUf1hhtioa/pqM6
+         mI+xp3YuHTxWuqyR390u40+Cx38toOV8OrLk/aSt5Mc8Wb30AzTsCXlDF7VQL/7/WmU6
+         XfiqHUgm7+i/hLg0kJTPeYOnBucDY9prpRTBkKKRwU3FAD0yGq/4DGWbrkOETlxe7OKS
+         LIc71Mc0lbpvwVlQwpSzqFP3UElgyeNYo/q0p4lRFxrbu2NO/y1TExuup+Xx6LO7gejY
+         8/Vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795296711; x=1795901511;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=SsSRAihF7rV2AchLcWNYmsnwzdG8HHn/bpPv2Vi7cc4=;
-        b=Wi15rKQ9vgjME03V2F3e8JD7rQVuboE1SNHXcvPSp2cb3hYwbzZjzBacZhho55naeT
-         fKVXM+afSWfPNkwIU6lWvCwmgsFE6d6QLIbfi+hUph6P30r9ht0TihLgTz/jWvutKjEs
-         lEwbTLRMriSDZaOjcmkNFil0hU7xWpbnfh4HIqpTKuo81yRUqyLh/IKIz39fFCl3vRUE
-         FaWEi5lT/+GPbRjA9JKA2YSwVuHyLjVT7nCmqGJpItmeb12GX9xDI3dvWFX7fIzbVLaW
-         r6AfQNKWdGg1okTFLAGhmMPJllRsIkJhf0i5MFLlSE3uAh2TevVwNY1AANRMnYBBBEee
-         gcig==
-X-Gm-Message-State: APuU4Z/nCP3fovGs40X02JJgo67Cwx8rRWhT9LwEV9DL45fQCCUOZB4J
-	2BQ398GJdOfo5/pZCdlPakS9jCgByUfl6PYDAJU9JSreJ+PRP6YUzXE2GMCYrNpc6Rs8Y50rFIb
-	vEnXkSHs=
-X-Gm-Gg: AZFdTZc82nsRYSvkgEr7LZkx/cPmCWRPAzxqL30Qu57tBmMvN1GOeY8sTOpptqaBUmq
-	LfabCuPe1pgtLUkMuVIqIkHQxarr2J4r9gWFjst6QuHlUYDWLpDei8U85TJDxVx/MpUZXvakZA8
-	wxCGnS21QDZkBHzCWUgyd/1nRLPWGFXQAB+0RZ4iXk2W8o3zRpJaZJqVuYdAKq56EpFxyFNW4F9
-	zlaZQiXEAFP1W0o92BNHQyepto5fncchOdMSXLEanwciNSCVF2P4ISBCmHYrqvpEGlScif+lu3g
-	Hft1fWozRoTWtaMpDmIOyV7xnIk5JO2IHiIQswAuxtIzYy9AN3ucgbfswnx5qFD7DxRyE+L2oYf
-	42QhUtFgGQdF6aSM9AHvzmdjUBAkOZvccogAUu/K+B10SPw1E3fge2/U+EEIiUFMNKZn7TWipy5
-	qfAOO7Kxfxf/+GCmD/OZAXWEM1GziYjOnviDewML6NmuYT7bjpiax3lfPZRZw/s9IKEgmOwUy12
-	5hlnX4fdVHQRwPKHL10JomF7ki57tmJ/LvfGow2guCktXv2Nknu2TIOHAveqrh2KmbIFXJVYeTh
-	4uSO/6ORepnTRRkUCkXOcV3+R0NLdBqbgX3FYS2bY5V+8H0IucRv0lf0f23zdzJ9eFVcRztKr05
-	mBgAYSVflK2W+Y8FXhrhFMsMjR8a1k0mEh0fG
-X-Received: by 2002:a05:6820:60a:b0:714:b1a7:fc04 with SMTP id 006d021491bc7-71b395b43b2mr6038615eaf.86.1795296710669;
-        Sat, 21 Nov 2026 13:31:50 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795296716; x=1795901516;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PkiVMft/FJgfSsIyHDQhN1tpNcnaj6QFNY+41GhTK3U=;
+        b=1ml+/cyQjtldMRaSNry83mVWRZpi9qBeRDDtpcEdMrB5t8bOTaDJOivP+d+qqXi3zQ
+         B6owVh/rRvA39mG5pMLdgVByMqaMbbbeii0HAMQIlS7HrwKSlkYUCOvpJsbRmt7mf/7L
+         WNpXceMnk7elU3ExXcm1QwHtP63O5gcYPjWIAIjNJvEdeUenXymMJOoLKx28d41ppvpC
+         bBVLR+1nLGo743VZCr6dkATtkjEkTucm0xgr78/F7YjSSwXqSrZyWiydUF8MQZGl2jQi
+         dJSQUVmQqIsjjbC7IcAHTKt6k28NuGFMlHGMr91d/qwvYCrncu+sH/+sabsBZGvv4QST
+         SL2g==
+X-Gm-Message-State: APuU4Z/7rpPVuPkbqAIv7c5eo9KzdCRL1Zr9NlKlVxcVU0ezfOPB/NeN
+	+2Au2QppVelCRutmmcJgMGmcAv4Z2BGoYbXiSdsJ6RqtTVsMPn4ZxSG/ZxYw7kaT+9xHpngOeOY
+	dihtQUUU=
+X-Gm-Gg: AZFdTZcS+UKcViIuTFOKYvGT1RjJV2eEnQZZ3l32XtN3IsqS0IvCJa9qREoiOIUTsp/
+	dCXEzo8ZXs13fxL4wFZZc18fYSPjVTr0j9YQJ3i0iTHD6d48FnnhdmlCqlkynDykY31zKD6E7qB
+	4ADkigpco1iXXTEVLgDT8J/h2y7Dmh1Nd2OCFegiURAgfHwzMg2LqIKoOupjKaN1Lz2nWrG6NLL
+	x+dAeHDx9IkVyxbuZmkeP4z6cTn3OaQiJBLqlEcK4ryEEcVcprHKb6MpDiU5xgKj/Snua2zf2a4
+	ZdZB0GHo8Bf6GzbzDFSNt7A5n19/dF/JRx0lb3IJTqQZLOgnlz/NLQEe2o4QXpLAZaT0h1k2puB
+	71EfOwqvbt0izg33hcJGmlwU6Ve5RF/wPhn3/xLu6BY+4REE0sXD20Wh3VQIk+cwJXC5QTjxK/E
+	WUcFNEF44o1vcWeNVgLiedU6nsr5sGHVdikghvey/ewEdMlQiTpNsdg0ISn2gG0t4V3/uPqHcXt
+	2iW5VW8r6vQeky3OfmxL7m4fx4Fx2vLsdCN3nJE6R8kMj4a7zCiyeKJ5dolvCfE+R93XbUpg26V
+	8fjWwR0fosgCcj05mAPxMcqNk8aiAkX9qXYb/sgNoJEd0EBsc204Rr4n6aGwhImMyLFCFPIHVeZ
+	ANsxQDGM+Mp/770G3xduSRZH5hKUkJsHooZxl
+X-Received: by 2002:a05:6870:3e07:b0:48f:e137:dc81 with SMTP id 586e51a60fabf-4bc856f64famr6218958fac.58.1795296716110;
+        Sat, 21 Nov 2026 13:31:56 -0800 (PST)
 Received: from r7625 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b380e4a6dsm4669694eaf.13.2026.11.21.13.31.49
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bc55895b9csm6204636fac.0.2026.11.21.13.31.54
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 13:31:49 -0800 (PST)
+        Sat, 21 Nov 2026 13:31:55 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 8/8] io_uring/io-wq: apply the current cpuset to new workers
-Date: Sat, 21 Nov 2026 21:31:37 +0000
-Message-ID: <20261121213137.1789687-9-axboe@kernel.dk>
+Subject: [PATCH 7.3.y 0/9] io_uring fixes for 7.3-stable
+Date: Sat, 21 Nov 2026 21:31:45 +0000
+Message-ID: <20261121213154.1790334-1-axboe@kernel.dk>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261121213137.1789687-1-axboe@kernel.dk>
-References: <20261121213137.1789687-1-axboe@kernel.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,121 +95,111 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mikhail Malyshev <mike.malyshev@gmail.com>
+Hi Greg,
 
-Commit 0659e44ce739ecd856164c75a5325b7959a2921d upstream.
+Here are io_uring fixes for 7.3-stable. All 9 patches are in Linus's
+tree. Patches 2-9 came with the io_uring-7.4 pull, merged as commit
+78d9aedf2342 (tag io_uring-7.4-20261119); the others were merged
+earlier.
 
-Since commit 84eacf177faa ("io_uring/io-wq: inherit cpuset of cgroup in
-io worker"), io_wq_create() copies the cpuset of the creating task into
-wq->cpu_mask, and io_init_new_worker() gives each new worker that copy.
-A cpuset change, or a move of the task to another cgroup, updates the
-workers that exist but not the copy, so workers started later run on
-the CPUs the cgroup had when the io-wq was created, which may since
-have been given to other tasks. Workers come and go for the life of the
-io-wq, and a worker that cpuset moved is also retired at its next idle
-timeout and replaced on the old CPUs.
+They apply on top of v7.3.5 plus queue-7.3 at stable-queue commit
+3dd4b2d3c1f7, and also to v7.3.5 alone.
 
-Keep wq->cpu_mask for the affinity of the io-wq itself, all CPUs or the
-mask set with IORING_REGISTER_IOWQ_AFF, and intersect it with the cpuset
-of the worker when the worker starts, falling back to the cpuset if the
-two do not intersect, as __set_cpus_allowed_ptr() does. Use the same
-mask in the idle exit test, and go back to all CPUs when the registered
-affinity is removed.
+All patches are clean backports.
 
-Fixes: 84eacf177faa ("io_uring/io-wq: inherit cpuset of cgroup in io worker")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mikhail Malyshev <mike.malyshev@gmail.com>
-Link: https://patch.msgid.link/20261111162705.1150983-1-mike.malyshev@gmail.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
----
- io_uring/io-wq.c | 44 +++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 39 insertions(+), 5 deletions(-)
+Testing: ran the liburing-2.15-75-ga10946dc test suite in KVM guests
+(PROVE_LOCKING on) on the baseline v7.3.5 kernel and on the patched
+kernel, which is v7.3.5 plus these patches and the other io_uring
+commits already queued. The patched kernel failed exactly the same tests
+as the baseline. The failures that remain are on both kernels (napi-test
+timeout, send-zerocopy, timestamp and similar). No new dmesg splat
+(WARNING, BUG, lockdep, KASAN, Oops). io_uring/ builds without warnings
+on the release plus queue plus patches.
 
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index fd53297af26e..0d74e365d54a 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -731,6 +731,34 @@ static bool io_worker_retire(struct io_wq_acct *acct, struct io_worker *worker)
- 	return false;
- }
- 
-+/*
-+ * The CPUs a worker of @wq runs on: those of the io-wq affinity that the
-+ * worker's cpuset allows, or the cpuset if they have none in common, as the
-+ * scheduler does with a task's requested affinity when its cpuset changes.
-+ * Read the cpuset each time: it can change while the io-wq exists.
-+ */
-+static void io_wq_worker_cpus(struct io_wq *wq, struct task_struct *tsk,
-+			      struct cpumask *cpus)
-+{
-+	cpuset_cpus_allowed(tsk, cpus);
-+	if (cpumask_intersects(cpus, wq->cpu_mask))
-+		cpumask_and(cpus, cpus, wq->cpu_mask);
-+}
-+
-+/* Is the current worker on a CPU that a new worker would not get? */
-+static bool io_wq_worker_off_cpus(struct io_wq *wq)
-+{
-+	cpumask_var_t cpus;
-+	bool off;
-+
-+	if (!alloc_cpumask_var(&cpus, GFP_KERNEL))
-+		return false;
-+	io_wq_worker_cpus(wq, current, cpus);
-+	off = !cpumask_test_cpu(raw_smp_processor_id(), cpus);
-+	free_cpumask_var(cpus);
-+	return off;
-+}
-+
- static int io_wq_worker(void *data)
- {
- 	struct io_worker *worker = data;
-@@ -809,8 +837,7 @@ static int io_wq_worker(void *data)
- 		}
- 		if (!ret) {
- 			last_timeout = true;
--			exit_mask = !cpumask_test_cpu(raw_smp_processor_id(),
--							wq->cpu_mask);
-+			exit_mask = io_wq_worker_off_cpus(wq);
- 		}
- 	}
- 
-@@ -860,9 +887,16 @@ void io_wq_worker_sleeping(struct task_struct *tsk)
- static void io_init_new_worker(struct io_wq *wq, struct io_wq_acct *acct, struct io_worker *worker,
- 			       struct task_struct *tsk)
- {
-+	cpumask_var_t cpus;
-+
- 	tsk->worker_private = worker;
- 	worker->task = tsk;
--	set_cpus_allowed_ptr(tsk, wq->cpu_mask);
-+	/* Without a mask, the worker keeps its creator's CPUs. */
-+	if (alloc_cpumask_var(&cpus, GFP_KERNEL)) {
-+		io_wq_worker_cpus(wq, tsk, cpus);
-+		set_cpus_allowed_ptr(tsk, cpus);
-+		free_cpumask_var(cpus);
-+	}
- 
- 	raw_spin_lock(&acct->workers_lock);
- 	hlist_nulls_add_head_rcu(&worker->nulls_node, &acct->free_list);
-@@ -1361,7 +1395,7 @@ struct io_wq *io_wq_create(unsigned bounded, struct io_wq_data *data)
- 
- 	if (!alloc_cpumask_var(&wq->cpu_mask, GFP_KERNEL))
- 		goto err;
--	cpuset_cpus_allowed(data->task, wq->cpu_mask);
-+	cpumask_copy(wq->cpu_mask, cpu_possible_mask);
- 	wq->acct[IO_WQ_ACCT_BOUND].max_workers = bounded;
- 	wq->acct[IO_WQ_ACCT_UNBOUND].max_workers =
- 				task_rlimit(current, RLIMIT_NPROC);
-@@ -1545,7 +1579,7 @@ int io_wq_cpu_affinity(struct io_uring_task *tctx, cpumask_var_t mask)
- 		else
- 			ret = -EINVAL;
- 	} else {
--		cpumask_copy(tctx->io_wq->cpu_mask, allowed_mask);
-+		cpumask_copy(tctx->io_wq->cpu_mask, cpu_possible_mask);
- 	}
- 	rcu_read_unlock();
- 
+CVE assessment, by the io_uring maintainer:
+
+Should get a CVE:
+  5/9 io_uring/io-wq: show stuck workers rather than WARN on a slow exit
+      io_wq_exit_workers() did WARN_ON_ONCE() when waiting longer than
+      IO_URING_EXIT_WAIT_MAX, reachable by an unprivileged user with an
+      open() on a FUSE mount whose server never replies; with
+      panic_on_warn that crashes the machine. The diff replaces it with
+      a pr_warn() and task dumps.
+
+Should not get a CVE:
+  1/9 io_uring/napi: don't end the single NAPI busy poll early on
+      need_resched()
+      The single NAPI busy poll ended on the first need_resched() and
+      slept for the rest of the timeout. Busy poll duration only, a
+      performance bug.
+  2/9 io_uring: fail soft links on negative IOU_COMPLETE results
+      io_issue_sqe() now calls req_set_fail() for negative IOU_COMPLETE
+      results, so IOSQE_IO_LINK dependents of a failed request are
+      cancelled. This only changes link semantics of the caller's own
+      requests.
+  3/9 io_uring/futex: fail soft links when cancelling a wait
+      __io_futex_cancel() now calls req_set_fail(), so linked requests
+      are cancelled. Only the caller's own link chain is affected.
+  4/9 io_uring/rw: fail soft links on IOPOLL short or error IO
+      The IOPOLL completion path now calls req_set_fail() when the
+      result changed, so linked requests are cancelled after a short or
+      failed read/write. Only the caller's own link chain is affected.
+  6/9 io_uring/timeout: don't rearm a multishot timeout on cancel
+      A cancelled multishot timeout was re-armed from the cancel task
+      work. A zero interval plus moving the CQ head far ahead only
+      delays teardown of the caller's own ring; the loop goes through
+      hrtimer and workqueue, so it reschedules and holds no spinlock.
+  7/9 io_uring/rsrc: keep the old file when a file update fails
+      The old file was dropped from the registered slot before the new
+      fd was checked, so a failed update left the slot empty and posted
+      its tag CQE. Only the caller's own file table, no refcount or
+      lifetime problem.
+  8/9 io_uring/kbuf: initialize arg->out_len from arg->max_len in
+      io_buffers_select()
+      Legacy provided buffers ignored sqe->len and used the full
+      buf->len. The copy is still bounded by the length of the buffer
+      the app provided, so this is data accounting visible to the app
+      only.
+  9/9 io_uring/io-wq: apply the current cpuset to new workers
+      New io-wq workers took a stale copy of the cpuset, so they could
+      run on CPUs the cgroup no longer has. cpuset is a CPU placement
+      control, not a privilege boundary; the worst case is scheduling
+      interference.
+
+Cheng Yongkang (2):
+  io_uring/timeout: don't rearm a multishot timeout on cancel
+  io_uring/rsrc: keep the old file when a file update fails
+
+Cinq Prairie (1):
+  io_uring/napi: don't end the single NAPI busy poll early on
+    need_resched()
+
+Jens Axboe (1):
+  io_uring/io-wq: show stuck workers rather than WARN on a slow exit
+
+Mikhail Malyshev (1):
+  io_uring/io-wq: apply the current cpuset to new workers
+
+Siddharth Chintamaneni (1):
+  io_uring/kbuf: initialize arg->out_len from arg->max_len in
+    io_buffers_select()
+
+Yang Xiuwei (3):
+  io_uring: fail soft links on negative IOU_COMPLETE results
+  io_uring/futex: fail soft links when cancelling a wait
+  io_uring/rw: fail soft links on IOPOLL short or error IO
+
+ io_uring/futex.c    |  1 +
+ io_uring/io-wq.c    | 68 +++++++++++++++++++++++++++++++++++++++------
+ io_uring/io_uring.c |  8 ++++--
+ io_uring/io_uring.h |  1 +
+ io_uring/kbuf.c     |  1 +
+ io_uring/napi.c     | 31 ++++++++++-----------
+ io_uring/rsrc.c     |  6 ++--
+ io_uring/rw.c       |  4 ++-
+ io_uring/timeout.c  |  3 +-
+ 9 files changed, 91 insertions(+), 32 deletions(-)
+
 -- 
 2.55.0
 
