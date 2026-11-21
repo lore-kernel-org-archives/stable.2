@@ -1,90 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296675;
-	b=j+yQ7I7BvVq54ahFUEyvLuicVgAJaiN3adOS8fH9OqIPCH+EEUQGsZXqrGPp627GguxG
-	 o2E/DHkq5fC2rrCNvYt4X2zw2HVSW6aodPVp8GllVBqZpW8kqaGkWF1YsqdJF2r0Rvaor
-	 /ISCWeTn+Xh29+07ogmnTKSud+cGgp/DcLRhAxI/L/Gk/1EpgBT8rE8EXD9BWMDZgDvCH
-	 L5vzZ/8hhaz3N783j5xcyt/87kfQC9uwZOXI2NAwItQ+xzVUd+CLELuI0tc+BdxSlHdsb
-	 8M+eMXg/Kte4HmzxYr48X0zeMzqHfHHQKh+kecYQdAudkdcCbguEZ9YDf3ZqB/VLFPQ==
+	t=1795296676;
+	b=RZIb2LPGJ01goDbui5Ab6bsFfxO58XQ7xSZkWsAgh7U8BFVRU/1yNWv/4M/GcLiGkwj6
+	 zAdE1hX/lWtHl3St0j/vNt6qHgZ5GXeGi5EslbRY7ju07FmLRX8o+oWT1Prhy30+dCLJF
+	 FlsZoEfudb94Mx1APetyF/pWLg7JxaB+t5GKYmZKb40R5sNSyXhM36lofCVADJCbcauF0
+	 e5ZfHZtx1sdhdPHRamURfJSeliZKlgj4GOJ729w+YcTN3V6FlpTUed0ndb3oDxSN76heI
+	 GHoW6sWAq2P5ce2IfmqRzh0MVdi1JDR+jq9nAbNItpFxuEJJOz2LiT+lOHhKGERoeag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296675;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296676;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=WOSOvk6i9UfjF05LnH6p+0yEMB2u2ArTmUF/Nu2tU2s=;
-	b=0+1LL/+YqAcFB0kqISyTk8XNsuI3xsGRegweykyflLXZVce5Qo26MZ+2+2gbzbfj9iB+
-	 OiC5H4T6KSu+dbm2XCgBVpkRVQMs3/I0yjrdn8+OTXillZUgARFy8rHVbridKPQLx49ae
-	 9UC9uSmK4bx4HoLUhJrpBnRs9lKtSE5wka23/Le+t8uysBvriZ8EVy8wsHvHmpkn/zYOi
-	 vBhXNgXEvMwKOvt1MpWN8mu9tDHn3hEq8DBuI4hzuxk8lPWhAfk4Bqg4TgMpVjCTUZsjL
-	 /RWqTRLS5gRwJyQNkeciRHn3JMVfH6GOnV4cUh3g6pu+6rkV5OG4fA5dtVWTddprSQw==
+	bh=cTzkXr+Eh1oI7gn+QaT6+nPEp4gXiwyAysBKmdBNb+Y=;
+	b=fOUTVRl+/OgCoOFlQ2DA9gsXDNs8afKisZ7QD3nddJ7IQLvRLrDIP7/23+pFQAb2HQqi
+	 9W9u2qLjni8N+h3rpWdRs9eu5euDyOvw5TtzEGawAPdJeoO1Ab9ipAoDL3Wbqtpwt/MMT
+	 6+7VZ9INkHqEoo6FLWBGGd/p1HX/sWaFfQn+1CfXs135Q8zxhFJInHuVfkMW/RxiUa24p
+	 8UCpFCW2BMz9t/lknceDkhLYwrWkLTig4kPohfGXYCOk3nChGdr1t/QMo5IgiofLVBn9b
+	 BJTHF1yMqjoyFrIeHHWrRp16PKKPpXOww40c81stUgCoJcbvD50GZ+A3oduCNN1GW6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=tQVHc1jU;
-	arc=none smtp.remote-ip=209.85.161.48
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=O86bCy1d;
+	arc=none smtp.remote-ip=209.85.161.51
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76E2606A6BF
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B76E2606A6BF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC8D606A682
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AC8D606A682
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=tQVHc1jU
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-71ad099391dso959874eaf.3
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=O86bCy1d
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6d290b10a35so821371eaf.2
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel.dk; s=google; t=1795296674; x=1795901474; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WOSOvk6i9UfjF05LnH6p+0yEMB2u2ArTmUF/Nu2tU2s=;
-        b=tQVHc1jU5bPaWXfQiXqARLn3rmP7w/CQSJOoSZTjs8GIAiSGtBllfF2ZNw3U+nkyA7
-         66uPBWfJN/hF7YWQ4JV5BjnxIi5SPZ1VHcIe9w1DtvCMlRm8pXiXFYIStBuctqfiDkU+
-         ta4p+IV29nyCBCl+TDp5zu5ebjUbmW4YPszb9ICH1yjVwr6W+Gvqzr72c2ztmYrOz92m
-         KoDjFCLoSDfNnfahqobWVXApuJ29GsRgJMF81lGEwmn8BDHMY9km6LdD3AgNeRwWARgN
-         bINHskVCXWSWniCsmL4ZnowMaoFkXUPv/oU38s2yWcrlW09xT438PhB3EoofK3ml/yPR
-         em/Q==
+        d=kernel.dk; s=google; t=1795296675; x=1795901475; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cTzkXr+Eh1oI7gn+QaT6+nPEp4gXiwyAysBKmdBNb+Y=;
+        b=O86bCy1duSSsZ+HjYF0hVYUYQnlDfX3GWchyGBCIhQsjgG/LHxFDsAAdHTplKO33cq
+         LFtiWITZKCq7cgiYWpPjxrbUebt9IiwFVb9HO4uzp0uiEMoit3s/Rqu82DTELBXmwcaX
+         gQxgjs7UOavhx666cj1GjTLaOMKHiYskyeXOLWphf1XzniErpmWaJ/7JRP0JlXgDrrhT
+         luayTrh55OVEaJNUPTf3LhKyvEPNRR0oUOaRgVcuzTjmnwVIGp7of9XFbMbiyGTZ80m/
+         fBC8YX8gp5xJ1pne6Oa0/9NltorRTF10flhCMZZvh50cSXC+uL8pPVog9WIioy/kY7SQ
+         efWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795296674; x=1795901474;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=WOSOvk6i9UfjF05LnH6p+0yEMB2u2ArTmUF/Nu2tU2s=;
-        b=dDvQj9PPF/DdSZFq/9W5rNoQ/LwR0w6Lu8TxK6kXxAyGBpHFXwRsLSNVpQCXB7sJ09
-         iHHZsLTMEhKKjwZ3PEdQrMgujKn3GRBsghYU3qYzW/R4QcATE4KIf51TWvD0Ro7SmHU2
-         oN/yGW+F8fnjjbl654WVCeQpqofLY/z6LfqtMjX7kOIcIUv21X93EWME6HNibODLFuxT
-         +jp1VSwrNw8sqUPb3NjqjlciT85+evArxmFIdmrhAw8eHQrxV9ZIO5Sa0M9ZW8MbT9kJ
-         Qt3W9rC9NZeDq+T27N4QHhRV+nuB9CgE1dmfMr6vqnvwA7AFNj75Dy33ZIGaZsCoNsmT
-         RGfg==
-X-Gm-Message-State: APuU4Z99k459OzKuqrQefyOSCyCLFkUpuhz7eBeq+MijkyMFpXOXb5hq
-	LONz1XKg4t0HhrKLcRDTFzu/u9CjMIFKlFRQuIwAkTYo9h1wqm7Ks+Lozy7W3wnS6/ATdlAYady
-	gpvD2EFg=
-X-Gm-Gg: AZFdTZdAxh1dQwCrODgJCZim/mP0+rpRF/ACKuPB1cejKhLknkIZgFuaVyEedXtf7bB
-	MjzoZbgTXaCrqomtMYxCvubYQmrytlZ/oZR2T6xgqP9zBxplGaR3XcPhHck4gRmlsXdIYOvnkGz
-	8uSw4Km3oWvUr5uWgPEm2zWzkF2eRM2S+bhPY7vX+SnPK/omX/O3X0sxp6A6im8DO7M5876Ubob
-	nyCSJkVfwFJBl9VW2EkuNs/iwmbliLwbW/9yIvkXQ+L8B5/FZulkz1DXed1cqX7hnXxoP7lEY6u
-	58/LEIg/Th6NhP+TUMC19f3Dc/ld05FqqNbatKXw3gxOHWOpIyjSas0sL+gDFeP3EqkfnYUpsC/
-	blRVD/Eyn6twhV8jSt7OG5piSac/TW1/zjDcD85UYXOhN8b4BpM3j99k1o8iJ2pSQk5GOMlq+MI
-	/Fqy++lDDvQyNj79CiaOsG6QtYUXKtkIVrtwpvxAgrNHuAvwF6qzG/olFfewuiiDAUA58bTOrpE
-	iZ0X6wu8Oj5eN+oTSGL/eBEGB5jJvigTogFtz8Mkmj+BneBFFmjkVgD/k6/gDTVyZKt3/fBaAUC
-	FqfOOQ1KO1zWQNt3Wk4KyCmhn8Kib5O6irOjRm7Ey0pEpLL/IWY7cYLU8fbVjr8E5AG06AA/Ov9
-	/eUxPNofQfaIBgiyGfEd2jBcczqwsXhSZik2a
-X-Received: by 2002:a05:6820:1690:b0:71a:eb96:f714 with SMTP id 006d021491bc7-71b39554e43mr5489003eaf.67.1795296673710;
-        Sat, 21 Nov 2026 13:31:13 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795296675; x=1795901475;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cTzkXr+Eh1oI7gn+QaT6+nPEp4gXiwyAysBKmdBNb+Y=;
+        b=1D/xiIfljNZEiaZsh606GwASi1Rjv7N8goTEM3Ay9+G7LUQvZ73VpvrVTdSBXITuLi
+         V4bYvo/LBKK/9hWcOnDNgoukWwRjS6qgLiZjypu8Uw3mK0YkbSKgRyiOc0NU3NFFpmcu
+         vPAQfUWdHVr+wzPhlk/YFQeZMHU2X7TsEqoWsDKH9VODH544pCd6vE5Lqog8Uk+9J50t
+         qlr6VAMSUZ5ldRZP0gnqg+FL5lgUERXzgvtG4/SaGgSB0UuddV+naNS/viMJJTa3yK13
+         s7faB/gMjSQ/jm9mLNwBzCtoQawUvmTiMVfBYdQx4E1nkANllsrw3httZfSt2ZE5mzdB
+         Nr9w==
+X-Gm-Message-State: APuU4Z/JZeeltVuhUMgyFFypxZokHOnPuZNn8+qnuuO+AcZHkyrdtPIj
+	92r5d/FevR8nbHF1yrAMXClH2HKfKLxasC+Ja7gdsQ/7uqdhPkgQlkMDoiyn/8Vl7z6B8zubxmb
+	zlFYGc5E=
+X-Gm-Gg: AZFdTZe/GPy+Lx9tnVYj9pE6syLF3fq0/nMuk9U+gPe2rI652J4+w+LZtJQ4JKtQsis
+	qTOD0hAZj4h3NIRbwAkGW2+yJfizGoM5xgVJgSWSSJ3EXw2qjuoSqtaRZnMOuX0qMHxYG90hf1X
+	qkFB1pAIgosy58VugNH4bvOUthkEPyH0Pmbs3LbHA2jsnHRENWttcfsrIcsJWkgNbu+dQC2d6ec
+	BfZM7KTPqeDWiz2H/7RU8/jaD7LuKG29AmfloRsx1IKkdxnbAjIBVJj5X3McwQMqXrCF/2UOpQt
+	MWt4Wt6CQC/4bMpUKzPIjT64HiXoCnxhBkwv5YNxXlM0x1eMEMyfgZ/ROUEEX3pk8mguNjlPEer
+	AgDbs6Q7o0jV3D2u4cpP5iQJ1pE169kCpBMgTSlnBZXFcV2jyfALw/Tdnz7sjXFpShvk7DY54PT
+	Zjb12kYhGWxQ8Ahu1O9VnljmLGtMOtYpwo9TOQIEPkKrXNkuD2VrEq4f0yxo9uOpmDZBjRXWfu5
+	OOc7UUHFh7l/H+RUKnj5cHuFIei2z1OaJCqZ42Kk031GRNStmj/uTX0KrUv5vex0+CB/Sl0jGVx
+	Kb4qbN/bUBYfSrPKCsZyLZRbumRB5gbT5e79SnaemzGigeagsoMqp6O1sOQ1m9+c/HPLAT2rU8v
+	4Zz+e/RTDcesXAqR6aqgbT02BuCZJ3beAshs0
+X-Received: by 2002:a05:6820:3397:20b0:71b:121d:632f with SMTP id 006d021491bc7-71b3959e0a0mr3852370eaf.80.1795296675031;
+        Sat, 21 Nov 2026 13:31:15 -0800 (PST)
 Received: from r7625 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b38015c46sm4469155eaf.4.2026.11.21.13.31.12
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b38015c46sm4469155eaf.4.2026.11.21.13.31.13
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 13:31:13 -0800 (PST)
+        Sat, 21 Nov 2026 13:31:14 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.6.y 17/19] io_uring/sqpoll: Increase task_work submission batch size
-Date: Sat, 21 Nov 2026 21:30:47 +0000
-Message-ID: <20261121213049.1788332-18-axboe@kernel.dk>
+Subject: [PATCH 6.6.y 18/19] io_uring: fix task_work add use-after-free with SQPOLL
+Date: Sat, 21 Nov 2026 21:30:48 +0000
+Message-ID: <20261121213049.1788332-19-axboe@kernel.dk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261121213049.1788332-1-axboe@kernel.dk>
 References: <20261121213049.1788332-1-axboe@kernel.dk>
@@ -97,100 +98,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Gabriel Krisman Bertazi <krisman@suse.de>
+Commit a92193c91e8839fe5fc209616ea95465ae4b919d upstream.
 
-Commit 92835cebab120f8a5f023a26a792a2ac3f816c4f upstream.
+For SQPOLL, the sqpoll thread runs task_work off its own list and
+doesn't need to be told about it, so it can pop and complete a request
+as soon as mpscq_push() has published it. If that was the last request
+holding the ring alive, io_ring_exit_work() then frees the ctx, stops
+the thread, and with it the tctx, while io_req_normal_work_add() is
+still looking at both after the push:
 
-Our QA team reported a 10%-23%, throughput reduction on an io_uring
-sqpoll testcase doing IO to a null_blk, that I traced back to a
-reduction of the device submission queue depth utilization. It turns out
-that, after commit af5d68f8892f ("io_uring/sqpoll: manage task_work
-privately"), we capped the number of task_work entries that can be
-completed from a single spin of sqpoll to only 8 entries, before the
-sqpoll goes around to (potentially) sleep.  While this cap doesn't drive
-the submission side directly, it impacts the completion behavior, which
-affects the number of IO queued by fio per sqpoll cycle on the
-submission side, and io_uring ends up seeing less ios per sqpoll cycle.
-As a result, block layer plugging is less effective, and we see more
-time spent inside the block layer in profilings charts, and increased
-submission latency measured by fio.
+  BUG: KASAN: slab-use-after-free in io_req_normal_work_add+0x439/0x510
+  Read of size 4 at addr ff11000000ca0000 by task repro/55
+  (...)
+  BUG: KASAN: slab-use-after-free in queue_work_on+0x25/0x70
+  Write of size 8 at addr ff11000000c3bd00 by task repro/55
 
-There are other places that have increased overhead once sqpoll sleeps
-more often, such as the sqpoll utilization calculation.  But, in this
-microbenchmark, those were not representative enough in perf charts, and
-their removal didn't yield measurable changes in throughput.  The major
-overhead comes from the fact we plug less, and less often, when submitting
-to the block layer.
+Hold an RCU read lock across the add, like io_req_local_work_add() already
+does, and have io_ring_exit_work() wait for a grace period for SQPOLL rings
+as well before freeing the ctx.
 
-My benchmark is:
-
-fio --ioengine=io_uring --direct=1 --iodepth=128 --runtime=300 --bs=4k \
-    --invalidate=1 --time_based  --ramp_time=10 --group_reporting=1 \
-    --filename=/dev/nullb0 --name=RandomReads-direct-nullb-sqpoll-4k-1 \
-    --rw=randread --numjobs=1 --sqthread_poll
-
-In one machine, tested on top of Linux 6.15-rc1, we have the following
-baseline:
-  READ: bw=4994MiB/s (5236MB/s), 4994MiB/s-4994MiB/s (5236MB/s-5236MB/s), io=439GiB (471GB), run=90001-90001msec
-
-With this patch:
-  READ: bw=5762MiB/s (6042MB/s), 5762MiB/s-5762MiB/s (6042MB/s-6042MB/s), io=506GiB (544GB), run=90001-90001msec
-
-which is a 15% improvement in measured bandwidth.  The average
-submission latency is noticeably lowered too.  As measured by
-fio:
-
-Baseline:
-   lat (usec): min=20, max=241, avg=99.81, stdev=3.38
-Patched:
-   lat (usec): min=26, max=226, avg=86.48, stdev=4.82
-
-If we look at blktrace, we can also see the plugging behavior is
-improved. In the baseline, we end up limited to plugging 8 requests in
-the block layer regardless of the device queue depth size, while after
-patching we can drive more io, and we manage to utilize the full device
-queue.
-
-In the baseline, after a stabilization phase, an ordinary submission
-looks like:
-  254,0    1    49942     0.016028795  5977  U   N [iou-sqp-5976] 7
-
-After patching, I see consistently more requests per unplug.
-  254,0    1     4996     0.001432872  3145  U   N [iou-sqp-3144] 32
-
-Ideally, the cap size would at least be the deep enough to fill the
-device queue, but we can't predict that behavior, or assume all IO goes
-to a single device, and thus can't guess the ideal batch size.  We also
-don't want to let the tw run unbounded, though I'm not sure it would
-really be a problem.  Instead, let's just give it a more sensible value
-that will allow for more efficient batching.  I've tested with different
-cap values, and initially proposed to increase the cap to 1024.  Jens
-argued it is too big of a bump and I observed that, with 32, I'm no
-longer able to observe this bottleneck in any of my machines.
-
+Reported-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Link: https://lore.kernel.org/io-uring/20260924205056.3759980-2-Jeremy.Jean@oss.cyber.gouv.fr/
 Fixes: af5d68f8892f ("io_uring/sqpoll: manage task_work privately")
-Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
-Link: https://lore.kernel.org/r/20250508181203.3785544-1-krisman@suse.de
+Cc: stable@vger.kernel.org
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[axboe: 6.6 has io_req_normal_work_add() in io_uring.c and adds with
+llist_add(), not mpscq_push()]
 ---
- io_uring/sqpoll.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ io_uring/io_uring.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
-index bde67560ace8..3d0fbae80938 100644
---- a/io_uring/sqpoll.c
-+++ b/io_uring/sqpoll.c
-@@ -19,7 +19,7 @@
- #include "sqpoll.h"
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 3108af4514eb..fda288405e44 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -1401,6 +1401,9 @@ static void io_req_normal_work_add(struct io_kiocb *req)
+ 	struct io_uring_task *tctx = req->task->io_uring;
+ 	struct io_ring_ctx *ctx = req->ctx;
  
- #define IORING_SQPOLL_CAP_ENTRIES_VALUE 8
--#define IORING_TW_CAP_ENTRIES_VALUE	8
-+#define IORING_TW_CAP_ENTRIES_VALUE	32
++	/* SQPOLL can retire the request on push, see io_ring_exit_work() */
++	guard(rcu)();
++
+ 	/* task_work already pending, we're done */
+ 	if (!llist_add(&req->io_task_work.node, &tctx->task_list))
+ 		return;
+@@ -3369,8 +3372,8 @@ static __cold void io_ring_exit_work(struct work_struct *work)
+ 	spin_lock(&ctx->completion_lock);
+ 	spin_unlock(&ctx->completion_lock);
  
- enum {
- 	IO_SQ_THREAD_SHOULD_STOP = 0,
+-	/* pairs with RCU read section in io_req_local_work_add() */
+-	if (ctx->flags & IORING_SETUP_DEFER_TASKRUN)
++	/* pairs with the RCU read sections in the task_work add paths */
++	if (ctx->flags & (IORING_SETUP_DEFER_TASKRUN | IORING_SETUP_SQPOLL))
+ 		synchronize_rcu();
+ 
+ 	io_ring_ctx_free(ctx);
 -- 
 2.55.0
 
