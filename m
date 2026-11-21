@@ -1,62 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795273967;
-	b=zUHltcBCkubNdeA/ACEEeONgq8pR+agTsv188YbvJ1jyjzwovZtcBcgFszXUvPFb8KFI
-	 cwi6vsKc5QijZx3cI5G8kFchXBw59XdTZLK+oD1b6v7NzgKGjD+eSRKWkBcsIO/8DLNpn
-	 6S1stjS4yeurMyCsrm/s6a4pmNeAf4nTp/546DnDeEL77KkW35sTcCp38Ev/u3GPHC3pR
-	 0BeTlZMQ/ddyGIGUeTRwAB+SanH3jW2Mv/kDYgr1vncNc9wep1juKNTA/7JSzcxV7BewT
-	 DGtq5jx5+0vDirYP5yxpTt3W84a0vl19QgeckViY5x3vf32dNel0e0iCX0Cg7RoB4wQ==
+	t=1795274776;
+	b=nC1TyopSRBNM58z+rK8QkILru0UjdCHopwKcBVIMiYDXaPMiixfpmBQJXhj5ZUwgJB+7
+	 ShE1A7rmz4vHdsAOGBb3i9YLx5QqmFTYC1hnrN2RkRxOy4YZX+Gv+kxqP3vrShMByLA7t
+	 fvHLarCFRb5Il9KEZKXIlDjrGbzMLhNATZJz3WNM2bFYdVsOkJFxYSqH9nTdzc41nuKh6
+	 tl6zPpGI21LRBCbTN7gGzEnbBzVVNR+Alw9vyOhNVjfM7ftTQDezTVIOSvbJ5/nisOzUN
+	 XwMODHy1+fqtMBBKeQGMApUQb/f3tOaekx2iemASn74ZpK0UTPz9WJKA1D+MaxrSBeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795273967;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=g//AmIYkDNj7cTYqYfqTf2ATtSgQQWGoqzn1IkSPZnQ=;
-	b=PSXzWgE3/vJwQxc1iZnMz/mKOswN+F0hTZZPpA3tvCcPEkRaFUn4qECIkF1MGyrSt6dK
-	 gNBjLbrbw7ZVtcnV1FUENctVM2kVNGUuH00Yk0oSs/W+AtJop/57XB2aJ1nbyZaqjQ2Kz
-	 b/LdpA2j3gntvdyDgJIWBR7LBXDoDYtkbQ1HcadBCiltOw6qVNn/1U36QAsOZUNORvGgo
-	 2E5ftQOR7YqdGdn2kxzVfN0eRNuQvJtUX3gTHfw0fIgm+H+v/JeF+OYMu9PV5G/w8Bw+y
-	 197tPH6JIjwn3KYMQAdNb6eD+31aum3GNz2s4soE4S3UqM9RNn4CPYkihUlc93S/KNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795274776;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=id4o5PzKM3zH5WOwNFoAsHmh451u7zQsm4VsNoJjbC0=;
+	b=ElwdrFnlk0sWZmwY9Gg4DLP/62KlxiRHWF4Ljq7YvRTA4zjBcS4umcVCxbLhWo1J2fUu
+	 nfumy4gFCeGl0Qc5LwMgO+QKnelOZpjQZrR7GKeEsOWYZgnLNnSxtTcpYh2T66XGNOwMm
+	 QkYkjiMaUZIYFfkjC4x/zfgeP2hmBa2OOE7kANevq8V11e5A2GxELXGHbGnHCLZCXqyFT
+	 3uMjNeY3Lz4aaISSsulQ7zUYRkyJBl6l7c71z66aJZ+93keokV1+mioYhJOWEZjwQE7gV
+	 Ypn7uUl9RolrxrQ/6TaWxI8C0Sr8WFl7n6+2fVPi+3YCwi5J+fbbm0gjMlKTZt1HS1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=UA2Ow9fS;
-	arc=none smtp.remote-ip=115.124.28.173
-Received: from out28-173.mail.aliyun.com (out28-173.mail.aliyun.com [115.124.28.173])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SmcTfL65;
+	arc=none smtp.remote-ip=35.89.44.35
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70727606A320;
-	Sat, 21 Nov 2026 15:12:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70727606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A39C606A32C
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 15:26:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A39C606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=UA2Ow9fS
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1795273955; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=g//AmIYkDNj7cTYqYfqTf2ATtSgQQWGoqzn1IkSPZnQ=;
-	b=UA2Ow9fSKU4jBjUkUJf+Ovzw+UawX8PCH14FjDA/lE+ZasajpqljYMF6hiHh5rEATTUeJu/OmUhopzjHfjQ5ambo+CvH9Yjrjy94Ug0YiSZC6HBzssQ5zZnEp2+MPlgxtfroMkR4P4kCLohqmuNQ0Ocx7o7xRj7fDRty6X7SHek=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0443626|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0257633-0.000732468-0.973504;FP=304553285648911859|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034017;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.k7FWlbt_1795273953;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.k7FWlbt_1795273953 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sat, 21 Nov 2026 23:12:34 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org
-Cc: Vladimir Zapolskiy <vz@mleia.com>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
-	Johan Hovold <johan@kernel.org>,
-	Roland Stigge <stigge@antcom.de>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Guanglei Zhu <zhugl3@xiaopeng.com>
-Subject: [PATCH v2] usb: gadget: lpc32xx_udc: handle interrupts with an empty queue
-Date: Sat, 21 Nov 2026 23:12:33 +0800
-Message-ID: <20261121151233.82306-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SmcTfL65
+Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
+	by cmsmtp with ESMTPS
+	id UgFdxmHl0RiNxUmymxAi4y; Sat, 21 Nov 2026 15:26:16 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id UmyjxMtMHdRrRUmykx72ub; Sat, 21 Nov 2026 15:26:14 +0000
+X-Authority-Analysis: v=2.4 cv=LOhmQIW9 c=1 sm=1 tr=0 ts=6b01b817
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=_jlGtV7tAAAA:8 a=pGLkceISAAAA:8 a=ryv-YxDhWCmM8qAHW4sA:9 a=CjuIK1q_8ugA:10
+ a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=id4o5PzKM3zH5WOwNFoAsHmh451u7zQsm4VsNoJjbC0=; b=SmcTfL65i9WV5hm2yGgZHKnRXA
+	eH1/TkNSZdfFsUlKo+yR5GQHjNnZJ5RG0/jdiS/J4CrKsDdpdQtg5EVCndq6wCB03fBbSRQqMhJy8
+	vCL5hqSkY7QsN2Ta/NOxVql19/W6umBS73a2BnWkxVAYUWrPOpvfN9/8PxTQLrpHT8W37wL8sHz68
+	AzdgxtP7nCs6gH3lJNmrJ0JINAdNpCD/6QpNuloB6g/LO+/wg5gz2vQZGkD3fEI/4NE8wl58/tLU9
+	OZZW7AF7kEiMaCoS6L9EHOIZwYqCTjThitQVXRSarbpITjXDmj8pBdfjb8EWrBctI8ggRRQfFmd9r
+	K3x5BM6Q==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:50930 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xUmyj-0000000112x-2dFW;
+	Sat, 21 Nov 2026 20:56:13 +0530
+Date: Sat, 21 Nov 2026 07:26:12 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Nhat Tran <nhat.tranminhk2@gmail.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Lars Poeschel <poeschel@lemonage.de>,
+	linux-watchdog@vger.kernel.org, linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] watchdog: core: Don't report time left for a stopped
+ watchdog
+Message-ID: <08729e0f-874f-41cb-b6ee-bff6207c1cb4@roeck-us.net>
+References: <20261121052950.287506-1-nhat.tranminhk2@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,138 +85,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261121052950.287506-1-nhat.tranminhk2@gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xUmyj-0000000112x-2dFW
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:50930
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 8
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfNsQe2HUlcYiMnkHmWBJn3iBHlASDe8auQwVpfO9bQwV2zV4KwjN4zzVboV08Wjrf7nPsGKCwRPSMVp+qcHvA/PsQ4A/jacZLTe3aLt5RLYuE/LAdkCi
+ SWawIMaFGvp8roAhYQsoN/APAMpkEn75gfHOrrMMOcXb1qNgXiDLRJqoGFVcJ3S5OyTLsWc/wWMeOFfCaiZgk455F1ICCBUy+uNGcdttPLOxb21SPcikgCUL
 
-A request may be dequeued after its DMA transfer has completed but
-before the corresponding DMA interrupt is handled.  For an IN request
-whose ZLP is deferred because both endpoint buffers are full, the
-endpoint interrupt remains enabled to resume ZLP transmission and may
-fire after the request is dequeued.
+On Sat, Nov 21, 2026 at 12:29:50PM +0700, Nhat Tran wrote:
+> watchdog_get_timeleft() calls the driver's ->get_timeleft() regardless
+> of whether the watchdog is running. It is reachable through the sysfs
+> timeleft attribute, which is world readable with CONFIG_WATCHDOG_SYSFS=y,
+> and through WDIOC_GETTIMELEFT, also after the watchdog was stopped with
+> WDIOS_DISABLECARD while the device is still open.
+> 
+> Drivers may not be able to access the hardware while the watchdog is
+> stopped. omap_wdt only holds a runtime PM reference while the watchdog
+> is running, so on a BeagleBone Black (AM335x) reading the counter of a
+> stopped watchdog triggers an external abort. Any unprivileged user can
+> hit it through sysfs:
+> 
+>   $ cat /sys/class/watchdog/watchdog0/timeleft
+>   Unhandled fault: external abort on non-linefetch (0x1028) at 0xf9e35028
+>   Internal error: : 1028 [#1] SMP ARM
+>   PC is at omap_wdt_get_timeleft+0x4/0x14
+>   LR is at watchdog_get_timeleft+0x24/0x130
+>   Call trace:
+>    omap_wdt_get_timeleft from watchdog_get_timeleft+0x24/0x130
+>    watchdog_get_timeleft from timeleft_show+0x3c/0x80
+>    timeleft_show from dev_attr_show+0x18/0x4c
+>    dev_attr_show from sysfs_kf_seq_show+0xa0/0x138
+>    ...
+> 
+> and the same happens with WDIOS_DISABLECARD followed by
+> WDIOC_GETTIMELEFT on the open device, once the module has idled:
+> 
+>   Call trace:
+>    omap_wdt_get_timeleft from watchdog_get_timeleft+0x24/0x130
+>    watchdog_get_timeleft from watchdog_ioctl+0x494/0x668
+>    watchdog_ioctl from sys_ioctl+0x128/0xbcc
+>    sys_ioctl from ret_fast_syscall+0x0/0x54
+> 
+> If the ioctl comes before the module has idled, the read succeeds but
+> reports 59 seconds left for a watchdog that is stopped.
+> 
+> A stopped watchdog will not reboot the system, so report 0 time left
+> when neither WDOG_ACTIVE nor WDOG_HW_RUNNING is set, without calling
+> into the driver. This matches the software fallback for drivers without
+> ->get_timeleft(), which already decays to 0 once the watchdog is no
+> longer pinged.
+> 
+> Tested on a BeagleBone Black: with the watchdog stopped, both the sysfs
+> attribute and WDIOC_GETTIMELEFT after WDIOS_DISABLECARD return 0; with
+> the watchdog started through /dev/watchdog0, timeleft counts down as
+> before (59, then 56 three seconds later).
+> 
+> Fixes: 452fafed839e ("watchdog: omap_wdt: implement get_timeleft")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Guenter Roeck <linux@roeck-us.net>
+> Signed-off-by: Nhat Tran <nhat.tranminhk2@gmail.com>
 
-lpc32xx_ep_dequeue() removes the request from ep->queue and gives it
-back via done() without disabling the endpoint interrupt or clearing
-pending DMA interrupt status.
+Applied, and thanks for testing with WDIOS_DISABLECARD/WDIOC_GETTIMELEFT.
 
-When the interrupt handler then runs with an empty queue,
-list_entry(ep->queue.next, ...) derives an invalid request pointer from
-the list head; list_entry() does not return NULL.  Passing that pointer
-to done() in udc_handle_eps(), or dereferencing req->dd_desc_ptr in
-udc_handle_dma_ep(), results in invalid memory accesses.  In the
-x86_64 test configuration, the bogus request's complete callback
-resolves to NULL, so the giveback path oopses on a NULL function
-pointer call.
-
-Check whether the request queue is empty before touching the request in
-both handlers.  In udc_handle_eps(), do this before sending the deferred
-ZLP and disable the endpoint interrupt when there is nothing to
-complete.  In udc_handle_dma_ep(), still disable the DMA channel and
-clear the pending EOT/NDDRT (and SYSERR) interrupt status so the
-interrupt does not keep firing, without dereferencing the missing
-request.  Both interrupt handlers hold udc->lock while checking
-ep->queue and obtaining the request and its DMA descriptor.  This
-serializes these accesses against queue updates in
-lpc32xx_ep_dequeue().
-
-Fixes: 24a28e428351 ("USB: gadget driver for LPC32xx")
-Cc: stable@vger.kernel.org
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
----
-Changes in v2:
-- Drop the ep_err() print in the DMA empty-queue path and reword the
-  empty-queue comments: this is an expected race with request dequeue,
-  not an error worth logging (Greg KH).
-- Describe how the issue was found and tested below (Greg KH).
-
-v1: https://lore.kernel.org/r/20261109121035.34561-1-fangxy@xiaopeng.com
-
-The issue was found during a security review assisted by the Hawkeye
-agent (LLM-based code analysis) and confirmed by code inspection.  No
-LPC32xx hardware is available; the driver builds on x86_64 with
-CONFIG_COMPILE_TEST=y.  Reproduced in a KASAN-enabled QEMU/KVM guest
-with a synthetic trigger that calls each handler with an empty queue.
-The synthetic trigger invokes both handlers with udc->lock held,
-matching the locking state of their normal IRQ callers.  The same
-trigger also covers non-empty DMA completion, deferred ZLP and the
-dequeue-then-interrupt sequence: the fixed driver completes the normal
-paths and returns cleanly from the sequence.
-
-The unpatched udc_handle_eps() path crashes in
-usb_gadget_giveback_request():
-
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  #PF: supervisor instruction fetch in kernel mode
-  RIP: 0010:0x0
-   done+0x1b8/0x390 [lpc32xx_udc]
-   udc_handle_eps+0x236/0x750 [lpc32xx_udc]
-
-The udc_handle_dma_ep() path was exercised separately: it dereferences
-the bogus request's dd_desc_ptr, logs "DMA descriptor did not retire"
-and "DD not serviced", and reaches the same NULL completion-pointer
-call in done() (RIP: 0010:0x0; the handler is inlined into the trigger,
-so its frame appears as lpc32xx_udc_init+0x40a).  Both patched handlers
-return early without accessing the missing request.
-
-In the x86_64 guest, KASAN does not flag the accesses themselves
-because the bogus request pointer and the fields accessed through it
-remain within the enclosing UDC allocation.  Although these accesses
-use an invalid object pointer, they do not cross a slab allocation
-boundary.  The crash occurs later when
-usb_gadget_giveback_request() invokes the NULL completion pointer.
-
- drivers/usb/gadget/udc/lpc32xx_udc.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/gadget/udc/lpc32xx_udc.c b/drivers/usb/gadget/udc/lpc32xx_udc.c
-index 044c31869cfb..477f897043b8 100644
---- a/drivers/usb/gadget/udc/lpc32xx_udc.c
-+++ b/drivers/usb/gadget/udc/lpc32xx_udc.c
-@@ -1945,6 +1945,13 @@ static void udc_handle_eps(struct lpc32xx_udc *udc, struct lpc32xx_ep *ep)
- 	/* Get endpoint status */
- 	epstatus = udc_clearep_getsts(udc, ep->hwep_num);
- 
-+	/* The request may have been dequeued; nothing is left to complete. */
-+	if (list_empty(&ep->queue)) {
-+		ep->req_pending = 0;
-+		uda_disable_hwepint(udc, ep->hwep_num);
-+		return;
-+	}
-+
- 	/*
- 	 * This should never happen, but protect against writing to the
- 	 * buffer when full.
-@@ -1958,7 +1965,6 @@ static void udc_handle_eps(struct lpc32xx_udc *udc, struct lpc32xx_ep *ep)
- 	} else
- 		return;
- 
--	/* If there isn't a request waiting, something went wrong */
- 	req = list_entry(ep->queue.next, struct lpc32xx_request, queue);
- 
- 	done(ep, req, 0);
-@@ -1985,6 +1991,23 @@ static void udc_handle_dma_ep(struct lpc32xx_udc *udc, struct lpc32xx_ep *ep)
- 	ep->totalints++;
- #endif
- 
-+	/* The request may have been dequeued; still clear the pending interrupts. */
-+	if (list_empty(&ep->queue)) {
-+		u32 mask = 1U << ep->hwep_num;
-+
-+		ep->req_pending = 0;
-+
-+		/* Disable DMA and clear pending interrupts */
-+		udc_ep_dma_disable(udc, ep->hwep_num);
-+		writel(mask, USBD_EOTINTCLR(udc->udp_baseaddr));
-+		writel(mask, USBD_NDDRTINTCLR(udc->udp_baseaddr));
-+
-+		if (readl(USBD_SYSERRTINTST(udc->udp_baseaddr)) & mask)
-+			writel(mask, USBD_SYSERRTINTCLR(udc->udp_baseaddr));
-+
-+		return;
-+	}
-+
- 	req = list_entry(ep->queue.next, struct lpc32xx_request, queue);
- 	dd = req->dd_desc_ptr;
- 
--- 
-2.50.1
-
+Thanks,
+Guenter
