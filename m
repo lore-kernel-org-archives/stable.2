@@ -1,115 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795248066;
-	b=QwUDqsHHUeKEBZJsEFDPSU2JBSzJBDxXrCxPOvWlgq3CNXcmVr/TOyHopBmlJv8RyYBH
-	 ABHZt6WapCwS7XRyFbY18r51ppxNBq514ykoMDNfq9FgFn+BBrAfhdxKEifknH4tPh5ug
-	 mycTRWMYUK9PL+6LuzPwqA8PPqjiS/HJCPuoFsKIvj/3IRByEXrVvpC6LVJ/E3sqAy/dJ
-	 PBWr5eKhrAAUArQMCT4kuzvZUo1xyzvZsB7a4XN4pxgqidPxd31xsvLTbbqiWwyEpwAUc
-	 xOzZni+zZagUTYUEmrmg8luDt297ypb340el0lEk5St8gA/an37HJjUsqFZmRY+1FpQ==
+	t=1795248351;
+	b=mwK/gaO2zhKkMsiscOqCHQTtBfsb1EYJbjDziv5toad5ghOwPoXKzxeWKjflfImuqUED
+	 VyfpHko4TBNh/ajz0rUGli2M9SOtzN/JgwuhGvM42JzjwD/xsbBYN+PYDQ/ksm2EqOE6K
+	 SFUyuReOzASDqm36sGvXgBJo45E/0096bQj3rQkv7+XKXk2W9wyZd0r0uVqf82KEU6nvk
+	 p41yOuEdHM1z2khPC1+3BqoxQPOwZzaBKiAMFI5e+XsaTd+zH3n+PxddRMTKoDnJOKLd5
+	 O44BpJHqmzG8SnV77sT7UubwrBa2abdEx6PeTnnMfK6HZbtndnSF+syu26kaFbUUpIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795248066;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PffWv6+YUHHcok31J2UuOOEjqWyo2w3KUslXYa2N0D4=;
-	b=qMgNT7wNpbcYrZTwhbK5GJ2OI5Lte6sh6n6SVelwGwMaog9nkYWcq1uIbmq5VDt0yslc
-	 N8BfnIbNHZFEP0qtmfY+6DGQfC9BycFNx86A831/6nz3M4xl14sTcgKno5f3Kqqz/vtZA
-	 KjwSdN42765/kxKGxLc8vI0xIb5hcDFqXf3l65W+WC/jxTvyTB6erPYnL4GajFoHwLft2
-	 4qr1uBJBoY1hByQGeXaXCU6J2lUqBqeH+4eGlYp7uDibSqd+UiAKIvgccxTxmIlqLqh4h
-	 J+Fa7Dy62H9jj+QNyGwm2xeKheWtj9BEnJAjMbli9rk5kBotg2P//rrL7mX0puosBLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795248351;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=0t9m1SZTG2FpFolnCv9G3KM3EADliIxvTwQEig71Ptg=;
+	b=ZzSorMvBxTAi0W90Jpnr8r9G0dEP3eX+5Xtz+WE/yyYOOdHe07+/J9TVz8ey1pBwgXbq
+	 XGzH8sMCr8jAne9zky6fbjQBkD0R9a12cWsauphxgvVv8HobCVaE/GUaYCvIJaHDSCNkB
+	 +MKyk6GWqMurl4DhGl17dduV4HiMw5+uWgfQzZX7+cNFEl2rvglq0Dyz2AybNnQaRHId1
+	 9TgGRceXW3Db758FWicaMpFsWyS1J5eP+neizk4Gmg/3ZpXCx9JaD8oJfyXFmvm7gGKdK
+	 CsKYANkKpiPr5Xf3u1EUOxRx4K2EslFetaYdOQ75KKWA1JSLuKq0Dp4RZxghuNge4zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=FRvzMYNr;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=J5A6RNF+;
-	arc=none smtp.remote-ip=202.12.124.153
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Gt9Axi+r;
+	arc=none smtp.remote-ip=203.205.221.153
+Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com [203.205.221.153])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA25606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 08:01:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BA25606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBEC606A320
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 08:05:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DBEC606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=FRvzMYNr;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=J5A6RNF+
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id B2BE57A02FC
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 03:01:05 -0500 (EST)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-01.internal (MEProxy); Sat, 21 Nov 2026 03:01:05 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1795248065;
-	 x=1795334465; bh=PffWv6+YUHHcok31J2UuOOEjqWyo2w3KUslXYa2N0D4=; b=
-	FRvzMYNrh3eUdREOvv3W0i2S+SDC+/+81e2o4kMkLaPj1cAh9C2uR1P7q+mhVTh3
-	cVbxBXcF1RKwOthCwbua3CfxwyeHs/1xk5u77eSHC+Y7vzwZ6xY99AjmL0qxlmwn
-	eooLoyVxBVin5F/8RahFzAZBu6XHtg3sQT6P4Zu8wA5Tn10cJuedU34f31sbc/I6
-	7nMc/6au6tfW0V4CQHMNlEiVSqf7XKGhqwwqRU2L973hs+pj3vokSVOaUaa1Ag79
-	NOXIPTd/PVjutdVgjFLwtiRZfAXPhJqnR9O0a9eF64YnL3YwVaClRyb3GRSYKE82
-	T+FGmM7Pso4IorlHn9i7ZQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795248065; x=
-	1795334465; bh=PffWv6+YUHHcok31J2UuOOEjqWyo2w3KUslXYa2N0D4=; b=J
-	5A6RNF+XjdatSDLKp37IfTSog/4N4jsla7zlHXcPtRg75e1NDY4Uubf6WnZjlSyJ
-	5HCDRT4RzreHHe6GqOAYyK73+1cS+L4fCq+iX911cBjCPuAHKNPnl0bFZoW0tZm5
-	uinOF9gxeWPQdQ/8DqAN4Ya/kxMQaaaiCSTi0FvqsNbjhreRbgQRqqlboaHexsYy
-	9SHcOci+oD7PXXLdNooTvpRvKAPMkIRgkrXPE6WT2I+xM3CaokU9+t73PRwUU/9P
-	a42vj27C/9syD/q9ucK1hazIqTsbSx2vlQU5JM6hlMVJoTDfkoHWKkBOQE/4HdZm
-	V//XebFlSr+jtO5tRPaTQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795248065; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:Sq3+26+XnaRdfph7N5qFASjCsSWEPzj8eqrUfjWhqU9pGBS
-	EouYUkkqGoFNRPWsD869n7MayGF4dOlmVulVt83QetvOEUQMc37aCR0iHQUAVnPs
-	9ob7Iv4gWnOi8mrZnT1JQCxGbGFLVN6ZjS86tVORikMZuimHGx52e6QasFYHwNdo
-	VhCDK+fHKCG3kpDxVmgfmN8alTkKg8RV5J4GzhCJlr+OffE/7i8r0TkQaiLUmzG7
-	mQ/bFsriQKBkvWPkPplp6fTqyoWvwkwRIoSUAVBrfRBxBa8Ws6MU4SogfwBYJT5Q
-	EcNe8udeoCQ/xMx7rx8RIxaYPjUWd06Dx31mFjg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:i+QXPEs0MRPiOPcsjBN0YrAQ3sJkUTSmj8BA+SSwO3M=:ulyu3f5OdmXBIoGwTOoUtZsK1JnCHpefXqGCBmCUJqM=;
-X-ME-Sender: <xms:wE8Bayjyy8xrmtUavpFVC1Vy2zCE4uThWejfTUbbBu9y3Jv-qKQmfg>
-    <xme:wE8Ba-5ZSTfMwjhgodSSd_4xZ84EHqwlWUaM2n93F7jRUxQk3N8L3N1sBTXe42xXq
-    JUX4DL6pzhpOFfjtVO5b0_evatitV9UoW0ZxcGSCai1cFu7ybEMt4w>
-X-ME-Received: <xmr:wE8Ba1kFg8Xf8MGd0uBtVK1L2gWpJXizMDIN6YYlu75iMTcaz2x1AlKwkcXKlSrAR88IJmauPZFmzATDJ2Neg72K9wzPqB4h>
-X-ME-Proxy-Cause: dmFkZTEf7U8oxoU8QhLJrSFZXuzPGT4cfvjlOjsUjZrkYniHAqk0qh3llwueVv7AmnMlV1
-    /0P6p+J2klLQAvjvp9izGsExVveH6iPUBs6XRppxoIWzOcF7TPVvDjkHoNJW9hALU1wUno
-    6XtfssAKk9OYH7az41HKoBGQQV4FLhq/haSh2maPvC18Kp6+xmE3yKG2JPIk5LrSjfWWoB
-    UaeFOyDy5fg5JahZG3no4HlsV2yIicFtEGW8N0bPw6E3pwEj/ZYUOOuLrX/uBZWzc1d3Hx
-    gFfPRokSBJJitgHcDPLxFiAu3leq/liuvCQUkbGpQRVTdIM8k/1MTNgGE5Y/T7uAjHWzCb
-    WlcA94mBZ0i9TBiKCNXGu2If24CDwRalRyimntMsSSJrx3uELJQY+qhTtbyp1zR+lxzETj
-    Un/RYIW7IMuPfEuasw+/St4hA/aOy7k657t0ll9c0SAzxf8EJKM437y1OdohH0mV17Q6/Y
-    9wweopZW2eJghQNiRdF4rNoLrz/J91/YX/JKjzQfG82zk+VPT7dljzYGdaC99rgz/s+3SL
-    D1B4Q78PlenPDUQjzp8jssP3zPY3pG036IF9MkAGXJu1GALr+PaBzBEryZR4Lz12L4FeKT
-    O/4QM7RF84Wyape1wdnigMUB0owN/XAevoBr/g7bmvANh/hheervi0LSxg8Q
-X-ME-Proxy: <xmx:wE8Ba_MmFj9JJtuxWJS5Nx86OzYaYnNBQnXbMF9PVhCbG4MsM7q4Mg>
-    <xmx:wE8Ba3qg3OC3siZ-PtNRgsDfDvVMEf-2epzPWNY_bgnqmKPsK_PtyA>
-    <xmx:wE8Ba4uG8XLQ67cgGLJw2INpMM26NZs4JYrrZxCDley7LwcnTD1EIQ>
-    <xmx:wE8Ba75MpYsSsa51S_MLRFexS-iBXkDPADY4uXZ1E9CZPtcqo3g5iA>
-    <xmx:wU8Bax1lGEPRRT_Di0XlNSABL_lVQ7Y_Use4okngHViaqzaq-auNPbl6>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 21 Nov 2026 03:01:02 -0500 (EST)
-Message-ID: <36db0135-e58b-45a5-ae95-b8e425419ed4@pobox.com>
-Date: Sat, 21 Nov 2026 00:01:01 -0800
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Gt9Axi+r
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1795248347; bh=0t9m1SZTG2FpFolnCv9G3KM3EADliIxvTwQEig71Ptg=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=Gt9Axi+rANPdO3YUam1aS+r2dCxhI/mUzHzFSwSjGE+fXzS9wT6HoFu7+GkU5x1sE
+	 GsvRlEMotovvw1IS0wgvwefo7U1pBSVtb/p7CylsU4UzxsVHGjh3OOUF0kuawkxThq
+	 v64wyUojE6Wd4v1Rkfs1+bXe/6Y+Qcm0VSg7m8Ok=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-XMAILINFO: Mgl8sI7MzKnCxRjADp1CBaJIf8uGuKA+gHCh/HcSNno2hXUhckYCVshVUTa/BF
+	 tddc+4QSoxjK9eO+HwbONqS7Nvg21Ig3Krw7LZe3Pzta3KXRKgIFRM4pTAnqXzHszLielcDN/1vZK
+	 2vYxBahIYNYQR9X22cd17O+aQR8+RxD7D7CxHAx4tp6tI5dtytvKcSbcsVRTcgo/KaY1hGVopsPYK
+	 zBWUXu8/7ZW0H/iHJU70D/dadOenRak+/lw3CEZBD2W7Ui9hJe9XHE2/Xd2PbZ3kz6dd4WMXOq2N8
+	 pDk2xWezUAnnuj/gsQAIJz8xF9Xm8J2xzeeJYbGE59Eek9BE2PexK04qUpd+TOWFMXSY2qYOKtL1I
+	 grLQ31CM7IxPQ8mBJdjmQiKNYmYmcTtBZSa0nwGOb+AwhwnbULkz5FmW/odozfE8yC+e9yUSnbc9y
+	 OBcAVMjFXM4sqUMf1KmOwbb5fab3/8igWo41hJ0WSCeoe8fwHq82VmPRiPPeuGjFeWCoXFCnOpXER
+	 efYpiElnwrHqKA+uPS3zpq8pvDq7s2hlT4Gau1XhZJuvml+jo2tp1Gjeo/XNBLUjoat4PXta8e5Po
+	 W9HsuYpAZgpizxEFAKtOFqWOIkZxghqehmcIB2djceYDQlJ6L2vikP7t7Lg8yKLgr2f+jImtJ3ND1
+	 pYodGqrhaTw2RNDN4A7oZ4ePnnfzNcW/RV4iW5w5l2TKznCh2j51AqDpong31hJTfrRzsSUcqOqCR
+	 hyBa3wiyp5oZG+laqPfTcD5DaH+CfPnC/tzfLLCjCIRjnajuvWGBL2sbnUU6MimJ3OKh5PX1BD54L
+	 1qpdfndQXS44QlOTneh9ISr8/We2hmbAQLBOK4ZByBSnaef+k3Lb9x2x9s4a8RBT2I4kcsvTWHpQ3
+	 uwvJk0/8CiFWbBjahIg8kjsKRA3tq+dsTmJmrdj9AgP8VW416U2GglDdhvZ4elVi5HAqDzIRlmWS3
+	 wa9kaLkls8Fk3PXdd8Z+FQiVy4hwkoszUVb9tNvjtd6dRGczcBAa6G7sIFhiIOzOTgqclB/PLEcHB
+	 EZ7XjuBJQCKkF2XLB4//T7mnQ5MDMSdBxObCAAsURT4revnThPf3kn+/n4Q==
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?bmV0ZGV2LWJvdCtzYXNoaWtv?=" <netdev-bot+sashiko@kernel.org>
+Cc: "=?utf-8?B?bWts?=" <mkl@pengutronix.de>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>, "=?utf-8?B?c29ja2V0Y2Fu?=" <socketcan@hartkopp.net>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?Y29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?c2toYW4=?=" <skhan@linuxfoundation.org>, "=?utf-8?B?cmR1bmxhcA==?=" <rdunlap@infradead.org>, "=?utf-8?B?d2c=?=" <wg@grandegger.com>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, 
+	"=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v10 07/10] can: rockchip_canfd: serialize TX with bus-off and restart
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -118,51 +68,53 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 0000/3308] 6.6.163-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261120055324.975889935@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261120055324.975889935@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Sat, 21 Nov 2026 16:05:44 +0800
+X-Priority: 3
+Message-ID: <tencent_890958230A01CC88727EE94DD33400322D08@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261119-rockchip-canfd-restart-close-v10-7-df23913aa33a@qq.com>
+	<179521934168.3131.3588718854244956629@kernel.org>
+In-Reply-To: <179521934168.3131.3588718854244956629@kernel.org>
+X-QQ-mid: xmsezb41-0t1795248344t0cz5qgcx
 
-On 11/19/26 9:57 PM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.163 release.
-> There are 3308 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 22 Nov 2026 05:44:39 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.163-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+SGksCgo+IFtTZXZlcml0eTogTG93XQo+IFRoaXMgaXNuJ3QgYSBidWcgaW50cm9kdWNlZCBi
+eSB0aGlzIHBhdGNoLCBidXQgY2FuIHByaXYtPnRjIGJlIHVwZGF0ZWQKPiBoZXJlIHdoaWxl
+IHRoZSBJUlEgaGFuZGxlciBpcyByZWFkaW5nIGl0Pwo+Cj4gWy4uLl0KPgo+IHRpbWVjb3Vu
+dGVyX3JlYWQoKSB3cml0ZXMgY3ljbGVfbGFzdCwgZnJhYyBhbmQgbnNlYyBhcyBzZXBhcmF0
+ZSBzdG9yZXMuCj4gU3VwcG9zZSB0aGUgd29ya2VyIHJ1bnMgb24gb25lIENQVSB3aGlsZSB0
+aGUgQ0FOIElSUSBjb252ZXJ0cyBhIHRpbWVzdGFtcAo+IG9uIGFub3RoZXIuIENhbiB0aGUg
+Y29udmVyc2lvbiB0aGVuIGNvbWJpbmUgYSBuZXcgY3ljbGVfbGFzdCB3aXRoIGFuIG9sZAo+
+IG5zZWMgYW5kIHByb2R1Y2UgYSB3cm9uZyBoYXJkd2FyZSB0aW1lc3RhbXA/CgpZZXMsIGF0
+IDA3LzEwIGl0IGNhbi4gVGhpcyBwYXRjaCBkcmFpbnMgdGltZXN0YW1wIHdvcmsgYW5kIElS
+USBoYW5kbGVycwpiZWZvcmUgcmVzdGFydCByZWluaXRpYWxpemVzIHRoZSB0aW1lY291bnRl
+ci4gSXQgZG9lcyBub3Qgc2VyaWFsaXplIHRoZQp3b3JrZXIgd2l0aCB0aW1lc3RhbXAgY29u
+dmVyc2lvbiBkdXJpbmcgbm9ybWFsIG9wZXJhdGlvbi4gUGF0Y2ggMDkvMTAKcHV0cyB0aW1l
+Y291bnRlcl9yZWFkKCkgYW5kIHRpbWVjb3VudGVyX2luaXQoKSB1bmRlciB0aW1lc3RhbXBf
+bG9jazsKMTAvMTAgdGFrZXMgdGhlIHNhbWUgbG9jayBhcm91bmQgdGltZWNvdW50ZXJfY3lj
+MnRpbWUoKSBpbiB0aGUgSVJRIHBhdGguCgo+IFNlcGFyYXRlbHksIHRoZSBidXMtb2ZmIHBh
+dGggaW4gcmtjYW5mZF9jaGlwX3N0b3AoKSBvbmx5IGRvZXMgYSBub24tc3luYwo+IGNhbmNl
+bDoKPiAKPiBya2NhbmZkX3RpbWVzdGFtcF9zdG9wKHByaXYpOwo+IF9fcmtjYW5mZF9jaGlw
+X3N0b3AocHJpdiwgc3RhdGUpOwo+Cj4gSGVyZSBya2NhbmZkX3RpbWVzdGFtcF9zdG9wKCkg
+aXMgY2FuY2VsX2RlbGF5ZWRfd29yaygpLiBJZiB0aGUgd29ya2VyIGlzCj4gYWxyZWFkeSBy
+dW5uaW5nLCBpdCBjYW4gcmUtYXJtIGl0c2VsZiBhbmQga2VlcCByZWFkaW5nIHRoZSBjb3Vu
+dGVyIHdoaWxlCj4gdGhlIGNvbnRyb2xsZXIgaXMgaW4gcmVzZXQuCgpUaGF0IHJhY2UgYWxz
+byBwcmVkYXRlcyAwNy8xMC4gSXQgaXMgZml4ZWQgaW4gMDkvMTA6IHRoZSBidXMtb2ZmIHBh
+dGgKY2xlYXJzIHRpbWVzdGFtcF9hY3RpdmUgdW5kZXIgdGhlIHNhbWUgbG9jayB0aGUgd29y
+a2VyIGhvbGRzIHdoaWxlCnJlYWRpbmcgdGhlIGNvdW50ZXIuIEFuIGluLWZsaWdodCByZWFk
+IHRoZXJlZm9yZSBmaW5pc2hlcyBiZWZvcmUgcmVzZXQsCmFuZCBkaXNhYmxlX2RlbGF5ZWRf
+d29yaygpIHByZXZlbnRzIHRoZSB3b3JrZXIgZnJvbSByZWFybWluZyBpdHNlbGYuCgoKPiBC
+b3RoIGFwcGVhciB0byBiZSBmaXhlZCBsYXRlciBpbiB0aGlzIHNlcmllczoKPiAKPiAgICJj
+YW46IHJvY2tjaGlwX2NhbmZkOiBzZXJpYWxpemUgdGltZWNvdW50ZXIgdGltZXN0YW1wIGNv
+bnZlcnNpb24iIGhvbGRzCj4gICB0aW1lc3RhbXBfbG9jayBhcm91bmQgdGltZWNvdW50ZXJf
+Y3ljMnRpbWUoKSwgdGltZWNvdW50ZXJfcmVhZCgpIGFuZAo+ICAgdGltZWNvdW50ZXJfaW5p
+dCgpLgo+IAo+ICAgImNhbjogcm9ja2NoaXBfY2FuZmQ6IHByZXZlbnQgdGltZXN0YW1wIHdv
+cmsgZnJvbSByZWFybWluZyBhZnRlcgo+ICAgYnVzLW9mZiIgdXNlcyBkaXNhYmxlX2RlbGF5
+ZWRfd29yaygpIGFuZCBhIHRpbWVzdGFtcF9hY3RpdmUgZmxhZy4KCkJlc3QgcmVnYXJkcywK
+Q3VuaGFvIEx1
 
-I took 6.6.162 and applied the current stable-queue (commit
-3dd4b2d3c1f7915277082781d6dfbe71d7d41800). So this includes
-the changes that were made after 6.6.163-rc2.
-
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working
-well, no regressions observed.
-
-Tested-by: Barry K. Nathan <barryn@pobox.com>
-
--- 
--Barry K. Nathan  <barryn@pobox.com>
