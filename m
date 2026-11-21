@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795257824;
-	b=IJVc0FVAIeNaFYOQ/Tk6z6oemuUeKOqLHkVm4oq3oPHMHCa6MTay0Hsipgv6zv7T29FN
-	 wlKVS//q+ZgFQNdCf8XVGQjHGjIjQuhIRAud3U93rlPzH5RrUfMahqsyzPcjERQ/B61iy
-	 njbN8O0Hyf/4EQlBwVKhbQ2PZ0Y1PN3hmnvFzN7i5iMMn14FsX0MBpZqu2OmbdUWX+iFG
-	 A/xs+/I4XewKCUkT2ZkZNUDH7EVPaK0h1/uTB5x2+/UG6ivOuPzMQ83k7NUQ+jQAxpy1K
-	 RxJks8RFi6KwfmE8jp0M/AimQ9kAz1hsh/j5BVGDWtKGHRfawJROEXSD/4LGO48t6BQ==
+	t=1795257962;
+	b=hC+CsCK5zJn/4E7C7VpoySjtR1LJqnnJNKUasdThbkP+vwkB2Abwj7r3VouJZLpOvbjm
+	 YWHOsYgrsKSH/zgZYdgTM0mPBPBfz+vcTG0eQFVFpNQPoCtQuZykpV8Zq3anguzGEaS7n
+	 EEHyQT2clEG69/dEs20Zr09ma0Yfy3VkY7o6LVZczEMqg6DWTvIoINOyDzdI4brdPzfrK
+	 be64P3KakSoa41qB29RdcoxRsU3zwZQDHHkR1ShyjzqNv97hIVzqj6KCImPaiPdyfluDB
+	 PU+OaDuk4ku9O4Mp080ED/bj+tay2ypDc3KKoki5K9vUQbpIhwrHaA0x6umAZ7e0Pzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795257824;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795257962;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5qFrHybFgn3xA42XyK9cEuXKRJg4yf4XyYywjW290pU=;
-	b=tB3ZWAu32BN0YM9NV05zyqyBFwpmLmZzvsgxmGGkKFRhnWjGDVBnOnazCPHLHIw4RmfU
-	 dHCz9GWE/jCcaY6wxRIxrIi9D5lbPX1Ov9xM7t1qzGY0R2CEe/AeT7K7kc5pTT4eBT21Q
-	 MVQPCo8ywQB1uB0ZyK1bmoPDVME/90329bTlvcfYX2BG8doZB4xEFULplYl3DBVyE4O/z
-	 1ExGw9nGdcDgDyxmB1oXsymVWBTUtiX4OMR+pbt724UzOZ3dVhj1EcLtui3AoOffPn1GC
-	 yyFkmWt2GaKqq23pkvIAUB2nUHTsCkXlQt/+fdkYvEc1zfM9swEv1fBHnNhXZGupjqA==
+	bh=gsLRs05el5S8eUMVy/O2WOBbiWJRz3HNAwLOV1Xv6Xs=;
+	b=AITB4KftcgOIkTN82Bfj+FUWb/NQago/MrPX3NS3kAarEl3yaEUMN6+c9Ee9K9JUDbKV
+	 XSAqGE0zeNi7xQB4wlRd46cx8IlIfW6K6J+dw0ioVOKb5HR0INUOp+gZ6ZP13V6xOiTUR
+	 EhkYrSPzdRLEg7yNVcX85xO4vtt8fQemKt55ICsoKChqUH9H487JmhqHVr3g5Fj2voXvG
+	 1Qhl8OemYQNk54WH/uusjl3rLJuN4PVfwmfS7a7BvqUqRkDWlbrpo6uHLW8YH4HHqMdgD
+	 tfDeKB4P0VmWKr+bFJJWbJfF+oBixssvdK1ReDDYC38slQWuhNl/1BDwRozqDyv9fRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCyJLkO5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NgaX9cUe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B23606A320;
-	Sat, 21 Nov 2026 10:43:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDFA606A320;
+	Sat, 21 Nov 2026 10:46:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCyJLkO5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3114D1F000C6;
-	Sat, 21 Nov 2026 10:43:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NgaX9cUe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ADF51F000C6;
+	Sat, 21 Nov 2026 10:46:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795257824;
-	bh=5qFrHybFgn3xA42XyK9cEuXKRJg4yf4XyYywjW290pU=;
+	s=k20260515; t=1795257962;
+	bh=gsLRs05el5S8eUMVy/O2WOBbiWJRz3HNAwLOV1Xv6Xs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mCyJLkO5qU1yecQLntXP9mZJ02uePt0B2S82MR7Q1IojntTzrqruWZ5Oq9DqfYFTS
-	 WXWRJ8744YfWdqNDKhyrhNwwT1chaU1ZLJ5cZ8U4uC4canysDHdCY2fjIdp3Y/loJv
-	 5aBfnnGGAgjFD7uc5sVwKJgMBAsddij4MoYTGZDioZN2D5ftBFIu27rmygsGdOZNo8
-	 W+lPIPvXUqmpEHG5B70JRrAgkfB5S5rHRby8+/ZBugd6jt5TYP0WrMnGf4mOVk3pgo
-	 xvvhzn0sxGLQib98lxRgZcNKE7/eBuq+5vws/nHZWIl/KSg4xRUXB1cJ29naJTVVhL
-	 kackkBgXVImow==
-Date: Sat, 21 Nov 2026 11:43:40 +0100
+	b=NgaX9cUeyOB46uErMYn0TiSu1JV5cHTOw/8b6D2FeUWideRIYKYtfwuJ2XyvwqDmJ
+	 zG9dFLwc1/gj/xCEvgddBjzwBNKNrg54dsrE1LbtQlMR2M2csuJ42m4Fda2aNIYzub
+	 Oar1C3dJrvXauUwlZPYnQG8fI/5hneshV4lsB0fZYqdscc3JAgwY9E7eeB1hSzaSCg
+	 7Yo2rOOl0fsXxEc1wnJKWhrlSQopj5LYO9kLudm3xwig5IBIPNwl3D+DJDc4LZcbYM
+	 fUY7oTdF/7Bxi05PHPWd2iKfY8H/WDH14BvVYh60TvcO4/E2IIhOYxhnM/kgF4v+8v
+	 opH/swCaOy+Gw==
+Date: Sat, 21 Nov 2026 11:45:58 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -50,11 +50,10 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
 	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: media: i2c: dw9800: Redocument
- DW9800K
-Message-ID: <20261121-judicious-vengeful-ant-f9bcb1@quoll>
+Subject: Re: [PATCH v4 2/3] media: i2c: dw9719: Update DW9800K driver
+Message-ID: <20261121-oxpecker-of-fascinating-tornado-747cea@quoll>
 References: <20261119-b4-dw9800k_cleanup-v4-0-df26c431595e@fairphone.com>
- <20261119-b4-dw9800k_cleanup-v4-1-df26c431595e@fairphone.com>
+ <20261119-b4-dw9800k_cleanup-v4-2-df26c431595e@fairphone.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,119 +65,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261119-b4-dw9800k_cleanup-v4-1-df26c431595e@fairphone.com>
+In-Reply-To: <20261119-b4-dw9800k_cleanup-v4-2-df26c431595e@fairphone.com>
 
-On Thu, Nov 19, 2026 at 10:51:23AM +0100, Griffin Kroah-Hartman wrote:
-> The DW9800K's properties are too different to justify sharing the same
-> bindings file as the dw9719, Create a separate bindings documentation
-> for the Dongwoon Anatech DW9800K with its updated properties.
+On Thu, Nov 19, 2026 at 10:51:24AM +0100, Griffin Kroah-Hartman wrote:
+> The previous DW9800K driver code was created without access to a
+> datasheet for the part, now that we have one we can clean up some
+> misunderstandings and add some features for further expandability.
 > 
 > More specifically:
 > 
-> The DW9800K did not share the SAC1 and SAC6 modes
-> that the DW9719 used.
+> Previously we were blindly writing registers to their downstream values,
+> Now we know what the correct default values of SAC and SACT, and write
+> to the correct bits as specified from the datasheet.
 > 
-> Description of vcm-prescale does not match the calculations labeled in
-> the DW9800K datasheet for how clock diving rate is computed.
+> We found that the device does indeed have an ID, and add it to the
+> switch statement when setting up the default device properties.
 > 
-> New property timing-control introduced to offer more fine-tuned dividing
-> options available to the DW9800K.
+> The largest change would be the implementation of "Ringing," this is
+> actually an internal switch bit used to differentiate whether the SAC
+> (smart actuator control) modes are enabled. if the "ringing" bit is
+> zero, then actuator modes DIRECT and LSC are available(based on the
+> value written to the Mode register). If the bit is 1, SAC2-SAC5 are
+> available.
 > 
+> For the devices we tested this driver on, no new values are being
+> written, but now the option for further use of the DW9800k is available
+> to others if they wish to do so.
+> 
+> Fixes: 083f7f0dce16 ("media: i2c: dw9719: Add DW9800K support")
 > Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-> ---
->  .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
->  .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
->  2 files changed, 91 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
-> index 8e8d62436e0d0c4f9af9e52262b23881abd37cec..38db0764c0f70ad49295dcddc182b7e100a68b29 100644
-> --- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
-> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
-> @@ -21,7 +21,6 @@ properties:
->        - dongwoon,dw9718s
->        - dongwoon,dw9719
->        - dongwoon,dw9761
-> -      - dongwoon,dw9800k
->  
->    reg:
->      maxItems: 1
-> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..99f3b506cf12c63ddef1e3d18fd59179a5e7800c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
-> @@ -0,0 +1,91 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9800k.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Dongwoon Anatech DW9800K Bi-Direction Voice Coil Motor (Bi-VCM) Controller
-> +
-> +maintainers:
-> +  - Luca Weiss <luca.weiss@fairphone.com>
-> +  - Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-> +
-> +description:
-> +  The Dongwoon DW9800K is a single 10-bit digital-to-analog converter with
-> +  +-130 mA output current sink capability, designed for linear control of
-> +  bi-directional voice coil motors (Bi-VCM) in camera lenses. This chip
-> +  provides a Smart Actuator Control (SAC) mode intended for minimizing
-> +  mechanical vibration.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - dongwoon,dw9800k
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vdd-supply:
-> +    description: VDD power supply, can range from 2.3V to 4.8V
-> +
-> +  dongwoon,sac-mode:
-> +    description: >
-> +      Slew Rate Control mode to use: direct, LSC (Linear Slope Control) or
-> +      SAC2-SAC5 (Smart Actuator Control).
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum:
-> +      - 0 # Direct mode
-> +      - 1 # LSC mode
-> +      - 2 # SAC2 mode (operation time# 0.48 x Tvib)
-> +      - 3 # SAC3 mode (operation time# 0.72 x Tvib)
-> +      - 4 # SAC4 mode (operation time# 1.20 x Tvib)
-> +      - 5 # SAC5 mode (operation time# 1.64 x Tvib)
 
-That's ABI break, although you explained the reasons, but ABI was
-released and I think this can easily support older ABI while fixing
-things: simply use old values without SAC1 and SAC6.
-OTOH, how did DTS work with value =2 (so SAC1) and =7 (SAC6)?
-
-
-> +    default: 3
-> +
-> +  dongwoon,vcm-prescale:
-> +    description:
-> +      Indication of VCM internal clock dividing rate select, as one multiple
-> +      factor to calculate VCM ring periodic time Tvib.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum:
-> +      - 0 #  Dividing Rate -  2
-> +      - 1 #  Dividing Rate -  1
-> +      - 2 #  Dividing Rate -  1/2
-> +      - 3 #  Dividing Rate -  1/4
-> +      - 4 #  Dividing Rate -  8
-> +      - 5 #  Dividing Rate -  4
-> +    default: 1
-> +
-> +  dongwoon,timing-control:
-> +    description:
-> +      In LSC mode (252 + value * 4) * divider value in microseconds
-> +      In SAC mode (6.3 + value * 0.1) * divider value in milliseconds
-
-This should use property units, so microseconds.
+Well, not your fault, but that's a nice example why register values
+should not be the DT ABI. I am going to bookmark this patchset and use
+it in future discussions when people insist on using hardware values as
+the actual ABI :/
 
 Best regards,
 Krzysztof
