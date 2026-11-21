@@ -1,60 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795274875;
-	b=t/S4K6rqykdrxiGAR8Sn00dcmj0ESrq8w0+wXii/BZrNWv5lX/iBe0FXsrNO853QnXXE
-	 5GT6wilO+PO3rVhAJaeYtyqujuT7wNKOuM0YNSpDRYO9v1iY5ljgeadPbpRxZJNg16RPU
-	 QQp+HtlZfGl8K3Yw8YXavDbbyQrd9eytqyrS5rFyosM6aiZqdB9r0KAmRvqQbKKlobLlV
-	 7yBlLubjdzkoMe0/VXHPOxQjNU/lECGham0vNDNZlpz+wjEMJ0+sqkf+/m69WfwAjGIMs
-	 0H54sKsHFyxXPZZ+I3T67SNjWTxceO0E4PL3dq/buz0SnAyJcGOXyskLDbB0bohlr6w==
+	t=1795274871;
+	b=TexKhepZvRomQlmVRf6ETnvaPU/hs+6Q3FX2PqhgfYIdkZfLASH42M9UKqahZuSEFxlp
+	 5x1vfKv3oGnx+QNo0DxNZ7ZLTtzMtqk50JG3WcBP2ZgTVq11WmjVQsoOkrQaDDxYMzsxQ
+	 9X6K+6Wdody5JW2uW+v9Zb/meytxs3m1a5zliFh6g6Y8x4TIAqAJhlcXuWn+NUS3rMMjZ
+	 yHQi+RwcltI42w7oX6aPTrABz4tTfToELrIC866YlkwukcxRJpDkrlxCWK4v39iElQ6Ca
+	 dpBxeOPQrGXcTmoYeN1tbTUnRaEDF9c79zLGL5Eu6tm3+8Ha78Ty+SOiPKdtm6T2H0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795274875;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795274871;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ThWtfOsW8Ll8Oo+5oZsSvl5xz+7q6y9qiHMRLbQpMxc=;
-	b=zdulh8HX5GX1Hz02zinHK6Opb6TrGhQ1yfrA1sddmfMf00RSTiirXtyWwcO/wWtznYKg
-	 oOmaTP91TEDmIBBsfW+/hTDVpSgjAs2kGwilbMJ1q6TwMF0JSBjXeD4+MB8J5As2iD8oI
-	 Kml+2zd7vj9iNN3wYPKY5dns3iQDlZomMHUEIaqYyb8uhFieFVSKOcmnZ9ep4Vxj//SDa
-	 sYKNtvlYUCpXir2n8yYv6PH5KTZbSW7c0TtA/QanJu1yS3SF0YSHP4OTEM/VPIIHOkSZc
-	 u3IA2wLt+3cnNIehNY+8grBPypIcUoY5QdZP6WJHHypbVyTqbIW7tMjcLQfiW9l5uTA==
+	bh=ThTgZI/78437YCcIY9NTTebxpuiG9tbBO0b5jtrP61w=;
+	b=2ZwHYnkLLEjj7bfJYyQq3SYAa7BgzoNWp7KT1EuF3r4CtgpjdacSG80qnQNHLorSPBwv
+	 L8urZ412Lz+kV0NMbzJlA2a8AOmj5oPGvtiAy4tzxTx6Ih3iumJ6wo+JkHHlLkcucQgmV
+	 wRFHuzlMD2dxtYaRFUtXZL5STXHtPlhqCJLTBVjRC4VUt9sd/seHlABw+XrWoHNfDNHxF
+	 Omwu1h5Zri6Dl+K4vvJMtEI1wT8E5CaFLQa1368t79WAz9tUjaEMD0YxA9XPod2zYqGya
+	 x0giiUeKmnVp+vteiZYfvxCERAraiDRnuWFc2XcCEui7aMUo4YRCJKRi8/Ww6OO/O+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OrPb2QpM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KVxmQRBx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746E2606A330
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 15:27:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D476E606A333;
+	Sat, 21 Nov 2026 15:27:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OrPb2QpM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FB341F000C4;
-	Sat, 21 Nov 2026 15:27:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KVxmQRBx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D128B1F000C0;
+	Sat, 21 Nov 2026 15:27:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795274875;
-	bh=ThWtfOsW8Ll8Oo+5oZsSvl5xz+7q6y9qiHMRLbQpMxc=;
+	s=k20260515; t=1795274871;
+	bh=ThTgZI/78437YCcIY9NTTebxpuiG9tbBO0b5jtrP61w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OrPb2QpMNR8tbzIhr7bAPAk2LDW+CJLAymWEjI7DYbCGd6SpDx2SCv8c0EfBepSPB
-	 KbvguCeReuYNf9/5VJxlSnn+KhIFPBpmXLOVI6PNx90Y8WVTwYUHW1s8X4Xu/4f1FG
-	 GGjCOSyy0DRCZk3GPOeJTdtPcbp9YcI+wnl9YXAwh+ChUOgY8J790E8JaJfMcIaW9i
-	 mW7oSCHmKsHJGQUGoHUsU0QO+h4KID5ZKfcMoRYvgfIMeYeRtqHxgTC7gEli/AFATt
-	 sbzn9Mx7cPUwarDxpE+vvLz9rONxrHfz4zOGghzMKzs6Y7IDn6AeXMNoJc4Ota048J
-	 ehnGrHZvn4dJg==
+	b=KVxmQRBxz+QM5ZHtPOl2w+IQgYS6UhxAUlvaExTax1UdLW4txNV5Z+55klB6kYlfj
+	 eYlDVP7ZK8f3tidjFQ9O8Q6GIOVTqJpPpclHZ7I0rZvLEPoZFDKuT7XFqYZ2FyquV2
+	 nuJzvQp96QuQivts5rv40mXW0tOiECOpJwtEKXGObURGDM8xMqQQVudi2oyxPSa+1Q
+	 gnZCSDlgqGhNqA6US10BTA1cQ8NW+IwOFbY1S9dHPoiLixDIhMGJNdDIWNOVgMFkO1
+	 qAJF5/Q60h7uo20U0lYUQvnksTx89a4SVw3UmmfArk0BTxmpg5GUfZZ0pCUP1HuXJn
+	 Vig3w6ij6U9tQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	kpsingh@kernel.org,
-	Xianrui Dong <dongxianrui1@gmail.com>,
-	Amery Hung <ameryhung@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Yingke Xiao <inkxiao12@gmail.com>
-Subject: Re: [PATCH 6.12.y v3] bpf: Reject NULL data/sig in bpf_verify_pkcs7_signature
-Date: Sat, 21 Nov 2026 10:27:35 -0500
-Message-ID: <2026-11-21-1-daily-reply-0007@kernel.org>
+	Juri Lelli <juri.lelli@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Gabriele Monaco <gmonaco@redhat.com>,
+	linux-rt-users@vger.kernel.org,
+	Florent Carli <fcarli@gmail.com>
+Subject: Re: [PATCH 6.12.y 0/4] sched/deadline: dl_server fixes from 6.19
+Date: Sat, 21 Nov 2026 10:27:32 -0500
+Message-ID: <2026-11-21-1-daily-reply-0004@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261121050924.97828-1-inkxiao12@gmail.com>
-References: <20261121050924.97828-1-inkxiao12@gmail.com>
+In-Reply-To: <20261120181949.7528-1-fcarli@gmail.com>
+References: <20261120181949.7528-1-fcarli@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,10 +64,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [ In 6.12.y, bpf_verify_pkcs7_signature() lives in kernel/trace/bpf_trace.c
->   instead of kernel/bpf/helpers.c. Adapt to kernel/trace/bpf_trace.c. ]
+> This is the 6.12.y backport of the dl_server fixes discussed in the
+> parent thread: on 6.12.y, the deferred fair server can run a
+> SCHED_OTHER task ahead of SCHED_FIFO tasks on an almost idle CPU.
 
-Queued for 6.12, thanks.
+Queued the series for 6.12, thanks.
 
 -- 
 Thanks,
