@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.38
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795265686;
-	b=05b6DoE/+TVgcw+c2DM8M9IiV1gNQU80QVXBHsTosxZVblRiTiArD5W2KQVKzmKedZcF
-	 gL5NeM5mFn+hzn2kIBNCovxBCjHks36Qw9SOoJeK0DBSPzzWNQSXKpYHNfOMi+qNCMDRp
-	 j2J9EHm12f4aybA8Nl99LAMuVgNXnm10f1RL5x+4hOB8+HiM8Ctws5wn/n2BJLEw1hwUo
-	 pU3oq4iC2p1ZBBMRyPflcIdJdnTWPTfm5XEa0vgVDGVWrJrFL0EU70dJBd4oHnZ1Fb/9F
-	 tr1+nvmF4K7fC1I5nZCjj6xJFHV+OcG1tAPtuJxYXMVCWT3BRE/jmqVEGn7SkmcWMCg==
+	t=1795265789;
+	b=fHWjOZZOynzH8H4doCKeJUCeNgAHjVpifPnlc03Vh9iOrNsAPrpr/C1gS9NWARMHyY/c
+	 jo7NNu14N1b8I6lobBRQ+f+DlRdCw9SBVJytWZQEEt82WAk5AK/We2+N3Y6SY428HDHK5
+	 r0Zda7mU+UyBIGzNJaa6ijtAH4aRVTlLY830LLzeDaNJkKvD/p5p4D9WgdlagS/q0t6I6
+	 /d4gqgOM8Dh6b+IEy1SvPFHF0PUWwYMadLZA6s7lgwKff6W/vzCit5QVxmdN52AhL0R5w
+	 ioVsjQ0NzMa/kLKs0iuFuMgutaGrO7x1EiBt9fc4qPc3M+ifsm88kxdEUvSRsQ5Riyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795265686;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795265789;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=PBg0WrknYBb1WK+M0j0vJgHf2WitB/aTDPAGxEKHhD4=;
-	b=IakA6lsBkk3w7PglSqPAhZXVwedpWuiOBIsgwENycAImAbmFMfLRkD6kxHKgePqvh75L
-	 fJ3kz6vQn80/MxkbutSi+iydc1NH6P5hHOf7qrny2o7kne3J0r/mjjlmFyPq75Y5IzKjn
-	 NZ1V15RjuTQ5Y1Bm57B0BWMl308Cb9tKvMGf8/YgcRtNhwvIXYFpENIlU81Sq9LTzI7+S
-	 UZDVjBtDhziEKf+FLoKRlSTa8eFKA9uP3X4aKb9OG0ErN6kfAzj0OWIWuGtkvrqrkHFXk
-	 snnacthW/WRSjjK6FWPPFaq1otekib85ts6zHwB10ai0kg50ELqGQmvmJCAwUSyg2tQ==
+	bh=07/4JrGFuPyurQiM3Uinhn/hEI7MknMnN0pCON2rlT0=;
+	b=ns+df+eVMof1jcCcylUyO3mYnHL4U9L289MUDOxvOxERM0TCDeH0YVREB3Wg89YpiiqP
+	 ed5TwUr/e1s4WrnJQBttSkXH7mllbC4TMvBy+6R/eSzW1CdxqXpcNxcoYq6RRuu91FR2A
+	 Qluv2rr7v+TsmPLz9mwZlw/RqW04U9xPKx0rAhlYqHRUByvFdodRAU9WmvGSR18qBQJ00
+	 ofYcye+7eqfpxOW9YBpqY4HsNjRgrfCsOH8Sjy5cm6jKE60kNBxbk+ft8rS9/NMHwM//K
+	 Hzmz9XIfuvODlbYb0NLaR2ltm4U6BzzktHJr2kViP8EKG6vkd4ZdfjoRnr2m3jjBiXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="xY2/rvdA";
-	arc=none smtp.remote-ip=91.218.175.38
-Received: from mta0.migadu.com (out-38.mta0.migadu.com [91.218.175.38])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="L/dNKliY";
+	arc=none smtp.remote-ip=95.215.58.138
+Received: from mta1.migadu.com (out-138.mta1.migadu.com [95.215.58.138])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E62B606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 12:54:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E62B606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9D1606A32A
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 12:56:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC9D1606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xY2/rvdA
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L/dNKliY
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=18tLaNShzDDLgkYo6+R4AdMAkAM4XdPM58ef81j+imk=;
+DKIM-Signature: a=rsa-sha256; bh=PNi6Kuu+c+QiWIOerMy/ddXpNesF2DeX0czoKOwkc4w=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795265683; v=1; x=1795870483;
- b=xY2/rvdAy1Imo/8tbTGCOWDMVdhtkZUn4QKBmm8pNJNdku20fRWFiFULTDfN/o0+icDQdg8Y
- fIOsqITRqI/sOCz8syhgxpkULdE1J/GLsVNiIekIeWgxDhSaWwc+qqV63x11vSdiT0qhxYkbctq
- 8G/IMNK8p4Kso7YlmSG4kgco=
+ t=1795265787; v=1; x=1795870587;
+ b=L/dNKliYqWqvxuIfd31OcNC3XCC0emE8758pKAwpDSNaL/RClBxO16nhFLSQrKwQJxK6D4np
+ H5lL0w9zk5wMvF573c57pnLLDytlbvs8bDHX2eT6fw1QMoH/an1dQE2dG5NQ+hGPhdi6CPP8WBd
+ 1+4gkwESRajnu9yWCkN3TjXc=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9f11ee808a3e90f9;
-	Sat, 21 Nov 2026 12:54:43 +0000
-X-Mizu-Trace-ID: 9f11ee808a3e90f9
+Received: by smtp.migadu.com with ESMTPS id a6e8f47a5bb9cfab;
+	Sat, 21 Nov 2026 12:56:26 +0000
+X-Mizu-Trace-ID: a6e8f47a5bb9cfab
 X-Migadu-Flow: FLOW_OUT
 From: Lance Yang <lance.yang@linux.dev>
 To: stable@vger.kernel.org
@@ -85,12 +85,12 @@ Cc: Samarth Narang <samarth.colleges@gmail.com>,
 	SJ Park <sj@kernel.org>,
 	Zi Yan <ziy@nvidia.com>,
 	Mohammed EL Kadiri <med08elkadiri@gmail.com>
-Subject: [PATCH 6.18.y v2] mm/ksm: fix userfaultfd protection during merge and unmerge
-Date: Sat, 21 Nov 2026 20:54:31 +0800
-Message-ID: <20261121125431.95644-1-lance.yang@linux.dev>
+Subject: [PATCH 6.12.y v2] mm/ksm: fix userfaultfd protection during merge and unmerge
+Date: Sat, 21 Nov 2026 20:56:16 +0800
+Message-ID: <20261121125616.96127-1-lance.yang@linux.dev>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261111082809.32654-1-lance.yang@linux.dev>
-References: <20261111082809.32654-1-lance.yang@linux.dev>
+In-Reply-To: <20261111082901.32704-1-lance.yang@linux.dev>
+References: <20261111082901.32704-1-lance.yang@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -174,23 +174,23 @@ Cc: <stable@vger.kernel.org>
 
 (cherry picked from commit 990d6c2194a938a19a8cf94c6cfd75171345089b)
 ---
-Backport to 6.18:
+Backport to 6.12:
 - Use the older pte_uffd_wp()/pte_mkuffd_wp() helpers.
-- Drop the mm/memory.c changes. 6.18 has no RWP support.
+- Drop the mm/memory.c changes. 6.12 has no RWP support.
 
 v1 -> v2:
  - Rebase onto the stable queue and move the uffd-wp check below
    the soft-dirty block (per Sasha).
- - https://lore.kernel.org/r/20261111082809.32654-1-lance.yang@linux.dev/
+ - https://lore.kernel.org/r/20261111082901.32704-1-lance.yang@linux.dev/
 
  mm/ksm.c | 4 ++++
  1 file changed, 4 insertions(+)
 
 diff --git a/mm/ksm.c b/mm/ksm.c
-index 78dc71763381..e6ddd74397b0 100644
+index 9a98aa97317a..6d7b21636f54 100644
 --- a/mm/ksm.c
 +++ b/mm/ksm.c
-@@ -1419,6 +1419,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+@@ -1413,6 +1413,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
  	if (pte_soft_dirty(orig_pte))
  		newpte = pte_mksoft_dirty(newpte);
  
