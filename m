@@ -1,93 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296614;
-	b=28DZhJQROiGnmyAEgPQ3TLkiy8tKmrcGp+KPl+b39SDHbLMH+niS1qJ56URrfZbcql7q
-	 irV7vd7oBFk4eBzQT8b7ETHiKkryc9GmmYnzsgjYOSQ/jyjldz0SiLH+i3li0vNmEinlW
-	 qYc+lKha2AzMrHTrsxxpFVwoBR2K4TKDV4+f2i6sHNHiigQpVPfV+3pdmlqJS6jZtvw5u
-	 vzC/Hd2pKfgV5jqdzG2VKKN95yqAV4XB34HrD90qe1uo02/H49YAORqhC3MZkZq7Kt3I6
-	 dvDoqVvh8vm3sYbO2jC8vJyF5Z7hlkj+sdYucu5cYADWk73xorueNmJgEA154+PLnHw==
+	t=1795296653;
+	b=5T6aUGjwm5IMF8OFkt3NW3rwRR/xHMWsNuZGanMmtUdPigXfO/7ShyTXUwuXLqBsJ1bq
+	 VrYiCZtAjrAmC4x5xCAFazKB/VIOiqKIUzhDVTVhOOLTmqgeFxyrzZoLQcYI6jYrLa0Pe
+	 VZoPrXh2MM5UeltGr3nPSOR6IOTWuq/yKQTKxvM5+nscgUOOWw4W1yXEmmbJHuz5zFWX5
+	 a+FUfM3j5DEWmLLODXAq7J7JZCJeNrMWdsO6wpapCeN6CxhLIrUj4gW1eKoGqImgF/m/+
+	 f1PYFJMQDcDoQT+BCi4vfcCyYpve0zP8jqbTXGzECT8o060suIwuagHr3NOHXBu4KeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296614;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296653;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=MSfLaYgVJFA/7kh0ajpfQ0VBoFswEd8KsIXoE/nQmBE=;
-	b=cqjWzy5HLxeX4AGyaNaMvD0JvOpHTXvJctNE+cvsLtjF9uRa65DoH9lx4AS+h256Q1e+
-	 ipoAo7+c0pIjvqd887Cp78JnSaVBt051FcGP0zHmCR6e2dWTrFSfR4El5M8v8GuRO5HKS
-	 VdzXVkmwq4JxYBj9230lYbvuCEnO2sbwXQssiepqZsThij0oKemvjxYm/eslxRqZGihcu
-	 jC3q7yyv1QmoWtv4u3LB+vXEP+EZ0bl75sKeBnUINFnhHkv9P61oidIMJpoZjdBMOS9YA
-	 VVHbmkpLSiw7EvtimJ1AmS6Qp9rUVLBQn+zcxVLjrxsr6867W+7hLO3+1+y48XroH2Q==
+	bh=xK7n7i7Gv7qQL0jew0OvTh4cbQ6kROFHIVRale/vXuM=;
+	b=1yY2VCXXvyAv2ftd21GXK3is0fIcYUPZi9fnz9SVpG7Lq+zihEq5PJ3Q5Kr7C6NfVG41
+	 bezMEao7Xs9bZZ9R7b4IPaRF+4emqBAmBFViu2ZGi8o/lx1c7/HC3RRkOEAxlPmzCwl3D
+	 nT9YxqazSdaeHiQybzr1Rq/YUtC7oEEDA+A05ksG96Je81l28eieRooBJ+xUviVn/KrST
+	 +eIYsJTzY8X3T+vrhCJV0ShfWOrKyMCObvJbhAxrN+fejDCAeyYDhMzUhKsnVOAeFqr0T
+	 JEDxV8hzSR8k84DUJ1M4oArrk8TMY6bfUaFBXBxu2DaWqm8Zty0+Pf73gPuYZOKxy2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=fOGu3HWE;
-	arc=none smtp.remote-ip=209.85.161.47
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=KqbDPSu7;
+	arc=none smtp.remote-ip=209.85.161.52
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30795606A32A
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:30:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30795606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E06606A332
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:30:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1E06606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=fOGu3HWE
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-717080a2d50so1971866eaf.0
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:30:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=KqbDPSu7
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-71ab5e64742so1261610eaf.3
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:30:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel.dk; s=google; t=1795296613; x=1795901413; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=MSfLaYgVJFA/7kh0ajpfQ0VBoFswEd8KsIXoE/nQmBE=;
-        b=fOGu3HWER6JPbxJXGkdrq6u3JEV27b1QrHBrW768c0S3mFNNbXsA4LOyJJPP3vEZ8V
-         bXr7cxrOCc+8PfuoOjl117Yx2uW7B60I0tW289MplP7CVebBgXr5wdC9jnyZyIr5XPB1
-         QgWmGk7dBdUWajLyCo2klGCKYrb0Ydk8ZhCiedWcRprZbSOvkxRxGuRb+dvTuKNShxGc
-         Hv5hZ+qMTZ0qWvlzIhIQy3iyoSFNpwiDRRV/fugd/jVYQrF4zRdGtJIfWtv5nEbYHYh1
-         WkZp4x6mHb+s6qkco16DOhbLmb9/VLbCo5h/8w0b27nl7bdOmF2+0K3TqMi1LD8Ffbfv
-         Y9Dw==
+        d=kernel.dk; s=google; t=1795296651; x=1795901451; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xK7n7i7Gv7qQL0jew0OvTh4cbQ6kROFHIVRale/vXuM=;
+        b=KqbDPSu7KNVVzwTBnU8hZKx1sEmkK7Y+dMr0GMJ0okqj/caMjpHNe5ArX0S7aMDke7
+         jJGtmAePLG54rxETR1lpFAcCaMh5HG/a+5VgZDJRTT6RBmrnU83RKbdmgRq67DvUtObS
+         KCbJtv7zVboqvT3F2z1YerA9DNy1rS9aBPFfm0u1f1xii6uQd1ZihUa7iiZJC/oSP3Ha
+         5pxOTgGcdsm3IuclPhoAp6zEjTmJn4lEzQ+aVOuf2L+JzPgQcfd6DMDD8An6dOiVLctY
+         p1QSZj2XtMg8v+1uw68m/b+J5ZN/pes8YCIuTgNTM+ulhWX/6G3DPQUWJHbFNF3M/URN
+         B90w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795296613; x=1795901413;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=MSfLaYgVJFA/7kh0ajpfQ0VBoFswEd8KsIXoE/nQmBE=;
-        b=IB2zPtI1cSCYSKbmHhl3XsvTg/+Rl9MbQsCvR2KVTDTyXeBkeO7V8QEMmM1Yms5RyH
-         U/X6EUwRVDpI/69LQyqQBHeqFwTGpkt4t5b6ZkzLJlXn9sHA0FbClMCoKxgeqRFvKO6p
-         ESrh6IT24wDsEn/8S3G1MDO9hLB6p0lb6TOHaYJ5ZPZqc81lIyxbv9gVeVq6NWsAsHEN
-         Kxs4ABGmmLDzl/Zurr71Alxs8j6xmoxQuBuFl/28cXftAorE70+kdU36/mUYhdU5tDjS
-         EOoMO0Bqydh6Mulkj5iAOLEx3wmEt7u1zKQGcK7p5bCTsx5TlbLrcHxytzHVyoQfsGzN
-         vJQg==
-X-Gm-Message-State: APuU4Z++XAuxoEFyQ9GnjSWMVRnOotTLV/jAkyc1p3w+zwkjL8L8MycT
-	xByRmFlACxXYM6gfHcdHQAE5SFvWBkzO4SXaMibr0vD3XYeumbYC6kSHfYiyQam7n9eQ8CaRM03
-	0zZGVgf8=
-X-Gm-Gg: AZFdTZcWzs2CYs/mAegQCZQx7++l1M01E3Oc/lgg2Kh2ZVnQi7QD42lRJJkwa8tqIGA
-	q6/IdwSMYhoVLYP0C6wg5ESRpN3UxkZKOhQgBpY4YtV/ogTn16OT/WkpFOaKSDzr+hlwK2r0qKN
-	L96Okqy2IK9Hz2cGOCOsx12GpqVFUkN1f8rR976wFWEd/jQGY+OQRjwUkxcdBasF4IpNWnl9Sh/
-	WRGZsAzYyt3zZrlUz4aDkgYpoikendfELdlKbQePdYeephEpQ3eJBaKGHBhJ5AjP5HVuXiBjhD9
-	+BvR31021+gSDenCJoFlld5G6QtsPT879NS1sAO6ci8mngI+v6QnZkH+zRyeDIq2q/rz3ag0FJv
-	HD6LJutiB2hP1w1qr9w4LzCwnWrwgX+mLfYcrJO+E0+0hGefCEM6aCUGpBL6ziJWXmagscUldDh
-	yn5cdlNt7X1iyNPtKv8aXD1I1lX9Il0u13YaOd2dY9FVVxXVhj+zMed5RgtyOwqv7JzWTO/jBYA
-	iRSVS238rlYIIyH5tOLJuAyR2SUcfOQpdx0s0o1laSxbKteSAvikJn7Pzxdk++co79JCKXpXUAb
-	uWHHnozXR13EBaUz2FKNL30GkAfPZZsnq9LYCB3X1NUg8ns3xcq90XU5tRoNrs3Z033Fc5RzPxh
-	dcz5PKz0WjeDKTPtp0HKGGqGqXGWVVzh/m/91
-X-Received: by 2002:a05:6820:c5d0:20b0:71a:f794:49b5 with SMTP id 006d021491bc7-71b395c1759mr3834937eaf.89.1795296613064;
-        Sat, 21 Nov 2026 13:30:13 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795296651; x=1795901451;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xK7n7i7Gv7qQL0jew0OvTh4cbQ6kROFHIVRale/vXuM=;
+        b=wwo8UW5Ol1SG66YSNP4TpsJj8aBTYpNQc+Pu5mXbNUZX/PjNUTO+jRArpcz+VFosDZ
+         eFFKZIxw1DZ3nfLbTv1sCUZi9WQnKS8RY9XT7NzTyxiaR9KckcCox/y6jps+A3bOpnTT
+         d6Q1j7R0J+aoFOSz0ll9zLduyBrhCfuzzkcnwO0SXdsxb0GxR92jtoGBTpR4spkMex3n
+         Nki22omkKGyuTkcbYVVpo7h8ln1xLXO+zrRPogYYap1LcNvctGEltGwgsTXQOtON7WO5
+         e5kwONs7CGZo8OimJApAz5Bxe5fAP1ljjTWi5AMjar08vm2WVaylGFMxSmuzjO/XnIuI
+         qnyA==
+X-Gm-Message-State: APuU4Z9jdd5wFWXOi9MsFoT2Mt57AJpp+NWQGY19SUEE5As9OAg4KAsJ
+	g+6S5qxDwYrl9ASq5yOk9CHyfIiqrNOXt9T/BbW4e1+Wnem4/f+EOz53yow9/h0nR242oRqlSbT
+	i9pr3uNw=
+X-Gm-Gg: AZFdTZcNTs81MK848osHZzDdRGICelBLnMeSlGbq/8KmSGUbtdjUQHXVfAG6AEvowLw
+	ch3rqQUqLY4co8/BQn+gTL7qKswc85c9xukLu0XWsLv716h8mKSGwxfEAc+oAVHhiMM9vfh/JEX
+	5dypTpcdnfzFq4BhFcE3yxcoaCDa4l/qneCdyHTLQLL0Kgmzw/li/GW1ZFMfAqtax2TRcaU2fkL
+	HWZu76+aUp4byy6vCsvrVE8l2trkcFuMGyuRfPSNwzjNRUdRnxbl2vBm86jr38RCx7+hn+KhhEP
+	vWoWv4mAEsAlSylenJdcYSTEUiXWEUpJkaS9zlvXrnFk+j7jI3thn+kuGMee0nDSnI5rxpDihsO
+	VQGcn9DRemfsxPx8kEQj3ju+pQQxAk3ZdQ9cUxK9vvMfVo399PpJtsFHcIDfm0a2MPsvLpe4L0i
+	HYUEjgC8dsIfIRP8NgXa83iVLEOmeipyjJHVQ8QkjrTt7BRItrc8a4pj4PhmlpmzCNegoLm2yZ3
+	yThiqX6LusyxmiujcTs6Q1TvkFiuLJy/iDQ8Bos8YBMF926ZKDWQRCN6zjoRE5TTksuYI9aYs9F
+	1uCJu+NEwMu1jpNRzsr1Wf1gLmQIzoTr6Od4uBqaTm5FU3Et0AUN1wGg6r2ZiAAKdERGbA7LPbB
+	cPmafcWlqHd7cXbgtbG9Rkfc5ANx6+OG3opo0
+X-Received: by 2002:a05:6820:612:b0:71a:eb23:a7da with SMTP id 006d021491bc7-71b39521213mr6191032eaf.31.1795296651558;
+        Sat, 21 Nov 2026 13:30:51 -0800 (PST)
 Received: from r7625 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bc5ebdbb4fsm6110825fac.5.2026.11.21.13.30.11
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b38015c46sm4469155eaf.4.2026.11.21.13.30.50
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 13:30:12 -0800 (PST)
+        Sat, 21 Nov 2026 13:30:50 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.1.y 4/4] io_uring/rsrc: keep the old file when a file update fails
-Date: Sat, 21 Nov 2026 21:30:06 +0000
-Message-ID: <20261121213006.1787626-5-axboe@kernel.dk>
+Subject: [PATCH 6.6.y 00/19] io_uring fixes for 6.6-stable
+Date: Sat, 21 Nov 2026 21:30:30 +0000
+Message-ID: <20261121213049.1788332-1-axboe@kernel.dk>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261121213006.1787626-1-axboe@kernel.dk>
-References: <20261121213006.1787626-1-axboe@kernel.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,93 +95,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Cheng Yongkang <teel4res@gmail.com>
+Hi Greg,
 
-Commit e5a346e4309d720c47fe8331a00068608fad47dd upstream.
+Here are io_uring fixes for 6.6-stable. All 19 patches are in Linus's
+tree. Patches 2-5 came with the io_uring-7.4 pull, merged as commit
+78d9aedf2342 (tag io_uring-7.4-20261119); the others were merged
+earlier.
 
-__io_sqe_files_update() resets the slot before it calls fget() on the
-new fd. If fget() fails, the fd is an io_uring file, or the node
-allocation fails, the update stops and reports that entry as not done,
-but the old file has already been removed. Later requests that use the
-slot fail with -EBADF, and if the old file was registered with a tag,
-its tag CQE is posted as if it had been removed on purpose.
+They apply on top of v6.6.162 plus queue-6.6 at stable-queue commit
+3dd4b2d3c1f7. They do not apply to v6.6.162 alone: patches 1-7 do, but
+8/19 depends on the queued io_uring sqpoll patches.
 
-Reset the slot only after the new file has been checked and its node
-allocated, as io_install_fixed_file() does. Removal with fd == -1 still
-resets the slot right away.
+Patches 1-8, 11, 15 and 18 needed changes for 6.6; the [axboe: ...] note
+at the end of each says what was changed and why. The rest are clean
+backports.
 
-Fixes: c3a31e605620 ("io_uring: add support for IORING_REGISTER_FILES_UPDATE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
-Link: https://patch.msgid.link/20261116044531.281978-1-teel4res@gmail.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[axboe: 6.1 has no rsrc nodes for files, the old file is queued for
-removal with io_queue_rsrc_removal(), which can fail. Get and check the
-new file first, and only remove the old one once that has succeeded]
----
- io_uring/rsrc.c | 26 ++++++++++++++++----------
- 1 file changed, 16 insertions(+), 10 deletions(-)
+Please take patches 6-19 together: they are the SQPOLL private task_work
+handling from 6.9 (8/19, with 6/19 and 7/19 as prep) and the fixes that
+followed it upstream, whose Fixes: tags name it. Patches 1-5 are
+independent of that group.
 
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index eb91f5b28924..485e6571172c 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -438,7 +438,6 @@ static int __io_sqe_files_update(struct io_ring_ctx *ctx,
- 	__s32 __user *fds = u64_to_user_ptr(up->data);
- 	struct io_rsrc_data *data = ctx->file_data;
- 	struct io_fixed_file *file_slot;
--	struct file *file;
- 	int fd, i, err = 0;
- 	unsigned int done;
- 	bool needs_switch = false;
-@@ -449,6 +448,7 @@ static int __io_sqe_files_update(struct io_ring_ctx *ctx,
- 		return -EINVAL;
- 
- 	for (done = 0; done < nr_args; done++) {
-+		struct file *file = NULL;
- 		u64 tag = 0;
- 
- 		if ((tags && copy_from_user(&tag, &tags[done], sizeof(tag))) ||
-@@ -466,15 +466,6 @@ static int __io_sqe_files_update(struct io_ring_ctx *ctx,
- 		i = array_index_nospec(up->offset + done, ctx->nr_user_files);
- 		file_slot = io_fixed_file_slot(&ctx->file_table, i);
- 
--		if (file_slot->file_ptr) {
--			file = (struct file *)(file_slot->file_ptr & FFS_MASK);
--			err = io_queue_rsrc_removal(data, i, ctx->rsrc_node, file);
--			if (err)
--				break;
--			file_slot->file_ptr = 0;
--			io_file_bitmap_clear(&ctx->file_table, i);
--			needs_switch = true;
--		}
- 		if (fd != -1) {
- 			file = fget(fd);
- 			if (!file) {
-@@ -494,6 +485,21 @@ static int __io_sqe_files_update(struct io_ring_ctx *ctx,
- 				err = -EBADF;
- 				break;
- 			}
-+		}
-+		if (file_slot->file_ptr) {
-+			struct file *old = (struct file *)(file_slot->file_ptr & FFS_MASK);
-+
-+			err = io_queue_rsrc_removal(data, i, ctx->rsrc_node, old);
-+			if (err) {
-+				if (file)
-+					fput(file);
-+				break;
-+			}
-+			file_slot->file_ptr = 0;
-+			io_file_bitmap_clear(&ctx->file_table, i);
-+			needs_switch = true;
-+		}
-+		if (file) {
- 			*io_get_tag_slot(data, i) = tag;
- 			io_fixed_file_set(file_slot, file);
- 			io_file_bitmap_set(&ctx->file_table, i);
+Patch 1/19 (io_uring: enable toggle of iowait usage when waiting on
+CQEs) is a feature, not a fix. It is in stable because the QEMU
+developers asked for it: QEMU uses IORING_ENTER_NO_IOWAIT and wants it
+supported on all current stable kernels. Nothing changes unless the flag
+is set.
+
+Testing: ran the liburing-2.15-75-ga10946dc test suite in KVM guests
+(PROVE_LOCKING on) on the baseline v6.6.162 kernel and on the patched
+kernel, which is v6.6.162 plus these patches and the other io_uring
+commits already queued. The patched kernel failed the same tests as the
+baseline, except connect-backlog, which failed only on the baseline (a
+flaky test). The failures that remain are on both kernels (napi-test
+timeout, send-zerocopy, timestamp and similar). No new dmesg splat
+(WARNING, BUG, lockdep, KASAN, Oops). io_uring/ builds without warnings
+on the release plus queue plus patches.
+
+CVE assessment, by the io_uring maintainer:
+
+Should not get a CVE:
+  1/19 io_uring: enable toggle of iowait usage when waiting on CQEs
+      Feature, not a fix. IORING_ENTER_NO_IOWAIT only skips setting
+      in_iowait; nothing changes unless the flag is set.
+  2/19 io_uring: fail soft links on negative IOU_COMPLETE results
+      io_issue_sqe() now calls req_set_fail() for negative IOU_COMPLETE
+      results, so IOSQE_IO_LINK dependents of a failed request are
+      cancelled. This only changes link semantics of the caller's own
+      requests.
+  3/19 io_uring/rw: fail soft links on IOPOLL short or error IO
+      The IOPOLL completion path now calls req_set_fail() when the
+      result changed, so linked requests are cancelled after a short or
+      failed read/write. Only the caller's own link chain is affected.
+  4/19 io_uring/timeout: don't rearm a multishot timeout on cancel
+      A cancelled multishot timeout was re-armed from the cancel task
+      work. A zero interval plus moving the CQ head far ahead only
+      delays teardown of the caller's own ring; the loop goes through
+      hrtimer and workqueue, so it reschedules and holds no spinlock.
+  5/19 io_uring/rsrc: keep the old file when a file update fails
+      The old file was dropped from the registered slot before the new
+      fd was checked, so a failed update left the slot empty and posted
+      its tag CQE. Only the caller's own file table, no refcount or
+      lifetime problem.
+  6/19 io_uring: cleanup handle_tw_list() calling convention
+      prep for 8/19 (handle_tw_list() calling convention).
+  7/19 io_uring: pass in counter to handle_tw_list() rather than return
+      it
+      prep for 8/19 (handle_tw_list() counter).
+  8/19 io_uring/sqpoll: manage task_work privately
+      Rework, not a fix: SQPOLL runs its own task_work list. Prep for
+      the follow-up fixes 9-19, which are fixes for this patch.
+  9/19 io_uring: wake SQPOLL task when task_work is added to an empty
+      queue
+      Fixes a stall introduced by 8/19; 6.6 releases don't have it.
+      Missed wakeup.
+  10/19 io_uring/sqpoll: use the correct check for pending task_work
+      Fixes 8/19: wrong pending check, a stall. Not present in any 6.6
+      release.
+  11/19 io_uring/sqpoll: early exit thread if task_context wasn't
+      allocated
+      Fixes 8/19 (a missing tctx early exit). Part of the same rework,
+      no 6.6 release has the bug.
+  12/19 io_uring/sqpoll: ensure that normal task_work is also run timely
+      Fixes 8/19: normal task_work not run timely, a latency bug.
+  13/19 io_uring: signal SQPOLL task_work with TWA_SIGNAL_NO_IPI
+      Fixes 8/19: signal method for SQPOLL task_work, a latency bug.
+  14/19 io_uring/sqpoll: ensure task state is TASK_RUNNING when running
+      task_work
+      Fixes a might_sleep WARN that 8/19 introduces; the old 6.6 code
+      ran task_work through io_run_task_work() and never had it. Not in
+      any 6.6 release.
+  15/19 io_uring: don't touch sqd->thread off tw add
+      Fixes 9/19: a theoretical sqd->thread reload, the author says
+      unlikely.
+  16/19 io_uring/sqpoll: zero sqd->thread on tctx errors
+      KASAN UAF in fdinfo, but only with fault injection and only on the
+      early exit added by 11/19; no 6.6 release has it.
+  17/19 io_uring/sqpoll: Increase task_work submission batch size
+      Batch size tuning for 8/19, performance.
+  18/19 io_uring: fix task_work add use-after-free with SQPOLL MIME-
+      Version: 1.0 Content-Type: text/plain; charset=UTF-8 Content-
+      Transfer-Encoding: 8bit
+      KASAN UAF in the task_work add, but only through the private
+      SQPOLL list added by 8/19; no 6.6 release has it.
+  19/19 io_uring/sqpoll: do the return-to-userspace work in the SQPOLL
+      thread
+      Fixes 8/19: memory.high reclaim not done in the SQPOLL thread,
+      accounting/throttling only.
+
+Cheng Yongkang (2):
+  io_uring/timeout: don't rearm a multishot timeout on cancel
+  io_uring/rsrc: keep the old file when a file update fails
+
+Gabriel Krisman Bertazi (1):
+  io_uring/sqpoll: Increase task_work submission batch size
+
+Jens Axboe (11):
+  io_uring: enable toggle of iowait usage when waiting on CQEs
+  io_uring: cleanup handle_tw_list() calling convention
+  io_uring: pass in counter to handle_tw_list() rather than return it
+  io_uring/sqpoll: manage task_work privately
+  io_uring: wake SQPOLL task when task_work is added to an empty queue
+  io_uring/sqpoll: use the correct check for pending task_work
+  io_uring/sqpoll: early exit thread if task_context wasn't allocated
+  io_uring/sqpoll: ensure that normal task_work is also run timely
+  io_uring: signal SQPOLL task_work with TWA_SIGNAL_NO_IPI
+  io_uring/sqpoll: ensure task state is TASK_RUNNING when running
+    task_work
+  io_uring: fix task_work add use-after-free with SQPOLL
+
+Pavel Begunkov (2):
+  io_uring: don't touch sqd->thread off tw add
+  io_uring/sqpoll: zero sqd->thread on tctx errors
+
+Shakeel Butt (1):
+  io_uring/sqpoll: do the return-to-userspace work in the SQPOLL thread
+
+Yang Xiuwei (2):
+  io_uring: fail soft links on negative IOU_COMPLETE results
+  io_uring/rw: fail soft links on IOPOLL short or error IO
+
+ include/uapi/linux/io_uring.h |   2 +
+ io_uring/io_uring.c           | 104 ++++++++++++++++++++++------------
+ io_uring/io_uring.h           |  25 ++++++--
+ io_uring/rsrc.c               |  25 ++++----
+ io_uring/rw.c                 |   1 +
+ io_uring/sqpoll.c             |  62 +++++++++++++++++++-
+ io_uring/timeout.c            |   8 ++-
+ 7 files changed, 168 insertions(+), 59 deletions(-)
+
 -- 
 2.55.0
 
