@@ -1,128 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795283062;
-	b=tqnw08zSHxvNB9nBoN+o/Cs+yoCGhQntUVc0rw28MXZKa7Y0jamhd84fVP1/ZOkz8bqV
-	 lgRgabB+wtg6DNwg9D0uJR280ZN8i/R+rA9C14tSbgQJGOIr3x5RQvet/FnSV4dN0lVpQ
-	 6ruuF6qPnXPTjkimJWggu8oDaqAR8ckjAqrIGvj6EuXj3NWIvl93lQl7KXUr1g3u9oCEi
-	 rbE1pvaY+whyv1sitIglxj5BL9PK013knNnImYmTc0k1euuHFVRIZueZfoYsXTEVrr7/S
-	 dHE22YQiiZTgK3RqvUxvrAyBvJwzVJiUNis9Mev/R63GzfzqZ9f9ss8CPFgT/WT5xbA==
+	t=1795283587;
+	b=AjTXuBu1O0fZzVo9ElRO/lzf5dK14WyCRL7J7WSC+Hqbc5gNLBI2IhCp1TwAZidMuVwR
+	 sYeBWna3P5BMDxpZsrym5f9hBPTHceHv9Xy8K2zElvcHw4dolyW3ndbWM+Ul9syhZOoiq
+	 0+8rC6Q87Wcy/RvvzfpdSNgA4No9Kn2Nhr6AvF+glc84Du55ZX9MCyuVeWvh5zksaHp6M
+	 xYOBrflxCspOsce67wNfgaSvVEyGX6j/miz7kvj0rHWgg2GSsZ7PHnOyFTLF9jXF23V6j
+	 nalApD54Fa7r7hfEUTcZU3UHpOBlj6iFWvHTOvmOwb8MjvTtQhQhKFgK8lE+PFTPDSg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795283062;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
-	 To:Cc:References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc;
-	bh=apa9byoloIqZmN0NGZL4q10l2t89QK7uryqIZ4uM8Wg=;
-	b=nZstyUZY0sJ2mEfYlwsZ9tn+8GL65XjrahkorjZEcJ3N6YFA9uFND2JFDIjyvwpsNZRe
-	 nuseJy07QZp9bdtYoEW6Jioua8JIWzACEs5leTV/eu8M9t1FtgPUfGKO+roUq47chJxay
-	 Am6+8tSlBmPMyYKsmMPLP8h2czHFzP3JM21+k8Y2aR3a7a0HcXSoKPuCIzVphXel4A9cA
-	 dYWmL4RhkEmATQf8HNzS+4eHNTBrcUEeC7gWyuVZsCTl73rKeDzbtO1zXiMKzoSWyy/E1
-	 d4sx5Hq+pP1zXwHdTKy1zIzp3LQdBnRryxdFUPgrYJPS2DIn6A+ut5IMLTD/BzqaqSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795283587;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=3GVBKnEvVzO5eniKkH3p5YWrA2bZ/HsDBEwwsELK9/s=;
+	b=i8zhzuoGDytLG3ajFzHy4G3zyxYC4cq17IYE9pgojnw/9EuoQJnz8Rq3+S1PexW5gAh8
+	 JsPs5uOBiv9TAEatL1ddhbNfyyNq1DMlMveBx6Jk/wN6UFI9eWfgvGIBz9F2UJYTvXzKk
+	 Qf0pjafGUTZfRqwlUfZrju66U5KQ1K19JN9HryVfBXOukX3hJJPhaunrsCknwfSl8yH4c
+	 Qh6xjsfrQ+qheR8gqeNRYC3ejfIKVDzSeOPJUtO278mG5gIiXjkXkat2Aq8o9QpdjsFbj
+	 aQ/NlclkSE2d9qqWQ6i7kxcDKXIJ8B8SAf7LZ5SgvUakOoEvJLHDitC33fQ2u8NYy7w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oracle.com;
-	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=XU4ZKJYx;
-	dkim=pass header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=hTH5Edqy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O27CPOga;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F87606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 17:44:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68F87606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823DF606A320
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 17:53:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 823DF606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=XU4ZKJYx;
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=hTH5Edqy
-Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ALHUS3L747489;
-	Sat, 21 Nov 2026 17:44:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=apa9byoloIqZmN0NGZL4q10l2t89QK7uryqIZ4uM8Wg=; b=
-	XU4ZKJYxmFfRyHGcmbNdwkiuZbfcQbUx3IhGjENvp2+qtKvyFGbE8tAvzG2i+1aQ
-	j1Wk7JvBepysWjEeIW7M3Oms7HXERCnwW9LSAOEd4QJ6sVgbqMDsW2MlSpZwiUlu
-	0V7u+dFoJsEJ4oL2EOoDFyQxzyagMOFopqNHHCT6xHzvu+W9+DOO3MWdAfLNsCI7
-	JUJnpQ0Ur7UmHsUWgkpqDfq5bZ5jDrBXFJ/5mSS2bJ2uPMExCXkoHmvszwZEqrAc
-	wsjNYQm8NNgTYZ+nUtZ2C1AL4IicC/nQpJsVPK4GQZRBFNG1hA78P+ZaDuBRJvdr
-	O5rXMp9abtA0wUVnZF5rSg==
-Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4j34ts89nm-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Sat, 21 Nov 2026 17:44:17 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6ALFX414571134;
-	Sat, 21 Nov 2026 17:44:16 GMT
-Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010054.outbound.protection.outlook.com [52.101.56.54])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4j38rfpnaa-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
-	Sat, 21 Nov 2026 17:44:16 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lyz6e1jPdc74QjQe86XlvBUf6n+0dfRBngHP+eJ92m/jU5wOoZMDhuauAgm946c3WfWsiGhsXi956qDw6HHzYiXMb/euNd6psMz4tFOD3rSqM+olx/hO9ttLnT7zhUS/lHg69XcRpJEVbkMB1+FjPrjIR3axh8q8IvZSPPeE/5mLZlTxlWMeDTRxuzcOBwgFHkTWOI4Fr1auuqMr11+ulCZ0Uv6Oks/N/oON1y4ChWT6CPAiYrN6FXEA7mFY3Ma0hubo2DhHJQmxiR4Ifj6MA3skJozTd7v7AZ95srwYDYg08kjqSAPtrw9MW9PDH1YwVFj65kNTMQrAUXRoHyDA0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=apa9byoloIqZmN0NGZL4q10l2t89QK7uryqIZ4uM8Wg=;
- b=dmOSvjuYHXZmUsi41cQq9yhFnPvhiGDEnkz+2WqZ2ryTLbcqoYoRz7x+rc5bMH0DNa/0BnYwdi2q6hBZydL1RvusdpCmXPvFL99IpBuFIgdnQB+OidVk8Efyij0FIg8kN5H5DkV8tYRS6AI63T9vf8+cQH2HH8Ny13rvpBNd5zLsHGB5gb3xh095iJYAT9KAaSfu9oiSs5RHOgka23UvbciAl2IbUGTsFd+CJOc2zINCD6W6duUvRshwoAeP2B4kUewN98artEc4azJ34uqokq4vLneRUnoXYxKE7keabKOSWA4kZb9xK6mGXy1k1VS7Cw1Jy4krYSMO4nk6egbDmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O27CPOga
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-67c24619b19so1584077d50.2
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 09:53:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795283585; cv=none;
+        d=google.com; s=arc-20260327;
+        b=A6MQNxXkW11vXBAks5U9EC1CblBMFHrPBRcgYYHkP21cQLH5tqNfg9aCzu/lSrIyaI
+         xCXupTlTObEQlL7khEUim14pfWWdE/5ap4p6BeefRU+oWhhytvtE/5OhDfmcjNfUJJxG
+         grx1c00AD08ItEzptweqYNbTdqqLiXQT9El89Jq9qe1odhEmGpGZuBu0UvYqVY4RTwFy
+         6lG6w1xGdHWBuqX1s24o2/0VDFp+x++z5du1LrzkeHPjwIougRrWXF/1U9LIfK7ncXbt
+         n+qlwklYtQ5Qb6zyzUGbPn7XrGvUQs2KxH9t6wK/lTLiLlwNKXWeCMQ6D0lIAOBNklwk
+         eOew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3GVBKnEvVzO5eniKkH3p5YWrA2bZ/HsDBEwwsELK9/s=;
+        fh=A+ItmCKwk1CU1EQqGzYAfbzZXEZYFkss/hoj6nGKTws=;
+        b=A/OQ/pT+wuP67M5qDvGSsA5juF1q1koMZ8ov0lWNtqmEVaS/mtGbx/DcHLCIBlPxdQ
+         zihFliBAuqkXbAaDLeHPr2esDwvPjg54BfSkFOG+CvDI7YtW5lWMuZ8ioB7Je6ookqc/
+         oa+uPoRYQfQjTHEB8Fqel2aeCDKLF353NF0N2QImB7DJfB5A5dTD97j0jL/CXH32FuVq
+         QoO1pQndAJnuUpXQVuY+PTzy7u2y1kVJGe1VyQl8bOF8IQiFPXFy47dUne49rusPF1xb
+         qlfpKcmPbHuelG49JjfE6Rnx8inkJt5jjOREXdIuXvU4tUQLqcbdVsW/vRaj64oK+eM1
+         oNGQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=apa9byoloIqZmN0NGZL4q10l2t89QK7uryqIZ4uM8Wg=;
- b=hTH5EdqymaGFMWmVkVkV8fKw5IH5PwsuX3tBgtXLUKPTq6lchoXh4Vax1O0vdYKI1oNNhA1LdQXNIgpfJFmTdv2z3S7bf5CtLyrebikD4PBM0TPSU3L34h49sg4hLiOhjXaSbkCUr2AuMovrD60RmbPC9AIkIOXz4fxhILfUl80=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
- by AT6PR10MB776698.namprd10.prod.outlook.com (2603:10b6:170:117::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Sat, 21 Nov
- 2026 17:44:14 +0000
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a%6]) with mapi id 15.21.0615.009; Sat, 21 Nov 2026
- 17:44:14 +0000
-Message-ID: <3ed06a31-d1c9-4a14-82e1-c66df4acc3c7@oracle.com>
-Date: Sat, 21 Nov 2026 23:14:08 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 2025/2214] bpf: Dont take an extension for an
- iterator program
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
-        Sasha Levin <sashal@kernel.org>
-Cc: patches@lists.linux.dev, Josef Bacik <josef@toxicpanda.com>,
-        Alexei Starovoitov <ast@kernel.org>
-References: <20261118150009.797899913@linuxfoundation.org>
- <20261118150131.765556631@linuxfoundation.org>
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Content-Language: en-US
-In-Reply-To: <20261118150131.765556631@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0258.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:194::11) To SJ0PR10MB5834.namprd10.prod.outlook.com
- (2603:10b6:a03:3ee::16)
+        d=gmail.com; s=20260707; t=1795283585; x=1795888385; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3GVBKnEvVzO5eniKkH3p5YWrA2bZ/HsDBEwwsELK9/s=;
+        b=O27CPOgazpi+ot4rkSp+v6GIl48Qj6qPbHEZ1L3s7f8nxgIIPLxDM+jilS+4vnDg1i
+         aK3/pjC2x1lDW6ZBY8CQetOXM84GfYalftdbuMMUC9mY05o90uuLS3F/HlgriZmdIaXk
+         h66+8Bq/PIOKS7ELMBQY1HrKmcX8RC65X8Y4zNEhBgmVTbEN/8xp6ptbRPXZtDGpyZRb
+         VgQRI67zb+GBYBSXg3+bnkAxutQYUXFdCWrdJdP85dcx2A6FY7qaTF7lY+0106qt7Bue
+         b60lg2EzBpKNHF3TwKddXjibkCRx5s42qdsKoHV+E2JaECba+xf03OpomnqCVnzYR/8u
+         oUBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795283585; x=1795888385;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3GVBKnEvVzO5eniKkH3p5YWrA2bZ/HsDBEwwsELK9/s=;
+        b=00PNCBSlmPFip5s39OekhshfbfZN82VLVrHtOzVjSZvz5KcEb3wwyKTbSKqVsdKUDB
+         lnVX4DJpjfTLb/5Ko+k6PROTWeTBCfZcGuY09AYE6hEU8rCUeFvFwADR5DnKdWzbtEzW
+         Tf5z1RkUGR1D2TFMoOC+QI+dIV611cYCD7sn8LS8uDJvDnOlFEZGeJ+X59XPUTrITGLm
+         mzL87cgZ8bbmz6bdxZbVUk4CQMAtuUqb3sSdZWCtLxpDTmsyEUyjrYc5MlL/7YGP/O/2
+         Gq5yXN2snmogNXs/vpcA8UPhTFrUqG3RDJzXKan1m4DC8Yeq/I0cLexLn8hSEzNApvoD
+         t1Ag==
+X-Forwarded-Encrypted: i=1; AL+hErEMHAGdc0eYmQHN4RdIwDOikssBDAWug6MkQJAM66nnkU8wbgobCnxNNJcJ2NZmUYaV+3HJPlw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/7NetraUuIBtvn6NoZtUtGMlhKDBrAgu77mY6m/iKRLzxt/+VD
+	jlouEDH0ShWn3SlVZYAtv33t6/NwFwoDemuH0a/pM+OkTWNbkCP2pjlVfmLUN5Fi1QmukdJXYFI
+	oQjVF4SbXvWzvJdjm4Dq/MIV9AWIU+ic=
+X-Gm-Gg: AZFdTZdGCSERZfeAj3tmrO9DUtIYDwp0O/i7OtjiRi7h9q677/1EKIWq6JJO3tptWGx
+	zBp6mkEFBjSYOvxzNXFHNzt60o8Pl+9ILIgEvhM7XeUlrV1pZBWWB8L/7DNcB4tCFC3iyJVHkGo
+	80BZFFG3/6eB9sVx57SK4C0l9cFIy5zl4dSrgh7j8pMwcaTWYrK0iefXHv24xRYm7zJtvEXc130
+	8zIFU8/L1JaSYDUQY1OUCBUIUJ9Eqth0Dy6Ry+8JCFaq7Gd+/deoLbXoN6VeB97l78m/mz/aoLS
+	ldf+o+kNO/vHeX2y8oRZhW2yHOZoh3VG6mn9dF7HQeuK58J1cH63Nhg4AnfF6kxPnJTiW+B0Ucu
+	tgqSGDXH+tgsZjGw0usEH0tLrOGWgG/DLxVQ=
+X-Received: by 2002:a05:690e:419c:b0:679:f97f:fdf6 with SMTP id
+ 956f58d0204a3-67df448c769mr2372917d50.66.1795283585556; Sat, 21 Nov 2026
+ 09:53:05 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -132,204 +104,349 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|AT6PR10MB776698:EE_
-X-MS-Office365-Filtering-Correlation-Id: 939312a5-6de1-4543-0eea-08df47f70eff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|18002099003|22082099003|261009223027099003|261021121427099003|261022105027099003|261026121527099003|261026140227099003|261022075727099003|261028144727099003|4143699003|56012099006|10067099003|261102124527099003|261102123227099003|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	5FtLo61hUG053x3AQEOGHE40wBtr/H99co0SQZSE4tniVkPDJZCQ1AOkqeF6bqLGmTH7VHdi7ZeMFwrJ4BESgOuJ8j7jycp2/jUGUvAxN7prm4WTOKrl9sBwmMw1vBRlok9lR6T/jmHZKTSfOVcsVCmOxRfEAvo+EE1fzKxVMaLt20B+OJeOCm8iYtHG3nYXdovStskt/lUDB2fCvVo3ekTWbWBVdrwctikKszbLvGVoxYY/fBJvCIhSwibgxrXgpH9o5uiKQHqmyQIG8+Kh9nP4+FVI2WF+0yrgDLt0CbaP1Q8Pc9t7c9ASwYAHpSM2ATriRM08THIfjv55hWawAoh185UcUQc1hB7cpgXfyKFQ2c93N3aBzUKPQy5iuVirxHy2UFhRQcO2eN9GvwJIa2PXEubqJxsLOZYZHDSH9xyvFKxCpzeDuJHqYbVeuhgubYuCkFTlmX5qxCzlo9zh7ZDNPu2/D86/RZ6HlAQlskvx8PnSnIPyK37n0sHfXRWfcrl7V2bql/mZCKRnjHkVbjwK0TQi6qiRoSm7P1eXFExNFC0bQGbXgPp8BxOiKfvR9rG27TapCT74Rg1+i9aKzeZGxe+q703Evo9fvzt1lnCgXFxiPny7C3gBBTz0boIF
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(18002099003)(22082099003)(261009223027099003)(261021121427099003)(261022105027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261028144727099003)(4143699003)(56012099006)(10067099003)(261102124527099003)(261102123227099003)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S1FqNEJ3YmxjcUlNM1N5a2cvMWRNc2VlcWZqMEtISlREZURFSzNSaDIwU3VO?=
- =?utf-8?B?SXVXKytZWU0zZmVFOXVTcUdXRGxMSkpYcnU2Tm5nZnhJaDFyVDBFMjFnd25T?=
- =?utf-8?B?dy9ibnFDRWxncy93dExYSnNTZk05T2ZEVCt6TFZNM2w3NVBaUDNGVVlhaTNn?=
- =?utf-8?B?NVJ1RjFFcW4vUTlWMGs5bzJnWGJzbU9XNTNhand0QlNIZ1lDdnYwWDVsSnYx?=
- =?utf-8?B?UmIwSGNlazRveUgvd0hRRGZEWi9aUnkrN3dDTW9kOHBHZ3EwQXlrV1JPS0ZU?=
- =?utf-8?B?QnF4czhCek8xb05mcGNHY2xwY1pObkRaSmpoZmhLRGwwWUpJbVd4VHh4eDBD?=
- =?utf-8?B?ZC9LVFlrUnNDUEJRcnQ1T00relNuNFlOeEk0bFp3OWxkZmd5MHY0MnZzYnU0?=
- =?utf-8?B?a2V4NFFSa3hZdXFGeGttYzhLQ1lWcW5lU1JnTURqMDlwQTBQb0FPUWVUNGsw?=
- =?utf-8?B?OEo1dHVyV0o4UVBPQ3hTdmJxVDh3Tks1WHI5cmlrZkEwWWZiOFY3M1hSZGM2?=
- =?utf-8?B?cTRVbmJ5KzhZM1RCYlU5RlU2eHByYWR1bkZvOUY4NFJnLy9YOFZ5YkhrWEo5?=
- =?utf-8?B?NlE3aTk2YkQvQm9SaHBZVFI5ZEdacXhjWTkzR3N3MWh1eTRCcVlCaGVRVTN5?=
- =?utf-8?B?Z0dmLzdGdVRJUGhTb2ZSeHJoVjY1eGlzb1VFbmtYc2dPR2xiSHNXY0o2eStE?=
- =?utf-8?B?SGZqLy9IY2N2YnRidFE3aERERGlPb2FpSnc4TmE3SmdJYU1BeDI3Rld1VDJ4?=
- =?utf-8?B?dDF2Z3k1SCtodmplMGNRZVpycERJbXRoeGpPbGZTTHUzSmkrVHhWMHBCOUhj?=
- =?utf-8?B?ZzQ4aHNjKzdkMXRKcWlTY2NvemFPNzNRTTlQMG9PUFdtcXZGZ2MvUy9kRitE?=
- =?utf-8?B?Skx6dGpYZEcxa2RlVGthQU8vOGs1MmZRc3JFZlRVV0JVWTFGY2Fuck4vdDhj?=
- =?utf-8?B?RE5idTVyT2kwcEVKemNWc05ieHZqK2ZkQzkzYVFqTDRqdXVGU0pYM1d1bDlh?=
- =?utf-8?B?Zm9aRmdubjhFcWxTaUpLUmlZREFDd2wxcHFzVUFYT2piSXhLcGc2NkxHdVBN?=
- =?utf-8?B?UmMrRFp3VytGWmNzcVVVVVFsR2NPdHJ1dzBkNkhwZzlLUExIMDhUd09obFBM?=
- =?utf-8?B?ZlZ2N0RETldqY29Wbk8vemhYNmJxYVczVEw3Q1dhMzFsd1NvRVByQlRXUGF4?=
- =?utf-8?B?a0RwRFhvSzlEd0dCYm9NSm84WEJvb2ZaVTRGSjFNY25QTmttT1N0TkJ6NWhK?=
- =?utf-8?B?OXVrS0p6c2NjT1Y2SUVFL0ZVa2lnYjlUTnlHRHhwZ3Ezay9pZzZUNUdETUVu?=
- =?utf-8?B?TW9FWXNCVFd1YzBJbEVtbElGT2pEeW52ajMwN3lPN3E0alZBM2tOZ05Nam9S?=
- =?utf-8?B?V3hHWlRaSkVIcXgyVG5lS1c5QjhoSm9XWXRzRVpoWWdoaW42aHYzMXprWVpE?=
- =?utf-8?B?WDRhSW5GRHdyUk5NVzdqSFIxcTZxc2FGRkFCVlRIcGRtTTBhZndyTy9IWVUy?=
- =?utf-8?B?bGtWVDBKTGlwQ2Z6T2xiZjRDbGNtZXA2T3NqejVmNEZsZC9QeHVRdHNySDJL?=
- =?utf-8?B?K0hPOUplemc5Vi9taFB1UzlmUmhTLzI2bW5DZWJ2TDNYckZPYXhMQi9WbExT?=
- =?utf-8?B?WXlLaFFMNkJHbzZpSllwd2xQUkx3aDJrOXNSQ2V4R1JpL0JUdm01d3JWd3Qx?=
- =?utf-8?B?bHRjVyt3V0QyU2U3OEFnaGEwNDVlVC91ZVpCblBzdU9Da2xSZU5jQ29RZ2lI?=
- =?utf-8?B?OWtqTFUxQXIxaXBtRTRCakw0Y2I1dlJkTU9RanJHaStTbkdvcnhYN0gwMFRo?=
- =?utf-8?B?ZEEyN1JIMG81bjIxT2UzK2pPTFJQcGx6b05uTkZpTXpRZzBYbTQrbThoT0kr?=
- =?utf-8?B?VU5rTkE4cHpwSWQ0OTFjV3pNdHBmRHA0RkhudTlpT1RkelM4Q01xQnByQWh3?=
- =?utf-8?B?cmlianBUM3NGRWNwam5WSDQrdWVHdWMrTGVVV1RuSTZxWWR3VlpOU1QveXVT?=
- =?utf-8?B?ZXlVRDY4OE9SQUVKbUZVSnJoSy81ZVQyU1ArMEVNdjhQcmZVRC9DQ1o3cUxG?=
- =?utf-8?B?TnIrK0RzU1l4TnZBS3o3WGFxeW5kNS9nOXQ1MGluM3hoaDlxYy9kNDRiWnlV?=
- =?utf-8?B?NjQ5RG8rejJ5S2lwQUJMbmFEY0I4aHFUUE5wVEM2UTZLVFFjZ0NFN0JVQXdG?=
- =?utf-8?B?c24wMGNYbUtFNW1rUmh4WHNaTWdRWHpXcFRhUy9wZmdNcUFNaEFVVFBabmRa?=
- =?utf-8?B?bXZveEZMNU5QSWhuY2VIYVVuY3BXaVlBVDN4K2xmTkFZMnV3N0lyZjhJV3hu?=
- =?utf-8?B?TWdNZjFMS3BNem9Xc1R6aTBOdlAxVVFtSnUvZE1XSEUxOFIrK0FMRWlWNWdL?=
- =?utf-8?Q?K7nI/DgHFjdCdJJkOlEEIse7pePKs6dAGW2PL?=
-X-Exchange-RoutingPolicyChecked:
-	jV4z/Z7B0PVzsapH1JTn4LsAu80RWizd5j79wqIrvRWMky5JO6Zmwf1Hjf2Ee+XGcU1XHalOa1D4Q5gwWO1WuKZeC8A3c+FISTcmodZ9FT4Xpb9sDio1i6D+bbANebkcQlEFhSBrreN9wMLC0e6aXcYzGGI02nbxBAQ4khOo6BX++5SO+FJFovql+yT9D2/+Ci3BdzC/w1k+1RcUmwRgPNjPEAGPbBmrcT9v6yEvPxae6H+xp0aBGLTu3MGfwrUIfw3rOOQvl2sjc4QlKDsbUChT/7ALheVuG80P+NqunFX35V8vCVIyuWJ8NRnM9Uopb/F09GJWyj0p7ABJRYGhYA==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	P+HVKmuGHb21odP5ZeB/m6wbLpMWKoa5KzxrurtCdbHzZRUb8dgiyo+Tc4yYhYXCyX52nAJGPoc+24646EmngYa5G6IIBiwBfLrb/FUhLch2nK3A5KH7Mk7GV/n36guPzUU6jzblpwSmOsI1PSKBkShkOilzjcz/JBeX+95a9sPFgb8saoo4DtIliHg5hDA67rzAl/o/GGg7Z0vi6w325rVhXXs7GZCFHFq8vAYoyBhfB9TfvtKf3KiK5Y0Vj6uo6+9wmqpJ3PWYzys58MW5nJbpAz8WWQop+vf9HtEwRKqXbpQ8gJhzUHZkVgp7trlQduCEpQstxsmYOQJygUJDFCz9/Ok75gmbhmaOpsyLsPxJEQZp6pTtSxI48qYaWwF2+E/bPz8az2Nbjm6NWgtJEXg+5fOpaREm5TOadsA1/8kxStHrvk3S3fEPgfu012F21ukYIVCEq9edK9v9hym++7UXY3Jf1o0jkgT08QFW/qSqYnidqWNHUBDjJSmNuDxjyJzFRQ1xfr1GEwCYpVTSCu3u/pklmU+iJ/vnBjiuojxg39LywezinL0e+bwBaa+7d62dLUFoL+HTzbAvBZT/kNi6SyNKi46EYxSAs9BDz8s=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 939312a5-6de1-4543-0eea-08df47f70eff
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 17:44:14.6260
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RxpoI1YI05vAaBsPoskvPeKsYD7BqLqIVMeiV0TyyhEMmUeazAuQeoXmVQfstcaVb2PGqrYphSCKXJN/HUj07Msus3DGb0EmoUlmTpv1j8FHQ964rOzF8db7zJusU4HJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AT6PR10MB776698
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-21_04,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 mlxlogscore=999 suspectscore=0 mlxscore=0 adultscore=0
- bulkscore=0 malwarescore=0 spamscore=0 phishscore=0 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611210070
-X-Proofpoint-ORIG-GUID: gthN3friZ4q6xWdXkabA4wBviHdII8Kz
-X-Proofpoint-GUID: gthN3friZ4q6xWdXkabA4wBviHdII8Kz
-X-Authority-Analysis: v=2.4 cv=YP8KWhGx c=1 sm=1 tr=0 ts=6b01d871 cx=c_pps
- a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=7Gl3-_t3PgB9XO-mQDs3:22 a=bC-a23v3AAAA:8
- a=pGLkceISAAAA:8 a=maIFttP_AAAA:8 a=VwQbUJbxAAAA:8 a=ebi5sSK-EAb6qiN28iQA:9
- a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=qR24C9TJY6iBuJVj_x8Y:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIxMDA3MCBTYWx0ZWRfX7L4NAt5Zy1qL
- 3OE4tkFPPyNTLkY230nROef4HogxbbvYjBW2j/xZxFpIWMwQnNqjQGbXoJfSps6t2x6eAf3wrMC
- WQ66vrqtHSJDtU1Z9MsFYdkgzcmgJjOA7DVzz/be2CVzx1dEQtn4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIxMDA3MCBTYWx0ZWRfX1RC6G8C2ZcKG
- qi83Vu1+ayejz/Hs6QuHbfPhm0iD2za9hKEfVU66Js+/b/OXnpUIxMljViKDYyTY/En3sCmLFKq
- M4kgR6x1npzOmIog1zNIHHteSu5DxguZfbP2MJjdLEAU4Sb/LuBg/7BDUzpftnT9OQjoYft8z2d
- XXXSw6rIa2QLcsmGwIODpTFtX8FNfF2FgylzGRZdwrQKwvtIprNeghbQGw7CvEAF2nstLd/yszT
- UKD5MuEvrIYhyme4ICoMap6pjRhImae6yBX+l+zvbDizkr9F6/Xw3VovBdMgi0OuBf/arEbzBqP
- OfDicXHkhkjtKLT3/Pffo7ELcq4W6jZFFFLf67sN/91tIogKLZ6OmqSfmyrCdj47mXFLNOQ/fHr
- ahKpt3GEj8+GlXVGipsSszczdq+S9NMytdd0bBnV1T6sP0XmAlyvKQVfEQMaOKUEox8iOtWRBOL
- IbV/9go++HmN9IsJMdg==
+References: <CAFS5DSFUi28HgX8t5bRRGVqPkOZ+VqrP+LtyMiwPQhyRpTxFTg@mail.gmail.com>
+ <556c4720-0159-4874-8d5b-6379566f6d4a@bsbernd.com> <CAFS5DSEhgk8fJgAwEn+-U-7vnBchCrx6L1uReT3Upm+AA22=Wg@mail.gmail.com>
+ <CAFS5DSEsdz8Eu1vmeCkE+6eeXgk+9yS6EwqyHSeD2jkq90DZaA@mail.gmail.com> <CACVXFVPEaJ6oPOaoZZo_XMpywHCzFWSYCrKG=srEDpCqPRp=Dw@mail.gmail.com>
+In-Reply-To: <CACVXFVPEaJ6oPOaoZZo_XMpywHCzFWSYCrKG=srEDpCqPRp=Dw@mail.gmail.com>
+From: Luciano Lo Giudice <lmlogiudice@gmail.com>
+Date: Sat, 21 Nov 2026 14:52:53 -0300
+X-Gm-Features: Aa3M54r6reYAtN06M1ZwSGTa3uJCDCA6gB7GWyRDqP3xh-2RmbBELTckYCoPkTg
+Message-ID: <CAFS5DSEp13YPLwRut2OiQfQqO70s6whbLWmEQ14mt8_JjBfBRw@mail.gmail.com>
+Subject: Re: [REGRESSION] ublk: dispatched IO intermittently never posts its
+ fetch completion (v7.0)
+To: Ming Lei <tom.leiming@gmail.com>
+Cc: Bernd Schubert <bernd@bsbernd.com>, linux-block@vger.kernel.org, 
+	io-uring@vger.kernel.org, regressions@lists.linux.dev, axboe@kernel.dk, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Greg/Sasha,
+Hello Ming,
 
-On 18/11/26 8:31 pm, Greg Kroah-Hartman wrote:
-> 5.15-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> [ Upstream commit 7cc639dc45c5d3b69acb2a2fc834e9eec51e0214 ]
-> 
-> An extension inherits the expected_attach_type of the program it extends.
-> If that is BPF_TRACE_ITER, check_attach_btf_id() hands the extension to
-> bpf_iter_prog_supported(), which goes by the name of the attach function.
-> For an extension that is the name of the subprogram it replaces, so the
-> load fails with -EINVAL, unless that subprogram is called like the function
-> of a target, bpf_iter_bpf_map_elem for example.
-> 
-> Then the extension gets the context of that target.  If the subprogram
-> has as many arguments, it can use the key and the value as buffers, but
-> how far it reaches is noted in the extension, where the test of the
-> iterator link does not look: it reads and writes behind the elements of
-> the map.  And the id of the subprogram in the BTF of the program is cached
-> as the id of the target, so that programs of that target which are loaded
-> already cannot be attached.
-> 
-> Refuse all extensions here.
-> 
-> Fixes: 15d83c4d7cef ("bpf: Allow loading of a bpf_iter program")
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-> Link: https://patch.msgid.link/20261017163745.3341787-27-alexei.starovoitov@gmail.com
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->   kernel/bpf/bpf_iter.c | 7 +++++++
->   1 file changed, 7 insertions(+)
-> 
-> diff --git a/kernel/bpf/bpf_iter.c b/kernel/bpf/bpf_iter.c
-> index b2ee45064e06a..d7345a3eda04a 100644
-> --- a/kernel/bpf/bpf_iter.c
-> +++ b/kernel/bpf/bpf_iter.c
-> @@ -335,6 +335,13 @@ bool bpf_iter_prog_supported(struct bpf_prog *prog)
+Thank you for confirming the apparent fix in 7.4 as well. Do I
+understand correctly that no fixes to address this problem will be
+backported to 7.0?
 
-^^ bool
->   	int prefix_len = strlen(prefix);
->   	bool supported = false;
->   
-> +	/*
-> +	 * The attach function of an extension is a subprogram of the iterator
-> +	 * program that it extends, whatever its name is.
-> +	 */
-> +	if (prog->type == BPF_PROG_TYPE_EXT)
-> +		return -EINVAL;
-> +
+All the best,
+Luciano.
 
-
-I ran an AI-assisted backport review, and the finding looks correct to me.
-
-In 5.15.226-rc1, this and PATCH 2031 add -EINVAL returns to
-the bool bpf_iter_prog_supported(). They convert to true, accepting the
-target-program case at this check instead of rejecting it.
-
-kernel/bpf/bpf_iter.c, bpf_iter_prog_supported(): (Code spacing
-adjusted; comments mark omissions.)
-
-5.15, after the follow-up afccf8fde60a:
-
-     bool bpf_iter_prog_supported(struct bpf_prog *prog)
-     {
-         /* ... */
-         if (prog->aux->dst_prog)
-             return -EINVAL;
-
-         if (strncmp(attach_fname, prefix, prefix_len))
-             return false;
-
-Upstream (b83bacf2161d) uses an integer return type:
-
-     int bpf_iter_prog_supported(struct bpf_prog *prog)
-     {
-         /* ... */
-         if (prog->aux->dst_prog)
-             return -EINVAL;
-
-         if (strncmp(attach_fname, prefix, prefix_len))
-             return -EINVAL;
-
-The 5.15 caller in check_attach_btf_id() rejects false, but -EINVAL
-becomes true. A target-program case that previously failed the
-name-prefix check can now pass this support check.
-
-I suggest: Return false for this rejection while the helper and caller
-retain the boolean convention.
-
-Thanks,
-Harshit
-
-
-
->   	if (strncmp(attach_fname, prefix, prefix_len))
->   		return false;
->   
-
+On Sat, Nov 21, 2026 at 2:23=E2=80=AFAM Ming Lei <tom.leiming@gmail.com> wr=
+ote:
+>
+> On Fri, Nov 20, 2026 at 8:26=E2=80=AFPM Luciano Lo Giudice
+> <lmlogiudice@gmail.com> wrote:
+> >
+> > Hello everyone,
+> >
+> > Using Bernd's repo, I was _unable_ to reproduce the bug after several
+> > runs (it used to hang in about 1 out of 3 runs). I had to add a small
+> > compat layer to make the module build in 7.0, but it was overall
+> > pretty easy. I will be now using this module for any development on
+> > 7.0 (thanks, Bernd!) and will report if any other issues arise.
+>
+> I can't reproduce it on 7.4-rc, and we did merge many similar fixes recen=
+tly.
+> Unfortunately, 7.0 isn't a stable release, so can you move to 7.3
+> stable release?
+> Otherwise, you may have to sort out the backport by yourself.
+>
+> Thanks,
+> Ming
+>
+>
+> >
+> > All the best,
+> > Luciano.
+> >
+> > On Fri, Nov 20, 2026 at 8:40=E2=80=AFPM Luciano Lo Giudice
+> > <lmlogiudice@gmail.com> wrote:
+> > >
+> > > Hello Bernd,
+> > >
+> > > Yes, I can do that. I'll go ahead and compile ublk_drv from your repo
+> > > for the 7.0 backport and see how that goes.
+> > >
+> > > All the best,
+> > > Luciano.
+> > >
+> > > On Fri, Nov 20, 2026 at 8:27=E2=80=AFPM Bernd Schubert <bernd@bsbernd=
+.com> wrote:
+> > > >
+> > > >
+> > > >
+> > > > On 11/20/26 23:55, Luciano Lo Giudice wrote:
+> > > > > From: Luciano Lo Giudice <lmlogiudice@gmail.com>
+> > > > > To: linux-block@vger.kernel.org, io-uring@vger.kernel.org
+> > > > > Cc: Ming Lei <ming.lei@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+> > > > >     stable@vger.kernel.org, regressions@lists.linux.dev
+> > > > > Subject: [REGRESSION] ublk: dispatched IO intermittently never po=
+sts its
+> > > > >  fetch completion (v7.0)
+> > > > >
+> > > > > Hello everyone,
+> > > > >
+> > > > > I'm writing a library that implements various block devices in us=
+erspace by
+> > > > > utilizing the ublk framework. Every so often, I'm hitting a compl=
+etion loss on
+> > > > > Linux 7.0, in which an inflight request is lost forever, which le=
+ads to an
+> > > > > unkillable process and a ublk block device that cannot be torn do=
+wn, and so the
+> > > > > machine needs to be rebooted to remedy this. I've tested the atta=
+ched reproducer
+> > > > > on 6.8, but found no hangs after many runs. Details of the bug ar=
+e below.
+> > > >
+> > > > Hi Luciano,
+> > > >
+> > > > I just scanned the io-uring list and found this by accident. I have=
+ been
+> > > > working on this for a couple of month.
+> > > >
+> > > >
+> > > > Would you be open to test a specific branch or dkms module? I actua=
+lly
+> > > > wanted to send this to upstream last months already, but then found=
+ and
+> > > > fixed (with a lot of AI help) more issues and also got busy with ot=
+her
+> > > > tasks.
+> > > >
+> > > > https://github.com/bsbernd/linux/tree/ublk-stop-races-with-tests-fo=
+r-7.3
+> > > >
+> > > > and here the backports, that also work on 7.0 (with a compat patch)=
+ and
+> > > > that is used for our dkms module
+> > > >
+> > > > https://github.com/bsbernd/linux/tree/niova-ublk-7.1-fix-backports
+> > > >
+> > > > The 7.3 patches are actually verified through tla+ and an ublk bran=
+ch
+> > > > for https://github.com/brauner/linux-formal
+> > > >
+> > > >
+> > > > @Ming the patches for 7.3 include heavy ublk state changes (it is n=
+ow a
+> > > > bit closer to what fuse-io-uring does) and also adds debugfs that c=
+an be
+> > > > used understand state issues.
+> > > >
+> > > >
+> > > > Thanks,
+> > > > Bernd
+> > > >
+> > > >
+> > > > >
+> > > > > 1. Environment
+> > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > >
+> > > > > - Breaks on 7.0.0-31-generic and 7.0.0-43-generic using the kerne=
+ls that ship
+> > > > >   with Ubuntu. Tested on amd64 and the ublk_drv module.
+> > > > > - An identical binary was run on 6.8.0-117-generic but no hangs w=
+ere reproduced.
+> > > > > - This was run on virtual machines provisioned with LXD and with =
+4 CPUs.
+> > > > > - After reading the code, I suspect the issue arises due to the 2=
+025 rework (the
+> > > > >   list batching first appeared in 6.15 and the per-IO task tracki=
+ng in 6.16).
+> > > > >   I have not run any kernels between 6.8 and 7.0
+> > > > >
+> > > > > 2. About the attached reproducer
+> > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > >
+> > > > > - It's a single C file that requires only liburing.
+> > > > > - 3 devices are loaded (2 are file-backed, the other memory-backe=
+d).
+> > > > > - A fourth device is added, started, loaded (briefly), stopped an=
+d
+> > > > >   deleted in a loop while the others are under loaded. This is th=
+e
+> > > > >   fastest way I found to reproduce the issue.
+> > > > > - On 7.0, this hangs within the first 2 runs. On 6.8, no hangs we=
+re
+> > > > >   observed after more than 10 runs. When the issue is detected, t=
+he
+> > > > >   program prints what evidence it can gather (per-device inflight
+> > > > >   operation numbers, the running threads' waiting channels and th=
+e
+> > > > >   io_uring's pending CQE counts).
+> > > > > - Bonus: 2 additional bugs where found when shrinking the workloa=
+d:
+> > > > >   A queue was leaking its io_uring (keeping the chardev pinned), =
+and
+> > > > >   START_DEV issued for a queued that had died before arming. Both=
+ stalled
+> > > > >   the program identically on 6.8 and both were fixed in the attac=
+hed version.
+> > > > >
+> > > > > 3. What indicates a failure (from userspace's POV)
+> > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D
+> > > > >
+> > > > > - The issue is always connected to a READ request:
+> > > > >   /sys/block/ublkb$N/inflight yields "1 0" and is never modified =
+again.
+> > > > > - The thread that handles the queue is blocked in io_cqring_wait =
+(as seen by
+> > > > >   inspecting /proc/$TID/wchan), byt the ring has no entries to co=
+nsume.
+> > > > > - The ublksrv_io_desc for the corresponding tag was written by th=
+e kernel
+> > > > >   at dispatch. The server reads descriptors after a CQE is posted=
+, but
+> > > > >   this never happens.
+> > > > > - There is no way (AFAIK) to recover the tag. The lost completion=
+ is the
+> > > > >   one that would set UBLK_IO_FLAG_OWNED_BY_SRV so a COMMIT_AND_FE=
+TCH for
+> > > > >   the tag is rejected (returns -EINVAL).
+> > > > > - Something very similar also shows on the control plane, which i=
+s why I
+> > > > >   suspect shared implementation details rather than something que=
+ue-specific.
+> > > > > - START_DEV, STOP_DEV and DEL_DEV will occassionnally never post =
+their CQE
+> > > > >   after the kernel provably completes. In one capture, the delete=
+d block
+> > > > >   device was already gone from /sys/block when the caller's 30 se=
+conds
+> > > > >   time bound fired. Repeated re-enters never produced the complet=
+ion.
+> > > > > - DEL_DEV was seen stalling 30-90 seconds on the kernel for opera=
+tions that
+> > > > >   should complete instantly. The io-wq worker thread was blocked =
+in:
+> > > > >
+> > > > >   ublk_ctrl_del_dev
+> > > > >     del_gendisk
+> > > > >       blk_mq_freeze_queue_wait
+> > > > >
+> > > > >   the device was stuck half-deleted, and it reacted to ADD_DEV by=
+ returning
+> > > > >   -EEXIST for minutes. In the worst instance it survivied its own=
+ server
+> > > > >   exiting and stayed un-deletable (needed a reboot).
+> > > > > - A START_DEV completed with -EINTR. The process was detached and=
+ arms no
+> > > > >   signal sources. I didn't capture the pending signal set in that=
+ instance,
+> > > > >   so I cannot rule out a spurious signal, but the same op's immed=
+iate retry
+> > > > >   stalled for a full 30 seconds.
+> > > > > - Not needed to repro the bug: COOP_TASKRUN, readahead bursts, ev=
+entfd wakeups.
+> > > > >
+> > > > > 4. Aftermath
+> > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > >
+> > > > > - AFter the request is lost, teardown hangs and takes the control=
+ plane with
+> > > > >   it. Looking at /proc/*/wchan and dmesg of a hanged instance sho=
+ws that the
+> > > > >   teardown uring command (running in an io-wq worker) is stucj in
+> > > > >
+> > > > >   ublk_stop_dev/ublk_ctrl_del_dev
+> > > > >     del_gendisk
+> > > > >       blk_unregister_queue
+> > > > >         elevator_set_none
+> > > > >           blk_mq_freeze_queue_wait
+> > > > >
+> > > > >   And the message printed by the kernel is:
+> > > > >
+> > > > >     INFO: task iou-wrk-2115:2118 blocked for more than 122 second=
+s.
+> > > > >     [...]
+> > > > >      ublk_stop_dev_unlocked.part.0+0x38/0x160 [ublk_drv]
+> > > > >      ublk_ctrl_uring_cmd+0x629/0x830 [ublk_drv]
+> > > > >
+> > > > > - Subsequent control command hangs on the control mutex:
+> > > > >     task iou-wrk-12720:12721 is blocked on a mutex likely owned b=
+y task
+> > > > >     iou-wrk-12626:12629.
+> > > > >     [...]
+> > > > >      ublk_ctrl_get_params+0x8b/0x190 [ublk_drv]
+> > > > >
+> > > > > - Killing the process doesn't help. The worker thread keeps waiti=
+ng on the
+> > > > >   queue and the frozen queue waits for a request whose owner (the=
+ server) is
+> > > > >   gone. On 7.0, ublk_timeout(...) only takes action for unprivile=
+ged devices by
+> > > > >   SIGKILL'ing the server. On privileged processes it retursn BLK_=
+EH_RESET_TIMER
+> > > > >   so a lost request is re-armed forever and never aborted, even w=
+hen the
+> > > > >   server is dead.
+> > > > >
+> > > > > - When the process exits, the io_uring io-wq teardown warns while=
+ a worker is
+> > > > >   still stuck and the process remains a zombie. The following mes=
+sage is
+> > > > >   printed by the kernel:
+> > > > >
+> > > > >     WARNING: io_uring/io-wq.c:1370 at io_wq_put_and_exit+0x10d/0x=
+2e0,
+> > > > >     CPU#3: live_server_ram/2115
+> > > > >
+> > > > > 5. Where I suspect is the problem
+> > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > >
+> > > > > - Evidence points at the completion side of the 2025 rework.
+> > > > > - per-IO task tracking ( ("ublk: require unique task per io inste=
+ad of
+> > > > >   unique task per queue", Pure Storage, 04/2025,
+> > > > >   https://patchew.org/linux/20250416-ublk._5Ftask._5Fper._5Fio-v5=
+-0-9261ad7bff20@purestorage.com/):
+> > > > >   our fetches are all submitted by the queue's own thread, so io-=
+>task
+> > > > >   should always match at dispatch time;
+> > > > > - rq_list batching: ublk_queue_rqs() coalesces same-<ctx_handle, =
+task>
+> > > > >   requests into one list and queues a single
+> > > > >   io_uring_cmd_complete_in_task(io->cmd, ublk_cmd_list_tw_cb) for=
+ the
+> > > > >   whole batch. If that single task work is lost, every request in=
+ the
+> > > > >   list strands - the observations are consistent with one lost re=
+quest per
+> > > > >   occurrence.
+> > > > >
+> > > > > 6. Follow-ups
+> > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > >
+> > > > > - Does this ring any bells in the 7.0 completion rework (lost tas=
+k work
+> > > > >   for ublk_cmd_list_tw_cb / ublk_cmd_tw_cb, or io->task mismatch =
+taking
+> > > > >   a path that neither completes nor aborts)? Is a fix already in
+> > > > >   flight?
+> > > > > - Independently of the completion loss: should ublk_timeout() for
+> > > > >   privileged daemons fail a request whose ublk server is gone? To=
+day
+> > > > >   BLK_EH_RESET_TIMER keeps a lost request - and with it the del_g=
+endisk
+> > > > >   freeze and the control mutex - stuck forever after server's dea=
+th,
+> > > > >   which turns a single lost completion into a machine-level hang.
+> > > > >
+> > > > > I can test candidate patches on 7.0.0-43 or bisect across 6.15-7.=
+0 on a
+> > > > > VM, or capture the trace of a missing completion.
+> > > > >
+> > > > > #regzbot introduced: v6.8..v7.0
+> > > > >
+> > > > > Best regards,
+> > > > > Luciano
+> > > >
+>
+>
+>
+> --
+> Ming Lei
