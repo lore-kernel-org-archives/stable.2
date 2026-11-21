@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.62
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795224072;
-	b=k+RW/2SGRrGP7Oy5Qrcf2kfKPT+H1y2kpnwd6SlPHRuug2SAyNCDo7tzPa2xn1w4f9xO
-	 ezelAPBRAItrF3S02rSgIpoLWvbWHfr8oP12ozbwrvP9OugHBVLdQdUhzfgzPGfGkUJ7H
-	 mub5yptPYqH6YCldvatrsXNBR2tp+kGSJoJdYF00KXeob9qDASed66Kcq6wWQCSU7lDNn
-	 ublL32Fut7SHmgZJMEXeQZln+rS98W3+xLwk0Qo5WGejBPkj6Q6zCziYbp0dzVOEu2dWa
-	 syn5MM0Pha/ios2TNT1R5TLiL4tNecMCdQOyezsPgn9g/yemz/kCsbC9j7sgupXXQ0A==
+	t=1795224224;
+	b=jqx2TuSnodvEyV9GI/cXjgJW6HbWL8AhO4Oq5220T0ryY9kS6TGt3Giesqw6zawogyDO
+	 ZITm/YpvnTXp9a0CBy+5F17s7Hj0CJ5ghkfuAeu0hPSI6PbsUKGgawGvbgGqlSipUtC9O
+	 Yp6GHQC7nxvbJsz9JmPmyn98Qkf+FRoYZ/jegnbuZosM06+wQFfPhxwN6jJpkeAA1YULv
+	 95Q4MENQmdHsngOrjyGW6iK2cM+FA4vRdhHs9td4diaxcaGfud4MIrylT7c5+6xAvPMqV
+	 RTpJod45PaUnGZTivos8uF8RpkwexEV6J78Qmt7V5M+bk5/dIpDnVEmD2YvExNHbKAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795224072;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795224224;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wTNzI/VAp0bMLJS1RLjl54bNgqDF612eF3HnhqkWqT8=;
-	b=Tw3g3TWrUpMLAud9wuR7+AIEQl9czR1CLwnkyhBJQxZCmQIpmN3MjZ8w0veneI1N1c6L
-	 tPvyzdNCGYK6kXX8hVHh3tj2j5qtdlKgdptVQCxu8dlrRQsl0RdwlhLGhksZEj14SObLl
-	 vbf8nSSS60Ki+kvHGq8nDjjUgW2zC4PP5MvTCKgTMA56uGudgnKDXCzUaxoIxd16qcAf0
-	 4X8QSj1902UMn7pf+SOqtvZVewqJkC+/HFCsX+F+qlfXgsA0AbCzuAdiejUnr4KHzuu7p
-	 2jgT5njnEXll6lGuTb9bkiXDrJtyjO8PToEBVN3weVTBWcWRJICyo3C4NC1kf59rIhQ==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Xz5cC2O8b4PhD3G6RP3szPC99+TsfFt+jwewiS/quyI=;
+	b=fYxN35Mf5/laIbwQaLGiQc5VKUMGh0f4c/Net+ntqzVjKstSV4KgCPk1sWiqz4aS2eUY
+	 CWG+EiHozL4ZGml7fUtdSCXIWiCSoZbk/x16LgII62sfDuNJTQR3xeiWZdNriMM0aByjW
+	 ephcbdU30HI/Wpp+orZv5hrLwl4I+d7pJWOZ0uzFc1ne+b0G8111Stoj8S2VlAOF2X7l/
+	 3Ieqsv1RPwCTFcLBDiT9/vdxssCohaR2FInvInYtkXfhust4XfJ4YiCgtCiEptedN0efi
+	 jSRfblES5gGwl8aNHeksbVlgOP5fekpG9ZSvjf2Wnb0HgH3SCMnaxsf//Jt8whYnQHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="l6/7aUbk";
-	arc=none smtp.remote-ip=95.215.58.24
-Received: from mta1.migadu.com (out-24.mta1.migadu.com [95.215.58.24])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bKCr41IE;
+	arc=none smtp.remote-ip=95.215.58.62
+Received: from mta1.migadu.com (out-62.mta1.migadu.com [95.215.58.62])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F29606A6A4
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 01:21:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98F29606A6A4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D6E606A338
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 01:23:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00D6E606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l6/7aUbk
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bKCr41IE
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3KZnzfGWlw6YrVlMNRYr5zPamqEAkGD9Dw9g6hM3Tq8=;
+DKIM-Signature: a=rsa-sha256; bh=dx6Spe2vDjy+a5xjpfUPvPXuaxBXphqlSthJWpmUnwg=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795224067; v=1; x=1795828867;
- b=l6/7aUbkVyYWpU1ucndzkT7jxbYN4Dh90AI61SJYiky8/GOo7/syBGBcxq7q4Nalpwlieq4H
- RMWcp6AFCmXEExCqobm2UAQiV5+T2rHMixiYRxoQ/d48hc6qs0HBzsP+sJiay7kjjeInXBmVkff
- zeKv5ot8JwscThMqzN8hmGj4=
+ t=1795224222; v=1; x=1795829022;
+ b=bKCr41IELwfn3Z45mSvylQXfnL3015HXb9GK96avk2/HTfTmNTzbhJRUkzaOvA7Xv1y7c/Sb
+ HkSXeueAMFlXgKJRADmPAcsKqnfvyeP9SzmeuV9SrejlSdaYDi2E1UIs/4KWKfL0fMiYbMDYEDq
+ 6yub7YMlszO24BUozCca6MVU=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d846639e71118490;
-	Sat, 21 Nov 2026 01:21:07 +0000
-X-Mizu-Trace-ID: d846639e71118490
+Received: by smtp.migadu.com with ESMTPS id ecbfa4d686ec920a;
+	Sat, 21 Nov 2026 01:23:42 +0000
+X-Mizu-Trace-ID: ecbfa4d686ec920a
 X-Migadu-Flow: FLOW_OUT
-Date: Fri, 20 Nov 2026 17:21:02 -0800
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Tejun Heo <tj@kernel.org>, "T.J. Mercier" <tjmercier@google.com>, 
-	driver-core@lists.linux.dev, Jori Koolstra <jkoolstra@xs4all.nl>, Ian Kent <raven@themaw.net>, 
-	Meta kernel team <kernel-team@meta.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] kernfs: clear i_nlink before deactivating removed nodes
-Message-ID: <awDxzdzSNy6xDkKI@linux.dev>
-References: <20261120-work-kernfs-delete_self-v1-1-514a35d04431@kernel.org>
+Message-ID: <e9ec7734-6cbe-4bc8-8ee1-d7347640fb8e@linux.dev>
+Date: Fri, 20 Nov 2026 18:23:34 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,51 +58,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261120-work-kernfs-delete_self-v1-1-514a35d04431@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/balloon: fix NR_BALLOON_PAGES accounting during
+ page migration
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jerrin Shaji George <jerrin.shaji-george@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: linux-mm@kvack.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Shao Mingyin <shao.mingyin@zte.com.cn>
+References: <20261120-b4-balloon_nr_pages-v1-0-d8944b587819@kernel.org>
+ <20261120-b4-balloon_nr_pages-v1-1-d8944b587819@kernel.org>
+Content-Language: en-US
+From: Nico Pache <nico.pache@linux.dev>
+In-Reply-To: <20261120-b4-balloon_nr_pages-v1-1-d8944b587819@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 20, 2026 at 09:59:59PM +0100, Christian Brauner wrote:
-> __kernfs_remove() deactivates the whole subtree first and only clears
-> i_nlink on a node's inodes later, once it unlinks the node from its
-> parent. In between kernfs_dop_revalidate() already fails for the node,
-> so a lookup that runs into one of its cached dentries kills the dentry
-> while i_nlink is still 1. For a file of a cgroup that is being removed:
-> 
->   rmdir("cg")                          stat("cg/cgroup.events")
->   css_clear_dir()
->     __kernfs_remove(cgroup.events)
->       deactivate the node
->                                        kernfs_dop_revalidate() == 0
->                                        d_invalidate()
->                                        dput()
->                                          dentry_unlink_inode()
->                                            i_nlink == 1, no IN_DELETE_SELF
->       kernfs_unlink_sibling()
->       kernfs_clear_inode_nlink()
->         i_nlink == 0, but the inode has no dentry left
-> 
-> The inotify watch keeps the inode alive, so nothing ever sends
-> IN_DELETE_SELF for it and the watch only goes away once the watcher
-> closes the inotify fd.
-> 
-> The window covers everything between the two loops in
-> __kernfs_remove(). kernfs_drain() drops kernfs_rwsem and waits for the
-> active references and open files of the node, and the clear itself
-> waits for kernfs_iattr_rwsem behind every concurrent permission check
-> and stat(). In a VM with a few threads stat()ing a cgroup and one of
-> its files while the cgroup is removed, IN_DELETE_SELF for the watched
-> file got lost in 16 to 33 out of 150 rmdirs, and it didn't show up even
-> after dropping the dcache.
-> 
-> So clear i_nlink in the loop that marks the subtree as being removed,
-> before a node turns inactive. kernfs_rwsem is held for writing there, so
-> no new inode can show up for these nodes while the loop runs, and once
-> a node is inactive kernfs_get_inode_locked() refuses to attach one. Two
-> overlapping removals may clear the same inode twice, which is fine.
-> 
-> Fixes: eea5d2bb34ba ("kernfs: Send IN_DELETE_SELF and IN_IGNORED")
-> Cc: stable@vger.kernel.org # v7.1+
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Reviewed-by: Shakeel Butt <shakeel.butt@linux.dev>
+
+On 11/20/26 3:34 AM, David Hildenbrand (Arm) wrote:
+> balloon_page_migrate() doesn't update NR_BALLOON_PAGES in two scenarios:
+> 
+>   (1) If the new page is on a different node than the old page.
+> 
+>   (2) If the old page was deflated but the new page could not be
+>       inflated, effectively deflating the balloon.
+> 
+> Consequently the "Balloon" values in /proc/meminfo, the per-node meminfo
+> etc. will be wrong.
+> 
+> Fix it by adjusting the "Balloon" counters accordingly just after
+> conditionally adjusting the manage page counts.
+> 
+> This has low urgency.
+> 
+> Fixes: 4d689474e1b2 ("balloon_compaction: update the NR_BALLOON_PAGES state")
+> Cc: stable@vger.kernel.org
+> Reported-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> Closes: https://lore.kernel.org/r/20261115004708909xx05JgB9nXnOCG0zL7h_K@zte.com.cn
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Acked-by: Nico Pache <nico.pache@linux.dev>
+
+> ---
+>   mm/balloon.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/mm/balloon.c b/mm/balloon.c
+> index 96a8f1e20bc66..b31543dd4d4d2 100644
+> --- a/mm/balloon.c
+> +++ b/mm/balloon.c
+> @@ -310,12 +310,17 @@ static int balloon_page_migrate(struct page *newpage, struct page *page,
+>   			adjust_managed_page_count(page, 1);
+>   			adjust_managed_page_count(newpage, -1);
+>   		}
+> +		if (page_pgdat(page) != page_pgdat(newpage)) {
+> +			dec_node_page_state(page, NR_BALLOON_PAGES);
+> +			inc_node_page_state(newpage, NR_BALLOON_PAGES);
+> +		}
+>   	} else {
+>   		/* Old page was deflated but new page not inflated. */
+>   		__count_vm_event(BALLOON_DEFLATE);
+>   
+>   		if (b_dev_info->adjust_managed_page_count)
+>   			adjust_managed_page_count(page, 1);
+> +		dec_node_page_state(page, NR_BALLOON_PAGES);
+>   	}
+>   
+>   	b_dev_info->isolated_pages--;
+> 
+
