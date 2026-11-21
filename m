@@ -1,66 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795247378;
-	b=kilKKHiKdm+O/8E4nYDEXSDhM5SmZE/GyeKiSTHMatpUNs1TvYHI/5e3Fb+7Y4NHjxiN
-	 XoVkWkNqSUu6diuLnt21Xj61svbq4trYuIsXkV5bSdScekvHQQQj515ur1p1i1HrLBhvk
-	 i6vGhGu84PP2mamQdhH0czsxFAj3iTwuRAmwDZeJ6d4btXwcLAGtFVspExyzMjRz5oaMH
-	 4EyLjG6ZPlGSv9+JYDl5RyY4NBbRyJ3x/X0qPKpYL054VxMqO2I6FOaEOYvFatLGD465H
-	 BWueXAf2RAC8Lq5KFWUg0nLAEYeeCbsaSSUx5zUAeO9ORhfW/eMxwm/hSd2LGPrOr8g==
+	t=1795247526;
+	b=hrOgWhWu39JGfvBtR+8IAmdAfkjX+N70uIXgiLNwybu+lY3kAqzFqyZ0J8HvQBUU1QFZ
+	 69RPWMcwT4H5mvLMK4I5zxdI9PhS8yLlW4jOa+QmrXKfGHYl00vqJQfmd7ZSC41TOVEJE
+	 G2AIlYSfvFfH3+ZE7DNkcfGbM00dypNv08KcsU5m5r70EUapx20PErbQwivdKC02ZLIr3
+	 BmdCRH4r3ecIjd3cSktzgMU5R2t8RHOolWEyL6arM3iTv2Zl3IWo0cKZuZYcyHMJX5+1Q
+	 lFymN6wdriiT1J9bg8dpkG95CzBFdqf14+UKkgjcxGmRxmJE5G2obtDmAXHxxBq7Erw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795247378;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=iLcinoRHQQpGqpB7RbYpvqsBws/0VYTm7Rl5LRYYZVQ=;
-	b=CwQS38bORKysxliczIhdM300BF1SCz5uaypXKd0cvrZFPKVibQMWDciHXsLEMSLqOj0N
-	 H4FbcH0JCramvFILApiXFWr/GVhD2pi+X0T+YSr64jAZQURTiUbo/bo+JfCTaLPPW+1Wb
-	 8AnfabTRWks7XsbiFr6UP9uMVCo/FpEwQog5zg9fr4WAGYAqH9r4wVAtxJ3vHXBW6BioE
-	 WS58I+Zk1Mc4jv2cNj++9bhB3H5bYTrdqsS4SPIbU/xw5UP+A5zOXlWN58tFgUwVHiATS
-	 1en7E2BFG9V/GnzPHVz24e6AtAAyoJ1X2RhO+OIUpjeIT59V030cmphwt6CMR3ccAZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795247526;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1hYw1g33ZMFOQ7DBwiFeU4k0h/WUx3Md8Zv+IeH1Fvs=;
+	b=nDrEad0MQ02J9W3dBDhytat+y0+rGT5f1nQhSNE2edoOavkPVVGAlnGx0N7M2Sxp2F2f
+	 OeZ1t1srXpDgY0edAzSdqxL09TOMRk7RhQTp1Jom1OlIFkzKI81tdeDmMB63NOda6Szq1
+	 mlsMkJ+dQaYFmdtft5HMPo1azuaRfthnwQezuyo6JAC2dwz2v2Godaosz3EeMLNfnkzIz
+	 th7cjK2slzqlO/Ezq+bzlJ0IKGORtYLFL+7eJ/WLvR8Ck4eIhBwA7QilRBxDgMU/nE+bd
+	 a1yh9aYCWjAdgcq7JGn0GXw0UYjtgIqhY/XMqsAZSccUGC+wljahmDCz3GhellFWOkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fbbvA+FR;
-	arc=none smtp.remote-ip=203.205.221.231
-Received: from out203-205-221-231.mail.qq.com (out203-205-221-231.mail.qq.com [203.205.221.231])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O+gkpbZ0;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8AC9606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 07:49:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8AC9606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED024606A32A
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 07:52:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED024606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fbbvA+FR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795247375; bh=iLcinoRHQQpGqpB7RbYpvqsBws/0VYTm7Rl5LRYYZVQ=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=fbbvA+FRNXczTapsO3RJdGTVycvvhiEsNQO3CDNr0I9GyRwaFRBimhWHFTFSb4Qjl
-	 c6wHnNaEY3mEI1njqjdpC9pzh4kXve3B9W+9uc0GTIvesh942rT45U84CykkMsXEiC
-	 jwInIqL8yMT76YcwAB+6H2TCn5c33Hemj9FfTgQE=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-XMAILINFO: NMF8M2bwIxE1fM67/ApOI8rE5vkr2L5vHqFC/04+JAPMM4YLpcaV8NR3cl1J1S
-	 HfGJ+fYkalur0uwkQ2/TRQTrLI6S2Z/YK8Vo5B9LQHC1Qjvfr5fwQ7JWuh2ksqPKPczWGQAY+einR
-	 Qcjnksa48T1U1h9meYFjeB0cyCdEP4FsfB15Qa/gldIGhYLnnMXqQOIWiBT49wvVRiFAn3ts9WYT7
-	 q6y7SWmTisRBcRkbGsXc3Z1yz5i1cx5B8SqFYeFGDiTGboZ5IC3PvJw2zIj6IZ80XUdHnK3vkh5cs
-	 9gel50hfITLldq9sqzhPog574DrLaC45ry+B7GU+50lVSWsKM2eawS3uW3OY09KP0u4c7Q9b+Yhbr
-	 yJrOULAbiIxy3Tnj/pDGfUAB1k6Q/TfK6WDFkT4/u2Veicab/hT4amFf0/+BWrdpKV2SzeqNfJJZB
-	 mDFbGN/GLRhJ38fWbeV8FqCaLTdezHVVr/8JXrqgEef8IisOiMmgmtNK/UhkXK5VmQiOFAs7Hdg62
-	 QW2alhgpCgWnjA8HR3GmgJ7oWNM6kUn3cRSOHbtKVKbaWx+fVTSe0z2IdDG5ldgSeL5SIekSQVkoo
-	 NvWQKRsHc+fDqOCmIUkYlzNYxAJQJhC/wYrvRoYI+WIH1KGEUqMvm0OYZ5GlQylComEpM0oe7nVY0
-	 emJ/36OhQeKv7GesVWDdss+7m7/h7qx9HjSBz2NaJxnasWvL1bCRBvmCVXElGOD1iueNVSqN6FCpe
-	 SPbHwTHj9mwsr6om+/K3cPCum93zLiX2Zpl+m9v0g1MBBD42aWk7u5RCVg483prFuvrD+WC78c7rp
-	 vO4WQjoaL2MXLxdH6UXs32EpgC35wHCyY2B2Pe9EJL8eIuIuvNkheHtlMMr1619GqVTeKbp0LPrm1
-	 XEcYMK+SQXuFZI1/Us7NMfUsG1EGapRMUpuHRCrWSXHUEjCyH92yKtJpGK9MA0md9xaHpXKqfUg7u
-	 3OmWxI1dhRvAN+CRENAj4i4rG0uEDgr9xCd/APX6jNpwV5lF1eCjl2kn/wUQnohGfKUV4UaZwSAz6
-	 bxuMp/fQQXA4kZLkDztpQvgrSa68tjuzupvgT+yqmBaBgK5dQdy8NZx0osqk76DEwKsM6harlYSDw
-	 dOvxZQXHPYO+Ow==
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?bmV0ZGV2LWJvdCtzYXNoaWtv?=" <netdev-bot+sashiko@kernel.org>
-Cc: "=?utf-8?B?bWts?=" <mkl@pengutronix.de>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>, "=?utf-8?B?c29ja2V0Y2Fu?=" <socketcan@hartkopp.net>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?Y29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?c2toYW4=?=" <skhan@linuxfoundation.org>, "=?utf-8?B?cmR1bmxhcA==?=" <rdunlap@infradead.org>, "=?utf-8?B?d2c=?=" <wg@grandegger.com>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, 
-	"=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
-Subject: Re: [PATCH net v10 08/10] can: rockchip_canfd: retry the outstanding TX buffer
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O+gkpbZ0
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b155f50c24so1490665a91.3
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 23:52:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795247525; x=1795852325; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1hYw1g33ZMFOQ7DBwiFeU4k0h/WUx3Md8Zv+IeH1Fvs=;
+        b=O+gkpbZ0bFWcOAMp0zzqenLDkZZPHHdPU71qyJSkOakrMhknWdELDegIbChG5Thv+q
+         rJ7uSyX8QIgEVTuF5Jf5WxxsNvSBLvgOi47Ru7NJVUjxlPVnD824tCvxETBOZP1XLImU
+         Ly3qpiWATfGbmh7DS4SSlXMbBlxetKDJEq/1Kac9GNzbtfc0vbWK/Ml74WIUoO/1bTnz
+         QxEQ91bzwrFDfKJLpHvr6wFLR4PhiIpgsaxFHtN9Dz2yJp7IFzya5ztEHnUNLcza6FXj
+         s/MxbhkZXaVqWV+3hhNCG9IJ4BVX96SrOZUQk2DTXxYlW8X/S3NxKupfRwCGd51cHfqC
+         8+BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795247525; x=1795852325;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1hYw1g33ZMFOQ7DBwiFeU4k0h/WUx3Md8Zv+IeH1Fvs=;
+        b=P69YdHv5S5OuAU9nZrO/8iYKdXru1i2M0EbwZ5aqsL4TgsloU2N8ayuJh+T9GjdITV
+         Ibukg80LejILCT7J1AXgN00pUXyfGRaXTQL9Mjii2tzsx+MmAxjHTpnKJEooSF/y56jl
+         +MyedxULsnF5wXkdVDJShI46zzVf7UTdAZJ9fc4t4BG8QOBhvXfeifA4BjYHaEm3Oa2a
+         7Tj8IkT2iwTCojoqm6u99y3Q0W2aiL4XJY19H5Yz2qKZsyEs+Zu4nzFeqZMzIAxvokwd
+         F1/MS5FLy+EtO1VJGEpWdG6L11A2kM9zhYtR6tt0oLL1ObDmWgEyDYI8X7VilBK13q9D
+         e7zA==
+X-Forwarded-Encrypted: i=1; AL+hErHngZ75oC7yFmfpCQaNhvSQM8CpJ9aDbvCpJqn8B1dDqkl6y2GQRFengzkEmtd7Nu9N6c1p5V4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8tB3p5f4/vVDwCnKHhHiCNmPKTpspEXXDHn+LtePOtMvssrPM9
+	C+gSp8ze4bXQ8YJq0jTJsVqhUeTYvU5tFuE8Lq8EraEddbJmfghs6l0q
+X-Gm-Gg: AZFdTZcxfEbnE2Em51zLWAWrhVSu8W2Gv57cUKBYeQXr/73acEh7GcH900nkTlhlen0
+	MGDMiTx1zm/p996BG77WjCbCNWJVqGvxVBCEd8Kg5nRj2AwYuPYmanoO3K3npqIskh3krTQXSzO
+	a4xRD8vDyhBZpS+ZO9XvFw5V0db8iDwXvklmFc3czUScRS38n0EW8l1Yp5MZKhPl5YVCsWDKdWp
+	2IUGOin5DHbbO54tkI0QN3fBaNfy1BDSiw/rnKjvfBhyH5Z8C6IUSZKmjtev3ACP4Ha0SCKdRP6
+	ny0QoASxr/u8o8tx8RWNZ4GGk1UvF+xIpUHSjZKNRKLJwD4cSnOl9A/0USovQJW387k0uUkhKJt
+	N8aFjfSzeYx3rlr/PXS35iAUmkklgO1eBQrCUPxCfVdphLT0kvL/JazFwtHE5YwgEolO/nuj+WW
+	gwvAT1DZAVlTVuzL/Ealrx+7Aj2AEduBzec55yOABjvm1kt6u318jg/CffDe1R+aH8vhYtZM25B
+	ZOyY6jCYCQ+YxuiIPsoZ6QwGuyYMWVXz5W339rqIEQCa0EZ8H/LjUDEVlOTJrXPwqUvxgBaEfZe
+	Yd36KyKKC9PJjZLsZvbZeb4c
+X-Received: by 2002:a17:90b:17cb:b0:3b0:cc6f:1046 with SMTP id 98e67ed59e1d1-3b41c9bc517mr5638283a91.67.1795247525168;
+        Fri, 20 Nov 2026 23:52:05 -0800 (PST)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfec090sm2401719a12.14.2026.11.20.23.52.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 23:52:04 -0800 (PST)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com
+Cc: heming.zhao@suse.com,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v3] ocfs2: drain fs_state readers before journal teardown
+Date: Sat, 21 Nov 2026 15:51:57 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0003-v8-8fb510a5c52b337960c9@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,76 +100,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Sat, 21 Nov 2026 15:49:32 +0800
-X-Priority: 3
-Message-ID: <tencent_C2353675D108CA2C26008C5405302266F80A@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261119-rockchip-canfd-restart-close-v10-8-df23913aa33a@qq.com>
-	<179521934391.3131.16575184154447420964@kernel.org>
-In-Reply-To: <179521934391.3131.16575184154447420964@kernel.org>
-X-QQ-mid: xmsezb41-0t1795247372t59iwxlbh
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-SGksCgo+IFtTZXZlcml0eTogTG93XQo+IElzIHRoZXJlIGEgbGltaXQgb24gaG93IG1hbnkg
-dGltZXMgdGhpcyByZS1hcm1zPwo+IAo+IHJrY2FuZmRfY2hpcF9zdGFydCgpIGVuYWJsZXMg
-UktDQU5GRF9SRUdfTU9ERV9BVVRPX1JFVFhfTU9ERS4gSWYgdGhlCj4gcmV0cmllZCBmcmFt
-ZSBuZXZlciBnZXRzIGFuIEFDSyAoZm9yIGV4YW1wbGUgdGhlIGJ1cyBpcyB1bnBsdWdnZWQg
-b3IgdGhlCj4gb25seSBvdGhlciBub2RlIGdvZXMgc2lsZW50KSwgdGhlIGNvbnRyb2xsZXIg
-a2VlcHMgcmV0cmFuc21pdHRpbmcgYW5kCj4gVFhfUkVRIHN0YXlzIHNldC4KPiAKPiBVbmRl
-ciB0aGUgSVNPIDExODk4LTEgZmF1bHQgY29uZmluZW1lbnQgZXhjZXB0aW9uLCBhbiBlcnJv
-ci1wYXNzaXZlCj4gdHJhbnNtaXR0ZXIgdGhhdCBzZWVzIG9ubHkgQUNLIGVycm9ycyBkb2Vz
-IG5vdCBpbmNyZWFzZSBURUMuIEJ1cy1vZmYgaXMKPiBuZXZlciByZWFjaGVkLCBzbyBya2Nh
-bmZkX3R4X2Rpc2FibGUoKS0+cmtjYW5mZF90eF9yZXRyeV9zdG9wKCkgbmV2ZXIKPiBydW5z
-Lgo+IAo+IFdvdWxkbid0IHRoaXMgd29ya2VyIHRoZW4gdGFrZSB0eF9sb2NrIGFuZCByZWFk
-IFJLQ0FORkRfUkVHX0NNRCBvbmNlIHBlcgo+IGppZmZ5IHVudGlsIHRoZSBpbnRlcmZhY2Ug
-aXMgY2xvc2VkIG9yIHJlc3RhcnRlZD8gQW4gdW4tQUNLZWQgZnJhbWUgYWxzbwo+IHN0YWxs
-ZWQgVFggYmVmb3JlIHRoaXMgcGF0Y2gsIGJ1dCB0aGUgcGVyLWppZmZ5IHBvbGxpbmcgd2l0
-aCBubyBsaW1pdCBpcwo+IG5ldy4KPiAKPiBJbiB0aGUgc3B1cmlvdXMgbWF0Y2ggY2FzZSB0
-aGUgc3R1Y2sgcmVxdWVzdCBpcyB0aGUgdW50cmFja2VkIGR1cGxpY2F0ZS4KPiBUaGUgcXVl
-dWUgdGhlbiBzdGF5cyBzdG9wcGVkIGV2ZW4gdGhvdWdoIHR4X3BlbmRpbmcgaXMgMC4KCk5v
-LiBBIG1pc3NpbmcgQUNLIGFsb25lIGRvZXMgbm90IHN0YXJ0IHRoZSB3b3JrZXIuIFRoZSBk
-cml2ZXIgbXVzdCBmaXJzdAppc3N1ZSBhIHNvZnR3YXJlIHJldHJ5IGZvciBlcnJhdHVtIDYu
-IEVpdGhlciBUWDBfUkVRIG9yIFRYMV9SRVEgbXVzdAp0aGVuIHN0YXkgc2V0LCBhbmQgdGhl
-IGludGVyZmFjZSBtdXN0IHJlbWFpbiB1cCB3aXRob3V0IHRoZSBjb250cm9sbGVyCmdvaW5n
-IGJ1cy1vZmYuIFByb2xvbmdlZCBwb2xsaW5nIHJlcXVpcmVzIGFsbCBvZiB0aG9zZSBjb25k
-aXRpb25zLgoKSSB0ZXN0ZWQgdGhpcyBvbiBSSzM1ODguIFRoZSBmaXJzdCB0aW1lIHRoZSB3
-b3JrZXIgdG9vayB0aGUgYnVzeSBwYXRoLApUWDBfUkVRIHdhcyBzdGlsbCBzZXQsIHNvIGl0
-IHNjaGVkdWxlZCBhbm90aGVyIHBvbGwuIEJ5IHRoZSBuZXh0IHBvbGwsCmJvdGggVFgwX1JF
-USBhbmQgVFgxX1JFUSB3ZXJlIGNsZWFyLiBJIHN1c3BlY3QgdGhlCnByb2xvbmdlZCBwb2xs
-aW5nIHlvdSBkZXNjcmliZSBtYXkgbmV2ZXIgb2NjdXIgaW4gcHJhY3RpY2UsIGFsdGhvdWdo
-CnRoaXMgdGVzdCBhbG9uZSBjYW5ub3QgZXN0YWJsaXNoIHRoYXQuCgo+IFtTZXZlcml0eTog
-TWVkaXVtXQo+IAo+IElzIGl0IHNhZmUgdG8gcmVsZWFzZSB0aGUgZ3VhcmQgYXMgc29vbiBh
-cyBib3RoIFRYX1JFUSBiaXRzIHJlYWQgY2xlYXI/Cj4gCj4gcmtjYW5mZF94bWl0X3JldHJ5
-KCkgc3RhcnRzIGEgc2Vjb25kIGhhcmR3YXJlIHRyYW5zbWlzc2lvbiBvZiB0aGUgZnJhbWUg
-YXQKPiB0eF90YWlsLCBidXQgaXQgY3JlYXRlcyBubyBlY2hvX3NrYiBzbG90IG9yIHBlbmRp
-bmcgY291bnQgZm9yIGl0LiBDbGVhcgo+IFRYX1JFUSBiaXRzIG9ubHkgbWVhbiB0aGUgaGFy
-ZHdhcmUgZmluaXNoZWQgc2VuZGluZy4gVGhlIFJYU1RYCj4gc2VsZi1yZWNlcHRpb24gb2Yg
-dGhlIHJldHJpZWQgY29weSBtYXkgc3RpbGwgYmUgaW4gdGhlIFJYIEZJRk8uCj4gCj4gVGFr
-ZSB0aGUgb3JkZXJpbmcgdGhlIGNvbW1pdCBtZXNzYWdlIGRlc2NyaWJlcywgd2hlcmUgdGhl
-IG9yaWdpbmFsIHJlcXVlc3QKPiBoYXMgYWxyZWFkeSBjb21wbGV0ZWQgd2hlbiB0aGUgbWF0
-Y2hpbmcgc3RhbmRhcmQgZnJhbWUgaXMgcHJvY2Vzc2VkOgo+IAo+IDEuIFN0YW5kYXJkIGZy
-YW1lIFMgbWF0Y2hlcyBwZW5kaW5nIEVGRiBmcmFtZSBCIGF0IHR4X3RhaWwuCj4gICAgcmtj
-YW5mZF9yeHN0eF9maWx0ZXIoKSBjYWxscyBya2NhbmZkX3htaXRfcmV0cnkoKSwgYW5kIEIg
-aXMgc2VudCBhZ2Fpbi4KPiAKPiAyLiBCJ3Mgb3JpZ2luYWwgZWNobywgc3RpbGwgaW4gdGhl
-IFJYIEZJRk8sIG1hdGNoZXMgZWNob19za2JbdHhfdGFpbF0uCj4gICAgdHhfdGFpbCBhZHZh
-bmNlcyBhbmQgdHhfcGVuZGluZyBiZWNvbWVzIDAuCj4gCj4gMy4gVGhlIHJldHJ5IGZpbmlz
-aGVzLiBUaGlzIHdvcmtlciBzZWVzIFRYX1JFUSBjbGVhciwKPiAgICBya2NhbmZkX2dldF9l
-ZmZlY3RpdmVfdHhfZnJlZSgpIHJldHVybnMgMiwgYW5kIHRoZSBxdWV1ZSBpcyB3b2tlbi4K
-PiAKPiBbLi4uXQo+IAo+IFNob3VsZCB0aGUgZWNobyBvZiB0aGUgcmV0cnkgYmUgYWNjb3Vu
-dGVkIGZvcj8gSWYgbm90LCBjb3VsZCB0aGUgY29tbWl0Cj4gbWVzc2FnZSBhbHNvIG1lbnRp
-b24gdGhlIGxvY2FsIHBoYW50b20gUlggYW5kIHRoZSBtaXNhdHRyaWJ1dGVkCj4gY29tcGxl
-dGlvbj8KClRoZSBkcml2ZXIgYWxyZWFkeSByZXRyaWVzIHRoZSBmcmFtZSB3aXRob3V0IGFs
-bG9jYXRpbmcgYSBzZWNvbmQgZWNobwpzbG90LiBPbmNlIHRoZSBvcmlnaW5hbCBlY2hvIGhh
-cyBiZWVuIGNvbnN1bWVkLCB0aGUgcmV0cnkgZWNobyBjYW4gYmUKZGVsaXZlcmVkIGFzIG9y
-ZGluYXJ5IFJYIG9yIG1pc3Rha2VuIGZvciB0aGUgY29tcGxldGlvbiBvZiBhbiBpZGVudGlj
-YWwKc3VjY2Vzc29yLiBUaGlzIHByZWRhdGVzIHRoZSBwYXRjaC4gVGhlIGd1YXJkIGtlZXBz
-IG5ldyBzdWJtaXNzaW9ucyBmcm9tCm92ZXJ3cml0aW5nIHRoZSBUWCByZWdpc3RlcnMgd2hp
-bGUgdGhlIHJldHJ5IGlzIGFjdGl2ZS4gSXQgZG9lcyBub3QKaWRlbnRpZnkgdGhlIHJldHJ5
-IGVjaG8sIGFuZCBJIGRvIG5vdCBjdXJyZW50bHkgcGxhbiB0byBmaXggdGhpcyBpc3N1ZQpp
-biB0aGlzIHBhdGNoLgoKQmVzdCByZWdhcmRzLApDdW5oYW8gTHUK
+The fs_state debugfs open callback builds a snapshot from mount state,
+including the journal and cluster connection. The file is published
+before ocfs2_mount_volume() and removed after journal and DLM shutdown,
+so an open can overlap teardown on unmount or mount failure.
 
+Publish fs_state at the successful end of ocfs2_fill_super(), after the
+last fallible mount step. Remove it in ocfs2_put_super() before calling
+ocfs2_dismount_volume(). Debugfs removal excludes new opens and drains
+active callbacks. The release callback only frees the per-open snapshot.
+
+KASAN reported:
+
+    BUG: KASAN: slab-use-after-free in ocfs2_osb_debug_open+0x967/0x15e0
+    Read of size 4 at addr ffff888116a56028 by task cat/502
+    ...
+    Freed by task 504:
+     kfree+0x308/0x580
+     ocfs2_journal_shutdown+0x10a/0xc20
+     ocfs2_dismount_volume+0x315/0x940
+
+Fixes: da5e7c87827e ("ocfs2: cleanup journal init and shutdown")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+Changes in v3:
+- Create fs_state at the successful end of ocfs2_fill_super() so failed
+  mounts never publish it.
+- Remove fs_state in ocfs2_put_super() before volume teardown so creation
+  and removal are paired at the superblock level (Joseph Qi).
+
+Changes in v2:
+- Address the osb dereference before BUG_ON(!osb) raised by Sashiko:
+  https://sashiko.dev/#/patchset/98583
+- Remove fs_state after BUG_ON(!osb) in ocfs2_dismount_volume().
+- Trim the KASAN report.
+
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0003-v6-2f69dbb7417fcd537be6@gmail.com
+Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0003-v7-1522d068e5b943786c3e@gmail.com
+
+This patch was written with assistance from Codex (OpenAI).
+
+ fs/ocfs2/super.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
+index 0af2245ae303..2a58d3cd9690 100644
+--- a/fs/ocfs2/super.c
++++ b/fs/ocfs2/super.c
+@@ -1072,9 +1072,6 @@ static int ocfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	osb->osb_debug_root = debugfs_create_dir(osb->uuid_str,
+ 						 ocfs2_debugfs_root);
+ 
+-	debugfs_create_file("fs_state", S_IFREG|S_IRUSR, osb->osb_debug_root,
+-			    osb, &ocfs2_osb_debug_fops);
+-
+ 	if (ocfs2_meta_ecc(osb)) {
+ 		ocfs2_initialize_journal_triggers(sb, osb->s_journal_triggers);
+ 		ocfs2_blockcheck_stats_debugfs_install( &osb->osb_ecc_stats,
+@@ -1158,6 +1155,10 @@ static int ocfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	/* Start this when the mount is almost sure of being successful */
+ 	ocfs2_orphan_scan_start(osb);
+ 
++	/* Publish fs_state only after all fallible mount steps. */
++	debugfs_create_file("fs_state", 0400, osb->osb_debug_root,
++			    osb, &ocfs2_osb_debug_fops);
++
+ 	return status;
+ 
+ out_dismount:
+@@ -1555,8 +1556,13 @@ static void __exit ocfs2_exit(void)
+ 
+ static void ocfs2_put_super(struct super_block *sb)
+ {
++	struct ocfs2_super *osb = OCFS2_SB(sb);
++
+ 	trace_ocfs2_put_super(sb);
+ 
++	/* Drain fs_state opens before releasing their backing state. */
++	debugfs_lookup_and_remove("fs_state", osb->osb_debug_root);
++
+ 	ocfs2_sync_blockdev(sb);
+ 	ocfs2_dismount_volume(sb, 0);
+ }
