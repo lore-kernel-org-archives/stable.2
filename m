@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296708;
-	b=AbU+zv15cqzJFfGXuIfp8MKHqUmB3B1NHwPJQDth6hvehQg12FGkIo0VJHd1dKw8khZc
-	 B+nDV2D70tmnxXvZyBLyBfycDZKlL9bxW2Bn3oUwrMOOmNdYARXc7wtejau4PuVFjFvRb
-	 mMwe0P2jnma4iu1xhtW+zlvq8KEsLtXu8+Nq/kcFyMZjqA7er9XlN6oWpHfl0yqbdf00o
-	 TiWyIbpbclAin5KLkshQ6x7XpJ2KxlYygm1N13n+XuXs+59hViPM5TpgOc9RPU8iASQXs
-	 wTY9/DIvyx8uLrGVWKJqxct8gVrj9jWvqdxLgBcz2il8aKxKeDzn5mWHjtZGV+zl6NQ==
+	t=1795296709;
+	b=GHR2PhalYLtA2tQENIoe3iNlFN0U6mZekASZXjgW7+Mjy4EKacN7HtSfqK1YUwmtyX/Q
+	 pOIwMgwwEkJUiqKKIALTUGDOUfg3nx200C3ibQMTyXIR1jbYeApk/6FvGiVIYtAArUysW
+	 1Z1cl7rMNgl23W3r84llQccPyvcCSUtc2mb0idyfv0oKoeQtAhoZKISVz+1mClMySIlbq
+	 7GEXwmbkTPM+4XjN+mSC0OpSdxW3ds+XEC3OA0p2sFFc2JVfycknP4TQ73dJmI5o5WnuG
+	 Yv8NC5dhHTtIMO4GryhOH96K60OHNcFBks1vkhw/QKoBEav3h8x1YM3CrscxrhinpsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296708;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296709;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=1TGb1HhBHaH/d1MYOQsGF3DmTAkDgPfuSZpXLmC/h6Y=;
-	b=pCQqbu3fFzCU0jiGtAvCpjySgy0Ho6mHsHAcckH0G+xiRdi9kOlddhj2jvSMT9326GA1
-	 RXgfJZblC25SlDbNwG6ucGm+IjVtzkFu3Uux6yMReBhPryH+YtQ+ru4D2DJ2YPd5BIk/M
-	 JqbVTVTmX/MQd7cCxWM2hqpNbJqRfVlAOgLRKOHV75V7W7WVhlx8YUfp64m3eCVRDFlVD
-	 G0J/0z63SRkBSV40cuHn1NPeaYbZDrZnEkHUlqIgLs8C/5pVOo0FktlYCrfqTJp47CxYA
-	 ontzY94qaDaIDGeqMNm2KKhuBVqbrzvTwdMXJC35SAH5nplm3DFVkeeZmX//AJPcy/g==
+	bh=S0w5dXPuazHtSa4SuPBBlAYoE/LM7rcL3/vygPAs/j0=;
+	b=jrSyKyeyC1Wq8v16E7YmQMWGXhjYcoRCUxVEyDvqJAM5P1KQUXdH368T1tNbLW6W1nH/
+	 TxSwqblYx0UHO6XuLaPQlQBZAf8iZl6HEt1JXLgkPzx34A4e1SnhNE+RzfxwaOF+q2j1M
+	 mb9GkRaVTUpjG3BhTGeIdP+Akk65KXVnhXSngLc8ISu6kgMAC0kbbOulDHuQ6EGXcTvde
+	 sSMVJT+ZQ0TdW1I8jiDTvfBfK/DBR316JS6kKHIZF1u8VKjy55l+UqxOn3jj0o+7zPvuH
+	 bhXtWzDKFBVuY5+2kk7XyhdwGBGDj4xjgX200aMZg4kK3rVR+ypWbU+qoqIB0VWAs2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=H3r2WzVJ;
-	arc=none smtp.remote-ip=209.85.161.47
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=XG8qSZpU;
+	arc=none smtp.remote-ip=209.85.161.49
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9AC606A320
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD9AC606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0291C606A320
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:31:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0291C606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=H3r2WzVJ
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-71ab5e64742so1261889eaf.3
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=XG8qSZpU
+Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-71ad2c6491fso1746317eaf.0
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 13:31:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel.dk; s=google; t=1795296707; x=1795901507; darn=vger.kernel.org;
+        d=kernel.dk; s=google; t=1795296708; x=1795901508; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=1TGb1HhBHaH/d1MYOQsGF3DmTAkDgPfuSZpXLmC/h6Y=;
-        b=H3r2WzVJR0AWC0O1N9oymOeI37Do2jyyf+Tl8awIwjjMZ4HuFywF3VsohwXM1JroWy
-         P5UoJ9WUlAasTtX7Mh0QQw4lfrP58qfW4UKBJmfDJ+aMtak2quL8T2xVMqUlqpnvJoui
-         0FSJIZBd+wbg6K37GeSno44EEA/kJfbpMh+bhU5nUq37pL9LvWtT1uloSd2XQzlsZIkd
-         /L4MtpjtpVLdXGTG7EEwBZBe+wIe93/h4cMG6myV2yrX27b8TEHTSbgeQUjzaNjC0CpD
-         iWM+k02il+MPOEa9TdHTY5y6K89ljqWjRfzzfp+8aQINQlsv/whpaCATJbpm+GReAXtF
-         DoGA==
+        bh=S0w5dXPuazHtSa4SuPBBlAYoE/LM7rcL3/vygPAs/j0=;
+        b=XG8qSZpUDzmsVu3jbcMbSm/gFFbSq40m1ZToI58GBoV4244XD2BPSzmP5+zYUB0yUO
+         M0yB76cutni27jVNx7wklB1Hec3wKr3LWbfBQmIXcoRzFPocpv5bMEwLEAhT5/MTBgum
+         o0z92169Ip1evNCGS0YCwSvQ8cI3BvOIlMrMM23lfZ4Cg+r/OntYh/W83122PeRw/H3q
+         gdqzodSb+Sg3QSYC8sQqfTF97Mvi9zORR/En1a9BXFEOC1nypMuNXoNBzTuYI8PSuFB1
+         tueQc/Bot6SRBylfLpFonIkOIMDnp9dHZGcPrPuhCfwE1wd4mx3KSdej0EmilrZClJ95
+         5x4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795296707; x=1795901507;
+        d=1e100.net; s=20260707; t=1795296708; x=1795901508;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=1TGb1HhBHaH/d1MYOQsGF3DmTAkDgPfuSZpXLmC/h6Y=;
-        b=FPG+8j57LE5FsVV/UIDSA3ZuQSe//tftqMPFAFkYxt6P/rPMJxf6C4XQMu8A+T9Uoa
-         hvYNazsa/XzMb4Gk9w2B/G9+BKCJsnlpmoGUv41Xyr1KidjX0JLE5wyw8R2paJQYzlre
-         eruKkUQmaEX0KjQBKkdYvBfkSMCMhiPUYGLBEPaPjDhDuV+B54SqXKeqg77o2LtgA2ZA
-         14E7b7dyzD9bii8BAmvL4GWfmi6j8UdDswFcjFjvdG3muhhSowykxJsulv6RtSCJYa/c
-         FThRcP0AJzNvfA7BZs5hC+XXd67bw81LcQsW//0rb3En0+dlHO+ZZpdGV/mFWrLFY4wE
-         O/lA==
-X-Gm-Message-State: APuU4Z9CWle/Ui8/3N22vmXC3hyhwZ5TJT+NkpDJCoIjcqN6Loz+PvcM
-	zTul/1H+GHGqU0GlyM6IWbk7+h9s6Bt51D61dmEw7itE47XyPrm+0LIBFaWP2E1SjGYrbf6cPax
-	AWVbCrRc=
-X-Gm-Gg: AZFdTZdQohwclUdIVYTsCwBTV9kJ/k02lgJ0JJI7oWOtypVoBBSLbF/lrXwCX2z8zrE
-	LquRQLsTybr5mJ2j5QYeMQp8YkqX7HJGt9AnSHV//FD5alseHyCpH/7HwKVx2w9FEEErmYCbLqd
-	Vl2pZQc4DmlWDz7kRWnzKabCyzE0eyyGcAibfqCWSvhSdSSwm2qm7wSCAzPwvxBDxZ3FfVVZA9t
-	uqrOBzX0UjayQ3WKlygpiCoboih1iIXchwckO71ksoeWHm0mg/jStuVt/DyTBy3iN6KuKhSCNni
-	EZ81PBT23tpGLE2FRnL6zikWmOn++ojaegVIKtFaOV9Si7PWmSiyGseheyJ6yHBNHfrC1CnSKjv
-	EP06Jngt3yfbi9GN0lYydWzUzFiYOJ8FncxoY6bJd1MYrYASuAjNnhUP2bGo/MzWx1LK3SxuVwo
-	xkfqdDh9tnBpBCU+iwHbqdAo/A3lwcd3LmyuqHA8GnllqKOCyFOnlEjAV/Li2ARC0hPzaWs+ImA
-	yPtLMAcGmwg5mmAOrCrQxJ9zo80a9Sem3Hj05q4CxuoDNu08ZKiY1NeOMAJRkB68ZfToSo4xdOq
-	McetE/B0b0IYX3vi1m+syrM5uw+UG6w6hqBUTDyEtrkDCj/8qiV9x2CHbTH+cNmJXc3/NB95xWK
-	zdkb9v7TyRTXxqKp+Esz4oI7GudOYxfkKaCyf
-X-Received: by 2002:a05:6820:f026:b0:714:b51d:f513 with SMTP id 006d021491bc7-71b392990c9mr5903408eaf.13.1795296706754;
-        Sat, 21 Nov 2026 13:31:46 -0800 (PST)
+        bh=S0w5dXPuazHtSa4SuPBBlAYoE/LM7rcL3/vygPAs/j0=;
+        b=dXrkDVuipR76ZX5Xr9SyBLsNnJ0Z57vm5sDiSGIpHkkOVf9Vu4Ztlrs8aJ4xZjJbPa
+         WQkaAhnhoZf+I3JjPoDh/kt7nzCd8ICsH6wLdHr91pu9gGQAZVwvRtYn1lvmqktpzgOv
+         86lowdjpNQh0WFtbfUp8bZ8TWswKpB8A5pqMs3rh3DIWd5AxYSOWyWk6FFGM1zYn9yZ0
+         7CS052RL9WmKiOPXcr2bovGOUjYGhUIQrWTpc3W81VeFnQdPQK/dIS8lMxsMML4lfBr/
+         HmygcunMMErorNjtkOFuWUwVKrBJ1IlvbC85sErOTbidbCm2BpIJnvs3VTMgt9RvFDDw
+         SxoQ==
+X-Gm-Message-State: APuU4Z9NgVRNzwvNawBxxEalo6xg6XXUYbV9UVY4/bDQMgS6Opz20vgy
+	5ehfwrVYSDfqMmsSNODKnf9rPMF0st5Chx+PEgB5TiRXE0FxgDrIQDaQ85x7W0GjQJjGF7Sxp29
+	Zp35Dqjw=
+X-Gm-Gg: AZFdTZcXy3+6lI7sHFlYloBsKDEQI9FXodbgjwQtpC5HKFvGbNEYhUdIeFMWjzhoQOb
+	rpzh5XnAyV3f8pe5B8un/QEIC++RjQv3ixg0Ur14YMh39SOkUVWivnrjXZnWvZplOmz7E2dYZyt
+	aoFI7A7/pPVZiBgbFwKD1bqUeyA4YSltSGolxGkjT2o+AwbMtaKV/8yEYBDkFWBIRLmjpYyMRKV
+	jwNv+Q3gzzz8GQpGYkQ2tQpZoXxJhoGdCXEjEJPrswQka4R26Q+hGjaYA39/OkvV1dOENmIPma7
+	5m9SU7N4uHdmOwXd86VshaKbRJQf6atXkmG2edZI87yVHfzWTxQNDLeGoQaR0sgZVzOgNCjPxkO
+	t8cg3bqpzqUa8JCBiMgdwPtIEddzVkjBgY3XjP2EQYDjKbYCzEM9aPLrWdLh33imSY13PLZvyPv
+	lcpVLUXZCbXu8bcDsPJnOCJTaJwy6jm8CqDZVk01lgGPlOBjpI17jKr79VuL3SSsqNCa7AVn0BP
+	QCW2ltVczmf3XX74/A55o44dJb8arv0nOAHu4OBgp2z/p0ZwoMB6As6bGaYlNTB4VrnJrVzQ/Bd
+	v4FIJy0XrbmfyB2sR4dqlsiopi9cT2W3DSCznrPG+yQhoJ66z09CYXUSmHLCXfY/uiuwvFHlCLF
+	v/wq8Zy/BbxX/EzE6no2tAHxlEyDY5a6wHe5HWNciJigOg6JNiY2Ech6tFA==
+X-Received: by 2002:a05:6820:5709:10b0:71a:f235:d68e with SMTP id 006d021491bc7-71b395c42admr3287004eaf.34.1795296708050;
+        Sat, 21 Nov 2026 13:31:48 -0800 (PST)
 Received: from r7625 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b380e4a6dsm4669694eaf.13.2026.11.21.13.31.45
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b380e4a6dsm4669694eaf.13.2026.11.21.13.31.46
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 13:31:46 -0800 (PST)
+        Sat, 21 Nov 2026 13:31:47 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 5/8] io_uring/timeout: don't rearm a multishot timeout on cancel
-Date: Sat, 21 Nov 2026 21:31:34 +0000
-Message-ID: <20261121213137.1789687-6-axboe@kernel.dk>
+Subject: [PATCH 6.18.y 6/8] io_uring/rsrc: keep the old file when a file update fails
+Date: Sat, 21 Nov 2026 21:31:35 +0000
+Message-ID: <20261121213137.1789687-7-axboe@kernel.dk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261121213137.1789687-1-axboe@kernel.dk>
 References: <20261121213137.1789687-1-axboe@kernel.dk>
@@ -101,46 +101,60 @@ Content-Transfer-Encoding: 8bit
 
 From: Cheng Yongkang <teel4res@gmail.com>
 
-Commit 97d4a585db2b91d855f957be0a9f126068c5be93 upstream.
+Commit e5a346e4309d720c47fe8331a00068608fad47dd upstream.
 
-io_timeout_complete() does not check tw.cancel. When it runs from
-io_cancel_local_task_work(), a multishot timeout that has not reached
-its count still posts an IORING_CQE_F_MORE completion and rearms its
-timer. With a zero interval the timer expires again right away and
-queues new task work, so the drain keeps running it until posting a
-CQE fails.
+__io_sqe_files_update() resets the slot before it calls fget() on the
+new fd. If fget() fails, the fd is an io_uring file, or the node
+allocation fails, the update stops and reports that entry as not done,
+but the old file has already been removed. Later requests that use the
+slot fail with -EBADF, and if the old file was registered with a tag,
+its tag CQE is posted as if it had been removed on purpose.
 
-Normally the CQ fills up quickly and the request then completes. But
-if userspace moves the CQ head far ahead of the tail, for example to
-cq.tail + 0x7fffffff, posting keeps succeeding and ring teardown is
-delayed for a long time.
+Reset the slot only after the new file has been checked and its node
+allocated, as io_install_fixed_file() does. Removal with fd == -1 still
+resets the slot right away.
 
-Don't post another CQE or rearm the timer when tw.cancel is set, so
-the request completes through io_req_task_complete(), like the poll and
-linked timeout task work does when cancelled.
-
-Fixes: ea97f6c8558e ("io_uring: add support for multishot timeouts")
+Fixes: c3a31e605620 ("io_uring: add support for IORING_REGISTER_FILES_UPDATE")
+Cc: stable@vger.kernel.org
 Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
-Link: https://patch.msgid.link/20261116044519.281756-1-teel4res@gmail.com
+Link: https://patch.msgid.link/20261116044531.281978-1-teel4res@gmail.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[axboe: 6.18 doesn't clamp the slot index with array_index_nospec() in
+this function]
 ---
- io_uring/timeout.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ io_uring/rsrc.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/io_uring/timeout.c b/io_uring/timeout.c
-index 2637c8bb61a0..36c8f3dae27a 100644
---- a/io_uring/timeout.c
-+++ b/io_uring/timeout.c
-@@ -76,7 +76,8 @@ static void io_timeout_complete(struct io_tw_req tw_req, io_tw_token_t tw)
- 	struct io_ring_ctx *ctx = req->ctx;
+diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
+index 7170b3f001d4..36a9bc279e74 100644
+--- a/io_uring/rsrc.c
++++ b/io_uring/rsrc.c
+@@ -237,9 +237,6 @@ static int __io_sqe_files_update(struct io_ring_ctx *ctx,
+ 			continue;
  
- 	if (!io_timeout_finish(timeout, data)) {
--		if (io_req_post_cqe(req, -ETIME, IORING_CQE_F_MORE)) {
-+		if (!tw.cancel &&
-+		    io_req_post_cqe(req, -ETIME, IORING_CQE_F_MORE)) {
- 			/* re-arm timer */
- 			raw_spin_lock_irq(&ctx->timeout_lock);
- 			list_add(&timeout->list, ctx->timeout_list.prev);
+ 		i = up->offset + done;
+-		if (io_reset_rsrc_node(ctx, &ctx->file_table.data, i))
+-			io_file_bitmap_clear(&ctx->file_table, i);
+-
+ 		if (fd != -1) {
+ 			struct file *file = fget(fd);
+ 			struct io_rsrc_node *node;
+@@ -262,11 +259,15 @@ static int __io_sqe_files_update(struct io_ring_ctx *ctx,
+ 				fput(file);
+ 				break;
+ 			}
++			if (io_reset_rsrc_node(ctx, &ctx->file_table.data, i))
++				io_file_bitmap_clear(&ctx->file_table, i);
+ 			ctx->file_table.data.nodes[i] = node;
+ 			if (tag)
+ 				node->tag = tag;
+ 			io_fixed_file_set(node, file);
+ 			io_file_bitmap_set(&ctx->file_table, i);
++		} else if (io_reset_rsrc_node(ctx, &ctx->file_table.data, i)) {
++			io_file_bitmap_clear(&ctx->file_table, i);
+ 		}
+ 	}
+ 	return done ? done : err;
 -- 
 2.55.0
 
