@@ -1,104 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795256273;
-	b=l246O+GEOChasESRC8TJNybRJBw+9JlbJlIl7wXYoOgoqhKsIwcPxlUj4nzrJTCEh6w0
-	 qJ9oWyHCbiBDUtDyVDwYmv5V/slOslIdvj9KUyClq8KwESw1SI7ryC3YtNnqYAhaU7rBm
-	 IcJZH0Jsm7hKAJLHCZ2mljy1Q3l4zOyTapLVMImax/bd9wEbay1zeN6ESKW+UEneSKd3B
-	 OTZ9WlumKnuyYeMGZFiPQtqfg1bv3Vzv+YmsBJnh02HtUI2x4R45Es1ivYwQR9UMN6AZW
-	 RHm3obK4spEGa57H4zzzHNRITzZABkPQMnt0UzHABpeMzpd1qDL3MX//sICGVKrSygA==
+	t=1795256309;
+	b=0lCQ0A7AZIpELxXl9C8sMGrEZ+MXJOjHCSOeG+fALXLybo+zbNf0RjBRIhwlFvpfWQgR
+	 aVs54dd4SQ9Ks4JLNkHMlUsvSyA06fHxV80HnHHDA+X6Xed9r+icQqLDOr7L4jNFUuDfo
+	 mRMLV2EIroaSTsLWIhOPhhI2pSeGLP0LvKtBlVRXgkM+Su74DywPMxlJjQS7Xs90skmt0
+	 zg4hB6Tg+lwULQv4ErMNWVz/BLsJg5XKr6du2hEUb6ee7v30jwZuw2BMDDv1CzQ1UJQhX
+	 crektqWbwhzmoGw6VnrB4iiiodBnrB6VeUpQDG+YZpm4dxcV7OdSxa93XW8HXl5uVGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795256273;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795256309;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=CGM/3+U6P/3Ix3u1vwt+zgurCpv7ig5u/NcOCPf3TrM=;
-	b=sezReh+cm6BkVUJIAxX8OaK3wmUklG3QNdN6mIgpq1G5ZhXKuqALQTbc1094O7nky7Lz
-	 kEWo/9sEQz1JiTxqdaw9rZKtI37GiemgcsyILW+vpOjuj349aMYU3G+NUFRAvgM/cgDnW
-	 ZeSMK/YhF67lrWABeRQnMCUwuOX2jEtsQZRrIiCDWxSnec2PtVeQ/PrzK9+kaTL/HLuen
-	 aE7KGhQhEn91otZHqausSIe6IyV5clyZBSn4fl2nthCxBjvrcZ8IL+6PTZx4PfPRGZuBu
-	 e9IdbtHJEXO8mKVUXkrJBzA2nX/xR/7y0oWNwIz41sdXkQ9si1zVtveu6lizLgPTJcw==
+	 From:To:Cc:Subject:Date:Message-ID:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ybCiBiLC+wMkxHxvSe2Dz7VO4d0TKq7kRkdKiMWCjnc=;
+	b=NqrEtq0ZCvNDoZanA9mVUJSRgn9QYysaZgOnDoq6ogCVKuwg5QloFohjx+47KltrONve
+	 iRTIeznQta/gn2PVBhVjtz7hNdBNJ0W8a1Eui+E7FpYx6vwRBtYRimmlarVHQ/1SAT7ZI
+	 vhvtgaiXt0KaXE6wnl4RfU+UI25NpMGKBDmeBqD4gTGyuwOErp9EoWpz09tE6OVrocHZr
+	 +VXSgNE2u4wcyHHUkdtpSkoWgiNWHOgMt1LES6wYnwW6b1SCiHAjA91OLtFwO5jQH+N61
+	 qJQX5DpNeCgy6PjKNfi1Vi5h0tyQO1hxelp0HpY9Mz16AiJ4zqer2msLPGE1cWE4NPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e5OlWEoZ;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0CR70O6z;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4180606A32A
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 10:17:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4180606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73DF606A325
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 10:18:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D73DF606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e5OlWEoZ
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso879358a91.1
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 02:17:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0CR70O6z
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2f02b9c1f6fso11668255ad.0
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 02:18:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795256272; x=1795861072; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CGM/3+U6P/3Ix3u1vwt+zgurCpv7ig5u/NcOCPf3TrM=;
-        b=e5OlWEoZb92VIfI4w0ixhqrsQyV2A1MVM2CjecYEPNZ+mzk/aaQMjPGZOw00uv/FcT
-         t647KEDokcKq6d71R4DEsRtMLC1jLkJUJrpNOgMA9SNl5ui246wJpMlX8LvjqmsDlSML
-         QbfFEc0VtrxixmDUldXP9nvZFGMpCV0EJaqepZh8f1dVsQCNA800aebvL2qgOSG8QXq8
-         3Fs0q4sNbfiE+Pv3YQ38WadZVoMGpTJMuBMmlfgFnHV74ZduH69SX2wgZWEzdPYquuCs
-         S/v6Er0Jnod7eNFMY3vN7puAXlHpqvPMsHrNoDYXs8EUBBDzYtX1HEONs1iPi6ha5NGr
-         /Tbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795256272; x=1795861072;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1795256308; x=1795861108; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CGM/3+U6P/3Ix3u1vwt+zgurCpv7ig5u/NcOCPf3TrM=;
-        b=q3p/qd3CY21NPhBQvXOXnQJShq35zKo9RunfGuJk59a9S6s79BMNJC0tX73PK+uPt2
-         /Tt9fPrhheDH6AhU70IrMDRzDeDcYhfKlw3y9EiZCjqknHrI2pCfGfPkvsAsmTi3tpD8
-         5FatdvqR+Jdbux519zNxqaeSxC1aT/4Krn0eGykT9wUWhKu6WKhqNoiztIGJZOsFreA+
-         Xsyq9SGxcSewtl/ugjX1V2iD+K00DHLs3TQbZMo2mxiY6jmx+e6cI5ex2ovgmY9OAnWZ
-         o50wzuqbwSYWCJXQjMosuhFkhTplUnKKnyw3dqOVK3ZOZZaRSmgsw9Z+QSTP3wMBIIFa
-         SsWw==
-X-Forwarded-Encrypted: i=1; AL+hErEzEY1bDzbr23n9Y89d3685+XmK4keZP6CD35PfSaVHzpEvS476GQhNVrl58fe8kwwDGr65T2U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xqhyg4/JvmDMa/vaPJ+ClIrp4idTWa5nv/TIhTYZuyjN+Jstt
-	YHqYmMzNpLK9aIaaRdNJPe8So371In4YBb8Kla4H6jBPlWxIJ9ngXW1+
-X-Gm-Gg: AZFdTZcXkRRrwKMhPaRBjAUGGxG2vEj2A8Hz39ayJQv7NpoLUyCJVZj9tFCvmcj4a+H
-	+Prhw8VbKYMzI6TUWq9Fw/5prOT2i+SSYhEQDgKwW9IW5718oCSiW2ITyRvQdkd1ARgdc/EXp2J
-	Yh/HzkGkVN3ytiRUw8mZq8fQbYVBs/iRQk3JOr6n4POjka35DLkpOjvEd4/0qZ3GWsvf21/Rk8i
-	xJm08eV3qUtPU9PVQ0/rd0nO50obnLBTn6UG6adhXmocqerUuHGarScgJD2IYJO39JIkLgm2QTq
-	Ng9wWrsqs24/PxQWtIsgOpu4A1tgmjpkA2Qd/zNU76m0uo/gvyUWyMD1U15q1q9KJpof/7VtsFB
-	mwAKtlqdgQTOeztHapXIyiK0dydJG1Ujj7BJoQjXHyLIbUvSBLhH9v1mvU58Ex7m70LDXNeyB+y
-	N0nEWtFMKemtzhD7x5soS5/t/7MXEotAr132cUB4HfUsYkZeA5TNNbdbmL29lCO5McKdqU0ExFB
-	xSXTo8avGOKdg8J3coAI3RSpqPZlfHWyCEOHTjnQDJLZ0kXgSqM/PlF5XU2+sjCb631VLvM/X5a
-	2vX84vCyxN6VefgSWODvjeP4dazEoNtZgaTsLNyUFMmJj0Em1dB/lxDUiX6ocDJj8uSsdPJrO2/
-	js2BE9lY=
-X-Received: by 2002:a17:90b:4d0a:b0:3b4:1352:6ae with SMTP id 98e67ed59e1d1-3b41c905981mr4992815a91.30.1795256271992;
-        Sat, 21 Nov 2026 02:17:51 -0800 (PST)
-Received: from reply.eml (awork078078.netvigator.com. [203.198.250.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d63728sm11859916a91.8.2026.11.21.02.17.37
+        bh=ybCiBiLC+wMkxHxvSe2Dz7VO4d0TKq7kRkdKiMWCjnc=;
+        b=0CR70O6zM57iqUKWetRzT5oUBSl2GhokaGg/cpikzwOYvOOqilYqTDL+Y9GagQrMkp
+         Nh8KfKaOqOTCVY/1NGh3tJNyA7Ja5KcdTT9BUXtnhPUA3eVZJW5GmngU7I3CZBngAqAu
+         EqkD2jTb//499zm/oua+Mh4bxNDRqSS5W/dTasJ01XbWyEylNzMeKHRGpZZsG2XapDuk
+         0u9uV7FtpXkXpb1dN3wGqYQDtCCsUrnuTsCGcSKRWSbebDqk7AbelvQ/3lmHUjZmE7x4
+         dKupWOxjwdnawW6im8C/yy7DjB6rscufQMn+y1eYtq9DM0mMznsoVopI1qURUl3TKSpU
+         w9Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795256308; x=1795861108;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ybCiBiLC+wMkxHxvSe2Dz7VO4d0TKq7kRkdKiMWCjnc=;
+        b=o+ET+i8Os55AQykP7qIKZqfQxaGZwfH/s0XxpxXE8+/K0xKRQgQ+xASiYsKl6WMTdI
+         cWceNobqgYWM6flNipWbPsITf0uShIwoYcMnOPla3RwRcdyPybs/i9EPmYscQunPMDQZ
+         YMjeExaDnZB5pN75cs02Z1HKPXi/7JRiwB6xhwg82eJBpkxk9G3KrJ/RLHBRvGlkLvle
+         FqOTCdbPeVPPOY3lpbm6xcKNyeogsKQf08EIZRFAwQMdStFoJznXZ8HOYWoY1RShiCnw
+         LY5D3aPp0pQmDTMoipX/38WMssSvVjUnJuIG2wXU5U5hvSRb9j2ExWgaMZUbN1R1GH0E
+         GFIA==
+X-Forwarded-Encrypted: i=1; AL+hErFmsJELLNxmPSR2FBQCeAwTIcQWjL8bpZBbpYRaa+JMYbR8MGKXGmfrRTkOkO13r7A24O+Hzo4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/kZdu2674F5p3/XpH5Y9pdQLmsNYAakmrbpD/FtSWKfNCR99oG
+	xgV/l55cbKjFMHn5slpWbw6tTL0Xwd4gYilDxz6u1DuZf5J8x/L8wvzp
+X-Gm-Gg: AZFdTZclaCpsWWom3yWelX2r+RUQUBR3KJ0Xj+A9dxsfUEz6eJJMkIu2SqIxXA/I3Kr
+	ppwegdHDBSeYj5LNuMgTI2P6uDG2XoSCJU5WlW8Hrr285EhzS/MhsZJxf39n0WJ5k+04V2vQ3Pn
+	tuQ5i5lubRkvmu8jXUouGMi8Kjpq9KCZz9WDdR8ceeKx9/PYhJFnunkwxki9uT1jEsOC77sMS8C
+	xzhhNuEySfUoyaIyt8zkH7AA18KfE31nPyp0ruwyQcj0iF98jQTnR5Rtb2+WP6DbcG0o6kT3P9j
+	S90zhp8iEy8QZIa6Rvw/Q8GRnphABe75HVx/6rxUjbYi/tPpxr0lUpHEU3bDG5xOzbNtc84T6D1
+	jZNVzrbND5IfIo1FY0dI7t1qS88Mz353wPuzcsMiwmkQ+W9OD4Y6f8luk0JujioVL/57o+aDs18
+	9zGLh6eVrS4VifQWCunu1tQyf1DhHt7uX94O0rsUbkfOjb6HBlxCdKGp9lJ7ti+EP+WnR3j+ogi
+	3Mga04m5ERf9/Py0CDNANXgcB9+ZmG0biATfp6GrDDKQrydtcV9YxQlzKNdr1zzFl/kpxIAHg55
+	w4Fl0PAzG7kclCFdNpVXrQdQxCK/EjVqFjaTl8keY/VonZv7xiuCoooYpO13IZkNzRyEm6sfumR
+	sdh7heZ5ArWGD8Xf7nzlbu0d8yW5K
+X-Received: by 2002:a17:903:1545:b0:2e9:5598:d182 with SMTP id d9443c01a7336-2f031eab286mr53575105ad.15.1795256307921;
+        Sat, 21 Nov 2026 02:18:27 -0800 (PST)
+Received: from patch.eml (awork078078.netvigator.com. [203.198.250.78])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0dc0f8sm24859755ad.27.2026.11.21.02.18.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 02:17:51 -0800 (PST)
+        Sat, 21 Nov 2026 02:18:27 -0800 (PST)
 From: Yuqi Xu <xuyuqiabc@gmail.com>
-To: Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev,
- David Heidelberg <david@ixit.cz>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, stable@vger.kernel.org,
- Vega <vega@nebusec.ai>, Ren Wei <weir@nebusec.ai>, xuyq21@lenovo.com,
- Mark Greer <mgreer@animalcreek.com>, Uwe =?utf-8?q?Kleine-K=C3=B6nig?=
- (The Capable Hub) <u.kleine-koenig@baylibre.com>,
- Ian Ray <ian.ray@gehealthcare.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Thierry Escande <thierry.escande@linux.intel.com>,
- Samuel Ortiz <sameo@linux.intel.com>
-Subject: Re: [PATCH net v2 1/1] nfc: digital: fix use-after-free in unregister
-Date: Sat, 21 Nov 2026 18:17:30 +0800
-Message-ID: <20261121181730.58295-reply-xuyuqiabc@gmail.com>
-In-Reply-To: <20261112151208.496636-1-horms@kernel.org>
-References: <20261107141910.549465-1-xuyuqiabc@gmail.com>
- <20261112151208.496636-1-horms@kernel.org>
+To: linux-crypto@vger.kernel.org, keyrings@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>,
+ Ignat Korchagin <ignat@linux.win>, Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ Rusty Russell <rusty@rustcorp.com.au>, stable@vger.kernel.org,
+ Vega <vega@nebusec.ai>, Ren Wei <weir@nebusec.ai>, xuyq21@lenovo.com
+Subject: [PATCH v5] KEYS: Account for asymmetric key payload data in the quota
+Date: Sat, 21 Nov 2026 18:18:05 +0800
+Message-ID: <20261121181805.58538-1-xuyuqiabc@gmail.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: stable@vger.kernel.org
@@ -111,59 +101,267 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Hi Simon,
+add_key("asymmetric", ...) preparses the supplied blob and then
+instantiates the key with generic_key_instantiate(), which charges
+prep->quotalen to the owning user's key quota through
+key_payload_reserve().
 
-Thanks for the review.
+pkcs8_parse() duplicates the attacker-controlled PrivateKey OCTET
+STRING with kmemdup() into pub->key. pkcs8_key_preparse() stores that
+object in the asymmetric-key payload but hard-codes prep->quotalen to
+100, so the quota records 100 bytes regardless of the retained private
+key size. The ASN.1 decoder accepts blobs up to 65535 bytes, so one
+key can pin about 64 KiB while consuming 100 quota bytes. With the
+default non-root limits (200 keys / 20000 bytes) a user can retain
+roughly 12 MiB instead of the 20 KiB the limit is meant to allow.
 
-> [Severity: Low]
->
-> The commit message presents this as part of the unregister fix ("handle
-> its MD listening state in abort and shutdown"). Does this abort_cmd case
-> take effect on the unregister path?
+x509_key_preparse() keeps the parsed public key, its parameters, the
+signature and the authority key IDs, but also charges a fixed 100
+bytes. PKCS#8 later repeated the same fixed-100 accounting. The same
+add_key() call reaches the X.509 parser, so fixing only PKCS#8 would
+leave the bypass reachable.
 
-You are right that the unregister path itself reaches abort_cmd() with the
-state already at PWR_OFF. The MD state handling is there so an MD listen
-cannot outlive the device, and it also changes the normal stop-poll and
-suspend paths. v3 describes that explicitly in the commit message so stable b=
-ackports
-do not treat the normal-path behaviour change as unrelated cleanup.
+Charge the size of the retained payload instead. An oversized PKCS#8
+key now fails with -EDQUOT instead of being accepted for 100 bytes,
+and the same applies to an X.509 certificate that retains an oversized
+public key or set of authority key IDs.
 
-> [Severity: High]
->
-> Can this assignment overwrite an ignore_timeout =3D true that the IRQ
-> thread set for a timeout handler that is already running?
+A charge which does not fit in unsigned short is rejected, because
+key_payload_reserve() keeps the full delta in the user counter and
+refunds only the truncated key->quotalen. The asymmetric parsers reject
+such a charge before installing the payload; put the same guard in
+key_payload_reserve() so every key type is covered, not only the
+asymmetric parsers. The guard also applies to other key types that use
+the same field, including big_key updates and keyring link accounting:
+a charge that would exceed USHRT_MAX bytes now fails instead of
+wrapping the counter. key_alloc() also charges the key description to
+the same field, so the effective description length is part of the
+check.
 
-Valid. v3 no longer clears an ignore_timeout set by the IRQ path: shutdown
-and abort only set it to true when cancel_delayed_work() reports that the
-handler is already running. The handler therefore sees the flag and does
-not deliver a second completion after the IRQ has completed the command.
+Measured on v7.3-rc1 (10396a2d6d41), 2 vCPU / 2 GiB QEMU guest, as uid
+1000, adding PKCS#8 keys with a 65000-byte PrivateKey field. Before
+the patch, 176 keys were retained (about 11.4 MiB) while
+/proc/key-users charged only 19712 bytes. After the patch the
+oversized key is rejected immediately, and a 200-byte PrivateKey still
+loads and is charged 264 bytes. A small X.509 certificate whose only
+large object is a 26000-byte authorityKeyIdentifier is likewise
+rejected, while the unpatched kernel accepted it and charged 109
+bytes.
 
-> [Severity: High]
->
-> Can a timeout handler that is already running still deliver a
-> completion into a freed digital_cmd before this point?
+Fixes: c26fd69fa009 ("X.509: Add a crypto key parser for binary (DER) X.509 c=
+ertificates")
+Fixes: 3c58b2362ba8 ("KEYS: Implement PKCS#8 RSA Private Key parser [ver #2]")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
+Reviewed-by: Ren Wei <weir@nebusec.ai>
+---
+Changes in v5:
+ - Ignat Korchagin: add the missing PKCS#8 Fixes tag.
+ - Ignat Korchagin: add the USHRT_MAX guard to key_payload_reserve()
+   so every key type is covered, not only the asymmetric parsers.
+ - v4 Link: https://lore.kernel.org/all/20261026024840.23482-1-xuyuqiabc@gmai=
+l.com/
 
-Valid as well. v3 marks the command complete before invoking the callback
-in trf7970a_send_upstream(), so a timeout handler that is already waiting
-for trf->lock cannot complete the same command again. The timeout work is
-also cancelled synchronously after shutdown and before unregister, so a
-handler that was already running is drained while the command and device
-are still alive.
+Changes in v4:
+ - Sashiko (High): "keys: integer truncation of key->quotalen causes
+   permanent quota leak" on key_alloc() and key_payload_reserve().
+   Include the effective key description length in the USHRT_MAX
+   limit. key_alloc() and key_payload_reserve() add the description
+   and the payload to the same unsigned short field, so checking the
+   payload alone was not enough.
+ - v3 Link: https://lore.kernel.org/all/20261019041314.48569-1-xuyuqiabc@gmai=
+l.com/
 
-> [Severity: Low]
->
-> Do the in-tree implementations follow this new contract?
+Changes in v3:
+ - Sashiko (High): "keys: integer truncation of key->quotalen causes
+   permanent quota leak" on pkcs8_key_preparse() and
+   x509_key_preparse(). A payload charge above USHRT_MAX is rejected
+   with -EINVAL before the payload is installed. key_payload_reserve()
+   keeps the full delta in the user quota and refunds only the
+   truncated key->quotalen, so that charge would leak quota.
+ - Reposted so Sashiko records a review against this Message-ID, as
+   requested by Herbert Xu. v2 was posted and Ignat Korchagin replied.
+ - v2 Link: https://lore.kernel.org/all/4a0b2e00f5cc62c173a01fec2f56eab1b04d7=
+0bb.1790568982.git.xuyuqiabc@gmail.com/
 
-The contract now allows driver-side removal serialization as an
-alternative to doing everything in abort_cmd(): the driver must ensure
-that no completion callback can run after the command is freed, either in
-abort_cmd() itself or by serializing removal before calling
-nfc_digital_unregister_device(). That matches st95hf's rm_lock/nfcdev_free
-scheme and trf7970a's shutdown-plus-flush scheme.
+Changes in v2:
+ - Move the bug details and the measured quota numbers into this
+   commit message, as requested by Ignat Korchagin.
+ - Sashiko (High): "keys: integer truncation in key->quotalen causes
+   permanent quota leak" on pkcs8_key_preparse() and
+   x509_key_preparse(). Not changed in v2. The same finding is
+   addressed in v3 and v4.
+ - v1 Link: https://lore.kernel.org/all/cover.1789801335.git.xuyuqiabc@gmail.=
+com/
 
-v3 has the fixes and the updated documentation, and is now sent as a
-new thread.
+ crypto/asymmetric_keys/pkcs8_parser.c    | 18 ++++++++++-
+ crypto/asymmetric_keys/x509_public_key.c | 38 ++++++++++++++++++++++--
+ security/keys/key.c                      | 16 ++++++++--
+ 3 files changed, 66 insertions(+), 6 deletions(-)
 
-Thanks,
-Yuqi
+diff --git a/crypto/asymmetric_keys/pkcs8_parser.c b/crypto/asymmetric_keys/p=
+kcs8_parser.c
+index 9dd1c181789a..db2d57489d96 100644
+--- a/crypto/asymmetric_keys/pkcs8_parser.c
++++ b/crypto/asymmetric_keys/pkcs8_parser.c
+@@ -10,6 +10,7 @@
+ #include <linux/kernel.h>
+ #include <linux/export.h>
+ #include <linux/slab.h>
++#include <linux/string.h>
+ #include <linux/err.h>
+ #include <linux/oid_registry.h>
+ #include <keys/asymmetric-subtype.h>
+@@ -136,6 +137,8 @@ static struct public_key *pkcs8_parse(const void *data, s=
+ize_t datalen)
+ static int pkcs8_key_preparse(struct key_preparsed_payload *prep)
+ {
+ 	struct public_key *pub;
++	const char *description;
++	size_t desclen, quotalen;
+=20
+ 	pub =3D pkcs8_parse(prep->data, prep->datalen);
+ 	if (IS_ERR(pub))
+@@ -144,13 +147,26 @@ static int pkcs8_key_preparse(struct key_preparsed_payl=
+oad *prep)
+ 	pr_devel("Cert Key Algo: %s\n", pub->pkey_algo);
+ 	pub->id_type =3D "PKCS8";
+=20
++	/*
++	 * key_alloc() charges the description to the same unsigned short
++	 * field that key_payload_reserve() later adds the payload to.
++	 */
++	description =3D prep->orig_description ?: prep->description;
++	desclen =3D description ? strlen(description) + 1 : 0;
++
++	quotalen =3D sizeof(*pub) + pub->keylen;
++	if (desclen > USHRT_MAX || quotalen > USHRT_MAX - desclen) {
++		public_key_free(pub);
++		return -EINVAL;
++	}
++
+ 	/* We're pinning the module by being linked against it */
+ 	__module_get(public_key_subtype.owner);
+ 	prep->payload.data[asym_subtype] =3D &public_key_subtype;
+ 	prep->payload.data[asym_key_ids] =3D NULL;
+ 	prep->payload.data[asym_crypto] =3D pub;
+ 	prep->payload.data[asym_auth] =3D NULL;
+-	prep->quotalen =3D 100;
++	prep->quotalen =3D quotalen;
+ 	return 0;
+ }
+=20
+diff --git a/crypto/asymmetric_keys/x509_public_key.c b/crypto/asymmetric_key=
+s/x509_public_key.c
+index 25cf8ac7f257..4a9c85277ce0 100644
+--- a/crypto/asymmetric_keys/x509_public_key.c
++++ b/crypto/asymmetric_keys/x509_public_key.c
+@@ -163,9 +163,11 @@ static int x509_key_preparse(struct key_preparsed_payloa=
+d *prep)
+ {
+ 	struct x509_certificate *cert __free(x509_free_certificate) =3D NULL;
+ 	struct asymmetric_key_ids *kids __free(kfree) =3D NULL;
++	struct asymmetric_key_id *id;
+ 	char *p, *desc __free(kfree) =3D NULL;
+-	const char *q;
+-	size_t srlen, sulen;
++	const char *description, *q;
++	size_t desclen, srlen, sulen, quotalen;
++	int i;
+=20
+ 	cert =3D x509_cert_parse(prep->data, prep->datalen);
+ 	if (IS_ERR(cert))
+@@ -221,6 +223,36 @@ static int x509_key_preparse(struct key_preparsed_payloa=
+d *prep)
+ 	if (IS_ERR(kids->id[2]))
+ 		return PTR_ERR(kids->id[2]);
+=20
++	/* Charge the memory retained in the payload, not a fixed estimate */
++	quotalen =3D sizeof(*cert->pub) + cert->pub->keylen +
++		   cert->pub->paramlen;
++	if (cert->sig) {
++		quotalen +=3D sizeof(*cert->sig) + cert->sig->s_size;
++		if (cert->sig->m_free)
++			quotalen +=3D cert->sig->m_size;
++		for (i =3D 0; i < ARRAY_SIZE(cert->sig->auth_ids); i++) {
++			id =3D cert->sig->auth_ids[i];
++			if (id)
++				quotalen +=3D sizeof(*id) + id->len;
++		}
++	}
++	quotalen +=3D sizeof(*kids);
++	for (i =3D 0; i < ARRAY_SIZE(kids->id); i++) {
++		id =3D kids->id[i];
++		if (id)
++			quotalen +=3D sizeof(*id) + id->len;
++	}
++	/*
++	 * key_alloc() charges the description to the same unsigned short
++	 * field that key_payload_reserve() later adds the payload to.
++	 */
++	description =3D prep->orig_description ?: desc;
++	desclen =3D strlen(description) + 1;
++	if (desclen > USHRT_MAX || quotalen > USHRT_MAX - desclen) {
++		kfree(kids->id[2]);
++		return -EINVAL;
++	}
++
+ 	/* We're pinning the module by being linked against it */
+ 	__module_get(public_key_subtype.owner);
+ 	prep->payload.data[asym_subtype] =3D &public_key_subtype;
+@@ -228,7 +260,7 @@ static int x509_key_preparse(struct key_preparsed_payload=
+ *prep)
+ 	prep->payload.data[asym_crypto] =3D cert->pub;
+ 	prep->payload.data[asym_auth] =3D cert->sig;
+ 	prep->description =3D desc;
+-	prep->quotalen =3D 100;
++	prep->quotalen =3D quotalen;
+=20
+ 	/* We've finished with the certificate */
+ 	cert->pub =3D NULL;
+diff --git a/security/keys/key.c b/security/keys/key.c
+index b34a64d81d47..3f6886844089 100644
+--- a/security/keys/key.c
++++ b/security/keys/key.c
+@@ -373,11 +373,17 @@ EXPORT_SYMBOL(key_alloc);
+  */
+ int key_payload_reserve(struct key *key, size_t datalen)
+ {
+-	int delta =3D (int)datalen - key->datalen;
++	int delta;
+ 	int ret =3D 0;
+=20
+ 	key_check(key);
+=20
++	/* key->quotalen is an unsigned short and cannot represent this. */
++	if (test_bit(KEY_FLAG_IN_QUOTA, &key->flags) && datalen > USHRT_MAX)
++		return -EDQUOT;
++
++	delta =3D (int)datalen - key->datalen;
++
+ 	/* contemplate the quota adjustment */
+ 	if (delta !=3D 0 && test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
+ 		unsigned maxbytes =3D uid_eq(key->user->uid, GLOBAL_ROOT_UID) ?
+@@ -386,9 +392,15 @@ int key_payload_reserve(struct key *key, size_t datalen)
+=20
+ 		spin_lock_irqsave(&key->user->lock, flags);
+=20
++		/*
++		 * key->quotalen is an unsigned short.  Reject a charge that
++		 * would wrap it; key_put() refunds only the stored value, so
++		 * a wrap would leak quota.
++		 */
+ 		if (delta > 0 &&
+ 		    (key->user->qnbytes + delta > maxbytes ||
+-		     key->user->qnbytes + delta < key->user->qnbytes)) {
++		     key->user->qnbytes + delta < key->user->qnbytes ||
++		     (size_t)key->quotalen + delta > USHRT_MAX)) {
+ 			ret =3D -EDQUOT;
+ 		}
+ 		else {
+--=20
+2.56.1
+
 
