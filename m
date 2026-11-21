@@ -1,107 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795286204;
-	b=uRTgb/BQwd54O3qwGn6dCoI30W51OCmS5YMml0DyNKxFQi2JaQ5jc6xIUPIsc0bpkui3
-	 JAlc8l26QRuJSYbPhQ2ce5KHAK5hp3677g2wN0p8gIY4GRjIdd0SZXtSzLTugPjbYnVqN
-	 VNvdtg4+HTExDWOqtZaycvlz+mS8Okw0CW+u90iCitP0UAI3XPj/zmW73TevZYqVWG/53
-	 BK2mUqTurFiMQcgZBjFaHmCR4YeCullHS4i+jy2/EH6rPimaCcDYiyYqFY5xaD4bLyOr3
-	 0yM4CpR3fOduJyouIJvqRGZ96HsdV7JkKsvcAOuf5V0Hd6uaUATN3bSLe85Wc1wBf9w==
+	t=1795286354;
+	b=jIry/uY4JUa+vLCsA8K57fdB1+/t/qv4JzZ2rYGOdTc02BcViUGG1CJY5ppVkmb/Op/O
+	 7Cy3vaz1pzUs7jaXh6T4IzZRp8FtAkcTz8aiQaH8ycBnfYxhmap5uwgINAbHA0Nx7v7v0
+	 MZUrvGHpCLp2/T8TNppnydsBSRb+kGAZCctMLq5s3kxXFQRNUEVJFuunX0/k7jKwSSAru
+	 d7R0WA71oZj7D9k7sJFV0T5MESyjUxXltjJJh79BStLzAzjmYOJVFx8upopBaqpbSB2Jh
+	 J3H1+sqvsSiiKLuhaWWWiDb0KK2jM1Zh6ok2kOUAQWCWagOkCJOPzG+s3mYuHc8JoJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795286204;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795286354;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=+ww2YgpbwqAsCskuaPEB3Im3FqWoUKfW8X2evO7N+Ik=;
-	b=j8f7sARFAaXHUuBNX7KGRZ3sJX23cF05a2v7lWI3IbLvZBZHrJbY8sZZfD13j9fAN4JO
-	 ThRHMDqOMnZQrbqHnpS1j2X/IlHVX6QuS+YpdRNNlljXiTT/Y6/cGctYbNjtfKtjbPae/
-	 j9u/6UyMIXhmJhEAoN2HYDLPgd3gtBJI7x0PwGAsRG5Te2GQIzBV9CoXSed96m2Cje1P2
-	 U3nwM33XSIObZW5azdTw0UyuduGThw1WY54HYa5np47U0SUCbbm7WaySmeQzlLdpV0+zc
-	 11AUAX9SDo9tiM0f5RV/P3ItB8T4D8SznwjmJGedrO4T6VqwlW69aiQBmCMuqax5WFQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=B+C2/33K4kduexdkENaQSrBZ5xc/12xNlj0pd3fSUlo=;
+	b=SH1elCzznEBMvDIR9ITloSG0dDlDz5QQABPv7us3HIn76Qum1E2hyPBkHFMC5IxbjqHF
+	 ckw6xseJnI+Tzn/kYTG3Goi01t/Mu1e4AzJLnHPl/3sKZK2Hj53eKNftB7VtVJdNlLJRP
+	 aJukrPNpDKQfAcmz7GgDltHTdbk0KvVV+NXmj5vsjS9W3R65gUdcziYTE2TFntwofGtNI
+	 lI040zUf7mMntB6uNLjnSDWTsgBNRikM0358mcgmQ3pmXGBtsgFakCnN6QZrNfokUh2gY
+	 Ht+vkdOjYZQTGkXyeRUQOzKDbk+A3uaP0WAk5olDo/uRkjQadzRScz6rJCshxYx1G9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kllpQrZs;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=N4LRxPnN;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B2C606A32A
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 18:36:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7B2C606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEEC606A32A
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 18:39:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FEEC606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kllpQrZs
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ee254f6eefso46885ad.0
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 10:36:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=N4LRxPnN
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8b691cf0eeaso2464480b3a.1
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 10:39:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795286203; x=1795891003; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+ww2YgpbwqAsCskuaPEB3Im3FqWoUKfW8X2evO7N+Ik=;
-        b=kllpQrZsclScBd2V4ukGbVF4w3Z5xGIfBuKD9oTDjED0p6TvaUbvCeUH/8zmkri8dF
-         XvQsHvTlcKJcBNfNxcu9D38cO6Gy+/praAzbn3HI9Kh6Y9cu65ca2AbXgrnR/sWaeIWS
-         riuJU9KsN4FnehnKw743RaDgUqv/SEQQWblKFIWtSkOTuYYQarqqjGsdBvgNghhkVO3e
-         JKBReVAKiKsWIVqV36LavngpZRvNMkoppts/T5bJCXApbMWUJ1H6Hqvf9Y5nL3ZsySZ4
-         8l93I3IL0tull5tEDaZQwok8x3/XaWECLYQ8pjz3bzFMLsNH9kRgMwWqnHx3FyorMVl0
-         X/vQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795286203; x=1795891003;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1795286353; x=1795891153; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+ww2YgpbwqAsCskuaPEB3Im3FqWoUKfW8X2evO7N+Ik=;
-        b=s7Yvx5vZfJKdJnyMHKlVxfdSLrP/kL+uk1QsYpjW60lZNkXi60jVJK9B07A7RwKT0L
-         AmVD9Ey2egZCxyg+RafBsHE02jHlBfP4qqs7WERj3MHdZvYh8GoVYtZS/xrKW9zl1xf8
-         2yJA5ag+b2XnenOoIEUeFSZojCYQBgkv5S6p1AwPP6KDbE/mw01+2NU8CfJEJ2SGqOFy
-         v7o16bnzU+sRVYd+PdxhO4GGo91VbNMjN86Uvf85av0iWY+yvuRg/UvYmBXCoYeGxVBD
-         mhCDs8j4wzZNltuZ5KgJX8d9nSm0WCTBzWzHyfxqj/zrQ3Fr0/iod1RrCNQBTZOi4SXr
-         uLXA==
-X-Forwarded-Encrypted: i=1; AL+hErEp3gmVesKqKqxEXQB1UOlGoba282yCIAGwV1TtAFjo/PlFS8bkrfub5jfjLgF6RepvBxwTO1Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8dCh2CJSWVinTrZpjkXn7wdTVAVTm+N6ZP4/TauGbJ2mLFC45v
-	/PHQnyaZw7WKxYbT0rxA0EneuINt9hyqa0DQPzA7JN3aB2CC+mV7AGxYB6pmy2XIkA==
-X-Gm-Gg: AZFdTZdRPIiro4dU3GgZ/LpcRGchkHUoJsKVu5QPs6K6bAPQjJmES5xRGnh32XH6GHo
-	fDw1fxJQHTc1VSA/ut1w3EPm+eefs07r6mL2K4cHz63AVcv55craAgKKlJ8qTadieAYxrxyDGb5
-	K7uAXqcSm8bqsfXcoYh0NrmR5zDga4c/nucGGHrohQGR1sz5vXBVfrqPaBObfD2qDST07TrT01y
-	XCf9U5F7HQXyprMWivoJPW9wNQPZ2vgOcar6IOxhclqxLVkMmD6XDBVNPpyUYBo1zZ5gPNE+KwI
-	rAIJDmt0i17VFJl5GtNMQAeOTwI5YTEMme11yhgJjiiPRwyk5lK7ya80K1erpst6CvrHCc39GMM
-	TtFieXnGv5+fhpPmcw4f928OcaIyHgbhvrSLrCuwIlDlhW76F5RNict5ZeFQ3ZNWhEtTTqlBKwM
-	tywFWAJ1xCB7sP0yR99sxmXjFRejBZekuVaoIlZqFiNlWe9M/8l+OicM6YnnqgweAcOM3AFbtpJ
-	DlsZcQZBvSVHSNG+yGH93ilxwyFL5313r0vbYhFymoZ99bptax3tNiu9eJYFKvXwqFEtja6xmVn
-	l8kha191KQQsZC5EvUtV5g6eekUa1ibxm3ssoVh2VDcLYDpshmBWTOGfC9z6q/s0Kz9P+cjCblD
-	PGyQlwVqMZZTQAh86mWeoktoGhkxUcwC/B9dgyfy+BmdpQ9pVqaNxNjXjb4RKQIyYtsdgXzOdWf
-	uTAFDAVcHB2koqMEIvPvXafJdaxuLCKe9MwfmM2Uup4quqbBP1LJ8sGVcWjD7MIByJrkrzsA==
-X-Received: by 2002:a17:902:ef52:b0:2e6:d25:d874 with SMTP id d9443c01a7336-2f066568e6fmr2749075ad.10.1795286202449;
-        Sat, 21 Nov 2026 10:36:42 -0800 (PST)
-Received: from google.com (130.155.125.34.bc.googleusercontent.com. [34.125.155.130])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b8c2fcesm1972529a91.4.2026.11.21.10.36.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 10:36:41 -0800 (PST)
-Date: Sat, 21 Nov 2026 18:36:35 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] rust_binder: treat ESRCH as BR_DEAD_REPLY instead of
- BR_FAILED_REPLY
-Message-ID: <awHksyRSafcJKXjI@google.com>
-References: <20261118-binder-esrch-is-dead-v1-1-a45bb951fd14@google.com>
+        bh=B+C2/33K4kduexdkENaQSrBZ5xc/12xNlj0pd3fSUlo=;
+        b=N4LRxPnNO1YjitxvDLP5/5kIqInUyAb2PxwB47pUzyklLYXgDRLm+hBGOagI9wIIHu
+         zqGxOyfeJMlgyeICmsIL5liJN+MwmXywg7S1NQL94dcQresjALSGWYMSxAB+agNmQic+
+         CIG5lRe9aZBEsF6MZKhIi22V+Bd78oiJBpcwsVJLmRbfv1ulzKuLuen4EPSlL9XpZz8E
+         aw9FldXk7Su1f172F9G+Lz6zw4K7JFXDMOpv6euElqN69npigs8dtlapsNhkItca4PtU
+         Yot9+fi3GxfeKm6XTWv4sK6rrRHpHhcvMEEa8na6M8UbGqns0ypFEnf30gskc6/yTBxG
+         IqUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795286353; x=1795891153;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B+C2/33K4kduexdkENaQSrBZ5xc/12xNlj0pd3fSUlo=;
+        b=Jbqza9VFfk+0zVi9WFxLlkW0NLABaLxCpfqeEM7TZSlrY7cZz3cO0ppZjEcpd7Fhw+
+         baS5ISiy9Y07vPhVTX7zlEb27hQbLMA1hZtxGGTYBbngX0DBcWUOKMRcK5E1ZsyaP45t
+         GQr4Ozmenxj6W8B/DNwtTNTsgSlwEZIJXBfGyEKFfGJ2MC2XI+ZZ1NvlvV62kZfNp8Du
+         ipPougQvVihkzTXw70gcr+9XNNsPEHn4UjYe/UzfgwBVg3HbZc/+475s68oUWj6k+tJd
+         dhCT/2gml0w+++6HQJQPRjmWCX+YgXOD6Dtjw6Ta9orhYFWzPmXN0Hul1M1FeuITZopv
+         kJpQ==
+X-Forwarded-Encrypted: i=1; AL+hErEgCwwbzxLWjj4dzXML0fiu1wV7q5zhuwaSRZj2P7mDibedDFKECJlmgu8TD4HKMyu7f9/T+8A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8t1/fK5d/QBV4+xi1FidLfbIzg5PcRWFvrbmS+LEKSmE15aCHU
+	djUjB/tCPoV6SK8ai+fZYa/zFQkOgaP5GY2zZhq1I7xCQYXpOOgoVydwjcchtO1Q92mYgwKrAL0
+	m1p0aCg==
+X-Received: from pfdb13.prod.google.com ([2002:a05:6a00:94ed:b0:89f:41ff:99c0])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:14c3:b0:89e:779b:d0f
+ with SMTP id d2e1a72fcca58-8c87ce3165emr7009702b3a.37.1795286353159; Sat, 21
+ Nov 2026 10:39:13 -0800 (PST)
+Date: Sat, 21 Nov 2026 18:39:12 +0000
+In-Reply-To: <20261118101752.1989502-1-bsdhenrymartin@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -110,53 +77,40 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118-binder-esrch-is-dead-v1-1-a45bb951fd14@google.com>
+Mime-Version: 1.0
+References: <20261118101752.1989502-1-bsdhenrymartin@gmail.com>
+Message-ID: <awHkoGTQ71NbCeU0@google.com>
+Subject: Re: [PATCH net] net: initialize sk_peer_lock in cloned sockets
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Willem de Bruijn <willemb@google.com>, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed, Nov 18, 2026 at 11:24:25AM +0000, Alice Ryhl wrote:
-> When sending a message concurrently with it exiting, the transaction may
-> fail with ESRCH if the timing is right. Since this is delivered to
-> userspace as BR_FAILED_REPLY, userspace thinks that something went wrong
-> with the transaction, but actually the target process just died. This
-> usually leads to the sender aborting.
+On Wed, 18 Nov 2026 18:17:52 +0800, Henry Martin wrote:
+> sock_copy() clones a struct sock with two memcpys that both include
+> sk_peer_lock.  sk_clone() re-initializes sk_lock, but nothing resets
+> sk_peer_lock, so a clone created while the parent's sk_peer_lock is held
+> inherits the lock in the locked state.
 > 
+> The first getsockopt(SO_PEERCRED) on such a child spins forever in
+> queued_spin_lock_slowpath().  spin_lock() disables preemption, so the
+> task never schedules and its CPU stops reporting quiescent states; RCU
+> grace periods then stop and callers of synchronize_rcu(), such as
+> expand_files() from accept(), hang.
+> 
+> Initialize sk_peer_lock explicitly for the clone.
+> 
+> This issue was discovered by Tencent CodeBuddy Security.
+> 
+> Fixes: 35306eb23814 ("af_unix: fix races in sk_peer_pid and sk_peer_cred accesses")
 > Cc: stable@vger.kernel.org
-> Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
-> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
-> ---
->  drivers/android/binder/error.rs | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/android/binder/error.rs b/drivers/android/binder/error.rs
-> index acf0aa09c555..00f1519a8d77 100644
-> --- a/drivers/android/binder/error.rs
-> +++ b/drivers/android/binder/error.rs
-> @@ -78,8 +78,12 @@ pub(crate) fn new_frozen_oneway() -> Self {
->  impl From<Error> for BinderError {
->      #[track_caller]
->      fn from(source: Error) -> Self {
-> +        let reply = match source {
-> +            ESRCH => BR_DEAD_REPLY,
-> +            _ => BR_FAILED_REPLY,
-> +        };
->          Self {
-> -            reply: BR_FAILED_REPLY,
-> +            reply,
->              source: Some(source),
->              line: ErrorLocation::caller(),
->          }
-> 
-> ---
-> base-commit: 20eef29b7c8465ac98d7dd6d6f2ac07a8d8056ca
-> change-id: 20261029-binder-esrch-is-dead-8109ceb9115c
-> 
-> Best regards,
-> -- 
-> Alice Ryhl <aliceryhl@google.com>
-> 
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> Reviewed-by: Eric Dumazet <edumazet@kernel.org>
 
-LGTM,
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
 
-Acked-by: Carlos Llamas <cmllamas@google.com>
+As Eric mentioned in v1, restricting SO_PEERCRED etc to AF_UNIX
+and AF_BLUETOOTH makes more sense.
