@@ -1,97 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.69.43.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795264135;
-	b=u2nIevglO8XjlFYWoJeUBrXTzdUNK7iB5DfOdAcTEFd5e2YnIvzaEfW8IIKF44uxeLL5
-	 n1qqGidF6MC0MiY0DYpDggg40x+hsBrx+e6YY6lOKT1nkGV7FLv20LJlzubhljkHn7Dxj
-	 ZWM7c7ZiCih/k2cjenh4hLSrZxbN5QbQ8Ia6so9cT7VRFQSgzpG3Hu2Glssji/uFd3JX4
-	 bN8ujrCSEK8WnPmYrU916BxUmjjzAdWSylPubcpAo2p8deqy3gXgq11uWdm8MDqvTinvr
-	 qcW/qmwqEXiH9MKiw6CEWr73SkjrG2gH+lw8ler7nGSbyRxzv8X+RUa1usmxFNxl1Zg==
+	t=1795264255;
+	b=1ZjAL27ik3r8pArHrOxG6tMK72JtksVOTp0Lxbp68oLYgkI7vrAP9HJjdu4Fb2TzapQu
+	 rYMR9OYaC9+gdrNiSn3Z+Z83poyR6inOzi/pL/am3eRkJst3jMhYCF0BehlhhrrNxYmR6
+	 DUTeS0FsR9N9p6u9qzqLC/06386r0HUn0hw901ld+sVxeSIr8y64FsWnspN2m0whQTXv1
+	 M+fIzKfuWA9Zb4nYkXCR2qpAFcCYHT+ihT+JDfLpC5xXsiFqIFQ90Qp9P/o9j4APg9FA4
+	 gv4EzfzDJgann3voeOVVbdyBgkcOO97uS/qUOBc3Sjpgdhv9w+abIc033xoDuU49QaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795264135;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xbPlJS6qwfZzqUa056hpUcKGkd9cFIzccwWJm9phGjg=;
-	b=b4FgGhNfUoaKmm8VFABLM3SOhPDnafL7tc+NGSKjKS6MLxZUkdcMGKAJBtvEO7KlBCco
-	 VrimML8dychrITPdx6VtW5hL+Ldq4Cse/PN5qMAbPj50QdG6DXtbd7X0bpehT6x1AIaGL
-	 7yymD7FS5wq7AzwBG1OCgPqRvkbllQ1n4iylGKLL0rMfFRE9CtB+wK34F84Vv4LFsZ8qI
-	 KspukzWBJrYh44PMv6syhV5DAw3tKMB0VlytSGfp3b+tDQw2FXdNWgNsoz90JH5tHL9rO
-	 MXKH8YKG/X9lBi6YjEE0zx9amjJkr9wSu5cEZJOerdOWNLft9/QURisOOvQETWip66w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795264255;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=NvdKb50ja2nv9naVYzdyhx+yIDMWqCwfYQ8Ecq0us9Y=;
+	b=oddHZYTjfKoh76CTB0mk1vjdEEgisKtSmNKk0c5hj3jabp+qQbPrjjRO012dFuCAqUN+
+	 wvBr3pgjHPtmEjZoDvPP6r9oj9WvBc8DcOjaAC2igrkR7CKC/gpw97SazL6kfCjqBcsND
+	 LKSDVg8V8hlkcW+fDKIByJcQZ7PP6Ej91Q/ddwaTqw9NU5VSX/06fkGFQvyXjyk5L2GEd
+	 F/zai2i6sPxdVoRUl9nRD1ivFZLGpDmavlfZcdjK6ZKf4Uv+lki/ayxhPxYsu6qIaYYT6
+	 UDNxhUZ9oWasvVzUEtA8PefuYP1ygeO/MY/oIZx7e4jiPlfT63Hj2a2El2RbH7IVcNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lMREvsw4;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=vozeler.com;
+	spf=pass smtp.mailfrom=vozeler.com;
+	dkim=pass header.d=vozeler.com header.i=@vozeler.com header.a=rsa-sha256 header.s=max-2024-2 header.b=czjgOx0g;
+	arc=none smtp.remote-ip=80.69.43.37
+Received: from imap.hinterhof.net (imap.hinterhof.net [80.69.43.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674D1606A32C
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 12:28:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 674D1606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87060606A32A;
+	Sat, 21 Nov 2026 12:30:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87060606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vozeler.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vozeler.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lMREvsw4
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1b3acec6677so2595634c88.1
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 04:28:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795264134; x=1795868934; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xbPlJS6qwfZzqUa056hpUcKGkd9cFIzccwWJm9phGjg=;
-        b=lMREvsw4M7lZ1kgv7GSe+X02UOR03A0nw8vk5xpJ70qd+sSzBPAO7WLS8naehULzrp
-         1lbPwzCUrkA8Z7YABjVOQB+IBmHYwYEx73k7HH7Vc0yq2LfOGblwkuMYPjeq5CBXnDBB
-         wf8vhrmv7TSYOnKDYkQ5zA7oQoXvWB8zmOSU8NcBPn6lP9Y8uxdgI9AnnurZRI4qoB8Z
-         ARb+dloSVJy2rlBGUOvwEerwofgpnpZdmViT+kHwvmh555zKf9fnkDgVD1TpwzVE0mlA
-         GcuWTh3Vd8ojcIGNbNZ5lnoPhJx7aGq8EwXZ0DBUCH4XfzE5GujW+dnJscd/ZCCYqtoR
-         w/2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795264134; x=1795868934;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xbPlJS6qwfZzqUa056hpUcKGkd9cFIzccwWJm9phGjg=;
-        b=Va219Xr2F5XyTxGE4jaOCcgNM008RAOVtEsQFmZjHDWyUMoKZayZhti/8H7pRFPmOE
-         UvUzpLZY7ZdfPVqbemTUs2KK06hNMpSsLlT+O8nyF2aWqT1Zu40kkjd+tLcMxSW6vsPR
-         izGzEX12Osf9qus9c8FkKXXN1Ye5+HcbGxeME4Qh/NUD1M4TEiB9scW0EsEIHFLnd60i
-         yKaTbe9yx/YXT5szDVl1PGL3k+t/+2Jpdbyx0YkINnNcpqP00eim6JaRm4lJ6a32QA+a
-         EQ8KBfme9Att/baw/pt8aNOxan7Z36w5bzPfuBIDnKoyX3spmVwURsUQuR99x5lTmN0t
-         Pnpw==
-X-Forwarded-Encrypted: i=1; AL+hErFLN0d49SIIZlzSKKApf7BJtOS/GSm7cKKQneHpmJ14XMiX1eruoRVC+9WUFhhi8p99DcLolbc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//o4IhgZLBdj0QxB2RUiS80AgpQUo0qp+asvcLJeTEi9vO3zsT
-	1ZYwVyr8qOxvJl7xA4SacFu8v3hxf/w9p3PE4Y9cnBVoo4hXpU3wH00o
-X-Gm-Gg: AZFdTZe++i95ZbXsF+9upWGndlpdnAJUXi1vAltHMvlkC4gJlwRgcJej5Wav6vaQnlC
-	uau9zRfM44E3oswcM3q+vXq3n5jQIJguCrl8MOEjQSM7tsMSHKkcssTvhvi1QSskcCNFP10VAl+
-	exnux88mr30pwA9B47xoh3IrGjW57TCl8JNk7F7LPTymcOyrHUetvKstlA6gotlYi7btiZ9/3EW
-	Zd/+Ye3DpjL39lw/75/aViHXqVCR7C2QxbZEQiTIaFmsmRNixDhfFcMv/K+/u53WRz/9REWqJeR
-	qoOacUKxKmmDIuB52oG/Ja6RAr1CAiogR2yVIY5cHHbxgBeCeev+zWkMPBlrz+SJ3MquYk2Q6ML
-	xW0/FzUZ57rcbAwegPK8I7n16rb1M4H9/OmR1ZGviLElxxAKWG5ykAFOg36hoL2CPgsHRNi2N7/
-	FadGWzXZ8lWcvz884zZ1Qo3SkgQXGOFYc7N4Gjdd6sKsWwgc7ZedJiAHxyhx8mO3u1jW5QOJYiB
-	zwUshsIiio5hZoQOfR9gN1aQq2qhSsb5n43+hvI1GkJOVIgUKveHizHlRLuRRUigNwgvU9tQlBI
-	GYp98/B1Yk58wA0d50XENQgoVaXr4fKM3SE0u6ZpeBjG3gZsIg==
-X-Received: by 2002:a05:701a:cc98:20b0:1a7:99b9:2eb9 with SMTP id a92af1059eb24-1b5568fbd8dmr5539812c88.27.1795264134374;
-        Sat, 21 Nov 2026 04:28:54 -0800 (PST)
-Received: from G7XWH7K1F3 ([139.177.225.235])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b562a82b3fsm9671917c88.5.2026.11.21.04.28.51
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 21 Nov 2026 04:28:54 -0800 (PST)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michael McAllister <me@michaelmcallister.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] Bluetooth: hci_serdev: stop write_work before closing the port
-Date: Sat, 21 Nov 2026 20:28:32 +0800
-Message-ID: <20261121122833.7545-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <CAFEp6-37+O4BoSL414Njogr-34G7se-8Nu+O7B0zjBY1Jw7UWg@mail.gmail.com>
-References: <20261120062048.40310-1-enderaoelyther@gmail.com> <CAFEp6-37+O4BoSL414Njogr-34G7se-8Nu+O7B0zjBY1Jw7UWg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=vozeler.com header.i=@vozeler.com header.a=rsa-sha256 header.s=max-2024-2 header.b=czjgOx0g
+Received: from dp.vpn.hinterhof.net (i59F45518.versanet.de [89.244.85.24])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256
+	 client-signature RSA-PSS (4096 bits) client-digest SHA256)
+	(Client CN "x201t.vpn.hinterhof.net", Issuer "Max Vozeler" (not verified))
+	by imap.hinterhof.net (Postfix) with ESMTPS id A38C68FB862;
+	Sat, 21 Nov 2026 12:30:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=vozeler.com;
+	s=max-2024-2; t=1795264249;
+	bh=1jQ8jSmnuUwyckou/IUtpXO7t6jYpOfstTV/OBJ0Xb4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=czjgOx0g3/Asbj6YQMK/YD9cgSpMF8zM8dabdrbCTquTgU62yiaC8s/se//zNJg9i
+	 nmtm290uW+2eclh1PqHuqBUdQhruDXYWjsr9zAPHdDEHXbnpyMLCBjy1jkXRoWkF5y
+	 8euF0eNqqlspt6f4OTMA1l5QSHqKvfa204C05OYBi36Way4lLMaqYumOfLlqq9kJpu
+	 v5qBYtNU+gk3lLHgpWl/AQ6lFZCuvdCcrZQmIKQuaPKumB9DiwJgxs5S6sgiDaRrGa
+	 jzfHQXcb+VRlxGkWdc1oQ3IGO23S0p3j2OJrXCCVDWJEw4Op/AD99PFm/ojbajht3D
+	 hSJZnLhouo6FQ==
+Received: by dp.vpn.hinterhof.net (Postfix, from userid 1000)
+	id 43B2826018A; Sat, 21 Nov 2026 13:30:49 +0100 (CET)
+Date: Sat, 21 Nov 2026 13:30:49 +0100
+From: Max Vozeler <max@vozeler.com>
+To: Chuck Lever <chuck.lever@oracle.com>, Sasha Levin <sashal@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Chris Mason <clm@meta.com>, Jeff Layton <jlayton@kernel.org>
+Cc: linux-nfs@vger.kernel.org, stable@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [Regression linux-6.1.y]: NFSv4 server: sec=krb5p mount fails
+ with EIO in 6.1.192
+Message-ID: <awGO-R42ggk_WEga@dp.vpn.hinterhof.net>
+References: <awBIdxOJ4XSXuc7S@dp.vpn.hinterhof.net>
+ <awFyZbQE8pDyOxUy@dp.vpn.hinterhof.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,43 +73,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="1fHbNZ7pjevDWFIY"
+Content-Disposition: inline
+In-Reply-To: <awFyZbQE8pDyOxUy@dp.vpn.hinterhof.net>
 
-On Fri, Nov 20, 2026 at 02:39:41PM +0100, Loic Poulain wrote:
-> > +               cancel_work_sync(&hu->write_work);
-> > +               clear_bit(HCI_UART_SENDING, &hu->tx_state);
-> > +               clear_bit(HCI_UART_TX_WAKEUP, &hu->tx_state);
->
-> Looks like you are mostly re-doing what has already been done in
-> hci_uart_flush()...
-> Wouldn't it be simpler to have a hci_uart_flush parameter to not
-> reschedule tx on flush?
+--1fHbNZ7pjevDWFIY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Good point. The only reason hci_uart_close() has to stop TX a second
-time is that hci_uart_flush() unconditionally re-enables write_work at
-the end.
+#regzbot introduced: 82cf21374fb7ee55b37be9afb6704ba0eeffb236
 
-Skipping just the final wakeup replay wouldn't be enough, though. Once
-hci_uart_flush() re-enables write_work and clears HCI_UART_SENDING, a
-serdev write_wakeup callback can still queue write_work before
-serdev_device_close() runs.
+On Sat, Nov 21, 2026 at 11:28:53AM +0100, Max Vozeler wrote:
+> On Fri, Nov 20, 2026 at 02:17:43PM +0100, Max Vozeler wrote:
+> > after upgrading an NFS server (Debian bookworm) to 6.1.192
+> > (Debian linux-image-6.1.0-55-amd64), NFSv4 clients fail to mount exports
+> > using sec=krb5p with EIO.
+> > 
+> > Downgrading the server back to 6.1.190 (linux-image-6.1.0-54-amd64)
+> > makes things work again.
+> > 
+> > Good: 6.1.190 (Debian linux-image-6.1.0-54-amd64)
+> > Bad:  6.1.192 (Debian linux-image-6.1.0-55-amd64, linux-image-6.1.0-56-amd64)
+> 
+> Reproduced with vanilla 6.1.191 and 6.1.192
+> 
+> Good: 6.1.190
+> Bad: 6.1.191, 6.1.192
 
-Instead, we can split out a __hci_uart_flush(hdev, bool resume_tx)
-helper (since hci_uart_flush() itself is the hdev->flush callback):
+bisect points to
 
-- Normal flushes pass resume_tx = true and behave as today.
-- With HCI_QUIRK_NON_PERSISTENT_SETUP, hci_uart_close() passes
-  resume_tx = false, leaving write_work disabled and HCI_UART_SENDING
-  set across the close.
-- After clearing HCI_UART_PROTO_READY under hu->proto_lock (to drain
-  in-flight wakeups) and calling serdev_device_close(), hci_uart_close()
-  clears HCI_UART_TX_WAKEUP, re-enables write_work, and clears
-  HCI_UART_SENDING for the next open.
+commit 82cf21374fb7ee55b37be9afb6704ba0eeffb236
+Author: Chuck Lever <chuck.lever@oracle.com>
+Date:   Mon Jan 2 12:07:07 2023 -0500
 
-That drops the duplicate cancel_work_sync() and tx_skb cleanup while
-keeping write_work completely disabled until the port is closed.
+    SUNRPC: Convert unwrap_priv_data() to use xdr_stream
+    
+    [ Upstream commit 42140718ea26c47fb06c679451a6aa6703545136 ]
+    
+    Done as part of hardening the server-side RPC header decoding path.
+    
+    Reviewed-by: Jeff Layton <jlayton@kernel.org>
+    Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+    Stable-dep-of: a919c5c88769 ("SUNRPC: svcauth_gss: enforce krb5 token minimum length")
+    Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-I'll send a v3 along these lines.
+This seems to have been part of a larger series, only parts of which
+were backported for a919c5c88769 ?
 
-Thanks,
-Zhao
+Best regards,
+Max
+
+--1fHbNZ7pjevDWFIY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline; filename=bisect.log
+
+git bisect start
+# status: waiting for both good and bad commits
+# bad: [08889840163ebcdb7e24bf7ec311bc2e6fc3aaea] Linux 6.1.191
+git bisect bad 08889840163ebcdb7e24bf7ec311bc2e6fc3aaea
+# status: waiting for good commit(s), bad commit known
+# good: [79807e970724c1f90cee1316361d61b80db4eef6] Linux 6.1.190
+git bisect good 79807e970724c1f90cee1316361d61b80db4eef6
+# good: [91c2a5d201daf66fa3f42b8a383bb89174bde2c8] serial: core: fix infinite loop in handle_tx() for PORT_UNKNOWN
+git bisect good 91c2a5d201daf66fa3f42b8a383bb89174bde2c8
+# bad: [ab8c8e027fa8f9314340a96999dd3309b7f80d61] fbdev: ssd1307fb: defer I2C transfers from damage callbacks
+git bisect bad ab8c8e027fa8f9314340a96999dd3309b7f80d61
+# good: [35b46918d5deee01fade7e2f2075a7c238a2a0e8] cifs: prevent readdir from changing file size due to stale directory metadata
+git bisect good 35b46918d5deee01fade7e2f2075a7c238a2a0e8
+# good: [91abd8383fd0588d1fcc31120d6344150a64ba5a] net: sched: cls_api: add filter counter
+git bisect good 91abd8383fd0588d1fcc31120d6344150a64ba5a
+# bad: [ed126ca71d4d949ad99f40b974a8f7685e808f8b] net/packet: defer vmalloc TX_RING free until skbs finish
+git bisect bad ed126ca71d4d949ad99f40b974a8f7685e808f8b
+# bad: [82cf21374fb7ee55b37be9afb6704ba0eeffb236] SUNRPC: Convert unwrap_priv_data() to use xdr_stream
+git bisect bad 82cf21374fb7ee55b37be9afb6704ba0eeffb236
+# good: [8da6f765098d46e5b3178ef4b2f8273c9ba1d3bb] SUNRPC: Rename automatic variables in unwrap_priv_data()
+git bisect good 8da6f765098d46e5b3178ef4b2f8273c9ba1d3bb
+# first bad commit: [82cf21374fb7ee55b37be9afb6704ba0eeffb236] SUNRPC: Convert unwrap_priv_data() to use xdr_stream
+
+--1fHbNZ7pjevDWFIY--
