@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795236758;
-	b=c5P3NbMM7Xsca6P3PBvMdPRXVppwnKg+zSPwQ1d8J9yWoiC6Uu/6D0SZHJfo7R+9Dbln
-	 QYSTJNDIEdDlEO27jmuTJXB7k68s5E1+l9Z78Sc8UCSk8P2sreJSSSBjfqgZg4jat5IrA
-	 lIv3EmgXz+iZb2ruyQCEtM+aRxv0PTPzDTSLrmMPLEdu4vYjxlMnCrDc84ycyek4zp4or
-	 UcfC1Bo3NiyiO1nseLRTm3NJmKYFVPkZmaua4Q21cTfZcLF+lJgX+CxlR3CfJu/Ihb9Vr
-	 vKHaqKyMfzb0xqX62Wxl/ACy9dpcElGQoq5Z4ZMFbksJb3wEIJ39ctX1Go58H7fQZqA==
+	t=1795237718;
+	b=l6/e7vPwZCsB8C3ukBhlmiwIxuPXlSdYNeXa5mfOtFW4eI9J9YAuOaX0oeRJYCJKWrOs
+	 BAoa1xlJgWvUlYXglAAMWie89E6zvmiTi1KXNwvmGVQ41H3utkEQ+AUYsNQvg/NbSfy31
+	 Ms/6x9e6BACptVonVdh3HyEzYYviSE8UdYagPzCJCIgHzIjj8dTOlErUGyiZPMAujH0Wq
+	 G1cXVkGOtFO29edJufwFjmB0zTUKyMIv7RNvCD0yJbTUMnpgtId87J6BLh1JAA0EA58xX
+	 viO7ElrzQrNEsY36lF0gPeRE65eS7V47eK0AG0Er47wVxfVU6RKoPRSQyPfyAcyoh2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795236758;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795237718;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=BElOMUrNe0Z5QYnSCoS/+yWntHOMYQVZ5Afv4DN/AaI=;
-	b=z1e5iRmSS9mCm5nyjVpcDZKNQROe3ekFJLEQcPHCVYbUDNNtzMwMN3EDx82ya69yswnW
-	 q6IYZpHfriKVOgIYcNoZVHoap6cDD/n5gwq9ljVCpBhQXojWIkXi8YGwoNy2+7FEMMNHy
-	 miso6TlrEAFsRrYqwGbS2UDGONhgUMqrLLUHCt/BBqm5w3xQHt7aM174L+wvvJEwTXgg6
-	 PvTvUeyu2V1Y4RxXB/jRxPlzn1gCYa94QNQvqDhoDQPoccHmUrgd4fuf94zCnzgcY8oDT
-	 WlhvmbhUoi81tEh6sd4jEHCy9wxkfLU8WF3A1OdbnoO2QiiL8W5a5m8OJQbhJghE5nA==
+	bh=Bb3283Kau2Gv+8vqVQKXj4fop71Bdd6l4YGCq/10EcE=;
+	b=gDXU5+AgR1Ge4TSsyHjWhoYwPTYKR3ZOmFBEOiej2CDvNPOmVk3VdJ2mRv7Uc4oFr2Zu
+	 AR26OJeB+x8tjPw0ow4IJ1K5Qs5ibeOtcKhZGI8K2qNojAxc3FKvzXimeuH1cX4K5alrL
+	 15Bogy0jK79AhLEYab38BgP7Isza6UaV/NKGD/m2WC0+rXIlY261S2f7Hy71cCyQEBp3u
+	 +Gq9OFEy447Rp3QXx+GyxWXpQcWdrnq0GiJ519xC+ppcSWUDp9rvE4ZmLlqegQOzpArgG
+	 8QUGL5sBDjV0Ylqf/42+q3gndFZByY6n76cTcGvRrMRmm856Kp9yiDw/73I4I1QMldA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=osE5io32;
-	arc=none smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gq8cZIzf;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230C4606A69B
-	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 04:52:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 230C4606A69B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBF8606A695
+	for <stable@vger.kernel.org>; Sat, 21 Nov 2026 05:08:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BBF8606A695
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=osE5io32
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2f04244c3d0so13272455ad.3
-        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 20:52:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gq8cZIzf
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b413997581so1471675a91.2
+        for <stable@vger.kernel.org>; Fri, 20 Nov 2026 21:08:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795236752; x=1795841552; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795237715; x=1795842515; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=BElOMUrNe0Z5QYnSCoS/+yWntHOMYQVZ5Afv4DN/AaI=;
-        b=osE5io32Nn+joBzaP+hIKzyy3vwwae6jNiXdeduuKXzDOQmy/aTxCjtXJ0dVmb2Pyj
-         YSmpNyTjqlKfPr1V2DiAX0YDroo6VjWzd101rYQDnedG1vup2EbAhn+3KAXjU+LUnmgM
-         gfyPDuxzNdiQYetCoTZr5sVryKmSlTADx81HolfEypNEib998tniFukAuBKuu3pWNXPg
-         YbKSJhvUXWnFqCMMwbPe7iGq7BotyP/lShDBV9N345VfDpA8DcLNQVa+izHNTcg39TSq
-         yMdYoye2Moc/rnamKzFPQCAJzpUxFc3pqsnjhylsb0Zsk2AnbLs18Y3uK5aVRCKStM/8
-         OZvA==
+        bh=Bb3283Kau2Gv+8vqVQKXj4fop71Bdd6l4YGCq/10EcE=;
+        b=gq8cZIzf+Qb7sTo4hGDzb7GED1vLLhFGQihjRYcVKITQeqp+NTPJHitWdZnbtmQSnq
+         Cc98oclcQyO8R4unTqH3fqB1+SSxBLQYG1ylnURgzL7zhcYgqAVh7zzpYsHzc1nks+9P
+         clRRk7K3aTudSZ9DCOuP8L2ACsxJV5M1DCpj6gd+DAk36TUMQHNCuVawsqQ1XJsUK0S2
+         gcEM/DvyFWEhc7e9pGD2WRR2om4/CTSbcxVpjaGTFBHeEAETEWKFzYhdQCoAjHj9yHNZ
+         nH2/yGWEG0Ih0VbDoXVwdeS6ukJkPg7g92VnhBWXj8E4jFDOSE5IeJOvBMk2uaCi5hiB
+         Qhkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795236752; x=1795841552;
+        d=1e100.net; s=20260707; t=1795237715; x=1795842515;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BElOMUrNe0Z5QYnSCoS/+yWntHOMYQVZ5Afv4DN/AaI=;
-        b=tTCVFsKNk0M7pjwHy5xO0LbOyJANoTnfwKNZcqMIxUPFW5Vye+5Y79aEG2S1U5uLZG
-         Nh+xad13LsGWFpusxRTU61juM7+jy/tQINt9VQOufRh7cFonuMxPIBkoa5/4D2qkSb1u
-         9WQ7Sb7lJu1oHgNov45URpHGv0S/EfPVYZA4BZOMwJgJQKkXa/1ErnGkMbcAAIdkYRLS
-         ljF/YYuMVEShmC+lrf6Jg3Icau4APchid2fGsd6G0DNasRZ/VaUbIzRzvNayPslfXf/u
-         RU02JWrJH76BrEoxQ1vkgDbnQAFZgqtUreN4RwJ6JVnDcLPQYfRDwR+nQDTR39QISive
-         DJTA==
-X-Forwarded-Encrypted: i=1; AL+hErHe8s+Ob7529RfgUm+nzc83yPuve9u+jZbjsYpysLo+ixLcTgJuWgzlWNYPsYhTbzrrBjDBkws=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XotrH91LvspxCFyJfUxcumeTAU7R5PaOCSCdMQ3/oZU9Gim/C
-	nIGyLDPRAEUcLw3m84VsKVXshT8VvezWBS7D3m0q1+NGskx+3yqmu+QC
-X-Gm-Gg: AZFdTZfymisojPVKGO5SV7omRgtJLdWYes9a1ueU73s0eLykAvtPirHjP7I6rFH0Svw
-	3croDsqqbJrt5rnKFs8qqU2FYorihqWJG3WDOdot84aK/vh5gpjdBMEb5pTK0egzKBtFlJvQ9ks
-	5KqRUGbxk7LfOJHkJZBtMYZhW5SGSJEbyfk3uerf16bBOEzU62gmgJr18pREKbSZKv4GWsV0C2d
-	hE75Bh/0TSeLuARL8Hm8oXk9OZzLGsIHChrJY30pr0xPhqIWcYxRlX4sjA7/fVId+TTkkTYEa39
-	sY+M/hI/WeLzE054Pkg9YWemqiVmK0JVyfoPLnGEobpkMoK4suudDvvEnTzJGiMlCXcq6Gu1yfQ
-	/IbcxLJHlCD9zcN+mC85lGTKhNyIzmrs/Wwwjys3cic+Ru17HLYmeT6xp7Y0r2GgzW64GgnNOVA
-	0aCmAUH3kfVhq+e2qDXOFlzRQMKUesHtFBxRu21GDtpicCmoVILy6zrvtk4oSFchtRU6XTY9BT5
-	s5bXcso1y2XQhyZBy532cEVq+RQ2ZW/cxXvETEmZIzNFdCjtXrGicwv/T0lFoDm2Ur8Xl83x7dL
-	ydPSAmA+3mjhrYAoIFbSdIwcOUbBB0WEnyA5ldupHSnV2S04U3A=
-X-Received: by 2002:a17:903:240e:b0:2ef:f656:2dc2 with SMTP id d9443c01a7336-2f03f14102emr56430895ad.31.1795236752418;
-        Fri, 20 Nov 2026 20:52:32 -0800 (PST)
+        bh=Bb3283Kau2Gv+8vqVQKXj4fop71Bdd6l4YGCq/10EcE=;
+        b=ICZmse8aRM8AFV0Ns8hqD4YjDwvMDhlhkj+xC92BlRwKvmvTtnYP/Nn/vCiTG4eKtz
+         c4PmqBnXBbYWodacyg+cfcUMQ0JvALu1A1GXvUDHSqzJdpl5xQ83lTMyDRvqOy+7Lgg7
+         dHSRAWQfFj3dy42CuIxcr7eRGf6jCU5fARD+asSiq06Cm7RanstdQsNnaomqAyu+SfZ8
+         HWx6SGh0tlEa44N4zSWjYs81aYsBFoSYFtWiv4KSoUINUR3FBn4poqyvaP5tmqfqc8Zq
+         7IlNtK3xRpjRGyO9h/FFUro/0ME7uBpImcim5kk9zt+0wpczn5L+yf5YPJ6WrCHnFKM+
+         s6eQ==
+X-Forwarded-Encrypted: i=1; AL+hErFpOKAP1SrBad4bAA2Zq8Gxs+EbXacxkdJPbpnGbDmnlALoglF+dBZUKl47mZnmdZE/+p1zN+8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6CdJElMJebzbWZgyCL94mCMe9nT5iALzZnSaZyFZPgMsiJonh
+	bhkUVgOIURRZAFVAHqYr4hbHvqsDfq5qtmdCJ+Fx/0etK+QW2jwqXwWr
+X-Gm-Gg: AZFdTZf9sz36xo2wnzGOZWarsk2hDvdSrtgpWKP6hgj9IVNablSJ87jb9WX8o7ySs7V
+	LTDvgyGiwi3St2C3veO3m/FhjbXTlQY1lj+4u4CLHjI/UUv6vpnpjtIZOfEZaVucH15N2M9Ch1d
+	XBTjM4dgUzZeyHfgvrVKmJiw4gKdXmyCFQftdCP0h8/LjpRfDdZwDyZjyMBnj8piLtKQ9uu9L8D
+	SRfzrFdCYsAfm5T7zqUJK+S6wBsWWnh5KFjlqJx9rsq1s+45HQhgVhKEr/V2bArzRH9bACK/WNL
+	gXIrf+1sPWHCFTsdeP5jS3lsUX+e+4GUfbwYpnp2UT5jEX6ns2w34gq5R9e+kYm01YdyL8fTaJU
+	CS5K/zbOwcSTB1EQJgVoGr+EWo0NPQrIKGazpidh6zg82nvoI5321WP19MkQDFCday7cArbGx0V
+	zrCP5UbWEUB1z8PepcP8sI516dE85+Y3Kkai7rA2TnLgf6FdhZVFHiI/5AiIxWYUq1scMPhGauM
+	U5iL0X2h0M0BDlYG/11m64yj/BsJVfmDZi5T0BPK1umA6CLPICbvNxXhymZmANOi9b5297KiNVG
+	KGYYiBZdOrOiWAW5yon6tNOQzh1pmmq84XP5QyPxiInWvtm81UL5p3xtjyAr8eeTqTDKGg==
+X-Received: by 2002:a17:90b:39a7:b0:3ac:8897:7baa with SMTP id 98e67ed59e1d1-3b41c9638b9mr4472697a91.40.1795237714620;
+        Fri, 20 Nov 2026 21:08:34 -0800 (PST)
 Received: from rigel (106-68-220-184.tpgi.com.au. [106.68.220.184])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0c2ab7sm21421395ad.15.2026.11.20.20.52.27
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad46ef5sm6883300a91.8.2026.11.20.21.08.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 20:52:31 -0800 (PST)
-Date: Sat, 21 Nov 2026 12:52:24 +0800
+        Fri, 20 Nov 2026 21:08:34 -0800 (PST)
+Date: Sat, 21 Nov 2026 13:08:18 +0800
 From: Kent Gibson <warthog618@gmail.com>
 To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
 Cc: Bartosz Golaszewski <brgl@kernel.org>,
@@ -90,12 +90,12 @@ Cc: Bartosz Golaszewski <brgl@kernel.org>,
 	Jia Jia <physicalmtea@gmail.com>,
 	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v7 5/8] gpiolib: cdev: don't leak the IRQ name when the
- chip is removed
-Message-ID: <20261121045224.GB17013@rigel>
+	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v7 8/8] gpiolib: remove the shared GPIO proxies before
+ freeing the remaining IRQs
+Message-ID: <20261121050818.GC17013@rigel>
 References: <20261120-gpiolib-chip-removal-v7-0-aambrozewicz@nvidia.com>
- <20261120-gpiolib-chip-removal-v7-5-aambrozewicz@nvidia.com>
+ <20261120-gpiolib-chip-removal-v7-8-aambrozewicz@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,103 +107,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261120-gpiolib-chip-removal-v7-5-aambrozewicz@nvidia.com>
+In-Reply-To: <20261120-gpiolib-chip-removal-v7-8-aambrozewicz@nvidia.com>
 
-On Fri, Nov 20, 2026 at 10:13:57AM +0200, Adrian Ambrozewicz wrote:
-> The character device requests line IRQs with a copy of the consumer
-> label as the name, and frees the name that free_irq() returns. When
-> gpiochip_remove() frees the IRQ first, it drops that name and the copy
-> leaks:
+On Fri, Nov 20, 2026 at 10:14:00AM +0200, Adrian Ambrozewicz wrote:
+> gpio_shared_proxy_to_irq() returns the parent chip's IRQ, so an edge
+> request on a proxy line holds an IRQ of the parent.
 > 
->   unreferenced object (size 8):
->     comm "gpio-hold"
->     backtrace (crc dc8eac94):
->       kstrdup
->       kstrdup_and_replace
->       edge_detector_setup
->       linereq_create
->       gpio_ioctl
+> When the parent is removed, gpiochip_remove() frees the IRQs still
+> requested on its lines before it removes the proxies in
+> gpio_device_teardown_shared(). The release of a proxy line request is
+> serialized only with the proxy's own removal notifier, so if
+> gpiod_free_irqs() frees the IRQ between the release's irq_has_action()
+> check and its free_irq(), free_irq() warns:
 > 
-> Keep the name with the line or v1 line event, and free it there,
-> whoever freed the IRQ.
+>   Trying to free already-free IRQ 22
 > 
-> Reproduced with gpio-sim: remove the chip under an open request with
-> edge detection and a consumer label. kmemleak reports up to 23 such
-> objects after 30 cycles; with this change, none after 100.
+> Remove the proxies first, so the character device on each proxy frees
+> its IRQs before the rest are forcibly freed.
 > 
-> Fixes: ec8b6f55b981 ("gpio: free irqs that are still requested when the chip is being removed")
+> Reproduced on arm64 QEMU with a shared gpio-sim line and a test delay
+> before the release's free_irq(): 3 of 3 runs warned; with this change,
+> none.
+> 
+> Fixes: 1e4f6db614a3 ("gpiolib: support shared GPIOs in core subsystem code")
 > Cc: stable@vger.kernel.org
-> Reviewed-by: Kent Gibson <warthog618@gmail.com>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20261103-gpiolib-chip-removal-v5-0-aambrozewicz@nvidia.com?part=7
 > Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
 > ---
->  drivers/gpio/gpiolib-cdev.c | 23 ++++++++++++++++-------
->  1 file changed, 16 insertions(+), 7 deletions(-)
+>  drivers/gpio/gpiolib.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
-> index f2da4f2646bc..fdcd315e776b 100644
-> --- a/drivers/gpio/gpiolib-cdev.c
-> +++ b/drivers/gpio/gpiolib-cdev.c
-> @@ -400,6 +400,7 @@ static int linehandle_create(struct gpio_device *gdev, void __user *ip)
->   * @desc: the GPIO descriptor for this line.
->   * @req: the corresponding line request
->   * @irq: the interrupt triggered in response to events on this GPIO
-> + * @irq_label: the name @irq was requested with
->   * @edflags: the edge flags, GPIO_V2_LINE_FLAG_EDGE_RISING and/or
->   * GPIO_V2_LINE_FLAG_EDGE_FALLING, indicating the edge detection applied
->   * @timestamp_ns: cache for the timestamp storing it between hardirq and
-> @@ -423,6 +424,7 @@ struct line {
->  	 */
->  	struct linereq *req;
->  	unsigned int irq;
-> +	char *irq_label;
+> diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+> index e0ba17a73c4b..57024a1b042b 100644
+> --- a/drivers/gpio/gpiolib.c
+> +++ b/drivers/gpio/gpiolib.c
+> @@ -1461,12 +1461,12 @@ void gpiochip_remove(struct gpio_chip *gc)
+>  
 >  	/*
->  	 * The flags for the active edge detector configuration.
->  	 *
-> @@ -602,16 +604,18 @@ static inline void free_irq_label(const char *label)
->  /*
->   * gpiochip_remove() frees the interrupts still requested on the lines of the
->   * chip being removed, so once the chip is going away the IRQ may no longer be
-> - * ours to free.
-> + * ours to free. The label is kept by the caller as free_irq() is then not the
-> + * one returning it.
->   */
-> -static void free_line_irq(unsigned int irq, void *dev_id)
-> +static void free_line_irq(unsigned int irq, void *dev_id, char **label)
->  {
-> -	const char *name = NULL;
-> +	const char *name = *label;
->  
->  	if (irq && irq_has_action(irq))
-> -		name = free_irq(irq, dev_id);
-> +		free_irq(irq, dev_id);
->  
->  	free_irq_label(name);
-> +	*label = NULL;
->  }
->  
+>  	 * No new interrupts can be requested through the character device now.
+> -	 * Have it free the ones it holds before forcibly freeing the rest, and
+> -	 * both before the irqchip and its mappings go away.
+> +	 * Have it free the ones it holds, also on the shared proxies, before
+> +	 * forcibly freeing the rest and removing the irqchip.
+>  	 */
+>  	blocking_notifier_call_chain(&gdev->device_notifier, 0, NULL);
+> -	gpiochip_free_remaining_irqs(gc);
+>  	gpio_device_teardown_shared(gdev);
+> +	gpiochip_free_remaining_irqs(gc);
+>  	gpiochip_irqchip_remove(gc);
+>  	acpi_gpiochip_remove(gc);
+>  	of_gpiochip_remove(gc);
+> -- 
+> 2.43.0
+> 
 
-The function you are modifying was added in patch 3, so note that this patch is
-dependent on patch 3 in the description[1].
-
->  #ifdef CONFIG_HTE
-> @@ -939,6 +943,7 @@ static int debounce_setup(struct line *line, unsigned int debounce_period_us)
->  				return ret;
->  			}
->  			line->irq = irq;
-> +			line->irq_label = label;
->  		} else {
->  			ret = hte_edge_setup(line, GPIO_V2_LINE_FLAG_EDGE_BOTH);
->  			if (ret)
-> @@ -981,7 +986,7 @@ static u32 gpio_v2_line_config_debounce_period(struct gpio_v2_line_config *lc,
->  
->  static void edge_detector_stop(struct line *line)
->  {
-> -	free_line_irq(line->irq, line);
-> +	free_line_irq(line->irq, line, &line->irq_label);
->  	line->irq = 0;
->  
-Similarly - but you only need to note the dependency once.
+Everything it touches was added in patch 7, so it needs a dependency note as
+per my other patch comments.
 
 Cheers,
 Kent.
-[1] https://www.kernel.org/doc/html/latest/process/submitting-patches.html#separate-your-changes 
