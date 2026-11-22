@@ -1,60 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.13.135.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795342117;
-	b=U5H/Brhcisu9L5UUPkMrDhJ1bu29QnH+a98nEkakQoARSibaauLQJoPZ3o4+M1YTPtMk
-	 KZW3E5Yk+bD6tA6CjUAqtDN0iqrCp5rsChddxZA4PECG1NV99pWf3WUqsKXU7i2XjFUuO
-	 1TmnIxizdtpUbYzH700U25fHCWVceHrG5YPtF78naLJKyp02+K5MRqAjc2oWROkg56S+P
-	 mqcaYV/Ftw/WF8NCGpWAQRcGY17PQN4bo+uP/Oggqt7qKBZap+Xsx1EgcRTPXiEzA92mN
-	 bCB3En4WwaGZnMAdImJUYHSFAhwQ3ypJOGSMla8LLK8NqaoTKDsgYWTHH8DAMJuSbHA==
+	t=1795342406;
+	b=oSkhNLxmjssLcKUi38wXNFcwKNCHhxuCMZ6UjIy6OoCLgZrG8arwqsWkK5zM6u/7tlgz
+	 h19La8XzDr2jvFRAMJJFxzZp+IvNr/j/kKTFhjY3klkndTEYMnD6VcNXzBXZvtyduVB7Q
+	 telr71F9rCWFdouP1z/w1YXtyfS6ypECw+GveU7BN+1pAgc0V4Ge0PcqoyWknFfly2pd3
+	 mnVjUwR4CyoJNEpA1n/ySQHWaxgN45LOFXG7mgG3kqMCjp/rRD7mV3V/+xL1ZhZM582IF
+	 LAiUk/qV+dlbr/ij9i9xE+Fz+648ZlzANUVEwU6pzl3/pHmCim1mzkfxVDaRxhJvBRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795342117;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=KhZvViciytwGLSje7vvILIzm+0pXs3Dr46ub9cFA0qU=;
-	b=3rSwFZeQW42TImQIIyYf2dVjWdZoDTJA5Og9RqnZWPyQRA+zfZPpvVuWcmaTzolelX5k
-	 FfzJn0a5CUCHA3FQEjaSRa+KwRcSNTPcvBcZ5AOhHWx3CVLoy4tE/gkq5JCBqbxeG795G
-	 NB4n5pFCMbrWxNXsxZ44hLw+SfYzbZAEvM8rkEZx2oLFV1Sg5noC7vpZy22KM1ue3HCWM
-	 fdq7mBhC6zWpNaTgFB8p469Ff863AH5KKAcsDYwfdTu4QGWcWYUlClTPMZsviCDgDP33W
-	 GGUbZ0w+nztT40FN5XnDUFtEynqlAT/ntl+CqoHVSDX3Ff40bwgJa47giAR5ZCNjB/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795342406;
+	h=DMARC-Filter:DKIM-Signature:X-KAS-Sym:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Bar;
+	bh=zFjx2oOn9zesuMK23MckKDdD3Vemkvr6HzY56oGAmBM=;
+	b=xws7YZxa89GPbXvQF2tacYR9PIFQWoDAFLk38PuVqxrFv+oKVteYnAG5T8Wnip0QfeTC
+	 GovBQZghbH3c0PlJjPwQVhN5kE7PHIqGByfuGFRxjyz+5TTNM3+r/UYEJM63YAqNkPoa2
+	 sDwDoibT1B+DRNTB1wGTX3R2xw8TnchGeS8/A2tAk8vvwyshpG4IbqZscfjBgR/ETZfiS
+	 c0m/FWS7fuZfZKCfzQ8D+xRMDK9IYflxD/4pIQ7CS7AsDxnOCUcDOoLOq7zAVYJttsxph
+	 k7sdlHW78TZvdv6m3ru2Ork0IC8yS2uZMaXwnMVUQcdEWuJiN9HykuB9u0fHUAHj90g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jMkZ8u/U";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tsv-stahl-riesa.de;
+	spf=pass smtp.mailfrom=tsv-stahl-riesa.de;
+	dkim=pass header.d=tsv-stahl-riesa.de header.i=@tsv-stahl-riesa.de header.a=rsa-sha256 header.s=kas202608160020 header.b=R+EJ5bpL;
+	arc=none smtp.remote-ip=85.13.135.14
+Received: from dd13108.kasserver.com (dd13108.kasserver.com [85.13.135.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665A0606A320;
-	Sun, 22 Nov 2026 10:08:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0342D606A320;
+	Sun, 22 Nov 2026 10:13:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0342D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tsv-stahl-riesa.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tsv-stahl-riesa.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMkZ8u/U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B1281F000C4;
-	Sun, 22 Nov 2026 10:08:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795342117;
-	bh=KhZvViciytwGLSje7vvILIzm+0pXs3Dr46ub9cFA0qU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jMkZ8u/UrOkpWfwKjHIu7aslnRsyUenWoaG6BDrECHs8PmrgerhArb+s/X7shAVQ1
-	 47BE9MmFEQ90cjniA/AmGqafGdp1K1BM95R4b43mGukZKEu9cbsj9kIeop1TmfLjoX
-	 CEa3rZKbnCDdulvKANG4ELqBTafZwSM9M20uY9IF6G4z5XcL1RxmzG/qNTEE87q1Ai
-	 T3YbXBaaPz4jvPgSrV9HhRvm3LTYz++82Ats9lmnNsLNZ+wFTdwrS30pLe3xSjL5UR
-	 fAQY8HmY1EUl8CAHeKeWl1qXCCsSH7xFzA3S5xHbpICen3F3gTE6F/VfwFKd0NblXD
-	 679/Wy4NtUPhg==
-Subject: Re: [PATCH net v3] mctp i2c: fix double free of midev on netdev
- register failure
-From: netdev-bot+sashiko@kernel.org
-To: kenny_hsieh@jabil.com
-Cc: netdev@vger.kernel.org, jk@codeconstruct.com.au, matt@codeconstruct.com.au,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 22 Nov 2026 10:08:36 +0000
-Message-ID: <179534211612.3135.16240214184359507035@kernel.org>
-In-Reply-To: <20261118090515.3390034-1-kenny_hsieh@jabil.com>
-References: <20261118090515.3390034-1-kenny_hsieh@jabil.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=tsv-stahl-riesa.de header.i=@tsv-stahl-riesa.de header.a=rsa-sha256 header.s=kas202608160020 header.b=R+EJ5bpL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tsv-stahl-riesa.de;
+	s=kas202608160020; t=1795342404;
+	bh=zFjx2oOn9zesuMK23MckKDdD3Vemkvr6HzY56oGAmBM=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:From;
+	b=R+EJ5bpLc/TAr04dybtVEK7dbcEOEsIss8SzPrb+vuTrxLA4YqBYosxFS97ALdGKx
+	 8sskFIY4R0R4qkvfZgo/S5GZj7yJe8EieF9sqmQ9jLYiEbu+r1CgwOUq3pnDi33ElB
+	 9nWgPROYNiwwT8tCeZ5ma5qnn68qxzz84RfJKKc5Qyqd6n+Lpt66IOQIoc36v9WN0p
+	 4gNZMzy6aqz6aJsATOhMmGMYrtaqG8PQfAAMv26nNIoglq8gvnUTlTA3qMD9Xfniyw
+	 sxYKRwBbKkU0NvNdH9sSALq/HESJeBbsfS2pRLLSndCrheEEhWdlXfqeLxfZm2n63F
+	 NYOIT4ecIgJDQ==
+X-KAS-Sym: v3:f51bdf72230551df:qJ5uOu2tDOwck04l6ZZT5ZgS9yYs6RwmRLkVQ2e11W2Qg
+	xi4Fjh2AYzKKX2gAyElm3p0uCqidYfZPAU5b1CzV46YKHzkqvcvF9ccxgCloMJKvslloO6MCVfr
+	6QdObSfYmUNWJ/0ucr8ReMwDqZqTusb+gYriedhqiF3fS0N72iVo5FfV8U+j8sjgdQrvg+UEGp/
+	pMFOz7n2SOuS/Di7sMFu5a52da6xM7KbRWb1W+CP2vGKw25C/j+ejlSDMMtN0jrrQDY3+AOavU4
+	QcErcPgCm854wBnsoLaG1yVxs1QYz+HjGQnrwyrtb2YfxTOOrtB2rQBg75sAG60ujUMzYTiA==:
+	ZAj/4oY35NYMEd/U/9zhc/w84aoQlxTKNU5I2wFGMzs/70P7k3F4MDGF1s1jelCu6Bh2UKq9PAK
+	IC4VmnPaImE8TshlwBidY8QR0I1CIHvn7SR0l1jLzftthFkVfZsh9blQVHj0V+77nRoZn3eyrmQ
+	XUK2BIGrH9Eu3AnyUuS3kRpMQohO++8mg/JoXrbJnvWyrOkP9JYu8mmREfzdrUh74HsB6d0q4i3
+	evO4sPzyWT9QZqyFGhO1jrbEArAFwh+SxT54DTnCUx0WOxngWf2zcu2Ldcqx5TQHXtrlBdSJ4oF
+	HQG1JZbZUnTb47Dk0JpsV3Z+O6s/6H4jaEcQS91CYKd3Eqr4kzCX6UqFw5CVfM6zP7VcMr45Grb
+	AdsDwphQiyjZHqT5qYYOkYT1UDIPAbECUvNQQe21b8BdeQ77GIyL03KSFx9D9CTc4lVkGJa4ALn
+	/Kf4OXQuc489xt9FXk/nyYfSChzSfePvvNMQ12NmNoWf7IlfvZZNwBCvv6CzrC/huDbE/n88d9s
+	jxEAJf4hT2Q5sLwtP2Wjj1L4I+88mc0gPF2xxXHZKK7BNfb0GGkys1b2ENRimxnbuVoQBIfUg20
+	m3/IGBYRYNi5Hg8kyI4=
+Received: from [192.168.2.174] (dslb-188-098-197-218.188.098.pools.vodafone-ip.de [188.98.197.218])
+	by dd13108.kasserver.com (Postfix) with ESMTPSA id 8F90778203EB;
+	Sun, 22 Nov 2026 11:13:23 +0100 (CET)
+Message-ID: <dc9e1dff-a8f0-4b2d-b4f2-52248196800a@tsv-stahl-riesa.de>
+Date: Sun, 22 Nov 2026 11:13:23 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,247 +71,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] serial: tegra: Fix 32-bit overflows in the clock rate
+ adjustment
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Shardar Shariff Md <smohammed@nvidia.com>,
+ Krishna Yarlagadda <kyarlagadda@nvidia.com>,
+ Svyatoslav Ryhel <clamor95@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-tegra@vger.kernel.org,
+ stable@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>
+References: <20261025-upstream-serial-tegra-overflow-v1-0-267b5b7a79ee@tsv-stahl-riesa.de>
+Content-Language: en-US
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+In-Reply-To: <20261025-upstream-serial-tegra-overflow-v1-0-267b5b7a79ee@tsv-stahl-riesa.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Spamd-Bar: --
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Am 25.10.26 um 23:50 schrieb Patrick Fischer via B4 Relay:
+> On 32-bit ARM, both the clock rate adjustment from
+> "nvidia,adjust-baud-rates" and the check of the resulting rate overflow
+> a 32-bit long at the high baud rates the adjustment is meant for. On
+> the Tegra Note 7 (Tegra114), Bluetooth at 3 Mbaud therefore ran with a
+> UART clock 5.6 % too low, and the check computed -0.18 % and let it
+> pass.
+> 
+> UART clock at 3 Mbaud with a tolerance of 136 for 1 to 4 Mbaud
+> (pll_p 408 MHz):
+> 
+>                     requested    configured   check
+>   without patches   47.79 MHz    45.33 MHz    -0.18 %
+>   with patches      48.65 MHz    48.00 MHz     0.00 %
+> 
+> With both patches and the unchanged tolerance of 136, Bluetooth on the
+> Tegra Note 7 works at 3 Mbaud: the UART clock is 48.00 MHz, and the
+> WL1801 scans and connects to a paired device without HCI errors.
+> 
+> With a deliberately wrong tolerance of -500, which gives 45.33 MHz at
+> 3 Mbaud, the check now reports the deviation (out of range by -555,
+> i.e. -5.55 %) instead of letting it pass.
+> 
+> Both bugs date back to v5.4. 64-bit platforms are not affected.
+> 
+> Tool use (see Documentation/process/generated-content.rst): both
+> patches, their changelogs and this cover letter were prepared with an
+> LLM coding assistant (Claude Code), which traced the wrong clock rates
+> I measured on the device to the overflows, wrote the fixes and drafted
+> the texts. It also recalculated the old and new arithmetic for the
+> affected rates in a small userspace program; the results match the
+> rates measured on the device. I reviewed the changes and ran the tests
+> on the device.
+> 
+> ---
+> Patrick Fischer (2):
+>       serial: tegra: Fix overflow in tegra_get_tolerance_rate()
+>       serial: tegra: Fix overflow in tegra_check_rate_in_range()
+> 
+>  drivers/tty/serial/serial-tegra.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+> ---
+> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+> change-id: 20261023-upstream-serial-tegra-overflow-48d3d0f7afd9
+> 
+> Best regards,
+> --  
+> Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 2
+Hi Greg,
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+sorry, I am still new to upstreaming and sent my earlier ping without
+any context. This is the series quoted above: it fixes two 32-bit
+overflows in serial-tegra.c that leave the UART clock 5.6 % too low at
+3 Mbaud on Tegra114, so Bluetooth fails there. Both patches have
+Tested-by and Reviewed-by from Svyatoslav and still apply cleanly to
+7.4-rc3. Please let me know if anything needs to change.
 
-- [High] mctp_i2c_tx_purge() (drivers/net/mctp/mctp-i2c.c:814-824) is
-  meant to keep the embedded midev->unlock_marker away from kfree_skb(),…
-- [Low] After this patch, mctp_i2c_midev_free()
-  (drivers/net/mctp/mctp-i2c.c:848-849) still has "/* Unconditionally…
-- [Low] The new comment in mctp_i2c_unregister()
-  (drivers/net/mctp/mctp-i2c.c:874-877) says the explicit…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the sibling
-  driver mctp-i3c has the teardown-ownership flaw in the opposite…
-
---
-
-mctp i2c: fix double free of midev on netdev register failure
-
-This patch stops mctp_i2c_ndo_uninit() from freeing midev. midev is now
-freed only in the add_netdev() error path and in mctp_i2c_unregister().
-ndo_uninit only detaches midev from mcli->sel and purges tx_queue
-(skipping the embedded unlock marker), and the tx thread releases the
-bus rt_mutex itself before exiting.
-
-Closes: https://lore.kernel.org/netdev/179239912623.3135.11352652156626817288@kernel.org/
-
-> diff --git a/drivers/net/mctp/mctp-i2c.c b/drivers/net/mctp/mctp-i2c.c
-> index b02476d338bbf..a3d0cae41e131 100644
-> --- a/drivers/net/mctp/mctp-i2c.c
-> +++ b/drivers/net/mctp/mctp-i2c.c
-
-[ ... ]
-
-> @@ -782,11 +785,60 @@ static struct mctp_i2c_dev *mctp_i2c_midev_init(struct net_device *dev,
-
-[ ... ]
-
-> +/* Drops queued skbs, keeping the embedded unlock marker from kfree_skb() */
-> +static void mctp_i2c_tx_purge(struct mctp_i2c_dev *midev)
-> +{
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&midev->tx_queue.lock, flags);
-> +	if (midev->unlock_marker.next)
-> +		__skb_unlink(&midev->unlock_marker, &midev->tx_queue);
-> +	spin_unlock_irqrestore(&midev->tx_queue.lock, flags);
-> +
-> +	skb_queue_purge(&midev->tx_queue);
-> +}
-
-[Severity: High]
-Can the unlock marker still reach kfree_skb() here? The marker is
-unlinked in one tx_queue.lock section, and then skb_queue_purge() takes
-the lock again separately.
-
-The unlink leaves unlock_marker.next == NULL. Between the two critical
-sections, mctp_i2c_release_flow() can queue the marker again:
-
-drivers/net/mctp/mctp-i2c.c:mctp_i2c_release_flow() {
-    ...
-		spin_lock(&midev->tx_queue.lock);
-		if (!midev->unlock_marker.next)
-			__skb_queue_tail(&midev->tx_queue,
-					 &midev->unlock_marker);
-		spin_unlock(&midev->tx_queue.lock);
-    ...
-}
-
-One possible sequence during device teardown:
-
-CPU0
-mctp_i2c_unregister()
-  mctp_unregister_netdev()
-    unregister_netdevice_many_notify()
-      mctp_i2c_ndo_uninit()
-        mctp_i2c_tx_purge()
-          __skb_unlink(&midev->unlock_marker, &midev->tx_queue)
-          spin_unlock_irqrestore(&midev->tx_queue.lock, flags)
-
-CPU1 (or softirq on CPU0 after the irqrestore)
-mctp_sk_expire_keys()
-  __mctp_key_remove()
-    mctp_dev_release_key()
-      mctp_i2c_release_flow()
-        __skb_queue_tail(&midev->tx_queue, &midev->unlock_marker)
-
-CPU0
-          skb_queue_purge(&midev->tx_queue)
-            skb_queue_purge_reason()
-              kfree_skb_reason(&midev->unlock_marker)
-
-ndo_uninit runs before netdev_wait_allrefs(). At this point flow keys
-can still hold a mctp_dev reference, and mdev->ops is never cleared.
-
-Keys can also be released by socket close, by route input through
-__mctp_key_done_in(), or by a final mctp_key_unref(). None of these
-hold RTNL. The tx thread has already been stopped, so nothing else
-drains the queue.
-
-The marker is embedded in netdev_priv and its users count is 0. A
-kfree_skb() on it would trigger the refcount_t underflow warning in
-skb_unref().
-
-The commit message says the marker "must not reach kfree_skb() through
-the purge". Could this be done in a single critical section instead?
-For example, splice tx_queue into a local list and unlink the marker
-from it under one tx_queue.lock hold, or skip the marker while purging.
-
-> +
-> +/* Runs inside unregister, after dev_close() and before the refcount wait,
-> + * including when register_netdevice() fails at NETDEV_REGISTER. Both steps
-> + * can repeat, so mctp_i2c_midev_free() still frees midev exactly once.
-> + */
-> +static void mctp_i2c_ndo_uninit(struct net_device *dev)
-> +{
-> +	struct mctp_i2c_dev *midev = netdev_priv(dev);
-> +
-> +	mctp_i2c_midev_detach(midev);
-> +	mctp_i2c_tx_purge(midev);
-> +}
-> +
->  /* Counterpart of mctp_i2c_midev_init */
->  static void mctp_i2c_midev_free(struct mctp_i2c_dev *midev)
->  {
->  	struct mctp_i2c_client *mcli = midev->client;
-> -	unsigned long flags;
->  
->  	if (midev->tx_thread) {
->  		kthread_stop(midev->tx_thread);
-> @@ -797,17 +849,9 @@ static void mctp_i2c_midev_free(struct mctp_i2c_dev *midev)
->  	mctp_i2c_unlock_reset(midev);
-
-[Severity: Low]
-This isn't a bug, but is this call still needed? The existing comment
-just above it reads "Unconditionally unlock on close". The new comment
-in mctp_i2c_tx_thread() says:
-
-	/* Only the rt_mutex owner may release the bus lock */
-
-mctp_i2c_lock_nest() is only reached from mctp_i2c_xmit() in the tx
-thread, and the tx thread now resets i2c_lock_count itself when it
-stops. So by the time mctp_i2c_midev_free() gets here, i2c_lock_count
-should always be 0, and this call does nothing.
-
-Could it be dropped, or replaced with something like
-WARN_ON(midev->i2c_lock_count), so it doesn't contradict the new
-owner-only rule?
-
->  
->  	/* Remove the netdev from the parent i2c client. */
-
-[ ... ]
-
-> @@ -827,23 +871,17 @@ static void mctp_i2c_unregister(struct mctp_i2c_dev *midev)
->  	spin_unlock_irqrestore(&midev->lock, flags);
->  	wait_for_completion(&midev->rx_done);
->  
-> +	/* Release sel's reference on the netdev, otherwise
-> +	 * mctp_unregister_netdev() blocks waiting for it.
-> +	 */
-> +	mctp_i2c_midev_detach(midev);
-> +
-
-[Severity: Low]
-Is this comment accurate? mctp_i2c_ndo_uninit() also calls
-mctp_i2c_midev_detach(). unregister_netdevice_many_notify() calls
-ndo_uninit before net_set_todo(), and the refcount wait in
-netdev_wait_allrefs() only happens later, from netdev_run_todo() at
-rtnl_unlock() time.
-
-So mctp_unregister_netdev() would not block on sel's reference even
-without this early detach.
-
-If the early detach exists for some other reason, such as moving sel to
-a sibling midev before unregister starts, could the comment say that
-instead?
-
->  	mctp_unregister_netdev(midev->ndev);
-> -	/* midev has been freed now by mctp_i2c_ndo_uninit callback */
-> +	mctp_i2c_midev_free(midev);
->  
->  	free_netdev(midev->ndev);
->  }
->  
-> -static void mctp_i2c_ndo_uninit(struct net_device *dev)
-> -{
-> -	struct mctp_i2c_dev *midev = netdev_priv(dev);
-> -
-> -	/* Perform cleanup here to ensure that mcli->sel isn't holding
-> -	 * a reference that would prevent unregister_netdevice()
-> -	 * from completing.
-> -	 */
-> -	mctp_i2c_midev_free(midev);
-> -}
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch.
-mctp-i3c has the same ndo_uninit ownership problem, but in the opposite
-direction.
-
-mctp_i3c_ndo_uninit() does the full mctp_i3c_bus_free(), and
-mctp_i3c_bus_add() skips mctp_i3c_bus_free() when registration fails:
-
-drivers/net/mctp/mctp-i3c.c:mctp_i3c_bus_add() {
-    ...
-	list_add(&mbus->list, &busdevs);
-    ...
-	mbus->tx_thread = kthread_run(mctp_i3c_tx_thread, mbus,
-				      "%s/tx", ndev->name);
-    ...
-	rc = mctp_register_netdev(ndev, NULL, MCTP_PHYS_BINDING_I3C);
-	if (rc < 0) {
-		dev_warn(&ndev->dev, "netdev register failed: %d\n", rc);
-		goto err_free_netdev;
-	}
-    ...
-}
-
-register_netdevice() can return before it reaches its err_uninit label,
-in which case ndo_uninit is never called. Two cases:
-
-- dev_get_valid_name() fails, for example with -EEXIST when a netdev
-  named mctpi3c<id> already exists.
-- netdev_name_node_head_alloc() fails.
-
-free_netdev() then sees NETREG_UNINITIALIZED and calls kvfree() on the
-netdev, which contains mbus.
-
-Does this leave a freed mbus on busdevs? That list is later walked by
-mctp_i3c_bus_add_new(), mctp_i3c_notify_bus_remove() and
-mctp_i3c_bus_remove_all(). And would mbus->tx_thread keep running on
-the freed mbus->tx_wq?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261118090515.3390034-1-kenny_hsieh%40jabil.com
+Thanks,
+Patrick
