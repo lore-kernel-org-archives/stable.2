@@ -1,93 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795326575;
-	b=HLzUv19OzmlmjwHzyKo6YEgsl79ywcsVQNT0Og3P57cHG6P89fbDWs5PwVOAL3fDPGNs
-	 hZaPH+e+b5L4f6/A0bgpW2aRkJI+HgtYaCPI4NNJ2ZMIcbw3TIXj4t2vJ9raTQ6bL0cBc
-	 NUd2wiNIwxEVSCBB8fmWZtDXG/LI/SXYkew+ixWg7vsGSifYOxjsxZrkZ96qO0nYRbJoo
-	 jY8g5bv66VFvvhpX+xsGYuNgeZpgbTz8NAjYLAXOvtHklqVQhQtf+Fe81Rs2tRpVu7xL7
-	 RhHVApO1igrBfOgoiXUJsS0zH74eMhaxUKufETWgdSI944Wdb3FjNVqg3ZicpgKM3DA==
+	t=1795330546;
+	b=2u0bG8A8LAFejxTtm5y/wnjn3B4tUKJsEAm89nb3iENFKrzdVDFwjKYycV+tsCE2vtRC
+	 CbJnDtKxWVHaiyNes9rjyMUTGAqgQZAa3hF0rPfH86ZBr7c8UrOQGv5tSxkBo/JWS/yCI
+	 m6XBYhQ2ODGvSUxHXdcJs2FfLS6/LiZANc44Y/zz3kWdkxDvlTwtduZbH7GCeRJl4rNDc
+	 sJwI21SOrg7I/vCMf1d9LhKqZiu3DiVrp8PP0hMOJo8suf+gqDE0qmMr9Myl6qNCdTuca
+	 pQoetsDt91D4Zu/Ka8ttHp5MhEi5gkutGBE//V06xDGPdKz6qj1+4093akvk7b9WrrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795326575;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WtlSXd84ql2VigrMlFs32DKgX7pCmPq/IHLXz0kYT/0=;
-	b=tOLYilEBI1eUwE0L/IjcWumasW1HQhHXIiEh0xl7h/JCVL1ddzZQzmVU8pCVfWpqMVr4
-	 ePeJXdhk4LT+JjKQDNgJC9x4eONHL7IyDYymWgql2OCZLUQQG4YiPU1rrs9TKPgizECRL
-	 w3zEZGLOQClgJjYJBUb/kusdv+8d2CAL1VIPGbgW4PpFgsJukH2MeJtzzqvr17kKA8VlC
-	 Fqf6rY0yhLcGzBKCe29+TE+lbysVO3Flynm3g1C3nh6qzpAjW0goLsDlHX3ddOZfcEk1X
-	 GSh0dff+hyn6vRbqH9qRwdcjfwKxQd8YpsoCxR5rli5kPwVUwUI5ADGHw16kZHwHTtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795330546;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Wmi8+gU9wSz5TRuIdE6ondwceW9JjgoynshcbqtVNQs=;
+	b=BwCu6jLuNc9rSXVDYmdqvEWWrGKZnqhU1ZVdeRtE1Wn7pUuzrkx84AphYEsY5Ki5REvC
+	 JlnkXvM4RtploYq2FKdneUQ08mwocYvQXZOH1qpne0ppQnyirv1qNFknDjzvDMxz7g61i
+	 kEt2BNqlXhDXq/iH1j9satnW+jntjYnxK/p/vFKYo/P9zgS7o0U/1LNPNI8OMfNjGL4jd
+	 segW2gpd7GF/pDf5yOpheqoZxlKdpQhQpiqM3hYDGtXXI1CVgq++d8J/ESexxpb+12w+E
+	 yKNepuA7EC9XVi1F8XB0NhJ4m37ecWkQVWM0qtpwlxlTjgnn7FlPQpFbButc9/tB2kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xf4+Rhbg;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Kt7WslS/";
+	arc=none smtp.remote-ip=95.215.58.1
+Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265E7606A32A
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 05:49:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 265E7606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A2B606A331
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 06:55:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63A2B606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xf4+Rhbg
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cde827b7b95so155461a12.0
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:49:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795326574; x=1795931374; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WtlSXd84ql2VigrMlFs32DKgX7pCmPq/IHLXz0kYT/0=;
-        b=Xf4+RhbgxZWfRcLg7iy2ajKnaKqEpKD9OaJl9VpOQOUep+NhOcssyyU24bYltvfbnh
-         q4Mj738M6d2uLCM8uX2oLBz3VKaa+jvU8A//6HV9/SAdI+osCpER4Pc6ENmcXvhz0X5V
-         W9Kd547/kkLhwkg56Dr2fLqXVYuZSw96uzJ2cWUiUt0UgkQPHQvYcYSTKasmowC6nL0T
-         ECGD7H65HuL9T36JasoUuMfFWyjySm2ERh7ovo84mqpzdXREgJ80eJg/YGjUoFARaZ4a
-         i5x3MpcOwHrJ8qVcTaAKcVrU7shExwgrO4L+H2GPLkTNmGHZ5pS7Gss4l0O7ZyhYDed2
-         8nzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795326574; x=1795931374;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WtlSXd84ql2VigrMlFs32DKgX7pCmPq/IHLXz0kYT/0=;
-        b=HeHBbgKJsT9phbdrzxQpvCJmDJIK/Dg0OKc+25KtVbX1suTaZCl5Yp7gTQozMCHgkb
-         iTZwpLlDtsPAWmzb52O+sbsJNMsv/gsGLVcp0fj9NSWwHV1D2/aRXYM7ublQkYv6JQZU
-         EQb2Yii7RA0skFvLAKiYtkqScIg2jz3+EhDr8qtNW9h6BsL9A2F1OtFXSbkPfwMzezet
-         jVsuToPDJ4h0LNxzY/pOrUOvTDy4DnUkTbU48vZaRt7PDcteRnRxlFTDe3OE4dXCeE3L
-         xuXOyyjOzDsfaqU5zn6/lYN+aHn9Twx8THWeNagEL6RrQ6MBgkXIvOQsdbGfyah8MBUM
-         Rtgg==
-X-Forwarded-Encrypted: i=1; AL+hErGxLK5Qq7s+8ja3NTVHJ1zlyKdapLf7bn01DfRX4mNRZZN1KVCHwxM5ra9WbEmXh7IheGtmsHU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fQ03CvZCCl2DKsvtrTNXffcloCr0vnf9TzsubpAcSsbnUqr3V
-	DPnNzPm0UfAXKidzfUHEPAEoN5IKloccWVODsH1GFN9GQJC+2qTHegzK
-X-Gm-Gg: AZFdTZcw8zN8MmaO0t2UtsjwPBnt2P5Xdl1aWUWbUypYPMn7Q8C9veCG+pznl3Lj/KY
-	AMkgzYESP7WfPyFPwU3q+Ymvb+TwUa0yQ++husp6VECd1wwMj9/Jw/XOFRfC47/gbN/d7dXtiMb
-	P5LHnCRa8qMyDFzo6jT92Oka86REEL2qCnYnvSeiPWFaJIHYQ5p5iN/FsxqFAjbw9+2FQsMuKUx
-	D95o1lSy5e+BtSKeF+8zgXdELIvFh05YK5nthxuDcucnxpbFwzCmricFkPKIQs6hYAG4/s9METD
-	HlEQsFHUlmN0NzyDXyomsnHQqdWASHM+g6MTudU3ZYf6tjjsOPbbB9YLtFlFTP++vQ8ZD7gUrCk
-	zG0oEfZ4/OmAGtxZb/JliUNu6hT2w/Xl6KXDLlUWpjF5vHvaCJ3cYkSCK8EMeFUT271FOQQic//
-	WyG7BM16lay8p8jEZaBMoeoMfk+iUSr5AXyyNuCoeoiYaQjU6RvE77RqmgPHZ6SkfWZ5KSd6cnA
-	5P2NeMqhxFf35IYr9l7eRyoieEizgEFxiHvoMjYD+cWv3temMdjiCmyeehfbhtAn8dQsqsFcQeK
-	bKLL3t8MXNLuwvW5or8rOPdUiwSKPr5IPu74SMO/CqfALw9EALo7ctTUcLgXKa7cD9bPwkB+vIU
-	b9GHn6ygP/9h3PWT8IoyVgVHJFtQpE6H+UqhnIujB19Axp9dYZq2xfwVOBZTFyeWf0i83CTjqmu
-	onTw==
-X-Received: by 2002:a17:90b:3810:b0:3b1:bee2:223d with SMTP id 98e67ed59e1d1-3b41c9bc27emr7446448a91.53.1795326574357;
-        Sat, 21 Nov 2026 21:49:34 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41aab4729sm11150732a91.0.2026.11.21.21.49.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 21:49:32 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Kt7WslS/
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QDLkr1W5J3m1NZAazgRrXp2vVl+LPZJtkzX6HsnTQ1o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795330542; v=1; x=1795935342;
+ b=Kt7WslS/zzIEtHnb4aXVS7SRvSMWnRU+/DtpabAg3+h9bdLeBbDKm5NsyD/TlSGBiE/fed3N
+ ObloLFDDCNdNuC8aewQWBsf8v5LX6Ra/sCqajLusgtgLDvwVq0XI1bC6I6+5hOg1EIkaQddtAko
+ lCJslW3ZM5Kz0r7QyPvKyCRw=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id eab61d17154b09f0;
+	Sun, 22 Nov 2026 06:55:35 +0000
+X-Mizu-Trace-ID: eab61d17154b09f0
+X-Migadu-Flow: FLOW_OUT
+From: Qi Zheng <qi.zheng@linux.dev>
+To: muchun.song@linux.dev,
+	osalvador@suse.de,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	fvdl@google.com
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] usb: xhci-pci: don't perform Soft Retry on the AMD X470 chipset host
-Date: Sat, 21 Nov 2026 21:49:22 -0800
-Message-ID: <20261122054922.50251-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.1
+Subject: [PATCH v2] mm: hugetlb: allocate larger early CMA pages first
+Date: Sun, 22 Nov 2026 14:55:26 +0800
+Message-ID: <20261122065527.33123-1-qi.zheng@linux.dev>
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,49 +71,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit a4a251f8c235 ("usb: xhci: do not perform Soft Retry for some xHCI
-hosts") disabled Soft Retry on the 300 series Promontory hosts, which
-fail to resume an endpoint after it. The X470 chipset host (1022:43d0)
-has the same problem.
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-With an RT3070 USB Wi-Fi adapter (rt2800usb) on an X470 port, the
-bulk IN endpoint sees one USB Transaction Error while the interface is
-brought up. xhci soft-retries it with a Reset Endpoint command that
-preserves the transfer state, the endpoint context reads back as
-running, and no transfer completes on it again: the adapter receives
-frames (its RX FIFO overflow counter climbs) but none reach the host.
-Booting with xhci_hcd.quirks=0x10000000000 (XHCI_NO_SOFT_RETRY) lets
-the URB complete with an error instead, rt2x00usb resubmits it and
-reception keeps working.
+With hugetlb_cma_only=1, early HugeTLB CMA allocations follow hstate
+registration order, which can depend on the order of hugepagesz= and
+default_hugepagesz= parameters. cma_reserve_early() advances early_pfn by
+the requested size without aligning the start of each allocation.
 
+On arm64 with 4 KiB base pages, 32 MiB and 1 GiB pages share a CMA pool
+aligned to 1 GiB. In a 2 GiB CMA range starting at 4 GiB, allocating a
+32 MiB page followed by a 1 GiB page places the latter at 4 GiB + 32 MiB,
+violating its required 1 GiB physical alignment.
+
+Simply rounding early_pfn up before the 1 GiB allocation would leave a
+992 MiB gap and advance the cursor to 6 GiB. cma_activate_area() marks the
+entire prefix below early_pfn as allocated and only frees pageblocks after
+it. The gap would remain reserved with its bitmap bits set, and releasing
+the two HugeTLB folios would not reclaim it, permanently losing 992 MiB
+of usable CMA capacity. An alignment-only fix would therefore also need
+to track and reclaim such gaps.
+
+The same alignment issue can affect non-LPAR PowerPC64 hash MMU systems
+supporting 16 MiB and 16 GiB pages, with 64 KiB base pages and
+CONFIG_ARCH_FORCE_MAX_ORDER=7. The 16 MiB size then has order 8 and is
+also gigantic, sharing the 16 GiB-aligned CMA pool.
+
+Allocate early CMA hstates in descending order. Each range starts aligned
+to the largest supported size, so this preserves alignment for subsequent
+smaller allocations without creating gaps.
+
+Fixes: d2d786714080 ("mm/hugetlb: enable bootmem allocation from CMA areas")
 Cc: stable@vger.kernel.org
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Muchun Song (ByteDance) <muchun.song@linux.dev>
 ---
- drivers/usb/host/xhci-pci.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ mm/hugetlb.c | 29 ++++++++++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-index e278db940a58..0a8b5b04e324 100644
---- a/drivers/usb/host/xhci-pci.c
-+++ b/drivers/usb/host/xhci-pci.c
-@@ -88,6 +88,7 @@
- #define PCI_DEVICE_ID_AMD_PROMONTORYA_3			0x43ba
- #define PCI_DEVICE_ID_AMD_PROMONTORYA_2			0x43bb
- #define PCI_DEVICE_ID_AMD_PROMONTORYA_1			0x43bc
-+#define PCI_DEVICE_ID_AMD_X470_XHCI			0x43d0
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 4a448c5909d36..96b97f012ab49 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -4600,8 +4600,25 @@ void __init hugetlb_bootmem_set_nodes(void)
+ 		node_set(nid, hugetlb_bootmem_nodes);
+ }
  
- #define PCI_DEVICE_ID_ATI_NAVI10_7316_XHCI		0x7316
++/* Return the largest early-CMA hstate below the given order. */
++static struct hstate *__init hugetlb_next_early_cma_hstate(unsigned int order)
++{
++	struct hstate *h, *next = NULL;
++
++	for_each_hstate(h) {
++		if (!hugetlb_early_cma(h) || huge_page_order(h) >= order)
++			continue;
++
++		if (!next || huge_page_order(h) > huge_page_order(next))
++			next = h;
++	}
++
++	return next;
++}
++
+ void __init hugetlb_bootmem_alloc(void)
+ {
++	unsigned int order;
+ 	struct hstate *h;
+ 	int i;
  
-@@ -493,7 +494,8 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
+@@ -4615,9 +4632,19 @@ void __init hugetlb_bootmem_alloc(void)
+ 	for_each_hstate(h) {
+ 		h->next_nid_to_alloc = first_online_node;
  
- 	if (pdev->vendor == PCI_VENDOR_ID_AMD &&
- 	    (pdev->device == PCI_DEVICE_ID_AMD_PROMONTORYA_2 ||
--	     pdev->device == PCI_DEVICE_ID_AMD_PROMONTORYA_4))
-+	     pdev->device == PCI_DEVICE_ID_AMD_PROMONTORYA_4 ||
-+	     pdev->device == PCI_DEVICE_ID_AMD_X470_XHCI))
- 		xhci->quirks |= XHCI_NO_SOFT_RETRY;
+-		if (hstate_is_gigantic(h))
++		if (hstate_is_gigantic(h) && !hugetlb_early_cma(h))
+ 			hugetlb_hstate_alloc_pages(h);
+ 	}
++
++	/*
++	 * CMA ranges are aligned to the largest supported size. Allocate larger
++	 * sizes first to keep the early reservation cursor aligned without gaps.
++	 */
++	order = MAX_FOLIO_ORDER + 1;
++	while ((h = hugetlb_next_early_cma_hstate(order))) {
++		hugetlb_hstate_alloc_pages(h);
++		order = huge_page_order(h);
++	}
+ }
  
- 	if (pdev->vendor == PCI_VENDOR_ID_ZHAOXIN) {
+ /*
 -- 
-2.56.1
+2.54.0
 
