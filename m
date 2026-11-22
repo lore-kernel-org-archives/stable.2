@@ -1,55 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795347559;
-	b=Nkr8SpTc4lOQt71JHtRh5ximg4D8rplbkKKgcJnx+ji2v422q8y0If8sJRdr075oFOCG
-	 TwwQ9Ix3kN+ADhKZLi6NaONYOoz/Sfdjy9msMS06diW4cuIh8VJjL5RTm/l4F9pw7G/l6
-	 NHQdOWnWiiItVCzKBNuyvcf/78xe0p20NDRscsX/HUpT3Q7WbWYd1/SaAWzP2b/rYv7xS
-	 Nj1nUPOMbZPB2SRt/SGSHyRPXbw82iVAyjpDYxZlzzaYer9TGtYmeu5c3cGprEPOTFUrC
-	 L54yA6SwQzrRrCknULMd7pteFNNUKGjG6fVcNBGO31lrml+lXsxG1ZMWY3vr4OPe9Pg==
+	t=1795348290;
+	b=r5hovLIGTINzTwHf0uWX3KU9b1gsVs8pGIkhaHrJB94LrWU1Q5kEeZJtPFbBk3DVt/J7
+	 7pB0eTflwJ5JbuW+G0fJ6eqsg/txqk0wkqhkFY+0Zqmbi0WifKPvsRehD/RMYAjr5tya6
+	 XNQvfW/79w5/gRvvhZxRMtjNnEpr+pT9a4LcCM0Y7qmxHO2W9/hkw6Ij08SJVvOF7g1Xy
+	 H8WWJtJMJRBcn3c9FmibT8zDVwRKgcE0d+R64kFVHpi+Nz6fUO+Dhk4nxlQMuppl0XAwm
+	 xCtLN5MbljwwJYTtmOTdPLD1o+qfEV8HUN3UiTQCiNHqG8Et1boRDjHw44LwcEsGm/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795347559;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=OfjJ0WvNmPf3yRVeCkab8QDdbLg01cA0144pAfNS/ko=;
-	b=Gv+0xmyIlMvPKGe/9iQwiNk+0A+aZF48dYSg9TqZZoVkkklR1IQJxO7I5BV3jfo9J3w4
-	 RpxkG0Nu8rvDyupcjZYWWHy0Faze3jhicPNApHFgCDFBzN/cL8SmgvVjjiltB7NyB3bSQ
-	 ZYrpHnYZu4F/tj/9sqgMCfocch8RqnNkJ/58QSUo90BtKBTjMyJ9Ct6FhJ0ZC+ZlETw80
-	 3vcltk9FDaBz/yLc+7OhmGoEMpq4d6Bg1W2P1ziA9O2AUDaFozQ3TrxCSJx0KTDLoPguH
-	 /R56DXN1D3KJmNyXT9tNhnzVucF142vNQOk3C7a32UXeFFnPivOpvzrU39D0pmhFeng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795348290;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=SdLr6yRqTSIXIq9q/8cXAbS05lzrBdYrcWskButSjtc=;
+	b=ZkZdLz8jiHJ+t0tEA2Ejuk2Traw18SXul4LP2b6lZsHyZGlSusVAjP7f+yNJ+QvByplY
+	 opJXub1w7NvFlYkhVCuMS5+owzsA5/obusbMeKH/abkatMEiRemRdsBc+MyfriMJFbUUP
+	 CAYkMEj9s5v3ACfrPAhUXPId2ogHfDRqJnO0MtLaFN5DpOIgScYNkxn2mPImIq0Vm4J8/
+	 t76dqX82VWfCrteHVS9Sa3jqLnTatU3qRz35Ws0vokKhyGtpJfkuG/JEdREmVDex6Lpgu
+	 evK3JOWGFe/8KPHYZVVAyAHr210FhaLQfg8I5NAzsaMmMpB3KhbRvQC0JxSR5mOmz1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kOpbrZVn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=STCTzFZv;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1950606A320
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 11:39:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952E0606A32C;
+	Sun, 22 Nov 2026 11:51:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 952E0606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kOpbrZVn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AF91F000C0
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 11:39:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795347558;
-	bh=OfjJ0WvNmPf3yRVeCkab8QDdbLg01cA0144pAfNS/ko=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=kOpbrZVnERYgmaaHoZkURlOzHTL+LmFRPMuRjwwd8z7TPSCj6Lk3JAEbho+16Z0/R
-	 apEgAP3EnQ5uxlyI7qAJyaD7CI5muLzZaudrhoiYnUwWOd+c+4H54zZ1ocD0jUedQg
-	 jBZ0cStZBZ/mLGr0V8v+gpT9duqIkGufxmUhwvviey5PImNCxB1AE8HsqfVmWAPUFr
-	 hrf3oI4Go6+NmSFQkOStXZXLHtl7rdCEDoxstXxHP5PXodvvdaQiSQGK7VlC2eTwvN
-	 WTN4tMGmaYk6ghQmHlRPX0UP+KHi8Hj4eJswJez/PSW+9LAMKQUSCUqB5JBW1Q47el
-	 lDsbMfWHFEvjA==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ae85add4ceso14738741fa.0
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 03:39:18 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErE6evD5ZkdcPL7Gx83QV/m2GUCcbC6o/qdSiVyFXqW+NjltVZ88EON0U/AKV26o4CJosH1Ci80=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qaeN6c/L/2wgIZLYrrzbV4CGqB69sGWHfHg+Jl6864Kk97kBU
-	b3ZGWflBqfszJO8mA1T0gMxSPqmtOTksTEQCOzOhePBgTkCoyWc9/o+IkCDfrVsYjtHYFavDRyu
-	C2Lkx3cH0fHaNMW3tZXjbrmUnE5Vvty4=
-X-Received: by 2002:a05:6512:61aa:b0:5c1:57cd:5c3d with SMTP id
- 2adb3069b0e04-5c1bc806a59mr2586829e87.23.1795347557053; Sun, 22 Nov 2026
- 03:39:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=STCTzFZv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795348290; x=1826884290;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=o8bfGSGMC+XTLsw+DBGSIpRTxrHzS+tPO1ZCb6rISAA=;
+  b=STCTzFZvNFSXH/2jGMmlOZm4kGSwrAkgIdEcZvARGeiHWF9+1WtXYvXs
+   pDaUvURXksxbJzESjSSyGIUKJ9hjNtFAvh3jmwNHjrZAe2/Q4FzXnUTUd
+   M01mtpwoRKwsZpfwo0kO32nne3efL8q7Ta5IenonLoJ2qP6eFIlrbQHMi
+   22ykZUHaclUT8iPw5jyH2Eobay7tDnWt4ACDRO0/fc6pRlpLs3Hqyj8PC
+   fYeWgxaAkQMpx0L5iuLAvOkaaYJa4gtMF88U47Vl+7Ln47msBCpQ67RRe
+   AhVd8IdPtycgmFsaCyYGk4a9LIwLEj0N+tRxFwRKMNm9idy333J759NbZ
+   g==;
+X-CSE-ConnectionGUID: SZV0q7kSRNCHWrO5iKMNbg==
+X-CSE-MsgGUID: ZVIV1o53ROChoYIPox+7rA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11973"; a="4153944"
+X-IronPort-AV: E=Sophos;i="6.27,226,1787036400"; 
+   d="scan'208";a="4153944"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Nov 2026 03:51:29 -0800
+X-CSE-ConnectionGUID: xYeKisuzT2KLsMkMzHwYOg==
+X-CSE-MsgGUID: v+D3S8fRQDmlWO0gMXE05g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,226,1787036400"; 
+   d="scan'208";a="11012790"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 22 Nov 2026 03:51:26 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xV66N-00000001LTS-1lxt;
+	Sun, 22 Nov 2026 11:51:23 +0000
+Date: Sun, 22 Nov 2026 19:50:47 +0800
+From: kernel test robot <lkp@intel.com>
+To: Fredric Cover <fredric.cover.lkernel@gmail.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Tom Talpey <tom@talpey.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Bharath SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fredric Cover <fredric.cover.lkernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] smb: client: convert DFS target node name from cache
+ charset on mount
+Message-ID: <202611221905.fQpuvetd-lkp@intel.com>
+References: <20261122045841.99012-1-fredric.cover.lkernel@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,97 +92,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122-sun8i-emac-mtu-limit-v2-0-c4081e5b83cf@gmail.com> <20261122-sun8i-emac-mtu-limit-v2-2-c4081e5b83cf@gmail.com>
-In-Reply-To: <20261122-sun8i-emac-mtu-limit-v2-2-c4081e5b83cf@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 22 Nov 2026 19:39:05 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65_vY86WqvKr1m=g0N1Qr2UhLC1v3OHKPG3x+oURUKp7Q@mail.gmail.com>
-X-Gm-Features: Aa3M54rz_NQ7yOvBXle79aW57ZyemtshMgGI-7Gz1C236a3c9B6hMMfTmke5swY
-Message-ID: <CAGb2v65_vY86WqvKr1m=g0N1Qr2UhLC1v3OHKPG3x+oURUKp7Q@mail.gmail.com>
-Subject: Re: [PATCH net v2 2/2] net: stmmac: dwmac-sun8i: Limit the MTU to 2018
-To: aiyengar1990@gmail.com, Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	LABBE Corentin <clabbe.montjoie@gmail.com>, netdev@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	Russell King <rmk+kernel@armlinux.org.uk>, Nicolai Buchwitz <nb@tipi-net.de>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122045841.99012-1-fredric.cover.lkernel@gmail.com>
 
-On Sun, Nov 22, 2026 at 5:13=E2=80=AFPM Arun Iyengar via B4 Relay
-<devnull+aiyengar1990.gmail.com@kernel.org> wrote:
->
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->
-> The H616 RX DMA fills only 2044 bytes of a buffer, so frames of 2045 to
-> 2047 bytes, allowed by the previous patch, are dropped. Limit the MTU
-> so that a frame with two VLAN tags and the FCS fits 2044 bytes.
+Hi Fredric,
 
-FWIW I think this applies to all DWMAC cores.
+kernel test robot noticed the following build errors:
 
-So I tried to do some research of my own. Google AI search pointed me to
-STM32F4 or STM32F7, and some Altera FPGAs (I used the Intel=C2=AE Arria=C2=
-=AE 10 Hard
-Processor System Technical Reference Manual"), that had some variant or
-version of the DWMAC core, and had proper programming guides.
+[auto build test ERROR on manguebit/cifs-next]
+[also build test ERROR on manguebit/cifs-fixes linus/master v7.4-rc3 next-20261120]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-The STM32F4 reference manuals has this note:
+url:    https://github.com/intel-lab-lkp/linux/commits/Fredric-Cover/smb-client-convert-DFS-target-node-name-from-cache-charset-on-mount/20261122-045840
+base:   https://git.manguebit.org/linux.git cifs-next
+patch link:    https://lore.kernel.org/r/20261122045841.99012-1-fredric.cover.lkernel%40gmail.com
+patch subject: [PATCH] smb: client: convert DFS target node name from cache charset on mount
+config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20261122/202611221905.fQpuvetd-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261122/202611221905.fQpuvetd-lkp@intel.com/reproduce)
 
-Even when the start address of a receive buffer is not aligned to the
-system databus width
-the system should allocate a receive buffer of a size aligned to the
-system bus width. For
-example, if the system allocates a 1024 byte (1 KB) receive buffer
-starting from address
-0x1000, the software can program the buffer start address in the
-receive descriptor to have
-a 0x1002 offset. The receive DMA writes the frame to this buffer with
-dummy data in the first
-two locations (0x1000 and 0x1001). The actual frame is written from
-location 0x1002. Thus,
-the actual useful space in this buffer is 1022 bytes, even though the
-buffer size is
-programmed as 1024 bytes, due to the start address offset.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611221905.fQpuvetd-lkp@intel.com/
 
-The Intel one had the same note. It looks pretty much the same, but I didn'=
-t
-compare it word-for-word.
+All errors (new ones prefixed by >>):
 
-So for normal descriptors the buffer size is bound to (2KB - bus width).
-Not tested, but I think there is more evidence supporting a cross-platform
-limit.
+   fs/smb/client/dfs.c: In function 'dfs_parse_target_referral':
+>> fs/smb/client/dfs.c:44:21: error: implicit declaration of function 'dfs_cache_local_path'; did you mean 'dfs_cache_canonical_path'? [-Wimplicit-function-declaration]
+      44 |         node_name = dfs_cache_local_path(ref->node_name, ctx->local_nls);
+         |                     ^~~~~~~~~~~~~~~~~~~~
+         |                     dfs_cache_canonical_path
+>> fs/smb/client/dfs.c:44:19: error: assignment to 'char *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+      44 |         node_name = dfs_cache_local_path(ref->node_name, ctx->local_nls);
+         |                   ^
 
 
-ChenYu
+vim +44 fs/smb/client/dfs.c
 
-> Fixes: 9f93ac8d4085 ("net-next: stmmac: Add dwmac-sun8i")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/=
-net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-> index 2ece7ba9dd73..ec401cae8187 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-> @@ -1208,6 +1208,7 @@ static int sun8i_dwmac_probe(struct platform_device=
- *pdev)
->         plat_dat->mac_setup =3D sun8i_dwmac_setup;
->         plat_dat->tx_fifo_size =3D 4096;
->         plat_dat->rx_fifo_size =3D 16384;
-> +       plat_dat->maxmtu =3D 2044 - ETH_HLEN - 2 * VLAN_HLEN - ETH_FCS_LE=
-N;
->
->         ret =3D sun8i_dwmac_set_syscon(&pdev->dev, plat_dat);
->         if (ret)
->
-> --
-> 2.55.0
->
->
+    13	
+    14	/**
+    15	 * dfs_parse_target_referral - set fs context for dfs target referral
+    16	 *
+    17	 * @full_path: full path in UNC format.
+    18	 * @ref: dfs referral pointer.
+    19	 * @ctx: smb3 fs context pointer.
+    20	 *
+    21	 * Return zero if dfs referral was parsed correctly, otherwise non-zero.
+    22	 */
+    23	int dfs_parse_target_referral(const char *full_path, const struct dfs_info3_param *ref,
+    24				      struct smb3_fs_context *ctx)
+    25	{
+    26		int rc;
+    27		const char *prepath = NULL;
+    28		char *node_name = NULL;
+    29		char *path;
+    30	
+    31		if (!full_path || !*full_path || !ref || !ctx)
+    32			return -EINVAL;
+    33	
+    34		if (WARN_ON_ONCE(!ref->node_name || ref->path_consumed < 0))
+    35			return -EINVAL;
+    36	
+    37		if ((size_t)ref->path_consumed < strlen(full_path)) {
+    38			prepath = full_path + ref->path_consumed;
+    39			/* skip initial delimiter */
+    40			if (*prepath == '/' || *prepath == '\\')
+    41				prepath++;
+    42		}
+    43	
+  > 44		node_name = dfs_cache_local_path(ref->node_name, ctx->local_nls);
+    45		if (IS_ERR(node_name))
+    46			return PTR_ERR(node_name);
+    47	
+    48		path = cifs_build_devname(node_name, prepath);
+    49		kfree(node_name);
+    50		if (IS_ERR(path))
+    51			return PTR_ERR(path);
+    52	
+    53		rc = smb3_parse_devname(path, ctx);
+    54		if (rc)
+    55			goto out;
+    56	
+    57		rc = dns_resolve_unc(DFS_DOM(ctx), path,
+    58				     (struct sockaddr *)&ctx->dstaddr);
+    59	out:
+    60		kfree(path);
+    61		return rc;
+    62	}
+    63	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
