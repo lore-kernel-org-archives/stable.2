@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795370707;
-	b=yrSb5zP+x1MaEc7iBahMBeNXovewsZta/qASyOPAlMt1lkkCFgTUJunUJjwEdklZcT7y
-	 6WtC6GyK2tr44cZFkQLv69fvaIgLW/xH6iASfLjyR2QDR6cFuEcZg0yFK97CH1W1zWREB
-	 heSEHUZ7v3E7mPNAlJSZyaNQKU+YYSVRKDq2xXVOwXKVz8LoXj0pl86UxU2EiwK8NOGxg
-	 +li0Rv9x2b4JILdIkvEAf+GoFThQAIu5OzlaR9ehQ46sfM/U0GzTx5N6jPHQhhAyr+Oaj
-	 tGc8oq1j0obeDxIyunwtHs10BYgF8GMFBKidsOg+s2L8O4DXWisnpQq3n6Eb3ZdWyRg==
+	t=1795370712;
+	b=oMWGFcYY7aF+6U/fwkf7Aw5NJEYmQ9uHLr2NaOiYOZeKJedq8aCqg2DvuZ27AV51gx5z
+	 RPJbJteuomnFOrffE+ycfWDGyPzo/4uDjop3+AcNge6piRtWXor7cQ5BRtG2hYkW3fIGu
+	 3ocOM2RAQCbwC6L12/Al5MOJhU6K0CgszwUSXQfGwpsKq81Ypiv2TkrbSI5+4H8f3rGHf
+	 QQkyU98vqwFnbKtf6HBUzY2OHTNzIkbkHUiQzG1vwB8denLT3EsAuaxR0g1wMWW3QfF/E
+	 vdPQNwcrlqz/fKX325WWof0sKq0oR5Xvz0rStir8Zl5ZPKxe2IW+iSohEjP7GkhZIdg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795370707;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795370712;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=5IC0wtyklb4BpJ6EaZGBZO0mWv0eBKLD9k5du0ATYzM=;
-	b=dtwCBVPERyldJqa7lxWZ/JXtWj3ccSGPpjJ3dX9rM9+Nx55dtXzWwwiKkzSOQkQa1cS8
-	 zCOzBUEtuuzzdhctDWgQY2UpaR0i+zrShR+6Mka+NlPu1RLnus2+VBTQ2+U+G0+nJ0YuK
-	 9qf+RGRRkFBanJ4tA+FIm5hNio4bpsthW3aauYbml7hEKkFb0oci7Nxwki3MA8qPrFKpe
-	 f6ccRkZbUjjViWWl4Knoso8/7c+YS9oIewB9TxeLILt1mjhdkY7HcfL9/fmYgCQdWJ5wy
-	 cKw1qeMex0kr8VG79w0V8oLR7JUFGXOjO0pQIe3qdxDw9m2UAUIbJMNNb90W6VN7FEA==
+	bh=tBoteG1B5Z54++42pujnb/6truX3e6FwCuA6X2V2eYg=;
+	b=N2PINMpei6lngvJ+2GN6AfQjKFz+jGU6nSbAJgvqw+EIufmcVjzgZ3S6fEKnneIPvV9C
+	 Axu6DZcgPKzREU+OkaMa7XyoLZDPM+7yBKlH7waGDqqhF6at7QKuQ/5YdQVtMSgDcInTb
+	 AqSVUZgsWrY575D7f27c1i1Y2UE8BfeJDPXt7p7FtsYjU83LZjO+pnMqsdLULnQsarR5S
+	 CtCu19eMPFnSEtLHHW7sxNovVusIIBnuKmo8kX/MyEKI7Rze5EcqoB75Vt8SmofOjzHMq
+	 h7nw95H7EfrZRYhTAmvGtP3N6WbcgYmSFQygA5zcdkHdhPNKBa0fMTrd24KX4DkHukQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FQ8srfgI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5BEddE5;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B7F4606A32A;
-	Sun, 22 Nov 2026 18:05:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38CB606A330;
+	Sun, 22 Nov 2026 18:05:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FQ8srfgI
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5BEddE5
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795370706;
-	b=O0nh7mgrtISeSKrk10ojV4BadMMzLuSz9Tz9olXMF422o99UzCAX1xf6ylAqfJmy+ui7
-	 S8e9fANK8nVm7nLzUU4DTSgakdSjwSxjyk926Aorzb6+vw+4Nm7DRNwBVDTd7hIftzAbI
-	 AUguwHow9ee2MNjtPjch5SOwRHOYyemyS15bjqAXM5zK9RojahtRTi7Ca1eqQen4NvOi8
-	 wGAOWnY0KDiLhgYtbbWMjzgDkYHfketp4mCP34XHT9alNQ3+bMNKBJqExTYnwheeDBEHc
-	 xokl8dg2sDQzfN9Q8S12hIj7Tne5itDpv1q4899ejxu54X5vXdupxoNRo1NdY6OUEtg==
+	t=1795370712;
+	b=sJ9SvNeoWhA23UPxwbLaPDstStliJqHt3avBfjO26YAu9mvhNboUqKHi6Ds/4jIAQdny
+	 3899GrP9M7SFXai6tKkq2W2UmnN+dZ5ne61H0WRtoPIMy4OEDb7VaEgwOD47XLD8zNF+u
+	 xSkkT0mETntmMTOIBP4uGB9nSMNvAzdXAv5qGgq2HiReNvwCLFO2yZCjipHROpZIuv11C
+	 YwFjyy38iOBWWrMTfupOk9Ba09AwlRj6clM/Ny4u68S7tlMiMvV57N+bviioItUIzXnLU
+	 n+XMr49mwsqW3Y1kA9D01WBxm/9MfG52dca6ZIreDlgzENd/PUfuIYn7rTYRF8l/r1g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795370706;
+	c=relaxed/relaxed; t=1795370712;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=5IC0wtyklb4BpJ6EaZGBZO0mWv0eBKLD9k5du0ATYzM=;
-	b=T6eEOT5K/Di+08gNRwWDCejVNiVVP9px8FgZ54yAmVaHKfe1WkLo/y6w4RQ02UmlUeyz
-	 jWme43sprDFXU9c3hUezcPyutxCmiM3scTczQcE+uJDl7R8MkI/AefcF37Nr0yS8yGNwC
-	 jhcp4V/xfjr3W8QnCetjmL/7YPCh2B9hgOFU+hWDykdRm/TiqdxBHC+6/kP28lF2dVFBk
-	 4gS8tvx6O/BSbssFlMlFJ6JSO2sEVwx1HP2liBjfxfPjBk+CDvpep5iTw90aJ0BhBmIL5
-	 csLQTe7cNOJsApkl17bZAotQjM66somEkj4DtCenBfIxeDrKqRGRtnElc3ekEbzFB8w==
+	bh=tBoteG1B5Z54++42pujnb/6truX3e6FwCuA6X2V2eYg=;
+	b=aDtlU6C9FZxO5QtKI3XKEQ9vfT7E8ef/JilLR0g4liAGD2RROFSKYi2qUj3UU8INoUHQ
+	 tuw+9iMHkmGvvSTCBvltsxj3E7fRHHiWTfKzTNHi3rDVp1hZ/ZygZRT8FY3m0NElIEY25
+	 M1e367rYCwgOU2iy66L9sxErpNUnjvHbWwUsQfYADo8clm1F+78Zxy5ArP6rS8tcF5sa2
+	 cRFoedKp13429naaEysz1Oes6Zz3ODuRRgZ4SM9K0PnjrStwD/rnUp84qQSGF7s8cgjnV
+	 eYWJbGGkabUQ6sPz269rFGQ9NlRZjIWrWyurzvK/wH6XDp35b/9IToLrteT1n+hC88Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 339451F000CA;
+	by smtp.kernel.org (Postfix) with ESMTPS id 416CB1F000D0;
 	Sun, 22 Nov 2026 18:04:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795370706;
-	bh=5IC0wtyklb4BpJ6EaZGBZO0mWv0eBKLD9k5du0ATYzM=;
+	s=k20260515; t=1795370712;
+	bh=tBoteG1B5Z54++42pujnb/6truX3e6FwCuA6X2V2eYg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=FQ8srfgIqCiw6cKrs2mvO4/DLyeGXE26y6WvUAiP8DC9/cAW+SL+OPZOpcsM1aLd7
-	 F/GYeNMm4TOun+6SY5RHkkfX1Wuqsr+a6Lchi9i8KFnuNmzVpQCZzbTZpBTCTPNo4z
-	 wMqikj9bFG3RXnzf+LcUd+QNNhHzy966wZZK29TtNnEZAJQc9V/vpx/LEv2ROW0J+m
-	 x+AcF3TyuIkOdj3+PLZtNyQFhszq1DfDmhmHrCN3q1TlBiebE51w2OiTeqHPz004po
-	 UTMx/kH0WzsM1KUe3SQo5K5P1VKj0GKKGAHoGKJMQRKbB8s9OEcAGeFUVcEtbCuMNp
-	 rBO/GOsZr8/Bg==
+	b=n5BEddE5hSv29+oqv+mYmxzke4pZi/w9TNHx8enFZu8aKQLb9a6WFfuEeLYuKNSt2
+	 xgu365aki4TydWsGwasL0f4tunUJ4Ej1hd3DsUnK3kvbKrNSeDJSD85UuzAWDGfGoG
+	 98rM1pgfzgMqnozHfzywXiUT/KUxRS/67AJyLh53KHnNx6Jr87u0qAEQ+Re98rnu39
+	 VwC/82dIDCwOP1e1DeHhMB0mAmKmdOaC8UpaN719xCtRgOUHe9gBoJOz6fJPlbglCI
+	 75pQ57QcMRtjQ2BL/5fE84wt3ew1dN2oo4mIbJPZvepmxPeQIwksZuZ5neX8TM8NUG
+	 sHR+LYn80nr4Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AEF9C4C168;
+	by lkml.kernel.org (Postfix) with ESMTP id C772A4C16E;
 	Sun, 22 Nov 2026 18:04:57 +0000 (UTC)
 From: Hang Zhengyang via B4 Relay <devnull+hang.zhengyang1010.gmail.com@kernel.org>
-Date: Mon, 23 Nov 2026 02:04:54 +0800
-Subject: [PATCH sched_ext/for-7.4-fixes 1/2] sched_ext: Attach fair_server
- before tasks fall back to fair on disable
+Date: Mon, 23 Nov 2026 02:04:55 +0800
+Subject: [PATCH sched_ext/for-7.4-fixes 2/2] sched_ext: Start ext_server on
+ every enqueue
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-scx-dlsrv-v1-1-87c342d8246e@gmail.com>
+Message-Id: <20261123-scx-dlsrv-v1-2-87c342d8246e@gmail.com>
 References: <20261123-scx-dlsrv-v1-0-87c342d8246e@gmail.com>
 In-Reply-To: <20261123-scx-dlsrv-v1-0-87c342d8246e@gmail.com>
 To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, 
@@ -100,11 +100,11 @@ Cc: Joel Fernandes <joelagnelf@nvidia.com>, sched-ext@lists.linux.dev,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
  Hang Zhengyang <hang.zhengyang1010@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795370696; l=3219;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795370696; l=2788;
  i=hang.zhengyang1010@gmail.com; s=20261008; h=from:subject:message-id;
- bh=nZIUfbuOGTYsYcOP54zg7VH1iW7P5BzO0zfHVPDdacg=;
- b=7CgecdzBpDWmPQ+JV4LPQHJrvsL1ONJxu379+NJXAPNuMCNvriXWfwRcK17nY+MFZqjKpgDXt
- 46jlWcEQPI/DB1jd/NwyIKYhksNo0Qiz3wPBRIFzQWfYIPednQV7g+U
+ bh=IN+RzU0ozG0gu9jpgj8RQX7xnqAmt1p/9Ryev7xZsHs=;
+ b=PBlzI9W8mu3TSEauajkWdQrAzd1AqzlaCENqlVjkb4t0v+4rFy34xdXGM5gfws4X31CEenbmz
+ J5mBQnzaSbJDb/CHHWnwHEP9oZMXC+/uynAZfLq+Dk6hzmBLX9Vi1OS
 X-Developer-Key: i=hang.zhengyang1010@gmail.com; a=ed25519;
  pk=5drRny3PqRPLhKVB0YIQXN5YyD8miKCpXWhnEPvafAI=
 X-Endpoint-Received: by B4 Relay for hang.zhengyang1010@gmail.com/20261008
@@ -115,82 +115,69 @@ Content-Transfer-Encoding: 7bit
 
 From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
 
-In full mode, the enable path detaches fair_server, since no task runs
-in the fair class. scx_root_disable() attaches it again only at the end,
-in the dl_server_swap_bw() loop. But tasks fall back to fair well before
-that. New forks and sched_setscheduler() calls do so once
-scx_switching_all is cleared, and the switch loop moves all other tasks.
-Until the swap, fair_server can't start, so an RT task that keeps a CPU
-starves the fair tasks there.
+Since commit a3a70caf7906 ("sched/deadline: Fix dl_server behaviour"),
+ext_server stops when a pick finds no task, and a later wakeup starts
+it again. But enqueue_task_scx() starts it only when
+rq->scx.nr_running goes from 0 to 1.
 
-Meanwhile, the disable path waits for RCU grace periods in
-percpu_down_write() of scx_fork_rwsem and scx_cgroup_ops_rwsem. A grace
-period can wait for a starved task, so the disable doesn't finish until
-the RT task stops. The starved task can be a reader preempted under
-PREEMPT_RCU, or the grace-period kthread itself. While the disable waits
-in the scx_cgroup_lock() after the switch loop, scx_fork_rwsem and
-cgroup_mutex are held, so forks wait too.
+For sched_ext, a pick can find no task while tasks are still counted on
+the rq. During a disable, scx_claim_exit() sets sch->aborting. After
+that, scx_consume_dispatch_q() no longer takes tasks from the
+scheduler's DSQs. nr_running stays above 0, so no enqueue restarts the
+server. An RT task that keeps the CPU then starves the sched_ext tasks
+there.
 
-To reproduce, load scx_simple, pin SCHED_NORMAL tasks (/proc walkers,
-stress-ng --fork) and a SCHED_FIFO spinner to CPU 1, and unload the
-scheduler 50 ms after the spinner starts. The disable can then get
-stuck in:
+A stress test hit this on a debug kernel. While CPU hotplug was
+disabling scx_simple, the server on CPU 0 stopped with 3 tasks counted.
+A SCHED_FIFO spinner then took the CPU with 15 tasks behind it. One of
+them was the RCU grace-period kthread:
 
-  synchronize_rcu_normal+0x1da/0x1f0
-  rcu_sync_enter+0x56/0x140
-  scx_root_disable+0x230/0x420
-  kthread_worker_fn+0xf0/0x270
+  rcu: rcu_preempt kthread starved for 65011 jiffies! ... ->state=R ->cpu=0
 
-until the spinner stops.
+The disable was waiting for a reader of scx_fork_rwsem and never
+finished.
 
-Attach fair_server before tasks start to fall back, the same way the
-enable path attaches ext_server before tasks switch to it. If the root
-domain can't fit both servers, the swap attaches fair_server as before.
+Call dl_server_start() on every enqueue. On a running server, it only
+clears dl_defer_idle. On a stopped server that ran in this period, it
+restarts the server at once and reschedules the CPU, even under an RT
+task. So while picks find nothing, each enqueue costs one extra pick.
+This lasts at most one server period (1 s by default).
 
-Fixes: e7b63427fdb4 ("sched_ext: Auto-register/unregister dl_server reservations")
-Cc: stable@vger.kernel.org # v7.2+
+Peter Zijlstra asked whether the server should start only when a task
+reaches the local DSQ [1]. That is not enough. A task often gets to the
+local DSQ only through this CPU's own pick, and that pick needs the
+server to run.
+
+This doesn't cover a task that another CPU dispatches to this CPU's
+local DSQ.
+
+Link: https://lore.kernel.org/all/20260202195035.GG1282955@noisy.programming.kicks-ass.net/ [1]
+Fixes: cd959a356205 ("sched_ext: Add a DL server for sched_ext tasks")
+Cc: stable@vger.kernel.org # v7.0+
 Signed-off-by: Hang Zhengyang <hang.zhengyang1010@gmail.com>
 ---
- kernel/sched/ext/ext.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+ kernel/sched/ext/ext.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index e8c30a21e03e..23294897dd6e 100644
+index 23294897dd6e..1031267508fd 100644
 --- a/kernel/sched/ext/ext.c
 +++ b/kernel/sched/ext/ext.c
-@@ -7576,6 +7576,21 @@ static void scx_root_disable(struct scx_sched *sch)
+@@ -2501,9 +2501,11 @@ static void enqueue_task_scx(struct rq *rq, struct task_struct *p, int core_enq_
+ 	if (SCX_HAS_OP(sch, runnable) && !task_on_rq_migrating(p))
+ 		SCX_CALL_OP_TASK(sch, runnable, rq, p, enq_flags);
  
- 	was_switched_all = scx_switched_all();
- 
+-	/* Start dl_server if this is the first task being enqueued */
+-	if (rq->scx.nr_running == 1)
+-		dl_server_start(&rq->ext_server);
 +	/*
-+	 * Tasks fall back to fair from here on. Attach fair_server now, or an
-+	 * RT task can starve them while we wait for RCU grace periods below.
-+	 * If its bandwidth doesn't fit, the swap at the end attaches it.
++	 * Start on every enqueue: a pick can stop the server while tasks
++	 * counted here are out of its reach.
 +	 */
-+	if (was_switched_all) {
-+		for_each_possible_cpu(cpu) {
-+			struct rq *rq = cpu_rq(cpu);
-+
-+			guard(rq_lock_irqsave)(rq);
-+			update_rq_clock(rq);
-+			dl_server_attach_bw(&rq->fair_server);
-+		}
-+	}
-+
- 	static_branch_disable(&__scx_switched_all);
- 	WRITE_ONCE(scx_switching_all, false);
- 	WRITE_ONCE(scx_task_switch_enabled, false);
-@@ -7626,8 +7641,8 @@ static void scx_root_disable(struct scx_sched *sch)
++	dl_server_start(&rq->ext_server);
  
- 	/*
- 	 * Re-balance the dl_server bandwidth reservations: detach ext_server
--	 * (no more sched_ext tasks) and reinstate fair_server if it was
--	 * previously detached because we were running in full mode.
-+	 * (no more sched_ext tasks) and attach fair_server if the attach
-+	 * above failed.
- 	 *
- 	 * Unlike the enable path, this runs on a recovery path that cannot
- 	 * fail, so we use dl_server_swap_bw() to atomically free ext_server's
+ 	scx_do_enqueue_task(rq, p, enq_flags, sticky_cpu);
+ out:
 
 -- 
 2.53.0
