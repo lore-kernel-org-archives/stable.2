@@ -1,97 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795317119;
-	b=1LFzR9fx5p/nz05iK67RmHUzIO80qKeQhOD7hJPCMrFzfR2Lk2SOZnZTXHaXr30sYeDY
-	 m5+KncONdkmXmDWz50h4rSv69vG4tWHwdMfz+M+XebxyOvKAR72rz53NS9Rq8/ZHzjcjW
-	 mzsetAklgaSn9wfufAZCM8fIV5biIubjSbjSQOpGJq6xw0C755TFnEVFjSYyWGlLShHqu
-	 2uEM0zLO30iqDp0anibAB5X8963zjWlsDTeqx0XkEmTMczYe3L6woI+/ZckhJhzhLLjB/
-	 pIqEBjptZQ4OWWu/YGwlpOOJAkruxCDQpRc+IpDHO6UY4yDWOPvs5f6noyQIDhUvtOw==
+	t=1795317167;
+	b=NYYJY5CNl7DIVoHpVqyl3z+OYN2p+hmmF4O26QS+YyX0FEsqgpTvVv+jJlm9/sBLGdn/
+	 POFaBb7HFSvCL3/HPYAWs8tglfoImv4H8T3AnRYGUVYR0ALYFev4u/FoXwhl8WhZ/1TDK
+	 vRQBeoL41FHsxMedaVcUungoRCqdggICF6ga1AvA2hya+dt8fxUQmQE7JTIBVecgBybNz
+	 Wf19+4iDxJlTYlckIzJ9vC1LgEFOUaP/KdYz+aeqy4oMNw0myo+XE50mPBlmz1M/hbZxZ
+	 PaPhjOer4+qvYOSdDvEWLUuxvt71xFlPZbvFJyYR40zJcKaTgRZPFAOcqt4y5uioQ8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795317119;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IpHMT1aKbS0JPzBe96t3VbdCaL72EU/yPMiajZoaSaQ=;
-	b=t6MBYOiYTGqTRVGLVcSjBG58hxcnjdzHnVF2eWzphmI7aFvcfxlXPK4W5rFkHoHY/CVv
-	 UxEPxgUe6hGlxUJ/OSK3k9/tf874ZBUBkZ//ZUyzjE3PtLo2BD0XyQhHIzmJxdu++I3y8
-	 fto6UVqMM+kVrK/qWBvwybHFQyr3X8KcL3JTX3Gwl71CikyDqupEY2642lWozanieSBbY
-	 ZLbcMeV+MJxyYZ6K+M95c0bXzkNQO1DfauGXBeUPRKjPD4181YSAQZi8Rurix7EMxg0XQ
-	 TBRO7dFdvk+T9Zp5hbKJGI9B0VTINRmJStimzJZdUtjoF8Chf2q7fBJa6DL34t9l5Vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795317167;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=sS9FIrfW22SIhehTvpH3rdvmtslwIeEYozBr0OvaZe8=;
+	b=qWbjTcR3HaGSNIc9+8FK7LoXidspRfPiYaBy5iknZzAJVkG8fRJZGcMk9/RuTEK1zAT7
+	 jWjnUgVgFYDzR+srHdcpuzUxTdokI1OeNDKfIM2Q0XCVeRzqfkQgxZ5X5ENIES5ZpgksB
+	 WVIEdjBpIvGqJC/SHejLJJxJ0uf1YW2RBciyDErnIphU015B4NH+6khdvoY7cX7yahO/T
+	 eOU//44TOkm4HlB8vBfESWwGqLEflhEq5RlLZRFvEmh0PBSJXjSpm0hEoiul4HPI2GNW5
+	 qARLPX0/ooLibU6hSErdviNmHjgHoY+q019uQi0y54hLdlu7bcvta+sQ3nrzYm1PsUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=hSDAloHo;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1Dj8N6+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41E0606A320
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 03:11:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D41E0606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C5A606A320;
+	Sun, 22 Nov 2026 03:12:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=hSDAloHo
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cdb75699c7cso835167a12.2
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 19:11:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1795317118; x=1795921918; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IpHMT1aKbS0JPzBe96t3VbdCaL72EU/yPMiajZoaSaQ=;
-        b=hSDAloHoQXy/vUV0vWuehSwUTVKUbdpK/TM4bU3pCoTq0K8b7RBHC0xs3JW5AOEpuN
-         2RqxGtrLkWi/mHsvgtuNI8ruwMR2hcqmRyKXDVYNeeCF3ChE08UUREQC2yjuaRRlPZAC
-         mZjZ4mVIQR22fwQ5HtBk8Eaboj7FeguYkNWPSZMEcrwg4JkqEP9qwnLy2soQNqqPNLky
-         Olu5Z8RSCOm/PFofQgRT2ZUNuTeAFCXV9cMjoasepfkH7H/Yse6aT+VWBMTmS9qEjDET
-         syMFYOcyboZj6I0005C2lUMJKz9Auk9SVoBnuy/EcmQPHzP9ugLnsiXtDwNdfVsRYheT
-         GXPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795317118; x=1795921918;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IpHMT1aKbS0JPzBe96t3VbdCaL72EU/yPMiajZoaSaQ=;
-        b=mWczI/KoJNLS6OtuESUfEpt9WYsndDmQqQwCPHI8IdklUlBlRQWnLTRFgwQBKqGhP1
-         LNn5ICwaDvaqox6tlkFqEcJTB1GAbsH7aYzk1ZXJ9WoaYrp9XheTiJE2+Ryomu8w8xgV
-         uHPVGus8f7GpBrqWQEYhX2BtrIXouhxneAjrSbqqxZRp+UeVGS6KG4CoQJQ0mygiDp7p
-         CsnTv8lWFZOhIZN/SObSM1Ob7kN0ZBnUhgCDbXMdieHYaSwfdtzePMpjdBphCXaBq2bT
-         7QV5daaCC44Wsqp0o3SIPmDBwVcAXMEgT+9rGwR5cV6W6Z8tHK0dyzgU2vk/FCWIlfR1
-         byVQ==
-X-Forwarded-Encrypted: i=1; AL+hErFehVHmz8Z/O5oWW08dpS1y6VXtGvUQvB9xj8fYenfc8tVXcLA13pH4ZXEqNSKBL7F6NZpQua0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9sbwVhKkH07GLrREK2zTpA+p+77rqyF9EPru8HKX5C+YSGVqZC
-	sfBWptVMCOrWcNQWpCHFcqhRLBULo1++c1my3AhtPh9vqRC9yS9Z14YlBBhRQCYoROA=
-X-Gm-Gg: AZFdTZf4ltc4sm4bRFEyWN855kGhPLfHLbYWVgxjsS7tMFwJRdytPvS5E6Cf4NOa3Mo
-	Fy3JJJUjv6FaWNm8UBNF1vKYzbzOBvdnryLr0IdU+RWn213TZB0dSWniQPqM2BRC51c0g/h3a9B
-	3kc1gf6GgxIjWiVbXf5hhQlFEU6qTXCErN1cpuHKk8sVGS8jPjrNNltbKIXSbmqLOBOEmnVdD0U
-	b2qhv9CN8ErwwrYL/IlYAqsECfqH+0yzmjEL4+VgibK9rPCKc1rzcdtSb63W3/dtTq7WG/CBjZ/
-	aahgjrlvTKfaSBnAVzSxRaLxW5U6mDx5eAvBBp7M90a8sCF5LJI1Z0BAWORomtyGcP2SAs2FdOn
-	jFALgMg/de1yq7MwWXqwmVsQIfk9wtKPGBNUCNWE8uHqM5ut1ONb1OZD7uxVtraczQLNIQ+vH1g
-	ERDYsLqTjnQkzXzdzgDGW558nZHFexPV5NeM9qoMW4rOPZ5dsxDWrpGOBYHq5VAqPiGQzLsMD/U
-	H9ya+fF06cVQAMqByNWZcQjrEvCCvPPVoPs/zbV6K1v5vWsj2x7rSgWbJHzCqwb7WiQ6iMgAF+0
-	3OyrOrrIY4dsED2HgTyuKusNrp0Y/EclSDIh7yiQE7iTuHIbQoGP1MKP4Dd7iFAtH4Xyw8M=
-X-Received: by 2002:a17:90b:3e48:b0:3ac:a521:95e with SMTP id 98e67ed59e1d1-3b41c94ce48mr6842201a91.47.1795317117866;
-        Sat, 21 Nov 2026 19:11:57 -0800 (PST)
-Received: from n232-176-004.byted.org ([36.110.163.99])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ec698dsm13627149a91.14.2026.11.21.19.11.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 19:11:57 -0800 (PST)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>
-Cc: Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	linux-mm@kvack.org,
-	Muchun Song <songmuchun@bytedance.com>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] mm/list_lru: fix potential infinite loop on xa node allocation failure
-Date: Sun, 22 Nov 2026 11:11:43 +0800
-Message-ID: <20261122031143.3639941-1-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1Dj8N6+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EB981F000C0;
+	Sun, 22 Nov 2026 03:12:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795317166;
+	bh=sS9FIrfW22SIhehTvpH3rdvmtslwIeEYozBr0OvaZe8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Y1Dj8N6+9GAAKTmZO0k0loFB4zVmLU3ep+YI/xKWuYwI9IlZMJ71SCzgnJ9QbJO6Z
+	 7kqmIcdWHPQ3ehGqjGuD0oXdnGoYzfv8u7u9yfEWBtHKQVuYpO8d2SljwbabISKHPb
+	 Pa18ZC2GgHsW9UQJOe1WLV1xFfepo/RJtQaGFMIMeL0lHW5EOjIUGI3K3/4EQfFgWM
+	 XafKVsWbaGnQ+W7HnvKJGUkQpFyqyUUEBPQb2nA7KOC86gZLzOxpGY5nMwzDv5kWDp
+	 BlE2m0Kl2U7lQ0y8i2BMWV6yBjwyYUsTEfohxALF3VCARBiY00CAvw0h+FlmJ7RBP6
+	 GmmDy4z53QKKA==
+From: netdev-bot+sinfo@kernel.org
+To: YanXin Li <fadouse@pm.me>
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] net/sched: act_ife: return -EAGAIN after dropping
+ rtnl_lock in load_metaops_and_vet()
+Date: Sun, 22 Nov 2026 03:12:45 +0000
+Message-ID: <179531716568.3294.6444529448687411104@kernel.org>
+In-Reply-To: <20261122030728.9368-1-fadouse@pm.me>
+References: <20261122030728.9368-1-fadouse@pm.me>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,48 +65,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-__memcg_list_lru_alloc() populates missing list_lru_memcg entries
-top-down, from the farthest unpopulated ancestor down to @memcg.  When
-storing the entry for an ancestor (pos != memcg) needs a new xa_node,
-xas_store() sets XA_ERROR(-ENOMEM) and leaves @pos unpopulated.  If the
-following xas_nomem() also fails to allocate, the inner loop exits with
-the error still set, but the outer loop ignores it and reruns on the same
-unpopulated ancestor: xas_set() then resets the state to XAS_RESTART and
-retries the store.  A one-off failure is recovered on that retry, but as
-long as the allocation keeps failing, e.g. under sustained memory
-pressure, the loop makes no progress and, with no schedule point, becomes
-an RCU stall / hard lockup when the caller holds mapping->i_pages.xa_lock
-with IRQs disabled.
+Hi!
 
-Stop the outer walk when xas_error() is set so the existing cleanup frees
-@mlru and the error is propagated to the caller.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Fixes: 28e98022b31e ("mm/list_lru: simplify reparenting and initial allocation")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-21c1dba9-8d6f-4368-b38b-9a57cacb056f
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
----
- mm/list_lru.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-diff --git a/mm/list_lru.c b/mm/list_lru.c
-index 651983d0bf8b..1e0ea7975acb 100644
---- a/mm/list_lru.c
-+++ b/mm/list_lru.c
-@@ -626,7 +626,7 @@ static int __memcg_list_lru_alloc(struct mem_cgroup *memcg,
- 			}
- 			xas_unlock_irqrestore(&xas, flags);
- 		} while (xas_nomem(&xas, gfp));
--	} while (pos != memcg && !css_is_dying(&pos->css));
-+	} while (pos != memcg && !css_is_dying(&pos->css) && !xas_error(&xas));
- 
- 	if (unlikely(mlru))
- 		kfree(mlru);
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account.
 
-base-commit: 7d1a16abe4cc5dccd21e3d6262e44433a5885d27
+*IMPORTANT*: If you do repost (for other reasons) - please include
+the relevant info in the cover letter or commit messages.
 -- 
-2.54.0
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
