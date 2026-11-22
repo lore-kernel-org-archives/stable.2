@@ -1,49 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795365192;
-	b=l3I0XuQjMWmdrE2l4L92m4hlGFEmE5c+sYgOfY2gLbZGdesuni46hSg/kyeSGgWhvLgL
-	 51CFS6HgsfAgAgCQM68e6Grxm5Qby70jCsPNwt4P9SOTn2o3YPZ+Qmx8SkSAUkUHA0Iho
-	 lbNHnickVbAEjJY2pq8p24cceR4DIa5wOYIgUZWI8gA2YBW3qsr1AAnxzpy2YjZRZNzP+
-	 XYHlJbLS5tLSsV/9WrDu4FGDIoLAa53PCxjIbLR5BCOUmIRCh5oiZaHhBDHRFMf/c3c7F
-	 WqxxTUq/0ScZ+CMIEvbwdSezWJRXP99w7fAujlrDrDYdT7iPmssf+6M5UAkFphGeYAA==
+	t=1795365265;
+	b=Ue4jgwPWM/5/ZGuUX/EL7LZwTM9IlEddNZuKAKG58Z4Us2ccSolQ0pebKaUCiJXxWrZz
+	 9jbk1kq2G7BIhbIZ42qOjadkHj1nPsN5G93vRfdVuLrHYlHwpI8VU/XDm8ls/8c1G1v8F
+	 eYIT5jfsUrrJ5iT2hHpT61H7vtF0AuweAD4PmtmT8Sje0pjiW9gCZAlofRAb7KryaeAnA
+	 b3vdbZjgDe99DL8yDcRXNxzltOJp/j1aMCl3mN1i0zLuY8B6bx1XuS+SZGZfJpjqn6CPf
+	 9DkkZCN1iYxZz2PZKoue7Hwi3inxNigdJ006/JzEDP8+mbwqZc+qdWP9QEBv9kPzecg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795365192;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=oxiR/oDYkJlm/vmgSNXn/0eNQdL2U0MFqxfA2Te5+Uk=;
-	b=z1QD6l9gl7/e98rvyJQ02x4FOjn+ucW3O3HZ8He5tWf0S6lkfB9Fi4kYWEegiHGXoDKC
-	 G9oUhBlAoxvGjv8zzU35yRHqC/dbd1Uk7Jvpgsxx5DIRkXVbmZbtXCgI/6uEDStBzBmTr
-	 DLNfB7O0UGk0HE0Gst2i2c4Vst1FldZibLO2cg26JX8Amg6ZxsrcxmNazc4H56Z7pCrZI
-	 G15igtBbkWNP/wa3t4WOvY03qrOIhFo+PaGaMG/teDxlNMDKucPXGMXDh88NEplv/R606
-	 d2E1I9hfvLCIrgdtu3vJUbd/bkv2FNpFb55va5daHwSOc/0Kjz5I6qs+oZA/ecgCCWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795365265;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PKYANT6ORuAjCyrXKjjCsaVWwop42JBUOal0NPl0OtU=;
+	b=pc1xgS1k6L4oQWi4uP4xR9MTzAs0BBFtsV14de08feFCaPKJ46tRINGGnSdsZhq8arw7
+	 qlUyPIhYek+qGtomo/dy49h+9daso1/yteiyiTKt/KqC4cpW5y/oXjHIcqk/n8tLGjxI3
+	 fl4VQABcoRLUimNihE8B5n6s6qgMcYWWgjJD5H7YKNIDj6WvnC/ruVN+if5D8pyrqdxkT
+	 U86yr4hge1sC2d/ItAwxSf6qOBKkxacmxmfZJJuCc9IsTapIWBRjatJw73gOi3zEg2GIP
+	 gtuWkgfiF/qrksCeStjPY2uSyBUIwAvDSHJlvi9jTCRiQb7RH0JZ78R5jfNW457GXUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=PBDjuNP1;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XLcVMaIM;
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A426606A320;
-	Sun, 22 Nov 2026 16:33:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A426606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20FF2606A330
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 16:34:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20FF2606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=PBDjuNP1
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 055F4A157F;
-	Sun, 22 Nov 2026 17:33:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1795365189; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=oxiR/oDYkJlm/vmgSNXn/0eNQdL2U0MFqxfA2Te5+Uk=;
-	b=PBDjuNP1jLkd2CMknU31M13Jiu2TwgpX8U+M1mm8vjZWz+pKAMxVeGIkwnktuOyABYzsCk
-	WbCrPvICu6bMf4yP2RDup3IHwovqqh0ocCc68eStaUQtRpKqrLdjyKlAnVwu79O1BPtzNg
-	2NcZoK3sgqTi6Q73QIsM+rP8fGJhW3kfT+utpLGHcnoIzUyz3T2AIbPfwN0932aUGqf+1U
-	mcdYMCKaygzmPVA++2UrphRRtfCU9IUquMeC+5dve4oj1NbmQTPWeaIDejcHJfqjbhfgBF
-	vZEtDU5Bmvp5J+0hWy88ScAnWB0M7ft6d2qGmEn3GyZ3YLdL7LcSFZNMbO49yw==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XLcVMaIM
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a07078200fso1270293b3a.2
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 08:34:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795365264; x=1795970064; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PKYANT6ORuAjCyrXKjjCsaVWwop42JBUOal0NPl0OtU=;
+        b=XLcVMaIMsgTzBo78gyw0vfMzb+lmw2wx5kzg/3pL8r/aCHDsMdCSJ0pzbsQlZzb+Xf
+         dhQDx4Q0rZ1G4ePNYuvKvoL9rGDscWLfNw7tITzVlen8a5dF8/x6Gx/hqznHcgNKrbBT
+         Vo2QnkwPVBzWAOglMSGIOFAnVzgwod3D/Aw9MztVZm7IxUIWAP4xNC87er8o/S3CWiTt
+         TsbcICCI4EYD1TQLhEkFusBItHqF683FwRzAltBXnWyky8PpnykVj4xrGm3GfzEzadT/
+         XfnRxvRxv9mtmVmfqrgZsz/R6RpHvUMOPdw2ICZY6CZhK630lebjGsVV1++Q2JB54t2l
+         UFjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795365264; x=1795970064;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PKYANT6ORuAjCyrXKjjCsaVWwop42JBUOal0NPl0OtU=;
+        b=BYiM7SqY3T9clCF1eNjKtGPu8saSI4vnh+AksVHxGw8U5rYpxFUh9hEVtJtDiVyFl0
+         IL3oWDU/+h3bBM/bxOBBhWV2hI7TfMU4BcK4P9ZlYgXPT3PeNZ4pR/Wqjg0UUSM2i29s
+         B/VfYHNwJsmGwM04fbgOm6J/fbUYxCsTg+tqYHXnD7qM6MIe+IRvs0mWhVVUKSIjXk0/
+         eu+zjItSRp31SCd7wStmxWvi7QFar+KLZRiwCyGPr2nr4RIedGBJERrtZny00tFBMahs
+         96SwjbULJlaA+nvOHbP3Dxc50eM1I4Ht21+TBSGjYrGEFvs5xni6jsuk5wYMKbAWRnCu
+         SHvQ==
+X-Forwarded-Encrypted: i=1; AL+hErFmsCd5GCaL+2FLtNzGQPeLtkF2e3NFCTcq8NpQ/Y4wGSN22vvkycj8vuu4zg0xkWv2SoetxsY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xrXizSfLCNH43d6PpJnCloR5l6WYC34pxAV3lbLrbUpquc3ei
+	mDsX2GDQboYTczkUB7FmlXyo9VuuJzd9IY9KBrFYn44osO+Iiv5skYYF
+X-Gm-Gg: AZFdTZcs+mLSTkM9GCeHPSELXnToLnLFCrsvDUjdgeU1vInoFm3+ddgGoSssXT86TNb
+	iE4RljcIiViuM6B2kaRrGTPMzE6sQvGiqMg7o5X4nyWjcFZi5ADngGHh+Xzp02XhKaqnOmk6Fzx
+	CJL3hJc46qeSReTKZXmyNjVCrsDvscMazWN4kdJtuax3S/RDK/i6KreZkqHP5mexVc2eX0wEtd2
+	HFGYAWVjMUeSeZj+HVVACvi46uv2ODLfDtgywYCXDKHr6nJJtGFyaJfUgSOxkBQhi0AlB5XZMfI
+	0U7z+6Bbs8Hfam5uinC6kislgO+TFQDdncDc7YFckynAoBAi33CYf4XvMJ7qIN0qSsgUI7KB/uO
+	M5yyRW07EwBFS2tNiMTJpH4aDGXd5RY+LDbNFmlvom7oAZxWWlc9u8nNtgsO14Ga96WDb36ywEm
+	Pebbz7RprHXFZSz6GX5NVCXbsrtmeherVX2kOLmpqULcaJFrLC+rpFRkNA0QnIrCLKGChTXRTRy
+	TQnS8z9aZeaBhNqRWNGFqrud1BxhrjEj6vOwMP8ntAGnzVk8KX25r5Z6pWWKQlbFVH5TFx5Gy3o
+	9m++k0T2NjMEbvqzn+AzTFV1WUpu85gtM/H4zs66oeb53bAq6qV9Iv3MTPT1+dhHAfpA1MWLXRo
+	ixbIVGypBFCoPolF1DthwvyUjNA4=
+X-Received: by 2002:a05:6a00:4189:b0:899:55e9:880b with SMTP id d2e1a72fcca58-8c87bacb423mr7471731b3a.14.1795365264278;
+        Sun, 22 Nov 2026 08:34:24 -0800 (PST)
+Received: from acemagic-m1.lan ([2401:7400:c804:b668:a7dc:f03c:3f60:caaf])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87285c219sm4218560b3a.18.2026.11.22.08.34.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 08:34:23 -0800 (PST)
+From: Ho Jie Feng <hjf3108@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: hauke@hauke-m.de,
+	Ho Jie Feng <hjf3108@gmail.com>,
+	stable@vger.kernel.org,
+	Stanislaw Gruszka <stf_xl@wp.pl>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH wireless-next] wifi: rt2x00: upload beacon before starting the beacon queue
+Date: Mon, 23 Nov 2026 00:34:16 +0800
+Message-ID: <20261122163416.14269-1-hjf3108@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,45 +98,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sun, 22 Nov 2026 17:33:07 +0100
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: aiyengar1990@gmail.com
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, LABBE Corentin <clabbe.montjoie@gmail.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, Russell
- King <rmk+kernel@armlinux.org.uk>, stable@vger.kernel.org
-Subject: Re: [PATCH net v2 2/2] net: stmmac: dwmac-sun8i: Limit the MTU to
- 2018
-In-Reply-To: <20261122-sun8i-emac-mtu-limit-v2-2-c4081e5b83cf@gmail.com>
-References: <20261122-sun8i-emac-mtu-limit-v2-0-c4081e5b83cf@gmail.com>
- <20261122-sun8i-emac-mtu-limit-v2-2-c4081e5b83cf@gmail.com>
-Message-ID: <fd55b3381a6ea99be2befc9bc3e6f34f@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 22.11.2026 10:13, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> The H616 RX DMA fills only 2044 bytes of a buffer, so frames of 2045 to
-> 2047 bytes, allowed by the previous patch, are dropped. Limit the MTU
-> so that a frame with two VLAN tags and the FCS fits 2044 bytes.
-> 
-> Fixes: 9f93ac8d4085 ("net-next: stmmac: Add dwmac-sun8i")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+On PCI and SoC devices, rt2x00mac_bss_info_changed() starts the beacon
+queue without uploading a beacon, and leaves that to the PRE_TBTT
+interrupt. But the TSF is 0 when the queue starts, so the first TBTT is
+due at once. With no beacon enabled, BCN_OFFSET0 is 0, and rt2800 sends
+a beacon from shared memory 0x4000, the start of the pairwise key table.
 
-> [...]
+On the RT3883 this wedges the baseband until the BBP is reset: the radio
+neither receives nor transmits, so the AP never comes up.
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Upload the beacon of the first beaconing interface before starting the
+queue, as is done on USB devices. The (PRE)TBTT tasklets are not running
+yet, so this cannot race with them.
 
-Thanks,
-Nicolai
+Tested on an ASUS RT-N56U (RT3883).
+
+Fixes: 1dae8d342e84 ("rt2x00: Limit beacon updates in bss_info_changed to USB devices")
+Fixes: ba08910e04e0 ("rt2x00: change beaconing setup on RT2800")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+---
+OpenWrt PR: https://github.com/openwrt/openwrt/pull/26850
+
+ drivers/net/wireless/ralink/rt2x00/rt2x00mac.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00mac.c b/drivers/net/wireless/ralink/rt2x00/rt2x00mac.c
+index 3bc0c1c906..48c875e198 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2x00mac.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2x00mac.c
+@@ -630,10 +630,12 @@ void rt2x00mac_bss_info_changed(struct ieee80211_hw *hw,
+ 			rt2x00dev->intf_beaconing++;
+ 			intf->enable_beacon = true;
+ 			/*
+-			 * Upload beacon to the H/W. This is only required on
+-			 * USB devices. PCI devices fetch beacons periodically.
++			 * Upload beacon to the H/W. This is required on USB
++			 * devices. PCI devices fetch beacons periodically, but
++			 * the first TBTT can come before the first fetch.
+ 			 */
+-			if (rt2x00_is_usb(rt2x00dev))
++			if (rt2x00_is_usb(rt2x00dev) ||
++			    rt2x00dev->intf_beaconing == 1)
+ 				rt2x00queue_update_beacon(rt2x00dev, vif);
+ 
+ 			if (rt2x00dev->intf_beaconing == 1) {
+
+base-commit: e1dd8486807c1acf9551250b7f81e116a21e6ad6
+-- 
+2.53.0
+
