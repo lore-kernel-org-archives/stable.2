@@ -1,67 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.13.135.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795340557;
-	b=mnRxZ2nBF5fSGu1Op5OKJ2tr82330pmuAHjwh9rNkvkqdv+BMKQz7J8pETLkpsT2Euaq
-	 2mLxlAaCEP+1CTewhbwhBUYKY4uUCBVwpJKhdJmxObmYc0K0kGM15bj6EoxE0o3cnjB4H
-	 q5S26NUFnlzuhoFf+nkFV+NmYzjKRvMOWBR3Z6MZePlfa1yy17VVPVlhry2qKm+PsDQS9
-	 l0f4NtGg1n67GySiQrtZzdwETSOdNpbiV+958O3Z0hsN7pBCQA5LkBZl5xRgrEPBaagJa
-	 ciO/+VrKn+If5z0zQkVLL9U81dqi/ioyB5UQSQX/bzSjPPPXcINryyJ6GmakVWsESQw==
+	t=1795340652;
+	b=qMcbLEMoIhGjzYqhPGNybZwlu6LuacaAUgyRAmlCvCHkr+tOLhgdigRXEB71RBQZAeM2
+	 zQ0w8080LlSrBtpw0p1yqBLLtLuNUsYUG2B9KKU0OH8Zp0aWZpvc+aCyndBz1qzhcOamy
+	 9WSHWUQJ/qbPV1p2S9SJkmAWR3+1r9ovqN917N8QPqCVgwaIR73O9sgJAgVaMWAaJ2l/q
+	 IQlXiXivB3y5FUzj9hhfsx5JNaba9PL5QBvVZG8K3k7gN7n/F49xmO67GvRnq8gJzsxfd
+	 7vRypVgqh1dqM2s2rJOiz7jgAbc4j172SQnt0r3OpzzGl1lvjF8hdhT5nWKWa3E/LqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795340557;
-	h=DMARC-Filter:DKIM-Signature:X-KAS-Sym:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Bar;
-	bh=7mXN9E5McDZalj6nJGIdEL3qJ/LKcow/He3TKSmJO6Q=;
-	b=IVlU7DROgequzHRpC6hqpfvzUrX/53Lb+d+4AYY6CJsARjcvm+HNfgQml/dSV9f39eCe
-	 i/5xe/DHTLgwzK9KR0HdIUSsc8gJvEqfIUJG+0NbPe8VF9ocl/qZbZdeLEwdSXYZIM5q8
-	 rnRHSX7zQ3hj+u/bqfXsPbK6nJQKfYBpKpyp1Wl3A0TQv/pngttiAks4W9SeGRCbFxTfF
-	 yAYzE/2Q8I9zpusk70dOFOE1eJJ/5Fwjyl+sevUUcKv3uBHgjzVehfV1Gxp/jWzlz+qVI
-	 14YSmEtaQTXNphJZMGf5x+ztMK16l7yFusupvMZvn8lm3YlabZgOhcS7p4uAn/fYHxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795340652;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ondTaIIXin5v9jdtiVVpkXFVJQmH5LSnfZ5orZJV4pw=;
+	b=UWO+H1TPUyQ5zoE8Nv1q7cV+2CCzUJSn8LUPG+b3j1WWI+RbX19lcXdrNrVc6e5gK+jq
+	 gXgZ/FESmaRAKKsI76Ln6ci3HufSqaMnUNudXoS9jR/bIzC8nJHHLZD6CDUiYId32Z1Rk
+	 aWe4kF2Y+xrEV6o7a8RV/rUA0PVDv+VOZGhnBd9gq28tHLrg6j3k1050cmWoY8B4VYG/H
+	 GzQxSNM2e5xWfDO2z5VRp3E/Q/+1RtVtajrPhXbHr/nNjJGV9F81VpRJAJzlOHQiu1kmb
+	 v8gfgQDbZi/oAtt6itbkASALsJAmsPXuOJW8reRiOqNLK0abJTy8xWfdV/bi4AtTwlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tsv-stahl-riesa.de;
-	spf=pass smtp.mailfrom=tsv-stahl-riesa.de;
-	dkim=pass header.d=tsv-stahl-riesa.de header.i=@tsv-stahl-riesa.de header.a=rsa-sha256 header.s=kas202608160020 header.b=ftWfv10p;
-	arc=none smtp.remote-ip=85.13.135.14
-Received: from dd13108.kasserver.com (dd13108.kasserver.com [85.13.135.14])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BuBkk6so;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45633606A333;
-	Sun, 22 Nov 2026 09:42:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45633606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tsv-stahl-riesa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tsv-stahl-riesa.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB10606A331
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 09:44:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tsv-stahl-riesa.de header.i=@tsv-stahl-riesa.de header.a=rsa-sha256 header.s=kas202608160020 header.b=ftWfv10p
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tsv-stahl-riesa.de;
-	s=kas202608160020; t=1795340555;
-	bh=7mXN9E5McDZalj6nJGIdEL3qJ/LKcow/He3TKSmJO6Q=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:From;
-	b=ftWfv10pYGTEnkUtUsL1NSP8CT6Bzi1DFxQs28jyEc0kD/e7MUZ+hcHMUjGt0BxjD
-	 Ti+pIup6YgKKC5f2XzyjYm7yxF905l+7D2mgDb0/LC+BfAvxLgPQhRCGhF8KNdm2kD
-	 ej8Cf9I7KvkSXy5PGKyLJ/S7XLdzwH2j6Il7doEnfLfKnqs938TMOPRcY/SWq3GnGB
-	 +pVZrMpPE67WM5aaBlp/kZ1Nzh6oT/Boc1N+tB+pc2X+97sJ1KnAJomRybAVO2I+1Q
-	 wZ6coKZdANCTWLFV58bLp46YOPT69SypEORWlJ+5xeoxOe03o+EtVfjG2czhI7/hVj
-	 Q6LOy46mRLZaA==
-X-KAS-Sym: v3:f51bdf72230551df:BHLVAvXUbecqCx65KAKRaRfSCRJ/RnepLulMBbwPWwteb
-	mripFIUpAml7cCtqERpaMGvp6Ak7OV3lE8iPMOqmpySjQJMXBc3GoUaNiOJ3JYVYJ6TKopF46jn
-	q4uVWX6C3Ji3T33tnuwTxe3Tg5o4SRtDYVASaC9EWX+SWjXVbz1MzhyHPUZKqWAoEsfJYQOCr3/
-	e8Hmx1pjaNOkVRlBEOwew3D70xuqqwYoYiiy7493mCJFAFA1pSDWWiaM9UqR8fM4BH7M4Lf2I7O
-	IPBxu8VLsAFMYOTxjDWwPLNwXk+ftVWkLUIsiPpytvLNorB9dwbxDD9FVg92DyAthgqKyJeg==:
-	iB+jSPSBoH54YX97hl+TQGE92aBQEwaqYZb0rqaIYqfkQV9roZkLFffVPd5I6sv3fEVuMWV9QVG
-	+xZI6YYD/z0D5LFmiXwX0Hv5+AlMnmr+JIawHFeqJGtAWowTyS0CPdTau+HXjzA12eG+rzQPOMo
-	Ti7abBvbGKcGRqrvZp9bx4nlbIuEuXbJHQ9DNRTtzFkCuJ+xGZfIt3Tz2ifmr2XSpG9ndVnEWFH
-	fhKOtwq7piWy3KZR8DUw5gQc0D/JhqwGbwjHvdjDxWcaCWSQAxulC/Yu4Ys6gLjM9XErkmBiFY5
-	NUzea3+RwJBppH+vYSOLewA7ZFvWqIbe3c8wVhNXkQQjifeEtQeeT+S6Swat+VBZBV/428g2JMA
-	/zMxvPZMrDvohRcFj13EH0OoToYzXDolfUWBjxtbQzcU3WMkxjMEB7qpOklFhpqm5LmH9SU+d6x
-	ofkytt/t42V/SZQu6t+8vTlSJUjletHebUcUXlz2UxgnV66LMD36yvDcbZtiOfij7WQj94SYr/0
-	nToVcstC8QKX9y1ZjzDsFbSACuNgerpbMDwqpbp27KX9GXICu4bO6MWfPJuuuzYCJlO7Wrnu8k2
-	YoAYvw9l
-Received: from [192.168.2.174] (dslb-188-098-197-218.188.098.pools.vodafone-ip.de [188.98.197.218])
-	by dd13108.kasserver.com (Postfix) with ESMTPSA id 0C79D78200C2;
-	Sun, 22 Nov 2026 10:42:35 +0100 (CET)
-Message-ID: <e3b302d3-979d-4b7e-9b51-dd5c8121c192@tsv-stahl-riesa.de>
-Date: Sun, 22 Nov 2026 10:42:34 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BuBkk6so
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D19331F000D4
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 09:44:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795340651;
+	bh=ondTaIIXin5v9jdtiVVpkXFVJQmH5LSnfZ5orZJV4pw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=BuBkk6sob/LD6z7GbOwvK1VrvDFCqbXJXDUWC9CerFpWYXg2EJEOA1aMts3rZY48k
+	 Yk5b9FHgOrgUQfF02OciMeYFZzrpaDR6yWvyOAv44itkLHCvq7VKNSvgky18Ikztfp
+	 pWQbz8mRREGnoe9gMqtjlhnQNjAPPLKD3ENoTtzl/s9sQy21WA4EL5ua015D2bUnjd
+	 FvJZ7ySORrN7dBzI29hWZN5J08B9yBjoX2wzKeYmw0urBnQQ5g/C3ktLqzkagFsE+b
+	 Mb01PsO9o8TOfYzjcCRu63GX/v29i/G+N8l6chCnfrpDICnW5qehgn4ECgV7V0PYaK
+	 zxpd9xlIij17A==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so2049987e87.1
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 01:44:11 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErE+n8MXMXEcrDWURX0tH+u5sPz6srtPF1TrmBPcpcexaYbfdsrgZY5mlKk1djg0ZGpeWQKMGeM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8iaJBL5R7y3qX6+dBzACpVw2ZQe8SRK5CHUAH4hpfHXUz2wj9l
+	hvEzidIz6VvUsgeZQcFCFadUYuLL7cven8j/fiKgVsOfWZHluVc2LwEKb4BSph+blmFQ9eopcnx
+	zTBILLKg18B5v8N6FujjovG1KPB3+xmg=
+X-Received: by 2002:a05:6512:340e:b0:5c1:b27f:81b3 with SMTP id
+ 2adb3069b0e04-5c1bc84bdcfmr2370010e87.41.1795340650308; Sun, 22 Nov 2026
+ 01:44:10 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,31 +59,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] serial: tegra: Fix 32-bit overflows in the clock rate
- adjustment
-To: Laxman Dewangan <ldewangan@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Thierry Reding
- <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Shardar Shariff Md <smohammed@nvidia.com>,
- Krishna Yarlagadda <kyarlagadda@nvidia.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-tegra@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261025-upstream-serial-tegra-overflow-v1-0-267b5b7a79ee@tsv-stahl-riesa.de>
-Content-Language: en-US
-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
-In-Reply-To: <20261025-upstream-serial-tegra-overflow-v1-0-267b5b7a79ee@tsv-stahl-riesa.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spamd-Bar: -
+References: <20261118033225.1212442-1-wangxiaolei01@kaihong.com>
+In-Reply-To: <20261118033225.1212442-1-wangxiaolei01@kaihong.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sun, 22 Nov 2026 10:43:58 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=jN7=30r14jgyQsqLgW_sbjxmM392GE=6XmFHTbUXhBg@mail.gmail.com>
+X-Gm-Features: Aa3M54ouVxjkRk2jr8m2jAT-UsPmm8R3vdK9FXVq1CjeCyp5g0cMA8Ig-_UwC7s
+Message-ID: <CAD++jL=jN7=30r14jgyQsqLgW_sbjxmM392GE=6XmFHTbUXhBg@mail.gmail.com>
+Subject: Re: [PATCH] mmc: core: use GFP_NOIO for SD cache flush buffers
+To: Xiaolei Wang <wangxiaolei01@kaihong.com>, Jens Axboe <axboe@kernel.dk>
+Cc: ulfh@kernel.org, cw9316.lee@samsung.com, avri.altman@sandisk.com, 
+	shawn.lin@linux.dev, linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Greg,
+Hi Xiaolei,
 
-gentle ping on this series now that the merge window is over. Both
-patches have Tested-by and Reviewed-by from Svyatoslav and still apply
-cleanly to 7.4-rc3. Please let me know if anything needs to change.
+thanks for your patch.
 
-Thanks,
-Patrick
+On Wed, Nov 18, 2026 at 4:32=E2=80=AFAM Xiaolei Wang <wangxiaolei01@kaihong=
+.com> wrote:
+
+> sd_flush_cache() is called from mmc_blk_mq_issue_rq()'s REQ_OP_FLUSH
+> branch, which runs in the block layer dispatch path with the queue usage
+> counter held.  Both it and sd_write_ext_reg(), which it calls, allocate
+> a 512-byte buffer with GFP_KERNEL.  Under memory pressure that
+> allocation enters filesystem reclaim, and reclaim may submit I/O back to
+> the same request queue, closing a cycle against queue freeze:
+>
+>       CPU0                              CPU1
+>       ----                              ----
+>   lock(&q->q_usage_counter(io));
+>                               lock(fs_reclaim);
+>                               lock(&q->q_usage_counter(io));
+>   lock(&q->elevator_lock);
+>
+> lockdep reports it on an arm64 Raspberry Pi 5 that boots from an SD
+> card, with the flush dispatched by blk_mq_requeue_work and the elevator
+> switch in another thread:
+>
+>   -> #2 (fs_reclaim):
+>        fs_reclaim_acquire <- __kmalloc_cache_noprof <- sd_flush_cache
+>        <- mmc_blk_mq_issue_rq <- mmc_mq_queue_rq
+>        <- blk_mq_dispatch_rq_list
+>
+> blk_alloc_queue() declares this ordering explicitly and teaches lockdep
+> about it:
+>
+>   /* Teach lockdep about lock ordering (reclaim WRT queue freeze lock). *=
+/
+>   fs_reclaim_acquire(GFP_KERNEL);
+>   rwsem_acquire_read(&q->io_lockdep_map, 0, 0, _RET_IP_);
+>   rwsem_release(&q->io_lockdep_map, _RET_IP_);
+>   fs_reclaim_release(GFP_KERNEL);
+>
+> Taking q_usage_counter(io) and then entering reclaim is the reverse of
+> that contract.  GFP_NOIO drops __GFP_FS and __GFP_IO, so neither the
+> lockdep dependency nor the writeback that could resubmit to this queue
+> can happen any more.
+>
+> sd_write_ext_reg() is also called from sd_enable_cache() (probe) and
+> sd_poweroff_notify() (suspend).  NOIO costs nothing on those paths: the
+> allocation is order-0 and 512 bytes, and reclaim without writeback is
+> still available.  Keeping a single gfp flavour in the helper makes its
+> semantics independent of the caller.
+>
+> Fixes: 130206a615a9 ("mmc: core: Add support for cache ctrl for SD cards"=
+)
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xiaolei Wang <wangxiaolei01@kaihong.com>
+
+The analysis appears to have been done by an LLM because it would
+take a human weeks to do this, and since you are doing other patches
+on parallel I think as much is clear.
+
+That said, the code checks out and the fix seems right, though ideally
+I'd like a block maintainers ACK on it as well and I think if you fix
+issues like this Jens A need to be CC:ed.
+
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Yours,
+Linus Walleij
