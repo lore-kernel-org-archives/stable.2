@@ -1,98 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795348610;
-	b=ORyFFGIibGoxrmNHjcZWZl0CjneABWcZShfO/3tUt/fjpk5ZNRcNFKSMOmUWSpuyaHh2
-	 kq0yQiaAPAtz/JpeYZ6H6oo9/ipdu+wXTU7ZrwCrTkSNhvBW2SBxDl5962smtu2ra2+5u
-	 fNiBG531yX8FV60ipkqEtJ9L7tp7ac4fhtWGYoYl/o5l5vCNVVgacuhwBIYWKKpRpLvKC
-	 erctvg0sOnrqXXSv3DQypjBpBv8nK4UBMlGuKaxXJygsY8rolk8KE3meDEy8jc+oC525F
-	 o/bqgA7G11Kurd0Beag8z4Kdbe9tpnWXMrRgDwpzlfM8DSVH5DnDGoVGOxQhjW1icEg==
+	t=1795349366;
+	b=SU5k3d2CA4Y8kK40yHT1/V9qOgQVtGX8k2fZosnA1Fo2mQZwJGQpu3HIClLs8aWkr3K8
+	 XVci0H57DBkVnxkPLkTvzHZeLYT6x1hneNAif8h52srhQNPZedrIbaXOxM4DPiRWVDCbJ
+	 v+X5r8ufKLvRCSQMga+jCFXZCeymEyFf7hyJbkAXeyPoXbU+G/2ogQ4OqRjLHolHS6+At
+	 P4chRNFzN0jcgCkre1l7rXHCo6I+UYciErEnAA4JhK1rTPDwnOecM1vOkkC7PqWuyL5ho
+	 kZx9VEJzfNWBUuPG3QwyoBU82w4Km2e4bnzXAVnvoVzWuXWBY8v62n1TzFZ5Drxy87w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795348610;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795349366;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KD9ED2MqTv4/+phnYY6+icCa/NG3RCXJ1b2cfyWY1jo=;
-	b=2uD+fFrXdMVTE2lNcrQ5PvT5/N0Qtelp4zH1GB36P7B9+BgV6B5nw7Ba08c4slWzuDNk
-	 UjR7rT6MjFnV/egMMcKQ21QoDuu0SCgEAG6S5TkbbfSmXu56bfnRLelXMGEx6SY0HNwGD
-	 kCCLs9Pmevg7PwvDr9FrMLlFLINtgmb625f2ujIG8MPbOJNdgAhTAT8NYxx3H/xd7O4xV
-	 1gXT1HQD1YCBuyjA7ZIl/+a9+yi+qQyNo123vXqpByO45UKpPgtTFoAXX5h+4lGQeaJ10
-	 RfbZAAoCkg6xbf/Q8XBzlnsiWvcw8/LwB7uRqZ+d6+eEMl0V4m9p2GfhVrovpeF9lLQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Vo8KO2KJ+xe5NqcgWpWn5sRi3V4otNrp6pD7wdiaeIg=;
+	b=EkdX/0tfFrugEpNUC8pUkVFlxv+nAzmI7Ck2rzQB94j3/nh3Uw5na7P8Vw+Ihrcvxuwn
+	 TBuFUWUf1/bN5RFdAnCOIiv/2IcwFNujvIxnIt+EA22ywU2hWBPct2+vDJF2QWTViOYON
+	 8cKTKbtml1cPraQVVByWfk+teQweWl9RYH4oWFgEqkeRwjw0jtsvWsh3RUeuuFrLytbkl
+	 JSdP1enY5pkH9+v1ruEIzuhRL9bs5n5bAZs9tjb6WzagtZzbAH/38TKFFLIDEfJBpUJSh
+	 LS4xX941ZgZ5vy25D/u0J5X/1bGYjGUf7Vrc4wAKPckD4DFuLsWQSUDtvYe1o6qZ9fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LVZYJPUy;
-	arc=none smtp.remote-ip=74.125.228.135
-Received: from mail-ej2-f7.google.com (mail-ej2-f7.google.com [74.125.228.135])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Iv2edekw;
+	arc=none smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC867606A32C
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 11:56:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC867606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6B6606A320
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 12:09:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A6B6606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LVZYJPUy
-Received: by mail-ej2-f7.google.com with SMTP id a640c23a62f3a-c5119f642fdso100924366b.0
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 03:56:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Iv2edekw
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b503e2a87bso23313287b3.3
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 04:09:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795348608; x=1795953408; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KD9ED2MqTv4/+phnYY6+icCa/NG3RCXJ1b2cfyWY1jo=;
-        b=LVZYJPUyG66DPQyzdEv+7OKR8xiAXQqwH14IETsmnMqd6e/C4uASMjQeJInqJhn5XG
-         q/e6YUjWlf+7hgHSUZehItWpgyUyZS+p4KPndeFw3aGaDW8WO5gWERrxInbsLqLI534b
-         HMd+TfWM7AJ0Z6bNhGUII4audziihOGylEaTHct9/HOcJciuHtB4rE9YoVip4wN78604
-         0rO9Wj9GzxmnQM/QBmP4gHB8IUAtAnwWOjM7g4aMRUGeYkSO21P8LQd3XV0ORYivpx6M
-         SXv9uHMJnlIF/zsYrbx5AdVdA/+37T90H9En3meR/o4gb63QVp2cZqwCLCgn2+gZ9eZS
-         Jkbg==
+        d=cs.unc.edu; s=google; t=1795349364; x=1795954164; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vo8KO2KJ+xe5NqcgWpWn5sRi3V4otNrp6pD7wdiaeIg=;
+        b=Iv2edekwCcVIQp9JIMsfLhk6KtoiV0WhRuD1FoDIRhUZsxLA2kgzsksYDDlnY5NdLj
+         QTmbmISW8g0su/g5+BFFz+65uDTd6p7xZ4n5+iHa21Cf9mBL/0iwxOGqjUi2dR2vr9+O
+         UyN8+2lSQ4KEgbwZTJIMOzO7HpzYQW1qneGMuVKZHYveD1XscsYYGBp1JauYkNyuMvpb
+         DQ7lS29jTR8iypzv1awMBPRFuN0pyyKlUiDxvXF8n04RhcYHVGPSRlpXAdX1TW/U8O78
+         8HbEkFnVxM2h4kREUrWn+N5bIMsV6ge5D3B59Kkdro3yg6DDF/VJptuL1Q4Aj+GXRvTl
+         WGNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795348608; x=1795953408;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KD9ED2MqTv4/+phnYY6+icCa/NG3RCXJ1b2cfyWY1jo=;
-        b=tea0VLeI56ge3gLmZN2MsBVJR2sSQykw2wz3W/hrZF2pATSkQYYu12MZm/CvABlG2E
-         BF//1rzupUqQgeuOD2sdXWDskfUz/LbY4couf6Dnxhnk3MLx8GSBXrPQpHUajxehr14h
-         uAe96UlWTH2cBKCON3HiyVz0RSr+ogwJ/PSD2j78Qs3BRLRk5daUViIof7JJLf27OTPu
-         MXZQ0s7m5wrJXDPtKaiBV5qZ8Mm+dLVWDqhWK/m/Gwit04dOFSNGQrAvtkrt8k6BduWG
-         9hzIleKTEWr5ZtqxZpRvSXyo8lIGUcovaE1xUOjbDr97zIa/TvZ6ihOcNo9Sehncif7/
-         zqEg==
-X-Forwarded-Encrypted: i=1; AL+hErFfnDyWE6oaKiumDL+NMJEF2S0cyNpLR2vWfN/pdz1fJeyq/Xb/W2APlcde8+4ETXZLRLjK2BQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8GKxWfOxVPy0ebrgZetuhPGIq3lTeQSZwfQCBpUXP9q9exhtdQ
-	wTarc93LOXK3m7Vr29d/QLawiog9ORSnuyIaEocLSJU4SAINAZKkVow=
-X-Gm-Gg: AZFdTZeDFAW5T7trst6UvKjPk7vpV5Zri/mpwbq8+I7ydX4B45ZRrtSOyp0kKhyye6c
-	IT4Ck+OmyXEPRfZiuj6ml42Nh8Zbv6hgkNlSIP/MhCQ2r+DGOVkP0sUOlQ9t0iIDSW4TKtSObst
-	rw9zatPvn+MFoA+DLMJLBmYd/cZe52Pz4jAnTMkNVpmkRf85HpGQYTor3HJgNeczpOZD4KqgD/O
-	woMLdpm8SAkK3nBfUAcosxTdyqBowcejJfJZ+lEl5qXYmhBbduRaRITt4tGYTY6TxKdoJvUBz0K
-	phIRHYGt3UvEDMa/INSZBrhONgo8kgkmkA9OSNZdJq0hgFdoBT01oYZltfJo/Mpwj/pBjK3N2kj
-	8HfQrVmHb50c4iNeeImWrQ9bLS4rl7ogmquOYhrgAVEFTxVwNqElIaJZutAQGznLm8ur9t8pOU5
-	n8C72bhKNVlx9Ixq2j+qXtguWd/ScFoZBSES9ePa9XI7+VTF+Ao2m2lo8EGA6te03l5iR/1W9MW
-	V9WQfwpNhyvl3o4j6FGjG3OTNr1w//JDGRlOV0HuI0C8LLu3U8oP99iOGp/gBmYULtvIdg8IWYj
-	Qv4R/exkuFASzR2JW0FOt+XyoM6vvvQzpGfdhe6xrK/M
-X-Received: by 2002:aa7:c148:0:b0:6b7:8444:a44e with SMTP id 4fb4d7f45d1cf-6ba37cc0b7cmr4214881a12.4.1795348608196;
-        Sun, 22 Nov 2026 03:56:48 -0800 (PST)
-Received: from llm-01.drunkbatya.int ([80.251.127.126])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba36e362bdsm3932556a12.5.2026.11.22.03.56.47
+        d=1e100.net; s=20260707; t=1795349364; x=1795954164;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vo8KO2KJ+xe5NqcgWpWn5sRi3V4otNrp6pD7wdiaeIg=;
+        b=x8FqWOzZDQ0iPqEUnoxTpERKrnarLWZfXSscmXMqrhvqA+F+fwXUswe/a5UwHoLysh
+         n2uwFEaLAlNwMPyrV2+hgIbpbO42GNkSgZGvwGqn+Lf3LwfVQNQaPBrhPHGJjUOOih/y
+         Bh7hqu5AXKKkmwVPb0YN+mnsF1rO0brWulVYCbQgmIx0YfvWVKiqVUKr2gIxeU61s7Ki
+         Qa9eq8T6y+YZ+80pUwrcUr/1sgT9s+Ja/Z9mMVHsM7RXNJSnWvGrFYGyYjLlSIQ5cAhA
+         CScRccog7mgmMI9rqn23eDHROtS/yR79nL44RuhWavzwlMABurjoaq9BMwuQqSRH2C12
+         pF6g==
+X-Forwarded-Encrypted: i=1; AL+hErEyqChpWGp8f4lQXo5xD5tWt3wQ9TGJUoFjfAEW9HsRUKd0U9H0Mh4D7ljCKrjEhA8XRxF5tUk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/rqW0uaHGP8g3EP9xd94yzNiZlGDjPv/wRuuzRpyhVaYYbqgSY
+	1BG8nFRRiN6lE4H5FFfSyKK747XPI0we2mkJS0pANI71XBZ+SP8mg4UISm9bWBCC+w==
+X-Gm-Gg: AZFdTZebhCSLM1425M6ypsQ1zi6/OFbNcOSBsj3L9FrC5gt34OD6a70qf4OG/ewJ5E4
+	LgtLiVxQfhiaedNxYY2yOLwBOndyUjkLJMEhOrLuuSAyB60+MP9lpUhhgmAgoqTYeMTg7z0Vecx
+	T1ZHhYcCDKB5ooibaNCFqb6a972sKBso0X9kbYIH/0FFtRfFTNBt+XLLNMNs9W0d1hJCV3iURES
+	1NblKfxzU/lRTV1sPAnm7vXWsw910EhuPq+eTFxvkgwnkAFs/vxgUpHV24pWCjo6gYxopNf5tqq
+	UANwfddIxnNCmgiAoH2vpdWXGXtUWDSRKvh0osWV+sBa9zRw1w5qbIzfmxY3D89/g+V2eI2axDN
+	YoUNZ1yTqFJ4XiW+7yjifctIXh0XbJwROtSDS86f+AIAyuOd/0qnl6fo0v2km3WVJJrNz19M0Ss
+	e0jH1TZbjlhXAPA3SFcKOWwoHvY225oybNW4uN/60qqZFGnGQiMlywFtU2QUmo0UBrTaejbL/85
+	4he4hyFsnDdFVsDyS/bOBp7hAGbawxgIpGWxFS/JTW6dxJVdaXXv4O+O6FdVOLkpHkcEkE+HFBN
+	Zaq99ureI6N8GDkRRPTHP60llh7Wt0LC4SMGmS92BhWKwHaycQZ0
+X-Received: by 2002:a05:690c:6088:b0:8b4:d26a:aa7d with SMTP id 00721157ae682-8b5204ff21bmr37330077b3.56.1795349364614;
+        Sun, 22 Nov 2026 04:09:24 -0800 (PST)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b5201ba5absm34801557b3.4.2026.11.22.04.09.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 03:56:47 -0800 (PST)
-From: Max Andreev <drunkbatya.js@gmail.com>
-To: Badhri Jagan Sridharan <badhri@google.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kyle Tso <kyletso@google.com>
-Cc: Max Andreev <drunkbatya.js@gmail.com>,
-	stable@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] usb: typec: tcpm: fix missed frs_sourcing_vbus() call during FRS
-Date: Sun, 22 Nov 2026 11:56:38 +0000
-Message-ID: <20261122115639.2912666-1-drunkbatya.js@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026112206-lapped-unvalued-8696@gregkh>
-References: <2026112206-lapped-unvalued-8696@gregkh>
+        Sun, 22 Nov 2026 04:09:24 -0800 (PST)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	kvm@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] vhost/net: bound the count of VHOST_SET_FEATURES_ARRAY
+Date: Sun, 22 Nov 2026 07:09:19 -0500
+Message-ID: <20261122120919.1718445-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,49 +102,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 0908c5aca31e ("usb: typec: tcpm: AMS and Collision
-Avoidance") the TCPC reports sourcing vbus while the port is still in
-AMS_START with FR_SWAP_SEND as the upcoming state. Because of
-_tcpm_pd_vbus_on() ignores this state, frs_sourcing_vbus() is never called
-during FRS.
+Commit 333c515d1896 ("vhost-net: allow configuring extended features")
+added VHOST_SET_FEATURES_ARRAY. The ioctl reads the number of feature
+words from user space and checks that every word above the supported
+ones is zero, one word at a time in a loop.
 
-On Pixel 11 Pro XL after an FRS from sink to source the phone keeps
-showing the charging indicator, and about 20 seconds later VBUS drops
-and the attached device reboots.
+However, the loop has no upper bound and no scheduling point. As of now,
+a caller can pass a count of U64_MAX and a pointer into a large
+zero-filled mapping. The ioctl then stays in the kernel for as long as
+the mapping is readable, and a fatal signal is not handled until it
+ends. On a v6.18 debug kernel booted with preempt=none, two such calls
+from a non-root user, each on a 4 GiB mapping, froze a 2-CPU VM for
+56 s with soft lockup reports.
 
-Call frs_sourcing_vbus() from AMS_START when the upcoming state is
-FR_SWAP_SEND.
+Interfaces that take an extensible structure from user space limit it
+to one page (openat2, clone3, sched_setattr).
 
-Fixes: 0908c5aca31e ("usb: typec: tcpm: AMS and Collision Avoidance")
-Cc: stable@vger.kernel.org
-Signed-off-by: Max Andreev <drunkbatya.js@gmail.com>
+On a KASAN kernel with a 1 GiB mapping: before commit 333c515d1896
+("vhost-net: allow configuring extended features"), the ioctl does not
+exist and the call fails with EPERM at once. After that commit, it
+fails with EFAULT after 26.0 s. With this patch, it fails with E2BIG at
+once. A reproducer is available on request.
 
+This patch will reject counts above one page of words (512 on a 4 KiB
+page, or 32768 feature bits; 128 are defined today) before the walk
+starts.
+
+Fixes: 333c515d1896 ("vhost-net: allow configuring extended features")
+Cc: stable@vger.kernel.org # v6.17+
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
-v2: moved the trailers above the --- line
+I found this while comparing the behavior of different kernel versions.
+I used an LLM to analyze the problem and to draft the patch and this
+message, and I analyzed the result myself.
 
-I'm not test theese changes on mainline, but tested on Pixel 11 Pro XL
-vendor kernel 6.1 with the same _tcpm_pd_vbus_on() code, as i see
-mainline tcpm.c is identical in this area.
+Tested on the vhost tree at 44293796526f with KASAN and lockdep: counts
+of 0, 2, 3 and 512 words still succeed, a nonzero word above the
+supported ones still gives EOPNOTSUPP, and VHOST_GET_FEATURES_ARRAY is
+unchanged.
+ drivers/vhost/net.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
- drivers/usb/typec/tcpm/tcpm.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index 51e5c72799f2..5caa649a92f1 100644
---- a/drivers/usb/typec/tcpm/tcpm.c
-+++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -6889,6 +6889,11 @@ static void _tcpm_pd_vbus_on(struct tcpm_port *port)
- 			port->tcpc->frs_sourcing_vbus(port->tcpc);
- 		tcpm_set_state(port, FR_SWAP_SNK_SRC_SOURCE_VBUS_APPLIED, 0);
- 		break;
-+	case AMS_START:
-+		if (port->upcoming_state == FR_SWAP_SEND &&
-+		    port->tcpc->frs_sourcing_vbus)
-+			port->tcpc->frs_sourcing_vbus(port->tcpc);
-+		break;
+diff --git a/drivers/vhost/net.c b/drivers/vhost/net.c
+index 631855064b3d..22e06b44d2ed 100644
+--- a/drivers/vhost/net.c
++++ b/drivers/vhost/net.c
+@@ -1795,6 +1795,8 @@ static long vhost_net_ioctl(struct file *f, unsigned int ioctl,
+ 	case VHOST_SET_FEATURES_ARRAY:
+ 		if (copy_from_user(&count, featurep, sizeof(count)))
+ 			return -EFAULT;
++		if (count > PAGE_SIZE / sizeof(u64))
++			return -E2BIG;
  
- 	case PORT_RESET:
- 	case PORT_RESET_WAIT_OFF:
+ 		virtio_features_zero(all_features);
+ 		argp += sizeof(u64);
+
+base-commit: 44293796526f4343639f87b2acc53811c78b5d54
 -- 
-2.47.3
+2.53.0
 
