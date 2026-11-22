@@ -1,76 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795387766;
-	b=NJdYk8AVEf+jBpO8YECZvcnqu82/w1h1MqUY5g246caiGC421gp/uNtX8Me0BSAeUkzS
-	 +2IHzQEFHcTsW7SGyNxU8cBCHgEx8uAI4kPF4D15xzie+pJeMKq8HfzmQYtH5UPfNY0sB
-	 /wle7oTOjU2Pdln6/K1t9WLu4uUrKZbWcdpXRYIonC3W/oI6c/i022Q/9cbGBZky5NCKY
-	 4NbUuDJQJ3GIM2JPRo089thQCRp7tEMBjr0pTeunZpE9w50ZDQPmE7YB1s2ywHiT4QDMu
-	 srf6F8dK8ieGQW0kNbQKrY+ElctzXh0YSPmA2It7GrV63/kzvMD17FNhj9kn5ovfaUg==
+	t=1795387771;
+	b=lpeoWki73VFVXEmRIuSnlNVSzGcKLPOW+7nrEL2ARTJtZLQVUC2xrmWAnuKI6Sgf5PgG
+	 fM7NaMTjHp+1Dod75tZcGrk24WAYxJDBnXKj4RPhj1qBnign7mZg7K/UoTrG+YljCfK1y
+	 6BqtMnYcnGty3JwQnVLOVIi82+tUugv2RNKIkVkKqbSdQSLrahoOPp2sFWz/VOpc2+y1U
+	 KKZcO9Itws+ZTSyMaxe4F1kWv3JqbLZy/k2ZCg3YmiTCDu50W172rRG66QesEmtoWOH1p
+	 6vxFGsg7Eu6M0gUkvQW4lJPCvarMs4Fw7vW3EQQ2M3iTq/olx1K/jziO6Taf4xBy6AQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795387766;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795387771;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=BJnA/jJMIwrgGXMJrI1daqmrBMQlWcFEETcA+fI4vbo=;
-	b=15qR4GXhsK5TQtnyUp7FW62Bh86XEZhCsxOaOpZ/0M6upLhUGpt2NK2WbEwtYt9B3MjL
-	 DE7RCTnF2bc/FBG5fzJk9hPIsaXbY/Ycp5X3+r5Y+8FJyQVaRm3Z75r1i99T731tk5bvL
-	 s6DzMMhPeZNyl/rnj3jj0je0Xj9VP4bNSqR09xYU3TT2hDybVu6g1qnJedLBXGSmmBDZX
-	 wGJlc2mHIpaRvfiIeAffbXp8Fc0GbHznxQmSVpOj1lUtQBsWuopejlSdxLmib65XT3JAf
-	 GcBADnYvHvkBMteyfUj3twerShsfAK3+nmLYabPqCZGQOyandfTd9eVjpaYJ8jb3yAQ==
+	bh=Ai6BNNCmBo9LRNnUL5kPH9AVz4boKtQ/jMDNrrKMIbQ=;
+	b=Hv0fnkM4HUDoUgjZjEvhFc7XFYzRgDWR3jpNPDVf1YBd8K/ARZEJLe1gcaidbtAqB0ZO
+	 TNYsqotWeSl1Wfh14YwhQpoed00l9rhK7Ix/OVVpncUafD474LQLgHEcq5rG9c+UkjtEv
+	 z37tJqTbNzvCQpwxUc887vboGWztq1BYUDXG2BVKUCXJyBKXLeVILTLNiIIMHTKDWLcw7
+	 ZbstNywP1KfKMeK7Iqw7rCVL/pFDf6UJmU2c58mlODBPDHdOUTQDhyxQGDfWdBx4c2CuL
+	 E84t1KKLGIfuLiPF0mfmJbR8T4XkoYlgecoK0H0Ita0CLFkjHeZ5Xce78TEwk/Jsmbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=OLctnsug;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=eLuWD2sL;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="vx/hbiph";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=iWD3i2pe;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4822606A69A;
-	Sun, 22 Nov 2026 22:49:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4822606A69A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A41606A335;
+	Sun, 22 Nov 2026 22:49:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9A41606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=OLctnsug;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=eLuWD2sL
-Date: Sun, 22 Nov 2026 22:49:22 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=vx/hbiph;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=iWD3i2pe
+Date: Sun, 22 Nov 2026 22:49:27 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1795387764;
+	s=2020; t=1795387769;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=BJnA/jJMIwrgGXMJrI1daqmrBMQlWcFEETcA+fI4vbo=;
-	b=OLctnsugB60B+/sr/lTtaoR7Li2Hi/a7RzzapkQkd2xSS4XR7OY9C64uMaGXgaWHvxyq/M
-	zRdOND8ZNduVJff4eFlvmppJI2ZAVQu0gy50hN148wRvVnnArF/rSdmL7inRlfWD5AY53k
-	bJlLDQi24nueoUFvxDjiC5ZUPRCyihOKwuoah41ADukeBVmDM7fY6ShKCH3d5j9Cy6rK2L
-	2fB+d4EYinQIj190Gmb9jseNKh3zhj5Y7tOEWGzJX+z0EafrGSlDl/Z3qMYgdm8qDPWeZT
-	sCSM86894S1M2oXpNoTxQKvQPBnuUrhRcEAAy7YJ6Fbd2s30GMV+VV3Rgo/ABg==
+	bh=Ai6BNNCmBo9LRNnUL5kPH9AVz4boKtQ/jMDNrrKMIbQ=;
+	b=vx/hbiphOJ2JXZbOzrvX8STDF1s/YOiFFPVXonNCw5sjY7/lYg0ESbV0pEY17+zaQjwvNh
+	CeAgOOvcUZbLuslpjt8IcC2EuUwb+2EL/YsFOnktGoFukEAkVGk8fsL8xcNVzVCAtLxtiJ
+	tBgrKWrb5JB/d9BSrJbN1UbDFnCwn034yVsLsLazEQA6K5ukcNOpMXt6uAma86GLieZMYj
+	THYev2gt3bGUWBpa2Wzt9A6Qi9w22udErpinJaIGReu4D6kAhnfVQD9W+m35T/Xt3NHvQi
+	C4uHZCs/glxHe07Mk0ute0891AobTgfLMUZZdrmTwd89MT4OA12EO5zSwjZTQw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1795387764;
+	s=2020e; t=1795387769;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=BJnA/jJMIwrgGXMJrI1daqmrBMQlWcFEETcA+fI4vbo=;
-	b=eLuWD2sLTo6ndZeJwiEb5Pxw3LFRXC32CuoommwO25PLnJr1tBU+RdSit3fWos3et7r1pZ
-	YEp0t4ZvVOL1e8Dw==
-From: "tip-bot2 for Ibrahim Elshahed" <tip-bot2@linutronix.de>
+	bh=Ai6BNNCmBo9LRNnUL5kPH9AVz4boKtQ/jMDNrrKMIbQ=;
+	b=iWD3i2pelAK8c6i0y5j6f0SmBHT9nVqYnDnVJ4C0bnI1K756cNKwK6u6n0V4AC4KswuMKK
+	DUfhi3bbqTPmcPDg==
+From: "tip-bot2 for Fernand Sieber" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/urgent] sched/core: Don't take the idle fast path while
- the core is forced idle
-Cc: Roman Kagan <rkagan@amazon.de>, Ibrahim Elshahed <lshahed@amazon.de>,
+Subject: [tip: sched/urgent] sched/deadline: Don't charge core-sched forced
+ idle to the DL servers
+Cc: Fernand Sieber <sieberf@amazon.com>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
+ Ingo Molnar <mingo@kernel.org>,  <stable@vger.kernel.org>, x86@kernel.org,
  linux-kernel@vger.kernel.org
-In-Reply-To: <20261120105822.7770-3-lshahed@amazon.de>
-References: <20261120105822.7770-3-lshahed@amazon.de>
+In-Reply-To: <20261112161548.78189-5-sieberf@amazon.com>
+References: <20261112161548.78189-5-sieberf@amazon.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,7 +80,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179538776239.92412.16308910403211370026.tip-bot2@tip-bot2>
+Message-ID: <179538776739.92412.2067882575359995790.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -90,115 +90,104 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the sched/urgent branch of tip:
 
-Commit-ID:     cf2126c9b989d11d42e95e5f5c7fdcfe43914eae
-Gitweb:        https://git.kernel.org/tip/cf2126c9b989d11d42e95e5f5c7fdcfe439=
-14eae
-Author:        Ibrahim Elshahed <lshahed@amazon.de>
-AuthorDate:    Fri, 20 Nov 2026 10:58:21=20
+Commit-ID:     051820698aae32c571a66720327f793e2077c0fa
+Gitweb:        https://git.kernel.org/tip/051820698aae32c571a66720327f793e207=
+7c0fa
+Author:        Fernand Sieber <sieberf@amazon.com>
+AuthorDate:    Thu, 12 Nov 2026 18:15:47 +02:00
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Sun, 22 Nov 2026 16:16:44 +01:00
+CommitterDate: Sun, 22 Nov 2026 16:16:35 +01:00
 
-sched/core: Don't take the idle fast path while the core is forced idle
+sched/deadline: Don't charge core-sched forced idle to the DL servers
 
-Since v6.12, with commit 3dcac251b066 ("sched/core: Introduce SM_IDLE
-and an idle re-entry fast-path in __schedule()"), an idle CPU with an
-empty runqueue skips pick_next_task() when it is rescheduled. Under
-core scheduling that pick also ends or re-examines the core's forced
-idle.
+A deferred DL server is charged the idle time of its rq, on the premise
+that the time was available to the server's class and went unused. Core
+scheduling breaks that premise: a CPU is forced idle when a SMT sibling
+runs a task with an incompatible cookie, so that time was available to
+no class at all.
 
-A core-wide selection chooses a task for an idle sibling and reschedules
-it. If the chosen task is migrated away before the sibling schedules
-and it was the sibling's only task, the sibling goes back to idle
-through the fast path. When that selection also forced the other
-sibling idle, because its runnable tasks did not match the chosen
-task's cookie, the core stays forced idle with nothing running on it,
-and two things go wrong:
+update_curr_dl_se() then runs the server's runtime out while it is
+throttled and calls replenish_dl_new_period(), pushing the activation a
+full period out. dl_defer_idle does not help, as idle_rq() is false on a
+forced-idle CPU: nr_running is not 0. Every period of forced idle pushes
+the activation again, the zero-laxity timer never fires, and the class
+the server reserves for gets nothing.
 
-- Without the previous patch, the idle sibling's rq->core_pick keeps
-  pointing at the migrated task, and with schedstats enabled the forced
-  idle accounting keeps writing through it, even after the task and its
-  cgroup are freed:
+Reproduction on 2 cores x 2 threads with the default fair server
+(50 ms / 1 s): a SCHED_FIFO spinner with a core-sched cookie on CPU0 and
+an uncookied CFS spinner on CPU1 force-idle CPU1, and the CFS task gets
+under 0.1% of a CPU instead of the reserved 5%. The ext server starves
+sched_ext tasks the same way, and there a plain CFS spinner on the
+sibling is enough.
 
-  BUG: unable to handle page fault for address: ffff8d6b205f7018
-  #PF: supervisor write access in kernel mode
-  #PF: error_code(0x0002) - not-present page
-  RIP: 0010:__cgroup_account_cputime_field+0x3c/0x70
-  Call Trace:
-   __sched_core_account_forceidle+0xd8/0x140
-   __schedule+0x1390/0x18d0
-   schedule_idle+0x1a/0x30
-   cpu_startup_entry+0x29/0x30
-   start_secondary+0x11e/0x140
+Don't charge forced idle. A server still only loses runtime to real
+execution or real idle, and one whose class has nothing to run still
+stops through dl_defer_idle once the rq is idle for real; with core
+scheduling off nothing changes. Getting the reserved bandwidth back also
+needs the server's pick to win the core-wide selection, which the
+preceding sched/core patches fix.
 
-- The forced-idle sibling keeps waiting with runnable tasks until some
-  unrelated event reschedules the core. Likewise, when the forced-idle
-  CPU itself loses its last task, the reschedule that
-  sched_core_dequeue() sends to end the forced idle also ends in the
-  fast path.
-
-Take the SM_IDLE fast path only when the core is not forced idle. A
-pending rq->core_pick needs no check of its own: the previous patch
-clears it when the picked task is dequeued, so a CPU with an empty
-runqueue has none.
-
-Fixes: 3dcac251b066 ("sched/core: Introduce SM_IDLE and an idle re-entry fast=
--path in __schedule()")
-Co-developed-by: Roman Kagan <rkagan@amazon.de>
-Signed-off-by: Roman Kagan <rkagan@amazon.de>
-Signed-off-by: Ibrahim Elshahed <lshahed@amazon.de>
+Fixes: a110a81c52a9 ("sched/deadline: Deferrable dl server")
+Signed-off-by: Fernand Sieber <sieberf@amazon.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261120105822.7770-3-lshahed@amazon.de
+Cc: <stable@vger.kernel.org>
+Link: https://patch.msgid.link/20261112161548.78189-5-sieberf@amazon.com
 ---
- kernel/sched/core.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+ kernel/sched/idle.c  |  7 +++++++
+ kernel/sched/sched.h | 15 +++++++++++++++
+ 2 files changed, 22 insertions(+)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 4b1d36c..b2f6b99 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -347,6 +347,15 @@ void sched_core_dequeue(struct rq *rq, struct task_struc=
-t *p, int flags)
- 		resched_curr(rq);
+diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+index e0c10a5..717d566 100644
+--- a/kernel/sched/idle.c
++++ b/kernel/sched/idle.c
+@@ -573,6 +573,13 @@ static void update_curr_idle(struct rq *rq)
+=20
+ 	se->exec_start =3D now;
+=20
++	/*
++	 * Forced idle was not time available to any class on this rq, so
++	 * don't let the deferred servers consume their runtime on it.
++	 */
++	if (forced_idle_rq(rq))
++		return;
++
+ 	dl_server_update_idle(&rq->fair_server, delta_exec);
+ #ifdef CONFIG_SCHED_CLASS_EXT
+ 	dl_server_update_idle(&rq->ext_server, delta_exec);
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index a4e6696..804c703 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1522,6 +1522,16 @@ static inline bool sched_core_disabled(void)
  }
 =20
-+/*
-+ * An idle CPU with an empty runqueue must still call pick_next_task() while
-+ * the core is forced idle. Only that pick ends or re-examines the forced id=
-le.
+ /*
++ * True while core scheduling keeps @rq idle because a SMT sibling runs a ta=
+sk
++ * with an incompatible cookie, even though @rq has runnable tasks of its ow=
+n.
 + */
-+static inline bool sched_core_idle_needs_pick(struct rq *rq)
++static inline bool forced_idle_rq(struct rq *rq)
 +{
-+	return sched_core_enabled(rq) && rq->core->core_forceidle_count;
++	return sched_core_enabled(rq) && rq->core->core_forceidle_count &&
++	       rq->nr_running;
 +}
 +
- static int sched_task_is_throttled(struct task_struct *p, int cpu)
- {
- 	if (p->sched_class->task_is_throttled)
-@@ -550,6 +559,7 @@ void sched_core_put(void)
- static inline void sched_core_enqueue(struct rq *rq, struct task_struct *p) =
-{ }
- static inline void
- sched_core_dequeue(struct rq *rq, struct task_struct *p, int flags) { }
-+static inline bool sched_core_idle_needs_pick(struct rq *rq) { return false;=
++/*
+  * Be careful with this function; not for general use. The return value isn't
+  * stable unless you actually hold a relevant rq->__lock.
+  */
+@@ -1655,6 +1665,11 @@ static inline bool sched_core_disabled(void)
+ 	return true;
  }
 =20
- #endif /* !CONFIG_SCHED_CORE */
-=20
-@@ -7290,8 +7300,13 @@ static void __sched notrace __schedule(int sched_mode)
- 	 */
- 	prev_state =3D READ_ONCE(prev->__state);
- 	if (sched_mode =3D=3D SM_IDLE) {
--		/* SCX must consult the BPF scheduler to tell if rq is empty */
--		if (!rq->nr_running && !scx_enabled()) {
-+		/*
-+		 * SCX must consult the BPF scheduler to tell if rq is empty,
-+		 * and core scheduling may need pick_next_task() to end forced
-+		 * idle.
-+		 */
-+		if (!rq->nr_running && !scx_enabled() &&
-+		    !sched_core_idle_needs_pick(rq)) {
- 			next =3D prev;
- 			rq->next_class =3D &idle_sched_class;
- 			goto picked;
++static inline bool forced_idle_rq(struct rq *rq)
++{
++	return false;
++}
++
+ static inline raw_spinlock_t *rq_lockp(struct rq *rq)
+ {
+ 	return &rq->__lock;
