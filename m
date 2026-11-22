@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795338750;
-	b=wp2syqK7yJfwEfF+SLK1aeRgOdmAD7rIb031/oNMdoRIpCjd7lmIfd6aku/sX/MH+XeM
-	 aGwYv3VmI/V95I4Bd/iNSarz2Y2qPHzcUnrFadSpg8qsg9L8+El3XaR60skJMcRij+kWK
-	 wsUg4fP48egC1WFK+nJYkZfyX53mHGvhanW5zQsblu4GnNLDinfclnDuYYdn8oGtJCF01
-	 IPqZ/13Y4I5DGGCc8C4JnLtXdZktlvbJztyHiDx77HCelh8EDbWJnox2l44IFS63KIc9w
-	 UusnoPCLLzjNS4TxrCISr19+D56202fbQMPeozDPzn4G/78A6mNHYglSu7NN4VR2lBQ==
+	t=1795338767;
+	b=1Vpdc0Xq5yHte8HX0nKDFNrfSDfE/z4OW1dflU5HkQdO6qBemLhcYLvLazkGYgmjmVCs
+	 40FT3qduFdTP3LqvpnDs/mpeXeE+PZMfNxT+CxRXtQo1t2XQ8na0gHQMkEBDKpIsDlqVc
+	 MqQmSeELgPqfQltXM0tVt10KLrgUCfaaMPLPHtLUv8eeyMXImmnWkKPYrFh4wSDBBR1Pr
+	 7JcorS8gTwrNmB1ieaR0tgUBypHcMs2Zwv/uAizLjVGZK+nJc7OxrRNlO6dr8RYbfaGwt
+	 w9voH7hEvKuS9EVdJxXg6vrKK8bOBz3sNWmH2qyO39XWRHUDN7jfUPKC1/cDYOWsvPg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795338750;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=EQRZRUVgWLEXWXY2UUdHCwG6T9sZpfMFCWNR0hoVHQE=;
-	b=hbU7AtUyErJ2dpqGsQmGKKFISM9zRn6zLjKbXB8xo7zI7XjR0or4eSkly0TwyrwkdSj9
-	 ZMPBi3J9sM45bNra22yV0TVU2QD7sJxz0E+6xtU1Sdn5AtaB20FfPWm+hnUaqtvoCTV6+
-	 eoAfLgY5PQsq1PkXF8wd50wdE9y5wgLwodBWcnyRbESc2vKsMHWS2mD9ZDJsrG+r3Kaz/
-	 lgjm6DJMW29QYggrgKQHwQ01l5wl1dLRHqFbPJzQuutfKP8SqJTRy+mXYVchXBn2Ekx/W
-	 Auzsc0tZXJKJBfgvEeqvOF2D5mZK4tDTBpjZ/C6Y0CxnpDeKHts5WjUrd2sLGGbuS7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795338767;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ST8IAOf43KM2cQ2CDniduzm0sEH3xm0Svex+zpATa/w=;
+	b=eO8kp/BIEtynbLFRMq3h2eHZAo3iA9x3wgHZ0+umhGbSaUjqXUaRlBMxpCw9ym8+r9h7
+	 Xh41pFg0sobNJlnmg4R3Gj3NUtpVcA/uKfX9vk2S246p+QQo+4yPWGm7g4cRbzp3BmoAJ
+	 N66Oo14XlWbu4Efn26dp7/0qOPtkrMeh7w9kvcCAVn9Fd8AEYVui+a3TyGHm9w+Uv8ZAv
+	 xMZ98EYmVNfTRUFUjgiIdGi0fxclGpzzmDGc9rIRw1PSukKwsPBtuy9/aUEZjRKoc+DOt
+	 jOsKPXHdyovMNBylcQ5bgO0qq1Myh7+cR0KyIvuD0eny0uYKbFjUXvmXOGEsgenUrCw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PLS4XcuQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FoXi93Ta;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279E7606A320;
+	Sun, 22 Nov 2026 09:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FoXi93Ta
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795338766;
+	b=fqmCG/pHHg0B/1Oo0bWUT2yJ0N/yOHiKUbGdhFtl41/gCiBk3fVFODWR//D8QewNjvku
+	 N4PSbBsK1Ix81y1CA6WNxt+fEydRNT8nfV3f+CvRouYo9ViUwgoEmQthCZPbFm1b9Wt5l
+	 4ktVo4VXVkN6VchpNmoIsSWRhhnPtNX5+m1F4fbDibjtl9do6T3cSJkWgthNL6dSosC2V
+	 3/iKYxjIqeqCNHEtyMapFv11aF7Am4Nt1q4q02jYnHZdOemNhgC9lJQN+tKW0Of7t08of
+	 P7PsukCCWtPx58quKZuNkmo1U8DezZycaAN/aDayr0LkcBP9zOOjejdHWLeciie6uvA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795338766;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ST8IAOf43KM2cQ2CDniduzm0sEH3xm0Svex+zpATa/w=;
+	b=IruL60u2fGFl6lleSj/CpR82/gO8OaTjirQ5vjFbDxoOuHrikKmlNWEMwAJY6q+QCaVU
+	 AQaOLzoqIUh+NrYan4hTkae3wIqcIj3HEmIQFEons3bZ85pANh/2rPjAsj63wb1rRwnDM
+	 r4ya/X6g83HXAmmrYVt0h2myLurtDi+Ey5XNAAmO0WGwLbz53ihvwMA544XS94sEVrjxA
+	 SF5vpZv8HmitLiAAjxY4M/bxoYMDvSLTJ1YbzjBDtRBslcocVNJG7IztC3KyjEq6apas8
+	 tjHUcRuOEkg6SPIzpo7eGMHsCCB7Qpm+ypcFl02O5t6huJzyFRQs6SIAPlJZ68lCSPg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80D5606A331
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 09:12:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D80D5606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PLS4XcuQ
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5be3dd6f636so185635e87.1
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 01:12:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795338748; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WQpe83DO6jS6y591FdmA1xoQAo3oc788AWIPoBpK1UBIw+LUEP5pQqD5ZzZLosonSP
-         lo9s7N6/SP3wza63MjLpIQKBN7guP2n3lSvRmRepB1ROq0tYgeWKzQ9E01nZ6FiTAacq
-         4tmF+NKstDFEL56caN/ZMVI4cYe0Gekr9tEUMpOYpoYfaJtQ0G+qj79TpPx8qDAmp/yb
-         qi4JPjVEtKy1CKmtvp9HOBayY7pbqB8u6sVlSnm/cd1BWtMBls3J5SlgW9BCKbBkEwgK
-         ytD2Xt22+3kXRltuzdpis9kkpaXl6YH2fjiQ2kqFHIdpJWTBtEQpm+aIhKcWxo5LKLYz
-         9rDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=EQRZRUVgWLEXWXY2UUdHCwG6T9sZpfMFCWNR0hoVHQE=;
-        fh=Kw2zLWy6s/04jJCe0FvNdRBHHUpGE/0WI+LS4/SHQhA=;
-        b=lUEeyrsy3anZS7oHWEvu8hpnLmaOMrJq0aGr3gpUsiNQVVnXGkf8eLBuLupw94/Bny
-         awalU+kKpEZ1xiw2P5GEa33zVWSkgWRaNTzkauQi8UYMHllr1lH6Udb9a4+xo8N8+yu0
-         2MAXB8/zybRG8b4Ux97bAIWF7UTX9S6oMvV1Yy++9T7t49GSObVXXO6aQh25IM1FzrGG
-         kwSTzJ/67mlZd6mbsP5V6JeFWH8QPHIvCcP5+pPlq3dNMbdQwRPU87X0eK5i2Ocm5XjM
-         Odsikrm1Nd4Tbfkg+UHvjW5MCQEsjB7MrfTM3gaI8aW0A9tPPReKFuGyoolZdXQSSZEE
-         JWzw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795338748; x=1795943548; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EQRZRUVgWLEXWXY2UUdHCwG6T9sZpfMFCWNR0hoVHQE=;
-        b=PLS4XcuQdsaZB2j2yf4YdDnBfZ1BFyW7tN/f+hhQY5ch5NWWQ5DRG/N0qkfcHEkjot
-         +6wCseLb/5VPyzjDgzvYeCeXcsNBYT13qwPPbwqkdlyO1vYivW2QRwnGfN2RO0wBaMvd
-         z2ACb0g7OPqWAIgH71B6etQRkvbLylRCvlJgQ5G8J4JwMhhul/oVR036M0iowTse1OPW
-         Vu2LU55F1jCM6vV9Qy5W2QAF0wBHWJluTb99lpdFL4bExaX7mkkLx5o+3O3Mbiv7tOQO
-         oh7OMpDtwTqTioQF+kuyqxcptav/gxGzeFva+s9vhYMD6A50yCFCPQfsN4H6t612wgkR
-         WgEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795338748; x=1795943548;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EQRZRUVgWLEXWXY2UUdHCwG6T9sZpfMFCWNR0hoVHQE=;
-        b=RASeVnRzSSMOm5/b6YAhHfmAgmdj1BSh8OG6LK45nPI5TYj9tfDOo79cjeNTKWGM+H
-         +7ujUFi6oWbBuGKBEeATCFJyCDsS9xPRLjQRaagdN3Zn2dwHeGG0g7DzQXo82ZMA6RZd
-         sLIGRPyfnuNu+xV+r97rba2judc/9Kj/MxXVnM0rZCuNELQVniE0fasXEfmaGrjCLVRQ
-         a18Ayba76f72mPIy3ZmIeXACzfjvX6B5zn87kr6HnMJx7iXMgwQEuFQ0qnc+2Q4Ga5Ro
-         V42/nLUH15LSlwm7/+f/kEIJyqXY3vj2vd+kMB9MCDAOV4tGez2VKe8FSfG5AqX452O6
-         HybA==
-X-Forwarded-Encrypted: i=1; AL+hErEbf4a3+1ABTJ3FqZx1jhZyGDW+/LtnyCZ4O7xuaSFNsFbne8NP7jdREfvWxMPEprRcc2fLuSo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9F+ccYVjcFlwsuzPmFxKlUR10CV+AOETN06+oUkETZLwOqlcm8
-	bgCOfO9YfmKMMI1uPwmd/4vZpuV0mW9vNHwZuv84kdavO8Hh9bZx/EF24IZvotVNwoKFQgpg8Uk
-	dAto6XZCc9H936uX5S3go6V0h6js37Ao=
-X-Gm-Gg: AZFdTZdOHMov7Sc0dq4WCQ44eP8+IxoXw4SrgluNscmaCV4gZzB7CLkWbMMINijDl2O
-	RzaXaqIOHv9wyJjj1pViC7WOkPGhO6qjOWsV1bDC6gw++o6Oh3VnfFjv9QtU3bWXW5mgZBld40W
-	iNnBpXUn4Artu3MQyIA9Ma2xgQzNrCDLqeEchTYQv+oJcaaUZkbKVFH1qPQXN2+ZdZf8h00DxH4
-	k3UBhOjrYVOg8+yTjdCF+s3G6LXPYUVsIGun3sb5etVTm854WvlD/AU5zDjVF5UbX9Ps535sJue
-	cWz655d7gMP6+JjBvYJlNdElpP3jhIFGv+uvP3CjnZJCDED6JSmm0RbdKqBTgOu6QRLhOQfJThn
-	cczLxU2uRAIP7gA4OVP0v0jfKLvveW8WEqhnTzh5kwhzFCADlWO0GjTM2q3MI6FBgOC5u+yQ=
-X-Received: by 2002:a05:6512:31c3:b0:5bf:e6a1:3115 with SMTP id
- 2adb3069b0e04-5c1bc76a33fmr3276447e87.2.1795338747873; Sun, 22 Nov 2026
- 01:12:27 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 186F61F000C6;
+	Sun, 22 Nov 2026 09:12:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795338766;
+	bh=ST8IAOf43KM2cQ2CDniduzm0sEH3xm0Svex+zpATa/w=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=FoXi93Tavag8T6hgtiRwZN5ojZh0cdtjiBOLxL/QrgxR7AYMROlbCRBMiJ3VvbQs8
+	 j3zlFldo3pufBOR8goqaSNkuPozDFSS3xlvOuLRGRHedOrslSssygZMebrdzB1/p2x
+	 0/IAgLV6WhGn3K3aPxsu5uO2a4rNRJ5Umd13D7WFzW3nu5OZomegUPo+6f1faW3V3I
+	 LAcX52k0h78TLi7/eMoQodDX1HajsTDCsa+/gK57cTCZn+Yy6ILUP+FXG/s4lNpsVT
+	 rBLLLjYzUj5pRrmSHTaqnmWzkHtMFt0Pc71WAXLph3vT7dW49a4kG71tOalky9UmMC
+	 mGYwF23l3xqag==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6F0074BFBD;
+	Sun, 22 Nov 2026 09:12:45 +0000 (UTC)
+From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Date: Sun, 22 Nov 2026 10:12:06 +0100
+Subject: [PATCH v2] gpu: host1x: Cancel the fence when a syncpoint wait is
+ interrupted
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,29 +83,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261121-sun8i-emac-mtu-limit-v1-1-22492842d318@gmail.com> <e72505dc-f20f-4473-98f2-52161e08c89d@bootlin.com>
-In-Reply-To: <e72505dc-f20f-4473-98f2-52161e08c89d@bootlin.com>
-From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Sun, 22 Nov 2026 01:12:16 -0800
-X-Gm-Features: Aa3M54oySI-tTJ0Yq8ZA8YifNr7RX6205w52YmRPUl3JnSPbZIf10o3azHoDuPs
-Message-ID: <CAEy9hNVyfNZu9R-2duqwFhYps9t58CwZM777yM7AmU0rcc=dYg@mail.gmail.com>
-Subject: Re: [PATCH net] net: stmmac: dwmac-sun8i: Limit the MTU to one
- descriptor buffer
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, LABBE Corentin <clabbe.montjoie@gmail.com>, 
-	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	Russell King <rmk+kernel@armlinux.org.uk>, Nicolai Buchwitz <nb@tipi-net.de>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261122-upstream-host1x-fence-cancel-v2-1-204760056348@tsv-stahl-riesa.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42PSwqDMBRFtyIZ95V8TH+j7qM4iPpsUqxKXgwWc
+ e9N7AY6uXDgci53ZYTeIbFbsTKP0ZEbhwTyULDGmuGJ4NrETHJ5EkIomCcKHs0b7EhBLNDh0CA
+ 0JmUPvFbyrJXQvD2xpJg8dm7Z9Y/qxzTXL2xCduaGdRRG/9n3o8i9P6eiAAGXa1dqpXkppbwHi
+ kDB2B7yI3NskVXbtn0Bp349yuMAAAA=
+X-Change-ID: 20261113-upstream-host1x-fence-cancel-0b32753150d6
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Svyatoslav Ryhel <clamor95@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795338764; l=5771;
+ i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
+ bh=/i8lgRDKGWyhoI9fKcpAxKGjBQNt1lXNXJJWwebXih4=;
+ b=e7iObUyXdatftm1IDWTjXfcoIBLn3E6cwbef+W3mp6GEGaUUIqZi1aiGgSHW3Mbhz8dherRuA
+ 35+H4zg3AoYCQab/JfbQDNQpz1vSlatmqCaS4JeHTj2muwaG/UeODvu
+X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
+ pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
+X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
+ auth_id=1251
+X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Reply-To: admin@tsv-stahl-riesa.de
+Content-Transfer-Encoding: 7bit
 
-On 11/22/26 08:56, Maxime Chevallier wrote:
-> The problem is real indeed, but not specific to this glue. Rather, the max_mtu
-> computation should be fixed for normal descriptors altogether. Can you work
-> on such a fix ?
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-Yes, v2 does that in stmmac_main.c, with the lower sun8i limit as a
-separate patch on top.
+host1x_syncpt_wait() creates its fence without the internal 30 second
+timeout and cancels it only when dma_fence_wait_timeout() returns 0.
+If the wait is interrupted, dma_fence_wait_timeout() returns
+-ERESTARTSYS and the fence is left on the syncpoint's fence list,
+holding the reference that host1x_syncpt_fence_enable_signaling() took
+for the interrupt path. It is freed only once the syncpoint reaches the
+threshold, which may never happen.
+
+Callers that retry on -ERESTARTSYS allocate a new fence each time.
+tegra20_channel_capture_frame() retries in a loop without delay, and
+while the syncpoint does not move, for example with a camera that
+delivers no frames, every round leaks one fence until the system runs
+out of memory. Svyatoslav Ryhel reported this as an out-of-memory crash
+in the VI capture thread; the allocations in his report come from
+host1x_fence_create(), called by host1x_syncpt_wait() from
+tegra20_chan_capture_kthread_start(). The DRM syncpoint wait IOCTLs end
+up in host1x_syncpt_wait() as well, so a process that is signalled while
+waiting leaks a fence the same way.
+
+Cancel the fence whenever the wait did not succeed. host1x_fence_cancel()
+is safe if the interrupt path has signalled the fence in the meantime,
+as do_fence_timeout() then returns early.
+
+host1x_fence_cancel() can also run before signalling was enabled on the
+fence. fence->list is only initialized in host1x_intr_add_fence_locked(),
+so host1x_intr_remove_fence() would then see a zeroed list head, call
+list_del_init() on it and report the fence as removed, after which
+do_fence_timeout() drops an interrupt path reference that was never
+taken. Initialize the list head in host1x_fence_create() instead.
+host1x_syncpt_wait() does not hit this today, as
+dma_fence_wait_timeout() enables signalling before it checks for a
+pending signal, but the cancel path should not depend on that.
+
+The leak was found with the help of an LLM assistant reading the host1x
+and dma-fence code against the call chain in the report.
+
+Fixes: d5179020f5ce ("gpu: host1x: External timeout/cancellation for fences")
+Cc: stable@vger.kernel.org
+Reported-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+---
+Svyatoslav reported the out-of-memory crash, and he confirmed off-list
+that v1 stops the leak on his LG P895 (Tegra30). v2 changes the code,
+so that confirmation does not carry over to it.
+
+I have not run v2 on hardware. The Tegra Note 7 I work on only
+captures with Svyatoslav's out-of-tree VI/CSI patches, and I have not
+tried to trigger an interrupted wait there. Build-tested for arm and
+arm64. The DRM IOCTL case in the changelog comes from reading the code;
+I have not tried it. The same goes for cancelling a fence before
+signalling was enabled, which no caller does today.
+
+The retry loop in tegra20_channel_capture_frame() still spins without
+delay as long as the wait keeps returning -ERESTARTSYS. With this patch
+that costs CPU time instead of memory; how the VI driver should handle
+an interrupted wait is a separate question.
+
+Tool use (see Documentation/process/generated-content.rst): an LLM
+assistant (Claude, in a chat) found the leak by reading
+host1x_syncpt_wait() and the fence code against the call chain in the
+OOM report. Claude Code then checked the finding against the code and
+wrote the change, the changelog and this note from my notes and
+instructions. For v2, the chat checked Mikko's point against the code,
+and Claude Code applied the change and extended the changelog. I
+reviewed the change.
+---
+Changes in v2:
+- Initialize fence->list in host1x_fence_create() instead of
+  host1x_intr_add_fence_locked(), so that cancelling a fence before
+  signalling was enabled is safe (Mikko Perttunen)
+- Link to v1: https://patch.msgid.link/20261113-upstream-host1x-fence-cancel-v1-1-89f453504222@tsv-stahl-riesa.de
+---
+ drivers/gpu/host1x/fence.c  | 1 +
+ drivers/gpu/host1x/intr.c   | 2 --
+ drivers/gpu/host1x/syncpt.c | 2 +-
+ 3 files changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/host1x/fence.c b/drivers/gpu/host1x/fence.c
+index 1acf579c562b..f77a391b9195 100644
+--- a/drivers/gpu/host1x/fence.c
++++ b/drivers/gpu/host1x/fence.c
+@@ -134,6 +134,7 @@ struct dma_fence *host1x_fence_create(struct host1x_syncpt *sp, u32 threshold,
+ 	fence->sp = sp;
+ 	fence->threshold = threshold;
+ 	fence->timeout = timeout;
++	INIT_LIST_HEAD(&fence->list);
+ 
+ 	dma_fence_init(&fence->base, &host1x_syncpt_fence_ops, &sp->fences.lock,
+ 		       dma_fence_context_alloc(1), 0);
+diff --git a/drivers/gpu/host1x/intr.c b/drivers/gpu/host1x/intr.c
+index 30f3dff4487b..380f679b4d7f 100644
+--- a/drivers/gpu/host1x/intr.c
++++ b/drivers/gpu/host1x/intr.c
+@@ -47,8 +47,6 @@ void host1x_intr_add_fence_locked(struct host1x *host, struct host1x_syncpt_fenc
+ {
+ 	struct host1x_fence_list *fence_list = &fence->sp->fences;
+ 
+-	INIT_LIST_HEAD(&fence->list);
+-
+ 	host1x_intr_add_fence_to_list(fence_list, fence);
+ 	host1x_intr_update_hw_state(host, fence->sp);
+ }
+diff --git a/drivers/gpu/host1x/syncpt.c b/drivers/gpu/host1x/syncpt.c
+index fe74ff6fc6f2..f9c871f218f3 100644
+--- a/drivers/gpu/host1x/syncpt.c
++++ b/drivers/gpu/host1x/syncpt.c
+@@ -247,7 +247,7 @@ int host1x_syncpt_wait(struct host1x_syncpt *sp, u32 thresh, long timeout,
+ 		return PTR_ERR(fence);
+ 
+ 	wait_err = dma_fence_wait_timeout(fence, true, timeout);
+-	if (wait_err == 0)
++	if (wait_err <= 0)
+ 		host1x_fence_cancel(fence);
+ 	dma_fence_put(fence);
+ 
+
+---
+base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
+change-id: 20261113-upstream-host1x-fence-cancel-0b32753150d6
+
+Best regards,
+--  
+Patrick Fischer <admin@tsv-stahl-riesa.de>
+
+
