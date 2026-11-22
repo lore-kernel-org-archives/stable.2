@@ -1,59 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795388252;
-	b=IVJ/QZQ7HFplkelkbB8Z5HQN0YP2v+SoHEvc0ocsJw1eIexDmpLtuPxyj7EEdK/rxwL1
-	 IFTa7//AhfYh8MnvDE1PDf/4a6GLU0rGnd5vL9ws1TTaqpsHpKPQjaeY7tNDM1Q+SR9cR
-	 OVwREu7H/q7dPQQ9oasFk6p1GfH0iFlmWmoPtviO0OMtGWs9yGg1tRBz9FGKwbFg+h/rv
-	 uVizUV9Z31wB4OSGjTSC2rR/uf4zKtNQnd883PxzufGlxwJAaI5mnUznuFQ4k7rEWVEAc
-	 +lschKuGiYGsyX+DttalWLZxVHUOu9RUtrxi1A56mpzf2KDzTblxLAlkhEfVuE7nhTA==
+	t=1795388414;
+	b=hct5nBvoKzt7kYOt1PTZN1b7uCif33E70OGau3BlV02txnXNt51GDqNA6F6jH+M2YdhB
+	 ItlQaT4pyFyQrrzZb0OCh1Ce6uCV9jmO1RktOEc8pKqo9Xvgj5MSycuwd7Z6Uo2aBBHD2
+	 YzdMAWoSoUvQalkO+vZ3VTU1kfDw9CRdufgxW4FWaghP9cLY3t4V+WGNxqtMFjqwlqBO8
+	 aj+ZeHAWx2MR9uUaXFJTq71HkHuzhgzC1g9SYw2tZblWAOcqo4K4byUtz5B2y/4tHofO+
+	 Nhts47tsSc3WoIfg8hHrzeDXH7goltsDNZmJibi0NHv3yAocXO1WHlf2dyW4uKS23Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795388252;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=jjXLYua8yEMOZG20v0014nN/5Rs2wlsBWV6M4sI7iCI=;
-	b=q92nW01ac5dJTU68iTHGvoMkwwYR+Qu76GB0nGZWenaFbdfxDf1JIbzOWKMSyZBYbSM8
-	 yt5tnaAvBoYM2HIS5ixnvjpxLNdDJt746wzBKE5VXOUaq/aidfZo4EtzT+kxyM1w8CdQ7
-	 0+pliNRo6JdsSV5z/dnjswdEP1Gk0pq8PizeOQdn4+3Y0LhH9VEqsgC7Lm0Bq9alko357
-	 NgN1XZh0fo+kt7ttLjPtDxFo0LHE+N29TSpOViGLVW8JydhGYlsamUznv5a+MP1tDfPiv
-	 Y4TzAVdbkeSjN/Ec5BCHX/AFmAH7DXr1WMEm4SYMldc9/f9eYmRDNXGite4x10DyTag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795388414;
+	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
+	 Message-Id;
+	bh=VhKP+/MQutg0Bszjfs5xb29ASUGYeBXd3PTCVceqGu8=;
+	b=oY3nrUFPyiqnDriUC833A0q0fTwd+nIqhJYOQqPaejZjGEYUuhML4zVJyCstSNp6A2NB
+	 5bZzg12lV/pcRDU5Sjx9o1bIbUXwsfxScr49+QcEU6oVVZ8zazncFD3Yw7OsdBCJwAJXp
+	 ynvas90RMTQpS5K9Rck6ThJ7aKnQFwSN6uiVreVhVYTu8EwUxeR90yKGDOttINWSA+cqK
+	 R22/mShMztZqo5rFgZIo6AFYix4bLCKuc62o7ovtUNovU6IoggN70YGXdklO89XXYduu7
+	 nGDfQe4tJ7eIALSQnru7Lxi+be+rjIWzcAAcRdITlfG+ZojysLnDbFifangV3X2IWkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Di9MXQCe;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=wz+1WRxL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B828606A31A;
-	Sun, 22 Nov 2026 22:57:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075EF606A32A;
+	Sun, 22 Nov 2026 23:00:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Di9MXQCe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341581F000CA;
-	Sun, 22 Nov 2026 22:57:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795388251;
-	bh=jjXLYua8yEMOZG20v0014nN/5Rs2wlsBWV6M4sI7iCI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Di9MXQCen520rO1uRAE9Usc9ysRbdAnis6wFWyzbj7grcxIE1lvdZsu0oo6g+eHeN
-	 MzaLgjueWlINkBOPNZXSFW57nF/o40+mMB251dakPQRG46O1YdVlu/J3xL7zASzoF0
-	 6ZHJYAsl8045YyeKD2N6oSopo3k0Z+yMgsMeh9aFwY39gcM3Q1rTwU3TUINrqbTnyq
-	 BB92hm4LIIohgYfMPA0Vr+CtkR28wWR7QCfr1E94LrMNMQLwQsDzEGV5GNMnePPM1h
-	 4J653q7lDw+IaUtobD77gyBvdgqY5vSbEQe/+jhkW2qcaZoe9BhPuIlrRY8VTU4jfC
-	 iRTg8u/73nVLA==
-Subject: Re: [PATCH net v2] can: dev: reject unusable bit-timing constants
-From: netdev-bot+sashiko@kernel.org
-To: 25031212351@stu.xidian.edu.cn
-Cc: mkl@pengutronix.de, mailhol@kernel.org, socketcan@hartkopp.net,
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, byu@xidian.edu.cn, wencheng@xidian.edu.cn,
- kuba@kernel.org
-Date: Sun, 22 Nov 2026 22:57:30 +0000
-Message-ID: <179538825072.3131.7118815518800235800@kernel.org>
-In-Reply-To: <20261121094534.5221-1-25031212351@stu.xidian.edu.cn>
-References: <20261121094534.5221-1-25031212351@stu.xidian.edu.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=wz+1WRxL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BB8F1F000C4;
+	Sun, 22 Nov 2026 23:00:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1795388413;
+	bh=VhKP+/MQutg0Bszjfs5xb29ASUGYeBXd3PTCVceqGu8=;
+	h=Date:To:From:In-Reply-To:References:Subject;
+	b=wz+1WRxLu/WeW+KXBUqA5k4Mp8t/P0stqIsTZKoKKEBz4UNWyziJg28WQOF+jvFa4
+	 xHbUdCxipfKM96nn+2BPQsaF2LjYDSsfQGwogHIQqCgFNlrepyVzWdbb2EWJafaVwF
+	 +VBGnqbcACCGj9TN4ZOjdKSs7tk6fFKrP4oxwJ2Y=
+Date: Sun, 22 Nov 2026 15:00:12 -0800
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,
+	roman.gushchin@linux.dev,qi.zheng@linux.dev,kasong@tencent.com,
+	david@fromorbit.com,azpijr@gmail.com,songmuchun@bytedance.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+In-Reply-To: <20261122031143.3639941-1-songmuchun@bytedance.com>
+References: <20261122031143.3639941-1-songmuchun@bytedance.com>
+Subject: + mm-list_lru-fix-potential-infinite-loop-on-xa-node-allocation-failure.patch added to mm-new branch
+Message-Id: <20261122230013.3BB8F1F000C4@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,192 +54,103 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
 
-Critical: 0 · High: 1 (1) · Medium: 1 · Low: 1
+The patch titled
+     Subject: mm/list_lru: fix potential infinite loop on xa node allocation failure
+has been added to the -mm mm-new branch.  Its filename is
+     mm-list_lru-fix-potential-infinite-loop-on-xa-node-allocation-failure.patch
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-list_lru-fix-potential-infinite-loop-on-xa-node-allocation-failure.patch
 
-- [High] The fix is meant to make devices that hand out unusable timing
-  values fail to probe.
-- [Medium] register_candev() (drivers/net/can/dev/dev.c:670-672) passes
-  only priv->bittiming_const and priv->fd.data_bittiming_const to the…
-- [Low] can_bittiming_const_valid() rejects more constant sets than its
-  comments and the commit body justify.
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch
-  leaves the same divide-error oops reachable from user space, and the…
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
---
+The mm-new branch of mm.git is not included in linux-next
 
-can: dev: reject unusable bit-timing constants
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
 
-This patch extends can_bittiming_const_valid(), which register_candev()
-calls. The function now rejects bit-timing constants with a zero brp_min
-or brp_inc, zero or inconsistent tseg minima, a bit time above 1024 tq,
-or a brp_max * bit time product that does not fit in 32 bits. The goal
-is that devices such as gs_usb that report unusable constants fail to
-probe instead of crashing can_calc_bittiming() later.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-> diff --git a/drivers/net/can/dev/dev.c b/drivers/net/can/dev/dev.c
-> index 769745e22a3c7..db541f935d102 100644
-> --- a/drivers/net/can/dev/dev.c
-> +++ b/drivers/net/can/dev/dev.c
-> @@ -595,15 +595,50 @@ static int can_get_termination(struct net_device *ndev)
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-[ ... ]
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
->  static bool
->  can_bittiming_const_valid(const struct can_bittiming_const *btc)
->  {
+------------------------------------------------------
+From: Muchun Song <songmuchun@bytedance.com>
+Subject: mm/list_lru: fix potential infinite loop on xa node allocation failure
+Date: Sun, 22 Nov 2026 11:11:43 +0800
 
-[ ... ]
+__memcg_list_lru_alloc() populates missing list_lru_memcg entries
+top-down, from the farthest unpopulated ancestor down to @memcg.  When
+storing the entry for an ancestor (pos != memcg) needs a new xa_node,
+xas_store() sets XA_ERROR(-ENOMEM) and leaves @pos unpopulated.
 
-> +	/* can_calc_bittiming() rounds the bit-rate prescaler to a multiple of
-> +	 * brp_inc and divides priv->clock.freq by brp. A zero brp_inc divides
-> +	 * by zero directly, a zero brp_min lets brp become zero.
-> +	 */
-> +	if (!btc->brp_min || btc->brp_min > btc->brp_max || !btc->brp_inc)
-> +		return false;
+If the following xas_nomem() also fails to allocate, the inner loop exits
+with the error still set, but the outer loop ignores it and reruns on the
+same unpopulated ancestor: xas_set() then resets the state to XAS_RESTART
+and retries the store.
 
-[Severity: High]
-The commit message says a device that hands out unusable values should
-fail to probe. Should that also cover the clock frequency? gs_usb takes
-it from the same GS_USB_BREQ_BT_CONST response:
+A one-off failure is recovered on that retry, but as long as the
+allocation keeps failing, e.g.  under sustained memory pressure, the loop
+makes no progress and, with no schedule point, becomes an RCU stall / hard
+lockup when the caller holds mapping->i_pages.xa_lock with IRQs disabled.
 
-drivers/net/can/usb/gs_usb.c:gs_make_candev() {
-    ...
-	dev->can.clock.freq = le32_to_cpu(bt_const.fclk_can);
-    ...
-}
+Stop the outer walk when xas_error() is set so the existing cleanup frees
+@mlru and the error is propagated to the caller.
 
-Neither gs_make_candev() nor register_candev() checks clock.freq. ucan
-does the same with device_info->freq.
+Link: https://patch.msgid.link/20261122031143.3639941-1-songmuchun@bytedance.com
+Fixes: 28e98022b31e ("mm/list_lru: simplify reparenting and initial allocation")
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-21c1dba9-8d6f-4368-b38b-9a57cacb056f
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Cc: Dave Chinner <david@fromorbit.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: <stable@vger.kernel.org>
 
-Take fclk_can = 0 and constants that pass the new checks (tseg1 1..16,
-tseg2 1..8, brp 1..1024, brp_inc 1). A bitrate of 0xFFFFFFFF then seems
-to get all the way through can_calc_bittiming():
+ mm/list_lru.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-	brp = priv->clock.freq / (tsegall * bt->bitrate) + tseg % 2;
-	    -> 0 + 1 for odd tseg, passes the brp_min/brp_max check
-	bitrate = priv->clock.freq / (brp * tsegall);
-	    -> 0
-	bitrate_error = abs(bt->bitrate - bitrate);
-	    -> abs() works on a signed int here, so this is 1
+--- a/mm/list_lru.c~mm-list_lru-fix-potential-infinite-loop-on-xa-node-allocation-failure
++++ a/mm/list_lru.c
+@@ -626,7 +626,7 @@ static int __memcg_list_lru_alloc(struct
+ 			}
+ 			xas_unlock_irqrestore(&xas, flags);
+ 		} while (xas_nomem(&xas, gfp));
+-	} while (pos != memcg && !css_is_dying(&pos->css));
++	} while (pos != memcg && !css_is_dying(&pos->css) && !xas_error(&xas));
+ 
+ 	if (unlikely(mlru))
+ 		kfree(mlru);
+_
 
-The relative error is then 1 * 10000 / 0xFFFFFFFF, clamped to 1. That
-is below CAN_CALC_MAX_ERROR, so the function goes on to:
+Patches currently in -mm which might be from songmuchun@bytedance.com are
 
-	v64 = (u64)best_brp * 1000 * 1000 * 1000;
-	do_div(v64, priv->clock.freq);
+powerpc-mm-make-vmemmap_populate_compound_pages-static.patch
+powerpc-mm-drop-powerpc-vmemmap_can_optimize.patch
+mm-sparse-vmemmap-drop-vmemmap_can_optimize.patch
+mm-sparse-vmemmap-drop-pgmap-from-vmemmap-population-apis.patch
+mm-hugetlb_vmemmap-fix-hwpoison-state-races-during-optimization.patch
+mm-hugetlb_vmemmap-fix-pmd-split-tlb-flush-race.patch
+mm-hugetlb_vmemmap-fix-deadlock-during-pmd-split.patch
+mm-list_lru-fix-potential-infinite-loop-on-xa-node-allocation-failure.patch
 
-Can this divide by zero with RTNL held, via
-can_changelink()->can_get_bittiming()->can_calc_bittiming()? Would a
-non-zero clock.freq check in register_candev() close it?
-
-> +
-> +	/* The time segment loop counts down from the maxima to the minima.
-> +	 * Zero minima make the unsigned loop counter wrap around, a minimum
-> +	 * above its maximum makes the loop bounds inconsistent.
-> +	 */
-> +	if (!btc->tseg1_min || btc->tseg1_min > btc->tseg1_max)
-> +		return false;
-
-[Severity: Low]
-Is this comment accurate? The loop in can_calc_bittiming() is:
-
-	for (tseg = (btc->tseg1_max + btc->tseg2_max) * 2 + 1;
-	     tseg >= (btc->tseg1_min + btc->tseg2_min) * 2; tseg--) {
-
-Only a zero sum of tseg1_min + tseg2_min makes it wrap. With a single
-zero minimum the loop still terminates. A resulting phase segment of 0
-then makes can_sjw_check() return -EINVAL.
-
-The min > max checks for brp, tseg1 and tseg2 do not crash anything
-either. No candidate is found, and can_calc_bittiming() or
-can_fixup_bittiming() returns -EINVAL.
-
-The commit message says "brp_min and the time segment minima are just
-as fatal". The min > max checks are only mentioned in the v2 notes below
-the --- line, and those are dropped when the patch is applied.
-
-A gs_usb or ucan device that reports, for example, tseg2_min = 0 or
-brp_min > brp_max will now fail to probe. Could the comment and the
-commit message describe these checks as rejecting nonsensical values
-rather than as preventing crashes?
-
-> +
-> +	if (!btc->tseg2_min || btc->tseg2_min > btc->tseg2_max)
-> +		return false;
-> +
-> +	bit_time = (u64)btc->tseg1_max + btc->tseg2_max + CAN_SYNC_SEG;
-> +	if (bit_time > CAN_MAX_BIT_TIME_TQ)
-> +		return false;
-> +
-> +	/* can_calc_bittiming() and can_fixup_bittiming() multiply the prescaler
-> +	 * by the bit time, keep the product inside 32 bits.
-> +	 */
-> +	if (bit_time * btc->brp_max > UINT_MAX)
-> +		return false;
-
-[Severity: High]
-This is a pre-existing issue, not one introduced by this patch. The
-commit message calls the tsegall * bt->bitrate overflow a separate
-problem. Because of it, the divide error shown in the changelog can
-still be reached from user space on every device that has
-bittiming_const.
-
-can_changelink() copies struct can_bittiming from IFLA_CAN_BITTIMING.
-It calls can_get_bittiming() before the bitrate_max check, so
-bt.bitrate has no upper bound when it reaches can_calc_bittiming():
-
-	brp = priv->clock.freq / (tsegall * bt->bitrate) + tseg % 2;
-
-Take bitrate = 0x80000000 and tq = 0. For the first even tsegall, the
-32-bit product wraps to 0. The loop only exits early when bitrate_error
-is 0, which cannot happen here, so the loop always reaches an even
-tsegall.
-
-Can something like "ip link set canX type can bitrate 2147483648"
-trigger the divide error with RTNL held? The new bit_time and
-bit_time * brp_max limits only bound brp * tsegall.
-can_dbt_changelink() looks like it has the same problem for the FD and
-XL data bit timing.
-
-> +
->  	return true;
->  }
-
-[Severity: Medium]
-Should register_candev() also validate priv->xl.data_bittiming_const?
-It only does:
-
-	if (!can_bittiming_const_valid(priv->bittiming_const) ||
-	    !can_bittiming_const_valid(priv->fd.data_bittiming_const))
-		return -EINVAL;
-
-The XL data constants reach the same code. can_changelink() calls
-can_dbt_changelink(dev, data, false, extack), which sets
-dbt_params = &priv->xl and passes dbt_params->data_bittiming_const to
-can_get_bittiming(). can_calc_bittiming() then does the brp_inc
-division, the tseg loop and the freq / (brp * tsegall) computation with
-those constants.
-
-A CAN XL driver that registers bad XL data constants could still hit
-the divide by zero or the wrapping loop. xl.pwm_const is not checked
-either, and can_calc_pwm() divides by
-(pwm_const->pwms_min + pwm_const->pwml_min).
-
-Today only dummy_can sets xl.data_bittiming_const, and its static
-values are valid, so nothing in-tree triggers this yet.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261121094534.5221-1-25031212351%40stu.xidian.edu.cn
