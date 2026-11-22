@@ -1,79 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795350976;
-	b=LS+vFVY85G4NGs59/9Ypla8zLCWkBQ8R0w6G8ajfJNanojN68NKQD9+bjAzd8fb1NEy0
-	 XODC/TojldWJZtSQrZqc5XHX5XOh9+w3wNtWLCE4JS6zRfITXld0WfbwgU9O5CHQIMnJ0
-	 OplS7ue7yPtrfbU2gDtcbFjxZwIGhqGDrkkrgGzSRHHGgI1gwGB5PVTqmEUrHaaOsipka
-	 56IlcukzCrEPM5k/t5GUU6FH/Jx76fOf5u1ZiYJw0LYaTnR9ChG+F0OH6QdQdui1HOA5r
-	 IR0vgk8E12+A8QmyFH7PNC2GnT35nVR5pkcllIgdMU3ItxdQq8tNG0+GAeY3o5o9DGA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795350976;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=D1MuXXQSfxhAunCSCh6B0Ouy7me/RMME2XCu8g9bTPk=;
-	b=JTN/lox5/bWr2ji1jfuK+EvEw2daGFSQ4NAM949AavdIylc0AJ6LMY17gEVAsPJUIxe4
-	 U+yHRiz0OQ6uyEAN8WtGJYJ9sGPe8FJpiU+gu3LCz5ULDSLmifISKunzvX/uapWJp8+dd
-	 dxL5oiv3UUiuTTT2PECu7L726ayfdmkUod9QYeBmMLtEmpZYA1ZX+4tbhTRn7S0LMFQGN
-	 mrOPUycvch1/fVxGoIf0+iC7n0QYuR1ZG7dQukZrpB9J9nO45TiYppbzh+/BOVdYDMRZD
-	 95Y2QXKVsWukOjfaxHYS2jck0wkzeeiHnDqMSomNz3WvN5+YdKrd6FWItzA6IM62vHg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DErrCV2Z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795351359;
+	b=rONarDplDYfpUA9GtGhug8FF0HdSO7x8Rc2I6LqS4f6jKoi+icHPJf5zHnDhdsxXhcQg
+	 sq/1E/MaSw8RfhV5iGK1vitoYT1NLEp2bv4L+KoL/HvJCcnlo12tj2B3t39zBWsw96CG0
+	 wK39s1p2AUMOu5eRbsLMAMCdMgrRW23K6ZXmc8pXlq6unZf+ARWu6PKpVFYqiv8uaFdMn
+	 dsM9Ketf6C+Gw0O16G26UhUDDoGKvdXEhefkNLFTzbH1W4HvxAuh8exMRc7r4nMStvgSR
+	 hiQ02JZxQHXlVJ67zrkxK3fi+ojOfFN2mwBp4C6EfWKlxiHqaAh5Xxg0/gpStAa2ulw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795351359;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=VocNkS/2cBGTqC/iQ+yEVdcXEbMXCrY7zeEC95RbIoU=;
+	b=ibFL9gxeVDUdvoDnN0mrVIkHeyhi4+2/3A1NzYLYTIpAhNqr6o9l0HCzVhUTGfuoyh69
+	 H99cz0hb1ytrHQ7RiUI7lj18q7kqXsOp+DuG4afcPmy8KHB+tmfJleMWj99JEcIUs/lv4
+	 0rEXG8HUBuKvN0Jd5tpe0I3+/w7hovDzkldodAOuu78LmVFGTOorVEIg7LQ5mZ+Q4h66G
+	 MSWyhduVfkwOR/5uuFnlAHS/TCoHXIeQ5INFBQWMYHIUzZA6lWILBD8j6gb1rKdrWFS2z
+	 dEKIH91o65PF/rUFRBqTzPW/0xB5kPjE9X3WJK4RirANTS0Ks8RThQPFcg5VFXou9wQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ui1TIecL;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE10606A334;
-	Sun, 22 Nov 2026 12:36:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF02606A320;
+	Sun, 22 Nov 2026 12:42:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DErrCV2Z
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795350975;
-	b=TlUf0tkslfILivUUVgJnATx4YaImhYK8Sdw+RjfoywYicJV7xHSg1f6PiWzk9eldwEye
-	 64wkyX+SXwoE9YrENcy/wWGSPLy7dsyq6ohoqkrm8kweOMjGm0y4F+c+uAwovCIYcsgg/
-	 UDx57bHwlu5p3Zsd2I4HMg+zgsqLnQNBIkaGedUUDDMmLPHrmXjmBqQJJH1RbFc6+tZIe
-	 A67wW9gNYYCUUkc00Osh0bbSgUbjk5WcwCTrXKZpMm9jUbaUsm+FURZkORloug+xI5sbC
-	 QqUdRV+OwMDXvwIh3MhvBsF9h7DfNi0OVk9NHhDXlzzAJ2sJbAei4JJOpdsN5vZKKZQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795350975;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=D1MuXXQSfxhAunCSCh6B0Ouy7me/RMME2XCu8g9bTPk=;
-	b=LNhLiN2mleLAvbItwQgSTFlU8IsTKxjpRqXv2HDWIbPRgOGfygX5OeCR9oeO3E03eq4P
-	 LdWks5fGQmet5nz0i5AEE1YKI757whhXCMFyQfEe26fFzQFUTIfvMOMEl7XmnZajYp7OZ
-	 V8mLCOOpEUFNa4hXaaSljObL59tl8Nw5g4HmjJPdKJABDxJDdy8TsjmEtYVc5FnlBJ8ds
-	 RyZxgom0tI4nR0CYduV/DNWjimWnauQlBjQdtNmEdOtUca3LztGrJmp15Tf4D7iUQ4QDK
-	 2I9Y0x4mLaDIccccaMEkCweYmB0IeZYMIZSOravp+SzjJO0apXabCZJAT2KI9kSqZ9Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8EF031F000C0;
-	Sun, 22 Nov 2026 12:36:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ui1TIecL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E61DB1F000D4;
+	Sun, 22 Nov 2026 12:42:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795350975;
-	bh=D1MuXXQSfxhAunCSCh6B0Ouy7me/RMME2XCu8g9bTPk=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=DErrCV2Z5RTpLrsTGHncZJXKIme+4NdUsuvpEOF5547jjRVV7JbeFlEBvdYYHbEyt
-	 /VLlYIbFyB/evb9wrE8GiQJlL9aDhIekndjm++T5tTQGUO+PgXd8uH+dyRTDtTptJt
-	 dQkCsGa8qoXnnCqBgqfMYAhIO9tSRsnrE7Qkhtyn43NL4uLXBO0YTqJlzlOdRCxpu8
-	 VkuyJCklx6x+Tq8fs+QCKwrIO78uHQiwf2kGNjjdKan56OR3CFabD2mC//rRpiO2T0
-	 alnuRrfobf3Y9aIBaYBxornkE0o1eKmMxbvY7ZjK8+16oGFaH6JdNiOAddn8arF2hx
-	 QfZ3h0/plgdDQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E157F4C035;
-	Sun, 22 Nov 2026 12:36:11 +0000 (UTC)
-From: YanXin Li via B4 Relay <devnull+fadouse.pm.me@kernel.org>
-Subject: [PATCH bpf v4 0/2] bpf: bound arena allocations to the user VMA
-Date: Sun, 22 Nov 2026 20:35:35 +0800
-Message-Id: <20261122-b4-03-bpf-arena-vmalloc-oob-v4-8090cdc58ff8-v4-0-d542d1233623@pm.me>
+	s=k20260515; t=1795351359;
+	bh=VocNkS/2cBGTqC/iQ+yEVdcXEbMXCrY7zeEC95RbIoU=;
+	h=From:Subject:Date:To:Cc;
+	b=Ui1TIecLzRfZvfuZEq3oVQVO168omOXqtg/+Obb8kscYYVhga71dOJoyd3yF5d8tD
+	 VIhPRl9yFR2eNKo+S2XB0VQ3BBm9aLMfZPW2oMutfD8gBOPs+ghhND5zvUFO/BAAxZ
+	 p+tkDyFjnj6eEyiTQY+bqTvBgcFpDqakl3Q5nr9PkZOrYZSQ9zSPLEl2XwA9r9/JG7
+	 W/7uLVrdAWW6Kvn//5faO9dCi1pB6qYvqTP1KShYslpZr09ApQEZ1GOYcjqePDcKwD
+	 RxivDXDqZCANZXw/JrGYZjxmapcGYZepAw3e4sV9L83JbcoTnQ3LqbdJWL8G6yG8XR
+	 XWaDBLuuN+tZQ==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH 0/2] mm: fix deadlock on the folio lock due to inode
+ eviction
+Date: Sun, 22 Nov 2026 13:42:16 +0100
+Message-Id: <20261122-migrate_reclaim_deadlock-v1-0-83c56185b0fb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,74 +56,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJfhAmsC/yWN0W7CMAxFfwX5edZSx2SBX0E8OIk9MnUtSqDah
- Pj3tePxHl2d84CurWqH4+4BTZfa6zytg992kC8yfSrWsm4gR2EYiDAxOo/paihNJ8HlW8Zxzjj
- PCRfG6A4ul7yPZhGNNB3ULJQUYTVem1r9+a+dYFXA+QX7PX1pvm2d7ZakK6YmU75sqOkov7jB9
- 8w8ODYfmIp8kBsCO6ZAXjl6ij6IWilR4fn8AyNqmCDaAAAA
-X-Change-ID: 20261122-b4-03-bpf-arena-vmalloc-oob-v4-8090cdc58ff8-f2eb9eff6db8
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, bpf@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMTQrCMBAG0KsMs27ADKVoriJS0uSzjvZHJq0Ip
+ XcXdfk2b+MCUxQOtLHhpUXniQP5ijjd4tTDaeZALAdpvBfvRu0tLmgNaYg6thkxD3N6uLqGHCH
+ SdKfMFfHTcNX3rz5f/i5rd0davh/v+weun7c5fAAAAA==
+X-Change-ID: 20261121-migrate_reclaim_deadlock-44e28e226b9d
+To: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ William Kucharski <william.kucharski@oracle.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Joanne Koong <joannelkoong@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>, 
+ stable@vger.kernel.org, Chris Mason <mason@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795350970; l=1694;
- i=fadouse@pm.me; s=b4-relay-20261122; h=from:subject:message-id;
- bh=e0ZiUtyczM9A0TUsQiCpAJ4gxT0Nz/VbMD25/XSK4E8=;
- b=Jztxt8PhcyvKwjpW2x7GxAqcM0Y5UxoLrt7ySghXScqL8VYGr4htosk7yZLSWZU/61JkjLdj1
- Oz50foA8PhqAutsLos5oDBzuKgar6YQVPy5fg1ecUq3lKrbr/rAyZ6v
-X-Developer-Key: i=fadouse@pm.me; a=ed25519;
- pk=b4DyzHJDRd8853IHUSKPA5wwzChj8eF4MTnZuyPz1PQ=
-X-Endpoint-Received: by B4 Relay for fadouse@pm.me/b4-relay-20261122 with
- auth_id=1597
-X-Original-From: YanXin Li <fadouse@pm.me>
-Reply-To: fadouse@pm.me
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2395; i=david@kernel.org;
+ h=from:subject:message-id; bh=EVf3IUvbYA/h7bHadHrnyZL6o9BArIID6FP5pA54HGY=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKZHuu89Sg1TAtgl6hLsJKeGJF87WPwHr493CfKH8bti
+ dmyIdGso5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgIkcyGBkuJryZkPgurlvTi44
+ 3K1j35XTk3fuc+BFNv6gE4p6lTK/NzMy3Dlz2TvkyJPPE78FT5XMl6vkkzdTPnbbwbM45u267G8
+ HmAE=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-When map_extra is omitted, a short first mmap() can leave free arena
-pages beyond the user VMA. Automatic allocation can select those pages;
-near a 4 GiB boundary, the kernel mapping can extend past the arena's
-vmalloc reservation. Patch 1 confines the range tree to the VMA, and
-patch 2 adds a regression selftest.
+Whenever we allocate memory with folio locks held and trigger direct
+reclaim, we might end up trying to evict an unused inode. Evicting
+inodes with a populated page cache takes folio locks, and if we happen
+to need one of the folio locks we already hold, we'll deadlock.
 
+This can, in general, not happen if we also pin the folio's inode: for
+example, through a VMA that cannot go away concurrently. However, we
+have some scenarios where we hold folio locks without pinning inodes.
+Examples include page migration and some folio split users.
+
+FUSE makes this easier to trigger, because it evicts inodes on the last
+reference. A similar deadlock with FUSE was recently fixed in FUSE [1].
+
+Let's handle folio splitting by simply running in NOFS context. We only
+perform small allocations, so it doesn't really make a difference.
+Interestingly, this also fixes one of a handful of possible memcg v1
+deadlocks.
+
+For page migration, change the code to allocate destination folios
+without holding folio locks, which is in any case the right thing to do
+to reduce folio lock holding times.
+
+Some of this might also be fixable using Jan's work on deferred inode
+reclaim [2]. However, that is not stable material, and not allocating
+folios while holding other folio locks is an improvement on its own.
+
+Unprivileged users can trigger this deadlock with FUSE and
+mbind()/migrate_pages(), however, it requires multiple NUMA nodes and
+quite some luck.
+
+I reproduced the original deadlocks with FUSE and made sure they can no
+longer be triggered with these fixes. Further, I ran the usual migration
+and folio splitting selftests.
+
+[1] https://lore.kernel.org/all/20250925224404.2058035-1-joannelkoong@gmail.com/
+[2] https://lore.kernel.org/all/20261009133253.20102-1-jack@suse.cz/
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
-Changes in v4:
-- Check the first allocation in the selftest and remove the incorrect
-  offset-zero NULL comment. Patch 1 is unchanged.
-- Link to v3: https://lore.kernel.org/r/20261122-b4-03-bpf-arena-vmalloc-oob-v3-da2dc21683c6-v3-0-1f94ae9a884a@pm.me
+David Hildenbrand (Arm) (2):
+      mm/huge_memory: use NOFS when allocating while splitting folios
+      mm/migrate: allocate destination folios before locking a batch
 
-To: Alexei Starovoitov <ast@kernel.org>
-To: Daniel Borkmann <daniel@iogearbox.net>
-To: Andrii Nakryiko <andrii@kernel.org>
-To: Eduard Zingerman <eddyz87@gmail.com>
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>
-Cc: Song Liu <song@kernel.org>
-Cc: Yonghong Song <yonghong.song@linux.dev>
-Cc: Jiri Olsa <jolsa@kernel.org>
-Cc: Emil Tsalapatis <emil@etsalapatis.com>
-Cc: Ihor Solodrai <ihor.solodrai@linux.dev>
-Cc: bpf@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
+ mm/huge_memory.c |  10 +++++
+ mm/migrate.c     | 134 ++++++++++++++++++++++++++++++++++++++++---------------
+ 2 files changed, 107 insertions(+), 37 deletions(-)
 ---
-YanXin Li (2):
-      bpf: bound arena allocations to the user VMA
-      selftests/bpf: test arena allocation after a short mmap
-
- kernel/bpf/arena.c                                 | 25 ++++++++++
- .../testing/selftests/bpf/prog_tests/arena_mmap.c  | 53 ++++++++++++++++++++++
- .../testing/selftests/bpf/progs/arena_mmap_alloc.c | 33 ++++++++++++++
- 3 files changed, 111 insertions(+)
----
-base-commit: c44104f3642da720164042623e4832836aefdd8e
-change-id: 20261122-b4-03-bpf-arena-vmalloc-oob-v4-8090cdc58ff8-f2eb9eff6db8
+base-commit: eb01811cc3713af1f78dfe18fa89c5270ebfc767
+change-id: 20261121-migrate_reclaim_deadlock-44e28e226b9d
 
 Best regards,
 --  
-YanXin Li <fadouse@pm.me>
-
+David Hildenbrand (Arm) <david@kernel.org>
 
