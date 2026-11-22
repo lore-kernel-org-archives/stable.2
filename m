@@ -1,55 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795344541;
-	b=xSWOdRIpF98yolLBJzAlp9zlyCgQmFjBuPByr71kVuLc16hl7ExosUicWA0G9r+IiWVL
-	 yDmfMuRkqT2UkO1Rc8pfIgcJDV5TTyM74lXAqEsy4FSsw5EbNW2FkW2blRVtXg2AzY2vs
-	 sS0DgUEYQQ4LAT2/P+pJ24Ggc1CYApSZ3CtNznmq2fmsrZqUJ3mE4/qARxUYCK1hoAx4Q
-	 uEFwtff3i32UiMmFmm+YxznhUG3xeTtKouWuacrtJGhJGPqppWHC0hlYz8IfyZnoCRSws
-	 6iZe0XQoy8Scz0N6zf5lf6uCBOt/XjCEK1Avahp3E/sG0HzahowJ5JhViOSWHjI93uw==
+	t=1795344750;
+	b=wGlaaXb1fADcKMHL6W/pfGapFki99jNg273tPO/Rjny2XkuNaW9SBtoCCsAIniWc39v6
+	 lESiZbF83LdOrazporF61jgfIJ12hsnvuGIyYBFojv1GT567I3g6kwaZagF3S8USFFaES
+	 Yccf27hDzbqDyGKow8wxpT1r6Ywic+WLXzklUrUaQu/eR4k5o3pCwVvdNhstyWQOh/5vi
+	 Tpz+7WqmLSEaaKxyxJo+4e9DffcSIIUinCF8+Xs9FqHQAFEc9sli3q376AujvxVDJDwMA
+	 f8NNSAoLxqB7Dh8A6D/1Nnlmxg5ReB4Zoe0w37k9ky0Natb0PT0vmLe3pp1V/EvtMRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795344541;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=82vT/MidDA+8aMYka2WD5yUJcaeeqPoH6Zw6wVte8cw=;
-	b=rsU7GPeB9cOplK7P6ERNXvytiXMBWtGDoKTJlqoAUZaMQX2e6CEPZD5RgXUkYGH6804g
-	 FmJJalGdP2xnui/DqS5YEuYneYC4xbK7bsI/qxafEa0PVKueVgieL5QCXGeKUalMjO5nz
-	 PGfqFVFTSZ/w5Pxloe9jM8vgiXd5GHlbhCC004H2gkoSrnWyOW9NWS+w1q8uXW8phkama
-	 SgC+YS2R+jtqXMigJ4DSvVsLnRUBWtw2Wq3gwM9BzWrtrQaQ/09oYAGD1QotuwwH/gwze
-	 Dmphx3u/Jjz6QiXanIvUHczESs71aQNkziRfEhczYlAYr8S1VnrSzpaMBOhwUXit5MA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795344750;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=UAqUUG+uJGPdeDnCBEIvoKUTIOnssMLWS4UgPSuy47Q=;
+	b=DmkSzFvfyZ4cpgsfXOdPpZLSCR4hd8xIHcN1JJjnZvsqkNzRONXEWSYz64Azp3tRYo+e
+	 M4X9oCR2zneKKFetdoGWVHsmnjRzlsFUzioL46ePGyX88NHbvGL4fJFmjIUWu7eNo65eh
+	 hJ7TxB7kAyEGq91La2s1dkktTbQ97kRgKDloxEGlHQE9UBKvSGJyBU4L+sH7dTyt3xVmx
+	 ueQfuFpPtk1caC0cYnDm2FoKpvJ2Qirg+uBl4DROrG1n+bl2aixzQsUwzyezGwVMK0eEn
+	 gRxsq9FVmiQ80MTOhjV5JKv+71tcFophIrY5QE2bb3sqNEnu7q6QroW3X7CFU1guq9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q3tRe0tK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2FA606A32C
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 10:49:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q3tRe0tK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC47A1F000D1
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 10:49:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795344540;
-	bh=82vT/MidDA+8aMYka2WD5yUJcaeeqPoH6Zw6wVte8cw=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=Q3tRe0tKc+da4fHoKNZggf+QYLWK/vw/RT2uLgHl0fU/2aO0OT1jAjK4bf+xeyIbM
-	 WL5hrs5EqOPsI9Vd5n5n73nG13jsMd/zZQ26MhWur+5jcjOH/qUU+/c5ND84/GrT06
-	 atCOmot23FoQM6oc7n8w4ILuhPkx35rD9bRB54dUrP44iPF16GIc0fJMnFtY6UnvcR
-	 cBdftCQ8izLhWvRPd0DkX4YKlQ7fetTicDR1Knq+We68oZSx3vBVpS5PFdBROluTQJ
-	 cgcDOCp3iBzj5huZTUfRRDJ+w882AMl5P4dHV9ipwgLRUi3SATQhzFVCVkSwJeoEpg
-	 XxAKPk49RUx0g==
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3ae81ae52ffso15577581fa.2
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 02:49:00 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGbhjeP9B4yZMyGJKUTygy9+g7mMQbCMWe93r6sUSjaMhwElNdGedxn/+D0tqpmJVu4nhM0Gtw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xfIqomIsSolDpPBOGkBiWDCzB+YqKk/o78wDLNcTWfJZdE7e4
-	8cc/ZWfgiz8pqovVHreb+oz1yaEeKg0UFqx1yHy7za5BlZdylB4v4VIsCEnflTo1+TzUOdOkyKs
-	PPMcdMvHre7JdRgag6QpSooMNVnqw5Ew=
-X-Received: by 2002:a05:6512:6811:b0:5bf:a209:f81f with SMTP id
- 2adb3069b0e04-5c1bc8227e0mr1708230e87.37.1795344539095; Sun, 22 Nov 2026
- 02:48:59 -0800 (PST)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC6A9606A32A;
+	Sun, 22 Nov 2026 10:52:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC6A9606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=UAqUUG+uJGPdeDnCBEIvoKUTIOnssMLWS4
+	UgPSuy47Q=; b=FW6C89H526SNi/DA58Fz5h5PVjnoKEgr8PiA4Hp2KyUSu04pk3
+	4bgGXNLoE/JPeU5xRFkEBEs9acKN6xytlTWDy4czgj2oCD6uyCwlHcf0LLdaHqCI
+	s+TflVy6w2KQ9tG5lXM984ErqDt+4SEbP6cKn+QyOuNKnEMKVn2k8WAg0=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.70])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkAGRfpeyQJru3oPAg--.38485S2;
+	Sun, 22 Nov 2026 18:52:15 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Sean Young <sean@mess.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	=?UTF-8?q?David=20H=C3=A4rdeman?= <david@hardeman.nu>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v4] media: rc: fix use-after-free of rc_map.name on register error path
+Date: Sun, 22 Nov 2026 18:52:13 +0800
+Message-Id: <20261122105213.10146-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261122092155.11550-1-25031212351@stu.xidian.edu.cn>
+References: <20261027014144.9144-1-25031212351@stu.xidian.edu.cn>
+ <20261027021718.14264-1-25031212351@stu.xidian.edu.cn>
+ <20261030.pref-04.ec83d43911ee476d@stu.xidian.edu.cn>
+ <auRsPM9YO4aXd8qL@extorris.mess.org>
+ <20261030130535.2921-1-25031212351@stu.xidian.edu.cn>
+ <awIShD1k89rEsIc5@extorris.mess.org>
+ <20261122092155.11550-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,73 +69,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122-sun8i-emac-mtu-limit-v2-0-c4081e5b83cf@gmail.com>
-In-Reply-To: <20261122-sun8i-emac-mtu-limit-v2-0-c4081e5b83cf@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 22 Nov 2026 18:48:47 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66oxp7G92psuF-pQsha5doh47j2gSMiTY7PAB2dYfozUw@mail.gmail.com>
-X-Gm-Features: Aa3M54r7bLOgFVd2AUy7gPHcb4qGTG5JYucqFv0oQ6biMXQehq8fLcl6BjtfAGY
-Message-ID: <CAGb2v66oxp7G92psuF-pQsha5doh47j2gSMiTY7PAB2dYfozUw@mail.gmail.com>
-Subject: Re: [PATCH net v2 0/2] net: stmmac: Limit the MTU of normal
- descriptors to one buffer
-To: aiyengar1990@gmail.com
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	LABBE Corentin <clabbe.montjoie@gmail.com>, netdev@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	Russell King <rmk+kernel@armlinux.org.uk>, Nicolai Buchwitz <nb@tipi-net.de>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-CM-TRANSID:BLQMCkAGRfpeyQJru3oPAg--.38485S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAr15Ary5ZFWDtF1xJFy8Grg_yoWrWr47pa
+	98KFW5t3yDKF4jqws8XF47Wa45uw4fAan8ury8J3yjgw45uryftFW5JFyUWa4DAr97CFy7
+	tF98J3y8CrWUCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r
+	15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4DMxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8-tx3UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUFD2sBtklaRwAAsF
 
-On Sun, Nov 22, 2026 at 5:13=E2=80=AFPM Arun Iyengar via B4 Relay
-<devnull+aiyengar1990.gmail.com@kernel.org> wrote:
->
-> Normal descriptors take frames of at most one 2047-byte buffer, but
-> max_mtu allows 3712 on arm64. Patch 1 limits it in the core, patch 2
-> limits dwmac-sun8i further to the 2044 bytes its RX DMA fills.
+If rc_register_device() fails after device_add() - for example when=0D
+ir_raw_event_register() cannot create its kthread - the unwind path=0D
+frees the keymap via rc_free_rx_device() while the device is still=0D
+visible in sysfs.=0D
+=0D
+A userspace reader of the uevent attribute then enters rc_dev_uevent(),=0D
+passes the registered check under dev->lock and dereferences the already=0D
+freed dev->rc_map.name:=0D
+=0D
+  BUG: KASAN: slab-use-after-free in string+0x483/0x4c0=0D
+  lib/vsprintf.c:737=0D
+  Read of size 1 at addr ffff888007ca9d80=0D
+   rc_dev_uevent+0xd7/0x1d0 drivers/media/rc/rc-main.c:1628=0D
+   dev_uevent+0x28d/0x570 drivers/base/core.c:2709=0D
+   uevent_show+0x1af/0x380 drivers/base/core.c:2756=0D
+=0D
+Clearing dev->registered before the teardown is not enough: it makes=0D
+rc_dev_uevent() return -ENODEV, dev_uevent() fails and kobject_uevent_env()=
+=0D
+drops the event, so the KOBJ_REMOVE of device_del() is never delivered.=0D
+The device has already been announced with KOBJ_ADD, so the remove event=0D
+has to be sent as well, and it needs the keymap and the driver strings.=0D
+=0D
+Keep the keymap alive until device_del() has been called instead: only=0D
+unregister the input device at out_rx, since it is a child of dev->dev,=0D
+and let out_free_table free the keymap afterwards, as it already does for=0D
+the other error paths.  device_del() drains the sysfs readers, so=0D
+rc_dev_uevent() cannot run once it has returned and the keymap can be=0D
+freed there.=0D
+=0D
+dev->registered is still cleared so that open lirc file descriptors=0D
+cannot reach the driver callbacks, but only after device_del() has sent=0D
+the remove uevent.=0D
+=0D
+Fixes: f56928abaa6d ("[media] rc-core: cleanup rc_register_device")=0D
+Cc: stable@vger.kernel.org=0D
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>=0D
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>=0D
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>=0D
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>=0D
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>=0D
+---=0D
+=0D
+Hi Sean,=0D
+=0D
+this is a rebase of v3 on the media tree: media-ci rejected v3 because it=0D
+was not based on a media-committers branch.  I have based it on fixes;=0D
+the function names and the structure follow what is there now, so the=0D
+helper from v2 is gone and the clear after device_del() folds into the=0D
+existing scoped_guard.=0D
+=0D
+The rest of the media-ci report (coccinelle, smatch, sparse and the rc=0D
+keymap checks) comes from the tree itself, none of it touches rc-main.c.=0D
+=0D
+Thanks,=0D
+YuanZhe=0D
+=0D
+v4:=0D
+ - Rebased on the media-committers fixes branch, as media-ci requires a=0D
+   media tree ancestor (v3 was based on v7.2.10).=0D
+ - The keymap is kept until device_del() has sent the remove uevent, so=0D
+   the KOBJ_REMOVE is not suppressed by rc_dev_uevent() returning -ENODEV.=
+=0D
+=0D
+v3:=0D
+ - Keep the keymap until the remove uevent has been sent instead of=0D
+   clearing dev->registered before freeing it.=0D
+ - Clear dev->registered after device_del() on the register error paths.=0D
+ - Rename the helper to set_unregistered() and drop the explanatory=0D
+   comment (Sean Young).=0D
+---=0D
+ drivers/media/rc/rc-main.c | 15 ++++++++++-----=0D
+ 1 file changed, 10 insertions(+), 5 deletions(-)=0D
+=0D
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c=0D
+index a867bf9e8416..a2a6ad2a7b0c 100644=0D
+--- a/drivers/media/rc/rc-main.c=0D
++++ b/drivers/media/rc/rc-main.c=0D
+@@ -2013,14 +2013,19 @@ int rc_register_device(struct rc_dev *dev)=0D
+ 	return 0;=0D
+ =0D
+ out_rx:=0D
+-	rc_free_rx_device(dev);=0D
++	/*=0D
++	 * The input device is a child of dev->dev, so it has to be=0D
++	 * unregistered before device_del(); the keymap is still needed=0D
++	 * by the uevent attribute until then.=0D
++	 */=0D
++	if (dev->input_dev)=0D
++		input_unregister_device(dev->input_dev);=0D
+ out_lirc:=0D
+-	scoped_guard(mutex, &dev->lock)=0D
+-		dev->registered =3D false;=0D
+-=0D
+ 	lirc_unregister(dev);=0D
+ 	device_del(&dev->dev);=0D
+-	/* registered already cleared above */=0D
++=0D
++	scoped_guard(mutex, &dev->lock)=0D
++		dev->registered =3D false;=0D
+ 	goto out_free_table;=0D
+ out_rx_free:=0D
+ 	scoped_guard(mutex, &dev->lock)=0D
+-- =0D
+2.34.1=0D
+=0D
 
-I think you should clearly state that *one normal descriptor* can have
-a buffer of up to 2047 bytes. And the driver is currently limited to
-using one descriptor per-frame.
-
-The way you write it makes it unclear whether it's a hardware or driver
-limitation. I believe it is the latter.
-
-> Tested on an Orange Pi Zero2 (H616) on net/main. Without the patches,
-> MTU 2029 to 2100 is accepted and ping gets no reply. With patch 1 the
-> maximum is 2021, with both 2018. UDP and ping are lossless up to the
-> maximum, and larger MTUs are refused. Ring mode and other cores are
-> untested.
->
-> Claude (AI) helped write these patches; I reviewed and tested them.
->
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
-> Changes in v2:
-> - Limit normal descriptors in the core (patch 1, Andrew Lunn, Maxime
->   Chevallier), keep the lower sun8i limit as patch 2
-> - Link to v1: https://patch.msgid.link/20261121-sun8i-emac-mtu-limit-v1-1=
--22492842d318@gmail.com
->
-> ---
-> Arun Iyengar (2):
->       net: stmmac: Limit the MTU of normal descriptors to one buffer
->       net: stmmac: dwmac-sun8i: Limit the MTU to 2018
->
->  drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 1 +
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
->  2 files changed, 4 insertions(+)
-> ---
-> base-commit: 890f23ba87a7ca1aba97c8320770a686e3b689fb
-> change-id: 20261121-sun8i-emac-mtu-limit-66a936064965
->
-> Best regards,
-> --
-> Arun Iyengar <aiyengar1990@gmail.com>
->
->
