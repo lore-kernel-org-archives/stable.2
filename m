@@ -1,85 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795363071;
-	b=wP9+T2qO0KE7fjMo4Hi43paZnqJ+mCWSjusLPsWgfjb15paEVT9LteIuMjhlg5IYLKCQ
-	 M6F6kV9O8LMyZzlFamfw8l27iIgXHm2eJzIW2LwJkNF2a00mp1rQUZPo3F39A5bG8P/0t
-	 bW5PHRmf1opx1YSi7OsrdnKrVw9vr+kptKOholPj6ypIL4o8YhFI/937A9fl2dF+xVfQr
-	 ZN1UxC7LZBGrs7vSq9US4L/poalCveIAr45FsXA5kiX02e4M3/4wxuZbMSfxI10x8sVJI
-	 XFLz5UT7iVnk+ZXbecjsdhPVtaSxVzGNPhwoH4N4oFua16NRBRFr9BqRKK00cqzBCrQ==
+	t=1795363319;
+	b=B38ZkXTU+L5abnYS6+eVp9T62LqEmHOqH/83CUjtQjLQWfL+x0ww2iwLhTjwEzgd3vL/
+	 lfdpGT1mtjaJuz9abZECgQKTQYWOguYxZjTXg6hVA60gZqOpFL2OXRQEB3yZn7Y7pEY80
+	 W10RmS1ZguHJFWhKxEK9aCWbXxk2e8897+vIEd1fEkVGPTNtZNe9q1msk6z25pM2YVuHk
+	 yg6MS7yeC3UpxYDTO1axaRTe51OyyvVTuGoBF3+KS84eK5MLxjhVSD9B8oI/6w7wmBvLJ
+	 jFDUXQ5SqscoMAWuySJlpCUUNLRYbX95GwkQjQLBWHR5284Kj4uzRFOhNdurEiM75DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795363071;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=NcHYZCZqGjruQWjTBcuHdUshGK9b343QactbdxqWzZY=;
-	b=JMM55WneGhlpaAQBTh36KqaLcXVJJZONUe7du/cAJi4EMdLsz8sTafYiDHWyZIt8+1ne
-	 BlievGdsKN6KU9G+ygQGurBSRK+J3uhp7G84tBQquCeNlTu1dRNT8TvFVkqqPQBmzNGnt
-	 CVVTlLdh9MX1wuuPHnGVdHWxGQ1gHNJ0KaLP62/Puc83Ers3nanDlNxfDtR5+cCdMQ0lU
-	 dhLKDOk/7VYJ+8YLLcCLtWICAo8wdpRa35vCmVdDxd9Z6vLQR3HxUSO8anlThgXT/zgpM
-	 YicP5JUzyxSje9mUWozvtQ2mrOLqeeK7lS+5VdRbZZrbTtIJjX6c8/6rD9+zh9bQvog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795363319;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=XDld9PW066p+crnVitgqt2+/tNYD/KUw0fQ/XW/KMSE=;
+	b=sa7mclLW/m6pQlsvk7b98w71EmAE1JRfT3aFeqi5h7jdUqpNgTgHjTByALVizVjTgLF7
+	 ScP3nW6S8VhyL2ejveMBzAQdethxZY6f3EiJgwOASJ+kNltYyV+24feR3rBLKZyIsB6QX
+	 ptmelMqh57qR/fqEHY7aFOrKuinHNxk2orR0QF/cykEAXYy0tXCOllpCbRW4xTERL1eft
+	 L+tHsBBhAy2CLDiTf7T5U2v74bMXne10Zsw3dshZI0Chs/EolGQ45PkEU1LfSci6eUXh2
+	 Z7GgkLnx9Zc+S/FfhSorZ3jmfeWqP8ccDjtNz2suwQ1zQAuCKFcHP9uIqaozo0ohoOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=gZdD4iL+;
-	arc=none smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=Dnz9DvTP;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=FLmBb5pS;
+	arc=none smtp.remote-ip=202.12.124.149
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EBF4606A334
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 15:57:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EBF4606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DB0606A332
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 16:01:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0DB0606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=gZdD4iL+
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-55d30c054dfso29275781cf.0
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 07:57:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1795363070; x=1795967870; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NcHYZCZqGjruQWjTBcuHdUshGK9b343QactbdxqWzZY=;
-        b=gZdD4iL+abU4Mzjip+DJfEODgFHTCI/oDFfGXiCuj+fb+jKPYGI7fU5Sgn3OKHWLSl
-         ragXJYpVwBDZStr52fuNAfmohtbdaYsnhDoCIr/svjFRJmIZCHi7Ru9d9vydEd0toqAn
-         baTWTeB4acxxU3VXc0uEggLWh7HP+yqJ0s7U6ti7RR0836GImvv8X0OI/kYP8lePzEZC
-         eehrQTypywKuGGgubg1kVEYsCcDER6mFlkdH8Pcm20SYXQiJ2OiXC5CxWfiFgOlE/k8f
-         36xw0sAzSMKFNHofS1VHHizRRyysI5G6OKgYUYuD+fql9l8VwKW4DPFqanR9y2RUtV2M
-         c+cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795363070; x=1795967870;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NcHYZCZqGjruQWjTBcuHdUshGK9b343QactbdxqWzZY=;
-        b=vG1BOtvpIGsO0NQDCtXTmczCajXnVdvpyWOdzieH6evEOa5E0fWy5YPi7esVnsvEI/
-         b9sVG7BU3anTn2ZAHojmBpZag5Xkp/wAkTG8Ecf9TU9cRZd2lidOuefEav0w026/S69i
-         Q9jwLtTH8iZUxxzW6VSZt3DpxaR5ISPlETHlTn8Lqeo3aOMmQAvjnJGvZqZdEVbh2cTS
-         sMW9frykgGMjopP8sjjBMM5wuF4KKivxl0ds+YAgZM+ZxQKdwp29SkSnbEcM15pJVXLl
-         QECIiV5L9Wvx+6DsCy0CMQSaV2QD8Yh0sgx8pgUHp7Te+qtw/1gZkP4ZTm6IMOocYCt5
-         kJSA==
-X-Forwarded-Encrypted: i=1; AL+hErH5hT4a+6TdNJLXiZe++ql9B2tDfl1S9uo5CYVqRGkqszI1xsgtZyqM7szPrCAZmYicQh1cG00=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ShEQfdgf8RFNzg6gIPC+q+vLCQou9Wj4O+cMKW7X3IwMl4jIz
-	Jq6cZlPrIVoTGHHeyMWlQRCsPN0kATpJ8eZCwp0p8Sz495i6AWa9yH+uQ/1wZgDkips=
-X-Gm-Gg: AZFdTZfJ9S96TNT/YoNpNTTcTxxEByrB/mzoSrlvFrc1WYRBUaKMQkpDoA0/z82CgZG
-	jS/BzkXMVSg25ByzBKGeY+0vCvJ3p6rixSKGaG9Fv4JSAcBl7hXecsnLgBUH6hnxOFVhktvt6ZI
-	9DF4pr6jZPaAdOG9t0nLYimOwKABp84h8OsmKYeIMVIig5Igteio61DPfXKLrmUCKf2/10AOrQm
-	kN7O35f/MVsRv4HqglQXV35iQfm1VQs3s+SjIanq6a67638Dx5JjNP0vhBOBTfzwUTGDNpbCthB
-	rc5EX79YAcrvEDYl0jH5JQvpe/Wql/7wacrMZs4xCgkUcdy1HJtRVTbFKlQYU1KLrtOCexDtGYu
-	x9nDzr00iFfapV8d1Yqgz2l3QBUwKl6vIxladjTsC7IeXdnEDMQ+hSd6gQyt/6Bp8oZYa/qOtU5
-	uyzjecdINPXg4aZJmcMFChQTLSt0HynxbfiX++QpvCNYLxyYXAa9kWBeVrs1FH6rpgR294Yztb0
-	k6dtHcFZjYd9i0Wx0hidv4tDVvxExbNgQ9zN2e/Q55/CM4pZkdV3SgojQXnMH7X+aEg9DowRw7k
-	CLxcQ05GARjFxlA+1TjkhTkPh1WXh99dDEVq5SI9KPSxexEEtg++J5FFhiqrUPM8fSIeGnHjjhf
-	qJJQ1Mf8=
-X-Received: by 2002:a05:622a:1aa2:b0:536:719d:7974 with SMTP id d75a77b69052e-55d76a5212cmr163702871cf.55.1795363070036;
-        Sun, 22 Nov 2026 07:57:50 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7887bec2sm76958671cf.22.2026.11.22.07.57.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 07:57:49 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=Dnz9DvTP;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=FLmBb5pS
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 8084A1D00347
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 11:01:58 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Sun, 22 Nov 2026 11:01:58 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1795363317; x=1795449717; bh=XDld9PW066p+crnVitgqt
+	2+/tNYD/KUw0fQ/XW/KMSE=; b=Dnz9DvTPCmUJVBkTwV9+TghzEd6K+Mj6H/Zr5
+	JMxgl4gLk4i6KqKEM+AbVYSTfB+56XP27BH7fzOSw9NOVjHbA2CLix8PL4AKGYJs
+	FINO+6281EMeMUtso54vU44ctvSjXCh8KGEujAhArgNldudLr47fWpltqOAQIh4h
+	ZPn996CKAdzx+MKIX6jFqRZ91PpIlXQH8Jopt4V63hlyBzisysYpNSs/gMvb8KY0
+	pq3NBm2sMPnq22wkEun1dqcdTgAzz9caj0q3ibCBgInfYLK13WBQuVkVAdZDnVXD
+	eFWxu2tMtdJAHrMZk62Mh/ZzIVZ/A3Dp4dXlG2GZV/8po/RyA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795363317; x=1795449717; bh=XDld9PW066p+crnVitgqt2+/tNYD/KUw0fQ
+	/XW/KMSE=; b=FLmBb5pS6Sg/D0t6I3SuTPnb5/EqiPHCV609fScE7VcA+Qf4kmm
+	OG/MrqosXILmjjWGgbF4ImeZBeEB+vNRpCkly8h215O4qfwY4SUCZIoKmaXxhsT5
+	K457j9P3eqbNWyCfqtgUf2AZHeGBu0o9i6KmhAnyynM2cr9azjvKbwNi6kXApLYL
+	qElNJxdr9SQLHEFUzHk8eY6FSlhR5NS7AmICQ7znbNJ+Lx7ly7Gbl84wk2aQeemj
+	AHRQYOdX3QKBYWXjm34XBoEPGnvKMs6KzR4KeqRensFSNto1h/1lYlx//c4yNXXG
+	LHPumLN7QHXkWwAkaFqPjS0Rnprb+au7a8Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795363317; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:wska6vEWOfs0ny44PxLI1oxN/F7yXj3ik9O3kzj1O/CH4eR
+	ojvZkyWea3SMQJVq+NmYjltx2MmmDb9vef1a5DVWNRIFd/KZr5WY0AQAInyS61N4
+	SR917UftxTjZNgZU5wCQjSRKnt4oiCAVzWKw3cGGJ3248VEB9cKgl7p7gi0+KoSG
+	7ILt/wSDXvegiOA8hq/1YbUlPpZAQ/wA/INdjWdrsBoorvfDDhNwmaQ1TYgGfxJl
+	IEVTdd2tAe2ep1mI5TT/oFNiQUPsjCTGWbnfz4MKT5/y6q63ZoZ/NvBhzp67OPF7
+	c/TeQcsV5eCqKaAMHU+Alju09Pq+guqKii2IC1Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:N4+VdSiKVh7xvP8VNSkuum4tocOkWd+AwuVc4a4nSoo=:GV0xntGjgmnV+/w/kBOIy2YiHC7ECgw6Rl0J558qJ+c=;
+X-ME-Sender: <xms:9REDa2PAFaTyB8bLHlLPlFqIKDFPmb8wntoJTmXxWMOZI6UBNDMpbw>
+    <xme:9REDaw_aF34v5VqPGnOpAsUJztC19zWidRyEwp9Luzt6f2p6iYwKfNVvhH-qON0f_
+    I7ccovKVLXRJNGqZ3I4M2v5F8Dz6ZXouGCAVrn7zbPiMKk4LkAdiDk>
+X-ME-Received: <xmr:9REDa_eiqKixe9eOJL1QmO-C_iGG_BL_pjBc44JpZiEdgZM0MqizDd-fWS4FEdoD>
+X-ME-Proxy-Cause: dmFkZTFPgQwZylzjtFt3UJY3D8HF7UmyC8nzGTIQ8ejJnpDqHGKvStENkj8iGnLvJf6Ajt
+    nOhvQuoIUtqykhB2DQ230t+aMouFq0GCfRobqXnKT2cUcttNT/vNdzMxXU/q/EJTf0UPEw
+    rtCJcS9xFi+ybeO6t5SRG+mShzEQUgg6YAzeSMpRredYk/9Dqkj/O3za4UYSZkv++j87LA
+    2M3roU5I/iLfvgo9xfJjD4+3o2ngkbvin9NhQU30LLCOEUWEL/J0h70zk7V6hVnqABrlbD
+    UnFybTtif2cYNQugUYNC6BwInKFgVYdwvu2uFPHZCHdC0Qwp64B3gMg1xg84/AQrl0hSXI
+    vS+qnZsJm4yaMKqyyX1STqBn9Tbg7HbA23Aa8sR579k/zj2q3ODC069o3klDpTANolYVzw
+    nt6sCpnuNoShuT3dPRoyxKsm2XXzMtPrXYnTjYNlazzyitEbBm80DYQFW+hW5Ge2gixRF7
+    bChN1LLjM9mil5xkS9MfxgFoQfItokUtcCm5sgWXv3z3X6nQtobzc84d7aWGTnuKD2L5H0
+    Qw7O6W+Z6RoQj93BE6/3xlCNXGhzq/6wXOidTGMzB4zGz9onAH5iuWuCV2EE/95iy3EF1B
+    q9JdxwYHCAzFRCyPVWgpgQgrCemoWjuFRM4WFb4oCpN8OcTX3GepSL8k/epw
+X-ME-Proxy: <xmx:9REDa3wtn_KTaTe6TJJJbIM_qPIjFcY7WeK8RqTVA4qu9MuZ5LDH_A>
+    <xmx:9REDa8KaEU7IVrEqZCwIPxNyXkpClyvEI8WCklUE-om-tU4A6BRoPA>
+    <xmx:9REDaxHm7QI0bxD7InjdHi2zctn_av471UJawin1dZ68IlWzodPUMw>
+    <xmx:9REDaw9rKlOosnmAT8q1f_CFaTNVzWcTAyprSK4h8jD6r4i0UEAnGQ>
+    <xmx:9REDa7thbAJ1nSTM1HD56kjH6NxHryP9eKThpXB25kGpHACz4gtwe_LI>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 22 Nov 2026 11:01:56 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: return only the control flags of the parts in a query reply
+Date: Sun, 22 Nov 2026 10:01:49 -0600
+Message-ID: <20261122160149.403491-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,72 +126,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 0/7] mm: reworked AI-generated VMA and mremap fixes
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, 
- Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Jann Horn <jannh@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Kees Cook <kees@kernel.org>, Peter Zijlstra <a.p.zijlstra@chello.nl>, 
- Ollie Wild <aaw@google.com>, Adrian Bunk <bunk@stusta.de>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
- Hugh Dickins <hughd@google.com>, Joey Gouly <joey.gouly@arm.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, linux-mm@kvack.org, 
- Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
- stable@vger.kernel.org
-In-Reply-To: <20261121-some-more-ai-fixes-v1-0-236e925d9b64@kernel.org>
-References: <20261121-some-more-ai-fixes-v1-0-236e925d9b64@kernel.org>
-Date: Sun, 22 Nov 2026 10:57:48 -0500
-Message-Id: <179536306892.412063.18259419201274512281.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-21 16:02 +0000, Lorenzo Stoakes (ARM) wrote:
-> I have reordered the patches here by priority, David - the first 2 should
-> be prioritised as hotfixes, the rest can go in 7.5:
-> 
-> == Critical ==
-> 
-> 1. unmapped_area_topdown() invalid bounds - possible memory corruption,
->    triggerable by any local user.
-> 2. Lock VMAs before mm_all_locks_mutex - system-wide unkillable hang,
->    triggerable by a local user with FUSE.
-> 
-> == Need fixing ==
-> 
-> 3. KSM unmerge only interrupted by fatal signal - silent data loss on
->    mremap() of KSM memory.
-> 4. Uncharge after failed stack relocation - strict overcommit limit
->    defeated system-wide.
-> 5. mmap() offset limits on mremap() expansion - invalid file offset
->    reaches the DAX fault handler.
-> 
-> == Hardening (no need for Cc: stable) ==
-> 
-> 6. Guard gaps on in-place mremap() expansion.
-> 7. Non-executable brk mappings under MDWE.
-> 
-> As usual, please go through and check these carefully for correctness,
-> sanity.
-> 
-> Note that one of the original patches was punted over to the BPF
-> guys ([0]), as it doesn't feel that it'd make sense to change core mm to
-> address it.
-> 
-> [0]:https://lore.kernel.org/all/awGZWsCp6v63H_py@gremlin/
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+build_sec_desc() copies the stored control flags into the query reply
+and clears only the DACL flags when the DACL is not requested. A
+SET_INFO without DACL_PRESENT stores the control word as the client
+sent it. Its other flags then appear in every reply, such as
+OWNER_DEFAULTED in a reply without the owner, and SACL_PRESENT
+although ksmbd refuses to query the SACL.
 
-Was able to reproduce every issue and validate the fix.
+Copy a stored control flag into the reply only when the part it goes
+with is in the reply. OWNER_DEFAULTED goes with the owner and
+GROUP_DEFAULTED with the group. DACL_PRESENT, DACL_DEFAULTED,
+DACL_AUTO_INHERITED and DACL_PROTECTED go with the DACL. The SACL
+flags and the other stored bits, such as SERVER_SECURITY and
+RM_CONTROL_VALID, are not copied.
 
-Not sure I agree with your assessment of NX brk mappings not needing
-stable, that's a pretty bad bug in my opinion.
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
 
+Tested on ksmbd-for-next 89d5e8fdd5a7 with KASAN. After a SET_INFO of
+the owner with DACL_PRESENT clear and other control flags set, every
+query reply returned those flags, for example 0xebf3 for the owner
+alone. The replies are now 0x8001 for the owner, 0x8002 for the group
+and 0x8004 for the DACL. Replies for descriptors stored with
+DACL_PRESENT, smbcacls and the Linux cifs client, and smbtorture give
+the same results as the base.
+
+This patch was developed with LLM assistance.
+
+ fs/smb/server/smbacl.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 7bb28ea195c8..a4a36983852b 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -1111,13 +1111,17 @@ int build_sec_desc(const struct mnt_idmap *idmap,
+ 	pntsd->revision = cpu_to_le16(1);
+ 	pntsd->type = cpu_to_le16(SELF_RELATIVE);
+ 	if (ppntsd) {
+-		pntsd->type |= ppntsd->type;
+-		/* These DACL flags are returned only with the DACL */
+-		if (!(addition_info & DACL_SECINFO))
+-			pntsd->type &= ~cpu_to_le16(DACL_PRESENT |
+-						    DACL_DEFAULTED |
+-						    DACL_AUTO_INHERITED |
+-						    DACL_PROTECTED);
++		u16 flags = 0;
++
++		/* Return the stored flags only of the parts in the reply */
++		if (addition_info & OWNER_SECINFO)
++			flags |= OWNER_DEFAULTED;
++		if (addition_info & GROUP_SECINFO)
++			flags |= GROUP_DEFAULTED;
++		if (addition_info & DACL_SECINFO)
++			flags |= DACL_PRESENT | DACL_DEFAULTED |
++				 DACL_AUTO_INHERITED | DACL_PROTECTED;
++		pntsd->type |= ppntsd->type & cpu_to_le16(flags);
+ 	}
+ 
+ 	if (addition_info & OWNER_SECINFO) {
 -- 
-~Gregory
+2.47.3
 
