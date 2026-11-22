@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795339180;
-	b=cjl2NZt7MnHZVzClBj/zZqFBFAtx3kSqsk5lbtC3UCKrJBIeWcvl4JfU4YSVPKqjjLzf
-	 VD0Z0CnbPT0JoxNkbnC8YL0MWQjR8dvfm+y2KKTNn++5TIBwIVC5tP0WAzIrvN4sl5cHQ
-	 C5McSEIoSrkPBws8TKIQLefExGvzBXx6NLeyZaJMuKuOw31nBAkP4MgxKBvqEHcWJbygX
-	 U+FK/gYTMh3iup2fn3zXqn8DEGCZAAxGL0WgN63OCOEsefWoMfU9AmY6wtw+HVmkty3jz
-	 n9gSoITR6QFMqhSCo+VpejgPmyp9WWSEzN+XD/TIFhhy/rqbFKEqIoqG+4KZNnwrL4Q==
+	t=1795339181;
+	b=ASBya2WohYRgET876YP6vmBBnUAgawLxLDggEDqTPhJnIcFipWxSZmEcO2H9SbswZWXV
+	 r7C30QP8Fg1BYSeOah20Xai5EVJOtNeEIDTEP9cEsyKtBDx0LB0R4kBNYEYWEVkZ2zLkK
+	 sKqGRIRvFvs9GHz4c8PkgZjWDcKTb9nmFM/lvc6f2HtUTNY6Tn4iuhaFCyG/S0osZhHD6
+	 ECaP8wieouNM7uwIn+ZB1kfBEgvhMNT1OBeqz1Sb/uDB6gHXJXMOGSL0AboVOqcfWPtKF
+	 ihj3bocl/hVo0sl1RzhMfm/titcuWEECW1iaRFfUqVpA/qloiKUBHTPbjT9pBTt2dvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795339180;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795339181;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=1XyftV8GVsZDOcq2i3DlqyLQd8hIM8BmGNI2WNlBAD0=;
-	b=KXN7A9xl/R+CpNuAVRZs5EGKHMxzLxuIKOUvi43VBF7fmqcs5kg7wbdeKBxlLnl1rhDX
-	 N5Wcjkwk6a1/uMU7dx8Ksqx6duiwbSIiMHS4iaGxdJCU7hHVQTc7vZ1DRVBvK7Q29FRlH
-	 vXrymzqCOnRzBLA8LdDciPjX4ARmmV7bCbba+2DPVofKiIC4/GopxkrqEe3jvaMG2sd8E
-	 tGIkQaIDbgI0wZfbKSiSZjBjSKJWZbXrt7hMANbPPr8FJWqkE7cJ7ynx4M9oGk8p+ZJMv
-	 2tgX5BsiUMWKiEwjbj5M+PrmKNeXTbHbtxYhL34KPbkNcAOn42VEBhhHzGjOhJlp0BQ==
+	bh=fVNYRzFGTGfYNkMSOeZUACCFY7N+y5n5CkCmP6DMOOY=;
+	b=FAs59KSzij4bTIAQBGOn9vApTqgHZzK+gNlzKav/uJsOO0wTL0yNLkmLCLmPUyulPKlg
+	 mOBifbCso04UkKXc6Fd1zSDjdxlebQEK/7d3D17NXi37VEc5eKGf4G9oB2GeAoNebdeNx
+	 yULr1VFeBZQkxB5dZOePFsfVchBohhScb4STLvJ8xfK8/9T/6iDq7yprBwyqB0xJvhtpM
+	 o+Zi68p6+jDdwLfm5mNY1HIZ04SFt+euTB7oNK1iFHkt9vYUrzpsc5vyt2IkHyAZPg7M5
+	 jh0nEFY1IH0g4XD8g78Y+s0SKOqIx4Huv98XsMeM5aMW1fGfbo+JBoaH+t5AYn9Doxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Arb4mkNQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dd0ckpvV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE2B606A336;
-	Sun, 22 Nov 2026 09:19:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE39C606A689;
+	Sun, 22 Nov 2026 09:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Arb4mkNQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37DC41F000C0;
-	Sun, 22 Nov 2026 09:19:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dd0ckpvV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDB5E1F000C0;
+	Sun, 22 Nov 2026 09:19:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795339180;
-	bh=1XyftV8GVsZDOcq2i3DlqyLQd8hIM8BmGNI2WNlBAD0=;
+	s=k20260515; t=1795339181;
+	bh=fVNYRzFGTGfYNkMSOeZUACCFY7N+y5n5CkCmP6DMOOY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Arb4mkNQaABokJfYXMRZnv2NqMcuJKpcQBj6I/4FGp27aVCu0NZSNC0R4vWvcgtxS
-	 yc3rvMtUORDGJhG7CWNWLPhUuWuULrlkESeOGkHqg5nC1dTLzB618EqkzC818N9xST
-	 cS423e5R7/apM9xz5/i39cVPfPoGBDWTkAlcGpPB/uWQ0la4eaF3+WMdl7FO4/wHIQ
-	 zuPAzWslFOsZb3mZApQjof+vIhnjInvSkYtm1bLlQFMG3O8Co7XYo5PdvGpOPcerAF
-	 0TiBtrOA+SJr8UKGGfuV/FR10MjHn5OxYNUBkzZbA/UzleKV4z5DRzHaSwO2qjAoOJ
-	 m7QYTWqBSaHsw==
-Subject: Re: [PATCH net 3/4] net: skbuff: limit folio refcount when splicing
- pages into skbs
+	b=dd0ckpvV9iU7+l+MXGIYaoxsyzfzMGuyX+mHtXwLU3oOVA4/OiyW8JrxgW0I3Xqec
+	 7FgAEaDrhiJB092xBEqWK/s49hNFgLMbFpjyHvt1qet9i0msAlDiKZ1ZBj83NddO9q
+	 /4ArRBggAXbyey3y8ParLgxacHl4TUbBEtfcROGQUrtS2o8AdewpqfAF9kSnlFwmg9
+	 4rb96Nm62Qvp7xfkr+AwcQESkV9ASMn5NQ+aFeAESjEOglV978WkqaWpD4meoMx1ZT
+	 vXjqkR4MwyY1PHsPR6/47P19h6xmDgyClyhSkm8PA3oBVhADR618h0X5rvVc2jotl3
+	 HQ7hJASzf2Ugw==
+Subject: Re: [PATCH net 4/4] net: skbuff: limit folio refcount when splicing
+ from sockets
 From: netdev-bot+sashiko@kernel.org
 To: david@kernel.org
 Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
@@ -50,11 +50,11 @@ Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
  willy@infradead.org, ncardwell@google.com, kuniyu@google.com,
  pfalcato@suse.de, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-mm@kvack.org, stable@vger.kernel.org
-Date: Sun, 22 Nov 2026 09:19:38 +0000
-Message-ID: <179533917877.3135.7884614269284288545@kernel.org>
-In-Reply-To: <20261118-skb_refcount_overflow-v1-3-5551b4954c3f@kernel.org>
-References: <20261118-skb_refcount_overflow-v1-3-5551b4954c3f@kernel.org>
-X-sashiko-severity: High
+Date: Sun, 22 Nov 2026 09:19:40 +0000
+Message-ID: <179533918041.3135.8460911693239501161@kernel.org>
+In-Reply-To: <20261118-skb_refcount_overflow-v1-4-5551b4954c3f@kernel.org>
+References: <20261118-skb_refcount_overflow-v1-4-5551b4954c3f@kernel.org>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -67,153 +67,135 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+- [Low] The new comment above skb_splice_bits()
+  (net/core/skbuff.c:3295-3300) says the function "Returns the number of…
 
-- [High] The fix leaves the kTLS MSG_SPLICE_PAGES paths unchecked.
-- [Medium] The new -EFAULT from skb_append_pagefrags() can turn a
-  refcount near the limit into a persistent loop of NFS connection…
+Pre-existing issues:
+- [Medium] skb_splice_bits() still returns 0, which callers report as
+  EOF, when nothing was spliced because linear_to_page() failed to…
 
 --
 
-net: skbuff: limit folio refcount when splicing pages into skbs
+net: skbuff: limit folio refcount when splicing from sockets
 
-The patch changes skb_append_pagefrags() to take its page reference with
-try_get_page() instead of get_page(). If the folio refcount limit has been
-reached it returns -EFAULT, so in-kernel MSG_SPLICE_PAGES users such as
-sunrpc can no longer push pagecache folios past the limit.
+This patch uses try_get_page() in spd_fill_page() so that splicing from
+sockets into pipes cannot push a folio refcount past its limit. On
+failure it returns -EFAULT, and the error is propagated as an int
+through __splice_segment() and __skb_splice_bits(). skb_splice_bits()
+returns the error when nothing was spliced, so the callers don't report
+EOF.
 
 > diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index bed1c8c4c6b99..c937d74eed6ac 100644
+> index c937d74eed6ac..b73fef7a1b460 100644
 > --- a/net/core/skbuff.c
 > +++ b/net/core/skbuff.c
-> @@ -4714,8 +4714,13 @@ int skb_append_pagefrags(struct sk_buff *skb, struct page *page,
->  	if (skb_can_coalesce(skb, i, page, offset)) {
->  		skb_frag_size_add(&skb_shinfo(skb)->frags[i - 1], size);
->  	} else if (i < max_frags) {
-> +		/*
-> +		 * Don't use -EMSGSIZE, as callers would just retry with a new
-> +		 * skb.
-> +		 */
-> +		if (!try_get_page(page))
-> +			return -EFAULT;
-
-[Severity: High]
-Does this cover all of the in-kernel MSG_SPLICE_PAGES users that the commit
-message is aimed at? Both kTLS sendmsg paths handle MSG_SPLICE_PAGES without
-ever calling skb_append_pagefrags(). They still take an unchecked reference
-on every spliced page.
-
-For software kTLS the path is
-tls_sw_sendmsg_locked()->tls_sw_sendmsg_splice()->sk_msg_page_add():
-
-include/linux/skmsg.h:sk_msg_page_add() {
-    ...
-	get_page(page);
-	sge = sk_msg_elem(msg, msg->sg.end);
-	sg_set_page(sge, page, len, offset);
-    ...
-}
-
-The only check in tls_sw_sendmsg_splice() is this one, and it does not look
-at the refcount limit:
-
-		if (WARN_ON_ONCE(!sendpage_ok(page))) {
-
-For device offload kTLS the path is tls_push_data()->tls_append_frag():
-
-net/tls/tls_device.c:tls_append_frag() {
-    ...
-		++record->num_frags;
-		get_page(pfrag->page);
-    ...
-}
-
-These references stay in offload_ctx->records_list until
-tls_tcp_clean_acked() runs, so they last until the peer ACKs.
-
-The sunrpc example from the commit message appears to take this route.
-svc_tcp_sendmsg() sets MSG_SPLICE_PAGES and calls sock_sendmsg(). On
-XPT_TLS_SESSION transports, set up by
-svc_tcp_handshake()->tls_server_hello_x509(), that socket is a kTLS socket.
-So nfsd pagecache pages would reach sk_msg_page_add() or tls_append_frag()
-and never skb_append_pagefrags().
-
-No later patch in the series touches net/tls/ or include/linux/skmsg.h,
-including "net: skbuff: limit folio refcount when splicing from sockets".
-
-Should the spliced-page references in sk_msg_page_add() and
-tls_append_frag() also go through try_get_page()?
-
-[Severity: Medium]
-Can this new -EFAULT cause nfsd connections to be torn down over and over?
-
-nfsd threads are kthreads, and folio_ref_count_over_limit_slowpath()
-refuses them at FOLIO_REF_COUNT_LIMIT, with no admin headroom:
-
-	/* Background threads must not consume admin reserves. */
-	if (current->flags & PF_KTHREAD)
-		goto over_limit;
-
-On the read side the limit is checked only once, when
-filemap_splice_read()->splice_folio_into_pipe() calls folio_get_checked().
-After that, nfsd_splice_actor()->svc_rqst_replace_page() takes an unchecked
-get_page() for rq_respages, and the pipe reference is dropped. With this
-patch, sending the reply needs a second, checked reference per page here.
-
-Let k be roughly the number of pages from the folio in the reply. Suppose a
-local user holds the folio refcount between FOLIO_REF_COUNT_LIMIT - k and
-FOLIO_REF_COUNT_LIMIT. The read stage succeeds and fills the refcount up to
-the limit. The send then fails:
-
-skb_append_pagefrags()
-  try_get_page() fails, returns -EFAULT
-skb_splice_from_iter()
-  iov_iter_revert(), returns -EFAULT or a short count
-tcp_sendmsg_locked()
-  returns a short count
-svc_tcp_sendto()
-	if (sent < 0 || sent != (xdr->len + sizeof(marker)))
-		goto out_close;
-    ...
-	svc_xprt_deferred_close(xprt);
-
-This closes the connection together with every other RPC in flight on it.
-The client reconnects and retransmits the same READ. Nothing clears the
-condition, so the cycle repeats for as long as the refcount stays in that
-window.
-
-Mappings are checked against the same limit. An unprivileged user can
-therefore put the count in that window by mapping until refused and then
-unmapping a few pages.
-
-Before this patch the send succeeded. At or above FOLIO_REF_COUNT_LIMIT, the
-pipe-stage check makes nfsd return an NFS read error rather than close the
-connection.
-
-The commit message says:
-
-    The only caller, skb_splice_from_iter(), handles that.
-
-For sunrpc, though, the error ends in connection teardown, and nothing falls
-back to copying the data into frags. Would a copy fallback be better here,
-or is the teardown intended?
-
->  		skb_zcopy_downgrade_managed(skb);
-> -		get_page(page);
->  		skb_fill_page_desc_noacc(skb, i, page, offset, size);
->  	} else {
->  		return -EMSGSIZE;
 
 [ ... ]
+
+> @@ -3284,7 +3294,9 @@ static bool __skb_splice_bits(struct sk_buff *skb, struct pipe_inode_info *pipe,
+>  
+>  /*
+>   * Map data from the skb to a pipe. Should handle both the linear part,
+> - * the fragments, and the frag list.
+> + * the fragments, and the frag list. Returns the number of bytes spliced,
+> + * or an error if we could not splice anything because we could not take
+> + * a page reference.
+>   */
+
+[Severity: Low]
+This isn't a bug, but is this return description complete?
+
+When spd.nr_pages is non-zero, skb_splice_bits() returns whatever
+splice_to_pipe() returns. splice_to_pipe() in fs/splice.c can fail for
+reasons that have nothing to do with page references:
+
+	if (unlikely(!pipe->readers)) {
+		send_sig(SIGPIPE, current, 0);
+		ret = -EPIPE;
+		goto out;
+	}
+	...
+	if (!ret)
+		ret = -EAGAIN;
+
+The reverse case also exists. If linear_to_page() fails in
+spd_fill_page(), nothing gets spliced, yet skb_splice_bits() returns 0
+and not an error.
+
+Could the comment also mention the -EPIPE and -EAGAIN cases that come
+from splice_to_pipe()?
+
+>  int skb_splice_bits(struct sk_buff *skb, struct sock *sk, unsigned int offset,
+>  		    struct pipe_inode_info *pipe, unsigned int tlen,
+> @@ -3299,14 +3311,14 @@ int skb_splice_bits(struct sk_buff *skb, struct sock *sk, unsigned int offset,
+>  		.ops = &default_pipe_buf_ops,
+>  		.spd_release = sock_spd_release,
+>  	};
+> -	int ret = 0;
+> +	int ret;
+>  
+> -	__skb_splice_bits(skb, pipe, &offset, &tlen, &spd, sk);
+> +	ret = __skb_splice_bits(skb, pipe, &offset, &tlen, &spd, sk);
+>  
+>  	if (spd.nr_pages)
+> -		ret = splice_to_pipe(pipe, &spd);
+> -
+> -	return ret;
+> +		return splice_to_pipe(pipe, &spd);
+> +	/* Returning 0 would make callers report EOF. */
+> +	return ret < 0 ? ret : 0;
+
+[Severity: Medium]
+This is a pre-existing issue, not one introduced by this patch. Can the
+spurious EOF that this new comment describes still happen when
+linear_to_page() fails?
+
+When skb_head_is_locked() is true (a kmalloc'ed head or a cloned skb),
+spd_fill_page() goes through linear_to_page(). An allocation failure
+there returns a positive value, not a negative errno:
+
+net/core/skbuff.c:linear_to_page() {
+	...
+	if (!sk_page_frag_refill(sk, pfrag))
+		return NULL;
+	...
+}
+
+net/core/skbuff.c:spd_fill_page() {
+	...
+	if (linear) {
+		page = linear_to_page(page, len, &offset, sk);
+		if (!page)
+			return true;
+	}
+	...
+}
+
+That 1 is passed up through __splice_segment() and __skb_splice_bits().
+With spd.nr_pages == 0, skb_splice_bits() then returns 0 here.
+
+The callers treat the 0 as end of stream even though data is still
+queued:
+
+  - unix_stream_read_generic() adds a chunk of 0, breaks because
+    unix_skb_len(skb) is non-zero, and returns 0.
+  - tcp_splice_read() breaks with ret 0 although the receive queue is
+    not empty.
+  - kcm_splice_read() and tls_sw_splice_read() return 0 directly.
+
+The old code also returned 0 in this case. Hitting it needs severe
+memory pressure, where sk_page_frag_refill() fails both the high-order
+and the order-0 allocation.
+
+Would it make sense for spd_fill_page() to return a negative errno such
+as -ENOMEM when linear_to_page() fails? That would send it down the same
+error path as the try_get_page() failure.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261118-skb_refcount_overflow-v1-0-5551b4954c3f%40kernel.org
