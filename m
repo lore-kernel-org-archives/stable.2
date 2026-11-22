@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795317847;
-	b=TpxKmsOLwV1w4aQ1s4XkAC+kuqscp3hhlb5H9/zgq/bMbe+GVZ7gCUfvWO+c66uCyKHy
-	 FDbOEuEOoNY/7LR0tjHatbwsE2B8lU7NA3V+fB/qazoblWRb68Z1EGJpsO7N6uwMkwbGU
-	 Ha5vjpiDHPVzwFUc5vwKaGIPfWX4mvk3L0ZS0CnTLg4srz2wU3u8w+NTUh1oL6DPhhUkX
-	 B5KSgFKCIZRD0BbMmquVqwfSArfs/Oc+V3RtWyMPXZaDSYw8dLGNM6TPQWiQbMXaRule4
-	 YjwJ83vX0/54EWz4P7gjYnpHR7R+kktsokhamMeEkfRitPyaSQQF7Q5Y98U92u80cpA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795317847;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FGKxFPn5xySqoyCRzT5dIDYsGVRKkWI39lN3gH5sSKw=;
-	b=mKsQjU8ZvhK9jIpnAzOkjzQSobN4K4eOnZZLfiLalvBviuuI3OPJglOMnKDxdejF2MlK
-	 lhPzgonfjeAjjkL4Tqj3mVZckxHSAh2U7mQgUaU6epRpoX/41hpOYsNaR7uzQudaA52gk
-	 Vt4MnxbHP6ufAFuHPNobzarM4/va7k3Pgg5CkBvWY/El/qZJ8cBbWSkj6TnkFhTloT0Wn
-	 r2yqd2J0k7QuToB6NpNnKfsQIma8oe8dgWTCIgXvfJRNvvR7+hHwLTcqnS5CxnjOe54Q/
-	 XdHAfXHZwsvPfjQquf9qbo+83Oo3lW+jsUNg7+54ybGOhhJ46EnNRKZdFonr5HVxBIw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=etFwDD1P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.119
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795317885;
+	b=H/CO+JBbfdDPEEVraR28j7L7lod4SQlBLb8YMlixYFPw2DTxPELWrG51qM3wpJIFOx2A
+	 Hw65VGgZT9uTJ2nK6EucabM399KzuBMo5Vjrm9kaEkeRWP+aG48hme8vVm76baMNziSRI
+	 Lvb93xbRg/fxCrzCFvB2x6Bsc4tE7KbQUvp8wK9rOYy1NmKXDFxTWtSNwXrRT+fL6WeGM
+	 gl/8ZhAldrnbk3NkenArBvCNGPzlBUccEZlM5UfkiM6xLIZDJMkjIshnq20W/R09cQDHz
+	 FW3g9YI0mQ89LLh9U3ytwOSixaVRFBuQEF7ra8YS80gII4v/9yOKlsQ4EXjCIJvU9WA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795317885;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type;
+	bh=dVPt2U6iq7crTwonEXwCqHbgHcYHeuHZoEUItSAFDoI=;
+	b=1X8KZ+v6DbCVMalhKmmU/IANGlALxBrLGuzC/yDEpJ37F6JhtZTPtcJU++SGUoMoh2T/
+	 YjZ6Hr2E7w4FY2uW4Joc1c0v0zk2a5GhJD5oJvPX1iFVF6gwTBWOiL6mHEswF5H7iCsbH
+	 cHbIecCPmUl2ePNLcSJ+yXi5Auqc/krwQKhMyQOjrKSNeGR13TDLNu9uNvnIwXNb7wjBc
+	 vSvw9zK1LROtyaoZIISwHOpPhHKBGK+1DiaHo1e3zQO4saGlsVM2OwRoCFUFPDGwOGzYw
+	 MDfb237XkSCfznd6YN3DjaLUkEhNQZqJz39pH8l4rxVMYkIh6L/JFQ6u/5PZcUOMMiA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=l3vLn20x;
+	arc=none smtp.remote-ip=79.135.106.119
+Received: from mail-106119.protonmail.ch (mail-106119.protonmail.ch [79.135.106.119])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BAAA606A320
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 03:24:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BAAA606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DA7606A32A;
+	Sun, 22 Nov 2026 03:24:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69DA7606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=etFwDD1P
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-533202fe429so206501cf.0
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 19:24:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795317846; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NniLY3m5upJ3zQu4eVjbEAUNCZshfNTU+J7L5oh6Y0HlJiMvoAVhyAUkBE6KcFWvdj
-         BZE5W5XUrxzGlC51FQf7prwxXv0eGyG9/mqqPMMuJR7UF6y8Lwf1cu211TMKH71Q6HaE
-         pfBtIyRrEP79jd+swKN2Y4a1CRXV/TbXl4VFmwSm4vPzw2uAIeOshmi8qEGMdm0S/GAy
-         Oblgjq93lv27o3loIXa4MpEZtEHopukmuYDSuwtoYi3MySnUnaxXQ3Wv+5C5fE6Maapr
-         MKQozoZQXqRPV5D20ENOCL3a79rdQfy2yT6a/3InWJyVHTqqSqCsycsI9bCpcaaCnOmu
-         EWsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FGKxFPn5xySqoyCRzT5dIDYsGVRKkWI39lN3gH5sSKw=;
-        fh=MxxUl2mcWXArGL5ktTlFQaKExxvn/wBDDwnUDkEEABY=;
-        b=XcXGAWDhuTnkWjm89IUkvRzoUOLsHAMZTwK28faVbZoSiHgMMTN1IE+K///RMyDKTS
-         QQ+LyKXWEOpjIXxldvsIOiD2uBXzniNBej0CUrHP5NTkclbIiQQWuC1kAqEY8n4AzgyK
-         Sx720CfFoO5t28fNPt4lyzuEcsZnmvLMdniNOsRNU98g06iIS4dNI44LcY6Zvuzotg1m
-         //IWow4T7bBxW1kscIHnaauVO04UcF30ZEzsnzD8lgj1pWI/Ukob0bXx7SISlZ7m6IVI
-         4euT9ivZXHzGi6AEFRGwFFH50di8qVw0RiNIyavAV+goTTYjJcRu/xY1ypayjqG8imTw
-         CESg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795317846; x=1795922646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FGKxFPn5xySqoyCRzT5dIDYsGVRKkWI39lN3gH5sSKw=;
-        b=etFwDD1PKEeeYU3bo/q+ERuCHCOxo0UKQLdn+bUe44h7MqafCxkAgXIPc1Xa/N83hc
-         NiFAeiuxQKyOEo6n3kRh1cMz6xlKQHkCX7oC9B10SPmCFRiHoNE+YzNNP+jOSI70KUGO
-         V+lWKXPU5L3pOAPvpIwgtziTtco8jbQuetjx9dZUbhQRufRJhhwPhwpB23RfAnvCKRKf
-         GsAoLYJjbYW8o/C3lQcyCU/7RZGm2W2DEMVIULOBXMuUjyWwzVLXzFs6nkvKyNAFLvwE
-         9Jjmw7z9uUhprBNq1IkMumXAQ8ZWcd78bEt9kilkbVZT0O2b6Fz0YtZ3Wfq0lpRZ2eF6
-         eQCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795317846; x=1795922646;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FGKxFPn5xySqoyCRzT5dIDYsGVRKkWI39lN3gH5sSKw=;
-        b=AvTFyNHhUHKuUFwz8JGZvuP4Opg91vwGcQG7xJlfkhvVunJGCqc+x9xABI6e/Wd7Eh
-         Xe9n0l/2MnyfEN5CU6d6jasToloL/BriowjKJg8Bh7ax25QgFKPatmR8fWm/iR5ntz90
-         6vqb1WKRDsQ6HBtFNWue9a75hHLs/H0hkJFYJDwtl9eZDL95LQeh5dlW+uTJZr108qml
-         1OB9TsIgxt1ZQUjTlUm4QvN3dC6ZlwI0yLp2syNesXR3G7NPzgqNiwoO1Zzkt7UGrMwj
-         UoEUJRcgyUp5TTO5e/I1umACsJV5OvRY8Bj9BVajT9S/VZUIuUo4jKKjUS+rm29804Xj
-         Rakg==
-X-Forwarded-Encrypted: i=1; AL+hErF/EKA0lk+A+i0jh4GpJUtmqCTktpY3CeQ8TeF7WuGyLbmzEavEQnshtCn0QeadhMeqxGENBm8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8R6WFBges2Oyo0VzCZnphkfL8BvYVhdRtz/MsMXWax4ZVcmYl
-	+MgtWgt91QU0M1mF3OoerMBW1ngjIuwgDqhk64clL5ypo/YvK3WXkVaAttcK4/KBsVJPrQEXHX4
-	YE+hwgiIRnmlv6h+SDSEDNJCG4HPwRphuiXjuDzql
-X-Gm-Gg: AZFdTZcYF1BLMt3zq9+6lVMxID/J7j/m6goIHh5nwDEmkbMokcFNZz6KnlDU85qf1Kv
-	AI5WRVwRv0cLjqCQpGQEhjSK/DoULD/44CeQQGflobVRRT5WMo8K/Z/Nhn/iMbeYoxnID9gX49p
-	EEltAPoiswHEVrepyBzO8Qcd2ny70WMjXdWONVnqrU0monvoAcwW/6had+lN5Vh1IKNoEtDT02F
-	ZTwuGWVPuys9vK7KyijYpVrzymMjTsr4i31dUleFGgln0tH9oLeIPRrAxjb4dhLth26P94dKbrD
-	YnKZ38zYyH4opaR23jKDsz9LDHIGsC/Xkkpd1NXJF1K8pJ8sEMf+iiRkY8jkYHJgupguZUodJOn
-	A2KOCV7vAy+HXhOzehD66CDhQr4bX/rypjZB8hyWZ/rGK6ShimnIFODmyTd/ytjFHFxxJVqw=
-X-Received: by 2002:a05:622a:2598:b0:533:9731:f0f1 with SMTP id
- d75a77b69052e-55d890363c8mr16483081cf.10.1795317845380; Sat, 21 Nov 2026
- 19:24:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=l3vLn20x
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1795317881; x=1795577081;
+	bh=dVPt2U6iq7crTwonEXwCqHbgHcYHeuHZoEUItSAFDoI=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=l3vLn20xUFeu9jF/KRmvIQs86+V4SnG0LWZG+ArD/SUr2koNT21BoGiWjq//Xe2c4
+	 kuR/lYcAoEz4qD3ob9QhpexGQTdOZxqnowzHcj+sRXTZFC76bR7z0zhc6XaUrDvFU/
+	 Pqxu38EgR40jzPi9FzJZIPQvi7lFyTs/Vxanvdc/g+p/3LmTcyANSlhinC5BO2DpXj
+	 qTKcILTepan2kTHYmHTZqiqxto/ZjWwTMmBKDMuhShYoQCVdkeSJ0Is3a6ygdm4OL+
+	 fixxURlgdKDVme/+TW35vCrpBbgi08tsoYccM8nd9LUp5A6El9E6cIIcNx2tNKMr6y
+	 g0n9BCzRTSZGA==
+Date: Sun, 22 Nov 2026 03:24:34 +0000
+To: Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>
+From: YanXin Li <fadouse@pm.me>
+Cc: Robin Murphy <robin.murphy@arm.com>, Nicolin Chen <nicolinc@nvidia.com>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] iommufd: reject mmap() of not-yet-finalized objects with iommufd_try_inc_users()
+Message-ID: <20261122032416.11746-1-fadouse@pm.me>
+Feedback-ID: 173252840:user:proton
+X-Pm-Message-ID: 2e3e86c516af680d0e6bb9a48ded81cbde7e0087
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,157 +60,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261121-some-more-ai-fixes-v1-0-236e925d9b64@kernel.org> <20261121-some-more-ai-fixes-v1-2-236e925d9b64@kernel.org>
-In-Reply-To: <20261121-some-more-ai-fixes-v1-2-236e925d9b64@kernel.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Sat, 21 Nov 2026 19:23:54 -0800
-X-Gm-Features: Aa3M54oyWvj3bs4F65WF6fcW7Mb0TWr88KUK43PO30yLTmdl38G6gNGWPlfj7T8
-Message-ID: <CAJuCfpF4fxuAkuqrhkT_Rp3qaUo7+oiC_CrkYMGJcReeJzo1rg@mail.gmail.com>
-Subject: Re: [PATCH 2/7] mm/vma: lock VMAs before taking mm_all_locks_mutex
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
-	David Hildenbrand <david@kernel.org>, Jann Horn <jannh@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Kees Cook <kees@kernel.org>, Peter Zijlstra <a.p.zijlstra@chello.nl>, Ollie Wild <aaw@google.com>, 
-	Adrian Bunk <bunk@stusta.de>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, linux-mm@kvack.org, 
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------544810fc055904930d266b559413a1b51c21da378ff272b1e8f8d68ab6ef1309"; charset=utf-8
 
-On Sat, Nov 21, 2026 at 8:03=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
-rg> wrote:
->
-> If an mmu notifier is registered for an mm while one of its page faults
-> sleeps indefinitely under the VMA lock, the registration of mmu
-> notifiers for every other mm can hang un-killably.
->
-> mm_all_locks_mutex is shared by all mms, so its holder must not wait for
-> something that has no bound.
->
-> However, mm_take_all_locks() calls vma_start_write() on each VMA with the
-> mutex held, and thus waits for the readers of the VMA.
->
-> Since commit 4ed4379881aa ("mm: handle shared faults under the VMA lock")=
-,
-> such a reader can sleep in ->page_mkwrite().
->
-> Consider fuse_page_mkwrite(), which sleeps until the FUSE server replies =
-to
-> a write request:
->
->     mm A, thread 1          mm A, thread 2         mm B
->     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D          =3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D         =3D=3D=3D=3D
->     lock_vma_under_rcu()
->     fuse_page_mkwrite()
->       folio_wait_writeback()
->                             mm_take_all_locks()
->                               mutex_lock()
->                               vma_start_write()
->                                                    mm_take_all_locks()
->                                                      mutex_lock()
->
-> Fix the issue by locking the VMAs before the mutex is taken.
->
-> Additionally, make the VMA write lock killable so a fatal signal returns =
-as
-> quickly as possible.
->
-> Finally, update the comments to reflect the change, dropping the lock
-> ordering list which begs for bitrot.
->
-> Note that the lock order at the top of mm/rmap.c doesn't appear to be rig=
-ht
-> - the hugetlb locks are taken after the VMA write locks. However, this wa=
-s
-> already the case, and can be addressed in a follow-up in any case.
->
-> Target commit 4ed4379881aa ("mm: handle shared faults under the VMA lock"=
-)
-> as this is where it became possible for VMA lock readers to sleep in
-> ->page_mkwrite().
->
-> Reported-by: Chris Mason <mason@kernel.org>
-> Fixes: 4ed4379881aa ("mm: handle shared faults under the VMA lock")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------544810fc055904930d266b559413a1b51c21da378ff272b1e8f8d68ab6ef1309
+Content-Type: multipart/mixed;
+ boundary=df0427a46fb63a2262dbaa451da7ca2ddf67cc09a6ce11258ecae5e89ad2
+From: YanXin Li <fadouse@pm.me>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] iommufd: reject mmap() of not-yet-finalized objects with iommufd_try_inc_users()
+Date: Sun, 22 Nov 2026 11:24:16 +0800
+Message-ID: <20261122032416.11746-1-fadouse@pm.me>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+--df0427a46fb63a2262dbaa451da7ca2ddf67cc09a6ce11258ecae5e89ad2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> ---
->  mm/vma.c | 29 ++++++++++++++---------------
->  1 file changed, 14 insertions(+), 15 deletions(-)
->
-> diff --git a/mm/vma.c b/mm/vma.c
-> index 09bbcdb4971b..f8cf319ff9cf 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -2375,15 +2375,10 @@ static void vm_lock_mapping(struct mm_struct *mm,=
- struct address_space *mapping)
->   * mapping->flags avoid to take the same lock twice, if more than one
->   * vma in this mm is backed by the same anon rmap or address_space.
->   *
-> - * We take locks in following order, accordingly to comment at beginning
-> - * of mm/rmap.c:
-> - *   - all hugetlbfs_i_mmap_rwsem_key locks (aka mapping->i_mmap_rwsem f=
-or
-> - *     hugetlb mapping);
-> - *   - all vmas marked locked
-> - *   - all i_mmap_rwsem locks;
-> - *   - all anon_vma->rwseml
-> - *
-> - * We can take all locks within these types randomly because the VM code
-> + * Mark all vmas locked, before taking mm_all_locks_mutex. Then take rem=
-aining
-> + * locks in the order mandated by the comment at the top of mm/rmap.c.
-> + *
-> + * We can take locks of the same type in arbitrary order because the VM =
-code
->   * doesn't nest them and we protected from parallel mm_take_all_locks() =
-by
->   * mm_all_locks_mutex.
->   *
-> @@ -2400,20 +2395,24 @@ int mm_take_all_locks(struct mm_struct *mm)
->
->         mmap_assert_write_locked(mm);
->
-> -       mutex_lock(&mm_all_locks_mutex);
-> -
->         /*
-> -        * vma_start_write() does not have a complement in mm_drop_all_lo=
-cks()
-> -        * because vma_start_write() is always asymmetrical; it marks a V=
-MA as
-> +        * VMA write locks do not have a complement in mm_drop_all_locks(=
-),
-> +        * because VMA write locking is always asymmetrical; it marks a V=
-MA as
->          * being written to until mmap_write_unlock() or mmap_write_downg=
-rade()
->          * is reached.
->          */
->         for_each_vma(vmi, vma) {
-> +               int err;
-> +
->                 if (signal_pending(current))
-> -                       goto out_unlock;
-> -               vma_start_write(vma);
-> +                       return -EINTR;
-> +               err =3D vma_start_write_killable(vma);
-> +               if (err)
-> +                       return err;
->         }
->
-> +       mutex_lock(&mm_all_locks_mutex);
-> +
->         vma_iter_init(&vmi, mm, 0);
->         for_each_vma(vmi, vma) {
->                 if (signal_pending(current))
->
-> --
-> 2.56.0
->
+iommufd_fops_mmap() takes a users reference on the object that owns the
+mmapped region with refcount_inc_not_zero(&immap->owner->users).  The
+reference is meant to pin the owner across the lifetime of the VMA, but
+refcount_inc_not_zero() cannot tell an already-created object from an
+object that is still being constructed.
+
+Objects with an MMIO region are published in ictx->mt_mmap by their
+creation ioctl before they are finalized: IOMMU_VIOMMU_ALLOC inserts
+the immap in mock_viommu_init() (or in a driver's viommu_init())
+through iommufd_viommu_alloc_mmap(), and at that point the viommu is
+reserved as XA_ZERO_ENTRY in ictx->objects and obj->users is still the
+initial 1.  A concurrent mmap() on the same /dev/iommu fd therefore
+succeeds in taking a users reference on the half-constructed object,
+because refcount_inc_not_zero() only fails once the refcount has
+dropped to zero.  When the ioctl later fails - for IOMMU_VIOMMU_ALLOC
+this is reachable by simply placing the ioctl 
+command buffer on a
+read-only page so that iommufd_ucmd_respond() faults - the error path
+runs iommufd_object_abort_and_destroy(), which calls the driver destroy
+op that erases the immap from mt_mmap and kfree()s it, and then
+iommufd_object_abort() WARNs because obj->users never returns to zero.
+The next munmap() (or fork/exit) reaches iommufd_fops_vma_close(), which
+dereferences the freed immap.  On v7.4-rc3 with CONFIG_IOMMUFD_TEST,
+racing a loop of mmap()/munmap() against aborted IOMMU_VIOMMU_ALLOC
+yields:
+
+  WARNING: drivers/iommu/iommufd/main.c:126 at iommufd_object_abort+0x11d/0x1a0
+  BUG: KASAN: slab-use-after-free in iommufd_fops_vma_close+0x87/0x90
+  Read of size 8 at addr ffff888010f4a5c0 by task test_iommufd_mm
+  ...
+  Oops: 0002 [#1] SMP KASAN
+
+The reproducer uses CONFIG_IOMMUFD_TEST and needs no hardware IOMMU.
+On production kernels, the bug requires a driver that publishes an
+mmap region before its creation ioctl can still fail, such as
+tegra241-cmdqv o
+n real hardware.
+
+The kernel already has the correct helper for this invariant: main.c
+documents that "the users refcount cannot be increased on an already
+created object unless the object is installed in the xarray, otherwise
+things are racing with a parallel destruction", and iommufd_try_inc_users()
+implements exactly that check under the xarray lock.  Use it in
+iommufd_fops_mmap() instead of refcount_inc_not_zero().  Before
+finalize, xa_load() returns XA_ZERO_ENTRY instead of the object, the
+helper returns -EBUSY, and the mmap() is rejected with -ENXIO while the
+ioctl is still constructing the object; after finalize it behaves like
+the open-coded version.  The mmap path now nests the objects xarray
+lock inside the mt_mmap lock.  Object teardown releases the xarray
+lock before the driver destroy op erases the mmap entry, so it does
+not acquire these locks in reverse order.
+
+With this change a successful (finalized) viommu can still be mmap()ed
+and unmapped normally, 
+while 3000 aborted allocations racing two
+mmap()/munmap() loops produced zero kernel splats, versus the use-
+after-free above on the unmodified kernel.  A test case and full
+validation logs are available on request.
+
+The vulnerable code is present in mainline commit c44104f3642d
+(post-v7.4-rc3).  Runtime verification and fix validation were
+performed in an x86-64 QEMU/KVM guest built from that baseline with
+Generic KASAN, UBSAN, lockdep, and DEBUG_OBJECTS.
+
+Fixes: 56e9a0d8e53f ("iommufd: Add mmap interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: YanXin Li <fadouse@pm.me>
+---
+ drivers/iommu/iommufd/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/iommu/iommufd/main.c b/drivers/iommu/iommufd/main.c
+index 9a921b15316..f0b4308fe34 100644
+--- a/drivers/iommu/iommufd/main.c
++++ b/drivers/iommu/iommufd/main.c
+@@ -601,7 +601,7 @@ static int iommufd_fops_mmap(struct file *filp, struct vm_area_struct *vma)
+ 	mtree_lock(&ictx->mt_mmap);
+
+ 	/* vma->vm_pgoff carries a page-shifted start position to an immap */
+ 	immap = mtree_load(&ictx->mt_mmap, vma->vm_pgoff << PAGE_SHIFT);
+-	if (!immap || !refcount_inc_not_zero(&immap->owner->users)) {
++	if (!immap || iommufd_try_inc_users(ictx, immap->owner)) {
+ 		mtree_unlock(&ictx->mt_mmap);
+ 		return -ENXIO;
+ 	}
+-- 
+2.43.0
+
+
+--df0427a46fb63a2262dbaa451da7ca2ddf67cc09a6ce11258ecae5e89ad2
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="publickey - fadouse@pm.me -
+ 0x99485AA3.asc"; name="publickey - fadouse@pm.me - 0x99485AA3.asc"
+Content-Type: application/pgp-keys; filename="publickey - fadouse@pm.me -
+ 0x99485AA3.asc"; name="publickey - fadouse@pm.me - 0x99485AA3.asc"
+
+LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
+ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuMTAuMAoKeGpNRWFVdU9NUllKS3dZQkJBSGFS
+dzhCQVFkQXRuWWxTekhUTEhBMkl6dU5FMUF5OEpyS1VDeDZoUCsvdGM0TApEWENucmV6TkhXWmha
+RzkxYzJWQWNHMHViV1VnUEdaaFpHOTFjMlZBY0cwdWJXVSt3c0FSQkJNV0NnQ0RCWUpwClM0NHhB
+d3NKQndrUXVaMWd0K1htMlhSRkZBQUFBQUFBSEFBZ2MyRnNkRUJ1YjNSaGRHbHZibk11YjNCbGJu
+Qm4KY0dwekxtOXlaem0wQnAzZUVYUldrbklnQ2xXd3ZkeFptbzFYblZiNkZrYWpYVFZNMUIvakF4
+VUtDQVFXQUFJQgpBaGtCQXBzREFoNEJGaUVFbVVoYW8zWi9BbkJJNExCWXVaMWd0K1htMlhRQUFM
+cTJBUUQ3OEs2cGVkU1gzbGROCnlxZDNPSDF1TWpPM3Y3TFlNaE8rbDdjblNMV3JFQUQrT0NTcTEx
+U2VhS29ic1ZHckxlalRNc21Nc1BCOGpueGYKaWQzaENOK3Bld1RPT0FScFM0NHhFZ29yQmdFRUFa
+ZFZBUVVCQVFkQXdYZHpWSXFFSC94OEhaalIvUE90MkFpRgpiRW02WXFYWDJqMnYyaUtEc1FNREFR
+Z0h3cjRFR0JZS0FIQUZnbWxMampFSkVMbWRZTGZsNXRsMFJSUUFBQUFBCkFCd0FJSE5oYkhSQWJt
+OTBZWFJwYjI1ekxtOXdaVzV3WjNCcWN5NXZjbWRkS05RWURGV2NFVmQzeE9IZVFwNnMKeW43OU5G
+cE5xa0h6K2l6cElMQm5VZ0tiREJZaEJKbElXcU4yZndKd1NPQ3dXTG1kWUxmbDV0bDBBQUR6UWdE
+LwpjSUowODlKa25vZ1RzNnZ2UVorSjNMUklEYUk5K1FtK1Q1cU9tTms0eVhFQkFMUElsSkNTOGFo
+NWRCWVphOUwrCkhxamJEbWVTZ0RvNTh1U3graVd3KzZVTAo9TXVzVAotLS0tLUVORCBQR1AgUFVC
+TElDIEtFWSBCTE9DSy0tLS0t
+--df0427a46fb63a2262dbaa451da7ca2ddf67cc09a6ce11258ecae5e89ad2--
+
+--------544810fc055904930d266b559413a1b51c21da378ff272b1e8f8d68ab6ef1309
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wqsEARYIAF0FgmsCYHAJELmdYLfl5tl0NRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmfSSJlUeHcuM06T0RsZCl+sFiEEmUhao3Z/AnBI
+4LBYuZ1gt+Xm2XQAABCzAP4ufnszD5yfuzsWM4JOVWnBiRJN9HsUyKJ4hAhX
+KA1rxAD9HhV9XCyGFPT7vhWJb6Gbo3+9JFznDA49eqaMC5PtsAk=
+=O0WQ
+-----END PGP SIGNATURE-----
+
+
+--------544810fc055904930d266b559413a1b51c21da378ff272b1e8f8d68ab6ef1309--
+
