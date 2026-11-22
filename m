@@ -1,75 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795320909;
-	b=pAW+vYK6CwU3piRvyqiGq2qs0Re+fk7JPDXIaRcw4hdWP2HH4+Qd9fLzeiXSSO7xjOqR
-	 YLxpA9gI5O5PTGx9Zrjr9u6mtpvdyEoM22J8uFvLjug+FxKU1F85aIxoDhzd5aQqcE6cX
-	 qM2tEyHa4I0Fph54nV5rLGCTVsBDj2OfIon31aFsM5l8s2P0N9y73vvokbE/VVqMGIaUe
-	 qpinY7IwrnAtyhDnBPfH7TZLxbmXyNT+FWATV8qWRH0yMNK/GcTqHgvrdzqxIOqE8o6sc
-	 sj//ObNIAJgh3wq3l1+NnsuZhVrDRrqKJobiAAoW75gGmBNVoKLsiRUkEgGTDfS14eg==
+	t=1795321100;
+	b=s7XcDv0y8FPE9LBq1M7SyyWty1lW76/M7PaDGiEimZopJNnI8Mq7MWvoNKJXuDdIaeZw
+	 03AT5QihyrOc4vklcDG56MXX9YD20reiUANr086+0RTJoMWuhDmmK2osmQ7uQ5X+xC3J5
+	 Ps3RJNi94jhTD/rtEnyeG9T/GTk/RnbQP0h0XmpQ3orLQifpvyXJ7Tg4WWUKJDGuoKGtM
+	 jqOxste0aWxF1SypxSsuD7noCLbQxCNKUZ+YDl0RzDfGWrfnVvMhlq18iEyvc5sPAmBIe
+	 //nZ8xA6RBRlSxqCoDX5opr6m6QOO29SzbqAv75M+vTB27Cu8jkfbZaLJYFLIAZqHHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795320909;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:In-Reply-To:References:
-	 Message-ID:Date:MIME-Version:Content-Type;
-	bh=xBb72HO1pvi/quYz7ygtDn+gbk+xkVVdd8it6HzzL6U=;
-	b=qGnvNSJGXt6FtQv6vVsaVR8tK6VmQWBVlQRKSF9/VmtR0R5ZfCsIDLVg8mMwhtfl1r79
-	 60rvkWgzlBQ5SovQ6J6U+eLnQvLy6LJk8TpBxh8G0nkdfPimzhU6D90snCfqzKUvxcSRl
-	 f5iOzzg+mAG7SqGrPkR27UPn+crbOuLW5rgBDkpIVE2tAGwRnUzJ8S/5B3Z5ThlIw4lgU
-	 Z/3bRG84W6o76tXVn6QjR7INT+e9OEcDk8iztZYheI+Q7kq0OMy3WikOeteImJNNJhduz
-	 onwS1PH6OPcbbpenTSjKT8JPnI98CSNhiF7vqOWKEWCsvWjDD4PAAjTiYTztBHB1oWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795321100;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=K5SpmYF9qIoDujQ9JAnH9RzElX//Bxtoew+aHb0jqvI=;
+	b=u3SrXsDQYGM6qqUrg2YoRn5TGIb4/BzY7sH2tmFZg24RXrigi/z35TvMG7ZutYOZr9uk
+	 bRv/a2EcwO4xf7dgwIoGBOCKS9lrFWhW9XnCqTW7KSfP56oaBYH96f3Y98Cf1UXN+lJEr
+	 mi7cCOwv1xhVxqUf4NXXwDurIMp4nquvMk7sWLgq64uHeX8GXPLNtEDgF4Z1NfmfQxh2+
+	 9d1K41GUy95rsi1egi6dPNyopYkubdPi8DS0E7LbsWnBnxKHEyro3ajbtJ3b/zy1Ub1g0
+	 FlBU7+Aoe7NYC881qIaG5shHfgKkwVa3/YPqXoPoL37zF0oTD7ti8a0lDZP/TamqwCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b="k/3YAR0Q";
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="PM/cmPap";
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4D5606A331;
-	Sun, 22 Nov 2026 04:15:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E4D5606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B81F606A320;
+	Sun, 22 Nov 2026 04:18:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B81F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=k/3YAR0Q
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AM4ExKO2553871, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1795320899; bh=xBb72HO1pvi/quYz7ygtDn+gbk+xkVVdd8it6HzzL6U=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	b=k/3YAR0Qg/Zxm1b5TetAts1PRZY82B2iDWKgqYACc3/pkYu7lq1zm1a8JttUsY6Fk
-	 AJLHfQ5n3iDU/JinfHov3VfsZ2wA6jxrocM970W6dpSP7wo2xUuF/wngXsdHqpvpgu
-	 hYPGsIXEycZARcBG9ADvFYnf/QjeWDCmsg/+GJ+OJ8jGi+i1O7nUHj4UymzsneXoTf
-	 KP8xk782O/1SwPsUJLtHqRMJ/hd79lmXHiSVEp7tbnawi/+QcEw/Tizp+DaTZc7U7z
-	 +dQQzfuEfR1Buq83N9lJhf3tr4Yftk68pUYNVPsooP5+gW/d3t7d5lgULnVAhlfMQH
-	 C1DRexI66oEog==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AM4ExKO2553871
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 22 Nov 2026 12:14:59 +0800
-Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 22 Nov 2026 12:15:00 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 22 Nov 2026 12:14:59 +0800
-Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS05.realtek.com.tw
- (10.21.1.55) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Sun, 22 Nov 2026 12:14:59 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Enver Ikromov <owner@ph4ntom-rev.uz>, Ping-Ke Shih <pkshih@realtek.com>,
-	Zong-Zhe Yang <kevin_yang@realtek.com>
-CC: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH rtw-next v8 1/5] wifi: rtw89: avoid NULL vif dereference in rtw89_ops_tx()
-In-Reply-To: <20261119080328.391-2-owner@ph4ntom-rev.uz>
-References: <20261119080328.391-1-owner@ph4ntom-rev.uz> <20261119080328.391-2-owner@ph4ntom-rev.uz>
-Message-ID: <63269466-8c67-461e-a29b-f64bb0d47f6a@RTKEXHMBS05.realtek.com.tw>
-Date: Sun, 22 Nov 2026 12:14:59 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=PM/cmPap
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jXG5Z4sKZz8XrrJ;
+	Sun, 22 Nov 2026 12:18:10 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1795321090;
+	bh=gt1N6m13cI6EhWhLtyiHmPGo+hhNRPWASFwiBtKk+cM=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=PM/cmPapFT36jjYL/esSR2YepgO53TVhEOMXTqWo+8qdIBE7KOXT8+/0xtq9Y0V0T
+	 cNH4c/uIzcLp7tGH/ApErvwKmExmKRRtrcPxX0oeQkAETOh7lH2JRnhlB4qhuSXOaE
+	 66FL0zJm4d+BeaS64f9XwjoE6DFD45wIlFQ33l7HHr2Oxc+zOsVhDMcMmgfWk6ziu6
+	 HHE+IfrKmouHRXi5906rGm41pwf7Kb+pCspcc2nWsHgOoFZW34iYGkEdVi+ZDP3Ln+
+	 b/NA7MUAdzRlwGZ8fbM63KknWCJ+KD2Vt0ulekYLjvq3PW+VtLAsclmf/VJWzOeGvn
+	 1Ndd6Y0awQqlw==
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl1.zte.com.cn with SMTP id 6AM4I2QQ014271;
+	Sun, 22 Nov 2026 12:18:02 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sun, 22 Nov 2026 12:18:02 +0800 (CST)
+X-Zmail-TransId: 2afc6b026cfac28-10a1a
+X-Mailer: Zmail v1.0
+Message-ID: <20261122121802335D1zR-8sXZ6-R3aYDkB2lK@zte.com.cn>
+In-Reply-To: <20261120174914.GA1484@lst.de>
+References: 202611150127512368BGQ07ZNIRAIwClkam-8u@zte.com.cn,20261115012752774qFGtgUXwZKwN-2LDj0D80@zte.com.cn,20261120174914.GA1484@lst.de
+Date: Sun, 22 Nov 2026 12:18:02 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,32 +72,29 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <hch@lst.de>
+Cc: <kbusch@kernel.org>, <axboe@kernel.dk>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCAxLzVdIG52bWU6IHpuczogcmVqZWN0IGFuIG91dC1vZi1yYW5nZSB6b25lIGFwcGVuZCBzaXplIGxpbWl0?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6AM4I2QQ014271
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Sun, 22 Nov 2026 12:18:10 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6B026D02.001/4jXG5Z4sKZz8XrrJ
 
-Enver Ikromov <owner@ph4ntom-rev.uz> wrote:
+Hi Christoph,
 
-> Injecting a raw frame on a passive monitor interface while a station or
-> AP interface is also up causes a kernel NULL pointer dereference,
-> because mac80211 has no virtual monitor vif in concurrent mode and
-> passes a NULL vif to the driver TX path.
-> 
-> Check the vif pointer with vif_to_rtwvif_safe() and drop frames without
-> a vif.
-> 
-> Fixes: e3ec7017f6a2 ("rtw89: add Realtek 802.11ax driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Enver Ikromov <owner@ph4ntom-rev.uz>
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+> This warning triggers for perfectly valid values that we just can't
+> express.  I think we can just drop it.
 
-5 patch(es) applied to rtw-next branch of rtw.git, thanks.
+Agreed, I've dropped the warning in v2.
 
-0202cb50fe9f wifi: rtw89: avoid NULL vif dereference in rtw89_ops_tx()
-260247bfbc5b wifi: rtw89: handle negative rate index for injected frames
-e07c9af7bbc8 wifi: rtw89: restore channel when leaving idle on non-chanctx devices
-4175fc84dbe9 wifi: rtw89: avoid reading seq_ctrl on control frames
-92608bb5f14f wifi: rtw89: honor ASSIGN_SEQ, retries, and NO_ACK for injected frames
-
----
-https://github.com/pkshih/rtw.git
-
+Thanks,
+Shao
