@@ -1,96 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795385049;
-	b=pYILfvbbhRHEGkdYvE+zql5St4t/TLlK6K1vpOyZT3gHD5aoGW8Q3GjwXM4PyhUqHOVb
-	 wSEF16qVjbC92SoybLbZ43pDHxJzE5VCPZPx0MtWToKwuE6p2q4dqPONuStNgnaiNZCSN
-	 36INDMAN9QEjhbNW72tma4Co9wAKiXjM/7I+tusYqoZkYWt6N5SsU/Ujsufpn/IN2sXQl
-	 8t1xb6bt6itCmVqJbR3YNeiRsK2JfizgCLL0wWqsONKOCnJUW5tpiO/AScudtvgauYtU+
-	 oM3M6AyxZ/74rYkZ4VqQyeyUDWYk/r28zt5XgEOAjjNsw5Xi5MSANN+lGiaNDPPUajg==
+	t=1795385284;
+	b=g7WTGnAHmgMkW6r8aiWyTWC51LbssUY2dhAMG0EuuSkrOGDsw3ca5LMK7MgbhL8BqDUY
+	 bKVBRxkYOMUxUDpSRCfnFMuTb2saObXx4K/xwgJl8sVwg1/4yCqLRmF97s5ItJvcpCYRH
+	 EQVwOs6q0VOF6bJt04ak8J3gyAyOHT97VmVR8ReTNF7JBXgmEf5j6vGwUyObMnQwVyodC
+	 l6FeQ76L1aRjxKpw+YqwheyBpyD1X3o6XVzREQKLkvkYawsvs24QeYOOWf/tla+qUjw/B
+	 jrAMGhHQdDMi0SLd1STAIBxd14cNaNISzLR0W1BagLTJM1jPCXrqms25fsEMKbHsLbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795385049;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795385284;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=e1UeqpHopmbaPkusoHxAs650nxIkw9JTuQGwP/8OHlk=;
-	b=NNPX7b5RFkkR0Gv+W3Mhkj7StiIcZRavK/5KNZ74q11BQdW02Jy1z1EVS5EwzzNwFdfD
-	 e2wpygNvJ4IYjLk4WaYpP8FmnW1RzsH7ff9PHqPpgEcpErPe6vIDtRM2zr1v7ptt0i/Cx
-	 xrElczkKlUrVlpw5XFfsUQkDEbV83LKbdfEzgDcz/5GnrR5RGj5842AGrjTXmd4bBukxz
-	 mb0yw9XRCkqvfFcpXVpJv3UykeHELUHPxzxp72r5oyBgPeMNaxjL2jKp5nkJmqurD2Es9
-	 q/ukfbS5MywQrW0ivDI2vc5Ad9znSvJyelLHHEKRx9Gkgjty4OUcZ2kf4NR/PTcjPog==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9Q5dcjCE+LP3xpWENmxAai1dabC7JWByJcjJkMNepDg=;
+	b=IpamI8vT2doQ99XF+fK6I0yBhixCQ2NY8v2V8TkJOK9I3EGzXReQb1LY54N0CCP++sHb
+	 gF9qXijtN00PBB8PsO0L6dKKhBAm/opuHg1KfBL8rjhQ+efr1gg04qXtDic8MPlJtADWp
+	 ovZVIAzfMEZ/ssVXr3Gl3S21xgL3awnBtHiMYgdqik3pe9x96QmxUE8qTrjXyZtjNRgBw
+	 nz/ixU/+4zGhsNtfWuA1mbclAstqu2lnE3qtfl9KPuBnzcpNuD6VyfH58K+KUsaTaF3x0
+	 MFICgjA7OwM2OZfhCnqPL0CBd3MWRXEtSATdHWyYB4r+hxiJvk3XOVeKEn4OeyUgg3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=Zb6i+C64;
-	arc=none smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="v1IO52/E";
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70250606A32C
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:04:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70250606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B0E606A31A
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8B0E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=Zb6i+C64
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-55b8cd4e2abso32041531cf.1
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 14:04:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v1IO52/E
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4a3e706b5dfso1738687f8f.2
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 14:08:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1795385048; x=1795989848; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=e1UeqpHopmbaPkusoHxAs650nxIkw9JTuQGwP/8OHlk=;
-        b=Zb6i+C64CASN2ndqPIkyqfK6CNP07EzVS4CJfCyAslD3l9TVj2ktcjdJKiATYHCa4d
-         nFzVDD4e7Fb967Zmek2vssQc1g2uGyVD924kVnth7iDDsi9vf73VQ8fDaOquRrq3yu8r
-         1dlGsXvToefm0ERzK/AMbRuwle4p0pqB4q5QhtuRDBdd641tDYrgYAfSQ2/ZWtmORlT6
-         EAojqrwI3sg1ialRkcqFhaHNXGMzGKS96TyGaKJzbtu95+9y6ofCZGt57p53iw6If4N/
-         HS1xpGwWTuqR/vTy8cHVy92eMMwVgBa9yVwksjvyvSLVPniauCMo8Ehb6zWb1wxd1oty
-         yP2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795385048; x=1795989848;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1795385282; x=1795990082; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=e1UeqpHopmbaPkusoHxAs650nxIkw9JTuQGwP/8OHlk=;
-        b=gtxBjg1MRXWulFs/8sp6eofW8fILwUWnhL7GInn6LsSFxr3j2AN2c6WKzTPFLZgP2v
-         2QXGXVI879F+st8mc7dXBYe+2acigPqWmtBBL3wu5sTd3Rko9ulcF2CRKSZDc6BrnLmD
-         hxvgUdpzmdHsnX/TgZjZxdZR64168bDnvmM0+ySCi2J+Nitp24OUYUuenrGxHi0WJJ0V
-         VIy6pWI/ASQyxSGOWb6yl4pSBumJsMJksCc/Ol8VVIMrhIreFvBEp0hedTQ4tllN5yrI
-         bEK7xITmCKNM6cEe0V5OCrZQoVmTtrCkn3PTql4N8xxR0ZqXOXU1LXc+cBpT9vXYLf27
-         RAAg==
-X-Forwarded-Encrypted: i=1; AL+hErEE8QRut5gJja66hlAr5SvrexaevTX8+eTd0dSzX4DV4gi6Jlc4Ur8lsK8pdkUT5FPrBEs7j2o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/paKFvuhZwZl0PUBqqH//bzBysxgY/D69tvnf1kfLbPLrz4Xuk
-	PL4CfiMMRQrsZwev6yGxQypJfJ2UizsoPAeDn2cJEUjvTRzUDRH4W971+Cy363yHjQ==
-X-Gm-Gg: AZFdTZdarvWLGaYFSi1HT6Xrk7wBp4p9YJE6BdCRy5fx4i/YhFlPew6gpbfGOx1sgQA
-	0mS41Cpvv39BhMmfZxaVHMLNJMhxjdeIgeGI5soLB9XjbbsgJ/yPFkw6YCeCVNWo+PXd97pGX4Z
-	Frc0d4IIqoveItB/OtqQkXClpbQN2XDtNrXdAVOGoElRRAfpQvhwEn4hLi18HVw3YK+doBHGXEW
-	qGEBZhXraqbZcCHtCY2Fa2IxuBSNqIy2yteezpilQLnCxf5tnVSlfE6pbzVwutDV24LEwNuEAmv
-	P7G3wXnz47ZO1lkSj549r8l1zgxU15iR4UeaRcBA6v092Cdmcrm7npnuLKRGbL7gjOSnqbxR9Cd
-	diQuedOTWeWK2RsS8UajqDzNUBrA/KgTi3PqG4GYRFvrISEd1DNbKO9mK9/6u/iAUsXpALXoj/L
-	i5npkEx8AqPaAZsSiU0XOglzXGIx1c2FGWpDYtzbmjpyshqiymIdglrf2n+tZstOM3Zn+YR4TGe
-	Hl6T94fi6n+JjOOvAwroOidH3VIz1v2/ygc110mUJMVZVhaMknnjY+45ffP5XSWdU95J0Ck9jFx
-	EELwoLPcWgsf7OKwGx4q6t68umC7IA==
-X-Received: by 2002:a05:622a:2b49:b0:537:c478:70e6 with SMTP id d75a77b69052e-55d76ac210dmr174765381cf.36.1795385048312;
-        Sun, 22 Nov 2026 14:04:08 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d00:161a::d398])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d788ae02fsm81501311cf.29.2026.11.22.14.04.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 14:04:06 -0800 (PST)
-Date: Sun, 22 Nov 2026 17:04:04 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Arbab Haider <arbabhaider649@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Shichao Lai <shichaorai@gmail.com>, linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net, linux-kernel@vger.kernel.org,
-	syzbot+dc208a8cf8d37cf3e5ac@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb-storage: alauda: track media_initialized per port
-Message-ID: <61e2f5db-8d78-4220-bb21-cedd9f579e8a@rowland.harvard.edu>
-References: <ac19e630-f96a-4144-88dc-e3f22091c7bb@rowland.harvard.edu>
- <20261122175805.2955-2-arbabhaider649@gmail.com>
+        bh=9Q5dcjCE+LP3xpWENmxAai1dabC7JWByJcjJkMNepDg=;
+        b=v1IO52/ERL61wtFGSYzZ5A2fdTot9lQdD0FYuRsYmQGqrBk/l8MTDkniqoYn0pB57x
+         bINUnoE9wNBDQygFCTfws4L+EuJ7H9v/jRQdxwtegKFN6b+OjMfZZ4cpxsXuiYREP22m
+         mA2OQDPJTDSSkAds4sSkC9IPb6MvJXpxWBeCsAJKzNg2Fnt+Rfm4qk7uyRPeJaCXPUYl
+         fcti3Bx+Og9NCZCiDlDMFlrGOC7lr/cl1ZTHZPofbZRIUlOoBSUN5myHqdXM0GIAPmIS
+         suCF0s2NzBFSxVpGmMgzyRn59DEsmD4zL2OZzFFUhFVciH3w4qNJcXUT/Riqh+iR6OSF
+         UdAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795385282; x=1795990082;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9Q5dcjCE+LP3xpWENmxAai1dabC7JWByJcjJkMNepDg=;
+        b=K5TxQ/8Z4ySW53D/2u2dPa6WRA7cKm8QT9+l6Am7pz7OtVOgT8MyaD8r0uNP4/2Wuj
+         4KmDj9rSElF1PQ/NTAUNMfax+mmvNQX1LD2xrcQjH7rzTGuLBziL1yDG3awprlWH9tdL
+         refxyUkMaNkxVXQOHQrIgQu5Z9gXpTAjDdvYkUfVEcRI591Lsl35MYQTXDN3dob3T8vb
+         wH2N3fqJwF1eiXLD0xPbCHWeGDaZzFN2RsMMsAitbHdApnPqjVtplJ6SdKFqfLasKjnX
+         Y//5LLkNj372OhuD42xVdmF2jYTm/6ZPkIer6xyWSuD48NQyJVIklPzyD1V0yj6zrr9l
+         2sIQ==
+X-Gm-Message-State: APuU4Z9AfRzmT+2lrr7Ey0+PIgrbMmh71dMa8+AidR1makMRkqh4pFS4
+	chHOq04LTTCJXQMRwHC44PDuhVeONSQ33t5iEGmc9CNC4dJ8Nw8JlOsHEgRRM1tt
+X-Gm-Gg: AZFdTZcGpDrRzLHkus9AfgkY2ORoi9ptrDMRx699h3gtiUfYWkcDFRpUimHwCQIhpjy
+	rhxELG30JIFIwT0OFAV7n1JqLtIx+m9QACjaY/JfdFa4JTYaUS8SzbIxyGY9ZtEC1HDHZobtKA9
+	FD5nEFZZI+h3Tu5v0guA94462EKK903brg2Tj41T60209KK1BkIPOzFC3u+ktwxqSMIVAYofVxV
+	a2cpwz0/tOR0AjY2yMWgUayMf/G2Ha9i2aRWKYKCYIxcHcnyjtCHCe228Z6YMvf1/08ibIun7Uf
+	35BgU/1TtE02pr1nCXHSK2N3eXDPXwp8nKBTaeVZ+lBSx749GZFcgE5QxPvG1DNaLczp3526HSE
+	PvsIdW8xMcA3oZ1/KoyUakhyE8CFC2UW1G6925yj49DANl08ll61xgrNCaq1FUBrpQCa9aWggdJ
+	/Fo5OzD0FKXgkxDdyfExl3kyCkDYMX3BKCbQG01vo45K+tGAujG2fcjkyvSdUy0hUUKeq/XQ3//
+	HvI5RC/a3gFdJXyo9zaaiMJZ+R1tIMlnzcQX6ydjoZqgGvfZGBWA4H4wcP5EfZGBXTUyjIUhyvA
+	7ib3iVqZhcUgZkM8DcxHPrHcvmauAFHC3dhpM+iOWeJErom7di1+u0d+b3PRPVnwKZc1bu0kYhL
+	6t4PXsGLBUdIcmUuXlV72ea4XHYt7J+9UsPo4nrxtkgBr9T0EHYg+6IhWzkxZmuWacreDh4Gd2a
+	tiotrlawStWw5sao7X+Bf5ZdSBci5YsBIn8krCU0tgw5FgeNh31wcygA==
+X-Received: by 2002:a05:6000:288e:b0:49e:4ba2:a775 with SMTP id ffacd0b85a97d-4abb86e50eamr18986206f8f.56.1795385282098;
+        Sun, 22 Nov 2026 14:08:02 -0800 (PST)
+Received: from localhost.localdomain (dynamic-2a00-1028-8388-a84e-20fd-ec9f-e3f8-60d4.ipv6.o2.cz. [2a00:1028:8388:a84e:20fd:ec9f:e3f8:60d4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b10b5f6sm17186632f8f.34.2026.11.22.14.08.00
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 22 Nov 2026 14:08:00 -0800 (PST)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.6.y] net: sfp: add quirk for Lantech 8330-265D
+Date: Sun, 22 Nov 2026 23:07:59 +0100
+Message-ID: <20261122220759.72495-1-pepe.schlehofer@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,42 +96,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261122175805.2955-2-arbabhaider649@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 22, 2026 at 10:58:05PM +0500, Arbab Haider wrote:
-> On Sun, Nov 22, 2026 at 09:53:25AM -0500, Alan Stern wrote:
-> > I asked because when syzbot tests a patch successfully, it provides a
-> > Tested-by: tag and asks to have the tag included in the final patch
-> > submission -- but you didn't do this.  Did you run the reproducer
-> > locally, without using the bot?
-> 
-> Yes, I ran the syzbot C reproducer locally in QEMU without using syzbot.
-> I also just tried sending "#syz test" to syzbot, and it replied that
-> patch testing via "#syz test" is currently disabled:
-> 
->   Patch testing via #syz test is temporarily disabled.
->   See https://github.com/google/syzkaller/issues/8122 for details.
-> 
-> Also, while checking lore.kernel.org, I noticed that syzbot previously
-> posted a similar AI-generated patch from Aleksandr Nogikh on 2026-08-28
-> that never received a reply.
+From: Marek Behún <kabel@kernel.org>
 
-So it did -- I completely forgot about that.  For the sake of 
-thoroughness, here's a link to the old patch:
+[ Upstream commit 86a8e8e0ddbc3d14c799536eb888180b84d002f3 ]
 
-https://lore.kernel.org/linux-usb/ea864031-b1e2-4b78-ab3a-58adf681efc6@mail.kernel.org/
+Similar to Lantech 8330-262D-E, the Lantech 8330-265D also reports
+2500MBd instead of 3125MBd.
 
-BTW, the two patches aren't just similar.  Apart from minor differences 
-in the descriptions they are identical.
+Also, all 8330-265D report normal RX_LOS in EEPROM, but some signal
+inverted RX_LOS. We therefore need to ignore RX_LOS on these modules.
 
->  Please let me know if you prefer taking
-> that earlier patch instead, or if this submission looks good to you.
+Signed-off-by: Marek Behún <kabel@kernel.org>
+Link: https://patch.msgid.link/20260128170044.15576-1-kabel@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Adjusted context. 6.6.y uses SFP_QUIRK_M instead of SFP_QUIRK_S and has
+  other entries next to the Lantech one. The added lines are unchanged. ]
+Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+---
+The upstream commit is in 6.12.y and 6.18.y, but it does not apply
+to 6.6.y. Build-tested on 6.6.162 for arm and arm64.
 
-I'll leave that decision up to Greg; he can choose whichever he prefers.  
-Regardless, for both patches:
+ drivers/net/phy/sfp.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
+diff --git a/drivers/net/phy/sfp.c b/drivers/net/phy/sfp.c
+index 38ab35e57127cd6863c7682e8260781dc6350f2c..e6fa6020ea81172d83fac9c63190bd1fe16b506e 100644
+--- a/drivers/net/phy/sfp.c
++++ b/drivers/net/phy/sfp.c
+@@ -533,9 +533,13 @@ static const struct sfp_quirk sfp_quirks[] = {
+ 	// FS 2.5G Base-T
+ 	SFP_QUIRK_M("FS", "SFP-2.5G-T", sfp_quirk_oem_2_5g),
+ 
+-	// Lantech 8330-262D-E can operate at 2500base-X, but incorrectly report
+-	// 2500MBd NRZ in their EEPROM
++	// Lantech 8330-262D-E and 8330-265D can operate at 2500base-X, but
++	// incorrectly report 2500MBd NRZ in their EEPROM.
++	// Some 8330-265D modules have inverted LOS, while all of them report
++	// normal LOS in EEPROM. Therefore we need to ignore LOS entirely.
+ 	SFP_QUIRK_M("Lantech", "8330-262D-E", sfp_quirk_2500basex),
++	SFP_QUIRK("Lantech", "8330-265D", sfp_quirk_2500basex,
++		  sfp_fixup_ignore_los),
+ 
+ 	SFP_QUIRK_M("UBNT", "UF-INSTANT", sfp_quirk_ubnt_uf_instant),
+ 
+-- 
+2.54.0 (Apple Git-157)
 
-Alan Stern
