@@ -1,88 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795345708;
-	b=DNeIo/hLX5safwrKfRJxwoahbha/cwcaE54hcOmoEuUgedbPdU77RqQsgnmTlkZ6hKZg
-	 ogfUEGES560v3hTQMRX1m6ul4+t7galGC53p5mYVWwSiNtCukAv5Zupn4vVqlG/XPRjGq
-	 hL/2tL9zfP2xt51s1Q0X8UiQawexeOQ/QX+Y0c/TyKZBUT+F12Hsbrqn8KeDZvlH8+xot
-	 d2Te2xHlwySL8Hmz6hstL4tiNFbLy3yYQ7KjLHnqvnQYxV0s05o0AFVvQv+ERHPq/W91V
-	 T6F9YKYVs0OKEJWP+rVp6aJNatYIkvlocTvK0CP6tciB5tw0PGlEjse+ujRxpxbESOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795345708;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=zaMyK3qppSY/fYqpLRU3S6YqAc+ypnqc7LNjt8K0pyk=;
-	b=lUWIB5bcEtKItm3vQFbKKc3MlBhOLzWQoqF6p/bwlnHUZm/3a/gS2SD2+KPZIceRhXKW
-	 x2U+q4eeGdcGIZtKBU7o1LIwCpPNK66cXaiZrJCSf1MXDhsQx3SeySQmKYlCh50R3v45j
-	 TYExiIknxJqpB0OrBFfOzMof1nZHg7DPy7OZ6CpbRZb0m2pZw+b5OOA0tadQ/uve5b35v
-	 DLFvSpwSg6YwN5LLBT6rTzlR5QQM1eFGoE6mnUSsKVTBlF6uP637ajc1Nu6SzeK0tOjJ1
-	 A+Ywgy2oUwcnfWxCKwhUwdplpFIwxP4w+AXYw0hyVpJkoGHCkrlBkRhOrlXUmbrM0ZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DdqpONjr;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795346952;
+	b=h3/TgMqNmkXbscbWiItqe+Pvge2RcB+LYG8mfkZSr/2vwWltPQlEJnPqmB7wVCYm0svR
+	 xCcciCBI8139gOe+J/cOPMyDsmREfeTovwtOdKDEsGehc2XLxi6f/frezSIDvieZGqp59
+	 s8dd7VFwAYvWy1QxT6aCLw17V7d0s3StclqzA7pXF4Nf4c3vh49R18Mcj5lQG1qDpen3w
+	 R6MWYfz5ivh6eB60YVMEXzpgkL5d0h3Blaynd8rJRIKrzB0F4tH2lR6xttYw8PsZTAq5r
+	 ELnvtKes4qfja1uvgZsDHCQhLSCqeDYLxUduxUtGYj1I5E31WpokNIZZ24rXkmr1d5w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795346952;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=RUES/23o4ev/4H5Nx4jBd4qoM/eQD2wvlXKexFRNjWE=;
+	b=PEov/OdGO6w8WFYoC04Tiw7OaBMMbbPiRVoYyKePfJMQpYoQdX7f0FOCgLOssRN4Zvek
+	 mQY6LemaEizAc6JeK45BEmGCAn56Q2wLQOkqPsfpMK7id2dcVgS+piOkcMM4eopjUxL5Q
+	 IWuurcIn4lSKlAKEd+zJEm+SINkKwaz8dzgqs5NtAhdvtL8e78DWhdW1QbEoa0HcerBlJ
+	 0tV5VoR2hHMWuf89NWEQWgOlONmjsS5UuMF0PoEClrmNB9KAIhIgC/cErF4k9APmZnkPu
+	 MdhH7lXEi1JPBESe6d3YNfUE8mhR0Losi+eNOkbA42mw3LwGYP2Kobzb78HbmJUkIBQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MtJbyUwf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594BA606A320;
-	Sun, 22 Nov 2026 11:08:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 594BA606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4481C606A320;
+	Sun, 22 Nov 2026 11:29:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DdqpONjr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795345708; x=1826881708;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Bf24Esh6j16RVoOyDaMU6QwUfXI0Sy2eWmYeEUuCKT8=;
-  b=DdqpONjrBeQzp4qOpcWXXuU7pEh4QGRQ86slKl+ZcIcSa2NjaYPA2a/J
-   fmXhKIiFWCvSptFPl5QMlC51O1bgNj+UN3OFC42+q87mzJeruQgNU3jLI
-   43dTuxBa+J6PtnzpUdENxmdMWmuljewYqdh+18j/C37CSGehx7N2FU1pu
-   huvLrhmOkaJ7/McqAyW20BTDU0DaM2a7QCyKsEoX11lVwt+7SNUJdgIdq
-   RJUmj0F1ihe8CvxZuYF/Pwyc+E4X294cs2gLR8/WqWzCqIis1FxENha7q
-   eJGAqvtRt+gvgyf8h5eNFbGNbTX3EeJJf2kw6Q7gBxl6QPIS3S1LNzmTm
-   A==;
-X-CSE-ConnectionGUID: ePdLpqhvQV+NGHI0gfyVPg==
-X-CSE-MsgGUID: L9GvYsWkSD+mkD/SN2B6hQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11973"; a="4065301"
-X-IronPort-AV: E=Sophos;i="6.27,226,1787036400"; 
-   d="scan'208";a="4065301"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Nov 2026 03:08:26 -0800
-X-CSE-ConnectionGUID: bRqpfSEvQ6mEe6tla/Mf4g==
-X-CSE-MsgGUID: VU6m7KpyTvCYNul/RJ2zaQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,226,1787036400"; 
-   d="scan'208";a="12773304"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 22 Nov 2026 03:08:23 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xV5Qi-00000001LOM-2WME;
-	Sun, 22 Nov 2026 11:08:20 +0000
-Date: Sun, 22 Nov 2026 19:07:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Fredric Cover <fredric.cover.lkernel@gmail.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Tom Talpey <tom@talpey.com>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Bharath SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fredric Cover <fredric.cover.lkernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] smb: client: convert DFS target node name from cache
- charset on mount
-Message-ID: <202611221916.9Z8PeSdO-lkp@intel.com>
-References: <20261122045841.99012-1-fredric.cover.lkernel@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MtJbyUwf
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795346952;
+	b=EZNr8i+vTaYoExz2dyp4fsFIUYi+LQl7ceSaJ5HehQu10L2TAKm49qyfIVg+LFFhEo1i
+	 RGlidSJZDtajSb9yACylFcDimdBonV2GQMAdGbnhCzqkrjAGC8ejr3v0DymgStBn3tMrq
+	 pXLD+bR3sUo4yjIOTbvnupOllIyZYI7wZcMEpLZoQyYsCLJ4N/VnxsHVqRV3DKBzMS9gs
+	 FcAV++cNRowC7SIDkY8/6esbA4mFTe18fDDrnSg0evIxkC4ran0GyIjexne6zYURsRQl0
+	 VgNW3XHf0ruBKNCvqSZ/bHHu5foLixQ9TF1g4TEKeYQViWUKajLlXBcOsVxpYWgi4Cg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795346952;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=RUES/23o4ev/4H5Nx4jBd4qoM/eQD2wvlXKexFRNjWE=;
+	b=J9gBNaXh/fXTrredA0QALkn5LXSLVN4ob6m6nX8NaTSMNrGzZRe2YSggHRZPh6x/RcDV
+	 jlS9u4Bd6cOnreBa2UMbKq4WBbXJXajoh0wbgbh+xTcczIBJXcw8gj+l7GXWG954syGoL
+	 WjCdCMLS5lW0mx/xDqjEUzrCJ5ILhVT/rY45lr2AlXeGQNTQKOB0Ry3da/LNkGdBnaRIw
+	 rU2Tef0TvXFsaHy5n40rNO1qSfyTYDDIaI7wZSdU26/8UrY4ccfRphKj5fq7PysTRt63I
+	 pUejML81c1QeNhuBRQbh6ec4mYQAkjdHpNj2G46/Leus9FddbP0Zz3caPim1wAl14MQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8818C1F000C6;
+	Sun, 22 Nov 2026 11:29:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795346952;
+	bh=RUES/23o4ev/4H5Nx4jBd4qoM/eQD2wvlXKexFRNjWE=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=MtJbyUwfC5QUbfUnQnCwba1qh/RdogkBQ+6rtLfW42X0Nss6zWJcKUgt8eHqVS3tk
+	 sXwHOQKzZlY3hUABndrncL8bbhTGICQ5q6rGlCsBlJw8MGchJufiW85XhcfV+5MT+/
+	 pR66k+XJq1xlrZbhbbq99XCK0b8YqcDKHqoHpUdq94/b2WSDvd6cYrKxI52KetOFY7
+	 am7sJQ6/TaqE1jmDtvQwTnLivulNOLKrXlWzwjAsfWGb4eaai8TgcLoDfe4fy20KO2
+	 ljSnk4uu4/s4Nj43w/7eFiZc3R+LiIE7xobbbhZN+gpimL/6PAoYOuRwfc0Kf+m7Xr
+	 8QqMQ7diqOsdw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DB07C4C004;
+	Sun, 22 Nov 2026 11:29:10 +0000 (UTC)
+From: YanXin Li via B4 Relay <devnull+fadouse.pm.me@kernel.org>
+Subject: [PATCH bpf v3 0/2] bpf: bound arena allocations to the user VMA
+Date: Sun, 22 Nov 2026 19:28:34 +0800
+Message-Id: <20261122-b4-03-bpf-arena-vmalloc-oob-v3-da2dc21683c6-v3-0-1f94ae9a884a@pm.me>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,102 +83,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261122045841.99012-1-fredric.cover.lkernel@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOLRAmsC/yWN0WrDMAxFf6XouWK2ZLTQXyl9kG159UiTYndhJ
+ fTfm2yP93A5Z4VurVqH02GFZkvtdZ62wccDpKtOX4Y1bxvIkXhPhDGgY4z3gtpsUlxuOo5zwnm
+ OuDBmpZzIy8BJ0EvUpBK5kIfNeG9W6u9f7QybAi7/sP/Eb0uPvbPfonbD2HRK1x01G/WJO/xII
+ XgXCkugrJ/kvAQXSIgtDEwDi1rJeTB4vd7hg/Mn2gAAAA==
+X-Change-ID: 20261122-b4-03-bpf-arena-vmalloc-oob-v3-da2dc21683c6-16baca6b3f21
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, bpf@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795346949; l=1499;
+ i=fadouse@pm.me; s=b4-relay-20261122; h=from:subject:message-id;
+ bh=COKNqL4nI/46X68yJCZPIZvXWvI3Jps4kTw9tNbbcx4=;
+ b=EUNVg8NGYoj2WTffKgAt+mEAWKVgMBjshnXixmU9nBKOR62IA2jKTlLhlD62jRiONzl969mXP
+ GwS5SCeS8w7DywrzgUEUKTX3djnCXlWbv/XxOg1AU7trC7c+JLHy44F
+X-Developer-Key: i=fadouse@pm.me; a=ed25519;
+ pk=b4DyzHJDRd8853IHUSKPA5wwzChj8eF4MTnZuyPz1PQ=
+X-Endpoint-Received: by B4 Relay for fadouse@pm.me/b4-relay-20261122 with
+ auth_id=1597
+X-Original-From: YanXin Li <fadouse@pm.me>
+Reply-To: fadouse@pm.me
 
-Hi Fredric,
+When map_extra is omitted, a short first mmap() can leave free arena
+pages beyond the user VMA. Automatic allocation can select those pages;
+near a 4 GiB boundary, the kernel mapping can extend past the arena's
+vmalloc reservation. Patch 1 confines the range tree to the VMA, and
+patch 2 adds a regression selftest.
 
-kernel test robot noticed the following build errors:
+---
+Changes in v3:
+- Correct the 288-page boundary calculation and describe the vmalloc guard.
+- Distinguish out-of-VMA allocations from 32-bit wrap and limit claims to
+  what the local test establishes.
+- Remove the unreachable arena_adjust_tree() bound check.
+- Point Fixes at the range-tree conversion and identify the test commit.
+- Split the regression selftest into patch 2/2 and skip it when arena
+  program loading returns -EOPNOTSUPP with JIT disabled.
+- Link to v2: https://lore.kernel.org/r/20261122-b4-03-bpf-arena-vmalloc-oob-v2-5f6209c1a20e-v2-1-b2a9906e9676@pm.me
 
-[auto build test ERROR on manguebit/cifs-next]
-[also build test ERROR on manguebit/cifs-fixes linus/master v7.4-rc3 next-20261120]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+---
+YanXin Li (2):
+      bpf: bound arena allocations to the user VMA
+      selftests/bpf: test arena allocation after a short mmap
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Fredric-Cover/smb-client-convert-DFS-target-node-name-from-cache-charset-on-mount/20261122-045840
-base:   https://git.manguebit.org/linux.git cifs-next
-patch link:    https://lore.kernel.org/r/20261122045841.99012-1-fredric.cover.lkernel%40gmail.com
-patch subject: [PATCH] smb: client: convert DFS target node name from cache charset on mount
-config: s390-defconfig (https://download.01.org/0day-ci/archive/20261122/202611221916.9Z8PeSdO-lkp@intel.com/config)
-compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261122/202611221916.9Z8PeSdO-lkp@intel.com/reproduce)
+ kernel/bpf/arena.c                                 | 25 ++++++++++
+ .../testing/selftests/bpf/prog_tests/arena_mmap.c  | 53 ++++++++++++++++++++++
+ .../testing/selftests/bpf/progs/arena_mmap_alloc.c | 32 +++++++++++++
+ 3 files changed, 110 insertions(+)
+---
+base-commit: c44104f3642da720164042623e4832836aefdd8e
+change-id: 20261122-b4-03-bpf-arena-vmalloc-oob-v3-da2dc21683c6-16baca6b3f21
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611221916.9Z8PeSdO-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> fs/smb/client/dfs.c:44:14: error: call to undeclared function 'dfs_cache_local_path'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      44 |         node_name = dfs_cache_local_path(ref->node_name, ctx->local_nls);
-         |                     ^
-   fs/smb/client/dfs.c:44:14: note: did you mean 'dfs_cache_canonical_path'?
-   fs/smb/client/dfs_cache.h:54:7: note: 'dfs_cache_canonical_path' declared here
-      54 | char *dfs_cache_canonical_path(const char *path, const struct nls_table *cp,
-         |       ^
->> fs/smb/client/dfs.c:44:12: error: incompatible integer to pointer conversion assigning to 'char *' from 'int' [-Wint-conversion]
-      44 |         node_name = dfs_cache_local_path(ref->node_name, ctx->local_nls);
-         |                   ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   2 errors generated.
+Best regards,
+--  
+YanXin Li <fadouse@pm.me>
 
 
-vim +/dfs_cache_local_path +44 fs/smb/client/dfs.c
-
-    13	
-    14	/**
-    15	 * dfs_parse_target_referral - set fs context for dfs target referral
-    16	 *
-    17	 * @full_path: full path in UNC format.
-    18	 * @ref: dfs referral pointer.
-    19	 * @ctx: smb3 fs context pointer.
-    20	 *
-    21	 * Return zero if dfs referral was parsed correctly, otherwise non-zero.
-    22	 */
-    23	int dfs_parse_target_referral(const char *full_path, const struct dfs_info3_param *ref,
-    24				      struct smb3_fs_context *ctx)
-    25	{
-    26		int rc;
-    27		const char *prepath = NULL;
-    28		char *node_name = NULL;
-    29		char *path;
-    30	
-    31		if (!full_path || !*full_path || !ref || !ctx)
-    32			return -EINVAL;
-    33	
-    34		if (WARN_ON_ONCE(!ref->node_name || ref->path_consumed < 0))
-    35			return -EINVAL;
-    36	
-    37		if ((size_t)ref->path_consumed < strlen(full_path)) {
-    38			prepath = full_path + ref->path_consumed;
-    39			/* skip initial delimiter */
-    40			if (*prepath == '/' || *prepath == '\\')
-    41				prepath++;
-    42		}
-    43	
-  > 44		node_name = dfs_cache_local_path(ref->node_name, ctx->local_nls);
-    45		if (IS_ERR(node_name))
-    46			return PTR_ERR(node_name);
-    47	
-    48		path = cifs_build_devname(node_name, prepath);
-    49		kfree(node_name);
-    50		if (IS_ERR(path))
-    51			return PTR_ERR(path);
-    52	
-    53		rc = smb3_parse_devname(path, ctx);
-    54		if (rc)
-    55			goto out;
-    56	
-    57		rc = dns_resolve_unc(DFS_DOM(ctx), path,
-    58				     (struct sockaddr *)&ctx->dstaddr);
-    59	out:
-    60		kfree(path);
-    61		return rc;
-    62	}
-    63	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
