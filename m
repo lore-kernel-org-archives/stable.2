@@ -1,58 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.188.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795383541;
-	b=EJ5+cBFf4RcG3dVZi3ou5IVZs04jtuqL5eKqyzT5Y5SSp05lsoYOEaXxQmf0/IT2uvxk
-	 Ms90+pVghhVGiSMnBV0vL6gL359PkbUT3yXGvaA8Y0uCzMy+s+5v19EerS6iu+7Btw5bj
-	 UlUp2jqRItRF53Twlsg9q6GoIna9cDcK6e3WcmYc9+Fnf+dnX4Qy0xX6CLOYp9pNlguuh
-	 frHkWhhxjmljQjGe7vJUYCkAJCT7WT2tJy+iSMXP9LILYwCwWqL04vVpSmzNLjk/QXQzU
-	 9nlhQNypz/5VID1Y7T95xpbG+8cqw6Rpxz+wjTR+8QvNCCKlNvxMjORnSOatoXQ9HeQ==
+	t=1795383664;
+	b=LgGxT9tyqbDCTxpmDtjkNXPu6NB9HhmnTk73hlWX733SQ3lRjpK3QU218EiMlxlgKjCZ
+	 I+flbjCYFOYD+oawuH2/LpwjmgWVLpEPdUCrM35Sbz+TuQFV56sfSi5jg9qhONePLm48a
+	 QZaRFQ8rQNRW2DYsa+kJxEeOGxOUifqkPlYZH4j1I1fweya3swu9WxrvcSvgirddnwzMt
+	 XZ6zYxEy+kYDHDWtXi9wSTUmmE1a/Wt79Jf7xCi/eixlIJI6LF7maYHd9bR8eDXdk8rGn
+	 LJaDLWClQuSmjpnO7SBbeaf093Jhhp954CJZmUY9MQ64Ij2yBcrz6wS8R65miK/+GFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795383541;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:MIME-Version:Content-Type:Content-Disposition:X-PGP-Key;
-	bh=OLXjFAMNkzDhIfVt4uNt6wUXZBTcIFwPfmYtYuZfcKI=;
-	b=uoRh6LsIkgyRJxc/W75lckuJBV5ELeeEuepLFARpdo3O8hdyJiI6dyOxmEFjCy0OVkg5
-	 AS2dkto3Mnd800QDNbAtBEc2PRzbfT7cgWkb7hYzwjsNt1fu3fbmL2jQwaVrC6aLyEvTu
-	 aatG6WUtywjlPIhtUiGVSrUD0fGYum2XnuhVDA0F/GMrt5GdNBQPt5UKKHzb/sdIwSC6g
-	 nliH3Zt7p0dEoWaGq2axM65k5ENpGEVCIiR4eeSuXRMFUXEcSufj9o6L+BlahXoEcFWuV
-	 ILhPKfMAQMfD3dXQHR9oIcKqgQzbqjwL6t5IBZrajC7pw+4TdFghOJ2SIV3lj/kqcXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795383664;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5xeRgjtQ4aBRCLdC1l3UpIvgsBpz7rqdhU/SsbMNbao=;
+	b=IsWGvSudRH6BQrFOsRwcUtfh0HGqFuhbpzsptAsYu1aQYNQD6bKlN2zg0+p5e3lML5LN
+	 /zLcx7cYyVistesJdYNnU6CWl4x3JDvZ9CzAtDqUF6thSMouORHLVd7TokTOEzttYjBFp
+	 ub6dvJ7YUOO9pyadZvOEJ0QBdwoWNvCEGXOi9kYW8oo9VtrtPjBu/usfNaCMNXlg7iEYS
+	 ogOOsTyaUEgco8r/F0vE8T0TS4MDvcW3LpKN1Oo1a8938SDeazuX9d8pTYCY69hgihaPY
+	 tDWfApzi9YrPOngrl2TJa0LAtjSvlNZqai2ao9vOz9wXxXTLZbudrlQRZ5O9w+Ef6vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kucharski.name;
-	spf=pass smtp.mailfrom=kucharski.name;
-	dkim=pass header.d=kucharski.name header.i=@kucharski.name header.a=rsa-sha256 header.s=20201103 header.b="o/JBLjKI";
-	arc=none smtp.remote-ip=5.135.188.45
-Received: from ks1.nodegroup.io (ks1.nodegroup.io [5.135.188.45])
-	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oED68b0g;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB951606A31A;
-	Sun, 22 Nov 2026 21:38:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB951606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kucharski.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kucharski.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E05D1606A320;
+	Sun, 22 Nov 2026 21:41:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kucharski.name header.i=@kucharski.name header.a=rsa-sha256 header.s=20201103 header.b=o/JBLjKI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=20201103;
-	t=1795383530; x=1797975530; bh=OLXjFAMNkzDhIfVt4uNt6wUXZBTcIFwPfmYtYuZ
-	fcKI=; h=x-pgp-key:mime-version:message-id:subject:cc:to:from:date;
-	d=kucharski.name; b=o/JBLjKIk+/1KhXDS9bU/k2R3BVT1RKFmOohbOJ4eSG17ce6YV
-	t+GfVkpAvL2o81+4PCOy40lSWBeGgGC5Zry7OQ1AyZQpyICAYFQv3JHxQ/mUmz70U9NIlX
-	6gyLh1LxJIYKZMBvzoXvKbxWFIN43YvmIJhen9kM4J75x3QogvN1/R7TsiEJaFcmQ7joY8
-	0WM7T6eFw6MtBC/949er/w9mBf5oHfYyr186i0pA5fKdER01FUJeEi0rtYIxdwpdKyn8vc
-	Kx9KInB1MTC+rIzlv0vR5VS2MAE7VY0oxv2awBjImNQVvAkdnm8MNU7CIdd7uFbBfQcTVG
-	DeutHxOtOQag==
-Received: from localhost (public-gprs385916.centertel.pl [37.47.138.189])
-	by ks1.nodegroup.io (OpenSMTPD) with ESMTPSA id 664adf19 (TLSv1.3:TLS_CHACHA20_POLY1305_SHA256:256:NO);
-	Sun, 22 Nov 2026 21:38:50 +0000 (UTC)
-Date: Sun, 22 Nov 2026 21:38:46 +0000
-From: Mikolaj Kucharski <mikolaj@kucharski.name>
-To: Mark Brown <broonie@kernel.org>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: stable@vger.kernel.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for Xiaomi REDMI Book 14 2025
- (AMD)
-Message-ID: <awNg5lUNAYmZ2tOx@gdkpeagp.my.home.arpa>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oED68b0g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DDD51F008B2;
+	Sun, 22 Nov 2026 21:41:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795383662;
+	bh=5xeRgjtQ4aBRCLdC1l3UpIvgsBpz7rqdhU/SsbMNbao=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oED68b0gYqf4ZoJPJddluGEGEQYM9ixaKIPKBFap6WznGL+ii6fqRqFx3HDsNya2R
+	 ShkMBl9+/d77pMRJI7357hvFh3C4Ns4S8NJIBtm1D1aaHL01iyNVO07JAQWO16pm+3
+	 g34UvEoJZkqrXmI1u0wvpLUvRHPd0GKFLFWBCa+RLEZWSFK0jBvGTbzX7hEeFgI54y
+	 /VdepQxvF+kd3wD+xegGvnJyO76OBXuAP4djsYFcqV3MsTdcTyOd0jNI7CljblX5Up
+	 gSnJ3PpymfXihunJfzcJQHAZyywgP5KK3xM/zStkld3zyL27g/mE/TC8uGhDsTyKgW
+	 kXt/4C8bVM68g==
+Date: Sun, 22 Nov 2026 21:40:57 +0000
+From: Lee Jones <lee@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 05/10] iio: adc: stm32-adc: Detach chained IRQ handler
+ before removing domain
+Message-ID: <20261122214057.GE70182@joneslee-macbookpro.roam.internal>
+References: <20261119153151.1397003-1-lee@kernel.org>
+ <20261119153151.1397003-6-lee@kernel.org>
+ <a449f513-5d7f-4478-a389-9c47dd0ecddd@foss.st.com>
+ <20261121225114.41f87da3@jic23-hlaptop>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,57 +69,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-X-PGP-Key: id="0x10C7B55D"; fp="42E5 F0B0 D47B 17AA 16A3  1508 506C 97BD 10C7
- B55D"; src=<https://www.kucharski.name/pub/gpg.asc>;
+In-Reply-To: <20261121225114.41f87da3@jic23-hlaptop>
 
-The internal digital microphones on the Xiaomi REDMI Book 14 2025 (AMD),
-board TM2422, are not detected because the BIOS exposes neither the
-_WOV method nor the AcpDmicConnected property. The ACP6x PCI driver
-creates the acp_yc_mach platform device, but acp6x_probe() returns
--ENODEV, so no capture card is registered.
+On Sat, 21 Nov 2026, Jonathan Cameron wrote:
 
-Add a DMI quirk entry for this board, in the same way as for the
-related TM2423 board.
+> On Fri, 20 Nov 2026 18:23:19 +0100
+> Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+> 
+> > On 11/19/26 16:30, Lee Jones wrote:
+> > > stm32_adc_irq_remove() disposes of the child IRQ mappings and removes
+> > > priv->domain before clearing the parent chained IRQ handlers.  Because
+> > > the parent hardware interrupt lines remain unmasked while child devices
+> > > use dummy_irq_chip, an interrupt arriving during teardown invokes
+> > > stm32_adc_irq_handler() after irq_domain_remove() has freed
+> > > priv->domain, and irq_set_chained_handler() also leaves handler_data
+> > > dangling.
+> > > 
+> > > Detach the chained handlers and clear handler_data with
+> > > irq_set_chained_handler_and_data() before tearing down the mappings and
+> > > removing the domain.
+> > > 
+> > > Fixes: 1add69880240 ("iio: adc: Add support for STM32 ADC core")
+> > > Closes: https://sashiko.dev/#/bug/linux-27c38690-bc20-43aa-a3fc-1ddd6f1bb74e
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Lee Jones <lee@kernel.org>
+> > > ---  
+> > 
+> > Hi Lee,
+> > 
+> > Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> This one seems a little more likely to be hit in practice, but
+> it doesn't apply to the fixes tree due to some other recent changes and
+> I'm lazy.
+> 
+> Hence applied to the testing branch of iio.git to line it up for next
+> merge cycle. We are getting late enough I should be keeping fixes to critical
+> stuff only and I'm going to assume this one isn't.
 
-DMI information:
-  sys_vendor:   XIAOMI
-  product_name: REDMI Book 14 2025(AMD)
-  board_vendor: XIAOMI
-  board_name:   TM2422
-  bios_version: RMARB4B1P0606
+My preference for all of these sets is for them to be applied for -next
+rather than -fixes, if it's all the same to you.
 
-The ACP is PCI 1022:15e2 rev 0x60, subsystem 1d72:2422.
+And yes, v2s are no issue (replying to your other comments here).
 
-Diagnosis and patch were prepared with the help of an AI coding
-assistant (Claude Code); the change was reviewed and tested by the
-submitter.
-
-Signed-off-by: Mikolaj Kucharski <mikolaj@kucharski.name>
----
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index f636b5b..766d493 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -955,6 +955,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "TM2423"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "XIAOMI"),
-+			DMI_MATCH(DMI_BOARD_NAME, "TM2422"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
--- 
-2.47.3
+Bear with.
 
 -- 
-Regards,
- Mikolaj
+Lee Jones
