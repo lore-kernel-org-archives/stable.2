@@ -1,96 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795386241;
-	b=JKEIzI2cfZcXcwgGABJgy+UjYC9hmwHWVcE5CCubbDi3mxwzfMrfcZDPZBDjqURVBTNo
-	 +DU+Yxk6P5WTJa34XE9zr4RYVcqjMBRMO97niJjrNn0x8No452fpT15AEL6/Z6ZFnp6eK
-	 ecsRaYcVyWphHUKzcPsaOykf8HlMD7An+rdIMwbWDTtkzg7YvzKWCFP42X8WR1mXU28X7
-	 h7GtuTlMC/Wip6VctE7cMfrV0Alpk2heUqcn2VBxltdDpWYHZaSx8lfZAyVjogUcWHBsL
-	 6U1+V7nh9D4LFBw9XMzsIF/N1ovEo8RWibLlqmXds2dkASH15C35sZWRM96szXwiOiQ==
+	t=1795387264;
+	b=s3DyzkyJR5U8He5EUq4UcLS6OqCSNM2mdCxzZO9Yf5D1VnTzxZu7kfCO264cp/16VxFi
+	 A3/+FyjCrh+8P3fZD2k7o8IlwnCJrULA9twp0hoTywHcHN+LZemlUNiGdIB+mGJEz8k9R
+	 vtrvdZmayjOelh1lg7NWmYY3N2REKGxc00l/3fOPQcISu8/zqT7NX3KJYOAu4lvSr09kB
+	 NnNZKpWaWMjQ6ZDWXpZO1wzRMNgS+2YkYV7GZiB/MclTpzEvBQvJ7sGq2Djer6x8fOrlO
+	 PvtSJh/u0i1PRrlwM1P1KYt3OKNX/pYwIW12Na667Rew0pGzrPrx3el2U+YrB7ceu7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795386241;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795387264;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=KapwmbLEAkf33u/pzzWw2QZ8gktGhjW3ZtX3tKdugF0=;
-	b=WZYCXHeTpyhQo37rvGz1W9vGzA6RNgvKydZ3zhKEn+VW+LuhCgi26fKpCteMxO/hdUQG
-	 eLQAwcJVJDVb8pcNs9PBbei6RKbpvQkISFAHGSlONxjgNoHR4MYnu3hZ+IlN2d5jgeSws
-	 vyVZv2LFSwavQAQXMkMpjzVmqS08EiCwsn7Fu7oIJ11kka8NbPx5QZ/dJxx2NDq7FGEbJ
-	 R+NDxaWkTETHKD/jiO0BwRZDKizeUM92Fpmt8X4/Or99k5vl56cdJcbSrKuFfPRrHzLSA
-	 TW/nczkCtFb1ApMUD5Tw8yet+KKXkI6gwSLgNFQXPfcLNoCCb27lavtmoyWDnevXINQ==
+	bh=sJFKXYBlyKsjrymChPkVlwTwAE7JP3i6GsdhQ8/eAqU=;
+	b=J38Jr3V2TR2xFS/cPwiopMYH5ZAgnwqE4Xt+RiUIMBcCMa6bLGVA/lUfe0pU+AnD9zPS
+	 NAhpmu6HX0+9d0zjvKdQ2iZhBHTtznZLU7RrzbgJMFliHblgqffxjJlkXctcaOreWvBxf
+	 gH0HqP5217UZmzEkxH8jFq19yOnHjL4ywGZ5T/KfuK9MIvIp19BFbeYFhhNJ0txz8l+2t
+	 ZOXGWlr0+gwLAsaX2pNhtIInw+E7/eezEYHce3ge40/1kBkioXvE/RpMltUYQ7R2ShXfw
+	 AZM2Y9VI5OoSoV4Uu1+/p/RiI4bWRpJeMPetDzA3p7kYUXlWbX/irYzTor1ni3x3ARg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="i2R/yJDp";
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OS8TcZci;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C40606A31E
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:24:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84C40606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554F2606A31A;
+	Sun, 22 Nov 2026 22:41:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i2R/yJDp
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-49a92144733so1252536f8f.0
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 14:24:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795386240; x=1795991040; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KapwmbLEAkf33u/pzzWw2QZ8gktGhjW3ZtX3tKdugF0=;
-        b=i2R/yJDpimHrS7eYZJtZGDiAVywPsyyCOvmfEFaBp62uI/AGioNG75yqZfkLhniRZe
-         XveDSojPkBIOpjRK2be4jGyKusAB0nSulLHu+9ppxXnIqkS5IHJFFmVC+mDYLFpcwq9a
-         Lz1Nc+emXSnUwLJLdNApyezog9ScRwCy/qU1ifQmte3tQRYD55fax28kl24H3LllvGg3
-         CWDnPf+uCk41JyIqu+qyNyqWMxGoD9txa2fLNbcizqYDpzX+frx3Pbyl3nbuq0qs1OVJ
-         VyUMHoRarnfkT73FlKZ7EHPHmr6GW2veNf/nACQTJ+Mc9J8tQQjm8iCGVEmDTE6vZoK0
-         uBXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795386240; x=1795991040;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KapwmbLEAkf33u/pzzWw2QZ8gktGhjW3ZtX3tKdugF0=;
-        b=KVMmzbVH3hU9qnVSLDyj9x2ErF2G+3O9bCs0GYdX39fifM5IFId0zp2fEgXWbJj6qR
-         p5DmecLMYkvT56v5QxZ1mK8pORqNOnBUOXULT3TgYzi3fjaAJlqxdJM0QSj4Dzd0n1WO
-         4aJsNsNvRT9UTCOjlr1z0XpReRavmnJFEjDc3wI0mMhLE9BgcTwlRHGnRpMb87adngqJ
-         YGuUBxBJSBE7AE2ZiSNzQlXc0QUyHuk3+WjcB9KpLq6c2ENdNLltMZ3qBB6RuViIzwPU
-         tBxhoCsUzHmU+mLYK/ECcRGYxRU0N3Acv32DQ8k81I5qsu4fJ3ghfDkpb6Tt93f9QhOc
-         deQw==
-X-Forwarded-Encrypted: i=1; AL+hErFSvThN/37jaAcY4I9v/sP/vOy4vqUwiKga31Nl5e+SDV/BSD4Ctc2z04Leq7qZPXXGw8Ym8fA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xdvXmjYUj0uCIp9hH2ytpj9OGh0dButEg7fG3q7ll/wGFiR9P
-	yxEml7TPqvn6MQpSTcuJYYCuH6ejzX94OpYhHxUOY/e81RfejXeT8XG0
-X-Gm-Gg: AZFdTZcYjjERqEqHOyTkIqVpfvVH3zknO3b3AMyYQvMWr2bIdsZTtPkhJVa2yalEJIk
-	X4Az5ikmpAF4PaFQomQQ2qqwmukopuEL/jgAAZoNVHxrSUK2dEkHeBEgA7HBi5q4lC5/kPbeROx
-	+29s37CLtCryf5FyG+TWwZ2twzXUz/+wqEkEmkZof6UoKjhFmdOOlOXxBpVhkGgbUYpJ9UMu0cD
-	fqCugtPjxCQC+iAeccqubTsm7kVbFUVe5eU8+7+bgfgu+MSN629z/2uLiLTKjHqkyq8xr/KyT/m
-	9mlyGkl9R+MBh3x20NAgMDUnUkarh9CYKx2Z3vLATaKhFq/GuXht6uBf8JrMwozZr2xvL/5sPy2
-	jPIQ6MOvy7iPUgAmDrsEvXT8BfrSA4HmT4NYYetDIEplxHfpe/CKCnwDyty2C0GuZRrHKmTDMaw
-	w5qrNUJ+TwSJ7s5c0LQE0suceh9nQ6gwunM/qmRe/Wf/Rcr8xfeTXiQ2rTCfad1A+iGT7r7A/de
-	/QxyvOB8yKQllZC81yA7Tcj+U4mi/09kY4brTq5Ej10snuyFoVgeWTwPXVMO8h0aq2Hby5D6Slr
-	AuXXxMmyzaySrdbsxMkLPTCRRMd6b1ce/BktZEwuY1XDEiUWHTORk0a+U3iq7FlHo4RmgTQTkT0
-	/fg==
-X-Received: by 2002:a05:6000:2085:b0:49c:192f:cf20 with SMTP id ffacd0b85a97d-4abacfea524mr18694027f8f.6.1795386239712;
-        Sun, 22 Nov 2026 14:23:59 -0800 (PST)
-Received: from DESKTOP-V28CTA4.localdomain ([103.125.177.105])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6c248b75sm18912122f8f.54.2026.11.22.14.23.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 14:23:58 -0800 (PST)
-From: Arbab Haider <arbabhaider649@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OS8TcZci
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E3B31F000C0;
+	Sun, 22 Nov 2026 22:41:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795387263;
+	bh=sJFKXYBlyKsjrymChPkVlwTwAE7JP3i6GsdhQ8/eAqU=;
+	h=From:To:Cc:Subject:Date;
+	b=OS8TcZcihfSP+khLyNygpchK1BCLDPefv4GAZhdMrw/JnZVxFTB5QxsMq7x4VD0IO
+	 pPJDmxdONZVsBOw2JZUD5cwr9xfx5VPu1fEsZ3EqcYn6cM4s9+X46gp2wGRoWaKed0
+	 Nl+hLfwGIXmi21TSu4VAR53a/fRH1b43E8Qow90EqjP5CPUCkLvxdiM5VYAo8XecWl
+	 RnA/BTHEtexTTmUhfcgPcNs3wZ/GnbXVP4X7FayxyIPCM8GjDW1j/O2D9nztkmtfxr
+	 f8Hd5M9hA+1LfntvHkn/CLoc573hHYJQts+tPQIZv4RhH/z1ooGe+hLindixxoqndS
+	 2AGCt6hhFskgA==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
-	Arbab Haider <arbabhaider649@gmail.com>
-Subject: [PATCH v2 2/2] media: em28xx: avoid dereferencing dev->intf after disconnect in em28xx_v4l2_close()
-Date: Mon, 23 Nov 2026 03:23:26 +0500
-Message-ID: <20261122222325.41868-3-arbabhaider649@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261122222325.41868-2-arbabhaider649@gmail.com>
-References: <20261122222325.41868-2-arbabhaider649@gmail.com>
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org
+Subject: [RFC PATCH mm-hotfixes-unstable] mm/damon/core: cleanup damos->walk_completed in damos_walk_cancel()
+Date: Sun, 22 Nov 2026 14:40:53 -0800
+Message-ID: <20261122224054.79767-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,73 +61,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-em28xx_v4l2_close() unconditionally evaluates
-interface_to_usbdev(dev->intf) at function entry, before acquiring
-dev->lock and checking dev->disconnected.
+DAMOS walk could be unexpectedly only partially performed.  It can
+happen when there are multiple schemes and the walk is requested after
+the previous walk is canceled.
 
-If the USB device was disconnected while /dev/video0 was still open,
-struct usb_interface (dev->intf) has already been freed by
-usb_disable_device() -> device_release(), so closing the file handle
-triggers a KASAN slab-use-after-free:
+The expectation of DAMOS walk for a setup that has multiple schemes is
+that it will walk for one snapshot for all schemes.  To know if the walk
+for the one snapshot of a given scheme is done, each damos struct has
+the walk_completed field.  It is set when the walk for the given scheme
+is completed.  The walk skips schemes having the field set.  It is reset
+for all schemes when all the schemes get it set.
 
-  BUG: KASAN: slab-use-after-free in em28xx_v4l2_close+0x37c/0x3a0
-  Read of size 8 at addr ffff888007245890 by task test_em28xx_uaf/71
-  ...
-  Freed by task 10:
-   kfree+0x162/0x410
-   device_release+0xca/0x250
-   kobject_put+0x152/0x2f0
-   usb_disable_device+0x324/0x570
-   usb_disconnect+0x271/0x950
+damos_walk_cancel() cancels all existing walks.  But it does not reset
+the walk_completed field.  damos_walk_cancel() can be called at any
+kdamond loop iteration.  For example, due to DAMON context pause or
+DAMOS watermarks-caused deactivation.  It means that the function can be
+called while only some of the schemes completed their walks.  And users
+could request another walk after the canceled walk.  In the case,
+because some of the schemes still have walk_completed fields set, the
+walk for them is skipped.  As a result, DAMOS walk based user operations
+such as update_schemes_tried_bytes kdamond command could show incomplete
+output.
 
-Move the interface_to_usbdev(dev->intf) lookup after the
-dev->disconnected check under dev->lock, right before its only user
-usb_set_interface().
+Fix by unsetting the fields of all schemes in damos_walk_cancel().
 
-Tested locally in QEMU (x86_64, KASAN+UBSAN) using dummy_hcd and
-raw-gadget emulating an EM2820 device across open->disconnect->close,
-repeated disconnect, dual-fd open->disconnect->close, and normal
-open->close->disconnect scenarios (8/8 passed, 0 KASAN reports).
+The user impact is not critical.  No crash or leak happens.  Only DAMOS
+based monitoring results retrieval could work unexpectedly, under the
+certain setup and the race.  Given the best effort nature of DAMON, such
+occasional monitoring quality degradation would be not critical.
 
-Fixes: c6d48134cb26 ("[media] em28xx: don't store usb_device at struct em28xx")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
+The issue has found from the Sashiko bug database.
+
+Closes: https://sashiko.dev/#/bug/linux-228a4c52-0545-4c1f-90ce-41114d8272e9
+Fixes: bf0eaba0ff9c ("mm/damon/core: implement damos_walk()")
+Cc: <stable@vger.kernel.org> # 6.14.x
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
-Changes in v2:
-- Add Fixes: tag as requested by Media CI.
+ mm/damon/core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- drivers/media/usb/em28xx/em28xx-video.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index 84424284d..854fcc897 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -2503,7 +2503,6 @@ static int em28xx_v4l2_close(struct file *filp)
- 	struct video_device   *vdev = video_devdata(filp);
- 	struct em28xx         *dev  = video_drvdata(filp);
- 	struct em28xx_v4l2    *v4l2 = dev->v4l2;
--	struct usb_device *udev = interface_to_usbdev(dev->intf);
- 	int              err;
- 	bool last_user;
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index b8678a53b0a98..ec7f20b7856de 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2699,6 +2699,7 @@ static void damos_walk_complete(struct damon_ctx *ctx, struct damos *s)
+ static void damos_walk_cancel(struct damon_ctx *ctx)
+ {
+ 	struct damos_walk_control *control;
++	struct damos *s;
  
-@@ -2512,6 +2511,8 @@ static int em28xx_v4l2_close(struct file *filp)
- 	_vb2_fop_release(filp, vdev->queue->lock);
+ 	mutex_lock(&ctx->walk_control_lock);
+ 	control = ctx->walk_control;
+@@ -2706,6 +2707,9 @@ static void damos_walk_cancel(struct damon_ctx *ctx)
  
- 	if (last_user) {
-+		struct usb_device *udev;
+ 	if (!control)
+ 		return;
 +
- 		/* No sense to try to write to the device */
- 		if (dev->disconnected)
- 			goto exit;
-@@ -2525,6 +2526,7 @@ static int em28xx_v4l2_close(struct file *filp)
- 		/* set alternate 0 */
- 		dev->alt = 0;
- 		em28xx_videodbg("setting alternate 0\n");
-+		udev = interface_to_usbdev(dev->intf);
- 		err = usb_set_interface(udev, 0, 0);
- 		if (err < 0) {
- 			dev_err(&dev->intf->dev,
--- 
-2.53.0
++	damon_for_each_scheme(s, ctx)
++		s->walk_completed = false;
+ 	control->canceled = true;
+ 	complete(&control->completion);
+ 	mutex_lock(&ctx->walk_control_lock);
 
+base-commit: bcafbab5174a89c3f689e458b5114641a0f68032
+-- 
+2.47.3
