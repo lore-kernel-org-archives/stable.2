@@ -1,56 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795387778;
-	b=m/CNcQZcHfl5z/Imfv+RGGgeiw5Z2Hhg64phIq1UDwGth5Kxv/IAmKZW9QHEa2ogrWv/
-	 fMse+YAcDM2IJ0GGQbKAN3/lSZTgJAAF6IHZ+cbJVOVOkf6Vr8+P37TVRYaBampjm3nS+
-	 0pWiOQJXOFSlJrN4tOPXuQL+MIMXEltvuwXo73Y+3azvxqLlhGTZAJgyVYHL1SYYq9H6U
-	 aqfZVpsI3BD03Egwlvwh61x776sj8s3uWZ76ecQi9gU0NwOOSEZNZLGaF8iXn2sgarK0T
-	 P0qxfPpF3qauWhLSTf+kEsJh1TexPto/Ct9ZUJ2Hz+bfj3dy8jDsdJlDw8dT6R43wvg==
+	t=1795387815;
+	b=1sK0TH4nxrGIcGwGub7mCfxe6G+BBiAlzYCvFdyjbH+RzczB2eObMUQoYRBiFsX1Km0d
+	 NlKXOrwn2g1R38GvpxJX/+2Gspoi0Utanp7LB3kn3cvXaVeDY5J4YehXDY7DA5A0UvGLa
+	 JK/lDktjNPXRulrQTQxYEMEsPmbugldjUAKAsv83NlMMaEHuXxxrwqw1ESiqh0xSS1Vll
+	 WjXfHPWq20xvqrjAKLz9IleK+Oiie8IUmGXxCyrXnFrd9gJKbogt+tr6SGPwL8Ceo5uxK
+	 6eGM9VlM/y7VzfC/obpWHzsQciY0ksJOyi4VaS2506s8LnqX3VUQeN2thbpD/yq/ZuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795387778;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ZmJdAcUmWVLO1uRFPkdoqPnxMeeqc0MRlwahQr3Vz10=;
-	b=T/lUi2cnT2T+v4uj9rk81Jrhc1VXdAEyGye0E//VcA+RJBWF6FhbNQYumsXKe4OLpdcK
-	 l07NkDpY8bWw+zBeZqsH9FHtI8ZqqgzQ240KMZaFp3jWygKUGwywo+xDQJ8dhS0hLgz9d
-	 GLg8xDutyVKyqFo+ITY0UG32Vqt/oFpb1jX03tHnHQlf3XZ1cLRGv+XOfAQlCVXtxflL8
-	 CWKfkQ+TVCXKdhK4lcD49BvCDqUDeZD/O0rZFsGbiNo8HX9d+4KnoK/ETfQfcawn8C0mK
-	 te/vQ1omJBjh/8yWiCx1I/7Kl8bKjEmLWfKrsmoRvMCUfRKhxoBuF96nfM8QhOiIaWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795387815;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=XPc0ymz1fegnjG0/xfOKb+0xJezyhsAiBFRzOUtO/Jw=;
+	b=z8g6U1tEdLqmtVBLWFptbj52YsZYWwO22G8RvUq7FhVjwBypu4+QkOm+Ntvi63ZrKdqL
+	 jfwRujayr5pF9OySJOCsN/FQM3akxZtHXVNbXPzEoz6/lyhimy3W1cuzRWZzO0ap42DY5
+	 rMvdQhQp8IBO+Ce4gUw31QldK/NKeuAajl2Jzu64SzuM8+fCC0yCi1RUtUP8La5Tv4UQX
+	 bpuw9EtT4rW/n0oSBxfe2LhiSaZ8Pasj6oL9byltSl6M+o4l3vNY7BVD0/jjcC3o8DzD9
+	 NCxEy51nbbt7Dtu9iLxDmFDBUVwyVWTq5Wj3B9U2Itp223KYHyyDm5d+S0cRh4zdnVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=innora.ai;
 	spf=pass smtp.mailfrom=innora.ai;
-	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b="j/1myBw+";
-	arc=none smtp.remote-ip=185.70.43.98
-Received: from mail-4398.protonmail.ch (mail-4398.protonmail.ch [185.70.43.98])
+	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b="WpDYFL/R";
+	arc=none smtp.remote-ip=185.70.43.97
+Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A6D606A32C
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:49:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13A6D606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295B7606A31A
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:50:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 295B7606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innora.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innora.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=j/1myBw+
+	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=WpDYFL/R
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=innora.ai;
-	s=protonmail3; t=1795387775; x=1795646975;
-	bh=ZmJdAcUmWVLO1uRFPkdoqPnxMeeqc0MRlwahQr3Vz10=;
-	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=j/1myBw+zL4LxNOGJr+ZMDDfbpaqr3l/QLX8xrsU1g/szCocHEbONyLG4Xn0y62B/
-	 K/m0KQ/2ujKUwPiXnTxQktOnWwcV4dFoPVkW8eexTHHbHE99G3v0WmIHy0xO9HNP7O
-	 lp5apkuLlaQFlKIqeInsBHuAsj3MMTlrtDlpPYnKXqYRSsuldwIXrigjwrLBUG2Bba
-	 jHo4n5zm8mYiDOUXEjH02bisWOAIe3aViLKtW9QYr1z3u/Cy5fgtL5mH2rnqmVhzKI
-	 UuJVLo7a2ktypAb1kGf9xZmq4IhzNypCHJhnuiGFjQ06fDt+fSvuGsA2HdviTNH/5S
-	 x4y2XaDojzC7A==
-Date: Sun, 22 Nov 2026 22:49:32 +0000
-To: stable@vger.kernel.org
+	s=protonmail3; t=1795387813; x=1795647013;
+	bh=XPc0ymz1fegnjG0/xfOKb+0xJezyhsAiBFRzOUtO/Jw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=WpDYFL/RvqYDiOoLoHnrgoNwtt5+ie7qbhA4+Nca2C+w5QZW/JuAbRrXmKzIgq3wr
+	 SHywyO6lpyg4XPSoVydIIWiuSOPQANXEYzV0/B7gYjDhbXGMULCFvXqRsHlH7hyVkM
+	 8sNkrdXU+WUaNlJWNroABEYKy5fog3tQQTGdv2tP+asYgI2epzDpCaP8lJpRlmo7do
+	 l6eQYGJRLSd8MOajCjQD2ENmHCzf11ujAO8HCE2uX+SrVTcz90Sf709FsBQEhWYu3o
+	 yGH8dMcnlP0aRMv922RmhRhmHhnZD1S0RJByXxlMVeS8/dhXCZJfUeQZ1M0BLZKQ5C
+	 pkHv5R9xP+4OA==
+Date: Sun, 22 Nov 2026 22:50:08 +0000
+To: Sasha Levin <sashal@kernel.org>
 From: Feng Ning <feng@innora.ai>
-Subject: [PATCH 5.10.y v2] staging: media: atomisp: use array3_size() for overflow-safe allocation
-Message-ID: <gH4DMNzKYNiMPRcl_U1UZLegTGlThXlfylND9jtq5svunNE6_e3evkbNRzmfndPeAb0R_eDl-QUaY5QWsPCAUz9CPYAiHGR-jsHSSED2my0=@innora.ai>
+Cc: stable@vger.kernel.org
+Subject: Re: [PATCH 6.18.y] staging: media: atomisp: use array3_size() for overflow-safe allocation
+Message-ID: <HNu2kNl8VPZydoqH1v-jjdpwhELQ5PgOrhTLBHAG94OZL8Y393wS1UGm0BouUGOfNbnCk7LKjYChyF8iTO6UkikpyRq5TUYZ-51-nrZgMoA=@innora.ai>
+In-Reply-To: <2026-11-21-1-daily-reply-0014@kernel.org>
+References: <e4e67ea4f7d14636a8bab81909764adc@innora.ai> <2026-11-21-1-daily-reply-0014@kernel.org>
 Feedback-ID: 140578448:user:proton
-X-Pm-Message-ID: b1bfd3e271592e324544f86c430bc2f10268cd55
+X-Pm-Message-ID: 900d2fa69f7451edba3af1c20382844c02e6ff55
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,199 +67,21 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-commit d178c7ca8fefc28115d35b94c3b1f4d653e34182 upstream.
+On 2026-11-21, Sasha Levin wrote:
+> The code is fine on all six trees, but please keep the upstream
+> changelog of d178c7ca8fef unchanged.
 
-Replace open-coded width * height * sizeof() multiplications with
-array3_size() to prevent integer overflow in buffer allocations.
+You're right; my backport note was wrong and the changelog should not have
+been reworded.  I've resent all six as v2 with the upstream changelog kept
+verbatim and the backport note dropped:
 
-The atomisp driver computes DVS, morphing table, shading table and
-statistics buffer sizes using unchecked arithmetic.  When dimensions
-are attacker-controlled or simply large, the product can silently wrap,
-causing kvmalloc() to allocate an undersized buffer.
+  [PATCH 6.18.y v2] staging: media: atomisp: use array3_size() ...
+  [PATCH 6.12.y v2] ...
+  [PATCH 6.6.y v2] ...
+  [PATCH 6.1.y v2] ...
+  [PATCH 5.15.y v2] ...
+  [PATCH 5.10.y v2] ...
 
-array3_size() saturates to SIZE_MAX on overflow, so kvmalloc() returns
-NULL instead of succeeding with too few bytes.
-
-Signed-off-by: Feng Ning <feng@innora.ai>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-
----
-Changes in v2:
-- restore the upstream changelog verbatim
-- drop the incorrect backport note about <linux/overflow.h> includes
-
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c b/drivers=
-/staging/media/atomisp/pci/sh_css_param_dvs.c
-index ff0082d02..0d0862979 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
-@@ -13,6 +13,7 @@
-  * more details.
-  */
-=20
-+#include <linux/overflow.h>
- #include "sh_css_param_dvs.h"
- #include <assert_support.h>
- #include <type_support.h>
-@@ -58,7 +59,7 @@ alloc_dvs_6axis_table(const struct ia_css_resolution *fra=
-me_res,
- =09=09}
-=20
- =09=09/* Generate Y buffers  */
--=09=09dvs_config->xcoords_y =3D kvmalloc(width_y * height_y * sizeof(uint3=
-2_t),
-+=09=09dvs_config->xcoords_y =3D kvmalloc(array3_size(width_y, height_y, si=
-zeof(uint32_t)),
- =09=09=09=09=09=09 GFP_KERNEL);
- =09=09if (!dvs_config->xcoords_y) {
- =09=09=09IA_CSS_ERROR("out of memory");
-@@ -66,7 +67,7 @@ alloc_dvs_6axis_table(const struct ia_css_resolution *fra=
-me_res,
- =09=09=09goto exit;
- =09=09}
-=20
--=09=09dvs_config->ycoords_y =3D kvmalloc(width_y * height_y * sizeof(uint3=
-2_t),
-+=09=09dvs_config->ycoords_y =3D kvmalloc(array3_size(width_y, height_y, si=
-zeof(uint32_t)),
- =09=09=09=09=09=09 GFP_KERNEL);
- =09=09if (!dvs_config->ycoords_y) {
- =09=09=09IA_CSS_ERROR("out of memory");
-@@ -77,7 +78,8 @@ alloc_dvs_6axis_table(const struct ia_css_resolution *fra=
-me_res,
- =09=09/* Generate UV buffers  */
- =09=09IA_CSS_LOG("UV W %d H %d", width_uv, height_uv);
-=20
--=09=09dvs_config->xcoords_uv =3D kvmalloc(width_uv * height_uv * sizeof(ui=
-nt32_t),
-+=09=09dvs_config->xcoords_uv =3D kvmalloc(array3_size(width_uv, height_uv,
-+=09=09=09=09=09=09=09      sizeof(uint32_t)),
- =09=09=09=09=09=09  GFP_KERNEL);
- =09=09if (!dvs_config->xcoords_uv) {
- =09=09=09IA_CSS_ERROR("out of memory");
-@@ -85,7 +87,8 @@ alloc_dvs_6axis_table(const struct ia_css_resolution *fra=
-me_res,
- =09=09=09goto exit;
- =09=09}
-=20
--=09=09dvs_config->ycoords_uv =3D kvmalloc(width_uv * height_uv * sizeof(ui=
-nt32_t),
-+=09=09dvs_config->ycoords_uv =3D kvmalloc(array3_size(width_uv, height_uv,
-+=09=09=09=09=09=09=09      sizeof(uint32_t)),
- =09=09=09=09=09=09  GFP_KERNEL);
- =09=09if (!dvs_config->ycoords_uv) {
- =09=09=09IA_CSS_ERROR("out of memory");
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_param_shading.c b/dri=
-vers/staging/media/atomisp/pci/sh_css_param_shading.c
-index 69cc4e423..460a8099a 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_param_shading.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_param_shading.c
-@@ -13,6 +13,7 @@
-  * more details.
-  */
-=20
-+#include <linux/overflow.h>
- #include <linux/slab.h>
-=20
- #include <math_support.h>
-@@ -350,7 +351,8 @@ ia_css_shading_table_alloc(
- =09me->fraction_bits =3D 0;
- =09for (i =3D 0; i < IA_CSS_SC_NUM_COLORS; i++) {
- =09=09me->data[i] =3D
--=09=09    kvmalloc(width * height * sizeof(*me->data[0]),
-+=09=09    kvmalloc(array3_size(width, height,
-+=09=09=09=09=09 sizeof(*me->data[0])),
- =09=09=09     GFP_KERNEL);
- =09=09if (!me->data[i]) {
- =09=09=09unsigned int j;
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_params.c b/drivers/st=
-aging/media/atomisp/pci/sh_css_params.c
-index 34d8ffb77..edb21110e 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_params.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_params.c
-@@ -13,6 +13,7 @@
-  * more details.
-  */
-=20
-+#include <linux/overflow.h>
- #include "gdc_device.h"=09=09/* gdc_lut_store(), ... */
- #include "isp.h"=09=09=09/* ISP_VEC_ELEMBITS */
- #include "vamem.h"
-@@ -1405,11 +1406,11 @@ struct ia_css_morph_table *ia_css_morph_table_alloc=
-ate(
- =09}
-=20
- =09for (i =3D 0; i < IA_CSS_MORPH_TABLE_NUM_PLANES; i++) {
--=09=09me->coordinates_x[i] =3D kvmalloc(height * width *
--=09=09=09=09=09=09sizeof(*me->coordinates_x[i]),
-+=09=09me->coordinates_x[i] =3D kvmalloc(array3_size(height, width,
-+=09=09=09=09=09=09=09    sizeof(*me->coordinates_x[i])),
- =09=09=09=09=09=09GFP_KERNEL);
--=09=09me->coordinates_y[i] =3D kvmalloc(height * width *
--=09=09=09=09=09=09sizeof(*me->coordinates_y[i]),
-+=09=09me->coordinates_y[i] =3D kvmalloc(array3_size(height, width,
-+=09=09=09=09=09=09=09    sizeof(*me->coordinates_y[i])),
- =09=09=09=09=09=09GFP_KERNEL);
-=20
- =09=09if ((!me->coordinates_x[i]) ||
-@@ -4390,13 +4391,17 @@ ia_css_dvs_statistics_allocate(const struct ia_css_=
-dvs_grid_info *grid)
- =09=09goto err;
-=20
- =09me->grid =3D *grid;
--=09me->hor_proj =3D kvmalloc(grid->height * IA_CSS_DVS_NUM_COEF_TYPES *
--=09=09=09=09sizeof(*me->hor_proj), GFP_KERNEL);
-+=09me->hor_proj =3D kvmalloc(array3_size(grid->height,
-+=09=09=09=09=09    IA_CSS_DVS_NUM_COEF_TYPES,
-+=09=09=09=09=09=09sizeof(*me->hor_proj)),
-+=09=09=09=09GFP_KERNEL);
- =09if (!me->hor_proj)
- =09=09goto err;
-=20
--=09me->ver_proj =3D kvmalloc(grid->width * IA_CSS_DVS_NUM_COEF_TYPES *
--=09=09=09=09sizeof(*me->ver_proj), GFP_KERNEL);
-+=09me->ver_proj =3D kvmalloc(array3_size(grid->width,
-+=09=09=09=09=09    IA_CSS_DVS_NUM_COEF_TYPES,
-+=09=09=09=09=09=09sizeof(*me->ver_proj)),
-+=09=09=09=09GFP_KERNEL);
- =09if (!me->ver_proj)
- =09=09goto err;
-=20
-@@ -4665,24 +4670,26 @@ ia_css_dvs2_6axis_config_allocate(const struct ia_c=
-ss_stream *stream)
- =09=09=09=09    params->pipe_dvs_6axis_config[IA_CSS_PIPE_ID_VIDEO]->heigh=
-t_uv;
- =09IA_CSS_LOG("table Y: W %d H %d", width_y, height_y);
- =09IA_CSS_LOG("table UV: W %d H %d", width_uv, height_uv);
--=09dvs_config->xcoords_y =3D kvmalloc(width_y * height_y * sizeof(uint32_t=
-),
-+=09dvs_config->xcoords_y =3D kvmalloc(array3_size(width_y, height_y,
-+=09=09=09=09=09=09     sizeof(uint32_t)),
- =09=09=09=09=09 GFP_KERNEL);
- =09if (!dvs_config->xcoords_y)
- =09=09goto err;
-=20
--=09dvs_config->ycoords_y =3D kvmalloc(width_y * height_y * sizeof(uint32_t=
-),
-+=09dvs_config->ycoords_y =3D kvmalloc(array3_size(width_y, height_y,
-+=09=09=09=09=09=09     sizeof(uint32_t)),
- =09=09=09=09=09 GFP_KERNEL);
- =09if (!dvs_config->ycoords_y)
- =09=09goto err;
-=20
--=09dvs_config->xcoords_uv =3D kvmalloc(width_uv * height_uv *
--=09=09=09=09=09  sizeof(uint32_t),
-+=09dvs_config->xcoords_uv =3D kvmalloc(array3_size(width_uv, height_uv,
-+=09=09=09=09=09=09      sizeof(uint32_t)),
- =09=09=09=09=09  GFP_KERNEL);
- =09if (!dvs_config->xcoords_uv)
- =09=09goto err;
-=20
--=09dvs_config->ycoords_uv =3D kvmalloc(width_uv * height_uv *
--=09=09=09=09=09  sizeof(uint32_t),
-+=09dvs_config->ycoords_uv =3D kvmalloc(array3_size(width_uv, height_uv,
-+=09=09=09=09=09=09      sizeof(uint32_t)),
- =09=09=09=09=09  GFP_KERNEL);
- =09if (!dvs_config->ycoords_uv)
- =09=09goto err;
+Thanks,
+Feng Ning
 
