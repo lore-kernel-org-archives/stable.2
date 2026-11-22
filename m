@@ -1,98 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795372772;
-	b=zl0hxE+dMTdnFVUl5t5XN+5zyZPKqfWDqNPSx3gKBZ67jH1XW9favelzxtNJAT8TcuT5
-	 7zGgmeC7JZAcVG/ocst5R3xD+xMj/lHapJ+KBI3k+xkkEb8sfjR2KgZ746L40ZgmaMJEs
-	 7ILVO0RfTTbN7unyoErVlrOKAcqO6ihc5Ou54kk7u8H2atXmZGL3ADx8rJ5mk3dNF4V7J
-	 R7NO5cUhl2qwKFof1G7yJbooux+DNI68sb52gGElWLLZfOBrsXpSQh5/NubQV78Gfl9H/
-	 qAFt2n+1a5/pZSyqeIc0YEbUF9A13uOohiRJLDBJiZyxFEPAzvPIYpTcFLc5h1vqpig==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795372772;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KF1BQ1zGUNFE9oDyiz0kj0hbMwS6tO2UyjVGPatHnnU=;
-	b=rPECoG6o4iqYnN4I/ZJcVKIm0f8hiQGLoXTSgsNYcpS2HTC4XPU5EyS7X1d8P9JlK2yj
-	 WepEF3e4IKZqFxYeMjPaS0tg1Kkg2hdo1QiL633BV4Va5q+eqfJpi3Vp7YACsxzY7tIvo
-	 C35wpZxTxM6httX2xUVDaqS6oWjJh0r5bveWoNSHXLjwbbxEd/4UjugVGeXTNvys8nR6/
-	 T3y3vFdTD8h5e6uKOWqcLOTQsYpPdayzQAzmuDJdUctpXeukhZXIRkH67pkNj1XTjfDby
-	 ussteIb/lVcjWvfm8d8DMyfO5OZlHqxPlBwb9bOivlawvaUUABpCGX9a9Oho4+TLnwA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wKlkiZ9P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795372992;
+	b=J7r+o46u5TgUl3WZCki+7nfkJ0TiGrgfHgPwlh2Z36J2PPrGb/p3WtD4yH47ZorubnkA
+	 Aau9uRxJtcHw7tdb2iglKOhzlWtwQJXhc4+YQvPi4Uag5ZRQBV3yOlutM4PLtMbgfjgx9
+	 iLLH7Wf7iQZXcNbQ41Hn1DkyKCWqMj+GPgvwYU7ZVZWBhwLoQcpNP1YM5m4DqRd+kdLXS
+	 XTw/sIMe23vfybvApu441ZsaIrkIg9gI9Bxcmn9PlVI1ktSefFujAPMxVqyh8H4pfPUHR
+	 gAPUk+LtWoYENCPHQby2MVUd6xUwANzQX45uBliaoYj3T8P9qUG5v7sFFL9ck8F94lw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795372992;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=cBcRUPE1iZgUTO5vL9PNhYI1VQ/6dT8/jQCn5srupcA=;
+	b=FpRUgwxVP7MYQBvQqONDCWgQq83j8zYAlhF9zGaLVDD4hMwTIzPFIKCoSwySkmUFTWJu
+	 IxWZL/FZShDMjFdCXaBJEtzm4Skx8vFErLRBrfqstrLlN+53Ldz8McGl9mdAT34wncO9d
+	 kOBxkYgBlLLnza/zC4zhbCorMpCN28ML5rsIjD3ZuD0Q0F8R0IMyAMF29CV5iYBjY5aSl
+	 Zbg2HOruI543o0Sk6/cp6hdulj7yOl5d43gEdWw/sMUIV+BARS7b/GZ7imp7XeOHRMHwA
+	 XpDjAjSME6Qk/WyXxjZkkQSPmXmX6CRfJujVfhKJvfIW4V/zhdMdfieEb3BMu8xD9Fw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="GUvz1/hg";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=kA5FPwu7;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F24606A320
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 18:39:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6F24606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 375CC606A320
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 18:43:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 375CC606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wKlkiZ9P
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb6886d30aso24746065e9.3
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 10:39:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795372770; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TQjLGUSOkD5rFZlaang3wllqfDLIp7hAgJTDEAPQvpAfWLYVMjOSDzZR73LAf/r2Fa
-         RqgnpO6GQnDEspotLnxhRoyKSKrhUNnXns4pf8+FZEro3fzfa5tEPbjDiWmwMPysNUmC
-         FxVi4hZDjiNzuQrTRdBv4Z2N132YrLmUOpM/pZFr1D5ch6BZJ1NU32apblfoeNJuis5W
-         BMyDdklPbqWWUTI/Y89YJVn1/wOKgK7Aay6RIdLJhHpTAd7XrBuHIcUKXPwqoMuiX+l4
-         iem/NN2Z1+NpOxK6iz1D3FAVtOzou6ag+N78L1571MRwLj4PGQWLotZlJ/N/8RpOBoCS
-         UyJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=KF1BQ1zGUNFE9oDyiz0kj0hbMwS6tO2UyjVGPatHnnU=;
-        fh=VMSZDy67JbtICA61VAUG8CamZaF/KLvDFjqY8hSo1lw=;
-        b=WYjnxrEy9MWvEY4JtPcvnG/bxqI+z1GcDhqkUf9/v74LlilEbUULpSIgTspWfiRSYe
-         FN9/YSiWvHV9ZCMNkv7x0SG9mj05VaYDWTQL3miPZoJU82HN22Ngok3UnWT8JQOtCuub
-         XPfH+dICZ9ujych6wcFFO+rRjO3gpqm9Wh0mUBEt59qgR/eOxOi0EekMYtBH3tZibPf3
-         Ol5pXSqKlxw3Q4Ia/unsAG4c3df4iFkgxow5bJGLmbV/tmm/bBiJ+37xIrwvToH7Z0ih
-         Vz+46XOxX3j98PdTk4FYVfojvmr5S95DjXZC0u9b+LXZcOx1sU2T7Uwqz/0v8MfUXK1j
-         cRRg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GUvz1/hg;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=kA5FPwu7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795372990;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cBcRUPE1iZgUTO5vL9PNhYI1VQ/6dT8/jQCn5srupcA=;
+	b=GUvz1/hgDWYKSfG7DpRvmwkOrncNOKpEKTrcr6r5w0UWrA51mC9rsOvqfGBhsskFBO/RQ7
+	OA+KTVsHgJ2+hJQXc7YuglHGzORrRCI7zFQS6Z8NLo6oVHSvDxjKaUKMeFB2RPXSJH0tRv
+	dOXid9y10TdKtOzSReJ2TRrvJfiNmjQ=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-508-DbBCeFgSOZ-dI-eJNZapfg-1; Sun, 22 Nov 2026 18:43:08 +0000
+X-MC-Unique: DbBCeFgSOZ-dI-eJNZapfg-1
+X-Mimecast-MFC-AGG-ID: DbBCeFgSOZ-dI-eJNZapfg_1795372988
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-55d32f54d21so54960911cf.2
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 10:43:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795372770; x=1795977570; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KF1BQ1zGUNFE9oDyiz0kj0hbMwS6tO2UyjVGPatHnnU=;
-        b=wKlkiZ9PAmEfe3rRpGuDQtL28POIqp22tFvP5pT+WmLUuu0r8fNQQ10dL71XnOScTm
-         T8uJc47QUn4Zh7KFQQpxEUkwmX519yWAx/+Rz8sccCA2/zlDRN/9FqvPU6y3ramVHPLf
-         1AUuVTR5KnER+L/EdtF3brhBWiWj2nDXfN23CpkdiNWhjPp0TQZPYJuerAj6NWtY2imZ
-         5SZ99HhyjSjQBA6LHMemxvJMDo0iVvsGy3yWqV96D1CBbXuH4IJi7t/+IZ5TRfeHlRp5
-         boteLj9xN8x758GOShXsD4Wfro+U1HMFJzhVuACtGs1gwkOrjfKRgpliARVLtDSdo8EG
-         5Z2g==
+        d=redhat.com; s=google; t=1795372988; x=1795977788; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cBcRUPE1iZgUTO5vL9PNhYI1VQ/6dT8/jQCn5srupcA=;
+        b=kA5FPwu7R6lZ/mBGiPplBrZNrp83YZBkHLHEEtso6d7pPoUds5cD/6OjIJbgIfoZv2
+         SjoT18htPH8yAW+aOUs8G+mK9LeYdRFQ/Rzqv71davcXAYdhvr9uYNn92czEqfHGpuOg
+         FQcX1bp1YG+rM/X/0/+xYq0FX3cs1ZBO2EvuEDbJLUuKkYGmgGJXUtSWIOq2MV4D39VG
+         5Lf/bhYCL2ojZjPWcdjTqEiUANxzQzWcbuvTUcZWz7eXUHnMvRk9Ra+4f3IjFXcoOmX9
+         0pqV1SY9fQKI1wCfX34e3xB6a7noQPlz2OGGH+4c1jpKXjEoZTtS8lU4Gzj2CJDZQ7JX
+         ipLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795372770; x=1795977570;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KF1BQ1zGUNFE9oDyiz0kj0hbMwS6tO2UyjVGPatHnnU=;
-        b=f6YizSigd/AVq+SPphAO1XBTpmjZiDcOP8wa+SRN3rZQCbSTZNjKiYEyyU1RT+qXaH
-         ec6pkHIdg735KHw5VW9BAuVFQdEOMfJgb6RcBjjCIV8OVCp7O+VXmddPi1Qn2CB7lII0
-         FheEMGyURTn66Eg2xbH2trKfaoJqjBYlGlKDcUUn/h1nRtygNGQqyXyEYMfUEDqpLiAj
-         RJvYHEURRCio/NalmMpBW8HJVgvo8e4m9JZSS2dQ0z8Q4FohAIGgLX1C4T53NR3JjSvY
-         F1C85Jah1Iz+GEw/yz/+ViiqYHGzewgMtLd3915yNojl1LxZpEoUBZgAwB50Ny4f0vJB
-         SlXg==
-X-Gm-Message-State: APuU4Z8j1zrUv6Hlp83fWna5kSsgCtYBr63RPTtGt6QznDdpNP61VvQa
-	HnqdtSfK1Wymq7E5DIIbACkfE6ztjrZYLEzlt8e7G9xOmq96jRzzH+F9K7GcoxOoo7lF/9c2Ee1
-	NqlnVwLEBbHDUOp9BeGLmh0x7IcjFyJ1BN7NC
-X-Gm-Gg: AZFdTZdLfmZmvZi+q1BFNg01KcPbVnFWNfT5VG7pymmADBdh0Nt/IzmhRL83kTKYg+X
-	ZFhYHBII9HF18ZujjtjTSinhJAnu6FoN2WivanwaiEa4filPTmRcta54R1SlyKTq4RcBAH36mQJ
-	glqiJlRYUmYEPkZr64SyY7d4j7Y0KmVHutPgy95ZVflr6CDB74CKeCYO6c3IjsDnbhwyWlWONab
-	WzYz+YnVL7cFtoflsryRfQlJz9saQqJFty7J6wfOwXiyZ2VRbkT1J42LwOn2HIGWhR4vyenEUT8
-	OXG+X2+fOOTVB2KlHWXTv28Qdbg8G7TWgcTO3Ci+poH4VgM+Cm8IPQqQNt5QKGoB6QqZYJZH5AJ
-	NflzClIWCjXzBIEpWhtmk8UtI1oIkzZ3CEIU=
-X-Received: by 2002:a05:600c:674d:b0:4a0:1fb9:2f51 with SMTP id
- 5b1f17b1804b1-4bb88808263mr213347845e9.14.1795372770161; Sun, 22 Nov 2026
- 10:39:30 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795372988; x=1795977788;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cBcRUPE1iZgUTO5vL9PNhYI1VQ/6dT8/jQCn5srupcA=;
+        b=2L0rufdLwRW3rPE7Li9JikkGKDO5hK6yvXL1xqwCxM2jo6DAQoGogOoLXdRgoxprY5
+         9A2SMp0wY+9pfoJ4/vCsNgEJX7/rrVETPh9mhpAkCGXmQbw+EtSI0NHgom49E27sqMik
+         YzakxmYyx+80tlxNcV4BktqznVQ7T5OCunO7zMGdUIW8R6V/C+zx1aPCmQ+U1msAa5RC
+         nPggu1DmtVk933ZbkkNyWgAGK/ipDxms0a2H5IszFDPAnGUfHx/DfgTmhGw7jyQUpLVC
+         DmyUj0wfe2+vnjySkzcfGJk3n015lW4+Uwlspi1jGSn4m0sYrXLSKRhHvo4u8ZmkZtJ5
+         xiAQ==
+X-Forwarded-Encrypted: i=1; AL+hErEty2ldy9Mfw89ebUzA40C9oIVa+DtE8oRQ749gVOLEiEcrrnbf1WzCLrhAKNHetPEUz/dOEeI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/njmdwvJ/hZ3CTm/wjxDcLIZennUeEq/xT5h/84l1QGuDIWi2G
+	WVhovB4RlgvJXpWZY5Zd1obUTr+0IJw08GhOkY2HEkP9i0HNKdwvxwno2qV9xq/HuSylTjc697B
+	2aBGg/9p0nwgGow7D8yzRnK6RZkUPort0fId+6/jGpoIYeskR/IFlbC+zRw==
+X-Gm-Gg: AZFdTZcaQt4/HxMQ07IK+wo0j+ywovH871V+y/gebgI/Cuvmn0cJkdnNOat1UjGEP3C
+	Kis8w0+STEeER5Mw3ZeN/QLte1AIUtZf2wlMieQjj4cibZeVWb5WG58uJoLciNRQftb+nN1FCsk
+	37zsZ5UFGrxFjGQ2RlFNnaNJFFyhv7vldkBoluY+D4D51ryOW1NTDMqKy6HDg977nTnQMXNodTs
+	1z1P5fdeeKXmuZZFGWAyYbuVxO3QG0Hxc/+iTmmZ4hdQVFxSKE5DzFkxHEHlH9PGrGMkuK8DO2h
+	WzYRHgVQ1XQDTYAaXvXGYtXMHIFSDD+I158SKohlSmnlK2AJsrSxt3CtEecPOHM/NWI/FkL0nHW
+	1cjA5ahlHHLu1oOG7b+sfNM4B31kwQ1a/Tozsdu+ecwD8H5rm9FYh9KfwFDcIP3RlZKiACKG44Y
+	M3Ijzs+toyOixhQjzwV0wq5w2hDGNRBCqsrbI1Fe4b/y3x8lZ6wWxU4BBmpzIMDbrO5MDS+ijGU
+	F8WBkBq4qVMUlcDjXqF4NlJlcAU7vYcgokcdc/RRKfOpYjOGiNV
+X-Received: by 2002:a05:622a:580b:b0:537:a19c:aaad with SMTP id d75a77b69052e-55d76adb4f5mr145678201cf.65.1795372987753;
+        Sun, 22 Nov 2026 10:43:07 -0800 (PST)
+X-Received: by 2002:a05:622a:580b:b0:537:a19c:aaad with SMTP id d75a77b69052e-55d76adb4f5mr145678041cf.65.1795372987327;
+        Sun, 22 Nov 2026 10:43:07 -0800 (PST)
+Received: from cluster.. (4f.55.790d.ip4.static.sl-reverse.com. [13.121.85.79])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7882c64fsm79845241cf.10.2026.11.22.10.43.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 10:43:07 -0800 (PST)
+From: Alex Markuze <amarkuze@redhat.com>
+To: Xiubo Li <xiubo.li@clyso.com>
+Cc: Ilya Dryomov <idryomov@gmail.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
+	ceph-devel@vger.kernel.org,
+	stable@vger.kernel.org,
+	security@kernel.org,
+	Quinn Grant <leograntquinn@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ceph: ignore a cap IMPORT peer that names the importing MDS
+Date: Sun, 22 Nov 2026 18:43:04 +0000
+Message-Id: <20261122184304.1303832-1-amarkuze@redhat.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261121-b4-ceph-cap-import-self-peer-v1-1-9cbc14a6c8b7@clyso.com>
+References: <20261121-b4-ceph-cap-import-self-peer-v1-1-9cbc14a6c8b7@clyso.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,72 +123,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Iulian Vaideanu <iulian.vaideanu@gmail.com>
-Date: Sun, 22 Nov 2026 20:39:18 +0200
-X-Gm-Features: Aa3M54p1PncJVptZSDa2qFfk8dNzLdzgxMitxRzaH6ZahobGYitQ66D5KOPv4nI
-Message-ID: <CAPK=yVMe1Ro=aw_daLCOM9cBATsp6crdgB4wd0ty4vrnxtVKkQ@mail.gmail.com>
-Subject: Unable to compile 6.12 kernels on SPARC64 since 6.12.105
-To: stable@vger.kernel.org
-Cc: regressions@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hello everyone,
+Hi Xiubo,
 
-Ever since 6.12.105 I cannot "make bindeb-pkg" vanilla kernels
-(platform is Debian unstable on bare-metal Netra SPARC T4-1, GCC 16.1
-or 16.2 from Debian ports) - it always ends in the error below in
-fcntl.c, probably brought up by one of the fsnotify-related commits in
-105.
+Thanks for the fix.
 
-Is there anything I can do to work around this?
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 
-Thank you.
+Alex
 
-Iulian
-
-  CC      fs/fcntl.o
-In file included from <command-line>:
-fs/fcntl.c: In function =E2=80=98fcntl_init=E2=80=99:
-././include/linux/compiler_types.h:543:45: error: call to
-=E2=80=98__compiletime_assert_443=E2=80=99 declared with attribute error: B=
-UILD_BUG_ON
-failed: 21 - 1 !=3D HWEIGHT32( (VALID_OPEN_FLAGS & ~(O_NONBLOCK |
-O_NDELAY)) | __FMODE_EXEC | __FMODE_NONOTIFY)
-  543 |         _compiletime_assert(condition, msg,
-__compiletime_assert_, __COUNTER__)
-      |                                             ^
-././include/linux/compiler_types.h:524:25: note: in definition of
-macro =E2=80=98__compiletime_assert=E2=80=99
-  524 |                         prefix ## suffix();
-         \
-      |                         ^~~~~~
-././include/linux/compiler_types.h:543:9: note: in expansion of macro
-=E2=80=98_compiletime_assert=E2=80=99
-  543 |         _compiletime_assert(condition, msg,
-__compiletime_assert_, __COUNTER__)
-      |         ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro
-=E2=80=98compiletime_assert=E2=80=99
-   39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg=
-)
-      |                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:50:9: note: in expansion of macro =E2=80=98BUIL=
-D_BUG_ON_MSG=E2=80=99
-   50 |         BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condit=
-ion)
-      |         ^~~~~~~~~~~~~~~~
-fs/fcntl.c:1169:9: note: in expansion of macro =E2=80=98BUILD_BUG_ON=E2=80=
-=99
- 1169 |         BUILD_BUG_ON(21 - 1 /* for O_RDONLY being 0 */ !=3D
-      |         ^~~~~~~~~~~~
-make[6]: *** [scripts/Makefile.build:229: fs/fcntl.o] Error 1
-make[5]: *** [scripts/Makefile.build:466: fs] Error 2
-make[4]: *** [Makefile:1983: .] Error 2
-make[3]: *** [debian/rules:76: build-arch] Error 2
-dpkg-buildpackage: error: make -f debian/rules binary subprocess
-failed with exit status 2
-make[2]: *** [scripts/Makefile.package:126: bindeb-pkg] Error 2
-make[1]: *** [/home/linux-kernel/linux-6.12.118/Makefile:1604:
-bindeb-pkg] Error 2
-make: *** [Makefile:224: __sub-make] Error 2
