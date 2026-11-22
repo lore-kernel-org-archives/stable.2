@@ -1,79 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795340161;
-	b=DkrMhJPR46iul4l7h1Ql8hcyrp3BQZB5X7evC3NItbKNA1RuJvaYm3wkPTE/rQZaZx0Q
-	 j2ay5mcgrNkKCZzOuvYRMZftoYbr/yd1EAk39JYeaJLUYBIB3ffa7nqffUK/ZY6SvBy+r
-	 SJ6k23ICozKwNuWQatAx+nLH02/Z4HMtoGWwn4FCjjIllOeu+dKUkY6JCSqcqCuAk/9ro
-	 siyf+urIncXBGLQlVjDnZvxM6r8FIHFWBA0tP0aXl2ibxlBhkAignDT4MAuYq1J6K1W58
-	 +Sa2C32hsc7j8wRoDxhyL5uRrcgpGFxni04K/F2nJDy0txI0EqLAxtHJkZNDy15OHOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795340161;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=oFLBgFCgmaxQmxWfb6LVRPsrv/iiQMDieM1Nl0PLyM4=;
-	b=Hyk2aO9P2qnLHtQCRdrFQwb8YRTCWZkYQVrNs5SUaw71BE+akARwLE62YvQs/ms5GcGD
-	 obNWmmhpmeZ4G9jETRQ0WVgL9oqka8LTgMzZr4Yjw5ivrzh39PVZ7rRpTiHBTudZLDdpe
-	 cY3733qykfKXvzFz7kK71Q1PEWHjPa21BHTenzEZ9rECbr7S0oILcQUVoWXRuYujYPky/
-	 VyuaEC5LYe3UeOaux/Waa7gJq76pL9Go3T0mIYqyguf0oFCzo1c4n3wqdi8fs7A05ABfA
-	 bGDdo1OX4OG4pSStCqW9/WN2KQBQqK1iT8xq55nJgIQwTVDArTIJ9yrQv49oUHkmc0A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftJiMAXT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12FD606A320;
-	Sun, 22 Nov 2026 09:36:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftJiMAXT
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795340161;
-	b=xnmLF9y3FPkwsK8HUfwxvNk8TJoEz3uz/G3OaK95IpEsjbK3SRnQl+yF+dscdTbjQ0DM
-	 g6+5R33Wz33U52JMoDaTgCQcE3fJ5fhmQdX3jjKIOOn4G90cPNFBAlqFYtLPsf6w1BLr9
-	 LEu9KSkQFPfqVWqzMW7XcRyfcmTkQPF2dmDscWzppjkRT+1D/ETGvaeA0wbZ5SS4E9Lrj
-	 /hmVci4m1yZi5dKM8rPZINw5C2vQzTb9vecmXaKap5twkpnlqfM7CtxPksSsB//fUoCtF
-	 rrZyun4kc5X6StNpJ/hXvn6myArS6seqHznny+KiRztKczhCTbaw3BZIAdrJuCWTBOA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795340161;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=oFLBgFCgmaxQmxWfb6LVRPsrv/iiQMDieM1Nl0PLyM4=;
-	b=N5hiBMx/PJgVbi2Sc9TUr9xipQk1TyS7H414VVjRxDw5MupAhGnG/S4/9BtZQFqDIw3B
-	 7ky4jQ+QbblK/BPvTtqqdwVPREV1jdVw7dBTiDuqg4BdNYeDASUE4cgBQHLKt0jqtFMzF
-	 xKgkRmH+6SgikNnGkN/jEQjxDZaBXp9mzCDJK130UEK08Utz8CbIm6Djpi6PRBCu2RNqu
-	 IBbr1B7CdFJ3isUCJ4VngUKsBq6wrOVnvV49mj0T4AbrZFvRLW3s6PFujGavDvAbKOrk6
-	 9DB73yBJy/3YypbUk5c+H/68GYwRf3DGDcfHzFCAdfgJN/YZtHuUfZsYQY1laMX0OZw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.13.135.14
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795340332;
+	b=UUDxo/e7PvcpUbOcBbGCrVofYb2Blm06tsNdp6FmHZ6pI7mFGK73UaRGovbIfZnjk8Oo
+	 8jNeVcXkeFtZlFLXBNP0kB9d7Y6Y2hq7oOdv3OLNe8EaeNZr+LtpsYmghz9JDYAT60j8w
+	 uW1rPkOI4XplOz+3LJka3b8f3k81VreBOnwitmGYWE6M23Cm+W+Yhgmav0cRIePjNSyeK
+	 epxxiowOrd2bMfB5Griq5rT3xQGDjy5ohcuVWb2dvCfCkj8vuezdlqZKl0AQOio6rZ/TC
+	 t1qClv0h7ZZyvFYzKqH1f3INcx3wFrFgFvu0vvXBPhBDE0ne9pfyCf34ZMiQfBW/X5A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795340332;
+	h=DMARC-Filter:DKIM-Signature:X-KAS-Sym:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Bar;
+	bh=U1mDAIJW9kD2eG2GVBXGTpymWIz23aeKAV8ShM6Iapk=;
+	b=V53Jplc3P9ePZ2yOjX0/eYf6uvwY4kimZzflfvaP/snUDZEADKE8ZhkyaziIlZs7YCNm
+	 SBEqproWWUJX9IMk7WYtOUv4U7iaWWvcJYfyoecXz0xQZ/iYm6rmex4ohK0J8IcoQKwCq
+	 nB4VexHXkH+vHufiOEtraSIXoejbchmHdUAnQaGN1vtGSBRd/KwbxICPvPh6YvtJ+wBCb
+	 s79pi7LvXL2zWUK3r2AL9jkm8H/Hc/eYl+w+SPtGENoDIwwrNYjT24DBMfmgVYfeAPj7h
+	 /699EfU4nMmAX8/xYkgLVd4QfbVTztJHLc0U5V0NrsmSzMt0+Su0E16o9Aw2IrTs9aA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=tsv-stahl-riesa.de;
+	spf=pass smtp.mailfrom=tsv-stahl-riesa.de;
+	dkim=pass header.d=tsv-stahl-riesa.de header.i=@tsv-stahl-riesa.de header.a=rsa-sha256 header.s=kas202608160020 header.b=Z9A9R7JA;
+	arc=none smtp.remote-ip=85.13.135.14
+Received: from dd13108.kasserver.com (dd13108.kasserver.com [85.13.135.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C62821F000C0;
-	Sun, 22 Nov 2026 09:36:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795340161;
-	bh=oFLBgFCgmaxQmxWfb6LVRPsrv/iiQMDieM1Nl0PLyM4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=ftJiMAXTy9XlnisQASWuKvcQsP8NdVpRUdRSFVMdG1EmCZVNa9sjZgSqhcEGTgqFO
-	 TInzAJVY06YUSQqex4/veB6THoTiFvVLVvmmT/2eOcNaZMFu343uZHw5JnWyWQjz++
-	 9KWRhShLnIFwMUOmrcBFXsALZOBJfj8j6Cl/FSd0A6vWCiKNrTvYhbJ5ivfGo0kBAo
-	 lCMSnzx3Iy6nciIq2E72qIbZHFFqZ+BX+B6NZn6xMlxr//hNeBS1qVBADPVwU6xS/K
-	 eugant2dvdPktc8A4htDPplDBSPNlcC1Yc+gFIn0mUG8ahM8Q6npWrTqWPG4Dg9ZR9
-	 AYMyHl8fEM12w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 282CE4BFDB;
-	Sun, 22 Nov 2026 09:36:00 +0000 (UTC)
-From: Leicheng Xie via B4 Relay <devnull+leicheng.dev.gmail.com@kernel.org>
-Date: Sun, 22 Nov 2026 17:33:29 +0800
-Subject: [PATCH] Bluetooth: RFCOMM: Fix slab-use-after-free in
- rfcomm_dev_add()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFB4606A32A;
+	Sun, 22 Nov 2026 09:38:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBFB4606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tsv-stahl-riesa.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tsv-stahl-riesa.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=tsv-stahl-riesa.de header.i=@tsv-stahl-riesa.de header.a=rsa-sha256 header.s=kas202608160020 header.b=Z9A9R7JA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tsv-stahl-riesa.de;
+	s=kas202608160020; t=1795340322;
+	bh=U1mDAIJW9kD2eG2GVBXGTpymWIz23aeKAV8ShM6Iapk=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:From;
+	b=Z9A9R7JA3rkl6EYunOiCP/mpzrbTetkxuNkubCTUZraXO2qNiVwI/GWNqjjGJnQB9
+	 76n8/uFL6fiKKczHGCM1pZUioPE7Z5dfg0cAkB6DLR4h8X67jmYPkrisILIHbha4k/
+	 rxOmacCAE/a1x+BjG46/uSbGgfOyQVbnJqd2Cmo7Glhdo20AoaxvX7vTXPw1g6lPtQ
+	 1kq6CtRPAY6ww6wz0r2DvxiWlt7e1W0xGWuw31kd0MhDrvr/amlm0ifWmN/3qSs240
+	 N6b7oc7clmzYTPjHuUkybI7UovVpoZdRStm9lX40QwvzFy+DcCnzqFhQR5p1u4Xks9
+	 6nIsjrsrjLPhg==
+X-KAS-Sym: v3:f51bdf72230551df:BHLVAvXUbecqCx65KAKRaRfSCRJ/RnepLulMBbwPWwteb
+	mripFIUpAml7cCtqERpaMGvp6Ak7OV3lE8iPMOqmpySjQJMXBc3GoUaNiOJ3JYVYJ6TKopF46jn
+	q4uVWX6C3Ji3T33tnuwTxe3Tg5o4SRtDYVASaC9EWX+SWjXVbz1MzhyHPUZKqWAoEsfJYQOCr3/
+	e8Hmx1pjaNOkVRlBEOwew3D70xuqqwYoYiiy7493mCJFAFA1pSDWWiaM9UqR8fM4BH7M4Lf2I7O
+	IPBxu8VLsAFMYOTxjDWwPLNwXk+ftVWkLUIsiPpytvLNorB9dwbxDD9FVg92DyAthgqKyJeg==:
+	a7G5SU3Bbpm/3eSfzfoRgv+f07BU8DM5q3VKPAoWYhggBXgG4dVR0a8gkHsJZMNv2cQZLQ4WKwt
+	BwcEOOCBWFjWosA4qFPS9DvfE7emiJnCoeO9lJkT+gjZpdPY/psrssJjuzilj0LXLn9TSwGHW7P
+	IE9kEucqwM/xrKxOBsjAAdmJE4Aol6zgR/ZNHaQfVOcXYkVzl06cUtew2lmfSs2iXoI1dJx78dL
+	IaaJGSx6oO6mzrvhajcSx3rjyqX9WJbdDeigUIBSKieKEsZkAcrD6t81PddXkjehe1eRcWBC5gI
+	SCONptKtxPdMiyZuT9oB8ot1LmyYAsxkNyRgSPgtyFLUeKQZkwa7sw0b7A+B9zyl1pbO95nPQlL
+	J3kw3tITIKpV7zDJ+wodx/41R1uYvWHm4SZBcK5S8JXb0LX9vfUsFcgzyKx69aZ9MEi3Hkz+SzA
+	v6DQj/3mHMKBvDyTNQoZHcQ3eDsS1/VUZvgHXPKxBZbsMbeRMw6zVCfFAoN7/Uu+RLdxu2fxw5K
+	1jlA3fK4tQXOPHkiHkjbQVclz0y9//1RRwhFjH7BFfxx5rYXXzLsb9nMSl1WBYaR7GIEtsqk7xg
+	todvL6A=
+Received: from [192.168.2.174] (dslb-188-098-197-218.188.098.pools.vodafone-ip.de [188.98.197.218])
+	by dd13108.kasserver.com (Postfix) with ESMTPSA id EBE667829502;
+	Sun, 22 Nov 2026 10:38:41 +0100 (CET)
+Message-ID: <263913c0-3bd6-44c9-a6c3-566f53013996@tsv-stahl-riesa.de>
+Date: Sun, 22 Nov 2026 10:38:41 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,115 +71,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-fix-rfcomm-dev-add-uaf-v1-1-cac5354752ed@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAOi2AmsC/x2MywqAIBAAf0X23EJr734lOoiutYcylCKI/j3pO
- DAzDySOwglG9UDkS5KEPQMVCuxq9oVRXGbQpW6JtEYvN0Zvw7ah4wuNc3gaj9Zz3VcddTQ0kOM
- jcjb/8TS/7wdFmz/PaAAAAA==
-To: Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Gianluca Anzolin <gianluca@sottospazio.it>
-Cc: linux-bluetooth@vger.kernel.org, 
- syzbot+11542ff1d167fdffa1fc@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, Leicheng Xie <leicheng.dev@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795340012; l=3276;
- i=leicheng.dev@gmail.com; s=20261122; h=from:subject:message-id;
- bh=wPiurJf5NAB3Lu8Avk81ILeINiSohz9dvVjdRquJVBo=;
- b=6Q+PSt3gaZkOQ7tAFw438TjcTSry2NO0bq7tgnocaG0Af45XxeX3tdpcInxYtCuzgXpbMPTwT
- b45gFQpGmg0DdahRCUttX80fmnMY/QBYxfLGSnB+OANXrPmPYYwCe7I
-X-Developer-Key: i=leicheng.dev@gmail.com; a=ed25519;
- pk=3Wc835kaGsdFoMvE39Cn0NKn+/y+alxEDJs7LjGUmis=
-X-Endpoint-Received: by B4 Relay for leicheng.dev@gmail.com/20261122 with
- auth_id=1600
-X-Original-From: Leicheng Xie <leicheng.dev@gmail.com>
-Reply-To: leicheng.dev@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] thermal/drivers/tegra/soctherm: Program throttrip with
+ hot trip temperature
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Svyatoslav Ryhel <clamor95@gmail.com>,
+ stable@vger.kernel.org
+References: <20261020-upstream-soctherm-throttrip-v1-1-c67f8a02ec3b@tsv-stahl-riesa.de>
+Content-Language: en-US
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+In-Reply-To: <20261020-upstream-soctherm-throttrip-v1-1-c67f8a02ec3b@tsv-stahl-riesa.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Spamd-Bar: /
 
-From: Leicheng Xie <leicheng.dev@gmail.com>
+Hi Daniel,
 
-__rfcomm_dev_add() inserts the newly allocated struct rfcomm_dev into
-rfcomm_dev_list and releases rfcomm_dev_lock while holding only the
-initial tty_port reference. Back in rfcomm_dev_add(), the device is
-registered with tty_port_register_device() and further initialized
-(dev->tty_dev assignment, reparenting, drvdata, sysfs attributes, and
-reading dev->id).
+gentle ping on this fix. It has Reviewed-by from Mikko and Tested-by
+from Svyatoslav, and it still applies cleanly to 7.4-rc3. Is there
+anything I should change, or could it go in as a fix for 7.4?
 
-When RFCOMM_RELEASE_ONHUP is set, a concurrent task can open and close
-the RFCOMM TTY device as soon as it becomes visible on rfcomm_dev_list.
-rfcomm_tty_install() takes over the initial reference by setting
-RFCOMM_TTY_OWNED, and rfcomm_tty_cleanup() drops it to zero, freeing
-dev via rfcomm_dev_destruct() while rfcomm_dev_add() is still running:
-
-  BUG: KASAN: slab-use-after-free in rfcomm_dev_add
-  Write of size 8 at addr ffff88800e85b3e0 by task rfcomm_uaf_poc/179
-
-Hold an extra tty_port reference in __rfcomm_dev_add() before dropping
-rfcomm_dev_lock, and release it at the end of rfcomm_dev_add() after
-caching dev->id. On the tty_port_register_device() failure path, use
-test_and_set_bit(RFCOMM_TTY_OWNED, &dev->status) before dropping the
-initial reference to match __rfcomm_release_dev() and prevent a leak or
-double-put if a concurrent open took ownership.
-
-Fixes: 5b899241874d ("Bluetooth: Release RFCOMM port when the last user closes the TTY")
-Reported-by: syzbot+11542ff1d167fdffa1fc@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=11542ff1d167fdffa1fc
-Cc: stable@vger.kernel.org
-Signed-off-by: Leicheng Xie <leicheng.dev@gmail.com>
----
- net/bluetooth/rfcomm/tty.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/net/bluetooth/rfcomm/tty.c b/net/bluetooth/rfcomm/tty.c
-index 198c7dd1a95b..3a61c45b5b51 100644
---- a/net/bluetooth/rfcomm/tty.c
-+++ b/net/bluetooth/rfcomm/tty.c
-@@ -303,6 +303,9 @@ static struct rfcomm_dev *__rfcomm_dev_add(struct rfcomm_dev_req *req,
- 	   holds reference to this module. */
- 	__module_get(THIS_MODULE);
- 
-+	/* Hold an extra reference for rfcomm_dev_add() until setup completes */
-+	tty_port_get(&dev->port);
-+
- 	mutex_unlock(&rfcomm_dev_lock);
- 	return dev;
- 
-@@ -316,6 +319,7 @@ static int rfcomm_dev_add(struct rfcomm_dev_req *req, struct rfcomm_dlc *dlc)
- {
- 	struct rfcomm_dev *dev;
- 	struct device *tty;
-+	int id;
- 
- 	BT_DBG("id %d channel %d", req->dev_id, req->channel);
- 
-@@ -328,6 +332,8 @@ static int rfcomm_dev_add(struct rfcomm_dev_req *req, struct rfcomm_dlc *dlc)
- 	tty = tty_port_register_device(&dev->port, rfcomm_tty_driver,
- 			dev->id, NULL);
- 	if (IS_ERR(tty)) {
-+		if (!test_and_set_bit(RFCOMM_TTY_OWNED, &dev->status))
-+			tty_port_put(&dev->port);
- 		tty_port_put(&dev->port);
- 		return PTR_ERR(tty);
- 	}
-@@ -342,7 +348,10 @@ static int rfcomm_dev_add(struct rfcomm_dev_req *req, struct rfcomm_dlc *dlc)
- 	if (device_create_file(dev->tty_dev, &dev_attr_channel) < 0)
- 		BT_ERR("Failed to create channel attribute");
- 
--	return dev->id;
-+	id = dev->id;
-+	tty_port_put(&dev->port);
-+
-+	return id;
- }
- 
- /* ---- Send buffer ---- */
-
----
-base-commit: 4843f6873f7c4835e62f2c73ba0fd538e57a2f22
-change-id: 20261122-fix-rfcomm-dev-add-uaf-cfe483717195
-
-Best regards,
--- 
-Leicheng Xie <leicheng.dev@gmail.com>
-
-
+Thanks,
+Patrick
