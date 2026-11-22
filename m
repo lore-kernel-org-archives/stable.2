@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=145.239.82.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795377687;
-	b=IEAFmaC7c0CE+4QLcArsQzhcGT2XdcBnhwTdzdro+H5QHd8XxL1mBNMkn2Fx30XMjBI2
-	 nukvqVkLLsn7oK0vt/sB1y2ib0X/m035pJ2E7EorOrjjOl1j1LzEdDLN1LwWf3aGAC/mu
-	 Z+hQKVxPBYLGhufFTl5liqxZ1+kEFiiKVtoMPX2UNoH0A3SmNrvyw3vtZgE2UltKLI3zV
-	 ggl3tfkBTCflLfdyXQq1lznoG5OvkIdN5mjZembxw0SgC+68uc2Nt2+lMjvZA+9gaIil2
-	 KJUNSF2I+vY1ZxBYSkQPOzNBOSnQSNJdcc+3CMEwOhxRtxUgw/WG4naz3taY2VGxayQ==
+	b=HQIHv/9fa0+aws/hSOKwVj5VZCQ4fkr9XbDm2voDZEPehMDstwnL1uYwyVTxhvGu5GhT
+	 jm/V5VyXE7GLZeZ/jO6GktedGb3L0zQ5JK165/j5MnaWZrScaqzQR6XNEG8pFZLgt1+Hs
+	 cDTFl5xupnhF1//EEbQS9Csu4mlzwvqhRK2T5Dud4HqzqpMLLLrDtLoTd8EBgxRW9P/oA
+	 dQ9FLAeYccVW7tB01SNXMjthMxr0ajciv6z8c7oQ4bdmomJZK188D/vuOe1sMaPPXyZFf
+	 Ia4gS6pvqztDOyf/7iStDWheKNXzCAjxIr3LNGwHWSVEwjuGGPls8DjWdiVhuFzBQzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795377687;
 	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:
 	 Disposition-Notification-To:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding:Sender;
-	bh=+FkGnM2fnU0IKINvnoMfZCIIgvS7HvGvB/+EcCAgPi4=;
-	b=Iiw8vLApl2xwVGHSaM8MOurVq9jy7a+O4O517oKIMaDW2EEnwaqID3O2T6wLOxSXf4L4
-	 Il8oXZ7+oY0ijQ/ByuhK7/bOFNywGRXKYRAglcxi1qcAkoCsyfFLryyOzOrLyS+YmLZo/
-	 aRv+fH76vJId+auHHtNpv9DaZwjWADB9tZvQHPIi14MFnLDtMEjQYYtT0lCFI7WKn9Rv2
-	 xBm4q6Q4Iu3yrdo2tSk2h9PFntHW8TX9LEN81oszYcJJomahitZsUKGLahznxikMJbhGS
-	 hol3RSXhSQJe6SeXLlttZqAOwRVJDboIJeJCxLqwvRKBEf+ljTyPooge7SJxUchESug==
+	bh=0/6M+JTM3dINWlMae2cUvXu/c1hGJdmRRNabsHePMrY=;
+	b=jMdfG2gCXeh9bQAuRCnDbFlEAV7yn7M9vtN7Bc6mAnemMOg+Zw/AT3hiOiKXIxsuOIDa
+	 JEM4sVlZ4mmZ501XYlqBeu7MhYRVDgNmbFc2yt9JBqJ0OZQojMgQyVwd3702PnSqmmah0
+	 aCo4+kMpsXInk2EXkvkVh/CG4d+vwQZuZADc+eGuVjtDO0oumSr3Mr/Oubd/Bw+wTH+Hv
+	 vQlnfrRzDamrlkt57TEUW794YCjctIeJRcr0n64PKobaENcXnuD8prX4dh8lupEjnoYGR
+	 dgVEqOPeLvYun+eHVjr/BOLl+g2Lq250dIdblu6gCl8HuxAGskGJu3S6oPT2H5YPH7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=maciej.szmigiero.name;
 	spf=pass smtp.mailfrom=vps-ovh.mhejs.net;
 	arc=none smtp.remote-ip=145.239.82.108
 Received: from vps-ovh.mhejs.net (vps-ovh.mhejs.net [145.239.82.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EE5606A320;
-	Sun, 22 Nov 2026 20:01:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55EE5606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E35606A31E;
+	Sun, 22 Nov 2026 20:01:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55E35606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=maciej.szmigiero.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vps-ovh.mhejs.net
 Received: from MUA
 	by vps-ovh.mhejs.net with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
 	(Exim 4.100.1)
 	(envelope-from <mhej@vps-ovh.mhejs.net>)
-	id 1xVDkP-000000014eN-1meP;
-	Sun, 22 Nov 2026 21:01:13 +0100
-Message-ID: <5651d569-d291-48e1-b38d-8cbdb2c2f0a8@maciej.szmigiero.name>
-Date: Sun, 22 Nov 2026 21:01:13 +0100
+	id 1xVDkM-000000014eN-3x9X;
+	Sun, 22 Nov 2026 21:01:10 +0100
+Message-ID: <925a4f3f-95bb-496e-be19-abf96af34d89@maciej.szmigiero.name>
+Date: Sun, 22 Nov 2026 21:01:05 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,16 +49,15 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 2/2] net: wwan: iosm: fix S3 resume by re-binding
- the driver around it
+Subject: Re: [PATCH net] net: wwan: iosm: always send the host sleep message
+ on suspend
 To: David Westen <davidlwesten@gmail.com>
 Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
- johannes@sipsolutions.net, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org, nihaal@cse.iitm.ac.in, stable@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20261119042714.505405-1-davidlwesten@gmail.com>
- <20261119042714.505405-2-davidlwesten@gmail.com>
+ netdev@vger.kernel.org, johannes@sipsolutions.net, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, m.chetan.kumar@linux.intel.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261122050039.861287-1-davidlwesten@gmail.com>
 From: "Maciej S. Szmigiero" <mail@maciej.szmigiero.name>
 Content-Language: en-US, pl-PL
 Autocrypt: addr=mail@maciej.szmigiero.name; keydata=
@@ -102,106 +101,128 @@ Autocrypt: addr=mail@maciej.szmigiero.name; keydata=
  WHQjcZZbROLql/+ngphSgdthGIhVWrIMHJu1UxnRiwKc/fzDFUZ9hFL+W4ZLm+52TzMatpta
  oNdcP9rtsQjdYMNLuwysP4keDX8yBXADwJD7eQ+ryIIKh6X1lBMIWxeZG5W0DQ6/4BCUEbCe
  1DqkYRtZyUEzgAbaHliaa5t3dfCtSMz5cAbGqxarXc7bKOjA6P8hCwgP0tEypA==
-In-Reply-To: <20261119042714.505405-2-davidlwesten@gmail.com>
+In-Reply-To: <20261122050039.861287-1-davidlwesten@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Sender: mhej@vps-ovh.mhejs.net
 
-On 19.11.2026 05:27, David Westen wrote:
-> On platforms where S3 cuts power to the WWAN card, the modem boots
-> again while the system sleeps, but the driver still treats it as
-> running. After resume its execution stage reads BOOT, and by the
-> first port open the boot code has crashed into the CD_READY stage:
+On 22.11.2026 06:00, David Westen wrote:
+> Unless the BIOS reports D3L2 for the WWAN slot, the suspend callback
+> only rings the FORCE_SLEEP doorbell, and resume the FORCE_ACTIVE one.
+> Neither waits for the modem. The driver doesn't keep the device in
+> D0, so the PCI core then puts it into D3hot anyway. An XMM7360 in a
+> ThinkPad X1 Carbon 6th gen doesn't survive that: after
+> suspend-to-idle its execution stage already reads CD_READY when the
+> resume callback runs, and the first port open fails:
 > 
 >    iosm 0000:03:00.0: PORT open refused, phase A-CD_READY
 > 
 > The modem then stays unusable until an ACPI reset.
 > 
-> Unbind the driver before S3 and bind it again after resume, as
-> commit 0b6f6593aa8c ("net: wwan: iosm: Fix hibernation by re-binding
-> the driver around it") already does for hibernation. The driver is
-> then torn down while the modem still answers, and the modem is probed
-> again once it has booted.
+> Send the ENTER_SLEEP and EXIT_SLEEP host sleep messages on every
+> system suspend, as the D3L2 path already does, so the modem knows it
+> is going to D3 before it gets there.
 > 
-> The target state isn't known yet when the PM notifier runs, so the
-> default suspend mode decides: the driver is re-bound unless "mem" maps
-> to suspend-to-idle, which keeps using the suspend/resume callbacks.
-> This changes behavior in a few cases:
+> This ignores the BIOS RTD3 setting for system suspend. The setting
+> only selects the sleep protocol; the PCI core chooses the power state
+> without it, and here chooses D3hot, which the doorbell protocol
+> doesn't survive. Honoring D0L12 literally would mean keeping the
+> device in D0, as commit f4dd5174e273 ("net: wwan: iosm: Keep device
+> at D0 for s2idle case") did. That was reverted, D3 being the expected
+> state.
+
+I have mixed feelings about this.
+
+Your platform specifies D0L1.2 as the target state so I presume that
+is the state that the platform expects the modem to be put into?
+
+The reverted commit f4dd5174e273 on the other hand always put the modem
+into D0, which was incorrect in a different way - as, for example, my
+platform explicitly requests D3.
+
+Could you try the reverted commit to see if D0 actually works for your
+platform?
+
+> With this change the modem stays in RUN through 2 and 10 minute
+> suspend-to-idle cycles, and its data session keeps working. Platforms
+> that do well with the doorbells now use the messages too.
 > 
-> - On platforms that keep the card powered in S3, the modem is now
->    probed again on resume, which drops data sessions and recreates its
->    ports.
-> - Entering suspend-to-idle or standby explicitly while the default is
->    S3 also re-binds the driver.
-
-I think this re-binding should never happen on s2idle, even though S3
-might be the default mem sleep method.
-
-It looks to me that the only remaining case here is the "opportunistic
-sleep" code which does not use mem_sleep_current (so won't be covered by
-pm_suspend_default_s2idle()) - but uses autosleep_state instead.
-
-> - A suspend to S3 that calls pm_suspend(PM_SUSPEND_MEM) directly while
->    the default is suspend-to-idle is not covered and fails as before.
-
-Are there any such pm_suspend(PM_SUSPEND_MEM) calls in the kernel (outside
-some test code)?
-
-> 
-> Fixes: 1f52d7b62285 ("net: wwan: iosm: Enable M.2 7360 WWAN card support")
+> Fixes: be8c936e540f ("net: iosm: power management")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: David Westen <davidlwesten@gmail.com>
 > ---
 > 
 > Notes:
->      Changes in v2:
->      - New patch before this one: cancel the ADB timer in ipc_imem_cleanup().
->      - Describe the changes in behavior and the remaining limits in the
->        changelog, and say in the comment that the modem "may" lose power.
->      - I also tried detecting the power loss on resume instead; my reply to
->        the v1 review explains why v2 keeps unbinding before suspend.
->      - Correction to that reply: the XMM7360 here does use MUX aggregation
->        (CP capability 0x300), so the ADB timer is armed on it too.
+>      This is independent of my S3 series ("net: wwan: iosm: fix S3 resume by
+>      re-binding the driver around it"), which leaves suspend-to-idle to these
+>      callbacks; it applies with or without it.
 >      
->      v1: https://lore.kernel.org/r/20261116031148.333990-1-davidlwesten@gmail.com
+>      Maciej suggested forcing the D3L2 path for suspend-to-idle earlier and it
+>      helped another XMM7360 user with the same CD_READY symptom:
+>      https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/work_items/992#note_2938256
 >      
->      Tested on an XMM7360 (ThinkPad X1 Carbon 6th gen, deep sleep) with this
->      series applied to 7.2.15: the driver is unbound before suspend, and
->      after resume the modem is probed again and comes up without an ACPI
->      reset. Not tested on the XMM7560.
+>      Tested on an XMM7360 (ThinkPad X1 Carbon 6th gen, BIOS reports D0L12)
+>      with 7.2.15 and a debug build that forces the D3L2 path, which is what
+>      this patch does, logging the execution stage and the PCI power state.
+>      Starting from a fresh ACPI reset, the doorbells left the modem in
+>      CD_READY by the resume callback after 2 minutes of suspend-to-idle.
+>      With the host sleep messages it stayed in RUN through four cycles of 2
+>      and 10 minutes, two of them right after a fresh reset, and ping over
+>      wwan0 still worked afterwards. The modem and its root port went to
+>      D3hot in both cases. This patch itself, backported to 7.2.15 on top of
+>      my S3 series, then passed a 2 and a 10 minute suspend-to-idle cycle with
+>      ping working after each, and S3 with my series still works. Built with
+>      W=1 on net/main. Not tested on the XMM7560 or on a platform where the
+>      doorbells work.
 >      
->      The investigation and the patches were done with an AI coding assistant
->      (Claude Opus 5.5). It read the driver and added temporary debug logging
->      to record the execution stage around suspend and resume. We wrote the
->      changes and the changelogs together, and I ran the tests.
+>      The investigation and the patch were done with an AI coding assistant
+>      (Claude Opus 5.5). It read the driver and the earlier discussion, and
+>      added temporary debug logging to record the execution stage, the PCI
+>      power state and the messages around suspend and resume. We wrote the
+>      change and the changelog together, and I ran the tests.
 > 
->   drivers/net/wwan/iosm/iosm_ipc_pcie.c | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
+>   drivers/net/wwan/iosm/iosm_ipc_pcie.c | 21 +++++----------------
+>   1 file changed, 5 insertions(+), 16 deletions(-)
 > 
 > diff --git a/drivers/net/wwan/iosm/iosm_ipc_pcie.c b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
-> index 49052eb511ba..13e81012d818 100644
+> index 49052eb511ba..dd7cfe3747ef 100644
 > --- a/drivers/net/wwan/iosm/iosm_ipc_pcie.c
 > +++ b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
-> @@ -534,12 +534,17 @@ void ipc_pcie_kfree_skb(struct iosm_pcie *ipc_pcie, struct sk_buff *skb)
+> @@ -406,14 +406,10 @@ static int __maybe_unused ipc_pcie_suspend_cb(struct device *dev)
 >   
->   static int pm_notify(struct notifier_block *nb, unsigned long mode, void *_unused)
->   {
-> -	if (mode == PM_HIBERNATION_PREPARE || mode == PM_RESTORE_PREPARE) {
-> +	/* The modem may lose power in S3 and S4 and boot again on resume,
-> +	 * which the suspend/resume callbacks can't handle, so probe it again.
+>   	ipc_pcie = pci_get_drvdata(pdev);
+>   
+> -	switch (ipc_pcie->d3l2_support) {
+> -	case IPC_PCIE_D0L12:
+> -		ipc_pcie_suspend_s2idle(ipc_pcie);
+> -		break;
+> -	case IPC_PCIE_D3L2:
+> -		ipc_pcie_suspend(ipc_pcie);
+> -		break;
+> -	}
+> +	/* The PCI core puts the device into D3 whatever the BIOS RTD3 setting
+> +	 * says, so the modem has to be told with the host sleep message.
 > +	 */
-> +	if (mode == PM_HIBERNATION_PREPARE || mode == PM_RESTORE_PREPARE ||
-> +	    (mode == PM_SUSPEND_PREPARE && !pm_suspend_default_s2idle())) {
->   		if (pci_registered) {
->   			pci_unregister_driver(&iosm_ipc_driver);
->   			pci_registered = false;
->   		}
-> -	} else if (mode == PM_POST_HIBERNATION || mode == PM_POST_RESTORE) {
-> +	} else if (mode == PM_POST_HIBERNATION || mode == PM_POST_RESTORE ||
-> +		   mode == PM_POST_SUSPEND) {
->   		if (!pci_registered) {
->   			int ret;
+> +	ipc_pcie_suspend(ipc_pcie);
 >   
+>   	return 0;
+>   }
+> @@ -427,14 +423,7 @@ static int __maybe_unused ipc_pcie_resume_cb(struct device *dev)
+>   
+>   	ipc_pcie = pci_get_drvdata(pdev);
+>   
+> -	switch (ipc_pcie->d3l2_support) {
+> -	case IPC_PCIE_D0L12:
+> -		ipc_pcie_resume_s2idle(ipc_pcie);
+> -		break;
+> -	case IPC_PCIE_D3L2:
+> -		ipc_pcie_resume(ipc_pcie);
+> -		break;
+> -	}
+> +	ipc_pcie_resume(ipc_pcie);
+>   
+>   	return 0;
+>   }
 
 Thanks,
 Maciej
