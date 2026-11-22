@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795387675;
-	b=x46GdpM91pSoqfmcBQe6UGLyxQlBxIm6jGlrGWZv6oDp8KfMI7GNHUaDQzXFfPcyEMAK
-	 DO+zOXVySYhLokxxpfqQGLniy/8+4mPm2mkKZt43h5qz/oj45dDg2yjRE/YF2AErcVURz
-	 F56R5mN40u9As/vybOGasV/0L19/SGT1OoVjbseaxjDw/+CdoOiCXMYtngCNdCpPbFE+L
-	 s07nPydCkSeus38OW1YofZCQ3e+3S/OBlpbP5mdEZ8kakQrPVKNS+Q01mvIEGZOq/AzUZ
-	 usScDnFc8s4xZa7IK4mTPABUUuyqluf3w1tpGD10WW7bNVCQnKKoyEFzIjPUF7/Hkew==
+	t=1795387709;
+	b=l8McvrQzJ0v+tdA1ilyLLY6iwd1p1LSzngSomtGd6D79VCMBndSoWtPhIiMezkp8b9Ox
+	 EITn8lm+RGxCsdfFEMepKZrZqJ923de84pkEtrMWepXVUo5BgzYQIptKh5oDsH82/amEs
+	 go9yV4PQCJ4bFkcgdofOS++aZ8vXZVN2DbZd0FWZsxqNSSXTk9XzoO4mOndsSSN2co91I
+	 h/LfKomMu0LE2k0++U/eweuCkWi6isQQN8d2mMb4Rvzq9tdjeiL982YLnB9p0vr1tE1OK
+	 v6bRKIaiV4H9mNLig0BgxqBoflb2YSUy5n5/bKg/H9dXhHsoANqP5/8RXVJ9lrskUSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795387675;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795387709;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=BHHsIYyW+m9UPrOeOs+AsjovYcZwVBd+t/JenhHCw5s=;
-	b=A36mmPe9th8yuozx5eGfxS/LHem7pxc986g+ckgstlKII4id8Sw8Jvf7Ys9U3RbeLzGw
-	 Fz6kpyjIXCLAx8MAw9VlezzZnamzzNkLU+5CwY+ZrOMmE2lmRXibhc892+Tzd8MQpvivI
-	 UFEoVqqzmLMbjMIWmi4ThX8ebXYapgj6e/K/YT+qavybGdQO5MLqcGpPHfz+4dOWHAyCD
-	 kstaeo5iR/4dj6QAYxFjZx5ZhTvyFqnGDzw4rZpmLrWWDg0ZmN2QYhwh8Uy3OW0wAru5b
-	 je9JueFBLZS/Exp4YBBG0WjQF8tFXPagm39//tYpLbaq+8ns+gj2syXwMi5BjwIlLnA==
+	bh=oiH7/8r12PUkiGmlcurjdPd/HvxKF2Inns2XBHj+S2A=;
+	b=I0czpBPOt5lsm1j/4rM2p0GT0PLtJ7CCoepg3A5jxQAHI5YBywUOEdFAV1Jyj/Y7MytN
+	 qUo49Lf2kakRygF65P20TNysDTOrvoaEItA40Ox7u/ENYdtM2TQUcw3gs4ce1gqR/Xqm3
+	 nIn4XwiCGEe5+F2NKLFQv+HSVyR1K9JH0oaaJDyABJK3fXrfj9JiNgHMFGYwfub/qEGea
+	 ECfRzVfwrMUUe4ougtfiKx1Ds8s/X00e81DMOI5PG+E4gjoodsYoFjPHB+4Ynaj6ve40B
+	 svG1wqdj/xF3L0KBEmB5TFhQFgZAiFxoYSLc+qrH4NGULOig0ENbdmj7MC26Nj7cNTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=innora.ai;
 	spf=pass smtp.mailfrom=innora.ai;
-	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=HQYnfR9+;
-	arc=none smtp.remote-ip=79.135.106.25
-Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
+	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=qMm1Ckux;
+	arc=none smtp.remote-ip=185.70.43.23
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67BE4606A31A
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:47:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67BE4606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8B0606A31A
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:48:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F8B0606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innora.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innora.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=HQYnfR9+
+	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=qMm1Ckux
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=innora.ai;
-	s=protonmail3; t=1795387672; x=1795646872;
-	bh=BHHsIYyW+m9UPrOeOs+AsjovYcZwVBd+t/JenhHCw5s=;
+	s=protonmail3; t=1795387707; x=1795646907;
+	bh=oiH7/8r12PUkiGmlcurjdPd/HvxKF2Inns2XBHj+S2A=;
 	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=HQYnfR9+QKw06HtFrmJeFFzWUNWlWju1qVX5YYa1VFGdTPKB0TnEBiK7hEHQF47ug
-	 iWkTbEMdfxQNzCu17GHiwBYNUk6JKRhluDW+T6YrS1jpUmKRh7ZKSq4oPRo73p1IVp
-	 HARSAK32Kp2NAMXhl563LQ9udNnD30lXjB7jYhCA3MbY33WsYlgpSl/9n9HyjBn8fC
-	 pCYPC/34ksHVgRIEOfW3AcZEyO8wujHtO8kiKwyBGoTYOETVFQ4th9YBYwSIk60XKL
-	 qCAeip1Cm9pye+M9DFMiowHIo1oTfmEUxVNXQA080qAtEQhgKNm4SSTH9GJKRsOrOo
-	 m3adoeTp6/Wvg==
-Date: Sun, 22 Nov 2026 22:47:47 +0000
+	b=qMm1Ckuxqlk3v8wIhZBoMYJ+A8Y9osWKu6JWTiwc03CrFAtiGEv2vLW7APWHLRR1R
+	 2s9b1M9x1wNde36bgojD0sY3tR5PeGoqN7UlmdXrR+wrxyPuWQbx6cNTMO99lmTUKl
+	 I6LBHG9kpvyQCIda6FOFDua6TFqDIca5xrG7qCvjTwNm2tH88LgPFS3himbX/d/22y
+	 TD7qcdBuELJqvJ4GXAfR+62P9KqIPiQSAEpfSTpJFXwDk5Mb2RM6DvgQcXnhvUeF7o
+	 0/Q0pfuigC+yai4IZNSDGP+HIxy/trUGxv8kb78eY7b87HJ1i13TaNU/VJPXsN8p1q
+	 DTH5lnJTnCN5A==
+Date: Sun, 22 Nov 2026 22:48:22 +0000
 To: stable@vger.kernel.org
 From: Feng Ning <feng@innora.ai>
-Subject: [PATCH 6.6.y v2] staging: media: atomisp: use array3_size() for overflow-safe allocation
-Message-ID: <ysGw4TIGY-XAd5yrYCGLfDgokYf1CH8rzk0iScppHJAZkQtbDfwqEds_KbRIZphFkyTO6XyiAjxoVMH3KX7DVhbx2OzW47DPQER6bLCFer8=@innora.ai>
+Subject: [PATCH 6.1.y v2] staging: media: atomisp: use array3_size() for overflow-safe allocation
+Message-ID: <jJtIqDqRVUYGviSqrKdxAcNchflgkqzE77aDE5c4lcmMEnFsDH_wpIsLAfRPQm1_hdQrr0FEzqrbdOxCC6mHcXTb-HClWFKbK0qyfBIGdIQ=@innora.ai>
 Feedback-ID: 140578448:user:proton
-X-Pm-Message-ID: 63bb1a917c57c39a781d747b46c0becc6ab2b1f3
+X-Pm-Message-ID: f51a9d7f480e6ca801f51fa72c916d8b2ef364dd
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,7 +86,7 @@ Changes in v2:
 
 diff --git a/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c b/drivers=
 /staging/media/atomisp/pci/sh_css_param_dvs.c
-index 5174bc210..f70dd9903 100644
+index ff0082d02..0d0862979 100644
 --- a/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
 +++ b/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
 @@ -13,6 +13,7 @@
@@ -147,7 +147,7 @@ nt32_t),
  =09=09=09IA_CSS_ERROR("out of memory");
 diff --git a/drivers/staging/media/atomisp/pci/sh_css_param_shading.c b/dri=
 vers/staging/media/atomisp/pci/sh_css_param_shading.c
-index 5b43cc656..0441d7f47 100644
+index 41a4c9162..c62c3fea0 100644
 --- a/drivers/staging/media/atomisp/pci/sh_css_param_shading.c
 +++ b/drivers/staging/media/atomisp/pci/sh_css_param_shading.c
 @@ -13,6 +13,7 @@
@@ -155,10 +155,10 @@ index 5b43cc656..0441d7f47 100644
   */
 =20
 +#include <linux/overflow.h>
- #include <linux/math.h>
  #include <linux/slab.h>
 =20
-@@ -348,7 +349,8 @@ ia_css_shading_table_alloc(
+ #include <math_support.h>
+@@ -349,7 +350,8 @@ ia_css_shading_table_alloc(
  =09me->fraction_bits =3D 0;
  =09for (i =3D 0; i < IA_CSS_SC_NUM_COLORS; i++) {
  =09=09me->data[i] =3D
@@ -170,7 +170,7 @@ index 5b43cc656..0441d7f47 100644
  =09=09=09unsigned int j;
 diff --git a/drivers/staging/media/atomisp/pci/sh_css_params.c b/drivers/st=
 aging/media/atomisp/pci/sh_css_params.c
-index 760fe9bef..bd1d9e9a6 100644
+index 34113bea3..8d1d4d808 100644
 --- a/drivers/staging/media/atomisp/pci/sh_css_params.c
 +++ b/drivers/staging/media/atomisp/pci/sh_css_params.c
 @@ -13,6 +13,7 @@
@@ -181,7 +181,7 @@ index 760fe9bef..bd1d9e9a6 100644
  #include "gdc_device.h"=09=09/* gdc_lut_store(), ... */
  #include "isp.h"=09=09=09/* ISP_VEC_ELEMBITS */
  #include "vamem.h"
-@@ -1390,11 +1391,11 @@ struct ia_css_morph_table *ia_css_morph_table_alloc=
+@@ -1381,11 +1382,11 @@ struct ia_css_morph_table *ia_css_morph_table_alloc=
 ate(
  =09}
 =20
@@ -198,7 +198,7 @@ ate(
  =09=09=09=09=09=09GFP_KERNEL);
 =20
  =09=09if ((!me->coordinates_x[i]) ||
-@@ -4178,13 +4179,17 @@ ia_css_dvs_statistics_allocate(const struct ia_css_=
+@@ -4171,13 +4172,17 @@ ia_css_dvs_statistics_allocate(const struct ia_css_=
 dvs_grid_info *grid)
  =09=09goto err;
 =20
@@ -221,7 +221,7 @@ dvs_grid_info *grid)
  =09if (!me->ver_proj)
  =09=09goto err;
 =20
-@@ -4451,24 +4456,26 @@ ia_css_dvs2_6axis_config_allocate(const struct ia_c=
+@@ -4444,24 +4449,26 @@ ia_css_dvs2_6axis_config_allocate(const struct ia_c=
 ss_stream *stream)
  =09=09=09=09    params->pipe_dvs_6axis_config[IA_CSS_PIPE_ID_VIDEO]->heigh=
 t_uv;
