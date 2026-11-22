@@ -1,98 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795362332;
-	b=RQRFrWFoXuy2/BIMZyMIHicKLpGf4/dvc9MZ40MPeZyPwOFlvjnNPLZjwrCQImSEcBVn
-	 +qLU8b81QraO53RrmGzygKq7NGv1op5c4mOfx0hZN0y1ILmFwQvYS/cNH6V7/E4tVtHd6
-	 0JCXbiH4qpFD8gCkMdJmbP6+/sOfy2rZDQFx/5gPKHkTMLHZ+UscsLUxgHf6oihGkC96n
-	 3bHgg90eqxLaZtwUHKgs7xZm6pnZ835qZW2jI7E+qyY2he2MBPf23mc6MrLMe/QB52amF
-	 i4SSuNrAew/mS/a2BPV2L1ECLojTdJW45IMRuhdk//bsKI4koNnnoABg/aWBAefL8/Q==
+	t=1795362605;
+	b=bXk8euLXRQM9U7/2zRjKBRjnGXROZUuxvKtDKropXCM96wb3oMXNnZ8pt+UuzLKKeDv/
+	 XAsYjrTK9X3I/Sa9+UXfYljhRPNEQbgjukRXB8ShuLfqWgPkaL8M25f5gseaw9qCmP0O+
+	 B4V/YsManSs/dAO5j6Zvkzt+FHyZOcArTAjQA9Yq5Sxlf/KjAyPn53JiAT2LwWWjGKkZc
+	 LYMiCCwLd17z287yP8yykkYK0BaR0G9KAaM6OzFKC3Ye9PqKK+pwtCbNK3+uNUMseVIZo
+	 Uxq0Ji7UmmLbY16fQLssJEJhgaIniT0Nnquni54DBYleF4y2T5QjW+FY9GO1i3jJYLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795362332;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795362605;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xVY9Wj4Bi88UcgFUPGAWU4HWTtYjfgZmL2uHdSwjBm0=;
-	b=NGNzNamrt+VxrmESltcgwd7lifAoST9VukWUsgBsLrxm58zp7tFQPsvy0Qot0ubjf+rW
-	 zkf6OuN3O8fKtLTELyQOMzsU0Zs7WPrEIs6GUUfScXwIxzdP76IWb2wza1ZT/ZNbGGK10
-	 qBJWZQDZo1b5lJG5sf1ZlHrWAC5/Zt55ACkYIkck/NZobxwmX/WQ/BNSDsqzBia9GKCk4
-	 v3PxnXs4xM1qAUR4BGvb//lWgLBJBimuvLWE4bdKsaL7u7lR7C/zogMu24B1SywSxxMT1
-	 uqv/Ooc5+dGa/rvrVGUp4QyDIAtB24rHnDtDlto5rZO6H5sLrCFnlVmIiOI2n/D5Idw==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=w3rclRjxjm+xEndB7WYb8szsZvXx3T969YLqRHQLZsM=;
+	b=NmCWpPITJuTBRpOIPT9Qly8Jwytyx9pli0BDA/60tcR9L9qjaL8RaPYOGWhVaD07Y0nn
+	 LthoQgRX5r5pyh6fuykuGyOJNeDzbMHq3LpI1sjPhl6AeNxorJRZRaxI2VoiUlKwE9dbO
+	 5YiKt9IKtFkcvO0SPlFedZjPLYsGTE6eSTvGscaE7w6ii11o1EunDjBgQ1gXEMavaru9Q
+	 zSGILZjKOIwdN4uJpWTqnahKnoqrJjAa9F1IvMKSZrGYwjrtkiqImG+5Rh/LXwCvqLaOL
+	 6Tacp2vK3ALNRSc/rK2imFAgXVep3Kxjq4FWvKooKx5X/IZ6m6RX3U8w683DE3ARn5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eG36F5LY;
-	arc=none smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=vMtf9LI8;
+	arc=none smtp.remote-ip=209.85.222.174
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047AB606A332
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 15:45:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 047AB606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F931606A32A
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 15:50:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F931606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eG36F5LY
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c5133831027so349929366b.2
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 07:45:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=vMtf9LI8
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-949680e6d82so310658085a.2
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 07:50:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795362330; x=1795967130; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xVY9Wj4Bi88UcgFUPGAWU4HWTtYjfgZmL2uHdSwjBm0=;
-        b=eG36F5LYMXGT8HJvpO1igQt4qwvvVGzep2x9Ome7Hdz22Q4r56lb53Z2e4IgbuGCRK
-         EmZ1AuU1G+bPjCaiqrsmhSWRV3xmk8KJPApRZ0qc8738Ylj2GrkoQ1TpygqsqwmEz4ZK
-         p+4WAqMhwrC51gNgN/66AjK6wlX+vxIXSMdOxLP0yuEP7rxfFxFmy6UeOmWv4t3NpzBh
-         37ma2cvSdGqrH9HSOWv79VjtpcWcOBRFGN+FuZnZor+k0wbFyFxsZ7ES3C3sKaB1ODpH
-         JZEdy13Ll6N6O3KuupWyPk47kCak8o7bZU1G6p4MZJuwHp1JmakZfsDxoK/NThe6Szp4
-         Th/w==
+        d=gourry.net; s=google; t=1795362604; x=1795967404; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w3rclRjxjm+xEndB7WYb8szsZvXx3T969YLqRHQLZsM=;
+        b=vMtf9LI8SAQQHliFH/t34mZDF1bj4B8nsH3N8C/j0klKwpKW2ulcuY7/OI39UQ3188
+         aN9x2Dp7hxL5Bho6BReLKY/JIgRU1AVtRYJwNMyKGqizkNBvZEIsgs3WqoHVSOLb7x79
+         q+FAuV3oNHpqArJdDBC0mAqN18C7lBtA1CY7m/cW5UYA7prgLhoTeH1jRwhYGEXmBMhx
+         xgHh/b4uxS8PzqCCWVefUOCJVrYXU6OnS4mh070Fr1SL1pU5biSU2K41qiVzyxPEGJeL
+         AuTtNLaVbEvcMMChs/U45GDaKEuvo97Cn/9DtNMH7cUPbgTTJHxFJeIqUgFnWpKN/M/M
+         BnvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795362330; x=1795967130;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1795362604; x=1795967404;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xVY9Wj4Bi88UcgFUPGAWU4HWTtYjfgZmL2uHdSwjBm0=;
-        b=Btljgb+miLPVDglAWzLFtiAwimpvzWf0maKdPOOmPiTCRxl0aqqiNaReNphD9zlH8j
-         DTRWczkrMAM9Dj2g6hUwx+L/fwHBrA+8FfmJCO/huJ9t5KTHwc1iZ8cq62+HinoMKowC
-         /o8w4UCtGsef3nLpY/OFk9XAa7azcQd0VPg07Jz4IbGqjzVFtHPae9VWIQvfoq6MQGbA
-         8aBWFpUQo2NFrZ4syMFrX2cUMvbI48qPq0KDO1JO+qUZ7NOH2WsUfOdyoZfXAg3byedX
-         Afa3dLZ6tBWRBszN4oS0B8e2QMAv7mCfZQgjnCk7gqgmrKH0eCQ/+K6DzT66pYXhnjRm
-         s6lg==
-X-Forwarded-Encrypted: i=1; AL+hErHnjS2TNT85HnNdD+KVVoFMkLidJmwkBA9OO/UyPOgQ4R8VExzG2o1KtamvDWQ+fHqdEHkRZAU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9M1fErJvRgKyqsqLRyVz+Rgu7/2Jaz+EKww+bgo7kKlcg6IHdy
-	W3K4RL6IEiuTjANZLzIXAdnF7rodegxWqsLlCrq1PmaHiU0KsGHUPn1Z
-X-Gm-Gg: AZFdTZdp+lx+XEBD94LDU2k4kXGzwBso/m+ZS5faYxbK3tUBM5ZDLCej5JmP4JfB6/x
-	aq4qLY0SORdk/O5rVv4GAfQygB/YWxyGffDvPYW1u36ESRU418L7RTYCK93e0pRwM1xPS4Go4Ho
-	dOh3yhd3m68caQ9SgaZ7FgC6FXFmm+ZRomqIBJsXQZYL6mPam0FGPxyvgzA7rj738CMOHG10xKJ
-	NuToNH2h33+2cHa8okgSGqdfVqx8bu7JJkZZSytlkVftpJUYxpXRo/IkO2vvCxAyvs8RueUNj8q
-	fJqjTg452OCOoy4ITAwVBhXMxQvmNiEbsB98QsujR4SvTe5ClrOINBc8tN97X6Zr/NyLDvjmCuQ
-	HcyCuJr/TrJpZLgV7vW2+WfNnfgIv4wrDh4Aop64WR4k/HwxfHPN07naEZqKp/+9js3ApmgpzJ0
-	l4P8YKlBmcit6d7J547fQchLcYMIe2RmARPPwiNe1pYWMHSbfcPMxF38auDsJgEPhCAwu6wH6TM
-	zKH3+MKWSx8W9R/wgpCwiHpawzWmbKC09RAAtAqPt4UHtV15ATdQtSlD2rfTjs2lEDM5Q==
-X-Received: by 2002:a17:907:ba01:b0:c50:521f:13de with SMTP id a640c23a62f3a-c513a897601mr692846566b.35.1795362330344;
-        Sun, 22 Nov 2026 07:45:30 -0800 (PST)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ad01ae8sm339135866b.9.2026.11.22.07.45.29
+        bh=w3rclRjxjm+xEndB7WYb8szsZvXx3T969YLqRHQLZsM=;
+        b=vwcU4D3paxb/uHTdeXzOiofk2o4q8lOEH9jILqCzyJyPjy9loOMP4/3MZjqfEEddG5
+         8RTi1teFaG/oz2xIy5xL5TC9Mkkh+iklqxfxKAlt+gj9w547e0DIW5DM/EDDDifwRoJx
+         yJiOrbPbBPC26RuHfA44P2OmIqQP0il7ii1ZJQgqnwzRSiVJw5eYXkWGR+Nv3xS/3MeE
+         NZp/PhWqkHvO+wIj3z4gQfsHfU46qwHNhkc/ULo7nl7AuwT5XdSVXwSe5Lw0dx+UEkHE
+         3g//JWlmB0fstMAU1XeztmA3MT6GJimSjGtNotxfX+Hd618IT3dsWKgnlmikIk4toQw2
+         K32A==
+X-Forwarded-Encrypted: i=1; AL+hErFksNe2ziYDb5iL4D0J6PdUr0ljl6zaEyBu5zV7waYxsS8+SAkBl4qBB/xUI5+Mk2Xy4uzoUc0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99XaHYNAEFMcIGFd2VNt3j0xs+Y21sARLht3SQpus6qIs3AkDn
+	svUKP48s8P9pb0BXTnisXi8R6GY/wPRP8jy1wV1P7UtEBSicopdmx44qgx+x+1TvE4Q=
+X-Gm-Gg: AZFdTZcT2KUAoJ8Q8IQDzgxc9+Zp2ABzHkf3YwbDPLqCLsXCpmridfmFPou31yY5LYb
+	uQw9flr8EuhriqJC6R32pp4Hp2aIm87fvn9WovuRHGTh94TdC6RB8Z/EZPatITCmT5N5bsnwPZU
+	uYL2+/Va1x3MpM7BkvHKVPZPIL0MFt/sZ7HHD1qeICbH8bYeD/0NPAtccJMGofjZMT8AWa5FyJV
+	JH7pMvh3wGuhi7PngvXS1GBdhNBThaTPotWGGjyUFbuXRydWpbyGU8pTY4sGa6y7L+EmLKkGdiw
+	Pa5bFXEJgDuHpUM/l0QL0aXhalfJYT3MKHYRC1qgE6fsegu2a64KNL8wCRXKEDI6YfIqlU1EwZC
+	T5v3BjP/mPQqc2Q9JxIIyg43D1K8Rs46SWMudm9OLzmVNEq+sETo7XiPO2KMMuvPaEQi0AmWEkN
+	52djUy6by48Hzm9DmnBV0YL4ycBfK4V+hmrLMDWTNRr9vk39cScpitlFwxrJlXjUKiIJyRDuBEQ
+	+qWnQvrTseVPf30nOyBQ7Zfx0LoLlJiBILDngCUSnnJ/1ulWJ86VyAr02YGXTFjNp/PByuxx0SV
+	/U5xSByNlIiqXaxUBL0dfe7Ar5bM3dmcoR7BgreLYV8yaNuC1iEpCRWuMb/j7KJSIFUbNpOeeaZ
+	FHH1lasA0Apv8VVVhK3O0H18cspTL
+X-Received: by 2002:a05:620a:6505:b0:949:744e:12eb with SMTP id af79cd13be357-949baa10b08mr1523882385a.65.1795362604231;
+        Sun, 22 Nov 2026 07:50:04 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb41c105sm632888485a.39.2026.11.22.07.50.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 07:45:30 -0800 (PST)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Sun, 22 Nov 2026 16:45:27 +0100
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: vbabka@kernel.org, harry@kernel.org, urezki@gmail.com,
-	paulmck@kernel.org, qiang.zhang@linux.dev,
-	akpm@linux-foundation.org, hao.li@linux.dev, cl@gentwo.org,
-	rientjes@google.com, roman.gushchin@linux.dev, linux-mm@kvack.org,
-	rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] mm/slab: don't queue the page cache work under
- krcp->lock
-Message-ID: <awMOF_uE3cpV9dCn@milan>
-References: <20261120083707.296481-1-zhanxusheng1024@gmail.com>
- <20261120083707.296481-2-zhanxusheng1024@gmail.com>
+        Sun, 22 Nov 2026 07:50:03 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,103 +89,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261120083707.296481-2-zhanxusheng1024@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 5/7] mm/mremap: apply the mmap() offset limits on
+ expansion
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Jann Horn <jannh@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ Kees Cook <kees@kernel.org>, Peter Zijlstra <a.p.zijlstra@chello.nl>, 
+ Ollie Wild <aaw@google.com>, Adrian Bunk <bunk@stusta.de>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+ Hugh Dickins <hughd@google.com>, Joey Gouly <joey.gouly@arm.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, linux-mm@kvack.org, 
+ Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20261121-some-more-ai-fixes-v1-5-236e925d9b64@kernel.org>
+References: <20261121-some-more-ai-fixes-v1-0-236e925d9b64@kernel.org>
+ <20261121-some-more-ai-fixes-v1-5-236e925d9b64@kernel.org>
+Date: Sun, 22 Nov 2026 10:50:03 -0500
+Message-Id: <179536260304.412063.8485838901368834162.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Fri, Nov 20, 2026 at 04:37:07PM +0800, Zhan Xusheng wrote:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+On 2026-11-21 16:02 +0000, Lorenzo Stoakes (ARM) wrote:
+> From: Chris Mason <mason@kernel.org>
 > 
-> Commit 56292e8609e3 ("rcu/tree: Defer kvfree_rcu() allocation to a
-> clean context") deferred page allocations to a workqueue. To avoid
-> deadlocks with the scheduler, it used hrtimer to queue the work instead
-> of queueing it directly.
+> Commit be83bbf80682 ("mmap: introduce sane default mmap limits") made
+> do_mmap() reject file mappings which extend beyond the maximum offset the
+> file can support, via file_mmap_ok().
 > 
-> Commit d0bfa8b3c411 ("kvfree_rcu: Release a page cache under memory
-> pressure") later added a backoff mechanism under memory pressure, but
-> did not consider that queue_delayed_work() with delay = 0 immediately
-> queues the work and introduced the deadlock commit 56292e8609e3 tried to
-> avoid.
+> However mremap() can expand a file mapping and only checks that the page
+> offset does not wrap, so a mapping can be grown past the limit that mmap()
+> would have enforced.
 > 
-> run_page_cache_worker() runs under krcp->lock, from kvfree_call_rcu()
-> callers that may hold more, such as set_cpus_allowed_force() under
-> pi_lock, so it kicks the refill work from an hrtimer. Under memory
-> pressure it instead queues the work with a delay of
-> rcutree.rcu_delay_page_cache_fill_msec, which may be 0, and a zero delay
-> queues it at once, taking pool->lock under krcp->lock.
+> Fault handlers rely on that limit. For instance dax_iomap_pte_fault()
+> converts vmf->pgoff into a loff_t, which overflows for such an offset and
+> defeats its i_size check.
 > 
-> With the delay set to 0, calling kvfree_rcu() on vmalloc memory under
-> pi_lock after a drop_caches makes lockdep report:
+> Fix the issue by applying file_mmap_ok() to the expanded range in
+> check_prep_vma(), failing the mremap() with -EINVAL if it exceeds the
+> limit.
 > 
->   Chain exists of:
->     &pool->lock --> &p->pi_lock --> krc.lock
+> This means that mremap() now refuses expansions it previously permitted,
+> however no file can have data at these offsets, and mmap() already refuses
+> the equivalent mapping.
 > 
-> A zero delay also defeats the backoff, which is there to defer the
-> refill under memory pressure.  Clamp the delay to [1:100000] ms, so that
-> queue_delayed_work() always arms a timer, and update the documented
-> range.
-> 
-> Fixes: d0bfa8b3c411 ("kvfree_rcu: Release a page cache under memory pressure")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> ---
-> v2: clamp the delay to [1:100000] ms instead of using the hrtimer for a
-> zero delay (Uladzislau).  The changelog is Harry's version from
-> slab/for-next-fixes, with the last paragraph rewritten.  The
-> Reviewed-by tags of Vlastimil and Hao on v1 are not carried over, as
-> the code changed.
-> 
-> Tested in a VM on v7.4-rc1 with lockdep: with
-> rcutree.rcu_delay_page_cache_fill_msec=0, patch 1 alone reports the
-> circular dependency above; with this patch the boot log says "Adjusting
-> rcutree.rcu_delay_page_cache_fill_msec to 1 ms." and lockdep stays
-> quiet.
-> 
-> v1: https://lore.kernel.org/all/20261028134647.3176080-1-zhanxusheng1024@gmail.com/
-> 
->  Documentation/admin-guide/kernel-parameters.txt | 2 +-
->  mm/slab_common.c                                | 6 +++---
->  2 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index 0b3c140babd9..0d1d76a6af70 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -5763,7 +5763,7 @@ Kernel parameters
->  	rcutree.rcu_delay_page_cache_fill_msec= [KNL]
->  			Set the page-cache refill delay (in milliseconds)
->  			in response to low-memory conditions.  The range
-> -			of permitted values is in the range 0:100000.
-> +			of permitted values is in the range 1:100000.
->  
->  	rcutree.rcu_divisor= [KNL]
->  			Set the shift-right count to use to compute
-> diff --git a/mm/slab_common.c b/mm/slab_common.c
-> index 41dea01a8c1f..6fb453118641 100644
-> --- a/mm/slab_common.c
-> +++ b/mm/slab_common.c
-> @@ -2262,12 +2262,12 @@ void __init kvfree_rcu_init(void)
->  			WQ_UNBOUND | WQ_MEM_RECLAIM, 0);
->  	WARN_ON(!rcu_reclaim_wq);
->  
-> -	/* Clamp it to [0:100] seconds interval. */
-> -	if (rcu_delay_page_cache_fill_msec < 0 ||
-> +	/* Clamp it to [1:100000] milliseconds interval. */
-> +	if (rcu_delay_page_cache_fill_msec < 1 ||
->  		rcu_delay_page_cache_fill_msec > 100 * MSEC_PER_SEC) {
->  
->  		rcu_delay_page_cache_fill_msec =
-> -			clamp(rcu_delay_page_cache_fill_msec, 0,
-> +			clamp(rcu_delay_page_cache_fill_msec, 1,
->  				(int) (100 * MSEC_PER_SEC));
->  
->  		pr_info("Adjusting rcutree.rcu_delay_page_cache_fill_msec to %d ms.\n",
-> -- 
-> 2.43.0
-> 
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+> Fixes: be83bbf80682 ("mmap: introduce sane default mmap limits")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ ljs: fixed up commit msg ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Thank you!
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
---
-Uladzislau Rezki
+-- 
+~Gregory
+
