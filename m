@@ -1,101 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795323666;
-	b=grYYwlNq/rKaMG3UN5yvxuQHULHvQqjlB7o1TUt/D47LHzhlXby6QpRz31MQA+tdqWRH
-	 OHxnea7NbhcngIcezzZSufa791z9GXPBu5nZ5C88j2Z67LvZbz7odJkm3jIPmL00fmp2G
-	 vfhacYZYWBb8wueygx+8RHoYR9eTiJurPyQ7Yy6V6g8XfFEii/e7UcnHCVi8785r+OAYM
-	 mcHI+rzcUEZk4xNNMrB7WAXvTBQQBf5oPOVAT4zyXob9XVGrcUmpEtdnJSdMnvmfXW/wD
-	 Xz9sYsP5O8eYorAl2a7l4UvRaef607937DKHeHsTGkvPOP50upeVMgdm3eTqHkir1tA==
+	t=1795325201;
+	b=bWL47eD4fei/BwzxISNwFtbcBxTp9fM7qQ5rKyxYaqQrGosUNjPpc9wVZZFpnN/6B+C8
+	 D+hTnKmujb8xPZHzWMS4FjRbqYw9zrTgT138lSlktZNw8ryRZm+wGI+Ox/2kGB2YElG8u
+	 seTM2NYyRbS4vQGPHLd/8hOx8nn3GfcxjOoQTzGWsR9Xqy/7KZvJLg7iUYYKFm2gTM9qA
+	 RuuO2gW/SZWwWlvOueDG1gNYaOJhfAM4OqjLvGzL+De++JNp8b5cyIRG7iDl22ClHL6am
+	 s2aXUNuAx6U9ZK0X3xdnxEcUUEc6GElmz+J9SS1upmGyb+tYKHSvevaqhPfycn6n97w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795323666;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8sO5baWR5ydBEJ8ZbvTGeWnxXFHzKoOvclS5abJHCLc=;
-	b=ZaNMVPSaWjoGQg8BeUUz6O8sVVGNVqQUKszfC/fqzFpqeUxWj8JnRVEqvW3nUl9HtsrR
-	 O6LN3y01Mvl/2q2zPzLGcEJdgM0ZO2FQKqxwffwhZZzKGapJ5CB5GtGXkUMHSydQw+8TL
-	 QDI+b80KrEOwZRG2RJWmV0uWE7+r0a4iRakEQyN6Pcnte7GvaraYcLHAA/PKTpFITnddS
-	 pppGBEA2JQWDnUvaCwlwGJkDWckS8jAEgqEyzyKGf/wr91rm5qUXB/93UV6BmGk88hbGU
-	 5qX10L7oMg53oudHOv3K16KxzaxO2KZx8NMjb89Qe0qIekybzV3TbE+nFaYqO+Y5gyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795325201;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=WSnfBOApNbDPGY48k9YGggczifS4bUOcX4lLr98nel0=;
+	b=btQ3QaIx6FsRi/7GBQRlFpzdHRmOGE7oQ6UGTelZhethz4xj4mSo/TDliH8strh5ztfb
+	 Vj1Fd4vC7aw6gJkWFiIZTbSmmE9jd04zqnpICWSOKR3tYm+rJEFIVLzaq4GwKtoYXzIKi
+	 ZXHP4jy8Gl5cstoe6aEqWrrRHhCwstEoVlZ/cSC6WQ8va14uSUXJ7fIcGj7I8Cobpzz6Z
+	 mu9ExhnS86xT3U6bBcByuU8eP2e3RdGH6o/t+U7fBbUcK83x8bVTYX6v6wt3FpzV0JXvd
+	 nNUuMYCGlGvD3VSSvAT6aO8xErXk/TrIIRpX2fNQFJXeWkkN5r/FnYKnB/3rFfc6aog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ICGUHgEz;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJItbHDv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70D0606A330
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 05:01:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C70D0606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3FB606A320;
+	Sun, 22 Nov 2026 05:26:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ICGUHgEz
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cdba1b5ed8dso1116922a12.1
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 21:01:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795323665; x=1795928465; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8sO5baWR5ydBEJ8ZbvTGeWnxXFHzKoOvclS5abJHCLc=;
-        b=ICGUHgEzmNAkS+6+rKhYTvE6UimbSj2StJZBaerKMoDxcmxCubWLSfIHmmxQl1g4DO
-         xxjxxGyvi4Eb87Uhm5z1rVC/3+Lu8Ug41jt/l9KYP/xhG/u5LwceuCJXjo3z5Wcb/HKO
-         Wg0c2fa9Qm7MlGug/l+rjLLBmKeEHwEyiPYMdi6E6IYzPU13+4L/+iYbAxD7ZOc0o0Xm
-         fCE3/fSBEPDY2zHarYLaKuJD8PKdBr/TTI7gHmoX0AzNX2Ne6jBd9lcMstA7Z+b1egmD
-         Ua1DI4I2pkXHdxccbdJ74lAnTgG9nerswqE7ekxTGTgAsUgnXNjJhAbWqRuQNxNsNnlr
-         TQhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795323665; x=1795928465;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8sO5baWR5ydBEJ8ZbvTGeWnxXFHzKoOvclS5abJHCLc=;
-        b=Ssd2ZUobhq0YoBmOZw+5kxYT7K1FVSOZBZ3gLVyCsFt+w93dQIGOcEzMEvkm01gjy/
-         p/jB8Yx3ttm+3mJE28I+PScj/KwzckQGIVMKyGYReD63/g9yXKmSnJm8JT1BCA9oY3Th
-         uyGCMcN3LqyVC+QpiHI1oRFpleDO5UXJp8Tii7uvFh5L+z6kRej8pWS5mGvGFJXZpS5T
-         5W8CSuAKpeefAd+l4qrRfEj5SvNLMPIhhQyQT0eLBGr8d+kdWetVQJZ1x502Y0k2vV4/
-         vuaIOE84YqpXefXy6rThY3bQOIjrdNAgsBNDXXaaclXNFBp2j0MrqyWy/bbDoTm/ikdm
-         9hCg==
-X-Forwarded-Encrypted: i=1; AL+hErH3npDH5wq0ORjHeqeno//p0JEt+yGMifvFYB1wdIT0dvjiOij8ojVWUMNPFafGCVGqSBOT1IQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fiMJvrCghpac08XNBlLbz9kIYeboiVOJZULYZDjX5aDEhSE2E
-	GMRMA+8bC8Bb+Pp9Ae5A3iuT9NHAfBSJTEK9eMMkLwhBXMYTLKC+FB+y
-X-Gm-Gg: AZFdTZdVawa6Dt+co/f6aztCFRSuYmnR7cbMZQ9CbhtCdm3A2rk95Zx3cnysEX9KEFI
-	PNaAPC+2L4PLN2vMHBnGGx3JMKk1EF7CnZkKYxHecNC+m9hTGDo/Vr0zjmYX/mKlOwNJSfrH1Mb
-	wR4lHz5Z3ICNF3Ubo15xDASG3G1Pl4TqbH7JsoryqO5qCN3mYlWhMaxcPzQc9lgn2k6djhSCXIx
-	EnLeLu4m2U6zTqI1y4eFtRiONHm6zuwc8ci4RiQogxrV75VZlzsvI3WCNNZAst4nMdrmXDrY0lY
-	ZFX+lfjQvxws4jTk32r5JKYpy0b1Iq8akxU3nSeuyLIDqTlHRv14FEQ19KYC9Prsd52Q49WHqFc
-	DVpIfOzW94nCAXN10aed+GYBf1qYb772QFyo1/URqH9lt7QOFX1HuR21RM5FruadQqEh3FOpeMn
-	HljTYXuYYVOax6V5DaLLwol4WXaobpwPkcxcgkCNYyX/2VymDZWAEAkbZT8EGs43XwBZBAZQ54B
-	fF+/XYrK2eBk784DtaM/bPNke56cma+zijh+sjHWsPwWx2EHxPHgXXs15SwOr4ntb9Animv6SOa
-	DdviajDyIpzBZv+VF4NIpaNyv/xtvSKp6hCE2Sw=
-X-Received: by 2002:a17:90a:c10e:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3b41c9080c5mr5222821a91.18.1795323664828;
-        Sat, 21 Nov 2026 21:01:04 -0800 (PST)
-Received: from x1.hs.local ([2601:600:a482:7d70::4d5e])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b82e624sm3431606a91.4.2026.11.21.21.01.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 21:01:04 -0800 (PST)
-From: David Westen <davidlwesten@gmail.com>
-To: netdev@vger.kernel.org
-Cc: loic.poulain@oss.qualcomm.com,
-	ryazanov.s.a@gmail.com,
-	johannes@sipsolutions.net,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	m.chetan.kumar@linux.intel.com,
-	mail@maciej.szmigiero.name,
-	linux-kernel@vger.kernel.org,
-	David Westen <davidlwesten@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: wwan: iosm: always send the host sleep message on suspend
-Date: Sat, 21 Nov 2026 21:00:39 -0800
-Message-ID: <20261122050039.861287-1-davidlwesten@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJItbHDv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF2751F000C0;
+	Sun, 22 Nov 2026 05:26:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795325200;
+	bh=WSnfBOApNbDPGY48k9YGggczifS4bUOcX4lLr98nel0=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=HJItbHDvxHdHNGEPigBjrg7fcjQSOd8PgOf7vuO+6yBqH4tB7RipP96RU6pFQozl3
+	 pGEPRYhoDmFS+ppu5C1unEChsx7GLJg8aVuE9t7wSdsWl/7aULMhVeFeCXQ6SbIjNM
+	 qX8RCByQKeyixmKo0d+RciosMXerwxInMCuL60HHJi4obdjmmM4XJJ7OY9YbU44IwD
+	 5Mwqje+QOCJTnjYV09Ul58Y3+SctZQdKbcflU8NvdeWKtGpJMQybuuW0S7zDvobBtY
+	 0GdLVXMU0a3mnktHlL8d8E13Z0ZqZLGPs7hR3JNU+TURzE7b6d5cVTfPkHL9G12Nc1
+	 KdAd8v4L3MrwQ==
+Content-Type: multipart/mixed; boundary="===============8672382131251748710=="
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,112 +49,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <86a108a3441c8160bcf73fe92b8ff79dd6562d3313c80e65489607f3d737d50b@mail.kernel.org>
+In-Reply-To: <20261122-b4-03-bpf-arena-vmalloc-oob-v2-5f6209c1a20e-v2-1-b2a9906e9676@pm.me>
+References: <20261122-b4-03-bpf-arena-vmalloc-oob-v2-5f6209c1a20e-v2-1-b2a9906e9676@pm.me>
+Subject: Re: [PATCH bpf v2] bpf: bound arena allocations to the user VMA
+From: bot+bpf-ci@kernel.org
+To: fadouse@pm.me,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sun, 22 Nov 2026 05:26:38 +0000 (UTC)
 
-Unless the BIOS reports D3L2 for the WWAN slot, the suspend callback
-only rings the FORCE_SLEEP doorbell, and resume the FORCE_ACTIVE one.
-Neither waits for the modem. The driver doesn't keep the device in
-D0, so the PCI core then puts it into D3hot anyway. An XMM7360 in a
-ThinkPad X1 Carbon 6th gen doesn't survive that: after
-suspend-to-idle its execution stage already reads CD_READY when the
-resume callback runs, and the first port open fails:
+--===============8672382131251748710==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-  iosm 0000:03:00.0: PORT open refused, phase A-CD_READY
+> bpf: bound arena allocations to the user VMA
 
-The modem then stays unusable until an ACPI reset.
+TL;DR: Commit message page counts don't add up and its "can never be mapped
+without wrapping" claim is questionable; the new -ERANGE check in
+arena_adjust_tree() looks unreachable and its comment seems inaccurate.
 
-Send the ENTER_SLEEP and EXIT_SLEEP host sleep messages on every
-system suspend, as the D3L2 path already does, so the modem knows it
-is going to D3 before it gets there.
+> A program that first allocates 287 pages and
+> then asks for 288 more receives pgoff = 287, uaddr32 = 0xfffff000,
+> and arena_alloc_pages() maps 288 pages at kern_vm_start + 0xfffff000:
+> one page inside the VMA, then the arena's upper guard pages, and then
+> 258 pages into the vmalloc area past the end of the arena's own
+> vmap area - installing PTEs into address space the arena does not own
+> and returning a "success" pointer to the caller.
+[ ... ]
+> Fix this on both sides.  On the first mmap() of a map created without
+> map_extra, mark [vma_pages, max_entries) as allocated in the range
+> tree, because nothing outside the VMA can ever be freed or mapped
+> without wrapping;
 
-This ignores the BIOS RTD3 setting for system suspend. The setting
-only selects the sleep protocol; the PCI core chooses the power state
-without it, and here chooses D3hot, which the doorbell protocol
-doesn't survive. Honoring D0L12 literally would mean keeping the
-device in D0, as commit f4dd5174e273 ("net: wwan: iosm: Keep device
-at D0 for s2idle case") did. That was reverted, D3 being the expected
-state.
+The page counts do not seem to add up here.  GUARD_SZ is
+round_up(1 << 16, PAGE_SIZE << 1), so kern_vm_start is offset by 32 KiB
+into the area and the upper guard above kern_vm_start + 4 GiB is 32 KiB,
+which is 8 pages with 4 KiB pages.
 
-With this change the modem stays in RUN through 2 and 10 minute
-suspend-to-idle cycles, and its data session keeps working. Platforms
-that do well with the doorbells now use the messages too.
+Mapping 288 pages at kern_vm_start + 0xfffff000 would then be 1 page in
+the 4 GiB band and 8 upper guard pages, leaving 279 pages past the end of
+the arena's vm area, and 1 + 8 + 258 is 267, not 288.  Could the numbers
+be corrected?
 
-Fixes: be8c936e540f ("net: iosm: power management")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Westen <davidlwesten@gmail.com>
+Also, is "nothing outside the VMA can ever be freed or mapped without
+wrapping" accurate?  Pages outside the VMA can never be freed because
+arena_free_pages() clips to user_vm_end, but they only wrap when the VMA
+ends close to a 4 GiB boundary.  For a 4 GiB aligned user_vm_start,
+uaddr32 = pgoff * PAGE_SIZE stays inside the arena's own kernel area.
+
+> diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+> --- a/kernel/bpf/arena.c
+> +++ b/kernel/bpf/arena.c
+
+[ ... ]
+
+> @@ -758,8 +787,19 @@ static int arena_adjust_tree(struct bpf_arena *arena, long uaddr, long page_cnt,
+>  	ret = range_tree_find(&arena->rt, page_cnt);
+>  	if (ret < 0)
+>  		return ret;
+>
+> +	/*
+> +	 * The range tree spans max_entries pages, but when map_extra was
+> +	 * not given at arena creation time the user VMA, and hence the
+> +	 * range whose lower 32 bits do not wrap past the 32-bit boundary,
+> +	 * can be smaller.  A pgoff past the VMA would wrap uaddr32 past
+> +	 * the 32-bit boundary, be mapped past the end of the arena's
+> +	 * kernel vm area, and could never be freed, so reject it.
+> +	 */
+> +	if (ret > page_cnt_max - page_cnt)
+> +		return -ERANGE;
+> +
+>  	*pgoff = ret;
+
+This isn't a bug, but does this comment match the code after this patch?
+
+The comment says "The range tree spans max_entries pages", but
+arena_map_mmap() now clips the tree on the first mmap():
+
+    ret = range_tree_clear(&arena->rt, vma_pages(vma),
+                           map->max_entries - vma_pages(vma));
+
+Since page_cnt_max is 0 until user_vm_start/user_vm_end are stored, and
+arena_alloc_pages() returns early when page_cnt > page_cnt_max, the tree
+already spans at most page_cnt_max pages whenever arena_adjust_tree()
+runs.  That would make the -ERANGE branch unreachable today, with the
+clip in arena_map_mmap() being what enforces the bound.
+
+The claim that "a pgoff past the VMA would wrap uaddr32" also only holds
+when the VMA ends near a 4 GiB boundary.  For a VMA starting at a 4 GiB
+aligned address, uaddr32 = pgoff * PAGE_SIZE < 4 GiB for every pgoff <
+max_entries, so those pages land inside the arena's own kernel area.
+
+Could the comment say that the mmap-side clip enforces the bound and that
+this check is only a backstop, and drop the universal "would wrap" claim?
+Alternatively, could the check be removed if the clip alone is the
+intended invariant?
+
+
 ---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Notes:
-    This is independent of my S3 series ("net: wwan: iosm: fix S3 resume by
-    re-binding the driver around it"), which leaves suspend-to-idle to these
-    callbacks; it applies with or without it.
-    
-    Maciej suggested forcing the D3L2 path for suspend-to-idle earlier and it
-    helped another XMM7360 user with the same CD_READY symptom:
-    https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/work_items/992#note_2938256
-    
-    Tested on an XMM7360 (ThinkPad X1 Carbon 6th gen, BIOS reports D0L12)
-    with 7.2.15 and a debug build that forces the D3L2 path, which is what
-    this patch does, logging the execution stage and the PCI power state.
-    Starting from a fresh ACPI reset, the doorbells left the modem in
-    CD_READY by the resume callback after 2 minutes of suspend-to-idle.
-    With the host sleep messages it stayed in RUN through four cycles of 2
-    and 10 minutes, two of them right after a fresh reset, and ping over
-    wwan0 still worked afterwards. The modem and its root port went to
-    D3hot in both cases. This patch itself, backported to 7.2.15 on top of
-    my S3 series, then passed a 2 and a 10 minute suspend-to-idle cycle with
-    ping working after each, and S3 with my series still works. Built with
-    W=1 on net/main. Not tested on the XMM7560 or on a platform where the
-    doorbells work.
-    
-    The investigation and the patch were done with an AI coding assistant
-    (Claude Opus 5.5). It read the driver and the earlier discussion, and
-    added temporary debug logging to record the execution stage, the PCI
-    power state and the messages around suspend and resume. We wrote the
-    change and the changelog together, and I ran the tests.
-
- drivers/net/wwan/iosm/iosm_ipc_pcie.c | 21 +++++----------------
- 1 file changed, 5 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/net/wwan/iosm/iosm_ipc_pcie.c b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
-index 49052eb511ba..dd7cfe3747ef 100644
---- a/drivers/net/wwan/iosm/iosm_ipc_pcie.c
-+++ b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
-@@ -406,14 +406,10 @@ static int __maybe_unused ipc_pcie_suspend_cb(struct device *dev)
- 
- 	ipc_pcie = pci_get_drvdata(pdev);
- 
--	switch (ipc_pcie->d3l2_support) {
--	case IPC_PCIE_D0L12:
--		ipc_pcie_suspend_s2idle(ipc_pcie);
--		break;
--	case IPC_PCIE_D3L2:
--		ipc_pcie_suspend(ipc_pcie);
--		break;
--	}
-+	/* The PCI core puts the device into D3 whatever the BIOS RTD3 setting
-+	 * says, so the modem has to be told with the host sleep message.
-+	 */
-+	ipc_pcie_suspend(ipc_pcie);
- 
- 	return 0;
- }
-@@ -427,14 +423,7 @@ static int __maybe_unused ipc_pcie_resume_cb(struct device *dev)
- 
- 	ipc_pcie = pci_get_drvdata(pdev);
- 
--	switch (ipc_pcie->d3l2_support) {
--	case IPC_PCIE_D0L12:
--		ipc_pcie_resume_s2idle(ipc_pcie);
--		break;
--	case IPC_PCIE_D3L2:
--		ipc_pcie_resume(ipc_pcie);
--		break;
--	}
-+	ipc_pcie_resume(ipc_pcie);
- 
- 	return 0;
- }
--- 
-2.56.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/44987264909
+--===============8672382131251748710==--
