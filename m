@@ -1,67 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.13.135.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795342881;
-	b=u4KE+NxoImcnVf4+Jm2jrIkSZaza2YgTGkE0nvKLjvWznA677gSBdURWit1Zw/UAJPqd
-	 KfnqWLtzZZG3FTmGQONTFJf9BfRIKJYDU+fYE4/Wx8hI7pwz6QpzXqAsTVoL+Mu2hSnn/
-	 W1x3EZ7SQKrRw9WPYak4n83KFhKKo9lSvgMvsOPgnEZQAi5mIO++vOLXZFUaX75COLK6t
-	 IFYAIGpan3qgyxHsPw4B6kRzYjZ07JII0e9QeGC9pp2ZEaKmG23YvuOOGseg3sYin7SB0
-	 H0iv7OF7Wrs+0Id3NAwEpiE3JcgDRnx07TDQJwLHBc4sZqYTqQAiKQePdgSsVinpigw==
+	t=1795343010;
+	b=GPxWHygE8paXktk46v533fC8daw8hpNWMmalVFuw75egGkmlpCeV+8n/RDCf7atLe7Fx
+	 /9wWFJYnLqTxKb3rAtwZZyrkhXKlEoMQMTVlQmfBuS977mVvUN4QsqCUAm56cOcYLAKj/
+	 WzYfnucGZmXjKkWrHDZscqf9s13pxUC7eC4zxweJGQ1gTW56usf6xPjlO3vurJ8QODxTU
+	 0yLyF0gVvTfWOhCnsfC85kLfrQHu/l7rl/GfI+7xWJA+nPCRBqGMdCcJb+neSB6956KZE
+	 7pdFO+Zp570b0AN9fZfxPONeGmnETdy2pDDOcQ11aHw7uFDBITFSJMV88EdwZpkrzyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795342881;
-	h=DMARC-Filter:DKIM-Signature:X-KAS-Sym:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Bar;
-	bh=MoMi+T5dU+9FbuOgiDkfYbZ8uJ+mlUtaemF5OVD/pgY=;
-	b=MWiydW3D/0GwDHUCxtpAvj6EfiYxoCbMYo+vklzctZNqM+te9MXcWZ2I9GucEye7pP8m
-	 K22CF1u8s/RrvQl9pyygG7B9dJCvd3ZHj2B3TYtuJUzUny7Le/91pH4DwkqZqmqMERpP0
-	 B7nXaquPn6WIhJZamppyBQzlE2ihaqB6WNAzYMJQaq3Idfz58VSWba8pRlhUgH5TY2ik+
-	 triGah2f6jO8/UyiInzM7rVJjEhmF4AJeUY7w3mQBKYz2+DUb7NQjeIzigRBVJ6p/zx/2
-	 dWv6glcEJ+CPcl/g2QwRgT2WSEBJNh7plzXNUpzHLBeKzQ7eJ+zcySsuU2Hw2FJeiZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795343010;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DS50kc0yp+XKmRK7kU59nKs7lLs5n+2L5Ptw9GISEyg=;
+	b=vBhPtUFfo4skMH6nkeQ9xIAU9Nk7YCqgyAfvVJkdkW5n2sp0sMzE+wd5PJSjcedG/ZYD
+	 JqPErB8usZ1hQXcm7oGrf4pFt9HeRb9R36NoWC5Hj9O9hqwxNsCeKPyNBcKMGxB3dsIYq
+	 mJKa507It5e9ZaUxJ6RWRs8Vc7NY1qH2DAO6A2o1PksDX1sKGrkLmH/rIz92j2h7HS3+f
+	 8QlmjEZdZb7/lKb0syPiaOJ6I2gkMr/xNst0HwYMI5oXr75KIyLvNFzh2WBroVWWMthYS
+	 0d/q1qQ5Vf9KvN6a7HOSi2zOYTwWl9HD6rS0zcnaHtnUSWsPBfwb0sdmA73WvpQhGlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tsv-stahl-riesa.de;
-	spf=pass smtp.mailfrom=tsv-stahl-riesa.de;
-	dkim=pass header.d=tsv-stahl-riesa.de header.i=@tsv-stahl-riesa.de header.a=rsa-sha256 header.s=kas202608160020 header.b=FsqFkdQU;
-	arc=none smtp.remote-ip=85.13.135.14
-Received: from dd13108.kasserver.com (dd13108.kasserver.com [85.13.135.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=blackwall.org;
+	spf=none smtp.mailfrom=blackwall.org;
+	dkim=pass header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=GqgcbTlK;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE464606A32C;
-	Sun, 22 Nov 2026 10:21:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE464606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tsv-stahl-riesa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tsv-stahl-riesa.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0641606A330
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 10:23:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0641606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tsv-stahl-riesa.de header.i=@tsv-stahl-riesa.de header.a=rsa-sha256 header.s=kas202608160020 header.b=FsqFkdQU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tsv-stahl-riesa.de;
-	s=kas202608160020; t=1795342878;
-	bh=MoMi+T5dU+9FbuOgiDkfYbZ8uJ+mlUtaemF5OVD/pgY=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:From;
-	b=FsqFkdQU2MuGs4LfJXpH3oHSyVtZMaQNekaHNUjQupXYLWg47aBjsUlfXpZrneypJ
-	 c6mGX0w6UnAdLf2ReZ6VgAk+cB0Ga1GfZsqsxcN/0ZvInSxmDGwClPBkrNdIqUcVOr
-	 HIWnW9R3Bd1pApwIS2xKYRaZmq/OUxH3frl3YJCLm77dqGHhDhnOVBu/aqgYRfe4WR
-	 EtjEACD6laqjbYboDQDXyMDwTQXkk6ASl6ppA+C0kAe5+0m1ePtQiTam9Lijjzchj7
-	 vNqdYAhoBXu+7X4jpQ8rM3BMPNHrz1otmmK/ZrU+1MJ8vAJjjgNuTvZB98NnY83tkA
-	 HWLNM0wq7dZuA==
-X-KAS-Sym: v3:f51bdf72230551df:qJ5uOu2tDOwck04l6ZZT5ZgS9yYs6RwmRLkVQ2e11W2Qg
-	xi4Fjh2AYzKKX2gAyElm3p0uCqidYfZPAU5b1CzV46YKHzkqvcvF9ccxgCloMJKvslloO6MCVfr
-	6QdObSfYmUNWJ/0ucr8ReMwDqZqTusb+gYriedhqiF3fS0N72iVo5FfV8U+j8sjgdQrvg+UEGp/
-	pMFOz7n2SOuS/Di7sMFu5a52da6xM7KbRWb1W+CP2vGKw25C/j+ejlSDMMtN0jrrQDY3+AOavU4
-	QcErcPgCm854wBnsoLaG1yVxs1QYz+HjGQnrwyrtb2YfxTOOrtB2rQBg75sAG60ujUMzYTiA==:
-	MjVxFkVcOFUItxuneoAiSada4ZD+ZGOu5XniYzG+8WmY8bIEufFopQoXTUXK74DRDE0DOnNzCPZ
-	xp1npeJVtRp4U9ZVZ3cSKFjIsnPpGCz689q9ChBkoOG4KRZXaXoDGpxr/KXQCSQjD61ALCKu/V/
-	EQc5aoPvFJ0eWk0QgM3aPW8+hW7hZO++P2QmS6yhndW9/dryGr/4ya9T2vSIjGnPNaBpVwSv7P2
-	AFaKv01ixGz5hah6FNkL3Bgk8KlDrPfmI4BbclcVpU85Kc88bfg4X7Npb5ZWV9O+koFM+7MC7EO
-	BECU1Oz56/8/Obb7vHNQO5JklZGGnu0P7CgMUMGGWJe8Aq0Uq0GOoSEzQB2AhoaL60AxL2On24q
-	Sgdyo6N2NZVyOljscUn7yqbQIu+l+B3xFdFlzM4rtUYPShWlaXF9ToWmnZqwJQVa0qlEnoJIbgC
-	VjyRcX8qSE9XXhx3NRIDcrEV4GPhWa/nbcVADM9INGS3Ad5YMo+qCGHD1Rbs04M1yHN+OAMZSA+
-	2gxrenPllvnBaFZ/LRxOnSmkjNmEHpauHZxAb4YrQ9JXpMur7UCOu6fGdNK0YTfPEXfbRqmj1Oq
-	oZMsHcTC/hOANd6FY74=
-Received: from [192.168.2.174] (dslb-188-098-197-218.188.098.pools.vodafone-ip.de [188.98.197.218])
-	by dd13108.kasserver.com (Postfix) with ESMTPSA id 5F51178203EB;
-	Sun, 22 Nov 2026 11:21:18 +0100 (CET)
-Message-ID: <57a7461f-8c0f-43b1-83e2-e2867cb35e0e@tsv-stahl-riesa.de>
-Date: Sun, 22 Nov 2026 11:21:18 +0100
+	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=GqgcbTlK
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e3b22e971so1188449f8f.0
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 02:23:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blackwall.org; s=google; t=1795343008; x=1795947808; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DS50kc0yp+XKmRK7kU59nKs7lLs5n+2L5Ptw9GISEyg=;
+        b=GqgcbTlKvhpVEdUHeAMatFpKIA/KSipQ62eUBmYCa1HlHWCsdzKAIuUzKhnNCrf8mE
+         8fQdsYR7Y4gflNAIsEkkfCTjAWfuw03vPALHREgkd/qRQ6w/rRUIUJd91kGzAhdxFbyE
+         Xw3/QtaT1HM/hVLb0j3DF3dU/o6V6EU95rRd8nd7z5snYesZ3kzyjsipCiBU3j9O9q/h
+         osjwBD6tXgWtSlYL3hqYPweMQHu6+iZ4tQL6t7YaA5tckbAFc8RTe04D7n52RUAqH667
+         WhTSE6omeCBCcK2kublsmKM1oc3EGzjtlraVXau6bMvagWU7belt6twZDqaZ5ef4gliE
+         PJLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795343008; x=1795947808;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DS50kc0yp+XKmRK7kU59nKs7lLs5n+2L5Ptw9GISEyg=;
+        b=oi+gumKmiUBqy/7zTf49hPHoSvGiQMfHjmFbKex2cTvYtMvdfO9AVhipIsxUTiaoW8
+         hhrZUxSZXDdDLMJvX/e2lCudjZ3bZI5Jshvg9mX+7xRRkaFZpWKyaccxM0VMTlPYAGnA
+         5YRi0aGBJwKKQGFmHgm+/jBSfyT11NHaBzp5Rqn6GiNYswhMahysHNOx2n++nEoDFv09
+         iVW99WisL/IhfF9p4A3yTZEkJ1VJbaN4pMtQuJ1BS+mZ9WKxmvnbByr1WyjlEilPohYW
+         EBHZwlCvyUW2PJZw7ZtwY9YZvhPR+/vq01k5UGyKlLvVGOpLLpgtO2AivD7huWQ5xlrl
+         BAQw==
+X-Forwarded-Encrypted: i=1; AL+hErEuTL1xRMG/blmKGf3nflOVcZTy98JkQ1OqBgRDutfqrJveGceF7B6xk1AJoUy19swy4hzCOSQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YYHetzP1Uv6etgrqs5XG9E4N6Y3MAs2kPWhFhGzeWJZSIOGxj
+	ikkHAZxZpZ/VcB14aZS3z2HikWoUsoyHdShXorGyK0/PS2qh0Um0bMq10Lh8VMjeS0M=
+X-Gm-Gg: AZFdTZeRowrZYFmE7t4qMYlc+P2t01C6KYQ4tTWC0DCpAeyKBUYqkUcGg065ZpfQfIM
+	7LX/jYiwQn7PZn1kTtz9Exs7MBSqC13J5RZYJX7Oy0IzUuc3YmW3kGvQFSDeqwKsATjFaY/jTN6
+	9fvHfkuYakMQJB8iKAYXtt40vZnZ6Uik7OgKT2g7pF1yQftft5LGS+kPSeswL5kuJdEjpQzQ+k/
+	Eof20Y0aWgcrz1H5HwPx+JS5DXu6mBX89WRU0R154keTmGyLZ0FMBt1zG1ysE4XXREZcWAc01Tu
+	V5y5cwwZGax1oP7nXzKamHxAMf1jYhEbhY0oCUSKEHR1tKm5LQtxY4yA5k+jqseqT8gjzSL2KIp
+	4LHEIQ+kocJBIOHoCDdHuqXqgca6f9D94wYVpWApRPzOH9qOX7jEu0OZzXQfccR1jj8HY4TaU9M
+	W5LqlBh7PvFYjjP+FqNjLpsn9l9iR+NOIHMYenLfsp+OeTr4VibDH8PDytQZLTmkhMd50fPSDQg
+	lb3q1jOBVRKSzCtPUs36eqyZbF2EbreBig4Z5hlwj6Uoy35Yo685DOMHBh9/0AWAmJ7BQNj3RzT
+	HZWgpT/7njUJXrT7GpTaMvRcTqtH1loCN9VVq9WH+Uek7MdKij/EcVRq1bA=
+X-Received: by 2002:a5d:5887:0:b0:4ac:84c:70df with SMTP id ffacd0b85a97d-4ac085bb48dmr15752832f8f.45.1795343007899;
+        Sun, 22 Nov 2026 02:23:27 -0800 (PST)
+Received: from [192.168.0.161] (78-154-14-127.ip.btc-net.bg. [78.154.14.127])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67f1b2sm14830205f8f.25.2026.11.22.02.23.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 22 Nov 2026 02:23:26 -0800 (PST)
+Message-ID: <44b34f5f-742f-42eb-be7f-0cd731ff565c@blackwall.org>
+Date: Sun, 22 Nov 2026 12:23:25 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,111 +92,63 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] thermal: tegra: Fix SOC_THERM temperatures on
- Tegra114
-To: Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Lukasz Luba
- <lukasz.luba@arm.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Thierry Reding <thierry.reding@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, linux-pm@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+Subject: Re: [PATCH net 1/2] bridge: mcast: Fix source list rollback on
+ failure
+Content-Language: en-US, bg
+To: Ido Schimmel <idosch@nvidia.com>, netdev@vger.kernel.org
+Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
+ edumazet@kernel.org, willemb@google.com, horms@kernel.org,
+ dsahern@kernel.org, shuah@kernel.org, bridge@lists.linux.dev,
+ linux-kselftest@vger.kernel.org, kyuwoncho18@gmail.com,
  stable@vger.kernel.org
-References: <20261106-upstream-soctherm-t114-v1-0-c875d1921084@tsv-stahl-riesa.de>
-Content-Language: en-US
-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
-In-Reply-To: <20261106-upstream-soctherm-t114-v1-0-c875d1921084@tsv-stahl-riesa.de>
-Content-Type: text/plain; charset=UTF-8
+References: <20261122072504.2623702-1-idosch@nvidia.com>
+From: Nikolay Aleksandrov <razor@blackwall.org>
+In-Reply-To: <20261122072504.2623702-1-idosch@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Spamd-Bar: ----
 
-Am 06.11.26 um 21:31 schrieb Patrick Fischer via B4 Relay:
-> On the NVIDIA Tegra Note 7 (Tegra114) all four SOC_THERM zones read 0 C
-> with mainline, in idle and under load, so throttling and thermtrip have
-> no effect on this SoC. There are two separate causes:
+On 22/11/2026 09:25, Ido Schimmel wrote:
+> When the bridge fails to add or replace an MDB entry with a source list,
+> br_mdb_add_group_srcs() rolls back the operation by looking up and
+> deleting the source entries of all the sources that were already
+> processed. This is wrong for two reasons.
 > 
-> 1. tegra_calc_shared_calib() sign-extends the whole fuse word instead of
->    the SHIFT_CP field. On Tegra114, where SHIFT_CP is not in the low
->    bits, this distorts the calibration of every sensor.
+> First, with NLM_F_REPLACE, a source can appear more than once in the
+> source list. Its source entry is deleted when rolling back one
+> occurrence and the lookup fails for the other, triggering a
+> WARN_ON_ONCE() [1].
 > 
-> 2. The hardware calculates THERMA * capture in 24 bits and discards the
->    result above 2^24 (TCALC_OVER set, TEMP_VALID cleared). With the
->    calibration in 0.5 C units a Tegra114 sensor is only valid for
->    T < (2048 + THERMB) / 2, which is far below the thermtrip
->    temperature. Patch 2 switches Tegra114 to 1 C units, as the
->    downstream driver does. The fuse calibration stays in 0.5 C units,
->    as discussed in the review of the Tegra114 series [1].
+> Second, when replacing an existing entry fails, sources from the new
+> source list that already existed before the replace are deleted together
+> with their (S, G) entries instead of being kept.
 > 
-> Patch 1 is Svyatoslav's fix, unchanged apart from the Fixes and stable
-> tags and a sentence on why the other SoCs are not affected. Without
-> patch 2 it gives three zones that work only up to about 45-53 C on this
-> device.
+> Fix by marking source entries that were created by the current operation
+> and only deleting them on failure.
 > 
-> Zone temperatures on a Tegra Note 7 (P1640) in C, idle / after 60 s of
-> load on all four cores:
+> [1]
+> WARNING: net/bridge/br_mdb.c:901 at br_mdb_add_group_srcs+0x310/0x440, CPU#10: repro/304
+> [...]
+> RIP: 0010:br_mdb_add_group_srcs (net/bridge/br_mdb.c:901 (discriminator 2) net/bridge/br_mdb.c:924 (discriminator 2))
+> [...]
+> Call Trace:
+>   <TASK>
+>   br_mdb_add_group_star_g (net/bridge/br_mdb.c:1021)
+>   br_mdb_add_group (net/bridge/br_mdb.c:1082)
+>   br_mdb_add (net/bridge/br_mdb.c:1097 net/bridge/br_mdb.c:1360)
+>   rtnl_mdb_add (net/core/rtnetlink.c:6925)
+>   rtnetlink_rcv_msg (net/core/rtnetlink.c:7178)
+>   [...]
 > 
->                mainline   patch 1      patches 1+2
->   cpu           0 / 0     41.5 / 55.5*   43 / 63
->   gpu           0 / 0      0   / 0       39 / 55
->   pllx          0 / 0     44   / 52.5*   43 / 62
->   mem           0 / 0     39   / 50.5    39 / 53
->   thermistor      -       34   / 39      34 / 42
-> 
->   * the sensors behind the zone were already invalid, the zone stayed
->     below the real temperature
-> 
-> "thermistor" is the board thermistor on the PMIC GPADC, as a
-> reference. With both patches all eight sensors stay valid and thermtrip,
-> throttle and trip thresholds are programmed as 102, 100 and 90 C.
-> 
-> Tested with v7.3 on the Tegra Note 7 P1640 (me) and P1988 (Svyatoslav,
-> all four zones work; tags to follow from him on the list). The series
-> is unchanged on top of thermal/linux-next, but only build tested there.
-> Thermtrip and the hardware throttle were not provoked on purpose, the
-> highest temperature seen was 98 C. Suspend/resume was not tested.
-> 
-> The series is independent of "thermal/drivers/tegra/soctherm: Program
-> throttrip with hot trip temperature" [2], which is still pending; they
-> apply in either order.
-> 
-> Tool use (see Documentation/process/generated-content.rst): patch 2,
-> its changelog and this cover letter were prepared with an LLM coding
-> assistant (Claude Code). It evaluated the SOC_THERM register dumps from
-> the device, recalculated the calibration from the fuse values, wrote
-> the code change and drafted the texts from my measurements and
-> instructions. I reviewed the change and ran all tests on the device.
-> Patch 1 is Svyatoslav's own work.
-> 
-> [1] https://lore.kernel.org/all/22816196.EfDdHjke4D@senjougahara/
-> [2] https://lore.kernel.org/all/20261020-upstream-soctherm-throttrip-v1-1-c67f8a02ec3b@tsv-stahl-riesa.de/
-> 
+> Fixes: 61f2183512a7 ("bridge: mcast: Support replacement of MDB port group entries")
+> Cc: stable@vger.kernel.org
+> Reported-by: Kyuwon Cho <kyuwoncho18@gmail.com>
+> Closes: https://lore.kernel.org/netdev/179489219555.3099318.10297266282803881244@gmail.com/
+> Signed-off-by: Ido Schimmel <idosch@nvidia.com>
 > ---
-> Patrick Fischer (1):
->       thermal/drivers/tegra: Avoid SOC_THERM calculation overflow on Tegra114
+>   net/bridge/br_mdb.c     | 29 ++++++++++++++---------------
+>   net/bridge/br_private.h |  1 +
+>   2 files changed, 15 insertions(+), 15 deletions(-)
 > 
-> Svyatoslav Ryhel (1):
->       thermal: tegra: soctherm-fuse: Fix shifted_cp extension
-> 
->  drivers/thermal/tegra/soctherm-fuse.c     | 17 +++++++++++++----
->  drivers/thermal/tegra/soctherm.c          | 21 +++++++++++++--------
->  drivers/thermal/tegra/soctherm.h          |  6 ++++++
->  drivers/thermal/tegra/tegra114-soctherm.c |  4 +++-
->  4 files changed, 35 insertions(+), 13 deletions(-)
-> ---
-> base-commit: 32cb06b34701827db0ff34244d84fc74e40ca350
-> change-id: 20261023-upstream-soctherm-t114-9591c6b779d6
-> 
-> Best regards,
-> --  
-> Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-Hi Daniel,
+Acked-by: Nikolay Aleksandrov <razor@blackwall.org>
 
-gentle ping on this series. Without both patches the SOC_THERM
-sensors on Tegra114 read wrong or invalid values, so thermal
-throttling does not work there. Svyatoslav has tested it on two
-devices, and it still applies cleanly to 7.4-rc3. Please let me know
-if anything needs to change.
-
-Thanks,
-Patrick
