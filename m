@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795351703;
-	b=5sIxTroAFGxls0xBlX92Ke3yfgJiBODcJJsjEBvC/CM1zEfd1rFBZFvsf9s50pAcMW2y
-	 CqS45dt24kao6kObUI2R3DLsnqYzIAi2d+s3b/8Qfu8iLp/jY0dufWZWqf/Tp3cldpsuC
-	 /M88xohoGHQIPexTDHsDZV2PbMXQ5qYutl4LCeMGKLLCiah8VrsrzMC7JBRSI5bdBny7G
-	 KhUFQwK6G1pKNLma8j5kZQuLFh2D+XN4sOHsn1Qesrt09IU51InV3NIIK2pyR+iYF/Uo5
-	 LId6oSVVyyI+zaJCz4g3D1/KcQZZrx/YBNCmttuqQmoqg/JQIqE5wHwFAuVrIRTiRxQ==
+	t=1795352297;
+	b=3Pi0GMdZIO2VA8J0vX4T6b7751/TkERLkXOFLD2bepIandlFSftKnThNSOj8Bm4Jwj79
+	 ImzIlH6XnW/6zitLUK+hBM5Mfcs0fMsYznT7r+ngldtpmJAnhQZ8TTc3OdC/9u+2/d5mw
+	 wft46E9Uz5I/2g2V+GgHIiE/AVjTTE8s0+tDY9BS5W4YIcz+mYx22mvfYwp2UKJ9HaA5u
+	 Nqmz7JlFgXrKBhRqWWQfbuvywM8KH/AxS5FfrOn6UWXhVS5bKUUtV7SpGjHGe6sxhhc8t
+	 rH/U65L7y6Lo+KwIrZj80ZvgNOrVssa5lTjkYlptSFSwFmXcoMwCaDZ7yU77EsRpF0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795351703;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795352297;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=WYWaYBNtufSJa/UG1/SFqHGRJnP7udoeOeCcl4gVeUc=;
-	b=gCc52tBKu/d6eSP+rVVAH9f307h0jQO2kxVOlWHuEwhpuryNDhiQHxvAwMvkaph6cLjB
-	 4YqH9HUI2AhepGcirWHY3lRyJGvGv+J97GKt57XQNqRL8nZXoAXJiY+ADiWV2kzHzSsy3
-	 pHtGmCIedZuJi1Yd/H679iulBbYu6Deng/q6gCDYfrrOY/oGamuqBpzlV6x+DTJPwsA/h
-	 upQvZZXhDX9oVcjkaidmV0G1chx/uQXS0VUFR9ldtHjFQhpTvf6Wm2CYeHVn5Op/k1ZSJ
-	 6VFirUd5MXOxmjS+X8fyM8U4AQb8fiy1uTZH3NgkkeCruJxslUj5wpc5rNK4YgDv/ow==
+	bh=+5JLzXb1Ekv3vj+0rTQE3vVSlpUcvc7p5bp6+Atm1iQ=;
+	b=Fp3vjVgveW1e64ZTHcns4Zm2M+2VKAWz53Xhuqgl29eK+VNAvSRlwmeN9Isv7egvCbIO
+	 /A4o++B5geZQlvk0/r3VSGqkbkDXQ7lVZtg3kacj46TGJvmoSAXMx46i5B07b8uRYMVLn
+	 CLYjA/NFwjCOxH2ee//lJprW3L3ShOUK2FUPGGXixL8xdsiR+hyjGpL9733Vr/gUbfO75
+	 kJOJJ8okERHj+DirquuvShYfjNz33diSRybW4iw11tf2YQ6BVVbUvObWtWpelzEgLdD7D
+	 MhZEpDj33Fbrzhmwi6fZ8YV9i18ZXviaz/YdocSEO9iMNuyMrTIV5+UvSqEMYgqJAOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GQY07Bxk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZS8N2zh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAED7606A320;
-	Sun, 22 Nov 2026 12:48:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFE2606A320;
+	Sun, 22 Nov 2026 12:58:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GQY07Bxk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8601A1F000C0;
-	Sun, 22 Nov 2026 12:48:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZS8N2zh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0731F000C0;
+	Sun, 22 Nov 2026 12:58:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795351702;
-	bh=WYWaYBNtufSJa/UG1/SFqHGRJnP7udoeOeCcl4gVeUc=;
+	s=k20260515; t=1795352297;
+	bh=+5JLzXb1Ekv3vj+0rTQE3vVSlpUcvc7p5bp6+Atm1iQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GQY07Bxk97fqzjBwqZoIfonKj9WndWOr5euSKR55AAtV+p8SeMXk014AYRuBJz0ta
-	 x60pIAz3ouR2QZVBdY1VjnItjkHn2UVlzI3dwQCe1GsDRL6nEKNW0Bhq0LR50i03Rt
-	 SUSU/8Srh84td+seq39GDtLX+WosIH+pAEHo1MCtwuqd4pYzDBG/KiCa0rEoDCNsq8
-	 Wacjew11ESU55kDUSNmkp86O7QJLmmbP3Byv4kYFsTnt407DZGHqAcBqzUJepOABJ8
-	 blrEEUH+UPBufXFFiKZMWx0xoIPkVPYXGINISX19NIpYL2lUla6D+Q4p1C786WhWEd
-	 /Ti5Vfkj3mv0w==
-Message-ID: <7641a736-bf40-42c1-b169-9d21a8606638@kernel.org>
-Date: Sun, 22 Nov 2026 13:48:15 +0100
+	b=aZS8N2zhgmVuQem9npVtdp9fQR7jTcyw8rqZHsxYQ5cn0aLihJOjscUM+VLm64new
+	 qLO2X21BwPPdwEhh8GLVcnhcddTVnZNIr+xGzQJUmAei2msRb+hbj+KgxVCERRw+LS
+	 d9vwJ1EQpq9/8NFNI06uZOZmMh5zzR4wGY+cubNoMnGitNNcHJFy94d+cQbJkxji5l
+	 u5OUpBmhQ7261prcxYej5tYuJYRCp22rccuk/adevsk2YPUZ4A/Kuz04FQG2+wfs9w
+	 iIG4r3fxS6T0c1nQYaeq7wuQ1Es8alV55xP4FUXGR26chc2eL76JlfJpMEtr4YwfqR
+	 Z31OApPG0CMiQ==
+Message-ID: <dff45fdd-aedf-4282-9d91-1a871d3c86f7@kernel.org>
+Date: Sun, 22 Nov 2026 13:58:09 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,17 +52,18 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 2/4] net: skbuff: limit folio refcount when
- rearranging skb frags
+Subject: Re: [PATCH net 1/4] net: skbuff: limit folio refcount when copying
+ skb frag references
 To: netdev-bot+sashiko@kernel.org
 Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
  pabeni@redhat.com, horms@kernel.org, akpm@linux-foundation.org,
  kas@kernel.org, songliubraving@fb.com, hannes@cmpxchg.org, riel@surriel.com,
  willy@infradead.org, ncardwell@google.com, kuniyu@google.com,
  pfalcato@suse.de, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, stable@vger.kernel.org
-References: <20261118-skb_refcount_overflow-v1-2-5551b4954c3f@kernel.org>
- <179533917726.3135.13005025144396516237@kernel.org>
+ linux-mm@kvack.org, stable@vger.kernel.org,
+ Shailend Chand <shailend@google.com>
+References: <20261118-skb_refcount_overflow-v1-1-5551b4954c3f@kernel.org>
+ <179533917558.3135.17684828734142496084@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -109,76 +110,61 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <179533917726.3135.13005025144396516237@kernel.org>
+In-Reply-To: <179533917558.3135.17684828734142496084@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11/22/26 10:19, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
-> 
-> Low priority / nit picks for your consideration:
-> 
-> - [Low] The commit message explains why skb_split() keeps its
->   unconditional skb_frag_ref() by saying that "each split also allocates…
-> 
-> --
-> 
-> net: skbuff: limit folio refcount when rearranging skb frags
-> 
-> This patch replaces unconditional skb_frag_ref() calls with
-> skb_frag_try_ref() and skb_frags_try_ref() in skb_segment(),
-> skb_try_coalesce(), skb_shift() and tcp_clone_payload(). The goal is to
-> stop skbs from multiplying folio references until the folio refcount limit
-> is exceeded. skb_split() is deliberately left alone.
-> 
->> skb_split() can still add one reference when splitting a frag. But each
->> split also allocates a new skb that is charged to the socket, reaching
->> the refcount limit that way would require a lot of socket memory, and the
->> references go away once the data was acked, so it's not that relevant in
->> practice. Making skb_split() fail is more involved, so let's leave it alone
->> for now.
+
 > 
 > [Severity: Low]
-> Is this reasoning true for all skb_split() callers?
+> This isn't a bug in mainline, but the refusal described here only works
+> because try_get_page() enforces the refcount limit. That check was added
+> by commit c6c9a4c1c9a1 ("mm: limit pagecache folio refcount when splicing
+> into pipes"), which builds on 26b8f029ce52 ("mm: limit pagecache folio
+> refcount when mapping pages").
 > 
-> Socket charging and dropping the references on ACK both describe the TCP
-> callers, tcp_fragment() and tso_fragment() in net/ipv4/tcp_output.c.
+> Before those commits, try_get_page() had no upper bound:
 > 
-> skb_split() also has a non-TCP caller in batadv_frag_create() in
-> net/batman-adv/fragmentation.c:
+> 	page = compound_head(page);
+> 	if (WARN_ON_ONCE(page_ref_count(page) <= 0))
+> 		return false;
+> 	page_ref_inc(page);
+> 	return true;
 > 
-> net/batman-adv/fragmentation.c:batadv_frag_create() {
+> This patch has Cc: stable and Fixes tags back to 800d8c63b2e9. A backport
+> to a tree without the prerequisites would still compile. There,
+> skb_frag_try_ref() would never refuse a reference and would only warn
+> after the refcount has wrapped.
+> 
+> Could the commit message state this dependency, for example with a
+> "# depends on" note on the stable tag?
+
+No.
+
+[...]
+
+> [Severity: High]
+> Can this make the converted paths fail on every packet for drivers that
+> deliberately keep RX page refcounts near INT_MAX?
+> 
+> Every frag that is neither page_pool nor net_iov now goes through
+> try_get_page()->folio_get_checked()->__folio_ref_count_over_limit(). That
+> check applies to any folio, not just pagecache folios.
+> 
+> The gve driver uses GQI RDA/QPL and DQO-QPL, and none of these use
+> page_pool. It biases its RX pages up to INT_MAX:
+> 
+> drivers/net/ethernet/google/gve/gve_rx.c:gve_setup_rx_buffer() {
 >     ...
-> 	skb_fragment = dev_alloc_skb(ll_reserved + mtu + tailroom);
->     ...
-> 	skb_split(skb, skb_fragment, skb->len - fragment_size);
->     ...
+> 	/* The page already has 1 ref */
+> 	page_ref_add(page, INT_MAX - 1);
+> 	page_info->pagecnt_bias = INT_MAX;
 > }
-> 
-> The fragment skb there comes from dev_alloc_skb(), so it is not charged to
-> any socket. The data is not acked either.
-> 
-> The path is batadv_frag_send_packet()->batadv_frag_create()->skb_split()->
-> skb_split_no_header(). skb_split_no_header() still calls
-> skb_frag_ref(skb1, k) unconditionally whenever the split point falls inside
-> a frag.
-> 
-> The KUnit tests in net/core/net_test.c also call skb_split() on skbs that
-> have no socket.
-> 
-> The conclusion probably still holds for batman-adv. A packet is limited to
-> BATADV_FRAG_MAX_FRAGMENTS fragments, and the fragments are transmitted and
-> freed. Only the stated reason is TCP-specific.
-> 
-> Could the commit message say that the socket memory argument covers only
-> the TCP callers, and mention why the batman-adv path is also bounded?
 
-I have no idea what AI is talking about and also I don't care. I have more
-important things (on a Sunday!) than to do that think about such silly nitpicks.
+CCing the person that introduced this refcount abuse, making me angry on a Sunday.
 
-What a waste of time.
+Fix your goddamn drivers, that's just an abuse of the page refcount scheme and I
+won't hack around that.
 
 -- 
 Cheers,
