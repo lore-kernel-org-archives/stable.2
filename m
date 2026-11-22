@@ -1,93 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795361804;
-	b=oAgunTiC4X1V0ZqZxKuYU7vBMrCQLAq2KnenwcZ3nZx39+SwjtiuBbqqh/LFiYPMOdi2
-	 TRNliqz7TPL5YD+gJjDYwHgFftxBLY8DmHAq34Akfrm/dLJ9VoP4D1arSo0yiBAbGV2X7
-	 kD0JSJLSXc357xlPHEu02nnR7+Rl5ilz6wDJiVaj5Tk3Msv5uYo0i5WCEWSQBeAJgBnxV
-	 I+VGqLx85T55wYucewAfhTtOY4WnIzcP5zn3wiKY7qFaaY/bD0nWqkY1iOAM7FLXcAfcA
-	 VhSLa551TvO57JRzL3ZlbCyurlhKFBFB0hYilg6dwEAjmXrS2xjdy6JYJiGIdTVRHVQ==
+	t=1795362332;
+	b=RQRFrWFoXuy2/BIMZyMIHicKLpGf4/dvc9MZ40MPeZyPwOFlvjnNPLZjwrCQImSEcBVn
+	 +qLU8b81QraO53RrmGzygKq7NGv1op5c4mOfx0hZN0y1ILmFwQvYS/cNH6V7/E4tVtHd6
+	 0JCXbiH4qpFD8gCkMdJmbP6+/sOfy2rZDQFx/5gPKHkTMLHZ+UscsLUxgHf6oihGkC96n
+	 3bHgg90eqxLaZtwUHKgs7xZm6pnZ835qZW2jI7E+qyY2he2MBPf23mc6MrLMe/QB52amF
+	 i4SSuNrAew/mS/a2BPV2L1ECLojTdJW45IMRuhdk//bsKI4koNnnoABg/aWBAefL8/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795361804;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795362332;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8YUeZtd56yJ2PhtpzFvOodt26i8q7u6e5Opw1KxAgmk=;
-	b=NWocPhagOj8+yJMWnGaikixibxDqHBs+hI3fhp0fLDMRMAGKAy1/9cfTPK0u5p+yUFiC
-	 j/vGOI1ZnV2Fi69Sm3VmCKpMO9jx0g32MRcQF0Vcv8x+FRPH4/jKlZmvpdW+fa9Yfwfuw
-	 WnOO+QbQhLkkFmRg28TfCZwj4+s4ZqVJ8bEmMC04BjTfYcgSicHJw6ItdNYqubQkdQm2p
-	 lZ8eHKOrR7EbLrO9QW/pVq1QxoovZ3MaNijC6eAEf51y4Wh6uAn5EmU/n5CUR607JvjLT
-	 PiiP5XhG179Y8OGUzavcZBgR1MjR6/T3cnGV1OqX2orKKc6A5cKgBd9Tx1JbOjjBBbw==
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xVY9Wj4Bi88UcgFUPGAWU4HWTtYjfgZmL2uHdSwjBm0=;
+	b=NGNzNamrt+VxrmESltcgwd7lifAoST9VukWUsgBsLrxm58zp7tFQPsvy0Qot0ubjf+rW
+	 zkf6OuN3O8fKtLTELyQOMzsU0Zs7WPrEIs6GUUfScXwIxzdP76IWb2wza1ZT/ZNbGGK10
+	 qBJWZQDZo1b5lJG5sf1ZlHrWAC5/Zt55ACkYIkck/NZobxwmX/WQ/BNSDsqzBia9GKCk4
+	 v3PxnXs4xM1qAUR4BGvb//lWgLBJBimuvLWE4bdKsaL7u7lR7C/zogMu24B1SywSxxMT1
+	 uqv/Ooc5+dGa/rvrVGUp4QyDIAtB24rHnDtDlto5rZO6H5sLrCFnlVmIiOI2n/D5Idw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=OGgpn4ff;
-	arc=none smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eG36F5LY;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6DF606A32A
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 15:36:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D6DF606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047AB606A332
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 15:45:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 047AB606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=OGgpn4ff
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b2d14968c9so22368687b3.0
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 07:36:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eG36F5LY
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c5133831027so349929366b.2
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 07:45:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1795361803; x=1795966603; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8YUeZtd56yJ2PhtpzFvOodt26i8q7u6e5Opw1KxAgmk=;
-        b=OGgpn4ffKsw9DLMles/9pb5XkRT7KxzN583oIW4UHzqZDzoiG35zqdu4knwGMjzVtH
-         levZfbOpDVJ4VYX7XV9iQkfjLQVaMcouCPjEb8soRphfDsOCNSZ5S8UQY2/rOwbQej+m
-         dT+U1HYYUxl73PFiyEjt1ZYQ3/zkptvK9kzL7QkBfBpaywHqc73oYwpJ+XIsKBJ1cPNn
-         wqyPY0zrkkVQotE3NVhv5bD2vIeTeRN8Y0TtQUB7o+/TElQfK+EKaSPkZYF5q4MxvCSy
-         dju0tUrpeT6JdHtzdKea82LrQFyJ7hV/uIHQnGU1wbQK5dBvTSF/nQs3eVJkuJ8MU55Q
-         jPsg==
+        d=gmail.com; s=20260707; t=1795362330; x=1795967130; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xVY9Wj4Bi88UcgFUPGAWU4HWTtYjfgZmL2uHdSwjBm0=;
+        b=eG36F5LYMXGT8HJvpO1igQt4qwvvVGzep2x9Ome7Hdz22Q4r56lb53Z2e4IgbuGCRK
+         EmZ1AuU1G+bPjCaiqrsmhSWRV3xmk8KJPApRZ0qc8738Ylj2GrkoQ1TpygqsqwmEz4ZK
+         p+4WAqMhwrC51gNgN/66AjK6wlX+vxIXSMdOxLP0yuEP7rxfFxFmy6UeOmWv4t3NpzBh
+         37ma2cvSdGqrH9HSOWv79VjtpcWcOBRFGN+FuZnZor+k0wbFyFxsZ7ES3C3sKaB1ODpH
+         JZEdy13Ll6N6O3KuupWyPk47kCak8o7bZU1G6p4MZJuwHp1JmakZfsDxoK/NThe6Szp4
+         Th/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795361803; x=1795966603;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8YUeZtd56yJ2PhtpzFvOodt26i8q7u6e5Opw1KxAgmk=;
-        b=nhT1SqKlyFve4zy1sgpqpSfAESc3FpNLGaFSU8DQRBteMU4oFk9jSJi/L1ujAOoG+f
-         YbqdA6wa2yzRwSAqvSJbZjYAy47vBZq2DYytaGseGHKiCoQOO3OEo5VBX2K0C1TDvkSa
-         dIqwqUv30Z2wGHJ5awzn9rtVVjGU2646aT8AQrXt3XCE8Memevnlk810MVjp3GcQ58fy
-         ywooH5NsfFtANEKOrNNW/Bxw5WFN5mJKT8DdQ//crEzcYJYtcxyEsbMSqojMH7N6Gqaq
-         rvBvkVsMX56FH/VyATa3oDMLCmgoykCO5ZA4HN1KToEdedvb4S2tpV9oBPifvlfkjX8R
-         LQGw==
-X-Forwarded-Encrypted: i=1; AL+hErG2rUDVgIHKeXz81WSA5Ec1HXHVbx+GBBMNllX4Wf95bVnvUGEnoerq0YJPnBRfmH00n1DAd1o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eQ2doYYcp8IQcey9EZXRO9Vv8fSaDAF/FSv3LcPAb0+R/6zOr
-	BTW7RudYq7EvcJ7L+1MDZGgekNwZ5SUD5PCE1AEs8v72W2D1uv5RlyLygjyNs/WnPA==
-X-Gm-Gg: AZFdTZf8LyLiyrobG8f5/GxzIppgPuK/36U0RovPN/YYXxxfN6WoPhWuTQr/c6PzNL6
-	SR1YWcESxZEarFniAUFOH2p7BOmKy2Ik5GvHK7V4rYXlIqY8ikdKACENZ01wg2Voym3w63dD6OO
-	kuQuEATU1eVJGg1bhhQ+khu8R/ZLboyJsEDMC40zqbEpkBC+0ez8JXXoRPuYg2xZNLGuWljhyca
-	goRPHcsJT8EoZ/8yWwhaN//F5/yUYffrKQLR0IRMDwgTLjO5XN9TU0JDdvJepeAwzttKEzqNTjj
-	5z2tArzG/KlAp5lQWjnGxysIt2OJzuUDbGVNWI51c5iTvCfhRUr+qyP7aYKS7wXkPtQpylOF6Rq
-	TG3sqOp49nGEkXQolTt1rfN7PYKC6Q5VDmjeIbUusqre8akLQzBzsCQDmtLejg2qeDMQgwnN9rm
-	GNq7EiHwqJXZl56NVAkwhYjd7rWATMaR9bAy3Cj2mOalqcByqgmkGY/X4eECPWTJafR128BB4Ds
-	CBhMj1IOAmXjIivgn8PIrDiGhArZeWK/9Nun9OtLsgcHU+yX7y6FZFKZwLEjpHQ9p/myb8yMU5O
-	nhA7wCvkxWVSwKYEDeW0B5kPAQx9iZN/ygfyVxRjCnnz6dOY0vKe
-X-Received: by 2002:a05:690c:9b0c:b0:873:5c6b:a305 with SMTP id 00721157ae682-8b5204dab2emr36320217b3.51.1795361803007;
-        Sun, 22 Nov 2026 07:36:43 -0800 (PST)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b52028d160sm36223427b3.10.2026.11.22.07.36.42
+        d=1e100.net; s=20260707; t=1795362330; x=1795967130;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xVY9Wj4Bi88UcgFUPGAWU4HWTtYjfgZmL2uHdSwjBm0=;
+        b=Btljgb+miLPVDglAWzLFtiAwimpvzWf0maKdPOOmPiTCRxl0aqqiNaReNphD9zlH8j
+         DTRWczkrMAM9Dj2g6hUwx+L/fwHBrA+8FfmJCO/huJ9t5KTHwc1iZ8cq62+HinoMKowC
+         /o8w4UCtGsef3nLpY/OFk9XAa7azcQd0VPg07Jz4IbGqjzVFtHPae9VWIQvfoq6MQGbA
+         8aBWFpUQo2NFrZ4syMFrX2cUMvbI48qPq0KDO1JO+qUZ7NOH2WsUfOdyoZfXAg3byedX
+         Afa3dLZ6tBWRBszN4oS0B8e2QMAv7mCfZQgjnCk7gqgmrKH0eCQ/+K6DzT66pYXhnjRm
+         s6lg==
+X-Forwarded-Encrypted: i=1; AL+hErHnjS2TNT85HnNdD+KVVoFMkLidJmwkBA9OO/UyPOgQ4R8VExzG2o1KtamvDWQ+fHqdEHkRZAU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9M1fErJvRgKyqsqLRyVz+Rgu7/2Jaz+EKww+bgo7kKlcg6IHdy
+	W3K4RL6IEiuTjANZLzIXAdnF7rodegxWqsLlCrq1PmaHiU0KsGHUPn1Z
+X-Gm-Gg: AZFdTZdp+lx+XEBD94LDU2k4kXGzwBso/m+ZS5faYxbK3tUBM5ZDLCej5JmP4JfB6/x
+	aq4qLY0SORdk/O5rVv4GAfQygB/YWxyGffDvPYW1u36ESRU418L7RTYCK93e0pRwM1xPS4Go4Ho
+	dOh3yhd3m68caQ9SgaZ7FgC6FXFmm+ZRomqIBJsXQZYL6mPam0FGPxyvgzA7rj738CMOHG10xKJ
+	NuToNH2h33+2cHa8okgSGqdfVqx8bu7JJkZZSytlkVftpJUYxpXRo/IkO2vvCxAyvs8RueUNj8q
+	fJqjTg452OCOoy4ITAwVBhXMxQvmNiEbsB98QsujR4SvTe5ClrOINBc8tN97X6Zr/NyLDvjmCuQ
+	HcyCuJr/TrJpZLgV7vW2+WfNnfgIv4wrDh4Aop64WR4k/HwxfHPN07naEZqKp/+9js3ApmgpzJ0
+	l4P8YKlBmcit6d7J547fQchLcYMIe2RmARPPwiNe1pYWMHSbfcPMxF38auDsJgEPhCAwu6wH6TM
+	zKH3+MKWSx8W9R/wgpCwiHpawzWmbKC09RAAtAqPt4UHtV15ATdQtSlD2rfTjs2lEDM5Q==
+X-Received: by 2002:a17:907:ba01:b0:c50:521f:13de with SMTP id a640c23a62f3a-c513a897601mr692846566b.35.1795362330344;
+        Sun, 22 Nov 2026 07:45:30 -0800 (PST)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ad01ae8sm339135866b.9.2026.11.22.07.45.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 07:36:42 -0800 (PST)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Taerang Kim <kth5965@gmail.com>,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] f2fs: fix to reject inline_data inode which has blocks
-Date: Sun, 22 Nov 2026 10:36:36 -0500
-Message-ID: <20261122153636.2731348-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+        Sun, 22 Nov 2026 07:45:30 -0800 (PST)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Sun, 22 Nov 2026 16:45:27 +0100
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: vbabka@kernel.org, harry@kernel.org, urezki@gmail.com,
+	paulmck@kernel.org, qiang.zhang@linux.dev,
+	akpm@linux-foundation.org, hao.li@linux.dev, cl@gentwo.org,
+	rientjes@google.com, roman.gushchin@linux.dev, linux-mm@kvack.org,
+	rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] mm/slab: don't queue the page cache work under
+ krcp->lock
+Message-ID: <awMOF_uE3cpV9dCn@milan>
+References: <20261120083707.296481-1-zhanxusheng1024@gmail.com>
+ <20261120083707.296481-2-zhanxusheng1024@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,100 +102,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261120083707.296481-2-zhanxusheng1024@gmail.com>
 
-Commit c240c87bcd44 ("f2fs: fix to do sanity check on blocks for
-inline_data inode") made f2fs_sanity_check_inline_data() return false,
-i.e. "sane", as soon as an inline_data inode has blocks or node ids.
+On Fri, Nov 20, 2026 at 04:37:07PM +0800, Zhan Xusheng wrote:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> Commit 56292e8609e3 ("rcu/tree: Defer kvfree_rcu() allocation to a
+> clean context") deferred page allocations to a workqueue. To avoid
+> deadlocks with the scheduler, it used hrtimer to queue the work instead
+> of queueing it directly.
+> 
+> Commit d0bfa8b3c411 ("kvfree_rcu: Release a page cache under memory
+> pressure") later added a backoff mechanism under memory pressure, but
+> did not consider that queue_delayed_work() with delay = 0 immediately
+> queues the work and introduced the deadlock commit 56292e8609e3 tried to
+> avoid.
+> 
+> run_page_cache_worker() runs under krcp->lock, from kvfree_call_rcu()
+> callers that may hold more, such as set_cpus_allowed_force() under
+> pi_lock, so it kicks the refill work from an hrtimer. Under memory
+> pressure it instead queues the work with a delay of
+> rcutree.rcu_delay_page_cache_fill_msec, which may be 0, and a zero delay
+> queues it at once, taking pool->lock under krcp->lock.
+> 
+> With the delay set to 0, calling kvfree_rcu() on vmalloc memory under
+> pi_lock after a drop_caches makes lockdep report:
+> 
+>   Chain exists of:
+>     &pool->lock --> &p->pi_lock --> krc.lock
+> 
+> A zero delay also defeats the backoff, which is there to defer the
+> refill under memory pressure.  Clamp the delay to [1:100000] ms, so that
+> queue_delayed_work() always arms a timer, and update the documented
+> range.
+> 
+> Fixes: d0bfa8b3c411 ("kvfree_rcu: Release a page cache under memory pressure")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> ---
+> v2: clamp the delay to [1:100000] ms instead of using the hrtimer for a
+> zero delay (Uladzislau).  The changelog is Harry's version from
+> slab/for-next-fixes, with the last paragraph rewritten.  The
+> Reviewed-by tags of Vlastimil and Hao on v1 are not carried over, as
+> the code changed.
+> 
+> Tested in a VM on v7.4-rc1 with lockdep: with
+> rcutree.rcu_delay_page_cache_fill_msec=0, patch 1 alone reports the
+> circular dependency above; with this patch the boot log says "Adjusting
+> rcutree.rcu_delay_page_cache_fill_msec to 1 ms." and lockdep stays
+> quiet.
+> 
+> v1: https://lore.kernel.org/all/20261028134647.3176080-1-zhanxusheng1024@gmail.com/
+> 
+>  Documentation/admin-guide/kernel-parameters.txt | 2 +-
+>  mm/slab_common.c                                | 6 +++---
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 0b3c140babd9..0d1d76a6af70 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -5763,7 +5763,7 @@ Kernel parameters
+>  	rcutree.rcu_delay_page_cache_fill_msec= [KNL]
+>  			Set the page-cache refill delay (in milliseconds)
+>  			in response to low-memory conditions.  The range
+> -			of permitted values is in the range 0:100000.
+> +			of permitted values is in the range 1:100000.
+>  
+>  	rcutree.rcu_divisor= [KNL]
+>  			Set the shift-right count to use to compute
+> diff --git a/mm/slab_common.c b/mm/slab_common.c
+> index 41dea01a8c1f..6fb453118641 100644
+> --- a/mm/slab_common.c
+> +++ b/mm/slab_common.c
+> @@ -2262,12 +2262,12 @@ void __init kvfree_rcu_init(void)
+>  			WQ_UNBOUND | WQ_MEM_RECLAIM, 0);
+>  	WARN_ON(!rcu_reclaim_wq);
+>  
+> -	/* Clamp it to [0:100] seconds interval. */
+> -	if (rcu_delay_page_cache_fill_msec < 0 ||
+> +	/* Clamp it to [1:100000] milliseconds interval. */
+> +	if (rcu_delay_page_cache_fill_msec < 1 ||
+>  		rcu_delay_page_cache_fill_msec > 100 * MSEC_PER_SEC) {
+>  
+>  		rcu_delay_page_cache_fill_msec =
+> -			clamp(rcu_delay_page_cache_fill_msec, 0,
+> +			clamp(rcu_delay_page_cache_fill_msec, 1,
+>  				(int) (100 * MSEC_PER_SEC));
+>  
+>  		pr_info("Adjusting rcutree.rcu_delay_page_cache_fill_msec to %d ms.\n",
+> -- 
+> 2.43.0
+> 
+Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
 
-However, the function returns true for a corrupted inode, and that
-commit meant to detect exactly this state. The early return also skips
-the older checks that reject inline_data on a directory and on a
-compressed, encrypted or verity file. As of now, such an inode on a
-corrupted image is loaded, and setting this one bit in i_inline of an
-inode is enough for the following:
+Thank you!
 
-- unlink() of a small compressed file that owns one data block hits
-  BUG_ON() in clear_inode(). With panic_on_oops=1 the machine panics.
-  Otherwise the task is killed, and the file system can no longer be
-  unmounted (EBUSY).
-- unlink() of a larger compressed file succeeds, but the orphan inode
-  cannot be evicted, and the next mount fails with EIO until fsck.f2fs
-  repairs the image.
-- A directory lists only 70 of its 300 entries, yet rmdir removes it
-  once those 70 are deleted, and fsck.f2fs then finds the other 230
-  inodes unreachable.
-
-The issue can be reproduced with:
-
-    mkfs.f2fs -q -f -O extra_attr,compression /dev/vda
-    mount -t f2fs -o compress_algorithm=lz4 /dev/vda /mnt
-    touch /mnt/f; chattr +c /mnt/f; echo hello > /mnt/f; sync
-    ino=$(ls -i /mnt/f | awk '{print $1}'); umount /mnt
-    blk=$(dump.f2fs -d 1 -i $ino /dev/vda |
-          sed -n 's/.*nat_entry.block_addr *\[0x\(.*\)\]/\1/p')
-    # i_inline 0x21 -> 0x23 (F2FS_INLINE_DATA)
-    printf '\043' | dd of=/dev/vda bs=1 seek=$((0x$blk * 4096 + 3)) \
-        conv=notrunc
-    mount -t f2fs /dev/vda /mnt; rm /mnt/f
-
-Before that commit, the result is:
-
-    rm: can't stat '/mnt/f': Structure needs cleaning
-
-After it, the result is:
-
-    kernel BUG at fs/inode.c:776!
-
-With this patch, the result is the same as before that commit.
-
-This patch will make the check return true for an inline_data inode
-which has blocks, as the message of that commit describes.
-
-Fixes: c240c87bcd44 ("f2fs: fix to do sanity check on blocks for inline_data inode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
-I found this while comparing the behavior of different kernel versions.
-I used an LLM to analyze the problem and to draft the patch and this
-message, and I analyzed the result myself.
-
-I noticed afterwards that Taerang Kim pointed out the same early return
-in this thread:
-https://lore.kernel.org/linux-f2fs-devel/20260317152838.26664-1-kth5965@gmail.com/
-
-Tested on f2fs dev (b61a029304bb) with KASAN and lockdep: the reproducer
-above, the same file with F2FS_DATA_EXIST also set, a 5000-byte
-compressed file, and a directory with the flag and 300 entries now fail
-with -EUCLEAN at iget, without BUG, lost entries or a failed mount. On
-healthy images made by v6.8, v6.18, dev with and without this patch,
-and sload.f2fs (default; flexible inline xattr + compression;
-noinline_data; noinline_xattr; sizes around MAX_INLINE_DATA, conversion
-by append, truncate, mmap, O_DIRECT, fallocate and atomic write,
-symlinks, xattr node blocks, compressed files, roll-forward recovery
-after F2FS_IOC_SHUTDOWN), every file reads back unchanged and fsck.f2fs
-reports no error. The f2fs/*
-and the generic shutdown/log/metadata quick tests of fstests that can
-run here give the same results with and without the patch.
-
- fs/f2fs/inline.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
-index 032c1cf8c615..2c50a72580af 100644
---- a/fs/f2fs/inline.c
-+++ b/fs/f2fs/inline.c
-@@ -54,7 +54,7 @@ bool f2fs_sanity_check_inline_data(struct inode *inode, struct f2fs_cached_block
- 		return false;
- 
- 	if (inode_has_blocks(inode, ientry))
--		return false;
-+		return true;
- 
- 	if (!support_inline_data(inode))
- 		return true;
-
-base-commit: b61a029304bb5531312ebc133b2a895d14dc3fee
--- 
-2.53.0
-
+--
+Uladzislau Rezki
