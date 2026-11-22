@@ -1,49 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795351378;
-	b=uHIYPCWZDtAJV0cFyibv4xkwFs06rg8XCuSivLuJz5n8kovUPuNZR973IgHnS3xa5lT2
-	 ZO+9V+TMKycDrhkURQXbcCtVLGZqVDawwze+TkdV0dlOG9apuRDC/MqILDvwzw511r3b1
-	 OmU0S9cy82rmpLlDuKSqI2kbC4Mv2VPBSJ7EPopwLkn9L5gDUpv+Pz1U6Qy4MBSi1pY37
-	 YNfBFCY8wX7Lh5jCV4T0DQvvb+tzoISMZp3RbB1qJFvuLhVQvGo8ioj+TPtE6JZOGBXVU
-	 0W63m/k1eF/7spYF//YiNUTxZVgfarbo8hOtLSst5pqQbvmZEeN2wMxXb5LPS7YjZOg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795351378;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=prSkEV3qUSQsXfBvO3BgrBMDcq6TDmX7yh8NVtmfjX8=;
-	b=Cml/WsdIWFzm/GCBC+rezqh9eBTpWC/TgJwpV0PwUeUL5fMVuf4iinDD2V797ZQ5Ljst
-	 vBQ0unvQ6r/5Ez2yxPRDhgptz6LagEzTIwrKW3JLGk9jfm38Wf9mk2FutPiy29LM2Z8oy
-	 Cq2MF0VCyy2SGa+Hkse4L5cJB4Me1kWChyAVjkc3dFZqXNSiQP5IeQ462eN6m6t0S86yx
-	 zLK9eLswHzFTlF1j+RGuaKLpGLmYGME/0DUQLiVwN7jU4Djx9sODggvARMRIh3F+TvgYx
-	 oghrdWt/KSBS367Q5Rlgwq5O50jzZyiOsXRHPXohoh3wNZeC20vOzDcVKhLem25Gulg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F2DN3zDp;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795351591;
+	b=HS8Fy9qkWW2AzIrFOPjlccI/OYwpF9NCoR1lYUGaNXk4FEyYFulrGgia1MvwV8rlFBdr
+	 GKvuj+Xbn2snSjFgy/0bPEv8fxOAw1VOJOHLBrsyJShzdHLyWJuw4BKLNFjiq2RDP76Su
+	 q47fT4///zJR7xlBwfyXUifvdqGUw59yY/qc5/+i5o9GQ19EywkEWh0aYlNEIxA0+l+3u
+	 jB2hPTnPXswtyGqb3Ez4zLC9o1QkR+35WXprGpnMV5cGVjCsQ62zE04JCQ+KT7nVevhZn
+	 l6M+4G05RYVTmtNH+UCWPTJ+sfy4EsVyXB16F370sR4VOMTGoT5A2IQnwFytlKMCn3g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795351591;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=uSIK8rb1SJ96UD11IGgozJgI4nPj/hEkxLsPjnR2aF4=;
+	b=H9OfyHGRzxAfP7b2Ko4Mvcutvo3uPZ0H5pdupx7fEklTZN2M4yhKeaG2GinPHGTMizjk
+	 LM+01aWa1T3LZIJo9yC+dlRzT8RbzUMafrI895VxKB1W4pyMkT9s/69Q7qPV7vfizqAd+
+	 pIa4z/r+4VP02+Fvlv4O2uDANw3VhMZL0iziyaN9ReB0i6IUSNyglCDbd0nciVj12OWjj
+	 90VXb/L/barwaj+Js7dDuwIc/qRGOi0MQR41lAtvAmwM7U3pNXjg3EExNLk4UW7hGE2VD
+	 8mV+xQhLFEiws2ysf8I9kII+7kO1VSZ1GwT6SmLn43TPZDQVvR1fyNrGBsDN2CbYTgw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Sz/Qnfd6";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915D4606A32C;
-	Sun, 22 Nov 2026 12:42:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F2B606A320;
+	Sun, 22 Nov 2026 12:46:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F2DN3zDp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 891F91F000C6;
-	Sun, 22 Nov 2026 12:42:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sz/Qnfd6
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795351590;
+	b=0lR3hLRlpuIoduR2hAP143HDxVHETspc56dZ4xKFENHcPH7PKzpRlhHTZauIinmaTJXA
+	 WMCMXj6dhv/2z0LruhIEMz87wxMt96n0Imm37VOpeD22D35Qhazt0TNIHyPw78eSJW0/A
+	 tu/B1HTC4/IB2p2GZ8TG8DxCaV0j9Vq7+5yQcNpe4WBx8ctQewfGbmimsJSR1VABXeeqJ
+	 /yXWTkVptEH/SkAOZi3Lr5uyntqnXdRs5FOEJQvwqlOom/n+OKH8M0sPr0P31LPS2XuBQ
+	 LgIEGd2sWFrVmFQ+BIxJr6axNG8pvx9VveC30h+TMtymbLtfP70thoB3/ZKRkYiI3Ug==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795351590;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=uSIK8rb1SJ96UD11IGgozJgI4nPj/hEkxLsPjnR2aF4=;
+	b=E/Nx6ctj/891RikXH/mpNe2KG8EpEqSc5RXI/A24JT5gq/+9Ve3YQq45m9k4PQEjwepP
+	 ggjxgZPNKX/dTsqNQnNqgefnkEel7A413wRpDO+GrzOVwxJ/Iq8S5H6aIh7Vuz80mcT/O
+	 XzIDbLM5CRRkHK9d2mv/E9ivQNZ1mYGf/dz9HaAhtRYQKrtgCetj31+hIb3B9Mrj/b2VA
+	 qChg62B1P9s0XpYA40Mt3Oumht9ZhvIPR+2x6ZFKdX7diRP+ukzM6+/gL4bvZT93gmZ9R
+	 q6kw0ifdc3gyO9m4uwNuam53YmZjH28HM6hDFJnhZXWiPbcUZ4zx047oj2gOnNCMK6w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 07DB61F000C0;
+	Sun, 22 Nov 2026 12:46:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795351377;
-	bh=prSkEV3qUSQsXfBvO3BgrBMDcq6TDmX7yh8NVtmfjX8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=F2DN3zDpfzlAFEs1RV733+O8P9L4dFs4bfg6vNKrU1S+dcKF9x++tDnmL79ryBeOC
-	 M5gGX1HzxcyFEVTr/tB8Yz6YU6nowJqc4WFP3Rp15bZF9paeEWdJoX2q3dKUAI/9Qb
-	 vTHaQCdmlsKlZ1n5csPyoJBwNBXOi+DCVbU7dDReQ4ejBm+qTqwJlDU903RnhI2lP5
-	 lBGjWqD18oKf2tlRFBqmG4VdrplNer3pgnTMEPoykZyIIdjHxC1KY1fFkn8OzIrRm7
-	 2T+UVXDTIMedjV8pFLRCUAeWX5j2aXwdCwUvt8MVmJoEYXdnRxGjSQA8kIf8Xcy3jn
-	 0tmnZQ3cLAyVA==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sun, 22 Nov 2026 13:42:18 +0100
-Subject: [PATCH 2/2] mm/migrate: allocate destination folios before locking
- a batch
+	s=k20260515; t=1795351590;
+	bh=uSIK8rb1SJ96UD11IGgozJgI4nPj/hEkxLsPjnR2aF4=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Sz/Qnfd6AzEU42DfkWtF+PGxiPqC8J+K8HSvZsm3UhmkX4KKfljIu5mF19QXvki1u
+	 VVxuJRtSaWmfKHm4cnm8DyMlOvu+QYlOzIBXsiuYDrLiGlACnUaaouzCzqDV1pBYF2
+	 SP+VOEQpLbgvSiRPU/sKyPN46Ng7UXUvxKZ4kPK6dAqACBDvKN0M5hX7SIW2kxYV/U
+	 SdXA5NYA1WyLtmhn2V2b8p5mkSiko6yUNHCDzIGedYLgaCZ8ReDXYU8U0qGVsSc58+
+	 GTRQEVNekm99O4FdvyCbFgCLdMAAYbo4w3+tjMYqdoOaTS02HQGZDdPCdrCj+1ERVu
+	 JDTdcN5WrqyYg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 60A204C041;
+	Sun, 22 Nov 2026 12:46:26 +0000 (UTC)
+From: YanXin Li via B4 Relay <devnull+fadouse.pm.me@kernel.org>
+Date: Sun, 22 Nov 2026 20:45:52 +0800
+Subject: [PATCH net v2] net/sched: act_ife: return -EAGAIN after dropping
+ rtnl_lock in load_metaops_and_vet()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,342 +84,125 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261122-migrate_reclaim_deadlock-v1-2-83c56185b0fb@kernel.org>
-References: <20261122-migrate_reclaim_deadlock-v1-0-83c56185b0fb@kernel.org>
-In-Reply-To: <20261122-migrate_reclaim_deadlock-v1-0-83c56185b0fb@kernel.org>
-To: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- William Kucharski <william.kucharski@oracle.com>, 
- Heiko Carstens <hca@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Miklos Szeredi <miklos@szeredi.hu>, Joanne Koong <joannelkoong@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>, 
- stable@vger.kernel.org, Chris Mason <mason@kernel.org>
+Message-Id: <20261122-b4-02-act-ife-rtnl-uaf-v2-102eba468698-v2-1-67c413c45928@pm.me>
+X-B4-Tracking: v=1; b=H4sIAP/jAmsC/yWNQQ4CIQxFr2K6thE6DYNexbgoUBRj0MBoNMa7O
+ 6PL9/Lz3xu6tqIddqs3NH2UXq51BlqvIJ6kHhVLmhnIkLOWCAOjIZQ4YcmKbaoXvEvGB6E1pEH
+ Yebf1mLzd5lHiaIyD+ezWNJfnL7SHqhMc/rLfw1njtCSWWZCuGJrUeFpU04u8cJGbyGwN58ExJ
+ RnJWMeGydGg7AfygxPNKXmFz+cL4NbH7NUAAAA=
+X-Change-ID: 20261122-b4-02-act-ife-rtnl-uaf-v2-102eba468698-d819f7ac7006
+To: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10238; i=david@kernel.org;
- h=from:subject:message-id; bh=iRR0SjdNoHcH4WpV13Z+oejWwFpcHvtvx5X9gVhezrg=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKZHpsezVUJmah4c1X0j8f/DBz23q1iPSYgVn6k6dOMj
- M+z5im/7ChlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAi5gUM/92zrSoVZgo1K58O
- TTc7IteeLv++fInhIhmfCRH+7dHc4Qx/+KZeSS2r9b2RsrrpoWCy4Yre20Kh7962SZebTmi0VKx
- nAAA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795351585; l=3836;
+ i=fadouse@pm.me; s=b4-relay-20261122; h=from:subject:message-id;
+ bh=R6AZ0+3b44AwA7zPArm0D81n4+9WlR/R512inY1q7qw=;
+ b=qsqZxqZfyp9Bt3IIxnnG4mcG2BZmBRa1SWt4lQo37rzuuRbhjD91d8zY5CWAGl8ou5LjCgfjV
+ 0EKLwwLidTZC/RL7clsgPR6PzyWU6WG6fyi2f0uUrytz4i0ZxVU42Qg
+X-Developer-Key: i=fadouse@pm.me; a=ed25519;
+ pk=b4DyzHJDRd8853IHUSKPA5wwzChj8eF4MTnZuyPz1PQ=
+X-Endpoint-Received: by B4 Relay for fadouse@pm.me/b4-relay-20261122 with
+ auth_id=1597
+X-Original-From: YanXin Li <fadouse@pm.me>
+Reply-To: fadouse@pm.me
+Content-Transfer-Encoding: 7bit
 
-Migration locks folios without holding a reference on their inode.
-migrate_pages_batch() keeps a whole batch locked while allocating the
-destinations of the next folios. If such an allocation ends up in direct
-reclaim with __GFP_FS, reclaim can evict an inode through the dcache
-shrinker, and wait in truncate_inode_pages_final() for a folio that we
-hold locked:
+From: YanXin Li <fadouse@pm.me>
 
-    migrate_pages_batch()
-      migrate_folio_unmap(A)
-        folio_trylock(A)
-      migrate_folio_unmap(B)
-        get_new_folio()
-          try_to_free_pages()
-            super_cache_scan()
-              prune_dcache_sb()
-                iput_final()
-                  evict()
-                    truncate_inode_pages_final()
-                      folio_lock(A)
+load_metaops_and_vet() unlocks rtnl_lock() to invoke request_module()
+when an IFE metadata provider module (such as act_meta_mark) is not
+yet loaded, re-acquires rtnl_lock(), validates the metadata attribute,
+and returns 0.
 
-This requires that nothing else holds a reference on the inode, and can
-be triggered most easily with FUSE, which evicts inodes on the last
-reference.
+Returning 0 after dropping rtnl_lock() violates the serialization
+contract of RTNL-locked classifiers (cls_basic, cls_flow, cls_fw,
+cls_route, and cls_u32), which hold an unrefcounted filter pointer
+(fold) across tcf_exts_validate() -> tcf_ife_init().  A concurrent
+RTM_DELTFILTER can delete and RCU-free fold during the unlocked
+request_module() window, after which basic_change() executes
+list_replace_rcu(&fold->link, &fnew->link) and queues a second
+deletion on the freed filter.  Generic KASAN reports:
 
-Consequently, allocations under the folio lock are dangerous if we
-cannot prevent that scenario through an inode reference; and we want to
-avoid grabbing inode references, because we might then drop the last
-one, and would have to evict the inode from migration context, ideally
-without holding any folio locks.
+  BUG: KASAN: slab-use-after-free in basic_change+0xf4c/0x1220
+  Read of size 8 at addr ffff88800e043c58 by task test_act_ife_rt/101
+  ...
+  Allocated by task 101:
+   basic_change+0x1e0/0x1220
+  Freed by task 57:
+   ...
+  Oops: general protection fault, probably for non-canonical address
+  KASAN: maybe wild-memory-access in range [0xdead000000000120-0xdead000000000127]
 
-Allocating in a NOFS scope would be one option, but it would have rather
-bad side effects, such as direct compaction not migrating file folios
-and the OOM killer not being invoked.
+Every other TC module autoloader that drops rtnl_lock() during filter
+updates (tc_action_load_ops(), tcf_em_validate(), and em_text_change())
+returns -EAGAIN so tc_new_tfilter() and tcf_action_add() unwind and
+replay under a fresh RTNL critical section.
 
-So let's fix it by allocating all destination folios of a batch before
-locking any source folio. Now, we no longer allocate destination folios
-while holding folio locks, which also avoids holding these locks during
-direct reclaim or compaction for these allocations: an improvement on
-its own.
+Manipulating TC filters requires CAP_NET_ADMIN in the target network
+namespace, which is reachable by an unprivileged local user inside a
+user and network namespace when CONFIG_USER_NS=y, CONFIG_MODULES=y,
+CONFIG_NET_ACT_IFE is enabled, and an IFE metadata module is not yet
+loaded.
 
-We keep the destination folio of a folio that we have to retry, instead
-of freeing it and allocating a new one. If we would have to allocate
-while already holding folio locks, which can happen when retrying a
-failed split for longterm pinning, we leave the folio to the synchronous
-fallback in migrate_pages_sync() instead, which migrates folios one by
-one.
+When load_metaops_and_vet() drops rtnl_lock() and loads the requested
+metadata module, drop the module reference and return -EAGAIN so the
+caller replays the request with fresh lookups.  With this change, the
+same concurrent RTM_NEWTFILTER and RTM_DELTFILTER sequence cleanly
+loads act_meta_mark, replays without touching the deleted filter, and
+completes with rc=0 and no KASAN or lockdep reports.  A finite
+two-thread state-space interleaving model found the old use-after-free
+and no use-after-free, double-free, or deadlock in its reachable states
+after the change.
 
-Note that nfs_migrate_folio() still writes back the folio while holding
-its lock in MIGRATE_SYNC mode, which allocates memory. As NFS only
-evicts stale or unlinked inodes on the last reference, this is unlikely
-to deadlock; this must be sorted out in NFS code independently.
+The vulnerable code is present in upstream mainline v7.4-rc3.
+Runtime verification and fix validation were performed in an x86-64
+QEMU/KVM guest running mainline after v7.4-rc3 with Generic KASAN,
+UBSAN, and lockdep.
 
-This has medium urgency.
+This issue was discovered through LLM-assisted code audit and manual
+code inspection of net/sched/act_ife.c.
 
-Fixes: 5dfab109d519 ("migrate_pages: batch _unmap and _move")
+Fixes: ef6980b6becb ("introduce IFE action")
 Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: YanXin Li <fadouse@pm.me>
 ---
- mm/migrate.c | 134 ++++++++++++++++++++++++++++++++++++++++++-----------------
- 1 file changed, 97 insertions(+), 37 deletions(-)
+Changes in v2:
+- Resend via b4 because the archived v1 email has a corrupted diff and
+  cannot be applied.
+- State how the issue was discovered and clarify the finite model scope.
+- Link to v1: https://lore.kernel.org/r/20261122030728.9368-1-fadouse@pm.me
+---
+ net/sched/act_ife.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index e6cd83cf32aa1..3bfa4f9dc5078 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -1220,25 +1220,15 @@ static void migrate_folio_done(struct folio *src,
- }
- 
- /* Obtain the lock on page, remove all ptes. */
--static int migrate_folio_unmap(new_folio_t get_new_folio,
--		free_folio_t put_new_folio, unsigned long private,
--		struct folio *src, struct folio **dstp, enum migrate_mode mode,
--		struct list_head *ret)
-+static int migrate_folio_unmap(struct folio *src, struct folio *dst,
-+		enum migrate_mode mode, struct list_head *ret)
- {
--	struct folio *dst;
- 	int rc = -EAGAIN;
- 	int old_folio_state = 0;
- 	struct anon_vma *anon_vma = NULL;
- 	bool locked = false;
- 	bool dst_locked = false;
- 
--	dst = get_new_folio(src, private);
--	if (!dst)
--		return -ENOMEM;
--	*dstp = dst;
--
--	dst->migrate_info = 0;
--
- 	if (!folio_trylock(src)) {
- 		if (mode == MIGRATE_ASYNC)
- 			goto out;
-@@ -1364,7 +1354,8 @@ static int migrate_folio_unmap(new_folio_t get_new_folio,
- 
- 	migrate_folio_undo_src(src, old_folio_state & FOLIO_WAS_MAPPED,
- 			       anon_vma, locked, ret);
--	migrate_folio_undo_dst(dst, dst_locked, put_new_folio, private);
-+	if (dst_locked)
-+		folio_unlock(dst);
- 
- 	return rc;
- }
-@@ -1809,6 +1800,25 @@ static void migrate_folios_undo(struct list_head *src_folios,
- 	}
- }
- 
-+static void migrate_folio_free_dst(struct folio *dst,
-+		free_folio_t put_new_folio, unsigned long private)
-+{
-+	list_del(&dst->lru);
-+	dst->private = NULL;
-+	migrate_folio_undo_dst(dst, false, put_new_folio, private);
-+}
-+
-+static void migrate_folios_undo_unused(struct list_head *pending_folios,
-+		struct list_head *new_folios, free_folio_t put_new_folio,
-+		unsigned long private, struct list_head *from)
-+{
-+	struct folio *dst, *tmp;
-+
-+	list_for_each_entry_safe(dst, tmp, new_folios, lru)
-+		migrate_folio_free_dst(dst, put_new_folio, private);
-+	list_splice(pending_folios, from);
-+}
-+
- /*
-  * migrate_pages_batch() first unmaps folios in the from list as many as
-  * possible, then move the unmapped folios.
-@@ -1831,8 +1841,10 @@ static int migrate_pages_batch(struct list_head *from,
- 	int pass = 0;
- 	bool is_thp = false;
- 	bool is_large = false;
--	struct folio *folio, *folio2, *dst = NULL;
-+	struct folio *folio, *dst, *tmp;
- 	int rc, rc_saved = 0, nr_pages;
-+	LIST_HEAD(pending_folios);
-+	LIST_HEAD(new_folios);
- 	LIST_HEAD(unmap_folios);
- 	LIST_HEAD(dst_folios);
- 	bool nosplit = (reason == MR_NUMA_MISPLACED);
-@@ -1845,7 +1857,14 @@ static int migrate_pages_batch(struct list_head *from,
- 		thp_retry = 0;
- 		nr_retry_pages = 0;
- 
--		list_for_each_entry_safe(folio, folio2, from, lru) {
-+		/*
-+		 * Prepare the source folios, and allocate the destination
-+		 * folios before locking any source folio. We lock source folios
-+		 * without holding an inode reference, and direct reclaim could
-+		 * try evicting the inode to then deadlock on folio locks.
-+		 * Further, this reduces folio locking times.
-+		 */
-+		list_for_each_entry_safe(folio, tmp, from, lru) {
- 			is_large = folio_test_large(folio);
- 			is_thp = folio_test_pmd_mappable(folio);
- 			nr_pages = folio_nr_pages(folio);
-@@ -1925,21 +1944,24 @@ static int migrate_pages_batch(struct list_head *from,
- 				continue;
- 			}
- 
--			rc = migrate_folio_unmap(get_new_folio, put_new_folio,
--					private, folio, &dst, mode, ret_folios);
- 			/*
--			 * The rules are:
--			 *	0: folio will be put on unmap_folios list,
--			 *	   dst folio put on dst_folios list
--			 *	-EAGAIN: stay on the from list
--			 *	-ENOMEM: stay on the from list
--			 *	Other errno: put on ret_folios list
-+			 * Don't allocate while holding folio locks, but leave
-+			 * the folio to the one-by-one fallback in
-+			 * migrate_pages_sync().
- 			 */
--			switch(rc) {
--			case -ENOMEM:
-+			if (!list_empty(&unmap_folios)) {
-+				retry++;
-+				thp_retry += is_thp;
-+				nr_retry_pages += nr_pages;
-+				continue;
-+			}
-+
-+			dst = get_new_folio(folio, private);
-+			if (!dst) {
- 				/*
- 				 * When memory is low, don't bother to try to migrate
--				 * other folios, move unmapped folios, then exit.
-+				 * other folios, migrate the folios that we have
-+				 * destination folios for, then exit.
- 				 */
- 				nr_failed++;
- 				stats->nr_thp_failed += is_thp;
-@@ -1950,7 +1972,7 @@ static int migrate_pages_batch(struct list_head *from,
- 					if (!ret) {
- 						stats->nr_thp_split += is_thp;
- 						stats->nr_split++;
--						break;
-+						continue;
- 					} else if (reason == MR_LONGTERM_PIN &&
- 						   ret == -EAGAIN) {
- 						/*
-@@ -1963,18 +1985,42 @@ static int migrate_pages_batch(struct list_head *from,
- 						/* Undo duplicated failure counting. */
- 						nr_failed--;
- 						stats->nr_thp_failed -= is_thp;
--						break;
-+						continue;
- 					}
- 				}
- 
--				stats->nr_failed_pages += nr_pages + nr_retry_pages;
--				/* nr_failed isn't updated for not used */
--				stats->nr_thp_failed += thp_retry;
--				rc_saved = rc;
--				if (list_empty(&unmap_folios))
--					goto out;
--				else
--					goto move;
-+				stats->nr_failed_pages += nr_pages;
-+				rc_saved = -ENOMEM;
-+				break;
-+			}
-+			/* Remember the source folio until we unmap it. */
-+			dst->private = folio;
-+			list_move_tail(&folio->lru, &pending_folios);
-+			list_add_tail(&dst->lru, &new_folios);
-+		}
-+
-+		/*
-+		 * Lock and unmap the source folios. Each destination folio
-+		 * remembers its source folio in ->private, so walk the
-+		 * destination folios.
-+		 */
-+		list_for_each_entry_safe(dst, tmp, &new_folios, lru) {
-+			folio = dst->private;
-+			is_thp = folio_test_pmd_mappable(folio);
-+			nr_pages = folio_nr_pages(folio);
-+
-+			cond_resched_tasks_rcu_qs();
-+
-+			rc = migrate_folio_unmap(folio, dst, mode, ret_folios);
-+			/*
-+			 * The rules are:
-+			 *	0: folio will be put on unmap_folios list,
-+			 *	   dst folio put on dst_folios list
-+			 *	-EAGAIN: stay on the pending_folios list,
-+			 *		 keep dst
-+			 *	Other errno: put on ret_folios list, free dst
+diff --git a/net/sched/act_ife.c b/net/sched/act_ife.c
+index 5a527da0056..5d6ca124e00 100644
+--- a/net/sched/act_ife.c
++++ b/net/sched/act_ife.c
+@@ -275,6 +275,14 @@ static int load_metaops_and_vet(u32 metaid, void *val, int len, bool rtnl_held)
+ 		if (rtnl_held)
+ 			rtnl_lock();
+ 		ops = find_ife_oplist(metaid);
++		if (ops && rtnl_held) {
++			/* We dropped the RTNL mutex in order to perform the
++			 * module load. Tell the caller to replay the request
++			 * under a fresh RTNL critical section.
 +			 */
-+			switch (rc) {
- 			case -EAGAIN:
- 				retry++;
- 				thp_retry += is_thp;
-@@ -1982,7 +2028,7 @@ static int migrate_pages_batch(struct list_head *from,
- 				break;
- 			case 0:
- 				list_move_tail(&folio->lru, &unmap_folios);
--				list_add_tail(&dst->lru, &dst_folios);
-+				list_move_tail(&dst->lru, &dst_folios);
- 				break;
- 			default:
- 				/*
-@@ -1991,12 +2037,24 @@ static int migrate_pages_batch(struct list_head *from,
- 				 * removed from migration folio list and not
- 				 * retried in the next outer loop.
- 				 */
-+				migrate_folio_free_dst(dst, put_new_folio,
-+						       private);
- 				nr_failed++;
- 				stats->nr_thp_failed += is_thp;
- 				stats->nr_failed_pages += nr_pages;
- 				break;
- 			}
- 		}
-+
-+		if (rc_saved) {
-+			stats->nr_failed_pages += nr_retry_pages;
-+			/* We return rc_saved, so don't update nr_failed. */
-+			stats->nr_thp_failed += thp_retry;
-+			rc = rc_saved;
-+			if (list_empty(&unmap_folios))
-+				goto out;
-+			goto move;
++			module_put(ops->owner);
++			return -EAGAIN;
 +		}
+ #endif
  	}
- 	nr_failed += retry;
- 	stats->nr_thp_failed += thp_retry;
-@@ -2026,6 +2084,8 @@ static int migrate_pages_batch(struct list_head *from,
- 	/* Cleanup remaining folios */
- 	migrate_folios_undo(&unmap_folios, &dst_folios,
- 			put_new_folio, private, ret_folios);
-+	migrate_folios_undo_unused(&pending_folios, &new_folios, put_new_folio,
-+				   private, from);
  
- 	return rc;
- }
 
--- 
-2.56.1
+---
+base-commit: c44104f3642da720164042623e4832836aefdd8e
+change-id: 20261122-b4-02-act-ife-rtnl-uaf-v2-102eba468698-d819f7ac7006
+
+Best regards,
+--  
+YanXin Li <fadouse@pm.me>
+
 
