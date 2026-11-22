@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795370712;
-	b=oMWGFcYY7aF+6U/fwkf7Aw5NJEYmQ9uHLr2NaOiYOZeKJedq8aCqg2DvuZ27AV51gx5z
-	 RPJbJteuomnFOrffE+ycfWDGyPzo/4uDjop3+AcNge6piRtWXor7cQ5BRtG2hYkW3fIGu
-	 3ocOM2RAQCbwC6L12/Al5MOJhU6K0CgszwUSXQfGwpsKq81Ypiv2TkrbSI5+4H8f3rGHf
-	 QQkyU98vqwFnbKtf6HBUzY2OHTNzIkbkHUiQzG1vwB8denLT3EsAuaxR0g1wMWW3QfF/E
-	 vdPQNwcrlqz/fKX325WWof0sKq0oR5Xvz0rStir8Zl5ZPKxe2IW+iSohEjP7GkhZIdg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795370712;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tBoteG1B5Z54++42pujnb/6truX3e6FwCuA6X2V2eYg=;
-	b=N2PINMpei6lngvJ+2GN6AfQjKFz+jGU6nSbAJgvqw+EIufmcVjzgZ3S6fEKnneIPvV9C
-	 Axu6DZcgPKzREU+OkaMa7XyoLZDPM+7yBKlH7waGDqqhF6at7QKuQ/5YdQVtMSgDcInTb
-	 AqSVUZgsWrY575D7f27c1i1Y2UE8BfeJDPXt7p7FtsYjU83LZjO+pnMqsdLULnQsarR5S
-	 CtCu19eMPFnSEtLHHW7sxNovVusIIBnuKmo8kX/MyEKI7Rze5EcqoB75Vt8SmofOjzHMq
-	 h7nw95H7EfrZRYhTAmvGtP3N6WbcgYmSFQygA5zcdkHdhPNKBa0fMTrd24KX4DkHukQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5BEddE5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795371025;
+	b=R28XQ7p58ANrtI7ljkJUCpUFi1SKWnt3JaFpGtc6d/FwZRtP9uxTCl57/WYAlpiy8LNT
+	 E++pOD4vQc0DelyTLgk7n+HRFNDG+WW8JRoK5+wCdjK2U4cPMVcO2ai1W+BlFmhJavaEL
+	 SPEaGg1FPGWJmD4AnUsnhwDzfLRw7ys/pdPHzXT6yeIzxlMC4LNcrgZzpyLJd1ykuu81X
+	 kwa9FpyJRWvCwHRLRAwZOFVWF0bbP++jRo4+u8beKKIdEYL675R1pjPaHB4y5sLmK4M8Z
+	 +Ylb3scBF4guP/G+oRNIsl0lMMYH9oucw9PteAqwCFAPe1J5ga3AGqWQImfunnFKpZg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795371025;
+	h=DMARC-Filter:EX-QQ-RecipientCnt:X-QQ-GoodBg:X-QQ-SSF:X-QQ-FEAT:
+	 X-QQ-BUSINESS-ORIGIN:X-QQ-Originating-IP:X-Originating-IP:X-QQ-STYLE:
+	 X-QQ-mid:From:To:Cc:Subject:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding:Date:X-Priority:Message-ID:X-QQ-MIME:
+	 X-Mailer:X-QQ-Mailer:X-BIZMAIL-ID:X-Address-Ticket:X-QQ-SENDSIZE:
+	 Received:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=OD5NavYjwmYRVbkR8VqwqhIDMwuk3hNu6EvrxHP0U9c=;
+	b=dRYWmDgiXLqPJB3XijSbu9C8fMyeqaeUjwcr+U28LZR+mZIBkXsaMcwZ8Yl+tk8bk1RY
+	 NDLj0IQXbTlU7NmUzKO2E2uKHZ74fOKfFI4v4GT7YWIK8lMaXyUN2eWKbzU+DRCiLEplu
+	 2RuF2qSfNe+nWYkFFR3pRqGStGhcus9yk5Vb01esNHzFoPjREXuRQZn3Yr5SU2tlBYq1x
+	 lwp5BINb/KXXCowupzMYaWsXE1/R3HYDMt4NGSsEBxUp6NPYhO8XcTAXcuc4mMBlWUZ3Q
+	 eewpB/iCg/4JGn7MP5DpG5w+nsssDyfmxh00W/V+MiMlw9+vSwGhJYdULU+moCuVL+A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=e.gzhu.edu.cn;
+	spf=pass smtp.mailfrom=e.gzhu.edu.cn;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38CB606A330;
-	Sun, 22 Nov 2026 18:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5BEddE5
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795370712;
-	b=sJ9SvNeoWhA23UPxwbLaPDstStliJqHt3avBfjO26YAu9mvhNboUqKHi6Ds/4jIAQdny
-	 3899GrP9M7SFXai6tKkq2W2UmnN+dZ5ne61H0WRtoPIMy4OEDb7VaEgwOD47XLD8zNF+u
-	 xSkkT0mETntmMTOIBP4uGB9nSMNvAzdXAv5qGgq2HiReNvwCLFO2yZCjipHROpZIuv11C
-	 YwFjyy38iOBWWrMTfupOk9Ba09AwlRj6clM/Ny4u68S7tlMiMvV57N+bviioItUIzXnLU
-	 n+XMr49mwsqW3Y1kA9D01WBxm/9MfG52dca6ZIreDlgzENd/PUfuIYn7rTYRF8l/r1g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795370712;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tBoteG1B5Z54++42pujnb/6truX3e6FwCuA6X2V2eYg=;
-	b=aDtlU6C9FZxO5QtKI3XKEQ9vfT7E8ef/JilLR0g4liAGD2RROFSKYi2qUj3UU8INoUHQ
-	 tuw+9iMHkmGvvSTCBvltsxj3E7fRHHiWTfKzTNHi3rDVp1hZ/ZygZRT8FY3m0NElIEY25
-	 M1e367rYCwgOU2iy66L9sxErpNUnjvHbWwUsQfYADo8clm1F+78Zxy5ArP6rS8tcF5sa2
-	 cRFoedKp13429naaEysz1Oes6Zz3ODuRRgZ4SM9K0PnjrStwD/rnUp84qQSGF7s8cgjnV
-	 eYWJbGGkabUQ6sPz269rFGQ9NlRZjIWrWyurzvK/wH6XDp35b/9IToLrteT1n+hC88Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 416CB1F000D0;
-	Sun, 22 Nov 2026 18:04:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795370712;
-	bh=tBoteG1B5Z54++42pujnb/6truX3e6FwCuA6X2V2eYg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=n5BEddE5hSv29+oqv+mYmxzke4pZi/w9TNHx8enFZu8aKQLb9a6WFfuEeLYuKNSt2
-	 xgu365aki4TydWsGwasL0f4tunUJ4Ej1hd3DsUnK3kvbKrNSeDJSD85UuzAWDGfGoG
-	 98rM1pgfzgMqnozHfzywXiUT/KUxRS/67AJyLh53KHnNx6Jr87u0qAEQ+Re98rnu39
-	 VwC/82dIDCwOP1e1DeHhMB0mAmKmdOaC8UpaN719xCtRgOUHe9gBoJOz6fJPlbglCI
-	 75pQ57QcMRtjQ2BL/5fE84wt3ew1dN2oo4mIbJPZvepmxPeQIwksZuZ5neX8TM8NUG
-	 sHR+LYn80nr4Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C772A4C16E;
-	Sun, 22 Nov 2026 18:04:57 +0000 (UTC)
-From: Hang Zhengyang via B4 Relay <devnull+hang.zhengyang1010.gmail.com@kernel.org>
-Date: Mon, 23 Nov 2026 02:04:55 +0800
-Subject: [PATCH sched_ext/for-7.4-fixes 2/2] sched_ext: Start ext_server on
- every enqueue
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850E2606A320;
+	Sun, 22 Nov 2026 18:10:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 850E2606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=e.gzhu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=e.gzhu.edu.cn
+EX-QQ-RecipientCnt: 8
+X-QQ-GoodBg: 2
+X-QQ-SSF: 0040000000000040
+X-QQ-FEAT: D4aqtcRDiqS21hctRIwgrWppQSBgmW2wb6dRneOslG0=
+X-QQ-BUSINESS-ORIGIN: 2
+X-QQ-Originating-IP: ssPzF9ThNV/vUaMJznugGAsWDLKqtAwhOAZ8ZpSZRvs=
+X-QQ-STYLE: 
+X-QQ-mid: v3sz3b-12t1795370946t337e6a40
+From: "=?utf-8?B?6buE5Y2O5oiQ?=" <1112433017@e.gzhu.edu.cn>
+To: "=?utf-8?B?bGludXgtcmlzY3Y=?=" <linux-riscv@lists.infradead.org>
+Cc: "=?utf-8?B?cGFsbWVy?=" <palmer@dabbelt.com>, "=?utf-8?B?cGp3?=" <pjw@kernel.org>, "=?utf-8?B?YW91?=" <aou@eecs.berkeley.edu>, "=?utf-8?B?YWxleA==?=" <alex@ghiti.fr>, "=?utf-8?B?ZGVidWc=?=" <debug@rivosinc.com>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: [PATCH 0/1] riscv: usercfi: bind signal shadow-stack restore to the active shadow stack
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,104 +52,91 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-scx-dlsrv-v1-2-87c342d8246e@gmail.com>
-References: <20261123-scx-dlsrv-v1-0-87c342d8246e@gmail.com>
-In-Reply-To: <20261123-scx-dlsrv-v1-0-87c342d8246e@gmail.com>
-To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, 
- Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, 
- Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
- K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Joel Fernandes <joelagnelf@nvidia.com>, sched-ext@lists.linux.dev, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Hang Zhengyang <hang.zhengyang1010@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795370696; l=2788;
- i=hang.zhengyang1010@gmail.com; s=20261008; h=from:subject:message-id;
- bh=IN+RzU0ozG0gu9jpgj8RQX7xnqAmt1p/9Ryev7xZsHs=;
- b=PBlzI9W8mu3TSEauajkWdQrAzd1AqzlaCENqlVjkb4t0v+4rFy34xdXGM5gfws4X31CEenbmz
- J5mBQnzaSbJDb/CHHWnwHEP9oZMXC+/uynAZfLq+Dk6hzmBLX9Vi1OS
-X-Developer-Key: i=hang.zhengyang1010@gmail.com; a=ed25519;
- pk=5drRny3PqRPLhKVB0YIQXN5YyD8miKCpXWhnEPvafAI=
-X-Endpoint-Received: by B4 Relay for hang.zhengyang1010@gmail.com/20261008
- with auth_id=1133
-X-Original-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
-Reply-To: hang.zhengyang1010@gmail.com
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Mon, 23 Nov 2026 02:09:06 +0800
+X-Priority: 3
+Message-ID: <tencent_009592B86559C9177427E98A@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-BIZMAIL-ID: 4503553002980438403
+X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1])
+	by smtp.qq.com (ESMTP) with SMTP
+	id ; Mon, 23 Nov 2026 02:09:07 +0800 (CST)
+Feedback-ID: v:e.gzhu.edu.cn:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: N4WhQbLQyIqSuvWlBh58XioR6WOTTPxNT25mudBrnCIRfrZugK+43r3f
+	XUFrjVOwmR2GkADKDnEGQuOTP0mpTuHIfWVuBA2FBu5a9YcINP24oNA0f8lCKnO6KlxxtWa
+	NsUoP40qC4Rs8Sx12S6LZN5pdpU1u4lYxYdxW46Ww5ybTJdibTTLcmFUEjyPiROfMBu9HiN
+	Hb2SIpZJ9pGBNbKHYo3W2t4yG7StbUS1/Berh0FXx5nK23pkI7w/gaVkBTMtw0Hoa86Uplk
+	SAFuERNj7ecvV8xTDVANb0L+Dmku4zM2ws8WwVnc+SGzIYO+DgQWxWNmL3S3McKXJc4puYE
+	u0QgzMxfNB3za7eYUaU/xzWAt0cML7q37mbPoIuMWbQYNdM8Gm8YHAacP4EwU2KD0/58Tli
+	EZcU4ljgCb/445UWMaYmaY0eo4NwHsBdtFRmuI2y+D4ZqLA4ZZ0YVV9DtCEvVXc76Qc41MC
+	Wd+UPcjqRuta/YPSBTVtvNOzBbo7gFIjDawlylXQ7/kTKjsM5D6e61oCdcB5PS7931sIRzC
+	ceCJzmvEJS/Hdc30g1wOYwETFmMj/C2CuXz55CP+5rabewQ475oJ5fCRsaovnij1BJQczjv
+	fJhXICJu0Eu8bMZLKchoCd7u4gpZrJTgYXLJy0l0U4pbQJ87HNqesm/MkTobiwIY7LS4WHH
+	6cXshbtl2rMZrezFlej3/N/VtHd3SpudGvkXdpfswN3jkmu6w1kmCjMD4Y1kwgTuG+oklIS
+	sRPUYg3E4zTaC1EdlBJ0fQgP3qVKs0rDxdEXW9byZpJJTkYwL+PReSrAJzU1WK7rKKPYFp6
+	8lYL9+suCzqD5QANT60C6MocZUPRS1ncKqGL9vFebhrCVGAFlmC7Q5uzItEfnmp6MqaXZOx
+	AiedjZEiNFdkxF1FQKc2SBHDMqLxwqXafa1vWYM/Jvee8xEVmPOpbpXjjkSr2fAEUzmAx1u
+	U4m38myTR/WL9oYhQ5+n34iPrQKem3zPXGgLY8PhVnEqxa2mAit5JUS4w
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
-
-Since commit a3a70caf7906 ("sched/deadline: Fix dl_server behaviour"),
-ext_server stops when a pick finds no task, and a later wakeup starts
-it again. But enqueue_task_scx() starts it only when
-rq->scx.nr_running goes from 0 to 1.
-
-For sched_ext, a pick can find no task while tasks are still counted on
-the rq. During a disable, scx_claim_exit() sets sch->aborting. After
-that, scx_consume_dispatch_q() no longer takes tasks from the
-scheduler's DSQs. nr_running stays above 0, so no enqueue restarts the
-server. An RT task that keeps the CPU then starves the sched_ext tasks
-there.
-
-A stress test hit this on a debug kernel. While CPU hotplug was
-disabling scx_simple, the server on CPU 0 stopped with 3 tasks counted.
-A SCHED_FIFO spinner then took the CPU with 15 tasks behind it. One of
-them was the RCU grace-period kthread:
-
-  rcu: rcu_preempt kthread starved for 65011 jiffies! ... ->state=R ->cpu=0
-
-The disable was waiting for a reader of scx_fork_rwsem and never
-finished.
-
-Call dl_server_start() on every enqueue. On a running server, it only
-clears dl_defer_idle. On a stopped server that ran in this period, it
-restarts the server at once and reschedules the CPU, even under an RT
-task. So while picks find nothing, each enqueue costs one extra pick.
-This lasts at most one server period (1 s by default).
-
-Peter Zijlstra asked whether the server should start only when a task
-reaches the local DSQ [1]. That is not enough. A task often gets to the
-local DSQ only through this CPU's own pick, and that pick needs the
-server to run.
-
-This doesn't cover a task that another CPU dispatches to this CPU's
-local DSQ.
-
-Link: https://lore.kernel.org/all/20260202195035.GG1282955@noisy.programming.kicks-ass.net/ [1]
-Fixes: cd959a356205 ("sched_ext: Add a DL server for sched_ext tasks")
-Cc: stable@vger.kernel.org # v7.0+
-Signed-off-by: Hang Zhengyang <hang.zhengyang1010@gmail.com>
----
- kernel/sched/ext/ext.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 23294897dd6e..1031267508fd 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -2501,9 +2501,11 @@ static void enqueue_task_scx(struct rq *rq, struct task_struct *p, int core_enq_
- 	if (SCX_HAS_OP(sch, runnable) && !task_on_rq_migrating(p))
- 		SCX_CALL_OP_TASK(sch, runnable, rq, p, enq_flags);
- 
--	/* Start dl_server if this is the first task being enqueued */
--	if (rq->scx.nr_running == 1)
--		dl_server_start(&rq->ext_server);
-+	/*
-+	 * Start on every enqueue: a pick can stop the server while tasks
-+	 * counted here are out of its reach.
-+	 */
-+	dl_server_start(&rq->ext_server);
- 
- 	scx_do_enqueue_task(rq, p, enq_flags, sticky_cpu);
- out:
-
--- 
-2.53.0
-
+SGVsbG8sV2hpbGUgYXVkaXRpbmcgdGhlIHNpZ25hbCBwYXRoIG9mIHRoZSBSSVNDLVYgdXNl
+cmNmaSBpbXBsZW1lbnRhdGlvbiAoWmljZmlzcyBzaGFkb3cgc3RhY2tzKSBhZ2FpbnN0IHg4
+NiBDRVQgYW5kIGFybTY0IEdDUywgd2UgZm91bmQgdGhhdCByZXN0b3JlX3VzZXJfc2hzdGso
+KSB2YWxpZGF0ZXMgdGhlIHJlc3RvcmUgdG9rZW4gb25seSBieSBhIHZhbHVlIHJlbGF0aW9u
+ICh0b2tlbiA9PSBzaHN0a19wdHIgKyBTSFNUS19FTlRSWV9TSVpFKSBhdCBhIHBvaW50ZXIg
+dGFrZW4gZnJvbSB0aGUgdXNlciBzaWduYWwgZnJhbWUgKHNjX2V4dGRlc2Muc3NfcHRyKSwg
+d2l0aG91dCBiaW5kaW5nIHRoYXQgcG9pbnRlciB0byB0aGUgc2hhZG93LXN0YWNrIHBvc2l0
+aW9uIHRoZSBrZXJuZWwgaXRzZWxmIHJlY29yZGVkIGF0IHNpZ25hbCBkZWxpdmVyeS5BIGNv
+cnJ1cHRlZCBzaWdmcmFtZSBjYW4gdGhlcmVmb3JlIHBvaW50IHRoZSByZXN0b3JlIGF0IGEg
+c3RhbGUgYnV0IHN0aWxsLWxpdmUgdG9rZW4gZnJvbSBhbm90aGVyLCBuZXZlci1yZXN0b3Jl
+ZCBzaWduYWwgY29udGV4dCAodGhpcyBpcyBhbiBpbi1ib3VuZHMsIGdlbnVpbmVseSB2YWxp
+ZCB0b2tlbiwgc28gaXQgcGFzc2VzIHRoZSBib3VuZHMgY2hlY2sgYWRkZWQgYnkgZGYzMzNi
+NzJjMGUxKS4gIFRoZSBrZXJuZWwgdGhlbiBzd2FwcyB0aGUgdG9rZW4gb3V0IGFuZCByZXdp
+bmRzIHNzcCB0byB0aGF0IHRva2VuJ3MgcG9zaXRpb24gLSBhbiBhdHRhY2tlci1jaG9zZW4g
+aGlzdG9yaWNhbCBzaGFkb3ctc3RhY2sgZGVwdGggLSBhZnRlciB3aGljaCBzc3BvcGNoaygp
+IHZhbGlkYXRlcyBhIHJldHVybiBhZGRyZXNzIHRoYXQgaXMgb25seSAidmFsaWQiIGF0IHRo
+ZSByZXdvdW5kIGRlcHRoLiAgV2UgY2FsbCB0aGlzIHJlcGxheSBjbGFzcyBBLVJFV0lORC4g
+IHg4NiBDRVQgZG9lcyBub3QgaGF2ZSB0aGlzIHNoYXBlOiBpdHMgc2lnZnJhbWUgY29udGFp
+bnMgbm8gc2hhZG93LXN0YWNrIHBvaW50ZXIgYXQgYWxsIGFuZCB0aGUgdG9rZW4gaXMgcmVh
+ZCBmcm9tIHRoZSBrZXJuZWwtY3VycmVudCBTU1AuVGhyZWF0IG1vZGVsOiB0aGUgYXR0YWNr
+ZXIgYWxyZWFkeSBoYXMgYSBtZW1vcnktY29ycnVwdGlvbiBwcmltaXRpdmUgc3VmZmljaWVu
+dCB0byBjb3JydXB0IHRoZSBzaWdmcmFtZS4gIFRoYXQgaXMgZXhhY3RseSB0aGUgdGhyZWF0
+IG1vZGVsIHNoYWRvdyBzdGFja3MgZXhpc3QgZm9yLCBzbyB0aGUgcmVzdG9yZSBwYXRoIG11
+c3Qgbm90IHdpZGVuIGl0IGludG8gYSBjb250cm9sbGVkIENGSSBieXBhc3MuV2UgZGVtb25z
+dHJhdGVkIHRoZSBmdWxsIGNoYWluIGVuZCB0byBlbmQgb24gYSBmdWxseSBoYXJkZW5lZCB0
+YXJnZXQgKFBJRSArIEFTTFIgKyBjYW5hcnkgKyBGdWxsIFJFTFJPICsgTlggKyByZWFsIGNs
+YW5nIFppY2Zpc3MgaW5zdHJ1bWVudGF0aW9uLCBydW5uaW5nIHVuZGVyIExpbnV4L3Jpc2N2
+NjQgdXNlcmNmaSk6IHRoZSBjb3JydXB0ZWQgc2lncmV0dXJuIHJld2luZHMgc3NwIHRvIGEg
+Y2hvc2VuIGRlcHRoLCBzc3BvcGNoayBwYXNzZXMgb24gdGhlIHJld291bmQgc2xvdCwgYW5k
+IGV4ZWN1dGlvbiByZXN1bWVzIGF0IGFuIGF0dGFja2VyLWNob3NlbiBzaXRlIHRoYXQgcGVy
+Zm9ybXMgYSBwcm90ZWN0ZWQgYWN0aW9uIG9ic2VydmFibGUgb25seSB2aWEgdGhlIHJld2lu
+ZC4gIFdpdGggdGhlIHNpeC1saW5lIGJpbmRpbmcgYmVsb3cgdGhlIHNhbWUgY2hhaW4gaXMg
+YmxvY2tlZCBhdCB0aGUga2VybmVsIGNoZWNrLlN0YXRpc3RpY3MgZnJvbSAxMzAgaW5kZXBl
+bmRlbnQgZXhlY3ZlIHJvdW5kcyAoNzAgdW5wYXRjaGVkIC8gNjAgcGF0Y2hlZCwgQVNMUiBv
+bik6IHVucGF0Y2hlZCA2Ny82NyBzdWNjZXNzIGFtb25nIHJvdW5kcyB0aGF0IGNvbXBsZXRl
+ZCByZWNvbm5haXNzYW5jZSAoMyByb3VuZHMgbG9zdCB0byBhIGxlYWstd2luZG93IGFydGlm
+YWN0IHVucmVsYXRlZCB0byB0aGUgcGF0Y2gpOyBwYXRjaGVkIDUyLzUyIGJsb2NrZWQgYW1v
+bmcgY29tcGxldGVkIHJvdW5kcy4gIE9mZmljaWFsIGtzZWxmdGVzdHMgKHJpc2N2L3NpZ3Jl
+dHVybiwgc2lnbmFsL3Nhcywgc2lnbmFsL21hbmdsZV91Y19zaWdtYXNrKSBwYXNzIGlkZW50
+aWNhbGx5IG9uIGJvdGgga2VybmVscywgYXMgZG8gbm9ybWFsL25lc3RlZC9zaWdhbHRzdGFj
+ay8gc2lnbG9uZ2ptcC9zZXRjb250ZXh0L3N3YXBjb250ZXh0IHNjZW5hcmlvcy4gIE92ZXJo
+ZWFkIG9mIHRoZSBhZGRlZCBjb21wYXJpc29uIGlzIGJlbG93IG1lYXN1cmVtZW50IG5vaXNl
+IChzdWItbnMgbmF0aXZlOyBUQ0cgcnVucyBzaG93IG5vIG1lYXN1cmFibGUgZGVsdGEgYWJv
+dmUgYm9vdC10by1ib290IHZhcmlhbmNlKS5UaGUgZml4IHVzZXMgdGhlIGV4aXN0aW5nIGdl
+dF9hY3RpdmVfc2hzdGsoKSBib29ra2VlcGluZyB0aGF0IHNhdmVfdXNlcl9zaHN0aygpIGFs
+cmVhZHkgbWFpbnRhaW5zIGF0IGRlbGl2ZXJ5LCBzbyB0aGUgYWRkZWQgY29zdCBhdCBzaWdy
+ZXR1cm4gaXMgb25lIGNvbXBhcmlzb24uICBUaGUgcGF0Y2ggaXMgZ2VuZXJhdGVkIGFnYWlu
+c3QgdGhlIHRyZWUgd2UgdmFsaWRhdGVkIG9uOyBpdCB0cml2aWFsbHkgcmViYXNlcyAoc2lu
+Z2xlIGh1bmsgaW4gcmVzdG9yZV91c2VyX3Noc3RrLCBwbGFjZWQgYWZ0ZXIgdGhlIGRmMzMz
+YjcyYzBlMSBib3VuZHMgY2hlY2spLlJlcHJvZHVjZXIgKHByb2JlLCBzY3JpcHRzLCBwaW5u
+ZWQga2VybmVsLWltYWdlIGhhc2hlcywgbG9ncykgYXZhaWxhYmxlIG9uIHJlcXVlc3Qgb3Ig
+dmlhIGEgYnJhbmNoLlRoYW5rcyxMb29raW5nIGZvcndhcmQgdG8geW91ciByZXBsee+8gQ==
 
