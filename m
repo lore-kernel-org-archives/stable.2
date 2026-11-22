@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.180
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795318060;
-	b=rcD6Wh5SkoD0nIHUSIXS2Gm/yzR2suUmRQf+EIyZlOmyOjygnNhtVnaZ8X3i4sFoZi6P
-	 ieS124DnYhM8ZNifEEl706lPSxlp0nGFfLHfmeIjUIhbCpILkxjcE7N4eONlsC0XcXFHz
-	 XPlOVbFY0qlUgFbVvUTUhP2WVJ6lthfLMRmtVj0joTCMbsQ+roPStutaMqEFAIFtJbGab
-	 Fi84lRVSrwDdstjiGSiWgRcXI/lmapdVfdUrOVaMx8sEa61Bv16UsY7yIhUUVVT4VPehS
-	 iwY+au4zcd03KimeT8SjvuXnoMoHyHQ7c8zCfJib7vwgsfMEQ398UrvCmZEiRXyMTkw==
+	t=1795318494;
+	b=HzJplQ6HURD1GKPKUwz51xDOesXQ0p/jidAkSfkKsZOUHw3Ua336cTqHuWmvcXPhmyEX
+	 S//msyUzCcbb7KaBkMk5s8iJr6Jt/5W+Utfk2aFNi/CSCTR+Q+teTenLC1aE/2lI8oEXu
+	 qxCym44lkU4PacXgQ0vzI/iiNsUrchzhCBjhsdCkI25BXR6KZHROMIxhDTNZK6Nc2hZep
+	 V6fbGOUUf+kvf5D7CZgdO5AM6k+H3PWSydMbLaWB5ZZSwGe59KzsoJiCNQNr5ibHi3tR9
+	 c/6D94DVN25hnD4ITEcNF2HhCXRNaAF+Ytz4BaZaqk/W8U8U0Oc/BebQng60tY0JfJA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795318060;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795318494;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=aQuu64Lnrpq9I3PH64EXbxDYmc8Cf7fUiyLVTDHPmr4=;
-	b=ORxV7k+TzT7WgV3+t1SgCJQSbsBGo565vj9bjEp4vRuFBSNamYIWi4w9lFUk0b/wCwrp
-	 OtrGgn0YzljN0yGzXSFsPygf0Wd+r/C/OPnGKU3LbrTKAyvJSWj3Wwp3CauS2+uOHLS7X
-	 gpRK0Oa/WFa6YBI4yglWgL4xtzbHBuOBVfswGbxVAD1Djy3Xu7d3nKUFv1jjyIYokYZm8
-	 0jq/99iVnwWHPQwzqQVgF90QZ2qFWaO0Ib6qp7qBXnNGImthG8MsEahkYfAJkpXJucso2
-	 jimvg7jJBxNUaBqiiVcawgmoocGcgoQbhfvxenQlunmq++tA9/LTCGTadU+C5MoYMHA==
+	bh=+arqdc7YBoB64Vn5DbGyaeiFfyImnvCCTd6+VOMToaU=;
+	b=Wh9QBshbaQcdc5c4sq0peeG8Hkpp0VHlT5AyYlFf44cxddOzHbjKZACj1eoU4aW/1PLE
+	 VGNbidY01XGSXmy3Wg9Vf2EwGhh4+kB4Zrj7rJwXdCQBXQjZenkX0dFbOOV39DenI6UIb
+	 EPhy0AZSLCUjzZlEfOzO5vNfejaozm+zbc8IqRF+/vBXZUKPPy8g5j6PGe7KiGmtdxbDy
+	 euseZ0fAbUgFkqojZZSz2/45GjKFhhfA3xL2oej8ahhpFJ5px/J6HKJo/uAcr3sZXpWa1
+	 pB6fQkLgot8j/osEORsR5FAHRhK1QPyi4RjnSX9nm5OonYIa5mNR+Wki0VliMPOT/hQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="G4/77Ugo";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BZh7YZ8a;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.180
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161C2606A320
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 03:27:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 161C2606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94567606A320
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 03:34:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94567606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=G4/77Ugo
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-55be673e029so152161cf.1
-        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 19:27:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795318059; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BZh7YZ8a
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-54492d8a988so215171cf.0
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 19:34:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795318492; cv=none;
         d=google.com; s=arc-20260327;
-        b=ktXq0sgYiEXpb+fSkGWdeqPDmgMRMnxBvAd4KOFbsOObKYDPACMKycC8zA2iGvxrRB
-         uO4TW/+qsUCXAvrSD8dMETpgSv3WG+f448iJsrzvPByc1mzWdvUZaNoHwiJJ4yqNHD/1
-         unBx2pZF0p//OU0uEHYpAnUdnR9ZySFsxAAXX8yOYUOY7SHTRPUYbvpHDA1yIAG+W/Ni
-         rsbgHUhCQerabPm3JzaCMAycNg3fx912ZPKhnQpGbmOUao8F2nu1UNflXa0rXiJOQxYY
-         QalEH/+apmxde0O5poxu8jD0wiPEP2yELc0LjXIm6ABuzNmhC8kg6IqfmX6A2TGKb4c4
-         jB1w==
+        b=OQwXsf7xlfIC1K//uG6xvJae0mIPHv07RvgqornhFkMdEf0pQh0vyC62a5aM1DYocm
+         +lXhjXaogEogp/WtgceHms2D5HnMq6jHyc08bXKLUXF737HREqPP0Q0/Mat5i3ACs8Jl
+         Jy/JvLKy4LycS17oT9lclwKsnmPsseMkJGHz92a1SB4zTpHQsdafLBj7vTxxmPrmY22U
+         zaCees7qaWU1TsKFrdqQyit8cvBot+QHgxJ6bGx01VqjAJNX7sV+j4GlJrcbXpE556N3
+         aetcUTOhV7ko0UiI3YXRvE0ajv+ZOyInmPuH06XLKBJlEju3tTpsuW+MUPqVZlUflRg/
+         kCnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=aQuu64Lnrpq9I3PH64EXbxDYmc8Cf7fUiyLVTDHPmr4=;
-        fh=vs63Q8KQge8vc+yVbxkn0AEuXtP/yWaW3UWjiAtIC5s=;
-        b=peCbpwXWwTbEOF9kuGq9WMV95gxREVe7BkEhOAcpK87hckmohCYnftnPfXcIsFSTfa
-         BiFr+vw1xxDRNGZItNFrn1YmkoJP/ENJNHRXQBXmcCD05egSaNx51vYyyXbY6o60hJZk
-         hSTq0D7AorGXhOPUbC3qBy1HyV1DnhI+0j9Oa7QO/mtAV42XyoJ46+NIALc6+iXby5nW
-         F45fmP6veoMUWKhWqszHY2A/sMW0FjNi5+lOtDKGlpYM+ImUF301RMLaljGgcA3NJqgy
-         vxg3imG9OFMB0A1Kcsq4CmJuY0WQcuEkzRHK0ke2BcAcdR9MSJn5me585Ko+f40Hfiki
-         eOjA==;
+        bh=+arqdc7YBoB64Vn5DbGyaeiFfyImnvCCTd6+VOMToaU=;
+        fh=rvVEJO6kUQHQksuhhaEX0QNWEYzXSZNbaQvlAjz1/p4=;
+        b=ruPVgPsbl9XkgUxZV9Yv9P6lUZOMT4YHYtgeKm5wxHqd4wLMskMygsra9ccoP/BqZM
+         UnDuu9p87Stx8/RwHtqX2CnAbqorQV5p9dFAmhmsuosXEKhb/QKkBA8qMW5GiTP3IDs6
+         JG2wqUCO285Yy23AfXh9XUWOEpy4Y2cojLRXci0PKjBEye0+50+DXiFP+B97HYbT2nYT
+         ihQFS/Ohi5+298C/4zuqFkUz4YAHOcJTm7uoxamI7s+BI8VFY7iRDjBvT5EVFfDFziiB
+         65sunnb/HRXCpozQ0Y4X5/yjLEV3YcHFEHyoH6NI9WBaVPNTReemHLq/9q7Qr+rU8dPS
+         Jyig==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795318059; x=1795922859; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1795318492; x=1795923292; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=aQuu64Lnrpq9I3PH64EXbxDYmc8Cf7fUiyLVTDHPmr4=;
-        b=G4/77UgoUvYhrFzOl4QL4j5eXcBT+MELt4Qvv951biDEBRHDetuhA4tREx9b24impj
-         Fe5WUSIRpPbLoF+ebXPTXMoIBFFyEoLttyMDuF4Hi7hwMReFArahZk3r7/4ITtDjUxlR
-         h7b35I/xhlyqAzJ3dQHSbMnPukEQ67fUabKBCZxkfbUuMYTbrQ6N1Tgk05jsoyx6Ld9L
-         Bf0532ehcNerGntvDmd9HdpeqRXWKEjv89QFZZK8ysva/W6RsESSqDznVFJP3MeKpY1J
-         k/OG57jMriEBvkVMHLQbr/ALARpANLrbaXC9HHrzdlatSQ4vBBHarAmDGAtylPb480Mt
-         ufXw==
+        bh=+arqdc7YBoB64Vn5DbGyaeiFfyImnvCCTd6+VOMToaU=;
+        b=BZh7YZ8a+Axw+NuW1A2J8CzdyE1lZ+cdPZmj59+4FeGqWkqcCOnCOTwrsrGWNonqpn
+         sPZhPP5mIQSoyKFTdCQS+evpNTpHHrDF8VAfKmvRd2oD15abLZNOCiDXttIoK6dvMHIG
+         rRtXoIJ8bPoyS5p6i/3BJhi073EnFfOViWZm5Fa3/RO3WBVA+otoqjDkhNpTzS5BCXrO
+         EMNCnWxDOPbCl8YyPjIHYfRWwqr4wayQIgfwKAjoV7++iNJppQ450q0nGKJmIE1qXpru
+         7feIEqli1unkyXUa3MgkxuztPEbuvYPAZDuJqw77r3ZjM64qt8Zgg8WOZzuJ541THg5H
+         9Dtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795318059; x=1795922859;
+        d=1e100.net; s=20260707; t=1795318492; x=1795923292;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aQuu64Lnrpq9I3PH64EXbxDYmc8Cf7fUiyLVTDHPmr4=;
-        b=HhRlahOUWU98lKdPCRyCTEa2qUn6OXiyVbIbsB64dH2X07640IOQYYf3sM1TDHFN5g
-         ebm8IRucMclEcUMDZyjP0MSTCfUhrzpCfhPHyKDjUPRSEwA/OPG3WoS5kyPFuc3io5wD
-         S6CphngKdK4x3gk6FmKhYlr7T+VkaRV4BN/FeB3LC0AHQJwkgtk7SicUlWr+Ivft5aeu
-         BzTx0kr19vyIlQU0OiNlqMegeCwTTek8ja0LCB8XcC403yuP+VLyAxhEmwuTrOdJUVIG
-         KAJH0sfaXuOONnB+f4wdqQYmPMFLlTwzBP5GdJEyDmCkwDsFZxxSh0WIyePMjpj8Z2bF
-         CzsA==
-X-Forwarded-Encrypted: i=1; AL+hErHLQa3q/9DIgOXkNGPtygH32yj0Xo7sSrA5WabymJfsTALEPVVyrow4sTwwCI8DIb2IXsDFrzg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mK4oafEFzKxi+Dj33p7rTl30f04LlazDTFB46nIWyXzfb3e1u
-	VjQgG1x3cQNcBc+XUNp2s2sUwTuysFSanZmMCEyUsWHK6cBL5tOQInwrCBMJihbA7EreuYh8FgY
-	lh1Ne3j2hIrY2eKAjMtxAO1nMUI65UpgWUpN2R1RnY/dYWwr41gCiFMIr2Rw=
-X-Gm-Gg: AZFdTZd1l88aanFckvEqG2sNgazTMQxhYyFYdKXWMpBm/JG/K9vHAu6oQTd+iMsyG9o
-	T8KJ39GhK9YonctnNwnTLd9funCTP0GFg6EYqDwsREN+PDN0vhN3/b9LGdQdJRcPsUhBUffpcA8
-	mIqxcFXe7YFGzbK6ht4Pye5wAAlKInzCI3NNKDCpjo7rDg5wRMEBNL0jUAdspIip/CBtYMnu3AA
-	gcDVKXmfYCjH8+AUxwbd1YYll60XUEgVchC43Xv1BMmfEgmhllRHkqKTovKJF+VORG+vPhnJWMf
-	yRsOULRq5z1x1FNnJvw00iHQkY1xaVmxoely19Me3I6+0oKxjxQb58uZsi2MTNejFjXMnegYKGe
-	j2Lnr4NLAbzbJETuJfJWHNYwoX/b7v7pakvAKDDO+fkDonIeQD7cqMAwfN/BR4jseNlUv6uA=
-X-Received: by 2002:a05:622a:5594:b0:534:d386:c3f1 with SMTP id
- d75a77b69052e-55d8900c88cmr12803541cf.9.1795318058238; Sat, 21 Nov 2026
- 19:27:38 -0800 (PST)
+        bh=+arqdc7YBoB64Vn5DbGyaeiFfyImnvCCTd6+VOMToaU=;
+        b=x3t2g+RoBPcAV0HUj9foihGvYerepB8DZWyDPKga2kj3rJE3+qvAF8EUmgsm2H1eHi
+         AAihIicxI20K97LxnoUlHuVAzu98lNoXYHdr+FAVbGEpbD2dqluO8MkvrKssTO/pWRqM
+         zTqYLDFGlphAoitwvVXdZGr4CFN4XjyAyDTK7BmAgG4dqsWc8ahnzg9VzwD3yBjErRJw
+         kOb5AscqlJDfb9kXk3WMrTrBkCGEMGEnqv8uKZXuuENkNJVI+g9kvM1R3ULzOObhvH6u
+         L+lbK6DyESVR/9iCN77Zzs9GHWLSgFD+3iMpUal4LVLrAagRNzLHXwPenlkj9Z4okrfA
+         w8bw==
+X-Forwarded-Encrypted: i=1; AL+hErHAUhvEe7PCHmbADE/6fqIwNUtZjio/+0tNbuUiBAu3eir46jpLWDNTx9znmMkIxsDJInuOmNc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/QqEKKssKfWiEe62+PfksrUVjc9P1sX+ksArU3Y9PpKrGefiE
+	gXYhTmcaL+RwF+Fw5iJVvJlS4g0GQgDz2tfLYi0xKlN6WRNvzFD2rUWtyOzEEMK1KjYNJfyQSsR
+	fBrIDjS50M4rWAEzK+zhYn3vYrLf6yESIDQyJUBun
+X-Gm-Gg: AZFdTZcs980X903TiIQf3ag1JFBJkyUgWUetM2Ae2415SB2TO3OdKWS2FXnp12Znaw6
+	XRVG9SrAljfs+/WNl1GV7ZLC2sppU7r6oMWHxWyzwa295fbdbYy1X+2rri6BmmYMPUUssPO/Y5h
+	2gG0zKhWQeOeuNmxNfdciA/uY2CX72pe5Z5TbHz17Y51BBzDXF8ZwyBxIIXbxEysRU9dS7TH/ro
+	wk8XW0BEfSr1gWP0umsKtyExeSK9mYr3hJ+2Sxt8F3TMEqfsrW34whIGf3W/F9Ruh02aaMJ1h9y
+	q8xZ4+Zr7+grEHITwf9eQBFH2XjxxUnmyMq2c7hYt1nv+nqw5tNgSQDxsHLp9bSEKRCqNv3/moI
+	lsMI0FGs/Vw1cqnHcMUd5qod1d2d1zs5+ySXclwrjnryAhbRhrkmnhvbXW8Zy+pmgo7Q5mbc=
+X-Received: by 2002:a05:622a:1f17:b0:52f:9ed4:8d76 with SMTP id
+ d75a77b69052e-55d890644camr16243611cf.14.1795318491908; Sat, 21 Nov 2026
+ 19:34:51 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,13 +104,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261121-some-more-ai-fixes-v1-0-236e925d9b64@kernel.org> <20261121-some-more-ai-fixes-v1-3-236e925d9b64@kernel.org>
-In-Reply-To: <20261121-some-more-ai-fixes-v1-3-236e925d9b64@kernel.org>
+References: <20261121-some-more-ai-fixes-v1-0-236e925d9b64@kernel.org> <20261121-some-more-ai-fixes-v1-4-236e925d9b64@kernel.org>
+In-Reply-To: <20261121-some-more-ai-fixes-v1-4-236e925d9b64@kernel.org>
 From: Suren Baghdasaryan <surenb@google.com>
-Date: Sat, 21 Nov 2026 19:27:27 -0800
-X-Gm-Features: Aa3M54pbSuLu1xqUqKb1UsA0ciFH-QHE34ZIs3C9DZaD8srMEy0uzBAMlfeJdPI
-Message-ID: <CAJuCfpHipq2N9xHwj+Uc4M=Xxw2fe8yJgKnayYvC3H9uZc-uyA@mail.gmail.com>
-Subject: Re: [PATCH 3/7] mm/ksm: only interrupt unmerging on a fatal signal
+Date: Sat, 21 Nov 2026 19:34:41 -0800
+X-Gm-Features: Aa3M54pDb_dgj_Fs32ZEZae2DuXiVzBHiwxoPTSr9uOCmICIMPOaQKf8n_YO330
+Message-ID: <CAJuCfpE8Vz2sM=q7gjAjk3V5fboqKUA--ohLYmA4ffE4VWM4ag@mail.gmail.com>
+Subject: Re: [PATCH 4/7] mm/vma: fix uncharge after failed stack relocation
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 Cc: "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
 	Shakeel Butt <shakeel.butt@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
@@ -128,82 +128,101 @@ Content-Transfer-Encoding: quoted-printable
 On Sat, Nov 21, 2026 at 8:03=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
 rg> wrote:
 >
-> Commit d952b79136a6 ("ksm: fix endless loop on oom") added a check for
-> pending signals on KSM break, so that a lengthy unmerge could be
-> interrupted, with the system call then restarted via -ERESTARTSYS.
+> From: Chris Mason <mason@kernel.org>
 >
-> However, it assumes that the callers can always restart whatever system
-> call started it in the first place (the commit message questions whether
-> this was wise).
+> An execve() that fails to relocate its stack can underflow
+> vm_committed_as, and the commit limit of vm.overcommit_memory=3D2 then no
+> longer holds.
 >
-> Well, it turns out that it was not wise, as this baked in an implicit
-> assumption about system call restartability, and it was and is not safe f=
-or
-> mremap().
+> exit_mmap() uncharges vma_pages() of each VMA with VMA_ACCOUNT_BIT, so
+> the charge has to match the size of the VMA. relocate_vma_down() expands
+> the stack VMA by the relocation distance without a charge, and relies on
+> its vma_shrink() to make the two match again. But it returns with the
+> VMA still expanded if move_page_tables() can't allocate a page table,
+> for example at the memory cgroup limit, or if vma_shrink() fails:
 >
-> mremap() holds an mmap write lock over the operation, which an -ERESTARTS=
-YS
-> drops, meaning that the restart is not in a consistent state.
+>     relocate_vma_down()             charged    vma_pages()
+>     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D            =
+ =3D=3D=3D=3D=3D=3D=3D    =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>                                     L          L
+>     vma_expand()                    L          L + shift
+>     move_page_tables() fails
+>       return -ENOMEM
 >
-> This was made considerably worse with commit d23cb648e365 ("mm/mremap:
-> permit mremap() move of multiple VMAs"), which can result in data loss if
-> you encounter this issue.
+>     exit_mmap()
+>       tear_down_vmas()
+>       vm_unacct_memory(L + shift)   -shift
 >
-> Consider an mremap() specifying MREMAP_FIXED | MREMAP_DONTUNMAP of two
-> KSM-mergeable VMAs, where a signal becomes pending part way through:
+> On x86-64 with 4-level page tables, the distance is up to 16 GiB for a
+> 64-bit program, and about 128 TiB for a 32-bit one.
 >
->     first pass                          restart
->     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D                          =3D=3D=3D=3D=
-=3D=3D=3D
->     unmap tgt1 range
->     copy src1 to tgt1, move page tables
->     unmap tgt2 range
->     break_ksm(src2) =3D -ERESTARTSYS
->                                         unmap tgt1 range, which now
->                                           holds the data from src1
->                                         copy the now-empty src1 to tgt1
+> Fix the issue by giving back the charge of the stack VMA where its
+> relocation fails, and excluding the VMA from what exit_mmap() uncharges.
+> The argument pages of the dying task are then outside the commit charge
+> until exit_mmap() frees them.
 >
-> This results in the user observing a successful mremap() but with src1's
-> data missing.
->
-> Without MREMAP_DONTUNMAP, remap_move() would find a gap at the start of t=
-he
-> range on restart and fail with -EFAULT there instead.
->
-> Fix the issue by only breaking out of an unmerge if a fatal signal is
-> pending, returning -EINTR when we do. This makes KSM unmerging consistent
-> with many other signal checks in mm.
->
-> Target commit d23cb648e365 ("mm/mremap: permit mremap() move of multiple
-> VMAs") for the fix as this made the issue significantly more impactful.
->
-> Reported-by: Chris Mason <mason@kernel.org>
-> Fixes: d23cb648e365 ("mm/mremap: permit mremap() move of multiple VMAs")
+> Fixes: b6a2fea39318 ("mm: variable length argument support")
 > Cc: <stable@vger.kernel.org>
+> Signed-off-by: Chris Mason <mason@kernel.org>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 
 > ---
->  mm/ksm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  mm/vma_exec.c | 22 +++++++++++++++++++---
+>  1 file changed, 19 insertions(+), 3 deletions(-)
 >
-> diff --git a/mm/ksm.c b/mm/ksm.c
-> index 623a2cdb3924..5d320a200951 100644
-> --- a/mm/ksm.c
-> +++ b/mm/ksm.c
-> @@ -627,8 +627,8 @@ static int break_ksm_pmd_entry(pmd_t *pmdp, unsigned =
-long addr, unsigned long en
+> diff --git a/mm/vma_exec.c b/mm/vma_exec.c
+> index 586c52155942..84b98f1a201d 100644
+> --- a/mm/vma_exec.c
+> +++ b/mm/vma_exec.c
+> @@ -45,6 +45,7 @@ int relocate_vma_down(struct vm_area_struct *vma, unsig=
+ned long shift)
+>         struct vm_area_struct *next;
+>         struct mmu_gather tlb;
+>         PAGETABLE_MOVE(pmc, vma, vma, old_start, new_start, length);
+> +       int err;
 >
->         if (ksm_test_exit(walk->mm))
->                 return 0;
-> -       if (signal_pending(current))
-> -               return -ERESTARTSYS;
-> +       if (fatal_signal_pending(current))
-> +               return -EINTR;
+>         BUG_ON(new_start > new_end);
 >
->         start_ptep =3D pte_offset_map_lock(mm, pmdp, addr, &ptl);
->         if (!start_ptep)
+> @@ -68,8 +69,10 @@ int relocate_vma_down(struct vm_area_struct *vma, unsi=
+gned long shift)
+>          * process cleanup to remove whatever mess we made.
+>          */
+>         pmc.for_stack =3D true;
+> -       if (length !=3D move_page_tables(&pmc))
+> -               return -ENOMEM;
+> +       if (length !=3D move_page_tables(&pmc)) {
+> +               err =3D -ENOMEM;
+> +               goto err_unacct;
+> +       }
+>
+>         tlb_gather_mmu(&tlb, mm);
+>         next =3D vma_next(&vmi);
+> @@ -93,7 +96,20 @@ int relocate_vma_down(struct vm_area_struct *vma, unsi=
+gned long shift)
+>
+>         vma_prev(&vmi);
+>         /* Shrink the vma to just the new range */
+> -       return vma_shrink(&vmi, vma, new_end);
+> +       err =3D vma_shrink(&vmi, vma, new_end);
+> +       if (err)
+> +               goto err_unacct;
+> +
+> +       return 0;
+> +
+> +err_unacct:
+> +       /*
+> +        * The vma now spans more than was charged, so exit_mmap() must n=
+ot
+> +        * derive the uncharge from its size.
+> +        */
+> +       vm_unacct_memory(length >> PAGE_SHIFT);
+> +       vma_clear_flags(vma, VMA_ACCOUNT_BIT);
+> +       return err;
+>  }
+>
+>  /*
 >
 > --
 > 2.56.0
