@@ -1,78 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795322828;
-	b=EDcVhJWgC0dQLiC/v4kA0+U+kNWkPtzchMp5pXQbzix5hAlbv5DLsFiiR4NECEnXSGYo
-	 1gJKqJKgl1EwZuxPBEuW69JfEnV1xzNAsuD2hozE0eJ1bNxNjItPSu291pDPWRYGjVhzm
-	 KezPDezbefLPM+YpQEHzD8wR0s5rIupjtlsL8tKz/57xl25caJPFBbkjnS8b4Nvp5zhW/
-	 NSfAygazfiGVpIpXBjA4CsaOj3qxrlD2RITHYzub8eunk8963QIHUyq8gKrQy5A7iJpG8
-	 78Gzy8a6w0V8ius2xJMtgXhMajW6kX8twkSiXf3D2WowvBl6jGxTB6wRqhDfy7hhwig==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795322828;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hgNSXCilZSiGUlts21/2XhRMTu9t2frtIV3H6E36P4g=;
-	b=gwTMry96VTDPtNpLw/M8y9rJJehcwot/MbUGOA0g3eJw0XV74p7A6eyEuqK7QrYp8jHW
-	 Rmc+UK9wWdG2Vn8pI/1kIv7DjihKGQhZFZ5aiXD96Vjrb7+rSqLTO3r+737tSJNO6qros
-	 DW0yEoecxX0bprrgaZV6REM/XjsUZcc/xCDQx5OsR/J+DimKN0gMErGCmwp2eAe9b0v2W
-	 6xl9yUZhaZX1L9MlLdML02YyoRz7YN6AhadGkM7Gb6tSYqiS9QMavuU3oc04QbKF3KYOo
-	 SBEr7xeVQ7PUE66/03bjRuoTqrCqHvqoQ4VSmewLVBrXa7FkJau0jqRs6uXhELNM31g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GT/mVnLE";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0F0606A320;
-	Sun, 22 Nov 2026 04:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GT/mVnLE
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795322828;
-	b=BkSZMu8ijehu4FMPNLw1V5BW4XL20fcdKo931DTpFV9pggzPpQ0eKSVDYLiCXbMNShHI
-	 apfPIZxBIsEg6gYet20/JUDM1COpbUyN/pDtQSHVoQNkEC8plGt2hpG9I3M5QQq8ffkQs
-	 8+2LBgdq7eBhLl11e7MNrl31jMvBVPpTPE6mK+pswnVKIpGC2lFWGzsuZq29CY0tWLdVS
-	 yMvLBn/s39Hux+rjVoAVM5dCcS2lNH3p06Cq+5CNZdDaUY2PvIiQxUdaxR3Cr6q0pGvMB
-	 ArwNvksVmJT8Isq9jwFWH8/jo0fMHiJtVjGsdK3ecwrERfp0xXeBSMwM9ZUjxuaNVFg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795322828;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hgNSXCilZSiGUlts21/2XhRMTu9t2frtIV3H6E36P4g=;
-	b=ZnpA5i15fgHZ3cPMziE/2HeFemR7a97WTlMcqw3uNav9+dHSKu/TAn4ep4H2s3Vc7/z1
-	 YywVSsV4zGuPBEw4+7u2X4zgu9hZ9DIoaQAG7K73X89W2kZewzkfsZ8fZzbAErOXgP/PR
-	 VsjBcpTR8HS+YBD618cqAGyVK1RjWfo0nVaTsgCdTBpZCxOl7/aWnq6wd0ouB37xq9dW2
-	 9+NBzY6kQ6KGGjzGSsmcI3EUtgeRkd00129qgLgv2U2HqS13cYS51lClIhFLfMLNoVneP
-	 O94Czp1+ESosL4SmPn9rUCfSxlLELlH/G3HaYr+NrtAzipGIsj8nIkOPCggUMy9Aomw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795323198;
+	b=3FYMegut6ngyDcFpxt+AHeRukdCm3v70Gb2zDtGWXlvqxaGSFIqpoXjTbaCI9y3xUEI9
+	 F7xcdnx7Ih98pKZ3WtJ3YQoP2de/EQVly++W5ZDvXDaF0ppJ/uPFk/TUwjCjX7m2dS3gy
+	 gYkBg0rbRaHrsywWZ4E6RFwpSYkPp0PmqgChZ2J9CnVgLAdjETM25ESTMCu71X2TzUMTy
+	 ChZYZ2q8uLRq8kAPbnDGs7nBLogEouc+rvrg/9hLrUztke70Ns/iV3hpT7/Oi7OLDwgvr
+	 f01dqR0aaL3MbM2/aTAKzo6OUYzE23chleVdaVqtqi4/9huEfeHXM41XXSNwrHmbaaQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795323198;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=oks9eY76UytAKWrw+eVWgHuLR6pmqJrjhRKQxGvvV4U=;
+	b=kk4KJXes9+FB7IQMbLBUebz5O8Gt3GwymjlP092ZVVsEiubFL043ArwsU14GwWIjrdM+
+	 +fljJUw/ThK6OMV7lmzo9BD57yGU/QGfpCvG6nfCu/kszsp5j91eQY45BGMbPXcHnbfVH
+	 KefXMK4obKM+glom2SkPJRtwAQf4GgndwB60QXA16w+K28t+z/Hx/pGaIwF+4Zy3/x9vJ
+	 sMY7xQ2KJBDMHrazKijwjZUpMADTByzTjU7ncZIJaWHij284AnzXP/B1x4qwzirpj3xbg
+	 fwIJZLuvUJwxPjCwg3ai5CHXYkUcduxLvdtOGnHxgRcYcY5mey/akqmmJPz8AGrongA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oOXM3PFX;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9B8631F000C0;
-	Sun, 22 Nov 2026 04:47:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795322828;
-	bh=hgNSXCilZSiGUlts21/2XhRMTu9t2frtIV3H6E36P4g=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=GT/mVnLEnmcfPSV/5lXja7olh/H32kS/WFoPwwb5ipskwLhVJZWFV60tg/XIfvP4o
-	 ea3pdg/eGVq67GiHy3yHLp3GUNCuwe4QUjSRjKgi+zFsz9OrVMyk09/oEWlI2mdvKF
-	 LQpBtnlzIgevQLmgsj7FN91T+O0HVY7bGZI6g2y51zZfCG2q5fi7wmxKLnmyavlU5V
-	 RQJJdxWcyNWP/07P7HiOjaJOR3xO5ffMcMfWLZaH/fA8Ka8XiJ+WpDL2kutG4epl9K
-	 hnnRShdP+53F21YgNG4y19WkKMecowRwhc21fAUmwHeGMN+QOjpZxKesesvq6sYRaI
-	 RVaTvlKIfRL9w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 304124BEDC;
-	Sun, 22 Nov 2026 04:47:07 +0000 (UTC)
-From: YanXin Li via B4 Relay <devnull+fadouse.pm.me@kernel.org>
-Date: Sun, 22 Nov 2026 12:46:51 +0800
-Subject: [PATCH bpf v2] bpf: bound arena allocations to the user VMA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001E0606A681
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 04:53:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 001E0606A681
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oOXM3PFX
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so3766462eec.1
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 20:53:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795323197; x=1795927997; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oks9eY76UytAKWrw+eVWgHuLR6pmqJrjhRKQxGvvV4U=;
+        b=oOXM3PFXfNCanDqmX9+bq1Mzgl/CZu2Hoa6UA+XvowY/HKQTrUblcAlqyUhJrzpxOz
+         5vbOZX2BrOv5JgX06ai6XEQCcs+XBHVFCGyrx3ggVUryBXtCY9Dc3AOe1cCAGlr+GKYs
+         YDzeh8Y8CC1TmdUdNE4td+YxcavBwzN2FR6MPtLnu/OHXKgzREeHFmOTSPDdrXSD5kkV
+         cmsD/3Ke0VuMF3PgHUHN9pDeG1MLdn8kknePNRksLpi0ijLzgYiMSS2Erxx9xeuCBaYY
+         CFnijkL1YVjw2Y6Wg5SXidZ7gw0cY0nZxkjfhdj5/QzMtVb1nS/hJJHbQFLq7l+Qfocr
+         HOTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795323197; x=1795927997;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oks9eY76UytAKWrw+eVWgHuLR6pmqJrjhRKQxGvvV4U=;
+        b=wlEJpRF2yvIsS5FzNkY3NxHiL9XUoYxtVxmKl+8mE8KMqmFZlFfNlgqTZ3L4GswjR6
+         fPH/qDo/knZO0p2r2kCBkEIdP+ujW13uDGiSAlDRsFwQOjuK2cZOiuUpDJ4FKCuEIdzn
+         41AWWgmh9Ha/jJgZq4SvOoffHxqhIiITiMcB2NTzUpNjW3vJs/t0oxQB0cyBljWQta4l
+         onC6zwWbrY3M/a+DDcKFue7/5XjQSdVLg6TLAuoZVQR4bZ+Eaym+tb4tONUGmrg2MySA
+         DeVFGCKpJ2zwPFC+Y/6dYWC2INcod6DNdKH1ffc+b47NayZn/zo6bnj45M2NYwOlknLe
+         NjQQ==
+X-Forwarded-Encrypted: i=1; AL+hErEho0+umIU+xg/IR81WguZtRE5p8V1+YFaJRvuCUM49sXz2kGDpm2QeUQyQQVCyDuxyrFS6xR0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z97GW3AY6Tlt/bXx6Z3ZLfLClLZy3AuiubegG4L9zFoP1rVPLjD
+	+3XhBp6blzF39/OYEuZ9Wp/R5ydKorQCSzukfbDTEjX96HVSYJqGaWCHGptMHuHBFhY7pjm2s2j
+	pJ6fL9JM7TA==
+X-Received: from dybgw22.prod.google.com ([2002:a05:7301:2396:b0:386:d33:70e9])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:e9c5:20b0:381:f33d:ed9d
+ with SMTP id 5a478bee46e88-3856fb6a214mr9733196eec.21.1795323196565; Sat, 21
+ Nov 2026 20:53:16 -0800 (PST)
+Date: Sat, 21 Nov 2026 20:53:13 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,209 +75,159 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-b4-03-bpf-arena-vmalloc-oob-v2-5f6209c1a20e-v2-1-b2a9906e9676@pm.me>
-X-B4-Tracking: v=1; b=H4sIALpzAmsC/yWN0W7CMAxFfwX5GQvH8ULhVyYenNSBoNJWyag2I
- f597fZ4j67OeUGzWqzBefeCaktpZRrXwfsdpJuOV8PSrxuYODjHjFGQPMY5o1YbFZeHDsOUcJo
- iLowfOTCdklMmQ8oU4il7UjFYjXO1XL7/ap+wKuDyD9sz3i19bZ3tFrUZxqpjum2o2qA/uMFDE
- nEk2QfhXo9MLggJB/YmnefOB7Xc953B+/0LMRrYLNoAAAA=
-X-Change-ID: 20261122-b4-03-bpf-arena-vmalloc-oob-v2-5f6209c1a20e-0f06b9f30a4e
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, bpf@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795322826; l=7440;
- i=fadouse@pm.me; s=b4-relay-20261122; h=from:subject:message-id;
- bh=DPOtTXYJ4A1Nsdzdq03zG2Y5kDlcW+p1iolpXZYER2w=;
- b=DA4j9fo2bRLcEcu9pwke58tYN2uokIfmZv5IhsOq04QPUxGY+/ZKHUdhW5CZAj5aAJ3QUxoo/
- 6hySkBljCgLAkwQ1KLnhrUauSnQhllFZHf+su0Y5fIiZblytKkqtIH0
-X-Developer-Key: i=fadouse@pm.me; a=ed25519;
- pk=b4DyzHJDRd8853IHUSKPA5wwzChj8eF4MTnZuyPz1PQ=
-X-Endpoint-Received: by B4 Relay for fadouse@pm.me/b4-relay-20261122 with
- auth_id=1597
-X-Original-From: YanXin Li <fadouse@pm.me>
-Reply-To: fadouse@pm.me
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+Message-ID: <20261122045313.18372-1-irogers@google.com>
+Subject: [PATCH v2] usb: typec: hd3ss3220: Propagate regmap_read() errors from
+ attached-state check
+From: Ian Rogers <irogers@google.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, Elkin Cruz <elkin@google.com>, Ian Rogers <irogers@google.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: YanXin Li <fadouse@pm.me>
+hd3ss3220_get_attached_state() has return type 'enum usb_role' (an
+unsigned enum) yet returns negative regmap_read() error codes directly.
+Neither hd3ss3220_set_role() nor output_poll_execute() checks for errors;
+on a transient I2C failure (such as -EIO, cast to 0xfffffffb),
+hd3ss3220_set_role() passes the bogus value to usb_role_switch_set_role()
+and disables VBUS power. On role-switch providers without a .get callback
+(where sw->role caches the value passed to usb_role_switch_set_role()),
+reading /sys/class/usb_role/*/role subsequently indexes usb_roles[role]
+out-of-bounds.
 
-bpf_arena_alloc_pages() hands out page ranges from the arena's range
-tree, which is initialized to max_entries pages, while the kernel
-mapping of those pages is built at kern_vm_start + (u32)user_addr.
-The fixed-address path and bpf_arena_free_pages() both assume that a
-returned range stays inside the user VMA, so that its lower 32 bits
-do not wrap past the end of the arena's 4 GiB kernel vm area:
+Return an int status from hd3ss3220_get_attached_state() and
+hd3ss3220_set_role(), pass the resolved enum usb_role via an output
+pointer, leave the current role and VBUS state unchanged on I2C read
+errors, and propagate errors to hd3ss3220_probe() and hd3ss3220_irq().
 
-    long page_cnt_max = (user_vm_end - user_vm_start) >> PAGE_SHIFT;
-    ...
-    if (uaddr) {
-            ...
-            if (pgoff > page_cnt_max - page_cnt)
-                    return 0;   /* bound only on the fixed-address path */
-    }
-    ret = arena_adjust_tree(arena, uaddr, page_cnt, &pgoff);
-    ...
-    uaddr32 = (u32)(user_vm_start + pgoff * PAGE_SIZE);
+Found via an x86_64 LLVM=1 (Clang 21.1.8) allyesconfig audit with
+-Wimplicit-int-enum-cast enabled; fix and changelog drafted with an AI
+coding assistant. Build-tested under LLVM=1 W=1 (-Werror) and
+-Wimplicit-int-enum-cast; not tested on TI HD3SS3220 hardware.
 
-When map_extra is not given, arena_map_alloc() does not know the user
-address and accepts any mmap() length up to max_entries pages, and
-arena_get_unmapped_area() only requires that the mapping does not cross
-a 4 GiB boundary.  A process can therefore mmap() a VMA that ends
-exactly at a 4 GiB boundary while max_entries is much larger: for
-max_entries = 2^20 and a 288-page VMA at 0xffee0000, the range tree
-still holds free pages past the VMA, and arena_adjust_tree() hands
-them out on the uaddr == 0 path with no bound on pgoff + page_cnt
-against page_cnt_max.  A program that first allocates 287 pages and
-then asks for 288 more receives pgoff = 287, uaddr32 = 0xfffff000,
-and arena_alloc_pages() maps 288 pages at kern_vm_start + 0xfffff000:
-one page inside the VMA, then the arena's upper guard pages, and then
-258 pages into the vmalloc area past the end of the arena's own
-vmap area - installing PTEs into address space the arena does not own
-and returning a "success" pointer to the caller.
-
-The damage cannot be undone: arena_free_pages() clips every free to
-the VMA, so the pages mapped past kern_vm_start + 4 GiB are never
-freed, arena_map_free() only walks the arena's own area, and the stale
-PTEs and leaked pages survive the destruction of the map.  A second
-arena whose kernel area happens to follow the first one receives
-PTEs for pages it does not own; its user-visible arena_vm_fault()
-finds them with vmalloc_to_page() and maps another map's pages into
-its own user VMA.  When the walk instead reaches an already-mapped
-foreign PTE, apply_range_set_cb() reports
-
-    WARNING: kernel/bpf/arena.c:190 at apply_range_set_cb+0x4d9/0x830
-
-after failing to install into the neighbour's page.  Any program that
-may use an arena map (CAP_BPF, or an arena delegated through a BPF
-token from a user namespace) can reach this; no race is needed.
-
-Fix this on both sides.  On the first mmap() of a map created without
-map_extra, mark [vma_pages, max_entries) as allocated in the range
-tree, because nothing outside the VMA can ever be freed or mapped
-without wrapping; no program can allocate before user_vm_start is
-set, and the same mmap() path already serializes on arena->lock.  And
-reject pgoff ranges past the VMA in arena_adjust_tree() with -ERANGE,
-mirroring the existing page_cnt_max check of the fixed-address path,
-so that even a stale tree entry cannot hand out an unwrappable range.
-
-This issue was found through LLM-assisted code audit and manual code
-inspection of kernel/bpf/arena.c, and then checked with a Z3 SMT model
-and reproduced locally with a custom BPF test program in an x86-64
-QEMU/KVM guest running v7.4-rc3 with KASAN, UBSAN, lockdep, and
-DEBUG_OBJECTS enabled.
-
-With a map created without map_extra and a 288-page VMA ending at a
-4 GiB boundary, calling bpf_arena_alloc_pages() reproduced both the
-out-of-VMA vmalloc mapping into an adjacent arena and the
-WARNING: kernel/bpf/arena.c:190 at apply_range_set_cb().  After
-applying the patch, the wrapped allocation returns NULL while in-VMA
-allocations continue to succeed with no kernel warnings.
-
-A test case and full validation logs are available on request.
-
-Fixes: 317460317a02 ("bpf: Introduce bpf_arena.")
+Fixes: 1c48c759ef4b ("usb: typec: driver for TI HD3SS3220 USB Type-C DRP port controller")
 Cc: stable@vger.kernel.org
-Signed-off-by: YanXin Li <fadouse@pm.me>
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
-Changes in v2:
-- Resend via B4 Relay because the original email gained extra blank lines.
-- Document how the issue was found and verified.
-- No code changes.
-- Link to v1: https://lore.kernel.org/r/20261122031025.9771-1-fadouse@pm.me
----
- kernel/bpf/arena.c | 44 ++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 42 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
-index ec2bda1a6eb..8adc2d589c7 100644
---- a/kernel/bpf/arena.c
-+++ b/kernel/bpf/arena.c
-@@ -694,6 +694,34 @@ static int arena_map_mmap(struct bpf_map *map, struct vm_area_struct *vma)
- 	if (remember_vma(arena, vma))
- 		return -ENOMEM;
- 
-+	if (!arena->user_vm_start && vma_pages(vma) < map->max_entries) {
-+		/*
-+		 * The range tree spans max_entries pages, but the user VMA
-+		 * set below is smaller and its lower 32 bits do not wrap
-+		 * past the 32-bit boundary.  Mark the pages past the VMA as
-+		 * allocated so that bpf_arena_alloc_pages() can never hand
-+		 * out a range that would be mapped past the end of the
-+		 * arena's kernel vm area and could never be freed.
-+		 */
-+		unsigned long flags;
-+		int ret = -EBUSY;
-+
-+		if (!raw_res_spin_lock_irqsave(&arena->spinlock, flags)) {
-+			ret = range_tree_clear(&arena->rt, vma_pages(vma),
-+					       map->max_entries - vma_pages(vma));
-+			raw_res_spin_unlock_irqrestore(&arena->spinlock, flags);
-+			WARN_ON_ONCE(ret);
-+		}
-+		if (ret) {
-+			struct vma_list *vml = vma->vm_private_data;
-+
-+			list_del(&vml->head);
-+			vma->vm_private_data = NULL;
-+			kfree(vml);
-+			return ret;
-+		}
-+	}
-+
- 	arena->user_vm_start = vma->vm_start;
- 	arena->user_vm_end = vma->vm_end;
- 	/*
-@@ -743,7 +771,8 @@ static u64 clear_lo32(u64 val)
- 	return val & ~(u64)~0U;
+Notes:
+    v2:
+      - Propagate regmap_read() errors out of hd3ss3220_set_role() to
+        hd3ss3220_probe() and hd3ss3220_irq(), and test
+        !hd3ss3220_get_attached_state() in output_poll_execute() (Greg
+        Kroah-Hartman).
+      - Add Cc: stable@vger.kernel.org (Heikki Krogerus).
+    
+    v1: https://lore.kernel.org/r/20261119170650.1521609-1-irogers@google.com
+
+ drivers/usb/typec/hd3ss3220.c | 38 ++++++++++++++++++++++++-----------
+ 1 file changed, 26 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/usb/typec/hd3ss3220.c b/drivers/usb/typec/hd3ss3220.c
+index 60d6de9ba339..bdd4eaeca753 100644
+--- a/drivers/usb/typec/hd3ss3220.c
++++ b/drivers/usb/typec/hd3ss3220.c
+@@ -163,10 +163,10 @@ static int hd3ss3220_set_source_pref(struct hd3ss3220 *hd3ss3220, int prefer_rol
+ 				  src_pref);
  }
  
--static int arena_adjust_tree(struct bpf_arena *arena, long uaddr, long page_cnt, long *pgoff)
-+static int arena_adjust_tree(struct bpf_arena *arena, long uaddr, long page_cnt,
-+			     long page_cnt_max, long *pgoff)
+-static enum usb_role hd3ss3220_get_attached_state(struct hd3ss3220 *hd3ss3220)
++static int hd3ss3220_get_attached_state(struct hd3ss3220 *hd3ss3220,
++					enum usb_role *attached_state)
  {
+ 	unsigned int reg_val;
+-	enum usb_role attached_state;
  	int ret;
  
-@@ -759,6 +788,17 @@ static int arena_adjust_tree(struct bpf_arena *arena, long uaddr, long page_cnt,
- 	if (ret < 0)
- 		return ret;
+ 	ret = regmap_read(hd3ss3220->regmap, HD3SS3220_REG_CN_STAT_CTRL,
+@@ -176,17 +176,17 @@ static enum usb_role hd3ss3220_get_attached_state(struct hd3ss3220 *hd3ss3220)
  
-+	/*
-+	 * The range tree spans max_entries pages, but when map_extra was
-+	 * not given at arena creation time the user VMA, and hence the
-+	 * range whose lower 32 bits do not wrap past the 32-bit boundary,
-+	 * can be smaller.  A pgoff past the VMA would wrap uaddr32 past
-+	 * the 32-bit boundary, be mapped past the end of the arena's
-+	 * kernel vm area, and could never be freed, so reject it.
-+	 */
-+	if (ret > page_cnt_max - page_cnt)
-+		return -ERANGE;
+ 	switch (reg_val & HD3SS3220_REG_CN_STAT_CTRL_ATTACHED_STATE_MASK) {
+ 	case HD3SS3220_REG_CN_STAT_CTRL_AS_DFP:
+-		attached_state = USB_ROLE_HOST;
++		*attached_state = USB_ROLE_HOST;
+ 		break;
+ 	case HD3SS3220_REG_CN_STAT_CTRL_AS_UFP:
+-		attached_state = USB_ROLE_DEVICE;
++		*attached_state = USB_ROLE_DEVICE;
+ 		break;
+ 	default:
+-		attached_state = USB_ROLE_NONE;
++		*attached_state = USB_ROLE_NONE;
+ 		break;
+ 	}
+ 
+-	return attached_state;
++	return 0;
+ }
+ 
+ static int hd3ss3220_try_role(struct typec_port *port, int role)
+@@ -229,9 +229,14 @@ static void hd3ss3220_regulator_control(struct hd3ss3220 *hd3ss3220, bool on)
+ 	hd3ss3220->vbus_enabled = on;
+ }
+ 
+-static void hd3ss3220_set_role(struct hd3ss3220 *hd3ss3220)
++static int hd3ss3220_set_role(struct hd3ss3220 *hd3ss3220)
+ {
+-	enum usb_role role_state = hd3ss3220_get_attached_state(hd3ss3220);
++	enum usb_role role_state;
++	int ret;
 +
- 	*pgoff = ret;
++	ret = hd3ss3220_get_attached_state(hd3ss3220, &role_state);
++	if (ret < 0)
++		return ret;
  
- 	return range_tree_clear(&arena->rt, *pgoff, page_cnt);
-@@ -812,7 +852,7 @@ static long arena_alloc_pages(struct bpf_arena *arena, long uaddr, long page_cnt
- 	if (raw_res_spin_lock_irqsave(&arena->spinlock, flags))
- 		goto out_free_pages;
+ 	usb_role_switch_set_role(hd3ss3220->role_sw, role_state);
  
--	ret = arena_adjust_tree(arena, uaddr, page_cnt, &pgoff);
-+	ret = arena_adjust_tree(arena, uaddr, page_cnt, page_cnt_max, &pgoff);
- 	if (ret) {
- 		raw_res_spin_unlock_irqrestore(&arena->spinlock, flags);
- 		goto out_free_pages;
-
----
-base-commit: c44104f3642da720164042623e4832836aefdd8e
-change-id: 20261122-b4-03-bpf-arena-vmalloc-oob-v2-5f6209c1a20e-0f06b9f30a4e
-
-Best regards,
---  
-YanXin Li <fadouse@pm.me>
-
+@@ -250,6 +255,8 @@ static void hd3ss3220_set_role(struct hd3ss3220 *hd3ss3220)
+ 		hd3ss3220_regulator_control(hd3ss3220, role_state == USB_ROLE_HOST);
+ 
+ 	hd3ss3220->role_state = role_state;
++
++	return 0;
+ }
+ 
+ static void output_poll_execute(struct work_struct *work)
+@@ -258,9 +265,10 @@ static void output_poll_execute(struct work_struct *work)
+ 	struct hd3ss3220 *hd3ss3220 = container_of(delayed_work,
+ 						   struct hd3ss3220,
+ 						   output_poll_work);
+-	enum usb_role role_state = hd3ss3220_get_attached_state(hd3ss3220);
++	enum usb_role role_state;
+ 
+-	if (hd3ss3220->role_state != role_state)
++	if (!hd3ss3220_get_attached_state(hd3ss3220, &role_state) &&
++	    hd3ss3220->role_state != role_state)
+ 		hd3ss3220_set_role(hd3ss3220);
+ 
+ 	schedule_delayed_work(&hd3ss3220->output_poll_work, HZ);
+@@ -270,7 +278,10 @@ static irqreturn_t hd3ss3220_irq(struct hd3ss3220 *hd3ss3220)
+ {
+ 	int err;
+ 
+-	hd3ss3220_set_role(hd3ss3220);
++	err = hd3ss3220_set_role(hd3ss3220);
++	if (err < 0)
++		return IRQ_NONE;
++
+ 	err = regmap_write_bits(hd3ss3220->regmap, HD3SS3220_REG_CN_STAT_CTRL,
+ 				HD3SS3220_REG_CN_STAT_CTRL_INT_STATUS,
+ 				HD3SS3220_REG_CN_STAT_CTRL_INT_STATUS);
+@@ -501,7 +512,10 @@ static int hd3ss3220_probe(struct i2c_client *client)
+ 	if (ret < 0)
+ 		goto err_unreg_port;
+ 
+-	hd3ss3220_set_role(hd3ss3220);
++	ret = hd3ss3220_set_role(hd3ss3220);
++	if (ret < 0)
++		goto err_unreg_port;
++
+ 	ret = regmap_read(hd3ss3220->regmap, HD3SS3220_REG_CN_STAT_CTRL, &data);
+ 	if (ret < 0)
+ 		goto err_unreg_port;
+-- 
+2.56.1.750.gf70dc682cf-goog
 
