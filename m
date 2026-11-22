@@ -1,79 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795384992;
-	b=qGdYiksQDMJr2w/NiGAKrXROZT/wS4FYNNf4X31mA7VMGEUf6CBtGS4rX/k/I9FtoaPm
-	 uwgfYUt/Er7p1WT2dSFjQi6jbxZnYms/nIuKQ8P3/iAlEomGXP8hKt1r0MKu+i+4r87B0
-	 7ECU0Nf99Y9LpaOnygKJC1i354kFx0JimTFLIaEiXLXeLzEV7SwUY+YDRnVkGysN8ESgC
-	 Dbm0S3iY5ftEkQDlEAMdUKiPSuQ1HZj3mO6XG1Nm155QUVhJW+PxF/4u9dQxSatAeRFm0
-	 UrEtLs4dARhWhoS8GXZ10+Ym7U5vWSWikt25IUifLhuwGhWje7Vx0Rbh/8GXexl3U3Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795384992;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=TYuw29kk9vznSRQWW7d8By5fgiZ7ZqjEohaa5d/tT5E=;
-	b=tCEBgJ3HIjpQ8yzPpo99naDYIf/niSVdMIzUJLRt3st1Zn4DaPeZBwAtdmU31aCydU/+
-	 fhM6OBqzBT6MtxBTxded2BeToQ6iISI6LKMZc2Hkk+8zCCCIFF0pIBeGcFksbUuy1KzNo
-	 ODngyjl6x5HBfzalCXEvUJ9i8nR/TiUldM9yNQA4k1dyIojkS4yAzl8yPCzyI9FzyQcpX
-	 YiW6Ik8p27C4F1dSFYfDji5Gsa/gnQCig6R/LCqJSQe74VXiZOfIhWrjdmFR8vaFLCzvI
-	 2UGW7jxku2yrfPNfVb5XZgStP0SYQEORzLoEM5bTPVB0ONG3GicnF+/ulZ83g0ScaLw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWvrWGqU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66390606A69B;
-	Sun, 22 Nov 2026 22:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWvrWGqU
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795384991;
-	b=vi7k1wMSLI3k0s547RRW3N7vG6vHdyzNVxZnjCrxzDgecOrRBTOclN+IqJJ8XHFthTui
-	 6itxbBJuurM5N3dn5ImAdPDGhoJ3oIAEeHG7WZrNZc83y7wIAqu2yruUFgTHLEPF5N+s/
-	 nvhKwOmUOmTN8F05kno5LTKX4xOddDmKxwXJmpFQ7oPPkbfFubX9yxHUpJLjsRpLH4McG
-	 VxkPUuVEUvrxKx+9Wd8bgWcTuVjMMtMnMqI84BARryF7H8Cfh7ijIQ/o3uOu6+oYrTGgt
-	 5ZJbZaVNOUvrN7w0uNjhxOMrqyLwSCnxw2wsIffmo1i1C/AB7Wu36UqsXEQRKEern4g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795384991;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=TYuw29kk9vznSRQWW7d8By5fgiZ7ZqjEohaa5d/tT5E=;
-	b=lwtJjq8bTkNb1/6TRnW5qT6hCGwiprNz9NbdooNmI8glXC3X4ygIJxdwoR4ASECIwp3z
-	 ZhxeLSJyDj3AHeX67E0W1rDM/VXtafLIFm/zQ96DhtMXZbPIVSWAUVYseBZr9C85BwZnm
-	 WlC73WlcW0+n+0aTk/mD5dMzLZ5OtGM0mUO+tjT9F7Cg6VOfsG3+9XQ++66uMBrbSJAMp
-	 kcE7ZdPMP9ip3wpuLAHYLgjIDE4LRNjOUkVdd3vgsa9XR9hiEAO4aTbqsHPJ6ZyX/qLSa
-	 tcJwI92KOAvvIc3UORsa0k/vWIWRG3xlRJRtjEREo40xvoSg7yvr2lLXHaKhyE/HvdA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795385049;
+	b=pYILfvbbhRHEGkdYvE+zql5St4t/TLlK6K1vpOyZT3gHD5aoGW8Q3GjwXM4PyhUqHOVb
+	 wSEF16qVjbC92SoybLbZ43pDHxJzE5VCPZPx0MtWToKwuE6p2q4dqPONuStNgnaiNZCSN
+	 36INDMAN9QEjhbNW72tma4Co9wAKiXjM/7I+tusYqoZkYWt6N5SsU/Ujsufpn/IN2sXQl
+	 8t1xb6bt6itCmVqJbR3YNeiRsK2JfizgCLL0wWqsONKOCnJUW5tpiO/AScudtvgauYtU+
+	 oM3M6AyxZ/74rYkZ4VqQyeyUDWYk/r28zt5XgEOAjjNsw5Xi5MSANN+lGiaNDPPUajg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795385049;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=e1UeqpHopmbaPkusoHxAs650nxIkw9JTuQGwP/8OHlk=;
+	b=NNPX7b5RFkkR0Gv+W3Mhkj7StiIcZRavK/5KNZ74q11BQdW02Jy1z1EVS5EwzzNwFdfD
+	 e2wpygNvJ4IYjLk4WaYpP8FmnW1RzsH7ff9PHqPpgEcpErPe6vIDtRM2zr1v7ptt0i/Cx
+	 xrElczkKlUrVlpw5XFfsUQkDEbV83LKbdfEzgDcz/5GnrR5RGj5842AGrjTXmd4bBukxz
+	 mb0yw9XRCkqvfFcpXVpJv3UykeHELUHPxzxp72r5oyBgPeMNaxjL2jKp5nkJmqurD2Es9
+	 q/ukfbS5MywQrW0ivDI2vc5Ad9znSvJyelLHHEKRx9Gkgjty4OUcZ2kf4NR/PTcjPog==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=Zb6i+C64;
+	arc=none smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5978A1F000EB;
-	Sun, 22 Nov 2026 22:03:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795384991;
-	bh=TYuw29kk9vznSRQWW7d8By5fgiZ7ZqjEohaa5d/tT5E=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=OWvrWGqUqvuqTlmfxCGkP3fcRdvo9d+wIg6D6TqvcKkQ83lMGBmgUX0MtQQfrFf0F
-	 Fa9JyfRVl8ozPL2xc1qKeYf89oWmRvKZDnVMonRmfwoFTp45BJLUXBrcpZcEscAkjI
-	 VIXmPJMSBF5vSq+vGEP38ogtCuU3SvpTl5+t82kTFrfG0aR5/+q7C20HYOcxOISwra
-	 km0wo3ElHZj8+QA0047m/TlX652jhqZz9Q14fWQ8rC1PeoxEgtRgo4lbH1Yw4viNQr
-	 hYVwS+2YF1gI5rvujCZmTU1TEnKQTMrkHfIILIE2Z9S8EX6Lrm91fmvnNxAJuI/g5n
-	 ijC2rnpi9ul6Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AA2264C20C;
-	Sun, 22 Nov 2026 22:03:06 +0000 (UTC)
-From: Abhiraj Dutta via B4 Relay <devnull+abhirajdutta7.gmail.com@kernel.org>
-Date: Sun, 22 Nov 2026 17:02:47 -0500
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for HP Spectre x360 2-in-1
- Laptop 16-f2xxx
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70250606A32C
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:04:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70250606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=Zb6i+C64
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-55b8cd4e2abso32041531cf.1
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 14:04:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1795385048; x=1795989848; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=e1UeqpHopmbaPkusoHxAs650nxIkw9JTuQGwP/8OHlk=;
+        b=Zb6i+C64CASN2ndqPIkyqfK6CNP07EzVS4CJfCyAslD3l9TVj2ktcjdJKiATYHCa4d
+         nFzVDD4e7Fb967Zmek2vssQc1g2uGyVD924kVnth7iDDsi9vf73VQ8fDaOquRrq3yu8r
+         1dlGsXvToefm0ERzK/AMbRuwle4p0pqB4q5QhtuRDBdd641tDYrgYAfSQ2/ZWtmORlT6
+         EAojqrwI3sg1ialRkcqFhaHNXGMzGKS96TyGaKJzbtu95+9y6ofCZGt57p53iw6If4N/
+         HS1xpGwWTuqR/vTy8cHVy92eMMwVgBa9yVwksjvyvSLVPniauCMo8Ehb6zWb1wxd1oty
+         yP2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795385048; x=1795989848;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e1UeqpHopmbaPkusoHxAs650nxIkw9JTuQGwP/8OHlk=;
+        b=gtxBjg1MRXWulFs/8sp6eofW8fILwUWnhL7GInn6LsSFxr3j2AN2c6WKzTPFLZgP2v
+         2QXGXVI879F+st8mc7dXBYe+2acigPqWmtBBL3wu5sTd3Rko9ulcF2CRKSZDc6BrnLmD
+         hxvgUdpzmdHsnX/TgZjZxdZR64168bDnvmM0+ySCi2J+Nitp24OUYUuenrGxHi0WJJ0V
+         VIy6pWI/ASQyxSGOWb6yl4pSBumJsMJksCc/Ol8VVIMrhIreFvBEp0hedTQ4tllN5yrI
+         bEK7xITmCKNM6cEe0V5OCrZQoVmTtrCkn3PTql4N8xxR0ZqXOXU1LXc+cBpT9vXYLf27
+         RAAg==
+X-Forwarded-Encrypted: i=1; AL+hErEE8QRut5gJja66hlAr5SvrexaevTX8+eTd0dSzX4DV4gi6Jlc4Ur8lsK8pdkUT5FPrBEs7j2o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/paKFvuhZwZl0PUBqqH//bzBysxgY/D69tvnf1kfLbPLrz4Xuk
+	PL4CfiMMRQrsZwev6yGxQypJfJ2UizsoPAeDn2cJEUjvTRzUDRH4W971+Cy363yHjQ==
+X-Gm-Gg: AZFdTZdarvWLGaYFSi1HT6Xrk7wBp4p9YJE6BdCRy5fx4i/YhFlPew6gpbfGOx1sgQA
+	0mS41Cpvv39BhMmfZxaVHMLNJMhxjdeIgeGI5soLB9XjbbsgJ/yPFkw6YCeCVNWo+PXd97pGX4Z
+	Frc0d4IIqoveItB/OtqQkXClpbQN2XDtNrXdAVOGoElRRAfpQvhwEn4hLi18HVw3YK+doBHGXEW
+	qGEBZhXraqbZcCHtCY2Fa2IxuBSNqIy2yteezpilQLnCxf5tnVSlfE6pbzVwutDV24LEwNuEAmv
+	P7G3wXnz47ZO1lkSj549r8l1zgxU15iR4UeaRcBA6v092Cdmcrm7npnuLKRGbL7gjOSnqbxR9Cd
+	diQuedOTWeWK2RsS8UajqDzNUBrA/KgTi3PqG4GYRFvrISEd1DNbKO9mK9/6u/iAUsXpALXoj/L
+	i5npkEx8AqPaAZsSiU0XOglzXGIx1c2FGWpDYtzbmjpyshqiymIdglrf2n+tZstOM3Zn+YR4TGe
+	Hl6T94fi6n+JjOOvAwroOidH3VIz1v2/ygc110mUJMVZVhaMknnjY+45ffP5XSWdU95J0Ck9jFx
+	EELwoLPcWgsf7OKwGx4q6t68umC7IA==
+X-Received: by 2002:a05:622a:2b49:b0:537:c478:70e6 with SMTP id d75a77b69052e-55d76ac210dmr174765381cf.36.1795385048312;
+        Sun, 22 Nov 2026 14:04:08 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d00:161a::d398])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d788ae02fsm81501311cf.29.2026.11.22.14.04.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 14:04:06 -0800 (PST)
+Date: Sun, 22 Nov 2026 17:04:04 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Arbab Haider <arbabhaider649@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Shichao Lai <shichaorai@gmail.com>, linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net, linux-kernel@vger.kernel.org,
+	syzbot+dc208a8cf8d37cf3e5ac@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb-storage: alauda: track media_initialized per port
+Message-ID: <61e2f5db-8d78-4220-bb21-cedd9f579e8a@rowland.harvard.edu>
+References: <ac19e630-f96a-4144-88dc-e3f22091c7bb@rowland.harvard.edu>
+ <20261122175805.2955-2-arbabhaider649@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,94 +100,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-hp-spectre-16-f2-quirk-v1-1-2011ef8986fb@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MWwqDQAwF0K2E+21gJoqlsxXxw0fUULDTTFsK4
- t4LngWcA0XdtCDRAdevFXvuSBQrwrQN+6psMxJBgrQxivCWuWSd3q4cW16EXx/zB9cS7vUwhlG
- bGypCdl3sd8Vdf55/a7O4mmgAAAA=
-X-Change-ID: 20261122-hp-spectre-16-f2-quirk-32093ab0be47
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Abhiraj Dutta <abhirajdutta7@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795384986; l=2863;
- i=abhirajdutta7@gmail.com; s=20261122; h=from:subject:message-id;
- bh=TXikiVOH5pXwin/sZNAkTdAEDOogwSuDt60eoDtzQoQ=;
- b=Y/iIqrnriFOBEFhC8p5oXoBVoBkZdkL8qjhZMBoFtLIqLBvyv+nXgaUnwf8827IvXQzQ0olnZ
- P+GxCMHAkPjCS2iVLQg4vNwk4/W+0BRyKSI+AwY8aLfuwXpPpMr3/so
-X-Developer-Key: i=abhirajdutta7@gmail.com; a=ed25519;
- pk=3ETcWPbWUjdsP3Pv+/VwZOZKPt9O4SvxqiXNMNNY4gc=
-X-Endpoint-Received: by B4 Relay for abhirajdutta7@gmail.com/20261122 with
- auth_id=1610
-X-Original-From: Abhiraj Dutta <abhirajdutta7@gmail.com>
-Reply-To: abhirajdutta7@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122175805.2955-2-arbabhaider649@gmail.com>
 
-From: Abhiraj Dutta <abhirajdutta7@gmail.com>
+On Sun, Nov 22, 2026 at 10:58:05PM +0500, Arbab Haider wrote:
+> On Sun, Nov 22, 2026 at 09:53:25AM -0500, Alan Stern wrote:
+> > I asked because when syzbot tests a patch successfully, it provides a
+> > Tested-by: tag and asks to have the tag included in the final patch
+> > submission -- but you didn't do this.  Did you run the reproducer
+> > locally, without using the bot?
+> 
+> Yes, I ran the syzbot C reproducer locally in QEMU without using syzbot.
+> I also just tried sending "#syz test" to syzbot, and it replied that
+> patch testing via "#syz test" is currently disabled:
+> 
+>   Patch testing via #syz test is temporarily disabled.
+>   See https://github.com/google/syzkaller/issues/8122 for details.
+> 
+> Also, while checking lore.kernel.org, I noticed that syzbot previously
+> posted a similar AI-generated patch from Aleksandr Nogikh on 2026-08-28
+> that never received a reply.
 
-The HP Spectre x360 16-f2xxx (SSID 103c:891e) has the same speaker
-problem as the 14-eu0xxx and 16-aa0xxx: the BIOS marks the treble
-speaker pin 0x14 as unconnected, so only the bass speakers on 0x17
-play. The mute and mic-mute LEDs don't work either.
+So it did -- I completely forgot about that.  For the sake of 
+thoroughness, here's a link to the old patch:
 
-Use the existing EU0XXX pin fixup and chain ALC245_FIXUP_HP_X360_MUTE_LEDS.
-The mute LED is on COEF 0x0b bits 2-3 and the mic-mute LED on GPIO2
-(active low), which is what that fixup already handles. Unlike the
-16-aa0xxx, the bass speaker amp works without toggling GPIO0, so the
-EU0XXX variant is enough.
+https://lore.kernel.org/linux-usb/ea864031-b1e2-4b78-ab3a-58adf681efc6@mail.kernel.org/
 
-Under SOF the PCI SSID on this machine reads as 103c:0000, so the entry
-is matched against the codec SSID.
+BTW, the two patches aren't just similar.  Apart from minor differences 
+in the descriptions they are identical.
 
-Tested on a 16-f2xxx: all four speakers play and both LEDs follow the
-mute state.
+>  Please let me know if you prefer taking
+> that earlier patch instead, or if this submission looks good to you.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Abhiraj Dutta <abhirajdutta7@gmail.com>
----
- sound/hda/codecs/realtek/alc269.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+I'll leave that decision up to Greg; he can choose whichever he prefers.  
+Regardless, for both patches:
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index d38be4d50..edfd5ebe8 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4524,6 +4524,7 @@ enum {
- 	ALC256_FIXUP_HEADPHONE_AMP_VOL,
- 	ALC245_FIXUP_HP_SPECTRE_X360_EU0XXX,
- 	ALC245_FIXUP_HP_SPECTRE_X360_16_AA0XXX,
-+	ALC245_FIXUP_HP_SPECTRE_X360_16_F2XXX,
- 	ALC245_FIXUP_HP_ZBOOK_FIREFLY_G12A,
- 	ALC285_FIXUP_ASUS_GA403U,
- 	ALC285_FIXUP_ASUS_GA403U_HEADSET_MIC,
-@@ -7226,6 +7227,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc245_fixup_hp_spectre_x360_16_aa0xxx,
- 	},
-+	[ALC245_FIXUP_HP_SPECTRE_X360_16_F2XXX] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc245_fixup_hp_spectre_x360_eu0xxx,
-+		.chained = true,
-+		.chain_id = ALC245_FIXUP_HP_X360_MUTE_LEDS
-+	},
- 	[ALC245_FIXUP_HP_ZBOOK_FIREFLY_G12A] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc245_fixup_hp_zbook_firefly_g12a,
-@@ -7869,6 +7876,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8902, "HP OMEN 16", ALC285_FIXUP_HP_MUTE_LED),
- 	SND_PCI_QUIRK(0x103c, 0x890e, "HP 255 G8 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
- 	SND_PCI_QUIRK(0x103c, 0x8919, "HP Pavilion Aero Laptop 13-be0xxx", ALC287_FIXUP_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x891e, "HP Spectre x360 2-in-1 Laptop 16-f2xxx", ALC245_FIXUP_HP_SPECTRE_X360_16_F2XXX),
- 	SND_PCI_QUIRK(0x103c, 0x896d, "HP ZBook Firefly 16 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x896e, "HP EliteBook x360 830 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8971, "HP EliteBook 830 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
 
----
-base-commit: d1458f8c2282975f2bd7467cd3c3cf4c0c58c1ca
-change-id: 20261122-hp-spectre-16-f2-quirk-32093ab0be47
-
-Best regards,
--- 
-Abhiraj Dutta <abhirajdutta7@gmail.com>
-
-
+Alan Stern
