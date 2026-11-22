@@ -1,54 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.83
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795331295;
-	b=Pzi+WbLUZ7V2JES0oApbgx/dm5FARvYf5nyccAi/vSwKxBuhEg8KV2udic8Xr0fTak1L
-	 59waEv/tcU9B34qsZL0SjJENbI+9f0umQeSuHa4my3lE5OO/g6lzB0geG7HT65FHeNBy+
-	 9TxfAUOnNIGoMgmmG3XR1Y5I705mYwpS8CeQjl6om359VQrAb8EUbnK5OUOCyUT1wNCJU
-	 OBrq9Crr+Qo9BwGtsPEKoj6WbbSWt1RVuWfi493OQcSueNYuFBG7AxO0oWHuxSBUiCWVQ
-	 PTLjLiiAKf8EuQIag13kpyvVE1fUKVj+29xURaYj6q0KY0NZ7+dYvyZExPz9arlkf1Q==
+	t=1795331336;
+	b=3LSAOz0HI0o4JFS2iruffIHbLQ5Y4BnGpv5IxQZqVsQP1Xgg4AD+2rWUVE1q6EM0FFLA
+	 5WVckQ/Kj9hsH9/AcmG1Ygeuw1go75JX3uSeJBOFnK2ub4djdP8DlHqdt7yFUObpO5XSS
+	 a5Wb5widUALhtSl81lizbPlJNw+6g3ADUF2/U+sjjxEizqUAY9NmsMsubE44vw8AblFnD
+	 Rsqidg0LQQs/7d2poaCCzz9ksKDsU1uzmnXX5mz7Qo20vNudKXXsGBtMp8xbOkJiRa/Z9
+	 /9cLkCAnXFRViNVjS8Nsi+kpQ6c1G9kQk5xTCflJosgNdrj2nCy6GKK54tiE5Wa5fpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795331295;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=fpVPbeFMltrY5ZOohyFH/1X6RQS2degmMqVdNbfmucw=;
-	b=BurEBFK3P60/6ZmXf9N7InZt1V2LOUphM7/wxYMU881qT42ADJlui4mfL366RxSbCRaf
-	 h2A+wjx+CIXwDZuBWBNPcCERapYafV9RigCJRtG/aZUg8V47c90X30gneyoS9Nmx2NQAP
-	 irLmtZiRALsI61c7sXnCeaOqtHsA9yC8BDUeblyolnd6hYrMuHBtVmbWJv7e5Zi5u1VF2
-	 82+qJaJsaz16fxdpqs+pfkUmQ+7FmaqQXNHkk6g94EtS/YlFgtzMKXra/PUM1zCpDwrT0
-	 YSXK2LgCuYzAfIO2yhEcmi+pbO8VkDoNc4JVbC0IzEJHrUTvHds2FX+VdB1QXGVATNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795331336;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=a99BfP2kEbISB20mRXBJCu27gZNr5+UqvH+W0E0W/KU=;
+	b=Em9AZK+BH6vaPzAofTtABIAn4Gvp8jmpChRyL7wMWD0Nnm8GfKAmY1Xml9+LDO5V+xc8
+	 uOgHX9QePIRF6mQNqJYSolUhQLzzORqv7NgHdL7hBegLQyAXYL/88rqsHt7LMQOhaVckW
+	 x3JcKf5gLlxTc5wQzhmB75P3OAjQ2sXvmdQ+W/iI4NQBIT0SWeHqdw+vRlA9rewGd19uo
+	 Q2bYV5XQuHaBS07ExcT5prtF8wQP+oCm5X5PB+k3pld6lRHCjXVxwGpEz8zBAeI+0G1GM
+	 X0x87z/D/h1ZJcP4Vud/8IJTDvqWmCJqNeMSwx/97vzf+r7b//2lME/Gy7IQ3EfQGYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=geJitgqO;
-	arc=none smtp.remote-ip=95.215.58.83
-Received: from mta1.migadu.com (out-83.mta1.migadu.com [95.215.58.83])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=V+4aedvw;
+	arc=none smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F7E606A320
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 07:08:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66F7E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBE8606A320
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 07:08:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FBE8606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=geJitgqO
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4aLff9bBf+2cChSkzEnmwM9IlWonQJ2YgakFBBad1qc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795331291; v=1; x=1795936091;
- b=geJitgqO+QKGcX7KwbBVpRh5EJR5WxhjjYzpDT91cUFCGUUm3nIi2Mn4nZwcqjCF+AveauGQ
- s+3kSxQSEFjQi3wjc5omYGZt+OokSbr8EdFhiW9fOPKdZkAedvzqjNKQHwmPs+S1KGc3nr18dJt
- vR4cy6NVDWGo4xOz3BSNZCJc=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b8ffee67358adb4e;
-	Sun, 22 Nov 2026 07:08:10 +0000
-X-Mizu-Trace-ID: b8ffee67358adb4e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bf367035-ee89-4489-b268-631120ac1143@linux.dev>
-Date: Sun, 22 Nov 2026 15:08:06 +0800
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=V+4aedvw
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-55d2b4a99d4so25424561cf.1
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 23:08:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1795331335; x=1795936135; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=a99BfP2kEbISB20mRXBJCu27gZNr5+UqvH+W0E0W/KU=;
+        b=V+4aedvwNCn+7sHkfORGQNrevZch/Nwg8GWvxBqRxo7l4mVtIjQXPFsHAM+fp4jQv1
+         /m7yzGGYoL39gZxbBrIXTNOOu3s/WlDaQm+KTaP5k/3Olc7zNtQZuxumQqT6HrT+D+d6
+         P4XX5FYra6wgt+RI1Q2OoMgSHhqCtLh9UA1HxJfIACfcTxh3s2amdkWe+fKtDDZcqJRd
+         uQILVG5sWzO+YHEMJxaTxsVYOmG0IFA2ehUetCI7xS+9P4K4jzkbfcfIBh7pOR7FS4n6
+         Z05GUleDDPTZ7EfGx/rPWvobhxcyH76LhPRa6fj2LffXJrS8/U2F38BWsKA/N2FjbCVy
+         dumw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795331335; x=1795936135;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a99BfP2kEbISB20mRXBJCu27gZNr5+UqvH+W0E0W/KU=;
+        b=HCxIeVzWdxRI7JIOD8lOyWQIvjqt81zSLsISqUC1wEEzyXdeewq9onk/KmLFK5DOVW
+         654uLCPxbg6c4vGZtc4Ly8+JcBMMJQM52Ldx4XfgquijQHi+8lkBO5SvRKeRlT4rAbDN
+         nP3s2xVMaRN1sxcxwvIP1svSEP7xrVny5W8tI/uaQGfYMsUWhszsJziapfpUXopBwOOP
+         3dpuqS9e0r03f9QqOZ5EJxMUClL4dRVJnpJiVFoIS3L2ibFAsj714vf+0+yLYIZgfMa/
+         CqsOMR2uj9SiHLxe99c+87TkBE+iNDKj6K/2EqD9gxJXSHzcohOAOLkz5VM2GnzDAWlE
+         e2ZA==
+X-Forwarded-Encrypted: i=1; AL+hErEKqKI/v9BxophqJUmWzcu8a1pCdri0C22HJnCmkHfH2Z8/gCM1IZzFk0xdmqvB3bQf5AhBkd8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Zn1/0/jS7fc9U+EG9MFu/g+nExhx45de47EbsRbWx8emy7r0b
+	PVB6qK67TqbZ9GWJFHaWR3+Nka/xZSozESdnPafEArom6isdTsvOZQftvgDYHQdrWgU=
+X-Gm-Gg: AZFdTZcvyHIamBnRjoaNtteqm8U3jsgu0WSmYCNQ/xxli8ROj2og9sNDMphS5CX1oK8
+	Swf5Z/kcjdv0Y9pusFKl2kir5/THa2zH5L2ckpAhwoZmHCicXvW4nmZ2YQwfdKUKD9yMbSgD0ED
+	fLjgQ3vRXHxr9RlDspH5jK2qXmBN/Y3nESUS3aA5q+rm3LqHG7AYxW3rMCMaSvTgogfodhQpjzJ
+	Ew3DqA1NGNfCydKfU5Ra2DSYgZQT9BRjsOBOJXMRUtUjs9df7o4YPnyfs5bYY+mVqMveRtSNyfR
+	bkKxVdM1NG+nrCxRbqfn5y2xMS3/c9FFNPOgrBT0XDPCNGbzmKTOc9wn65VvRjgh/meT3sE/FKl
+	Kmp9bbOC5Tzpm7VZUgxelk3lI/gft8wStnV3PWVUhO+kE2datgcHo3jRIXHQblXqaXTWB/Q0xdF
+	xwdpqTvpYq44ti4xj7nYIHQ25UJTI0vrXa1lepJU6xv1vxq8SH8j257W+Q+rul5OE6lDebJHO2E
+	mmBr6L0+OVWw02gZMabCzSjeYYvPMa+e1PDSZI0UEKIrVhhfx2o0C1SQ4JUcvfEYwqrv7fDdp5H
+	Jq5pXcEtBFqIBo+WTkjfd8BWI50rM9+0oplRczpVAYyVHNrS79KvAnogT/UvBLg+BfG+jrwMGVu
+	lJ6Y93gk=
+X-Received: by 2002:a05:622a:138d:b0:536:702c:f8e4 with SMTP id d75a77b69052e-55d76a75253mr152041481cf.49.1795331335422;
+        Sat, 21 Nov 2026 23:08:55 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7888fb27sm66124541cf.25.2026.11.21.23.08.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 23:08:55 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,51 +89,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/list_lru: fix potential infinite loop on xa node
- allocation failure
-To: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>, Dave Chinner <david@fromorbit.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>,
- linux-mm@kvack.org, stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20261122031143.3639941-1-songmuchun@bytedance.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20261122031143.3639941-1-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 2/2] [v3] mm/mempolicy: replace copy_nodes_to_user()
+ interface with put_nodes()
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, Gregory Price <gourry@gourry.net>, 
+ Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+ larips <larips950@gmail.com>, stable@vger.kernel.org, 
+ Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, linux-mm@kvack.org
+In-Reply-To: <20261120185248.823415-2-arnd@kernel.org>
+References: <20261120185248.823415-1-arnd@kernel.org>
+ <20261120185248.823415-2-arnd@kernel.org>
+Date: Sun, 22 Nov 2026 02:08:54 -0500
+Message-Id: <179533133443.412063.14905382167508572303.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-
-
-On 11/22/26 11:11 AM, Muchun Song wrote:
-> __memcg_list_lru_alloc() populates missing list_lru_memcg entries
-> top-down, from the farthest unpopulated ancestor down to @memcg.  When
-> storing the entry for an ancestor (pos != memcg) needs a new xa_node,
-> xas_store() sets XA_ERROR(-ENOMEM) and leaves @pos unpopulated.  If the
-> following xas_nomem() also fails to allocate, the inner loop exits with
-> the error still set, but the outer loop ignores it and reruns on the same
-> unpopulated ancestor: xas_set() then resets the state to XAS_RESTART and
-> retries the store.  A one-off failure is recovered on that retry, but as
-> long as the allocation keeps failing, e.g. under sustained memory
-> pressure, the loop makes no progress and, with no schedule point, becomes
-> an RCU stall / hard lockup when the caller holds mapping->i_pages.xa_lock
-> with IRQs disabled.
+On 2026-11-20 19:52 +0100, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> Stop the outer walk when xas_error() is set so the existing cleanup frees
-> @mlru and the error is propagated to the caller.
+> The get_nodes() function handles copying node masks from userspace,
+> while copy_nodes_to_user() copies the same masks to userspace, but
+> with a different argument order and slightly different meaning of the
+> same variables.
 > 
-> Fixes: 28e98022b31e ("mm/list_lru: simplify reparenting and initial allocation")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/bug/linux-21c1dba9-8d6f-4368-b38b-9a57cacb056f
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
->   mm/list_lru.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> To make that less confusing, change copy_nodes_to_user() to look more
+> like get_nodes(), using similar name and arguments as well as adjusting
+> the maxnode value once, and restructure it for readability.
+> 
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Thanks,
-Qi
-
+-- 
+~Gregory
 
