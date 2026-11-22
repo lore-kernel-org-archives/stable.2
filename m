@@ -1,55 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.203
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795373473;
-	b=mjvi6Nqd/xjv2ZcFEOI5tlatYPfLbUvq5qm7RfUejuG+Nz9OTHdSieVldM4gu9t74DZV
-	 5PNnSpeG0dWFPkJTvATz5BSvdHOXbMAJV2Hl+c6IMAFoa+5zowKZAfG1U5aw2S3OlzL5u
-	 vCA7BoG38RtvpYBFbP+FaSM73DCTI3bQQZM379+dwGPEjUP8cI5tJFv9xL4iFcDC2tITr
-	 6YkWn/OjBsC8SnRHGYOaT2+B2nYhQM5IVHljvEirV/Hj996xZjDeBEKzgGWqPn1eeaPz6
-	 OLgY8t4+LR8hDiug2M6+i6kFjwFRjkGzqwdMvy63m+OMJC68G2qXjjwa9XdcDgNEOow==
+	t=1795373832;
+	b=qb3biJistaTA02AUacQ25m++en3SL9EZcdJn+YKrbtelzeSwDEf6yR9LKQuT6EEbB0lA
+	 kdRHWTH2TzzZGi/RjEuc0hdZp0SWvVUBuYgK4QQTSZgJmfHNnwEBm9UoS+/5YyA8SIQ5j
+	 8nGanhNv/d30N8viE7aPS5ETmHfhSYN78akvycnYMctyH8CWM1PSFcmq8pBycB7X/lkYQ
+	 RvkRWkeRka20pS6oxDkj9EvJVOmA1/8ne4IpKdhJ3OQJztP278nN5Hk6Jwq/leXfYbB9q
+	 sRr7CXtZAKBdkMbwHHKmcLOmpT2fcpFyLaxSj7+KzPqZMxEc1OphLEEWRJjpWCIY46A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795373473;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=50wCei2ezE7qqlKPwEZQKfaQvojP+aADu/REaQZidPs=;
-	b=QcVCVTAaJCWsWCbvcagdixju3bRu9F7SFkNwIRuhKuBHx3CjzchCQKDnA9FwCXvTyyYV
-	 YftTakzj//y7cX4s45QukxjqCPuYhsLIBaIgBqXu283s+oisnG8WE9RakyZrVecTEH34x
-	 QQl/AUOdRfeO9LXTrQDcOKIvkNEf1UGMSEqN+ucEgcRhZNZphBUdUnX4uKriq6Kc2qXw7
-	 PaAzc3srwMHYHtHgi44bF7oh7U/DckxnAXjFgygXJGBRl8bl2boz+ryxH8I/zBWfCL2b0
-	 jyap4oUmrBCfhmI+LJMuFGff/73ifR6H5lJGIPC0ISadKuQayiThXAHhrNg8kiQwapA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795373832;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=8B8Z/Qk1nK5Bur2fvtAfwzJGSgXNSKiCnAjpMw2EVs8=;
+	b=oUA06YiwJv791qVNpVprsAd6OHWzZHx/215sO8US8l9nr0QfZYzKPozqr9cDkWkvg//8
+	 l3fFSk3HcM2q2/9lgQFMr41TOBN6L5s0Q/Lk1t2ycpDzmX8Q8B1m0WGsONSvzZvjOy39K
+	 mqWFqCelhca8t/fldd9rQzyVS59mltgLyabw++nag4snBHAA6S3bvELGr/t5cLGeZhDLf
+	 u1spOqYOTIjzGgzjEboin+AetC27GNjIZIHQJuAXYu+W8Y+yKj1F9v5eDjKx9YzvUyZDX
+	 aMFqWXUl5QveGfI9XGR8UbaMjQ1iK3nnD5VtWDs+Kd6aiWneOBsn8Nyl1tCgD5z4kyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DeORfqno;
-	arc=none smtp.remote-ip=95.215.58.203
-Received: from mta1.migadu.com (out-203.mta1.migadu.com [95.215.58.203])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=U0uJ3VV2;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E6C606A32A
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 18:51:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07E6C606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E624606A320;
+	Sun, 22 Nov 2026 18:57:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E624606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DeORfqno
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CGiHf1+jeEEE2NgCdnd+kn0vFA9jhJqMPHDtP1DXzTo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795373469; v=1; x=1795978269;
- b=DeORfqnoSh0rdqxELAj4spb63VFK2xQzhpJ8ltJW9dd6VmhU53G9kQKy32CnHH6odAzp6Ipj
- XHPwQ4vkCBD4UHK8nSWE5AL6+xDY+RF3rm4FrqSUFOGdthD4VkJ0STyEZrAUKniYJyBknlLCFHd
- Fw8eQ38yC5/qPFu8v0OyyoSM=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 57ff06e043170ff8;
-	Sun, 22 Nov 2026 18:51:07 +0000
-X-Mizu-Trace-ID: 57ff06e043170ff8
-X-Migadu-Flow: FLOW_OUT
-From: "Nico Pache (Red Hat)" <nico.pache@linux.dev>
-Date: Sun, 22 Nov 2026 11:50:36 -0700
-Subject: [PATCH] selftests/mm: honor VM_SELFTEST_ITEMS from the environment
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=U0uJ3VV2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=8B8Z/Qk1nK5Bur2fvtAfwzJGSgXNSKiCnAjpMw2EVs8=; b=U0uJ3VV2VFvLy98r6f+U5S2PYJ
+	aY6uIU5DawC2aNmwGsjQEQ/LQUylIdw7NupDyC7brvskQK5VDDZxee/2CjDaJRaPDrSfbF0reSgsK
+	2Pq66Jyz2qD35vyeU4FWOp7dUcKTwnFByWT8aRQIvGcBFWnwF8jfuvSiiYUgbvlNPMbQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xVCkA-000bb1-BM; Sun, 22 Nov 2026 19:56:54 +0100
+Date: Sun, 22 Nov 2026 19:56:54 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Chen-Yu Tsai <wens@kernel.org>
+Cc: aiyengar1990@gmail.com,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	LABBE Corentin <clabbe.montjoie@gmail.com>, netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	Russell King <rmk+kernel@armlinux.org.uk>,
+	Nicolai Buchwitz <nb@tipi-net.de>, stable@vger.kernel.org
+Subject: Re: [PATCH net v2 2/2] net: stmmac: dwmac-sun8i: Limit the MTU to
+ 2018
+Message-ID: <002c36a6-c049-4ad3-9b1f-18f2162eaa71@lunn.ch>
+References: <20261122-sun8i-emac-mtu-limit-v2-0-c4081e5b83cf@gmail.com>
+ <20261122-sun8i-emac-mtu-limit-v2-2-c4081e5b83cf@gmail.com>
+ <CAGb2v65_vY86WqvKr1m=g0N1Qr2UhLC1v3OHKPG3x+oURUKp7Q@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,54 +77,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261122-vm_selftests_items_fix-v1-1-9edef5e7975d@linux.dev>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM7QqCQBCF4VuR+d2CM4RJtxKx+HG2RtJiZxNBv
- HfX+vkcOO9KhqgwuhYrRcxq+p4y+FRQ92ymB5z22SSlVMwibh694RUSLJnXhNF80MUF5rppL/V
- ZKlA+fyLy/Avf7n/btx3QpaNG27YDejFqxnoAAAA=
-X-Change-ID: 20261122-vm_selftests_items_fix-f118ab78426e
-To: linux-mm@kvack.org, linux-kselftest@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
- Tianyi Chen <hi@tychen.cc>, stable@vger.kernel.org, 
- "Nico Pache (Red Hat)" <nico.pache@linux.dev>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGb2v65_vY86WqvKr1m=g0N1Qr2UhLC1v3OHKPG3x+oURUKp7Q@mail.gmail.com>
 
-The unconditional default assignment overwrites VM_SELFTEST_ITEMS from
-the environment. This regresses environments that use the variable to
-select test groups: without -t, all default test categories run instead
-of the requested groups. The -t option continues to override it.
+> The STM32F4 reference manuals has this note:
+> 
+> Even when the start address of a receive buffer is not aligned to the
+> system databus width
+> the system should allocate a receive buffer of a size aligned to the
+> system bus width. For
+> example, if the system allocates a 1024 byte (1 KB) receive buffer
+> starting from address
+> 0x1000, the software can program the buffer start address in the
+> receive descriptor to have
+> a 0x1002 offset. The receive DMA writes the frame to this buffer with
+> dummy data in the first
+> two locations (0x1000 and 0x1001). The actual frame is written from
+> location 0x1002.
 
-Fixes: 4844f5b84a8e ("selftests/mm: reject invalid test selections before running tests")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nico Pache (Red Hat) <nico.pache@linux.dev>
----
- tools/testing/selftests/mm/run_vmtests.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> So for normal descriptors the buffer size is bound to (2KB - bus width).
 
-diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-index a1b45a3dedae..aa63f840cf60 100755
---- a/tools/testing/selftests/mm/run_vmtests.sh
-+++ b/tools/testing/selftests/mm/run_vmtests.sh
-@@ -102,7 +102,7 @@ RUN_ALL=false
- RUN_DESTRUCTIVE=false
- TAP_PREFIX="# "
- 
--VM_SELFTEST_ITEMS="default"
-+: "${VM_SELFTEST_ITEMS:=default}"
- 
- while getopts "aht:nd" OPT; do
- 	case ${OPT} in
+There is a second use for this, unrelated to bus width. The ethernet
+header is 14 bytes in size, 2x 6 octet MAC address plus a 2 octet
+ethertype header. By offsetting the start address by two, it means the
+data after the ethernet header is then 4 byte aligned, making it more
+efficient to access fields in the IP, TCP UDP headers etc.
 
----
-base-commit: 2dc60bd9975fc8666a13d58410499e06e6799ba9
-change-id: 20261122-vm_selftests_items_fix-f118ab78426e
-
-Best regards,
---  
-Nico Pache (Red Hat) <nico.pache@linux.dev>
-
+	  Andrew
