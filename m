@@ -1,47 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795352963;
-	b=syHnZQdLgU7lvvWt6FGUuG6WR4XJWGjxPBeGoO7aIFiXJ0UjQgfnj919a/zm3A9E20ZY
-	 28yQjTYsS112IVmGwYdG5uZ1sKkmHZsbDMqgKNipiIbe1RzGIBodYFClVAYo4mwCVIR75
-	 m78Imd2ihNp0Lkr+L6xtr3wFHIadWjLiSt84eaKSWbrqbVdnIgnG7tiScJ9iD+LYg+dMR
-	 ERvo3x6ej2FxW6hdDagpSijOW7+oJCnzmViqXcJggOTTINRgO8PFb5J0uheBMgo37Rkus
-	 mBOGfRZ72jrHGK9EXVRVXOJME9V0C2Tw8N64XNYm5TYhabOJo0TGidEAhZIy5pe7IcA==
+	t=1795352973;
+	b=vJkWIedqiEfy2JUs88RIhO6O2jzyQ/etHNQ6uDq2e6FXZNgyjtttaIFhLcZZupIqKDMf
+	 jRMCTeAzg5vQkfpWfsN4j0c0HtUs1F2DORRnRTbFje+UNQH5D8cd6fVFUHFzG6mwokp1j
+	 ZH/U3N6q6Ii9sqWBcC2M8zIY526ZUvZ0GGJZBaIYaYm7hKZTdcP3Ijr6IXxevc9m8Vr2S
+	 laPkugHShzPngHYC/4FnWxeg3AppLmsWxI7cXHQt2AlE2UrN9SVLrJ++Ub7iSoHOSD60n
+	 dyfwLEi/xt3llOdzECsY4yoGjUJDy2UzzYMf1WJzIbefOA2WtMgBDq4QyWPkX0x6lRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795352963;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=sZ1PDNEi5E6ogIgtuYs0TfJyc0Jc2h1FjIxlhYKU2LE=;
-	b=n29xMHZNKu8rmZVI8ah90MnuJ4uYOo9jkRK/+djtgK5keeKDk8k+U7CF+mNgC3ytdSpC
-	 B8i9sj6ZFD6z+lZVe+o2fqILbBK8JBdrd8Go+TaaD3JExMEYqYwP8kXOIiEnPYqafmFyD
-	 75PTxyK/9l6uc15awHwW/C7lw4TRqVi0CUAhp2ee2KS8HKMLlDjFkgWg/0I8k0qiUzM9E
-	 aLf4j1pHNb44/PKpYQmEkAnBsoX1dYWSj9/MnsqU68N+L2P4oXqlrMTdV6L5xq1n3kuI4
-	 EGttDo3fA+Uy0KlT834Sq1Ca/aSizkZcyVX4j2tqSIij5Ffy7ZKYTGL/O71mmR/Z/OQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795352973;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RzpIstdBZ9UDJfuYE6dfOAxjKSqfqUAZ2HY3EqITTgs=;
+	b=2+olvPI9l2zuHndr5hXBz8xl0rvrRMQT1YN+W6tSz6PLBCgRkIYv2Vqe0RzKoSS0LNUX
+	 GV0BoPd8GmGCvXYGo02zPFGRhiEud7Dw+W7vq7JtOOweRFfxIBrvUkEoNAKffZjecHmtY
+	 ly7VUQRwDlmYDSGfZhxjUTGPRc6YwVnk9qQ/PV4svutFCJslMmN4w553oyx3/zf3H3A9f
+	 q/rb8sFKDA7QBIcOmrQgkI4RD1OcBFYHksljH5z/RUUVB2SzIfJ05f5CBsUkZPE02NTRw
+	 7kXzkeZzzOHr9+3Xi6fJVWLudubH4QQ4vJqHhfuvGoKzlwrspO0zqgkRPRcWTfd3a2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mgmnpsdm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=andrii.net;
+	spf=pass smtp.mailfrom=andrii.net;
+	dkim=pass header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=MBHsBXIC;
+	arc=none smtp.remote-ip=209.85.222.226
+Received: from mail-qk1-f226.google.com (mail-qk1-f226.google.com [209.85.222.226])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF05606A320;
-	Sun, 22 Nov 2026 13:09:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C88606A331
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 13:09:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1C88606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrii.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrii.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mgmnpsdm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA2BA1F000C6;
-	Sun, 22 Nov 2026 13:09:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795352962;
-	bh=sZ1PDNEi5E6ogIgtuYs0TfJyc0Jc2h1FjIxlhYKU2LE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MgmnpsdmpI8dKngcWDxf/i1/dekLkMZ2De7V0Wp7NwOxb/sVkZ4OePmkHiIELKEpa
-	 cPWS0rtaesk1AabINYYcc3VIlO51S2kqO54ck4doH7CSVnMIpuHqfD+ZhOXSyTLcqx
-	 Dq9/tVrWNsDJ3Gmgc/f2MHEZwusB+3StI9cV7w8DzC2j7Af6p8bmrq+qrCe15LlHXs
-	 AQu3EG1WdODB6xNa2+hS5GtW7fM3B1YPLPEjGWhB+CKUXmhIq66pqZXFnZ/kvsk9r9
-	 aYN8A/RQV9FtwKYp4ncaePyxAcmO5nsoUoaPlQIwvN2y6VWpQVTIGAiJWXDpvWW+xX
-	 2lZIBaHD+02gA==
-Message-ID: <aa3821a5-6459-4845-8255-00a26bf243d3@kernel.org>
-Date: Sun, 22 Nov 2026 14:09:15 +0100
+	dkim=pass (2048-bit key) header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=MBHsBXIC
+Received: by mail-qk1-f226.google.com with SMTP id af79cd13be357-94958650b09so256034685a.1
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 05:09:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=andrii.net; s=gmail-2025; t=1795352971; x=1795957771; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RzpIstdBZ9UDJfuYE6dfOAxjKSqfqUAZ2HY3EqITTgs=;
+        b=MBHsBXICbT8BlEv0yDM7XwzbTPGn6nEjJ5Lr6/jEN7Idx8IEwVcvHzt6LuH81lbUf4
+         08gMXHFWKaHxX2nJkRth2kBP06H88YOLg0kJ4yn56CcFd8bigAxProJrvuIQcp3vZJlo
+         53iCiB+/8v8GQL59tfKOFwuSba17kvijRsNcjJLjjV+B95WS+gA0chCHHqgt4qkFDmxT
+         psrtokARgfp2TCDFqSuPoz51QgY7DvP+unNf1PSFqLsuLdOgI2rhJrSgjoGlnimN0lIZ
+         gVC1IDFJ0ORML/UE8+czAN37rFRqfq94gWFTl/csrsCeTpQrb9TOvKCBqq0VINHbqBw+
+         UB4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795352971; x=1795957771;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RzpIstdBZ9UDJfuYE6dfOAxjKSqfqUAZ2HY3EqITTgs=;
+        b=WF5xKP/l7PyOGbmw2z+WlnUx3jv88YnaoDHfQnixeQmBhsF7f1XYfFnp6bYIhd8ypG
+         ujTR+P9LURNg0fvBEfj7T3I4J6V/NxxdZgtUnzYOYj5kz8iwJ7gS+2D2xlnRyOIY+XjA
+         LutMwGwktSBJ5k9dDfFts8gumEH3lHmi5H4A9CjS/UY2zVJz8tzPrcGvHY42bCPZL+Jw
+         /dPWjVevg0j9u8LASkt4WXdnWNZKW1N8B4fBqm9F+gn7kaFkv8aA2E8eD54kqbVpRI3l
+         K/B1MtgxAufmDZFU3B5TRW/T0wB/N2CJc5V/yoXi5Hn+vWxhXb0xhwTWO1uxywAjF1pE
+         +a9g==
+X-Forwarded-Encrypted: i=1; AL+hErH2Laxl4eL14xRYQSztjcYEfKQA1gyBdys1KMK7yDZW1wsuEe8QIrNxxwmzGhP17wJ6mVizBDY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Hzq2HE1wBPFxdPLSzep/kBp7GKZlgpZQnfpISKP8cR7b3+813
+	DvBCcoyoWTa+YtfrB6CZoqbSSO87u7CsNN16kZQjtpQJeBrrXzyM+mXXaYhUEsWA7hHcMGoi5Iz
+	XuCHh5XMf5PXqYOigaxWl5Pbdjss3aX6KWS5VVFQtrFhay5pew7dL
+X-Gm-Gg: AZFdTZeCCXXdQqR2wrvCrypcRDkqOeUkqVXsSwBmfksKx464L4ZBpiRvy/6EBZSBIF6
+	u+WPvehtu3Sx6TSv8MiSiDNMaFBsHYvymSG4x9J5bpbsa45K4yKuq0Z//VCQ7fopmJYkTeu6gDZ
+	58Ab9M/wh1hOJHEwxHmR4R5zRcfqqHxfL+s4aixZVoQwKFGEMSWq9neMFHnfACOofkYmmsvgpVr
+	05ITPGqLRrlJZONJsKov4abeSOfemRVKaG+ouaeMEPay+6A+h8XYqedpPRTzIYRNvm38V0fbF+E
+	dOZ2Lh1bspYDsdXfYoxfLt6Asrxpc18ArhsG8z/V/qFkb4snuI5wiwo9fWY1OTYoWe+H8Oh00+n
+	Hx/5nZjfCBD6ReokH56jYwNAOins=
+X-Received: by 2002:a05:620a:6607:b0:949:3c50:134 with SMTP id af79cd13be357-949ba9a178amr1410279285a.33.1795352971591;
+        Sun, 22 Nov 2026 05:09:31 -0800 (PST)
+Received: from andrii.ai (mac.hestia.andrii.net. [2602:f337:ed:4865:7374:6961:204d:6163])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-949bb3a8486sm45588885a.14.2026.11.22.05.09.30
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 22 Nov 2026 05:09:31 -0800 (PST)
+X-Relaying-Domain: andrii.net
+From: Andrii Tereshchenko <opensource@andrii.net>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Christian Hopps <chopps@labn.net>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Willem de Bruijn <willemb@google.com>,
+	Piyus Kedia <piyus@iiitd.ac.in>,
+	netdev@vger.kernel.org,
+	ipsec@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Andrii Tereshchenko <opensource@andrii.net>,
+	stable@vger.kernel.org
+Subject: [PATCH ipsec v2] xfrm: iptfs: make room before copying a continuation in reassembly
+Date: Sun, 22 Nov 2026 05:09:25 -0800
+Message-ID: <e417c7f2-eaee-4fb0-b365-65cd521efd6b@mid.andrii.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,168 +106,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 4/4] net: skbuff: limit folio refcount when splicing
- from sockets
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, akpm@linux-foundation.org,
- kas@kernel.org, songliubraving@fb.com, hannes@cmpxchg.org, riel@surriel.com,
- willy@infradead.org, ncardwell@google.com, kuniyu@google.com,
- pfalcato@suse.de, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, stable@vger.kernel.org
-References: <20261118-skb_refcount_overflow-v1-4-5551b4954c3f@kernel.org>
- <179533918041.3135.8460911693239501161@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <179533918041.3135.8460911693239501161@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/22/26 10:19, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
-> 
-> Low priority / nit picks for your consideration:
-> 
-> - [Low] The new comment above skb_splice_bits()
->   (net/core/skbuff.c:3295-3300) says the function "Returns the number of…
-> 
-> Pre-existing issues:
-> - [Medium] skb_splice_bits() still returns 0, which callers report as
->   EOF, when nothing was spliced because linear_to_page() failed to…
-> 
-> --
-> 
-> net: skbuff: limit folio refcount when splicing from sockets
-> 
-> This patch uses try_get_page() in spd_fill_page() so that splicing from
-> sockets into pipes cannot push a folio refcount past its limit. On
-> failure it returns -EFAULT, and the error is propagated as an int
-> through __splice_segment() and __skb_splice_bits(). skb_splice_bits()
-> returns the error when nothing was spliced, so the callers don't report
-> EOF.
-> 
->> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
->> index c937d74eed6ac..b73fef7a1b460 100644
->> --- a/net/core/skbuff.c
->> +++ b/net/core/skbuff.c
-> 
-> [ ... ]
-> 
->> @@ -3284,7 +3294,9 @@ static bool __skb_splice_bits(struct sk_buff *skb, struct pipe_inode_info *pipe,
->>  
->>  /*
->>   * Map data from the skb to a pipe. Should handle both the linear part,
->> - * the fragments, and the frag list.
->> + * the fragments, and the frag list. Returns the number of bytes spliced,
->> + * or an error if we could not splice anything because we could not take
->> + * a page reference.
->>   */
-> 
-> [Severity: Low]
-> This isn't a bug, but is this return description complete?
-> 
-> When spd.nr_pages is non-zero, skb_splice_bits() returns whatever
-> splice_to_pipe() returns. splice_to_pipe() in fs/splice.c can fail for
-> reasons that have nothing to do with page references:
-> 
-> 	if (unlikely(!pipe->readers)) {
-> 		send_sig(SIGPIPE, current, 0);
-> 		ret = -EPIPE;
-> 		goto out;
-> 	}
-> 	...
-> 	if (!ret)
-> 		ret = -EAGAIN;
-> 
-> The reverse case also exists. If linear_to_page() fails in
-> spd_fill_page(), nothing gets spliced, yet skb_splice_bits() returns 0
-> and not an error.
-> 
-> Could the comment also mention the -EPIPE and -EAGAIN cases that come
-> from splice_to_pipe()?
+When iptfs_reassem_cont() cannot share a continuation as page frags, it
+linearizes the in-progress skb and copies the data in with skb_put(),
+without checking the tailroom. An skb started by iptfs_pskb_add_frags()
+has little room after linearizing, so a larger continuation panics the
+kernel in softirq:
 
-I guess we can just make it simpler by saying
+  skbuff: skb_over_panic: ... len:2884 put:1442 ... end:0x6c0 dev:eth1
+  kernel BUG at net/core/skbuff.c:215!
+  Call Trace:
+   <IRQ>
+   skb_put.cold+0x1f/0x1f
+   iptfs_reassem_cont+0x242/0x760
+   iptfs_input_ordered+0x382/0x3e0
+   iptfs_input+0x24d/0x630
+   xfrm_input+0x12a5/0x29f0
 
-"... or an error if splicing failed."
+After linearizing, grow the head if the rest of the inner packet does
+not fit, and abandon the reassembly if that fails.
 
-I assume that could be fixed up when applying.
+Made with an AI coding assistant, reviewed by the submitter.
 
-> 
->>  int skb_splice_bits(struct sk_buff *skb, struct sock *sk, unsigned int offset,
->>  		    struct pipe_inode_info *pipe, unsigned int tlen,
->> @@ -3299,14 +3311,14 @@ int skb_splice_bits(struct sk_buff *skb, struct sock *sk, unsigned int offset,
->>  		.ops = &default_pipe_buf_ops,
->>  		.spd_release = sock_spd_release,
->>  	};
->> -	int ret = 0;
->> +	int ret;
->>  
->> -	__skb_splice_bits(skb, pipe, &offset, &tlen, &spd, sk);
->> +	ret = __skb_splice_bits(skb, pipe, &offset, &tlen, &spd, sk);
->>  
->>  	if (spd.nr_pages)
->> -		ret = splice_to_pipe(pipe, &spd);
->> -
->> -	return ret;
->> +		return splice_to_pipe(pipe, &spd);
->> +	/* Returning 0 would make callers report EOF. */
->> +	return ret < 0 ? ret : 0;
-> 
-> [Severity: Medium]
-> This is a pre-existing issue, not one introduced by this patch. Can the
-> spurious EOF that this new comment describes still happen when
-> linear_to_page() fails?
+Fixes: 5f2b6a909574 ("xfrm: iptfs: add skb-fragment sharing code")
+Fixes: 0b352f83cabf ("xfrm: iptfs: fix skb_put() panic on non-linear skb during reassembly")
+Reported-by: Piyus Kedia <piyus@iiitd.ac.in>
+Closes: https://lore.kernel.org/all/20261119142308.3272570-1-piyus@iiitd.ac.in/
+Link: https://lore.kernel.org/all/20260908224855.1591147-1-kuba@kernel.org/
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrii Tereshchenko <opensource@andrii.net>
+---
+v2:
+- skb_linearize() first, then pskb_expand_head() only if the tailroom is
+  still short, as Fernando Fernandez Mancera suggested. Regular traffic
+  never took the second allocation in my tests.
+- shorter changelog.
+v1: https://lore.kernel.org/all/70d0cc8d-e2ff-4293-a416-eaf2705a0b9c@mid.andrii.net/
 
-Sounds like something for net people to investigate.
+The netdev AI review of the runt fix flagged this copy (Link:). Piyus
+Kedia's patch for the same overrun drops the valid inner packet; this
+one delivers it.
 
+Tested on v7.4-rc3 and ipsec master: the panic reproduces without fault
+injection and is gone with this patch, failslab on either allocation
+only drops the packet, and W=1 and sparse are clean. The selftest is
+with the IPsec maintainers, as security-bugs.rst asks.
+
+ net/xfrm/xfrm_iptfs.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
+index 0313a43aa8a97..e9b4d23468022 100644
+--- a/net/xfrm/xfrm_iptfs.c
++++ b/net/xfrm/xfrm_iptfs.c
+@@ -909,7 +909,15 @@ static u32 iptfs_reassem_cont(struct xfrm_iptfs_data *xtfs, u64 seq,
+ 	    iptfs_skb_can_add_frags(newskb, fragwalk, data, copylen)) {
+ 		iptfs_skb_add_frags(newskb, fragwalk, data, copylen);
+ 	} else {
+-		if (skb_linearize(newskb)) {
++		/* A newskb started by iptfs_pskb_add_frags() has little
++		 * tailroom after linearizing. Make room for the rest of
++		 * the inner packet before copying.
++		 */
++		if (skb_linearize(newskb) ||
++		    (skb_tailroom(newskb) < ipremain &&
++		     pskb_expand_head(newskb, 0,
++				      ipremain - skb_tailroom(newskb),
++				      GFP_ATOMIC | __GFP_NOWARN))) {
+ 			XFRM_INC_STATS(xs_net(xtfs->x),
+ 				       LINUX_MIB_XFRMINBUFFERERROR);
+ 			goto abandon;
+
+base-commit: f0e68014f4ac1653b2980ab76744f4dfdffdbac5
 -- 
-Cheers,
+2.53.0
 
-David
