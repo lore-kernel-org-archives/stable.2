@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795362605;
-	b=bXk8euLXRQM9U7/2zRjKBRjnGXROZUuxvKtDKropXCM96wb3oMXNnZ8pt+UuzLKKeDv/
-	 XAsYjrTK9X3I/Sa9+UXfYljhRPNEQbgjukRXB8ShuLfqWgPkaL8M25f5gseaw9qCmP0O+
-	 B4V/YsManSs/dAO5j6Zvkzt+FHyZOcArTAjQA9Yq5Sxlf/KjAyPn53JiAT2LwWWjGKkZc
-	 LYMiCCwLd17z287yP8yykkYK0BaR0G9KAaM6OzFKC3Ye9PqKK+pwtCbNK3+uNUMseVIZo
-	 Uxq0Ji7UmmLbY16fQLssJEJhgaIniT0Nnquni54DBYleF4y2T5QjW+FY9GO1i3jJYLg==
+	t=1795362632;
+	b=scTUSI33WEz+PtoxYXXT994yBsRdfJLvKWEcM0MHIakW3Ab8JlNcTRxWhrysdb1r3J59
+	 i3NQH1qBi3s2unPq8pD/WfHNAsMYe/HZ2cSiJXXgUEwy0S8cJIepNTwMtZ/27Q3lUOfc6
+	 Zs91wIan/RssOLZ/jrkrJ+FgONq2AQ5HL8akOrNZ0Dwx3o/AKIQ/XYRJqggoZx6FV6KVX
+	 fxcNrn0DDTZP15b23yzUN/jfnjn/Gj07DQXvj39pkq2hq+z98ieHtyWH8fsIeor/GVKrd
+	 WWPGGlDLeZ4bcJbemE1U1exNu5wm2AExEQDugZ9ssdaUPWCA6wHisjg/W7GBmmxe7Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795362605;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795362632;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
 	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=w3rclRjxjm+xEndB7WYb8szsZvXx3T969YLqRHQLZsM=;
-	b=NmCWpPITJuTBRpOIPT9Qly8Jwytyx9pli0BDA/60tcR9L9qjaL8RaPYOGWhVaD07Y0nn
-	 LthoQgRX5r5pyh6fuykuGyOJNeDzbMHq3LpI1sjPhl6AeNxorJRZRaxI2VoiUlKwE9dbO
-	 5YiKt9IKtFkcvO0SPlFedZjPLYsGTE6eSTvGscaE7w6ii11o1EunDjBgQ1gXEMavaru9Q
-	 zSGILZjKOIwdN4uJpWTqnahKnoqrJjAa9F1IvMKSZrGYwjrtkiqImG+5Rh/LXwCvqLaOL
-	 6Tacp2vK3ALNRSc/rK2imFAgXVep3Kxjq4FWvKooKx5X/IZ6m6RX3U8w683DE3ARn5Q==
+	bh=sfE9ffid3qsS6HCt6GKuvhh3G4tRqIqs8ErTq4gAbSQ=;
+	b=TcIV9VF3QIdW8s3PoYzf443Rr5QzsH1dan5Xzd0tlq821ZwzN+OkeQGrWg1291GC77tC
+	 Rkz1o8AE/4pVy+rOGbbeRqH/9d9YN88xfIVy5Mo/oS6YwNfEgtLAob+A4eu9iWTAFS/08
+	 xWFO6Yy3gIaiMqZI+DNjYJrBkfPRqXBkDxTo2njA2xe/zaffTHSlvHOvj3cfaSlspf+ow
+	 lzMNkh4/xuQJYHOW70XxRKEzJYTS3wfU5S5at9/PiKixAJxTKmDim96UbFgwuMEwYdk6o
+	 5XDsDRoZMyEheg3PyV4bfSIIy7auuKYJO2fYbwAoyhzZS20+FwGLaFQAkFtgaKilapw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=vMtf9LI8;
-	arc=none smtp.remote-ip=209.85.222.174
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=OgKwPIfR;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F931606A32A
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 15:50:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F931606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF6A606A320
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 15:50:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AF6A606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=vMtf9LI8
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-949680e6d82so310658085a.2
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 07:50:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=OgKwPIfR
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-9496317b730so340008785a.1
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 07:50:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1795362604; x=1795967404; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1795362630; x=1795967430; darn=vger.kernel.org;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=w3rclRjxjm+xEndB7WYb8szsZvXx3T969YLqRHQLZsM=;
-        b=vMtf9LI8SAQQHliFH/t34mZDF1bj4B8nsH3N8C/j0klKwpKW2ulcuY7/OI39UQ3188
-         aN9x2Dp7hxL5Bho6BReLKY/JIgRU1AVtRYJwNMyKGqizkNBvZEIsgs3WqoHVSOLb7x79
-         q+FAuV3oNHpqArJdDBC0mAqN18C7lBtA1CY7m/cW5UYA7prgLhoTeH1jRwhYGEXmBMhx
-         xgHh/b4uxS8PzqCCWVefUOCJVrYXU6OnS4mh070Fr1SL1pU5biSU2K41qiVzyxPEGJeL
-         AuTtNLaVbEvcMMChs/U45GDaKEuvo97Cn/9DtNMH7cUPbgTTJHxFJeIqUgFnWpKN/M/M
-         BnvA==
+        bh=sfE9ffid3qsS6HCt6GKuvhh3G4tRqIqs8ErTq4gAbSQ=;
+        b=OgKwPIfRKSH//EHfV78H8sJQIJN9osAZKX/yzjEBiUhKFGnGbDpHsJSFL56iYakt8d
+         HhCzE7DZcOCNdeqb62py0VyW8fgjBlu6kEhvajaEkcb9TmV9Aj/AFwqlhRmAgs4T7ORe
+         zd8f729xHnnL06gk3Y4qpxq5BihkKGQio4NtyaofeWCOeDjuzFaQ8arW9ZkI0eGJdRxa
+         iU/yNf9qnwf7/T2TJ5yt/btT61EwrH+mwlynA4nO3PitkDbdOjglY/4NplJsy6u1izDZ
+         bAXbNkD1cwesAmZ8GwaOBRHlj+TqEhUe4SEiwytgjcB+qicO/rPZtLM49l4GbWfrL9+X
+         ChmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795362604; x=1795967404;
+        d=1e100.net; s=20260707; t=1795362630; x=1795967430;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=w3rclRjxjm+xEndB7WYb8szsZvXx3T969YLqRHQLZsM=;
-        b=vwcU4D3paxb/uHTdeXzOiofk2o4q8lOEH9jILqCzyJyPjy9loOMP4/3MZjqfEEddG5
-         8RTi1teFaG/oz2xIy5xL5TC9Mkkh+iklqxfxKAlt+gj9w547e0DIW5DM/EDDDifwRoJx
-         yJiOrbPbBPC26RuHfA44P2OmIqQP0il7ii1ZJQgqnwzRSiVJw5eYXkWGR+Nv3xS/3MeE
-         NZp/PhWqkHvO+wIj3z4gQfsHfU46qwHNhkc/ULo7nl7AuwT5XdSVXwSe5Lw0dx+UEkHE
-         3g//JWlmB0fstMAU1XeztmA3MT6GJimSjGtNotxfX+Hd618IT3dsWKgnlmikIk4toQw2
-         K32A==
-X-Forwarded-Encrypted: i=1; AL+hErFksNe2ziYDb5iL4D0J6PdUr0ljl6zaEyBu5zV7waYxsS8+SAkBl4qBB/xUI5+Mk2Xy4uzoUc0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z99XaHYNAEFMcIGFd2VNt3j0xs+Y21sARLht3SQpus6qIs3AkDn
-	svUKP48s8P9pb0BXTnisXi8R6GY/wPRP8jy1wV1P7UtEBSicopdmx44qgx+x+1TvE4Q=
-X-Gm-Gg: AZFdTZcT2KUAoJ8Q8IQDzgxc9+Zp2ABzHkf3YwbDPLqCLsXCpmridfmFPou31yY5LYb
-	uQw9flr8EuhriqJC6R32pp4Hp2aIm87fvn9WovuRHGTh94TdC6RB8Z/EZPatITCmT5N5bsnwPZU
-	uYL2+/Va1x3MpM7BkvHKVPZPIL0MFt/sZ7HHD1qeICbH8bYeD/0NPAtccJMGofjZMT8AWa5FyJV
-	JH7pMvh3wGuhi7PngvXS1GBdhNBThaTPotWGGjyUFbuXRydWpbyGU8pTY4sGa6y7L+EmLKkGdiw
-	Pa5bFXEJgDuHpUM/l0QL0aXhalfJYT3MKHYRC1qgE6fsegu2a64KNL8wCRXKEDI6YfIqlU1EwZC
-	T5v3BjP/mPQqc2Q9JxIIyg43D1K8Rs46SWMudm9OLzmVNEq+sETo7XiPO2KMMuvPaEQi0AmWEkN
-	52djUy6by48Hzm9DmnBV0YL4ycBfK4V+hmrLMDWTNRr9vk39cScpitlFwxrJlXjUKiIJyRDuBEQ
-	+qWnQvrTseVPf30nOyBQ7Zfx0LoLlJiBILDngCUSnnJ/1ulWJ86VyAr02YGXTFjNp/PByuxx0SV
-	/U5xSByNlIiqXaxUBL0dfe7Ar5bM3dmcoR7BgreLYV8yaNuC1iEpCRWuMb/j7KJSIFUbNpOeeaZ
-	FHH1lasA0Apv8VVVhK3O0H18cspTL
-X-Received: by 2002:a05:620a:6505:b0:949:744e:12eb with SMTP id af79cd13be357-949baa10b08mr1523882385a.65.1795362604231;
-        Sun, 22 Nov 2026 07:50:04 -0800 (PST)
+        bh=sfE9ffid3qsS6HCt6GKuvhh3G4tRqIqs8ErTq4gAbSQ=;
+        b=oKyLKEXOE+aAO5P+DLJcMKWUwFT+AOJ7fsKDFEWSxhMmX5KFtWhRfVDwu0pKRi/Voq
+         FuwpnbAc7vb2//pMU+rT3+U0PXOZ8y6gB4LopVlGNGiy9OzINjSNT6nGVUmZeVJuti/v
+         I8Eu9z5DfZOv9ePrJRRYAwV+AulnaJWSjz6WQK8hdDDVVf7J1b+znsRdkEtU3fk/GVJ/
+         Mp4N+zUh0eXwa1zfVLHXOlW+NaPNxAnjP1Cw3EQ1VPmG46yM4A13fJTb1qqrEWdcsFOr
+         I/xKKvHRSJt/5WdOp75BV7TAvGT5yCUXPajx/GshQdXcIJlYPtHMteqGh7xEoyP+x4Ax
+         bmYA==
+X-Forwarded-Encrypted: i=1; AL+hErHF3qmV5aLlqbRFpf3XyCg67kCtbgZUF2M4FPvS+O/os3k3nI4MbOgQKE2LqY7JLbXda/s6TGo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8VqSKBOlI7Y6E4dHlAz1SQY9eGIEiiz8CCvswDJyUkdqRkZCkE
+	N9zsiykghCn4EgJjFw2bn8NPOka9J9C/MreD/cl8rfFn4PEEvo5XhAxE9TlXLlS2lAM=
+X-Gm-Gg: AZFdTZebKJEAwLmgGGGivWHt8cLV0K6+njWmCFBFqJweRyu9Z2V1higmtMKfLVclwL/
+	CQD4v2iJHNjtoORBALSFXyZ9KlJoLfhuZHrNiUeDgF02nkTo+JRJH8OQvQphMMBzjYDRf5i0pcJ
+	/XtVhQSVA4ZcHRMVS7xNt8fCfCMjlSdxi4K7XGyS/4Vr4pbiKzQk4/jHT9C2imcE6YD/jKcMiJj
+	b9uiqbOtK9dkYQg9Uh/Avvwy/DO2GIfLVxUre3gjybltYFYUbRKfuk7z8uA/0O4FeWmclfAzTzo
+	L2NUS6qyn7N4rr0icHA4Kzk44TV9c2YyBX+ZHyvfByUWJ5/U2bbf/2QraM89616hf2yEgLUXtLc
+	rDd/XunelfSmI3AAvs5aPLv5BtorVXA07pdxTCHf5onfMQ9kyk81JYEuUMjQCY2GvZzRRUomEPX
+	8U6blviQsdc7IV/yQcWP01wcMxL5Z0rPHVr1JPO3M0P5yvJUQWjUQx+D1aejoYHE6ojjWCLY3wj
+	uQ00ia2mOLsJDKn63CYIEQEKfKlz+ThHTUZ1ceA4Cua+Vo7qWRe6wxDHZmpNeiz8Nu+mbi90uou
+	3x/AWs+mVLhFjfQ5KKHu5gmpYjbWZUhTwAYpjVbGv7vm+IBqeFRjs0u5Fq6IoMX/LzGxvYErI6Q
+	yxBVb5mstj8z7QtDzB7bFzVOdcOuM
+X-Received: by 2002:a05:620a:4713:b0:93c:a468:2db1 with SMTP id af79cd13be357-949bab11618mr1604125185a.58.1795362630552;
+        Sun, 22 Nov 2026 07:50:30 -0800 (PST)
 Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb41c105sm632888485a.39.2026.11.22.07.50.03
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb41a341sm626128785a.37.2026.11.22.07.50.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 07:50:03 -0800 (PST)
+        Sun, 22 Nov 2026 07:50:30 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,8 +91,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 5/7] mm/mremap: apply the mmap() offset limits on
- expansion
+Subject: Re: [PATCH 4/7] mm/vma: fix uncharge after failed stack relocation
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 Cc: "Liam R. Howlett" <liam@infradead.org>, 
@@ -109,40 +108,49 @@ Cc: "Liam R. Howlett" <liam@infradead.org>,
  Catalin Marinas <catalin.marinas@arm.com>, linux-mm@kvack.org, 
  Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
  stable@vger.kernel.org
-In-Reply-To: <20261121-some-more-ai-fixes-v1-5-236e925d9b64@kernel.org>
+In-Reply-To: <20261121-some-more-ai-fixes-v1-4-236e925d9b64@kernel.org>
 References: <20261121-some-more-ai-fixes-v1-0-236e925d9b64@kernel.org>
- <20261121-some-more-ai-fixes-v1-5-236e925d9b64@kernel.org>
-Date: Sun, 22 Nov 2026 10:50:03 -0500
-Message-Id: <179536260304.412063.8485838901368834162.b4-reply@b4>
+ <20261121-some-more-ai-fixes-v1-4-236e925d9b64@kernel.org>
+Date: Sun, 22 Nov 2026 10:50:29 -0500
+Message-Id: <179536262938.412063.9413830491196612418.b4-reply@b4>
 X-Mailer: b4 0.17-dev
 
 On 2026-11-21 16:02 +0000, Lorenzo Stoakes (ARM) wrote:
 > From: Chris Mason <mason@kernel.org>
 > 
-> Commit be83bbf80682 ("mmap: introduce sane default mmap limits") made
-> do_mmap() reject file mappings which extend beyond the maximum offset the
-> file can support, via file_mmap_ok().
+> An execve() that fails to relocate its stack can underflow
+> vm_committed_as, and the commit limit of vm.overcommit_memory=2 then no
+> longer holds.
 > 
-> However mremap() can expand a file mapping and only checks that the page
-> offset does not wrap, so a mapping can be grown past the limit that mmap()
-> would have enforced.
+> exit_mmap() uncharges vma_pages() of each VMA with VMA_ACCOUNT_BIT, so
+> the charge has to match the size of the VMA. relocate_vma_down() expands
+> the stack VMA by the relocation distance without a charge, and relies on
+> its vma_shrink() to make the two match again. But it returns with the
+> VMA still expanded if move_page_tables() can't allocate a page table,
+> for example at the memory cgroup limit, or if vma_shrink() fails:
 > 
-> Fault handlers rely on that limit. For instance dax_iomap_pte_fault()
-> converts vmf->pgoff into a loff_t, which overflows for such an offset and
-> defeats its i_size check.
+>     relocate_vma_down()             charged    vma_pages()
+>     ===================             =======    ===========
+>                                     L          L
+>     vma_expand()                    L          L + shift
+>     move_page_tables() fails
+>       return -ENOMEM
 > 
-> Fix the issue by applying file_mmap_ok() to the expanded range in
-> check_prep_vma(), failing the mremap() with -EINVAL if it exceeds the
-> limit.
+>     exit_mmap()
+>       tear_down_vmas()
+>       vm_unacct_memory(L + shift)   -shift
 > 
-> This means that mremap() now refuses expansions it previously permitted,
-> however no file can have data at these offsets, and mmap() already refuses
-> the equivalent mapping.
+> On x86-64 with 4-level page tables, the distance is up to 16 GiB for a
+> 64-bit program, and about 128 TiB for a 32-bit one.
 > 
-> Fixes: be83bbf80682 ("mmap: introduce sane default mmap limits")
+> Fix the issue by giving back the charge of the stack VMA where its
+> relocation fails, and excluding the VMA from what exit_mmap() uncharges.
+> The argument pages of the dying task are then outside the commit charge
+> until exit_mmap() frees them.
+> 
+> Fixes: b6a2fea39318 ("mm: variable length argument support")
 > Cc: <stable@vger.kernel.org>
 > Signed-off-by: Chris Mason <mason@kernel.org>
-> [ ljs: fixed up commit msg ]
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
