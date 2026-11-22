@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795387709;
-	b=l8McvrQzJ0v+tdA1ilyLLY6iwd1p1LSzngSomtGd6D79VCMBndSoWtPhIiMezkp8b9Ox
-	 EITn8lm+RGxCsdfFEMepKZrZqJ923de84pkEtrMWepXVUo5BgzYQIptKh5oDsH82/amEs
-	 go9yV4PQCJ4bFkcgdofOS++aZ8vXZVN2DbZd0FWZsxqNSSXTk9XzoO4mOndsSSN2co91I
-	 h/LfKomMu0LE2k0++U/eweuCkWi6isQQN8d2mMb4Rvzq9tdjeiL982YLnB9p0vr1tE1OK
-	 v6bRKIaiV4H9mNLig0BgxqBoflb2YSUy5n5/bKg/H9dXhHsoANqP5/8RXVJ9lrskUSA==
+	t=1795387743;
+	b=0iPCjGEOu/FdqKLFYELXeQVIzg+gPScqBHRj5/aJqsrLVwe9Uo4QCotSlawW+fF/ZjYu
+	 1b9vlKIRLMDQDP4QnPhQCk2i9q6NShwJy9lj/PcKB2yz6aI/PNR3Te286DK4R/tXxwVnV
+	 BhVbHMri5E7fhMpukX5cndDzdZis6hLXRBZ9lmojaD0lKn5V5aqyjt+DIZy+8/3Fdsk7x
+	 sY2RjmOU4JLr46WvtXt12WgWcCKODFsZmxGfjVjoSzgmFlMFCX5aC4pu5bdI1AS1DSRpf
+	 a1EG3iiSeQ1+mLiIxL19+qL2lGAnmUFQxuxEmPkQ8kAMJ7J6ZfxIBRGsdkPKk5sLcwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795387709;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795387743;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=oiH7/8r12PUkiGmlcurjdPd/HvxKF2Inns2XBHj+S2A=;
-	b=I0czpBPOt5lsm1j/4rM2p0GT0PLtJ7CCoepg3A5jxQAHI5YBywUOEdFAV1Jyj/Y7MytN
-	 qUo49Lf2kakRygF65P20TNysDTOrvoaEItA40Ox7u/ENYdtM2TQUcw3gs4ce1gqR/Xqm3
-	 nIn4XwiCGEe5+F2NKLFQv+HSVyR1K9JH0oaaJDyABJK3fXrfj9JiNgHMFGYwfub/qEGea
-	 ECfRzVfwrMUUe4ougtfiKx1Ds8s/X00e81DMOI5PG+E4gjoodsYoFjPHB+4Ynaj6ve40B
-	 svG1wqdj/xF3L0KBEmB5TFhQFgZAiFxoYSLc+qrH4NGULOig0ENbdmj7MC26Nj7cNTg==
+	bh=hOw58rI+vx/7SP6XhjNI+vvX7bRtUaE3SiyNmla8FV8=;
+	b=T6zSY42Xg9/ZiG9bR4NSLKRFwtXsWUPIHhhPuiWIaqcRXdyXNFEjj7n98STYdSQzj/w1
+	 KEiVYlWYc/JjoAreJyZTuEmlRE0ehyE8wJk5WGMPHxVzMiR3apMRlNdpo1OpnAfjJoA2u
+	 ngd6EShfmwvG98RwD5sl8JiGVf5Qe6qoLJRF6BJDl6oiNvUelF2LVrfrH3ErI/rMdfnlc
+	 tH2Ik5ZqyRARSPhzYk/75uU1D071judPVmtNb55k31UhseyxfXwJWzJeXfS4dlyXHV2SK
+	 MVliyrMyN2rQMAhsT6pbf9GrMRItrD1fzDD0/VDKXcjFNtpBUYEBlVdt5JLQ4SFFGPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=innora.ai;
 	spf=pass smtp.mailfrom=innora.ai;
-	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=qMm1Ckux;
-	arc=none smtp.remote-ip=185.70.43.23
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=CQj8Ya11;
+	arc=none smtp.remote-ip=109.224.244.21
+Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch [109.224.244.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8B0606A31A
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:48:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F8B0606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB88F606A31A
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:49:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB88F606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innora.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innora.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=qMm1Ckux
+	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=CQj8Ya11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=innora.ai;
-	s=protonmail3; t=1795387707; x=1795646907;
-	bh=oiH7/8r12PUkiGmlcurjdPd/HvxKF2Inns2XBHj+S2A=;
+	s=protonmail3; t=1795387740; x=1795646940;
+	bh=hOw58rI+vx/7SP6XhjNI+vvX7bRtUaE3SiyNmla8FV8=;
 	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=qMm1Ckuxqlk3v8wIhZBoMYJ+A8Y9osWKu6JWTiwc03CrFAtiGEv2vLW7APWHLRR1R
-	 2s9b1M9x1wNde36bgojD0sY3tR5PeGoqN7UlmdXrR+wrxyPuWQbx6cNTMO99lmTUKl
-	 I6LBHG9kpvyQCIda6FOFDua6TFqDIca5xrG7qCvjTwNm2tH88LgPFS3himbX/d/22y
-	 TD7qcdBuELJqvJ4GXAfR+62P9KqIPiQSAEpfSTpJFXwDk5Mb2RM6DvgQcXnhvUeF7o
-	 0/Q0pfuigC+yai4IZNSDGP+HIxy/trUGxv8kb78eY7b87HJ1i13TaNU/VJPXsN8p1q
-	 DTH5lnJTnCN5A==
-Date: Sun, 22 Nov 2026 22:48:22 +0000
+	b=CQj8Ya11KCWPrKr3gjjN/iCN4RgTIhasSGTRPL8aqOzkJBU9vDl2qXYnKt6GNwNK+
+	 qcHC1m/+LB2UHw9ZBiHeW+coAsgtHy4MlicVUlm/CbbSdEiOaP+7/d2gH2hUwBu4K5
+	 9GrNngD426QSnRuYnDk5cIRLAzvGBNS8JTX8KP5FcXSjPzBhIOz2ClvS74J6zdaFcN
+	 mUwumOYsKco0NP5J4SQLAr0LcXZqOQKUepvwWe9vBmKiX87tYBu2snTpwKkciAPXpS
+	 Ujt9VsDxvyF9rzoo1sF9ObItSAiN8LWhpKKVYqhk1YTrL058hEtN8wLPFMC6d+7e1m
+	 D4qyUA/Vl2+Dg==
+Date: Sun, 22 Nov 2026 22:48:56 +0000
 To: stable@vger.kernel.org
 From: Feng Ning <feng@innora.ai>
-Subject: [PATCH 6.1.y v2] staging: media: atomisp: use array3_size() for overflow-safe allocation
-Message-ID: <jJtIqDqRVUYGviSqrKdxAcNchflgkqzE77aDE5c4lcmMEnFsDH_wpIsLAfRPQm1_hdQrr0FEzqrbdOxCC6mHcXTb-HClWFKbK0qyfBIGdIQ=@innora.ai>
+Subject: [PATCH 5.15.y v2] staging: media: atomisp: use array3_size() for overflow-safe allocation
+Message-ID: <fwcZVPcKe1picX9vKUK3AvAzdpckI822Gql8jzqdqRwZ90bvO6JPUNWRsS3N_GsVtGNz8ymembMBoIRIi3DaT1DvsfNLef497rSNWtREFkQ=@innora.ai>
 Feedback-ID: 140578448:user:proton
-X-Pm-Message-ID: f51a9d7f480e6ca801f51fa72c916d8b2ef364dd
+X-Pm-Message-ID: f8ca17553678aeb4bce14fa11eddcbf8a0322dd7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -147,7 +147,7 @@ nt32_t),
  =09=09=09IA_CSS_ERROR("out of memory");
 diff --git a/drivers/staging/media/atomisp/pci/sh_css_param_shading.c b/dri=
 vers/staging/media/atomisp/pci/sh_css_param_shading.c
-index 41a4c9162..c62c3fea0 100644
+index 69cc4e423..460a8099a 100644
 --- a/drivers/staging/media/atomisp/pci/sh_css_param_shading.c
 +++ b/drivers/staging/media/atomisp/pci/sh_css_param_shading.c
 @@ -13,6 +13,7 @@
@@ -158,7 +158,7 @@ index 41a4c9162..c62c3fea0 100644
  #include <linux/slab.h>
 =20
  #include <math_support.h>
-@@ -349,7 +350,8 @@ ia_css_shading_table_alloc(
+@@ -350,7 +351,8 @@ ia_css_shading_table_alloc(
  =09me->fraction_bits =3D 0;
  =09for (i =3D 0; i < IA_CSS_SC_NUM_COLORS; i++) {
  =09=09me->data[i] =3D
@@ -170,7 +170,7 @@ index 41a4c9162..c62c3fea0 100644
  =09=09=09unsigned int j;
 diff --git a/drivers/staging/media/atomisp/pci/sh_css_params.c b/drivers/st=
 aging/media/atomisp/pci/sh_css_params.c
-index 34113bea3..8d1d4d808 100644
+index 85cf280bd..a7983a656 100644
 --- a/drivers/staging/media/atomisp/pci/sh_css_params.c
 +++ b/drivers/staging/media/atomisp/pci/sh_css_params.c
 @@ -13,6 +13,7 @@
@@ -181,7 +181,7 @@ index 34113bea3..8d1d4d808 100644
  #include "gdc_device.h"=09=09/* gdc_lut_store(), ... */
  #include "isp.h"=09=09=09/* ISP_VEC_ELEMBITS */
  #include "vamem.h"
-@@ -1381,11 +1382,11 @@ struct ia_css_morph_table *ia_css_morph_table_alloc=
+@@ -1402,11 +1403,11 @@ struct ia_css_morph_table *ia_css_morph_table_alloc=
 ate(
  =09}
 =20
@@ -198,7 +198,7 @@ ate(
  =09=09=09=09=09=09GFP_KERNEL);
 =20
  =09=09if ((!me->coordinates_x[i]) ||
-@@ -4171,13 +4172,17 @@ ia_css_dvs_statistics_allocate(const struct ia_css_=
+@@ -4369,13 +4370,17 @@ ia_css_dvs_statistics_allocate(const struct ia_css_=
 dvs_grid_info *grid)
  =09=09goto err;
 =20
@@ -221,7 +221,7 @@ dvs_grid_info *grid)
  =09if (!me->ver_proj)
  =09=09goto err;
 =20
-@@ -4444,24 +4449,26 @@ ia_css_dvs2_6axis_config_allocate(const struct ia_c=
+@@ -4642,24 +4647,26 @@ ia_css_dvs2_6axis_config_allocate(const struct ia_c=
 ss_stream *stream)
  =09=09=09=09    params->pipe_dvs_6axis_config[IA_CSS_PIPE_ID_VIDEO]->heigh=
 t_uv;
