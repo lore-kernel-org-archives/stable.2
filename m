@@ -1,80 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795310931;
-	b=m66NXP9ii3EUAQP+saKjPuuVOVe8TF6ElRXmofSdVh/nKZNaAwUNoCYLSuFHxESiL5bT
-	 Qs2Hv28Vmjy/ek11R5OKYSenFuuT8cgA9oJemLbE/00rBhKtbR/ImklUa+ZFLn5RV34kJ
-	 tERQAKzfDB6Oy5mEPjnrzuBUEoBINQHqIdrNwyehcleGLKk6H4pzrkKtRAOie7EJiBafI
-	 8TzI6pWhhc2hEy7de/TF6j+Fdukkt7lEhQmcwVXgn62akVDQZio84YErQ/B/5M1rZh90+
-	 i0OYn+k9xwROjbmIsYQr/KYpVRPDu+rPS2RFp7jeVXxaa37IOhdwNUO2lfkEs8m/Myw==
+	t=1795311508;
+	b=07UherGY5dxIFK0S5HLALtbdVRiFW9P9MEwWRpIN44xP58FItb2AxsqMKI+HzEbDP0fW
+	 ZktQbu8GDOI7Kpx4Y1XW5+klsTsIVavaCfEZl3k/Oluaf6S/lr1+eFIrPdgpsQ3vwWu+8
+	 EW2SGs6h42+G6cTmMS4dqGz6zxFVRAfC6i6LykyJhIwkcPoiiro6pKM5w4pbfIhjlwQ0a
+	 wKH7TdcHNQYm8IwTlZ0jycza7mB6FBsm5Ubv7rvtRDRK4OEd+0Oc4Xt7kBHumc77LDJ1Y
+	 KHk/NIcySUuWYnzyzJYH39fDN+1yO8afqdTs49dlVyL6X4pVyoi4xxGegTzAAF8ZsVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795310931;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=j7wV5xYsKk+AnKzewK6ED1DY0tL9Fq/vDgt6ZBEAmrk=;
-	b=2nP7dbE4MB1G/+70vujAUYqtXlJ0REbzDTGyEIRxndfi8iPFOMEd0PGa2+mx90ifgxpb
-	 7wLXn3t5XkY0AQ05boxS83Y/poaXutEwW1ZOMjbYcwvuZEiWZwqQol/SbuqQopF0P3a9/
-	 Ln4VykNQmtw36nYJw1nsQoGcpIRAScluatxbca2bXouJ9oMlkmBd+jvaUIeTmh+uTJfPi
-	 +Cmcv5D4TUSZJKhDkuqzcm9Iw0coWt5rBkd5KvO4UDBKExUfgJhY4RvZrcyiYDHTFEagE
-	 aQu50FZtDrpysTSwcUgLxOdpghGv2fnho7SabSA6YNvG+yWWAXo1mYqZ/se7ZELSKiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795311508;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=81Pbkrc52gEy+fyEGLKCyvPeoMIXZ32F4Jmz33E/W4w=;
+	b=z8mEtCAs/eYX9T9fM7/DMfOcMVO0hJ4TJ2gvr/41of9wti7DFS/RoT5Nw3ZBDDMOqDJH
+	 Zu6TvDmFl1cPsBIczaj1IU7+iTQLsMGe3tP885lYqVMWhfxkJs1CzGRnM5V8pJe6JFp5I
+	 rZh7Ri6V8r0KOnjpT7UV/qSoCXrQsv5ytlkTrUQxulQdwKgrFinYPZ/cy4eIFuOriAWWP
+	 v0lJVxPFrs6/kjY+fUNoGf82+lguL2S0W4dCRazfr55H/hgjAKeCof0KUHcZe/TA/jNFL
+	 Lrxn/PCA6XNL9qD5lmGVk5nHfDOtKEX31R5ubzwTH4RkGVbHjD80OCU1E1O/N8k1uVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=g229YHOB;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGDjHrI0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2DC606A320
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 01:28:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB2DC606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF21F606A32A;
+	Sun, 22 Nov 2026 01:38:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=g229YHOB
-Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
-	by cmsmtp with ESMTPS
-	id Uht5xM8XBAR1iUwNuxOuZH; Sun, 22 Nov 2026 01:28:50 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id UwNtx9N8ruJrPUwNtxQliZ; Sun, 22 Nov 2026 01:28:50 +0000
-X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6b024552
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=1pp0S3YwmL9lSNfLDwgA:9 a=CjuIK1q_8ugA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=j7wV5xYsKk+AnKzewK6ED1DY0tL9Fq/vDgt6ZBEAmrk=; b=g229YHOB7tCg4Z/SwqMpPNGxUW
-	q9a9a3lR9qOm0D75rmzC8VvgTIasiwDBGOxUuSbtvGsj4OkaQL3epxwaRaOEAeRzGodMaF2+Al4Xs
-	0GQ7DMM3G8KIUUtyS1VtVywo0GHyHJV45QCZUH1J4FQHvW8FEO2exYG4y8ooBWGJDNGpqGIX7n3KK
-	GujjwKUoTMEBxVdDw4UUmE5aruOzchol+1RMY3CAZa/iYJFD5wkAGxnNYb1qp1SunsLXNZjfeWP/d
-	kdjiLh6KQEtqUPQXCEhWydzOikLmY58+0AfL+pZHasEIlI5bNJUYcO6ovVga8GngYP7SWRAk/8K1S
-	y/XLCrLw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:46818 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xUwNt-00000000mlw-17XS;
-	Sun, 22 Nov 2026 06:58:49 +0530
-Date: Sat, 21 Nov 2026 17:28:48 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: David Yang <mmyangfl@gmail.com>
-Cc: linux-watchdog@vger.kernel.org, stable@vger.kernel.org,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Jongsung Kim <neidhard.kim@lge.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] watchdog: sp805: re-enable the clock in the restart
- handler
-Message-ID: <e07b2b4a-514b-4697-b7e4-e2101130f8b2@roeck-us.net>
-References: <20261121204528.2435533-1-mmyangfl@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGDjHrI0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91171F000C4;
+	Sun, 22 Nov 2026 01:38:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795311508;
+	bh=81Pbkrc52gEy+fyEGLKCyvPeoMIXZ32F4Jmz33E/W4w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=KGDjHrI0XUWcenBRawfxf232RBlQKwxPGfIOwt+Fpe9pi6zDCHXyEIG4JQ93Rak9J
+	 J1g/af98yy2+e8/OiPB7Y32gntgb3zlTXnDE278xHpb2tGzDGn7nik71+MjvIRHjwj
+	 +FFE6OAzKEbFjvyE3OxK4Y/NQ620qvdvY0aars6tJlINftf2vmfFUvJkNcrosSdIIu
+	 pKHiul5iIzCWe3FeMWgSpWfBlQPWdg+R8ve+/0TYWeoqomHe2wCBdtpbNmGYehlf/E
+	 k2xlS2aoQyhw25xCOL6aIyo38Mv/FGx+lLZKH43YR2gD0F7s9OPW3nQa7gDpaUD0Pl
+	 kmCNss1EfAK8g==
+Subject: Re: [PATCH ipsec 1/2] xfrm: iptfs: don't modify the shared info of
+ cloned skbs on output
+From: netdev-bot+sashiko@kernel.org
+To: opensource@andrii.net
+Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, chopps@labn.net, netdev@vger.kernel.org,
+ ipsec@lists.linux.dev, linux-kernel@vger.kernel.org, security@kernel.org,
+ stable@vger.kernel.org
+Date: Sun, 22 Nov 2026 01:38:27 +0000
+Message-ID: <179531150722.3135.5639628464200463791@kernel.org>
+In-Reply-To: <c1e999b5-15ee-468d-81c5-530a560e84df@mid.andrii.net>
+References: <c1e999b5-15ee-468d-81c5-530a560e84df@mid.andrii.net>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,47 +65,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261121204528.2435533-1-mmyangfl@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xUwNt-00000000mlw-17XS
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:46818
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 10
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfBE5RLtbdWEIYhb9wRGN/7tz1ERYLcl18cXxIp7LCvipm1tJwK156goQryrXOszH9lAhF6iHxhfSSnEdLm1SC7OwhgH1yXY4cvDZqw3d0wsHjDL/ejCz
- JFmlpcKvDdk43hH5SaDAy6xtp2iGMTGlG5fBRB3h0DZbIEdBFVXZOGIK5ZX0c55xoKJU5F2N1YSUs5gC92cXEgOu373Z+RkqT3F2V8seXzAEV0pIlCHRyQok
 
-On Sun, Nov 22, 2026 at 04:45:25AM +0800, David Yang wrote:
-> wdt_restart() fail to reboot the system if the watchdog counter clock
-> was previously disabled: If userspace cleanly stops the watchdog, the
-> core calls wdt_disable() which disables wdt->clk. No reset comes.
-> 
-> Re-enable the clock in it as in npcm_wdt. The watchdog .restart()
-> callback runs in atomic context: get the clock with
-> devm_clk_get_optional_prepared() at probe time and keep it prepared for
-> the lifetime of the driver, so the restart handler only needs
-> clk_enable(), which is safe in atomic context.
-> 
-> Link: https://lore.kernel.org/r/20260911031916.A8E051F000FF@smtp.kernel.org
-> Fixes: 6c5c0d48b686 ("watchdog: sp805: add restart handler")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Yang <mmyangfl@gmail.com>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Applied.
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-Thanks,
-Guenter
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The fix is incomplete.
+- [Low] The commit message says: "ESP copies a cloned head anyway, so
+  this moves that copy earlier and does not add one." That is not true…
+
+--
+
+xfrm: iptfs: don't modify the shared info of cloned skbs on output
+
+This patch changes how iptfs_output_queued() handles a cloned first skb.
+It unclones the skb before appending inner packets to its frag_list, or
+sends it on its own if it already has a frag_list or cannot be uncloned.
+It also stops aggregation at a cloned skb2 that has a frag_list, and
+keeps iptfs_consume_frags() from taking the page frags of a cloned skb2.
+
+> diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
+> index 0313a43aa8a97..95ba7301324b9 100644
+> --- a/net/xfrm/xfrm_iptfs.c
+> +++ b/net/xfrm/xfrm_iptfs.c
+> @@ -2234,6 +2234,19 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
+>  		if (iptfs_first_skb(&skb, xtfs, mtu))
+>  			continue;
+>  
+> +		/* A clone shares skb_shinfo(), and with it the frag_list we
+> +		 * are about to append to, with its original, e.g. the skb TCP
+> +		 * keeps for retransmission. A cloned head that has a frag_list,
+> +		 * or that we cannot unclone, is sent on its own rather than
+> +		 * aggregated; the skbs on a frag_list stay shared with the
+> +		 * original even after an unclone, so they are never appended.
+> +		 */
+> +		if (skb_cloned(skb) &&
+> +		    (skb_has_frag_list(skb) || skb_unclone(skb, GFP_ATOMIC))) {
+> +			xfrm_output(NULL, skb);
+> +			continue;
+> +		}
+
+[Severity: High]
+Does this guard hold the "they are never appended" rule from the comment
+above? It only tests skb_cloned(skb). It also runs after
+iptfs_first_skb(), which may already have uncloned the head.
+
+For a CHECKSUM_PARTIAL head, iptfs_first_skb() does:
+
+	if (skb->ip_summed == CHECKSUM_PARTIAL) {
+		err = skb_checksum_help(skb);
+
+On a cloned skb, skb_checksum_help()->skb_ensure_writable()->
+pskb_expand_head() calls skb_clone_fraglist(). That only takes a
+reference on each frag_list member. It then clears skb->cloned and
+resets dataref to 1:
+
+net/core/skbuff.c:pskb_expand_head() {
+    ...
+		if (skb_has_frag_list(skb))
+			skb_clone_fraglist(skb);
+    ...
+	skb->cloned   = 0;
+    ...
+}
+
+After that, skb_cloned(skb) is false, but the original still links the
+frag_list members.
+
+Wouldn't two later steps then write into sk_buffs the other owner still
+links? The first is the re-home loop, where iptfs_rehome_fraglist()
+rewrites the members' frag_list, len and data_len. The second is this
+append:
+
+	*nextp = skb2;
+
+The ->next of the last shared member would then point to skb2, which the
+other owner's len and data_len do not count.
+
+There seem to be a few other ways to reach the same state.
+
+The new break in the inner loop leaves a cloned skb2 that has a
+frag_list for the next head. On the next pass that skb goes through
+iptfs_first_skb() again, so it can be uncloned the same way and then
+aggregated anyway.
+
+Heads can also arrive already uncloned but with shared frag_list
+members. For example, nf_dup_ipv4() calls pskb_copy(), and
+__pskb_copy_fclone() does:
+
+	if (skb_has_frag_list(skb)) {
+		skb_shinfo(n)->frag_list = skb_shinfo(skb)->frag_list;
+		skb_clone_fraglist(n);
+	}
+
+A reassembled forwarded packet and its duplicate are then both
+non-cloned but share their frag_list members. skb_cow() in ip_forward()
+on a cloned skb has the same effect.
+
+A non-cloned skb2 whose frag_list members are shared also gets past the
+new skb_cloned(skb2) && skb_has_frag_list(skb2) check. Its members are
+then linked into the head's chain, and later appends write their ->next.
+
+When the other owner frees its skb, can kfree_skb_list() follow the
+modified ->next into skb2? By then skb2 may already be freed, or
+consumed by ESP's skb_cow_data(). The result would be a use-after-free,
+a double free, or the same skb_over_panic described in the commit
+message.
+
+For comparison, __pskb_pull_tail() forks shared list members with
+skb_clone(), and skb_cow_data() copies them.
+
+Could the code refuse to aggregate onto, or re-home, any frag_list with
+an skb_shared() member, whether or not the head is cloned? Or could the
+clone/frag_list decision be made before skb_checksum_help() can unclone
+the head?
+
+[Severity: Low]
+The commit message says:
+
+    Unclone the first skb before appending to it. ESP copies a cloned head
+    anyway, so this moves that copy earlier and does not add one.
+
+Is that accurate for the local TCP case this patch targets?
+skb_unclone() here does pskb_expand_head(skb, 0, 0), which adds no
+tailroom. The following skb2s are TCP clones, so share_ok becomes false
+and they go onto the frag_list.
+
+In esp_output_head() the head is no longer cloned. It still has a
+frag_list, though, so this check fails and it goes to cow:
+
+		} else if ((skb_shinfo(skb)->nr_frags < MAX_SKB_FRAGS)
+			   && !skb_has_frag_list(skb)) {
+
+skb_cow_data() then sees nr_frags != 0:
+
+	if ((skb_cloned(skb) || skb_shinfo(skb)->nr_frags) &&
+	    !__pskb_pull_tail(skb, __skb_pagelen(skb)))
+
+If the pulled data does not fit in the tailroom, __pskb_pull_tail() does
+a second pskb_expand_head(). Before the patch, the cloned head needed
+only one pskb_expand_head(skb, 0, eat + 128) inside __pskb_pull_tail().
+
+Doesn't this add a head reallocation and copy for each aggregated outer
+packet? When nothing is aggregated, the uncloned head can take ESP's
+page-frag path and a copy is saved instead. Either way, the cost depends
+on the traffic.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/b56bbced-a8b0-4ae9-80b4-1958ea36684c%40mid.andrii.net
