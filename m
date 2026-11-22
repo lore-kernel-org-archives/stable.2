@@ -1,86 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795374158;
-	b=Wk1tbGD8lRrheVFL0pFNqXvUPId4Qsgv+ZLIGyT5DTRdT8I7ANOnpbbVOmkVF8YbwGJk
-	 B2/8owmojZ3hjcYVBPcL59nAtTaV8ze7hJth44vGwXFddmsRcad93nvMg0Tq6veZ/c7pN
-	 yExZq55SyUhS7Tdq5AeYtFJuYOQs4wwNkOtu8EmJWOHUFxqxF+3XFpqlp31XKr0p2GqvY
-	 ENRNSgyjPyqMgM73306ZPCT2C1Cl9xM+lsAhy1s1t8RRHwWDh/i4Le9QXV2Qk+2s6a2Uj
-	 hty9D7LwNtWnCIPFsaIr44gXwodfgTzvvFcJgQtRWZE0eJ6kKFtf6QH7tORtMvzZlLw==
+	t=1795374852;
+	b=qoZlwZPKvzYSNwbnYvoVxVccV5U+ocJEw5vHDjp1vbp/KdGzNHy/cRe9C8qrw5dyslzj
+	 NBH1mVZasFlfKZMXwpbsHHSKFTuud4hEwyxTMeV6jYyhTAZyUzd8zYa6Zn+PQk9GtK8rS
+	 jYdGD4kE2LYmkTTlDjle1a2yluH+ORABDNYfh4phEtF8gCv5hRQjtNS3QYmPzHE9xOn4P
+	 kozD4CP6feiA/KM88wvzxaWd85+9815ahXImSg1nImjujsysKtnzU7yxOQW8qxFOuf4zo
+	 uc6Q0PEA97r66lqjKxoGcGiH4HY08t+f1eVcJM9Z8R0TKqFheRf4lo3jqizMuNdwbLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795374158;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=Lp0osgtiZVKWMvtaLvxNrKUfcz8WxeL6pbk5OTyZtio=;
-	b=W0jELFUL9QPvDUjHFDpL4qv6LZYS1AhU10YYiYJBIpZtTlzldvBquXACcPTrpMx7CFBw
-	 QpowrDOlpep4h/n96i6rnEBZq1mJTix/qbsvmqBVUuaSNDhWeMvS6ssynASpMA0ubrHRl
-	 VpV1U1/5z0qTLDffioC+jnZ7+aA1ytoewe70dXJMqae72+KETteL1EkeGefjSrP2uBwux
-	 /fzKrUSi3YF46Qmgbdl/p8lyCRnaXYd1ZACHaJvxj2nY4aoz9T0f//c4+ZhJS8NumqOkW
-	 VHYPd8lfdKsHIFTjd9tdJSNlNMPCoc16+J/90Cx6NKO5B81ka9zYk7rI+YCkzjL7ZWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795374852;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=SPoTViWJGHL7QSLz+I0tDgbdnIX9thSbIOpbmEgxuw8=;
+	b=pEF7TjXcTtXWXaB3u7AubE6nMCqpIuqKGvkA2ibbSNfoNX6i4gjgbrj9jxjjNmzZ1gGN
+	 hI2Yh0pHh8mIv0QxJduRlPeyCD17HXWHsgwqmaqnZ6B6pSR0wycoK9G8Si/dcOq/YGJvb
+	 QwYpaeyGTmdE5PanWDdxm6GwN3f8kHUzz2royeAb+91eu74BNoq7QaFqIQmN2LTkQ0zDF
+	 49HnU98wAv8pf4GVVYGKfOTV05Tabs0LeYoUiNacufKOHANPcdPtA1UOVycmAZvhpjjVG
+	 z5UyYQ5P/TJf6c1qFdc9vrz4q2O5MZTwkTl6MVFFyGEYGK/YQQEKm+MsIp8ToBrowIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=uQFeWFLZ;
-	arc=none smtp.remote-ip=209.85.222.178
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZpAwrYuL;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=I+9gw4J3;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCE0606A330
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 19:02:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FCE0606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4AC606A32C
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 19:14:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C4AC606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=uQFeWFLZ
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-949b0d32315so236444985a.1
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 11:02:37 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZpAwrYuL;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=I+9gw4J3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795374850;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SPoTViWJGHL7QSLz+I0tDgbdnIX9thSbIOpbmEgxuw8=;
+	b=ZpAwrYuLf5EdLloLxtncynvxdkf3IrcU3uWbIR/1vn8nDClXS68XwwZqoZEaHb4EEWypM7
+	if1l767wKwZ72NATFFD+S78SrI6tfnWhXMGf6KGmtG31XeFcBx1KlJPtHHT/yLha4LI1b3
+	bO8IaXfLRF2/9MoTLpg/x08hhJSGBzw=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-31-3AKGMwwePRGa7HCd9QJqww-1; Sun, 22 Nov 2026 19:14:08 +0000
+X-MC-Unique: 3AKGMwwePRGa7HCd9QJqww-1
+X-Mimecast-MFC-AGG-ID: 3AKGMwwePRGa7HCd9QJqww_1795374847
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4a647e776b4so1848385f8f.1
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 11:14:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1795374156; x=1795978956; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Lp0osgtiZVKWMvtaLvxNrKUfcz8WxeL6pbk5OTyZtio=;
-        b=uQFeWFLZsxcxcM3Y5PRguhI2N3sC44abIIYqvAJ5480AJO17aLrxmv/Mrc1sQy/1Ab
-         e/GKhbYXMeYyweITHXj6HCJ5gXaNgtkOfrWlaaL2ktZHbIG6vePBtVvSQorfGijae/dp
-         HG4fydroZks/uH9axcRNOtC70y4ETiD0cGLFyv69QD5/lMjRMg2fKsg7QTLJK8jM/qTJ
-         xnKeI6VcXjHi+oOkz55ieTVlqga4f6mnk5x7VYtdcWZMCVgnDd3ZsKJTb5g5Hl/CZIzv
-         kA+8BnsxL/pxPlzjn+2FoD/PXx7Y5Ub/demE8XrMa8TEZOOXCxxI7CUMEutpIaJPR//1
-         M7Qw==
+        d=redhat.com; s=google; t=1795374847; x=1795979647; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SPoTViWJGHL7QSLz+I0tDgbdnIX9thSbIOpbmEgxuw8=;
+        b=I+9gw4J3CXiFaFKNO8WIQqKcUIlUxmMmLmeqeDzziAmXvCXmDmgPzFJrv1qGn61o9i
+         Lr3kEFiyPxYYT8ELEJS2aIroU6GwFekZNB7ohrLW5gm97gAwuRUbv0cNOZtkdNjHtO9+
+         P2MyFgopF4CcvZij8UHwjiiicla7IY2Pr6o2anJI+75rTB6OJPfQlIFQCKA0PWmHPN04
+         3qQy0rnJRuECatkNhiUkUEWO48rl5O8aNwbGNRr5NpqaMTlizV0rZipvIs8odH/R1le/
+         ZWNM0BdgolBZ5KBFI2ImmGtSGSCALIH9dX+t2tmX8p33ZpQngxHj6NZlnuDEQT2drhLO
+         2EkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795374156; x=1795978956;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1795374847; x=1795979647;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Lp0osgtiZVKWMvtaLvxNrKUfcz8WxeL6pbk5OTyZtio=;
-        b=J+nnoqLw887p8vp5xkm9y2bOHoHpLqYUGFut/POjWo8M09SQZLt4SdN3tb373FHOtn
-         PBfjjf/Lc/5Sx12iGvhmY3JxD+d/UgKbSYBQRxCgm2IGC/AFq4hxmlwBMtafVdrxvY57
-         2MAK9ka3BH+4v8wD3fSpP6OUlbJuVoYmwSUMbevagNWUsk9grjCejTlJk8xQ1LtNAvFU
-         os1YkhNEDBEwBwB5m0trlXNZiEGeQ1COayJrek83qbX9XOvRC42yHQ0dhiSU73Yg8/vA
-         oKO5pFGP7J/+ZbkTJa8A4Z+LSjfOF5609ked7QaowWuF+cRyf9YXuM/FU/7ExcNzcYNQ
-         9ETQ==
-X-Forwarded-Encrypted: i=1; AL+hErEhOmCHWaPvAficG8nzkgFBybVgLh0U9Kl54UkEA3N4tnBwB0C53qiYvhWghnZ2dAsvJRR60HQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/b6s1tH6iFSxEhZrKYJmAUmJUeafzsabjO0i1vjHpkrmzJsoWd
-	ojJeZ52vv3pfrIgPKUGXgJqCMlnLzKXIywfLMEXZ/UKNqdJlHVIJW9DDHOYK9yc++dLAnhGhvR1
-	uD1bN
-X-Gm-Gg: AZFdTZe5KktjOiHWw4t30Hb0ecXb4RuI45PEaZ8sUg+BJ5AkbCkR5xWGGCtX7OtpCfo
-	g+dErp7LzJQkezRBMPvovguUxqJ4XaJKLyYIhzKKM2HpfArL0pYPNWSd04Md4UEOZhaQ2HTIMfg
-	0J8eHVFmLqvenIXWgp3ag/eFHphH2yAYxcDzaxUuZ6/K8fS1spsyTX2I6f1eFdqC4PPUEQZdf/t
-	B5NM2rU8TyOUjzoIBazuO8KTaTvJB4vJNkn7KfrFUYxUIl8Z/gg0QsS6TM+PdjQR6Dj4H3IwpHV
-	fIBnAg49rXz8O/x9/uwv7qqdkTljN/+fG/vwE4LyJLxQdbiyaiyw4+6k96dzayjBTsRVTLdNHZ5
-	d/6GqT4eoKpgoZO49VTTadqCEY4ixzBvUCTXYe/t5vUDarlB8WkgDNRtABC/GYkR6mqtZloaeGP
-	KnkfjFjacQe8NQe5zWshylw6ZDe37GYO6xax4VCTFYE26fC7TAv6fQpJQ4ins/zrAkmwFjYETXk
-	wmjPNaALRUHg3bEmUo87IQMgqNMWv2q0cAXtsnO/pS0cy3Rg66/LDOco9TQtxCqsmnZQT9RdNoY
-	kvIB1oOJSvVct4yGQtClKW2HMVpunUI0v8IctHSTdOYs2EoOFS9jaCK90Mapi3m2jSmosGWt/PK
-	38He7CASNDUu3+eDz9cLBFzQYk93k
-X-Received: by 2002:a05:620a:a403:20b0:949:c967:eb68 with SMTP id af79cd13be357-949c967ee7fmr803688985a.1.1795374156268;
-        Sun, 22 Nov 2026 11:02:36 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb4219c4sm651293585a.41.2026.11.22.11.02.35
+        bh=SPoTViWJGHL7QSLz+I0tDgbdnIX9thSbIOpbmEgxuw8=;
+        b=Hh0BFXh7uZGftBSU4r2lzfChjpGaoRBgT/RGqxHStVr/JkBzKlgF3kQhkoPqLKkXV5
+         SofWaV4DVVre9VoMTrH1J+QLJsNEUWyU/PBh3HS8l8N/LwF4kBTzPn5awkoSoJFqFnjt
+         AU4YvMnUhs+b99rXX9gpG+CoyF1oEoApQ6/Fa7OfCeStlzJ7szYkrfcbP4+WKVkv25z0
+         4Z2OrM6xcdEyOgJtv7+wHPNdiIEXY4HHt1seB8nSX03Jcm4okq0UFiR/Bg2t6UG+PgcL
+         5X2/QJ0LHg82Gej9DrHepe4RJu+kSTQ/UCiW9Os+MbbvENhjQWHA4J4Ew5TRBk78SB+a
+         fUYQ==
+X-Forwarded-Encrypted: i=1; AL+hErFPbBOpZ3xgmAwKgunMpOSv61VLqflFbYQOcN+33IVUC1qX7YpAL5Y8EFMFbbZhIKuY2YcWKAI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3XvCzBBzW3MKBFYPyk9t963y91jx54nt8ZXPO7rnxILV5Jqge
+	o8a6s/wEo71CavWlmx70lRPYC+FFbX9qOhkEDBB6FkELXGvZCZpAu0FEhOpcrYJyAAecufUjUn1
+	pB7wIZxzzirRZD2W4RC+A4fV4fzBh+zHMhod1jk2aHflH3RMkW9QT67rv5A==
+X-Gm-Gg: AZFdTZeFRv9ML8tEuwR8+7OLP9AdV7lZeZ/sEs0b2gdQWK68tOwSKbCk96ky2e6mlUC
+	lpXqtpzVuZE+TroQGw0hH1ua58c4uhalFDYGzCq7BNscVqohNIUe8ZMfBSRd+qrT/3SXbXBeBUg
+	IPEj4vhpYpcTlNfJ/V8vTKxlnfOGaRQmyMene/6ecgY8rCSRz6QQfIIZUHxybPVcyH/2/53p/9g
+	Zz8E3s5Sh/mRuuUwVeG4t0VZxiIoWyFfRWIXuhbtt3O8XBIj1Elbb9C/gMOrAe5uknTQAgKfAfa
+	S2OGC+5Hd0F58HtMqnLj1k9P/bWWmP0wPXstdGBZYui3KGgiaNHF0ksvqrSR2FM1fIO9UuKqLit
+	SjUL/ObLSj8MUHckNf/7nq+hN3GROX6owcS3r+7P5
+X-Received: by 2002:a05:600c:3b8c:b0:4b7:6c16:7b43 with SMTP id 5b1f17b1804b1-4bb8881d019mr195708795e9.10.1795374847322;
+        Sun, 22 Nov 2026 11:14:07 -0800 (PST)
+X-Received: by 2002:a05:600c:3b8c:b0:4b7:6c16:7b43 with SMTP id 5b1f17b1804b1-4bb8881d019mr195708385e9.10.1795374846810;
+        Sun, 22 Nov 2026 11:14:06 -0800 (PST)
+Received: from redhat.com ([2a0d:6fc0:1524:9e00:c39b:a740:e7:3fcf])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb90660cb4sm198874085e9.2.2026.11.22.11.14.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 11:02:35 -0800 (PST)
+        Sun, 22 Nov 2026 11:14:06 -0800 (PST)
+Date: Sun, 22 Nov 2026 14:14:03 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Paolo Abeni <pabeni@redhat.com>, kvm@vger.kernel.org,
+	virtualization@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] vhost/net: bound the count of VHOST_SET_FEATURES_ARRAY
+Message-ID: <20261122134901-mutt-send-email-mst@kernel.org>
+References: <20261122092235-mutt-send-email-mst@kernel.org>
+ <20261122143829.2674252-1-hengyul@cs.unc.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,117 +118,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/2] mm/migrate: allocate destination folios before
- locking a batch
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- William Kucharski <william.kucharski@oracle.com>, 
- Heiko Carstens <hca@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Miklos Szeredi <miklos@szeredi.hu>, Joanne Koong <joannelkoong@gmail.com>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, 
- Chris Mason <mason@kernel.org>
-In-Reply-To: <20261122-migrate_reclaim_deadlock-v1-2-83c56185b0fb@kernel.org>
-References: <20261122-migrate_reclaim_deadlock-v1-0-83c56185b0fb@kernel.org>
- <20261122-migrate_reclaim_deadlock-v1-2-83c56185b0fb@kernel.org>
-Date: Sun, 22 Nov 2026 14:02:34 -0500
-Message-Id: <179537415429.412063.2442586940573913371.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122143829.2674252-1-hengyul@cs.unc.edu>
 
-On 2026-11-22 13:42 +0100, David Hildenbrand (Arm) wrote:
-> Migration locks folios without holding a reference on their inode.
-> migrate_pages_batch() keeps a whole batch locked while allocating the
-> destinations of the next folios. If such an allocation ends up in direct
-> reclaim with __GFP_FS, reclaim can evict an inode through the dcache
-> shrinker, and wait in truncate_inode_pages_final() for a folio that we
-> hold locked:
+On Sun, Nov 22, 2026 at 09:38:29AM -0500, Hengyu Liang wrote:
+> On Sun, Nov 22, 2026 at 09:25:37AM -0500, Michael S. Tsirkin wrote:
+> > this is followed by:
+> >
+> >                 virtio_features_zero(all_features);
+> >                 argp += sizeof(u64);
+> >                 copied = min(count, (u64)VIRTIO_FEATURES_U64S);
+> >                 if (copy_from_user(all_features, argp, copied * sizeof(u64)))
+> >                         return -EFAULT;
+> >
+> > copies at most 8 bytes.
+> >
+> >
+> > did you test that this patch actually helps anything?
 > 
->     migrate_pages_batch()
->       migrate_folio_unmap(A)
->         folio_trylock(A)
->       migrate_folio_unmap(B)
->         get_new_folio()
->           try_to_free_pages()
->             super_cache_scan()
->               prune_dcache_sb()
->                 iput_final()
->                   evict()
->                     truncate_inode_pages_final()
->                       folio_lock(A)
+> That first copy is bounded, yes. The unbounded part is the loop right
+> after it, which is outside the diff context:
 > 
-> This requires that nothing else holds a reference on the inode, and can
-> be triggered most easily with FUSE, which evicts inodes on the last
-> reference.
-> 
-> Consequently, allocations under the folio lock are dangerous if we
-> cannot prevent that scenario through an inode reference; and we want to
-> avoid grabbing inode references, because we might then drop the last
-> one, and would have to evict the inode from migration context, ideally
-> without holding any folio locks.
-> 
-> Allocating in a NOFS scope would be one option, but it would have rather
-> bad side effects, such as direct compaction not migrating file folios
-> and the OOM killer not being invoked.
-> 
-> So let's fix it by allocating all destination folios of a batch before
-> locking any source folio. Now, we no longer allocate destination folios
-> while holding folio locks, which also avoids holding these locks during
-> direct reclaim or compaction for these allocations: an improvement on
-> its own.
-> 
-> We keep the destination folio of a folio that we have to retry, instead
-> of freeing it and allocating a new one. If we would have to allocate
-> while already holding folio locks, which can happen when retrying a
-> failed split for longterm pinning, we leave the folio to the synchronous
-> fallback in migrate_pages_sync() instead, which migrates folios one by
-> one.
-> 
-> Note that nfs_migrate_folio() still writes back the folio while holding
-> its lock in MIGRATE_SYNC mode, which allocates memory. As NFS only
-> evicts stale or unlinked inodes on the last reference, this is unlikely
-> to deadlock; this must be sorted out in NFS code independently.
-> 
-> This has medium urgency.
-> 
-> Fixes: 5dfab109d519 ("migrate_pages: batch _unmap and _move")
-> Cc: stable@vger.kernel.org
-> Reported-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> 		for (i = copied; i < count; ++i) {
+> 			if (copy_from_user(&features, featurep + 1 + i,
+> 					   sizeof(features)))
+> 				return -EFAULT;
+> 			if (features)
+> 				return -EOPNOTSUPP;
+> 		}
 
-I was able to reproduce the issue and validate that this
-change fixes it. I used FUSE to do multiple allocations and
-migrations while triggering the shrinkers to reclaim dentries /
-cause FUSE to reclaim the inodes.
+I see. So all it is doing is checking that these features
+are > 0 and erroring out.
+Let's just not do it - we don't have to.
 
-In the base we end up deadlocked, with patch 1 and 2, the
-migrations succeed but the reclaimed folios will just end up
-freed at the end of it all anyway.  Some migration work gets
-wasted either way, but that's fine.
 
-I agree this is better than the NOFS option. 
-
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-
--- 
-~Gregory
-
+> It reads one u64 per iteration up to the count from user space. With
+> count = U64_MAX and a large zero-filled mapping, it only stops at the
+> first unreadable address.
+> 
+> Yes, I tested it, on the vhost tree at 44293796526f (KASAN + lockdep),
+> count = U64_MAX:
+> 
+>   1 GiB zero-filled mapping:
+>     without the patch: EFAULT after 27.4 s
+>     with the patch:    E2BIG at once
+> 
+>   2 GiB mapping, SIGKILL sent 1 s into the ioctl:
+>     without the patch: the process is reaped 46.7 s after the kill
+>     with the patch:    the ioctl has already returned
+> 
+> I have a small reproducer (a few lines of C). Since I found this with
+> the help of an LLM, Documentation/process/security-bugs.rst asks me to
+> treat it as public and not post the reproducer to a public list, so I
+> have not included it here. I am happy to send it to you off-list if it
+> would help.
+> 
+> Thanks,
+> Hengyu
