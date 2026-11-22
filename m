@@ -1,53 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795305713;
-	b=QMJleOywCJrD9AZmoj52q3/S4C9yC2I24z9bjQ9uf391SXg2XeVzBlXx8Yhl9L98+htp
-	 9obKdWYsG0TLhY/32CdvunUH2KXmdyroRMyytClPhXjKdDAuCIT6zhOdHNGdu++Glkvvk
-	 AelH3hUl1CI8cDX4xZOTESeGS7I/jPf5TA0GDuOUmuQQcv0cyU+hStp4rd26fiWDXXVd2
-	 s3VWeaS8V1L3KkRsP+xHGhC0EeaVIt8FZVw7hAG0Ukoi4C+oUyhL4og6np66nvFgZ/id4
-	 levCbNU1PNot3Qt+wtYzfxgi4iWI5P85Huuem3jWTUIIq+DuyvmsZXPSSrNjtqEdWWQ==
+	t=1795307074;
+	b=kr3lt/7C2+kGaERSP+/jJhzjlb+Yqi2FYSYNoebYtHKAu4X2DcqZ2HFGIfCdQ45PXvWb
+	 aO02858S+Uog52AQ3gG2Lj4Q3oO70OSuGkhBlrP2zR6wLQFOKcoSlUyUuV9R6HrNzCK9S
+	 FaAUfi50nuUAPHAkktLw6xGoZeOy4qyBiZKGbnxEatr6hiXPSPHmwHHRcMNaLtBMl8Wsu
+	 O0vPD5VEUCsspxgmdEYjvv4Dtw5oTMwZCXWKyBrb0uMjxOFENWY8xqqglm0L/Nexvph25
+	 cC3UlMv9GEC/CmyxLw2tJCkFWwfakyrdf5gJESKyu18QWqblFjdcdFSW78owgeAg/rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795305713;
-	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
-	 Message-Id;
-	bh=I+IIENFxLDP2luRj8b7Q6Jt6bDjOsblgFRuR2eKya5Y=;
-	b=Yz/Ynm4Raa9BOxTTJ0Ku99FnXRPSSpKtq2xghNkMv4te24+W/Wes1lUU7WV0sU+SMISq
-	 BfuvQhp1i/HC0BenjitgkR+iOffFJD4+4FWS3XaW0dam1U5IznT/SklXUOTj2FAOoYMq7
-	 lyHNfv/NShhWkAjwAaTr3L3f27SroQ9iIdtKJM2nyfXvC7VgNUXpmFJx7gabGlL2VmNFL
-	 a03Atmf2FNyAAmUiR5fP31h6w2HdZEIlG+yl1SxYZQEG0g3Z2MDtVuZ74i1sH4CTz5cAL
-	 S68rUyvMvyCF1geL7ZXUxSxOmCwCrxM8rLgt2dIzmtOcHS3WzXx0ZS7Sp7+4TCa86cQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795307074;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=7AutQAwdwwoaFEE4x44ILwTb8k/RmhAWlEsJY45jANo=;
+	b=eVtTeFS0FdW5qB9qExT3KsPqQBbmK9MMeYqiYaSkKhA/QUN9fR4ooeTDK4Z6OqoA/7HK
+	 cy88zusP5KX4Q9bDUxGFAzwftSOcurIp/Wfgp/bULPOcP97Rc/KsWzGMYr93L9ogWG3OT
+	 uc//K9wFOBGjYw7zx766NMEbsuPUssq21M69fpOFxaPE3RF2g5hWnp65JSVJd56k7Wjl7
+	 QS9aCKdb1rKq3KgcLlz7V4Ozt00T7Vbzh+mA1HnU6TQdERAy4rbyDgnuPX13gsEp0Bn+W
+	 wOXhDAg2g9VIWMN0utg63bOO638GyjrE+ofdHGkEz8Pb08NQQ9OY1xCtaRu8edwmFVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=L7ctKCUT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mOU5fgAn;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66516606A320;
-	Sun, 22 Nov 2026 00:01:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8DD1606A32C
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 00:24:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8DD1606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=L7ctKCUT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD16D1F000CF;
-	Sun, 22 Nov 2026 00:01:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mOU5fgAn
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb5b8ef642so17184755e9.1
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 16:24:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795305713;
-	bh=I+IIENFxLDP2luRj8b7Q6Jt6bDjOsblgFRuR2eKya5Y=;
-	h=Date:To:From:In-Reply-To:References:Subject;
-	b=L7ctKCUTw+RgNuwtjAYYgifwsjJyq4dnrnerQISy+1n0US/0swM2FfZK6XMNuKTr/
-	 K54A+dpyD/0xSKchPg/44Qp4/utDUiAwkPjsUKVMHo2PY7Iz1OIuIeyxCRDiE0ex0e
-	 53K9oK1wijnNGeYVYIFmYRPgNG7sypst7f0uGGZc=
-Date: Sat, 21 Nov 2026 16:01:52 -0800
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,
-	thomas.hellstrom@linux.intel.com,stable@vger.kernel.org,sj@kernel.org,
-	patchwork@emeril.freedesktop.org,mpenttil@redhat.com,matthew.brost@intel.com,
-	ljs@kernel.org,leon@kernel.org,jgg@ziepe.ca,francois.dugast@intel.com,
-	christian.koenig@amd.com,balbirs@nvidia.com,apopple@nvidia.com,
-	akpm@linux-foundation.org,airlied@gmail.com,jm5905938@gmail.com
-From: Andrew Morton <akpm@linux-foundation.org>
-In-Reply-To: <179342234355.4.16705453209886955762@gmail.com>
-References: <179342234355.4.16705453209886955762@gmail.com>
-Subject: + mm-hmm-account-for-subpage-offsets-in-device-private-pmds.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261122000152.DD16D1F000CF@smtp.kernel.org>
+        d=gmail.com; s=20260707; t=1795307072; x=1795911872; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7AutQAwdwwoaFEE4x44ILwTb8k/RmhAWlEsJY45jANo=;
+        b=mOU5fgAnuSK3v6vTsPnGm7cRPB+S0vG3TKjzKG99IKrsF/M3tHQwDCcIQ1ff4hPFQ7
+         894cJITJlGAEXaqJPsc3QGDEPHLPx+4DKzjyZRN7RXIdW5CW1loSBVqzDNnXN2zzKSeH
+         80rhQ8uSXOIBnHvXi3WkpJHd4Ltn1cIgId+xZkh/kjJqczMrfjPKxf/075a0HvqpaiNu
+         T8ETVbnl2l/5mcD7TeLdOPWx/KAC6z3uLlXXodmpubniji2RsVqKsxgDHqSfVX/yq/tl
+         cilGfjwMYjy3MIYWnSLk14jrws37jE7OVTRonVcATs7EIeS+JhX7Y32Et+XdsqUasq5L
+         TA4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795307072; x=1795911872;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7AutQAwdwwoaFEE4x44ILwTb8k/RmhAWlEsJY45jANo=;
+        b=GBjHhWVGqrhHK7G1NZkqyllIy9+gOxeL5UlqZYvZnwk47fzfTBbG4Fhbh5+jH7TxwR
+         iScRnsWRwA1MJayWMsFhpYIXFqH/mRBH6ZgIfqkA2jbPX3/DypPGB4TyvvCJBuhwk4cl
+         T+sCwkhjvm9aiiN05qXo9Zu0eE3HZb/dsleyDtJFXgHIJfxFxCBn20be6hrE16TC0opp
+         QGOuyvX2HOb0Ohto9Uv7huHGBHU30UInCoMLF5UiP+S9QN9Ytq13ukm1o+NfRiuuBq4a
+         CPG8fsDqjDFTPPiclovPkkpcL6V6k2IuVeOMRLsg0Tnl44EiqX1uRHo0deDqbT/bmzOU
+         FW4A==
+X-Gm-Message-State: APuU4Z9RQtBweLNTEJ4NCEbEOlxZNhKdOlKmUrSS1FvqUBlYWMMT0HF9
+	eAT0rPp59Cg/XGu6eNZT0xB9JuVW7sGmiUtRapcCWT7dHPatqt1GDHyN
+X-Gm-Gg: AZFdTZf5C9KfdlcUWrTqgUxYvaf8Z4ilnuK0qFb73gl6yNlyYxuQrEOlynDd1uhvNOY
+	tR64C2CdZ/dXwMtiQmbElGFav0XhqgNzGXecdZf0+2btC+lX8HRcUSqGihARvn1EXB9V1dzng1X
+	m5jqqnImrnPlzm15RXBAwkEG7zWAPE6c3iErTfq0AEWNI2BqqCstnG/1XnLWk8vO5I+rjqxyoC9
+	WnBs/cjGTZlWoLEQv9EIlm2HcvdEcrHAGt7/Zf25It28RVWDJEXpDLcFn7Vx8Jfu3bYw49GiXIq
+	cwehtf08SQZx08Q8UN1PaY64aNgnaZJEqULUyVniQ24LjafGDruoxnt5y0ERAvlLgUHmQmvjB/z
+	qZSf6cqUvaU/pLVgBWYs9VsGmEoRGyZLaMYLOwWLHqCIuZxVcZxpxAlNz/JiaR1GFOTsZo6x534
+	xsMk5djiKAnnJbzLh/iUYdX/NOjREQBH0BtogklYZvcSL2JD2XJ5BCtvENm6O790cqfEPz5dxDr
+	r/CACgnGIDrBGJFLLd4gZktP3pqUz4FFqmJXFnEhQse0YNO3oPPTlUieEei0mJ+UMUro3YOQMAc
+	jUqeAsnvilnB7Rl6cWyhB0x8mlv1CRRIObOdQoh9a96sO3YpObe0qiyGkXNzHqisPBrvJSF/wW8
+	3qoU0eOn5pd9Qe+TcFJ7/yE02zK+UEBrM8Ngy0AuyhfrPf5lrRtz5V0UxLJ2yIMM36TpqvKkvCO
+	7yO4AuWw==
+X-Received: by 2002:a05:600d:82d0:b0:4bb:818d:8d8f with SMTP id 5b1f17b1804b1-4bb88818955mr181628885e9.23.1795307071931;
+        Sat, 21 Nov 2026 16:24:31 -0800 (PST)
+Received: from eagle.home.marco.cx ([2a02:908:176:3bde:b462:7469:ce26:99ed])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb9066e34esm88663715e9.3.2026.11.21.16.24.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 16:24:31 -0800 (PST)
+Date: Sun, 22 Nov 2026 01:24:30 +0100
+From: Marco Schirrmeister <mschirrmeister@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
+	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
+	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 6.18 0000/2144] 6.18.65-rc2 review
+Message-ID: <awI18u5yuXDv-6rT@eagle.home.marco.cx>
+References: <20261120055114.182757740@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,119 +100,27 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261120055114.182757740@linuxfoundation.org>
 
+On Fri, Nov 20, 2026 at 06:58:10AM +0100, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.65 release.
+> There are 2144 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-The patch titled
-     Subject: mm/hmm: account for subpage offsets in device-private PMDs
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-hmm-account-for-subpage-offsets-in-device-private-pmds.patch
+Native arm64 build on Arch Linux ARM with 7.3 uapi headers and
+CONFIG_DEBUG_INFO_BTF=y works fine, without my local __u128
+patch.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hmm-account-for-subpage-offsets-in-device-private-pmds.patch
+Booted on an Odroid HC4 (Amlogic S905X3), no regressions noticed.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Linux habicht 6.18.65-rc2-1-aarch64-msc-lts #1 SMP Fri Nov 20 23:02:16 CET 2026 aarch64 GNU/Linux
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+The SPI NOR flash on the HC4 is now also detected,
+thanks to the HC4 DTS fix in this series.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Aveline Noir <jm5905938@gmail.com>
-Subject: mm/hmm: account for subpage offsets in device-private PMDs
-Date: Sat, 31 Oct 2026 15:07:58 +1100
-
-When a query starts inside a device-private PMD owned by
-range->dev_private_owner, hmm_vma_handle_absent_pmd() still fills the PFN
-array from the folio's first page.  The returned PFNs therefore refer to
-earlier pages rather than the requested subrange.
-
-Nouveau's GPU fault path can query one page of a device-private PMD at a
-time.  Xe's SVM fault, prefetch and userptr mapping paths can also query
-subranges of their own device-private PMDs.  An unprivileged process with
-access to the GPU render node can reach these paths on hardware supporting
-device-private THP migration.  Xe can read the wrong application data or
-silently overwrite earlier pages of the same process's device-private
-folio.
-
-Nouveau aligns a one-page GPU fault to the PMD head by subtracting the
-fault offset from the returned page.  The faulty HMM PFN already refers to
-the head, so this subtraction can select a page before the folio.  If the
-preceding page belongs to another allocation, GPU access can expose or
-overwrite unrelated userspace data; an invalid page can also fault the
-kernel during its address conversion.  This worst case follows from the
-source, but has not been demonstrated on a real GPU.
-
-Add the query's PMD-relative page offset to the initial PFN, as the
-present PMD path already does.
-
-The device-private PMD migration machinery first shipped in 6.19. 
-Backport this fix to the maintained 7.3.y stable series; the HMM path
-exists in 6.18.y but cannot be reached through an in-tree PMD-producing
-device-private migration path there.
-
-Link: https://patch.msgid.link/179342234355.4.16705453209886955762@gmail.com
-Fixes: 10b9feee2d0d ("mm/hmm: populate PFNs from PMD swap entry")
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Tested-by: Andrew Morton <akpm@linux-foundation.org>
-  Link: https://lore.kernel.org/20261121160037.1a479f3c8b4e860bc23c106d@linux-foundation.org
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Leon Romanovsky <leon@kernel.org>
-Cc: Francois Dugast <francois.dugast@intel.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Patchwork <patchwork@emeril.freedesktop.org>
-Cc: SJ Park <sj@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Balbir Singh <balbirs@nvidia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Mika Penttilä <mpenttil@redhat.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-
- mm/hmm.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
---- a/mm/hmm.c~mm-hmm-account-for-subpage-offsets-in-device-private-pmds
-+++ a/mm/hmm.c
-@@ -355,7 +355,8 @@ static int hmm_vma_handle_absent_pmd(str
- 	    range->dev_private_owner) {
- 		unsigned long cpu_flags = HMM_PFN_VALID |
- 			hmm_pfn_flags_order(PMD_SHIFT - PAGE_SHIFT);
--		unsigned long pfn = softleaf_to_pfn(entry);
-+		unsigned long pfn = softleaf_to_pfn(entry) +
-+			((start & ~PMD_MASK) >> PAGE_SHIFT);
- 		unsigned long i;
- 
- 		if (softleaf_is_device_private_write(entry))
-_
-
-Patches currently in -mm which might be from jm5905938@gmail.com are
-
-mm-hmm-account-for-subpage-offsets-in-device-private-pmds.patch
-mm-damon-ops-common-align-mmu-notifier-range-when-clearing-pmd-young-bit.patch
-mm-damon-stat-avoid-32-bit-overflow-in-idle-percentiles.patch
-mm-damon-pvaddr-skip-folios-already-on-the-migration-target-node.patch
-docs-admin-guide-mm-damon-start-fix-grammar.patch
-docs-admin-guide-mm-damon-stat-fix-pronoun-agreement.patch
-docs-admin-guide-mm-damon-usage-fix-grammar.patch
-docs-admin-guide-mm-damon-lru_sort-fix-remaining-grammar.patch
-docs-mm-damon-design-fix-grammar-and-typos.patch
-docs-mm-damon-api-fix-verb-form.patch
-docs-mm-damon-maintainer-profile-fix-subject-verb-agreement.patch
-docs-mm-damon-monitoring_intervals_tuning_example-fix-grammar-and-typos.patch
-mm-damon-paddr-add-kunit-tests-for-addr_unit-conversion.patch
-mm-damon-paddr-add-kunit-tests-for-addr_unit-conversion-fix.patch
+Tested-by: Marco Schirrmeister <mschirrmeister@gmail.com>
 
