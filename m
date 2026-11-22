@@ -1,65 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795356524;
-	b=xCGm/n+A41042xqm3tesgg49B29htNWU9+HNuL8N8r0CeHLRuCgxElKzc5nDOnBzly3g
-	 8ydruHT+gmIBnD8AbId9nsV6wEjek1MM3Vt2gGrHoKWjRya6X2oPqGMrB5cR5vfjVs4y8
-	 EsXW/a/qoSv2jbBkF4gOZyWOi+3ThRfqDGIrfPr7b/dhvy2mWEe5r2Cucz0DBX4Sbkn/N
-	 YKvLJlo6ZlH1tYUd0J2f7nRK9XYekpT+rrsECjmY9lZ324t/1pWUw35kFS9r8rUY+jI3d
-	 lgq6z6SxpiDqTIbj3YQJvpLvWfmmJOwsRsB3UWZNeMLDELTAPVK0679dfLSdsp+yyAw==
+	t=1795357374;
+	b=PVwGoU70diU5ISQsGHf7Q14BUbSMoqC7xtpkr3BU5d9H37K4MOASxeDS4sQlyzvLSQy4
+	 TgOOeU338tdZ0AL12j+3wOAyBWA6YYQY3Wrm+FZCQdYJvgwKT+IYyDX/j2k3QLj6J+g9B
+	 VD6u48zgqS8KRIa/F4HYXZc7yhT6pVfSP6Mt71wUBxUPp8VhK1Lx384B13igUc5VJhjJa
+	 HqFkf3gY60fPHOqT8Oi+9yNiUN17QWZNWgmwbcoCV1TPVAK+xqP1EB0QQMoDyHfKQQs9w
+	 WSUCKwdHY6H4x2U1ufFzHASmJOsSsp6nX+rW7/bin4XedJ0VV6eMQkP3Fl55IlR1gAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795356524;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kyl4tY1plUiDZZfonfp8qCL7WeuNUjcvxWMrKf+wwgE=;
-	b=uv1Pz35W2eLPvUo5+Wk/9xP6Xp74A160r3XDvTpBVHxhIUJB/KZ9JvWrUtkICa49Yc0Q
-	 daUnJY2dtHDmxkMw+8D2sCCd64dfqp9dj4o6rdFImYaNWyVQdlw1TPd2n06qoSLDeu307
-	 lXH0Zpv7bybaOs67zxM87s4sSWtKi5yV72y2U1ap6DVgRMjmJ4YgDZWt24Dhc57TF8qQ6
-	 ImBV0xFzqFKGUyCYYQt2sXojlv0xPmRMDdqEkvd6K7qY3VBkCUESKZtXwPwpiU1VRwN8h
-	 K8EVZlfvM1MijU7MylYZmrjjNpJsVUHwyPmbOCnZpsFvqKr2Iuzt+JE7LWDkn5aGCbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795357374;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=ryvEPjqew3yO9j3FoUR+1enMAncqpW1VfNIetah7IDk=;
+	b=HFxmeHAjZe3th5wWTtssnsBDR3duRHI3cFItoQAGTavaRj8IjgLD5QV1Z61ilgIaWnyb
+	 TB9zaU4nCNr3SuWlfLS6+kq2J/0O4J0dJm40MHM491LK8uN9GGI4ZjOYBdBAMFHa9MJCN
+	 ojL/kOalmks487wsopJVr4WhsDyixeD43UPxKmonbkESeR9C8nvpt9UQvBdor9FlVGh++
+	 2Y5O0LEVslY3HF85908TEajDE9O0PugWhKw7IKwtFg5gW1W7GqXPBhjwvYfrB/2v97w2X
+	 cv+zB3I00KKYP86GjYDfkytEODe2Yb62J+W7YYrAiYzJBupbG+HNcpOEOPy8oyXa78g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EY2z7w/f";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=JMxKDPpt;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1661F606A320;
-	Sun, 22 Nov 2026 14:08:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855D8606A32A;
+	Sun, 22 Nov 2026 14:22:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 855D8606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EY2z7w/f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37B01F000CA;
-	Sun, 22 Nov 2026 14:08:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795356523;
-	bh=kyl4tY1plUiDZZfonfp8qCL7WeuNUjcvxWMrKf+wwgE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EY2z7w/ffVjkS1vKejnu8gIqi8qxJEdRtF3m72nSL2vPo4chAGki5pZvMMoyLqdyj
-	 nqTznp2p541ESTItXqefxtzF9i4qWPbKg8TAl10Cx4XNn1nfoCdP1KdOQKpPgJmnnp
-	 6h4RMD0lUdUrk9muUMvKiQueJhUX8F6f2vZPsYHW6J96b4N9XBizpjnTXn+NHiTaHa
-	 9y6S3d/nMsf4OfL15cI4YT6GDb4gWthOxq+A1ffmfuQGNO/hDsj57FZ6EMrnXg0xF1
-	 1JUjPqoYlu0Pyy3sxIpEyh3n+HdVWGGVFSgfY9t5iqiQ82dF+BEB7C96Ns7e4X3BqR
-	 oUucYXe2BQhVA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bryan Cochrane <bcochrane@google.com>
-Subject: Re: [PATCH 6.18] bnxt_en: Take RTNL before netif_close() when aborting FW reset
-Date: Sun, 22 Nov 2026 09:08:38 -0500
-Message-ID: <2026-11-22-1-daily-reply-0001@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <18ea344bdf5a5efb.3137322e31392e3133312e3730.20002c.0000sendgmr@google.com>
-References: <18ea344bdf5a5efb.3137322e31392e3133312e3730.20002c.0000sendgmr@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=JMxKDPpt
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jXWW8432Xz5BNRx;
+	Sun, 22 Nov 2026 22:22:44 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1795357364;
+	bh=AkAy6g5Mb/vdkDcejg0T3zp8tTGdMmRjwKRwl7qrpUE=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=JMxKDPptcJN48tRTY9gX4hH2Z3eBv2l4XHGQL6AEtoTxS6lci8TLYtJJkwhJ2sKlH
+	 rOdqdaX5Zu3WJNqwWuLVzvBjwK5iocP0SVQ3E6QlfazqY3TUJSRZi72qvPyqDi/73I
+	 B0dF4Zdq9K+kiOODrs2KMbNhOx2xPpTwr1BuEnd1SDRB982agHo0sZwgwQtDocwnoZ
+	 WxfC6XbbPXua9oxJP2hmX6qsKZgFXJQ/zsg4fzRHgpWTjGVFj8/GDcV56Gj3RWbcFV
+	 LrXZYbp3NIW3lh+2QTw09AE189s5pykSO7RpVvLQ5VsfOt2JIEyKUmz2FYH9DiqReg
+	 Ic3AeAibP73JA==
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6AMEMZUY030623;
+	Sun, 22 Nov 2026 22:22:35 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sun, 22 Nov 2026 22:22:37 +0800 (CST)
+X-Zmail-TransId: 2afc6b02faad7ef-373bc
+X-Mailer: Zmail v1.0
+Message-ID: <20261122222237542HTrb5XjZWwOHuyfeaimCs@zte.com.cn>
+In-Reply-To: <20261120175207.GD1484@lst.de>
+References: 202611150127512368BGQ07ZNIRAIwClkam-8u@zte.com.cn,202611150127572887TC7vHzVUFLZ6nyW1NuhU@zte.com.cn,20261120175207.GD1484@lst.de
+Date: Sun, 22 Nov 2026 22:22:37 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,17 +72,40 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <hch@lst.de>
+Cc: <kbusch@kernel.org>, <axboe@kernel.dk>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCA0LzVdIG52bWU6IGRlY29kZSB0aGUgRkRQIEdldCBGZWF0dXJlcyByZXN1bHQgYXMgYSBkd29yZA==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6AMEMZUY030623
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Sun, 22 Nov 2026 22:22:44 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6B02FAB4.001/4jXWW8432Xz5BNRx
 
-> commit bf83b257423bb557b970df3d7ece32fbd85f3bd4 upstream.
->
-> netif_close() must be called with RTNL held in addition to the netdev
-> instance lock: __dev_close_many() asserts it, and the NETDEV_GOING_DOWN
-> and NETDEV_DOWN notifier chains it runs rely on it for serialization.
+Hi Christoph,
 
-Queued for 7.3 and 6.18, thanks.
+> With this struct nvme_fdp_config becomes unused, so we might as well
+> drop it.
 
--- 
+Dropped in v2; the FDPCFG_FDPE definition stays.
+
+> Also can you look into the Sashiko found existing issue and fix it in
+> a separate patch while you're at it?
+
+I looked, and the buffer is initialized before hdr.sze is read.  hdr is a
+stack object, so nvme_submit_sync_cmd() -> blk_rq_map_kern() takes the
+bio_copy_kern() path: the pages come from
+alloc_page(GFP_NOIO | __GFP_ZERO | gfp_mask), and
+bio_copy_kern_endio_read() copies every bvec of the full length back into
+hdr before the command returns.  A short transfer therefore leaves
+zeroes, not stale stack.  There is nothing to fix, so no separate patch.
+
 Thanks,
-Sasha
+Shao
