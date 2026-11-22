@@ -1,76 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795387773;
-	b=R82LWaS1Oe0P4vAA4IDQhBa1UkEvqbc04vNvE8u/ZPr+1FmdH3aiKrUNsPm3bw0nvgE+
-	 2bOw0rt3qdO8qG6vhKNW9H1FpXJHv2owrZu5LmDeHBEbI9l4HlGkQf9GaZ7qbwduhaS8Z
-	 iANvO+Ggak4MZzhuo0oTAkqjl7MZl4U1H1n4x8t5CzLNMbXYuZqZE0hZvtlM2Dw1RdP43
-	 xlKN6C6PhEbHh08D3fVWFqgUiPInjjwcUugoG7QnX1oj3bRC89UljadpftQDXPfIStPdZ
-	 nA3TfAGNVBMt2qwBGtLpWFqGUaJqWWGepulXkwMhluH0kUquCpAdEBuxkLNVEm0Iqiw==
+	t=1795387778;
+	b=m/CNcQZcHfl5z/Imfv+RGGgeiw5Z2Hhg64phIq1UDwGth5Kxv/IAmKZW9QHEa2ogrWv/
+	 fMse+YAcDM2IJ0GGQbKAN3/lSZTgJAAF6IHZ+cbJVOVOkf6Vr8+P37TVRYaBampjm3nS+
+	 0pWiOQJXOFSlJrN4tOPXuQL+MIMXEltvuwXo73Y+3azvxqLlhGTZAJgyVYHL1SYYq9H6U
+	 aqfZVpsI3BD03Egwlvwh61x776sj8s3uWZ76ecQi9gU0NwOOSEZNZLGaF8iXn2sgarK0T
+	 P0qxfPpF3qauWhLSTf+kEsJh1TexPto/Ct9ZUJ2Hz+bfj3dy8jDsdJlDw8dT6R43wvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795387773;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=ozFtuDjINya6iXaJIvrK0Dm+5kjrG7WksVuphTiWMoE=;
-	b=Ri+R9N1/5SFekq77wMgYgj36UYsQSlzOQieWnEBA2EFCAR1JGSTseaUfUdOzt+35Go03
-	 Lwmh7b15PK/O46/pYtLiSPEv5cLyJSJA6zOQebARpK46iFbW5vWMMGTpW4RzUMrOO/NxG
-	 yhtJWAfcQ1Cf9jIP1CAI4K/SgDVUjb9FHMzvNSYIk9qBKVm6a4NK9zCGd+DgB3rUICeq+
-	 8OqnVarEDse0W1T5MMkqp+QdIsuQcP5ynfhspO/0SaNDpCDKRnqduU1PlBNPqQRlKIe7K
-	 uv4rswd3McShpUrXLzi09S6WMor+nPE4GCgYJ9laFJDX+9KJE8a4glpctKC03mgFOpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795387778;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZmJdAcUmWVLO1uRFPkdoqPnxMeeqc0MRlwahQr3Vz10=;
+	b=T/lUi2cnT2T+v4uj9rk81Jrhc1VXdAEyGye0E//VcA+RJBWF6FhbNQYumsXKe4OLpdcK
+	 l07NkDpY8bWw+zBeZqsH9FHtI8ZqqgzQ240KMZaFp3jWygKUGwywo+xDQJ8dhS0hLgz9d
+	 GLg8xDutyVKyqFo+ITY0UG32Vqt/oFpb1jX03tHnHQlf3XZ1cLRGv+XOfAQlCVXtxflL8
+	 CWKfkQ+TVCXKdhK4lcD49BvCDqUDeZD/O0rZFsGbiNo8HX9d+4KnoK/ETfQfcawn8C0mK
+	 te/vQ1omJBjh/8yWiCx1I/7Kl8bKjEmLWfKrsmoRvMCUfRKhxoBuF96nfM8QhOiIaWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=IWcGWZIW;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9ZFzyTF5;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=innora.ai;
+	spf=pass smtp.mailfrom=innora.ai;
+	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b="j/1myBw+";
+	arc=none smtp.remote-ip=185.70.43.98
+Received: from mail-4398.protonmail.ch (mail-4398.protonmail.ch [185.70.43.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BA7606A32E;
-	Sun, 22 Nov 2026 22:49:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7BA7606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A6D606A32C
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:49:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13A6D606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innora.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innora.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=IWcGWZIW;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9ZFzyTF5
-Date: Sun, 22 Nov 2026 22:49:29 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1795387771;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ozFtuDjINya6iXaJIvrK0Dm+5kjrG7WksVuphTiWMoE=;
-	b=IWcGWZIWxos7uOI/wYSr2/XMuDrYCokDuF7oqJKJqMKmT8ZKw8qfymK80Rr+suAna9aSkD
-	+UZn+exYBZGyp5n7I7TeWCForxqiTnx9HhqNcJlG8t0zO/8xAwo+mcM/Tknjt9rAHvkVp6
-	y8k9rqHPYzG4TPTxVlUZQCHbqPNwpo2R847LL4O5wBOzPZo0rYGS5f8x+Qlnc1GnUT5v4M
-	SHFDcgBISYM6W75YIOZhRU433MEQtpP567OTiw9archPPqHXGCxmLFDZz6/OqR6K51nhOJ
-	j4DInf1n3p7pDj3u0QibeLpgMQrHIMnslynRNS8bTW7snlXdtRjEbod6AjJlWA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1795387771;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ozFtuDjINya6iXaJIvrK0Dm+5kjrG7WksVuphTiWMoE=;
-	b=9ZFzyTF5+SEdzk5e2uH+0MweujQXv34I6ZHVNCxcxh5lprU2d/obEkN+zFvu2ehW6Mm0fd
-	WcOvB/llLRvZQqBw==
-From: "tip-bot2 for Fernand Sieber" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/urgent] sched/deadline: Clear stale rq->dl_server when
- core-sched replaces a pick
-Cc: Fernand Sieber <sieberf@amazon.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>,  <stable@vger.kernel.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261112161548.78189-2-sieberf@amazon.com>
-References: <20261112161548.78189-2-sieberf@amazon.com>
+	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=j/1myBw+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=innora.ai;
+	s=protonmail3; t=1795387775; x=1795646975;
+	bh=ZmJdAcUmWVLO1uRFPkdoqPnxMeeqc0MRlwahQr3Vz10=;
+	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=j/1myBw+zL4LxNOGJr+ZMDDfbpaqr3l/QLX8xrsU1g/szCocHEbONyLG4Xn0y62B/
+	 K/m0KQ/2ujKUwPiXnTxQktOnWwcV4dFoPVkW8eexTHHbHE99G3v0WmIHy0xO9HNP7O
+	 lp5apkuLlaQFlKIqeInsBHuAsj3MMTlrtDlpPYnKXqYRSsuldwIXrigjwrLBUG2Bba
+	 jHo4n5zm8mYiDOUXEjH02bisWOAIe3aViLKtW9QYr1z3u/Cy5fgtL5mH2rnqmVhzKI
+	 UuJVLo7a2ktypAb1kGf9xZmq4IhzNypCHJhnuiGFjQ06fDt+fSvuGsA2HdviTNH/5S
+	 x4y2XaDojzC7A==
+Date: Sun, 22 Nov 2026 22:49:32 +0000
+To: stable@vger.kernel.org
+From: Feng Ning <feng@innora.ai>
+Subject: [PATCH 5.10.y v2] staging: media: atomisp: use array3_size() for overflow-safe allocation
+Message-ID: <gH4DMNzKYNiMPRcl_U1UZLegTGlThXlfylND9jtq5svunNE6_e3evkbNRzmfndPeAb0R_eDl-QUaY5QWsPCAUz9CPYAiHGR-jsHSSED2my0=@innora.ai>
+Feedback-ID: 140578448:user:proton
+X-Pm-Message-ID: b1bfd3e271592e324544f86c430bc2f10268cd55
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,113 +60,202 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179538776931.92412.14044843169789564901.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the sched/urgent branch of tip:
+commit d178c7ca8fefc28115d35b94c3b1f4d653e34182 upstream.
 
-Commit-ID:     5b65edb7f582803cda84552990779610ca22581c
-Gitweb:        https://git.kernel.org/tip/5b65edb7f582803cda84552990779610ca2=
-2581c
-Author:        Fernand Sieber <sieberf@amazon.com>
-AuthorDate:    Thu, 12 Nov 2026 18:15:44 +02:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Sun, 22 Nov 2026 16:16:27 +01:00
+Replace open-coded width * height * sizeof() multiplications with
+array3_size() to prevent integer overflow in buffer allocations.
 
-sched/deadline: Clear stale rq->dl_server when core-sched replaces a pick
+The atomisp driver computes DVS, morphing table, shading table and
+statistics buffer sizes using unchecked arithmetic.  When dimensions
+are attacker-controlled or simply large, the product can silently wrap,
+causing kvmalloc() to allocate an undersized buffer.
 
-With core scheduling and the fair server, the forced-idle accounting
-warns from an idle core:
+array3_size() saturates to SIZE_MAX on overflow, so kvmalloc() returns
+NULL instead of succeeding with too few bytes.
 
-  WARNING: kernel/sched/core_sched.c:263 at __sched_core_account_forceidle+0x=
-1d6/0x1f0, CPU#0: swapper/0/0
+Signed-off-by: Feng Ning <feng@innora.ai>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-The core is in forced idle with no sibling running a task. The reason
-is a stale rq->dl_server causing the idle task to incorrectly be
-considered as carried by the deadline server. The idle task then wins
-over a runnable sibling task and the whole core is idle despite having
-runnable tasks.
-
-The timeline below describes the issue:
-
-  Setup. CPU0 and CPU1 are SMT siblings.
-  - CPU1 runs R, a SCHED_FIFO task with cookie X.
-  - CPU0 has C, a CFS task with no cookie, which has been starved.
-    So CPU0's fair server is due to step in.
-
-  t0, CPU0 picks for the core.
-  - pick_task(rq0) goes through the deadline class, which picks the
-    fair server, which picks C. As a side effect it sets
-    rq0->dl_server =3D &rq0->fair_server.
-  - pick_task(rq1) picks R.
-
-  t1, ranking. C->dl_server is only set once C is switched in, so C
-  ranks as CFS. R (RT) beats C (CFS), so the core cookie becomes X.
-
-  t2, matching. CPU0's pick C has cookie 0, not X, so it is replaced.
-  There is no cookie-X task on CPU0, so the replacement is idle, and
-  CPU0 is forced idle.
-  - The code sets rq0->core_pick =3D idle and rq0->core_dl_server =3D NULL.
-  - The bug: it leaves rq0->dl_server pointing at CPU0's fair server,
-    even though idle didn't come through any server.
-
-  t3, CPU0 switches. CPU0 is the selecting CPU, so next =3D idle, and
-  put_prev_set_next_task() hands the stale rq0->dl_server to it. Now
-  idle->dl_server is CPU0's fair server.
-
-  t4, C leaves. Load balancing moves C to another core, so CPU0 has
-  nothing runnable. The stale link stays on idle.
-
-  t5, the next core-wide selection (when CPU1 reschedules, say on a
-  wakeup).
-  - CPU0's pick is idle, and the ranking sees idle->dl_server set, so
-    it ranks idle as a deadline task.
-  - idle now beats R, and the core cookie becomes idle's cookie, 0.
-  - CPU1's R has cookie X, not 0, so CPU1 is forced idle.
-
-  t6, result. The whole core is idle. R is runnable but can't run, and
-  nothing runs on either CPU. That's the WARN in
-  __sched_core_account_forceidle(): forced idle with no sibling running
-  a task. It lasts until CPU0 goes through a full schedule that resets
-  its server link.
-
-With this patch, step t2 also does rq0->dl_server =3D NULL. At t3 idle
-gets no server, and at t5 it ranks as plain idle, so R wins and keeps
-running on CPU1.
-
-Fixes: bd9bbc96e835 ("sched: Rework dl_server")
-Signed-off-by: Fernand Sieber <sieberf@amazon.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Cc: <stable@vger.kernel.org>
-Link: https://patch.msgid.link/20261112161548.78189-2-sieberf@amazon.com
 ---
- kernel/sched/core.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Changes in v2:
+- restore the upstream changelog verbatim
+- drop the incorrect backport note about <linux/overflow.h> includes
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 515b9d0..42b99be 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -6453,10 +6453,15 @@ restart:
- 				p =3D sched_core_find(rq_i, cookie);
- 			if (!p)
- 				p =3D idle_sched_class.pick_task(rq_i, rf);
-+
-+			/*
-+			 * Neither a core tree pick nor idle comes through a
-+			 * DL server; drop the one the replaced pick left.
-+			 */
-+			rq_i->core_dl_server =3D rq_i->dl_server =3D NULL;
- 		}
+diff --git a/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c b/drivers=
+/staging/media/atomisp/pci/sh_css_param_dvs.c
+index ff0082d02..0d0862979 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
++++ b/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
+@@ -13,6 +13,7 @@
+  * more details.
+  */
 =20
- 		rq_i->core_pick =3D p;
--		rq_i->core_dl_server =3D NULL;
++#include <linux/overflow.h>
+ #include "sh_css_param_dvs.h"
+ #include <assert_support.h>
+ #include <type_support.h>
+@@ -58,7 +59,7 @@ alloc_dvs_6axis_table(const struct ia_css_resolution *fra=
+me_res,
+ =09=09}
 =20
- 		if (p =3D=3D rq_i->idle) {
- 			if (rq_i->nr_running) {
+ =09=09/* Generate Y buffers  */
+-=09=09dvs_config->xcoords_y =3D kvmalloc(width_y * height_y * sizeof(uint3=
+2_t),
++=09=09dvs_config->xcoords_y =3D kvmalloc(array3_size(width_y, height_y, si=
+zeof(uint32_t)),
+ =09=09=09=09=09=09 GFP_KERNEL);
+ =09=09if (!dvs_config->xcoords_y) {
+ =09=09=09IA_CSS_ERROR("out of memory");
+@@ -66,7 +67,7 @@ alloc_dvs_6axis_table(const struct ia_css_resolution *fra=
+me_res,
+ =09=09=09goto exit;
+ =09=09}
+=20
+-=09=09dvs_config->ycoords_y =3D kvmalloc(width_y * height_y * sizeof(uint3=
+2_t),
++=09=09dvs_config->ycoords_y =3D kvmalloc(array3_size(width_y, height_y, si=
+zeof(uint32_t)),
+ =09=09=09=09=09=09 GFP_KERNEL);
+ =09=09if (!dvs_config->ycoords_y) {
+ =09=09=09IA_CSS_ERROR("out of memory");
+@@ -77,7 +78,8 @@ alloc_dvs_6axis_table(const struct ia_css_resolution *fra=
+me_res,
+ =09=09/* Generate UV buffers  */
+ =09=09IA_CSS_LOG("UV W %d H %d", width_uv, height_uv);
+=20
+-=09=09dvs_config->xcoords_uv =3D kvmalloc(width_uv * height_uv * sizeof(ui=
+nt32_t),
++=09=09dvs_config->xcoords_uv =3D kvmalloc(array3_size(width_uv, height_uv,
++=09=09=09=09=09=09=09      sizeof(uint32_t)),
+ =09=09=09=09=09=09  GFP_KERNEL);
+ =09=09if (!dvs_config->xcoords_uv) {
+ =09=09=09IA_CSS_ERROR("out of memory");
+@@ -85,7 +87,8 @@ alloc_dvs_6axis_table(const struct ia_css_resolution *fra=
+me_res,
+ =09=09=09goto exit;
+ =09=09}
+=20
+-=09=09dvs_config->ycoords_uv =3D kvmalloc(width_uv * height_uv * sizeof(ui=
+nt32_t),
++=09=09dvs_config->ycoords_uv =3D kvmalloc(array3_size(width_uv, height_uv,
++=09=09=09=09=09=09=09      sizeof(uint32_t)),
+ =09=09=09=09=09=09  GFP_KERNEL);
+ =09=09if (!dvs_config->ycoords_uv) {
+ =09=09=09IA_CSS_ERROR("out of memory");
+diff --git a/drivers/staging/media/atomisp/pci/sh_css_param_shading.c b/dri=
+vers/staging/media/atomisp/pci/sh_css_param_shading.c
+index 69cc4e423..460a8099a 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css_param_shading.c
++++ b/drivers/staging/media/atomisp/pci/sh_css_param_shading.c
+@@ -13,6 +13,7 @@
+  * more details.
+  */
+=20
++#include <linux/overflow.h>
+ #include <linux/slab.h>
+=20
+ #include <math_support.h>
+@@ -350,7 +351,8 @@ ia_css_shading_table_alloc(
+ =09me->fraction_bits =3D 0;
+ =09for (i =3D 0; i < IA_CSS_SC_NUM_COLORS; i++) {
+ =09=09me->data[i] =3D
+-=09=09    kvmalloc(width * height * sizeof(*me->data[0]),
++=09=09    kvmalloc(array3_size(width, height,
++=09=09=09=09=09 sizeof(*me->data[0])),
+ =09=09=09     GFP_KERNEL);
+ =09=09if (!me->data[i]) {
+ =09=09=09unsigned int j;
+diff --git a/drivers/staging/media/atomisp/pci/sh_css_params.c b/drivers/st=
+aging/media/atomisp/pci/sh_css_params.c
+index 34d8ffb77..edb21110e 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css_params.c
++++ b/drivers/staging/media/atomisp/pci/sh_css_params.c
+@@ -13,6 +13,7 @@
+  * more details.
+  */
+=20
++#include <linux/overflow.h>
+ #include "gdc_device.h"=09=09/* gdc_lut_store(), ... */
+ #include "isp.h"=09=09=09/* ISP_VEC_ELEMBITS */
+ #include "vamem.h"
+@@ -1405,11 +1406,11 @@ struct ia_css_morph_table *ia_css_morph_table_alloc=
+ate(
+ =09}
+=20
+ =09for (i =3D 0; i < IA_CSS_MORPH_TABLE_NUM_PLANES; i++) {
+-=09=09me->coordinates_x[i] =3D kvmalloc(height * width *
+-=09=09=09=09=09=09sizeof(*me->coordinates_x[i]),
++=09=09me->coordinates_x[i] =3D kvmalloc(array3_size(height, width,
++=09=09=09=09=09=09=09    sizeof(*me->coordinates_x[i])),
+ =09=09=09=09=09=09GFP_KERNEL);
+-=09=09me->coordinates_y[i] =3D kvmalloc(height * width *
+-=09=09=09=09=09=09sizeof(*me->coordinates_y[i]),
++=09=09me->coordinates_y[i] =3D kvmalloc(array3_size(height, width,
++=09=09=09=09=09=09=09    sizeof(*me->coordinates_y[i])),
+ =09=09=09=09=09=09GFP_KERNEL);
+=20
+ =09=09if ((!me->coordinates_x[i]) ||
+@@ -4390,13 +4391,17 @@ ia_css_dvs_statistics_allocate(const struct ia_css_=
+dvs_grid_info *grid)
+ =09=09goto err;
+=20
+ =09me->grid =3D *grid;
+-=09me->hor_proj =3D kvmalloc(grid->height * IA_CSS_DVS_NUM_COEF_TYPES *
+-=09=09=09=09sizeof(*me->hor_proj), GFP_KERNEL);
++=09me->hor_proj =3D kvmalloc(array3_size(grid->height,
++=09=09=09=09=09    IA_CSS_DVS_NUM_COEF_TYPES,
++=09=09=09=09=09=09sizeof(*me->hor_proj)),
++=09=09=09=09GFP_KERNEL);
+ =09if (!me->hor_proj)
+ =09=09goto err;
+=20
+-=09me->ver_proj =3D kvmalloc(grid->width * IA_CSS_DVS_NUM_COEF_TYPES *
+-=09=09=09=09sizeof(*me->ver_proj), GFP_KERNEL);
++=09me->ver_proj =3D kvmalloc(array3_size(grid->width,
++=09=09=09=09=09    IA_CSS_DVS_NUM_COEF_TYPES,
++=09=09=09=09=09=09sizeof(*me->ver_proj)),
++=09=09=09=09GFP_KERNEL);
+ =09if (!me->ver_proj)
+ =09=09goto err;
+=20
+@@ -4665,24 +4670,26 @@ ia_css_dvs2_6axis_config_allocate(const struct ia_c=
+ss_stream *stream)
+ =09=09=09=09    params->pipe_dvs_6axis_config[IA_CSS_PIPE_ID_VIDEO]->heigh=
+t_uv;
+ =09IA_CSS_LOG("table Y: W %d H %d", width_y, height_y);
+ =09IA_CSS_LOG("table UV: W %d H %d", width_uv, height_uv);
+-=09dvs_config->xcoords_y =3D kvmalloc(width_y * height_y * sizeof(uint32_t=
+),
++=09dvs_config->xcoords_y =3D kvmalloc(array3_size(width_y, height_y,
++=09=09=09=09=09=09     sizeof(uint32_t)),
+ =09=09=09=09=09 GFP_KERNEL);
+ =09if (!dvs_config->xcoords_y)
+ =09=09goto err;
+=20
+-=09dvs_config->ycoords_y =3D kvmalloc(width_y * height_y * sizeof(uint32_t=
+),
++=09dvs_config->ycoords_y =3D kvmalloc(array3_size(width_y, height_y,
++=09=09=09=09=09=09     sizeof(uint32_t)),
+ =09=09=09=09=09 GFP_KERNEL);
+ =09if (!dvs_config->ycoords_y)
+ =09=09goto err;
+=20
+-=09dvs_config->xcoords_uv =3D kvmalloc(width_uv * height_uv *
+-=09=09=09=09=09  sizeof(uint32_t),
++=09dvs_config->xcoords_uv =3D kvmalloc(array3_size(width_uv, height_uv,
++=09=09=09=09=09=09      sizeof(uint32_t)),
+ =09=09=09=09=09  GFP_KERNEL);
+ =09if (!dvs_config->xcoords_uv)
+ =09=09goto err;
+=20
+-=09dvs_config->ycoords_uv =3D kvmalloc(width_uv * height_uv *
+-=09=09=09=09=09  sizeof(uint32_t),
++=09dvs_config->ycoords_uv =3D kvmalloc(array3_size(width_uv, height_uv,
++=09=09=09=09=09=09      sizeof(uint32_t)),
+ =09=09=09=09=09  GFP_KERNEL);
+ =09if (!dvs_config->ycoords_uv)
+ =09=09goto err;
+
