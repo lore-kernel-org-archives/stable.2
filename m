@@ -1,94 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795323334;
-	b=mtQe7uyGuvWrz86wY492FgvsXcQXRVU2mjbzKL4irJJHwxrKrC8O1RxixZEKlgByyLWr
-	 Z3e1BczXZAODE/L5DwwyilvmlmM7QxJ+dz2IltUnVW/QABnQtSdA09xfpaikzMUXPBZp3
-	 vzFsDuOAOcRHdT2JikCS9BMLzIxh0P1v4D+SImYUCTVRjmb+Va2GnyjEgK8ZH30orBJXc
-	 DniGvMGNs5X2iNWBqazDqdp1GR76hzIRefHXcxFB7ChHpdy14ATYQdBZnMJVFOjO75auW
-	 W94UqSjNfsKuSF2dxdiBC2Ojz7FyKfbk8XpIkOwYhLIXXv0W1D9QlPpYqdvlH0YsBuA==
+	t=1795323528;
+	b=XCrNRDhozjED28azYCWUWOW4fW4Bsw2/7OfA6cLbGMM1sN1XuTm9W8iFLzQ5t4qsk+ec
+	 SC9/kKVL/diXtBArqGquFMJ/XsYkT8ZIh3zP7EofcoJTaKXnuOJYPs2Bubo366LKnfZox
+	 kvfB0t2COczvDPFDyh68XPIjjiVf3ikipp8uq7592/03f+SS5ZTFss6ryRYf0v+awtF0z
+	 Bx3KT3hxlAYOnaMC/p3V54hMpJVYCVwWT41wtM5YRT+9zlT6gNPqVpt2dyQGYDdNTtRIn
+	 gZ/srGbintz+PFUrk8Vn52Icz6K2o0blcZwRpwADFwu5HT6hv0Ucgig4lY7VzK9k32w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795323334;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=thwpgcBtCakbOmTmxUAgaX82W7RbYJlWb66owgXNdUs=;
-	b=F1x2durvfGkW0zdUfXC1AzxBr9qOd11WCnjfm8JCGAq1/IGQ17KK0+Z+JxOwjHzRUDC+
-	 mFs56nxQGe/eusTg6v/McV4GcszqtxGydgwiDXHfX14oU59Ba8/r5u+b+Lf0CETG7umie
-	 lC7zcX58ShtTekrpsCe0s80eYYnxkPruIKzHWqpMlrM74VPOYbGt3eHjUktfNH4F/vV3V
-	 scjwN9l+hIwFKu2omanWnPno+/ZwIM7mXRHNgGY8X6bwPBLUa4NNehaeUkh9Xh/pAOpkM
-	 okEG7QTXiP98P3PIZON06skEOLeaSGNidfhm71YKrkSyQycY8eyQ7NEC8iQON5cRffA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795323528;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=F3QLio3AscsLh+2pvh7N6KImPKdVE87TLT/zX5+h2pQ=;
+	b=DYKct+Y2HznJFYz+qyJ/wYtpcHNEBdQo+WpQpwGX+RArn8xKkQRKgz+gaSkK9XkPq7do
+	 k7aX3oI9LrSkdZVNNfJWpdCVZumUq5jcpozijhUS8ysf5xUKnEzfnATGnMgglVr5OY2YH
+	 RsHdVps0AWCB+acJy21uIhKHZa914GD4wfAqq/OZuXnRU+3l8TIrGTEP25MBX4UBDKU43
+	 lrHjBdKHIKtjO4b/QzEZhFZGIA7GvgvX5PZZEjtuGh6h+hkl/3x1iwz6RgL+PCZo9w86e
+	 /1S9gJ9U6SyLBBmWGa6loMWMm0aaLADHska5wxrVG1Y0lDpSVkx0S+wJtrGuq6JHdrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=PaTpGKGW;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iynhWeN4;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F50606A32C;
-	Sun, 22 Nov 2026 04:55:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23F50606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F78606A32A
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 04:58:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90F78606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=PaTpGKGW
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AM44qcc2469945;
-	Sun, 22 Nov 2026 04:55:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=thwpgc
-	BtCakbOmTmxUAgaX82W7RbYJlWb66owgXNdUs=; b=PaTpGKGW3q9eSzH2kq7+RI
-	pN35uVIJSav7sVVNqZs+2Nu3U+o6e8UUjozH/cbRi60lCW9bAfiLuQS0/mdb4kPB
-	9SJUFQwXvP0h/U9jQPhl3HFJlR4tNvikpZvyxOKwgseNWm7L4p3pbBf/cu5IIYJw
-	98BBVIU4a2T6XZW1Q9SAsgwj6YkIihQuLNyt2m5uwJosD6onkYc6Xtr3U9MXRVeS
-	/8avab2LGk4kWI0klpZ7Th6o0R21KgTzUjWKQUTl4JLfwVOftFPD3cqjIOp0yalF
-	PpGMXX6PTNXOWgwkOwl+DVE21f7MXv2yxFg6mQZunffO3hlmAZhmSnwQPfryXHuw
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j34p44rtm-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 22 Nov 2026 04:55:15 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AM3nlu8811059;
-	Sun, 22 Nov 2026 04:55:15 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4j3q4h0hk8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 22 Nov 2026 04:55:15 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AM4tDrs52035980
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 22 Nov 2026 04:55:13 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 46B5B20043;
-	Sun, 22 Nov 2026 04:55:13 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 486E720040;
-	Sun, 22 Nov 2026 04:55:09 +0000 (GMT)
-Received: from Linuxdev.ibmuc.com (unknown [9.43.90.96])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sun, 22 Nov 2026 04:55:08 +0000 (GMT)
-From: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-        llvm@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] powerpc/xmon: Avoid unsequenced accesses to tsk in show_task()
-Date: Sun, 22 Nov 2026 10:25:07 +0530
-Message-ID: <179532322369.92012.8619272472025580101.b4-ty@linux.ibm.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261115-xmon-wunsequenced-v1-1-42ae3fe45bf4@kernel.org>
-References: <20261115-xmon-wunsequenced-v1-1-42ae3fe45bf4@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iynhWeN4
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-38587f3de36so2704344eec.0
+        for <stable@vger.kernel.org>; Sat, 21 Nov 2026 20:58:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795323527; x=1795928327; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F3QLio3AscsLh+2pvh7N6KImPKdVE87TLT/zX5+h2pQ=;
+        b=iynhWeN4gpV9WpcFJKJKQzv0Npt/bxr3E+iEa25Y2BjgaoxbpHvQdMsIBpsXUqerDj
+         hedLrg/AhtkD8omOXtvSx7eH54EXEEu12XQ176IdCTDFkwdup6Ugwtlpx8L5Ds8O8N29
+         rDnXCcVlQVR/yFB5Q7X06MJj/jRhFN7wjwzhNd8Mne7eo9zwXwMaTj+Ah6I+6voLT0By
+         2wy/oBR6HE+fgXhNtfQl3qPammeOevGEP9NTMhkKDpOh0pOr3uipEG+CLTOK85gQGfcb
+         7lDGq5aiVc1Z5IG9fkwyPybbcCKKC35L6dgifD9POJBeyFs1l7e8TxpwHNdoSuFejvKp
+         2FrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795323527; x=1795928327;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F3QLio3AscsLh+2pvh7N6KImPKdVE87TLT/zX5+h2pQ=;
+        b=uoG8qbNtJiIjlUvWvlgXi8GPgSLVR7VmwFNx5mTr6E2N46JZCZnWOyX0cJtOO4KISn
+         uhIKzStUdWzsntTE5xHGLMfccW6auqjMD7YMpEhuhyDMMaJvrMaSBZ63QbIBS3u2hgXi
+         9hrQU8qbX+Z1upiUOo5MmMReZdf5v5ckq5WzOxOp1VNODNqMdeVLB8yegA6T3IpwAqtQ
+         2jU3pbgXcy0KYFzV1uwwdyYH1pmWE1mIaW38bb9QRXU8ef7TRXHkdHIV6LeTi4fccrXm
+         x/2aE4ZAU9pqAnHhHR+O+yOhmr8A3QCONRG4BVPlYPz6lhO+6laxI0QzCH7VxHaavsx3
+         uPrg==
+X-Forwarded-Encrypted: i=1; AL+hErHD2OlWp/PIYlzkyTrgPafZB81uY7Yg8MUo2oXw5Sx5RAY60KMBKyKU+80fcVW9GSaO3sfID0M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8B8ttUPqoPjhgkRfCbfaP29wR2+3yN3ctc3VoJ/+ZyxWtEc220
+	oIbKtOJTqiHxFqfk47Hs6c/TBMFD/swiIp36WgoZBckaA1kka+j1b/5e
+X-Gm-Gg: AZFdTZe9tp1N8mJU4Wdu1QezTK89EA2Sf9YbIXjyurGajgvLBjVTzYpSSlmg3yVIwnA
+	GuwnzHXbdMcCDTqV8r8p9ypTdrfnU0VZOLLn0onqh2gQBZFgn4blhccNoyW01gA2i2miCerCcEl
+	7vjntn+TzCfwX1QcLiHslnalrE2ukd2BFTwN2M49PlmmPPgO8esLWdHHzAK5HHlKcU7ecmSD9eS
+	LWsnRS/Y3ImNm9+a09OmIObW9PpAtVsb+xs3CpXXN4kjk7e0gC3ukVOmGKCs2m4YWpiKQFn46a9
+	KfNQ6US4aPKAP/Agw14polCKCI00TpCZzIvthBBjPEO6tIhQx71Tz1YSOvgydwhBFjwhuVVM22Z
+	Zrm2p4Ru01emQ++EHh6c9ItQQB5Q/bBmfguhpwMoPVKs8rXKBcZoXkypMFzDUiq9OIrFTSNV8UV
+	GpydHdIn6UzQ5vkKBUfg7fnAE7GFzyRu2elvgZYo+iSbqizfYE7N0iGeaCKuxToJsQm9FmytWsQ
+	NEGzYoQXH/7FWPhgBT0GMxQRayG5K62LNzEtfixgNiloP6xaRXp1jo37I0r1n7BsMScM24uOV5y
+	5kC3YxHsH8KBgr8QlmhmqK0MxV2mPshJHwAWnDECuIoKEcUOzYr0
+X-Received: by 2002:a05:693c:4001:b0:370:d6e4:e8aa with SMTP id 5a478bee46e88-38570b34fecmr8521946eec.41.1795323526357;
+        Sat, 21 Nov 2026 20:58:46 -0800 (PST)
+Received: from fred-server.tail1cd3ef.ts.net ([2600:381:4c20:1067::7ff])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385646633d0sm38865118eec.3.2026.11.21.20.58.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 20:58:45 -0800 (PST)
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Cc: ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Tom Talpey <tom@talpey.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fredric Cover <fredric.cover.lkernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] smb: client: convert DFS target node name from cache charset on mount
+Date: Sun, 22 Nov 2026 04:58:40 +0000
+Message-ID: <20261122045841.99012-1-fredric.cover.lkernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,53 +102,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIyMDAxOCBTYWx0ZWRfXwJ1HDbFa87mP
- lqAvmrNAu6+SCIMPWs2wjQLQduf9MM7DDGMNlB0HeQsqVVVc22KqZmbsQZWo0/U+Mugx1cC6JmX
- 4Cz9BDRMLDKL8FkKeqvZkaDstmQ6mbk=
-X-Proofpoint-GUID: OYydPgwM-ZzYhCyZHv1QZkly5bhoRtwl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIyMDAxOCBTYWx0ZWRfX676fR8w4GtMf
- PGRk3jLdcQaFwSLNxGJuRWtP6EFvuFwRSmiyI4uWrjFB93ziKOURnygSC/aVrcuoGZe7VHcT5nY
- rgd7H9/kN/LyS5+Q4W14MpeZQdw4a4NfHlzijRLIcCYBwxynMCtb8NY7tB2uCCe8hhFerZxxk61
- YAoWu5WcJ6HhwlIoUJz6GXXguBKsEq4q3VEunkR232h0NJ/5JcSVUcC6AFwJHZyZTS1+ILB8ZKg
- U7lkVgsD0rOHDt8UMdUfV0QhyOfTl5cnvLlItSJB5ntreNiIezoqSPB6PYLAGXALvH72YrC21sm
- 8Kug7H3r6hO09GnjtB1TleReNp9eOQmI7z88N3rpnmcKZwdPayidkk5epIW7oCJVEzChnZIUeV3
- zKLLE8b2LuxsRkgjo4pKsugQ0qNGYTBS9dFicy2OLmoMda1VzDJOgMQ6B9RqzC7UfZw4Xx+VeTv
- dBTH4529FbK2t1d4rTw==
-X-Proofpoint-ORIG-GUID: 0hUo7JWjhDyHlCGn2rfsBZ7-l8O6dy6x
-X-Authority-Analysis: v=2.4 cv=QabzLcbv c=1 sm=1 tr=0 ts=6b0275b4 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=2oOorpea6NrDkEfdVwMA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-22_01,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
- bulkscore=0 priorityscore=1501 clxscore=1011 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611220018
 
-On Sun, 15 Nov 2026 14:18:07 -0700, Nathan Chancellor wrote:
-> After a recent improvement in clang to warn on unsequenced accesses to
-> volatile variables [1], an instance appears in show_task(), which can
-> break the build with CONFIG_PPC_WERROR=y / CONFIG_WERROR=y / W=e:
-> 
->   arch/powerpc/xmon/xmon.c:3262:3: error: unsequenced accesses to volatile qualified 'tsk' [-Werror,-Wunsequenced]
->    3261 |         printf("%16px %16lx %16px %6d %6d %c %2d %s\n", tsk,
->         |                                                         ~~~
->    3262 |                 tsk->thread.ksp, tsk->thread.regs,
->         |                 ^
-> 
-> [...]
+parse_dfs_target() converts @path_consumed to the mount charset using
+dfs_consumed_to_local(), but @ref->node_name from the DFS referral cache
+is still encoded in UTF-8 (cache_cp).
 
-Applied to powerpc/fixes.
+In dfs_parse_target_referral(), passing @ref->node_name directly to
+cifs_build_devname() and smb3_parse_devname() copies UTF-8 bytes into
+ctx->UNC and ctx->prepath (and mixes encodings when @prepath from
+@full_path is also non-empty). On mounts using a non-UTF-8 iocharset
+such as iso8859-1, subsequent path checks re-encode these strings to
+UTF-16LE using local_nls, corrupting non-ASCII characters on the wire
+and causing initial mount to fail with -ENOENT.
 
-[1/1] powerpc/xmon: Avoid unsequenced accesses to tsk in show_task()
-      https://git.kernel.org/powerpc/c/9ea01307e6c824eb0b8934d95d52bbacae17887d
+Convert @ref->node_name from cache_cp to ctx->local_nls with
+dfs_cache_local_path() before building the device name so ctx->UNC and
+ctx->prepath stay in the mount charset.
 
-cheers
+Tested against Samba with iocharset=iso8859-1 and iocharset=utf8 for
+both DFS link referrals with a non-ASCII target subpath and mounts with
+an additional non-ASCII prepath, including reconnects.
+
+Fixes: c870a8e70e68 ("cifs: handle different charsets in dfs cache")
+Cc: stable@vger.kernel.org # depends on: smb: client: convert DFS prefix from cache charset on reconnect
+Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+---
+Note: Applies on top of "smb: client: convert DFS prefix from cache charset on reconnect".
+---
+ fs/smb/client/dfs.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/client/dfs.c b/fs/smb/client/dfs.c
+index efef00c33321..6b212e49cf92 100644
+--- a/fs/smb/client/dfs.c
++++ b/fs/smb/client/dfs.c
+@@ -25,6 +25,7 @@ int dfs_parse_target_referral(const char *full_path, const struct dfs_info3_para
+ {
+ 	int rc;
+ 	const char *prepath = NULL;
++	char *node_name = NULL;
+ 	char *path;
+ 
+ 	if (!full_path || !*full_path || !ref || !ctx)
+@@ -40,7 +41,12 @@ int dfs_parse_target_referral(const char *full_path, const struct dfs_info3_para
+ 			prepath++;
+ 	}
+ 
+-	path = cifs_build_devname(ref->node_name, prepath);
++	node_name = dfs_cache_local_path(ref->node_name, ctx->local_nls);
++	if (IS_ERR(node_name))
++		return PTR_ERR(node_name);
++
++	path = cifs_build_devname(node_name, prepath);
++	kfree(node_name);
+ 	if (IS_ERR(path))
+ 		return PTR_ERR(path);
+ 
+-- 
+2.53.0
+
