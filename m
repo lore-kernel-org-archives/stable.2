@@ -1,99 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795367913;
-	b=FWNB69zcwFX5W8HD5xmRuc9jZXu0zNwMjZSbsIVkdrPSgiHNuEvz2MvH0i/kF466EtCT
-	 F2iX0ZEl/lvfu9DzEUnxlGRAql12unLJQMRHtjb+fS6WqlM9gaMv/m03aFbi7Dp4dfrMW
-	 fQOBTd8tpyI5+jZ+fGJoT6K3NSmN8n4JQi5O/11kBkdHyc96FcoWTdFb8NHkePz0JuOeJ
-	 /ijD8h5UP7CKsuODZU9jYLgWzxTH1IDO1+hyKjzXBDw85vonterHTylCWELkuPvcKQ+SA
-	 nn+6P55jlHf9ahS9L6xPa1NiJ+slsce1gdwCslGbLVRUFMFy1L9a7G15zH0jHgVzWug==
+	t=1795368886;
+	b=GI1aHKi1B3J0yzb6WKWSU+FnTC7WKF0N6AE90NbpdcCctJ/cS7034FucVggfeNXsLKiH
+	 Gx6SEx/cmUY0izQzjrthwvf1spvL4knYxxo/daRMkxjcawjOpNQgtgtmKWzmRLWlYYWzb
+	 dMCCA7tRZ0Ia0ZxlU9uCcD2IIwt/SkSHdqPDiBywycj+g9038RgQiTxVpyhOkGOT5iYPz
+	 Hf7cu5NZcj2EcR1qbrtQt9FfjCfpg1qkq48BFcGMb7yBbUNjeigTOGxMLklwKpQ4DsBNo
+	 8dzbD/d0HKD/QgpaiFpznAd3lNRcB9rUM2ozoPC8OyO6G+J1+tWne7XDGVIaSHpbl9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795367913;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=78iLp+ukyIH3Bqo6jdwjTQqg9ybQFd9VxizK2IPYkLQ=;
-	b=rNCQcy81CHXuOYTdYLCcApaV8VMsLSmM6om/D+mpwN0k0EOH5baK/AxlD2Vw25J87LxT
-	 71PGzcD/xpnrCvkeA/vOinfWc/pqFdsheGcN9m38CFJj6NyFna9FyHgv4pPMAsCDOtiF1
-	 Gv14Xmnp0HUlQL9D0RYIynL5Ue3SZ4pQvcm+bFDR/FqS/fen1hxupwn3FSLDxhvO+DcB5
-	 8QJjAaVwup2HeWCUB9E9hxpG+4KdXF5CmcisZUZGeo4NB4g2l7BDGxKJhmZe4P3QVPgZj
-	 y9A3lUlAoXE0VrxlZjpOk7OKPQVXjoSPcaL5/59GjMTAxwh/jNsYvFHGLVtJRnBhKHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795368886;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=Ov38FvGCEd76A+gpVfHWrpgkrbXPuTyqxUKbZ42BdFQ=;
+	b=fF1rd7cTpdnq8uZb0paTs/RoZIwWxXHwH9u/a37bnITxrJyvGX8LVxTboPF9pkemy68P
+	 cdpSrLf7ZvsqeSM5YRbBynZ+eMR3lCXHjdomsLm1sdYuoPSlT7GOQBi7FLTtZxXd8aQeb
+	 uND0o6fhEMDfLIttg64Js6b3gFlNFthXkL+obT/2+NXw82b/6LC2XbZVk7bpAm6lY06oB
+	 DCW2vkHltJZ2YCPZryJsGmEuWxK6+kzZFekDe2QScnhXdJ70obi1yQw1NvWeAPIfOAI21
+	 +ehHBd1Ut1JgfiCkzZh2jR0Djto/K0lJr5EaXpLb6CXT46Yh3eQ2u4+0Nt+WmHnmsAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=networkplumber.org;
-	spf=pass smtp.mailfrom=networkplumber.org;
-	dkim=pass header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MSEwHngh;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=qcIoiV+D;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9FA606A320
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 17:18:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D9FA606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=networkplumber.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CE0606A332;
+	Sun, 22 Nov 2026 17:34:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MSEwHngh
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2f0481b35c9so12750545ad.0
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 09:18:33 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=qcIoiV+D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0528F1F000C4;
+	Sun, 22 Nov 2026 17:34:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=networkplumber-org.20260707.gappssmtp.com; s=20260707; t=1795367912; x=1795972712; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=78iLp+ukyIH3Bqo6jdwjTQqg9ybQFd9VxizK2IPYkLQ=;
-        b=MSEwHnghHFpvG/H9NvyBLNcSG8oKpaTq8hFGjcbk45OKxp7HM52R6ckrAw/Q/A7gGx
-         xHgWbgp6sLH23mTJmJwkBVHRXwgTJV95FigsUnpApXdZaqauZJfdZGt2cDkc3zpquCw+
-         bE74Mp/xYKn5jeOU0Os9Bx4CmTm2Az6CLgl915HHUkDpUpTPESCFkKVKLLU24bi29sr4
-         gnVxtBpSKoN8zR9F4EUzHSYofP3ITSLuXKPHFztugHXkr6sQe4jVhtxC19Pqpg2D87y9
-         XPrlZwJafq+RfLxT1uWctWAvNka/48LMeP/QkJVXiqK/sY3z+bJiSh05GF3CuxEhtayN
-         xC0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795367912; x=1795972712;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=78iLp+ukyIH3Bqo6jdwjTQqg9ybQFd9VxizK2IPYkLQ=;
-        b=MEzkf2OAVmk+UqxCjklCoCCIscM8sVshfWyq821KNzRSido7t9CwoH2plZBX8lwQ4M
-         SUqyjarDuLi5KCdtlpWfY0+wJNUp+wHJRQ3ZqAbZn5nR/zulWDq+8dkOHrlDINcueDb5
-         ZZ6pXzK/yUfrnYU06YWQy7ax0W8HoLDdjjTHTdIRCB7/XZutoBK6Ke79Pdp0UhHvXj2G
-         fAp6VWCPS62pSvMFql5/dxDyPPisPeQQaQBB25p7UXEVm0KoylvFn191jimIJoTOAMdv
-         0GHs3uZtGF+bloXtRVG1WZV67lydOw0Isq2FksxRQIvWstdIHzOqEvDwGwlvhxJkl3yl
-         cEsw==
-X-Forwarded-Encrypted: i=1; AL+hErE2bim2McLz5d+ehYbFNOBFpTeEEgG5tsMOiOH37FWXIecEPvOlyigV7cUN+iGK7NTKjwLa3MM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ZZ64BsgPhwmxqiRgF06ncYktrIk/ASw0/lS4WCtM5jLzhd9T2
-	LSY7bkwt0kDr7HHLuzEayuP1iSwXBmrhQ+OuU8Nl515+rpsCxL8w1tjUOk5u/8Bc/YWmbOrwbP3
-	90hsekx4=
-X-Gm-Gg: AZFdTZc3w9I5JqNFHphK/jjfd0yEE4oqt2/rkZegpNZcjvvLPuPy8CXcOjzdnaX5Ptv
-	lX/9wqpbmQ1YQ4gxOnC48Ql4VDHqyjXnnP94Tl0F6cFaxy3cfnggEakIbgzITl0cMrarsSA9loa
-	psyJbk4GzYRhq0YJIsnFmTi2e+nVmxAhqChHZMbvByuvfSrZfQ57M322YOd66FDlqSFgm3S3mdM
-	JwlhgMs25cJ1i+vU7rsmCjIKy29RggSTMxW8DTANH6l9YgDt0Cs/ahvOrKliBRWscHW5rhdobdA
-	O+LdhPSzjkMS6FFnhaaNU5eUgszS0lanyuclDATJJDjo38vBmpUsoNMQ7TdOBagth7RAXEXbnuE
-	+0tuX6AZ3EUyCc1skgAvNrtQuhxXj87TOiPeI08LHjIenUmg20002Ijza6JSvPNvTtwmTUf0GC1
-	jXiPjNCLR8LkZvUF3IEgiNAcqPTN6KRel+rU7ut0/rxJDxJ6lRndb2VAIQxqLcPWYf+65Iy6dXd
-	OfmWKfhssp9jCow9K28yMIoF73boTj1va7qd7VwSqS82lS5Z5InFkVbJuWH9nXA7/HRw0cjO7at
-	Ip1qHyhc7yKkwMBqcJSDAR0Vw+ZiJICQg4p6NNGQ9x7H0iJG1JDPRqOr3YEL4Z2QzFxVGdk=
-X-Received: by 2002:a17:902:f603:b0:2e9:7dda:bfce with SMTP id d9443c01a7336-2f03f2760efmr88354605ad.74.1795367912601;
-        Sun, 22 Nov 2026 09:18:32 -0800 (PST)
-Received: from phoenix.local (204-195-112-43.wavecable.com. [204.195.112.43])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03ee84364sm40712525ad.5.2026.11.22.09.18.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 09:18:32 -0800 (PST)
-Date: Sun, 22 Nov 2026 09:18:30 -0800
-From: Stephen Hemminger <stephen@networkplumber.org>
-To: YanXin Li via B4 Relay <devnull+fadouse.pm.me@kernel.org>
-Cc: fadouse@pm.me, Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko
- <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net/sched: act_ife: return -EAGAIN after
- dropping rtnl_lock in load_metaops_and_vet()
-Message-ID: <20261122091830.3266fcd0@phoenix.local>
-In-Reply-To: <20261122-b4-02-act-ife-rtnl-uaf-v2-102eba468698-v2-1-67c413c45928@pm.me>
-References: <20261122-b4-02-act-ife-rtnl-uaf-v2-102eba468698-v2-1-67c413c45928@pm.me>
+	d=linux-foundation.org; s=korg; t=1795368886;
+	bh=Ov38FvGCEd76A+gpVfHWrpgkrbXPuTyqxUKbZ42BdFQ=;
+	h=Date:To:From:Subject;
+	b=qcIoiV+DmlN/743uwHeq/EkkR+mdAm5iXFUzNGx1nfftuHh27m/WrJLV2eXHcyZ1K
+	 WNzKTsIo6yJfw2mKBn0yx+uQAjQ+zdjR08KmvofPmzBE0xC0o0H6UmljN+GkqFLxN5
+	 l8vD0vk2NJRaOzzOd80xNl1aLZg2fVFGiQ5eXfM4=
+Date: Sun, 22 Nov 2026 09:34:45 -0800
+To: mm-commits@vger.kernel.org,zzzccc427@gmail.com,tytso@mit.edu,
+	syzbot+38fdbb551940270021f1@syzkaller.appspotmail.com,stable@vger.kernel.org,
+	mark@fasheh.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jack@suse.cz,
+	heming.zhao@suse.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown.patch added to mm-nonmm-hotfixes-unstable branch
+Message-Id: <20261122173446.0528F1F000C4@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,21 +51,182 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sun, 22 Nov 2026 20:45:52 +0800
-YanXin Li via B4 Relay <devnull+fadouse.pm.me@kernel.org> wrote:
 
-> +		if (ops && rtnl_held) {
-> +			/* We dropped the RTNL mutex in order to perform the
-> +			 * module load. Tell the caller to replay the request
-> +			 * under a fresh RTNL critical section.
-> +			 */
+The patch titled
+     Subject: ocfs2: unregister the JBD2 shrinker before journal shutdown
+has been added to the -mm mm-nonmm-hotfixes-unstable branch.  Its filename is
+     ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown.patch
 
-I prefer that comments stay in "short and sweet" style.
-AI and new developers seem to like long comments.
-This comment has the classic /* add one to i */ style...
-In other words the comment doesn't tell human more than is already
-obvious from the code.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown.patch
+
+This patch will later appear in the mm-nonmm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: ocfs2: unregister the JBD2 shrinker before journal shutdown
+Date: Sat, 21 Nov 2026 19:34:56 -0800
+
+sysbot reports a lockdep cycle through shrinker_mutex, filesystem reclaim
+and osb->journal_shutdown_sem.  Unmount holds the superblock's s_umount
+exclusively, while the OCFS2 reclaim path must first get its read side
+with super_trylock_shared().  That excludes the two paths for the same
+superblock; the report does not establish a runtime deadlock.  Still, the
+lock ordering is visible to lockdep and produces the warning.
+
+The write side of journal_shutdown_sem must cover all of
+jbd2_journal_destroy(): ocfs2_clear_inode() can otherwise release a JBD2
+inode through a journal that is being destroyed.  Move only the JBD2
+shrinker unregister operation before taking the semaphore. 
+shrinker_free() waits for active shrinker users, so the journal and its
+checkpoint counter remain alive while they finish.  A successfully
+initialized JBD2 journal always has a checkpoint counter.  Destroy it
+after unregistering the shrinker, whether unregistering happened here or
+before taking the OCFS2 semaphore.  The semaphore continues to protect
+JBD2 destruction, removal of osb->journal and freeing the OCFS2 journal.
+
+The userspace-visible result is removal of this lockdep warning during
+OCFS2 unmount; the report does not demonstrate a hung unmount.
+
+Fixes: f277230d002d ("ocfs2: serialize inode journal access with shutdown")
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: <syzbot+38fdbb551940270021f1@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=38fdbb551940270021f1
+Link: https://lore.kernel.org/6b0257ca.6ccd1e40.868ea.001a.GAE@google.com
+Tested-by: Andrew Morton <akpm@linux-foundation.org>
+  Link: https://lore.kernel.org/20261122093400.b726ecddf154f493dec1c892@linux-foundation.org
+Cc: Cen Zhang <zzzccc427@gmail.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Theodore Ts'o <tytso@mit.edu>
+Cc: Jan Kara <jack@suse.cz>
+Cc: <stable@vger.kernel.org>
+---
+Tested with CONFIG_PROVE_LOCKING=y in x86-64 QEMU guests. A omitted
+this patch; B added it alone. OCFS2 and JBD2 were built in.
+
+Syzbot's C reproducer mounted a local OCFS2 image, accessed 200 files,
+exercised reclaim and unmounted it. A reproduced the reported circular
+locking warning: shrinker_free() ran from jbd2_journal_destroy() while
+ocfs2_journal_shutdown() held journal_shutdown_sem. The unmount
+completed; this test did not show a runtime deadlock.
+
+B completed the same sequence without a warning. Three further
+mount/reclaim/unmount cycles on B also completed without warnings.
+An ext4 read/write/unmount control passed on both kernels.
+
+Both builds needed the same temporary correction for an unrelated
+mm/util.c compile error in another queued patch. The correction was
+removed after testing. The test did not force an active JBD2 shrinker
+callback to overlap unmount or exercise failed-mount cleanup.
+
+ fs/jbd2/journal.c    |   17 +++++++++++++----
+ fs/ocfs2/journal.c   |    1 +
+ include/linux/jbd2.h |    1 +
+ 3 files changed, 15 insertions(+), 4 deletions(-)
+
+--- a/fs/jbd2/journal.c~ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown
++++ a/fs/jbd2/journal.c
+@@ -75,6 +75,7 @@ EXPORT_SYMBOL(jbd2_journal_check_availab
+ EXPORT_SYMBOL(jbd2_journal_set_features);
+ EXPORT_SYMBOL(jbd2_journal_load);
+ EXPORT_SYMBOL(jbd2_journal_destroy);
++EXPORT_SYMBOL(jbd2_journal_unregister_shrinker);
+ EXPORT_SYMBOL(jbd2_journal_abort);
+ EXPORT_SYMBOL(jbd2_journal_errno);
+ EXPORT_SYMBOL(jbd2_journal_ack_err);
+@@ -2100,6 +2101,16 @@ int jbd2_journal_load(journal_t *journal
+ 	return 0;
+ }
+ 
++void jbd2_journal_unregister_shrinker(journal_t *journal)
++{
++	struct shrinker *shrinker = journal->j_shrinker;
++
++	if (!shrinker)
++		return;
++	journal->j_shrinker = NULL;
++	shrinker_free(shrinker);
++}
++
+ /**
+  * jbd2_journal_destroy() - Release a journal_t structure.
+  * @journal: Journal to act on.
+@@ -2173,10 +2184,8 @@ int jbd2_journal_destroy(journal_t *jour
+ 		brelse(journal->j_sb_buffer);
+ 	}
+ 
+-	if (journal->j_shrinker) {
+-		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
+-		shrinker_free(journal->j_shrinker);
+-	}
++	jbd2_journal_unregister_shrinker(journal);
++	percpu_counter_destroy(&journal->j_checkpoint_jh_count);
+ 	if (journal->j_proc_entry)
+ 		jbd2_stats_proc_exit(journal);
+ 	iput(journal->j_inode);
+--- a/fs/ocfs2/journal.c~ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown
++++ a/fs/ocfs2/journal.c
+@@ -1119,6 +1119,7 @@ void ocfs2_journal_shutdown(struct ocfs2
+ 	 * Exclude the final JBD2 inode cleanup in ocfs2_clear_inode() while
+ 	 * the journal is destroyed and freed.
+ 	 */
++	jbd2_journal_unregister_shrinker(journal->j_journal);
+ 	down_write(&osb->journal_shutdown_sem);
+ 
+ 	/* Shutdown the kernel journal system */
+--- a/include/linux/jbd2.h~ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown
++++ a/include/linux/jbd2.h
+@@ -1566,6 +1566,7 @@ extern void	   jbd2_journal_clear_featur
+ 		   (journal_t *, unsigned long, unsigned long, unsigned long);
+ extern int	   jbd2_journal_load       (journal_t *journal);
+ extern int	   jbd2_journal_destroy    (journal_t *);
++extern void	   jbd2_journal_unregister_shrinker(journal_t *);
+ extern int	   jbd2_journal_recover    (journal_t *journal);
+ extern int	   jbd2_journal_wipe       (journal_t *, int);
+ extern int	   jbd2_journal_skip_recovery	(journal_t *);
+_
+
+Patches currently in -mm which might be from akpm@linux-foundation.org are
+
+maintainers-add-page_exth-to-memory-management-page-allocator.patch
+kselftest-mm-rename-read_pmd_pagesize-to-pmd_psize-fix.patch
+selftests-mm-check-madv_cold-and-madv_pageout-on-partly-advised-thps-fix.patch
+alloc_tag-introduce-ioctls-to-toggle-allocation-tracepoints-fix-fix.patch
+alloc_tag-introduce-ioctls-to-toggle-allocation-tracepoints-fix.patch
+selftests-mm-add-uffdio_move-huge-zeropage-pmd-regression-test-fix.patch
+selftests-mm-allocate-nr_pages-based-on-pmd-size-for-uffd-pmd_move-tests-fix.patch
+selftests-mm-retain-move-pmd-coverage-and-verify-huge-pmds.patch
+lib-test_xarray-check-unused-spare-node-after-range-creation.patch
+mm-memory-failure-dont-unpoison-a-leaked-raw_hwp_unreliable-folio-fix.patch
+lib-test_hmm-invalidate-all-mirrors-on-device-private-migration.patch
+mm-prevent-pre-content-bypass-through-mremap-and-remap_file_pages.patch
+selinux-recheck-backing-file-permissions-on-remap_file_pages.patch
+mm-madvise-notify-userfaultfd-when-installing-guard-regions.patch
+mm-highmem-reject-previously-poisoned-pages-in-machine-check-copies.patch
+ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown.patch
+ipc-msg-clamp-negative-msg_info-usage-counts.patch
+squashfs-fix-leaked-page-locks-when-page-actor-allocation-fails-fix.patch
+squashfs-sanity-check-directory-metadata-block-location-fix.patch
+squashfs-fix-variables-in-directory-code-and-add-more-sanity-checks-fix.patch
+ocfs2-skip-network-flush-when-no-domain-handlers-are-registered.patch
+selftests-ptrace-check-that-ptrace_set_syscall_info-rejects-invalid-error-values-fix.patch
+jfs-validate-xattr-entry-bounds-before-replacing-an-attribute.patch
+drivers-media-v4l2-core-v4l2-vp9c-reduce-inlining.patch
+
