@@ -1,60 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795343848;
-	b=AVOkV+zrj8Q6BhqxdsRiqIQhjt0CZkT/nWgYg35UDdr+xETe6EIHk/hrbV8z0yq3/rpW
-	 NojtO9Y2XUZ5W8bQw0svK2JSIS5xpK6VgWB7vuNyMV3yKyhXcIYyL2EdE4oHH3qHb9kvS
-	 bn/Y4w5kQVXcE8eI68eK6oVd3QyBUnYE7vs7xLCNQH6dfFIyk+uvvSxDcZVnePQrAl0xs
-	 WJ12Ciar2nlWj3196KUOofJ+/U9plTjKcJzEUdAAegdoRNdgq9koFEk694XU8o2HtRdeP
-	 YMjuFsQAlmqtVVuJNku/qTt0VkG8a+OQZtaOjE/8ni5+EjrRTkTWYoo7ty3/c+DJBEg==
+	t=1795343912;
+	b=jgdna8B39kchWQwz9p5iGrZpuH+udIZXzcGvHClFZIlziWGL+0MXJsnm12BPuxW61XOO
+	 FLvp4JcP9GzJue8a4jU6eVDYfTlxGqFXxZ/Ox2EASE+R1gKPSjjOmxA2S3C/G9RRzDb8O
+	 +UXLggRQIrhO21ZQ6c5ryHNXPXhUZ+sCxRVvcSIlbuMgeKuhfyBsDzaZu9w/+xGq86H6P
+	 2RSn2YHTxyjNtVms2TAA56zVZQh0qaNdcGDr7B1OJmFtFWnzID1Ti3DDRf9NUF1suLLrg
+	 xQ2GQlsHTklw7VbzVUP4RAJQqEq7kj32q7AkH8fdQd9TYoMadHoE/vLQbt2kVDk/wow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795343848;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rR8mVZg1RTbtY+DPUPqTofyFY6a0VQAk2vhrLev7VdY=;
-	b=GxiE81FlFqitSplYViAT6UcpWD0YCPSRaZz58Cl8/LEjaoH8dbTMw0CoqCVf37BRg0K/
-	 EWwcy90UPAmm59plsF6yM1iAzm+eSYkk8OQHuEbMSMe7VWvCbppEQncxEYWPrOa7a35+T
-	 zYVUuYUrUJFGWa7rNk9VOEl78+YJrqv8Q19P2fP7erIMPv/wUj0EhWXeosbv1iK8Vf6KT
-	 Qy8DV+QIbmkTuTImFwNW21br0V2TE9kbegSQ9kYvKf4iMaqeFSJK3wllZCNJuJZLKVxll
-	 owXIeQA+kFVNkAlAgvvMP1HQdIlvXp1Uok0mzWq1BkMtEsS++1Uyvww5kWFaPSKZmLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795343912;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ndFzpOQfr4dmnnL821+zKdNgvevfL4iCv9N/kuCrB64=;
+	b=ulfsGPjp2/YaeFEAva6Pw+aSfec1yDBzj6gTFDOWdTIlh3SprEg33Q8K1wNERoDSWEQv
+	 r+Df0En1Aiq8BHwbWRFiQFWJ96ziJQ7rXm7kctsxvXUtT5DGVcYvRG6PnEAlmhdgwOZTS
+	 qN4GNr70Ah0gEDUwS1huAl5muDlw5ob/bhQusIBjzoOOXRw7O3QRmTXlMlnmIAG8GP8N4
+	 kuqoK/0KO4UzV4su11LqErQRi8l5fbINWqftE45u0BKB6HMv/3SOFznLpWgshcbqY3d05
+	 gGYQnw9BAL7pNfrXBWDRn1cKwzrryjU3LdjTmG4LKGdavoGysmvAoOOItbrwrMkPseA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jaeyeong.cc;
-	spf=pass smtp.mailfrom=jaeyeong.cc;
-	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=ihRz5VLQ;
-	arc=none smtp.remote-ip=109.224.244.21
-Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch [109.224.244.21])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pZZnDX5z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B39B606A32A
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 10:37:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B39B606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07724606A320;
+	Sun, 22 Nov 2026 10:38:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=ihRz5VLQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
-	s=protonmail2; t=1795343844; x=1795603044;
-	bh=rR8mVZg1RTbtY+DPUPqTofyFY6a0VQAk2vhrLev7VdY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ihRz5VLQMFyA8VfbjCeqdmYl/lu4GHmlUZbPenBX4RdduWaPFRyjC1CkZuP55qmtV
-	 b/hinkPDcyy9k2tUJrHQ9d1/DRJTCG6knT+fBAccmAmpNIZF6K6ZzPP+hwhcMqJ8DO
-	 nmWBi6/aW5NLTy85ZKpS5Sl9dJI+bySmobX2YZwYs1YzKF2M6H98TJ8tGm2czY2oop
-	 a2iIMv0Dvm8VvB4SPhuZ+nevuMezRy1G5Tshep3B5nxzw6FmQ/SOc8RPn7o3ViuuVr
-	 xiEGTjZSudp/4folDeM9NxPmaJIT4RNd0qNibv3fL27iDTU+dAlRCDoCCQOClNJiil
-	 nilVs6rJTvu0w==
-Date: Sun, 22 Nov 2026 10:37:21 +0000
-To: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-From: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: Artemy Kovalyov <artemyko@mellanox.com>, Yishai Hadas <yishaih@mellanox.com>, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v2] RDMA/mlx5: Preserve DEVX objects after failed output copy
-Message-ID: <20261122103715.51731-1-lee@jaeyeong.cc>
-In-Reply-To: <20261115135123.GD42525@unreal>
-References: <20261111105346.3220427-1-lee@jaeyeong.cc> <20261115135123.GD42525@unreal>
-Feedback-ID: 177356447:user:proton
-X-Pm-Message-ID: 74f9f4dc1e82908e201ed1dabfc4e3b3c26b5def
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pZZnDX5z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F356C1F000C0;
+	Sun, 22 Nov 2026 10:38:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795343911;
+	bh=ndFzpOQfr4dmnnL821+zKdNgvevfL4iCv9N/kuCrB64=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=pZZnDX5z3ZLDJJlYq5jsYGPHj/qxzVUt880payjTTM/KMJxzG6IpW/DDYcRLL2yHa
+	 dNBKetGDMYsMSO7hUu3tUDH3yviSM8bQ2WfvmuQGuHtHquGcEck4+78KQ5XwY+zos2
+	 m0g09I2zcMHdQPMb9vzc6CF1+pZCn0qzbCkaof0I=
+Date: Sun, 22 Nov 2026 11:38:27 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Max Andreev <drunkbatya.js@gmail.com>
+Cc: Badhri Jagan Sridharan <badhri@google.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Kyle Tso <kyletso@google.com>, stable@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: tcpm: fix missed frs_sourcing_vbus() call
+ during FRS
+Message-ID: <2026112206-lapped-unvalued-8696@gregkh>
+References: <20261122102839.2902079-1-drunkbatya.js@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,94 +56,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122102839.2902079-1-drunkbatya.js@gmail.com>
 
-A DEVX create can successfully create and publish a hardware object
-before uverbs_copy_to() returns an error. The error path currently
-destroys the object directly and frees struct devx_obj without checking
-whether destruction succeeded.
+On Sun, Nov 22, 2026 at 10:28:38AM +0000, Max Andreev wrote:
+> Since commit 0908c5aca31e ("usb: typec: tcpm: AMS and Collision
+> Avoidance") the TCPC reports sourcing vbus while the port is still in
+> AMS_START with FR_SWAP_SEND as the upcoming state. Because of
+> _tcpm_pd_vbus_on() ignores this state, frs_sourcing_vbus() is never called
+> during FRS.
+> 
+> On Pixel 11 Pro XL after an FRS from sink to source the phone keeps
+> showing the charging indicator, and about 20 seconds later VBUS drops
+> and the attached device reboots.
+> 
+> Call frs_sourcing_vbus() from AMS_START when the upcoming state is
+> FR_SWAP_SEND.
+> 
+> ---
+> I'm not test theese changes on mainline, but tested on Pixel 11 Pro XL
+> vendor kernel 6.1 with the same _tcpm_pd_vbus_on() code, as i see
+> mainline tcpm.c is identical in this area.
+> 
+> Fixes: 0908c5aca31e ("usb: typec: tcpm: AMS and Collision Avoidance")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Max Andreev <drunkbatya.js@gmail.com>
 
-This is unsafe for DCTs. mlx5_core_destroy_dct() returns immediately if
-the DRAIN_DCT command fails, leaving core_dct in qp_table.dct_xa. A later
-DCT_DRAINED event retrieves the stale entry and completes the embedded
-completion after devx_obj was freed.
-
-The failure was reproduced by forcing DRAIN_DCT to fail and then
-delivering a DCT_DRAINED event:
-
-  BUG: KASAN: slab-use-after-free in complete+0x1a7/0x1b0
-  Write of size 4 at addr ffff88800b112ca8 by task insmod/77
-  Call Trace:
-   complete+0x1a7/0x1b0
-   rsc_event_notifier+0x1fc/0x410
-   init_module+0x454/0xff0 [mlx5_dct_repro]
-
-Initialize the object ID and indirect mkey bookkeeping before marking
-the uobject as holding a valid hardware object. Mark it valid immediately
-before copying the output. On a copy failure, the uverbs abort path now
-invokes devx_obj_cleanup(). If destruction fails,
-rdma_alloc_abort_uobject() commits the uobject, keeping its wrapper alive
-for another cleanup attempt at file close.
-
-Keep the direct unwind path for indirect mkey setup failures because
-those occur before the uobject is marked valid. This avoids running
-generic cleanup against partially initialized mkey bookkeeping.
-
-The issue was found by NSCV static analysis.
-
-Fixes: c5ae1954c47d3 ("IB/mlx5: Use mlx5 core to create/destroy a DEVX DCT"=
-)
-Cc: stable@vger.kernel.org
-Signed-off-by: Finder16 <nakamurajames123@gmail.com>
-Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
----
-Changes in v2:
-- Include the KASAN reproducer trace and describe the failed DCT destroy
-  path.
-- Initialize obj_id and indirect mkey state before finalizing the uobject.
-- Keep the direct unwind path for failures before uobject finalization.
-
- drivers/infiniband/hw/mlx5/devx.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/infiniband/hw/mlx5/devx.c b/drivers/infiniband/hw/mlx5=
-/devx.c
-index 5ba783bc7f9b7..fd41104fe42fe 100644
---- a/drivers/infiniband/hw/mlx5/devx.c
-+++ b/drivers/infiniband/hw/mlx5/devx.c
-@@ -1614,10 +1614,6 @@ static int UVERBS_HANDLER(MLX5_IB_METHOD_DEVX_OBJ_CR=
-EATE)(
- =09=09=09=09   &obj_id);
- =09WARN_ON(obj->dinlen > MLX5_MAX_DESTROY_INBOX_SIZE_DW * sizeof(u32));
-=20
--=09err =3D uverbs_copy_to(attrs, MLX5_IB_ATTR_DEVX_OBJ_CREATE_CMD_OUT, cmd=
-_out, cmd_out_len);
--=09if (err)
--=09=09goto obj_destroy;
--
- =09if (opcode =3D=3D MLX5_CMD_OP_CREATE_GENERAL_OBJECT)
- =09=09obj_type =3D MLX5_GET(general_obj_in_cmd_hdr, cmd_in, obj_type);
- =09obj->obj_id =3D get_enc_obj_id(opcode | obj_type << 16, obj_id);
-@@ -1627,6 +1623,14 @@ static int UVERBS_HANDLER(MLX5_IB_METHOD_DEVX_OBJ_CR=
-EATE)(
- =09=09if (err)
- =09=09=09goto obj_destroy;
- =09}
-+
-+=09uverbs_finalize_uobj_create(attrs,
-+=09=09=09=09    MLX5_IB_ATTR_DEVX_OBJ_CREATE_HANDLE);
-+=09err =3D uverbs_copy_to(attrs, MLX5_IB_ATTR_DEVX_OBJ_CREATE_CMD_OUT,
-+=09=09=09     cmd_out, cmd_out_len);
-+=09if (err)
-+=09=09return err;
-+
- =09return 0;
-=20
- obj_destroy:
-
-base-commit: 7404c82cbf1246e0e84e2ec21834d23c26f9a8ed
---=20
-2.43.0
-
-
+Why is this all below the --- line?  That will get cut off :(
