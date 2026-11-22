@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795371590;
-	b=rj6x3fTqZc+jUOAuACcWLkV9xVTcmL7a6YPCTzv7fpj8szQLycE02m9pDZnzb3tkna+P
-	 KcGlFANxhKnYMVvjBKPutp1Ope28/LyYg+A7JB81gNP8uLnk6MaGE9gBAKAar1SZaFJql
-	 q651/FSf/vwcThXv5NIitSdCpZlOccEm59a+o0Tu9qRi732SONCGXdjiM8lF1ePmAtacL
-	 X4n8Py4kcJBl0KTKZiq7/1uCsIqlSqrk5IMOD+iZTPTtcVi7OEhW8hpSeJFa8IEjjxKvb
-	 oj8PtPQGI6pvX3VJUqu4P0Uwfxmlw7QnGwIpf8wVVpgij7C5JY+CPn/2hzn8lxpUZeg==
+	b=Ot6565WehjjS/7/k0t3vLNGCmfIAzPvE2gZZxvv57tNYBbhXhWTMVngRvpNwyHnMFff7
+	 HnUZj674ddjdNkX/wlkyvEgrAOxXQ50nrfWKv8ZunE47J80SrrbfIzIMhuDqex00E3dfN
+	 Tmj62SNVZ/P9pp1xBRjET2kQ8Bc6/YJY2ZedDodjcGBv1lbTWPAiCqhkZjDEX7WfbOQjP
+	 AyWSOK1CKEuP7Lms9cXd3VE4s6Tk26gtAsncvz1ujcToSNUpPkL9e7i2CeDuIR02Fz3u6
+	 Fe7Enc2NfjAYqMZM1iTm5zBa0FH+jgda79OvJOT6X3Tff4GvOp74eokOCiP2izmQhzg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795371590;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=+RidziUgx+kZM9EX+B/idvPdGe7SZT8gd5HysQwlsX0=;
-	b=Tl/3aaTY2ZVqBtxYxHyPkYb4YYzBQmQC6VufT0948iqkbAUPP4n8QVZZFzlkAwlSMJEX
-	 FKRaOBnBibbf33teqpEs+A86AvJRoyGhRnM2LjRTljRnuSKMdsBDcjiMwyuwFApDnG0hd
-	 dPAcOr4n0Cq++zgyKMa/Uz8omiLNZpOtoiG2JoKKpoMehut87cF1wfFvBR/3Me8Pqzv2F
-	 NDqu7dDYhuAfFhPFZ0Ac8oXimtHroqAXnnvZpFk0jVkYxpHbT+uHYLMrh3s2wv4y2rKUk
-	 qYJamyECWg1PCyclCVo0k3eVw4XHaLXBRRxqDqU+6sS1+537qzB0q+yAIhcIrEgaRzA==
+	bh=7XzCl99XSt0jQeYSzp9DDMkSNqpxrpMBcV0n58ptXLg=;
+	b=saH6Oyi4ffw9jaeYqBFaJbzpJ5QzWtEJn/mtZ7hsyNiKosmTUnB8y1vk8o5VxgpqmFHR
+	 LHz9kwDtaNfFvxIeyUFtm+aJjnmpT+FWHpEnKE0fJcsKke/q5Mt0wQmzOJ9/tqtomOFy2
+	 e1N9loPpaFyuodJa1/p6kw3xY2vXDYALWxv85hs3BhYI0PtHflF4lBaj9tr9xYbfCv6ep
+	 SulNa3HGLSOmBL/baevuQVw2VDwev5XtmIBgVUDA9sNY/5xB3ywLDmJx3ITw4gfSE60X/
+	 q66BpSiExattafbxeZKMYhyyucCAG8/MnXiI7U3EB1EWbcmAq1YfD/bLc3t7kYw1C8Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BX1D3YJd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bH1t+tj7;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A046E606A32A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC111606A681;
 	Sun, 22 Nov 2026 18:19:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BX1D3YJd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bH1t+tj7
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1795371590;
-	b=L3yAq7lGfsCjiRwTHSBNAOi+FduQfX5nmasEj+MQMY3PLdiBChSueqwTLycMb3+0SQGW
-	 jiZUVeaQnWHmwDnm4ljWb6ggO6xx8u7U7l3Q/rhQaTOO9pUxgvSpgVBLB6EXQJVR3W76l
-	 8OKSxtHdL2FZpQHY8CQIJHPK7q6n4ILvnZNjRFaJbtR5wUIAtWIa+UP5leGJSDF1DCPJC
-	 aGiGX+jmZBY6YaD72d1DA4/nZ+W5BKwdn/xIK+7yl3tJcADQrKz2IfUxnSt61HPRFCL6D
-	 yQMP7FOnBytnqN+7412lx057OyyL7Co2KcsPvIJCABf040bNHvWGN02S5Ooy19x57rA==
+	b=utjwlqkYHKzIUVqloITEPjk03w3aHbIhSRnUivoPjvu3Z6QwswHBMxCI9FwEmEiXa1Gl
+	 koChkucSPHtP7qXCrfY0qHIOJaDzoOcjBTj6xFMkaWb43LGdvE6G6usZt6hHBizSd7FMS
+	 x/Bq4guHuahxULVGxsamGk0qCm/nkayMcvSnYbNGciFilSAetpGElJZtii51EOGoSaNuV
+	 +TjIo5x+/BsL0w3WKJ04ng1KzZizMiFgP/ZTuhFBtdGhCwhlguMqQByanJlCSTx6d3qYV
+	 7O1MxV+SAijmFD8duzg95GCSLbtOCo736xzazqNRur3wDpbQM2GshKoNggDH6RzgkSw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1795371590;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=+RidziUgx+kZM9EX+B/idvPdGe7SZT8gd5HysQwlsX0=;
-	b=FN2Z4otKNNH4LFhHwvg7fU+pM4U1GEVkFBnV6QxxuBIEfrPegEpFtAnVyl5eV1yHu7Zk
-	 U3phW5YI6Sj//D+OSA1Rsg3qHv9H8ZmOWufr7sLu1a1H/O6kG3dVSM+Z6kfv7tOZjkr1h
-	 XALGaiD18ZgiMe0BOR1TknEaSh+bGbA8BBJj4AxsNwibkqHNCVzViJrF/mjEkj3p1XcUt
-	 i0WWzBWsIK5JMOIDS+47QzO/Fczc8NIgzVNCU/bQbsmD/onhjYQNKDHI5As8SDggRBPNr
-	 YUOta00J83IPzngz/agf2pEk/XOSfGohKjjFcEXa/6rtHSqJ3eSBnFjjODlvRIVJNfA==
+	bh=7XzCl99XSt0jQeYSzp9DDMkSNqpxrpMBcV0n58ptXLg=;
+	b=O4fpinc99coP29vFNvyQljQwbsJEQ8z58r3aLfi73WsD5LQStjMbHXCyUrEuMRVKv+Tv
+	 eqJ4MLZkU+mlbBIL8hflhKAkeaQQ5VNa8I+UQ8h76qcXpwcfeFcWyH8vWMhhVXC3lSmI/
+	 VJfB+rHUAFVPJD4e0yRVqXn2o8kQvWAL9KiTtirKss1gAJmnnvs5WWQkRpwX0BqBh0M3e
+	 RlUP9dLBqwUN8OwoAFsCitHENEq1UOW4HuVpzOZqy4xdOom9kYZ2dwWsFtyz6jF0Kfs9Q
+	 TfZ34INuhsJ0DmxhwZEHssJ/AFMiWw0jIwBFR5OZjl/C5uA5qikVEwh2ei9tTp9uL3A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 288F41F000CF;
+	by smtp.kernel.org (Postfix) with ESMTPS id 44BF81F000D0;
 	Sun, 22 Nov 2026 18:19:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795371590;
-	bh=+RidziUgx+kZM9EX+B/idvPdGe7SZT8gd5HysQwlsX0=;
+	bh=7XzCl99XSt0jQeYSzp9DDMkSNqpxrpMBcV0n58ptXLg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=BX1D3YJddSEKJFDUn21cUQCN3anLtAntRJRcR8gGT8K8clc1vmYFZudattZpUwJ1L
-	 qmxLIC17TWD6Qjd7gTlMNAOImWTnnYDKi2kzq4qF3t7knF3tmBtdLcMsixu8TfVPXP
-	 lbfEsdM5eqQlglTxJ910hqwwheGhxDdwdIBYWe3r1zZwRYapkZZlmA3oj8qpVw8K62
-	 KO4fcW+p+wW2nljj9fS92zI7YG0Pj9U5aRWBm/Jt5cwkyjyebkz1mKqsSqZQhIyYH0
-	 wJYKj0QJMmEKP384k2xBYcqH989veSqyqAm2J7SoceOCplsBZYjkHOj+RILJElBKLR
-	 vDEDBDDX+Vd0g==
+	b=bH1t+tj7cTnygUVy1Om0x5gAmcOK+W001/1WpoTWOqUTPcbQ7vAEjEnI+cMhBUC/N
+	 FcPdVQBsm4DLypQuCfA83HM1nF1sVF4lZOVi52sgIyw6ep6x2M3MHCxx0YfHhFgmsd
+	 GQRciYGoYzKgSBJCfWbZAowMOEGLFDN0nW+n2UrEQ+3cm939zTvw9dnJJlTrhYisK4
+	 UxvlFhgB/b1EUOwWdcsq2s4OF9Gqyu/9QVEtmZ7UG0PxwhbN99s86Gv+CGwIzbkxqo
+	 7m5qK0qq6PCwoYimOwlm4LWN1Qhzbg1uPIWhAdNC/H5zzAyaUdVKYxtSLgAWnTfU/u
+	 21DSE25oM5VNw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AA3424C17C;
+	by lkml.kernel.org (Postfix) with ESMTP id C5F514C180;
 	Sun, 22 Nov 2026 18:19:38 +0000 (UTC)
 From: Ernest Borowski via B4 Relay <devnull+ernest.borowski.git.proton.me@kernel.org>
-Date: Sun, 22 Nov 2026 19:19:38 +0100
-Subject: [PATCH 2/7] ntfs: do not consume delalloc reservations when
- filling holes
+Date: Sun, 22 Nov 2026 19:19:39 +0100
+Subject: [PATCH 3/7] ntfs: release the delalloc reservations of an evicted
+ inode
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-b4-ntfs-delalloc-fixes-v1-2-0726f0dce403@proton.me>
+Message-Id: <20261122-b4-ntfs-delalloc-fixes-v1-3-0726f0dce403@proton.me>
 References: <20261122-b4-ntfs-delalloc-fixes-v1-0-0726f0dce403@proton.me>
 In-Reply-To: <20261122-b4-ntfs-delalloc-fixes-v1-0-0726f0dce403@proton.me>
 To: Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>, 
@@ -93,13 +93,13 @@ Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
  Zhan Xusheng <zhanxusheng1024@gmail.com>, stable@vger.kernel.org, 
  Ernest Borowski <ernest.borowski.git@proton.me>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2158;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4574;
  i=ernest.borowski.git@proton.me; s=default; h=from:subject:message-id;
- bh=+jVS4i0N2xYWTOmK5KLBxioqsjuDV8wLrjNVc80eqAM=;
- b=owGbwMvMwCVWzJ65uCpJ5D/jabUkhmxmIwt55rhdurzxrz5tubPox/O0O+5M5zdeyJpQfz9M7
- FNd+7zrHaUsDGJcDLJiiiwd/2+E+IR8+7QsTqsPZg4rE8gQBi5OAZhI03dGhtOTlRlXSpYckT2g
- sfrTxb6/C2zKv/sfWHZSQHrnk/PzPpcxMqw7sIilTmnpljWeVzZJJn/uL/qVk7VOg+NATPDkpCX
- zd/ABAA==
+ bh=jX0WnDWyu6iBmr0vTGV8OHp2dfN/AQIQZ7hTHKPYgG4=;
+ b=owGbwMvMwCVWzJ65uCpJ5D/jabUkhmxmIwvP1qsrjRryHpuXyn80iY6b9tiGl/144ZQuT76A/
+ x4HGad2lLIwiHExyIopsnT8vxHiE/Lt07I4rT6YOaxMIEMYuDgFYCIzFjP8D88N0rYVkoxob/sj
+ UpdRJckVwDdv8gQJHx91pzOHthj+YPjvruGUzLP05SvGlU+5ZRhkfl4TFktssv8hIdXFcbhczo4
+ fAA==
 X-Developer-Key: i=ernest.borowski.git@proton.me; a=openpgp;
  fpr=88FFD8544C54F6F2A65E2A8E730769A37A6214FF
 X-Endpoint-Received: by B4 Relay for ernest.borowski.git@proton.me/default
@@ -110,54 +110,103 @@ Content-Transfer-Encoding: 7bit
 
 From: Ernest Borowski <ernest.borowski.git@proton.me>
 
-ntfs_attr_map_cluster() always calls ntfs_cluster_alloc() with
-is_dealloc set, which makes the allocator skip the dirty_clusters check
-and subtract the allocated clusters from vol->dirty_clusters.  That is
-right for writeback converting an LCN_DELALLOC run, whose clusters were
-reserved by the buffered write, but ntfs_attr_map_cluster() also fills
-plain holes for fallocate(), direct I/O and page_mkwrite(), which never
-reserved anything.  Those allocations release reservations that belong
-to dirty data of other files, and can use clusters that are promised to
-that data, so writeback of the delayed data can later run out of space
-although every earlier check succeeded.
+When an inode is evicted with LCN_DELALLOC runs left in its runlist,
+truncate_inode_pages_final() drops their dirty folios and the clusters
+reserved for them in vol->dirty_clusters are never given back.  Only the
+deletion of a base inode released anything, using the per-inode
+i_dealloc_clusters counter.  This leaks free space until unmount when a
+named stream with delayed data is removed (ntfs_stream_finish_remove()
+truncates the page cache and ntfs_attr_rm() frees only real clusters),
+when a file is unlinked while one of its named streams has delayed data
+(ntfs_cleanup_deleted_inode() drops the stream inode, whose reservation
+is not covered by the base inode's counter), and when an inode that
+keeps a delalloc run no dirty folio covers (see the next patches) is
+evicted.
 
-Reproducer: write 1 MiB to file A without syncing (statfs() free space
-drops by 256 clusters), then fallocate() 1 MiB on file B: free space
-does not drop at all.
+Reproducer: mount with streams_interface=windows, write 1 MiB to f:s,
+rm f:s (or rm f), sync: statfs() reports 256 (4 KiB) clusters less free
+space than after a remount.
 
-Only treat the allocation as consuming a reservation when the run being
-filled is a delalloc run.  Filling a hole now fails with ENOSPC when the
-remaining free clusters are all reserved for delayed data, so a write
-fault into a hole of an mmap()ed file gets SIGBUS in that case, as on
-other filesystems with delayed allocation.
+Release the reservations of whatever delalloc runs are left in the
+runlist when any ntfs inode is evicted, and drop the counter-based
+release from the deletion path, which would release them twice.
 
-Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ernest Borowski <ernest.borowski.git@proton.me>
 ---
- fs/ntfs/attrib.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ fs/ntfs/attrib.c | 12 +++++++-----
+ fs/ntfs/attrib.h |  1 +
+ fs/ntfs/inode.c  | 12 +++++++++++-
+ 3 files changed, 19 insertions(+), 6 deletions(-)
 
 diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index 4028c310fc..cdac846f37 100644
+index cdac846f37..39fa983cd8 100644
 --- a/fs/ntfs/attrib.c
 +++ b/fs/ntfs/attrib.c
-@@ -5520,8 +5520,14 @@ int ntfs_attr_map_cluster(struct ntfs_inode *ni, s64 vcn_start, s64 *lcn_start,
+@@ -4390,13 +4390,15 @@ static int ntfs_attr_make_resident(struct ntfs_inode *ni, struct ntfs_attr_searc
+  *
+  * Delayed allocation reserves vol->dirty_clusters for every LCN_DELALLOC
+  * cluster when the buffered write is done and only gives it back when
+- * writeback allocates the clusters.  Runs cut off by a truncate never reach
+- * writeback (their dirty folios are dropped from the page cache), so their
+- * reservation has to be released here or it is lost until unmount.
++ * writeback allocates the clusters.  Runs cut off by a truncate, or left in
++ * the runlist of an inode that is evicted, never reach writeback (their dirty
++ * folios are dropped from the page cache), so their reservation has to be
++ * released here or it is lost until unmount.
+  *
+- * The runlist must be mapped completely and locked for writing.
++ * The runlist must be locked for writing.  It need not be mapped completely:
++ * delalloc runs only exist in fragments of the runlist that are mapped.
+  */
+-static void ntfs_release_delalloc_from(struct ntfs_inode *ni, s64 start_vcn)
++void ntfs_release_delalloc_from(struct ntfs_inode *ni, s64 start_vcn)
+ {
+ 	struct runlist_element *rl = ni->runlist.rl;
+ 	s64 nr = 0;
+diff --git a/fs/ntfs/attrib.h b/fs/ntfs/attrib.h
+index 9d6bf03202..faa2dfba3a 100644
+--- a/fs/ntfs/attrib.h
++++ b/fs/ntfs/attrib.h
+@@ -109,6 +109,7 @@ int ntfs_attr_fallocate(struct ntfs_inode *ni, loff_t start, loff_t byte_len, bo
+ int ntfs_non_resident_attr_insert_range(struct ntfs_inode *ni, s64 start_vcn, s64 len);
+ int ntfs_non_resident_attr_collapse_range(struct ntfs_inode *ni, s64 start_vcn, s64 len);
+ int ntfs_non_resident_attr_punch_hole(struct ntfs_inode *ni, s64 start_vcn, s64 len);
++void ntfs_release_delalloc_from(struct ntfs_inode *ni, s64 start_vcn);
+ int __ntfs_attr_truncate_vfs(struct ntfs_inode *ni, const s64 newsize,
+ 		const s64 i_size);
+ int ntfs_attr_expand(struct ntfs_inode *ni, const s64 newsize, const s64 prealloc_size);
+diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+index 4fbdcd4596..911e68fa91 100644
+--- a/fs/ntfs/inode.c
++++ b/fs/ntfs/inode.c
+@@ -430,7 +430,6 @@ static int ntfs_non_resident_dealloc_clusters(struct ntfs_inode *ni)
  		}
  	}
  
+-	ntfs_release_dirty_clusters(ni->vol, ni->i_dealloc_clusters);
+ 	ntfs_attr_put_search_ctx(actx);
+ 	return err;
+ }
+@@ -2459,6 +2458,17 @@ void ntfs_evict_big_inode(struct inode *vi)
+ 
+ 	truncate_inode_pages_final(&vi->i_data);
+ 
 +	/*
-+	 * Only a delayed-allocation run holds a reservation in
-+	 * vol->dirty_clusters for the allocator to consume.  Holes filled by
-+	 * fallocate(), direct I/O or page_mkwrite() have none and must leave
-+	 * the reservations of other writers alone.
++	 * The dirty folios dropped above never reach writeback.  Give back
++	 * the reservations of the delalloc runs they had, for named streams
++	 * and attribute inodes as well as for base inodes.
 +	 */
- 	rlc = ntfs_cluster_alloc(vol, vcn, clu_count, lcn_seek_from, DATA_ZONE,
--			false, true, true);
-+			false, true, lcn == LCN_DELALLOC);
- 	if (IS_ERR(rlc)) {
- 		err = PTR_ERR(rlc);
- 		goto out;
++	if (NInoNonResident(ni) && ni->runlist.rl) {
++		down_write(&ni->runlist.lock);
++		ntfs_release_delalloc_from(ni, 0);
++		up_write(&ni->runlist.lock);
++	}
++
+ 	if (!vi->i_nlink) {
+ 		if (!NInoAttr(ni)) {
+ 			/* Never called with extent inodes */
 
 -- 
 2.56.1
