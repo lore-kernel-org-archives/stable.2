@@ -1,95 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795380813;
-	b=RxaliTxD0xGXMA1xfm0bbJEcgaHIPLehY31904WeT2keaG8sttWO9SsOzO1gRQeVc/BB
-	 XYJ+Qhjr0lofWGg9u3ZauOjsXynQ07DW86Bd4pS27uzKxxiy+Z6pXfv1M63ykiws1Vhu3
-	 SUf72CHq0J9Um+7ajHw44n4yzra55H9WcysnqDx+aME78ozOHRkTGgWKBXIGJIjbdF6zA
-	 AG1i1Y+s3v6UPe3NatED96hAs+VNjaHMRI7NDc6CgoNjMEIqyvNmBUvkZjWPISRC0I5kJ
-	 cka+JwJR5LuuxcxGUlAOWfKXZWWfp8lDqQlt+kKvZzvIPZ0ZOAsj4cf89PFJUa7mB2w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795380813;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795381365;
+	b=HrTuJAj/LstJynMuZG8Du7gUwtrFiO/wLDE4WEl3ZJLInd1qxSnZLwh+GOsUMOu9UDD0
+	 e1di/Dm3Bqa1gr5l6W5KyrmHqsiG6SNfoWblo7RtIs5JVW7PLxeyTMh/8EcuytBmyutLW
+	 yxK32TCkm47BHFTn2JnPeD8mHkfw4FqYljISIGr6RKR3mfe9hWKfEhZx5BVwiNzni6EIL
+	 04iuCYtm0AZKsHlPkpWuVhS5PvJBWuYEvu2mtcqlAjYQXvNSLRvhSLahDSgo5tbrpr2nY
+	 4PupIgGGfK8P6OHElrfC5/5M9PB/5U8zfT81/F5osH7C9ivrDZqxgHSMDB8tVhS05MQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795381365;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jCkKjGFl/FESlc4vs2SRng6oOInHAgHTvIB3dJ89NUk=;
-	b=4xSoGRGtqKAYGWIH+9v42LVVfSJUDBaENXuO2jabxX1GAWcnkMaJHPw8icmoEtMi5GSF
-	 /j3jwcxbw02OA8uOjtDFFdD2r7dEIStOXuswyRci5RTOICJ1au0KSKrpUP9a0gBQ75WOv
-	 hUKYDAgEZTa0JYkx0Fg8STzsCyjOdY6porxVykZjrX8ZGAqhgsgRGqaV1NxsWDeZDC4Fd
-	 4A3H8CnLMNVUcvIMT2R0f6Q0B58H705UqPrkzv1Z1433IhoI4SLegbwCWBXX99N1O7/BP
-	 x0r3jwlVZhHu/LpaWNe+PtN618sn9lOaPo98dlQfy7CJ0DznyD6GVo7jYan5wtaf+Yg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=pn7AXOK0vv7XoUam0J0U7bLVZ6v8zi99slOsZ4hNcmM=;
+	b=HjkMDMgI2ZMAuPG/igp09dUNoDBahaSWznw9alvrCQTAHMyomIxIKOeLgv2CGVRKF/tN
+	 xhLtYQRvN+6NVCv8JRbHCGzphC71jcIxSGsOMK1BvxhaoC6mASV11D0JFYNLHBQEx0k+D
+	 lkh3WLU4qQWtJMpz9EQIheZT2QWNws7xpatMQKPxzik4jn4O0EusIH1XZm4xJFX6NWkR2
+	 FCErYHmLSie1laxwx/Xsn5BgziDGk9S7a48EPiaSMuXiAEvw83plaFHNMLhZ7+N2Bwax4
+	 SIUTTCKc/W0viFfux0GtsVAoPtNxBa2knzd8OWNCuv/E+prOZmQRpinZBsFHYaw8uHw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R6GzwmoP;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zlsBYq18;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0D8606A31E
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 20:53:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC0D8606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DED606A31D
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 21:02:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90DED606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R6GzwmoP
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso23287725e9.1
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 12:53:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zlsBYq18
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cdb9f760337so1817012a12.0
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 13:02:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795381364; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cIVtUQkxUN5Bwsu4htjwsuj3yCrgpWhxWijUejBCSqU40uiLVP551QVk4BzYFDu0pL
+         xZU54FbYJ1251qsR5aJADo9u7sviKICue3NGiV9SM+p4nBZn5IZb1910oj4AEiaTel2d
+         aiN5Y3gbgFDMsuNdAx9v8GDTMy1VMhXc0q1hQNsJM3dBpcCnc0ufFnmObK6L7o6wj6BS
+         0d7riL1VF+05+ZgYvlKPRo812hDPaRgdrY77SKk+mSeXcEG3hStZdyjjbKCr4mfsI+S+
+         D5tnpdUNX/+uquwRkHZknOgw0NYL2STeuifCv9IcKwANRRFK39Ijsz/7zOaP41U7T3XI
+         YLWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pn7AXOK0vv7XoUam0J0U7bLVZ6v8zi99slOsZ4hNcmM=;
+        fh=Aw9WPzEYOMp6Qegjhwaj/Jepa6iFEAZ/PcSqVqsUjaE=;
+        b=DJHyDxZ0tc+fFC8Jz8kkxQcvfz1noa3FmM3BrxHr7YBan0L6Cp/TS8datAX58XbVdz
+         nB0LnwavdaQMPimeH8moFRCYXcK0C4uLp8Ti8Yk7yyo+TVF7TMXawzqKfbOEkzBE3j5z
+         fNbMYFuieq+h/DKXNoS+u0AL02KNg041S6ztMYsw0Q96sKP9E//jKITvTzs1e2kEPhjj
+         7syoswJWkIhpkm7bHhNwdj+dnndKi297/WBpVAgEapbTz1RNmlgbNoUEv68axKb6gbJR
+         h05rvpEIJwP2zi1VLw8DeLWMwVSqz6FRqxqAkd0CNUUBd8LfH2Pbxo+LEl5ZssHdbjpy
+         P5Dg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795380811; x=1795985611; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jCkKjGFl/FESlc4vs2SRng6oOInHAgHTvIB3dJ89NUk=;
-        b=R6GzwmoPbZ8PGALr9DSfhHfc85bDo/sOdAuzBt0z+ZCv+J7FlYUabjiK4MCSj4gAaD
-         0DXWS4MA7hLUC+Pd2c/9LzQNkyTTrnpawv/ct5UjVxUeR8NSGXDdNqVZvEVFRMdqw6Fg
-         Ks3EGKtOFzOipgT1nxgyXfjFZXi3jXKjUjA8a6hFFaPHVyVzccaef6hjGvAclbzF5nTW
-         KTajbyT7KBEWxRWIeT8mYe9tkAZSFyo/p4BF2QOARmSftJHE4YBccBJQ1yu/hvb48V5f
-         BUGZsm0SrbOnIGAqAzWkoKQzhxBpG4qCjyyVepBcGciGA1ff5utkMVV6XVXu9l4z1xY5
-         lSdQ==
+        d=gmail.com; s=20260707; t=1795381364; x=1795986164; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pn7AXOK0vv7XoUam0J0U7bLVZ6v8zi99slOsZ4hNcmM=;
+        b=zlsBYq183P2jR915rVTxFxauPzMtvP/3QFSR94XstIUIk1+DQECZlj7+o2TCBTwO4Q
+         OQ+ry/tgUEUfXH7JkwtfbQgmYmGWP+sWmdEcSi47N1Tf9NGyLKDKI6NiEk/Q7/eG18UF
+         uovr7R4wYDgZC5HeOyVSSh6XTUW0oK4TTmdRi7p+bx2HychGJFIz3H99RjLd9/MX+YGH
+         rOayRZIQj3i7bi+YFqt16rsfPngcVCvVhFZEC5s1UY/sU+1MrNWV3E2DSk8yo4uV3N8H
+         EZug8sN4NQE4GBGoBtLRyflLwIrBc9/DDBx4x9SO7ZWe54jl2xq3Ob7I70FvrohJNZdU
+         dkEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795380811; x=1795985611;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jCkKjGFl/FESlc4vs2SRng6oOInHAgHTvIB3dJ89NUk=;
-        b=KqI7AZwHGAoTn4zL2lGGtPzKuKXaVpPZyA00RIpUKANoCZESIILegS3ICn4KhL7jpz
-         uotChf2/eO3MaRdM8s4v7Que2w5XL07UjctbznjZLjwzXnoWKPlzAAj/LMztRTaGlctY
-         DR0ycggaxtSZI/sWBfMcY5inaOV1HToo3R+Kzl0F8zHv8l1kbnRsrIKpxidsYIUtaM7n
-         iLhR282YcWQqSb0+cmERoaDHpun48ou67ImnUhKGtuj4xd4unxd0XbkTpUkD8wRT99ox
-         xT5Qydr+RCJvu3+zerYFRbYMctLtXjCMoLV5FikV9f8qcBawgDY+4xSjchZuRWAixX0n
-         Jt7w==
-X-Forwarded-Encrypted: i=1; AL+hErFjser/ZUp4XM0P9+xglEu6RZqmxauNwBe19/gUnALFd2iSKgyQ9aZevCQVJxwSVCAIHh101bI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9JxmbwCZKzc+TN05QweivrelVda7HOSzYNNKxX9NS4dJ42pyUv
-	Y38uZvG1lSWraN0oWtt+rrKHvJegnuLBeIKwRh1v9oH7J8Ent0EGMM7M
-X-Gm-Gg: AZFdTZeqgYJpqFMiUSFczF+8lp7DbFXh1VjkOVgXHgx/Jjcz1VpOU6NUp9A2E1jyyHY
-	xYciFfihwJCFJ70R1jpV8FWlYJ5e6xON3/qshbGGz0vRMzoww3KccKIW/54D/wDrDHL5IwVkD2h
-	puKtTLJ46ZPH2leaicdHFkA9AoOYFVB4bFccnZh0OOxHVhWP8Gtzw8mky52ZFNuxihpcpagqsND
-	mADlEcB6myRV1y87McCaNco6Vmd8XDYhtX3gLoIY8ecM4K+XmMNR8VwLJfqP6hRvC9Mjv3RGF6/
-	nvnRPpxOwv6KQBfkA11+B66YI2/LyPRukcryU/caL6xvhDDaTeDxbSY/58603CPU8trC/AE5jze
-	IevMHIuTKzaV2GqDpdkCmvNMAPiposu/FICgB9gn0hjSoC7TDdfUI7oOHjZ0ickWVrIiIelK0F1
-	OBaKiLdA1khqXCBnPvE4+pq0z850ejjceJ77Z5MXR/xCK+qR7meDlP0xTCEwD+75nRIlMI738W0
-	HszxfVk4M9PNhDaWcu64KBHQ98dhRSpG0Ll7rkfzIxdYVrS3jY0p9uH8S1842tfadYAslWWftzw
-	PA01L+FGmLIJh4D6Y3F3T0yIHcIBC+oeU2T46mfG/8+Sv9ts44buEDXA
-X-Received: by 2002:a05:600c:c8c:b0:4b7:6942:39bd with SMTP id 5b1f17b1804b1-4bb88820e06mr193076305e9.26.1795380810868;
-        Sun, 22 Nov 2026 12:53:30 -0800 (PST)
-Received: from DESKTOP-V28CTA4.localdomain ([103.125.177.105])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb85399e2esm338371075e9.7.2026.11.22.12.53.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 12:53:30 -0800 (PST)
-From: Arbab Haider <arbabhaider649@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Arbab Haider <arbabhaider649@gmail.com>
-Subject: [PATCH 2/2] media: em28xx: avoid dereferencing dev->intf after disconnect in em28xx_v4l2_close()
-Date: Mon, 23 Nov 2026 01:50:29 +0500
-Message-ID: <20261122205028.41222-4-arbabhaider649@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261122205028.41222-2-arbabhaider649@gmail.com>
-References: <20261122205028.41222-2-arbabhaider649@gmail.com>
+        d=1e100.net; s=20260707; t=1795381364; x=1795986164;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pn7AXOK0vv7XoUam0J0U7bLVZ6v8zi99slOsZ4hNcmM=;
+        b=sjHKJ6kt7cR2G5lZGfeTCBUm8UzJhzi7ndinQTvz3RG78veZz0afbQ6WArLnu0DghV
+         IAzcyWORYgFLuS6E2S/Qqo7tgDfUSgKgtDL7pmFm+F+68PYZJNB5MOHWBiWViu4AGSeV
+         RJ7BlgKI2fPirsypArUZ7BIXFkklhtLQFuv1/pG+3WTnEY6BG1qJ78pyAMbzRsQEcQQV
+         vXSZ6shfaC8cIrHlssJXexJmX1t5u69CxVLp2AzPErwwD2MPHKY0A/7Kw8qt43A1yhfB
+         sbqGM+AeG/v1AD14jzHpbm+rRENzT5TGWl8H/Py596WP612+Z8MrQ+EM8d71jNPFefas
+         AdDw==
+X-Forwarded-Encrypted: i=1; AL+hErEvd378Z2UxKTjuAcKwTENTbSExCIZfT5bBWXBfOVjbAFVPtgODwxpeAhggrAnPme7dKCgl7Wk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CYgwZ1kZfM1OWvS03bHVofG8ZvZeGE9Y97lF06qGXasNXJj/p
+	Dlh2PSwNQmpqjtWu507bGXAju74d0ALC2FcI8iKIoCRVz1LHAFZlpHY5C5/YMT7+ZT194f5wVog
+	bFxjTIlVv+qLRcbE/4mNgbEEkyl1a0JA=
+X-Gm-Gg: AZFdTZdAb5MpyELjs86/deKrkw1lybZY87K96EpDjV6XTR+DMJEkphTCye4mFUepoiM
+	1ut4dVAwUehcR0lg2Qw+MY2mKRO66+vhPWCOVbfvQCZXUxQywVCn2gohtK5nymOsMabBB6S5TAx
+	m4xytERh4zQGwD2UnbFH4WDfkW4jEaHiMfEEnrVc+mqTPYL1KWCr2d5IUusT2DVllIXYtX1C6kN
+	PcjPnNnhxBdtUuwsqBI3EDJMuAjr2kqnk8uqLRlXyoSNHGitm4weFK8GMhLDA1+QLQMp1KVk0lQ
+	9zZF1qj0HCOCxrW38EWOyTfb9P2oya8vr+pfIFiCDKzm/STNbiXL8TXqidGO6v10NQ6Ll1hmyhz
+	nYJwd7ufnNhOEVwr3nNl3dzdof++KFwkctpDTjZOhHvMNiS4vm3Q+svrXC57/PSXIkmdZTw==
+X-Received: by 2002:a17:90b:554e:b0:3ac:860e:1af9 with SMTP id
+ 98e67ed59e1d1-3b41c981a67mr6077104a91.41.1795381363876; Sun, 22 Nov 2026
+ 13:02:43 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,71 +104,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <MA0PR01MB921746F36D90C7080287ACC9FD782@MA0PR01MB9217.INDPRD01.PROD.OUTLOOK.COM>
+ <9d8cdde77beedce76aaaa1c5a7a788dc@tipi-net.de> <CAH5Ym4h8-1mc+DX0Si7XROeGn9M72bQC+ooM05Y7ZmgTo+ON4w@mail.gmail.com>
+In-Reply-To: <CAH5Ym4h8-1mc+DX0Si7XROeGn9M72bQC+ooM05Y7ZmgTo+ON4w@mail.gmail.com>
+From: Sam Edwards <cfsworks@gmail.com>
+Date: Sun, 22 Nov 2026 13:02:31 -0800
+X-Gm-Features: Aa3M54oHW1FHI6GaA1OK0id-oEs8UcKMQfeywYsbJpKdYciL2E1UJ9KIq7wOQ5I
+Message-ID: <CAH5Ym4jkX_tD58Gtd-mzruB+hqHK7s_9knNWh+gMqUjwuYyVPA@mail.gmail.com>
+Subject: Re: [PATCH net] net: stmmac: retry a failed RX refill from a timer
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Anandu Padinhare <Anandu.Padinhare@electrifex.com>, maxime.chevallier@bootlin.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com, 
+	alexandre.torgue@foss.st.com, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, David Wu <david.wu@rock-chips.com>, 
+	stable@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-em28xx_v4l2_close() unconditionally evaluates
-interface_to_usbdev(dev->intf) at function entry, before acquiring
-dev->lock and checking dev->disconnected.
+On Sun, Nov 22, 2026 at 12:20=E2=80=AFPM Sam Edwards <cfsworks@gmail.com> w=
+rote:
+>
+> On Sun, Nov 22, 2026 at 10:01=E2=80=AFAM Nicolai Buchwitz <nb@tipi-net.de=
+> wrote:
+> >
+> > Hi Anandu
+> >
+> > On 20.11.2026 08:49, Anandu Padinhare wrote:
+> >
+> > > [...]
+> >
+> > > @@ -6164,6 +6205,8 @@ static int stmmac_napi_poll_rx(struct napi_stru=
+ct
+> > > *napi, int budget)
+> > >       u64_stats_update_end(&rxq_stats->napi_syncp);
+> > >
+> > >       work_done =3D stmmac_rx(priv, budget, chan);
+> > > +     if (unlikely(stmmac_rx_refill_needed(priv, chan)))
+> > > +             stmmac_rx_refill_timer_arm(ch);
+> >
+> > After a successful retry, doesn't this leave the last received frame in
+> > the ring until the next RX irq? Could the poll refill first?
+>
+> Do you mean "first as well" or "first instead"? Because "instead" can
+> cause avoidable packet loss:
+> 1) Initially, network is idle and ring is full of empty DMA buffers
+> 2) A burst of exactly one ring's worth of packets arrives
+> 3) The RX irq fires and stmmac_rx() attempts its refill-first (none
+> needed) then depletes the ring to the maximally-dirty state; the
+> refill timer is armed
 
-If the USB device was disconnected while /dev/video0 was still open,
-struct usb_interface (dev->intf) has already been freed by
-usb_disable_device() -> device_release(), so closing the file handle
-triggers a KASAN slab-use-after-free:
+Thinking about it more: the "unreachable packet" problem happens at
+this point too, even with the "first as well" behavior.
 
-  BUG: KASAN: slab-use-after-free in em28xx_v4l2_close+0x37c/0x3a0
-  Read of size 8 at addr ffff888007245890 by task test_em28xx_uaf/71
-  ...
-  Freed by task 10:
-   kfree+0x162/0x410
-   device_release+0xca/0x250
-   kobject_put+0x152/0x2f0
-   usb_disable_device+0x324/0x570
-   usb_disconnect+0x271/0x950
+Maybe the best way to resolve it is to adopt stmmac_rx_zc()'s behavior
+of refilling during the loop?
 
-Move the interface_to_usbdev(dev->intf) lookup after the
-dev->disconnected check under dev->lock, right before its only user
-usb_set_interface().
-
-Tested locally in QEMU (x86_64, KASAN+UBSAN) using dummy_hcd and
-raw-gadget emulating an EM2820 device across open->disconnect->close,
-repeated disconnect, dual-fd open->disconnect->close, and normal
-open->close->disconnect scenarios (4/4 passed, 0 KASAN reports).
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
----
- drivers/media/usb/em28xx/em28xx-video.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index 84424284d..854fcc897 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -2503,7 +2503,6 @@ static int em28xx_v4l2_close(struct file *filp)
- 	struct video_device   *vdev = video_devdata(filp);
- 	struct em28xx         *dev  = video_drvdata(filp);
- 	struct em28xx_v4l2    *v4l2 = dev->v4l2;
--	struct usb_device *udev = interface_to_usbdev(dev->intf);
- 	int              err;
- 	bool last_user;
- 
-@@ -2512,6 +2511,8 @@ static int em28xx_v4l2_close(struct file *filp)
- 	_vb2_fop_release(filp, vdev->queue->lock);
- 
- 	if (last_user) {
-+		struct usb_device *udev;
-+
- 		/* No sense to try to write to the device */
- 		if (dev->disconnected)
- 			goto exit;
-@@ -2525,6 +2526,7 @@ static int em28xx_v4l2_close(struct file *filp)
- 		/* set alternate 0 */
- 		dev->alt = 0;
- 		em28xx_videodbg("setting alternate 0\n");
-+		udev = interface_to_usbdev(dev->intf);
- 		err = usb_set_interface(udev, 0, 0);
- 		if (err < 0) {
- 			dev_err(&dev->intf->dev,
--- 
-2.53.0
-
+> 4) During the 10ms timer period, more traffic arrives
+> 5) The RX irq doesn't fire again because no additional DMA is
+> happening: there are no usable buffers in the ring. So we're forced to
+> wait out the timer.
+> 6) Any packets during this time (beyond the RxFIFO's capacity) are
+> discarded by the hardware
+>
+> But, "first as well" sounds good to me: before entering the main loop,
+> refill 1 buffer (if possible) just to ensure either the IRQ fires
+> again immediately (if the FIFO is holding onto another packet for us),
+> or the inaccessible ring slot is clean (if the FIFO is empty).
+>
+> Cheers,
+> Sam
+>
+> >
+> > > [...]
+> >
+> > Regards,
+> > Nicolai
