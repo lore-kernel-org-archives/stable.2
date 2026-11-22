@@ -1,68 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.240.48.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795364903;
-	b=mNdJ6a6+VRcZEnZUxDBb0a9wJsNgnl29ccztGtOPgwjErJdqBGxIcMr4gGUL2pM4omY7
-	 fwQoTQTqfNXSTcJWDtgosCHc7PCoe0nYC63Py/Fkt4QsEkJWyeJFswVkocbeFT5ID9xrz
-	 kpx6k50T0MK1B0tnQCwOx0jHHEpXxoaNGnTAzJ+jDed1Q9cvb+z3QTS20bCBjrlPT6uYD
-	 aGVgyxx5UUFs4fckMhR3vKOPw5DGiZGzznFL5UnJwxn7cOumzI9IScikt0LIWZPHjXyjw
-	 CqjBEYuemH7XV109xWLf1Vdc67cbg/a9OAdG+SmmOBneDNMbxiPdh4xvOjYuZ1YLaug==
+	t=1795365023;
+	b=kbpN56ulByTmBlnZ4ghzifYlaMVBOwy7KxR0yHnLfwt6WqjOXwtbV2vxCd5DGn2TVbf6
+	 pGnc8w97LnEPvKcMzI65qh4drJINrERSh1F2NI0RVbsfzqS/4v1IT1VdpMDNzezI6fzc9
+	 rkqiBDpA2JGKoAgunuxjUk6FyIVB5vXz/uh2wg6L34GvSfi1kOw+NIFdVmgmo4S23b3nU
+	 A9qjn3hA3Se/13U4Uxl3clygwvGK4sHQkfbL/2zhq9MovTdXyCVLzUMpCXrGSE+hlVgor
+	 /wtUsLJpKPXO8gss4RPowKoBz84Km8wUeRh8zvvu6oJDlR4L7OpR483RfB7u7Gbdssg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795364903;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:References:
-	 From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:
-	 MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
-	bh=Y6J9BBnU4fABb83GyABeux2c6o/ibtAfqfZDo8SSL4s=;
-	b=LXfh0PZxM5hOMek4ksrWRtfkXUXCKGbLL+aGA9iiFHZH+Ftf7+crlBiLyM18Oc1hZlAt
-	 c3jB1QR2kzWz8lTP6WUtQeGtqBGyiVKzDaJ2f6KlJjWUTWaGPRbATCyTuWGyAGrAIIDlb
-	 fVUuWdrb21wgv1vaPvgICNHVAiuyIjg2VYHCUVA/+Aal5xEJS+up4nmY1J6Pl3SHcqCVZ
-	 2cXoBmosHBipsqBulnSNfuxSbnDB11ICfyNM+8vAlcgn9fR7KokVqsW2XlJV3mji1vQKt
-	 EC6TqvrTfK6qkiGSxYRXd3r86sQmDBKggMDMCtOMREgoooJobnbcMsbVi7JeeK+tm6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795365023;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KzrVEQ03EK5eu+7tSDtmCyEtJgI25e3+3defglUPBK0=;
+	b=Q2NZOBPxn0AWNn+Rw43JwWH5QVdTirDptuD4N4ztWoZY30iMjwS/kxcrYaR5XNKIzO7g
+	 AjIrlWBpSHMuIISyPExSMlsXG6AjFmqxUyb8+BI9+fk2knxBykSeJVJwXb2uIGcYTDH2K
+	 6F1c1fiREiBU0d32ePaMolbDeBl1s4reKde+kzTGVD+wlBbeVUWbQcNUzhLE5VF+5oqRF
+	 5QzitcJ7B0vMovIhH0lE59qsNBhtah9SpXSJASGB7FV2L3TLCZX212u/uF7BYnx11agv4
+	 LUNIKdThO13LwcmHr8eeTrNfE1RrqiCzVgCtIKpczdNGVv9U9F1tV3O8wKfo3X1TRJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ahmedabdelfattah.dev;
-	spf=pass smtp.mailfrom=send.ahmedabdelfattah.dev;
-	dkim=pass header.d=ahmedabdelfattah.dev header.i=@ahmedabdelfattah.dev header.a=rsa-sha256 header.s=resend header.b=ox2fG0Wi;
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=At2+Qnn1;
-	arc=none smtp.remote-ip=54.240.48.56
-Received: from a48-56.smtp-out.amazonses.com (a48-56.smtp-out.amazonses.com [54.240.48.56])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ghF7CWUM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49AC7606A320;
-	Sun, 22 Nov 2026 16:28:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49AC7606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ahmedabdelfattah.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.ahmedabdelfattah.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38329606A320
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 16:30:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ahmedabdelfattah.dev header.i=@ahmedabdelfattah.dev header.a=rsa-sha256 header.s=resend header.b=ox2fG0Wi;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=At2+Qnn1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=ahmedabdelfattah.dev; t=1795364902;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=r+rqUyXdaNAvzuO9p5Cq/rai/19+eqNqPr0AEDhIax8=;
-	b=ox2fG0WiK7+yU4D/y6qiYVnobJh3b4OQqyYs60rvbWNpFt+E1q9aw1mvvoXC7Jpe
-	Dm+c3Miz7iMBnF3Rf2RBddYlhXAnTZ5uCMyXrrq+LVn0Wz78yst/9BzLWDdj81+I0g3
-	1WFG/3A24yT2zu2noxbrmODOcnDbT4QD3x/r2sYU=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1795364902;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=r+rqUyXdaNAvzuO9p5Cq/rai/19+eqNqPr0AEDhIax8=;
-	b=At2+Qnn1OXArw9u2ztbrCBCWCYu+ZXkgDQKX1BwnJANojrvWykmU3AsVDeSKGGOY
-	UiWDQ8xsbucUxgtHLUV5uurpRpMwUWDzXUlrOFKof6KUOT2St4Rqjyk9Wcud+fv/bmj
-	Nxq4pWClvI+XODQ8Eigh4I2vQuaxeGpGWJDCvK5Q=
-In-Reply-To:
- <CY8PR12MB729059D6B66095F842FD470FD1462@CY8PR12MB7290.namprd12.prod.outlook.com>
-References:
- <20261119-edac-ie31200-rank-stride-v1-1-3514fcccb130@ahmedabdelfattah.dev>
- <CY8PR12MB729059D6B66095F842FD470FD1462@CY8PR12MB7290.namprd12.prod.outlook.com>
-From: Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
-To: "Qiuxu (Leo) Zhuo" <qzhuo@nvidia.com>
-Cc: Jason Baron <jbaron@akamai.com>, Borislav Petkov <bp@alien8.de>, 
-	Tony Luck <tony.luck@intel.com>, linux-edac@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] EDAC/ie31200: Give each DIMM two chip selects again
-Message-ID: <010001a204165494-b76809e7-e171-4a1e-8da4-a1dcd2df4f6b-000000@email.amazonses.com>
-Content-Transfer-Encoding: 7bit
-Date: Sun, 22 Nov 2026 16:28:22 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ghF7CWUM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD7601F000C6;
+	Sun, 22 Nov 2026 16:30:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795365022;
+	bh=KzrVEQ03EK5eu+7tSDtmCyEtJgI25e3+3defglUPBK0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ghF7CWUMVugPxg90sHHKYEuZ3yfSWM233Kz7XPmsYFNoH8ePGcEbFvq+3tjJvwARM
+	 C31VtR89lcPiYAdWjzKHdq0uDAHG0vykVegt4OhFNQAnrE9uc50dm2/ucEFtc5H307
+	 z9ipHD7izlqUI7oLV3OzY3TPmA/V3FAinMcG70EnZV5PW+Nz27ECsoIn64+Qm3lyw9
+	 amEOLkCTcLr+6CNiqBmmK1pi+RiViiPRpGmeCK4JtyQb1BwsjhkhXR9GQzDryKfCTA
+	 74r2U3LJpqelptWe/c0EjDwCDfzMsxk2zPAFgvuXvS4X18hw1f6OC+2XCKwWbk4SkB
+	 aiusnbaFYdUvg==
+Date: Sun, 22 Nov 2026 18:30:15 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Bradley Morgan <bradley.morgan@linux.dev>
+Cc: fparola@amazon.de, akpm@linux-foundation.org, alex@ghiti.fr,
+	aou@eecs.berkeley.edu, baoquan.he@linux.dev,
+	kexec@lists.infradead.org, linux-riscv@lists.infradead.org,
+	nh-open-source@amazon.com, palmer@dabbelt.com,
+	pasha.tatashin@soleen.com, pjw@kernel.org, pratyush@kernel.org,
+	stable@vger.kernel.org, thunder.leizhen@huawei.com
+Subject: Re: [PATCH] crash: Fix crash memory reserve dead loop when low and
+ high limits match
+Message-ID: <awMYl7QyfPtbM-PC@kernel.org>
+References: <20261119093730.49471-1-fparola@amazon.de>
+ <CAEBC780-5EA0-425E-84DA-F16817BE884C@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,29 +62,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.us-east-1.uCKvsN4fow5iTxhgdfCiLkD52dLS8e5zeZeNIHIyObThYgWj6io55JEpA9Lr59BibvMHOQwybONW0pi/CZ0koY1A1i17AG2yWEV8SeTaUDUkRN5zlcaoQEhviEafOoOqtPZhQs319GE3nsx7+JZeBdmAUyq6td6+kg0Qy2oXHvo=:1.us-east-1.pAEstvQcjyhQNKGKcgSlzI7SVR8ZSG5wSmKwiz/A8Dg=:AmazonSES
-X-SES-Outgoing: 2026.11.22-54.240.48.56
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAEBC780-5EA0-425E-84DA-F16817BE884C@linux.dev>
 
-On Sun, Nov 22, 2026 at 04:02:12PM +0000, Qiuxu (Leo) Zhuo wrote:
-> For comparison, Intel Ice Lake servers decode the per-channel rank ID
-> from MCi_MISC as
->
->   DIMM 0: ranks 0, 1, 2, 3
->   DIMM 1: ranks 4, 5, 6, 7
+Hi,
 
-Thanks, that is a useful comparison. With a fixed block per DIMM on the
-server side, 0-1 and 2-3 looks like the natural layout here too, even
-with the RPL-S encoding unconfirmed.
+On Thu, Nov 19, 2026 at 04:07:41PM +0000, Bradley Morgan wrote:
+> On 19 November 2026 09:37:27 GMT, Federico Parola <fparola@amazon.de>
+> wrote:
+> >On arm64 with neither CONFIG_ZONE_DMA nor CONFIG_ZONE_DMA32,
+> >arm64_dma_phys_limit is PHYS_MASK + 1, so CRASH_ADDR_LOW_MAX equals
+> >CRASH_ADDR_HIGH_MAX. If the first crashkernel=size[KMG] attempt fails,
+> >reserve_crashkernel_generic() falls back to [CRASH_ADDR_LOW_MAX,
+> >CRASH_ADDR_HIGH_MAX), which is empty. That attempt fails too, and since
+> >search_end still equals CRASH_ADDR_LOW_MAX the fallback is taken again,
+> >forever. Boot stalls after the "Initmem setup" messages.
 
-> The change looks good to me.
->
-> Reviewed-by: Qiuxu Zhuo qzhuo@nvidia.com (qzhuo@nvidia.com)
+This is really hard to read :/
 
-Thank you for the review. The angle brackets got lost from the tag on
-the way, so b4 does not pick it up. If I send a v2 I will carry it as
+> >
+> >The first attempt can fail on a kexec handover (KHO) boot, where early
+> >allocations are confined to the KHO scratch areas.
+> >
+> >Commit edb907a61333 ("crash: fix riscv64 crash memory reserve dead
+> >loop") fixed the same loop for crashkernel=size[KMG],high. Skip the
 
-  Reviewed-by: Qiuxu Zhuo <qzhuo@nvidia.com>
+How is this related?
 
-Thanks,
-Ahmed
+> >fallback to high memory when there is none, so the reservation fails
+> >with "cannot allocate crashkernel" and boot continues.
+> >
+> >Fixes: 0ab97169aa05 ("crash_core: add generic function to do reservation")
+> >CC: stable@vger.kernel.org
+
+Do you see this in field or it's what some sort of analysis shows?
+ 
+> Oki.
+> 
+> >Signed-off-by: Federico Parola <fparola@amazon.de>
+> >---
+> > kernel/crash_reserve.c | 6 ++++--
+> > 1 file changed, 4 insertions(+), 2 deletions(-)
+> >
+> >diff --git a/kernel/crash_reserve.c b/kernel/crash_reserve.c
+> >index eee37a11380ce..1417b429b45c6 100644
+> >--- a/kernel/crash_reserve.c
+> >+++ b/kernel/crash_reserve.c
+> >@@ -421,9 +421,11 @@ void __init reserve_crashkernel_generic(unsigned long long crash_size,
+> > 		/*
+> > 		 * For crashkernel=size[KMG], if the first attempt was for
+> > 		 * low memory, fall back to high memory, the minimum required
+> >-		 * low memory will be reserved later.
+> >+		 * low memory will be reserved later. There is no high memory to
+> >+		 * fall back to if CRASH_ADDR_LOW_MAX equals CRASH_ADDR_HIGH_MAX.
+> > 		 */
+> >-		if (!high && search_end == CRASH_ADDR_LOW_MAX) {
+> >+		if (!high && search_end == CRASH_ADDR_LOW_MAX &&
+> >+		    CRASH_ADDR_LOW_MAX < CRASH_ADDR_HIGH_MAX) {
+> 
+> Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
+> 
+> 
+> > 			search_end = CRASH_ADDR_HIGH_MAX;
+> > 			search_base = CRASH_ADDR_LOW_MAX;
+> > 			crash_low_size = DEFAULT_CRASH_KERNEL_LOW_SIZE;
+> >
+> 
+> --- Thanks!
+
+-- 
+Sincerely yours,
+Mike.
