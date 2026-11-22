@@ -1,67 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795362925;
-	b=1rBMNUfVs+5+rtl3FK7/UJoYMIMXET5eTMLsLpb1EpqoKRAHqwFhu+ldTQ/eHbEzyr89
-	 nhrZVryHXchXXMsENpRPMhtGO1NK+jlddDDqqEZ+aMoXSuR9lqmHcmybMw0uyAvqW6NUY
-	 o/xh7jjyL/HMP3qSmSF/yYzBphoLBc2vXW8rFNLa2N7mNKmYkMJf9kdsrdEEXQlht+VEn
-	 2t+2A8Zd6Puc4Dd+j+h3Suhh2oo+JqlNNVoIfpEUn42yBb5F2lSoy3PLLtMkFVbvrLwKe
-	 0tQNDlbuD5j9/h8riSaT0gL79FtarpyeyKjOxrFV7tre1Trs3H3wdFoFdzVkDSTxWtg==
+	t=1795362973;
+	b=0RshtIsBVbZyPRlE3Egd1rY2c7CxR9WpQ7UZe1XYXIzZKNfoldOlHbCYqq+hYRDRjEgU
+	 /NxpBegMZJvmIvgWLeUfHk5BAontkj529wyZQ+ku1gw7Co6qK3lVzmnN/VeFKML2sd5DF
+	 iKs/jhhXYAXvgrzNGcMiBUWcoxNeyDATFbYHUaJP9diXYU5cbJdu8FrBKjW9GoIg568Wn
+	 7C3Cp4D5ByAnxbs9ciuOXj1DK3d2yI5yyG4tJ2yYzj4fBi9Idi1KzSG55RPRWCWT0Gy2N
+	 sBeVCXFJru5faBA4UxzJKC7ZEE6WfKpeTgRKnwzUa2WK4TRqwXKq1gnwVjMIFiVC9WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795362925;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=8uB9TUoaK0EwcPdykqZJN2k18gBtw3+WNOXzc7jc1Ow=;
-	b=VNmW7bAC/IfTNMZiJxdFVsxmDpWSYdFLPACFH85KlJo5fah3h3hxWR4xCi0yiL15g0g8
-	 iHmssLYua6WwgiFVKdjv/uZ9n7adoKY5Vvly51xS01MW/xIjTvdl4ueSWQLVJJepWW8R1
-	 J3PvvGV7vQOz8MP8n+FCGM9h/RQ1mntvhwwLpCJzVFSwM1X6H/nkqgh51KFrDV4CYXYka
-	 5TTwxWceJcAfaZ1cEZwpqU6/uF6vGPp0FkpC9kn6IZ311/5D9VQsBf6wwAZMgwFo3ravJ
-	 OIG9CI4RGUVGIou+NER5Zo6pnz0Rbw1mEezVI8MEVJ7SadX1loEu61X4jQpibNgd06w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795362973;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=aj5uA9WSzm4j8ar/oaYuz0vEVC+pQSuH005rTpdkqr8=;
+	b=KHxpU8VSEeQWGGX2KhRoYp69cmWY1Nqt9n3QnyKKyatn77BTw60R1YBm8Gj4aIZi6Qum
+	 WaGQlsf7tS/2HaMZek/1j4hEPj3IuW8UATx1kYjrs/EsL1CrE5f9QKCIhlEl/8OLMeAIJ
+	 VPWi87ytdhB5U9N6AYedNTOqmw3W4YqqkPU0wf3YLkHXZ5791MpYHgaLcfci2NsEJHOqv
+	 HXYr/Nyt19NURvfNXKpwMphL9GDRfHRkZxpeP3EQ3gd7hoZzZgwo1llrElpjZmKRD3S4T
+	 YH+/0l2D1X7LCm5M1kJ+D6Pg0YJwHGUA01mATgnVM1PXYIBMx2Q0fcW21MexJrB38cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kP2ZwKLJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=orkns+7j;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=MrKBc1gv;
+	arc=none smtp.remote-ip=202.12.124.149
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 927BF606A332
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 15:55:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683D5606A32C
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 15:56:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 683D5606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kP2ZwKLJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932401F000D3;
-	Sun, 22 Nov 2026 15:55:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795362924;
-	bh=8uB9TUoaK0EwcPdykqZJN2k18gBtw3+WNOXzc7jc1Ow=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=kP2ZwKLJeJwsViHkCX55ky7IhiP+3smbuMwEBInHWWEEeV0ZYBqcpyzNJsHW0A8Ud
-	 dbFSRCYH+rmB9iQO/qK8BRRXxxLwuT8E+geJ3YT96hQM2XC3Fjtep4GLnOB0/68u3u
-	 T6C4MaYFNMXm6sJ8L5+3WINBpSQ7t4huLi5QujFMpxNG0H2chHfkOAI+2ldb3weOYQ
-	 UlnSGFKGNIIaXFMmJiP9PVZ/1MPe3bdvYvG176oICuUDESTclpsAv1VcM3mw+58NrK
-	 YWVrUOSzuQ4gTQ1MGe3nmHDuW3rqdivJ1gqgZbE83diZwGVNEGLSUOBb+efHS4q3NM
-	 BbNj1+gez26JA==
-From: David Hildenbrand <david@kernel.org>
-To: "Liam R. Howlett" <liam@infradead.org>, 
- Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Jann Horn <jannh@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Kees Cook <kees@kernel.org>, Peter Zijlstra <a.p.zijlstra@chello.nl>, 
- Ollie Wild <aaw@google.com>, Adrian Bunk <bunk@stusta.de>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
- Hugh Dickins <hughd@google.com>, Joey Gouly <joey.gouly@arm.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: linux-mm@kvack.org, Chris Mason <mason@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-In-Reply-To: <20261121-some-more-ai-fixes-v1-0-236e925d9b64@kernel.org>
-References: <20261121-some-more-ai-fixes-v1-0-236e925d9b64@kernel.org>
-Subject: Re: (subset) [PATCH 0/7] mm: reworked AI-generated VMA and mremap
- fixes
-Message-Id: <179536291830.3243.152389320315927715.b4-ty@b4>
-Date: Sun, 22 Nov 2026 16:55:18 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=orkns+7j;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=MrKBc1gv
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id E93F21D0049F
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 10:56:11 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Sun, 22 Nov 2026 10:56:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1795362970; x=1795449370; bh=aj5uA9WSzm4j8ar/oaYuz
+	0vEVC+pQSuH005rTpdkqr8=; b=orkns+7jrGoeOrNIEoghemPcFFCuVAQ6jJtyJ
+	MJFq3KIW5foCcYRCgDVyt03qeSMby9+Td2ygo+lU7wzftV2wVO2l5+znFj3AGpZr
+	E1CyNe8esUTN9Ia0fnCx0uMYRQ04+d9cevD1OqyqlKvmg/2C0EM3XlQWmTiMz34P
+	05BihA2n3fKaX2jSFyijUGtra1cMbvdilvIGh/PZx20MFI8BYXJGlVR44BUVGDsv
+	uyvdn6fSUUjXmJjigSxMbXmqcKl2mpGXQbTxkDQDwNznRtbBJ8qtSZW4pKMBGcXp
+	urWb0FUuLEHrPiWI3grKlPUrgvOTARON8uQEO++82acEOo//A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795362970; x=1795449370; bh=aj5uA9WSzm4j8ar/oaYuz0vEVC+pQSuH005
+	rTpdkqr8=; b=MrKBc1gvN8UEmRD7wEhbsOgSdzYDbq6wVvlO1rtGRjVPw+3Y2Kn
+	81xKVIwqU3gpOEPxF57bQ63+tq/3l1xTCIhDiPB6k6wiPc+0crb+0fne3Z7xajRO
+	TExhewfzSmBNjXEuLApjk4GEDALj9kpd/fKmCTzVn4dnhWBmYE3OB2TD/9D+RD+L
+	K1gBL7I1G9Al1F81uaGx9szYwupkdAGnjaYvCdFfXd8+cqJ8CePr5HmHb6E5P8XS
+	qnrWb+U0PXqvKfLh/F3zLFAdg3FBvQDHQbGgct7deupjThixIV4L7hPb/yhHAQxq
+	YdCrBETX7rW7WgMaAYPrPAY/l2z+Mc1UqCQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795362970; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:wQQXQFd3SGe9h0uBuZS3BYel3qattWQ+H3gPHOjNLNn0GSW
+	Q6FnxA/90BBVJTL5JoYLoY8FwPvZoNVGAa+f98A3m7TKnSNJZ8is8ED4dpUcB8Bd
+	Z9sLJCpQZnM3y2IASEhgG1D0GUbDZRrps/rcqCMA1Kcd5FXcRngE6J5C2R8o4RBo
+	WwLs1A7sCbpTBazA9rEXmEalEp1spnqsYZ6Tdpo4v6fvbmVOI3mkznEPrDas03r2
+	doDl3sNP0OR5P1LpslykpOVna/XpvASgjKPTNmrKVN0gs4RuQniO8fhv2cXIvv3c
+	uYZ+xZ4YOwine0R6A/TomYbu6T9Vs8/d6iPQixA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:Eg4nZxDRigF5N42CCAZFZpqkBaxJSKFPJJTdyTcL6h0=:VRexWZxJ8G3o6qLdVRnCKpd+joNecszQyUs2s5c8WtM=;
+X-ME-Sender: <xms:mRADa3l_RqxNyqrEl0deT50GeBjav5bpoSG9GiauzjtZ0LWBM1on0A>
+    <xme:mRADa236zgJuuGPKnvuBIEMiuBQxFzSXC-6Tg20a5H2QZ1MdJpoJsbrFX0t-GtLjZ
+    450rsEVS4pRhuJT_1gbIHd1MGyXE6qWegoZp7ws04HzFTtudU9oiIi_>
+X-ME-Received: <xmr:mRADa_3eXQxjyz9NeuIeZdEGw3eVs-zsZ6es-xtkqtCCCXegg7MZM2BWbk7lKihx>
+X-ME-Proxy-Cause: dmFkZTEFo8o6T59g15GkbbqOo3uuSa6Rsptd+h+VTKd66H7DDtwC6YdpUHpSVEdYWpDZZ8
+    sfxdtglR0WbV64a26KcI5fZdOej/LvnHvAWBXTfNjRjxZgel6q8dkHK3uXUGLo+I7ccZbJ
+    ZGZ/YCc3pfq7T1gMEqwFzF5zv2EnuLXGCV7R6mw/v/3rxBqhoQWLgbHJ6oJ9/2sL3wlPc2
+    OaRaV7w0pFcS9r9kwh2HwCHGjK/5Owj3cT9LJeDs0oaUHQbRu0731qR5Xiekaj2clrt0z/
+    uv8fXtC813do3uMLGv9Zg19QrMdMZPWDGiHo7OHZdEta92Ive2MuUUx6X9uNZBKRONXPcD
+    DG7Ip6hiizjOkcsyEABYmzU8n74ofYB26k3SCcQuO/ZuO5lbcDZcB2qCWmr/D36l+rsShl
+    HX18hljKlcVFDZRIXGa3ijsxFKF7m9nP9OKO/D2ZwyldsF9bkrfw1tec/3FJHbNW0CkuWy
+    5nqiDaT/whgo6cHjii6vxNWNHOKpC2imMuNl4RP1WKjV+JKKwgGBA071qrBGnvNoqSXIep
+    8aquHJ0Eg6VEJpgKLEmmsPnK6OmysfpnfC3puc/CfEifJcRQ9Z7iyJcZ2aIx/YNoARqY19
+    fHJ+ZuQxVROH47GurOiXbTr1svV7CpNebLtiKZPy6vV6CoKw5FimKXaFJpkg
+X-ME-Proxy: <xmx:mRADawogP8SZY_Ufj47uZmcY4259z9X8iqjT9SW1OvHwv1rkTscURw>
+    <xmx:mRADazh1_wE0K1SS_LuBJo1ogSU7fgNCwGMhDy1hH1GCblB-9LMISw>
+    <xmx:mRADa0_uQQr7dfdDAwLRSzRk4j_nMUr9bI7ZR2wo4Ufvpk0g6wE22Q>
+    <xmx:mRADa3WhgU6NKGoI8affKqpLM17llO6k62gTmJURvHbh8V3Q9rXfqA>
+    <xmx:mhADazsJgCVazyuJFTFD0jfhckR7uBTgtcp4Ysqx8Wuq0Khp7oGmqGC8>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 22 Nov 2026 10:56:09 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: reject a security descriptor with OffsetDacl but no DACL_PRESENT
+Date: Sun, 22 Nov 2026 09:56:04 -0600
+Message-ID: <20261122155604.401963-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,46 +126,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 21 Nov 2026 16:02:26 +0000, Lorenzo Stoakes (ARM) wrote:
-> I have reordered the patches here by priority, David - the first 2 should
-> be prioritised as hotfixes, the rest can go in 7.5:
-> 
-> == Critical ==
-> 
-> 1. unmapped_area_topdown() invalid bounds - possible memory corruption,
->    triggerable by any local user.
-> 2. Lock VMAs before mm_all_locks_mutex - system-wide unkillable hang,
->    triggerable by a local user with FUSE.
-> 
-> [...]
+parse_sec_desc() returns early when DACL_PRESENT is clear and checks
+nothing else in the descriptor. set_info_sec() then removes the POSIX
+ACLs and stores the descriptor as sent, OffsetDacl included. The
+access check, inheritance and QUERY use the DACL at OffsetDacl without
+looking at DACL_PRESENT. A SET_INFO without the flag can therefore
+store a DACL that was never checked or mapped to the mode, and that
+DACL is enforced.
 
-Applied, thanks!
+A descriptor without DACL_PRESENT has no DACL, so its OffsetDacl must
+be zero. Reject a nonzero OffsetDacl in that case with -EINVAL, as
+parse_sec_desc() does for other malformed descriptors.
 
-tree: mm/core.git
-branch: ksm-7.5.misc
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
 
-Applied patches will appear soon in mm-next, followed by linux-next.
+Tested on ksmbd-for-next 89d5e8fdd5a7 with KASAN. A SET_INFO with
+DACL_PRESENT clear and a nonzero OffsetDacl now fails with
+STATUS_INVALID_PARAMETER, and the file keeps its previous descriptor
+and POSIX ACL. Before, the DACL was stored without checks, the POSIX
+ACL was removed, and a deny ACE in the DACL was enforced. A CREATE
+whose security descriptor context has this form now fails the same way
+after the file is created, as a CREATE with another malformed context
+does. Descriptors with DACL_PRESENT set, owner and group changes from
+smbcacls and the Linux cifs client, and smbtorture give the same
+results as the base.
 
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
+This patch was developed with LLM assistance.
 
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
+ fs/smb/server/smbacl.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[3/7] mm/ksm: only interrupt unmerging on a fatal signal
-      https://git.kernel.org/mm/core/c/d90efc5d
-
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 7bb28ea195c8..446b4f69d7c4 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -963,6 +963,9 @@ int parse_sec_desc(const struct mnt_idmap *idmap, struct smb_ntsd *pntsd,
+ 	pntsd_type = le16_to_cpu(pntsd->type);
+ 	if (!(pntsd_type & DACL_PRESENT)) {
+ 		ksmbd_debug(SMB, "DACL_PRESENT in DACL type is not set\n");
++		/* Without DACL_PRESENT, OffsetDacl must be 0 (MS-DTYP 2.4.6) */
++		if (dacloffset)
++			return -EINVAL;
+ 		return rc;
+ 	}
+ 
 -- 
-Cheers,
-
-David
+2.47.3
 
