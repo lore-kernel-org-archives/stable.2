@@ -1,51 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795369235;
-	b=XhtaFgn+bZp+2riqNoAN0tzRz4C/XN0rquBzutnSCWMXDK/YmWUAMYJ1eT+keMhUCrmH
-	 tRS1OIH9mu9A0mQGy02AgpLlLD4Ghl0ZX0YK1Wwt5bCydoCkztgR/hm4ivZl22eyDI/2s
-	 kUynQUcNz4k/YDsc2bKcnSujBAB8MEyK3Bbm3zDPcrb0fLyxYu2+pBvcb2TMWAieh8j7n
-	 scWbQam8LrZz13n4UkEWspukUv0XpeuLWG8MHfWgLaGeTzduaJ1YvFL1htqV1glumR8Nv
-	 SXfcxsdD/42WuEFmnQI7Q22oHmy02l9/7704IZty+fZVc0b+pSG1jYQWWBoaQcjbjLA==
+	t=1795370131;
+	b=f1mhZxJGlHFKh64Xx4ONzmEQjPxkxMZv88+JxJneg4/McD3jkGXcZf3RlYcWiBj5QK4g
+	 CMcYyz1OLuN13HtE8mv7s5fV82hUIMHnMaQI/M4AuN9ualgE2hmT8xd6qxn2Gc2zeLfWX
+	 eS1wZI03fqtxabEg2gXJe/hMBQayn/MVrJFu0JLRqxeVNXeVp6dGo9jBgeGlYc+DKvWCz
+	 a0yPGpqqsydFC5PIx/bcbVmbOX7uWUVeQ1NTPoI63XoS21OEEQ3f4r1z4oUyD21boZ/Lu
+	 C+HcqT/v/sj+jF4omk5uj/oyDxgE6YGNNDbS6CLVXcN+tOwTwZb8W4p7jw9KkqimeGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795369235;
-	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
-	 Message-Id;
-	bh=H4CSd8Kdm7y1+HrYCLDqaB2X6obYudiWRGQ1P2y5tbY=;
-	b=FQgWsrbCHuBd4OKY2YfeOgnekU2KSBMOOgyKIP4KPOE+S4I6k4fg/XcwERKCqyH7870u
-	 s7aalr7hDRYEkKjTqtZOU6pnF2+QwdzNoOF5tod2VU81QQnOxcKKH6ky0wjyVRkQVBAu2
-	 WY/hLmBlMWgVLZoa98dSVoAB3gUD6QP8DJmw5cU6n0M2Qwj4KlzmyCwXdsWF5+534QIt2
-	 PeGt6Nf0BjPkyvKzaf/d3QgESxKYQwWJzQunyYofmpQ4VSsUP3b23kvzJpNGRJhZ9zODV
-	 NPz3uxu544iuDmfN2ImSWcCiY4OBfneZdskVQWQtkIGXYqTmgle+Crz+mi4XWSGq75w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795370131;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=h/5Vl306LS0GA0rcZKJVnl2ctvPVB3+FArNa0w73Yro=;
+	b=TZzQjTEqSouL4tFKBtJmD3g7IvY6ICiOLbgBfQ13i2jdh3BbDApgPntxP05cfcfAH0IR
+	 Q+1pDEO8gocJZoqCk+P+j/6kv/SJUQmpe9IfL2EqjEWZfLuO9JcSNtx18HUjEtqKZ4Am4
+	 LYnhnQXUcVXuxeRaRd7ucRspbKEFo/l1jDVshpmM7nOVT6UBz6K4o28kSOsQNZ9OoS9xk
+	 5uO+8JWh0yXQs5prYDzVHnvvpp626+Hc9WFkTLw+ZyApn5biCoNCCgPUlaQiYxzzpFNzZ
+	 cIp6FIyGMybHO+cJ8imnTPG40Jr1etH9euSceneUw7u3xA9r46YNAtojF6+iOF1zbSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=EYAqLD8A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duxKByMB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5248F606A32A;
-	Sun, 22 Nov 2026 17:40:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E59606A320;
+	Sun, 22 Nov 2026 17:55:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=EYAqLD8A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92F571F000CF;
-	Sun, 22 Nov 2026 17:40:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795369234;
-	bh=H4CSd8Kdm7y1+HrYCLDqaB2X6obYudiWRGQ1P2y5tbY=;
-	h=Date:To:From:In-Reply-To:References:Subject;
-	b=EYAqLD8A457jWzV9Gbg2BAL9Dmg5y1RUp2cJWiW4EFKqZFXv5Z9hedM3swyQHge2R
-	 AZZ6XvhX1XIhWzUJ8uEAdQcfrvTadldQS5PqBCpMHel4MJuPHUdbdDZ3wmMeGsYws8
-	 JaQbuoQ3gQMHYUsmW/g9UzFGqVUhgO8FaN+pYeHo=
-Date: Sun, 22 Nov 2026 09:40:34 -0800
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
-	joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,
-	heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-In-Reply-To: <pm-ocfs2-objects-candidate-0003-v8-8fb510a5c52b337960c9@gmail.com>
-References: <pm-ocfs2-objects-candidate-0003-v8-8fb510a5c52b337960c9@gmail.com>
-Subject: + ocfs2-drain-fs_state-readers-before-journal-teardown.patch added to mm-nonmm-unstable branch
-Message-Id: <20261122174034.92F571F000CF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duxKByMB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB00D1F000C0;
+	Sun, 22 Nov 2026 17:55:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795370130;
+	bh=h/5Vl306LS0GA0rcZKJVnl2ctvPVB3+FArNa0w73Yro=;
+	h=From:Subject:Date:To:Cc;
+	b=duxKByMBP2+mJiLV3lYRrKPgtiowdBAgsPJIOTGZnzS3p58QFIkq1X5nGMYdJsfNM
+	 evxhcz1FhYwz1khpDyo/kjMElsksWA2DAYZQuW8yjfOdJAxaqT0kTk/dgJJ3L1YxVs
+	 b6bYv0n/0CSza4S099LFxlPG+mjLC99FtaqxP3vqrBOe/KvmCEPggXwrzwtj46PdmL
+	 zH6u2jCXro9fXxatJHgHkzEGA/pN1yUrjpGfmhjk4zzw2xpr1FXG85n8DZwRqVtmMo
+	 V+B3/ylL49xlmJ3nEPH164nYwknJC3q/uMxMWHQy9Ay2j4bmQ9J6Pw8r1EqMWgOcjr
+	 75F1hXUdF5+Pg==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH v2 0/4] mm,drm/i915,powerpc/spufs: vm_ops->access related
+ fixes
+Date: Sun, 22 Nov 2026 18:55:17 +0100
+Message-Id: <20261122-access_shite-v2-0-808d8d2aa700@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,112 +53,90 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/3XNQQ6CMBCF4as0s6aGNtSWrryHIaaUEUZNMR0kG
+ sLdDbh2+ZI/31uAMRMyeLFAxpmYxgRe6EJAHELqUVIHXoAu9VEppWWIEZkvPNCEsnOhssbUxmq
+ EQsAz45XeO3dufptf7Q3jtBlbMRBPY/7sf7Pauj/0rGQpa+eCiZUtu1af7pgTPg5j7qFZ1/ULK
+ L5wnLsAAAA=
+X-Change-ID: 20261112-access_shite-d8a47559572e
+To: Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
+ Willy Tarreau <w@1wt.eu>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Rik van Riel <riel@redhat.com>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linuxppc-dev@lists.ozlabs.org, "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
+ Felix Kuehling <Felix.Kuehling@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1784; i=david@kernel.org;
+ h=from:subject:message-id; bh=uurjwnOfWQkMhoYI4DMjJoIthu1xPIvQvDdbePa+8Rc=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKZdTqylvaopj9aMl99cWW602yfrivn5ySohf55fPZ2/
+ JqtOX7rO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZhIaSvDXynr1g/nX69XZbd6
+ ZcFsH2J4UpZD8tdum/4+6S3KwvFF1xkZbodO7b9SyfMl4R/TSwnD7cnx3999jJ+ippmflWjJ++8
+ BIwA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
+While working on vm_ops->access related fixes in core code for FOLL_ANON
+and VMA access permission + size handling, I stumbled over two driver
+issues.
 
-The patch titled
-     Subject: ocfs2: drain fs_state readers before journal teardown
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     ocfs2-drain-fs_state-readers-before-journal-teardown.patch
+Fixing it all in this series, because it's all intertwined. Only allow
+FOLL_FORCE to bypass VMA permissions, similar to what GUP does for other
+VMAs.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-drain-fs_state-readers-before-journal-teardown.patch
+In patch #4 we break a debugging use case for older ROCm versions, and
+forced writes to mappings of read-only files (e.g., DMA-bufs). Current
+ROCm no longer relies on it, but old setups (e.g., MI100 with old
+userspace) might break when updating the kernel.
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+Changes in v2:
+- Drop "drm/i915/selftests: request read access for mmap access tests"
+- "mm: check permissions and bounds for vm_ops->access"
+ - Allow reads of write-only mappings, as we historically did
+ - Combine the permission check comments into one
+ - Mention breaking forced writes to read-only files
+ - Extend patch description
+- Pick up tags
+- Link to v1: https://patch.msgid.link/20261112-access_shite-v1-0-988a5c470db2@kernel.org
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+---
+Chris Mason (1):
+      mm: do not call vm_ops->access with FOLL_ANON
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+David Hildenbrand (Arm) (3):
+      drm/i915: consider vm_pgoff in vm_access()
+      powerpc/spufs: consider vm_pgoff in spufs_mem_mmap_access()
+      mm: check permissions and bounds for vm_ops->access
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+ arch/powerpc/platforms/cell/spufs/file.c |  3 ++-
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c |  4 +++-
+ mm/memory.c                              | 29 +++++++++++++++++++++++++++--
+ 3 files changed, 32 insertions(+), 4 deletions(-)
+---
+base-commit: 76d96c9641d0c1c0d0e92013a30bd887f8d2dbfe
+change-id: 20261112-access_shite-d8a47559572e
 
-------------------------------------------------------
-From: Cen Zhang <zzzccc427@gmail.com>
-Subject: ocfs2: drain fs_state readers before journal teardown
-Date: Sat, 21 Nov 2026 15:51:57 +0800
-
-The fs_state debugfs open callback builds a snapshot from mount state,
-including the journal and cluster connection.  The file is published
-before ocfs2_mount_volume() and removed after journal and DLM shutdown, so
-an open can overlap teardown on unmount or mount failure.
-
-Publish fs_state at the successful end of ocfs2_fill_super(), after the
-last fallible mount step.  Remove it in ocfs2_put_super() before calling
-ocfs2_dismount_volume().  Debugfs removal excludes new opens and drains
-active callbacks.  The release callback only frees the per-open snapshot.
-
-KASAN reported:
-
-    BUG: KASAN: slab-use-after-free in ocfs2_osb_debug_open+0x967/0x15e0
-    Read of size 4 at addr ffff888116a56028 by task cat/502
-    ...
-    Freed by task 504:
-     kfree+0x308/0x580
-     ocfs2_journal_shutdown+0x10a/0xc20
-     ocfs2_dismount_volume+0x315/0x940
-
-Link: https://patch.msgid.link/pm-ocfs2-objects-candidate-0003-v8-8fb510a5c52b337960c9@gmail.com
-Fixes: da5e7c87827e ("ocfs2: cleanup journal init and shutdown")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
-Cc: <stable@vger.kernel.org>
-
- fs/ocfs2/super.c |   12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
---- a/fs/ocfs2/super.c~ocfs2-drain-fs_state-readers-before-journal-teardown
-+++ a/fs/ocfs2/super.c
-@@ -1072,9 +1072,6 @@ static int ocfs2_fill_super(struct super
- 	osb->osb_debug_root = debugfs_create_dir(osb->uuid_str,
- 						 ocfs2_debugfs_root);
- 
--	debugfs_create_file("fs_state", S_IFREG|S_IRUSR, osb->osb_debug_root,
--			    osb, &ocfs2_osb_debug_fops);
--
- 	if (ocfs2_meta_ecc(osb)) {
- 		ocfs2_initialize_journal_triggers(sb, osb->s_journal_triggers);
- 		ocfs2_blockcheck_stats_debugfs_install( &osb->osb_ecc_stats,
-@@ -1158,6 +1155,10 @@ static int ocfs2_fill_super(struct super
- 	/* Start this when the mount is almost sure of being successful */
- 	ocfs2_orphan_scan_start(osb);
- 
-+	/* Publish fs_state only after all fallible mount steps. */
-+	debugfs_create_file("fs_state", 0400, osb->osb_debug_root,
-+			    osb, &ocfs2_osb_debug_fops);
-+
- 	return status;
- 
- out_dismount:
-@@ -1555,8 +1556,13 @@ static void __exit ocfs2_exit(void)
- 
- static void ocfs2_put_super(struct super_block *sb)
- {
-+	struct ocfs2_super *osb = OCFS2_SB(sb);
-+
- 	trace_ocfs2_put_super(sb);
- 
-+	/* Drain fs_state opens before releasing their backing state. */
-+	debugfs_lookup_and_remove("fs_state", osb->osb_debug_root);
-+
- 	ocfs2_sync_blockdev(sb);
- 	ocfs2_dismount_volume(sb, 0);
- }
-_
-
-Patches currently in -mm which might be from zzzccc427@gmail.com are
-
-ocfs2-drain-domain-handlers-before-destroying-the-dlm-worker.patch
-ocfs2-drain-fs_state-readers-before-journal-teardown.patch
+Best regards,
+--  
+David Hildenbrand (Arm) <david@kernel.org>
 
