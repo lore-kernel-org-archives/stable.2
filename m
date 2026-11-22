@@ -1,73 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795373832;
-	b=qb3biJistaTA02AUacQ25m++en3SL9EZcdJn+YKrbtelzeSwDEf6yR9LKQuT6EEbB0lA
-	 kdRHWTH2TzzZGi/RjEuc0hdZp0SWvVUBuYgK4QQTSZgJmfHNnwEBm9UoS+/5YyA8SIQ5j
-	 8nGanhNv/d30N8viE7aPS5ETmHfhSYN78akvycnYMctyH8CWM1PSFcmq8pBycB7X/lkYQ
-	 RvkRWkeRka20pS6oxDkj9EvJVOmA1/8ne4IpKdhJ3OQJztP278nN5Hk6Jwq/leXfYbB9q
-	 sRr7CXtZAKBdkMbwHHKmcLOmpT2fcpFyLaxSj7+KzPqZMxEc1OphLEEWRJjpWCIY46A==
+	t=1795374068;
+	b=Qvc/BGMibOE7jDBsZ5Pe4j9WirLy64BbjQKj5ppP3Q49k20gt+zLcX8r+fBzHxL/uQah
+	 QsZFVy7o4/BgKynnIkg+fk5NLV8VvwtT9ebt6m7aaYsKbzWX1jJUxSaKNrnx8KHRHcdfa
+	 W4ZKDqeWGmAH+cPkLJ3NKh0lf18mL6NXgolqRvYLtvjXrgltPmUqXiqadyN19hItVt8Zy
+	 /CYNvJb1upg07+oR/dN61Us7+wT3oAyFpzjF3amI/yWxGhLWS9Vsi8VE4hA+3gcVYKqIo
+	 BBgVtDwPDdkbTuB75XIrBPFQcI/Qz7FJcAsrA4Yg2HV+8wVKz22u0G+rK/zWTFz+2vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795373832;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=8B8Z/Qk1nK5Bur2fvtAfwzJGSgXNSKiCnAjpMw2EVs8=;
-	b=oUA06YiwJv791qVNpVprsAd6OHWzZHx/215sO8US8l9nr0QfZYzKPozqr9cDkWkvg//8
-	 l3fFSk3HcM2q2/9lgQFMr41TOBN6L5s0Q/Lk1t2ycpDzmX8Q8B1m0WGsONSvzZvjOy39K
-	 mqWFqCelhca8t/fldd9rQzyVS59mltgLyabw++nag4snBHAA6S3bvELGr/t5cLGeZhDLf
-	 u1spOqYOTIjzGgzjEboin+AetC27GNjIZIHQJuAXYu+W8Y+yKj1F9v5eDjKx9YzvUyZDX
-	 aMFqWXUl5QveGfI9XGR8UbaMjQ1iK3nnD5VtWDs+Kd6aiWneOBsn8Nyl1tCgD5z4kyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795374068;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=psP2uIlkimEYW+kQJSgqbVunRYZcoC3y/JABKKHgk3g=;
+	b=OHfnYQChz5vPgfqwhuqD4ISLpPAqoEF9Enf7VzDcGaUv0OOFSTHZ4V4TtW/i+/bRjQpH
+	 qEugGdtSDDJozYrV6XxqrX701TyCpIFMVwhXaSG4DWW3JjRquMrW3peCHZ3Eu+L/Kflwi
+	 AJx0dU92mGZ9UfUa6S0/HFQLMgDmnuL5oAXSQwP0aKeoqwpIFZ7BAA2qD6oGavflHA5ke
+	 64zdrJbm+dZe1FbATdxreI98W3Jf2c5/pvmMrQ/seTMGT5E8HVWNWkVwcLJqzvb0NE/Np
+	 K+OU9MefHr1AEPV7b9WgSVarUzoCbahHIOb+XQec1/OrorxaJ8p4qsWJ4xd6n191bcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=U0uJ3VV2;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d7AO7oiM;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E624606A320;
-	Sun, 22 Nov 2026 18:57:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E624606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF18606A682
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 19:01:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CF18606A682
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=U0uJ3VV2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=8B8Z/Qk1nK5Bur2fvtAfwzJGSgXNSKiCnAjpMw2EVs8=; b=U0uJ3VV2VFvLy98r6f+U5S2PYJ
-	aY6uIU5DawC2aNmwGsjQEQ/LQUylIdw7NupDyC7brvskQK5VDDZxee/2CjDaJRaPDrSfbF0reSgsK
-	2Pq66Jyz2qD35vyeU4FWOp7dUcKTwnFByWT8aRQIvGcBFWnwF8jfuvSiiYUgbvlNPMbQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xVCkA-000bb1-BM; Sun, 22 Nov 2026 19:56:54 +0100
-Date: Sun, 22 Nov 2026 19:56:54 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: aiyengar1990@gmail.com,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	LABBE Corentin <clabbe.montjoie@gmail.com>, netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	Russell King <rmk+kernel@armlinux.org.uk>,
-	Nicolai Buchwitz <nb@tipi-net.de>, stable@vger.kernel.org
-Subject: Re: [PATCH net v2 2/2] net: stmmac: dwmac-sun8i: Limit the MTU to
- 2018
-Message-ID: <002c36a6-c049-4ad3-9b1f-18f2162eaa71@lunn.ch>
-References: <20261122-sun8i-emac-mtu-limit-v2-0-c4081e5b83cf@gmail.com>
- <20261122-sun8i-emac-mtu-limit-v2-2-c4081e5b83cf@gmail.com>
- <CAGb2v65_vY86WqvKr1m=g0N1Qr2UhLC1v3OHKPG3x+oURUKp7Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d7AO7oiM
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb55cda775so15710455e9.0
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 11:01:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795374067; x=1795978867; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=psP2uIlkimEYW+kQJSgqbVunRYZcoC3y/JABKKHgk3g=;
+        b=d7AO7oiMDNVsFh0LM4DDKaTKjlPQXm/32TtE6F0SynaZGe7KrFwsGdFSW+iOtkrCj0
+         Di0w3iZEbeIjuIueiDIsB/9NIDyUk86Kwvz5K+7WfCtRouCSFbM3YBPrvDSmmBaKseVm
+         LQC7JLblIZ8LUVFyKjVA7otkeG1kO7+f3RlI1uAgDoxG8FSwCcKCqngDMaoCx+UX3Jl9
+         d3pHBf0bEjA9RLOJNPrs5YFHpCVdyR6Pj1cHBPdUCzOGc5nUEM+jqMF3pXh1uIVW1kF4
+         G+jB0bUaWK48X/PmGHmpNQZ+8Mtay6QfZBz30QVPtVdlRuWD8ij96D2OgqTVgQ50pLLq
+         YE9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795374067; x=1795978867;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=psP2uIlkimEYW+kQJSgqbVunRYZcoC3y/JABKKHgk3g=;
+        b=UD/nSnrr8C1N8xaFJ2cN/GXkXN/aE/sBhTLjfJZD7dquBQj75wRy0RYn7Sy6YsKrEW
+         JO+MMnC+UpWujXQMHcpEDPEK4N0gx3jx8YCCfLtLKwccbM1joelf6MyEb4vNIaJNU44X
+         Ek1BM2Ymg2wx7vjmWwH28ELpQrWdyGXCeoK3u5LNuNT7okpUItS+VunjA/utV/Htjifg
+         1cI5T57LwHR9A0P5nvESHlo42OSvApHhzvKJKVQTuOXXqFqnEwT7nAcrhWHR5vxtyI0s
+         ldAU1t5bKqLEuLxXmiTjjhjtPrFUxpXnD4ybKGcoXwZOmgeqSUw/zlgSKxx7jGXVVyga
+         VUTA==
+X-Forwarded-Encrypted: i=1; AL+hErEmgHkEf8dBgClGIWS4716Ol8+cWaz83U9Iq26fTJOHIaZ8WPqOdxDvY3smtnrV0KR6jCDPSbQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NkQqD6N4w3/q9N77G8VW5poFGoTKCW1uevOmlyeEkNUZFJkhh
+	/CwEoZWJPId58jO2X3tDHfpRdYC6ZpkSkxyb1N2EsZYD8/hqer6MqJkV
+X-Gm-Gg: AZFdTZewg9hxIjuvynSw6P5Ph/Cq1fizW5tshS4heGvXprI2vxHxUqJ5v7al5pAJ15B
+	Mm6eckfeYbB28RmiAVacMhlDN1c/9YAXsbtZH7ReYOFkP3Y7ARJ4jePgaxz+xLT924N6EBkLzQB
+	EE/XtpiGHoFLZlzTgODcJi5sPzR5Ng0o1qhrZCH0LHzSYAyGSNvxfkMHnUhdSanqZayt3AjZ5wU
+	XJ+8hdPRZXRuROI9HB1KiPtlrfVMgvSftYcSFpCoaWMMlnAAzvhSPQX3NKpWmSXb7yFXNwldtZ+
+	PwX2eRprzXjNKdfyNL5DxPE+Qsc2BZIv8LlnzqFdbwJhN6dp6MAdrNtoM0ext5/Fo2ZO90STKPE
+	noYmfik+VFShRKTDpFSxHG82qCchEcca+9iE3CNzktWf/UkotqU33p+HIBBMdGVBS9oIustE43F
+	ALTau0yELfB2t1+Lj9Lr0twDoUPWmPqWJu28PvbV9RDMT/Yu8kAUkcdgknqUbbS1J18oK10S2vT
+	GD3d3Ukmk/NbYQQj5YhJchH0obLVJWjTX4mf18HSipd+OQHU+NrJ9tbZ/CJTZS4WIaqM52qlrKK
+	1TvZnLSlek1rfDbYKTGu+U2q1WCCWwr9c3pU2mQdlUt5LIpjux9mGsTA
+X-Received: by 2002:a05:600c:3547:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4bb8880b88fmr189495385e9.10.1795374066559;
+        Sun, 22 Nov 2026 11:01:06 -0800 (PST)
+Received: from DESKTOP-V28CTA4.localdomain ([103.125.177.105])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884865a2sm283389045e9.3.2026.11.22.11.01.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 11:01:06 -0800 (PST)
+From: Arbab Haider <arbabhaider649@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com,
+	stable@vger.kernel.org,
+	Arbab Haider <arbabhaider649@gmail.com>
+Subject: [PATCH] media: em28xx: clear dev->v4l2 on init failure and fini to avoid double put
+Date: Mon, 23 Nov 2026 00:00:09 +0500
+Message-ID: <20261122190008.21278-2-arbabhaider649@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,31 +98,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAGb2v65_vY86WqvKr1m=g0N1Qr2UhLC1v3OHKPG3x+oURUKp7Q@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-> The STM32F4 reference manuals has this note:
-> 
-> Even when the start address of a receive buffer is not aligned to the
-> system databus width
-> the system should allocate a receive buffer of a size aligned to the
-> system bus width. For
-> example, if the system allocates a 1024 byte (1 KB) receive buffer
-> starting from address
-> 0x1000, the software can program the buffer start address in the
-> receive descriptor to have
-> a 0x1002 offset. The receive DMA writes the frame to this buffer with
-> dummy data in the first
-> two locations (0x1000 and 0x1001). The actual frame is written from
-> location 0x1002.
+Commit 288254383674 ("media: em28xx: use v4l2_device release callback")
+switched em28xx_v4l2 teardown to v4l2_device reference counting, where
+dev->v4l2 is only cleared inside em28xx_free_v4l2() once the refcount
+reaches zero.
 
-> So for normal descriptors the buffer size is bound to (2KB - bus width).
+If em28xx_v4l2_init() fails after video_register_device() (for example,
+when v4l2_mc_create_media_graph() returns -EINVAL) while userspace has
+opened the video node, the unregister_dev error path calls
+v4l2_device_put(&v4l2->v4l2_dev) to drop the initial reference, but
+em28xx_free_v4l2() does not run yet because the open file handle still
+holds a reference, leaving dev->v4l2 non-NULL.
 
-There is a second use for this, unrelated to bus width. The ethernet
-header is 14 bytes in size, 2x 6 octet MAC address plus a 2 octet
-ethertype header. By offsetting the start address by two, it means the
-data after the ethernet header is then 4 byte aligned, making it more
-efficient to access fields in the IP, TCP UDP headers etc.
+When the USB device is subsequently disconnected, em28xx_v4l2_fini()
+sees dev->v4l2 != NULL and calls v4l2_device_put(&v4l2->v4l2_dev) a
+second time for the initial reference, freeing struct em28xx_v4l2 while
+the video device node is still referenced and causing a
+slab-use-after-free in media_device_unregister() /
+__media_entity_remove_links().
 
-	  Andrew
+Fix this by:
+- Calling v4l2_device_disconnect() and clearing dev->v4l2 = NULL under
+  dev->lock in em28xx_v4l2_init()'s unregister_dev path before dropping
+  the initial v4l2_device reference.
+- Checking and clearing dev->v4l2 under dev->lock in em28xx_v4l2_fini()
+  so the initial reference is dropped at most once.
+- Reading dev->v4l2 under dev->lock and checking for !v4l2 in
+  em28xx_v4l2_close() so a close racing with teardown cannot dereference
+  a NULL pointer.
+
+Tested locally in QEMU (x86_64, KASAN+UBSAN) using dummy_hcd and
+raw-gadget emulating an EM2820 device with failed media graph creation
+and concurrent /dev/video0 open/disconnect.
+
+Reported-by: syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=fb0d2df09b56117605fc
+Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
+---
+ drivers/media/usb/em28xx/em28xx-video.c | 23 ++++++++++++++++-------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index 84424284d..50998aa1c 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -2333,7 +2333,6 @@ static void em28xx_free_v4l2(struct v4l2_device *v4l2_dev)
+ 
+ 	v4l2_ctrl_handler_free(&v4l2->ctrl_handler);
+ 	v4l2_device_unregister(v4l2_dev);
+-	dev->v4l2 = NULL;
+ 	kfree(v4l2);
+ 	kref_put(&dev->ref, em28xx_free_device);
+ }
+@@ -2414,7 +2413,7 @@ static int em28xx_v4l2_open(struct file *filp)
+  */
+ static int em28xx_v4l2_fini(struct em28xx *dev)
+ {
+-	struct em28xx_v4l2 *v4l2 = dev->v4l2;
++	struct em28xx_v4l2 *v4l2;
+ 
+ 	if (dev->is_audio_only) {
+ 		/* Shouldn't initialize IR for this interface */
+@@ -2426,13 +2425,16 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
+ 		return 0;
+ 	}
+ 
+-	if (!v4l2)
++	mutex_lock(&dev->lock);
++
++	v4l2 = dev->v4l2;
++	if (!v4l2) {
++		mutex_unlock(&dev->lock);
+ 		return 0;
++	}
+ 
+ 	dev_info(&dev->intf->dev, "Closing video extension\n");
+ 
+-	mutex_lock(&dev->lock);
+-
+ 	v4l2_device_disconnect(&v4l2->v4l2_dev);
+ 
+ 	em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
+@@ -2455,6 +2457,8 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
+ 		vb2_video_unregister_device(&v4l2->vdev);
+ 	}
+ 
++	dev->v4l2 = NULL;
++
+ 	mutex_unlock(&dev->lock);
+ 
+ 	/*
+@@ -2502,18 +2506,19 @@ static int em28xx_v4l2_close(struct file *filp)
+ {
+ 	struct video_device   *vdev = video_devdata(filp);
+ 	struct em28xx         *dev  = video_drvdata(filp);
+-	struct em28xx_v4l2    *v4l2 = dev->v4l2;
++	struct em28xx_v4l2    *v4l2;
+ 	struct usb_device *udev = interface_to_usbdev(dev->intf);
+ 	int              err;
+ 	bool last_user;
+ 
+ 	mutex_lock(&dev->lock);
++	v4l2 = dev->v4l2;
+ 	last_user = v4l2_fh_is_singular_file(filp);
+ 	_vb2_fop_release(filp, vdev->queue->lock);
+ 
+ 	if (last_user) {
+ 		/* No sense to try to write to the device */
+-		if (dev->disconnected)
++		if (dev->disconnected || !v4l2)
+ 			goto exit;
+ 
+ 		/* Save some power by putting tuner to sleep */
+@@ -3110,6 +3115,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 	return 0;
+ 
+ unregister_dev:
++	v4l2_device_disconnect(&v4l2->v4l2_dev);
++
+ 	if (video_is_registered(&v4l2->radio_dev)) {
+ 		dev_info(&dev->intf->dev,
+ 			 "V4L2 device %s deregistered\n",
+@@ -3129,6 +3136,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 		vb2_video_unregister_device(&v4l2->vdev);
+ 	}
+ 
++	dev->v4l2 = NULL;
++
+ 	mutex_unlock(&dev->lock);
+ 
+ 	/*
+-- 
+2.53.0
+
