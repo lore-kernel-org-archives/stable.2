@@ -1,94 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795365265;
-	b=Ue4jgwPWM/5/ZGuUX/EL7LZwTM9IlEddNZuKAKG58Z4Us2ccSolQ0pebKaUCiJXxWrZz
-	 9jbk1kq2G7BIhbIZ42qOjadkHj1nPsN5G93vRfdVuLrHYlHwpI8VU/XDm8ls/8c1G1v8F
-	 eYIT5jfsUrrJ5iT2hHpT61H7vtF0AuweAD4PmtmT8Sje0pjiW9gCZAlofRAb7KryaeAnA
-	 b3vdbZjgDe99DL8yDcRXNxzltOJp/j1aMCl3mN1i0zLuY8B6bx1XuS+SZGZfJpjqn6CPf
-	 9DkkZCN1iYxZz2PZKoue7Hwi3inxNigdJ006/JzEDP8+mbwqZc+qdWP9QEBv9kPzecg==
+	t=1795365425;
+	b=sIyZjL8bGPwnFKpXoUv4g3M4OOIHeTvptY37EX+wj/gkDn30xxECfP3uBcCl20UPBxxi
+	 HfcNs1aT7tKSYGhttvbLQNNs1nl5kSWbGZ+p0JxkrDewcoBIdptuQJcQTIoU7v0cf+71Q
+	 XXyIGfFgITbNIVdOPysaLqLSzJbCsSFVGszIKQhkEJhXsM3nzK62HiyJIBeGWDpzM7Qsi
+	 dJFOCMSwZ0JThRqV0Pi0YrsC/0uyj3NxbHofybDnOMmqKdfsuSASMr668BXCEFvPeIzCe
+	 nf/2SnF+cFiW55kd/AKgulJ2xmSP5lbx8BRfj25w+8oFy9+JRyA2tJQxjM0DrF8gWCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795365265;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PKYANT6ORuAjCyrXKjjCsaVWwop42JBUOal0NPl0OtU=;
-	b=pc1xgS1k6L4oQWi4uP4xR9MTzAs0BBFtsV14de08feFCaPKJ46tRINGGnSdsZhq8arw7
-	 qlUyPIhYek+qGtomo/dy49h+9daso1/yteiyiTKt/KqC4cpW5y/oXjHIcqk/n8tLGjxI3
-	 fl4VQABcoRLUimNihE8B5n6s6qgMcYWWgjJD5H7YKNIDj6WvnC/ruVN+if5D8pyrqdxkT
-	 U86yr4hge1sC2d/ItAwxSf6qOBKkxacmxmfZJJuCc9IsTapIWBRjatJw73gOi3zEg2GIP
-	 gtuWkgfiF/qrksCeStjPY2uSyBUIwAvDSHJlvi9jTCRiQb7RH0JZ78R5jfNW457GXUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795365425;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=wYErie+YgFKgwdokQKPH5aMCl4CIj8MWz6Gs+KkWE4Q=;
+	b=oKvLl1qReeSPC/o5BaQYwSdvpiQZkbzA3h0CgidjP6JhXphNPDRjNIN3KpqbovwTm7FO
+	 HlKXIbc0zFhyvEucOAGHOcWW6snIOYrfa/ofvTEHumwd+A+x4FN4fwHlGBM9mT22UCnYn
+	 0PV7C3lBM3nUA6yDe0+WgYHaDqbzCTyhwSWymnlEndxVRka8JKMeEmdRYk+GzozTqa4sZ
+	 b7kn1tPQedWCeyhcAYKhoaaXJ4uOqS6M84Iewgf7yyca1bIg3UkjdoQTDKcPkJ7EkDj1f
+	 O0K3IB9kwthH2g/VC60nO3jH8ucP1pAzvCHkBPBun6BonUe8PlFXiMfyd9aKyehIZ0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XLcVMaIM;
-	arc=none smtp.remote-ip=209.85.210.175
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DrZ+0Dbq;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20FF2606A330
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 16:34:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20FF2606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED445606A32A;
+	Sun, 22 Nov 2026 16:37:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED445606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XLcVMaIM
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a07078200fso1270293b3a.2
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 08:34:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795365264; x=1795970064; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PKYANT6ORuAjCyrXKjjCsaVWwop42JBUOal0NPl0OtU=;
-        b=XLcVMaIMsgTzBo78gyw0vfMzb+lmw2wx5kzg/3pL8r/aCHDsMdCSJ0pzbsQlZzb+Xf
-         dhQDx4Q0rZ1G4ePNYuvKvoL9rGDscWLfNw7tITzVlen8a5dF8/x6Gx/hqznHcgNKrbBT
-         Vo2QnkwPVBzWAOglMSGIOFAnVzgwod3D/Aw9MztVZm7IxUIWAP4xNC87er8o/S3CWiTt
-         TsbcICCI4EYD1TQLhEkFusBItHqF683FwRzAltBXnWyky8PpnykVj4xrGm3GfzEzadT/
-         XfnRxvRxv9mtmVmfqrgZsz/R6RpHvUMOPdw2ICZY6CZhK630lebjGsVV1++Q2JB54t2l
-         UFjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795365264; x=1795970064;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PKYANT6ORuAjCyrXKjjCsaVWwop42JBUOal0NPl0OtU=;
-        b=BYiM7SqY3T9clCF1eNjKtGPu8saSI4vnh+AksVHxGw8U5rYpxFUh9hEVtJtDiVyFl0
-         IL3oWDU/+h3bBM/bxOBBhWV2hI7TfMU4BcK4P9ZlYgXPT3PeNZ4pR/Wqjg0UUSM2i29s
-         B/VfYHNwJsmGwM04fbgOm6J/fbUYxCsTg+tqYHXnD7qM6MIe+IRvs0mWhVVUKSIjXk0/
-         eu+zjItSRp31SCd7wStmxWvi7QFar+KLZRiwCyGPr2nr4RIedGBJERrtZny00tFBMahs
-         96SwjbULJlaA+nvOHbP3Dxc50eM1I4Ht21+TBSGjYrGEFvs5xni6jsuk5wYMKbAWRnCu
-         SHvQ==
-X-Forwarded-Encrypted: i=1; AL+hErFmsCd5GCaL+2FLtNzGQPeLtkF2e3NFCTcq8NpQ/Y4wGSN22vvkycj8vuu4zg0xkWv2SoetxsY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xrXizSfLCNH43d6PpJnCloR5l6WYC34pxAV3lbLrbUpquc3ei
-	mDsX2GDQboYTczkUB7FmlXyo9VuuJzd9IY9KBrFYn44osO+Iiv5skYYF
-X-Gm-Gg: AZFdTZcs+mLSTkM9GCeHPSELXnToLnLFCrsvDUjdgeU1vInoFm3+ddgGoSssXT86TNb
-	iE4RljcIiViuM6B2kaRrGTPMzE6sQvGiqMg7o5X4nyWjcFZi5ADngGHh+Xzp02XhKaqnOmk6Fzx
-	CJL3hJc46qeSReTKZXmyNjVCrsDvscMazWN4kdJtuax3S/RDK/i6KreZkqHP5mexVc2eX0wEtd2
-	HFGYAWVjMUeSeZj+HVVACvi46uv2ODLfDtgywYCXDKHr6nJJtGFyaJfUgSOxkBQhi0AlB5XZMfI
-	0U7z+6Bbs8Hfam5uinC6kislgO+TFQDdncDc7YFckynAoBAi33CYf4XvMJ7qIN0qSsgUI7KB/uO
-	M5yyRW07EwBFS2tNiMTJpH4aDGXd5RY+LDbNFmlvom7oAZxWWlc9u8nNtgsO14Ga96WDb36ywEm
-	Pebbz7RprHXFZSz6GX5NVCXbsrtmeherVX2kOLmpqULcaJFrLC+rpFRkNA0QnIrCLKGChTXRTRy
-	TQnS8z9aZeaBhNqRWNGFqrud1BxhrjEj6vOwMP8ntAGnzVk8KX25r5Z6pWWKQlbFVH5TFx5Gy3o
-	9m++k0T2NjMEbvqzn+AzTFV1WUpu85gtM/H4zs66oeb53bAq6qV9Iv3MTPT1+dhHAfpA1MWLXRo
-	ixbIVGypBFCoPolF1DthwvyUjNA4=
-X-Received: by 2002:a05:6a00:4189:b0:899:55e9:880b with SMTP id d2e1a72fcca58-8c87bacb423mr7471731b3a.14.1795365264278;
-        Sun, 22 Nov 2026 08:34:24 -0800 (PST)
-Received: from acemagic-m1.lan ([2401:7400:c804:b668:a7dc:f03c:3f60:caaf])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87285c219sm4218560b3a.18.2026.11.22.08.34.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 08:34:23 -0800 (PST)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: hauke@hauke-m.de,
-	Ho Jie Feng <hjf3108@gmail.com>,
-	stable@vger.kernel.org,
-	Stanislaw Gruszka <stf_xl@wp.pl>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless-next] wifi: rt2x00: upload beacon before starting the beacon queue
-Date: Mon, 23 Nov 2026 00:34:16 +0800
-Message-ID: <20261122163416.14269-1-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DrZ+0Dbq
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 38BC44E416DE;
+	Sun, 22 Nov 2026 16:37:02 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E43DB60512;
+	Sun, 22 Nov 2026 16:37:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6BB5111E6256E;
+	Sun, 22 Nov 2026 17:36:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795365420; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=wYErie+YgFKgwdokQKPH5aMCl4CIj8MWz6Gs+KkWE4Q=;
+	b=DrZ+0Dbqt9RADd8Bw0JW46aL8a4DDFcS/lCIDEsCpAuPVGKx2tkyuNCj4BgEpxH5fTPYu7
+	DiQAl7hy+njY2Vwjw2kr04u0Pl5iCuvGYr71O5Gk8/wSnKLYFcotjGB/BaHOuYxV7urOar
+	LGsljGLFaLpqnnOuHXPjpHMn8HuiPnVTvYAqKXwp1anE/mzPSuKdKBtKLPG8V5POd5BUEF
+	U6fgFL00bBiz81vNc9l3qyuXfwo/W1nrP9w2SzHnmDt1prfFSfCPq3AjGpbOe5uNG/2NDQ
+	M9evLcT0oe20zcH9OX4txkjLA7q4C0hJAHD/XQg+5EkD/h1Qb5gM2E6rRN8qkA==
+Message-ID: <3459ab2c-e35e-4fb1-80d0-b79991b5bc2f@bootlin.com>
+Date: Sun, 22 Nov 2026 17:36:43 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,55 +62,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2 2/2] net: stmmac: dwmac-sun8i: Limit the MTU to
+ 2018
+To: Nicolai Buchwitz <nb@tipi-net.de>, wens@kernel.org
+Cc: aiyengar1990@gmail.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ LABBE Corentin <clabbe.montjoie@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ Russell King <rmk+kernel@armlinux.org.uk>, stable@vger.kernel.org
+References: <20261122-sun8i-emac-mtu-limit-v2-0-c4081e5b83cf@gmail.com>
+ <20261122-sun8i-emac-mtu-limit-v2-2-c4081e5b83cf@gmail.com>
+ <CAGb2v65_vY86WqvKr1m=g0N1Qr2UhLC1v3OHKPG3x+oURUKp7Q@mail.gmail.com>
+ <5e09c85c2c33885fecbdf81cd0b9209b@tipi-net.de>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <5e09c85c2c33885fecbdf81cd0b9209b@tipi-net.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On PCI and SoC devices, rt2x00mac_bss_info_changed() starts the beacon
-queue without uploading a beacon, and leaves that to the PRE_TBTT
-interrupt. But the TSF is 0 when the queue starts, so the first TBTT is
-due at once. With no beacon enabled, BCN_OFFSET0 is 0, and rt2800 sends
-a beacon from shared memory 0x4000, the start of the pairwise key table.
+Hi,
 
-On the RT3883 this wedges the baseband until the BBP is reset: the radio
-neither receives nor transmits, so the AP never comes up.
+On 11/22/26 17:31, Nicolai Buchwitz wrote:
+> On 22.11.2026 12:39, Chen-Yu Tsai wrote:
+>> [...]
+> 
+>> FWIW I think this applies to all DWMAC cores.
+> 
+>> [...]
+> 
+>> So for normal descriptors the buffer size is bound to (2KB - bus width).
+>> Not tested, but I think there is more evidence supporting a cross-platform
+>> limit.
+> 
+> The sun8i EMAC isn't a Synopsys core, so this needs a test on one.
 
-Upload the beacon of the first beaconing interface before starting the
-queue, as is done on USB devices. The (PRE)TBTT tasklets are not running
-yet, so this cannot race with them.
+It's likely a synopsys core, but with some wrapper around the register accesses,
+hard to tell how much of the actual dwmac is in there ._.
 
-Tested on an ASUS RT-N56U (RT3883).
+> Maxime, could you try MTU 2019-2021 on your boards?
 
-Fixes: 1dae8d342e84 ("rt2x00: Limit beacon updates in bss_info_changed to USB devices")
-Fixes: ba08910e04e0 ("rt2x00: change beaconing setup on RT2800")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
----
-OpenWrt PR: https://github.com/openwrt/openwrt/pull/26850
+It'll be tested in the nightly runs, I've setup some local MTU sweep tests
+following the previous version of that patch :)
 
- drivers/net/wireless/ralink/rt2x00/rt2x00mac.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+wonder what else will come out of it, I'll report in the morning.
 
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00mac.c b/drivers/net/wireless/ralink/rt2x00/rt2x00mac.c
-index 3bc0c1c906..48c875e198 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2x00mac.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2x00mac.c
-@@ -630,10 +630,12 @@ void rt2x00mac_bss_info_changed(struct ieee80211_hw *hw,
- 			rt2x00dev->intf_beaconing++;
- 			intf->enable_beacon = true;
- 			/*
--			 * Upload beacon to the H/W. This is only required on
--			 * USB devices. PCI devices fetch beacons periodically.
-+			 * Upload beacon to the H/W. This is required on USB
-+			 * devices. PCI devices fetch beacons periodically, but
-+			 * the first TBTT can come before the first fetch.
- 			 */
--			if (rt2x00_is_usb(rt2x00dev))
-+			if (rt2x00_is_usb(rt2x00dev) ||
-+			    rt2x00dev->intf_beaconing == 1)
- 				rt2x00queue_update_beacon(rt2x00dev, vif);
- 
- 			if (rt2x00dev->intf_beaconing == 1) {
-
-base-commit: e1dd8486807c1acf9551250b7f81e116a21e6ad6
--- 
-2.53.0
-
+Maxime
