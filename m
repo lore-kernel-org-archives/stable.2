@@ -1,78 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795353590;
-	b=iut7d6NEdUAQy5K8SAH4gokSbC7uMhasdARu+kI/CQh7r+JlqO3OM5SG/ZpNsUZc2ZyW
-	 ZZKwmnNcPjLxC8om4lMIghOp8kLkLSsWH0zv1KrVSFR9DH+/sEdxrlTPqP2FI6HLSl5f9
-	 UZ20B+o2mGcYkLR1jKhz4o/Oyxb9plHuFq2bFUldiH8f7tnb5knnlT33dPfFZVvVR8sj9
-	 9sNBx/1h+xcaM4mFQYRL0a21KwLVa5JYoI8KtcaRwCqhzpFZE++NcEHiZcWZUjQpZpNez
-	 FbjPhQQRWgINPFeZ34Y/G6Sf597bsReCY7PY3Xs3rMtc9SGhcZ1z2gq/vai2qUI0Cmg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795353590;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YzpLgUS63R59GVJgQ2irGnTERPliChXawhwVX069f0Y=;
-	b=jJGv4SNubzxTqbBYwvvxAvOSX0RAWv1Ixbpu0cp4eG4yKH5+88QZgTpJHJ4lF1ulnpPc
-	 7WwoIJsuU0SkTEsg/fk42AatKqiYJcmiNcGqb0GdRW1Mrte2llkTnuK5nZM0gHyrcUdOY
-	 Dnxibb2NDgKlUiVWlknR/VKHHWNM6fYD/RDWZIuIUMjfAvPil5+ViL1vzeUffAuYWI/77
-	 0hdeVldprm3CJopS1EGoCWqMP1EsKB/VZFPBfn8uG56tfatxzY9O3qk5/V6UO4xFTnnFL
-	 SVGMAjMBPg0BPzUXQBycIX+NuNsg10l/oSf6VqDhdWVX5Bp6UnDK5EpGtEWVdCS3pLQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCwSgOM4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB6A606A320;
-	Sun, 22 Nov 2026 13:19:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCwSgOM4
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795353589;
-	b=AqZGg3DBddTNZk/DQF74h0AxPeExsmbQZR/s4XXwB52x2Muf5d9DL5DlTlyPAj6xPVGL
-	 STJmIFDeAjZ2pQjwRA6+QrgR2Z7O/dJF2ezCMsze5f0Rwf9xE3/exhqQJ81DqoBPwOeDa
-	 kxsbe5mOYhqiNEbaG1sY2GTawkfQvAP/eV3VtsKhJvo0gcAKLHjuiSH3F35hnCBaZ44Yn
-	 LbdlNYoi+f0FDva1WqWi1a6o8rGRzM5mXqhHrnsHsFrMSTl3BLdPt8v4TH6/kAlJ5+Bpg
-	 uArl9W/fa6PFii07+sWMUpJJCNTK1c7z/DVrBE0fzWpqmUXohyzX7AnJwXDgRrE2eHQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795353589;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YzpLgUS63R59GVJgQ2irGnTERPliChXawhwVX069f0Y=;
-	b=CUyWX6h0ITZK1gVLE57EiXVCOOfg9SoaG+r0ugNhVn5GvHECfSpEl9fRlZw2Oaz5iAEz
-	 TGxJylJgeOq7Efodc90y3Ctm+ZQE7XHC0oIadr91UpVX+4y+dyRz/HZnQOJI/nh/BOokx
-	 iV1DPMeVC8gpDPyetfxLm3Sjj/CNSbeqLa+8DCb1FIYLJUu1VRdcZKV/3lijEoqZIlJ+O
-	 EVwa2emb9YhEWtO+haJWdPqLMUYC6iu4JDCQ/adnoogAb3jeP/6//aJoAaOnhcWylhZO5
-	 rKOk4chgzXxZ27Rziigmiv0S80PZS/avyxfGSFjbJV9zf7azBNo8U9EmtiUbekOtevw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.29
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795353660;
+	b=RBXR7naMXOVQAZ6PeMIpgR92MfstNQxLExpqeZNnVWj81+tgozO0vUSXYVFolhAJnknD
+	 KGgmoMtyEyOoBaO6OIiQbXvcxsA3np34xc34OjLJkXdx7zc31YRE/xsWAHEaZuHQo+O+t
+	 TK/tWkHoBDxUIy6OMzKiX8vPrzunkvFjEsqTG5Hcb/oReeoInnC9UfaXIWuE5hP23jx45
+	 J58rBC+kyRuSvI5PuQKg+Y5+uweTzDlvWPMT0ytJFBft04CvJowW7ICxkDGFhQitgTI66
+	 LBCUazZE3sx+J4HksRoYC8T7qcd5QL1tIRpLFpdRCMO8poRgVsz24+cVIBLe/+R7hYw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795353660;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=eoP3hjAwq4Cw4bE/mFqEl7hyxh+jDCjYeuZjTBgdVoA=;
+	b=2usK7qRVzaHVyAEyZQYVrO/lUALdrkSux3/Kvxb34w2Wh0mQ7GdtBBA7gTPbZ3y1BS2z
+	 Yp0HPj9OYakInXJR53VAsZ/lYvHJjDH/mteQG6/AvBww7mSfDs6LpXSfv8kJzcgAZlddI
+	 K4af3whCgQ+ImligzxTNIuh1rI9nE+xiTcaJwVPtwTVIVa7lRcx5+J2EjOOv6BIKi8imF
+	 RLLvcxd5CdgfjRpGk6jILcLKhtGdYPDPNbFAektW2NLdFah8C5hiaEZAPhAtGLXZ0+Xo8
+	 VBAJ/HP9jF5CcBeKPb/k3qU7oAxub/ydTDBnly3drCQqdGn8jfkNWu17CX8KTnKuSGg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=rpoke7kI;
+	arc=none smtp.remote-ip=79.135.106.29
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7210A1F000CF;
-	Sun, 22 Nov 2026 13:19:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795353589;
-	bh=YzpLgUS63R59GVJgQ2irGnTERPliChXawhwVX069f0Y=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=fCwSgOM4j9qXS81kjewxgEOyprfe/ACKdpeKV4gu0tyEKPeG1RwmdK7btZx1NiBRL
-	 XW383ZmGxwbjeicsB1JNGdqgWBOOEdAcB2VQkMqRXLCecbl0qMGrNaztoxLG6j3Dvy
-	 HIUT67jLtrF3p8FWbZ8L+cvH06RdQnI4C5oEJ/clD+kX6USIssXqsub/bAakA9F3zg
-	 Jb9Z8u4N8rj6t0yJOxUVHWTDfcIbsS3c/j+UKRdAc+bK2f+043W+URi/W2HUZJ8D6w
-	 0XvSihVzJ/1h0SYPvtJtSfsVyVBz5kSzXD051vhd1QwqHhZYWyBvlv5aCWzmqm4l94
-	 ln5KHx5Vsma9w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 042154C04C;
-	Sun, 22 Nov 2026 13:19:42 +0000 (UTC)
-From: YanXin Li via B4 Relay <devnull+fadouse.pm.me@kernel.org>
-Date: Sun, 22 Nov 2026 21:19:07 +0800
-Subject: [PATCH] vhost: mask the in-order used-ring log cursor
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D4D606A320
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 13:20:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8D4D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=rpoke7kI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1795353654; x=1795612854;
+	bh=eoP3hjAwq4Cw4bE/mFqEl7hyxh+jDCjYeuZjTBgdVoA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=rpoke7kIbufv5EUE+v6QP9RKHaLv9d1qKHGkUFy0dbwBonBukYa4BaGXbmrm8WNVk
+	 m3uZZVey1t5mFukibLbam0SOEw8fBIt9sylsw0uynTm0vxf+RwueirbLJyiaScBMAl
+	 HVux3Ir16vSZ+lRQkEZ6T7U23zaAoORLPgu+3vJEFhv6hHMyWEOLoQMbvKLOLikTzQ
+	 LNmBXVTBRkdMVelcTB6RDEZpUzWwV3HA6hxJ+jdK7l8ie/oa6t1e6mvHjCFdz0J90y
+	 Ut6Rj2s11nbcT9bZcjbP5JHte8w3FaHTm9YqSHy9So6y5/tbfcchZf+3aj+EubmQJ+
+	 XmD2bDeMu9Eew==
+Date: Sun, 22 Nov 2026 13:20:46 +0000
+To: Tjerk Kusters <tkusters@aweta.nl>, Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Sven Auhagen <sven.auhagen@voleatech.de>, Richard Cochran <richardcochran@gmail.com>, Kurt Kanzenbach <kurt@linutronix.de>, Sriram Yagnaraman <sriram.yagnaraman@ericsson.com>
+From: Tore Sinding Bekkedal <toresbe@protonmail.com>
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Paul Moses <p@1g4.org>, stable@vger.kernel.org, Piotr Kwapulinski <piotr.kwapulinski@intel.com>, Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Alexander Nowlin <alexander.nowlin@intel.com>
+Subject: Re: [PATCH net v7 2/3] igb: only strip Rx timestamp header on the first buffer of a frame
+Message-ID: <d1cec124-8685-4be9-ae70-1142e3be4f88@protonmail.com>
+In-Reply-To: <20261120-igb-rx-ts-fix-v7-2-63b03045978e@aweta.nl>
+References: <20261120-igb-rx-ts-fix-v7-0-63b03045978e@aweta.nl> <20261120-igb-rx-ts-fix-v7-2-63b03045978e@aweta.nl>
+Feedback-ID: 21125876:user:proton
+X-Pm-Message-ID: 687ed69b38c3864e14592e27266a6843882b0919
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,130 +64,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-b4-06-vhost-in-order-log-oob-v1-35efdba8fbab-v1-1-fc1253d60351@pm.me>
-X-B4-Tracking: v=1; b=H4sIAMvrAmsC/yWNQQ7CIBBFr9KwdiIMIzZexbgYYLCYphiojcZ4d
- 1tdvpef/96qSc3S1Kl7qypLbrlMK5hdp8LA01Ugx5UVanTGIIIn0A6WobQZ8gSlRqkwliuU4mE
- xYA+Souc+efZA9miJo9FJs1ov71VSfv5y58uf28PfJMxbY1t4bgK+8hSGTVUZ+QWb3AcioylZR
- xj5iNo40oQOrVBvsbeO13DsRX0+XwQsXgnWAAAA
-X-Change-ID: 20261122-b4-06-vhost-in-order-log-oob-v1-35efdba8fbab-43734ad10f0a
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- Jason Wang <jasowangio@gmail.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>
-Cc: Linfeng Sun <linfeng.sun.dev@gmail.com>, 
- Fang Xieyan <fangxy@xiaopeng.com>, kvm@vger.kernel.org, 
- virtualization@lists.linux.dev, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795353580; l=4082;
- i=fadouse@pm.me; s=b4-relay-20261122; h=from:subject:message-id;
- bh=b9KCl8TEKKfFvwWrPZOWWYYFr6aHOdYXisG6z2qF2xQ=;
- b=rtGYSwT0f96cTkFcdpMJC+bA4UrATMjPWmfopHMa0rBlOaH2wrG5I0MbE+YBClP4375a69FHy
- oFvkhR6y+yyBBISZAXu8+XeXvpCilWOKqBUPiOyInwVPBvKzjWURmbW
-X-Developer-Key: i=fadouse@pm.me; a=ed25519;
- pk=b4DyzHJDRd8853IHUSKPA5wwzChj8eF4MTnZuyPz1PQ=
-X-Endpoint-Received: by B4 Relay for fadouse@pm.me/b4-relay-20261122 with
- auth_id=1597
-X-Original-From: YanXin Li <fadouse@pm.me>
-Reply-To: fadouse@pm.me
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: YanXin Li <fadouse@pm.me>
+On 11/20/26 12:10 PM, Tjerk Kusters wrote:
+> This is easily triggered by a GigE Vision camera streaming dark frames
+> (mostly 0x00 pixel data) over jumbo UDP with PTP active on the receiver:
+Mostly commenting to make this thread searchable -
+We ran into it on a Ceph cluster: Proxmox VE hosts (kernel
+6.14.8-2-pve) with Intel I350 ports in an LACP bond at MTU 9000.
 
-vhost_add_used_n_in_order() plays the batch of used-ring writes back a
-second time for dirty logging.  Commit e244725e86be ("vhost: fix used
-ring index wrap in vhost_add_used_n_in_order") masked the index in the
-descriptor-publishing loop.  The dirty-logging loop introduced by
-bfcde6b64769 still uses the single-subtraction form
+Enabling chrony's "hwtimestamp *" put the ports in HWTSTAMP_FILTER_ALL,=20
+after which jumbo frames arrived 32 bytes short (tcpdump: "total length=20
+9000 > length 8968") and were dropped. Small packets were unaffected, so=20
+  Ceph heartbeats kept passing while OSD traffic stalled, reporting=20
+laggy PGs and slow ops.
 
-    next = start + nheads[i];
-    if (next >= vq->num)
-        next -= vq->num;
+Note that removing hwtimestamp from chrony.conf and restarting chrony=20
+did not clear it; the ports stayed in HWTSTAMP_FILTER_ALL (using ethtool=20
+-T") until the filter was explicitly set back to NONE.
 
-If the guest refills the available ring while get_rx_bufs() collects
-one mergeable-RX packet, that packet can consume more heads than
-vq->num.  get_rx_bufs() permits up to UIO_MAXIOV = 1024 descriptor
-chains in one call, so a single subtraction is not enough.  For
-vq->num = 32, last_used_idx = 0 and nheads[0] = 64, next becomes
-64 - 32 = 32, which is still equal to vq->num and out of bounds.  The
-next iteration then logs
-
-    used = vq->used->ring + 32;
-    log_used(vq, 4 + 32 * 8, 8);
-
-which starts past the end of the 260-byte ring body (4 + 32 * 8).
-For a used ring placed inside page 7 at guest address 0x7ef8 (so the
-entire 262-byte ring occupies [0x7ef8, 0x7ffe) and
-vq_log_used_access_ok() validates only log_base[0]), log_used()
-marks [0x7ffc, 0x8004) as dirty.  log_write() then sets a bit in
-log_base[1] for page 8, past the single validated byte.  On a
-vhost-net RX queue configured with VIRTIO_F_IN_ORDER,
-VIRTIO_NET_F_MRG_RXBUF,
-VHOST_F_LOG_ALL, VHOST_VRING_F_LOG, vq->num = 32, and
-log_guest_addr = 0x7ef8, delivering one 8 KiB frame consuming 64
-mergeable buffers followed by one 1-buffer frame in the same
-count = 2 flush writes
-
-    log_base[1] = 0x01
-
-where log_base[0] = 0x80 is the only byte the kernel was entitled to
-touch.  A guest attached to a vhost-net backend with dirty-page
-logging enabled (for example during live migration) and a small RX
-ring can therefore corrupt dirty-log bitmap memory that the VMM owns
-outside the region registered for this ring.
-
-Wrap the logging loop index the same way the first loop does:
-
-    next = (start + nheads[i]) & (vq->num - 1);
-
-vhost_vring_set_num() already enforces that vq->num is a nonzero
-power of two, so this is well defined for every accepted ring size.
-The coalescing invariant is preserved: if a run is not flushed,
-next == start + 1.  When start == vq->num - 1, start + 1 == vq->num,
-whereas the masked next is always less than vq->num.  The run is
-therefore flushed before the cursor wraps.
-With this change the same vhost-net configuration publishes
-used->idx = 65 and confines the dirty log to log_base[0] = 0x80,
-leaving log_base[1] = 0x00.  The mask keeps next in [0, vq->num) for
-every accepted power-of-two ring size.  As a bounded cross-check of
-the index arithmetic, a Z3 model over ring sizes {1, 2, 4, 8, 16, 32}
-and buffer counts in [1, 64] finds an out-of-range result for the old
-subtraction (vq->num = 16, start = 15, nheads = 17) and none for the
-mask within those bounds.
-
-Runtime verification and fix validation were performed in an x86-64
-QEMU/KVM guest running mainline after v7.4-rc3, with Generic KASAN,
-UBSAN, lockdep, and DEBUG_OBJECTS.
-
-Fixes: bfcde6b64769 ("vhost: fix dirty logging for in-order used ring entries")
-Cc: stable@vger.kernel.org
-Signed-off-by: YanXin Li <fadouse@pm.me>
----
- drivers/vhost/vhost.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
-index dc973287567..80b887e1511 100644
---- a/drivers/vhost/vhost.c
-+++ b/drivers/vhost/vhost.c
-@@ -3206,9 +3206,7 @@ static int vhost_add_used_n_in_order(struct vhost_virtqueue *vq,
- 				log_start = start;
- 			log_count++;
- 
--			next = start + nheads[i];
--			if (next >= vq->num)
--				next -= vq->num;
-+			next = (start + nheads[i]) & (vq->num - 1);
- 			if (i + 1 == count || next != start + 1) {
- 				used = vq->used->ring + log_start;
- 				log_used(vq,
-
----
-base-commit: c44104f3642da720164042623e4832836aefdd8e
-change-id: 20261122-b4-06-vhost-in-order-log-oob-v1-35efdba8fbab-43734ad10f0a
-
-Best regards,
---  
-YanXin Li <fadouse@pm.me>
-
+Thanks for the fix.
 
