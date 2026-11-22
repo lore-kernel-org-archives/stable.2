@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795338709;
-	b=AxHyHjhyqZhP0DiryEK3Wjz2HCJFkgeiUoPsPM3Qi/Hxe2JNpwi+F2G/llgOulZice2W
-	 tIZuNzNWpZam0SseVE/HoxCpgmcdBc8H8JPezGVyOrrjEruIr+koQrD2RUXmXHc+xj8AU
-	 HsftbhXC4kiYozpeQ/kuGB/aXKpLno5CP6LdEmp/Fpqtp6AHsxrAZEVG9ZAyx8zG6ABIo
-	 32otpMfLOT8hGUlZa+MWUgQGE+uSYdqOCOGEbUNeatPI8bR50x/ktzxLnTxZrFhNhSiCX
-	 MBg8gMaTVNHEnDHJ05D2Iv1nzYMmuWhBdFq/VOwdo4W/I8IaUmabvxk7dw7WMGghv8w==
+	t=1795338750;
+	b=wp2syqK7yJfwEfF+SLK1aeRgOdmAD7rIb031/oNMdoRIpCjd7lmIfd6aku/sX/MH+XeM
+	 aGwYv3VmI/V95I4Bd/iNSarz2Y2qPHzcUnrFadSpg8qsg9L8+El3XaR60skJMcRij+kWK
+	 wsUg4fP48egC1WFK+nJYkZfyX53mHGvhanW5zQsblu4GnNLDinfclnDuYYdn8oGtJCF01
+	 IPqZ/13Y4I5DGGCc8C4JnLtXdZktlvbJztyHiDx77HCelh8EDbWJnox2l44IFS63KIc9w
+	 UusnoPCLLzjNS4TxrCISr19+D56202fbQMPeozDPzn4G/78A6mNHYglSu7NN4VR2lBQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795338709;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795338750;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=lYEphzy4ZTo14yzeEAHhxhKUuleMHJNSxpY9AD/9Z4s=;
-	b=hhSf/yC3pWyAB5N0SbgTXHlzik/aMYTkudQTnnsV8Yyk/gfWqQ0nAvoX3CqvBfizLgdi
-	 4EN6mZrQHWEOJJQI2EPTZSz50KoA7gvG8yLqquw4Gct6Y7BPs8CX9y/uvv2dCKNaB2Y71
-	 0AadUzT81FdQPo7ixYuvSFF7GnP1y1XxrHegcMk2q2wgLsZjc53v1QrjWNMUnniSO4gbA
-	 1xegLqTUoNR5TER/TLueLMoxV1KyCmA63sltLsaOmVm0bCnpKPi59lG2nyGMDrhd3fqDZ
-	 fQcYdz8rcGQ/lJpvVEcXY69XskE3gvv6TqZ1uXhJDiAASOI13K3+//epiiTH06R6G1Q==
+	bh=EQRZRUVgWLEXWXY2UUdHCwG6T9sZpfMFCWNR0hoVHQE=;
+	b=hbU7AtUyErJ2dpqGsQmGKKFISM9zRn6zLjKbXB8xo7zI7XjR0or4eSkly0TwyrwkdSj9
+	 ZMPBi3J9sM45bNra22yV0TVU2QD7sJxz0E+6xtU1Sdn5AtaB20FfPWm+hnUaqtvoCTV6+
+	 eoAfLgY5PQsq1PkXF8wd50wdE9y5wgLwodBWcnyRbESc2vKsMHWS2mD9ZDJsrG+r3Kaz/
+	 lgjm6DJMW29QYggrgKQHwQ01l5wl1dLRHqFbPJzQuutfKP8SqJTRy+mXYVchXBn2Ekx/W
+	 Auzsc0tZXJKJBfgvEeqvOF2D5mZK4tDTBpjZ/C6Y0CxnpDeKHts5WjUrd2sLGGbuS7Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="uIx3yc/i";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.170
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PLS4XcuQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E64606A32C
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 09:11:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43E64606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80D5606A331
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 09:12:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D80D5606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uIx3yc/i
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ab1bb9666aso1689871fa.3
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 01:11:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795338707; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PLS4XcuQ
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5be3dd6f636so185635e87.1
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 01:12:29 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795338748; cv=none;
         d=google.com; s=arc-20260327;
-        b=KrO0Ql6kslo8LVLnlNPLl15EiONxrKPEPJzZu4UIavC3qd2vzEqW6w4z92Og2HQUCI
-         Byw9+cmHmUoVFRL3Z7HY55Mhl1IFLd1qUZOaHyzoPjKX5/bbkylK6/zFiUKb0LC31Ioi
-         uQQZ4cxjqdQLfAps6GI2bTFFLIbFCs4JvjM4gd0RPw2ZaS6G0SJWoRziAT3JgUcyiph8
-         1H+A75lX/ueDZ0h27w7LVSCxMN66nIWWlAkMvmEB/ieDTR7/3kzCSfcbqMxslYc+DzxF
-         w3FG/r4bIjAGXnb9v3+5j2FyVYio1/MDAh7WuDT/chPt7InRHnKcIBv0CLrfyFbat1Xa
-         FAqQ==
+        b=WQpe83DO6jS6y591FdmA1xoQAo3oc788AWIPoBpK1UBIw+LUEP5pQqD5ZzZLosonSP
+         lo9s7N6/SP3wza63MjLpIQKBN7guP2n3lSvRmRepB1ROq0tYgeWKzQ9E01nZ6FiTAacq
+         4tmF+NKstDFEL56caN/ZMVI4cYe0Gekr9tEUMpOYpoYfaJtQ0G+qj79TpPx8qDAmp/yb
+         qi4JPjVEtKy1CKmtvp9HOBayY7pbqB8u6sVlSnm/cd1BWtMBls3J5SlgW9BCKbBkEwgK
+         ytD2Xt22+3kXRltuzdpis9kkpaXl6YH2fjiQ2kqFHIdpJWTBtEQpm+aIhKcWxo5LKLYz
+         9rDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=lYEphzy4ZTo14yzeEAHhxhKUuleMHJNSxpY9AD/9Z4s=;
-        fh=YAQKmcpBZRvqe+7GBZaBA1hqRKSf59U8A+OLA5oIZOQ=;
-        b=LumHSKk3DVaJRGi/nF22SqGxAgDBDq3tBrok3feL0Z6JRRROrML32OmuzLSn2XG6sS
-         lNs9hXqbWjyzchNXPmwNwRZ50gQmnJydhaGTv1NXj9T8rJ07P7SiHkaGXu6ynAfyM0Rm
-         SWk2ybeTCWMK32UoujkrXAZee4jJ8hd73JTsxHkVYW4gp0KmRjQXgkypHfhsyxoLnn+M
-         iQUSpp2Hgz/JlAIAEPVUe8MN5zKS3tFegD93z6zNeRgeb5z4cjw1qCVZ36VnhFOXysZb
-         jEaup0IAyHNZRnUIwJslHjLe+6Q60vsVzkSEJOJRY+2UNAQdIJMEHASp021yRzK/cDGP
-         Kd4A==;
+        bh=EQRZRUVgWLEXWXY2UUdHCwG6T9sZpfMFCWNR0hoVHQE=;
+        fh=Kw2zLWy6s/04jJCe0FvNdRBHHUpGE/0WI+LS4/SHQhA=;
+        b=lUEeyrsy3anZS7oHWEvu8hpnLmaOMrJq0aGr3gpUsiNQVVnXGkf8eLBuLupw94/Bny
+         awalU+kKpEZ1xiw2P5GEa33zVWSkgWRaNTzkauQi8UYMHllr1lH6Udb9a4+xo8N8+yu0
+         2MAXB8/zybRG8b4Ux97bAIWF7UTX9S6oMvV1Yy++9T7t49GSObVXXO6aQh25IM1FzrGG
+         kwSTzJ/67mlZd6mbsP5V6JeFWH8QPHIvCcP5+pPlq3dNMbdQwRPU87X0eK5i2Ocm5XjM
+         Odsikrm1Nd4Tbfkg+UHvjW5MCQEsjB7MrfTM3gaI8aW0A9tPPReKFuGyoolZdXQSSZEE
+         JWzw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795338707; x=1795943507; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795338748; x=1795943548; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lYEphzy4ZTo14yzeEAHhxhKUuleMHJNSxpY9AD/9Z4s=;
-        b=uIx3yc/iG2W0ZwLaYU4W3A4EJj6GSTn3YJ+PruVOjxG387fRjg+o7faziluMLrMIVO
-         vUxVPMTC8bZF43qLDT7lGIny4AzKbI3TSi3zpqm+u7sHn87y/Ji7tbvKA2tl756B6dau
-         y/KHufJ4wPsjhCvQpVXrZriNNqGL+7YOQ1Ea/+EkpMvcvEwC6FbxjI0M6eFnf4E5G+lP
-         nKhvGK6pznIqsf6LlJufQaF4zUY5PVLrb/MQIRUyQiTB+p1XOvNPF3vxsIBzDAuOOuaK
-         ueQvuSsorKvv0M/+whXuBx4MU5k+J3nWigyE1B8Hl2hB7ChY1Li4WCyj3bHmMunhErko
-         n0HQ==
+        bh=EQRZRUVgWLEXWXY2UUdHCwG6T9sZpfMFCWNR0hoVHQE=;
+        b=PLS4XcuQdsaZB2j2yf4YdDnBfZ1BFyW7tN/f+hhQY5ch5NWWQ5DRG/N0qkfcHEkjot
+         +6wCseLb/5VPyzjDgzvYeCeXcsNBYT13qwPPbwqkdlyO1vYivW2QRwnGfN2RO0wBaMvd
+         z2ACb0g7OPqWAIgH71B6etQRkvbLylRCvlJgQ5G8J4JwMhhul/oVR036M0iowTse1OPW
+         Vu2LU55F1jCM6vV9Qy5W2QAF0wBHWJluTb99lpdFL4bExaX7mkkLx5o+3O3Mbiv7tOQO
+         oh7OMpDtwTqTioQF+kuyqxcptav/gxGzeFva+s9vhYMD6A50yCFCPQfsN4H6t612wgkR
+         WgEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795338707; x=1795943507;
+        d=1e100.net; s=20260707; t=1795338748; x=1795943548;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=lYEphzy4ZTo14yzeEAHhxhKUuleMHJNSxpY9AD/9Z4s=;
-        b=CM997ie3gyCE9sKSGVIlIevsmhS30FixERm/73hQvCxFWmjQUKd1D2jrQ6AOdPCbzF
-         22EgX5FdbX+LqYFNx2SleP6WjZ4lqt0Kneiv0SE8aVIE+gWRTIi9okVOwcuHgy8z5Tq4
-         yrA9rqDQsF0J/jg7wifbsyOoBohZHFM46X+IYyoIGVcuVxW9ZnCIsLMYiA+zDmt0zSIj
-         lflLIEwkuCsy7hOhIucSNAgu5rnuwf252cotHBmboz9z2jWKZkHc6BUEEy+v1sO4JgBu
-         7GJvj3LPr7DDdXw/DwoEYIB3Cz73P6j31bXZcQlE0Oh09vB6pynEG8La89KVKN/e8pUY
-         F7iA==
-X-Forwarded-Encrypted: i=1; AL+hErHgdzrtrUTwvO/4Kqp8aIT8odDWIcqbcCnjsYsBDu/MByfFa0yr+K7/dyQ5axUUF5FdE3lHTPs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Zk/+AU25kgvrU7okece+gkTaIazSoiHUtQBJDpAUAEMhN1WWD
-	HPwznZFMaGcCPjJwnSIn/xF4159KfufhiIELcafzXmlcP4c1QjMprd5UqUivYsr0GnMBCKZAh6Q
-	m8L2ric2kxWWgsSnfkuVqwItLpIMFtqY=
-X-Gm-Gg: AZFdTZd6eQCMS4p/0taVgOoABap3rLqXuV54IDM08RujFRlpx7h4i4Di5iEtE8y2ihd
-	rGx9eektKHTomMBJe5O3UV++OTz1GROARn90dFzPylZWgDv6bnP1psJzF1U6XlZgnSR+nJ7qEyj
-	v4Q9XAkIO95eyS+J7zcaOUTVVJFL5qFq08WndiidsiewSzCRFQsnZW3URtaUlaVPHItCU1qZv66
-	BJBVPqR6DicqumeRH2GTpxRRonGiQTZPNPwE8DbG52e8pYzx29hvi5B1Ql0FSqBEQI+XvgMbt3k
-	PqqD5MRptpVo570PmCgn863TG7FReSpo4fdORNa719sKzUiH7J1QI7N3IjegZIzpxoSzifkczbv
-	ccXND8yDAZLYWbY7F1q5h4naOqDfOLuiiJ30qGpa4tRhJJOE4IbQ4p6zfQ+H2ZAztNNpEtkWu
-X-Received: by 2002:a05:6512:4382:b0:5c1:57ce:d4b4 with SMTP id
- 2adb3069b0e04-5c1bc75212cmr2114507e87.2.1795338707138; Sun, 22 Nov 2026
- 01:11:47 -0800 (PST)
+        bh=EQRZRUVgWLEXWXY2UUdHCwG6T9sZpfMFCWNR0hoVHQE=;
+        b=RASeVnRzSSMOm5/b6YAhHfmAgmdj1BSh8OG6LK45nPI5TYj9tfDOo79cjeNTKWGM+H
+         +7ujUFi6oWbBuGKBEeATCFJyCDsS9xPRLjQRaagdN3Zn2dwHeGG0g7DzQXo82ZMA6RZd
+         sLIGRPyfnuNu+xV+r97rba2judc/9Kj/MxXVnM0rZCuNELQVniE0fasXEfmaGrjCLVRQ
+         a18Ayba76f72mPIy3ZmIeXACzfjvX6B5zn87kr6HnMJx7iXMgwQEuFQ0qnc+2Q4Ga5Ro
+         V42/nLUH15LSlwm7/+f/kEIJyqXY3vj2vd+kMB9MCDAOV4tGez2VKe8FSfG5AqX452O6
+         HybA==
+X-Forwarded-Encrypted: i=1; AL+hErEbf4a3+1ABTJ3FqZx1jhZyGDW+/LtnyCZ4O7xuaSFNsFbne8NP7jdREfvWxMPEprRcc2fLuSo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9F+ccYVjcFlwsuzPmFxKlUR10CV+AOETN06+oUkETZLwOqlcm8
+	bgCOfO9YfmKMMI1uPwmd/4vZpuV0mW9vNHwZuv84kdavO8Hh9bZx/EF24IZvotVNwoKFQgpg8Uk
+	dAto6XZCc9H936uX5S3go6V0h6js37Ao=
+X-Gm-Gg: AZFdTZdOHMov7Sc0dq4WCQ44eP8+IxoXw4SrgluNscmaCV4gZzB7CLkWbMMINijDl2O
+	RzaXaqIOHv9wyJjj1pViC7WOkPGhO6qjOWsV1bDC6gw++o6Oh3VnfFjv9QtU3bWXW5mgZBld40W
+	iNnBpXUn4Artu3MQyIA9Ma2xgQzNrCDLqeEchTYQv+oJcaaUZkbKVFH1qPQXN2+ZdZf8h00DxH4
+	k3UBhOjrYVOg8+yTjdCF+s3G6LXPYUVsIGun3sb5etVTm854WvlD/AU5zDjVF5UbX9Ps535sJue
+	cWz655d7gMP6+JjBvYJlNdElpP3jhIFGv+uvP3CjnZJCDED6JSmm0RbdKqBTgOu6QRLhOQfJThn
+	cczLxU2uRAIP7gA4OVP0v0jfKLvveW8WEqhnTzh5kwhzFCADlWO0GjTM2q3MI6FBgOC5u+yQ=
+X-Received: by 2002:a05:6512:31c3:b0:5bf:e6a1:3115 with SMTP id
+ 2adb3069b0e04-5c1bc76a33fmr3276447e87.2.1795338747873; Sun, 22 Nov 2026
+ 01:12:27 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,32 +103,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261121-sun8i-emac-mtu-limit-v1-1-22492842d318@gmail.com> <CAGb2v65w3cVgxb_G38UgKEa4ErKLN4qiF05N3nmdJbmPeRRNBg@mail.gmail.com>
-In-Reply-To: <CAGb2v65w3cVgxb_G38UgKEa4ErKLN4qiF05N3nmdJbmPeRRNBg@mail.gmail.com>
+References: <20261121-sun8i-emac-mtu-limit-v1-1-22492842d318@gmail.com> <e72505dc-f20f-4473-98f2-52161e08c89d@bootlin.com>
+In-Reply-To: <e72505dc-f20f-4473-98f2-52161e08c89d@bootlin.com>
 From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Sun, 22 Nov 2026 01:11:34 -0800
-X-Gm-Features: Aa3M54rEVKMx6Ef6xvJSXV2IbIddu5RGXUJDnGgXRbNUM1fhz_Gu6V3X74W1H_Y
-Message-ID: <CAEy9hNVJ5NzKQ95gxN6UWxsgy6HFMMFxGYZ_sutmdb0gL3qRbA@mail.gmail.com>
+Date: Sun, 22 Nov 2026 01:12:16 -0800
+X-Gm-Features: Aa3M54oySI-tTJ0Yq8ZA8YifNr7RX6205w52YmRPUl3JnSPbZIf10o3azHoDuPs
+Message-ID: <CAEy9hNVyfNZu9R-2duqwFhYps9t58CwZM777yM7AmU0rcc=dYg@mail.gmail.com>
 Subject: Re: [PATCH net] net: stmmac: dwmac-sun8i: Limit the MTU to one
  descriptor buffer
-To: wens@kernel.org
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	LABBE Corentin <clabbe.montjoie@gmail.com>, netdev@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, 
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, LABBE Corentin <clabbe.montjoie@gmail.com>, 
+	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
 	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
 	Russell King <rmk+kernel@armlinux.org.uk>, Nicolai Buchwitz <nb@tipi-net.de>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Nov 22, 2026 at 3:26 PM Chen-Yu Tsai <wens@kernel.org> wrote:
-> So what's the overall plan? Limit it first to make things work, get the
-> fix backported, and then fix jumbo frame (>2K) handling so it works
-> for any MTU value?
+On 11/22/26 08:56, Maxime Chevallier wrote:
+> The problem is real indeed, but not specific to this glue. Rather, the max_mtu
+> computation should be fixed for normal descriptors altogether. Can you work
+> on such a fix ?
 
-Yes. v2 for net limits normal descriptors to one buffer in the stmmac
-core, with the lower sun8i limit on top, for stable. The jumbo series
-then goes to net-next on top of it and lifts the limit for sun8i:
-https://lore.kernel.org/r/20261112-sun8i-emac-jumbo-v2-2-aca0cf23cf17@gmail.com
+Yes, v2 does that in stmmac_main.c, with the lower sun8i limit as a
+separate patch on top.
