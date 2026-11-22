@@ -1,94 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=145.239.82.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795377546;
-	b=vtZNwZFU0f/z8odyqNWLBydrMER+XY8+gg7mLfhLNOAbgRYnhogUczwIAxatNAEDatji
-	 8QRvb6FzmUg2+uuqjy5/sY+xSksQrhPCJvKsIDmDpjHD0du8hHsruZtAJ1D/MoyUwF2SY
-	 kn2DXjnjJyKZ5uPSqcdtJMkeQA5aF7vSEiCfZ1arpmi/LhHKkN8y6LqQq6fr2DUH1v6GE
-	 ezjfPtT4M3dmdrD14ekZr9zJ0/6QMftfLhK9eCzP4IK7zoBStK3Lk6FD5dHXelK1gaSbP
-	 Uz0buX04dr8g0ZrQwQPWcH+L0qCnoXt1ABv/+S2NVU1NBH7353OoIl/7SSh8SXNJxRg==
+	t=1795377687;
+	b=IEAFmaC7c0CE+4QLcArsQzhcGT2XdcBnhwTdzdro+H5QHd8XxL1mBNMkn2Fx30XMjBI2
+	 nukvqVkLLsn7oK0vt/sB1y2ib0X/m035pJ2E7EorOrjjOl1j1LzEdDLN1LwWf3aGAC/mu
+	 Z+hQKVxPBYLGhufFTl5liqxZ1+kEFiiKVtoMPX2UNoH0A3SmNrvyw3vtZgE2UltKLI3zV
+	 ggl3tfkBTCflLfdyXQq1lznoG5OvkIdN5mjZembxw0SgC+68uc2Nt2+lMjvZA+9gaIil2
+	 KJUNSF2I+vY1ZxBYSkQPOzNBOSnQSNJdcc+3CMEwOhxRtxUgw/WG4naz3taY2VGxayQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795377546;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9486t8MDZh9CRWIIRPLLQLKLk1aMMjjsLJKjWbdp8Do=;
-	b=OXvztHpyISK/6B/Bjh1+h5N/D1gW2wB6gc2hSOmKRSbKVmZNebgik3zIqZ2wSDmyPrmv
-	 90lmI8FjEWmT97bbK56WE917lV26zrIzeAevuMWFv/FpZCGYNvoREgo4fi7l9d7L3sbn1
-	 7Mhq2yo49NDiYoIIQeQBj9Wzoo0cRvLD9S2/i+YFT+UyAl9PkfnQ1KHJHnMqLSFUgBBtB
-	 deASHQC3QPR2x83eDTeNoyVSXG/W+lhyMJLR95O6TxHRz1sBMhZjIAnn8aUnxZO17uiIl
-	 6sO+GPs+fQhWAaRTnaA29zRKDpt66hD95lbCHBxiFDL0fMdjizYGPYym8weOqbWtOmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795377687;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:
+	 Disposition-Notification-To:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:Sender;
+	bh=+FkGnM2fnU0IKINvnoMfZCIIgvS7HvGvB/+EcCAgPi4=;
+	b=Iiw8vLApl2xwVGHSaM8MOurVq9jy7a+O4O517oKIMaDW2EEnwaqID3O2T6wLOxSXf4L4
+	 Il8oXZ7+oY0ijQ/ByuhK7/bOFNywGRXKYRAglcxi1qcAkoCsyfFLryyOzOrLyS+YmLZo/
+	 aRv+fH76vJId+auHHtNpv9DaZwjWADB9tZvQHPIi14MFnLDtMEjQYYtT0lCFI7WKn9Rv2
+	 xBm4q6Q4Iu3yrdo2tSk2h9PFntHW8TX9LEN81oszYcJJomahitZsUKGLahznxikMJbhGS
+	 hol3RSXhSQJe6SeXLlttZqAOwRVJDboIJeJCxLqwvRKBEf+ljTyPooge7SJxUchESug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NkPD0MQq;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=maciej.szmigiero.name;
+	spf=pass smtp.mailfrom=vps-ovh.mhejs.net;
+	arc=none smtp.remote-ip=145.239.82.108
+Received: from vps-ovh.mhejs.net (vps-ovh.mhejs.net [145.239.82.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671CF606A31D
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 19:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 671CF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NkPD0MQq
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so19202955e9.2
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 11:59:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795377545; x=1795982345; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9486t8MDZh9CRWIIRPLLQLKLk1aMMjjsLJKjWbdp8Do=;
-        b=NkPD0MQq6shm1P6WXzCt9PBbua/tZdJvjpcery2bsGBOJ0EvWPvyi/7EOaS7A2Ajbc
-         p980qjvF3+xj3MGa6vobnV9thburPoRiImDLxDCcsoROrSrTzQU3J3NncteuWCJZ+9XM
-         TEST2Dsr/1wqCjHT+aci5RXhwxRtGwe19S+ZZNpgH4iWtTaWv5O2L9JWLIrdb30IScIy
-         ecEIWOGbX2iECi+rQBBnHvI6MriNC5PuNIaemx/k3nXuTr8NF+tCDHf4ig8fSLB0VICt
-         aXaxkxkw/JBjD7hpnF3PeuI1fgZavehgZpti7qxhTsjiLtahqj5UUpq2LkwIZWe0mAWj
-         lNpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795377545; x=1795982345;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9486t8MDZh9CRWIIRPLLQLKLk1aMMjjsLJKjWbdp8Do=;
-        b=KyHU+Ghh5nJS0196boyVT4j+mZiodEaZMDpQ8INRXHQPyg0C4RNb7Z9yTUDS7a5NNr
-         5Pw3cfcukJ4UwMkR6wP6k267P1EGk3RfzD67jCSGjem0CzXl+nDZtztpHWdzQOSN/v3m
-         3eLkK1/1P4NaoiRdAWzpQ38vDmFxHCNHCCuTez+nHszLx9msqdR2LiO/fLuKd59WRiP8
-         1RlVzMs7laFkZlSEfOHg3H/eTjoGlAouLP8+LewmJVvxLOfJFIOuWjuZyvbzKwJZZ0Q6
-         HT8oeCRKUg+F7oJr6dX2QUathMC0YUKSisq9oB/RXYNrWh0YLu/qzySi8tCFso5Ph7Yo
-         yaDQ==
-X-Forwarded-Encrypted: i=1; AL+hErF+NWH/aDYWlg8dgJv/SW+VHc/8bSVeiOiNs3rbY9DyT+GbGKmHIUhmf/ZeyU3WUD/oOFenr7U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+bJ889X0WMuzwr5q8HCG2aNYM8FfruCpPRRxNO8p9W+Z4mptIe
-	dtd+OsPXL2b42cjeiSVZv1Sr+877riqbXfTysYlrpzInAcLFW2Ce1NZF
-X-Gm-Gg: AZFdTZc0AFRrmT/hUbULdlmhkuUQ/Ahfiucin3AjD2nIWyv6GgiVowROM3UHYKJcuvW
-	TPAgnu18FgGF6Ipak6c3qxa3OAcNZZu8UDy4A+tUNsuF+iNQ787rQABUE8scW7emo/eWP5ZewBe
-	BfG953cLDQVOB80nMFJnlpKtXLvkr4p7dwdHyTsKm01yLkfj8ra7ppg5XI4vqDT7DVK7kayy759
-	Hc7WJwp58cFUK7g6Sjzj2tkGGz0W4Qs4DR8EZaHna/mA192XhEcZL8mmN527tOB/OuoyL1RSCey
-	09fLJJo5nc3feFmghfL0ZMkrOC1Ml3uY/BOAoIn+um9q4QrnC3ZPE781AU9C4n0c3fZhdqOzXm/
-	dP71AVGrIRdLc7o2drRrJNdMxLUPlG9Lu1x2LiF9urEq9ndwZFUEFkg81Yc6tUT/7V2BiSN0/7+
-	/xTQrPEeDgc8+NJxqFna2+6EPllfySwuzBqct7O1cxs78WZ0tkEhM7X1IjT16QEB9w/eSgGYDBt
-	AM3N4kdEoNL0cCfCmm/cws8voipVF1R4ySLpLcrzoTi355ilxvGCDVs5olSNOTMLFFk34rogWu1
-	7AGS3VTGIoqBSX81Nnb3ewpUYWrHoUmEhljepTJAqcJZzieEtpZ9jHwr0jC29EMy3OvPIcyeLoW
-	qUw==
-X-Received: by 2002:a05:600d:600b:b0:4a2:cbe:bec2 with SMTP id 5b1f17b1804b1-4bb8882375cmr203166315e9.32.1795377544621;
-        Sun, 22 Nov 2026 11:59:04 -0800 (PST)
-Received: from DESKTOP-V28CTA4.localdomain ([103.125.177.105])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b09bsm536568555e9.4.2026.11.22.11.59.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 11:59:04 -0800 (PST)
-From: Arbab Haider <arbabhaider649@gmail.com>
-To: Dave Kleikamp <shaggy@kernel.org>
-Cc: jfs-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	syzbot+d7ffeb5538fe5c793f74@syzkaller.appspotmail.com,
-	stable@vger.kernel.org,
-	Arbab Haider <arbabhaider649@gmail.com>
-Subject: [PATCH] jfs: handle NULL folio->mapping in metapage_write_one() and release_metapage()
-Date: Mon, 23 Nov 2026 00:57:58 +0500
-Message-ID: <20261122195758.32692-2-arbabhaider649@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EE5606A320;
+	Sun, 22 Nov 2026 20:01:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55EE5606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=maciej.szmigiero.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vps-ovh.mhejs.net
+Received: from MUA
+	by vps-ovh.mhejs.net with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <mhej@vps-ovh.mhejs.net>)
+	id 1xVDkP-000000014eN-1meP;
+	Sun, 22 Nov 2026 21:01:13 +0100
+Message-ID: <5651d569-d291-48e1-b38d-8cbdb2c2f0a8@maciej.szmigiero.name>
+Date: Sun, 22 Nov 2026 21:01:13 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,108 +48,161 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2 2/2] net: wwan: iosm: fix S3 resume by re-binding
+ the driver around it
+To: David Westen <davidlwesten@gmail.com>
+Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
+ johannes@sipsolutions.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org, nihaal@cse.iitm.ac.in, stable@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <20261119042714.505405-1-davidlwesten@gmail.com>
+ <20261119042714.505405-2-davidlwesten@gmail.com>
+From: "Maciej S. Szmigiero" <mail@maciej.szmigiero.name>
+Content-Language: en-US, pl-PL
+Autocrypt: addr=mail@maciej.szmigiero.name; keydata=
+ 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
+In-Reply-To: <20261119042714.505405-2-davidlwesten@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Sender: mhej@vps-ovh.mhejs.net
 
-syzbot reported a NULL pointer dereference in metapage_write_folio()
-called from metapage_write_one() during lazy commit teardown:
+On 19.11.2026 05:27, David Westen wrote:
+> On platforms where S3 cuts power to the WWAN card, the modem boots
+> again while the system sleeps, but the driver still treats it as
+> running. After resume its execution stage reads BOOT, and by the
+> first port open the boot code has crashed into the CD_READY stage:
+> 
+>    iosm 0000:03:00.0: PORT open refused, phase A-CD_READY
+> 
+> The modem then stays unusable until an ACPI reset.
+> 
+> Unbind the driver before S3 and bind it again after resume, as
+> commit 0b6f6593aa8c ("net: wwan: iosm: Fix hibernation by re-binding
+> the driver around it") already does for hibernation. The driver is
+> then torn down while the modem still answers, and the modem is probed
+> again once it has booted.
+> 
+> The target state isn't known yet when the PM notifier runs, so the
+> default suspend mode decides: the driver is re-bound unless "mem" maps
+> to suspend-to-idle, which keeps using the suspend/resume callbacks.
+> This changes behavior in a few cases:
+> 
+> - On platforms that keep the card powered in S3, the modem is now
+>    probed again on resume, which drops data sessions and recreates its
+>    ports.
+> - Entering suspend-to-idle or standby explicitly while the default is
+>    S3 also re-binds the driver.
 
-  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-  RIP: 0010:metapage_write_folio+0xa7/0xcf0 fs/jfs/jfs_metapage.c:428
-  Call Trace:
-   metapage_write_one+0x2c8/0x520 fs/jfs/jfs_metapage.c:818
-   release_metapage+0x5b9/0xab0 fs/jfs/jfs_metapage.c:884
-   txUnlock+0x509/0xdc0 fs/jfs/jfs_txnmgr.c:948
-   jfs_lazycommit+0x52c/0xa10 fs/jfs/jfs_txnmgr.c:2734
+I think this re-binding should never happen on s2idle, even though S3
+might be the default mem sleep method.
 
-During unmount or inode eviction, truncate_inode_pages_final() can
-remove a folio from its address_space (setting folio->mapping to NULL)
-while jfsCommit still holds a reference to a dirty metapage on that
-folio.  When jfsCommit subsequently runs txUnlock() -> release_metapage():
+It looks to me that the only remaining case here is the "opportunistic
+sleep" code which does not use mem_sleep_current (so won't be covered by
+pm_suspend_default_s2idle()) - but uses autosleep_state instead.
 
-1. If META_sync is set, metapage_write_one() proceeds with a NULL
-   mapping and calls metapage_write_folio(), which dereferences
-   folio->mapping->host (and filemap_check_errors(mapping) would also
-   dereference NULL).
-2. If META_dirty is set without META_sync, folio_mark_dirty() is a
-   no-op on an unmapped folio, leaving META_dirty set and the metapage
-   stranded on log->synclist; drop_metapage() then skips freeing it and
-   jfs_flush_journal() stalls waiting for log->synclist to empty.
+> - A suspend to S3 that calls pm_suspend(PM_SUSPEND_MEM) directly while
+>    the default is suspend-to-idle is not covered and fails as before.
 
-Fix both paths under the folio lock:
-- In metapage_write_one(), if !mapping, clear META_dirty and call
-  remove_from_logsync() on any attached metapages, clear the folio
-  dirty state, unlock the folio, and return 0.
-- In release_metapage(), if META_dirty is set on an unmapped folio,
-  clear META_dirty and META_sync and remove the metapage from logsync
-  so drop_metapage() can release it cleanly.
+Are there any such pm_suspend(PM_SUSPEND_MEM) calls in the kernel (outside
+some test code)?
 
-Tested locally in QEMU (x86_64, 4 CPUs, KASAN+UBSAN) using syzbot's C
-reproducer with per-iteration mount namespaces: crashed in <1s before
-the patch, and completed 56 mount/remount/unmount iterations in 15s
-with zero hangs, KASAN, Oops, or synclist warnings after the patch.
+> 
+> Fixes: 1f52d7b62285 ("net: wwan: iosm: Enable M.2 7360 WWAN card support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Westen <davidlwesten@gmail.com>
+> ---
+> 
+> Notes:
+>      Changes in v2:
+>      - New patch before this one: cancel the ADB timer in ipc_imem_cleanup().
+>      - Describe the changes in behavior and the remaining limits in the
+>        changelog, and say in the comment that the modem "may" lose power.
+>      - I also tried detecting the power loss on resume instead; my reply to
+>        the v1 review explains why v2 keeps unbinding before suspend.
+>      - Correction to that reply: the XMM7360 here does use MUX aggregation
+>        (CP capability 0x300), so the ADB timer is armed on it too.
+>      
+>      v1: https://lore.kernel.org/r/20261116031148.333990-1-davidlwesten@gmail.com
+>      
+>      Tested on an XMM7360 (ThinkPad X1 Carbon 6th gen, deep sleep) with this
+>      series applied to 7.2.15: the driver is unbound before suspend, and
+>      after resume the modem is probed again and comes up without an ACPI
+>      reset. Not tested on the XMM7560.
+>      
+>      The investigation and the patches were done with an AI coding assistant
+>      (Claude Opus 5.5). It read the driver and added temporary debug logging
+>      to record the execution stage around suspend and resume. We wrote the
+>      changes and the changelogs together, and I ran the tests.
+> 
+>   drivers/net/wwan/iosm/iosm_ipc_pcie.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/wwan/iosm/iosm_ipc_pcie.c b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
+> index 49052eb511ba..13e81012d818 100644
+> --- a/drivers/net/wwan/iosm/iosm_ipc_pcie.c
+> +++ b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
+> @@ -534,12 +534,17 @@ void ipc_pcie_kfree_skb(struct iosm_pcie *ipc_pcie, struct sk_buff *skb)
+>   
+>   static int pm_notify(struct notifier_block *nb, unsigned long mode, void *_unused)
+>   {
+> -	if (mode == PM_HIBERNATION_PREPARE || mode == PM_RESTORE_PREPARE) {
+> +	/* The modem may lose power in S3 and S4 and boot again on resume,
+> +	 * which the suspend/resume callbacks can't handle, so probe it again.
+> +	 */
+> +	if (mode == PM_HIBERNATION_PREPARE || mode == PM_RESTORE_PREPARE ||
+> +	    (mode == PM_SUSPEND_PREPARE && !pm_suspend_default_s2idle())) {
+>   		if (pci_registered) {
+>   			pci_unregister_driver(&iosm_ipc_driver);
+>   			pci_registered = false;
+>   		}
+> -	} else if (mode == PM_POST_HIBERNATION || mode == PM_POST_RESTORE) {
+> +	} else if (mode == PM_POST_HIBERNATION || mode == PM_POST_RESTORE ||
+> +		   mode == PM_POST_SUSPEND) {
+>   		if (!pci_registered) {
+>   			int ret;
+>   
 
-Reported-by: syzbot+d7ffeb5538fe5c793f74@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d7ffeb5538fe5c793f74
-Fixes: 35474d52c605 ("jfs: Convert metapage_writepage to metapage_write_folio")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
----
- fs/jfs/jfs_metapage.c | 34 +++++++++++++++++++++++++++++-----
- 1 file changed, 29 insertions(+), 5 deletions(-)
-
-diff --git a/fs/jfs/jfs_metapage.c b/fs/jfs/jfs_metapage.c
-index 41fe12e64..9df810c97 100644
---- a/fs/jfs/jfs_metapage.c
-+++ b/fs/jfs/jfs_metapage.c
-@@ -812,6 +812,23 @@ static int metapage_write_one(struct folio *folio)
- 
- 	BUG_ON(!folio_test_locked(folio));
- 
-+	if (unlikely(!mapping)) {
-+		struct metapage *mp;
-+		unsigned int offset;
-+
-+		for (offset = 0; offset < PAGE_SIZE; offset += PSIZE) {
-+			mp = folio_to_mp(folio, offset);
-+			if (!mp)
-+				continue;
-+			clear_bit(META_dirty, &mp->flag);
-+			if (mp->lsn)
-+				remove_from_logsync(mp);
-+		}
-+		folio_clear_dirty_for_io(folio);
-+		folio_unlock(folio);
-+		return 0;
-+	}
-+
- 	folio_wait_writeback(folio);
- 
- 	if (folio_clear_dirty_for_io(folio)) {
-@@ -879,12 +896,19 @@ void release_metapage(struct metapage * mp)
- 	}
- 
- 	if (test_bit(META_dirty, &mp->flag)) {
--		folio_mark_dirty(folio);
--		if (test_bit(META_sync, &mp->flag)) {
-+		if (unlikely(!folio->mapping)) {
-+			clear_bit(META_dirty, &mp->flag);
- 			clear_bit(META_sync, &mp->flag);
--			if (metapage_write_one(folio))
--				jfs_error(mp->sb, "metapage_write_one() failed\n");
--			folio_lock(folio);
-+			if (mp->lsn)
-+				remove_from_logsync(mp);
-+		} else {
-+			folio_mark_dirty(folio);
-+			if (test_bit(META_sync, &mp->flag)) {
-+				clear_bit(META_sync, &mp->flag);
-+				if (metapage_write_one(folio))
-+					jfs_error(mp->sb, "metapage_write_one() failed\n");
-+				folio_lock(folio);
-+			}
- 		}
- 	} else if (mp->lsn)	/* discard_metapage doesn't remove it */
- 		remove_from_logsync(mp);
--- 
-2.53.0
+Thanks,
+Maciej
 
