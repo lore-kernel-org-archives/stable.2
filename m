@@ -1,49 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795371025;
-	b=R28XQ7p58ANrtI7ljkJUCpUFi1SKWnt3JaFpGtc6d/FwZRtP9uxTCl57/WYAlpiy8LNT
-	 E++pOD4vQc0DelyTLgk7n+HRFNDG+WW8JRoK5+wCdjK2U4cPMVcO2ai1W+BlFmhJavaEL
-	 SPEaGg1FPGWJmD4AnUsnhwDzfLRw7ys/pdPHzXT6yeIzxlMC4LNcrgZzpyLJd1ykuu81X
-	 kwa9FpyJRWvCwHRLRAwZOFVWF0bbP++jRo4+u8beKKIdEYL675R1pjPaHB4y5sLmK4M8Z
-	 +Ylb3scBF4guP/G+oRNIsl0lMMYH9oucw9PteAqwCFAPe1J5ga3AGqWQImfunnFKpZg==
+	t=1795371390;
+	b=vU4WWtL6o3q5s449zWlkmriDxcO+3Tbme8vrK8h62luzAwJr0YrLe+Jr1JqV4uSDlsVH
+	 Kro0Ys0bm2c21GTGnhZ+Z4tICi4/p59JjQME7AxVUqPtnMg/343PQtMssKUhcYQrO8XDF
+	 jxDIu8BFkypA6PpmqA1Wfn3VObsw9kiQmoe7IwGWYkRUVcb4hZzzqFXnKsk2G5dAeeglp
+	 V6lYAp8kZIR9Fb2TKnOIoTND3W3EG8NyprIJDheDq6i2sEqlnfSLEG75pSesXvvYwPkxS
+	 RYz3t92cbq3MxpHJkGcuinWpG5ypp14KFcrYRBR0ITjxiQ2yAXapBrUgGzQjoFcyNUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795371025;
-	h=DMARC-Filter:EX-QQ-RecipientCnt:X-QQ-GoodBg:X-QQ-SSF:X-QQ-FEAT:
-	 X-QQ-BUSINESS-ORIGIN:X-QQ-Originating-IP:X-Originating-IP:X-QQ-STYLE:
-	 X-QQ-mid:From:To:Cc:Subject:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding:Date:X-Priority:Message-ID:X-QQ-MIME:
-	 X-Mailer:X-QQ-Mailer:X-BIZMAIL-ID:X-Address-Ticket:X-QQ-SENDSIZE:
-	 Received:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=OD5NavYjwmYRVbkR8VqwqhIDMwuk3hNu6EvrxHP0U9c=;
-	b=dRYWmDgiXLqPJB3XijSbu9C8fMyeqaeUjwcr+U28LZR+mZIBkXsaMcwZ8Yl+tk8bk1RY
-	 NDLj0IQXbTlU7NmUzKO2E2uKHZ74fOKfFI4v4GT7YWIK8lMaXyUN2eWKbzU+DRCiLEplu
-	 2RuF2qSfNe+nWYkFFR3pRqGStGhcus9yk5Vb01esNHzFoPjREXuRQZn3Yr5SU2tlBYq1x
-	 lwp5BINb/KXXCowupzMYaWsXE1/R3HYDMt4NGSsEBxUp6NPYhO8XcTAXcuc4mMBlWUZ3Q
-	 eewpB/iCg/4JGn7MP5DpG5w+nsssDyfmxh00W/V+MiMlw9+vSwGhJYdULU+moCuVL+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795371390;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=GC86Rl5d7G64rmKwKqSKNiErJx76bLmpSfAVjHTh11g=;
+	b=GTouBtTtplgjZBBnj5+LF/bzxQwG2gMatIDP8fw2IrPbmFVb0Uz0xlmM6uAfaswqsYwe
+	 LrAMBtGo+jNY8eb8WxoyhKyTYWN3dj1GQD1n+zu+Q9dAcYSzJ5/djmzFCmkzT+X0y0zMZ
+	 aG4XO43nyLZs+k22x44wS5NWZ8gZIKjK049N+nRn074FKs7TdoOt+EUhEuF1EGpqZg1Cg
+	 qHVQYW/QpzQDYMscm1sPnKW4K11u8NZNfJqinLN95dJHHrTbpaX58vJ56yAY+cgKYs5LV
+	 7gSJ7Lbe0DNjUnuQF2cTFpCeNUMyLxKnQ3bPco0El04NoSFB0LN1clniy/a97adOQ8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=e.gzhu.edu.cn;
-	spf=pass smtp.mailfrom=e.gzhu.edu.cn;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="i/kCXSSn";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=rCxngTgI;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850E2606A320;
-	Sun, 22 Nov 2026 18:10:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 850E2606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=e.gzhu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=e.gzhu.edu.cn
-EX-QQ-RecipientCnt: 8
-X-QQ-GoodBg: 2
-X-QQ-SSF: 0040000000000040
-X-QQ-FEAT: D4aqtcRDiqS21hctRIwgrWppQSBgmW2wb6dRneOslG0=
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: ssPzF9ThNV/vUaMJznugGAsWDLKqtAwhOAZ8ZpSZRvs=
-X-QQ-STYLE: 
-X-QQ-mid: v3sz3b-12t1795370946t337e6a40
-From: "=?utf-8?B?6buE5Y2O5oiQ?=" <1112433017@e.gzhu.edu.cn>
-To: "=?utf-8?B?bGludXgtcmlzY3Y=?=" <linux-riscv@lists.infradead.org>
-Cc: "=?utf-8?B?cGFsbWVy?=" <palmer@dabbelt.com>, "=?utf-8?B?cGp3?=" <pjw@kernel.org>, "=?utf-8?B?YW91?=" <aou@eecs.berkeley.edu>, "=?utf-8?B?YWxleA==?=" <alex@ghiti.fr>, "=?utf-8?B?ZGVidWc=?=" <debug@rivosinc.com>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
-Subject: [PATCH 0/1] riscv: usercfi: bind signal shadow-stack restore to the active shadow stack
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8C2606A32C
+	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 18:16:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA8C2606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=i/kCXSSn;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=rCxngTgI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795371388;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GC86Rl5d7G64rmKwKqSKNiErJx76bLmpSfAVjHTh11g=;
+	b=i/kCXSSnhy4AVySUQ8LxGhowx96vsJjlYXKs7alDhWVqfcKXL3+cdmBSAH1sAU/WTF8T6j
+	XVJH9ZfifMkBhulLIBC4nY1bE1KOqBCfWWNRRu3cAFfamT+FHYsTBFVYTvdOqDdrvJNq6L
+	Jq8Cw3sWDKtZPBMKDzxXOPSoFxOdH3I=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-468-9GI3nE9aMQKuRoQDxzCVpg-1; Sun, 22 Nov 2026 18:16:26 +0000
+X-MC-Unique: 9GI3nE9aMQKuRoQDxzCVpg-1
+X-Mimecast-MFC-AGG-ID: 9GI3nE9aMQKuRoQDxzCVpg_1795371386
+Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6a5d57a8d51so2833783a12.1
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 10:16:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1795371385; x=1795976185; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GC86Rl5d7G64rmKwKqSKNiErJx76bLmpSfAVjHTh11g=;
+        b=rCxngTgIyvjrvdeIyP27cmqJSxpMzxGriNTQdQ3Y+VnfGCo1B+/zfE4gLaY/xoIfqq
+         qsYoWhNo3BRI2LGN6nvXJkh6y0iTy88u4zv7rHNQvmCxRQN2GXgNZKVgG0W/Qd/0u45B
+         4sNWSjGdkw553JMqylmkeNevkGpyNjkc8aZS6OVoA44JIjf5xWk/lgilvWAmlj6CNfV0
+         w5VPwe1R5RenIPKC/2xriQo0Jdz5q6tivUWD8gSaUykZDrzXV3frCYQX3jPZJoW29nWL
+         0bVJ0hmoHusBqzfPwNB/VGtTOuRn8hGLNBnzsHeGWa/cs05P3JMrN7s8z/XcLiSB1duG
+         xaEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795371385; x=1795976185;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GC86Rl5d7G64rmKwKqSKNiErJx76bLmpSfAVjHTh11g=;
+        b=x0oJeYF5m/Fy1gZXz8FV7wikYlJi4dlFFEJ5H+/G/3XkELNL6pCGjbz58W95gzGiof
+         G5/LNil0yAjbPvxqVxyrJJETqURTWv6HDNd0ruIcDJ/NeZJBiD+k/AvojlTGXLmqXQpM
+         rN4EP6alqWlPr2QjgLluvvXkqpQRmaJfE6kmTy0AKtjrm7fegzy/cfhdimBAB4NohcU0
+         8bz6VC3OUSr2+TOrZI72LP9GgiVDFebtcbfGv5jtQFjUhQc28D25Ycc7Dp1wGM+uHHC1
+         Yo1kobHOxYV8BPfnp6Qf76mfVWU2RIadZkamOOHdnoWGBFGpEnT+r2kjKKKVLPegtxWK
+         wDgQ==
+X-Forwarded-Encrypted: i=1; AL+hErFJcmb6shuOwRtPn6OdlRZA5rfS4EWvVfYOk3mwoe0lpV2Wpy/Bh4S7kXFwjoA9IwieT+9G1+g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1IxP+YBpE+bhga315+5z2NovudLUJV7OeN76SFaqNmg0R9y/1
+	A0FXL+LKozPznruDi3MIouVamRWGhOHyLEIsNKaKNdtJzcQKuW48ryS03Qx+D6+9CJ1QNY/Gkqb
+	omqZjfXsAsz8r0b/THpMMxKJOO/d2wxpKgXWI+PjXvREPDLxODCTsIDmOKw==
+X-Gm-Gg: AZFdTZc4gpE+amlpg3LLA132E5ZjxkQ/QTmJ5z1c+VkArOMHVJSc1GVAqV5pmu5b3Sn
+	lHDjBZrNu6cmKQmyLUTFmDME6sK0FXKGneBIkHqdOHls56qSIWpJY9BSGViLIqegrVubWxkMfoc
+	J7X1vVM8Tfm4H7anIh4ANYPUOD3HjCP1M+u3CqogyIcvg8c3HH5zJDedBtaPcN4sw4oauZRkk9R
+	nimKBPCMp8n5Jw5kE/pMrg3ZlHmzH/0up+BhQzKRvkTBQO0KvGPdy15y6lUNreeCO124mZTKY2C
+	QfHzxEIbCdrh4P7huwz0drua9mKzDNbHbOVASFbn+GqsNuOuoMhrvOPKHQmIwzBrkqaX00BWWAv
+	zFNXIY+w1BkeCjESxBnCQx/14xi1BkIi9tNOkXwKhPIii9/EyBQN1DnI3Qq69aavy24LM/FBFNq
+	o1Ci+heTI5jPZ8RvEAfTIkNjyHM7IV1ydy4kylcBDS3XarcyaucskipBe1UB+TxJtF6ebWi3IL8
+	beDKbgx4SY1imAhVAfccs7i1+X0hqjiw9Wnp1i+3Cl0RIfAN0jj
+X-Received: by 2002:a05:6402:1e8e:b0:6ba:5993:cec5 with SMTP id 4fb4d7f45d1cf-6ba5993f458mr4312653a12.35.1795371385695;
+        Sun, 22 Nov 2026 10:16:25 -0800 (PST)
+X-Received: by 2002:a05:6402:1e8e:b0:6ba:5993:cec5 with SMTP id 4fb4d7f45d1cf-6ba5993f458mr4312645a12.35.1795371385314;
+        Sun, 22 Nov 2026 10:16:25 -0800 (PST)
+Received: from cluster.. (4f.55.790d.ip4.static.sl-reverse.com. [13.121.85.79])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370faeeasm4410449a12.22.2026.11.22.10.16.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 10:16:24 -0800 (PST)
+From: Alex Markuze <amarkuze@redhat.com>
+To: Kaho Jiang <kj2864@nyu.edu>
+Cc: Ilya Dryomov <idryomov@gmail.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
+	Xiubo Li <xiubli@kernel.org>,
+	ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	co+408fcc361565713f@bugs.sh,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] ceph: Use unsigned types for snapshot split counts
+Date: Sun, 22 Nov 2026 18:16:22 +0000
+Message-Id: <20261122181622.1294305-1-amarkuze@redhat.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261113030257.1061200-2-kj2864@nyu.edu>
+References: <20261113030257.1061200-2-kj2864@nyu.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,91 +122,19 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Mon, 23 Nov 2026 02:09:06 +0800
-X-Priority: 3
-Message-ID: <tencent_009592B86559C9177427E98A@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-BIZMAIL-ID: 4503553002980438403
-X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1])
-	by smtp.qq.com (ESMTP) with SMTP
-	id ; Mon, 23 Nov 2026 02:09:07 +0800 (CST)
-Feedback-ID: v:e.gzhu.edu.cn:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: N4WhQbLQyIqSuvWlBh58XioR6WOTTPxNT25mudBrnCIRfrZugK+43r3f
-	XUFrjVOwmR2GkADKDnEGQuOTP0mpTuHIfWVuBA2FBu5a9YcINP24oNA0f8lCKnO6KlxxtWa
-	NsUoP40qC4Rs8Sx12S6LZN5pdpU1u4lYxYdxW46Ww5ybTJdibTTLcmFUEjyPiROfMBu9HiN
-	Hb2SIpZJ9pGBNbKHYo3W2t4yG7StbUS1/Berh0FXx5nK23pkI7w/gaVkBTMtw0Hoa86Uplk
-	SAFuERNj7ecvV8xTDVANb0L+Dmku4zM2ws8WwVnc+SGzIYO+DgQWxWNmL3S3McKXJc4puYE
-	u0QgzMxfNB3za7eYUaU/xzWAt0cML7q37mbPoIuMWbQYNdM8Gm8YHAacP4EwU2KD0/58Tli
-	EZcU4ljgCb/445UWMaYmaY0eo4NwHsBdtFRmuI2y+D4ZqLA4ZZ0YVV9DtCEvVXc76Qc41MC
-	Wd+UPcjqRuta/YPSBTVtvNOzBbo7gFIjDawlylXQ7/kTKjsM5D6e61oCdcB5PS7931sIRzC
-	ceCJzmvEJS/Hdc30g1wOYwETFmMj/C2CuXz55CP+5rabewQ475oJ5fCRsaovnij1BJQczjv
-	fJhXICJu0Eu8bMZLKchoCd7u4gpZrJTgYXLJy0l0U4pbQJ87HNqesm/MkTobiwIY7LS4WHH
-	6cXshbtl2rMZrezFlej3/N/VtHd3SpudGvkXdpfswN3jkmu6w1kmCjMD4Y1kwgTuG+oklIS
-	sRPUYg3E4zTaC1EdlBJ0fQgP3qVKs0rDxdEXW9byZpJJTkYwL+PReSrAJzU1WK7rKKPYFp6
-	8lYL9+suCzqD5QANT60C6MocZUPRS1ncKqGL9vFebhrCVGAFlmC7Q5uzItEfnmp6MqaXZOx
-	AiedjZEiNFdkxF1FQKc2SBHDMqLxwqXafa1vWYM/Jvee8xEVmPOpbpXjjkSr2fAEUzmAx1u
-	U4m38myTR/WL9oYhQ5+n34iPrQKem3zPXGgLY8PhVnEqxa2mAit5JUS4w
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-SGVsbG8sV2hpbGUgYXVkaXRpbmcgdGhlIHNpZ25hbCBwYXRoIG9mIHRoZSBSSVNDLVYgdXNl
-cmNmaSBpbXBsZW1lbnRhdGlvbiAoWmljZmlzcyBzaGFkb3cgc3RhY2tzKSBhZ2FpbnN0IHg4
-NiBDRVQgYW5kIGFybTY0IEdDUywgd2UgZm91bmQgdGhhdCByZXN0b3JlX3VzZXJfc2hzdGso
-KSB2YWxpZGF0ZXMgdGhlIHJlc3RvcmUgdG9rZW4gb25seSBieSBhIHZhbHVlIHJlbGF0aW9u
-ICh0b2tlbiA9PSBzaHN0a19wdHIgKyBTSFNUS19FTlRSWV9TSVpFKSBhdCBhIHBvaW50ZXIg
-dGFrZW4gZnJvbSB0aGUgdXNlciBzaWduYWwgZnJhbWUgKHNjX2V4dGRlc2Muc3NfcHRyKSwg
-d2l0aG91dCBiaW5kaW5nIHRoYXQgcG9pbnRlciB0byB0aGUgc2hhZG93LXN0YWNrIHBvc2l0
-aW9uIHRoZSBrZXJuZWwgaXRzZWxmIHJlY29yZGVkIGF0IHNpZ25hbCBkZWxpdmVyeS5BIGNv
-cnJ1cHRlZCBzaWdmcmFtZSBjYW4gdGhlcmVmb3JlIHBvaW50IHRoZSByZXN0b3JlIGF0IGEg
-c3RhbGUgYnV0IHN0aWxsLWxpdmUgdG9rZW4gZnJvbSBhbm90aGVyLCBuZXZlci1yZXN0b3Jl
-ZCBzaWduYWwgY29udGV4dCAodGhpcyBpcyBhbiBpbi1ib3VuZHMsIGdlbnVpbmVseSB2YWxp
-ZCB0b2tlbiwgc28gaXQgcGFzc2VzIHRoZSBib3VuZHMgY2hlY2sgYWRkZWQgYnkgZGYzMzNi
-NzJjMGUxKS4gIFRoZSBrZXJuZWwgdGhlbiBzd2FwcyB0aGUgdG9rZW4gb3V0IGFuZCByZXdp
-bmRzIHNzcCB0byB0aGF0IHRva2VuJ3MgcG9zaXRpb24gLSBhbiBhdHRhY2tlci1jaG9zZW4g
-aGlzdG9yaWNhbCBzaGFkb3ctc3RhY2sgZGVwdGggLSBhZnRlciB3aGljaCBzc3BvcGNoaygp
-IHZhbGlkYXRlcyBhIHJldHVybiBhZGRyZXNzIHRoYXQgaXMgb25seSAidmFsaWQiIGF0IHRo
-ZSByZXdvdW5kIGRlcHRoLiAgV2UgY2FsbCB0aGlzIHJlcGxheSBjbGFzcyBBLVJFV0lORC4g
-IHg4NiBDRVQgZG9lcyBub3QgaGF2ZSB0aGlzIHNoYXBlOiBpdHMgc2lnZnJhbWUgY29udGFp
-bnMgbm8gc2hhZG93LXN0YWNrIHBvaW50ZXIgYXQgYWxsIGFuZCB0aGUgdG9rZW4gaXMgcmVh
-ZCBmcm9tIHRoZSBrZXJuZWwtY3VycmVudCBTU1AuVGhyZWF0IG1vZGVsOiB0aGUgYXR0YWNr
-ZXIgYWxyZWFkeSBoYXMgYSBtZW1vcnktY29ycnVwdGlvbiBwcmltaXRpdmUgc3VmZmljaWVu
-dCB0byBjb3JydXB0IHRoZSBzaWdmcmFtZS4gIFRoYXQgaXMgZXhhY3RseSB0aGUgdGhyZWF0
-IG1vZGVsIHNoYWRvdyBzdGFja3MgZXhpc3QgZm9yLCBzbyB0aGUgcmVzdG9yZSBwYXRoIG11
-c3Qgbm90IHdpZGVuIGl0IGludG8gYSBjb250cm9sbGVkIENGSSBieXBhc3MuV2UgZGVtb25z
-dHJhdGVkIHRoZSBmdWxsIGNoYWluIGVuZCB0byBlbmQgb24gYSBmdWxseSBoYXJkZW5lZCB0
-YXJnZXQgKFBJRSArIEFTTFIgKyBjYW5hcnkgKyBGdWxsIFJFTFJPICsgTlggKyByZWFsIGNs
-YW5nIFppY2Zpc3MgaW5zdHJ1bWVudGF0aW9uLCBydW5uaW5nIHVuZGVyIExpbnV4L3Jpc2N2
-NjQgdXNlcmNmaSk6IHRoZSBjb3JydXB0ZWQgc2lncmV0dXJuIHJld2luZHMgc3NwIHRvIGEg
-Y2hvc2VuIGRlcHRoLCBzc3BvcGNoayBwYXNzZXMgb24gdGhlIHJld291bmQgc2xvdCwgYW5k
-IGV4ZWN1dGlvbiByZXN1bWVzIGF0IGFuIGF0dGFja2VyLWNob3NlbiBzaXRlIHRoYXQgcGVy
-Zm9ybXMgYSBwcm90ZWN0ZWQgYWN0aW9uIG9ic2VydmFibGUgb25seSB2aWEgdGhlIHJld2lu
-ZC4gIFdpdGggdGhlIHNpeC1saW5lIGJpbmRpbmcgYmVsb3cgdGhlIHNhbWUgY2hhaW4gaXMg
-YmxvY2tlZCBhdCB0aGUga2VybmVsIGNoZWNrLlN0YXRpc3RpY3MgZnJvbSAxMzAgaW5kZXBl
-bmRlbnQgZXhlY3ZlIHJvdW5kcyAoNzAgdW5wYXRjaGVkIC8gNjAgcGF0Y2hlZCwgQVNMUiBv
-bik6IHVucGF0Y2hlZCA2Ny82NyBzdWNjZXNzIGFtb25nIHJvdW5kcyB0aGF0IGNvbXBsZXRl
-ZCByZWNvbm5haXNzYW5jZSAoMyByb3VuZHMgbG9zdCB0byBhIGxlYWstd2luZG93IGFydGlm
-YWN0IHVucmVsYXRlZCB0byB0aGUgcGF0Y2gpOyBwYXRjaGVkIDUyLzUyIGJsb2NrZWQgYW1v
-bmcgY29tcGxldGVkIHJvdW5kcy4gIE9mZmljaWFsIGtzZWxmdGVzdHMgKHJpc2N2L3NpZ3Jl
-dHVybiwgc2lnbmFsL3Nhcywgc2lnbmFsL21hbmdsZV91Y19zaWdtYXNrKSBwYXNzIGlkZW50
-aWNhbGx5IG9uIGJvdGgga2VybmVscywgYXMgZG8gbm9ybWFsL25lc3RlZC9zaWdhbHRzdGFj
-ay8gc2lnbG9uZ2ptcC9zZXRjb250ZXh0L3N3YXBjb250ZXh0IHNjZW5hcmlvcy4gIE92ZXJo
-ZWFkIG9mIHRoZSBhZGRlZCBjb21wYXJpc29uIGlzIGJlbG93IG1lYXN1cmVtZW50IG5vaXNl
-IChzdWItbnMgbmF0aXZlOyBUQ0cgcnVucyBzaG93IG5vIG1lYXN1cmFibGUgZGVsdGEgYWJv
-dmUgYm9vdC10by1ib290IHZhcmlhbmNlKS5UaGUgZml4IHVzZXMgdGhlIGV4aXN0aW5nIGdl
-dF9hY3RpdmVfc2hzdGsoKSBib29ra2VlcGluZyB0aGF0IHNhdmVfdXNlcl9zaHN0aygpIGFs
-cmVhZHkgbWFpbnRhaW5zIGF0IGRlbGl2ZXJ5LCBzbyB0aGUgYWRkZWQgY29zdCBhdCBzaWdy
-ZXR1cm4gaXMgb25lIGNvbXBhcmlzb24uICBUaGUgcGF0Y2ggaXMgZ2VuZXJhdGVkIGFnYWlu
-c3QgdGhlIHRyZWUgd2UgdmFsaWRhdGVkIG9uOyBpdCB0cml2aWFsbHkgcmViYXNlcyAoc2lu
-Z2xlIGh1bmsgaW4gcmVzdG9yZV91c2VyX3Noc3RrLCBwbGFjZWQgYWZ0ZXIgdGhlIGRmMzMz
-YjcyYzBlMSBib3VuZHMgY2hlY2spLlJlcHJvZHVjZXIgKHByb2JlLCBzY3JpcHRzLCBwaW5u
-ZWQga2VybmVsLWltYWdlIGhhc2hlcywgbG9ncykgYXZhaWxhYmxlIG9uIHJlcXVlc3Qgb3Ig
-dmlhIGEgYnJhbmNoLlRoYW5rcyxMb29raW5nIGZvcndhcmQgdG8geW91ciByZXBsee+8gQ==
+Hi Kaho,
+
+The new array-length checks return through ceph_handle_snap()'s bad
+label, which drops the message without fencing I/O. If the MDS sends a
+malformed snapshot update, the client can miss it and continue writing
+with an out-of-date snapshot context, risking snapshot contents.
+
+Please fence I/O on these failures and use the same blocklisting and
+session-close handling as for a corrupt snap trace.
+
+Thanks,
+Alex
 
