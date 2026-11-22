@@ -1,56 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795387743;
-	b=0iPCjGEOu/FdqKLFYELXeQVIzg+gPScqBHRj5/aJqsrLVwe9Uo4QCotSlawW+fF/ZjYu
-	 1b9vlKIRLMDQDP4QnPhQCk2i9q6NShwJy9lj/PcKB2yz6aI/PNR3Te286DK4R/tXxwVnV
-	 BhVbHMri5E7fhMpukX5cndDzdZis6hLXRBZ9lmojaD0lKn5V5aqyjt+DIZy+8/3Fdsk7x
-	 sY2RjmOU4JLr46WvtXt12WgWcCKODFsZmxGfjVjoSzgmFlMFCX5aC4pu5bdI1AS1DSRpf
-	 a1EG3iiSeQ1+mLiIxL19+qL2lGAnmUFQxuxEmPkQ8kAMJ7J6ZfxIBRGsdkPKk5sLcwg==
+	t=1795387754;
+	b=Sb/PJJLsey+EWjVdD1ZIONmB0qhl3T8IUE73sX5JOHlJm7PZGKHteXHy3xUtg8XkgfCz
+	 OqyiQhDFi1dWq8sv6QmG+VSW/ZXnI9L3AqtixK1vft0F/cvjZG63VP6P6nLsjd0sCDfAn
+	 zksUPORpEmiJAnlP1qbPw73SaUsQvXEAxwiWdHu0tU5/7NRepLDLADEagoF7Q9XO6C0AK
+	 3BadWRJu0bt3xhMrQ4PDPe719sQ8pyD6PnKPfigCkeS0j+qbFdTGS0k0HsFtqDDerMd3c
+	 o3ZxpquAF54VlAljwMqEfx72T6M5u97iD/zZHh7hapIwIp2hifoicgnfG6LIh3CKjmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795387743;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hOw58rI+vx/7SP6XhjNI+vvX7bRtUaE3SiyNmla8FV8=;
-	b=T6zSY42Xg9/ZiG9bR4NSLKRFwtXsWUPIHhhPuiWIaqcRXdyXNFEjj7n98STYdSQzj/w1
-	 KEiVYlWYc/JjoAreJyZTuEmlRE0ehyE8wJk5WGMPHxVzMiR3apMRlNdpo1OpnAfjJoA2u
-	 ngd6EShfmwvG98RwD5sl8JiGVf5Qe6qoLJRF6BJDl6oiNvUelF2LVrfrH3ErI/rMdfnlc
-	 tH2Ik5ZqyRARSPhzYk/75uU1D071judPVmtNb55k31UhseyxfXwJWzJeXfS4dlyXHV2SK
-	 MVliyrMyN2rQMAhsT6pbf9GrMRItrD1fzDD0/VDKXcjFNtpBUYEBlVdt5JLQ4SFFGPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795387754;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=5JDR8Hqene+rdEcUO5Up4IkiyJUzR3DqWgd6zemjbwA=;
+	b=TLjuBhxuUpFX5vwAKuonSiEN+pSt05F5IwSWqirfE3nKa/2NJqjPiOpfw2y5+ke7mo0a
+	 nS8N3KlHgBwZeDouhvW+vwxfnQLWuQ1mUnR+hTfl1zdlQzf0SqWe8XkxlUXngzgt3l7iF
+	 DDxCxShXCP72mpB8daTQAGXS/6o0a++/pmd5VMJWmt9JXHsmKZ11EetEDSMNkFWFmflsZ
+	 8/2T5NofYZhRPORSLSuDn672MQqcTgW+b+R7VrYZQbouoYRX9dJ/i97M9WChOw5Tmgh6m
+	 DJpcqjwsJXH1CZDt+CH8SAcoZHG2WMwLmP7Uvp5ws8v+7mZMxuXG5BzcKh/ykkkcUMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=innora.ai;
-	spf=pass smtp.mailfrom=innora.ai;
-	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=CQj8Ya11;
-	arc=none smtp.remote-ip=109.224.244.21
-Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch [109.224.244.21])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=DM+fUKM0;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=vfa+c3Va;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB88F606A31A
-	for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:49:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB88F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innora.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innora.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFA0606A31D;
+	Sun, 22 Nov 2026 22:49:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BFA0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=CQj8Ya11
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=innora.ai;
-	s=protonmail3; t=1795387740; x=1795646940;
-	bh=hOw58rI+vx/7SP6XhjNI+vvX7bRtUaE3SiyNmla8FV8=;
-	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=CQj8Ya11KCWPrKr3gjjN/iCN4RgTIhasSGTRPL8aqOzkJBU9vDl2qXYnKt6GNwNK+
-	 qcHC1m/+LB2UHw9ZBiHeW+coAsgtHy4MlicVUlm/CbbSdEiOaP+7/d2gH2hUwBu4K5
-	 9GrNngD426QSnRuYnDk5cIRLAzvGBNS8JTX8KP5FcXSjPzBhIOz2ClvS74J6zdaFcN
-	 mUwumOYsKco0NP5J4SQLAr0LcXZqOQKUepvwWe9vBmKiX87tYBu2snTpwKkciAPXpS
-	 Ujt9VsDxvyF9rzoo1sF9ObItSAiN8LWhpKKVYqhk1YTrL058hEtN8wLPFMC6d+7e1m
-	 D4qyUA/Vl2+Dg==
-Date: Sun, 22 Nov 2026 22:48:56 +0000
-To: stable@vger.kernel.org
-From: Feng Ning <feng@innora.ai>
-Subject: [PATCH 5.15.y v2] staging: media: atomisp: use array3_size() for overflow-safe allocation
-Message-ID: <fwcZVPcKe1picX9vKUK3AvAzdpckI822Gql8jzqdqRwZ90bvO6JPUNWRsS3N_GsVtGNz8ymembMBoIRIi3DaT1DvsfNLef497rSNWtREFkQ=@innora.ai>
-Feedback-ID: 140578448:user:proton
-X-Pm-Message-ID: f8ca17553678aeb4bce14fa11eddcbf8a0322dd7
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=DM+fUKM0;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=vfa+c3Va
+Date: Sun, 22 Nov 2026 22:49:10 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1795387752;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5JDR8Hqene+rdEcUO5Up4IkiyJUzR3DqWgd6zemjbwA=;
+	b=DM+fUKM0gTD3hTnEnqXpVZdK/AtxjsC1sgLYtg4sTRlETCuX6U7RMTDYMudXFQTqfe8Kfv
+	gNkbMe+a2Jr+iFU8P/B0YkMRY4usje6kQxAgsp65aUSJi1oxy9PTWZKTouVEuoJ32DBN95
+	gGgxTDlJek5iJSbwlYO05Sxyoi6zaVZronTiOgy6F99USFMxzj7Q4JGup0U86010Feu38V
+	fYgXN5qmVCFccftk7cDFGE/5cinF4Qp/oytsl55P0tmEV1tDfINh06ApJmEwV2gfUGLEUh
+	dwyjA6AlK0rIHpbVGCk1GGqspD1dqRtBay1Y13D50bfKqSFSRbvqRU8aamSbbQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1795387752;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5JDR8Hqene+rdEcUO5Up4IkiyJUzR3DqWgd6zemjbwA=;
+	b=vfa+c3VaYnzTO0J8noXK4rA7V1tFWhSHWnsDZK6s0UWUTRG+mmW64qmsF/4R4JUznWCy70
+	vKSQgPlZ0RcmSsBA==
+From: "tip-bot2 for Usama Arif" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: perf/urgent] perf/core: Fix perf_sample_data reuse across
+ software events
+Cc: Usama Arif <usama.arif@linux.dev>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261119211235.99805-2-usama.arif@linux.dev>
+References: <20261119211235.99805-2-usama.arif@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,202 +80,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Message-ID: <179538775038.92412.1181985385445483116.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-commit d178c7ca8fefc28115d35b94c3b1f4d653e34182 upstream.
+The following commit has been merged into the perf/urgent branch of tip:
 
-Replace open-coded width * height * sizeof() multiplications with
-array3_size() to prevent integer overflow in buffer allocations.
+Commit-ID:     a3c976da55a8da3b5759bcca94832f757763059d
+Gitweb:        https://git.kernel.org/tip/a3c976da55a8da3b5759bcca94832f75776=
+3059d
+Author:        Usama Arif <usama.arif@linux.dev>
+AuthorDate:    Thu, 19 Nov 2026 13:10:44 -08:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Sun, 22 Nov 2026 16:07:42 +01:00
 
-The atomisp driver computes DVS, morphing table, shading table and
-statistics buffer sizes using unchecked arithmetic.  When dimensions
-are attacker-controlled or simply large, the product can silently wrap,
-causing kvmalloc() to allocate an undersized buffer.
+perf/core: Fix perf_sample_data reuse across software events
 
-array3_size() saturates to SIZE_MAX on overflow, so kvmalloc() returns
-NULL instead of succeeding with too few bytes.
+do_perf_sw_event() passes one on-stack struct perf_sample_data to every
+matching event. perf_prepare_sample() fills in the fields an event
+samples, marks them in data->sample_flags and skips fields that are
+already marked, and those marks survive from one event to the next.
 
-Signed-off-by: Feng Ning <feng@innora.ai>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+So a sampling event later in the list emits the sample ID, timestamp,
+pid/tid and callchain prepared for an earlier one. Its record size is
+computed from the earlier event's dynamic fields as well and can come
+out smaller than what is written, in which case the kernel writes past
+its ring-buffer reservation over the records that follow.
 
+Two "perf record -e page-faults,context-switches -c 1 -a" sessions
+running at the same time hit this: the one started first gets the
+other's sample IDs and fails with "Bad address".
+
+Commit:
+
+   1d1bfe30dad5 ("perf/core: Fix perf_sample_data not properly initialized fo=
+r different swevents in perf_tp_event()")
+
+fixed the same problem for tracepoints. Do the same here: initialize
+the struct for each matching event. While at it, drop the unused 'data'
+argument of perf_swevent_match().
+
+Fixes: bb447c27a467 ("perf/core: Set data->sample_flags in perf_prepare_sampl=
+e()")
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261119211235.99805-2-usama.arif@linux.dev
 ---
-Changes in v2:
-- restore the upstream changelog verbatim
-- drop the incorrect backport note about <linux/overflow.h> includes
+ kernel/events/core.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c b/drivers=
-/staging/media/atomisp/pci/sh_css_param_dvs.c
-index ff0082d02..0d0862979 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
-@@ -13,6 +13,7 @@
-  * more details.
-  */
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 51c251c..42bd8ad 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -11142,7 +11142,6 @@ int perf_exclude_event(struct perf_event *event, stru=
+ct pt_regs *regs)
+ static int perf_swevent_match(struct perf_event *event,
+ 				enum perf_type_id type,
+ 				u32 event_id,
+-				struct perf_sample_data *data,
+ 				struct pt_regs *regs)
+ {
+ 	if (event->attr.type !=3D type)
+@@ -11207,11 +11206,10 @@ find_swevent_head(struct swevent_htable *swhash, st=
+ruct perf_event *event)
+ }
 =20
-+#include <linux/overflow.h>
- #include "sh_css_param_dvs.h"
- #include <assert_support.h>
- #include <type_support.h>
-@@ -58,7 +59,7 @@ alloc_dvs_6axis_table(const struct ia_css_resolution *fra=
-me_res,
- =09=09}
+ static void do_perf_sw_event(enum perf_type_id type, u32 event_id,
+-				    u64 nr,
+-				    struct perf_sample_data *data,
+-				    struct pt_regs *regs)
++				    u64 nr, struct pt_regs *regs, u64 addr)
+ {
+ 	struct swevent_htable *swhash =3D this_cpu_ptr(&swevent_htable);
++	struct perf_sample_data data;
+ 	struct perf_event *event;
+ 	struct hlist_head *head;
 =20
- =09=09/* Generate Y buffers  */
--=09=09dvs_config->xcoords_y =3D kvmalloc(width_y * height_y * sizeof(uint3=
-2_t),
-+=09=09dvs_config->xcoords_y =3D kvmalloc(array3_size(width_y, height_y, si=
-zeof(uint32_t)),
- =09=09=09=09=09=09 GFP_KERNEL);
- =09=09if (!dvs_config->xcoords_y) {
- =09=09=09IA_CSS_ERROR("out of memory");
-@@ -66,7 +67,7 @@ alloc_dvs_6axis_table(const struct ia_css_resolution *fra=
-me_res,
- =09=09=09goto exit;
- =09=09}
+@@ -11221,8 +11219,10 @@ static void do_perf_sw_event(enum perf_type_id type,=
+ u32 event_id,
+ 		goto end;
 =20
--=09=09dvs_config->ycoords_y =3D kvmalloc(width_y * height_y * sizeof(uint3=
-2_t),
-+=09=09dvs_config->ycoords_y =3D kvmalloc(array3_size(width_y, height_y, si=
-zeof(uint32_t)),
- =09=09=09=09=09=09 GFP_KERNEL);
- =09=09if (!dvs_config->ycoords_y) {
- =09=09=09IA_CSS_ERROR("out of memory");
-@@ -77,7 +78,8 @@ alloc_dvs_6axis_table(const struct ia_css_resolution *fra=
-me_res,
- =09=09/* Generate UV buffers  */
- =09=09IA_CSS_LOG("UV W %d H %d", width_uv, height_uv);
+ 	hlist_for_each_entry_rcu(event, head, hlist_entry) {
+-		if (perf_swevent_match(event, type, event_id, data, regs))
+-			perf_swevent_event(event, nr, data, regs);
++		if (perf_swevent_match(event, type, event_id, regs)) {
++			perf_sample_data_init(&data, addr, 0);
++			perf_swevent_event(event, nr, &data, regs);
++		}
+ 	}
+ end:
+ 	rcu_read_unlock();
+@@ -11243,13 +11243,10 @@ void perf_swevent_put_recursion_context(int rctx)
 =20
--=09=09dvs_config->xcoords_uv =3D kvmalloc(width_uv * height_uv * sizeof(ui=
-nt32_t),
-+=09=09dvs_config->xcoords_uv =3D kvmalloc(array3_size(width_uv, height_uv,
-+=09=09=09=09=09=09=09      sizeof(uint32_t)),
- =09=09=09=09=09=09  GFP_KERNEL);
- =09=09if (!dvs_config->xcoords_uv) {
- =09=09=09IA_CSS_ERROR("out of memory");
-@@ -85,7 +87,8 @@ alloc_dvs_6axis_table(const struct ia_css_resolution *fra=
-me_res,
- =09=09=09goto exit;
- =09=09}
+ void ___perf_sw_event(u32 event_id, u64 nr, struct pt_regs *regs, u64 addr)
+ {
+-	struct perf_sample_data data;
+-
+ 	if (WARN_ON_ONCE(!regs))
+ 		return;
 =20
--=09=09dvs_config->ycoords_uv =3D kvmalloc(width_uv * height_uv * sizeof(ui=
-nt32_t),
-+=09=09dvs_config->ycoords_uv =3D kvmalloc(array3_size(width_uv, height_uv,
-+=09=09=09=09=09=09=09      sizeof(uint32_t)),
- =09=09=09=09=09=09  GFP_KERNEL);
- =09=09if (!dvs_config->ycoords_uv) {
- =09=09=09IA_CSS_ERROR("out of memory");
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_param_shading.c b/dri=
-vers/staging/media/atomisp/pci/sh_css_param_shading.c
-index 69cc4e423..460a8099a 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_param_shading.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_param_shading.c
-@@ -13,6 +13,7 @@
-  * more details.
-  */
+-	perf_sample_data_init(&data, addr, 0);
+-	do_perf_sw_event(PERF_TYPE_SOFTWARE, event_id, nr, &data, regs);
++	do_perf_sw_event(PERF_TYPE_SOFTWARE, event_id, nr, regs, addr);
+ }
 =20
-+#include <linux/overflow.h>
- #include <linux/slab.h>
-=20
- #include <math_support.h>
-@@ -350,7 +351,8 @@ ia_css_shading_table_alloc(
- =09me->fraction_bits =3D 0;
- =09for (i =3D 0; i < IA_CSS_SC_NUM_COLORS; i++) {
- =09=09me->data[i] =3D
--=09=09    kvmalloc(width * height * sizeof(*me->data[0]),
-+=09=09    kvmalloc(array3_size(width, height,
-+=09=09=09=09=09 sizeof(*me->data[0])),
- =09=09=09     GFP_KERNEL);
- =09=09if (!me->data[i]) {
- =09=09=09unsigned int j;
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_params.c b/drivers/st=
-aging/media/atomisp/pci/sh_css_params.c
-index 85cf280bd..a7983a656 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_params.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_params.c
-@@ -13,6 +13,7 @@
-  * more details.
-  */
-=20
-+#include <linux/overflow.h>
- #include "gdc_device.h"=09=09/* gdc_lut_store(), ... */
- #include "isp.h"=09=09=09/* ISP_VEC_ELEMBITS */
- #include "vamem.h"
-@@ -1402,11 +1403,11 @@ struct ia_css_morph_table *ia_css_morph_table_alloc=
-ate(
- =09}
-=20
- =09for (i =3D 0; i < IA_CSS_MORPH_TABLE_NUM_PLANES; i++) {
--=09=09me->coordinates_x[i] =3D kvmalloc(height * width *
--=09=09=09=09=09=09sizeof(*me->coordinates_x[i]),
-+=09=09me->coordinates_x[i] =3D kvmalloc(array3_size(height, width,
-+=09=09=09=09=09=09=09    sizeof(*me->coordinates_x[i])),
- =09=09=09=09=09=09GFP_KERNEL);
--=09=09me->coordinates_y[i] =3D kvmalloc(height * width *
--=09=09=09=09=09=09sizeof(*me->coordinates_y[i]),
-+=09=09me->coordinates_y[i] =3D kvmalloc(array3_size(height, width,
-+=09=09=09=09=09=09=09    sizeof(*me->coordinates_y[i])),
- =09=09=09=09=09=09GFP_KERNEL);
-=20
- =09=09if ((!me->coordinates_x[i]) ||
-@@ -4369,13 +4370,17 @@ ia_css_dvs_statistics_allocate(const struct ia_css_=
-dvs_grid_info *grid)
- =09=09goto err;
-=20
- =09me->grid =3D *grid;
--=09me->hor_proj =3D kvmalloc(grid->height * IA_CSS_DVS_NUM_COEF_TYPES *
--=09=09=09=09sizeof(*me->hor_proj), GFP_KERNEL);
-+=09me->hor_proj =3D kvmalloc(array3_size(grid->height,
-+=09=09=09=09=09    IA_CSS_DVS_NUM_COEF_TYPES,
-+=09=09=09=09=09=09sizeof(*me->hor_proj)),
-+=09=09=09=09GFP_KERNEL);
- =09if (!me->hor_proj)
- =09=09goto err;
-=20
--=09me->ver_proj =3D kvmalloc(grid->width * IA_CSS_DVS_NUM_COEF_TYPES *
--=09=09=09=09sizeof(*me->ver_proj), GFP_KERNEL);
-+=09me->ver_proj =3D kvmalloc(array3_size(grid->width,
-+=09=09=09=09=09    IA_CSS_DVS_NUM_COEF_TYPES,
-+=09=09=09=09=09=09sizeof(*me->ver_proj)),
-+=09=09=09=09GFP_KERNEL);
- =09if (!me->ver_proj)
- =09=09goto err;
-=20
-@@ -4642,24 +4647,26 @@ ia_css_dvs2_6axis_config_allocate(const struct ia_c=
-ss_stream *stream)
- =09=09=09=09    params->pipe_dvs_6axis_config[IA_CSS_PIPE_ID_VIDEO]->heigh=
-t_uv;
- =09IA_CSS_LOG("table Y: W %d H %d", width_y, height_y);
- =09IA_CSS_LOG("table UV: W %d H %d", width_uv, height_uv);
--=09dvs_config->xcoords_y =3D kvmalloc(width_y * height_y * sizeof(uint32_t=
-),
-+=09dvs_config->xcoords_y =3D kvmalloc(array3_size(width_y, height_y,
-+=09=09=09=09=09=09     sizeof(uint32_t)),
- =09=09=09=09=09 GFP_KERNEL);
- =09if (!dvs_config->xcoords_y)
- =09=09goto err;
-=20
--=09dvs_config->ycoords_y =3D kvmalloc(width_y * height_y * sizeof(uint32_t=
-),
-+=09dvs_config->ycoords_y =3D kvmalloc(array3_size(width_y, height_y,
-+=09=09=09=09=09=09     sizeof(uint32_t)),
- =09=09=09=09=09 GFP_KERNEL);
- =09if (!dvs_config->ycoords_y)
- =09=09goto err;
-=20
--=09dvs_config->xcoords_uv =3D kvmalloc(width_uv * height_uv *
--=09=09=09=09=09  sizeof(uint32_t),
-+=09dvs_config->xcoords_uv =3D kvmalloc(array3_size(width_uv, height_uv,
-+=09=09=09=09=09=09      sizeof(uint32_t)),
- =09=09=09=09=09  GFP_KERNEL);
- =09if (!dvs_config->xcoords_uv)
- =09=09goto err;
-=20
--=09dvs_config->ycoords_uv =3D kvmalloc(width_uv * height_uv *
--=09=09=09=09=09  sizeof(uint32_t),
-+=09dvs_config->ycoords_uv =3D kvmalloc(array3_size(width_uv, height_uv,
-+=09=09=09=09=09=09      sizeof(uint32_t)),
- =09=09=09=09=09  GFP_KERNEL);
- =09if (!dvs_config->ycoords_uv)
- =09=09goto err;
-
+ void __perf_sw_event(u32 event_id, u64 nr, struct pt_regs *regs, u64 addr)
