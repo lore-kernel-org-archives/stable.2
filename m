@@ -1,100 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.35
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795424299;
-	b=gVrpxacH3nkrTCr4HsXrpWixIAg8uC3l6ymolW0y/RnRcmxHt0casrdqDEbKjUWuwREP
-	 DgMLAJOd3XI/PUP5IV6k9aa2GC2RtGoX0zreKn3t9FkT0cGF0jPpgub5IZOY8teBVPslB
-	 OB0QCHmnySX7rVWZLdWcpXgminfXdK1kc5MOIpjBCFRFK7yVapt2P0/6h5YdFGccS2Ucr
-	 GbubDpNTmKjNSIV2BB3Hav37qhhpgjzBw+fBmzG1YFU4Ti1HU+92PYxZPQi5eJEoE2lar
-	 EAoDEVG8yU9tHQ7W4JWe033qTI7CquQQTEIUi0wo0pJf/h5HR+AtUZLFBb2S2UsG1Ig==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795424299;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GDcrYVJnE/3hlpSFAuu6SO1jid6zoDQ9uRlcaOqVfUg=;
-	b=c3jWeudcAAbpkXx0Tf4oO+OQvP9nyuAk8DViROEituufcCsGjXSMCsfx9rOUz5R4sl17
-	 w7COvC9rPWszbS/6HbeCTgVC5cFazg4xbitEUjcZA/bVW8PrJc0xDCERpWXiulq5f9aXa
-	 nT8l/1xOHU93VrnqlWHiejYUA8l69NZd8lmK7jUGY8shk8SPnhjlGBLkT3pFcd11+b4j/
-	 cIaOT/rGnFhr/IZHEOaGzvUk281yqs2nH18CDVxoszTt9+rKvLkQqrLEaY2UJJ3xP8/JX
-	 iQskcpVcRiVR/1KzKtdY4l5VxkZEMYghOK5tD4uJHLBbnhjmeMN3ytbxEbkHEudVbmA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=gZakmTQ7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.35
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013035.outbound.protection.outlook.com [40.107.162.35])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795424338;
+	b=XrTy2eCXLIr+M0j0TfG/gZ3SJk2Ce2SLSvCo5a8b5+zNB1DekrchgqeyIn4E799JKy5h
+	 7Sko1YCjYGUs6ptbT5M/L8vcREGER84P8aD+G/WLdJfnCj7XgZzmaoG9FpWpqZqwfMPBY
+	 GEM4GiS4Px2u+uNhIdVOm0u6WKH1WwhuSFCt4S+Mzx9lvRVgnVsGxy8zSsAGiJHU8JVws
+	 A9fsqJ96lRL2dtQ+vFNilJhqBkQFMqMQcqU4VEZvlBGpog/GCBuox6OXyxkIs8Jwlw3oz
+	 p9jb5TxvwgGbIk61dpnzI/FWvHTKKYhC60Sta9CkE8td11qSdvU3lPT3XJzV15a4lOQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795424338;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=tEOyxuEsk0JOC4PDA4fd08/KnLW7AODcfbwN/MrfZis=;
+	b=alAdIZZfR3qbstppztgD8QriUZ76JaUp47qXf1NCHHOucn7uY0yNBusyfMeLg10fN82S
+	 dSyDmF4pLnppFhkvb4BreOKdWsLVApp5EAw9B71AgztkZ8EU+zu21npu589fCsU/5F+0r
+	 3IH8hraa99fwt1UYGxW9y1NZnoiY9vA5zTS5fkGULGVh5fq1W5IVlvnYWui8tZcsJPiPH
+	 FB5A8yqBaDiZ5/uHVGbzM/GYhobok63Bq5cWbrJ856FnxvTL8ZtPLHQBWfMxSjTYCOosv
+	 6+jWA0U01reu2xfMw1rzPy1LqoS4JMl6OmHXrkgwuehEu7O6wOoAyX/t8Wt0RObCNUA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dyPrjSEF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dpe+g8yd;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dwAbpBhI;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+KDTEgj0;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F5D606A31A;
-	Mon, 23 Nov 2026 08:58:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2F5D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46907606A32E;
+	Mon, 23 Nov 2026 08:58:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46907606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=gZakmTQ7
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iYrJ/h79nUtAUBGCncHwLgfbX7a1v7aC/lP9vt1c1I4I6yYF5MX3VEasUUHKHJeQX7sc8wpHtwrn5ow2I+3T0y781Xuegd+OfPkrjNYnMtzhVGQXc7rL/7bLvg6x7uf2VTIT+PNBJhgdjbxqQOQGlHHQmkJcEvFvQjuSu/B1DHuKFVp+uYjClv8cInQvJyILYmNf72tsjEdm+QdLn+rV1XfuD9+7X91BDTCq453xBCpwxkOYoGJTSN3AFi38NtX5zp6923WMFCOMbsmEAoy0IeCKx1ks5LhMBCvbP4BFTQr0cKP326UcU/NR/qba5kO4HdwIHI34q+49e7B9mns4aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GDcrYVJnE/3hlpSFAuu6SO1jid6zoDQ9uRlcaOqVfUg=;
- b=QXHDC3E2XF3jV15FsxhjfU7CL5wAmy3zgTKT3G7VrQuXImV3Eq9mN2NU7kdmlHs+S5iV07Km2k4EhoxrF1N02ufRadGkpKYL7hXcduljh4OyojPSNX0unbR/XQM7iAHyp7xxoW+qd8SKCQaq+dPUpab2xJBwL99jOzMJb0ZbTqD/Cj0Px7PTgrUWu1oKMSTnCo4e0jtz6GmSlY5Wl+O7syCLQwE0PA2WMUHCmM7t0SsW1fIms8YO6W9t7oL1zeoCR2QCGveIW5bGuO75v5gmHboaFwcEu2dEmS7howp2fEv8ocAqCQt0Zya6p0zg8QEfYw9Rr/f480xzLh+T3Va/bg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GDcrYVJnE/3hlpSFAuu6SO1jid6zoDQ9uRlcaOqVfUg=;
- b=gZakmTQ7GG2aI0tlym3iff2+uIn2EG+XYqKBvTQb32FAKPmJSPfQa+evXZDJYia9FPoEvIDDP/OtH/gh8Elnj5iWot5vFaCEQazq9WtyytKVSgFZm1XhbH1zpidbnnimDvNCq6H3lL09w/vvi2S3JntiEqIf5LXwHqzHS+I4DHbq+S+x9ZSbkVRMtEIZUO4cat+SE/V7z0AXRWQl4tQbq+7ZfgK9NlzhHhtxd+SO7wqaDzbpcu0t4keAr9HFsTzmgAVAl3HgAADh7IPYameAPzqPMhcpSIewS4k7qc1T5xba7vCtpMMD9LvTNQ+CXTXMqnXrH+XoFo6RQA2lD3vMFQ==
-Received: from VI1PR06CA0100.eurprd06.prod.outlook.com (2603:10a6:803:8c::29)
- by VI0PR10MB8384.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:21a::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.3; Mon, 23 Nov
- 2026 08:58:15 +0000
-Received: from MI3PEPF00008483.eurprd02.prod.outlook.com
- (2603:10a6:803:8c:cafe::54) by VI1PR06CA0100.outlook.office365.com
- (2603:10a6:803:8c::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.14 via Frontend Transport; Mon,
- 23 Nov 2026 08:58:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- MI3PEPF00008483.mail.protection.outlook.com (10.167.240.170) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Mon, 23 Nov 2026 08:58:15 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 23 Nov
- 2026 09:59:02 +0100
-Received: from [10.48.87.222] (10.48.87.222) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 23 Nov
- 2026 09:58:14 +0100
-Message-ID: <ae764ee9-cef8-415d-ad3f-64572ed5f4f0@foss.st.com>
-Date: Mon, 23 Nov 2026 09:58:14 +0100
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dyPrjSEF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dpe+g8yd;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dwAbpBhI;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+KDTEgj0
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 831D721BD0;
+	Mon, 23 Nov 2026 08:58:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795424336; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tEOyxuEsk0JOC4PDA4fd08/KnLW7AODcfbwN/MrfZis=;
+	b=dyPrjSEFdQ690ptE3kkO5BDGRPw/uCdmya/lTY2yR7XmEcqW0eWLLTfaEKu8TY6ZLzN8Ap
+	Z728unwL1IGaioE+7AFzjmSI9V8z2ZcXSbaKZHxzECzfKxXauWSleiSvJ4LC4sgANCOLCS
+	JEW/a/7c7OIV/HOFyPMbKkbGrA6zmek=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795424336;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tEOyxuEsk0JOC4PDA4fd08/KnLW7AODcfbwN/MrfZis=;
+	b=dpe+g8yds6TOQIp0DDKiM0TMmkUy7NYCBYl7x8n0jws+oPw+HTlwg5uZXH4inokAqbNZ2Q
+	se1anG/j8J331yBA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795424335; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tEOyxuEsk0JOC4PDA4fd08/KnLW7AODcfbwN/MrfZis=;
+	b=dwAbpBhIVqCSGI4GavOf8JJwiSsUeAuVgNrB8SnAUFT7kSZkMb6K3KFHYXrTsAA+NX+vq6
+	g6UnXh2XLHzqK1i5QAtSa49UCR/VMAkSwLlDgduGqouA560bLwmHuuNH5sdoSjUPPyxcUt
+	/RjoOijUHRE/EGjQPYUdnZkElAU8SH0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795424335;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tEOyxuEsk0JOC4PDA4fd08/KnLW7AODcfbwN/MrfZis=;
+	b=+KDTEgj0Qtp4uw0kKIubHexu+9b7TQuRaJ9TAKOde7uEaR27YOT0tci/ppWD4OJiR6SMCj
+	vBDDVciPZfSbV4Bw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0F4F61352B;
+	Mon, 23 Nov 2026 08:58:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3yPhNU4ABGuDBAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 23 Nov 2026 08:58:55 +0000
+Date: Mon, 23 Nov 2026 09:58:54 +0100
+Message-ID: <874id7exf5.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH v6] ALSA: line6: Stop URBs synchronously via sync_stop callback
+In-Reply-To: <20261122104039.7160-1-25031212351@stu.xidian.edu.cn>
+References: <87a4n1702t.wl-tiwai@suse.de>
+	<20261122104039.7160-1-25031212351@stu.xidian.edu.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,180 +114,92 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] dmaengine: stm32-dma3: validate LLI pool allocations
- and fix cleanup
-To: Frank Li <Frank.li@oss.nxp.com>
-CC: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>, <dmaengine@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20261120-dma3-fixes-v1-0-f29c1f437399@foss.st.com>
- <20261120-dma3-fixes-v1-3-f29c1f437399@foss.st.com>
- <awCLUSCKqsBDF5g3@SMW015318>
-Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <awCLUSCKqsBDF5g3@SMW015318>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF00008483:EE_|VI0PR10MB8384:EE_
-X-MS-Office365-Filtering-Correlation-Id: 92e6da75-15ba-4e7c-ef1c-08df493fe930
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|376014|82310400026|1800799024|261026121527099003|261026140227099003|10067099003|4143699003|11063799006|261022105027099003|261022075727099003|261028144727099003|261021121427099003|261021123027099003|261102123227099003|56012099006|261102124527099003|261009223027099003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	/3BvQbJJhBi3EssTyXTITfjbXZ+vnf9adCumt7NiVIp53DZtE/kCfRnXdYNKnun40qVABOyD6ciSE9Si2L5El3CRhCMHRLH3qy6xPuiTrIVy6sayL2DudkulK8SxLHSPOXS1vJ5XfksjH6X0kyzcBMiw6eGtrx/0H87BAzLnMMWPngWBKTHsUI1I33u3a0+MNEb4Rj77QJgD3rV6d6qQ5MIIh2D0RK9Kw9yfD2FzyCX8tfgL6aFEtRy62t2LaRtAtPlNVX9qlWsHFkVHRFVz2Ft1Lp8XML9EoSJM5PK2U3JK1Oa+Oh0zDRdyHvT0C3cL4ClM0YC4soX4cZwy1esNzkiqWb6Pwh6hYfpiZGXWoQe5Yavk7iG+GBXVn8KxkoB+qiGx2/BjcMDGfIpEHX83MFS99Eo6hl4H3EdjdkojcJPx8HIt8dcvcKNq6NiTww482gEstc1R4WOKwFw5WM+Xu1MXyOmgvuKUa0Dl7y9WVsbq+64qeODWon34Hx9v8KiW6zTCTsuMLDU6+jNgsizMwSctEzc+pUh2VgmML/hS0M8JNtkS555Rih+6M8y50mO1nCH8jRUBnqK+u6i6VHfaoOIBf7ot2yKs8SQ+zI7/F5DeKZx1qOU5REa8JNBP4i+iEsvyIiZDsbDMlzbAeH8u3OaJ7LtTm+dnu0775EF8hibxsnY/Qf4nTtuKVn4optqPvwpE6rScHljFH2QPCh1lvw==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(82310400026)(1800799024)(261026121527099003)(261026140227099003)(10067099003)(4143699003)(11063799006)(261022105027099003)(261022075727099003)(261028144727099003)(261021121427099003)(261021123027099003)(261102123227099003)(56012099006)(261102124527099003)(261009223027099003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vOZCbcfKvcVd3Z7XWQBzEEvzgTSXiE59ByObWD7ZeekVKokChZu+R4MX9dPVOQ1nhMRG8eB5YlIgXv/VVME/8GFJ07stLhWADTTdeKl3LbYiJRrL8GTHl58wXYYWhJV19sepizCOEekVCoCfn8QoXB+79HNnPEiNreQpzxG23MlpVvnNE5LWUhWNCXd9tc4ZwpNI7tXPXcGbJZrUNdAvK4yjLC85jBeX0ipha1HgH4+gF7VOOyr3CJBFgaDAGcwv5GIHuu62cpuj+htwPE8SiD6IOP3cIKlzcpbt58DbZAIPd/tSLWhUMgzuibgPZ9L3nH2ENPs5EyxFZ1xxkKiAXiHk5z0yfiCuHnQ6yQlnsEh68p64KqkuTILWTVhz/aViH0mSAFom8sE8K+/C9gtfCFeUnwaXVX0R0gmUlZhhY+XQgFI+CcOinyd7Z/wr70mm
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 08:58:15.3095
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92e6da75-15ba-4e7c-ef1c-08df493fe930
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF00008483.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB8384
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[xidian.edu.cn:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 11/20/26 19:02, Frank Li wrote:
-> On Fri, Nov 20, 2026 at 10:18:03AM +0100, Amelie Delaunay wrote:
->> All descriptors in a linked list must share the same 64 KiB address
->> window because CLBAR provides the common upper address bits. The DMA pool
->> boundary only constrains individual allocations, not the whole list, so
->> descriptors in a single list may be allocated from different pool pages in
->> different windows.
+On Sun, 22 Nov 2026 11:40:39 +0100,
+YuanZhe Liu wrote:
 > 
-> /**
->   * dmam_pool_create - Managed dma_pool_create()
->   * @name: name of pool, for diagnostics
->   * @dev: device that will be doing the DMA
->   * @size: size of the blocks in this pool.
->   * @align: alignment requirement for blocks; must be a power of two
->   * @allocation: returned blocks won't cross this boundary (or zero)
+> line6_buffer_release() frees the stream buffer after
+> line6_wait_clear_audio_urbs() gave up waiting for the URBs that are still
+> active.  The buffer is still referenced by those URBs, and the completion
+> callback of such an URB resubmits it from submit_audio_out_urb() with
+> line6pcm->out.buffer already set to NULL, which ends up in a NULL pointer
+> dereference in the memset() in submit_audio_out_urb().
 > 
-> suppose you can set allocation to 64K to avoid cross 64K boundary.
+> While the URBs remain queued, the host controller can also write the
+> received isochronous data into the freed buffer.  Such a write does not go
+> through the KASAN checks, so it silently corrupts the freed slab object;
+> the corruption was observed as a bogus KASAN quarantine entry that later
+> led to a general protection fault in qlist_free_all().
 > 
->   *
->   * Managed dma_pool_create().  DMA pool created with this function is
->   * automatically destroyed on driver detach.
->   *
->   * Return: a managed dma allocation pool with the requested
->   * characteristics, or %NULL if one can't be created.
->   */
-> struct dma_pool *dmam_pool_create(const char *name, struct device *dev,
-> 				  size_t size, size_t align, size_t allocation)
+> The active_urbs bitmap cannot prove that the URBs are gone:
+> line6_unlink_audio_urbs() is called outside the stream lock and only marks
+> the URBs that are active at that moment, so an URB resubmitted by a
+> completion callback right after the scan is never unlinked and keeps being
+> resubmitted after the stream was stopped.
 > 
+> Stop the URBs synchronously instead of polling for them: mark the URBs
+> that are currently active under the stream lock, so that the completion
+> callbacks cannot resubmit them, and kill them with usb_kill_urb(), which
+> waits for the giveback.  Expose this through the sync_stop PCM op, which
+> ALSA core invokes before hw_free(), hw_params() and prepare() once the
+> stream was stopped, so the buffer is guaranteed to be unused when it is
+> released.
 > 
-> Frank
+> The URBs are marked and killed only while no stream is running on that
+> stream, and only those that are active at that moment, so neither a
+> stream started concurrently nor another stream type still running
+> (software monitoring, impulse or the capture helper) is stopped.
+> Unlink marks left on already completed URBs are dropped afterwards, while
+> those of still active URBs are kept, so that a later stream start can
+> submit the URBs again.
 > 
+> line6_pcm_acquire() and snd_line6_prepare() keep a synchronous stop for
+> an idle stream as well: sync_stop() is invoked only when the substream
+> itself was stopped, while the other stream types sharing the same stream
+> never set that, and their unlinking URBs would make
+> line6_stream_start() skip the submission.  line6_pcm_disconnect() and
+> line6_buffer_release() stop the URBs unconditionally, as the device may
+> be gone already and the buffer is about to be freed.
+> 
+> The helper skips the loop when the URBs were not created, as
+> line6_pcm_disconnect() may run after a failed probe.
+> 
+> Fixes: 63e20df1e5b2 ("ALSA: line6: Reorganize PCM stream handling")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-The driver already passes SZ_64K as the last argument to
-dmam_pool_create(). That argument constrains *individual* pool blocks,
-not the linked list *as a whole*.
+Applied to for-next branch now.  If you have further fix, please give
+an incremental fix.
 
-Each allocation here is one descriptor. When the pool grows, descriptors 
-from different backing allocations can end up in different 64 KiB 
-windows, even though every descriptor individually satisfies the 
-boundary constraint.
 
-DMA3 requires all descriptors in a list to share the same window because 
-CLBAR provides the common upper address bits.
+thanks,
 
-This check therefore prevents an invalid list from reaching the 
-hardware. Guaranteeing that such lists can always be allocated would 
-require a window-aware allocation strategy.
-
-Amelie
-
->>
->> Check each descriptor's base address and reject lists that span multiple
->> windows, instead of letting the hardware fetch descriptors from wrong
->> addresses. Track the last allocated entry so that the error path frees
->> exactly the descriptors that were allocated, including the one that
->> failed the window check.
->>
->> While at it, simplify the ccr initialisation, which is functionnaly
->> equivalent to the previous code.
->>
->> Fixes: f561ec8b2b33 ("dmaengine: Add STM32 DMA3 support")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
->> ---
->>   drivers/dma/stm32/stm32-dma3.c | 31 ++++++++++++++++++++++++++-----
->>   1 file changed, 26 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/dma/stm32/stm32-dma3.c b/drivers/dma/stm32/stm32-dma3.c
->> index a056f73fbe02..7c509a69f5e5 100644
->> --- a/drivers/dma/stm32/stm32-dma3.c
->> +++ b/drivers/dma/stm32/stm32-dma3.c
->> @@ -397,7 +397,8 @@ static void stm32_dma3_chan_dump_hwdesc(struct stm32_dma3_chan *chan,
->>   static struct stm32_dma3_swdesc *stm32_dma3_chan_desc_alloc(struct stm32_dma3_chan *chan, u32 count)
->>   {
->>   	struct stm32_dma3_swdesc *swdesc;
->> -	int i;
->> +	int i, last_alloc_idx = -1;
->> +	dma_addr_t base_addr = 0;
->>
->>   	/*
->>   	 * If the memory to be allocated for the number of hwdesc (6 u32 members but 32-bytes
->> @@ -419,18 +420,38 @@ static struct stm32_dma3_swdesc *stm32_dma3_chan_desc_alloc(struct stm32_dma3_ch
->>   							&swdesc->lli[i].hwdesc_addr);
->>   		if (!swdesc->lli[i].hwdesc)
->>   			goto err_pool_free;
->> +
->> +		last_alloc_idx = i;
->> +
->> +		if (i == 0) {
->> +			base_addr = swdesc->lli[0].hwdesc_addr & CLBAR_LBA;
->> +			continue;
->> +		}
->> +
->> +		/*
->> +		 * dma_pool boundary=SZ_64K only guarantees that one allocation does not span a 64KB
->> +		 * boundary. It does not guarantee that all allocations of a given linked-list land
->> +		 * in the same 64KB address window required by CLBAR/CLLR addressing.
->> +		 */
->> +		if (base_addr != (swdesc->lli[i].hwdesc_addr & CLBAR_LBA)) {
->> +			dev_err(vchan_chan_dev(&chan->vchan), "LLI crosses a 64KB window (%pad)\n",
->> +				&swdesc->lli[i].hwdesc_addr);
->> +			goto err_pool_free;
->> +		}
->>   	}
->> -	swdesc->ccr = 0;
->>
->>   	/* Set LL allocated port */
->> -	swdesc->ccr &= ~CCR_LAP;
->> +	swdesc->ccr = FIELD_PREP(CCR_LAP, 0);
->>
->>   	return swdesc;
->>
->>   err_pool_free:
->>   	dev_err(vchan_chan_dev(&chan->vchan), "Failed to alloc descriptors\n");
->> -	while (--i >= 0)
->> -		dma_pool_free(chan->lli_pool, swdesc->lli[i].hwdesc, swdesc->lli[i].hwdesc_addr);
->> +	while (last_alloc_idx >= 0) {
->> +		dma_pool_free(chan->lli_pool, swdesc->lli[last_alloc_idx].hwdesc,
->> +			      swdesc->lli[last_alloc_idx].hwdesc_addr);
->> +		last_alloc_idx--;
->> +	}
->>   	kfree(swdesc);
->>
->>   	return NULL;
->>
->> --
->> 2.43.0
->>
-
+Takashi
