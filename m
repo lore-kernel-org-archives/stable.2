@@ -1,68 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795394050;
-	b=NCQO59CG4dgIQ4TXnpm0r8lb7wSNcbm7mlSQ6C4UIUTPkr2WgYoVRhXOWLjBOHIO/Bqj
-	 4NZE2n+W5RzfKO+mCF7zgW+ft+HvaEqnavx0J0hc5eKXnoopOJRbsjttwS73/AME0ZTaL
-	 PqPJpkx2lmBXrIb1/i8OJ0Tr5zKSP9VrsxLDZFk1oKsWkQMBZv54b8HLSk1SGGsT6JzT7
-	 FYNLRnnO7Fg0pkcz7Xx5qY6Rk5JSPDgE3xY5wMoFxUf8r8zw1zxrGd5dBsp8pHqWzSL6l
-	 ABcX6sw68NFTXXH2UPUJFtV44YSeRosM38dxl4fV411/KZV1hVz28By1gNnBUixXVYw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795394050;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=9ZARRww83aYBINOJfyNSwgaV7V0AEF7p7ZuaSacjrq0=;
-	b=xgj1yxtZWHgfbHrUHD8glME0DmJREoADrESUHOoGeugKW0VuWTbMpF5OiDE2iGL7pVz2
-	 lSWHMl6P/zSSznZoSN5sXDxaUVj1Y4zr5KXSewhasK2EpyxczobUVNd54BtNsGvYmBPhp
-	 QE4Ho+UNk8Eg2ch8TNzDPQ9U4U7riuqCPsSamHwYzGWvN8PnZfpAS54CP+pYM5V5e6OHc
-	 CYkcktR69jFQ7bnpkyHOhbfm30k6TLhG92hS1b/OaC9iMKVc5ZNaOh8//x9mc25jqD86N
-	 VQr/eN9hOqTMWBzBOydaa9lhdyC3fHJI/nhLvqnUoZhS/Xhe5mSNeS9NfKF801a05vA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ndsFjmm6;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795394117;
+	b=o88guDKMM7b1ipMpF0tqK52Dc7gScclqSw6QobJt/RfuKLm36FfrTeQzfQ1x+tbtkAxB
+	 1wIXMglraPB/LsAfY7YxsTxtmWIAJLV+u+rtSY4w1GZQL86A5rrVToF3spbyV4TvgeIjg
+	 3ps5oM4Ae6DOrvAncR7sbbqzbGztEkBTouRYA6GIcwLh3kkupIrnloC+5vEHZ6ct+2Xn/
+	 PQcxUEKwTQVIApTkiliEtwCqcXTL3RodEMEueawg259/0LIvMpfn1yXA578UHxq9mQuom
+	 TLLzVQxTDTOLu6LEaCSGtne6FRbQwoCfgMCbxJUVI9kuT16uYC3ff9EHV8sCy/066eA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795394117;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=QzbkGpaThaci0kNYwvtby6j0S9sB43OpsLlf214c9iM=;
+	b=RrQXahTovbmWHEeiEDjMkuUSgCdWXBwhSeQes1TSogWBAk+wrCkCGdX3YrgreEd0kDE2
+	 4/6RSBp6EDcKcJ3bjp0LRI7s8mVb2Wx4xa299CTxbEPUtTg3DuCquD/+kVexOIjomsR6h
+	 Ne6j268JuP+cdcHmVBElvos+up+bX0Q6sfA4is0cF6InGehjE1kpflVLhKAUktJ938d5b
+	 v22EkVaSLXBquAq9W290estnjkqeESxM3Bui4xAIoXk2ofML7MaiyEsCq9oO6NojHvcHz
+	 Wq+eV99LN4WuWV+CamhK9cxkS3ZtEzsCTOTmQ9N0bfGK5xVye7D6RU0TbccTk/PVn7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H++9HDh6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB65606A31D
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 00:34:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FB65606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E0E606A32A;
+	Mon, 23 Nov 2026 00:35:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ndsFjmm6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795394049; x=1826930049;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=w/G5WFe1K+6xiCtCgpGOi5b4JMR+uWhUg/gfwb7h2Pg=;
-  b=ndsFjmm69QdwqJabB+pnXvbfJEqSJE7B4e8L6qNj1rxkte7xPtbnQ+PM
-   zFstNILR1h/sLekPCVN77FqfkQA+44a6e+9NdsuqCj3fTCYUF+IlVyC3x
-   L6+qf+OoaH5oSL/ReC+S4SX0YhWMn2mYWNhZoSDHJkQqnMSG8+gcmYdzD
-   YckDIHKfnMv0ppQfXCRhvtPwqmwgdtJp27xSnoS139oJ346numiTfFY+V
-   U3QY83G0Z3/01O+okQFONRjbn5lLqQw95JmhrHeVjOFlYcVGLT+PwBHjJ
-   AlAeT4Ml/AZxqRaqGLDbRYXms0CfUgmXTewQx9v0/zmFx5GB+d6lbPbhL
-   g==;
-X-CSE-ConnectionGUID: jbCk2yuaQkuWIipLQa+OOQ==
-X-CSE-MsgGUID: gvXTaIucQMKOOkvP+/OkrA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4186706"
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4186706"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Nov 2026 16:34:09 -0800
-X-CSE-ConnectionGUID: kI1NlR4EQCmTrOEs6Weukw==
-X-CSE-MsgGUID: bjzCT/KSSB6MlrmfakjQ0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="11256454"
-Received: from unknown (HELO [10.238.0.68]) ([10.238.0.68])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Nov 2026 16:34:07 -0800
-Message-ID: <3746e269-9de6-4b7d-a31d-d62219acc9b0@intel.com>
-Date: Mon, 23 Nov 2026 08:34:04 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H++9HDh6
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795394116;
+	b=wluBWNl22dpi445HXi9XzJIwt16rYHsHo8KyCNeVNFrEcWleALIcphQRdRRRzJsFuOGt
+	 dZEuR133FnSmJSNxmVUOmIHz5L5X8EUF3cxppt0GcE8AZ9g65HdoDd2giKl2Ivyp5v7Z4
+	 wJXqUfi02dMdXqx9cxAv2JEdjdyCyrI1iPjNx/gNII4/lbQOHfYw9t+Mfjpv7SEkpmHpS
+	 9qItSbxfIBY1W+ZivuHR5Xx4IDZX7rvgPpUjfW/Phq5iyLST5yMYax37pPR583wh9N0FI
+	 slJpZ4BmJ+qMzO5jNj+pOB5B+lGNiTnoz4ZOOhfW4ANZx6HHuX/k6xNkFS4M3FzSnRw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795394116;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=QzbkGpaThaci0kNYwvtby6j0S9sB43OpsLlf214c9iM=;
+	b=HMJ9PpgwrX5YS0GeyEpvnTi3AmC+HlsZl+MIRXyl6/qT4TWIxRATNdXrTZiRz7SZndd4
+	 vTar1+jM7TdadfDCCb7ZF3lgw7/EkGZI5TskVzhs+L2juqqJKp2/ysfZRusuNpS2wZ5yn
+	 uZVtijr7gYKV2IE1LUA9exrp6XiZp3zCmGoH68x/3zxyyzvgGy3UIDu4LCsw3PSlRwPpi
+	 6Iiq9CPXKVX/lqsofX0s3AUNO/vovM+vWiK0NjAOJ10FNB8hzy25aqzyrD0R/ZOabWF7B
+	 QF+RuHhSuYubH+A/deYxm1zTe4mj7sAhzY1zDE5f+3EufdgnwxX8mVVUR4ll+98l+kg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id EED201F000C0;
+	Mon, 23 Nov 2026 00:35:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795394116;
+	bh=QzbkGpaThaci0kNYwvtby6j0S9sB43OpsLlf214c9iM=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=H++9HDh6C+GsjSbN5srzhPRPWyFYz8k26B77TmWl0NW7mwgljqIj6yW8I+KLJg75W
+	 J8LzER8+JLkmVLDN0ReBnN4sI3lYdnyatBcvhM3LGHHunvigRxyOFd2GVpze6YbWWO
+	 U2SSvN5icjJ8POB++cfRVHGvQO+d279GW2AFqJTkspRBXvKU78FSVjtVlCW8FoWOA6
+	 wI208ghTSSyZi9JWNHkIEDzSpXk3kmQCqfA8BjptZ4JkcG6mhRHqnfZvZquRGIN6Yj
+	 M4VTjeV3IESHG8D1tRx4JYeb5dIVzTZmO5Y8jGIj9PX/Yti1W41WGdksSWhhZOdRkq
+	 o1C+WOKl8XCxg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4C2EF4C269;
+	Mon, 23 Nov 2026 00:35:12 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Subject: [PATCH v2 0/2] sched/wait: Queue non-exclusive waiters at the head
+ in do_wait_intr*()
+Date: Sun, 22 Nov 2026 19:35:11 -0500
+Message-Id: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,58 +84,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 0942/1005] KVM: TDX: Enable Bus Lock VM exit
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>, Sean Christopherson <seanjc@google.com>,
- stable@vger.kernel.org, patches@lists.linux.dev,
- Nikolay Borisov <nik.borisov@suse.com>, Chenyi Qiang <chenyi.qiang@intel.com>
-References: <20261104211043.516122098@linuxfoundation.org>
- <20261104211109.504581890@linuxfoundation.org>
- <dac4e304-98e6-4e61-93f4-8d971069d936@intel.com>
- <2026110539-lived-blast-ef64@gregkh> <auyRq2HXJIfMXgBh@google.com>
- <20261106-re-kvm-tdx-bus-lock-drop@kernel.org>
- <6e48bcc5-8f7c-4e5a-9e34-1cab1c53dd92@intel.com>
- <2026112012-hardener-radish-1583@gregkh>
- <5f94f0aa-80ad-4aac-8b91-5e1aba36ca2c@intel.com>
- <2026112026-plank-heavily-4ef8@gregkh>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <2026112026-plank-heavily-4ef8@gregkh>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNyw6CMBBFf8XM2jG0KfhY+R+GRR9TO0bBtAU1h
+ H+34Ad47+ok9zFBosiU4LSZINLIifuugNxuwAbdXQnZFQZZyUYUoVGYbCCHL80ZucsRA2mHtqa
+ Dr0ythFdQ2s9Int/r8qX9cRrMjWxe5pZE4JT7+FmvR7Hk/r+MAov31kvta3Ns1Nn29+FhWO/ID
+ dDO8/wF5aGI0dMAAAA=
+X-Change-ID: 20261111-b4-sched-wait-intr-head-c5e8f0b541f4
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>
+Cc: Oleg Nesterov <oleg@redhat.com>, 
+ Linus Torvalds <torvalds@linux-foundation.org>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Michal Nazarewicz <mina86@mina86.com>, Wen Yang <wen.yang@linux.dev>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795394112; l=1259;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=jCtwij91dfdagLsRWbPGL+dk8RepKRiMgOkxRuxT9C8=;
+ b=L9Ai5mlE7Lz8ZDESqwhYZFIsp7DHH5oMWaV98/BeDTOP2wlDq0TqoZk2Nw9vKWXqwoS1sNkXK
+ u6+Trf6KMOyASgkjM18QM5zTgqtmbVPKntcB/6XpTXWokmalKd43MpI
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
 
-On 11/20/2026 11:31 PM, Greg Kroah-Hartman wrote:
-> On Fri, Nov 20, 2026 at 07:43:32PM +0800, Xiaoyao Li wrote:
->> On 11/20/2026 2:38 PM, Greg Kroah-Hartman wrote:
->>> On Fri, Nov 20, 2026 at 02:23:41PM +0800, Xiaoyao Li wrote:
->>>> On 11/6/2026 9:19 PM, Sasha Levin wrote:
->>>>> On Thu, Nov 05, 2026, Sean Christopherson wrote:
->>>>>> Yes, please drop it.  Thanks!
->>>>>
->>>>> Dropped from the 6.18 queue only: 7.3 has the prerequisites.
->>>>
->>>> Can you pick this patch for 6.18 queue now? I check the linux-6.18.y, which now
->>>> has all the prerequisite patches now.
->>>
->>> What is "this patch"?
->>>
->>> You dropped the context...
->>
->> Exactly this one:
->> https://lore.kernel.org/all/20261104211109.504581890@linuxfoundation.org/
->>
-> 
-> Please just put the info in the email itself
-> 
-> {sigh}
-> 
-> Now, to make it even easier, just send the backported patch properly and
-> we can queue it up that way.
+Patch 1 is the fix from v1, rebased on top of Linus's commit
+cea5f91daa3a ("wait-event: clean up the internal helper arguments").
+Patch 2 makes __wait_event_interruptible_locked() take wq_flags like
+___wait_event() now does, as Oleg suggested.
 
-Learned.
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/evexcl.c
 
-It's good that Sasha has already queued it:
-https://lore.kernel.org/all/2026-11-20-1-daily-reply-0010@kernel.org/
+gpiolib-cdev and cros_ec_chardev use the same helpers and can be
+polled too, so this fixes them as well.
 
-I'll make you folks easier next time.
+---
+Changes in v2:
+- Rebased on Linus's master, on top of cea5f91daa3a.
+- New patch 2: pass wq_flags instead of a 0/1 "exclusive" argument (Oleg).
+- Link to v1: https://patch.msgid.link/20261111-b4-sched-wait-intr-head-v1-1-17cf2af5b964@columbia.edu
+- Discussion: https://lore.kernel.org/all/awMhxEuMHULvk8SA@redhat.com/
+
+---
+Mani Tofigh (2):
+      sched/wait: Queue non-exclusive waiters at the head in do_wait_intr*()
+      sched/wait: Pass wq_flags to __wait_event_interruptible_locked()
+
+ include/linux/wait.h | 11 ++++++-----
+ kernel/sched/wait.c  | 16 ++++++++++++----
+ 2 files changed, 18 insertions(+), 9 deletions(-)
+---
+base-commit: 6e4122f0242a3262512ee3e6f2e7e6de0bd5792b
+change-id: 20261111-b4-sched-wait-intr-head-c5e8f0b541f4
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
+
+
