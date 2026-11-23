@@ -1,80 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.82
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795433482;
-	b=Q9PFGWlSH43AHdIElp5zfZVarCb6Iwf9405wEjJtv3FUprbh7Ni1M57Dd42hGRvDhV/s
-	 UU6jW/oNHydKtgUFRqi4PIypF52Yi4xraVZGKVNg/sBx/DzJa1ieL0fJrXBZnGFXK5U0t
-	 wop3wG0BihRJDGjb4ZmiWyb+U3ac5wWjuC0kNW0xoCjZnik1wsLkpUL42/3O90f92DKM3
-	 c5D/nwgQ+hZOlRi4skqioFKmzmACpevu1OQwEtm7+gKe6+BPfep6sSBxCzSyeayYQ2p3q
-	 LfxeO0DkwmrAY55F7mSeEXH9Ys0vdMidFO8SZXLuRal5pI3GzYOg3nQDNnNZo/lAXwA==
+	t=1795433684;
+	b=luqLbEVPchsqveim6Oxj69x+6J8+WfN9wHPIaEcq0CNyI4USy2QWwH+gK2EO+NKiaUXj
+	 qrYOw+IwowVDiYHO+MFvpqTDAF+qsz/sv2ZLQTyjOagqFRhUfVM17J+tnd25KHWLz0tOr
+	 SsBgQTIXeD3zNB2cRfrrcsjriPJLm0pCFsmJy+oy4CL5C4wrXUGzL1Ioy/V66c8CBh/4c
+	 JZbM/dxbF9oBVnyKNRp2Dn+jWZJhmABKlzKNTbg3CTadUtySqeYnV69FIqLJZgVneFX8R
+	 5USZvdBqcm+HuqFxWZrlTLfj2XdcTz6fqoujJIqi310lMyg7+Kml67jGzFPPZbUdyyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795433482;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=yfrlej6qyd4zr3J56wD+mtwsn9dmfEHw/O0sbFEMubM=;
-	b=0x0G+Mych96kO4YuQvwiTudJ0JSlWHXVPCg/N1VHCrSuYKnAb1gUWSCeHf+3I2RIQShS
-	 Ful4/gZ9vyRh/Q7mqr6P82AQVV3uAX6SpGfYE4BThgvsL1M26pXSM+76l+YwMJAJ+1ZHE
-	 92zd+d6e4YlGF9YOOcTrD6xsOqEv838vDCx1DrqwS5owJgJXnbrkwPjYEOYGMUNTs67BC
-	 yJ07s5NR6YFo9zoaXKLpTy8dg1XKn4eg2eJ7BO98qBP+nZH+cPDTzleazhJDUNG9U41Aa
-	 0283tEubAvw3HgeBz0be+60iNpA5Z2njKMbr/PsUsw6FcrSGk5+sGucp3hix+3diiGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795433684;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fmxcbhG1chT0b9F6QCQYXCbAO+nUWqbQ4u1W0a/I5sc=;
+	b=EVz3ZFYYjy6FIa6a6cI5x3nozb3HjSpm3sv4fmsA5NOpsFw4Y1sZGNaTCVH+q1jUxoEm
+	 6XQ5fyEw7oAZGtBvtWto2dCfAKaNPI3X19NqJ8NPxj8OUuZ7oHme2CRG6zZNPiCFkJp/s
+	 QnTSic/2kDj+4Gx8gUy7C1T0jTINYGYcieSkWKAox4aYLBBZpeEHNEPHGzq8IeCT2HMg9
+	 nRmw2UrIixXqmThxbzXXgnkVa2lqqslWe2YhCBVQveoST0Ygh6u8XcY7foVHaREsKQDdJ
+	 jtJsOGInXbJ0G4UHU8YudjE+6pgMSRynnli1z25OnF4EaWbqfjfvfQUNxM8Io1XMRYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mBzJ9ssv;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EJMipN2q;
+	arc=none smtp.remote-ip=91.218.175.82
+Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073A6606A31A;
-	Mon, 23 Nov 2026 11:31:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 073A6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F56A606A33F
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:34:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F56A606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mBzJ9ssv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795433483; x=1826969483;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=buSJuJMS4qx78LvNp3wcNBjX6N049hlAhRKf7lhMUi0=;
-  b=mBzJ9ssvBzpDhoqszFCNS5sCrhq1rmkFUWdeWXIV0Imi+kEYWMWb8RWs
-   867FfEkYAnP+KCUcZ06tNG29ncjFZBm5V+LuT4UdLX6mTNcpdxkdcHkKU
-   1OtbQyrYEOBq4XaraZ9DXbW3mXBapw9YMNBrjNBy/LEu7WFd0OC/wrqDt
-   PEf6UADjdRMtER85Q0YJebd/nn9I3PilrslW6bt7pK/qkUcxnpWQu7QPg
-   /6oa3VPDzgLfb2geNxLQ3dMaTlWWirKCWnS2R3LRTV4JOyNXftphU+g32
-   RA3ImHYDuJaEM5RIPXN6ptc2z7fTbBJafJfQWcb46yYyMqHjFq/gqV07U
-   w==;
-X-CSE-ConnectionGUID: MN8xuuXsRZOv9PkqbQtikg==
-X-CSE-MsgGUID: D6AIdkSCQta8wF9I889DqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4324865"
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4324865"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 03:31:22 -0800
-X-CSE-ConnectionGUID: NQ79MQVYQL+tyEKxworH9g==
-X-CSE-MsgGUID: acwzS4tyRFWTrLBXkeTjTA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="11612293"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 03:31:19 -0800
-Date: Mon, 23 Nov 2026 13:31:16 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Mathieu Othacehe <othacehe@gnu.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 7/7] iio: proximity: isl29501: Fix division by zero
- and overflow in isl29501_set_freq()
-Message-ID: <awQkBAEaRuPqR3vb@ashevche-desk.local>
-References: <20261123075122.373060-1-lee@kernel.org>
- <20261123075122.373060-8-lee@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EJMipN2q
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GFdOLbAuUR9hfwY/LXg7YohW2tjrVa6l2cMuco/EPYU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795433681; v=1; x=1796038481;
+ b=EJMipN2qWlyGuNiXFej4NzeZIFFlv//5wKRgeR75WdOZ8XYgAGUZb1I4M+3TukEc/GAAojt2
+ KV0ItrVp7sDbIoRuljsxgyun/twxcfpPvGanlG0q9/UmUOa/8gCtCzFYWPXwyymIybXSSt0ilyl
+ kZFz4VWJEgsATXViJ9pTm4Bc=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1ec6cd2606eb83c4;
+	Mon, 23 Nov 2026 11:34:41 +0000
+X-Mizu-Trace-ID: 1ec6cd2606eb83c4
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Isaku Yamahata <isaku.yamahata@intel.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>,
+	kvm-riscv@lists.infradead.org,
+	Will Deacon <will@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/3] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty ring is full
+Date: Mon, 23 Nov 2026 11:34:33 +0000
+Message-ID: <20261123113435.1170711-2-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261123113435.1170711-1-fuad.tabba@linux.dev>
+References: <20261123113435.1170711-1-fuad.tabba@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,54 +85,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123075122.373060-8-lee@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 23, 2026 at 07:50:33AM +0000, Lee Jones wrote:
-> isl29501_set_freq() computes freq = val * 1000000 + val2 % 1000000 in a
-> signed 32-bit int and passes it directly to do_div() without checking
-> for zero or negative inputs.  Writing 0 to the sampling_frequency
-> attribute triggers a division by zero in the kernel, while valid
-> frequencies above 2147 Hz up to the sensor's 2222 Hz limit overflow
-> signed int.
-> 
-> Validate that val and val2 are non-negative, compute freq using
-> HZ_PER_MHZ as an unsigned int within [1, 2222 * HZ_PER_MHZ], and return
-> -ERANGE otherwise.
+Pre-faulting can map a dirty-logged page writable, which pushes it to
+the vCPU's dirty ring. KVM_RUN exits with KVM_EXIT_DIRTY_RING_FULL
+before the ring overflows, but the pre-fault loop never checks it, so
+one call can push more entries than the ring has free, which trips the
+WARN in kvm_dirty_ring_push() and overwrites entries userspace hasn't
+harvested. On x86:
 
-...
+  WARNING: arch/x86/kvm/../../../virt/kvm/dirty_ring.c:225 at kvm_dirty_ring_push+0x7a/0xd0
+  Call Trace:
+   make_spte+0x2cc/0x450
+   kvm_tdp_mmu_map+0x5e1/0x7f0
+   kvm_tdp_page_fault+0x12c/0x1b0
+   kvm_mmu_do_page_fault+0x181/0x250
+   kvm_arch_vcpu_pre_fault_memory+0x136/0x1d0
+   kvm_vcpu_pre_fault_memory+0xcf/0x180
+   kvm_vcpu_ioctl+0x455/0x770
 
-> -	int freq;
->  	unsigned long long sample_time;
-> +	unsigned int freq;
-> +
-> +	if (val < 0 || val > 2222 || val2 < 0)
-> +		return -ERANGE;
->  
->  	/* sample_freq = 1 / (0.000450 * (sample_time + 1) * 10^-6) */
-> -	freq = val * 1000000 + val2 % 1000000;
-> -	sample_time = 2222ULL * 1000000ULL;
-> +	freq = val * HZ_PER_MHZ + val2 % HZ_PER_MHZ;
-> +	if (!freq || freq > 2222U * HZ_PER_MHZ)
+Stop the loop once the ring is soft full, with the check KVM_RUN makes
+before entering the guest. Return the pages already processed, or
+-ENOSPC when there aren't any, since a retry can't succeed until
+userspace harvests and resets the ring. s390 has the ioctl but no ring,
+so give kvm_dirty_ring_check_request() a stub.
 
-But the second one is implied already by the val validation above, no?
+The check also sets run->exit_reason to KVM_EXIT_DIRTY_RING_FULL. On
+arm64, KVM_RUN completes a pending MMIO exit only if exit_reason is
+still KVM_EXIT_MMIO, and on riscv KVM_RUN does the same for its MMIO,
+SBI and CSR exits. If a pre-fault stops on a full ring while such an
+exit is pending, the next KVM_RUN doesn't complete it and the guest
+repeats the instruction that caused the exit. Userspace can avoid that
+by completing the exit with KVM_RUN before pre-faulting.
 
-> +		return -ERANGE;
-> +
-> +	sample_time = 2222ULL * HZ_PER_MHZ;
+Fixes: bc1a5cd002116 ("KVM: Add KVM_PRE_FAULT_MEMORY vcpu ioctl to pre-populate guest memory")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ Documentation/virt/kvm/api.rst | 9 +++++++--
+ include/linux/kvm_dirty_ring.h | 5 +++++
+ virt/kvm/kvm_main.c            | 5 +++++
+ 3 files changed, 17 insertions(+), 2 deletions(-)
 
-Taking this into consideration, perhaps not to touch these lines at all?
-Just add a check for 0 above?
-
-	if (val < 0 || val > 2222 || val2 < 0 || (val == 0 && val2 == 0))
-
-?
-
+diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+index e95c9cda085d9..89eb6be9bc6e3 100644
+--- a/Documentation/virt/kvm/api.rst
++++ b/Documentation/virt/kvm/api.rst
+@@ -6544,6 +6544,7 @@ Errors:
+   ENOENT     The specified `gpa` is outside defined memslots.
+   ENOEXEC    The vCPU has not been initialised (arm64).
+   EINTR      An unmasked signal is pending and no page was processed.
++  ENOSPC     The vCPU's dirty ring is full and no page was processed.
+   EFAULT     The parameter address was invalid.
+   EHWPOISON  A poisoned host page was encountered.
+   EOPNOTSUPP Mapping memory for a GPA is unsupported by the
+@@ -6588,7 +6589,9 @@ case, the ioctl can be called in parallel.
+ 
+ When the ioctl returns, the input values are updated to point to the
+ remaining range.  If `size` > 0 on return, the caller can just issue
+-the ioctl again with the same `struct kvm_map_memory` argument.
++the ioctl again with the same `struct kvm_pre_fault_memory` argument.
++If that fails with ENOSPC, the vCPU's dirty ring has to be harvested
++and reset first.
+ 
+ On x86, shadow page tables cannot support this ioctl because they
+ are indexed by virtual address or nested guest physical address.
+@@ -8957,7 +8960,9 @@ Therefore, the ioctl must be called *before* reading the content of
+ the dirty pages.
+ 
+ The dirty ring can get full.  When it happens, the KVM_RUN of the
+-vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL.
++vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL, and
++KVM_PRE_FAULT_MEMORY on the vcpu will process no more pages until the
++ring has been harvested and reset.
+ 
+ The dirty ring interface has a major difference comparing to the
+ KVM_GET_DIRTY_LOG interface in that, when reading the dirty ring from
+diff --git a/include/linux/kvm_dirty_ring.h b/include/linux/kvm_dirty_ring.h
+index eb10d87adf7d5..729615ae0cf4d 100644
+--- a/include/linux/kvm_dirty_ring.h
++++ b/include/linux/kvm_dirty_ring.h
+@@ -60,6 +60,11 @@ static inline void kvm_dirty_ring_push(struct kvm_vcpu *vcpu,
+ {
+ }
+ 
++static inline bool kvm_dirty_ring_check_request(struct kvm_vcpu *vcpu)
++{
++	return false;
++}
++
+ static inline struct page *kvm_dirty_ring_get_page(struct kvm_dirty_ring *ring,
+ 						   u32 offset)
+ {
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index cf4cb586f1407..ac8b94a386e4a 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -4461,6 +4461,11 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
+ 			break;
+ 		}
+ 
++		if (kvm_dirty_ring_check_request(vcpu)) {
++			r = -ENOSPC;
++			break;
++		}
++
+ 		r = kvm_arch_vcpu_pre_fault_memory(vcpu, range);
+ 		if (WARN_ON_ONCE(r == 0 || r == -EIO))
+ 			break;
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.47.3
 
