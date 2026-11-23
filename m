@@ -1,65 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795454537;
-	b=Fz0iG932w6XqPYYBSW3r75ZqkvnbvZd0xM1g26ySqFUueL3TAg770ICzD6UEeG5dAO7e
-	 B/bxrkNTw2GUT1ZybL6bTkyUesWdX9TINtauc4a9whONKyuw7NoZP87toTZtPDas0TARH
-	 ezpLUKe0bujC60km0EyJ7Xkc9YqsbN5OJIB8GVvKCqjuduz19dZhKbShr3nCjdaLsd/AZ
-	 LbDh2l0fqIzQCalVwVBzFm/BX5ILEr+F+yl8KfRQmRC8+EVmlL+df/K2tszwwvpwJKqEw
-	 LusOSbcqdxjuUluVdTtKozfbQLkUsb/rYX9DluU+XwXTNezTORcOTCBxwQ4Mpl11Xyg==
+	t=1795454544;
+	b=wkSAtpzu4alxRbp5sItS0jm9f/sC+o4V0R8kHmuSGXWCKxZtcrJF2HXJ+Xm1TiAlm8OW
+	 njnTyzP+Xmb9nGVaIxv5ClOxe0K93k6XESo9ifmCf+6aV7fhDdCACfzlRx0ipfkRnjfrq
+	 ZZzq6ScFx9hQPikA6uIVuwegRV/Ci8uA3jlnQWQv1KXaos0FS9YgyV8KGnQEbGvgyxc0q
+	 wOb4XcMuSVheGsR8rspR288GJMNo3UdlJ9ToQ3La0ZmFi4zKXtUwRPJglMhPCewxJTfnc
+	 /af7GbjoT0Bvb70aLGRW/qnjbJCpL5nvYcUt+M72PQ2GWo+/0u66n8NzjdGmQhhU0nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795454537;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795454544;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=mh5Ls7OvyoLZxYGKv/3EfAzY7K+9ITf/EjWVOJ3pC/g=;
-	b=qy8arh7lQpVWTnKJKSn3jsOXi1bajemWc+gTdJHJyX2X91tOzztAZ9AJwOFFg9ixkt+9
-	 MlmYq5Se9wBbPRLirLnoelxXttpulYYoms0BUZ6iFLS+kAn0+YUYYtaxN7SPt0oNNZk+T
-	 Zxemr0sYLyqLG5Fal9PengZpkWpE+IUWvpJ8Ztdhl6KS1FpdQBXt+H1/yXgUQd2an2QiY
-	 m14BCxHVWP/lK/LQfzin0d7mWgH66F66eFEQ74onm5pa+jSPjpKLktu6inaxkK6i9SS34
-	 7QrmGC4idNc4GxvfSts91TUwrpjUVJptJKB9uilaeP0ihc7jXuNunXjbTz20vLxMsNg==
+	bh=CzA+ST8aLEfD/69rU1J1BqzPV3/gYwSreGIfqCeZJjM=;
+	b=v5QovC+uYo7NhDj0VxCXzsEmHecDE9X2TghvcMFULFCoSss5ijZJj7Z73LoHRNa473cW
+	 G121akTQDfPHXkpEcCdJIjJeqOnvrzWdyECUfKD3MQM5eHX5dYtRLoF8Sln141Kf/xSUn
+	 1hbUELl6MKjv4ICbAu3AQ49gJosHGC3v50xbJGbLACCbVrDXKn5Y0OJpNceKFNO3NXVeR
+	 QI4YRM7lJSNHOHNR86efVcJX7zVGYMUb5b7rTmcrtdhdsSvIR4fDxmTKU9FVK9NTIzPnj
+	 eG6acfgVExBGyNvkRJz0Cw4xyqQubOLxmUFLWoAdetYR3iFKHGvhYZjl2kK134rJlvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AIX2k0aM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+U04sFZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05DB606A31A;
-	Mon, 23 Nov 2026 17:22:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3314606A31A;
+	Mon, 23 Nov 2026 17:22:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AIX2k0aM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C79651F000CA;
-	Mon, 23 Nov 2026 17:22:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+U04sFZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD781F00A19;
+	Mon, 23 Nov 2026 17:22:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795454537;
-	bh=mh5Ls7OvyoLZxYGKv/3EfAzY7K+9ITf/EjWVOJ3pC/g=;
+	s=k20260515; t=1795454544;
+	bh=CzA+ST8aLEfD/69rU1J1BqzPV3/gYwSreGIfqCeZJjM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AIX2k0aMy0JYFMKuti0O+6TGo+gWuAgBMe+yVfbSQZjq7FBmnTFkkXZCQtgislJi/
-	 uI0OdR6SWV2Q+NkIIjGa211uwVLYvtlyHJrGvRvcG74uaCx7cZIiiOhpSeUYNgpg5L
-	 zbqKQfxuVgsaTksUvIXh0uAvuxOkrOLtbqBjetgyhy3ag5uYpNjBiKE9VVjrhqOn28
-	 dukBoA3CAYNvXP6ePxzCkh51lAM56rgg0XBi8ePVsx4Y2b2Enrd31Q9q34IfUs5Loa
-	 1ggaJvMenX+Bnqx0AIkMac5+rSlQ4DD6Xesv78eEY4+5mSRG7SNh6prCSvww6T6J2c
-	 Wt5GVXfdtyfDw==
+	b=D+U04sFZQ/o9rCpO+Qv21Kpc4I2djAiLwzXLcPvG2pwrIkJddJcJnBwwKxeWfvv6S
+	 0RVjn+9p3igcaL3vim8OSO+h1L4yef/0SZPWKUaAD5+vKYA7exlr2lnqWXOZ8ez34h
+	 iofoUNcpOfK0l6jdMbrXf3H0h2GLt3SGEIyvZWsgwDcZf9qQ9So28BTkmZblIMfJFQ
+	 yTqwhhj/DSUsjsItuYESEQg5QR1nLJA5VNxFKXLXc1Wn3HiT39LIyYR5CIJqX7XqcH
+	 nWOB4H+Ky9ZDyuI3oTdrNAysA3fBC79keXboINji0LYTnFAOYhySQ6tDcgKpePQPZW
+	 1KzoWW9XUNHbQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Bjorn Andersson <andersson@kernel.org>,
 	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	HyeongJun An <sammiee5311@gmail.com>,
-	Ohad Ben-Cohen <ohad@wizery.com>,
-	Brian Swetland <swetland@google.com>,
-	Mark Grosen <mgrosen@ti.com>,
-	Guzman Lugo <fernando.lugo@ti.com>,
-	Suman Anna <s-anna@ti.com>,
-	Robert Tivy <rtivy@ti.com>,
-	De Leon <x0095078@ti.com>,
-	=?UTF-8?q?Sjur=20Br=C3=A6ndeland?= <sjur.brandeland@stericsson.com>,
-	Clement Leger <cleger@kalray.eu>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
 	linux-remoteproc@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 04/10] remoteproc: elf_loader: Fix overflow in rproc_elf_load_segments()
-Date: Mon, 23 Nov 2026 17:20:48 +0000
-Message-ID: <20261123172140.3547896-5-lee@kernel.org>
+Subject: [PATCH 05/10] remoteproc: imx_rproc: Avoid stale mailbox pointers on request failure
+Date: Mon, 23 Nov 2026 17:20:49 +0000
+Message-ID: <20261123172140.3547896-6-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.809.ga0b61035b5-goog
 In-Reply-To: <20261123172140.3547896-1-lee@kernel.org>
 References: <20261123172140.3547896-1-lee@kernel.org>
@@ -75,41 +73,69 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-For 64-bit ELF firmware images, rproc_elf_load_segments() reads 64-bit
-p_offset and p_filesz fields and checks offset + filesz > fw->size.  A
-malformed segment header where offset + filesz wraps around 64 bits
-bypasses this truncation check, causing the subsequent segment copy
-from elf_data + offset to read out of bounds outside the firmware
-buffer.
+imx_rproc_xtr_mbox_init() stores the result of
+mbox_request_channel_byname() directly into priv->tx_ch and priv->rx_ch.
+Because mailbox channels are freed on stop() and detach() and
+re-requested on start(), attach(), and system shutdown, a failure while
+requesting "tx" leaves an ERR_PTR in priv->tx_ch, which is later
+dereferenced by imx_rproc_kick() and imx_rproc_free_mbox().  If "rx"
+fails after "tx" succeeds, priv->tx_ch is freed without being cleared
+while priv->rx_ch retains an ERR_PTR, causing subsequent calls to see
+both pointers as non-NULL and skip initialisation, leading to a
+use-after-free on priv->tx_ch and an ERR_PTR dereference on priv->rx_ch.
 
-Replace the addition with an overflow-safe subtraction check and log
-offset and filesz individually when rejecting a truncated image.
+Request both channels into local variables and assign priv->tx_ch and
+priv->rx_ch only after both requests succeed.
 
-Fixes: f31e339f1b9b ("remoteproc: Add elf64 support in elf loader")
-Closes: https://sashiko.dev/#/bug/linux-754a0c40-c150-42df-9c0d-bbb2c3846fa7
+Fixes: 99b142cf7191 ("remoteproc: imx_rproc: Request mbox channel later")
+Closes: https://sashiko.dev/#/bug/linux-ac0f248a-bdfd-41da-95f8-44b8f1f7091d
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/remoteproc/remoteproc_elf_loader.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/remoteproc/imx_rproc.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/remoteproc/remoteproc_elf_loader.c b/drivers/remoteproc/remoteproc_elf_loader.c
-index da3cddbe7d4c..6b9de0627768 100644
---- a/drivers/remoteproc/remoteproc_elf_loader.c
-+++ b/drivers/remoteproc/remoteproc_elf_loader.c
-@@ -213,9 +213,9 @@ int rproc_elf_load_segments(struct rproc *rproc, const struct firmware *fw)
- 			break;
- 		}
+diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
+index 581bb07f5893..a77a3342e1ed 100644
+--- a/drivers/remoteproc/imx_rproc.c
++++ b/drivers/remoteproc/imx_rproc.c
+@@ -875,6 +875,7 @@ static void imx_rproc_rx_callback(struct mbox_client *cl, void *msg)
+ static int imx_rproc_xtr_mbox_init(struct rproc *rproc, bool tx_block)
+ {
+ 	struct imx_rproc *priv = rproc->priv;
++	struct mbox_chan *tx_ch, *rx_ch;
+ 	struct device *dev = priv->dev;
+ 	struct mbox_client *cl;
  
--		if (offset + filesz > fw->size) {
--			dev_err(dev, "truncated fw: need 0x%llx avail 0x%zx\n",
--				offset + filesz, fw->size);
-+		if (offset > fw->size || filesz > fw->size - offset) {
-+			dev_err(dev, "truncated fw: offset 0x%llx filesz 0x%llx avail 0x%zx\n",
-+				offset, filesz, fw->size);
- 			ret = -EINVAL;
- 			break;
- 		}
+@@ -900,18 +901,21 @@ static int imx_rproc_xtr_mbox_init(struct rproc *rproc, bool tx_block)
+ 	cl->knows_txdone = false;
+ 	cl->rx_callback = imx_rproc_rx_callback;
+ 
+-	priv->tx_ch = mbox_request_channel_byname(cl, "tx");
+-	if (IS_ERR(priv->tx_ch))
+-		return dev_err_probe(cl->dev, PTR_ERR(priv->tx_ch),
++	tx_ch = mbox_request_channel_byname(cl, "tx");
++	if (IS_ERR(tx_ch))
++		return dev_err_probe(cl->dev, PTR_ERR(tx_ch),
+ 				     "failed to request tx mailbox channel\n");
+ 
+-	priv->rx_ch = mbox_request_channel_byname(cl, "rx");
+-	if (IS_ERR(priv->rx_ch)) {
+-		mbox_free_channel(priv->tx_ch);
+-		return dev_err_probe(cl->dev, PTR_ERR(priv->rx_ch),
++	rx_ch = mbox_request_channel_byname(cl, "rx");
++	if (IS_ERR(rx_ch)) {
++		mbox_free_channel(tx_ch);
++		return dev_err_probe(cl->dev, PTR_ERR(rx_ch),
+ 				     "failed to request rx mailbox channel\n");
+ 	}
+ 
++	priv->tx_ch = tx_ch;
++	priv->rx_ch = rx_ch;
++
+ 	return 0;
+ }
+ 
 -- 
 2.56.1.750.gf70dc682cf-goog
 
