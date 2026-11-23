@@ -1,69 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795427062;
-	b=3y73xgvPbkpdLp5OPhZFteHmD3sESFOHzbV+Fjg57yqOXDFB3wBio7LWKJ9PEjet8+b/
-	 T1vTwqSPJFzF743ulqekZdpnKXdCmn78o+KNM8+wKq4+vI6N7yJhCgzeyeT6wEdNoBcRB
-	 Qr08j/r7SacvXruGuvBgc+smdQU6z4nwwmPriBqIVm2+uifqPQXVUVAKoYS2Ad31ZtDLK
-	 USSiODsubov3VLpNw1pUMo66cNzOQ0ArwRPhvEznT7reUp5pIC3pQrm0yrOQZm70eDb9O
-	 RUxT2RLdXzYK2QMdrYoW5YlgQlgUhze0EE0r0aA4la9IdNPZis5TWxbDJ7iC2/dt/JA==
+	t=1795427070;
+	b=jc3L0pGyMdVfpB8TA83yqsASW92slW289QMrylMUu4BUz/ONDuQaC+5tPt9Oe0MzIuRx
+	 yua6/UZvarm5eQijy9bDH5BuhGbq10nocEcpgvktmow8V80ocWV6E8to4PwB+JEro5crG
+	 roElAUQfTSZxHMe3a67xi9f3jL3Q7fnZe5wOoYq6hWwUA9/Ehn816hNgkXgcjZs0zLVM2
+	 ezcCSKucL5ADIl/NZZT5yD8provb+7Yck+9NKX+ccFWUXGcoC9GbZYQh7kOjUvDP2qbQX
+	 cX2cUoSjsfrWDdXhwcNQg8djFBMN8ExtVHbffFOEh7LM7FvnH09w9gd7sodb1yW1BOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795427062;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795427070;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
-	 Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=U4IXXMcC7cdP3dcXyehvU/a2apzs/cu4mCfmZw2dIUM=;
-	b=PFhDtfxMIh5AtXe1qemniO4mk5Q4NIAUS2BNIicePB/nYrqTV2bW9nF/FZCWd1tfsn/L
-	 gmQHscfVZc/NAaAp56i5kkT06ZA0yfOL7ARjcuvDKJ327zkxofkGTUxmd2nlvi/rFv8u1
-	 bCQG9t/ZHr9zkyIzFcDyjMo9k5Fm3I7ZB4FmfIqYbYcn5UeQG7S5DAmMUVNol49GOE40U
-	 LnUru8PFGkSZIDSWTQU05eA0aaCGBYyWos8nhaidghw2SlNH8ywvpIHt79Cmcs9wvKyhH
-	 1Vcq9ldVM3pf9ybuamBLacZSRYFJxIg60uFBEvKuTBiz7DBAodJoawuO28Bm5LTXoLw==
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=P1YdagB8hNpjP5rymuaQgzSg7M4glBGk0VAYN0plbK8=;
+	b=wdD735AS1knhx+cidh5MknoAdht8uTqjondq9XbZA1NX1aWMCz2q4z2/YIJfSifffrAc
+	 CAFZMrq0Mx/nLCQJ4hdnrKGD70BBLKxOzUH8vVjUmuTbYpsCTK9fFD3EWBlUOPI1k6JA2
+	 hVhxJCm1Mgu4E5oCOqRAa1OnD3KOoVpNIDG/04mvFwrIf6d6dYMT+U53YL/fo05L8flT2
+	 4b50hsQHPQ2B/dHspHMm0PtJqhjHs0ZGfbLvsfOlOPaqfWwavrFeefBccsw0umbJTdskN
+	 jNiAH8iPMZA2ZSYg7Na+2Vf3TrJ7M0mtnVpgYMRvw+VQ02ZPt0bcXu8tX2fzo5RqyIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FvA6T71E;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=IZ7IWt9a;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=mWzRJBuh;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=WG3xBGn5;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A13606A31E;
-	Mon, 23 Nov 2026 09:44:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63A13606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE57606A331;
+	Mon, 23 Nov 2026 09:44:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDE57606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FvA6T71E;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=IZ7IWt9a
-Date: Mon, 23 Nov 2026 09:44:15 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=mWzRJBuh;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=WG3xBGn5
+Date: Mon, 23 Nov 2026 09:44:26 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1795427058;
+	s=2020; t=1795427068;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-	bh=U4IXXMcC7cdP3dcXyehvU/a2apzs/cu4mCfmZw2dIUM=;
-	b=FvA6T71E6M5W7kI18MyoIEDj6tNSPURYCPr02vtuI4bWOZfFotMptHvUI0iV/MD+ossP56
-	ePL2DMc+akZUkOHt+fnjOsBpJ2gb4EuIg3t+zwmJpoCzcJym2Niwv+uvxbuhiC0ShBwvkB
-	zTtMXSgPij0hX3iPyYUsUbTyQd7aTwRFRdt915zfFANik+Gh1p/ATGF+z6LRqj1EJW7dv6
-	4ikR2EuFaWP5rClBfSqn6LdOsFyJmrffgq3TT2Oeq4GC7/bVXHUZwYu2Leeea/ZjABmFML
-	qp/oULbGzU1P8fIvGuStamyvFmHsDXdeVkT9232+U8X8kKpcyadk3GsNK18GHg==
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P1YdagB8hNpjP5rymuaQgzSg7M4glBGk0VAYN0plbK8=;
+	b=mWzRJBuhgB9361LXEV+f88c6NXNoAFNnDL+BjBCl8u5V7YhMiOpm3f2SXy+nYqw4BDp+rT
+	V5imyPR2M3mN4m2vFGOji/S/afi4FdhaKJUgjUwNfsohtRZ3pGLYDEBMR0j8BYXPssUm0/
+	Ih+6SChHQCij9yTnLhBf2rPXBylaTSQFIjLMi+ATaBZG/gVPSbXtIA6c7mEz/RBtYkLMae
+	VRvEAwyX13CIzJVW924KQv/trS4jaw92RiKyy1M3gunW1BUdUkxjJ4Wni+ByyjY05q4eAM
+	gmaNzxCz2LCj8gYc6H/RJBLQSsTdAq7JPGP+gZJwmnprKSH2U0GzG1ZRevXCWQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1795427058;
+	s=2020e; t=1795427068;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-	bh=U4IXXMcC7cdP3dcXyehvU/a2apzs/cu4mCfmZw2dIUM=;
-	b=IZ7IWt9aQeJctaS89oJeCQwXiLqwgPq3/YTqHI53wkZ2c5aV0wjkgRk8xOyCregk+sahDd
-	D1bKoG7GGNeGwFBA==
-From: "tip-bot2 for Peter Zijlstra" <tip-bot2@linutronix.de>
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P1YdagB8hNpjP5rymuaQgzSg7M4glBGk0VAYN0plbK8=;
+	b=WG3xBGn5YFapbxJAwG6Qui1aO+5/eehYTRyqZtLxH9Ytpn/6SQ9ON9ijVtHu6FH646xT9l
+	OtikvA85MiM3fzCQ==
+From: "tip-bot2 for Ibrahim Elshahed" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/urgent] perf/core: Fix perf_pmu_register() sysfs race
-Cc: Hanxiang Xu <xuhx@hust.edu.cn>,
+Subject:
+ [tip: sched/urgent] sched/core: Clear a stale rq->core_pick after dequeue
+Cc: Roman Kagan <rkagan@amazon.de>, Ibrahim Elshahed <lshahed@amazon.de>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>,  <stable@vger.kernel.org>, x86@kernel.org,
+ Ingo Molnar <mingo@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
  linux-kernel@vger.kernel.org
+In-Reply-To: <20261120105822.7770-2-lshahed@amazon.de>
+References: <20261120105822.7770-2-lshahed@amazon.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,7 +80,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179542705589.92412.1823103275393818072.tip-bot2@tip-bot2>
+Message-ID: <179542706629.92412.731576680350374623.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -81,57 +88,61 @@ Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the perf/urgent branch of tip:
+The following commit has been merged into the sched/urgent branch of tip:
 
-Commit-ID:     dd1e556d9a5aef3e731fbe31ae43d9b4eaf05c1b
-Gitweb:        https://git.kernel.org/tip/dd1e556d9a5aef3e731fbe31ae43d9b4eaf=
-05c1b
-Author:        Peter Zijlstra <peterz@infradead.org>
-AuthorDate:    Wed, 18 Nov 2026 14:15:11 +01:00
+Commit-ID:     b704f052aa943903be7140fa8bd805b1de9d5afb
+Gitweb:        https://git.kernel.org/tip/b704f052aa943903be7140fa8bd805b1de9=
+d5afb
+Author:        Ibrahim Elshahed <lshahed@amazon.de>
+AuthorDate:    Fri, 20 Nov 2026 10:58:20=20
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Mon, 23 Nov 2026 10:37:47 +01:00
+CommitterDate: Mon, 23 Nov 2026 10:38:26 +01:00
 
-perf/core: Fix perf_pmu_register() sysfs race
+sched/core: Clear a stale rq->core_pick after dequeue
 
-Only expose the sysfs files after fully initializing the data they expose.
+A core-wide selection leaves the task chosen for each sibling in that
+sibling's rq->core_pick until pick_next_task() on the sibling consumes
+it. If the task is dequeued before the sibling consumes it, for example
+migrated away, the pointer stays until the sibling's next
+pick_next_task() overwrites it. Until then
+__sched_core_account_forceidle() keeps charging forced idle time to a
+task that no longer runs there and, with schedstats enabled, to its
+cgroup, even after the task has exited.
 
-Reported-by: Hanxiang Xu <xuhx@hust.edu.cn>
+Clear rq->core_pick and rq->core_dl_server in sched_core_dequeue() once
+the pending pick is dequeued, and don't wait for pick_next_task() to
+overwrite them.
+
+Fixes: 4feee7d12603 ("sched/core: Forced idle accounting")
+Co-developed-by: Roman Kagan <rkagan@amazon.de>
+Signed-off-by: Roman Kagan <rkagan@amazon.de>
+Signed-off-by: Ibrahim Elshahed <lshahed@amazon.de>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Cc: <stable@vger.kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261120105822.7770-2-lshahed@amazon.de
 ---
- kernel/events/core.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ kernel/sched/core.c |  9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index f424b72..a2e4b07 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -13012,12 +13012,6 @@ int perf_pmu_register(struct pmu *_pmu, const char *=
-name, int type)
- 	pmu->type =3D pmu_type.id;
- 	atomic_set(&pmu->exclusive_cnt, 0);
-=20
--	if (pmu_bus_running && !pmu->dev) {
--		int ret =3D pmu_dev_alloc(pmu);
--		if (ret)
--			return ret;
--	}
--
- 	pmu->cpu_pmu_context =3D alloc_percpu(struct perf_cpu_pmu_context *);
- 	if (!pmu->cpu_pmu_context)
- 		return -ENOMEM;
-@@ -13036,6 +13030,12 @@ int perf_pmu_register(struct pmu *_pmu, const char *=
-name, int type)
- 		__perf_mux_hrtimer_init(cpc, cpu);
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 42b99be..4b1d36c 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -329,6 +329,15 @@ void sched_core_dequeue(struct rq *rq, struct task_struc=
+t *p, int flags)
  	}
 =20
-+	if (pmu_bus_running && !pmu->dev) {
-+		int ret =3D pmu_dev_alloc(pmu);
-+		if (ret)
-+			return ret;
+ 	/*
++	 * @p left this rq, so it can no longer be the pick a sibling made.
++	 * This also avoids forced idle accounting charging it once it is gone.
++	 */
++	if (rq->core_pick =3D=3D p) {
++		rq->core_pick =3D NULL;
++		rq->core_dl_server =3D NULL;
 +	}
 +
- 	if (!pmu->start_txn) {
- 		if (pmu->pmu_enable) {
- 			/*
++	/*
+ 	 * Migrating the last task off the cpu, with the cpu in forced idle
+ 	 * state. Reschedule to create an accounting edge for forced idle,
+ 	 * and re-examine whether the core is still in forced idle state.
