@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795435234;
-	b=w16OynmoBVyB+7QNiIik9nkyKP3MHYjiPRazhGKlPNIlYCXn1mNjSsgORY3WMU++wQkV
-	 eUAH4/2/IyA44rzIDZ/o8affh+ZIALAqRJ4wy+899cO6RYUHuKwVzSj0xcxCR8pJVrijT
-	 EFPtALhHXBVWHUs0sbN0gqI87Cy8EIA5FYWa5S3lADCYR+hmx0rodv7eorv8wyGxZT55h
-	 WEuoxMMVttgHbPLloq6e3U/fwBV9gR0KAcus0jZanVrp6x0C9214WLIbRDcTS2BaKAu3n
-	 I/iIAw9eOszzhWH2HM6el4KFnboGUjEGKF60B8s9EPgJu55avqwYBdq1aAEEz2cA0pw==
+	t=1795435501;
+	b=lZhXGOL9FoUBtj6zmsNIBzJnaL+iH6DVV/LtmmETRrldCRarTr4EqupShNMazRu5Jmhv
+	 8n0bbZELiKktnlCDWi32zdYjiw+IWpn3VMiXDPS3B64dkm+sFMSN6OqypMQ2tLRn9dl8w
+	 uD6NjNEFwr47FMuX8UGSdhkWxCyv1O6FQS+EV++G3xYFBUMArRwgrOUQLoCKEqbH4BEzJ
+	 uaRV2iHwkKjiaIe6B6J2Su2PXo1eHiSp3rOV/J7nNbBKkhvPcjycRw/RaTywnDO/jdfm9
+	 CBSMWkUtw8LSSEwF0qL89Aps20Ggx+FAPfa7cxQPQDzkgaCPKRG8hrl/j12xnwrmnJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795435234;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=58dnyHmcGYM5K/noXPXYN5UJ12SWVEjcuBJMitDAktY=;
-	b=n+TQJ1FEoOBHF2H34sJeHclTdaiPKOYomaLOrm8aaW7korIw9BKtr4PxeGFvRf2ol8Jr
-	 WGA240qOTesXbOpOHIsgkSmOosLS0EmR6JRF3pjHM7gINpK/ksRQq+394L4gSg0h7qPva
-	 H8EtUXmalBRwVgQSv8wWGAuBkEim0p/Hzp4DF+7rgohUBBqeckTY1L5tL7GtOtk5pfYGd
-	 P6q5q8guUScDdKsmV6cdnUSf6CQKJOC7OvFF4PpSthbnJ358f8Y5MAsI8DcUEmnmkH+v1
-	 UdeiSCHy1H/sG7bzpDM4EK4lfFxgDQ6pidh3h6uwOvbOC4tE5QKxgUDik4G6swYK50A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795435501;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Message-ID:In-Reply-To:
+	 References:Subject;
+	bh=mqH7OKXaciQeHdxtYyYAmoEalgZtOU0hzW0YdVrk+I8=;
+	b=J74pypXFpa45LMRgiRx5LLcwhvdne6nL9nfLjeEPcUTxpahSZPsJevWSkSYUolMkvMhP
+	 1NM9i6ERFMiPr2/Gf5Tjt52tGJIMi8c2dbMn3ag2pEONji6oeYQtalDy2UkZ6/RT2ER/7
+	 yoER4GktOGXRk4gJH8aGC+p/2c2ruoJFPWANI6xbsrt5NFLRrH2YEwaCM/PZJUe1HiEIN
+	 NUVzTydtlpxwJZx6vgXaP6lLBgQ2j/S2DCakh7HX1FQBma00vl5IDuF7FB9ianXZvVVAx
+	 uxJF/wWLnA1kifoIJA0MMfVz6Ao9wzCxsAwbvq3FYIXCM99mQvZhWWcVT5NQcT3A0FQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I2VrxARw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DKSt6R77;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8361606A32A;
-	Mon, 23 Nov 2026 12:00:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4EEE606A31A;
+	Mon, 23 Nov 2026 12:05:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I2VrxARw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1E731F000CF;
-	Mon, 23 Nov 2026 12:00:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DKSt6R77
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E7291F000CF;
+	Mon, 23 Nov 2026 12:05:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795435234;
-	bh=58dnyHmcGYM5K/noXPXYN5UJ12SWVEjcuBJMitDAktY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=I2VrxARwlNQzNhupuGPSVkr2zfOt6vIXI0i03VUfNDROroNsYb97TXMgVwcuKDpwz
-	 Y5u6/G9+t8PYd+W/lRMKBnFX1+/qKKV0Z/CQ4HD5BdstFy4oxChMiQm9t4UMYKygMd
-	 UsZPz35/IX7F0/+DUXiE198AFHBP2Hnc7HY1wYxX5IdrrYwG6j6dI4wLJaR2I8NmK3
-	 V9ynzJRq8VyqMHudIBOQcUL7SxoxSroErlgPya1CprcUZmFoN3d0oaG5ofYXW5qDxs
-	 tSxiO1d6nFk3zd7E1sdpJZlqAUq2CkGGbCguywWuQtSoiq0wkxEjfZN9My5BDIX7xC
-	 IltUcGbPvC00Q==
-Subject: Re: [PATCH can-next v9 13/13] can: gs_usb:
- gs_usb_host_frame_header_valid(): drop CAN frames with invalid DLC
-From: netdev-bot+sashiko@kernel.org
-To: mkl@pengutronix.de
-Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
- max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
- linux-can@vger.kernel.org, shuangpeng.kernel@gmail.com,
- stable@vger.kernel.org, vadim.fedorenko@linux.dev, kuba@kernel.org
-Date: Mon, 23 Nov 2026 12:00:33 +0000
-Message-ID: <179543523333.3131.16865758831688588605@kernel.org>
-In-Reply-To: <20261121-gs_usb-fixes-v9-13-db121d488945@pengutronix.de>
-References: <20261121-gs_usb-fixes-v9-13-db121d488945@pengutronix.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1795435501;
+	bh=mqH7OKXaciQeHdxtYyYAmoEalgZtOU0hzW0YdVrk+I8=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=DKSt6R7790trB8iEkt3k3lJ2rVfcLGImK5nLRUDr/t7mxgnOtA7TP32/IO5xilqdC
+	 eERcz8Vx10xrw2Bi/iZnPr2r6uPm0LiKOFx3kDZi2x6tcAk6zTBiEV7A+5Lv6Fg/iC
+	 fi2wVXcQHosjqQ21caknU3eFij5ENBIufc4s4AQk7PIUXzbg4KafMha+hPl9qvbsrx
+	 sqWysJhCFCOxlabrq+l8GcLtHbxvyyTvOxMzLKMOvG5slKihbBHVCZcF4ij2GXqhAJ
+	 Su9aikgvlEbW5RyRsBzBR0wt6d6ZV2KaAND+4PhJ1SqgyQ5kXGnrszw40Us9nx7nMd
+	 wWHJS2JGnwaeA==
+Date: Mon, 23 Nov 2026 02:05:00 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, Breno Leitao <leitao@debian.org>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Message-ID: <20261123120125.375076-1-tj@kernel.org>
+In-Reply-To: <CAHk-=wjm3vbiNYsR+aHxmM3KCEgsSWb379ZQbCuZEsN1dhvbKg@mail.gmail.com>
+References: <fb224bad9baf5f44cf17e1d664776a4e@kernel.org>
+ <CAHk-=wg4jAWZvxWo0OZ+fFTU=SBtQ7dnsUCV7hx+UAifkwPUwQ@mail.gmail.com>
+ <avs4uWg9ch-Bqobj@slm.duckdns.org>
+ <CAHk-=wg+MO19H7KVgA+SaZvvt5O+3Tp8AxHVhpN23JtaSq=G4g@mail.gmail.com>
+ <CAHk-=wjm3vbiNYsR+aHxmM3KCEgsSWb379ZQbCuZEsN1dhvbKg@mail.gmail.com>
+Subject: [PATCH wq/for-7.4-fixes] workqueue: Fix drain_workqueue() missing work items chained across pwqs
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,158 +60,138 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+drain_workqueue() flushes the workqueue, then checks each pwq under its
+pool's lock and returns once a pass finds every pwq empty. Only chained
+queueing is allowed meanwhile, and a chained work item can land on a pwq
+other than the one the queueing work item is executing on. The pass misses
+it when:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+1. The pass finds pwq A empty.
+2. A work item executing on pwq B queues a work item on pwq A.
+3. The work item on pwq B finishes.
+4. The pass finds pwq B empty.
 
-- [Medium] The new DLC check in gs_usb_host_frame_header_valid()
-  (drivers/net/can/usb/gs_usb.c:666-678) ignores echo_id.
-- [Low] The commit fixes a real contract violation that userspace can
-  see, but it has no Fixes: tag and the message does not state the…
-- [Low] In gs_usb_host_frame_header_valid()
-  (drivers/net/can/usb/gs_usb.c), the new out-of-range DLC check (lines…
+drain_workqueue() returns with the work item on pwq A pending, and
+destroy_workqueue() can then trip WARN_ON(pwq_busy()) and leak the
+workqueue.
 
---
+Add pwq->nr_started, which counts the work items a pwq has started
+executing, and check the pwqs twice after each flush. The drain is complete
+only if both passes find every pwq empty and no work item started in
+between. The counter is updated and read under pool->lock, and the queueing
+path is not touched.
 
-can: gs_usb: gs_usb_host_frame_header_valid(): drop CAN frames with invalid DLC
+Verified with reproducers of both shapes: self-requeueing work items on an
+unbound workqueue and chained queue_work_on() of another work item on a
+per-cpu workqueue.
 
-This patch adds a check to gs_usb_host_frame_header_valid() that rejects
-any host frame with a DLC above 0xf. A rejected frame increments
-rx_errors and rx_length_errors, logs a rate limited error and causes the
-URB to be resubmitted.
+Fixes: c8efcc258946 ("workqueue: allow chained queueing during destruction")
+Cc: stable@vger.kernel.org # v2.6.38+
+Link: https://lore.kernel.org/all/CAHk-=wjm3vbiNYsR+aHxmM3KCEgsSWb379ZQbCuZEsN1dhvbKg@mail.gmail.com/
+[ tj: Wrote the description and updated the pwqs_nr_started() comment. ]
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+Applied to wq/for-7.4-fixes, replacing c7d64f52bffa ("workqueue: Fix
+drain_workqueue() missing work items chained across pwqs") from the pull
+request.
 
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261004-gs_usb-cleanups-and-fixes-v1-0-7b4b06244a77@pengutronix.de
+ kernel/workqueue.c | 51 ++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 40 insertions(+), 11 deletions(-)
 
-> According to the respective CAN standards, the maximum DLC length for
-> CAN-CC and CAN-FD frames is 0xf. The code in driver assumes that this limit
-> has been verified.
-
-[Severity: Low]
-Should this have a Fixes: tag, and could the message state what goes
-wrong without the check?
-
-Before this patch, gs_usb_receive_bulk_callback() passed the
-device-supplied hf->can_dlc directly to can_frame_set_cc_len(). That
-call came in with commit 26949ac935e3 ("can: gs_usb: add CAN-FD
-support"):
-
-    can_frame_set_cc_len(cf, hf->can_dlc, dev->can.ctrlmode);
-
-The helper expects the caller to have checked the value already:
-
-include/linux/can/length.h:can_frame_set_cc_len() {
-	/* the caller already ensured that dlc is a value from 0 .. 15 */
-	if (ctrlmode & CAN_CTRLMODE_CC_LEN8_DLC && dlc > CAN_MAX_DLEN)
-		cf->len8_dlc = dlc;
-}
-
-With CAN_CTRLMODE_CC_LEN8_DLC enabled, a len8_dlc above 15 could
-therefore reach raw CAN socket users.
-
-On the FD path, can_fd_dlc2len() does dlc2len[dlc & 0x0F]. A DLC such as
-0x1f was silently turned into a valid 64 byte frame instead of being
-rejected.
-
-Other fixes in this series carry Fixes: and Cc: stable tags, for example
-"can: gs_usb: gs_usb_receive_bulk_callback(): check for overflow flag if
-SKB allocation fails". Would the same tags make sense here, so stable
-backporters have something to go on?
-
-> diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-> index a1192867e49b8..2da2f8843e5d5 100644
-> --- a/drivers/net/can/usb/gs_usb.c
-> +++ b/drivers/net/can/usb/gs_usb.c
-> @@ -663,6 +663,20 @@ static bool gs_usb_host_frame_header_valid(const struct gs_can *dev,
->  		}
->  	}
->  
-> +	/* we can check for max CAN-CC and CAN-FD DLC at the same time, they are both 0xf */
-> +	BUILD_BUG_ON(CAN_MAX_RAW_DLC != CANFD_MAX_DLC);
-> +	if (header->can_dlc > CAN_MAX_RAW_DLC) {
-
-[Severity: Medium]
-This check runs whatever header->echo_id is, so TX echo frames
-(echo_id < GS_MAX_TX_URBS) with can_dlc > 15 are now rejected as well.
-What happens to the pending TX context in that case?
-
-gs_usb_get_rx_data_length() returns -EINVAL, and
-gs_usb_receive_bulk_callback() then skips the echo completion branch:
-
-gs_usb_receive_bulk_callback() {
-	...
-	data_length = gs_usb_get_rx_data_length(dev, hf, urb->actual_length);
-	if (data_length < 0)
-		goto resubmit_urb;
-	...
-	} else { /* echo_id == hf->echo_id */
-		txc = gs_get_tx_context(dev, hf->echo_id);
-		...
-		gs_free_tx_context(txc);
-
-		atomic_dec(&dev->active_tx_urbs);
-
-		netif_wake_queue(netdev);
-	}
-	...
-}
-
-The TX context slot and the echo skb that gs_can_start_xmit() stored
-with can_put_echo_skb() then stay held until gs_can_close(). The
-active_tx_urbs count is never decremented either. The driver has no
-ndo_tx_timeout or other recovery path.
-
-After GS_MAX_TX_URBS such echoes, gs_alloc_tx_context() fails and
-gs_can_start_xmit() returns NETDEV_TX_BUSY. Once the leaked
-active_tx_urbs count reaches GS_MAX_TX_URBS, gs_can_start_xmit() stops
-the queue and nothing wakes it. TX then stalls until the interface is
-taken down and brought back up.
-
-Echo frames never use can_dlc. gs_usb_get_minimum_rx_length() only
-converts the DLC to a length for echo_id == GS_HOST_FRAME_ECHO_ID_RX,
-and the echo path takes its data from dev->can.echo_skb[]. Before this
-patch, an echo with a bogus can_dlc completed normally.
-
-Could the DLC check be limited to echo_id == GS_HOST_FRAME_ECHO_ID_RX?
-
-> +		stats->rx_errors++;
-> +		stats->rx_length_errors++;
-
-[Severity: Low]
-Can error frames be counted twice here? Take a frame with CAN_ERR_FLAG
-set and can_dlc > 15, for example 0x20. The existing check earlier in
-gs_usb_host_frame_header_valid() already fires for it:
-
-	if (header->can_id & cpu_to_le32(CAN_ERR_FLAG)) {
-		if (header->can_dlc != CAN_ERR_DLC) {
-			stats->rx_errors++;
-			stats->rx_length_errors++;
-
-Nothing skips the new check once valid is false, so both counters are
-incremented again. That one dropped frame adds 2 to rx_length_errors
-and at least 2 to rx_errors.
-
-struct rtnl_link_stats64 in include/uapi/linux/if_link.h documents both
-counters as counting packets, not individual validation failures.
-
-> +
-> +		if (net_ratelimit())
-> +			netdev_err(netdev,
-> +				   "out of range DLC (can_dlc=%u, max_can_dlc=%u)\n",
-> +				   header->can_dlc, CAN_MAX_RAW_DLC);
-> +
-> +		valid = false;
-> +	}
-
-[ ... ]
-
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index f2e8071a6f4e..08046ff0d697 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -281,6 +281,7 @@ struct pool_workqueue {
+ 	int			total_in_flight; /* L: sum of nr_in_flight[] */
+ 	int			nr_in_flight[WORK_NR_COLORS];
+ 						/* L: nr of in_flight works */
++	unsigned long		nr_started;	/* L: see drain_workqueue() */
+ 	struct list_head	flush_node;	/* FN: node on wq_flush_pnode->pwqs */
+ 	bool			plugged;	/* L: execution suspended */
+ 
+@@ -3455,6 +3456,7 @@ __acquires(&pool->lock)
+ 	 */
+ 	set_work_pool_and_clear_pending(work, pool->id, pool_offq_flags(pool));
+ 
++	pwq->nr_started++;
+ 	pwq->stats[PWQ_STAT_STARTED]++;
+ 
+ 	rcu_read_lock();
+@@ -4449,6 +4451,33 @@ void __flush_workqueue(struct workqueue_struct *wq)
+ }
+ EXPORT_SYMBOL(__flush_workqueue);
+ 
++/*
++ * Return 0 if any pwq of @wq is busy. Otherwise, return the sum of nr_started
++ * of all pwqs encoded as 2 * sum + 1, which is always odd, so that 0 can only
++ * mean busy.
++ */
++static unsigned long pwqs_nr_started(struct workqueue_struct *wq)
++{
++	struct pool_workqueue *pwq;
++	unsigned long sum = 0;
++
++	lockdep_assert_held(&wq->mutex);
++
++	for_each_pwq(pwq, wq) {
++		bool empty;
++
++		raw_spin_lock_irq(&pwq->pool->lock);
++		empty = pwq_is_empty(pwq);
++		sum += pwq->nr_started;
++		raw_spin_unlock_irq(&pwq->pool->lock);
++
++		if (!empty)
++			return 0;
++	}
++
++	return 2 * sum + 1;
++}
++
+ /**
+  * drain_workqueue - drain a workqueue
+  * @wq: workqueue to drain
+@@ -4462,8 +4491,8 @@ EXPORT_SYMBOL(__flush_workqueue);
+  */
+ void drain_workqueue(struct workqueue_struct *wq)
+ {
++	unsigned long started;
+ 	unsigned int flush_cnt = 0;
+-	struct pool_workqueue *pwq;
+ 
+ 	/*
+ 	 * __queue_work() needs to test whether there are drainers, is much
+@@ -4479,16 +4508,16 @@ void drain_workqueue(struct workqueue_struct *wq)
+ 
+ 	mutex_lock(&wq->mutex);
+ 
+-	for_each_pwq(pwq, wq) {
+-		bool drained;
+-
+-		raw_spin_lock_irq(&pwq->pool->lock);
+-		drained = pwq_is_empty(pwq);
+-		raw_spin_unlock_irq(&pwq->pool->lock);
+-
+-		if (drained)
+-			continue;
+-
++	/*
++	 * A pass isn't atomic across pwqs, so a chained work item can land on
++	 * a pwq it already found empty. Anything slipping past the second pass
++	 * needs a work item that was in flight at its pwq's first check, or
++	 * that started between its pwq's two checks. The first makes the first
++	 * pass fail, the second changes nr_started. wq->mutex keeps the set of
++	 * pwqs stable across both passes.
++	 */
++	started = pwqs_nr_started(wq);
++	if (!started || pwqs_nr_started(wq) != started) {
+ 		if (++flush_cnt == 10 ||
+ 		    (flush_cnt % 100 == 0 && flush_cnt <= 1000))
+ 			pr_warn("workqueue %s: %s() isn't complete after %u tries\n",
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261121-gs_usb-fixes-v9-0-db121d488945%40pengutronix.de
+2.56.1
+
