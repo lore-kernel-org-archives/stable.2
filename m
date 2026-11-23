@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795440352;
-	b=uxPiiR3A9vJJSYdA2PqqpfdYsKHMJiI0MjbUBamHgbCC+c0BuS8O52m9Su9wv5/fXuzx
-	 CheAjn83WyJHln/Ps0BtBM2rAjibdgPY8KCuErKe8nZlX/1fbeTDOq76Fo37dvgYTmF00
-	 acn0x+EuG8sybHvASZe1lSooUrQvu0FLiuBYiky45QxUxkxw1EnhgqNMjE76m2Ejtt+jp
-	 S6R6pUvUK6hQcumyjifVdfMhfYEPEasTUVPqhnsK4a8bHLoO16zUFYBgwQ3D+n3HYm4fN
-	 15XhJfRxwfYz0W5nrbkkYFE09LqxVQGJeZpbyeVGfEwXyT4JKIMmbWwLpTKBXY1auIg==
+	t=1795440356;
+	b=OKPCtDQjUrhfjDHY7tRWu1DmFixYUsNVpUGbKKe6lCijjTZOinl5tpGA0gcQzb7yDrDu
+	 4A542B6Epjw20FOz75xutc82Qr84b889n7RxW2hdnpx+EeFxXDGosxNfA1OXhiB1U4oGs
+	 NGn0XI1cRbcB52ego9xUNEipF6V+yiUZTPDlyNQ+HeKU5dCLwJalFz1nPFVj5FyOS3jCZ
+	 75bDkJ/gleNxgkiq+LBWgV6O+LkgTmSM2Y7VVgGzdAGlQOaCGi5kLfun8YUBPQPkCxP60
+	 oqQczVAd/DkLS/0qM4nEOlH7KuwoxAWTGfcAjS/bf/K8NhJVsogjnddAbgfOVXrKynA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795440352;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795440356;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=agZbsxC8XRUaliCdELdXroftudvx5Dzam1Cf9BBH+64=;
-	b=SUzfCRulywrFsnkinA/3GRBxaQJ3Hp1EdlsiLAmZOd2UlTmZSGkfcFKU7F9QhtTUXfWI
-	 P3+hgUlw+ZPVo7KQ3nYy8jPttK+9C6c/mUnHyJBO1wFaZ6m8s7RkfLEfNvKU/9QTz0dBJ
-	 tG7sHb7Pbur3axKtW6ImdKCoNn7/+ArtAYZcHq0bQBtAEtOvD40pB1S9O+rSQYaTGDAjX
-	 MONMJyXUuxlLOmQuxmFbNhBO93GVF4VDDlnvO1C3K83Sui+W3NhMZoX58IwBuFJcAfnZ1
-	 8Mpoxj5EVol3ZZ8IHPoMdWbm5QrygEkZ7+IIsO6EfAkJGC8J2i/LkKtZfnn9/RKLO2w==
+	bh=Vo5WUJPjTE8BWwdri/c1H0F7M+oopPW8vIab7gd30TY=;
+	b=UitVBLQNrqim8H0iRRqE0iaqlHINoKmiurLx8OXWRX9i1qIAr4wq+EbExso4Vr6y+5cT
+	 vy8czpw2kx2Zep98HcCkVJF33sCIL4fhk1Q9Mgo6ykN1ZGHHN4wPk3IB3QXWvFWRDDCln
+	 +zcHU1bKVAz4RqlCKGON9twbEwtQGhAGQjuwhljBXep0xrF/yK2hWh6S15XOp2LdrZ91R
+	 vJFCChS4yX/bDGQoRzffNwBBxgbL3oiYNeziplAmdkSS4QQra6FxATLymyG2fVcfjfRje
+	 gu4cyQNXjj25Qae7KtodGr+fI7Yd0VYM7VluC7ztHoVlIPM+5MHNQLU2E2OEqyVKiCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Xlicqqh/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Irmlc/mO";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A595F606A69E;
-	Mon, 23 Nov 2026 13:25:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C749460A2600;
+	Mon, 23 Nov 2026 13:25:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xlicqqh/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB11D1F02836;
-	Mon, 23 Nov 2026 13:25:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Irmlc/mO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96E5A1F0283F;
+	Mon, 23 Nov 2026 13:25:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795440352;
-	bh=agZbsxC8XRUaliCdELdXroftudvx5Dzam1Cf9BBH+64=;
+	s=k20260515; t=1795440356;
+	bh=Vo5WUJPjTE8BWwdri/c1H0F7M+oopPW8vIab7gd30TY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Xlicqqh/Cw5bLJbN+HG52G3c4xNs1cTXM2eUWfaRMqdL8BsntEygAFQEJ8dRXPpmC
-	 8Y81BOcGdTRlrsz4uDudVuS18KQNns1FMIC5YXeSjs2bdIDRYr6UfrVVNfeAZheAvn
-	 GHjOEMyW3ZDpQXeTry6Mh4iK2Z1uC3FFdy/OTfTdyBwXBzI+3R7jdXoBP+02I9uzf4
-	 SV5CBphoyptb7mgzqdY7jujgjSYdcc2WZDivcZ1aeS5YEUrODG6qL+3dQsnDR0XU18
-	 fRrGwX5GBgupI4zbj0bawQLKqt8memWF2YDnuNSAE1ZnOkFnzpaQlJFhpQDjz7qG1s
-	 r0Msn1ugu9QIg==
+	b=Irmlc/mObBKbg5o5DVhzTlWmm2RLuoFwetcxyrvsqnhMh3i1CY/FGxpQrGOE3XuQf
+	 wd3MbXeqaq57yn1dq0ToNmffm0Vc0S5LTbX3K2VUW+FfvUlDKf3ozjJQPbz62QyxQH
+	 CvbcSzVL3nTdTBHhsGXSCczIiVEoSBwZHKE4HNKs7RVD5ImsS1mqWJrkW9Y8MurchP
+	 rGhGwSCBC0si8xgVuvmZN2rym/4Aozm8BoKjvMlEGS45BjRtFVD3V1qCVjdGR5LoUj
+	 8O/NN3gGYvFGbiwzxz4zvrUHvaSWSaYirMyjjEQ0LIX+sUhMih7PGwLKp0pAEfahNp
+	 +QwPX4naL/NFw==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Mon, 23 Nov 2026 14:24:56 +0100
-Subject: [PATCH net 08/10] mptcp: pm: don't let listeners pin their netns
+Date: Mon, 23 Nov 2026 14:24:57 +0100
+Subject: [PATCH net 09/10] mptcp: initialize drop_req in subflow_init_req()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-8-278042217e8d@kernel.org>
+Message-Id: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-9-278042217e8d@kernel.org>
 References: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-0-278042217e8d@kernel.org>
 In-Reply-To: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-0-278042217e8d@kernel.org>
 To: Eric Dumazet <edumazet@kernel.org>, 
@@ -66,123 +66,80 @@ To: Eric Dumazet <edumazet@kernel.org>,
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  Davide Caratti <dcaratti@redhat.com>, 
  "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4454; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=/+RpJZZCr+9fWGrIXW99TKLAy50OJBD8MN8jo5gWqtc=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLJZ7PY+49geMVVSJO1/wQ+W9ysC3k2Ya/fH5Dm/2t/Tu
- aHiW3QsOkpZGMS4GGTFFFmk2yLzZz6v4i3x8rOAmcPKBDKEgYtTACbS2MfwP8XG5vzrgL+c3Pk2
- 69QcjWfPMe8v7r3C+rDtzON7RScTnjD8d3PIusF7Yl662rRos38HGc4I8f23tNU0edch9XMv/2Q
- 9DgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2879; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=qc4IGFaSg5Eh0l/L4vMsKDmfSUE8oIAs7yqqnNJAt+o=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLJZ7PYdSFZWXst0r6p96835aXNS8uOPBu3SF9x4eJ2op
+ dcP1kNnO0pZGMS4GGTFFFmk2yLzZz6v4i3x8rOAmcPKBDKEgYtTACZy2IDhn86CNXzGC9mn3ch8
+ McWj4qCI+dHgrVzM7xvfhX39s6xwz0xGhpb8e6ZS8SkXp36sO/qnyU3rgmnR8R5BbqtfdYcnHMo
+ 4wQEA
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Chris Mason <mason@kernel.org>
 
-For a "signal" endpoint with a port, the in-kernel path manager creates a
-listening MPTCP socket with sock_create_kern(). This socket is released
-when the endpoint is deleted or, failing that, by pm_nl_exit_net() when the
-network namespace is dismantled.
+With CONFIG_MPTCP and SO_REUSEPORT migration, which
+net.ipv4.tcp_migrate_req=1 or a BPF program enables, TCP sockets can
+leak until reboot, and each keeps its network namespace alive.
 
-The MPTCP socket itself holds no reference on the namespace. But its first
-subflow is created by mptcp_subflow_create_socket(), which always calls
-sk_net_refcnt_upgrade(). So the namespace cannot be dismantled before
-the listener is released, and the listener is not released before the
-namespace is dismantled: unless somebody deletes the endpoint, both stay
-around for ever once the last process of the namespace is gone.
+tcp_check_req() keeps a child off the accept queue if drop_req is true
+in a request socket that an MPTCP listener created. drop_req has one
+writer, subflow_syn_recv_sock(), which tcp_check_req() calls before that
+test only for an MPTCP listener. But if SO_REUSEPORT migration moves the
+request socket to a plain TCP listener, the test reads what the
+allocation left in drop_req, and nothing drops the last reference of a
+child that stays off the accept queue.
 
-  unshare -Urn sh -c 'ip link set lo up;
-                      ip mptcp endpoint add 127.0.0.1 port 4321 signal'
-
-leaks a namespace, with everything it contains, each time it is run. It
-remains charged to the user's max_net_namespaces limit.
-
-Only take the reference if the MPTCP socket has one. A listening TCP
-socket has no timer of its own, and request sockets of a dead namespace are
-taken care of by inet_twsk_purge().
-
-The sockets cloned from that listener for incoming MP_JOIN requests do
-need the reference, for their timers, but inherit sk_net_refcnt == 0. Take
-it when they are created, with __sk_net_refcnt_upgrade(), from the
-previous commit, as this is done in atomic context, and drop the
-connection request if the namespace is already going away.
-
-The TCP listener of such an endpoint is now a plain kernel socket, like
-the MPTCP socket it belongs to: it is not counted in "sockets: used" in
-/proc/net/sockstat any more, and its destruction is not broadcast to the
-listeners of the SKNLGRP_INET*_TCP_DESTROY sock_diag groups.
+The fix used here is to set drop_req to false in subflow_init_req(),
+which runs when the request socket of an MPTCP listener is set up.
 
 This issue has been found with the help of an LLM, and reproduced in a
-VM, with the reproducer shared with the original version of this patch:
-the command above, run 1000 times by an unprivileged user. Without this
-patch, all the network namespaces were leaked:
+VM, with the reproducer shared with the original version of this patch,
+run as an unprivileged user in a user namespace, with
+net.ipv4.tcp_migrate_req=1: an MPTCP listener and a TCP one sharing a
+port with SO_REUSEPORT, the MPTCP one being closed while handshakes
+complete. Without this patch, the children were leaked, with their
+network namespace, without any message from the kernel:
 
-  result: 1000 network namespaces made, 0 taken down, 1000 are left
+  repro: step 3 to 6: 32 SYNs, 16 went to A. A closed, 16 third ACKs. accept() on B returned 0
+  [...]
+  repro: RESULT: 16 children never reached an accept queue
+  repro: one RST for each connection. TCP: inuse 0 orphan 0 tw 0 alloc 16 mem 0
+  === exit code 0. The process and its namespaces are gone
+  === after:  TCP sockets allocated, all namespaces: 16 [...]
 
-Fixes: 1729cf186d8a ("mptcp: create the listening socket for new port")
+With UBSAN, the original version of this patch also reported:
+
+  UBSAN: invalid-load in [...]/include/net/mptcp.h:144:47
+  load of value 14 is not a valid value for type '_Bool'
+   tcp_check_req.cold+0xb6/0x189
+   tcp_v4_rcv+0x11f4/0x4230
+
+Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ Use __sk_net_refcnt_upgrade(), from the previous commit, instead of an
-  open-coded copy of sk_net_refcnt_upgrade(), with maybe_get_net() like
-  rds_tcp_tune(). Shorter comments, and describe the condition: any
-  kernel msk. Commit message: how the issue was found, and its
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ Shorter comment. Commit message: how the issue was found, and its
   symptoms. ]
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
- net/mptcp/subflow.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+ net/mptcp/subflow.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index 20d506235074..3e674c21bdb2 100644
+index 3e674c21bdb2..054ee992904e 100644
 --- a/net/mptcp/subflow.c
 +++ b/net/mptcp/subflow.c
-@@ -844,6 +844,22 @@ void __mptcp_subflow_fully_established(struct mptcp_sock *msk,
- 	WRITE_ONCE(msk->fully_established, true);
+@@ -151,6 +151,9 @@ static void subflow_init_req(struct request_sock *req, const struct sock *sk_lis
+ 	subflow_req->allow_join_id0 = mptcp_allow_join_id0(sock_net(sk_listener));
+ 	subflow_req->msk = NULL;
+ 	mptcp_token_init_request(req);
++
++	/* read by tcp_check_req() even after migration to a TCP listener */
++	tcp_rsk(req)->drop_req = false;
  }
  
-+/* Children of a kernel listener need a netns ref for their timers */
-+static bool subflow_child_get_net(struct sock *child)
-+{
-+	struct net *net = sock_net(child);
-+
-+	if (likely(child->sk_net_refcnt))
-+		return true;
-+
-+	if (!maybe_get_net(net))
-+		return false;
-+
-+	__sk_net_refcnt_upgrade(child, GFP_ATOMIC);
-+	put_net(net);
-+	return true;
-+}
-+
- static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 					  struct sk_buff *skb,
- 					  struct request_sock *req,
-@@ -912,6 +928,11 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 
- 		tcp_rsk(req)->drop_req = false;
- 
-+		if (!subflow_child_get_net(child)) {
-+			subflow_add_reset_reason(skb, MPTCP_RST_EUNSPEC);
-+			goto dispose_child;
-+		}
-+
- 		/* we need to fallback on ctx allocation failure and on pre-reqs
- 		 * checking above. In the latter scenario we additionally need
- 		 * to reset the context to non MPTCP status.
-@@ -1860,8 +1881,10 @@ int mptcp_subflow_create_socket(struct sock *sk, unsigned short family,
- 	/* kernel sockets do not by default acquire net ref, but TCP timer
- 	 * needs it.
- 	 * Update ns_tracker to current stack trace and refcounted tracker.
-+	 * Not for a kernel msk, e.g. a PM listener: it would pin the netns.
- 	 */
--	sk_net_refcnt_upgrade(sf->sk);
-+	if (sk->sk_net_refcnt)
-+		sk_net_refcnt_upgrade(sf->sk);
- 	err = tcp_set_ulp(sf->sk, "mptcp");
- 	if (err)
- 		goto err_free;
+ static bool subflow_use_different_sport(struct mptcp_sock *msk, const struct sock *sk)
 
 -- 
 2.55.0
