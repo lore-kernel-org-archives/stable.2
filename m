@@ -1,108 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795430338;
-	b=taN5o+8uVbNpR3ReSwYm9Zzp8BHFyk3JVOZwSMCCX6cXO0cRxnBz7u2yK0aE92E+5pPO
-	 VgnXrhIznagfxWRuB4phcmy2rRrowT8nXIwwxotLo1SvzL71ZOsToSyjxbzLdcbFSLI+k
-	 Zn+ikvrclphzgi6qs7pqHr63AnAYBuoee1tIjDpXvQc0rUrcAo36128MaaQvXMhnzjEcf
-	 WexI+Fih/HSjHx1vO+tMM6oY3OKVVTYnqpqH4+1yHH3M0jkTEh6G4yMbX51ZUgqye4TPM
-	 Ldo/1c8hdq+JRqerh3uaIxhG+XkBWCe8uwrpkuc73NjHZsyIf/bbZvjDVdUicC8HKBg==
+	t=1795430564;
+	b=a/PJF4fEyHColIseIGrXFs8u+PA4HEoUw3lu6Au88EHjyrGmL603WfKR18De85AVtt/D
+	 zP5mEkz0q8OgX0K04/4seEV2Zlj3wURJ5cAij/EwkxHIQzjQqlWlXtnJ7aZMQTae/0L+a
+	 MBxbJRVcq9qCdihfDdpfnitVsVWNlOwb4N1Iv3/t6Qy0Ze37ahpt5KfmTLfQ2qj3e9q3X
+	 uHS/6BniKY53RMMD0boePQdDckYtTh13VxgESFXTI6Hhlu2wGpYVKkuXSjw37oOuSCPwa
+	 grvkfhKI4mo9M985tG5QcGk1s8ojIsfIeS8W+q8crVNxF0ZYkvzEVyF77IqgzaExSeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795430338;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=25HQwnu7e3FGuiwMIPkT94HGf3K/Bf7tNaljloY0VDM=;
-	b=CE+FfBcGQaWkaukyX4l94G0/LgZt0jdzBtfvJe1p7KMUhB0yhd54XiNRvFfGMIitydbh
-	 04bgUrhb9NY/jzM7pDePBnBtxHp95HWwuR7z4WHSnCQCO4Mhf2BfHVn6/L1cUCAn5vyc4
-	 Bt7vzWGJbsBGzRxBJljAneXZciDGz/QuewtBfmypiqF0BI+20NxmXsJEHwBRk2rvMncqp
-	 uERbilmPelWE4T5KyQ7t/bt3KhyhbCtbQ5j+cGkXMx8cwsgjN24HZ+xxSPhAd3O0VrOH5
-	 qOMAhYQHITgOV9eOjajvCt8VQiUsM1vAIBlZY+GCH2ELyELAqilUqaoU6URULJ6zerQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795430564;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cwt87uUsOrwu5RSttuWdxqXXfcvorQyjbx6LQp+7f0U=;
+	b=DRh7RncpI8xcodySTJNz5o5BWfkLD39jUxV4F3is9uJKk/zeXyQBdfcpWCntVtRcCtvj
+	 PYnkB3fn51wY7HUvAHq2B8RtGaEkFbdRASamdCnMUH47EzVxhzQSOl327X1xVeOLVDObT
+	 +VacWtCLys4jG3YYUrPwqmd/56ibakmVIRYsO8z7ib+AQt4kjSCAPxOXRbCrwhKx5tF9l
+	 jeaE16/obm0b/hMQbZNIxlRpKJ0MLRREdZYOgIaXqliImsxLSr0eM3gHpXCm8f1SvEH1L
+	 v/MOM4392WEfG/D88FQS+8FFdqTHkDncGNOr2C0L06cufyq4yXdwABBJA+nlvJCZUCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=eXFg6f0E;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EOI4hZlt;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=VgMODSmF;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QMQzL15M;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=cloudlinux.com;
+	spf=pass smtp.mailfrom=cloudlinux.com;
+	dkim=pass header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=IEmaKJxH;
+	arc=none smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C07C606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 10:38:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C07C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E838606A32C
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 10:42:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E838606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cloudlinux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudlinux.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=eXFg6f0E;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EOI4hZlt;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=VgMODSmF;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QMQzL15M
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B67FD22098;
-	Mon, 23 Nov 2026 10:38:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1795430328; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=25HQwnu7e3FGuiwMIPkT94HGf3K/Bf7tNaljloY0VDM=;
-	b=eXFg6f0ETZg6Z005XQCOn7gRg3XRZYpcBd/STGQVniKXeDk0p8g1oxe6eIMxNhdxQjRXBd
-	G6OW6+eN1BQvlLv40cbtrOlu0sU011Eu3F+0Pwe5qc/x2D5R35lojwaoV7Q2LOiOxe2nNJ
-	oVrpbnUKkzPXhApFsT7VomP5m6DcQmU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1795430328;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=25HQwnu7e3FGuiwMIPkT94HGf3K/Bf7tNaljloY0VDM=;
-	b=EOI4hZlte2PozI7e75cDQ5JyubRkVvRc3Zm0mM8g0w+6KuyCyDpd1QAkXaSHSLb7QUtmBl
-	un7UTguWKvUEGRDg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=VgMODSmF;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=QMQzL15M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1795430326; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=25HQwnu7e3FGuiwMIPkT94HGf3K/Bf7tNaljloY0VDM=;
-	b=VgMODSmF11gwFn08muFFUuXAPKh2NR5Nmbe2A9fdhlgq5mwfUoUGzRsfw410SGfgs2kXU9
-	gV01oRajU7l+4KSa3x5J8dJ5wuMpzGORO81Jav/RZ1YpHG3UHJ5M5VkaGchrbuDpAhliFM
-	rcHI0geL4rClm4xKYkkTLQd3ks3ODbk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1795430326;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=25HQwnu7e3FGuiwMIPkT94HGf3K/Bf7tNaljloY0VDM=;
-	b=QMQzL15M0ID233nroooDuiyVoPowyyJasKmFSfmcbB1S8NX8oCb0EowiT3Aupu2OhzKCBR
-	A9l3h6X5VXSaMbDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8F79C13510;
-	Mon, 23 Nov 2026 10:38:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 854JG7YXBGtTawAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 23 Nov 2026 10:38:46 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 192702764E; Mon, 23 Nov 2026 11:38:31 +0100 (CET)
-Date: Mon, 23 Nov 2026 11:38:31 +0100
-From: Jan Kara <jack@suse.cz>
-To: Arbab Haider <arbabhaider649@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Eric Sandeen <sandeen@redhat.com>, 
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+1d23ad199a3bfd6f9149@syzkaller.appspotmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH] ext2: handle NULL fc->source in ext2_msg_fc()
-Message-ID: <csic66pmgrepiii5gkegqjykm3oceytmjymq323kqpx3mzlfrf@u6leijtq2hrh>
-References: <20261122182331.13740-2-arbabhaider649@gmail.com>
+	dkim=pass (2048-bit key) header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=IEmaKJxH
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a070781f63so1352946b3a.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 02:42:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudlinux.com; s=google; t=1795430563; x=1796035363; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cwt87uUsOrwu5RSttuWdxqXXfcvorQyjbx6LQp+7f0U=;
+        b=IEmaKJxHZzoh9SFERTTYfh5haKVCSycuxx/K3Ey6NAOHkrV0/w8s3j2r4Zuso6UDYQ
+         8HsqcBTDXwaB9sTsJFNltvTKYv/BiJn89DGCt+4H19Y+QeELW6PPeyfDzAaRSS+sC/yJ
+         MXQNPlX1tVbfCx4wHsfut5FDjb+qTassJhLITBv+K6EjJ1HDENme/sUZHtKZYSZaKnnv
+         mSOzcM2GBXVSQFch/LEqN245ZqjzSdWerZzedMrKS0X6+4XWz1+dKcghq6mGkFFzhoS4
+         wFFVOhWGxzdRZ0r3VBKyIzOr25FMeazd14E4lgZncWqYRj8Y3f1LEbouqxSYukwgt06x
+         y+5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795430563; x=1796035363;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cwt87uUsOrwu5RSttuWdxqXXfcvorQyjbx6LQp+7f0U=;
+        b=1qI80iJeGc/7CzgAGS8+fLj68WziMbSE9y3wPywXS8kC+695rzAC3KfX9H3Wkw3+Tf
+         qvaMslkFQfgSS5fmdOV1YttN04hNRxFYCSn0E6uz4i8iocQdB4zqEf8W46i31VQKVZ9X
+         VNiYZ/XaZBnOqz7j1PFl4LYZ8ThS9goZAty5n5jvOY8FrVXrB6R3nf9gANONYyO5c47y
+         7qUjQKGQltS9g4DYn5f1AOQADANvoGT81YR9s3+QxGBzLpmvjwi/+HOp0sgujPbHpFQj
+         ZbUoGSWBZuSHWxvvqLnOhSdYCj9SUHHw/LwhqIXZ+GZBxaYqnY/TdnMb7ILjLH5bkvr7
+         4oiw==
+X-Forwarded-Encrypted: i=1; AL+hErFTJV8xrT/954Um8+rkb5pPuxH7Dur+dGMl2BfbdLDOmZ52tOC9ykZ6M0JTIKOBaXz2HU9Nrxw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HwvXN6ZuMq3LhZMYFOcNE80a7LF9sKAtD5vvPcKoaouH47aT4
+	Sla1WUA5KVnFhxx0Q2X/hIlHp3wuF6G3XL6KzTJnAGEeX3V5S8hiN1s3YGOLWkN/uHA=
+X-Gm-Gg: AZFdTZftBkeyCLyxRGWHV68IeVRfBP+RwxFA7SBxiSLlIzOAr5B1qqItIsfilXyI00Z
+	rzIklKa2UCIdFWBXwKyhbVn/BfBoP1at9i0i0yHtpSYb8qQAIOPZoe1Ym2eA44fQlOjbGIjZ4FT
+	YPiYVjhL3FYGZxVrb80y3AlVONSPWWSfmT6VCxiSB48GJ58CGW5IX8ZC6V0rUxvxkacRclC3mVM
+	HW4wRelWE6r2Ps8S/oDiC382WPjnszJobkXx+3XTLZCNJbyGQFs3srMbKBJgIUbfcHnyvafGBKO
+	KQ+5ZiX1UDWw/XDqwitlZCytmWIqy7fPoOqiUWGoT43GeHFXcwnQDa5fp5LdGSmJr3q7JRqU0LG
+	rinhtvd+Gpsgr6W96MjwC6fikWHS4uNzYs70W9mk9CcmMj5l+ogYhcy9nu6GPoREBUllt3CTo1x
+	1G/1DyIp/EA3JD61xllq2Zg5WvzYnOSkB8keQui94aaRWgBmxYioWI0BsthdiSQUR4TOf4fD+XV
+	g12FzfNB+LjbYeT2UvMJujFnVwfZM9A/9w74crode8rDUwJ2jY30tOKh+F2F+EPCutEOubb6ViN
+	pabv1IKMRXeGoBinN9v6G2AuIxhknw38AzyU
+X-Received: by 2002:a05:6a20:4308:b0:3eb:b2ce:7b4f with SMTP id adf61e73a8af0-4014c34fdfemr11751808637.68.1795430562727;
+        Mon, 23 Nov 2026 02:42:42 -0800 (PST)
+Received: from rmustafin-laptop ([27.79.41.63])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde84cd5ed8sm2283731a12.10.2026.11.23.02.42.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 02:42:42 -0800 (PST)
+From: Rustam Mustafin <rmustafin@cloudlinux.com>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	ipsec@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Rustam Mustafin <rmustafin@cloudlinux.com>,
+	stable@vger.kernel.org
+Subject: [PATCH ipsec v2] xfrm: use the frame's own socket in the too big checks
+Date: Mon, 23 Nov 2026 17:42:36 +0700
+Message-ID: <20261123104236.4179425-1-rmustafin@cloudlinux.com>
+X-Mailer: git-send-email 2.52.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,115 +103,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261122182331.13740-2-arbabhaider649@gmail.com>
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TAGGED_RCPT(0.00)[1d23ad199a3bfd6f9149];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[appspotmail.com:email,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,vaf.va:url,suse.cz:dkim,syzkaller.appspot.com:url]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -11.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: B67FD22098
+Content-Transfer-Encoding: 8bit
 
-On Sun 22-11-26 23:23:31, Arbab Haider wrote:
-> With the new mount API (fsopen()/fsconfig()), userspace can pass mount
-> options such as "nobh", "dax", or "reservation" before setting the
-> "source" parameter, leaving fc->source as NULL during option parsing.
-> 
-> In ext2_msg_fc(), when fc->purpose != FS_CONTEXT_FOR_RECONFIGURE,
-> strrchr(fc->source, '/') is called unconditionally without checking if
-> fc->source is non-NULL, causing a kernel NULL pointer dereference:
-> 
->   KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
->   RIP: 0010:strrchr+0x24/0x80
->   ext2_msg_fc+0x157/0x1e3
-> 
-> Check fc->source before calling strrchr(), and omit the "(%s)" device
-> prefix when s_id is NULL or empty (e.g., when source is unset, empty,
-> or ends with '/').
-> 
-> Tested locally in QEMU (x86_64, KASAN+UBSAN) using fsopen()/fsconfig()
-> with NULL, empty, trailing-slash, relative, and full-path sources.
-> 
-> Reported-by: syzbot+1d23ad199a3bfd6f9149@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=1d23ad199a3bfd6f9149
-> Fixes: 98f18c76c2c3 ("ext2: create ext2_msg_fc for use during parsing")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
+__xfrm6_output() decides how to report a too big frame by looking at
+its sk argument, but xfrm_local_error() reports to skb->sk and
+dereferences it unchecked.  The two differ for a UDP tunnel: vxlan,
+geneve and other udp_tunnel6_xmit_skb() users pass the tunnel socket as
+sk, while a frame they forward has no skb->sk.  When such a frame takes
+an IPv6 tunnel mode xfrm bundle and exceeds its MTU, xfrm_local_error()
+oopses:
 
-Thanks but I've already merged a similar fix on Friday to my tree.
+  Oops: general protection fault, probably for non-canonical address
+  0xdffffc0000000002: 0000 [#1] SMP KASAN NOPTI
+  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+  RIP: 0010:xfrm_local_error+0x92/0x190
+  Call Trace:
+   <IRQ>
+   xfrm6_output+0x599/0xae0
+   udp_tunnel6_xmit_skb+0x713/0xd90
+   vxlan_xmit_one+0x1ebc/0x3490
+   vxlan_xmit+0x1369/0x6540
+   dev_hard_start_xmit+0xe3/0x5b0
+   __dev_queue_xmit+0x18e7/0x3550
+   ip6_output+0x360/0xec0
+   ip6_forward+0x1573/0x35c0
 
-								Honza
+Commit 1620c88887b1 ("xfrm: Fix the usage of skb->sk") changed both the
+IPV6_DONTFRAG test and the local error test from skb->sk to sk.  Test
+skb_to_full_sk(skb) in both, as xfrm6_tunnel_check_size() does.
 
-> ---
->  fs/ext2/super.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/ext2/super.c b/fs/ext2/super.c
-> index 54a6c26d0..c99367652 100644
-> --- a/fs/ext2/super.c
-> +++ b/fs/ext2/super.c
-> @@ -89,20 +89,25 @@ static void ext2_msg_fc(struct fs_context *fc, const char *prefix,
->  
->  	if (fc->purpose == FS_CONTEXT_FOR_RECONFIGURE) {
->  		s_id = fc->root->d_sb->s_id;
-> -	} else {
-> +	} else if (fc->source) {
->  		/* get last path component of source */
->  		s_id = strrchr(fc->source, '/');
->  		if (s_id)
->  			s_id++;
->  		else
->  			s_id = fc->source;
-> +	} else {
-> +		s_id = NULL;
->  	}
->  	va_start(args, fmt);
->  
->  	vaf.fmt = fmt;
->  	vaf.va = &args;
->  
-> -	printk("%sEXT2-fs (%s): %pV\n", prefix, s_id, &vaf);
-> +	if (s_id && *s_id)
-> +		printk("%sEXT2-fs (%s): %pV\n", prefix, s_id, &vaf);
-> +	else
-> +		printk("%sEXT2-fs: %pV\n", prefix, &vaf);
->  
->  	va_end(args);
->  }
-> -- 
-> 2.53.0
-> 
+A frame without a socket then goes to ip6_fragment(), which sends an
+ICMPv6 Packet Too Big, also when the tunnel socket sets IPV6_DONTFRAG,
+where it was dropped silently.  For callers that pass a NULL sk, such as
+ip6_tunnel, the error goes to skb->sk again, as before 1620c88887b1, and
+a request or timewait socket that vrf passes as sk is no longer read as
+a full socket.
+
+Fixes: 1620c88887b1 ("xfrm: Fix the usage of skb->sk")
+Cc: stable@vger.kernel.org
+Signed-off-by: Rustam Mustafin <rmustafin@cloudlinux.com>
+---
+
+Notes:
+    v2: also use skb_to_full_sk(skb) for the IPV6_DONTFRAG test, as the
+    review of v1 suggested; drop the code comment.
+    v1: https://lore.kernel.org/all/20261114125552.1319352-1-rmustafin@cloudlinux.com/
+    
+    Tested with KASAN on 7e1392a42ea2: a frame forwarded through vxlan over
+    IPv6 ESP oopses without the patch and not with it.  Through ip6ip6 over
+    the same ESP tunnel, a too big frame is dropped as before; ping now gets
+    EMSGSIZE on its error queue instead of a Packet Too Big.
+    
+    Not touched here:
+    - iptfs_is_too_big() has the same mismatch (IPv6 oops, IPv4 silent drop);
+      it was pointed out in two reviews:
+      https://lore.kernel.org/all/20260908224856.1591189-1-kuba@kernel.org/
+      https://lore.kernel.org/all/179369310739.488856.16665150928122536725@kernel.org/
+    - skb_to_full_sk() can read a freed listener when a bpf syncookie request
+      socket is redirected and queued; the bpf_sk_assign series handles it:
+      https://lore.kernel.org/all/20261119142231.2612515-2-razor@blackwall.org/
+
+ net/ipv6/xfrm6_output.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv6/xfrm6_output.c b/net/ipv6/xfrm6_output.c
+index 44b221a09a0c..d38311645908 100644
+--- a/net/ipv6/xfrm6_output.c
++++ b/net/ipv6/xfrm6_output.c
+@@ -88,14 +88,14 @@ static int __xfrm6_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ 
+ 	toobig = skb->len > mtu && !skb_is_gso(skb);
+ 
+-	if (toobig && xfrm6_local_dontfrag(sk)) {
++	if (toobig && xfrm6_local_dontfrag(skb_to_full_sk(skb))) {
+ 		xfrm6_local_rxpmtu(skb, mtu);
+ 		kfree_skb(skb);
+ 		return -EMSGSIZE;
+ 	} else if (toobig && xfrm6_noneed_fragment(skb)) {
+ 		skb->ignore_df = 1;
+ 		goto skip_frag;
+-	} else if (!skb->ignore_df && toobig && sk) {
++	} else if (!skb->ignore_df && toobig && skb_to_full_sk(skb)) {
+ 		xfrm_local_error(skb, mtu);
+ 		kfree_skb(skb);
+ 		return -EMSGSIZE;
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.52.0
+
