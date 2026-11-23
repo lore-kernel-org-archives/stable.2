@@ -1,50 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795433269;
-	b=4DzS9Be2m41MKINAWVPwdEyEcQAPvP5J8LkRNtT2qGE9FxA6CDHcHwd1jQxtg/Tng17y
-	 E8TCHPAAemS2iQCAF3S9Xl4mRgCJ/TURphx5PZn2CLvoP6bc97G3km/odzULcXSZX96AM
-	 q0AosCOylH3Uldphmbg9Y3f+129CXo2DBpOKTmspr4BCha84f6kkXALqKxGDm+Mdi04qg
-	 JTGt54QdvV4nvQj6zdUVxRf91HiB+uaRJ9j4KCJ2SlFscwV0UezuD2E5i8B/vouXUwayx
-	 IAA5vDcA8GKwM/56o3deCs0P8q5m0xZGgPx7SAP0AsRcgQ/NoiI9ZRhvcoBdK7ge48Q==
+	t=1795433482;
+	b=Q9PFGWlSH43AHdIElp5zfZVarCb6Iwf9405wEjJtv3FUprbh7Ni1M57Dd42hGRvDhV/s
+	 UU6jW/oNHydKtgUFRqi4PIypF52Yi4xraVZGKVNg/sBx/DzJa1ieL0fJrXBZnGFXK5U0t
+	 wop3wG0BihRJDGjb4ZmiWyb+U3ac5wWjuC0kNW0xoCjZnik1wsLkpUL42/3O90f92DKM3
+	 c5D/nwgQ+hZOlRi4skqioFKmzmACpevu1OQwEtm7+gKe6+BPfep6sSBxCzSyeayYQ2p3q
+	 LfxeO0DkwmrAY55F7mSeEXH9Ys0vdMidFO8SZXLuRal5pI3GzYOg3nQDNnNZo/lAXwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795433269;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:Organization:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ssgL7DxzXbUZ7tJgWltGij1VtPlNzWyPW+YycDs+SSQ=;
-	b=2F5HbKFkbJ0kG9Q3cczpE41F1EJewK1O1/YkGsj5c28OkZI9xkf3KTvtPCMCjVSJug6U
-	 CM1FKy/4pt6rUHIFOYakwgWbY7h03zpksZsDUIPvd5GDuC33844T/jDN69/+wqcp0O3Qy
-	 cxohKmqnBuRm3pzZeMFIksFSbtvs+Jq22rl5MG6jonlvv7FP8c9UPOtFrWAUarpFQ0KWQ
-	 CI4Thf90Tc7lC2ntGfl8Ftt0QcOLfeuAIUY651vpLbwYYd4g5R8Mekb/pshcn5jgh0WR4
-	 Hju7zvNcQLE1OEWICWMKynkN+I8m4pAwQ72eBMZTCEe15VBJ9jzgNzT8kelSBcQsJyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795433482;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=yfrlej6qyd4zr3J56wD+mtwsn9dmfEHw/O0sbFEMubM=;
+	b=0x0G+Mych96kO4YuQvwiTudJ0JSlWHXVPCg/N1VHCrSuYKnAb1gUWSCeHf+3I2RIQShS
+	 Ful4/gZ9vyRh/Q7mqr6P82AQVV3uAX6SpGfYE4BThgvsL1M26pXSM+76l+YwMJAJ+1ZHE
+	 92zd+d6e4YlGF9YOOcTrD6xsOqEv838vDCx1DrqwS5owJgJXnbrkwPjYEOYGMUNTs67BC
+	 yJ07s5NR6YFo9zoaXKLpTy8dg1XKn4eg2eJ7BO98qBP+nZH+cPDTzleazhJDUNG9U41Aa
+	 0283tEubAvw3HgeBz0be+60iNpA5Z2njKMbr/PsUsw6FcrSGk5+sGucp3hix+3diiGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BlDbpH9G;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C1673606A31A;
-	Mon, 23 Nov 2026 11:27:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1673606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mBzJ9ssv;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073A6606A31A;
+	Mon, 23 Nov 2026 11:31:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 073A6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BlDbpH9G
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 45116143D;
-	Mon, 23 Nov 2026 03:27:45 -0800 (PST)
-Received: from [10.2.213.11] (unknown [10.2.213.11])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6D7323F882;
-	Mon, 23 Nov 2026 03:27:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795433268; bh=ssgL7DxzXbUZ7tJgWltGij1VtPlNzWyPW+YycDs+SSQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=BlDbpH9GOBYSN/1fZzJq1X8wn0398nEuLJMN7Lftbd1i1Z+673bgMeFgBM73EZ+fD
-	 TMCWiWL0SrE0T/ocQVq5iEnYFkaa7E9tkSksb8AWEWegoyBO6JmnO4ZNj+OyTh4ymr
-	 R0cO5BUY8o0g9BEdQeTg7Xi2MY6QF7ixE36FCq/E=
-Message-ID: <9b0461dd-0616-4c7e-9c03-6eca1e452a3d@arm.com>
-Date: Mon, 23 Nov 2026 11:27:43 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mBzJ9ssv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795433483; x=1826969483;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=buSJuJMS4qx78LvNp3wcNBjX6N049hlAhRKf7lhMUi0=;
+  b=mBzJ9ssvBzpDhoqszFCNS5sCrhq1rmkFUWdeWXIV0Imi+kEYWMWb8RWs
+   867FfEkYAnP+KCUcZ06tNG29ncjFZBm5V+LuT4UdLX6mTNcpdxkdcHkKU
+   1OtbQyrYEOBq4XaraZ9DXbW3mXBapw9YMNBrjNBy/LEu7WFd0OC/wrqDt
+   PEf6UADjdRMtER85Q0YJebd/nn9I3PilrslW6bt7pK/qkUcxnpWQu7QPg
+   /6oa3VPDzgLfb2geNxLQ3dMaTlWWirKCWnS2R3LRTV4JOyNXftphU+g32
+   RA3ImHYDuJaEM5RIPXN6ptc2z7fTbBJafJfQWcb46yYyMqHjFq/gqV07U
+   w==;
+X-CSE-ConnectionGUID: MN8xuuXsRZOv9PkqbQtikg==
+X-CSE-MsgGUID: D6AIdkSCQta8wF9I889DqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4324865"
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="4324865"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 03:31:22 -0800
+X-CSE-ConnectionGUID: NQ79MQVYQL+tyEKxworH9g==
+X-CSE-MsgGUID: acwzS4tyRFWTrLBXkeTjTA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="11612293"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 03:31:19 -0800
+Date: Mon, 23 Nov 2026 13:31:16 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Mathieu Othacehe <othacehe@gnu.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 7/7] iio: proximity: isl29501: Fix division by zero
+ and overflow in isl29501_set_freq()
+Message-ID: <awQkBAEaRuPqR3vb@ashevche-desk.local>
+References: <20261123075122.373060-1-lee@kernel.org>
+ <20261123075122.373060-8-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,48 +84,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: head: set __entry_task along with task setup
-To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Cc: Vladimir Murzin <vladimir.murzin@arm.com>,
- linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Breno Leitao <leitao@debian.org>, Jinjie Ruan <ruanjinjie@huawei.com>,
- Doug Anderson <dianders@chromium.org>, Linus Walleij <linusw@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Thomas Huth <thuth@redhat.com>,
- Dawei Li <dawei.li@linux.dev>, mrigendrachaubey
- <mrigendra.chaubey@gmail.com>, kernel-team@meta.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Ada Couprie Diaz <ada.coupriediaz@arm.com>
-References: <20261117174814.95936-1-ada.coupriediaz@arm.com>
- <20261117174814.95936-4-ada.coupriediaz@arm.com>
- <f232d0ff-3286-4d85-b9e3-cad8c6bc7178@arm.com>
- <2ce350f9-4dc4-480f-8a53-07ef9586d49b@arm.com>
- <av8sxUCg4m492Tx6@shutemov.name>
-From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-Content-Language: en-US, en-GB, fr
-Organization: Arm Ltd.
-In-Reply-To: <av8sxUCg4m492Tx6@shutemov.name>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123075122.373060-8-lee@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Kyril,
+On Mon, Nov 23, 2026 at 07:50:33AM +0000, Lee Jones wrote:
+> isl29501_set_freq() computes freq = val * 1000000 + val2 % 1000000 in a
+> signed 32-bit int and passes it directly to do_div() without checking
+> for zero or negative inputs.  Writing 0 to the sampling_frequency
+> attribute triggers a division by zero in the kernel, while valid
+> frequencies above 2147 Hz up to the sensor's 2222 Hz limit overflow
+> signed int.
+> 
+> Validate that val and val2 are non-negative, compute freq using
+> HZ_PER_MHZ as an unsigned int within [1, 2222 * HZ_PER_MHZ], and return
+> -ERANGE otherwise.
 
-On 19/11/2026 17:09, Kiryl Shutsemau (Meta) wrote:
-> On Wed, Nov 18, 2026 at 03:30:06PM +0000, Ada Couprie Diaz wrote:
->> However, as far as I can tell this is not the case for secondaries :
->> their first task on boot is set to the idle task, which they go to
->> without switching until (and unless) something gets scheduled on the core.
->> This would be the same path taken for CPU hotplug.
-> Secondaries brought up at boot have run their cpuhp thread before SDEI
-> probes: smp_init() comes before the initcalls. A CPU that was online
-> before still has its idle task in __entry_task. So only a CPU onlined
-> for the first time after SDEI probed can see NULL there.
-That makes sense, thanks for clarifying.
-So there is a very small window, only on first booting secondaries,
-where we could see this issue, but it does exist.
+...
 
-Kind regards,
-Ada
+> -	int freq;
+>  	unsigned long long sample_time;
+> +	unsigned int freq;
+> +
+> +	if (val < 0 || val > 2222 || val2 < 0)
+> +		return -ERANGE;
+>  
+>  	/* sample_freq = 1 / (0.000450 * (sample_time + 1) * 10^-6) */
+> -	freq = val * 1000000 + val2 % 1000000;
+> -	sample_time = 2222ULL * 1000000ULL;
+> +	freq = val * HZ_PER_MHZ + val2 % HZ_PER_MHZ;
+> +	if (!freq || freq > 2222U * HZ_PER_MHZ)
+
+But the second one is implied already by the val validation above, no?
+
+> +		return -ERANGE;
+> +
+> +	sample_time = 2222ULL * HZ_PER_MHZ;
+
+Taking this into consideration, perhaps not to touch these lines at all?
+Just add a check for 0 above?
+
+	if (val < 0 || val > 2222 || val2 < 0 || (val == 0 && val2 == 0))
+
+?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
