@@ -1,127 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795461210;
-	b=EzDTbiPoSzT2gbay4l+WujmacplNdVt3yFKutrkbIttd3spqcnjJlwGvTs8erPpQtfBI
-	 DVxmMqPk+i/IO2eeCR4SlG9o2ePfYf8DC3qvlebxPVsGNjiKAIJ2Q9GYu6ajgE2l5wgRa
-	 pY464alg6gKEv0rQ3PFapHm2gMC6+Xt6DQBIWejDYN/14Bi8SIz3dLVNwsFoaIed0zb+w
-	 r2fA4ZvGIZCmhXA6ewootsI1uZu0wZHtBS5awM9OI8SrZG9WL6q/eTxapMWR2HaBNt1Mv
-	 Ff/ynnokxn3NOYDAzvXknzXPbaaoQILJIo8PYEk9OdrG4bPR2NcMM7elpYOWbiTeJPA==
+	t=1795461446;
+	b=3CvXmPM17mpXBlFLp5He0TUzrD31+H4OJYRX+QPP6yyhWB91FgiIvN+cTuVM802QTkMX
+	 SuUoAcbSx8PFEi6Gv7h9sN1I0B/88qVOESPl5ZuavcV7kiIt7NZOr6AwabwHrOQbbfLXl
+	 pFOU262hWkxoIVi5TyqJdOqovFpaqUnitlWT21feEPWpsogLeWXs9m8xHYMY0o/hREEJA
+	 Cj8oWR4wEL+B/6mf0+fzRqCnfApsfOCd2HICNRvlEuqymFQDpCNUlroc5CdOUJaecC4ge
+	 ku6VqJvbplm+FUcv90M331aycYearQCuYCnN6742WQsJJ2lQnSO6bL9mg3k/tG1j3Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795461210;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=YR8r7f4rM1O5e4ts7vOzM/QDGbuavuSX4eKpuFwSzac=;
-	b=XDOQnvoN/hqwhZQtDDBD3R1X/r/lYbpK9+oVCEEnH3Qtz4pOkjC/7QoUjxHUkKfTsWc2
-	 2mjhPu8LquecN68o0ITbtRO/YxrVCxMM8cwYsQbv2YcjlMTEBXrThq0qFMuqbSUIBsJLJ
-	 eKpEu+H7PbF/vOwon+/jMbWAiKOlwMUMSxAP/BDFdAqu4SGrwER2jAFrka5aZE3fxeoLO
-	 7BlWF64TO7OEvLxzTPHLMnwIm9syfQmr+v2sJaGbhuKoHL7T1rXy7ElVIHhUHm3jI0sJM
-	 VN/uz1BBcGtw7kSCyHB1q1cBvO5U8Loq7GQru0l/xFMkPIdXx7TeYj4DakjyfK49hbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461446;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1unP6yGfeR9Ry6d9NpxryqbDKz3nnIiIvne4N6p9eYI=;
+	b=CwXa95ysswFE5cW9c/5WzqiK2ioxTzUyE7cUg5jge2WpGangCQvj/B/zD7J1yX2V+rI8
+	 K+8UsDdTjV3bxqNT1uvDDuhDjPhTh2LNXKUg3wk8WRDlD/mWoWPpd27LiGT8imu3IApdw
+	 r4owhge804tgzlb1P7XVFediTiRfVMeEyOElw2+XUE1uoJZiXF/DpQmVyaJkAQ3ELcstH
+	 UDiZgc8XxsjmmJmQGjyWDXMeyX2y3ge4dCxJPHz5h3wYZECsQFJX/eutBITkbgcbbdUpB
+	 r7Y0IMmg0xYAaQUCLb7KcAmP//CKlXJDF7DTO+TNAAPW0UjShpa4MYqYxT2VsqxKrkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=queasysnail.net;
-	spf=pass smtp.mailfrom=queasysnail.net;
-	dkim=pass header.d=queasysnail.net header.i=@queasysnail.net header.a=rsa-sha256 header.s=fm1 header.b=nZK5rqPv;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="tj/sMQz3";
-	arc=none smtp.remote-ip=103.168.172.147
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="QAAc/cna";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD2F606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:13:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAD2F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CFC606A31E;
+	Mon, 23 Nov 2026 19:17:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=queasysnail.net header.i=@queasysnail.net header.a=rsa-sha256 header.s=fm1 header.b=nZK5rqPv;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=tj/sMQz3
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.phl.internal (Postfix) with ESMTP id E7EDEEC1F86
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:13:28 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Mon, 23 Nov 2026 14:13:28 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1795461208; x=
-	1795547608; bh=YR8r7f4rM1O5e4ts7vOzM/QDGbuavuSX4eKpuFwSzac=; b=n
-	ZK5rqPvJW730T8tfMKB1H4oQEa7o39yBW1fSQQKqUqoZLXw0AuszIOaOjYf9p2Ax
-	TjlCHOfElPl57h6Npkr//Va/WWaZhLBp/BJZTk7W/xV32ANlncU5PKw/yZWGc4F/
-	TZWB63AfRedalkY2OPTFdgr9ZIViquAaEBpBt1rRvTg99IQmZUvSwI7y9+ej+kOv
-	KXBgC52IAvU140j4Yjow0lRDMX2VnheLdvMkIKTe3xp7x+RT/NIMZV1EFaBD5lY1
-	1BcZPZTj82E22GfQSC8nr4grzN+Qk7D+3k8FFGfIQI7edbCv3YbaWk0Yz7KX130B
-	iotV+Sr63Zd8pyqYFQTvw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1795461208; x=1795547608; bh=YR8r7f4rM1O5e4ts7vOzM/QDGbuavuSX4eK
-	puFwSzac=; b=tj/sMQz3QJQ5hK67cFojDyQ8R+niPwnun8d14W1swu+gz3VBx38
-	2kUdpypmEZMoJUWWQBC6Xha14gBB2Wy0M+2j4V18oxX+HnEmDfnv/6A5brNO1Ngt
-	7fPv7jo4hAGdNzruEvUEjwBr2qTCVMvnUvCHCpTuNkKCvEcsFmKidGFL0RDUY+2T
-	FWLct9XU5TijAY+2M4w3rFs/CgsnIE4m5oqFsXVtcO/uI7tGduS/N6CSt3tmO1xW
-	MeQZwCazEGxUxMYndq4lR5LVl9IvG4yRYvvzFusvGb6Lc3dMDnZqytOeCJaSgFan
-	8Kqt+gGYqE1+yow9Uf59br9aQgtDyfSwgRA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=queasysnail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795461208; d=queasysnail.net;
-	mf=PHNkQHF1ZWFzeXNuYWlsLm5ldD4=;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:YSVNrF1Kj5C12lT7OAOyEFkqoY6uxf/C8ZG2nM/kGOJewVD
-	lmlDlmD0Skzlf5cFRagr6my7Aip05CQCKxD548RKkYH2uNnm22lcRLARAwlQ/Mam
-	ZEMtInoZNHOlITrX9+Obu2WWYELVpg562zJqEHpINOS768f0M7UeqLQdiCqoREGm
-	ewwRX62bVRkr8VoxqR0WoB06GjFx2/EajTb6V7hhJl49G+sAVEaf0KVOXluSZn32
-	ZSa05uJUittIGIgUi/b2oMzdhQVx9KsftUJY8IGk0MSr74boRJpXRxugnkY/Nl18
-	L3P9Sr7cJU9NRXWvf1csxVuwH1pjqygycDTAUNQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:v4kYJzz3IEeYSra49NR0XOJqlPWeaMimSU2Ds3Nathw=:BoV5LV//uGpHLV8n06WmOk6SLJtz+qcgP9tEglSi9uI=;
-X-ME-Sender: <xms:WJAEa2aZGkMZKUyyMGa1OrcnPk2LfYiRdl01ANhpalPvH7hEhuHp7w>
-    <xme:WJAEa2FA12OYAHlsz1H8zztRLe2udQrvE-ipVzCdvM70WGMBpM-u0QBhtlgAl6c-h
-    _xjC7OYi24zpnrUObZlPdsklF2oAzbjhx-2PWnaiZpPatX-A5WQ9Df0>
-X-ME-Received: <xmr:WJAEa01y19c4KpsMFTWuejMPWjH-zGVC1zInfyerqa8jfcaFNdOqYj7uuj8>
-X-ME-Proxy-Cause: dmFkZTFGfMpzRIlRD0JqalkLOXufcldaW5mPKf9gnwsFJ+vDBNXu+ucuA2mHV3sG8awFD7
-    TlQIpLKAlhdRZZzmHM5dzCLr9yCnlqE++1MlGQQlh2hXPAqwPuBKqVs+0+vPLr0jD3m21t
-    KMWW9e6Nr1j2suHosCkXbxWML5v/2o8alliubSq4BLKdJ8hbk8S/De75gOw23JrVIkPY8N
-    D1D3yW5QclrWuPlgXczruL49Qy/XefuKPG45Q8mhw3p9cd6s3zLGtXYEfumcXvrZY2eHdx
-    vAfqlz0+MYyB1suAIuZNChzbjL65w1LKUjDuaCq/DRfI4jG14yihH6ToIZrLFbuh+tdvlf
-    RM4oWrv53uYud4eEZf1oTUecOk4kxAWu3OsndNwPjHNbpfhtg2Hpg4kM2ozQDGYUFHzi1L
-    5YBN7qwo6cfj7KqCQG/xTfmuMD/iU4iG9Me3pm4agOBpx0/BgqhGbvPetT4TnN1O1xSXMh
-    XxRL4Lzujz+y7fJoarIv5kt1tThSR2L4E8bYBqsj/IDkw+VIPvBmE8ChB3mjVUQ560i259
-    76/VteTqA9GoYlEUWcJZBCaGE6vumhPU9wxAQbU+k4NtYrUpsJezOkowezDIbB+hEqwUIz
-    0S4kvOsVUUwV2jgJKb8DTKrQaDXOaY/x6HJcPwELITxClVnJ1yGdW5z908+g
-X-ME-Proxy: <xmx:WJAEayzMLjpNfqkeI8W46X9Md2R7esdKT81R7NMxM7_4kKluNINwdA>
-    <xmx:WJAEa1jEY_lNuGMbtT7Jq6yYnIjxIdkzk6aSlMXgV-LNnYCQNqw4mA>
-    <xmx:WJAEa_PwgVNpPzWUIvB2JQmkr0VLkREePcpdqWMTj8tKCtN0r6ouEw>
-    <xmx:WJAEa4dxPEaYxJyNAi3-26PBrfrXLo8CUhFLLV4gvZJv-aryT6XMwQ>
-    <xmx:WJAEa2FxrWrhVk_PWcg0BKDJpqlRi6HT5g62eQHr2m019VQiU3pNxon6>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 23 Nov 2026 14:13:27 -0500 (EST)
-Date: Mon, 23 Nov 2026 20:13:26 +0100
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: Rishikesh Jethwani <rjethwani@purestorage.com>
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
-	John Fastabend <john.fastabend@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Alice Mikityanska <alice.kernel@fastmail.im>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Boris Pismenny <borisp@mellanox.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v5 2/2] tls: restrict device-down TX fallback to
- hardware TX sockets
-Message-ID: <awSQVksKrzWT5lm8@krikkit>
-References: <20261116183519.3314837-1-rjethwani@purestorage.com>
- <20261116183519.3314837-2-rjethwani@purestorage.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAAc/cna
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 150041F000F2;
+	Mon, 23 Nov 2026 19:17:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795461445;
+	bh=1unP6yGfeR9Ry6d9NpxryqbDKz3nnIiIvne4N6p9eYI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QAAc/cnaCfWSVuI8epwQ7W55sG8z3g29OHlH+iB8U2aJXGS9hN6Gs2oUYBUKSUIJT
+	 1hJVbgwIdfTJG5p0tNKDXodoeXApePVYpheUeQOSEmJFr5KW7LP5+EvGEGeNIB/fPo
+	 1D+1TesudsgviqDNHX1C0kWCPI7h/kFsXVOyPs7y+3IV5Uyeg91Y5H5Lu2nMj0pCrg
+	 8Iafh3gHt36+Nn2Xj9HwANhowuK2OLxRH40f9+UzWLkmYG6Wk/dhtolaiErXlxnftb
+	 BeGA0V+KCXTKpD1hqpCt19vu6D/SnUBVE/JmKbfaY8gsu5gaQ5kwZA6m59jg8i99A7
+	 XNTxPbQzfJZ2g==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Robert Richter <rric@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Cavium Inc <support@cavium.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 01/13] mmc: cavium: Remove MMC slots before destroying slot platform devices
+Date: Mon, 23 Nov 2026 19:15:45 +0000
+Message-ID: <20261123191703.179283-2-lee@kernel.org>
+X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
+In-Reply-To: <20261123191703.179283-1-lee@kernel.org>
+References: <20261123191703.179283-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -131,29 +66,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261116183519.3314837-2-rjethwani@purestorage.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-2026-11-16, 11:35:18 -0700, Rishikesh Jethwani wrote:
-> tls_device_down() installs the hardware TX fallback on RX-only and
-> software-TX sockets. The fallback expects a hardware context in
+cvm_mmc_of_slot_probe() allocates each slot and its struct mmc_host via
+devm_mmc_alloc_host() bound to the dummy slot platform device created in
+octeon_mmc_probe() and thunder_mmc_probe(), and indexes host->slot[] by
+the Device Tree reg property while host->slot_pdev[] is indexed by the
+child iteration counter.
 
-Here as well, "the fallback" is some function that has a name.
+When a slot reg index is greater than its child iteration index (for
+example when only slot 1 is populated or enabled), the single teardown
+loop in probe error handling and driver removal calls
+of_platform_device_destroy() on the slot platform device before calling
+cvm_mmc_of_slot_remove() on its corresponding host->slot[] entry.
+Unregistering the unbound platform device immediately releases its
+managed resources, freeing slot regulators and dropping the initial
+struct mmc_host reference via mmc_free_host() while the MMC host is
+still registered.  The subsequent cvm_mmc_of_slot_remove() call then
+accesses freed regulator state and frees struct mmc_host and private
+slot memory mid-way through mmc_remove_host(), resulting in a
+use-after-free.
 
-[...]
-> Track RX state with TLS_RX_DEV_CLOSED:
+Remove all populated MMC slots in a first pass before destroying the
+child slot platform devices in a second pass across both probe error and
+driver removal paths.
 
-Well, is that new? It's just being extended a little bit to also cover
-"not configured yet".
+Fixes: f32b90e6887f ("mmc: cavium: Use devm_mmc_alloc_host() helper")
+Fixes: 0f4d4424fc1d ("mmc: cavium-octeon: destroy slot platform devices on remove")
+Fixes: 29ee8cf18a21 ("mmc: cavium-thunderx: destroy slot platform devices on remove")
+Closes: https://sashiko.dev/#/bug/linux-f5f8989d-5e08-46d1-91a1-69841c36692b
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/mmc/host/cavium-octeon.c   | 4 ++++
+ drivers/mmc/host/cavium-thunderx.c | 4 ++++
+ 2 files changed, 8 insertions(+)
 
-> set it at context creation and after deletion, and clear it after a
-> successful driver add under device_offload_lock. This avoids deleting
-> absent RX state and reading configuration bitfields while their shared
-> byte is updated.
-
-Now that feels like this patch is fixing 2 separate issues (one TX,
-one RX) at once.
-
+diff --git a/drivers/mmc/host/cavium-octeon.c b/drivers/mmc/host/cavium-octeon.c
+index dd62b96712c8..7b75b3dfd3e6 100644
+--- a/drivers/mmc/host/cavium-octeon.c
++++ b/drivers/mmc/host/cavium-octeon.c
+@@ -283,6 +283,8 @@ static int octeon_mmc_probe(struct platform_device *pdev)
+ 	for (i = 0; i < CAVIUM_MAX_MMC; i++) {
+ 		if (host->slot[i])
+ 			cvm_mmc_of_slot_remove(host->slot[i]);
++	}
++	for (i = 0; i < CAVIUM_MAX_MMC; i++) {
+ 		if (host->slot_pdev[i])
+ 			of_platform_device_destroy(&host->slot_pdev[i]->dev, NULL);
+ 	}
+@@ -298,6 +300,8 @@ static void octeon_mmc_remove(struct platform_device *pdev)
+ 	for (i = 0; i < CAVIUM_MAX_MMC; i++) {
+ 		if (host->slot[i])
+ 			cvm_mmc_of_slot_remove(host->slot[i]);
++	}
++	for (i = 0; i < CAVIUM_MAX_MMC; i++) {
+ 		if (host->slot_pdev[i])
+ 			of_platform_device_destroy(&host->slot_pdev[i]->dev, NULL);
+ 	}
+diff --git a/drivers/mmc/host/cavium-thunderx.c b/drivers/mmc/host/cavium-thunderx.c
+index 526ae9019b2f..b8296b2de127 100644
+--- a/drivers/mmc/host/cavium-thunderx.c
++++ b/drivers/mmc/host/cavium-thunderx.c
+@@ -157,6 +157,8 @@ static int thunder_mmc_probe(struct pci_dev *pdev,
+ 	for (i = 0; i < CAVIUM_MAX_MMC; i++) {
+ 		if (host->slot[i])
+ 			cvm_mmc_of_slot_remove(host->slot[i]);
++	}
++	for (i = 0; i < CAVIUM_MAX_MMC; i++) {
+ 		if (host->slot_pdev[i])
+ 			of_platform_device_destroy(&host->slot_pdev[i]->dev, NULL);
+ 	}
+@@ -173,6 +175,8 @@ static void thunder_mmc_remove(struct pci_dev *pdev)
+ 	for (i = 0; i < CAVIUM_MAX_MMC; i++) {
+ 		if (host->slot[i])
+ 			cvm_mmc_of_slot_remove(host->slot[i]);
++	}
++	for (i = 0; i < CAVIUM_MAX_MMC; i++) {
+ 		if (host->slot_pdev[i])
+ 			of_platform_device_destroy(&host->slot_pdev[i]->dev, NULL);
+ 	}
 -- 
-Sabrina
+2.56.1.750.gf70dc682cf-goog
+
