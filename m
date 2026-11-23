@@ -1,107 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795417293;
-	b=QyCMw+EBQV2pYrbAmt5dmzAizH+vSj91dTwY+JBiEVLgwKwcJ8HvGtGnCfV/T24zFGqQ
-	 pjvAQ8gVYx1xG01HEomZRGLKqyxmUzdrHHoj/ozIZnLv0LxJLzbYxpqPGd/xkQlrtFr1M
-	 RPn7uMHIofhXiIdCo2B9Vo2oKYzGZjjkC4N4IGBVQeQdM95gBR+P0izWnI5IVxCn/bsf1
-	 xCYIC8By977B4TQnjXR0EKWsdXmBRSi9BHOyLlX9yjRagXzzfLBL3EIadGVOIUXz/TIXF
-	 Zdr5MFGpEe2hK/PFhvZUakvMacQomYH9VCQ6D62pJHQu/MtlGneGGjvUHPth8741BSQ==
+	t=1795417298;
+	b=HLB94091R/nD1XDSIab8ZXkt6zXk7MjFpT4u+o9sUniZNODPzEtzxO4aoxMCFcZFN7iy
+	 VTHIVHUgxWc2mYHvXHNT2ABRuwgnRVq1MJcA65FlUNzcftt/UTnIoatIFzF2TLXYpmNqQ
+	 csbEJTIBMM1Vd7HEG0/BL+8pSJsNG2ICBCBo8v4LSbC/lnTKWF7rRp7fUZyKzqwNa8SNN
+	 C+dgIpO2/wNqFnU7tLvF2XnLiCMIcMSfpQCfFmCF50GkUNZqqVZ9nGQRv2On/etIro4xd
+	 ESWh/av4BVuFhgIOxo/rD2PofWnXvPBZMwqa6Dy6w3oAcQM4PZrwnAJvgxOv+5HXj4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795417293;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=IEvJeXJOsH9S2fJ+fRG2KCQNfhieUtoOB+kM1PZCkvU=;
-	b=M/pBUj4WlTlVt+qzAxrUwGFCwW76XfiALHLcpL8fNrut5qRKH47GF3nmzkZK5RKGNgBu
-	 YTKZ9Q56L2QQLe7znh9kqIdcATBU3ZqwYGQdVJSTgHbicMnQYZSQ577JxKtaeIkz25Vb6
-	 IYP7lVE6Ihm1hH91JZWNbwRZAtDEGU61NTYYhxhfvEy27frX6bLJ9eeNFuGVbpCJPxlFi
-	 jahzk984CP7OWNgjRk1j7M+DqntnbsKyf4T9H2alyv6bsoqjxt+Mc2zkgAxORdnjgklqd
-	 dLALVRRaPaPooBR+0J86RbNPj5NpKngNb7vmQFcOvbC0GvneZb5YxqIyBmLX1pkG0ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795417298;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=PQaIU9jrGjv/IX920EaZ+vwMDt6FU3NtgK/Ci8DsQtE=;
+	b=YGqDmwrhG5nfVU5o8gZg/X/ZiO2UZNeyRTmUi6x/dJh8izogyQdxHdq1kyfxjORjVXZs
+	 LRWl01IZVtKh7XS02i1rrUQ6kMzBWmwClaymVUoz2+ZDaPBVCeieLnTe7wkSmPr5/ePIv
+	 /MWf6+7C5HLVbjIVTuEfWQeVrwRpn2zkPA3SuOPEmLQauUmy8haICLVW4w3nhICic5oiV
+	 cg+KglKmi7d/Brtlpm1Pj2TgckO8tGq2l5mBZGHqOjIzD2Bawt8Up5LJ/YQhpFh0/Xq1s
+	 gJiN9+7BNSkrB3Jd6THvtJv7eo7cDGX61QW6MZs2rL310vnTp8JehxB4APTuIOwdsdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="C/U0hB04";
-	arc=none smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=PZGvQW09;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="Sc/41PEo";
+	arc=none smtp.remote-ip=103.168.172.137
+Received: from flow-a2-smtp.messagingengine.com (flow-a2-smtp.messagingengine.com [103.168.172.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A338E606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 07:01:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A338E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58706606A327
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 07:01:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58706606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C/U0hB04
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c511c0e2826so336213166b.0
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 23:01:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795417291; x=1796022091; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IEvJeXJOsH9S2fJ+fRG2KCQNfhieUtoOB+kM1PZCkvU=;
-        b=C/U0hB04+pMFvd99SWH6Deft8IcvFt6LOZJuj4d/cxGdul8Lcbk65BFTXq0oe67VVa
-         FVWjoEz+TlD1PhYTyNXPNV4absQQ9Q52q5KU/yyOkkbhURBVfWB0wM0ugOMLgRgOZVE5
-         28rEfFhwVAhfcSwgWoEMaQobJtN4LSQ6dDSVm9V/mvSYKcoctFmGzmoGVeHhj8lDrAMp
-         abaG2jP2+QWljp4iwVSgafSzcvwBnVeCAdQKoIvJUHasG/JTqnp5PDeS0dPztLorlMYD
-         jQ07mkfyr159abwTtV8qQeu97/YPz40N68lGOO4hsTgSruVavGRd5SWDNLeOHFSvjgy7
-         4qCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795417291; x=1796022091;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IEvJeXJOsH9S2fJ+fRG2KCQNfhieUtoOB+kM1PZCkvU=;
-        b=uYb92Y3iKF7CTJjh+NA69QY+rGNqcxzNWPlHpmGyBdAnJoTeA65R95oYDbJ0AY69C/
-         uaE0W7FH4iOjfo7G/OJyjsok6Qpp0XLLJQwx8CVHdOjpWJ9bxQpu4yevduE1IDR4CF2T
-         cvJOE3D6qg6Ns95stDYHLimCUxmG/4d38NyOcjpQWBxoH7M6aGNGQr8TKUsvezfUrPNH
-         TE4la5ZpZmVYLU8S/Nu0bzlQFhJvZQh3xO6BOXqSFGqnCqRV0G59IBtmNyhwZUV9pV/a
-         PkwrnVgcPEpd7RVseEOW2o2MdWPDAXlsrXaIBneOYJYgDbC8V1THlXDVASfdE4N5KJIv
-         GcWg==
-X-Forwarded-Encrypted: i=1; AL+hErH4bLDLFkHHRo7es0hW/0Hh3/KTMnlI+YhrJ7xX5m7q6+5Q/zLAuAgJzPF2tZjJpm1JLnVGrZc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FbGx2rf2mFvjOeogdrnFzirMzt/jcq4eW4h+f2KGxuT9We9gN
-	wNPPtA6NWjFQ1zkg7o90fI7bHdw6nxRxYBvk8zgie9udPh+l58QFYEO4
-X-Gm-Gg: AZFdTZfK9WHv+l+CUXodh4pEBv6JFJam0yamoH0zye/FFcKb4XP0rvnPbG8Pzhrrtxv
-	7PO82OOpSTci8aBECPvEFpyKmPLl0PIazkqbfxfsekf6NX1BMY/zYs/HHI3FJueMcgPJGdtIhaH
-	SJ+F3QfTivdfgqMB7/pPHjbD0qMRVZ0z8U6M/sRqcZg8IThDjTRS8Ivgvlkq5VH5aJBfHRwGewR
-	qtsd266zcILtT06s+olHwheYRwIsKuRH8mXjwn+P9OKeQZHyUJL+455nKPjuY6UXi0qU51AR3dM
-	oMoYfZOt8YZMUNuwOvDe3GWKyWW7sqb4NocnJabPUL47sF+5M0Vmu4yd1aKxq5XddGVBOfw0BZ5
-	eI9Btn54ZLnrf3HBYGUedS2e+Z69yYxuOGqqlPGTFyHqXj7mWxTekVD4LLSg29wtS87ubWmlkMI
-	5pmOlWpkPc2aL2bxwu2K90MUIYUovxCxUkTtv3iOKCaAGToxPbtKRzjaYkBYSuPEQWbLox1S5W+
-	pCKAQre1l6sw2R2OUA05XOp6DMnPRCgAH+mVyIjY3NLfC1JnT+WU2WZlSO+pbFh9AuveTIbcX1o
-	spDFQM3H9Svol5q0JOLgp/7CgDUy602xmpB7
-X-Received: by 2002:a17:907:e00b:20b0:c4d:22e2:1a2b with SMTP id a640c23a62f3a-c513a47e2ffmr543211566b.1.1795417290844;
-        Sun, 22 Nov 2026 23:01:30 -0800 (PST)
-Received: from fedora ([154.182.66.143])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2d60sm20779007f8f.3.2026.11.22.23.01.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 23:01:30 -0800 (PST)
-From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-To: jic23@kernel.org,
-	linux-iio@vger.kernel.org
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	nicolas.ferre@microchip.com,
-	alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev,
-	giorgitchankvetadze1997@gmail.com,
-	amin.gattout@gmail.com,
-	antoniu.miclaus@analog.com,
-	gregkh@linuxfoundation.org,
-	mripard@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 1/8] iio: adc: at91_adc: skip unpopulated triggers on teardown
-Date: Mon, 23 Nov 2026 09:00:54 +0200
-Message-ID: <20261123070101.53868-2-abdelnasserhussein11@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261123070101.53868-1-abdelnasserhussein11@gmail.com>
-References: <20261123070101.53868-1-abdelnasserhussein11@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=PZGvQW09;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Sc/41PEo
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailflow.phl.internal (Postfix) with ESMTP id 9E04F1380379
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 02:01:36 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Mon, 23 Nov 2026 02:01:36 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1795417296; x=1795424496; bh=PQaIU9jrGj
+	v/IX920EaZ+vwMDt6FU3NtgK/Ci8DsQtE=; b=PZGvQW0962OyMG5BJwRrDEtmu9
+	DxzJInKMx6H3ZTUoF3vb5HOh9hIvMIHbTKvgTX674ldd5vJHhF2oG9fAf52k7FDS
+	3O2fA5bY4TsmpfRnthlqubgu2BbE5xwdtA346Euao9f8ChmUKq1f41aLhdFQ+wCG
+	s4XxirvJ6fi4+ozKk9tD/S1nVBIogBNAND09ynrBhNuEB6llbh5IHhfpmLpct+ay
+	ULyywCbgywV/CRE6wLxLptIChSIWFQlcq6eMd/nsv4d/ZR1prY+uGM94ndkR76fB
+	gue0avqsxE+BR1dLNdeji1Ww8av6nfyzhPmIetMP1gMB7LBRZVU34b35XXfA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795417296; x=1795424496; bh=PQaIU9jrGjv/IX920EaZ+vwMDt6FU3NtgK/
+	Ci8DsQtE=; b=Sc/41PEoRKOWhtuAgJA3fFw2JJQWUOcWIWAKrXolQyRXiGkUvuh
+	WccGRA4zqLkKbp83RobU5Ap1oMLk7HTIQhYGeOUR7Xm07v0fzaLd0cu/joOytQ/E
+	kMr1kij/3feor6jjIltXNomRMg8BhYB+DDAfnVYy4y0OM1kgS9gI4Xo0c9UYg//v
+	XBrVt+ib0i6J0gXHDmxvONBo6pDTSQ4xlfGOH/xdzHX2foOr5FSNLxAJX9XexMaO
+	vaOutHhxqPagY9cYuVQUbK6FFsWnarIeQR6zR0f0leGDZ5FbywDWo3o5DsIBntau
+	TWPLWn0xU9fZpZSDF51Q4JMAgGrhklt63lQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795417296; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:eioVrFnYGjKGH2/XIsjFXAg43R6Xou4VYx5mlMNJ6DrFvkC
+	1kRtOBi2ftxVX1o1XyxrCeQrBHLU47bQ8XX37P0pQMoUOiWo8WflZdNVLJZRjZ4b
+	FpA3BWJUFzTP6Zkag+lJj7D9K+5mv0vDRatj40v7hw5x4xED72cSmz7RDpo17VQY
+	hVc5f1xEfdEr4WC7mxyrlURftBOl+1gqROILUX4ktB1zrz1z6xwQdpHcyk9cTag3
+	umtPVTmj4D0C885xI0upWIbUWgYpigfFqDdMcyIqu6OdmrzDYkywBAY5yTqc2X+8
+	KCTxGeQoRo7G92seL8E5dZrCtobKGhK6iB6O/hQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:VAdcf7p/xf9lxpcqIoRZEf2GByXwU0QzE50CpNp2b3o=:KP8em782QFBhNPcrfc4hjVjWWapiSXNBTFzw3UUOr9c=;
+X-ME-Sender: <xms:z-QDa0z_PHMAW-heXRGqUy2KGJ1y2Imkn6RRuWfmo8bq5EjnwRpBPw>
+    <xme:z-QDa4cXvN0O0Rg2ObS5CW25jCKyexGaDeXGIpXV4DkpFUPZzoHETLYcDQ-T2ftkA
+    AGeAsMNsih9QEEEOV_34-WbkBGLDnnCMncnH_JnuEPCCSrdrc0>
+X-ME-Received: <xmr:z-QDa4-zkHx7Evo-YD2Z0gUazpnTPmlc4N_1yqRdZeqysauTw0pqybVOjfFuv8LeVzSLXpcWw-dZkHE8zETsb7gFtv4MJe5Mefv9UOEh8Uw>
+X-ME-Proxy-Cause: dmFkZTFyV2tzmNnMG6GVBnClF3a5MYEONstRqY1OpQbaDJwJqBfAWH//7vc37ygX/vlCeR
+    aMDvp4KuBt/yGakYvtjFbCPhvferKFkBz2KEKfRa9mw335MuvaNEliE3r+H9UOHwi0fCT5
+    Iid9UUTXzJNvTw3SFuLP8qFdvif5sEvxb50PKBkU9sqwVCegl2jj8LLSORfmBpC6+xOI2y
+    +5fvP5RqM1OffM14pPDyADlYjVrW++Jay9M6fHOYD6aa5C82lpJ4okll5eX83J0MjgGVNs
+    2DC69Xz1O72y8L+b8KA7YrG4xRJANCqBqkk/mzZmEFMpgtcryaKJMVTs6neV35rB70lYCK
+    EB0Usa8u9qnybAreq0+5RWnGq/isjiXmBOJCli6iBZTIdiYVANM6dC64lEPGav9988wmsZ
+    IDRR5o7xGg7LBp4munwoRu71Ie7uqGnQytHkJdcRWxZ+QIX0HBUfrFrDGpv4jmTzLFMCMf
+    +uQ9dvVGjDyT2JMUzBMmxFaeDRcpi19y6O6an1GgOvR9/hEA3VoTR1+piCEqCJLZbr1r0d
+    Cp2V4Fd8xSYRC97CMEXcz3Lpp3bA9GtDCpaQbztP7im2m7Bz3ITns7DAbVBQ5tpzfjOSa1
+    HnLfQnpwPUXmNM0DLwmsI1dS289VnP3gy8/9V4ibav/SlLUuXup2X7bSt7UA
+X-ME-Proxy: <xmx:z-QDa-HkQuveQbNZhAt2uXLqoK8x7OE21fLMZ81Cv_z2lTZeSKt0Dw>
+    <xmx:z-QDa6COazf6ibVpdhfCQCD3j6iRpKlf-q6vziLcr56TD9ZnGA5tyQ>
+    <xmx:z-QDa8L8ORgVroRLQzv-WgpCwh3KiBBixwllPrhcZhVSAQ4FNV4WAQ>
+    <xmx:z-QDa4w2O-WvaOoPFaBoaUFX5j3dXyv3FkmUgD_I-azye3sVz_SdjQ>
+    <xmx:0OQDawV5JUDOdAoWXTCYKTbUk033HLb4cAH78l6C0kVWheUieZZ_kNBk>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 23 Nov 2026 02:01:34 -0500 (EST)
+Date: Mon, 23 Nov 2026 08:01:33 +0100
+From: Greg KH <greg@kroah.com>
+To: Dominique Martinet <asmadeus@codewreck.org>
+Cc: stable@vger.kernel.org, Alan Maguire <alan.maguire@oracle.com>,
+	andrii@kernel.org, eddyz87@gmail.com, ast@kernel.org,
+	ihor.solodrai@linux.dev, daniel@iogearbox.net, memxor@gmail.com,
+	martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+	jolsa@kernel.org, emil@etsalapatis.com, dwarves@vger.kernel.org,
+	bpf@vger.kernel.org, Alan Maguire <almagui@kernel.org>
+Subject: Re: [PATCH 5.10-6.18 v2] libbpf: fix cross-endian build with newer
+ libbpf
+Message-ID: <2026112357-corncob-exclude-7266@gregkh>
+References: <20261116233301.1531563-1-asmadeus@codewreck.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,51 +126,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116233301.1531563-1-asmadeus@codewreck.org>
 
-The driver keeps an array of triggers and leaves the slots for external
-triggers unpopulated (NULL) when the "atmel,adc-use-external-triggers"
-property is not set.  Both the error rollback path in
-at91_adc_trigger_init() and at91_adc_trigger_remove() walk the whole
-array and call iio_trigger_unregister() and iio_trigger_free() on every
-entry, including the empty ones, which dereferences NULL.
+On Tue, Nov 17, 2026 at 08:33:01AM +0900, Dominique Martinet wrote:
+> commit 087f3964f4b3 ("libbpf: Support layout section handling in BTF")
+> added extra data to the BTF header.
+> 
+> This extra data is ignored in the native case, but when building with
+> different endianness the bswap code in old libbpf would check for strict
+> size equality, leading to build failures such as this when BTF data is
+> generated with a newer version of libbpf (through pahole)
+>     BTFIDS  vmlinux.unstripped
+>   libbpf: Can't load BTF with non-native endianness due to unsupported header length 32
+>   FAILED: load BTF from vmlinux.unstripped: Operation not supported
+>   make[2]: *** [../scripts/Makefile.vmlinux:72: vmlinux.unstripped] Error 255
+> 
+> Newer libbpf versions also properly ignore trailing data in the bswap
+> case, but the patch is too intrusive to backport, so take the header 
+> length comparison fix from it instead.
 
-Skip unpopulated trigger slots in both loops.
+Why not always just use the libbpf version from newer kernels?
 
-Make a minimal fix to simplify backporting. Moving over to device managed
-cleanup will shortly remove this code.
+And why not backport the full series, one-off are almost always more
+work over time.
 
-Fixes: 0e589d5fb317 ("ARM: AT91: IIO: Add AT91 ADC driver.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
----
- drivers/iio/adc/at91_adc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+thanks,
 
-diff --git a/drivers/iio/adc/at91_adc.c b/drivers/iio/adc/at91_adc.c
-index 0ac74ad92fca..9ecf8ca362f5 100644
---- a/drivers/iio/adc/at91_adc.c
-+++ b/drivers/iio/adc/at91_adc.c
-@@ -660,6 +660,9 @@ static int at91_adc_trigger_init(struct iio_dev *idev)
- 
- error_trigger:
- 	for (i--; i >= 0; i--) {
-+		if (!st->trig[i])
-+			continue;
-+
- 		iio_trigger_unregister(st->trig[i]);
- 		iio_trigger_free(st->trig[i]);
- 	}
-@@ -673,6 +676,9 @@ static void at91_adc_trigger_remove(struct iio_dev *idev)
- 	int i;
- 
- 	for (i = 0; i < st->caps->trigger_number; i++) {
-+		if (!st->trig[i])
-+			continue;
-+
- 		iio_trigger_unregister(st->trig[i]);
- 		iio_trigger_free(st->trig[i]);
- 	}
--- 
-2.56.0
-
+greg k-h
