@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795449162;
-	b=4vN2YntxEn1/B7StkZX3RqWY8KoRewE0PyK8OFWm7bL3jFwcfh4yBnDvmrEylRJXoh5v
-	 i5h8JmcQIgVsDHS97kgdb4eA094bxmeKbKsfR6335zduFwgAL4+ZRJ3x5VT2YY0+lGn17
-	 v7qvks/CDsP9ZhdnATL7OC51d5PUFAQoMGGmKvdXIyyubNF20Qa4fjAbGxOouktCPx8pT
-	 NumsjR49K8hwtzW44jsnDIvETTF12pTnaK7nh0qjjwB6lFqM0UlillI9N8Eb8RdURaxup
-	 nw3g0s6II1sRmCZ3b/+WJxsquAbQeer9l3ercEBNvxTW2eK/RWH1r7rp8cGPONIXpMg==
+	t=1795449170;
+	b=QDeX0bNQdcwSruQFRsRbbX4DXD8d6vijJQUti78ZC/wCv5vj4XZs+gRH+A51U2zB1YJP
+	 vmYl+X5Yu3kSrlD1WDIz/WclZoPs4T1UojKA0WgjJBgs7866Z5ylRLZR27bBIRmcdLbHV
+	 p/j1LP582SAqP3VxhVKFvHIT/pAOx/coiuWOPOkAOprNS/UNKHKS+GPncNl3gydoU65Xb
+	 dnHf+Go6rZjHU/Z7Actf1aNSCL1lU+Qb2QbsKrCXlo9B/d/B7DYeAgEDadvrDHR7P89km
+	 y57/gBc5L8mXkGHdBO1teIFp8pXYQQ5v1MXMGOXnvKhM2ovsESV/pfLnNfM5O1DP9VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795449162;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795449170;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=sc+ivLwWPtxR3Xcq0ZU6l0mcJ2oMHmzXpJiBhJN1g/s=;
-	b=hUU+HQlpwAp7uDgt0hK4X0cBjrgryLf+HFQS6yRN4YcA/47o4j9g1SAenOSmWOxtTykb
-	 APrc2bOQ/QI7wstgfMr59ZRbqyUtLkPpPeBUVT6RRr/yRCTA8TMe6jKifda32px2AYAhD
-	 Zz+Dr1sxZ2uIzQ6Aw6096ZhqWta/1vuQBtHqIzzPVJEjrC9xxWtowH8C91a+7GP+qbXma
-	 NtTTPNbsntWxb4vXQxbpmPCdFQCCZwzqHstUK1wZUHLIPHftBRiy/4GqsVKqGNXQxSn66
-	 9JpuDY4FVpLAta1kZJ4+dsODgSqsNbxJ3gPwiDnuReel67F49fiIFqyxsOa2KB5HSaQ==
+	bh=k8rF/ZxvHVGoqlNnInPhIlRC9B636la7vmqkeuSHtkI=;
+	b=Qu31atFQLBWFf14ppz1SdYNpAQxwAeIbxqZ6/RP9+yDo8RMok1P/bnsqmaqHY0tbp4IO
+	 KTojA52DhJIS5YXrCM8wU0V5KlY+DoisatPJt7ih8dEeTYt3yQQSrK1b6SSEl888J9oyL
+	 mQ7K2oP94XmJNOumRVu9bYa+prxSu93c298BV/XG+Rk1rD9Dko05KgA+Ntw9BtK8EKdmV
+	 s7j8dwRtim1vhRXPhWVUCWlg8LJbfLSen8D5xsX0NkgwzPyfzdz/y+paBT9bgVD+Ohrm9
+	 0xG0+QHVkXhZYqnzY3S7NycI1YdvdhbCNfV/5BdkMvxuhkWRGzRK4D+afv4x2BUJeUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WiNK9RbJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZVYoAzk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12FB606A682;
-	Mon, 23 Nov 2026 15:52:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C530606A327;
+	Mon, 23 Nov 2026 15:52:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WiNK9RbJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 150A31F000C0;
-	Mon, 23 Nov 2026 15:52:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZVYoAzk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7CF1F000C6;
+	Mon, 23 Nov 2026 15:52:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795449162;
-	bh=sc+ivLwWPtxR3Xcq0ZU6l0mcJ2oMHmzXpJiBhJN1g/s=;
+	s=k20260515; t=1795449169;
+	bh=k8rF/ZxvHVGoqlNnInPhIlRC9B636la7vmqkeuSHtkI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WiNK9RbJs0WHWl44oZT+HN+xKS6dmj+3Qm4sRtHHm9p2wn0b4KEZJ8JZyVyjOBKks
-	 D4KBx6Y6hpUfb8nNjZg2JVkBw1TqI0tJbtyLlEg6DEoCI1fMh9LGpr+HVkoPQI+RZJ
-	 FmWBmokoc9UgRJNq0fqwtUjX0SMhcLmTEY0sF1/YydmHzgbNfh76yMDJmRViCzAoUZ
-	 C3tf7zHRLbYnHHqQyjLihE4qGWfXZ6XFXWM8hIBlDI0uoIBwuFZplt8SVkZXFRTTq2
-	 t9d4rXvl6w0vigCHlhoqpYxDqWtrOnO8TVF6zP7u+u8JLpf1hpND3n76FSR8KQuwET
-	 NQujqarXrvmHg==
+	b=NZVYoAzkCu8J7J0psuvLW7JpybEEGdw9rPZUhwJu3XRpcBeapwcM7CiCYdTNJPbzx
+	 27YPfmYDH4tvCoSrVNNO4UMYkobzFismkRoNMbvlxFOuM3hMVNmEmtlmLH7t+TyLeo
+	 BUnIGiE0PE9CXkKubNEwCRRS0jzn/VTU5FgBlrD4Oxm3cA1BZ4FsYFe4sl6+SBrWDA
+	 0t/Te1qt1G58E3mr0d0dSbYRc0j+hFOhr5A6ctrrrtZ+t12jSngQJuYo+QFqcp/0bn
+	 MXLZ5UuZoxJscvYHZ3CjqIRZeqQVlsYAfR+lMaQtQHXnlywHFAP4FDZeW8UwIKDYU3
+	 t2VXEuqT7tOaA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
 	Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
+	Andreas Gal <gal@cs.uni-magdeburg.de>,
+	Vojtech Pavlik <vojtech@ucw.cz>,
+	"He, Bo" <bo.he@intel.com>,
+	"Zhang, Jun" <jun.zhang@intel.com>,
 	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 08/10] HID: wacom: Stop HID hardware before releasing resources on mode change
-Date: Mon, 23 Nov 2026 15:50:52 +0000
-Message-ID: <20261123155138.2907049-9-lee@kernel.org>
+Subject: [PATCH 09/10] HID: debug: Hold driver_input_lock while dumping raw report descriptor
+Date: Mon, 23 Nov 2026 15:50:53 +0000
+Message-ID: <20261123155138.2907049-10-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
 In-Reply-To: <20261123155138.2907049-1-lee@kernel.org>
 References: <20261123155138.2907049-1-lee@kernel.org>
@@ -67,48 +70,57 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-wacom_mode_change_work() runs asynchronously on the system workqueue
-without holding driver_input_lock and calls wacom_release_resources()
-before hid_hw_stop() on both the pen and touch interfaces.  Because
-wacom_release_resources() releases the devres group containing
-pen_fifo, input devices, and shared tablet state while USB URBs and HID
-transport remain active, a concurrent wacom_raw_event() triggers a
-use-after-free.
+hid_debug_rdesc_show() reads hdev->rdesc and hdev->rsize and formats
+the raw report descriptor before acquiring hdev->driver_input_lock.
+When a HID driver with report_fixup() unbinds or HID-BPF reprobes the
+device, hid_device_remove() and __hid_device_probe() free hdev->rdesc
+and hdev->bpf_rdesc under hdev->driver_input_lock while the debugfs
+entry remains accessible, causing a use-after-free in
+hid_debug_rdesc_show().
 
-Call hid_hw_stop() before wacom_release_resources() for both interfaces
-to match the teardown order in wacom_remove().
+Acquire hdev->driver_input_lock at the start of hid_debug_rdesc_show()
+before reading hdev->rdesc and hdev->rsize.
 
-Fixes: 4082da80f46a ("HID: wacom: generic: add mode change touch key")
-Closes: https://sashiko.dev/#/bug/linux-e62a8e78-c17f-491a-849b-0690087100f2
+Fixes: cef0d4948cb0 ("HID: debug: fix race condition with between rdesc_show() and device removal")
+Closes: https://sashiko.dev/#/bug/linux-31c0bbf2-e4e7-41e6-ab3b-0d17dfe45389
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/hid/wacom_sys.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/hid/hid-debug.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
-index 2d2a4d56a8da..121bead90147 100644
---- a/drivers/hid/wacom_sys.c
-+++ b/drivers/hid/wacom_sys.c
-@@ -2887,16 +2887,16 @@ static void wacom_mode_change_work(struct work_struct *work)
+diff --git a/drivers/hid/hid-debug.c b/drivers/hid/hid-debug.c
+index f44e6e708404..56207dea4aa7 100644
+--- a/drivers/hid/hid-debug.c
++++ b/drivers/hid/hid-debug.c
+@@ -3654,10 +3654,15 @@ static void hid_dump_input_mapping(struct hid_device *hid, struct seq_file *f)
+ static int hid_debug_rdesc_show(struct seq_file *f, void *p)
+ {
+ 	struct hid_device *hdev = f->private;
+-	const __u8 *rdesc = hdev->rdesc;
+-	unsigned rsize = hdev->rsize;
++	const __u8 *rdesc;
++	unsigned int rsize;
+ 	int i;
  
- 	if (pen) {
- 		wacom1 = hid_get_drvdata(pen);
--		wacom_release_resources(wacom1);
- 		hid_hw_stop(wacom1->hdev);
-+		wacom_release_resources(wacom1);
- 		wacom1->wacom_wac.has_mode_change = true;
- 		wacom1->wacom_wac.is_direct_mode = is_direct;
- 	}
++	if (down_interruptible(&hdev->driver_input_lock))
++		return 0;
++
++	rdesc = hdev->rdesc;
++	rsize = hdev->rsize;
+ 	if (!rdesc) {
+ 		rdesc = hdev->dev_rdesc;
+ 		rsize = hdev->dev_rsize;
+@@ -3669,9 +3674,6 @@ static int hid_debug_rdesc_show(struct seq_file *f, void *p)
+ 	seq_printf(f, "\n\n");
  
- 	if (touch) {
- 		wacom2 = hid_get_drvdata(touch);
--		wacom_release_resources(wacom2);
- 		hid_hw_stop(wacom2->hdev);
-+		wacom_release_resources(wacom2);
- 		wacom2->wacom_wac.has_mode_change = true;
- 		wacom2->wacom_wac.is_direct_mode = is_direct;
- 	}
+ 	/* dump parsed data and input mappings */
+-	if (down_interruptible(&hdev->driver_input_lock))
+-		return 0;
+-
+ 	hid_dump_device(hdev, f);
+ 	seq_printf(f, "\n");
+ 	hid_dump_input_mapping(hdev, f);
 -- 
 2.56.1.750.gf70dc682cf-goog
 
