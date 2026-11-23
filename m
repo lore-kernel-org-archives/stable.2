@@ -1,57 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795452539;
-	b=3Su0a4nwedp2GvDhnTsc3dyrgTA7Ud47pvLP61Yo9gguC++30lZmpMj1PiYSiBU4h7Zf
-	 wjKGs6WE1XY1EgwlBf0EBGEGaq5p2cESdpbk235j7vu8yEuA8kt/EBycFQy1Q5BHFD8tY
-	 7eCu09rwY3qywbG59EyG43p0KDfwM02v5Y/qRF39fEO2iW4i+ZANXBm/5KxgpAuxOv+Ji
-	 nTWEo/eyLMVH+WN8ur9z9rjAdW7KbPyBtNkSMYqNctzAtfoF1zMvHp6BoT0HsKxeYrhe4
-	 4YIZepAcnQlj09gcOf5CwED6lZ+kEl72VnKo9Y+P40h6BdodwnP8tZ9ARGToHRT+vwA==
+	t=1795452547;
+	b=k9GHX9KyPAkmGrja4vcesguq0HXvHItmPcjU0aqw80Fa22OzgDgxikyyvadM3sBsZnU4
+	 zJoI3b73yQlISye0vTeSja7qe7/PP/bRH26w0anUnW+mV9d1k8K/9CDbDbf6VzsGnd6rg
+	 cJYpCuJ6Mge/hhzyp7C9wwt9wJnakVxlc131OoMPJJXTsrVx0BNkr36/1CGdA9FhWu9h8
+	 KbmKxL1pxTzWmPxrzFhcT8Tp01FHfryASIgaFYmGXwQ//u8v8KN+I9pI77WM1iwVyMfmb
+	 KrMQmNvrb/KnJtZmMjlMUIs5r3BLir5uztU+CulS/Qu6mNVXJCSV8p4R0BeqQya80fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795452539;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795452547;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=4Ip4SXJxDEMUBPY2/7TQsYLJ7OFQGOHcIrSFeGEgDdk=;
-	b=Q+RpY3/u5ObNXaGnJSDnmg4q8N5YLlKVlTjVWNOu0zsYt5OMAe6OwACOHdSC2dtDbP7n
-	 DInOjQ4gZGzsLYfTu5ppNufeOM3hdCB1jTpS/QxxivwCnXsuFrmhYc9HcKR0s1qIrwXsP
-	 279T6jmM9NM458DEPNcih88nAEHzSMHwDjJ9pf+LCbPf6HwdnqzCaP8844XhGNtkd0b72
-	 7hiqoS7p35b3YVUjcYogtzG4LE3VvFv1JMtg4fzlSl7jiVPMZlCRHIpZwhxjMjVWpO+Ir
-	 3iLbwE8Dl0nDxdo831UTZo5op19oKvq49lGfCpunnht0SO0oguUR2UA+T5wy2thSgqg==
+	bh=apULIBVfF11sV6vYsTGwYxkSOIFhWMfQwI58pA8i77k=;
+	b=l2OjsNvBWZ3Vi3oLXX4niAHmYMvpizBHL1I/RqraOx5UatQvBAynWUTQ09IapLuL4O9g
+	 zhaeE8d0Sk5jeG2dyjt83Oe852hC3ruXGjEN5OJc1VO12nCRa44f1RMfh++dXRTfOTQEm
+	 /Vyt5OsIEnxkonl3ZlTQ0V+JY67dLzhGq3DP4gzrAcsyrifQJUKESMxHlGnrCHh60EaZa
+	 a3RkIc2tdyroDaIL9hcmhBUDVIXTuBcjzmFAG7I6qcQuOGMseJHaYS6Av5Msnumt8vD7b
+	 U9wvcTWqvweq8Yp2xSPEsOBWoM8+Di+6u4uQWYKsjkcflK1WUWRdJP/FpYvlIhdHwoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTLE9AUS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XK+oRuQm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC85606A68D;
-	Mon, 23 Nov 2026 16:48:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28CE1606A336;
+	Mon, 23 Nov 2026 16:49:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTLE9AUS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1CA1F01566;
-	Mon, 23 Nov 2026 16:48:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XK+oRuQm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0DEF1F000C6;
+	Mon, 23 Nov 2026 16:49:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795452539;
-	bh=4Ip4SXJxDEMUBPY2/7TQsYLJ7OFQGOHcIrSFeGEgDdk=;
+	s=k20260515; t=1795452546;
+	bh=apULIBVfF11sV6vYsTGwYxkSOIFhWMfQwI58pA8i77k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CTLE9AUSs/LHxrvk6CIsJ9GACvA2PTye1NIAEWwymWadlQYhlkDpK4CM8KOSJ6Agt
-	 6wjcP46gJQ0+yvdY3or0+cIifWEwihQ7Mzk2UAObiOskI9S2lw2We4TD5oLfRFF69/
-	 DFDEPoIamcMx/7h3gHMQ33fvhJ/f361DuTmOPH+mCS4OGHUf1d5EYtQz2a+STglpkM
-	 BMsbfN4ujTj1C9FggbxN/x4eviXo9Pn5Sb7Ayc0iRcVReznwsX/fmwo5gCkLRDOZM3
-	 bMkSNgYilwegIe9cF0MmkjN5dvQRjPAlERA2DPDht/LqPg4XgCJoriJSdXoruUFT00
-	 WM5TrmE62Qh8g==
+	b=XK+oRuQmSQXj0ipiwZXiNBR7QIwI/w2+COd1Y90LCJkrbZm+dcxP3xJA7W81MWKLO
+	 3A3DQxKsWuH9Z8bSA/g4ywHYNdxmTDX5DK9GzRImJ6zmCGWE7N1YwtfM22Uit3/lKn
+	 bqCOjqPVlQsnGIt2wccwwDEPLeN0KIV1VJMGxNi6r8yZvcJlTUjLN2uvLHNXKbu/Vp
+	 SG2uMnDiT/7fJNB4aGjVZKJzjGzC1KPlZApEKDkC6aAl/snNIAhl+xZw/Xoh9/kYX9
+	 mb4dIGXv+qBQvEZjhQnUYVMtWft4Mg+DfsQ+WkRbBhzUPgWKY2YTAmbIqKTVtfZNbP
+	 jnsr5ECenkYzA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
+	Prashant Gaikwad <pgaikwad@nvidia.com>,
 	Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Liam Beguin <lvb@xiphos.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Rosen Penev <rosenp@gmail.com>,
 	linux-clk@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 02/10] clk: lmk04832: Validate child reg index in lmk04832_probe()
-Date: Mon, 23 Nov 2026 16:47:35 +0000
-Message-ID: <20261123164834.3330320-3-lee@kernel.org>
+Subject: [PATCH 03/10] clk: tegra: bpmp: Bound num_parents by MRQ_CLK_MAX_PARENTS
+Date: Mon, 23 Nov 2026 16:47:36 +0000
+Message-ID: <20261123164834.3330320-4-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
 In-Reply-To: <20261123164834.3330320-1-lee@kernel.org>
 References: <20261123164834.3330320-1-lee@kernel.org>
@@ -67,57 +71,58 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-lmk04832_probe() allocates lmk->clkout with info->num_channels (14)
-elements, then iterates over child Device Tree nodes and reads each
-child's "reg" property into a signed integer without bounds validation.
-It immediately indexes lmk->clkout[reg] to populate .format and .sysref,
-causing a heap out-of-bounds write if "reg" is greater than or equal to
-info->num_channels (or negative when interpreted as a signed int).
+Both cmd_clk_get_all_info_response and tegra_bpmp_clk_info size their
+parents arrays to MRQ_CLK_MAX_PARENTS (16), whereas response.num_parents
+is an 8-bit unsigned integer received from BPMP firmware.
 
-Read "reg" as u32 and reject values greater than or equal to
-info->num_channels before indexing lmk->clkout.
+tegra_bpmp_clk_get_info() copies response.num_parents entries from the
+stack response into the heap info structure without checking against
+MRQ_CLK_MAX_PARENTS, and the caller only checks against U8_MAX after the
+copy has already overflowed both arrays.
 
-Fixes: 3bc61cfd6f4a ("clk: add support for the lmk04832")
-Closes: https://sashiko.dev/#/bug/linux-75db6ed8-b83a-4866-b3f7-d486d223d97f
+Validate that response.num_parents does not exceed MRQ_CLK_MAX_PARENTS
+before copying parent IDs, and drop the redundant U8_MAX check.
+
+Fixes: ca6f2796eef7 ("clk: tegra: Add BPMP clock driver")
+Closes: https://sashiko.dev/#/bug/linux-785615f3-ab51-451a-b58c-fe29c7f09bfe
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/clk/clk-lmk04832.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/clk/tegra/clk-bpmp.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/clk/clk-lmk04832.c b/drivers/clk/clk-lmk04832.c
-index e6e771e8eb14..757b0eba739f 100644
---- a/drivers/clk/clk-lmk04832.c
-+++ b/drivers/clk/clk-lmk04832.c
-@@ -1453,7 +1453,7 @@ static int lmk04832_probe(struct spi_device *spi)
- 				 &lmk->sysref_pulse_cnt);
+diff --git a/drivers/clk/tegra/clk-bpmp.c b/drivers/clk/tegra/clk-bpmp.c
+index 0bb28f96274f..3649324e2e1f 100644
+--- a/drivers/clk/tegra/clk-bpmp.c
++++ b/drivers/clk/tegra/clk-bpmp.c
+@@ -376,6 +376,13 @@ static int tegra_bpmp_clk_get_info(struct tegra_bpmp *bpmp, unsigned int id,
+ 			return -E2BIG;
+ 	}
  
- 	for_each_child_of_node_scoped(lmk->dev->of_node, child) {
--		int reg;
-+		u32 reg;
- 
- 		ret = of_property_read_u32(child, "reg", &reg);
- 		if (ret) {
-@@ -1462,12 +1462,18 @@ static int lmk04832_probe(struct spi_device *spi)
- 			return ret;
- 		}
- 
-+		if (reg >= info->num_channels) {
-+			dev_err(lmk->dev, "invalid reg %u in child: %s\n",
-+				reg, child->full_name);
-+			return -EINVAL;
-+		}
++	if (response.num_parents > MRQ_CLK_MAX_PARENTS) {
++		dev_err(bpmp->dev,
++			"clock %u has too many parents (%u, max: %u)\n",
++			id, response.num_parents, MRQ_CLK_MAX_PARENTS);
++		return -EINVAL;
++	}
 +
- 		of_property_read_u32(child, "ti,clkout-fmt",
- 				     &lmk->clkout[reg].format);
+ 	info->num_parents = response.num_parents;
  
- 		if (lmk->clkout[reg].format >= 0x0a && reg % 2 == 0
- 		    && reg != 8 && reg != 10)
--			dev_err(lmk->dev, "invalid format for clkout%02d\n",
-+			dev_err(lmk->dev, "invalid format for clkout%02u\n",
- 				reg);
+ 	for (i = 0; i < info->num_parents; i++)
+@@ -453,13 +460,6 @@ static int tegra_bpmp_probe_clocks(struct tegra_bpmp *bpmp,
+ 		if (err < 0)
+ 			continue;
  
- 		lmk->clkout[reg].sysref =
+-		if (info->num_parents >= U8_MAX) {
+-			dev_err(bpmp->dev,
+-				"clock %u has too many parents (%u, max: %u)\n",
+-				id, info->num_parents, U8_MAX);
+-			continue;
+-		}
+-
+ 		/* clock not exposed by BPMP */
+ 		if (info->name[0] == '\0') {
+ 			holes++;
 -- 
 2.56.1.750.gf70dc682cf-goog
 
