@@ -1,51 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795427358;
-	b=bSnwgp8/RpTE+LDjtgxOqDKjr/AvzNyitOizo/zaYEXld8wq8nfBwp8n3jxA9aIy0EGK
-	 C1zb73kcP+1jv/rn1osK/NW2p3qmtGvc54sXfZc2nWhI5d1hY+ShRLBL66y7TG2PRMfJR
-	 9MBpkkmbNq0PaymeyN2ClCUZB/3jrfZtwlgj+RQBxJ3iLqPYzSQQvXPniW+S7MMe47/u7
-	 bg1Ry41ZdrD8hLT+XoxW7gP/Lq9ChWl3WbrrQybnrZNJQ2xQlr/waeTtXDy1RNH2aK5jS
-	 3BIorVG11HhUfFRhZvOSdBf55y2IdBI3RdTmbO7rdmHeD7vUT2qKDzzs067Z1+i1bdQ==
+	t=1795427692;
+	b=4mFbm0j0f4RaehQ0UURtDtWKcFePNTjoEleeMny4iY+dS/1BwVtMOeB03PjLKBqPEu7z
+	 IkwupQMsdbHwBaNuRGh4YcKkf576XrZ2WAjhqHq1xbIG1ZJpHPx8hgAvyNzWbxNfDD7xj
+	 H5FQCVP3i5U4QAR13lZj87qCpztm4Pj+JmA73opxpQUldD1qk2ADkhb84lduBW77EHhSu
+	 f8vp0lTYQa6ahWjCqzSifVzlk/MkU9WSL2MBHVOWxqGNPlNNfoLbyu1nylYQhfG3s7Tkz
+	 QBIv0hm51LprXlChB6ZaOYMziiw3UCIWFx2xCvwPaGVPTspTG7MuJLMKji41UDaHC+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795427358;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=5PlAEmszs4I4I295Pe06hQbjyqPhFRRqJ+vKSzs0Ya8=;
-	b=BXrM5RHjWYaVDTRD1TJYdlEal2yd5U+dKyaVA0RxDbEZtAZiOhg58pgUMKFFDssREd8a
-	 mf+M0AC0t957T3ec19kYKaJnC6c/oO9TgYfJkuJdsaxdIVIqqQEL8v5vy4x5pdgy6L+oZ
-	 JiYsMm7JfB5DE86EBp08y6crj59yel7ofamDySoYpeyG+awlElmaF684ucSJtkQ+ktfmS
-	 hhRDNO8PuB/aNvjGc9oQ8R+2BjwnCpbp1+UBG8QztkRhtMzplVo7tcd/ubXE7E6tp2AMS
-	 WtiyUBcxC0ztdATuT70tbBe5li6Sqy0tnoFMtnPaeNo0d0VGZRiL7Zu4AjmRibcjFRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795427692;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=uewvvfPkIA+JpYak7yGl+BQUnFOTsnZsmgulW20Qso8=;
+	b=wmEzYPltmeZ/d9/+58D1/HmVjtS/qLeLliyKBc9MsQz88Ej4u3IYS5b+dJ56ASxHXbNW
+	 8m/HNxpC2qErVK3oxGhnEPNbwn6CpN/AECnMX6gVAZ7QbcwFHCXn2fYwq616GABLlyyP8
+	 UOnllxfh1zN4Lc/C2o9/txa+jTNDGniH3EV/naCMXp3pgVJHiaZbrc3q81H0VaukhI3+T
+	 r4Hs4s2Jzi4VnwzFCC1q7jgj39K9v6Ov5vAVoI5GQsdElDYB5cs3zBPDX0Y1TDcXOtXbn
+	 7++forXLD8QuHkZ65TsurJ1M9ESDNgZFKSOhuvYc/bvqiymnzRn4YBzLvXuukH+S+QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JqR8N2xn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFBD606A321;
-	Mon, 23 Nov 2026 09:49:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EFBD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from f3f1baf57000.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAXr7QLDARryhPDAQ--.35445S2;
-	Mon, 23 Nov 2026 17:48:59 +0800 (CST)
-From: liutong <liutong@iscas.ac.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Palmer Dabbelt <palmer@dabbelt.com>,
-	Anup Patel <apatel@ventanamicro.com>,
-	linux-serial@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] serial: earlycon: bail out on zero progress in SBI DBCN write
-Date: Mon, 23 Nov 2026 09:48:43 +0000
-Message-Id: <20261123094843.540808-1-liutong@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1915E606A31A;
+	Mon, 23 Nov 2026 09:54:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JqR8N2xn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11DD41F000D3;
+	Mon, 23 Nov 2026 09:54:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795427691;
+	bh=uewvvfPkIA+JpYak7yGl+BQUnFOTsnZsmgulW20Qso8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=JqR8N2xnakYmvNLLnBbqqKKQTfDZxqyYHU3kVBTbuE6H42WbC0qCs9dlDvjpSZ1Ib
+	 WraRrMIbFAlDVl5Z4xfDhRQyop3tKkO65sbxUR+i30t9XiSePk+Cct0RDrupKcRjpX
+	 CuVyZQwBjaMbvVqf1eSeylzyBpisC/BHjFMO/0Ilv0CqKWIcq6dLBj3fsB8G+FlBYe
+	 U2E4YkxtUM1kAALWo6sQUyo/Cf6C0SP3q4O0Rgj5D9/hnwRQxRtvmGZIabFianNCaC
+	 hoKd4d6c5zqLm795+6DxxB9gpysoRH88sbAUD+fAJAdY/7V9a83iiQ4cM0Vb2obYgu
+	 e22i8MapKYIbw==
+Subject: Re: [PATCH net v4] mctp i2c: fix double free of midev on netdev
+ register failure
+From: netdev-bot+sashiko@kernel.org
+To: kenny_hsieh@jabil.com
+Cc: netdev@vger.kernel.org, jk@codeconstruct.com.au, matt@codeconstruct.com.au,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 23 Nov 2026 09:54:50 +0000
+Message-ID: <179542769062.3135.9147379725438179456@kernel.org>
+In-Reply-To: <20261119094307.3864679-1-kenny_hsieh@jabil.com>
+References: <20261119094307.3864679-1-kenny_hsieh@jabil.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,59 +64,285 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXr7QLDARryhPDAQ--.35445S2
-X-Coremail-Antispam: 1UD129KBjvJXoWruryUXFy5Aw48ZFyfury7trb_yoW8Jr4fpw
-	129FyqyFW5tF1fZ3ZF9F15uFyrZa9rAry7KFyUCwnYv3sYqF4SkFW3ta4YgFyrJr97JF12
-	kF4YyFWrA3Wjk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0ow
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l
-	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
-	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
-	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r
-	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
-	6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07b818PUUUUU=
-X-CM-SenderInfo: xolx301qj6x2xfdvhtffof0/
 
-sbi_dbcn_console_write() loops until all bytes are written and exits
-early only on an error. When sbi_debug_console_write() returns 0 it
-stays in the loop forever.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-A zero return is not an error. Per the SBI specification, the call "may
-do partial/no writes if the debug console is not able to accept more
-bytes".
+Critical: 0 · High: 1 (1) · Medium: 1 (1) · Low: 1
 
-OpenSBI can return 0 here. Its semihosting console reports 0 when a host
-write fails, and SBI passes that number back unchanged.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fix the check to use <= instead of <, so that a zero return also ends
-the loop.
+- [High] mctp_i2c_tx_purge() (drivers/net/mctp/mctp-i2c.c:812-822) does
+  not keep the embedded unlock marker away from kfree_skb(), which the…
+- [Medium] mctp i2c: running tx_thread in mctp_i2c_ndo_uninit() can re-
+  select mcli->sel
+- [Low] Two comments in the patched code now contradict each other about
+  the bus lock.
 
-Fixes: c77bf3607a0f ("tty/serial: Add RISC-V SBI debug console based earlycon")
-Cc: stable@vger.kernel.org
-Signed-off-by: liutong <liutong@iscas.ac.cn>
----
- drivers/tty/serial/earlycon-riscv-sbi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the sibling
+  driver mctp-i3c has the reverse version of the same ndo_uninit…
+- [Medium] This problem wasn't introduced by this patch, but
+  mctp_register_netdevice() (net/mctp/device.c) leaks the mctp_dev.
 
-diff --git a/drivers/tty/serial/earlycon-riscv-sbi.c b/drivers/tty/serial/earlycon-riscv-sbi.c
-index 0162155f0c83..a8ffee389e15 100644
---- a/drivers/tty/serial/earlycon-riscv-sbi.c
-+++ b/drivers/tty/serial/earlycon-riscv-sbi.c
-@@ -29,7 +29,7 @@ static void sbi_dbcn_console_write(struct console *con,
- 
- 	while (n) {
- 		ret = sbi_debug_console_write(s, n);
--		if (ret < 0)
-+		if (ret <= 0)
- 			break;
- 
- 		s += ret;
+--
+
+mctp i2c: fix double free of midev on netdev register failure
+
+After this patch, mctp_i2c_ndo_uninit() no longer frees midev. midev is
+now freed only in the add_netdev() error path and in
+mctp_i2c_unregister(), and ndo_uninit only detaches midev from the
+client's sel and purges tx_queue, keeping the embedded unlock marker out
+of the purge. The tx thread now releases the i2c bus lock itself before
+it exits.
+
+Closes: https://lore.kernel.org/netdev/179239912623.3135.11352652156626817288@kernel.org/
+
+> diff --git a/drivers/net/mctp/mctp-i2c.c b/drivers/net/mctp/mctp-i2c.c
+> index b02476d338bbf..29a186f714d1a 100644
+> --- a/drivers/net/mctp/mctp-i2c.c
+> +++ b/drivers/net/mctp/mctp-i2c.c
+> @@ -628,8 +628,11 @@ static int mctp_i2c_tx_thread(void *data)
+>  	unsigned long flags;
+>  
+>  	for (;;) {
+> -		if (kthread_should_stop())
+> +		if (kthread_should_stop()) {
+> +			/* Only the rt_mutex owner may release the bus lock */
+> +			mctp_i2c_unlock_reset(midev);
+>  			break;
+> +		}
+>  
+>  		spin_lock_irqsave(&midev->tx_queue.lock, flags);
+>  		skb = __skb_dequeue(&midev->tx_queue);
+> @@ -782,11 +785,46 @@ static struct mctp_i2c_dev *mctp_i2c_midev_init(struct net_device *dev,
+
+[ ... ]
+
+> +/* The unlock marker is embedded in midev, so keep it from kfree_skb() */
+> +static void mctp_i2c_tx_purge(struct mctp_i2c_dev *midev)
+> +{
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&midev->tx_queue.lock, flags);
+> +	if (midev->unlock_marker.next)
+> +		__skb_unlink(&midev->unlock_marker, &midev->tx_queue);
+> +	spin_unlock_irqrestore(&midev->tx_queue.lock, flags);
+> +
+> +	skb_queue_purge(&midev->tx_queue);
+> +}
+
+[Severity: High]
+The commit message says the marker "must not reach kfree_skb() through
+the purge". Can it still get there?
+
+The marker is unlinked under tx_queue.lock. The lock is then dropped,
+and skb_queue_purge() takes it again to splice the queue:
+
+net/core/skbuff.c:skb_queue_purge_reason() {
+    ...
+	spin_lock_irqsave(&list->lock, flags);
+	skb_queue_splice_init(list, &tmp);
+	spin_unlock_irqrestore(&list->lock, flags);
+
+	__skb_queue_purge_reason(&tmp, reason);
+}
+
+In that gap, mctp_i2c_release_flow() can run on another CPU. It sees the
+unlock_marker.next == NULL state that __skb_unlink() just left and
+queues the marker again:
+
+mctp_i2c_release_flow() {
+    ...
+		spin_lock(&midev->tx_queue.lock);
+		if (!midev->unlock_marker.next)
+			__skb_queue_tail(&midev->tx_queue,
+					 &midev->unlock_marker);
+		spin_unlock(&midev->tx_queue.lock);
+    ...
+}
+
+This looks reachable from mctp_i2c_ndo_uninit(). It runs inside
+unregister_netdevice() after NETDEV_UNREGISTER and before the netdev
+refcount wait.
+
+At that point MCTP keys can still hold the mctp_dev. They are released
+without RTNL: by the key expiry timer through __mctp_key_remove(), by
+socket close, or through mctp_key_unref(). Each of these calls
+mctp_dev_release_key()->ops->release_flow().
+
+mdev->ops is not cleared on unregister. The tx thread has already been
+stopped by mctp_i2c_unregister(), so nothing else dequeues the marker in
+this window.
+
+The marker lives in netdev_priv and is never initialised, so its
+skb->users is 0. kfree_skb()->skb_unref() would then hit a refcount_t
+underflow / use-after-free warning, which panics with panic_on_warn.
+
+Would it work to unlink the marker and splice the queue onto a local
+list under a single tx_queue.lock hold, and then purge the local list? A
+later re-queue would be harmless: the purge in mctp_i2c_midev_free()
+runs after unregister_netdev() has waited for all references.
+
+[ ... ]
+
+> @@ -797,17 +835,9 @@ static void mctp_i2c_midev_free(struct mctp_i2c_dev *midev)
+>  	mctp_i2c_unlock_reset(midev);
+
+[Severity: Low]
+This isn't a bug, but is this mctp_i2c_unlock_reset() call still needed?
+In mctp_i2c_midev_free() it reads:
+
+	/* Unconditionally unlock on close */
+	mctp_i2c_unlock_reset(midev);
+
+Both callers have stopped the tx thread before this point. The thread's
+only exit is the new kthread_should_stop() branch, which already resets
+i2c_lock_count. Nothing outside the tx thread increments i2c_lock_count,
+so this call never does anything.
+
+If it ever did fire, it would release the rt_mutex from a non-owner
+context. The new "Only the rt_mutex owner may release the bus lock"
+comment in mctp_i2c_tx_thread() rules that out.
+
+Could the call and the "Unconditionally unlock on close" comment be
+removed, or replaced with a WARN that the count is already zero?
+
+>  
+>  	/* Remove the netdev from the parent i2c client. */
+
+[ ... ]
+
+> @@ -837,11 +872,11 @@ static void mctp_i2c_ndo_uninit(struct net_device *dev)
+>  {
+>  	struct mctp_i2c_dev *midev = netdev_priv(dev);
+>  
+> -	/* Perform cleanup here to ensure that mcli->sel isn't holding
+> -	 * a reference that would prevent unregister_netdevice()
+> -	 * from completing.
+> +	/* Drop sel's reference and queued skbs before unregister waits
+> +	 * for the last netdev reference. midev is freed elsewhere.
+>  	 */
+> -	mctp_i2c_midev_free(midev);
+> +	mctp_i2c_midev_detach(midev);
+> +	mctp_i2c_tx_purge(midev);
+>  }
+
+[Severity: Medium]
+Can the tx thread put midev back into mcli->sel after this detach has
+run?
+
+The old ndo_uninit went through mctp_i2c_midev_free(), which stopped
+midev->tx_thread before touching sel. The new one leaves the tx thread
+running. That is fine on the mctp_i2c_unregister() path, which calls
+kthread_stop() first, but not on the register failure path this patch
+is fixing.
+
+mctp_i2c_midev_init() wakes the tx thread before mctp_i2c_add_netdev()
+calls mctp_register_netdev(). If a NETDEV_REGISTER notifier fails after
+a packet has been queued, register_netdevice() unwinds through
+unregister_netdevice_queue(), which calls mctp_i2c_ndo_uninit(). The
+rtnl_unlock() in mctp_register_netdev() then runs netdev_run_todo() and
+waits for the last reference in netdev_wait_allrefs_any().
+
+If the tx thread dequeued an skb just before mctp_i2c_tx_purge() ran,
+it carries on into mctp_i2c_xmit(), which selects the device without
+checking whether midev is still attached:
+
+mctp_i2c_xmit() {
+    ...
+	case MCTP_I2C_TX_FLOW_NONE:
+		/* no flow: full lock & unlock */
+		mctp_i2c_lock_nest(midev);
+		mctp_i2c_device_select(midev->client, midev);
+    ...
+}
+
+The MCTP_I2C_TX_FLOW_NEW case does the same.
+
+mctp_i2c_device_select() sets mcli->sel = midev and takes
+dev_hold(midev->ndev), although midev is no longer on mcli->devs. With
+list_empty(&midev->list) now true, every later mctp_i2c_midev_detach()
+returns early and never drops that reference. netdev_wait_allrefs_any()
+then waits forever, and mctp_i2c_add_netdev() never gets to the error
+path that would call mctp_i2c_midev_free().
+
+Would it work to stop the tx thread in mctp_i2c_ndo_uninit() before the
+detach, as the old code effectively did? mctp_i2c_midev_free() already
+skips kthread_stop() when tx_thread is NULL, and the tx thread now
+releases the bus lock itself on exit. Or should mctp_i2c_device_select()
+refuse to select a midev that has already been removed from mcli->devs?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but mctp-i3c seems to have
+the reverse form of the same ndo_uninit mismatch:
+
+drivers/net/mctp/mctp-i3c.c:mctp_i3c_bus_add() {
+    ...
+	rc = mctp_register_netdev(ndev, NULL, MCTP_PHYS_BINDING_I3C);
+	if (rc < 0) {
+		dev_warn(&ndev->dev, "netdev register failed: %d\n", rc);
+		goto err_free_netdev;
+	}
+    ...
+}
+
+This skips mctp_i3c_bus_free() because it assumes mctp_i3c_ndo_uninit()
+already ran. That isn't true for early failures:
+
+- mctp_add_dev() can fail before register_netdevice() is called.
+- register_netdevice() can fail in dev_get_valid_name(), for example
+  with -EEXIST, since the name is a fixed "mctpi3c<id>".
+- register_netdevice() can fail when allocating the name node.
+
+The register_netdevice() failures take "goto out" and never reach
+ndo_uninit.
+
+In those cases mbus stays on the global busdevs list, and the tx thread
+started by kthread_run() keeps sleeping on mbus->tx_wq. Meanwhile
+free_netdev() frees the netdev, and mbus with it.
+
+Can the tx thread, or later walks of busdevs in
+mctp_i3c_bus_remove_all() and mctp_i3c_bus_add_new(), then use freed
+memory?
+
+The approach this patch takes for mctp-i2c might fit mctp-i3c as well:
+the error path always frees, and the uninit work is safe to repeat.
+
+[Severity: Medium]
+This is a pre-existing issue, and this patch neither claims to fix it nor
+relies on it. Does mctp_register_netdevice() leak the mctp_dev when
+register_netdevice() fails?
+
+net/mctp/device.c:mctp_register_netdevice() {
+	...
+	mdev = mctp_add_dev(dev);
+	if (IS_ERR(mdev))
+		return PTR_ERR(mdev);
+
+	mdev->ops = ops;
+	mdev->binding = binding;
+
+	return register_netdevice(dev);
+}
+
+mctp_add_dev() allocates the mdev, sets refs to 1, takes dev_hold(dev)
+and publishes dev->mctp_ptr. Only the NETDEV_UNREGISTER notifier
+(mctp_unregister()->mctp_dev_put()) frees it. register_netdevice() only
+reaches that notifier when a NETDEV_REGISTER notifier fails.
+
+None of the other failure paths free it. These are dev_get_valid_name(),
+name node allocation, netdev_check_ops, pcpu stats, dev_index_reserve,
+NETDEV_POST_INIT and kobject registration. At most they send
+NETDEV_PRE_UNINIT, which mctp doesn't handle.
+
+The driver's free_netdev() then frees the netdev, and the mdev and its
+untracked netdev hold are leaked. With CONFIG_NET_DEV_REFCNT_TRACKER,
+could this also trigger a ref_tracker warning at free_netdev()?
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261119094307.3864679-1-kenny_hsieh%40jabil.com
