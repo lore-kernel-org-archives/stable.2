@@ -1,99 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795453670;
-	b=eqUqfTwBl1XfzNjrVqWhRcvCx9uTwYvrfgFERyxjIznYJLnJiZDOQdI4EzEK8Ti5ZA19
-	 2FMgKtngV+tG2QSXFsP2+g0u2IiTNvdfdspY0UxlqQLVskZuS4kTTBEuxauYLckOHJiDv
-	 Jl+NM/yFZoU+JkSpcYjm6Wj0iPqv0yINFzbW3/oVeSgRN364qRvIC+wMafA4Ibhh+z/LP
-	 QQ/fVVjvNulS272VNGnNUFJHxo3T6vqQuaewqsCVLTT/5UuVbu8p77vyZRXFVa4ZnVrNp
-	 FRkXtH7MpyAr0Pr6Dc1Epf3EVGTv4a5z4zTsycaybFonNbgb5Q2HkDd4DJtE8jKLlmA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795453670;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=+xaIvYw9qB8U9m5yBZTbNli0aV2ssc6MRhHdFn2AjAQ=;
-	b=wPwWD9wMZ4372c0e3aEL2kGy9WkoA30x1OQfmh3kSCyk7yVHdyb1MgTTH8eoHgzUtZOF
-	 LZ8g9OzEy+wS5TaUU0/sMbZLN6K+R6dTKK/18miaUZ4hvBz4LPFKHMsQHYEqS+I43ic8m
-	 0rymfJODn9t1DvM/r/rLW/ZY8ipypOh2vBaB6l5+nK5XGWpCeNRoN1IH8B20G2Io/UAwa
-	 eQIJdhqltFkhVffzEDB77O+P7mCc92V9kF8DEy8klk4mNqavLr1ZxOxAZ+yGfOPfVB/zp
-	 6sghz5Ym8vyqxcYbWC8ZP/Q5g+puObLzkAznaZ3iN8SXCicMNEcQdHGAEb54i1K9nHA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bJJCiYt0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.98
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795454129;
+	b=FlwCkEUy/QS7B/Zbaxw/yjYaMUoCJJ41v8zy6Vwn27lR979ZbMbrsCJV8L3DMtnxa1er
+	 PFpsknYsc8q8/abmmATcOai1Fxh8T6+749jN7rLCM5xSpbCBkE5KMrzzqAbhRqlnYspOH
+	 09LFeVA9MZvFlRNo7sgVc0LuSxrarJ8eLoR6PFn+vc6eCCfKlXuziQUObGSDlPtJcDFaM
+	 uzV8Ztv7Pb6oJX0Iz1cxSV4OSA/0tfptor3V1WglS00/x5Gv0dG6JIu53mP/QoeDLgOxo
+	 bIE9ZSE99WCjWTrMfflcD1t/h51c26F/+lyU+Uv/93HHze4Loey/MxvSjU0z8IigElw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795454129;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7HrXdAZvqoP2wKFdIA57K4p11FPgSibCIfOS3Ctnkzw=;
+	b=d53garOrau906wY+uAXtA6ZuRWXUff0457bS2r2IrBUeOHOccSO9vUpgqe0mjT1yMzeC
+	 ATnThiIJmAhNkVwPsqjANRENOD1zdULZPuspQOXIJPhdmXKqPxQF5FiKhxuEfJdouj/K9
+	 AOafLrwqA/O6FpnQSA+fOsof/4I0ivqltXCYvJIjdVIKeJ+No5sHs4oessWZx87woT+wo
+	 yk797LqL1LZZjvsEoLMoD5NevAO2e7njzq2330WodqF+oS4OPiFMJO3YszeLx0o/vmScz
+	 hlF1qhn9/WGI8/LLyjLOxHxLs5raT3LwpB3yAsVZQZomAQ8aCVCNxVzsT9siGLwu8JA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=mEiKiGo3;
+	arc=none smtp.remote-ip=115.124.28.98
+Received: from out28-98.mail.aliyun.com (out28-98.mail.aliyun.com [115.124.28.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6AA606A32A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 17:07:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E6AA606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94865606A321;
+	Mon, 23 Nov 2026 17:15:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94865606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bJJCiYt0
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b894d9a075so3855973a12.2
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:07:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795453668; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Y/aLiGMof+AYRHhcdaYmZqmnRYUHBKiWAHA7+uGhwaZXrDOarXA32T6szo2q0HhJ0W
-         n19ujXIg6WpH9b/h2FBsE+IxsDEba0/1jp1czWZCOvMJAg9TNVmWkfrKgNBPsnZBcANy
-         NujgisPT7lvRDDM8xCwom3/8QAZirKRQO1yGzPmu/vrR+VnnC9ocrESaQicy+PzbfH0j
-         vcHLazxoU7ErntXZnWsLxUIcFMb2mmdM0NsJasHOhRJuNx85F/N+K5USTShV30DVcCgD
-         mxzvb4ksi23+odcQwynotbySJ55bCf87NGbxowGzwN2de0Ma2B7cKdRM2kk33b0DULt/
-         Rp5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=+xaIvYw9qB8U9m5yBZTbNli0aV2ssc6MRhHdFn2AjAQ=;
-        fh=MZFMftiRbjMmONQmWtw7zoy4V1YpXYdu5EubRouXUyI=;
-        b=HrYD+OpTsKUMhlpP/spjB7YDFvEP8lZVGfqvTNWw34qiC5aTJHbCimJ60uD8txSJK9
-         OCADuT8ikkx2J+AzlrbTFe3FsBrd3rC95o9lNAty2/GcTX58fwlaXCH/7NPOXoitdWnq
-         5ycXEjiS4DOylQjLYIEAwLbNEobxKrT1BCK/Rqo707I/FkSOyQthTU7ADc4FXDwX5xjE
-         w49bspuSk2QQmkpqJnMijHbKHOehz1QFlbJxzzANqL8WNjYGDV2Wbf+cn1E3nFwrc9yL
-         cCnbIGOqZpsJe6LTRtr25ySjCp9Lvl6kBgUg6/IWH25SPdUqcFWcNoOa3uB0M3W2d4qQ
-         mbXQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795453668; x=1796058468; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+xaIvYw9qB8U9m5yBZTbNli0aV2ssc6MRhHdFn2AjAQ=;
-        b=bJJCiYt0S/vb94j7FaVaundwc0nL1p6kzmMdCgNUdSklpo9uP/FCGc33k7C365cnWR
-         Tj1Kp85kU/ruBKGuyRt19q2mnKBsj3DuaoAnBMEV0DV7z/pdiWYm4i/ejXqJIaeT98sI
-         KP/PzGEI276UWbWHUyCb+urtpTW3xCkIB42Oi3pp2qD6U5QOC8K6eJ1iJBzxINt5neF+
-         MAnUdoHI/1MOLYf8lblXa0OPV+HDeFcoV+xUzsWWcuZuOP5O+ajqRYZd31gN+fI3Yumm
-         WwLK4Z/rrRZzFMJKfc/jjvERNbVYwwwhcLyQquCUyS5WVak2uVFQ2r71zz3K1JOqF53w
-         pLPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795453668; x=1796058468;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+xaIvYw9qB8U9m5yBZTbNli0aV2ssc6MRhHdFn2AjAQ=;
-        b=HejktB3xbwrsVtkmBoC9IdmKfZBOovADJc2e2hIUcJnUP6FR+Tx91CVcfdrFECvEeh
-         tS5Z3UTaJ4ID8HzbAxNmIMbsl630yfcOO/S5UcDblwgp5gmHuujdPdKO+JZ4DjIWhbyT
-         3jwrs7oWDkX0nfyLRDarZoBVA8Gf+howSVyqssWXo/uhWzm3pEh62CPv8Zk5Y2EP6Dfq
-         GSQgEwXfhyyxQRLqbnqzzQbU9VOKd6mrYKKyFADR3KCRI61Zb28sG4RYHzmSo0WBs3M+
-         5h9VZkl+NUhrOL5fUsnMIorc7NJDw1BKUwfVvPNYMERkJ/6ysDo+xoeKjela7X+cR8F7
-         CxtQ==
-X-Forwarded-Encrypted: i=1; AL+hErFGVejnuVAnxBnxatE3EuZSk4h58XxHtN8DV16LBdhD1jojZYZQKj+gMF3388omS14IVEoFhWw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9S1sObcB2nd4DUONynaQN2C5Ei199jqcwEn4znXqFmpr1YUCaA
-	OinN1b/CbQtOcvTTN3tHU/VcC4HTG9rBB8FiCvbdAUPrV+28e0da31nAqGZsgkWSGg/iSud3AGk
-	OdPSn/R1s5agOhTpvNA58UK7ow4QN7sjd++baDNB3ww==
-X-Gm-Gg: AZFdTZdYdpva5fmjWQJ/XkCuAAH+cRmxZAbiAyLa2NixAK35CG20RoN1oLP2x+4voP+
-	o3qXe82hy8IOsVOh6Ho+0dfownLt1UotvH8znVs4o2SDD6Qf9hUUdn9iodpUnnkW6eHYMF3BeFP
-	cPl+fj5efubGPQc8PJ2J1wYoLRhbXVzTL3PZeOLILM8+dRzcnoDmarXvI+SeVBI2D4xrrgycXD5
-	ctGr3Ldmp2hkQNt87D+nXkV6uDAA0CxHXsjgTWC/q6g+6BnLw3+8ud0nJ2fLRiwkEWGT5BkZCMG
-	g+b5VJF/3K6dL0G2Dhb8/3fF4kmYsNVVb0B/482oXf75M86WdKynRXA4Xf2kYkyycEWTbCGOVb4
-	mNtgEVWzwhDympTrtDekXPIIbekTdx37kcHytTJhG2OEx8FpU+567rA5KhqgUU4myimjsCg==
-X-Received: by 2002:a05:6402:1f90:b0:6b8:6d0e:42d1 with SMTP id
- 4fb4d7f45d1cf-6ba37ec55b7mr8892708a12.42.1795453667947; Mon, 23 Nov 2026
- 09:07:47 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=mEiKiGo3
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1795454125; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=7HrXdAZvqoP2wKFdIA57K4p11FPgSibCIfOS3Ctnkzw=;
+	b=mEiKiGo3FN+oN+AGBYc3wvuUn8CzfAX1akPPEa/O/yqZ00PNAMMZyxkUC/W/FL5iC3az1BwGbTCdRxOEu9jIxd3IWpYN8EUQLNPhx9eogzTkgJhZka1uqUy1906FDhYTPRFqceur4NsbGglgi/5KuLgHFt/ioHiEjmAO/hN+Ims=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00469832-0.00143452-0.993867;FP=12259131756606194868|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032112;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.k8Vw2b2_1795454122;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.k8Vw2b2_1795454122 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 24 Nov 2026 01:15:24 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	netdev@vger.kernel.org
+Cc: Liu Haijun <haijun.liu@mediatek.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Lin Qiaojie <linqj@xiaopeng.com>
+Subject: [PATCH net v2] net: wwan: t7xx: validate PIT data before building RX skb
+Date: Tue, 24 Nov 2026 01:15:19 +0800
+Message-ID: <20261123171519.33975-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,90 +71,264 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122015729.2512645-1-penghuang@google.com>
- <CAKfTPtCQpVhtVT7Mhqe1=Ukcmc1pX8Jgn9ypb64--8cJ-7G4BQ@mail.gmail.com> <20261123160934.2289260-1-penghuang@google.com>
-In-Reply-To: <20261123160934.2289260-1-penghuang@google.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Mon, 23 Nov 2026 18:07:36 +0100
-X-Gm-Features: Aa3M54pZP_B9lARK2Zw6EDmAmPbhCNYrxOAs4lBrYCe4I2A8S177FGDlJx_bcaI
-Message-ID: <CAKfTPtD17e-veL1QgrhO6i4nsKyA3QfOEm8jNinJ_zf+vc8RDw@mail.gmail.com>
-Subject: Re: [PATCH] sched/pelt: Skip dormant cfs util_sum under scx_switched_all
-To: Peng Huang <penghuang@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, Tejun Heo <tj@kernel.org>, 
-	David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
-	Changwoo Min <changwoo@igalia.com>, linux-kernel@vger.kernel.org, 
-	sched-ext@lists.linux.dev, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 23 Nov 2026 at 17:09, Peng Huang <penghuang@google.com> wrote:
->
-> On Mon, 23 Nov 2026 at 11:34, Vincent Guittot <vincent.guittot@linaro.org> wrote:
-> >
-> > When all tasks are moved to sched_ext, fair utilization should be 0
-> >
-> > ...
-> >
-> > This is not the right solution but a bandaid to hide the issue. When
-> > there is not fair task,  rq->cfs.avg.util_sum shoudl become null.
-> > Please look at why it is not null.
-> > It could be that the update stops before everything has been
-> > propagated correctly in the task group tree
->
-> Thanks for pointing this out -- you are right, and looking into the
-> code confirms your suspicion about stopped updates and incomplete task
-> group propagation:
->
-> 1. Deferred cfs_rq->removed and unvisited sibling task groups:
->    Tasks that exited (task_dead_fair()) or migrated while sleeping
->    (migrate_task_rq_fair()) before scx_enable() queue their load/util
->    in cfs_rq->removed via remove_entity_load_avg() rather than
->    deducting and propagating immediately.
->
->    During scx_enable(), switched_from_fair() -> detach_task_cfs_rq()
->    only visits and propagates along cfs_rq chains that still have at
->    least one live attached fair task. Any CPU or sibling cgroup cfs_rq
->    with no remaining live fair task is never visited, so its
->    cfs_rq->removed stays undrained and its tg_se contribution remains
->    in rq->cfs.avg. Once __scx_switched_all is enabled,
->    scheduler_tick() skips sched_balance_trigger() and fair_sched_class
->    is bypassed, so __update_blocked_fair() never runs to drain and
->    propagate those remaining leaf cfs_rqs.
->
-> 2. Sub-divider util_sum residuals:
->    Even on visited chains, if tg_se->avg.util_avg has already decayed
->    to 0 (with 0 < tg_se->avg.util_sum < divider) when the child
->    gcfs_rq's last task detaches, update_tg_cfs_util() sees
->    delta_avg == 0 and returns early without subtracting
->    tg_se->avg.util_sum from the parent cfs_rq. Independent PELT decay
->    truncation and integer removed.util_avg accounting can also leave a
->    < divider remainder in cfs_rq->avg.util_sum after util_avg hits 0.
->
-> For v2, rather than touching update_idle_rq_clock_pelt(), how about
-> adding a fair helper (similar in spirit to rq_offline_fair() ->
-> clear_tg_offline_cfs_rqs()) and calling it from scx_enable() in the
-> existing per-CPU scx_switched_all() loop (where rq->lock is held,
-> rq->clock is updated, and rq->cfs.h_nr_queued == 0)? Specifically, it
-> would walk leaf_cfs_rq_list bottom-up (plus &rq->cfs) to:
-> - flush cfs_rq->removed,
-> - clear load/runnable/util _sum and _avg on the empty cfs_rqs and
->   their tg_ses while preserving last_update_time and period_contrib,
-> - clear tg contributions via clear_tg_load_avg(), remove the empty
->   cfs_rqs from leaf_cfs_rq_list, and update rq->has_blocked_load.
->
-> Does this direction look reasonable to you?
+Both normal and fragment RX paths derive a data offset from the
+modem-supplied PIT address and the BAT DMA base. The unsigned 64-bit
+difference was stored in an int without checking the address order,
+so a backwards address could wrap into a non-negative offset. The
+normal path could then pass an invalid offset to skb_reserve(), while
+the fragment path could pass an invalid offset and PIT data length
+to skb_add_rx_frag().
 
-Yes this seems a better solution but It would be good to reuse
-__update_blocked_fair() which already does the work for pelt signal.
-Regarding your issue with util_avg == 0 whereas we still have a
-util_sum != 0, we can use delta_sum = gcfs_rq->avg.util_sum -
-se->avg.util_sum; in update_tg_cfs_util() instead. When util_avg == 0
-we will be sure to clear util_sum too
+These invalid ranges can make the resulting skb or fragment refer
+outside the allocated buffer or DMA-mapped page. The error paths
+also left consumed BAT entries unmarked, preventing BAT release and
+buffer replenishment. In addition, packet assembly errors shared
+the return value with the final PIT notification, so dropping a
+packet could prevent consumed PIT entries from being returned to
+the hardware.
 
-Thanks,
-Vincent
->
-> Thanks,
-> Peng
+Validate the address order and complete offset/length range before
+building either skb representation: check normal data against both
+skb tailroom and the DMA mapping length, and fragment data against
+the mapped page buffer, keeping DMA-relative and page-relative
+offsets separate. Extract each PIT BID once, validate it before
+indexing the BAT array, and use the same index for BAT access and
+bitmap updates. Cast the fragment BAT void pointer to
+struct dpmaif_bat_page before pointer arithmetic. On error, free
+the normal BAT skb and mark its entry consumed; also consume
+fragment entries of failed packets and failed assemblies while
+keeping their pages mapped for reuse. Keep packet assembly errors
+separate from PIT notification errors so consumed PIT entries are
+returned even when a packet is dropped.
+
+Fixes: d642b012df70 ("net: wwan: t7xx: Add data path interface")
+Cc: stable@vger.kernel.org
+Reviewed-by: Lin Qiaojie <linqj@xiaopeng.com>
+Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+---
+ drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c | 114 ++++++++++++++-------
+ 1 file changed, 79 insertions(+), 35 deletions(-)
+
+diff --git a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
+index 5af90ca6e063..da4b7cb05bf3 100644
+--- a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
++++ b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
+@@ -282,7 +282,7 @@ static int t7xx_frag_bat_cur_bid_check(struct dpmaif_rx_queue *rxq,
+ 	if (cur_bid >= DPMAIF_FRG_COUNT)
+ 		return -EINVAL;
+ 
+-	bat_page = bat_frag->bat_skb + cur_bid;
++	bat_page = (struct dpmaif_bat_page *)bat_frag->bat_skb + cur_bid;
+ 	if (!bat_page->page)
+ 		return -EINVAL;
+ 
+@@ -392,17 +392,15 @@ int t7xx_dpmaif_rx_frag_alloc(struct dpmaif_ctrl *dpmaif_ctrl, struct dpmaif_bat
+ 
+ static int t7xx_dpmaif_set_frag_to_skb(const struct dpmaif_rx_queue *rxq,
+ 				       const struct dpmaif_pit *pkt_info,
+-				       struct sk_buff *skb)
++				       unsigned int cur_bid, struct sk_buff *skb)
+ {
+-	unsigned long long data_bus_addr, data_base_addr;
++	unsigned long long data_bus_addr, data_base_addr, dma_offset;
+ 	struct skb_shared_info *shinfo = skb_shinfo(skb);
+ 	struct device *dev = rxq->dpmaif_ctrl->dev;
+ 	struct dpmaif_bat_page *page_info;
+-	unsigned int data_len;
+-	int data_offset;
++	unsigned int data_len, data_offset;
+ 
+-	page_info = rxq->bat_frag->bat_skb;
+-	page_info += t7xx_normal_pit_bid(pkt_info);
++	page_info = (struct dpmaif_bat_page *)rxq->bat_frag->bat_skb + cur_bid;
+ 
+ 	if (!page_info->page)
+ 		return -EINVAL;
+@@ -410,14 +408,26 @@ static int t7xx_dpmaif_set_frag_to_skb(const struct dpmaif_rx_queue *rxq,
+ 	if (shinfo->nr_frags >= MAX_SKB_FRAGS)
+ 		return -EINVAL;
+ 
+-	dma_unmap_page(dev, page_info->data_bus_addr, page_info->data_len, DMA_FROM_DEVICE);
+-
+ 	data_bus_addr = le32_to_cpu(pkt_info->pd.data_addr_h);
+ 	data_bus_addr = (data_bus_addr << 32) + le32_to_cpu(pkt_info->pd.data_addr_l);
+ 	data_base_addr = page_info->data_bus_addr;
+-	data_offset = data_bus_addr - data_base_addr;
+-	data_offset += page_info->offset;
+ 	data_len = FIELD_GET(PD_PIT_DATA_LEN, le32_to_cpu(pkt_info->header));
++
++	if (data_bus_addr < data_base_addr) {
++		dev_err_ratelimited(dev, "Invalid PIT frag data address\n");
++		return -EINVAL;
++	}
++
++	dma_offset = data_bus_addr - data_base_addr;
++	if (dma_offset > page_info->data_len ||
++	    data_len > page_info->data_len - dma_offset) {
++		dev_err_ratelimited(dev, "Invalid PIT frag data offset or length\n");
++		return -EINVAL;
++	}
++
++	dma_unmap_page(dev, page_info->data_bus_addr, page_info->data_len, DMA_FROM_DEVICE);
++
++	data_offset = page_info->offset + dma_offset;
+ 	skb_add_rx_frag(skb, shinfo->nr_frags, page_info->page,
+ 			data_offset, data_len, page_info->data_len);
+ 
+@@ -438,22 +448,44 @@ static int t7xx_dpmaif_get_frag(struct dpmaif_rx_queue *rxq,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = t7xx_dpmaif_set_frag_to_skb(rxq, pkt_info, skb_info->cur_skb);
++	ret = t7xx_dpmaif_set_frag_to_skb(rxq, pkt_info, cur_bid, skb_info->cur_skb);
++	/* Mark the entry consumed on failure too, so release can reuse it. */
++	t7xx_dpmaif_set_bat_mask(rxq->bat_frag, cur_bid);
+ 	if (ret < 0) {
+-		dev_err(rxq->dpmaif_ctrl->dev, "Failed to set frag data to skb: %d\n", ret);
++		dev_err_ratelimited(rxq->dpmaif_ctrl->dev,
++				    "Failed to set frag data to skb: %d\n", ret);
+ 		return ret;
+ 	}
+ 
+-	t7xx_dpmaif_set_bat_mask(rxq->bat_frag, cur_bid);
+ 	return 0;
+ }
+ 
++/* Consume a fragment PIT belonging to a packet that is already dropped. */
++static int t7xx_dpmaif_drop_frag(struct dpmaif_rx_queue *rxq,
++				 const struct dpmaif_pit *pkt_info)
++{
++	unsigned int cur_bid = t7xx_normal_pit_bid(pkt_info);
++
++	if (t7xx_frag_bat_cur_bid_check(rxq, cur_bid))
++		return -EINVAL;
++
++	/*
++	 * The page is still mapped and owned by the BAT entry; marking it
++	 * consumed lets release advance and the allocator reuse the page.
++	 */
++	t7xx_dpmaif_set_bat_mask(rxq->bat_frag, cur_bid);
++	return -EINVAL;
++}
++
+ static int t7xx_bat_cur_bid_check(struct dpmaif_rx_queue *rxq, const unsigned int cur_bid)
+ {
+-	struct dpmaif_bat_skb *bat_skb = rxq->bat_req->bat_skb;
++	struct dpmaif_bat_skb *bat_skb;
++
++	if (cur_bid >= DPMAIF_BAT_COUNT)
++		return -EINVAL;
+ 
+-	bat_skb += cur_bid;
+-	if (cur_bid >= DPMAIF_BAT_COUNT || !bat_skb->skb)
++	bat_skb = (struct dpmaif_bat_skb *)rxq->bat_req->bat_skb + cur_bid;
++	if (!bat_skb->skb)
+ 		return -EINVAL;
+ 
+ 	return 0;
+@@ -627,38 +659,50 @@ static void t7xx_dpmaif_parse_msg_pit(const struct dpmaif_rx_queue *rxq,
+ 
+ static int t7xx_dpmaif_set_data_to_skb(const struct dpmaif_rx_queue *rxq,
+ 				       const struct dpmaif_pit *pkt_info,
++				       unsigned int cur_bid,
+ 				       struct dpmaif_cur_rx_skb_info *skb_info)
+ {
+-	unsigned long long data_bus_addr, data_base_addr;
++	unsigned long long data_bus_addr, data_base_addr, data_offset;
+ 	struct device *dev = rxq->dpmaif_ctrl->dev;
+ 	struct dpmaif_bat_skb *bat_skb;
+-	unsigned int data_len;
++	unsigned int data_len, tailroom, max_len;
+ 	struct sk_buff *skb;
+-	int data_offset;
+ 
+-	bat_skb = rxq->bat_req->bat_skb;
+-	bat_skb += t7xx_normal_pit_bid(pkt_info);
++	bat_skb = (struct dpmaif_bat_skb *)rxq->bat_req->bat_skb + cur_bid;
+ 	dma_unmap_single(dev, bat_skb->data_bus_addr, bat_skb->data_len, DMA_FROM_DEVICE);
+ 
+ 	data_bus_addr = le32_to_cpu(pkt_info->pd.data_addr_h);
+ 	data_bus_addr = (data_bus_addr << 32) + le32_to_cpu(pkt_info->pd.data_addr_l);
+ 	data_base_addr = bat_skb->data_bus_addr;
+-	data_offset = data_bus_addr - data_base_addr;
+ 	data_len = FIELD_GET(PD_PIT_DATA_LEN, le32_to_cpu(pkt_info->header));
+ 	skb = bat_skb->skb;
+ 	skb->len = 0;
+ 	skb_reset_tail_pointer(skb);
+-	skb_reserve(skb, data_offset);
+ 
+-	if (skb->tail + data_len > skb->end) {
+-		dev_err(dev, "No buffer space available\n");
+-		return -ENOBUFS;
++	if (data_bus_addr < data_base_addr) {
++		dev_err_ratelimited(dev, "Invalid PIT data address\n");
++		goto err_drop;
++	}
++
++	data_offset = data_bus_addr - data_base_addr;
++	tailroom = skb_tailroom(skb);
++	max_len = min(tailroom, bat_skb->data_len);
++	if (data_offset > max_len || data_len > max_len - data_offset) {
++		dev_err_ratelimited(dev, "Invalid PIT data offset or length\n");
++		goto err_drop;
+ 	}
+ 
++	skb_reserve(skb, (int)data_offset);
+ 	skb_put(skb, data_len);
+ 	skb_info->cur_skb = skb;
+ 	bat_skb->skb = NULL;
+ 	return 0;
++
++err_drop:
++	dev_kfree_skb_any(skb);
++	bat_skb->skb = NULL;
++	t7xx_dpmaif_set_bat_mask(rxq->bat_req, cur_bid);
++	return -ENOBUFS;
+ }
+ 
+ static int t7xx_dpmaif_get_rx_pkt(struct dpmaif_rx_queue *rxq,
+@@ -672,9 +716,9 @@ static int t7xx_dpmaif_get_rx_pkt(struct dpmaif_rx_queue *rxq,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = t7xx_dpmaif_set_data_to_skb(rxq, pkt_info, skb_info);
++	ret = t7xx_dpmaif_set_data_to_skb(rxq, pkt_info, cur_bid, skb_info);
+ 	if (ret < 0) {
+-		dev_err(rxq->dpmaif_ctrl->dev, "RX set data to skb failed: %d\n", ret);
++		dev_err_ratelimited(rxq->dpmaif_ctrl->dev, "RX set data to skb failed: %d\n", ret);
+ 		return ret;
+ 	}
+ 
+@@ -726,7 +770,7 @@ static int t7xx_dpmaif_rx_start(struct dpmaif_rx_queue *rxq, const unsigned int
+ 	unsigned int cur_pit, pit_len, rx_cnt, recv_skb_cnt = 0;
+ 	struct device *dev = rxq->dpmaif_ctrl->dev;
+ 	struct dpmaif_cur_rx_skb_info *skb_info;
+-	int ret = 0;
++	int ret = 0, pkt_ret;
+ 
+ 	pit_len = rxq->pit_size_cnt;
+ 	skb_info = &rxq->rx_data_info;
+@@ -756,13 +800,13 @@ static int t7xx_dpmaif_rx_start(struct dpmaif_rx_queue *rxq, const unsigned int
+ 		} else { /* DES_PT_PD */
+ 			val = FIELD_GET(PD_PIT_BUFFER_TYPE, le32_to_cpu(pkt_info->header));
+ 			if (val != PKT_BUF_FRAG)
+-				ret = t7xx_dpmaif_get_rx_pkt(rxq, pkt_info, skb_info);
+-			else if (!skb_info->cur_skb)
+-				ret = -EINVAL;
++				pkt_ret = t7xx_dpmaif_get_rx_pkt(rxq, pkt_info, skb_info);
++			else if (skb_info->err_payload || !skb_info->cur_skb)
++				pkt_ret = t7xx_dpmaif_drop_frag(rxq, pkt_info);
+ 			else
+-				ret = t7xx_dpmaif_get_frag(rxq, pkt_info, skb_info);
++				pkt_ret = t7xx_dpmaif_get_frag(rxq, pkt_info, skb_info);
+ 
+-			if (ret < 0) {
++			if (pkt_ret < 0) {
+ 				skb_info->err_payload = 1;
+ 				dev_err_ratelimited(dev, "RXQ%u error payload\n", rxq->index);
+ 			}
+-- 
+2.50.1
+
