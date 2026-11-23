@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795436480;
-	b=tzDu85J9xbfclz9eALps4VP1Fg1wDXA5VHtoSzUGIHLDwypRJDhBkwbxErmrA5v6v5Uz
-	 husRJaxQWQY6kDSqHr2uj6/CRn21PQGCrgUf9o6Xs6eSMPKQ42MUNEpuXdqt8F4DjmW0W
-	 25XVBeySp3Ge3ek6SlgRtHOcm8/KLy/DaYFuBON6tQ9bDQ+MBDUQztE7jmnB22nSpDoA/
-	 dbKEYr8iAcxUanSEAY/uAKppImGqoi0CYSWgoBAC9ag8noGZY5y22RFcjFsw+VIGQXPXA
-	 A9Wgdhrp0FuG0WIDwT5ebkrnAKyqaIWVaocr/0dncEY12XEZq+yRVFJQcoVY4XhD7QQ==
+	t=1795436695;
+	b=h1S4fguiDW0lYrz+g2iXTjyXuBIC7l1otYnmNIsA8dz6qAlft2F23plOGInrFIoHKHVX
+	 +RUspJIZB8OThh+IAmz0oTd7e4xfLK97gvnLbaniwvcWjQwcSOhS+aedAXgaC1UQssgEK
+	 MedtYnwkX6s3xIaU3251hJJUVlakaX9ajyvsj+JmTxYq5hp70TsLngKA/oyblur+dG4eF
+	 +plDvNyaePEFQm3eKchcxrixJiJU/h9mBm509j0a+Ca4dNWq3oxyXvB5xipFQgLwsZAM1
+	 9/5SqV+SaGIB3DMcHlnMqUl4bv3UnaHy0e0IVKamamL+Vi/AjdYVCuMHVCpdodTGazQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795436480;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795436695;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=S+3UY8YgKHQ6r6HwEv6iZIETGtvYvXbZwkM5LcLCzD0=;
-	b=HUidrFszyYZy7tz+7tK/NlOiPG+1Z7jQZG5kyZeInEy1Q/ckaoWTNTLJx36oUlnCCZYv
-	 Xpu3oO4F6/SaQWWVZhELMZcYH9F54bQarLTepqz0327VNpfhrW8/xjWt09xcrldqh1pK4
-	 QMS5nP3Ri/yy+RrLYzTmueXnIgOO4sGbdjXgCnPxI5h/RXFwngcyklIrYKNVf7aKo0ltD
-	 nisH6HiFnRJBRVt+QuckXrMAemuN0Cn0MLaMnFjyCaxDZ1tei9Ai2Iadc6KxCZ0gk4rp+
-	 aUZdWiEW+cBZsPOcKRCLV5go1ibdxj+gDEL6uHoQzNf/l5K+x8Ki690A/WKWuBk2faQ==
+	bh=3JGEHCaGHgSI8BrKRQk6rt3qVFIqpC8XEVH84mN8VhI=;
+	b=SskKsNKYMCqLlpdXnl2Xt+6Xjw9QN1sCPmqwEZEyhtTJyooqYk79eXU4vt/NhDVXoeb2
+	 BWApTiZ4+IubB2U/yDsKyxnKriqkih8kxyBDQaRbYXVOKVsC3RwLbB2gN44dchWY51MjG
+	 j3Dglk4GuyHh059QG6OFXSnRHQQSQ8A5H42uxT0PIQyX8RC6Jp2MFgCr36odExsQlkMjo
+	 Ez23eclfaeKOVsbFh9jtAqhWO4yWop4sMmLm8qWvZcW4NGihKZmG/RkhBke6ZozoFYTjI
+	 Q36MXWrmSsxLo71iXz7sJaXLlHsvGTY0DGR96GrEOmYwaHXNF4QrZI8jjbTXIRQOnww==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZNVMMsr8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=SMANlYAy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D8E6606A681
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 12:21:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D8E6606A681
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC53606A31F
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 12:24:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEC53606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZNVMMsr8
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2f020d0169eso14276295ad.0
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 04:21:19 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795436479; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=SMANlYAy
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c50aaad19fbso358894566b.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 04:24:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795436693; cv=none;
         d=google.com; s=arc-20260327;
-        b=iBozyRwgRRhMzRXM0PjMCM2bYW7ep5dLXcKixsOmcczEQrxOf9AiLMPGmlAtuKXIFJ
-         YGCIR0ngADjfCC0V8edek3jyxFLACvLHoSb1iEjTcXntS+otRAvZmAbTPeHq/nkBv6wJ
-         cyI+Q5iuQIOvj6L/uaZOJhIF6t9GKUJq5cabDZLs5ivNzV6Svzkaa/9Vc0K/ndMUpPpl
-         J/ZT3Ns2S5C6zd3PVmc7cBCV227GiMW73AH1vfxJwNR8hINNrHWJMZ9vcvPOTR/L3d+p
-         DmJQXPnSbbfqdD4E7JUrWuPr65+nhdN1Jm1coTNi1oZPaDXwyOFWK/m12gpY+fMO6tM7
-         d26g==
+        b=q6UsLdBfUU8xm6Uw1049uLFsauyuZD07Tdawukj1CZ3pPcsFK7U8SkbnPlzby9IndK
+         RbiYpySpmFwskshynMnrKZFkGOmLvW6BQiASbhjmFo7nBB6Q+grSY/xwtmGhPo4qmZOI
+         zsOsQrEjCF9+X2SqxBsKPvZB8HTj5ad/9yPsgNIfb3fjpoSSLRoT4ayQUhKX7RKbzmdT
+         v8+MuVnHLgu+ksm6H4U1yjFP7ptKVwM9Ay7tUOA61PUGhXpPQFGmbjL6gnsvu3McK8RO
+         m2+hfL9TN6BxdCua3ZBnDOFST9pcHd9HHP6p5HG81nPJ5sBw8Ridawn1+ZSrb0doonoA
+         Ut3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=S+3UY8YgKHQ6r6HwEv6iZIETGtvYvXbZwkM5LcLCzD0=;
-        fh=saIrA1aSKeGzW5VPDhLTse0uJSUePC58xobnFBcPOdY=;
-        b=JZQCG7F0i81pJhicaD4bW5f6COM3/vFpl3JRU0V7FCi0mh2RQPmveSPPhE6ohk1BW3
-         1TAY6Sn7uvKVtFZvG7ofIGsDJwxPbd88vrdBS9rFH/OTkvH8GUT59QBC9ro7YcQUWXIL
-         YygYfAgWQpe9aJlYOabvuirRxCR+anM6ZXHvzYPSK6Hb4S4XjPhp8IDiO9ZrQs2zXMlC
-         RJzzsPKUs4gBQzsU4weGsovkduPRyYCKiX4Ownpxx9f8y2P3Vw7j4VFtZefYbOoVD9Ym
-         4GP2iNhCIxII7JPM1KEdW9qBgyzeEOKkZqF7qQlh+Stj/SxWLG2ATxf/ci7V6sixZenu
-         XFaQ==;
+        bh=3JGEHCaGHgSI8BrKRQk6rt3qVFIqpC8XEVH84mN8VhI=;
+        fh=q7O7iAZg6BD53pMgDluzQ/Yj5VUtu3z1rm1971OW09E=;
+        b=d0M9sDTHbCXXi5jZLtJf5qVKHmuIAIpuY1Mu9A37UMAW4GLMd5C0C49YZ27nPufqLZ
+         ynDCZA1qiYkWc/9254wjKv9AkCjIJAWZUDZOeerdsqqO0DFQg68sPtqzZYt/Na9flNlz
+         aoYaJOMuH+9Uw4mknoYA9HOv0BCXJXBw/MfcIkem2eBcz3KgLeIWjnkUgOTiQDAq23XT
+         h89xrKCBqndFzrr9+FJ+W1jU4i6o1aZ50cb/lo8ZYLTBPcr2dKboB99QaLKAZj8WEZUA
+         0mB9aPKS74linpuVc3TydCWo22uu5yqCZ7ufWtdOQPsyX5Dh/wvXovgsscHP4dZ44wyO
+         7BQw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795436479; x=1796041279; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1795436693; x=1796041493; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=S+3UY8YgKHQ6r6HwEv6iZIETGtvYvXbZwkM5LcLCzD0=;
-        b=ZNVMMsr8xgBZwMHGgf0llTeJT9OPe/PTJydE7JNTVsNbrKYrrUoxDH1Sk2KsLachsB
-         JitdI9KJdwsvuHViguiPP70nc8RfB/emZ7AHkz4YQ7lvQC3A7ZVlv//9W+N1A6hf8Tuz
-         Fd5otwAJiuQrh9qH7WlLB/ENHnn1gbVXIKbxSly2MKe9ldt6/Twjgx2KjjWVaS1E/W3o
-         /VMaZwgTwWXgFPI3GHadpgV3XTiMVIEQaNxtFYajnYqrrNKYrq5HpgYAG/eT1tn9Z7hk
-         FAtHCfUGn6uaHB1tOPirI0/ENl9Qs1NoUVExmVhSdwfhZNm7USZ/empOKW1d18rsFoWf
-         KSqA==
+        bh=3JGEHCaGHgSI8BrKRQk6rt3qVFIqpC8XEVH84mN8VhI=;
+        b=SMANlYAyDeGkrtgBxN1TqmHqif7PndowLtrYXDCvfpS41NPxmuMXJ6jsNNc1zmz0Dh
+         VkzUSIlzCAUMjR57cjvMvGDj7JSQ7Is69x/ZRWBbNAbA/cj/RFfYVFVvpPQeICtt3kkP
+         T1mLwgtcbLB22yBUoh/AG+y6olc7pVHR86O3aJYjIu1333qq4MMiicORUlMC94lpov7v
+         0KqOJwjAUfYh2e52uWhjmdbTHyAhuFc66iuNpk1TntsqbqIWDmWN8KcVWyrAD+MZ7y6p
+         PJuvWoLdC9Dc8TdGQmajQg4Pxk20AAkOctDJZF3zZm1dNFNIH+3FhrguLyx5jviyO37e
+         8OOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795436479; x=1796041279;
+        d=1e100.net; s=20260707; t=1795436693; x=1796041493;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=S+3UY8YgKHQ6r6HwEv6iZIETGtvYvXbZwkM5LcLCzD0=;
-        b=NcgqTbWAd4mrLFgJtLSeclsnkXjZ+jBi787XyxqLZt7EG2Xh4rdITi5T7lN1dZRIYZ
-         gNLZi+7oZGCVKRb2/DeHDNI73wnxXZKP763sdG6ziRVQ0h2C76PxNyHOpRPYJ7+fkTkf
-         2WYMwQBc+Qg9dm4Bt05+sr0ge+H6DNMhZdJkl6uYWFAvfIu6DsuJlhFWQ3Kmap6A325i
-         +wYU23VILg/JjGbgvA8dWmxpV4bLiD6Xy5RvUuCrQFkH9egQUaSZx6p4hnAu6iYTiiAk
-         7qOcQCBFNL9PdT/QFETo+J3d5pQApLVRqjLChuqGdBX8jZagssuVy4phWD0SE3lDQm0v
-         396w==
-X-Forwarded-Encrypted: i=1; AL+hErEnU7EXvTcXe3jY9xT+xtuu+mmVDdMyPCD5Qbv6bbhTGwd8PiCPw7UqhvYfoTjbVomYFv3RzRU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9ntHbngbG3/tlnUlkM+op5wfnlhr+lpsYWxcj1WZjE+pIGmbb
-	rPzxYg51lqDCqWf84Xc5Li23RcCrjyLHLKD8n000/oAzbsHMcNv9Gg70ab2r5hqVxa4+5/Rm1ox
-	eT3AWacx0U3GMzUBmLBfs8Tdket2GdtM=
-X-Gm-Gg: AZFdTZckXtILu0vJMJ0lNgBceqDZnOpwiJ+uDkEoEkSAFIYeK2a755SIoPavYYNZp/J
-	4FjUHQs+Fb4Y9A6FdAAYB8eXHIVNfGGNLxwjgBNgGB9DFrGuVWiBB3HrKKLYspvNejCjBJauJB9
-	Bf8Me6FMtsEjMZL262gC/08QxFvPyQCdIaPkbvroqbloLA43qwgJeSTWXReUAYmpZttx9Cs1kmZ
-	6+ExzSOT8pGx4wnDzAPHxeplKshgjl+QzRJF16A2LBj/tOdsb3mkOFXsaCPY/w5KR9/TAu2nEE3
-	d7XphzcvBxNblHdWfhhJ4NR+SZXlRvmJQHPfMzn1D12CGSqZZkl2TUDlb9cBsvZZIHzRT49Prhw
-	p4i4i1ex88if0KmJ9hxfTREsdDL8BlN8QuiUK48ar2LDwBvA4er8okF4L+dsGHp/H1mse0squ4u
-	PLplKsBlacSEDzOC2fOYROnxJnkg==
-X-Received: by 2002:a17:902:ea02:b0:2f0:4168:fb35 with SMTP id
- d9443c01a7336-2f04168fe4emr105967575ad.11.1795436478851; Mon, 23 Nov 2026
- 04:21:18 -0800 (PST)
+        bh=3JGEHCaGHgSI8BrKRQk6rt3qVFIqpC8XEVH84mN8VhI=;
+        b=pFHwaVvf4nENpxD9L2QuU82YX4+6A36rfO3MmfCyrnbrLyy/uGX3K18MFfvX/wuWLl
+         K99rCrQ0/XEHoSpRWRM9NDOqQHZIhqoc6eiujHVCD3sakAisdroq+Y8FBWIoWSS22f29
+         K5beTPaOBMo6M6IuN+IinJFgeSojcDSB9DnRC9ft4qUReR9JQaGBT9GmYrnSmWr293G7
+         USRQgPHllUthvrJOa1KicUTy6rCLQat3HuXVMqc0haswCLvClwA4cg2cDYZOd0zMMGaE
+         mUt98emM7J2dd7JRolj16dxwIsSNqtHayKn/fD93AlrOLNCNa8O6kzQtOjOU6C8F2xOn
+         GBIA==
+X-Forwarded-Encrypted: i=1; AL+hErHmDfFjSChVyoRdn7Tkvv5heAPSbITRv4gB13P4xZYmwTIRjuUS0oGGCSdgAbqPvD3JKoc5O1g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+Jf996bea4RrWZHj8WibwlNST6JazbSw0gI5yf8XHzq7wurNr
+	Ce2BOqOdoAufXwvaJS4E2dohzm53qRMdRkbxdUp6phMszMqjTD5mqtgPh6KBhWyzwfeY8B5vihI
+	pumitUd1gCfgsTqNXH134wc42sfXyUWOy2AzIoNBTNg==
+X-Gm-Gg: AZFdTZfvdOEA8lhGsGx+iIFgpWMSqYi4lkakCGFpf1nVPh99TrkFQiUTxIc1wgEb6ca
+	0c83VbNVeoDhj+omdPfwKwYpYhOj4GXma9YVqyrDp37MrkKUglX3wnhn8JyxPKxdG9hY+RPFXYn
+	wsypINdBIzy64T3f1RgwYxC6K9e3/HUp35yUh3WYaqMWreONsEK6BVJK2xRaOPUSNpnwWdkXxx8
+	t9Oi+/DZaJ1eupL3A8u+hYFsumVd1CiWGW6pKPWOWMQvhS+kuE+yIZywW7MeQDv7u9afVGV1q7t
+	fc8jcqLHGfIdDF/05htmJ+BJHNtHvt67DCyWC1zz/nEy0ILPDq31i53GBMXGcG9DDQBpWMXBFHU
+	agJbycHEK/1Gdzbq2ZqC9piPtsZz2OxB4B7B5pKjvsJsBj+ollZzELykVz9SmRajU1kEJoDPnjy
+	k8dc1xEBH3rOB/M1I=
+X-Received: by 2002:a17:907:fd15:b0:c40:33d:f06f with SMTP id
+ a640c23a62f3a-c513aaad90bmr920564266b.39.1795436692893; Mon, 23 Nov 2026
+ 04:24:52 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,96 +105,183 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261123121325.3137049-1-bsdhenrymartin@gmail.com>
-In-Reply-To: <20261123121325.3137049-1-bsdhenrymartin@gmail.com>
-From: Yuyang Huang <sigefriedhyy@gmail.com>
-Date: Mon, 23 Nov 2026 21:21:07 +0900
-X-Gm-Features: Aa3M54qZQ_AH7l8CEolFlSvCzul0ZDF-gQS65gCmLYJoMaHRqjccaUQe7U_FBLo
-Message-ID: <CA+7S2v+CpMWyD89XQiWq5qC=NPQWFtJ49_7mm-GcxTOCt+gZ3Q@mail.gmail.com>
-Subject: Re: [PATCH net v3] net: zero the tail of ha->addr when allocating
- address list entries
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
-	pabeni@redhat.com, sdf.kernel@gmail.com, nicolas.dichtel@6wind.com, 
-	horms@kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org, 
-	Daniel Machon <daniel.machon@microchip.com>
+References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
+ <CAKTNdwH9QAgreJ-6+t1j_P1di4VyoMBSsFkf_g=mCi_-M8g9Pw@mail.gmail.com>
+ <20260917221857.GA4056431-robh@kernel.org> <CAKTNdwH6E5=9gZHB6tdianC2+1aDv4wnLmvL59kDW-dR3a12bg@mail.gmail.com>
+ <AQpdyd6hRl9cLAxBK-fEdzq0dcZsWpHP63dbDpOxcNQWCdaNIc4D3Mfi9Ll86jBVsbEVhr5-9EZzFHbkF6efBDcRUT7nXx9TH5Aeffy5DyU=@protonmail.com>
+ <RWg2ZbGh-TJtEJMDWD9DGxBKsszG10BM07351ALdCUa9UL-IImPGxSYztcNF3kiRFVCA0x5cECwign-2lb56nPMGZQ5LVZhckY4-KTb5qpk=@protonmail.com>
+In-Reply-To: <RWg2ZbGh-TJtEJMDWD9DGxBKsszG10BM07351ALdCUa9UL-IImPGxSYztcNF3kiRFVCA0x5cECwign-2lb56nPMGZQ5LVZhckY4-KTb5qpk=@protonmail.com>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Mon, 23 Nov 2026 16:24:40 +0400
+X-Gm-Features: Aa3M54pJDInt1dUc3UbuIPmLJ056A7-Am1qM49T-fqpCAj8EFLf-eta10BiPxGY
+Message-ID: <CAKTNdwHOoG8j59X7z6j15n8TTf-A-+EQhvC+SqNWOq24p9vNLw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP
+ CPU ID
+To: Ryan Leung <untilscour@protonmail.com>
+Cc: Rob Herring <robh@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Michael Walle <michael@walle.cc>, 
+	Miquel Raynal <miquel.raynal@bootlin.com>, Finley Xiao <finley.xiao@rock-chips.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 23, 2026 at 9:13=E2=80=AFPM Henry Martin <bsdhenrymartin@gmail.=
-com> wrote:
->
-> __hw_addr_create() allocates entries with kmalloc() and initializes only
-> addr_len bytes of ha->addr, but the dump paths emit each entry using the
-> current dev->addr_len, so an entry created with a smaller addr_len is
-> dumped with an uninitialized tail.
->
-> dev->addr_len can grow at runtime and nothing flushes the lists.  While
-> addr_len is 0 every addition collapses into one node, because
-> __hw_addr_add_ex() compares zero bytes, so the test adds one zero-length
-> multicast entry to each of 64 tun devices and switches them to
-> ARPHRD_IP6GRE (addr_len 16).  RTM_GETMULTICAST then returned 64 entries
-> of 16 bytes, 37 with non-zero bytes and 21 starting with a kernel heap
-> pointer (e.g. 0xffff8188_04857ee0).  tun has to flush dev->uc and
-> dev->mc in TUNSETLINK as well, which is a separate patch; qmi_wwan raw
-> IP mode and the HDLC attach/detach paths change addr_len in the same
-> way, so tun is not the only case.
->
-> Allocate with kzalloc() so the tail is zeroed at creation; the explicit
-> ha->sync_cnt =3D 0 then becomes redundant.
->
-> Found by an automated static analysis scan (Tencent CodeBuddy Security)
-> and triggered at runtime on v7.4-rc3 as an unprivileged user.
->
-> Cc: stable@vger.kernel.org
-> Fixes: cca8ea3b05c9 ("net: tun: set tun->dev->addr_len during TUNSETLINK =
-processing")
-> Link: https://lore.kernel.org/netdev/20261116024056.1274402-1-bsdhenrymar=
-tin@gmail.com/
-> Link: https://lore.kernel.org/netdev/20261118125443.1137177-1-edumazet@ke=
-rnel.org/
-> Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
-> Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> ---
-> v2 -> v3:
->  - describe the test setup accurately: one entry on each of 64 tun
->    devices, since all additions collapse into one node while addr_len
->    is 0
->  - point Fixes: at cca8ea3b05c9, which made the leak reachable from tun
->  - link to v1 instead of the earlier review thread, and link to the
->    companion tun patch
->  - note that other drivers change addr_len without flushing the lists
->  - state how the issue was found
->
->  net/core/dev_addr_lists.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/net/core/dev_addr_lists.c b/net/core/dev_addr_lists.c
-> index d827cc21867b..9613c8a9ed7f 100644
-> --- a/net/core/dev_addr_lists.c
-> +++ b/net/core/dev_addr_lists.c
-> @@ -96,7 +96,7 @@ __hw_addr_create(const unsigned char *addr, int addr_le=
-n,
->         alloc_size =3D sizeof(*ha);
->         if (alloc_size < L1_CACHE_BYTES)
->                 alloc_size =3D L1_CACHE_BYTES;
-> -       ha =3D kmalloc(alloc_size, GFP_ATOMIC);
-> +       ha =3D kzalloc(alloc_size, GFP_ATOMIC);
->         if (!ha)
->                 return NULL;
->         memcpy(ha->addr, addr, addr_len);
-> @@ -104,7 +104,6 @@ __hw_addr_create(const unsigned char *addr, int addr_=
-len,
->         ha->refcount =3D 1;
->         ha->global_use =3D global;
->         ha->synced =3D sync ? 1 : 0;
-> -       ha->sync_cnt =3D 0;
->
->         return ha;
->  }
-> --
-> 2.43.7
->
+Hi Ryan,
 
- Reviewed-by: Yuyang Huang <sigefriedhyy@gmail.com>
+On Sun, Nov 22, 2026 at 6:08=E2=80=AFAM Ryan Leung <untilscour@protonmail.c=
+om> wrote:
+>
+> Hi Alexey,
+>
+> On Wednesday, November 18th, 2026 at 10:51 PM, Ryan Leung <untilscour@pro=
+tonmail.com> wrote:
+>
+> > On Friday, September 18th, 2026 at 3:08 PM, Alexey Charkov <alchark@fli=
+pper.net> wrote:
+> >
+> > > Hi Rob,
+> > >
+> > > On Fri, Sep 18, 2026 at 2:19=E2=80=AFAM Rob Herring <robh@kernel.org>=
+ wrote:
+> > > >
+> > > > On Thu, Sep 10, 2026 at 06:48:33PM +0400, Alexey Charkov wrote:
+> > > > > On Wed, Sep 2, 2026 at 5:08=E2=80=AFPM Alexey Charkov <alchark@fl=
+ipper.net> wrote:
+> > > > > >
+> > > > > > Rockchip SoCs are shipped with a unique CPU ID in their interna=
+l OTP
+> > > > > > memory, and Rockchip bootloaders use it to give boards which ha=
+ve no
+> > > > > > dedicated storage for a MAC address a stable one anyway: they h=
+ash the CPU
+> > > > > > ID and patch the resulting addresses into the device tree they =
+hand over.
+> > > > > >
+> > > > > > Kernels started without that fixup, e.g. straight from the SPL =
+in Falcon
+> > > > > > mode or by any other loader which does not implement Rockchip's=
+ derivation,
+> > > > > > fall back to random MAC addresses which change on every boot.
+> > > > > >
+> > > > > > Formalize the derivation in the DT binding and add a Linux kern=
+el driver
+> > > > > > implementing it, so that a Linux image can use the same stable =
+addresses
+> > > > > > regardless of the boot flow.
+> > > > > >
+> > > > > > Only RK3576 is wired up here, that being the SoC I can test on.=
+ Other
+> > > > > > Rockchip SoCs keep the same CPU ID at a different OTP offset - =
+0x7 rather
+> > > > > > than 0xa on RK3588, for instance - which makes supporting them =
+a two-line
+> > > > > > addition to the driver's match table plus the layout node.
+> > > > > >
+> > > > > > Patch 1 is a prerequisite fix. The OTP hardware has its own int=
+ernal state
+> > > > > > machine which only works correctly with serial access, but the =
+current
+> > > > > > driver serializes nothing, which results in timeouts and/or cor=
+rupted
+> > > > > > reads (e.g. returning splicing a TSADC trim value into the buff=
+er of a
+> > > > > > caller asking for the CPU ID, or mixing up trim values of diffe=
+rent TSADC
+> > > > > > callers). Hence the Fixes: tag and Cc: stable.
+> > > > > >
+> > > > > > Cross-checked on an RK3576 board: the addresses fixed up into t=
+he FDT by
+> > > > > > U-Boot match the ones derived by the new driver, and the driver=
+ correctly
+> > > > > > assigns them to the network interfaces when the kernel is boote=
+d without
+> > > > > > U-Boot proper at all (via Falcon mode).
+> > > > > >
+> > > > > > Sashiko also rightly pointed out a use-after-free in the nvmem =
+core when
+> > > > > > a layout driver is unloaded leaving its sysfs nodes and the pos=
+tprocessor
+> > > > > > function pointer dangling. This is fixed separately in [1].
+> > > > > >
+> > > > > > [1] https://lore.kernel.org/all/20260902-nvmem-layout-unreg-v1-=
+1-2d16bebeb518@flipper.net/
+> > > > > >
+> > > > > > Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> > > > > > ---
+> > > > > > Changes in v2:
+> > > > > > - Switched from a scope-based guard to explicit lock/unlock cal=
+ls in the
+> > > > > >   OTP driver to avoid mixing styles in a function using goto er=
+ror
+> > > > > >   handling (Sashiko)
+> > > > > > - Link to v1: https://patch.msgid.link/20260901-rk3576-otp-cpui=
+d-mac-v1-0-ea9135270fc2@flipper.net
+> > > > > >
+> > > > > > ---
+> > > > > > Alexey Charkov (4):
+> > > > > >       nvmem: rockchip-otp: Serialize reads
+> > > > >
+> > > > > Incidentally, patch 1 of this series also fixes CPU thermal throt=
+tling
+> > > > > on my RK3576 device: apparently, the mis-read OTP-programmed ther=
+mal
+> > > > > trim values broke the thermal governor logic, which now works
+> > > > > correctly with properly serialized OTP reads. So it would be grea=
+t to
+> > > > > have these merged.
+> > > >
+> > > > It would be great to have the sashiko comments analyzed and replied=
+ to
+> > > > as well if you would like this to be reviewed.
+> > >
+> > > Of course. One code-related comment Sashiko raised has been addressed
+> > > in a separate patch [1] which is still pending review. The
+> > > binding-related comments will need to be revisited, as I'd like to
+> > > first explore the idea Ryan proposed in the adjacent thread [2], as i=
+t
+> > > will change the approach somewhat if it works out.
+> > >
+> > > Best regards,
+> > > Alexey
+> > >
+> > > [1] https://lore.kernel.org/all/20260902-nvmem-layout-unreg-v1-1-2d16=
+bebeb518@flipper.net/
+> > > [2] https://lore.kernel.org/all/20260916123355.4507-1-untilscour@prot=
+onmail.com/
+> >
+> > Hi Alexey,
+> >
+> > Have you had a chance to explore this? I have got a working proof of
+> > concept [1] for the format I suggested, tested on RK3576 (NanoPi M5) an=
+d
+> > RK3528 (NanoPi R28S).
+> >
+> > Best regards,
+> > Ryan
+> >
+> > [1] https://github.com/untilscour/openwrt/commit/a622c1cf292f7a4bb70935=
+21e25436be324fc1a4
+>
+> I've updated [1] the proof of concept slightly. Perhaps you are busy
+> with other patches? As it's been more than 2 months, if you don't mind,
+> I'd like to send it in as v3 of this series, with you as co-author.
+
+I've had a look at your proof of concept. What worries me is that it
+introduces a "virtual" DT node for the MAC address derivation without
+a corresponding hardware block underneath it, which sounds against DT
+conventions.
+
+I'd like to try a slightly different approach: have the CPUID cell
+carry a dedicated compatible string such as "rockchip,cpuid", with a
+binding description outlining the added semantics for deriving a MAC
+address from it. Then have the NVMEM driver check if the cell is
+accessed as "mac-address" and apply postprocessing before returning
+the buffer. That's what e.g. drivers/nvmem/imx-ocotp.c does currently.
+
+Let me give it a try, and then let's see what other reviewers say.
+I'll add you in Cc.
+
+Best regards,
+Alexey
