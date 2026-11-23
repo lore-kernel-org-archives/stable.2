@@ -1,76 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795418820;
-	b=3E1N3oLON6pDeRzKPKbUrzDwbbjWrVs8NoCTnVSItfhmtVvOSv6ktxUP5oOG7/qHeYSF
-	 KYzImR86xzWvv/6O4tNtbWGe+6wy22Ni1L9dCYK5H4MJAa6kDuXI9s8xukkIhiw9sx/XX
-	 iBL0zewKX4xTBQUf5CzjqbUsmLglKBYVGvYl2QGvAKk6w3/xEhKa5AdHSJyk1VSor4vz4
-	 fiEWGN8iv6xId7GRooJAFUK6R5YVC984dWl6RcGe5W/Nv/RDHFeipwfAt8cEmUwP3tedc
-	 k7j6mOZrFNuUL09OJbBOOxXzOfsA8BYr5UA/Opzj1uWy70rfNqtCgy/vZo9yVknkFaA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795418820;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Language:Content-Transfer-Encoding:
-	 X-Originating-IP:X-ClientProxiedBy;
-	bh=lbxLi+ngc7yBEF+RDuHT9s0ss4BFD5uPZn79I/AO1Vk=;
-	b=IOU6mW6kHT6mBhMZorDzfcSPVzsjkp+QSgcljTZGe4VuFAzS/gL7Vj4FSYEwhWaDeHTA
-	 snzE2xvfJS414jS/lfVYG/GwxBA8A+jdSAO6UiH2+YMvARFLBLVbD+eXOTY3ceJq7szDU
-	 MyWe3DRPAtoFsGrL+swkfWEAKrAd8jJH+fZDHnmVo5H0Gxv5DviDh0ogpdu0npr/RuQXQ
-	 wOVcfsFFFE3E5KPh3g7o+KLVJpoz+FQU0YSHIrDce2S3ltDS4T0J8gYNQqNLOoUUvscIX
-	 gM2N/QK+I99NQVrv2uzoQAuIcqr3IVjPlgET7KTge/LynCJ+Aa2jtYWTmwkpDdjS5MA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=h9RW0skV;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795418828;
+	b=BW72pcfGJnWukQjH0LwJXHCr1mv6rJ/AywBSyTkJz0EcpZMfm4K7N5645WTd8R38ERKI
+	 v/lkl3TMDF8H8xzJd+45rcLm2AZATH+xC2yCkm+Fp1TGk2upmAdH6+bYNlDAH9vVBnvLO
+	 +q+6QU8kvdBZ84SfeQYaEPx6zKTqqwgbjETVc1CCKYWC4JXROi8BocPDfF/CJKm1zJE/o
+	 wPXUCLqK+QGvNYOwXobxW1jzW8+wcHxNlnNZWo9TEDEiHyzaoHhvIPnZ1SdD7hf+fYy72
+	 Nu1N/2iDPkL3qSdgYJgwxjWSnrTMch0Ka/87UCPKS6bxlVtgQRPDspOCH9ozztGupfw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795418828;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=U6wzabnLt/RWDyXyIjQiK5gCOoeM22ljx/BRBNPG0BU=;
+	b=VN4fY9FbqvoZOKPWB2jP2vnliyxd4aH7R0J3CsWNWAH/vTE6PGUo2tLBTNq8YRSwFjl7
+	 Ag6F3ACO0CGgq8VEbcQNXzXGdmkBUqkjohyVM5KFY67po3NdlH64vlZ9JbmD9DQbyHDl0
+	 bcaMWbeIquJn6OKEGqcbnN/IljXrF44p2vd9aA0N+fCciaJDUgyB63VkYMwNObPdZTocz
+	 x1nrQntAz252cr9N+KIlnOg/28m3gyWpL093UGbYvBw+AhCsR4hKgN0PtSveou/DPRtxa
+	 e8LaS67Wo1l4Czqdt5SsAxVwDEmN60dzuzE7HYoXiCyMPUdEAWJPtawg5aESjYUiR3A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mccxhhj4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C6D606A31A;
+	Mon, 23 Nov 2026 07:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mccxhhj4
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795418827;
+	b=zuLSfWD3PmDDZJeiouEWrIIN/pNYWkxAj+NWYwllEo97X5wjrZf7AEdPo9cPH01rB6Eu
+	 MImRyLKUcSZbSMI8t7WSn9Y49N0bC+Td2tFyZ6DfSr52RtwEvg3yKoJIceOYsRuqe7Sql
+	 Jn5nG2yuA7L32m5gSZjJKqgM3L5siwvdi+cGmRLdRxAT3OYnfyVgq8RqUXiOyoUjLKdKi
+	 K5J/YrZh1/DKewovWsSd4TdV/JlgynifEKHwS4sU9J+02NniKWj0hoPQL4pp2c0WiJ8gA
+	 qx1oDTWsVDFEqubl2ZQSRvBM9evO47gqfN6TnH4BBXKqIl/RCuZ5z12kKVOl24lnCFg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795418827;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=U6wzabnLt/RWDyXyIjQiK5gCOoeM22ljx/BRBNPG0BU=;
+	b=Ybrgxc/n95J49gRhmL0f39qOATiB1HosXNn7/0tkW2TX8Ix0+gSnGKkulOxMuBD0U3Dy
+	 30r2DLDEO7tqKJGXcMfea2Iw1sLcoyqj36U2Hy20FzFD3VcNVhphkEPJofTtPGacUccHl
+	 zGFw9iynCsIK9D8irKdbgshu2lZgLdeVsNtTpYqCyyKjoRPmXtgP8Qj8YAp3U/Jm8vuOk
+	 U20r/b6EOypcg2WyuxQY+NQVdqdydYACChupBwsqsIMZunTLDFagRldLV3/PxVEzjqcwb
+	 C/TjPYVt2qBW8ypU29mdT++TiGAyd66AA/2ewLPrwVIL5daoxazONSpnXfPVNth3Tvg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7655606A31A;
-	Mon, 23 Nov 2026 07:26:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7655606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=h9RW0skV
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=lbxLi+ngc7yBEF+RDuHT9s0ss4BFD5uPZn79I/AO1Vk=;
-	b=h9RW0skVRwIOIUqLb1y40msOVJQqQ0XsLLplin4RvEHiKv6tUNFr4jlzLSJ/vr17B1ln30g6E
-	AOqSUcrDMGNmLVazGVjZeA4506jiAp+nbcAUb13T/zL54B48ePFSNIDuyr3eWlhjCKI9WGTJ6WE
-	ekes2N6kQGfhNwY9wpkiGR4=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jXyDb5gjYz1K9Vq;
-	Mon, 23 Nov 2026 15:26:39 +0800 (CST)
-Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7653040580;
-	Mon, 23 Nov 2026 15:26:56 +0800 (CST)
-Received: from [10.173.98.163] (10.173.98.163) by
- whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 23 Nov 2026 15:26:54 +0800
-Subject: Re: [PATCH v3] mm/memory-failure: set PG_hwpoison of a non-hugetlb
- page under hugetlb_lock
-To: Mani Tofigh <mt4022@columbia.edu>
-CC: David Hildenbrand <david@kernel.org>, Naoya Horiguchi
-	<nao.horiguchi@gmail.com>, Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport
-	<rppt@kernel.org>, Mike Kravetz <mike.kravetz@oracle.com>, Matthew Wilcox
-	<willy@infradead.org>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
-	<tz2294@columbia.edu>, <stable@vger.kernel.org>, Muchun Song
-	<muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, Andrew Morton
-	<akpm@linux-foundation.org>
-References: <20261106-hwpoison-hugetlb-ro-v3-1-c11186963647@columbia.edu>
- <42a60f57-5323-f981-8ef3-2e5d67623902@huawei.com>
- <a87cbd92-0e07-4f84-9a6f-8db0b1778fcf@columbia.edu>
- <b0f30561-aabf-2bf5-2204-20907c40ef43@huawei.com>
- <08b18b88-3ab4-4681-bec8-f4564fe9f1dc@columbia.edu>
-From: Miaohe Lin <linmiaohe@huawei.com>
-Message-ID: <77680005-7178-cb1d-6e20-e23519839222@huawei.com>
-Date: Mon, 23 Nov 2026 15:26:48 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 578EC1F000C4;
+	Mon, 23 Nov 2026 07:27:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795418827;
+	bh=U6wzabnLt/RWDyXyIjQiK5gCOoeM22ljx/BRBNPG0BU=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Mccxhhj4llERRyqRFaSx+9ezzKC78+yO+LdmfuvA3qUSctlffBBwFGdTCIFB/jtVl
+	 m8xrCSSBo9yqFChto97u32yd7fEIMjwY2aY5umqqYhJn69qHO9LH+VIm74zIwT4rBR
+	 1KTX3M4nqyc0O3J3OPWzjPvC/KWvWCIU3uB3KypHxiriQj0EF96FQPUbzb1dDDu87p
+	 9waNDZXMMdLIv09L8jraK4+5cheHWWOR1zISiSlwqZ8pYAgTWlKtq4mS7cVBdnIEof
+	 qXAeJFLaMt3LcAlbqcspuCoL1JF7PW/Yda4Uij/N1vSttkPqvcBna1bS0B4DwjzM2H
+	 02jwrUTU+0Emg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id AF4CB4C3A1;
+	Mon, 23 Nov 2026 07:27:03 +0000 (UTC)
+From: Markus Haberlander via B4 Relay <devnull+markus.haberlander.rosenberger.com@kernel.org>
+Date: Mon, 23 Nov 2026 08:27:01 +0100
+Subject: [PATCH] hwmon: (cgbc-hwmon) Add module alias
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,44 +82,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <08b18b88-3ab4-4681-bec8-f4564fe9f1dc@columbia.edu>
 Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
+Message-Id: <20261123-cgbc-hwmon-alias-v1-1-3054681f984a@rosenberger.com>
+X-B4-Tracking: v=1; b=H4sIAMTqA2sC/yXMTQqDMBBA4avIrB0waSviVcRFMhl1pI2S6R+Id
+ 2+sy2/x3gbKSVihLTZI/BaVJWaYsgCaXBwZJWSDrWxtjL0gjZ5w+jyWiO4uTrEeODSer+RvFnK
+ 2Jh7k+192/Wl9+ZnpeXxg338lcVuKdAAAAA==
+X-Change-ID: 20261123-cgbc-hwmon-alias-6fed8be4cb52
+To: Thomas Richard <thomas.richard@bootlin.com>, 
+ Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, stable@vger.kernel.org, 
+ Markus Haberlander <markus.haberlander@rosenberger.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795418823; l=1376;
+ i=markus.haberlander@rosenberger.com; s=20261123;
+ h=from:subject:message-id;
+ bh=I1G2jkZQpMOQFY8S2qM+BAuBa5MQsimUYIi/nZNT3CA=;
+ b=OPb4kGeErThGeH31e2Fvv0Y1ezpEFO3smdYlSDWT5OvuRRONVNquQBPgXYmnV3OBpGIJ2PD+p
+ DFaxfT6oeeOBHFOkoVSsQR8d9mxOURiycJfjK6EZDumLkBGfkH+m5KH
+X-Developer-Key: i=markus.haberlander@rosenberger.com; a=ed25519;
+ pk=baNIWlZCf58g17gE2FS6ir0ymNwyBXguoQENSJkXdeQ=
+X-Endpoint-Received: by B4 Relay for
+ markus.haberlander@rosenberger.com/20261123 with auth_id=1612
+X-Original-From: Markus Haberlander <markus.haberlander@rosenberger.com>
+Reply-To: markus.haberlander@rosenberger.com
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemk100004.china.huawei.com (7.152.185.74)
 
-On 2026/11/23 14:19, Mani Tofigh wrote:
-> 
-> 
-> On 11/17/26 2:01 AM, Miaohe Lin wrote:
->> In both cases, will the hwpoison flag be lost? If so, would TestClearPageHWPoison work?
-> 
-> Only if P's struct page is past the first vmemmap page, since HVO frees
+From: Markus Haberlander <markus.haberlander@rosenberger.com>
 
-If P's struct page is past the first vmemmap page, the hwpoison flag is lost. In this case,
-do we need to do something? Now that hwpoison flag is already lost, I don't think so. And
-TestClearPageHWPoison won't do anything in this case. Or do you mean TestClearPageHWPoison
-will always write even if hwpoison flag is not set? If so, can test + clear do the work?
+The board controller's core driver adds the hwmon cell as platform
+device "cgbc-hwmon", but the driver declares no matching module alias.
+Built as a module, it is therefore not loaded automatically, unlike the
+GPIO, I2C and backlight drivers, and the sensors stay missing until it
+is loaded by hand.
 
-> that one. In the first page it's copied, so the flag stays. And
+Tested on a conga-PA7: with the alias, the driver loads at boot.
 
-In the first page, the hwpoison flag stays. So TestClearPageHWPoison can do the right thing here?
+The patch and this changelog were drafted with the help of Claude
+Opus 5.5 and reviewed and tested by me.
 
-> TestClearPageHWPoison() is still an atomic write, so it'd fault on the> read-only tail (e.g., 6.6) the same way.
-> 
-> 
->> If the page becomes hugetlb, should we skip the retry path? try_memory_failure_hugetlb
->> can't handle this case?
->>
-> 
-> 
-> It can, the only problem is the stale flag from the first round. With it, hugetlb_update_hwpoison() thinks the folio is already poisoned if
-> P is the head, and unpoison_memory() drops the folio ref twice if
-> P is a tail.
+Fixes: 08ebc9def79f ("hwmon: Add Congatec Board Controller monitoring driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Markus Haberlander <markus.haberlander@rosenberger.com>
+---
+ drivers/hwmon/cgbc-hwmon.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-I think we can correctly clear the stale flag from the first round.
+diff --git a/drivers/hwmon/cgbc-hwmon.c b/drivers/hwmon/cgbc-hwmon.c
+index ba21ed8f0..d1f20db4b 100644
+--- a/drivers/hwmon/cgbc-hwmon.c
++++ b/drivers/hwmon/cgbc-hwmon.c
+@@ -336,3 +336,4 @@ module_platform_driver(cgbc_hwmon_driver);
+ MODULE_AUTHOR("Thomas Richard <thomas.richard@bootlin.com>");
+ MODULE_DESCRIPTION("Congatec Board Controller Hardware Monitoring Driver");
+ MODULE_LICENSE("GPL");
++MODULE_ALIAS("platform:cgbc-hwmon");
 
-Am I miss something?
-Thanks.
-.
+---
+base-commit: 7940d60c4b165cd7c265bf17f86b8299b7f204b1
+change-id: 20261123-cgbc-hwmon-alias-6fed8be4cb52
+
+Best regards,
+--  
+Markus Haberlander <markus.haberlander@rosenberger.com>
+
+
