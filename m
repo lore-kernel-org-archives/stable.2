@@ -1,65 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795402444;
-	b=FvaBp5ZfnEZYw7kDlz6sLEAXBEn5wb388xaJ9n/ZvCyEjM8sjxGUt3Udpd0biQUxp1jZ
-	 Xp6l3Fkqk0JLrymYJpdrzITbiV7lkgsrxjPsOJSBHvzKyOjz7+BQeUY9k7bIPAekbsblG
-	 I9B+oyNyYYtsssyGvZOhBYj6oGmOO0ur4VuE13d0cD25cQl9ZOCuMTDN3t1vFVggBa7et
-	 R5a5BB495E+EhQvKxaCuD9Pf956VbpxZMThcoqJpsdOYXERl8xSTPFDlaz75TUCwyTtWs
-	 Vv2m4mZMMcbDgUHBj5RquQm4YAh3PeMourSVJk110M0LjNOKCon+HMs2dfqgqcrerTg==
+	t=1795402628;
+	b=u+dHRrab1jSJHxtg6AGsKf40dCZ/GZXei2LqoU1dtuBf059rEtXrxcY1a4xnDpgYoQpm
+	 LmgG0l5UT80ySa5/V1EfAaKscnNq66AmXWoBDZns/QH4LVaRQfJ7AyQ+e83I+kHRhptSj
+	 TkYQbTu67NQbvmr2/uBmRFI+zm0OAqDQVewFJ2IuNqMeqOtRB7MsX6oX/eErUfHbY1yeQ
+	 Q8WDexd0eXzWf5Y7E/QGK1ixHJ2iXexh3Pqu2bJccGbTT1TCC74CWp+KLRQWt54f5iQxA
+	 Kz1UAW5cQzZTB+MTUqInLsTeXVlVJusFmKSIbdLVFdSmi4npbeT2uL1r7P4hwneHqDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795402444;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=V/F8f7QL6txwB+LA4tHQ92PY0/iHc7lveAHE9aW6A/E=;
-	b=4NYgv3WzI2vAEpE9pa/a1WaSKtJOJJz9acxtMtIMJ6L117olMLpGsLNIgUfMgV6gnZpU
-	 LfWluoKJ2EOXKjrFU8P8LeLjdzv+pdsWS5Fggr4pTpPrjekEc1+b74zfMGHOhd7Edjvl1
-	 8olEe2OtqO9la5/W+9zNCDvvNNpu4w73hz7+AUDm1sQUhy3Zhp7nCqBU9M/d8ivcgv8NU
-	 SXIgaKpU+ywLgK7tLd3EMQgFqW7iCY7clEBgW+vvVYy0Oai5ROXHzGWrdrjm1a9gAZtl1
-	 8kXtnNixkhjTYNIKPlWFcp0K2HZ3+ixFszuf72qx1swpoSQ9Co3dJIRz03hexu6v/Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795402628;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GDNT0b/bhyDzKt86MPLi6HOpcuh4V0yz8R1khihljtE=;
+	b=QK4CmflAZM03QiuBxqKXaJAe7y67UfXrQe6jvevKWW+TKnOMn78nfIf6+S606tlosbWD
+	 zUUorK1HNVWGwr7xBc7SQlZaLZVFrdUz+iWJr/lo7/DvHr5T/oOSGlZPHnj+abPJfwPet
+	 vpWem5TxjsYOlWuPS/PiUtWqKHIpKQlzsQunMiRPbW47WmYY6iF0qdTOyufGLeLUpDtl+
+	 VtaT3huF9X2qdTHMtvlIMlJnyDTDMT0NgNmg79wMTFvka/Ft75UwRZmKEBK8PSjlg6IHv
+	 YE5aOqurUBLNcGbqiJ253ysHcvnjFG8Vl9QiT5L3Tabr8WYqDzT3AD9W/hV54yNRaCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nGraLL+Q;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FgYVjWGm;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8766606A31A;
-	Mon, 23 Nov 2026 02:54:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8766606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F45606A31A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 02:57:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7F45606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nGraLL+Q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=V/F8f7QL6txwB+LA4tHQ92PY0/iHc7lveAHE9aW6A/E=; b=n
-	GraLL+QaW3tbI7f4dbajPwXJeM+6pZlQl8sF7gr4tMf9Dg8jAlYZUgbOsk+m9MdD
-	ucd5aKUh2GtVwFvyWL6P0vwRKrmUPw4xIQLIyKzvGVIamF/bhDHUxUyucVGnhGIH
-	YnS59M8VtXBU0lABGfi2JLHsHJqcF3uyThFS/nx9Kk=
-Date: Mon, 23 Nov 2026 10:53:07 +0800 (CST)
-From: =?GBK?B?wO7T07roIA==?= <dayou5941@163.com>
-To: yukuai@fygo.io
-Cc: song@kernel.org, agk@redhat.com, snitzer@kernel.org, mpatocka@redhat.com,
-	bmarzins@redhat.com, dm-devel@lists.linux.dev,
-	magiclinan@didiglobal.com, xiao@kernel.org,
-	linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
-	"Li Youhong" <liyouhong@kylinos.cn>,
-	syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FgYVjWGm
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b43d30822fso1089850a91.3
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 18:57:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795402627; x=1796007427; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GDNT0b/bhyDzKt86MPLi6HOpcuh4V0yz8R1khihljtE=;
+        b=FgYVjWGmL1QtXCI2mQBKnfn2O8L/QNW0xtlxCmFqhqKTJ9rKCS0VeYFIfrZNHPkng5
+         JSy0mkS4C7m5RIPnRV3MRpbI/OosOXlQXt8oEcHflv7O/vSNQaN5+1pSBP0B1O6TREue
+         mQjNHGxbGkNLM+DS9nT5kz6YTaBbLxIL1EGw0fDLi4dWTDnsjWGS2VK1epjWKizRksWw
+         tk69j75W+Y34KvN5F7AfeNmrrEQrOBeyv85iQtX7RUSe7nLJLc4YFI+YnK+/K1oEhgPM
+         b7k97jCWm1nDKnQ7gyYT12iSMEHODazFXmbOAJ2znT5eTYuOxdiwVgxA7J0JWfQGlDcv
+         vqdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795402627; x=1796007427;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GDNT0b/bhyDzKt86MPLi6HOpcuh4V0yz8R1khihljtE=;
+        b=Jhq94RzMHnnuwp3qJ37bWA3BydyNRgBfHiauKsKit7Zgwsikp0yx1oxXH6P1ZR5P3/
+         yH5rZv5QGnwtxDHDT05o8MY9/35Ewpex7Tu7rSmDPzQmFg7uMsxKasm+N3MP7m9CYSHQ
+         lxDSrueC6sSCrhyM+aSEYHF7nIv5cAnU+mdruX+TI4iaaXClfRNTS4P6sYAU8h3salXk
+         FmderBMZNGMtadCI6I7mZipGj1msgDOSwkjQEceqwKidC/DACYLTDXiYy6Gj85DfqkO7
+         0uaE/B9K7Kca26Hx1LeKwn+Cidw65G//drr3GoTqA5ysTBdLPafsATVeFD/90bpc0z7Y
+         rYRg==
+X-Forwarded-Encrypted: i=1; AL+hErH1osYxpZcggL9sSJfXyKsosLpWOayYopAhu7bnuOpEX7qgab9vhuGCJ6r6r3MwnCZPc2jF58Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/X8J1217TzTmRodNPYeYeXUG+6alBerAzWJLzNnmgvxmiAEgtX
+	/gAe4Tp9+Ey8n614+moQSHiS9sTifpdh46ZGZ2enXMfVTYyojMvUpr6d
+X-Gm-Gg: AZFdTZfrlMhIbRThKkw9gq/eHqNkPsT+/kUnyqmSBSYxO8aIb3CW4WyzWhhq6e+dmd8
+	58+ju7J3NtPl//vDT9kh8q0miFEWUDLgfSl8bSON2CeYrqQTHJeu4P5cR9RTsXT3IbhAbFdMAF4
+	tRie86WNtASS1g3yD1802I8HV+anzgvRVmgj6JyzPJJBkB+xT11TIsT9VJDQftCGF7kzasmjzNY
+	BIp8uiu3pom0RBu7xnvGRF6dOciRHWsOW0aCuX3Dgpg771E1njnVsacdmZrtt2+1FHgW6mX6I2b
+	hRUUHCid6z/SQH2tBdSql951x3tEHvADw7D/fR5Rk8M0oYIOHGSw3p6Ws059nVGEo8z9hfBUnjH
+	OzNHVajWDDwpfMqj3NFTNKL7xDAxSrXV6aW5oouv3ov9mOae9pYXBTHjz+AjJDMtuJ10oMRoKj5
+	EO3TB7lQbpB0vr80wSwmPrCWoJpzxDv/DgYC768twdt/t8SN5XpQU2+Qv1lnFcvNNin82OlgksK
+	h0Z0tscvSjRpMovA3Q2qGuX1j6usn9vsk4Dmm0URiFXLQaKGiMGbM+T2KuYbHzdGGa/vCvNCdOK
+	lhYwamOlcDBJ+3OYh6Z5JauzVWQBVui8VQ==
+X-Received: by 2002:a17:90b:1a90:b0:3b0:e388:d9da with SMTP id 98e67ed59e1d1-3b41c92ce29mr8507796a91.29.1795402627197;
+        Sun, 22 Nov 2026 18:57:07 -0800 (PST)
+Received: from arm-a100.. ([140.112.28.118])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad92c13sm15279137a91.14.2026.11.22.18.57.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 18:57:06 -0800 (PST)
+From: Tzu-Ching Yang <shingekinocore@gmail.com>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-mips@vger.kernel.org,
+	llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	kernel test robot <lkp@intel.com>,
 	stable@vger.kernel.org
-Subject: Re:Re: [PATCH v5] md: fix sync_work vs array teardown races
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <0849198e-cbd3-42c4-bbce-4496ffbc974a@fygo.io>
-References: <20261112013523.120428-1-dayou5941@163.com>
- <0849198e-cbd3-42c4-bbce-4496ffbc974a@fygo.io>
-X-NTES-SC: AL_Qu2SB/ibvUsj4SSaYOkckk4Wjug8Wcexufwj34NTc8EEnTvG3iUqbEVTD3/K4d+tKCS9nCOIazZf+8VZd7FB4nmFyCl+DFzeDYb0Yxisiw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+Subject: [PATCH v2] MIPS: Fix genex.S build with LLVM before 21
+Date: Mon, 23 Nov 2026 10:56:45 +0800
+Message-Id: <20261123025645.2385330-1-shingekinocore@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,162 +104,141 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <7751d97b.2b3c.1a206524fea.Coremail.dayou5941@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:gSgvCgCX3yuUqgNrmdtyAA--.935W
-X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC3hRrGmsDqpRtSwAA3L
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CgoKCgoKCgpIaSBLdWFpLAoKCgoKCkF0IDIwMjYtMTEtMjAgMTY6NTA6MTEsICJ5dSBrdWFpIiA8
-eXVrdWFpQGZ5Z28uaW8+IHdyb3RlOgo+SGksCj4KPtTaIDIwMjYvMTEvMTIgOTozNSwgTGkgWW91
-aG9uZyDQtLXAOgo+PiBGcm9tOiBMaSBZb3Vob25nIDxsaXlvdWhvbmdAa3lsaW5vcy5jbj4KPj4K
-Pj4gZG0tcmFpZCB0ZWFycyBkb3duIGFycmF5cyB2aWEgbWRfc3RvcCgpLCB3aGljaCBjbGVhcmVk
-IG1kZGV2LT5wZXJzCj4+IHdpdGhvdXQgd2FpdGluZyBmb3IgcHJldmlvdXNseSBxdWV1ZWQgc3lu
-Y193b3JrLiBUaGF0IHdvcmsgY291bGQKPj4gdGhlbiBjYWxsIHJlbW92ZV9zcGFyZXMoKSB3aXRo
-IHBlcnMgPT0gTlVMTCwgb3Iga2VlcCB1c2luZyBtZGRldgo+PiBhZnRlciByYWlkX2R0cigpIGZy
-ZWVzIGl0Lgo+Pgo+PiBkb19tZF9zdG9wKCkvbWRfc3RvcF93cml0ZXMoKSBhbHJlYWR5IGNhbGwg
-c3RvcF9zeW5jX3RocmVhZCgpIGJlZm9yZQo+PiB0ZWFyZG93bi4gRG8gdGhlIHNhbWUgaW4gbWRf
-c3RvcCgpLiBCZWNhdXNlIG1kX3N0YXJ0X3N5bmMoKSBtYXkgc3RpbGwKPj4gdXNlIG1kZGV2IGFm
-dGVyIHVubG9ja2luZyAvIGNsZWFyaW5nIE1EX1JFQ09WRVJZX1JVTk5JTkcsIGZsdXNoCj4+IHN5
-bmNfd29yayB3aGVuZXZlciBpdCBpcyBidXN5IHJhdGhlciB0aGFuIG9ubHkgd2hlbiB3b3JrX3Bl
-bmRpbmcoKS4KPj4KPj4gQ2FsbGluZyBzdG9wX3N5bmNfdGhyZWFkKCkgZnJvbSBtZF9zdG9wKCkg
-Y2FuIGRyb3AgcmVjb25maWdfbXV0ZXgsCj4+IHdoaWNoIGludHJvZHVjZXMgdHdvIGZvbGxvdy1v
-biBpc3N1ZXM6Cj4+Cj4+IC0gV2hlbiBub3RoaW5nIGlzIGluIGZsaWdodCwga2VlcCByZWNvbmZp
-Z19tdXRleCBpZiB0aGUgY2FsbGVyIGhlbGQKPj4gICAgaXQgKGdhdGUgdGhlIGlkbGUgZWFybHkt
-cmV0dXJuIHdpdGggd29ya19idXN5KCkpLiBPdGhlcndpc2UgY2xlYXIKPj4gICAgb2YgYW4gaW5h
-Y3RpdmUgYXJyYXkgY2FuIHJhY2Ugd2l0aCBkb19tZF9ydW4oKS4KPj4KPj4gLSBXaGlsZSB0aGUg
-bXV0ZXggaXMgZHJvcHBlZCwgbWRkZXYtPnRocmVhZCBtYXkgcnVuCj4+ICAgIG1kX3JlYXBfc3lu
-Y190aHJlYWQoKSBhbmQgcXVldWUgZXZlbnRfd29yay4gRmx1c2ggZXZlbnRfd29yayBvbgo+PiAg
-ICB0aGUgcmFpZF9jdHIoKSBlcnJvciBwYXRoIGJlZm9yZSByYWlkX3NldF9mcmVlKCkuCj4+Cj4+
-IFNlcGFyYXRlbHksIHRoZSByZWFkLW9ubHkgcGF0aCBpbiBtZF9jaGVja19yZWNvdmVyeSgpIHF1
-ZXVlZAo+PiBzeW5jX3dvcmsgd2l0aG91dCBob25vdXJpbmcgTURfUkVDT1ZFUllfRlJPWkVOLCB1
-bmxpa2UgdGhlCj4+IHJlYWQtd3JpdGUgcGF0aC4gQ2hlY2sgRlJPWkVOIHRoZXJlIHNvIGZyZWV6
-ZS9zdG9wIGNhbm5vdCByYWNlCj4+IHdpdGggYSBuZXcgcXVldWUuCj4+Cj4+IEZpeGVzOiBkYjVl
-NjUzZDdjOWYgKCJtZDogZGVsYXkgY2hvb3Npbmcgc3luYyBhY3Rpb24gdG8gbWRfc3RhcnRfc3lu
-YygpIikKPj4gRml4ZXM6IDgxZTJjZTFiM2Q1YSAoIm1kOiBkZWxheSByZW1vdmVfYW5kX2FkZF9z
-cGFyZXMoKSBmb3IgcmVhZCBvbmx5IGFycmF5IHRvIG1kX3N0YXJ0X3N5bmMoKSIpCj4+IFJlcG9y
-dGVkLWJ5OiBzeXpib3QrYTUzYzI5MTgxNzViMzZjZmQ2MDFAc3l6a2FsbGVyLmFwcHNwb3RtYWls
-LmNvbQo+PiBDbG9zZXM6IGh0dHBzOi8vc3l6a2FsbGVyLmFwcHNwb3QuY29tL2J1Zz9leHRpZD1h
-NTNjMjkxODE3NWIzNmNmZDYwMQo+PiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+PiBTaWdu
-ZWQtb2ZmLWJ5OiBMaSBZb3Vob25nIDxsaXlvdWhvbmdAa3lsaW5vcy5jbj4KPj4gLS0tCj4+IHY1
-Ogo+PiAtIFJlc3RvcmUgaWRsZSBlYXJseS1yZXR1cm4gaW4gc3RvcF9zeW5jX3RocmVhZCgpIGdh
-dGVkIGJ5IHdvcmtfYnVzeSgpLAo+PiAgICBzbyBsb2NrZWQgY2FsbGVycyBrZWVwIHJlY29uZmln
-X211dGV4IGFuZCBkbyBub3QgcmFjZSB3aXRoIGRvX21kX3J1bigpLgo+PiAtIEZsdXNoIGV2ZW50
-X3dvcmsgYmVmb3JlIHJhaWRfc2V0X2ZyZWUoKSBvbiB0aGUgcmFpZF9jdHIgZXJyb3IgcGF0aAo+
-PiAgICAobWRfc3RvcCgpIG1heSBkcm9wIHRoZSBtdXRleCBhbmQgbGV0IG1kX3JlYXAgcXVldWUg
-aXQpLgo+PiAtIHY0OiBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1yYWlkLzIwMjYxMTEx
-MDE1MDI3LjQwMjkxODQtMS1kYXlvdTU5NDFAMTYzLmNvbQo+Pgo+PiB2NDoKPj4gLSBBbHdheXMg
-Zmx1c2hfd29yaygmc3luY193b3JrKSBpbiBzdG9wX3N5bmNfdGhyZWFkKCk7IGRvIG5vdCBkZWxh
-eQo+PiAgICBjbGVhcmluZyBNRF9SRUNPVkVSWV9SVU5OSU5HICh0aGF0IGNhbiBkcm9wIE1EX1JF
-Q09WRVJZX05FRURFRCB2aWEKPj4gICAgbWRfY2hlY2tfcmVjb3ZlcnksIGFuZCBkb2VzIG5vdCBj
-b3ZlciB0aGUgc3VjY2Vzc2Z1bCBzeW5jX3RocmVhZAo+PiAgICByZWdpc3RyYXRpb24gcGF0aCku
-Cj4+IC0gdjM6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LXJhaWQvMjAyNjExMTAwNjMw
-NDUuOTEyNzAzLTEtZGF5b3U1OTQxQDE2My5jb20KPj4KPj4gdjM6Cj4+IC0gSG9ub3VyIE1EX1JF
-Q09WRVJZX0ZST1pFTiBiZWZvcmUgcXVldWVpbmcgc3luY193b3JrIG9uIHRoZQo+PiAgICByZWFk
-LW9ubHkgbWRfY2hlY2tfcmVjb3ZlcnkoKSBwYXRoLgo+PiAtIChzdXBlcnNlZGVkKSBkZWxheWVk
-IE1EX1JFQ09WRVJZX1JVTk5JTkcgY2xlYXIgb24gbm90X3J1bm5pbmcuCj4+IC0gdjI6IGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LXJhaWQvMjAyNjExMDkwMjMwNTUuMjE2NDMzMy0xLWRh
-eW91NTk0MUAxNjMuY29tCj4+Cj4+IHYyOgo+PiAtIERyb3AgdGhlIHBlcnMgTlVMTCBjaGVjayBp
-biBtZF9zdGFydF9zeW5jKCkuCj4+IC0gQ2FsbCBzdG9wX3N5bmNfdGhyZWFkKCkgZnJvbSBtZF9z
-dG9wKCkgYmVmb3JlIGNsZWFyaW5nIHBlcnMsCj4+ICAgIG1hdGNoaW5nIGRvX21kX3N0b3AoKS9t
-ZF9zdG9wX3dyaXRlcygpLgo+PiAtIHYxOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1y
-YWlkLzIwMjYxMTA2MDgzNTQzLjI0OTI2Ny0xLWRheW91NTk0MUAxNjMuY29tCj4+Cj4+ICAgZHJp
-dmVycy9tZC9kbS1yYWlkLmMgfCAgNyArKysrKysrCj4+ICAgZHJpdmVycy9tZC9tZC5jICAgICAg
-fCA0MSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLQo+PiAgIDIgZmls
-ZXMgY2hhbmdlZCwgMzkgaW5zZXJ0aW9ucygrKSwgOSBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvbWQvZG0tcmFpZC5jIGIvZHJpdmVycy9tZC9kbS1yYWlkLmMKPj4gaW5k
-ZXggYWMwMTlhMGY1YTkyLi5mODJjMDlkODU4ZGUgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvbWQv
-ZG0tcmFpZC5jCj4+ICsrKyBiL2RyaXZlcnMvbWQvZG0tcmFpZC5jCj4+IEBAIC0zMzE5LDYgKzMz
-MTksMTMgQEAgc3RhdGljIGludCByYWlkX2N0cihzdHJ1Y3QgZG1fdGFyZ2V0ICp0aSwgdW5zaWdu
-ZWQgaW50IGFyZ2MsIGNoYXIgKiphcmd2KQo+PiAgIAltZF9zdG9wKCZycy0+bWQpOwo+PiAgIAlt
-ZGRldl91bmxvY2soJnJzLT5tZCk7Cj4+ICAgYmFkOgo+PiArCS8qCj4+ICsJICogbWRfc3RvcCgp
-IG1heSBkcm9wIHJlY29uZmlnX211dGV4IHNvIG1kZGV2LT50aHJlYWQgY2FuIHJ1bgo+PiArCSAq
-IG1kX3JlYXBfc3luY190aHJlYWQoKSBhbmQgcXVldWUgZXZlbnRfd29yazsgd2FpdCBmb3IgaXQg
-YmVmb3JlCj4+ICsJICogZnJlZWluZyByYWlkX3NldC4gU2tpcCBpZiBJTklUX1dPUksgaGFzIG5v
-dCBydW4geWV0Lgo+PiArCSAqLwo+PiArCWlmIChycy0+bWQuZXZlbnRfd29yay5mdW5jKQo+PiAr
-CQlmbHVzaF93b3JrKCZycy0+bWQuZXZlbnRfd29yayk7Cj4+ICAgCXJhaWRfc2V0X2ZyZWUocnMp
-Owo+PiAgIAo+PiAgIAlyZXR1cm4gcjsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWQvbWQuYyBi
-L2RyaXZlcnMvbWQvbWQuYwo+PiBpbmRleCA2ODBiMzRhNjNjYjMuLjc5YzU2NDMyMGYxOCAxMDA2
-NDQKPj4gLS0tIGEvZHJpdmVycy9tZC9tZC5jCj4+ICsrKyBiL2RyaXZlcnMvbWQvbWQuYwo+PiBA
-QCAtNTE4NCw3ICs1MTg0LDE0IEBAIHN0YXRpYyB2b2lkIHN0b3Bfc3luY190aHJlYWQoc3RydWN0
-IG1kZGV2ICptZGRldiwgYm9vbCBsb2NrZWQpCj4+ICAgewo+PiAgIAlpbnQgc3luY19zZXEgPSBh
-dG9taWNfcmVhZCgmbWRkZXYtPnN5bmNfc2VxKTsKPj4gICAKPj4gLQlpZiAoIXRlc3RfYml0KE1E
-X1JFQ09WRVJZX1JVTk5JTkcsICZtZGRldi0+cmVjb3ZlcnkpKSB7Cj4+ICsJLyoKPj4gKwkgKiBJ
-ZiBub3RoaW5nIGlzIGluIGZsaWdodCwga2VlcCByZWNvbmZpZ19tdXRleCB3aGVuIGxvY2tlZCBz
-bwo+PiArCSAqIGNhbGxlcnMgc3VjaCBhcyBkb19tZF9zdG9wKCkgY2Fubm90IHJhY2Ugd2l0aCBk
-b19tZF9ydW4oKS4KPj4gKwkgKiB3b3JrX2J1c3koKSBpcyByZXF1aXJlZDogbWRfc3RhcnRfc3lu
-YygpIG1heSBjbGVhciBSVU5OSU5HIGFuZAo+PiArCSAqIHN0aWxsIHVzZSBtZGRldiBhZnRlciB1
-bmxvY2tpbmcuCj4+ICsJICovCj4+ICsJaWYgKCF0ZXN0X2JpdChNRF9SRUNPVkVSWV9SVU5OSU5H
-LCAmbWRkZXYtPnJlY292ZXJ5KSAmJgo+PiArCSAgICAhd29ya19idXN5KCZtZGRldi0+c3luY193
-b3JrKSkgewo+Cj5JJ2xsIHByZWZlciB0byB1c2UgbWRkZXZfZ2V0KCkgaW4gbWRfc3RhcnRfc3lu
-YygpIHRvIHByZXZlbnQgYWNjZXNzaW5nIGZyZWVkIG1kZGV2LAo+dGhpcyB3YXkgdGhlcmUgaXMg
-bm8gbmVlZCB0byBjYWxsIG1kZGV2X3VubG9jaygpLgoKPgoKVGhlIHdvcmtfYnVzeSgpIGNoZWNr
-IGluIHRoZSBpZGxlIGVhcmx5LXJldHVybiBpcyBuZWVkZWQgZm9yIHRoaXMgcmFjZToKCkNQVTAg
-KG1kX3N0YXJ0X3N5bmMpICAgICAgICAgICAgICAgICAgICAgICAgICAgIENQVTEgKG1kX3N0b3Ag
-LyBzdG9wX3N5bmNfdGhyZWFkKQpjbGVhciBNRF9SRUNPVkVSWV9SVU5OSU5HCm1kZGV2X3VubG9j
-ayhtZGRldikKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBzdG9wX3N5bmNfdGhyZWFkKG1kZGV2LCB0cnVlKQogICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAvKiBzZWVzICFSVU5OSU5HICovCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8qIHdpdGhvdXQgd29ya19idXN5KCk6
-IGVhcmx5CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAqIHJldHVybiwgbm8gZmx1c2hfd29yaygpICovCiAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIF9fbWRfc3RvcCgpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcmFpZF9zZXRfZnJlZSgpCi8qIHN0aWxsIHVzZXMgbWRk
-ZXYgLT4gVUFGICovCgpXaXRoIHdvcmtfYnVzeSgpLCBDUFUxIHNlZXMgc3luY193b3JrIHN0aWxs
-IHJ1bm5pbmcsIHNvIGl0IGRvZXMgbm90IHRha2UKdGhlIGlkbGUgZWFybHktcmV0dXJuOyBpdCBm
-bHVzaGVzIGFuZCB3YWl0cyB1bnRpbCBDUFUwIHJldHVybnMgYmVmb3JlCnRlYXJkb3duLiBMb29r
-aW5nIG9ubHkgYXQgUlVOTklORyBtaXNzZXMgdGhpcyB3aW5kb3cuCgpBcyBmb3IgbWRkZXZfZ2V0
-KCk6IGl0IG9ubHkgcGlucyBtZGRldiB2aWEgbWRkZXYtPmFjdGl2ZSwgc28gaXQgb25seQpibG9j
-a3MgdGhlIG5hdGl2ZSBmcmVlIHBhdGggdGhyb3VnaCBtZGRldl9wdXQoKSAtPiBhY3RpdmUgcmVh
-Y2hlcyAwIC0+Cl9fbWRkZXZfcHV0KCkgLT4gZGVsX3dvcmsuIEl0IGRvZXMgbm90IGNvdmVyIGFs
-bCBmcmVlIHBhdGhzIG9mIG1kZGV2LgoKRm9yIGRtLXJhaWQsIG1kZGV2IGlzIGVtYmVkZGVkIGlu
-IHN0cnVjdCByYWlkX3NldC4gcmFpZF9kdHIoKS9yYWlkX2N0cigpCmVycm9yIHBhdGggY2FsbCBy
-YWlkX3NldF9mcmVlKCksIHdoaWNoIGRvZXMga2ZyZWUocnMpIGFuZCBmcmVlcyB0aGUKZW1iZWRk
-ZWQgbWRkZXYgZGlyZWN0bHkuIFRoYXQgcGF0aCBuZXZlciBsb29rcyBhdCBtZGRldi0+YWN0aXZl
-LCBzbwptZGRldl9nZXQoKSBpbiBtZF9zdGFydF9zeW5jKCkgY2Fubm90IGtlZXAgcnMvbWRkZXYg
-YWxpdmUgYWNyb3NzCnJhaWRfc2V0X2ZyZWUoKS4KCj4+ICAgCQlpZiAoIWxvY2tlZCkKPj4gICAJ
-CQltZGRldl91bmxvY2sobWRkZXYpOwo+PiAgIAkJcmV0dXJuOwo+PiBAQCAtNTE5MiwxNCArNTE5
-OSwyMCBAQCBzdGF0aWMgdm9pZCBzdG9wX3N5bmNfdGhyZWFkKHN0cnVjdCBtZGRldiAqbWRkZXYs
-IGJvb2wgbG9ja2VkKQo+PiAgIAo+PiAgIAltZGRldl91bmxvY2sobWRkZXYpOwo+PiAgIAo+PiAt
-CXNldF9iaXQoTURfUkVDT1ZFUllfSU5UUiwgJm1kZGV2LT5yZWNvdmVyeSk7Cj4+ICsJaWYgKHRl
-c3RfYml0KE1EX1JFQ09WRVJZX1JVTk5JTkcsICZtZGRldi0+cmVjb3ZlcnkpKSB7Cj4+ICsJCXNl
-dF9iaXQoTURfUkVDT1ZFUllfSU5UUiwgJm1kZGV2LT5yZWNvdmVyeSk7Cj4+ICsJCS8qCj4+ICsJ
-CSAqIFRocmVhZCBtaWdodCBiZSBibG9ja2VkIHdhaXRpbmcgZm9yIG1ldGFkYXRhIHVwZGF0ZSB3
-aGljaAo+PiArCQkgKiB3aWxsIG5vdyBuZXZlciBoYXBwZW4KPj4gKwkJICovCj4+ICsJCW1kX3dh
-a2V1cF90aHJlYWRfZGlyZWN0bHkoJm1kZGV2LT5zeW5jX3RocmVhZCk7Cj4+ICsJfQo+PiAgIAkv
-Kgo+PiAtCSAqIFRocmVhZCBtaWdodCBiZSBibG9ja2VkIHdhaXRpbmcgZm9yIG1ldGFkYXRhIHVw
-ZGF0ZSB3aGljaCB3aWxsIG5vdwo+PiAtCSAqIG5ldmVyIGhhcHBlbgo+PiArCSAqIG1kX3N0YXJ0
-X3N5bmMoKSBtYXkgc3RpbGwgdXNlIG1kZGV2IGFmdGVyIHVubG9ja2luZy4gQWx3YXlzCj4+ICsJ
-ICogZmx1c2ggc28gdGVhcmRvd24gd2FpdHMgZm9yIHRoYXQgd29yayB0byByZXR1cm47IGNoZWNr
-aW5nCj4+ICsJICogd29ya19wZW5kaW5nKCkgaXMgbm90IGVub3VnaCBvbmNlIHRoZSB3b3JrIGlz
-IHJ1bm5pbmcuCj4+ICAgCSAqLwo+PiAtCW1kX3dha2V1cF90aHJlYWRfZGlyZWN0bHkoJm1kZGV2
-LT5zeW5jX3RocmVhZCk7Cj4+IC0JaWYgKHdvcmtfcGVuZGluZygmbWRkZXYtPnN5bmNfd29yaykp
-Cj4KPndvcmtfcGVuZGluZygpIGlzIG5vdCBjb3JyZWN0IGluIHRoZSBmaXJzdCBwbGFjZSwgSSB0
-aGluayB0aGlzIHNob3VsZCBiZSBhIHNlcGFyYXRlCj5wYXRjaCB0byByZXBsYWNlIGl0IHdpdGgg
-d29ya19idXN5KCkuCj4KCkFncmVlZCwgSSB3aWxsIHNwbGl0IHRoZW0gaW4gdGhlIG5leHQgdmVy
-c2lvbi4KClRoYW5rcywKTGkgWW91aG9uZwoKPj4gLQkJZmx1c2hfd29yaygmbWRkZXYtPnN5bmNf
-d29yayk7Cj4+ICsJZmx1c2hfd29yaygmbWRkZXYtPnN5bmNfd29yayk7Cj4+ICAgCj4+ICAgCXdh
-aXRfZXZlbnQocmVzeW5jX3dhaXQsCj4+ICAgCQkgICAhdGVzdF9iaXQoTURfUkVDT1ZFUllfUlVO
-TklORywgJm1kZGV2LT5yZWNvdmVyeSkgfHwKPj4gQEAgLTcxMDEsNiArNzExNCwxNCBAQCB2b2lk
-IG1kX3N0b3Aoc3RydWN0IG1kZGV2ICptZGRldikKPj4gICB7Cj4+ICAgCWxvY2tkZXBfYXNzZXJ0
-X2hlbGQoJm1kZGV2LT5yZWNvbmZpZ19tdXRleCk7Cj4+ICAgCj4+ICsJLyoKPj4gKwkgKiBtZF9j
-aGVja19yZWNvdmVyeSgpIG1heSBoYXZlIHF1ZXVlZCBzeW5jX3dvcms7IHRoYXQgd29yayBhY2Nl
-c3Nlcwo+PiArCSAqIHBlcnMuIFdhaXQgZm9yIGl0IGhlcmUgYmVmb3JlIF9fbWRfc3RvcCgpIGNs
-ZWFycyBwZXJzLCBhcwo+PiArCSAqIGRvX21kX3N0b3AoKS9tZF9zdG9wX3dyaXRlcygpIGRvLgo+
-PiArCSAqLwo+PiArCXNldF9iaXQoTURfUkVDT1ZFUllfRlJPWkVOLCAmbWRkZXYtPnJlY292ZXJ5
-KTsKPj4gKwlzdG9wX3N5bmNfdGhyZWFkKG1kZGV2LCB0cnVlKTsKPj4gKwo+PiAgIAkvKiBzdG9w
-IHRoZSBhcnJheSBhbmQgZnJlZSBhbiBhdHRhY2hlZCBkYXRhIHN0cnVjdHVyZXMuCj4+ICAgCSAq
-IFRoaXMgaXMgY2FsbGVkIGZyb20gZG0tcmFpZAo+PiAgIAkgKi8KPj4gQEAgLTEwNDk0LDkgKzEw
-NTE1LDExIEBAIHZvaWQgbWRfY2hlY2tfcmVjb3Zlcnkoc3RydWN0IG1kZGV2ICptZGRldikKPj4g
-ICAKPj4gICAJCQkvKgo+PiAgIAkJCSAqIExldCBtZF9zdGFydF9zeW5jKCkgdG8gcmVtb3ZlIGFu
-ZCBhZGQgcmRldnMgdG8gdGhlCj4+IC0JCQkgKiBhcnJheS4KPj4gKwkJCSAqIGFycmF5LiBIb25v
-dXIgTURfUkVDT1ZFUllfRlJPWkVOIGxpa2UgdGhlIHJlYWQtd3JpdGUKPj4gKwkJCSAqIHBhdGgg
-c28gZnJlZXplL3N0b3AgZG9lcyBub3QgcmFjZSB3aXRoIGEgbmV3IHF1ZXVlLgo+PiAgIAkJCSAq
-Lwo+PiAtCQkJaWYgKG1kX3NwYXJlc19uZWVkX2NoYW5nZShtZGRldikpIHsKPj4gKwkJCWlmICht
-ZF9zcGFyZXNfbmVlZF9jaGFuZ2UobWRkZXYpICYmCj4+ICsJCQkgICAgIXRlc3RfYml0KE1EX1JF
-Q09WRVJZX0ZST1pFTiwgJm1kZGV2LT5yZWNvdmVyeSkpIHsKPj4gICAJCQkJc2V0X2JpdChNRF9S
-RUNPVkVSWV9SVU5OSU5HLCAmbWRkZXYtPnJlY292ZXJ5KTsKPj4gICAJCQkJcXVldWVfd29yayht
-ZF9taXNjX3dxLCAmbWRkZXYtPnN5bmNfd29yayk7Cj4+ICAgCQkJfQo+Cj4tLSAKPlRoYW5rcywK
-Pkt1YWkK
+Since commit 56651128e2fb ("MIPS: Fix idle VS timer enqueue"),
+BUILD_SKIPOVER_PROLOGUE uses label differences as the immediates of ORI
+and PTR_ADDIU. The LLVM integrated assembler accepts such an immediate
+only from LLVM 21 on, so LLVM=1 builds of every MIPS configuration fail
+with LLVM 17 to 20 unless LLVM_IAS=0 is set:
+
+  <instantiation>:7:11: error: expected an immediate
+   ori $26, r4k_wait_idle_size - 2
+            ^
+  <instantiation>:10:14: error: expected an immediate
+    addiu $26, r4k_wait_exit - r4k_wait_insn + 2
+               ^
+
+Wrap both expressions in %lo(). For that operator, LLVM 17 to 20
+emit a LO16 fixup instead of rejecting the operand, and resolve it when
+writing the object, since both expressions are constants by then; no
+relocation is left. Both values are between 2 and 30, so %lo() does
+not change them. GNU as and LLVM 21 to 23 emit the same code as
+before, except on microMIPS, where GNU as now uses the 32-bit ADDIU in
+the delay slot instead of the 16-bit one. With GCC, the 2 extra bytes
+replace the 16-bit NOP that padded the end of the prologue, so all
+symbols keep their addresses; with Clang and LLVM_IAS=0, except_vec_vi
+and the code after it, up to nmi_handler, move by 4 bytes.
+
+Fixes: 56651128e2fb ("MIPS: Fix idle VS timer enqueue")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202505071331.Z0N2eSkr-lkp@intel.com/
+Link: https://github.com/llvm/llvm-project/commit/b65e0947cade9bd39036a7700b54c1df4ec00756
+Cc: stable@vger.kernel.org # 6.6.x: 56651128e2fb: MIPS: Fix idle VS timer enqueue
+Cc: stable@vger.kernel.org # 6.6.x: b713f27e32d8: MIPS: Move r4k_wait() to .cpuidle.text section
+Cc: stable@vger.kernel.org # 6.6.x: 2b6d718c8dbe: MIPS: Fix whitespace damage in r4k_wait from VS timer fix
+Cc: stable@vger.kernel.org # 6.6.x
+Signed-off-by: Tzu-Ching Yang <shingekinocore@gmail.com>
+---
+v2: only the stable tags change; the code and the rest of the changelog
+are those of v1 [v1]. The tags now start at 6.6.x and name the two
+prerequisites Maciej suggested [review] plus b713f27e32d8.
+
+What each stable series has today, and what it will get with the tags:
+
+  series  56651128e2fb  b713f27e32d8  2b6d718c8dbe  will get
+  ------  ------------  ------------  ------------  --------------------
+  7.3.y   yes           yes           yes           this patch
+  6.18.y  yes           yes           no            2b6d718c8dbe + this
+  6.12.y  no            no            no            all three + this (a)
+  6.6.y   no            no            no            all three + this (a)
+  6.1.y   no            no            no            nothing (b)
+
+(a) On 6.12.118 and 6.6.162 the three cherry-picks and this patch apply
+    cleanly. For malta_defconfig, genex.o builds with GCC 8.1 and 16.2
+    and with LLVM 13.0.1, 17.0.1 and 21.1.8 (6.6.162: also 11.1.0),
+    and kernels built with GCC 16.2 and LLVM 17.0.1 boot under QEMU.
+    56651128e2fb needs b713f27e32d8: without it, all the code after
+    r4k_wait in genex.S is placed in .init.text. Both were queued for
+    6.12 and 6.6 in 2025 and dropped because of the build failure
+    fixed here ([1] below).
+(b) 56651128e2fb conflicts in idle.c on 6.1.y and older.
+
+[v1] https://lore.kernel.org/r/20261104030147.3117325-1-shingekinocore@gmail.com/
+[review] https://lore.kernel.org/r/alpine.DEB.2.21.2611040746160.6502@angie.orcam.me.uk/
+
+The notes of v1, unchanged:
+
+> No MIPS hardware here. Against mips-fixes (v7.4-rc1). All builds use
+> W=1 and kernel.org toolchains.
+>
+> - genex.o, before and after, with GCC 8.1 to 16.2 and with LLVM 17 to
+>   23, both with the integrated assembler and with LLVM_IAS=0. Configs:
+>   64r6el, 32r6el, 64r2el, 32r2el, eyeq5, eyeq6, malta (little and big
+>   endian, MIPS32r1, microMIPS little and big endian), ip22, ip27,
+>   loongson3 and cavium_octeon.
+>   - The objects are byte-identical before and after with GCC, with
+>     LLVM_IAS=0 and with LLVM 21 to 23. The only exception is the
+>     microMIPS ADDIU above. The 4-byte move with LLVM_IAS=0 is harmless:
+>     set_vi_handler() computes the offsets and the length of the vectored
+>     handler from symbols before copying it, and ejtag_debug_handler and
+>     nmi_handler are only referenced through their symbols.
+>   - LLVM 17 to 20 now assemble genex.o for all of these configs except
+>     microMIPS and Octeon, which the integrated assembler rejects for
+>     other reasons. For malta (little and big endian, MIPS32r1), ip22
+>     and ip27, these objects are byte-identical to the LLVM 21 genex.o.
+> - vmlinux of 64r2el, 32r2el and malta, built with GCC 8.1 and 16.2,
+>   LLVM 17, 20, 21 and 23, and LLVM 17 with LLVM_IAS=0. Where both sides
+>   build, vmlinux is byte-identical before and after. With LLVM 17 and
+>   20, genex.o was the only object that failed before, and vmlinux links
+>   after. No new warnings.
+> - The malta kernels built with GCC 8.1 and 16.2, LLVM 17, 20 and 23, and
+>   LLVM 17 with LLVM_IAS=0 boot under QEMU 6.2 -cpu 24Kf. That CPU uses
+>   r4k_wait(), so interrupts go through skipover_handle_int. Each kernel
+>   boots to an init that keeps the CPU going in and out of idle and then
+>   reboots; a QEMU trace shows every interrupt that lands in the idle
+>   region resuming at r4k_wait_exit. A microMIPS kernel does not boot
+>   under QEMU -cpu M14Kc with or without this patch, so the microMIPS
+>   change was not run.
+>
+> In the 2025 thread [2], Nathan suggested requiring LLVM 21 for MIPS in
+> min-tool-version.sh, and Maciej an #error for older Clang. Both would
+> also stop LLVM 17 to 20 builds with LLVM_IAS=0, which work today, and
+> the stable trees would need the same change before 56651128e2fb could
+> go back to them.
+>
+> On 6.18.y, which also allows LLVM 15 and 16, the patch applies after
+> 2b6d718c8dbe, and LLVM 15 and 16 fail and are fixed the same way.
+>
+> The 56651128e2fb backport was dropped from the 6.14, 6.12 and 6.6
+> stable queues because of this build failure [1], so 6.12.y and 6.6.y
+> still lack that fix.
+>
+> [1] https://lore.kernel.org/r/2025051415-unloader-likely-b0e6@gregkh/
+> [2] https://lore.kernel.org/r/20250521224450.GA2412476@ax162/
+
+ arch/mips/kernel/genex.S | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/mips/kernel/genex.S b/arch/mips/kernel/genex.S
+index be1b049d856f..ef27965f6ad9 100644
+--- a/arch/mips/kernel/genex.S
++++ b/arch/mips/kernel/genex.S
+@@ -146,10 +146,10 @@ r4k_wait_exit:
+ 	MFC0	k0, CP0_EPC
+ 	/* Subtract/add 2 to let the ISA bit propagate through the mask.  */
+ 	PTR_LA	k1, r4k_wait_insn - 2
+-	ori	k0, r4k_wait_idle_size - 2
++	ori	k0, %lo(r4k_wait_idle_size - 2)	/* %lo() for LLVM < 21 */
+ 	.set	noreorder
+ 	bne	k0, k1, \handler
+-	 PTR_ADDIU	k0, r4k_wait_exit - r4k_wait_insn + 2
++	 PTR_ADDIU	k0, %lo(r4k_wait_exit - r4k_wait_insn + 2) /* ditto */
+ 	.set	reorder
+ 	MTC0	k0, CP0_EPC
+ 	.set pop
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.34.1
+
