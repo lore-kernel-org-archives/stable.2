@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795462721;
-	b=CWYF9HeIrWkBVUIjwbkb8IkEtZN14nziO29rNYbMFY/0tCZcnGI7O+6WHCiQmNisYJDf
-	 0BZtTaEs62nBVHSMCbDhGJ9R26v50YLE1WYiKfQXWoNkoE5+kloUQavXgqgxdJI4grapm
-	 I5adrKrXGcI0IOD2SfTOqSa3+LB08mLWBI1nPUQr4u4oJv3+nzJTs/7CXwa4TP81ghMFT
-	 0jCt2z2GiLjsHiYEBI/2/ASq3eNr69H95HPjNhUMhRYGgBZdaNMHZ/+xW2x+hiSk1n6zG
-	 j206dPe7USkK+oriuu9xyVEmFUWDnCTTpBuWQLe6hJsgdBIyFoOetOT0boJkP2G/+eQ==
+	t=1795463144;
+	b=4J49a6MuD+neft/mjlr4nhovmfEakWwdAdwfhiKOdzAt6Y0i6e1jtLl8K56v9Ka/+Dqc
+	 biiiTKF39Nwf0W9Oz2PQajGwD5s3YMZbrwfEqq+HwtQcjiTynjSdnvaPoM2M0rQGOK+/T
+	 DlUrxDk0uvZCEgw67RJwX2mZEggosG+dmrpLetMQVXoxgRc8MuLJHSuMnsFKhqAfW7gZn
+	 CXpIYLU+FBzbWOsWqJDCn/d8wcfsoBZLGALCFWa+/KURi5mTBSfC/Sx5VLuCMPbv/pHkD
+	 Hu/lLbWhfBboFgscEgpbvL+PNfXVUO56t3/Bwvf7kcUktHUo64ypY4ysMPxDPb6OIhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795462721;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795463144;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=0DaLrAjJERB9nEFU7eyItkBxKjBtjK0prxAqaKWShPw=;
-	b=K1Zh4xzK75myUZLt5Z/TIOvoYLPXkKOQx4+qLM0dyXrwG1OZ1zI3S5IklTJruuaUYQA7
-	 5GC9sNhSAC9H3sYlrInu5kMkT755WOvp2eAhtW39YHKaC5iviuzEbKzJDuEkpjLI0XqMb
-	 Cl49exqlo6rXWlfzSdTPBxLM5N7bVeZLmGobBqOp2CPfdz7P3Mms/vFF3nYAukpUOgY3s
-	 aFTyxIcPQMvnYGGWJKzzL+WjHiI4ewQRPAeS98vT8rU8dkUp27gbvi7dBQK8xgWc64/We
-	 jmHjGuMoi63Cl+JuskmoU3R1iffeJlqRxt2/l3RkMqpeksVFgqvdtgJX82BQjVy1M6Q==
+	bh=pD6s92k761c1Ji+Edgu0dOlrKizCHM30TIfkHtFjL/4=;
+	b=5RuocyrLGfx+5zc882H3/gu0TsQlmppcdKV79pOu8PIrd3CNUzXtZFYR/9WmmxH4LG8r
+	 msuWvohbCPXFhWzt21AUlSAfmj/Rz86ChLJpjAzQNS83+vd3sWu/H7iPGEE23JCCdwF2S
+	 YDVnTvACuZqJouaEqkgNoXFjATudAc9kPyXPjqYL3bUqilFBLocFmfpi0AzA0ewmd51vi
+	 6ta3+IQlSMiitZ+mxdYhPwceXUIPItGm/ZUs1N+2a3uHU2UEQY2+I45TDESz2eKhFSozS
+	 mXOBMAXr6D/OsACKkqvovAysN1yvntds1dwpuLw/Zx2OmOjKzLPqDkdM+gUXT6YSd1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsR2Wh+5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJvImX4Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FBB606A692;
-	Mon, 23 Nov 2026 19:38:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC09606A31A;
+	Mon, 23 Nov 2026 19:45:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsR2Wh+5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 019511F000D0;
-	Mon, 23 Nov 2026 19:38:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJvImX4Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 820D21F000C6;
+	Mon, 23 Nov 2026 19:45:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795462720;
-	bh=0DaLrAjJERB9nEFU7eyItkBxKjBtjK0prxAqaKWShPw=;
+	s=k20260515; t=1795463143;
+	bh=pD6s92k761c1Ji+Edgu0dOlrKizCHM30TIfkHtFjL/4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LsR2Wh+5JU4k7rgs/Pxd+WRv7lmJ7zsASZ+wbZcpBeBuS2ShH+1SXGW2ZVCuSv7Za
-	 +m63aZ1smrwrwk/ajOfbjQs3Knr136/sZ9XM7brd+DHdevDn/rONMER1Tk54o0MSM+
-	 ZsBG3yS0AzDvZhImULsg9eFVbw9hddxVBGSYS9TySyA++XoKrQJbMSYPbvO5GgUNWF
-	 ueumWEOw7W9d3EZlZhikorcZqydHztD/F/0K33LA7lBQhZ7k6cdX+0PQMh4oabAFVK
-	 ZOt46kv/GnuUx2JAsIMNV1oLlG002sm3xGPZfKQOYCsSppBkj7dORmhmFL8ROPFF8L
-	 P+FaWNW7Cn2aA==
-Message-ID: <98acd21e-a97e-4299-a206-639ed9fd29d8@kernel.org>
-Date: Mon, 23 Nov 2026 20:38:34 +0100
+	b=kJvImX4Zp2Shrp12IX87KJgXNh6vruJzS2+IdBsJBQxCX+u4DeeB/9tWE+h7aB9fh
+	 nfefktlwJ8uFLFmSBSfZZwW9AQjnjw3xWsf2+d+zwx2MNP/smC0cpGbFf/6+nExeFP
+	 ADiRMC0uXVKynZrTDFhWDThDOuUoTGi4Bn5JNVFkotaTk32iAJkmit98MQCVrcDebL
+	 hvUBydB5yLLvy+cVOtIJKQJLLMwDTxRrKD0OLm8+LMdWtpJKc8fAOgCYrI9grDDxAc
+	 ZGbmn8pqhwoGtBpIMth/Bj5gBOnme1T2NjLuJTQlC38jMpOTUZG/Sffhvq492vFYoD
+	 T7vGRinp3VvGg==
+Message-ID: <89037847-8875-4d8b-a8f3-d77a59aaddea@kernel.org>
+Date: Mon, 23 Nov 2026 20:45:37 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,16 +52,18 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/shmem: don't drop a folio whose swap write failed
-To: mt4022@columbia.edu, Andrew Morton <akpm@linux-foundation.org>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Kairui Song <kasong@tencent.com>
-Cc: Chris Mason <mason@kernel.org>, Chris Li <chrisl@kernel.org>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Youngjun Park <youngjun.park@lge.com>, Tal Zussman <tz2294@columbia.edu>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261123-shmem-swap-write-failed-v1-1-41a0115dfbf1@columbia.edu>
+Subject: Re: [PATCH v2] mm/memory_hotplug: don't offline a hwpoisoned page
+ still in the page cache
+To: Mani Tofigh <mt4022@columbia.edu>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Gregory Price <gourry@gourry.net>,
+ linux-mm@kvack.org, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+ tz2294@columbia.edu, stable@vger.kernel.org
+References: <20261105-memhp-hwpoison-pagecache-v2-1-029d35634d42@columbia.edu>
+ <d4812513-6cfb-4865-8636-b83dd92c23a0@kernel.org>
+ <2e11ba52-b5c6-463e-a5ea-c165ba935704@columbia.edu>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -108,47 +110,49 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261123-shmem-swap-write-failed-v1-1-41a0115dfbf1@columbia.edu>
+In-Reply-To: <2e11ba52-b5c6-463e-a5ea-c165ba935704@columbia.edu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/23/26 18:21, Mani Tofigh via B4 Relay wrote:
-> From: Mani Tofigh <mt4022@columbia.edu>
+On 11/23/26 06:46, Mani Tofigh wrote:
 > 
-> shmem_swapin_folio() drops a large folio that does not fit the mapping
-> from the swap cache if the folio is neither dirty nor under writeback.
-> The folio can belong to another file and be under swap writeback, when
-> the swap entry was freed and reused before the swap cache lookup.
 > 
-> Swap write completion does not take the folio lock.  On a failed write,
-> swap_write_end() marks the folio dirty and then ends writeback.  Since
-> dirty is tested first, the folio can look clean and written:
+> On 11/6/26 3:58 PM, David Hildenbrand (Arm) wrote:
+>> I didn't understand why just checking for the refcount is not sufficient. Can
+>> you elaborate once more (and please not send a new revision before the
+>> discussion is over).
+>>
+>> Memory poisoning must grab a reference when setting the folio hwpoison. Any
+>> other reference (pin, pagecache, swapcache, mapping) keeps it alive.
+>>
+>> Why can't we build on and?
 > 
->   CPU0 (swapin of file Y)             CPU1 (swapout of file X)
->   -----------------------             ------------------------
->   shmem_swapin_folio()
->     folio_test_dirty() == false
->                                       swap_write_end(), failed write
->                                         folio_mark_dirty()
->                                         folio_end_writeback()
->     folio_test_writeback() == false
->     swap_cache_del_folio()
->     /* X's data is lost */
 > 
-> The next swapin of X reads the slot whose write failed.
+> Right, but memory_failure() doesn't always hold that reference. It i)
+> sets the flag before get_hwpoison_page() grabs it, which waits on
+> pcp_batch_high_lock that offline_pages() holds, and ii) gives up with 
+> the flag set and no reference when get_hwpoison_page() fails (e.g.,
+> a pagecache folio briefly off the LRU). In both cases the pagecache
+> holds the only reference, so offline can't tell it apart from a
+> page memory_failure() already handled.
 > 
-> Test writeback first.  Both flags are in folio->flags.  If the
-> writeback test sees the write ended, the dirty test then sees the dirty
-> bit set before it.
-> 
-> With the fix, a folio whose swap write failed stays in the swap cache.
-> 
-> Fixes: fc2c19648d68 ("mm/shmem: fix swapin livelock on a mismatched large swap cache folio")
-> Suggested-by: Chris Mason <mason@kernel.org>
+> So I think if we move zone_pcp_disable() in memory_failure() before
+> setting the flag and keep the reference when it gives up, offline could
+> simply treat any poisoned page with refcount > 1 as busy. That'd cover
+> pins too. What do you think?
 
-Nest to make that a Reported-by:
+We'll have to find a way to make that reliable. Everything else is just hacking
+around it.
 
-I'll wait a bit before I pick that up. But it will be a v7.4 hotfix.
+Why can we block concurrent offlining through get_online_mems/put_online_mems?
+But I hate these functions.
+
+Or alternatively (better?), have a memory notifier that block concurrent
+memory_failure() by grabbing the mf_mutex when MEM_GOING_OFFLINE and releasing
+it when MEM_CANCEL_OFFLINE/MEM_OFFLINE.
+
+Needs some thought, but if the problem is that these two mechanisms don't
+interact well concurrently, then we should make them mutually exclusive.
 
 -- 
 Cheers,
