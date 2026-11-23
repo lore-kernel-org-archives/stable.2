@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795447051;
-	b=Syd/SKnOb7Dv2MDpPMc/Ni9FRCehq4tUI6UAO1X9hdDgtzZwlrTLNrNoNYEPYDEQHQWg
-	 Alf2bfLcAbhlEIbYBeUZ5JNlqz1mh4/u5mHiFW9qZe3OfGeJ6Xx1rFK+/bQmfS23Sx4vw
-	 CQklzBRSB1Dvb9kiYjYzeqTwbHEDi3Pvq11JsaSki5/Ke/iSWFsl7j8gs1FGN3hP4ojrS
-	 ym8qeWC0BihUBbnULHavgz+xawdJey//Upe7MpqtxQXsCzJu2MSep43Q7gyfjdIbrhiCz
-	 Tnvwc3QRgLZbXgP6vY5wdUyn3dqoFItsc0jbh45rUQFQ8L4sdVgvVEosP+rkQULOTjg==
+	t=1795447499;
+	b=wpNTbPct4ryPuwLvZoBb501D46zzX8zMH7x1caSTOZ3VgpLQ/VdVJA4XbMFJ203fqJMx
+	 yXG8VJGMzMjoyVyI/W8NhzYGUVRlb4UCW5RncYIs8CsgkMwmpnk6Xy6hiRk0evq+rtYA/
+	 TUUaDYIoA/EjuCgcc3Yq0kF/EWoElRO5usyHDW3JQv90ZxTvV3G0i55wka+r69weY4Arw
+	 C9RznWVmhbn56a+y9eoy1DSZhwtgh2s3sUWLM55p2WDsQxrVe7LUbPoDyGvJC6FCpbzax
+	 LStNPKRvy8L6fbRPA/jQ35f7kn/xYEMSF/YYG+SKf/Vyt7OIe0Zwu7OcysnbrXMooiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795447051;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=C5aNcu3GvO5Up90upPaZCZkJZOPRV9A3kJARFId0yVk=;
-	b=ii7cpf6BZZ2FNd2MKAbtkxFvc/TZ2Gvh3KEnvPeL7TW9pbf9Cs/VY8Tyn4jrdEAiurN1
-	 072yxiDxwsWCZRyY4FBSFdsBHX7hfHX0TtyvhI/zt5/w3NAykyKC6E922GYjIGW1fvodI
-	 RXgGRABDBCiNLvnzF8rCwFd0T8xzugsDqavZYuY+6PoIQxtxPon9wwE4zzcpKbmYx/w8X
-	 isnCtOeDnhCukRUWAwKy+V5uby71JscXi8MBcnhCAvyR5+kVt1pPrwZspGSVyxvTzsdqp
-	 vEbzHspcmRbF1YA7xtIBHwGZSB8osZwq6bbyeHr5dG0y7z9dNQXNDUej0HHEW/41HJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795447499;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hU6lCuXcSGRGPK5UfUxs40iBp8ye+14Obren8ukXLbQ=;
+	b=g3v5K2z8DSrKbbyNnq9J7fey8oJY+5uloTUH4b7g+TN3dwli/54bxsvo2zMAQH/5/x7k
+	 eNh62824RIj05mA8Zl5aJ+qyBcgsFLjIpcpMCydb5n4sy92/BOiIV6d6XqMuGhPQEzOb6
+	 Ttu+8+Hsuj/8vHbIieBTquohZSwJX6NtnTbNot6Ewd4UWDZ0f0kIgpUd0zJYZkS9ChhNd
+	 n6B26Y9a6I/z8sJND5X9St4LqBi0b0uSTIy8Dq/4k3BSJoZZ6X7Xs3B8qVR4QBZihYC4u
+	 Xt1nckWevaDB9Gz+QvZ7Pk/DzAB8LoOt8ZsJRmseWC5MQjVlpBaBqY2aR66mvjDGcSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bry6XqTM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gxVQky7b;
+	arc=none smtp.remote-ip=91.218.175.125
+Received: from mta0.migadu.com (out-125.mta0.migadu.com [91.218.175.125])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FEEF606A31E;
-	Mon, 23 Nov 2026 15:17:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F0A606A321
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:24:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89F0A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bry6XqTM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AE371F000D0;
-	Mon, 23 Nov 2026 15:17:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795447050;
-	bh=C5aNcu3GvO5Up90upPaZCZkJZOPRV9A3kJARFId0yVk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bry6XqTMoBjePbT3l51cOq64wABJspYaYwOmelefOaG7NaZp91VnjTHeaJcw/eQ0t
-	 gok3vzSyO36oFHeY/jb9eXfW2u1q5c6BmL994MbmYK14E4tX0/59Jh3GoZca8YfVj9
-	 Ls5ZQHdQRaEvhwjzXrCmSr4Jy4r8yJFo5MPKoHqhcrGTijUO5ElPq+Y8SJTZTr4Wjy
-	 OToWzwyDRHj38hopu+dTUjnchM1bZB+XadQeI7T4KGI0oY8lkP97Suiu2XJMG2NqgG
-	 lDtT2muHd5qmyAc4d5paPL3PlbM4ytwvoWCoXEFd9GgupuwYq+yL6zNjKj3eCapHzC
-	 h+q2e1XlrW2rQ==
-Date: Mon, 23 Nov 2026 09:17:26 -0600
-From: "Serge Hallyn (AMD)" <sergeh@kernel.org>
-To: Kim Phillips <kim.phillips@amd.com>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>,
-	Rijo Thomas <Rijo-john.Thomas@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] crypto: ccp - unwind PSP sub-devices on partial
- psp_init() failure
-Message-ID: <awRZBnEZxx-PTtT6@shallyn-amd>
-References: <20261116203622.615371-1-kim.phillips@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gxVQky7b
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=w69mSWUbKNyFWa5SNC3RxlJB/92Ei48ZvSabQKErQrw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795447496; v=1; x=1796052296;
+ b=gxVQky7b5fSMJm4NdKilc59dIzzYJ23qDvX9Wrracg+DlP59zBVhhO+3mJxI9IaogZn2kkBD
+ AtNE2O+iCrEDnMPsMTFsADCISIsKjyDg67ebJtOjaqQet9NzzLvyHp/EtRa9nPuLjjBlny1V/Ae
+ 794v+b6BRbrWBGqsB+tkAE8A=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1060c7766cc6e36e;
+	Mon, 23 Nov 2026 15:24:56 +0000
+X-Mizu-Trace-ID: 1060c7766cc6e36e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b43ca10b-6ef5-4114-8d9b-cb1eafa22765@linux.dev>
+Date: Mon, 23 Nov 2026 16:24:51 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,109 +58,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116203622.615371-1-kim.phillips@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v6 2/4] net: dsa: rzn1-a5psw: Fix VLANTransmitted
+ counter offset
+To: Prabhakar <prabhakar.csengg@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+ Ralph Siemsen <ralph.siemsen@linaro.org>, linux-renesas-soc@vger.kernel.org,
+ netdev@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ stable@vger.kernel.org
+References: <20261123130852.3420491-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261123130852.3420491-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Language: en-US
+From: Clement Leger <clement.leger@linux.dev>
+In-Reply-To: <20261123130852.3420491-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 02:36:22PM -0600, Kim Phillips wrote:
-> psp_init() initializes sub-devices sequentially but returns immediately
-> on the first failure, leaving earlier sub-devices registered. Its caller
-> psp_dev_init() then sets sp->psp_data = NULL, so the later
-> psp_dev_destroy() on unbind bails out early and never unregisters them.
+
+
+On 11/23/26 14:08, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > 
-> Non-devm resources such as the /dev/sev and /dev/dbc character devices
-> stay globally visible while their devm-allocated backing structures are
-> freed by the driver core, giving a use-after-free if userspace opens the
-> orphaned device.
+> The RZ/N1 hardware manual places the VLANTransmittedOK counter at
+> offset 0x8f4, not 0x8ec. Correct the register offset so the driver
+> reads the counter from the right location.
 > 
-> Add reverse-order unwind labels to psp_init() so each sub-device is torn
-> down before the error is propagated. Every *_dev_destroy() is already
-> NULL-guarded on its own psp->*_data pointer, so skipped or unreached
-> sub-devices are no-ops.
-> 
-> sp_init() continues to ignore the psp_dev_init() return value on
-> purpose: a PSP failure must not fail the probe, as the CCP can still
-> initialize successfully.
-> 
-> Fixes: 33960acccfbd ("crypto: ccp - add TEE support for Raven Ridge")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/bug/linux-0de87f0c-0f5a-4dad-8ef1-f49844eb4cce
-> Cc: Tom Lendacky <thomas.lendacky@amd.com>
-> Cc: Rijo Thomas <Rijo-john.Thomas@amd.com>
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Fixes: c7243fd4a62f ("net: dsa: rzn1-a5psw: add statistics support")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Kim Phillips <kim.phillips@amd.com>
-
-All looks good, thanks.
-
-Reviewed-by: Serge Hallyn (AMD) <sergeh@kernel.org>
-
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > ---
-> v1: https://lore.kernel.org/linux-crypto/20261021215716.1076732-1-kim.phillips@amd.com/
+> v6:
+>    - No changes from v5
+> v5: https://lore.kernel.org/all/20261120002549.1908299-10-prabhakar.mahadev-lad.rj@bp.renesas.com/
+> ---
+>   drivers/net/dsa/rzn1_a5psw.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
->  drivers/crypto/ccp/psp-dev.c | 23 ++++++++++++++++++-----
->  1 file changed, 18 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/crypto/ccp/psp-dev.c b/drivers/crypto/ccp/psp-dev.c
-> index b14ce51065d5..3d9341c2876d 100644
-> --- a/drivers/crypto/ccp/psp-dev.c
-> +++ b/drivers/crypto/ccp/psp-dev.c
-> @@ -207,19 +207,19 @@ static int psp_init(struct psp_device *psp)
->  	if (!psp_check_tee_support(psp)) {
->  		ret = tee_dev_init(psp);
->  		if (ret)
-> -			return ret;
-> +			goto e_sev;
->  	}
->  
->  	if (!psp_check_sfs_support(psp)) {
->  		ret = sfs_dev_init(psp);
->  		if (ret)
-> -			return ret;
-> +			goto e_tee;
->  	}
->  
->  	if (psp->vdata->platform_access) {
->  		ret = platform_access_dev_init(psp);
->  		if (ret)
-> -			return ret;
-> +			goto e_sfs;
->  	}
->  
->  	/* dbc must come after platform access as it tests the feature */
-> @@ -227,15 +227,28 @@ static int psp_init(struct psp_device *psp)
->  	    psp->capability.dbc_thru_ext) {
->  		ret = dbc_dev_init(psp);
->  		if (ret)
-> -			return ret;
-> +			goto e_platform_access;
->  	}
->  
->  	/* HSTI uses platform access on some systems. */
->  	ret = psp_init_hsti(psp);
->  	if (ret)
-> -		return ret;
-> +		goto e_dbc;
->  
->  	return 0;
-> +
-> +e_dbc:
-> +	dbc_dev_destroy(psp);
-> +e_platform_access:
-> +	platform_access_dev_destroy(psp);
-> +e_sfs:
-> +	sfs_dev_destroy(psp);
-> +e_tee:
-> +	tee_dev_destroy(psp);
-> +e_sev:
-> +	sev_dev_destroy(psp);
-> +
-> +	return ret;
->  }
->  
->  int psp_dev_init(struct sp_device *sp)
-> 
-> base-commit: 26ca5f34841f0a86d0883664a1c13be89a01d351
-> -- 
-> 2.43.0
-> 
+> diff --git a/drivers/net/dsa/rzn1_a5psw.h b/drivers/net/dsa/rzn1_a5psw.h
+> index d54acedac194..9693f8503b0b 100644
+> --- a/drivers/net/dsa/rzn1_a5psw.h
+> +++ b/drivers/net/dsa/rzn1_a5psw.h
+> @@ -185,7 +185,7 @@
+>   #define A5PSW_etherStatsFragments		0x8E0
+>   
+>   #define A5PSW_VLANReceived			0x8E8
+> -#define A5PSW_VLANTransmitted			0x8EC
+> +#define A5PSW_VLANTransmitted			0x8F4
+>   
+>   #define A5PSW_aDeferred				0x910
+>   #define A5PSW_aMultipleCollisions		0x914
+
+Hi Prabhakar,
+
+Reviewed-by: Clément Léger <clement.leger@linux.dev>
+
+Thanks,
+
+Clément
