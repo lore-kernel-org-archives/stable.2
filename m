@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795453512;
-	b=vF+VcNCJQ/VHPj8CM4F+9Ek0TEZo8ptuNlKmxHSUsTIcA47iP5hEP8NPUfp3zwSX4Cdx
-	 HdyBppD+dKmyG558O5rOzj1lC6oOFhvTND/S+6wYjB4kYKBw8V6paTS+ePtje/Z+U9wpv
-	 ZwrO96IJ57GtrDjik+mOoFvQuYaWO13Imr1chj1KqJ1CQYRDgZiJag/1WTsjFTu9QFXNf
-	 +XAxW5bYfS7nNIQZOZFbrDHW1GbU+/bT5NWNcHtvPAGUS9O8A3CRgArOkH12RiJHqs/WI
-	 lpVW8bZusWRMHoinpQTInqFtJmw3bAotIMMnWk//ItH1zXy+CwEp7u9WkiZZBXswFIw==
+	t=1795453670;
+	b=eqUqfTwBl1XfzNjrVqWhRcvCx9uTwYvrfgFERyxjIznYJLnJiZDOQdI4EzEK8Ti5ZA19
+	 2FMgKtngV+tG2QSXFsP2+g0u2IiTNvdfdspY0UxlqQLVskZuS4kTTBEuxauYLckOHJiDv
+	 Jl+NM/yFZoU+JkSpcYjm6Wj0iPqv0yINFzbW3/oVeSgRN364qRvIC+wMafA4Ibhh+z/LP
+	 QQ/fVVjvNulS272VNGnNUFJHxo3T6vqQuaewqsCVLTT/5UuVbu8p77vyZRXFVa4ZnVrNp
+	 FRkXtH7MpyAr0Pr6Dc1Epf3EVGTv4a5z4zTsycaybFonNbgb5Q2HkDd4DJtE8jKLlmA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795453512;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795453670;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=gIo6r+IlTGcpmO+YqtWN+p8Vb41yHG75b/8fYfmBgxI=;
-	b=RZE+tbQ6P2JWfhgUF5TyZXzFkNWZlye0WoUi2cqNwGdC8AZxL14jaJuMp6fM7Hg+WcE4
-	 mBEHgACtUAKyGmKuV3GCTCDwOfxXQB4fYOpeKx73wkqGfWS6gYJni2me+Ey9jgCf3jcxk
-	 PCNQAM+n4Ry8lU6H45z0z3PPESQrOtNbdL7j0v8S5BtUg35+LQ8vhiwLkiBTjgSce6IID
-	 /5f5Yqci1VzM/n7JFLJrRlgKN3EPnq+MGrdt0rR2n7MrhKk9V73bwpucFf+TDSxKaxqTe
-	 mFAYfMBOmbCFhvUzbHTqZp7Ag+hZLtwF5XxxwLzi3UpF0MNGAUeWOtUUpIh2LqXQEVg==
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=+xaIvYw9qB8U9m5yBZTbNli0aV2ssc6MRhHdFn2AjAQ=;
+	b=wPwWD9wMZ4372c0e3aEL2kGy9WkoA30x1OQfmh3kSCyk7yVHdyb1MgTTH8eoHgzUtZOF
+	 LZ8g9OzEy+wS5TaUU0/sMbZLN6K+R6dTKK/18miaUZ4hvBz4LPFKHMsQHYEqS+I43ic8m
+	 0rymfJODn9t1DvM/r/rLW/ZY8ipypOh2vBaB6l5+nK5XGWpCeNRoN1IH8B20G2Io/UAwa
+	 eQIJdhqltFkhVffzEDB77O+P7mCc92V9kF8DEy8klk4mNqavLr1ZxOxAZ+yGfOPfVB/zp
+	 6sghz5Ym8vyqxcYbWC8ZP/Q5g+puObLzkAznaZ3iN8SXCicMNEcQdHGAEb54i1K9nHA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="wsz3TOv/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bJJCiYt0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED24E606A31F
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 17:05:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED24E606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6AA606A32A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 17:07:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E6AA606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wsz3TOv/
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4acb44dcd7bso2941137f8f.0
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:05:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795453510; cv=none;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bJJCiYt0
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b894d9a075so3855973a12.2
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:07:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795453668; cv=none;
         d=google.com; s=arc-20260327;
-        b=Q5fJXHOtXHrzPxt1zgx4yOZP4UXi17bEvzYeYT+AMkSelSS4c5psSFDAV5dPPqnK4z
-         CsuKn4QrquxgK+16E8vyS08PbYgwYae5qPuRsBJINoYHuSRDdgFlSKKUQNBGcMcl05Ew
-         k/ga4bwQ7Jn8UDUF/Z7fF7Cn/QIs0jZNT2I4tqah2C18S0e6QGvk6ht5BblJOvOwBEPh
-         cITlZY+weZnFHdfdPYbkO+xAS3cli9DQ/LDkVMsvECA5heauXEusPctjHtF5amqxNgI6
-         m1BlQry21OoJEXKWmxk0ShyVeE8XgSG3yKYDNU5N2JUe1srk5MpnLX/UNysz3+xSdZdl
-         yGhA==
+        b=Y/aLiGMof+AYRHhcdaYmZqmnRYUHBKiWAHA7+uGhwaZXrDOarXA32T6szo2q0HhJ0W
+         n19ujXIg6WpH9b/h2FBsE+IxsDEba0/1jp1czWZCOvMJAg9TNVmWkfrKgNBPsnZBcANy
+         NujgisPT7lvRDDM8xCwom3/8QAZirKRQO1yGzPmu/vrR+VnnC9ocrESaQicy+PzbfH0j
+         vcHLazxoU7ErntXZnWsLxUIcFMb2mmdM0NsJasHOhRJuNx85F/N+K5USTShV30DVcCgD
+         mxzvb4ksi23+odcQwynotbySJ55bCf87NGbxowGzwN2de0Ma2B7cKdRM2kk33b0DULt/
+         Rp5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gIo6r+IlTGcpmO+YqtWN+p8Vb41yHG75b/8fYfmBgxI=;
-        fh=JK+MawPfHh11EwYfZuoxH3o+fWFvdZoYh7h2Z4xwZgE=;
-        b=ZwycBsg83wwQrtAUOo3+P4R99qRAR1gNbW3MTQl+iIezg8Z3E+MpIdcv/MQmZXqh2J
-         nxHV+AtAgtIB1y+gtV81vppI/984jZ981hxyFlMa67bo0wz5Ttr4n/q/BSvguvJM8yeu
-         PBT+MPAMq2UZqqWJy/p7IfI2E4GLsdzb5Juoz5vCRddCmIXHVsVOQ4wiv98qvs+sGAYs
-         cUNKpLUi6QpAWIe/FFk32kcWEiipuUDyY80RtDSSXHam9fEYLsR8QF3gGowynrhLXcwX
-         tfoMELWxEHC+weA8jCK6PCMWXfBbC8MUByIM3tikWdor43s/bPbz4Vf9x0ptfAgYp72X
-         AAGA==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=+xaIvYw9qB8U9m5yBZTbNli0aV2ssc6MRhHdFn2AjAQ=;
+        fh=MZFMftiRbjMmONQmWtw7zoy4V1YpXYdu5EubRouXUyI=;
+        b=HrYD+OpTsKUMhlpP/spjB7YDFvEP8lZVGfqvTNWw34qiC5aTJHbCimJ60uD8txSJK9
+         OCADuT8ikkx2J+AzlrbTFe3FsBrd3rC95o9lNAty2/GcTX58fwlaXCH/7NPOXoitdWnq
+         5ycXEjiS4DOylQjLYIEAwLbNEobxKrT1BCK/Rqo707I/FkSOyQthTU7ADc4FXDwX5xjE
+         w49bspuSk2QQmkpqJnMijHbKHOehz1QFlbJxzzANqL8WNjYGDV2Wbf+cn1E3nFwrc9yL
+         cCnbIGOqZpsJe6LTRtr25ySjCp9Lvl6kBgUg6/IWH25SPdUqcFWcNoOa3uB0M3W2d4qQ
+         mbXQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795453510; x=1796058310; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gIo6r+IlTGcpmO+YqtWN+p8Vb41yHG75b/8fYfmBgxI=;
-        b=wsz3TOv/BRrOlNOqNq2C5+FRN80XKknBMidIRbfRskX9JSGNoXG/mNuJTBX5K6EIFG
-         g9eVLPoJ8mELRNE/GKy6Pso04j85619UVhw7YBP53tnBRwKxsIGRmC/lskHHH5Titjpj
-         KoV/boaaJ0jXAwGCtZXwq1IC16XuyQU4dAheztk6O+y1ZOW2BSdWbdcx1kavjV4l9hJv
-         Wcqzd/ocSvDp9EAePiDcJL0iz9r+2fir5Ju9jjLY/oRJRhMmwZ3ZIZHLJGbiyZUlJsAW
-         eex5QUG0RDtwuD+yD0HupiGcIxGNcyNG9cdwvlRuU1+tl7YFGsGLP0PvShIOEm7fhwQZ
-         ER7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795453510; x=1796058310;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1795453668; x=1796058468; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gIo6r+IlTGcpmO+YqtWN+p8Vb41yHG75b/8fYfmBgxI=;
-        b=rG/hm4bP/8wRQuzv7fD8zT0QcdZy/kHtJ0zJ/NLpSxjPoq65MlcY1Md2sJivr84Gr/
-         VlNctSXOLlaqiR6LiCmlqNWOz1qUwGVLCEu0A9lINde5eEbZoG1sfZyuYAaxLV7Af+VE
-         2Jj2CpGKjaK2atboK79/rAOfzIdbK825SMg3Nt45fMi0SCKTOjDevK+yzppIKoOo35NK
-         OIrfCk3DloceU/LGu7RLR339FHzWE5uJx23wiomTFvaZPZoIbEvxFM/4Nbxx0K74I3ha
-         KEt2E6dTUjEhgY1jb1M56yJdzmMVBMbdGPAGnGrO8qVzls6P5RLdw0AnTkciv2m1Iq3V
-         gf/w==
-X-Forwarded-Encrypted: i=1; AL+hErFpWfbzoC5ogtzCcQqd0tSwSjMibLB/7IIz+0JzPpbNQXQg4CzwHg6MUPtKh8QW6DkGtbTpulw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2ZE3cqsbNIidKhD6vuQnOfDo4AItuHLRp9L3P/oZCtOeZvhn2
-	l4JouX7JtUG9U6ZCvevWo15FrS7WEVG1SPC0jPMUdpiFd8caeN1YwYq+pyEVzWbU4+BMmKFR1x/
-	Ck6l9Q9fYMsMjXC5fH1WLduQjAtUFd3Q=
-X-Gm-Gg: AZFdTZdQqhTEtgavfxuemPQBCLCEVOm/UWVHg07HMIGnRBwWLycv+lnMlb61J7Q173m
-	ZB6Vbh7mydhsx1j073fA+Pl5LDFZm2BkSqpJjjfag0GDoIfSqGNwcPZqLRQSeYhP7tNfHB1Qfcq
-	pm6NjpiCwS0+EBeYEoBxkB4bdMH0+AsCsIThi4e4iUxyPP5rC93b0hrsB+K6xbxbcUkc4GMe6uJ
-	xShCFK6zyJrEavR5rnhw9D4rsC9WSMH/xYFKGBNPTZRswNF+sN5OS5ERZgeS+6/ED03JUfKN9dX
-	+l6tyqYr9PjhIE1ij3La3NBw+5aQ7yyn3gYjd3sYzENhRrY74ZPQ1gXUU+0PswFeafn7TGpdBzR
-	vwx6xv6YsR3rVBlC9IobiLmoJK/15ug70U5y0oQ==
-X-Received: by 2002:a05:6000:2c13:b0:4a7:9630:7b57 with SMTP id
- ffacd0b85a97d-4abb43dece6mr23714436f8f.44.1795453510025; Mon, 23 Nov 2026
- 09:05:10 -0800 (PST)
+        bh=+xaIvYw9qB8U9m5yBZTbNli0aV2ssc6MRhHdFn2AjAQ=;
+        b=bJJCiYt0S/vb94j7FaVaundwc0nL1p6kzmMdCgNUdSklpo9uP/FCGc33k7C365cnWR
+         Tj1Kp85kU/ruBKGuyRt19q2mnKBsj3DuaoAnBMEV0DV7z/pdiWYm4i/ejXqJIaeT98sI
+         KP/PzGEI276UWbWHUyCb+urtpTW3xCkIB42Oi3pp2qD6U5QOC8K6eJ1iJBzxINt5neF+
+         MAnUdoHI/1MOLYf8lblXa0OPV+HDeFcoV+xUzsWWcuZuOP5O+ajqRYZd31gN+fI3Yumm
+         WwLK4Z/rrRZzFMJKfc/jjvERNbVYwwwhcLyQquCUyS5WVak2uVFQ2r71zz3K1JOqF53w
+         pLPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795453668; x=1796058468;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+xaIvYw9qB8U9m5yBZTbNli0aV2ssc6MRhHdFn2AjAQ=;
+        b=HejktB3xbwrsVtkmBoC9IdmKfZBOovADJc2e2hIUcJnUP6FR+Tx91CVcfdrFECvEeh
+         tS5Z3UTaJ4ID8HzbAxNmIMbsl630yfcOO/S5UcDblwgp5gmHuujdPdKO+JZ4DjIWhbyT
+         3jwrs7oWDkX0nfyLRDarZoBVA8Gf+howSVyqssWXo/uhWzm3pEh62CPv8Zk5Y2EP6Dfq
+         GSQgEwXfhyyxQRLqbnqzzQbU9VOKd6mrYKKyFADR3KCRI61Zb28sG4RYHzmSo0WBs3M+
+         5h9VZkl+NUhrOL5fUsnMIorc7NJDw1BKUwfVvPNYMERkJ/6ysDo+xoeKjela7X+cR8F7
+         CxtQ==
+X-Forwarded-Encrypted: i=1; AL+hErFGVejnuVAnxBnxatE3EuZSk4h58XxHtN8DV16LBdhD1jojZYZQKj+gMF3388omS14IVEoFhWw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9S1sObcB2nd4DUONynaQN2C5Ei199jqcwEn4znXqFmpr1YUCaA
+	OinN1b/CbQtOcvTTN3tHU/VcC4HTG9rBB8FiCvbdAUPrV+28e0da31nAqGZsgkWSGg/iSud3AGk
+	OdPSn/R1s5agOhTpvNA58UK7ow4QN7sjd++baDNB3ww==
+X-Gm-Gg: AZFdTZdYdpva5fmjWQJ/XkCuAAH+cRmxZAbiAyLa2NixAK35CG20RoN1oLP2x+4voP+
+	o3qXe82hy8IOsVOh6Ho+0dfownLt1UotvH8znVs4o2SDD6Qf9hUUdn9iodpUnnkW6eHYMF3BeFP
+	cPl+fj5efubGPQc8PJ2J1wYoLRhbXVzTL3PZeOLILM8+dRzcnoDmarXvI+SeVBI2D4xrrgycXD5
+	ctGr3Ldmp2hkQNt87D+nXkV6uDAA0CxHXsjgTWC/q6g+6BnLw3+8ud0nJ2fLRiwkEWGT5BkZCMG
+	g+b5VJF/3K6dL0G2Dhb8/3fF4kmYsNVVb0B/482oXf75M86WdKynRXA4Xf2kYkyycEWTbCGOVb4
+	mNtgEVWzwhDympTrtDekXPIIbekTdx37kcHytTJhG2OEx8FpU+567rA5KhqgUU4myimjsCg==
+X-Received: by 2002:a05:6402:1f90:b0:6b8:6d0e:42d1 with SMTP id
+ 4fb4d7f45d1cf-6ba37ec55b7mr8892708a12.42.1795453667947; Mon, 23 Nov 2026
+ 09:07:47 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,239 +103,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122130247.2069007-1-hengyul@cs.unc.edu>
-In-Reply-To: <20261122130247.2069007-1-hengyul@cs.unc.edu>
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Tue, 24 Nov 2026 02:04:52 +0900
-X-Gm-Features: Aa3M54qGyl-5nhX8w0MHT-aB71DD5ZloTtvWl-1mwjjKRU7JRZiwFoatqGxbJV8
-Message-ID: <CAKFNMo=5c=TufoAFXfge_YDOF7RDXgetywO+6041k_xXhsFifw@mail.gmail.com>
-Subject: Re: [PATCH] nilfs2: count new blocks that a short copy leaves dirty
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: Viacheslav Dubeyko <slava@dubeyko.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-nilfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261122015729.2512645-1-penghuang@google.com>
+ <CAKfTPtCQpVhtVT7Mhqe1=Ukcmc1pX8Jgn9ypb64--8cJ-7G4BQ@mail.gmail.com> <20261123160934.2289260-1-penghuang@google.com>
+In-Reply-To: <20261123160934.2289260-1-penghuang@google.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Mon, 23 Nov 2026 18:07:36 +0100
+X-Gm-Features: Aa3M54pZP_B9lARK2Zw6EDmAmPbhCNYrxOAs4lBrYCe4I2A8S177FGDlJx_bcaI
+Message-ID: <CAKfTPtD17e-veL1QgrhO6i4nsKyA3QfOEm8jNinJ_zf+vc8RDw@mail.gmail.com>
+Subject: Re: [PATCH] sched/pelt: Skip dormant cfs util_sum under scx_switched_all
+To: Peng Huang <penghuang@google.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, Tejun Heo <tj@kernel.org>, 
+	David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
+	Changwoo Min <changwoo@igalia.com>, linux-kernel@vger.kernel.org, 
+	sched-ext@lists.linux.dev, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 22, 2026 at 10:03=E2=80=AFPM Hengyu Liang wrote:
+On Mon, 23 Nov 2026 at 17:09, Peng Huang <penghuang@google.com> wrote:
 >
-> Commit 665575cff098 ("filemap: move prefaulting out of hot write path")
-> made generic_perform_write() fault in the source buffer only after a
-> copy into the page cache has made no progress.  A write from memory
-> that is not present yet now first calls ->write_end() with copied =3D=3D =
-0,
-> and copies again after the memory has been faulted in.
+> On Mon, 23 Nov 2026 at 11:34, Vincent Guittot <vincent.guittot@linaro.org> wrote:
+> >
+> > When all tasks are moved to sched_ext, fair utilization should be 0
+> >
+> > ...
+> >
+> > This is not the right solution but a bandaid to hide the issue. When
+> > there is not fair task,  rq->cfs.avg.util_sum shoudl become null.
+> > Please look at why it is not null.
+> > It could be that the update stops before everything has been
+> > propagated correctly in the task group tree
 >
-> However, nilfs_write_end() adds only the clean buffers of the copied
-> range to the count of dirty blocks, while block_write_end() zero-fills
-> and dirties the newly allocated buffers of the rest of the range.  The
-> retry finds these buffers dirty, so the new blocks are never counted
-> and nilfs_near_disk_full() does not stop the writer.  As of now, a
-> write from a fresh anonymous mapping is accepted far beyond the free
-> space, fsync() fails with ENOSPC, and the file is gone after a remount,
-> together with the other changes made since the last log was written.
-> On a volume shared with another user, that user's fsync() fails with
-> ENOSPC too, and the files and directories that user created after the
-> write are lost the same way.
+> Thanks for pointing this out -- you are right, and looking into the
+> code confirms your suspicion about stopped updates and incomplete task
+> group propagation:
 >
-> The issue can be reproduced on a 160 MiB disk with this program:
+> 1. Deferred cfs_rq->removed and unvisited sibling task groups:
+>    Tasks that exited (task_dead_fair()) or migrated while sleeping
+>    (migrate_task_rq_fair()) before scx_enable() queue their load/util
+>    in cfs_rq->removed via remove_entity_load_avg() rather than
+>    deducting and propagating immediately.
 >
->     #include <errno.h>
->     #include <fcntl.h>
->     #include <stdio.h>
->     #include <stdlib.h>
->     #include <string.h>
->     #include <sys/mman.h>
->     #include <unistd.h>
+>    During scx_enable(), switched_from_fair() -> detach_task_cfs_rq()
+>    only visits and propagates along cfs_rq chains that still have at
+>    least one live attached fair task. Any CPU or sibling cgroup cfs_rq
+>    with no remaining live fair task is never visited, so its
+>    cfs_rq->removed stays undrained and its tg_se contribution remains
+>    in rq->cfs.avg. Once __scx_switched_all is enabled,
+>    scheduler_tick() skips sched_balance_trigger() and fair_sched_class
+>    is bypassed, so __update_blocked_fair() never runs to drain and
+>    propagate those remaining leaf cfs_rqs.
 >
->     int main(int argc, char *argv[])
->     {
->             size_t len =3D atol(argv[2]) << 20;
->             /* fresh anonymous memory: none of its pages is present yet *=
-/
->             char *buf =3D mmap(NULL, len, PROT_READ,
->                              MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
->             int fd =3D open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+> 2. Sub-divider util_sum residuals:
+>    Even on visited chains, if tg_se->avg.util_avg has already decayed
+>    to 0 (with 0 < tg_se->avg.util_sum < divider) when the child
+>    gcfs_rq's last task detaches, update_tg_cfs_util() sees
+>    delta_avg == 0 and returns early without subtracting
+>    tg_se->avg.util_sum from the parent cfs_rq. Independent PELT decay
+>    truncation and integer removed.util_avg accounting can also leave a
+>    < divider remainder in cfs_rq->avg.util_sum after util_avg hits 0.
 >
->             printf("write: %zd\n", write(fd, buf, len));
->             printf("fsync: %s\n", fsync(fd) ? strerror(errno) : "ok");
->             return 0;
->     }
+> For v2, rather than touching update_idle_rq_clock_pelt(), how about
+> adding a fair helper (similar in spirit to rq_offline_fair() ->
+> clear_tg_offline_cfs_rqs()) and calling it from scx_enable() in the
+> existing per-CPU scx_switched_all() loop (where rq->lock is held,
+> rq->clock is updated, and rq->cfs.h_nr_queued == 0)? Specifically, it
+> would walk leaf_cfs_rq_list bottom-up (plus &rq->cfs) to:
+> - flush cfs_rq->removed,
+> - clear load/runnable/util _sum and _avg on the empty cfs_rqs and
+>   their tg_ses while preserving last_update_time and period_contrib,
+> - clear tg contributions via clear_tg_load_avg(), remove the empty
+>   cfs_rqs from leaf_cfs_rq_list, and update rq->has_blocked_load.
 >
-> and these commands:
->
->     mkfs.nilfs2 -q /dev/vda
->     mount -t nilfs2 /dev/vda /mnt
->     ./cold /mnt/f 256
->     umount /mnt
->     mount -t nilfs2 /dev/vda /mnt
->     wc -c /mnt/f
->
-> Before commit 665575cff098 ("filemap: move prefaulting out of hot write
-> path"), the result is:
->
->     write: 67518464
->     fsync: ok
->     67518464 /mnt/f
->
-> After that commit, the result is:
->
->     write: 268435456
->     fsync: No space left on device
->     wc: /mnt/f: No such file or directory
->
-> With this patch, the result is:
->
->     write: 70217728
->     fsync: ok
->     70217728 /mnt/f
->
-> Count the buffers that block_write_end() is going to dirty, including
-> the zero-filled new ones, before calling generic_write_end().
->
-> Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
-> Cc: stable@vger.kernel.org # v6.14
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-> ---
-> I found this while comparing the behavior of different kernel versions.
-> I used an LLM to analyze the problem and to draft the patch and this
-> message, and I analyzed the result myself.
->
-> Tested on nilfs2 for-next (8fef1a9dec7b) with KASAN and lockdep: after
-> single writes (new, appended and overwritten blocks; cold, warm and
-> unaligned sources; 4 KiB and 1 KiB blocks) dirty_data_blocks_count in
-> sysfs grows by the number of blocks written, as on v6.8, and a nearly
-> full volume stops such a write at the same size as on v6.8.
->
-> A write into page cache pages that were read from a hole is not counted
-> either, on v6.8 as well, because __block_write_begin_int() dirties the
-> new buffers of an uptodate folio itself; this patch does not change that.
+> Does this direction look reasonable to you?
 
-Hi Hengyu Liang,
-
-Thank you for reporting the issue and proposing the patch.
-
-Through reviewing your patch and testing with the reproducer, I
-confirmed both the dirty block counting bug in nilfs_write_end() on
-short copies and that your patch properly resolves it.
-
-However, the short-copy handling in generic_write_end() and
-block_write_end() was already present when nilfs2 was originally
-introduced, and it appears that this bug in nilfs_write_end() -- which
-skews the free space calculation and causes excessive consumption of
-reserved segments -- has been latent since then.
-I verified this locally on an older kernel using a reproducer that
-intentionally triggers short copies via pwrite() from a buffer
-straddling a readable page and a PROT_NONE page.
-
-Could you please update the Fixes tag to point to the original nilfs2
-implementation commit rather than 665575cff098, remove the kernel
-version constraint from the Cc: stable tag, and revise the commit log
-to state that the dirty-block counting bug has existed since the
-original implementation, while commit 665575cff098 made it much easier
-to reproduce?
-Once updated, I will forward it to Viacheslav.
+Yes this seems a better solution but It would be good to reuse
+__update_blocked_fair() which already does the work for pelt signal.
+Regarding your issue with util_avg == 0 whereas we still have a
+util_sum != 0, we can use delta_sum = gcfs_rq->avg.util_sum -
+se->avg.util_sum; in update_tg_cfs_util() instead. When util_avg == 0
+we will be sure to clear util_sum too
 
 Thanks,
-Ryusuke Konishi
-
+Vincent
 >
->  fs/nilfs2/inode.c |  3 +--
->  fs/nilfs2/page.c  | 41 +++++++++++++++++++++++++++++++++++++++++
->  fs/nilfs2/page.h  |  4 ++++
->  3 files changed, 46 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
-> index b217eee57c36..dd0bed24972a 100644
-> --- a/fs/nilfs2/inode.c
-> +++ b/fs/nilfs2/inode.c
-> @@ -249,8 +249,7 @@ static int nilfs_write_end(const struct kiocb *iocb,
->         unsigned int nr_dirty;
->         int err;
->
-> -       nr_dirty =3D nilfs_page_count_clean_buffers(folio, start,
-> -                                                 start + copied);
-> +       nr_dirty =3D nilfs_page_count_buffers_to_dirty(folio, start, len,=
- copied);
->         copied =3D generic_write_end(iocb, mapping, pos, len, copied, fol=
-io,
->                                    fsdata);
->         nilfs_set_file_dirty(inode, nr_dirty);
-> diff --git a/fs/nilfs2/page.c b/fs/nilfs2/page.c
-> index 857926da9f21..0dec7b5b27c4 100644
-> --- a/fs/nilfs2/page.c
-> +++ b/fs/nilfs2/page.c
-> @@ -481,6 +481,47 @@ unsigned int nilfs_page_count_clean_buffers(struct f=
-olio *folio,
->         return nc;
->  }
->
-> +/**
-> + * nilfs_page_count_buffers_to_dirty - count buffers a write will dirty
-> + * @folio:  folio being written to
-> + * @from:   offset of the write in @folio
-> + * @len:    number of bytes to be written
-> + * @copied: number of bytes copied into @folio
-> + *
-> + * Count the clean buffers of @folio that block_write_end() is going to =
-mark
-> + * dirty: those overlapping the copied range and, after a short copy, th=
-e
-> + * newly allocated ones in the rest of the range, which it zero-fills.  =
-As
-> + * there, a short copy into a folio that is not uptodate counts as a
-> + * zero-length write.
-> + *
-> + * Return: Number of buffers that the write changes from clean to dirty.
-> + */
-> +unsigned int nilfs_page_count_buffers_to_dirty(struct folio *folio,
-> +                                              unsigned int from,
-> +                                              unsigned int len,
-> +                                              unsigned int copied)
-> +{
-> +       unsigned int to =3D from + len, end =3D from + copied;
-> +       unsigned int block_start, block_end;
-> +       struct buffer_head *bh, *head;
-> +       unsigned int nc =3D 0;
-> +
-> +       if (copied < len && !folio_test_uptodate(folio))
-> +               end =3D from;
-> +
-> +       for (bh =3D head =3D folio_buffers(folio), block_start =3D 0;
-> +            bh !=3D head || !block_start;
-> +            block_start =3D block_end, bh =3D bh->b_this_page) {
-> +               block_end =3D block_start + bh->b_size;
-> +               if (buffer_dirty(bh))
-> +                       continue;
-> +               if ((block_end > from && block_start < end) ||
-> +                   (buffer_new(bh) && block_end > end && block_start < t=
-o))
-> +                       nc++;
-> +       }
-> +       return nc;
-> +}
-> +
->  /*
->   * NILFS2 needs clear_page_dirty() in the following two cases:
->   *
-> diff --git a/fs/nilfs2/page.h b/fs/nilfs2/page.h
-> index c3ba3468af5c..4ccd740966ec 100644
-> --- a/fs/nilfs2/page.h
-> +++ b/fs/nilfs2/page.h
-> @@ -45,6 +45,10 @@ void nilfs_clear_folio_dirty(struct folio *folio, bool=
- force);
->  void nilfs_clear_dirty_pages(struct address_space *mapping, bool force);
->  unsigned int nilfs_page_count_clean_buffers(struct folio *folio,
->                 unsigned int from, unsigned int to);
-> +unsigned int nilfs_page_count_buffers_to_dirty(struct folio *folio,
-> +                                              unsigned int from,
-> +                                              unsigned int len,
-> +                                              unsigned int copied);
->  unsigned long nilfs_find_uncommitted_extent(struct inode *inode,
->                                             sector_t start_blk,
->                                             sector_t *blkoff);
->
-> base-commit: 8fef1a9dec7bf58a29bc8a7ee6909ab629401cd3
-> --
-> 2.53.0
->
+> Thanks,
+> Peng
