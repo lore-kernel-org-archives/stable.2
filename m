@@ -1,78 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795418828;
-	b=BW72pcfGJnWukQjH0LwJXHCr1mv6rJ/AywBSyTkJz0EcpZMfm4K7N5645WTd8R38ERKI
-	 v/lkl3TMDF8H8xzJd+45rcLm2AZATH+xC2yCkm+Fp1TGk2upmAdH6+bYNlDAH9vVBnvLO
-	 +q+6QU8kvdBZ84SfeQYaEPx6zKTqqwgbjETVc1CCKYWC4JXROi8BocPDfF/CJKm1zJE/o
-	 wPXUCLqK+QGvNYOwXobxW1jzW8+wcHxNlnNZWo9TEDEiHyzaoHhvIPnZ1SdD7hf+fYy72
-	 Nu1N/2iDPkL3qSdgYJgwxjWSnrTMch0Ka/87UCPKS6bxlVtgQRPDspOCH9ozztGupfw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795418828;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=U6wzabnLt/RWDyXyIjQiK5gCOoeM22ljx/BRBNPG0BU=;
-	b=VN4fY9FbqvoZOKPWB2jP2vnliyxd4aH7R0J3CsWNWAH/vTE6PGUo2tLBTNq8YRSwFjl7
-	 Ag6F3ACO0CGgq8VEbcQNXzXGdmkBUqkjohyVM5KFY67po3NdlH64vlZ9JbmD9DQbyHDl0
-	 bcaMWbeIquJn6OKEGqcbnN/IljXrF44p2vd9aA0N+fCciaJDUgyB63VkYMwNObPdZTocz
-	 x1nrQntAz252cr9N+KIlnOg/28m3gyWpL093UGbYvBw+AhCsR4hKgN0PtSveou/DPRtxa
-	 e8LaS67Wo1l4Czqdt5SsAxVwDEmN60dzuzE7HYoXiCyMPUdEAWJPtawg5aESjYUiR3A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mccxhhj4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795418835;
+	b=YMySYItHh3aW/tOn1xpemS4qoZ7HBh08Khwqm65nz3Af0KwyEi28aSVcclTjvVVwsmIl
+	 tuE2TqL7NiCSljpqLskE5FwlT2GH/+etF7SrHXmIBCSZuxduPRJvKBD/vHxoWhqrrVLpa
+	 VZ1VfBOxnWtBkCo5Jk0Z0Jm28YLc4MYQk6HYEfXZXkC6FFpxZ0DIeWyIhaQ2zrVFjpEMA
+	 H40ymF2+NAJFucS/Okdn362nIjD7qJja+nnBOMvUD9QnodJEStOvH6vil/pF4KuBr6p3t
+	 ZrlkrX7Cye9fvWk9QTMX3WT6C2TFAMnaQ4QGVq7TsWamY9AUPeS89QBncCYHsptOVIA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795418835;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BdgF1xKuYu4ni+LZr6mvba7jnkWGZBA/HLKCnKO9gOM=;
+	b=uPOk+au9OsXdspxuB6ANm4TZsg+vrg5xKmj7+u0OpzLcGQ4Jsf7jkbLf3IiW1EPgbETB
+	 3v7TU1HwctrLNHpFEzIDCNSeHNuuzYqkH8SOfAJAYhGBuiOC8XKVUvEW7t0d+dS1Lb0RQ
+	 CTOQPAupiuzCwrI+QTJkqTXKUtMtcwB5hiL3wZ8bJt3cjSE9WiB/Iq40ZB/VdTHHyo1Yw
+	 ITxMD/vXJN+PSYsNwMBJE+5jezowrkZXljtEYwiPvcGMxOiP6aaiskZ3N+DAZUnil6OMC
+	 8FhRgszwjQ1UZOfsR+m8KSbm5T9W+6gWK5gTICK2Wc0g3M8lpoBIEPbD4zsD/4gFu0A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YFO3CfRh;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C6D606A31A;
-	Mon, 23 Nov 2026 07:27:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8C0606A31A;
+	Mon, 23 Nov 2026 07:27:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mccxhhj4
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795418827;
-	b=zuLSfWD3PmDDZJeiouEWrIIN/pNYWkxAj+NWYwllEo97X5wjrZf7AEdPo9cPH01rB6Eu
-	 MImRyLKUcSZbSMI8t7WSn9Y49N0bC+Td2tFyZ6DfSr52RtwEvg3yKoJIceOYsRuqe7Sql
-	 Jn5nG2yuA7L32m5gSZjJKqgM3L5siwvdi+cGmRLdRxAT3OYnfyVgq8RqUXiOyoUjLKdKi
-	 K5J/YrZh1/DKewovWsSd4TdV/JlgynifEKHwS4sU9J+02NniKWj0hoPQL4pp2c0WiJ8gA
-	 qx1oDTWsVDFEqubl2ZQSRvBM9evO47gqfN6TnH4BBXKqIl/RCuZ5z12kKVOl24lnCFg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795418827;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=U6wzabnLt/RWDyXyIjQiK5gCOoeM22ljx/BRBNPG0BU=;
-	b=Ybrgxc/n95J49gRhmL0f39qOATiB1HosXNn7/0tkW2TX8Ix0+gSnGKkulOxMuBD0U3Dy
-	 30r2DLDEO7tqKJGXcMfea2Iw1sLcoyqj36U2Hy20FzFD3VcNVhphkEPJofTtPGacUccHl
-	 zGFw9iynCsIK9D8irKdbgshu2lZgLdeVsNtTpYqCyyKjoRPmXtgP8Qj8YAp3U/Jm8vuOk
-	 U20r/b6EOypcg2WyuxQY+NQVdqdydYACChupBwsqsIMZunTLDFagRldLV3/PxVEzjqcwb
-	 C/TjPYVt2qBW8ypU29mdT++TiGAyd66AA/2ewLPrwVIL5daoxazONSpnXfPVNth3Tvg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 578EC1F000C4;
-	Mon, 23 Nov 2026 07:27:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795418827;
-	bh=U6wzabnLt/RWDyXyIjQiK5gCOoeM22ljx/BRBNPG0BU=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Mccxhhj4llERRyqRFaSx+9ezzKC78+yO+LdmfuvA3qUSctlffBBwFGdTCIFB/jtVl
-	 m8xrCSSBo9yqFChto97u32yd7fEIMjwY2aY5umqqYhJn69qHO9LH+VIm74zIwT4rBR
-	 1KTX3M4nqyc0O3J3OPWzjPvC/KWvWCIU3uB3KypHxiriQj0EF96FQPUbzb1dDDu87p
-	 9waNDZXMMdLIv09L8jraK4+5cheHWWOR1zISiSlwqZ8pYAgTWlKtq4mS7cVBdnIEof
-	 qXAeJFLaMt3LcAlbqcspuCoL1JF7PW/Yda4Uij/N1vSttkPqvcBna1bS0B4DwjzM2H
-	 02jwrUTU+0Emg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AF4CB4C3A1;
-	Mon, 23 Nov 2026 07:27:03 +0000 (UTC)
-From: Markus Haberlander via B4 Relay <devnull+markus.haberlander.rosenberger.com@kernel.org>
-Date: Mon, 23 Nov 2026 08:27:01 +0100
-Subject: [PATCH] hwmon: (cgbc-hwmon) Add module alias
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YFO3CfRh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F25C41F000C0;
+	Mon, 23 Nov 2026 07:27:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795418834;
+	bh=BdgF1xKuYu4ni+LZr6mvba7jnkWGZBA/HLKCnKO9gOM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YFO3CfRhHOkovGAv/QnJOgVJWPcrceNkYFIyBASQAXeZ3wGyVeJr1R2PnrnnWV55s
+	 4sIHIzVgzZqPq4+XogMKqBup8N5fmwC3k6/D0G0Rj0xbmVvFEuv1U8F/AIq+FJXEbz
+	 ySaNUp7yD/U7AGQDF7C5qAFZyXs3mYxNJTP0x6EQ=
+Date: Mon, 23 Nov 2026 08:27:11 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Dust Li <dust.li@linux.alibaba.com>
+Cc: stable@vger.kernel.org, Breno Leitao <leitao@debian.org>,
+	Sasha Levin <sashal@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6.6.y] net: free_netdev: exit earlier if dummy
+Message-ID: <2026112357-twister-activity-1181@gregkh>
+References: <20261107161415.1917665-1-dust.li@linux.alibaba.com>
+ <avK7XqLvdaeWlp8o@linux.alibaba.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,67 +58,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-cgbc-hwmon-alias-v1-1-3054681f984a@rosenberger.com>
-X-B4-Tracking: v=1; b=H4sIAMTqA2sC/yXMTQqDMBBA4avIrB0waSviVcRFMhl1pI2S6R+Id
- 2+sy2/x3gbKSVihLTZI/BaVJWaYsgCaXBwZJWSDrWxtjL0gjZ5w+jyWiO4uTrEeODSer+RvFnK
- 2Jh7k+192/Wl9+ZnpeXxg338lcVuKdAAAAA==
-X-Change-ID: 20261123-cgbc-hwmon-alias-6fed8be4cb52
-To: Thomas Richard <thomas.richard@bootlin.com>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, stable@vger.kernel.org, 
- Markus Haberlander <markus.haberlander@rosenberger.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795418823; l=1376;
- i=markus.haberlander@rosenberger.com; s=20261123;
- h=from:subject:message-id;
- bh=I1G2jkZQpMOQFY8S2qM+BAuBa5MQsimUYIi/nZNT3CA=;
- b=OPb4kGeErThGeH31e2Fvv0Y1ezpEFO3smdYlSDWT5OvuRRONVNquQBPgXYmnV3OBpGIJ2PD+p
- DFaxfT6oeeOBHFOkoVSsQR8d9mxOURiycJfjK6EZDumLkBGfkH+m5KH
-X-Developer-Key: i=markus.haberlander@rosenberger.com; a=ed25519;
- pk=baNIWlZCf58g17gE2FS6ir0ymNwyBXguoQENSJkXdeQ=
-X-Endpoint-Received: by B4 Relay for
- markus.haberlander@rosenberger.com/20261123 with auth_id=1612
-X-Original-From: Markus Haberlander <markus.haberlander@rosenberger.com>
-Reply-To: markus.haberlander@rosenberger.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avK7XqLvdaeWlp8o@linux.alibaba.com>
 
-From: Markus Haberlander <markus.haberlander@rosenberger.com>
-
-The board controller's core driver adds the hwmon cell as platform
-device "cgbc-hwmon", but the driver declares no matching module alias.
-Built as a module, it is therefore not loaded automatically, unlike the
-GPIO, I2C and backlight drivers, and the sensors stay missing until it
-is loaded by hand.
-
-Tested on a conga-PA7: with the alias, the driver loads at boot.
-
-The patch and this changelog were drafted with the help of Claude
-Opus 5.5 and reviewed and tested by me.
-
-Fixes: 08ebc9def79f ("hwmon: Add Congatec Board Controller monitoring driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Markus Haberlander <markus.haberlander@rosenberger.com>
----
- drivers/hwmon/cgbc-hwmon.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/hwmon/cgbc-hwmon.c b/drivers/hwmon/cgbc-hwmon.c
-index ba21ed8f0..d1f20db4b 100644
---- a/drivers/hwmon/cgbc-hwmon.c
-+++ b/drivers/hwmon/cgbc-hwmon.c
-@@ -336,3 +336,4 @@ module_platform_driver(cgbc_hwmon_driver);
- MODULE_AUTHOR("Thomas Richard <thomas.richard@bootlin.com>");
- MODULE_DESCRIPTION("Congatec Board Controller Hardware Monitoring Driver");
- MODULE_LICENSE("GPL");
-+MODULE_ALIAS("platform:cgbc-hwmon");
-
----
-base-commit: 7940d60c4b165cd7c265bf17f86b8299b7f204b1
-change-id: 20261123-cgbc-hwmon-alias-6fed8be4cb52
-
-Best regards,
---  
-Markus Haberlander <markus.haberlander@rosenberger.com>
+On Tue, Nov 10, 2026 at 02:36:14PM +0800, Dust Li wrote:
+> On 2026-11-08 00:14:15, Dust Li wrote:
+> 
+> Hi Greg, Sasha
+> 
+> Can you pick up this patch for 6.6 ?
+> 
+> This is a prerequisite that was missed when 6.6.y picked up the
+> dummy-net_device conversion of the mediatek driver.
+> 
+> 6.6.158 took b209bd6d0bff ("net: mediatek: mtk_eth_sock: allocate dummy
+> net_device dynamically") as d5d57501f543, followed by 16f3a28cf5f8
+> (as 81e82340170ae) and "allocate dummy netdev sooner" (efc91ab1d97bd).
+> 
+> alloc_netdev_dummy() -> init_dummy_netdev_core() sets
+> dev->reg_state = NETREG_DUMMY, but 6.6.y free_netdev() only special
+> cases NETREG_UNREGISTERING and NETREG_UNINITIALIZED.  So every
+> free_netdev(eth->dummy_dev) -- mtk_remove() at
+> drivers/net/ethernet/mediatek/mtk_eth_soc.c and the probe error
+> path -- walks into
+> 
+>     BUG_ON(dev->reg_state != NETREG_UNREGISTERED);
+> 
+> Upstream f8d05679fb3f and b209bd6d0bff both landed in v6.10-rc1, so
+> mainline was never broken.
+> 
+> 5.10.y / 5.15.y / 6.1.y - alloc_netdev_dummy() does not exist and no
+>                           driver creates a dynamically allocated
+>                           dummy net_device
+> 
+> So only 6.6.y need this.
 
 
+But what commit id is "this"?
+
+thanks,
+
+greg k-h
