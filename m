@@ -1,67 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795452533;
-	b=MF1ZxEszf4EzZ1nlESyHT+MR5c5h1Lq6SnhRg7QUd33ldqof3GwKY4dBACIo1/nTSGCO
-	 UkY9RiCW51h97ek0vvlJ2kAHrUF1nNFsCbz05ASfdaVTtmM4mUtStX/j0wVmts0EWv111
-	 WXSyVjcmrDEERVtxdRbh9h5fBJoH5yB4ilCm8gKJmRvBBG4jr540/k+HcwAn8a2I9NmWD
-	 5jxyWx3uQux/h2jYbQ7wWVlV+Q+t+s+ZHmWyH1NFhiX1Mu8wX1gjngR/0qHSslgMS15cR
-	 mHx/4ds+86wlNh0SiDwgUDGGXzO0SQzk5mn48whooUwABae3+TqsZ6IG14ATUJREYYQ==
+	t=1795452539;
+	b=3Su0a4nwedp2GvDhnTsc3dyrgTA7Ud47pvLP61Yo9gguC++30lZmpMj1PiYSiBU4h7Zf
+	 wjKGs6WE1XY1EgwlBf0EBGEGaq5p2cESdpbk235j7vu8yEuA8kt/EBycFQy1Q5BHFD8tY
+	 7eCu09rwY3qywbG59EyG43p0KDfwM02v5Y/qRF39fEO2iW4i+ZANXBm/5KxgpAuxOv+Ji
+	 nTWEo/eyLMVH+WN8ur9z9rjAdW7KbPyBtNkSMYqNctzAtfoF1zMvHp6BoT0HsKxeYrhe4
+	 4YIZepAcnQlj09gcOf5CwED6lZ+kEl72VnKo9Y+P40h6BdodwnP8tZ9ARGToHRT+vwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795452533;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795452539;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=mj9v3GOHXJKCef8hiMsVWQMXbcKUeIq3msDs56h6kEw=;
-	b=KVybD+VCyHpm2wUGl7uu+MD4B0yKR7yQhkU/Kuci4aGVmPqH5HOXzAxMuue80bK2Qjud
-	 pBj4URsJS3fSoH89QGy0/hDBQw+/p3W+Me5M2vRMSqqW6YZ3DLDND2YpED9e0xlle3gaA
-	 CBQe6GPdQncDlZX/dcJqwYw48yurwTzXwqvGoEBLfUHja/H+Efn5cTxI80pI8X2beBMZ5
-	 vDDkJVAR9vYUSAF9sSamhiP6M0ARt1fxajfkr5ysCQLtEfyMvWU/T4jFQOwAidDUsRbtv
-	 pnNq8Z3E+3fV19ibo4u/FCZo/M0u8vTgu2tWdsn4QUUK2Z7j0zzrfiuvdLtL4QbI8kQ==
+	bh=4Ip4SXJxDEMUBPY2/7TQsYLJ7OFQGOHcIrSFeGEgDdk=;
+	b=Q+RpY3/u5ObNXaGnJSDnmg4q8N5YLlKVlTjVWNOu0zsYt5OMAe6OwACOHdSC2dtDbP7n
+	 DInOjQ4gZGzsLYfTu5ppNufeOM3hdCB1jTpS/QxxivwCnXsuFrmhYc9HcKR0s1qIrwXsP
+	 279T6jmM9NM458DEPNcih88nAEHzSMHwDjJ9pf+LCbPf6HwdnqzCaP8844XhGNtkd0b72
+	 7hiqoS7p35b3YVUjcYogtzG4LE3VvFv1JMtg4fzlSl7jiVPMZlCRHIpZwhxjMjVWpO+Ir
+	 3iLbwE8Dl0nDxdo831UTZo5op19oKvq49lGfCpunnht0SO0oguUR2UA+T5wy2thSgqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=StDIdhSu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTLE9AUS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510F2606A690;
-	Mon, 23 Nov 2026 16:48:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC85606A68D;
+	Mon, 23 Nov 2026 16:48:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=StDIdhSu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C3491F000D3;
-	Mon, 23 Nov 2026 16:48:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTLE9AUS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1CA1F01566;
+	Mon, 23 Nov 2026 16:48:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795452532;
-	bh=mj9v3GOHXJKCef8hiMsVWQMXbcKUeIq3msDs56h6kEw=;
+	s=k20260515; t=1795452539;
+	bh=4Ip4SXJxDEMUBPY2/7TQsYLJ7OFQGOHcIrSFeGEgDdk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=StDIdhSulwz6Nl9Q+XH4BeslhAsg/Ce+YaNEbWL/d5RRhcOSjlFB0uOXUJO/UctIh
-	 K4B/1G/rQGt/muE80bXhwsNAnbfimhk6iqwgE4Xub1Zz2yrrsc1U+3WlNDN57p5TeN
-	 zg++LoQCvdK+7irRuiyH+0nXXNI/qxLaZXsJiWwyBv99EEAHFSWeq4sGy0tpjOZW3a
-	 7wa6mGkxB2Pl1VpIKwCXj/3Ckagm38Lu/rFbUFeHVf73fqGTjL/iSSIgkbCeysGAp8
-	 usBJYusSPNAf2/7HwdlEn3k/CzaENf632KrrqrdSFysJNVeTwdW3TYLAhlG1fRlbCU
-	 6I0mR7dNjFNLA==
+	b=CTLE9AUSs/LHxrvk6CIsJ9GACvA2PTye1NIAEWwymWadlQYhlkDpK4CM8KOSJ6Agt
+	 6wjcP46gJQ0+yvdY3or0+cIifWEwihQ7Mzk2UAObiOskI9S2lw2We4TD5oLfRFF69/
+	 DFDEPoIamcMx/7h3gHMQ33fvhJ/f361DuTmOPH+mCS4OGHUf1d5EYtQz2a+STglpkM
+	 BMsbfN4ujTj1C9FggbxN/x4eviXo9Pn5Sb7Ayc0iRcVReznwsX/fmwo5gCkLRDOZM3
+	 bMkSNgYilwegIe9cF0MmkjN5dvQRjPAlERA2DPDht/LqPg4XgCJoriJSdXoruUFT00
+	 WM5TrmE62Qh8g==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Abel Vesa <abelvesa@kernel.org>,
-	Peng Fan <peng.fan@nxp.com>,
 	Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Dong Aisheng <aisheng.dong@nxp.com>,
-	Shawn Guo <shawnguo@kernel.org>,
+	Liam Beguin <lvb@xiphos.com>,
 	linux-clk@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 01/10] clk: imx: imx8qxp-lpcg: Prevent stack overflow when parsing clocks
-Date: Mon, 23 Nov 2026 16:47:34 +0000
-Message-ID: <20261123164834.3330320-2-lee@kernel.org>
+Subject: [PATCH 02/10] clk: lmk04832: Validate child reg index in lmk04832_probe()
+Date: Mon, 23 Nov 2026 16:47:35 +0000
+Message-ID: <20261123164834.3330320-3-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
 In-Reply-To: <20261123164834.3330320-1-lee@kernel.org>
 References: <20261123164834.3330320-1-lee@kernel.org>
@@ -77,40 +67,57 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-imx_lpcg_parse_clks_from_dt() allocates output_names, parent_names, and
-bit_offset on the stack with IMX_LPCG_MAX_CLKS (8) entries each to match
-the hardware limit of eight clock outputs per LPCG block.  However, it
-only checks whether of_property_count_u32_elems() returns a negative
-error code and enforces no upper bound on count.
+lmk04832_probe() allocates lmk->clkout with info->num_channels (14)
+elements, then iterates over child Device Tree nodes and reads each
+child's "reg" property into a signed integer without bounds validation.
+It immediately indexes lmk->clkout[reg] to populate .format and .sysref,
+causing a heap out-of-bounds write if "reg" is greater than or equal to
+info->num_channels (or negative when interpreted as a signed int).
 
-If a Device Tree node specifies more than IMX_LPCG_MAX_CLKS entries in
-clock-indices, subsequent calls to of_property_read_u32_array(),
-of_clk_parent_fill(), and of_property_read_string_array() write past the
-end of these stack buffers.  Reject counts exceeding IMX_LPCG_MAX_CLKS.
+Read "reg" as u32 and reject values greater than or equal to
+info->num_channels before indexing lmk->clkout.
 
-Fixes: d5f1e6a2bb61 ("clk: imx: imx8qxp-lpcg: add parsing clocks from device tree")
-Closes: https://sashiko.dev/#/bug/linux-22dfac78-f44b-42f8-985a-995308723fc4
+Fixes: 3bc61cfd6f4a ("clk: add support for the lmk04832")
+Closes: https://sashiko.dev/#/bug/linux-75db6ed8-b83a-4866-b3f7-d486d223d97f
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/clk/imx/clk-imx8qxp-lpcg.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/clk/clk-lmk04832.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clk/imx/clk-imx8qxp-lpcg.c b/drivers/clk/imx/clk-imx8qxp-lpcg.c
-index 9ad016106b1e..5eb4bdbaf7d8 100644
---- a/drivers/clk/imx/clk-imx8qxp-lpcg.c
-+++ b/drivers/clk/imx/clk-imx8qxp-lpcg.c
-@@ -199,6 +199,10 @@ static int imx_lpcg_parse_clks_from_dt(struct platform_device *pdev,
- 		dev_err(&pdev->dev, "failed to count clocks\n");
- 		return -EINVAL;
- 	}
-+	if (count > IMX_LPCG_MAX_CLKS) {
-+		dev_err(&pdev->dev, "too many clocks: %d\n", count);
-+		return -EINVAL;
-+	}
+diff --git a/drivers/clk/clk-lmk04832.c b/drivers/clk/clk-lmk04832.c
+index e6e771e8eb14..757b0eba739f 100644
+--- a/drivers/clk/clk-lmk04832.c
++++ b/drivers/clk/clk-lmk04832.c
+@@ -1453,7 +1453,7 @@ static int lmk04832_probe(struct spi_device *spi)
+ 				 &lmk->sysref_pulse_cnt);
  
- 	/*
- 	 * A trick here is that we set the num of clks to the MAX instead
+ 	for_each_child_of_node_scoped(lmk->dev->of_node, child) {
+-		int reg;
++		u32 reg;
+ 
+ 		ret = of_property_read_u32(child, "reg", &reg);
+ 		if (ret) {
+@@ -1462,12 +1462,18 @@ static int lmk04832_probe(struct spi_device *spi)
+ 			return ret;
+ 		}
+ 
++		if (reg >= info->num_channels) {
++			dev_err(lmk->dev, "invalid reg %u in child: %s\n",
++				reg, child->full_name);
++			return -EINVAL;
++		}
++
+ 		of_property_read_u32(child, "ti,clkout-fmt",
+ 				     &lmk->clkout[reg].format);
+ 
+ 		if (lmk->clkout[reg].format >= 0x0a && reg % 2 == 0
+ 		    && reg != 8 && reg != 10)
+-			dev_err(lmk->dev, "invalid format for clkout%02d\n",
++			dev_err(lmk->dev, "invalid format for clkout%02u\n",
+ 				reg);
+ 
+ 		lmk->clkout[reg].sysref =
 -- 
 2.56.1.750.gf70dc682cf-goog
 
