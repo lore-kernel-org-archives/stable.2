@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795461505;
-	b=lxujKCC+cx7cQZoDl2KV0rwRYhvz/gujWnfnVzeSh3RkR6Qa2vb4yK4vfxsKu/7BkC92
-	 T/baC1kVvWtgKhzEFKdCEenfb8yltX4XvgxJmS1rM/Q4DAFsxCgDiarwmIevoXVwBN+is
-	 Nhz+l8/RawquOoqu3s44aRA5jWdhGPLrzMmie+cBPR1PNu0J4ZigRKJb9H49B3NbZ2b9A
-	 tMn58g9kg71rwKHraMky+TTVdWg5TpanegLD4y0AkLbnGPeHt5lhWlmOTM5/6raNLzjIL
-	 6HDEdEyV8GMqYi+7YV4/6l37Mi7Jd9Hwgy9rZxRLDdc0Crsg7MEa6bymO5sglq4UnmQ==
+	t=1795461512;
+	b=Z72qHdLkNo3Cjsckm25YnReqBBqoizTz/oFBqWY+LURfsAkI+v8qjEEsbVe+ixhkbCCz
+	 9vhADY/UIortfj5E/ScHpwOqOJVBZF2+pbL1DBFjPdU7lduKcYedFQoL0I3czVYQXB6zt
+	 LaNgUwcsCNI2rdYZn/766DcG7P3TFHiEpjc9dd+E7UFxfBOa7CqHHqhiAj+bH9ffnKj8s
+	 BbBOABcacmxfHhjo/AhPO6MdyUauvaCvz6WKQLY+V/HGpM67LXyBAPyKXQ/vyy8Z+Weet
+	 HfK67MmtyLnRyUtb90K7oGMH8RwQFzQUCxMlw+NQ+ml46ZNhn5z1LrcTNNwwpxcf0tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795461505;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461512;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=b3WVxtz/88X1RVJ9PTGEgJQnMhtoTvetL6yUGrJg25g=;
-	b=tidreoERO+Txn0dyq/G7DPtdeiJcn5Th7Tn1DThXCBiz1oVWnr1LB9wzXF5GP96Iq4da
-	 ZKwDYdJE+70+yNaenLr2yIyYh9y5ntGZ1zVmXlaYuqtIUdzXEBwF3/YbdqgmdYFQlZeYm
-	 GWYK+K6+d4MVHbfaICBlZ85XIIC6cxADzkgioYGhD93XacdbWGOws/vWoS9Hnl8rKPqCa
-	 T43ZcKXacZUpmP/X1LD6NRCssxhFlcvJPhrm0rpqRlCbiTA8cl08uvi4IrnIsSOLJU3eT
-	 k0ziN38xsxv8hQOQB3kGX9zVNnpkVwoDSxa7nejbqa8W5Eqw7/lxQ1yv8lEoI0rYbcQ==
+	bh=EcirrK/cjGtGC7mOsE+CtZxi36fUE03jXBnvwV8QOLA=;
+	b=NhN5bXZxnNk0YdEIVmOxtuzl/3Eqt74JYN8PWQawLvuWqNiTXMVWSYaPdwsPVETM5mPG
+	 CIlHIVNySelATWLf0xWmg7yBcKRc47Mdf9CQejXBu+OHo6Mmy/R52rRzOP66Jb4Fr4NLB
+	 3JVmPPSAqQ8BF1ioJN2V39DSX/uQDd8TT+M6YURqnAB2LLG7gMdj+i+sgy6EQz+kvJwwb
+	 AsafibxiZUMnF5ZKl/OdSFaNO+83hSjdhWK6g76Y0s7aqCjpVzryvhVmZWotc13Fuvcmh
+	 EsVrB97vjsXtJB5JNuwSNwowwXOMlOnPJNfK5S+ntweNBVQm26jR6sQJp0D13UHguXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nFe+OPUD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdSWY4y0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA48A606A32A;
-	Mon, 23 Nov 2026 19:18:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13666606A32D;
+	Mon, 23 Nov 2026 19:18:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nFe+OPUD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48CC1F000C6;
-	Mon, 23 Nov 2026 19:18:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdSWY4y0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 358F31F000C4;
+	Mon, 23 Nov 2026 19:18:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795461505;
-	bh=b3WVxtz/88X1RVJ9PTGEgJQnMhtoTvetL6yUGrJg25g=;
+	s=k20260515; t=1795461511;
+	bh=EcirrK/cjGtGC7mOsE+CtZxi36fUE03jXBnvwV8QOLA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nFe+OPUDWPVRj2xrIBs7zECOU9mBV6Vg14mghm5y/KcSCQQkRjRsT5OYVM+dm9JW0
-	 jaMj2SVmsiFRTQ013XvoKv4oyySrkpAm//luYjLm0Wr+4ovi/oK9aerbhNiOZKfiQV
-	 xxNE9pns5zRn6ZGF7zI2psIz5a6f5jWjL1VFB2btKpCekbhdbATSp7JoyJ96xhLc+p
-	 Qq/ZAT5MYDWbhPlTlK8pRdB3fbG7/nkGt/g0Pb66k++2469NeH8iCVmPhDUa7GDtvy
-	 ErMG9fBzBM8t8bYtcbbIpbSKUYKaoMcAhCSjjh82uNkJ5L0GmYkVA/N3dMk83cNLgo
-	 KnxISNxG8STjA==
+	b=PdSWY4y0KQKlA4pK3EeLWNzsN93vTa8mgnFv8vzNFdDh2FaK3ab8oSFzaRHZIwNSG
+	 Gn6ZbAKNiKtHybiEXFeiN3luCgGLnfA47BSXbALOWfZaY7jX28ZhOP+AHj0NtZDF5C
+	 CxmdTX3dxVJtyv8DsnefNwlx8yJ3U/xNOyM9Xb7wh089A2ln9kDem4OHlkKaYcRxnZ
+	 MARD0TCKzH9gy4wGYzzTsXsxZ1BOVMhRnOorOaalkCKrrsZ9viXAT2oIdBSCB9PBpp
+	 muoQUAr83YAIaRaPiuyEMXcLmXrpvt4nRuGTUsLbJp3xmYfUtlVaEwScFB+uvLT0xv
+	 c2NV7fPqrU8Ww==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Paul Cercueil <paul@crapouillou.net>,
 	Ulf Hansson <ulfh@kernel.org>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
-	Allen Pais <allen.lkml@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Aidan MacDonald <aidanmacdonald.0x0@gmail.com>,
+	linux-mips@vger.kernel.org,
 	linux-mmc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 09/13] mmc: renesas_sdhi: Disable internal DMAC BH work items on release
-Date: Mon, 23 Nov 2026 19:15:53 +0000
-Message-ID: <20261123191703.179283-10-lee@kernel.org>
+Subject: [PATCH 10/13] mmc: jz4740: Apply DMA max_seg_size limit to unified tx-rx channel
+Date: Mon, 23 Nov 2026 19:15:54 +0000
+Message-ID: <20261123191703.179283-11-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123191703.179283-1-lee@kernel.org>
 References: <20261123191703.179283-1-lee@kernel.org>
@@ -70,42 +69,47 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-renesas_sdhi_internal_dmac_request_dma() initialises both
-host->dma_issue and priv->dma_priv.dma_complete, which are queued onto
-system_bh_wq during DMA transfers and error handling.  However,
-renesas_sdhi_internal_dmac_release_dma() only clears host->chan_rx and
-host->chan_tx without disabling or draining either work item, allowing a
-pending execution of renesas_sdhi_internal_dmac_complete_work_fn() or
-renesas_sdhi_internal_dmac_issue_work_fn() to run after controller
-clocks are disabled and the host structures are freed.
+Commit afadb04f1d6e ("mmc: jz4740: Apply DMA engine limits to maximum
+segment size") added max_seg_size clamping at the end of
+jz4740_mmc_acquire_dma_channels(), below the early return for the
+unified "tx-rx" DMA channel added earlier by commit a474e52c3109 ("mmc:
+jz4740: Support using a bi-directional DMA channel").  When "tx-rx" is
+used, host->mmc->max_seg_size is never clamped to dma_get_max_seg_size()
+and the MMC core can submit scatterlist segments exceeding the DMA
+controller hardware limit.
 
-Disable and drain both work items with disable_work_sync() in
-renesas_sdhi_internal_dmac_release_dma().
+Jump to the max_seg_size clamping block when acquiring the "tx-rx"
+channel instead of returning early.
 
-Fixes: 85683fb39d9b ("mmc: sdhi: Convert from tasklet to BH workqueue")
-Closes: https://sashiko.dev/#/bug/linux-e1bb7b26-9b96-4c86-b680-6ce4e6a73315
+Fixes: afadb04f1d6e ("mmc: jz4740: Apply DMA engine limits to maximum segment size")
+Closes: https://sashiko.dev/#/bug/linux-1f76aaa3-099b-4ac6-b793-e11a71bb003a
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mmc/host/renesas_sdhi_internal_dmac.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/mmc/host/jz4740_mmc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mmc/host/renesas_sdhi_internal_dmac.c b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-index 6831fc34cd22..a88946bdb567 100644
---- a/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-+++ b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-@@ -573,6 +573,11 @@ renesas_sdhi_internal_dmac_request_dma(struct tmio_mmc_host *host,
- static void
- renesas_sdhi_internal_dmac_release_dma(struct tmio_mmc_host *host)
- {
-+	struct renesas_sdhi *priv = host_to_priv(host);
-+
-+	disable_work_sync(&host->dma_issue);
-+	disable_work_sync(&priv->dma_priv.dma_complete);
-+
- 	/* Each value is set to zero to assume "disabling" each DMA */
- 	host->chan_rx = host->chan_tx = NULL;
- }
+diff --git a/drivers/mmc/host/jz4740_mmc.c b/drivers/mmc/host/jz4740_mmc.c
+index e398a575f2dc..71aa7930a030 100644
+--- a/drivers/mmc/host/jz4740_mmc.c
++++ b/drivers/mmc/host/jz4740_mmc.c
+@@ -231,7 +231,7 @@ static int jz4740_mmc_acquire_dma_channels(struct jz4740_mmc_host *host)
+ 
+ 	host->dma_tx = dma_request_chan(dev, "tx-rx");
+ 	if (!IS_ERR(host->dma_tx))
+-		return 0;
++		goto out;
+ 
+ 	if (PTR_ERR(host->dma_tx) != -ENODEV) {
+ 		dev_err(dev, "Failed to get dma tx-rx channel\n");
+@@ -251,6 +251,7 @@ static int jz4740_mmc_acquire_dma_channels(struct jz4740_mmc_host *host)
+ 		return PTR_ERR(host->dma_rx);
+ 	}
+ 
++out:
+ 	/*
+ 	 * Limit the maximum segment size in any SG entry according to
+ 	 * the parameters of the DMA engine device.
 -- 
 2.56.1.750.gf70dc682cf-goog
 
