@@ -1,64 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795427762;
-	b=Yx7V1/kVZ+YAvv9WW7NSriqhaNY3wGc3g3jHd9aQL1b3ehXq2emCTL0AoH+VFVjOJ4Po
-	 YpBswHotqKF15NY8n6Q8QiWQzgdX3PZJv6A0JoUI/ZBha1zVKJpDp0lRAGoi6GZBnVdme
-	 104yPdwkpLU6Zc+YHSxEew8TlQbDpXqP+78f7LIQnPvPnNTqedG1nLwMZ8w7igyNi/x4s
-	 rmiLYPg/b41SSlwPNbGloMhrO7CJUWG+Pn9SFS9KOlIfkuSKu4RS6ukE36JlNkdTg6cHe
-	 SJoavB7696QyIHYMsoMi+AFPNx6bz+ZpfSBvYvCRM6fSVowbqxHUU60fL5ScOpOkYuw==
+	t=1795428021;
+	b=zaRCtgDf5+7wJN4U4p5kPP+Dv9oR3FOq8wj6CJCs32UskyuL8upARrjdbfWLOcdQKd5V
+	 hf0NvqoCfY5SsLYqW6s1h6SiB5m6i471+TjgZCWIKqGhLR+WsuNyD4y2lx+fOJj8QK3qk
+	 +s41urPDNvFfX9BMIW1X7VJITG14dPFdC88cdnjXehXjZppHwyXY2vR82uYKS55nDX1tj
+	 T4cq+7cY0wqp0m/wGWnYWi8OqurhQvfz9OnS64OLno2LbKBmlqK7aBpFdoelUDHFetCeP
+	 kPMZAoNm77dNFCfc46MJLDnI7Bz1zyHL4WkcDfxh931h6J/i5O540sVusIUMceuDWgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795427762;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Rspamd-Queue-Id;
-	bh=QmVkY0D1iugOAnFAYa2JnBEt+O5w2UV3yLDwM6Do3wo=;
-	b=iWwuI1dsbRN4F/47iuxn2zoOhhn04enuSbSPOaV+f84iLhWUMG1TZN4Hfoa5/mFtd6Pe
-	 TAC7eDgb/qQvK5jmXGURRCYuJg8DzZfJFg4CrHd7pLdonNpTt7sImEfvIdxm6yxzL1Iwv
-	 f125lljWk3i2074Jny+7zMBSFaeRIojZ5SzceoHbHC702QZsn7MUltsIYNsXxAEMr6x8R
-	 5/rF1fOjYqGtIc9+HnEDmniFHd6hPOJweOzjaNuln07MIzrv7s5dtn6c41omwJlHsG8s4
-	 kaBXLzLKoXvO0uZvoyh2Itwb15AI21E4byDN9tOOccaVbVU5v3VCxwNnedsPmmgxdaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795428021;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
+	 X-SA-Exim-Mail-From:X-SA-Exim-Scanned;
+	bh=PyZ9yQC5Ep4/P10hYAHGznQfdWo4mmzt/SNYST0pY9E=;
+	b=f+VQoYhyxSaJfFuqKAYdnJG2h+iJ+iUPxs17mWCRQjfNJRGpiVjjFX3gdvng6KVOaI8B
+	 AX8AHdeqOXbNZhAhsvUXB/tD/r1F+pWxr+KpLO+oIPFdN4pRY54lAxwtrcYPKq8+k/EuW
+	 7H+kKweYg3Uos9E4gYz/L1CJDHC/alLvS8W40L1dL5giFE/Uykgl47yIhRmtz3xHCt8/z
+	 WVG/kFS1fJ5S9E9ggke+HvQ25v92jcU6ZVsYomGmv5hB49YhkS0AETqjHG93JEFnX9bXS
+	 +HMPgBtK/0k8hSWqmYrJ48KBq5ITRbQDWSrHXa2APPYg8cbMdiSOrAKMjOR3iJ+sAAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=steffen.cc;
-	spf=pass smtp.mailfrom=steffen.cc;
-	dkim=pass header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b="NM0GSes/";
-	arc=none smtp.remote-ip=80.241.56.151
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zi9H4Suv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA33606A686;
-	Mon, 23 Nov 2026 09:56:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FA33606A686
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=steffen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=steffen.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B11C606A327;
+	Mon, 23 Nov 2026 10:00:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=NM0GSes/
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jY1Xn55VLz8v21;
-	Mon, 23 Nov 2026 10:55:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=steffen.cc; s=MBO0001;
-	t=1795427753;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QmVkY0D1iugOAnFAYa2JnBEt+O5w2UV3yLDwM6Do3wo=;
-	b=NM0GSes//QXNxRW0kJJIfeWJbCEiU5+Bzsov5kmja9Mn1ntPLZHYOeOprqoGpVuXHEhOUS
-	8BaWS1zjyuePum3Ip7KHbjCVAsTJr+Tiowj59GQEmDprmZnfJgRZb/fmr8/ZmQSHn1/IP7
-	pl8lRwW9TGIxDdJUeR/39FH1eJBgIlwnFJMKevHZQGvrwr6tLrpU0UB8JAmIRDFl5ijCu9
-	KxiKiYZj58KpUZ5/+/LoF5li85zAOzj4RIsyGePiA2XlV+CPHzRIYh5vULRDCmpKavuKOS
-	ACBX2UwdNenb6kTx7DqPMzxpkgrnXFpUy1Q/i/VE6LZlGlVpShJD3eMqgYvmOA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of lists@steffen.cc designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=lists@steffen.cc
-From: Steffen Dirkwinkel <lists@steffen.cc>
-Date: Mon, 23 Nov 2026 10:55:18 +0100
-Subject: [PATCH iwl-net 4/5] igc: let dev_watchdog reset the adapter after
- a Tx hang
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zi9H4Suv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1B0F1F000EB;
+	Mon, 23 Nov 2026 10:00:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795428021;
+	bh=PyZ9yQC5Ep4/P10hYAHGznQfdWo4mmzt/SNYST0pY9E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Zi9H4SuvGgLmReGW5/Ottuna/ZQ5hZ+k6ORJlbhlBFfv1dKS3NMd4j/6mf7lCRd2x
+	 3Ylgz/slXhnP0k6Un5Q+su6zCdrBj5KS41eaw101GEZFEB5wz/3lboFZbGFIrv4ZHx
+	 U84xpQrHxI3bI1jAGWwjxQjOI/kvjHwWUHjLwhFs1r5SdYzJOQMSpu3hi2A7GcGqqk
+	 2D8uvRAUFJxe5CIArpMrVmOfbNenSMvot8t24AATAM7OzkmBQrdwEpDPltG0xcfK7d
+	 yqAA3NhatV7/s6XRUb/rA+vp5Du2LoOjKIe0t0GMB7cq0CVJb9A6aUV7IlH8dx23jY
+	 Sl7KULA/hft9w==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xVQqQ-00000001tC3-3w8R;
+	Mon, 23 Nov 2026 10:00:19 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Dan Carpenter <dan@pereq.eu>
+Cc: Karthik Bhargavan <karthik@pereq.eu>,
+	=?UTF-8?q?Cl=C3=A9ment=20Blaudeau?= <clement@cryspen.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: nv: Reset MMIO state when committing a nested exception
+Date: Mon, 23 Nov 2026 10:00:11 +0000
+Message-ID: <179542800495.4189470.7702534547191717526.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261123-stale_mmio-v1-1-73f9c67a1bb0@pereq.eu>
+References: <20261123-stale_mmio-v1-1-73f9c67a1bb0@pereq.eu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,85 +80,39 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-e1000e-tx-hang-v1-4-ecb4309942f1@beckhoff.com>
-References: <20261123-e1000e-tx-hang-v1-0-ecb4309942f1@beckhoff.com>
-In-Reply-To: <20261123-e1000e-tx-hang-v1-0-ecb4309942f1@beckhoff.com>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- David Ertman <david.m.ertman@intel.com>, 
- =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>, 
- Willem de Bruijn <willemb@google.com>
-Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Helge Deller <deller@kernel.org>, 
- Kurt Kanzenbach <kurt@linutronix.de>, 
- Steffen Dirkwinkel <s.dirkwinkel@beckhoff.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795427747; l=2381;
- i=s.dirkwinkel@beckhoff.com; s=20260625; h=from:subject:message-id;
- bh=4g3DPsLitWHXFohTOuhHku+cbWck24n8+SNlkObQQIY=;
- b=5LDOPqcYvOa34lnT0z+fdHRrcuGJNdYPI18Z7XLjpbHMsow1VF2k6vtSBKoXoSQQL7fai7d6V
- DHCBPkgjeVmBxYqCZX4Alketx9gPPVCRPK0Ebtwy8kJOxxNfGKOHSJT
-X-Developer-Key: i=s.dirkwinkel@beckhoff.com; a=ed25519;
- pk=5DcsaSpVtmm7nCi3Bnw5A4vbXI+sg3hBgt8e2A2U/gw=
-X-Rspamd-Queue-Id: 4jY1Xn55VLz8v21
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, dan@pereq.eu, karthik@pereq.eu, clement@cryspen.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, sashiko-bot@kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-From: Steffen Dirkwinkel <s.dirkwinkel@beckhoff.com>
+On Mon, 23 Nov 2026 12:47:42 +0300, Dan Carpenter wrote:
+> KVM has two ways to commit a pending exception, commit_pending_events()
+> which also resets the MMIO emulation state, and a direct call to
+> __kvm_adjust_pc() which doesn't.  The EL1 to EL2 path in
+> kvm_inject_nested() uses __kvm_adjust_pc(), but it needs to use
+> commit_pending_events() instead.
+> 
+> The scenario is: the vcpu exits to userspace for an MMIO access and
+> userspace then injects a synchronous external abort or an SError using
+> the KVM_SET_VCPU_EVENTS ioctl.  If the vcpu is in L2 context and L1 has
+> asked for the exception, then kvm_inject_nested() enters the exception
+> straight away and vcpu->mmio_needed stays set.  On the next KVM_RUN,
+> kvm_handle_mmio_return() completes the access in L1's context so it
+> skips the first instruction of L1's exception vector and writes the
+> MMIO data to one of L1's registers.
+> 
+> [...]
 
-Like e1000e and igb, igc stops the queue on every Tx hang report and
-relies on dev_watchdog() to reset the adapter. Since commit
-95ecba62e2fd ("net: fix races in netdev_tx_sent_queue()/dev_watchdog()")
-every stop also writes trans_start, so the watchdog timeout can't
-expire as long as the hang is reported again in time.
+Applied to fixes, thanks!
 
-Since commit 8dcf2c212078 ("igc: Get rid of spurious interrupts") a
-report needs an interrupt from traffic, and the adapter is reset only
-if a stopped queue sees none for 5 s. The 6.1 and 6.6 stable trees have
-the first commit but not the second: there the igc watchdog forces an
-interrupt every two seconds and the adapter is never reset.
+[1/1] KVM: arm64: nv: Reset MMIO state when committing a nested exception
+      commit: 551e73d9e21ee2a6d045736246eafcd79b32d9c4
 
-Stop the queue only if it isn't stopped yet.
+Cheers,
 
-Found by code inspection after the same problem in e1000e. Tested on an
-I226-IT with the Tx queues disabled through TXDCTL and the second
-commit reverted: without this change Tx never recovered in 8 of 8
-tries, with it the watchdog reset the adapter after 14 to 17 s in 8 of
-8. With unmodified interrupt handling Tx recovered with and without
-this change.
-
-Fixes: 95ecba62e2fd ("net: fix races in netdev_tx_sent_queue()/dev_watchdog()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Steffen Dirkwinkel <s.dirkwinkel@beckhoff.com>
----
- drivers/net/ethernet/intel/igc/igc_main.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
-index 1fb5f3cbe93c..a2d383f79a29 100644
---- a/drivers/net/ethernet/intel/igc/igc_main.c
-+++ b/drivers/net/ethernet/intel/igc/igc_main.c
-@@ -3281,8 +3281,15 @@ static bool igc_clean_tx_irq(struct igc_q_vector *q_vector, int napi_budget)
- 				   tx_buffer->next_to_watch,
- 				   jiffies,
- 				   tx_buffer->next_to_watch->wb.status);
--			netif_stop_subqueue(tx_ring->netdev,
--					    tx_ring->queue_index);
-+			/* The hang is reported again on every watchdog run,
-+			 * but stop the queue only once: stopping it again
-+			 * would also restart the Tx timeout, so dev_watchdog()
-+			 * would never reset the adapter.
-+			 */
-+			if (!__netif_subqueue_stopped(tx_ring->netdev,
-+						      tx_ring->queue_index))
-+				netif_stop_subqueue(tx_ring->netdev,
-+						    tx_ring->queue_index);
- 
- 			/* we are about to reset, no point in enabling stuff */
- 			return true;
-
+	M.
 -- 
-2.56.1
+Without deviation from the norm, progress is not possible.
+
 
