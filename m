@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.42
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795456333;
-	b=47nYKX5LL9S58nFrkHZ8akZJSSZIdlnPnFQGmMt/cpYAusaOHE5NNpbH3O5kMQJJdwbD
-	 P/YBVXcV2ygW9nKOsd90/FLgxQIfhP3DbfsasAUhMKA9bUh5fwmfpxmuW6cr2bfeVQrOH
-	 SsjixU3vLNzs8QdSaT5RxW/J+On8S9VqvlTrDGj23mK9+7oLwQIB2ICT1611Ydt41dJ6A
-	 RicFPR5FZhKpnGkNRuOXUoDaaY4uYWBGzhSNECS7WYKYJD74q30zOvpjt8VQGd6AeZNU1
-	 93UUIBLEq5UBr9NtmX2PMOj5O6EgLCvo3XaV3zTeJw3ug13rqbFheCoCatPRESnOpvg==
+	t=1795456427;
+	b=SajHg047Bj1N9IG27OHbScZgJ6YXBz9Z9EkK8y96RpjxIrhL87d/PGZ+Cj6578rSckKn
+	 Ezp47kfDu9Mc9Rei+1DDEZL7abiNV9OIJy0U8XUO8vS+gWm4C1UnqP4LF8dYjgM5533WN
+	 tZwRmDlmLNh4DNnqongQ0JZJwOMpNTxxiCA+KWX+X2T9gwTbi2CCLCfUI61NpXqnZkTHU
+	 m9etAypk8Cs4M7H8FWBiUw0QEnZLZJHex9J0DSCZJtOIoI4+GWNLGgiDTaBB9cUgj3N3W
+	 cmf/O9xh3mRVkQhrijxkXdES/5Wyl3swz6czloH0mycDR5TVJNFUi9R2e5YsrURqB6Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795456333;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795456427;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MG9wth+FgKJUhgMgr0LKB7NofqtOeeE2/Q/8//33IbE=;
-	b=GiEmWIXWGZNI2+0E7lfMj39/0rjGyX0Cj0P6plG8lokLeA9RGMsZHqMUpnXJ0NY08qFZ
-	 WeRUx4PVaBJnBUiFQY2HZ4RrX6gRlw4PVvmJ2priyKtV00HDOBsfb8qv6vlsgroyHVlnm
-	 xHG/I6AqSi15jsgJqzP83+K3D0ljstPGE33iume0JIUqwrjM16jw+zQCoQF0vpcLpebTO
-	 S7HFIV2bcGDPgJR/b7WvmHPGvbWLdar/7agxx9DixPDTqaQrpk+yI6Ux8OUjxMjMZFAW1
-	 pbWdZoxJjJmp8rS4B52knZnmMfY/+BZ6wYO7oHNQAWwdlBvTUtJQiLXrelcm8+CkS/A==
+	bh=RRZcWU4JooS1Xssmhmit/2z3n2umybpGN0QWpPuhuY4=;
+	b=3DA+NVua1ehAZfIMK9a3fn5r+m1zPs23eJOc+wWT60MvuYiEoPycv7lTIGBnjW1+xYZM
+	 r/xF1h2Vs8ukWozjddNuk2MNp/AIIPyCiiIZhCJtgRS2DL8LD6AeyIrp7/SixRyHNJIce
+	 rJc4J3LTGgN4YT5/vYcY8WXjSKHNCKvnuXsoVWrw261Wo81L2vpTKAZBe9GQpR5niff/q
+	 t7xx1WFYvD/mcC6WyTbNwOG0NPaZEqBBnqZsae9YjV9JgZYtNrZvwtvEuY41HymPMtqo3
+	 BNTmWdAQb6nZY18lK8tJ7EMKYmFabdS8yNRSAOmfNtRTYqoIXw4R08zcAfh7FqPDh0w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VzVZdWLS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.177
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kyECElfV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA2D606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 17:52:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FA2D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE735606A31F
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 17:53:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE735606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VzVZdWLS
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ae6a0ffb55so28988481fa.2
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:52:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795456332; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kyECElfV
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4bb845433b8so77665e9.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:53:46 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795456425; cv=none;
         d=google.com; s=arc-20260327;
-        b=Y+5hRgfFeg2mYtunlCfbNMqJSHmDqVcLbbQNuL04yEPyO0Nc/r2PAHyWX62pnbLuES
-         FFTx+g/GjdICHNYSR9tWKK9KWkMSDO2MUr3c7M/t1VZtvyMyhpyBmzV3J1uhHEBoE575
-         KaV9V9mQ6+Lzgzk3cKi9uNhn7kvVkRHmqvjrjMGtlbMF1X3EDc/ga2e/T4wy5tZgcUo7
-         ziBhCE/utAs+5alrPAj55gfiorl2j6AzfBLBtThs4v5DamXx+0fA/HmVMaBvtxq5zPDR
-         EWkLrz2tkyxcKDYKyx/qG683BTQPqM+5vEUhp2tsFes9aFR+R3HTSOc43rEL/SLC4S30
-         z20g==
+        b=UlrDAH0BFbTPMPao6PfNCXg33F/uhQnkWzizIq2i90asF6boDJR2PuvVKT6YgR9gEm
+         odMHc7MIdVvIGzcBMWfdEzuGJ1tEVurKK/JNYfDQnvz/78UU7z3oQeE7hza4psSG8d4K
+         PN++oi11avkFRfUL0oi0VqkDM0vydzQfogrN0oBCpmGAlO1RahYEb29+ocGdvS7qo6k0
+         Ycq/rrV/ryBIjtPOavhiBoiKIQSb04BlU7G9cpId4Gvwqh7Wc7VMVa9YnyrU95+MifK0
+         6z1b3DNWkdv/udEkA9CdfGlA2r9QHtqmboayj11Ul5fKnm295ZIaDNNIh9SXBpDrAhRH
+         NH9g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=MG9wth+FgKJUhgMgr0LKB7NofqtOeeE2/Q/8//33IbE=;
-        fh=//dKohM/XUUZEYeFhDO7slJELTM9Yc5eEERIQH2ZLC4=;
-        b=m1HDw8iP/YwDecJxa0uah1nb8K3JZYcflnqvKd9XiM+OvytgJbkI7SlFJmgP/qI2IG
-         a7NsddIIg+X0Qn/17ToTcNETkoe0BrrIo+PJ0tG7bEwtbtCzp6ESJO6NnC7k/paLqsYY
-         Bu4OY5mLeSOVYltX/WWWGPU+Zk8hF3oXX7UjEjQGPoG3FVbVQGl8AM195Hr5rRgn4SQx
-         6yWkquH9lSlRX5Ex/byrDROBzlYOgwYOdKw0PLBN6tcwNE+K3wslPApPWdDu66qV5opA
-         zIt+4o/+7FpSVAJKWV/bMaLPEK1vFeUKUlmp1RL8wDJ4ip6bhhsYCsSt7Zwdz8tM8L6b
-         NKXQ==;
+        bh=RRZcWU4JooS1Xssmhmit/2z3n2umybpGN0QWpPuhuY4=;
+        fh=hbrnHn1Ski4YrCbaxLfDHW2IA424ST0iq0aNI9PFmSE=;
+        b=BjTceP4Z4jJKgmIQ68m+hLSN0Vqn56wezI7VT+jpYinS5l0r2retvjmb9INzaE/EG2
+         XUyb250oTPCpmgaZHW89+4qDbdECEz9fTdWlls9cx5Ru2ZzrFbPTUX7qohXRq8Mp0hqq
+         7A3IwIReoZfjrJtOgouj0g1R4IfYvEjjs5CLe6OhVGrz6mX4mk1idefKGBq5zLJuoYOp
+         9kzstYMVsuhzrtidZfzeaEJzA3uPzBS+4CDebEyH2ePxCJtgPG3KP6mi8qNMObnp9Z3I
+         xFUS3ILO5bJxo2WbcfqY8ToLqxz6+/os57OZv4wB6IObBzlK7C37u2VdqSkFOnkzRWEl
+         rNJQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795456332; x=1796061132; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1795456425; x=1796061225; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=MG9wth+FgKJUhgMgr0LKB7NofqtOeeE2/Q/8//33IbE=;
-        b=VzVZdWLSgKck9jnCpt5RDvw68VaJmr3oNxnGJ+6vxLUrggnEgO8oKD2bxPlSzauCyw
-         1PHMr4dZgM/+M2EBeLNaRWmp/M8Rb4k+jyaFPASscR8yo2lKv3R3z4zrPqfQr3KuNbfu
-         qJ8fudx1gpCSTCwYmjnaM10HDEkhnoCNCibUSVSiZfkbDa9jrdhMyqtIwPPXUsIye8/5
-         fOSfKDGstpp45f9vJaoFV3ZedyWuC+wc2CXWnBgCmYm/6W0UIanqfYogNjMqej7k7RJA
-         cRCIK6JPI/112hMpL8gNCkZ0UKbCjvX4TL8whDIb05sVFnwSdJB/U1hsrBCZkRS8xq+u
-         vgYQ==
+        bh=RRZcWU4JooS1Xssmhmit/2z3n2umybpGN0QWpPuhuY4=;
+        b=kyECElfVhqU/U8ppj4LZCw+7b4+EnGazFVt7ghjggT1FnikRfjNerZWMu0lyS6gb1G
+         YXHvcPMLMNdkDwdmhd/wUekaBA+hVJY6zfkbb7VFKN2GAY/hYZvP44ZKuJFbBfGaJxI1
+         kkfrqLNe+sutCnQM6Gy1gNbxARZ4xTO+nKXLP5CfNtBRWwMnWpWgmt0GMBU2YsE80Fuq
+         CtVlS7I47Y3MIf80OYc60ycPQgR9+Il0FG8vq1sg/6rjCv/jJxaIU7I/sSafAcTJwSG7
+         HLR0fExZ9V77SZiB4lJ+l9fS20ZvCbmWOgQ+rhM9CVMyBQfbX+0HcytuIrIM+/W7NDRv
+         +oRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795456332; x=1796061132;
+        d=1e100.net; s=20260707; t=1795456425; x=1796061225;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MG9wth+FgKJUhgMgr0LKB7NofqtOeeE2/Q/8//33IbE=;
-        b=NJGPM5tqzJrPht5R6X6QHkcLee2+XKr3gvgzKSPjzRr0zlUw84+tNQpJCCyaN06ClV
-         8sDN+JTAB8eVzGRx+61fOKmVOWdWFo7srr96fju1AE0yKfsSof+kIMwHZP+MEXdRW3d8
-         CxQ/JTvTPK4tT4abxBVZqCVEPP8rEhOjV/i0q/oSUffVnC87mdL7N8ss3n2fSQ5gb1Nc
-         MLmtPx/3nYb7kCgGIh0h5PXXNNJvH50/mneuWu5JpIHc3ygzwWR/1m76zgOQQMEmp5dj
-         d7xJmHVDSaGQmMI0TT/G5POl8zSepi4N9H5/ye08pSkD4ELAgqYgMrgPAjV3RBDw29Uc
-         S1EQ==
-X-Forwarded-Encrypted: i=1; AL+hErFJ6zLziZvE1DsNNgEKS0fhMGEjcaEWVcLT/2wjO1pOe6fj6GX7p2wIZH5mVnHZYZwJv44WMjI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+DwJJePbXHbpc9MgZ8h2VccYBS7lrYSgimZWJF3+ayLh+Q/xw0
-	FUAG3dWtUGF19YWYqO/YPWQW66zEFA/H5EILzEJ5i1EiHnbZC4PDfXgCe8cIkTirNwxQ+P02mg7
-	KAnI0BnyuB5wefrvpX19lE1sSoi3lADk=
-X-Gm-Gg: AZFdTZcHEsxh/PaPfAwyml/dHGMvi7hKem7QZP7DI74j/1nG/DbVSghX+1p3MdaV+a4
-	MzGVQ+qlLpZkEYjL+ef25am4u8rSshF21BBAX36No1sGyCrfpyysHtiTm99o6JFYIBEGuCvTmYE
-	PgmDPMueVMid6+5EUI3GGEtxXnbni+89ANJAuf6rriZ8jz3jPGpz+0OZi8uNCu1u6KdSWoJioOC
-	7rJ8ohNotQHq9l4S9SRnmHPO9WC0Jo26Dy1EMhPpjZL0oTG0vWhtXr+c8TLOzVabk/rdGADI73p
-	z+pCRRVSV84qVPaym8xmRPPUssFCRef/nUsXPNWzS161bkpWcmjAcFwXENsaK2cHNz5REXQ+6yt
-	nBzI0KQ4oBpv+xZ5MqDUJiAleXOAZo2sZIS1DwweyYFAZrrpZF6AoL3zjONI9+B2nHia2xd3HYB
-	aqT+1TRH+GuXaeTOMY5dSneqchcp7wT+V++h+B30UeraMddRqYVxmd
-X-Received: by 2002:a05:651c:4217:b0:3a3:3170:5420 with SMTP id
- 38308e7fff4ca-3ae7f8d44b2mr28562781fa.3.1795456331357; Mon, 23 Nov 2026
- 09:52:11 -0800 (PST)
+        bh=RRZcWU4JooS1Xssmhmit/2z3n2umybpGN0QWpPuhuY4=;
+        b=bj899vMJ7at5S3J3ALSWh9x6wob0fKXWqm168uxKKeDFZ7yMVglb/IORPdJ+BDP4HF
+         F4ULxW+RDhvRLQp/USC2nov0CxTQnR12yiTT7UgM6zoouWK2paFqjx53xQoKSDoiExBE
+         IB+sDPYBeIyR9gqlOpNQKATCXVkRw+y6YbpGgVFdAF7/SeEj8CsU7sFiC40RPmC82IXK
+         QzOZtKPkN7DizllETqTSwtSvUxbxYvoq+m8hhjJ92kP8Z3n1oImEGBriNNej4m21O6yG
+         BUsbhey6lkxi4TZYur6SuJnlxD6H5fsudhsYQnw3ilMK0DuwzkP1QnDndU4CKDVoLsjp
+         g++w==
+X-Forwarded-Encrypted: i=1; AL+hErEpKwBWJ6Yu7z8/2IAu39NA6xN7URRMmRgd0iXlfv09bwk/y7bL9qi0GWa4NAkYoTtrOpn02uY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/w9lPBB7SY+k3GSK07QaQvtj90JaHbvi4RZj3UAs76trjoi8TD
+	YR0TAlWaY0q/li1JMjqYBmYGd0OE07KmnLLyQEDquRtwfN4i7ioET6ZT0KHLfhwOO/1LGwbRlmc
+	ltJa7/8+d5bVAmghpNXtUQ9J9lGKZ33uJfrzs5Wcp
+X-Gm-Gg: AZFdTZeRZXDpGEjjHvkSov5ArwTArtsP3/hJqShkDankKKqGnXe1Qrvzk0LplDvShpL
+	vPWL1v3t7iCMH7hCu6ndPF6iEIzIHkktyr1sibHgXtz4Xma/iPi5H2kUNUIr5+Kt8mSv/2J/R5Z
+	493Pwbt9LPedldApV1BWQvursHPwKjqlel0xTH2R98H7GvifxiznXqoIX6Z0NjVV4fC6Mx5JR7h
+	Wakpyfeb5VFV+C1B3TaXs3+CYbFr37qnginbVIB5voVtm5CiOed8erhlLoHeC9QQoymFooa2WGo
+	/F2b69KcnLdGWhIBli8SU7bW2tyanzDkIsNL3CvRWbGSij5yboTQ/G76ZpmNQuSQRTvpp0pj5rr
+	Z6hcTLdwT3DiiOcW4+41jPnFBEUgliPn5UO3eoMJ6rXWvUY/5SvYIRHmHnA0htZEfYyRbQnWelq
+	kX/nBcGFzOlvbMkJDi/gRVzQrj
+X-Received: by 2002:a05:600d:6512:10b0:4bb:7ae3:3517 with SMTP id
+ 5b1f17b1804b1-4bb90bc3163mr1231475e9.4.1795456424900; Mon, 23 Nov 2026
+ 09:53:44 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,63 +105,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261123-shmem-swap-write-failed-v1-1-41a0115dfbf1@columbia.edu>
-In-Reply-To: <20261123-shmem-swap-write-failed-v1-1-41a0115dfbf1@columbia.edu>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Mon, 23 Nov 2026 10:51:58 -0700
-X-Gm-Features: Aa3M54oC7mW_vSMsZDK130KwbXWLigQruCSyLpfj8hjGPNFnBuMpFbLJ5HWExyo
-Message-ID: <CAKEwX=NSxxQ7DB_CbFXNV9TZD8ddwLJry3Unab1OjnFPQwR6KA@mail.gmail.com>
-Subject: Re: [PATCH] mm/shmem: don't drop a folio whose swap write failed
-To: mt4022@columbia.edu
-Cc: Andrew Morton <akpm@linux-foundation.org>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Chris Mason <mason@kernel.org>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
-	Tal Zussman <tz2294@columbia.edu>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+References: <20261120-work-kernfs-delete_self-v1-1-514a35d04431@kernel.org>
+In-Reply-To: <20261120-work-kernfs-delete_self-v1-1-514a35d04431@kernel.org>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Mon, 23 Nov 2026 09:53:32 -0800
+X-Gm-Features: Aa3M54ob7XYovyBMvNusAZSyIh_lIUnU-OICma0eFsVui65MkMhLZKbHyrFxGng
+Message-ID: <CABdmKX0gJbjX89B7Cxerh7AUjP+dJSOm09TmY+Q_AYTge5Ukww@mail.gmail.com>
+Subject: Re: [PATCH] kernfs: clear i_nlink before deactivating removed nodes
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Tejun Heo <tj@kernel.org>, driver-core@lists.linux.dev, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Jori Koolstra <jkoolstra@xs4all.nl>, 
+	Ian Kent <raven@themaw.net>, Meta kernel team <kernel-team@meta.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 23, 2026 at 10:21=E2=80=AFAM Mani Tofigh via B4 Relay
-<devnull+mt4022.columbia.edu@kernel.org> wrote:
+On Fri, Nov 20, 2026 at 1:00=E2=80=AFPM Christian Brauner <brauner@kernel.o=
+rg> wrote:
 >
-> From: Mani Tofigh <mt4022@columbia.edu>
+> __kernfs_remove() deactivates the whole subtree first and only clears
+> i_nlink on a node's inodes later, once it unlinks the node from its
+> parent. In between kernfs_dop_revalidate() already fails for the node,
+> so a lookup that runs into one of its cached dentries kills the dentry
+> while i_nlink is still 1. For a file of a cgroup that is being removed:
 >
-> shmem_swapin_folio() drops a large folio that does not fit the mapping
-> from the swap cache if the folio is neither dirty nor under writeback.
-> The folio can belong to another file and be under swap writeback, when
-> the swap entry was freed and reused before the swap cache lookup.
+>   rmdir("cg")                          stat("cg/cgroup.events")
+>   css_clear_dir()
+>     __kernfs_remove(cgroup.events)
+>       deactivate the node
+>                                        kernfs_dop_revalidate() =3D=3D 0
+>                                        d_invalidate()
+>                                        dput()
+>                                          dentry_unlink_inode()
+>                                            i_nlink =3D=3D 1, no IN_DELETE=
+_SELF
+>       kernfs_unlink_sibling()
+>       kernfs_clear_inode_nlink()
+>         i_nlink =3D=3D 0, but the inode has no dentry left
 >
-> Swap write completion does not take the folio lock.  On a failed write,
-> swap_write_end() marks the folio dirty and then ends writeback.  Since
-> dirty is tested first, the folio can look clean and written:
+> The inotify watch keeps the inode alive, so nothing ever sends
+> IN_DELETE_SELF for it and the watch only goes away once the watcher
+> closes the inotify fd.
 >
->   CPU0 (swapin of file Y)             CPU1 (swapout of file X)
->   -----------------------             ------------------------
->   shmem_swapin_folio()
->     folio_test_dirty() =3D=3D false
->                                       swap_write_end(), failed write
->                                         folio_mark_dirty()
->                                         folio_end_writeback()
->     folio_test_writeback() =3D=3D false
->     swap_cache_del_folio()
->     /* X's data is lost */
+> The window covers everything between the two loops in
+> __kernfs_remove(). kernfs_drain() drops kernfs_rwsem and waits for the
+> active references and open files of the node, and the clear itself
+> waits for kernfs_iattr_rwsem behind every concurrent permission check
+> and stat(). In a VM with a few threads stat()ing a cgroup and one of
+> its files while the cgroup is removed, IN_DELETE_SELF for the watched
+> file got lost in 16 to 33 out of 150 rmdirs, and it didn't show up even
+> after dropping the dcache.
 >
-> The next swapin of X reads the slot whose write failed.
+> So clear i_nlink in the loop that marks the subtree as being removed,
+> before a node turns inactive. kernfs_rwsem is held for writing there, so
+> no new inode can show up for these nodes while the loop runs, and once
+> a node is inactive kernfs_get_inode_locked() refuses to attach one. Two
+> overlapping removals may clear the same inode twice, which is fine.
 >
-> Test writeback first.  Both flags are in folio->flags.  If the
-> writeback test sees the write ended, the dirty test then sees the dirty
-> bit set before it.
->
-> With the fix, a folio whose swap write failed stays in the swap cache.
->
-> Fixes: fc2c19648d68 ("mm/shmem: fix swapin livelock on a mismatched large=
- swap cache folio")
-> Suggested-by: Chris Mason <mason@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> Fixes: eea5d2bb34ba ("kernfs: Send IN_DELETE_SELF and IN_IGNORED")
+> Cc: stable@vger.kernel.org # v7.1+
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Good catch.
-
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
