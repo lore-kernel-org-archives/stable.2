@@ -1,78 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795464566;
-	b=wL9HP+xbxuySq4DvSUAw3/k0l5NE23gyI9ymDbRbY3ir2ztL3NyT4ulgxAHYLfrUUSiS
-	 lBlXt8yMmLs52IMv8bGNp7Q+gnljLcPp4LKmUNHtUsOrrenplnEDv+TjKotXVYhSFhbZ7
-	 w83jiDWdGa/kcMHSmjst61k/ys3gdW+VlQAY7RsJv3dcT+lyeuulIBN2tnIyK/p6k/Rsy
-	 3jX21HD6eVGaZ0AIoLH9sM5EREynu1vTYsLdD5APGQO8VfBIgYwkL3Dg7BxXwryf+OtG5
-	 pQ2+fP9kyRQWbgPcZxm6EH5bgA5se+ZSR/SWedzxHP9VX2WQX/Nagwx3gWjNgubFH9A==
+	t=1795464783;
+	b=Lj7oBpBVOlDdw0QwxL0VH0dt9fZ1yH8yGJZQsXBv5G7qxwxI7/5hjahC/oZyxuo7osPB
+	 AlWDTTGC3/FBQti4o3M0uxyOX9D73uLWmEsmMWu1z6rx3nESOByUPEv8ehFueNm9Hl93c
+	 dhQFSirQI8ly4uDzy//KKm8jN3mTLe+8IXF36pn1O5rJauoaPPHlRAXoLy7bKvKRpKQ4S
+	 EJTjtcyG9VpAthS2UZ0zXnI09rvDvfHfi+fcOIkZV4PWO62GFmyiwLOEXfW2kPn6cK1Yo
+	 HPldqtJA4qWGu+TuwzBX8nXKk1o4xRZ7Do5qZdXJs6B57fqdoRhj9aphnNTe8R1Q+fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795464566;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=9otpOx2hP3p80r8IPXZCT5/F27bYm6jkIoRrVSHHchY=;
-	b=T/Akide9kCkYdNXMYEIFTpCnjspPZTW3F+WzycL8JgejRIHYSJnCxwLuufVJegmJAUS4
-	 1L9/VVj65W/Ahds5K0b8MaXgqM7xtf7iVhGqubgvKW2ndI32WgTbE42H5zSgTvk9/yL2U
-	 rn3WZIAfobJiGPtnV99ySlDN1/D+Jv9nFy8IGuKGZ38AOFdB76cvK2FNAYQRRicO0WbX1
-	 BELNgppL7rpU8XsQyFJ/qompqL3TH/l2QfctFpfEQWpIe0WxjMsFqThE62m2dLXOADzSj
-	 Mwg27ySJ8/AuOeg+vw07CWV3JNr7BBqJNj1kb/3HuBL97CqUI6SRc7J2OWeU34qQMVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795464783;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Vl+Jr3N/YEqz9NFVbM7G/TwPrthGUN0HgQHZE/6GVYs=;
+	b=gGDfHKPeY2OUhlY2I7bR6z2RagzLzVuX+W5OWWaCsthFD2d0wGimf1EtPTT3n/KdSsCg
+	 gQWpH+uuGtG4v+7unmgcYayPoAXfjWC6cJ5qNty/AvZp4li2oD9Tg69mS6Ei87KkXKM0h
+	 2EcPrMK5MTamIiD24hFTXF/7PDMGB/EXVGH1iSTqb5tRIFaXq8TMbfAfjD0q649ChN0ZH
+	 C3oR8RXxOyu9jTZHjnSTwpQJhty1CwngjIAFrfWIfi6WhgZ+Qt5vzsy/SLx6lGcO0S52E
+	 3C9SKGTwwkkHZjpVbuYTenr4vVVOXZWB8VZIaI3DwmqlbK2vgfwDVeCcts7yP8EuFRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="ic75w/ud";
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XBwGTjYq;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D92C606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 20:09:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D92C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420B0606A326
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 20:13:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 420B0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ic75w/ud
-Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
-	by cmsmtp with ESMTPS
-	id VZmsxMNFYyb4YVaLoxtkCP; Mon, 23 Nov 2026 20:09:20 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id VaLnxjy3wdRrRVaLoxMCJT; Mon, 23 Nov 2026 20:09:20 +0000
-X-Authority-Analysis: v=2.4 cv=LOhmQIW9 c=1 sm=1 tr=0 ts=6b049d70
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=xxfhDY9pAAAA:8
- a=VwQbUJbxAAAA:8 a=VOs2tEXDhbcqsyWIaPYA:9 a=CjuIK1q_8ugA:10
- a=rMMjO1C7342AHnzdNuLM:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=9otpOx2hP3p80r8IPXZCT5/F27bYm6jkIoRrVSHHchY=; b=ic75w/ud+cdIswe45SPGb+z7qR
-	GUCAxW4rVDPyeg7Esf5GgiW5gCBSA/e3N9yYXyGtIz4FrO7JLzSNt4IZ3ccHcoDhhlhss+n59eLN1
-	KBPkd/6Lc5XGdvJEu8GkaR/ctYZ9A7yNnpCpNj5o0IeXzQXu9BwxN1t7u3WVanNqVlnMW+nbPco88
-	Z9DOrpmobmZt9XIx/JmJFSax4R6DwJ67mKF7ki4K1IaZClFTMjw6tsAZI+ebueOV7Rrz7I+m1T9MB
-	8YjJLK8EJBUXGvdY1H12cPv2hUMo3uOUr1pQAhsIHKd87gcgWjhHq5okT2lLGthvck7iag35Mu5sT
-	JfBrig/w==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:54720 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xVaLn-00000001ckt-2Rgv;
-	Tue, 24 Nov 2026 01:39:19 +0530
-Date: Mon, 23 Nov 2026 12:09:18 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Markus Haberlander <markus.haberlander@rosenberger.com>
-Cc: Thomas Richard <thomas.richard@bootlin.com>,
-	linux-hwmon@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (cgbc-hwmon) Add module alias
-Message-ID: <4a9db021-4352-4578-badb-5efaa504ee79@roeck-us.net>
-References: <20261123-cgbc-hwmon-alias-v1-1-3054681f984a@rosenberger.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XBwGTjYq
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1a2761c69fbso2875747c88.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 12:13:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795464782; x=1796069582; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Vl+Jr3N/YEqz9NFVbM7G/TwPrthGUN0HgQHZE/6GVYs=;
+        b=XBwGTjYqQTUhH8gOOPo7XYWKULuUQj/EpvbNDliWDwCiUoZljy6hipnGBLvu6Cnf5I
+         QB4eBs8VRrzDPEFIyfvnEECbj62cghj/ipTuo/74QHstzb5WBVfWu4m02MzsNJkRGKvI
+         SL8fcrbPP0dhsR+7166QGff/5/sQV76QwiPZ7j97puU4qusj2tHix5UXAB3PKH0FfvdF
+         VB7kwwzfXflu7ZjkINak8Hp7mvsdVxjbRWKOPxeP6S6R2nC5D+bm4l+C8kc5KUkVw6fN
+         cK8+myDOVOK7fbti9aE2nqTQHnvbOopkfcQ73z56fwYLjpAI07pa3Vv+0MfVvQC4YUsN
+         YlFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795464782; x=1796069582;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vl+Jr3N/YEqz9NFVbM7G/TwPrthGUN0HgQHZE/6GVYs=;
+        b=FBqbQAdM91AEx5ijUbBguaC5N91ypU85ZclfSSDikRMm6ugQord4vpKH59iHHHtt45
+         gTiMQJyWHT32Y+ajuDk5G0OXzXlRc+K0L9JZPhxIO+VkKHXa99JUvQTuIOygECwkVevi
+         lM8y9VHZRnQXb4UZdnJ3CYDa0bC909ih9eje3Znj8OENvn7AXURcOGmbCZ3vaczdm/4z
+         GyGILIZ9BUYw0CmyStC0JG8n0MJpWHh+5UkRAISBWF7zrcqINdUG2cZGKhPgDq0FG6ii
+         g9+dyY5AYbeWGgnoOVVRRX8pbVwgAJzAjN72EsXBFPdYhRDBmdHNOs4R0fkhPcY6z2Ml
+         uT/g==
+X-Forwarded-Encrypted: i=1; AL+hErHmJJ1uuhurxNN4AuXUewuzomNRuuL/L2X1yW0wuFEZnbA4aQG1i0s9pV3LgHui75c4+2rjSZM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Pck4O11iNRjl1xnmurHsD7PeHZHJEGbq4BmHUQi28IxH+hcD3
+	Xtzp/hyLWLYP6jnoN3GbBMIsq5vCqFWhHhzx0hIvzvwsDAu0SLnaWcLL
+X-Gm-Gg: AZFdTZf91ReP9WFhy768BrLQ6AK6BDK2EB4s7z49WFRIHcTl9idyJme+E/vBV3jfPMP
+	k9cR2F4IKjfVcdYG0DCkAFpiRnqNuzkbssIX47Z1evuzqfwcruY2LbvRnnUO7VFaFeVW3B+GpGW
+	Zs+WSTlgefODtU7SbVGhSpadwD4N1jrSTYKpavYVeg4MV3GDTwNZUGvyS0tGZggLGJbhKxKfIhv
+	C3aa9w1xHv22rg4BuCt9oCDnBiuB97667m3BtoCZ+028jLLzvf9Gr4NdNMFJzoB8jK94l9J0sFV
+	ZvYltQgtiR3P+aDiGBXRC+J9pgoeH+ldtBvxWzGFPGev2/LPnZNLfvHbZWhiWCBvjteCLGiaSk9
+	r0m5NirMPfUJTH//3rBjuHnPgLJ58G/P9/rkxKIcwjHd32GYyY0QEZw7hm8YjyfqV3hKB4/66sS
+	y/wa8O6JZ42TuWq0FZRMrdxn40iumm88jR+4JYeiqORblGdSChbzFoh8/msb7S/hM35P3vVbuSL
+	NjGpkHFDDaeT4Qu3Fo8F9nucKbewNt5kCnhHg26Hr/OnSPQbvh88xQxl5AadUYbvlOrJkJCpODP
+	eLmEv5qwiq268OsNHH3BIOBM7+xo3yzrFrbtUfGsqh3ssA25J8FVlVUZ1SZZL3MpVTdIdHs=
+X-Received: by 2002:a05:7022:e80e:b0:1ab:de8b:5f0f with SMTP id a92af1059eb24-1b556924b07mr13875087c88.40.1795464782093;
+        Mon, 23 Nov 2026 12:13:02 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:4121:d698:201c:9274])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b556847fdasm34059654c88.13.2026.11.23.12.13.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 12:13:01 -0800 (PST)
+Date: Mon, 23 Nov 2026 12:12:58 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Marek Vasut <marek.vasut@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 01/10] Input: matrix_keypad - validate GPIO counts
+ against matrix limits
+Message-ID: <awSdwBnT5bk_BS-G@google.com>
+References: <20261123183200.3900004-1-lee@kernel.org>
+ <20261123183200.3900004-2-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,47 +101,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261123-cgbc-hwmon-alias-v1-1-3054681f984a@rosenberger.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xVaLn-00000001ckt-2Rgv
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:54720
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 8
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfPVdTI7uuLH4A3aekIghNsi9AwOrrYRgymWv7xLJdWDpffAqsM9xIlcn+rU5DEqr5hFfvxplQvVN+Jm2enogE7LIu/kOxYCUnbLxQ312AT6uhwekLLrw
- GyQOLBYrfBOpLUHznu+3y9paqox09iYkSBt8T7hbvBH91S+2jUvdYvPsSLZ4cg8XbHp0AmTh2c90oeF90qHQzhThPvkuPcWBobpKs/cZsroaK1lByqG+Jz5G
+In-Reply-To: <20261123183200.3900004-2-lee@kernel.org>
 
-On Mon, Nov 23, 2026 at 08:27:01AM +0100, Markus Haberlander wrote:
-> From: Markus Haberlander <markus.haberlander@rosenberger.com>
+On Mon, Nov 23, 2026 at 06:31:07PM +0000, Lee Jones wrote:
+> matrix_keypad_init_gpio() obtains the row and column GPIO counts via
+> gpiod_count() and only checks for negative error codes before storing
+> them in keypad->num_row_gpios and keypad->num_col_gpios.
 > 
-> The board controller's core driver adds the hwmon cell as platform
-> device "cgbc-hwmon", but the driver declares no matching module alias.
-> Built as a module, it is therefore not loaded automatically, unlike the
-> GPIO, I2C and backlight drivers, and the sensors stay missing until it
-> is loaded by hand.
+> If firmware supplies more than MATRIX_MAX_ROWS (32) row GPIOs or
+> MATRIX_MAX_COLS (32) column GPIOs, the setup loops write past the fixed
+> row_gpios, col_gpios, and row_irqs arrays inside struct matrix_keypad,
+> and matrix_keypad_scan() overflows the stack-allocated new_state array.
+> Conversely, a zero count causes get_count_order() to return -1, leading
+> to an undefined shift when computing row_shift.
 > 
-> Tested on a conga-PA7: with the alias, the driver loads at boot.
+> Reject non-positive GPIO counts as well as counts exceeding
+> MATRIX_MAX_ROWS or MATRIX_MAX_COLS, and size col_gpios with
+> MATRIX_MAX_COLS for consistency.
 > 
-> The patch and this changelog were drafted with the help of Claude
-> Opus 5.5 and reviewed and tested by me.
-> 
-> Fixes: 08ebc9def79f ("hwmon: Add Congatec Board Controller monitoring driver")
+> Fixes: 584bf366f8fa ("Input: matrix_keypad - switch to gpiod API and generic device properties")
+> Closes: https://sashiko.dev/#/bug/linux-ed4b89af-6c76-4e5f-b140-fb2b107b12d0
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Markus Haberlander <markus.haberlander@rosenberger.com>
 
-Applied.
+We trust DT somewhat so I do not think this needs to be in stable.
 
-Thanks,
-Guenter
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
+>  drivers/input/keyboard/matrix_keypad.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/input/keyboard/matrix_keypad.c b/drivers/input/keyboard/matrix_keypad.c
+> index 11018382e84e..c2f839a3de90 100644
+> --- a/drivers/input/keyboard/matrix_keypad.c
+> +++ b/drivers/input/keyboard/matrix_keypad.c
+> @@ -33,7 +33,7 @@ struct matrix_keypad {
+>  	struct gpio_desc *row_gpios[MATRIX_MAX_ROWS];
+>  	unsigned int num_row_gpios;
+>  
+> -	struct gpio_desc *col_gpios[MATRIX_MAX_ROWS];
+> +	struct gpio_desc *col_gpios[MATRIX_MAX_COLS];
+
+Luckily they are the same...
+
+>  	unsigned int num_col_gpios;
+>  
+>  	unsigned int row_irqs[MATRIX_MAX_ROWS];
+> @@ -302,11 +302,16 @@ static int matrix_keypad_init_gpio(struct platform_device *pdev,
+>  
+>  	nrow = gpiod_count(&pdev->dev, "row");
+>  	ncol = gpiod_count(&pdev->dev, "col");
+> -	if (nrow < 0 || ncol < 0) {
+> +	if (nrow <= 0 || ncol <= 0) {
+
+gpiod_count() never returns 0. It's either positive, or -ENOENT.
+
+>  		dev_err(&pdev->dev, "missing row or column GPIOs\n");
+>  		return -EINVAL;
+>  	}
+>  
+> +	if (nrow > MATRIX_MAX_ROWS || ncol > MATRIX_MAX_COLS) {
+> +		dev_err(&pdev->dev, "too many row or column GPIOs\n");
+> +		return -EINVAL;
+> +	}
+> +
+>  	keypad->num_row_gpios = nrow;
+>  	keypad->num_col_gpios = ncol;
+>  
+
+Thanks.
+
+-- 
+Dmitry
