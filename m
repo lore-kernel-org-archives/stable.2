@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795434987;
-	b=LbYGIMVSjY6E1Cy1KjiYDBn1JR9+99W9DonMyCUeOvB0ZNeGgcP2g1ZSJ2gMSo7q8Bdr
-	 8VNlAwVDnGcQELUw28NzOBG/mBm2Ptuv98gb6FB5+TnpqTd8Z7OU+x1MdR11CVQ4Qq8on
-	 KgNWRJFLx+1FJxMyIPoHqPcANmvVYTxtL3SaKAbkHVJb+xZBlDBzs17Cz7aUrtpwOyfdt
-	 rvl2dZX9WVFIPRrdtOhRyKC0I0PMs2txiL2zym1zxygBtmaranHYRbQJr/wbziMWVOc74
-	 2GV6yB8a645rkzEd6AO8boHCycK1W4STVr6abQh3fGqAXCuLNiqYD5Rg6laqmnEhu7g==
+	t=1795435224;
+	b=Tz3jAd1yKO85GlTixxj+NuOGWzah6T22MIzlHhLeMXLsXKbneLniywk1hJ5f0kEXpVjx
+	 VLcMBY4xetJTYww0f91tdyxX/ju7mk+TX0AlfvPSeELHmKP2oBTS58sdV6umkwv2DTMbr
+	 MoeyXgVP3cRVRgJvIjkhcuE182cWxxgMVX4f0EM9oeSDJ4RalQ3y/dyzXY06D21OYU7fg
+	 oG3S4o7t3aMGEzY7pd+udXejEBLNZfLvpYSi3aWoa18n6HvTUTfnHA1dEjEeaE7oyAhJc
+	 T6SihEIZ48ghfGUZHsoimsEbfxqtRx3lzn//ZrmBg6d2az9FkNHSBGvnHLwinrUauUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795434987;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=JWKnHCuSk7LneegfayxlFTdcSpVyKl2lOhT1vd5/dwY=;
-	b=ONU6nfPUwhBglzEKs7xgE+ZgTuNo0spE8Vjp3gRFm1/P7PTUvy1VlPOpXXUMCweNa6y/
-	 nQLY58i9S3IyorRsWLAtAjuWcISGX2KOhWFQUCrfl1/gaqc+ez2s4nPpGjq8I1mP+eIYD
-	 r9pzYIfHVSBwQ4O1oTfexiqvy9JfRSsFiquPiyvQmKOG6Uc+vJHamVMzBAJ8T2zWIWoKD
-	 y238kV6LMUacNhXzrxb1KD3M/hRTguyzNYZVtlGnze738ZsMB+sx/XLPAWnk0dzvgfBBY
-	 5ED5I0jq2PUosNapn/GS1hdIF8aCEz7AiNjB/+Cvbb70brQFDFaDTxcUdvzsVVvoecA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795435224;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=3gcpq/J0YYuK6PvfJzkzuLL/NDzkyJbMUIThLtA9Ve0=;
+	b=bq5zSxiJhwMv1aPY8FzzwiKu1iCeV9IawT5Yu2JWoaB7Av4lIL/IruGz33KTqPteWSa0
+	 Sr2bVy/MRQ6C1krFH3G/o2fU9OrSjYbOvVRh+vNQ5ecs53KW4I2rT8Ir64+vJEsX8fZJn
+	 jqP6zlN4tU2Y6jZVv2UlhgANsQgy80e5tE5XNM4IRcYOkH3mSEz2TxI2+qJYFYrWQc4Qq
+	 ISpL9uhjwLKi3XmzF+86FrvK3DKrqiyXSxFUoTuRuh35TZSk0zFwbj4UWDTjAwESRKfWj
+	 RvftpICOCxyl14Rv2T7b2Eq7agvF1HarOkau1MNnsqesTaigWrXfkpnemS0HbdbVSNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KvpC2MHH;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9Y3VKWv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C66F606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:56:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C66F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145D3606A31A;
+	Mon, 23 Nov 2026 12:00:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KvpC2MHH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795434985;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JWKnHCuSk7LneegfayxlFTdcSpVyKl2lOhT1vd5/dwY=;
-	b=KvpC2MHHkypZy6gXZCIY7Ta/Oe3hPmqtRqoHLLUOnx0AhghbUtlXsJGlHFoOGHafP2HN+6
-	QK7E8bBu67nzM2apA64QjiLVaKIwi83/oeGH1u2SnrdyQr9QBva8CNbsGFAIABAWmT69xo
-	1SCxWqcaTtz+UN5q3qefjrDnbJc6x+8=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-694-uMh-3LQANHe0guXSvQAUxQ-1; Mon,
- 23 Nov 2026 11:56:21 +0000
-X-MC-Unique: uMh-3LQANHe0guXSvQAUxQ-1
-X-Mimecast-MFC-AGG-ID: uMh-3LQANHe0guXSvQAUxQ_1795434979
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BCBFF195609D;
-	Mon, 23 Nov 2026 11:56:19 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 031EB18004FC;
-	Mon, 23 Nov 2026 11:56:17 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Mon, 23 Nov 2026 12:56:19 +0100 (CET)
-Date: Mon, 23 Nov 2026 12:56:16 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Christian Brauner <brauner@kernel.org>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] signal: initialize k_sigaction in sys_signal()
-Message-ID: <awQp4FzrABb9s9Be@redhat.com>
-References: <20261123091329.3658965-1-bsdhenrymartin@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9Y3VKWv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC1011F000C0;
+	Mon, 23 Nov 2026 12:00:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795435223;
+	bh=3gcpq/J0YYuK6PvfJzkzuLL/NDzkyJbMUIThLtA9Ve0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=O9Y3VKWvj61K2GVnnhqlv1oiGK94re4F5BXCcenvjRxa5GmPk7NJzWTnxHoM04An8
+	 zxa+xzLk3wy4FGESLipB7ksUAu0Y1gL6mm2aO6eLK/iRTuEkx6DG2/hVoTAW9drim5
+	 HGIEv3D4PC+CZGbtrPxaRP5SBLMiygxpZ7UocJPr6fAL50wLDxJSKBc7s6MfwoIXLj
+	 Knt7dmZvqn/5RjQaPqebJpLvvNLc+UtEUS3GR3v2j82LX3nj0q45fOiX5MmvAtrn8o
+	 /o/QPmsDvHRr1gM8XYq7fd1tcUfqp2mBieLUbRdXDD/oRNj0EFHghzlCmoCqG+vIn1
+	 BkHAkZEIT9ISA==
+Subject: Re: [PATCH can-next v9 05/13] can: gs_usb: fix hardware timestamp
+ state for mixed channels
+From: netdev-bot+sashiko@kernel.org
+To: mkl@pengutronix.de
+Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
+ max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
+ linux-can@vger.kernel.org, shuangpeng.kernel@gmail.com,
+ stable@vger.kernel.org, vadim.fedorenko@linux.dev, kuba@kernel.org
+Date: Mon, 23 Nov 2026 12:00:22 +0000
+Message-ID: <179543522241.3131.6628219369362226414@kernel.org>
+In-Reply-To: <20261121-gs_usb-fixes-v9-5-db121d488945@pengutronix.de>
+References: <20261121-gs_usb-fixes-v9-5-db121d488945@pengutronix.de>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,23 +64,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123091329.3658965-1-bsdhenrymartin@gmail.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On 11/23, Henry Martin wrote:
->
-> Zero-initialize the whole struct so the fix also covers architectures
-> that keep the restorer in ka_restorer.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-...
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
->  SYSCALL_DEFINE2(signal, int, sig, __sighandler_t, handler)
->  {
-> -	struct k_sigaction new_sa, old_sa;
-> +	struct k_sigaction new_sa = { }, old_sa;
->  	int ret;
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Acked-by: Oleg Nesterov <oleg@redhat.com>
+- [Medium] In drivers/net/can/usb/gs_usb.c, gs_can_open() has an
+  unbalanced brace in the new gs_usb_timestamp_start() error handling,…
 
+--
+
+can: gs_usb: fix hardware timestamp state for mixed channels
+
+The HW timestamp infrastructure is now set up in gs_usb_probe() when any
+channel advertises GS_CAN_FEATURE_HW_TIMESTAMP. Initial time sync and the
+scheduling of the delayed worker move into a new gs_usb_timestamp_start(),
+which runs when the first channel is opened. Shutdown is keyed off a new
+per-parent flag instead of the feature bits of the last channel closed.
+
+> diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+> index 470dd52d97dfe..30bcb734c5df8 100644
+> --- a/drivers/net/can/usb/gs_usb.c
+> +++ b/drivers/net/can/usb/gs_usb.c
+
+[ ... ]
+
+> @@ -990,9 +1030,19 @@ static int gs_can_open(struct net_device *netdev)
+>  
+>  	can_rx_offload_enable(&dev->offload);
+>  
+> +	/* rely on RTNL to serialize concurrent ifup/ifdown */
+> +	ASSERT_RTNL();
+> +
+>  	if (!parent->active_channels) {
+> -		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+> -			gs_usb_timestamp_init(parent);
+> +		if (parent->flags & GS_USB_PARENT_FLAGS_HW_TIMESTAMP) {
+> +			rc = gs_usb_timestamp_start(parent);
+> +			if (rc) {
+> +				if (rc == -ENODEV) {
+                                                   ^
+
+[Severity: Medium]
+Is there a stray opening brace here? Nothing closes it, so the two closing
+braces below end the -ENODEV block and the if (rc) block. The
+if (parent->flags & GS_USB_PARENT_FLAGS_HW_TIMESTAMP) block is left open.
+
+Every later closing brace in gs_can_open() is then off by one. The
+function's final brace after the out_can_rx_offload_disable label no
+longer ends gs_can_open(), so the next definition is parsed as a nested
+function:
+
+    static int gs_usb_get_state(const struct net_device *netdev,
+
+That doesn't compile, so drivers/net/can/usb/gs_usb.c can't be built at
+this commit and bisection through it breaks.
+
+The goto out_can_rx_offload_disable also ends up inside the -ENODEV block.
+The commit message says a failed initial timestamp read should make the
+open fail. The usb_submit_urb() error handling in the RX URB loop follows
+that pattern, detaching only on -ENODEV but always taking the goto:
+
+    rc = usb_submit_urb(urb, GFP_KERNEL);
+    if (rc) {
+        if (rc == -ENODEV)
+            netif_device_detach(dev->netdev);
+        ...
+        goto out_usb_unanchor_urb;
+    }
+
+Should this be if (rc == -ENODEV) without the brace?
+
+The next patch in the series, "can: gs_usb: add support for context
+analysis", removes this brace, but that patch isn't tagged for stable.
+This patch has Cc: stable@vger.kernel.org. Would backporting it on its
+own give stable trees a driver that doesn't build?
+
+> +					netif_device_detach(netdev);
+> +
+> +				goto out_can_rx_offload_disable;
+> +			}
+> +		}
+>  
+>  		for (i = 0; i < GS_MAX_RX_URBS; i++) {
+>  			u8 *buf;
+
+[ ... ]
+
+> @@ -1107,10 +1157,10 @@ static int gs_can_open(struct net_device *netdev)
+>  	if (!parent->active_channels) {
+>  		usb_kill_anchored_urbs(&parent->rx_submitted);
+>  
+> -		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+> +		if (parent->flags & GS_USB_PARENT_FLAGS_HW_TIMESTAMP)
+>  			gs_usb_timestamp_stop(parent);
+>  	}
+> -
+> +out_can_rx_offload_disable:
+>  	can_rx_offload_disable(&dev->offload);
+>  	close_candev(netdev);
+>  
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261121-gs_usb-fixes-v9-0-db121d488945%40pengutronix.de
