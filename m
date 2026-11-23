@@ -1,67 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795454129;
-	b=FlwCkEUy/QS7B/Zbaxw/yjYaMUoCJJ41v8zy6Vwn27lR979ZbMbrsCJV8L3DMtnxa1er
-	 PFpsknYsc8q8/abmmATcOai1Fxh8T6+749jN7rLCM5xSpbCBkE5KMrzzqAbhRqlnYspOH
-	 09LFeVA9MZvFlRNo7sgVc0LuSxrarJ8eLoR6PFn+vc6eCCfKlXuziQUObGSDlPtJcDFaM
-	 uzV8Ztv7Pb6oJX0Iz1cxSV4OSA/0tfptor3V1WglS00/x5Gv0dG6JIu53mP/QoeDLgOxo
-	 bIE9ZSE99WCjWTrMfflcD1t/h51c26F/+lyU+Uv/93HHze4Loey/MxvSjU0z8IigElw==
+	t=1795454169;
+	b=X+uPhuMoYhmgAxUv5sMKut13/hf0adrnxbyMe+PIXX2cwF5YEveu4jkMdVNlJ9u8cNL4
+	 59mI8wup77YLEBysPEcsGy4ICSRXeoIgd4c1xTncatg8wHR8OrEVndQ6etpJX4rhlMXmo
+	 W7VwFW1lc8p1cSeXu3/3OyMZfj4E0hJxAGT2o1rvqoapnFIwolr79Ega9dTq6HtJazwgG
+	 ckSHWdZthaPtZqnGMKNuo75TfLuXdoSB3zId6TD/SKmK8uSwgoA7rw7KPDXLOBLUZLNjx
+	 bHTuKtuINAyCKqWDvDYun7AD7Ut4EzHwmauZrVMqq5ozvqIpy8lqX0EI/i3ZlS7agOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795454129;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795454169;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=7HrXdAZvqoP2wKFdIA57K4p11FPgSibCIfOS3Ctnkzw=;
-	b=d53garOrau906wY+uAXtA6ZuRWXUff0457bS2r2IrBUeOHOccSO9vUpgqe0mjT1yMzeC
-	 ATnThiIJmAhNkVwPsqjANRENOD1zdULZPuspQOXIJPhdmXKqPxQF5FiKhxuEfJdouj/K9
-	 AOafLrwqA/O6FpnQSA+fOsof/4I0ivqltXCYvJIjdVIKeJ+No5sHs4oessWZx87woT+wo
-	 yk797LqL1LZZjvsEoLMoD5NevAO2e7njzq2330WodqF+oS4OPiFMJO3YszeLx0o/vmScz
-	 hlF1qhn9/WGI8/LLyjLOxHxLs5raT3LwpB3yAsVZQZomAQ8aCVCNxVzsT9siGLwu8JA==
+	bh=ya6v0UyKzX4mmCXRtci1TvYwloWMFBhWYhOd/yqiouQ=;
+	b=ttQdtTK9R0hXFKj7N9K4hYxeNz7MHQDiLLrUFvpo9HYX963I1TOWnFKSRtEtJiBQHCN8
+	 E9bB8pPbhJ2cCUSXgKrZC3aDAPK2nsh66YQJCL+n51R6XQTjqGYz6/NosIfXkdC10Ut9l
+	 sqGBoQY0wPYUC6Du6lwrZkOirOYMjp5uGXPqSMcr+uiKJyg4NWiC6Z8um0BP2+pDfUM09
+	 FkoZIppZ38mH/2wilBqqWL8pwSnbBLCgdHCW9ow/Ui7K/d6IztSXD0SLue7wZpo7qfglT
+	 ocZMqGA8A7r6mWjpRUQAoOvI0qHtoK5AMxlqQybUyaYaCaZs2elhqF9oy7eT0SQCHpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=mEiKiGo3;
-	arc=none smtp.remote-ip=115.124.28.98
-Received: from out28-98.mail.aliyun.com (out28-98.mail.aliyun.com [115.124.28.98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94865606A321;
-	Mon, 23 Nov 2026 17:15:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94865606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O0QnIOfk;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 00013606A32C;
+	Mon, 23 Nov 2026 17:16:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00013606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=mEiKiGo3
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1795454125; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=7HrXdAZvqoP2wKFdIA57K4p11FPgSibCIfOS3Ctnkzw=;
-	b=mEiKiGo3FN+oN+AGBYc3wvuUn8CzfAX1akPPEa/O/yqZ00PNAMMZyxkUC/W/FL5iC3az1BwGbTCdRxOEu9jIxd3IWpYN8EUQLNPhx9eogzTkgJhZka1uqUy1906FDhYTPRFqceur4NsbGglgi/5KuLgHFt/ioHiEjmAO/hN+Ims=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00469832-0.00143452-0.993867;FP=12259131756606194868|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032112;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.k8Vw2b2_1795454122;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.k8Vw2b2_1795454122 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 24 Nov 2026 01:15:24 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	netdev@vger.kernel.org
-Cc: Liu Haijun <haijun.liu@mediatek.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O0QnIOfk
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 53586176B;
+	Mon, 23 Nov 2026 09:16:05 -0800 (PST)
+Received: from e137867.cambridge.arm.com (unknown [10.2.213.11])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 870AC3F763;
+	Mon, 23 Nov 2026 09:16:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795454168; bh=LFtDzB/okrnQHH291WRp6toxRg+swNwN8gcOpZd7uFQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=O0QnIOfkL73MNoc91NYxTAD9VVYpv8ma/GCrN8yHd55fA8kVyYwGHRJBz2Q66uArH
+	 ISKQvISI9h+0x2jCkTCVGx2Tt7lbgJT22BHox58wgqTQ2m7D1nUkyyd8AKgr7TpeRk
+	 7SJGdZVWmDqQhZfU+6XvkfWcGn5hY1txFhlDZk7Q=
+From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	James Morse <james.morse@arm.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	Marc Zyngier <maz@kernel.org>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Jinjie Ruan <ruanjinjie@huawei.com>,
+	Doug Anderson <dianders@chromium.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Huth <thuth@redhat.com>,
+	Dawei Li <dawei.li@linux.dev>,
+	mrigendrachaubey <mrigendra.chaubey@gmail.com>,
+	kernel-team@meta.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Lin Qiaojie <linqj@xiaopeng.com>
-Subject: [PATCH net v2] net: wwan: t7xx: validate PIT data before building RX skb
-Date: Tue, 24 Nov 2026 01:15:19 +0800
-Message-ID: <20261123171519.33975-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/3] arm64: entry: sdei: always set VBAR_EL1 on SDEI entry
+Date: Mon, 23 Nov 2026 17:15:55 +0000
+Message-ID: <20261123171557.140944-2-ada.coupriediaz@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261123171557.140944-1-ada.coupriediaz@arm.com>
+References: <20261123171557.140944-1-ada.coupriediaz@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,262 +81,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Both normal and fragment RX paths derive a data offset from the
-modem-supplied PIT address and the BAT DMA base. The unsigned 64-bit
-difference was stored in an int without checking the address order,
-so a backwards address could wrap into a non-negative offset. The
-normal path could then pass an invalid offset to skb_reserve(), while
-the fragment path could pass an invalid offset and PIT data length
-to skb_add_rx_frag().
+SDEI can interrupt at any time, so we cannot guarantee that VBAR_EL1
+points to the kernel vectors.
+Unconditionally set VBAR_EL1 to the kernel vectors on SDEI entry so
+the SDEI handler always runs on the correct vectors.
 
-These invalid ranges can make the resulting skb or fragment refer
-outside the allocated buffer or DMA-mapped page. The error paths
-also left consumed BAT entries unmarked, preventing BAT release and
-buffer replenishment. In addition, packet assembly errors shared
-the return value with the final PIT notification, so dropping a
-packet could prevent consumed PIT entries from being returned to
-the hardware.
+Commit 9bf6ee7952c7 ("arm64: sdei: Run the event handler on the kernel
+vectors") sets VBAR_EL1 to the kernel vectors when KPTI is on
+and it still points to the trampoline vectors.
 
-Validate the address order and complete offset/length range before
-building either skb representation: check normal data against both
-skb tailroom and the DMA mapping length, and fragment data against
-the mapped page buffer, keeping DMA-relative and page-relative
-offsets separate. Extract each PIT BID once, validate it before
-indexing the BAT array, and use the same index for BAT access and
-bitmap updates. Cast the fragment BAT void pointer to
-struct dpmaif_bat_page before pointer arithmetic. On error, free
-the normal BAT skb and mark its entry consumed; also consume
-fragment entries of failed packets and failed assemblies while
-keeping their pages mapped for reuse. Keep packet assembly errors
-separate from PIT notification errors so consumed PIT entries are
-returned even when a packet is dropped.
+This is only covers the KPTI case, as any other VBAR_EL1 value would
+not be changed, while pointing to the wrong exception vectors.
+KVM in VHE mode would be such a case as, in VHE, VBAR_EL1 is an alias for
+VBAR_EL2, which KVM uses for the hypervisor vectors when running guests.
 
-Fixes: d642b012df70 ("net: wwan: t7xx: Add data path interface")
+Fixes: 79e9aa59dc29 ("arm64: sdei: Add trampoline code for remapping the kernel")
 Cc: stable@vger.kernel.org
-Reviewed-by: Lin Qiaojie <linqj@xiaopeng.com>
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+Cc: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Cc: Breno Leitao <leitao@debian.org>
+Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
 ---
- drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c | 114 ++++++++++++++-------
- 1 file changed, 79 insertions(+), 35 deletions(-)
+ arch/arm64/kernel/entry-common.c | 25 ++++++++++++++-----------
+ arch/arm64/kernel/sdei.c         |  3 ---
+ 2 files changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
-index 5af90ca6e063..da4b7cb05bf3 100644
---- a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
-+++ b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
-@@ -282,7 +282,7 @@ static int t7xx_frag_bat_cur_bid_check(struct dpmaif_rx_queue *rxq,
- 	if (cur_bid >= DPMAIF_FRG_COUNT)
- 		return -EINVAL;
+diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
+index beb56891fc4f..cb122163a68d 100644
+--- a/arch/arm64/kernel/entry-common.c
++++ b/arch/arm64/kernel/entry-common.c
+@@ -1079,19 +1079,22 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+ 	far = read_sysreg(far_el1);
  
--	bat_page = bat_frag->bat_skb + cur_bid;
-+	bat_page = (struct dpmaif_bat_page *)bat_frag->bat_skb + cur_bid;
- 	if (!bat_page->page)
- 		return -EINVAL;
+ 	/*
+-	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
+-	 * EL0 until the next exception from EL0 maps the kernel. They only
+-	 * handle exceptions from EL0: an exception taken here would run their
+-	 * empty current-EL half and never come back. Switch to the kernel
+-	 * vectors. The IRQ-like resume keeps using the interrupted VBAR, so it
+-	 * still goes through the trampoline.
++	 * As an SDEI event can take over at any point, VBAR_EL1 might not allow
++	 * us to take an exception safely :
++	 * - With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
++	 *   EL0 until the next exception from EL0 maps the kernel. They only
++	 *   handle exceptions from EL0: an exception taken here would run their
++	 *   empty current-EL half and never come back ;
++	 * - With VHE, the kernel runs at EL2 and VBAR_EL1 accesses VBAR_EL2.
++	 *   KVM might be running a guest and switched VBAR_EL2 to the
++	 *   hypervisor vectors.
++	 *
++	 * Switch to the kernel vectors unconditionally and restore
++	 * the interrupted VBAR_EL1 before returning.
+ 	 */
+ 	vbar = read_sysreg(vbar_el1);
+-	if (arm64_kernel_unmapped_at_el0() &&
+-	    vbar == (unsigned long)raw_cpu_read(this_cpu_vector)) {
+-		write_sysreg((unsigned long)vectors, vbar_el1);
+-		isb();
+-	}
++	write_sysreg((unsigned long)vectors, vbar_el1);
++	isb();
  
-@@ -392,17 +392,15 @@ int t7xx_dpmaif_rx_frag_alloc(struct dpmaif_ctrl *dpmaif_ctrl, struct dpmaif_bat
- 
- static int t7xx_dpmaif_set_frag_to_skb(const struct dpmaif_rx_queue *rxq,
- 				       const struct dpmaif_pit *pkt_info,
--				       struct sk_buff *skb)
-+				       unsigned int cur_bid, struct sk_buff *skb)
- {
--	unsigned long long data_bus_addr, data_base_addr;
-+	unsigned long long data_bus_addr, data_base_addr, dma_offset;
- 	struct skb_shared_info *shinfo = skb_shinfo(skb);
- 	struct device *dev = rxq->dpmaif_ctrl->dev;
- 	struct dpmaif_bat_page *page_info;
--	unsigned int data_len;
--	int data_offset;
-+	unsigned int data_len, data_offset;
- 
--	page_info = rxq->bat_frag->bat_skb;
--	page_info += t7xx_normal_pit_bid(pkt_info);
-+	page_info = (struct dpmaif_bat_page *)rxq->bat_frag->bat_skb + cur_bid;
- 
- 	if (!page_info->page)
- 		return -EINVAL;
-@@ -410,14 +408,26 @@ static int t7xx_dpmaif_set_frag_to_skb(const struct dpmaif_rx_queue *rxq,
- 	if (shinfo->nr_frags >= MAX_SKB_FRAGS)
- 		return -EINVAL;
- 
--	dma_unmap_page(dev, page_info->data_bus_addr, page_info->data_len, DMA_FROM_DEVICE);
--
- 	data_bus_addr = le32_to_cpu(pkt_info->pd.data_addr_h);
- 	data_bus_addr = (data_bus_addr << 32) + le32_to_cpu(pkt_info->pd.data_addr_l);
- 	data_base_addr = page_info->data_bus_addr;
--	data_offset = data_bus_addr - data_base_addr;
--	data_offset += page_info->offset;
- 	data_len = FIELD_GET(PD_PIT_DATA_LEN, le32_to_cpu(pkt_info->header));
-+
-+	if (data_bus_addr < data_base_addr) {
-+		dev_err_ratelimited(dev, "Invalid PIT frag data address\n");
-+		return -EINVAL;
-+	}
-+
-+	dma_offset = data_bus_addr - data_base_addr;
-+	if (dma_offset > page_info->data_len ||
-+	    data_len > page_info->data_len - dma_offset) {
-+		dev_err_ratelimited(dev, "Invalid PIT frag data offset or length\n");
-+		return -EINVAL;
-+	}
-+
-+	dma_unmap_page(dev, page_info->data_bus_addr, page_info->data_len, DMA_FROM_DEVICE);
-+
-+	data_offset = page_info->offset + dma_offset;
- 	skb_add_rx_frag(skb, shinfo->nr_frags, page_info->page,
- 			data_offset, data_len, page_info->data_len);
- 
-@@ -438,22 +448,44 @@ static int t7xx_dpmaif_get_frag(struct dpmaif_rx_queue *rxq,
- 	if (ret < 0)
- 		return ret;
- 
--	ret = t7xx_dpmaif_set_frag_to_skb(rxq, pkt_info, skb_info->cur_skb);
-+	ret = t7xx_dpmaif_set_frag_to_skb(rxq, pkt_info, cur_bid, skb_info->cur_skb);
-+	/* Mark the entry consumed on failure too, so release can reuse it. */
-+	t7xx_dpmaif_set_bat_mask(rxq->bat_frag, cur_bid);
- 	if (ret < 0) {
--		dev_err(rxq->dpmaif_ctrl->dev, "Failed to set frag data to skb: %d\n", ret);
-+		dev_err_ratelimited(rxq->dpmaif_ctrl->dev,
-+				    "Failed to set frag data to skb: %d\n", ret);
- 		return ret;
- 	}
- 
--	t7xx_dpmaif_set_bat_mask(rxq->bat_frag, cur_bid);
- 	return 0;
- }
- 
-+/* Consume a fragment PIT belonging to a packet that is already dropped. */
-+static int t7xx_dpmaif_drop_frag(struct dpmaif_rx_queue *rxq,
-+				 const struct dpmaif_pit *pkt_info)
-+{
-+	unsigned int cur_bid = t7xx_normal_pit_bid(pkt_info);
-+
-+	if (t7xx_frag_bat_cur_bid_check(rxq, cur_bid))
-+		return -EINVAL;
-+
-+	/*
-+	 * The page is still mapped and owned by the BAT entry; marking it
-+	 * consumed lets release advance and the allocator reuse the page.
-+	 */
-+	t7xx_dpmaif_set_bat_mask(rxq->bat_frag, cur_bid);
-+	return -EINVAL;
-+}
-+
- static int t7xx_bat_cur_bid_check(struct dpmaif_rx_queue *rxq, const unsigned int cur_bid)
- {
--	struct dpmaif_bat_skb *bat_skb = rxq->bat_req->bat_skb;
-+	struct dpmaif_bat_skb *bat_skb;
-+
-+	if (cur_bid >= DPMAIF_BAT_COUNT)
-+		return -EINVAL;
- 
--	bat_skb += cur_bid;
--	if (cur_bid >= DPMAIF_BAT_COUNT || !bat_skb->skb)
-+	bat_skb = (struct dpmaif_bat_skb *)rxq->bat_req->bat_skb + cur_bid;
-+	if (!bat_skb->skb)
- 		return -EINVAL;
- 
- 	return 0;
-@@ -627,38 +659,50 @@ static void t7xx_dpmaif_parse_msg_pit(const struct dpmaif_rx_queue *rxq,
- 
- static int t7xx_dpmaif_set_data_to_skb(const struct dpmaif_rx_queue *rxq,
- 				       const struct dpmaif_pit *pkt_info,
-+				       unsigned int cur_bid,
- 				       struct dpmaif_cur_rx_skb_info *skb_info)
- {
--	unsigned long long data_bus_addr, data_base_addr;
-+	unsigned long long data_bus_addr, data_base_addr, data_offset;
- 	struct device *dev = rxq->dpmaif_ctrl->dev;
- 	struct dpmaif_bat_skb *bat_skb;
--	unsigned int data_len;
-+	unsigned int data_len, tailroom, max_len;
- 	struct sk_buff *skb;
--	int data_offset;
- 
--	bat_skb = rxq->bat_req->bat_skb;
--	bat_skb += t7xx_normal_pit_bid(pkt_info);
-+	bat_skb = (struct dpmaif_bat_skb *)rxq->bat_req->bat_skb + cur_bid;
- 	dma_unmap_single(dev, bat_skb->data_bus_addr, bat_skb->data_len, DMA_FROM_DEVICE);
- 
- 	data_bus_addr = le32_to_cpu(pkt_info->pd.data_addr_h);
- 	data_bus_addr = (data_bus_addr << 32) + le32_to_cpu(pkt_info->pd.data_addr_l);
- 	data_base_addr = bat_skb->data_bus_addr;
--	data_offset = data_bus_addr - data_base_addr;
- 	data_len = FIELD_GET(PD_PIT_DATA_LEN, le32_to_cpu(pkt_info->header));
- 	skb = bat_skb->skb;
- 	skb->len = 0;
- 	skb_reset_tail_pointer(skb);
--	skb_reserve(skb, data_offset);
- 
--	if (skb->tail + data_len > skb->end) {
--		dev_err(dev, "No buffer space available\n");
--		return -ENOBUFS;
-+	if (data_bus_addr < data_base_addr) {
-+		dev_err_ratelimited(dev, "Invalid PIT data address\n");
-+		goto err_drop;
-+	}
-+
-+	data_offset = data_bus_addr - data_base_addr;
-+	tailroom = skb_tailroom(skb);
-+	max_len = min(tailroom, bat_skb->data_len);
-+	if (data_offset > max_len || data_len > max_len - data_offset) {
-+		dev_err_ratelimited(dev, "Invalid PIT data offset or length\n");
-+		goto err_drop;
- 	}
- 
-+	skb_reserve(skb, (int)data_offset);
- 	skb_put(skb, data_len);
- 	skb_info->cur_skb = skb;
- 	bat_skb->skb = NULL;
- 	return 0;
-+
-+err_drop:
-+	dev_kfree_skb_any(skb);
-+	bat_skb->skb = NULL;
-+	t7xx_dpmaif_set_bat_mask(rxq->bat_req, cur_bid);
-+	return -ENOBUFS;
- }
- 
- static int t7xx_dpmaif_get_rx_pkt(struct dpmaif_rx_queue *rxq,
-@@ -672,9 +716,9 @@ static int t7xx_dpmaif_get_rx_pkt(struct dpmaif_rx_queue *rxq,
- 	if (ret < 0)
- 		return ret;
- 
--	ret = t7xx_dpmaif_set_data_to_skb(rxq, pkt_info, skb_info);
-+	ret = t7xx_dpmaif_set_data_to_skb(rxq, pkt_info, cur_bid, skb_info);
- 	if (ret < 0) {
--		dev_err(rxq->dpmaif_ctrl->dev, "RX set data to skb failed: %d\n", ret);
-+		dev_err_ratelimited(rxq->dpmaif_ctrl->dev, "RX set data to skb failed: %d\n", ret);
- 		return ret;
- 	}
- 
-@@ -726,7 +770,7 @@ static int t7xx_dpmaif_rx_start(struct dpmaif_rx_queue *rxq, const unsigned int
- 	unsigned int cur_pit, pit_len, rx_cnt, recv_skb_cnt = 0;
- 	struct device *dev = rxq->dpmaif_ctrl->dev;
- 	struct dpmaif_cur_rx_skb_info *skb_info;
--	int ret = 0;
-+	int ret = 0, pkt_ret;
- 
- 	pit_len = rxq->pit_size_cnt;
- 	skb_info = &rxq->rx_data_info;
-@@ -756,13 +800,13 @@ static int t7xx_dpmaif_rx_start(struct dpmaif_rx_queue *rxq, const unsigned int
- 		} else { /* DES_PT_PD */
- 			val = FIELD_GET(PD_PIT_BUFFER_TYPE, le32_to_cpu(pkt_info->header));
- 			if (val != PKT_BUF_FRAG)
--				ret = t7xx_dpmaif_get_rx_pkt(rxq, pkt_info, skb_info);
--			else if (!skb_info->cur_skb)
--				ret = -EINVAL;
-+				pkt_ret = t7xx_dpmaif_get_rx_pkt(rxq, pkt_info, skb_info);
-+			else if (skb_info->err_payload || !skb_info->cur_skb)
-+				pkt_ret = t7xx_dpmaif_drop_frag(rxq, pkt_info);
- 			else
--				ret = t7xx_dpmaif_get_frag(rxq, pkt_info, skb_info);
-+				pkt_ret = t7xx_dpmaif_get_frag(rxq, pkt_info, skb_info);
- 
--			if (ret < 0) {
-+			if (pkt_ret < 0) {
- 				skb_info->err_payload = 1;
- 				dev_err_ratelimited(dev, "RXQ%u error payload\n", rxq->index);
- 			}
+ 	state = irqentry_nmi_enter(regs);
+ 	ret = do_sdei_event(regs, arg, vbar);
+diff --git a/arch/arm64/kernel/sdei.c b/arch/arm64/kernel/sdei.c
+index 1b902da8ba43..1027138ba5b4 100644
+--- a/arch/arm64/kernel/sdei.c
++++ b/arch/arm64/kernel/sdei.c
+@@ -255,9 +255,6 @@ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
+ 	 * exception registers; __sdei_handler() puts them back. Only the last
+ 	 * one's syndrome survives; report it if it is not one known to be
+ 	 * harmless.
+-	 *
+-	 * If the event interrupted a KVM world switch, VBAR points at the KVM
+-	 * hyp vectors and any such exception is a hyp panic instead.
+ 	 */
+ 	nested_elr = read_sysreg(elr_el1);
+ 	nested_esr = read_sysreg(esr_el1);
 -- 
-2.50.1
+2.43.0
 
