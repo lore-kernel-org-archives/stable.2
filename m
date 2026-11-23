@@ -1,83 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795464530;
-	b=a+xg0RzPceVYuV5dGoXbQUTASyr/ySZAhkANuKI2R0tOCYQk1Mx2Be/TyzSpampdUFyd
-	 PBE58A/2k8JbgMXnCmi2y7UNLflEfciTZMQqRo5hkG+vEAEBU5cNlIeXcHnAVoc1S10nW
-	 tF85WkrqKGoCVyF3NAASo0PgSfwdVyt8wajRMzvH80oSkSjo3s0vPvrfce44NKzoHptwp
-	 Fe+fQAelvM0Oh9o3X0MEsgIo8OnpsXCliHoIqg89NVPs9AVpmFppnZ9GmMW7bFuYYtqeu
-	 1Q1R4/1jVFtlcyqQw22hBPwcyNCiilMsvjhUV2tFtE8SYQ6ZjglYpEbqzd4nDHbAG+g==
+	t=1795464566;
+	b=wL9HP+xbxuySq4DvSUAw3/k0l5NE23gyI9ymDbRbY3ir2ztL3NyT4ulgxAHYLfrUUSiS
+	 lBlXt8yMmLs52IMv8bGNp7Q+gnljLcPp4LKmUNHtUsOrrenplnEDv+TjKotXVYhSFhbZ7
+	 w83jiDWdGa/kcMHSmjst61k/ys3gdW+VlQAY7RsJv3dcT+lyeuulIBN2tnIyK/p6k/Rsy
+	 3jX21HD6eVGaZ0AIoLH9sM5EREynu1vTYsLdD5APGQO8VfBIgYwkL3Dg7BxXwryf+OtG5
+	 pQ2+fP9kyRQWbgPcZxm6EH5bgA5se+ZSR/SWedzxHP9VX2WQX/Nagwx3gWjNgubFH9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795464530;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=tpiAyS2NSTTYCcz+tAuV6mj0ApkVi4kroTS8S8VTkpU=;
-	b=iH4WG9tzk0Me4lgO/41pQ5F9Vom369ISpW9nbToRHrbH3vUJXJkz/h3SFPkZvl7CX1el
-	 N/YLaUREH6BMiUoIH2G38mGTmOhqqCDijoSTwVcTwPamfd/dxcw5ADhlFax26fJJtBAa0
-	 TMEOueUcIKmdkLHuTHdrDAttx8NfIarFSNpQtKeBFAV/hEoE3YoUUkbZHAO150/O1rvC5
-	 oCL/zoyULU15iEWNfr8+QbvflazP4hq3t1lAUhkPlaQAAscGMdYB4BoAA1WzaXMnMy5tO
-	 OIzbU8CGA/ibzIlnXA+nfNCY7TMocLoS06hF+Rietpuko+3fHLI5WzKnP3fhvzh8kJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795464566;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=9otpOx2hP3p80r8IPXZCT5/F27bYm6jkIoRrVSHHchY=;
+	b=T/Akide9kCkYdNXMYEIFTpCnjspPZTW3F+WzycL8JgejRIHYSJnCxwLuufVJegmJAUS4
+	 1L9/VVj65W/Ahds5K0b8MaXgqM7xtf7iVhGqubgvKW2ndI32WgTbE42H5zSgTvk9/yL2U
+	 rn3WZIAfobJiGPtnV99ySlDN1/D+Jv9nFy8IGuKGZ38AOFdB76cvK2FNAYQRRicO0WbX1
+	 BELNgppL7rpU8XsQyFJ/qompqL3TH/l2QfctFpfEQWpIe0WxjMsFqThE62m2dLXOADzSj
+	 Mwg27ySJ8/AuOeg+vw07CWV3JNr7BBqJNj1kb/3HuBL97CqUI6SRc7J2OWeU34qQMVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="N72/HYHb";
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="ic75w/ud";
+	arc=none smtp.remote-ip=35.89.44.39
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07FA606A31E;
-	Mon, 23 Nov 2026 20:08:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A07FA606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D92C606A31E
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 20:09:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D92C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N72/HYHb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795464529; x=1827000529;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=n/9Q7z9XOP+kvIJJRG45nmnHwoIg2/j3yx7h4OK2u30=;
-  b=N72/HYHbvL6VC3nNGr7fG8V/t5VeWIXhAqARCHb6nepJx+nufZrSLhPX
-   nPCArsQS6paB6HeieLgR4azeT5kXmqljS4lxB2zF6l8qpOwtTSy4RvYVt
-   6KfkX1zTPy3dyHh5vUnveRDl77uDkTLlaGlQXbESP0p6NzEobSmIE61ro
-   mNNbkP992QFTMdqj0LggURTa39SvOMQL/8PDMH83gJ+G4SAgpLw4cGTt0
-   xFtXqJwGmGOJGX1PHKCM99SATB5qaZSC6yaiy9AyVP5+3QR4lvPdHAJji
-   hkwyyD7WxYGJnbPNqhCH2Jz12wGYazNqRi2Q0jeEgJyr70HJOzIkSYZ+O
-   g==;
-X-CSE-ConnectionGUID: RShL3OY9T0qdoLhloVjUqA==
-X-CSE-MsgGUID: TIqVwWUdQmaiu6Yz87Qchg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4314174"
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="4314174"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 12:08:48 -0800
-X-CSE-ConnectionGUID: Y1lF6AiURPqWHbe1Hy/guA==
-X-CSE-MsgGUID: wD/0ghWTTFaSseXLZv5nMQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="11497572"
-Received: from spandruv-mobl5.amr.corp.intel.com (HELO [10.124.220.148]) ([10.124.220.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 12:08:47 -0800
-Message-ID: <e384a97e66159f10045ec6caf244b475e09c8337.camel@linux.intel.com>
-Subject: Re: [PATCH 04/10] HID: sensor-hub: Serialise synchronous read
- teardown under data->lock
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-To: Lee Jones <lee@kernel.org>, Jiri Kosina <jikos@kernel.org>, Jonathan
- Cameron <jic23@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, Zhang
- Lixu	 <lixu.zhang@intel.com>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, 	linux-input@vger.kernel.org,
- linux-iio@vger.kernel.org, 	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Date: Mon, 23 Nov 2026 12:08:44 -0800
-In-Reply-To: <20261123155138.2907049-5-lee@kernel.org>
-References: <20261123155138.2907049-1-lee@kernel.org>
-	 <20261123155138.2907049-5-lee@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ic75w/ud
+Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
+	by cmsmtp with ESMTPS
+	id VZmsxMNFYyb4YVaLoxtkCP; Mon, 23 Nov 2026 20:09:20 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id VaLnxjy3wdRrRVaLoxMCJT; Mon, 23 Nov 2026 20:09:20 +0000
+X-Authority-Analysis: v=2.4 cv=LOhmQIW9 c=1 sm=1 tr=0 ts=6b049d70
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=xxfhDY9pAAAA:8
+ a=VwQbUJbxAAAA:8 a=VOs2tEXDhbcqsyWIaPYA:9 a=CjuIK1q_8ugA:10
+ a=rMMjO1C7342AHnzdNuLM:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=9otpOx2hP3p80r8IPXZCT5/F27bYm6jkIoRrVSHHchY=; b=ic75w/ud+cdIswe45SPGb+z7qR
+	GUCAxW4rVDPyeg7Esf5GgiW5gCBSA/e3N9yYXyGtIz4FrO7JLzSNt4IZ3ccHcoDhhlhss+n59eLN1
+	KBPkd/6Lc5XGdvJEu8GkaR/ctYZ9A7yNnpCpNj5o0IeXzQXu9BwxN1t7u3WVanNqVlnMW+nbPco88
+	Z9DOrpmobmZt9XIx/JmJFSax4R6DwJ67mKF7ki4K1IaZClFTMjw6tsAZI+ebueOV7Rrz7I+m1T9MB
+	8YjJLK8EJBUXGvdY1H12cPv2hUMo3uOUr1pQAhsIHKd87gcgWjhHq5okT2lLGthvck7iag35Mu5sT
+	JfBrig/w==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:54720 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xVaLn-00000001ckt-2Rgv;
+	Tue, 24 Nov 2026 01:39:19 +0530
+Date: Mon, 23 Nov 2026 12:09:18 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Markus Haberlander <markus.haberlander@rosenberger.com>
+Cc: Thomas Richard <thomas.richard@bootlin.com>,
+	linux-hwmon@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (cgbc-hwmon) Add module alias
+Message-ID: <4a9db021-4352-4578-badb-5efaa504ee79@roeck-us.net>
+References: <20261123-cgbc-hwmon-alias-v1-1-3054681f984a@rosenberger.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,157 +82,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123-cgbc-hwmon-alias-v1-1-3054681f984a@rosenberger.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xVaLn-00000001ckt-2Rgv
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:54720
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 8
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfPVdTI7uuLH4A3aekIghNsi9AwOrrYRgymWv7xLJdWDpffAqsM9xIlcn+rU5DEqr5hFfvxplQvVN+Jm2enogE7LIu/kOxYCUnbLxQ312AT6uhwekLLrw
+ GyQOLBYrfBOpLUHznu+3y9paqox09iYkSBt8T7hbvBH91S+2jUvdYvPsSLZ4cg8XbHp0AmTh2c90oeF90qHQzhThPvkuPcWBobpKs/cZsroaK1lByqG+Jz5G
 
-On Mon, 2026-11-23 at 15:50 +0000, Lee Jones wrote:
-> sensor_hub_input_attr_read_values() and
-> sensor_hub_input_attr_get_raw_value() set hsdev->pending.status under
-> data->lock, sleep in wait_for_completion_interruptible_timeout(), and
-> then clear hsdev->pending.status and consume or free
-> hsdev->pending.raw_data without acquiring data->lock.=C2=A0 When a wait i=
-s
-> interrupted by a signal or times out while sensor_hub_raw_event()
-> holds
-> the same spinlock, sensor_hub_raw_event() can memcpy() into the
-> caller's popped stack buffer in sensor_hub_input_attr_read_values()
-> or
-> race with kfree() and leak kmemdup() allocations in
-> sensor_hub_input_attr_get_raw_value().
->=20
-> Hold data->lock when clearing hsdev->pending.status and detaching
-> hsdev->pending.raw_data in both helpers, and free any prior
-> hsdev->pending.raw_data before kmemdup() in sensor_hub_raw_event().
->=20
-> Fixes: 401ca24fb34a ("HID: sensors: introduce sensor framework")
-> Fixes: f784fcea4506 ("HID: sensor-hub: Add
-> sensor_hub_input_attr_read_values() for multi-byte reads")
-> Closes:
-> https://sashiko.dev/#/bug/linux-5bd5ea7c-72f9-4f22-ae1d-00915390f085
+On Mon, Nov 23, 2026 at 08:27:01AM +0100, Markus Haberlander wrote:
+> From: Markus Haberlander <markus.haberlander@rosenberger.com>
+> 
+> The board controller's core driver adds the hwmon cell as platform
+> device "cgbc-hwmon", but the driver declares no matching module alias.
+> Built as a module, it is therefore not loaded automatically, unlike the
+> GPIO, I2C and backlight drivers, and the sensors stay missing until it
+> is loaded by hand.
+> 
+> Tested on a conga-PA7: with the alias, the driver loads at boot.
+> 
+> The patch and this changelog were drafted with the help of Claude
+> Opus 5.5 and reviewed and tested by me.
+> 
+> Fixes: 08ebc9def79f ("hwmon: Add Congatec Board Controller monitoring driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
-> =C2=A0drivers/hid/hid-sensor-hub.c | 28 +++++++++++++++++++++-------
-> =C2=A01 file changed, 21 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-
-> hub.c
-> index 81c8e723f9ba..ea846e0bb301 100644
-> --- a/drivers/hid/hid-sensor-hub.c
-> +++ b/drivers/hid/hid-sensor-hub.c
-> @@ -306,6 +306,9 @@ int sensor_hub_input_attr_read_values(struct
-> hid_sensor_hub_device *hsdev,
-> =C2=A0	long cycles;
-> =C2=A0	int ret;
-> =C2=A0
-> +	if (flag =3D=3D SENSOR_HUB_SYNC && (!buffer || !buffer_size))
-> +		return -EINVAL;
-> +
-> =C2=A0	report =3D sensor_hub_report(report_id, hsdev->hdev,
-> HID_INPUT_REPORT);
-> =C2=A0	if (!report)
-> =C2=A0		return -EINVAL;
-> @@ -335,7 +338,10 @@ int sensor_hub_input_attr_read_values(struct
-> hid_sensor_hub_device *hsdev,
-> =C2=A0		else if (cycles < 0)
-> =C2=A0			ret =3D cycles;
-> =C2=A0
-> +		spin_lock_irqsave(&data->lock, flags);
-> =C2=A0		hsdev->pending.status =3D false;
-> +		hsdev->pending.raw_data =3D NULL;
-> +		spin_unlock_irqrestore(&data->lock, flags);
-> =C2=A0	}
-> =C2=A0	mutex_unlock(hsdev->mutex_ptr);
-> =C2=A0
-> @@ -375,29 +381,36 @@ int sensor_hub_input_attr_get_raw_value(struct
-> hid_sensor_hub_device *hsdev,
-> =C2=A0	hid_hw_request(hsdev->hdev, report, HID_REQ_GET_REPORT);
-> =C2=A0	mutex_unlock(&data->mutex);
-> =C2=A0	if (flag =3D=3D SENSOR_HUB_SYNC) {
-> +		u8 *raw_data;
-> +
-> =C2=A0		wait_for_completion_interruptible_timeout(
-> =C2=A0						&hsdev-
-> >pending.ready, HZ*5);
-> -		switch (hsdev->pending.raw_size) {
-> +		spin_lock_irqsave(&data->lock, flags);
-> +		raw_data =3D hsdev->pending.raw_data;
-> +		switch (raw_data ? hsdev->pending.raw_size : 0) {
-> =C2=A0		case 1:
-> =C2=A0			if (is_signed)
-> -				ret_val =3D *(s8 *)hsdev-
-> >pending.raw_data;
-> +				ret_val =3D *(s8 *)raw_data;
-> =C2=A0			else
-> -				ret_val =3D *(u8 *)hsdev-
-> >pending.raw_data;
-> +				ret_val =3D *(u8 *)raw_data;
-> =C2=A0			break;
-> =C2=A0		case 2:
-> =C2=A0			if (is_signed)
-> -				ret_val =3D *(s16 *)hsdev-
-> >pending.raw_data;
-> +				ret_val =3D *(s16 *)raw_data;
-> =C2=A0			else
-> -				ret_val =3D *(u16 *)hsdev-
-> >pending.raw_data;
-> +				ret_val =3D *(u16 *)raw_data;
-> =C2=A0			break;
-> =C2=A0		case 4:
-> -			ret_val =3D *(u32 *)hsdev->pending.raw_data;
-> +			ret_val =3D *(u32 *)raw_data;
-> =C2=A0			break;
-> =C2=A0		default:
-> =C2=A0			ret_val =3D 0;
-> =C2=A0		}
-> -		kfree(hsdev->pending.raw_data);
-> +		hsdev->pending.raw_data =3D NULL;
-> +		hsdev->pending.raw_size =3D 0;
-> =C2=A0		hsdev->pending.status =3D false;
-> +		spin_unlock_irqrestore(&data->lock, flags);
-> +		kfree(raw_data);
-> =C2=A0	}
-> =C2=A0	mutex_unlock(hsdev->mutex_ptr);
-> =C2=A0
-> @@ -590,6 +603,7 @@ static int sensor_hub_raw_event(struct hid_device
-> *hdev,
-> =C2=A0					}
-> =C2=A0				}
-> =C2=A0			} else {
-> +				kfree(hsdev->pending.raw_data);
+> Signed-off-by: Markus Haberlander <markus.haberlander@rosenberger.com>
 
-With this patch the waiter clears pending.status under data->lock on
-timeout/signal, so sensor_hub_raw_event() can no longer kmemdup() after
-the waiter has given up. I don't think the kfree() in
-sensor_hub_raw_event() is needed for the race described in the commit
-message.
-
-The only case it covers is a spurious second matching report arriving
-after complete() but before the waiter takes the lock. That is a
-separate, pre-existing leak. Rather than freeing in the event path, I
-think  clearing pending.status in sensor_hub_raw_event() when
-completing the request, so only the first matching report is consumed
-and raw_data is allocated at most once:
-
-			} else {
-				hsdev->pending.raw_data =3D kmemdup(ptr,
-sz, GFP_ATOMIC);
-				...
-			--->	hsdev->pending.status =3D false;=20
-				complete(&hsdev->pending.ready);
-			}
-
-
-BTW
-
-The pre-existing callback removal race reported by Sashiko is already
-addressed by commit abe10ad9c5fd ("HID: sensor-hub: Synchronize
-callback removal with raw events") in linux-next (hid tree).=20
+Applied.
 
 Thanks,
-Srinivas
-
-
-> =C2=A0				hsdev->pending.raw_data =3D
-> kmemdup(ptr, sz, GFP_ATOMIC);
-> =C2=A0				if (hsdev->pending.raw_data)
-> =C2=A0					hsdev->pending.raw_size =3D
-> sz;
+Guenter
