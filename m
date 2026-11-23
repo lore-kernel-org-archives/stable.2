@@ -1,108 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795441650;
-	b=je5PWSOGSIcQ6Ev+TtLDLyncNbwHQwhlPTsffbRXfuoGthXFR6sKg5kuQgEZwaexJc5i
-	 IrLAA8EtyIa9zNw5/nOPoIbVYbxgM5ueeUQzEcZ7dZL14fH/uGMvGPJu5LlahJhDozpm2
-	 ExjxdbmThguVZA2e3t1wxSiT35MeXOEP5jvpK2Zyn/dX1dQwKXBXMZQFM36Osx/qeU9+F
-	 TpTx6Ib4LTp5Mnz5PInu+ERBERol0EsFpTUMp/htx/c3oV2DKRzsEll9xONCrNvw+gjC1
-	 56QEkB7AKWjFWk0LD95LvqStN/AX9CiXaqUwgUIdypSRwVjpJx2d9gKQBLfD+r980Eg==
+	t=1795441768;
+	b=Yu0aV6AiyU+szCMWrua+Oz8idbXfxEBYO9Y62j9ByXX9Fo0V0jaCFekXMXnWoQMvef6E
+	 sxqfZjJldAaMKcMu1jg4X2OjAnyb35pamwWTN7TBAl3bQ0j54hUWP63wcLhZmvKmuCHlj
+	 PpFWL1zFoyj1y78OyKBDtp0aK8V7rrcx5QihjJ5MZjRbjO+qv6GNyKkiOQQBfIzlyhYEu
+	 XVWE1jfqunF9pYHMHpd7o9X6gdubt35CzyBpAlowQuqJKByWqJdAKoNg5OXQc3IGL9ncc
+	 5D2OqFZlmqtXdfAT5C/g2/H2/fgC+hnB5zbBqp0ftdLgqmw71oXG14Qf+/LuS27JMLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795441650;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795441768;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=YLrN3M1XfLMhZZJEefU5MTc8mdCMhL4DOsawNJPcdvE=;
-	b=UuDOOiBZTqOaHSzGSVYTiULfKFRpY6TXa+/fDjcNDO6yqSOUUcUwMbP016JusCBDIJJ0
-	 nJUa2qz/684ofIDRAHcYs1nhKVptgNM2xBhsueniI1lQG0k3kB+EIclGT2Xx4tf8CXgwy
-	 wvoCRiamE5mUJNQ7nL8UlQvqBhjfsNkPMvBPd/AnVl+mcVNws80lSkgLPDsKfmIjE3moZ
-	 ufCadcQApVErEJpbQhdXhiBGXzull0SsRQ0IJp7sIY6mQF7T/CgGIa36EbYSzKd9MXtvo
-	 yFLXX8BH36GrqXL06LlWFByLERSkV3EIUAz6iESOAb4HhpwD27ireNsPxJQxYy54LYw==
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Scanned-By;
+	bh=kNEpRXv0Qjfeq3BAGqbQG/HWKXbqAXTDOCqw54GskJA=;
+	b=Fh1ucTrB5hs8rV8NSK7rtpSH3iWZ/RxB0/79J05vX58Jr6WsohAL3EhpUrcBs3nZrwno
+	 3rOX9KmBZljNy9PifkNjihCxnCo9HC+2stTafn492/T7uhy7hAFyb3/qDcVdf1lu4CBqE
+	 Q9PNEMbdmWtSL3vXHdPuePBph65WbADXzZINd97g3sNlY+50ZmJuh46HBz3b/L0awoboA
+	 QewPGM0A+mDSankj1xZgQfl93r7fFXb1dRIcv1Qx82FOxjepP4ahAXkg/jx5WNRix6ZbK
+	 4UfbXZfWNpZve8pmnD96dLU6TMpi9LRBLiOklVLtAIFlNLx2zlgeQMg9+OGnTesdLOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TEElbL9+;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MVBeloww;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Hy9CDtiU;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82C2606A31F
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 13:47:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D82C2606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54D5606A6AB
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 13:49:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B54D5606A6AB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TEElbL9+;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MVBeloww
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Hy9CDtiU
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795441649;
+	s=mimecast20190719; t=1795441766;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YLrN3M1XfLMhZZJEefU5MTc8mdCMhL4DOsawNJPcdvE=;
-	b=TEElbL9+IhYUMR7UShaacTfs3gUDH8tMqn4d9NxZXS4ymv+D7cBu12yLUI/B2InxToVw//
-	pGmaiooHO3cFPO6YU/507LPci6u8nHA289zCvFOOsNPuP1iDkC2ebITUwyOfJGyZ3eU8Sy
-	HI+8VYsqkkNbukLubfyi6Cruzsd6h1U=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-573-oE3zmcivNOyWKfaqV9dPow-1; Mon, 23 Nov 2026 13:47:26 +0000
-X-MC-Unique: oE3zmcivNOyWKfaqV9dPow-1
-X-Mimecast-MFC-AGG-ID: oE3zmcivNOyWKfaqV9dPow_1795441646
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6b586b0a795so2630830a12.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 05:47:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795441646; x=1796046446; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YLrN3M1XfLMhZZJEefU5MTc8mdCMhL4DOsawNJPcdvE=;
-        b=MVBeloww5mnD8r+eZnMeR9Ryb911xBNhv7v00DCT4CrVvAkGS0sISuWGItbJQneRy3
-         0UvdoxlIu0oGueA80re4THmH0qJzn6xTPAqY7Akc4YJmYOqvKYStjG4seCPZfft/cIum
-         N3sje3R4zj6v37LhkkqAj/C4AZIOmN2o7QUTkvg2tzf84rGnl6ODVzWxTofaZyf2Xe9E
-         H/x4hdFRIZYoN1OgkHMQttJC1G9F0OU+svS0ElyHrPzRl9iLPGnF9JGW1SWGLBPQyqYf
-         0eMMV6yI+3E934FK3/RgtnAVXm/OTXZsW0AD4j88C3TlGX/MN16rIdKTDSS4FxthA6UH
-         WckA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795441646; x=1796046446;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YLrN3M1XfLMhZZJEefU5MTc8mdCMhL4DOsawNJPcdvE=;
-        b=CCE2i2TDwxk4598t6NkTD8WYt9ey8+6hMx//mD966L/41wkKjasRVdEaHHPw4fas2Z
-         FukNw2fWgQgCXPpU/D7Cm1PKLjfH1ZZkZCLRMyN5rVobrBr3E2ol/QCbM8joKcaSEigY
-         igJHbkZsgXf1eXbZkKzww/Ab1sVl0Kj7xyi3nED09BpDvZxcfrHdkgQzGOBPDEkpEFPj
-         L5AxS3YHS6yTzPPnB3E2jTJXnsk3EPenzuE54L4iUutcZ4osvE2ZPvRYoLZd8bB7G7TQ
-         OfejifhZsOrb9VzuMgAf0zEKs5RwORJY8lI9344Ox1Unjnw7rPsFsCuMx/uqZtJxOqBR
-         JCwg==
-X-Forwarded-Encrypted: i=1; AL+hErHjN5xtDVluWrDP4scSObYQ3feSmbFkKTI9tkDLrcJAt68ggUnPrAaRbyorKEA0fnnU/vr/rzQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tpztMGvcVbXmN5eHR1xglh/RI5F6Lmoz2ewzOswP2ggQT5N+4
-	TqhcoBMSsqirkyKLg3VEkfRrv+uVoUXPT/EssERQgdTQTs/Uk0gMtqjjfWA4V6KWhqma6hNVCpt
-	v3LMBsnt/SLvLDb+SD5unDH1V7zK5rs+0rzHGRAmLOhm88JLHXf5tMFC7Dg==
-X-Gm-Gg: AZFdTZebe+/HKhCHGPPQLSaz5gbqfAx8tDUEmFkOQEsuTqE3+n8yfAMmdXG076+c6I3
-	QB1IGs8cY7+8B+tv6nvj5LuoYPvZF6xyMNIvTH2sKyPifj2TxXUrv1ccaaF9UOjJNNeNDocK/eu
-	nHWtJFberoI+ptIARYzbFB1kaYzn5jyzoFpt3lfqUDDowefVYS8rMHoP7Bj35gTQKccGXYYNqxu
-	J4SRLUXrjnOzoRR5jlfAbUVt+IUiBSnUTRU8ujBDoXpCgzzmvJlNUtN0v4A/g2fQrbdVQ+ZLA7u
-	yLpRYIYJIqN9JVM4JuTsX+2QsFAyz0iENXldHm43uXoBfxJoItEUZCqgKc48hXJWJNlZCq2IfZG
-	eth7vIHXWRJPYBsJcZhWmbqTPRj02YmHEjTmMbkw2jnUidH3MXE3BSd0XtAgo7ULlEYTxUZc3bW
-	9aV8UGB2eYYeXZnTRY7dXXRfm2jy2EdloQkx297yTRIVMm
-X-Received: by 2002:a05:6402:400d:b0:6b5:9849:e328 with SMTP id 4fb4d7f45d1cf-6ba37ebdda1mr7965710a12.39.1795441645547;
-        Mon, 23 Nov 2026 05:47:25 -0800 (PST)
-X-Received: by 2002:a05:6402:400d:b0:6b5:9849:e328 with SMTP id 4fb4d7f45d1cf-6ba37ebdda1mr7965674a12.39.1795441645139;
-        Mon, 23 Nov 2026 05:47:25 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba37109c58sm5253555a12.33.2026.11.23.05.47.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Nov 2026 05:47:24 -0800 (PST)
-Message-ID: <923664db-2b04-4440-8b07-2965c1e97aa0@redhat.com>
-Date: Mon, 23 Nov 2026 14:47:22 +0100
+	bh=kNEpRXv0Qjfeq3BAGqbQG/HWKXbqAXTDOCqw54GskJA=;
+	b=Hy9CDtiUTl97lWsg+pENvEllMgVrCGBCbJzUtZlbfMe+dn2Mx0pdEp9pKcGDpxeNo1GpeB
+	6kA6RYLgXPD/mut07r0V97+IZPImAktzo2zsvCdk0vGMGi5LhAHyBaW0F2iA4UxD9hma0U
+	IBoQbp5IUCKCJZn43WDOYQVEeSAcJd4=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-652-Ez8w3PEcPnyyQ11_yNywQw-1; Mon,
+ 23 Nov 2026 13:49:21 +0000
+X-MC-Unique: Ez8w3PEcPnyyQ11_yNywQw-1
+X-Mimecast-MFC-AGG-ID: Ez8w3PEcPnyyQ11_yNywQw_1795441759
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 31AF9180076D;
+	Mon, 23 Nov 2026 13:49:18 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id A985430000E3;
+	Mon, 23 Nov 2026 13:49:12 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Mon, 23 Nov 2026 14:49:17 +0100 (CET)
+Date: Mon, 23 Nov 2026 14:49:11 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
+Cc: Christian Brauner <brauner@kernel.org>,
+	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
+	Tejun Heo <tj@kernel.org>, Bart Van Assche <bvanassche@acm.org>,
+	Cen Zhang <blbllhy@gmail.com>, James Morris <jmorris@namei.org>,
+	Lee Seong Hyeon <ihopenre@gmail.com>,
+	Marco Elver <elver@google.com>, NeilBrown <neil@brown.name>,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>,
+	Paul Moore <paul@paul-moore.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>,
+	Yihan Ding <dingyihan@uniontech.com>, linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org, stable@vger.kernel.org,
+	Jann Horn <jannh@google.com>
+Subject: Re: [PATCH] landlock: Do not hold exec_update_lock across the TSYNC
+ wait
+Message-ID: <awREVxuPMpPXjA6I@redhat.com>
+References: <20261120151554.2651743-1-mic@digikod.net>
+ <awMn0L7RaQO_6qUc@redhat.com>
+ <20261123.ungeuh7Taish@digikod.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,47 +94,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v10 2/4] net: hsr: refuse forwarding devices as
- HSR/PRP ports
-To: Xin Xie <xiexinet@gmail.com>, netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
- kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
- fmaurer@redhat.com, luka.gejak@linux.dev, bigeasy@linutronix.de,
- xiaoliang.yang_1@nxp.com, skhawaja@google.com, liuhangbin@gmail.com,
- stable@vger.kernel.org, sdf.kernel@gmail.com, lukma@denx.de,
- fmancera@suse.de, danishanwar@ti.com
-References: <20261117141922.20-3-xiexinet@gmail.com>
- <179514132185.3136.17085396682149520983@kernel.org>
- <1f2ccb87-9017-4053-b8c8-5b31a211bd21@gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <1f2ccb87-9017-4053-b8c8-5b31a211bd21@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261123.ungeuh7Taish@digikod.net>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On 11/20/26 22:30, Xin Xie wrote:
-> On 20/11/2026 03:22, netdev-bot+sashiko@kernel.org wrote:
->> Can a plain veth slave still re-enter the xmit path of its own HSR master?
-> 
-> Yes. The redirect case exists without the patch, and the commit message
-> lists it as not covered. seqnr_lock has been held across the port
-> transmit since 06afd2c31d33 and 430d67bdcb04. The patch refuses port
-> types that make no sense as HSR/PRP ports, which covers the syzbot
-> topology, as Sebastian suggested [1].
-What about explicitly detecting the AA deadlock maintaining a per cpu
-status?
+On 11/23, Mickaël Salaün wrote:
+>
+> That would indeed be simpler, but a single pass would misses threads
+> that a sibling is creating at the same time: the cred is copied before
+> taking siglock and only fatal_signal_pending is checked.
 
-	if (<percpu_hst_xmitting>)
-		// warn_on_once && free skb && return
+Aaah, I see. Thanks for your explanation!
 
-	<set percpu_hst_xmitting>
-	spin_lock_bh(&hsr->seqnr_lock);
-	hsr_forward_skb(skb, master);
-	spin_unlock_bh(&hsr->seqnr_lock);
-	<clear percpu_hst_xmitting>
-
-/P
+Oleg.
 
