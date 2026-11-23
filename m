@@ -1,75 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.59.206.189
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795414210;
-	b=wZQBJy9wojy25tRQfIvmxvObiVTlMxei319kYYL4zZ6ZOt1qB9CBrZQKUWt9Lj9dLv+e
-	 Og733VAeXFyucyESby2UELek7pF6hdaaW+Cak5iJHKjjzbso43cLg7cMqRSTvAX20RRvw
-	 NmBykd8sMZ6lfDcWqpN89kC1vMWZZ8WSnU4GiEaE+2yP9JDBK2OOQGFG/JXbyRy4QgMw9
-	 08q7HrgLC4bHWCay50en8m2FKvwwD1T0hinGpXEaAb+Kx+issjagtCOc5Rl2JbU5ubkEI
-	 vF0fjVopgBUrvvTXSOilXnZCJgOa5o49sVcLaUWy9cRsbBd+GFFYBJqOW3SV+aYbA2A==
+	t=1795414483;
+	b=eh0ZugAPrNIBBtG4BezZqPjczh55GNdUEsRMwM6f4evcfM0CLkBPZT6B4nty8n71t8xb
+	 hlUGjT4hGuQxI/YkFj/x0k/Mpaxu6KZHCWrJ+oP+8sy88am3hn9K9zamAqeXrEg8sWW8p
+	 tFR8ojJI6nrkTmJH7HmykZHfh/+oFaugTu++JEh5wE8e3/lqwlo/yos7ntvHdsWpaz8t+
+	 JK8N+i/4JaF0rFFscacmxnrJv4mH3MOhZspGv+tj+TBhXd0YsDDPoAuWdx1wkjzdQKEF9
+	 gkgWBL/IaJqkBpHsrs9ckfAEVGrd9OptZQIEr8LTODUgC1wYEVGF8z+E9EDQKvPYfaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795414210;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:X-Virus-Scanned:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spam-Status:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-NC-CID;
-	bh=yLN4S3lrqlKtWig3p1xpyEGfVn7ZeVXiVgaiSlEzVEE=;
-	b=nV6kKaahLYwdIaCPaBhIonxMLg9R0IgQ+5h7GYNn31uzXPGfTsvZXmEzWb7PyDfJSovz
-	 7GruDmKgQM2ywWQxhFoNKHJVgI47EtZbBIOxzewIhZywObdwB1cXBr2PjxWOmPgCxMlXJ
-	 cUGx4E6k7/bM1+bNpPe71j74IPTQC1t/tuhzQcNatPeL/sLDSslS6FFRs0edjIexee6C6
-	 KFI3rYd7RQtnkFgaQLAsiS5LgUqaCkUnrQ+Ni++m5F/xbYbz7sgmar0Iq8+ai6V8Z0BHr
-	 /b3u2MoK7BB45oiDKZssTWp+YGtODF4NmIlfLYUT+OUYiZ4JOWCQOyOBvRETb/9Su4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795414483;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=R7Axc5ola9l+8N6tU2oZkcxPPMMFI/z1vAo/IUT6BSg=;
+	b=ow/uz+SxdvUXJMd9tMWyL/LAZVUJlcswNVgU1krs1R6JEDJ3duyNGlnpubXzTQhkCZPJ
+	 S+miSeVJdaobNyyyHQMEfbeO3FWx2PQLEcX+hDmIKd6D4boKvL5nHEumj0okXD8PFfxR1
+	 OPSWZ1ChdJCQ5Lzq66DfPB2U4ouIOw2IiOjlNBXc5joGvhXXBwUWAf3ehVjg/S9b4yxAA
+	 YHOj964ZNoP9Ui76bF2TjsoFADVdnZc9DPWPEZbp+3k1JJpoD4Z5g6sfClJVTrDkH4TAK
+	 R0m8X2BuiX/oACtU3gEJGMC172+47uTnwu+ZhFdmbLw1d1pGhLiZ/ff8QgMg/5f/NfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=evjLP5aM;
-	arc=none smtp.remote-ip=194.59.206.189
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=aw8bawu8;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70070606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:10:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70070606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE120606A31A;
+	Mon, 23 Nov 2026 06:14:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE120606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=evjLP5aM
-Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
-	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4jXwV720P7z4Fdy;
-	Mon, 23 Nov 2026 07:08:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1795414095;
-	bh=+Hnb++gw85v3HhE/K0yTC4jAJfHcueKVxn3kbMs17QI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=evjLP5aMylD+My2TuqwtmEnS24UW+7AGkdG2gRGnfJLuxs95uq0p9ye9d42J+DW4f
-	 CSnvFKXprqWCWg+Y74Y24/Xmx8GyMy5mkzF8K/8pMHYjAnj2s0/7oijfSe0lz0red0
-	 9hiSP70wdmPgmr6R++wRBQza1aujRzx2oqqpijuYzsNtlJE2sKTxyy8cx9FDsQq2IE
-	 RWHOJOHAbnjrnV7BepgSaRfI/9GvbHksFapRceZw7R7DgmQlOybPSYJwtKkcBH4Mij
-	 uh5vxnCwSzU42YY1zhLoMUknnMDTZrPRUoXGRgfyIS93DWBPh7wY2lPrE5wAQgBQF4
-	 4HlKuL7r0ezGw==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4jXwSw5mqVz7x8S;
-	Mon, 23 Nov 2026 07:07:12 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.901
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4jXwSt3Lpjz8v3M;
-	Mon, 23 Nov 2026 07:07:10 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 8787E5FBDB;
-	Mon, 23 Nov 2026 07:06:58 +0100 (CET)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <841bc5e9-51f3-4eff-8c54-8dfac6762c17@leemhuis.info>
-Date: Mon, 23 Nov 2026 07:06:57 +0100
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=aw8bawu8
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AN6EcBK21406257, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1795414478; bh=R7Axc5ola9l+8N6tU2oZkcxPPMMFI/z1vAo/IUT6BSg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=aw8bawu8YlB31YOXMbH5NW4/kOcv9yU06J5/VQusbzMXeqTUqzWmQ9pmb67PrSnLb
+	 WGNBnMyO6tGEjeocKJlAWx9qqE6Uj/tkUTvCKr8NezFDTtyUcNoyFXQuGmZTzj9CfO
+	 2Oa+DNLrVap+iiUvfBtR7a/sOns5InlxiFGiUA9AeOIYYSkFq0kQiyZrXm8JVZoeOP
+	 FcWqkuE+9jYpW7fl0d4XXprNoDuSyL2mC5vbny37ebW7p9ry2217dP6RRGx6IlbOsC
+	 F79ZV6LADKd83DgMnDBNzKZnmAmbj8Ig7WHTUwCXu7K44yDsNA7InUKynbuJqygA7L
+	 uAnQCAEHbGsKQ==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AN6EcBK21406257
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 23 Nov 2026 14:14:38 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 23 Nov 2026 14:14:38 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 23 Nov 2026 14:14:38 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Mon, 23 Nov 2026 14:14:38 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Zhao Li <enderaoelyther@gmail.com>
+CC: Hemanth Selam <hemanth.selam@gmail.com>, Morning Star
+	<alexbestoso@gmail.com>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH rtw-next 1/3] wifi: rtlwifi: rtl8192ce: don't mark
+ unencrypted frames as decrypted
+Thread-Topic: [PATCH rtw-next 1/3] wifi: rtlwifi: rtl8192ce: don't mark
+ unencrypted frames as decrypted
+Thread-Index: AQHdedZ1DDnSjpqyuE+VBINjK718ALc7KUpg
+Date: Mon, 23 Nov 2026 06:14:37 +0000
+Message-ID: <ee07e9227ef54a6ca5520f7bd80c0f95@realtek.com>
+References: <20261121163547.37019-1-enderaoelyther@gmail.com>
+ <20261121163547.37019-2-enderaoelyther@gmail.com>
+In-Reply-To: <20261121163547.37019-2-enderaoelyther@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,45 +90,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Unable to compile 6.12 kernels on SPARC64 since 6.12.105
-To: Greg KH <gregkh@linuxfoundation.org>,
- Iulian Vaideanu <iulian.vaideanu@gmail.com>
-Cc: stable@vger.kernel.org, regressions@lists.linux.dev
-References: 
- <CAPK=yVMe1Ro=aw_daLCOM9cBATsp6crdgB4wd0ty4vrnxtVKkQ@mail.gmail.com>
- <2026112346-vagueness-naming-01f0@gregkh>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <2026112346-vagueness-naming-01f0@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179541401883.830933.13122758706311832823@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 8787E5FBDB
-X-NC-CID: 1CrMVWaMhYywk+Z1sR4PNr7Rjia7iyMGv8Mbn8NTYP0hWQMHi2c=
 
-On 11/23/26 06:03, Greg KH wrote:
-> On Sun, Nov 22, 2026 at 08:39:18PM +0200, Iulian Vaideanu wrote:
->>
->> Ever since 6.12.105 I cannot "make bindeb-pkg" vanilla kernels
->> (platform is Debian unstable on bare-metal Netra SPARC T4-1, GCC 16.1
->> or 16.2 from Debian ports) - it always ends in the error below in
->> fcntl.c, probably brought up by one of the fsnotify-related commits in
->> 105.
->>
->> Is there anything I can do to work around this?
-> 
-> Can you use 'git bisect' to track down the offending change?
+Zhao Li <enderaoelyther@gmail.com> wrote:
+> The receive descriptor's SWDEC bit is set when a frame still needs
+> software decryption. It is also clear for a frame that was never
+> encrypted. rtl92ce_rx_query_desc() nevertheless sets RX_FLAG_DECRYPTED
+> for every frame with SWDEC clear except a protected robust management
+> frame, including unprotected data and management frames.
 
-Not my area of expertise, so this might be misleading, but FWIW:
+This is what the comment says, but you are going to remove.
 
-Wondering if this is related to another sparc build problem in the same
-area for which a fix was recently queued for 6.12.y, but then dropped
-for now to prevent a deadlock situation:
+>=20
+> mac80211 then accepts an unprotected unicast data frame although a
+> pairwise key is installed, because ieee80211_drop_unencrypted() passes
+> frames marked as decrypted, and it accepts unprotected deauthentication
+> and disassociation frames on a connection that uses management frame
+> protection. A station in radio range can therefore inject plaintext
+> data into an encrypted connection, or end a protected one, by spoofing
+> the peer's address.
 
-* https://lore.kernel.org/all/2026102206-trinity-feminism-b082@gregkh/
-*
-https://lore.kernel.org/all/09fded57a6074dd89485.sashal-rc-0003@kernel.org/
+For data frame, will hardware fail to do decryption and flag sw dec?
 
-Ciao, Thorsten
+>=20
+> Set the flag only for a protected frame that is not a robust management
+> frame, as the rtl8188ee, rtl8192ee, rtl8723ae, rtl8723be and rtl8821ae
+> drivers do.=20
+
+I think the purpose of this patch is to align the behavior of all chips,
+right?
+
+Maybe, we can just move the chunk setting RX_FLAG_DECRYPTED into an=20
+inline function, and all chips call it.
+
+The commit subject/message can be simple that=20
+"Unify the setting of RX_FLAG_DECRYPTED".=20
+
+> rtw88 dropped the same assumption in commit 0649ff58a0f6
+> ("rtw88: Don't set RX_FLAG_DECRYPTED if packet has no encryption").
+
+The commit is to add missed ENC type, but 8192ce doesn't have the field, no=
+?
+
+>=20
+> Found by code review. Compile-tested with W=3D1.
+>=20
+> Fixes: 0c8173385e54 ("rtl8192ce: Add new driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+> ---
+> No new W=3D1, sparse or smatch warnings.
+>=20
+> 834fc28d7880 (7.4-rc1) fixed "managment" in the comment this patch remove=
+s;
+> with the old spelling in the removed lines it applies to 5.10.y through 7=
+.3.y.
+>=20
+> AI assistance was used.
+>=20
+>  .../wireless/realtek/rtlwifi/rtl8192ce/trx.c    | 17 +++++------------
+>  1 file changed, 5 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/trx.c
+> b/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/trx.c
+> index 99472053ccff..3d11ddf86136 100644
+> --- a/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/trx.c
+> +++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/trx.c
+> @@ -300,20 +300,13 @@ bool rtl92ce_rx_query_desc(struct ieee80211_hw *hw,
+>=20
+>         rx_status->flag |=3D RX_FLAG_MACTIME_START;
+>=20
+> -       /* hw will set stats->decrypted true, if it finds the
+> -        * frame is open data frame or mgmt frame.
+> -        * So hw will not decryption robust management frame
+> -        * for IEEE80211w but still set status->decrypted
+> -        * true, so here we should set it back to undecrypted
+> -        * for IEEE80211w frame, and mac80211 sw will help
+> -        * to decrypt it
+> -        */
+> +       /* SWDEC is clear for plaintext too; mac80211 decrypts robust mgm=
+t */
+>         if (stats->decrypted) {
+> -               if ((_ieee80211_is_robust_mgmt_frame(hdr)) &&
+> -                   (ieee80211_has_protected(hdr->frame_control)))
+> -                       rx_status->flag &=3D ~RX_FLAG_DECRYPTED;
+> -               else
+> +               if (ieee80211_has_protected(hdr->frame_control) &&
+> +                   !_ieee80211_is_robust_mgmt_frame(hdr))
+>                         rx_status->flag |=3D RX_FLAG_DECRYPTED;
+> +               else
+> +                       rx_status->flag &=3D ~RX_FLAG_DECRYPTED;
+>         }
+
+
+The subject "wifi: rtlwifi: rtl8192ce: don't mark unencrypted frames as dec=
+rypted"=20
+isn't clear to me. Which one is 'unencrypted'? and which one is 'decrypted'=
+ ?
+
+>         /* rate_idx: index of data rate into band's
+>          * supported rates or MCS index if HT rates
+> --
+> 2.56.1
+
