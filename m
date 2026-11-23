@@ -1,91 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795439079;
-	b=mI7zrrr1AjTt1zZB2tB5y7VR7+ebyE1rmI890EJNSGu/uX35D4tNgi2OFzpjIK71Y9rs
-	 6EIkwt97SmVV0NhUtMXEQUiTqjGUA6u1BAKTUbudyrcdw3ohfYDJePeBRplTI0T9NRLMa
-	 RiG/nBlH6DjyeuNwdvUUn5nhPXDWTbxvNxb9uZmc6REksAAKZWEAbzWSdb6QT49+q/nyq
-	 Lx7oD1E+QxcJ6seA8tChXe4Qf7wfwXqHgx118KUOw03t2byRTku/J6xFY9TAiUftBjBu8
-	 nJF80WqbX0R2moI28dYgf61xdHpnFSDhFqIunGnGrhYlIFtGjcEOjQgYSQAU9zGjOvw==
+	t=1795439081;
+	b=sX72Y+zp6+0Kd6OgIi+vEZ8r0xXwG5jloWTi5waV9zCVw45yiycBiLY/g8Gxs3Gl6jmT
+	 /DqubXQx0DitXcW/Bo+vkDvNC7/x+p85HU0TLlq2i0tvjKJM7n4a4MFYYkXKc7ZITOqy0
+	 j918CRWZ0bhqlsfiVr1h1iWrv9sUfh4gx3VIQ26R4E4YqRWSmr6+LqAnnDl0E4+7spXdD
+	 9FV1UXp1Ds4PnkCyFHpFnWR1dUSn2a9VQoSGXV7E9NI6fG+aOqP7rJSNIsIS6+lU2F6Fi
+	 0BFBYbK87tYmx8v0XuNimhEg5maqMFuAGQSkiG15hsOrArk2nGcn608ZACYkSWM5Fow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795439079;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hJIlttWx83H/gH+IsCx67p64peRkehwpXoU8dYayss0=;
-	b=UbkTbx5kxoYZVfavZJ+lbjLBsZxg2AZxDlNw9453EzkJaGLSWHpPibwJvW6ncAhbBWv3
-	 ZuEykrvAMzFJMlu5SogCrNPsgIUg6AcrhTp31QcBvGT+BtJlSuCrC4Cct+AEsWz1xjfpb
-	 YMmH1DvAqg0CclYykF4R0RPkmNp1Xx8TIAvhKTPFzqsAst9+dHeopb9YpLqxPtMXCSTWS
-	 tYaj0b9DcGlLzC+cWg0M3kpP6N0DBavUL1Hvjh2UI8J5OkeO/xTt2Q+2L01IUjVo5Ib7E
-	 wb2sVz6EVcfIghstk26opg/cvDgW/HVmAzDl3WEoo7vDSDiVtXOXCR0EUzfLa15WcBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795439081;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type;
+	bh=zCDqV6y0doa5WYO5K5fzLNOLmziMydS10KViqm3njzo=;
+	b=oKcBGU20cJV0+fU2ZHXe3r4TUb5BpLJw5vox+1W4U3bfYUfIFQdYFGlZwR4ytLG+UfEc
+	 EXBy+idtHLpGddIRgoZRHc7mpXDqjMjW9TVLmOc1Oh0Cw/BwhrwTe/3LyIdVPxwrq9s2r
+	 rflIrai9dSqoQIjoJSSMibCXdF6nEwM1WhwFoq60i11+qh10Dv4Vyuso7Mbaplq8yb/pB
+	 jg5tgtel8J5axPQDrwuJT22Ei+1kO+ZXTkkXW6MqT1UQx3+a4WtCecYv4Yhwjopwcjflf
+	 zDOl2up1vS6ELIVhG1jwVAljzCbnOnJUzKLiOf7tM2ZQ+Axgs0aiPmUnvModoss+L4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YI86hYX0;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=nnCIjnJ5;
+	arc=none smtp.remote-ip=79.135.106.120
+Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F04606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 13:04:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71F04606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF50E606A330
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 13:04:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF50E606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YI86hYX0
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b50a4bd2f3so4827241c88.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 05:04:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795439078; x=1796043878; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hJIlttWx83H/gH+IsCx67p64peRkehwpXoU8dYayss0=;
-        b=YI86hYX0JrIzb9tJVaXByzsMwnjIJFc+ssFurL6mYsha5tUcwst2aa2iQqHJf+7VLm
-         DvAxfmLkTBroPGTIZjX7hWBpLwXvX8L57NApSea8k88FhY2M4cVLtbWOpTB1zdx2t+00
-         0Y8Z6gocOFPa8DuFJFDe5LAbJQ60ja6efEd7UG2CQt3fEBfoqeIoY9inchBEFW4x3Jaa
-         sBU+ezs2mpnGpdkncSR0IGEAUiG7iiggQYKJ+gFOsd5O04zx1/ULVut7npnYUNZnQs8p
-         V3HA5s2YNdeWh09YjaZF6tnA027ApwfLxeBvlylB4/cnBvlk92cOXVkNH4sscW7OEtjK
-         auXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795439078; x=1796043878;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hJIlttWx83H/gH+IsCx67p64peRkehwpXoU8dYayss0=;
-        b=V1SXqHRw8r0ZUqSfagb7Fcp6mX5xsKtAso6+O3YqmBI+8sVKHxFpz0CzwtfQOMg/B9
-         UgBn3F9UEnWXH0ugGUx151+wb8wExUbVCzXQZ0PDw/qkXCYitj4S2kxIXGLGtoOy3KVF
-         ByR9s2KSniZfLvLEJQUGIn+gyyg1wmtmwFj238HWCnyPz9H1y/uYdzZVSmJiDMr7pkWk
-         /X30o/LRHCMgNAgm/LxAXytGQMa6OBNJCYtjPg8PToe7/YrX05Clbvg8EJUP6grASLit
-         /m5hMHKKJTn4CUF2bFGFkUCawpNZeQSNvwses1OmehZV8OzeltkXy+hNeRuLKAqvhLnb
-         R+DA==
-X-Forwarded-Encrypted: i=1; AL+hErEp5mI2xrgQnw2NpSbM27/mHdn+pqqGre6Fy3JYVMuhkKmYZgrD7xWk97UpZbTxhP7nykTh+/E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+t26o3hm50LbE11jfmy2UhSrNPV7e0lxa/j90XTJpoF+bZIlSD
-	WvosufCGBQ7D2xC6aBIiTAZEPGDtrO3MffNdPD3n5mQebuBVk+eGkyTH
-X-Gm-Gg: AZFdTZdmvYgcuSOkACPq4Xv86Ckto13VeGJvAw4MHTiPWKfuw1fxs0/xTfpquONOPiB
-	1Cxa3HFv+APl7SEdAOoRDbe85p1JtqFu+s5c0voRRJ+rT4TBwImIC5u1bnuFRiNHiJO7F9uHvV1
-	CbTacGYUKAPNG1wI3BOsWVRaalLHS1OpUKQShqylgIyc1KuDgO6lvkHGHD5sNdHuXKXva+63SvJ
-	6Vq8QY/sJJbRbx2LuV6e+bVbV9JVN5jDoQQfyVieSTIulK+O9zICT3YaFXYnQ1gw1b2p22NmGVD
-	6Ni2TUK+mo0oADJpaIwQycvvin2RDPve+xk+CtzWg6APVoX7sm+BTUJMFcSAMfVGleS+AlwEOUX
-	ywPufYAm4/bU+5iL0QxrTmV1TYbmkdYUYB8/P3oeA7arXW2Dvq9COs5rsIda0Db8+aZQ324zOza
-	fPEgWOj7SApgg0KQQYs+gNTHglw4dv++Wvgf24naaoVOAUQv9HVYMlp3sreL7+MhrlANtMAtZNw
-	8AiHXiXWEimRfqewL61XIjra0mjhKuM6Hyo5Kg/U/m8bksSvnCsFTDIC0Ztg7j2seVkfAXno9Wl
-	KaQpVNl+iDwrFW9grWS1QUGgknFwmKBgMDIOs2THKaFz2WOl8z8t9w==
-X-Received: by 2002:a05:701b:450b:10b0:1b2:4e2e:d95a with SMTP id a92af1059eb24-1b55e06c4d7mr9933460c88.2.1795439078312;
-        Mon, 23 Nov 2026 05:04:38 -0800 (PST)
-Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55684c85fsm40262666c88.14.2026.11.23.05.04.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 05:04:37 -0800 (PST)
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-To: Brian Norris <briannorris@chromium.org>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	linux-wireless@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless] wifi: mwifiex: bound the RX reorder index by the window size
-Date: Mon, 23 Nov 2026 21:04:34 +0800
-Message-Id: <20261123130434.2841777-1-maoyixie.tju@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=nnCIjnJ5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1795439078; x=1795698278;
+	bh=zCDqV6y0doa5WYO5K5fzLNOLmziMydS10KViqm3njzo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=nnCIjnJ5ZmOSizYmh88sfXzIIFh8+ZZGCtuRvtFSnBmaNZ6Te3pmHNpK2KHz3QF8v
+	 +oOZG2DcPJD5rrRwYTxKD8EmoYZXF7lhwhYn28Zg3hnapzRjLsurnzmYamuUltjDbS
+	 2OiLbv14o9owmDycb/LGv1wKC5JqmPxxGFMBQOsT22JvjhU/KI5/Nz4jeQJdOi2bBK
+	 Q4TlMN59MBEb1GwSZDziAxVxNZoqDjFI20rCLvOw06VnOCyvn/TDC1WMpv0oNfPA8c
+	 a5u8sjdjbRULifjkaNim2rGwxn9eMKbiSGVLOSk5hyoS7ALonbKtvMIYAQEfr7HYiQ
+	 +vVL+fDtb6xdw==
+Date: Mon, 23 Nov 2026 13:04:33 +0000
+To: netdev-bot+sashiko@kernel.org
+From: fadouse <fadouse@pm.me>
+Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net/sched: act_ife: return -EAGAIN after dropping rtnl_lock in load_metaops_and_vet()
+Message-ID: <9VcRS9CU-2EQHb_vgmqLp8_F5UYnRrlqgIlr_IpKMsNgNGXJDg9nJZOILB_d2TuFVAacbsK28Ow9_zpxNdYQeL0Ts6s7oXJUcm1Urs36POk=@pm.me>
+In-Reply-To: <179543813406.3135.15745616872300382040@kernel.org>
+References: <20261122-b4-02-act-ife-rtnl-uaf-v2-102eba468698-v2-1-67c413c45928@pm.me> <179543813406.3135.15745616872300382040@kernel.org>
+Feedback-ID: 173252840:user:proton
+X-Pm-Message-ID: eed5be8e258cc27723349af12f37dff59c8fe4d8
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,56 +64,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------50a90c1dfec43a8dd15b8afbe1635532f6c0ea395e5089f5674adfdceea9a0aa"; charset=utf-8
 
-mwifiex_11n_rx_reorder_pkt() reads and writes
-tbl->rx_reorder_ptr[pkt_index] without checking pkt_index against
-win_size. seq_num is a 16-bit field of the RX descriptor from the
-device. If the window wraps past 4095, a seq_num above 4095 can pass
-the window checks and give an index far past the array. With a one-slot
-window, which a firmware BT coexistence event can set, every accepted
-seq_num other than start_win indexes past the slot. A single lost or
-reordered frame gives such a seq_num.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------50a90c1dfec43a8dd15b8afbe1635532f6c0ea395e5089f5674adfdceea9a0aa
+Content-Type: multipart/mixed;boundary=---------------------befe82236b17a543bc1350b048947fc5
 
-Drop a frame whose index is past the array, as for an occupied slot.
+-----------------------befe82236b17a543bc1350b048947fc5
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-Found with a CodeQL-based static analysis tool that we are developing.
-Both cases reproduce in a userspace harness under AddressSanitizer,
-which reports nothing with this patch. Not tested on hardware.
-Compile-tested with W=1 on next-20261116.
+Hi,
 
-Fixes: 5e6e3a92b9a4 ("wireless: mwifiex: initial commit for Marvell mwifiex driver")
-Fixes: d219b7eb3792 ("mwifiex: handle BT coex event to adjust Rx BA window size")
-Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
----
-I used an LLM to help write the harness and this patch.
+Thanks for the review.  The u32_change() new-key unwind path on an
+unpinned non-root hash table is valid: returning -EAGAIN still reaches
+erridr: idr_remove(&ht->handle_idr, handle).  As noted, that is a
+separate pre-existing cls_u32 issue also reachable via existing
+RTNL-dropping autoload paths such as tc_action_load_ops() (both on
+-EAGAIN and on -ENOENT), and changing act_ife alone cannot fix
+cls_u32's error unwind.
 
-nxpwifi has the same code. A patch that adds the same check there is
-marked accepted in patchwork.
-https://lore.kernel.org/linux-wireless/20261119095214.186808-1-guohongyu@cmss.chinamobile.com/
+Returning -EAGAIN from load_metaops_and_vet() matches the other
+RTNL-dropping TC autoloaders checked (tc_action_load_ops(),
+tcf_em_validate(), and em_text_change()) so callers unwind instead of
+continuing on the success path with stale filter pointers.  The
+cls_basic replacement UAF was reproduced and verified fixed at runtime;
+by code inspection, cls_flow, cls_fw, cls_route, and cls_u32's
+filter-replacement branch (the `if (n)` path, which destroys `new` on
+error without touching `n`) also avoid their success-path use of the
+old filter pointer.
 
- drivers/net/wireless/marvell/mwifiex/11n_rxreorder.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Since I am respinning v3 to drop the comment per Stephen Hemminger's
+feedback, I will also narrow and clarify the cls_u32 scope in the v3
+commit message accordingly.
 
-diff --git a/drivers/net/wireless/marvell/mwifiex/11n_rxreorder.c b/drivers/net/wireless/marvell/mwifiex/11n_rxreorder.c
-index 06b005525078411..54fb52be963aadd 100644
---- a/drivers/net/wireless/marvell/mwifiex/11n_rxreorder.c
-+++ b/drivers/net/wireless/marvell/mwifiex/11n_rxreorder.c
-@@ -616,6 +616,11 @@ int mwifiex_11n_rx_reorder_pkt(struct mwifiex_private *priv,
- 		else
- 			pkt_index = (seq_num+MAX_TID_VALUE) - start_win;
- 
-+		if (pkt_index >= win_size) {
-+			ret = -1;
-+			goto done;
-+		}
-+
- 		if (tbl->rx_reorder_ptr[pkt_index]) {
- 			ret = -1;
- 			goto done;
+pw-bot: cr
+-----------------------befe82236b17a543bc1350b048947fc5--
 
-base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
--- 
-2.34.1
+--------50a90c1dfec43a8dd15b8afbe1635532f6c0ea395e5089f5674adfdceea9a0aa
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wrsEARYKAG0FgmsEOdMJELmdYLfl5tl0RRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmeF9uKMBwl7PKMOpqA1eXo4ul0NhAEtc3z91lku
+IgC/hhYhBJlIWqN2fwJwSOCwWLmdYLfl5tl0AAAkwAD+NiV9OOO0c4E+vipV
+15sxybG3N54IlqKJBxIAe6bQyJMBAPfYzYQKFzaCO4VsJCZ1yNgb0Moj35Ox
+26OW76x6o70J
+=+Yjn
+-----END PGP SIGNATURE-----
+
+
+--------50a90c1dfec43a8dd15b8afbe1635532f6c0ea395e5089f5674adfdceea9a0aa--
 
