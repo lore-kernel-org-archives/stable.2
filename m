@@ -1,64 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795427760;
-	b=eCW6nHVrQCLBnTIHPu1LYEkVRy65mw8xssdt0tyJRQuv7tnb0V+COiCOPrONl0bZEgoi
-	 BBg3d6iPfVNObLYDhLn5pZ3vzSrH5W0zTs/kCo/XVQh/gZmQ7oJx91LQIcrWbttDT0r3f
-	 ZZidU0cur1ZcVYpB2Zq8yrIHeF1V8On0tIea2Ivjh6wYeKwmvMiew2b9hCYn0pcvWPwiH
-	 Jybe9D9HtAP4tgTmbv8JNZoV2/ZShW5G5s7G02lrQAn7Y1sw3PvxN1l9cNnpUg1JM1Qq2
-	 +jw9bDnVv6wBbleElk7+sAGtV/psKvrlWEWaWyi1u4TGxP55JI4D/5VckZLxPRKkJVQ==
+	t=1795427756;
+	b=orh/HpU0EG84vpFTAtREBG9x6UV5gmtm0rSvEF5M7Qmb+VUnJpkD8DI9z52v5wY5/+Qf
+	 RP2sFfrN/AwveA23TrcQ3Z8B+qeX10G4ZPXo4NQIo1yiY0bi+8xmNOow5i/3ZW2sVP10A
+	 3HGVRl7O1BIRQapvDesw1AZLkGhhlPeNZSe5PjKAIKN4RI3a9MtPlUyqN2JbFKKIsGfsh
+	 nOccoalQbjZLKLpF4z4xsulHBp6oUF5JBgRLPE5hXuBXtVWrmyzQZVfwy9DQt0ZmctT5e
+	 Sh3pCAUtYBF9bJfo9Mf1AeLgbCdJrgrKZtjI6f0ao9Mt1uI52h33bEo+RkxqkJruTKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795427760;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795427756;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Rspamd-Queue-Id;
-	bh=CUFZdLSuEVrrJUDvAVyiBpqKpftwiDzoT2ikSg1vLJc=;
-	b=tm7V4DQOz02mfTVWY20J0G7f8oIteTUoe40IVjKjfnNFhUHuL5XNYxa6LHEQ0pBoX5cU
-	 SE4+ymuZy//WoXQ1KFM6ZAti6ALXXg5hwNNz5uE83lBOQbdVqrn9HIKgc6tvYI6hGbIXF
-	 JMciEsvvJfZqZqPu/3Y1lj+xUx9snQkUCaToFisyDUX13tZE+QBN4R6IB34g3jtqdfrNy
-	 jTfFfUt/uI4+wyErzeyGLAtE5oe8k0nZHusCx3N22l9XiCUtd4cETy6/pS9YQEQGhfeyR
-	 SiskJ1VSbE8iPwEkqXGKBAav4cm6FW8FvWRXP0dxUqoVAQfU/kgUhGLMuOtaBOpeeVQ==
+	bh=bEpIf88Bd6lcTR9zfzufaNRnF9usrLgoYrUbzb2lfhE=;
+	b=H5uIilLLHIn6q7sBbX7uatnzQHZO1BWloi0PdnZuRH5ayNfIHAfygsHxN8sgzPMZi9V+
+	 ytf+iubHNrEh3RXgYI6VylvM807AwjWLkTi4Lm5/GZ2ePird7VcXkVeeErADcQbHdVGvH
+	 DWL8GDFzb7CK/q/pkWBrGqXLPzygeq/0ag8GaXcNPw3hvuSmaobLO21meFXAz6qxxj43k
+	 RgtFEsBOriiyDAJuTtENT6VTm1F3KFpM17OASoZeyU4NdUs9F5po6/F3I9DgQUtQi+/1X
+	 3vptzhsvf/2UDGtUVqBdDpepMhoZV9OBpJ8G+LvqMKvZQYMoSnHQU4KDNx2iPRy2sBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=steffen.cc;
 	spf=pass smtp.mailfrom=steffen.cc;
-	dkim=pass header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=XKXfLffB;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	dkim=pass header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=Y9ysuHnt;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F59606A33A;
-	Mon, 23 Nov 2026 09:55:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3F59606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0F4606A33E;
+	Mon, 23 Nov 2026 09:55:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E0F4606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=steffen.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=steffen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=XKXfLffB
+	dkim=pass (2048-bit key, unprotected) header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=Y9ysuHnt
 Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jY1Xk5Q0zzMlbC;
-	Mon, 23 Nov 2026 10:55:50 +0100 (CET)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jY1Xm5C9dzMlgh;
+	Mon, 23 Nov 2026 10:55:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=steffen.cc; s=MBO0001;
-	t=1795427750;
+	t=1795427752;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=CUFZdLSuEVrrJUDvAVyiBpqKpftwiDzoT2ikSg1vLJc=;
-	b=XKXfLffBqBw/lIXDBCbFqd/6OPVIDIymadSqER38M3JIMW1URHVQ5mCJ/iJ2uS1oJmIRUu
-	MZKU9tPE/D2lR8SKNNv4orpV3cWc/IHlzxK4v5EDl94L1IGCxgIaxCf3zsWDz50TRLQKcL
-	EtwwPNrLW6SRXyG87ujV6t2B5thgLkVyKKLSTtPGLp1TsNeCHZtInA0BWhfWMqSJ+dyTsU
-	SMiwf9KjR7xeec3n7xbOsVVaR2bc3Kaa8h2CckA6hZixJdVBYvMk+ugboM+w5qF/igoQVP
-	9U43tNVzpwkDck9hHR3OouoK0hBeziwif4vRaHnI99ua3/BbmV9ISDxlRxADWw==
+	bh=bEpIf88Bd6lcTR9zfzufaNRnF9usrLgoYrUbzb2lfhE=;
+	b=Y9ysuHntcZr/WuV1FN7G9XOKaV9MwE9QBnxdAjOysKRf7VwR6PJxOwLKxUxpnj/7x8pBIK
+	46JMRw1jfqooqNjoTNACt6vM/DtzHd5a9R8ogsc5xpZXby2xbfRxLa6p8BHBb2rP4cj1ta
+	xflqulWQ7fj7Dtz20GqogRZWC/oGDqwfykV5CcGWmAcgwSqqlC4YASyRfI7OZaYFBt8EGC
+	XYOfVxmUlfnugzA2QOwQCJ8wlLN86jI3L9W01ctUiDkHthslKrBicfR1xEg94mcS4qlm2n
+	h0FVop07MPGcqBQs0Lv+ybypsMyZr+K3kKrV8S1bQyDsY+6nkthVM4HWLkYD0A==
 Authentication-Results: outgoing_mbo_mout;
 	dkim=none;
 	spf=pass (outgoing_mbo_mout: domain of lists@steffen.cc designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=lists@steffen.cc
 From: Steffen Dirkwinkel <lists@steffen.cc>
-Date: Mon, 23 Nov 2026 10:55:15 +0100
-Subject: [PATCH iwl-net 1/5] e1000e: retry a global reset the I219 didn't
- apply
+Date: Mon, 23 Nov 2026 10:55:17 +0100
+Subject: [PATCH iwl-net 3/5] igb: let dev_watchdog reset the adapter after
+ a Tx hang
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,7 +70,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-e1000e-tx-hang-v1-1-ecb4309942f1@beckhoff.com>
+Message-Id: <20261123-e1000e-tx-hang-v1-3-ecb4309942f1@beckhoff.com>
 References: <20261123-e1000e-tx-hang-v1-0-ecb4309942f1@beckhoff.com>
 In-Reply-To: <20261123-e1000e-tx-hang-v1-0-ecb4309942f1@beckhoff.com>
 To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
@@ -86,91 +86,66 @@ Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
  Kurt Kanzenbach <kurt@linutronix.de>, 
  Steffen Dirkwinkel <s.dirkwinkel@beckhoff.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795427747; l=3258;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795427747; l=2327;
  i=s.dirkwinkel@beckhoff.com; s=20260625; h=from:subject:message-id;
- bh=yqmgwh9JQiMyoM4++9UMC+bt5AFLx9eaGnWZdS19Kpc=;
- b=FMYdigKOgk1H5XF+dkBC+6hmwOvfDg/FXDEefvgv4tKeH3aixxHMvqWncMErJg33LFyPqSm0r
- k9osIN17oX1DUblDclZ43OoQpd853YibgbwK5gCaiDTR+mTnQiWdgO1
+ bh=kUAgDpH1g5eruMkTh7j/zlD+tdNUXEhJeF4Te0NE57c=;
+ b=7q9oPPB6+vOKUJdNZ/0FO9hSkalrOkgPaS/zyYRT1rxRiLlwOTPyi4s0eVSZyGv5KcFpcRD3v
+ 5/b1b2sdH2tCwKsEVw/OL5SezW6Xa45sNKMQDXtZprZxLD14L6Hwsrk
 X-Developer-Key: i=s.dirkwinkel@beckhoff.com; a=ed25519;
  pk=5DcsaSpVtmm7nCi3Bnw5A4vbXI+sg3hBgt8e2A2U/gw=
-X-Rspamd-Queue-Id: 4jY1Xk5Q0zzMlbC
+X-Rspamd-Queue-Id: 4jY1Xm5C9dzMlgh
 
 From: Steffen Dirkwinkel <s.dirkwinkel@beckhoff.com>
 
-On the Beckhoff CB7268 (Cannon Point-LP PCH) and CB3067 (Q370 PCH)
-boards with an I219-LM (8086:15b7), Tx sometimes hangs for good right
-after boot: "Detected Hardware Unit Hang" with TDH 0 and TDT 1. This
-was observed in the field and reproduced in CI, where about one in 140
-cold boots hung.
+Like e1000e, igb stops the queue on every Tx hang report and relies on
+dev_watchdog() to reset the adapter. Since commit 95ecba62e2fd ("net:
+fix races in netdev_tx_sent_queue()/dev_watchdog()") every stop also
+writes trans_start, so the watchdog timeout can't expire as long as the
+hang is reported again in time.
 
-e1000_reset_hw_ich8lan() sets CTRL.GIO_MASTER_DISABLE through
-e1000e_disable_pcie_master() and relies on the global reset to clear
-it. On these boards the MAC occasionally ignores the reset: 20 ms
-later CTRL still holds its old value, GIO_MASTER_DISABLE included.
-A debug kernel that resets the MAC in a loop lost up to 7% of back-to-back
-resets and still some with 20 ms between them.
+Until commit a22ed15c99a0 ("igb: Get rid of spurious interrupts") the
+igb watchdog forced an interrupt every two seconds, so the hang was
+reported every two seconds and the adapter was never reset. Since then
+a report needs an interrupt from traffic, and the adapter is reset only
+if a stopped queue sees none for 5 s.
 
-Check GIO_MASTER_DISABLE after the reset and issue the reset up to two more
-times. In 122 lost resets the first retry always took.
+Stop the queue only if it isn't stopped yet.
 
-Tested by power cycling affected devices: 13 of 1816 boots hung without
-this change and 0 of 2830 with it, where 19 lost resets were retried.
+Found by code inspection after the same problem in e1000e. Tested on an
+I210 with the Tx queues disabled through TXDCTL and that commit
+reverted: without this change Tx never recovered in 8 of 8 tries, with
+it the watchdog reset the adapter after 15 s in 8 of 8. With unmodified
+interrupt handling Tx recovered with and without this change.
 
-Fixes: 79849ebc0e06 ("e1000e: initial support for i219")
+Fixes: 95ecba62e2fd ("net: fix races in netdev_tx_sent_queue()/dev_watchdog()")
 Cc: stable@vger.kernel.org
 Signed-off-by: Steffen Dirkwinkel <s.dirkwinkel@beckhoff.com>
 ---
- drivers/net/ethernet/intel/e1000e/ich8lan.c | 27 +++++++++++++++++++++++----
- 1 file changed, 23 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/intel/igb/igb_main.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/e1000e/ich8lan.c b/drivers/net/ethernet/intel/e1000e/ich8lan.c
-index aa90e0ce8aca..4d4bc262ae85 100644
---- a/drivers/net/ethernet/intel/e1000e/ich8lan.c
-+++ b/drivers/net/ethernet/intel/e1000e/ich8lan.c
-@@ -4834,9 +4834,11 @@ static s32 e1000_get_bus_info_ich8lan(struct e1000_hw *hw)
- static s32 e1000_reset_hw_ich8lan(struct e1000_hw *hw)
- {
- 	struct e1000_dev_spec_ich8lan *dev_spec = &hw->dev_spec.ich8lan;
-+	struct e1000_adapter *adapter = hw->adapter;
- 	u16 kum_cfg;
- 	u32 ctrl, reg;
- 	s32 ret_val;
-+	int tries;
+diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+index 131df3e09ba1..0aca2e70087a 100644
+--- a/drivers/net/ethernet/intel/igb/igb_main.c
++++ b/drivers/net/ethernet/intel/igb/igb_main.c
+@@ -8484,8 +8484,15 @@ static bool igb_clean_tx_irq(struct igb_q_vector *q_vector, int napi_budget)
+ 				tx_buffer->next_to_watch,
+ 				jiffies,
+ 				tx_buffer->next_to_watch->wb.status);
+-			netif_stop_subqueue(tx_ring->netdev,
+-					    tx_ring->queue_index);
++			/* The hang is reported again on every watchdog run,
++			 * but stop the queue only once: stopping it again
++			 * would also restart the Tx timeout, so dev_watchdog()
++			 * would never reset the adapter.
++			 */
++			if (!__netif_subqueue_stopped(tx_ring->netdev,
++						      tx_ring->queue_index))
++				netif_stop_subqueue(tx_ring->netdev,
++						    tx_ring->queue_index);
  
- 	/* Prevent the PCI-E bus from sticking if there is no TLP connection
- 	 * on the last TLP read/write transaction when MAC is reset.
-@@ -4895,10 +4897,27 @@ static s32 e1000_reset_hw_ich8lan(struct e1000_hw *hw)
- 			e1000_gate_hw_phy_config_ich8lan(hw, true);
- 	}
- 	ret_val = e1000_acquire_swflag_ich8lan(hw);
--	e_dbg("Issuing a global reset to ich8lan\n");
--	ew32(CTRL, (ctrl | E1000_CTRL_RST));
--	/* cannot issue a flush here because it hangs the hardware */
--	msleep(20);
-+	for (tries = 0; ; tries++) {
-+		e_dbg("Issuing a global reset to ich8lan\n");
-+		ew32(CTRL, (ctrl | E1000_CTRL_RST));
-+		/* cannot issue a flush here because it hangs the hardware */
-+		msleep(20);
-+
-+		/* Some I219 occasionally ignore the reset of the MAC, mostly
-+		 * right after a previous reset, and CTRL keeps its value.
-+		 * GIO_MASTER_DISABLE then stays set from
-+		 * e1000e_disable_pcie_master() above, so the MAC can't fetch
-+		 * descriptors and Tx hangs. Issue the reset again.
-+		 */
-+		reg = er32(CTRL);
-+		if (!(reg & E1000_CTRL_GIO_MASTER_DISABLE) || tries >= 2)
-+			break;
-+		e_warn("Global reset not applied (CTRL 0x%08x), retrying\n",
-+		       reg);
-+	}
-+	if (reg & E1000_CTRL_GIO_MASTER_DISABLE)
-+		e_err("Global reset not applied after %d tries (CTRL 0x%08x)\n",
-+		      tries + 1, reg);
- 
- 	/* Set Phy Config Counter to 50msec */
- 	if (hw->mac.type == e1000_pch2lan) {
+ 			/* we are about to reset, no point in enabling stuff */
+ 			return true;
 
 -- 
 2.56.1
