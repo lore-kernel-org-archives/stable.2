@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795466368;
-	b=hbpIUnH6ZRnRg9gg7SDcAGSLGNgf5lFeeeOh91iLAzYJLtPeHwFoOt+KSdM6LhywnWw9
-	 9wk/UCIooCeMc/bKkcupxE9W8KdwVKPgi7aviOFcCgDZGJEWCktfyuqOF1cQhGtzVq5PB
-	 6grRFgzf351jicknMB31kppjVO/4P6+6I3QmsAZqO7rTE0s0cp4sIBgY3qSN47WynOeIt
-	 V+qBtipQulyXxcwAlFVuXgi45HdbHVMgpszQG9qkm+bhKn0+HrxzZcaaTKy+W3dT+1ri/
-	 CJzvuFxorDidHMnm+ZqluUcCtj2l8Lo1hS+8evbkgJAG9s+AVDMA4iQqo6HIjZoY1ZQ==
+	t=1795466370;
+	b=pqvKZJF9MwDXZM6PTl8D/s9ZtxtI67ttP+pGL8dicJBWK8CPadNNj1YM5XEag4wU2pcC
+	 mJNCmx9EMeat1oj6TPbMz7OkCqoCmwyVamX/8/mAd3OGa1UmS8zkWnTvANCYBA7WjnfA6
+	 CxVGjMbuQyYanWlbOf8aSI9ILZyx+HEmt9yxr5rhKV75deOacCZ9VivtbDK+E1mtP/sbp
+	 hrff9Pk6Swcr4Ylj4cCqazh7Lva7yHU6smw88KXWtSdy1tovuE55iFjClbop8Wxf/BZrF
+	 MK85XQPVU3TnvtzkuaXVjtjq6nqPpIoQDlM//XCEL9Hj0qDWkED96dJQZiIdBbGtkxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795466368;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795466370;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=uYHZ9xBPT+FC2JvbmkS0mkpOSIDYPq7bEQsGc7x1jrs=;
-	b=UwLj+6rU6Y23rFCJm0qmOWfKkoqYW0cQxNpxuYRdssujfWlTFO5yFjAS9OlPXq2rHau/
-	 Wc9sd7To+tOSJIOTmzx4XQMrNGLHXwroF42VeQj1jEWUPhOpErOBjixvokUNeuNZY0xrQ
-	 bGgUrTEca5ibJB575pr03pgi/8GZ60O1e+cSCLYxzEsqSiS0lOODGOgUAo7kKlOb0m6xx
-	 1DdrA9W6P40L/a0s5LlhXL3ISx1z3wPgDE2xHMuEpru1hNJZ2ryiTn8yT3CB/+hB7ChuE
-	 l4X0ZS+rVMXBABU6tCKreMS7PqBRXtXONCguIlON5F3crHkliIXBXH9kAAYr1timcyg==
+	bh=D0KHOZVofruhcg+Qn5VOsyQ2WExJk7PqsXpAACuiVqE=;
+	b=BvIhOi0iiqFeHK/b7dpbwOfodh4NKbmxa+O2cdcUXofhRcORX7q4vA9EMsgwfBsBesji
+	 /OmiHbgL4xMsCU7NjjpKUU8pp4Q6PXE4h8V53tQYS9e5hGXmgHT8zjWgEZrlCkt8lG7Gl
+	 tivyfF9u8VqRqprrOuEWovQMS90UqfILyRHmbSQ4bUWrFCDuES4U8P00t1uNMo9uLB0uT
+	 JM3ihIKDy6AU//41W7LBn0i6PG2JCYqiHEMwdbM3bYSs17rc3f7VQ9Jun3zW/PIpsVlFl
+	 ifwz6GBb6pxRNr8aTJ+94zAuxe9RpLYJyiAzQF1dmE2qtjaBeYpyiOfg0uxjl8DMLGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y1cOvA/3";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MpDsk/hw";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9574606A31E;
-	Mon, 23 Nov 2026 20:39:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F07B606A31E;
+	Mon, 23 Nov 2026 20:39:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1cOvA/3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BCC91F000CF;
-	Mon, 23 Nov 2026 20:39:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MpDsk/hw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C211F000CF;
+	Mon, 23 Nov 2026 20:39:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795466368;
-	bh=uYHZ9xBPT+FC2JvbmkS0mkpOSIDYPq7bEQsGc7x1jrs=;
+	s=k20260515; t=1795466369;
+	bh=D0KHOZVofruhcg+Qn5VOsyQ2WExJk7PqsXpAACuiVqE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Y1cOvA/3nz30UZogGyFzZjrVjryx7oc7wKW6obzWqBB3TWb4RMIOg0Ao6mc8e2gpm
-	 Omgs8pdxzANnqA1L6RAKqzsNzpJLetu/IFHidIpD/zWuu21tuNhSuc0pYFwM0ermHx
-	 lqxuBsU6oU2sZmmNF97TqkRHMXq6w9UF0g+QPYbUQ74SKmAXzWFoWo01G8h4L11i6e
-	 RjPBNuOeWAGVwlFtHn+yzgnI/K5Ers+K1ki0vCqQ8HuyTJjrXGSM5a/131eFH89ZAo
-	 zCCD2DoH+oTc5O6MXUm9b9k3r92G11RhMWp606G6mkEhChpZ5TmUH60gsmk0m6foTo
-	 69TECRTRKapeQ==
-Subject: Re: [PATCH net v2 1/3] tls: device: keep tls_sw_fallback() from
- encrypting its own output
+	b=MpDsk/hwN3owQGvNzZWYAKicAT0ixjii36t2u7FvQ1EgmI0kYjmTQjUQDNlw0SutF
+	 AY0aLpiTywNgmri8RAif1ewAI2ZR9XSsHcsJww+n+3FwojAbrnzgBGYa7Gnc+X+WrM
+	 pfVDsQLjr2bQjjjTyKqzqqUh+g08dJyTikcVwK6S9tx55ilda0VhJUzQEpCNlmJ4Ye
+	 EVwTTwgztAcxZvV3iJkF4PznnP4eyMRMVZbayQrzV2yEaXIt46YCl1kI3rPJlUgbmv
+	 Nekr2EWB40MysIGpiJkQAPb7q2qzrUliYQKfpwzI7guhVoM82r5t5g0JQPSDM32QMK
+	 EnKWNB1JwKAHw==
+Subject: Re: [PATCH net v2 2/3] selftests: net: py: add a bkg() timeout and
+ kill the child when it expires
 From: netdev-bot+sashiko@kernel.org
 To: rjethwani@purestorage.com
 Cc: netdev@vger.kernel.org, stable@vger.kernel.org, john.fastabend@gmail.com,
  kuba@kernel.org, sd@queasysnail.net, davem@davemloft.net, edumazet@kernel.org,
  pabeni@redhat.com, horms@kernel.org, tariqt@nvidia.com,
  alice.kernel@fastmail.im
-Date: Mon, 23 Nov 2026 20:39:27 +0000
-Message-ID: <179546636707.3135.15103841065368039377@kernel.org>
-In-Reply-To: <20261119191341.4089157-1-rjethwani@purestorage.com>
-References: <20261119191341.4089157-1-rjethwani@purestorage.com>
-X-sashiko-severity: High
+Date: Mon, 23 Nov 2026 20:39:28 +0000
+Message-ID: <179546636853.3135.5221989489890379101@kernel.org>
+In-Reply-To: <20261119191341.4089157-2-rjethwani@purestorage.com>
+References: <20261119191341.4089157-2-rjethwani@purestorage.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -65,10 +65,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+Critical: 0 · High: 0 · Medium: 2 · Low: 3
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -76,124 +76,162 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The patch makes skb->decrypted the marker for 'still needs TLS
-  encryption': tls_sw_fallback() now skips skbs with…
-- [Low] The new early return in tls_sw_fallback()
-  (net/tls/tls_device_fallback.c:377-379, '/* Already encrypted, e.g. by…
+- [Medium] In tools/testing/selftests/net/lib/py/utils.py,
+  cmd._process_terminate() handles a communicate() timeout by calling…
+- [Medium] In cmd._process_terminate(), when the second
+  communicate(timeout=1) times out after self.proc.kill(), the code…
+- [Low] The commit message describes a bkg()-only change, but the
+  modified helper cmd._process_terminate() is shared.
+- [Low] The new comment in cmd._process_terminate() says "bkg() with
+  exit_wait or ksft_wait never sends one [terminate()]".
+- [Low] The new comments in cmd._process_terminate() describe which
+  backends leave processes behind after kill().
 
 --
 
-tls: device: keep tls_sw_fallback() from encrypting its own output
+selftests: net: py: add a bkg() timeout and kill the child when it expires
 
-This patch makes tls_sw_fallback() pass through skbs that do not have the
-decrypted bit set, and clears that bit on the output of complete_skb(). The
-aim is to keep a second software fallback pass (for example at the bond
-master and then again at the slave) from re-encrypting ciphertext with the
-same rcd_sn and IV.
+This adds a timeout argument to bkg() for its exit-time wait. It also
+changes cmd._process_terminate() so that, when communicate() times out,
+the child gets SIGKILL before TimeoutExpired is re-raised. The goal is to
+stop a timed-out background command from outliving the devices and
+namespaces the test tears down.
 
-> diff --git a/net/tls/tls_device_fallback.c b/net/tls/tls_device_fallback.c
-> index b547027cc879f..57d8f6b50e4dd 100644
-> --- a/net/tls/tls_device_fallback.c
-> +++ b/net/tls/tls_device_fallback.c
-> @@ -192,6 +192,9 @@ static void complete_skb(struct sk_buff *nskb, struct sk_buff *skb, int headln)
->  	skb->destructor = NULL;
->  	skb->sk = NULL;
->  
-> +	/* nskb is encrypted now */
-> +	nskb->decrypted = 0;
+> diff --git a/tools/testing/selftests/net/lib/py/utils.py b/tools/testing/selftests/net/lib/py/utils.py
+> index 1727bc4180733..7a3fc39db3348 100644
+> --- a/tools/testing/selftests/net/lib/py/utils.py
+> +++ b/tools/testing/selftests/net/lib/py/utils.py
+> @@ -104,13 +104,32 @@ class cmd:
+>      def _process_terminate(self, terminate, timeout):
+>          if terminate:
+>              self.proc.terminate()
+> -        stdout, stderr = self.proc.communicate(timeout=timeout)
+> +        timed_out = None
+> +        try:
+> +            stdout, stderr = self.proc.communicate(timeout=timeout)
+> +        except subprocess.TimeoutExpired as exc:
+> +            # terminate() is only a request, and bkg() with exit_wait or
+> +            # ksft_wait never sends one, so kill rather than leave the child
+
+[Severity: Low]
+Is this comment accurate for exit_wait? When the with-body raises and the
+child is still running, bkg.__exit__() in this same file does send
+terminate for an exit_wait bkg():
+
+    if self.proc.poll() is None:
+        terminate = terminate or (self._exit_wait and ex_type is not None)
+
+Callers can also call process(terminate=True) on an exit_wait bkg()
+directly. The next patch in the series does this in run_tls_test() with
+pending.process(terminate=True, ...).
+
+The statement seems to hold only for ksft_wait, and for exit_wait when no
+exception is in flight.
+
+> +            # running. That does not stop a command run over ssh on the
+> +            # remote; it needs a bound of its own.
+> +            self.proc.kill()
+
+[Severity: Medium]
+Does this kill() reach the process that is actually doing the work?
+Popen.kill() sends SIGKILL only to the direct child pid. cmd.__init__()
+creates the Popen without start_new_session or a process group, so the
+whole tree can't be killed with os.killpg().
+
+In several setups the workload is not the direct child:
+
+remote_ssh.py Remote.cmd():
+    return subprocess.Popen(["ssh", "-q", self.name, comm],
+
+Here only the local ssh client is killed, and the remote command keeps
+running.
+
+remote_netns.py Remote.cmd():
+    return subprocess.Popen(["ip", "netns", "exec", self.name, "bash", "-c", comm],
+
+With compound commands (pipelines, ;, &&, or loops such as the for loop in
+rss_flow_label.py), bash forks children that survive SIGKILL to bash. The
+same is true of bkg(shell=True) with a compound command.
+
+In these cases the inner except branch below reaps the dead direct child,
+drops the output and re-raises. The workload is still alive when the
+caller's defer/teardown runs. Isn't that the same ordering problem the
+commit message says this patch fixes?
+
+The code comment mentions the ssh case, but the commit message doesn't
+mention any limitation. Would a complete local fix need start_new_session
+plus os.killpg()?
+
+> +            try:
+> +                stdout, stderr = self.proc.communicate(timeout=1)
+> +            except subprocess.TimeoutExpired:
+> +                # A grandchild (shell=True, ssh) still holds the pipes.
+
+[Severity: Low]
+Should this comment, and the ssh comment above it, also mention the
+remote_netns backend? remote_netns.py Remote.cmd() wraps every remote
+command in ip netns exec <ns> bash -c comm. The forked parts of compound
+commands can survive kill(), keep the pipes open, and take this same path
+while the workload keeps running inside the namespace.
+
+> +                self.proc.wait()
+
+[Severity: Medium]
+Can this wait() block forever? It has no timeout. The comment assumes that
+only a grandchild can still hold the pipes here, but the direct child may
+still be alive too.
+
+SIGKILL doesn't act on a task in uninterruptible sleep until the task
+leaves that state. Two examples: an ip command blocked in
+mutex_lock(&rtnl_mutex) while RTNL is held indefinitely, or ip link del
+stuck in the msleep() loop of netdev_wait_allrefs_any() because of a
+leaked netdev refcount.
+
+In that case the child still holds its own stdout/stderr, so
+communicate(timeout=1) times out. wait() then blocks for as long as the
+task stays in D state.
+
+Before this patch, _process_terminate() always returned or raised
+TimeoutExpired within timeout. Now the harness hangs instead of reporting
+a failure. ksft_run can't record the failure, run defer() cleanup, or move
+on to later cases.
+
+The helper is shared, so this affects foreground cmd() as well as bkg().
+Would a bounded wait be safer here?
+
+> +                stdout, stderr = b"", b""
+> +            timed_out = exc
 > +
-
-[Severity: High]
-Does this also cover the hardware offload path?
-
-complete_skb() keeps nskb->sk = sk. The driver side check for hardware
-encryption does not look at skb->decrypted:
-
-include/net/tls.h:tls_is_skb_tx_device_offloaded() {
-	...
-	return sk && sk_fullsock(sk) &&
-	       (smp_load_acquire(&sk->sk_validate_xmit_skb) ==
-	       &tls_validate_xmit_skb);
-}
-
-So drivers still treat software fallback ciphertext as offloaded.
-
-Take a TLS_HW socket offloaded on mlx5 eth0 whose route later moves to
-vlan@eth0:
-
-vlan@eth0:
-  tls_validate_xmit_skb()
-    dev != netdev, not a bond master
-    tls_sw_fallback()->complete_skb()    /* ciphertext, decrypted = 0 */
-  vlan_dev_hard_start_xmit()
-    dev_queue_xmit(eth0)
-
-eth0:
-  tls_validate_xmit_skb()
-    dev == netdev, skb returned unchanged
-  mlx5e_accel_tx_begin()
-    tls_is_skb_tx_device_offloaded() returns true
-    mlx5e_ktls_handle_tx_skb()
-      state->tls_tisn = priv_tx->tisn;   /* in-order seq */
-
-In that case, would the NIC encrypt the software ciphertext a second time
-with the same record keystream and put plaintext on the wire?
-
-mlx5e_ktls_handle_tx_skb() only checks skb->decrypted in the
-MLX5E_KTLS_SYNC_SKIP_NO_DATA branch. nfp_net_tls_tx() also decides only
-through tls_is_skb_tx_device_offloaded(), and it attaches ntls->fw_handle
-when ntls->next_seq == seq.
-
-This path existed before this patch. However, the commit message says the
-bit is cleared "so its output is not encrypted again", and that doesn't
-seem to hold for the hardware path.
-
-Should tls_is_skb_tx_device_offloaded() also require skb_is_decrypted(skb)
-so that it follows the same rule?
-
-[ ... ]
-
-> @@ -371,6 +374,10 @@ static struct sk_buff *tls_sw_fallback(struct sock *sk, struct sk_buff *skb)
->  	s32 sync_size = 0;
->  	u64 rcd_sn;
+>          self.stdout = stdout.decode("utf-8")
+>          self.stderr = stderr.decode("utf-8")
+>          self.proc.stdout.close()
+>          self.proc.stderr.close()
+>          self.ret = self.proc.returncode
 >  
-> +	/* Already encrypted, e.g. by the bond master */
-> +	if (!skb_is_decrypted(skb))
-> +		return skb;
+> +        if timed_out:
+> +            raise timed_out
 > +
 
 [Severity: Low]
-This isn't a bug, but is this comment accurate for every skb that takes
-this return?
+The commit message describes a change to bkg() only, but
+_process_terminate() is shared. Foreground cmd() reaches it through
+cmd.__init__() when background is False:
 
-Data written before setsockopt(TLS_TX) also has decrypted = 0, because
-tcp_sendmsg_locked() does:
+    if not background:
+        self.process(terminate=False, fail=fail, expect_fail=expect_fail,
+                     timeout=timeout)
 
-	skb->decrypted = !!(flags & MSG_SENDPAGE_DECRYPTED);
+The ksft_ready init-failure path also calls it directly with timeout=1.
 
-Only tls_push_data() and tls_device_write_space() pass that flag, so that
-data was never encrypted by kTLS.
+With this patch, any foreground cmd() that hits its timeout now gets
+SIGKILL, and ret/stdout/stderr are filled in before TimeoutExpired is
+re-raised. Before, the child was left running and those fields stayed
+None.
 
-Also, the existing bypass further down in tls_sw_fallback() no longer
-seems reachable for the packets it describes:
+No in-tree caller seems to rely on the old behaviour. Could the commit
+message mention this change?
 
-	if (fill_sg_in(sg_in, skb, ctx, &rcd_sn, &sync_size, &resync_sgs)) {
-		/* bypass packets before kernel TLS socket option was set */
-		if (sync_size < 0 && payload_len <= -sync_size)
-			nskb = skb_get(skb);
-		goto put_sg;
-	}
-
-Three things make it unreachable for those packets:
-
-- Only decrypted = 1 skbs reach fill_sg_in() now.
-- Those skbs are created after the start marker set in
-  tls_set_device_offload().
-- tcp_skb_can_collapse() refuses merges across a decrypted mismatch.
-
-Should the new comment also mention pre-offload plaintext? And should the
-start marker bypass, along with the matching start marker handling in
-fill_sg_in(), be updated or removed?
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261119191341.4089157-1-rjethwani%40purestorage.com
