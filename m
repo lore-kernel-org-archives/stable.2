@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795435228;
-	b=EuhDKsIzYc8wExqzNzuV+OVVi/2ZtDlhyCGoZoaYYvtp+oe4FHVY0unSXOEGqega8Brj
-	 cQUcPd7QryynEcavH8o7Cp8M+Sraq3AsfjOJXCNVVQISbx2au7NPjj55tLqyA2Qw8tYdR
-	 G8eQLxSug1w8aw3wDJWu26EC6ogvpqnAwKlF1+U0BPWjqH5bmjP5v+pj/GPAa9u9Q6xI4
-	 r0vO1uIqHScFaHvrXW5WNjriPiBJojQVHEz2z3rlcSL9k9kGsb8+zGQ2j2Y5uTK5OZhL7
-	 azpHvVdqylCN5OaIohC8hJ2XuLpe+HzyzKUrc2f9hRCmUdMEIKKweSz2KOh3wp5kHIg==
+	t=1795435230;
+	b=MsuaC64g6VngSkU60wD8X1N6IzFKsVMNN6SJv51/IdCDzLur4cVl4ua20JaCaib717iR
+	 EkVxJGi9WS85xeIw2FaQaATIKgv8b+LgEFKugNGd/thAMe7dztddGHWAxGny7hlyrPI6G
+	 H7EJ4pHQo5sJ212KoRa6qkPqQHsflBnrjQhCk31FmiJ4g44Ykq5IFjhvrYtrwPLZ2h4qA
+	 OcyN5sThk2WLWFYnSCx/Rj998AnZyj0WNTM8fDbaeWlHpyHGGfPiB/p53wDbWKMeQUg31
+	 UHRkmCc/+GN2vuJf/UaNf1R2EqLh9teBxv+gIcFTLvyCy/orMv4gPbasmv7kXZaS3zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795435228;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795435230;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=lve/LsU61OLZYEoEy459aqh2XEJegA1ZT4bZw9869gE=;
-	b=EwNQT6XDXW6Krra6XKLB/RSaE/Y0CkKQiTyk92y7kIRBwlaaaAe+RIGoj5HL71Gdr/jB
-	 nal+y5bq4/a8KaaB5pJau4ZiV1I31ZA2FodN+ejxIJXVHOtvoPNONPskx/8YzqxQMYUj5
-	 VKaWzK62gtwFpeC9OgBW/ZYWFMMs1ExfyII7fizOeYZYQ71gmRmCqnbwNT55p1EezZN0t
-	 nYirpSrEWdjDcnoPRBWbvb2oy0HfF0V+gDAYCwVpl/i6t6/65uXTsMjo2umw80NbVn8Lh
-	 Twr4KlUF9li8HdQ7kk569yYhFZDE9nS/4W1ShaigkOvzepwzYS8WrzETBvvRHwu3dpw==
+	bh=jRPeG+FI1vMjvAoUa0LB4PHxy32yruYk5KO8ffW1GmY=;
+	b=OouaqltRQufBunm3ta1R70f4zGj7h6EdK9JIz3sx4p2SS4/y7lM1KoBs3xtg5RsBBxkw
+	 E7ZSKSZkOs0mBKL4CHAW3FULa7OB11H0XhTbfjHx5PRB7AMIFzhI7e+gLZU/QfC+lb3gx
+	 7fO2mqBExYSOLgc9K9qlQBxjUag2kfnek83Alv+mUIgp5d4whEhbxXJN5/MKOuLugdnZ3
+	 XHVFS/ou2Z7gi845stIsvI2J3lP8GH/UsSPgg4a7o3vpjcnYSBLq6aGSBkAi75T0noOfa
+	 fx+x3x+Nu8l1dpDKAlaQZiABCffPk0FzLdrm6f65Xl2zYebFrjKK4ykQpny+5MsB5xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LzkrFolF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vo0+c5YE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BE2606A31A;
-	Mon, 23 Nov 2026 12:00:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADD8606A31A;
+	Mon, 23 Nov 2026 12:00:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LzkrFolF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF071F000CF;
-	Mon, 23 Nov 2026 12:00:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vo0+c5YE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490541F000CF;
+	Mon, 23 Nov 2026 12:00:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795435228;
-	bh=lve/LsU61OLZYEoEy459aqh2XEJegA1ZT4bZw9869gE=;
+	s=k20260515; t=1795435229;
+	bh=jRPeG+FI1vMjvAoUa0LB4PHxy32yruYk5KO8ffW1GmY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LzkrFolFmGj6UpKsFXm+iHVURLxMvpHT3aEFx6QkzBNiEQQNZC2yXfo7vYGusXBrX
-	 OFFnaMh7VSAMpzsc2GDYxq+FQCMETvHoWS91q9gydIAjSi2JQDC34XiIhnbPw50k8+
-	 ZYs8C/xhDeF6pr/PMaQ1CVXk5jOQ7QDvgx5I4K8qYZUHfdt2Dxr4oShvUAgDOlq5G4
-	 0ozx0vQ8UaXXLBsS8oynwCHU8NgFepLuCnsc5af1wVTGrUGPaVaCncDcKe356Z7mwE
-	 6A2mkiSFAsICMKHwTNU5/Z/KDnrwq4to0ssuFPZIHlUBmU1p4k4RVvuhUtllXAJ1Lm
-	 7VgkO+hYfKcmw==
-Subject: Re: [PATCH can-next v9 09/13] can: gs_usb: gs_usb_get_gs_can():
- introduce new function to consolidate validation of struct gs_can
+	b=Vo0+c5YEIIJTJ2Kt98yojufAjqqBVUiOlgqqW2dQ4ch8O6r+hq7gxW4RLdZfuJY2a
+	 xlR+5jSpCCepzH9SAi89eFjlsyLHcMpffncV8sGllDkaQSmbtFon252WcK0Bjw5eBl
+	 X5f5AhrBfVvCTvw7A0G4yV8l+jbktEVX8IZjworLG+2tQVmUPTJkpIH9Dxj29Hfplf
+	 lt1FUhS4QepGXpCjUC1OwiDSnDkpLfC39MIK3w8q7cKBfjU2ZlxJOIqdAsAWcAWUOR
+	 10WaI6vUpyjEkf6ldT9HLOtG+R5sq7ftwFpnjBtnXa+xQBl7Z3e3p8Qdoyi5jq5G32
+	 u8/hLY1rSwVxQ==
+Subject: Re: [PATCH can-next v9 10/13] can: gs_usb: gs_usb_get_gs_can():
+ report channel number out of range error
 From: netdev-bot+sashiko@kernel.org
 To: mkl@pengutronix.de
 Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
  max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
  linux-can@vger.kernel.org, shuangpeng.kernel@gmail.com,
  stable@vger.kernel.org, vadim.fedorenko@linux.dev, kuba@kernel.org
-Date: Mon, 23 Nov 2026 12:00:27 +0000
-Message-ID: <179543522703.3131.14984060742934777672@kernel.org>
-In-Reply-To: <20261121-gs_usb-fixes-v9-9-db121d488945@pengutronix.de>
-References: <20261121-gs_usb-fixes-v9-9-db121d488945@pengutronix.de>
+Date: Mon, 23 Nov 2026 12:00:28 +0000
+Message-ID: <179543522887.3131.5577678621864110262@kernel.org>
+In-Reply-To: <20261121-gs_usb-fixes-v9-10-db121d488945@pengutronix.de>
+References: <20261121-gs_usb-fixes-v9-10-db121d488945@pengutronix.de>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -71,94 +71,34 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The commit message presents this patch as a pure refactor ("To
-  improve code readability and structure consolidate the decoding and…
+- [Low] Grammar error in the commit message of "can: gs_usb:
+  gs_usb_get_gs_can(): report channel number out of range error".
 
 --
 
-can: gs_usb: gs_usb_get_gs_can(): introduce new function to consolidate validation of struct gs_can
+can: gs_usb: gs_usb_get_gs_can(): report channel number out of range error
 
-This patch adds a new helper, gs_usb_get_gs_can(). It takes over three
-checks from gs_usb_receive_bulk_callback(): the short read check on the
-RX header, the channel id range check, and the netdev present/running
-checks.
+When the USB device reports a channel number that is out of range,
+gs_usb_get_gs_can() now prints a rate-limited error message. It then
+marks the condition as fatal and detaches, as before.
 
-The helper returns the struct gs_can pointer or NULL. It also sets a
-fatal flag, which the caller uses to decide whether to detach the device
-or resubmit the URB.
+> If the USB device sends an invalid channel, the device should not be
+> silently detached; instead, the display an error message before detaching.
+
+[Severity: Low]
+This isn't a bug, but there's an extra "the" in the commit message.
+"instead, the display an error message" should probably read "instead,
+display an error message".
+
+The code change in gs_usb_get_gs_can() matches what the message
+describes.
 
 > diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-> index f49179cbd7876..c392cf65d8a6d 100644
+> index c392cf65d8a6d..aca4f4fdc796a 100644
 > --- a/drivers/net/can/usb/gs_usb.c
 > +++ b/drivers/net/can/usb/gs_usb.c
 
 [ ... ]
-
-> @@ -651,6 +651,43 @@ gs_usb_get_minimum_rx_length(const struct gs_can *dev, const struct gs_host_fram
->  	return minimum_length;
->  }
->  
-> +static struct gs_can *
-> +gs_usb_get_gs_can(const struct gs_usb *parent,
-> +		  const struct gs_host_frame_header *header, u32 actual_length,
-> +		  bool *fatal)
-> +{
-
-[ ... ]
-
-> +	struct gs_can *dev = parent->canch[header->channel];
-> +	const struct net_device *netdev = dev->netdev;
-> +
-> +	if (!netif_device_present(netdev)) {
-> +		*fatal = true;
-> +
-> +		return NULL;
-> +	}
-
-[Severity: Low]
-Is this change in behavior intended? The commit message presents the
-patch as a refactor:
-
-  To improve code readability and structure consolidate the decoding and
-  validation of the struct gs_can from the host frame into a the new
-  function gs_usb_get_gs_can().
-
-However, the not-present case now behaves differently. Before the patch,
-gs_usb_receive_bulk_callback() returned without resubmitting the URB and
-did not touch the other channels:
-
-	if (!netif_device_present(netdev))
-		return;
-
-Now that *fatal is set here, the caller jumps to device_detach, which
-detaches every channel of the parent:
-
-device_detach:
-		for (rc = 0; rc < parent->channel_cnt; rc++) {
-			if (parent->canch[rc])
-				netif_device_detach(parent->canch[rc]->netdev);
-		}
-
-One channel can be detached by itself. For example, gs_can_start_xmit()
-and gs_can_open() call netif_device_detach() on only their own netdev
-when they get -ENODEV. Before this patch the sibling channels stayed
-attached in that case. With this patch, the next RX frame carrying the
-detached channel's index also detaches all the siblings.
-
-This is probably harmless in practice. -ENODEV means the shared USB
-device is gone, so the siblings would fail anyway, and in both versions
-the URB is not resubmitted.
-
-The commit message does say "If fatal is true, detach the device", but
-it doesn't mention that the not-present case used to be handled
-differently. This behavior is still the same later in the series:
-gs_usb_get_gs_can() still sets *fatal for !netif_device_present() in
-"can: gs_usb: gs_usb_host_frame_header_valid(): drop CAN frames with
-invalid DLC".
-
-Could the commit message mention and justify this change? Otherwise,
-should the old behavior (neither resubmit nor detach) be kept for this
-case?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261121-gs_usb-fixes-v9-0-db121d488945%40pengutronix.de
