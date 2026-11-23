@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795454169;
-	b=X+uPhuMoYhmgAxUv5sMKut13/hf0adrnxbyMe+PIXX2cwF5YEveu4jkMdVNlJ9u8cNL4
-	 59mI8wup77YLEBysPEcsGy4ICSRXeoIgd4c1xTncatg8wHR8OrEVndQ6etpJX4rhlMXmo
-	 W7VwFW1lc8p1cSeXu3/3OyMZfj4E0hJxAGT2o1rvqoapnFIwolr79Ega9dTq6HtJazwgG
-	 ckSHWdZthaPtZqnGMKNuo75TfLuXdoSB3zId6TD/SKmK8uSwgoA7rw7KPDXLOBLUZLNjx
-	 bHTuKtuINAyCKqWDvDYun7AD7Ut4EzHwmauZrVMqq5ozvqIpy8lqX0EI/i3ZlS7agOw==
+	t=1795454172;
+	b=EassNJyo/EOd81hFH3/0VlyAHq80bT2/GKBeIsKBhL7yB2P9pQvGV1ySvHaF3A4yLvmt
+	 4VMfRHQuwK8kLRnkM/8xXshPD9gbhrTE/M+rYId+dSYYHL6Thicm5TYOVgIjO5oNBIJ30
+	 3p5qS+uGKwFiBCEBLzDFLIxLktM3rRe9sVjgmY8YOM5zV0QlZzxj1rCkxP8E6W+2AGry1
+	 a5bgzq7daCK8wsrzXXQeANMGSxPtIL7axz/8aBBwo8TREzwgTA/pMdWVVawpott5wGpcK
+	 BE2Zg14LPlGF7JZPuFYwsf8PxkxiK3SshZjf3Zge85C9i/hKNIEtHoY4dFGdgGWZdoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795454169;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795454172;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ya6v0UyKzX4mmCXRtci1TvYwloWMFBhWYhOd/yqiouQ=;
-	b=ttQdtTK9R0hXFKj7N9K4hYxeNz7MHQDiLLrUFvpo9HYX963I1TOWnFKSRtEtJiBQHCN8
-	 E9bB8pPbhJ2cCUSXgKrZC3aDAPK2nsh66YQJCL+n51R6XQTjqGYz6/NosIfXkdC10Ut9l
-	 sqGBoQY0wPYUC6Du6lwrZkOirOYMjp5uGXPqSMcr+uiKJyg4NWiC6Z8um0BP2+pDfUM09
-	 FkoZIppZ38mH/2wilBqqWL8pwSnbBLCgdHCW9ow/Ui7K/d6IztSXD0SLue7wZpo7qfglT
-	 ocZMqGA8A7r6mWjpRUQAoOvI0qHtoK5AMxlqQybUyaYaCaZs2elhqF9oy7eT0SQCHpw==
+	bh=QXoVU+zyzO/JVGmjx8QpobF+MHN6a8i8PV7wuxZRA8Y=;
+	b=D2czWkQiFayslCrjwVY0LWCdbU0HeGUgXH7JTtC8SsKx4GfFfI8thrq2ov9F1tOXwLcp
+	 /zpY3ps+wlz5vLj64S2GigAC6lV+0wncIfR86WVE9XWrIJp4jAniQ94AZIniNH7JpocFE
+	 sxuI3RifFThDwBzZhqMES2gN6YGzaJ0If6J37d9ntfw3VBlafl1fxkgz7QcRStIQPt0OE
+	 YmpEBb3hxQGKGkTKBMRy6VeSKOQT5d5Jue6TxTBZbXwUYAdI8pOTHuD5n3hysF0J9etmy
+	 jDu8eDrLscTJ+fkc8OkrvID0bwU3cDbpxdYzMIcDnEQ5Lc/3fTmVLdxkr80qkQH6Jzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O0QnIOfk;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O6Br+14B;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 00013606A32C;
-	Mon, 23 Nov 2026 17:16:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00013606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE030606A334;
+	Mon, 23 Nov 2026 17:16:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE030606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O0QnIOfk
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O6Br+14B
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 53586176B;
-	Mon, 23 Nov 2026 09:16:05 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4D5AB19F0;
+	Mon, 23 Nov 2026 09:16:08 -0800 (PST)
 Received: from e137867.cambridge.arm.com (unknown [10.2.213.11])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 870AC3F763;
-	Mon, 23 Nov 2026 09:16:05 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 824AE3F763;
+	Mon, 23 Nov 2026 09:16:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795454168; bh=LFtDzB/okrnQHH291WRp6toxRg+swNwN8gcOpZd7uFQ=;
+	t=1795454171; bh=+tCwHyaMbDnFYKCMMHM4gMAYD6cSQpaChWqSWXyJq+M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=O0QnIOfkL73MNoc91NYxTAD9VVYpv8ma/GCrN8yHd55fA8kVyYwGHRJBz2Q66uArH
-	 ISKQvISI9h+0x2jCkTCVGx2Tt7lbgJT22BHox58wgqTQ2m7D1nUkyyd8AKgr7TpeRk
-	 7SJGdZVWmDqQhZfU+6XvkfWcGn5hY1txFhlDZk7Q=
+	b=O6Br+14BuoEfTrQNtHyzIzXyi+iiUWwSrLBgp4Y7EJQ6wtdQtszN3OgcTbiXIC70A
+	 /AS+awE8Xr1edg3/kuvabZSQwTRddLx3HB2uCelcDQZgF8oRs/b94al+1eLIULyxZ+
+	 iWT1X9CzshlF4qDjA49BHXU6aqavoHA6+x2LG4v8=
 From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: Will Deacon <will@kernel.org>,
@@ -64,9 +64,9 @@ Cc: Will Deacon <will@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 1/3] arm64: entry: sdei: always set VBAR_EL1 on SDEI entry
-Date: Mon, 23 Nov 2026 17:15:55 +0000
-Message-ID: <20261123171557.140944-2-ada.coupriediaz@arm.com>
+Subject: [PATCH v3 2/3] arm64: entry: sdei: save and restore PMR for pseudo-NMI
+Date: Mon, 23 Nov 2026 17:15:56 +0000
+Message-ID: <20261123171557.140944-3-ada.coupriediaz@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261123171557.140944-1-ada.coupriediaz@arm.com>
 References: <20261123171557.140944-1-ada.coupriediaz@arm.com>
@@ -81,82 +81,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SDEI can interrupt at any time, so we cannot guarantee that VBAR_EL1
-points to the kernel vectors.
-Unconditionally set VBAR_EL1 to the kernel vectors on SDEI entry so
-the SDEI handler always runs on the correct vectors.
+When using pseudo-NMIs, the PMR affects if IRQs are disabled
+and is not updated by the CPU on exception entry/exit. It must be saved
+and restored to/from pt_regs, as the DAIF bits are, so that
+`regs_irqs_disabled()` can reliably work with pseudo-NMIs.
 
-Commit 9bf6ee7952c7 ("arm64: sdei: Run the event handler on the kernel
-vectors") sets VBAR_EL1 to the kernel vectors when KPTI is on
-and it still points to the trampoline vectors.
+We do so in the regular entry path, and set it to a known value
+reflecting that DAIF is masking all interrupts.
+Do the same for SDEI, as it can interrupt the kernel at any point
+and does not mandate firmware to touch PMR, but does mandate masking DAIF.
 
-This is only covers the KPTI case, as any other VBAR_EL1 value would
-not be changed, while pointing to the wrong exception vectors.
-KVM in VHE mode would be such a case as, in VHE, VBAR_EL1 is an alias for
-VBAR_EL2, which KVM uses for the hypervisor vectors when running guests.
+This makes `regs_irqs_disabled()` reliable in the SDEI handler with
+pseudo-NMIs enabled, which is critical as the return path to the kernel
+depends on if the interrupted task had IRQs disabled or not.
+This also avoids returning to the interrupted task with a different PMR
+and a possible DAIF/PMR mismatch, as expected by the rest of the kernel.
 
-Fixes: 79e9aa59dc29 ("arm64: sdei: Add trampoline code for remapping the kernel")
+Fixes: 133d05186325 ("arm64: Make PMR part of task context")
 Cc: stable@vger.kernel.org
-Cc: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>
 Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
 ---
- arch/arm64/kernel/entry-common.c | 25 ++++++++++++++-----------
- arch/arm64/kernel/sdei.c         |  3 ---
- 2 files changed, 14 insertions(+), 14 deletions(-)
+ arch/arm64/kernel/entry-common.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-index beb56891fc4f..cb122163a68d 100644
+index cb122163a68d..91afd1a36ec6 100644
 --- a/arch/arm64/kernel/entry-common.c
 +++ b/arch/arm64/kernel/entry-common.c
-@@ -1079,19 +1079,22 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
- 	far = read_sysreg(far_el1);
+@@ -1067,6 +1067,16 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+ 	else if (cpu_has_pan())
+ 		set_pstate_pan(0);
  
++	/*
++	 * Regular kernel entry saves and resets the PMR to align with DAIF,
++	 * but __sdei_asm_handler() does not ; do it now.
++	 */
++	if (system_uses_irq_prio_masking()) {
++		regs->pmr = read_sysreg_s(SYS_ICC_PMR_EL1);
++		write_sysreg_s(GIC_PRIO_IRQON | GIC_PRIO_PSR_I_SET,
++				SYS_ICC_PMR_EL1);
++	}
++
  	/*
--	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
--	 * EL0 until the next exception from EL0 maps the kernel. They only
--	 * handle exceptions from EL0: an exception taken here would run their
--	 * empty current-EL half and never come back. Switch to the kernel
--	 * vectors. The IRQ-like resume keeps using the interrupted VBAR, so it
--	 * still goes through the trampoline.
-+	 * As an SDEI event can take over at any point, VBAR_EL1 might not allow
-+	 * us to take an exception safely :
-+	 * - With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
-+	 *   EL0 until the next exception from EL0 maps the kernel. They only
-+	 *   handle exceptions from EL0: an exception taken here would run their
-+	 *   empty current-EL half and never come back ;
-+	 * - With VHE, the kernel runs at EL2 and VBAR_EL1 accesses VBAR_EL2.
-+	 *   KVM might be running a guest and switched VBAR_EL2 to the
-+	 *   hypervisor vectors.
-+	 *
-+	 * Switch to the kernel vectors unconditionally and restore
-+	 * the interrupted VBAR_EL1 before returning.
- 	 */
- 	vbar = read_sysreg(vbar_el1);
--	if (arm64_kernel_unmapped_at_el0() &&
--	    vbar == (unsigned long)raw_cpu_read(this_cpu_vector)) {
--		write_sysreg((unsigned long)vectors, vbar_el1);
--		isb();
--	}
-+	write_sysreg((unsigned long)vectors, vbar_el1);
-+	isb();
+ 	 * Nothing saved the interrupted context's exception registers on the
+ 	 * way in, and it may be in the middle of exception entry or return
+@@ -1110,6 +1120,9 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+ 	write_sysreg(far, far_el1);
+ 	write_sysreg(vbar, vbar_el1);
  
- 	state = irqentry_nmi_enter(regs);
- 	ret = do_sdei_event(regs, arg, vbar);
-diff --git a/arch/arm64/kernel/sdei.c b/arch/arm64/kernel/sdei.c
-index 1b902da8ba43..1027138ba5b4 100644
---- a/arch/arm64/kernel/sdei.c
-+++ b/arch/arm64/kernel/sdei.c
-@@ -255,9 +255,6 @@ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
- 	 * exception registers; __sdei_handler() puts them back. Only the last
- 	 * one's syndrome survives; report it if it is not one known to be
- 	 * harmless.
--	 *
--	 * If the event interrupted a KVM world switch, VBAR points at the KVM
--	 * hyp vectors and any such exception is a hyp panic instead.
- 	 */
- 	nested_elr = read_sysreg(elr_el1);
- 	nested_esr = read_sysreg(esr_el1);
++	if (system_uses_irq_prio_masking())
++		write_sysreg_s(regs->pmr, SYS_ICC_PMR_EL1);
++
+ 	return ret;
+ }
+ #endif /* CONFIG_ARM_SDE_INTERFACE */
 -- 
 2.43.0
 
