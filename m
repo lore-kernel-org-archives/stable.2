@@ -1,60 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795422514;
-	b=o70L2NtPvar7Rw7I2WkxlYticoujgr4FRMDIBXkmsxnayv+FafwC5ZcyXzV2kokH1sKv
-	 ZYuhBmH9ndLjayXQGym0RjfBCO1+P868rRZPIHiaKUWsrwgRHh0tk6wbbA5UfFYSJgfGo
-	 8/W9RKykVM/sS3wb83YO4o26/1MHpAkvG0L4NNjcSufaYOpXWBaY1HW7ClsMfP2fbA2/G
-	 Jc5cXMMDb9yx8eyOoSA2yMYIXaGTZ3jWHhBQqip38a9l00lGEWSZ6Zhgu6bqGq/oxdvm/
-	 zcuWIaUdVNHwpY2l5dTxjCDLzs3YbijlwQD6cIPnSfIpMFN7VTFp/GSyQKg7zyiqCqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795422514;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=gPh24W8P88YnhbuVKf/7WuGqGcw81hO8isioZWFtmtQ=;
-	b=PP+wLaMWIfgC/EVT4/1Q3eRx/2FyLy+KuAfVIcCheNPBlcvnwk4F7L0Eq4juqLakd67t
-	 55+NCt6oN48ssRDuPIZaKcpJh+xEfOF29C80BS1YrTjd7gEGOMGSsRabdrSGNGEGRaNa+
-	 STiChGYBGhjA2CyMNLroN31TGRrmXZsEQEFnROYsKe24OkhUEApLVsY+cPZxvrsI4Zpib
-	 Bnzz8auzQRahUpIfEIsKwpoxrFr7MysV+XvNXrUnF2KEKArIfFgXnadmT6wnHAKcJp1KA
-	 GlpWscgWx3wt9rxZ2NON5miqdqJOOfHqF8IwNnQQTXe3p4UgkkF/WxH7AS0hO+1kBbA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YIZEhsz4;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795422571;
+	b=16JvfTo5nktembUd1zRuCalmT5W/8vz/GfBHYmHCglQzPg8BAO3E6H46lb4FyGV7ZE3M
+	 zeKX7N3T6wgMidaRjs/zXUwnd4qVjThR//fAZKlft9swSRUHKZ5GtfFdYUY1CWnSoHbze
+	 6n6uRij95tiU1MiaffN37bNQKqFQ3pmbNhj40VWJR04EXZJSOWudHstwRhEBZtkmApmFW
+	 d6tQJ6MlKQDaOpRFzDT4EITwkwTaFZGtXNXsvltwIDH1Rn4SGDLaU8Kuo0C4zGGNmpe5x
+	 q2JsAavG85vlS1XFvCjw+YqV8abekSvXZ+OV0MLmMHLA/MhXv9t5RSs18VAa86KjVew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795422571;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=iklVS4Wei67K9fNCcyEVYUc52IalltrV85u/JSTwlaY=;
+	b=RR0Sj7D+fH/OgfF3NaWGJmjXXjOdAJ8Tg1CXcYkKizo+hr/1V5mVMne1JfdG7Kz+fwLN
+	 UN6IYxEspwzSj43KMbv/0Vxpk9Da6S6JO+1HJwvAwwT47/yIAzu9qyNMtA8IRTFZsnOfM
+	 RwTwHtAClfsYW8zKuabdakB+FStAtFHCGJcVwtTgDuyGQyigdhAU6w8DE534iqry15K0o
+	 DCsvuyLZngLRd09yCnZoedYw6tmUKNHqmztY+4bRqEZiVlXWrAx+VgMyCXAwIg+LCshOv
+	 GP5W6eWnlfS+ugRin0nT6Ve+fihwCwCxqPBoopkngQHpqfAtkFoeWok2w9u2DaLr3yQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LD8AA2kq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.43
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010043.outbound.protection.outlook.com [52.101.61.43])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 231DC606A321;
-	Mon, 23 Nov 2026 08:28:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 231DC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B18E606A31A;
+	Mon, 23 Nov 2026 08:29:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B18E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YIZEhsz4
-Received: from ideasonboard.com (mob-5-92-38-150.net.vodafone.it [5.92.38.150])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E9DC7177;
-	Mon, 23 Nov 2026 09:25:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795422360;
-	bh=U7NM5wyVUdsUMbvcIh5lbj8OAqDmxZ3X50eO/vgYd4U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YIZEhsz4WV2iGFyiEY+TksosTZxRBdjQonL+8j9DT9Wkbz0QBfqxjoQjXtKcKfNM+
-	 qWi0TYFS3VILlNOl3ITM+XusuQXf26pBefQU1ZSw8vBBejZrJ6lhjzgFHmy5iqQzpy
-	 aR16qpXH9q5s7DOmW1evmQShujnrevwnvioaVWJI=
-Date: Mon, 23 Nov 2026 09:28:28 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Li Youhong <dayou5941@163.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Nayden Kanchev <nayden.kanchev@arm.com>, linux-media@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] media: mali-c55: Keep IRQ requested during suspend
-Message-ID: <awP0mKeNtrJj8zh6@zed>
-References: <20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org>
- <avMP-y1B9K0cp4M8@zed>
- <CAD++jLnuS9ZE8mRwkCizsqo3f40s5etqOJAUqLJNsCtE5eEkDg@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LD8AA2kq
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Fk0PRiwHrsrbpEiD9C4+fM3ps7glgzTjfHfMGKCLwEbI4ggEN9V38EyB9Q2io/i5c6NN1odlULTyrnk39SvhA9AasJH9h97JbY9kHcOwwp76iPhG2DRPgg4R7vLs8vHAfX2H5Dxb/70CByoaVuqcW94bqKkF55blc4PGxrzirC4rAlF9RM6BOdYuUHjhDyEQVujPsOP38qCCyeWGtLGm14PR70oxTL0HUa4zLr2byer9gfsrZj4XM4MPGWoWNXhmpNpXrPR/Q8BvExKiR7UttLdocABCW2dOcddlP0cldsCBfOTYUB2rDowQKlJa75NyQAjanhMj31NTdOB7Hz7Q6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iklVS4Wei67K9fNCcyEVYUc52IalltrV85u/JSTwlaY=;
+ b=WAMRppRWclJhursSgaMpRxQpOF9tviB8DdZPS5qlxAXzF1ychP8dE2rocu7Cw/huOdMrY8SQ9iFqiD+Y4j/UCGGL9+SW0V9nzk1xZ0FFldN0mLbH8x8N6G/w3pSGBdiKKS47j7ZR5jJMXOoEXHIaHGO+QCFV+wP1/d2QGHanb+24uU/wSmSncHD5VOPJZqdmE8jtWkeypwRZt/hzEYo8GBjBBmGgnmvnAYhdtFlZzhoxOQYhYTKxuPEeTxJVyvVCT8V70swa3yf+xfHLQo6noS3yjyspFiL22Oi0oNW7NcEXsJe99cbqqogeHycNdEJP9OKUNWJ84OwqYqkiJjDf9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iklVS4Wei67K9fNCcyEVYUc52IalltrV85u/JSTwlaY=;
+ b=LD8AA2kq82cwfeFRI3zLCKGNzED5KuQsxi7uay+1poNWfMRrvCT8fEUV+f+IXFU+xTD1EjIvGO7EEVXLySUN4uYyOGY7t5WgDyOeohO360XreRVzgD7uDzk3R8lzY07Nscikig7et1dRPQiKIe1cx4OUDrGjuhEylS9mxJP2mQY=
+Received: from PH7PR13CA0015.namprd13.prod.outlook.com (2603:10b6:510:174::21)
+ by CY5PR12MB6057.namprd12.prod.outlook.com (2603:10b6:930:2e::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Mon, 23 Nov
+ 2026 08:29:25 +0000
+Received: from SJ5PEPF00000209.namprd05.prod.outlook.com
+ (2603:10b6:510:174:cafe::22) by PH7PR13CA0015.outlook.office365.com
+ (2603:10b6:510:174::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.5 via Frontend Transport; Mon, 23
+ Nov 2026 08:29:24 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF00000209.mail.protection.outlook.com (10.167.244.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Mon, 23 Nov 2026 08:29:24 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 23 Nov
+ 2026 02:29:20 -0600
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57 via Frontend
+ Transport; Mon, 23 Nov 2026 02:29:20 -0600
+From: Michal Simek <michal.simek@amd.com>
+To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
+	<michal.simek@amd.com>, <git@amd.com>
+CC: <stable@vger.kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Hyun Kwon
+	<hyun.kwon@xilinx.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>, "moderated list:ARM/ZYNQ
+ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, "open list:XILINX VIDEO
+ IP CORES" <linux-media@vger.kernel.org>
+Subject: [PATCH v2] media: xilinx: vip: Make use of the devm_clk_get_enabled()
+Date: Mon, 23 Nov 2026 09:29:16 +0100
+Message-ID: <6fc78f17621e1392fb5a553f826672f3a4a0de5f.1795422554.git.michal.simek@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,111 +112,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1399; i=michal.simek@amd.com; h=from:subject:message-id; bh=UaP0dwQZzDrjNG9CU6dPW9zD0hjHnrBkEAE2T6jCQlk=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWQz/4ybFHZ6r4dTjtYnow/Ht4vb/dsQp/SSY2myW/DFo 6EBfjs/dZSyMIhxMMiKKbJMZ9JxWPPt2lKx5ZH5MHNYmUCGMHBxCsBE0tUYGXY+1Fp4NMjDYTfz 14jj03r0lu2fnb7jgDRTNuvKB8fvbhZnZOjUP2AXcXb2H60NcfuZb5aE8lj6M/rmp005NX/xNe4 f9lwA
+X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLnuS9ZE8mRwkCizsqo3f40s5etqOJAUqLJNsCtE5eEkDg@mail.gmail.com>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000209:EE_|CY5PR12MB6057:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6569266b-2e26-45a2-9bd6-08df493be1a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|18002099003|261009223027099003|261026121527099003|261021121427099003|261021123027099003|56012099006|10067099003|261102123227099003|261102130727099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	cseJUkAlSZr9DcRa/gDEYbC1hn1YbRkai3eTIgAFEJLmOIWiP6xdlIL40aKg0d6qFztYAsL387mO7iEleCviWYD/F5kw4tKxmZuJ48Hb/sfw+xj9M1WoaNU+T1LkK0FVK+FkT4uC4cMrh+YOqh/dJYVvsdcXmHpx0oPuoYxVrJYTm6XVl2a6Ardu2Y81ktdqzz7rd7cSn3VJx40gvuF/dO0La9hOZlYDsR1N9mhgxNdNIiclzPUf4SBehLpMGMVkKJ/+4JZK3t+nz5inicz72nUmOS1RRz4fblFoLM1oIkSpJw42mPTKSG+A/obymZNMLTi1UiKLWrhC4s84Do8K8ukodyF+O/26iVnD2Sv15nq2wwxSC6hHgu0LzIjWyebvJBqUQllkg1jASTgyDdK2c6LywNLmjy/0b4FKt+8KbvPXf2gEL3v+aRw/RMgYutekqJFmJTFaP9oPbOkayptHyRdxKXLIDEd+LwuYEFUldhrqu62CMb6sDUb3HRXMNTNMHHvyyZoryaUenbY6x5Hgh78m9Xptu55ULtJR9mOX7XUMKLgjI+YmtqLwhJ1O8PT7u7/mLAmCag88Ve2T6pUQd6VfBnTUtv90OzQOPuJmuy29/6B+xqq6MFsJbK/UNBCY/ermUC+VCnVs3u3tfTs+MRauZoxJitzqOkpgRozBDIlfjvZPjLWbvz4PIoqMf3857JgXp96lgSVl6WiBak7OvQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(18002099003)(261009223027099003)(261026121527099003)(261021121427099003)(261021123027099003)(56012099006)(10067099003)(261102123227099003)(261102130727099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	fU2hhvxC55LNNZC1CtcxFBa/pc8QP2pJZGUTkcI28RnDrO/JORhku/+t9TZOGRtqVM06GsneE6pPYEIeQtbs9tIyAA0kg+gMq15/YqDluI69ArCYXz5OVdYbBv+erp8tZ31SD9jCtFHz+IFFijl0cJKcAI8KSmOp5P7An4bdGLt2g400CFlc2UAIb7q0jlZsI+Nb/eKrZ9mnr7T/SfPMuZirvE5cDNjTL63YKL2YXZUP0Du/Z5llhtgGEH6MPQLVF8mFs4FauUbXJkJAgd47sva7FfJg318rzSAZqcMb7H6UuyC6pia3z5JfCD/hVj36fM/Mj83HSA6h1K9oNzrUEyOWog75bmOEiXvvYqjPyjD7WwyLtU7kyjFuq96YHji9V6VCPZHcc8jsarhEE0PNWUqnShaguZLbnhjox1noCUnPrD5IqQQWrcoS4/j16lO7
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 08:29:24.6780
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6569266b-2e26-45a2-9bd6-08df493be1a9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF00000209.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6057
 
-Hi Linus
+There is missing return value check from clk_prepare_enable(). Fix it by
+using devm_clk_get_enabled() macro.
 
-On Mon, Nov 23, 2026 at 01:29:05AM +0100, Linus Walleij wrote:
-> Hi Jacopo,
->
-> On Tue, Nov 10, 2026 at 1:51 PM Jacopo Mondi
-> <jacopo.mondi@ideasonboard.com> wrote:
->
-> > >  static const struct dev_pm_ops mali_c55_pm_ops = {
-> > > @@ -825,27 +813,42 @@ static int mali_c55_probe(struct platform_device *pdev)
-> > >       pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
-> > >       pm_runtime_use_autosuspend(&pdev->dev);
-> > >       pm_runtime_set_active(&pdev->dev);
-> > > +     pm_runtime_get_noresume(dev);
-> >
-> > Why is it relevant to hold a PM reference during the installation of
-> > the IRQ handler ?
->
-> Probe enables runtime PM before registering the media devices.
-> Once those devices are visible, a streaming path can take and drop a
+Fixes: df3305156f98 ("[media] v4l: xilinx: Add Xilinx Video IP core")
+Cc: stable@vger.kernel.org
+Signed-off-by: Michal Simek <michal.simek@amd.com>
+---
 
-This seems veeery theoretical. To have the v4l2 device and subdevice
-nodes appear to userspace we have to wait the ivc to probe (see the
-.complete() notifier callback handler) and to operate the pipeline we
-need the CSI-2 receiver and the sensor to have probed as well. This in
-m2m mode. With an inline path to have the devnodes registered you have
-to have the whole chain to probe up to the sensor.
+Changes in v2:
+- Add Fixed tag and CC stable
 
-So yeah, maybe Sashiko would tell you this is possible but I hardly
-believe it is.
+Removing xvip_cleanup_resources() should be done separately on the top of
+this patch.
 
-Anyway, there is a remote possibility for a window here, so let's
-increase the pm runtime counter.
+---
+ drivers/media/platform/xilinx/xilinx-vip.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-> PM reference. The probe reference keeps the ISP active until the IRQ is
-> installed, so runtime suspend cannot call disable_irq() on an IRQ we
-> haven’t requested yet. I’ll add a comment.
+diff --git a/drivers/media/platform/xilinx/xilinx-vip.c b/drivers/media/platform/xilinx/xilinx-vip.c
+index f1574edd2b43..537702ace760 100644
+--- a/drivers/media/platform/xilinx/xilinx-vip.c
++++ b/drivers/media/platform/xilinx/xilinx-vip.c
+@@ -212,18 +212,16 @@ int xvip_init_resources(struct xvip_device *xvip)
+ 	if (IS_ERR(xvip->iomem))
+ 		return PTR_ERR(xvip->iomem);
+ 
+-	xvip->clk = devm_clk_get(xvip->dev, NULL);
++	xvip->clk = devm_clk_get_enabled(xvip->dev, NULL);
+ 	if (IS_ERR(xvip->clk))
+ 		return PTR_ERR(xvip->clk);
+ 
+-	clk_prepare_enable(xvip->clk);
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(xvip_init_resources);
+ 
+ void xvip_cleanup_resources(struct xvip_device *xvip)
+ {
+-	clk_disable_unprepare(xvip->clk);
+ }
+ EXPORT_SYMBOL_GPL(xvip_cleanup_resources);
+ 
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+branch: xnext/vip
 
-A suspend will always follow a resume, and if a resume tries to enable
-an irq before it is installed we'll have problems as well.
+-- 
+2.43.0
 
-If that's a real concern to you, shouldn't we install the irq handler
-before enabling pm runtime and powering the device up ?
-
->
-> > > +     /*
-> > > +      * The driver needs to transfer large amounts of register settings to
-> > > +      * the ISP each frame, using either a DMA transfer or memcpy. We use a
-> > > +      * threaded IRQ to avoid disabling interrupts the entire time that's
-> > > +      * happening.
-> >
-> > Does this comment still apply in your opinion ? I mean, thread_irq are
-> > pretty regular stuff, do we need to justify its usage ?
->
-> Nah I'll drop it.
->
-> > > +     pm_runtime_disable(&pdev->dev);
-> >
-> > It amazes me how, after so many years, I still can't find a clear, firm
-> > indication of what is the intended call order for pm_runtime_disable()
-> > and the other pm_runtime calls is during a driver's remove.
-> >
-> > Media drivers seem to do different things with some disabling pm
-> > before setting the state to suspended, other doing the other way
-> > around.
-> >
-> > In the end, I think this doesn't make any difference, but in this
-> > specific occurance:
-> >
-> > 1) Is this re-ordering required to support the new interrupt handling?
-> > or
-> > 2) Is it a change that is worth doing anyway ? (and I should say "should
-> > go in a different patch on its own")
-> >
-> > > +     free_irq(mali_c55->irqnum, &pdev->dev);
-> > >       mali_c55_media_frameworks_deinit(mali_c55);
-> > > -     if (!pm_runtime_suspended(&pdev->dev)) {
-> > > +     if (!pm_runtime_status_suspended(&pdev->dev)) {
-> >
-> > I guess this is required because you moved pm_runtime_disable() up
->
-> The remove ordering is part of the IRQ lifetime change. Both runtime
-> PM callbacks now assume the IRQ is installed, so we need to drain
-> them befor free_irq(). Then free_irq() waits for the threaded handler
-> before we unregister the media entities it uses.
-
-I'm sorry, this is certainly me missing some pm_runtime internals,
-but where is this happening ?
-
->
-> That’s also why I switched to pm_runtime_status_suspended().
-> It reports the actual status after pm_runtime_disable(), so we only
-> power off the ISP if it’s still active.
-
-It seems to me pm_runtime_status_suspended() ignores the runtime
-counter and is only there because you pm_runtime_disable() earlier ?
-
-
->
-> I'll resend a touched-up version.
->
-> Yours,
-> Linus Walleij
