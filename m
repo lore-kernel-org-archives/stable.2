@@ -1,96 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795392566;
-	b=ACtqOmOirTMbIOs40Xr0WgZ7BHuo0JMJfiYLRNtHOMb4Ofs4fOMPcvm9IFmx7nqQkr0n
-	 5XM+q9k+FyW0MXhY3H5DZTgf10dz/wtK8Dm+uoRkYZB1gIPjSly3ub+7P+7Jj3beaFngv
-	 T1Vr115N9/urhoBLBUktocTdf/q+hXsIkpS+pIHLsMNYjEgmma8zl42tQwcrqkGXZfcY8
-	 sK0elmE0tyiQ40syniXq6CxfLUX4qY37WGbSLZeHnVjewN+QOpoU0+OJVVt8b2bQNP2yW
-	 c/21ITdHNUO/zsJOg8J+LsGlYgnDu0s4x71l4xnFs8hXZ5Ys9XCpzFw99sDUM/FTe7Q==
+	t=1795393760;
+	b=MX4KN3dRhcxAh7e5KLYgiBMU/ZcoTyCVw7ZJaMoD8dJVpJ7qTMvyCTuhaSChw5hfF8vi
+	 DeML03GySrR3uNdu0+5IgWuSQgf1mlhYF1r5ANDOiVSHq77YuyvwyBjJKJ6GJ7SnI8+/a
+	 DLtHxZ8cdN1wrplATjrlOWca0e+J5Lzm4VFuR3BhLF1YNm83evwctE8paJ3A1dBXJJQsg
+	 lr7BDnRN8iyAX3fqhMaZUFXs8A2ChViU3gHBzUhB2stEt0pwgrCuOr0RhSy1IQ3bdn+Yr
+	 CuF4R6+TsL2XDGSqMBrKsZOVWe5d66j/0ROHTk0ti1509CKXreqscT0ZPI3leBB5A5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795392566;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5oZfxZDZESOt7JOg36JOb5NoJDTCRqffJz0J5sNJMMI=;
-	b=U+HnCsFximW3rRj5C5cZmXA+dM03NB5Tn3OdxIhzM3j64wjhhwMaNV4VXCYHUCFZEZLB
-	 raHdaRNLYPm73NU6MTASqNqa3EluMWJG4xk7d3eyFEA4K8NywUp+Bzj0JSpjwqoF4ym74
-	 5ZQTlf4ppeIyMjEsRFS0c/QPArjyF7QXSmmkBRqazV1+p5V8BcyoRZJjDgAEnqkldKD6o
-	 cfVspeGvBouaSeNRsVu87EtdD02c9wKX1s3ZbBTAgO0WcarSDLwLbh6h+hFAe6lNQ/U1E
-	 cMrFsumA3aTeOevAq1OqFjUN9JWiJJH1O9R7rP+x3VGOjPlE9SNNIwkuLdvBGozAFJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795393760;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8qFkofrD90yASDKy5S4kDZ5KpDQOlPHLhwNCJy671mM=;
+	b=RBNIG0pllKUe0NLIEAJISB2tLkb4F0gcqg839Z0KrEktttbbhxVUfByP//spRWHlhA1A
+	 yeqUWQ1pzqlZkldMX/X7GpKGHKqRRQmHmNCWFabD/Ok4NevAF/25rcP9HdRYSQmMvIhsy
+	 iVgCBd0R0GSybzu22M7MoSBBHSoes4aH64v48JassktrC3eLmqHmgc7HKw4+CdZ5mBOOm
+	 y5h4E3HHgKVaQpjhbU2LAsyfUTyVLOv8PaqSf0u5bdvaZGZQFkdF0roOGyJXFOwtvJUIJ
+	 AjPQNxfR84bFshlUNzfvvHL/a9384X9V6BfTe4hGyBCsIsqzvC49Q3mTIa5sxdJGFIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="bO3Xvg/G";
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLap424D;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB19606A31D
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 00:09:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FB19606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF20606A32A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 00:29:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bO3Xvg/G
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b3a42a4bcdso1074457a91.0
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 16:09:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795392565; x=1795997365; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5oZfxZDZESOt7JOg36JOb5NoJDTCRqffJz0J5sNJMMI=;
-        b=bO3Xvg/GvXSBMOwAZWCHZ1tEYldoTL/n5xhnbPHDS3uQE7Sv8OQh4LJ6JYItRZAiXq
-         XvMWlzkSxtPGXkZ9l71qN1dHqUb3fc+VqST8GHnFtZZqiOCeFNhbyoKkCxAJnNE67ZYL
-         yCTXW4qcyGBGrntGyiasEEr077JUQQZnBLh9AE/QBfYhitZGWz2MHpNL4CQALeWsvyJE
-         fZK2dxbkB8oPVUn7tbLVgYB+dkQ5E5AIFcS1pMibV5hpo5QyjEQtqL2bh/UYXkzA1wU2
-         5HZvTnuuMHEnb9rsuwBO6rT0+e/EuKC2+iRhfKdWpSMXnCl/zBSp5z+vWqW91x44iKNP
-         SKEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795392565; x=1795997365;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5oZfxZDZESOt7JOg36JOb5NoJDTCRqffJz0J5sNJMMI=;
-        b=ndI3XvNasqPOhN3+HfkQZjudF09AuInpxuiv4ybow8sgMfaPfweY6m3Rngg7boanFo
-         0jBsZ613ooPm6f4BIYYuZ7EzYp6sJBDxmeeORqwV6p9qMdTIgYpelKyQC/JuS3Uszpnd
-         Ajr/2H6x+LOmYfRUmS+IzF4uF+HEplBKGAPbT5pPrGbL7f79DWDwuHqeL5rhxX0ZQMBZ
-         +i1isF/oYJLIuGa0yE1Sp9m3EnULewGonKR5+Db5R1Mt5AbFsb2Z872t9MblXYPsZNrw
-         R3HFRpSsccYcK80eousm9RWLKrwxN4/FnM43NEr6LZ/d7kjGzh9n5rCGp1C8x3/Mdi+O
-         8SeQ==
-X-Forwarded-Encrypted: i=1; AL+hErFT75ggnSfLmOX84rVvuUD1UHLBtdd6OqWFwHmCFlrDhsLLNilbIKTUs355LqaOSaecGs/ZAYA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8a9KHBqEQkd6XKzaR58+NluFinELzRZ0Pc+J27n7COs7AiwlS
-	gdMpWIdKJk4PqUZY/arSS/RCERl9L0VqvvgJEWrpKlFQidcQySRyilba
-X-Gm-Gg: AZFdTZdFqdf35aZDmAk+J7+DofXg++H+lgZtJmongTTMa/MdpW7gdUQO9NmR61YywEY
-	1EF43JVloPIeyvJh+DpToA4ZECZl2PQyf8uo65cNlRI8miJVJrywTEp+6oKwTceC62quM0kZu2S
-	e/AkFxcvlm7cUxzWmn5pa7kBj6Nei4kc/rnKUcwLs37DM4EF5Y4F7m0m3XQOy3Z+X0Ox5C101/q
-	BOu4BJSGAd0ULx1+GLzC2I4LrQe+XbINIk93slOd28TWqj/AlVPfQVs5uy9eEyii/xa77oYbutR
-	EaOin+lelCeEFuyWa7pGSY1hV/bO1tE4yg4W42ORkBO2qJFjR7C6XJ5zoVlKUrx8OJylfDFucWi
-	gM/r2Oop+9dLmXG4B5ErX463tjeYtcsjVQIy1T/XE7ktIrkq8z6lkpM75sESACtC/wbEyeGRbHU
-	uoL9tiuiKLuBJPWH++r+jzaj8Hd/8WZ3Uf7DMqQZd+UCwXOWF5Uuv2sv+lVTQ0DSNj2Wj0Z/9jO
-	sqFfDIskDWyFHJiowuPC1NdcKlc3Hzsv9YroQussCM17WzfZUkfWF7U6Hxrw6OQ1M+GFNok+6oj
-	bveTWQhHLOgfwfBlynaBPNtW10bgdUbQ9K4X0QDQzNIJHX02sAS4++R3vwOvYpKS
-X-Received: by 2002:a17:90b:2cce:b0:3a4:967c:6947 with SMTP id 98e67ed59e1d1-3b41c909001mr9327128a91.21.1795392564569;
-        Sun, 22 Nov 2026 16:09:24 -0800 (PST)
-Received: from gmail.com ([116.162.234.40])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b40f4312dfsm16532573a91.3.2026.11.22.16.09.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 16:09:24 -0800 (PST)
-From: Xue Boyang <fuchen.dust@gmail.com>
-To: Robin van der Gracht <robin@protonic.nl>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
-	kernel@pengutronix.de,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] can: j1939: fix null-ptr-deref in j1939_session_completed()
-Date: Sun, 22 Nov 2026 18:09:16 -0600
-Message-ID: <20261123000916.181439-1-fuchen.dust@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLap424D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0D591F000CF
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 00:29:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795393759;
+	bh=8qFkofrD90yASDKy5S4kDZ5KpDQOlPHLhwNCJy671mM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DLap424DGHliLRM4qmstNWwoWrM+SMO1GCJ3rDJOEeFhneczrWwCAdU0UjMw5Av7k
+	 4BISFt7YtGgXIYfxypp07ZxRnVVxnXC4h9xDLVudllRlLeRYG3Qf0nlU9sQuBGaeHd
+	 fhGjCW37H+VBucqnccXHOS+oKbDPGIm55GVeoLPCsWD1Bo5Qq0BOV8anp1cRbp20H6
+	 rPUCsDyeONmYlgjjshLUQgaDcuEvE/GV7LpoPwNxjG8znTR6IbO+gKn8lgOpVEx+7B
+	 HSPumwPqj3kP81ie4hOU9rRZ0Uyc4PkmhqvAl7W1uZn2ixuXWzNdqZ1fagTk8f8V0Z
+	 ZCwwRYwJ7npKw==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be3d5927ceso4023401e87.3
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 16:29:19 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFFPyLZAc1aRnfigfG9jqfJvFehiulQPASHc96MJW3RV07O9MVnfyF9rj7+p0LeWMcjq5l4Ed8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wPmqO2XP7/bFaPf9dgHJaROGb9z135m76PAIMDN4gnsE+gnPO
+	UWoelv3t+84K/SDIqOR7g0FLKqZM1Rtnot0l5qk2m180qWRj8MDg5e4x3M9kNxwDeK7QeVTFydl
+	6oHwAxB+Xx1WNcp7HPa6ti1d9i2Db/Ko=
+X-Received: by 2002:a05:6512:b9a:b0:5c1:acda:6dc3 with SMTP id
+ 2adb3069b0e04-5c1bc6f6c92mr2640619e87.3.1795393758361; Sun, 22 Nov 2026
+ 16:29:18 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,125 +59,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org> <avMP-y1B9K0cp4M8@zed>
+In-Reply-To: <avMP-y1B9K0cp4M8@zed>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 23 Nov 2026 01:29:05 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnuS9ZE8mRwkCizsqo3f40s5etqOJAUqLJNsCtE5eEkDg@mail.gmail.com>
+X-Gm-Features: Aa3M54oKQ7-pXJhxkVQ6DYf9Srp3nFTxNtaA3h-2YMgZtE6S4BXYHBwJQq80Cf0
+Message-ID: <CAD++jLnuS9ZE8mRwkCizsqo3f40s5etqOJAUqLJNsCtE5eEkDg@mail.gmail.com>
+Subject: Re: [PATCH v2] media: mali-c55: Keep IRQ requested during suspend
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Li Youhong <dayou5941@163.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Nayden Kanchev <nayden.kanchev@arm.com>, linux-media@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-j1939_session_completed() distributes the reassembled message of a
-receive session. It looks the message up at the offset named by the
-last ETP.CM_DPO of the peer, session->pkt.dpo * 7, and passes the
-result to j1939_sk_recv() without checking it.
+Hi Jacopo,
 
-j1939_xtp_rx_dpo_one() stores that DPO without any check. A receive
-session keeps the whole message in a single skb, so a DPO with a
-packet number >= session->pkt.total makes the lookup return NULL.
-When the transfer then completes, j1939_sk_recv() dereferences the
-NULL pointer and the kernel crashes in the receive path.
+On Tue, Nov 10, 2026 at 1:51=E2=80=AFPM Jacopo Mondi
+<jacopo.mondi@ideasonboard.com> wrote:
 
-Any node on the CAN bus can send such a DPO, for example right before
-the last data packet of an otherwise valid transfer, so this is
-remotely triggerable. On a system with the vcan and J1939 modules
-available, an unprivileged local user can reach it from inside a user
-namespace as well.
+> >  static const struct dev_pm_ops mali_c55_pm_ops =3D {
+> > @@ -825,27 +813,42 @@ static int mali_c55_probe(struct platform_device =
+*pdev)
+> >       pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
+> >       pm_runtime_use_autosuspend(&pdev->dev);
+> >       pm_runtime_set_active(&pdev->dev);
+> > +     pm_runtime_get_noresume(dev);
+>
+> Why is it relevant to hold a PM reference during the installation of
+> the IRQ handler ?
 
-Reject the DPO when it is received, and keep a backstop for the
-lookup:
+Probe enables runtime PM before registering the media devices.
+Once those devices are visible, a streaming path can take and drop a
+PM reference. The probe reference keeps the ISP active until the IRQ is
+installed, so runtime suspend cannot call disable_irq() on an IRQ we
+haven=E2=80=99t requested yet. I=E2=80=99ll add a comment.
 
-- Cancel a receive session with J1939_XTP_ABORT_BAD_EDPO_OFFSET when
-  the DPO has a packet number >= session->pkt.total. That abort code
-  existed but was never sent. Transmitter sessions are not affected,
-  they only see the echo of their own DPO.
-- Keep the NULL check in j1939_session_completed() and set
-  session->err on that path, so that an unexpected lookup failure is
-  reported as J1939_EE_INFO_RX_ABORT instead of ending as a success.
+> > +     /*
+> > +      * The driver needs to transfer large amounts of register setting=
+s to
+> > +      * the ISP each frame, using either a DMA transfer or memcpy. We =
+use a
+> > +      * threaded IRQ to avoid disabling interrupts the entire time tha=
+t's
+> > +      * happening.
+>
+> Does this comment still apply in your opinion ? I mean, thread_irq are
+> pretty regular stuff, do we need to justify its usage ?
 
-AI assistance was used to analyze the bug, and to prepare and test
-this patch.
+Nah I'll drop it.
 
-Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xue Boyang <fuchen.dust@gmail.com>
----
+> > +     pm_runtime_disable(&pdev->dev);
+>
+> It amazes me how, after so many years, I still can't find a clear, firm
+> indication of what is the intended call order for pm_runtime_disable()
+> and the other pm_runtime calls is during a driver's remove.
+>
+> Media drivers seem to do different things with some disabling pm
+> before setting the state to suspended, other doing the other way
+> around.
+>
+> In the end, I think this doesn't make any difference, but in this
+> specific occurance:
+>
+> 1) Is this re-ordering required to support the new interrupt handling?
+> or
+> 2) Is it a change that is worth doing anyway ? (and I should say "should
+> go in a different patch on its own")
+>
+> > +     free_irq(mali_c55->irqnum, &pdev->dev);
+> >       mali_c55_media_frameworks_deinit(mali_c55);
+> > -     if (!pm_runtime_suspended(&pdev->dev)) {
+> > +     if (!pm_runtime_status_suspended(&pdev->dev)) {
+>
+> I guess this is required because you moved pm_runtime_disable() up
 
-Notes (j1939-v2-submit):
-    Based on mainline commit 4843f6873f7c4835e62f2c73ba0fd538e57a2f22.
-    
-    Changes since v1, following the Sashiko review:
-    v1: https://lore.kernel.org/linux-can/20261117103516.535910-1-fuchen.dust@gmail.com
-    review: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261117103516.535910-1-fuchen.dust%40gmail.com
-    
-    - v1 only added the NULL check. v2 also rejects the DPO in
-      j1939_xtp_rx_dpo_one() and reports a failed lookup via
-      session->err.
-    - The commit message now states the impact and the reachability.
-    - This patch supersedes my 2-patch series from September, which had
-      the same NULL check and a DPO check limited to dpo > pkt.total:
-      https://lore.kernel.org/linux-can/20260918025622.192582-1-m18335910246@163.com
-    
-    Testing, on v7.4-rc3 based kernels with CONFIG_KASAN=y, with raw CAN
-    frames injected on a vcan interface:
-    
-    - Unpatched: an ETP receive session given a DPO with packet number 256
-      for a 256 packet transfer, followed by the last data packet, causes
-      "KASAN: null-ptr-deref in range [0x18-0x1f]" in j1939_sk_recv() and
-      a panic. The same happens when an unprivileged user triggers it from
-      inside a user namespace, with the modules auto-loaded on demand.
-    - Patched: the kernel answers with ETP.CM_ABORT (reason 12), the
-      socket gets J1939_EE_INFO_RX_ABORT, nothing is delivered and the
-      kernel keeps running. Same for packet numbers 257 and 65535.
-    - A valid transfer whose last DPO has packet number 255 completes on
-      both kernels, the 1786 byte message arrives intact.
-    - net/can/j1939/ builds without warnings with W=1.
-    
-    The reproducer is not included. It is available on request.
+The remove ordering is part of the IRQ lifetime change. Both runtime
+PM callbacks now assume the IRQ is installed, so we need to drain
+them befor free_irq(). Then free_irq() waits for the threaded handler
+before we unregister the media entities it uses.
 
- net/can/j1939/transport.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+That=E2=80=99s also why I switched to pm_runtime_status_suspended().
+It reports the actual status after pm_runtime_disable(), so we only
+power off the ISP if it=E2=80=99s still active.
 
-diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
-index 8fcfd13e5e6f8..d3644c8239a4b 100644
---- a/net/can/j1939/transport.c
-+++ b/net/can/j1939/transport.c
-@@ -1244,8 +1244,13 @@ static void j1939_session_completed(struct j1939_session *session)
- 	if (!session->transmission) {
- 		se_skb = j1939_session_skb_get(session);
- 		/* distribute among j1939 receivers */
--		j1939_sk_recv(session->priv, se_skb);
--		consume_skb(se_skb);
-+		if (se_skb) {
-+			j1939_sk_recv(session->priv, se_skb);
-+			consume_skb(se_skb);
-+		} else {
-+			/* should not happen, report it instead of a success */
-+			session->err = EPROTO;
-+		}
- 	}
- 
- 	j1939_session_deactivate_activate_next(session);
-@@ -1823,14 +1828,25 @@ static void j1939_xtp_rx_dpo_one(struct j1939_session *session,
- 				 struct sk_buff *skb)
- {
- 	const u8 *dat = skb->data;
-+	unsigned int dpo;
- 
- 	if (j1939_xtp_rx_cmd_bad_pgn(session, skb))
- 		return;
- 
- 	netdev_dbg(session->priv->ndev, "%s: 0x%p\n", __func__, session);
- 
-+	dpo = j1939_etp_ctl_to_packet(skb->data);
-+	/* a receive session keeps the whole message in a single skb,
-+	 * reject a DPO which does not point into it
-+	 */
-+	if (!session->transmission && dpo >= session->pkt.total) {
-+		j1939_session_timers_cancel(session);
-+		j1939_session_cancel(session, J1939_XTP_ABORT_BAD_EDPO_OFFSET);
-+		return;
-+	}
-+
- 	/* transmitted without problems */
--	session->pkt.dpo = j1939_etp_ctl_to_packet(skb->data);
-+	session->pkt.dpo = dpo;
- 	session->last_cmd = dat[0];
- 	j1939_tp_set_rxtimeout(session, 750);
- 
+I'll resend a touched-up version.
 
-base-commit: 4843f6873f7c4835e62f2c73ba0fd538e57a2f22
+Yours,
+Linus Walleij
