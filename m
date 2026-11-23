@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795452547;
-	b=k9GHX9KyPAkmGrja4vcesguq0HXvHItmPcjU0aqw80Fa22OzgDgxikyyvadM3sBsZnU4
-	 zJoI3b73yQlISye0vTeSja7qe7/PP/bRH26w0anUnW+mV9d1k8K/9CDbDbf6VzsGnd6rg
-	 cJYpCuJ6Mge/hhzyp7C9wwt9wJnakVxlc131OoMPJJXTsrVx0BNkr36/1CGdA9FhWu9h8
-	 KbmKxL1pxTzWmPxrzFhcT8Tp01FHfryASIgaFYmGXwQ//u8v8KN+I9pI77WM1iwVyMfmb
-	 KrMQmNvrb/KnJtZmMjlMUIs5r3BLir5uztU+CulS/Qu6mNVXJCSV8p4R0BeqQya80fA==
+	t=1795452554;
+	b=mTup+9Cal+CX6VbGia8r+1gOKOf9AurGe1p7CzArcd/LJ6BGCMUOlqHgokU+sOkEw+HR
+	 8ZyWdHcA6MQYYSbrKXghdt5DYtuuMC1z+YNl0h8yVw3l4Dp2zNIPAR1IvzIdnXS10q1zN
+	 Ik6DQVG/pdL1zpb6p2QZgL5l2cJLooizgy8mYMy7Lr6+FsyGML9Wh8pdPDHkMhlGYhXPk
+	 PlOsfX6dGjhAZlfMwt0/tA5LNOEYJOZ6ZxQpmitua96k5emmRJMDgbO9hlyWCbKUG4cA6
+	 61TTaPm3zRCHrj1pfG7AKglClWs8+cGdRcR4C7KzWXXRfIjYANO0gyU+qCvJCLa88GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795452547;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795452554;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=apULIBVfF11sV6vYsTGwYxkSOIFhWMfQwI58pA8i77k=;
-	b=l2OjsNvBWZ3Vi3oLXX4niAHmYMvpizBHL1I/RqraOx5UatQvBAynWUTQ09IapLuL4O9g
-	 zhaeE8d0Sk5jeG2dyjt83Oe852hC3ruXGjEN5OJc1VO12nCRa44f1RMfh++dXRTfOTQEm
-	 /Vyt5OsIEnxkonl3ZlTQ0V+JY67dLzhGq3DP4gzrAcsyrifQJUKESMxHlGnrCHh60EaZa
-	 a3RkIc2tdyroDaIL9hcmhBUDVIXTuBcjzmFAG7I6qcQuOGMseJHaYS6Av5Msnumt8vD7b
-	 U9wvcTWqvweq8Yp2xSPEsOBWoM8+Di+6u4uQWYKsjkcflK1WUWRdJP/FpYvlIhdHwoQ==
+	bh=Mkw+ncroL0zLYiSD59Xvmz4bLIDFdFNX5LXWOyWMsOw=;
+	b=X9zHRXyVn+JhHjY4MtVTV+S38P5zPyqiP1hc2nogIchm7jGttJf6D6LmecsoTHnb7pm+
+	 5qv/ecjyHES49VUZFzTlwQn/sNU68k5nMbVi5QG/vIaGInHdylH8bKqa4YGyv32VgEWEy
+	 xXLhZeqNzJOPn92NW6xPXOcBJi7rb9o+OYx1sV2oX9xwX+y1sp15cs7daReZ/MPxnfsko
+	 i6Z6FXD4gZnjWwkWNemZpkw+yMvhPDiFsUmmg4j1Wb43EB+ya03VEgJveW8ubB2fdIerv
+	 lOHK+xVDzHhL0bElwxoUYkcsHto667sqOuKNDRo0/Ven4gBHJgFpUHaIhQBVb4UdG/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XK+oRuQm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALgM4EDP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28CE1606A336;
-	Mon, 23 Nov 2026 16:49:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21491606A33C;
+	Mon, 23 Nov 2026 16:49:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XK+oRuQm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0DEF1F000C6;
-	Mon, 23 Nov 2026 16:49:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALgM4EDP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80DB1F000CA;
+	Mon, 23 Nov 2026 16:49:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795452546;
-	bh=apULIBVfF11sV6vYsTGwYxkSOIFhWMfQwI58pA8i77k=;
+	s=k20260515; t=1795452553;
+	bh=Mkw+ncroL0zLYiSD59Xvmz4bLIDFdFNX5LXWOyWMsOw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XK+oRuQmSQXj0ipiwZXiNBR7QIwI/w2+COd1Y90LCJkrbZm+dcxP3xJA7W81MWKLO
-	 3A3DQxKsWuH9Z8bSA/g4ywHYNdxmTDX5DK9GzRImJ6zmCGWE7N1YwtfM22Uit3/lKn
-	 bqCOjqPVlQsnGIt2wccwwDEPLeN0KIV1VJMGxNi6r8yZvcJlTUjLN2uvLHNXKbu/Vp
-	 SG2uMnDiT/7fJNB4aGjVZKJzjGzC1KPlZApEKDkC6aAl/snNIAhl+xZw/Xoh9/kYX9
-	 mb4dIGXv+qBQvEZjhQnUYVMtWft4Mg+DfsQ+WkRbBhzUPgWKY2YTAmbIqKTVtfZNbP
-	 jnsr5ECenkYzA==
+	b=ALgM4EDP0l/eVAClVRR666EtCt9Kd9ZEIUJfVq7kRGJ6uv/UAUuK6XeK45vJCQbVQ
+	 vS8sJjYg2VOPaVFEUC1XFgtMyb4Z4b53ndT5j2+Nc6dzfS2r3qL+L6xre+bZbFayyE
+	 YE9LCPw6zkNuP36KjBaOYCjyiBKPsaIEb+VEFCYX5FmW9hs5lHbs6OrPPBMsJKGRVI
+	 eXQ+8np/2tDdwUfXzT6n3+BKUB53h9RfjVBOkNbeCodUm3fYCn3eG4UBMRzJxU2sK8
+	 2kA018Wzg14U7/YJzerpgFVa6ZbJA8E/uCakaibJ8b5fdM2WkuYeELM/cV2OkZEE9W
+	 dNMT9cEMjXy2w==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Prashant Gaikwad <pgaikwad@nvidia.com>,
 	Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Rosen Penev <rosenp@gmail.com>,
 	linux-clk@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 03/10] clk: tegra: bpmp: Bound num_parents by MRQ_CLK_MAX_PARENTS
-Date: Mon, 23 Nov 2026 16:47:36 +0000
-Message-ID: <20261123164834.3330320-4-lee@kernel.org>
+Subject: [PATCH 04/10] clk: composite: Initialise sub-hw pointers in determine_rate()
+Date: Mon, 23 Nov 2026 16:47:37 +0000
+Message-ID: <20261123164834.3330320-5-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
 In-Reply-To: <20261123164834.3330320-1-lee@kernel.org>
 References: <20261123164834.3330320-1-lee@kernel.org>
@@ -71,58 +66,42 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Both cmd_clk_get_all_info_response and tegra_bpmp_clk_info size their
-parents arrays to MRQ_CLK_MAX_PARENTS (16), whereas response.num_parents
-is an 8-bit unsigned integer received from BPMP firmware.
+__clk_hw_register_composite() leaves mux_hw->core and rate_hw->core
+unset at registration time, relying on the composite callbacks to bind
+them via __clk_hw_set_clk().  While the fallback branches of
+clk_composite_determine_rate() and clk_composite_set_rate_and_parent()
+call __clk_hw_set_clk(), the primary rate + mux branch omits it.
 
-tegra_bpmp_clk_get_info() copies response.num_parents entries from the
-stack response into the heap info structure without checking against
-MRQ_CLK_MAX_PARENTS, and the caller only checks against U8_MAX after the
-copy has already overflowed both arrays.
+When a composite clock with both rate and mux operations has only a
+single parent, __clk_init_parent() skips .get_parent(), leaving
+mux_hw->core NULL.  Subsequent calls to clk_hw_get_parent(mux_hw) or
+clk_hw_get_num_parents(mux_hw) in clk_composite_determine_rate() then
+dereference NULL.
 
-Validate that response.num_parents does not exceed MRQ_CLK_MAX_PARENTS
-before copying parent IDs, and drop the redundant U8_MAX check.
+Call __clk_hw_set_clk() for both rate_hw and mux_hw in the primary
+branch of clk_composite_determine_rate().
 
-Fixes: ca6f2796eef7 ("clk: tegra: Add BPMP clock driver")
-Closes: https://sashiko.dev/#/bug/linux-785615f3-ab51-451a-b58c-fe29c7f09bfe
+Fixes: 2f508a955a67 ("clk: Convert basic types to clk_hw based provider APIs")
+Closes: https://sashiko.dev/#/bug/linux-55b1d094-a5a2-44a2-b323-dddc52661f32
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/clk/tegra/clk-bpmp.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/clk/clk-composite.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/clk/tegra/clk-bpmp.c b/drivers/clk/tegra/clk-bpmp.c
-index 0bb28f96274f..3649324e2e1f 100644
---- a/drivers/clk/tegra/clk-bpmp.c
-+++ b/drivers/clk/tegra/clk-bpmp.c
-@@ -376,6 +376,13 @@ static int tegra_bpmp_clk_get_info(struct tegra_bpmp *bpmp, unsigned int id,
- 			return -E2BIG;
- 	}
+diff --git a/drivers/clk/clk-composite.c b/drivers/clk/clk-composite.c
+index 11842bce5918..c7c1ff590e14 100644
+--- a/drivers/clk/clk-composite.c
++++ b/drivers/clk/clk-composite.c
+@@ -69,6 +69,8 @@ static int clk_composite_determine_rate(struct clk_hw *hw,
  
-+	if (response.num_parents > MRQ_CLK_MAX_PARENTS) {
-+		dev_err(bpmp->dev,
-+			"clock %u has too many parents (%u, max: %u)\n",
-+			id, response.num_parents, MRQ_CLK_MAX_PARENTS);
-+		return -EINVAL;
-+	}
-+
- 	info->num_parents = response.num_parents;
+ 	if (rate_hw && rate_ops && rate_ops->determine_rate &&
+ 	    mux_hw && mux_ops && mux_ops->set_parent) {
++		__clk_hw_set_clk(rate_hw, hw);
++		__clk_hw_set_clk(mux_hw, hw);
+ 		req->best_parent_hw = NULL;
  
- 	for (i = 0; i < info->num_parents; i++)
-@@ -453,13 +460,6 @@ static int tegra_bpmp_probe_clocks(struct tegra_bpmp *bpmp,
- 		if (err < 0)
- 			continue;
- 
--		if (info->num_parents >= U8_MAX) {
--			dev_err(bpmp->dev,
--				"clock %u has too many parents (%u, max: %u)\n",
--				id, info->num_parents, U8_MAX);
--			continue;
--		}
--
- 		/* clock not exposed by BPMP */
- 		if (info->name[0] == '\0') {
- 			holes++;
+ 		if (clk_hw_get_flags(hw) & CLK_SET_RATE_NO_REPARENT) {
 -- 
 2.56.1.750.gf70dc682cf-goog
 
