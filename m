@@ -1,51 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795415122;
-	b=d8l3XzuL4yb0E9ZMMLEI6h0Pe+FAB+TJxWqRr1VTfWuCWvZSt3l+rQY2EpJWt359ip6x
-	 U4tNy95mgFxinicHGlwpWFwFcxRJ9knGOkFcO0O86MCdKt4QFbReAlbuCfs0zmjnQCW8j
-	 8igwXqe+zW01ZqXu2hynRQeVqGtKvq8PbrnQfdcnB27lw+3Y7qB8OTgJpojvcKVDTeoZQ
-	 pYElOeJUF/yUhsoaB2b+ctxIbR5D4VP7mx68mpl4oZ9ZMx5PPcVTtr+YelpgbF4EEVlum
-	 v/aSBRVTAieuOL+n9Jh8PJzDoctzZFGco6PWEWGTkOzPJgmXG358rkbymtgaa2vCntg==
+	t=1795415130;
+	b=VhJPDSK6JF+c0956eRZ3L/jPGVHJPLpiMIljw85nRajr0izKFJDzy+RZxPV3JiZHqZ5h
+	 WcndfoXSRnwbhaJHokz6mc7J/yVtufVgrxLMmHBz4LzghFR0JzV+7XfemNfLvgXQ/2+9V
+	 AQpFFsWibXr/chV6V0QshOmp69HQJLnpEgUTgRfMmZqCaPtenbuoHIoxsaEYyZBJVcg7/
+	 KjEfhZuC+z8H7xDGgP8Yy9bLZKsrOrz8b8gQmB8RwnCeS08/9Ry3ZRxA0P/fGyJ6kxyvq
+	 QOWeB7wAms2Z2mNqRcNb+QzFV6ka1aIqa3/0dbCra7HmpneKFs/88l7dWU+N2PCIP8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795415122;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795415130;
 	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
 	 Message-Id;
-	bh=XPN1MOvK5gk35OoBSkn58TaJvxRSnN53SqThAw2Ak5s=;
-	b=l9ndO5KGSf27VKtUicsSqZ9R7ky4/AEBeeNI9kH9vonF4j1rSh5iJbaIEthlZwVF7F1E
-	 71aiz7qwNzGvka0Z8CsmVSoeaLAKnHPz3IEQl62TUcgTUDsIQHmF7+p2UXUgJidGNFdg7
-	 EUbILApoIrnqvVH/Ln4A0lhoIJjk9tlY5qb4vladwbyTdPqIBrruQuhB6xP0Q8WAyGssi
-	 PsXFOquhIDPyDxWDXEup6rWA2aXjUAYE/D6U5M1H5LAg/sQj2wekYApvGeyElrLdQdQtY
-	 +TRklY77iVGfdJmJHCHc86u5aijrM7q8D2eMv3hpiyJnGUEZAGPB28toYfNj1zsammQ==
+	bh=ClWk66tS4/FKTayE6p2EFTJ26i1zYGM/BOZEtay9yKg=;
+	b=sQ5TPlMas4aXgZlyDdieYPa9JA5VlWaMgxUjHrc4YEfP8SHbHSodpvM4zLnaWNSmwwx8
+	 5lD615HAasYjk4rIHYR7YZAblGAloDfyTQh/7EyxfUII+Le3uUjHm90QIAWhRxJEOEv1W
+	 uKT+mqx036c+7ezdojOswDipHlXSp9+YAYptszXfht96/QqyIBDZ5P428MLCa/P7gkgKj
+	 Px6kN3sTQ9qZ4ftmYvvzXxxeKKObrzIKIMQp8OMA/ykyLKUSmAaw9x+Ur6I+KevyGhdIb
+	 8paEtFjvbqcAef4kn8XHzbf+LwhtMZrr24RpGSRV67fHfjLw0ehDfHCYkJGG3Dcb/PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=IPbabZTt;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=eLmnMnhZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6996D606A327;
-	Mon, 23 Nov 2026 06:25:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D04606A32C;
+	Mon, 23 Nov 2026 06:25:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=IPbabZTt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57931F000C6;
-	Mon, 23 Nov 2026 06:25:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=eLmnMnhZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5730B1F000C0;
+	Mon, 23 Nov 2026 06:25:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795415121;
-	bh=XPN1MOvK5gk35OoBSkn58TaJvxRSnN53SqThAw2Ak5s=;
+	d=linux-foundation.org; s=korg; t=1795415130;
+	bh=ClWk66tS4/FKTayE6p2EFTJ26i1zYGM/BOZEtay9yKg=;
 	h=Date:To:From:In-Reply-To:References:Subject;
-	b=IPbabZTt3/dbm+IhnofDlqgqhGj2qCRlnYriY+1N3G2x2A3MF/x7yvVPewJnM1A/A
-	 7++ZIFsmh/W2bAKty6wGekiXHFdUNnd4KSMRRrg6qQJ0AaZeqoYgg9fuuSEpknhyZP
-	 geqRWOYMY9YPc+gCShh3hf6g3gfbJtd5gmq9bg18=
-Date: Sun, 22 Nov 2026 22:25:21 -0800
-To: mm-commits@vger.kernel.org,youngjun.park@lge.com,stable@vger.kernel.org,
-	shikemeng@huaweicloud.com,nphamcs@gmail.com,kasong@tencent.com,
-	chrisl@kernel.org,baoquan.he@linux.dev,baohua@kernel.org,aquini@redhat.com,
-	oleksandr@natalenko.name,akpm@linux-foundation.org
+	b=eLmnMnhZYw6KnGI6oTAfxVUhOSUrx9qofSwU4Q3JOq6PMyIBHhQi5ioUvo5TYYwJq
+	 dBT1oHDnonFrj+BdwGkzQq8VGzYHYH5khnjgEQn/eK1YghA0x4oO4fZQ5wfTr670Pv
+	 7ywEj3w4TvSeb72H56tTqmQdJ7U6t+yP6TTYk0UQ=
+Date: Sun, 22 Nov 2026 22:25:29 -0800
+To: mm-commits@vger.kernel.org,will@kernel.org,vivek.kasireddy@intel.com,
+	vbabka@kernel.org,svens@linux.ibm.com,surenb@google.com,
+	stable@vger.kernel.org,skhan@linuxfoundation.org,rppt@kernel.org,
+	riel@surriel.com,rdunlap@infradead.org,peterz@infradead.org,
+	peterx@redhat.com,osalvador@suse.de,osalvador@kernel.org,npiggin@gmail.com,
+	nao.horiguchi@gmail.com,muchun.song@linux.dev,mhocko@suse.com,
+	mgorman@suse.de,mason@kernel.org,luojiajun3@huawei.com,ljs@kernel.org,
+	linmiaohe@huawei.com,liam@infradead.org,leitao@debian.org,kraxel@redhat.com,
+	jgg@ziepe.ca,hughd@google.com,hca@linux.ibm.com,gourry@gourry.net,
+	gor@linux.ibm.com,david@kernel.org,corbet@lwn.net,borntraeger@linux.ibm.com,
+	baolin.wang@linux.alibaba.com,arnd@arndb.de,apw@canonical.com,
+	aneesh.kumar@kernel.org,airlied@redhat.com,agordeev@linux.ibm.com,
+	ackerleytng@google.com,4ncienth@gmail.com,josef@toxicpanda.com,
+	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-In-Reply-To: <20261118112610.122799-1-oleksandr@natalenko.name>
-References: <20261118112610.122799-1-oleksandr@natalenko.name>
-Subject: [merged mm-hotfixes-stable] mm-swapfile-really-fix-integer-overflow-in-swap_show-and-swapon.patch removed from -mm tree
-Message-Id: <20261123062521.A57931F000C6@smtp.kernel.org>
+In-Reply-To: <20261116-fixes_hugetlb-v2-7-4dd9e94ea9ac@kernel.org>
+References: <20261116-fixes_hugetlb-v2-7-4dd9e94ea9ac@kernel.org>
+Subject: [merged mm-hotfixes-stable] hugetlbfs-fix-unmapping-folios-from-private-vmas.patch removed from -mm tree
+Message-Id: <20261123062530.5730B1F000C0@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,67 +67,113 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/swapfile: really fix integer overflow in swap_show() and swapon()
+     Subject: hugetlbfs: fix unmapping folios from private VMAs
 has been removed from the -mm tree.  Its filename was
-     mm-swapfile-really-fix-integer-overflow-in-swap_show-and-swapon.patch
+     hugetlbfs-fix-unmapping-folios-from-private-vmas.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Oleksandr Natalenko <oleksandr@natalenko.name>
-Subject: mm/swapfile: really fix integer overflow in swap_show() and swapon()
-Date: Wed, 18 Nov 2026 12:26:10 +0100
+From: Josef Bacik <josef@toxicpanda.com>
+Subject: hugetlbfs: fix unmapping folios from private VMAs
+Date: Mon, 16 Nov 2026 19:29:28 +0100
 
-One of the enterprise customers uses 6 TiB of swap, and the values
-reported in /proc/swaps as well as in dmesg are still not correct.
+hugetlb_unmap_file_folio() assumes vm_private_data points to a struct
+hugetlb_vma_lock when hugetlb_vma_trylock_write() fails. Since hugetlb VMA
+locking was extended to private VMAs, this can also happen when
+vm_private_data contains a resv_map pointer; treating it as a
+hugetlb_vma_lock corrupts memory and can cause crashes or hangs.
 
-Cast si->pages to long explicitly so that the bitshift in K() doesn't
-truncate the value to 32 bits.
+Only take the VMA lock when a shareable lock exists, as additional locking
+is only needed for PMD table sharing. The fault mutex and i_mmap_rwsem
+already provide the required protection for private VMAs.
 
-Also do the same in swapon() for the same reason.
+Fix generated by an LLM and sent by Josef Bacik in private.
 
-Link: https://patch.msgid.link/20261118112610.122799-1-oleksandr@natalenko.name
-Fixes: 642929a2ded0 ("mm/swapfile: fix an integer overflow in swap_show()")
-Signed-off-by: Oleksandr Natalenko <oleksandr@natalenko.name>
+[david@kernel.org: simplify description and comment]
+Link: https://patch.msgid.link/20261116-fixes_hugetlb-v2-7-4dd9e94ea9ac@kernel.org
+Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-Reviewed-by: Youngjun Park <youngjun.park@lge.com>
-Cc: Rafael Aquini <aquini@redhat.com>
-Cc: Christopher Li <chrisl@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Barry Song <baohua@kernel.org>
+Tested-by: Daehyeon Ko <4ncienth@gmail.com>
+  Link: https://lore.kernel.org/20261116-fixes_hugetlb-v2-7-4dd9e94ea9ac@kernel.org
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+  Link: https://lore.kernel.org/179490430300.482102.17633361840450824485.b4-reply@b4
+Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Mel Gorman <mgorman@suse.de>
+Cc: Andy Whitcroft <apw@canonical.com>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Breno Leitao <leitao@debian.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: Sven Schnelle <svens@linux.ibm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Chris Mason <mason@kernel.org>
+Cc: luojiajun <luojiajun3@huawei.com>
+Cc: Ackerley Tng <ackerleytng@google.com>
 Cc: <stable@vger.kernel.org>
 
- mm/swapfile.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ fs/hugetlbfs/inode.c |   10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
---- a/mm/swapfile.c~mm-swapfile-really-fix-integer-overflow-in-swap_show-and-swapon
-+++ a/mm/swapfile.c
-@@ -3452,7 +3452,7 @@ static int swap_show(struct seq_file *sw
- 		return 0;
- 	}
+--- a/fs/hugetlbfs/inode.c~hugetlbfs-fix-unmapping-folios-from-private-vmas
++++ a/fs/hugetlbfs/inode.c
+@@ -401,6 +401,16 @@ retry:
+ 		if (!hugetlb_vma_maps_pfn(vma, v_start, pfn))
+ 			continue;
  
--	bytes = K(si->pages);
-+	bytes = K((unsigned long)si->pages);
- 	inuse = K(swap_usage_in_pages(si));
- 
- 	file = si->swap_file;
-@@ -3968,8 +3968,8 @@ SYSCALL_DEFINE2(swapon, const char __use
- 	/* Sets SWP_WRITEOK, resurrect the percpu ref, expose the swap device */
- 	enable_swap_info(si);
- 
--	pr_info("Adding %uk swap on %s.  Priority:%d extents:%d across:%lluk %s%s%s%s\n",
--		K(si->pages), name->name, si->prio, nr_extents,
-+	pr_info("Adding %luk swap on %s.  Priority:%d extents:%d across:%lluk %s%s%s%s\n",
-+		K((unsigned long)si->pages), name->name, si->prio, nr_extents,
- 		K((unsigned long long)span),
- 		(si->flags & SWP_SOLIDSTATE) ? "SS" : "",
- 		(si->flags & SWP_DISCARDABLE) ? "D" : "",
++		/*
++		 * We only need additional VMA locking here for PMD table
++		 * sharing, which synchronizes on the shareable lock.
++		 */
++		if (!__vma_shareable_lock(vma)) {
++			unmap_hugepage_range(vma, v_start, v_end, NULL,
++					     ZAP_FLAG_DROP_MARKER);
++			continue;
++		}
++
+ 		if (!hugetlb_vma_trylock_write(vma)) {
+ 			vma_lock = vma->vm_private_data;
+ 			/*
 _
 
-Patches currently in -mm which might be from oleksandr@natalenko.name are
+Patches currently in -mm which might be from josef@toxicpanda.com are
 
+mm-zswap-drop-the-stale-zswap-entry-of-a-zero-folio.patch
+mm-swap-account-synchronous-swap-reads-as-memory-stall.patch
+mm-mremap-fix-hugetlb-reservation-leak-on-partial-move.patch
+selftests-mm-test-a-partial-mremap-of-hugetlb-memory.patch
+mm-mremap-reaccount-on-unmap-failure-only-if-accounted.patch
+mm-mremap-restore-vma_account_bit-if-the-unmap-fails.patch
+selftests-mm-test-mremap-with-an-old-size-of-0.patch
+zram-lz4-lz4hc-accept-dictionaries-of-more-than-64-kib.patch
+mm-hugetlb-keep-surplus-folios-when-the-pool-shrinks.patch
 
