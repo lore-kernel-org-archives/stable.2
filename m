@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795461008;
-	b=N56AUZtX9KB3MXA1HFANOnrvnEMth15+khdug5GqOeEMi3dGfvkIiWR0OTaV7XTJwlK9
-	 DLEcDoe5vnLZgHNgDlENJI+g8qY20KOp97x39n/ag58DSoCBIPLRcMb31dOWBENDiF1sz
-	 r8R3C0N7VitWnVVrbmT2aRtAHyKViobFRHSfbT+3KJVskxbwUkrCeBjQsBRAuXPvDYi+p
-	 SfZ89wtW3a9ckC58kj6gAv3+Ym+IQe4/jodyBWVkPBew+yqW+6wwgt/y9tRpMCV5t3+Uv
-	 X5RxsksNyat5wOZ8tK63XDsXnJuxON4ox6dqGkwpC1AkOp4C1EJLcaMc+n3kPir09Rw==
+	t=1795461024;
+	b=B3HN4E0EACx3WnYhpu9+h3p/A7/KsUiXd28YLZnmLasrQi6ydDfYeOBigXNpXQfnAeDH
+	 72swe/R+8TF8hlHFt1jGP78W9yzZdxRXn5hjj69RMHQCbeQBumCUnHHCNxh8xUj38p4Rv
+	 V89Yvu2vkEYzA7bmI673o1FfHXMZp9V+93nPFzsW1Eg9PjCsu5bomuipX8D8utTnG41Qi
+	 pD4ZzcYlOOC4dlzu+76dZ+RqTzIDqdcvLzLm5GHnmRWw9r4tioAGkYZZONfRr66NTFMt3
+	 FVVHBlFs/CF9dJFLgW4TcMwkKUvY6tXVNMyTgwlbNMckrRm9i5rd0WLD+0a/EBhlzlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795461008;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461024;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=PLR9fAF7UihRpSfvFC+5lJDzI6mgLhp/Cqwn4nFxS4U=;
-	b=DTvcbdSr9yXuFWf0iYoOstND6mg2CgQaJBFzt+Nou+2BUEBUPWs/qPj1kcbggM/uQbkP
-	 AMjH7IJo5qRch57yalVHq6NV2x4WidhRsWmx7FfEuqmHpRE6fyii+8ZpHuE/9968X2gON
-	 eYKSu4cXNkaoNMpeJ4qVjtLH67euh63S/CWe29KKRYlQsnlQjfIpi6ij18yAWTf/tnmOI
-	 le/oWxH5NVUXMtz9pYgUR64pt/5Le/nHLpf6WTzFF3nJioJvS0H5/Ru5xJtwLZNiMd6PM
-	 VmjBJKN9h2nQa04Rw59cfE9SmtC6TBIJ5Tmln6TvWgXQgcxiYh1BHyNmMeD5idMajng==
+	bh=P7FDWnuntiypVaq18IX2yuHzG9oAyX3kKeY7z/oJ1wQ=;
+	b=mPUbLNY+z/wKtozOrHye9TMoiREFFX+gKw4JVbb6SbVfU4kgvFkv7oFUOMkTLTs2ezIy
+	 DDMvdR2qvWzqtvXkQJ3Z9HJvaCrr6X21L6CYiIhkwt0PxvLAvWXPnTb04vAsBql5p9FxA
+	 TDEoP6egpTmRphWLhBjTh1EgnmbNsLsSTuiDlS0ybSqSPw9c9TW+/V1Difnb5OpMiKnl5
+	 ioj4yLVug+UiCeOUh2ULx6gxHYubL2uZAdEdpLOTkSzCINh0UFaPjRgE9EFTOvbbusLKr
+	 0kBrGzh4aaOLOQpQabtpCe0LNEndOqPHBueK9DEy1Jn3EcLrAF0JcLzPaP/k145lavw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luOAJKOP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XT/fCYaQ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47ED6606A32A;
-	Mon, 23 Nov 2026 19:10:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DEE9606A327;
+	Mon, 23 Nov 2026 19:10:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luOAJKOP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7421F000D3;
-	Mon, 23 Nov 2026 19:10:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XT/fCYaQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 424CB1F000D1;
+	Mon, 23 Nov 2026 19:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795461007;
-	bh=PLR9fAF7UihRpSfvFC+5lJDzI6mgLhp/Cqwn4nFxS4U=;
+	s=k20260515; t=1795461024;
+	bh=P7FDWnuntiypVaq18IX2yuHzG9oAyX3kKeY7z/oJ1wQ=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=luOAJKOPl3MDG6Ezjs6EeLBXGcbTSGF0W6GXqMKYXF7AqUshGLuGypltMAyMOUPHO
-	 2Xg91oaFankRKUH/JRAFK6XlTgyacEDbtaKRlIU4tepkdxW2XnldVQPg/bZpZABIGq
-	 eIPgOmE0ithXLWCjMo2q3BE3epy6ewRv0WXyUgd+ZI6/YRTrQSqd8R5gjX62xJ4lYB
-	 rAW1mnN87oxEAVdxqrKAau3googZJcCV90fc/a80HFhrBXBvNvkZtzQfhVcy10V8LB
-	 c+l6JMdTmhr/g2SmMQHlT0TKP64DybyW3NV4Rz6Zxr2RU38b+BbdRwjB06j5cJ7eBX
-	 BfRlNQAFcGuzQ==
+	b=XT/fCYaQIeezXNJfRxmj5ZGfuM1sBkL29bHYyq05kX05dI0+ZIiBUs4WbNcXBakM9
+	 yc3dCKTPL1DsCUtjV7HkPHaMhAR6K1gvFezI3luPEuZNxNGPSapOlZ+/WsG5FbXuoe
+	 9qlA3G1izaR/mm2uHFlFLaFd2r87AnCHaR4ncMsRyTRRFANGvab7iiw3uoOMMQz8IG
+	 X26YqXK7mRE3vjePMGVT3mxD/wutlbgmOSQxr3FwvuxW6ZvKaFXRddQr2FroiyZPjy
+	 ixdObuzqcdweDWZwcu7CCtLqYN9/6lhf5we/bU1PJa38rsKvSdcoppRJAxEuKkSOv8
+	 DUvRGr0Vin9zw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D1369392EE35;
-	Mon, 23 Nov 2026 19:10:07 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A2B3392EE35;
+	Mon, 23 Nov 2026 19:10:24 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,40 +54,39 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v3] Bluetooth: hci_serdev: stop write_work before closing
- the
- port
+Subject: Re: [PATCH] Bluetooth: RFCOMM: Fix slab-use-after-free in
+ rfcomm_dev_add()
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <179546100678.3063022.795592949676110880.git-patchwork-notify@kernel.org>
-Date: Mon, 23 Nov 2026 19:10:06 +0000
-References: <20261121155648.1151-1-enderaoelyther@gmail.com>
-In-Reply-To: <20261121155648.1151-1-enderaoelyther@gmail.com>
-To: Zhao Li <enderaoelyther@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- me@michaelmcallister.org, loic.poulain@oss.qualcomm.com,
- stable@vger.kernel.org
+ <179546102276.3063022.6621548034236747071.git-patchwork-notify@kernel.org>
+Date: Mon, 23 Nov 2026 19:10:22 +0000
+References: <20261122-fix-rfcomm-dev-add-uaf-v1-1-cac5354752ed@gmail.com>
+In-Reply-To: <20261122-fix-rfcomm-dev-add-uaf-v1-1-cac5354752ed@gmail.com>
+To: Leicheng Xie <leicheng.dev@gmail.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com, gianluca@sottospazio.it,
+ linux-bluetooth@vger.kernel.org,
+ syzbot+11542ff1d167fdffa1fc@syzkaller.appspotmail.com, stable@vger.kernel.org
 
 Hello:
 
 This patch was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Sat, 21 Nov 2026 23:56:48 +0800 you wrote:
-> With HCI_QUIRK_NON_PERSISTENT_SETUP, hci_uart_close() closes the serdev
-> port without keeping write_work off. The hci_uart_flush() call right
-> before closing re-enables write_work and may replay a recorded wakeup,
-> and hci_uart_tx_wakeup() queues it from any caller that passed the
-> HCI_UART_PROTO_READY test, such as the serdev write_wakeup callback.
-> write_work can then call ttyport_write_buf() while ttyport_close()
-> releases the tty, so it writes through a released tty.
+On Sun, 22 Nov 2026 17:33:29 +0800 you wrote:
+> From: Leicheng Xie <leicheng.dev@gmail.com>
+> 
+> __rfcomm_dev_add() inserts the newly allocated struct rfcomm_dev into
+> rfcomm_dev_list and releases rfcomm_dev_lock while holding only the
+> initial tty_port reference. Back in rfcomm_dev_add(), the device is
+> registered with tty_port_register_device() and further initialized
+> (dev->tty_dev assignment, reparenting, drvdata, sysfs attributes, and
+> reading dev->id).
 > 
 > [...]
 
 Here is the summary with links:
-  - [v3] Bluetooth: hci_serdev: stop write_work before closing the port
-    https://git.kernel.org/bluetooth/bluetooth-next/c/62fd917f6d2d
+  - Bluetooth: RFCOMM: Fix slab-use-after-free in rfcomm_dev_add()
+    https://git.kernel.org/bluetooth/bluetooth-next/c/cc0b0a62cbde
 
 You are awesome, thank you!
 -- 
