@@ -1,98 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795452893;
-	b=F1YQfzx4gVD4H0HVGhzOpdPo3cNFiue2ILjIiSr62Wj932V2adyo5shnFch2ueF40GvJ
-	 bX4MCeLnNJH7NEizXuIiphcjPU+LCHy9BzEDYCbtWDFHLYZnaIYL/2HsBll6diK5rl23t
-	 HXiM8lnT6hP5IsBw5nC28L4rucC2tib1ckwi8Mldk507UMLhLHQjAIxx+LnxtVJ5b9EDv
-	 2KmylQQ4SBtVYxHvL4bc/C7nehxtBHYxjxd8RkPhyxD56aZMDaG+ezGtbwxeUJxpuHjrA
-	 6UNDQp+UO1ckzUq/06jjlZpHJj1nPgu0MDAUgzD70qM/j3p+c9ocItd0JBf1etuSYDw==
+	t=1795452914;
+	b=2QUUMj+WcgCbqMjIdLsZ+CD6P8IRJOoNZqplp72++0bUN8Tsdo1QSxt3qr5OGWD22tG5
+	 g7ZkRYQntncHsnHIR2+5m7hhzkNzSuEilCPEMXoYISDhTMfQGMC2aWLwjZLzQEGp4kkmq
+	 uTNivzI0vMkwHvzXyJs/b/CQlBdbMgRDoy5WkdsjagxndV7xU+YTdiwRjviclHWlk8/Iy
+	 861ifAIe03NxiqiCiQrZs8O9+tjTgWY68sCXnqy5X9S/qeQxTmz5AsEVhn3zTxjVwt7O4
+	 sHdTlrIYmQD/aXy+fO6epbgYPS/ioZ+6tbEtVgUYrVfLFGjldmAjerIINUa7e5PsGlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795452893;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=U3jRYscVCj/T0+Gpz0itoENJP/iaPGKFrItTdO07iJo=;
-	b=IMdkVPNGdzpolZzU9Mw9CGb0LkoT5qBwIi4x/USuKwtkybnNkYoOR9AIJW9OiRCRugHJ
-	 3j+P89s8RixGv9NnWTP96Yvsx98hJUoZLv77AW2xm/ZZtzohcV62ZzTbr2RZgsK/TExHO
-	 9JjPWENrGafaEYOml6GVa6sNhOiUwzjLm/dq1HhOeiHLvEkOJ8A9FajrYTuy1TAdilfqj
-	 TgO/WjzKNFjGHm30+8qJrl6aCtUTXxmK9OlSahXwUK5OAXhEQrVqIC95lrPAbcuQzyLo4
-	 dhEvkIb6SqK4DOJXCnpfrWiTWbROrvmi0zCLsCezzyDY4IHz9HOUgBCCHVJ0PhJm4yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795452914;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=R0YaxkJAta/mVlVE1XP9/S1/mFJSUrN6mUoMtBEqewI=;
+	b=n17EUAFvRkg2eFZqM8egeHjpUSEvRi+EAzQ6MdomOZiJkAm+jbGrb860SANma6y1pLSZ
+	 Bc1AuCMjp8cup87c4QknhXtPxWeSlngNVTkgVcMD3M722/7zCxX35nCBkTD08R78iV+RQ
+	 eNs9/zNf92azWIg525sbgmPQgvRZLs5lc4oFtP7W8YE7mcBwZhY//qIudb/CRWFPHUwoJ
+	 6NmCStteZHDlNiOctiDJKQXU38q85M+Zl9UkCHX2qLpNMgVNvft56zxXrQdjnJmZOMCVb
+	 yA4ndAW1ulV7FcavIxQu2X8mmbafFrtirKPvT/LrkSY7RDePLb1rjy/onzhsGXj6F8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jRVc6dku;
-	arc=none smtp.remote-ip=74.125.227.132
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0B4606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:54:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD0B4606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=qen1ezhm;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EDD61606A31A;
+	Mon, 23 Nov 2026 16:55:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDD61606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jRVc6dku
-Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3b426133d98so960343a91.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:54:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795452892; x=1796057692; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U3jRYscVCj/T0+Gpz0itoENJP/iaPGKFrItTdO07iJo=;
-        b=jRVc6dkuxiaILyjn3zOynVacIqXrH5QflVYpsKlNkgLk3UCKb2sQuPbdHJSGwdnSMi
-         kFftJfIPGhAT6oU++QqxP8GeB1r/3QJObdGm+O6P0UtASqHZEpBDeRfuMEwV3BWyen8g
-         tTC77mh+gIBKILgyqXc7uLa38W6OPscd3VDlBHgAhGUv8Z+niJanDUvXsE48gBjTz3F7
-         GvIKu2o6tYJXvCRpTZTPMLI6tuEwcbARUc3QgkuRpBBsHXsWHEphwUj5ERWnaBMLwtIo
-         eRcI2BZR97JZubIEUIIMkcX8hCHuvclMhyt7bIxxs0GnOQwHaB86kApjpWye0UOqnSSs
-         k3dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795452892; x=1796057692;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U3jRYscVCj/T0+Gpz0itoENJP/iaPGKFrItTdO07iJo=;
-        b=EQQYBLooa/Vd0kjGY0UGnrbB/ud+NrcOGZQpgM8W0onvkQx+uSiviiqZLZHl2840fL
-         okRGniXQ4Hw6FmRBreiYAViEzyhO7UBl0wdpYKWNX5FHFpP83XkC1oSjnacijIaCqk1k
-         jm2r6q7yLYMtHnTvIL9iKs1uvW2XXIMVw3J8e85wJz78EdZXEx0aHz/ei2kB1ca7Bnqm
-         GNdz3433rNozPlw5m2SJL6XHJBHb2GF8Z+wzgrBkR+J78uwTqOw20U8RUvMGXU/zSVED
-         vj/IMdm6DT6iJaQqJFLtXlRgTiCn+4JWfeVdap3qRwhkONMBLI9dLHHM+O6Lp6B1PKhT
-         51lw==
-X-Forwarded-Encrypted: i=1; AL+hErHVUEKRQRmfiJqDFo/iry1tXG8kUhxDNP2At8nv7vVpZhZlfza9AvK6uJPM2Z1cxfzE3pGgEJw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9LDhRy2HljaQecnHs9RqAYCc0zTk770nWIolX7wG2xkCZoypN
-	3uacsjj7t0l/23aIRlEcz/ynRpDtQRZwaaE4E87B1f6uodnK413xTvMk
-X-Gm-Gg: AZFdTZcm79Pb/QV3r41yZAkwFoyWn4IiMvvJTlUCGSRP30ZT2BOZYlpl8O6pP9jEtCS
-	8M87zSMp+jhqNEi1F2kFSVG6c6HMKk/ZVbxO5Rkk2Z7g7WxVOfin8ekKim96+LQfY8RuiX9Eva9
-	VRdVyUL0eJDGYI7rYyqX527DSnE1DZn4RpI8PocdkXTuaBHYrW26/J0zTzOJNPxAVzKxnA3JP/f
-	nSUjWju6PO3F+gmWcbcLeYwsp9jKTybApBQwb4Wx25zNrQKzdo1+z1WXKK6wWtWVHPaxSsCLdQn
-	Vd1REawxZ66VZdMJ8DJVXKUC3bD1nlhj8YyPuwLCyDr+Eo3wOqyY37INJH3uxN+GeGgdFx+3iC2
-	XfJ6Rawzw59Dgzqu+xdjmfe5cBAQf3Ow+0EbbWCasRvSBfXg9408AoUCPb7EwymfKXMtdZCdxGF
-	riA9O8NXKRh6kgP+hWmGCS/6EP1GZMWP/w9U3ZS0qaGm1dQa7Zm3mTTx0m7BKYZneSkfADKGADu
-	8/jmQFFhG/qDzXovZ/nV7xH9UaFCm3M7jUAHoSUssayr2VQs8F4SzRsitUWitEnpCG85fv7QjcF
-	9XdLqGMdtbPb2mHB4NoafNUdoPYXp9t5U7f5Kg9MO6xu0W1Kc/eSiKM/e7mNH9OKVxA15zDMK/k
-	=
-X-Received: by 2002:a17:90b:4a48:b0:3b3:b5b4:e4a9 with SMTP id 98e67ed59e1d1-3b41c7ac07amr11177322a91.3.1795452892153;
-        Mon, 23 Nov 2026 08:54:52 -0800 (PST)
-Received: from BSDHENRYMA-PC1.localdomain ([43.132.141.7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b792474sm7976358a91.3.2026.11.23.08.54.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 08:54:51 -0800 (PST)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: dhowells@redhat.com,
-	jarkko@kernel.org,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	Jason@zx2c4.com
-Cc: keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=qen1ezhm
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+	id EECE320B7167; Mon, 23 Nov 2026 08:55:09 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com EECE320B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1795452909;
+	bh=R0YaxkJAta/mVlVE1XP9/S1/mFJSUrN6mUoMtBEqewI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qen1ezhmMTbNcdPmeI9v32zYARX+1yjzwcy7MgPKuwwCzwLdQrJ3zy1q95LBgseB7
+	 tSXQlWXLmYWwYw5IZZd792vwUzgJ1JKgV5P/aA9QP4X65LGOKWY7PqlyUZUX2gzfhG
+	 I+xO8ElKYevVL4deVSkOqSOB+sx+l5YfxzxTZgG0=
+Date: Mon, 23 Nov 2026 11:55:09 -0500
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: Saurabh Singh Sengar <ssengar@linux.microsoft.com>
+Cc: dri-devel@lists.freedesktop.org, Dexuan Cui <decui@microsoft.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Michael Kelley <mhklinux@outlook.com>, linux-hyperv@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] keys: fix crash on big_key read or revoke after a failed update
-Date: Tue, 24 Nov 2026 00:54:43 +0800
-Message-ID: <20261123165443.4092852-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Subject: Re: [PATCH] drm/hyperv: wait for flip_done instead of vblanks in
+ commit tail
+Message-ID: <awRv7c1yVG3QWxp+@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <20261112184553.1595055-1-hamzamahfooz@linux.microsoft.com>
+ <avyT6Zop6s5G5qwu@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,82 +64,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avyT6Zop6s5G5qwu@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
 
-big_key_update() destroys the old payload with big_key_destroy() before
-calling generic_key_instantiate(), which can fail.  The destroy drops the
-payload's path and data but keeps payload->length.  If instantiate fails,
-e.g. with -EDQUOT when a concurrent allocation grabs the quota freed by
-the destroy, the key stays positive with a gutted payload and a stale
-length.
+On Tue, Nov 17, 2026 at 09:50:33AM -0800, Saurabh Singh Sengar wrote:
+> Thanks for the patch. Below are my thoughts:
+> 
+> Since flip_done is normally signalled through the same vblank timer,
+> this change does not remove the dependency on that timer. However,
+> drm_atomic_helper_wait_for_vblanks() has a 1-second timeout, whereas
+> drm_atomic_helper_wait_for_flip_done() waits up to 10 seconds.
+> Could you clarify whether the change resolves the reported case because
+> of the longer timeout, or because it avoids waiting for another vblank
+> after the commit's event has already completed ?
+> 
 
-A later KEYCTL_READ on such a key follows the stale length.  For a
-file-backed payload it hits BUG_ON(!path->mnt) in dentry_open().  For a
-buffer-backed one it memcpy()s from a NULL payload->data.  KEYCTL_REVOKE
-passes the NULL path to vfs_truncate().  All of these crash the kernel,
-e.g. on mainline v7.4-rc4:
+It does come down to the longer timeout, I've done some stress testing
+and the timeout doesn't seem to exceed 2-3 seconds (on Azure and
+even on the lowest end SKUs).
 
-kernel BUG at fs/open.c:1145!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-RIP: 0010:dentry_open+0x7b/0x90
- big_key_read+0x141/0x280
+> This seems relevant to other timer-backed virtual DRM drivers as well.
+> The older wait_for_vblanks helper also predates flip_done tracking and
+> has previously been described as an interim solution [1].
+> 
+> We already have a vblank timeout increase [2], and Thomas's timer
+> reliability series [3] also discusses delayed vblank handling triggering
+> DRM checks, although it is not clear whether those changes address this
+> particular case.
+> 
 
-Fix the ordering: instantiate the new payload first and destroy the old
-one only on success.  There is no need to release the old quota first:
-a big_key payload always reserves a fixed 16 bytes, which was already
-charged when the key was instantiated, so the instantiate of a positive
-key leaves the reservation unchanged and cannot fail.  Releasing it
-first was what allowed a concurrent allocation to take the quota and
-make the instantiate fail after the payload had been destroyed.
+From my testing they don't address the issue.
 
-This issue was discovered by Tencent CodeBuddy Security.
-Cc: stable@vger.kernel.org
-Fixes: b6f61c314649 ("keys: Implement update for the big_key type")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
- security/keys/big_key.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+> Using flip_done is consistent with VKMS and seems reasonable. However,
+> rather than duplicating the default commit tail in each affected driver,
+> could we consider a common DRM solution for all ?
+> 
 
-diff --git a/security/keys/big_key.c b/security/keys/big_key.c
-index 268f702df380e..3bf371f6c28d3 100644
---- a/security/keys/big_key.c
-+++ b/security/keys/big_key.c
-@@ -193,16 +193,31 @@ void big_key_destroy(struct key *key)
-  */
- int big_key_update(struct key *key, struct key_preparsed_payload *prep)
- {
-+	struct big_key_payload old = { };
-+	bool positive = key_is_positive(key);
- 	int ret;
- 
--	ret = key_payload_reserve(key, prep->datalen);
-+	if (positive)
-+		old = *to_big_key_payload(key->payload);
-+
-+	/*
-+	 * The quota for a big_key payload is a fixed 16 bytes that was
-+	 * already reserved when the key was instantiated, so the instantiate
-+	 * below does not change the reservation of a positive key.  Do not
-+	 * release it first: a concurrent allocation could take the quota and
-+	 * make the instantiate fail after the old payload was destroyed.
-+	 */
-+	ret = generic_key_instantiate(key, prep);
- 	if (ret < 0)
- 		return ret;
- 
--	if (key_is_positive(key))
--		big_key_destroy(key);
-+	if (positive) {
-+		if (old.length > BIG_KEY_FILE_THRESHOLD)
-+			path_put(&old.path);
-+		kfree_sensitive(old.data);
-+	}
- 
--	return generic_key_instantiate(key, prep);
-+	return 0;
- }
- 
- /*
--- 
-2.53.0
+Most drivers implicitally rely on drm_atomic_helper_wait_for_vblanks()
+through drm_atomic_helper_commit_tail(), so I don't think we should
+touch that unless we can prove it doesn't regress anyone. Though it
+is worth nothing that fbdev has a similiar timeout that is fixed by [1].
+
+> It would help to identify the precise condition causing the hyperv_drm
+> warning and explain why the existing generic timeout increase is
+> insufficient. If this is needed as a targeted stable fix, please document
+> this in the commit message and as a comment in code.
+> 
+
+The vblank timer is an hrtimer, so it can't fire while its vCPU isn't
+running, whereas the committing task can keep running on another vCPU
+and time out. On Azure, a 10 ms timer sampling the vCPU run time that
+Hyper-V reports caught the host not running a vCPU for up to 128 ms,
+mostly inside storvsc's vmbus_set_event() hypercall. As the warnings
+coincide with boot-time disk I/O, the host appears to hold a vCPU like
+that for seconds at times. Also, it doesn't really need to go into
+stable if we don't enable panic_on_warn() (and assuming no one is
+complaining about the timeout in stable releases).
+
+[1] https://lore.kernel.org/dri-devel/20261104024106.3109873-1-Prike.Liang@amd.com/
+
+Hamza
+
+> [1] https://patchwork.freedesktop.org/patch/318967/
+> [2] https://git.kernel.org/linus/79ae8510b5b81b9500370f89c619b50ca9c0990f
+> [3] https://lore.kernel.org/dri-devel/20260601141922.91498-1-tzimmermann@suse.de/
+> 
+> - Saurabh
+
 
