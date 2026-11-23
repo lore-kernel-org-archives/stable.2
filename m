@@ -1,98 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795450011;
-	b=OaEM3LWPt7lAq0vQ/RQVAd0urNSbTWDOohz+V/hNzisKI8ldGhjNpYQjFjfNpr38Lvmt
-	 o8uOtpaoy9x6iv1Ryvbk6gQkDeMPBCAFuA23VPEeadmuc+soM/PbndknsnFaCfK8PKFlq
-	 29wIGou9PgibS7/VDtCyW5Ig9dvZtWWKGnD6lSrX70TJvTsG3veHnTlUtlew7kwy71e7S
-	 JBIlWr6J/GfxYOiS6ZVHELOEaDblahoZ0smETlookikNkn6JV+N4X1CdzRmYYZOZB/yPN
-	 DsIq9B3GowgDllsxl1B9AdZO23JEZJwgqdeweWReLehuXXmGCMutgTNNfSNZT5z/e7g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795450011;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795450129;
+	b=odWqKWlwbeXkO6yccNgJSiWhCFQh0brrD3lSLwo56y0QKh2NI38Xk8k3eO09VR4y3suy
+	 NvP/+7GY73Ko3h+haF3vjB+OTUBBbhNkWUME+bpR91ieYWUWHYFV2/jHSOZSvDDoXkFsv
+	 HEeeZZch4ms+MFr9ckqmnjLau0Erk9tzptK077Wx2PIxMCp4CPYtLGDrFfAmd4KEUje+y
+	 174bihblDwOZmuk5+aQ+9sFdUXcUOIgBbWDHqcegTvUpkDyxdoubPJ2i/bBwYvo8reyqg
+	 EewriFUfNYseRL9Hfed2XEGsipGOiMnIgzRL3dKceH7nVnagBbU6XUlteRfqqIlc5Aw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795450129;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=GzTD9WH9/UERM7DubWsp4AE37bmITVN0W6tIx9FHUTE=;
-	b=0l5uOYEatiyqsLyoHcrTw8DEYZ21UvRUgtnYatZuyps3cEltmSZUYAZEPRiZtvWoF2pY
-	 8si0zdikAv1UFPUe4Wd4kv+ADAp0Jh8ne6ipLrmnXATmsUjLlKdL05dTVzVcfkRCwnvxU
-	 SAqJ009NFghJpY9zxct87JNbkt2IHTJo19VC4oJ9Bfy4TgNnaKDDU+2ecmbU1/TNYGh5d
-	 SN1YqdVQ539lr6BFJ28zxvNh/H71NWstreu92An2/rLGTob6e8G75kkVdRsy/vwxhv0Gy
-	 pEIECGaTJ733GsU9lNeY+hKgNRqd5bOCH2rZKx9BPEv0EGl81iFwyx99+bs+6hopoYw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="gu/9OOJc";
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	bh=lzGh06KvbW29kTdCwqSFpXTG7Ti9DVLUu53y+m7EPw8=;
+	b=Xqdcyi18o4FMSGo0ms7bV2izkfkkof3N6ySKwUSXfTt/Qe4vKZ6106Ca0MvA9W/zQiAH
+	 cGjyRdEnYPLIkzpnLUbUPdeetrknwP+Bra3wnQDSc4Gd7KdUUF5INyxNvAFvp2NTx1cLH
+	 2VUKjVfPPdK/dYG8oCUMT4JW1227X4TxnTxe16qaB9rqUtzczOL3lJOAgnhSZAb9zxCVA
+	 bYWlz8f3wo2FSY3Jkyi2Tgcso9GokyK5kn/UdpgyohEWu8T4yJEKOIqP07jJfMR8SzCYQ
+	 rPyXs2QmM1Z5jUyJenCbY9WdPIpph3rOYrgFiteNxlTibM4Z63+Geu/riVUqGsWPOGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C5nucsP5;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Qd5JR7g6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7E7606A321
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:06:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E7E7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C62A606A321
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:08:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C62A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gu/9OOJc
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so2174893f8f.2
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:06:51 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C5nucsP5;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Qd5JR7g6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795450128;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lzGh06KvbW29kTdCwqSFpXTG7Ti9DVLUu53y+m7EPw8=;
+	b=C5nucsP50WObmK5Q7uRc+TveRbQ433qzGh7y2uyYQKa3lu8VBblMI/jfSafsNlAU5bzqM3
+	2Oof31kKa1N1IDRagkxQGSOfEn7xcPfxwBTeYUwTJmOllC7W87Xmt98CG4KzUEqxzOoPdu
+	PXhmAJmsmsCBRCvg+AyMrINooTjHRUA=
+Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
+ [74.125.224.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-136-9PW2i-FMOJy55zS1035qfw-1; Mon, 23 Nov 2026 16:08:46 +0000
+X-MC-Unique: 9PW2i-FMOJy55zS1035qfw-1
+X-Mimecast-MFC-AGG-ID: 9PW2i-FMOJy55zS1035qfw_1795450126
+Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-67be4f2f42eso5969577d50.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:08:46 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795450126; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UYAcZeIz+6NBh0XcgXt+fA0HuE5W/7XM07GgKj6qt//IbARp60QnRxD0yt8qdL7Nq4
+         IxelX+VMUirgYZO8GuVmfqkAdx7wRDeFEhSION4nfT2+W1nM5VhGeM6Zfk+Cz9L+yqLf
+         +Bko3ztEpGM4z0WasjYeCmc+tdcsYDOv+LeKZ/v1Fb3YEr3qUYS/oWx8cQBemCqOG2Ii
+         IyyfrnX6wc4XCdFCPBYYQTXgWNHwNwWh59AAjWCvqzJWkcH0ErMPG6aFgQ10FnjDeZRm
+         6hqteQSfsTtLusH4wHaS3ll0W0MeCOeBcl3IdSC8pdP0to2FWXWrmW7jhIKD2vSXWKAe
+         TmMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lzGh06KvbW29kTdCwqSFpXTG7Ti9DVLUu53y+m7EPw8=;
+        fh=+YFVGxzFNL/W2QrsOEBIL8NytOboK2B9NiyKlXcRaJc=;
+        b=Cw8PPh1a2jqUYmW6nv+taoIyr1iROZk0L+ha3s8TrzzF+hg4W65ywf2QTYe8AhZpG/
+         qrPKU6Uiu9aPFl/tX9miNVbFGBpHKw2XlR+fBCpZyM7E60vNgNJPqG/mGU5RRDwwpwgJ
+         D2lqvb/3WQiPBTaSflrK4sggBnegGDK53Dr6iqpJbE7OVcN6A8/0jP+hcvdQ/+M7vpWD
+         AdYjJzLR2ZVsMP4wD+dp9TuUE6uMo/BrR0aMORCxgaij0tf4KSI+4VG4AU6NBxPFdHBp
+         GLS2TSyDYI6aFIV+lqfXjeyKS0D7ATYzTOoWdsI/RaydsxZq9d/37WtszOihAbGJGYnp
+         8C0g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795450010; x=1796054810; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GzTD9WH9/UERM7DubWsp4AE37bmITVN0W6tIx9FHUTE=;
-        b=gu/9OOJchsNnRNlV3NFQ8M+VWDynXxt0MDE3ACvNV105QrCtPT1CbLfssYATpGWWlW
-         5of0Ha43hC51xyJsCv5Fq11olSn1zuYmUOK3gua5Q3yA7mahJOFLZl9NePUp/vH2Y3Xd
-         CO62CDZY1HinDeGPm4B303xP0f1QOxIQDfuz41SqPfvcPx6zcds4m/7XvhSKXf/aQZkV
-         3XHsKyjLGoU4IL+VX5z5GDdvtkL/ckhSK1CagEetXUYtQVvFOXYlDT1+g/OA1fzTADRi
-         hIwhh5GqRjIfWqPKwjJ6HFM5+yLT52IpqwNzoa6TuYeXVguo+ROdv8N1YANli8E/Ucdj
-         QE6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795450010; x=1796054810;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=redhat.com; s=google; t=1795450126; x=1796054926; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=GzTD9WH9/UERM7DubWsp4AE37bmITVN0W6tIx9FHUTE=;
-        b=iLiXNvNSf95M6PPi9tytjSyCzmEseLbvxiXCiQh7rkuQ0MPauy+0dIpWx72A+Rb23p
-         eWJ/hBPqdxemFSKMl0eRHPOycbeMNpr6FxCw4L+daEBlaVQuSSvG4es9huCzjpsgYOsr
-         lfU3rvZIbKgVx3PTjBaNtgMK2anVneVVZFQPIKwb7ryMQore70ZNRIIFx6YW1gZuDTIA
-         NACeuBrndkM4sFHTFOs53PHdrd9OugXQE2zh+He3x9wkDLKoFFef4vFqg13kJg/H71KA
-         kGYLNuw4auwSLiDgx+87JxWc2H7/IccRsCDGlY1+W9Vb3Yrra1vpQtr4lhN3ley8QnES
-         +o4A==
-X-Forwarded-Encrypted: i=1; AL+hErEv7uknDelprvFJyOn2hUMyCTuo522PSAXlUbKh8G0AF06GMbC7tdpfKpMOCdNiwY9CKFCZiks=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/YK+Qv+GWc16o5bsppZdkrWmwKdoC9mMptcqm5ASHogc6WzMO0
-	swQhsaXgCjE/x/8V4kIjg/kukrdMouv9peARf2MFVhCR8VocjcedvplQ5iT59Z126nw=
-X-Gm-Gg: AZFdTZdFbPndLISKiyma1mIhFWaEfV/33zLKdtSL0hmnfF583HWvYnlZ5BsjJ0BSbGs
-	O/7Jlwqb5PAbypmQjSA3Ql02n1NffnvoMMxQ12snR1pW+dUC11XyN2OxXEyoth1kNJYYeSOXnVE
-	S9jsztTwJ+pJjwIzocVUJ0K/nOHOmwMTt3dZ9rRcKb1n5W7d92qaIX3qVrBI6tWjLjhEMFumT61
-	aPanmJA8c6oDGXe+Uv7MJL2bBmv4Ym0w1qVioVw8LhAZS5ixWbYAjPQ5JSirif5b4CJJUc6zbBh
-	3ViyQnwPadQQu4GC5fnkxKrWd5isAJ8g4DQtiTcuqBLERe82J3Hfi8j+j7jEjqXbP1TvQDr77mD
-	mhs6tg8PsuWq3yfdYzRh28pqwIyaL2NJNcyhTrj4W3cCjBaZhYiaHoWVDyDluRSBsAbcrsA2yg4
-	6Kwgt8tuAUuDTh6dp+iQ2ZozhtSWQh6Kdq2W4qCxyeq0gQ6JwNTIe8/67UsyZRFmDovjFHGHxAf
-	V8ox7roev6ta3LY4JpSR5pypQ7Z5nJeAPiOpAahurFhjZ8suUQ5Hl59ZH6gfMb7pntBbvDRgEih
-	HvrYMalrYUgy2b7RjKjSdmllTw==
-X-Received: by 2002:a05:6000:2c05:b0:4a7:ed95:7c9f with SMTP id ffacd0b85a97d-4abb19c16a4mr23817893f8f.22.1795450009406;
-        Mon, 23 Nov 2026 08:06:49 -0800 (PST)
-Received: from metepc ([46.197.185.3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab65cb42absm24580960f8f.1.2026.11.23.08.06.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 08:06:48 -0800 (PST)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: gregkh@linuxfoundation.org,
-	rafael@kernel.org,
-	dakr@kernel.org
-Cc: akpm@linux-foundation.org,
-	edumazet@google.com,
-	brauner@kernel.org,
-	stable@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-Subject: [PATCH v3] kobject: fix use-after-free in tagged uevent broadcast
-Date: Mon, 23 Nov 2026 19:03:16 +0300
-Message-ID: <20261123160615.1074229-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=lzGh06KvbW29kTdCwqSFpXTG7Ti9DVLUu53y+m7EPw8=;
+        b=Qd5JR7g6lbc1bTE57DLvSbAcvCu+U5VnKV9hn7rTxISUy+bY47heC761ODwqICnDgn
+         0qFgXuS7257s4kjYStNiNV8VAYTq3w+s8h09+qO05ZU2DwHrId+FhHfAYKeSITGi3N3P
+         fSTI8BPp6EenPsopJifSxHd6LZlIocbNSV5EFqDuKpOSLWBzNbJOzYuOFrykRuEUhKcg
+         UNQu+LPVEhoI28bovtV7kSmZL/Pk1CSuRx/jFxwWnx3YX7fkH+GA3pyeyYE1vGgmsYt5
+         D0y43koEF5r0ggN0J3B8YGq1SRmtxPUnpJcpWuMuzqZEZwF6pjJFek11VkAxZk1UXnEp
+         8LMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795450126; x=1796054926;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lzGh06KvbW29kTdCwqSFpXTG7Ti9DVLUu53y+m7EPw8=;
+        b=GowEdybmppCokikFaeWHXBut31sRKcj2sUibxo8TqWZ42zoPru8BqJsAnBAS1j4ip+
+         a+Zr5+eH2u/63nuvgxvI/ZSeTo/PVNJbKJ+mq35nl3Fw2qyFJ8SS4KYiid2B51hsAvgu
+         p2ecof/+zJ189Xa0aWaPTeUgV2RJTKtZ5PgrveJfTkpX7i7yMG1S/IUivzdKiqMJrDXr
+         EnzJcPMcYsFPrpnTuQfxZ3GPnxpHx1sIfgViC43o4Iwyf3WiS9tp1q40Ai8+vUtQaA/v
+         phgkQGhxm6USS8bp8COjI11x4mL8PxToxIMV/Qi5cjgvCfMXOtPE3GFZO111pUnzCdBV
+         dZRw==
+X-Forwarded-Encrypted: i=1; AL+hErEdojgya9zUPY4A+e9Dn4Zta2E1kN7xHqFLAm3KTiTFprvFJlxTlJWFl27Fm+HZADHNia2Lzyc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8mLZQmmlH7EPVZVvX9Z0xF6fyogCRm/SqCwHLeBlHoF/M3Hy/P
+	X4YONZBNSuiMnBRnawEyjXlsEyE4Q3nwF/1pZ8uDtaEzNWQBe4pJd13AwSwjxXSbUMfp4AoyPnQ
+	AuE/b+SZWsTnino7D/5aIE0ceE00f4lTTkzT7fI58yt9/9Ud4aTfxQPzdQWCwSZ3QLd8K8xZFii
+	1IeNX4JtGAtP/C0gENySrxbFGsXmlCuj1G
+X-Gm-Gg: AZFdTZdQ0tKb/FoOIIa0N6Z5fc3chhmf9NsTbh1VFZNS1+SVzKUGgnyg0kOfnt4xHG2
+	GkAHtmFU3CqGug2lg3J4lIGORVp0FNdzFEhTz7CV6p95shHSofvlznbuWay8/eTWU5LRu1V/Ixj
+	wZsUsysvnUD1Hjr53HONjAJlxtIB1VxgT7RvGE2cQ4C4dOLpceD6nv/WFO8w1gzb3nL5fdCThQe
+	NInRgFpxLdqTU9NxxpX8Ig9E4tplgwRWboSnM9U23YguvDyZzEtVVe/RjI=
+X-Received: by 2002:a05:690e:4883:10b0:677:d5bd:8349 with SMTP id 956f58d0204a3-67df445d5bfmr2252245d50.63.1795450125513;
+        Mon, 23 Nov 2026 08:08:45 -0800 (PST)
+X-Received: by 2002:a05:690e:4883:10b0:677:d5bd:8349 with SMTP id
+ 956f58d0204a3-67df445d5bfmr2252240d50.63.1795450125014; Mon, 23 Nov 2026
+ 08:08:45 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,115 +125,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261123135646.3962652-2-dtatulea@nvidia.com> <20261123135646.3962652-3-dtatulea@nvidia.com>
+In-Reply-To: <20261123135646.3962652-3-dtatulea@nvidia.com>
+From: Eugenio Perez Martin <eperezma@redhat.com>
+Date: Mon, 23 Nov 2026 17:08:08 +0100
+X-Gm-Features: Aa3M54pR7ZVMpPP5oNO1OCA7GwyP-se96UdMP4VNO94DAWt_5DL7ZGYCWayniuk
+Message-ID: <CAJaqyWedvj6htnM4rJyrbynW3u1k=6uLHrfuK05YvM5z8v1Hjg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] vdpa/mlx5: Fix error cleanup when VQ setup fails in .dev_add
+To: Dragos Tatulea <dtatulea@nvidia.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, virtualization@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Gal Pressman <gal@nvidia.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-kobject_uevent_net_broadcast() accesses net->uevent_sock->sk without
-protection in the tagged (namespace-aware) path. During network namespace
-teardown, uevent_net_exit() frees the uevent_sock while a concurrent
-kobject_uevent_env() call can still reference it, causing a
-use-after-free.
+On Mon, Nov 23, 2026 at 2:59=E2=80=AFPM Dragos Tatulea <dtatulea@nvidia.com=
+> wrote:
+>
+> When setup_vq_resources() fails in mlx5_vdpa_dev_add(), e.g. because the
+> firmware rejects the provisioned features (HOST_TSO4/6 without CSUM),
+> the error path unregisters the vdpa device first and then keeps using
+> it:
+>
+> - _vdpa_unregister_device() drops the last reference to the device, so
+>   mlx5_vdpa_free() runs and ndev is freed.
+> - destroy_workqueue(mvdev->wq) then reads the freed ndev.
+> - put_device() on the freed device underflows the refcount:
+>
+>   refcount_t: underflow; use-after-free.
+>   WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90
+>   Call Trace:
+>    mlx5_vdpa_dev_add+0x3e0/0x760 [mlx5_vdpa]
+>    vdpa_nl_cmd_dev_add_set_doit+0x362/0x440 [vdpa]
+>    ...
+>
+> - mgtdev->ndev is left pointing to the freed ndev, so every following
+>   "vdpa dev add" on this management device fails with -ENOSPC.
+>
+> mlx5_vdpa_dev_del() already does the cleanup properly so use that. Just
+> make sure that an extra reference is taken during the call to avoid
+> _vdpa_unregister_device() from freeing the device under us.
+>
+> Fixes: ffb1aae43ed5 ("vdpa/mlx5: Pre-create hardware VQs at vdpa .dev_add=
+ time")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dragos Tatulea <dtatulea@nvidia.com>
+> ---
+>  drivers/vdpa/mlx5/net/mlx5_vnet.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/vdpa/mlx5/net/mlx5_vnet.c b/drivers/vdpa/mlx5/net/ml=
+x5_vnet.c
+> index 6830a80e8543..7a39b0bbbee3 100644
+> --- a/drivers/vdpa/mlx5/net/mlx5_vnet.c
+> +++ b/drivers/vdpa/mlx5/net/mlx5_vnet.c
+> @@ -161,6 +161,8 @@ static void mvqs_set_defaults(struct mlx5_vdpa_net *n=
+dev);
+>  static int setup_vq_resources(struct mlx5_vdpa_net *ndev, bool filled);
+>  static void teardown_vq_resources(struct mlx5_vdpa_net *ndev);
+>  static int resume_vq(struct mlx5_vdpa_net *ndev, struct mlx5_vdpa_virtqu=
+eue *mvq);
+> +static void mlx5_vdpa_dev_del(struct vdpa_mgmt_dev *v_mdev,
+> +                             struct vdpa_device *dev);
+>
+>  static bool mlx5_vdpa_debug;
+>
+> @@ -4043,7 +4045,10 @@ static int mlx5_vdpa_dev_add(struct vdpa_mgmt_dev =
+*v_mdev, const char *name,
+>         return 0;
+>
+>  err_setup_vq_res:
+> -       _vdpa_unregister_device(&mvdev->vdev);
+> +       get_device(&mvdev->vdev.dev);
+> +       mlx5_vdpa_dev_del(&mgtdev->mgtdev, &mvdev->vdev);
+> +       put_device(&mvdev->vdev.dev);
+> +       return err;
 
-Extend uevent_sock_mutex to cover the tagged broadcast path and the
-netlink receive path, serializing them with teardown: in
-uevent_net_exit(), set net->uevent_sock to NULL under the mutex before
-releasing the socket. In the tagged broadcast path and in
-uevent_net_rcv_skb(), check for NULL under the same mutex before
-accessing the socket.
+As a suggestion, the cleanup could be more symmetric if
+mlx5_vdpa_dev_del checks for NULLs.
 
-Closes: https://syzkaller.appspot.com/bug?extid=7db35adbc02c5b86d4e0
-Fixes: 5c0941c55e5f ("kobject: reduce uevent_sock_mutex scope")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
-v3: Switch from explicit mutex_lock/unlock to guard(mutex) and
-    scoped_guard(mutex, ...)
+But I'm ok if you prefer this way,
 
- lib/kobject_uevent.c | 34 +++++++++++++++++++++++-----------
- 1 file changed, 23 insertions(+), 11 deletions(-)
+Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
 
-diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
-index ddbc4d7482d2..768540433c7f 100644
---- a/lib/kobject_uevent.c
-+++ b/lib/kobject_uevent.c
-@@ -14,6 +14,7 @@
-  */
- 
- #include <linux/spinlock.h>
-+#include <linux/cleanup.h>
- #include <linux/string.h>
- #include <linux/kobject.h>
- #include <linux/export.h>
-@@ -411,9 +412,14 @@ static int kobject_uevent_net_broadcast(struct kobject *kobj,
- 						    devpath);
- 	else {
- 		const struct net *net = container_of(ns, struct net, ns);
--
--		ret = uevent_net_broadcast_tagged(net->uevent_sock->sk, env,
--						  action_string, devpath);
-+		struct uevent_sock *ue_sk;
-+
-+		guard(mutex)(&uevent_sock_mutex);
-+		ue_sk = net->uevent_sock;
-+		if (ue_sk)
-+			ret = uevent_net_broadcast_tagged(ue_sk->sk, env,
-+							     action_string,
-+							     devpath);
- 	}
- #endif
- 
-@@ -743,6 +749,7 @@ static int uevent_net_broadcast(struct sock *usk, struct sk_buff *skb,
- static int uevent_net_rcv_skb(struct sk_buff *skb, struct nlmsghdr *nlh,
- 			      struct netlink_ext_ack *extack)
- {
-+	struct uevent_sock *ue_sk;
- 	struct net *net;
- 	int ret;
- 
-@@ -760,7 +767,12 @@ static int uevent_net_rcv_skb(struct sk_buff *skb, struct nlmsghdr *nlh,
- 		return -EPERM;
- 	}
- 
--	ret = uevent_net_broadcast(net->uevent_sock->sk, skb, extack);
-+	guard(mutex)(&uevent_sock_mutex);
-+	ue_sk = net->uevent_sock;
-+	if (ue_sk)
-+		ret = uevent_net_broadcast(ue_sk->sk, skb, extack);
-+	else
-+		ret = -ENODEV;
- 
- 	return ret;
- }
-@@ -794,9 +806,8 @@ static int uevent_net_init(struct net *net)
- 
- 	/* Restrict uevents to initial user namespace. */
- 	if (sock_net(ue_sk->sk)->user_ns == &init_user_ns) {
--		mutex_lock(&uevent_sock_mutex);
-+		guard(mutex)(&uevent_sock_mutex);
- 		list_add_tail(&ue_sk->list, &uevent_sock_list);
--		mutex_unlock(&uevent_sock_mutex);
- 	}
- 
- 	return 0;
-@@ -804,12 +815,13 @@ static int uevent_net_init(struct net *net)
- 
- static void uevent_net_exit(struct net *net)
- {
--	struct uevent_sock *ue_sk = net->uevent_sock;
-+	struct uevent_sock *ue_sk;
- 
--	if (sock_net(ue_sk->sk)->user_ns == &init_user_ns) {
--		mutex_lock(&uevent_sock_mutex);
--		list_del(&ue_sk->list);
--		mutex_unlock(&uevent_sock_mutex);
-+	scoped_guard(mutex, &uevent_sock_mutex) {
-+		ue_sk = net->uevent_sock;
-+		net->uevent_sock = NULL;
-+		if (sock_net(ue_sk->sk)->user_ns == &init_user_ns)
-+			list_del(&ue_sk->list);
- 	}
- 
- 	netlink_kernel_release(ue_sk->sk);
--- 
-2.56.0
+Thanks!
+
+>  err_reg:
+>         destroy_workqueue(mvdev->wq);
+>  err_alloc:
+> --
+> 2.54.0
+>
+>
 
