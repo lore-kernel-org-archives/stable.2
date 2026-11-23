@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.214
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.235
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795451597;
-	b=J6he/xzTYrTashb0GkgrRV3JtVISznAJrM7kSW1iwYJB+FR/AvtfYFSmaCbRNawF4vfU
-	 H81txPN/Aqbrld7BtiQtJbog6tp0RBrKzfr731d8dlDZwRe11Fh9AKowhW5j5dMC1UqJ8
-	 vLXjx64exHUsMdZBH5yUL5ljjIdXTFOcOhpZiMgbavotO+EYlgaNk8n5GqxUXtho/Smn2
-	 b/VIZ0fN5edqs/Rz6gsm/zgqBkcCpb5Gp6z3t50F6vRaTiaUkfNzHCGbvxk+/njNNJfoh
-	 mfStbI06wEnggL0iilrNBh1Ggj/AHxIoPdzYjN68s5BRMIhWRSrcdre7HH+FfpnCaVA==
+	t=1795451606;
+	b=LSCAq0DyogL9nd9nUG50xGWfXtkgQlrwwZ3k0ffP1wqucdwcCx5h1TwM4+R3Sa6BwYr6
+	 FDQ/u2movLj7wI+kguhmf74LmN/W2L+J6j7/BeJrFaZfO2BvGjazGhf44OHJnBAUl6K3A
+	 oRwxjbbgfP+4VO6IkMzrpZA9BXIXtyYYRXR6aRyCk0gPJVFmlVCjKeaEoPgfJNCEDNhlq
+	 EiD5bu8r8zM4QO0POlIfE5mN5suONoiEXPtmLgcVls6+pX/1BcliCeCgIZnEkzYIwtFRD
+	 oMbjBbLGBjg795SaoeiDag7ItlUgjxRrHUhFFayxj1rBDYBc5lOYWMcjmkBxMuyYihg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795451597;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795451606;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=DhQbaSa0CfJ0wCyRhCBz64gdWankS2u2hv2CXXOomHI=;
-	b=M7Y0JqlERfoACtPoQG570KVmHwASVbucoLxvTcXMQPtrdm3YFrsmb9aA+eahH4MFkC3c
-	 IckP+ePEXk8o7+HsTIgVmRoe4LFIr2x8yrx/VRtDRsFWbEmIATnI2NLv3kTu7CJM8lIkV
-	 /+9n11ko+5FREdZfeAaQEr67KphR7Wtbyyx6ZyO7IY8+IPCNFGOx9VcDrdFWs8qct9pdY
-	 fVYkG2OCkYT0Glp3B2IsNy8LPFAnH8+AB3Zu6KJvFvaMwYeYc9tgZ0PX+XzQTrrNxaEUS
-	 nFfaQwvjIl41H1Lx50OQrzUKh1WVQ2i3lB14mpBvB4jlA/L5cCTQHz7zahZvb5eeV9A==
+	bh=F9eDeeGHvneVcVHv8eGQt7NvP+yVebJ4M1jCjgOsIRo=;
+	b=eBVl0QwBZ9y2I/rbHQhhaDi1zwnGHzs1IX/39kBS+ZAZzkWgR7W/LChwfFz5bKSEbQJc
+	 alJWBL5BhbscBqpx6Ncp8E6135KABnFNmQapG6Rf6ECfkiZAsCnvPWwLjxHr3HnN0nxzb
+	 qC/+hL9Dqarlfc9UAmvjuNjiNaklAH7Dy0k/BTIFJseTQqdixlNbbygTcB5F0wJRivN6j
+	 vWfWNrATTii75Fy0JbQ5cofNKhKOrxXXBZwW3rlc2In3xOLNNxvw1CBikspL86pZMLszy
+	 klAtOB7/3jRnhf4SovXl4sCAE1tPpV22tYsnQOTtraD716FbsADIrwAVAB9QOqeXg8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gH1aRZct;
-	arc=none smtp.remote-ip=91.218.175.214
-Received: from mta0.migadu.com (out-214.mta0.migadu.com [91.218.175.214])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MHRRfQJ5;
+	arc=none smtp.remote-ip=91.218.175.235
+Received: from mta0.migadu.com (out-235.mta0.migadu.com [91.218.175.235])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED935606A327
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:33:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED935606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 364A8606A337
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:33:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 364A8606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gH1aRZct
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MHRRfQJ5
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=st7VKYLVy6A9Ld9OVqz5qlImi+UrV4Mo/my8tn0Ta8c=;
+DKIM-Signature: a=rsa-sha256; bh=FR+hMBYFdGTc92+lBnUmV6i3ZQeVFjYBAQzvw8UUU0k=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795451594; v=1; x=1796056394;
- b=gH1aRZcthwWczpHGDLSIGLIEZ46YNc5kHsOggWrOPKYqDwNY8zkGF1CF1LTKLhPzHxFFlfj9
- pI/fHM/b+Xvck/0HtodsKm2FudE3TTDqOnJoPb3zIrIJLdcrJup+W/QqWssjpY8CLvWrep4dr9i
- 4MkF2vSkSqbaLXqiOmVBA/vE=
+ t=1795451604; v=1; x=1796056404;
+ b=MHRRfQJ5DL0JlWl4tSD2UU5w3myXa04MuxoHRu4N892v1qNS9VlWoVYfjvlqF3B5Fbbivrn1
+ 41CYtj7vf8uih9IbM1aWPr0ZYCLG2UHK3Wh3X8i3T+3mpb4hHGypsUVBqAGgztUUdcw1/Yej5u3
+ 93aPJZ7FSeipr5x8t2ySBrxA=
 X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 8a75eed899b12e5e;
-	Mon, 23 Nov 2026 16:33:14 +0000
-X-Mizu-Trace-ID: 8a75eed899b12e5e
+Received: by mta10.migadu.com with ESMTPS id 90a87193e6a8bd2f;
+	Mon, 23 Nov 2026 16:33:24 +0000
+X-Mizu-Trace-ID: 90a87193e6a8bd2f
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -81,9 +81,9 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 	lance.yang@linux.dev
 Cc: Usama Arif <usama.arif@linux.dev>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 2/5] mm: don't PTE-batch a swap-in of a folio with a hardware-poisoned page
-Date: Mon, 23 Nov 2026 08:32:08 -0800
-Message-ID: <20261123163301.1568240-3-usama.arif@linux.dev>
+Subject: [PATCH v3 4/5] fs/proc/task_mmu: don't read young/dirty from a non-present PMD in smaps
+Date: Mon, 23 Nov 2026 08:32:10 -0800
+Message-ID: <20261123163301.1568240-5-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.1
 In-Reply-To: <20261123163301.1568240-1-usama.arif@linux.dev>
 References: <20261123163301.1568240-1-usama.arif@linux.dev>
@@ -98,47 +98,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-do_swap_page() checks PageHWPoison() on the faulting page, but the
-large-folio batching path then maps the rest of the folio without
-looking at its other pages. A poisoned page that is not the one being
-faulted gets mapped anyway, and the fault that would have reported it
-never happens.
+smaps_pmd_entry() passes pmd_young() and pmd_dirty() to smaps_account()
+for every PMD, including softleaf entries (migration and device-private),
+where those bits encode the entry rather than accessed/dirty state.
+smaps_pte_entry() only reads them when the entry is present.
 
-Skip batching for such an anon folio and let each page take its own
-fault, where the existing check catches it. do_set_pmd() already backs
-off the same way.
+On x86_64 the entry's offset is stored inverted across bits 9-58, which
+overlap _PAGE_SAVED_DIRTY, so pmd_dirty() returns garbage: a clean 2MB
+device-private mapping is accounted as 2048 kB dirty, and lazyfree
+accounting is suppressed. pgtable_64.h also warns that the hardware can
+set the accessed and dirty bits on non-present entries by mistake.
 
-Leave a freshly read folio alone: it is not anon yet and can only be
-mapped as a whole, and falling back would free it with the poisoned
-page still in it, which the retried fault can then get back from the
-page allocator.
+Only read the bits when the PMD is present.
 
-Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+Fixes: c94b6923fa0a ("/proc/PID/smaps: Add PMD migration entry parsing")
 Cc: stable@vger.kernel.org
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- mm/memory.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ fs/proc/task_mmu.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 282266dd5e5dfa..d7b200e00bce17 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5194,6 +5194,11 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
- 		pte_t *folio_ptep;
- 		pte_t folio_pte;
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 105c4998eef48f..34aaf80cd46cc2 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -1020,7 +1020,7 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 	struct vm_area_struct *vma = walk->vma;
+ 	bool locked = !!(vma->vm_flags & VM_LOCKED);
+ 	struct page *page = NULL;
+-	bool present = false;
++	bool present = false, young = false, dirty = false;
+ 	struct folio *folio;
+ 	pmd_t pmdval = pmdp_get(pmd);
  
-+		/* A poisoned page in the folio must take its own fault. */
-+		if (folio_test_anon(folio) &&
-+		    folio_contain_hwpoisoned_page(folio))
-+			goto check_folio;
-+
- 		folio_pte_range(folio, vma, address, idx, &folio_start,
- 				&folio_end);
- 		if (unlikely((folio_end - folio_start) >> PAGE_SHIFT != nr))
+@@ -1028,6 +1028,8 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 		return;
+ 	if (pmd_present(pmdval)) {
+ 		page = vm_normal_page_pmd(vma, addr, pmdval);
++		young = pmd_young(pmdval);
++		dirty = pmd_dirty(pmdval);
+ 		present = true;
+ 	} else if (unlikely(thp_migration_supported())) {
+ 		const softleaf_t entry = softleaf_from_pmd(pmdval);
+@@ -1047,8 +1049,7 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 	else
+ 		mss->file_thp += HPAGE_PMD_SIZE;
+ 
+-	smaps_account(mss, page, true, pmd_young(pmdval), pmd_dirty(pmdval),
+-		      locked, present);
++	smaps_account(mss, page, true, young, dirty, locked, present);
+ }
+ #else
+ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
 -- 
 2.53.1-Meta
 
