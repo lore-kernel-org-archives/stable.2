@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795449142;
-	b=zIgFj8xXTGBPamPmjC7a9Sbw+YNE26k49PbKAI+zOWG6s1gWQZZtmzIx+GlNv6oUlm1O
-	 J1cNn08GeyaiURwPoiqc9sazLOLWzIOns5TjtwnCBfgqujgq588KF1bIpZkodRt7d/7Ho
-	 tlI8J8d7LCJF5hurP7tZyvu7mhYugUKlnY/Sh3X33kKPt0sj7n8HsmodD3zfPKvLT/6YV
-	 3Oo3nZif2tSKl1BoFktzBS2HgAESKj18LavMTNW8F3mlaxseeXA6m6W8NuFfwJLmMbo+b
-	 cKFYo3BI6vTl4mspOzdINMUVVjBvnn+ZcM8uetHPL8ZC/2DoLlW9TMqGCYa4wfxb0Zg==
+	t=1795449149;
+	b=RUvE+tiPHEs4aRmqFMYyrpPG7mBQnWXj19IpkrTrthAgUAa+2x66VM0T9GpvCApjH5dM
+	 swh9EabUmSkyw8arvqqZBYYIGD67/o0ixp9RCNSSjwx8fXYbqm2Eurx2diZN/6fU/NmRh
+	 eVJDSeZlJ3wTM9RpxinJmuTP/l1CvjzWHVlLLcnEOvb9Pepk9YNdgwQD+/dVIgjacXFau
+	 rJO6o+KXypXpaDQUQ9SQ6DoVU76kGLpCKtCCJKefdGz8wTP61mIsbJAxDa7OIbF6DScCl
+	 H/ScVxrxQrKczPbFOJr+Tbcy74Nz74ocTq69aBpNcqsSKcm6xaoxRE0fDJ5hNHwOvEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795449142;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795449149;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=IpSm7gOHg0rNx/0QtKvP1UgAt2DgutkaebtGQXjDEnI=;
-	b=yIMnF0LdK0xSpZEP4/Ba4I5seJpEJD//GmODthVVbRJ+BOyXeGPOXqoYwPi0bRWA4ofy
-	 2Mx57YAwLVgeaaSrSDW3DakJIxpDFOlHwxl3xuRW2G8OjIaiGUnGcyM6C7/PZpktz7F3P
-	 xY6PoB9lBJwQY+fRyTSYIsjURS3108DDpYTFBMy53Jfy4DAHzFhsYvSvdMQiHz1ui1lHF
-	 payhlhRrjjRdCeF1Bnl3Bgiz2mWVDE65WC4ugD/2R9avYUCjRrYWPOukQ9dff2ng13Iwe
-	 Swi07WVKxSiksZIhAa5n+yz9HKxrxUSWRqYvWozpn2QfpDyZyNrAQj4eCn3kQMWzDdg==
+	bh=T1eKsQdeP1W/szEmEQnzcI4fvm00qDmXu7Ua9kiN2Po=;
+	b=npz+99YuaJzhudk+Ytap6F67NFF7NNsCF/rh83JF5hEr3VWVZoouUUI3yerA6eMvp1nK
+	 F4KQwAEb2kxYJhnvCyNfFMtoeuFC3DdtHDX/eKWvoUx+d6a0UUWnPsftBkRUCBqpjngY4
+	 6wSRiRNEf4H9z3i3U/FIwLeAl/uaucnlTw5VzTDCnS6Bdn1FiXQCmVVnUGHU3gZS3FYY1
+	 iy7NbPLh5Oaw+hW35yk9Y0m7BIhch2iTXOUO+ouvdzplbSHek3Mw2m/ThvWpZ8+k5Ba3K
+	 QzF9mppFZVdSbvBP3lgO4IsD8KsbEGAhUSJ+rLHKGfy+BP/nFuyLFr6WcAiyrtTSW9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MjSARLuD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c4VnL3nZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35A9606A335;
-	Mon, 23 Nov 2026 15:52:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4E0606A33F;
+	Mon, 23 Nov 2026 15:52:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MjSARLuD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 631EC1F000E0;
-	Mon, 23 Nov 2026 15:52:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c4VnL3nZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08911F000D1;
+	Mon, 23 Nov 2026 15:52:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795449141;
-	bh=IpSm7gOHg0rNx/0QtKvP1UgAt2DgutkaebtGQXjDEnI=;
+	s=k20260515; t=1795449149;
+	bh=T1eKsQdeP1W/szEmEQnzcI4fvm00qDmXu7Ua9kiN2Po=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MjSARLuDpOWnssQ7Q4QsoT0v/JfKvzLept0SQMDEeUesN51NPfwcE4XdLWvVfLMQ/
-	 V9nXN1xk2i5HoJJqV5ou7jnYIfCgbEJ4znoTYjdb0JMDuAR3iq+F+75RB3fMDpafUW
-	 zjQ2zx5aX/C5i+uC2L4UICJgDhZWBGqfYQ/EjA2uy+6+sVWCY7e/UjXQ8d9azKlFCO
-	 jcQiYXW6AxTkSI3NRyU+AcYIQzB3OJrSP0pNRt6SoxRgA3henQ6btdl4JglFDXvRMI
-	 8lCeCv0vZ+uCP8Wgt0kGi1gokWqAvg6RZJzTOeLDpVt6hPG5PKlBCbDj+tM2p1yqUI
-	 h0Li7KbiIZGgA==
+	b=c4VnL3nZwcgtGvdfTgYTFfjks6zqU3FAAeAPV8cpQJHC4DfIbEH98PbMItYdLuIB1
+	 I07mA4gpa4s70zl0WEaTwu/lciNC+GTv2MsEk5wJoX0iLabisUaCuZRM71VAq3JCA3
+	 HCMnhWyvA6z2Jqi8+WvMmlZp+arSpkWeQtB71eP9OEy6wZIVNwWpXooZX6hgJ/PZ9K
+	 gmziNb4p2oQGrNqeaafpKbfYtIsfCijQfgwed0uqX8WRW4mW2V0f01Gk1BaC7MFlIC
+	 Xn0HZqAB3OR33et7+wxW1PzjMcqV+bS2t5W6Qke60M/BqQC1X3iLDw68uQnFO6wneZ
+	 63A6Lccq5KLlA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Stefan Achatz <erazor_de@users.sourceforge.net>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
 	Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	linux-hyperv@vger.kernel.org,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 05/10] HID: roccat: pyra: Resolve USB device from parent in actual_profile
-Date: Mon, 23 Nov 2026 15:50:49 +0000
-Message-ID: <20261123155138.2907049-6-lee@kernel.org>
+Subject: [PATCH 06/10] HID: hyperv: Validate VMBus packet and payload bounds on receive
+Date: Mon, 23 Nov 2026 15:50:50 +0000
+Message-ID: <20261123155138.2907049-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
 In-Reply-To: <20261123155138.2907049-1-lee@kernel.org>
 References: <20261123155138.2907049-1-lee@kernel.org>
@@ -66,46 +71,65 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-pyra_sysfs_show_actual_profile() is a sysfs attribute callback on the
-roccat pyra class device, whose parent is the HID device and
-grandparent is the USB interface.  While it resolves pyra via
-dev->parent->parent, it passes dev directly to to_usb_interface(),
-casting the HID device to a USB device and passing the corrupted
-pointer into roccat_common2_receive() and usb_control_msg().
+mousevsc_on_receive() dereferences pipe_msg and hid_msg_hdr without
+verifying hv_pkt_datalen(packet), passes the untrusted pipe_msg->size
+to mousevsc_on_receive_device_info() without checking that the VMBus
+packet actually contains pipe_msg->size bytes, and copies up to
+sizeof(input_dev->input_buf) (16 KiB) from input_report->buffer in
+SYNTH_HID_INPUT_REPORT without checking input_report->header.size
+against the received packet buffer.
 
-Walk up to dev->parent->parent first, matching
-pyra_sysfs_show_firmware_version().
+Validate that hv_pkt_datalen(packet) covers the pipe and SynthHID
+headers, that pipe_msg->size fits within the received VMBus packet, and
+that input_report->header.size fits within pipe_msg->size.
 
-Fixes: be34380ef818 ("HID: roccat: cleanup of pyra module")
-Closes: https://sashiko.dev/#/bug/linux-070d5d7b-29ab-4451-90bf-175ada0a81e9
+Fixes: b95f5bcb811e ("HID: Move the hid-hyperv driver out of staging")
+Fixes: 934b7778aa7b ("HID: hyperv: validate initial device info bounds")
+Closes: https://sashiko.dev/#/bug/linux-03d64dd2-820e-44e2-ba9e-b4a70f1e55ec
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/hid/hid-roccat-pyra.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/hid/hid-hyperv.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/hid/hid-roccat-pyra.c b/drivers/hid/hid-roccat-pyra.c
-index 44c2b416f2db..b3dde2998850 100644
---- a/drivers/hid/hid-roccat-pyra.c
-+++ b/drivers/hid/hid-roccat-pyra.c
-@@ -290,11 +290,14 @@ static DEVICE_ATTR(actual_cpi, 0440, pyra_sysfs_show_actual_cpi, NULL);
- static ssize_t pyra_sysfs_show_actual_profile(struct device *dev,
- 		struct device_attribute *attr, char *buf)
- {
--	struct pyra_device *pyra =
--			hid_get_drvdata(dev_get_drvdata(dev->parent->parent));
--	struct usb_device *usb_dev = interface_to_usbdev(to_usb_interface(dev));
-+	struct pyra_device *pyra;
-+	struct usb_device *usb_dev;
- 	struct pyra_settings settings;
+diff --git a/drivers/hid/hid-hyperv.c b/drivers/hid/hid-hyperv.c
+index cfc061dbdd24..1de03e38f363 100644
+--- a/drivers/hid/hid-hyperv.c
++++ b/drivers/hid/hid-hyperv.c
+@@ -272,14 +272,22 @@ static void mousevsc_on_receive(struct hv_device *device,
+ 	struct synthhid_msg_hdr *hid_msg_hdr;
+ 	struct mousevsc_dev *input_dev = hv_get_drvdata(device);
+ 	struct synthhid_input_report *input_report;
++	u32 pkt_len = hv_pkt_datalen(packet);
+ 	size_t len;
  
-+	dev = dev->parent->parent;
-+	pyra = hid_get_drvdata(dev_get_drvdata(dev));
-+	usb_dev = interface_to_usbdev(to_usb_interface(dev));
++	if (pkt_len < sizeof(struct pipe_prt_msg) + sizeof(struct synthhid_msg_hdr))
++		return;
 +
- 	mutex_lock(&pyra->pyra_lock);
- 	roccat_common2_receive(usb_dev, PYRA_COMMAND_SETTINGS,
- 			&settings, PYRA_SIZE_SETTINGS);
+ 	pipe_msg = (struct pipe_prt_msg *)((unsigned long)packet +
+ 						(packet->offset8 << 3));
+ 
+ 	if (pipe_msg->type != PIPE_MESSAGE_DATA)
+ 		return;
+ 
++	if (pipe_msg->size < sizeof(struct synthhid_msg_hdr) ||
++	    pipe_msg->size > pkt_len - sizeof(struct pipe_prt_msg))
++		return;
++
+ 	hid_msg_hdr = (struct synthhid_msg_hdr *)pipe_msg->data;
+ 
+ 	switch (hid_msg_hdr->type) {
+@@ -317,6 +325,10 @@ static void mousevsc_on_receive(struct hv_device *device,
+ 		if (!input_dev->init_complete)
+ 			break;
+ 
++		if (input_report->header.size >
++		    pipe_msg->size - sizeof(*input_report))
++			break;
++
+ 		len = min(input_report->header.size,
+ 			  (u32)sizeof(input_dev->input_buf));
+ 		memcpy(input_dev->input_buf, input_report->buffer, len);
 -- 
 2.56.1.750.gf70dc682cf-goog
 
