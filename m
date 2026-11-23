@@ -1,83 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795463994;
-	b=AHyORLUos4UnAG0hVObUK2tAjbJgRYb89alz4hPbkKHuEOUH+7/tDevPGlMfxAGtsP7S
-	 y8jHa6MYNjCeDPw7dbADvJXw7Riq3JFjVMJ1DvNOrJwZIxHWZ4+VGqOiVYMYgI+IvfCRo
-	 XipHaSSgGASzvzBGdYaoWwmif95+pCkSv/IpUTfNJZ7IFxqmZItf/X+VhVnqMD2adVj7b
-	 XBwDQ94tZd7Ytr+M0z3SCBGdtY5jr8lZFDVMP9vkL00dHAU3jnlo0OVN11X0HOTSmWwPW
-	 44LzTahGb7KpkV3AVRW5GJ6VoCm+PsHNqhNx2m2ovQGwIcrbAhzMoNJev/My/unU2Xg==
+	t=1795464032;
+	b=CDZ01aXGQHegEMwG1edwi9lkoEdE66Mv9irIkIBIuBarFh5ZeEdCww79HhJhzyckUJVb
+	 P2QnjLnz/C6LOLYMne7S4CC4ukpE5tremyrJ+861LTXsX5XsfkWqi29DbS3QwpqXq0psD
+	 G4J16dnrLcCLTq6xWOg3F/1N8r7oTKV0jgrZdCttebqvFZtu22GsEE7fv1erheOhqwKAI
+	 x/ldC3QuSGRbcu+xO9Nn6wpuJMBl8sJLZDqwc6H0NtgyihgOHbYj62in5UkcGGp8A/xKW
+	 WUVXX/j39XMQ6ExOVhpR7OkXyRbOnhd3U/9ZQOm9ryH78c3JtttHqH2YEJemGejV0sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795463994;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=VnWSxFaUVuxiW84dDR6jvECz1EePG70MQgT5lhO/mEg=;
-	b=vTYydvvfecr4RmwD3zfAXhKz65pM/oVdnKvqbRUtT2Ql9c7h3ytqfRI58d3Lea9MhM0u
-	 kdrr9vAB4PuTzRI40HXRIRNaS/dLInWhO2gGjYiN0NMF+gI1vrL9+v7FUjZ/YckBi9YIy
-	 hwoMG4OTmqIsYzTGG2YKOpp2xZCn4kiVP9REMvqZJdy614r9Ke3YJc6Iby8wTqDNK1EJX
-	 uavROXqu3vYcuT+gt9ORmtjCByLpQ6ZPAXg/X+8N2qF9nu0bkhSFjR1YmLnSDu5cRopqD
-	 SaGA31oZ5eNN6W8C3yrIfpeZp/Jxheoitna8mprWiNlGcmGvCCpoBtKRebjcFEFZZ0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795464032;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wJmHuysGlrzUFkpREAfhZMaFYaFsHG8yDDRDlHUspmA=;
+	b=afXf8Ca2dxWU+jpoMUQPevMUoPAK58x8QeHYsMWupX1U/hHcT100852/tuSXwKkGLuhR
+	 bEdXhF0BeX3zhDdNqPB5rSJm0QaFi5dMsqd4QDoEC5gU1kv4K4yEwL6amjFFoXv+xwYgz
+	 OBWftL/V0vaNvmbJd1W1HH93GeVFtE5mhhopuf3eGiWjSADIGwdwa7Xi6EdjqlAOpM7hn
+	 pphOO+vq4KxGBuwNultcCywOJjddPXz1EQSERZa6V7kPTRBMhinhDqAZxRMcmtjXLVti4
+	 J73Lx0kznc8xlhyX/3URgJifUDrL/GggiXXlk3KfxwxU1vqTbn+8tdYDOc1igvvNI+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EW+rqPdU;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BKkr1tiw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C3D606A31F;
-	Mon, 23 Nov 2026 19:59:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72C3D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A07606A332;
+	Mon, 23 Nov 2026 20:00:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EW+rqPdU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795463994; x=1826999994;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bOZSvA0T9zHXhtArb6Sh+ZDBy6QosyZtjxvqLirZQpw=;
-  b=EW+rqPdUTu5P9tf7RLn39Bol5d+Q724jyH+uuhXqFggBYTTaTcqymQo2
-   nVeHrADTAREeljnYAl75cDc6tbkYXmfdCTz4XIms6TuDC7vqgKatJSUaZ
-   VJqyVwvfel7bF0UxY0GaSjhgI/fhLpbmoIC+TD4Pqt52nWGCBT/+ShPAO
-   846ccd974bcEIf73b4lboTrxylmGoRQzBx+1JO9HEBmiLsjPPipswWZbB
-   K56jBw396IWQWeiPxUdb84E4OWtMHU1oAiZIAg5N9AJOBkzOgSAlbxeDt
-   2nRsFIlXBFbBcBKrPHhknj9BfS2PC0529VGQx2BB6EWfFFlbygxIjnJrt
-   g==;
-X-CSE-ConnectionGUID: FYI3+OIeQmSE43YIqwWrkg==
-X-CSE-MsgGUID: ZUG6T+70SRixgHC1L7+u2g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4183866"
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="4183866"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 11:59:54 -0800
-X-CSE-ConnectionGUID: 9/x+MlM5S8Gl34imdVIdTg==
-X-CSE-MsgGUID: X9FxcLxVTxm0+8ihuWDNNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="11341718"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 11:59:51 -0800
-Date: Mon, 23 Nov 2026 21:59:48 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Gary Wang <is0124@gmail.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Thomas Richard <thomas.richard@bootlin.com>,
-	Daniele Cleri <danielecleri@aaeon.eu>,
-	JunYingLai <junyinglai@aaeon.com.tw>,
-	Louis Chen <louischen@aaeon.com.tw>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, BillyChou <BillyChou@aaeon.com.tw>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 0/5] upboard pinctrl support for device id INTC1055 &
- INTC1057 & INTC105E
-Message-ID: <awSbNCIxmA3baoRY@ashevche-desk.local>
-References: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-0-f2322a91686d@gmail.com>
- <awSa447uHSd9IAXt@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BKkr1tiw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932811F000C4;
+	Mon, 23 Nov 2026 20:00:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795464031;
+	bh=wJmHuysGlrzUFkpREAfhZMaFYaFsHG8yDDRDlHUspmA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BKkr1tiw2ceUf6Ky8hMnKRSKYuCRupbDO2zhLMCHl9MvroL5Xs1SLGYpYVIL5O5LX
+	 V+ZWMXfhXfvzI03cPCilmR+zweACy3zNnHkQKwoJgY20p+FtSQntCemRTHVfeHzsmi
+	 Gy939rqUaTKMDnhmxzq8t17cvFYfV6PhVxjfdRyQbA/qQ1kninTGSH/MAEfn0jJChO
+	 WQ5m0/2//02Zy2L9Awgc+8/Vuf5cinNe5AVxMeOT1xYBcnYNXInNgX1TeDlmLI7Xgt
+	 oL7cG1okt01VXYqHQ+w8rUa0Exe1yaDMxtbx6VSFoOWo+GizVGvPfAUoepwQqekkdf
+	 NK0159O9bw15w==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Wolfgang Grandegger <wg@grandegger.com>,
+	lm-sensors@lm-sensors.org,
+	Sergei Poselenov <sposelenov@emcraft.com>,
+	Dmitry Rakhchev <rda@emcraft.com>,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 01/10] rtc: rx8025: pass parent I2C device in clock_adjust_ppb sysfs callbacks
+Date: Mon, 23 Nov 2026 19:59:12 +0000
+Message-ID: <20261123200012.502284-2-lee@kernel.org>
+X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
+In-Reply-To: <20261123200012.502284-1-lee@kernel.org>
+References: <20261123200012.502284-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,36 +65,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awSa447uHSd9IAXt@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 23, 2026 at 09:58:32PM +0200, Andy Shevchenko wrote:
-> On Mon, Nov 23, 2026 at 11:16:13PM +0800, Gary Wang wrote:
-> > Add missing groups and functions in Tigerlake & Alderlake & Meteorlake
-> > for INTC1055 & INTC1057 & INTC105E.
-> > Add support "UP Xtreme ARL","UP Xtreme i14","UP Squared Pro 7000",
-> > "UP Squared i12","UP 7000".
-> > Fix pinmux-select set CPLD GPIO OUT not function mode for I2C pins
-> > on the AANT0F04.
-> 
-> Can we actually see some activity to eventually implement a missing part to
-> support PinGroup() and PinFunction() ACPI resources? With that being done
-> this information should be provided by BIOS.
-> 
-> > The pinctrl-upboard is provide additional driving power & pin mux function
-> > through native SOC pins->FPGA/CPLD->hat pins for flexable board level
-> > applications. it's probe from ACPI device id AANT0F01 & AANT0F04.
-> 
-> It's cross-driver series, is there any compile-time dependencies?
-> Or how do you consider them to go?
+Since rx8025_attr_group was converted to rtc_add_group(), the device
+pointer passed to rx8025_sysfs_show_clock_adjust() and
+rx8025_sysfs_store_clock_adjust() is the RTC class device (&rtc->dev)
+rather than the parent I2C client device.  Passing dev directly to
+rx8025_read_offset() and rx8025_set_offset() invokes to_i2c_client() on
+the RTC class device, causing type confusion and an invalid pointer
+dereference during SMBus register access.
 
-Ah, seems AI generated, no SoB, this unacceptable contribution, sorry.
+Pass dev->parent to rx8025_read_offset() and rx8025_set_offset() so
+they operate on the underlying I2C client device.
 
+Fixes: 3d35840dfb75 ("rtc: rx8025: use rtc_add_group")
+Closes: https://sashiko.dev/#/bug/linux-39839b9a-7a00-4bdc-8d5a-b28de75dda80
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/rtc/rtc-rx8025.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/rtc/rtc-rx8025.c b/drivers/rtc/rtc-rx8025.c
+index 1ccec7b5ae42..ab3a30982863 100644
+--- a/drivers/rtc/rtc-rx8025.c
++++ b/drivers/rtc/rtc-rx8025.c
+@@ -482,7 +482,7 @@ static ssize_t rx8025_sysfs_show_clock_adjust(struct device *dev,
+ 	int err;
+ 
+ 	dev_warn_once(dev, "clock_adjust_ppb is deprecated, use offset\n");
+-	err = rx8025_read_offset(dev, &adj);
++	err = rx8025_read_offset(dev->parent, &adj);
+ 	if (err)
+ 		return err;
+ 
+@@ -500,7 +500,7 @@ static ssize_t rx8025_sysfs_store_clock_adjust(struct device *dev,
+ 	if (kstrtol(buf, 10, &adj) != 0)
+ 		return -EINVAL;
+ 
+-	err = rx8025_set_offset(dev, -adj);
++	err = rx8025_set_offset(dev->parent, -adj);
+ 
+ 	return err ? err : count;
+ }
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.1.750.gf70dc682cf-goog
 
