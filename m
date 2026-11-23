@@ -1,90 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795427113;
-	b=q5/22Eir1qH2d9ShOouKeYb4dRG2JaGM5d9iFWql0aZo1AI8SbFXa7H+VedpiUhdhkSW
-	 qrb92t821Jcuj1Aa0IXafmaGex4xhynP7S7pdMXVLTGQnzkFJMvfThILhma9ZH8P7HO/K
-	 3UtmvcctHS0o6SrCIMqKjA7XFCmrENUs7B/BWEWjJjPBzx9ITVC3QGC6lVm8UZaIfKZUk
-	 Fa+Hc/KtOKiM0tau59lzSqCqhf+0FnzIB7BmZcBMFuSuYeV4rJqEC6ep9KaN+mY9Ab3+D
-	 yxZ/wyzuEF6jWGOYCyLPZKFxOWdJ6C9g9bLTLcZ/k0exCaav8rK9788LwB0hqaRCE0g==
+	t=1795427282;
+	b=cCSiQzq5had5j/QZ6UJrxw+EEZdNm8WOuOqDC89RKRBA78G9YN5BGH2Xze0MX0mOWThW
+	 Fq5QC4cZoFFqhA08yimI6jX0KlKgzDYfy8rErVB5CRb8kb9jKgT1pROlK+o3wKJJAv8tv
+	 TqkiyRkISbMucWGorf22y87vPRmV9MZGw21j+iOZNSqzpaHtXzaias54voa+Xhc3J653g
+	 tq037W+9HqfstIU8tP3mOXDYh+x74kieFVEU7Dbb9wp20PAtkdwc2/Bib9BfECFTbKKQ6
+	 R8kBNOPS0o6/lMP4524PvhAUtIWTmtFyCPX3AGv5cJpq4hZMI7N4fD+XkSb7fVN4byQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795427113;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795427282;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=0zL8XviejO9xBr0TL41CqDnE+RdbwujCPFmxaJiXRTA=;
-	b=towPyfbtOED5K0YCMJ4BsaXMM9NNZIKovKs2mdSiipZorZGc7Qqty1xeZqk4h/e/bAi6
-	 i/OMZBQcPikzvz7ZYK6hzuozwvIFwXWgQiYX9kUXIne525BQ5TqAK947ZMqr0xGWz1DPz
-	 m+I+aqxxY7MqPnWovnDX9EbQ5KJOFRsJlONfkTwFODENubKQPeflxmdyQ1/STYy1asKQx
-	 ea8fnMfyFle2r/M3Sd+rGVICZG6SlqFyQF+lYLku1hf3Gu363JX3O1Psb5T7eRlJWSMM7
-	 opUw93c5sht+fiiZOp1dSVyDL8/Pgs7Jg98Jlpn1rcGTa4tqEXjPnmoIRKYZRYYwxgg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=xXoaW7puZQVXtPvVEP8J871ckV5Jm7nnXRP/lyhSBaM=;
+	b=RoIYHM+IA8op9nHK6+W8gX4GStWPXE2r9xJz3NlvG744KIwOUcO3/neHvBwRXjAQd1Sj
+	 UFpyAmC7JsX+NjngNKyaj6zQ9B/j0daurqKRs8KK9auUEs+8WvJflvz8wfQjpFpY3mPlk
+	 bG048WlbCurpjQDq3bnIXKY7k1VT9FnJygywG9ZH04MLWoZMTz1osBTliOq1Pfvgcavv/
+	 OlFwg0IB/4ecKkm1Z+4VlJ+lBaR8QJuNRZd7Nf51SZ4QAd+a9w5j6gGVB2Bk/4WUXt7sV
+	 /ZLM2Y5VKiknNHYDwuzNn63NPCEpyD7HIUJ+QdVLK/CGwrac4oCkbEFntg5eF7G/yOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZGTBjQC7;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	dmarc=pass header.from=pereq.eu;
+	spf=pass smtp.mailfrom=cryspen.com;
+	dkim=pass header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=cDRx5VKa;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71BE606A32D
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:45:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C71BE606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE29606A31A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:48:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABE29606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pereq.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cryspen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZGTBjQC7
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b40f4d4b5dso1207279a91.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 01:45:12 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=cDRx5VKa
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e47347279so1749211f8f.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 01:48:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795427112; x=1796031912; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0zL8XviejO9xBr0TL41CqDnE+RdbwujCPFmxaJiXRTA=;
-        b=ZGTBjQC75kQPE1nTLjGjXlcS1I9MSEKoOQoVWLPn2mnceok0//8h8bnL8YRTi7mT5k
-         lgzodzFX1u7rdTSOXYv+F4cbrlg9jSv21wD7Cdv+yrtCNDJsXF0RIDbKif3a4ukJcsfX
-         xKLAGxJd0z4L5MxjEZBWCb6pw3t32rLDe8bnZdFPISxb0hY+0oNVUAC9WVR3Jh15QMbG
-         Dm3JifndLkYNYUB2pK8gv4ivpVxDRlxrq8pICYROX1niPLV9FFRETy47noGHmMhQYZXW
-         sDXlLXq994GPenb2Mi1CyQrYfmuGLLNncpXZpS03MAzUo299wZ6581pokQNOaw2GAhSM
-         5mgg==
+        d=pereq.eu; s=google; t=1795427280; x=1796032080; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xXoaW7puZQVXtPvVEP8J871ckV5Jm7nnXRP/lyhSBaM=;
+        b=cDRx5VKaRZr23mtKysSknJ0mCuExdPqtt4rwbBGe1jtrHNJTBbvGqDtqXWwYn/QI/7
+         YLzKmxT3p/PZF+1ZnUnsvINT9+g5UbeFOwPwSdcGWrzvnGhQ8aoxvRcfFowrAuxv13q3
+         amPNZqECsB+GeIztDdxp3yI1NwxldImQsSNpoH8U89kqNlFQ73AJhR9E4nZhSDwTdpPf
+         d7MoGqfFogKmMpTKxyV1X6Skc7D0vTt9b7A0cDC1M+BMIlJma5/JLhdUQInfvPEUDdW7
+         lWAV9kIUtRLOdrW88c770R0cWkvI1VV8QeZBcRWW1TnM38o8pJxHKRvlSr02j9OTCP3A
+         5nYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795427112; x=1796031912;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0zL8XviejO9xBr0TL41CqDnE+RdbwujCPFmxaJiXRTA=;
-        b=ZDxE7vesvviTeCYgSbYN1r4cwMBtpINCxeH6/AtB9J7gZbKezk0KOdGrHoFyDQpyMO
-         CtxSDN3sDUsEL6RV2VoCR8uZKq8W4NU+cPY1KbE2t0GcPJK/BI3Z1jn7rOnVzOXyj2gf
-         UnW5DGOosjuJy/KKxVrQKiaumyYVcp05zWT4z1HzczuP2FKAj1JaSqq9FwUZ4nSfbxxC
-         QgK9OW+1Q/4hBasmJgrlAhy1r+pijFtgdyhu2QM7AqET5VPwfJhWyFjkQQdzDO0Y9+vx
-         XP1RJMu9EghHmCQaFxFemHUFI3ObCU6jGyKPBWDeq3Q1/RhbqL0fGegfLXOYcVeLGP0O
-         VETw==
-X-Gm-Message-State: APuU4Z9pHEQ7VzpoiyDyw2ma7/N3rLnXgOQkq5uJ3FQvFFfrZBHH29z6
-	SwcVm7epLb29HTh3OmbgosWgFAaAfUwF6VCCtumLqCaqzQQBnga6PZHZ7eDEDYmqb1k=
-X-Gm-Gg: AZFdTZfCeyXmsDyjEoIo8pkQnWkom/5xEcx4MMXX+Lj5elWImVmcxwdjze6+mrCGoBe
-	1wn5rVsI4eiCc9L8lSzez+BnINym6mvxNw+e/vSJACZ5pEWPtvkQxRpaHGDPiXX4E6pi0yPJDqq
-	aeMBMnEnngjbhGYODtLUcRP5bGV9cobnGydKRrt+lVwjY8NywtE5AaFPeZ2yZ15HLFIbLQ7XaFK
-	1NXsMXP/X90cu+/GMu2xjNtcA7cDAF4Q6q76UPwx5U1A2M6pyg+pAdfdfOeG6YvlZg5u/TQkp+F
-	dYIARYZnXYCOU/iD2AkzVariuFUFYKC91D+iNdRXkG/V1Eezb7Kq4uu8ZwXUYIaOG0Jkl72IHsf
-	LttypqymSCd1I7ydVrDZzM53B57oovfprYhhXqklv6TiwOTPvl0G6eGIqSlQO5E51Ci10ZPwQq7
-	zroCAHdIti57JFUcO5T9qkD4zD3E8sSskr/d25LRzkFVlnmD3XeCX+PVVDFo7kBqjouuKMoStxC
-	0sjk72pYCFaJqLiIwt001Kxkl8vXGFNNsgHdNT4C71yaqmqHYP0LJKgCdU/dwUD/BEC55k47J9+
-	nvY8uJeY3dL9oixU3e59RwMeai4oQQ==
-X-Received: by 2002:a17:90b:3e81:b0:3b0:a9de:9884 with SMTP id 98e67ed59e1d1-3b41c92a389mr8446106a91.40.1795427112081;
-        Mon, 23 Nov 2026 01:45:12 -0800 (PST)
-Received: from ubuntu2204.. ([2408:84e2:440:fab2:61fa:77dc:5412:3c2b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b48b41928esm6083192a91.9.2026.11.23.01.45.07
+        d=1e100.net; s=20260707; t=1795427280; x=1796032080;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=xXoaW7puZQVXtPvVEP8J871ckV5Jm7nnXRP/lyhSBaM=;
+        b=Q0lLMjhbAt/LRTU73mzV7HhSQH1OPqGHl7v8JFB9WFvfNiMk03pH5II3hePyG+Lju5
+         3VIqthgqqGC6wVBbIbjv7+Vzd12JSdzjM15z4dBZ41i7bbyZc/v6neROAW2L6VtEYcot
+         dmOF+HaXQXPWAcv7HONfFdsJ2DbfKS0YMQYLmL6shAiQaVhZUHHYrOOiJ4Q8Y4vNEQYi
+         BVtP/cudGTuf0MVcO95EaVhSpyXZYXsR5wtYV2VcWu59wtnd7HvzyZp+gPjyEs7h5esa
+         WNLh/Buy17Gep1yuEnTl4d/eZFXDHJmSHimzjLkGmnlCAd6VMhNud9DS5Sq1t4FNhVBL
+         3K5A==
+X-Forwarded-Encrypted: i=1; AL+hErGTTgwvSjzDSyjnYJMajtQZnLcl+pvf1vsdS6LJMNadIAfdF10QSLZYmZ5nfmAB19FBGC6v/lo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9i7KE5PWlac4gUAWx/DDVMpawhBCXBbHzI3eIC+lXLVFj8+ydC
+	Ty1vuCIRFCHWc6vDM3fGLcro3Y66uCvf/IgRL4+E09M/gETYdM+lk/ZxmdjFpVAw3hA=
+X-Gm-Gg: AZFdTZcgizkwXJb15tOAEz4oAEgH+uorl8y9kttxoCzRKbCKaHdadAxchOICPGPWA/W
+	8Ig9PrhBoWRllDbV9t6LS4IA/MtuvaWdbra1MQ9/RppOYjbLi3Jbas+uGfSfgfPkQt1cAi0Ffco
+	bK0C43E7YRS3klG4N/sl2IPXQS2hCUiorl5aJCgEE7wgjAPqrkOgVA1/kjF7FjlG7DlSlKjegkU
+	gXEh2IIqrLQ+o0vMCIkzCQQD2KboebCQWHTeHLkRU7NFXSROo2bCqt5KMWOFXuqiD/FJYkRrlAD
+	CTx55uXqEurPBecRwSF7Cns7Ga+ZLS116POxzoCE0cAkPmMXURPLXC+sO+Bvvx8ZEwV+VlXMTgy
+	2hTVIC5rLzU7aF1Jb9FiBHY8hlrRYrNzBHFVtCNAbmnHi1TshSvQnOWbQsxB38f0juVgHT8P3hq
+	OkKO3XxSpJdZZZi3MWAYlsUMB1OrlCXMfwFbDFhxCazmKUPlqb2AEiGwcW6D8qUiefMDLx82BDq
+	naH74M4ajjwnh5SpCrphIBbr2w6vl5rfvSzKZHTASmRS+lQGnuuj22ZWLPPGYOLURtFxBY0TZPE
+	RHSP9UidPWoC5zPRqvRp
+X-Received: by 2002:a05:6000:26c1:b0:4b3:b495:d5ad with SMTP id ffacd0b85a97d-4b3b495d6efmr3113266f8f.23.1795427279778;
+        Mon, 23 Nov 2026 01:47:59 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b110ba3sm17295126f8f.35.2026.11.23.01.47.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 01:45:11 -0800 (PST)
-From: Yi Xu <xuyi0562@gmail.com>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	bvanassche@acm.org,
-	hulianqin@vivo.com
-Subject: [PATCH] [ Upstream commit 085bb18a0b91007f04ddca13af30277c78040157 ]
-Date: Mon, 23 Nov 2026 17:45:02 +0800
-Message-Id: <20261123094502.44729-1-xuyi0562@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Mon, 23 Nov 2026 01:47:59 -0800 (PST)
+From: Dan Carpenter <dan@pereq.eu>
+Date: Mon, 23 Nov 2026 12:47:42 +0300
+Subject: [PATCH] KVM: arm64: nv: Reset MMIO state when committing a nested
+ exception
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,120 +91,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261123-stale_mmio-v1-1-73f9c67a1bb0@pereq.eu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/02MTQqDMBBGryKzbsAkNEKvUkqZxKmO1FgyKoJ4d
+ 5N20+X7ft4OQolJ4FbtkGhl4Slm0JcKQo+xI8VtZjC1cVqbWsmMb3qOI08KrUXXNNZ6d4V8+CR
+ 68faV3R8/lsUPFOZiKAuPQsonjKEv0Z+rNHAcJ++xAeuQAAAA
+X-Change-ID: 20261120-stale_mmio-a33a67733b65
+To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
+ Steffen Eiden <seiden@linux.ibm.com>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Zenghui Yu <yuzenghui@huawei.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>
+Cc: Karthik Bhargavan <karthik@pereq.eu>, 
+ =?utf-8?q?Cl=C3=A9ment_Blaudeau?= <clement@cryspen.com>, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org, 
+ Dan Carpenter <dan@pereq.eu>
+X-Mailer: b4 0.16.0
 
-scsi: sd: Mark the queue dying if runtime resume fails in sd_remove()
+KVM has two ways to commit a pending exception, commit_pending_events()
+which also resets the MMIO emulation state, and a direct call to
+__kvm_adjust_pc() which doesn't.  The EL1 to EL2 path in
+kvm_inject_nested() uses __kvm_adjust_pc(), but it needs to use
+commit_pending_events() instead.
 
-If a SCSI disk is unplugged while runtime suspended, its request queue
-is still in the pm-only state when sd_remove() is called. The runtime
-resume attempted by scsi_autopm_get_device() fails because the parent
-device, e.g. a USB device in the USB_STATE_NOTATTACHED state, cannot be
-resumed. Hence, sdev_runtime_resume() is not called and the pm-only
-state is not cleared. Next, del_gendisk() calls invalidate_partition(),
-which calls fsync_bdev() and thus sync_filesystem(). Any bio submitted
-by the filesystem is queued through submit_bio() and waits forever in
-blk_queue_enter() because the queue will never leave the pm-only state
-and because the queue is not yet marked dying:
+The scenario is: the vcpu exits to userspace for an MMIO access and
+userspace then injects a synchronous external abort or an SError using
+the KVM_SET_VCPU_EVENTS ioctl.  If the vcpu is in L2 context and L1 has
+asked for the exception, then kvm_inject_nested() enters the exception
+straight away and vcpu->mmio_needed stays set.  On the next KVM_RUN,
+kvm_handle_mmio_return() completes the access in L1's context so it
+skips the first instruction of L1's exception vector and writes the
+MMIO data to one of L1's registers.
 
- blk_queue_enter  (wait_event on mq_freeze_wq -- HANGS HERE)
- bio_queue_enter
- __submit_bio_noacct_mq
- submit_bio_noacct
- submit_bio
- submit_bio_wait
- blkdev_issue_flush
- ext4_sync_fs  (sb->s_op->sync_fs)
- sync_filesystem
- fsync_bdev
- invalidate_partition
- del_gendisk
+Replace the __kvm_adjust_pc() with commit_pending_events() so that the
+MMIO emulation state is cleared.
 
-Fix this hang by calling blk_set_queue_dying() if runtime resume fails.
-The hang point is the wait_event() in blk_queue_enter(), whose exit
-condition includes blk_queue_dying(q) (i.e. QUEUE_FLAG_DYING set on
-the queue). blk_set_queue_dying() sets that flag, freezes the queue
-and wakes up all waiters on mq_freeze_wq, so the wait_event exits and
-the pending sync bio fails immediately with -ENODEV; the removal then
-completes instead of hanging. Syncing the filesystem is not possible
-anyway if runtime resume failed, so no data is lost that could
-otherwise have been written. If runtime resume succeeds, behavior is
-not changed. Make this change in sd_remove() instead of in a SCSI LLD
-such that it works for all SCSI transports.
-
-Please note that this patch converts temporary runtime resume failures
-into permanent failures. Before this patch, if runtime resume fails
-temporarily, a filesystem sync would be postponed until a later resume
-succeeds.
-
-[Deviation from upstream]
-    The upstream fix calls blk_mark_disk_dead(), introduced by
-    commit 6f8191fdf41d ("block: simplify disk shutdown"). That
-    helper and the GD_DEAD flag do not exist in this series. The
-    v5.10.y equivalent is blk_set_queue_dying(): in this series
-    blk_queue_enter() (the counterpart of the upstream
-    __bio_queue_enter()) releases waiters on QUEUE_FLAG_DYING, and
-    del_gendisk() itself marks the queue dying later via
-    blk_unregister_queue(); this fix only moves that point ahead of
-    the hanging invalidate_partition()/fsync_bdev() sync. Function
-    name mapping vs. the upstream message: sync_filesystem() call in
-    del_gendisk() -> invalidate_partition()/fsync_bdev();
-    __bio_queue_enter() -> blk_queue_enter(); blk_mark_disk_dead() ->
-    blk_set_queue_dying(). The trigger condition
-    (scsi_autopm_get_device() < 0) and the "temporary failures become
-    permanent" trade-off are identical to upstream. The normal removal
-    path is unchanged.
-
-Reported-by: Lianqin Hu <hulianqin@vivo.com>
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-221074@kernel.org/
+Fixes: 9aba641b9ec2 ("KVM: arm64: nv: Respect exception routing rules for SEAs")
+Fixes: 77ee70a07357 ("KVM: arm64: nv: Honor SError exception routing / masking")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yi Xu <xuyi0562@gmail.com>
+Signed-off-by: Dan Carpenter <dan@pereq.eu>
 ---
-Hi stable team,
+ arch/arm64/include/asm/kvm_host.h | 1 +
+ arch/arm64/kvm/emulate-nested.c   | 2 +-
+ arch/arm64/kvm/guest.c            | 2 +-
+ 3 files changed, 3 insertions(+), 2 deletions(-)
 
-Manual backport of upstream commit 085bb18 ("scsi: sd: Mark the disk
-dead if runtime resume fails in sd_remove()") to v5.10.y.
-
-The automated cherry-pick does not apply to this series: the upstream
-fix calls blk_mark_disk_dead(), which does not exist here, and the
-sd_remove() context differs. This patch assembles the identical effect
-from primitives available in 5.10.y -- see the Deviation section in
-the commit message for the equivalence argument and function-name
-mapping. The fix builds cleanly on v5.10.274.
-
-Background: the problem was reported against USB storage surprise
-removal on the linux-scsi list
-(https://lore.kernel.org/all/2c0c76d70f0fe197932836b9bcf8496095135d1b.1792446921.git.bvanassche@acm.org/);
-Cc'ing the reporter and the author for visibility.
-
-base-commit: 3a323bc22b881a5bdc1646080f93f5ecb22850bf
-
-Thanks,
-Yi Xu
-
- drivers/scsi/sd.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
-index da6df9809b0c..6cf56b936f14 100644
---- a/drivers/scsi/sd.c
-+++ b/drivers/scsi/sd.c
-@@ -3545,7 +3545,15 @@ static int sd_remove(struct device *dev)
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 0614c3b3a40d..c75b0c623824 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -1354,6 +1354,7 @@ int __kvm_arm_vcpu_get_events(struct kvm_vcpu *vcpu,
  
- 	sdkp = dev_get_drvdata(dev);
- 	devt = disk_devt(sdkp->disk);
--	scsi_autopm_get_device(sdkp->device);
-+	/*
-+	 * If runtime resume fails, e.g. because the device was unplugged
-+	 * while runtime suspended, the request queue stays in the pm-only
-+	 * state and any I/O submitted by del_gendisk(), e.g. from
-+	 * invalidate_partition(), would wait forever in blk_queue_enter().
-+	 * Prevent this by marking the queue dying.
-+	 */
-+	if (scsi_autopm_get_device(sdkp->device) < 0)
-+		blk_set_queue_dying(sdkp->disk->queue);
+ int __kvm_arm_vcpu_set_events(struct kvm_vcpu *vcpu,
+ 			      struct kvm_vcpu_events *events);
++void commit_pending_events(struct kvm_vcpu *vcpu);
  
- 	async_synchronize_full_domain(&scsi_sd_pm_domain);
- 	device_del(&sdkp->dev);
--- 
-2.34.1
+ void kvm_arm_halt_guest(struct kvm *kvm);
+ void kvm_arm_resume_guest(struct kvm *kvm);
+diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
+index 39136a89d74b..5a7019bb719b 100644
+--- a/arch/arm64/kvm/emulate-nested.c
++++ b/arch/arm64/kvm/emulate-nested.c
+@@ -2921,7 +2921,7 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
+ 	 * Make sure the exception actually took place before we load
+ 	 * the new context.
+ 	 */
+-	__kvm_adjust_pc(vcpu);
++	commit_pending_events(vcpu);
+ 
+ 	kvm_arch_vcpu_load(vcpu, smp_processor_id());
+ 	vcpu_clear_flag(vcpu, IN_NESTED_EXCEPTION);
+diff --git a/arch/arm64/kvm/guest.c b/arch/arm64/kvm/guest.c
+index ba4570c52a91..b7d36c2abfdf 100644
+--- a/arch/arm64/kvm/guest.c
++++ b/arch/arm64/kvm/guest.c
+@@ -770,7 +770,7 @@ int __kvm_arm_vcpu_get_events(struct kvm_vcpu *vcpu,
+ 	return 0;
+ }
+ 
+-static void commit_pending_events(struct kvm_vcpu *vcpu)
++void commit_pending_events(struct kvm_vcpu *vcpu)
+ {
+ 	if (!vcpu_get_flag(vcpu, PENDING_EXCEPTION))
+ 		return;
+
+---
+base-commit: 5a7235e9adff42aa043ac9473dbeb0354dca0967
+change-id: 20261120-stale_mmio-a33a67733b65
+
+Best regards,
+--  
+Dan Carpenter <dan@pereq.eu>
 
