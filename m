@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.110
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795418154;
-	b=nAHixhGhYjzbuO8H2Cyr3DkuAZETciti9GPpnSd0Jw2CTVORR9Fv6fexItwmD8Bmmbni
-	 ItDFzMIP5Teh9vTpO2oLEe45k4/fEQdX96S/+gC0gnk2/VPcLKGXOHrBq7agKmg8HIAXM
-	 obhZvVhxo8H3lQFOxxspSHY5JNy1pQui9rQRLRZKuYpipS0v0xO1LkMhp+Po936smkW7R
-	 b9NYRAC0r+yLlycj9JWmkEgS2/GSVja6tEjdgWFlpV67d4PRP3xNfqMSQbn8XbX0jdQ1t
-	 lqxqzxYqup5Z/4HpCRKQGg9OVg4DcnlWK3eUevxClik+y/5EOUgtW2yrnqj4xL1XmfQ==
+	t=1795418335;
+	b=SyPwz7DeUYdDcsPG4f9QuEAc3U9Z7Q2TQS2ygI8+qyz4kucbL6Hv2DK9k3FkQ9IAVjmz
+	 F1hwTHvrCTSizwDjpFXThwA9hCHNgcqHcmoX06y695s0W2XNvTUl3DO3Fa2iWKk6mdqSM
+	 PhgTjoSxJJecdArTmPgYBs8ZrAzGQZhS1ESVxI2hEbKWNqQqXGTM4bp5J7PdqsdtJWF+S
+	 AxVQ4TDrCmAXQzwTOkgNJ3cqhRZ6m6qTj3b7UbIESVkoeT9oIZNEL38w0DKJKru7QgJDD
+	 6L9Y6UbZZoc9ewa7vw7rlvoY18jr+16FvGt/rq1r02OeNHEJaSBzHKxpcsm6eT8bcfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795418154;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=629g86cRTauZQlhr9Wri/E7+EASS87C5XJjWnCiTchI=;
-	b=T/XJIQ9Qi60vazBx8gMBL5ZZxKdMi69ces/GJBUpmZqYrhHy0TqTTBnqPY7CZnbVnPSY
-	 V5WHh0CFwNSOD+/CaYF3kxVQYDGjuQ/33aBUtFJhue046cpxT/ycQkmT0BVwoNQCdzwsB
-	 6/v94Kc5QI5KnREB1RjAZFGv7c08zTISUPsmzYT+ukGxHS4kKb0Q0hAhncTMc92hzWb1R
-	 HJGF/psbLq2xojFYUA4/ZxcyFwQDd5EN44E8q/1JYpGVqIt6nd0ZO/fEdtvZN74sTPZte
-	 /pivTqY6nUyaIIt7GTC15VK5UjygUS3v9XKMV29yeYoqFcKwq+A2RkEuisuyvq376Hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795418335;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Q8GYORsnAO82wSpPrzmShMv7mBPXyM/CZgLgnjki5vY=;
+	b=u1K4+4Fx4nNTIzD70N++t1iWek38ORCtKj93vexao5fQsEFwdT5dlnJUxQzCgJ592Qxh
+	 jWbGu2fvTd/5ZU/qGd6sNNo05FV5LAwaI2MJwo4HlzCluMnrmprnrnMeMHk33LtNiY44S
+	 7509jy2C7zZagxlKgmC5yJTz+R9xvnXKR0tOwco1tvd2wc6y8kpiammYfMzSbsqQE/0a3
+	 kYMX1XNUTp64H79C2WjMOguBACrf5oRRkq4slQGUvHL0flDO0Z+a+zBn7/Oo7JytaUNAl
+	 pRzjFi0pbXmAeHHdzFdGw8dSakq8hWTJF9QKW3nqcQx5Hfz7swekRU4t6idRY53lO2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.71
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=CfSP0pgN;
+	arc=none smtp.remote-ip=115.124.30.110
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC6D606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 07:15:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DC6D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-84c4dce8182so3499787a34.2
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 23:15:53 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795418153; x=1796022953;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=629g86cRTauZQlhr9Wri/E7+EASS87C5XJjWnCiTchI=;
-        b=2C8Ce5FTObrFwCk/MUkxgWMY2Tt0+2oYsC1B42kVzNDNA6ptJcO5R2DACTrRh18zEx
-         Cb3XwYfJlSvxzVoTBT1R9V4Vj4ZFaotTeGDgqlbecbsVa47QyfxDYVHO3jXVpICZkgI+
-         PkUC1oiGJanKqnw58nISaoMCHxiYp6zOO28fcocEJVzwwtZViWtvr64u7Z5befKJ00BU
-         4xpIvJ0BF0nbGTtOtVt7UfL53wzXXlvESrL/Pb8ZrmPBN26Lx574vyhZlfBbbvhAUE+f
-         327dwmrE9OJUtkdYDek9n6JCUGFuP4AeFoVJlkeIVMKw9aAKanR1Z6Hvw9I0YkubBL/G
-         nR/A==
-X-Forwarded-Encrypted: i=1; AL+hErGTOHvi5X59aOtB7cp+KMof4GtlpBzfjw4O3URg0mmgQLBhWWTEzdWtI+6FzbF99tbYhcJpecw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94vG4SeET7hap65ahFtWRsoNqecCoEadWjFIFseYMxwxfYnpgw
-	eGkQfa2meN098kIGAmu+OJdppm3ET0G70tuLqHSJU4EZoiT2yQY1IXeOgLgBgNx9hld+pMczy8f
-	fuzQvmXCvvZcCMsocONwnLDJNvTd5HZFHt8luMaNlkVkpcIVJONIaAIzWG4Q=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8098606A31A;
+	Mon, 23 Nov 2026 07:18:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8098606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=CfSP0pgN
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1795418330; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Q8GYORsnAO82wSpPrzmShMv7mBPXyM/CZgLgnjki5vY=;
+	b=CfSP0pgNFJHmbvfQ6ctTaNSXuadCkkuitAA1+Ts93PuzWTButsQXSapnZw+raCF+9+4KGeSlNhcBRNn1YtfKWOJPI06ltrF+uGJKa/BfRLIvhJ8blQKeh3tVHKG74UYBtrsaEKiiOxmH4yeFipFQrwI8NSuSY/oeO1bySVxAOQ4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R391e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XFE82IO_1795418327;
+Received: from 30.74.144.153(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XFE82IO_1795418327 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 23 Nov 2026 15:18:49 +0800
+Message-ID: <4af8b7ef-8028-4b98-ad21-5620f8b92f42@linux.alibaba.com>
+Date: Mon, 23 Nov 2026 15:18:46 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,94 +53,203 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:198f:b0:573:7a6b:f33d with SMTP id
- 5614622812f47-57a0ab2f9c8mr12792402b6e.42.1795418153219; Sun, 22 Nov 2026
- 23:15:53 -0800 (PST)
-Date: Sun, 22 Nov 2026 23:15:53 -0800
-In-Reply-To: <20261118132710.29751-1-suruurism@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6b03e829.a481e175.27cf24.0019.GAE@google.com>
-Subject: [syzbot ci] Re: ntfs3: clear VMA_MAYWRITE on read-only
- compressed-file mmap
-From: syzbot ci <syzbot+cie4518cb24e7c0c99@syzkaller.appspotmail.com>
-To: almaz.alexandrovich@paragon-software.com, ntfs3@lists.linux.dev, 
-	stable@vger.kernel.org, suruurism@gmail.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-
-syzbot ci has tested the following series
-
-[v1] ntfs3: clear VMA_MAYWRITE on read-only compressed-file mmap
-https://lore.kernel.org/all/20261118132710.29751-1-suruurism@gmail.com
-* [PATCH] ntfs3: clear VMA_MAYWRITE on read-only compressed-file mmap
-
-and found the following issue:
-WARNING in mmap_validate
-
-Full report is available here:
-https://ci.syzbot.org/series/2cf8a8c7-bfcc-4bcc-bfda-dccd333a025d
-
-***
-
-WARNING in mmap_validate
-
-tree:      torvalds
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux
-base:      b3f1631d362539cfe14571ccfd7db919ffbc08c7
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/92ccdff0-04ed-4a0e-80d7-77102143beb7/config
-syz repro: https://ci.syzbot.org/findings/189d2e19-2002-455d-a0ed-c3a015048eaa/syz_repro
-
-loop0: detected capacity change from 0 to 4096
-ntfs3(loop0): Failed to load $Extend (-22).
-ntfs3(loop0): Failed to initialize $Extend.
-------------[ cut here ]------------
-was_maywrite && !is_maywrite
-WARNING: mm/vma.c:2872 at mmap_validate+0x1c3/0x1e0 mm/vma.c:2872, CPU#1: syz.0.17/5893
-Modules linked in:
-CPU: 1 UID: 0 PID: 5893 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:mmap_validate+0x1c3/0x1e0 mm/vma.c:2872
-Code: 5c 41 5d 41 5e 41 5f 5d e9 1a 34 d8 09 cc e8 e4 8a 98 ff 90 0f 0b 90 eb 1f e8 d9 8a 98 ff 90 0f 0b 90 eb 14 e8 ce 8a 98 ff 90 <0f> 0b 90 eb 09 e8 c3 8a 98 ff 90 0f 0b 90 41 be ea ff ff ff eb bb
-RSP: 0018:ffffc900041ef428 EFLAGS: 00010293
-RAX: ffffffff82309662 RBX: ffffc900041ef9a0 RCX: ffff8881686c3c00
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000200000000001 R08: ffffc900041ef9a7 R09: 1ffff9200083df34
-R10: dffffc0000000000 R11: fffff5200083df35 R12: dffffc0000000000
-R13: 1ffff9200083df34 R14: 0000000000000001 R15: 0000000000000001
-FS:  00007fb956e196c0(0000) GS:ffff8882a7809000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fb955e71a20 CR3: 00000001baeae000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- call_mmap_prepare mm/vma.c:2975 [inline]
- __mmap_region mm/vma.c:3075 [inline]
- mmap_region+0x12d8/0x2800 mm/vma.c:3173
- do_mmap+0xe0a/0x1300 mm/mmap.c:573
- vm_mmap_pgoff+0x27a/0x520 mm/util.c:581
- ksys_mmap_pgoff+0x4dc/0x760 mm/mmap.c:619
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fb955fa8fd9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fb956e19028 EFLAGS: 00000246 ORIG_RAX: 0000000000000009
-RAX: ffffffffffffffda RBX: 00007fb956225fa0 RCX: 00007fb955fa8fd9
-RDX: 0000000000000001 RSI: 0000000000400000 RDI: 0000200000000000
-RBP: 00007fb956037fed R08: 0000000000000004 R09: 0000000000000000
-R10: 0000000000010012 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fb956226038 R14: 00007fb956225fa0 R15: 00007ffcdbaed6f8
- </TASK>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/shmem: fix swapin livelock on a mismatched large swap
+ cache folio
+To: "David Hildenbrand (Arm)" <david@kernel.org>, mt4022@columbia.edu,
+ Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Kairui Song <kasong@tencent.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ stable@vger.kernel.org
+References: <20261027-shmem-swapin-mismatch-v1-1-84e30aa3b9e5@columbia.edu>
+ <3c61a49f-6a0d-49eb-8682-aece4e7e7226@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <3c61a49f-6a0d-49eb-8682-aece4e7e7226@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-***
 
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
+On 11/19/26 7:06 AM, David Hildenbrand (Arm) wrote:
+> On 10/27/26 21:33, Mani Tofigh via B4 Relay wrote:
+>> From: Mani Tofigh <mt4022@columbia.edu>
+>>
+>> On a SWP_SYNCHRONOUS_IO swap device, a large shmem folio can be left in
+>> the swap cache over swap slots that another file now uses.  Reading
+>> that other file then loops forever in shmem_get_folio_gfp():
+>> shmem_swapin_folio() finds the large folio, rounds the index and the
+>> swap entry down to the folio's size, finds no matching entry in the
+>> file and returns -EEXIST, and the retry finds the same folio again.
+>> Since the task keeps the mapping locked, a munmap() of the same mapping
+>> waits forever.
+>>
+>> The folio is left behind when the slots are freed and reused while the
+>> swapin is still allocating it:
+>>
+>>    Task A (reads X)                      Task B
+>>    ----------------                      ------
+>>    shmem_swapin_folio()
+>>      allocate a large folio
+>>      for X's slots
+>>                                          punch a hole in X
+>>                                          /* X's slots freed */
+>>                                          swap out file Y
+>>                                          /* Y reuses those slots */
+>>      add the folio to the swap
+>>      cache over those slots
+>>      shmem_confirm_swap() fails
+>>      /* -EEXIST, the folio stays
+>>         in the swap cache */
+>>
+>>    Task C (reads Y)
+>>    ----------------
+>>    shmem_swapin_folio()
+>>      finds the large folio
+>>      rounds down to its start,
+>>      where Y has no entry
+>>      /* -EEXIST, retried forever */
+>>
+>> Before commit c246d236b18b ("mm/shmem: never bypass the swap cache for
+>> SWP_SYNCHRONOUS_IO"), a direct swapin that failed this way freed its
+>> folio instead of leaving it in the swap cache.
+>>
+>> do_swap_page() already drops a large swap cache folio that does not
+>> fit for anonymous memory.  Do the same in shmem_swapin_folio() and on
+>> a -EEXIST, remove a large folio that is not
+>> anonymous/dirty/under-writeback from the swap cache so that the retry
+>> swaps in a folio that fits.
+>>
+>> The reproducer below fills a small brd swap device so that a 64K shmem
+>> folio and the 4K pages of another file land in the same slots, and races
+>> a read of the first file with a hole punch and a swapout of the second.
+>> This bug was identified and confirmed with the help of a deterministic
+>> hypervisor currently under development, but the non-deterministic C
+>> reproducer can typically trigger it in the 2-4s time range.  With the
+>> fix, nothing is triggered after 600 seconds.
+>>
+>> Fixes: c246d236b18b ("mm/shmem: never bypass the swap cache for SWP_SYNCHRONOUS_IO")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+>> ---
+>> Two patches in David Hildenbrand's v2 shmem fixes series are related
+>> to this one.  "mm/shmem: fix truncate hang in large swap entry" [1]
+>> makes truncation retry -EEXIST directly, so it can also loop on such a
+>> folio.  "mm/shmem: preserve allocation errors when swapping in large
+>> entries" [2] fixes a different -EEXIST loop, where a failed allocation
+>> is reported as -EEXIST.
+>>
+>> [1] https://lore.kernel.org/all/20261027-fixes_shmem-v2-10-86a00952acb9@kernel.org/
+>> [2] https://lore.kernel.org/all/20261027-fixes_shmem-v2-11-86a00952acb9@kernel.org/
+>>
+>> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/shmemloop.c
+>> ---
+>>   mm/shmem.c | 16 ++++++++++++++--
+>>   1 file changed, 14 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/mm/shmem.c b/mm/shmem.c
+>> index 13e0786436cd..f1da8432d55c 100644
+>> --- a/mm/shmem.c
+>> +++ b/mm/shmem.c
+>> @@ -2568,11 +2568,14 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
+>>   	 * and swap cache folios are never partially freed.
+>>   	 */
+>>   	folio_lock(folio);
+>> -	if (!folio_matches_swap_entry(folio, swap) ||
+>> -	    shmem_confirm_swap(mapping, index, swap) < 0) {
+>> +	if (!folio_matches_swap_entry(folio, swap)) {
+>>   		error = -EEXIST;
+>>   		goto unlock;
+>>   	}
+>> +	if (shmem_confirm_swap(mapping, index, swap) < 0) {
+>> +		error = -EEXIST;
+>> +		goto failed;
+>> +	}
+>>   	if (!folio_test_uptodate(folio)) {
+>>   		error = -EIO;
+>>   		goto failed;
+>> @@ -2613,6 +2616,15 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
+>>   		error = -EEXIST;
+>>   	if (error == -EIO)
+>>   		shmem_set_folio_swapin_error(inode, index, folio, swap);
+>> +	/*
+>> +	 * A large folio that does not fit the mapping, e.g. because its swap
+>> +	 * entries were freed and reused, would be found again on every retry.
+>> +	 * Drop it from the swap cache so the retry can swap in a fitting one.
+>> +	 */
+>> +	if (error == -EEXIST && folio && folio_test_large(folio) &&
+>> +	    !folio_test_anon(folio) && !folio_test_dirty(folio) &&
+>> +	    !folio_test_writeback(folio))
+>> +		swap_cache_del_folio(folio);
+>>   unlock:
+>>   	if (folio)
+>>   		folio_unlock(folio);
+>>
+>> ---
+> 
+> I have an AI fix here:
+> 
+> Author: Chris Mason <mason@kernel.org>
+> Date:   Wed Nov 11 18:44:55 2026 +0000
+> 
+>      mm/shmem: don't drop a folio whose swap write failed
+> 
+>      If the swap write of a large shmem folio fails while a swap-in of
+>      another file finds that folio in the swap cache, its data can be
+>      silently lost. A read of the file then returns whatever the swap device
+>      holds.
+> 
+>      "mm/shmem: fix swapin livelock on a mismatched large swap cache folio",
+>      earlier in this series, lets shmem_swapin_folio() drop a large folio
+>      from the swap cache, if the folio does not fit the file that is swapped
+>      in and is neither dirty nor under writeback. A folio that does not fit
+>      can belong to another file, with its swap write still in flight.
+> 
+>      shmem_swapin_folio() holds the folio lock, but the code that completes a
+>      write does not take that lock. And a failed write sets dirty before it
+>      ends writeback. So the folio can look clean and written, although its
+>      write has failed:
+> 
+>          shmem_swapin_folio()              swap_write_end(), failed write
+>          ====================              ==============================
+>          folio_test_dirty() == false
+>                                            folio_mark_dirty()
+>                                            folio_end_writeback()
+>          folio_test_writeback() == false
+>          swap_cache_del_folio()
+>            /* the only copy of the data */
+> 
+>      The fix used here is to test writeback first, and dirty second.
+> 
+>      Signed-off-by: Chris Mason <mason@kernel.org>
+> 
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index 915b312e14175..457a502353a9a 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -2809,10 +2809,13 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
+>           * A large folio that does not fit the mapping, e.g. because its swap
+>           * entries were freed and reused, would be found again on every retry.
+>           * Drop it from the swap cache so the retry can swap in a fitting one.
+> +        * A failed write sets dirty and then ends writeback, with no folio
+> +        * lock, so test writeback first. Both flags share folio->flags, so the
+> +        * order of the two loads holds.
+>           */
+>          if (error == -EEXIST && folio && folio_test_large(folio) &&
+> -           !folio_test_anon(folio) && !folio_test_dirty(folio) &&
+> -           !folio_test_writeback(folio))
+> +           !folio_test_anon(folio) && !folio_test_writeback(folio) &&
+> +           !folio_test_dirty(folio))
+>                  swap_cache_del_folio(folio);
+>   unlock:
+>          if (folio)
+> 
+> 
+> @Mani, can you double check if that makes sense (can we actually trigger that), and
+> if so, send it out officially, with Fixes tag ?
+> 
+> Feel free to rework the patch as you please.
 
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+That makes sense to me. If Mani has no time, I'll take care of this fix.
