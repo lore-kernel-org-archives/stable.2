@@ -1,131 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795461684;
-	b=WEyI4IXAoyKE3tkblJXCHkoVP1C+smiitt3m38J/1vknBwBjSF2WHnLkmxjD0hTSE717
-	 cTAKDbLLX8JaJ6SL2KmX1pz2mO6oQI64PvDgS4Nn7u5Ji0S6cajaQ0G8HOodOAP5VdrGh
-	 33tGGYwIYHLfNg0Bbtl/UKsKGUoMN1786p+uCRVmcCK4GpCVbxPoEQve2Y3tpCL+l5ohv
-	 ZlwbOjAleYbAPWucuGz6RzqhejitN8Ehj4J2wGJTY13fPI9UKgoNspkSWy/RfRlouDAxj
-	 ZVCa2FY4v8dJWq9WR/fTFHV01WZaOA8AVRtTsDJtO9zanD3+nEPND3LGeALSPBz69lQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795461684;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:
-	 Subject:To:CC:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=h5nORR2uGxxqV1iPr3cmsdCnEOujccbZNvNXNDc7JkY=;
-	b=cnYuHJEyE5eZn5SU2XnELijc97xZEyOrHd2BKdFzwmBe/l9pU+f8o+kjGx6dnPcbNAuQ
-	 xMKVg29yUCSsMCsoRH8poR2F/wD8xuAhnlBtAV69YCGYCc7cPF86V2+guDX9u4Dhr4DgZ
-	 3bsPFMLjUSotzyDjkM02vqOMIu+7f85+G8hYXnlte5gRyu2cDXnSiwOHSysZOmvoc2g31
-	 p4B5EZTyWxqiw0auo/4f6aEseAdNH7sJte/whhcXQXy4Ldnfky7gXbQ7birtRJtRIRZxj
-	 ybpcTeHmZC16C4LXYXWsKFaEEOC+DEj5SAeVUFdwdIFL939uib5qNr1ms2IosEX6b9g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IrQKGNOJ;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=Q3KW2QPd;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795461809;
+	b=N9zTVZc1fjeijdUKsEPw23JBeaeptUcMwJ86K3wI7y3Y5g1JlSBMBHuomCD47HgusgDi
+	 tEeQ5+k+WgSJlU1Un1C0KRSPoot3MpO5P9dXFWCG39qVwf4PGG/keQna17bKdoStJQBw2
+	 NmjVHFa/wy7o4r7rVVpCBP13M5oAQrVimngMesz8U2R6BCpEXbOfkSU2ghPNCC+p2fVPF
+	 sCLMUIVtIwE3fW9A4J0UClNZfj5a7BtoEn0GA1P4nJE5xgIdSVEiVHTecmARbBeBOngIM
+	 j5oosELo3D2VwGQtS+0XbqIq2soc/Qi+2FJdASLzBjlL45irVfB50peisgjXQDfIZ1Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461809;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=WLq3MWKnDvfFRPACkCbZySTur7MfMMWz5unzYWon4qE=;
+	b=39bsKHsKK70ylVv0RIcIkhj3QYK9E4Aap3g+fXAbe9sT3oYHq3rqu/6G69s3O+jRfnQX
+	 rhGL41Km8xy/dZ0ogneWntUmSsLTr/Kq1PoLnFfjU3pLL8dxZkdtHD7xwjYWUUF+xkGFb
+	 oLRYdSe1X7IZJcOlpWy3R2rmWB/uV2K8Eh2pue59CpClCda4YBdsenMUrHeg1bBdc4vvh
+	 jmL7jBTqbYQrmAs1msbSVMfz3Txu0ad2U7BrfDIfqtPnXKG8800L9QsoYHtvVgHLC7wm/
+	 KbSbhDjAf5pwZ/uy/mG8Ic8U72dSv0ejG/D/T+2mNAanXI7RiFVYiotodgntUob3rAg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.tenstorrent.com;
+	spf=pass smtp.mailfrom=tenstorrent.com;
+	dkim=pass header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=U9qvPAlU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CED606A31F;
-	Mon, 23 Nov 2026 19:21:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95CED606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3BD606A31E
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:23:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B3BD606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IrQKGNOJ;
-	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=Q3KW2QPd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795461683; x=1826997683;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=BeisGRgBdMMima5hibcA1gW3OOp9xgV8X8Q5WvNXWwk=;
-  b=IrQKGNOJ37L53zBuuprgZM/d2iVWVzLmqHh/HZIP1HVH+LwWMxF2keDH
-   hsEA/i5fowp6QjSHoBnOQiecv4c0Atev494IqFTXXQ7qu7phjbJHmCc8X
-   xex2MGyUxQISJb3m51HHTwZ8wgDIoeGIrABdPeYc7Za/RA0618nRITXIq
-   CtE68YH5BsA9u7lZt5CChydgs0pGS4fm23S6iqDnhF+EbgIuTyK5V8i1A
-   u2DjTZLkzZmGtQf6jvsA5BShP3NC3LtBuYi4O/UacedW5NYLnY89tmqcI
-   Z+Q6x16HgmtlIgGhklj+nHoR3h9JA7bdGHADpiSftFg9G8kvyVR+hjjrF
-   A==;
-X-CSE-ConnectionGUID: eknj4wVdRUqCrhWFIGYnKQ==
-X-CSE-MsgGUID: 21286OZNTGe1hNzxTcsBWw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4309822"
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="4309822"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 11:21:22 -0800
-X-CSE-ConnectionGUID: T7yFGAbOSWiR0GCrXxUDwQ==
-X-CSE-MsgGUID: h4JwevoEQjufgEoIm+K0sg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="11455200"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 11:21:22 -0800
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Mon, 23 Nov 2026 11:21:21 -0800
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57 via Frontend Transport; Mon, 23 Nov 2026 11:21:21 -0800
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.43) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 23 Nov 2026 11:21:21 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h5nORR2uGxxqV1iPr3cmsdCnEOujccbZNvNXNDc7JkY=;
- b=Q3KW2QPdYSQake1TpkNwRZ1oB5AkwfmKrG/DJq6/6Mvm7EMoJs5SJTqw9RqYDDZ6TzcMlkWmeIDEWZy//TZR+FexGqlfq8Dd1Onm/a1GBL4QjIpAVbNNnByVZrBzFxWW17ysd+bKlcivbooYzZzhsj/TNGUF6aGdumRVGu1ic+k=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8451.namprd11.prod.outlook.com (2603:10b6:a03:56e::20)
- by LV2PR11MB5999.namprd11.prod.outlook.com (2603:10b6:408:17d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
- 2026 19:20:15 +0000
-Received: from SJ2PR11MB8451.namprd11.prod.outlook.com
- ([fe80::7d5f:b2ba:92d4:5f3c]) by SJ2PR11MB8451.namprd11.prod.outlook.com
- ([fe80::7d5f:b2ba:92d4:5f3c%4]) with mapi id 15.21.0639.011; Mon, 23 Nov 2026
- 19:20:15 +0000
-Message-ID: <e5f2fb8e-1129-41d0-b627-6d96b81899f8@intel.com>
-Date: Mon, 23 Nov 2026 11:20:14 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] r8169: clear RxOverflow before unmasking
- interrupts
-To: Jure Rebernik <jure.rebernik@luxonis.com>, Heiner Kallweit
-	<hkallweit1@gmail.com>, <nic_swsd@realtek.com>, <netdev@vger.kernel.org>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Sunil Goutham
-	<sgoutham@marvell.com>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20261121073652.410916-1-jure.rebernik@luxonis.com>
-Content-Language: en-US
-From: Jacob Keller <jacob.e.keller@intel.com>
-In-Reply-To: <20261121073652.410916-1-jure.rebernik@luxonis.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0270.namprd04.prod.outlook.com
- (2603:10b6:303:88::35) To SJ2PR11MB8451.namprd11.prod.outlook.com
- (2603:10b6:a03:56e::20)
+	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=U9qvPAlU
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-67db23d8892so3972297d50.2
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:23:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795461807; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AFMc8dg+9moW8+I43NSb/jdfMGr66zYD7mS6rY3uJPCPp5r9YK+SLaoigDqzPAwu5T
+         D7hmSySd15hDYBlAqJ7L5njAXOhkIXghPzbra9XQZv1Y5tIWzejOzQ//h94hlMnchIzD
+         Kqi4d/JG/dc8V3CzUkvcEOGRhQou8iKynF/zdN7luAj9sgEF151N4KnaPcw9wMh72+VM
+         31gaEgqjWqo89mdPq+GMaN86gptE0tw5VtINB6SMf0YDQu971eRcsE0VuZHJSaY8NFF4
+         l1bi4xuQILiSJYftp4DiR/VqyJdoDwoIxjT5iN/uV7sv6hRh3HMUkDX94YUWOJLcE904
+         dgfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WLq3MWKnDvfFRPACkCbZySTur7MfMMWz5unzYWon4qE=;
+        fh=T63Suss+qTZ8j1g3TxnETAbiFz5NaTg7Zeodjkh6cBw=;
+        b=gTVkLk2gHtEVBc4L8hPWYjfbkAiH77SqFT98xDvEztyV4pqhXzohgHHGetrrLI+hUM
+         lhHC+HAxxWICAv0VFy/t3W4GF69g7TDhboP5F4Hlk/BqHWq3zhaFLNwLpGI4xN8l2XoG
+         5qLTJfg7rbD736q2KmuGVwdsEJoR25YthyVrPaGZWbYUrA7QKIIFaI1QVgJAXzXNau3v
+         t9DnEirpobQ3BI515/KBxxa3WrM2lonORe4NahU+99jz3rjgQm8C8AxA9T5HYN95OGhU
+         iTofuw2rSaTDNEgc6PEHrYmBxlGFqMWibLEk5hLiK3M1Y3rDNV0IqKmsDBZFvzvE7DlR
+         2BFQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tenstorrent.com; s=google; t=1795461807; x=1796066607; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WLq3MWKnDvfFRPACkCbZySTur7MfMMWz5unzYWon4qE=;
+        b=U9qvPAlUpHtmFneiecRFsim+TvMaWm4ZsmGwmpXG/Ehz+i0RIkTrHKownmbVxN7ntu
+         ewHOXyDL/whyikpeAFOVehJ4UHeMw6uLqf114NMytXrCR/sb9KzCZbUXC/RleVV2Q8dd
+         SS9m8kDNjm8igh1CW8i4HD/NOMSDg9/TVJbGvQiZUeqLAm0xR7in1WFJERYgQHNE89df
+         qgWH6YaFnPFXgnpqtBUYZihFSSOiN5Dz1UND8bm5zxQl60sQTInzwS/J+S8KC8FI4aCF
+         MBZKDNvWOLLCtuTQnLKb1/J8TxECZzFgYLblKHyVk4uAemVtHrJelnwLbBC2QNGu+aZq
+         5Hog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795461807; x=1796066607;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WLq3MWKnDvfFRPACkCbZySTur7MfMMWz5unzYWon4qE=;
+        b=LpM85E1EkmBk4sLsfR1jz23TIqOhoHC4OUv/pK4XFcyKPgVARm39vk2AtU1tvqsP9a
+         v1OirM09ncHqKvqlF6mkZv17bLyPCRNLdREBbKbVQpo2tmIZAbgMxewygOlYU1604vkM
+         ZxLM6PDGXCcmvZVlSPjMjY1MkQSCx5MUGoyNnO+qPwSJ9ihFVBC+xH39enI9QOPZL2pm
+         FrHrR0fnD7WMA09fF1InnRjfRrut1tAAOO8N63+dC4xqnqiK4dgs3+Vygo08+cA61d7d
+         4oIPaTK96+tnz9FRoHHDg8hQtUz0TF1Ux7f+9gL92eFHkudjQM2N9+1i7bmKqwUdRkWw
+         WyLg==
+X-Forwarded-Encrypted: i=1; AL+hErFfYq8GSZqUTrjYPjYgcySlX5jDQHxiC38Tz0WrxeIskwT7ERSsnADK82A99jLAYjE1x/hMA1o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xfPx14TqgpbYh1rYRFkhVbVaQWruUkNI9RAlifUErYWNkUlfm
+	NrXtdTL7zWSAImXTbpj0UO8Z9vJslw+70N5wAw1Klyp1yT7O+hiWW0QlVarXCBBt2/Yk0c1j5ak
+	OjTqWxJFZWtaZD44RRFkhHjfeqiyrX1kv1YPQv502lA==
+X-Gm-Gg: AZFdTZehSH+XSWm9v0qfqgOqXYqAzOLhh6A0XE8/fq/ZzWFDlN8LWNAYQn5Ze/fF2a2
+	RAYN+Xm+EDWkU7tNjrSRFg72TbCkrA7nfAvcIHbL9YiBzQJgbCunOsVKJpfud8pqHr7EE9AXdWA
+	E9zkbmut3fNSz8MMGOFZD/ZcjaLDcCz21G2ygl0b5gihhvaSNkcH65eURIUHqhlkMyWnP2+Gm6x
+	4065nZYSOTX3ff9oQqk1SUZWg+XKn6vLklE79rFimmK2gIf1hHvrlR9WJ2WFjrG7zK5RUFqzAqZ
+	+2iPkgTLBuddfQxpwmRffj0SUegOynP0pwBnVY4cf2OXA5u8HTmddlQy1NGwim4yoycebO8pjJT
+	JD+3G3X8g3AMZAhDBfqaa+zMoGKvEFN7dwCciFEff2sZkhtW+SKOcz/XtQy6+5utTFLvjRDVwCo
+	M2C2ceMaf04iuFnxmcdBODAPVYYw==
+X-Received: by 2002:a05:690e:47c7:20b0:67d:bbf9:11d5 with SMTP id
+ 956f58d0204a3-67df443ce21mr4010766d50.55.1795461807055; Mon, 23 Nov 2026
+ 11:23:27 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -135,180 +105,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8451:EE_|LV2PR11MB5999:EE_
-X-MS-Office365-Filtering-Correlation-Id: a4bba298-6c5f-4364-fa5e-08df4996cd88
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|261102123227099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003|10067099003|261021135927099003|5023799004|11063799006|56012099006|8126099003|261009223027099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: Z8UnaRQG7J3KdcD+Bemsctk3JLQRK1zQGsmB1wSmWf84XWPjjJeEUBJ/qsUYkwuXStm0mXbhuv6Rov/SUOFjN2iQ8vOVkznslYIc3c9P19m9w9/NOS9cw9YQ01TbOTokmo3QPHPguHilFecnK0VtXNjRvAMivvRba+n0TS9JLdUtwrRY8c32QlI4aViIy140w1TAAEeg+PkzHq4Qzj5AGb4GDSvCGeefhUdSSD1YoE20mfPiWFhRdb9vq60YOV9fpBSCItbDOmsBs61eoxpqMTf0fy+K+XhpH5UFUrwYU9KAehMB9dULmmsGYnEghiMjPA1+dbblH2JijHl91djZWBMrmUyH/GUrMavayQzQBepJQniKMJCYZNVo3nVk5cK03OGFvKaLhLCwgqL0N4HDQIjrfcDiRbQWa02djO3vcKakWuebhh2hXWT4CNDR+J2PBuHWShBE/05xv73ZstPOypNi8uaKlg1k+Z4YcMYlQtXkgqdLsjS1x765L8IDV/4MTC6k+BQFElS83mV74gOLlpOV81046lDuYSd4jjicrNtUXsS2MUNf94/ul09R+gXdSYU1Tft9oO2ANQTKHN27yKuoqcxJykBc+OVxv821Wbf79CFGR52wFwat2slaDLEL
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8451.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(261102123227099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003)(10067099003)(261021135927099003)(5023799004)(11063799006)(56012099006)(8126099003)(261009223027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dHVLMjFDS1JCS0lsMHMvaElNdk1KcnNIeGVzWnprMG9sVTMvWWRySFpmY3cv?=
- =?utf-8?B?R1VhQkQ3S0N1czl3a3JWUTg2NW5EbW5BRUdqQUdHVXZZSWp5MUJISFV1V2FK?=
- =?utf-8?B?czBLQm92UHhJdTRlREgxZlhlWGc0MVVKeVk2cTBBRGhHWXU1SEhMZEh0OXRJ?=
- =?utf-8?B?YkZac0RPcHBicEsrTis3aHc1TEwySDFjL1VkcjByU09mZ1pESGE0TGtnMG5B?=
- =?utf-8?B?WFo1blNzYThpbzZZY1liZU5KMXFOQlpwekk5OTBlRlR6WkRRcE5PNXhWbWdY?=
- =?utf-8?B?ekhyK0V5UW9yR0ZWVGxqMjVrd3hQWGRFdlNaditadFljQ05VR3VERnpqcHBK?=
- =?utf-8?B?THIwejNsdVg5QnVVUm5yVndzRUtKWWhOYzhRY1RTN0VFVG9hNEErSE40NnM2?=
- =?utf-8?B?TWFOUkRMaWsxcGhGZGo5NGh6RmE3VmZBUnk0ZU82VkprSTIxc1JJRUNUTjZF?=
- =?utf-8?B?K0l0QnlrVmZQVlJGTGdPNHBNSjZpZisyZHRNUnhiL1dSZThBMDAvaG10OGtJ?=
- =?utf-8?B?cnAzcjJ2UDJxUGZJMy9hR1VQVlFkVmpMU0xtTFAxWnJ2cGw5UXJMaEJZL2lK?=
- =?utf-8?B?OVpuNkhsZlpaZE16TkpWWm5Pd3A2VEQ2MVc5cVRNbkZwLzhHRlhBT3p2WFc1?=
- =?utf-8?B?U05VVVBqb2JxSlZHanFQNDE4SEdSV3RRZWNjL0hKU3R0Q0hZazdmbDNsT3lG?=
- =?utf-8?B?MjZ4cVpXUkF0RTFvVjM2KzV0cXZUd2JzUmZDblFVUkpNYmJtTWM0RVlodk4v?=
- =?utf-8?B?RnVsd2JCeXphSVNPOWVGa0tVTWE4RFhRckhNaHlKSGEzSTdvMnlXUjdyVi9S?=
- =?utf-8?B?b05vQW4venp0bHpMZ2w1TXorcG9SWEszNUgwS1pLTWVXZkM1UWZxVmdIcVBH?=
- =?utf-8?B?NFlLTTl4WUlDaGFHdUM4Z1ZzN0xjbHNGMFJoWDZHYTkybGpVcTRoOW03NHNZ?=
- =?utf-8?B?V1FmOWJ6UTlJeXdnVUprQ0FxSHpua0xmMVdzSlJ2eWlsTGlkaEZYeDcxL1ZB?=
- =?utf-8?B?d0VqWFpJajl6NmJKRUdVQWNHMnhTc1gzcDVaTjJZVkdVWThKTGM1REN6Z2hF?=
- =?utf-8?B?MzJlbHY0TVRDeFRQc3ZOdVV2b1lJZU1rWWR3TEMvUXFPUHM0Sy9nT3JCRmt0?=
- =?utf-8?B?N20yeGJySVV5Uk81ODA5N0laNWlwZXNiWWpDVVA3ZDZyN29Ydm9SVEZaNVo5?=
- =?utf-8?B?Z3M0TmJqZ2U3djBOdlI3VlNZdkI5L3k0b3pLNS9WY2w4UkJUTmNKZGR1WDJW?=
- =?utf-8?B?QUtIZHpRNXV0aDRyWkJwbC82N285UnIyQmJEclZIYTd5STZuZitadnlVNDBr?=
- =?utf-8?B?cDk5Y2lha0pYOGp0dm5ibGs0WVR6OTVUMEhscm1nRDZuUm85aHRFSzQ5SzZ6?=
- =?utf-8?B?Um9YQ0VFelNYVUpoRmpXb0FxaFdZN1dseGVTNVgrbHJMbkJaS3M4b3B5U3hS?=
- =?utf-8?B?ZkFMNWN0MUhOMGhDZlk5VGZzZm0zbHdqV0krOEFpOHQwNXo5KzJrMFRGS01G?=
- =?utf-8?B?UHZUMERpY0ZUZStiNk1uT3JMMEZkZkxLWVcrVDhPbGVuYVlvMXRQQ0RhbUFQ?=
- =?utf-8?B?ajdqV1lOUHpINkdJQjJDbTFqblZYWGthVmpSSWFLM05LSUNPS1BWZXBIZzBQ?=
- =?utf-8?B?NHNNa3NFdEpZRnVaQXN4L2VUM1MzTm9UaHZCNWxNWjJpeEMreTVDSDN0ZkVa?=
- =?utf-8?B?Tk9nc3J3QkdsekF6dDBWSmhteWYvWDFOdElyNGNzNUhDMWJHT2dYamtoakJ5?=
- =?utf-8?B?d3BBekRlcTNOeHNoRHpDVUNVNlNITW9BRHAxZEIyODRJUnVROHlaU1RUczVX?=
- =?utf-8?B?b005d0daenlVMXk4NEpWZWI1QUJuakNMSEYxOWhDRWY2MzM5Y3FyQVJlTnlY?=
- =?utf-8?B?TXlaOUxpVUM0MVZTZHc4TVN3OHRZUUVPL01LOG40SHRYZmEyWnVKeUhuejJD?=
- =?utf-8?B?cTEwdWJpTUNTVEVXbEc1ZkthMUJFNmV5UjZuYmg4Q0dYZTZycjY4d1FrZkxk?=
- =?utf-8?B?MlhOekQ0bzI4OWxnK0JZUThSYnI2N0pkZk9VOFNkL29vUGZ0a1R1N2hHSGRa?=
- =?utf-8?B?WWtrMDZKbTNFbGhQZ3lTRHBSSTBBVkEwSUJJSmlTcjM2R1JhOFpHeUlYRHlz?=
- =?utf-8?B?NjBWYnRHWGlldWNyczQzaDlZckY3T0NGTXkwTkxFZ1k2ZFZYMXVsL0E2UXJM?=
- =?utf-8?B?eU5xZmUyVTN6dWcrbWdBd2s2QVJUeEhsQVNKa1JPalVvTE1kalVSQ2NqeHhS?=
- =?utf-8?B?QWFBbGtsUEJDcVh5dllHVnFHY3hXMG1xaTFVYWFXd1V6NWpYUldxdGxFdkdr?=
- =?utf-8?B?WGlGdWhHRDRGWUtLWUxiM3dPYXlJUWJsTHN5czVreFFNWTdGaUo4M1hMVFFz?=
- =?utf-8?Q?WScg7Yt5td2ecdac=3D?=
-X-Exchange-RoutingPolicyChecked: CHbP1rFEFbZXBU/rQIcJnpRZtfibSs+vYSNP/AnOfdax11fO4iEhSTAYMRd1exY/ZuaB98m2t8FWlBUJcMhHxu6ZbdqaM3VDw5cEGkgG4XGfP9T3CikIkJan1E2YCDMBqq3LH3cD+akb5BXvx8YG70Fi08eF9bDGd6G0pViuKV5JCkViqlhYCYpfHwabZvHAmye0NPqmIYy0uo13BB1AwSpGF1ODnPKJMTYwcGa3AgCiMbY78EmJs0q1pG+XFtkzj/qzsWlbgkmz71uvCzGRF/Lj6Qv+Y0c+Or7vF3qmyPggljakR5bEdkupCIkFsPeT6uGRvEG43OXO5x46+Vwj8A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4bba298-6c5f-4364-fa5e-08df4996cd88
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8451.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 19:20:15.3326
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K+N3FR6sDh8bU5Q6RnpS8v+BQGTDxG0uHb3jK29mrc2eahIUzgBuO1fhdMtpbJ8jh4yGIfWCo+5/bz0ODvm2IqzgVMvoS6eO33TWojjbEco=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB5999
-X-OriginatorOrg: intel.com
+References: <20261123164834.3330320-1-lee@kernel.org> <20261123164834.3330320-9-lee@kernel.org>
+In-Reply-To: <20261123164834.3330320-9-lee@kernel.org>
+From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Date: Mon, 23 Nov 2026 13:23:16 -0600
+X-Gm-Features: Aa3M54rXx5AsI23DPhI8Gl_apOGxLaDoOy7tWbjmJE6RhLCtQ26K-zDZRMPyVoM
+Message-ID: <CAEev2e8KMaN+Vw7usWTiQk=dyOcV5n9PEHB1o7K=cQw=fyoBZg@mail.gmail.com>
+Subject: Re: [PATCH 08/10] clk: tenstorrent: Poll atomically in atlantis_clk_pll_enable()
+To: Lee Jones <lee@kernel.org>
+Cc: Drew Fustini <fustini@kernel.org>, Joel Stanley <jms@oss.tenstorrent.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-riscv@lists.infradead.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/20/2026 11:36 PM, Jure Rebernik wrote:
-> When the RTL8125B runs out of RX descriptors it sets RxOverflow
-> (RxDescUnavail in the vendor driver) and stops receiving. It does not
-> start again when the driver returns descriptors to it, only when
-> RxOverflow is cleared in IntrStatus. Since commit 6994520a3328 ("r8169:
-> disable interrupt source RxOverflow") nothing may clear it:
-> 
->  1. The ring fills. The chip completes the last frames (RxOK), then
->     sets RxOverflow and stops receiving.
->  2. rtl8169_interrupt() read IntrStatus before RxOverflow was set, so it
->     clears only RxOK.
->  3. NAPI empties the ring and unmasks the interrupts.
->  4. The stopped receiver raises no new RxOK, and RxOverflow is not an
->     interrupt source. Reception stays stopped, and every frame is
->     counted in rx_missed, until another event such as TxOK makes the
->     handler clear all status bits.
-> 
-> This was observed on a machine in real use: an RTL8125B (XID 641) on the
-> PCIe bus of an arm64 Qualcomm QCS8550, running v7.2.6 and receiving UDP
-> at 800 Mbit/s while sending nothing. Reception stopped for seconds and
-> a single transmitted packet restarted it. During each stop, a debugfs
-> dump added to a test build of the driver showed IntrMask 0x2f,
-> IntrStatus 0x50, NAPI idle and all 256 RX descriptors owned by the NIC,
-> and writing only RxOverflow to IntrStatus from user space, through the
-> sysfs PCI resource mapping and with nothing transmitted, restarted
-> reception in 17 of 17 stops. The order of steps 1 and 2 is inferred
-> from that state, not traced. Reproducing the stall itself needs no
-> kernel modification.
-> 
-> Clear RxOverflow in rtl8169_poll() once NAPI has emptied the ring, right
-> before unmasking. This restarts reception without making the "ring
-> empty" condition an interrupt source again.
-> 
-> Testing, on v7.2.6 with an RTL8125B and inbound UDP at 800 Mbit/s in
-> 30 s runs:
-> 
->  - A test build with a module parameter that switches between the old
->    and the new behaviour on the same boot, 75 runs each:
-> 
->      old: 9 runs lost more than 1000 datagrams, 1041366 lost in total
->      new: no run lost more than 1000 datagrams, 846 lost in total and
->           at most 184 in one run
-> 
->    The 846 equal the NIC's rx_missed count over those runs. The NIC
->    dropped them while the default 256-entry RX ring was briefly full;
->    reception did not stop.
-> 
->  - This patch as written, without the module parameter: no run of 20
->    lost more than 1000 datagrams (166 lost in total due to the default
->    256-entry RX ring). With the unchanged driver on the same day, 3 of
->    10 runs did (237264 lost in total).
-> 
-> On this tree the patch was only built, not run; rtl8169_poll() is the
-> same here as in v7.2.
-> 
-> The investigation was done with an AI coding assistant (Claude Code):
-> it wrote the HIL test scripts, the debugfs instrumentation and the
-> register tools used above, proposed this change and drafted this
-> changelog. I reviewed the change and the evidence, and the test
-> results above come from runs on our hardware.
-> 
-> Fixes: 6994520a3328 ("r8169: disable interrupt source RxOverflow")
+Hi Lee,
+
+On Mon, Nov 23, 2026 at 10:49=E2=80=AFAM Lee Jones <lee@kernel.org> wrote:
+>
+> The Common Clock Framework invokes .enable callbacks in atomic context
+> with interrupts disabled and enable_lock held.  In atlantis_clk_pll_ops,
+> atlantis_clk_pll_enable() is registered as the .enable callback yet
+> waits for PLL lock using regmap_read_poll_timeout() with a 500 us sleep
+> interval, triggering a sleep-in-atomic bug via usleep_range().
+>
+> Since the PRCM regmap is backed by MMIO, use
+> regmap_read_poll_timeout_atomic() instead.
+>
+> Fixes: 23c8ebc95284 ("clk: tenstorrent: Add Atlantis clock controller dri=
+ver")
+> Closes: https://sashiko.dev/#/bug/linux-980395a6-f282-478a-bf18-b5695a725=
+735
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Jure Rebernik <jure.rebernik@luxonis.com>
+> Signed-off-by: Lee Jones <lee@kernel.org>
 > ---
+>  drivers/clk/tenstorrent/atlantis-prcm.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
 
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+Thanks, I was able to reproduce the bug on the tt-atlantis qemu
+machine by using a kernel built with CONFIG_DEBUG_ATOMIC_SLEEP=3Dy,
+CONFIG_DEBUG_PREEMPT=3Dy,  CONFIG_PROVE_LOCKING=3Dy.
 
-> 
-> Notes:
->     v2:
->     - Clear RxOverflow in rtl8169_poll() instead of making it an interrupt
->       source again, as there should be no "ring empty" interrupt (Jakub)
->     - Describe the race step by step
->     - Same-boot A/B test results
->     
->     Keeping the v1 approach also fixes the stall: with RxOverflow in the
->     unconditional init of tp->irq_mask, as Jakub suggested for v1, 0 of 76
->     runs lost more than 1000 datagrams against 5 of 76 with the old mask.
->     I can send that version instead if it is preferred.
->     
->     With the RX ring raised to 1024 entries, which this patch does not do,
->     and v1 or v2 of this fix, 20 runs on two boards lost no datagrams at
->     all.
->     
->     The patch changes only rtl8169_poll(), the single-vector path that
->     RTL8125B uses. The multi-vector path added for RTL8127 after v7.3 has
->     its own poll handlers and is not changed.
->     
->     v1: https://lore.kernel.org/netdev/20261101102720.702600-1-jure.rebernik@luxonis.com/
-> 
->  drivers/net/ethernet/realtek/r8169_main.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-> index f151ab681393..99b0a410f58e 100644
-> --- a/drivers/net/ethernet/realtek/r8169_main.c
-> +++ b/drivers/net/ethernet/realtek/r8169_main.c
-> @@ -5670,8 +5670,14 @@ static int rtl8169_poll(struct napi_struct *napi, int budget)
->  	/* rtl8169_poll() is used only when there is a single RX ring. */
->  	work_done = rtl_rx(dev, tp, &tp->rx_ring[0], budget, napi);
->  
-> -	if (work_done < budget && napi_complete_done(napi, work_done))
-> +	if (work_done < budget && napi_complete_done(napi, work_done)) {
-> +		/* After running out of RX descriptors the chip does not
-> +		 * receive again until RxOverflow is cleared. The ring is
-> +		 * empty now, so clear it before unmasking.
-> +		 */
-> +		rtl_ack_events(tp, RxOverflow);
->  		rtl_irq_enable(tp);
-> +	}
->  
->  	return work_done;
->  }
+[    1.895417] BUG: sleeping function called from invalid context at
+drivers/clk/tenstorrent/atlantis-prcm.c:329
+[    1.896093] in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid:
+1, name: swapper/0
+[    1.896616] preempt_count: 1, expected: 0
+[    1.896990] 3 locks held by swapper/0/1:
+[    1.897251]  #0: ff600001808a7938 (&dev->mutex){....}-{4:4}, at:
+__driver_attach+0x68/0x11e
+[    1.898561]  #1: ffffffff81d70bb8 (prepare_lock){+.+.}-{4:4}, at:
+clk_prepare_lock+0x1c/0x80
+[    1.899134]  #2: ffffffff81d70b30 (enable_lock){....}-{3:3}, at:
+clk_enable_lock+0xb0/0xd8
+[    1.899750] irq event stamp: 25978
+[    1.899968] hardirqs last  enabled at (25977): [<ffffffff80d12254>]
+_raw_spin_unlock_irqrestore+0x4e/0x70
+[    1.900552] hardirqs last disabled at (25978): [<ffffffff80767d00>]
+clk_enable_lock+0xa0/0xd8
+[    1.901195] softirqs last  enabled at (25724): [<ffffffff80053e72>]
+handle_softirqs+0x54e/0x590
+[    1.901798] softirqs last disabled at (25717): [<ffffffff80054132>]
+__irq_exit_rcu+0x1f0/0x25c
+[    1.902422] Preemption disabled at:
+[    1.902447] [<ffffffff80767d10>] clk_enable_lock+0xb0/0xd8
+[    1.903375] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted
+7.2.0-00071-g9a0518d4d70d #3 PREEMPTLAZY
+[    1.903558] Hardware name: Tenstorrent Atlantis RISC-V Machine (DT)
+[    1.903643] Call Trace:
+[    1.903687] [<ffffffff8001927a>] dump_backtrace+0x1c/0x24
+[    1.903718] [<ffffffff800024ba>] show_stack+0x28/0x34
+[    1.903734] [<ffffffff80011262>] dump_stack_lvl+0x60/0x88
+[    1.903750] [<ffffffff8001129e>] dump_stack+0x14/0x1c
+[    1.903766] [<ffffffff80084b76>] __might_resched+0x23a/0x26c
+[    1.903786] [<ffffffff80084be6>] __might_sleep+0x3e/0x62
+[    1.903801] [<ffffffff8077fb02>] atlantis_clk_pll_enable+0xd0/0x1aa
+[    1.903818] [<ffffffff8076d10a>] clk_core_enable+0x92/0x2fe
+[    1.903835] [<ffffffff8076e130>] __clk_register+0x5c4/0x874
+[    1.903851] [<ffffffff8076e558>] devm_clk_hw_register+0x44/0x96
+[    1.903867] [<ffffffff8077f812>] atlantis_prcm_probe+0xbe/0x18c
+[    1.903883] [<ffffffff80806eda>] platform_probe+0x46/0x78
+[    1.903899] [<ffffffff80804946>] really_probe+0x86/0x234
+[    1.903914] [<ffffffff80804b58>] __driver_probe_device+0x64/0x104
+[    1.903930] [<ffffffff80804cba>] driver_probe_device+0x2c/0x98
+[    1.903946] [<ffffffff80804e22>] __driver_attach+0x70/0x11e
+[    1.903961] [<ffffffff80802908>] bus_for_each_dev+0x60/0xae
+[    1.903976] [<ffffffff80804488>] driver_attach+0x1a/0x22
+[    1.903991] [<ffffffff80803c36>] bus_add_driver+0xce/0x1d6
+[    1.904006] [<ffffffff80805a5a>] driver_register+0x3e/0xd8
+[    1.904022] [<ffffffff80806c0c>] __platform_driver_register+0x1e/0x26
+[    1.904038] [<ffffffff80e31bc8>] atlantis_prcm_driver_init+0x22/0x2a
+[    1.904057] [<ffffffff8001296e>] do_one_initcall+0x76/0x39a
+[    1.904073] [<ffffffff80e01416>] kernel_init_freeable+0x2b4/0x33e
+[    1.904088] [<ffffffff80d065d4>] kernel_init+0x1e/0x13a
+[    1.904103] [<ffffffff8001440e>] ret_from_fork_kernel+0x20/0x3b0
+[    1.904119] [<ffffffff80d13c22>] ret_from_fork_kernel_asm+0x16/0x18
 
+This patch fixes the issue.
+
+Reviewed-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+
+Regards
+Anirudh Srinivasan
