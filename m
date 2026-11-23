@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795391405;
-	b=C10QYc+rqiJbEikYqCCf7+qniua2AuD6k59q1Nvoo7eZTuNouPSUm/NqPsVSoFfsUux1
-	 IsN9Jj6aiMN0E6DIhxssVydR+Tp70pM1S8Fiyxc1rpGPPyR1aECGAWJIz5Qz8TAKQBkgc
-	 x5sVaN2VOZOIoEECEGi1lgJXAHm87M/wmadnZrNX3Irr7O7GrAMPxFi0yh1SxhdDIYPrX
-	 xq4dS3ZKnm2iDOYHwMVx1pBLwwoZgicRenk0bQvclyckvzx8GzMmMQPfR/zqYHmEX59K/
-	 +6QsdkvAINjJOr/WvUslGbt7ch2U6Py0fBlnw2ACCraLnzFeSQ4MnJZJucI5CbEtQPw==
+	t=1795392110;
+	b=hvZf7YMspu2963Z1wpOO1+vrTvB+ehTvOcKl+F/TUmfem4bOmiIeI8ywBwd/+l9BP1LH
+	 L+p3VGSJzFwsNnFqP1HR2U+oQqOkPBq0RPFN58R8NaJ5EvqBMHsh/WpRZN7znqQA3IaDS
+	 p3UgaejVpf6NLG22dTnFNsRq5jD6QLbXDfGpMoxvQiTd6gPU3u76JUEGIdgaMQ/Fr7p7c
+	 1XuGLJFPuP581gCXTo/98/W4/z5KCCihLrSb5fQlrqkos+z+F/2pFWJUlTqG+yZkLrkGo
+	 ei5ry11Sc4N/b6xrSlpnULZFYPDhtMCdUkNhAojcYFw+3R17BOhB8ib4lmZlH1s4pFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795391405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795392110;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+t697FbN3YH1ito+3RCbQXZtdIEnIJ+uIHE/maxp22Q=;
-	b=43cjEeBaat1bFSVy6uPmb0Env+aHXoNY2kTu/ogvESV8E49M2G+99uLoFcWkdLuCccql
-	 fvypWQQDgo1EHw22Zkp5dx+V+pXg4wh5twg3CIBfKqH2dQkiEERDgZDJkaszhS3LUPzcQ
-	 cztRxGc0py/g3MtWSHZLvHg/Pk10iKhOJwaItbBdA8H+EJiHnlyTnxqCxceoRA6NNkk+H
-	 D6wMokavL07ImxBGOZLvq2M0Vn6Wav9HfCfFFVzX3ttcGZ90p/ReLVKLv8GokAvnhWDAj
-	 rkmyFoWD6siD+CJCkgWORMue9hiTUUyHmDA2jkO8GMpKgGYc9Dx6DCeVfIjKX5ArWmw==
+	bh=/RWrU38gXUbEfMF9OTe2TxNpR3JhGadiWn2X6uNIggk=;
+	b=Z1OHXafgzPdiKK987l1Cfpytc+bUqsCN3UR/82pTqmvndOsU4CRNsSIqlb08fKbcLwJd
+	 4JgNoeG8RhyyB4dOFvYH6SGzHgaKK6HVzw15+tgG3J55U2ahLtD7rVpwdzcyFp36Pgr/W
+	 e6eAhQ7KzFra1xRBoNFek7dPSpdzGXNCS+45nqb25B1Vu98H3PfCcQCVDDHhqWkOuWBOu
+	 URPCDFFHrBPgxs6tD5PRe0WCehZBz0Gzmn/R0hCcdX3P1ky5gzzIPwKu261ySI5BpEv8I
+	 XYFhGOY/ssjNkjGAdPrl9I2S1IzuRsrsqB53uDL13yW1RdSN5QMpWizettIs8AJjP9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxq6GTb2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIPHI3MT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109B4606A31E;
-	Sun, 22 Nov 2026 23:50:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A55606A31A;
+	Mon, 23 Nov 2026 00:01:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxq6GTb2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 658FA1F000C0;
-	Sun, 22 Nov 2026 23:50:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIPHI3MT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12D211F000D3;
+	Mon, 23 Nov 2026 00:01:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795391403;
-	bh=+t697FbN3YH1ito+3RCbQXZtdIEnIJ+uIHE/maxp22Q=;
+	s=k20260515; t=1795392110;
+	bh=/RWrU38gXUbEfMF9OTe2TxNpR3JhGadiWn2X6uNIggk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bxq6GTb2xnMBm4ZECuEMDIPVa7RuAdc0BWBCNGRF6IOKhulrMAl6UayEDSf/ZjRFT
-	 u69o//1LLGwNQZRBYKxfe8BtLoq7YB0nVB+P/8zwyiTITuqxr7+yd4tUcUdIHbOyqg
-	 3gMwSsWbSIOepxk7a4yj85b8Gz/by/YgJIdCPQcV2VxKrh69k/7pF1fzmbBE+Mxn1S
-	 mCxRIZrEZoFMubx+unCi/tsnK3igkWPJv7iyzza6hd6qtcHzl4KZmo/p2/KD6673Nq
-	 OTXWlljwt7jHsaTKUgTWeV33GzE9QgGGlIiw7HsXBXPLazxzcjo/qiXkqRS9XtxsKY
-	 yQhrisJcxsRRw==
+	b=KIPHI3MTKVVUFFy/Vr1VTGC9+hivxKCXKVDk/fyU/9wrQHUitb4QpscpXqhJ5L8tE
+	 dvDiuV089DTx5o1X6eidWBL76n78U6toeFz3WJK0mGoDlXFkRgFHSdaMO/PiHOY/jz
+	 Lw/UASQTTMTVP6jTFvvEL3aCiRSKnosuN1Crryu5p10Nb4Y/3nvIQ28zx3jISwmVIa
+	 pBRDb3Cmois9pxwkf68RM/6q/XvaxQTzluuvEtb/5AzeRtwZmxTPCICeB/DBH+LSU7
+	 RhcvdMdmoFA4sTUXYMTK8ph1v8/wg+MVxiiGryMgnkXYygS0Z44BSTZAtOrC0Vpde0
+	 Tr51OESksZZEQ==
 From: SJ Park <sj@kernel.org>
 To: Yifan Feng <evanfengff@gmail.com>
 Cc: SJ Park <sj@kernel.org>,
@@ -48,10 +48,10 @@ Cc: SJ Park <sj@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
 Subject: Re: [PATCH] mm/damon/core: do not overwrite wmarks.activated in damos_commit()
-Date: Sun, 22 Nov 2026 15:49:55 -0800
-Message-ID: <20261122234956.22710-1-sj@kernel.org>
+Date: Sun, 22 Nov 2026 16:01:41 -0800
+Message-ID: <20261123000143.86987-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261122234633.89529-1-evanfengff@gmail.com>
+In-Reply-To: <20261122002930.98401-1-evanfengff@gmail.com>
 References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,38 +64,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun, 22 Nov 2026 15:46:32 -0800 Yifan Feng <evanfengff@gmail.com> wrote:
+On Sat, 21 Nov 2026 16:29:30 -0800 Yifan Feng <evanfengff@gmail.com> wrote:
 
-> On Sat, 21 Nov 2026 17:22:22 -0800 SJ Park <sj@kernel.org> wrote:
+> damos_commit() copies the whole wmarks struct from the source scheme,
+> including the private 'activated' field.  The source scheme is a new
+> one, so the field is always true there.
 > 
-> [...]
-> > > Do not restore
-> > > it for DAMOS_WMARK_NONE, because nothing sets it again in that case and
-> > > the scheme would stay off.
-> >
-> > Is this really necessary?  If not, I'd prefer restoring it always for
-> > simplicity.
+> As a result, a commit turns on a scheme that the watermarks turned off.
+> If the metric is between mid and high at that time, the scheme keeps
+> running, though it should stay off until the metric goes below mid.
+> DAMON_RECLAIM and DAMON_LRU_SORT use the same path for commit_inputs.
 > 
-> Thanks for the quick review.
+> Save 'activated' before the copy and restore it after.  Do not restore
+> it for DAMOS_WMARK_NONE, because nothing sets it again in that case and
+> the scheme would stay off.
 > 
-> I think it is needed.  With DAMOS_WMARK_NONE, damos_wmark_wait_us()
-> returns 0 before it touches 'activated'.  So if the scheme is
-> deactivated when the metric is changed to none, nothing activates it
-> again.
+> Fixes: 9cb3d0b9dfce ("mm/damon/core: implement DAMON context commit function")
+> Cc: <stable@vger.kernel.org> # 6.11.x
+> Signed-off-by: Yifan Feng <evanfengff@gmail.com>
 
-Makes sense, thank you for clarifying this.
+Reviewed-by: SJ Park <sj@kernel.org>
 
-> 
-> I tried restoring it always.  I deactivated a scheme by the watermarks
-> (free memory rate above high), then set the metric to none and
-> committed.  After that update_schemes_tried_regions never returned on
-> my test kernel (it does not have the damos_walk() fix yet).  With the
-> check, the scheme is applied again after the commit.
-> 
-> Thanks,
-> Yifan
-> 
+This patch is applied to damon/next [1] tree.  I will repost it soon (~1 week)
+as an mm.git merge request.  So, no action from your side is needed for now.
+
+[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
 
 
 Thanks,
 SJ
+
+[...]
