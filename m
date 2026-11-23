@@ -1,62 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795464089;
-	b=X1e6hK0L9x29hoN/HR/JBZN9l5Z9wRe8fEaCUYL/PC+xJJGxmiVPBouY5gzCROWyuc4x
-	 lFPPNzWglq83q4mTkLvGnaPvPuRYbI0LZqj0n8qnP6SWv30ifK+2gwGDsrw+ehCieeYvF
-	 Pngt81mHl3X9lt1NzS2BxpQErsqoTCfJ/uoEr+c9wpO6+KJLBVaWaSDK+8J47JsvkiyvY
-	 vHrdkoYjYOGQ8xHEK2Dn9b0W6rjeN4p/ALUs69eSrIuJOOlW82WALjvD1XMFVPXETrAEG
-	 ATUdeGs91HQ32RfSAwts+zZEDadfBDN4S1pDHXfkpRVlP6Htj2FgkIMtG63OZbL9nlQ==
+	t=1795464090;
+	b=DgxgwQSYKWNXpKDtnD6FEvLaRumABNYdLDwC+LSSq0mZDECXYG6DCZ9G87Z4pcQCXuPp
+	 jCruQwMW5JKIxEyxdMb5STtGD6TiJMDKEcp+kxX0BoPVOphfxOkGX9m6aQDbbY1o7tqDP
+	 FeoDSpGYLxNmp1pz8t7gusRvOQ/eM8sn412bCCBq1EN9shSC46yvyxv+yLEpFRx9zYiki
+	 hZPFQU3wGHK5SMae6dXCd7nC06leWXwM6eo3iA4Z3calXcOV9C+ZgzGEQ17wcjo6s11sm
+	 r4KW35VdTZr+Ufnh6uaTTsLB9WNme6Ch8LHf+Cz7HEjIJCKVz99WXQ7ZpC04a7i/+XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795464089;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vl/t1brpFMEqqKOGGmlaPM+Jlj8aMd6VrhVMqs5Y1sI=;
-	b=XMAFxx75cTjjnIUA6+Mh7MScTEHCzHc1DjWX9VVciwVnA0W3VKob8wZyyoFieH3Ez5EZ
-	 LgPw/Wb7B+6bDkT4EgVYmXKKMsKaNEGDEL/Ey4Jmt5u1XyaqwwpwEztQHkrFsk+N/7WRc
-	 qAAbo6B/wcpGHGxUCo1vLxzBtFfloTyOCcWvGXfxZTn9D9FD/r3x0/dtxWZffSehn3GOR
-	 H5m8bg82tMHJztSfAO1sMZDtFA1LWRkI8ZYIQVzANYsVbvTs3/k6LWJnqvC9PJi0rGa4Z
-	 VG3N3uZqsReVqGFF0MSwnkkfGAPULk3rkOUi9TbNtISFkMOBPC3SM+5EmT+hqBF2K9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795464090;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=b79lk37u0SJ8mJ3I7WmNVa3EmDE+Rjthr4bhnCPqMpQ=;
+	b=LFNiezF1cyGCe51ytCyQHDRalJ6Hx9EsCb6GES4DGEXkbIRwPqQQxC3GIyOS4iAJl4m9
+	 26QZDD0jgySGhoCtaAuf48c+XalF3ZbeF4596JTXUF5PZa48b1KQrOiOvvAURFyjd3C0k
+	 B02zBcrHrEAwC+D/CJB1/HjWMpUH0TOCBPNokcAsGOIB62GCw7mcVQo9rfyOY0m1nI03l
+	 ZGI9EG9UA02rCHXiEEkSBp8KnLtmAP2Vx//xkVmQN+/Ad2pvTtJQZZOPUpnl47s2vKj0W
+	 GQmMzX11GjFHeDRkYgDMnPLfQ4jCek8zw0s0MmdwwUUj2dpqCJ0OBAE2DFY2a0aZ6SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F4gI3hLf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eK70WAKg;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E54C606A32A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA8D606A32E;
 	Mon, 23 Nov 2026 20:01:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AA8D606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F4gI3hLf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CEA51F000CF;
-	Mon, 23 Nov 2026 20:01:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795464088;
-	bh=vl/t1brpFMEqqKOGGmlaPM+Jlj8aMd6VrhVMqs5Y1sI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F4gI3hLfvNc3b0wrKuaNdvmdjMGsV7POsgDblFgG3X/crY4xXOgFQ/Ec3IhdF/bIo
-	 JJsblR0u4kiGYLRQwATlPnIaXCc+wtlWNhMrdN1CYc97LDXaFiayDnepXJwyGNsb9V
-	 n9yYlN2+4dmtUk15SNBR20NChWpS7v5v01dCDEs0tDsRBnhLDUFqmURxyfKlffNxpl
-	 PyIbRADTxT7hBhqcYnn99gem0a/jBIPWhZp2NQ1ZJLoZIJOmnjrSJkeFdh139z+N5r
-	 9JavKWgY4vTejMW4W8Mr0bUzGq3jtz2ww9SqaXC0CTCJr8C07oFIum8bQYDH6QeK9n
-	 H2k2Qxs7kC1eA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Nishanth Menon <nm@ti.com>,
-	"George G. Davis" <gdavis@mvista.com>,
-	or <source@mvista.com>,
-	Johan Hovold <johan@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 09/10] rtc: omap: prevent NULL and dangling pointer dereferences in power-off path
-Date: Mon, 23 Nov 2026 19:59:20 +0000
-Message-ID: <20261123200012.502284-10-lee@kernel.org>
-X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
-In-Reply-To: <20261123200012.502284-1-lee@kernel.org>
-References: <20261123200012.502284-1-lee@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eK70WAKg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795464090; x=1827000090;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=d4BrmHEXpgt7oMAzMDt8SUlATSq1VlxdwbnTLGIvVfA=;
+  b=eK70WAKgSG6TLw84A1DukT1wW0QyRZHFuQC5viY/XoWuTqrOSLe5V2Kn
+   B3g2EqFsRGvPjSop/QWf/TbkiLkEeIEJN2JbMuNaQBesRGneMaANcBYZY
+   UZAQZgmR02JEuuP9f3MmNUwEE3/vIe/m45o15ErOcG9ViuzxCRqM5rKE/
+   LV3NfksQYNj+I6d6pTgwTh2CTs6CzHAi60ks/KHFatuwEL+wfHWj6IjNd
+   no7tSFOT/mFr2VztjL36BaNHaodT27fjBTJvT/cfi/wbs4qagaHQk0nxq
+   cHeTquUaELJWkJ1Bh+KTyXcyG/8XK4RiOBXycw4UfRnuAqruS23bZWBqQ
+   g==;
+X-CSE-ConnectionGUID: 51mgXu26SYKbY6oN8NH5+w==
+X-CSE-MsgGUID: SewgYZoBTpKM/VPKw1faEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4127378"
+X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
+   d="scan'208";a="4127378"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 12:01:27 -0800
+X-CSE-ConnectionGUID: aCErOLmZQLSSlaHc6h+Epw==
+X-CSE-MsgGUID: RxQv2lpfQ8OSiPc/k+2Ckg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
+   d="scan'208";a="11720551"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 12:01:23 -0800
+Date: Mon, 23 Nov 2026 22:01:20 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Gary Wang <is0124@gmail.com>
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Daniele Cleri <danielecleri@aaeon.eu>,
+	JunYingLai <junyinglai@aaeon.com.tw>,
+	Louis Chen <louischen@aaeon.com.tw>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, BillyChou <BillyChou@aaeon.com.tw>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 4/5] pinctrl: upboard: fix I2C pinmux-select set CPLD
+ GPIO OUT not function mode
+Message-ID: <awSbkAjWErc0ac_n@ashevche-desk.local>
+References: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-0-f2322a91686d@gmail.com>
+ <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-4-f2322a91686d@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,82 +87,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-4-f2322a91686d@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-omap_rtc_remove() only clears the global omap_rtc_power_off_rtc pointer
-if pm_power_off still equals omap_rtc_power_off.  If another driver
-overwrote pm_power_off after probe, unbinding the RTC leaves
-omap_rtc_power_off_rtc pointing to freed memory.  Furthermore,
-omap_rtc_power_off_program() is exported and called directly from
-am33xx_rtc_only_idle() during suspend without checking whether
-omap_rtc_power_off_rtc is NULL, causing a NULL pointer dereference if
-omap_rtc_power_off_rtc was never assigned or was cleared on unbind.
+On Mon, Nov 23, 2026 at 11:16:17PM +0800, Gary Wang wrote:
+> The CPLD I2C pin mode setting following uart & spi used modes array
 
-Always clear omap_rtc_power_off_rtc when removing the matching RTC
-instance, and return -ENODEV from omap_rtc_power_off_program() when
-omap_rtc_power_off_rtc is NULL.
+UART
+SPI
 
-Fixes: 222a12fca604 ("rtc: omap: add support for pmic_power_en")
-Closes: https://sashiko.dev/#/bug/linux-97b795c5-f68f-4228-948f-547a106c6775
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/rtc/rtc-omap.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+> on device AANT0F04.
 
-diff --git a/drivers/rtc/rtc-omap.c b/drivers/rtc/rtc-omap.c
-index 3c978edd6c2c..156444fab916 100644
---- a/drivers/rtc/rtc-omap.c
-+++ b/drivers/rtc/rtc-omap.c
-@@ -416,6 +416,9 @@ int omap_rtc_power_off_program(void)
- 	int seconds;
- 	u32 val;
- 
-+	if (!rtc)
-+		return -ENODEV;
-+
- 	rtc->type->unlock(rtc);
- 	/* enable pmic_power_en control */
- 	val = rtc_readl(rtc, OMAP_RTC_PMIC_REG);
-@@ -481,17 +484,19 @@ EXPORT_SYMBOL(omap_rtc_power_off_program);
-  */
- static void omap_rtc_power_off(void)
- {
-+	struct omap_rtc *rtc = omap_rtc_power_off_rtc;
- 	u32 val;
- 
--	omap_rtc_power_off_program();
-+	if (omap_rtc_power_off_program())
-+		return;
- 
- 	/* Set PMIC power enable and EXT_WAKEUP in case PB power on is used */
--	omap_rtc_power_off_rtc->type->unlock(omap_rtc_power_off_rtc);
--	val = rtc_readl(omap_rtc_power_off_rtc, OMAP_RTC_PMIC_REG);
-+	rtc->type->unlock(rtc);
-+	val = rtc_readl(rtc, OMAP_RTC_PMIC_REG);
- 	val |= OMAP_RTC_PMIC_POWER_EN_EN | OMAP_RTC_PMIC_EXT_WKUP_POL(0) |
- 			OMAP_RTC_PMIC_EXT_WKUP_EN(0);
--	rtc_writel(omap_rtc_power_off_rtc, OMAP_RTC_PMIC_REG, val);
--	omap_rtc_power_off_rtc->type->lock(omap_rtc_power_off_rtc);
-+	rtc_writel(rtc, OMAP_RTC_PMIC_REG, val);
-+	rtc->type->lock(rtc);
- 
- 	/*
- 	 * Wait for alarm to trigger (within one second) and external PMIC to
-@@ -913,9 +918,9 @@ static void omap_rtc_remove(struct platform_device *pdev)
- 	struct omap_rtc *rtc = platform_get_drvdata(pdev);
- 	u8 reg;
- 
--	if (pm_power_off == omap_rtc_power_off &&
--			omap_rtc_power_off_rtc == rtc) {
--		pm_power_off = NULL;
-+	if (omap_rtc_power_off_rtc == rtc) {
-+		if (pm_power_off == omap_rtc_power_off)
-+			pm_power_off = NULL;
- 		omap_rtc_power_off_rtc = NULL;
- 	}
- 
+> CC: stable@vger.kernel.org
+
+Should be better Cc: (CC: works, but looks non-standard).
+
+> Fixes: dca2f73cf19f ("pinctrl: Add pin controller driver for AAEON UP boards")
+
+You need to read the AI slops, test them and add your formal SoB.
+
 -- 
-2.56.1.750.gf70dc682cf-goog
+With Best Regards,
+Andy Shevchenko
+
 
