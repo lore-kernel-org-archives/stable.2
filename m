@@ -1,49 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795430213;
-	b=XHqV5VHXACkOfM1mTBM/jbphqR/uhgJlzjz3FRHzrnpqRMZg4/U19SDbnxyc1Uuhh+6Z
-	 Gx3BQcDOQFiISNpYjB1L3EKlJ8N0otyjxVy6iEA/zZjzf8V/rNnYzKZ786pxgDn4wNJzP
-	 e61fHiLqN7jeFYVmP6frDvTO50tyiO3ie5J4AtfXmxD6dL53Fw9kBw/E9AtUHq1hKr3kT
-	 oSWzFY322wjRf3Byk2WT4jUn9Fs0+DfIWrWfM5T/cBeOyRsZeIiTowOIA/kVX5Nmz9884
-	 2k7V6+nVgRVpEViiPuTq4xuPQXkVTfaJlduk8B44ASDNutY/J62o3CVkCryy/WsPWpw==
+	t=1795430320;
+	b=w39DoEAJ17zUSmyqw3bY7Ina1viTSoqOQ8ZqvRaYW0U9PuTttdxm4/Di2S76oROe2lTJ
+	 lGH4Gggl1nie4VaftfEa32IyFRqeX7A74k1Y0GYF6Ed7SERaJFnRqFNY1XheJCGjRRp2h
+	 Irhz8VAdMmZGM7Xe5iUr2Oa7eNLpLedKCxCO7jwjVlI0moKz5bsDq5em7Liv6lFlt1oO/
+	 zhvCOf1/LcRNznDquCc2Q/llvwyFOjXBDwq1IdN/puVIBZ9znQ7611y0VT/0wlizPRw+d
+	 ekQl81ejsVtZyUeqzYmJg9SaXg5VFFBU4tELI6nYFS6IlEFyXswIDKKEkl2f8TnS8TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795430213;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=uDIyL8csS0OafYWL+DTmNWGdhbsOuiWOQJkObodqJlE=;
-	b=0g4d5LFxy+mTJx5+onRRiplcvYN8wu1csUrnGn4+doGdqs1TlfaZXemzE8whJXOvlesk
-	 QT/gPoAwTXPOGkTKo/ng1UnN/aMhMZ+09q7tDarPo90zHXXF0e+5XoZBbznBxcatpBpqr
-	 H1sKd63s3lOOtlPiwdTIMZCJKbAHewvfoKO6IUyoJqqEiyoywPUrpdAZdmOdFazO8Q+kf
-	 jNPqH97HyOO2w0W/w/KAncfamC0StB4hu8y85bbBb/NYk8sthnCCom5SfNGxAg8+4fEIH
-	 MClnB/956wo82fcktita7koZS2Uxgf+S71cF2KAiZ9y+wNfg8ZOBon5l8HTQMXnXfUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795430320;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=4uMBHgBjHPr5TrgiVfTBcQRGxAuQekn3tbU+m3Rem5w=;
+	b=frgfBR+EVtQatQa6p8PlyBij85/1Fy7MczGBrtA/JV4XelY70sHnrkqkvXGHvNecfnE2
+	 bxWnlMNX9B4CYrTGDomuNBIZTL0S3pC6pPf91+vJh/ZiCbo376I47ZJHKKuEOZPUBCbTE
+	 deOmAiwC4N+KAf4yf0pMUsH0ppjy3nIb9OHiBeWZH0sSaJGRSD4/LKo7cV8PX6basurJW
+	 Ts5YOeagD6VNzNjFmBWvsDzgHa5MGG4xhxBu3aCB2nwh22sebTkcFrap8zvL8AhbxUbI3
+	 pWqF+Ps2eEJLE7Dy0siiLB7sja1TJiefY62rtj+uUJ3S2a25QmHBBGovHF18B9syI+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=pkO3cxgd;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 37113606A31E;
-	Mon, 23 Nov 2026 10:36:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37113606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X6kZQUpK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FD1606A31A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 10:38:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=pkO3cxgd
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 62F0A143D;
-	Mon, 23 Nov 2026 02:36:49 -0800 (PST)
-Received: from [10.57.91.245] (unknown [10.57.91.245])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 25D723F632;
-	Mon, 23 Nov 2026 02:36:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795430212; bh=zxMgJ0Zod2wpdsyWepEtw4oVnjAoyPgBY3VWNAhnP7M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=pkO3cxgdC1Ma9566c7PDIZgUyDTw/GTPNKPYUHG2BR63OXTEzzEQs+CraFnUg2myV
-	 5AIDh+wbSitzPRL3+3WA0saItk2Mgsq01o/7l++5BdhZ2n1FKd8uE58qHfkf3GUHTD
-	 ozS0U8gq/7uNSrzNX6QhEEhYJr4uc0eTMD/zGtko=
-Message-ID: <5b0a26ee-30b0-4a79-9cca-9848dc9d65c5@arm.com>
-Date: Mon, 23 Nov 2026 10:36:48 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X6kZQUpK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4575D1F000C0
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 10:38:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795430319;
+	bh=4uMBHgBjHPr5TrgiVfTBcQRGxAuQekn3tbU+m3Rem5w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=X6kZQUpKCnlcvvx8/m22zj3JYZNRBppgl38bJfin75SRiOdZZW07QMJFmI+UhTZm/
+	 BVsfSJ+SX5RDGQNhYyI5OgDvRFpHWyX/7d5sIpFvBWLdsGJ68Mec3EJoTKvYdePozL
+	 lrokFRgdsVl2avYPb6cABUK8smsfvmChhgOalWDVT91z9kFkU64csOXhORVjotIPHy
+	 yRBYfgLDzu7uYm7c2IUH6/ZpaQ2i6goFZi9RXP3ye8+fuXeln9/jpRQvJ5hKJSUmrx
+	 kTrPsuGdfvfOhXU4bZ6zkDpdLQXJ4LEh3hqORHN8FeB9woNaUzsCmgFrAQNo9BwGCm
+	 gU+Bq3MiyWkQw==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5c1c0c8d61aso1887939e87.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 02:38:39 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErH/3/Aa0KDkqoqnQQpG42gVpbDrjkWTV+EQp1hqroU9ccdgNXj4BIfcHCMNqvQfGfYL+5gsMik=@vger.kernel.org
+X-Gm-Message-State: APuU4Z96+IpMU1SbTgH75MI9m/8YXq19FGUvQHJYkd12OCea7oXjxxPm
+	l7+++QKoopPfSFfs7TWI6rYXqv8sST+V1zxwGVZ6Qf4xVbedtF3lOeCNcG4rV6XggWtSFGgJswm
+	h6LnkuKoYcoiJLI4EZuToCFLkrhJZSO0=
+X-Received: by 2002:a05:6512:2301:b0:5bf:d000:bca3 with SMTP id
+ 2adb3069b0e04-5c1bc80af80mr2599775e87.49.1795430318053; Mon, 23 Nov 2026
+ 02:38:38 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,85 +59,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: mm: Don't defer the barriers when installing a
- fixmap entry
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Yang Shi <yang@os.amperecomputing.com>, Kevin Brodsky
- <kevin.brodsky@arm.com>, Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261120121638.194154-1-fuad.tabba@linux.dev>
- <20261120121638.194154-4-fuad.tabba@linux.dev>
- <6782b5ee-3dfe-4076-a79c-fbeb2c2ac7da@arm.com>
- <CA+EHjTziXrRdR+guikKbj93Az96T+AMx_=0sVeyWG5C4fwaaTg@mail.gmail.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <CA+EHjTziXrRdR+guikKbj93Az96T+AMx_=0sVeyWG5C4fwaaTg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org>
+ <avMP-y1B9K0cp4M8@zed> <CAD++jLnuS9ZE8mRwkCizsqo3f40s5etqOJAUqLJNsCtE5eEkDg@mail.gmail.com>
+ <awP0mKeNtrJj8zh6@zed>
+In-Reply-To: <awP0mKeNtrJj8zh6@zed>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 23 Nov 2026 11:38:26 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnTCEPKG5hNtfQ8rbijxF8nsk3H_K+R4H+f1HJak3Dhvw@mail.gmail.com>
+X-Gm-Features: Aa3M54rRKaj8R3sfZW-3iO4iridVTVI6IfP5ufKPSkuf_T5v6hl73pARMuoD_pk
+Message-ID: <CAD++jLnTCEPKG5hNtfQ8rbijxF8nsk3H_K+R4H+f1HJak3Dhvw@mail.gmail.com>
+Subject: Re: [PATCH v2] media: mali-c55: Keep IRQ requested during suspend
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Li Youhong <dayou5941@163.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Nayden Kanchev <nayden.kanchev@arm.com>, linux-media@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 23/11/2026 07:35, Fuad Tabba wrote:
-> Hi Ryan,
-> 
-> On Sat, 21 Nov 2026 11:01:49 +0000, Ryan Roberts <ryan.roberts@arm.com> wrote:
-> [...]
->>> kernel then warns about a spurious translation fault. When kgdb stops a
->>> CPU in lazy MMU mode, its breakpoint writes through FIX_TEXT_POKE0 can
->>> fault the same way, and fail.
->>>
->>> Emit the barriers directly in __set_fixmap().
->>>
->>> Fixes: 5fdd05efa1cd3 ("arm64/mm: Batch barriers when updating kernel mappings")
->>
->> My memory might be betraying me, but I think this change went in before BBML3
->> (BBML2_NOABORT)? In which case, the bug is only exposed by the latter series?
-> 
-> It did, and the set_swapper_pgd() path is only exposed by the later
-> series. The tag is for the kgdb path, which doesn't depend on BBML3.
-> When kgdb is entered from a breakpoint in process context,
-> in_interrupt() is false, so in lazy MMU mode the barriers for its
-> FIX_TEXT_POKE0 mapping are still deferred.
+Hi Jacopo,
 
-ACK
+On Mon, Nov 23, 2026 at 9:28=E2=80=AFAM Jacopo Mondi
+<jacopo.mondi@ideasonboard.com> wrote:
 
-> 
-> [...]
->>> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
-> [...]
->>> @@ -127,7 +127,9 @@ void __set_fixmap(enum fixed_addresses idx,
->>>          ptep = fixmap_pte(addr);
->>>
->>>          if (pgprot_val(flags)) {
->>> -                __set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
->>> +                /* The slot must be usable on return, even in lazy MMU mode. */
->>> +                __set_pte_nosync(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
->>> +                emit_pte_barriers();
->>
->> I wonder if it would be clearer to wrap __set_ptes():
->>
->> lazy_mmu_mode_pause()
->> __set_ptes()
->> lazy_mmu_mode_resume()
-> 
-> That would work. However, there's the stable backport. 6.18 has the
-> bug, but lazy_mmu_mode_pause() was added in 7.0, so 6.18.y would need
-> its own patch. This patch applies to 6.18 unchanged.
-> 
-> I'm happy with either, or with a followup patch in the same series.
+> So yeah, maybe Sashiko would tell you this is possible but I hardly
+> believe it is.
+> Anyway, there is a remote possibility for a window here, so let's
+> increase the pm runtime counter.
 
-I'd personally prefer to use pause/resume since it's makes it very clear what's
-going on and avoids the layer violation. Perhaps your approach as the back
-portable one, then pause/resume as follow up (along with ptep_try_set() tidy
-up)? Others might think differently though...
+I'm honestly not sure. The framework should ideally stop this
+from ever happening but I'm not good enough with the media
+framework to have even a vaguest idea of how to fix this.
 
-Regardless:
+What happened is that I asked an LLM to review the code
+using the Sashiko scripts and it complains about this risk.
 
-Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
+> > PM reference. The probe reference keeps the ISP active until the IRQ is
+> > installed, so runtime suspend cannot call disable_irq() on an IRQ we
+> > haven=E2=80=99t requested yet. I=E2=80=99ll add a comment.
+>
+> A suspend will always follow a resume, and if a resume tries to enable
+> an irq before it is installed we'll have problems as well.
+>
+> If that's a real concern to you, shouldn't we install the irq handler
+> before enabling pm runtime and powering the device up ?
 
-> 
-> Cheers,
-> /fuad
+Often that is not a good idea, because the IRQ line can
+be in an undefined state and give rise to interrupt storms
+if you do that. As soon as the irq handler is installed it gets
+unmasked by enable_irq().
 
+Also right now the device is powered up
+by directly calling __mali_c55_power_on() in probe() maybe
+we should just let the PM runtime resume power it up
+for clarity?
+
+It's quite common to power up a device (enable clocks
+and de-assert resets) before enabling
+runtime PM though, that's what I usually do.
+
+Remove problems:
+
+> > > > +     pm_runtime_disable(&pdev->dev);
+> > > > +     free_irq(mali_c55->irqnum, &pdev->dev);
+
+Note: here we disable runtime PM and free the IRQ and this will
+make sure no further IRQs appear from this point.
+
+But clocks can still be running and resets can still be
+de-asserted because there is no guarantee that runtime
+suspend has executed just because we disable pm_runtime.
+
+> > > >       mali_c55_media_frameworks_deinit(mali_c55);
+> > > > -     if (!pm_runtime_suspended(&pdev->dev)) {
+> > > > +     if (!pm_runtime_status_suspended(&pdev->dev)) {
+> > >
+> > > I guess this is required because you moved pm_runtime_disable() up
+> >
+> > The remove ordering is part of the IRQ lifetime change. Both runtime
+> > PM callbacks now assume the IRQ is installed, so we need to drain
+> > them befor free_irq(). Then free_irq() waits for the threaded handler
+> > before we unregister the media entities it uses.
+>
+> I'm sorry, this is certainly me missing some pm_runtime internals,
+> but where is this happening ?
+
+It's not a pm runtime thing more of a free_irq() thing,
+it will wait for outstanding threaded handlers to complete.
+
+When we get here we know no further IRQs can happen, but we
+have no guarantee that runtime suspend has been called,
+so we check just like the old code did to make sure it
+gets de-clocked and resets are asserted.
+
+Compare with the old code:
+
+static void mali_c55_remove(struct platform_device *pdev)
+{
+        struct mali_c55 *mali_c55 =3D platform_get_drvdata(pdev);
+
+        mali_c55_media_frameworks_deinit(mali_c55);
+        if (!pm_runtime_suspended(&pdev->dev)) {
+                __mali_c55_power_off(mali_c55);
+                pm_runtime_set_suspended(&pdev->dev);
+        }
+        pm_runtime_disable(&pdev->dev);
+        kfree(mali_c55->context.registers);
+}
+
+Since IRQs are unregistered in the runtime suspend callback,
+this is not a problem here.
+
+> > That=E2=80=99s also why I switched to pm_runtime_status_suspended().
+> > It reports the actual status after pm_runtime_disable(), so we only
+> > power off the ISP if it=E2=80=99s still active.
+>
+> It seems to me pm_runtime_status_suspended() ignores the runtime
+> counter and is only there because you pm_runtime_disable() earlier ?
+
+Kind of, I guess it's a bad idea to free_irq() before disabling
+runtime PM?
+
+An alternative is to call pm_runtime_force_suspend() before
+free_irq() so you know for sure the device is powered off,
+I can try this if you like it better.
+
+Hm actually that would probably be better... shall I try that?
+
+Yours,
+Linus Walleij
