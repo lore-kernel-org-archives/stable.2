@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795432447;
-	b=PoR443GXJjxYXtfkQUwblBkk2jBm1FHSmSq9zgUiV2eoV81V6MMaZgRayyfzK8x5h+TN
-	 8SFV3IVsX2GI0lqv7K6bsLZPEV/gSw6+O0wnRODdbXnXfT2Z21Hv4XVIk0J2rHN3CVZu3
-	 xEQ3jyqG1pbalbHaQSG1Ps9NX8G1kbQJsDWdFSEucPEY4e/dvaY/1+nfWGGgAsxrb28Tc
-	 XE+LM+n7+AtCWL5oV2eU6ckaVGoRulKjGkPg/XrTZ3qlwcgo6BsR/Psj2faLiTfNb0uNW
-	 19x90vUS9EAUpZ6Dh3V1RgcCPlJ6BIpuVqff9jX/HomP0BPwvP1y6hFFt1nnyqytp0g==
+	t=1795432587;
+	b=Wj81of6BeuKwPJtjVEFqDVEhp3ODuHrfNpDK9deKN2gB2zEuugvo53nsVi3PbUsyqNAc
+	 Hvi085j0MNEAvyRWlmwtdLhWxno9XKoMhxZiV51tfZvCr8/lFPutNQJ4iqnkFFapPaSXs
+	 fATtGyG4Hl8dScbsbRnrsT8YZBeSk0OlFYpySaH5wVlOPLNvfa7/cZZ+9iouPXseg4E59
+	 Pd5l3jZSCq9poA9bUkzHLJN/zVEZI5PMijN5qPYXtSlgdOxQUdL933AYWHFb7GAYTe0+w
+	 Vj9ujXP6YYpVOJkYwu7mshdpyWcLknmKUZYBeMx/q12xTW+KqRJbnxNzsgLy2EQpucw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795432447;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/Z/EdrARj8Rd8fEzRvh1S3d0UV0AZLpCdBc43fW6xRI=;
-	b=P7iumO+IKSXUWNPd/qQf6039CKfMg1/S5E3giZ9czXF6ENPUtbrEk9VRcZPeDDKVP/Fh
-	 cPMIcXxAsORfZCn7GAbxZwb4tdQGgIImyQ8yfh2ZdEeBY0EYLrhGaIOSUgxvHRClBse1W
-	 GuovFZxQNMqzv1xCY0wURk0+R+ttYh7dS1T8d6HjbWmbU9mxMufPB4ZonoXozzBovEEfK
-	 1OjDibOTf9Z2yHRdGB899WoTnvQRTWoKlKp5JIo+7EY4bieNAXTPRFYiA7RpMTnDRG91r
-	 /tvfh5c7pS0vOPmlbiJuWwLC+8mmdF6OC3tvvVfE+ePoaNG8F5upncpdDScr9LsMn2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795432587;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=VqgpEXu0QCmPpvbNu3p2fiG7kDspfbJ1mHbeSkV3Q80=;
+	b=pTXiR+HRkbMiBaVObA1tdiyUGt8vbwJDRW66NaugavxCxPvB2YvisZl8Lt95L6mDebPl
+	 03hlDwpkVgi9QKiXNFygYhaS1T7oaMvaA3eVThkq+9HgkXuwtBMu/GT0antqnWIyHVgOM
+	 lqgf/2o53jOcU6v+9k9/9W6cVH2F7wfVyB1XCtH4BrAFG+Jui3yy+g4Vw3EgdzelmBxBS
+	 FLgWXOInidqqWR2+T/QXsmRsc7u3tKu9Efr+M1uc6Jw/AuEOJ4D0Ut7yesDdQ6NoGjffU
+	 e7SWtjW3V3P88HUwYTTYTobM2M6bE4O8PTjUBXsL0Uj5wyeUlb92MjMMep+3KoYw28g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dyEuKLag;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HqT9QxNa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FBD606A31A;
-	Mon, 23 Nov 2026 11:14:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47551606A321
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:16:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dyEuKLag
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47BB51F000D3;
-	Mon, 23 Nov 2026 11:14:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HqT9QxNa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEAAC1F000F0
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:16:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795432446;
-	bh=/Z/EdrARj8Rd8fEzRvh1S3d0UV0AZLpCdBc43fW6xRI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dyEuKLagWHdTe2lNdDfG/pW19V2v7BdnkfQX6t4XiFZLE235LzwHGuZKbpTT/pY/c
-	 lxVLIsa+G2lt22qnmF69ah+3UpYuKCQiUSU9yjMSqtjjzKB3O62XCJ94lMiSj6a+Oj
-	 hTkBx/U9mtkv3Lbi2L+eQvxnV4RSnfjZiO8UiuwjWzaHvBmOzBhbQzdMpR9WI3c1xV
-	 j/x2CLDLE4DDc9rvo5cniGIp64Hqh4LjtsFp47jItyEfLIEKCFsDOY12YXdfgT46Tk
-	 b1rZTd8LYSVaN1lj7yFxT1twoVhB9pYbSzNy54zCV2eNRB799rhawu+xG6t3D5lH4s
-	 g0Sv2ppf1mj4w==
-Message-ID: <8c929a95-92d5-4a81-9e1b-a3ac3f67cb90@kernel.org>
-Date: Mon, 23 Nov 2026 12:14:01 +0100
+	s=k20260515; t=1795432586;
+	bh=VqgpEXu0QCmPpvbNu3p2fiG7kDspfbJ1mHbeSkV3Q80=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=HqT9QxNaG+h01GQo4rWUOXvXYt4gvEdPRHoE5KE/fcdQS0tqSrcFLVt89ZXa48C88
+	 hKutX78/mxjSTL8ek6Y+j+WyoGFjFb53OpOETTscUp0wrtaYxzlot2lID0lHU4by5Z
+	 e1zBak8AQ1MXj9CJYeTT6Omk8m92L3cC1zu7ZQKXk2wTP5J2H0x0kK5kpEckqnXy59
+	 Z7wyyR0r0iRo6mjK98yxVjII1R2d3FTdFITJZDdmZj4HvR7K5rVOpcbQvsi0H/RZ0k
+	 0qYI1FugSbzPVcAkZdqeanYaR5wlnjeJOhwurDi2ClUG3t280gnhNbCXfMPrs8NQTF
+	 ZvLeCyJno0WGA==
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7d88baba78dso516506137.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 03:16:26 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFwUga8nlBbF7EP/2OSdoqrMFhQ7Gp6WyDaCXb1uy/pFAe3XLfTTpKZwFGC/AXLcytyGTtWwzQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/7spS6D+jW9PZQjRjA7DPP7vWnIKKFMXwJLVee2j3Y6yCeveH8
+	t4r4cn8CG0CVPnN4eynBtJsynfFGVLp6HT7iLURXFNRG04phQmKVPf23zgI6lj4VMuTkYJlwci5
+	sKIGhOQN4W0a8UI7goZL59W3zHvZDdEA=
+X-Received: by 2002:a05:6102:6c4:b0:7b3:8f0a:f76c with SMTP id
+ ada2fe7eead31-7d7393caab1mr3796876137.13.1795432585865; Mon, 23 Nov 2026
+ 03:16:25 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,177 +59,306 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/page_owner: fix double decrement of stack count on
- unpoison
-Content-Language: en-US
-To: Nilay Vaish <nilayvaish@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Oscar Salvador <osalvador@kernel.org>
-Cc: "Jose A . Perez de Azpillaga" <azpijr@gmail.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
- Marco Elver <elver@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261119234804.1740734-1-nilayvaish@google.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261119234804.1740734-1-nilayvaish@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261120-my-btrfs-patch-v2-1-5807593231d4@shangen.org>
+In-Reply-To: <20261120-my-btrfs-patch-v2-1-5807593231d4@shangen.org>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Mon, 23 Nov 2026 11:15:49 +0000
+X-Gmail-Original-Message-ID: <CAL3q7H5EhAi8Bc9FQQCGfKpR06ScK5UwJU=rn1A75jD0wc-DKg@mail.gmail.com>
+X-Gm-Features: Aa3M54of1LMvN_03wwcVLgHgBZNx_K_thm58yundR029woX1L0Md89VbQlotCSQ
+Message-ID: <CAL3q7H5EhAi8Bc9FQQCGfKpR06ScK5UwJU=rn1A75jD0wc-DKg@mail.gmail.com>
+Subject: Re: [PATCH v2] btrfs: pin folios before dropping the last extent
+ buffer reference
+To: Shang En Sim <sim@shangen.org>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, Boris Burkov <boris@bur.io>, 
+	Daniel Vacek <neelx@suse.com>, Filipe Manana <fdmanana@suse.com>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/20/26 00:48, Nilay Vaish wrote:
-> page_owner counts, for each allocation stack, how many pages allocated
-> from that stack are still in use. The count is incremented when a page
-> is allocated and decremented in __reset_page_owner() when it is freed.
-> 
-> A page that is hwpoisoned while in use and later unpoisoned passes
-> through free_pages_prepare() twice:
-> 
->   1. On poisoning, the last reference is dropped. free_pages_prepare()
->      calls reset_page_owner() but, because the page is PageHWPoison(),
->      keeps it off the free lists.
-> 
->   2. On unpoisoning, unpoison_memory() drops the poison reference and
->      free_pages_prepare() calls reset_page_owner() again, this time
->      really freeing the page.
-> 
-> __reset_page_owner() decrements the stack count both times, although
-> the page was allocated only once. The first call clears
-> PAGE_EXT_OWNER_ALLOCATED, but the second call never checks it.
-> 
-> If this drives the count to zero while the stack is still in use,
-> stackdepot treats the record as freed and warns on every later
-> allocation or free that uses the same stack:
-> 
->   dec_stack_record_count: refcount went to 0 for 92274844 handle
->   WARNING: lib/stackdepot.c:517 at depot_fetch_stack+0x5c/0x70
+On Fri, Nov 20, 2026 at 10:06=E2=80=AFPM Shang En Sim <sim@shangen.org> wro=
+te:
+>
+> release_extent_buffer() drops the last reference to an extent buffer (eb)
+> before detaching its folios. For a mapped eb, alloc_extent_buffer() has
+> dropped its references to the folios since commit 3649833a58b6 ("btrfs: f=
+ix
+> broken drop_caches on extent buffer folios"). The page cache and the
+> folio's private attachment hold the remaining references.
+>
+> Consider the following sequence, starting with an order-0 folio F in
+> btree_inode->i_mapping with F->private =3D=3D existing_eb, F refcount =3D=
+=3D 2
+> (1 for the page cache, 1 for F->private), and existing_eb->refs =3D=3D 1:
+>
+> 1) Task A drops the last reference to existing_eb:
+>
+>      release_extent_buffer(existing_eb)
+>       refcount_dec_and_test()        # existing_eb->refs: 1 -> 0
+>       spin_unlock(&existing_eb->refs_lock)
+>       xa_cmpxchg_irq()               # removes existing_eb from buffer_tr=
+ee
+>       <window before btrfs_release_extent_buffer_folios(existing_eb)>
+>
+> 2) Task B allocates new_eb for the same bytenr, takes over folio F, and
+>    drops its caller reference:
+>
+>      alloc_extent_buffer()
+>       find_extent_buffer()           # NULL (existing_eb removed from tre=
+e)
+>       btrfs_init_eb_prealloc()       # allocates new_eb and new folios
+>       init_extent_buffer()           # new_eb->refs =3D 1
+>       attach_eb_folio_to_filemap()
+>        filemap_add_folio() -> -EEXIST
+>        filemap_lock_folio() -> F     # locks F; F refcnt: 2 -> 3
+>        grab_extent_buffer(F)
+>         folio_get_private(F) -> existing_eb
+>         refcount_inc_not_zero(&existing_eb->refs) -> false
+>                                      # existing_eb->refs =3D=3D 0
+>         folio_detach_private(F)      # F->private =3D NULL; refcnt: 3->2
+>        folio_put(new_eb->folios[i])  # drops new_eb's unused new folio
+>        new_eb->folios[i] =3D F         # reuses existing folio F
+>        attach_extent_buffer_folio(new_eb, F)
+>         folio_attach_private(F, new_eb) # F->private =3D new_eb; refcnt: =
+2->3
+>       __xa_cmpxchg()                 # inserts new_eb into buffer_tree
+>       check_buffer_tree_ref(new_eb)  # sets TREE_REF; new_eb->refs: 1 -> =
+2
+>       folio_unlock(F)
+>       folio_put(F)                   # drops lock ref; F refcnt: 3 -> 2
+>      free_extent_buffer(new_eb)
+>       free_extent_buffer_clear_reading(new_eb, false)
+>        release_extent_buffer(new_eb)
+>         refcount_dec_and_test()      # new_eb->refs: 2 -> 1 (TREE_REF)
+>
+> 3) Task C runs drop_caches, releases new_eb, and evicts folio F:
+>
+>      drop_caches_sysctl_handler()
+>       iterate_supers()
+>        __iterate_supers()
+>         drop_pagecache_sb()
+>          invalidate_mapping_pages()
+>           mapping_try_invalidate()
+>            find_lock_entries()        # locks F, fbatch ref: F refcnt 2->=
+3
+>            mapping_evict_folio(mapping, F)
+>             folio_ref_count check     # 3 <=3D 1 + 1 + 1 (passes)
+>             filemap_release_folio(F, 0)
+>              btree_release_folio(F, 0)
+>               try_release_extent_buffer(F)
+>                folio_get_private(F) -> new_eb
+>                new_eb->refs =3D=3D 1      # check passes
+>                test_and_clear_bit(EXTENT_BUFFER_TREE_REF) -> true
+>                release_extent_buffer(new_eb)
+>                 refcount_dec_and_test() # new_eb->refs: 1 -> 0
+>                 spin_unlock(&new_eb->refs_lock)
+>                 xa_cmpxchg_irq()      # removes new_eb from buffer_tree
+>                 btrfs_release_extent_buffer_folios(new_eb)
+>                  detach_extent_buffer_folio(new_eb, F)
+>                   folio_detach_private(F) # F->private=3DNULL; refcnt 3->=
+2
+>                 returns 1
+>             remove_mapping(mapping, F)
+>              __remove_mapping_unfreeze()
+>               __remove_mapping()
+>                folio_ref_freeze(F, 2) # F refcnt: 2 -> 0
+>                                       # (existing_eb holds no ref)
+>                __filemap_remove_folio(F, NULL)
+>                 page_cache_delete()
+>                  xas_store(NULL)      # removes F from i_pages
+>                  F->mapping =3D NULL
+>                returns 1
+>               folio_ref_unfreeze(F, 1) # drops page cache ref; refcnt 0->=
+1
+>            folio_unlock(F)
+>            folio_batch_release()      # drops fbatch ref; refcnt 1->0, fr=
+ee
+>
+> 4) Task A resumes and detaches existing_eb's folios:
+>
+>      btrfs_release_extent_buffer_folios(existing_eb)
+>       detach_extent_buffer_folio(existing_eb, F)
+>        mapping =3D F->mapping           # NULL (F refcnt is 0, freed/reus=
+ed)
+>        spin_lock(&mapping->i_private_lock) # NULL dereference
+>
+> If new_eb was already fully freed and detached before task C runs, e.g.
+> via free_extent_buffer_stale(), F has no private attachment and
+> filemap_release_folio() returns true immediately, with the same result.
+>
+> With a delay added in the window, this reproduces as:
+>
+>   BUG: kernel NULL pointer dereference, address: 0000000000000074
+>   RIP: 0010:_raw_spin_lock+0x18/0x30
 >   Call Trace:
->    __set_page_owner+0x110/0x290
->    get_page_from_freelist+0x1225/0x1440
->    __alloc_frozen_pages_noprof+0x1fc/0x1b00
->    __folio_alloc_noprof+0x12/0xa0
->    alloc_migration_target+0x81/0x1e0
->    migrate_pages_batch+0x1f2/0x14c0
->    migrate_pages+0x9c3/0xca0
->    soft_offline_page+0x189/0x570
-> 
-> A single soft offline followed by an unpoison is enough to trigger it,
-> because the migration-target stack that the offlined page is accounted
-> to usually has very few pages.
-> 
-> Fix it by decrementing the stack count only if PAGE_EXT_OWNER_ALLOCATED
-> was still set, i.e. only the first time the page is freed.
-> 
-> To reproduce, boot with page_owner=on and CONFIG_HWPOISON_INJECT, soft
-> offline anonymous pages with madvise(MADV_SOFT_OFFLINE), and unpoison
-> each old PFN through debugfs hwpoison/unpoison-pfn. Without this patch
-> the first cycle prints the message above and 2200 cycles produce 6597
-> warnings. With it, the same run is clean and all stack counts return
-> to their initial values.
-> 
-> Fixes: 217b2119b9e2 ("mm,page_owner: implement the tracking of the stacks count")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> Reviewed-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
-> Signed-off-by: Nilay Vaish <nilayvaish@google.com>
-
-Applied to page_alloc/for-next, thanks!
-It will reach stable eventually, doesn't seem urgent enough for a rc fix.
-
+>    detach_extent_buffer_folio+0x68/0x140
+>    release_extent_buffer+0xac/0x120
+>    btrfs_release_path+0x17/0x80
+>    btrfs_free_path+0x17/0x30
+>    btrfs_getxattr+0xe2/0x110
+>    ...
+>
+> Compaction can also hit this window, since it calls
+> release_extent_buffer() through btree_migrate_folio() ->
+> filemap_release_folio() -> btree_release_folio().
+>
+> Even without the NULL mapping, the folio can already be freed and
+> reused when detach_extent_buffer_folio() looks at it.
+>
+> This race requires nodesize >=3D PAGE_SIZE. With subpage metadata,
+> grab_extent_buffer() never takes over folios, and a shared folio keeps
+> folio->private set until every eb on it is detached, so
+> try_release_subpage_extent_buffer() does not release it while an eb is
+> in this window.
+>
+> Fix this in two parts:
+>
+> - In release_extent_buffer(), when refs is 1 and the eb is mapped, take
+>   a reference on each folio before dropping the eb reference, and drop
+>   those references after the folios are detached. This keeps the folios
+>   alive across the window, as the eb's own folio reference did before
+>   the commit above.
+>   Checking refs =3D=3D 1 under refs_lock is enough: free_extent_buffer()
+>   only decrements a mapped eb's refs without refs_lock while refs is
+>   above 3, so no one else can drop it to 0 under us.
+>
+> - In detach_extent_buffer_folio(), take i_private_lock from the btree
+>   inode instead of from folio->mapping. A pinned folio can still be
+>   removed from the page cache. All folios of a mapped eb belong to the
+>   btree inode, so this is the same lock in every other case.
+>
+> Fixes: 3649833a58b6 ("btrfs: fix broken drop_caches on extent buffer foli=
+os")
+> Cc: stable@vger.kernel.org # 6.16+
+> Signed-off-by: Shang En Sim <sim@shangen.org>
 > ---
-> v2:
-> - Expand the comment in __reset_page_owner() to explain the allocated
->   check (Oscar)
-> - Collect Reviewed-by tags from Jose and Oscar
-> 
-> v1: https://lore.kernel.org/linux-mm/20261118212819.403059-1-nilayvaish@google.com/
-> 
->  mm/page_owner.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/page_owner.c b/mm/page_owner.c
-> index 02bb304b53cf..09a3c2958079 100644
-> --- a/mm/page_owner.c
-> +++ b/mm/page_owner.c
-> @@ -320,11 +320,13 @@ void __reset_page_owner(struct page *page, unsigned short order)
->  	depot_stack_handle_t alloc_handle;
->  	struct page_owner *page_owner;
->  	u64 free_ts_nsec = local_clock();
-> +	bool allocated;
->  
->  	page_ext = page_ext_get(page);
->  	if (unlikely(!page_ext))
->  		return;
->  
-> +	allocated = test_bit(PAGE_EXT_OWNER_ALLOCATED, &page_ext->flags);
->  	page_owner = get_page_owner(page_ext);
->  	alloc_handle = page_owner->handle;
->  	page_ext_put(page_ext);
-> @@ -339,8 +341,15 @@ void __reset_page_owner(struct page *page, unsigned short order)
->  	__update_page_owner_free_handle(page, handle, order, current->pid,
->  					current->tgid, free_ts_nsec);
->  
-> -	if (alloc_handle != early_handle)
-> +	if (allocated && alloc_handle != early_handle) {
->  		/*
-> +		 * Not every page that gets here is still accounted as
-> +		 * allocated: a hwpoisoned page that is later unpoisoned is
-> +		 * freed twice, and the first free already cleared
-> +		 * PAGE_EXT_OWNER_ALLOCATED and dropped the count. Only
-> +		 * decrement the allocation stack's count if the page was
-> +		 * still marked as allocated.
-> +		 *
->  		 * early_handle is being set as a handle for all those
->  		 * early allocated pages. See init_pages_in_zone().
->  		 * Since their refcount is not being incremented because
-> @@ -348,6 +357,7 @@ void __reset_page_owner(struct page *page, unsigned short order)
->  		 * their refcount either.
->  		 */
->  		dec_stack_record_count(alloc_handle, 1 << order);
-> +	}
->  }
->  
->  noinline void __set_page_owner(struct page *page, unsigned short order,
+> I reproduced the oops with a test-only delay.
+>
+> v1 testing on btrfs for-next 6f4bbde7e036, 8 vCPUs, 2 NUMA nodes, 120 s
+> per run of the reproducer:
+>
+> - delay only: oops in 3 of 4 runs (at 61 s, 83 s, 46 s), trace as in
+>   the commit message
+> - delay + this patch: no oops in 3 runs
+>
+> Subpage, arm64 with 64K pages, nodesize 16K, emulated in QEMU:
+>
+> - delay only: no oops in 3 runs (expected: grab_extent_buffer() does
+>   not take over folios for subpage)
+> - delay + this patch: no oops in 3 runs
+>
+> v1 built with W=3D1 with no new warnings in fs/btrfs/.
+> On the v2 base, fs/btrfs/extent_io.o built with W=3D1 on x86-64.
+> ---
+> Changes in v2:
+> - Drop "mapped" from the first sentence, release_extent_buffer() handles
+>   both mapped and unmapped buffers (Filipe).
+> - Replace the race diagram with the full step-by-step sequence from the
+>   v1 discussion, using existing_eb and new_eb (Filipe).
 
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+
+Perfect, thanks!
+Pushing it to github for-next soon.
+
+> - Rebase onto btrfs for-next.
+> - Link to v1: https://patch.msgid.link/20261117-my-btrfs-patch-v1-1-4b934=
+a7ff69a@shangen.org
+> ---
+>  fs/btrfs/extent_io.c | 33 ++++++++++++++++++++++++++++++---
+>  1 file changed, 30 insertions(+), 3 deletions(-)
+>
+> diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
+> index b2739838c646..ce6880b1d64e 100644
+> --- a/fs/btrfs/extent_io.c
+> +++ b/fs/btrfs/extent_io.c
+> @@ -3155,15 +3155,18 @@ static bool folio_range_has_eb(struct folio *foli=
+o)
+>  static void detach_extent_buffer_folio(const struct extent_buffer *eb, s=
+truct folio *folio)
+>  {
+>         struct btrfs_fs_info *fs_info =3D eb->fs_info;
+> -       struct address_space *mapping =3D folio->mapping;
+> +       struct address_space *mapping =3D NULL;
+>         const bool mapped =3D !test_bit(EXTENT_BUFFER_UNMAPPED, &eb->bfla=
+gs);
+>
+>         /*
+>          * For mapped eb, we're going to change the folio private, which =
+should
+> -        * be done under the i_private_lock.
+> +        * be done under the i_private_lock. Do not use folio->mapping, t=
+he
+> +        * folio may have left the page cache, see release_extent_buffer(=
+).
+>          */
+> -       if (mapped)
+> +       if (mapped) {
+> +               mapping =3D fs_info->btree_inode->i_mapping;
+>                 spin_lock(&mapping->i_private_lock);
+> +       }
+>
+>         if (!folio_test_private(folio)) {
+>                 if (mapped)
+> @@ -4011,8 +4014,27 @@ static inline void btrfs_release_extent_buffer_rcu=
+(struct rcu_head *head)
+>  static int release_extent_buffer(struct extent_buffer *eb)
+>         __releases(&eb->refs_lock)
+>  {
+> +       struct folio *pinned[INLINE_EXTENT_BUFFER_PAGES];
+> +       int nr_pinned =3D 0;
+> +
+>         lockdep_assert_held(&eb->refs_lock);
+>
+> +       /*
+> +        * Once refs drops to 0 our folios can be taken over and freed, s=
+o pin
+> +        * them until they are detached. refs only drops below 3 under
+> +        * refs_lock, so checking for 1 is enough. Keep the folios in a l=
+ocal
+> +        * array: if refs does not hit 0, another holder may free the eb.
+> +        */
+> +       if (refcount_read(&eb->refs) =3D=3D 1 &&
+> +           !test_bit(EXTENT_BUFFER_UNMAPPED, &eb->bflags)) {
+> +               for (int i =3D 0; i < INLINE_EXTENT_BUFFER_PAGES; i++) {
+> +                       if (!eb->folios[i])
+> +                               continue;
+> +                       folio_get(eb->folios[i]);
+> +                       pinned[nr_pinned++] =3D eb->folios[i];
+> +               }
+> +       }
+> +
+>         if (refcount_dec_and_test(&eb->refs)) {
+>                 struct btrfs_fs_info *fs_info =3D eb->fs_info;
+>
+> @@ -4039,6 +4061,8 @@ static int release_extent_buffer(struct extent_buff=
+er *eb)
+>                 btrfs_leak_debug_del_eb(eb);
+>                 /* Should be safe to release folios at this point. */
+>                 btrfs_release_extent_buffer_folios(eb);
+> +               for (int i =3D 0; i < nr_pinned; i++)
+> +                       folio_put(pinned[i]);
+>  #ifdef CONFIG_BTRFS_FS_RUN_SANITY_TESTS
+>                 if (unlikely(test_bit(EXTENT_BUFFER_UNMAPPED, &eb->bflags=
+))) {
+>                         kmem_cache_free(extent_buffer_cache, eb);
+> @@ -4050,6 +4074,9 @@ static int release_extent_buffer(struct extent_buff=
+er *eb)
+>         }
+>         spin_unlock(&eb->refs_lock);
+>
+> +       for (int i =3D 0; i < nr_pinned; i++)
+> +               folio_put(pinned[i]);
+> +
+>         return 0;
+>  }
+>
+>
+> ---
+> base-commit: 184fa2c40f5c50afb1d8bf900eafadf450db392e
+> change-id: 20261117-my-btrfs-patch-984742ed64b0
+>
+> Best regards,
+> --
+> Shang En Sim <sim@shangen.org>
+>
+>
