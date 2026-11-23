@@ -1,49 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795461024;
-	b=B3HN4E0EACx3WnYhpu9+h3p/A7/KsUiXd28YLZnmLasrQi6ydDfYeOBigXNpXQfnAeDH
-	 72swe/R+8TF8hlHFt1jGP78W9yzZdxRXn5hjj69RMHQCbeQBumCUnHHCNxh8xUj38p4Rv
-	 V89Yvu2vkEYzA7bmI673o1FfHXMZp9V+93nPFzsW1Eg9PjCsu5bomuipX8D8utTnG41Qi
-	 pD4ZzcYlOOC4dlzu+76dZ+RqTzIDqdcvLzLm5GHnmRWw9r4tioAGkYZZONfRr66NTFMt3
-	 FVVHBlFs/CF9dJFLgW4TcMwkKUvY6tXVNMyTgwlbNMckrRm9i5rd0WLD+0a/EBhlzlA==
+	t=1795461084;
+	b=HYDhuD7/U/AoVYOpFVoT96+AsWKmA3zdf5k1dhQN9hvj7ckSPE3a6JwTfzaw8jAki5kx
+	 fntFmcdo+4zBGoyIDR+dAdecd8T0PSiZ/nPLCL0dEontdOM5EDaOxH+/frXPCM9I7bwQr
+	 o/EyxzvzLCVVIDJbhSBLx5ejUtkmnHZsY7M78c/IOGI/PVNJZ1KP4/UPvDz09kLeZehZD
+	 CqXB2fWoKquYbTt9x+EPa+kbXPfRQzArtmZUhi0IvYnDhWdi5Jkaig8HXboPJkiBb2Lec
+	 HvIWswrICwUa5MSPFfez8mrkMZ9w6h57OLwMR+XUsMhXHv8RDFjGtDKeepj7IlJyHFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795461024;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=P7FDWnuntiypVaq18IX2yuHzG9oAyX3kKeY7z/oJ1wQ=;
-	b=mPUbLNY+z/wKtozOrHye9TMoiREFFX+gKw4JVbb6SbVfU4kgvFkv7oFUOMkTLTs2ezIy
-	 DDMvdR2qvWzqtvXkQJ3Z9HJvaCrr6X21L6CYiIhkwt0PxvLAvWXPnTb04vAsBql5p9FxA
-	 TDEoP6egpTmRphWLhBjTh1EgnmbNsLsSTuiDlS0ybSqSPw9c9TW+/V1Difnb5OpMiKnl5
-	 ioj4yLVug+UiCeOUh2ULx6gxHYubL2uZAdEdpLOTkSzCINh0UFaPjRgE9EFTOvbbusLKr
-	 0kBrGzh4aaOLOQpQabtpCe0LNEndOqPHBueK9DEy1Jn3EcLrAF0JcLzPaP/k145lavw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461084;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=MqjW0hsT+jUaSbjhgq/J0Q8J8U6i1pm0dFrQ9EH1or4=;
+	b=lvq0Bachpgs/AkzXjKDSIZucY1YQE4rSEwCDTk12cqgZHfOw0qotH0VCX/61CAfPNiKD
+	 lODLgHAc+5Z5cWGj9cqN+3R8Z3lmm32vlI03hwPI4z8HvmQhBZDzBW3rBDGWK8AQtcX9k
+	 7+3kSNteZYkORWh9CJruHAKLvG7AI6sFRqHclcikk1EzQ0IfMwp4WjO3dS+RRO94JdHTI
+	 47/9pyBs+bv4lNHvZyMQwGv6dAf7Do753FS0LDlk8Aji3QBu0GmC/YGA/8WjZeWp//y9i
+	 thdFHHeRARtwuPWJEJJfCtaGfoKJUn9J/jUfayJdoa6WO6XHYMksvSPiLIvknLanlHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XT/fCYaQ";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=everpuredata.com;
+	spf=pass smtp.mailfrom=everpuredata.com;
+	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=Zc8hcYSc;
+	arc=none smtp.remote-ip=74.125.82.226
+Received: from mail-dy1-f226.google.com (mail-dy1-f226.google.com [74.125.82.226])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DEE9606A327;
-	Mon, 23 Nov 2026 19:10:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBC4606A31E
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:11:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBBC4606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XT/fCYaQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 424CB1F000D1;
-	Mon, 23 Nov 2026 19:10:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795461024;
-	bh=P7FDWnuntiypVaq18IX2yuHzG9oAyX3kKeY7z/oJ1wQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=XT/fCYaQIeezXNJfRxmj5ZGfuM1sBkL29bHYyq05kX05dI0+ZIiBUs4WbNcXBakM9
-	 yc3dCKTPL1DsCUtjV7HkPHaMhAR6K1gvFezI3luPEuZNxNGPSapOlZ+/WsG5FbXuoe
-	 9qlA3G1izaR/mm2uHFlFLaFd2r87AnCHaR4ncMsRyTRRFANGvab7iiw3uoOMMQz8IG
-	 X26YqXK7mRE3vjePMGVT3mxD/wutlbgmOSQxr3FwvuxW6ZvKaFXRddQr2FroiyZPjy
-	 ixdObuzqcdweDWZwcu7CCtLqYN9/6lhf5we/bU1PJa38rsKvSdcoppRJAxEuKkSOv8
-	 DUvRGr0Vin9zw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A2B3392EE35;
-	Mon, 23 Nov 2026 19:10:24 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=Zc8hcYSc
+Received: by mail-dy1-f226.google.com with SMTP id 5a478bee46e88-33fb4680717so9921594eec.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:11:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=everpuredata.com; s=google; t=1795461083; x=1796065883; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MqjW0hsT+jUaSbjhgq/J0Q8J8U6i1pm0dFrQ9EH1or4=;
+        b=Zc8hcYScQnz85XtfBfVcG5UIkyudsTINdSxEfTb5Hjta0eF3zkJ/22em5JmMtALk3W
+         d2JjGzuEoVF6A15xrw2lgsWugp7IXkf4XuKMyyHd6orzkoRKZ1Ydurq3E/itK6D+Qje9
+         WaemBFGhPuHbrlLVvm08doVvwTz8rQobE2VzIt7IQuChKUxaVkXeqJ+2kvffHPF8cQuc
+         FVb5ozWcIxtV0PsipLCriEYmBU+MXGAKnRpvy5vwP0bvCC1IdZD0ahmD7h07uEH6c/zt
+         kEOLQ5+O+ktGk6amUCGE/de152uokpEFtf0g6+B7JgZErhSM8Owq46jl6vfmlYxXiMoo
+         n5lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795461083; x=1796065883;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MqjW0hsT+jUaSbjhgq/J0Q8J8U6i1pm0dFrQ9EH1or4=;
+        b=C7yUK7jINguV45KLvstez70jFboHaO74fx0+Fx22F2L6uIU0grZIRUQLxamJXXUEQp
+         uVaUuZCPsnP1ZmJ6qyX8tTMKuw+kiE4GOh6LyLurjWoH2LEAILNGIpL+KxwYJg8W002z
+         jY+7Jx04T3D8jTf/s82EZ/RvWgNOy6gexcJ2w2CApS4lRvBxxoTIp12+O28GyU2pImB7
+         NjgyBcdTtrVG045RZ+AUpBkEO7c4a3WX5rXhTd7h4TQsaq8f9/ri3y53eXk9trqzKA8c
+         OELTMVpeh/TWHObErkM4+xM9jU+7/VusIOkInk9zeogG3mXeYPABZmqtTwvUS7M+8e1s
+         7Lsg==
+X-Forwarded-Encrypted: i=1; AL+hErGIsY7b8ExZhSlDLl+3QyJXZuAiM30Z2RuRx4KlJH+Iq/2jYR+3cSJA8lyODaopzmlqzHYf+zc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SdYl0Q8g8ERKVBjFTGZQEgxhP8r5MG6n5p6hbRYAG55aEk57d
+	RYeO5CN7a2iPH/5Uy32csFfc5CFZ+AafqfFVEqCuXwnIjneiMrhVEbOHBVF2Wv4K0SZ8OfBrrge
+	TvNKpPmxpCEsd07B4ejxI0qOGgpjL756ae2O5
+X-Gm-Gg: AZFdTZe7Uf8mUViDhHy0xCS680MBpVDqAUxxL3oncdYoWqYdMhqjhpP5cXy8mJUMVVX
+	IArrrxPMrdRTTUk1wtTILlt77tiO94O/v54i5JXp9u3NJ0oHs+/8nPWLJj6KD0RSUjQzSJ8PYKl
+	Guiz2t0kAB0dv6hDBpzKRMDJscxlCmTz19/enhvG2rSKF25V2aULjoMjsAbX/D7cEAsbJ/ZJWUZ
+	4br1v/R8uPXrGVbn2DxUI+8zDShU2skfAi0V6wf6rn932Wp2B9rZIuREUvbtNmhx3phC2Hel+tP
+	BvbG4a7hZnW6MeHYVr/1hiZUmfzKtdv8yzvI05ZNkC0MaX8BiosioroYdQ4+7kLnjMkH+KVF+Lb
+	XUXAX6xLBuwNgTagjz8MrCo9StaXv80qKu94L3II=
+X-Received: by 2002:a05:693c:8859:b0:386:b826:3f9 with SMTP id 5a478bee46e88-386b82605b9mr2057039eec.7.1795461082934;
+        Mon, 23 Nov 2026 11:11:22 -0800 (PST)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
+        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-3869bea0c92sm1285374eec.13.2026.11.23.11.11.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 11:11:22 -0800 (PST)
+X-Relaying-Domain: everpuredata.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 53D713400F5;
+	Mon, 23 Nov 2026 11:11:22 -0800 (PST)
+From: Tim Menninger <tmenninger@everpuredata.com>
+To: cel@kernel.org
+Cc: anna@kernel.org,
+	ebadger@everpuredata.com,
+	jcurley@everpuredata.com,
+	linux-nfs@vger.kernel.org,
+	slingappa@everpuredata.com,
+	stable@vger.kernel.org,
+	tmenninger@everpuredata.com,
+	trondmy@kernel.org
+Subject: Re: [PATCH] xprtrdma: Retire the connection generation when a connect attempt fails
+Date: Mon, 23 Nov 2026 19:11:22 +0000
+Message-ID: <20261123191122.1682509-1-tmenninger@everpuredata.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <90d0ff6e-e9d2-4b2b-9b89-8245ce502e99@slotpi15m67>
+References: <90d0ff6e-e9d2-4b2b-9b89-8245ce502e99@slotpi15m67>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,43 +107,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: RFCOMM: Fix slab-use-after-free in
- rfcomm_dev_add()
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <179546102276.3063022.6621548034236747071.git-patchwork-notify@kernel.org>
-Date: Mon, 23 Nov 2026 19:10:22 +0000
-References: <20261122-fix-rfcomm-dev-add-uaf-v1-1-cac5354752ed@gmail.com>
-In-Reply-To: <20261122-fix-rfcomm-dev-add-uaf-v1-1-cac5354752ed@gmail.com>
-To: Leicheng Xie <leicheng.dev@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com, gianluca@sottospazio.it,
- linux-bluetooth@vger.kernel.org,
- syzbot+11542ff1d167fdffa1fc@syzkaller.appspotmail.com, stable@vger.kernel.org
 
-Hello:
+> LGTM, with a couple of cosmetic suggestions.
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
-
-On Sun, 22 Nov 2026 17:33:29 +0800 you wrote:
-> From: Leicheng Xie <leicheng.dev@gmail.com>
-> 
-> __rfcomm_dev_add() inserts the newly allocated struct rfcomm_dev into
-> rfcomm_dev_list and releases rfcomm_dev_lock while holding only the
-> initial tty_port reference. Back in rfcomm_dev_add(), the device is
-> registered with tty_port_register_device() and further initialized
-> (dev->tty_dev assignment, reparenting, drvdata, sysfs attributes, and
-> reading dev->id).
-> 
-> [...]
-
-Here is the summary with links:
-  - Bluetooth: RFCOMM: Fix slab-use-after-free in rfcomm_dev_add()
-    https://git.kernel.org/bluetooth/bluetooth-next/c/cc0b0a62cbde
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks for the review. Posted v2 in
+https://lore.kernel.org/all/20261123190823.1680365-1-tmenninger@everpuredata.com/
