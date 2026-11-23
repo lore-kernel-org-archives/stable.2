@@ -1,81 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.82
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795433684;
-	b=luqLbEVPchsqveim6Oxj69x+6J8+WfN9wHPIaEcq0CNyI4USy2QWwH+gK2EO+NKiaUXj
-	 qrYOw+IwowVDiYHO+MFvpqTDAF+qsz/sv2ZLQTyjOagqFRhUfVM17J+tnd25KHWLz0tOr
-	 SsBgQTIXeD3zNB2cRfrrcsjriPJLm0pCFsmJy+oy4CL5C4wrXUGzL1Ioy/V66c8CBh/4c
-	 JZbM/dxbF9oBVnyKNRp2Dn+jWZJhmABKlzKNTbg3CTadUtySqeYnV69FIqLJZgVneFX8R
-	 5USZvdBqcm+HuqFxWZrlTLfj2XdcTz6fqoujJIqi310lMyg7+Kml67jGzFPPZbUdyyA==
+	t=1795433716;
+	b=eYnqkS/ULHFEPW3W3eZ7YSDgWTKs6hsGkstewLqWj7MVZQtUS8DuGGdeKp6/p7oFKmhX
+	 LpTm941Y0+4bc8SHLhCbdQ3hA+EJ1YUwQ/1O+D3yaLOQbQng/9IjjmO6sPI1D/GJW9ZWT
+	 ixM7RENWM5cJYcFtxjYeZdIFkq7bhPg+22bfhteNkdlj+L//jTLwgnNc9GMi61Gbr5Nju
+	 PDYiMEaOXErQ1abZ5zXPaQrFxsI+uIIGZbD6ES7rnxYXjNf1W2dGmTkUjvs+p7B8VjiEE
+	 HGlQofrdMyLL1pWzEdjQi4gwrRG2iiy7rIsy8uuFSH33eBzRp+eIZRAl4aY/Z/3PR8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795433684;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795433716;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=fmxcbhG1chT0b9F6QCQYXCbAO+nUWqbQ4u1W0a/I5sc=;
-	b=EVz3ZFYYjy6FIa6a6cI5x3nozb3HjSpm3sv4fmsA5NOpsFw4Y1sZGNaTCVH+q1jUxoEm
-	 6XQ5fyEw7oAZGtBvtWto2dCfAKaNPI3X19NqJ8NPxj8OUuZ7oHme2CRG6zZNPiCFkJp/s
-	 QnTSic/2kDj+4Gx8gUy7C1T0jTINYGYcieSkWKAox4aYLBBZpeEHNEPHGzq8IeCT2HMg9
-	 nRmw2UrIixXqmThxbzXXgnkVa2lqqslWe2YhCBVQveoST0Ygh6u8XcY7foVHaREsKQDdJ
-	 jtJsOGInXbJ0G4UHU8YudjE+6pgMSRynnli1z25OnF4EaWbqfjfvfQUNxM8Io1XMRYQ==
+	bh=cBQ1e4v+PxM0RWCwPsTi8odmO3BvILm6dYR2hRcjN1o=;
+	b=hXGLr3dMOsbcZbEt4kOCmw2oJQ48Ko80PbxrRqMS4ZrN6odPAtDnFsChtBohgoH3R9le
+	 9Br3Uct7huKhe78YDrDNauGMB6j3x8GjIKAVb1l2saGrPIm0ROd1nk4RPDC4EphxISndo
+	 iJpE4Fm6gwL560R6BYW8vQXMO3Pi4KA8IaS1g/8WaMXIvAMt218YKS4zqp4eRYhAdAykL
+	 0oa3c+LzY65gEISaV8by+tqwa2wo4efkjKwb8sSdolgDpiRvrUqaFeI+8KnQo78ib8mCO
+	 0nHvxt+3AQndCzP1SwJgGjo9g+Ae5rHHT9Vnbb8hDSg7n8+5Gbwhyp6aPR2i37NzdRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EJMipN2q;
-	arc=none smtp.remote-ip=91.218.175.82
-Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tlX8c84n;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F56A606A33F
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:34:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F56A606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CF6606A31F
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:35:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86CF6606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EJMipN2q
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GFdOLbAuUR9hfwY/LXg7YohW2tjrVa6l2cMuco/EPYU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795433681; v=1; x=1796038481;
- b=EJMipN2qWlyGuNiXFej4NzeZIFFlv//5wKRgeR75WdOZ8XYgAGUZb1I4M+3TukEc/GAAojt2
- KV0ItrVp7sDbIoRuljsxgyun/twxcfpPvGanlG0q9/UmUOa/8gCtCzFYWPXwyymIybXSSt0ilyl
- kZFz4VWJEgsATXViJ9pTm4Bc=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1ec6cd2606eb83c4;
-	Mon, 23 Nov 2026 11:34:41 +0000
-X-Mizu-Trace-ID: 1ec6cd2606eb83c4
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Isaku Yamahata <isaku.yamahata@intel.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Anup Patel <anup@brainfault.org>,
-	Atish Patra <atish.patra@linux.dev>,
-	kvm-riscv@lists.infradead.org,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tlX8c84n
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4a358881793so1572759f8f.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 03:35:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795433715; x=1796038515; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cBQ1e4v+PxM0RWCwPsTi8odmO3BvILm6dYR2hRcjN1o=;
+        b=tlX8c84nAAvWBtxLZslesIZP8QnJSlIEXVMsN/6WU78Pn/PCxEWXlxkk6j4u8zG1sG
+         mubpmD8uz0RqnccYWFmuFLBRCp6hqFxo9AfSy2JIYtwY+MOIPYQgfcUaGHvZ8l8jp/D+
+         2BbbZ7tGO+JTMgPMrn3cmK10/zIPlgLif3F//PjAVDkT5lCgLxoD/9JSBWA68nyO1fVD
+         BmpB3MTNXcg/hfiPNV0h1ohtqI+8MN5O7YGs86vY6LLe0HiJ2D+yW/yvXUWjhyhlVJCu
+         KgxicZilAeoqkoNweY433ldnWODRRVrKi1+EEg65g266CNP01fondNYYi7/IXM1utDsd
+         P8jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795433715; x=1796038515;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cBQ1e4v+PxM0RWCwPsTi8odmO3BvILm6dYR2hRcjN1o=;
+        b=dKyJ63KnxDQ/hYQrgN5Ma5Wzh5NnrzxxBsySGiVhARUq2DEKYDRQEjsdfYawmT9sGT
+         UQyQrOPWtzVLaBdT6RpFEc50ugFvsLu7RTLCCdANixE08JtbK4DWGG2PJMNBx9Lpj49W
+         CBs8nQzl/IvNCsh3JEffTXdOPpuh4Jb60CCfkgjOCkMg7PHs2QLBPiQfEDUlt2XXqmrL
+         6ManK8yVIx/Nb/nSmZEX0WIBs5+UwOpOfaohnnAyod8sKHJarrGS7Rel5CTFeTtPs47l
+         /+/z1Ya5gZvRT2ih+jGvhk7hZ1mDyAloWHtXxhIhNPa/QC6L5hD6RQd8UlVOWhqPI5Kd
+         iwhw==
+X-Forwarded-Encrypted: i=1; AL+hErGY8BzRwVPnC1GSbIWt0vxY8CS7INlUWASJKu+6f5IfVYSJKsCZsTVj0wTgl8ZPIkYOzS9mv10=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+5LkhKTygmzI26EwNAUP1ygePdkb+GpMZkckikBc2CaROpj2/9
+	y7v5/5lwRz7qFiqrDJ20xdtp4dIx+ZdbbATyLCKRHeNuKuFGLu3Lb1dT
+X-Gm-Gg: AZFdTZe9Fq4Fd1UXi+5yzgymmtaNNWCx+CD2OkAM7tWH0rW8HqniMNmbyTsIciHIZRd
+	vgZxdQPX9TALn6dw8UfzJJJBDz3TYLWAe3HVyyJDa3PClrZvVHYRNut9ojO49AVKKXeKM0bTmbp
+	O1w5YAD+pE9GWT82VsMNz5Kd176p9Vzwk9c+ijJbAXVkAg+WEppx8VGDG/PJylbhjUnIjwCvzLG
+	RmmEJtXw2dbgSkKx6vLvvqq1y4yAB/n78IT/4AmoTwdkIA3LC/V/1ZmaaE2BTGheqaFIaWYFLvC
+	vlmNTf1u04sGtZoX4uCRlz3CudWSi+MqEVyeLHXva2BemZUo4sbHQZA0zd+jzLDDtXtmTkbDDRy
+	5TxOlAhgQ7sEQbFiamNJWiqxlm4uTlFwxPLtP0Cfa8RZpPHqggMNkuAVHPtxpcttBxddcZ7ARAw
+	nZX/ybeE8ziQnm+4ERDKkbndFbceug+o9yWgyYasbwzUw7cw5qdsa+BqrGUkyU9kJkEZaaQu2CM
+	bQsQD+7xDBt6jUfxiXREF9JxgEQFyovxsu81YSwdgsSJlUKEk0pSh2QAFitif/kR2nfDjdGERdb
+	7kxCRlcbsHdxhOYwK2eBtEswW991X+T+5HqvdJKyzeo7YpEf0hIigforgto0H+2uV/onToerlDa
+	RExB9VaUO3C+j
+X-Received: by 2002:a05:600c:674b:b0:4bb:6847:791f with SMTP id 5b1f17b1804b1-4bb8880f267mr223533805e9.7.1795433714601;
+        Mon, 23 Nov 2026 03:35:14 -0800 (PST)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb9067a0e6sm135211175e9.4.2026.11.23.03.35.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 03:35:14 -0800 (PST)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Miklos Szeredi <miklos@szeredi.hu>,
+	Chris Mason <mason@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Carlos Maiolino <cem@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-unionfs@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3 1/3] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty ring is full
-Date: Mon, 23 Nov 2026 11:34:33 +0000
-Message-ID: <20261123113435.1170711-2-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261123113435.1170711-1-fuad.tabba@linux.dev>
-References: <20261123113435.1170711-1-fuad.tabba@linux.dev>
+Subject: [PATCH] xattr: enforce the name and size limits for in-kernel callers
+Date: Mon, 23 Nov 2026 12:35:12 +0100
+Message-ID: <20261123113513.1910906-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,112 +103,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Pre-faulting can map a dirty-logged page writable, which pushes it to
-the vCPU's dirty ring. KVM_RUN exits with KVM_EXIT_DIRTY_RING_FULL
-before the ring overflows, but the pre-fault loop never checks it, so
-one call can push more entries than the ring has free, which trips the
-WARN in kvm_dirty_ring_push() and overwrites entries userspace hasn't
-harvested. On x86:
+The xattr system calls refuse a name longer than XATTR_NAME_MAX and a
+value larger than XATTR_SIZE_MAX, but the VFS helpers do not. An
+in-kernel caller may pass a name or a size that it got from another
+filesystem, such as overlayfs copy up from a lower layer.
 
-  WARNING: arch/x86/kvm/../../../virt/kvm/dirty_ring.c:225 at kvm_dirty_ring_push+0x7a/0xd0
-  Call Trace:
-   make_spte+0x2cc/0x450
-   kvm_tdp_mmu_map+0x5e1/0x7f0
-   kvm_tdp_page_fault+0x12c/0x1b0
-   kvm_mmu_do_page_fault+0x181/0x250
-   kvm_arch_vcpu_pre_fault_memory+0x136/0x1d0
-   kvm_vcpu_pre_fault_memory+0xcf/0x180
-   kvm_vcpu_ioctl+0x455/0x770
+Check both limits before calling the xattr handler of the filesystem,
+and fail with the errors that the system calls return for them.
 
-Stop the loop once the ring is soft full, with the check KVM_RUN makes
-before entering the guest. Return the pages already processed, or
--ENOSPC when there aren't any, since a retry can't succeed until
-userspace harvests and resets the ring. s390 has the ioctl but no ring,
-so give kvm_dirty_ring_check_request() a stub.
-
-The check also sets run->exit_reason to KVM_EXIT_DIRTY_RING_FULL. On
-arm64, KVM_RUN completes a pending MMIO exit only if exit_reason is
-still KVM_EXIT_MMIO, and on riscv KVM_RUN does the same for its MMIO,
-SBI and CSR exits. If a pre-fault stops on a full ring while such an
-exit is pending, the next KVM_RUN doesn't complete it and the guest
-repeats the instruction that caused the exit. Userspace can avoid that
-by completing the exit with KVM_RUN before pre-faulting.
-
-Fixes: bc1a5cd002116 ("KVM: Add KVM_PRE_FAULT_MEMORY vcpu ioctl to pre-populate guest memory")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- Documentation/virt/kvm/api.rst | 9 +++++++--
- include/linux/kvm_dirty_ring.h | 5 +++++
- virt/kvm/kvm_main.c            | 5 +++++
- 3 files changed, 17 insertions(+), 2 deletions(-)
+ fs/xattr.c | 31 ++++++++++++++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index e95c9cda085d9..89eb6be9bc6e3 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -6544,6 +6544,7 @@ Errors:
-   ENOENT     The specified `gpa` is outside defined memslots.
-   ENOEXEC    The vCPU has not been initialised (arm64).
-   EINTR      An unmasked signal is pending and no page was processed.
-+  ENOSPC     The vCPU's dirty ring is full and no page was processed.
-   EFAULT     The parameter address was invalid.
-   EHWPOISON  A poisoned host page was encountered.
-   EOPNOTSUPP Mapping memory for a GPA is unsupported by the
-@@ -6588,7 +6589,9 @@ case, the ioctl can be called in parallel.
- 
- When the ioctl returns, the input values are updated to point to the
- remaining range.  If `size` > 0 on return, the caller can just issue
--the ioctl again with the same `struct kvm_map_memory` argument.
-+the ioctl again with the same `struct kvm_pre_fault_memory` argument.
-+If that fails with ENOSPC, the vCPU's dirty ring has to be harvested
-+and reset first.
- 
- On x86, shadow page tables cannot support this ioctl because they
- are indexed by virtual address or nested guest physical address.
-@@ -8957,7 +8960,9 @@ Therefore, the ioctl must be called *before* reading the content of
- the dirty pages.
- 
- The dirty ring can get full.  When it happens, the KVM_RUN of the
--vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL.
-+vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL, and
-+KVM_PRE_FAULT_MEMORY on the vcpu will process no more pages until the
-+ring has been harvested and reset.
- 
- The dirty ring interface has a major difference comparing to the
- KVM_GET_DIRTY_LOG interface in that, when reading the dirty ring from
-diff --git a/include/linux/kvm_dirty_ring.h b/include/linux/kvm_dirty_ring.h
-index eb10d87adf7d5..729615ae0cf4d 100644
---- a/include/linux/kvm_dirty_ring.h
-+++ b/include/linux/kvm_dirty_ring.h
-@@ -60,6 +60,11 @@ static inline void kvm_dirty_ring_push(struct kvm_vcpu *vcpu,
- {
+diff --git a/fs/xattr.c b/fs/xattr.c
+index 0705801a62cc5..824e8349e8c10 100644
+--- a/fs/xattr.c
++++ b/fs/xattr.c
+@@ -178,6 +178,18 @@ xattr_permission(const struct mnt_idmap *idmap, struct inode *inode,
+ 	return inode_permission(idmap, inode, mask);
  }
  
-+static inline bool kvm_dirty_ring_check_request(struct kvm_vcpu *vcpu)
++/*
++ * The xattr system calls refuse a name above XATTR_NAME_MAX and a value above
++ * XATTR_SIZE_MAX, but an in-kernel caller may pass a name or a size that it
++ * got from another filesystem, such as the lower layer of overlayfs.
++ */
++static int xattr_check_name(const char *name)
 +{
-+	return false;
++	if (strnlen(name, XATTR_NAME_MAX + 1) > XATTR_NAME_MAX)
++		return -ERANGE;
++	return 0;
 +}
 +
- static inline struct page *kvm_dirty_ring_get_page(struct kvm_dirty_ring *ring,
- 						   u32 offset)
+ /*
+  * Look for any handler that deals with the specified namespace.
+  */
+@@ -209,10 +221,17 @@ __vfs_setxattr(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	       size_t size, int flags)
  {
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index cf4cb586f1407..ac8b94a386e4a 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -4461,6 +4461,11 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
- 			break;
- 		}
+ 	const struct xattr_handler *handler;
++	int error;
  
-+		if (kvm_dirty_ring_check_request(vcpu)) {
-+			r = -ENOSPC;
-+			break;
-+		}
+ 	if (is_posix_acl_xattr(name))
+ 		return -EOPNOTSUPP;
+ 
++	error = xattr_check_name(name);
++	if (error)
++		return error;
++	if (size > XATTR_SIZE_MAX)
++		return -E2BIG;
 +
- 		r = kvm_arch_vcpu_pre_fault_memory(vcpu, range);
- 		if (WARN_ON_ONCE(r == 0 || r == -EIO))
- 			break;
+ 	handler = xattr_resolve_name(inode, &name);
+ 	if (IS_ERR(handler))
+ 		return PTR_ERR(handler);
+@@ -416,6 +435,8 @@ vfs_getxattr_alloc(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	error = handler->get(handler, dentry, inode, name, NULL, 0);
+ 	if (error < 0)
+ 		return error;
++	if (error > XATTR_SIZE_MAX)
++		return -E2BIG;
+ 
+ 	if (!value || (error > xattr_size)) {
+ 		value = krealloc(*xattr_value, error + 1, flags);
+@@ -434,16 +455,24 @@ __vfs_getxattr(struct dentry *dentry, struct inode *inode, const char *name,
+ 	       void *value, size_t size)
+ {
+ 	const struct xattr_handler *handler;
++	ssize_t ret;
+ 
+ 	if (is_posix_acl_xattr(name))
+ 		return -EOPNOTSUPP;
+ 
++	ret = xattr_check_name(name);
++	if (ret)
++		return ret;
++
+ 	handler = xattr_resolve_name(inode, &name);
+ 	if (IS_ERR(handler))
+ 		return PTR_ERR(handler);
+ 	if (!handler->get)
+ 		return -EOPNOTSUPP;
+-	return handler->get(handler, dentry, inode, name, value, size);
++	ret = handler->get(handler, dentry, inode, name, value, size);
++	if (ret > XATTR_SIZE_MAX)
++		return -E2BIG;
++	return ret;
+ }
+ EXPORT_SYMBOL(__vfs_getxattr);
+ 
 -- 
-2.47.3
+2.56.1
 
