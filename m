@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795411070;
-	b=Lv3vKPNOYJW4M+ZSfZGJ41Ixb6rDrl7bII0XwN568p6LF1GBVae3yqEUalkFrdamCaCH
-	 4UkpZyAp7WZ3GAcaCzrNINhaRO0XnZFMfYVa/ei4MXGMmoTlVbHTPKJtS7ZexNzUYG64q
-	 p58Xa0WRFRXnmoir5V/GdcFLD0iJ/DK8Oo2AhFs7b6/x0+CLroINEThKPczTcE2M6cq+N
-	 Dl+LWLBJa6j5oCb1sRlBov6UytdIMElWzJkB3wY+E0Xk0ZqU7T6kjf9NaMZa8qa2UGq2S
-	 oPYWhuKPAyywcrQnUm42r0a/VRjWJvdDgBAxHFiJnrDo0c4Kgc4t/lFKH7SFcwZbCqw==
+	t=1795411072;
+	b=fgpl31Bsp8sxbiZel9maCKMYAjXbjLrpL4aLNnaMmhBKoTRIvgnXhSnGfENsgeRRif8G
+	 dJ7y4vrDpOhi47TYIpqx5CMQrsGEzn3Q48hsEafVsXUqk9u6/2NOEv3/vdbZrVFlwH1wE
+	 X8YYfWWQtC7qMIQ1JHFONapT/fyfRRLKDsAJPAU2W76AigemsC6iktV3uaWS7LW+Md1qo
+	 aSkQbTbpRx3EIb9MsV19h6u/7VUKTSVolxY/3MWXhXRu3xxRxqEHaoh3ktP3hiyXV2lCO
+	 4RPDsggj3/d7BqltRHpVFCt+SntEE6nbzD0z3uWreZxkNl1WrK4/lgnuuCR4NeyJwNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795411070;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795411072;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=IMhTbm3P4pQBpn4x8bv/SjESH9+2ScPTvDd021i2bNg=;
-	b=4Vh6NFQ4DNR6QIFm2rVPk/zBslrQHXeb9YyuQ7HlmdpL2YNNaIvHNpCY262Yt8NKTeZ9
-	 dknHB/TnoCrdd6/hdKFgdoWvHLVkSh31tKegwGBLfH3eOS3LETR9B9sG2Pk9nv31ekYjI
-	 Zv0gtKHRSmiQhjlcBAruVuvvssICAuinRDvz9TI28FwmHHB31d1EVnyKfEMm+g6Iw/TgD
-	 aRxMaBAiE99lS2A11EKNVHzaT7C6wljtO0gaCYyJwFbr9OFKWmVDaPvA5n1ZlarMvGCmw
-	 nQMTSJ7VRaJNAEs3xatYhL6wK+3SsUJ3IYvTxEc3dQe8fBlKu2+Fx6DtiRZbCwuqlmw==
+	bh=p4ilBBmu4wqkUrExqEeONwlOBor94s/7aXOC9EBEpWM=;
+	b=VDk5cPPgDYvwJtIxA0P8DREDBhGYcH9lKz9tBL7WdvEQCuNZuvt7xC6PnE53LABoIjpO
+	 m3SKi3z3xj3Pu03LysaQhIUbcNs0L5y8wNi4eJUkUBJaCCHXagIlhRCFUhXGvSzZ6vvPj
+	 OGj5XVIaSZKNTn4P9OjqcvtE4cSEMsKhUZw970O1qobXsQSDr+aLS9hvQxoyoxNKruWKO
+	 gkSRqwC/7exhG3ywx1rUwyKL2+4HxCxT6E8JjFic8WQihaSibiUtrS9N1WHdUaAU2X9FP
+	 +JQtU6DLfvSHA9g45ZgeU6Gr/B4526mDUdQQTMzrMrHku2pO7No66TEr18rGUTwgG/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMtyHkhT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NHyDgflT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B52606A32A;
-	Mon, 23 Nov 2026 05:17:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21FC3606A336;
+	Mon, 23 Nov 2026 05:17:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMtyHkhT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B551F000C0;
-	Mon, 23 Nov 2026 05:17:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NHyDgflT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39EE11F000D0;
+	Mon, 23 Nov 2026 05:17:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795411070;
-	bh=IMhTbm3P4pQBpn4x8bv/SjESH9+2ScPTvDd021i2bNg=;
+	s=k20260515; t=1795411072;
+	bh=p4ilBBmu4wqkUrExqEeONwlOBor94s/7aXOC9EBEpWM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fMtyHkhTeVLHcaEoeY8ndzMsYX09qfqHvS3b3kDhy1x7PWI8yEGyOqUNeqTfB+7S6
-	 lu2oryNAcfmkKI6WVsFfq/9Yai6tpOB4rmqHAE4UrOomijvcT4ASPQawffYDhP73zz
-	 ND1EpMpJBWHcLPlE0EAfWvw1x6VsVhN4+4Y7Bq3ji5ctpyf5Tq8BO77cUr035awrVf
-	 7DHc0hL4hjLKBaYQuoFJoSASV6KT9p2G0UkM9gjLXanFsePRzn/gVUqQjQkptYbUl3
-	 Z+zRR4SIT6SRsSur5uAxxc1Tzax3rIEg8pNaK6LVM32s81gh/3AGvFE8HDaKQDzb0S
-	 MKyV/UBssrHEQ==
-Subject:
- Re: [PATCH net v2 1/2] net: wwan: iosm: cancel the ADB timer on cleanup
+	b=NHyDgflTwXBT0Xrs/2H7JNc/Ij6du99K29Hen2VvceONUtEVCZPe/gMDTEsACnoD4
+	 jQcXlEiqM+m7RpoJeRL89u+S/s5s/6/QORkAKrGQQ/llMbDTipUcndCyTtpgl+o5hE
+	 m6NlDdBns9q3ORCl73/RSZP2kwXAj3QkQbv847fno+hQ9iFANo54HZJmizfA/dqO97
+	 g36qpeo8TW6gjtLt7JaAimXuuhfr0hYRlBuxGj6Vwgq8UgjNfwG7esbQ4F2zQermt8
+	 QE8dORK7CE/EDGvx4SaK6yrruBuDBz0wMuh0pC2XAPB8vmqcdKbXLln7js4GcLW0Qf
+	 3hdJ+h1sHXZzw==
+Subject: Re: [PATCH net v2 2/2] net: wwan: iosm: fix S3 resume by re-binding
+ the driver around it
 From: netdev-bot+sashiko@kernel.org
 To: davidlwesten@gmail.com
 Cc: netdev@vger.kernel.org, loic.poulain@oss.qualcomm.com,
@@ -49,10 +49,10 @@ Cc: netdev@vger.kernel.org, loic.poulain@oss.qualcomm.com,
  davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  m.chetan.kumar@linux.intel.com, linux-kernel@vger.kernel.org,
  mail@maciej.szmigiero.name, nihaal@cse.iitm.ac.in, stable@vger.kernel.org
-Date: Mon, 23 Nov 2026 05:17:49 +0000
-Message-ID: <179541106939.3135.3810191786366936844@kernel.org>
-In-Reply-To: <20261119042714.505405-1-davidlwesten@gmail.com>
-References: <20261119042714.505405-1-davidlwesten@gmail.com>
+Date: Mon, 23 Nov 2026 05:17:50 +0000
+Message-ID: <179541107082.3135.11504382259893948340@kernel.org>
+In-Reply-To: <20261119042714.505405-2-davidlwesten@gmail.com>
+References: <20261119042714.505405-2-davidlwesten@gmail.com>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -66,10 +66,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Critical: 0 · High: 1 · Medium: 1 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,124 +77,202 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The patch adds hrtimer_cancel(&ipc_imem->adb_timer) to
-  ipc_imem_cleanup() (drivers/net/wwan/iosm/iosm_ipc_imem.c:1242).
+- [High] Use-after-free in the remove path, which this patch now runs on
+  every S3 suspend while the modem is live.
+- [Medium] When the card keeps power, the modem now goes into system
+  sleep fully awake.
+- [Low] The new PM_POST_SUSPEND branch in pm_notify() registers the
+  driver again based only on the global `pci_registered` flag, which…
+- [Low] The stable backport prerequisite is not declared.
 
 --
 
-net: wwan: iosm: cancel the ADB timer on cleanup
+net: wwan: iosm: fix S3 resume by re-binding the driver around it
 
-This patch adds an hrtimer_cancel() for adb_timer to ipc_imem_cleanup(),
-next to the cancels for the other imem hrtimers. The aim is to stop a
-pending ADB timer from queueing a task that finishes the ADB on the freed
-MUX, and to keep the hrtimer from being freed with the imem while it is
-still enqueued.
+This patch extends the iosm PM notifier. It now unregisters the PCI driver
+on PM_SUSPEND_PREPARE, unless the default suspend mode is s2idle, and
+registers it again on PM_POST_SUSPEND. This reuses the hibernation
+mechanism from commit 0b6f6593aa8c, so the modem is probed again after it
+reboots during S3.
 
-> diff --git a/drivers/net/wwan/iosm/iosm_ipc_imem.c b/drivers/net/wwan/iosm/iosm_ipc_imem.c
-> index 4405c85318880..20f8da53a3ea7 100644
-> --- a/drivers/net/wwan/iosm/iosm_ipc_imem.c
-> +++ b/drivers/net/wwan/iosm/iosm_ipc_imem.c
-> @@ -1239,6 +1239,7 @@ void ipc_imem_cleanup(struct iosm_imem *ipc_imem)
->  	hrtimer_cancel(&ipc_imem->tdupdate_timer);
->  	hrtimer_cancel(&ipc_imem->fast_update_timer);
->  	hrtimer_cancel(&ipc_imem->startup_timer);
-> +	hrtimer_cancel(&ipc_imem->adb_timer);
+> Fixes: 1f52d7b62285 ("net: wwan: iosm: Enable M.2 7360 WWAN card support")
+> Cc: stable@vger.kernel.org
+
+[Severity: Low]
+Will this apply to the stable trees that this Fixes: tag selects?
+
+Commit 0b6f6593aa8c ("net: wwan: iosm: Fix hibernation by re-binding the
+driver around it") added pm_notify(), pm_notifier and pci_registered. That
+commit has no Fixes: or Cc: stable tag. A tree that has 1f52d7b62285 but
+not 0b6f6593aa8c has no pm_notify() at all.
+
+Could the prerequisite be named, for example with
+"Cc: stable@vger.kernel.org # depends on 0b6f6593aa8c"?
+
+The dependency on the preceding ADB timer patch is only described below
+the --- line. That patch carries the same Fixes: and stable tags, so that
+part is less of a concern.
+
+> diff --git a/drivers/net/wwan/iosm/iosm_ipc_pcie.c b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
+> index 49052eb511baa..13e81012d818c 100644
+> --- a/drivers/net/wwan/iosm/iosm_ipc_pcie.c
+> +++ b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
+> @@ -534,12 +534,17 @@ void ipc_pcie_kfree_skb(struct iosm_pcie *ipc_pcie, struct sk_buff *skb)
+>  
+>  static int pm_notify(struct notifier_block *nb, unsigned long mode, void *_unused)
+>  {
+> -	if (mode == PM_HIBERNATION_PREPARE || mode == PM_RESTORE_PREPARE) {
+> +	/* The modem may lose power in S3 and S4 and boot again on resume,
+> +	 * which the suspend/resume callbacks can't handle, so probe it again.
+> +	 */
+> +	if (mode == PM_HIBERNATION_PREPARE || mode == PM_RESTORE_PREPARE ||
+> +	    (mode == PM_SUSPEND_PREPARE && !pm_suspend_default_s2idle())) {
+>  		if (pci_registered) {
+>  			pci_unregister_driver(&iosm_ipc_driver);
+>  			pci_registered = false;
+>  		}
 
 [Severity: High]
+Can this expose a use-after-free of ipc_imem->ipc_task on every S3
+suspend?
 
-Does this cancel fully close the use-after-free that the commit message
-describes? When it runs, the netdev TX path, the IRQ handler and the
-ipc_task tasklet are all still live. Any of them can re-arm adb_timer
-before ipc_mux_deinit() frees the MUX.
+Here pci_unregister_driver() goes through ipc_pcie_remove() into
+ipc_pcie_cleanup(). That function frees the imem resources before it
+releases the MSI handlers:
 
-ipc_imem_adb_timer_start() only checks whether the timer is already
-active:
+drivers/net/wwan/iosm/iosm_ipc_pcie.c:ipc_pcie_cleanup() {
+	/* Free the shared memory resources. */
+	ipc_imem_cleanup(ipc_pcie->imem);
 
-void ipc_imem_adb_timer_start(struct iosm_imem *ipc_imem)
-{
-	if (!hrtimer_active(&ipc_imem->adb_timer)) {
-		...
-		hrtimer_start(&ipc_imem->adb_timer,
-			      ipc_imem->hrtimer_period,
-			      HRTIMER_MODE_REL);
-	}
+	ipc_pcie_resources_release(ipc_pcie);
+	...
 }
 
-The netdevs stay registered until ipc_wwan_deinit(), and the TX queues
-are only stopped inside ipc_mux_deinit(). So TX traffic during cleanup can
-still go through this path:
+Inside ipc_imem_cleanup(), the CP is told to go to IPC UNINIT. Then the
+tasklet and its container are freed, and the pointer is not cleared:
 
-ipc_mux_ul_trigger_encode()
-  ipc_task_queue_send_task(ipc_mux_tq_ul_trigger_encode)
-    ipc_mux_tq_ul_trigger_encode()
-      ipc_mux_ul_data_encode()    /* only checks MUX_S_ACTIVE */
-      ipc_imem_adb_timer_start()
+drivers/net/wwan/iosm/iosm_ipc_imem.c:ipc_imem_cleanup() {
+	...
+	ipc_imem_device_ipc_uninit(ipc_imem);
+	ipc_imem_channel_reset(ipc_imem);
 
-The mux state stays MUX_S_ACTIVE until ipc_mux_deinit(). That means the
-timer can be re-armed for 500 us at any point between this new cancel and
-ipc_mux_deinit(), including during
-cancel_work_sync(&ipc_imem->run_state_worker).
+	ipc_protocol_deinit(ipc_imem->ipc_protocol);
+	ipc_task_deinit(ipc_imem->ipc_task);
 
-ipc_imem_handle_irq() also calls ipc_imem_adb_timer_start(). Its only
-guard is an unsynchronized check of ipc_imem->phase at the top. The MSI
-IRQs stay requested until ipc_pcie_resources_release(), which runs after
-ipc_imem_cleanup() returns.
+	kfree(ipc_imem->ipc_task);
+	...
+}
 
-Next, ipc_mux_deinit() calls kfree(ipc_mux) and leaves ipc_imem->mux
-pointing at freed memory. After that, ipc_imem_device_ipc_uninit() polls
-for up to 30 ms before ipc_task_deinit() is reached:
+The threaded MSI handler is still registered at that point. Its only gate
+is the s2idle suspend bit, and this path never sets it:
 
-	while ((ipc_state <= IPC_MEM_DEVICE_IPC_DONT_CARE) &&
-	       (ipc_state != IPC_MEM_DEVICE_IPC_UNINIT) &&
-	       (timeout > 0)) {
-		usleep_range(1000, 1250);
-		...
+drivers/net/wwan/iosm/iosm_ipc_irq.c:ipc_msi_interrupt() {
+	...
+	if (!test_bit(0, &ipc_pcie->suspend))
+		ipc_imem_irq_process(ipc_pcie->imem, instance);
+	...
+}
+
+ipc_imem_irq_process() only checks ev_irq_pending[irq].
+ipc_imem_handle_irq() clears that flag before its IPC_P_OFF_REQ early
+return, so the flag doesn't block a new enqueue either.
+
+An MSI that arrives after tasklet_kill() in ipc_task_deinit() schedules
+the tasklet again just before it is kfree'd. An MSI that arrives after
+kfree(ipc_imem->ipc_task) makes ipc_task_queue_add_task() read and write
+the freed structure:
+
+	struct tasklet_struct *ipc_tasklet = ipc_imem->ipc_task->ipc_tasklet;
+	struct ipc_task_queue *ipc_task = &ipc_imem->ipc_task->ipc_queue;
+	...
+	spin_lock_irqsave(&ipc_task->q_lock, flags);
+	...
+	tasklet_schedule(ipc_tasklet);
+
+The softirq could then run that tasklet after ipc_pcie_deinit() has also
+freed imem and ipc_pcie.
+
+The unbind and hibernation paths already use this ordering. This patch
+puts it on the S3 path while the modem is running and has just been told
+to go to UNINIT. Could the MSIs be quiesced or freed before
+ipc_imem_cleanup() tears down the tasklet?
+
+[Severity: Medium]
+Does the modem now enter system sleep in D0 with its firmware still
+running? This applies when the card keeps power in S3, or when freeze or
+standby is entered while mem_sleep is deep.
+
+The driver is unbound at PM_SUSPEND_PREPARE, so ipc_pcie_suspend_cb() no
+longer runs and neither sleep handshake is sent:
+
+	switch (ipc_pcie->d3l2_support) {
+	case IPC_PCIE_D0L12:
+		ipc_pcie_suspend_s2idle(ipc_pcie);
+		break;
+	case IPC_PCIE_D3L2:
+		ipc_pcie_suspend(ipc_pcie);
+		break;
 	}
 
-Could a re-armed 500 us timer fire inside this window and run this?
+This skips both the IPC_MEM_DEV_PM_FORCE_SLEEP doorbell and the
+ipc_imem_pm_suspend() host sleep message.
 
-ipc_imem_adb_timer_cb()
-  ipc_task_queue_send_task(ipc_imem_tq_adb_timer_cb)
-    ipc_imem_tq_adb_timer_cb()
-      ipc_mux_ul_adb_finish(ipc_imem->mux)    /* freed MUX */
+The PCI core also stops putting the device into a low power state. With no
+driver bound, pci_pm_suspend_noirq() takes this branch and never reaches
+pci_prepare_to_sleep():
 
-ipc_mux_ul_adb_finish() writes through the MUX with no checks. It updates
-adbh->sequence_nr and adb_tx_sequence_nr, and it calls skb_put() on
-ul_adb->dest_skb, among other writes.
+drivers/pci/pci-driver.c:pci_pm_suspend_noirq() {
+	...
+	if (!pm) {
+		pci_save_state(pci_dev);
+		goto set_unknown;
+	}
+	...
+}
 
-If the timer is still pending later, its callback would use the ipc_task
-that ipc_imem_cleanup() has already freed. If it is still pending when
-ipc_pcie_deinit() calls kfree(ipc_pcie->imem), the hrtimer embedded in the
-imem is freed while it is still enqueued.
+Before suspend, the modem only gets IPC UNINIT from
+ipc_imem_device_ipc_uninit(), which is not a sleep request.
 
-There is also a second case. Suppose adb_timer fired just before this
-cancel. hrtimer_cancel() returns once the callback has finished, but the
-ipc_imem_tq_adb_timer_cb entry that the callback queued (wait=false) is
-still sitting in the ipc_task queue.
+Could this raise sleep power, or keep the platform out of S0ix during an
+explicit s2idle? The changelog lists lost data sessions for these cases,
+but it doesn't mention this.
 
-Nothing flushes that queue before the MUX is freed:
+> -	} else if (mode == PM_POST_HIBERNATION || mode == PM_POST_RESTORE) {
+> +	} else if (mode == PM_POST_HIBERNATION || mode == PM_POST_RESTORE ||
+> +		   mode == PM_POST_SUSPEND) {
+>  		if (!pci_registered) {
+>  			int ret;
 
-- cancel_work_sync() only covers the workqueue.
-- In IPC_P_OFF_REQ, ipc_imem_channel_close() skips the synchronous pipe
-  close messages, so ipc_mux_deinit() doesn't flush the tasklet either.
-- tasklet_kill() in ipc_task_deinit() waits for an already-scheduled
-  tasklet to run instead of dropping it, and it is only reached after
-  kfree(ipc_mux).
+[Severity: Low]
+Can this register the driver again in the middle of a uswsusp
+hibernation?
 
-If the tasklet is delayed (BH disabled, ksoftirqd, PREEMPT_RT), can that
-stale entry run ipc_mux_ul_adb_finish() on the freed MUX?
+The hibernation and suspend paths now share pci_registered.
+snapshot_open() sends PM_HIBERNATION_PREPARE, which unbinds iosm. It then
+drops system_transition_mutex while /dev/snapshot stays open:
 
-The next patch in the series, "net: wwan: iosm: fix S3 resume by
-re-binding the driver around it", doesn't change ipc_imem_cleanup(). It
-does run this teardown from the PM_SUSPEND_PREPARE notifier on every
-non-s2idle suspend, and that happens before tasks are frozen. With that
-patch, live TX traffic during teardown becomes the normal case.
+kernel/power/user.c:snapshot_open() {
+	...
+	error = pm_notifier_call_chain_robust(PM_HIBERNATION_PREPARE, PM_POST_HIBERNATION);
+	...
+ Unlock:
+	unlock_system_sleep(sleep_flags);
+	...
+}
 
-Would it make sense to stop the producers (netif TX, the IRQ and the
-tasklet) before ipc_mux_deinit(), and cancel adb_timer after that point or
-add a second cancel there? Two other options would be to skip
-ipc_imem_adb_timer_start() once teardown has begun, and to keep
-ipc_imem_tq_adb_timer_cb() from using a stale ipc_imem->mux.
+enter_state() only does a trylock on that mutex:
+
+	if (!mutex_trylock(&system_transition_mutex))
+		return -EBUSY;
+
+Suppose a suspend to RAM starts before SNAPSHOT_FREEZE. PM_SUSPEND_PREPARE
+does nothing because the driver is already unregistered. PM_POST_SUSPEND
+then calls pci_register_driver() and sets pci_registered = true.
+
+The hibernation image would then be created with iosm bound. The later
+PM_POST_HIBERNATION from snapshot_release() does nothing, so the unbind
+added by 0b6f6593aa8c is lost. Before this patch PM_POST_SUSPEND was
+ignored, so this couldn't happen.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261119042714.505405-1-davidlwesten%40gmail.com
