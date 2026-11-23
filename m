@@ -1,100 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795450809;
-	b=OLz/9HdRMSkZPzLI4f4i3cMGaRl3wDvlPg6WvgIl9206ajsX4oURlMcdXZaPGlWPCbnL
-	 nqnUsNaqofC/KgVoX5VfFHYvYO9a3mxbB69IRKgbgEZeskpII4CbY8QqhSSqGi+p07r4b
-	 z4cbnXLsEU0SF8vakFzz6Gq0X4yIB/DznD8B3p6MZ/AA0XTQ0kv93CmlI3laecxXer+90
-	 Kap8PwL8ctlleSHW3otFUThAO1l0W5llnc8BybYp6ZSj+f5tgUuWg/e7/YMBxHQdRTmyS
-	 maOomq8BO1Qh9sCxGoUR0XaGzydGXYWwurx264ElNf+nGR7fqwUWOgaB5w1RjdIJzug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795450809;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795450858;
+	b=y0lagqT1k2SOrOxazUS8QWQGYLXEje6BZVBAk0N5YiC7Hc32DNDiYaycP5VlPF9PCz89
+	 TIjXUgchdinkdC0/fOuZ7Rekkuf6apttVBPHrYUVPsMVylBgunVXra5C3InqiRar8bX25
+	 T40m/6Z5XqSWjRcpePMky29mC6JUWu2FsDK01OhFhpKbWHqCYIJDKL7J1Ap6Wko+wQkBB
+	 n78Cc6sZXwTxAt+ySUf3uWAIIw65mJQ+u1hwHk03zH2JKaecda8P4j6sZ++JnjIP1S34b
+	 lpSqncpn9SvFwI5eNxw1kzQkzWXYRFRJQONa6OCI8/zmcNPbdUE+t5lQY8vEoRDjQUA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795450858;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mldqwpxZeD1p8uw821ZK1a2yAWOs86dOj1gRQG3CmFQ=;
-	b=2k8mfiOslumY8J6hoNrHoR9VaR2z29Mne30pWPiTbVlk7Y8qczzZjKES8/toepWEaMdK
-	 t20v0plIvMNnp22rm7W//wChn1dgQZZiC0XgQ/xAYww7zqwgLzz7cqqCi0rLiYtBZOf64
-	 v8oum3vIBGMKj0NwkoBQ67gd6dT6oDH5ge5yyAt6ULA/2JGTHVUj2J8jewn9sYTMKKaqW
-	 QLA4UObZasJRvO11YfOemARAEnzHyWlF8rs5i3k1rYL+feipSBikD6JYcnenqgaDFY/C9
-	 skjKV9Qv3Qvj6FAKbWIFryobHNyvBFQA+oS+4bCV3e/WrUkPnZZSK8Arqfc0kg7Gq0w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iPyfLdUU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OMtq5aBML9D8zyZzLVDbeex6HGKBk1QCt6vR9V0tuYU=;
+	b=ioV60V+ySoYWDW2BWpNBj+Cp7De9wHl7hlzNXldwK2D3+MDHqDUmkEbNXz6hdevvKFnO
+	 chMPg/brAQg/VAEO5tmUUpUSR7g3AsO+0q9hf6EtkUzdXQkkFQcs06W+Cc7/Pjdn/7bTg
+	 kL8+wGMy/OgIxl8/nicBk9X1gj5q+7qZmsBehSbk8h7KoA1YxkwV5+GyB6D3+0bmsXtdq
+	 8CDk52LA57YpPI6exKc2JiCDI1GpeiHC3HJ1+aWx9WYNLpQMxah8XdUg3k60eDzYYtGjZ
+	 SQxAbLKAT96WPh476VXdjyOaB/o9t/1qW0oxCgnltqtI0Sl3BLd18/iAEGpsUC3waEQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Yf48H/7w";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bUzFLfz7;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDBEC606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:20:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDBEC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B3D606A31F
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:20:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98B3D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iPyfLdUU
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-55be673e029so440161cf.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:20:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795450808; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BC2o8wVbNxiy5JS04gW+VnZ3OsuiMn9Y2LHfSDO+g4KKXu39v67ohhhlGXlk5POouj
-         zVcg3QS8+MzFD0HWA5Y6pMx4VWRTOsU2cVIDWoxXhJ/UzoQu6E/2VEn73Wlz3yRPVAj4
-         1IpXJlPhTOmVzvNeEKmW+gfP8NhuGY+ylB62RgheXeQOD36nR3+JEIMY0cD2xR2qwUvN
-         88exrMmS9nUAx0HB9NQ63eOVPUu8BQfbEUJunMjo+DIzc+3jtGnygslzxEwqGKaRIjbM
-         dkGD2wE0JVQ89lEUoW55co7FCeCKEUYc116EJsjR7VvIOGV/95nK4MkgfKnPkidc5X9Z
-         PoAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mldqwpxZeD1p8uw821ZK1a2yAWOs86dOj1gRQG3CmFQ=;
-        fh=7vGbP13p1LnFZMdHIwG4M4bsdVWVGJFfPnLUr17ZGlw=;
-        b=Mke9gtDhfTNm6LFUE+UI3wfhEUWUKLg+jhxwHy0cxycG62c6esgab72ONO59vfqEZi
-         O11VbKiJb1Exv27jpxtkPY1tZAhPjOo6JktvbqDrqK+FmOchGBZhOf5VukWYngLuURK2
-         Rj28UC7TEgz+K/FMGfZUtQWKuglxQ3mL/nBYCXzOPjVXrxwiqqfr/VJj+kw3qqdLzg4X
-         8d831nijonDUPO/bZDP8pWbQdc35ymzpV3oAIwuowQAaXujM9OhCWuR4Bs9jzF07di5r
-         2KiWwlVSW+bRqoRRRhKAKbI0fXB+TIDwXRbkRKh99S5hVOcpQEq/1SbsmCi44yZcBwS1
-         vHgA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Yf48H/7w;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bUzFLfz7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795450856;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OMtq5aBML9D8zyZzLVDbeex6HGKBk1QCt6vR9V0tuYU=;
+	b=Yf48H/7w/9FB+A/8Me5stvnMKxqMCtMCAx1qe18pen+y8aOXIdb91/iK7dr7owJc/Lm62m
+	HdbUgCccy8sUq+aQEbaHD5mGo4eShDRnkwlkCr04tOczE5bqi23jSoxJqISgRWd3uhluO5
+	3oOrK6lempKzvyHKPSBsXaOnE9GBvXA=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-595-rcvp0Z4TNWCSfOPndZ-R-g-1; Mon, 23 Nov 2026 16:20:52 +0000
+X-MC-Unique: rcvp0Z4TNWCSfOPndZ-R-g-1
+X-Mimecast-MFC-AGG-ID: rcvp0Z4TNWCSfOPndZ-R-g_1795450851
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4925ef75fc4so2181322f8f.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:20:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795450808; x=1796055608; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=redhat.com; s=google; t=1795450851; x=1796055651; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=mldqwpxZeD1p8uw821ZK1a2yAWOs86dOj1gRQG3CmFQ=;
-        b=iPyfLdUU3+ISjOgV2XrTMJofTEDIIrxoFabWb3cxEESEWwTun+rHKG0mCtb+OHnmis
-         qJP8vw14yLvD2gZ1eXA8aEkNG2K8/Xhl6KrljZ+NffltOTLEoPqfBpjDcSaYUp/UMxVx
-         2nx55HF4KpeJdIbCJpFrXOWzQnp43/1bKh/GUd2Fj4qb8TK6qP+0arnMstKhSKmtFWKR
-         s8fXHqiwf4fU3UEaQWpfPN8DeXXKHB+uJLoD9Uge0y744X45J/5Q1JyG4196QBb4M03V
-         reI5fcQMuh5juhfIcb6IRFRc52Dhx6CydN7A49C6k7JGmwzltx7wzFWyYywhddTv+1T/
-         sUDg==
+        bh=OMtq5aBML9D8zyZzLVDbeex6HGKBk1QCt6vR9V0tuYU=;
+        b=bUzFLfz74y5qbCVGHjDhYxEeigC9aluW+HztuPAdq6hFzOqtRKHTLhHflo4IUPnUeY
+         mW19uZKUQxKJfnkMKlvmEa8N8oaM4GsEYK103xruhls/JD5evz4v0DRnZfkM7oc4UPcM
+         d93andd6WDsPFdoE3mrK2vW7lheN1Kg/Njm7J1UoYFLDCLSlROCmSuZRK/7b30t9ML9n
+         N6Maf5faXrPHKvnCTCRv2kOK5XqBqZYcl1iFsgeIlDiXtnmIpEfFoeou0TyTcVKzXBM5
+         30O70kW3LUdx5NsFrrEnX6ObGQygOQUw5AcEjBOZr/mICWP8qiXSEXVFrRHISjX5+GJn
+         hVyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795450808; x=1796055608;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1795450851; x=1796055651;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mldqwpxZeD1p8uw821ZK1a2yAWOs86dOj1gRQG3CmFQ=;
-        b=j5js6wIYyAVasMFHCIu/cRpGlNRVljS2M9GKpkJlA9rnmMAQEhgOSoIp044X/mF2mQ
-         vAtwm2JStp8cJ18YywOEndfvUyO0dcXO2XKjDxOlKD4iPudnbXpuXGxwa8kraMoDKmn9
-         t9ceXXm+53eO//q0EVKzRtmcHdp1tJf508fX9zUMbpxZkMHSvKJ/unff5loccz3HLzUo
-         8S2rXA7mKY14zLDXo7PAGCIVloVjCeLJObwe7K6pihenR1Ep/xjjqjJCA1bQu0gjDh/9
-         T+2uJw61KBLZuqTlD06DGYZDdJvpHKycwoeZpK9hQtnhvCRjT9NjwFoSvNc3jkqvDanU
-         w4AQ==
-X-Forwarded-Encrypted: i=1; AL+hErG8j/pX6BSKMUQmrYCqf0+C5Vwekb9+fWF4suDfHJghmgikr9RvXgdjrzTytYoUWIDj0B9ggq8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3SZxcCdrLPgvJVxBhmDpMtllG+X2TEwv8TjKgpve0i05Q6z9+
-	GlqImfxZvTDeXuPVtC7vbgAwKi/DtqO6w4D/C3jQ/SG/0jV/WuQXI85W+5lbBalXLRx9bjX8lAu
-	DSMTw+EBqLtajTN30lfGVrYSN2P6C2/2CqP6kRZpo
-X-Gm-Gg: AZFdTZecGJiz9EMRWfyu+6mxgpQaBRIIijh3vrepf+k1vWNRWu6TBA1TgRhAbDDw6M3
-	/mGD48GSzP+4tusP+0s2XBfn8oPVYVgIzjKXR6YLwm2cF+g12TlgAde7au63LvyARpkFeucReeP
-	cOyFZvkdvGJ7dE2tf3JG+/n0mO3jWtI4IG4xY4W7asTyxRiOv42BupIDkp5ijmc6NdmDP6SFhIT
-	K/357W0H/LbtEubGIf+uVtfNlgmOf3fF9ZyhaskCSuV3eK/fXVfpv8LWUKzCaetylPa+6NyWf+9
-	2faNTg4jEY9jcQfKRp8OMuiqqcgDGe6BwoGHaEW6WZXiI0eudKZB0CwHtxntIkB51Ddt59w0HNL
-	NXpV1jsvBGhIyTbE29hTuqcte5oF7y1ou6pvFtECXx4rIkiuKPD9kRNQCI+MRaEZfAmHOfyQ=
-X-Received: by 2002:a05:622a:5a12:b0:536:6ea4:e6a0 with SMTP id
- d75a77b69052e-55d89047301mr36389711cf.11.1795450806808; Mon, 23 Nov 2026
- 08:20:06 -0800 (PST)
+        bh=OMtq5aBML9D8zyZzLVDbeex6HGKBk1QCt6vR9V0tuYU=;
+        b=hnFELGlRT4GHsZ4gpC1AQ4Rv+1E3aKEb6iTZ6xvJb7bc4P/YDoDXyfjLU8FXH0+OWB
+         l2rVvCxO/gNzJXMOaWPQMj2wq1KA2Ax3FqwG1eOa4MqCSIQMRM19yz4UI7lWRV9kHmeY
+         h7ypUS38DPfnp6cu/N1Qtjg13bbcCGTSn4WXYUWu50hgCItLNxaVbgysNpsNSaIcTdOG
+         YVTDV/p3ZHnIByRdu9RC1wt42S6OeOGB5xIuSX50NJT6FvUPRtt826akz8DfG07hzypa
+         y4kkubWq0rZBU0fVofnZ+8Kz4twwCQFRdPhIORta0h+XM++x31gJlj9a2NcSz300eUrn
+         vyHw==
+X-Forwarded-Encrypted: i=1; AL+hErG7PQV89X3fLGOboas04qjXWlpdPMFD902P3XZBIt5RYJKjFolfAOaM5sswURUBBW+5vtvCF/k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SNjjdUxSoSEYnXtONsX+l3QGmk4VXlxoco176lbgEnhUYxkIg
+	/O3a/7mE6BGI9ReXf8TxFGJnoj/WolXZSQMUNEUeCRZlBstXCN8Diloc1ZEoJ6hoiXKkn211A2d
+	vcgYElsXbgiGvwgxcc3ZJOB/C5Sl/nOE5Glzex1BhM1xEe6Whq+XXbfg+kA==
+X-Gm-Gg: AZFdTZec/qzyA7oTSzA06y+MG80PLxRqNQG7Rj622SSOKSILWuIiROiZPv1H5UZbpDu
+	feVp1wf3LYBzWCx/4od44vS00MwRVDYOvu9jvrhFaH6uchDj1SVAgxukKQA3FrkwK0k+0tJxo3q
+	tTNOcrgeU+PxCK+4RPkahWlbl89R2o4w3qNSOxMgfRd3xJz9EIeNV8zwXdga1UvzUlXs3iFDh6b
+	nAn1MvOYFjswA1wEO+FIfI5Q46yes4paK8I0EoTk+4YEHLnxzoery6a70sFUTlWV9sqZRb/KCCV
+	hRrb1vPk2tnkAUdjmOS0Z5n2mMZ0uAUm7I+picG9m0aiSuPX4EPHnNdVC7PNijIPe+5dhBaxcO0
+	wU7hU0iBk0+qnnM5ixO7XtJNPBOw0cqxWV1WJPKVQVtQic6O307sMYw==
+X-Received: by 2002:a05:600c:3b8a:b0:4bb:76d9:f81a with SMTP id 5b1f17b1804b1-4bb88824fc8mr265197935e9.34.1795450850730;
+        Mon, 23 Nov 2026 08:20:50 -0800 (PST)
+X-Received: by 2002:a05:600c:3b8a:b0:4bb:76d9:f81a with SMTP id 5b1f17b1804b1-4bb88824fc8mr265197125e9.34.1795450850173;
+        Mon, 23 Nov 2026 08:20:50 -0800 (PST)
+Received: from sgarzare-redhat ([80.116.143.202])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8849e598sm320400955e9.8.2026.11.23.08.20.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 08:20:49 -0800 (PST)
+Date: Mon, 23 Nov 2026 17:20:44 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: jrmmhm.kernel@eldare.de
+Cc: Bobby Eshleman <bobbyeshleman@meta.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Alexei Starovoitov <ast@kernel.org>, 
+	Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v6 2/2] vsock/bpf: release sock lock while waiting
+ for data in recvmsg
+Message-ID: <awRnkbbxYUw-ihGb@sgarzare-redhat>
+References: <20261114-kbh3-1-022-fix-v2-v6-0-96b6029bbffa@eldare.de>
+ <20261114-kbh3-1-022-fix-v2-v6-2-96b6029bbffa@eldare.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,291 +120,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116071325.263682-1-hao.ge@linux.dev> <20261116071325.263682-2-hao.ge@linux.dev>
- <1020e36e-83bb-407b-8a6b-7669f04c26c3@arm.com> <CAJuCfpHtWJvs4F2L+QCMe9gMJ-qmcj4Q1G4hqVqFe6Z6gPoQ1Q@mail.gmail.com>
- <cb8d8dc5-4ccc-408f-acaf-2f1faa0a1983@linux.dev>
-In-Reply-To: <cb8d8dc5-4ccc-408f-acaf-2f1faa0a1983@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Mon, 23 Nov 2026 08:19:54 -0800
-X-Gm-Features: Aa3M54qAZLYw0m2OwS5IQ2Il_ZIKZH-wm8JIT48ds8WuRflK3snOxTbasMdxo14
-Message-ID: <CAJuCfpHfz-nNhhN2kDgi07eTMNjMEh+ZK2Ejuxb=-q8wbanJDg@mail.gmail.com>
-Subject: Re: [PATCH v5 01/11] mm/vmalloc: skip cond_resched() in the vmap
- unmap paths when atomic
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Dev Jain <dev.jain@arm.com>, Uladzislau Rezki <urezki@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Potapenko <glider@google.com>, 
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>, 
-	Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, linuxppc-dev@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261114-kbh3-1-022-fix-v2-v6-2-96b6029bbffa@eldare.de>
 
-On Sun, Nov 22, 2026 at 10:17=E2=80=AFPM Hao Ge <hao.ge@linux.dev> wrote:
+On Sat, Nov 14, 2026 at 12:59:15PM +0100, Jerome Mohm via B4 Relay wrote:
+>From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 >
-> Hi Suren and Dev
+>vsock_bpf_recvmsg() sleeps in vsock_msg_wait_data() with the socket lock
+>held, so the virtio delivery worker, which needs that lock, deadlocks
+>with the reader and all vsock rx on that worker stops.
 >
-> Thanks for the review.
+>Release the lock around the wait. The reader can then wake without
+>data, so the wait also has to loop; the fix needs both halves. The loop
+>ends on data, the timeout, a signal (the sleep returns at once while
+>one is pending), a lost transport after a failed connect(), or a state
+>in which __vsock_recvmsg() would not wait. Those states go to
+>__vsock_recvmsg(), so a non-blocking read now sees them before -EAGAIN.
+>A blocking read interrupted by a signal now gets -EINTR, or restarts,
+>instead of -EAGAIN. One tested difference remains: a reader asleep at a
+>virtio transport reset gets -ENOTCONN, where a native socket gets
+>-ECONNRESET (0 on seqpacket).
 >
-> On 2026/11/21 05:07, Suren Baghdasaryan wrote:
-> > On Thu, Nov 19, 2026 at 5:02=E2=80=AFAM Dev Jain <dev.jain@arm.com> wro=
-te:
-> >>
-> >>
-> >>
-> >> On 16/11/26 12:43 pm, Hao Ge wrote:
-> >>> The vmap failure paths can be reached with GFP_ATOMIC or GFP_NOWAIT
-> >>> since commit b186a94227b7 ("kmsan: remove hard-coded GFP_KERNEL
-> >>> flags") and commit 8da89ba18ed4 ("mm/vmalloc: handle non-blocking
-> >>> GFP in __vmalloc_area_node()"), so an undo of a partially installed
-> >>
-> >> You mention this commit too, implying that vunmap_range_noflush() can
-> >> be called in atomic context right now, but in this patch in
-> >> vunmap_range_noflush() you pass 'true' unconditionally to
-> >> __vunmap_range_noflush()?
-> >>
-> >> Can you give me the call chain existing in current kernel which makes
-> >> this bug trigger? In case it does not exist but is only triggered when
-> >> you add the rollback code later, then this patch is not fixing a bug.
-> >
-> > Yeah, IIUC this is a prep patch for later changes and does not fix any
-> > existing issues, therefore should not have any Fixes tags and should
-> > not be CC'ed to stable.
-> >
-> > Other than that LGTM.
->
-> Right, this is a prep patch for later changes. I will drop the
-> Fixes tag, this patch fixes nothing by itself.
->
-> I would keep the stable Cc though. The next patch, "mm/kmsan: undo
-> the shadow mapping when the origin mapping fails", is the real fix
-> and it depends on this one. Per stable-kernel-rules.rst, patch1 in
-> a series should be marked for stable inclusion when patch2 depends
-> on it, otherwise the fix lands in stable without its prerequisite.
+>The deadlock was found with the help of Anthropic's Claude; the netdev
+>Sashiko reviews and Alexei found the wakeup, reset, shutdown and
+>lost-transport cases. Each was reproduced in a VM without kernel
+>changes or error injection (the resets unbind the guest's virtio-vsock
+>device), except the lost transport and a SHUT_RD with a pending socket
+>error, which were checked only in the code. With this patch the
+>reproduced cases behave as on a native socket, apart from the reset. I
+>ran the vsock vmtest.sh single-VM tests and the BPF sockmap selftests
+>with the series; they pass, though none of them sleeps in this wait.
 
-It might be worth spelling this out in the changelog to avoid
-confusing Greg and Sasha.
+Ditto about series/patches.
 
 >
-> Or did I misread the rules?
+>Fixes: 634f1a7110b4 ("vsock: support sockmap")
+>Suggested-by: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+>---
+> net/vmw_vsock/vsock_bpf.c | 42 +++++++++++++++++++++++++++---------------
+> 1 file changed, 27 insertions(+), 15 deletions(-)
 >
-> Thanks
-> Best Regards
-> Hao
+>diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+>index c9b399f37720..41307759da99 100644
+>--- a/net/vmw_vsock/vsock_bpf.c
+>+++ b/net/vmw_vsock/vsock_bpf.c
+>@@ -34,24 +34,37 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
+> 	return vsock_sk_has_data(sk, psock);
+> }
 >
-> >
-> >>
-> >>
-> >>> mapping may have to run in atomic context, where the cond_resched()
-> >>> in vunmap_pmd_range() cannot schedule.
-> >>>
-> >>> Give __vunmap_range_noflush() and kmsan_vunmap_range_noflush() a
-> >>> can_resched argument and skip the cond_resched() when it is false.
-> >>> The existing callers are on sleepable paths and pass true, so nothing
-> >>> changes for them.
-> >>>
-> >>> Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_=
-pages_range_noflush()")
-> >>> Cc: stable@vger.kernel.org
-> >>> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> >>> Closes: https://lore.kernel.org/all/sashiko-outbox-178439@kernel.org/
-> >>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> >>> ---
-> >>>  include/linux/kmsan.h |  8 ++++++--
-> >>>  mm/kmsan/hooks.c      | 14 +++++++++-----
-> >>>  mm/vmalloc.c          | 24 ++++++++++++++----------
-> >>>  mm/vmalloc.h          |  3 ++-
-> >>>  4 files changed, 31 insertions(+), 18 deletions(-)
-> >>>
-> >>> diff --git a/include/linux/kmsan.h b/include/linux/kmsan.h
-> >>> index 7da9fd506b39..0016c032d1e7 100644
-> >>> --- a/include/linux/kmsan.h
-> >>> +++ b/include/linux/kmsan.h
-> >>> @@ -150,11 +150,14 @@ int __must_check kmsan_vmap_pages_range_noflush=
-(unsigned long start,
-> >>>   * kmsan_vunmap_kernel_range_noflush() - Notify KMSAN about a vunmap=
-.
-> >>>   * @start: start of vunmapped range.
-> >>>   * @end:   end of vunmapped range.
-> >>> + * @can_resched: whether the unmap walk may call cond_resched(); pas=
-s
-> >>> + * false from atomic context.
-> >>>   *
-> >>>   * KMSAN unmaps the contiguous metadata ranges created by
-> >>>   * kmsan_map_kernel_range_noflush().
-> >>>   */
-> >>> -void kmsan_vunmap_range_noflush(unsigned long start, unsigned long e=
-nd);
-> >>> +void kmsan_vunmap_range_noflush(unsigned long start, unsigned long e=
-nd,
-> >>> +                             bool can_resched);
-> >>>
-> >>>  /**
-> >>>   * kmsan_ioremap_page_range() - Notify KMSAN about a ioremap_page_ra=
-nge() call.
-> >>> @@ -355,7 +358,8 @@ static inline int __must_check kmsan_vmap_pages_r=
-ange_noflush(
-> >>>  }
-> >>>
-> >>>  static inline void kmsan_vunmap_range_noflush(unsigned long start,
-> >>> -                                           unsigned long end)
-> >>> +                                           unsigned long end,
-> >>> +                                           bool can_resched)
-> >>>  {
-> >>>  }
-> >>>
-> >>> diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
-> >>> index a706666db097..69008b085658 100644
-> >>> --- a/mm/kmsan/hooks.c
-> >>> +++ b/mm/kmsan/hooks.c
-> >>> @@ -136,10 +136,13 @@ static unsigned long vmalloc_origin(unsigned lo=
-ng addr)
-> >>>                                                KMSAN_META_ORIGIN);
-> >>>  }
-> >>>
-> >>> -void kmsan_vunmap_range_noflush(unsigned long start, unsigned long e=
-nd)
-> >>> +void kmsan_vunmap_range_noflush(unsigned long start, unsigned long e=
-nd,
-> >>> +                             bool can_resched)
-> >>>  {
-> >>> -     __vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(en=
-d));
-> >>> -     __vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(en=
-d));
-> >>> +     __vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(en=
-d),
-> >>> +                            can_resched);
-> >>> +     __vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(en=
-d),
-> >>> +                            can_resched);
-> >>>       flush_cache_vmap(vmalloc_shadow(start), vmalloc_shadow(end));
-> >>>       flush_cache_vmap(vmalloc_origin(start), vmalloc_origin(end));
-> >>>  }
-> >>> @@ -168,8 +171,9 @@ static void kmsan_iounmap_pages(unsigned long sta=
-rt, unsigned long end)
-> >>>               if (origin)
-> >>>                       __free_pages(origin, KMSAN_IOREMAP_META_ORDER);
-> >>>       }
-> >>> -     __vunmap_range_noflush(shadow_start, shadow_end);
-> >>> -     __vunmap_range_noflush(origin_start, origin_end);
-> >>> +     /* ioremap metadata mappings are always GFP_KERNEL, so resched =
-is safe. */
-> >>> +     __vunmap_range_noflush(shadow_start, shadow_end, true);
-> >>> +     __vunmap_range_noflush(origin_start, origin_end, true);
-> >>>       flush_tlb_kernel_range(shadow_start, shadow_end);
-> >>>       flush_tlb_kernel_range(origin_start, origin_end);
-> >>>  }
-> >>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> >>> index ccaf158c5b7f..3c0d9e69b886 100644
-> >>> --- a/mm/vmalloc.c
-> >>> +++ b/mm/vmalloc.c
-> >>> @@ -429,7 +429,7 @@ static void vunmap_pte_range(pmd_t *pmd, unsigned=
- long addr, unsigned long end,
-> >>>  }
-> >>>
-> >>>  static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigne=
-d long end,
-> >>> -                          pgtbl_mod_mask *mask)
-> >>> +                          pgtbl_mod_mask *mask, bool can_resched)
-> >>>  {
-> >>>       pmd_t *pmd;
-> >>>       unsigned long next;
-> >>> @@ -451,12 +451,14 @@ static void vunmap_pmd_range(pud_t *pud, unsign=
-ed long addr, unsigned long end,
-> >>>                       continue;
-> >>>               vunmap_pte_range(pmd, addr, next, mask);
-> >>>
-> >>> -             cond_resched();
-> >>> +             /* The undo path may run in atomic context. */
-> >>> +             if (can_resched)
-> >>> +                     cond_resched();
-> >>>       } while (pmd++, addr =3D next, addr !=3D end);
-> >>>  }
-> >>>
-> >>>  static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigne=
-d long end,
-> >>> -                          pgtbl_mod_mask *mask)
-> >>> +                          pgtbl_mod_mask *mask, bool can_resched)
-> >>>  {
-> >>>       pud_t *pud;
-> >>>       unsigned long next;
-> >>> @@ -476,12 +478,12 @@ static void vunmap_pud_range(p4d_t *p4d, unsign=
-ed long addr, unsigned long end,
-> >>>               }
-> >>>               if (pud_none_or_clear_bad(pud))
-> >>>                       continue;
-> >>> -             vunmap_pmd_range(pud, addr, next, mask);
-> >>> +             vunmap_pmd_range(pud, addr, next, mask, can_resched);
-> >>>       } while (pud++, addr =3D next, addr !=3D end);
-> >>>  }
-> >>>
-> >>>  static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigne=
-d long end,
-> >>> -                          pgtbl_mod_mask *mask)
-> >>> +                          pgtbl_mod_mask *mask, bool can_resched)
-> >>>  {
-> >>>       p4d_t *p4d;
-> >>>       unsigned long next;
-> >>> @@ -496,7 +498,7 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned=
- long addr, unsigned long end,
-> >>>
-> >>>               if (p4d_none_or_clear_bad(p4d))
-> >>>                       continue;
-> >>> -             vunmap_pud_range(p4d, addr, next, mask);
-> >>> +             vunmap_pud_range(p4d, addr, next, mask, can_resched);
-> >>>       } while (p4d++, addr =3D next, addr !=3D end);
-> >>>  }
-> >>>
-> >>> @@ -512,7 +514,8 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned=
- long addr, unsigned long end,
-> >>>   *
-> >>>   * This is an internal function only. Do not use outside mm/.
-> >>>   */
-> >>> -void __vunmap_range_noflush(unsigned long start, unsigned long end)
-> >>> +void __vunmap_range_noflush(unsigned long start, unsigned long end,
-> >>> +                         bool can_resched)
-> >>>  {
-> >>>       unsigned long next;
-> >>>       pgd_t *pgd;
-> >>> @@ -527,7 +530,7 @@ void __vunmap_range_noflush(unsigned long start, =
-unsigned long end)
-> >>>                       mask |=3D PGTBL_PGD_MODIFIED;
-> >>>               if (pgd_none_or_clear_bad(pgd))
-> >>>                       continue;
-> >>> -             vunmap_p4d_range(pgd, addr, next, &mask);
-> >>> +             vunmap_p4d_range(pgd, addr, next, &mask, can_resched);
-> >>>       } while (pgd++, addr =3D next, addr !=3D end);
-> >>>
-> >>>       if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
-> >>> @@ -536,8 +539,9 @@ void __vunmap_range_noflush(unsigned long start, =
-unsigned long end)
-> >>>
-> >>>  void vunmap_range_noflush(unsigned long start, unsigned long end)
-> >>>  {
-> >>> -     kmsan_vunmap_range_noflush(start, end);
-> >>> -     __vunmap_range_noflush(start, end);
-> >>> +     /* The unmap paths are sleepable, keep the resched point. */
-> >>> +     kmsan_vunmap_range_noflush(start, end, true);
-> >>> +     __vunmap_range_noflush(start, end, true);
-> >>>  }
-> >>>
-> >>>  /**
-> >>> diff --git a/mm/vmalloc.h b/mm/vmalloc.h
-> >>> index d8372a4f65c4..4ec114a75f04 100644
-> >>> --- a/mm/vmalloc.h
-> >>> +++ b/mm/vmalloc.h
-> >>> @@ -44,6 +44,7 @@ int __must_check __vmap_pages_range_noflush(unsigne=
-d long addr,
-> >>>
-> >>>  void vunmap_range_noflush(unsigned long start, unsigned long end);
-> >>>
-> >>> -void __vunmap_range_noflush(unsigned long start, unsigned long end);
-> >>> +void __vunmap_range_noflush(unsigned long start, unsigned long end,
-> >>> +                         bool can_resched);
-> >>>
-> >>>  #endif /* __MM_VMALLOC_H */
-> >>
+>-static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
+>+/* __vsock_recvmsg() doesn't wait in these states. */
+>+static bool vsock_rx_done(struct sock *sk)
+> {
+>-	bool ret;
+>+	return sk->sk_err || sk->sk_state != TCP_ESTABLISHED ||
+>+	       (sk->sk_shutdown & RCV_SHUTDOWN) ||
+>+	       (vsock_sk(sk)->peer_shutdown & SEND_SHUTDOWN);
+>+}
+>+
+>+static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock,
+>+			       long timeo)
+>+{
+>+	struct vsock_sock *vsk = vsock_sk(sk);
+>+	int ret = 0;
+>
+> 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
+>
+>-	if (sk->sk_shutdown & RCV_SHUTDOWN)
+>-		return true;
+>-
+>-	if (!timeo)
+>-		return false;
+>-
+> 	add_wait_queue(sk_sleep(sk), &wait);
+> 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+>-	ret = vsock_has_data(sk, psock);
+>-	if (!ret) {
+>-		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+>-		ret = vsock_has_data(sk, psock);
+
+nit: a comment here to explain why a transport can become null would be 
+nice.
+
+>+	while (vsk->transport && !vsock_has_data(sk, psock) &&
+>+	       !vsock_rx_done(sk)) {
+>+		if (!timeo) {
+>+			ret = -EAGAIN;
+>+			break;
+>+		}
+>+		if (signal_pending(current)) {
+>+			ret = sock_intr_errno(timeo);
+>+			break;
+>+		}
+>+		release_sock(sk);
+>+		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+>+		lock_sock(sk);
+> 	}
+> 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+> 	remove_wait_queue(sk_sleep(sk), &wait);
+>@@ -105,10 +118,9 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+> 	while (copied == 0) {
+> 		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
+>
+>-		if (!vsock_msg_wait_data(sk, psock, timeo)) {
+>-			copied = -EAGAIN;
+>+		copied = vsock_msg_wait_data(sk, psock, timeo);
+>+		if (copied)
+> 			break;
+>-		}
+>
+> 		if (sk_psock_queue_empty(psock)) {
+> 			release_sock(sk);
+>
+>-- 
+>2.56.0
+>
+>
+
+I can't see anything wrong, just some nit comments left.
+
+Acked-by: Stefano Garzarella <sgarzare@redhat.com>
+
+
