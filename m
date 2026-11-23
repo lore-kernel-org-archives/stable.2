@@ -1,49 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.52.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795448407;
-	b=q5IymUeYpakYXFpwVCcUu3UluLngcKa24kl+uQFL4SMA21vPVN/Dg+U0IMdFfCS09iqa
-	 DxsaWwjSyEHIM4SWRmAp5tVr8iL7PzMyKl3IIFcZi/D4NGtpRglaRCKkibUBedXynt31H
-	 hBSwi5z2lcOESSHP9ghQfLIAOrc/8yJM7sn6V4HaK0nlKG3vLBhAuZNcqpgJK3GKkEzR0
-	 H4MbgZnaSvpHzdvC8IEDN+GjwNNi0LAB8ffQN2Z2S6SGPDLNMr8nxjHjf9iy4E0JqeEyF
-	 psrk/gSlKmO9H6POYbGWLk0yvJivPr8tCBMyko8nPzFTv3ETdJCWetS0ZadCRSYSr0w==
+	t=1795448546;
+	b=MqfyZY9P/jtWwV/ookd0Lt2XTxDXH8VREMc9TFvG6lw00yJkyUN2sdnzmXW9nYaHdLUP
+	 /mXQL4a2cD713zV1olEHhbVkZgaCSXvZU2/3xsojv57s59nvnJ5VHc3uxd7MhXkeThz9a
+	 1lVQH/IQSrRKH8tTt0DMo3sfPETh5qjD4YyGVoWQ9glGdDA9M+adQrLtEFSpiViRg8SZL
+	 1BBPcarMCAfrN9SyP4qHeTzkCJKxYh+5ytYItkkxSNCDyl1KVDpbRWV/MHlAXF9+jTy9N
+	 F8qCNkiMSt9RZPVI7UESj8rbvJReDJRBUXUMfnTxT15F+/4Wbfl8rRvvdytvaNEM90w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795448407;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=OefWWDM6765zS8UeXsEa0lfO1VMuF0rqbjFE03jLU2U=;
-	b=xEJ3RBpsavY0F5OyTUohm6zAf+W6RTYf7Szw7lZfkqLy1rR3rndDLe9Rfgi27Gfpd1Cu
-	 5sJaIOND+0i29DEN5wtmHmgHQXY020n+wjsB6DncK5qzdI2mIPtMJSFSjHiAvZY9RIlA5
-	 EN4Z5Rd9UW0nf9xWZaJLNKXQAZQXIflVS8Ws8Ox7zq48eD6uqvVLz4zELu9EL8uTqvrL6
-	 Max+qe34ok2Ysul4cYPF11+8yzcXSo3HmgOxUc4urNa1J0Hgd7QgXN5TqB0bIveQhz2/9
-	 WZKqUwWENiqr/0fEcW8maqiv2OLjx15SPvZ8US+yHRtmTbJyAY/PlrbCzjCWn58BQkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795448546;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=UHmDH4xQTawnQx2c62U2+yzNLbTZSXgZeWsOYcq/ojk=;
+	b=XE7w+H0c2TEwxNYaa+GGkcP0kK2bc+spfy2S3XuJlCCfqD08T5IFndAchXVQoMdQdWhx
+	 C5zuS9ga9yd/tD57qX/bFW/um3KHf6l3gJf9/IQIM/K3EXgwCvYmoD73+HLlYK34SbmfQ
+	 ktG59VsmAsMdb1nFeANMAGRk7nT6oA6m4LT+GMOKmI6+CNd7xA7vSgV+ZTTp0qmBtk1NP
+	 wOg97CA1IaluaPG1aJP2uFQUjhK4CwEZH4crJ9V8iRytehWy+CP0FkAEsxBOoCoF0MMpX
+	 QeQsNs5sVoURWIHrtCrPssvbQ5XG+fcEzWnYMFUR7izNynJEiJCi975Hid5+EZSd/ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CRi/AjKi";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=RQNfh+VH;
+	arc=none smtp.remote-ip=160.236.52.251
+Received: from mail-m16023652251.xmail.ntesmail.com (mail-m16023652251.xmail.ntesmail.com [160.236.52.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD96860A3806;
-	Mon, 23 Nov 2026 15:40:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3C7606A31A;
+	Mon, 23 Nov 2026 15:42:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F3C7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CRi/AjKi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 465B11F000F2;
-	Mon, 23 Nov 2026 15:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795448407;
-	bh=OefWWDM6765zS8UeXsEa0lfO1VMuF0rqbjFE03jLU2U=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=CRi/AjKi4ehlkE4PSAya5g8d7tvW4OSud7sc9Pg8fH40HXBLEs2tvnoejsHdpVAQO
-	 KUEWHcY7c1o0OrfflSZro2e3gz1vVQmmfo6Z7GhuuYscWwRYRKUqoRZxSASxB+Y7hT
-	 ZiYuOP94M5x1WnXCz6zE46plzqY24R2fM/HBpGwl0AGRsU4wKmHbQEs7qNyz/QAhmN
-	 xUHgoJs0YhOFDxiiwtrcfoW4Yx+HQapnsQDSsGuM6SYycICAV4lnTBfcQDb1H1XeDx
-	 2eWAAu87tMpA5rbUBMy1k1jaAKVw39U/7SR6PmoLIbVSeYACdYl+DZqJ3dxfU5e2og
-	 GcUBce8Tr0lRw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A5EE392EE0C;
-	Mon, 23 Nov 2026 15:40:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=RQNfh+VH
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 55b0ebc65;
+	Mon, 23 Nov 2026 23:42:11 +0800 (GMT+08:00)
+Message-ID: <fd14d6c1-d9a4-41f9-b1c0-96c3006d40a1@rock-chips.com>
+Date: Mon, 23 Nov 2026 23:42:08 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,46 +48,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ James Le Cuirot <chewi@gentoo.org>, stable@vger.kernel.org,
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH] PCI: dw-rockchip: Clear stale link down interrupt before
+ unmasking it
+To: Niklas Cassel <cassel@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>,
+ Wilfred Mallawa <wilfred.mallawa@wdc.com>
+References: <20261123121217.1107902-2-cassel@kernel.org>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261123121217.1107902-2-cassel@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: dsa: mv88e6xxx: do not override PHYIDs on
- external MDIO
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179544840577.2474785.6234725190698108233.git-patchwork-notify@kernel.org>
-Date: Mon, 23 Nov 2026 15:40:05 +0000
-References: <20261119-mv88e6xxx-fix-v1-1-2db604f3516f@airbus.com>
-In-Reply-To: <20261119-mv88e6xxx-fix-v1-1-2db604f3516f@airbus.com>
-To: Blake Alexander <blake.alexander@airbus.com>
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- f.fainelli@gmail.com, vivien.didelot@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-HM-Tid: 0aa2091269ec03a4kunm304402a287d7ac
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQxpDVhpJSh9OGEweSE5NH1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=RQNfh+VHuuBsHD9f3Wr2F5htjBdHrAM2nyTGba3J3eDhvG54DTy+OlB1qfSRz3OiQ+6hvlroa6vZ5XIjWDbRd2Ixpk22eDa06ICTxenhMVyX4rrMVge3H1kZdmaM3wcr/+2iv4PlWEaUH/ncRZ+qoaBMgGuhcPsAx701rm256kk=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=UHmDH4xQTawnQx2c62U2+yzNLbTZSXgZeWsOYcq/ojk=;
+	h=date:mime-version:subject:message-id:from;
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Thu, 19 Nov 2026 11:50:00 +0100 you wrote:
-> From: Blake Alexander <blake.alexander@airbus.com>
+在 2026/11/23 星期一 20:12, Niklas Cassel 写道:
+> PCIE_LINK_REQ_RST_NOT_INT is set by smlh_req_rst_not, which according to
+> the RK3568 TRM "is asserted after power-on reset until first link up".
+> The bit is thus already pending when the driver unmasks the interrupt
+> after resetting the controller, both in probe and in .reset_root_port(),
+> so the interrupt fires as soon as it is unmasked, even though the link
+> is up. Since each recovery resets the controller again, this results in
+> an endless loop, as seen on a Quartz64 Model B (RK3566):
 > 
-> Some variants of the Marvell 88E6xxx family (such as MV88E6390) support
-> an external MDIO bus (in addition to the internal MDIO bus for
-> configuring internal PHYs). A typical use-case for the external bus is
-> to configure PHYs that are external to the switch. On switches that do
-> not assign a PHYID for internal PHYs (i.e. the value is 0), the
-> mv88e6xxx_mdio_read() function traps read calls to the PHYID registers
-> and sets the PHYID equal to the family ID of the switch.
+>    pcieport 0000:00:00.0: Recovering Root Port due to Link Down
+>    pcieport 0000:00:00.0: Root Port has been reset
+>    pcieport 0000:00:00.0: AER: device recovery successful
+>    pcieport 0000:00:00.0: Recovering Root Port due to Link Down
 > 
-> [...]
+> Clear the bit before unmasking the interrupt, and in .reset_root_port()
+> only unmask it once the link is back up, like in probe. Also keep the
+> interrupt masked while .reset_root_port() resets the controller, so the
+> link down caused by the reset itself is not reported.
+> 
 
-Here is the summary with links:
-  - [net] net: dsa: mv88e6xxx: do not override PHYIDs on external MDIO
-    https://git.kernel.org/netdev/net/c/dd206ec7ed36
+This looks right to me ,
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 
+> Fixes: b376b3ff9cb0 ("PCI: dw-rockchip: Implement .reset_root_port() and use for link down")
+> Reported-by: James Le Cuirot <chewi@gentoo.org>
+> Closes: https://lore.kernel.org/linux-pci/08cc96c5171fc969b074371692e6d95d46eba60b.camel@gentoo.org/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Niklas Cassel <cassel@kernel.org>
+> ---
+>   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 24 +++++++++++++------
+>   1 file changed, 17 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> index ab2e26699409..2ef7ae97eb10 100644
+> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> @@ -686,6 +686,18 @@ static irqreturn_t rockchip_pcie_ep_sys_irq_thread(int irq, void *arg)
+>   	return IRQ_HANDLED;
+>   }
+>   
+> +static void rockchip_pcie_rc_unmask_link_down(struct rockchip_pcie *rockchip)
+> +{
+> +	u32 val;
+> +
+> +	rockchip_pcie_writel_apb(rockchip, PCIE_LINK_REQ_RST_NOT_INT,
+> +				 PCIE_CLIENT_INTR_STATUS_MISC);
+> +
+> +	/* unmask hot reset/link-down reset */
+> +	val = FIELD_PREP_WM16(PCIE_LINK_REQ_RST_NOT_INT, 0);
+> +	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_INTR_MASK_MISC);
+> +}
+> +
+>   static int rockchip_pcie_configure_rc(struct platform_device *pdev,
+>   				      struct rockchip_pcie *rockchip)
+>   {
+> @@ -739,9 +751,7 @@ static int rockchip_pcie_configure_rc(struct platform_device *pdev,
+>   		return ret;
+>   	}
+>   
+> -	/* unmask hot reset/link-down reset */
+> -	val = FIELD_PREP_WM16(PCIE_LINK_REQ_RST_NOT_INT, 0);
+> -	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_INTR_MASK_MISC);
+> +	rockchip_pcie_rc_unmask_link_down(rockchip);
+>   
+>   	return ret;
+>   }
+> @@ -898,6 +908,9 @@ static int rockchip_pcie_rc_reset_root_port(struct pci_host_bridge *bridge,
+>   	u32 val;
+>   	int ret;
+>   
+> +	val = FIELD_PREP_WM16(PCIE_LINK_REQ_RST_NOT_INT, 1);
+> +	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_INTR_MASK_MISC);
+> +
+>   	dw_pcie_stop_link(pci);
+>   	clk_bulk_disable_unprepare(rockchip->clk_cnt, rockchip->clks);
+>   	rockchip_pcie_phy_deinit(rockchip);
+> @@ -938,16 +951,13 @@ static int rockchip_pcie_rc_reset_root_port(struct pci_host_bridge *bridge,
+>   		goto deinit_clk;
+>   	}
+>   
+> -	/* unmask hot reset/link-down reset */
+> -	val = FIELD_PREP_WM16(PCIE_LINK_REQ_RST_NOT_INT, 0);
+> -	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_INTR_MASK_MISC);
+> -
+>   	ret = dw_pcie_start_link(pci);
+>   	if (ret)
+>   		goto deinit_clk;
+>   
+>   	/* Ignore errors, the link may come up later */
+>   	dw_pcie_wait_for_link(pci);
+> +	rockchip_pcie_rc_unmask_link_down(rockchip);
+>   	dev_dbg(dev, "Root Port reset completed\n");
+>   	return ret;
+>   
+> 
+> base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
 
