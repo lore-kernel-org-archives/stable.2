@@ -1,124 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795446205;
-	b=OXU9KdkG16KC+6o/3P/S4Un/zcfKdovnpW3JK79p5Hw/MLcylCq+bzKTNOrj5XEYd+lH
-	 bu8ojTbu5QBUoE4K9RaVUt8nsVEQm66eqgAWqX9uSrl4WPGaJFQYea9hjcQLdNspv2+yc
-	 z5ZvORWqQ5gZ4GTQOqgGlXdZvoPsycAK1KUtG9uN3DixETP2I+Kei4yF2AvnKAI9xtAic
-	 12/BEbJ2KROgNCFnTq7qDOBb8FsAEbYKs3lw+bHAvVqLrSkYbRGuHaCzaMH5eeVbcp0na
-	 y3SKFMQncvd9Fq0qxynmY0dNnZ2lS8UHeSq4R04a5tjQ4EEtyqiHjHAn2pPLxY1caKg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795446205;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=sZmn/sNxwAfKWKSIqSCT0pljBWlXHOxHLlaVhxvwNo0=;
-	b=rfbM+K+m9PNWggfKJgrPETYz/BQZcrsRnpwCQsEtEkDeKw/K/B0znKkJXM6i54BodcdV
-	 spTgxe+8x+eaZ8y1aLlTg0STMSuXhSHeWJI5RY8D2x/E22/2aoE+TcJXQpbJOGRz8OG7q
-	 MmDz6IrrH2lmVl4HBlzTwos87qrS2hGKQypZ/t0tU/pSxqpUS/3V8ikTqhBVErOKdo8NY
-	 Ae7Q+FD+2c8+6bxCE2OlQzpgN6TjZtL9Qma6AKAS5+rbg2KaRRLckKQCY4QGB5TlKIQC7
-	 kVBtCBIbhe6KbNQOBvHqzuTvuyymyLWVNOO1ONxrjFEmfc50sD38DT3IcuCp6UP1MVg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IbfO81VA;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CSVHDmP7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795446620;
+	b=CfgEDs1nqkO+UgymQh7Cji9n6J2ANqZyYwJbsnnm9r1FkV65KFCmn4tDRP2iB1cQH0mN
+	 kLGQ99s8Nh32JwWt1uW6j+9LHrhZsKC2v2Fz5AdIpEpExbInjowDzENVVm+o03pcm8lKT
+	 F0W9VncwKJsZdqNzC63Z23B4nRXyEmTMRoadgzkqa2BPPp3x98AfCKROp4st1STCpS3Uu
+	 23DQRGB3rNmdAG1EXBTiwoffwSx5Yfcoka6+dZdCCaBgdaoYR3Bc+A4/dOgsYLd12Idni
+	 mPbwVCTDwf/07DAq1CohkotVjuNxYQ9J2JeCU1ihfY/KOuwuqL//Qr1mKH94Q4GpgEw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795446620;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=LY0Ma2YTT0tb1ngWtv8IXluWXqW3x+R5fspk8pYjvvc=;
+	b=uACJ6lFJFbvIAp+XdYHJnjxtHfhddsQwiXHLPF5hzCrdwXnpyrmb54xCDBimnYE2E1uh
+	 WresbV4+wv5s+v0cbbzs6vVR5/6C9Dt/88lRCnbyW9RCHz5FhE2yXFvcAJzpUOymSDSuQ
+	 Zz/GLOr+EFDlu1pUAdNGSaYDKOslAcLUTBugdINv04ZCv3QkMwIB+LvNV+k+kaqX+BSn1
+	 rw54PYFr5fCe468+3u3y0nres3xLFB1Io76L31bSbBY43P2P88KpVnhv8k2EaXvWYWIlT
+	 211yTh3kbhUsnbC955opxWs15zMucTSI0PcbxbX3Us0dJWeiCT7fgkeMes0WzfHS6aw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HGVGgf/s";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E64B606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:03:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E64B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E05606A32D
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:10:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IbfO81VA;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CSVHDmP7
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANDLGPb1461376
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:03:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	sZmn/sNxwAfKWKSIqSCT0pljBWlXHOxHLlaVhxvwNo0=; b=IbfO81VAygWqws1q
-	TyYwzZLUHWgB64GgdO9dyaTt3zpAjoZJTDLgfEK+Re46q144zQ/jXm7UXcLujI3H
-	3704UyUwCzMPStRZkWgk0SAvSYRVpYoQqPVCPMbG1rBBjNGXvQRthDqmm/VLgGmq
-	eua9pk6y4yQJJboujmd9FOPeCnKeMLAi1zWreYZmb4BfbxKi6k8Usii2edWf3Qf2
-	TPZ6mQvAySOhb7U/BEnLigjn1K43367diJYkpo40vAtzLfnyiP79fe+z1XO1Yckd
-	yeY0KLT8BbSG1ND5//lKn9wXU+qJrzCeCaaZuhg7/Ttmcx3Impz72pohCAly1rYE
-	5wYCbg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g9a1w4j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:03:23 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2f04561ee04so19445985ad.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 07:03:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795446203; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nmaZWOg7vcAffEZvib+7L8V1lZnDJE9pc4RZBxL5nXoTbw5Ka7yNQn2e4AzsF+jlFf
-         7H+iV7ajaHi9hpKFQ7Ow/FGuMKjkc+d2FNzYsDuCUEV5amVf/QO8jJXUWH+JXcioF8fH
-         xkkpfWpHX/npeI6iQwUYDJGA8qKohza/t563JponV8AOf5JjN2AurHxTdNOeE22aiSKZ
-         mcO1EHzNDGQOH/vXpEi4B4tKDCjwGHKa5aD2kucDv2pfXrSKLTo2fYh1vfWrUcJ6OEUd
-         SSGaQ0HV6nb4si8oPtlTNYV9u1k9F8s3Q3IvQ+Mj8f16czM5iAyfyPmivR2jW57iLlXD
-         PjhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sZmn/sNxwAfKWKSIqSCT0pljBWlXHOxHLlaVhxvwNo0=;
-        fh=9ak+DxehurdTRRcN99DicmU5X0aBHdnZ7tp/iWfFv5c=;
-        b=NtL1ZA2M1PyT1szDejLGABWQNqsDAVYd1otZ431b3+VsxnRILmltQcgDTqe1AZxAgg
-         2TTudsGFuqNJaXcMeNHUMCINfGpWPc8eRpQYuLLgM0TWYLJYoFkROmGsyP0nuhjTuNI6
-         bgMWE1zQeM0rhL/5OC6a+5nxwFlyHlKMDXU2lECLJySBQ05hSN2HJ+tOI/uR+WQS3bl/
-         MdLSFAirfKrbN4n/RkxgBG+9+igV3dXzqXxcYVskV0sq13yHF+Jy+DQqsLVYHxsyLrLW
-         7H735cWE1FuZzDMmaAxW4jzJCwWkzyiiBij/ZWZ7NlLCgLnSvb0tYO4H4pCIBKH9B6n3
-         u+Og==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795446203; x=1796051003; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sZmn/sNxwAfKWKSIqSCT0pljBWlXHOxHLlaVhxvwNo0=;
-        b=CSVHDmP7FW2y/pOLoDB6PNBCVWcw3+h0ApgWjjBwGoeDiywj+f4NwZ5gjCsEM90OTh
-         yWotG7pb6GK8viQ+bot4iKVZl+zwziyrqnt3qhOerMTFLaUizSbxru2WlldhG7VhihEB
-         B3SboJsxLnj+JWm+vIwgpg9woP7vB/DJoDdZu2c3FJpoXTwuvCWj2/HZrFFxrdWoUZ9I
-         w9v0mvcw5pzEa5jfcPTukaTo0Xoshl5lNhoBg3kIh06qcaTvRwHtmIaiHSlr2TCvVLbB
-         EY9BHUaJO2sHPouYHdls/aHDfgCgo5LqJs9GXVN2ONmqveECgqN+CeOw4JVvgIvcGpMY
-         d+oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795446203; x=1796051003;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sZmn/sNxwAfKWKSIqSCT0pljBWlXHOxHLlaVhxvwNo0=;
-        b=TzPDFKEMPzya2UCbkPRHGj8B9YU6r6qTxPhsyb+Lnkx5hWppQ9wxQqCbMV7viTW7Dk
-         rYoICx5fM6TPGXZjLDu/1CHgm6LcHFpa+jjZs1hbY3h6COrvykJ0ADngMFUkWCSI4keI
-         EyR67Ycp1RDVr2deJEGK/eRLCS1kpYJGImZuCKUAD2hK8Yej7T4KJsbFlVeNPnyR7vED
-         EYUZA5BPT4Fo6YqxT1199J6z29W5UbMeVs228VNBxH1aZba7NSsQS+94RNR5EUkWV+oU
-         Oosp5DAzlP/XsxFZSWJOqrWBu+05SqzIiNvr10soLdYIgSAsyTlEMkQq7asLt2kW+QLg
-         ZK5w==
-X-Forwarded-Encrypted: i=1; AL+hErEYtWxOYv2USYWBFlXMmafWlUhV0ZZvbIytFER7VmZg/vS/8PNt60vam89w1R2QEN6zUmSUvP4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9lbDzmcwWOHmzDrJ5eE9kRAHSrfV24fLSEUfDY0vbZkF252DZf
-	OIfVUD8+KeGendCTSPMjplmzRt90F01rXVHTfA55FF4hk0WHiR2Ungu0noTCGBic8BudKexLwFW
-	Vjcp6N2SYshFtZF9e7agHuGtoHYzshnlJxMgC6sQYs6v09UglOnRA9zM2XffGZNNR8CvPpBRLkF
-	T9jevykqmKelhhBPQP3d5O47tFGRCrgKWrOg==
-X-Gm-Gg: AZFdTZekRlmSTZBIN90XZfbMOumdWTlIlnJaHbv5he5DVbhM+cRzSbQ59RWMWNxYoCl
-	KTRoKeD2pjWAkbLwTtU+IdnUrB3g9/6+bYvK5HESwUtcdGTZIRcdFqPnOqhcEcmRoniHgMJs7G7
-	SjSL6sYkyXpy8UBaHwbtVF2YIr5KjfD9grOB3CPzmbOjEiJ7oQv9IUwqKTfvj0dcPtLtq8336ek
-	WahSj17ZX2H3ZEo
-X-Received: by 2002:a17:903:1c9:b0:2ef:fcd8:df75 with SMTP id d9443c01a7336-2f03f18847fmr120968115ad.36.1795446202906;
-        Mon, 23 Nov 2026 07:03:22 -0800 (PST)
-X-Received: by 2002:a17:903:1c9:b0:2ef:fcd8:df75 with SMTP id
- d9443c01a7336-2f03f18847fmr120967425ad.36.1795446202035; Mon, 23 Nov 2026
- 07:03:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HGVGgf/s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160E91F00A00;
+	Mon, 23 Nov 2026 15:10:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795446620;
+	bh=LY0Ma2YTT0tb1ngWtv8IXluWXqW3x+R5fspk8pYjvvc=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=HGVGgf/swyJkcjbE5hMPvjiV+Y75rTc6lv4gh3DtmJ0mH6Z+HCtJypXZuxGW6m+ih
+	 V96nFT5PR3jwgjSb79ut1R/BuEKzwuxbysqUEzqurIZrnK+15gpSSmbWYjaIm7yl1z
+	 Rvh3Dhb8f0HXxskMrpWQXP8Ed8MOuXv5pXxAgIwjtWLPKS1iXQkKn5ezIbVbmsh8ud
+	 cWFNgaNGt+sej1YwBvyJhq8DbaoNa29Sy9A/SYEQwE/uoTxwKn1RYVqc8baJtKRsYW
+	 4vh/4RiQxumZQtcChwPg0lNhQ5juLELngUZRt87eEd2hwFk/3YDQPlJ8qFrv00AKOV
+	 eUGfFNhe6cJjw==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 4DB06F4006C;
+	Mon, 23 Nov 2026 10:10:19 -0500 (EST)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Mon, 23 Nov 2026 10:10:19 -0500
+X-ME-Sender: <xms:W1cEa8fAqxookxXD56rcn4f4NA6GpddhTtlbsoU3vHnQJphkkZjlXg>
+    <xme:W1cEa5CyVs8XVbhHIMJ1F7UNLRjzl22wq5GpqEI-lMXnLb1I_XeruQ3gZz5sdCIKk
+    fOX5tlkw5tomw_kr0tbHnB7YMSPPFlm2nMIWvYdtqLhV2nwDKokdRw>
+X-ME-Proxy-Cause: dmFkZTGtj2x37u99ZMo3oRwTVhzqHO+vIEwn9KkWid3ijrAsOVZYPBZLXn+zBqTdIOevx5
+    dH5l8SkjKzTijH/Goy3QAn9oD2rUAxFLch5LS6W2ud0Z6hEa9vgTz5vjpuWszcNrpFMFMF
+    Uy6IP70fKhnxSrVR0nCiOSDqfwvLg/tafq0zMEs/JNO0FsoJU5cuxm3ZGZEOCz9u8UHL0i
+    RMGt7s9MsOGS8fIYriZrg3GnvijWqZOI/vNcDb8azA+xRSoIV+4f/NfV7XyAr914WLKDqd
+    yifcLpMqAyFCoTDyHQJ0mR7SY/ik1PQjLYuhw08B9lfrlBrVzIqVdTP74c0nVTzVtLLwkF
+    68R6rZvByQ0MyOhYz1r6pD4a7y9LwrzlsaOFBtZOSUY5+MZSm7BP19Hr0EL2cVoVOpxpc2
+    9Y92bTNITgFwAclR23fPI/PZ7UsdwG405bEsCV+z0CGvDiYqYEaNlVv9MMHGbMHQ12j2sv
+    tp6ezqTK/AOCY+R4zlr/f31xszHU79trbVC7+5XCOkAsi5B9Ol+RSwOlSnVMbXzdoF4AD/
+    MFEkp4t29MZudtcOQR9gveKWLsLQrjut66uMc1jjUayXkH0ww2H+o7d5wxxP3Cafub7FlJ
+    m4NT6wqSWY7mwiaHYhTZHCiNPXMW4oMCwjs2NFj8jPtGUM1ShX3CSioguqMA
+X-ME-Proxy: <xmx:W1cEa58XrubbV3uf-zjBfkZQTAJJnR0hZRTLHh_xV0rbVL1Nwcs0VA>
+    <xmx:W1cEa5vmpCoYt1uRRgg-unsYtieql7xPGyakg4Z9huaOqR7kkCwktQ>
+    <xmx:W1cEa5PCDNNHVBVAsiRCvjYw8RL0sigjH9-h5_3NL49ZlzgR3Vej_Q>
+    <xmx:W1cEa-jKdl9GiEFsBbqBmQCsqX7wCvdVnLguGNaCbESiv8gqMl7cug>
+    <xmx:W1cEa76p3iSFmHeMh2PYqUE-hMHuCbaXVXmCzqHB7KVEaPidfYvUEHax>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 3131B780077; Mon, 23 Nov 2026 10:10:19 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,123 +77,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113-pmdomain-rockchip-v3-0-b7039ca30b87@gmail.com>
-In-Reply-To: <20261113-pmdomain-rockchip-v3-0-b7039ca30b87@gmail.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Mon, 23 Nov 2026 16:03:09 +0100
-X-Gm-Features: Aa3M54p3bvaqL4-4P5a9q3TQOKbyz1uWNRpSG9PtFinKLWfQ4vS-W5Tpi3kneLA
-Message-ID: <CAPx+jO8KYfvm+=UXKYZv+xBAmGNUU7xtYH9+cJRtOrnQh3GmrQ@mail.gmail.com>
-Subject: Re: [PATCH v3 0/3] pmdomain: rockchip: fix the probe error and
- deferral paths
-To: aiyengar1990@gmail.com
-Cc: Ulf Hansson <ulfh@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
-        Shawn Lin <shawn.lin@rock-chips.com>,
-        Sebastian Reichel <sebastian.reichel@collabora.com>,
-        Kevin Hilman <khilman@linaro.org>, Caesar Wang <wxt@rock-chips.com>,
-        Elaine Zhang <zhangqing@rock-chips.com>, linux-pm@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Yao Zi <me@ziyao.cc>, Igor Pecovnik <igor@armbian.com>,
-        stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA1OSBTYWx0ZWRfX9OnwRH5iBql7
- 2k/4+6SOZ05QN6vaMsutciUmkN00OeBAfK99e1MWkn26Or4HMrzB+BAWF5wXii0+9TEyPdpqAYT
- CZ9SOUlADAB9fYoewNpZLUGPK9pOpp8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA1OSBTYWx0ZWRfX/kv9fO34VLu9
- LHAU7av6moNSAVzxgjd29LnWdsNesNvGX6bCAVALE+cuoyQmGc7OVqGNnzciwjJ0/PDh6whHXGd
- i3+hhMxaAbbqmoRjIy9PBjcTqf2qotO+llC9DxTYCuxpjdEkKxQ3sCWjONqOTg8b5aaRQtie0OW
- +h6jCXcKinu/JIXq0omqKiEL0bLnEf7Ehs7ibCJrihnxPZD+xY9S+9t8mVwcSNI6Mx76OOU9gFg
- 1axKW6+1cz+wMabWP6CLSWmEosHx8MEZCi3rN7YRSfobUyBC5jRfxsNfQyPY67ZJLqU+s+Nkk2x
- 0j49/U+Qea5CeXj7RM7DXbhw8lV7UrgrqTFLeahtr18+goYGyL/t5obuf9q1ztybRGzxq6Wrzdm
- c9Fn2+Hebhe9zHAfmuQ7MrceYmmpmJeHuZ5iUtdl9vEnf4+2nHji2ehtq6qT9N6xUDyluppv59G
- vxSmxzu+Y3KIYwQFMLg==
-X-Proofpoint-ORIG-GUID: tP5Xr5R4w288GjVtx2T7TTHCbTqOvvjX
-X-Authority-Analysis: v=2.4 cv=cYJHPXDM c=1 sm=1 tr=0 ts=6b0455bb cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=bC-a23v3AAAA:8 a=pGLkceISAAAA:8
- a=0OowS_b49qHy5rEh488A:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
- a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-GUID: tP5Xr5R4w288GjVtx2T7TTHCbTqOvvjX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-23_03,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611230059
+X-ThreadId: A6sD4Nk7Fv--
+Date: Mon, 23 Nov 2026 10:09:59 -0500
+From: "Chuck Lever" <cel@kernel.org>
+To: "Tim Menninger" <tmenninger@everpuredata.com>
+Cc: "Trond Myklebust" <trondmy@kernel.org>,
+ "Anna Schumaker" <anna@kernel.org>, linux-nfs@vger.kernel.org,
+ "Jon Curley" <jcurley@everpuredata.com>,
+ "Eric Badger" <ebadger@everpuredata.com>,
+ "Shiva Lingappa" <slingappa@everpuredata.com>, stable@vger.kernel.org
+Message-Id: <90d0ff6e-e9d2-4b2b-9b89-8245ce502e99@slotpi15m67>
+In-Reply-To: <20261120010342.2152535-1-tmenninger@everpuredata.com>
+References: <20261120010342.2152535-1-tmenninger@everpuredata.com>
+Subject: Re: [PATCH] xprtrdma: Retire the connection generation when a connect attempt
+ fails
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 9:42=E2=80=AFAM Arun Iyengar via B4 Relay
-<devnull+aiyengar1990.gmail.com@kernel.org> wrote:
->
-> Fixes for a Rockchip power domain controller probe that fails or defers,
-> for example on a domain clock that is not available yet. They apply on
-> top of 1/2 of Yao Zi's series [1], which has to go in first; patch 2
-> replaces 2/2 of [1]. On the pmdomain next branch, 1/2 of [1] conflicts
-> with "cycle an optional power-domain reset on power-on" in one line.
+On 11/19/26 8:03 PM, Tim Menninger wrote:
+> -	} else
+> +	} else {
+>  		rpcrdma_xprt_disconnect(r_xprt);
+> -	xprt_unlock_connect(xprt, r_xprt);
+> +		xprt->connect_cookie++;
+> +	}
+>  	xprt_wake_pending_tasks(xprt, rc);
+> +	xprt_unlock_connect(xprt, r_xprt);
 
-This sounds messy.
+LGTM, with a couple of cosmetic suggestions.
 
-I tried to apply patch1 on my fixes branch which failed. Please
-re-base this and send a new version.
+Moving the wake above the unlock keeps a task that records the new
+connect_cookie from receiving the failed attempt's error. The code
+before this patch and xs_udp_setup_socket() both unlock first, so a
+later well-meaning clean-up could easily move the wake back and
+reopen the race. Let's add a comment above the wake, to let readers
+know this ordering is intentional.
 
-For changes that are targeted for fixes, please send them separately
-from the other improvements.
+Consider moving the cookie increment up to just after
+xprt_clear_connecting(), so that every connect attempt bumps the
+cookie in one place. This is an optional clean-up for clarity.
 
-Kind regards
-Uffe
 
->
-> Tested with v1 on an Orange Pi 5 (RK3588S), v7.3 based kernel, with a
-> test device tree that makes the PD_FEC clock appear late: no freed
-> domain left on gpd_list, no -517 errors, and the controller binds later
-> with all 26 domains. The v2/v3 changes are build-tested only.
->
-> [1] https://lore.kernel.org/r/20261105001257.1368266-1-me@ziyao.cc
->
-> Developed with Claude (Anthropic), which wrote the code and the commit
-> messages. I reviewed every change.
->
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
-> Changes in v3:
-> - Split 2/2 into the fix (2/3: deferral, pm_qos error code, callers'
->   messages) and a clean-up of the other messages without Fixes tags
->   (3/3) (Yao Zi)
-> - Shorter commit messages and comments (Heiko Stuebner)
-> - No code change from v2 apart from the comments in 1/3
-> - Link to v2: https://patch.msgid.link/20261112-pmdomain-rockchip-v2-0-5c=
-d942a23df7@gmail.com
->
-> Changes in v2:
-> - Dropped "pmdomain: rockchip: put only the clocks that were got on
->   error" for 1/2 of [1], which fixes the same bug
-> - 2/2: drop the callers' messages and use dev_err_probe() where the
->   errors happen (Sebastian Reichel)
-> - 2/2: a pm_qos syscon error keeps its own code
-> - Link to v1: https://patch.msgid.link/20261110-pmdomain-rockchip-v1-0-6b=
-9fa6ebaa86@gmail.com
->
-> ---
-> Arun Iyengar (3):
->       pmdomain: rockchip: remove subdomain links before the domains on er=
-ror
->       pmdomain: rockchip: don't report probe deferral as an error
->       pmdomain: rockchip: use dev_err_probe() for the other probe errors
->
->  drivers/pmdomain/rockchip/pm-domains.c | 131 +++++++++++++++++++--------=
-------
->  1 file changed, 76 insertions(+), 55 deletions(-)
-> ---
-> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-> change-id: 20261110-pmdomain-rockchip-3497a2e7fdf5
-> prerequisite-patch-id: c2f0c5eb6651baa744f66342db63485a6685fb71
->
-> Best regards,
-> --
-> Arun Iyengar <aiyengar1990@gmail.com>
->
->
+A couple of pre-existing bugs turned up as well. I'm noting these
+here for the record, not as a request for you to address them.
+
+1. xprt_rdma_connect() never applies its reconnect backoff.
+   rpcrdma_xprt_disconnect() always clears r_xprt->rx_ep, so the ep
+   check in xprt_rdma_connect() fails and the delay is always zero.
+   call_connect_status() delays an -ECONNREFUSED retry by three
+   seconds, but a reject with IB_CM_REJ_STALE_CONN maps to
+   -ENOTCONN and retries immediately.
+
+2. The AF_LOCAL transport appears to have the same stale-cookie
+   problem your patch fixes for RDMA. xs_local_setup_socket() wakes
+   waiters with the connect error without bumping connect_cookie,
+   and a successful AF_LOCAL connect does not bump it either.
+
+"2." suggests this logic would be best hoisted out of the individual
+transports. But that's follow-on work for someone who feels
+sufficiently industrious.
+
+Reviewed-by: Chuck Lever <cel@kernel.org>
+
+
+-- 
+Chuck Lever
