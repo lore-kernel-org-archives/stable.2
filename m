@@ -1,108 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795436865;
-	b=HcE2mYLmIdp9tQYGn1V1BhW1/Rxu60i5gBee3KMr30LfSYlpTuIzdTdxTOV6IBAcXtAX
-	 phc6Z5iGnK/iFrUI5ZqjWqLdeNz/b5yhKlRFOypfVveiDc7aM4HH/7AkAX0w2g5qGQwil
-	 hnGw4x4njoaq9MhFGhH52aC4ucXPzTRgFAQnol5hKpkSZq79fcgDiltlYvJP7i3hkX6Lq
-	 MxHELVVClmWXZW61hSTWk8ayaHd+sR9HX/RxuIteayWwZI343FisMYHpDvW1akpmU1ATx
-	 ofzpMjQvdjx0E0iKemSPWWBjAqGfjTlInIfg6AvL09cBCPI9kXlbiG0OSB94FjLtJ1Q==
+	t=1795436998;
+	b=1HRQQtrbnSf32sPhbzurVP7K78gYpW7ee68RXyI1HP74Vpp5GJWmfqaF09TyBCG5HNNM
+	 5bqUyvNzQhLmLqEBcxkz3pKEtLN2J+9glkpw0+4XSicfMdJDpHAcbW7rBURfluzOwPhJS
+	 c0sOF1YvEBI0IxBsynm4JYLqN8dnl/wZYAfwsHEq2K0pMUcxu83eWCDKIYg26i3rHaVO5
+	 9gI+t41+bzfZYU8L03Knz/048HoFdVjk19gSkg4xIgmiaM/qHX5Fd0mIn6rm51Dm+mPXe
+	 DIH6doDZqk5HZD7tVvAuGGNq8uYoTrLgtYA4w9Q80jdbqPmQEq23NPIPNyq7ZEwWCCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795436865;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=VPJ4qxbI93bPzZzijKlNpT2z2hanGh/YCxc/VAqAnNU=;
-	b=fThLp69G7VoSG3wpD/DlSY68zz8wcpaOoxemX06VFGiQJloJnf9tdEXN914GaoSXlD4y
-	 A2v6gYhNI16gY/90dWIVmUg3hVD0o/RgIyKZW0612PP3wLndMK8RBoqqR6Xvkx9iOY6KG
-	 6YgBSdqnvzb8OfSPFmWHyknZRwq1BNC2P6Egd7ovciI+FaH2qf2quXrdmttXvtJK68sU8
-	 Gt63XeNHoSWPITKXeS2qEgg3mhm9D8tZYCxh4OYhaBm48Gsmw0ZA0EakvLSXqG/nuEpYc
-	 Ctq/w4TX4RN0T+xwDUQHBKrdUnxxLN4M5sU/oF+0aKmhha5iJwqQJnp0MngA2K/LHfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795436998;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Language:Content-Transfer-Encoding:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=zEnsmGCryXnOeH+9qoc2fAxJs1iEo3LTRsGgU6sdHgI=;
+	b=026aIH8DRYfjyURlwOkuc4PfkKNYZYEUAikKOVrNai350Mo+Z6jX9EA8Mv6PMRr+toJu
+	 jHvVnxBVZMs3K1tdOpKHz2e4Z8UQ5x2TplpUVTrg702Z3B9mRypd9sBk/i/yNq0POnbkt
+	 77LIESBmenbkCTM8wvNrPoLIWjyw5oD98aquHrk/GU0kTPR//QT4R4EdBJ0KIqlQk7Crw
+	 VaOIUaQcABWWMR5Fxg9g6AYQLds4Gq8QiRZXPSNTRDZcWc7UrdRgrSjBqZ1zj12aMvwpI
+	 RStxOUHxcilfqg+sWkNmt9giByf1MLcQwAuCQOukwkpfvWSK7jrhaKyoCtBrlne2jYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XC01C9nY;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="YMM0r30/";
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Qv9lI8SG;
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF181606A321
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 12:27:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF181606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95570606A31E;
+	Mon, 23 Nov 2026 12:29:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95570606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XC01C9nY;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=YMM0r30/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795436864;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VPJ4qxbI93bPzZzijKlNpT2z2hanGh/YCxc/VAqAnNU=;
-	b=XC01C9nYqEtraV32g/ZWZHsEyG2VD2VMTF/Hanzkv6nsiHo0IMHHBWUnL3pbV+/wF3kr1W
-	ZYX+J/G2Ohm7RgRfTdiCoYov3zuKqxL21CtRNXHgClbEg+xDy+iAr7lyQmhErPHMDJf2zJ
-	dIGExyqLXaHJBs6d/L1/oACml2LMro0=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-408-tsUBBC-iO6Ghi5z6ICkFhw-1; Mon, 23 Nov 2026 12:27:42 +0000
-X-MC-Unique: tsUBBC-iO6Ghi5z6ICkFhw-1
-X-Mimecast-MFC-AGG-ID: tsUBBC-iO6Ghi5z6ICkFhw_1795436861
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e0af48c18so1955204f8f.2
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 04:27:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795436861; x=1796041661; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VPJ4qxbI93bPzZzijKlNpT2z2hanGh/YCxc/VAqAnNU=;
-        b=YMM0r30/1FOYi0d5us+CD1V8yqGm8dAiU0V3hSguhGVgfBpBxxePLbrR49r3SbQE54
-         efGdwpdwwN8cz8+TjcyPH0G4B+4ARjNeP7Dxs6JVANgdFYEfvqYpkUt+pnw4L3YgnmHf
-         vDuYplafZglf5pzfmidinFQ5hX7QSKmANdeII1yZpGlZdo1/Av2zA/osHDKpD4oJmYIF
-         /9yNOkcWmO9MvnSH2vqjMapBT3c5JYFLvxVi1ZYZoc/8FeFvzjoSOds8J2u3YCOT07gp
-         N9x9RH84BtFQ55FgXqxKDA5s/WquJaG53+vw+QzpAx5wobVF2pRqsMShL+Rp7M+UZCNj
-         3npA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795436861; x=1796041661;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VPJ4qxbI93bPzZzijKlNpT2z2hanGh/YCxc/VAqAnNU=;
-        b=2gUSueGxzjy24BOoV+UEuxUPsOerbZOIyqqLpJt5wgHQVtlejN0bMwZhuZDk/6BcbI
-         KFE23syf1zTgIdydtfCcDWT9qKMhnqbKC42vpAIafRB5VpTbfobTPlkgqnx7LYgyIXgw
-         P+VrDxHkBtmh7zI2O4Egqv1MGyJZM3//PapZ1RWbPJWBqxQ2MZBVQQLfeN/Slesu9CNF
-         lItN/ug+36qbEoDTmOCbciKUZ81v6yNUNf0nuvuggUl9truSi94DrGGztY3COVmXlex9
-         yeMFSa/shpoCK+qUbiQrErnD3fFQuRcoE7xJTZk1idx6TPJNlJPW1I21Me12LTgiqyiD
-         CZmw==
-X-Forwarded-Encrypted: i=1; AL+hErF1WQ6qhgiDhmL+yMyok2U6IultZ6v3D5G/jja88+4F85gsWebVDosTdS1sCLhJtLqIfU5Eml4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9oLoVEefQucFKMi4WM3GOF2k/1s5fHpCgw78LlMLeF+PuUnjQm
-	oN9j0Rn8mT78e9czfhsAlq9y+l5J8lt+qDsSYkzjvLB4GP7CAcBFJRoCQHbEJb6HXTRnVTDiPrU
-	WatzlbF1KMA7uZLwo73bJlpk0YO+j7/9Li0ofmUlfubKgu4Y6NYrm5ZhFFw==
-X-Gm-Gg: AZFdTZf/rFvZvav3coX+EMOWVrOuJjIgaleo/9VjkCtnB24Jb9hsVA1aTWI0cu3bgCh
-	4W4dQ6tJ4DUzgR2yTC3Pt5LPxjbp0J8DKI7Wm4oKtW2O70wWEl9YG1UYOPyPuDkwM6lcANUgtK+
-	Y/NFEG6liGx2XuKGs3spZIMfSRxOBqjMci+yMM3bzKgZYojfzC+2NZeZtsrCFaBElVJSFIuUutu
-	Sswyn6L7pVDCDR+gLaC28yQpdDoat4Zuomj8sdUO6vy4MkamMIszQU+c6sAZ99PHTJoc3lBZNh1
-	OFfISApeQ+H2Lro7UaZsxJwzyGS7ugFqkzbdPF9JKokD8rTKuIM5p7WTAwTiHI8L7xQv1T1yoPz
-	uw7VrstEekxm+XuLQuqoH/ikT+J9fFd1n9I0SsIsGSh+ppPLqECOVwFYVqJQnc+al2DkhvnIBkX
-	xPTSt4nuonnMYVzs+mcl32CPjkTQ35D9LbB0JSHUJBuB7y
-X-Received: by 2002:a5d:4492:0:b0:4a8:1b63:215d with SMTP id ffacd0b85a97d-4abb6eed6e7mr16616473f8f.27.1795436860795;
-        Mon, 23 Nov 2026 04:27:40 -0800 (PST)
-X-Received: by 2002:a5d:4492:0:b0:4a8:1b63:215d with SMTP id ffacd0b85a97d-4abb6eed6e7mr16616425f8f.27.1795436860290;
-        Mon, 23 Nov 2026 04:27:40 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b10b5f6sm20481994f8f.34.2026.11.23.04.27.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Nov 2026 04:27:39 -0800 (PST)
-Message-ID: <6aae7800-5306-4839-a4c8-56265a0fae45@redhat.com>
-Date: Mon, 23 Nov 2026 13:27:38 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Qv9lI8SG
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=zEnsmGCryXnOeH+9qoc2fAxJs1iEo3LTRsGgU6sdHgI=;
+	b=Qv9lI8SGarj7tyxX2ZTUa5kwvdsgQWW+LWBM7cKDNkVy527R3LeocZcROxI6Uh75mblaGSOmY
+	/V+qHOIUJA2g6fMtIRC4yUVtCgB6WwORCc3vrQof6ycRPQp4sf5XzQGWxaFV7wIU4wfOiv9Y+7K
+	/CX0stmKvqXhi73s6/AfHvk=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jY4y36vhpzKm4D;
+	Mon, 23 Nov 2026 20:29:31 +0800 (CST)
+Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7E6D140563;
+	Mon, 23 Nov 2026 20:29:49 +0800 (CST)
+Received: from [10.173.98.163] (10.173.98.163) by
+ whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 23 Nov 2026 20:29:47 +0800
+Subject: Re: [PATCH v2] mm/memory_hotplug: don't offline a hwpoisoned page
+ still in the page cache
+To: <mt4022@columbia.edu>
+CC: Naoya Horiguchi <nao.horiguchi@gmail.com>, Vlastimil Babka
+	<vbabka@kernel.org>, Gregory Price <gourry@gourry.net>, <linux-mm@kvack.org>,
+	<linux-cxl@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<tz2294@columbia.edu>, <stable@vger.kernel.org>, David Hildenbrand
+	<david@kernel.org>, Oscar Salvador <osalvador@suse.de>, Andrew Morton
+	<akpm@linux-foundation.org>
+References: <20261105-memhp-hwpoison-pagecache-v2-1-029d35634d42@columbia.edu>
+From: Miaohe Lin <linmiaohe@huawei.com>
+Message-ID: <cec355cc-46ba-9190-b0fb-efd634498581@huawei.com>
+Date: Mon, 23 Nov 2026 20:29:47 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,51 +75,167 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v7 1/4] net: hsr: keep GRO disabled on HSR/PRP ports
-To: Xin Xie <xiexinet@gmail.com>, netdev@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org, kees@kernel.org,
- petr.wozniak@gmail.com, qingfang.deng@linux.dev, fmaurer@redhat.com,
- luka.gejak@linux.dev, bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com,
- skhawaja@google.com, liuhangbin@gmail.com, stable@vger.kernel.org,
- sdf.kernel@gmail.com
-References: <20261009201324.17-1-xiexinet@gmail.com>
- <20261009201324.17-2-xiexinet@gmail.com>
+In-Reply-To: <20261105-memhp-hwpoison-pagecache-v2-1-029d35634d42@columbia.edu>
+Content-Type: text/plain; charset="utf-8"
 Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261009201324.17-2-xiexinet@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemk100004.china.huawei.com (7.152.185.74)
 
-On 10/9/26 22:13, Xin Xie wrote:
-> HSR/PRP add tags and sequence numbers per wire frame. GRO can merge
-> plain interlink traffic before those fields are added, and userspace
-> can re-enable GRO after the port is attached.
+On 2026/11/6 4:50, Mani Tofigh via B4 Relay wrote:
+> From: Mani Tofigh <mt4022@columbia.edu>
 > 
-> Mark slave A/B and interlink devices with a kernel role bit. Filter
-> software GRO and configurable GRO_HW requests before ndo_fix_features()
-> without changing wanted_features. Filtering before the driver keeps
-> feature dependencies intact; fixed-on or driver-required GRO_HW is
-> left enabled.
+> Memory offline skips hwpoisoned pages, assuming nobody uses them
+> anymore.  memory_failure() however sets PG_hwpoison before it takes the
+> page, and taking it waits on pcp_batch_high_lock, which offline_pages()
+> holds for the whole offline.  A memory error during the offline thus
+> marks the page and then waits while the offline skips it:
 > 
-> Apply the policy before registering the RX handler and reject attach
-> if software GRO remains enabled. On failure or detach, unlink the
-> upper before clearing the role and recomputing features, restoring
-> the user's last request.
+>   Task A (offline_pages)               Task B (memory_failure)
+>   zone_pcp_disable()
+>                                        TestSetPageHWPoison(P)
+>                                        get_hwpoison_page()
+>                                          /* waits for Task A */
+>   do_migrate_range()
+>     /* P is poisoned (not migrated) */
+>   test_pages_isolated()
+>     /* P is poisoned (accepted) */
+>   zone_pcp_enable()
+>                                        /* P is off the LRU (Ignored) */
 > 
-> GSO skbs may still arrive. A later patch segments valid GSO before
-> HSR/PRP processing.
+> The block goes offline while the file still points to P, and the next
+> walk of the file's pages (here drop_caches on ext4) crashes on a struct
+> page of offlined memory:
 > 
-> Fixes: 5055cccfc2d1 ("net: hsr: Provide RedBox support (HSR-SAN)")
-> Signed-off-by: Xin Xie <xiexinet@gmail.com>
-I don't agree with the goal of this patch. The kernel allows a very large
-number of bad configuration. Explicitly preventing one of them may
-lead to regressions and leaves the lower device in an inconsistent
-state.
+>   [   11.710348] Memory failure: 0x24224: unhandlable page.
+>   [   11.710372] Memory failure: 0x24224: recovery action for get hwpoison page: Ignored
+>   [   11.765371] page:000000008c304eee is uninitialized and poisoned
+>   [   11.765389] page dumped because: VM_BUG_ON_PAGE(page_ref_count(page) == 0)
+>   [   11.765440] kernel BUG at include/linux/mm.h:1990!
+>   [   11.765458] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>   [   11.772284] CPU: 3 UID: 0 PID: 85 Comm: mfoffline Tainted: G        W            7.3.0-17087-gd865f2677c44 #1 PREEMPT
+>   [   11.777970] RIP: 0010:find_lock_entries+0x8ee/0xad0
+>   [   11.798761] Call Trace:
+>   [   11.799297]  <TASK>
+>   [   11.803284]  mapping_try_invalidate+0xfd/0x2c0
+>   [   11.810571]  drop_pagecache_sb+0x111/0x330
+>   [   11.811572]  __iterate_supers+0x2e2/0x370
+>   [   11.815863]  drop_caches_sysctl_handler+0x74/0xb0
+>   [   11.816994]  proc_sys_call_handler+0x2ec/0x440
+>   [   11.821360]  vfs_write+0x545/0x1250
+>   [   11.825220]  ksys_write+0xfa/0x200
+>   [   11.830202]  do_syscall_64+0xfb/0x590
+>   [   11.832084]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>   [   11.848423]  </TASK>
+> 
+> Once the memory is also removed it's a use-after-free of the memory map.
+> tmpfs and the swap cache can end up the same way without the race.
+> Since commit a76054266661 ("mm: shmem: don't truncate page if memory
+> failure happens"), memory_failure() leaves a poisoned tmpfs folio in the
+> page cache on purpose, and it does the same for a dirty folio in the
+> swap cache.
+> 
+> Treat a hwpoisoned page whose folio is still in a page cache or swap
+> cache as busy in scan_movable_pages() and
+> __test_page_isolated_in_pageblock() so that the offline fails and a
+> waiting memory_failure() can go on.  Also have do_migrate_range() leave
+> such a folio alone instead of taking it off the LRU, so that
+> memory_failure() can still remove it from the cache.  A later offline
+> succeeds once the page is out of the cache.  With the fix, the offline
+> fails with -EBUSY and the file doesn't point to offlined memory anymore.
+> 
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it within about 10s.
+> 
+> Fixes: b023f46813cd ("memory-hotplug: skip HWPoisoned page when offlining pages")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> ---
+> Changes in v2:
+> - Leave a hwpoisoned folio that is still in a page cache or swap cache
+>   alone in do_migrate_range(), so that a waiting memory_failure() can
+>   still remove it from the cache (Sashiko)
+> - Rebase onto current mm-new
+> - Link to v1: https://lore.kernel.org/all/20261101-memhp-hwpoison-pagecache-v1-1-ed8785ca44eb@columbia.edu/
+> 
+> A pinned hwpoisoned page still isn't covered.  I'll send the refcount
+> check David suggested as a follow-up.
+> 
+> Taking get_online_mems() in memory_failure(), as in Gregory's series
+> [1], would close only the race and not the tmpfs or swap cache case.
+> 
+> [1] https://lore.kernel.org/all/20261027042204.3741307-4-gourry@gourry.net/
+> 
+> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/mfoffline.c
+> ---
+>  mm/internal.h       | 9 +++++++++
+>  mm/memory_hotplug.c | 5 +++++
+>  mm/page_isolation.c | 2 +-
+>  3 files changed, 15 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/internal.h b/mm/internal.h
+> index 78a7f17b9934..35c6d30537f0 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -1168,6 +1168,15 @@ static inline bool node_reclaim_enabled(void)
+>  	return node_reclaim_mode & (RECLAIM_ZONE|RECLAIM_WRITE|RECLAIM_UNMAP);
+>  }
+>  
+> +/*
+> + * A hwpoisoned page can be skipped by memory offline only once no page
+> + * cache or swap cache can find it anymore.
+> + */
+> +static inline bool hwpoison_page_offlineable(const struct page *page)
 
-Please drop this patch.
+Would it be better to pass in folio?
 
-/P
+> +{
+> +	return !folio_mapping(page_folio(page));
+> +}
+> +
+>  extern unsigned long  __must_check vm_mmap_pgoff(struct file *, unsigned long,
+>          unsigned long, unsigned long,
+>          unsigned long, unsigned long);
+> diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+> index 1bfd1f4daeb2..c5cfaa24b41b 100644
+> --- a/mm/memory_hotplug.c
+> +++ b/mm/memory_hotplug.c
+> @@ -1821,6 +1821,8 @@ static int scan_movable_pages(unsigned long start, unsigned long end,
+>  		struct folio *folio;
+>  
+>  		page = pfn_to_page(pfn);
+> +		if (PageHWPoison(page) && !hwpoison_page_offlineable(page))
+
+Should we use folio_contain_hwpoisoned_page here?
+
+> +			return -EBUSY;
+>  		if (PageLRU(page) || page_has_movable_ops(page))
+>  			goto found;
+>  
+> @@ -1887,6 +1889,9 @@ static void do_migrate_range(unsigned long start_pfn, unsigned long end_pfn)
+>  			 */
+>  			if (folio_test_large(folio) && !folio_test_hugetlb(folio))
+>  				goto put_folio;
+> +			/* The offline fails on it anyway, leave it to memory_failure() */
+> +			if (!hwpoison_page_offlineable(page))
+> +				goto put_folio;
+>  			if (folio_test_lru(folio) && !folio_isolate_lru(folio))
+>  				goto put_folio;
+>  			if (folio_mapped(folio)) {
+> diff --git a/mm/page_isolation.c b/mm/page_isolation.c
+> index 5aaad037384e..beb09ef345ee 100644
+> --- a/mm/page_isolation.c
+> +++ b/mm/page_isolation.c
+> @@ -593,7 +593,7 @@ __test_page_isolated_in_pageblock(unsigned long pfn, unsigned long end_pfn,
+>  			 */
+>  			pfn += 1 << buddy_order(page);
+>  		else if ((mode == PB_ISOLATE_MODE_MEM_OFFLINE) &&
+> -			 PageHWPoison(page))
+> +			 PageHWPoison(page) && hwpoison_page_offlineable(page))
+
+Again, should we use folio_contain_hwpoisoned_page here?
+
+Thanks.
+.
 
