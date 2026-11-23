@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795464082;
-	b=xxhnECNHLoUxC4KFiS07HcsIO1O356i4AhjaKmTMWKQTfbhjGnByP6rr+JjH5ZSPr9/S
-	 rAUrCkn5CAZJh24I/mUOfV0cUW5eKb4l1RcO66yHjK9nhYTNvKd6dP6P3hnmaao/cMh/e
-	 T/R9hWmGNMnd7z093QI1drzCqejtO5aLt6aG5ogPEWdrJEDDHEY17Am37dXEXbtRedeg+
-	 8BzRtTkXTThE6Qxcj6cpzoqVeXK0ALeRumr7yUqIYK0DQvpkNmX/HZuaXjPMX8zF+vuqk
-	 hJ18tabNLXdMtO1OWCyLI80fgLA6uRh4X/U+j9rA+WpOUzI7nr4kc3o/Z944E0qdVXg==
+	t=1795464089;
+	b=X1e6hK0L9x29hoN/HR/JBZN9l5Z9wRe8fEaCUYL/PC+xJJGxmiVPBouY5gzCROWyuc4x
+	 lFPPNzWglq83q4mTkLvGnaPvPuRYbI0LZqj0n8qnP6SWv30ifK+2gwGDsrw+ehCieeYvF
+	 Pngt81mHl3X9lt1NzS2BxpQErsqoTCfJ/uoEr+c9wpO6+KJLBVaWaSDK+8J47JsvkiyvY
+	 vHrdkoYjYOGQ8xHEK2Dn9b0W6rjeN4p/ALUs69eSrIuJOOlW82WALjvD1XMFVPXETrAEG
+	 ATUdeGs91HQ32RfSAwts+zZEDadfBDN4S1pDHXfkpRVlP6Htj2FgkIMtG63OZbL9nlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795464082;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795464089;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=kK2B8/scONiVfNFi55kihDK4ofM9j7KVLp2zW3E/5wI=;
-	b=jDLjLn6xcs8WiX2NARxpwC7Mm6TgNyqghT6pT4JqLG6LAOoil9xmFKQvjtcHNk3BQpTW
-	 JPUXQvbHcHv1eLwpdum2lMkPwjvQN/3QVq7ybuC203Xc7ZJWe11sP8J6TpuuHK3/gyC0m
-	 FTueuVfIMDovIcTXd4RtgdtiNBBIRaT+AGdM7hV9PE3atSt3amUpDC3vre7CcXQ0L7kzP
-	 QWoUg0lM4O45F8iTf/H60jfZEoCz4Ic3bMDCZuySAFEUJRh+Uafw1WQYv7rrIf4ZPwc47
-	 1PkXL3FAd8GWWCBj4D+KGmEkOqnLxDymcAgFS76jKI7NvfKCxClere6N5Jq54ftuq/w==
+	bh=vl/t1brpFMEqqKOGGmlaPM+Jlj8aMd6VrhVMqs5Y1sI=;
+	b=XMAFxx75cTjjnIUA6+Mh7MScTEHCzHc1DjWX9VVciwVnA0W3VKob8wZyyoFieH3Ez5EZ
+	 LgPw/Wb7B+6bDkT4EgVYmXKKMsKaNEGDEL/Ey4Jmt5u1XyaqwwpwEztQHkrFsk+N/7WRc
+	 qAAbo6B/wcpGHGxUCo1vLxzBtFfloTyOCcWvGXfxZTn9D9FD/r3x0/dtxWZffSehn3GOR
+	 H5m8bg82tMHJztSfAO1sMZDtFA1LWRkI8ZYIQVzANYsVbvTs3/k6LWJnqvC9PJi0rGa4Z
+	 VG3N3uZqsReVqGFF0MSwnkkfGAPULk3rkOUi9TbNtISFkMOBPC3SM+5EmT+hqBF2K9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aw0xQaj9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F4gI3hLf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D172606A31F;
-	Mon, 23 Nov 2026 20:01:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E54C606A32A;
+	Mon, 23 Nov 2026 20:01:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aw0xQaj9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 673D91F000D0;
-	Mon, 23 Nov 2026 20:01:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F4gI3hLf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CEA51F000CF;
+	Mon, 23 Nov 2026 20:01:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795464082;
-	bh=kK2B8/scONiVfNFi55kihDK4ofM9j7KVLp2zW3E/5wI=;
+	s=k20260515; t=1795464088;
+	bh=vl/t1brpFMEqqKOGGmlaPM+Jlj8aMd6VrhVMqs5Y1sI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aw0xQaj9r4DiFSn6aNI3iE2pRQsGjObrX35hBvXo8jTyqCsgpNOLGV+3vFrYNsDsE
-	 a0/PVIM9+wC3XJm7dBvqvL3YUXU9dfwD0R9/J65jOn8yZNsVKA90Fsr3G8N+wisAKq
-	 k1pObfLvmO0By5L8swZXuPfRAR+jgG0pbYuSP9ETSPOZUkaqX2kr7iTznklKnlzsAb
-	 f74V7GjNuSfGr5tKLDnKP0CUBnvuquk1yJoEBGhqp7ojKPx5WePofuELuWj1CYSSGA
-	 eYPmXddE+nF4Tb/dEWeXMe1RXDGBlgbAiR3r4xRwXlNeIaVT6krABFQp55oxrh1gcX
-	 WwpRUhq6fLOjQ==
+	b=F4gI3hLfvNc3b0wrKuaNdvmdjMGsV7POsgDblFgG3X/crY4xXOgFQ/Ec3IhdF/bIo
+	 JJsblR0u4kiGYLRQwATlPnIaXCc+wtlWNhMrdN1CYc97LDXaFiayDnepXJwyGNsb9V
+	 n9yYlN2+4dmtUk15SNBR20NChWpS7v5v01dCDEs0tDsRBnhLDUFqmURxyfKlffNxpl
+	 PyIbRADTxT7hBhqcYnn99gem0a/jBIPWhZp2NQ1ZJLoZIJOmnjrSJkeFdh139z+N5r
+	 9JavKWgY4vTejMW4W8Mr0bUzGq3jtz2ww9SqaXC0CTCJr8C07oFIum8bQYDH6QeK9n
+	 H2k2Qxs7kC1eA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Joshua Kinard <linux@kumba.dev>,
 	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Imre Kaloz <kaloz@kernel.org>,
-	Matthias Fuchs <matthias.fuchs@esd-electronics.com>,
+	Nishanth Menon <nm@ti.com>,
+	"George G. Davis" <gdavis@mvista.com>,
+	or <source@mvista.com>,
+	Johan Hovold <johan@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 08/10] rtc: ds1685: check driver data for NULL in ds1685_rtc_poweroff()
-Date: Mon, 23 Nov 2026 19:59:19 +0000
-Message-ID: <20261123200012.502284-9-lee@kernel.org>
+Subject: [PATCH 09/10] rtc: omap: prevent NULL and dangling pointer dereferences in power-off path
+Date: Mon, 23 Nov 2026 19:59:20 +0000
+Message-ID: <20261123200012.502284-10-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123200012.502284-1-lee@kernel.org>
 References: <20261123200012.502284-1-lee@kernel.org>
@@ -68,44 +69,79 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-ip32_poweroff() invokes ds1685_rtc_poweroff() with the static
-ip32_rtc_device platform device.  If ds1685_rtc_probe() previously
-failed or the device was unbound, platform_get_drvdata() returns NULL
-even though pdev is non-NULL, causing a NULL pointer dereference at
-rtc->irq_num instead of entering the intended fallback spin loop.
+omap_rtc_remove() only clears the global omap_rtc_power_off_rtc pointer
+if pm_power_off still equals omap_rtc_power_off.  If another driver
+overwrote pm_power_off after probe, unbinding the RTC leaves
+omap_rtc_power_off_rtc pointing to freed memory.  Furthermore,
+omap_rtc_power_off_program() is exported and called directly from
+am33xx_rtc_only_idle() during suspend without checking whether
+omap_rtc_power_off_rtc is NULL, causing a NULL pointer dereference if
+omap_rtc_power_off_rtc was never assigned or was cleared on unbind.
 
-Verify that platform_get_drvdata() is non-NULL alongside pdev before
-dereferencing rtc.
+Always clear omap_rtc_power_off_rtc when removing the matching RTC
+instance, and return -ENODEV from omap_rtc_power_off_program() when
+omap_rtc_power_off_rtc is NULL.
 
-Fixes: aaaf5fbf56f1 ("rtc: add driver for DS1685 family of real time clocks")
-Closes: https://sashiko.dev/#/bug/linux-0a1838c9-65d2-4d1c-bc21-35a6a2582144
+Fixes: 222a12fca604 ("rtc: omap: add support for pmic_power_en")
+Closes: https://sashiko.dev/#/bug/linux-97b795c5-f68f-4228-948f-547a106c6775
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/rtc/rtc-ds1685.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/rtc/rtc-omap.c | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/rtc/rtc-ds1685.c b/drivers/rtc/rtc-ds1685.c
-index f27d6ae4f783..c577adf8414d 100644
---- a/drivers/rtc/rtc-ds1685.c
-+++ b/drivers/rtc/rtc-ds1685.c
-@@ -1370,14 +1370,12 @@ ds1685_rtc_poweroff(struct platform_device *pdev)
- 	struct ds1685_priv *rtc;
+diff --git a/drivers/rtc/rtc-omap.c b/drivers/rtc/rtc-omap.c
+index 3c978edd6c2c..156444fab916 100644
+--- a/drivers/rtc/rtc-omap.c
++++ b/drivers/rtc/rtc-omap.c
+@@ -416,6 +416,9 @@ int omap_rtc_power_off_program(void)
+ 	int seconds;
+ 	u32 val;
  
- 	/* Check for valid RTC data, else, spin forever. */
--	if (unlikely(!pdev)) {
-+	rtc = pdev ? platform_get_drvdata(pdev) : NULL;
-+	if (unlikely(!rtc)) {
- 		pr_emerg("platform device data not available, spinning forever ...\n");
- 		while(1);
- 		unreachable();
- 	} else {
--		/* Get the rtc data. */
--		rtc = platform_get_drvdata(pdev);
--
- 		/*
- 		 * Disable our IRQ.  We're powering down, so we're not
- 		 * going to worry about cleaning up.  Most of that should
++	if (!rtc)
++		return -ENODEV;
++
+ 	rtc->type->unlock(rtc);
+ 	/* enable pmic_power_en control */
+ 	val = rtc_readl(rtc, OMAP_RTC_PMIC_REG);
+@@ -481,17 +484,19 @@ EXPORT_SYMBOL(omap_rtc_power_off_program);
+  */
+ static void omap_rtc_power_off(void)
+ {
++	struct omap_rtc *rtc = omap_rtc_power_off_rtc;
+ 	u32 val;
+ 
+-	omap_rtc_power_off_program();
++	if (omap_rtc_power_off_program())
++		return;
+ 
+ 	/* Set PMIC power enable and EXT_WAKEUP in case PB power on is used */
+-	omap_rtc_power_off_rtc->type->unlock(omap_rtc_power_off_rtc);
+-	val = rtc_readl(omap_rtc_power_off_rtc, OMAP_RTC_PMIC_REG);
++	rtc->type->unlock(rtc);
++	val = rtc_readl(rtc, OMAP_RTC_PMIC_REG);
+ 	val |= OMAP_RTC_PMIC_POWER_EN_EN | OMAP_RTC_PMIC_EXT_WKUP_POL(0) |
+ 			OMAP_RTC_PMIC_EXT_WKUP_EN(0);
+-	rtc_writel(omap_rtc_power_off_rtc, OMAP_RTC_PMIC_REG, val);
+-	omap_rtc_power_off_rtc->type->lock(omap_rtc_power_off_rtc);
++	rtc_writel(rtc, OMAP_RTC_PMIC_REG, val);
++	rtc->type->lock(rtc);
+ 
+ 	/*
+ 	 * Wait for alarm to trigger (within one second) and external PMIC to
+@@ -913,9 +918,9 @@ static void omap_rtc_remove(struct platform_device *pdev)
+ 	struct omap_rtc *rtc = platform_get_drvdata(pdev);
+ 	u8 reg;
+ 
+-	if (pm_power_off == omap_rtc_power_off &&
+-			omap_rtc_power_off_rtc == rtc) {
+-		pm_power_off = NULL;
++	if (omap_rtc_power_off_rtc == rtc) {
++		if (pm_power_off == omap_rtc_power_off)
++			pm_power_off = NULL;
+ 		omap_rtc_power_off_rtc = NULL;
+ 	}
+ 
 -- 
 2.56.1.750.gf70dc682cf-goog
 
