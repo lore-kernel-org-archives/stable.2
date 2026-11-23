@@ -1,96 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795412883;
-	b=T9smg6bnkPugCptpny2aLPcqC9yXYDkhXXavnUOPd5ETztbJDREPxgYm7C9KmA1keGYT
-	 +4BMy6ZBNFusn3VK6ehKkrUq6YxoGTXf7AmEVE2t3H2n+2Obw7kpx3DPHGYBwjvyYSZ76
-	 7w8HVEorxHU7yfElS8EIMKXeLIF1qKBg8yiJTrnmwwGf6INlgG4bvdx7b8c0Hihg93Yjd
-	 mIflXSWMyGzPHbgi9pFDKV2nArFwlTNU8whnqoXC4BUDCJWb/0mhi8V3RnJjmOoRZ81at
-	 dAtHLE1t1qMkpVz4oFIyt0CUgWA+7nI5Ubk9e/V9q269dU/JFM/y8xd9JTWewRg5HuQ==
+	t=1795412887;
+	b=ir1c3qB/6j8L+d+KIJTu0bIwwzXwtZba84zHYGwVn9NC8+AkSJNOc5sjBni/J/znPsI6
+	 7zb0AGf5uVYnvknfk87gWZeoiLmOy1053WScQpc7CxbHajRae3fzHjR1MpsMCee8s+B+h
+	 gdU2So7hAA64sATz9TOVpo4lVh6IYdYYKd1cZiZL7IlSIFx+EMEdspyfPmlCh6/h+w3w1
+	 Crtx9b+ueO/0nEYg7b8jLnQguULutU61BSn4uYuwYfXEFFdcCc3M0sFihN+FJH9DKlcYK
+	 O5L6bXVbmiveSt9xgJzqJMEipuGwm8AHxWUs1SnKFhbKtNajndelBmPYI6XRb2i7VIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795412883;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=C6kM09UB5CIeWG4FIgxtnyVAELn2QRDca2eMQrsTeqQ=;
-	b=LZHqAPSFPIhqyNB4L1Ll3HyXrH3M0Ms9fMGIt3lfXxyuuGhNDFltb3kjYE5ihOdtoCYH
-	 lIRbVjNizqXPIeedtwX1g7gseJvFxz5M9lCaJFHwu21b50fhiIRMA4gWfBRgnl5LowRUH
-	 akNtIpLyL1l8Pn1n0gewnkNFPt7gPsGWLPLQvbqoOtL8FopCfe6JArbRVi/xk73zqdwQB
-	 PyxLGM4kDMhHbjJq87aZpkD4WbYrALGZdkC+GXxpszsBCDSE1Kz+wE0XupVXzUjAGVZTn
-	 TngQ29vsDdptYBdaiuT3fkSP9uiGxWJTs6MWe+T+W8QfGBjAPlQ0ZqQwrDibm6DlN0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795412887;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=//NJH9cDc4+QbK55lhh6lAvE1Jzbk1sEQRnauS9w+sU=;
+	b=yk9ZAeu3wumFCGUgie0o5gPXaQqOEd71uLPgkPKKEKZMRT1vZpkJV4dAQfTzSU7Umj/W
+	 7W5WRn+nFKaLOmGnIP/Ppx3qTo0gzR/rOzUzZabqbP0QN9DqvBd8PD2qcnZZlDI5qktvX
+	 5bGEq1p5+4ee6/BYqMAOWxZzafN5FrRt/drLa9LVb13PA/6seM0tANwqjz/cEyxw9aEaE
+	 KaB9M65BwrhYhNtRUWPCpZCBLdRe6E2H9Zun7BhZHzhyQ3LQZyRcoRGClZaHSsQfMxi5g
+	 k0OF2rBZ7xNODgCvRwq2vt6vM3id/iz9aJ4JmtHDLi7cH59XtTUlWIKYFzl6LLC0qPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="h5SdWTB/";
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h9n93YHg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCBE606A338
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 05:48:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCCBE606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34663606A327;
+	Mon, 23 Nov 2026 05:48:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5SdWTB/
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3b3af93b85cso1598633a91.1
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 21:48:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795412882; x=1796017682; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C6kM09UB5CIeWG4FIgxtnyVAELn2QRDca2eMQrsTeqQ=;
-        b=h5SdWTB/v7wyZhpNrcmgo1SNIjajCPUmI9d0MCFdxyMSJfvufysZVF2Qw+IyjwpvVc
-         cZ0OwdjRMJgphoYPAMR8nM+xdTRdp2Szta2uAxjCCzS9EFw6bQ4iQigVK7STeUOtcjs3
-         /aOoqF0HQwlRUDgJyM++yZPIK0AVSrYLVfEVN2w5b3zMcVGD5T9xl6mPxODWZXFJIESK
-         kzg09OmsSqJA6J9OA5my1lY8X+QMvD3gC4Fm8Gb//paY22IDrJl5QOZXGd5cWG2FrpKq
-         347Gj6oqY/2A2rW9ZR16D1gTuU3vZfort3rZCdNfIseXZKaj1G0217TjCjx/ES56hLhJ
-         9Sug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795412882; x=1796017682;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C6kM09UB5CIeWG4FIgxtnyVAELn2QRDca2eMQrsTeqQ=;
-        b=sr6soQjWUWEFPkE+3KAc/cW7KrYifJNbFtuI67YxLlpf5gvm5vYA/J+htyq2FRaaZ4
-         V0TCzHVBSD3JMI6XkE1DkzLVbgkP9yFth3qmthPGfZvYOqShcLLZcLYOCCTEc3QwIvVE
-         TIMeMR5NUbqT+pK80siZ1lMRr7xeHHYFM+/txCDgs04eIKfeJ++1n0OjAOJSLH2uGCbe
-         H4LOGKObQKvE0vezkfp9QXp85USKQpiw8+VFqVlq8wVeC30lAefT8gXwgqgM9Mn1IOA1
-         wUaB4M0I9uTHTSYrV9YcClUpZQqrd2HYPWcKK0YqCpsJzNFeTKoJ1xy2+jCFIFbIQ3cO
-         +k+A==
-X-Forwarded-Encrypted: i=1; AL+hErEE1L52pLVAmnIi61bIGtUd/kxOqUXIjdbbzIgVmewxwt95Fxn4sm3f7OUUUHF3sWSS0IBw6wc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9MbVtZsjFyNYkwIi6kj8ytid2/QV5iwTsDaMhKU5yrtkae/ZlS
-	Syzq7xpUGBgIh7lhQj/Hox9ySQfrnQe/x6emdtzoIv5nc+dizdCDzAzq6BtmZQ==
-X-Gm-Gg: AZFdTZdcfXrFhU5v/brj3genhHBBPwBL3FhXEEKEeAPoOpl4VYi+t08NverDHU+fzG1
-	gxdj+lYwCC8wz0D4Fw09/8BVOr+Ag4SX3HwUZ7XgnSIw67GAXt/7OfGrGH6Ju5OAyGcYAjBNCTl
-	10ITlsBIql45jmjgNkHa7kyBsN1puR+ig0KM6+rE8s3cf63SasbTkHXSR5vpnlHT5lK7rId/9uj
-	bRHDZ0Sp5JSizKqJkjn+MUn94kf6LK8t0VnugjKuIEcGL98/25nKPyj0A/O5+QYloHmDjSHgHio
-	RAKhGGCvA24ntwWeIyYVvn+MKVknvVeJLBpySSADrBLSNieXVDbpEDxdWyIbUD8brURCCOSswL/
-	8EV163w1qtXo22uLaEbUI/oBScareZOTO/WMiGiWM2hOEjmam+3ckp4jhho7ePMKljzXTlNbXYv
-	5L5awSjCVOabffkmK/ME/kKGD6BB0icA+yGue2O+icOsOo0jIqGNICjip9X36ITou/g4xaDM3ae
-	lZATJUjthsLSL1i6GIH3COUdF7wWx8SO7w0Tkf4rHKnv6HCFjWOVnFPaTrYPGzhIqTxTUVv++rf
-	pCDZENXcoYv1yUDEFMA=
-X-Received: by 2002:a17:90b:4a48:b0:3b1:2d60:66cc with SMTP id 98e67ed59e1d1-3b41c7b56bemr9221452a91.8.1795412881662;
-        Sun, 22 Nov 2026 21:48:01 -0800 (PST)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d97356sm18719260a91.13.2026.11.22.21.48.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 21:48:00 -0800 (PST)
-Date: Mon, 23 Nov 2026 14:47:58 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: ernest.borowski.git@proton.me
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Baolin Liu <liubaolin12138@163.com>, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng1024@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 5/7] ntfs: punch out the delalloc reservation of a failed
- buffered write
-Message-ID: <awPTjheQrp6sxB5W@hyunchul-PC02>
-References: <20261122-b4-ntfs-delalloc-fixes-v1-0-0726f0dce403@proton.me>
- <20261122-b4-ntfs-delalloc-fixes-v1-5-0726f0dce403@proton.me>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h9n93YHg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3703E1F00ACF;
+	Mon, 23 Nov 2026 05:48:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795412885;
+	bh=//NJH9cDc4+QbK55lhh6lAvE1Jzbk1sEQRnauS9w+sU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=h9n93YHgTR5WnzqFhlvTNgT/mTMfO2VKfLo9lVq+Q1RV4eI1bRwIWZ2F2xqXszTG3
+	 x1PW7stmss8IViMUejTleeeZnPM0T4msSi9YA6S0YcXY1zd7AR2VUOT+rjbM6ajrau
+	 rDEWNwEGbhmNWzC56HmsahXbfbf3Vr/4oyL8O/qzZHOtzQW81Offwheyg1V5TePwRo
+	 t1oTNHbctShpJz9UyaL1zhqGAPN6L4pX1Yc287YnAx3fYIQG8xSOFiV6GzDh3sxFxM
+	 tk2QK18zIs008kPAB3fHdsoNUim74QCTZG1Fn1wawajlWFJ5z4PBbynP2fVQPE/Psi
+	 OKyEdqphnMXMg==
+Subject: Re: [PATCH net] net: wwan: iosm: always send the host sleep message
+ on suspend
+From: netdev-bot+sashiko@kernel.org
+To: davidlwesten@gmail.com
+Cc: netdev@vger.kernel.org, loic.poulain@oss.qualcomm.com,
+ ryazanov.s.a@gmail.com, johannes@sipsolutions.net, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ m.chetan.kumar@linux.intel.com, mail@maciej.szmigiero.name,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 23 Nov 2026 05:48:04 +0000
+Message-ID: <179541288475.3135.162337854159176054@kernel.org>
+In-Reply-To: <20261122050039.861287-1-davidlwesten@gmail.com>
+References: <20261122050039.861287-1-davidlwesten@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,255 +65,303 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261122-b4-ntfs-delalloc-fixes-v1-5-0726f0dce403@proton.me>
 
-On Sun, Nov 22, 2026 at 07:19:41PM +0100, Ernest Borowski via B4 Relay wrote:
-> From: Ernest Borowski <ernest.borowski.git@proton.me>
-> 
-> ntfs_write_simple_iomap_begin_non_resident() turns the holes a buffered
-> write covers into LCN_DELALLOC runs and reserves their clusters before
-> any data is copied.  If the copy then fails or comes up short (EFAULT
-> from the user buffer, a fatal signal), the clusters that no dirty folio
-> covers stay delalloc.  Writeback never allocates them, so the
-> reservation is kept until the inode is evicted, and the stale runs
-> survive the writeback that fallocate() relies on before it edits the
-> runlist.
-> 
-> Reproducer: a pwrite() of 512 KiB from an unmapped address into a hole
-> of a 1 MiB sparse file fails with EFAULT and leaves 128 (4 KiB) clusters
-> reserved after sync.  A FALLOC_FL_PUNCH_HOLE or COLLAPSE_RANGE through
-> the range then hits the run splitting bug fixed by the previous patch.
-> 
-> Do what XFS does: in ->iomap_end() of a delalloc mapping that was not
-> written completely, let iomap_write_delalloc_release() find the ranges
-> without dirty data and turn the clusters entirely inside them back into
-> holes, releasing their reservation.  Clusters that still hold dirty data
-> stay delalloc, including the partial first and last clusters of an
-> unaligned write that ->iomap_begin() zeroed in the page cache; those are
-> written back as zeros, as before.  Delalloc runs are holes on disk, so
-> the mapping pairs do not change.
-> 
-> The error path of ->iomap_begin() itself, taken when zeroing the edges
-> of the new run fails, only subtracted the reservation and left the run
-> and i_dealloc_clusters in place, so a later truncate or eviction would
-> release it a second time.  Use the same release there.
-> 
-> Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ernest Borowski <ernest.borowski.git@proton.me>
-> ---
->  fs/ntfs/attrib.c | 63 +++++++++++++++++++++++++++++++++++++++++++++++++
->  fs/ntfs/attrib.h |  1 +
->  fs/ntfs/iomap.c  | 71 +++++++++++++++++++++++++++++++++++++++++++++++++++++++-
->  3 files changed, 134 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-> index 39fa983cd8..7c19e4534a 100644
-> --- a/fs/ntfs/attrib.c
-> +++ b/fs/ntfs/attrib.c
-> @@ -4416,6 +4416,69 @@ void ntfs_release_delalloc_from(struct ntfs_inode *ni, s64 start_vcn)
->  	ni->i_dealloc_clusters -= min_t(s64, nr, ni->i_dealloc_clusters);
->  }
+Thank you for your contribution! Sashiko AI review found 6 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 · Medium: 2 · Low: 4
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] This patch sends every platform through ipc_pcie_suspend() ->
+  ipc_imem_pm_suspend() -> ipc_protocol_suspend().
+- [Medium] With this patch, every system suspend on D0L12 platforms
+  relies on ipc_pm_wait_for_device_active().
+- [Low] SIMPLE_DEV_PM_OPS(iosm_ipc_pm, ipc_pcie_suspend_cb,
+  ipc_pcie_resume_cb) expands to SYSTEM_SLEEP_PM_OPS.
+- [Low] The patch removes the only callers of the s2idle path but leaves
+  its pieces behind, and one of them changes behaviour.
+- [Low] The new comment in ipc_pcie_suspend_cb() says "The PCI core puts
+  the device into D3 whatever the BIOS RTD3 setting says".
+- [Low] net: wwan: iosm: wrong commit cited in Fixes: trailer
+
+--
+
+net: wwan: iosm: always send the host sleep message on suspend
+
+This patch makes the iosm suspend and resume callbacks always use the
+ENTER_SLEEP/EXIT_SLEEP host sleep message path (ipc_pcie_suspend() and
+ipc_pcie_resume()). Before, the D0L12 doorbell-only s2idle path was chosen
+from the BIOS RTD3 _DSM setting. The goal is to keep an XMM7360 usable
+after suspend-to-idle when the PCI core puts it into D3hot.
+
+> diff --git a/drivers/net/wwan/iosm/iosm_ipc_pcie.c b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
+> index 49052eb511baa..dd7cfe3747efc 100644
+> --- a/drivers/net/wwan/iosm/iosm_ipc_pcie.c
+> +++ b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
+> @@ -406,14 +406,10 @@ static int __maybe_unused ipc_pcie_suspend_cb(struct device *dev)
 >  
-> +/*
-> + * ntfs_attr_punch_delalloc - turn delalloc runs back into holes
-> + * @ni:		non-resident ntfs attribute
-> + * @start_vcn:	first vcn of the range
-> + * @len:	number of clusters in the range
-> + *
-> + * Turn the LCN_DELALLOC parts of [@start_vcn, @start_vcn + @len) into holes
-> + * and give back their reservation.  Used when a buffered write that reserved
-> + * them failed before it dirtied any folio over them, so that writeback will
-> + * never allocate them.  Runs that are not delalloc (anymore) are left alone.
-> + * Delalloc runs are stored as holes on disk, so the mapping pairs need no
-> + * update.
-> + *
-> + * The caller holds the mrec_lock of the base inode and the runlist lock for
-> + * writing.
-> + */
-> +void ntfs_attr_punch_delalloc(struct ntfs_inode *ni, s64 start_vcn, s64 len)
-> +{
-> +	struct runlist_element *rl, *punch_rl;
-> +	s64 vcn = start_vcn, end_vcn = start_vcn + len, run_end;
-> +	size_t new_rl_count;
-> +	int rl_count, err;
-> +
-> +	lockdep_assert_held_write(&ni->runlist.lock);
-> +
-> +	err = ntfs_attr_map_whole_runlist(ni);
-> +	if (err) {
-> +		ntfs_error(ni->vol->sb,
-> +			   "Failed to map the runlist to drop delalloc runs: %d", err);
-> +		return;
-> +	}
-> +
-> +	while (vcn < end_vcn) {
-> +		rl = ntfs_rl_find_vcn_nolock(ni->runlist.rl, vcn);
-> +		if (!rl || !rl->length)
-> +			break;
-> +		run_end = min(rl->vcn + rl->length, end_vcn);
-> +		if (rl->lcn != LCN_DELALLOC) {
-> +			vcn = run_end;
-> +			continue;
-> +		}
-> +
-> +		for (rl = ni->runlist.rl, rl_count = 0; rl->length; rl++)
-> +			rl_count++;
-> +		rl = ntfs_rl_punch_hole(ni->runlist.rl, rl_count + 1, vcn,
-> +					run_end - vcn, &punch_rl, &new_rl_count);
-> +		if (IS_ERR(rl)) {
-> +			ntfs_error(ni->vol->sb,
-> +				   "Failed to drop delalloc run at vcn 0x%llx: %ld",
-> +				   vcn, PTR_ERR(rl));
-> +			break;
-> +		}
-> +		kvfree(punch_rl);
-> +		ni->runlist.rl = rl;
-> +		ni->runlist.count = new_rl_count;
-> +
-> +		ntfs_release_dirty_clusters(ni->vol, run_end - vcn);
-> +		ni->i_dealloc_clusters -= min_t(s64, run_end - vcn,
-> +						ni->i_dealloc_clusters);
-> +		vcn = run_end;
-> +	}
-> +}
-> +
->  /*
->   * ntfs_non_resident_attr_shrink - shrink a non-resident, open ntfs attribute
->   * @ni:		non-resident ntfs attribute to shrink
-> diff --git a/fs/ntfs/attrib.h b/fs/ntfs/attrib.h
-> index faa2dfba3a..ca2a8b53a4 100644
-> --- a/fs/ntfs/attrib.h
-> +++ b/fs/ntfs/attrib.h
-> @@ -110,6 +110,7 @@ int ntfs_non_resident_attr_insert_range(struct ntfs_inode *ni, s64 start_vcn, s6
->  int ntfs_non_resident_attr_collapse_range(struct ntfs_inode *ni, s64 start_vcn, s64 len);
->  int ntfs_non_resident_attr_punch_hole(struct ntfs_inode *ni, s64 start_vcn, s64 len);
->  void ntfs_release_delalloc_from(struct ntfs_inode *ni, s64 start_vcn);
-> +void ntfs_attr_punch_delalloc(struct ntfs_inode *ni, s64 start_vcn, s64 len);
->  int __ntfs_attr_truncate_vfs(struct ntfs_inode *ni, const s64 newsize,
->  		const s64 i_size);
->  int ntfs_attr_expand(struct ntfs_inode *ni, const s64 newsize, const s64 prealloc_size);
-> diff --git a/fs/ntfs/iomap.c b/fs/ntfs/iomap.c
-> index ce916707f6..1909824c30 100644
-> --- a/fs/ntfs/iomap.c
-> +++ b/fs/ntfs/iomap.c
-> @@ -372,6 +372,10 @@ static int ntfs_zero_range(struct inode *inode, loff_t offset, loff_t length)
->  				NULL);
->  }
+>  	ipc_pcie = pci_get_drvdata(pdev);
 >  
-> +static void ntfs_write_delalloc_release(struct inode *inode, loff_t pos,
-> +					loff_t length, ssize_t written,
-> +					unsigned int flags, struct iomap *iomap);
-> +
->  static int ntfs_write_simple_iomap_begin_non_resident(struct inode *inode, loff_t offset,
->  						      loff_t length, struct iomap *iomap)
->  {
-> @@ -543,7 +547,13 @@ static int ntfs_write_simple_iomap_begin_non_resident(struct inode *inode, loff_
->  			if (err == -EPERM)
->  				err = 0;
->  			if (err) {
-> -				ntfs_release_dirty_clusters(vol, max_clu_count);
-> +				/*
-> +				 * Nothing will be copied: drop the delalloc
-> +				 * clusters that no zeroed folio covers.
-> +				 */
-> +				ntfs_write_delalloc_release(inode, offset,
-> +							    iomap->length, 0,
-> +							    IOMAP_WRITE, iomap);
->  				return err;
->  			}
->  		}
-> @@ -762,6 +772,61 @@ static int ntfs_write_iomap_end_resident(struct inode *inode, loff_t pos,
->  	return written;
->  }
->  
-> +static void ntfs_write_delalloc_punch(struct inode *inode, loff_t offset,
-> +				      loff_t length, struct iomap *iomap)
-> +{
-> +	struct ntfs_inode *ni = NTFS_I(inode);
-> +	struct ntfs_inode *mrec_ni = ntfs_inode_is_named_stream(ni) ?
-> +			ntfs_base_inode(ni) : ni;
-> +	struct ntfs_volume *vol = ni->vol;
-> +	/* Clusters that still hold some dirty data stay delalloc. */
-> +	loff_t start = round_up(offset, vol->cluster_size);
-> +	loff_t end = round_down(offset + length, vol->cluster_size);
-> +
-> +	if (start >= end)
-> +		return;
+> -	switch (ipc_pcie->d3l2_support) {
+> -	case IPC_PCIE_D0L12:
+> -		ipc_pcie_suspend_s2idle(ipc_pcie);
+> -		break;
+> -	case IPC_PCIE_D3L2:
+> -		ipc_pcie_suspend(ipc_pcie);
+> -		break;
+> -	}
 
-Could this leave clean dealloc clusters reserved?
+[Severity: Low]
 
-For example, with 1 KiB clusters and 512-byte blocks,
-iomap_write_dealloc_ifs_punch() calls this callback seperately for each
-clean block in a dirty folio. For a cluster covering [1024, 2048),
-the callback receives [1024, 1536) and [1536, 2048) separately. Rounding
-each range produces an empty punch range, so neither call removes
-the reservation, even if the entire cluster is clean.
+This removes the only callers of ipc_pcie_suspend_s2idle() and
+ipc_pcie_resume_s2idle(). They are __maybe_unused, so a W=1 build won't
+warn. ipc_imem_pm_s2idle_sleep(), ipc_protocol_s2idle_sleep() and
+ipc_pm_set_s2idle_sleep() become dead code along with them.
 
-> +
-> +	mutex_lock(&mrec_ni->mrec_lock);
-> +	down_write(&ni->runlist.lock);
-> +	ntfs_attr_punch_delalloc(ni, ntfs_bytes_to_cluster(vol, start),
-> +				 ntfs_bytes_to_cluster(vol, end - start));
-> +	up_write(&ni->runlist.lock);
-> +	mutex_unlock(&mrec_ni->mrec_lock);
-> +}
-> +
-> +/*
-> + * A buffered write that failed or copied less than it mapped leaves delalloc
-> + * clusters that no dirty folio covers: writeback never allocates them, so
-> + * their reservation would stay until the inode is evicted, and the stale
-> + * delalloc runs would outlive the flush done by fallocate() and friends.
-> + * Punch them out again, keeping every cluster that has dirty data in the
-> + * page cache.
-> + */
-> +static void ntfs_write_delalloc_release(struct inode *inode, loff_t pos,
-> +					loff_t length, ssize_t written,
-> +					unsigned int flags, struct iomap *iomap)
-> +{
-> +	struct ntfs_volume *vol = NTFS_I(inode)->vol;
-> +	loff_t start_byte, end_byte;
-> +
-> +	/*
-> +	 * Delalloc is reserved per cluster, which can be larger than the
-> +	 * block size iomap_last_written_block() would round to.
+ipc_pcie->d3l2_support is also still filled from the ACPI _DSM in
+ipc_pcie_probe(), but nothing reads it any more. Should these be removed
+too?
+
+There is also a behaviour change. ipc_pcie_suspend_s2idle() was the only
+code that set bit 0 of ipc_pcie->suspend, and that bit gates IRQ
+processing:
+
+drivers/net/wwan/iosm/iosm_ipc_irq.c:ipc_msi_interrupt() {
+    ...
+	if (!test_bit(0, &ipc_pcie->suspend))
+		ipc_imem_irq_process(ipc_pcie->imem, instance);
+    ...
+}
+
+On D0L12 platforms, MSIs that arrived between the suspend and resume
+callbacks used to be dropped. Now they go to ipc_imem_irq_process() and
+the tasklet. Was this intended?
+
+The commit message doesn't mention it. The referenced commit f4dd5174e273
+dealt with spurious XMM7560 wakeups on this same s2idle path.
+
+> +	/* The PCI core puts the device into D3 whatever the BIOS RTD3 setting
+> +	 * says, so the modem has to be told with the host sleep message.
 > +	 */
-> +	if (written)
-> +		start_byte = round_up(pos + written, vol->cluster_size);
-> +	else
-> +		start_byte = round_down(pos, vol->cluster_size);
-> +	end_byte = round_up(pos + length, vol->cluster_size);
-> +	if (start_byte >= end_byte)
-> +		return;
-> +
-> +	filemap_invalidate_lock(inode->i_mapping);
-> +	iomap_write_delalloc_release(inode, start_byte, end_byte, flags, iomap,
-> +				     ntfs_write_delalloc_punch);
-> +	filemap_invalidate_unlock(inode->i_mapping);
-> +}
-> +
->  static int ntfs_write_iomap_end(struct inode *inode, loff_t pos, loff_t length,
->  				ssize_t written, unsigned int flags,
->  				struct iomap *iomap)
-> @@ -769,6 +834,10 @@ static int ntfs_write_iomap_end(struct inode *inode, loff_t pos, loff_t length,
->  	if (iomap->type == IOMAP_INLINE)
->  		return ntfs_write_iomap_end_resident(inode, pos, length,
->  						     written, flags, iomap);
-> +	if (iomap->type == IOMAP_DELALLOC && iomap->flags & IOMAP_F_NEW &&
-> +	    !(flags & IOMAP_FAULT) && written < length)
-> +		ntfs_write_delalloc_release(inode, pos, length, written, flags,
-> +					    iomap);
->  	return written;
->  }
+
+[Severity: Low]
+
+Is this comment true in general? For platform-manageable devices,
+pci_target_state() returns whatever the firmware chooses:
+
+drivers/pci/pci.c:pci_target_state() {
+	if (platform_pci_power_manageable(dev)) {
+		pci_power_t state = platform_pci_choose_state(dev);
+
+		switch (state) {
+		case PCI_POWER_ERROR:
+		case PCI_UNKNOWN:
+			return PCI_D3hot;
+
+		case PCI_D1:
+		case PCI_D2:
+			if (pci_no_d1d2(dev))
+				return PCI_D3hot;
+		}
+
+		return state;
+	}
+    ...
+}
+
+So firmware can choose PCI_D0. The commit message describes this as
+platform-specific ("here chooses D3hot"). The comment turns it into a
+general rule and uses it to justify ignoring d3l2_support.
+
+Where firmware keeps the WWAN function in D0 for s2idle, the modem would
+now get the ENTER_SLEEP/EXIT_SLEEP handshake while it stays in D0/L1.2.
+The notes say that case was not tested, and neither were the XMM7560 or
+platforms where the doorbells work.
+
+> +	ipc_pcie_suspend(ipc_pcie);
+
+[Severity: Low]
+The Fixes: tag points at be8c936e540f ("net: iosm: power management").
+That commit only added iosm_ipc_pm.c and iosm_ipc_pm.h.
+
+The code this patch changes lives in iosm_ipc_pcie.c. That covers
+ipc_pcie_suspend_cb() and ipc_pcie_resume_cb(), including the switch
+on ipc_pcie->d3l2_support that picked between the s2idle doorbell path
+and the host sleep message path. As far as I can tell, all of it came
+in with 7e98d785ae61 ("net: iosm: entry point").
+
+Should the tag be this instead?
+
+  Fixes: 7e98d785ae61 ("net: iosm: entry point")
+
+There is no runtime effect. But the stable tooling and anyone bisecting
+later rely on the tag to find the commit that introduced the behaviour
+being changed, so it is worth pointing at the right one.
+
+[Severity: Medium]
+
+Every platform now goes through
+ipc_pcie_suspend()->ipc_imem_pm_suspend()->ipc_protocol_suspend(). That
+includes D0L12 platforms and platforms without the _DSM. What happens when
+the handshake fails?
+
+ipc_pm_prepare_host_sleep() sets host_pm_state to
+IPC_MEM_HOST_PM_SLEEP_WAIT_D3. If the wake ack times out, nothing sets it
+back:
+
+drivers/net/wwan/iosm/iosm_ipc_protocol.c:ipc_protocol_suspend() {
+	if (!ipc_pm_prepare_host_sleep(&ipc_protocol->pm))
+		goto err;
+    ...
+	if (!ipc_pm_wait_for_device_active(&ipc_protocol->pm)) {
+		ipc_uevent_send(ipc_protocol->pcie->dev, UEVENT_MDM_TIMEOUT);
+		goto err;
+	}
+    ...
+err:
+	return false;
+}
+
+Only the branch where sending ENTER_SLEEP fails resets host_pm_state to
+ACTIVE.
+
+On resume, ipc_pm_prepare_host_active() rejects any state other than
+IPC_MEM_HOST_PM_SLEEP. EXIT_SLEEP is then never sent and
+ipc_imem_phase_update_check() is skipped. Every later suspend also fails in
+ipc_pm_prepare_host_sleep(), which requires ACTIVE.
+
+Meanwhile ipc_pm_signal_hpda_doorbell() holds doorbells back:
+
+	if (host_slp_check && ipc_pm->host_pm_state != IPC_MEM_HOST_PM_ACTIVE &&
+	    ipc_pm->host_pm_state != IPC_MEM_HOST_PM_ACTIVE_WAIT) {
+		ipc_pm->pending_hpda_update = true;
+		...
+		return;
+	}
+
+ipc_pm_on_link_wake() only flushes pending_hpda_update in ACTIVE, and only
+ipc_pm_init() resets host_pm_state. Would the DL_PROCESS, UL_WRITE_TD and
+TD_UPD_TMR doorbells then stay held back until the driver is rebound?
+
+A message timeout has a similar effect. When wait_for_completion_timeout()
+returns 0, ipc_protocol_msg_send() logs "msg timeout" and still returns 0.
+An ENTER_SLEEP the modem never acknowledged still moves host_pm_state to
+SLEEP.
+
+The failure result is also dropped. ipc_protocol_suspend() returns false
+when the suspend must be aborted, but ipc_imem_pm_suspend() returns void.
+ipc_pcie_suspend() and ipc_pcie_suspend_cb() always return 0.
+
+When the handshake fails, the PCI core then puts the modem into D3hot with
+no notice at all, not even the FORCE_SLEEP doorbell the old D0L12 path
+rang. Isn't that the condition the commit message says leaves the modem
+unusable?
+
+Could host_pm_state be rolled back on failure, and then either fall back
+to the doorbells or fail the suspend?
+
+[Severity: Medium]
+
+Every system suspend now depends on ipc_pm_wait_for_device_active(). Can
+it lose the wake ack?
+
+drivers/net/wwan/iosm/iosm_ipc_pm.c:ipc_pm_wait_for_device_active() {
+	if (ipc_pm->ap_state != IPC_MEM_DEV_PM_ACTIVE) {
+		smp_mb__before_atomic();
+		set_bit(0, &ipc_pm->host_sleep_pend);
+		smp_mb__after_atomic();
+
+		if (!wait_for_completion_interruptible_timeout
+		   (&ipc_pm->host_sleep_complete,
+		    msecs_to_jiffies(IPC_PM_ACTIVE_TIMEOUT_MS))) {
+    ...
+}
+
+ap_state is checked before set_bit() and not checked again. The modem
+answers the WAKEUP doorbell from ipc_protocol_tq_wakeup_dev_slp()
+asynchronously:
+
+MSI -> tasklet
+  ipc_protocol_pm_dev_sleep_handle()
+    ipc_pm_dev_slp_notification()
+      ipc_pm_trigger(IPC_PM_UNIT_LINK, true)
+        ipc_pm_on_link_wake(ack=true)
+          ipc_pm->ap_state = IPC_MEM_DEV_PM_ACTIVE;
+          if (test_bit(CONSUME_STATE, &ipc_pm->host_sleep_pend))
+              complete(&ipc_pm->host_sleep_complete);
+
+The tasklet can run between the waiter's ap_state check and its
+set_bit(), on another CPU or on the same CPU. In that case complete() is
+skipped and the waiter times out after 500 ms. ipc_protocol_suspend() then
+leaves host_pm_state at IPC_MEM_HOST_PM_SLEEP_WAIT_D3, as described above.
+
+There is also a signal case. With a signal pending,
+wait_for_completion_interruptible_timeout() returns -ERESTARTSYS, and the
+!ret test treats that as success. ENTER_SLEEP is then sent while the link
+is still waking:
+
+- its doorbell is held back as pending_hpda_update
+- ipc_pm_on_link_wake() won't flush it in SLEEP_WAIT_D3
+- the message times out and ipc_protocol_msg_send() returns 0
+- host_pm_state becomes SLEEP without the modem being told
+
+This needs the callback to run in a task with a signal pending, for
+example with pm_async=0.
+
+host_sleep_complete is also never reset with reinit_completion(). A stale
+complete() after a timeout mostly can't reach a later wait, though,
+because ipc_pm_prepare_host_sleep() fails first.
+
 >  
-> 
-> -- 
-> 2.56.1
-> 
-> 
+>  	return 0;
+>  }
+> @@ -427,14 +423,7 @@ static int __maybe_unused ipc_pcie_resume_cb(struct device *dev)
+>  
+>  	ipc_pcie = pci_get_drvdata(pdev);
+>  
+> -	switch (ipc_pcie->d3l2_support) {
+> -	case IPC_PCIE_D0L12:
+> -		ipc_pcie_resume_s2idle(ipc_pcie);
+> -		break;
+> -	case IPC_PCIE_D3L2:
+> -		ipc_pcie_resume(ipc_pcie);
+> -		break;
+> -	}
+> +	ipc_pcie_resume(ipc_pcie);
+
+[Severity: Low]
+
+SIMPLE_DEV_PM_OPS(iosm_ipc_pm, ipc_pcie_suspend_cb, ipc_pcie_resume_cb)
+binds these callbacks to .freeze/.thaw/.poweroff/.restore as well as
+.suspend/.resume. On D0L12 platforms, hibernation therefore also moves from
+the doorbells to the ENTER_SLEEP/EXIT_SLEEP handshake. Is that intended?
+
+The commit message only covers system suspend and suspend-to-idle testing.
+The new D3 comment in ipc_pcie_suspend_cb() doesn't hold for freeze/thaw,
+where the PCI core leaves the device in D0.
+
+On restore, the restored driver has host_pm_state ==
+IPC_MEM_HOST_PM_SLEEP from the snapshot. It sends EXIT_SLEEP to a modem
+that the boot kernel re-initialized. If that message fails,
+ipc_protocol_resume() sets host_pm_state back to SLEEP and the HPDA
+doorbells are held back.
+
+S3 on D0L12 platforms changes too. According to the notes, S3 was tested
+only on top of the separate S3 series, which a stable backport will
+usually lack.
+
+The coverage caveats (not tested on XMM7560 or on platforms where the
+doorbells work) are below the --- line, so they won't reach the git log.
+Could the commit message mention hibernation, S3 and these caveats?
+
+>  
+>  	return 0;
+>  }
 
 -- 
-Thanks,
-Hyunchul
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261122050039.861287-1-davidlwesten%40gmail.com
