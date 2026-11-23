@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795458774;
-	b=1yon2jVlRk+FUfR29jq2Igsb8Fni9rXjLr9Q5k/tr8sNzDFGkvvBf7ZiIZb/U/Cm7M+H
-	 51GVeTx2dqZk6FmZwchZbGBI6xOl0xsIgpR8JQL7gkjbuBpSwGp8HUWa9jyYWK6rjTV6R
-	 bOpjzYKYAOcGCP57AMi+U5CpZdDPO8C9fD/ry3xxrBbd6hj8ZuSHCi51oISPhknMp24mp
-	 j8sq6lzi+NILQGtYIo1YAowjjTUAb3KiPWaUBlgEeJNH4l9wDaatTXZQa91eSb9ZgvVLT
-	 Z2/N4lNrAYz0M+QVAa2Ce3HvdHdjYqJtO/1JobAjQWDHsWYJI9EIdT945vKptZFNpXw==
+	t=1795458782;
+	b=BjgIy/xln/pz6fJPdnp4Ckwrw5TDzFMjeSWBBs1K51iAaEzyGcWDelQdcDmx3ykVfbOe
+	 uN8uYcr+WLqu5qSYVnkKgqYS2ow/7lVdtcwJbkLJESuODWPMQDioQ91DfDM0iAC9Da7MW
+	 E7+zxy1XTJxNbR4y9gMdolX+dQVTbNlr8cvXAmicFI4RWe4F8zh3jQFzI0t/0vdfnvjfg
+	 mVokpDMBLkowv6jMvRyeWqV1SSoIqe3k/eOcg7yvSNyVp8hNzzmRyhnbu3QJfZvxyUXDP
+	 DzBC4AgQcd4NsvRmyXBinqzITBvE9aIkcgpZMWOr1AmflAZ4eEZaNhIN+5Oqh5LNBmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795458774;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795458782;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=XvFGxLtguxADkoKymBc4jGtX4rfLze4pZj3zugD9AMY=;
-	b=eKdY9zQN/pvodlTB3m+ssCTo2PqNb/RTOkCCNFM+RDiPDpVwU9KeU/1CpWIGRduQB8Ur
-	 ejwj8/mS2hNqO5Vg40PPvnK5x4gtsdHNrPdd129L3lLP/MgvsThgGJHFQW/IrGNEMGLi9
-	 FEzBkNOIFgdqf5ngnbE7KFwncIhklGdV+EJWtLa4apCP57B7Eb36edhRbLPuuUF+haI4N
-	 5A8DBM5xMAbhLoLhbTN84dVxIXaKjWB/8zE88mhAPSCeynuG4aZHyZSbCVZXDnKOnzq7W
-	 Hd0JeAPO87eDcHZxWCjV2WKvMlYoWr2Y+YIriPm8l+8ObIhDIgFh2GU5rhMkyUuNRNw==
+	bh=U1MSPx3VfyoIifR48nEATYANkG7RJJfwnA8zIXFxovA=;
+	b=Tft08Z24JTMFUC1vHCN0tb8UZz9e0U8AQNcihl/BBMLfcYBAk1Cr4UIFFpmAPalWa/b+
+	 Ey0kKvlxZGwjGRzQFpowuJQpGxUnzLxI0vahME3QFJY8xQleESwfu+aZj9eZP8pCndXm7
+	 Ws+8U9Rj2ov3okDaCvaRYjbdHp2ucr0z755Lt0CyUxnNPa52uTJloGJUSAXaJ/0ILGFt0
+	 /V/aKkdNNmmFt7qnxBgXCFLS7e+akRgoY0zd2eHNdbGGpytrJ0A/jeUH2bMxDjWRHOd0/
+	 q7yItvVN9V04Gcv/Fbbion3GYELBaVVOSjhreQRCG4ovy2tjpqp7pkCKx/6PCZ8r3fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JuN1uIXn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YxHbG4Qj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12D8606A327;
-	Mon, 23 Nov 2026 18:32:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D74606A31A;
+	Mon, 23 Nov 2026 18:33:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JuN1uIXn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A4981F000CA;
-	Mon, 23 Nov 2026 18:32:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YxHbG4Qj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD83A1F000C4;
+	Mon, 23 Nov 2026 18:32:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795458774;
-	bh=XvFGxLtguxADkoKymBc4jGtX4rfLze4pZj3zugD9AMY=;
+	s=k20260515; t=1795458781;
+	bh=U1MSPx3VfyoIifR48nEATYANkG7RJJfwnA8zIXFxovA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JuN1uIXnBnO8/GBhDEUrU5UMuHjv6fW5KpCiabBadiozzUwU95Y12NiJkCjrqhVDj
-	 j3GbqaWhJcejoIWFAdsavobczXdi4HraO85KvVoLBjI77C7SvQM9/u1InKSKZOJFR0
-	 4ASQaeqzLTbQPFDe8iVkM7dHlodPJdjR19uVJiA8t7XV/nPdNLujurFqPrCWuj2E1D
-	 2/JZpjSl6tHmZ9c/lDahMvGdEDJCJok3YeQnd2J2i7Oz1F3tVFzX8rsdXAtHiMiOXE
-	 tj6E70ZycrLtmjqw8XinLn0WJ5gmyhX3ELi4RZ6xryEsDtuo1Q8F68LH25zq8zYKvE
-	 IUcP10ygTTtpg==
+	b=YxHbG4QjoBEKcii62/p3xWuNgfK5sV5ywr53zd7ByLM327S1//TTe0j61atw+hNzP
+	 l7BX91cdgPODL6eKAUZQIVWJ38hyog4Ez9fGDgucWrQY2CtQs6kAaLKM1ZBUaKHbMM
+	 hjZKaJ7mWvsJ6q9tjUZ/OhkFr3eR+w0qVmHkKs446j4jx/OyJsGm3ObXtf6fGRPwOq
+	 +clCPN8Hhd9YZPplHL3Dvo6XSCQdBJH4gkeiHV5HTZyEfq7zJV1JSVc7yHLHdQI8d/
+	 56nHAguwU8BaPBUeddkHI/PvGvdrgLLUqP7h2HtqaJawFEolx0h9wrSqggaeD+TKZu
+	 xeuwW0rqFxbwA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>,
 	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Carlo Caione <carlo@caione.org>,
-	Hans de Goede <hansg@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Fengping Yu <fengping.yu@mediatek.com>,
+	Marco Felsch <m.felsch@pengutronix.de>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 07/10] Input: axp20x-pek - skip IRQ handling during sleep without input device
-Date: Mon, 23 Nov 2026 18:31:13 +0000
-Message-ID: <20261123183200.3900004-8-lee@kernel.org>
+Subject: [PATCH 08/10] Input: mt6779-keypad - enable keypad clock before programming registers
+Date: Mon, 23 Nov 2026 18:31:14 +0000
+Message-ID: <20261123183200.3900004-9-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123183200.3900004-1-lee@kernel.org>
 References: <20261123183200.3900004-1-lee@kernel.org>
@@ -67,51 +72,51 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Cherry Trail systems where an ACPI GPIO button device already handles
-the power button, axp20x_pek_should_register_input() returns false and
-axp20x_pek_probe() skips axp20x_pek_probe_input_device().  This leaves
-axp20x_pek->input NULL and both irq_dbr and irq_dbf zero-initialised.
+mt6779_keypad_pdrv_probe() writes the debounce and matrix selection
+registers over MMIO before acquiring and enabling the "kpd" clock via
+devm_clk_get_enabled().
 
-axp20x_pek_suspend() and axp20x_pek_resume() nevertheless pass irq_dbf
-and irq_dbr unconditionally to disable_irq(), enable_irq(), and their
-wakeup counterparts, manipulating IRQ 0 (the legacy x86 system timer)
-across suspend and resume.
+When the keypad clock is gated off at boot or its clock provider defers
+probe, accessing unclocked keypad MMIO registers can trigger a bus abort
+or silently drop the configuration writes.
 
-Skip interrupt management in axp20x_pek_suspend() and
-axp20x_pek_resume() when no input device was registered.
+Acquire and enable the "kpd" clock before accessing the keypad
+registers.
 
-Fixes: 8a78050ee257 ("Input: axp20x-pek - revert "always register interrupt handlers" change")
-Closes: https://sashiko.dev/#/bug/linux-5ae6851f-784e-481c-900b-2e1686578c89
+Fixes: f28af984e771 ("Input: mt6779-keypad - add MediaTek keypad driver")
+Closes: https://sashiko.dev/#/bug/linux-fc15622a-407a-48b2-88db-195cdb311dbf
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/input/misc/axp20x-pek.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/input/keyboard/mt6779-keypad.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/input/misc/axp20x-pek.c b/drivers/input/misc/axp20x-pek.c
-index cbbc9db33ad2..a02cdabcf22b 100644
---- a/drivers/input/misc/axp20x-pek.c
-+++ b/drivers/input/misc/axp20x-pek.c
-@@ -329,6 +329,9 @@ static int axp20x_pek_suspend(struct device *dev)
- {
- 	struct axp20x_pek *axp20x_pek = dev_get_drvdata(dev);
+diff --git a/drivers/input/keyboard/mt6779-keypad.c b/drivers/input/keyboard/mt6779-keypad.c
+index 60e6ad97cf59..a9f62f02439e 100644
+--- a/drivers/input/keyboard/mt6779-keypad.c
++++ b/drivers/input/keyboard/mt6779-keypad.c
+@@ -195,6 +195,10 @@ static int mt6779_keypad_pdrv_probe(struct platform_device *pdev)
  
-+	if (!axp20x_pek->input)
-+		return 0;
-+
- 	/*
- 	 * As nested threaded IRQs are not automatically disabled during
- 	 * suspend, we must explicitly disable non-wakeup IRQs.
-@@ -348,6 +351,9 @@ static int axp20x_pek_resume(struct device *dev)
- {
- 	struct axp20x_pek *axp20x_pek = dev_get_drvdata(dev);
+ 	input_set_capability(keypad->input_dev, EV_MSC, MSC_SCAN);
  
-+	if (!axp20x_pek->input)
-+		return 0;
++	keypad->clk = devm_clk_get_enabled(&pdev->dev, "kpd");
++	if (IS_ERR(keypad->clk))
++		return PTR_ERR(keypad->clk);
 +
- 	if (device_may_wakeup(dev)) {
- 		disable_irq_wake(axp20x_pek->irq_dbf);
- 		disable_irq_wake(axp20x_pek->irq_dbr);
+ 	regmap_write(keypad->regmap, MTK_KPD_DEBOUNCE,
+ 		     (debounce * (1 << 5)) & MTK_KPD_DEBOUNCE_MASK);
+ 
+@@ -208,10 +212,6 @@ static int mt6779_keypad_pdrv_probe(struct platform_device *pdev)
+ 	regmap_update_bits(keypad->regmap, MTK_KPD_SEL, MTK_KPD_SEL_COL,
+ 			   MTK_KPD_SEL_COLMASK(keypad->n_cols));
+ 
+-	keypad->clk = devm_clk_get_enabled(&pdev->dev, "kpd");
+-	if (IS_ERR(keypad->clk))
+-		return PTR_ERR(keypad->clk);
+-
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0)
+ 		return irq;
 -- 
 2.56.1.750.gf70dc682cf-goog
 
