@@ -1,73 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795446620;
-	b=CfgEDs1nqkO+UgymQh7Cji9n6J2ANqZyYwJbsnnm9r1FkV65KFCmn4tDRP2iB1cQH0mN
-	 kLGQ99s8Nh32JwWt1uW6j+9LHrhZsKC2v2Fz5AdIpEpExbInjowDzENVVm+o03pcm8lKT
-	 F0W9VncwKJsZdqNzC63Z23B4nRXyEmTMRoadgzkqa2BPPp3x98AfCKROp4st1STCpS3Uu
-	 23DQRGB3rNmdAG1EXBTiwoffwSx5Yfcoka6+dZdCCaBgdaoYR3Bc+A4/dOgsYLd12Idni
-	 mPbwVCTDwf/07DAq1CohkotVjuNxYQ9J2JeCU1ihfY/KOuwuqL//Qr1mKH94Q4GpgEw==
+	t=1795446672;
+	b=lPHrunzUYbDRtN5Hizxg0HvmOuD3ixAza8txpd0axhxuY/bKhouzv6QT7lbCbNFmAwPo
+	 DkK13gndShlC2iL6D2ujDisXtmXrZUmSrDXoDK8RKI519fW4lWbCzy8ztpZ+X2mx3jo3X
+	 SCT3LNxjJ1u3HJqfkahfRPL+BXOpoFoMhAGpT1AvfWbwavoO7gMOj5XHAoUZRIbGMN9L6
+	 R0VT2CNTgQFlEBKJFraVocmRWsNPD9373bWpa8VL9e8P58phLB/NHgd/MGJPZ2F92k4vQ
+	 hdcNwQ8qezYA0Ya8SFSu3RCYJ1+8Jc77+T6Q/wXiMVQJY+SLC8IaWlV7fHtbkptYuMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795446620;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=LY0Ma2YTT0tb1ngWtv8IXluWXqW3x+R5fspk8pYjvvc=;
-	b=uACJ6lFJFbvIAp+XdYHJnjxtHfhddsQwiXHLPF5hzCrdwXnpyrmb54xCDBimnYE2E1uh
-	 WresbV4+wv5s+v0cbbzs6vVR5/6C9Dt/88lRCnbyW9RCHz5FhE2yXFvcAJzpUOymSDSuQ
-	 Zz/GLOr+EFDlu1pUAdNGSaYDKOslAcLUTBugdINv04ZCv3QkMwIB+LvNV+k+kaqX+BSn1
-	 rw54PYFr5fCe468+3u3y0nres3xLFB1Io76L31bSbBY43P2P88KpVnhv8k2EaXvWYWIlT
-	 211yTh3kbhUsnbC955opxWs15zMucTSI0PcbxbX3Us0dJWeiCT7fgkeMes0WzfHS6aw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795446672;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kfgJmV+pVAEQVJp9ltaL3JbqH5exKDQIhWk/uwdJAnI=;
+	b=UtxxeP5Po85fKGQwuaEjXppUSCnXTmeUdyLb8npK7RfPAPZ/hhMQV1g0GWtXI7euAx49
+	 VIYTmy06xC4MHZd5mypW4zfWyth21HpW+KL7UiljVxJs4oAh/YrbNGs/go1vFwFn9a+Kg
+	 r6iYxcTILeTgIeKEBGKXDa74lxiLXS1SC87zKfOjt3EtGuN2u4l9/v5RZPOS8D6bvL7xE
+	 9ZCEX3lRhx4ngIo6Zf0IG/4/j6pQFjGHkXVsylpNY9zN/Onix8XPpqPCEBkfTl+vuVqdJ
+	 VH3P1i0W6gosZ8SvcfqD93lIErG4I/vxfzWVjGYdeKUqQxH+pA33EX14an3az5ss+2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HGVGgf/s";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jip5JmIL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E05606A32D
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:10:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120D0606A31F;
+	Mon, 23 Nov 2026 15:11:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HGVGgf/s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160E91F00A00;
-	Mon, 23 Nov 2026 15:10:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jip5JmIL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A8731F000EB;
+	Mon, 23 Nov 2026 15:11:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795446620;
-	bh=LY0Ma2YTT0tb1ngWtv8IXluWXqW3x+R5fspk8pYjvvc=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=HGVGgf/swyJkcjbE5hMPvjiV+Y75rTc6lv4gh3DtmJ0mH6Z+HCtJypXZuxGW6m+ih
-	 V96nFT5PR3jwgjSb79ut1R/BuEKzwuxbysqUEzqurIZrnK+15gpSSmbWYjaIm7yl1z
-	 Rvh3Dhb8f0HXxskMrpWQXP8Ed8MOuXv5pXxAgIwjtWLPKS1iXQkKn5ezIbVbmsh8ud
-	 cWFNgaNGt+sej1YwBvyJhq8DbaoNa29Sy9A/SYEQwE/uoTxwKn1RYVqc8baJtKRsYW
-	 4vh/4RiQxumZQtcChwPg0lNhQ5juLELngUZRt87eEd2hwFk/3YDQPlJ8qFrv00AKOV
-	 eUGfFNhe6cJjw==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 4DB06F4006C;
-	Mon, 23 Nov 2026 10:10:19 -0500 (EST)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Mon, 23 Nov 2026 10:10:19 -0500
-X-ME-Sender: <xms:W1cEa8fAqxookxXD56rcn4f4NA6GpddhTtlbsoU3vHnQJphkkZjlXg>
-    <xme:W1cEa5CyVs8XVbhHIMJ1F7UNLRjzl22wq5GpqEI-lMXnLb1I_XeruQ3gZz5sdCIKk
-    fOX5tlkw5tomw_kr0tbHnB7YMSPPFlm2nMIWvYdtqLhV2nwDKokdRw>
-X-ME-Proxy-Cause: dmFkZTGtj2x37u99ZMo3oRwTVhzqHO+vIEwn9KkWid3ijrAsOVZYPBZLXn+zBqTdIOevx5
-    dH5l8SkjKzTijH/Goy3QAn9oD2rUAxFLch5LS6W2ud0Z6hEa9vgTz5vjpuWszcNrpFMFMF
-    Uy6IP70fKhnxSrVR0nCiOSDqfwvLg/tafq0zMEs/JNO0FsoJU5cuxm3ZGZEOCz9u8UHL0i
-    RMGt7s9MsOGS8fIYriZrg3GnvijWqZOI/vNcDb8azA+xRSoIV+4f/NfV7XyAr914WLKDqd
-    yifcLpMqAyFCoTDyHQJ0mR7SY/ik1PQjLYuhw08B9lfrlBrVzIqVdTP74c0nVTzVtLLwkF
-    68R6rZvByQ0MyOhYz1r6pD4a7y9LwrzlsaOFBtZOSUY5+MZSm7BP19Hr0EL2cVoVOpxpc2
-    9Y92bTNITgFwAclR23fPI/PZ7UsdwG405bEsCV+z0CGvDiYqYEaNlVv9MMHGbMHQ12j2sv
-    tp6ezqTK/AOCY+R4zlr/f31xszHU79trbVC7+5XCOkAsi5B9Ol+RSwOlSnVMbXzdoF4AD/
-    MFEkp4t29MZudtcOQR9gveKWLsLQrjut66uMc1jjUayXkH0ww2H+o7d5wxxP3Cafub7FlJ
-    m4NT6wqSWY7mwiaHYhTZHCiNPXMW4oMCwjs2NFj8jPtGUM1ShX3CSioguqMA
-X-ME-Proxy: <xmx:W1cEa58XrubbV3uf-zjBfkZQTAJJnR0hZRTLHh_xV0rbVL1Nwcs0VA>
-    <xmx:W1cEa5vmpCoYt1uRRgg-unsYtieql7xPGyakg4Z9huaOqR7kkCwktQ>
-    <xmx:W1cEa5PCDNNHVBVAsiRCvjYw8RL0sigjH9-h5_3NL49ZlzgR3Vej_Q>
-    <xmx:W1cEa-jKdl9GiEFsBbqBmQCsqX7wCvdVnLguGNaCbESiv8gqMl7cug>
-    <xmx:W1cEa76p3iSFmHeMh2PYqUE-hMHuCbaXVXmCzqHB7KVEaPidfYvUEHax>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 3131B780077; Mon, 23 Nov 2026 10:10:19 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1795446671;
+	bh=kfgJmV+pVAEQVJp9ltaL3JbqH5exKDQIhWk/uwdJAnI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Jip5JmILioBfr5ZBHB9KzDeKzA4lb6jFEFkVlSulY9ZNNME113rOecjtLmI684k4q
+	 fyzqCYsYE/MXPCwIdXGyoeJ5t1HmzAB0I6GrA7DvlhJ2jvxX8cs/MdYOzO/LwcpRDm
+	 kOQyd+P/1WyjovTtUtiv9+YdQajCEpc5K7UaCljeITmwdRd941kMzi/sDjewfkBIdy
+	 YK5Z0DQBRXBq+UenMEn8fX1ysw1m4yuuziYjhU2urb/mtBClqX8+JDz1eggngwR63s
+	 LIcKVzyUhgg9QjioBERF9gQZ1CL5jQEyFkoJV9pvwzBnEEBY+Y/iRkw31ydWFcas0Q
+	 uys/Wmi1pEkWg==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	=?UTF-8?q?Horia=20Geant=C4=83?= <horia.geanta@nxp.com>,
+	Pankaj Gupta <pankaj.gupta@nxp.com>,
+	Sahil Malhotra <sahil.malhotra@nxp.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Steffen Trumtrar <kernel@pengutronix.de>,
+	Meenakshi Aggarwal <meenakshi.aggarwal@nxp.com>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 01/10] crypto: caam - Fix descriptor buffer overflow in caam_process_blob()
+Date: Mon, 23 Nov 2026 15:09:52 +0000
+Message-ID: <20261123151055.2533735-2-lee@kernel.org>
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+In-Reply-To: <20261123151055.2533735-1-lee@kernel.org>
+References: <20261123151055.2533735-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,68 +67,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: A6sD4Nk7Fv--
-Date: Mon, 23 Nov 2026 10:09:59 -0500
-From: "Chuck Lever" <cel@kernel.org>
-To: "Tim Menninger" <tmenninger@everpuredata.com>
-Cc: "Trond Myklebust" <trondmy@kernel.org>,
- "Anna Schumaker" <anna@kernel.org>, linux-nfs@vger.kernel.org,
- "Jon Curley" <jcurley@everpuredata.com>,
- "Eric Badger" <ebadger@everpuredata.com>,
- "Shiva Lingappa" <slingappa@everpuredata.com>, stable@vger.kernel.org
-Message-Id: <90d0ff6e-e9d2-4b2b-9b89-8245ce502e99@slotpi15m67>
-In-Reply-To: <20261120010342.2152535-1-tmenninger@everpuredata.com>
-References: <20261120010342.2152535-1-tmenninger@everpuredata.com>
-Subject: Re: [PATCH] xprtrdma: Retire the connection generation when a connect attempt
- fails
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 11/19/26 8:03 PM, Tim Menninger wrote:
-> -	} else
-> +	} else {
->  		rpcrdma_xprt_disconnect(r_xprt);
-> -	xprt_unlock_connect(xprt, r_xprt);
-> +		xprt->connect_cookie++;
-> +	}
->  	xprt_wake_pending_tasks(xprt, rc);
-> +	xprt_unlock_connect(xprt, r_xprt);
+Commit a703a4c2a328 ("KEYS: trusted: caam based protected key") switched
+caam_process_blob() from append_seq_in_ptr_intlen() and
+append_seq_out_ptr_intlen() to append_seq_in_ptr() and
+append_seq_out_ptr(), each of which emits an extra 32-bit extended
+length word, and added append_key(), append_fifo_store(), and
+append_jump() when encapsulating a protected key.
 
-LGTM, with a couple of cosmetic suggestions.
+However, CAAM_BLOB_DESC_BYTES_MAX was not updated and still reserves
+only 44 or 52 bytes (for 32-bit or 64-bit DMA addresses), whereas
+caam_process_blob() now writes up to 60 bytes for standard blobs on
+64-bit DMA platforms and up to 72 or 88 bytes when encapsulating a
+protected key, overflowing the kzalloc()-allocated job descriptor
+buffer into adjacent slab memory.
 
-Moving the wake above the unlock keeps a task that records the new
-connect_cookie from receiving the failed attempt's error. The code
-before this patch and xs_udp_setup_socket() both unlock first, so a
-later well-meaning clean-up could easily move the wake back and
-reopen the race. Let's add a comment above the wake, to let readers
-know this ordering is intentional.
+Update CAAM_BLOB_DESC_BYTES_MAX to account for the protected-key
+commands and the extended sequence pointer length words.
 
-Consider moving the cookie increment up to just after
-xprt_clear_connecting(), so that every connect attempt bumps the
-cookie in one place. This is an optional clean-up for clarity.
+Fixes: a703a4c2a328 ("KEYS: trusted: caam based protected key")
+Closes: https://sashiko.dev/#/bug/linux-fd968875-61a8-4100-ba0c-b9cd164d86e8
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/crypto/caam/blob_gen.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-
-A couple of pre-existing bugs turned up as well. I'm noting these
-here for the record, not as a request for you to address them.
-
-1. xprt_rdma_connect() never applies its reconnect backoff.
-   rpcrdma_xprt_disconnect() always clears r_xprt->rx_ep, so the ep
-   check in xprt_rdma_connect() fails and the delay is always zero.
-   call_connect_status() delays an -ECONNREFUSED retry by three
-   seconds, but a reject with IB_CM_REJ_STALE_CONN maps to
-   -ENOTCONN and retries immediately.
-
-2. The AF_LOCAL transport appears to have the same stale-cookie
-   problem your patch fixes for RDMA. xs_local_setup_socket() wakes
-   waiters with the connect error without bumping connect_cookie,
-   and a successful AF_LOCAL connect does not bump it either.
-
-"2." suggests this logic would be best hoisted out of the individual
-transports. But that's follow-on work for someone who feels
-sufficiently industrious.
-
-Reviewed-by: Chuck Lever <cel@kernel.org>
-
-
+diff --git a/drivers/crypto/caam/blob_gen.c b/drivers/crypto/caam/blob_gen.c
+index c18dbac56493..b4fdc15dd0b6 100644
+--- a/drivers/crypto/caam/blob_gen.c
++++ b/drivers/crypto/caam/blob_gen.c
+@@ -23,12 +23,16 @@
+ #define CAAM_BLOB_DESC_BYTES_MAX					\
+ 	/* Command to initialize & stating length of descriptor */	\
+ 	(CAAM_CMD_SZ +							\
++	/* Commands to load plain key, store protected key and jump */	\
++	 CAAM_CMD_SZ + CAAM_PTR_SZ_MAX +				\
++	 CAAM_CMD_SZ + CAAM_PTR_SZ_MAX +				\
++	 CAAM_CMD_SZ +							\
+ 	/* Command to append the key-modifier + key-modifier data */	\
+ 	 CAAM_CMD_SZ + CAAM_BLOB_KEYMOD_LENGTH +			\
+-	/* Command to include input key + pointer to the input key */	\
+-	 CAAM_CMD_SZ + CAAM_PTR_SZ_MAX +				\
+-	/* Command to include output key + pointer to the output key */	\
+-	 CAAM_CMD_SZ + CAAM_PTR_SZ_MAX +				\
++	/* Command to include input key + pointer and length */		\
++	 2 * CAAM_CMD_SZ + CAAM_PTR_SZ_MAX +				\
++	/* Command to include output key + pointer and length */	\
++	 2 * CAAM_CMD_SZ + CAAM_PTR_SZ_MAX +				\
+ 	/* Command describing the operation to perform */		\
+ 	 CAAM_CMD_SZ)
+ 
 -- 
-Chuck Lever
+2.56.1.750.gf70dc682cf-goog
+
