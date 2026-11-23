@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795398518;
-	b=o9V9z1fLEJDA0IqeAnEa74w+nXXLAeUIENm6u2v1DSn5eELfWYEVG9CjaZZzhFjse2hO
-	 QptuRx8zV0Gc/bEyl2vSTdyybK6fZ4ST6lVsdWCkIHxOV7DNrHvNa3cUo+CTDP27jv9Mm
-	 xLjy65G3Laj66VGXmJD1nHRBr4UeQgz0kFcvlrRhm0ssCVSTBwjUrBu6Mz68yK2KPLLpd
-	 MXs7rI1o/1FcuNc/fIQcs5kUSaM1lBqZcdswJqXsi4uWPG3DZeaPLP8IECXhJ9WP561K2
-	 LcwSlLhSpYDGFb6KNPE3O4ra6oRUwH/i++3l+SSrp+Nq+ZQi9EFaB0BbqxikziTwfow==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795398518;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XALtPDd8DonhX3PMnwhRii26VgRfNBlpSPXMtIJoeIQ=;
-	b=0ANoyglIho7JtakkL8/1mRcEkTWW4cBXVxv2vyTiVDeGviOGFWIeUXzFdGCKArpIk0PJ
-	 WDl5qAP1L4CsK6xz87EO26r4LDpx5oxPA1SorX08+ABx/AdF9yCSFK8JcUcOMSSr3bdth
-	 bYjkeeE0iVxXRk35ngJ+Mm75u1SZ414LrxnQwfUkbwZjn46kztDnAdYz+dSUPMk9N8VwO
-	 5v8+ey8ODuvk+F7/8fvEntohRdYcPqwg30Gax1KfbEFRXXbmnhLDDzBHyvM4MhHpnyUae
-	 fg7oQXi06eWG1D/TiDyEkREiEciAyHkZjrLyKUWmkELsjrW3xFjJhJl6Zfz3N6ysCSA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VB7+o5E8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF61606A327;
-	Mon, 23 Nov 2026 01:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VB7+o5E8
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795398518;
-	b=e8g12Q/ZTNa/ngIygLjoWE7MFT8cKtx5/PtWKRRSSxVKq9ouyREK7sw3qtr9kanJQRG8
-	 4M6rm/fVuIaRzLBdfG6ZCRsOXe5ZULyIZ+LxJo76FPkF7cPh7P+VO5dJ7RsPNfn5ObGNF
-	 gnm4niZIyeDQ8xH4GuIhOF2ZwRZhct1tHqaP0YYR0JU8AK7vFRAX9/nFxxfojCtTI6Spd
-	 NVps3bSr5UFEJpMMGxVWsHZker0wnyD5waZrYCw993xvD5uftlFTx8vMBES9cOAtmWtEZ
-	 hjPEBoP05SjgoqbOQ17wMsElMkIpmDGqmUFb4ahNQgL15aQBqNI6MygQTcl1MTCn3XQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795398518;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XALtPDd8DonhX3PMnwhRii26VgRfNBlpSPXMtIJoeIQ=;
-	b=FJxvNEAlVSDsz/MVk9vY6p57Gy41xiaRsRDqjswaf6+NwHF1TTl61Xp/5d/RhKjb1R5y
-	 6gE0T9vpWp8WApZKZBsDn97GE/BxRkxO/UFSeEGQ4tWFlKUMSbXv12lm9bkaIVTTLsesr
-	 4T9Shs0g7j132ZV/ASNeG2zNsEaKm8GWMSRtbwEcRBDqJJKyXY1gPByv7dvz9SxHR4M0a
-	 DSZ2g6TGX+pp3wobbsbrzO7pph63FN039zKCcZkH1orMRrLi6HMpvtvqniEnbUWQwcPpC
-	 AYYVXCFLwCZ+aC8955ZPkvPvAvY5lDw5cDC+tP/2ErP4Ubwxq1wTDLyR1qcuUPUwEsA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.97
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795399009;
+	b=rWGXpBH+ICC/+BjzZWFpXM/gTQQuvkRrkQVMUcCkhHpFQB8C1l58qChn/aw7vqcDpP/f
+	 NhKpYUPVivTcYKRaAkQn043i+YF/UmsNmXxScHYl+V1SHN70KA5E2P+QbkFra5RLLpXSi
+	 BWPHHQFrydwGiVq2RxQnxW9MiGQXXE/LoU02pCMY/RssBBxUf4siL9aaAK/PkOBE2Ff08
+	 YV8ruZ0iublqszbudRFLKaozxHtZqNI5EJTjo7siZP6pNRjDjY4FK4HPcEJXCkLgEa+0W
+	 h1i1Mbht5KbcBwx2kmd5yqO7l76qEfp0wIn/biHddjfsQ36iL6QUTJAzSDy6mbwKujQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795399009;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=OAU19RxrGlalvTAb5+8YAP9n0+ZmNVYDusooyY6Z4Yw=;
+	b=lSMCvB0eWVrg+Gx8MiF5nmlLHRZJZRe6880j7qZqae8VMGrBLzsSqWjMXHR5mgCgYTgk
+	 nwZI2XYYKwhcjwgeZQBYjOA2K3bJqlBhP21Ss4JDopxeFlpIMnLXElMuhN25sacfp1N4c
+	 SKwh5ztPgaa1JjgmgZHz5LziJw2+c9aBHngcvRn+54vBtFKOJVEC6XlhKTpGrxfycB0Ev
+	 372uBGruhTId5v0sP+UKWv8lozRlC0kEeZ3CQUiGqEhb0EXozO1mllY2sScCpzvB3EAp/
+	 9y6bekMVjw2ZUe8Oyqyg9Gns4a/6GYZcQWo56/rB6z2QRzx9Jtm8B4bl6e+ZITQsC2A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=EwQreAGH;
+	arc=none smtp.remote-ip=115.124.30.97
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 660771F000CF;
-	Mon, 23 Nov 2026 01:48:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795398518;
-	bh=XALtPDd8DonhX3PMnwhRii26VgRfNBlpSPXMtIJoeIQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=VB7+o5E8q4y/l2biw4NwMitSu6ewEJwDButqWuT6+xOa0WtMYoq5n38yvsOdIQvty
-	 NXK0S6x2XKvx5OxMyh7E4/qQdX/9QEBzVo7fKNwkLOjpfQ4HRXTDSa95+KHSoMYs2n
-	 gXC0j1xQBK5r9YEEh1jotZpbpZUhXHq0qSSgYV+UagB6qnLlu/nPfjPhQorfBYIyVL
-	 DFAcNMUi78eD1qh/SH1Xirjb8aXqL87vt0v5yopH7TZpD3MRaWcT26URodpzM9nHf+
-	 +enRO4UdeiRy4ztQi2In8oyv6T0iXPsDQDxS85ThOomOd3rzePKQUF+Rkif7+cJ4ph
-	 UvfmyS3D+Douw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E6E0C4C2E2;
-	Mon, 23 Nov 2026 01:48:36 +0000 (UTC)
-From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
-Date: Sun, 22 Nov 2026 22:48:35 -0300
-Subject: [PATCH v2 2/2] usb: gadget: u_serial: Free the console request
- only once it is back
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706E0606A320
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 01:56:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 706E0606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=EwQreAGH
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1795398999; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=OAU19RxrGlalvTAb5+8YAP9n0+ZmNVYDusooyY6Z4Yw=;
+	b=EwQreAGHpgSfNM7lmUWj++cIuUl1o4EzPBTXlmDzQWHGqe7J0SJbWQtRz2ECD21mHRJJ9+XVRbx7LowGPsQdwAY3zKXDdMmxXWeBB7FoUtr/BD9GZHNduQ5U3qs3HeaRBhNw46CT0G6Z9hPrT+1K/BlZkJf2tQSqaz28kwrFyGc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R651e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XFByhuF_1795398997;
+Received: from 30.222.33.45(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XFByhuF_1795398997 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 23 Nov 2026 09:56:37 +0800
+Message-ID: <731d0ec6-d610-4e09-a01f-1d4733410853@linux.alibaba.com>
+Date: Mon, 23 Nov 2026 09:56:36 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,326 +53,158 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-u-serial-console-dequeue-v2-2-820f355827e6@gmail.com>
-References: <20261122-u-serial-console-dequeue-v2-0-820f355827e6@gmail.com>
-In-Reply-To: <20261122-u-serial-console-dequeue-v2-0-820f355827e6@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Neill Kapron <nkapron@google.com>
-Cc: Krystian Kaniewski <krystianmkaniewski@gmail.com>, 
- Brian Ellis <brianellis@gotenna.com>, Ai Chao <aichao@kylinos.cn>, 
- =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>, 
- Prashanth K <prashanth.k@oss.qualcomm.com>, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Fabricio Akio <fabricioakio@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795398515; l=8468;
- i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
- bh=69hjgYfN3tBwZsKHKKPp7YLsWXixOc43fSHobPp3dys=;
- b=9TB1ZrOHQI41zFbMz7PD2SiwXmeqNvxMw6zSZ1UBW7lYmxJ7dVIcUKmtjlqgylMImlM3Ox9qT
- eUooItT6HNPAvldYUe0koUjUlUn4ZubWzQriaIJbMtXGXS0pbG/QIt6
-X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
- pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
-X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
- auth_id=1076
-X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
-Reply-To: fabricioakio@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: unregister the JBD2 shrinker before journal
+ shutdown
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: ocfs2-devel@lists.linux.dev,
+ syzbot+38fdbb551940270021f1@syzkaller.appspotmail.com,
+ Cen Zhang <zzzccc427@gmail.com>, Mark Fasheh <mark@fasheh.com>,
+ Joel Becker <jlbec@evilplan.org>, Heming Zhao <heming.zhao@suse.com>,
+ Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.cz>,
+ stable@vger.kernel.org
+References: <920f7558ba0e4458b74cfb107e9dd77f.1@linux-foundation.org>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <920f7558ba0e4458b74cfb107e9dd77f.1@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-From: Fabricio Akio <fabricioakio@gmail.com>
 
-gs_console_disconnect() frees the console request right after
-usb_ep_dequeue(), which is asynchronous: the controller, dwc3 here,
-gives a queued request back from usb_ep_disable() in
-gserial_disconnect(), after it was freed. __gs_console_push() also
-queues the request with cons->lock dropped, so a disconnect in that
-window frees a request still being queued. An idle request is dequeued
-too, which dwc3 reports as "request ... was not queued" at each
-disconnect.
 
-Track whether the request is out in a console flag, cons->busy, under
-cons->lock, instead of in req->length, which the driver may not examine
-while the request is queued. On disconnect, the console gives the
-request up and frees it only if idle. A busy request, now orphaned, is
-freed when it comes back: by its completion, or by gs_console_work()
-when usb_ep_queue() fails. Until then it holds a reference on the
-console, so that the console outlives it after gs_console_exit().
-__gs_console_push() is folded into gs_console_work(), its only caller,
-so that a failed queue takes cons->lock only for as long as it needs.
+On 11/23/26 1:39 AM, Andrew Morton wrote:
+> From: Andrew Morton <akpm@linux-foundation.org>
+> Subject: ocfs2: unregister the JBD2 shrinker before journal shutdown
+> Date: Sat, 21 Nov 2026 19:34:56 -0800
+> 
+> sysbot reports a lockdep cycle through shrinker_mutex, filesystem reclaim
+> and osb->journal_shutdown_sem.  Unmount holds the superblock's s_umount
+> exclusively, while the OCFS2 reclaim path must first get its read side
+> with super_trylock_shared().  That excludes the two paths for the same
+> superblock; the report does not establish a runtime deadlock.  Still, the
+> lock ordering is visible to lockdep and produces the warning.
+> 
+> The write side of journal_shutdown_sem must cover all of
+> jbd2_journal_destroy(): ocfs2_clear_inode() can otherwise release a JBD2
+> inode through a journal that is being destroyed.  Move only the JBD2
+> shrinker unregister operation before taking the semaphore. 
+> shrinker_free() waits for active shrinker users, so the journal and its
+> checkpoint counter remain alive while they finish.  A successfully
+> initialized JBD2 journal always has a checkpoint counter.  Destroy it
+> after unregistering the shrinker, whether unregistering happened here or
+> before taking the OCFS2 semaphore.  The semaphore continues to protect
+> JBD2 destruction, removal of osb->journal and freeing the OCFS2 journal.
+> 
+> The userspace-visible result is removal of this lockdep warning during
+> OCFS2 unmount; the report does not demonstrate a hung unmount.
+> 
+> Fixes: f277230d002d ("ocfs2: serialize inode journal access with shutdown")
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> Reported-by: <syzbot+38fdbb551940270021f1@syzkaller.appspotmail.com>
+> Closes: https://syzkaller.appspot.com/bug?extid=38fdbb551940270021f1
+> Link: https://lore.kernel.org/6b0257ca.6ccd1e40.868ea.001a.GAE@google.com
+> Tested-by: Andrew Morton <akpm@linux-foundation.org>
+>   Link: https://lore.kernel.org/20261122093400.b726ecddf154f493dec1c892@linux-foundation.org
+> Cc: Cen Zhang <zzzccc427@gmail.com>
+> Cc: Mark Fasheh <mark@fasheh.com>
+> Cc: Joel Becker <jlbec@evilplan.org>
+> Cc: Joseph Qi <joseph.qi@linux.alibaba.com>
+> Cc: Heming Zhao <heming.zhao@suse.com>
+> Cc: Theodore Ts'o <tytso@mit.edu>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: <stable@vger.kernel.org>
+> ---
+> Tested with CONFIG_PROVE_LOCKING=y in x86-64 QEMU guests. A omitted
+> this patch; B added it alone. OCFS2 and JBD2 were built in.
+> 
+> Syzbot's C reproducer mounted a local OCFS2 image, accessed 200 files,
+> exercised reclaim and unmounted it. A reproduced the reported circular
+> locking warning: shrinker_free() ran from jbd2_journal_destroy() while
+> ocfs2_journal_shutdown() held journal_shutdown_sem. The unmount
+> completed; this test did not show a runtime deadlock.
+> 
+> B completed the same sequence without a warning. Three further
+> mount/reclaim/unmount cycles on B also completed without warnings.
+> An ext4 read/write/unmount control passed on both kernels.
+> 
+> Both builds needed the same temporary correction for an unrelated
+> mm/util.c compile error in another queued patch. The correction was
+> removed after testing. The test did not force an active JBD2 shrinker
+> callback to overlap unmount or exercise failed-mount cleanup.
+> 
+>  fs/jbd2/journal.c    |   17 +++++++++++++----
+>  fs/ocfs2/journal.c   |    1 +
+>  include/linux/jbd2.h |    1 +
+>  3 files changed, 15 insertions(+), 4 deletions(-)
+> 
+> --- a/fs/jbd2/journal.c~ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown
+> +++ a/fs/jbd2/journal.c
+> @@ -75,6 +75,7 @@ EXPORT_SYMBOL(jbd2_journal_check_availab
+>  EXPORT_SYMBOL(jbd2_journal_set_features);
+>  EXPORT_SYMBOL(jbd2_journal_load);
+>  EXPORT_SYMBOL(jbd2_journal_destroy);
+> +EXPORT_SYMBOL(jbd2_journal_unregister_shrinker);
+>  EXPORT_SYMBOL(jbd2_journal_abort);
+>  EXPORT_SYMBOL(jbd2_journal_errno);
+>  EXPORT_SYMBOL(jbd2_journal_ack_err);
+> @@ -2100,6 +2101,16 @@ int jbd2_journal_load(journal_t *journal
+>  	return 0;
+>  }
+>  
+> +void jbd2_journal_unregister_shrinker(journal_t *journal)
+> +{
+> +	struct shrinker *shrinker = journal->j_shrinker;
+> +
+> +	if (!shrinker)
+> +		return;
+> +	journal->j_shrinker = NULL;
+> +	shrinker_free(shrinker);
+> +}
+> +
+>  /**
+>   * jbd2_journal_destroy() - Release a journal_t structure.
+>   * @journal: Journal to act on.
+> @@ -2173,10 +2184,8 @@ int jbd2_journal_destroy(journal_t *jour
+>  		brelse(journal->j_sb_buffer);
+>  	}
+>  
+> -	if (journal->j_shrinker) {
+> -		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
+> -		shrinker_free(journal->j_shrinker);
+> -	}
+> +	jbd2_journal_unregister_shrinker(journal);
+> +	percpu_counter_destroy(&journal->j_checkpoint_jh_count);
+>  	if (journal->j_proc_entry)
+>  		jbd2_stats_proc_exit(journal);
+>  	iput(journal->j_inode);
+> --- a/fs/ocfs2/journal.c~ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown
+> +++ a/fs/ocfs2/journal.c
+> @@ -1119,6 +1119,7 @@ void ocfs2_journal_shutdown(struct ocfs2
+>  	 * Exclude the final JBD2 inode cleanup in ocfs2_clear_inode() while
+>  	 * the journal is destroyed and freed.
+>  	 */
+> +	jbd2_journal_unregister_shrinker(journal->j_journal);
 
-The disconnect no longer dequeues: in gserial_disconnect(),
-usb_ep_disable() follows and gives the request back. gs_console_exit(),
-where nothing follows, drops the unsent output and dequeues a request
-still queued itself.
+The comment above just explains why down_write() is taken, and the new
+jbd2_journal_unregister_shrinker() call is outside the exclusion the
+comment describes.
+So it seems we'd better move the new call above the comment, or carry a
+short note that it must stay outside journal_shutdown_sem.
 
-Fixes: fe1ea63ad806 ("usb: gadget: u_serial: reimplement console support")
-Fixes: e5990469943c ("usb: gadget: u_serial: Avoid spinlock recursion in __gs_console_push")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
----
- drivers/usb/gadget/function/u_serial.c | 130 +++++++++++++++++++++++++--------
- 1 file changed, 101 insertions(+), 29 deletions(-)
+Other looks good.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index 1f0110ea7f6a..fd511327c083 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -29,6 +29,7 @@
- #include <linux/kthread.h>
- #include <linux/workqueue.h>
- #include <linux/kfifo.h>
-+#include <linux/kref.h>
- #include <linux/serial.h>
- 
- #include "u_serial.h"
-@@ -111,8 +112,10 @@ struct gs_console {
- 	struct work_struct	work;
- 	spinlock_t		lock;
- 	struct usb_request	*req;
-+	bool			busy;
- 	struct kfifo		buf;
- 	size_t			missed;
-+	struct kref		kref;
- };
- 
- /*
-@@ -998,46 +1001,81 @@ static struct tty_driver *gs_tty_driver;
- 
- #ifdef CONFIG_U_SERIAL_CONSOLE
- 
-+static void gs_console_release(struct kref *kref)
-+{
-+	struct gs_console *cons = container_of(kref, struct gs_console, kref);
-+
-+	kfifo_free(&cons->buf);
-+	kfree(cons);
-+}
-+
-+/*
-+ * Free a request that gs_console_disconnect() orphaned while it was busy,
-+ * and drop the reference it took for it. Called without cons->lock.
-+ */
-+static void gs_console_free_orphaned(struct gs_console *cons,
-+				     struct usb_ep *ep, struct usb_request *req)
-+{
-+	gs_free_req(ep, req);
-+	kref_put(&cons->kref, gs_console_release);
-+}
-+
- static void gs_console_complete_out(struct usb_ep *ep, struct usb_request *req)
- {
- 	struct gs_console *cons = req->context;
-+	bool push = true;
-+	bool orphaned;
- 
- 	switch (req->status) {
- 	default:
- 		pr_warn("%s: unexpected %s status %d\n",
- 			__func__, ep->name, req->status);
--		fallthrough;
-+		break;
- 	case 0:
- 		/* normal completion */
--		spin_lock(&cons->lock);
--		req->length = 0;
--		schedule_work(&cons->work);
--		spin_unlock(&cons->lock);
- 		break;
- 	case -ECONNRESET:
- 	case -ESHUTDOWN:
- 		/* disconnect */
- 		pr_vdebug("%s: %s shutdown\n", __func__, ep->name);
-+		push = false;
- 		break;
- 	}
-+
-+	spin_lock(&cons->lock);
-+	orphaned = req != cons->req;
-+	if (!orphaned) {
-+		cons->busy = false;
-+		if (push)
-+			schedule_work(&cons->work);
-+	}
-+	spin_unlock(&cons->lock);
-+
-+	if (orphaned)
-+		gs_console_free_orphaned(cons, ep, req);
- }
- 
--static void __gs_console_push(struct gs_console *cons)
-+static void gs_console_work(struct work_struct *work)
- {
--	struct usb_request *req = cons->req;
-+	struct gs_console *cons = container_of(work, struct gs_console, work);
-+	struct usb_request *req;
- 	struct usb_ep *ep;
-+	bool orphaned;
- 	size_t size;
- 
--	if (!req)
--		return;	/* disconnected */
-+	spin_lock_irq(&cons->lock);
- 
--	if (req->length)
--		return;	/* busy */
-+	req = cons->req;
-+	if (!req)
-+		goto unlock;	/* disconnected */
-+
-+	if (cons->busy)
-+		goto unlock;	/* busy */
- 
- 	ep = cons->console.data;
- 	size = kfifo_out(&cons->buf, req->buf, ep->maxpacket);
- 	if (!size)
--		return;
-+		goto unlock;
- 
- 	if (cons->missed && ep->maxpacket >= 64) {
- 		char buf[64];
-@@ -1049,21 +1087,24 @@ static void __gs_console_push(struct gs_console *cons)
- 	}
- 
- 	req->length = size;
-+	cons->busy = true;
- 
- 	spin_unlock_irq(&cons->lock);
--	if (usb_ep_queue(ep, req, GFP_ATOMIC))
--		req->length = 0;
--	spin_lock_irq(&cons->lock);
--}
- 
--static void gs_console_work(struct work_struct *work)
--{
--	struct gs_console *cons = container_of(work, struct gs_console, work);
-+	if (!usb_ep_queue(ep, req, GFP_ATOMIC))
-+		return;
- 
- 	spin_lock_irq(&cons->lock);
-+	orphaned = req != cons->req;
-+	if (!orphaned)
-+		cons->busy = false;
-+	spin_unlock_irq(&cons->lock);
- 
--	__gs_console_push(cons);
-+	if (orphaned)
-+		gs_console_free_orphaned(cons, ep, req);
-+	return;
- 
-+unlock:
- 	spin_unlock_irq(&cons->lock);
- }
- 
-@@ -1080,7 +1121,7 @@ static void gs_console_write(struct console *co,
- 	if (n < count)
- 		cons->missed += count - n;
- 
--	if (cons->req && !cons->req->length)
-+	if (cons->req && !cons->busy)
- 		schedule_work(&cons->work);
- 
- 	spin_unlock_irqrestore(&cons->lock, flags);
-@@ -1107,7 +1148,6 @@ static int gs_console_connect(struct gs_port *port)
- 		return -ENOMEM;
- 	req->complete = gs_console_complete_out;
- 	req->context = cons;
--	req->length = 0;
- 
- 	spin_lock(&cons->lock);
- 	cons->req = req;
-@@ -1126,6 +1166,7 @@ static void gs_console_disconnect(struct gs_port *port)
- 	struct gs_console *cons = port->console;
- 	struct usb_request *req;
- 	struct usb_ep *ep;
-+	bool busy;
- 
- 	if (!cons)
- 		return;
-@@ -1134,15 +1175,22 @@ static void gs_console_disconnect(struct gs_port *port)
- 
- 	req = cons->req;
- 	ep = cons->console.data;
-+	busy = cons->busy;
- 	cons->req = NULL;
-+	cons->busy = false;
-+	/*
-+	 * A busy request is queued, or being queued by gs_console_work(). The
-+	 * console gives it up here, and the orphaned request is freed when it
-+	 * comes back: by its completion, or by gs_console_work() if
-+	 * usb_ep_queue() fails. It holds a reference on the console until then.
-+	 */
-+	if (busy)
-+		kref_get(&cons->kref);
- 
- 	spin_unlock(&cons->lock);
- 
--	if (!req)
--		return;
--
--	usb_ep_dequeue(ep, req);
--	gs_free_req(ep, req);
-+	if (req && !busy)
-+		gs_free_req(ep, req);
- }
- 
- static int gs_console_init(struct gs_port *port)
-@@ -1165,6 +1213,7 @@ static int gs_console_init(struct gs_port *port)
- 
- 	INIT_WORK(&cons->work, gs_console_work);
- 	spin_lock_init(&cons->lock);
-+	kref_init(&cons->kref);
- 
- 	err = kfifo_alloc(&cons->buf, GS_CONSOLE_BUF_SIZE, GFP_KERNEL);
- 	if (err) {
-@@ -1187,21 +1236,44 @@ static int gs_console_init(struct gs_port *port)
- static void gs_console_exit(struct gs_port *port)
- {
- 	struct gs_console *cons = port->console;
-+	struct usb_request *req;
-+	struct usb_ep *ep;
- 
- 	if (!cons)
- 		return;
- 
- 	unregister_console(&cons->console);
- 
-+	/*
-+	 * Drop the unsent output and wait for a push in progress, so that the
-+	 * request is busy below only if it is queued.
-+	 */
-+	spin_lock_irq(&cons->lock);
-+	kfifo_reset(&cons->buf);
-+	spin_unlock_irq(&cons->lock);
-+	cancel_work_sync(&cons->work);
-+
- 	spin_lock_irq(&port->port_lock);
-+
-+	/*
-+	 * Nothing gives a queued request back here, so cancel it. Holding
-+	 * port_lock keeps a disconnect from orphaning it, so it cannot be
-+	 * freed under usb_ep_dequeue().
-+	 */
-+	spin_lock(&cons->lock);
-+	req = cons->busy ? cons->req : NULL;
-+	ep = cons->console.data;
-+	spin_unlock(&cons->lock);
-+	if (req)
-+		usb_ep_dequeue(ep, req);
-+
- 	if (cons->req)
- 		gs_console_disconnect(port);
- 	port->console = NULL;
- 	spin_unlock_irq(&port->port_lock);
- 
- 	cancel_work_sync(&cons->work);
--	kfifo_free(&cons->buf);
--	kfree(cons);
-+	kref_put(&cons->kref, gs_console_release);
- }
- 
- ssize_t gserial_set_console(unsigned char port_num, const char *page, size_t count)
-
--- 
-2.56.1
-
+>  	down_write(&osb->journal_shutdown_sem);
+>  
+>  	/* Shutdown the kernel journal system */
+> --- a/include/linux/jbd2.h~ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown
+> +++ a/include/linux/jbd2.h
+> @@ -1566,6 +1566,7 @@ extern void	   jbd2_journal_clear_featur
+>  		   (journal_t *, unsigned long, unsigned long, unsigned long);
+>  extern int	   jbd2_journal_load       (journal_t *journal);
+>  extern int	   jbd2_journal_destroy    (journal_t *);
+> +extern void	   jbd2_journal_unregister_shrinker(journal_t *);
+>  extern int	   jbd2_journal_recover    (journal_t *journal);
+>  extern int	   jbd2_journal_wipe       (journal_t *, int);
+>  extern int	   jbd2_journal_skip_recovery	(journal_t *);
+> _
 
