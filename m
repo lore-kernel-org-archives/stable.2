@@ -1,83 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795465379;
-	b=zFhFIEBw18l73Fr/SoFKimgx7GHQb0WFX1AtPzf97Dw7ZWGdOXHREWnaH+U4BydQedji
-	 g9t4i4VHDrPupXCmF+4zi/rXJv08DwcmpH4qVnmfMGiTraieoO/04kdjl4lnC1F2ENwnB
-	 cJIzchCOwpfan7YaIhAHctl6ll25Lkm9OCCdRpoisz22p72sW14tgOn0dgOmT5QkHZM+R
-	 R6vE8HslTgJVePnosE8VzdYXgAiSOwS49l3coCZSCuL/8W3SNLVY8DMoXaax5HFWmJHk0
-	 Cn4G5IZBPTgowStCXcE9MqyXVpP066nY6n6wJSn4CYUgoMIHfJR4rN3lfpXR8EGlN5w==
+	t=1795465533;
+	b=ZM1XJ95is8N7jUWW8oCZE16FFXHMTOT2/kcuaY8KvKdYW1xZsE4wSzfxVGH10ab8D0Wi
+	 QsozlJm6UMYkbvCDr17DwmV1vlDBWwCB5rk7T3a4G+yjFsnppBp9dCw7sIMMi1SWt04qg
+	 avLQ3hbrP/twso68gPM6DWqVQqgkk+dH0DOINTi7yVonBj5/xILCjfb3/hnRLEQ3CsweU
+	 wCQovY+6Na+hhQpMIlRGP6LFnl4+X4DQi6+UKrJXTKI5v4jpqfD2oMt0+9GpMx3G52I15
+	 MpsgFGWx0t5tIO8y1/GEXdo6KHM0xdYDUPsAieScH2FHHOAXZK9E1TwrbOEC9PhsZ4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795465379;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=KKXZcV8cKb3Lg1UagSAM58C/qQq0Byjz97EepSOcDvY=;
-	b=uvxI+nl2MNQ6Szlm0ZxoWq+KbhEqmqAgj3QExvfy1UDGqS28y1pYXCicRg+LtlA9GkC8
-	 vEYK8ERtyGJHl5yUth4pbS1l5YvAvXU5LtoGVyIJwcgQAsBp6YndaNWWKqMVmJUgqLC1N
-	 lJUwIxm33xRsvXQBKDLGgszlUIFwz/eMW8Sj1IWJhXRCwy9Z97H7/f3Pk/X3B7S5D0UTo
-	 9ofh5aKTOx3QSv3P9oz6nGPSJiFDTipg7KhH/djK43kZbEuuKcZ7HDGmZH/rDtV1tfDHy
-	 pIyLp/PWrVpVYQcXBhE6yUYUDhhPMJz+Cc0wI7ySLmpWJVSpoRGnkHTmLFBfN6YrJOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795465533;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=3VcpHnSiwyTeiDddBV3SmBxGPQ1li3vFXIux+h2TFxk=;
+	b=TvTLCxnKBMrds2g4IxHRv9//MFe/8u6zUE5Fx/T3Hywv+bA2ADgyL2vCOqfRrUCgVZi9
+	 zdgRjyfgKyC0E9qgIbEKdgG4B5RzzJywVag/f7dCTxY5wIWW1UlX1mefGJYaE21OhOWG7
+	 8NKPozNf2DXLF8R3JTY1Xvz6h1K4ZJgeOo+WHaT+UMOKGJMYIS0Mriy7bYGY7yWxSbJWA
+	 AlUtJ2xyxiM20yaV3NkGpHu4zsHH0HmmTmp46LaHlK69T/sjjVIWUxf2M9xP5ObO3KkLW
+	 rpuTsmoO+Q+fEu1lATjkJTmHq8TRLQJYlnZnq2afS9oq3PXTj7icoLnXG3eVMlwngRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="SieKh/wJ";
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WCd6gmjn;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29171606A31E;
-	Mon, 23 Nov 2026 20:22:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29171606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFC3606A31E
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 20:25:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBFC3606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=SieKh/wJ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=KKXZcV8cKb3Lg1UagSAM58C/qQq0Byjz97EepSOcDvY=; b=SieKh/wJ1aTov+gaxl5hmOcwwM
-	hFQ5mZXaNyF0dzEWsPJp8agfyi5mQ0Mrrdj8JFcWrv8xBio/0j2WBcKLTPq4Bae0HPPak6s0+oX0K
-	3mheKlnmLI13Izk9zBqmXoMp1i5bll9H9vBHbSNkQzkpo0LQvY5yxokAU+nXiGcMtIP+8HBnDOZ6d
-	9EzE7POVu380aSAOXnTRCxAdU2CGbHfizSz2n+C+224iWNTU1MOt5vFOduTuSgKgkgipe8quFeUJ/
-	2D1jLEKpcRSt3+AnJ4tEN4mW7pduiThuU0WBiTYlNGTgYprHtra6kNVPwy0nMG2IHfnJwuXGrBcO7
-	0rOglfAA==;
-Received: from willy by casper.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xVaYl-00000006z5F-1ZU9;
-	Mon, 23 Nov 2026 20:22:43 +0000
-Date: Mon, 23 Nov 2026 20:22:43 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	William Kucharski <william.kucharski@oracle.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Joanne Koong <joannelkoong@gmail.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	stable@vger.kernel.org, Chris Mason <mason@kernel.org>
-Subject: Re: [PATCH 1/2] mm/huge_memory: use NOFS when allocating while
- splitting folios
-Message-ID: <awSgk1VTUsiVQOAT@casper.infradead.org>
-References: <20261122-migrate_reclaim_deadlock-v1-0-83c56185b0fb@kernel.org>
- <20261122-migrate_reclaim_deadlock-v1-1-83c56185b0fb@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WCd6gmjn
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso4727236c88.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 12:25:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795465532; x=1796070332; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3VcpHnSiwyTeiDddBV3SmBxGPQ1li3vFXIux+h2TFxk=;
+        b=WCd6gmjncxMKRkd3iKSikeE3vcvosLDXqXyReoAZrp6OZ4q2WT8+0IcqcC6y0DBGnK
+         Z/qPmKd3p7srywRjuTHqBTPm8wHoCQqGrGMP3tiQFsED0ZnQmO2w5ggdMmOqJnaKA1Jx
+         dzPYRhXIXslkbw7j8nS0MqG6ExvbF0rpiQi+u4Acp5jjPSCm1LsV7Sq2cWd3DgXN2jvY
+         11FqIOt5eHTARvp4KmADAMrXyHWBX67qEzNn5eVvz8+uSyeAJCE/J200NSoJtSqgvjZ3
+         dE/K8YQpTCLaYSaKa+Jg2F6mrpdTitmcWKIn0812wjnhPAGL5aAjGTEyLpbI5bMnBfqy
+         JaDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795465532; x=1796070332;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3VcpHnSiwyTeiDddBV3SmBxGPQ1li3vFXIux+h2TFxk=;
+        b=e0rSr9bYHw/n+MmVLKYdM47cRf9poq0MkkSj8E/R9rHUo7JqkZR31E7A/+QNcWVnLL
+         YjtJrEomjTSMSFDzQC368gRATL2XdbQX5TptXpeOPD6l3pA5qGEn0bdrO+16TCXrk7LC
+         6bfl74sxDhPYwNbp6Wtx21Y86m4nyOFPaHne3GwT5vzVWmG6ysqEMMSd2KU0TInNBAh/
+         vs7YQoM6UAwkpfYlhfWM2/aReYn9pIzu5xI6nqfTUYytlko6VPUNp/5J9kSBOlzvho0i
+         wDiRBbz5+GKMKGRnRUHXpLr8XE6CXONaLy3p35+VKRPGBf1gYcy7d5v/8CYiRIy/GYbo
+         yiAQ==
+X-Forwarded-Encrypted: i=1; AL+hErF0EJzqosxhJzLptqni6vII/IRrheAqPK5lZETS+Gedi8hYQvycl9WXx5smNarT6bidDlg3ftk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tVJAGdNd+gzfijpxbUZbVMT7qjSebx5QE30AWDTgsNHSPCNBJ
+	NRr3WwnI6cri8Pria05Np9usDPl2uwqV+pBin+O50wn7/arE+j/FwKTs
+X-Gm-Gg: AZFdTZeABFGKWODowxCdj2/+JjsSt39vSekt8hy4bxZFypExVzk02mPA/+XxYs3eHvM
+	kAIs71tyTAyX5FIISBars/3+2ONqanNgsl21tjCQGB/iYQcfLDZkD7SX9UdvPMCMaJ9gn4BurUC
+	qO+hX94TQZTcWzhhO33j/CNa9rWLl5bxIS6ZnTyIuR3q2EEOy7Y+4BPkMyAg3HlBRWBpASW89fa
+	B3lAPQuUk4gGsNYtsQYH4ANJj+DbEgZPKUEiyZtxJkDMgMpsP/OwW1XNk7d9/s6UHSbD0nw/3+H
+	m4yEw0Efn0IG2Gp5SNGgm+ILEDOBHhgcGdpsc4FmuetFp5SXS1OfknfuXE/uRKTWnSViqg+bxnY
+	U7mV31WyD0ZcVzmlhtYwBDvOMmmEopb22cafG3Nb/NopSGuBO4YFIK/XQ4PPSexgIYue0HWSix1
+	I6o3dP2RQvzlSF0DojZB7GtkzGdmTluS8C9SWDooQMtqd3rF7F/stv0EYxG1N0dwpHLn/hlmjhs
+	VLcXtYX6A83YCUanmk8tqmjPvgicMM9Pe1N2EQmMHxAqlsWODET+oYE6qoeaGHknnXpVosr2CLe
+	0pEdV0dUCCPtXTlY8kri7K1wvmxOHhz3rODf7tYWUWTJV0AiyiY+JXY13FkEIJSz5JPQYrU=
+X-Received: by 2002:a05:7022:290:b0:1b5:dc3:209b with SMTP id a92af1059eb24-1b5568ac6b0mr11976416c88.22.1795465531758;
+        Mon, 23 Nov 2026 12:25:31 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:4121:d698:201c:9274])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567e2bd1sm29277191c88.3.2026.11.23.12.25.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 12:25:30 -0800 (PST)
+Date: Mon, 23 Nov 2026 12:25:27 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Fengping Yu <fengping.yu@mediatek.com>, 
+	Marco Felsch <m.felsch@pengutronix.de>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH 08/10] Input: mt6779-keypad - enable keypad clock before
+ programming registers
+Message-ID: <awShM65vJT7DhZLT@google.com>
+References: <20261123183200.3900004-1-lee@kernel.org>
+ <20261123183200.3900004-9-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,48 +104,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261122-migrate_reclaim_deadlock-v1-1-83c56185b0fb@kernel.org>
+In-Reply-To: <20261123183200.3900004-9-lee@kernel.org>
 
-On Sun, Nov 22, 2026 at 01:42:17PM +0100, David Hildenbrand (Arm) wrote:
-> Various callers (migration, memory-failure, s390_wiggle_split_folio) split
-> locked folios without holding a reference on the folio's inode.
+On Mon, Nov 23, 2026 at 06:31:14PM +0000, Lee Jones wrote:
+> mt6779_keypad_pdrv_probe() writes the debounce and matrix selection
+> registers over MMIO before acquiring and enabling the "kpd" clock via
+> devm_clk_get_enabled().
 > 
-> Splitting a file folio might allocate memory for the xarray and call
-> filemap_release_folio(). If either ends up in direct reclaim with
-> __GFP_FS, reclaim can evict the inode through the dcache shrinker, and
-> wait in truncate_inode_pages_final() for the folio that we hold locked:
+> When the keypad clock is gated off at boot or its clock provider defers
+> probe, accessing unclocked keypad MMIO registers can trigger a bus abort
+> or silently drop the configuration writes.
 > 
->     try_split_folio()
->       folio_lock(A)
->       split_folio_to_list(A)
->         xas_split_alloc()
->           try_to_free_pages()
->             super_cache_scan()
->               prune_dcache_sb()
->                 iput_final()
->                   evict()
->                     truncate_inode_pages_final()
->                       folio_lock(A)
+> Acquire and enable the "kpd" clock before accessing the keypad
+> registers.
+> 
+> Fixes: f28af984e771 ("Input: mt6779-keypad - add MediaTek keypad driver")
+> Closes: https://sashiko.dev/#/bug/linux-fc15622a-407a-48b2-88db-195cdb311dbf
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-The "holding a reference to the inode" piece is a red herring.  We can
-deadlock even without it (although maybe the AI can't see it).  If we
-don't remove __GFP_FS, we can hit this path:
+Applied, thank you.
 
-  folio_lock(A)
-  kmalloc
-    alloc_pages
-      try_to_compact_pages
-	compact_zone_order
-	  compact_zone(MIGRATE_SYNC_LIGHT)
-	    migrate_pages
-	      migrate_pages_sync
-		migrate_pages_batch
-		  try_split_folio
-		    folio_lock(A)
-
-See this discussion:
-https://lore.kernel.org/all/20200214065504.GK31689@dhcp22.suse.cz/
-which led to patch f2c817bed58d in June 2020.
-
-So yes, anywhere we're allocating memory with a file folio locked, we
-should enter nofs scope.  Perhaps we can teach the AI that rule?
+-- 
+Dmitry
