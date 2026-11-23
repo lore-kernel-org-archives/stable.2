@@ -1,121 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795450129;
-	b=odWqKWlwbeXkO6yccNgJSiWhCFQh0brrD3lSLwo56y0QKh2NI38Xk8k3eO09VR4y3suy
-	 NvP/+7GY73Ko3h+haF3vjB+OTUBBbhNkWUME+bpR91ieYWUWHYFV2/jHSOZSvDDoXkFsv
-	 HEeeZZch4ms+MFr9ckqmnjLau0Erk9tzptK077Wx2PIxMCp4CPYtLGDrFfAmd4KEUje+y
-	 174bihblDwOZmuk5+aQ+9sFdUXcUOIgBbWDHqcegTvUpkDyxdoubPJ2i/bBwYvo8reyqg
-	 EewriFUfNYseRL9Hfed2XEGsipGOiMnIgzRL3dKceH7nVnagBbU6XUlteRfqqIlc5Aw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795450129;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lzGh06KvbW29kTdCwqSFpXTG7Ti9DVLUu53y+m7EPw8=;
-	b=Xqdcyi18o4FMSGo0ms7bV2izkfkkof3N6ySKwUSXfTt/Qe4vKZ6106Ca0MvA9W/zQiAH
-	 cGjyRdEnYPLIkzpnLUbUPdeetrknwP+Bra3wnQDSc4Gd7KdUUF5INyxNvAFvp2NTx1cLH
-	 2VUKjVfPPdK/dYG8oCUMT4JW1227X4TxnTxe16qaB9rqUtzczOL3lJOAgnhSZAb9zxCVA
-	 bYWlz8f3wo2FSY3Jkyi2Tgcso9GokyK5kn/UdpgyohEWu8T4yJEKOIqP07jJfMR8SzCYQ
-	 rPyXs2QmM1Z5jUyJenCbY9WdPIpph3rOYrgFiteNxlTibM4Z63+Geu/riVUqGsWPOGg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C5nucsP5;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Qd5JR7g6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795450177;
+	b=1Qs77wwKRz+pQiIeDH3tRxkdaQo78a1+vb3ZCzWw6TNtkamKx9mEazmcool0Mo7J2mP7
+	 5z1RZ/bU4Q3OeLIKypFyRhi9B5BA3jq//zQhlWrDep9AbOiMG9LaY29bFGdd9O2WW7DoJ
+	 nsUCbBdvOaZMPPu4Dm81Clpq7S6TOCytCG9IJkKUP4TKvxx9kxAiBmfqBsyaAxQ6lBuyO
+	 eoZK+CWH/X2V4oDmF3zFK7iQHlhA1Su1aAknJV+wC52CuhPLBZ+MfuSACxpRQwHB7rWve
+	 csR8hIx7thgjR6JqJqMOMmID1F9a/qgWdx3tgVjsqbDt3PEMASJsHX9k444yChk07Ig==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795450177;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=JhcfpBwHSU7MgwxhgP4Qq1k5bLuK7ieaSxmvk+gyAcc=;
+	b=2bkAXmb5KQRlZNpSLCjgAFEkiZo27MY2zLC+3Bq0h9BnDd0UERu0ci/RKWSI3C9ZKLKD
+	 rY5orEgp1jnRDx0rMwYreFKsIbL7vVI1Vjibh/zX4JWXPn7J0Xcb4owoNwN5LFToFk8+r
+	 RzK/EHfNU893PlKhKRQyARFpVXeNATZct7iRAIa+HuvHxzi2Ap6IaJjfkqTrifKJg6GPM
+	 Vr3n0F3ZHa6w+ZjfvEtyco6Lj2ew4y4W/b9pfKkT+Vm3bunaFxUoNSg3Rqqq4j78WCXWi
+	 waAIHsYTTsPwkj5ScmtfVZfVu3bWVTEcX4KnbGN1hdOkvnlwywQSFyTPwcDQ4JFJKaw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--penghuang.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ewKOjoXP;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C62A606A321
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:08:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C62A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04F5606A31F
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:09:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E04F5606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--penghuang.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C5nucsP5;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Qd5JR7g6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795450128;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lzGh06KvbW29kTdCwqSFpXTG7Ti9DVLUu53y+m7EPw8=;
-	b=C5nucsP50WObmK5Q7uRc+TveRbQ433qzGh7y2uyYQKa3lu8VBblMI/jfSafsNlAU5bzqM3
-	2Oof31kKa1N1IDRagkxQGSOfEn7xcPfxwBTeYUwTJmOllC7W87Xmt98CG4KzUEqxzOoPdu
-	PXhmAJmsmsCBRCvg+AyMrINooTjHRUA=
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
- [74.125.224.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-136-9PW2i-FMOJy55zS1035qfw-1; Mon, 23 Nov 2026 16:08:46 +0000
-X-MC-Unique: 9PW2i-FMOJy55zS1035qfw-1
-X-Mimecast-MFC-AGG-ID: 9PW2i-FMOJy55zS1035qfw_1795450126
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-67be4f2f42eso5969577d50.0
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:08:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795450126; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UYAcZeIz+6NBh0XcgXt+fA0HuE5W/7XM07GgKj6qt//IbARp60QnRxD0yt8qdL7Nq4
-         IxelX+VMUirgYZO8GuVmfqkAdx7wRDeFEhSION4nfT2+W1nM5VhGeM6Zfk+Cz9L+yqLf
-         +Bko3ztEpGM4z0WasjYeCmc+tdcsYDOv+LeKZ/v1Fb3YEr3qUYS/oWx8cQBemCqOG2Ii
-         IyyfrnX6wc4XCdFCPBYYQTXgWNHwNwWh59AAjWCvqzJWkcH0ErMPG6aFgQ10FnjDeZRm
-         6hqteQSfsTtLusH4wHaS3ll0W0MeCOeBcl3IdSC8pdP0to2FWXWrmW7jhIKD2vSXWKAe
-         TmMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lzGh06KvbW29kTdCwqSFpXTG7Ti9DVLUu53y+m7EPw8=;
-        fh=+YFVGxzFNL/W2QrsOEBIL8NytOboK2B9NiyKlXcRaJc=;
-        b=Cw8PPh1a2jqUYmW6nv+taoIyr1iROZk0L+ha3s8TrzzF+hg4W65ywf2QTYe8AhZpG/
-         qrPKU6Uiu9aPFl/tX9miNVbFGBpHKw2XlR+fBCpZyM7E60vNgNJPqG/mGU5RRDwwpwgJ
-         D2lqvb/3WQiPBTaSflrK4sggBnegGDK53Dr6iqpJbE7OVcN6A8/0jP+hcvdQ/+M7vpWD
-         AdYjJzLR2ZVsMP4wD+dp9TuUE6uMo/BrR0aMORCxgaij0tf4KSI+4VG4AU6NBxPFdHBp
-         GLS2TSyDYI6aFIV+lqfXjeyKS0D7ATYzTOoWdsI/RaydsxZq9d/37WtszOihAbGJGYnp
-         8C0g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ewKOjoXP
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3869865a304so1559794eec.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:09:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795450126; x=1796054926; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lzGh06KvbW29kTdCwqSFpXTG7Ti9DVLUu53y+m7EPw8=;
-        b=Qd5JR7g6lbc1bTE57DLvSbAcvCu+U5VnKV9hn7rTxISUy+bY47heC761ODwqICnDgn
-         0qFgXuS7257s4kjYStNiNV8VAYTq3w+s8h09+qO05ZU2DwHrId+FhHfAYKeSITGi3N3P
-         fSTI8BPp6EenPsopJifSxHd6LZlIocbNSV5EFqDuKpOSLWBzNbJOzYuOFrykRuEUhKcg
-         UNQu+LPVEhoI28bovtV7kSmZL/Pk1CSuRx/jFxwWnx3YX7fkH+GA3pyeyYE1vGgmsYt5
-         D0y43koEF5r0ggN0J3B8YGq1SRmtxPUnpJcpWuMuzqZEZwF6pjJFek11VkAxZk1UXnEp
-         8LMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795450126; x=1796054926;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1795450176; x=1796054976; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lzGh06KvbW29kTdCwqSFpXTG7Ti9DVLUu53y+m7EPw8=;
-        b=GowEdybmppCokikFaeWHXBut31sRKcj2sUibxo8TqWZ42zoPru8BqJsAnBAS1j4ip+
-         a+Zr5+eH2u/63nuvgxvI/ZSeTo/PVNJbKJ+mq35nl3Fw2qyFJ8SS4KYiid2B51hsAvgu
-         p2ecof/+zJ189Xa0aWaPTeUgV2RJTKtZ5PgrveJfTkpX7i7yMG1S/IUivzdKiqMJrDXr
-         EnzJcPMcYsFPrpnTuQfxZ3GPnxpHx1sIfgViC43o4Iwyf3WiS9tp1q40Ai8+vUtQaA/v
-         phgkQGhxm6USS8bp8COjI11x4mL8PxToxIMV/Qi5cjgvCfMXOtPE3GFZO111pUnzCdBV
-         dZRw==
-X-Forwarded-Encrypted: i=1; AL+hErEdojgya9zUPY4A+e9Dn4Zta2E1kN7xHqFLAm3KTiTFprvFJlxTlJWFl27Fm+HZADHNia2Lzyc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8mLZQmmlH7EPVZVvX9Z0xF6fyogCRm/SqCwHLeBlHoF/M3Hy/P
-	X4YONZBNSuiMnBRnawEyjXlsEyE4Q3nwF/1pZ8uDtaEzNWQBe4pJd13AwSwjxXSbUMfp4AoyPnQ
-	AuE/b+SZWsTnino7D/5aIE0ceE00f4lTTkzT7fI58yt9/9Ud4aTfxQPzdQWCwSZ3QLd8K8xZFii
-	1IeNX4JtGAtP/C0gENySrxbFGsXmlCuj1G
-X-Gm-Gg: AZFdTZdQ0tKb/FoOIIa0N6Z5fc3chhmf9NsTbh1VFZNS1+SVzKUGgnyg0kOfnt4xHG2
-	GkAHtmFU3CqGug2lg3J4lIGORVp0FNdzFEhTz7CV6p95shHSofvlznbuWay8/eTWU5LRu1V/Ixj
-	wZsUsysvnUD1Hjr53HONjAJlxtIB1VxgT7RvGE2cQ4C4dOLpceD6nv/WFO8w1gzb3nL5fdCThQe
-	NInRgFpxLdqTU9NxxpX8Ig9E4tplgwRWboSnM9U23YguvDyZzEtVVe/RjI=
-X-Received: by 2002:a05:690e:4883:10b0:677:d5bd:8349 with SMTP id 956f58d0204a3-67df445d5bfmr2252245d50.63.1795450125513;
-        Mon, 23 Nov 2026 08:08:45 -0800 (PST)
-X-Received: by 2002:a05:690e:4883:10b0:677:d5bd:8349 with SMTP id
- 956f58d0204a3-67df445d5bfmr2252240d50.63.1795450125014; Mon, 23 Nov 2026
- 08:08:45 -0800 (PST)
+        bh=JhcfpBwHSU7MgwxhgP4Qq1k5bLuK7ieaSxmvk+gyAcc=;
+        b=ewKOjoXPN39yp0jVeaMqx6C2OwF0rXLLiqjYLeRo3WkCV1R48gogHGci439v1gMnsa
+         BmbLTPcjth/T6hJBuzIgCHOkUnYmt/HjQYaU0A/R9Dcw2nkveWRI2fvNP1tdESzac5+b
+         gtX4cEuex2rGRf90bGPd/0ovDW6gAYokWYdb0D9bbYL8N8BOH/Tpd30U6qK3p3uU0QaA
+         94FHbBLRK7YUWFDFOLEQX49n7R/5rzhJizbn5nKL3wVBV7vQ5bK0694LnQ+aUIcd6dFE
+         Qu1KVM0Yct4VZgRlfK4/fYxSfCJSxseXUh+G7gMdcJFDaTL/+Nhvf2IoaP13D51+f5U/
+         DIhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795450176; x=1796054976;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JhcfpBwHSU7MgwxhgP4Qq1k5bLuK7ieaSxmvk+gyAcc=;
+        b=UMu83qBlwO2bh19pG+XT0RdFUNVaKEJMjuR05HcBf2fcMFYw0aDSWwwhokuQeX2+3b
+         ARXCCc30O7v8TU1H9vN39sMjaFkKU7KT2xd/uB23z1+tHeSO3ty2XBC/E/avfYWwUYZU
+         LuhS1n+wQ8EVlEownFCqnfupVdp8Ox43GZhzPyLLitW9+WyXMMA55CkdcyLKEuzuh1Dd
+         4sB1Crp2r/xnlAd7qW2A5gzpptb9nRCaDk5TQPJ8CCfuPMiPwIJQoBY7QkIela4qYkQe
+         HuJUEd8sXWelI5l0DmBb2ixhUHcXxJtVSuafj7HZwfgkO/g96KzyMXzdddG7Tty14Oh5
+         dyaw==
+X-Forwarded-Encrypted: i=1; AL+hErEp/oEBSvejtJ/050XmWW7qP5lQXJTfpi36QcotrzhTgpUfgQ7KhDvuEBxVOXtFdHBn8CMc1HY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9gAefHGj/nJ6N5zZDG0xtlsexDwmOml8+ICAZ+H19nG9FFvpo3
+	cVZjQ2wOgsW6fEKeQgNYp6EUj786gkcg27caXyb6Ci7OUKBjpTtLIkaLh0OTJcl/ZJ4eetTBfyR
+	8fChnxph90eF6hDXlQQ==
+X-Received: from dybmf40.prod.google.com ([2002:a05:7301:928:b0:36c:9b55:8436])
+ (user=penghuang job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:4284:b0:382:1aea:c21d with SMTP id 5a478bee46e88-3857191bcf7mr12981179eec.41.1795450175386;
+ Mon, 23 Nov 2026 08:09:35 -0800 (PST)
+Date: Mon, 23 Nov 2026 08:09:34 -0800
+In-Reply-To: <CAKfTPtCQpVhtVT7Mhqe1=Ukcmc1pX8Jgn9ypb64--8cJ-7G4BQ@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -124,96 +78,77 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261123135646.3962652-2-dtatulea@nvidia.com> <20261123135646.3962652-3-dtatulea@nvidia.com>
-In-Reply-To: <20261123135646.3962652-3-dtatulea@nvidia.com>
-From: Eugenio Perez Martin <eperezma@redhat.com>
-Date: Mon, 23 Nov 2026 17:08:08 +0100
-X-Gm-Features: Aa3M54pR7ZVMpPP5oNO1OCA7GwyP-se96UdMP4VNO94DAWt_5DL7ZGYCWayniuk
-Message-ID: <CAJaqyWedvj6htnM4rJyrbynW3u1k=6uLHrfuK05YvM5z8v1Hjg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] vdpa/mlx5: Fix error cleanup when VQ setup fails in .dev_add
-To: Dragos Tatulea <dtatulea@nvidia.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>, virtualization@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Gal Pressman <gal@nvidia.com>, stable@vger.kernel.org
+Mime-Version: 1.0
+References: <20261122015729.2512645-1-penghuang@google.com> <CAKfTPtCQpVhtVT7Mhqe1=Ukcmc1pX8Jgn9ypb64--8cJ-7G4BQ@mail.gmail.com>
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+Message-ID: <20261123160934.2289260-1-penghuang@google.com>
+Subject: Re: [PATCH] sched/pelt: Skip dormant cfs util_sum under scx_switched_all
+From: Peng Huang <penghuang@google.com>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Peng Huang <penghuang@google.com>, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, Tejun Heo <tj@kernel.org>, 
+	David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
+	Changwoo Min <changwoo@igalia.com>, linux-kernel@vger.kernel.org, 
+	sched-ext@lists.linux.dev, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 23, 2026 at 2:59=E2=80=AFPM Dragos Tatulea <dtatulea@nvidia.com=
-> wrote:
+On Mon, 23 Nov 2026 at 11:34, Vincent Guittot <vincent.guittot@linaro.org> wrote:
 >
-> When setup_vq_resources() fails in mlx5_vdpa_dev_add(), e.g. because the
-> firmware rejects the provisioned features (HOST_TSO4/6 without CSUM),
-> the error path unregisters the vdpa device first and then keeps using
-> it:
+> When all tasks are moved to sched_ext, fair utilization should be 0
 >
-> - _vdpa_unregister_device() drops the last reference to the device, so
->   mlx5_vdpa_free() runs and ndev is freed.
-> - destroy_workqueue(mvdev->wq) then reads the freed ndev.
-> - put_device() on the freed device underflows the refcount:
+> ...
 >
->   refcount_t: underflow; use-after-free.
->   WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90
->   Call Trace:
->    mlx5_vdpa_dev_add+0x3e0/0x760 [mlx5_vdpa]
->    vdpa_nl_cmd_dev_add_set_doit+0x362/0x440 [vdpa]
->    ...
->
-> - mgtdev->ndev is left pointing to the freed ndev, so every following
->   "vdpa dev add" on this management device fails with -ENOSPC.
->
-> mlx5_vdpa_dev_del() already does the cleanup properly so use that. Just
-> make sure that an extra reference is taken during the call to avoid
-> _vdpa_unregister_device() from freeing the device under us.
->
-> Fixes: ffb1aae43ed5 ("vdpa/mlx5: Pre-create hardware VQs at vdpa .dev_add=
- time")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dragos Tatulea <dtatulea@nvidia.com>
-> ---
->  drivers/vdpa/mlx5/net/mlx5_vnet.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/vdpa/mlx5/net/mlx5_vnet.c b/drivers/vdpa/mlx5/net/ml=
-x5_vnet.c
-> index 6830a80e8543..7a39b0bbbee3 100644
-> --- a/drivers/vdpa/mlx5/net/mlx5_vnet.c
-> +++ b/drivers/vdpa/mlx5/net/mlx5_vnet.c
-> @@ -161,6 +161,8 @@ static void mvqs_set_defaults(struct mlx5_vdpa_net *n=
-dev);
->  static int setup_vq_resources(struct mlx5_vdpa_net *ndev, bool filled);
->  static void teardown_vq_resources(struct mlx5_vdpa_net *ndev);
->  static int resume_vq(struct mlx5_vdpa_net *ndev, struct mlx5_vdpa_virtqu=
-eue *mvq);
-> +static void mlx5_vdpa_dev_del(struct vdpa_mgmt_dev *v_mdev,
-> +                             struct vdpa_device *dev);
->
->  static bool mlx5_vdpa_debug;
->
-> @@ -4043,7 +4045,10 @@ static int mlx5_vdpa_dev_add(struct vdpa_mgmt_dev =
-*v_mdev, const char *name,
->         return 0;
->
->  err_setup_vq_res:
-> -       _vdpa_unregister_device(&mvdev->vdev);
-> +       get_device(&mvdev->vdev.dev);
-> +       mlx5_vdpa_dev_del(&mgtdev->mgtdev, &mvdev->vdev);
-> +       put_device(&mvdev->vdev.dev);
-> +       return err;
+> This is not the right solution but a bandaid to hide the issue. When
+> there is not fair task,  rq->cfs.avg.util_sum shoudl become null.
+> Please look at why it is not null.
+> It could be that the update stops before everything has been
+> propagated correctly in the task group tree
 
-As a suggestion, the cleanup could be more symmetric if
-mlx5_vdpa_dev_del checks for NULLs.
+Thanks for pointing this out -- you are right, and looking into the
+code confirms your suspicion about stopped updates and incomplete task
+group propagation:
 
-But I'm ok if you prefer this way,
+1. Deferred cfs_rq->removed and unvisited sibling task groups:
+   Tasks that exited (task_dead_fair()) or migrated while sleeping
+   (migrate_task_rq_fair()) before scx_enable() queue their load/util
+   in cfs_rq->removed via remove_entity_load_avg() rather than
+   deducting and propagating immediately.
 
-Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
+   During scx_enable(), switched_from_fair() -> detach_task_cfs_rq()
+   only visits and propagates along cfs_rq chains that still have at
+   least one live attached fair task. Any CPU or sibling cgroup cfs_rq
+   with no remaining live fair task is never visited, so its
+   cfs_rq->removed stays undrained and its tg_se contribution remains
+   in rq->cfs.avg. Once __scx_switched_all is enabled,
+   scheduler_tick() skips sched_balance_trigger() and fair_sched_class
+   is bypassed, so __update_blocked_fair() never runs to drain and
+   propagate those remaining leaf cfs_rqs.
 
-Thanks!
+2. Sub-divider util_sum residuals:
+   Even on visited chains, if tg_se->avg.util_avg has already decayed
+   to 0 (with 0 < tg_se->avg.util_sum < divider) when the child
+   gcfs_rq's last task detaches, update_tg_cfs_util() sees
+   delta_avg == 0 and returns early without subtracting
+   tg_se->avg.util_sum from the parent cfs_rq. Independent PELT decay
+   truncation and integer removed.util_avg accounting can also leave a
+   < divider remainder in cfs_rq->avg.util_sum after util_avg hits 0.
 
->  err_reg:
->         destroy_workqueue(mvdev->wq);
->  err_alloc:
-> --
-> 2.54.0
->
->
+For v2, rather than touching update_idle_rq_clock_pelt(), how about
+adding a fair helper (similar in spirit to rq_offline_fair() ->
+clear_tg_offline_cfs_rqs()) and calling it from scx_enable() in the
+existing per-CPU scx_switched_all() loop (where rq->lock is held,
+rq->clock is updated, and rq->cfs.h_nr_queued == 0)? Specifically, it
+would walk leaf_cfs_rq_list bottom-up (plus &rq->cfs) to:
+- flush cfs_rq->removed,
+- clear load/runnable/util _sum and _avg on the empty cfs_rqs and
+  their tg_ses while preserving last_update_time and period_contrib,
+- clear tg contributions via clear_tg_load_avg(), remove the empty
+  cfs_rqs from leaf_cfs_rq_list, and update rq->has_blocked_load.
 
+Does this direction look reasonable to you?
+
+Thanks,
+Peng
