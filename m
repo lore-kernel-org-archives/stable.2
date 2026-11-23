@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.214
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795405401;
-	b=anOt+R4hDlzdimV7p/7mtIx40EvH1hjBI9v7wUDtwgpiPL6v8TUiMoklRoHJ19E/Wid1
-	 DeNwpniuWwB9rb2dsLw6j+dgu95D68cBcGjwOb5jrs2qDcIduDOsrYbugBg/q8Ip+xw+6
-	 ULtXGk6ZPGny/Q3UW9KvGEDFXMncZ4DOUKTGSsyfkjNmhatkC8S4y7bv/uV3JDRtQC68h
-	 0MIhDlMQk5JMxuskeDHjPuIZMvQBB8kQ7IaRnd8KfrYvCxU5/P/EHHMGpORZBhNhH5Hva
-	 lUzOJYQ6eAzeDDMXpR3M8bDpQBr5mp7w/ZzTWt+3lPT4ZJ9ECp/oFt90DJ7AQZB2wsA==
+	t=1795405427;
+	b=oivU5Gt4+w8sF3SCAhUuckywhJ1bx0S5IPKYZPISWgdnAcN4LWJF3OsTJWMED6CPlMq9
+	 ICT6Rx7CUlbateVInlC1XcbbDBCQkGG0Vl4CQ7DTRfBCxbdxBaDQg9bE1+BmuoRmngI56
+	 IDNRx4eBWrqWbAM6UURntKBoeRQQOJB1h4QchBCyj4SPwex+M1LRXNCTQjyiIGhggchIL
+	 5WR2aFCPzClNOzsJbjPeFy28YMjyFS7wcVzhepni77BxhaWgD2HzZUUdHokmBIrSSVQsX
+	 4yyeSGFi7fIJ2ki98FFbABIO0ia5wxOlzvMwcT6KvjsFqq7KOHFfMtuhMrN6bld3XEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795405401;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795405427;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
 	bh=u/dSSnvt29VXMuqEAAa81mXAdbrbhqEv++QT9+xRYhg=;
-	b=dE++xw/9U3oaebO5YE45jsIPBAiAeXhDrRrMiJDYGf7LepYy7x40CL8IWdl8MdhGe6B5
-	 gEr+lYcJlIg/60jqIxdepcm155BPgOqF6VUvI3YbBGK0i6x+YZ9sLh7E+0NIm34AUseKw
-	 riq8fzBNYSHGlIGDp5e6zk+y4DVk6fVRZ0UwL90zkqOXiOZd1h+YSLqJh2jtRk12vLv7W
-	 0UP7OLzouhxBOlu7iTiLXblCrOJ8dP5NJKEL/m8QmqmgBo5HMxEJ4qmOar8X7H9+Vw5/z
-	 TXE2zu8Ef3ZCPaDnfXZAJj3BQIeHYGC0bNqqxu/vi//jWZnO021xKrNN9uMWwvzMN0Q==
+	b=X4RzNp/XJazuO2W3thcZwHuylYJi/G/crGoLlzblo16QhhTafugs14rVF8v6mL/6XkKQ
+	 UuX3a/NnMq1XVtWij+NYVLd9eRBMncD+pEsv52sxxWf4I+mU9Nqz7vFVAIgml67qhx+zv
+	 /Qx/6eYqAWBUB0P+H/CSZnMxYr2IlofxJspkhPWIHePQxrjAIHCk1d28OxllncvYVQM6D
+	 HSyzv5/6DzJdHbBO2I22cOqv1nwTuINOfMHpmFihLaghN11O8HEf4seJZuLic/SPd3RGw
+	 /SC6PY44Wa7/39HG3xx03FVntLnxdm+ZqRKe6j2kK/3uab8Cwiv385n8xTNoZJ0hWnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sym98uDI;
-	arc=none smtp.remote-ip=91.218.175.214
-Received: from mta0.migadu.com (out-214.mta0.migadu.com [91.218.175.214])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oEIIGS9K;
+	arc=none smtp.remote-ip=91.218.175.217
+Received: from mta0.migadu.com (out-217.mta0.migadu.com [91.218.175.217])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48909606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 03:43:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48909606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A65606A6B7
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 03:43:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5A65606A6B7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sym98uDI
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oEIIGS9K
 X-Envelope-To: stable@vger.kernel.org
 DKIM-Signature: a=rsa-sha256; bh=u4K0EQqDi4+xhHfJPHjH7LQ7MYMicDcjgwVFleEBNuM=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795405399; v=1; x=1796010199;
- b=sym98uDIogUQEVzQ57BtWFFt9Lo0yVdauWGeKKZLwDg6jJADX1S8k4zgKh5ONHgbDFhurkMK
- n23ugOKub2PpV5+WNX0IZz83zQ0Q6CLMi5FsPRTiOi4sV9uGT8ZKJz8Vq0vQeAAG9l+Mf8rx+DV
- ZHFqO7Q4VPkh4Ai1On/OOOAg=
+ t=1795405424; v=1; x=1796010224;
+ b=oEIIGS9Ka5spYlhYLlfawa+ZXJ12Zna0ZEFeJEE7giXqmS3hI6VfU5abnWm9O5dKcBXdhDr3
+ chFS9abhBmm/TkSVGVES9Fbe9qxxhndJ2h06+g34MMv9B9xjfE5uGLlQjOAPDphORiVdJwtVHXf
+ T8NO827T1NAkp4Q7nbd81vvk=
 X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id b23e18659fa0a669;
-	Mon, 23 Nov 2026 03:43:19 +0000
-X-Mizu-Trace-ID: b23e18659fa0a669
+Received: by mta11.migadu.com with ESMTPS id cec765d6627a4390;
+	Mon, 23 Nov 2026 03:43:44 +0000
+X-Mizu-Trace-ID: cec765d6627a4390
 X-Migadu-Flow: FLOW_OUT
 From: "Xu Xin (vivo)" <xu.xin@linux.dev>
 To: xu.xin@linux.dev
@@ -58,8 +58,8 @@ Cc: akpm@linux-foundation.org,
 	stable@vger.kernel.org,
 	Karl Mehltretter <kmehltretter@gmail.com>
 Subject: [PATCH v3 1/3] mm/ksm: do not inherit ksm_zero_pages counter or PTE markers on fork
-Date: Mon, 23 Nov 2026 11:43:07 +0800
-Message-Id: <20261123034307.236032-1-xu.xin@linux.dev>
+Date: Mon, 23 Nov 2026 11:43:31 +0800
+Message-Id: <20261123034331.236509-1-xu.xin@linux.dev>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261123034136.209410-1-xu.xin@linux.dev>
 References: <20261123034136.209410-1-xu.xin@linux.dev>
