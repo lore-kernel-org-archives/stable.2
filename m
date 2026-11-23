@@ -1,61 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795454439;
-	b=YzxKjIp8c3HN53AnStg+Ghze9NtDCZH/+Lf63linj8i9+UlmQtNGujFbaW32OOLt8wc/
-	 Yn4LhMBkwZbXJYEaJkS4HP6CrZwoRV1pkQhaxR5GRAST0CTN1h/hBQvpNAJKClZZiRTqU
-	 1GBeh6RYjVy5WsurAsdnwXEKLyCRQh45Yevq7urg6tzr3egTXchuoIj4XW6kA52g9TdSf
-	 1S0C9TrBgyAlUbNkeqfJWZYfIiDMhKF7LDdUh6bIilazM3gEKKjRvh3KOoxncb/XwimSd
-	 YQ8/hgTI5Cb3+S1h4/SKRWVPzs0GIDxVn1o8Auq4fsXmDmpn11a5qzBNX1y+xGz0Zww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795454439;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cIMG3GuotDWafza35SJT3j9PzXDW+c0cLhrovo6/hu4=;
-	b=KhWyjncEuoUnU7ASnmSVk+bIEvrEwhe4tt6FSMFzvJ7/A5YJ7WY9DqqMxCfIjBJRvgZu
-	 rZj/xcQkOOf3Mf01IxpmedLZL7Zb2yMvBhMM0thLYSdNfkJJBWHDjyAAIVh1nUH10Hemy
-	 ZTR5Ta7UcgB8C51ObdqtOGGq6iXZ3HYzx8CBDFtjzh8zb1iezC3dT/5gGCb1FpYvgHYP0
-	 RcWe/orP96LctZYoO6nFyA6sR/wI2aE8Sg8/h08kqF+k4xz5+A3ITkpy2goc+wmNXDg7J
-	 1/Y9jNuq/Gr8BEXPI9+uCovqqPjRjWlgMCcNnGjgzxyI3hlS08shaJpWeKl79VtC/Qw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ou4o6cs7;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795454501;
+	b=WFJ7JD6wI6/JkGUrmji5kOovew4Bfxcf9khEDql0UmqT1a4+Q6KNN3YAYOZoC/SoeyXA
+	 l5S3ofa5h0VnY6ikUMgKCwbeJrWQxz8GPB2DQuGQQvt8pG11oVhIngIRjqVbplZ97V9k2
+	 MpsLWJdFZgwSLxARM32AtZJzz9U70JP8vpRV3c5reJmxiThNDj+aCCJneGnjId3EK8Wr3
+	 KCYWghx69tv5MDk6QohbIESqYx7c+B2fMru/oWaOtQRKl8n+ixZsDCsMHBbZfWISdNJnt
+	 JiQNpSvh192Vsw+7Kv/msLPEGpr0dY8GCFbdCNu/O6HG9cutbUmbCJ+5anU0wlgmm4Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795454501;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=yJ5tdaDKAQFPPpobEHTb3m5msSlT/95ZPGIa7uQNwzU=;
+	b=0wzOObptdS3boa5kqg+Rf52s72K8H/FE5Wzp+o7ni5ukQfY2L0jAEuuW97sVcgigif+F
+	 zf7HhHzWCGgmPS7IhIvocQYjS/EGrNAgJCXc/EnhMt5rjtsb7LgcFEkC4IZh/CoDjiXJF
+	 jsXBH5G0X38Rlf/D1DkmiTdIya9j12+7wpPUnnpFGx+lzgOVDuvA7w3K41/zZUzj7Rc8Y
+	 WNTcz4kyRhE2MgtUICYDtQm8M1it8ip2qio1P+w+rDzPkSYDqDS7mxfmTwowZlp07SWTO
+	 VGoxjqMhWZ141wqtvmeAM2IiMijZLN//8eVMt5OTjilQFjNJKliYcSCH9m/DbtiNnkw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gYPiHZXO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2040606A31A;
-	Mon, 23 Nov 2026 17:20:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF899606A31A;
+	Mon, 23 Nov 2026 17:21:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ou4o6cs7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A12201F000D2;
-	Mon, 23 Nov 2026 17:20:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gYPiHZXO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795454501;
+	b=uFzMR40oaq2oPYXahHxw7cLxEzwdbkUNVaNoS5fhK3kHFG0FP6GeYU1E7G8mBkaa05+Q
+	 3TAcfLfQ3PnRJ2ajFCh+0jCSR/EyCmG4xYhvMnrvf89HlTuCpJ5yCRcYaGRL2Z7aaF5hv
+	 ptMvohuIpT7q3sYxR31evs6U2jeN1ub7aqRQiVeIPXWXsR+7QXJJ4qGdlfPfbete91I8A
+	 RGOGRGZ+IoGT0hCKK6L0Zi/WMKv/STZOC3zWPemOgrwaVVMmX3IElkONr8200E5dAGFeL
+	 cJCfket4SI7LG0RI3WNwAZfAdnx+SxUiORJIdz26jaFQ/RYu3PUS+7NEHf4f7joXH0A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795454501;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=yJ5tdaDKAQFPPpobEHTb3m5msSlT/95ZPGIa7uQNwzU=;
+	b=gGXYN7xCKNyQ689zozuAbrbbtZ8gcze98fYvrQzrDRmcxvYJXYnvxZjnqypm/SBrfDD8
+	 27bXvzT/25cVxBl09GTeDxkcXURqMzQ7Xy15Cy7oIknIYia6mLoppe/++wk0PbuWyHrPg
+	 LhM2HokH0NjhhY+FxX92jGBUvjKIU6jnAUr9lCSQqT6hXrmirOacI74IHzS6KftrdYyPD
+	 fuumfa7xDhIK4VoyNq39/Br4/cFWMS3W5m63tDkNKWtIfLBpdfpsffG922lIP31bwbKOv
+	 fVFte+wv+JU/jGOujD0DpbH1g+Bx9U8QwTMCpikBGqYpPIcy8/nFYbRcOD8iceIsw4Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id BAED91F000D3;
+	Mon, 23 Nov 2026 17:21:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795454439;
-	bh=cIMG3GuotDWafza35SJT3j9PzXDW+c0cLhrovo6/hu4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ou4o6cs7SWT8jjNrRrYjJhEUt0jj/4mPU0LuSDBtgg3QQoEUyrthXCncjCJYqjSvv
-	 CgOdMJM6dUIJWzEElfWSiW+dmbqti8sfrqORheD3Nn/+esjuBCmU/IESFQ66DcjIRj
-	 P6Htxk55smefV1SBgrt3Yz4jea+CHM5ndo+U1wVDy3Gv3NuaYdlkUIJxFAOBqChKqk
-	 mXGEEkoglH25k10nr0rFfAY5exXbT5xIpA4643WuWkriuGEIW6K9L/lLT2kUdlM6Iy
-	 0L+/0jy3HpThuW8qHLW2ss68S39npAuZXI56L0o0tIoyH9E7VeGzpq/II5znXzhGtP
-	 t/I1CpQxyiqhA==
-Date: Mon, 23 Nov 2026 17:20:28 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com, 
-	byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com, 
-	joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, matthew.brost@intel.com, mhocko@suse.com, 
-	pfalcato@suse.de, rppt@kernel.org, surenb@google.com, vbabka@kernel.org, 
-	ying.huang@linux.alibaba.com, ziy@nvidia.com, kas@kernel.org, hannes@cmpxchg.org, 
-	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com, 
-	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, 
-	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/5] mm: don't PTE-batch a swap-in of a folio with a
- hardware-poisoned page
-Message-ID: <awR1zpKGgJrZQQPx@gremlin>
-References: <20261123163301.1568240-1-usama.arif@linux.dev>
- <20261123163301.1568240-3-usama.arif@linux.dev>
+	s=k20260515; t=1795454501;
+	bh=yJ5tdaDKAQFPPpobEHTb3m5msSlT/95ZPGIa7uQNwzU=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=gYPiHZXOsBYul424C2tHonPOl2PUFVErl5MJKKs5meCWR3SCWIVrVW7TwUN7+k788
+	 htE/P1KKvAIxp5SbhTkHTW7stPvzlysM+qJjGsspq54+LItHqU+J1jtnrtupC6P6bw
+	 2KBbYGPeL7dZZ8Iaj5QlT2g/pfdRRBOmgTCR13NWhhZh6KI/KT6hXtR7HLG6njDZ9R
+	 /cBmgdtAMa2xFBtIRqqvHVxANgxoDUE+zMSX5x24zDvHbkfDAZ24njq/WSH1Sw/UOo
+	 bBsYe5S+PS92YE+trbrCK0DiEuzGkFqNMFDHd7rkd4kIrGGGvah/gjftW64QohI6P5
+	 NmljdJyJ4CfqA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4262B4C581;
+	Mon, 23 Nov 2026 17:21:34 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Mon, 23 Nov 2026 12:21:34 -0500
+Subject: [PATCH] mm/shmem: don't drop a folio whose swap write failed
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,60 +82,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123163301.1568240-3-usama.arif@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261123-shmem-swap-write-failed-v1-1-41a0115dfbf1@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTuJHQMhXsW4KO2PjBEkHRASw
+ t2puvwW721kSAqja7FRwkdN30OGOxUUOj88wBqzSc5SOScXtq5Hz7b4kZekE7j1+kLkJiBKXaI
+ upaJcjwmtrr/z7f63zc0TYfruaN8PouPc8XsAAAA=
+X-Change-ID: 20261123-shmem-swap-write-failed-bced285e8526
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ David Hildenbrand <david@kernel.org>, Kairui Song <kasong@tencent.com>
+Cc: Chris Mason <mason@kernel.org>, Chris Li <chrisl@kernel.org>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Youngjun Park <youngjun.park@lge.com>, Tal Zussman <tz2294@columbia.edu>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795454494; l=2695;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=YZkS8z4nKi2wuUKuI1w38QEIWGBn1hka4U2KKfBBdd8=;
+ b=d1A2Jbz2YdcvzAkeX34oY+L/eDQiZJwjs+Ba8yDMxbqQPOWBbjimDgjlrMGcsx8rIoPhofk6v
+ r+eHSy/2jevAy45EgB0WGi0sTG14AtoEENRVU7lykD94wVL2tH1oNET
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 23, 2026 at 08:32:08AM -0800, Usama Arif wrote:
-> do_swap_page() checks PageHWPoison() on the faulting page, but the
-> large-folio batching path then maps the rest of the folio without
-> looking at its other pages. A poisoned page that is not the one being
-> faulted gets mapped anyway, and the fault that would have reported it
-> never happens.
->
-> Skip batching for such an anon folio and let each page take its own
-> fault, where the existing check catches it. do_set_pmd() already backs
-> off the same way.
->
-> Leave a freshly read folio alone: it is not anon yet and can only be
-> mapped as a whole, and falling back would free it with the poisoned
-> page still in it, which the retried fault can then get back from the
-> page allocator.
->
-> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+From: Mani Tofigh <mt4022@columbia.edu>
 
-Neat! I didn't even know about that function :)
+shmem_swapin_folio() drops a large folio that does not fit the mapping
+from the swap cache if the folio is neither dirty nor under writeback.
+The folio can belong to another file and be under swap writeback, when
+the swap entry was freed and reused before the swap cache lookup.
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Swap write completion does not take the folio lock.  On a failed write,
+swap_write_end() marks the folio dirty and then ends writeback.  Since
+dirty is tested first, the folio can look clean and written:
 
-> ---
->  mm/memory.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 282266dd5e5dfa..d7b200e00bce17 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5194,6 +5194,11 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
->  		pte_t *folio_ptep;
->  		pte_t folio_pte;
->
-> +		/* A poisoned page in the folio must take its own fault. */
-> +		if (folio_test_anon(folio) &&
-> +		    folio_contain_hwpoisoned_page(folio))
-> +			goto check_folio;
-> +
->  		folio_pte_range(folio, vma, address, idx, &folio_start,
->  				&folio_end);
->  		if (unlikely((folio_end - folio_start) >> PAGE_SHIFT != nr))
-> --
-> 2.53.1-Meta
->
+  CPU0 (swapin of file Y)             CPU1 (swapout of file X)
+  -----------------------             ------------------------
+  shmem_swapin_folio()
+    folio_test_dirty() == false
+                                      swap_write_end(), failed write
+                                        folio_mark_dirty()
+                                        folio_end_writeback()
+    folio_test_writeback() == false
+    swap_cache_del_folio()
+    /* X's data is lost */
 
---
-Cheers, Lorenzo
+The next swapin of X reads the slot whose write failed.
+
+Test writeback first.  Both flags are in folio->flags.  If the
+writeback test sees the write ended, the dirty test then sees the dirty
+bit set before it.
+
+With the fix, a folio whose swap write failed stays in the swap cache.
+
+Fixes: fc2c19648d68 ("mm/shmem: fix swapin livelock on a mismatched large swap cache folio")
+Suggested-by: Chris Mason <mason@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+---
+Managed to hit this by forcing the order in a VM, and it's gone with the fix.
+---
+ mm/shmem.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/mm/shmem.c b/mm/shmem.c
+index e351cd425d69..867f43315af1 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -2664,10 +2664,12 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
+ 	 * A large folio that does not fit the mapping, e.g. because its swap
+ 	 * entries were freed and reused, would be found again on every retry.
+ 	 * Drop it from the swap cache so the retry can swap in a fitting one.
++	 * A failed swap write sets dirty and then ends writeback without the
++	 * folio lock, so test writeback before dirty.
+ 	 */
+ 	if (error == -EEXIST && folio && folio_test_large(folio) &&
+-	    !folio_test_anon(folio) && !folio_test_dirty(folio) &&
+-	    !folio_test_writeback(folio))
++	    !folio_test_anon(folio) && !folio_test_writeback(folio) &&
++	    !folio_test_dirty(folio))
+ 		swap_cache_del_folio(folio);
+ unlock:
+ 	if (folio)
+
+---
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+change-id: 20261123-shmem-swap-write-failed-bced285e8526
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
+
+
