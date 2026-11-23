@@ -1,85 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795445314;
-	b=zKv9gY6FxcpNjqIB6qYJplaLcxC2Qp2XV9gBacskoZJzeO809dnRbsuBTcIfiGlXUiGa
-	 gNE0GajoIvuJ8lcarm6HuvW5zW0cf8PmHX+CiaDOfDdWqHCgU2zXEM2URKiP0vMK0SsrJ
-	 hhTewUF6R/YV1P3yBtAZIZJ/YCufL3Sb1z5BPnqHrhw6cU1LOVi8FS2H7z5BO+L6eVdnS
-	 Dj1Kt0bwCXZyTb5JMACC+JWulfc0yhMes13+2jAkL4e8gF+k9YsyUPwosyoVOwBfOYmva
-	 tN8Kw6zYM7gEEyVXjRQEOXn5ivb9aBgWHuu0t84xLSVUcczABRpwHoni9AMsHpPJoCQ==
+	t=1795445733;
+	b=WueVqT3LenPzR5MfABJJjrWbmLAdEyMNksFTigwBF80zvMzlMUbFjfEjvQdMa9+vbXYS
+	 vgNzEl1bpNsl3+QWF3hHV7kYudv6qKjXDzLx8D+le8/enSjmYos5E/gPxiQDOSpVXAYYQ
+	 QoPAKKlnsapuhkeHKb+ku5bGb1HmZagVkuHx2/NLcnGoCik1HQ6BbaV0mUp34ABJ6O88m
+	 mB+6BWGxx5XcyHvosNNcEDKNBFphgFszWkcfQcKn5WXD7wK6QQocRUjyWqd15Z6vLYAxM
+	 YZ1MaQIi2pk0JXeFiilo8ry53XFTFsyuf7F6H/DPcMQaXb/mAXMKF4+KEK47dhEWskg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795445314;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795445733;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=xZF0Y2fdOckMYZ5OQvo53Uy9aotpRIWurFGH1UvKcdA=;
-	b=lTXmaEel6AYShlYy+c8r8vRGI2uEmRJnPws1NnxyoYY9uFJU3fj+5lnTk0nmZmSt/jQP
-	 HIAg37zPrYqUyO2jVZh7t/ESFUZV/6c5PkMHDUUS4Lxbrpn8u5xNfATrQQECjWomtix3Z
-	 GhNTOxgt8slWdKaEtpwX/ry2eRkAxTukmt/5JZ16ZX/+MESvR9jthbFYf8w5RSR2lvBeD
-	 f66vBJu6xQIxidrn7ONOCXp2sdDJZKIbduNP1GGnUo8kPjML8n7OcyEeMTJHQaS3Rx1cL
-	 MWEJjKe4Ro7lJykLFgenLgqUlqwv8Fqz8cGH8oCFl5m/EFWfLW0fT7FswAFDTAQ0uEQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KcHjG3AoFewZqdLWcVjYkH6tmmoCKyunKSeih0GE+uc=;
+	b=4u4Mm2RH0rNpAsQN5NYnpcEHyKHjIAArOnOnY3WJgLZRnHmppnKDABxEpF5Ce7wmKcrz
+	 usdflK1iNpZ0+KEAisvV7/3q1qx7uuIdAGsqvuFSd9BFbrwwPX8KLIo9PyWf/axTy2ebg
+	 wUak2/8PcTzMGK42y4aHlXh6hS5wA+Zf4fA1bDh4rYp/NlQgIT1Bx16pUhDk6djATvm6D
+	 P99E2zCmcz5AfIPQRVJ/D/FfoiVayg1JQhYojwXA3bd3UgcsRnlLvdwdg4dYEvEJ7CffO
+	 bxKyjAmMdnZdcTVzg1OE3khhyYZ+QRllF6cQFHWwCSIkCSWXTIq+8bq1xEnvsKy3NiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=cUfdMJJY;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xLZgdLRB;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F59606A32C
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:48:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5F59606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B721D606A6A9
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:55:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B721D606A6A9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=cUfdMJJY
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4bb5b8ef642so28387515e9.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:48:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xLZgdLRB
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cde5a7d79b0so1624967a12.2
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:55:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795445312; x=1796050112; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xZF0Y2fdOckMYZ5OQvo53Uy9aotpRIWurFGH1UvKcdA=;
-        b=cUfdMJJY3f/reliHpqxivdPBRUxH7MRW6dVHwyAPTsQMdqU+KijZ7gi6y7j9Z0QY5B
-         HXhu8F1ZgdCCe5jq4rt24Vt7ZeafgB4hhzhK1PN/wYw4R1j9YK8ZpYBtZ4NeTy5RpblW
-         KaI3DyruCrqOUSzmOtJQJTLXeoipzGvuZSUeiE2VRKlZdb11jgQyJF4nsv5gUDhDc5gu
-         r/SVIsRuuyFDzGMVJeaIlZATYxJ+0wH9VMOBWWnvt4FVJaS+ZHk6n3CTnc5R5Yh/qEha
-         EDeG9XS8yG8TnQSocyLmA9mswbyGtmlHpnBCDD0LvfZ9LuVGn09EoDawyCAaAODsrr9p
-         /r9Q==
+        d=gmail.com; s=20260707; t=1795445732; x=1796050532; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KcHjG3AoFewZqdLWcVjYkH6tmmoCKyunKSeih0GE+uc=;
+        b=xLZgdLRBDIuCGtdRIxV+Ip/iCWMiu1iEmSDQrTS5X5hBRkKQQ/+cg0fnhAWJ3yKHf/
+         kY1UGUzVBZQn0Jzng9r36P5ttTSpUya/rHIRBjaLmBFew7lNr7EAO5PYs1lxMCvXqOdC
+         WK+DlLcbS5cT3Bh/TOk+mGXUGwmQsgk3XUfIQJ4iNKrwsluFO2QSqGk6uUofRhi53sAI
+         XAfIdzVaFaQjIjGJ8oMnGsME49XAfDy4XNKkGCMJahLRuqnn+R5oLbwHFfE35rTXqOTX
+         No9eLEuoonB42yyxGnk4YOkXXsikY8zsDCHFjy4J59ioH3fS2o29i600pi34XlIko2DZ
+         wQ/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795445312; x=1796050112;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xZF0Y2fdOckMYZ5OQvo53Uy9aotpRIWurFGH1UvKcdA=;
-        b=fQHmLRkjH3iQVLRmIZQVEFltPF2NMahrY82zP7U7pHCm9bV1mvJ1VSZZ9+wpK3FqTf
-         D8gjmc2YkStMB/eHlGpgfxzEXF1V96qllTkVUKIol8iCVKquC7F8hdW9sQk4ezn1XDaj
-         HQPTi6WBGP+sZ+cMZoNuXzq6Z+wjfSKMglRfpkYjaX5jiaDq7guIjlMr/5P03PHd+Y2M
-         RBwKDLdB7bNtSDTzmkc6J68Zt9JzeS3fxpWA8ufgeBKRLjCCqX6nsltu/rTmOm3y7uWf
-         vTNeNN4Byl53b025MmShRZpCzWy8OBPfAVrA6pvg3CxVnVYzoly3iPfaHEaN8hqfztCh
-         KNsA==
-X-Forwarded-Encrypted: i=1; AL+hErGTUe99GxYEbVI2ikO3iHoe8V+t3jhejaq8z1a+JbtzRbAf/yDic/NiOkR05Tmz7Lnoaj/lJcQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NKWnjHylECJ0T1vtfd7MzYBpvWgjxNDhIqU21GhYZs4HRNV/t
-	tyLXqp2gXK0x1Yt3h4wF8XHK2kgZFbmzcTvpFnUPEwSnsqaVs5vkCdu6jXZAEBMMTRQ=
-X-Gm-Gg: AZFdTZewHVwufr33D0ba5Aeh+6z6jy3ra8Ic+jiCuaUEuW1Unny8AXayC5fe1gpABE5
-	bwL7SAPUCmYuQkVSDgQpk3mNUiV9z5vYALqyENe8ojXhL74NyTNWravQRnU44ERdcEH1GDJSIFW
-	ZYESKxOoIrEIRF15+y05HjzPQmceB2f6NN/X1buNkOx1PlfM9fdOySJxL9kyklVm/If2gbEZAOr
-	PfQb4TlH5+nz/Oh4qACUUvlbMpzLUPUycFMYzqxHaA36QcsJLpJfXZ3j0R/0YvhFlhLBRQge73D
-	25ZfTFtaOVJNJN41auXB59+4Uy/iOdkFj9fZOGslvTo7IqWBu5IyXSWz3cxHGZWZQNBc7gBDdmh
-	pQ8FpbMx3sg14ayK7S+wd5jryLcIN6IqqUvTcB7yYBJTvdBztyIxYEwRzIDMBH7VlttvR/wSrUK
-	WIcwAEdtZdeeQPFNKvxArkH8neASuBqD0xwrQQplRk9TJlh3IQtjFbuQWW22HGEs+ABTdHofELi
-	kx/KpwJ7BfiW/02ZFdtsBO5joGiSz/Cn+7w0EeiG2nPjosKnuBQGO62zXs76di5VE2hNh96kwT2
-	NnFpsiHE3ueqcLfL8BVmUCxZdFfmICEcMhpr289BWdPlz+39XGU=
-X-Received: by 2002:a05:600c:1c11:b0:4a1:e57b:667c with SMTP id 5b1f17b1804b1-4bb8881c357mr274976895e9.26.1795445311988;
-        Mon, 23 Nov 2026 06:48:31 -0800 (PST)
-Received: from [127.0.1.1] ([2a01:e0a:e50:3860::e1d1:d182])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b8b7888sm22471477f8f.42.2026.11.23.06.48.31
+        d=1e100.net; s=20260707; t=1795445732; x=1796050532;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KcHjG3AoFewZqdLWcVjYkH6tmmoCKyunKSeih0GE+uc=;
+        b=mdo2xvx2MKnvSIS+xLMg4Xgsz6KpXFtmpL8dek03kivD1iMy1nFmChxQQVODPR3oXS
+         98YWvU6t7jFdOycxl+b4sjfyaI3whG1cpVxw1J0FrualcFr7g8z5Eousw0Ne6njkUeFL
+         U6bJHOsrCWaoHeOxAKbN5tkF4ioOur1YTfPtYsnrHuOP0k3Vl9dRb56AesyIiB2E9krk
+         LEKilKudV0ad6aJdrlzXwmpgCHfCGMjaUVBed0zdOEGbQCi4d16bdiijnwqYsI9XZKxO
+         36/B7aH3PhhrxuxA9HHCGk2QJ1K5bzYRkc9+WVFoZj+RS6m8R2bHQ2V840StOFlfKhG4
+         VS5w==
+X-Forwarded-Encrypted: i=1; AL+hErFC7c4f9SefJuiDxCa4YgJhkyY7cEMrNUvUtgddlVcPWJgB9enyqbPeMMHypPkbXE22pqfxxTQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hWr1mXoihI9hqGeqCRb3hGRKxVeiJdA/o25Mal3kTaNqzqbfq
+	f4SzN3Fx2Vo8FtXbdqup4KzKr0hd7IQbVrwND2vYM+IYttTy1IUsfX/e
+X-Gm-Gg: AZFdTZeLwL2i3eWVeFdCaFBKHDmcji7Kft3mOCQAn9IW2ZeGVaVsMzr6enNtXu2uGOo
+	foLCPxvdpLHJSzg52NjNkWRh6TPjlhuugMvoSaizGLH14wDddNzIE5z4tTMPdxRaRnWpgg94LZ/
+	+ZzSwDsPe3eY+gp9pVpdDIWIpa7SwjFLgz6RQPRa8IijMzNU6yLMoX0B5qSNp151k1+DSfT5qVE
+	kLWYMj6UXczePkxlv6nWoD8C5y0UYrHWavVIPTXRWLQtLwoNacnFV5bG+b6XdfMVtNnNYWA+h01
+	9OFxeqxZc0I4DuHxATZVYjgyhDcwco1hHRJ8cqK3i4/RldkbdkiK9jpu9px0ZgxbAqCdKwDOnFe
+	UJhpNXfLHXx4EmY/DoUD0uxDjTFGGsODEgeMX7Vo9HtbO3s0U1fdYkK5T78/OvpwWBM2ARPSIyz
+	3SQHZFoFjraOpVN5hlrAUDu5fW0Og5bb0EocK4fOB1RtTGUR9SR627OC+JS0CamvD22sK8x5IEZ
+	vL/3OGs1VINQrgjeztk27mer0XsUdnswW6OAvw9PKSY4GTgyUatG96b9FAhtuud9iNed85JJeSn
+	QI/8CxsFM9Hm8jlXdAocC/Ns368fEZv+YPyVSEhzhC75KOl4r2jSDJCQ+CHP4HiZvCzk8YlTRLO
+	sJilDcNLZNvqh5a8cEMbfZi1BB/8q2ZR0Q6i/TUatSRTHvJbfsM/BNhw=
+X-Received: by 2002:a17:90b:3f0e:b0:3b3:b6c3:ff5b with SMTP id 98e67ed59e1d1-3b41c9059e1mr10329390a91.36.1795445731883;
+        Mon, 23 Nov 2026 06:55:31 -0800 (PST)
+Received: from cchengyang.duckdns.org (1-164-82-37.dynamic-ip.hinet.net. [1.164.82.37])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfcadffsm5405516a12.9.2026.11.23.06.55.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 06:48:31 -0800 (PST)
+        Mon, 23 Nov 2026 06:55:31 -0800 (PST)
+From: Cheng-Yang Chou <yphbchou0911@gmail.com>
+To: sched-ext@lists.linux.dev,
+	Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: Ching-Chun Huang <jserv@ccns.ncku.edu.tw>,
+	Chia-Ping Tsai <chia7712@gmail.com>,
+	chengyang.chou@mediatek.com,
+	Cheng-Yang Chou <yphbchou0911@gmail.com>,
+	stable@vger.kernel.org,
+	JaeJoon Jung <rgbi3307@gmail.com>
+Subject: [PATCH sched_ext/for-7.4-fixes] sched_ext: Don't request private stacks the JIT can't provide
+Date: Mon, 23 Nov 2026 22:54:51 +0800
+Message-ID: <20261123145450.12725-2-yphbchou0911@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,53 +103,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2] drm/imagination: Fix the value of
- ROGUE_COMPUTE_FLAG_PREVENT_ALL_OVERLAP
-From: Guillaume La Roque <glaroque@baylibre.com>
-To: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Donald Robson <donald.robson@imgtec.com>, 
- Sarah Walker <sarah.walker@imgtec.com>, imagination@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Brajesh Gupta <brajesh.gupta@imgtec.com>
-In-Reply-To: <20261120-rbrue-suez-pvr-compute-overlap-flag-v2-1-ca2b0d3adb4e@gmail.com>
-References: <20261120-rbrue-suez-pvr-compute-overlap-flag-v2-1-ca2b0d3adb4e@gmail.com>
-Date: Mon, 23 Nov 2026 15:48:27 +0100
-Message-Id: <179544530793.3861580.6891548435680251826.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795445311; l=806;
- i=glaroque@baylibre.com; s=20261019; h=from:subject:message-id;
- bh=00LSWVmN0FB1IQwX/OYvVQBvFJYhXx7VT3sxIQ7c0wc=;
- b=MxhtnwKz3q5p0JRhWOpgCiX3vyfV7rQQ51LTmpRjQM20hO7cKOSFMmrLXqJpDYOF7v7p+++iW
- v5Quzv11UhXD5dm2KIb64yezSzKCo6+m+F7XOlWpmN1sM7cpfqQ28Q6
-X-Developer-Key: i=glaroque@baylibre.com; a=ed25519;
- pk=nMpSg4NT6M6q143E089emouMc+MXpHO9CWmnEUfjhjI=
+Content-Transfer-Encoding: 8bit
 
-On Fri, 20 Nov 2026 12:10:21 -0600, Ryan Brue <ryanbrue.dev@gmail.com> wrote:
-> The firmware takes "prevent all overlap" from bit 1 of a compute
-> command's flags; bit 2 is FORCE_TPU_CLK. The kernel has used bit 2 since
-> the FWIF headers were added, so the firmware has never seen
-> DRM_PVR_SUBMIT_JOB_COMPUTE_CMD_PREVENT_ALL_OVERLAP.
+Since commit 4f8b122848db ("sched_ext: Add basic building blocks for
+nested sub-scheduler dispatching"), bpf_scx_check_member() requests a
+private stack for ops.dispatch(), and later also for ops.sub_caps_updated(),
+whenever CONFIG_EXT_SUB_SCHED is set, which is the default.
 
-Hi,
+The verifier fails the load with -EACCES if the JIT doesn't support
+private stacks, so on architectures whose JIT doesn't, like riscv64,
+no BPF scheduler that implements ops.dispatch() can be loaded.
 
-Tested on a TI AM67A (BXS-4-64) and a SpacemiT K3 (BXM-4-64) with Mesa
-main. While a fragment load runs, a compute job using a workgroup
-barrier goes from 19.1 to 8.8 ms per submit on the AM67A and from 47.6
-to 20.7 ms on the K3, and is unchanged when run alone.
+The private stack is only needed when these operations nest, which only
+happens with sub-schedulers. Don't request it if the JIT can't provide
+it, and refuse to attach sub-schedulers in that case. Root schedulers
+then load as they did before sub-scheduler support was added.
 
+Fixes: 4f8b122848db ("sched_ext: Add basic building blocks for nested sub-scheduler dispatching")
+Cc: stable@vger.kernel.org # v7.1+
+Reported-by: JaeJoon Jung <rgbi3307@gmail.com>
+Link: https://lore.kernel.org/all/20260810031418.95364-1-rgbi3307@gmail.com/
+Signed-off-by: Cheng-Yang Chou <yphbchou0911@gmail.com>
+---
+On riscv64 in QEMU (-M virt) running for-7.4-fixes,
 
-Regards
-Guillaume
+  # echo 1 > /proc/sys/net/core/bpf_jit_enable
+  # ./scx_simple
 
-Reviewed-by: Guillaume La Roque <glaroque@baylibre.com>
-Tested-by: Guillaume La Roque <glaroque@baylibre.com>
+  libbpf: prog 'simple_dispatch': BPF program load failed: -EACCES
+  libbpf: prog 'simple_dispatch': -- BEGIN PROG LOAD LOG --
+  Private stack not supported by jit
 
+With it, scx_simple loads and runs.
+
+ kernel/sched/ext/ext.c | 3 +++
+ kernel/sched/ext/sub.c | 6 ++++++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 10de6bd865e8..3248ed57c2bb 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -9294,6 +9294,9 @@ static int bpf_scx_check_member(const struct btf_type *t,
+ 	 * sub-scheds and sub-scheds themselves but I don't know how to access
+ 	 * struct_ops from here.
+ 	 */
++	if (!bpf_jit_supports_private_stack())
++		return 0;
++
+ 	switch (moff) {
+ 	case offsetof(struct sched_ext_ops, dispatch):
+ 		prog->aux->priv_stack_requested = true;
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index d2a20114eaa2..7c069a289766 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -2246,6 +2246,12 @@ void scx_sub_enable_workfn(struct kthread_work *work)
+ 		goto out_unlock;
+ 	}
+ 
++	/* nesting ops need private stacks, see bpf_scx_check_member() */
++	if (!bpf_jit_supports_private_stack()) {
++		ret = -EOPNOTSUPP;
++		goto out_unlock;
++	}
++
+ 	cgrp = cgroup_get_from_id(ops->sub_cgroup_id);
+ 	if (IS_ERR(cgrp)) {
+ 		ret = PTR_ERR(cgrp);
 -- 
-Guillaume La Roque <glaroque@baylibre.com>
+2.56.0
+
