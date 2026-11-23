@@ -1,102 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795461084;
-	b=HYDhuD7/U/AoVYOpFVoT96+AsWKmA3zdf5k1dhQN9hvj7ckSPE3a6JwTfzaw8jAki5kx
-	 fntFmcdo+4zBGoyIDR+dAdecd8T0PSiZ/nPLCL0dEontdOM5EDaOxH+/frXPCM9I7bwQr
-	 o/EyxzvzLCVVIDJbhSBLx5ejUtkmnHZsY7M78c/IOGI/PVNJZ1KP4/UPvDz09kLeZehZD
-	 CqXB2fWoKquYbTt9x+EPa+kbXPfRQzArtmZUhi0IvYnDhWdi5Jkaig8HXboPJkiBb2Lec
-	 HvIWswrICwUa5MSPFfez8mrkMZ9w6h57OLwMR+XUsMhXHv8RDFjGtDKeepj7IlJyHFw==
+	t=1795461142;
+	b=o8jRfpHfPgLDGrwOueaPJSK+PZ2+KXdYkitG99hY5XNGe+4dsv0rCq1LBAv597GpDD6w
+	 7iHLr2nIsbiPQoaZqe5EEIWJuYMdHjjZytABEJH4iVrajAGMfL7ij9evIbbE3jGaKxWSf
+	 dBSgK+D7gLg3VsGY5mHdyO8shGMXCeJjGoZfiL1BQyM2OxJAMf90QbiPktX3nKr6rHD0g
+	 gTHawPhRrh0lZV7dwKVmD0Tp9yA0uT/WEYy9KZztsNDoSf8EXDm6rR3Ug/eN7hSWgCinH
+	 uNIiaqertGdaV+zHJcqcDBkGqnmM1tHDYYglSfOhjVfQADgRd3FnXGtUzezYZwTOe/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795461084;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MqjW0hsT+jUaSbjhgq/J0Q8J8U6i1pm0dFrQ9EH1or4=;
-	b=lvq0Bachpgs/AkzXjKDSIZucY1YQE4rSEwCDTk12cqgZHfOw0qotH0VCX/61CAfPNiKD
-	 lODLgHAc+5Z5cWGj9cqN+3R8Z3lmm32vlI03hwPI4z8HvmQhBZDzBW3rBDGWK8AQtcX9k
-	 7+3kSNteZYkORWh9CJruHAKLvG7AI6sFRqHclcikk1EzQ0IfMwp4WjO3dS+RRO94JdHTI
-	 47/9pyBs+bv4lNHvZyMQwGv6dAf7Do753FS0LDlk8Aji3QBu0GmC/YGA/8WjZeWp//y9i
-	 thdFHHeRARtwuPWJEJJfCtaGfoKJUn9J/jUfayJdoa6WO6XHYMksvSPiLIvknLanlHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461142;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZdUQUp3LwRE1rqDIK9upCqVPp3ZoKJh9GfW0EZyBwV0=;
+	b=mBEl7WCCdjJckFbyllwhjLrmaurj9amQO4uUtFEVk2d0Kr/xua8099/ZTO9oEDOkAb2o
+	 Zxg8kLU1LMBsnsCdE8XnyBZ2JM6vJDZLqM71Ot3n+mSbOLb1CNyv0HEUISo3rEs27xaYp
+	 3NS+gwWr3tcBVEtlEgTfwvMihiT82Vp1jwDLHy4a2qlz5oF1qjtvVN9+zHadqCidgSwFE
+	 wypk1/QZRUj1E9yT0R5QI9kANpiwCR7lHd9PTrq/dmcuRZB+jUXjcafGcTS4tFoNCSVdE
+	 41fWO5uQarMJTDqLPwi56Aw+l5DUjrKJd8jCRgTtRIEZL/tAMI/GqHAfUQcx/aVJi9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=everpuredata.com;
-	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=Zc8hcYSc;
-	arc=none smtp.remote-ip=74.125.82.226
-Received: from mail-dy1-f226.google.com (mail-dy1-f226.google.com [74.125.82.226])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=queasysnail.net;
+	spf=pass smtp.mailfrom=queasysnail.net;
+	dkim=pass header.d=queasysnail.net header.i=@queasysnail.net header.a=rsa-sha256 header.s=fm1 header.b=rVs462hm;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=d56s9FR7;
+	arc=none smtp.remote-ip=103.168.172.147
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBC4606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:11:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBBC4606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38D5606A31A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:12:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D38D5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=Zc8hcYSc
-Received: by mail-dy1-f226.google.com with SMTP id 5a478bee46e88-33fb4680717so9921594eec.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:11:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1795461083; x=1796065883; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MqjW0hsT+jUaSbjhgq/J0Q8J8U6i1pm0dFrQ9EH1or4=;
-        b=Zc8hcYScQnz85XtfBfVcG5UIkyudsTINdSxEfTb5Hjta0eF3zkJ/22em5JmMtALk3W
-         d2JjGzuEoVF6A15xrw2lgsWugp7IXkf4XuKMyyHd6orzkoRKZ1Ydurq3E/itK6D+Qje9
-         WaemBFGhPuHbrlLVvm08doVvwTz8rQobE2VzIt7IQuChKUxaVkXeqJ+2kvffHPF8cQuc
-         FVb5ozWcIxtV0PsipLCriEYmBU+MXGAKnRpvy5vwP0bvCC1IdZD0ahmD7h07uEH6c/zt
-         kEOLQ5+O+ktGk6amUCGE/de152uokpEFtf0g6+B7JgZErhSM8Owq46jl6vfmlYxXiMoo
-         n5lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795461083; x=1796065883;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MqjW0hsT+jUaSbjhgq/J0Q8J8U6i1pm0dFrQ9EH1or4=;
-        b=C7yUK7jINguV45KLvstez70jFboHaO74fx0+Fx22F2L6uIU0grZIRUQLxamJXXUEQp
-         uVaUuZCPsnP1ZmJ6qyX8tTMKuw+kiE4GOh6LyLurjWoH2LEAILNGIpL+KxwYJg8W002z
-         jY+7Jx04T3D8jTf/s82EZ/RvWgNOy6gexcJ2w2CApS4lRvBxxoTIp12+O28GyU2pImB7
-         NjgyBcdTtrVG045RZ+AUpBkEO7c4a3WX5rXhTd7h4TQsaq8f9/ri3y53eXk9trqzKA8c
-         OELTMVpeh/TWHObErkM4+xM9jU+7/VusIOkInk9zeogG3mXeYPABZmqtTwvUS7M+8e1s
-         7Lsg==
-X-Forwarded-Encrypted: i=1; AL+hErGIsY7b8ExZhSlDLl+3QyJXZuAiM30Z2RuRx4KlJH+Iq/2jYR+3cSJA8lyODaopzmlqzHYf+zc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+SdYl0Q8g8ERKVBjFTGZQEgxhP8r5MG6n5p6hbRYAG55aEk57d
-	RYeO5CN7a2iPH/5Uy32csFfc5CFZ+AafqfFVEqCuXwnIjneiMrhVEbOHBVF2Wv4K0SZ8OfBrrge
-	TvNKpPmxpCEsd07B4ejxI0qOGgpjL756ae2O5
-X-Gm-Gg: AZFdTZe7Uf8mUViDhHy0xCS680MBpVDqAUxxL3oncdYoWqYdMhqjhpP5cXy8mJUMVVX
-	IArrrxPMrdRTTUk1wtTILlt77tiO94O/v54i5JXp9u3NJ0oHs+/8nPWLJj6KD0RSUjQzSJ8PYKl
-	Guiz2t0kAB0dv6hDBpzKRMDJscxlCmTz19/enhvG2rSKF25V2aULjoMjsAbX/D7cEAsbJ/ZJWUZ
-	4br1v/R8uPXrGVbn2DxUI+8zDShU2skfAi0V6wf6rn932Wp2B9rZIuREUvbtNmhx3phC2Hel+tP
-	BvbG4a7hZnW6MeHYVr/1hiZUmfzKtdv8yzvI05ZNkC0MaX8BiosioroYdQ4+7kLnjMkH+KVF+Lb
-	XUXAX6xLBuwNgTagjz8MrCo9StaXv80qKu94L3II=
-X-Received: by 2002:a05:693c:8859:b0:386:b826:3f9 with SMTP id 5a478bee46e88-386b82605b9mr2057039eec.7.1795461082934;
-        Mon, 23 Nov 2026 11:11:22 -0800 (PST)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
-        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-3869bea0c92sm1285374eec.13.2026.11.23.11.11.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 11:11:22 -0800 (PST)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 53D713400F5;
-	Mon, 23 Nov 2026 11:11:22 -0800 (PST)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: cel@kernel.org
-Cc: anna@kernel.org,
-	ebadger@everpuredata.com,
-	jcurley@everpuredata.com,
-	linux-nfs@vger.kernel.org,
-	slingappa@everpuredata.com,
-	stable@vger.kernel.org,
-	tmenninger@everpuredata.com,
-	trondmy@kernel.org
-Subject: Re: [PATCH] xprtrdma: Retire the connection generation when a connect attempt fails
-Date: Mon, 23 Nov 2026 19:11:22 +0000
-Message-ID: <20261123191122.1682509-1-tmenninger@everpuredata.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <90d0ff6e-e9d2-4b2b-9b89-8245ce502e99@slotpi15m67>
-References: <90d0ff6e-e9d2-4b2b-9b89-8245ce502e99@slotpi15m67>
+	dkim=pass (2048-bit key, unprotected) header.d=queasysnail.net header.i=@queasysnail.net header.a=rsa-sha256 header.s=fm1 header.b=rVs462hm;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=d56s9FR7
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id 0C203EC1D05
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:12:20 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Mon, 23 Nov 2026 14:12:20 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1795461140; x=
+	1795547540; bh=ZdUQUp3LwRE1rqDIK9upCqVPp3ZoKJh9GfW0EZyBwV0=; b=r
+	Vs462hm3ZTTwmfJ/LANU5Bp2WK+CzBh9m+TtI+om51GmazmufwSRRu4ZJpQAKJRJ
+	pzuG7hO/ZIVv3F171CgAUorHitOyaWaApdSeSO+wgxP0ZErQ7msB+RNwZUjTgsgA
+	2Y4jjvFfprF2n4euSPZf8d/qE7c9UVir9lAclUKJMW6iwCktpM+Dh+obKfclvAsX
+	9pmt2DSPXNeOPjTCmiLEdE2F+0XjUgdEhtZ2VLUpeNfzjN/JVNV9f1/j/EBqh0IK
+	Pf8Mui7zUkHO0SLioWl/Gu1Js6mJyilXk8CUdGQdvhbdIAOzpGu2PmEFMeRMV4+z
+	78VXxexbgeJnCqJ2XNUyQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795461140; x=1795547540; bh=ZdUQUp3LwRE1rqDIK9upCqVPp3ZoKJh9GfW
+	0EZyBwV0=; b=d56s9FR7dugRFejlNsCQauNUx4FToM+ZNfbEp7rsFttoEgbtz3G
+	PNI4rTqYZsmKwrXUlhKmH4unNa7Amuh7M14RPHrMXrefR4iSAJDIM3EbD59qMGhf
+	i5pV7sILDiiYEK0mCw/QkvYVkBV5kUv4I70yBYbnh2FHAfd2n5iJfUsF5g+yAOdy
+	g7pXMpwtcofcMFNbiNgrH36VnQ69+zMaemyVVkDyfS7yAEI9kd29yWgOj2J+Ttqo
+	j+Daicz7fgr2XlWj4aLqcuBd+mzZ4l+JYLagS2XwiRffdaNBBrnK+7wLTuwYMSlu
+	Az4cKmdfFVxYO0ZmU9oTJsRvV53/Lyf3XuQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=queasysnail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795461140; d=queasysnail.net;
+	mf=PHNkQHF1ZWFzeXNuYWlsLm5ldD4=;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:HGsWWIRVRPkJpYQ+5G3+EDIPiW+hzYSkZbxfWcUp8E8HoPo
+	lndPsxb0l2v6aTM7oAxfCB6eOVEL/HIDvYabpIgQl2+cqHDRBwVe3u3sm4pdvh5M
+	4S7Yx8zm86nfJ4oW+MqdVt6utXiddgqb9gOW4ZdmFeeGbrVyltcXVAq1bbD1aPhV
+	NO6TbpvD89rU/UDwIchExfQj9n31NJkng8fcrZ5dSRe7kSRjJDiDRvJPTpR3f+zn
+	RFGXqjfB19J9iXvBdqKnpHmqmLOKSteAumFLucQbUK6OZRRt2VGPpyfGD9E295ff
+	m1lk+6qAvVpnnaqMI16HvqgL8JVsAfafUowX3TA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:bufxvJwWPJL3RqRXEeaKLqgZ8ndCZ00zrZs7ISG+d64=:L++HDDslH/nMCC2g76db85vFJlKw4k4HTXdQxp16tl0=;
+X-ME-Sender: <xms:E5AEa5vx03GSXAvuqpp_AQQfQgE_HnNnjB6brswKP_5wfM4OsWwxzw>
+    <xme:E5AEa84uzNCk49oSKAqqoUgiiXiq9Xk9O2rzKILsxgxx84UDhK0s_QuqkP6IljLCr
+    ANOYb0LcWNR84MtWMCsMKSc7PoYVe3Hh3ZHfBPau-wub_VeuqDjcjKE>
+X-ME-Received: <xmr:E5AEa0SAT3W4J9u5K8WF6KahVSdlnazv1er-IZFFjPXXjsKJe1jIi2LJJRQ>
+X-ME-Proxy-Cause: dmFkZTFGfMpzRIlRD0JqalkLOXufcldaW5mPKf9gnwsFJ+vDBNXu+ucuA2mHV3sG8awFD7
+    TlQIpLKAlhdRZZzmHM5dzCLr9yCnlqE++1MlGQQlh2hXPAqwPuBKqVs+0+vPLr0jD3m21t
+    KMWW9e6Nr1j2suHosCkXbxWML5v/2o8alliubSq4BLKdJ8hbk8S/De75gOw23JrVIkPY8N
+    D1D3yW5QclrWuPlgXczruL49Qy/XefuKPG45Q8mhw3p9cd6s3zLGtXYEfumcXvrZY2eHdx
+    vAfqlz0+MYyB1suAIuZNChzbjL65w1LKUjDuaCq/DRfI4jG14yihH6ToIZrLFbuh+tdvsy
+    qqobtHJW75A5py4Dwv+RigPIEvPWFGHtQNxvt0r08bDNOn7mj1DClZ8etsIEQFkSAnl+Qg
+    vMV3JMfnq2533Cy6XJoUhqFcZ+K/iGg66/tkCSliXrxWC7Fl1RsWmOZZlyaaPS1Z2F33Xy
+    wdE6/do2ryEMjpqq6Rx41AYLp71oneCzukbKogCx7I38KcVO4k2CllfHKo94RMmgPREFEd
+    URGDsBoO3+C8AbHXc+MxOfdElfuM4172gASIoAzb6NhWEwhaO5pgqVVA58YNOgZVBzX++C
+    LG6HS9r9OSbFojsmNpCKDEfdzq7VWKBkJMa0WD4lFBXygFbv1mU6ghr4jywg
+X-ME-Proxy: <xmx:E5AEa3vWthM5yLcbJ4PuwK6FXeCXspXymyOCLSatAfeIqEkMLwcNMA>
+    <xmx:E5AEa-9zXXKTZS04cEi1yTHxkEAQsEpRqbANvz5_vqnQZZ9IEyju0Q>
+    <xmx:E5AEa4whMWMSIAMMOVkPCc3ZxaJICU-VuhF8N74AR_Ow7lqu3bl7bA>
+    <xmx:E5AEa49cycLdn6bpUBP4YVsSm6iVaHwCwPGgQ6iEqUuUqEJxRuCy2Q>
+    <xmx:FJAEa0_5qXRsoSOClbwXanZavhmZGkTEf8_aRUPh05sz25iMpP7bxqNZ>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 23 Nov 2026 14:12:18 -0500 (EST)
+Date: Mon, 23 Nov 2026 20:12:16 +0100
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: Rishikesh Jethwani <rjethwani@purestorage.com>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Alice Mikityanska <alice.kernel@fastmail.im>,
+	Tariq Toukan <tariqt@nvidia.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v5 1/2] tls: fix socket use-after-free during
+ device-down
+Message-ID: <awSQENPQBd7ogyyA@krikkit>
+References: <20261116183519.3314837-1-rjethwani@purestorage.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,9 +129,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261116183519.3314837-1-rjethwani@purestorage.com>
 
-> LGTM, with a couple of cosmetic suggestions.
+2026-11-16, 11:35:17 -0700, Rishikesh Jethwani wrote:
+> tls_device_down() pins each TLS context, then drops tls_device_lock before
 
-Thanks for the review. Posted v2 in
-https://lore.kernel.org/all/20261123190823.1680365-1-tmenninger@everpuredata.com/
+pin = hold a reference?
+
+> switching ctx->sk's TX validator. The socket destructor can run between
+
+Please stop calling it a "validator". Those abstract references are
+just obfuscation.
+
+> these steps: the context survives, but __sk_destruct() frees the socket.
+> 
+> Switch the validator while selecting contexts from tls_device_list under
+> tls_device_lock. The destructor uses the same lock for its context put
+
+Which destructor? We shouldn't have to guess which functions are being
+called.
+
+> and list removal, so ctx->sk remains allocated through the switch.
+> 
+> Checking sk_refcnt would miss sockets whose queued SKBs still hold
+> sk_wmem_alloc and require fallback after sk_refcnt reaches zero.
+> 
+> Requires commit f08d8c1bb97c ("net/tls: Fix race in TLS device down flow"),
+> which moved the destructor's context put under tls_device_lock. Include
+> this prerequisite in older backports.
+
+Can we add the dependency in the Cc: stable line instead of bloating
+the actual commit message?
+
+> Found by code inspection. An ASan harness running the extracted teardown
+> functions with userspace shims reproduces the UAF before this fix and
+> passes afterward. Tested on Mellanox ConnectX-6 Dx (Crypto Enabled).
+> 
+> Fixes: c55dcdd435aa ("net/tls: Fix use-after-free after the TLS device goes down and up")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
+> ---
+>  net/tls/tls_device.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+
+Changelog? Links to previous versions?
+
+> diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+> index 4cdfbb57ecff..866193a506d2 100644
+> --- a/net/tls/tls_device.c
+> +++ b/net/tls/tls_device.c
+> @@ -1345,16 +1345,19 @@ static int tls_device_down(struct net_device *netdev)
+>  		    !refcount_inc_not_zero(&ctx->refcount))
+>  			continue;
+>  
+> -		list_move(&ctx->list, &list);
+> -	}
+> -	spin_unlock_irqrestore(&tls_device_lock, flags);
+> -
+> -	list_for_each_entry_safe(ctx, tmp, &list, list)	{
+>  		/* Stop offloaded TX and switch to the fallback.
+>  		 * tls_is_skb_tx_device_offloaded will return false.
+> +		 *
+> +		 * The context reference pins ctx; tls_device_lock keeps ctx->sk
+> +		 * allocated until the validator has been switched.
+
+I don't think this comment is helpful (and again with the obfuscation).
+
+>  		 */
+>  		WRITE_ONCE(ctx->sk->sk_validate_xmit_skb, tls_validate_xmit_skb_sw);
+
+-- 
+Sabrina
