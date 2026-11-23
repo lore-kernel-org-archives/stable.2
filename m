@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795446069;
-	b=wesbos91dhvXZxl+PpbilDGzaREVy7vvnfJRa6IAQOr0XEkigg721YM4dQL0oblxP3+3
-	 6g+3e9s16DYmGxPCSbDrEitsBS24VhjC8+n7tH1WnrWtmmFEGrTzJkOdzKP00sOFYWk+E
-	 pMtFDoGuawm5571GdSipfe/jy7WPQHIw31J81LN/GUMqpQ0NBbO8gh8VLxf2ZxYqeHJfF
-	 hPacszKdGmvwGkvDE2s5Trt/HIiHilqMyS7+ipTksTavIuaIsRZqe4YtvtP8718YwqVqW
-	 +R1nImEbk2Wl2HkUrPi1RmZfx1fZPKetbUsXjxQ2Z91jPLbiPqQBLWJ8PSQpZhlj+XA==
+	t=1795446070;
+	b=5eA6dS2xrJG1w5bRs6c7IPOJBti0JN3ds497vV4p7pe0PmLkvBNn3uSy/MqOZQrWq3Oh
+	 uIWgB1BfVYY4PvFNJnDtMqHkUiZAJk1VvqCvGB7W7DvWaR36idgYiLdbCqvCsFBt77ngd
+	 aE5kRFJnQc1xpYJSX8dOncL3NWdVGUvmOkHkPJYfWggpzlBBHksIjjnM9/sj7VprWA65U
+	 0udsuX1w3/WnOfu4CK2HrtpxPVYYPdUC71mnoJmqdtFSU5bMSXcKldocM7PFxhnb71oGk
+	 eA9mwykN+Qjq+zu4Xw6CGOQu6vkqB/ijyKk3oX0KItZ1EoXMBTfRM2xwtDurNCJlBVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795446069;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795446070;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8up+ChW7Qsjki9eTuIEICGRZ3EGbMsHsimy8g5WL5tQ=;
-	b=ST5pla6QuMLLjYFZe+JjXKNFy5/1W1oyXVh6wSMKHMgWYW5209H5Ox0akPpnIQPz0v4M
-	 N1bDhjwDWnl28MoQAoQW6aCgaOZCQyxnU6MWvp2JTDrlaA2Ii2yHnZHD3ROdHVWz2inqW
-	 MUWR7264s5ZVzK+oNtzWrS2c0wrtBt8/QVtyJPH6r0COxeOEBffgo5uUhgYwtWxrmLota
-	 5rpuUu1Vh4HPx5zzStDdGNL5WkdJngdZwcqo7q2UzvijKgb4DBCKzYom+Y9HvEJYOa7AP
-	 YI+OGsyXNU6lXWrnYdvY+H9LyGACxxbtCott4w2lh3hLm+F+3EAzoUu7oCgk7QdhQmA==
+	bh=ta1APtJZ3SbnBo9Poepvc+VpghMZSCLjVAvUkbF7mMs=;
+	b=SpQKmtErQsnRsYdeEoWC6+STeYcbypwuB2X+zhpdgGhAVN2/+b/hg1qWMM14NZYJk4on
+	 8Ct6wqmda1heoYwV1eF4+zms0IW9oQCztW77TrQVLLQYvj50GXm9rWF9LrQCVu7FP2DmS
+	 ChJFK8r+M87pwmgc2HSvbjvT6x8z+3skXQkKXtKrEXfcrLNSU5vIKHDZjndJ9+QFvlUWh
+	 x+KbjgIdCDpbaVCEan+4VQYmbMN1aW+THscv9RJzUFetIAbTh93uZRgmn7j9u5WhLP9sB
+	 JrZVLupZJT4IGK8HyqduZOm3tn5L9ThUi1ihMtnpwyfZh/nXVu/edPfIb5nWuEm+NCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YdmdSugz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CN4+/0Gn";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647AB606A321;
-	Mon, 23 Nov 2026 15:01:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D90606A331;
+	Mon, 23 Nov 2026 15:01:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YdmdSugz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D670A1F000C6;
-	Mon, 23 Nov 2026 15:01:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CN4+/0Gn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9F491F000C6;
+	Mon, 23 Nov 2026 15:01:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795446069;
-	bh=8up+ChW7Qsjki9eTuIEICGRZ3EGbMsHsimy8g5WL5tQ=;
+	bh=ta1APtJZ3SbnBo9Poepvc+VpghMZSCLjVAvUkbF7mMs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YdmdSugzHZZCcWuN2gDwiGu0jKBzhwbjltPTF1SlrlZ+0UHqirx6FFIS6npuQ6KDg
-	 dJ/rrJ675rVKR4qm0MD9cRxuL2JyJjtBkEa/+pV8s5qdNCE80X2NqxMHdglC4sJEmV
-	 czkuwJRfxnngk0ZHKJLBvJ24AEhvetCIFS2IWbUaf1DeIG9ML7C/87vda2ABPfDVNK
-	 JR8QuFDKDPvYUOXuyw0GAJSFZN2td4EB6uVvnDFytL3uCY+LMbTqcrz8/eNiNr/iuU
-	 FWi7SoPy2tuwp1EGz1js0ohggF11MWoGKvBEXy/dQCAyY4RBCO7wMXrIbo2OqmGdSD
-	 E9dlPWTrdTZFg==
+	b=CN4+/0Gn8La1gLwsgprHfMz/omHDvSNFjCxQwHPhimmlwEacFqD8PGsYCOyFDiVyk
+	 ze+P4xBPSBNDIzhdfquMAInfch8/HX9gdFdCOnlrbU3aDg95jvFDCC4g22pUUMrhqc
+	 j5suvJ7voB+XjPYD68SY1B+Ig+LGY1DEDWUToNaM9C00vjBZ6dfN6O7Ch3p3CHpv+Y
+	 eS/c6SY4084KamWuNC+dCwuQQMKSyPXpVqXVyFEMIUE37iaWrJ7RH8alfiT840gElF
+	 SkRKIxLJqOZ6bT/52loQEAsbEb6xkpW4leeTSqHjWjBPadZC6miIPJHh9uz+7DpDQE
+	 /uGaDvm2SIynw==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Yifan Feng <evanfengff@gmail.com>,
@@ -46,9 +46,9 @@ Cc: Yifan Feng <evanfengff@gmail.com>,
 	SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
 	linux-mm@kvack.org
-Subject: [PATCH mm-hotfixes-unstable 2/3] mm/damon/core: fix damos_walk() hang with zero watermarks interval
-Date: Mon, 23 Nov 2026 07:00:47 -0800
-Message-ID: <20261123150049.81317-3-sj@kernel.org>
+Subject: [PATCH mm-hotfixes-unstable 3/3] mm/damon/core: do not overwrite wmarks.activated in damos_commit()
+Date: Mon, 23 Nov 2026 07:00:48 -0800
+Message-ID: <20261123150049.81317-4-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261123150049.81317-1-sj@kernel.org>
 References: <20261123150049.81317-1-sj@kernel.org>
@@ -65,77 +65,52 @@ Content-Transfer-Encoding: 8bit
 
 From: Yifan Feng <evanfengff@gmail.com>
 
-kdamond_wait_activation() cancels damos_walk() requests while all
-schemes are deactivated by their watermarks.  But it returns without
-waiting when the watermarks check interval of a deactivated scheme is
-zero, which is the default of the DAMON sysfs interface.  The kdamond
-main loop then runs with all schemes deactivated.
+damos_commit() copies the whole wmarks struct from the source scheme,
+including the private 'activated' field.  The source scheme is a new
+one, so the field is always true there.
 
-In that state, kdamond_apply_schemes() finds no scheme to apply and
-returns before it calls damos_walk_complete().  The walk request is
-neither completed nor cancelled, so damos_walk() waits until the
-watermarks activate a scheme again, possibly forever.
+As a result, a commit turns on a scheme that the watermarks turned off.
+If the metric is between mid and high at that time, the scheme keeps
+running, though it should stay off until the metric goes below mid.
+DAMON_RECLAIM and DAMON_LRU_SORT use the same path for commit_inputs.
 
-For example, with a scheme that has the free_mem_rate metric, zero
-interval_us and a high watermark below the current free memory rate,
-writing update_schemes_tried_regions to the kdamond state file never
-returns and cannot be killed.  The writer holds damon_sysfs_lock, so all
-other DAMON sysfs writes including "off" fail with -EBUSY meanwhile.
+Save 'activated' before the copy and restore it after.  Do not restore
+it for DAMOS_WMARK_NONE, because nothing sets it again in that case and
+the scheme would stay off.
 
-Cancel the walk request in kdamond_apply_schemes() when no scheme is
-activated, as kdamond_wait_activation() does for a non-zero interval.
-
-Link: https://lore.kernel.org/20261121025626.75981-1-evanfengff@gmail.com
-Fixes: bf0eaba0ff9c ("mm/damon/core: implement damos_walk()")
-Cc: <stable@vger.kernel.org> # 6.14.x
-Suggested-by: SJ Park <sj@kernel.org>
+Fixes: 9cb3d0b9dfce ("mm/damon/core: implement DAMON context commit function")
+Cc: <stable@vger.kernel.org> # 6.11.x
 Signed-off-by: Yifan Feng <evanfengff@gmail.com>
 Reviewed-by: SJ Park <sj@kernel.org>
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
-Changes from v2
-- v2: https://lore.kernel.org/20261121025626.75981-1-evanfengff@gmail.com
-- Collect R-b: from SJ.
-- Rebase to the latest mm-new.
 Changes from v1
-- v1: https://lore.kernel.org/r/20261118235012.14859-1-evanfengff@gmail.com
-- Cancel the walk when no scheme is activated, and leave
-  has_schemes_to_apply as it is (SJ Park).
+- v1: https://lore.kernel.org/20261122002930.98401-1-evanfengff@gmail.com
+- Collect R-b: from SJ.
 
- mm/damon/core.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ mm/damon/core.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index b8678a53b0a98..2748f91999240 100644
+index 2748f91999240..0e6b361f97ea6 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -3492,9 +3492,13 @@ static noinline_for_stack void kdamond_apply_schemes(struct damon_ctx *c)
- 	struct damon_target *t;
- 	struct damos *s;
- 	bool has_schemes_to_apply = false;
-+	bool has_activated_schemes = false;
- 	unsigned long max_region_sz;
+@@ -1567,6 +1567,7 @@ static struct damos *damon_nth_scheme(int n, struct damon_ctx *ctx)
  
- 	damon_for_each_scheme(s, c) {
-+		if (s->wmarks.activated)
-+			has_activated_schemes = true;
-+
- 		if (time_before(c->passed_sample_intervals, s->next_apply_sis))
- 			continue;
+ static int damos_commit(struct damos *dst, struct damos *src)
+ {
++	bool activated = dst->wmarks.activated;
+ 	int err;
  
-@@ -3506,8 +3510,12 @@ static noinline_for_stack void kdamond_apply_schemes(struct damon_ctx *c)
- 		damos_adjust_quota(c, s);
- 	}
+ 	dst->pattern = src->pattern;
+@@ -1578,6 +1579,8 @@ static int damos_commit(struct damos *dst, struct damos *src)
+ 		return err;
  
--	if (!has_schemes_to_apply)
-+	if (!has_schemes_to_apply) {
-+		/* The walk cannot be completed while no scheme is activated */
-+		if (!has_activated_schemes)
-+			damos_walk_cancel(c);
- 		return;
-+	}
+ 	dst->wmarks = src->wmarks;
++	if (dst->wmarks.metric != DAMOS_WMARK_NONE)
++		dst->wmarks.activated = activated;
+ 	dst->target_nid = src->target_nid;
  
- 	max_region_sz = damon_region_sz_limit(c);
- 	mutex_lock(&c->walk_control_lock);
+ 	err = damos_commit_dests(&dst->migrate_dests, &src->migrate_dests);
 -- 
 2.47.3
