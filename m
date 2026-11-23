@@ -1,83 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.9
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795425702;
-	b=cVPUfyJVxNXzNRTPIAf3e9/b0uMilib3xaGXXmC/W/AJtAm/6XnvZRDsdaL6+ZlGAUc+
-	 n2uKTsVgkJsWBcqzlMu4ffHPWyBIdcep5N7oBdtKktvdHJNsRObOBljXJkeO7PnCt2B29
-	 Vf/O2XY140diHEIKXNABvWlv25Fxli6qKAph3jcPxyLs9QFDKmQDdoVu5H84U0F44MyeU
-	 TkWXjGc91pGrYraKZxFVwAJnxa3SMI5OU++VjYaMCvAjEWEvO2u65Fc+ZDTRXsOLz0h/b
-	 INcxoMs8bZo+ng88eKzVQE0m/Ot+/hEX316UGzbKZNIHuNaVfT9u2jff74IvZO1WVpA==
+	t=1795425724;
+	b=U5F91Rg1SvJppCEQsNwQ1eyX1s+qJbBINinDXH3QDz2mNgj5f2LY8/8lc96QDr3oEiD/
+	 F1i8BQYmyN6SyDnsJOIK1Wn/GHI0OF6l2NwX5Axx144ZGCcLTLorrs6OWiD7Mw7Rr6NCh
+	 7YArqntToOsYHfOZTVQHnkybK/K4BL4neABcDEMZVvc6bdIiAQEuND8ihKtqpEYmsw3tt
+	 +axPOxoYCvE06LT7utFVlX9ZhuWf2gBfDjY0fTfhZfUcqcCq7FNwo9dME2ZW8c9bJ4dRE
+	 rJDAgN7MbjOQuA0YPPy9qrKiK2UywCdOMFFVwPalhbCg5p8ti9QIIX249mzOclIBR/w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795425702;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=P6FaFA5CHrg5MvfumvJ89niQIBL6w+CyEYps5S0pI+4=;
-	b=A4h6usJbxo2ciJVjZRsZNnvZNpKXQzTooErz9WtnQQctGuXjDMh+F78+BbFwxz26jv9J
-	 nyKf6kyqNe4kIAwCfTxyEoeGFQOI46a0VUufvEeyzf9EsfiXIjpO1sByDNLWkndixotnB
-	 4gGUEC3k4/S48rQTNkabtSzuD93dbvcarcHdkoJlplEAYh0/hY9EyOvbzRiQWRQs5Z47F
-	 EFfSL/3AFMWZvbfiEtP5wuOOv2zG+Drq2fIUY0A4H3M6Oz0dvqwA7Z69hwatU9G5LurG1
-	 rmyQwXUfff55mK3f24bSVqbPEmp36EIBo8nPrKVElnnj+s9hvr2NEctZ5yH9g7/YWBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795425724;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=iS3QCFguGjkTFIwErDHucjGu31A6GDtLusBktCJQBTY=;
+	b=YdxB1oCrBz9Lk/LvrDGXpT2x72g+OWav2x3DI47QSo3gpIqjQcslzTcg6GOGx/5uaVeT
+	 HylKTBdx/CTohPVYsJpH2T8LwyuB1iKzs1eHjBd2/yMbbkRBzHs8KIAkA3ONyIrLdJKDg
+	 1eHcLON3HX9K94ffiVtYX2HtPQdwdF7L40DstQC3vl42cCv8dMyk030BEWqgjumqd060+
+	 My1rU+faDTOOdfmaDj7d+WucpJ2RefJgZtEgoVrLrVh8m7RqMaX0PaT0AVEKj6ejwRbtf
+	 /CaAVG3IHNZUqk++9UtpciUNkol9r+7aTfTKa+E+P7yfG38y5uiDqc98SIwA5qKFjFQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aIfhf4Ba;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=eOvlVJ9j;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.9
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011009.outbound.protection.outlook.com [40.93.194.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C09606A335;
-	Mon, 23 Nov 2026 09:21:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70C09606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35812606A339;
+	Mon, 23 Nov 2026 09:22:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35812606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aIfhf4Ba
-Received: from pengutronix.de (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
-	(Authenticated sender: mkl@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 38C94200AB9;
-	Mon, 23 Nov 2026 10:21:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795425699;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P6FaFA5CHrg5MvfumvJ89niQIBL6w+CyEYps5S0pI+4=;
-	b=aIfhf4Bas0a2zHEkOUrwP+z9Mw8y9V4E837Pvcz0XalVYphbXKoJyeUBoblcYw9ZhRXQdp
-	vXbTVzisXv4fFGTQ/CS3ImBYgW+R1NRDwSL+1pyDzoCWh+iBfhmeIPac5/xg4fD/JmMEhy
-	1gJOmWD34oKuZaU1KHwj/vNG+lvU7vbahd4qkgJu9oulUZ9o2qK+/BCbjyZlEby+cKm9SN
-	e7UDbRAD+4BffS4T4yK7kf12ZoOgbKyaZihZ9biU1Dlc3g0L++tOkN5R6XymZYFGXOz0vB
-	TQLyDhaHelkJl2/dm/EDy9sVNKwy8ca9h1KvesAiDi8vWkAFkNrWcajMyp5xzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795425699;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P6FaFA5CHrg5MvfumvJ89niQIBL6w+CyEYps5S0pI+4=;
-	b=QI/t9m0rSxoylUyKfN2H/SVQ/Ii2je4lS4SAHlIEVK63SzEZS9jX1UYj0odeK7n4Jl1uFz
-	qGwxcAz8wTXYxMqVBRLR3Na1zNt14N6RE9fobgDKLGU4RHA7nTEHDznL9fz2STLlZxw733
-	YgzPOeGYyRm8g/aOhrjLsOHhwN8wJXzAMrMrF4xikXomWRH9nJviNIEimU6ElXAyYK78Jz
-	s0nc7TjgVI2+dYO8vEEuHK5+sxV3HxQMq6G26h9CVmAvBbAwgRy3Mdti2EgwzUf2bSi6eg
-	PFK9GDh9FN986F+l3Q4RPRHgnorcsbYdbP2kBLhfFFyzDW+X/8c5f3ldYku1aw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=mkl@pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795425699; a=rsa-sha256;
-	cv=none;
-	b=MNIOKhUHhGa2SIT5if9znnxwHoxjFag9j2lTVjdCfjRaij7nAKiYMaOhid5pSJZmJkj3B1
-	N5QxEBnOf9sBHwUqqwC4vbKVkNZIc7YVT6x5QCMd9o2hFg7Al5Q17pA4Z9nokrBYCZRLak
-	yHHXsgP6DBJUbN9IiscgrcPLfPXE6xCVaf42/TavuM2jVQ0PpRSauU0JGmQoH1rmjlCyPw
-	q/50iYzT90o4m0qxCepzZMVIKungewp2d9Z6YJVIswyS2I75llA48eujtdJyF8aAFP/+eT
-	2QvnyFWey62i9zW3lowxeWkbqARt53HFbyqdoFivN1hyeT1O7BT5FkRZc9AOhw==
-Date: Mon, 23 Nov 2026 10:21:38 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: Vincent Mailhol <mailhol@kernel.org>, 
-	Oliver Hartkopp <socketcan@hartkopp.net>, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH net v3] can: dev: reject unusable bit-timing constants
-Message-ID: <20261123-loon-of-wondrous-aurora-cb3d93-mkl@pengutronix.de>
-References: <20261123062614.7811-1-25031212351@stu.xidian.edu.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=eOvlVJ9j
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JxVGfe1i4xgiVtDzB1zu7o/Focb6IBkJ38jFpzCx0ytkmoYewV9M2puzfHjkUMCwss6rT75eWHKbqh3GQMn4RkOXPKEstrHQFAb8NxlS5Jkb7+WWCmGlAto2U5MQ8SGfD7VXPuRX0m7k/IYaT16D5DbsRw8tSGRx/BKWDG4spqOL3YO+gK3uApfSqEuxPV2OAzTYE+tfHIeEXVUC76tB6GneSlqRYFkQW3uUj4S/Zhu5mUSBDJ2nxjPEfABx+dXI2+bX7Rlk/MURO1CAoBSI+fKZ0oKvZzI8JlwSzWlzYoo/KI2L8j6FUirmHfMaxWdrB1MyzyE89MSlpVU80H8+wA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iS3QCFguGjkTFIwErDHucjGu31A6GDtLusBktCJQBTY=;
+ b=lxzNwc5VVWE+FJ7GUXyokLRLpVYCUAq4y0lsa+CHfJASwATD47iB95WLpvCLqy8nz1LBZs6PX/Mqd27/d06+IW3nm4rX7bSlyaFNfz4iXQJP0r5DpKTN/wwzceYp916tG7TUJo5llKXSjVSYNZgtVYi51VaHzRfZdVz1/A4OT+gGk+R5/yomW6+Agg6Yrip5srlUL9mv/sTfxsAyBxXraJ7g/S9D5NfzqE8YAankf8uvwiiz4GDs9/+rdQd4sKLR9WHqasDgighUhZTAXt7646ZZnT/QanyTvoP6etgQBvlEwS+c7+fxwctkBPO73HLaCTzWubdC7OyYQ3CFRTrHNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iS3QCFguGjkTFIwErDHucjGu31A6GDtLusBktCJQBTY=;
+ b=eOvlVJ9jmGaHYLN3ubnadxsocSoD7tTgFoRtwo4g9yBFEbmgveilvkrobrounMCEKlPW1DApw23um4lteySETxyu1zuNy78nhjthGomRopbrpaAD6x0N3tgHFUFYbYuYwnfop/T7FXNY9xfY8P59yhLfCAz+HzOCdiXmCE9AUQs=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS2PR12MB9797.namprd12.prod.outlook.com (2603:10b6:8:2ba::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
+ 2026 09:22:00 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
+ 09:22:00 +0000
+Message-ID: <7e2d1eb5-ebd3-466b-b516-7b4b8bc32809@amd.com>
+Date: Mon, 23 Nov 2026 10:21:19 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] mm: check permissions and bounds for
+ vm_ops->access
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Rik van Riel <riel@redhat.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Chris Mason <mason@kernel.org>
+References: <20261122-access_shite-v2-0-808d8d2aa700@kernel.org>
+ <20261122-access_shite-v2-4-808d8d2aa700@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261122-access_shite-v2-4-808d8d2aa700@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0263.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b5::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,264 +116,173 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xdojbffkplv7647w"
-Content-Disposition: inline
-In-Reply-To: <20261123062614.7811-1-25031212351@stu.xidian.edu.cn>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS2PR12MB9797:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a41ea29-8bbf-4b04-b252-08df49433a65
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|921020|10067099003|4143699003|11063799006|56012099006|261009223027099003|261022105027099003|261021123027099003|261021121427099003|261102123227099003|261102130727099003|261026121527099003|261026140227099003|261028144727099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	4NV9gDoJP0AHf4nbvfEbHNGdjCVHbn/WGKB/yxCGmFdEhi8VKbIRlie9OcK3vtk+4ceJwGfmZlRCLjJhCZFhqqyUsgwNRJ/EOkIGDF9mC9D9F836mPEEUVCEBtq/QvE9kDuMWR7GDtwwgMvBoBASJicQtBJxVhu59uLSPwpYPLPO9t7tE3MDdzZaw37YZE6cUat/p22N7fACG5X5kjgqJLpQ+iFhDn18LFj1Hxn258PHw4zyLrVUX7JMGe14Tvg0tWNeO2xMDAvuYIp9kxq+SfW91j0EEQwvbny5Rww5xEiVeyCx+eOcTp0STF36sTr4tG1TBdDFS+VJntBX1qlE9SKwx0UNr6p1rw0HFwWlGaF1cCg8Pct26KEUMMQwwA4sicKGgx7Jj7ntHra1lAJ0gURx5fNczod7CTvJIUB3sB0tjSKt58leVpaWfdhm1Dyr9LqfQb7WM+Yyqwk+kWpDc7YV1dmXpDawa0aWuKTBG6eqh7WvYcQ7enHKukQ4Ra4/Ut+sXR91Eo3+AYm/Q6SU4iz4zB5uBeI10EvSo6a31fqQP9EctAvwUJuQ6vI/OHKZCWaV4woaa0PCiH71uit5JEDXVh76WtzlIz7bOImuUe8yqN3Jk28Y+HfXDHlCtC5KspkDPdx7AwDsxsDAjOncVZebDDF1/yp6Uyx+YMYLJ23xPzLX+zRY7nY8XfT7bYcDJCMSEvpVFk6HYxqJ3L9W8g==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(921020)(10067099003)(4143699003)(11063799006)(56012099006)(261009223027099003)(261022105027099003)(261021123027099003)(261021121427099003)(261102123227099003)(261102130727099003)(261026121527099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WDJzVXBPOGEydVQ4S3VEeTIrbklNZkxoZXdBQWY2c0toV250RENZSjgwVVRq?=
+ =?utf-8?B?UHhBUjNQaFQ0TmNmSjRpaUpuZFRMb24rbCtmSndYQ3hVN2pLcXhhMFhRWUlD?=
+ =?utf-8?B?UmdkbHY3KzRnK2FJVzNaY05FY0tNeHJLVVo0VjBGaGxxRHlsSVdKUXZMbG1q?=
+ =?utf-8?B?OVkzYWJ2bDFMKzRkMnJPRWt3cWQybUNVV3E1VjZnTUR6ZUkvdzBLUHZmMjJ2?=
+ =?utf-8?B?cXMxQlB3TkJhc1Flbm1XaXg1NU5FZXJuME0xUUZ2bHlMQXcySG00MlZxRm9h?=
+ =?utf-8?B?QndKSk9OUk5hMjZOU1RkeWhkbG90MlRocHIremltYnJCMXczUjlVaUlWK1hB?=
+ =?utf-8?B?Q3JSZFB6M2NybHZaZmVlcUZ6cTNPS25ScTlqK1I1ZTUvSXA4M1Rudkd2NzNo?=
+ =?utf-8?B?QkhCNmdHVXltZjZnbEc4NTdLWlpRVm9UaW1HaXZJdTFKZzFJYXNXcFJoOEhn?=
+ =?utf-8?B?dmExWkJYbThlaUF5Y3ZobzNPb1F1Ry9OUVFlNTZHallHbmNlWUdYeHcyTGQw?=
+ =?utf-8?B?V3lnNkxITUFKWkU4T3NVckcwVy9MTW5GelpJNUxLN3F0SFZjdWdQVXk1LzB0?=
+ =?utf-8?B?UTl0SWFmRHR4eW9Vb0FFM1Y0UlJVcWVsU25USkZ3c3ZVT0hrU3duOHZZd002?=
+ =?utf-8?B?TmFucmZRRnFqRE1WK3l2bTZvZTFFN2tiU1RDWmNTcU9SajZoUW9YZURxOGpo?=
+ =?utf-8?B?SENrL1gwdUdDNElwK0hPTGEvYmlvaGpvejJmQUVHdUJOeDk0S1JlR3hLVlVU?=
+ =?utf-8?B?T0krVTEwQ2FQVXcrWDhIL3l4b1c3OXg3UHJYOWRYdms3dElOTWJ0dHd3YVFN?=
+ =?utf-8?B?TVA1eVVOd0I4YzBhTlFiNC85K3hXTEZKRFhBZWt5RmRKWFBTZlhzYTZNWUph?=
+ =?utf-8?B?TUNra3loRDNxbXlEa1EvWWxHNEJUZDZSeEEwd2pnaGpFLzlHbzlDMUdJVW9o?=
+ =?utf-8?B?MGYyeFJyQUpGUUkyUVZVU1ZmRm5DQ242MWFra1ErRVV2RzJ4RjNIMzNibGV0?=
+ =?utf-8?B?VnBUN2dqRUNSQjlkODhCVnNjbTFzaW9qSDJUNGVTMVlYdlBiajJVVTBadWhS?=
+ =?utf-8?B?cVVDV1NiWWNlOUdpUkFIN2VwbVJ0VjhCa0xXK2xySmpIZGN3T21LRERoWk41?=
+ =?utf-8?B?Sy8rZXp6WHZRR29BYzZlQzdkMXpJcEYwekk4TWNxRW9ZM096TnpJNjRwY2tR?=
+ =?utf-8?B?YXlwek9rY3FoUUNzcTR4VUpHZTNQaG1ySHlyZXMyMmdhbm1xbTdLL1JFQnpp?=
+ =?utf-8?B?U0FveFI1VkEvZkRRd05jSTNGc1VOUkEyeENxT1p4Zm5pa1pGcmhzNHV6aGdI?=
+ =?utf-8?B?NXZOaks2TE9jaHJWUmdVT1hkVkVsaE1MWU9tRkpWemk2MThSNGlWTEs3QWpT?=
+ =?utf-8?B?WXRCSTZsQzRxMnV2RnZ3SC9GMUhtN1oydnBPbTk0dnZHN2VKa2dmSjhHaTJq?=
+ =?utf-8?B?NGNvQ2hFaHRyMDNDVHQ1OUxhV3NKc1RkTVc4ZC9GeFJ1dkdiMjQxK2plQ2FM?=
+ =?utf-8?B?YlJiYXY3MGFXUzdUdXBpWWRjL1lTRWNPK252RTVTYnJwMzdzTlNOb2h6V2pn?=
+ =?utf-8?B?aUJoenZ6dmdiaC8wR1dVOFcxcmxHVHdHZmtCSzM2L0NVbURVNEN6clFvcGpF?=
+ =?utf-8?B?Z1FjLzJFWWtuNlEwL1Q4a3lyODRxaEd3b0Z0Y1FmQTQxMlNmT1FXR01SbXR1?=
+ =?utf-8?B?U2t6QmE1aHBSY1RiNm0wN3lVWDlldGVuWDNQT3Zic3ZUZm8wQnlXM3FhUTZ6?=
+ =?utf-8?B?bHpMMG5PNVdCTHo4U1lzN3EwSnlPdklIaWNVeGZNWDI2RDZ1d2JmSzU5OEhj?=
+ =?utf-8?B?d0VhemYzUDAya29NWDRkdjJoYzl2Qy9VOUNza3hiSGRraVdXVjY3MElqRjU3?=
+ =?utf-8?B?QmxBY2dwd25pVmphS0J5Tmh6ajBiMGpra3dNem9qMzhkZ0U4dUp1aHRDZHVC?=
+ =?utf-8?B?aEc0WWhnZGVIMXBpL0RCSXdwOFQ5RzRyNHlISVBUUUVueFY3Z2NXME9JMzlQ?=
+ =?utf-8?B?b3BNYzA1dlg2THdvUHljVkk5OTdMNFd5SnJLTTJWR1JoVkJEdHdyRXBqd0oy?=
+ =?utf-8?B?dzc0dkVKN3lTYjUxeWYycnZSWGJVT1ZHNXRsdkNNQmNpVk1UY2JMNUxmU3N0?=
+ =?utf-8?B?R1NXTWt6TzJNMGpJLzFvQ2VEU3JDQkR4d2ZQa1VycHpBSC95MzNtZlExdnBS?=
+ =?utf-8?B?QXVkcEF0SEJkTk9QeFZvM0ZYNXVvUWZsWmlyR2l4dWk2Sk41ckplZzhLS1RZ?=
+ =?utf-8?B?T2VFU1c1MGZDdW9MQUlZNUJEb2doZWpuZlNhTkZQRTgvZ3g4REhIS2M2aUx1?=
+ =?utf-8?Q?/bkwLMr8rFb4Q9PD2s?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a41ea29-8bbf-4b04-b252-08df49433a65
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 09:22:00.2951
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +E6cpV/B7zWZvYKTg9JB9xcQeIMFhEQEsA5S5YoNy6hMUml3q59v9GVAJJDqDp/F
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9797
 
-
---xdojbffkplv7647w
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net v3] can: dev: reject unusable bit-timing constants
-MIME-Version: 1.0
-
-On 23.11.2026 14:26:14, YuanZhe Liu wrote:
-> can_bittiming_const_valid() is the hook register_candev() uses to verify
-> the constants a driver registers, but it only looks at sjw_max.  The
-> values can_calc_bittiming() and can_calc_pwm() depend on are not
-> checked.
->
-> gs_usb builds its struct can_bittiming_const and its clock frequency from
-> the response of the GS_USB_BREQ_BT_CONST control request, so both come
-> from the USB device.  A device that reports brp_inc =3D 0 crashes the
-> kernel with a division by zero as soon as a user with CAP_NET_ADMIN
-> configures a bitrate:
->
->   Oops: divide error: 0000 [#1] SMP KASAN
->   RIP: 0010:can_calc_bittiming+0x3dd/0xcd0
->   Call Trace:
->    can_get_bittiming (drivers/net/can/dev/bittiming.c:146)
->    can_changelink (drivers/net/can/dev/netlink.c:594)
->    rtnetlink_rcv_msg (net/core/rtnetlink.c:7137)
->
-> Reject constants that cannot describe a working controller:
->
-> - a zero brp_inc is used as a divisor, a zero brp_min lets the
->   prescaler become zero, and a prescaler range with the minimum above
->   the maximum has no valid value at all;
->
-> - a time segment is at least one time quantum wide, so a zero minimum
->   does not describe working timing, and a zero sum of the minima makes
->   the unsigned loop bounds of can_calc_bittiming() wrap around;
->
-> - the loop walks from the maxima down to the minima and the prescaler is
->   multiplied by the bit time, so bound the bit time and the prescaler
->   range to keep these computations inside 32 bits.  Unbounded values
->   wrap around and end in a division by zero or in billions of loop
->   iterations with RTNL held;
->
-> - apply the same checks to the XL data bit timing and to the XL PWM
->   constants, whose shortest symbol is a divisor in can_calc_pwm().
->
-> can_calc_bittiming() also divides by the clock frequency, and gs_usb and
-> ucan take it from the device as well, so reject a zero frequency at the
-> point of use.
->
-> The 32 bit overflow of tsegall * bt->bitrate is not caused by the
-> constants but by the bitrate supplied from user space, it is a separate
-> problem.
->
-> Reject unusable values during registration, so that a device or driver
-> handing out such values fails to probe instead of taking the kernel down
-> later.
->
-> Fixes: d58ac89d0d38 ("can: dev: register_candev(): ensure that bittiming =
-const are valid")
+On 11/22/26 18:55, David Hildenbrand (Arm) wrote:
+> GUP rejects VM_IO and VM_PFNMAP mappings early. __access_remote_vm() then
+> falls back to vm_ops->access without checking VMA permissions and without
+> limiting the request to the VMA size.
+> 
+> Consequently, /proc/<pid>/mem can bypass protections even without
+> FOLL_FORCE, or cross into another mapping without checking its
+> permissions.
+> 
+> Check VMA permissions before calling ->access and limit each request to
+> the current VMA. Implement access permission checks similar to GUP,
+> however:
+> 
+>  (1) Reject writes to CoW mappings because the callbacks access backing
+>      memory directly and cannot handle CoW.
+>  (2) Allow forced writes to non-CoW mappings with VM_MAYWRITE.
+>  (3) Allow reads of write-only mappings, as we historically did. Most
+>      architectures cannot express write-only mappings in page tables
+>      anyway, and i915 selftests rely on it.
+> 
+> This intentionally breaks forced writes through legacy amdgpu PROT_NONE,
+> MAP_PRIVATE debugger mappings. The workaround in commit fa5239f2af98
+> ("drm/amdgpu: workaround failed COW checks for Thunk VMAs") cleared
+> VM_MAYWRITE to avoid CoW, but debugger writes still succeeded by
+> exploiting the missing access-permission checks fixed here. Reads remain
+> supported. Userspace must use MAP_SHARED instead; ROCm 5.5.0, released
+> in May 2023, already does so.
+> 
+> Similarly, forced writes to MAP_SHARED mappings of files opened read-only
+> (e.g., read-only DMA-bufs) no longer succeed, as VM_MAYWRITE is not set.
+> Writing to read-only files through ptrace was never intended to work,
+> and would usually be a security bug.
+> 
+> If this turns out to break real users that cannot easily satisfy their
+> debugging needs differently, we can figure out how to handle that.
+> 
+> Link: https://github.com/ROCm/ROCT-Thunk-Interface/commit/fea44fab6e84eda52fcf6b419b35600c18f4c022
+> Fixes: 272ddc8b3735 ("proc: don't use FOLL_FORCE for reading cmdline and environment")
 > Cc: stable@vger.kernel.org
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Reported-by: Chris Mason <mason@kernel.org>
+> Acked-by: Felix Kuehling <felix.kuehling@amd.com>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Acked-by: Christian König <christian.koenig@amd.com>
+
 > ---
-> v3: https://lore.kernel.org/all/20261121094534.5221-1-25031212351@stu.xid=
-ian.edu.cn/
-> - validate the XL data bit-timing and the XL PWM constants, too
-> - reject a zero clock frequency at the point of use
-> - describe the checks as rejecting unusable values instead of
->   predicting crashes
-> v2: https://lore.kernel.org/all/20261121064449.9706-1-25031212351@stu.xid=
-ian.edu.cn/
-> - reject constants with an inconsistent minimum/maximum range
-> - bound the maximum bit time and the brp_max * bit time product
-> ---
->  drivers/net/can/dev/calc_bittiming.c |  8 ++++
->  drivers/net/can/dev/dev.c            | 63 +++++++++++++++++++++++++++-
->  2 files changed, 70 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/net/can/dev/calc_bittiming.c b/drivers/net/can/dev/c=
-alc_bittiming.c
-> index 42498e9d3f38..7cd64e1f4c8b 100644
-> --- a/drivers/net/can/dev/calc_bittiming.c
-> +++ b/drivers/net/can/dev/calc_bittiming.c
-> @@ -106,6 +106,14 @@ int can_calc_bittiming(const struct net_device *dev,=
- struct can_bittiming *bt,
->  	u64 v64;
->  	int err;
->
-> +	/* gs_usb and ucan take the clock frequency from the device as well, a
-> +	 * zero frequency would divide by zero at the end of this function.
-> +	 */
-> +	if (!priv->clock.freq) {
-> +		NL_SET_ERR_MSG(extack, "CAN clock frequency is not set");
-> +		return -EINVAL;
-> +	}
-> +
-
-Please move this check to register_candev() - feel free to fold in
-something like this (untested):
-
-diff --git a/drivers/net/can/dev/dev.c b/drivers/net/can/dev/dev.c
-index 3207c0e08712..c8a096e3e27e 100644
---- a/drivers/net/can/dev/dev.c
-+++ b/drivers/net/can/dev/dev.c
-@@ -598,9 +598,6 @@ static int can_get_termination(struct net_device *ndev)
- static bool
- can_bittiming_const_valid(const struct can_bittiming_const *btc)
- {
--       if (!btc)
--               return true;
--
-        if (!btc->sjw_max)
-                return false;
-
-@@ -632,8 +629,18 @@ int register_candev(struct net_device *dev)
-            (priv->bittiming_const || priv->fd.data_bittiming_const))
-                return -EINVAL;
-
--       if (!can_bittiming_const_valid(priv->bittiming_const) ||
--           !can_bittiming_const_valid(priv->fd.data_bittiming_const))
-+       /* Validate CAN clock and CAN-CC bittiming */
-+       if (priv->bittiming_const &&
-+           (!priv->clock.freq ||
-+            !can_bittiming_const_valid(priv->bittiming_const)))
-+               return -EINVAL;
-+
-+       /* For CAN-FD:
-+        * Ensure CAN-CC bittiming and validate CAN-FD bittiming
-+        */
-+       if (priv->fd.data_bittiming_const &&
-+           (priv->bittiming_const ||
-+            !can_bittiming_const_valid(priv->fd.data_bittiming_const)))
-                return -EINVAL;
-
->  	if (bt->sample_point)
->  		sample_point_reference =3D bt->sample_point;
->  	else if (btc =3D=3D priv->xl.data_bittiming_const &&
-> diff --git a/drivers/net/can/dev/dev.c b/drivers/net/can/dev/dev.c
-> index 769745e22a3c..32b0e0c5a274 100644
-> --- a/drivers/net/can/dev/dev.c
-> +++ b/drivers/net/can/dev/dev.c
-> @@ -595,15 +595,74 @@ static int can_get_termination(struct net_device *n=
-dev)
->  	return 0;
->  }
->
-> +/* Upper bound for the bit time in time quanta. The bit times of the
-> + * currently supported CAN controllers are well below it, the limit keep=
-s the
-> + * time segment scan in can_calc_bittiming() bounded.
-> + */
-> +#define CAN_MAX_BIT_TIME_TQ 1024
-> +
->  static bool
->  can_bittiming_const_valid(const struct can_bittiming_const *btc)
+>  mm/memory.c | 26 ++++++++++++++++++++++++--
+>  1 file changed, 24 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 5d0d58aeff3cb..d43837623a063 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -7412,6 +7412,7 @@ EXPORT_SYMBOL_GPL(generic_access_phys);
+>  static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
+>  			      void *buf, int len, unsigned int gup_flags)
 >  {
-> +	u64 bit_time;
+> +	const bool force = gup_flags & FOLL_FORCE;
+>  	void *old_buf = buf;
+>  	int write = gup_flags & FOLL_WRITE;
+>  
+> @@ -7451,15 +7452,36 @@ static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
+>  			if (gup_flags & FOLL_ANON)
+>  				break;
+>  
+> +			/*
+> +			 * In contrast to GUP, we historically allowed
+> +			 * FOLL_FORCE write access to non-CoW mappings and
+> +			 * read access to write-only mappings. However, we
+> +			 * must always reject writes to CoW mappings as we
+> +			 * cannot CoW here.
+> +			 */
+> +			if (write) {
+> +				if (!vma_test(vma, VMA_MAYWRITE_BIT))
+> +					break;
+> +				if (!vma_test(vma, VMA_WRITE_BIT) && !force)
+> +					break;
+> +				if (vma_is_cow_mapping(vma))
+> +					break;
+> +			} else if (!vma_test_any(vma, VMA_READ_BIT, VMA_WRITE_BIT)) {
+> +				if (!force || !vma_test(vma, VMA_MAYREAD_BIT))
+> +					break;
+> +			}
 > +
->  	if (!btc)
->  		return true;
->
+>  			/*
+>  			 * Check if this is a VM_IO | VM_PFNMAP VMA, which
+>  			 * we can access using slightly different code.
+>  			 */
+>  			bytes = 0;
+>  #ifdef CONFIG_HAVE_IOREMAP_PROT
+> -			if (vma->vm_ops && vma->vm_ops->access)
+> +			if (vma->vm_ops && vma->vm_ops->access) {
+> +				bytes = min_t(unsigned long, len, vma->vm_end - addr);
+>  				bytes = vma->vm_ops->access(vma, addr, buf,
+> -							    len, write);
+> +							    bytes, write);
+> +			}
+>  #endif
+>  			if (bytes <= 0)
+>  				break;
+> 
 
-Please re-order the checks for the members of struct
-can_bittiming_const, in the order they appear in the struct.
-
->  	if (!btc->sjw_max)
->  		return false;
->
-> +	/* can_calc_bittiming() rounds the bit-rate prescaler to a multiple of
-> +	 * brp_inc and divides priv->clock.freq by the result. A zero brp_inc
-> +	 * divides by zero directly, a zero brp_min lets the prescaler become
-> +	 * zero, and a prescaler range with the minimum above the maximum has
-> +	 * no valid value at all.
-> +	 */
-
-A single short, precise comment should be enough, something like:
-
-Controllers may read bit timing constants via USB, check min/max and
-avoid divide by zero.
-
-> +	if (!btc->brp_min || btc->brp_min > btc->brp_max || !btc->brp_inc)
-> +		return false;
-> +
-> +	/* A time segment is at least one time quantum wide, so a zero minimum
-> +	 * does not describe a working controller. A zero sum of the minima
-> +	 * would additionally make the unsigned loop bounds of
-> +	 * can_calc_bittiming() wrap around.
-> +	 */
-> +	if (!btc->tseg1_min || btc->tseg1_min > btc->tseg1_max)
-> +		return false;
-> +
-> +	if (!btc->tseg2_min || btc->tseg2_min > btc->tseg2_max)
-> +		return false;
-> +
-> +	bit_time =3D (u64)btc->tseg1_max + btc->tseg2_max + CAN_SYNC_SEG;
-> +	if (bit_time > CAN_MAX_BIT_TIME_TQ)
-> +		return false;
-> +
-> +	/* can_calc_bittiming() and can_fixup_bittiming() multiply the prescaler
-> +	 * by the bit time, keep the product inside 32 bits.
-> +	 */
-> +	if (bit_time * btc->brp_max > UINT_MAX)
-> +		return false;
-
-Please remove this; a patch is available that increases this
-multiplication to 64 bits.
-
-> +
-> +	return true;
-> +}
-> +
-> +static bool
-> +can_pwm_const_valid(const struct can_pwm_const *pwm_const)
-> +{
-> +	u64 shortest_symbol;
-> +
-> +	if (!pwm_const)
-> +		return true;
-> +
-> +	if (pwm_const->pwms_min > pwm_const->pwms_max ||
-> +	    pwm_const->pwml_min > pwm_const->pwml_max ||
-> +	    pwm_const->pwmo_min > pwm_const->pwmo_max)
-> +		return false;
-> +
-> +	/* can_calc_pwm() divides by the shortest PWM symbol. */
-> +	shortest_symbol =3D (u64)pwm_const->pwms_min + pwm_const->pwml_min;
-> +	if (!shortest_symbol || shortest_symbol > UINT_MAX)
-> +		return false;
-
-Can you use check_add_overflow() for this check?
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---xdojbffkplv7647w
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCawQFoAAKCRDMOmT6rpmt
-0j0FAPwMF19r/zlwb6SlSg1988QjgL5rf7Q1okCjwVWdhNDuWwD/Y0lP/GlrBaPc
-+iOi/ipay7ky+NnuvvcEMs4WFNlyWwQ=
-=C0lP
------END PGP SIGNATURE-----
-
---xdojbffkplv7647w--
