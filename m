@@ -1,62 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.193
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795419374;
-	b=gos9Ce5usaD38tneAQQRqALQMZH4qWly35K6KfGV5JpqzB4JYdNzKrt5HqgP1ctLjGod
-	 zTBFBeT/Vd7+mB7dYjMNB9jW2aBeEECgP7NskqiB+7u1lupQAUev3hCvWJC8oGeNq5Cfk
-	 MEMsep9qvtkw86tDW9yS+0NlobhrcfOazOmfY2LUYYS/oEVxX6s1hK0z2YZzXwt4d6BT3
-	 k4845HUrZ+YNm4ZMHAyOuCK0DOg4LH6HDAGtgRSaqdGKyp5CZmkJrWRVjLHzx2ENUX8GB
-	 zHzUoB+1SD87Yt3Ski6C1WD4Ykplg8VrxMvYNMh2V3psydyaTmg7jPWnibUIKyNQWuw==
+	t=1795419866;
+	b=IwhOK0oEIwVestnMJV+7RdX70D6Ibygm+HjtK91689r74hVNCt5x1OIAS0dolp/wTFv1
+	 bklHELQRKQsv95T4HqG/JNKXhF0w/RHfhj6gOSoZtgMOO+38gUsN6SsQVU3rFsa5akezW
+	 Eb4KAGaEWNtp4qATfsUHoUYm48/88N9fXa+kOk52cMsC6KKTQ4USNe0VWlqkxfnjYi0bW
+	 CCUwKz/FHYkkFjA9izK85mb9iWkuZTm1C1Aqrqj9QLeMBwFFRgXSHf+jjZQWouxH9NG4w
+	 EYgidE4MQWZJmwAN5KgtwM5TGb/n9vPnVzVQiURjueygjRy78Srg1ZsQUTCNpSASjCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795419374;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=eb1bmF8F2PVJN1FG3qeHre4JjGzW9zZyj8slSTuCErU=;
-	b=X0ILSy882/AYx6b2VJrANoGY9V3DrLczpvjPLWoAtBD/K7PWsFtL/bjVBigk1C7VYins
-	 AaNvJdjB/jgLdrPlHmRHNAS7kMQSJPMer40bAgTsKmAZiKQFojOf0cUBeiUyYYnZBLNVM
-	 loxpa5+gPEnLHN5lz8jViPBJ045yk9mVpO4XHcKRxYQ+JDsfIuFsHZEEcVLXJFfCps/Mz
-	 Rczx4UykJsqA44RrSRbQkgUQnSa8r/TAKCt3qwJAYyQDs9broM2a3mQmKEWulI3D7WnRM
-	 3+GFpcDZtkWg60WR9H1uY1ZYRk7OB0GTP1bq2wciIbWwKdaEsNK2LfmqtlYarYqYoAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795419866;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=JJkQya4c8RJJzm9nBLBXauSmtfVWdU74c+91+UOjFS4=;
+	b=mQEt4JyTrbfXgHXk9yAjPuVKT2/w/TOWQuzRHYrhC6LLGRln8zFOrySOdojpWusIvyr+
+	 2dQgJ0duDFV/T0aXJjYoYPp/ot4CuYgZSaezTVX3o1a1qPofNVqTBIoaCCD16PdkgF2hX
+	 9vi9x96uFzk+tuuSMYIzkraVWirYpL9ILhInkf1OMmIj0uSiBUq6RvFUMtTBYRDvB6rs2
+	 qpaU7x8xQAreR9O8oKGNPOntTtR4UCOf884aD/aaJKkcAkZSVhRoVW4iz8yXVPbzvMF9w
+	 OQ61bJX+YP/iGcIAA23JkRzNFYZiuR1zXeyHFRw7AHKPsWTxX0VNUNpUanVvNQxgg/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wZgwMW7f;
-	arc=none smtp.remote-ip=91.218.175.193
-Received: from mta0.migadu.com (out-193.mta0.migadu.com [91.218.175.193])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=sgiDxWF5;
+	arc=none smtp.remote-ip=115.124.30.130
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6221606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 07:36:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6221606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B822606A31A;
+	Mon, 23 Nov 2026 07:44:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B822606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wZgwMW7f
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GbNG4aEZgYnqy60cKkuKbdz31c//1P7sSXGaCQ5qE5k=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795419371; v=1; x=1796024171;
- b=wZgwMW7fFFnHcDSYylDf0JYR3mD5371OJi8tMEM2taMQOAiOc4aGEIvhxJcyW/QO5a7Sex0F
- C7DOYr+d/Wq2F69xGlRIr9L1iKmDiEv1d8UOaYWxIrTsrYP1Mh7KQPRLtMXd/F2V7tFiTLVS/fP
- 3eiGH44jZp+Q39bN0AraTgkg=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 87770ef1b8f9854a;
-	Mon, 23 Nov 2026 07:36:10 +0000
-X-Mizu-Trace-ID: 87770ef1b8f9854a
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5c14bc5a743so8646e87.0
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 23:36:07 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErG35ONNTRvj9RUbZbYwyMRDL2SQ/VcYlzQfL1i1khfjNaOhbD+ios5pQSGPz1T8vN9vs1ZQrxM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zNEvjyGTR+hpQdmfevb960InmO8UpWwqmsNJy3OrBWQNE4bMm
-	grw6VM7EpjOAbEwhuZdsKla+TcZ/7k3H7kKOwYeqyyrRhmCMTbcCCv0yt/pauzjuUQfhBDDWSXM
-	mwKEZEhxQf/9PpsTUwu2YE+CEbdtspLXwvJGPac5u
-X-Received: by 2002:a05:6512:1250:b0:5c1:4cd1:131e with SMTP id
- 2adb3069b0e04-5c21a261fbamr165167e87.11.1795419366920; Sun, 22 Nov 2026
- 23:36:06 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=sgiDxWF5
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1795419860; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=JJkQya4c8RJJzm9nBLBXauSmtfVWdU74c+91+UOjFS4=;
+	b=sgiDxWF5OA5YOgNMG93UL46ORr5yEZW7x2UAeAqBJmqgb7VMKlzdZToOVKFWaAl6K5ZB40FPt5mzGOgKr2T9rQYkl27gZ44ULm+yhN1K10svHoJYBTpGs9+ewKnmcDhLT/5vGQLORWOkJRKHlb+CXYbIxFEWOy3uum61isQp+Tg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0XFFWEwR_1795419856;
+Received: from 30.74.144.153(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XFFWEwR_1795419856 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 23 Nov 2026 15:44:18 +0800
+Message-ID: <d6c70716-86a7-46f1-abac-57e3c909d214@linux.alibaba.com>
+Date: Mon, 23 Nov 2026 15:44:15 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,68 +53,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261120121638.194154-1-fuad.tabba@linux.dev> <20261120121638.194154-4-fuad.tabba@linux.dev>
- <6782b5ee-3dfe-4076-a79c-fbeb2c2ac7da@arm.com>
-In-Reply-To: <6782b5ee-3dfe-4076-a79c-fbeb2c2ac7da@arm.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 23 Nov 2026 07:35:30 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTziXrRdR+guikKbj93Az96T+AMx_=0sVeyWG5C4fwaaTg@mail.gmail.com>
-X-Gm-Features: Aa3M54qbIcVsswZvgTdf3Pr5w2t6747s-c6Tnij9t_PWy9hwC6gUmChWfQyq38Y
-Message-ID: <CA+EHjTziXrRdR+guikKbj93Az96T+AMx_=0sVeyWG5C4fwaaTg@mail.gmail.com>
-Subject: Re: [PATCH 3/3] arm64: mm: Don't defer the barriers when installing a
- fixmap entry
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Yang Shi <yang@os.amperecomputing.com>, Kevin Brodsky <kevin.brodsky@arm.com>, 
-	Anshuman Khandual <anshuman.khandual@arm.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/madvise: fix MADV_FREE handling for PMD-mapped THPs
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jann Horn <jannh@google.com>, Ying Huang <huang.ying.caritas@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>, Sashiko <sashiko-bot@kernel.org>
+References: <20261119-madv_free_thp-v1-1-a312919e1ee5@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261119-madv_free_thp-v1-1-a312919e1ee5@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Ryan,
 
-On Sat, 21 Nov 2026 11:01:49 +0000, Ryan Roberts <ryan.roberts@arm.com> wrote:
-[...]
-> > kernel then warns about a spurious translation fault. When kgdb stops a
-> > CPU in lazy MMU mode, its breakpoint writes through FIX_TEXT_POKE0 can
-> > fault the same way, and fail.
-> >
-> > Emit the barriers directly in __set_fixmap().
-> >
-> > Fixes: 5fdd05efa1cd3 ("arm64/mm: Batch barriers when updating kernel mappings")
->
-> My memory might be betraying me, but I think this change went in before BBML3
-> (BBML2_NOABORT)? In which case, the bug is only exposed by the latter series?
 
-It did, and the set_swapper_pgd() path is only exposed by the later
-series. The tag is for the kgdb path, which doesn't depend on BBML3.
-When kgdb is entered from a breakpoint in process context,
-in_interrupt() is false, so in lazy MMU mode the barriers for its
-FIX_TEXT_POKE0 mapping are still deferred.
+On 11/20/26 12:04 AM, David Hildenbrand (Arm) wrote:
+> After MADV_FREE cleared the dirty flag of an anonymous folio, reclaim will
+> later free the folio without writing it back if no mappings are dirty.
+> 
+> If our folio is still in the swap cache, the swap entries then point at
+> swap slots that were never written, exposing stale content of the swap
+> device. Bad.
+> 
+> madvise_free_pte_range() therefore frees the swap slots first, and skips
+> the folio if that is impossible. madvise_free_huge_pmd() does not, and a
+> PMD-mapped THP can be in the swap cache if try_to_unmap() failed during
+> reclaim, for example due to a racing mlock().
+> 
+> Further, madvise_free_huge_pmd() checks whether the THP is mapped by
+> other processes before taking the folio lock. Another process that still
+> has swap entries for the THP can concurrently map it from the swap cache,
+> and we might end up clearing the dirty flag of a shared folio.
+> 
+> Fix it by factoring out the folio handling of madvise_free_pte_range()
+> into madvise_free_try_prepare_folio(), and using it for PMD-mapped THPs
+> as well. Hopefully this prevents further bugs.
+> 
+> For PMD-mapped THPs, this change implies:
+> 
+> 1. We free the swap slots of a THP in the swap cache, and skip the THP if
+>     that is impossible.
+> 2. We check the mapcount under the folio lock.
+> 3. We no longer lock and check THPs that are neither dirty nor in the
+>     swap cache, just like for PTE-mapped folios.
+> 
+> For PTE-mapped folios, this means:
+> 
+> 4. We check the mapcount once before taking the folio lock, to not lock
+>     folios that are mapped by other processes.
+> 
+> Only compile madvise_free_huge_pmd() with CONFIG_ADVISE_SYSCALLS to keep
+> !CONFIG_ADVISE_SYSCALLS builds working.
+> 
+> Chris and Sashiko reported the missing swap cache handling for PMD-mapped
+> THPs, the other issue was found by code inspection.
+> 
+> This has medium urgency.
+> 
+> Fixes: bd4c82c22c36 ("mm, THP, swap: delay splitting THP after swapped out")
+> Cc: stable@vger.kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/sashiko-outbox-202086@kernel.org/
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-[...]
-> > diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
-[...]
-> > @@ -127,7 +127,9 @@ void __set_fixmap(enum fixed_addresses idx,
-> >          ptep = fixmap_pte(addr);
-> >
-> >          if (pgprot_val(flags)) {
-> > -                __set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
-> > +                /* The slot must be usable on return, even in lazy MMU mode. */
-> > +                __set_pte_nosync(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
-> > +                emit_pte_barriers();
->
-> I wonder if it would be clearer to wrap __set_ptes():
->
-> lazy_mmu_mode_pause()
-> __set_ptes()
-> lazy_mmu_mode_resume()
-
-That would work. However, there's the stable backport. 6.18 has the
-bug, but lazy_mmu_mode_pause() was added in 7.0, so 6.18.y would need
-its own patch. This patch applies to 6.18 unchanged.
-
-I'm happy with either, or with a followup patch in the same series.
-
-Cheers,
-/fuad
+Make sense to me.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
