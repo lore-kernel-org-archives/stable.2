@@ -1,116 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.29
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795406897;
-	b=IMwCsxX0upPGMKbZo7aPE8RiK70UKAL+VjKlFnVi9PLqBkh9pFCEEh4eK1M/maUg2d1R
-	 ni81X2WFjxxjlBfbp/YXzegV8gREoo8r32n4zzIbBo3l4POMSaAMVxPfGkrzYyivxtbF8
-	 VKopMMO0c6ef7UaWfmTOKJmvxz198ZPa8BWFpvNOEiZ/Y6Om4jDPqNMCJjy1ETxVxXeDB
-	 6hxGDncE4r0UgfdGt4eUaj/0itAKlKZ1ZpzhoYjzzb8fNwIJWHu8TCISgbFGF4ONH53Le
-	 DPAZHbP12tA22yh+PhgSv3csdZGlBU6J7HnoiylczODVjh9d1gH8VSp+YhyjgeqIHGA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795406897;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-MS-Reactions:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ZHhahUGeh2Rlwdj42mBZu/QYRQb40s1atRUuomeB++8=;
-	b=4LXFTOw7gAVQ7EW7dkb1UUYa/bs4UCPnxIkyNmJ4fSGAVOfgXAFe4U11n6fOX71UMuUG
-	 EJRP8GJQBHR9jPL6EgR2Dvy5WOSZdsmz9xFDtDfcaxgTIVVXTVfn2kmes43hBDTexbctm
-	 ZqD1riGo3ElR8nYKnrxqQhuT8a/RoMi6x+hiMdz1oXE2xX+9x46pzAJc1XN3m/pvKjP54
-	 VnJiaAWDEuK7Zgsz9HJ6EuxQim75Gbe57QhDlQmheYQkdW9mUuM23lbJpOwuRWYIGg1GD
-	 t+pBwYZd7k6ky4Auc1oktUzn8kUL8RNwfxnhKLPw0dmhbbqMyZQR4QKG2iSkNE7t+mw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pvCGl8AE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.29
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013029.outbound.protection.outlook.com [40.93.196.29])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=149.28.215.223
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795407147;
+	b=xcC0/wyroBllE+d4koMDyFTMkIMq95MIRW06yoQpJwp29JMXuy1lOqnvpvJgRWhG6GzX
+	 8F4Nl2TdYUTWdlYcpOfTx5x3LhnAG6+FrNHD1m6vQR57IULs4EISsq1HbuKQfdAaGkttz
+	 TX9UsmYYR0bMBeeAWfzqH+TD8VJ4MqF45rR7RNiplsLkfeKwS1aeUiZUftSbcECm+QUHh
+	 uf743rdn56rjRJRrCuXGn3PTpsR/TqDbTTMEpwfV/uylLHJn1x0LzGAcqV+n8DT1pXu0d
+	 uMw5bO7FhkAWpkqv4bTKa8qMEsObCmG1ZB6rK3WQcKLSU+CFiCL48Abz94zFWAU6BkA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795407147;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
+	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
+	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
+	 X-Report-Abuse:X-Report-Abuse-To:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=fhNl0a2bNDX2xO1fDfY+x8/kfxDi7en+9Qu0kuJSav4=;
+	b=ArlNE2Z3351qOikWUsUyievh/L8snfZtIacLQFxw4VUNIuibMa6d1PATTRBKgPfiZVA5
+	 Z4TkuRZbUfXOBCZsYnhaZ6SihicSkMqhHhmVhFXWevdehf/09TSwRtH9B7HfKLzMf+1xe
+	 DrqnVmgumaTPDQ+CLfrSedMsYQVjEDVGjGNTlxxmhAKYfhPkxeLYRL+wLdluIuMWlelBL
+	 96gllCcBjJeNmodEYf+FtMIGGqhqiZtzfrLSg5kvSAJnei3kvcchZzTgR+z9E9GwtjOeG
+	 p8q44KOIyivq/4n+8oBUB1luYfjGU3M9dPNtpNznO3pgtQDntIHmJZkLm69RnnvVJDQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ovn.org;
+	spf=pass smtp.mailfrom=fe-bounces.ovn.org;
+	dkim=pass header.d=ovn.org header.i=@ovn.org header.a=rsa-sha256 header.s=fe-13eddc7e57 header.b=nHiGH5Su;
+	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=f74sabTq;
+	arc=none smtp.remote-ip=149.28.215.223
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2C7606A31A;
-	Mon, 23 Nov 2026 04:08:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B2C7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344FB606A32D
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 04:12:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 344FB606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ovn.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pvCGl8AE
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ii/RC/IPsYMsxQCU2PanwMyzM8ITVMHwrzOX3KmLp++5RLj5LhgbbpI8JS0MocdPvK5CN8R2hEUYaxCQ9TQIjX77vwH1UioxE5K3BBlS5SdH8cMKjJD71I7swQ9aMN50YzSqHNMl4Pqp/wViu34ojAgUfAyIFka07MveasYwznpDV1KJaAHRmw+cc7NHVbRJpABrYHXjBu8dl5zCZ0HPfqjpmGgpj89Kaa5Gd2PoDTJvw/V+1VYE8Gd69PJJCivyyL8rJZL4SUCtb2JFkv9Wp1VhaqXBjMFryg61U3cunQl+tXo5/YQ51JtXWSBsxzNF4dO+aYcQT0YTovjo4VyCrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZHhahUGeh2Rlwdj42mBZu/QYRQb40s1atRUuomeB++8=;
- b=i5IjulkoXZHkriCDk8lPKcBgJoZWk6lDEYSaN+gH2KdSfoThasgCTQMxLiB/fz91R6YNunCD8syJ73+jP4E2VaJCcbZWZlUZgmc1DaXcXySzI/91e9mdb7LJ5/cKToL7YkYBmO+orNQGnqcfg6M0R2KVBBcXSx26H4/qQs3ZSHb0mtD76iyV2dHbObpwYFPTrwqUFGDKWZEOKiXWV3cH6U29oa/kalgmH/91viWGTxHgkMstBOWKDQs7rldIuqkiFqvMCT0paCon2hveKyomcueTUbGqKmULhoKtPXcV7kIRJYbQ4UUqfM37gitm/NBieEbrn2e3+5P+dxniCFT2qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZHhahUGeh2Rlwdj42mBZu/QYRQb40s1atRUuomeB++8=;
- b=pvCGl8AE5dWZ4UIRMFi2u3re/ruvnP8LDqfBUJnpC5BJHc3w6q3zx6bzvJjfDDhn4/jVu5Mk05UKcUY7yS2hOPegWVwZVUB0oIqQSP3VC5xmAcbeSJppvOmbV8cUkbBXguUg8aUd1970aFEyMJqJ1ydJCqg8UcoNNKxSpMHe1Kbc54d5TPPFKkTxkSAUd+4M20OtZ30Kwzu3Lnd3H0tft3e+4SsGFeRDh7nB99N80gzCft2/lmA6jEsr7498oHBNBzMdGo7fASVSblXCyFbGKHovogsueqDFu8NScgbMMZH8x+E9IEKF1hvIOFcWKlCvKDfHftXBlFzGK98vEUemIQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SJ0PR12MB5635.namprd12.prod.outlook.com (2603:10b6:a03:42a::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
- 2026 04:08:10 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 04:08:10 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- =?utf-8?q?Cenk_Y=C4=B1lmaz?= <cenk@deepfinresearch.com>,
- Zhang Peng <zippermonkey@icloud.com>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Mel Gorman <mgorman@suse.de>, Sasha Levin <sasha.levin@oracle.com>,
- Rik van Riel <riel@redhat.com>, Ingo Molnar <mingo@kernel.org>,
- Peter Xu <peterx@redhat.com>, Hugh Dickins <hughd@google.com>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Andrea Arcangeli <aarcange@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 4/4] RFC: mm/vmscan: unlock unmapped folios only after the
- deferred TLB flush
-Date: Sun, 22 Nov 2026 23:08:07 -0500
-X-Mailer: MailMate (3.0r7038)
-Message-ID: <A4AA8719-376D-4AF9-BD12-0F0CCA49F68E@nvidia.com>
-In-Reply-To: <20261118-file_folio_flush-v1-4-e9e739ed14e0@kernel.org>
-References: <20261118-file_folio_flush-v1-0-e9e739ed14e0@kernel.org>
- <20261118-file_folio_flush-v1-4-e9e739ed14e0@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
-X-ClientProxiedBy: MN2PR08CA0005.namprd08.prod.outlook.com
- (2603:10b6:208:239::10) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (1024-bit key) header.d=ovn.org header.i=@ovn.org header.a=rsa-sha256 header.s=fe-13eddc7e57 header.b=nHiGH5Su;
+	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=f74sabTq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ovn.org;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: Autocrypt: From:
+ Content-Language: References: Cc: To: Subject: MIME-Version: Date:
+ Message-ID: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=fe-13eddc7e57;
+ t=1795407146; bh=fhNl0a2bNDX2xO1fDfY+x8/kfxDi7en+9Qu0kuJSav4=;
+ b=nHiGH5Su0Q6CFKPdchBdFdJyO4QAotdXv21R4vJ2ws5t09bhCBkzEmy4IQLqPEEMceKByCRkY
+ 5sS2RnFi5G/lYgzbpud62uOtcvgIsb+kg6G5lNHMqzfvdsH6gxdEtjBQw+F3FRH6vxUj4+aK+1j
+ 5dAO2EOyztbh51UtP7labTw=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: Autocrypt: From:
+ Content-Language: References: Cc: To: Subject: MIME-Version: Date:
+ Message-ID: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=default;
+ t=1795407146; bh=fhNl0a2bNDX2xO1fDfY+x8/kfxDi7en+9Qu0kuJSav4=;
+ b=f74sabTqfHw6c9tg3OLhPAChG/gaVBVJ0Cu6WE7uiBFxESi6XUNP5elSCo7fNhGAp1xrW73ZO
+ KqFoY6yfBf9h5fQN8e7Oo3i3VCLOh749dkxThpapAIVnKzFRr8iEcW1oyNA1odBalprNkveverG
+ SGlpziKyN5ZVzb45vDXOB48=
+CFBL-Feedback-ID: 6b03bd27820b813f2fb1faea:4408a1a079db1d613e8f0abf89aa9770
+CFBL-Address: abuse@forwardemail.net; report=arf
+X-Forward-Email-ID: 6b03bd27820b813f2fb1faea
+X-Forward-Email-Sender: rfc822; i.maximets@ovn.org, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.19.37
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <ccfbd34e-ce6e-4517-bce1-c68e5ac2bb50@ovn.org>
+Date: Mon, 23 Nov 2026 05:12:19 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,313 +75,169 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SJ0PR12MB5635:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba2bfeb2-527d-4173-b9e4-08df491762e9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|18002099003|22082099003|4143699003|56012099006|11063799006|261028144727099003|261102123227099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	7YQfDp56MsF9TpPh4WoGKKZ2TLR8eUhoQbKifpdxNT/eqmthMkKmnlrC58mtCYRQ3lEf4cRUmTQnF7jzCTjy4POScxmcihcXw5T0uUmCt/1aqZ6wSNlryU38wV+OSCM/jkJXMbSmP5wW1hFRr/xEEPWBdzi6ldvfa35Ix9gdzMdVrxb/3+DXsc2pzor3JOr1tfiFnlutEfn09wTKeJe6jMmwM8Kz9lYR4qys8WzqAGJgzAfVSEdxoXKgeezL3+lSCKWB09Z35TN22yfvS4Fq4TsfLxR2fjvJLTuPFwxn8yaGdky1uyy58dUqNdUsHorT5TjVGsPiIie1qoe948s4/YROQ3LpeH3GBImYRxBy4RBZWFO5YhseEFumQrUeCwgijpVANGotTR6G231fvSH6B/KIXGAal9qrY0ksqZEaM7vpFFVQQFrqtPs4e2MzG4ULOtzGBq6C68uebmnZhDwiNseoFLy5SNoZgmp2eRQbmH9tSOOk9yNola6JcrXDcOrnH/qwViutFJrYeP49NtZnTHZ7+6TpT4WiRjLuKBqladYWhJNFn38nFQcTsFLmsxcK9qUoDf6C31DJo1jyx59TbDTLnQX+rnjFX0mrLTx3R6I4GXl/r33kHGYoCq+T9ut4MD+kLbHjiRh2dRQ5xX95PnlxBDChpsysyOcePysz0T4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(261028144727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b0FEcXVndGFTWlk1YmxXYzVWWDRBeElscExsT2poK21Na25TSDBhTTlpWWhu?=
- =?utf-8?B?aGpLaG40WDhaR1ByanFmZTQwQ3RQUktiMkZraCtyUzN6MDJiaWRCc09paWRF?=
- =?utf-8?B?c1lSQys0N2d2WXdCN0pDRThFSFhvZGVwQ2ZwNzgyMkRaSG9oRUg2NjVOdlBZ?=
- =?utf-8?B?bmtpRlVockhkS213SmorT3VSMGx4TUZZSHVBdXBoSnB4ZnVhT3ZBSWF5VjNr?=
- =?utf-8?B?N05VL08vNnppWENaaUsybUY3V3ZXTWdtKzB3U3B1WU9UU1EvejF1Q3VCd0pn?=
- =?utf-8?B?eUlSNE9mbk1MKzdUeHJWQk1kUFAwcG5GQ2NEOWROdGlqNzBQN2s5dnQwM0FU?=
- =?utf-8?B?eTkzNEFYb1QraTU2aGMzNndkQ1lIZS9SNGNSZVdyMUJFeldWSGZhRU54aVl2?=
- =?utf-8?B?MWR4bEd3M0puM2ZHUDd5T2VZdnNiN0xZR3E2NEpTc0NZV2k5VVR5TlNJLzB1?=
- =?utf-8?B?Y1VaaGhNM3pNMmZ5UTlObXpOaEhvbW9mM1lHSGNzSWJ5T2hjdlB1Z1dKV2FJ?=
- =?utf-8?B?eGxoNnBFblBRMCsvWGNya2gxVXY4bEFURnhJZ0hwSDhZWEE4NkkzNGpSdi9F?=
- =?utf-8?B?OFc2azFGM3ZKaGU5dVp0WjhNdU1kU1JZdy9iWmUvbFROdWJxcVJybkJ3cUp4?=
- =?utf-8?B?U2Rhbll1WkxXb1RtNk9QZ2ZoRE9iN2VzbXUwUmNpZjl1T3dkYlpJMitFUnJB?=
- =?utf-8?B?NnlqczRZSU9GbkJ4a1l2MDFiSE5KZkJGYWw2bmhxZG5Lckw3V0FYU2Z0aCtY?=
- =?utf-8?B?TjI0N1h6c0p4UEtQZXRiL2g0K2tmVE9ZZ0RleGFXWWF0RkxiU09PZ3dST3ZK?=
- =?utf-8?B?S2tZWUdzaEk2NU8rSFBTRWxMS3U0YjZITCtQN0hEcjJiaVVQL2ljc3lEaVJa?=
- =?utf-8?B?UGw0T29RZlN3Y3c5WXNGd00wOU04Y1NaZjRBNVYzb0RNdVE2TlNnRnpOSTF1?=
- =?utf-8?B?TCt5Q05pSks0cmg2dnN1Z3B3emgwN1J3Sk9ZMmcrUFpiaEtTSjg1dmZVdGFE?=
- =?utf-8?B?bERtZXlsV1RTcG9ETnhvbkVJeGJtOXgwZFh4R0JmWXVnN1U5ZGl2R3R3QllL?=
- =?utf-8?B?UHZNWExMZnVZdUJXMitzVitTTklLcjVFd1Frei9EOTFyRnQ4RVl3QjVUU1VB?=
- =?utf-8?B?SCtYNm52cytxam10WEdoTmJoOE9wOWtjc0duZlFXNkd1MXpHR2c3bzJSSFNX?=
- =?utf-8?B?Vk9iaHlVczlHbDJTZlVmTkl2WFRRbWVQYlAwOE15T0QwY1V2S2wydmtlWkQv?=
- =?utf-8?B?SFNPMmRtVTNSNi9kODZHaC95Y0dOMU5EL1FxVXM3aExqaTNPSmo2VVh0dkh0?=
- =?utf-8?B?eTA3UFl3VXZEcllZdkF0dml4cVgzR2Fuc1p3eG5LRHlnTHFaV0t1U2M0aFhD?=
- =?utf-8?B?VlZ1NWh4bzNpZWtzdmlUNHduV3J2RlFseHZLeGE5VXpVVEtFdWJBSGVoNi9C?=
- =?utf-8?B?cmhwVFhndk55QXZZdDhxOGtCZ3pGMlVybklTcmFqOWVXaU5mQVp3MGRnOVF4?=
- =?utf-8?B?RjQ2ZUNvNVdVS1dPMDdjMmdzSXB3R3lldFdwVnRjODNDMjREWlJhWitkK2p5?=
- =?utf-8?B?R3ZNWXkvZ1U4K0ZoY3czVUpMc1hLM3ZZZ1A1NEhjRDJLN08zVm5GVUYzeitz?=
- =?utf-8?B?VnJsM3hDMmM3dTZreDkrNlJlR1pnS0o4Ky93ZW1yR2tGeWgvSUpkcllRSVNY?=
- =?utf-8?B?SEpsOXhBV3ZIanhuNzA3dDBrL0pGYXJjVnZlMW9OTFBLb3ZOaVhpcnNnSzlK?=
- =?utf-8?B?MW84a1RGR2h1V0c4VnhOMnBZbm9URVYxbEJydi93QXBJZUlLSGhPRCtvYVQ1?=
- =?utf-8?B?TTQ2NDdlTEsxcDhybjUzanFZZWczYTgyUlcxTWVjZkwxT2NWZnFFSmw4NXVH?=
- =?utf-8?B?L1dIaDBVc1Vpd1Y1ZDUrWUl4MXlpeGc1MFBzY0lZN0pOR0phTWl1b3JDcFpP?=
- =?utf-8?B?UXlJdkY1aWtWVDNrb3c2Z2NQZkgwOGkxK3NGT2w2UUNHdVQ3dzBoQkZvb0U2?=
- =?utf-8?B?ZnVJbzZkN3BLYit1NmtBNmFrL2NMcmFweFBPbW5FMzFZcG9YZEdYY241Q1VW?=
- =?utf-8?B?dTgvRGF1Zm91aVM1b0Y4VTFkNkRkTUdkZ2syZmR4dElnaVRHaThHeWxJNzky?=
- =?utf-8?B?VnMzRUlkRUNYWGpWN1ZRZmk3ejI3b3daZWg2L3Nsd3E5UmMvYlZCMGdBaFlF?=
- =?utf-8?B?ZlRyRFdBd0tvSFBZdWZjVnJuNHR0OHF3bmtodmZndlF1V3pXRDRNeS85Rk9G?=
- =?utf-8?B?ekdaMnl5bm1MNzRPcUNwOGsyb0ZGQTNkeWRGejBvRHk3THdjcWc5ekU3VlJS?=
- =?utf-8?Q?SmMP/j0COX/m5L/ERJ?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba2bfeb2-527d-4173-b9e4-08df491762e9
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 04:08:10.3914
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aOKOawyElDB3stQYP0DORghI0V2g0QE9Yr2bbwSWmqHVhLO/uMLP4p4Hs3qYIf2l
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5635
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4] net: openvswitch: make transport checksums
+ writable
+To: Kyle Zeng <kylebot@openai.com>, dev@openvswitch.org
+Cc: netdev@vger.kernel.org, aconole@redhat.com, echaudro@redhat.com,
+ i.maximets@ovn.org, davem@davemloft.net, kuba@kernel.org,
+ edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261120191115.39932-1-kylebot@openai.com>
+Content-Language: en-US
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <20261120191115.39932-1-kylebot@openai.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 18 Nov 2026, at 4:20, David Hildenbrand (Arm) wrote:
-
-> try_to_unmap() with TTU_BATCH_FLUSH zaps the PTEs, transfers the PTE
-> dirty bit to the folio and defers the TLB flush. Until the TLB is
-> flushed, other CPUs might still access the folio through stale TLB
-> entries.
->
-> However, reclaim unlocks folios it keeps and removes folios it frees
-> from the page-cache / swap-cache before performing the deferred TLB
-> flush.
->
-> Stale writable TLB entries are currently handled by flushing them right
-> after try_to_unmap() if the folio is dirty, so writes through stale TLB
-> entries cannot get lost, but they are also not batched.
->
-> Stale read-only TLB entries, on the other hand, are problematic:
->
->  (1) A page fault can map a new page-cache folio, or swap in a new folio
->      once reclaim removed the old one from the swap-cache (e.g., a clean
->      swap-cache folio, or a dirty folio mapped by clean PTEs after
->      synchronous swap-out to zram or zswap). Modifications of the new
->      folio (e.g., through write() or page table mappings) are then not
->      visible to CPUs that still read the old folio.
->
->  (2) A CoW fault in a MAP_PRIVATE mapping can copy a page-cache folio
->      that reclaim kept. Writes go to the new anon folio, while other CPUs
->      still read the old folio.
->
->  (3) Invalidation (e.g., invalidate_inode_pages2()) can remove a folio
->      that reclaim kept from the page-cache without flushing the TLB, as
->      the folio is no longer mapped. A page fault can then map a new
->      folio while other CPUs still read the old folio.
->
-> This can be reproduced easily by swapping out an anon memory range with
-> MADV_PAGEOUT, reading it back in, and swapping it out again
-> (MADV_PAGEOUT) while one thread keeps reading the range and another
-> thread writes to pages as soon as reclaim removed the folios from the
-> swap-cache. The first thread will occasionally read the old content.
-
-Who would have thought about it? I also wonder why we never get a report
-for this issue.
-
->
-> Fix it by reclaiming folios in batches of up to 64 folios:
->
->  (a) Lock each folio, check whether we want to reclaim it, and unmap it.
->      Keep the folio locked if any deferred TLB flush is pending after
->      unmapping it, otherwise unlock it right away.
->
->  (b) Flush the TLB once, and unlock all folios that are still locked.
->
->  (c) Lock the folios again, one at a time, to try reclaiming them.
->      Activate folios that are still or again mapped, and skip folios
->      that are under writeback or poisoned by now, or that somebody else
->      holds locked.
->
-> As others might map or unmap folios while they are unlocked, we might
-> now activate or reclaim some folios that we would previously have kept
-> or activated, which is fine.
->
-> Keeping folios locked until the TLB flush makes sure that nobody can
-> remove them from the page-cache / swap-cache, copy them or start
-> writeback. Page faults will either wait on the folio lock, or find the
-> old folio and map it again, which is fine.
->
-> Unlocking folios before trying to reclaim them makes sure that we never
-> hold more than one folio lock while performing I/O or waiting on the
-> filesystem.
->
-> The idea of unlocking folios and locking them again using a trylock
-> before trying to reclaim them was inspired by [1] from Zhang Peng.
-
-This solution makes sense to me.
-
->
-> As nobody can start writeback before the TLB flush, we no longer have to
-> flush stale writable TLB entries right after try_to_unmap(), so remove
-> the try_to_unmap_flush_dirty() call and batch these flushes as well.
-> This effectively enables batching TLB flushes of stale writable TLB
-> entries, which is what [1] tried to achieve.
->
-> We must not wait for a folio lock, a folio flag or I/O while keeping
-> other folios locked, as that could deadlock. So flush the TLB and unlock
-> the batch early before waiting for writeback (legacy memcg), and before
-> allocating swap space would perform synchronous discard I/O
-> (folio_alloc_swap() now returns -EBUSY if allocation failed but retrying
-> with synchronous discard might help).
->
-> Allocating swap space can otherwise only sleep when allocating memory
-> for the swap table, which cannot enter direct reclaim or compaction,
-> as reclaim runs with PF_MEMALLOC.
->
-> We'll limit batching to 64 folios for now; the limit mostly matters for,
-> e.g., MADV_PAGEOUT and DAMON that can pass more, or when reclaim splits
-> large folios.
->
-> Note that khugepaged and batched (async) folio migration already keep up
-> to HPAGE_PMD_NR (e.g., 512 with 4 KiB pages) small folios locked after
-> unmapping them with a deferred TLB flush; migration even allocates new
-> folios, possibly entering direct reclaim, before flushing the TLB and
-> unlocking them. Both also call MMU notifiers while keeping other folios
-> locked, just like we do now.
->
-> Keep code churn to a minimum. Some follow-up cleanups and optimizations
-> make sense, in particular:
->
->  (1) Cleanly separate the stages of shrink_folio_list() (see the TODO).
->
->  (2) Avoid unlocking and locking folios again that do not require a TLB
->      flush. But only if it's worth it and doesn't make the code too
->      ugly.
->
->  (3) Remove the remaining try_to_unmap_flush() calls before freeing
->      folios; we only free folios that we flushed already or that we
->      never unmapped.
->
->  (4) Remove the now-unused try_to_unmap_flush_dirty() infrastructure.
->
-> [1] https://lore.kernel.org/linux-mm/20261031-batch-tlb-flush-v6-0-190539=
-839eec@tencent.com/
->
-> Fixes: 72b252aed506 ("mm: send one IPI per CPU to TLB flush all entries a=
-fter unmapping pages")
+On 11/20/26 8:11 PM, Kyle Zeng wrote:
+> OVS can still rewrite an IP address after transport-header extraction
+> fails. The checksum helpers check skb->len, which includes non-linear
+> data, before directly accessing the L4 checksum. If the transport header
+> was not pulled into the linear head, the checksum update can read or
+> write beyond it.
+> 
+> Call skb_ensure_writable() before IPv4 TCP/UDP and IPv6 TCP/UDP/ICMPv6
+> checksum updates. Save the original addresses and reload header pointers,
+> since even a failed pull can move the skb head.
+> 
+> Keep failures nonfatal to preserve the existing policy of rewriting IP
+> addresses when the transport header is unavailable. A failed pull or
+> unshare may leave a stale checksum or CHECKSUM_PARTIAL seed; the receiver
+> may discard the packet.
+> 
+> The issue was found by an LLM.
+> 
+> Fixes: ccb1352e76cf ("net: Add Open vSwitch kernel components.")
+> Fixes: 3fdbd1ce11e5 ("openvswitch: add ipv6 'set' action")
+> Suggested-by: Ilya Maximets <i.maximets@ovn.org>
 > Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
 > ---
->  mm/internal.h |   5 ++
->  mm/rmap.c     |   5 ++
->  mm/shmem.c    |   2 +-
->  mm/swap.h     |   5 +-
->  mm/swapfile.c |   7 ++-
->  mm/vmscan.c   | 155 ++++++++++++++++++++++++++++++++++++++++++++++++++++=
-++----
->  6 files changed, 165 insertions(+), 14 deletions(-)
-
-<snip>
-
-> +static struct folio *staged_folios_next(struct staged_folios *staged,
-> +		struct list_head *folio_list)
-> +{
-> +	struct folio *folio;
+> v4:
+> - Document that both IPv6 checksum addresses must be outside the skb.
+> - Use the IPv6 address fields' sizes in the final copies.
+> 
+> v3: https://lore.kernel.org/r/20261113232158.61174-1-kylebot@openai.com
+> - Select source and destination addresses with booleans instead of
+>   calculating offsets. Keep the saved IPv6 address across head movement.
+> - Remove the redundant IPv6 fragment check and correct tab alignment.
+> - Move testing details below the separator and clean up attribution.
+> 
+> v2: https://lore.kernel.org/r/20261107040238.27606-1-kylebot@openai.com
+> v1: https://lore.kernel.org/r/20261030042304.74291-1-kylebot@openai.com
+> 
+> I have a reproducer for this issue and can share through DM.
+> 
+>  net/openvswitch/actions.c | 80 +++++++++++++++++++++++++--------------
+>  1 file changed, 52 insertions(+), 28 deletions(-)
+> 
+> diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
+> index 12e339cbf791..7691f262294d 100644
+> --- a/net/openvswitch/actions.c
+> +++ b/net/openvswitch/actions.c
+> @@ -319,20 +319,22 @@ static int pop_nsh(struct sk_buff *skb, struct sw_flow_key *key)
+>  	return 0;
+>  }
+>  
+> -static void update_ip_l4_checksum(struct sk_buff *skb, struct iphdr *nh,
+> -				  __be32 addr, __be32 new_addr)
+> +static void update_ip_l4_checksum(struct sk_buff *skb, __be32 addr,
+> +				  __be32 new_addr)
+>  {
+> -	int transport_len = skb->len - skb_transport_offset(skb);
+> +	struct iphdr *nh = ip_hdr(skb);
+>  
+>  	if (nh->frag_off & htons(IP_OFFSET))
+>  		return;
+>  
+>  	if (nh->protocol == IPPROTO_TCP) {
+> -		if (likely(transport_len >= sizeof(struct tcphdr)))
+> +		if (likely(!skb_ensure_writable(skb, skb_transport_offset(skb) +
+> +						sizeof(struct tcphdr))))
+>  			inet_proto_csum_replace4(&tcp_hdr(skb)->check, skb,
+>  						 addr, new_addr, true);
+>  	} else if (nh->protocol == IPPROTO_UDP) {
+> -		if (likely(transport_len >= sizeof(struct udphdr))) {
+> +		if (likely(!skb_ensure_writable(skb, skb_transport_offset(skb) +
+> +						sizeof(struct udphdr)))) {
+>  			struct udphdr *uh = udp_hdr(skb);
+>  
+>  			if (uh->check || skb->ip_summed == CHECKSUM_PARTIAL) {
+> @@ -345,32 +347,37 @@ static void update_ip_l4_checksum(struct sk_buff *skb, struct iphdr *nh,
+>  	}
+>  }
+>  
+> -static void set_ip_addr(struct sk_buff *skb, struct iphdr *nh,
+> -			__be32 *addr, __be32 new_addr)
+> +/* May move the skb head; callers must reload packet pointers. */
+> +static void set_ip_addr(struct sk_buff *skb, __be32 new_addr, bool saddr)
+>  {
+> -	update_ip_l4_checksum(skb, nh, *addr, new_addr);
+> -	csum_replace4(&nh->check, *addr, new_addr);
+> +	__be32 old_addr = saddr ? ip_hdr(skb)->saddr : ip_hdr(skb)->daddr;
 > +
-> +	if (staged_folios_empty(staged))
-> +		return NULL;
-> +	/* Collect more folios until we have enough or there are no more. */
-> +	if (staged->nr_folios < MAX_STAGED_FOLIOS && !list_empty(folio_list))
-
-One thing to note here is that !list_empty(folio_list) can happen
-in the middle of phase (c), when pageout() splits a large shmem folio,
-and the code switches back to phase (a) and folios on ->flushed
-will stay unlocked longer. This is discovered by AI and I verified it.
-
-To make the code strictly follows the comment, you will want to
-add ->draining and set it to true at phase (c) and back to false
-at phase (a) and check it instead of !list_empty(folio_list).
-
-Or add =E2=80=9Cmost of time/usually=E2=80=9D to the comment below.
-
-> +		return NULL;
+> +	update_ip_l4_checksum(skb, old_addr, new_addr);
+> +	csum_replace4(&ip_hdr(skb)->check, old_addr, new_addr);
 > +
-
-At this point, the code moves from phase (a) to phase (b).
-
-> +	/* Flush the TLB and unlock the folios that waited for the flush. */
-> +	staged_folios_flush(staged);
+>  	skb_clear_hash(skb);
+>  	ovs_ct_clear(skb, NULL);
+> -	*addr = new_addr;
 > +
+> +	if (saddr)
+> +		ip_hdr(skb)->saddr = new_addr;
+> +	else
+> +		ip_hdr(skb)->daddr = new_addr;
+>  }
+>  
+> +/* Neither addr nor new_addr may point into the skb, since
+> + * skb_ensure_writable() can move the skb head even on failure.
 
-Now we move from phase (b) to phase (c).
+The 'even on failure' part is not necessary here, as the values are
+never used on failure of skb_ensure_writable().  But it's not worth
+re-spinning just for this.
 
-> +	folio =3D list_first_entry(&staged->flushed, struct folio, lru);
-> +	list_del(&folio->lru);
-> +	/* We handed out all folios: start collecting again. */
-> +	if (list_empty(&staged->flushed))
-> +		staged->nr_folios =3D 0;
-The batch is done, we move back to phase (a).
-
-> +	return folio;
-> +}
-> +
-> +static int staged_folios_alloc_swap(struct staged_folios *staged,
-> +		struct folio *folio)
-> +{
-> +	bool may_sync_discard =3D list_empty(&staged->unflushed);
-> +	int ret;
-> +
-> +	ret =3D folio_alloc_swap(folio, may_sync_discard);
-> +	if (ret !=3D -EBUSY)
-> +		return ret;
-> +
-> +	/*
-> +	 * Don't wait for synchronous discard I/O while keeping other folios
-> +	 * locked: there is potential for deadlocks and long delays.
-> +	 */
-> +	staged_folios_flush(staged);
-> +	may_sync_discard =3D true;
-> +	return folio_alloc_swap(folio, may_sync_discard);
-> +}
-> +
->  /*
->   * shrink_folio_list() returns the number of reclaimed pages
->   */
-> @@ -1166,6 +1251,10 @@ static unsigned int shrink_folio_list(struct list_=
-head *folio_list,
->  	struct folio_batch free_folios;
->  	LIST_HEAD(ret_folios);
->  	LIST_HEAD(demote_folios);
-> +	struct staged_folios staged =3D {
-> +		.unflushed =3D LIST_HEAD_INIT(staged.unflushed),
-> +		.flushed =3D LIST_HEAD_INIT(staged.flushed),
-> +	};
->  	unsigned int nr_reclaimed =3D 0, nr_demoted =3D 0;
->  	unsigned int pgactivate =3D 0;
->  	bool do_demote_pass;
-> @@ -1177,15 +1266,41 @@ static unsigned int shrink_folio_list(struct list=
-_head *folio_list,
->  	do_demote_pass =3D can_demote(pgdat->node_id, sc, memcg);
->
->  retry:
-> -	while (!list_empty(folio_list)) {
-> +	/*
-> +	 * We take folios from folio_list to pre-process them (lock, check,
-> +	 * unmap). Then, they move to the staged(unflushed) list, from where
-> +	 * they move to the staged(flushed) list after a batched TLB flush
-> +	 * and after unlocking them. If no TLB flush is pending for a folio,
-> +	 * it moves to the staged(flushed) list directly.
-> +	 *
-> +	 * We then take folios from the staged(flushed) list to actually
-> +	 * reclaim them, or to activate them if they are still mapped.
-> +	 *
-> +	 * So we pre-process folios from folio_list until we collected a batch
-> +	 * of staged folios, or until there are no more folios to
-> +	 * pre-process. Then, we perform a single TLB flush and reclaim all
-> +	 * folios of that batch, before we pre-process more folios.
-> +	 *
-> +	 * Once all lists are empty, we are done.
-
-I wonder if you want to label the above three phases/steps and
-add comments in staged_folios_next() to clarify how phase transition
-happens.
-
-Otherwise, LGTM.
-
-Acked-by: Zi Yan <ziy@nvidia.com>
-
-Best Regards,
-Yan, Zi
+Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
