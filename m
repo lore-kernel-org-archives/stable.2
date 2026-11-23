@@ -1,97 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795415098;
-	b=yOYLUmWdwpub4hkxqdGaYt9PdveRopOetz6JDgIxjbikFcKLlhNiFRqJ85wm/mQidwFG
-	 yU9ReM1IRy0ZpuNfOFKN+ckUOOnaHr26g75+AtfGvbNagL1buPrMghVptXITz2nYmjFvG
-	 F/LGXEf+1xVQsfxaZgxuPMLve0jhq5/NDKc69jB1vCqQhD+KeQrbwmPU2wSVLTFFGQFCa
-	 3FRpgINtbcrrAtqH9ILpSudklRUoDoV6ZUNwFRq0UTX2kLntLA8/Bw6PduvasKbVnyknR
-	 DmzujqQf24Dw6xFpPjwGqZMVWl8GC80535bTCzdVNU6+E1SN7CjCmZH/tMD2X/nRWCg==
+	t=1795415099;
+	b=ayG9E7SmhrwF1+thui94qI0lKCHX/zdTbWlksxppk1BePiRTZUlof1m0ndfAoWOlCQN2
+	 smxdlUPXS2fY2ujXmv6GAf+akdje2rwusnM6M2zVXlm6xi5EMgVx6pZjymKgIMjXi8b88
+	 sruFJ0O58MhK/ATRu9Hi+4zeEwOLfM3WtRS2xIN59W6ianEnaKr80geAAZl/7M1qxerhN
+	 Qlm9ByGQdbccR4sb73PxvedOcsxP6rD3K3dVi4V+gWXZuekq8uzq5K4jfzdV2zAdiAB9b
+	 2Dexm/zjRpeIm9vM9tb58FIBwjVRYVj8Izmtsbl34vr5umV3Li3Ih8fBqVbNYQ6jYPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795415098;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dFdEqFiacjVlyhuruK5DmKXl2N1tqCNj7wsKhuFYg58=;
-	b=SLBahdT5juXx3Nj1x6xe775NfDltyIHzPw8f3LAmfQyxJnDxnNDKhCN8TbqE9clwPsEC
-	 Dj8dpHTALcI+Vkksa3YlcNWFvDCESZrWC5l2x8sQe47nD+cC1CCE9F/mrM/HroKFSI+l2
-	 Pwvz/B4MRrJRSyYDILKI1IeyyZpFDGszkvbhfLCXIyHK/D6pN0pslsuqKf7GEb+/yxkdR
-	 nq7Zco0Mpz9j4mK0cvk3KTQTMlvxTP5W+gbXfiWg3JpMePkY/YnG2pCRFOO4gPOM4ilDL
-	 041/pYqSPsQ/fEmslFl3jOWrshlQ+xaCRrDJ/awXlbAFkxA38KW41YujW8vY0yGFHlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795415099;
+	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
+	 Message-Id;
+	bh=haG0CibP8g4E0+nLjPt6N5pjPZOaA96qKSIcOhFsubA=;
+	b=ydKwi6NxZeY87inftt1FJnW6oKKptXME/ZVgH76r6+Em3340mL+8njOlhaWddyD8F5Dl
+	 hlMYQlJNe/ltYQCaw17wt02x1j7qh7A76MmR7AcKPoMI2ptdPlQ1EK2SALGk1gdXz2kZG
+	 iZg6zBeWDFz763gclgLXa9c3w+4YzTLDyzNw72MccHYunj69NHDTfXkt0AGhtc2ZySBE/
+	 IhTsy5Am0Yu+jzXRwfm6TUAjMunD3FP7iA45hYjwEAWf+jw3hFd1EnBCeM2i2xSNnZf6e
+	 E5E0YLs7oU94zOqsdbQ8S4S0BR6/35x1JOWmnhGFI5Ku346Gmpq90/+aLZoAyYdnuzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kksPxDBi;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=YHWubrmh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F222606A339
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:24:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F222606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3091606A33A;
+	Mon, 23 Nov 2026 06:24:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kksPxDBi
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-386ab9ab619so1556190eec.1
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:24:58 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=YHWubrmh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FA441F000D3;
+	Mon, 23 Nov 2026 06:24:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795415097; x=1796019897; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dFdEqFiacjVlyhuruK5DmKXl2N1tqCNj7wsKhuFYg58=;
-        b=kksPxDBi+60aFba/GVGkbKoJN+BgFq9Pr8CxCZ/hZl8TA/LSo7BXAUdz9fyoiffaUu
-         eCqULUQ9WT3ewKO72r/ilWpnchOrnN1Fov0O8spI3teFCKHroOmUzmqixFfW5bIgmS/q
-         8P0Xhqdp1KlI+SRjSXRsujFbglZtjcIG3JfCz7sqAC77e10+YNs/VXlzgAgr42iaGlcx
-         iRFeBHYkNCU7z5J0SDTTQTRfgy3TLOOY9EQxFzwNtbqWEH/UgoIU4yryYGiyf+iwBfGI
-         XpXOzHMuG/TYXSx6gXXNtUyLhG4iXujQcPnoaMPFJ6iGazaZnEnRBgXnxXm/9wSdk7La
-         ZOtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795415097; x=1796019897;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dFdEqFiacjVlyhuruK5DmKXl2N1tqCNj7wsKhuFYg58=;
-        b=bR/U4trFwjmXB2hSZMELb/lvLC3JseFeV51EMdolH7j/Xk0P2wGbsGkUNSPsBVxBHr
-         ynEDbadrPLlBBmx0fDaJAw4KRSFr2/4Tcp7Oe5JeGWkErF1a+Ct9s0c3oU8wTs15N6py
-         ezd8XilQK9WU5z6KgvIdICx2EEy0kE7x5zUXZkk+Alqc0ptveTxaHss8Lib9XTDRAWEq
-         OPfIxJ3IJlF3cmd5dOhE4PNLHwu0GN+PBsM+WbgsecplbJxQccfM8Ou/6z7IopbZLYcD
-         sflt/Z2H8RdVtk5/cD47RppPbadiK4VBilwwVkbsmHU2pdfo5C6EPlC1UebvsusjJrSQ
-         9ynQ==
-X-Forwarded-Encrypted: i=1; AL+hErHgCVeKvWzeGnShY0G5IMBOOKimpvWKixE6GwHV+3XoVBNTejvIAkmUF7HxGllaeoltmedODFA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9GvdQ/4mw1id2/O8VCKzDd8mhJ4wabhdywjm40UCGSNA7exAV
-	pwKpLViArE4m159fwuRw6//MrCH9FqrG1NN1v8Sje32Z0nC9XyhmdtPT
-X-Gm-Gg: AZFdTZfeTeuRTespiyeKid/Gwbp1NGO9dtbPoIaELn141CYIB2AQkTty4/NZKuASCwv
-	QqbBF3gXpj49h7bgVRoKfMBLDxCes6PxwgKj7CFMVm0szzyuYuDKlM022IXcmcx6QlqBIVwWfRP
-	xILo8hfrm9WNDpPK7Fva5n5H8WuF7F6Ot2VfoqmqNXwBpRBekOcAfdPkKkmgRloZ3f+YlI8TLGc
-	A1aKU2YsbTwB9PvPxhDV2YO35sOzSm/CH3LM+e8zc/NlLnHptHYCbK/f0Zk1PS88lB+MDp/4bsv
-	Sn5MTI/9of5N+NDbXdUNHGAz7zcy1Qy2B1IvukGFT3dK0yLQEU+0CW+FUOQfUNfb3kZ5/JHLTuh
-	OA9BBwsDHeBaStGjVwC9Uml7du8JV2VreKe1x7l5s+BJ67RYfTpJEykTfcin+A+SKHjc5IA+YRl
-	C/WmXOolwa8RxtFGNnWQDrNMrEhVzVuFY7GZPxvPxyjDUveT9eFCitxRU5sXDQT7W+MoWSxL9IE
-	oY/cofb4ZknYrPz64MUMr954YyoRcR8N9bzhWsNz+Sq4BPQKkNV4klja3UDa2zuXv72S08TC7/d
-	6EOY+zXaW0p0b9ycZR6ID3+UOjwwjSPAORzaQdV2zXkZRntwlWzD13ppxgHW8n5m+voqyFnMzkI
-	YMJ1ZVkEd+dJxQQXZQg==
-X-Received: by 2002:a05:7301:6405:b0:381:a3bb:f945 with SMTP id 5a478bee46e88-38570254ec3mr12905314eec.22.1795415097415;
-        Sun, 22 Nov 2026 22:24:57 -0800 (PST)
-Received: from ip-192-168-31-150.ap-south-1.compute.internal ([2409:40d2:2009:6412:a5f6:d81:c3c7:7d8b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385646633d0sm55987369eec.3.2026.11.22.22.24.54
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 22 Nov 2026 22:24:56 -0800 (PST)
-From: Tanuj Sharma <ertanuj96@gmail.com>
-To: ntfs3@lists.linux.dev
-Cc: almaz.alexandrovich@paragon-software.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	Tanuj Sharma <ertanuj96@gmail.com>
-Subject: [PATCH v4] ntfs3: fix out-of-bounds write in do_action() bitmap operations
-Date: Mon, 23 Nov 2026 11:54:50 +0530
-Message-ID: <20261123062450.5153-1-ertanuj96@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <2026112152-delivery-synopsis-ada7@gregkh>
-References: <2026112152-delivery-synopsis-ada7@gregkh>
+	d=linux-foundation.org; s=korg; t=1795415098;
+	bh=haG0CibP8g4E0+nLjPt6N5pjPZOaA96qKSIcOhFsubA=;
+	h=Date:To:From:In-Reply-To:References:Subject;
+	b=YHWubrmh3F91lazgdBEuvsTHtTmdMfdB64GxPR46bcuh/Fkzm+HNX4s6n/v9IPyYt
+	 sQm6LU18A9/GSxhnDXDPPpd4LmSxIRQaxxkCY3QudGXhFKMsQwjbzyLMob0A1/UWd6
+	 nrTkhjwOjR326YlML6kw2g2TKuBH7uvx9yb9GoAA=
+Date: Sun, 22 Nov 2026 22:24:58 -0800
+To: mm-commits@vger.kernel.org,yuanchu@google.com,youngjun.park@lge.com,
+	willy@infradead.org,weixugc@google.com,stable@vger.kernel.org,
+	shikemeng@huaweicloud.com,shakeel.butt@linux.dev,ryncsn@gmail.com,
+	qi.zheng@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,
+	hannes@cmpxchg.org,david@kernel.org,chrisl@kernel.org,brauner@kernel.org,
+	baoquan.he@linux.dev,baolin.wang@linux.alibaba.com,baohua@kernel.org,
+	axelrasmussen@google.com,nphamcs@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+In-Reply-To: <20261110151407.789960-2-nphamcs@gmail.com>
+References: <20261110151407.789960-2-nphamcs@gmail.com>
+Subject: [merged mm-hotfixes-stable] mm-vmscan-allow-writeout-of-swapcache-folios-without-anon-mappings.patch removed from -mm tree
+Message-Id: <20261123062458.8FA441F000D3@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,100 +57,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-In do_action(), when replaying log records for ATTR_ALLOC attributes,
-the buffer is allocated based on bytes_per_index (typically 4096 bytes,
-kmalloc-4k) but bitmap operation bounds checking uses lco -- a larger
-value derived from lcns_follow << cluster_bits (typically 8192).
 
-This allows SetBitsInNonresidentBitMap and ClearBitsInNonresidentBitMap
-opcodes to write past the allocated buffer into the adjacent slab object
-when processing crafted NTFS images with malicious $LogFile records.
+The quilt patch titled
+     Subject: mm: vmscan: allow writeout of swapcache folios without anon mappings
+has been removed from the -mm tree.  Its filename was
+     mm-vmscan-allow-writeout-of-swapcache-folios-without-anon-mappings.patch
 
-The bounds check compares against lco (the full LCN extent size) but
-should compare against the actual buffer capacity. For ATTR_ALLOC, the
-buffer is only bytes_per_index bytes, allocated here:
+This patch was dropped because it was merged into the mm-hotfixes-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-  if (attr->type == ATTR_ALLOC) {
-      t32 = le32_to_cpu(oe->bytes_per_index);
-      if (bytes < t32)
-          bytes = t32;
-  }
-  buffer_le = kmalloc(bytes, GFP_NOFS);
+------------------------------------------------------
+From: Nhat Pham <nphamcs@gmail.com>
+Subject: mm: vmscan: allow writeout of swapcache folios without anon mappings
+Date: Tue, 10 Nov 2026 07:14:05 -0800
 
-But the bounds check uses the larger lco:
+Patch series "mm: fix swapcache writeout and cluster table races", v2.
 
-  if (cbo + (off + 7) / 8 > lco || ...)
+Reviews of vswap and v1 of this series found bugs in existing swap code. 
+Allow swapcache writeout without anon mappings, publish cluster tables
+with the allocator locks held, and leave tableless clusters to the
+allocator.
 
-With bytes_per_index=4096 and lco=8192, any bitmap_off >= 32768
-(byte offset 4096) passes the lco check but writes past the buffer.
 
-Fix this by computing the bounds limit as the minimum of the buffer
-extent (cbo + bytes_per_index) and the LCN extent (lco). This ensures
-bitmap operations cannot exceed either the allocated buffer or the
-on-disk extent, and also prevents a crafted bytes_per_index larger
-than lco from weakening the existing check.
+This patch (of 3):
 
-Found by code audit and confirmed with a crafted NTFS image that
-triggers the OOB write on mount.
+Unfaulted zswap readahead folios can be dirty and in swapcache without
+an anonymous mapping. pageout() rejects them before swap_writeout(),
+so reclaim cannot write them out while their swap entries remain
+referenced.
 
-Cc: stable@vger.kernel.org
-Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-Signed-off-by: Tanuj Sharma <ertanuj96@gmail.com>
----
-Changes in v4:
-  - Removed unnecessary braces around single goto statements
- fs/ntfs3/fslog.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+Allow swapcache folios through the filesystem folio check. They already
+have swap entries and can use the existing swap writeout path. Anonymous
+folios outside swapcache have no mapping and already return PAGE_KEEP.
 
-diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-index 1879d04e3cd05..0f83e4e8dbb9d 100644
---- a/fs/ntfs3/fslog.c
-+++ b/fs/ntfs3/fslog.c
-@@ -3125,6 +3125,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 	u16 roff = le16_to_cpu(lrh->record_off);
- 	u16 aoff = le16_to_cpu(lrh->attr_off);
- 	u64 lco = 0;
-+	u64 bmp_limit;
- 	u64 cbo = (u64)le16_to_cpu(lrh->cluster_off) << SECTOR_SHIFT;
- 	u64 tvo = le64_to_cpu(lrh->target_vcn) << sbi->cluster_bits;
- 	u64 vbo = cbo + tvo;
-@@ -3751,10 +3752,13 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		off = le32_to_cpu(((struct BITMAP_RANGE *)data)->bitmap_off);
- 		bits = le32_to_cpu(((struct BITMAP_RANGE *)data)->bits);
- 
--		if (cbo + (off + 7) / 8 > lco ||
--		    cbo + ((off + bits + 7) / 8) > lco) {
-+		bmp_limit = attr->type == ATTR_ALLOC ?
-+			min(cbo + (u64)le32_to_cpu(oe->bytes_per_index), lco) :
-+			lco;
-+
-+		if (cbo + (off + 7) / 8 > bmp_limit ||
-+		    cbo + ((off + bits + 7) / 8) > bmp_limit)
- 			goto dirty_vol;
--		}
- 
- 		ntfs_bitmap_set_le(Add2Ptr(buffer_le, roff), off, bits);
- 		a_dirty = true;
-@@ -3764,10 +3768,13 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		off = le32_to_cpu(((struct BITMAP_RANGE *)data)->bitmap_off);
- 		bits = le32_to_cpu(((struct BITMAP_RANGE *)data)->bits);
- 
--		if (cbo + (off + 7) / 8 > lco ||
--		    cbo + ((off + bits + 7) / 8) > lco) {
-+		bmp_limit = attr->type == ATTR_ALLOC ?
-+			min(cbo + (u64)le32_to_cpu(oe->bytes_per_index), lco) :
-+			lco;
-+
-+		if (cbo + (off + 7) / 8 > bmp_limit ||
-+		    cbo + ((off + bits + 7) / 8) > bmp_limit)
- 			goto dirty_vol;
--		}
- 
- 		ntfs_bitmap_clear_le(Add2Ptr(buffer_le, roff), off, bits);
- 		a_dirty = true;
--- 
-2.43.0
+Link: https://lore.kernel.org/20261110151407.789960-1-nphamcs@gmail.com
+Link: https://patch.msgid.link/20261110151407.789960-2-nphamcs@gmail.com
+Fixes: 84798514db50 ("mm: Remove swap_writepage() and shmem_writepage()")
+Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-181078@kernel.org/
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Qi Zheng <qi.zheng@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Christopher Li <chrisl@kernel.org>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Youngjun Park <youngjun.park@lge.com>
+Cc: <ryncsn@gmail.com>
+Cc: <stable@vger.kernel.org>
+
+ mm/vmscan.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+--- a/mm/vmscan.c~mm-vmscan-allow-writeout-of-swapcache-folios-without-anon-mappings
++++ a/mm/vmscan.c
+@@ -714,7 +714,8 @@ static pageout_t pageout(struct swap_io_
+ 	 */
+ 	if (folio_ref_count(folio) != 1 + folio_nr_pages(folio) || !mapping)
+ 		return PAGE_KEEP;
+-	if (!shmem_mapping(mapping) && !folio_test_anon(folio))
++	/* Anonymous folios outside swapcache returned PAGE_KEEP above. */
++	if (!shmem_mapping(mapping) && !folio_test_swapcache(folio))
+ 		return PAGE_ACTIVATE;
+ 	if (!folio_clear_dirty_for_io(folio))
+ 		return PAGE_CLEAN;
+_
+
+Patches currently in -mm which might be from nphamcs@gmail.com are
+
 
