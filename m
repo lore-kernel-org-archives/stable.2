@@ -1,54 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.247
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795414657;
-	b=EqncN4Z1CMzCaUPsFWgn7kJRjSjqVr7pG1sua0I41W92yUIdOVYi+PaSSAzeOXoWyQue
-	 Xp+YLw/CeSlH66VbVQFGqh9J9Mw3PGgPXcArhr+CGgk95V05k79cYSZ8OU14gMticf4Hw
-	 LZty1lQBPpH5N+XulTsjOj3UWOwapgIvlfrUcMFcFVJKSOMTMyiPHyeCztRZQsEEeawWf
-	 HSxu6yKlfe0kXLuqlI+AO32gl7ALjstXw2UFKFleQF5scLQPx0kBSB8oa6ooSBT79oWeT
-	 PABag2CSwHa9JYBs+F0NO351/8WewWzgMCwYvDG1aoGR/h3Bt2zFWvw+RNKwiTlkI9w==
+	t=1795414786;
+	b=m9HSrgds/u5ZZHYLA5fMBf1+Z4ZnenC6TqRtfHNWCsa4HAM4UtMBZt6CoLJeOefdTqXj
+	 feyUtxp7GNCDX1oMPxCbXIRHV3+zeV0uq9IhSzzp1+JWFgx+3I8wCWRKfg6wrEO9L+eZq
+	 gTA9egplPTDXI13PvkSXWhTPqINQqQu66hnR5Uqj6tJ+VlZK/PYj1WUd7EnO3nCRJjoYj
+	 snj1APXGNQoGc0Ldec7iNp4FEqiQTphKDDxfxPIdL+D8GXLNbmQI6/H9ZijgbJYon+36p
+	 h3OvzSgqJqoHaSwqPQBmyKQuViZobqdkxPZ7H8+ns+52oZw3DjTNQvOGKffBASCfzSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795414657;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=GOBYmPtzam1T+nLf6ejQStpL9HX+CL/GMBMiRQwuJ6c=;
-	b=Uew/VJLpsC1GEA/HvavpUtRXSKPPT5sdeDZ1xQCdcHK4ExrAl7qaLAwkKaXUb1Wtx+ZN
-	 DYZIJN5DuYYd851NkCjwIC30LW3zse2EUKpbXjgEVfhmAx+QRjlJ9MeShMUaHQJo6DmvV
-	 OxfX0NVx2e9UTXhnq86FEaPaE4rLvJzmDrtk2XKQWoefSJYP5akJDk0m+rgtmYXgM4665
-	 Pga/bxUhFl6440gjndf7XB1qHDo6YymCFXo2rHQAey3vsPX2LSm+JhlL+dXLVikXE4lo+
-	 Vs5Fvp8XknpGxyAvoVRqunAVJ1AxxE6NtWLktJ7ca431rzlK4cpMnTrHN5a7bU1YRWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795414786;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=BF/0+ZUXITScNNxomDscQG5wnwCmvZaai5xQhO9sUeM=;
+	b=WOmPYCmJruWhY4bimXzt7ybNAKl+vBEmqLmeIzoX59JKi/VKghUbr3iyxc24o3O8DnWc
+	 4DQz2XiyukzRfJkUWNJIDuM/hTkIDUJaG0trNBqcRzSaWz3USFK61qG+fd0pAvxb8WZyq
+	 NX1RYkojsMZhE2lCFG3FAqMYOzd3QGN4yiBu3NumAyOXe/rbgS3gJsD7le8nH/7sdioGk
+	 FysRaeu8Uunkh8oYwIBAXFPSSJoRrL4UiCvTzikOwDJ6+cqq+WJ1IXEmDJlbA1iHOuT6Z
+	 0Kh3k9Rb5Ybo+GPvs8H/OKs86YaolwZr1OXvB+WXpOmOgvIe94jIw8WYVfTeeb8ZZ6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hUDhkCJR;
-	arc=none smtp.remote-ip=95.215.58.247
-Received: from mta1.migadu.com (out-247.mta1.migadu.com [95.215.58.247])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=aJErLLce;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=m5sveQ6A;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02ACA606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:17:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02ACA606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C30B606A31A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:19:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C30B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hUDhkCJR
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rT8PoeGFDS38g2QMBHWcyADCpxGK0iuLhNyiv06a55Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795414655; v=1; x=1796019455;
- b=hUDhkCJRJuq6GeK9Zq6uh6m/zJKtkdGuFCnx04R25XKiQCL5rCaV9TdCjE9O4YyqH5jQPyG6
- BVTlf03uMu+fI49r44TjKeRqNnnE0rqJeaTU04+25Y6ExypoKD7AF0avjsGnjNnLyF4dyrnDSSV
- kcL2eULvkj4+ZwXExaD5w7uA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7ae97a7f2b73cb9e;
-	Mon, 23 Nov 2026 06:17:34 +0000
-X-Mizu-Trace-ID: 7ae97a7f2b73cb9e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <cb8d8dc5-4ccc-408f-acaf-2f1faa0a1983@linux.dev>
-Date: Mon, 23 Nov 2026 14:17:17 +0800
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=aJErLLce;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=m5sveQ6A
+Received: from pps.filterd (m0499199.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN3YjPj3926150
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 01:19:44 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=BF/0
+	+ZUXITScNNxomDscQG5wnwCmvZaai5xQhO9sUeM=; b=aJErLLceONn0l2Dq54F8
+	As1H9x/izFTp9OY57U5Faobi5tUkVGFaIiEJtK82FRCiYOLAr3g+rJ3/bb6KTriB
+	kk1Wxv8CHIO3PWNtpJQ0ANxzXDaJPXZONLl7yBH+EE9lwHN91IwcRGTQQuZCk5Ni
+	Ex6by1+1odkwG4CdEQpKg1sVk0z+dYMPxHFsdHMxBZBrO5RYl8duZVlfuBh6Uyd0
+	E8edBG2cRGRi3laQXQdbtlOv6CKhgl3TKoTcbiLU791TjZoUkXugdK/8N/XTXhJM
+	yIxZkpa4HUYNiBVb4zC7q+2hya++c5fbM8W+OHOlZpEBqeC4eKtUE9le/5N/WAU4
+	AQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4j3tkx4p87-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 01:19:44 -0500 (EST)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f5844cb60so552775785a.0
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:19:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1795414783; x=1796019583; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BF/0+ZUXITScNNxomDscQG5wnwCmvZaai5xQhO9sUeM=;
+        b=m5sveQ6A86gTPz4ilE0VM1nIaOKtF3frM/MDVA0C7wFc1+3jA87zITWnHBz2E43Dmi
+         67BWw7DFBSUvmaBKvV4tFLaGu+fXfbWJGiNVYKebKM3gP4ET+wFZb+TyLRKSC6Wh+UaZ
+         6KP0v5LyCTVY5/pOQEhzYwFGsdYiTw10Sei4eH6vGlpZE4Ek3v1bHG/9ONnpkdZfYrlr
+         Z1E/RALwoyvYCBRP1ZJjZGOIc6AuamE2lrl/E4G2aMChboJCRi/I3SEGhoDHIbBftPIx
+         i2QiPy2+rQCzrUhOONz8nEjlR/Dg6/Wcih3JO9VCshnXpCXHIE9Q7c2ZG/4WuMZBLcb4
+         22Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795414783; x=1796019583;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BF/0+ZUXITScNNxomDscQG5wnwCmvZaai5xQhO9sUeM=;
+        b=SL/6ZSVHGp1sYiVLS9DL6fqXkvEEt1kVSvqaHYYUnRcOQPEyAM5X308zx5yzjnGteq
+         2faLwlKWN4aMDzkxl4FUj9rBAn9v0N5TVATehBUCqPd4JkvrZhV6ceS9zDksY3O9gyCz
+         VIRW/LwYaWApF0Ry6tM3Lq34YEXWBAMc7mf9C/hKkzwJTi/k3eF3O50HS/lasXvZKUCO
+         b2/zj5GAcyxeSIjYZMhuohtJicINJgg2F0iB+x6oewHhqiRsVtTGSzgeb45bE3o4louZ
+         JD4nMZ4TrAk96q7Hev/Zb45+3PgrNDO7WymhWbHt2vq5FqCRmMkiWFS6l7eoE0Gn4lHl
+         lXGA==
+X-Forwarded-Encrypted: i=1; AL+hErGrvm39s3Bz+128ydS4Pj7u0uFuEeRDCqocYW3xgEDCBQaeNIe4ZjCfPhH3gE4KpKr6fSjxLqo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Wv/454hHh8IsQkIa7EvQ1IGnq9LougiP4AFT/ticP98Ey1hRL
+	PmJjpN7lyQcHyZVqzsERzLjPnSsS0nmGV8Y0trOAitPoPKAyKdNGXR3rY3fJJvHlySDkDNWJI39
+	xVKbl1twY7t6yPuueez/vngLSYpSRzSs015s1c7dDi8hynD0k0hq38w==
+X-Gm-Gg: AZFdTZfF5zf/7HIRIhCOgofY8CxPppF6P+YwI1ZJWEJAfrI0jm4uAakCRFrnSoA4Kfv
+	Wg2IwVmeCeceAjztSerXllTb80Je8OJVDNw6/S6Yt744F9sBx14XGvV9vS4OD8Elhe17Ak0MHfX
+	oWi7S/1a8mIr1ZzId4PZm8LQf1LmLacx7fy4Qb8Hb+9ReZKT+iPg1B9yd1v0vruSu8CAdc+dBAF
+	8ydftkxO7426Zu6Bsf5F8RNKn9kRBirVaALavtjYJSfEQOIXkuCny63lRCy9n7UDs0E7THuXBDD
+	xAz3Hu9Tye/b6HjX98/F7oFC4bo5XBZVej17NtBb5GK7swRxsav6i8PBb0bmKX9QzcZKBrF7/JZ
+	w8yeEOz6dzqB0EaAP4ikzV/fzyHo6GpDycgOOFw8Jx02ccG7F//es6JUuSDnx/oTUIwFgxorU+D
+	5vcooHEVghcl8Ngw+egPN8Lk3nEL2h/du8wkLUkv2fttD/z4sylgCgIG7eP+xOeZJT2eAY1HJFh
+	rT9otjMzJ28ptPTXXdNq1MoVLyoD8HaxvwL8dfSeJ2V1b4jpC7DT8iptt5Owv71jMf2rM/DS4lk
+	DaUScXLEXAJlJxfQrTxMFYw=
+X-Received: by 2002:a05:620a:3c8d:b0:949:b99e:1d6f with SMTP id af79cd13be357-949b99e22ffmr1153850685a.0.1795414783572;
+        Sun, 22 Nov 2026 22:19:43 -0800 (PST)
+X-Received: by 2002:a05:620a:3c8d:b0:949:b99e:1d6f with SMTP id af79cd13be357-949b99e22ffmr1153848885a.0.1795414783255;
+        Sun, 22 Nov 2026 22:19:43 -0800 (PST)
+Received: from [192.168.0.76] (dyn-160-39-51-212.dyn.columbia.edu. [160.39.51.212])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb41c105sm746775285a.39.2026.11.22.22.19.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 22 Nov 2026 22:19:42 -0800 (PST)
+Message-ID: <08b18b88-3ab4-4681-bec8-f4564fe9f1dc@columbia.edu>
+Date: Mon, 23 Nov 2026 01:19:42 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,259 +119,78 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/11] mm/vmalloc: skip cond_resched() in the vmap
- unmap paths when atomic
-To: Suren Baghdasaryan <surenb@google.com>, Dev Jain <dev.jain@arm.com>
-Cc: Uladzislau Rezki <urezki@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org, stable@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261116071325.263682-1-hao.ge@linux.dev>
- <20261116071325.263682-2-hao.ge@linux.dev>
- <1020e36e-83bb-407b-8a6b-7669f04c26c3@arm.com>
- <CAJuCfpHtWJvs4F2L+QCMe9gMJ-qmcj4Q1G4hqVqFe6Z6gPoQ1Q@mail.gmail.com>
+Subject: Re: [PATCH v3] mm/memory-failure: set PG_hwpoison of a non-hugetlb
+ page under hugetlb_lock
+To: Miaohe Lin <linmiaohe@huawei.com>
+Cc: David Hildenbrand <david@kernel.org>,
+        Naoya Horiguchi <nao.horiguchi@gmail.com>,
+        Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Mike Kravetz <mike.kravetz@oracle.com>,
+        Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, tz2294@columbia.edu,
+        stable@vger.kernel.org, Muchun Song <muchun.song@linux.dev>,
+        Oscar Salvador <osalvador@suse.de>,
+        Andrew Morton <akpm@linux-foundation.org>
+References: <20261106-hwpoison-hugetlb-ro-v3-1-c11186963647@columbia.edu>
+ <42a60f57-5323-f981-8ef3-2e5d67623902@huawei.com>
+ <a87cbd92-0e07-4f84-9a6f-8db0b1778fcf@columbia.edu>
+ <b0f30561-aabf-2bf5-2204-20907c40ef43@huawei.com>
 Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <CAJuCfpHtWJvs4F2L+QCMe9gMJ-qmcj4Q1G4hqVqFe6Z6gPoQ1Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Mani Tofigh <mt4022@columbia.edu>
+In-Reply-To: <b0f30561-aabf-2bf5-2204-20907c40ef43@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAyNCBTYWx0ZWRfX0Wk4WgtpiD7R
+ bgbFeE2Kn8Now+QFYiyqLrxWi5UWJVYvfX0bWw8f+fOnXonm8NfduLH4NZs61e54Cdd1NYQPRfR
+ hM5mM94lywmJ+GDr8Yl5M+fAD96S02sjhZI/8K73PXIjWuf6lC+Ki7Jv0hUpTrn5aEon1vZ5kxq
+ 4QlVGxrxWluCT3MYNYvk8wuvz3eDELx1KwBGCnZF18xuAWmaM6oXTUOAK+DjPjvLXNvePiM5Lhs
+ jaaySA+l8efynO0y3z1pkqe6Kz1CqvlHh9heimCVz5v+YYckhZvXKHveDPO3us8krMCBq9KcU0y
+ GwAxyGKpTU0qaKBo+VLwYajrKt9ruVdXHaQBS4TWJ3FJVLaacg0g5X2zJXGIqDgRKF4o/a9xRCd
+ W74D2yyvpKi0FlJ0YQvEN27EqDhJgFEeI8OIDyLN8RmhPM051JiNxPpMWMkjpa/KgDVVK+mJ5Uq
+ 1fBL76//Qcd1gLxHBkA==
+X-Authority-Analysis: v=2.4 cv=W8qtxhWk c=1 sm=1 tr=0 ts=6b03db00 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=l9izRfKDRJJ6Wn/vzKnQSA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=G--0XuH5328wxK7v7Suf:22
+ a=ZeqcaTA9yHy8FKGpf-oA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAyNCBTYWx0ZWRfX8uyEsgYBRGsp
+ 1yQxvyx4TvKvsEOpV67Oc4vQ/CR+Q7qbT61rSjxkGngoAxeGqB6L9cKsAa0h73fbXeeEBuJrJLG
+ juI0hZardCTNeue02mJTuzvdLAHYUr/R+uI+M1Wg0ptTYdVQs1J6
+X-Proofpoint-GUID: 2UZpQoG2EFmn_2jJTVpEeoReXgn41qhF
+X-Proofpoint-ORIG-GUID: 2UZpQoG2EFmn_2jJTVpEeoReXgn41qhF
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11974
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=10 spamscore=0 bulkscore=10 priorityscore=1501
+ impostorscore=10 malwarescore=0 phishscore=0 suspectscore=0 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611230024
 
-Hi Suren and Dev
 
-Thanks for the review.
 
-On 2026/11/21 05:07, Suren Baghdasaryan wrote:
-> On Thu, Nov 19, 2026 at 5:02 AM Dev Jain <dev.jain@arm.com> wrote:
->>
->>
->>
->> On 16/11/26 12:43 pm, Hao Ge wrote:
->>> The vmap failure paths can be reached with GFP_ATOMIC or GFP_NOWAIT
->>> since commit b186a94227b7 ("kmsan: remove hard-coded GFP_KERNEL
->>> flags") and commit 8da89ba18ed4 ("mm/vmalloc: handle non-blocking
->>> GFP in __vmalloc_area_node()"), so an undo of a partially installed
->>
->> You mention this commit too, implying that vunmap_range_noflush() can
->> be called in atomic context right now, but in this patch in
->> vunmap_range_noflush() you pass 'true' unconditionally to
->> __vunmap_range_noflush()?
->>
->> Can you give me the call chain existing in current kernel which makes
->> this bug trigger? In case it does not exist but is only triggered when
->> you add the rollback code later, then this patch is not fixing a bug.
+On 11/17/26 2:01 AM, Miaohe Lin wrote:
+> In both cases, will the hwpoison flag be lost? If so, would TestClearPageHWPoison work?
+
+Only if P's struct page is past the first vmemmap page, since HVO frees
+that one. In the first page it's copied, so the flag stays. And
+TestClearPageHWPoison() is still an atomic write, so it'd fault on the
+read-only tail (e.g., 6.6) the same way.
+
+
+> If the page becomes hugetlb, should we skip the retry path? try_memory_failure_hugetlb
+> can't handle this case?
 > 
-> Yeah, IIUC this is a prep patch for later changes and does not fix any
-> existing issues, therefore should not have any Fixes tags and should
-> not be CC'ed to stable.
-> 
-> Other than that LGTM.
 
-Right, this is a prep patch for later changes. I will drop the
-Fixes tag, this patch fixes nothing by itself. 
 
-I would keep the stable Cc though. The next patch, "mm/kmsan: undo
-the shadow mapping when the origin mapping fails", is the real fix
-and it depends on this one. Per stable-kernel-rules.rst, patch1 in
-a series should be marked for stable inclusion when patch2 depends
-on it, otherwise the fix lands in stable without its prerequisite.
+It can, the only problem is the stale flag from the first round. With 
+it, hugetlb_update_hwpoison() thinks the folio is already poisoned if
+P is the head, and unpoison_memory() drops the folio ref twice if
+P is a tail.
 
-Or did I misread the rules?
+Now that Muchun's vmemmap_remap_rwsem is in mm-new though, I think we 
+can just clear the flag under it (unless HVO already moved P's struct 
+page to the shared tail, where it's gone anyway) and always retry. 
+That'd also let us drop the hugetlb.c part. WDYT?
 
-Thanks
-Best Regards
-Hao
-
-> 
->>
->>
->>> mapping may have to run in atomic context, where the cond_resched()
->>> in vunmap_pmd_range() cannot schedule.
->>>
->>> Give __vunmap_range_noflush() and kmsan_vunmap_range_noflush() a
->>> can_resched argument and skip the cond_resched() when it is false.
->>> The existing callers are on sleepable paths and pass true, so nothing
->>> changes for them.
->>>
->>> Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_pages_range_noflush()")
->>> Cc: stable@vger.kernel.org
->>> Reported-by: Sashiko <sashiko-bot@kernel.org>
->>> Closes: https://lore.kernel.org/all/sashiko-outbox-178439@kernel.org/
->>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->>> ---
->>>  include/linux/kmsan.h |  8 ++++++--
->>>  mm/kmsan/hooks.c      | 14 +++++++++-----
->>>  mm/vmalloc.c          | 24 ++++++++++++++----------
->>>  mm/vmalloc.h          |  3 ++-
->>>  4 files changed, 31 insertions(+), 18 deletions(-)
->>>
->>> diff --git a/include/linux/kmsan.h b/include/linux/kmsan.h
->>> index 7da9fd506b39..0016c032d1e7 100644
->>> --- a/include/linux/kmsan.h
->>> +++ b/include/linux/kmsan.h
->>> @@ -150,11 +150,14 @@ int __must_check kmsan_vmap_pages_range_noflush(unsigned long start,
->>>   * kmsan_vunmap_kernel_range_noflush() - Notify KMSAN about a vunmap.
->>>   * @start: start of vunmapped range.
->>>   * @end:   end of vunmapped range.
->>> + * @can_resched: whether the unmap walk may call cond_resched(); pass
->>> + * false from atomic context.
->>>   *
->>>   * KMSAN unmaps the contiguous metadata ranges created by
->>>   * kmsan_map_kernel_range_noflush().
->>>   */
->>> -void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end);
->>> +void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end,
->>> +                             bool can_resched);
->>>
->>>  /**
->>>   * kmsan_ioremap_page_range() - Notify KMSAN about a ioremap_page_range() call.
->>> @@ -355,7 +358,8 @@ static inline int __must_check kmsan_vmap_pages_range_noflush(
->>>  }
->>>
->>>  static inline void kmsan_vunmap_range_noflush(unsigned long start,
->>> -                                           unsigned long end)
->>> +                                           unsigned long end,
->>> +                                           bool can_resched)
->>>  {
->>>  }
->>>
->>> diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
->>> index a706666db097..69008b085658 100644
->>> --- a/mm/kmsan/hooks.c
->>> +++ b/mm/kmsan/hooks.c
->>> @@ -136,10 +136,13 @@ static unsigned long vmalloc_origin(unsigned long addr)
->>>                                                KMSAN_META_ORIGIN);
->>>  }
->>>
->>> -void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end)
->>> +void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end,
->>> +                             bool can_resched)
->>>  {
->>> -     __vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end));
->>> -     __vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end));
->>> +     __vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end),
->>> +                            can_resched);
->>> +     __vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end),
->>> +                            can_resched);
->>>       flush_cache_vmap(vmalloc_shadow(start), vmalloc_shadow(end));
->>>       flush_cache_vmap(vmalloc_origin(start), vmalloc_origin(end));
->>>  }
->>> @@ -168,8 +171,9 @@ static void kmsan_iounmap_pages(unsigned long start, unsigned long end)
->>>               if (origin)
->>>                       __free_pages(origin, KMSAN_IOREMAP_META_ORDER);
->>>       }
->>> -     __vunmap_range_noflush(shadow_start, shadow_end);
->>> -     __vunmap_range_noflush(origin_start, origin_end);
->>> +     /* ioremap metadata mappings are always GFP_KERNEL, so resched is safe. */
->>> +     __vunmap_range_noflush(shadow_start, shadow_end, true);
->>> +     __vunmap_range_noflush(origin_start, origin_end, true);
->>>       flush_tlb_kernel_range(shadow_start, shadow_end);
->>>       flush_tlb_kernel_range(origin_start, origin_end);
->>>  }
->>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->>> index ccaf158c5b7f..3c0d9e69b886 100644
->>> --- a/mm/vmalloc.c
->>> +++ b/mm/vmalloc.c
->>> @@ -429,7 +429,7 @@ static void vunmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
->>>  }
->>>
->>>  static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
->>> -                          pgtbl_mod_mask *mask)
->>> +                          pgtbl_mod_mask *mask, bool can_resched)
->>>  {
->>>       pmd_t *pmd;
->>>       unsigned long next;
->>> @@ -451,12 +451,14 @@ static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
->>>                       continue;
->>>               vunmap_pte_range(pmd, addr, next, mask);
->>>
->>> -             cond_resched();
->>> +             /* The undo path may run in atomic context. */
->>> +             if (can_resched)
->>> +                     cond_resched();
->>>       } while (pmd++, addr = next, addr != end);
->>>  }
->>>
->>>  static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
->>> -                          pgtbl_mod_mask *mask)
->>> +                          pgtbl_mod_mask *mask, bool can_resched)
->>>  {
->>>       pud_t *pud;
->>>       unsigned long next;
->>> @@ -476,12 +478,12 @@ static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
->>>               }
->>>               if (pud_none_or_clear_bad(pud))
->>>                       continue;
->>> -             vunmap_pmd_range(pud, addr, next, mask);
->>> +             vunmap_pmd_range(pud, addr, next, mask, can_resched);
->>>       } while (pud++, addr = next, addr != end);
->>>  }
->>>
->>>  static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
->>> -                          pgtbl_mod_mask *mask)
->>> +                          pgtbl_mod_mask *mask, bool can_resched)
->>>  {
->>>       p4d_t *p4d;
->>>       unsigned long next;
->>> @@ -496,7 +498,7 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
->>>
->>>               if (p4d_none_or_clear_bad(p4d))
->>>                       continue;
->>> -             vunmap_pud_range(p4d, addr, next, mask);
->>> +             vunmap_pud_range(p4d, addr, next, mask, can_resched);
->>>       } while (p4d++, addr = next, addr != end);
->>>  }
->>>
->>> @@ -512,7 +514,8 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
->>>   *
->>>   * This is an internal function only. Do not use outside mm/.
->>>   */
->>> -void __vunmap_range_noflush(unsigned long start, unsigned long end)
->>> +void __vunmap_range_noflush(unsigned long start, unsigned long end,
->>> +                         bool can_resched)
->>>  {
->>>       unsigned long next;
->>>       pgd_t *pgd;
->>> @@ -527,7 +530,7 @@ void __vunmap_range_noflush(unsigned long start, unsigned long end)
->>>                       mask |= PGTBL_PGD_MODIFIED;
->>>               if (pgd_none_or_clear_bad(pgd))
->>>                       continue;
->>> -             vunmap_p4d_range(pgd, addr, next, &mask);
->>> +             vunmap_p4d_range(pgd, addr, next, &mask, can_resched);
->>>       } while (pgd++, addr = next, addr != end);
->>>
->>>       if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
->>> @@ -536,8 +539,9 @@ void __vunmap_range_noflush(unsigned long start, unsigned long end)
->>>
->>>  void vunmap_range_noflush(unsigned long start, unsigned long end)
->>>  {
->>> -     kmsan_vunmap_range_noflush(start, end);
->>> -     __vunmap_range_noflush(start, end);
->>> +     /* The unmap paths are sleepable, keep the resched point. */
->>> +     kmsan_vunmap_range_noflush(start, end, true);
->>> +     __vunmap_range_noflush(start, end, true);
->>>  }
->>>
->>>  /**
->>> diff --git a/mm/vmalloc.h b/mm/vmalloc.h
->>> index d8372a4f65c4..4ec114a75f04 100644
->>> --- a/mm/vmalloc.h
->>> +++ b/mm/vmalloc.h
->>> @@ -44,6 +44,7 @@ int __must_check __vmap_pages_range_noflush(unsigned long addr,
->>>
->>>  void vunmap_range_noflush(unsigned long start, unsigned long end);
->>>
->>> -void __vunmap_range_noflush(unsigned long start, unsigned long end);
->>> +void __vunmap_range_noflush(unsigned long start, unsigned long end,
->>> +                         bool can_resched);
->>>
->>>  #endif /* __MM_VMALLOC_H */
->>
+Mani
