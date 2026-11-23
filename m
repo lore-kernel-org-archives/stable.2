@@ -1,57 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795464060;
-	b=pvgzvPpsCUBqGfeKWpR5hEDRmjQYBwaL3atN/0pbAU0hFdDIWk/9F6gI3heeF2T7eIQT
-	 7479MH3q9aYK8+jNCkfqMuVgvcLGnp/wjtL4FdyctENzH76j420iVyV6LYfhkMEAXmlx8
-	 K0RgSe9Mw+8aZ5tdj8GNkWwD6xppgwppopERwnMQJbPg8AnTGEJTH/Nq5t657scOpSvLN
-	 soa9N/Wqtc0ynE2G0rS6/g6XoymLjcV6pZiudfYBkZI6PY4oEdRtVXlOIpHFDiDSkvgfL
-	 tyIAs8L+jQTsTrsWtjt3+xDQXEatEkr0vJkRQsr0eVqx3KL7fUQFC1W3ZbfT3aoygFw==
+	t=1795464068;
+	b=LdjJT5IhCJuRYAJMX3XjHGY69c7sdfL1yqQwsnsXvMLArkaiaD7R5LaxKC6gCRJtXqQd
+	 kCgZ+JJKQEdeRvUuRiGOZLcbexdt+nZ0OTtyAUM/5YD0CQylmSt2OVJrVjOL3RqtUqd/6
+	 zRVl5G39nzLTDcyUw3L0ntqbndO9HonUXifV2yzLLphQA1wmtY3QgaZt2g+8AlghZrRSn
+	 fUGxp7ge6wvEbKm5FDNSIpK4TLQdrtxB5Ap75tAvaB5tnSqwKltNYjnRV4859qG5mBfag
+	 6e0sYbuzKb2q3Be+jYCKm8/jqut+N907zS/zMeG5u3iTb+XfAoyWZXPiBjOQmper1BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795464060;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795464068;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=psLqdpDfEvsJKexanH3ZA0Pv43lOzKXaAeQKuctfq1A=;
-	b=zZSUtI+LSzg2UmCzCdyqqZFlZ4jEW7DWiACZ+GvxRPwoU7GTEYjSAEj86GmsIykh8aPY
-	 wJC4tdCDt/lgjw6DPvUwIZJuE2BZp5bcWEwzvNNQc7EXx0AZunDCnx9BDIqyBgPX0gIvo
-	 iTQ5bsXiwDFJcaucAahtK0aXfwnxqhgFFaWDIx+HnFeY+NLIotn+OcJhgrd9BAtZrrVNR
-	 cgYDIdgQBn4AYInaSoIoYWpafKz1lk2AweSirb4RScrDSvEr1ByZuoO0EqBqgwc2yyFCm
-	 mgT5hojW2JQxLABY9NYBRjC0EUHN2WFplbjMyShoxTBBAecC7lGpJ6YpcVIyiHfi6lw==
+	bh=VBddtnZ6NplTqsAQrt2rNvqi2go0i1Jy9vkkQ/D7OwQ=;
+	b=tvCXqbTjxszV3zUfiQW9EeQHud8wqtiO854Q0pMs72airPY/T31T2FCSSnt5+W6HpWOD
+	 4vbHmDhJR8+tYh00npMTRpY3PrBT327liZrLmkAHmCq8BXfTbLaV3de9+k0yYr38TwLb0
+	 Wlv5DW4WFLeuMF4GolyGkxC+edBdrfsLWWQe9oya7+hbMA8bbGb6e9JP8PUPcpqMe+i6s
+	 DROKaaXpoqaY7HzTAC541O5rHPaQmE4Uee4Y1/+OPulfZUfgEPARaymQZ7Fhqdz4cSdJ7
+	 SvqesaBYNeQjFs3sYCajJjC34Ex/0rkrrEMcGQKmlH0JfYD4uUkVzbv6KGhqxufwH9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVsHfpO2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U0QeouhH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CA6606A327;
-	Mon, 23 Nov 2026 20:00:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C54F606A32A;
+	Mon, 23 Nov 2026 20:01:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVsHfpO2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AFB91F000D3;
-	Mon, 23 Nov 2026 20:00:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U0QeouhH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 195DA1F000D0;
+	Mon, 23 Nov 2026 20:01:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795464059;
-	bh=psLqdpDfEvsJKexanH3ZA0Pv43lOzKXaAeQKuctfq1A=;
+	s=k20260515; t=1795464067;
+	bh=VBddtnZ6NplTqsAQrt2rNvqi2go0i1Jy9vkkQ/D7OwQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iVsHfpO21gmyOU/8DAZ5+Zf/CBr+w7/SXpmmFNZMR/p+5o/gSu97rd+DTE1pshckk
-	 TPDrhGWGL+Lj4zwyd/4e8JHRSLbOXISCI4S/r05fVrVjyJaVBVRyS+9//saKNotYlo
-	 MHyDBanlosLCUYcvdYyO0hocl2uf5PA4ArfV0sQ9IKZ5u6WurirxBPrnS9vyUad45l
-	 BFvG6wDvWxCu77Vav/+hrMgyZquDSEoehnc6OglwMBIgfQM2xkCwQ8GwhHKs7H+6oZ
-	 YKRRAlWImj82vIQP7nONU2jKREI/ERUza0NQlD6+x1DIOFjusd2VNbxDDiuqHw0B1A
-	 bx2o65G4iUbMQ==
+	b=U0QeouhHPw6RwqtmUwFLMFeLJszFZAzpXoM0K1PKvgU2FytdyhDUmGfioCGmuZ7Jd
+	 rP43eGqmPibJoPx8wBQnbJUziI2HqSo85sp2w6Hv5fgYjPaTaUyvFIgUYFr1Gu9FKU
+	 lMsGeqlY79mU/9SYKQ99BLwiSNFbMSRgR6ULOceXqlIESEerF+IcnzpMUysm7ERWW2
+	 9eObdajXWPL2kb+zuI5e30bZf6VKAf3v6QHakfncsCqWwgPw7ca4E4+y2YFJrcqHat
+	 vYiUSwaFat6d2EJzV+sS7TCZRBnND4t1+YJ3vfDoYXdrjgNIqKN7GIoQf4ukzosxei
+	 nOMxEeOPfWzRw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>,
+	Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
 	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Alexander Bigga <ab@mycable.de>,
-	"Mark A. Greer" <mgreer@mvista.com>,
-	Gary Bisson <gary.bisson@boundarydevices.com>,
+	Eric Liu <liuer@nvidia.com>,
+	Medad CChien <ctcchien@nuvoton.com>,
+	Mia Lin <mimi05633@gmail.com>,
+	openbmc@lists.ozlabs.org,
 	linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 05/10] rtc: m41t80: use devm helpers for square-wave clock registration
-Date: Mon, 23 Nov 2026 19:59:16 +0000
-Message-ID: <20261123200012.502284-6-lee@kernel.org>
+Subject: [PATCH 06/10] rtc: nct3018y: fix clock provider use-after-free and leak on unbind
+Date: Mon, 23 Nov 2026 19:59:17 +0000
+Message-ID: <20261123200012.502284-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123200012.502284-1-lee@kernel.org>
 References: <20261123200012.502284-1-lee@kernel.org>
@@ -67,41 +75,36 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-m41t80_sqw_register_clk() registers m41t80->sqw and its OF clock
-provider using unmanaged clk_register() and of_clk_add_provider(), and
-neither probe failure nor driver unbind unregisters them.  Because
-m41t80->sqw is embedded inside the devm-allocated m41t80_data
-structure, unbinding the device or failing devm_rtc_register_device()
-frees m41t80_data while leaving the clock and OF provider registered,
-causing a resource leak and a use-after-free when clock callbacks or
-debugfs clk_summary access sqw_to_m41t80_data().
+nct3018y_clkout_register_clk() registers the CLKOUT clock via
+devm_clk_register() but adds the OF clock provider with unmanaged
+of_clk_add_provider() and never removes it.  When the driver unbinds or
+devm_rtc_register_device() fails, devres unregisters and frees struct
+clk and nct3018y state while leaving a dangling pointer on the global
+of_clk_providers list, leaking the provider entry and OF node reference
+and causing a use-after-free on subsequent clock lookups.
 
-Use devm_clk_register() and devm_of_clk_add_hw_provider() tied to the
-I2C client device so both the provider and clock are automatically
-unregistered before m41t80_data is freed.
+Use devm_of_clk_add_hw_provider() so the OF clock provider is removed
+automatically before the clock and driver state are released.
 
-Fixes: 1373e77b4f10 ("rtc: m41t80: add clock provider support")
-Closes: https://sashiko.dev/#/bug/linux-4d3dfb5c-0f65-4bb5-94e8-653bc0543df5
+Fixes: 5adbaed16cc6 ("rtc: Add NCT3018Y real time clock driver")
+Closes: https://sashiko.dev/#/bug/linux-9509654b-12c7-4bd1-b189-f52692af9457
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/rtc/rtc-m41t80.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/rtc/rtc-nct3018y.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/rtc/rtc-m41t80.c b/drivers/rtc/rtc-m41t80.c
-index cfab27aaa518..5f8d6dcdeb5b 100644
---- a/drivers/rtc/rtc-m41t80.c
-+++ b/drivers/rtc/rtc-m41t80.c
-@@ -604,9 +604,10 @@ static struct clk *m41t80_sqw_register_clk(struct m41t80_data *m41t80)
- 	of_property_read_string(node, "clock-output-names", &init.name);
+diff --git a/drivers/rtc/rtc-nct3018y.c b/drivers/rtc/rtc-nct3018y.c
+index c770450e48b4..8349ddd1a9d6 100644
+--- a/drivers/rtc/rtc-nct3018y.c
++++ b/drivers/rtc/rtc-nct3018y.c
+@@ -479,7 +479,8 @@ static struct clk *nct3018y_clkout_register_clk(struct nct3018y *nct3018y)
+ 	clk = devm_clk_register(&client->dev, &nct3018y->clkout_hw);
  
- 	/* register the clock */
--	clk = clk_register(&client->dev, &m41t80->sqw);
-+	clk = devm_clk_register(&client->dev, &m41t80->sqw);
  	if (!IS_ERR(clk))
 -		of_clk_add_provider(node, of_clk_src_simple_get, clk);
 +		devm_of_clk_add_hw_provider(&client->dev, of_clk_hw_simple_get,
-+					    &m41t80->sqw);
++					    &nct3018y->clkout_hw);
  
  	return clk;
  }
