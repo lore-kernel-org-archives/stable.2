@@ -1,63 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795464075;
-	b=ZraJjAft6xCJpMQlVwKSTi8nHu6lg2pcSG0mgqULSgpRDWdF76cPVvqOHiGz5pR1VKxA
-	 m4WE5y2csE/Nwu4wEbzvH7UuA2JapsGMAFI+mZ0zBFTOeLCzWkWIIzaxgNfVBJzHa/6BS
-	 U7XRWEkeJk6oAHVssVNWnetYXe9H3cpiIfgp4wdUfeYOa95pKEGdE+IgBeuR+DZcoi/JI
-	 QNg4SRV6ZqtQhf3wxs9QE++ObhzbuGkp1WX57IM1QrUELJM/7/Wz6rdclpHJ+h5JOQJJ4
-	 uNLSJhJXS3Kuo2d9//qfuNQ0Df5ccbEx7dQd5TagL4WvlShGAQC6/VwycIYl8m7WAig==
+	t=1795464082;
+	b=xxhnECNHLoUxC4KFiS07HcsIO1O356i4AhjaKmTMWKQTfbhjGnByP6rr+JjH5ZSPr9/S
+	 rAUrCkn5CAZJh24I/mUOfV0cUW5eKb4l1RcO66yHjK9nhYTNvKd6dP6P3hnmaao/cMh/e
+	 T/R9hWmGNMnd7z093QI1drzCqejtO5aLt6aG5ogPEWdrJEDDHEY17Am37dXEXbtRedeg+
+	 8BzRtTkXTThE6Qxcj6cpzoqVeXK0ALeRumr7yUqIYK0DQvpkNmX/HZuaXjPMX8zF+vuqk
+	 hJ18tabNLXdMtO1OWCyLI80fgLA6uRh4X/U+j9rA+WpOUzI7nr4kc3o/Z944E0qdVXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795464075;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795464082;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=JNW9jAUBmXvkOgGI+ui/EiNQfjcu4cOJrlbko1e1Y0A=;
-	b=bLe7Xt0dX3VKcGNu3e71ugX5FJHmHsLeNla57scdkkzDx/JNtlfHsSQRgJUxodqewyOE
-	 hiGH90Z0h8ORdxFBgGaGuLMNn52WEThPL9gAR4qULAtlyLOMOYA4U1wXuTbuwwRjRcIjP
-	 p1eJyxhkDYixapYljUaA7gdokxjMeDFS6EIWEIBtfXMWEq+WoteE2IhO7UYhB+ya3Y3ru
-	 KBoQXXQpnxZ/0qwPvYz4WjOUZHlzHgmIEu9tjIzlY/9WuMcW8UeTRr1aIFtdX/lobfNsN
-	 6niAcxuvveP5LimoDhXTQ12SorO9HCtLkMFYaLCUNvK8DXxfZsk6wnMIomWyR0TKogw==
+	bh=kK2B8/scONiVfNFi55kihDK4ofM9j7KVLp2zW3E/5wI=;
+	b=jDLjLn6xcs8WiX2NARxpwC7Mm6TgNyqghT6pT4JqLG6LAOoil9xmFKQvjtcHNk3BQpTW
+	 JPUXQvbHcHv1eLwpdum2lMkPwjvQN/3QVq7ybuC203Xc7ZJWe11sP8J6TpuuHK3/gyC0m
+	 FTueuVfIMDovIcTXd4RtgdtiNBBIRaT+AGdM7hV9PE3atSt3amUpDC3vre7CcXQ0L7kzP
+	 QWoUg0lM4O45F8iTf/H60jfZEoCz4Ic3bMDCZuySAFEUJRh+Uafw1WQYv7rrIf4ZPwc47
+	 1PkXL3FAd8GWWCBj4D+KGmEkOqnLxDymcAgFS76jKI7NvfKCxClere6N5Jq54ftuq/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsotbfrG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aw0xQaj9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82728606A321;
-	Mon, 23 Nov 2026 20:01:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D172606A31F;
+	Mon, 23 Nov 2026 20:01:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsotbfrG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAFDE1F000D0;
-	Mon, 23 Nov 2026 20:01:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aw0xQaj9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 673D91F000D0;
+	Mon, 23 Nov 2026 20:01:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795464075;
-	bh=JNW9jAUBmXvkOgGI+ui/EiNQfjcu4cOJrlbko1e1Y0A=;
+	s=k20260515; t=1795464082;
+	bh=kK2B8/scONiVfNFi55kihDK4ofM9j7KVLp2zW3E/5wI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dsotbfrGeOlzM3LXOZvq1dVrlbv5kwj3v85bUIAAIMeo+wzSth6qdDRqmpFlY/oug
-	 UggUto/JhbjRG2UgcvsyhhCTbVUJrFobLH4eXANobdoA0wZSdtrPU02P0nAJSyzE2J
-	 Woej5Mi+nenM6kse0X0MWzGH0kRBJdf6DXjG2mMb/N/2AgReT5QPaYViN4Gou+pweB
-	 neGUbC2VCcUZBIVTWzBZVq4TsZDC/ZVkr2oK2jGR8hJK9WHCDt5XYed4zTvfQwN2zR
-	 CkoT89q9DI/KM2ESiAZEOGVY0x+HnPt1YZVnupjz7F358vrWGRalBGWvxrwVaJMOuA
-	 ETPH8ESNo7S5Q==
+	b=aw0xQaj9r4DiFSn6aNI3iE2pRQsGjObrX35hBvXo8jTyqCsgpNOLGV+3vFrYNsDsE
+	 a0/PVIM9+wC3XJm7dBvqvL3YUXU9dfwD0R9/J65jOn8yZNsVKA90Fsr3G8N+wisAKq
+	 k1pObfLvmO0By5L8swZXuPfRAR+jgG0pbYuSP9ETSPOZUkaqX2kr7iTznklKnlzsAb
+	 f74V7GjNuSfGr5tKLDnKP0CUBnvuquk1yJoEBGhqp7ojKPx5WePofuELuWj1CYSSGA
+	 eYPmXddE+nF4Tb/dEWeXMe1RXDGBlgbAiR3r4xRwXlNeIaVT6krABFQp55oxrh1gcX
+	 WwpRUhq6fLOjQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
+	Joshua Kinard <linux@kumba.dev>,
 	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Peter Hartley <peter.hartley@sigmatel.com>,
-	dmitry pervushin <dpervushin@embeddedalley.com>,
-	Wolfram Sang <kernel@pengutronix.de>,
+	Imre Kaloz <kaloz@kernel.org>,
+	Matthias Fuchs <matthias.fuchs@esd-electronics.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Wim Van Sebroeck <wim@iguana.be>,
 	linux-rtc@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 07/10] rtc: stmp3xxx: unregister child watchdog platform device on unbind
-Date: Mon, 23 Nov 2026 19:59:18 +0000
-Message-ID: <20261123200012.502284-8-lee@kernel.org>
+Subject: [PATCH 08/10] rtc: ds1685: check driver data for NULL in ds1685_rtc_poweroff()
+Date: Mon, 23 Nov 2026 19:59:19 +0000
+Message-ID: <20261123200012.502284-9-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123200012.502284-1-lee@kernel.org>
 References: <20261123200012.502284-1-lee@kernel.org>
@@ -73,75 +68,44 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-stmp3xxx_wdt_register() creates and registers the child
-"stmp3xxx_rtc_wdt" platform device without tracking or unregistering it
-when the parent RTC driver unbinds, and also assigns static wdt_pdata
-directly to dev.platform_data where platform_device_release() passes it
-to kfree().  After unbind, devres unmaps rtc_data->io and frees
-rtc_data while the parent drvdata is cleared, so subsequent watchdog
-operations or reboot notifications invoking stmp3xxx_wdt_set_timeout()
-dereference torn-down parent state.
+ip32_poweroff() invokes ds1685_rtc_poweroff() with the static
+ip32_rtc_device platform device.  If ds1685_rtc_probe() previously
+failed or the device was unbound, platform_get_drvdata() returns NULL
+even though pdev is non-NULL, causing a NULL pointer dereference at
+rtc->irq_num instead of entering the intended fallback spin loop.
 
-Register the child platform device via platform_device_register_data()
-so its platform data is heap-allocated, and tie
-platform_device_unregister() to the parent device with
-devm_add_action_or_reset() so the watchdog device is torn down before
-parent resources are released.
+Verify that platform_get_drvdata() is non-NULL alongside pdev before
+dereferencing rtc.
 
-Fixes: 1a71fb84fda6 ("rtc: stmp3xxx: add wdt-accessor function")
-Closes: https://sashiko.dev/#/bug/linux-4ddbfe9c-a03c-4a01-a3ce-357545121630
+Fixes: aaaf5fbf56f1 ("rtc: add driver for DS1685 family of real time clocks")
+Closes: https://sashiko.dev/#/bug/linux-0a1838c9-65d2-4d1c-bc21-35a6a2582144
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/rtc/rtc-stmp3xxx.c | 29 +++++++++++++++++------------
- 1 file changed, 17 insertions(+), 12 deletions(-)
+ drivers/rtc/rtc-ds1685.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/rtc/rtc-stmp3xxx.c b/drivers/rtc/rtc-stmp3xxx.c
-index d79e282e3817..a5281b519540 100644
---- a/drivers/rtc/rtc-stmp3xxx.c
-+++ b/drivers/rtc/rtc-stmp3xxx.c
-@@ -92,24 +92,29 @@ static void stmp3xxx_wdt_set_timeout(struct device *dev, u32 timeout)
- 	}
- }
+diff --git a/drivers/rtc/rtc-ds1685.c b/drivers/rtc/rtc-ds1685.c
+index f27d6ae4f783..c577adf8414d 100644
+--- a/drivers/rtc/rtc-ds1685.c
++++ b/drivers/rtc/rtc-ds1685.c
+@@ -1370,14 +1370,12 @@ ds1685_rtc_poweroff(struct platform_device *pdev)
+ 	struct ds1685_priv *rtc;
  
--static struct stmp3xxx_wdt_pdata wdt_pdata = {
-+static const struct stmp3xxx_wdt_pdata wdt_pdata = {
- 	.wdt_set_timeout = stmp3xxx_wdt_set_timeout,
- };
- 
-+static void stmp3xxx_wdt_unregister(void *data)
-+{
-+	platform_device_unregister(data);
-+}
-+
- static void stmp3xxx_wdt_register(struct platform_device *rtc_pdev)
- {
--	int rc = -1;
--	struct platform_device *wdt_pdev =
--		platform_device_alloc("stmp3xxx_rtc_wdt", rtc_pdev->id);
+ 	/* Check for valid RTC data, else, spin forever. */
+-	if (unlikely(!pdev)) {
++	rtc = pdev ? platform_get_drvdata(pdev) : NULL;
++	if (unlikely(!rtc)) {
+ 		pr_emerg("platform device data not available, spinning forever ...\n");
+ 		while(1);
+ 		unreachable();
+ 	} else {
+-		/* Get the rtc data. */
+-		rtc = platform_get_drvdata(pdev);
 -
--	if (wdt_pdev) {
--		wdt_pdev->dev.parent = &rtc_pdev->dev;
--		wdt_pdev->dev.platform_data = &wdt_pdata;
--		rc = platform_device_add(wdt_pdev);
--		if (rc)
--			platform_device_put(wdt_pdev);
--	}
-+	struct platform_device *wdt_pdev;
-+	int rc;
- 
-+	wdt_pdev = platform_device_register_data(&rtc_pdev->dev,
-+						 "stmp3xxx_rtc_wdt",
-+						 rtc_pdev->id, &wdt_pdata,
-+						 sizeof(wdt_pdata));
-+	rc = PTR_ERR_OR_ZERO(wdt_pdev);
-+	if (!rc)
-+		rc = devm_add_action_or_reset(&rtc_pdev->dev,
-+					      stmp3xxx_wdt_unregister,
-+					      wdt_pdev);
- 	if (rc)
- 		dev_err(&rtc_pdev->dev,
- 			"failed to register stmp3xxx_rtc_wdt\n");
+ 		/*
+ 		 * Disable our IRQ.  We're powering down, so we're not
+ 		 * going to worry about cleaning up.  Most of that should
 -- 
 2.56.1.750.gf70dc682cf-goog
 
