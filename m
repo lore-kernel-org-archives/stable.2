@@ -1,49 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795400154;
-	b=XzpYX6dlLoKUX/E5rn2cSKHwKhePurv2pfZQvncfQDhpRb13ePz1y2iXRxBZ9Fd0auOY
-	 9sRpmmL4D13c7mr8K6oUMkTXKDVpXSHebs4uPvsN5mHj2vWMezk7g2Flso/ZAPdjk1A4b
-	 bsxrt8VgAx9aoxXwwd9bfMF0Eq7/0S8UNR0Cbmg54v/YmjXHoUgXU0084UQQ8wjYjWQb2
-	 KdzmmK2rjsShTYKef5V9yxBwjZBA/+7AFNLXMJgJsOR4ghbZQhI05GZyqfZX7f2eyZ8+h
-	 HudiVUHuUdsl0NIMlRf6GokkYNShej25UScttxRoQetZvHHR6/OB/Awz4wXBD2ARJXg==
+	t=1795400183;
+	b=OnP0w2sWeD+PRbtjikEN3O9ICHct7ImncaP0NU7iMusbxBWUv0T59Vdn7vb4tLkBRD7G
+	 3Ep3a8BJxG7SfE8DLk96os0qvDJEqDVVbWbfex+C9usMIzrj1yWvfRna3nr4OyiFnVPQT
+	 EMWe+RiKB3i+LCEZq+bp15sefSYIXAwYiuKNrbRczVocYAoE+QH1KwB5Wcte1rRzCQaSX
+	 6CJKlqAvDhAUasUHrCEFWU6/O8mGMpLPLXD8PpVqMd/l0lW85CWExhwolspEKHrAjca71
+	 s6Dsp4I0iNhmWRMhWxvb2Nxzqpl3lRp+DaE3GfhzOD5CQzJ3YwiY7Jq5Rz7D5CNxgug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795400154;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=A5EcU1Lg1Ma9qxZTix9rmQZ3P98LCFvEPpqV0GoynFA=;
-	b=U8Vkq7zPQRQcSSfVFkPfMaxJEm4eFyjAfn2w3fVdAdgQ9+hz4LQkAt94W9QdRBJgjsis
-	 UBDg+2/5P50EtZjQANMLt9AFxW79hFmyxA71HnGKeyW1zW7WH/43rO0Tkr9nUEDMKcNAv
-	 XSmU0qpApAoy/4fHxXfzenjHC+Qi9YV67mIeitdi3OtYgcm7TRn8f+TAC99l/DDsb9wZs
-	 xanIDrkhxavgNrJ+Ghkq/+T+S+md/f6kTU7cmLKHdOz0EZtEcW6ato+1FDsihoH283Bf1
-	 vRr/kPXL2YrnamnFgke18EFxAzYTzWvVZdjL07TrnsVKKyWHgE9A/VHE0ABKKCXevsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795400183;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=6lRbJCOVU+DRb+wBjrdaaxkOGEdqJxji7R1nJ/0GyKk=;
+	b=dM39MdHkIO4zfTOO3b1t57BXd3bDj1DZHdzgJFoVrOmMI79zQ/82/R7zQLv+ca4okdZc
+	 sZzNbXQeiswQrQclobP6Ghl0W1TSMPmghwlJ566/8ZvZjRGhD0xWORzkmMm6tA6Re/g+R
+	 2EkroFUGmEW/6UQZXIz8c50pwQ+dFWBxMnFNFreQky7902c/7QJq743jTuE0FP259/tHq
+	 ukn+oYTkQujq6C5cbwri/UPLC+NWxHgabIWUeSg+2e+c+R3BvmP2jya56D6UVzp8ibGUK
+	 TSnIAJ13Z/hwXUkdiKJvvHF1UNGY4Z7LQSJcl1kbg+cv6noF/yURh8OdZtEKVjadtxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=flC2y3Xj;
-	arc=none smtp.remote-ip=115.124.30.112
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0ktjBulC;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E0E606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 02:15:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5E0E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19012606A31E
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 02:16:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19012606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=flC2y3Xj
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1795400150; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=A5EcU1Lg1Ma9qxZTix9rmQZ3P98LCFvEPpqV0GoynFA=;
-	b=flC2y3XjWhB5axqAH9FN0dXxSMz2gpl3gk9YAGJXf6oQDO7O7sgtoHUxU0u4q2nYWzHFy8SRaNs7DH4Ai36IIz7pXSx+7ag+SKuyBnP68Lz5OwNN00llx+jTd8kQzN9fsrMJNIR+UzywOZ2SFbmyzSwZPQl7XR/Kzd4/gxPh0No=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XFC5MQr_1795400148;
-Received: from 30.222.33.45(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XFC5MQr_1795400148 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 23 Nov 2026 10:15:49 +0800
-Message-ID: <f946ba25-6454-4831-9d0a-83fc58721ee2@linux.alibaba.com>
-Date: Mon, 23 Nov 2026 10:15:48 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0ktjBulC
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-38699cf08dfso2362890eec.1
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 18:16:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795400182; x=1796004982; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6lRbJCOVU+DRb+wBjrdaaxkOGEdqJxji7R1nJ/0GyKk=;
+        b=0ktjBulCl7rwg6RKSCMutJ7O+ONUA5OUC4qyKwO3YoAaht/K9kCfPs/0Hxu7/vI2lW
+         OSUFJHHDG0kZmNqxBklThvymoKfxKDYSM4MHL6IU+2B98dXO7gui2yzVUh9HWVcHE5b3
+         ld6WiFXCvy4rTB+TySJO3YSeNAL4fVn5SzaFeaXx5mEcJ9sYm9BL4vRJVrwjnLLwlVXD
+         YCyVOH5mwTysW179hutkZHT47Rneq+nV6eI77LA+OcithSNiKsAqNJqWN1tsW+CQgTf8
+         t0bDYFEwhmLmbwFs/Y1KUcL3CbR1XoLuyroMuXbqiYgpBv75OimGZSrK6boIofzLfMtk
+         Sr6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795400182; x=1796004982;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6lRbJCOVU+DRb+wBjrdaaxkOGEdqJxji7R1nJ/0GyKk=;
+        b=OFgtCO6x7xARKeLXxZfFFlZvyYPFKaP3dE9oiJF6YNMEC0+YlqhAKJTArCrQ+yL+fa
+         1GVQW9HHS/kNDU5WEq78HQE9WrIbc26H72udks8wBFOrzLHtyY123rWxFxhWwvS7akce
+         ZcmrfzPiX4L8eqTLNlc4l9R86YIdhvqYonrpuEIbqS+qLQwVWgFkP8ALAvDMFSWPJmRa
+         4IIBR87nZYB4qYwa6TfozZquFEM1lnNpdFLOpS3PzybFmKptLUkVIhLj11LLO94aG0OV
+         ZFuONa3fG4O6xyUgw5OIptTnDc/KCYnZpAPHXtcbSxUGQmiIITt8wL5rIBWeP6bT2tX7
+         36MQ==
+X-Forwarded-Encrypted: i=1; AL+hErFdXPfTAFWV8q2n5acP2mjA8i1+kPZM87QNUnFE9hwjjRYHZXDQc6XIa/aXH4sjJvzvvMju1U4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/cxJkY1DD/8PaktI2uKSpOAZLQalRdOc7elZWHMKmmCkeDflQ
+	iWv8uZJEkV0v3eLTxb1mXcCUAGqE2iGK0zbxm/yErJMmXxJf2FQubV7W
+X-Gm-Gg: AZFdTZdwWiEeaN6ON/faCYVfCC4Fb2/yiWoow8ire2Sca4xNpVkCmFIXpzRL4SQnzj0
+	g06uBGS6K8M07Ea95KYYaMMtY7NGwkQV7i6W473dLOMwwY9+7IBNhy5kjzteYjPBxR5n+B+//DI
+	HUtCjZr8ExEO+3LgsGhMfpRQI15W+1i3tvah4M3PtikPyOw0jscvsxOkil0Ff+AOUwxURpJHxMh
+	XScIihQazEpPoc7xVRk8LLQkoQOZX4n+f2bzfYGN6xzOoV5+nS0sbuWHXuMD+eKcCo1XhtfS/mE
+	QWbThjccHYWhffUiG7u8HPRd/lr3f9olPx6uHerKqAqjynSN85Nl/qyW8Oaxta3Rj1CxpBjK30m
+	BuKKc2GtW/aXNCnGvhJvXccterQkfeO6XS0kTJV5MxF795HEJSJvlFmBycDMwRW03Ur7b5vFswo
+	ChX0u0PyE7uMaXTpS0pEawuu1Mn5xAZ37Kej3MPJE9AnU+8N70BD5SStXaLfUc3wE7YWcScqe4C
+	2OdXvYXS0CWCKsCcz1OvfLmi1dVFbUqK0L7vj0i5ff0BeAkaZv2vynXzGbxMpqSOoEvkd+7pRj4
+	BOIxm4RnuFmRLttg5PU=
+X-Received: by 2002:a05:7300:7c08:b0:384:3123:a0cb with SMTP id 5a478bee46e88-3856ff5b880mr16658728eec.27.1795400182000;
+        Sun, 22 Nov 2026 18:16:22 -0800 (PST)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38567abb870sm25726347eec.25.2026.11.22.18.16.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 18:16:20 -0800 (PST)
+Date: Mon, 23 Nov 2026 11:16:17 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: ernest.borowski.git@proton.me
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Baolin Liu <liubaolin12138@163.com>, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Zhan Xusheng <zhanxusheng1024@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 1/7] ntfs: release delalloc reservations cut off by
+ truncate
+Message-ID: <awOh8Zxdmg_-wKPg@hyunchul-PC02>
+References: <20261122-b4-ntfs-delalloc-fixes-v1-0-0726f0dce403@proton.me>
+ <20261122-b4-ntfs-delalloc-fixes-v1-1-0726f0dce403@proton.me>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,177 +100,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: unregister the JBD2 shrinker before journal
- shutdown
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: ocfs2-devel@lists.linux.dev,
- syzbot+38fdbb551940270021f1@syzkaller.appspotmail.com,
- Cen Zhang <zzzccc427@gmail.com>, Mark Fasheh <mark@fasheh.com>,
- Joel Becker <jlbec@evilplan.org>, Heming Zhao <heming.zhao@suse.com>,
- Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.cz>,
- stable@vger.kernel.org
-References: <920f7558ba0e4458b74cfb107e9dd77f.1@linux-foundation.org>
- <731d0ec6-d610-4e09-a01f-1d4733410853@linux.alibaba.com>
- <20261122180802.682f887a35850f7a6f362db5@linux-foundation.org>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20261122180802.682f887a35850f7a6f362db5@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261122-b4-ntfs-delalloc-fixes-v1-1-0726f0dce403@proton.me>
 
+Hi Ernest,
 
-
-On 11/23/26 10:08 AM, Andrew Morton wrote:
-> On Mon, 23 Nov 2026 09:56:36 +0800 Joseph Qi <joseph.qi@linux.alibaba.com> wrote:
+On Sun, Nov 22, 2026 at 07:19:37PM +0100, Ernest Borowski via B4 Relay wrote:
+> From: Ernest Borowski <ernest.borowski.git@proton.me>
 > 
->>
->>
->>> --- a/fs/ocfs2/journal.c~ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown
->>> +++ a/fs/ocfs2/journal.c
->>> @@ -1119,6 +1119,7 @@ void ocfs2_journal_shutdown(struct ocfs2
->>>  	 * Exclude the final JBD2 inode cleanup in ocfs2_clear_inode() while
->>>  	 * the journal is destroyed and freed.
->>>  	 */
->>> +	jbd2_journal_unregister_shrinker(journal->j_journal);
->>
->> The comment above just explains why down_write() is taken, and the new
->> jbd2_journal_unregister_shrinker() call is outside the exclusion the
->> comment describes.
->> So it seems we'd better move the new call above the comment, or carry a
->> short note that it must stay outside journal_shutdown_sem.
->>
+> A buffered write into a hole turns the hole into an LCN_DELALLOC run and
+> reserves its clusters in vol->dirty_clusters
+> (ntfs_write_simple_iomap_begin_non_resident()).  Writeback hands the
+> reservation back when ntfs_cluster_alloc() allocates the run.
 > 
-> Thanks,  this?
+> A truncate that cuts off delalloc runs before writeback drops their
+> dirty folios, frees the clusters of the attribute with
+> ntfs_cluster_free(), which skips everything that is not a real cluster,
+> and removes the runs with ntfs_rl_truncate_nolock().  Nothing gives the
+> reservation back, so the free space reported by statfs() and used by
+> ntfs_available_clusters_count() shrinks by that many clusters until the
+> volume is unmounted.  $Bitmap is not affected.
 > 
-
-Yes, it's fine now.
-
-Thanks,
-Joseph
-
-> From: Andrew Morton <akpm@linux-foundation.org>
-> Subject: ocfs2: unregister the JBD2 shrinker before journal shutdown
-> Date: Sat, 21 Nov 2026 19:34:56 -0800
+> Workloads that rewrite files (open(O_TRUNC) + write) or truncate freshly
+> written data lose free space quickly: a test that writes, truncates and
+> punches holes in six 400 KiB files on a 128 MiB volume sees statfs()
+> free space drop from 79 MB to zero in 80 seconds, after which writes
+> fail with ENOSPC or come back short.  A 1 MiB buffered write followed by
+> ftruncate(fd, 0) and sync leaves 256 (4 KiB) clusters reserved.
 > 
-> sysbot reports a lockdep cycle through shrinker_mutex, filesystem reclaim
-> and osb->journal_shutdown_sem.  Unmount holds the superblock's s_umount
-> exclusively, while the OCFS2 reclaim path must first get its read side
-> with super_trylock_shared().  That excludes the two paths for the same
-> superblock; the report does not establish a runtime deadlock.  Still, the
-> lock ordering is visible to lockdep and produces the warning.
+> Release the reservation of the delalloc runs that the shrink cuts off,
+> before the runlist is truncated.
 > 
-> The write side of journal_shutdown_sem must cover all of
-> jbd2_journal_destroy(): ocfs2_clear_inode() can otherwise release a JBD2
-> inode through a journal that is being destroyed.  Move only the JBD2
-> shrinker unregister operation before taking the semaphore. 
-> shrinker_free() waits for active shrinker users, so the journal and its
-> checkpoint counter remain alive while they finish.  A successfully
-> initialized JBD2 journal always has a checkpoint counter.  Destroy it
-> after unregistering the shrinker, whether unregistering happened here or
-> before taking the OCFS2 semaphore.  The semaphore continues to protect
-> JBD2 destruction, removal of osb->journal and freeing the OCFS2 journal.
-> 
-> The userspace-visible result is removal of this lockdep warning during
-> OCFS2 unmount; the report does not demonstrate a hung unmount.
-> 
-> Link: https://lore.kernel.org/6b0257ca.6ccd1e40.868ea.001a.GAE@google.com
-> Fixes: f277230d002d ("ocfs2: serialize inode journal access with shutdown")
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Reported-by: <syzbot+38fdbb551940270021f1@syzkaller.appspotmail.com>
-> Closes: https://syzkaller.appspot.com/bug?extid=38fdbb551940270021f1
-> Tested-by: Andrew Morton <akpm@linux-foundation.org>
->   Link: https://lore.kernel.org/20261122093400.b726ecddf154f493dec1c892@linux-foundation.org
-> Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> Cc: Cen Zhang <zzzccc427@gmail.com>
-> Cc: Mark Fasheh <mark@fasheh.com>
-> Cc: Joel Becker <jlbec@evilplan.org>
-> Cc: Heming Zhao <heming.zhao@suse.com>
-> Cc: Theodore Ts'o <tytso@mit.edu>
-> Cc: Jan Kara <jack@suse.cz>
-> Cc: <stable@vger.kernel.org>
+> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ernest Borowski <ernest.borowski.git@proton.me>
 > ---
-> Tested with CONFIG_PROVE_LOCKING=y in x86-64 QEMU guests. A omitted
-> this patch; B added it alone. OCFS2 and JBD2 were built in.
+>  fs/ntfs/attrib.c | 33 +++++++++++++++++++++++++++++++++
+>  1 file changed, 33 insertions(+)
 > 
-> Syzbot's C reproducer mounted a local OCFS2 image, accessed 200 files,
-> exercised reclaim and unmounted it. A reproduced the reported circular
-> locking warning: shrinker_free() ran from jbd2_journal_destroy() while
-> ocfs2_journal_shutdown() held journal_shutdown_sem. The unmount
-> completed; this test did not show a runtime deadlock.
-> 
-> B completed the same sequence without a warning. Three further
-> mount/reclaim/unmount cycles on B also completed without warnings.
-> An ext4 read/write/unmount control passed on both kernels.
-> 
-> Both builds needed the same temporary correction for an unrelated
-> mm/util.c compile error in another queued patch. The correction was
-> removed after testing. The test did not force an active JBD2 shrinker
-> callback to overlap unmount or exercise failed-mount cleanup.
-> 
->  fs/jbd2/journal.c    |   17 +++++++++++++----
->  fs/ocfs2/journal.c   |    1 +
->  include/linux/jbd2.h |    1 +
->  3 files changed, 15 insertions(+), 4 deletions(-)
-> 
-> --- a/fs/jbd2/journal.c~ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown
-> +++ a/fs/jbd2/journal.c
-> @@ -75,6 +75,7 @@ EXPORT_SYMBOL(jbd2_journal_check_availab
->  EXPORT_SYMBOL(jbd2_journal_set_features);
->  EXPORT_SYMBOL(jbd2_journal_load);
->  EXPORT_SYMBOL(jbd2_journal_destroy);
-> +EXPORT_SYMBOL(jbd2_journal_unregister_shrinker);
->  EXPORT_SYMBOL(jbd2_journal_abort);
->  EXPORT_SYMBOL(jbd2_journal_errno);
->  EXPORT_SYMBOL(jbd2_journal_ack_err);
-> @@ -2100,6 +2101,16 @@ int jbd2_journal_load(journal_t *journal
+> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+> index 6ee6b6bcac..4028c310fc 100644
+> --- a/fs/ntfs/attrib.c
+> +++ b/fs/ntfs/attrib.c
+> @@ -4383,6 +4383,37 @@ static int ntfs_attr_make_resident(struct ntfs_inode *ni, struct ntfs_attr_searc
 >  	return 0;
 >  }
 >  
-> +void jbd2_journal_unregister_shrinker(journal_t *journal)
+> +/*
+> + * ntfs_release_delalloc_from - give back the reservation of delalloc runs
+> + * @ni:		non-resident ntfs attribute whose runlist is about to be truncated
+> + * @start_vcn:	first vcn that is cut off
+> + *
+> + * Delayed allocation reserves vol->dirty_clusters for every LCN_DELALLOC
+> + * cluster when the buffered write is done and only gives it back when
+> + * writeback allocates the clusters.  Runs cut off by a truncate never reach
+> + * writeback (their dirty folios are dropped from the page cache), so their
+> + * reservation has to be released here or it is lost until unmount.
+> + *
+> + * The runlist must be mapped completely and locked for writing.
+> + */
+> +static void ntfs_release_delalloc_from(struct ntfs_inode *ni, s64 start_vcn)
 > +{
-> +	struct shrinker *shrinker = journal->j_shrinker;
+> +	struct runlist_element *rl = ni->runlist.rl;
+> +	s64 nr = 0;
 > +
-> +	if (!shrinker)
+> +	lockdep_assert_held_write(&ni->runlist.lock);
+> +
+> +	for (; rl && rl->length; rl++) {
+> +		if (rl->lcn != LCN_DELALLOC || rl->vcn + rl->length <= start_vcn)
+> +			continue;
+> +		nr += rl->vcn + rl->length - max(rl->vcn, start_vcn);
+> +	}
+> +	if (!nr)
 > +		return;
-> +	journal->j_shrinker = NULL;
-> +	shrinker_free(shrinker);
+> +	ntfs_release_dirty_clusters(ni->vol, nr);
+> +	ni->i_dealloc_clusters -= min_t(s64, nr, ni->i_dealloc_clusters);
 > +}
-> +
->  /**
->   * jbd2_journal_destroy() - Release a journal_t structure.
->   * @journal: Journal to act on.
-> @@ -2173,10 +2184,8 @@ int jbd2_journal_destroy(journal_t *jour
->  		brelse(journal->j_sb_buffer);
->  	}
->  
-> -	if (journal->j_shrinker) {
-> -		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
-> -		shrinker_free(journal->j_shrinker);
-> -	}
-> +	jbd2_journal_unregister_shrinker(journal);
-> +	percpu_counter_destroy(&journal->j_checkpoint_jh_count);
->  	if (journal->j_proc_entry)
->  		jbd2_stats_proc_exit(journal);
->  	iput(journal->j_inode);
-> --- a/fs/ocfs2/journal.c~ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown
-> +++ a/fs/ocfs2/journal.c
-> @@ -1115,6 +1115,7 @@ void ocfs2_journal_shutdown(struct ocfs2
->  			mlog_errno(status);
->  	}
->  
-> +	jbd2_journal_unregister_shrinker(journal->j_journal);
->  	/*
->  	 * Exclude the final JBD2 inode cleanup in ocfs2_clear_inode() while
->  	 * the journal is destroyed and freed.
-> --- a/include/linux/jbd2.h~ocfs2-unregister-the-jbd2-shrinker-before-journal-shutdown
-> +++ a/include/linux/jbd2.h
-> @@ -1566,6 +1566,7 @@ extern void	   jbd2_journal_clear_featur
->  		   (journal_t *, unsigned long, unsigned long, unsigned long);
->  extern int	   jbd2_journal_load       (journal_t *journal);
->  extern int	   jbd2_journal_destroy    (journal_t *);
-> +extern void	   jbd2_journal_unregister_shrinker(journal_t *);
->  extern int	   jbd2_journal_recover    (journal_t *journal);
->  extern int	   jbd2_journal_wipe       (journal_t *, int);
->  extern int	   jbd2_journal_skip_recovery	(journal_t *);
-> _
 
+If ntfs_cluster_alloc() succeeds for a LCN_DEALLOC run but the
+subsequent kmemdup() in ntfs_attr_map_cluster() fails, the reservation
+has already been substracted from dirty_clusters but LCN_DELLOC run
+remains.
+
+Is this planned to be addressed in part 2?
+
+> +
+>  /*
+>   * ntfs_non_resident_attr_shrink - shrink a non-resident, open ntfs attribute
+>   * @ni:		non-resident ntfs attribute to shrink
+> @@ -4479,6 +4510,8 @@ static int ntfs_non_resident_attr_shrink(struct ntfs_inode *ni,
+>  		}
+>  		ntfs_attr_put_search_ctx(ctx);
+>  
+> +		ntfs_release_delalloc_from(ni, first_free_vcn);
+> +
+>  		/* Truncate the runlist itself. */
+>  		if (ntfs_rl_truncate_nolock(vol, &ni->runlist, first_free_vcn)) {
+>  			/*
+> 
+> -- 
+> 2.56.1
+> 
+> 
+
+-- 
+Thanks,
+Hyunchul
