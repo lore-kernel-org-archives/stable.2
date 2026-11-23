@@ -1,86 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.247
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795414483;
-	b=eh0ZugAPrNIBBtG4BezZqPjczh55GNdUEsRMwM6f4evcfM0CLkBPZT6B4nty8n71t8xb
-	 hlUGjT4hGuQxI/YkFj/x0k/Mpaxu6KZHCWrJ+oP+8sy88am3hn9K9zamAqeXrEg8sWW8p
-	 tFR8ojJI6nrkTmJH7HmykZHfh/+oFaugTu++JEh5wE8e3/lqwlo/yos7ntvHdsWpaz8t+
-	 JK8N+i/4JaF0rFFscacmxnrJv4mH3MOhZspGv+tj+TBhXd0YsDDPoAuWdx1wkjzdQKEF9
-	 gkgWBL/IaJqkBpHsrs9ckfAEVGrd9OptZQIEr8LTODUgC1wYEVGF8z+E9EDQKvPYfaQ==
+	t=1795414657;
+	b=EqncN4Z1CMzCaUPsFWgn7kJRjSjqVr7pG1sua0I41W92yUIdOVYi+PaSSAzeOXoWyQue
+	 Xp+YLw/CeSlH66VbVQFGqh9J9Mw3PGgPXcArhr+CGgk95V05k79cYSZ8OU14gMticf4Hw
+	 LZty1lQBPpH5N+XulTsjOj3UWOwapgIvlfrUcMFcFVJKSOMTMyiPHyeCztRZQsEEeawWf
+	 HSxu6yKlfe0kXLuqlI+AO32gl7ALjstXw2UFKFleQF5scLQPx0kBSB8oa6ooSBT79oWeT
+	 PABag2CSwHa9JYBs+F0NO351/8WewWzgMCwYvDG1aoGR/h3Bt2zFWvw+RNKwiTlkI9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795414483;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=R7Axc5ola9l+8N6tU2oZkcxPPMMFI/z1vAo/IUT6BSg=;
-	b=ow/uz+SxdvUXJMd9tMWyL/LAZVUJlcswNVgU1krs1R6JEDJ3duyNGlnpubXzTQhkCZPJ
-	 S+miSeVJdaobNyyyHQMEfbeO3FWx2PQLEcX+hDmIKd6D4boKvL5nHEumj0okXD8PFfxR1
-	 OPSWZ1ChdJCQ5Lzq66DfPB2U4ouIOw2IiOjlNBXc5joGvhXXBwUWAf3ehVjg/S9b4yxAA
-	 YHOj964ZNoP9Ui76bF2TjsoFADVdnZc9DPWPEZbp+3k1JJpoD4Z5g6sfClJVTrDkH4TAK
-	 R0m8X2BuiX/oACtU3gEJGMC172+47uTnwu+ZhFdmbLw1d1pGhLiZ/ff8QgMg/5f/NfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795414657;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=GOBYmPtzam1T+nLf6ejQStpL9HX+CL/GMBMiRQwuJ6c=;
+	b=Uew/VJLpsC1GEA/HvavpUtRXSKPPT5sdeDZ1xQCdcHK4ExrAl7qaLAwkKaXUb1Wtx+ZN
+	 DYZIJN5DuYYd851NkCjwIC30LW3zse2EUKpbXjgEVfhmAx+QRjlJ9MeShMUaHQJo6DmvV
+	 OxfX0NVx2e9UTXhnq86FEaPaE4rLvJzmDrtk2XKQWoefSJYP5akJDk0m+rgtmYXgM4665
+	 Pga/bxUhFl6440gjndf7XB1qHDo6YymCFXo2rHQAey3vsPX2LSm+JhlL+dXLVikXE4lo+
+	 Vs5Fvp8XknpGxyAvoVRqunAVJ1AxxE6NtWLktJ7ca431rzlK4cpMnTrHN5a7bU1YRWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=aw8bawu8;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hUDhkCJR;
+	arc=none smtp.remote-ip=95.215.58.247
+Received: from mta1.migadu.com (out-247.mta1.migadu.com [95.215.58.247])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE120606A31A;
-	Mon, 23 Nov 2026 06:14:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE120606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02ACA606A31E
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:17:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02ACA606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=aw8bawu8
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AN6EcBK21406257, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1795414478; bh=R7Axc5ola9l+8N6tU2oZkcxPPMMFI/z1vAo/IUT6BSg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=aw8bawu8YlB31YOXMbH5NW4/kOcv9yU06J5/VQusbzMXeqTUqzWmQ9pmb67PrSnLb
-	 WGNBnMyO6tGEjeocKJlAWx9qqE6Uj/tkUTvCKr8NezFDTtyUcNoyFXQuGmZTzj9CfO
-	 2Oa+DNLrVap+iiUvfBtR7a/sOns5InlxiFGiUA9AeOIYYSkFq0kQiyZrXm8JVZoeOP
-	 FcWqkuE+9jYpW7fl0d4XXprNoDuSyL2mC5vbny37ebW7p9ry2217dP6RRGx6IlbOsC
-	 F79ZV6LADKd83DgMnDBNzKZnmAmbj8Ig7WHTUwCXu7K44yDsNA7InUKynbuJqygA7L
-	 uAnQCAEHbGsKQ==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AN6EcBK21406257
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 23 Nov 2026 14:14:38 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 23 Nov 2026 14:14:38 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 23 Nov 2026 14:14:38 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Mon, 23 Nov 2026 14:14:38 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Zhao Li <enderaoelyther@gmail.com>
-CC: Hemanth Selam <hemanth.selam@gmail.com>, Morning Star
-	<alexbestoso@gmail.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: RE: [PATCH rtw-next 1/3] wifi: rtlwifi: rtl8192ce: don't mark
- unencrypted frames as decrypted
-Thread-Topic: [PATCH rtw-next 1/3] wifi: rtlwifi: rtl8192ce: don't mark
- unencrypted frames as decrypted
-Thread-Index: AQHdedZ1DDnSjpqyuE+VBINjK718ALc7KUpg
-Date: Mon, 23 Nov 2026 06:14:37 +0000
-Message-ID: <ee07e9227ef54a6ca5520f7bd80c0f95@realtek.com>
-References: <20261121163547.37019-1-enderaoelyther@gmail.com>
- <20261121163547.37019-2-enderaoelyther@gmail.com>
-In-Reply-To: <20261121163547.37019-2-enderaoelyther@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hUDhkCJR
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rT8PoeGFDS38g2QMBHWcyADCpxGK0iuLhNyiv06a55Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795414655; v=1; x=1796019455;
+ b=hUDhkCJRJuq6GeK9Zq6uh6m/zJKtkdGuFCnx04R25XKiQCL5rCaV9TdCjE9O4YyqH5jQPyG6
+ BVTlf03uMu+fI49r44TjKeRqNnnE0rqJeaTU04+25Y6ExypoKD7AF0avjsGnjNnLyF4dyrnDSSV
+ kcL2eULvkj4+ZwXExaD5w7uA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7ae97a7f2b73cb9e;
+	Mon, 23 Nov 2026 06:17:34 +0000
+X-Mizu-Trace-ID: 7ae97a7f2b73cb9e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <cb8d8dc5-4ccc-408f-acaf-2f1faa0a1983@linux.dev>
+Date: Mon, 23 Nov 2026 14:17:17 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,105 +58,260 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 01/11] mm/vmalloc: skip cond_resched() in the vmap
+ unmap paths when atomic
+To: Suren Baghdasaryan <surenb@google.com>, Dev Jain <dev.jain@arm.com>
+Cc: Uladzislau Rezki <urezki@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org, stable@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261116071325.263682-1-hao.ge@linux.dev>
+ <20261116071325.263682-2-hao.ge@linux.dev>
+ <1020e36e-83bb-407b-8a6b-7669f04c26c3@arm.com>
+ <CAJuCfpHtWJvs4F2L+QCMe9gMJ-qmcj4Q1G4hqVqFe6Z6gPoQ1Q@mail.gmail.com>
+Content-Language: en-US
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <CAJuCfpHtWJvs4F2L+QCMe9gMJ-qmcj4Q1G4hqVqFe6Z6gPoQ1Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Zhao Li <enderaoelyther@gmail.com> wrote:
-> The receive descriptor's SWDEC bit is set when a frame still needs
-> software decryption. It is also clear for a frame that was never
-> encrypted. rtl92ce_rx_query_desc() nevertheless sets RX_FLAG_DECRYPTED
-> for every frame with SWDEC clear except a protected robust management
-> frame, including unprotected data and management frames.
+Hi Suren and Dev
 
-This is what the comment says, but you are going to remove.
+Thanks for the review.
 
->=20
-> mac80211 then accepts an unprotected unicast data frame although a
-> pairwise key is installed, because ieee80211_drop_unencrypted() passes
-> frames marked as decrypted, and it accepts unprotected deauthentication
-> and disassociation frames on a connection that uses management frame
-> protection. A station in radio range can therefore inject plaintext
-> data into an encrypted connection, or end a protected one, by spoofing
-> the peer's address.
+On 2026/11/21 05:07, Suren Baghdasaryan wrote:
+> On Thu, Nov 19, 2026 at 5:02 AM Dev Jain <dev.jain@arm.com> wrote:
+>>
+>>
+>>
+>> On 16/11/26 12:43 pm, Hao Ge wrote:
+>>> The vmap failure paths can be reached with GFP_ATOMIC or GFP_NOWAIT
+>>> since commit b186a94227b7 ("kmsan: remove hard-coded GFP_KERNEL
+>>> flags") and commit 8da89ba18ed4 ("mm/vmalloc: handle non-blocking
+>>> GFP in __vmalloc_area_node()"), so an undo of a partially installed
+>>
+>> You mention this commit too, implying that vunmap_range_noflush() can
+>> be called in atomic context right now, but in this patch in
+>> vunmap_range_noflush() you pass 'true' unconditionally to
+>> __vunmap_range_noflush()?
+>>
+>> Can you give me the call chain existing in current kernel which makes
+>> this bug trigger? In case it does not exist but is only triggered when
+>> you add the rollback code later, then this patch is not fixing a bug.
+> 
+> Yeah, IIUC this is a prep patch for later changes and does not fix any
+> existing issues, therefore should not have any Fixes tags and should
+> not be CC'ed to stable.
+> 
+> Other than that LGTM.
 
-For data frame, will hardware fail to do decryption and flag sw dec?
+Right, this is a prep patch for later changes. I will drop the
+Fixes tag, this patch fixes nothing by itself. 
 
->=20
-> Set the flag only for a protected frame that is not a robust management
-> frame, as the rtl8188ee, rtl8192ee, rtl8723ae, rtl8723be and rtl8821ae
-> drivers do.=20
+I would keep the stable Cc though. The next patch, "mm/kmsan: undo
+the shadow mapping when the origin mapping fails", is the real fix
+and it depends on this one. Per stable-kernel-rules.rst, patch1 in
+a series should be marked for stable inclusion when patch2 depends
+on it, otherwise the fix lands in stable without its prerequisite.
 
-I think the purpose of this patch is to align the behavior of all chips,
-right?
+Or did I misread the rules?
 
-Maybe, we can just move the chunk setting RX_FLAG_DECRYPTED into an=20
-inline function, and all chips call it.
+Thanks
+Best Regards
+Hao
 
-The commit subject/message can be simple that=20
-"Unify the setting of RX_FLAG_DECRYPTED".=20
-
-> rtw88 dropped the same assumption in commit 0649ff58a0f6
-> ("rtw88: Don't set RX_FLAG_DECRYPTED if packet has no encryption").
-
-The commit is to add missed ENC type, but 8192ce doesn't have the field, no=
-?
-
->=20
-> Found by code review. Compile-tested with W=3D1.
->=20
-> Fixes: 0c8173385e54 ("rtl8192ce: Add new driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-> ---
-> No new W=3D1, sparse or smatch warnings.
->=20
-> 834fc28d7880 (7.4-rc1) fixed "managment" in the comment this patch remove=
-s;
-> with the old spelling in the removed lines it applies to 5.10.y through 7=
-.3.y.
->=20
-> AI assistance was used.
->=20
->  .../wireless/realtek/rtlwifi/rtl8192ce/trx.c    | 17 +++++------------
->  1 file changed, 5 insertions(+), 12 deletions(-)
->=20
-> diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/trx.c
-> b/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/trx.c
-> index 99472053ccff..3d11ddf86136 100644
-> --- a/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/trx.c
-> +++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/trx.c
-> @@ -300,20 +300,13 @@ bool rtl92ce_rx_query_desc(struct ieee80211_hw *hw,
->=20
->         rx_status->flag |=3D RX_FLAG_MACTIME_START;
->=20
-> -       /* hw will set stats->decrypted true, if it finds the
-> -        * frame is open data frame or mgmt frame.
-> -        * So hw will not decryption robust management frame
-> -        * for IEEE80211w but still set status->decrypted
-> -        * true, so here we should set it back to undecrypted
-> -        * for IEEE80211w frame, and mac80211 sw will help
-> -        * to decrypt it
-> -        */
-> +       /* SWDEC is clear for plaintext too; mac80211 decrypts robust mgm=
-t */
->         if (stats->decrypted) {
-> -               if ((_ieee80211_is_robust_mgmt_frame(hdr)) &&
-> -                   (ieee80211_has_protected(hdr->frame_control)))
-> -                       rx_status->flag &=3D ~RX_FLAG_DECRYPTED;
-> -               else
-> +               if (ieee80211_has_protected(hdr->frame_control) &&
-> +                   !_ieee80211_is_robust_mgmt_frame(hdr))
->                         rx_status->flag |=3D RX_FLAG_DECRYPTED;
-> +               else
-> +                       rx_status->flag &=3D ~RX_FLAG_DECRYPTED;
->         }
-
-
-The subject "wifi: rtlwifi: rtl8192ce: don't mark unencrypted frames as dec=
-rypted"=20
-isn't clear to me. Which one is 'unencrypted'? and which one is 'decrypted'=
- ?
-
->         /* rate_idx: index of data rate into band's
->          * supported rates or MCS index if HT rates
-> --
-> 2.56.1
-
+> 
+>>
+>>
+>>> mapping may have to run in atomic context, where the cond_resched()
+>>> in vunmap_pmd_range() cannot schedule.
+>>>
+>>> Give __vunmap_range_noflush() and kmsan_vunmap_range_noflush() a
+>>> can_resched argument and skip the cond_resched() when it is false.
+>>> The existing callers are on sleepable paths and pass true, so nothing
+>>> changes for them.
+>>>
+>>> Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_pages_range_noflush()")
+>>> Cc: stable@vger.kernel.org
+>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>> Closes: https://lore.kernel.org/all/sashiko-outbox-178439@kernel.org/
+>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>>> ---
+>>>  include/linux/kmsan.h |  8 ++++++--
+>>>  mm/kmsan/hooks.c      | 14 +++++++++-----
+>>>  mm/vmalloc.c          | 24 ++++++++++++++----------
+>>>  mm/vmalloc.h          |  3 ++-
+>>>  4 files changed, 31 insertions(+), 18 deletions(-)
+>>>
+>>> diff --git a/include/linux/kmsan.h b/include/linux/kmsan.h
+>>> index 7da9fd506b39..0016c032d1e7 100644
+>>> --- a/include/linux/kmsan.h
+>>> +++ b/include/linux/kmsan.h
+>>> @@ -150,11 +150,14 @@ int __must_check kmsan_vmap_pages_range_noflush(unsigned long start,
+>>>   * kmsan_vunmap_kernel_range_noflush() - Notify KMSAN about a vunmap.
+>>>   * @start: start of vunmapped range.
+>>>   * @end:   end of vunmapped range.
+>>> + * @can_resched: whether the unmap walk may call cond_resched(); pass
+>>> + * false from atomic context.
+>>>   *
+>>>   * KMSAN unmaps the contiguous metadata ranges created by
+>>>   * kmsan_map_kernel_range_noflush().
+>>>   */
+>>> -void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end);
+>>> +void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end,
+>>> +                             bool can_resched);
+>>>
+>>>  /**
+>>>   * kmsan_ioremap_page_range() - Notify KMSAN about a ioremap_page_range() call.
+>>> @@ -355,7 +358,8 @@ static inline int __must_check kmsan_vmap_pages_range_noflush(
+>>>  }
+>>>
+>>>  static inline void kmsan_vunmap_range_noflush(unsigned long start,
+>>> -                                           unsigned long end)
+>>> +                                           unsigned long end,
+>>> +                                           bool can_resched)
+>>>  {
+>>>  }
+>>>
+>>> diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
+>>> index a706666db097..69008b085658 100644
+>>> --- a/mm/kmsan/hooks.c
+>>> +++ b/mm/kmsan/hooks.c
+>>> @@ -136,10 +136,13 @@ static unsigned long vmalloc_origin(unsigned long addr)
+>>>                                                KMSAN_META_ORIGIN);
+>>>  }
+>>>
+>>> -void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end)
+>>> +void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end,
+>>> +                             bool can_resched)
+>>>  {
+>>> -     __vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end));
+>>> -     __vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end));
+>>> +     __vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end),
+>>> +                            can_resched);
+>>> +     __vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end),
+>>> +                            can_resched);
+>>>       flush_cache_vmap(vmalloc_shadow(start), vmalloc_shadow(end));
+>>>       flush_cache_vmap(vmalloc_origin(start), vmalloc_origin(end));
+>>>  }
+>>> @@ -168,8 +171,9 @@ static void kmsan_iounmap_pages(unsigned long start, unsigned long end)
+>>>               if (origin)
+>>>                       __free_pages(origin, KMSAN_IOREMAP_META_ORDER);
+>>>       }
+>>> -     __vunmap_range_noflush(shadow_start, shadow_end);
+>>> -     __vunmap_range_noflush(origin_start, origin_end);
+>>> +     /* ioremap metadata mappings are always GFP_KERNEL, so resched is safe. */
+>>> +     __vunmap_range_noflush(shadow_start, shadow_end, true);
+>>> +     __vunmap_range_noflush(origin_start, origin_end, true);
+>>>       flush_tlb_kernel_range(shadow_start, shadow_end);
+>>>       flush_tlb_kernel_range(origin_start, origin_end);
+>>>  }
+>>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>>> index ccaf158c5b7f..3c0d9e69b886 100644
+>>> --- a/mm/vmalloc.c
+>>> +++ b/mm/vmalloc.c
+>>> @@ -429,7 +429,7 @@ static void vunmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+>>>  }
+>>>
+>>>  static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
+>>> -                          pgtbl_mod_mask *mask)
+>>> +                          pgtbl_mod_mask *mask, bool can_resched)
+>>>  {
+>>>       pmd_t *pmd;
+>>>       unsigned long next;
+>>> @@ -451,12 +451,14 @@ static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
+>>>                       continue;
+>>>               vunmap_pte_range(pmd, addr, next, mask);
+>>>
+>>> -             cond_resched();
+>>> +             /* The undo path may run in atomic context. */
+>>> +             if (can_resched)
+>>> +                     cond_resched();
+>>>       } while (pmd++, addr = next, addr != end);
+>>>  }
+>>>
+>>>  static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
+>>> -                          pgtbl_mod_mask *mask)
+>>> +                          pgtbl_mod_mask *mask, bool can_resched)
+>>>  {
+>>>       pud_t *pud;
+>>>       unsigned long next;
+>>> @@ -476,12 +478,12 @@ static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
+>>>               }
+>>>               if (pud_none_or_clear_bad(pud))
+>>>                       continue;
+>>> -             vunmap_pmd_range(pud, addr, next, mask);
+>>> +             vunmap_pmd_range(pud, addr, next, mask, can_resched);
+>>>       } while (pud++, addr = next, addr != end);
+>>>  }
+>>>
+>>>  static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
+>>> -                          pgtbl_mod_mask *mask)
+>>> +                          pgtbl_mod_mask *mask, bool can_resched)
+>>>  {
+>>>       p4d_t *p4d;
+>>>       unsigned long next;
+>>> @@ -496,7 +498,7 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
+>>>
+>>>               if (p4d_none_or_clear_bad(p4d))
+>>>                       continue;
+>>> -             vunmap_pud_range(p4d, addr, next, mask);
+>>> +             vunmap_pud_range(p4d, addr, next, mask, can_resched);
+>>>       } while (p4d++, addr = next, addr != end);
+>>>  }
+>>>
+>>> @@ -512,7 +514,8 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
+>>>   *
+>>>   * This is an internal function only. Do not use outside mm/.
+>>>   */
+>>> -void __vunmap_range_noflush(unsigned long start, unsigned long end)
+>>> +void __vunmap_range_noflush(unsigned long start, unsigned long end,
+>>> +                         bool can_resched)
+>>>  {
+>>>       unsigned long next;
+>>>       pgd_t *pgd;
+>>> @@ -527,7 +530,7 @@ void __vunmap_range_noflush(unsigned long start, unsigned long end)
+>>>                       mask |= PGTBL_PGD_MODIFIED;
+>>>               if (pgd_none_or_clear_bad(pgd))
+>>>                       continue;
+>>> -             vunmap_p4d_range(pgd, addr, next, &mask);
+>>> +             vunmap_p4d_range(pgd, addr, next, &mask, can_resched);
+>>>       } while (pgd++, addr = next, addr != end);
+>>>
+>>>       if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
+>>> @@ -536,8 +539,9 @@ void __vunmap_range_noflush(unsigned long start, unsigned long end)
+>>>
+>>>  void vunmap_range_noflush(unsigned long start, unsigned long end)
+>>>  {
+>>> -     kmsan_vunmap_range_noflush(start, end);
+>>> -     __vunmap_range_noflush(start, end);
+>>> +     /* The unmap paths are sleepable, keep the resched point. */
+>>> +     kmsan_vunmap_range_noflush(start, end, true);
+>>> +     __vunmap_range_noflush(start, end, true);
+>>>  }
+>>>
+>>>  /**
+>>> diff --git a/mm/vmalloc.h b/mm/vmalloc.h
+>>> index d8372a4f65c4..4ec114a75f04 100644
+>>> --- a/mm/vmalloc.h
+>>> +++ b/mm/vmalloc.h
+>>> @@ -44,6 +44,7 @@ int __must_check __vmap_pages_range_noflush(unsigned long addr,
+>>>
+>>>  void vunmap_range_noflush(unsigned long start, unsigned long end);
+>>>
+>>> -void __vunmap_range_noflush(unsigned long start, unsigned long end);
+>>> +void __vunmap_range_noflush(unsigned long start, unsigned long end,
+>>> +                         bool can_resched);
+>>>
+>>>  #endif /* __MM_VMALLOC_H */
+>>
