@@ -1,58 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795429441;
-	b=qftCEdXFmFoxMzh9OQ2pEK2wmlR6EnanpVab6GhJqAiZ+XG4yhpnXc7nZ6MvdmUKC91V
-	 G6rodwGohpPW7w+qLMJXuRJiWfj7vHY9+SwGix7vsJn2XS14nVAC+epaeZl/F9TkjD4/W
-	 FAd0Ps0TBlbOUQZDdZ1eZNtpTZU7XdE0oU8Zd8xEJYyl/oF/rHE63MblgsUFRyaYXts/D
-	 +fsFIW5IcW28PoaVvlzFUJoKSGQlxmRCBoisjIN8Hwh92I4pcM1KZggOwBySr8L0Kjwog
-	 Y/JThQM9ija72q2X2S+on3Ih1j/6x8vDx0tfGLQEFyLQhYCaoP7BKURIJdk2UO6MlBA==
+	t=1795429453;
+	b=e268LlB1kxs1gMcj5/+4mE/hi9ov/9dSAHsnr4xQ8dlczgpqH+I7BhBX9KO7c6Iuz9hc
+	 mhGOWPRvUD/bJMu6yxWnG8E1QusGBTf82XyYd21UCNxY0kkus1yfgA+kcMoB2rP1OdH/K
+	 +bBBRM8BUDFhEJDS89LgyuKAEdZ2q6aqWPZ19HwXmO6l7FbpTPbpq57hXlou7lx/12Xbu
+	 WGMMrz0WT4ZByl/0+Xi1fpdAeJ2X74A3P5ZMPhWVKP+iHq9CDwKbg66ZrUHAJUGUhslUT
+	 /zbcdIMoEFz2d8VKoQyyuQxb69CnGpSJBSYkaIOBZ1Lo0b14chqdUmyev33pbvlWSQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795429441;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795429453;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=xgdl5iT4rjRql/T0yly1xc7NN6NRkZoCr5drGDPOf9I=;
-	b=ocNBWZJ2kKJEEMYUGIjgH8Tc6+veiGpfrw3txLtTrKKQMWkl8Ov/YtnpHLwlhgSPMKaO
-	 G00CYgrv1uqmUJ0LUd+PbeBKW322HD0Gg1PhO9M58Z7VoLsOcZe93KWrm8SisOE8dIMvw
-	 MLrd4+RQutRntJsHhcL3/SOIUOEtZV6wocgBH9q7/R3NWzCXiqBGoTSbYDOD0uJiK8cI4
-	 r8FBDpdNiGRMhUvT884OjbujNM4JGBZZCmnR7fQKxSEc3zSikDZqbLUJiql7QyeBF4Nqs
-	 lYrnx21cBiFHuL/nbM7muE+t7x8wHuaWvO5Ae6IH0Pthpkd+kVjaq/65qpmthAe0PLw==
+	bh=rps6TtDmHIcD10anjq8kEU746e79jCWLB0bftobjVh4=;
+	b=bilQnoLwFIsFP5CZRzYob/SUWgFg1uoK+eDZLcG8WHqOseyBXF6lqVMMHXwHnfG/inRO
+	 x5SmGRo6ZeRBe689l+FOd6bHzqh5CFlRhoV829acKDdg5ACbx4eOFKwy9kr+v727VZLR+
+	 P/0xyj6rl/pDi376pB5vEhgeKAYKWn+wKSIVb4W1gdH+KMpJsY/YIos7w0h+Mx12uNDzb
+	 Wsy84X5gudZq/mpG/pXaERyR4K7WCOikEkWyW9XtdBtebTsqezFAoSJViUH/adw7RODir
+	 utE9nucBf4NMSi0GvZVEsNtqTHymKeEjcfuIgKaW1Xpu7P/qXYT1+We1vyGdQxpqEug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=No13YbAe;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=e137jv80;
 	arc=none smtp.remote-ip=220.197.31.2
 Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757F8606A330;
-	Mon, 23 Nov 2026 10:23:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 757F8606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F8E606A32A;
+	Mon, 23 Nov 2026 10:24:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36F8E606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=No13YbAe
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=e137jv80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=xg
-	dl5iT4rjRql/T0yly1xc7NN6NRkZoCr5drGDPOf9I=; b=No13YbAePkykBIeV4j
-	oNIJ5IQ4IAcsZHsYRCSBs3YI6c5s7UOQFuC4288LGEBzQCdVQw29lsYZCUE3pH6v
-	gay6TCiP9znrdIArwYwUYOqspXvwElRIU1lhCAlFh+NtH1WY7EpsP0Go34ExNc2I
-	G3Pin2zGSNoRT/NFwl5LU8Uok=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=rp
+	s6TtDmHIcD10anjq8kEU746e79jCWLB0bftobjVh4=; b=e137jv80IvmOYa/aRZ
+	es6zKrRccgxszvPy7Na0qZcBo8TscQJ91gFkGAv7/zRF58YNPaDFrp+NiqSrw/Qt
+	sV0ZnwjN3XNxU+FpzRFtHfyYHcjn6gGyruf1tN/jDsY6Ib9DlTNHStdAF9AUQijo
+	CTVQGOEmberivpwqAJrvSVXiY=
 Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3n7cYFARrJ4RhJQ--.49247S2;
-	Mon, 23 Nov 2026 18:23:21 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wAH5xIaFARrfGJ_Jg--.63062S2;
+	Mon, 23 Nov 2026 18:23:23 +0800 (CST)
 From: Ziheng Wei <zihengw03@163.com>
-To: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <mkp@kernel.org>
-Cc: linux-scsi@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
+To: Sunil Goutham <sgoutham@marvell.com>,
+	Geetha sowjanya <gakula@marvell.com>,
+	Subbaraya Sundeep <sbhatta@marvell.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Ratheesh Kannoth <rkannoth@marvell.com>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH] scsi: bvme6000: fix request_irq failure cleanup
-Date: Mon, 23 Nov 2026 18:23:20 +0800
-Message-ID: <20261123102320.8590-1-zihengw03@163.com>
+Subject: [PATCH net] octeontx2-pf: propagate ME IRQ registration failures
+Date: Mon, 23 Nov 2026 18:23:22 +0800
+Message-ID: <20261123102322.8620-1-zihengw03@163.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,41 +70,85 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n7cYFARrJ4RhJQ--.49247S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7XFW5ArWxKryrAw1fKFy3urg_yoWkXrbE9a
-	n0gw1xXrWkGrn3tr18JrnxZrs0yF45Xr95Zw4YqFZ3Cr13Zwnak3Wkurs5A3yUXw4kJa45
-	Aw1DZan5uw17WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUn6wZ3UUUUU==
-X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7hnmN2sEFBn9vQAA3E
+X-CM-TRANSID:_____wAH5xIaFARrfGJ_Jg--.63062S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGrykXr1xCw15tw43tFW5KFg_yoW5Gr18pa
+	yruasF9F18tF1fZr17Aa93AF15GF4DKry8C340kw4fAr45Jr4qvFWY9F4j9rn5KFWkWF1q
+	qFW0yrWfC3WqyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jfDGOUUUUU=
+X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7RvmN2sEFBvbtgAA3q
 
-NCR_700_detect() registers the SCSI host and allocates the script DMA
-memory. If request_irq() fails, bvme6000_probe() only drops the host
-reference, leaving the host registered and the DMA memory allocated.
+ME request_irq() failures are only logged. The next request overwrites
+ret, so SR-IOV is enabled without its ME handler:
 
-Unregister the host and release the NCR_700 resources before dropping the
-reference.
+  request_irq(ME) fails -> ret overwritten -> SR-IOV reports success
+                        -> ME events have no handler
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/linux-scsi/sashiko-outbox-228089@kernel.org/
-Fixes: 8276b58af4dd ("[SCSI] 53c700: m68k BVME6000 NCR53C710 SCSI")
+Return ME errors like FLR errors and unwind all IRQs already registered
+by the failing call.
+
+Found by LLM-assisted static analysis. Build tested with allmodconfig;
+no runtime fault-injection test.
+
+Fixes: d424b6c02415 ("octeontx2-pf: Enable SRIOV and added VF mbox handling")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ziheng Wei <zihengw03@163.com>
 ---
- drivers/scsi/bvme6000_scsi.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../net/ethernet/marvell/octeontx2/nic/otx2_pf.c   | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/scsi/bvme6000_scsi.c b/drivers/scsi/bvme6000_scsi.c
---- a/drivers/scsi/bvme6000_scsi.c
-+++ b/drivers/scsi/bvme6000_scsi.c
-@@ -86,6 +86,8 @@ bvme6000_probe(struct platform_device *dev)
- 	return 0;
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+index cb602a4ad..9263be611 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+@@ -213,6 +213,7 @@ static int otx2_register_flr_me_intr(struct otx2_nic *pf, int numvfs)
+ 	if (ret) {
+ 		dev_err(pf->dev,
+ 			"RVUPF: IRQ registration failed for ME0\n");
++		return ret;
+ 	}
  
-  out_put_host:
-+	scsi_remove_host(host);
-+	NCR_700_release(host);
- 	scsi_host_put(host);
-  out_free:
- 	kfree(hostdata);
+ 	/* Register FLR interrupt handler */
+@@ -224,7 +225,7 @@ static int otx2_register_flr_me_intr(struct otx2_nic *pf, int numvfs)
+ 	if (ret) {
+ 		dev_err(pf->dev,
+ 			"RVUPF: IRQ registration failed for FLR0\n");
+-		return ret;
++		goto free_me0;
+ 	}
+ 
+ 	if (numvfs > 64) {
+@@ -237,6 +238,7 @@ static int otx2_register_flr_me_intr(struct otx2_nic *pf, int numvfs)
+ 		if (ret) {
+ 			dev_err(pf->dev,
+ 				"RVUPF: IRQ registration failed for ME1\n");
++			goto free_flr0;
+ 		}
+ 		irq_name = &hw->irq_name[RVU_PF_INT_VEC_VFFLR1 * NAME_SIZE];
+ 		snprintf(irq_name, NAME_SIZE, "RVUPF%d_FLR1",
+@@ -247,7 +249,7 @@ static int otx2_register_flr_me_intr(struct otx2_nic *pf, int numvfs)
+ 		if (ret) {
+ 			dev_err(pf->dev,
+ 				"RVUPF: IRQ registration failed for FLR1\n");
+-			return ret;
++			goto free_me1;
+ 		}
+ 	}
+ 
+@@ -271,6 +273,14 @@ static int otx2_register_flr_me_intr(struct otx2_nic *pf, int numvfs)
+ 			     INTR_MASK(numvfs));
+ 	}
+ 	return 0;
++
++free_me1:
++	free_irq(pci_irq_vector(pf->pdev, RVU_PF_INT_VEC_VFME1), pf);
++free_flr0:
++	free_irq(pci_irq_vector(pf->pdev, RVU_PF_INT_VEC_VFFLR0), pf);
++free_me0:
++	free_irq(pci_irq_vector(pf->pdev, RVU_PF_INT_VEC_VFME0), pf);
++	return ret;
+ }
+ 
+ static int otx2_pf_flr_init(struct otx2_nic *pf, int num_vfs)
 
 base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
 -- 
