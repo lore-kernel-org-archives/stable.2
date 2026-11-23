@@ -1,59 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795461512;
-	b=Z72qHdLkNo3Cjsckm25YnReqBBqoizTz/oFBqWY+LURfsAkI+v8qjEEsbVe+ixhkbCCz
-	 9vhADY/UIortfj5E/ScHpwOqOJVBZF2+pbL1DBFjPdU7lduKcYedFQoL0I3czVYQXB6zt
-	 LaNgUwcsCNI2rdYZn/766DcG7P3TFHiEpjc9dd+E7UFxfBOa7CqHHqhiAj+bH9ffnKj8s
-	 BbBOABcacmxfHhjo/AhPO6MdyUauvaCvz6WKQLY+V/HGpM67LXyBAPyKXQ/vyy8Z+Weet
-	 HfK67MmtyLnRyUtb90K7oGMH8RwQFzQUCxMlw+NQ+ml46ZNhn5z1LrcTNNwwpxcf0tg==
+	t=1795461525;
+	b=DZkainQtCKGi89vl8rmhHZtvuyfw1+Pb3pWblMg61n6YEA7Q/QXC/lXQqxkT82Pi8ZFN
+	 jZeUCm3RNu2W/IZtI4VeZOGUeHFQDQrCWNZdSmlEzhvm7Z1mV9b7YWvRRXwTSZrXLAfeq
+	 O96KXcSlItBg7FXECeagsqqC2OemrtSQhg0Eklecu02deU1/BRnmCTAVxOhvQGALtux9Y
+	 6bKM0AFIqguw94g4sSyuPNM+g68ZWOMdJL6NGlhxVtgKz9YbfGlUUDpOu9tzak6fIMZGP
+	 wekNW6GTK2HTZSASsVgvRV2hbDWY95aVvEQKSDEWD4x/exHLQL+C8Co+q4oUzCemYvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795461512;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461525;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=EcirrK/cjGtGC7mOsE+CtZxi36fUE03jXBnvwV8QOLA=;
-	b=NhN5bXZxnNk0YdEIVmOxtuzl/3Eqt74JYN8PWQawLvuWqNiTXMVWSYaPdwsPVETM5mPG
-	 CIlHIVNySelATWLf0xWmg7yBcKRc47Mdf9CQejXBu+OHo6Mmy/R52rRzOP66Jb4Fr4NLB
-	 3JVmPPSAqQ8BF1ioJN2V39DSX/uQDd8TT+M6YURqnAB2LLG7gMdj+i+sgy6EQz+kvJwwb
-	 AsafibxiZUMnF5ZKl/OdSFaNO+83hSjdhWK6g76Y0s7aqCjpVzryvhVmZWotc13Fuvcmh
-	 EsVrB97vjsXtJB5JNuwSNwowwXOMlOnPJNfK5S+ntweNBVQm26jR6sQJp0D13UHguXA==
+	bh=JnOYAZMVOKO0Zb5wr2NJKaiBoXlxX18Wrt6Tra1io+M=;
+	b=cWSiJ3gGQ7+Ac3wmZ8OKnS4YaDl4lv+KAMtNjnrfWTW34c3avSXE6DbTBrhEAahNiuKY
+	 wkvf7I/Io5fiFTsvD0aMz7kIewS4OCciGiZlov8xgTXn+2XT3KMEzvH5872g1ZDby9Ib0
+	 KYRZrKMzbQ5hT2cqP+WtWMa1yzToUV7VHM7crBOTS3BD8Axrbi0GWYKu6VtsD/kugyoPy
+	 M2Gk5ZPtbrxkdRvTvXXN8yXmboR0mCasVG0zOA4f0F0xQzEUiHVQSt/plT56oeF+6D7P3
+	 H+UdCYbtoAdkxz00JEEcz9GvGVfsab4Hb5b0uzr8PVAydEfoT248Y9JizSn57854slg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdSWY4y0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVXId1HY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13666606A32D;
-	Mon, 23 Nov 2026 19:18:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC8E606A326;
+	Mon, 23 Nov 2026 19:18:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdSWY4y0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 358F31F000C4;
-	Mon, 23 Nov 2026 19:18:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVXId1HY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C281F000CF;
+	Mon, 23 Nov 2026 19:18:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795461511;
-	bh=EcirrK/cjGtGC7mOsE+CtZxi36fUE03jXBnvwV8QOLA=;
+	s=k20260515; t=1795461524;
+	bh=JnOYAZMVOKO0Zb5wr2NJKaiBoXlxX18Wrt6Tra1io+M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PdSWY4y0KQKlA4pK3EeLWNzsN93vTa8mgnFv8vzNFdDh2FaK3ab8oSFzaRHZIwNSG
-	 Gn6ZbAKNiKtHybiEXFeiN3luCgGLnfA47BSXbALOWfZaY7jX28ZhOP+AHj0NtZDF5C
-	 CxmdTX3dxVJtyv8DsnefNwlx8yJ3U/xNOyM9Xb7wh089A2ln9kDem4OHlkKaYcRxnZ
-	 MARD0TCKzH9gy4wGYzzTsXsxZ1BOVMhRnOorOaalkCKrrsZ9viXAT2oIdBSCB9PBpp
-	 muoQUAr83YAIaRaPiuyEMXcLmXrpvt4nRuGTUsLbJp3xmYfUtlVaEwScFB+uvLT0xv
-	 c2NV7fPqrU8Ww==
+	b=aVXId1HY4yvRkxunhsZ5Ii0G3g4gOgtOkKcQhELWATLmLG8u39Mmpd/8pckilWHht
+	 WwVBFzGApqpo2nnUgdezLywGH3u4PFqT55rRxOgiewg9MxIReGpw2/SfUoHuhMzSsz
+	 0JzO3+2kzcGilYPJjN2VADJcn2Zl2qBzkLZiSTEuNupIiBzr2p0ryclQidrAvvUFOT
+	 vKfK4HbBBjVKeaUfpBw/JQx+pw4XFuCdtg3bX4jzev9X1OPVLptxFCt6htLkKCX+i2
+	 udmvcjvcEfF31GGXebNe/vpkLkW69u3vvYi2Qy6CT/FeJFa9d12AwBdZBS9NZTTuXF
+	 NR3jgXMzo1P8g==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Paul Cercueil <paul@crapouillou.net>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
 	Ulf Hansson <ulfh@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Aidan MacDonald <aidanmacdonald.0x0@gmail.com>,
-	linux-mips@vger.kernel.org,
+	Josua Mayer <josua@solid-run.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Phil Blundell <pb@handhelds.org>,
+	Samuel Ortiz <sameo@openedhand.com>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
 	linux-mmc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 10/13] mmc: jz4740: Apply DMA max_seg_size limit to unified tx-rx channel
-Date: Mon, 23 Nov 2026 19:15:54 +0000
-Message-ID: <20261123191703.179283-11-lee@kernel.org>
+Subject: [PATCH 12/13] mmc: renesas_sdhi: Fix SDIO manual tap correction in SDR104 mode
+Date: Mon, 23 Nov 2026 19:15:56 +0000
+Message-ID: <20261123191703.179283-13-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123191703.179283-1-lee@kernel.org>
 References: <20261123191703.179283-1-lee@kernel.org>
@@ -69,47 +71,74 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Commit afadb04f1d6e ("mmc: jz4740: Apply DMA engine limits to maximum
-segment size") added max_seg_size clamping at the end of
-jz4740_mmc_acquire_dma_channels(), below the early return for the
-unified "tx-rx" DMA channel added earlier by commit a474e52c3109 ("mmc:
-jz4740: Support using a bi-directional DMA channel").  When "tx-rx" is
-used, host->mmc->max_seg_size is never clamped to dma_get_max_seg_size()
-and the MMC core can submit scatterlist segments exceeding the DMA
-controller hardware limit.
+Commit 30fa7d53afd4 ("mmc: host: renesas_sdhi: Fix incorrect auto
+retuning for an SDIO card") switched SDIO cards from automatic to manual
+SCC tap correction so that DAT1 SDIO interrupts would not spuriously
+shift the sampling tap, but exposed two logic errors in the manual
+correction path:
 
-Jump to the max_seg_size clamping block when acquiring the "tx-rx"
-channel instead of returning early.
+1. renesas_sdhi_manual_correction() checks !priv->card_is_sdio instead
+   of priv->card_is_sdio before ignoring DAT1 mismatches, so the SDIO
+   DAT1 check never executes for SDIO cards.
 
-Fixes: afadb04f1d6e ("mmc: jz4740: Apply DMA engine limits to maximum segment size")
-Closes: https://sashiko.dev/#/bug/linux-1f76aaa3-099b-4ac6-b793-e11a71bb003a
+2. renesas_sdhi_check_scc_error() already returns early when running in
+   4-tap HS400 mode, yet still passes the hs400_4taps quirk flag as
+   use_4tap to renesas_sdhi_manual_correction(), halving the 8-tap
+   SDR104 and HS200 tap index when writing SH_MOBILE_SDHI_SCC_TAPSET on
+   SoCs with hs400_4taps.
+
+Check priv->card_is_sdio without negation and drop the unused 4-tap
+division from renesas_sdhi_manual_correction().
+
+Fixes: 30fa7d53afd4 ("mmc: host: renesas_sdhi: Fix incorrect auto retuning for an SDIO card")
+Closes: https://sashiko.dev/#/bug/linux-735317da-fe00-4630-b954-5dcc1052aaa8
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mmc/host/jz4740_mmc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/mmc/host/renesas_sdhi_core.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/mmc/host/jz4740_mmc.c b/drivers/mmc/host/jz4740_mmc.c
-index e398a575f2dc..71aa7930a030 100644
---- a/drivers/mmc/host/jz4740_mmc.c
-+++ b/drivers/mmc/host/jz4740_mmc.c
-@@ -231,7 +231,7 @@ static int jz4740_mmc_acquire_dma_channels(struct jz4740_mmc_host *host)
+diff --git a/drivers/mmc/host/renesas_sdhi_core.c b/drivers/mmc/host/renesas_sdhi_core.c
+index cb35360239bf..497c7c75f966 100644
+--- a/drivers/mmc/host/renesas_sdhi_core.c
++++ b/drivers/mmc/host/renesas_sdhi_core.c
+@@ -741,7 +741,7 @@ static int renesas_sdhi_execute_tuning(struct mmc_host *mmc, u32 opcode)
+ 	return ret;
+ }
  
- 	host->dma_tx = dma_request_chan(dev, "tx-rx");
- 	if (!IS_ERR(host->dma_tx))
--		return 0;
-+		goto out;
+-static bool renesas_sdhi_manual_correction(struct tmio_mmc_host *host, bool use_4tap)
++static bool renesas_sdhi_manual_correction(struct tmio_mmc_host *host)
+ {
+ 	struct renesas_sdhi *priv = host_to_priv(host);
+ 	unsigned int new_tap = priv->tap_set, error_tap = priv->tap_set;
+@@ -783,7 +783,7 @@ static bool renesas_sdhi_manual_correction(struct tmio_mmc_host *host, bool use_
+ 		if (bad_taps & BIT(new_tap % priv->tap_num))
+ 			return test_bit(error_tap % priv->tap_num, priv->smpcmp);
+ 	} else {
+-		if (!priv->card_is_sdio &&
++		if (priv->card_is_sdio &&
+ 		    !(val & SH_MOBILE_SDHI_SCC_RVSREQ_RVSERR)) {
+ 			u32 smpcmp = sd_scc_read32(host, priv, SH_MOBILE_SDHI_SCC_SMPCMP);
  
- 	if (PTR_ERR(host->dma_tx) != -ENODEV) {
- 		dev_err(dev, "Failed to get dma tx-rx channel\n");
-@@ -251,6 +251,7 @@ static int jz4740_mmc_acquire_dma_channels(struct jz4740_mmc_host *host)
- 		return PTR_ERR(host->dma_rx);
+@@ -802,8 +802,7 @@ static bool renesas_sdhi_manual_correction(struct tmio_mmc_host *host, bool use_
  	}
  
-+out:
- 	/*
- 	 * Limit the maximum segment size in any SG entry according to
- 	 * the parameters of the DMA engine device.
+ 	priv->tap_set = (new_tap % priv->tap_num);
+-	sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_TAPSET,
+-		       priv->tap_set / (use_4tap ? 2 : 1));
++	sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_TAPSET, priv->tap_set);
+ 
+ 	return false;
+ }
+@@ -854,7 +853,7 @@ static bool renesas_sdhi_check_scc_error(struct tmio_mmc_host *host,
+ 	    SH_MOBILE_SDHI_SCC_RVSCNTL_RVSEN)
+ 		ret |= renesas_sdhi_auto_correction(host);
+ 	else
+-		ret |= renesas_sdhi_manual_correction(host, use_4tap);
++		ret |= renesas_sdhi_manual_correction(host);
+ 
+ 	return ret;
+ }
 -- 
 2.56.1.750.gf70dc682cf-goog
 
