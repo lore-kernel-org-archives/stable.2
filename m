@@ -1,97 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.23
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795442205;
-	b=ZGE8sB0XkjbBRcW59BVCOO3wLHV9FFagHhMfnjWYER6Q28d8upevqn59eJcwsht3NUHv
-	 Khv87M3yLEOaWk2w0xGjEV0NvWaKF6W1+4/JJeWJiMuyq9AXgC12tljCcats241DSaRXy
-	 PCS+wG0WCSIbyJTOkx17NX17MBO1sTR/Gj2zPiymwhuuPNoL1Ab8IME++jJ3cwFxoQx6S
-	 Zopfrc9bGEB/kspVtsysNvtCfJF+f/8LL8lslfgmCaQMThfajGl5hvcaH96wvm+2G7e4b
-	 Ghvtqegoy9+NjPBH15e1xMcKTJJeNmR2q7V5FoJmIUvwg5bEJiK5JaOvLlwaukevwiA==
+	t=1795442385;
+	b=qju3JHlFvrCJumIYYAUtFbB3F9cyh2thzHnT06WzpVL4apSnMWooQNrRraGEvXiHCQck
+	 tdB28f0u8F/BN6ncIf1cle4g5j/g+rryfKlGbb+iU5zw+FMkFoja0A5uIsFBzfnnz64z6
+	 xqfVDsV0/fv209Ynvh13HtvQSFh9CCa7E9KToxxmOalP/c85GJku715RzwynKemIdcw0B
+	 nTlAhE04u9Bh8K5/OFzYsXLIWPOBeexx2VNRTDESwdgyNCW/SuwLJDqLwA28P83YQeiJd
+	 gYG6alKPKhgnjuT6L0McvnV8dGUqxoSii+7KOAsny/1jJH6/88E+03C8vNwIAgP2x5A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795442205;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=B57sPxPIPVjsjDHQj6Icpe8hDfL+4AlWPDMZGCnEF9M=;
-	b=gqveY++BOyxq7AqjDOnKT/YWirkbo2YPJZOPksJhQSl/XANdRsao1K3qK4zcgcqxKOkI
-	 TZdUMWCZRla7d2DkBlQsSdZhSPu40tN0sVGx1wayasfRc1ITU8GZ5Fy3AemS2WjOi4kRj
-	 deY2fVqn4zH1bOK8uTkqpQfQQetehWCP4wHtnxeBIjHxgR0XDTrg+bCUqRQ/N0U1exGjk
-	 pYyD7TRW+3WAjcm+De52DspgyJvTyvwVjT44KzARgKyoPpFOHPDm4QqKk17FtcGLFvePa
-	 J1JLXSTkZzdKWibZL7CcvnmBsTorIFiiSbo8XfU1g17CHWuNYHIF4V5JGjH9pEuTIHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795442385;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=BvZzfU/GIpktrPjeTcjwDUmLGy4zaYEeohdnHyo9qRg=;
+	b=n1dG1xZb6QiXb+tThYC0SnIpARlw/Efb9HgEaF7ABcTjrdN8+Sny2vrJNX7nUFZbjm/0
+	 1NMdBfX6FHIXIHEpbKkzXlPZ2pXsRXFQY/GMoMB7ELzV1UZQOVgwMdC/dwzA4jBSmHsD+
+	 5/3MAWUVa0wpSFA05xaQemA3GnCsQGmWKJX8GYGCGXdEb2RWOSu2mv/i3hsjQxzPSt8cD
+	 d+tb9aSwDw/5XZfD2Cff3Jrg8Cxv9ab1XZ68iMCvN9ql6TDKzCdfEn0pfMGU5SefZyf2a
+	 uuOzGhGDPN7KYom+n/ciWTGtVq9kiuXRozdA6XtJ2oLvDf4+JXh7Quc2Wy1+8z/Qmlw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N05ndNkH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=CplA196z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.23
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012023.outbound.protection.outlook.com [40.107.200.23])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA34C606A33A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 13:56:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA34C606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A778F606A31A;
+	Mon, 23 Nov 2026 13:59:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A778F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N05ndNkH
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-67583c777abso3279914d50.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 05:56:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795442204; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rDFiD375E4/iyIjW9NKETtaIZGxhp9KjqF7E3sQaYLwkaF1+zH7t3vySe7RpCeoK0K
-         d5+vU0KHAdY3LZt4Zf+SbS1I+v7Yx7pnnOdumF8hBy3m9Q5Ld5O27zuaYjE8bKlXUAX2
-         vHVdxf85BScFoKI0LaGWdiGM1bm53Vio/onSFep4cnRgjisMlPX3MSCCUYHC+IegRxVX
-         CFghxKbHLjGvO9JoSJqSc7x+F2+5GQkIBUfl1ZJteE/hSVBFy5yUfLPLRSFzE40wxROe
-         CGco7T7DX0hhcO6kLdeeu9S8kfrPU8I/57K+5ALW/CkzjuU5dcaxawxuLTSTwDX0L92S
-         /5sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=B57sPxPIPVjsjDHQj6Icpe8hDfL+4AlWPDMZGCnEF9M=;
-        fh=cc5mYr+tnfRNBGIt7z0fcwkPnWPgaRqW1XuPyg7GivM=;
-        b=l+KTd6l88EW1guFA4s5Ss23q5JZ3gOcBjg1lZU4a0YIGPbTxQhWBocS+WRpR7OiE9D
-         eb8HuGkiLw8ok/x/BEiIaFc9t96irmUtltHKSKKD5aWUlpiyfSaXA/EsN1gc5+rwmfDA
-         s8g23fNVhY9qgHK3IjL4f6DvjTzVDScxc2yB0F5PkbVu45h33suoIbjpayNvI/CXe00i
-         pGpWFPUdnnviA4yh/aMc7P1Li7TjTz3Wuy+Fx4UIkqwJS3a1uOMcjPMmaLP4gs4G2Wtg
-         /IbjCYhQNb51ku9j7UStneOuKXe7ZB7ehqwO+WA6R15LQfv+HLxVvB+PyR8rTfvFaqSR
-         P8Ow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795442204; x=1796047004; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B57sPxPIPVjsjDHQj6Icpe8hDfL+4AlWPDMZGCnEF9M=;
-        b=N05ndNkHQknyOMHIsNDSQqDEHwWvBE34ol5L+NvHcll/S/4WXaj++2GoPLo1p0IC8z
-         gX/I3PJUYDJrIBjomKK5he6tDcr+7qNfzTw/fVNK6iyw7MXQHR+h9Lu0yzCnVSjbFqTX
-         vT1RZlgf8szD33EB47X817ciOpxJuCTCUyTPbW6oS820UTQzA35wsGhglddcxYJMPaum
-         cl03V+nb6AAHXAaSOWdd1M0KIH/jBpnDLiyY2KhsPK02Y/3kSKsrWoU+xGzuuLNoyb8B
-         +PPPLQCj+/5OLf25/GpHP22dca45YRXd+cHd6qmSOgxOBJJW0GdT4HuEbz1UWoAlgVBz
-         Qe5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795442204; x=1796047004;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=B57sPxPIPVjsjDHQj6Icpe8hDfL+4AlWPDMZGCnEF9M=;
-        b=YtZSqWwp97hnDk6mxAKWML/RiECOl90GS2vxcoK2Z3EMKXcVOCxH0+lMgnBE5ImrpM
-         NjKE0dZ+pLKTBmJUkNEIezGV52t2S8HP0mn5F1PU9PPEt3QrwO2ApLSiUGoBpiskvdhI
-         y9gQT418vqoh1MxHmVT7v8MpZGxQnjUL51d6iPPC6X0C6QqfmJQ/qCcjnls+FavyF12T
-         HgsC5LwNwkOq3Gh1VWs0V3/zAvzklq+c90DlCFHKlVpdM9K4r3Vqo7gkTAOMiYGhK58s
-         lS4RXN5qy7lbbZJuOfQXPrfoGv5+IlNbw/h6Fn3e3fsDjOohvsNmyxMmwxLTxUJvJi38
-         xEjw==
-X-Forwarded-Encrypted: i=1; AL+hErEDxjkPsP76JpsjCCU1oalijSawliHcwsFpKUdr5HkGEXfEhCMGoFFSaJHlvRsugBXPrnjdnpE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2pJselVB8v8mczoDoeQ03HfknA7Bsvf6SZFP8HvGEb/7iaEZS
-	Iq9iTPbPaSbVKggNivQg2lU2cf9K8NvwSA0LfOMtSgRkfbmaU4heFJa/qx8EtnoaEODD3XYhbcK
-	d5SxN3ym3ihIaNxRb6GwscAVM9nJt5wY=
-X-Gm-Gg: AZFdTZfN96slEgXh9KTt3Oy2E2goUslvUXkVjMshf+y3Yr5eZLrhNHiKHG53gojvxA+
-	biEBqv7UJU+gFFFIBmdf0R6IGP+TMu86iOFjER5qnAaPP1T+NYThgFieXjfq8dDkVqtcNjWRNd2
-	3QkGwu0mtMjCq6XI48wEARnu9glCviVoIECRXclRTBpOLc86Nh4KqDmoupubcHKz9IxFFVXY/mM
-	sHqTxc6H2aHXsom6jKAuoLDBbsDGVUwRIHJGa/+7yXiExLjVWe6POuJINr0KlztpYivBWpTOmIc
-	8nQqKFa2HP5NAEGLuMK14ghZ0NXyoHpaFP/yM60GSAdrSXyXKJmH2fd2GzzcAcG0ZGbOJpQdcq1
-	khmWMvHMXdW8A/cXrnDb55iE/fCV+jnTlD6RM
-X-Received: by 2002:a05:690e:4009:b0:67d:c045:d0bb with SMTP id
- 956f58d0204a3-67dec2bb682mr5299099d50.5.1795442203710; Mon, 23 Nov 2026
- 05:56:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=CplA196z
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hmZVT8FsbvigKpdqTQhG4IppQGoN2Y7WSZyXocmf4TnRvOX58Bo2GWXV8vZXToY2izM3tYvmtICMEN+m8MIrDh9KAl0ki4FE6QRIFLjA5qCJImrrtyIx+kRjZ+kOujzcinygabeHnLm3EiGqOB3Op/0PF3Ou+efXnpCenOqVzeY3iea2ZPA/qkCHQPypzZ6tVwqUfTZzEvBtFPbJ2LutJ1CnE+QvmN28VnrmvzAvUFMaZcivtfuLeJd5mKT8sMuArK4nqtWg9DdZHjOIwdTWyvxp25FVeTBGOqB1g9YAscPE6iD8czJ9L+IVjY2+isYZEUqbaU8SYZMaVCpfE6igUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BvZzfU/GIpktrPjeTcjwDUmLGy4zaYEeohdnHyo9qRg=;
+ b=Zzy+jukIw4n2oiG01zEj99X2bMD0qcdHt6zoyCo9nWDGw8PZ5TPPb5/3OxXtlsCZl6BTfZ6J/U/zVUCPI+GMcq6hdO9h2ONJw2oLWoxIZkiwwh1bS3bzrZ3QcY1X4lo7s+3+6hWMWd6knqZmdImQzKdlSvgtbDfVqMSz7DJJkBsGFNwuKRyMQjaNBb0BjjvUqO00fohG/OKKzn+diZIXXxJWWs0rJVNFRG7JUDINVVK3FDwZz3bL1PCDkvYZEQVUzegLC/lm59D3MFOtQ8Fnyxzh3/Ta/gjO6PNESibzhSYgVXZLbrLHgPyrqQpZYkt+zwGHeO8X3og575/E+ezr5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BvZzfU/GIpktrPjeTcjwDUmLGy4zaYEeohdnHyo9qRg=;
+ b=CplA196zYh14m6kgNSCvxQ3HTWgfmgu5bRCA+1j6wLtH048akSJ8TLv6eqYCaltxliErOPCL7Db6JqzBPrkBiQuvYKRgRBTGZ+loegTJ8MAJol+uL80BsDp4lkyeHKOBpOEN4WFPMoGH+cN8JhEM9Po8CSU1tSvywLC+wOBVFA5mxCk4vX21phRQ6nh21td84zPOKndeSt6h5qks6+C3eoM1AWafeGokiKPtlTBclotg6P9/aki0Z8rc1j/tSfKczFXGdkdVQQ05z7sHK6p6bHNz3Gze9iwEP248tLF337TF6+eAJ1IRY/olNqXPFeOK9/XB3GK7ly4gvAe99ETssg==
+Received: from SJ2P221CA0009.NAMP221.PROD.OUTLOOK.COM (2603:10b6:a03:5db::13)
+ by DM4PR12MB8521.namprd12.prod.outlook.com (2603:10b6:8:17e::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
+ 2026 13:59:35 +0000
+Received: from SJ1PEPF000037AF.namprd03.prod.outlook.com
+ (2603:10b6:a03:5db:cafe::9e) by SJ2P221CA0009.outlook.office365.com
+ (2603:10b6:a03:5db::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.14 via Frontend Transport; Mon,
+ 23 Nov 2026 13:59:35 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ SJ1PEPF000037AF.mail.protection.outlook.com (10.167.244.187) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Mon, 23 Nov 2026 13:59:35 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 23 Nov
+ 2026 05:59:21 -0800
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Mon, 23 Nov 2026 05:59:21 -0800
+Received: from f43.com (10.127.8.9) by mail.nvidia.com (10.126.190.180) with
+ Microsoft SMTP Server id 15.2.2562.57 via Frontend Transport; Mon, 23 Nov
+ 2026 05:59:19 -0800
+From: Dragos Tatulea <dtatulea@nvidia.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>, Eugenio Perez Martin
+	<eperezma@redhat.com>, <virtualization@lists.linux.dev>
+CC: Dragos Tatulea <dtatulea@nvidia.com>, <kvm@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Gal Pressman <gal@nvidia.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH 2/3] vdpa/mlx5: Increase the maximum virtqueue size
+Date: Mon, 23 Nov 2026 15:56:45 +0200
+Message-ID: <20261123135646.3962652-4-dtatulea@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261123135646.3962652-2-dtatulea@nvidia.com>
+References: <20261123135646.3962652-2-dtatulea@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,141 +116,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Topaz Tatiana <topaz.tatiana@gmail.com>
-Date: Mon, 23 Nov 2026 16:56:32 +0300
-X-Gm-Features: Aa3M54oaOANjxm60lcXKWTf95uEoy0bGNPmQx6GVjt7EoZcN70llMH67uYSpuw8
-Message-ID: <CAOhmvYWzq8MOg2C=kkKU5oXSquxXOjCxQNd=ZS0rEt92HxKZgg@mail.gmail.com>
-Subject: [REGRESSION] 6.12.117: soft lockup in sched_balance_softirq /
- _nohz_idle_balance on KVM guest without NUMA
-To: linux-kernel@vger.kernel.org
-Cc: mingo@redhat.com, peterz@infradead.org, vincent.guittot@linaro.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AF:EE_|DM4PR12MB8521:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5a6cfcb-3963-400a-39b4-08df496a01e0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|261009223027099003|22082099003|18002099003|261021121427099003|261022105027099003|261021123027099003|261022075727099003|261026121527099003|261026140227099003|261028144727099003|56012099006|10067099003|261102123227099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	UAdkb09B7fGtfCbShUZFX8qZoiiMgwR0lNHxRLHVLQ6AD23PVu9vin9EddJ/My3KCDl9MfjdhLPkuZdXcx/eBjDE1JsqYxFnH10WNjpwKFMKohGLU1oRMBb7yRDQDKf5c6e0/CeuTV+dxCn76eyZUgGxUQDFdKDM8X/Nr1zfJBLSM80E7nL47IF4hPRKoMgmn0lq6qefuo4hCJopqqtAfpuLrBaskgz/JSBVPhmE8tT0ZlNn7E4jwZBmQ6MPqTule7DrYTW0t5Jv0IOibvj0SltYlrklpKPWXxUNo/WO9lW388zM6EXbtDLDUDFE2UfHWIWImfxyLaHFKr+hYP/XYj4P4v3RMVZ0zBqd4QTc4V4RWBIK79VLx36fOIoo8+M7XCUmUHEACtN1wj/RWk/Pk2zme3if/lhqmv6qeDciYfr17AoGXnREP3RYgxH8UdNI7t9N58yKF0xSg7oCBRaHxbFIKFuujD16rWflGjzaq4xVCWEuMdKqkSigU21zxhWRafH1SlTlk+ro2oXko3j908E/YKTrcz+SwZmNmNFljiucp6j+Dj2kTUkJl776vo24WyquyLo76XGtq/70stP3HnIeM5SsO02KFNnssExmInAdMnJC/OxbYI42DDpgfYvKRVh2+JfdSZHgB1GF8w7ce8mkoZCqof2RMn1o+Qg6q4ThFKMzXxT9E5KzM1Bbgb0k5Duns/ZCYhJRtrJuvolpQg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(261009223027099003)(22082099003)(18002099003)(261021121427099003)(261022105027099003)(261021123027099003)(261022075727099003)(261026121527099003)(261026140227099003)(261028144727099003)(56012099006)(10067099003)(261102123227099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ezh0H/6rhCPbOUnxfO6MyX0ZfJrkB1YhgFCPVlzdfWFyfWzvW71foZMIBKVLKReSviqyYvnnCAUmj4DjtuwQ64nYL1Yo5NqS7SEMbWvXs8IgdqlYcOKLrqSrFeetBRqkGt3vEMquKV12Tv+X3i0pldZy2EG5wbQE4+3w837JdLiYNmgNSemmFqmZn4zhO0b5tPRnVCSO8ZrvugGZEv13Z0NpGEdL7Klw0VCLoxmupwHXRFcsbzCRCY73KQO/HlaS6Qom6qt/4rFOcn/6VUeVPi5BsGYVz6ktuim/NzSsKxOKiiwhQaPofdWjeh/tH4gjDoP/vd0RD41O0/JXyWVjr9guBjdqTt78pbxYccQvMwbcZn3pHZSvsHsqFpd6wzXzmh4l2VR9DN/Rgwm1WttnWBJr/WZ2jZwudmvfdOThgo/wuZmfZe9th1luoin1CGv9
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 13:59:35.6537
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5a6cfcb-3963-400a-39b4-08df496a01e0
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000037AF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8521
 
-Hi all, after upgrading to kernel 6.12.117+deb12-amd64 (Debian), we
-are observing
-massive soft lockups in the scheduler on a KVM guest. The previous kernel
-version worked without any issues.
+mlx5_vdpa has always advertised a maximum virtqueue size of 256 through
+.get_vq_num_max(), while accepting any queue size in .set_vq_num(). The
+hardware handles larger rings just fine and users have been running with
+1024-entry queues (e.g. QEMU's virtio-net rx_queue_size/tx_queue_size)
+since the driver was introduced.
 
-Environment:
-- Virtualization: kvm (QEMU Standard PC)
-- NUMA: No NUMA configuration found (Faking a node)
-- CPU: 200 vCPUs, 4 sockets, 1 thread per core (see lscpu below)
-- uname: Linux dev-kulet2 6.12.117+deb12-amd64 #1 SMP PREEMPT_DYNAMIC
-Debian 6.12.117-1~deb12u1 (2026-11-14) x86_64 GNU/Linux
-- Cmdline: BOOT_IMAGE=/vmlinuz-6.12.117+deb12-amd64
-root=/dev/mapper/vg1-lv--root ro ipv6.disable=1 quiet
-- watchdog_thresh: 10
-- nohz_full: (null) (NOHZ_FULL is not used)
+The commit in the fixes tag vhost-vdpa enforces the advertised maximum
+on VHOST_SET_VRING_NUM, so configuring a 1024-entry queue fails with
+-EINVAL.
 
-Symptoms:
-CPUs are 99% idle, memory is free (419 GiB free), and load average is low.
-However, the kernel watchdog triggers on swapper/N and kworker/N with delays
-of 60-97 seconds. The stack traces point directly to the scheduler functions:
-sched_balance_softirq, sched_balance_update_blocked_averages, and
-_nohz_idle_balance.
+Advertise 1024 which is the max that qemu uses today. The device itself
+supports more but doesn't advertise it in any way.
 
-Trace 1 (_nohz_idle_balance):
-[Mon Nov 23 11:48:17 2026]  _nohz_idle_balance.isra.0+0x31a/0x3c0
-[Mon Nov 23 11:48:17 2026]  do_idle+0x31/0x2a0
-[Mon Nov 23 11:48:17 2026]  cpu_startup_entry+0x29/0x30
-[Mon Nov 23 11:48:17 2026]  start_secondary+0x11e/0x140
-[Mon Nov 23 11:48:17 2026]  common_startup_64+0x13e/0x141
-[Mon Nov 23 11:48:17 2026]  </TASK>
-[Mon Nov 23 11:48:17 2026] watchdog: BUG: soft lockup - CPU#6 stuck
-for 50s! [swapper/6:0]
-[Mon Nov 23 11:48:17 2026] CPU: 6 UID: 0 PID: 0 Comm: swapper/6
-Tainted: G             L     6.12.117+deb12-amd64 #1  Debian
-6.12.117-1~deb12u1
-[Mon Nov 23 11:48:17 2026] Tainted: [L]=SOFTLOCKUP
-[Mon Nov 23 11:48:17 2026] Hardware name: QEMU Standard PC (i440FX +
-PIIX, 1996), BIOS rel-1.16.2-0-gea1b7a073390-prebuilt.qemu.org
-04/01/2014
-[Mon Nov 23 11:48:17 2026] RIP:
-0010:sched_balance_update_blocked_averages+0x62b/0x7b0
-[Mon Nov 23 11:48:17 2026] Code: 74 07 c7 41 20 00 00 00 00 45 84 f6
-0f 85 b9 00 00 00 48 89 cf e8 65 3b ff ff 48 f7 04 24 00 02 00 00 74
-06 fb 0f 1f 44 00 00 <48> 83 c4 48 5b 41 5c 41 5d 41 5e 41 5f 5d e9 7d
-28 de 00 80 3d 6d
-[Mon Nov 23 11:48:17 2026] RSP: 0018:ff7601b9c00f3df8 EFLAGS: 00000206
-[Mon Nov 23 11:48:17 2026] RAX: 0000000000000001 RBX: 0000000000000000
-RCX: ff26d7d979bb6040
-[Mon Nov 23 11:48:17 2026] RDX: 0000000000000007 RSI: 0000000000000000
-RDI: ff26d7d979bb6040
-[Mon Nov 23 11:48:17 2026] RBP: ff7601b9c00f3e68 R08: 0000000000000434
-R09: 0000000000000003
-[Mon Nov 23 11:48:17 2026] R10: 000000000000000a R11: 0000000000000000
-R12: 0000000000000000
-[Mon Nov 23 11:48:17 2026] R13: ff26d7d979bb6950 R14: 0000000000000001
-R15: ff26d7d979bb6a98
-[Mon Nov 23 11:48:17 2026] FS:  0000000000000000(0000)
-GS:ff26d7d979b00000(0000) knlGS:0000000000000000
-[Mon Nov 23 11:48:17 2026] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[Mon Nov 23 11:48:17 2026] CR2: 00007f32c305ce00 CR3: 0000000106884004
-CR4: 0000000000771ef0
-[Mon Nov 23 11:48:17 2026] PKRU: 55555554
-[Mon Nov 23 11:48:17 2026] Call Trace:
-[Mon Nov 23 11:48:17 2026]  <TASK>
+The Fixes tag points at the vhost-vdpa commit rather than at the driver
+because that is where the mismatch became user visible. It also keeps
+this change out of trees without the vhost enforcement, where virtio-vdpa
+would otherwise start creating 1024-entry rings instead of 256.
 
-Trace 2 (sched_balance_update_blocked_averages):
-[Mon Nov 23 11:48:17 2026] RIP:
-0010:sched_balance_update_blocked_averages+0x62b/0x7b0
-[Mon Nov 23 11:48:17 2026] Code: 74 07 c7 41 20 00 00 00 00 45 84 f6
-0f 85 b9 00 00 00 48 89 cf e8 65 3b ff ff 48 f7 04 24 00 02 00 00 74
-06 fb 0f 1f 44 00 00 <48> 83 c4 48 5b 41 5c 41 5d 41 5e 41 5f 5d e9 7d
-28 de 00 80 3d 6d
-[Mon Nov 23 11:48:17 2026] RSP: 0018:ff7601b9c0663df8 EFLAGS: 00000206
-[Mon Nov 23 11:48:17 2026] RAX: 0000000000000001 RBX: 0000000000000000
-RCX: ff26d7d97f2b6040
-[Mon Nov 23 11:48:17 2026] RDX: 00000000000000b5 RSI: 0000000000000000
-RDI: ff26d7d97f2b6040
-[Mon Nov 23 11:48:17 2026] RBP: ff7601b9c0663e68 R08: 0000000000000015
-R09: 0000000000000001
-[Mon Nov 23 11:48:17 2026] R10: 000000000000b944 R11: 000000000000cef5
-R12: 0000000000000000
-[Mon Nov 23 11:48:17 2026] R13: ff26d7d97f2b6950 R14: 0000000000000001
-R15: ff26d7d97f2b6a98
-[Mon Nov 23 11:48:17 2026] FS:  0000000000000000(0000)
-GS:ff26d7d97f200000(0000) knlGS:0000000000000000
-[Mon Nov 23 11:48:17 2026] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[Mon Nov 23 11:48:17 2026] CR2: 00007f2fca0ccccc CR3: 00000001a8058002
-CR4: 0000000000771ef0
-[Mon Nov 23 11:48:17 2026] PKRU: 55555554
-[Mon Nov 23 11:48:17 2026] Call Trace:
-[Mon Nov 23 11:48:17 2026]  <TASK>
-[Mon Nov 23 11:48:17 2026]  ? srso_alias_return_thunk+0x5/0xfbef5
-[Mon Nov 23 11:48:17 2026]  ? srso_alias_return_thunk+0x5/0xfbef5
-[Mon Nov 23 11:48:17 2026]  ? finish_task_switch.isra.0+0x97/0x2f0
-[Mon Nov 23 11:48:17 2026]  _nohz_idle_balance.isra.0+0x31a/0x3c0
-[Mon Nov 23 11:48:17 2026]  do_idle+0x31/0x2a0
-[Mon Nov 23 11:48:17 2026]  cpu_startup_entry+0x29/0x30
-[Mon Nov 23 11:48:17 2026]  start_secondary+0x11e/0x140
-[Mon Nov 23 11:48:17 2026]  common_startup_64+0x13e/0x141
-[Mon Nov 23 11:48:17 2026]  </TASK>
-[Mon Nov 23 11:48:17 2026] watchdog: BUG: soft lockup - CPU#6 stuck
-for 50s! [swapper/6:0]
+Fixes: ccb1dc7c527f ("vhost/vdpa: reject VRING_NUM larger than device max")
+Cc: stable@vger.kernel.org
+Signed-off-by: Dragos Tatulea <dtatulea@nvidia.com>
+---
+ drivers/vdpa/mlx5/net/mlx5_vnet.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-CPU Topology (lscpu -e, first 30 lines out of 200):
-CPU NODE SOCKET CORE L1d:L1i:L2:L3   ONLINE
-  0    0      0    0 0:0:0:0            yes
-  1    0      0    1 1:1:1:0            yes
-  2    0      0    2 2:2:2:0            yes
-  3    0      0    3 3:3:3:0            yes
-  4    0      0    4 4:4:4:0            yes
-  5    0      0    5 5:5:5:0            yes
-  6    0      0    6 6:6:6:0            yes
-  7    0      0    7 7:7:7:0            yes
-  8    0      0    8 8:8:8:0            yes
-  9    0      0    9 9:9:9:0            yes
- 10    0      0   10 10:10:10:0         yes
-...
-149    0      2  149 177:177:177:128    yes
-150    0      3  150 192:192:192:192    yes
-...
-199    0      3  199 241:241:241:192    yes
+diff --git a/drivers/vdpa/mlx5/net/mlx5_vnet.c b/drivers/vdpa/mlx5/net/mlx5_vnet.c
+index 7a39b0bbbee3..f1c5f72032a3 100644
+--- a/drivers/vdpa/mlx5/net/mlx5_vnet.c
++++ b/drivers/vdpa/mlx5/net/mlx5_vnet.c
+@@ -2965,7 +2965,7 @@ static void mlx5_vdpa_set_config_cb(struct vdpa_device *vdev, struct vdpa_callba
+ 	ndev->config_cb = *cb;
+ }
+ 
+-#define MLX5_VDPA_MAX_VQ_ENTRIES 256
++#define MLX5_VDPA_MAX_VQ_ENTRIES 1024
+ static u16 mlx5_vdpa_get_vq_num_max(struct vdpa_device *vdev)
+ {
+ 	return MLX5_VDPA_MAX_VQ_ENTRIES;
+-- 
+2.54.0
 
-This looks like a regression in NOHZ idle balancing for large KVM systems
-without NUMA. Are there any known fixes for this in the 6.12 stable branch
-or mainline?
-
-Best regards, Tatiana Topaz
