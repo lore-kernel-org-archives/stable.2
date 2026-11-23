@@ -1,47 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795460455;
-	b=dcUZNt8mWr4gwbwvzQXizDGe0Xdsypui7YWWDS6J6vFceTIMsPhB72pFUCmNdyK6dtLv
-	 5KckzLJiN+PWvzj2nnDPVY0pbgB+DdFp0c9Z7g8H30qf2yQLybEFYYa4F1LL2UBtNqOOW
-	 lGAUvyH65xOHCvORi23XtTwsh17bUf9KmVLb/HvBHSRcgk+kNfC0Z4+mP4f5mmtJuAPlK
-	 LOlqFqZ7Nwc1SYkwakatb5xPpuP0bbjkTKXc38c9WiwQTYqnVwYnX67Apoc4fV8domy1H
-	 GPOXLCzAW1TH47Dip+w7ZMzFjlx+b23w6UUENdIUitqSU4v3wG2c82ieDRL1Ys2MHYA==
+	t=1795460905;
+	b=Ni9nm7n8pED5wky2+Ej9mcS2gD21RDVGCQCcevVy0K4gIAzMLFkAmekLqw84QoMTL5wZ
+	 hjek6PNGQH/+GoZLGgWLrRKXhjDFIJsBpb5hUkfA5EB3W+CdfDpa1+qbb4kbEt8/0yi5z
+	 6iXS3tOQTSDqupN/IaqkBfLgOGrQa17CCW9XLFaQ0RdShBz9bVoBrZJuf9HEBFm2f9j7j
+	 pXrvO3ObG9aYvBiu+SA9kGS/xDbUf+HuE3KP5CGxKq0Hy22mAS9f8hlRh2uIDdVzcPAMP
+	 UDYAiMFapeFtZFE+df3BlY+lNwJF0shGGqBmR1Oa7vc8khlCf5jv6EuZHseUT2ycO6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795460455;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=6hqSEVVgw4CPVV6h2E6Vul+wGHSIIB7M/bfVK6/0gN0=;
-	b=TgsxY6N9vGXGL+2XIrAwQq8gLNj12/hq7cKYUykDZqAGxZPE98FFL8nNsRChsm00NRSB
-	 C62BfI97g+U6Z4Ck71nHHqE2V98IVwepspoNpzzSe6XWoObCm9gPNEvtPku82JdqyvAy0
-	 d01mykeDCSXjX0zo7Ql+XmkZYlTcJL+z+fSGcXb9bm9ELSjm6UVstm9yiKtSTR07W53t9
-	 dCaeI0vT8Sfhm3D0QGe1OFqcQpOgRL4K5jpOk3Wj5+hT/GLq3UxYrcHG38hiKr8SSu4mW
-	 nxdyGTqHH356jHjYs/sTEJMi/Wvho5nXO4dp2jIN24Isuwrq7Ix2epKVq9WOV7G7CXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795460905;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=VYHxPFKmOwY5V9RAEDUHx1RPEhbWi3XhYNTJz3MSmaM=;
+	b=smittIIHYg1ZaHAJCN9c70z3i3+wZpQAeXY4fbspWtQYvVTgVAotD7ibheHH/T0cG/dW
+	 SaRB4RmFY7VxRGzT5Li2ggMeEUIxximH0xYl0qcTGzK7pDvAf2VcloYWi/nEOkQUyKuFL
+	 8nyFjGLJn9yol1WyhIXvxDAzwISiK+I7KSxpEAUMXhRqiEig4xoBREDpIh6NCxbzybstw
+	 MQ9hmh2KLMMRfVWzlaFk13MZXr2bPcWZsoldYlv1i3LmtVjWcBXd//fzI0st/u4H+HRQm
+	 H4tAqgAwUejAbu0ebnpQhghxX5aEVHE8XLMp++/hHo5q3EeYhOKVpsJ/Dw8oWl/+qxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHoxSiHJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=everpuredata.com;
+	spf=pass smtp.mailfrom=everpuredata.com;
+	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=mpU6Bd1x;
+	arc=none smtp.remote-ip=209.85.216.97
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A18606A31A;
-	Mon, 23 Nov 2026 19:00:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D9F606A31A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:08:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4D9F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHoxSiHJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6161F000D4;
-	Mon, 23 Nov 2026 19:00:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795460455;
-	bh=6hqSEVVgw4CPVV6h2E6Vul+wGHSIIB7M/bfVK6/0gN0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DHoxSiHJffR6+Nc606UOEyEd2EYQvC4vzuVqOae1qmLOC/IO4qvA1uz6gr3ob2D50
-	 7t/5jR6Uy9C7gRa5IG3B8eP4gzGoUZ2aX8kglQCIdNpkYlMdV05S2AqYag1ojqXh0G
-	 W5heKcti95GTV4kbKDY8e0OZc91JrNCtBM17rWSOqCn0MR8/X0V3TwpnzK/vciK2uq
-	 vsg4pIQw/Zf4OlMaCxDEmZXO3SeYB5EJ3Lw5sX/tNM0LgfVe2z8zBEFURhHzy2f8tp
-	 rfGVADs4HOKbNTZf1EjbanZGY3QWiVW4F3VsP3AHx3faB9SkcrFvZEgYKeahGMWqxf
-	 CaZhudOZL3YmA==
-Message-ID: <fbddbdbd-4052-4753-89ee-cc75198b9842@kernel.org>
-Date: Mon, 23 Nov 2026 20:00:48 +0100
+	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=mpU6Bd1x
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3b3a914e4c8so1942500a91.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:08:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=everpuredata.com; s=google; t=1795460904; x=1796065704; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VYHxPFKmOwY5V9RAEDUHx1RPEhbWi3XhYNTJz3MSmaM=;
+        b=mpU6Bd1xNO/ofpxU+xyxw8WSfk8MLDZhj0XbqMK8hHBAVUBDwF0nX6uXxvxG7wV6oC
+         qykEDHArhBqXJwIus0GnOnxcdIlEsK4VBIEW8/3tBX3H4qjFbLYkcZIUkCYgCLOIVrno
+         1nUf7v+Ik7u+sXiqljQ1dDirwey0Uf6FdwOMzqkjX0dLvdxm/2Uxu6SGIpx4Oi4Diqsi
+         mUQ/aBpKO4FuEvoLtdY3lxyArZhqPh1g0dradBEJVVyHwOxCkhymjc7ReFB+1iBDWQbO
+         QgkTg/APAQYuGdXSAfb9ryOQxCqSXmsK8XR0HHC3tXF1YMXCJ0G71f7nq57i1MWipCNN
+         87Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795460904; x=1796065704;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VYHxPFKmOwY5V9RAEDUHx1RPEhbWi3XhYNTJz3MSmaM=;
+        b=pnzCeb5oC8SxhpN8ou042Iz2g8xm+8ckADfNqhOvhR3fepby6WDnAYSXniRHT0APB/
+         1PZ7wNofMD6Q/8ZZ06+ulGWu+IGJGYe5cHNZ6Ode3ot1sGXh4VKmFybakfcpuUskRuaG
+         GZY9FEh0jpbRRaOQASX8I/zM1hLSs416rOkuCxbWLO+cH/MFxOO8T3fD0rygPQGk48hq
+         kL/6qLPAH6KhWkL2ACp+EhVnm/Lq3IxiXYRtSuiu6g63DIz5Zrb54sDkFbOAOiLwwowk
+         y+SN6rN2b1rb29pTUpIZsG1QFeKUrRfEQeOBBvtl74pPeMFcxkBV4nb/TW28T5gBlKGR
+         Qmow==
+X-Forwarded-Encrypted: i=1; AL+hErG4wmDWz+yKfDf/UhZQSm0d/bZX61xEZSZhRKxMDXvQRk4Toolxah4zbFnz4lurs3YKcqOfNik=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SDuXRQxbmPVrNS39pCrD7UccJwMG9ENU6INT/2uiCcVWcpouj
+	uwPS4ugXj8xVdbFrUMVWszPS/ENGRgFxlGCcF0pEKoHwnpB1DKp2djfbk7He4A93Uwl8LN4oCBT
+	CwFiZP5ImgE4ozRq555+p8cRwODGfND0uTAFV
+X-Gm-Gg: AZFdTZepybfuXxb0kvuIoLkWaa2GpvhJK8vIoREUev8X733fOviF8suJRnMI5Fw8Xjo
+	cJ2YzZoEC/8Jc98l3/6+M7JPGJpcDCfowQyL216JuQ3FdehI6rPR4pVdPtVLg4EwLnF8rJRxmuW
+	UgUYGm/UlWd6l8Pl+au+Pi4ghXSGvXR/wH7UaerqsjbKcZ140qlckhz0QkVcT9w/KXAfCPza8UT
+	VNDrNYfbe02cJu4h2KCZMiamckt2HAmUhZDkdMoAK4rtRbR4nOBrRn2aLKQuKjB8hDvS+OjBFHM
+	ONHxVDI7Joa+O/6NwLZ9nmMOzXXNt3Yijx197kq6YvldOVkaDyENewo5/MZTYCuJBDQv+TUHNyT
+	j0pB3PuFKN4nhUxT2tkEQDPlp163kMTI+SNhRmfE=
+X-Received: by 2002:a17:90b:2c84:b0:3b3:c3b9:7de6 with SMTP id 98e67ed59e1d1-3b41c8fe20emr10529365a91.13.1795460903946;
+        Mon, 23 Nov 2026 11:08:23 -0800 (PST)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b41d245549sm4735121a91.2.2026.11.23.11.08.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 11:08:23 -0800 (PST)
+X-Relaying-Domain: everpuredata.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 32D0E34015E;
+	Mon, 23 Nov 2026 11:08:23 -0800 (PST)
+From: Tim Menninger <tmenninger@everpuredata.com>
+To: cel@kernel.org,
+	anna@kernel.org,
+	trondmy@kernel.org
+Cc: ebadger@everpuredata.com,
+	jcurley@everpuredata.com,
+	linux-nfs@vger.kernel.org,
+	slingappa@everpuredata.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] xprtrdma: Retire the connection generation when a connect attempt fails
+Date: Mon, 23 Nov 2026 19:08:23 +0000
+Message-ID: <20261123190823.1680365-1-tmenninger@everpuredata.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,166 +101,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net 08/10] mptcp: pm: don't let listeners pin their netns
-Content-Language: fr
-To: netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Willem de Bruijn <willemb@google.com>, Simon Horman <horms@kernel.org>,
- Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
- Christoph Paasch <cpaasch@openai.com>, Florian Westphal <fw@strlen.de>,
- mptcp@lists.linux.dev, Davide Caratti <dcaratti@redhat.com>,
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org,
- Eric Dumazet <edumazet@kernel.org>
-References: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-0-278042217e8d@kernel.org>
- <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-8-278042217e8d@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-8-278042217e8d@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hello,
+When a connect attempt fails, xprt_rdma_connect_worker() wakes the tasks
+waiting on the transport with the connect error. For errors such as
+-ECONNREFUSED, call_connect_status() can then call
+xprt_conditional_disconnect() with the task's rq_connect_cookie, which
+was copied from xprt->connect_cookie when the task started waiting for
+the connection.
 
-On 23/11/2026 14:24, Matthieu Baerts (NGI0) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> For a "signal" endpoint with a port, the in-kernel path manager creates a
-> listening MPTCP socket with sock_create_kern(). This socket is released
-> when the endpoint is deleted or, failing that, by pm_nl_exit_net() when the
-> network namespace is dismantled.
-> 
-> The MPTCP socket itself holds no reference on the namespace. But its first
-> subflow is created by mptcp_subflow_create_socket(), which always calls
-> sk_net_refcnt_upgrade(). So the namespace cannot be dismantled before
-> the listener is released, and the listener is not released before the
-> namespace is dismantled: unless somebody deletes the endpoint, both stay
-> around for ever once the last process of the namespace is gone.
-> 
->   unshare -Urn sh -c 'ip link set lo up;
->                       ip mptcp endpoint add 127.0.0.1 port 4321 signal'
-> 
-> leaks a namespace, with everything it contains, each time it is run. It
-> remains charged to the user's max_net_namespaces limit.
-> 
-> Only take the reference if the MPTCP socket has one. A listening TCP
-> socket has no timer of its own, and request sockets of a dead namespace are
-> taken care of by inet_twsk_purge().
-> 
-> The sockets cloned from that listener for incoming MP_JOIN requests do
-> need the reference, for their timers, but inherit sk_net_refcnt == 0. Take
-> it when they are created, with __sk_net_refcnt_upgrade(), from the
-> previous commit, as this is done in atomic context, and drop the
-> connection request if the namespace is already going away.
-> 
-> The TCP listener of such an endpoint is now a plain kernel socket, like
-> the MPTCP socket it belongs to: it is not counted in "sockets: used" in
-> /proc/net/sockstat any more, and its destruction is not broadcast to the
-> listeners of the SKNLGRP_INET*_TCP_DESTROY sock_diag groups.
-> 
-> This issue has been found with the help of an LLM, and reproduced in a
-> VM, with the reproducer shared with the original version of this patch:
-> the command above, run 1000 times by an unprivileged user. Without this
-> patch, all the network namespaces were leaked:
-> 
->   result: 1000 network namespaces made, 0 taken down, 1000 are left
-> 
-> Fixes: 1729cf186d8a ("mptcp: create the listening socket for new port")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ Use __sk_net_refcnt_upgrade(), from the previous commit, instead of an
->   open-coded copy of sk_net_refcnt_upgrade(), with maybe_get_net() like
->   rds_tcp_tune(). Shorter comments, and describe the condition: any
->   kernel msk. Commit message: how the issue was found, and its
->   symptoms. ]
-> Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-> ---
->  net/mptcp/subflow.c | 25 ++++++++++++++++++++++++-
->  1 file changed, 24 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-> index 20d506235074..3e674c21bdb2 100644
-> --- a/net/mptcp/subflow.c
-> +++ b/net/mptcp/subflow.c
-> @@ -844,6 +844,22 @@ void __mptcp_subflow_fully_established(struct mptcp_sock *msk,
->  	WRITE_ONCE(msk->fully_established, true);
->  }
->  
-> +/* Children of a kernel listener need a netns ref for their timers */
-> +static bool subflow_child_get_net(struct sock *child)
-> +{
-> +	struct net *net = sock_net(child);
-> +
-> +	if (likely(child->sk_net_refcnt))
-> +		return true;
-> +
-> +	if (!maybe_get_net(net))
-> +		return false;
-> +
-> +	__sk_net_refcnt_upgrade(child, GFP_ATOMIC);
-> +	put_net(net);
+The failure path tears down the endpoint through
+rpcrdma_xprt_disconnect() without advancing connect_cookie, so that
+cookie still matches and the conditional disconnect requests an
+autoclose. If another task has already started the next connect attempt,
+that attempt holds XPRT_LOCKED and the close request sets XPRT_CLOSE_WAIT.
+When the attempt succeeds and releases the lock, the pending autoclose
+tears down the newly established connection.
 
-I just noticed put_net() is somehow deprecated (according to
-netdev/deprecated_api test on PW). In net_namespace.h, above the
-declaration of "put_net()", it says "Try using put_net_track() instead",
-but I don't think it makes sense here: I would need to allocate a new
-tracker here. Indeed, I cannot use child->ns_tracker (it belongs to the
-reference __sk_net_refcnt_upgrade()) or NULL (no_tracker was never
-incremented) from what I see.
+This was observed on 7.4-rc3 after restarting the NFS service on a pNFS
+data server reached over RDMA. Connect attempts made while the server
+was not yet listening were rejected, and the first connections that then
+succeeded were closed within a millisecond of being established.
 
-If a new tracker is needed, it would be allocated before
-__sk_net_refcnt_upgrade() and released just after. The fix here follows
-what is done in rds_tcp_tune(), with the same sequence from 5c70eb5c593d
-("net: better track kernel sockets lifetime").
+Advance connect_cookie once per connect attempt, whether it succeeds or
+fails, before waking its waiters, so that their conditional disconnects
+no longer match.
 
-So I think there is nothing to change here.
+Also wake pending tasks before releasing the connect lock. Otherwise, a
+task can capture the updated cookie and join the pending queue for the
+next attempt before the previous attempt's error is delivered.
 
-Cheers,
-Matt
+Fixes: f99fa50880f5 ("SUNRPC/xprtrdma: Fix reconnection locking")
+Cc: stable@vger.kernel.org
+Reviewed-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
+---
+Changes in v2:
+- Advance connect_cookie in one place, just after
+  xprt_clear_connecting(), for every connect attempt (Chuck)
+- Add a comment explaining why pending tasks are woken before the
+  connect lock is released (Chuck)
+- Update the commit message to match
+
+v1: https://lore.kernel.org/all/20261120010342.2152535-1-tmenninger@everpuredata.com
+
+ net/sunrpc/xprtrdma/transport.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/net/sunrpc/xprtrdma/transport.c b/net/sunrpc/xprtrdma/transport.c
+index e38637c2ec787..d27de0ad6732b 100644
+--- a/net/sunrpc/xprtrdma/transport.c
++++ b/net/sunrpc/xprtrdma/transport.c
+@@ -232,8 +232,8 @@ xprt_rdma_connect_worker(struct work_struct *work)
+ 		current->flags |= PF_MEMALLOC;
+ 	rc = rpcrdma_xprt_connect(r_xprt);
+ 	xprt_clear_connecting(xprt);
++	xprt->connect_cookie++;
+ 	if (!rc) {
+-		xprt->connect_cookie++;
+ 		xprt->stat.connect_count++;
+ 		xprt->stat.connect_time += (long)jiffies -
+ 					   xprt->stat.connect_start;
+@@ -241,8 +241,11 @@ xprt_rdma_connect_worker(struct work_struct *work)
+ 		rc = -EAGAIN;
+ 	} else
+ 		rpcrdma_xprt_disconnect(r_xprt);
+-	xprt_unlock_connect(xprt, r_xprt);
++	/* Wake waiters before unlocking, so that a task which records the
++	 * new connect_cookie cannot receive this attempt's result.
++	 */
+ 	xprt_wake_pending_tasks(xprt, rc);
++	xprt_unlock_connect(xprt, r_xprt);
+ 	current_restore_flags(pflags, PF_MEMALLOC);
+ }
+ 
+
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
 -- 
-Sponsored by the NGI0 Core fund.
+2.53.0
 
