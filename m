@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795475398;
-	b=BKDCU0QrdJI5kBu1RNyOOyMXQbg+OMLy6zC7onXQ+yXUDPiiUD0KMKvBzQHArvvG3n2T
-	 LskTZ7keEgBrJCUok9GGu9tzWywnrSl6JkihxSPTtUOeoIt8sgk4fvI0BqeJLDBUTRXc3
-	 IzSHm9tDcMm2LtaW1aUPqqStmeCfM5sgI9zI2xMxDyJPdpnw/XNge+2JOWe+4+5J1r5fD
-	 pPnZdheDQ8QIGb7x9lMeV2sR+k1+58PIvekORjrn6DB70BCzIje6ShyNGTSFpRVofjQij
-	 5ACpwPqqau21EXKWIkc2lOiB1XgCaeoziW/6Oya39Ft6Dy5HGeFOxtle3Te3TBx2oCg==
+	t=1795475425;
+	b=FbtkB/bDsQ8gNC5aWA7/LoLkV84bCpBHU0Fx00l+5oHcaR5zICnBNKEbylGcexz/n5vh
+	 H7Bl5NK5q+nMD/x6Co3Jroe+xIoJHTln2n5Y1FXCEBhGbeJkGz5Wzcj+AExvW9r3ujgF5
+	 /5SHatrjVulpm8mMTyXq4AainLICMN6eBlagyfD9gtHPXNp5TZfWW03EAZmQvVMEoQ6rA
+	 2jlE8RqIYTaIxpEsVlDxs8ArK+Po3WtmjA/bxOp0hxl4NAlbEw/U8BOLAnFh2+m5RxmLT
+	 iHs9dNfSHJmNfUfenDilkqEvzUUNuYX6GLHyIxI6dHCbC6hSJ7jhNdqjTuuErD52LPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795475398;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795475425;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dE4EaqDyK41gAj04ZPpghBrG/bBl2Jc6ioru4NaQWk4=;
-	b=EQ9536yO1E1UFEdtZcExy5jrJZC+uL3UWeF149y9d/mhDd0isJO2f4LtjMhf17ACr9yI
-	 vLzp9jLR5uolqgboeEEeqEOhjkIKVS+LB0Zy1g9nM8Ja8DI5NntqOFBqaErtUOkG4ffRe
-	 vznzjaY7Doxlg05gyPtjhBEqVPnLQxSVHHt83ZYmZ774GEFfI9W/y+QhB8DKBo9J8vLlq
-	 g7kuyQaEQV7HCzCKhGw4KGTWQz+R3XG9J0Kkp0wj/OW1/nfkqH1hJt9SUVL+DNNiBlFc4
-	 NrNQuGBjfmCrLO+9d0Y+eN0uk0TN5mnne7bMskjp6jdMDf9MgmywhwD/8vROZukU2BQ==
+	bh=UweiNxwHTgAt8ftm1WMDIgqwHu2JV76yvvj/0FyLrMo=;
+	b=ImWhOYWeG65XxobKgLTwf/6BLdCmFOTNquFnW8fHBwfDTLMii4/AX8zbRNIv2lAudoH2
+	 E5hRcy/NaiJuEFYNGHSO+eTspZ0v04VPw001XiiPJNeUsJpkT+pNu0FfuHwcm3kNhQHhY
+	 kBL/c1yut4XXSmt6zcK8L8ie3G00XgJ+/KyYNTI/7e4/xJ5+SHcyo3zEsWlGFZ9LFXp+H
+	 X6elM2edAQXFSJ8gSJrRVMmhjz9JRkcD+IFV1LhEUnt2VCE6orhhB09qMzX40OmHOKPkR
+	 wjMc5en42hs0i6Ijlbz71MDKfCOH3qHACmLPOolKKOd0glGsgyd+fxloom5rxffr3RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WlPTtXXP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="InmrsLK/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7043606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 23:09:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F49606A687
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 23:10:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WlPTtXXP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58631F000D1
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 23:09:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InmrsLK/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03BAD1F000D1
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 23:10:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795475397;
-	bh=dE4EaqDyK41gAj04ZPpghBrG/bBl2Jc6ioru4NaQWk4=;
+	s=k20260515; t=1795475425;
+	bh=UweiNxwHTgAt8ftm1WMDIgqwHu2JV76yvvj/0FyLrMo=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WlPTtXXPaEhtS0UNcttHmNX9yIWLASI3pzLGLNt0v8NJfuYvC9Ale1DYta/z2oe8W
-	 Qrw2Vb2UHID1u77Hy0264Rwh1aEwUYIwu2VUKorji0Bp96MMOyq1Gk/nkgON2L3G3i
-	 6KpfsHkq4894oIuyQE8TGjf9sedVbEdCo70GWSTzu4oPfddMAQwZ2g6TzzDetMS8Rz
-	 cCvYZtCcia/etrczLHrv1hRNmTaOztxzZRfOrwXAz6W0YIuJyMugf4v2QJ09fsd67P
-	 sX5CV8em7aDuLHIV+FaXolM7gnaBLv14/W01td8TS1ySmSNcKuLgXLAKPRZOlG04lT
-	 G/ygW/91HhIfQ==
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c513a854320so640782866b.0
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:09:57 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFAjLQRPcX6rN/Dghqinw4blguzqgafiEHi9gJ6XhXRevR+eg+GZoDlm9GV4sCuhJNsPL/yOhQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mG/7hzRMFsJPJPvhjfsgjxdcj52srqWJu0qa2nxjQMwwhefuN
-	uH5NjTD94neogi3eLfjWBrjTVdSYxrNyonLqzTLkqS34V4TbCN1xt1jHWQgR19cGPNE7DOYGWu8
-	KxJn4UtegJpZcF+/8rS/gRp19MLC3sYQ=
-X-Received: by 2002:a17:906:f8d2:b0:c50:bf14:8eb1 with SMTP id
- a640c23a62f3a-c513a84d84emr825676166b.14.1795475396432; Mon, 23 Nov 2026
- 15:09:56 -0800 (PST)
+	b=InmrsLK/C0w81AoTH36Guq044eXaHTaE9H2/e/a2WMo3/qsvxL23gpeZhOP0ejjWZ
+	 dgZTX/5kwmWZInPfAYHR24Z+sEjy5hk6lUjV5XJwM3zYhVQCWB2enw0ll/AG2iKmdG
+	 tGtqeMAGeAUHaoUjK0nOO9ioUkOcvK/1/yYCLJcFAE3aFkIyhoPpEKOP86o/i/t6WZ
+	 8INUX18DckKCnHOt+78cEI5f0Eoc+iNZifXfG/lNW/5XcWJ/axKT4i0Omq8U9LjieQ
+	 U6zYdPMSDOtG5ryj51D5CPm4q/cF9Ar5W7DPRUg1giWvf5fvtC45QEnqAGYmRgn809
+	 u/PU9e6SrOeDQ==
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so6551077a12.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:10:24 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEPEH7QGOutlNZQadypcWUFkzKQZkyBo5NNZIMAMt2NDPn/3JKAR8a1cT5nR/sVEpaPXaHfcy8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gA9+zfoYgbzDg1y6zXbrBTK/0xvEZJIueUh5oY+X2TaapBEMg
+	hdfBNeXeiTxwV2V+r5lAilDFFrFcjwAoWW4IuoZrtln9XGVeqblA7xvM6bWCYM2WMKFp/fmX0Gs
+	51nv+GTy8xXvYKcoWCgGgagis93jcTLk=
+X-Received: by 2002:a05:6402:210a:b0:6ba:4bf3:4a7 with SMTP id
+ 4fb4d7f45d1cf-6ba4bf3066fmr8378296a12.23.1795475418624; Mon, 23 Nov 2026
+ 15:10:18 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,15 +59,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122155604.401963-1-icb@fastmail.org>
-In-Reply-To: <20261122155604.401963-1-icb@fastmail.org>
+References: <20261122160149.403491-1-icb@fastmail.org>
+In-Reply-To: <20261122160149.403491-1-icb@fastmail.org>
 From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 24 Nov 2026 08:09:44 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-u5tFFu1W1qSD5v4crSdRXc1VdD-n2LKRbWo=GS2izEg@mail.gmail.com>
-X-Gm-Features: Aa3M54qCrHEh_Sq068v7ffrEsHDVyhRBFdMOgL5-5OEMKKg3aevGtdGfOT_QBM0
-Message-ID: <CAKYAXd-u5tFFu1W1qSD5v4crSdRXc1VdD-n2LKRbWo=GS2izEg@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: reject a security descriptor with OffsetDacl but
- no DACL_PRESENT
+Date: Tue, 24 Nov 2026 08:10:04 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_4V=XDhnkMgZ7AyumGW+x86wxMwP8Pk-04aSYXYeHreg@mail.gmail.com>
+X-Gm-Features: Aa3M54pmdqZ2Mt_rbU3GRlwVD6xqCo0bkVzkOT0-8D6p05zezDl8vNMe6n1NLTA
+Message-ID: <CAKYAXd_4V=XDhnkMgZ7AyumGW+x86wxMwP8Pk-04aSYXYeHreg@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: return only the control flags of the parts in a
+ query reply
 To: Ian Bridges <icb@fastmail.org>
 Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
 	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -75,20 +75,22 @@ Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 23, 2026 at 12:56=E2=80=AFAM Ian Bridges <icb@fastmail.org> wro=
-te:
+On Mon, Nov 23, 2026 at 1:02=E2=80=AFAM Ian Bridges <icb@fastmail.org> wrot=
+e:
 >
-> parse_sec_desc() returns early when DACL_PRESENT is clear and checks
-> nothing else in the descriptor. set_info_sec() then removes the POSIX
-> ACLs and stores the descriptor as sent, OffsetDacl included. The
-> access check, inheritance and QUERY use the DACL at OffsetDacl without
-> looking at DACL_PRESENT. A SET_INFO without the flag can therefore
-> store a DACL that was never checked or mapped to the mode, and that
-> DACL is enforced.
+> build_sec_desc() copies the stored control flags into the query reply
+> and clears only the DACL flags when the DACL is not requested. A
+> SET_INFO without DACL_PRESENT stores the control word as the client
+> sent it. Its other flags then appear in every reply, such as
+> OWNER_DEFAULTED in a reply without the owner, and SACL_PRESENT
+> although ksmbd refuses to query the SACL.
 >
-> A descriptor without DACL_PRESENT has no DACL, so its OffsetDacl must
-> be zero. Reject a nonzero OffsetDacl in that case with -EINVAL, as
-> parse_sec_desc() does for other malformed descriptors.
+> Copy a stored control flag into the reply only when the part it goes
+> with is in the reply. OWNER_DEFAULTED goes with the owner and
+> GROUP_DEFAULTED with the group. DACL_PRESENT, DACL_DEFAULTED,
+> DACL_AUTO_INHERITED and DACL_PROTECTED go with the DACL. The SACL
+> flags and the other stored bits, such as SERVER_SECURITY and
+> RM_CONTROL_VALID, are not copied.
 >
 > Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 > Cc: stable@vger.kernel.org
