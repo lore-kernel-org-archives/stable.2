@@ -1,65 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795427063;
-	b=SbVf6F+SFn+pAzxytHGERUdgglqws1h4VKZfJUFPkQVPBISvcB2Utlec+62JIYVDmBXy
-	 RjdcYOVn3JSiMLqyn48wI0Ggn7ij1clEVbpUDRSBx2UkrH6QhshVu0GB0BhIfbQZXNdBX
-	 EFH7+yjxJEO784FXUrL856ZcVHuA9ccnSq4KMMXcl/pnSjo0gZaLhuOsbAAKXBzgZBg2t
-	 sj58umOEs03jEhh7XB7oY/Us6sErfJwIOjGNG3nr+Y0W/MUAG/nNwgpTeushnII0o9fBQ
-	 tyAuqQXUyVMuNXs/HhYoUWkq13LeSQlua+vZwhIszOOSHm/9LGdnZpaKQ2ZihapHe6g==
+	t=1795427062;
+	b=3y73xgvPbkpdLp5OPhZFteHmD3sESFOHzbV+Fjg57yqOXDFB3wBio7LWKJ9PEjet8+b/
+	 T1vTwqSPJFzF743ulqekZdpnKXdCmn78o+KNM8+wKq4+vI6N7yJhCgzeyeT6wEdNoBcRB
+	 Qr08j/r7SacvXruGuvBgc+smdQU6z4nwwmPriBqIVm2+uifqPQXVUVAKoYS2Ad31ZtDLK
+	 USSiODsubov3VLpNw1pUMo66cNzOQ0ArwRPhvEznT7reUp5pIC3pQrm0yrOQZm70eDb9O
+	 RUxT2RLdXzYK2QMdrYoW5YlgQlgUhze0EE0r0aA4la9IdNPZis5TWxbDJ7iC2/dt/JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795427063;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795427062;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
 	 Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=DCb2SPB/uURZL9MaCW+MeN8s8i48GUQqx/NISFD9YPc=;
-	b=yM6NfYDSbDw8KRgBd7TlfwKsLW7bJ5GG6soa7KOXB+jBOLJvAxVVUteabJnim6h0/dbv
-	 m+DB9HfTKjaVYghadbL7HzScEfr8slDah0Pu3j5UrRijSOGrVfiUsfUMJwWqGaE1qELFW
-	 cG8rR2RuUeMRYs1Z2c26XoRuO30NiX4/0CFW2DnUFOVeOYYszff1MXPhsT25U196Islvl
-	 hFVTMh6GnrOdcymfhJ3hl7nVI6FGjyJHqRe5b491Tf/eIkNd6jyDhfa/uzgTybiJXpumy
-	 EMvXznaK2e2bAvJOyNqszCCK3H//anvOgOko0LY96C4ZCNAAWd0UJVUuS0WK9ez4vAw==
+	bh=U4IXXMcC7cdP3dcXyehvU/a2apzs/cu4mCfmZw2dIUM=;
+	b=PFhDtfxMIh5AtXe1qemniO4mk5Q4NIAUS2BNIicePB/nYrqTV2bW9nF/FZCWd1tfsn/L
+	 gmQHscfVZc/NAaAp56i5kkT06ZA0yfOL7ARjcuvDKJ327zkxofkGTUxmd2nlvi/rFv8u1
+	 bCQG9t/ZHr9zkyIzFcDyjMo9k5Fm3I7ZB4FmfIqYbYcn5UeQG7S5DAmMUVNol49GOE40U
+	 LnUru8PFGkSZIDSWTQU05eA0aaCGBYyWos8nhaidghw2SlNH8ywvpIHt79Cmcs9wvKyhH
+	 1Vcq9ldVM3pf9ybuamBLacZSRYFJxIg60uFBEvKuTBiz7DBAodJoawuO28Bm5LTXoLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ZFdO5j4n;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="El/BnAGe";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FvA6T71E;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=IZ7IWt9a;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63822606A31A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A13606A31E;
 	Mon, 23 Nov 2026 09:44:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63822606A31A
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63A13606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ZFdO5j4n;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=El/BnAGe
-Date: Mon, 23 Nov 2026 09:44:17 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FvA6T71E;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=IZ7IWt9a
+Date: Mon, 23 Nov 2026 09:44:15 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1795427059;
+	s=2020; t=1795427058;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-	bh=DCb2SPB/uURZL9MaCW+MeN8s8i48GUQqx/NISFD9YPc=;
-	b=ZFdO5j4ntzh1vZdmYncm/hpTpLpVeIXYnx3Rmbik806Z020QH9EDB8omELydR1fQiJMTSl
-	sKawgoTryeaWv/WRr55uyjHr6blTPC8NCyXazcILnYjf7k9LJi3t7iwD5PiIkJArRDQQdP
-	T/T7NQ93ti4A7IPJH+0WtNTz5CBwculCUqU+d4WDXHBS56fvQDGP0pxqrOgG2z67cngodS
-	GLWOdjDRZ/b/jSIcvHqraEfUJ1EMtEk18igl/9ZJsiuTHAdmZqPS2MdMTAXRyRoxDt3V/2
-	yaF5x+RvVpnp9WF08s9HRFoZYW3jLZ0M8hN1q/pXMPYJLREcOIdWTLp3271xBA==
+	bh=U4IXXMcC7cdP3dcXyehvU/a2apzs/cu4mCfmZw2dIUM=;
+	b=FvA6T71E6M5W7kI18MyoIEDj6tNSPURYCPr02vtuI4bWOZfFotMptHvUI0iV/MD+ossP56
+	ePL2DMc+akZUkOHt+fnjOsBpJ2gb4EuIg3t+zwmJpoCzcJym2Niwv+uvxbuhiC0ShBwvkB
+	zTtMXSgPij0hX3iPyYUsUbTyQd7aTwRFRdt915zfFANik+Gh1p/ATGF+z6LRqj1EJW7dv6
+	4ikR2EuFaWP5rClBfSqn6LdOsFyJmrffgq3TT2Oeq4GC7/bVXHUZwYu2Leeea/ZjABmFML
+	qp/oULbGzU1P8fIvGuStamyvFmHsDXdeVkT9232+U8X8kKpcyadk3GsNK18GHg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1795427059;
+	s=2020e; t=1795427058;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-	bh=DCb2SPB/uURZL9MaCW+MeN8s8i48GUQqx/NISFD9YPc=;
-	b=El/BnAGe2l6Fy9etKI0KgHgy6R0R4MfvyaOAyfoTQMTbN/61NdCQoB1J2AlL3OumnMjvoY
-	tNlwMRmomixhuIBg==
+	bh=U4IXXMcC7cdP3dcXyehvU/a2apzs/cu4mCfmZw2dIUM=;
+	b=IZ7IWt9aQeJctaS89oJeCQwXiLqwgPq3/YTqHI53wkZ2c5aV0wjkgRk8xOyCregk+sahDd
+	D1bKoG7GGNeGwFBA==
 From: "tip-bot2 for Peter Zijlstra" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/urgent] perf/core: Cancel hrtimer on perf_pmu_unregister()
+Subject: [tip: perf/urgent] perf/core: Fix perf_pmu_register() sysfs race
 Cc: Hanxiang Xu <xuhx@hust.edu.cn>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>,
  Ingo Molnar <mingo@kernel.org>,  <stable@vger.kernel.org>, x86@kernel.org,
@@ -73,7 +73,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179542705760.92412.18298973222354613597.tip-bot2@tip-bot2>
+Message-ID: <179542705589.92412.1823103275393818072.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -83,38 +83,55 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the perf/urgent branch of tip:
 
-Commit-ID:     35fbc5a85891b2550425c7365ee3e011b505760b
-Gitweb:        https://git.kernel.org/tip/35fbc5a85891b2550425c7365ee3e011b50=
-5760b
+Commit-ID:     dd1e556d9a5aef3e731fbe31ae43d9b4eaf05c1b
+Gitweb:        https://git.kernel.org/tip/dd1e556d9a5aef3e731fbe31ae43d9b4eaf=
+05c1b
 Author:        Peter Zijlstra <peterz@infradead.org>
-AuthorDate:    Wed, 18 Nov 2026 14:14:46 +01:00
+AuthorDate:    Wed, 18 Nov 2026 14:15:11 +01:00
 Committer:     Ingo Molnar <mingo@kernel.org>
 CommitterDate: Mon, 23 Nov 2026 10:37:47 +01:00
 
-perf/core: Cancel hrtimer on perf_pmu_unregister()
+perf/core: Fix perf_pmu_register() sysfs race
 
-Since perf_pmu_register() initializes the hrtimer, make sure
-perf_pmu_unregister() cancels the timer before freeing the memory
-it lives in.
+Only expose the sysfs files after fully initializing the data they expose.
 
-Fixes: 9e6302056f80 ("perf: Use hrtimers for event multiplexing")
 Reported-by: Hanxiang Xu <xuhx@hust.edu.cn>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
 Cc: <stable@vger.kernel.org>
 ---
- kernel/events/core.c | 1 +
- 1 file changed, 1 insertion(+)
+ kernel/events/core.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index e870f12..f424b72 100644
+index f424b72..a2e4b07 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
-@@ -12968,6 +12968,7 @@ static void perf_pmu_free(struct pmu *pmu)
- 			struct perf_cpu_pmu_context *cpc;
+@@ -13012,12 +13012,6 @@ int perf_pmu_register(struct pmu *_pmu, const char *=
+name, int type)
+ 	pmu->type =3D pmu_type.id;
+ 	atomic_set(&pmu->exclusive_cnt, 0);
 =20
- 			cpc =3D *per_cpu_ptr(pmu->cpu_pmu_context, cpu);
-+			hrtimer_cancel(&cpc->hrtimer);
- 			if (!cpc)
- 				continue;
- 			if (cpc->epc.embedded) {
+-	if (pmu_bus_running && !pmu->dev) {
+-		int ret =3D pmu_dev_alloc(pmu);
+-		if (ret)
+-			return ret;
+-	}
+-
+ 	pmu->cpu_pmu_context =3D alloc_percpu(struct perf_cpu_pmu_context *);
+ 	if (!pmu->cpu_pmu_context)
+ 		return -ENOMEM;
+@@ -13036,6 +13030,12 @@ int perf_pmu_register(struct pmu *_pmu, const char *=
+name, int type)
+ 		__perf_mux_hrtimer_init(cpc, cpu);
+ 	}
+=20
++	if (pmu_bus_running && !pmu->dev) {
++		int ret =3D pmu_dev_alloc(pmu);
++		if (ret)
++			return ret;
++	}
++
+ 	if (!pmu->start_txn) {
+ 		if (pmu->pmu_enable) {
+ 			/*
