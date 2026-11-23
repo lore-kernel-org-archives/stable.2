@@ -1,109 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795472992;
-	b=rEtZf+X142UAfeGx6+21GI5opvN0Lqiz+P2XYySIzqhfQgZhcD+fJywM+zgLM7g9iKL2
-	 YPDEYVwVq00Bgih7hPpWj9zdMhCnjBHkhuVg1YgxoxuQaylyiNBZELcvx4ranPK9saoL3
-	 8DwGTMi7bshN55heB8pRg68hMhibvxP8QHjzItefMeWuofJCIDGTIF412cr8BHnkaW990
-	 HvGNMQYCBZ6wnSSQLk8YC1FyJdxwAAj4zUu2LogQlYjuHF6hA78hrpDKFDAO7UEe5MvrO
-	 d0T/f+twgGx7jFsD1rKFZ+uCLEN4r+mtZPYvqQcMdOmHxnUI95SasuSPg2WPW2MmS2w==
+	t=1795473253;
+	b=qx3g14mnJQjQ0JaIPT5840rtOuQe3rneCXw8OwvZH+BW6Y9zTfT6N4Q7vz2kN4mP1GIZ
+	 3gmTxQOhciKLBth6J7tfWpynytgJdx2wXDlN5kNsk9xyrD04yKn160O4N6/opGvyfOZOg
+	 7mExQsiBaQ1zusF/c8L3DdvpEM1hfYqVdVPRt1GCIQLXku73AusifLAf8S7J82OAbLbDw
+	 yqu7P5gCV59hacpHCTKYW3o8E0ZACzEFhu+u6uk3Bw3fpBpQJ4Afvqmy5WDCYVpzhevgY
+	 qRQ3S5IIysP2uZ0EkWkdktY1FmS3XkWUf6VFCN/GtFshoJdC/lXOWPUEMKwYhBuvBTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795472992;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795473253;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=H2vxAWoYWHp6UyKnUQXbx7unIB0YZxuVIcKrameyVgM=;
-	b=hC+qJXwxH+hVPHwrFxRYBtLYEDWgTHCWQ1sKawW51ErdKFfbMHNv7BJ5q6qnH+wKe8RG
-	 wktkPQG/c9o1yO5YIHPMzFsjgY8W4mEqnI1S1Cw+36g4mLIl/ORW5B5o+PK/w79DZiH+W
-	 HDtXCs1JXYuUF+s4fFkmIFDwQ17N1KXm0Pcm+P/elXOZuYXy2zRn74X+O/ttwwQ9C5yxh
-	 z4Cob7vmqGYhJ/ZlGCtJgC1GHRcEbhJfWuDQtqoXfD6syGH1auBDdOGstm5yjOLGoGa7s
-	 jhw9pY7ejZCaP/YzY+1gQq01jmvWHA55AkZ9z2zDVCRpdVbo6e1q84R52rjJPQDKPuQ==
+	bh=03w06bSm1yONRYYXB48Ye2MeketUdFgM5u2hRd5PsVE=;
+	b=0nAg3o6xNesWelOcJA59tfqiEkFsm/N9kxa6rdtvPBG3iIJsryWgHD8krBO1Vu/x9V68
+	 b7RBVnY8auAU/AFAbHVqSUthR+CHsZxpG+r8IyPnWGerRDkGfP2wzBIDRYejAFuNDZuye
+	 xquKGWDn9aOmCFKImFhqMayYTdWAfp0kjWU86b+gxQHVdwOyu8N8pU0HGgAN8CSyrb869
+	 uXACrfKzzRyUODCv5GU8LFyz8iAWBNEd4Z4n0beo/pl9naxod3uRJ6hk754lTyq8KShwC
+	 ZH4eTarcosVtZTOzKcTaaqTYe2oONDERUwTi7yjvcKHlqfwbuwLSqa/7kqpbwfh8FTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=EEauRH0X;
-	arc=none smtp.remote-ip=209.85.217.98
-Received: from mail-vs1-f98.google.com (mail-vs1-f98.google.com [209.85.217.98])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EjLYtXrA;
+	arc=none smtp.remote-ip=209.85.222.52
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2127B606A333
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 22:29:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2127B606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8622B606A321
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 22:34:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8622B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=EEauRH0X
-Received: by mail-vs1-f98.google.com with SMTP id ada2fe7eead31-7d6a6776719so2332703137.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:29:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EjLYtXrA
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-99e0082c434so898748241.3
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:34:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1795472991; x=1796077791; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H2vxAWoYWHp6UyKnUQXbx7unIB0YZxuVIcKrameyVgM=;
-        b=EEauRH0XZJQvGZczsRF6XoVb37PsS0/4gNMc0EzE1MZMqIaE2kNv259tfgRNkN7jdH
-         HnUKMimueeuQ7DX357m0LEvAO1ds7kUZleVD3svjXxcPaXcV3QMIWZpvDYvTJutQ5n8S
-         wN+H/5xRu9IeL3xexuSUHvcHO+yR5qgYOWjnXbm52wKNmOSesMvWDW8ZzF+Ri6n6510t
-         ncMUzOu+QG9KM+O0AggcU7TalZj1DRGSMpEljnvaSKAIueymHBpWYkS5nocbtbIlaKZ4
-         ssf1ufIPfEtdHFubBp0Sd2FCmLauF5O+aMnRJvuPNa/KXxhek7DMwXPC0iIX9HEpXwdO
-         X3qw==
+        d=gmail.com; s=20260707; t=1795473252; x=1796078052; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=03w06bSm1yONRYYXB48Ye2MeketUdFgM5u2hRd5PsVE=;
+        b=EjLYtXrAc3UlzR3T8RzWHffjsUR5UVohVDSnop8XhH9PVdN8bbaJremTeNb65hFOgD
+         hF8x9A8buy93T7dvFRtMNiTAMS+hkYsqW59iWi7J4hkHtzEYKeoPQjsRQu6iS460o4Xe
+         XBzmHmMK7YTOTpeYMMnu9V1HJ0QanN4U84ONMjueWj/uJHZN9yc4cQ50ZzdbYd3nf26c
+         YIBM3ncAyzH8gY+HEDnManwqyJrOQDQwPiPxYI2Z3/Abg5YwoBek8GyngRdBgjA/gSE/
+         jqPRTSgYwJZSPyFWa7ZhBVQttpZwLdE5JYgMXF60EJU43mMVRqfTn5rr6UvLFjySWaqt
+         axaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795472991; x=1796077791;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H2vxAWoYWHp6UyKnUQXbx7unIB0YZxuVIcKrameyVgM=;
-        b=LW0ByCG3aI+3ceP0/C/lWLB2CsrtADCu054bZmV3nbdc5ckHCGWvBN6CMdxS10mfAZ
-         XvSuJrkhPFPFmegSpo2UQCzjQvH7GhD4f7ouWHNS73hPkCsPUMrEWfscl7rFVil83Xwu
-         Xprlxk3pSP5uNl8cAW4yhGYpqhHNv8JMFtYAUiMCB5tdb7rjQUjCu/2sCHNHkv9GTeL5
-         cYiiBJmsw+e2vWArBjPevA+ZXdp4kXwfUJzo2FiF8OMM3aGqJvAQ7R6sUEJRd2VPf0xt
-         eLULw8XMhB48Fz1FlIOd/cycLR/EiKmSgV5ni9edn58P8jLKjubhFKZR784RqN8HF48T
-         t1iw==
-X-Forwarded-Encrypted: i=1; AL+hErGpepLUztr+dzoUB8dK7BCoC+xtDCdUXP0fPIrxSFHQwFYr4hQJdLfANDv3tYfCv/nm8e+CGXc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fMuPXThSxIidrY4P29FnhPlZwtL4TWnBlJxOoO2XxdeTI7l8/
-	ux/HXPbCZ5RV+uK6QfuZViBLPXM/aEFp/11+i2pUg3UlhDjZ3bgPUHEmBAKux/mxUymUm8dUCSb
-	v67YdXplMxET5sv2TaLAHPKRGWZwmDaNqzRvDadVkD6sa6WnGGDBN
-X-Gm-Gg: AZFdTZfPISFUiOyNWss73P3XXukY0Ojp7tvgyLPQfaMnwr4VMWLAvT64w8k+xJk4QJT
-	JXzl8ZGJ0wktiVXO2nN0k/yyaW8xRmLvapn7hlxcgq9bcYZiZte5sQ56k7cS4Zoq42e+JLl89Eo
-	E9g2NB9GnHrR2Zkwr/nxnLmbKPtHKEF6nmUus+p9HVpHwzYhLXMFIBzyk9lMev+2xb4jfGwe71H
-	Au7D3HIJ7okWk9OuvTMBHSBkAN6IlxXt/HgVfvgdWCS5Kha9ldSO+cM/fJuYg1lm8wZ5GyQmcD5
-	aOasfx/Us4oD4VuI2vYqDG0edTdkh3Rg3oCjoAfo7pqmWIxjTc7d2jE20eAObsDI07/kpWcw3qd
-	8B0mmGkz9spanSPKazMfg
-X-Received: by 2002:a05:6102:448b:b0:7c1:7ca9:94bf with SMTP id ada2fe7eead31-7d739462bc5mr7097568137.19.1795472991005;
-        Mon, 23 Nov 2026 14:29:51 -0800 (PST)
-Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
-        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-99e6e120c2esm1306669241.10.2026.11.23.14.29.50
+        d=1e100.net; s=20260707; t=1795473252; x=1796078052;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=03w06bSm1yONRYYXB48Ye2MeketUdFgM5u2hRd5PsVE=;
+        b=TlUj/2QWhNr714Ooh5Hu0XuCNGE0rCOjhtNPnlZ/9qVGJKFvKoJuO+5RuZDg/s0LGG
+         zTyRnVdB4kYGIkGGOmf0QBCGX/YokbH0ViwunLDqzR3LdNji3goohxTu3Bs3LxPDZ784
+         9E/CZgDeD24vi9nvnfRVl3ciF7fEexoLhiUuV1XxP9O9zqvMb01R04BHMOJ2cyqnHv2H
+         bI2MHX64SBDji2RmatFH8Id2O2mTuv153hXiBQIygVlW2oqxoZFy/FfIZyOtHiAB00cn
+         h7uXDPB4TQH1D+AGRynAwAJc8B022A/Z7GjQQcy99Zz/kio5QuZyq/yhWfBFvKzupvgj
+         YE+w==
+X-Forwarded-Encrypted: i=1; AL+hErEd3gcxypbRyhe1u2/RUzl7NOjLHA9ST4o7MmgAnYYaakxI6JG1UU0DG2eSXzPvAP09nSfVrec=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZCukQ1P9/L8MXkYqkYKczcEjFEN4Jk3av8dXbw1vuqLW6C9cb
+	8nEHxp4I6tHs97CmVwvqJUVreL7mlVtMvqQdJYQk9c6c72SRlPgklgzVRh+0ZQ==
+X-Gm-Gg: AZFdTZfOp9cBA8PuyDzEX/L5w5hV//7tsfbI57qIIU20oSu2clNi2JrcK7QsoP75MUS
+	q4GoKXloxNJbnfLpw/KuurL6Lmth3rLtOiZBm7oFQmXkWmgBjPBlK6FvCgqMhQGGdb691JS565G
+	YC2dA56B+80P8CdT63EbYp9c6DAHIOn7xF4+UGAAMyC5c9id4W8Rsh/9UGfABwslLgcMvJRmPdk
+	kLXB0Y9hGWxLKOCl1bfgOQStUp5+L0QweI+c3sWMCh4wW7mqKDSMjgkyCunj3Y8M+9jwoiHpeJD
+	A9fgXRbH5LKBZC7wx4hQBUZ5MRKZkbB66e8VK71moVPvZomUvDmjIFNfD1gJWZRYC9mJSFHD92L
+	uuiZ9kztpomksDCnP6hHx+Ys3uRr0XqlJtZDAtbhzZpWeTHom9vNXTU2QILcukTylV8plc44Bfk
+	ZUXSk7amW1lEm6GZW6OY8aFZtrRTwR2mnSLMHd1+RNt/HbnXY4/90xASsQ654fy5gqJq58mG7QF
+	agqGhH6loGYkJule4oKgVedqKOq1B45FKLVn2lAL0X/3EDLDUFxc2QsRwf7H7Fk9QkTD39b9gXd
+	GByGmekPfFhCsbuMm2ESr2ikVdMqyI/c7CAYjlR7BrXIMW6P5hATxKv08w6FUHsfTzGJyOLhd1X
+	DXk+lrCZnDm/FcF6vS+Tf19I=
+X-Received: by 2002:a05:6102:3f16:b0:7d6:e716:8e05 with SMTP id ada2fe7eead31-7d7392a486amr5876555137.5.1795473251968;
+        Mon, 23 Nov 2026 14:34:11 -0800 (PST)
+Received: from fabio-X870-EAGLE-WIFI7.tail2bb604.ts.net ([2804:1b3:a803:a13e:59e7:dd47:a2cb:e700])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e6dec57ddsm12729378241.1.2026.11.23.14.34.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 14:29:51 -0800 (PST)
-X-Relaying-Domain: purestorage.com
-Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [IPv6:2620:125:9025:23::2ea])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 6156F40124;
-	Mon, 23 Nov 2026 15:29:50 -0700 (MST)
-Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
-	id 5DEDEDC0D02; Mon, 23 Nov 2026 15:29:50 -0700 (MST)
-From: Rishikesh Jethwani <rjethwani@purestorage.com>
-To: netdev@vger.kernel.org
-Cc: Rishikesh Jethwani <rjethwani@purestorage.com>,
-	stable@vger.kernel.org,
-	John Fastabend <john.fastabend@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Simon Horman <horms@kernel.org>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Alice Mikityanska <alice.kernel@fastmail.im>,
-	Boris Pismenny <borisp@mellanox.com>
-Subject: [PATCH net v6 2/2] tls: restrict device-down TX fallback to hardware TX sockets
-Date: Mon, 23 Nov 2026 15:29:44 -0700
-Message-ID: <20261123222947.1014041-2-rjethwani@purestorage.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261123222947.1014041-1-rjethwani@purestorage.com>
-References: <20261123222947.1014041-1-rjethwani@purestorage.com>
+        Mon, 23 Nov 2026 14:34:11 -0800 (PST)
+From: Fabio Estevam <festevam@gmail.com>
+To: laurentiu.palcu@oss.nxp.com
+Cc: dri-devel@lists.freedesktop.org,
+	imx@lists.linux.dev,
+	marek.vasut@mailbox.org,
+	mripard@kernel.org,
+	Fabio Estevam <festevam@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/mxsfb: lcdif: Fix use-after-free on unbind
+Date: Mon, 23 Nov 2026 19:33:57 -0300
+Message-ID: <20261123223357.535424-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,165 +101,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tls_device_down() switches every offloaded TLS context associated with
-the device to the TX software fallback, including hardware-RX sockets
-without TX offload (RX-only, or software TLS TX). The fallback expects
-a hardware TX context in priv_ctx_tx, so such a socket can crash when
-transmitting a payload skb. In the oops below, a payload skb queued on
-the neighbour entry during the down/up cycle was flushed on ARP reply:
+lcdif allocates its private data, which embeds the CRTC and primary
+plane, and its encoders using devres. These DRM objects are linked into
+the mode_config lists.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000008
-  tls_sw_fallback+0x11b/0x450
-  validate_xmit_skb.isra.0+0x14f/0x420
-  __dev_queue_xmit+0x5e8/0xf30
+Since mode_config cleanup is DRM-managed, it is deferred until the DRM
+device is released. An open DRM file can keep the DRM device alive after
+the platform device has been unbound and devres has freed those objects.
+The later mode_config cleanup then dereferences freed memory.
 
-Device-down teardown cannot key on tx_conf/rx_conf: setup publishes
-them after releasing device_offload_lock, and they share a byte written
-without that lock. Device-down can therefore observe configuration
-fields that do not yet reflect a successful tls_dev_add() and skip the
-required tls_dev_del(), leaking driver state. Key it on installed
-driver state instead.
+Allocate the private data with drmm before initializing mode_config so
+that it remains alive until mode_config cleanup has completed. Allocate
+encoders with drmm_plain_encoder_alloc(), which cleans up each encoder
+and removes it from the mode_config list before freeing its memory.
 
-TX: switch the validator only if it is tls_validate_xmit_skb(), record
-the switch in TLS_TX_DEV_DOWN, and call TX tls_dev_del only when that
-bit is set. tls_set_device_offload() now publishes the validator under
-device_offload_lock; otherwise device-down could run between
-tls_device_attach() and the store, skip tls_dev_del (leaking driver
-state), and setup would then install the hardware validator on a
-torn-down attachment. Contexts never return to the active list, so the
-bit needs no reset.
+This can be reproduced on i.MX8MP by keeping the DRM card open across an
+LCDIF unbind and closing it afterwards.
 
-RX: TLS_RX_DEV_CLOSED now means "no RX driver state installed". Set it
-at context creation and after every RX tls_dev_del, and clear it after
-a successful RX tls_dev_add under device_offload_lock. This avoids
-deleting absent RX state and reading tx_conf/rx_conf while their
-shared byte is updated.
-
-Tested on Mellanox ConnectX-6 Dx (Crypto Enabled): the crash reproduces
-without this patch; with it, an RX-only socket survives interface
-down/up and keeps receiving TLS records.
-
-c55dcdd435aa made the fallback switch unconditional; 4799ac81e52a keyed
-teardown on tx_conf/rx_conf.
-
-Fixes: c55dcdd435aa ("net/tls: Fix use-after-free after the TLS device goes down and up")
-Fixes: 4799ac81e52a ("tls: Add rx inline crypto offload")
 Cc: stable@vger.kernel.org
-Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
+Fixes: 1c71d925c03a ("drm: lcdif: Switch to drmm_mode_config_init")
+Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
 ---
- include/net/tls.h    | 10 ++++++----
- net/tls/tls_device.c | 20 +++++++++++++-------
- net/tls/tls_main.c   |  1 +
- 3 files changed, 20 insertions(+), 11 deletions(-)
+Changes since v1:
+- Rebase onto next-20261123 after the devm_kzalloc_obj() conversion.
+- Add Laurentiu's Reviewed-by tag.
 
-diff --git a/include/net/tls.h b/include/net/tls.h
-index 0b001b8ab1c3..faaeffd9981b 100644
---- a/include/net/tls.h
-+++ b/include/net/tls.h
-@@ -188,12 +188,14 @@ enum tls_context_flags {
- 	 * to be atomic.
- 	 */
- 	TLS_TX_SYNC_SCHED = 1,
--	/* tls_dev_del was called for the RX side, device state was released,
--	 * but tls_ctx->netdev might still be kept, because TX-side driver
--	 * resources might not be released yet. Used to prevent the second
--	 * tls_dev_del call in tls_device_down if it happens simultaneously.
-+	/* No RX device state is installed. Set at context creation and after
-+	 * RX tls_dev_del, cleared after a successful RX tls_dev_add. Prevents
-+	 * deleting absent or already released RX state while ctx->netdev may
-+	 * still be kept for TX.
- 	 */
- 	TLS_RX_DEV_CLOSED = 2,
-+	/* Records the TX fallback switch for device-down's cleanup loop. */
-+	TLS_TX_DEV_DOWN = 3,
+ drivers/gpu/drm/mxsfb/lcdif_drv.c | 24 +++++++++---------------
+ 1 file changed, 9 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+index b7be7e17d1d0..bc1a9a2fc6bd 100644
+--- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
++++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+@@ -24,6 +24,7 @@
+ #include <drm/drm_fbdev_dma.h>
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_mode_config.h>
+ #include <drm/drm_module.h>
+ #include <drm/drm_of.h>
+@@ -43,10 +44,6 @@ static const struct drm_mode_config_helper_funcs lcdif_mode_config_helpers = {
+ 	.atomic_commit_tail = drm_atomic_helper_commit_tail_rpm,
  };
  
- struct cipher_context {
-diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
-index e4e675243779..0af2514b883c 100644
---- a/net/tls/tls_device.c
-+++ b/net/tls/tls_device.c
-@@ -1195,13 +1195,13 @@ int tls_set_device_offload(struct sock *sk)
- 		goto release_lock;
+-static const struct drm_encoder_funcs lcdif_encoder_funcs = {
+-	.destroy = drm_encoder_cleanup,
+-};
+-
+ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+ {
+ 	struct device *dev = lcdif->drm->dev;
+@@ -74,19 +71,16 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+ 					     "Failed to get bridge for endpoint%u\n",
+ 					     of_ep.id);
  
- 	tls_device_attach(ctx, sk, netdev);
--	up_read(&device_offload_lock);
- 
- 	/* following this assignment tls_is_skb_tx_device_offloaded
- 	 * will return true and the context might be accessed
- 	 * by the netdev's xmit function.
- 	 */
- 	smp_store_release(&sk->sk_validate_xmit_skb, tls_validate_xmit_skb);
-+	up_read(&device_offload_lock);
- 	dev_put(netdev);
- 
- 	return 0;
-@@ -1282,6 +1282,7 @@ int tls_set_device_offload_rx(struct sock *sk, struct tls_context *ctx)
- 		goto free_sw_resources;
- 
- 	tls_device_attach(ctx, sk, netdev);
-+	clear_bit(TLS_RX_DEV_CLOSED, &ctx->flags);
- 	up_read(&device_offload_lock);
- 
- 	dev_put(netdev);
-@@ -1314,12 +1315,11 @@ void tls_device_offload_cleanup_rx(struct sock *sk)
- 
- 	netdev->tlsdev_ops->tls_dev_del(netdev, tls_ctx,
- 					TLS_OFFLOAD_CTX_DIR_RX);
-+	set_bit(TLS_RX_DEV_CLOSED, &tls_ctx->flags);
- 
- 	if (tls_ctx->tx_conf != TLS_HW) {
- 		dev_put(netdev);
- 		rcu_assign_pointer(tls_ctx->netdev, NULL);
--	} else {
--		set_bit(TLS_RX_DEV_CLOSED, &tls_ctx->flags);
- 	}
- out:
- 	up_read(&device_offload_lock);
-@@ -1351,7 +1351,12 @@ static int tls_device_down(struct net_device *netdev)
- 		 * The context reference pins ctx; tls_device_lock keeps ctx->sk
- 		 * allocated until the validator has been switched.
- 		 */
--		WRITE_ONCE(ctx->sk->sk_validate_xmit_skb, tls_validate_xmit_skb_sw);
-+		if (READ_ONCE(ctx->sk->sk_validate_xmit_skb) ==
-+		    tls_validate_xmit_skb) {
-+			WRITE_ONCE(ctx->sk->sk_validate_xmit_skb,
-+				   tls_validate_xmit_skb_sw);
-+			set_bit(TLS_TX_DEV_DOWN, &ctx->flags);
+-		encoder = devm_kzalloc_obj(dev, *encoder);
+-		if (!encoder)
+-			return dev_err_probe(dev, -ENOMEM,
+-					     "Failed to allocate encoder for endpoint%u\n",
+-					     of_ep.id);
+-
+-		encoder->possible_crtcs = drm_crtc_mask(&lcdif->crtc);
+-		ret = drm_encoder_init(lcdif->drm, encoder, &lcdif_encoder_funcs,
+-				       DRM_MODE_ENCODER_NONE, NULL);
+-		if (ret)
++		encoder = drmm_plain_encoder_alloc(lcdif->drm, NULL,
++						   DRM_MODE_ENCODER_NONE, NULL);
++		if (IS_ERR(encoder)) {
++			ret = PTR_ERR(encoder);
+ 			return dev_err_probe(dev, ret,
+ 					     "Failed to initialize encoder for endpoint%u\n",
+ 					     of_ep.id);
 +		}
++
++		encoder->possible_crtcs = drm_crtc_mask(&lcdif->crtc);
  
- 		list_move(&ctx->list, &list);
- 	}
-@@ -1375,13 +1380,14 @@ static int tls_device_down(struct net_device *netdev)
- 		synchronize_net();
+ 		ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 		if (ret)
+@@ -131,7 +125,7 @@ static int lcdif_load(struct drm_device *drm)
+ 	struct lcdif_drm_private *lcdif;
+ 	int ret;
  
- 		/* Release the offload context on the driver side. */
--		if (ctx->tx_conf == TLS_HW)
-+		if (test_bit(TLS_TX_DEV_DOWN, &ctx->flags))
- 			netdev->tlsdev_ops->tls_dev_del(netdev, ctx,
- 							TLS_OFFLOAD_CTX_DIR_TX);
--		if (ctx->rx_conf == TLS_HW &&
--		    !test_bit(TLS_RX_DEV_CLOSED, &ctx->flags))
-+		if (!test_bit(TLS_RX_DEV_CLOSED, &ctx->flags)) {
- 			netdev->tlsdev_ops->tls_dev_del(netdev, ctx,
- 							TLS_OFFLOAD_CTX_DIR_RX);
-+			set_bit(TLS_RX_DEV_CLOSED, &ctx->flags);
-+		}
+-	lcdif = devm_kzalloc_obj(&pdev->dev, *lcdif);
++	lcdif = drmm_kzalloc(drm, sizeof(*lcdif), GFP_KERNEL);
+ 	if (!lcdif)
+ 		return -ENOMEM;
  
- 		dev_put(netdev);
- 
-diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
-index fa71c75c2861..54d851df0c58 100644
---- a/net/tls/tls_main.c
-+++ b/net/tls/tls_main.c
-@@ -935,6 +935,7 @@ struct tls_context *tls_ctx_create(struct sock *sk)
- 		return NULL;
- 
- 	mutex_init(&ctx->tx_lock);
-+	set_bit(TLS_RX_DEV_CLOSED, &ctx->flags);
- 	ctx->sk_proto = READ_ONCE(sk->sk_prot);
- 	ctx->sk = sk;
- 	/* Release semantic of rcu_assign_pointer() ensures that
+
+base-commit: 3191063649dbf7c0d0b768e1f3655e4c5fc6edb5
 -- 
-2.50.1
+2.43.0
 
