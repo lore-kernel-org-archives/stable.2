@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795437873;
-	b=xhqIA0RU5/4IhuE04vaDXEURWkJZL9nEc3Am6m/qakZ++gwjtwx4VJU2mGoyhA4VGh+z
-	 9NFcJCAnpXAbiHcmJqZFphhwpFhNmYiHyG94ekGh0CusEF6qzSndmggdStI7xqeEDfkFZ
-	 QLaoKy5vGk9zciZ0Yb7HxWJeTLz5IOF6PSqRymIv3O4HbvjjDyzNXFVEBf3YKU+RhwQxG
-	 GLEV53WrzCMacKfgSn5o6+WFA3Hz9UoM/+cKZo3UUwbFKR+AWqr/of8eH0Ds8cMZnt9lE
-	 a1e4xXqwGflHC7HZAJAjLOsoMqJHSQpH2a+LZsRziPGVzJcptAWlMI5hnpmxS2IRcNA==
+	t=1795438135;
+	b=EZ5jreZFIdqoJCiZ4WAImpeQWDrA3BKTqzGnjCCfyfqlhEoM7PlXJYXPZbJsJCIfjACD
+	 59CNy84NGabvDEydYq7sKN7dmPwt72qQuRy7+Rvb9OstdQ2ENc0N2kEGI+odX6IqmU/Ij
+	 hM6fwN8jgiNYyGKeJISi7lp59MbwiqhzlGP/CZflrKa/8jZ7nCD1X8KInjT4/TqjRmjEW
+	 ndyrQhkNO05qwI4pLcLXmdu+7DukHi66Jv4WBvSXr3wDSkC/QWvNzPOuVuqYG0aaTMIVG
+	 xfXV+1YRdY/8IuoyxBBWsae04/G7FKluIRfsZRGQcIdODwK/9FFobLzgH/ZAZHCNDBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795437873;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type;
-	bh=0b+/w/Gu7/81yyJrjZNFubpzFxZIbcXJGpm7HBlFaXw=;
-	b=niphla4tyijouyBnJuVAoV+XeMCj+DRvCPApsxyZXZO54eAUhL3DCv11b83B0agQ5pMT
-	 usvVcyxyKXfWfHDTRLGluQRcwTshCkt4XsbaG6bngbVtPUw99dlm5A/Gio5KUn7HxQp1P
-	 io/iWRScPSAKeGpwvEMgrSzU1GoS46szdz+H+FTgcI6M/meSQwW2pmfqJiuaMSOu4yB+/
-	 c8ExWOyrcGncVvCrHyaD2RKRKKU0+2jDXCcG/ZZ4EvCSRhjFDT+5O3jVdWlhN3onuys/V
-	 nN/WiK5OKh0pJETyy8ID3wjyo6vbT4O876DOZQlrCbtn5lSaikAmyLa22PXB5nLmcPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795438135;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=yI2Wo78/lAboL4lqhYNXgiMMUATpxcgIbU7d5ySHTsM=;
+	b=tDzsCzKyR2euU20ManvBRvUjYmTnwdkszjLGHqcw6JtHjNNK7FyHVfOY1lncakyEwFWh
+	 dv6uudFkhjdIKqNkUY2/UJKI2L6dAQ+qCW/tebMGCrMYnBYfujKebAuC0jg9OOmJhZTDh
+	 BRS3o5c+977Cb3wP8wVRACN30DhK8f+EXayeMFd8MuVigDURw7g41pWXYnXI1aOJSrVcB
+	 OiZsZIBBa0nmHFnkExpfWbkzIPr1bG2sHaKcyxiH8Lq6p5rlItth/ViV/flpqq9U4gu6J
+	 wRwxLC62JYJKFhAnlqoL8OvphHJ8RgeuhjNV+TnHySehkmezTKW5UJ+5K+rIobSJ8uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=S37Ksspv;
-	arc=none smtp.remote-ip=79.135.106.118
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nilGTLgC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CA9606A31F;
-	Mon, 23 Nov 2026 12:44:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97CA9606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBA6606A31A;
+	Mon, 23 Nov 2026 12:48:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=S37Ksspv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1795437870; x=1795697070;
-	bh=0b+/w/Gu7/81yyJrjZNFubpzFxZIbcXJGpm7HBlFaXw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=S37Ksspv6FMqeI67YJdulvHnqRcN/UI+pKp65mZ2bogVh145crzoixmMolgKrQa9E
-	 idfpE8XCqH4Oe46Ca3wc7PTRyNXcMpYk+7EcxYOHuoP67Ro4kDMs16RlVcuznuAXri
-	 vyd+J6WYYaFs3ZxbZmv+WQhG0Eo+VxGI8OMhlzFdowGQQ7gPy2zewf3eIwa4F00WC/
-	 jP1Mk99FKjYHZ/TWzqZtBa6lZCbOSb/zLCW9drubMU5p4HWvsFOhcNXDaiMoigAhJk
-	 RSyjKz2kTFpzIQ72gY/HPuY4mPtf7WrTfJHADbY5WjhOySyWgussHw6cQcCeQF1kc+
-	 BrHvEwPM3y98g==
-Date: Mon, 23 Nov 2026 12:44:24 +0000
-To: Eugenio Perez Martin <eperezma@redhat.com>
-From: fadouse <fadouse@pm.me>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, Linfeng Sun <linfeng.sun.dev@gmail.com>, Fang Xieyan <fangxy@xiaopeng.com>, kvm@vger.kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] vhost: mask the in-order used-ring log cursor
-Message-ID: <uD642sRa0jdIPD2nCoKzjJDfS2fpCefT340JqjRvOUyFkoXpwNAAabmjwSltui9-PD1DNwFJrw0xrsZqbYKJ5x3fraz9Wv46l3OrkBVA3vc=@pm.me>
-In-Reply-To: <CAJaqyWdOF3LVF+WHaGw8gimULaCunRkuLnKAhciB7HWpYhnm9w@mail.gmail.com>
-References: <20261122-b4-06-vhost-in-order-log-oob-v1-35efdba8fbab-v1-1-fc1253d60351@pm.me> <CAJaqyWdOF3LVF+WHaGw8gimULaCunRkuLnKAhciB7HWpYhnm9w@mail.gmail.com>
-Feedback-ID: 173252840:user:proton
-X-Pm-Message-ID: bafe6e04ebbed8c7cdd7426462ae83353df9de95
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nilGTLgC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C4D1F000D0;
+	Mon, 23 Nov 2026 12:48:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795438135;
+	bh=yI2Wo78/lAboL4lqhYNXgiMMUATpxcgIbU7d5ySHTsM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=nilGTLgC5K9CC6eh63Q0pR7rGHQfz6Pjl3M2IuE6LL6EKvJStnDSSHvavsd5JP3ip
+	 AqEu1ZMc2cbdH34sZnguZeHE9WfwW0jJvWHLv20K/2w7BigtbyoFbcdYMpBEebNscM
+	 wwAtuLm5mBFjX39eX4myW4HlkRrLqQk1Zwva8ZU8zl4geMZ7ocf83d1IjgAtxo+Uz0
+	 ZylFfG8IdUXhShpMDqangaE49FOVy8YxlNOhxnNgjU01NznZ9x2btjqQPugeYkhQVO
+	 9Cns9kWwFkfX9PfSOl4waywvScWLXVke/iWMbe3221BzJdjMOzMhyAptTU7goZ3Bsd
+	 Ae+aixnb7+E4w==
+Subject: Re: [PATCH net v2] net/sched: act_ife: return -EAGAIN after dropping
+ rtnl_lock in load_metaops_and_vet()
+From: netdev-bot+sashiko@kernel.org
+To: fadouse@pm.me
+Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 23 Nov 2026 12:48:54 +0000
+Message-ID: <179543813406.3135.15745616872300382040@kernel.org>
+In-Reply-To: <20261122-b4-02-act-ife-rtnl-uaf-v2-102eba468698-v2-1-67c413c45928@pm.me>
+References: <20261122-b4-02-act-ife-rtnl-uaf-v2-102eba468698-v2-1-67c413c45928@pm.me>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,97 +63,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------58b4c18d041a1900b7efe55bc7f3f43ca00cda905f3a1cbf8a2befe5d918f9b7"; charset=utf-8
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------58b4c18d041a1900b7efe55bc7f3f43ca00cda905f3a1cbf8a2befe5d918f9b7
-Content-Type: multipart/mixed;boundary=---------------------d069c3b756c1c87bc344816b0df5f7b0
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
------------------------d069c3b756c1c87bc344816b0df5f7b0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Hi Eugenio,
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> Although I'm ok with the proposed patch as hardening or optimization,
-> this sounds more like a bug in get_rx_bufs. Where are the memory
-> addresses for these pieces stored if there are no more buffers in the
-> virtqueue? Or is it able to loop through the vq?
+- [High] This patch does not fully close the use-after-free it claims to
+  fix for cls_u32, one of the classifiers named in the commit message.
 
-Yes =E2=80=94 get_rx_bufs() loops around the same virtqueue when a
-non-conforming guest advances avail->idx while earlier descriptors are
-still in flight.  handle_rx() passes quota =3D UIO_MAXIOV (1024) for
-mergeable RX, and each vhost_get_vq_desc_n() call appends the
-translated buffer addresses into vq->iov (also sized to UIO_MAXIOV).
-Because vhost_get_avail_idx() compares avail_idx against
-vq->last_avail_idx rather than vq->last_used_idx, it rejects only when
+--
 
-  (u16)(avail_idx - vq->last_avail_idx) > vq->num
+net/sched: act_ife: return -EAGAIN after dropping rtnl_lock in load_metaops_and_vet()
 
-so the guest can reuse the 32 ring slots mid-packet and get_rx_bufs()
-appends those addresses again into vq->iov[32..63], returning
-headcount =3D 64.
+This patch changes load_metaops_and_vet() so that it returns -EAGAIN when
+it has dropped rtnl_lock() to autoload an IFE metadata module and the
+module then loads. The caller is then expected to replay the request under
+a fresh RTNL critical section. The goal is to close a use-after-free in
+RTNL-locked classifiers that hold unrefcounted pointers across
+tcf_exts_validate().
 
-Bounding get_rx_bufs() (e.g. capping its quota against vq->num, or
-checking in-flight descriptors more broadly) is certainly worth
-looking at separately, while keeping the mask in
-vhost_add_used_n_in_order() keeps the dirty-logging cursor consistent
-with the publishing loop from commit e244725e86be.  If you think a
-follow-up check in get_rx_bufs() makes sense, I'm happy to look into
-that as a separate patch.
+> diff --git a/net/sched/act_ife.c b/net/sched/act_ife.c
+> index 5a527da005661..5d6ca124e0047 100644
+> --- a/net/sched/act_ife.c
+> +++ b/net/sched/act_ife.c
+> @@ -275,6 +275,14 @@ static int load_metaops_and_vet(u32 metaid, void *val, int len, bool rtnl_held)
+>  		if (rtnl_held)
+>  			rtnl_lock();
+>  		ops = find_ife_oplist(metaid);
+> +		if (ops && rtnl_held) {
+> +			/* We dropped the RTNL mutex in order to perform the
+> +			 * module load. Tell the caller to replay the request
+> +			 * under a fresh RTNL critical section.
+> +			 */
+> +			module_put(ops->owner);
+> +			return -EAGAIN;
+> +		}
+>  #endif
+>  	}
 
-> Can you post the reproducer? Even better if it is integrated in
-> tools/virtio/vhost_net_test.c.
+[Severity: High]
+Does this fully close the race for cls_u32? The commit message lists it as
+one of the affected classifiers.
 
-I just posted the standalone C reproducer in my reply to Jiaming in
-this thread.  Note that tools/virtio/vhost_net_test.c drives the ring
-through the conforming vring_new_virtqueue() / virtqueue_add_inbuf()
-API, whereas reproducing this requires a raw vring advancing avail->idx
-past last_used_idx + vq->num with VIRTIO_F_IN_ORDER |
-VIRTIO_NET_F_MRG_RXBUF | VHOST_F_LOG_ALL and VHOST_VRING_F_LOG set in
-VHOST_SET_VRING_ADDR.  If you'd still like a raw-vring test case added
-under tools/virtio/, I'm happy to include it in a v2 (along with fixing
-the minor 262 -> 260 byte used-ring size typo in the commit message).
+RTNL is still dropped around request_module(). The new -EAGAIN, and the
+existing -ENOENT when the module does not load, both go back through the
+classifier's error unwind before tc_new_tfilter() gets a chance to replay.
 
-Thanks,
-YanXin
------------------------d069c3b756c1c87bc344816b0df5f7b0
-Content-Type: application/pgp-keys; filename="publickey - fadouse@pm.me - 0x99485AA3.asc"; name="publickey - fadouse@pm.me - 0x99485AA3.asc"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="publickey - fadouse@pm.me - 0x99485AA3.asc"; name="publickey - fadouse@pm.me - 0x99485AA3.asc"
+On the new-key path, u32_change() looks up a hash table pointer without
+taking a reference. It then reserves a handle in that table and calls
+u32_set_parms():
 
-LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgp4ak1FYVV1T01SWUpLd1lCQkFI
-YVJ3OEJBUWRBdG5ZbFN6SFRMSEEySXp1TkUxQXk4SnJLVUN4NmhQKy8KdGM0TERYQ25yZXpOSFda
-aFpHOTFjMlZBY0cwdWJXVWdQR1poWkc5MWMyVkFjRzB1YldVK3dzQVJCQk1XCkNnQ0RCWUpwUzQ0
-eEF3c0pCd2tRdVoxZ3QrWG0yWFJGRkFBQUFBQUFIQUFnYzJGc2RFQnViM1JoZEdsdgpibk11YjNC
-bGJuQm5jR3B6TG05eVp6bTBCcDNlRVhSV2tuSWdDbFd3dmR4Wm1vMVhuVmI2RmthalhUVk0KMUIv
-akF4VUtDQVFXQUFJQkFoa0JBcHNEQWg0QkZpRUVtVWhhbzNaL0FuQkk0TEJZdVoxZ3QrWG0yWFFB
-CkFMcTJBUUQ3OEs2cGVkU1gzbGROeXFkM09IMXVNak8zdjdMWU1oTytsN2NuU0xXckVBRCtPQ1Nx
-MTFTZQphS29ic1ZHckxlalRNc21Nc1BCOGpueGZpZDNoQ04rcGV3VE9PQVJwUzQ0eEVnb3JCZ0VF
-QVpkVkFRVUIKQVFkQXdYZHpWSXFFSC94OEhaalIvUE90MkFpRmJFbTZZcVhYMmoydjJpS0RzUU1E
-QVFnSHdyNEVHQllLCkFIQUZnbWxMampFSkVMbWRZTGZsNXRsMFJSUUFBQUFBQUJ3QUlITmhiSFJB
-Ym05MFlYUnBiMjV6TG05dwpaVzV3WjNCcWN5NXZjbWRkS05RWURGV2NFVmQzeE9IZVFwNnN5bjc5
-TkZwTnFrSHoraXpwSUxCblVnS2IKREJZaEJKbElXcU4yZndKd1NPQ3dXTG1kWUxmbDV0bDBBQUR6
-UWdEL2NJSjA4OUprbm9nVHM2dnZRWitKCjNMUklEYUk5K1FtK1Q1cU9tTms0eVhFQkFMUElsSkNT
-OGFoNWRCWVphOUwrSHFqYkRtZVNnRG81OHVTeAoraVd3KzZVTAo9TXVzVAotLS0tLUVORCBQR1Ag
-UFVCTElDIEtFWSBCTE9DSy0tLS0tCg==
------------------------d069c3b756c1c87bc344816b0df5f7b0--
+net/sched/cls_u32.c:u32_change() {
+    ...
+			ht = u32_lookup_ht(tp->data, TC_U32_HTID(htid));
+    ...
+		handle = gen_new_kid(ht, htid, &err);
+    ...
+	err = u32_set_parms(net, tp, n, tb, tca[TCA_RATE],
+			    flags, n->flags, extack);
+    ...
+}
 
---------58b4c18d041a1900b7efe55bc7f3f43ca00cda905f3a1cbf8a2befe5d918f9b7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+u32_set_parms() reaches the RTNL drop like this:
 
------BEGIN PGP SIGNATURE-----
+u32_set_parms()
+  tcf_exts_validate_ex()
+    tcf_action_init()
+      tcf_ife_init()
+        load_metalist()
+          load_metaops_and_vet()
 
-wrsEARYKAG0FgmsENRsJELmdYLfl5tl0RRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmdj965l96TGsIIKmmxQU32Zw/dVnWCzLdb8YQz0
-Gr3K8RYhBJlIWqN2fwJwSOCwWLmdYLfl5tl0AAD7hQD/fwtoieRvuhRodIxq
-IWCsEyxpCrl4gXWSL/hGE2HK77gBAPyNdErgg+xso5um/oMKGA/E16dhYy4H
-l2dwd5UCXaEH
-=1GBE
------END PGP SIGNATURE-----
+While RTNL is dropped, a concurrent RTM_DELTFILTER for that non-root hash
+table can run u32_delete(). The pending knode is not linked yet and holds
+no reference on ht, so the delete succeeds:
 
+net/sched/cls_u32.c:u32_delete() {
+    ...
+	if (refcount_dec_if_one(&ht->refcnt)) {
+		u32_destroy_hnode(tp, ht, extack);
+    ...
+}
 
---------58b4c18d041a1900b7efe55bc7f3f43ca00cda905f3a1cbf8a2befe5d918f9b7--
+u32_destroy_hnode() then calls idr_destroy(&ht->handle_idr) and
+kfree_rcu(ht, rcu). request_module() sleeps while it waits for modprobe,
+so a grace period can pass and ht can be freed.
 
+When load_metaops_and_vet() then returns -EAGAIN, u32_change() unwinds to:
+
+erridr:
+	idr_remove(&ht->handle_idr, handle);
+	return err;
+
+Would this read and write the freed tc_u_hnode before tc_new_tfilter()
+ever sees -EAGAIN?
+
+The patch removes the success-path access to the freed table, which is the
+ins = &ht->ht[TC_U32_HASH(handle)] lookup and the list insert. The stale
+ht is still used on the error path, though.
+
+tc_action_load_ops() also drops RTNL and returns -EAGAIN, so the same
+unwind looks reachable through it too. Copying that pattern into act_ife
+may therefore not be enough to protect cls_u32.
+
+Could u32_change() hold a reference on ht across u32_set_parms() and drop
+it on all exits? Alternatively, could this path avoid dropping RTNL at all?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261122-b4-02-act-ife-rtnl-uaf-v2-102eba468698-v2-1-67c413c45928%40pm.me
