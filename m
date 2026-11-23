@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795458749;
-	b=DD5tHhyEuj2DA3K5hJcXBUoCvkXSUdKEfJND0mTSptSzcKHdMwJSJsii/MXBidBko3MG
-	 JBsXCqFPL6iiNYSrwa4Roiv/rpFhNZKPzv08nKrYYScpWLi7YFysKfgB3jMbbPvZmqrOF
-	 laQ6WMXul+w4qBFMfjKTnxixGwU71+hpMGH/Lm4E74XeWij6go+HN2TmK1lr4tqKR2QSC
-	 9QUH9tkqVP7mWl1hEdQPJXDT+2Yw10agZQMmPEL9Zz28o/YKNieT7/AA1YoVG67jS7HsR
-	 u13+Ecrz0rWvB3ZMVv+Uw90AKmhBzgjsnRGvkoCxEPimPewgWVyJ0q7bAHI+I3vSF2Q==
+	t=1795458761;
+	b=IU2B6IBk46ETrqOT2/bE6fwATAx+lNh3MF/sylRP77dtR5QB6UpDYg/opJQgJKiB1Xk3
+	 v2jLuow7h59bkqsXxB7V6iT2YbZ4AIfu+sVMf3+nZFrHYr5OIcSlG0S9v/uF6ER9NCDs5
+	 gjfxjoCkjRz+WocEXXMk4yTuXolhDMGwA1JiasIutQwiMkFGF/zYhN2yFM7cGXzO3ehDE
+	 97CZra+j+oXlgvUDzeqy3A4RqGzWyiBJ0jhvURD7zZb5dsnbZLb/OLxIDArgRa6XO1U3f
+	 fG0Xe45opAdvvgPNRf5L4u0V5412lCZYmfu65v2WtA69VwK/Op/FZCLv7Ov7L9+o75g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795458749;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795458761;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=HixZivlW5EbPj0EUn/UCMLuXWIHadDmuB9x5A36DekI=;
-	b=IJQOX5Mq5UMUzenvwvguvRpO7ZHUD8FQlK6GnLCVt48BloXh7B9eMnfYnhs6WXco8JfA
-	 brkNl3FhyI8jsWiA4y3fadHYAO1RGuTxn/KAUYQiDRfsqoQvwDzawRA0qjHpznBaHlNx7
-	 A7eO3ZcHWXSrx7x1vLmv3tABcL6/Lf6DVtfAwr98l+5ZNrg9PNSQz1kGUAwiQNXNn7PUb
-	 f9ZIeS/4dhc3Dk4dZW//qb1/n4B2YiyIXvK+zI7FGMT/HnFEAVY5umAsaKll4s7530MDH
-	 9Xf0FDb0o8MabZnJlqrnhOk2akUj7h40GQgXTmgURmxFaT79A6LWknI7pNMWXU6wAMQ==
+	bh=ZvOaChR5qJW9QxRGc38ZD60Y8kBGkcLpTHhpADdCCRM=;
+	b=Ml4hoEKgmLJUh14PzJsh6i3vo587F8nqUnmDTKiUxRm/ocC28QW+ucGe4utMugluez+I
+	 i6ZKLx26A3uZxh8LI+Hi1CTO5RQoDfD7dQd1pgvYwFTgaTp/In2Vz8jL3xDkINlwzvpey
+	 7Qc6QPWPetVDdSVlZq1skg/GGo7ti7Z3p3uKwYstG2dMUk7wsAbHBEfYtaaFJyk1PBnaG
+	 ZzG9LiP5EMbxvl37ToFcF474M9eO6klbEKxpZE7QWiRuOheWkqgynxFYyiJuePPzsY+9H
+	 Z8O1oY/ih/sz3rSjJYoR2U6Bitcen451bYQ8V9daqaMpmQjOw2q+YIq1tgCNoz6tWCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jnSmY1/x";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y62II9IL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2745B606A332;
-	Mon, 23 Nov 2026 18:32:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93085606A681;
+	Mon, 23 Nov 2026 18:32:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnSmY1/x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2E61F000C6;
-	Mon, 23 Nov 2026 18:32:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y62II9IL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A6571F000C0;
+	Mon, 23 Nov 2026 18:32:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795458748;
-	bh=HixZivlW5EbPj0EUn/UCMLuXWIHadDmuB9x5A36DekI=;
+	s=k20260515; t=1795458761;
+	bh=ZvOaChR5qJW9QxRGc38ZD60Y8kBGkcLpTHhpADdCCRM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jnSmY1/x1+84MH89QxsJGXB2k6SwdJXZkWHbJaZkW1t1CX7gzIwV5KcX9/TyPIn05
-	 qbcUD4OWwV/tKFmejTH9CiCk/IZ2S71Ynu+9Y5V/uQMvkteB0AMkQgd9LcOYDS6I/y
-	 aDhlO7PSCnbJU3yhdUcyx1psPhwL0xfQPAvPCjZ8eWzjyFNVfKHtKl2uZOTadmRwgV
-	 eKhWgMij3sICFESCl+vx6vGvJQg2Iu7xuiaj9MpShk+itYxlW6bLJyIBl8OXXNTmXS
-	 BHOpo8k+Rw/MDHy0kO/4z4FYdM+UqehuQLGTHZjJ224/JbxgEz6H0UumA0hGOtBkUq
-	 ojnvAdqKwwmkg==
+	b=Y62II9ILA3rN3No3O6m5eWsc4cqBw6I17lR0XMhB4mPbY+o9smCMNRy+QaDbn6qfq
+	 Lg5kSnFhk8u2oI0d8XhAXaRfFk/2KbuUL5aNKQSTCRd2lCiIpSypF7iFctu5FiAFr2
+	 EnlbEkjqPcrPOrKGVvbPx/BBvsHHKvlpraAMO8a/PZ7IvLOj86gsxx9HpAK+QGbxYo
+	 mfjo8hvryUyTXxlOJu+B+/v6b0P1y0fS0pyqyTfYY5nAAEZsr3/zSUsgeF+xX/4btW
+	 3PBBRrFPEsNhov37l/B5KKeleDpfuwjfLCrhgQtoVD4D9Pvj5izdjqcO2Vn4l+WxJr
+	 hXTUXbX0pWFDQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>,
-	=?UTF-8?q?Ronald=20Tschal=C3=A4r?= <ronald@innovation.ch>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Vojtech Pavlik <vojtech@ucw.cz>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 03/10] Input: applespi - cancel touchpad registration work on removal
-Date: Mon, 23 Nov 2026 18:31:09 +0000
-Message-ID: <20261123183200.3900004-4-lee@kernel.org>
+Subject: [PATCH 05/10] Input: stinger - zero-initialise driver state in stinger_connect()
+Date: Mon, 23 Nov 2026 18:31:11 +0000
+Message-ID: <20261123183200.3900004-6-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123183200.3900004-1-lee@kernel.org>
 References: <20261123183200.3900004-1-lee@kernel.org>
@@ -67,41 +66,40 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-applespi_probe() allocates its driver state with devm_kzalloc_obj() and
-initiates an asynchronous touchpad information query whose completion
-schedules applespi->work to allocate and register the managed touchpad
-input device in applespi_worker().
+stinger_connect() allocates struct stinger with kmalloc_obj() without
+initialising the signed packet index stinger->idx.
 
-applespi_remove() disables the ACPI GPE and drains in-flight SPI writes
-and reads, but never cancels applespi->work.  If a touchpad info
-response scheduled applespi->work just before applespi_drain_reads()
-completed, applespi_worker() can run during or after devres teardown,
-corrupting the device resource list via devm_input_allocate_device() and
-dereferencing freed driver data.
+When serial bytes arrive in stinger_interrupt(), negative values of
+stinger->idx pass the stinger->idx < STINGER_MAX_LENGTH check and cause
+stinger->data[stinger->idx++] to write before the start of stinger->data
+on the heap, corrupting stinger->dev or adjacent slab memory.  Initial
+values of 4 or greater never match the stinger->idx == 4 reset check and
+permanently wedge packet assembly.
 
-Cancel applespi->work synchronously after applespi_drain_reads(), once
-no further SPI responses can schedule it.
+Allocate struct stinger with kzalloc_obj() so stinger->idx and the
+packet buffer start zeroed.
 
-Fixes: 038b1a05eae6 ("Input: add Apple SPI keyboard and trackpad driver")
-Closes: https://sashiko.dev/#/bug/linux-bb2fd773-6c20-468c-a092-6814f008077f
+Fixes: 17dd3f0f7aa7 ("[PATCH] drivers/input/joystick: convert to dynamic input_dev allocation")
+Closes: https://sashiko.dev/#/bug/linux-bad333c0-5b62-4ca5-ad93-204400bcba3a
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/input/keyboard/applespi.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/input/joystick/stinger.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/input/keyboard/applespi.c b/drivers/input/keyboard/applespi.c
-index 96c504f28495..d964cd3ee5af 100644
---- a/drivers/input/keyboard/applespi.c
-+++ b/drivers/input/keyboard/applespi.c
-@@ -1819,6 +1819,7 @@ static void applespi_remove(struct spi_device *spi)
- 	device_wakeup_disable(&spi->dev);
+diff --git a/drivers/input/joystick/stinger.c b/drivers/input/joystick/stinger.c
+index 011f9b137dca..021216f811c0 100644
+--- a/drivers/input/joystick/stinger.c
++++ b/drivers/input/joystick/stinger.c
+@@ -118,7 +118,7 @@ static int stinger_connect(struct serio *serio, struct serio_driver *drv)
+ 	struct input_dev *input_dev;
+ 	int err = -ENOMEM;
  
- 	applespi_drain_reads(applespi);
-+	cancel_work_sync(&applespi->work);
- 
- 	debugfs_remove_recursive(applespi->debugfs_root);
- }
+-	stinger = kmalloc_obj(*stinger);
++	stinger = kzalloc_obj(*stinger);
+ 	input_dev = input_allocate_device();
+ 	if (!stinger || !input_dev)
+ 		goto fail1;
 -- 
 2.56.1.750.gf70dc682cf-goog
 
