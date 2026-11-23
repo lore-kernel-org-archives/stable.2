@@ -1,97 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795460905;
-	b=Ni9nm7n8pED5wky2+Ej9mcS2gD21RDVGCQCcevVy0K4gIAzMLFkAmekLqw84QoMTL5wZ
-	 hjek6PNGQH/+GoZLGgWLrRKXhjDFIJsBpb5hUkfA5EB3W+CdfDpa1+qbb4kbEt8/0yi5z
-	 6iXS3tOQTSDqupN/IaqkBfLgOGrQa17CCW9XLFaQ0RdShBz9bVoBrZJuf9HEBFm2f9j7j
-	 pXrvO3ObG9aYvBiu+SA9kGS/xDbUf+HuE3KP5CGxKq0Hy22mAS9f8hlRh2uIDdVzcPAMP
-	 UDYAiMFapeFtZFE+df3BlY+lNwJF0shGGqBmR1Oa7vc8khlCf5jv6EuZHseUT2ycO6w==
+	t=1795460911;
+	b=eanS+rRMYplK0WawXAa87rcXyKLBao6PYagcsrIu+x7DcyfIGh0gOgFSyiznK/A8GH4y
+	 GydvZA58JKXy17lJ+iLuTdlLPB1K8ah64UO/uxcfiVy9aJ6RfDxOIXQd/tPOXjriu1vXW
+	 NpffAvbcBPPsew72zs450bCe/XuV2ZOJP8Xhvmm5frCNcQ5tQm724HtP69thmC4vtbNDM
+	 8fQGR2LyBLI1RLip6b2eN04s1oy+6T0eatzX6I5bS7ctdQLaPslKlJgkeFpvGFBwHnVbZ
+	 4LPIS44drwcZ4oZyYt9CKlQEWVdDs3ucSKQCmWGcQptx8m1zXmAPyLdSaCkuqK1DijQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795460905;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=VYHxPFKmOwY5V9RAEDUHx1RPEhbWi3XhYNTJz3MSmaM=;
-	b=smittIIHYg1ZaHAJCN9c70z3i3+wZpQAeXY4fbspWtQYvVTgVAotD7ibheHH/T0cG/dW
-	 SaRB4RmFY7VxRGzT5Li2ggMeEUIxximH0xYl0qcTGzK7pDvAf2VcloYWi/nEOkQUyKuFL
-	 8nyFjGLJn9yol1WyhIXvxDAzwISiK+I7KSxpEAUMXhRqiEig4xoBREDpIh6NCxbzybstw
-	 MQ9hmh2KLMMRfVWzlaFk13MZXr2bPcWZsoldYlv1i3LmtVjWcBXd//fzI0st/u4H+HRQm
-	 H4tAqgAwUejAbu0ebnpQhghxX5aEVHE8XLMp++/hHo5q3EeYhOKVpsJ/Dw8oWl/+qxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795460911;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vsAgw1VfeeWM/+e489ddh7F+FNuBKxcy9f2jjrirCAY=;
+	b=3TPD6meo5P51zZplUe317L0nGauxPl4vLRruN53GNY9ycqS0oIYu4PdSBozgeuRpx9CX
+	 Og8y0rGbulO/T9vVTSnKt0bFXZOsGB+t7VoIZMoPAPIugrTQYmgEqbR2WdeDTbOwwmW3w
+	 2BS0Di5nk+YZUbAVGhXbBZ2YrOcauAJfEdtdN74MIcl1OiAVE0jjZ4CHu4FdkCh0qjQPC
+	 WblLkJj615hMKbsmvi8yd1gVWSQV6imzRNZENCpFZBUwBt8cO8IneqXmOR5tIoli7TRvw
+	 mUbtavWVk244W1GFUY9jqABUir8pRaUk4RCcqO4+ao+xzmjPRxjO7aUFk5OPOy0C28Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=everpuredata.com;
-	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=mpU6Bd1x;
-	arc=none smtp.remote-ip=209.85.216.97
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=raidlab.org;
+	spf=pass smtp.mailfrom=raidlab.org;
+	dkim=pass header.d=raidlab.org header.i=@raidlab.org header.a=rsa-sha256 header.s=protonmail header.b=4YBPhukS;
+	arc=none smtp.remote-ip=79.135.106.111
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D9F606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:08:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4D9F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71677606A32C
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:08:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71677606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=raidlab.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raidlab.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=mpU6Bd1x
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3b3a914e4c8so1942500a91.0
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:08:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1795460904; x=1796065704; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VYHxPFKmOwY5V9RAEDUHx1RPEhbWi3XhYNTJz3MSmaM=;
-        b=mpU6Bd1xNO/ofpxU+xyxw8WSfk8MLDZhj0XbqMK8hHBAVUBDwF0nX6uXxvxG7wV6oC
-         qykEDHArhBqXJwIus0GnOnxcdIlEsK4VBIEW8/3tBX3H4qjFbLYkcZIUkCYgCLOIVrno
-         1nUf7v+Ik7u+sXiqljQ1dDirwey0Uf6FdwOMzqkjX0dLvdxm/2Uxu6SGIpx4Oi4Diqsi
-         mUQ/aBpKO4FuEvoLtdY3lxyArZhqPh1g0dradBEJVVyHwOxCkhymjc7ReFB+1iBDWQbO
-         QgkTg/APAQYuGdXSAfb9ryOQxCqSXmsK8XR0HHC3tXF1YMXCJ0G71f7nq57i1MWipCNN
-         87Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795460904; x=1796065704;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VYHxPFKmOwY5V9RAEDUHx1RPEhbWi3XhYNTJz3MSmaM=;
-        b=pnzCeb5oC8SxhpN8ou042Iz2g8xm+8ckADfNqhOvhR3fepby6WDnAYSXniRHT0APB/
-         1PZ7wNofMD6Q/8ZZ06+ulGWu+IGJGYe5cHNZ6Ode3ot1sGXh4VKmFybakfcpuUskRuaG
-         GZY9FEh0jpbRRaOQASX8I/zM1hLSs416rOkuCxbWLO+cH/MFxOO8T3fD0rygPQGk48hq
-         kL/6qLPAH6KhWkL2ACp+EhVnm/Lq3IxiXYRtSuiu6g63DIz5Zrb54sDkFbOAOiLwwowk
-         y+SN6rN2b1rb29pTUpIZsG1QFeKUrRfEQeOBBvtl74pPeMFcxkBV4nb/TW28T5gBlKGR
-         Qmow==
-X-Forwarded-Encrypted: i=1; AL+hErG4wmDWz+yKfDf/UhZQSm0d/bZX61xEZSZhRKxMDXvQRk4Toolxah4zbFnz4lurs3YKcqOfNik=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8SDuXRQxbmPVrNS39pCrD7UccJwMG9ENU6INT/2uiCcVWcpouj
-	uwPS4ugXj8xVdbFrUMVWszPS/ENGRgFxlGCcF0pEKoHwnpB1DKp2djfbk7He4A93Uwl8LN4oCBT
-	CwFiZP5ImgE4ozRq555+p8cRwODGfND0uTAFV
-X-Gm-Gg: AZFdTZepybfuXxb0kvuIoLkWaa2GpvhJK8vIoREUev8X733fOviF8suJRnMI5Fw8Xjo
-	cJ2YzZoEC/8Jc98l3/6+M7JPGJpcDCfowQyL216JuQ3FdehI6rPR4pVdPtVLg4EwLnF8rJRxmuW
-	UgUYGm/UlWd6l8Pl+au+Pi4ghXSGvXR/wH7UaerqsjbKcZ140qlckhz0QkVcT9w/KXAfCPza8UT
-	VNDrNYfbe02cJu4h2KCZMiamckt2HAmUhZDkdMoAK4rtRbR4nOBrRn2aLKQuKjB8hDvS+OjBFHM
-	ONHxVDI7Joa+O/6NwLZ9nmMOzXXNt3Yijx197kq6YvldOVkaDyENewo5/MZTYCuJBDQv+TUHNyT
-	j0pB3PuFKN4nhUxT2tkEQDPlp163kMTI+SNhRmfE=
-X-Received: by 2002:a17:90b:2c84:b0:3b3:c3b9:7de6 with SMTP id 98e67ed59e1d1-3b41c8fe20emr10529365a91.13.1795460903946;
-        Mon, 23 Nov 2026 11:08:23 -0800 (PST)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b41d245549sm4735121a91.2.2026.11.23.11.08.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 11:08:23 -0800 (PST)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 32D0E34015E;
-	Mon, 23 Nov 2026 11:08:23 -0800 (PST)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: cel@kernel.org,
-	anna@kernel.org,
-	trondmy@kernel.org
-Cc: ebadger@everpuredata.com,
-	jcurley@everpuredata.com,
-	linux-nfs@vger.kernel.org,
-	slingappa@everpuredata.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] xprtrdma: Retire the connection generation when a connect attempt fails
-Date: Mon, 23 Nov 2026 19:08:23 +0000
-Message-ID: <20261123190823.1680365-1-tmenninger@everpuredata.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=raidlab.org header.i=@raidlab.org header.a=rsa-sha256 header.s=protonmail header.b=4YBPhukS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=raidlab.org;
+	s=protonmail; t=1795460907; x=1795720107;
+	bh=vsAgw1VfeeWM/+e489ddh7F+FNuBKxcy9f2jjrirCAY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=4YBPhukSKQV/iaBxkMy1GpIQGGkXrxBQLl8Alr0A69FqObNyzBrKiX8h7QUNH1dNB
+	 uyCavcjQo1txMiAcCu6uZhqpJP/PSqDm2FmVkATBTUPJkOf5BCvK2NbmtNOkHTjQ6b
+	 dv7UO41miHvbX8qsAs3hj5y+zr28EPXt/xvaBL/F9cb0rN4sw2E8SFKHGGrHXjGENd
+	 2xjbitDYE/SWVGvEmZvQpuSxMW7klekbUjTZpYvTwWj8sVFZJ70775LUKzhJoclFKi
+	 pN0iwUkbHPsPJqsG/kgf/+FUDLd4DE3k0Zz619EdiD1sWSR7y+ZQJ4Y16DEpLWX+xH
+	 7x4Jl96bRIvpA==
+X-Pm-Submission-Id: 4jYFpH3PvCz1DDKY
+From: Miroslav Cimerman <mc@raidlab.org>
+To: josef@toxicpanda.com
+Cc: boris@bur.io,
+	ce3g8jdj@umail.furryterror.org,
+	dsterba@suse.com,
+	fdmanana@suse.com,
+	johannes.thumshirn@wdc.com,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mason@kernel.org,
+	naohiro.aota@wdc.com,
+	stable@vger.kernel.org,
+	wqu@suse.com
+Subject: Re: [PATCH v3 1/6] btrfs: don't drop the error of the last split bio
+Date: Mon, 23 Nov 2026 20:08:18 +0100
+Message-ID: <20261123190818.2841562-1-mc@raidlab.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261120-b4-btrfs-data-integrity-v3-1-4de4b91b826e@toxicpanda.com>
+References: <20261120-b4-btrfs-data-integrity-v3-1-4de4b91b826e@toxicpanda.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,80 +75,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a connect attempt fails, xprt_rdma_connect_worker() wakes the tasks
-waiting on the transport with the connect error. For errors such as
--ECONNREFUSED, call_connect_status() can then call
-xprt_conditional_disconnect() with the task's rq_connect_cookie, which
-was copied from xprt->connect_cookie when the task started waiting for
-the connection.
+I hit this on a RAID10 file system (not zoned, 4 null_blk devices) with
+bad blocks on both copies of one mirror pair, on for-next 65101fe10b30.
+Reading four 1 MiB files with dd returned EIO. After
+"echo 3 > /proc/sys/vm/drop_caches", sha1sum of the same files returned
+no error and a wrong hash for each file, in 2 of 2 runs. A dd of one of
+them right after returned all 1 MiB with about half of the bytes wrong.
 
-The failure path tears down the endpoint through
-rpcrdma_xprt_disconnect() without advancing connect_cookie, so that
-cookie still matches and the conditional disconnect requests an
-autoclose. If another task has already started the next connect attempt,
-that attempt holds XPRT_LOCKED and the close request sets XPRT_CLOSE_WAIT.
-When the attempt succeeds and releases the lock, the pending autoclose
-tears down the newly established connection.
+With this patch, all of these reads failed with EIO, in 2 of 2 runs.
 
-This was observed on 7.4-rc3 after restarting the NFS service on a pNFS
-data server reached over RDMA. Connect attempts made while the server
-was not yet listening were rejected, and the first connections that then
-succeeded were closed within a millisecond of being established.
-
-Advance connect_cookie once per connect attempt, whether it succeeds or
-fails, before waking its waiters, so that their conditional disconnects
-no longer match.
-
-Also wake pending tasks before releasing the connect lock. Otherwise, a
-task can capture the updated cookie and join the pending queue for the
-next attempt before the previous attempt's error is delivered.
-
-Fixes: f99fa50880f5 ("SUNRPC/xprtrdma: Fix reconnection locking")
-Cc: stable@vger.kernel.org
-Reviewed-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
----
-Changes in v2:
-- Advance connect_cookie in one place, just after
-  xprt_clear_connecting(), for every connect attempt (Chuck)
-- Add a comment explaining why pending tasks are woken before the
-  connect lock is released (Chuck)
-- Update the commit message to match
-
-v1: https://lore.kernel.org/all/20261120010342.2152535-1-tmenninger@everpuredata.com
-
- net/sunrpc/xprtrdma/transport.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/net/sunrpc/xprtrdma/transport.c b/net/sunrpc/xprtrdma/transport.c
-index e38637c2ec787..d27de0ad6732b 100644
---- a/net/sunrpc/xprtrdma/transport.c
-+++ b/net/sunrpc/xprtrdma/transport.c
-@@ -232,8 +232,8 @@ xprt_rdma_connect_worker(struct work_struct *work)
- 		current->flags |= PF_MEMALLOC;
- 	rc = rpcrdma_xprt_connect(r_xprt);
- 	xprt_clear_connecting(xprt);
-+	xprt->connect_cookie++;
- 	if (!rc) {
--		xprt->connect_cookie++;
- 		xprt->stat.connect_count++;
- 		xprt->stat.connect_time += (long)jiffies -
- 					   xprt->stat.connect_start;
-@@ -241,8 +241,11 @@ xprt_rdma_connect_worker(struct work_struct *work)
- 		rc = -EAGAIN;
- 	} else
- 		rpcrdma_xprt_disconnect(r_xprt);
--	xprt_unlock_connect(xprt, r_xprt);
-+	/* Wake waiters before unlocking, so that a task which records the
-+	 * new connect_cookie cannot receive this attempt's result.
-+	 */
- 	xprt_wake_pending_tasks(xprt, rc);
-+	xprt_unlock_connect(xprt, r_xprt);
- 	current_restore_flags(pflags, PF_MEMALLOC);
- }
- 
-
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
--- 
-2.53.0
-
+Tested-by: Miroslav Cimerman <mc@raidlab.org>
