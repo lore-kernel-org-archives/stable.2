@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795462246;
-	b=2ZBlt6GFxMW49Na5/Wnja9OUP+b4s02RoP4P4BbTGWibUuQ8A7vuOotEidnxgg49YEdm
-	 Bo5946xQD4w1DYvF6m7mb7nPoSf+zGoEtmZLy6fS959Tp6F152f2yx3LgGkB5gFcEXX9b
-	 T1QhPjxI9v7mud0Y2KZcJ3ykw6kxidnW5CjyQpJzoBehqXPac/sJIJZWHG+gsPawHaxG+
-	 MsaOCdC5Jf8+a+7R4DrVw91VYfTLrSSRL0LBaOPnE2TvYgTQallOx5nN8sQkzl9OFjQf9
-	 Mls9ukghPNQcZPSlvXEXGwA5eECPsAM82EHmBnSIhtTMb96KvCT1uYWml/w7VugOKuw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795462246;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=J9HL1GczKVUsA0QA3fywXb4GBtKWVrrqUMxuNy6hTvo=;
-	b=3oE6kD3QgIZYHBLNsdDv/J920jVyxchKs8TtQ6f/M32UO7VQOwEOZ4oSa9dBDQYXcIFK
-	 jQCRh2S3pjDN6UaEHP34e/WjYNGXNgNCLgyt0oukB2Z/LY9BidbLu4NBu7vLyKS5eUchP
-	 bnTEGNdVc7Y81caDplXD5hnDmLOgQcpP1wa9VBjh4fnn5X5BzEYeGDz0wmCCfemlEXySV
-	 opWE7q/nDvyZUDG+j0qG+Wd0km+51SU8dk5lCoUni0S/MFN2FN7v8TjfwKbkWh4EI2xj9
-	 0QJko3dT9qaNummi7ZsO3eKcms4nBkN4pTDo4Ekk8dUghytHsrVjiFPWNgtnF1TJqiA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LX7QH62p;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.48
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795462335;
+	b=IGzMXasIMhjKBjm67lb6S19+LMkT9/4vcqGccqsPsTToUJp1+W/xRlCi7WeKocXf6NSG
+	 02axYodGqFBvcgZP4KNXdac79XwxqyCsirivO3RxpbA/wwXByMCJiujasewfpEoZHLvff
+	 mnOJvlnsuIQ5muPWR11nRbl9Z9UqH6RUcEB8woSsYzZtGt33li35zhAVetWJsJAv3oI8P
+	 +y2Eqfq3Ywg2gjy2iNfrig3BkgwHGVnONe/ZtOCfVofR3cTKGUj5KqG3nGGm1zeo5XfoA
+	 itpSJRtrjID+g+l+4n4YEzv6obsQ0jQAteZMeE/WIBgRnt2rNJnPTdBZiKlZAjFAk1g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795462335;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
+	 DKIM-Signature:X-Received:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:Autocrypt:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=ZhoRZJWv5WDLgSJ4NW+wzm1D4iqQUFLyqGAdX1OGoBc=;
+	b=26FKttoRA5UJ8HuiqhRhiFx6ddt51kRrVkYkUJ8eWlCossANQk1t3mVHxiLVL22PD5X2
+	 zfn3wrv7w9bggicr2eO5ymj6ABFEjE3tsPknOHY1dLdALmepRh5qXKplVAdCVVj2ToeoS
+	 vIWzdhCj5RCPJ5KFp0ac4CZaimQDnKUyGqpc7RFKoBbWt7UNed5f+BI9fOq2zdVCQ3zZ0
+	 gO7mSxQBM0DAg1eUKr4eny+6JalbrFKo7mreLg0bGgDhCnSrCMbKDblqY/j1I8q597DtV
+	 471L7oqCNrdtuz4aD3dB6WJjn8mUXyGPsF4raOkx5giFBXmRM0vY1h996cR6gxqm/uw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=D8IR7l22;
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F016F606A31F
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:30:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F016F606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA50606A31E
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:32:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CA50606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LX7QH62p
-Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-48ed188ee81so2076040fac.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:30:45 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795462245; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ni2YyYTl010xf3/k6hVs6rkeG0VqCEmmrJCaeITpnFbjjhLR0thYF5J0RGd2zY0+88
-         JEa6Z9Xxq5zK7dKWlk8XgOxOH+YY+1ni4ImVGUSteT45lbdj0CH4vS89VqNf1FSfSYUe
-         ovCSZFH8XCRtvIgi1nHyb41Iwne3rDcpq811gUrEO8RqUNKCb1m5Mwo7VqTPMv57RFVn
-         KOWf6U0qnaXqkIU/q0glAlwGJs6sShTbWn1U/eW/MWDF2VGh8nsNTYVkP1UVdcZ9n0Gv
-         ShvS+SSsRDRMPupvNs4dY1NkVVuNZ1N7b5TLmk9QZIZ2p9J1H/VhyJUr43HJYPI1nkIN
-         GDmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=J9HL1GczKVUsA0QA3fywXb4GBtKWVrrqUMxuNy6hTvo=;
-        fh=v/9e0ba+eKp20Oxo6zC3Rgp53bpKuGX74wleHOmKnsg=;
-        b=IVf9KHYvgHuONnj2Plv19NnSfuZRJITpTlt9A2eSQvo8xxtesEXMA+6oMla8NsBXLo
-         i7tC5ytVQZSiatTXK4A1oVnazfqjsJ+4WsG325Py9efBNfqLe5haRErbvxPGaYy2evMa
-         GoWYvWJayHXor9wDFcIhduRvuE+zF+YRrjnBPH+2+ovLjGvFDyIMXj7bmJAfOua5x573
-         IfjbUUikxMwPPOEr4rOT/ytTD2BbOBPRpZu7PkMaVzvR73QO0fXFNS8KEYH7wpSCvci2
-         F30IjkygTynXGZu8i360B3KLPRbEc+SMnLUbyZGcj8UAxC7fq41gQUgBhtqE37V0e5j1
-         oNfQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795462245; x=1796067045; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=J9HL1GczKVUsA0QA3fywXb4GBtKWVrrqUMxuNy6hTvo=;
-        b=LX7QH62prvmRprt/KaCq9l7RUGR6MW5QPJJRl61OtL9JZQFCzVemgNCE5/g0zL8QA3
-         f999an+hMoSgV3yCdYEDsjWBG1efjI0zhVgaula8605zPmxBBWyw8R8YFcHa2lDZAMR1
-         DsJQLQ6Hg2drGs36ASq+4NBa19k0wLLrJ5fQbP7yJ57dr8XFUnRuzHsfJyQJKN2S+zbV
-         rtB+rwA3ozKbzon3ArK4+dZTP0f6rYHfVtPpZlD5ui6pd/jfHfgrBp1Jcq1oGjy1YJPJ
-         po1ZPCuJQkuZCjZe638cDwtA98thIZVY/1i/0y2eoWEMJflJG41uxzMo4bGhyZ+9SD1l
-         sIRQ==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=D8IR7l22
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3b44bdcea8aso1560819a91.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:32:14 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795462245; x=1796067045;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=1e100.net; s=20260707; t=1795462334; x=1796067134;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ZhoRZJWv5WDLgSJ4NW+wzm1D4iqQUFLyqGAdX1OGoBc=;
+        b=fX0sp9xkwbTz7Ov+6YYDwa40DmK73pD89Xw5PDq7n9tZBVE9uUrBBvXc4+uPp4/GNI
+         Snkwxbhud9gaePh+kd0IrXsssAy3JCC11e+XpD5dAOBKjh19lXWf+odc7odoV/q9PIPr
+         bQJBbqJ2INsHxdllBRk+z4lN5IUmHrHg2OpZuDyDbB+mis95jLzsLjo/GD1UAanJpiAd
+         eey4IbOfm3VTMm0PZCw7fFg8tsHVHhHHhyN9+VJX0R+HHA/nHzOSqy5dgmC8HQ2Y0Dz3
+         +o2A+NlzCcUU/Zh1Yv6VVHNT5hViPRTgYcPReq7uXIG/UCk0Fj1eU0SRNzACCIkTLbhH
+         KbWQ==
+X-Gm-Message-State: APuU4Z8LUzDAJbJl8C4b+Ur7WFziHx19bG/xY+Hptgi9XXGKz00ljoS9
+	7u1QKcHULhl22YIFXUfg7quSfTV+YnW0eoa9JyX0AlfSLbBJ3VWQpQxTxt50ZAhRAYomSECrkB+
+	7w6EbYLGUfaFD9HRMsL5wl4CadOAZSGrkm5v0BicJTyt1hQIFj+27p0ih0i890C5+4EfvwQxuWr
+	ezyuR1dXTNNPsJe997gpz8KNW16CKEDz1rrlxjkmoXJBhp7WD0BSMD/QmdmRSRzbSgr3WRBIByn
+	hWDq2++4zycVkKI
+X-Gm-Gg: AZFdTZeoZmrS0P/60SuGlXkvsNLZH30/vAgsO7t/TE/tjERmVRXDI54ytUJAHAe5yHP
+	Ek+A+CsdonVUMHfeADabr3U1BfhtHbS8e8weE2dI6/PbPyjAfeZDew/NuGwePu6McVmUquBBRtI
+	G0jOOfGWALJFbzUmRInVbwV70ydTb1U4c/JPDAevmrokZW1C6G/sWwRzwbKq7CrCfLSA+Y5FfH7
+	gu8n6+HB5f3Se2uzDn9mfPlOfWVKRrrGygc53ahSOsjb401Q9AeRiBc0OIxkh9i1WSn+/woO7Ds
+	uKbnpiQRmNWHNIaYFizwlOjbsw+QqMuaELry4tXppxtXonKtoxpYLzcG71qZoP4WgJNSuZWHcgn
+	noqs/8nxj4pJpmeUtNWR2SX/xvTxwgE+nAGEO8sMD2vbid57Y2Zoedo/gPB8QRuZrG8nDMd2B1v
+	BwUbLm9JfxP9RxurhJicvCYOZMC4V/IreWoiGPYxy1
+X-Received: by 2002:a17:90a:c10e:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3b41c9080c5mr8196180a91.18.1795462333517;
+        Mon, 23 Nov 2026 11:32:13 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b4062a77f5sm10007167a91.6.2026.11.23.11.32.13
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 23 Nov 2026 11:32:13 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3817a0ffd5eso4542606eec.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:32:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1795462332; x=1796067132; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=J9HL1GczKVUsA0QA3fywXb4GBtKWVrrqUMxuNy6hTvo=;
-        b=HhxWyV9Tr1PUuaoun4+tNabgkUIm+hcGZzqoQI8TsNnHgZrznTdcHqii+blimAtMvX
-         1YqyHAg8hboRRA4jDhUCnuPvHlt3oq2ZnumNi2feVMCD3WPeadRkOParg1yk031b1tim
-         iBLq6G7IyZFjQGIwzN7gEMw+YQ6H4bMjveAqj/4QHdNQ8HPOCjo3sEk5gIJvhd9CPdrd
-         LbS1Rl0gB9MCTuGsjsP5LwV2zh/1rQ6APhRueaMmWZCKR/hFeLXbGMSNCDs+ULqqgvlX
-         BZq56j7CWZ7X9ztBjh4Wvh7jHxIAj27xcpPBg/YXYrkyY4mwxW2TUNw55pEPZzKA74YI
-         W/gg==
-X-Forwarded-Encrypted: i=1; AL+hErESTnRhStGJl8u7sSF/cgUCkGo/kFUUzA++O3t+fVW/tags4VSdzSb2WwwgqxrgS7ZJXtWkRgE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+l2/zf/XVpz0Lu84EMwAyhJ4kOXFquxQFkHUwXEinNG+UI7fvt
-	BST24sMYexdGoFMKaMY93CaEbO9CNw6xo3VGSLEJHZ7gRDzhsIjLdH7CYralSSjqXv7Nw+K51OI
-	zNqkYvbVCxKpoamz8ALvXCEn9mFqwQCLlHzy1ihK7
-X-Gm-Gg: AZFdTZei2fshIaIl/IVmQkpdfmRwOYrysHTIbJ4iKwbCPHG37iMFwMRiCrUP5D8/73n
-	+pIRDufEbzvHdoIIY07xxVm0pUUhXPMYnT11XKs1M7cBwa6HMmzDNm27ww04zmAyK+k2QAYmYJA
-	EYIHYfTK0sDUCgD1GTkp2R36y5YRX3ICqPU+0qPj5WGnj0nYmnku2U5wHKFHKUeI5aOgbDEoR3D
-	6ZgTa4uX6CqRsj6V2KRPlkx+CigE8hOI5h/6frgkHTfZCM+tBdp0fUSo3xJ5+YeCwn6C2IYBrEM
-	0sZGEIeI+ARg9B8rDVMLPr5iWjSM4qTIPOc1dIKo3UaNRTSI4reuBId4ao3u3vEvM5r7kT2U27q
-	jFSudHj0dJRB4nltkxApOh87/N0Qq0+PznejePTWAwiGdw0MDTaSgia2r0L/IRromtYD+xGU=
-X-Received: by 2002:a05:6808:4fe1:b0:575:39f9:df7c with SMTP id
- 5614622812f47-57a06504990mr14041604b6e.2.1795462244324; Mon, 23 Nov 2026
- 11:30:44 -0800 (PST)
+        bh=ZhoRZJWv5WDLgSJ4NW+wzm1D4iqQUFLyqGAdX1OGoBc=;
+        b=D8IR7l226jkbPt2XLGzFEHKpeTcJaBjbSqQsPqZ4b+DQwih2VLzrUFRMbRraJLMovl
+         HQiaquV5UJtPt5sWGhLWFQKjTH1xYDbOJ9fl76z0bqCCbgp/epo72Jc1kJY/iT4nkJj4
+         bltyeyFPizUCr+Qnt1NacASIfizPqZyw+2iWY=
+X-Received: by 2002:a05:701b:4550:10b0:1b5:337a:6456 with SMTP id a92af1059eb24-1b55247eff6mr12630854c88.5.1795462331714;
+        Mon, 23 Nov 2026 11:32:11 -0800 (PST)
+X-Received: by 2002:a05:701b:4550:10b0:1b5:337a:6456 with SMTP id a92af1059eb24-1b55247eff6mr12630821c88.5.1795462330903;
+        Mon, 23 Nov 2026 11:32:10 -0800 (PST)
+Received: from [192.168.10.3] (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55684c85fsm42340205c88.14.2026.11.23.11.31.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Nov 2026 11:32:10 -0800 (PST)
+Message-ID: <60b6bd4a-c508-44e2-ae22-3f8bcc594457@broadcom.com>
+Date: Mon, 23 Nov 2026 11:31:49 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,67 +103,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261118-tcpm-soft-reset-sop-v2-0-b6decdc95e66@flipper.net> <20261118-tcpm-soft-reset-sop-v2-2-b6decdc95e66@flipper.net>
-In-Reply-To: <20261118-tcpm-soft-reset-sop-v2-2-b6decdc95e66@flipper.net>
-From: RD Babiera <rdbabiera@google.com>
-Date: Mon, 23 Nov 2026 11:30:33 -0800
-X-Gm-Features: Aa3M54pUjC99HdONKYWzXGaM6Hr8ZpKVX5kohDQnv5pnvvHDaIrSDaIDtVLGutk
-Message-ID: <CALzBnUGpwPWo==RuFOQwT11CU0XKvCHhU0ur2e=DgTfCqOY1sw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/4] usb: typec: tcpm: Stop replaying
- Source_Capabilities after cable discovery
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Badhri Jagan Sridharan <badhri@google.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, linux-usb@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/13] mmc: sdhci-brcmstb: Handle absent optional
+ sdio_freq clock in probe
+To: Lee Jones <lee@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
+ Kamal Dasu <kamal.dasu@broadcom.com>, Al Cooper <alcooperx@gmail.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Ulf Hansson <ulfh@kernel.org>,
+ linux-mmc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20261123191703.179283-1-lee@kernel.org>
+ <20261123191703.179283-14-lee@kernel.org>
+Content-Language: en-US
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20261123191703.179283-14-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi,
 
-The patch looks good to me, setting port->upcoming_state =3D INVALID_STATE
-out of SRC_VDM_IDENTITY_REQUEST also addresses a preexisting gap
-that can be added on, or I can address it in a later patch on top of yours:
 
-Disconnection during SRC_VDM_IDENTITY_REQUEST leaks
-port->upcoming_state =3D SRC_SEND_CAPABILITIES into the next connection.
-This could mean a DRP that reaches SNK_READY following the leak will
-enter SRC_SEND_CAPABILITIES.
-
-This would be fixed by clearing next_ams and upcoming_state in reset_port:
-
-port->upcoming_state =3D INVALID_STATE
-port->next_ams =3D NONE_AMS
-
-Otherwise,
-
-On Tue, Nov 17, 2026 at 11:27=E2=80=AFPM Alexey Charkov <alchark@flipper.ne=
-t> wrote:
->
-> When its first Source_Capabilities goes unacknowledged, a source that is
-> the VCONN source asks the cable plug for its identity in
-> SRC_VDM_IDENTITY_REQUEST. Entering that state sets upcoming_state to
-> SRC_SEND_CAPABILITIES, for a message from the sink that interrupts it
-> through SRC_READY. The ACK and send error paths go to
-> SRC_SEND_CAPABILITIES directly and leave upcoming_state set, so the
-> first SRC_READY after the contract sends Source_Capabilities again. The
-> second negotiation can cut into the sink's own Discover Identity, and
-> once ended in a Hard Reset between two FUSB302B ports.
->
-> Clear upcoming_state when SRC_SEND_CAPABILITIES follows
-> SRC_VDM_IDENTITY_REQUEST directly.
->
-> Fixes: af8b627046bc ("usb: typec: tcpm: add state machine support for SRC=
-_VDM_IDENTITY_REQUEST")
+On 11/23/2026 11:15 AM, Lee Jones wrote:
+> Standard MMC Device Tree nodes may specify "clock-frequency" on SoCs
+> that do not provide the optional 72116B0 "sdio_freq" clock, in which
+> case devm_clk_get_optional() legitimately returns NULL.  However,
+> sdhci_brcmstb_probe() only checks IS_ERR(base_clk): when base_clk is
+> NULL, clk_get_rate(base_clk) evaluates to 0 and overwrites
+> SDHCI_CLOCK_V3_BASE_MASK in host->caps with 0 MHz while leaving
+> priv->base_freq_hz non-zero for system resume.
+> 
+> Check IS_ERR_OR_NULL(base_clk) and clear priv->base_freq_hz on the
+> fallback path before jumping to add_host.
+> 
+> Fixes: 97904a59855c ("mmc: sdhci-brcmstb: Add ability to increase max clock rate for 72116b0")
+> Closes: https://sashiko.dev/#/bug/linux-88799a75-1ece-4f9d-bdab-eeb713627ab2
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-Reviewed-by: RD Babiera <rdbabiera@google.com>
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 
-> ---
->  drivers/usb/typec/tcpm/tcpm.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
+Not sure this deserves a Fixes: tag.
+-- 
+Florian
 
-Best,
-RD
