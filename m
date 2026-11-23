@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795442553;
-	b=tqRfVDltYNP25F0cVR2USYizYTUW1LfPWqpQekR84MnV4lqBXYixRY8aLk3/BT/hGLwk
-	 YZTKgJybx5ya8H49I2HsAjn1MLLxlCZD2k5cWecSc55lS+Uc7hIJLDKUP9RvxyuksJCbh
-	 vkzQlZTDkTX/9AR1b7q2N2dcy5Jz8GIRGGGzw/RJ7Eb3QAyzmtYyhGJujcvxYSWy6M1fb
-	 yDaKra/2rhyzertfcx8uLN72w71OI8tQ3FxfCONgUFvzSyBtL43/dJ1ngNs1repxnH/rz
-	 VZv85UCD2msaNH/y6EpCKXGuRiVtQQFSqf+iJyUOwMD+j6oG3FoqraqW7geGOUsmT4g==
+	t=1795442555;
+	b=2f7rJXednaJaFZq76HgH0K1TA7R6jl1xXsZAb4l7HAL+XDiMhFjiJ/C0KIVe8jNTkeme
+	 QKFAlwwqv1yIlBLuPNE3/A5o8o7iXR5CwXUIgCpJdN0NVpS7CWwRx4rjhDRo/LJp5wlU3
+	 IoCIt3bgemErflwIrYiqV1D2N3UDY9ViVW/Md/Bhv1sOPeaIdVUPVTBHtgwZ6V4I7OdU7
+	 Rc+xTGnaA92BigqruiyXeIJnjdjQ683HzQKM9cgzTYAGJhDj28/KWvP4mpZi1JVBOmMOQ
+	 0ke8mlR/JYwbpEhhOqNcUqR0alQAq+GfMkkXiyZJ4P4fa76cyvrUgXEwzFKbxHxJuFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795442553;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795442555;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
@@ -16,50 +16,50 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
 	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
 	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=LCYFbskMl+LyFHFG2nf8V+sGn8y0gNhHMxUxfnESADI=;
-	b=Q2s6Zq5UrjxNXOSuvGoVKYblBvFBv3gTKMCQTXxh624dmYKAkmDQyYBlKAVuBGs2q4g6
-	 cDuQpjOiuipcrKCv2NSNUGGRQ+RIkqEfftIuV1G2ICh9j3sHxzjEMdfFG3GNw1IbmgvQm
-	 kqeuRIfdlq8Af3NK5KCpAogRiA6VVNsTFjxiOfkHQLfza6piMJtv/VX3nWBy2QSTQ2Jii
-	 EpSlGXwcKP+IAzBqsc1G2bPhrPkdZhNssaFLJH099oLhVAYug1vlPkE8IGp8O/j+kcLUY
-	 DiKHD6opCVKC2JdxILuGQ0/kgmnFHzrWyLhidSWptxOuAdzGUkzVfmENNNsJ8DphUeA==
+	bh=1atnC9AuJrhB8fulAsNtM32hSGbPVQ1Bt8uHk0JYjxE=;
+	b=FIE83Gfvb4DLVx3cXQPXNlW5Kiyj+nKQR76rMBwWAV7rjnb3NW+k1QGCxRP+RBN577A9
+	 Mtqor4J/K0nYT3mwuCQ/X6sK2EYPoaaemiMazi2B8pPfC1uSpvUtGQgSQU4C1KypzBGmj
+	 PSVQSYqNKrwHPMMIiyQbp+jRD+FN7TR5IkobH1dd4p5VLI5zB4w0sG9Kwn3TA6vADAa60
+	 Rffn6jPysxHfEHdQ8T2b6XxVVyuFDmANqQ3nLaUndxvbJR5VAXW8t11pzuFdfCp/Ig9kl
+	 8yZeBjVVC5aHnhxQ0Ze4DIVbfVjNwVswbSgTIokIRtVvZ40t4BtILjddjZHtaxgk5ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=astralinux.ru;
 	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=wOgD8Dwb;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=XJF1E+wH;
 	arc=none smtp.remote-ip=37.230.196.243
 Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC8E606A31F;
-	Mon, 23 Nov 2026 14:02:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFC8E606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52EB606A683;
+	Mon, 23 Nov 2026 14:02:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B52EB606A683
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=wOgD8Dwb
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=XJF1E+wH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1795442551;
-	bh=1ZTup9760Tx+vF3edc3wRkKhxyozVEtqdxyENtR/dLw=;
+	s=mail; t=1795442553;
+	bh=VonueuUjBSWV638/H3oixKhiSY8bmRr9CvNuw0iCOng=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=wOgD8DwbIUj8VJjT/MOr75KTWkfM+4g8tGT00dQRUliYdB6AMJ4U1bLp1prvmaZEC
-	 sUClU3adNrmlSixTf4n2wZA/6/oiuJi6dr6wTosXXnAh/3dgS6gMOjfGpW2vJi/trG
-	 RJGGPToWG3xMPzow7DZ2KqNcxlo0zzNfBLATLeTZN5RTV7XTN0g1DZ9ea+jIjQVR7G
-	 zQRngo+n+vT4f3k+fkiw0ABJH7UCMogMW6T1Y5v8F8Tc44RU2NdBPLpuSrbJFjY0Al
-	 bj077nqU50EkfAhQtZ3tvYsSv3faOR7jmKcPwCAsEyRZXxgP/fhBOWI2R7J+PMRQO4
-	 4c0Cf1BM5AQuw==
+	b=XJF1E+wHrIKC5JMudT6YHMExiYmfEpQ8FVtCfGDk9lFK2yRaSw+TYaE1Jr4Zm70Me
+	 3SxCWyCkWN+ERvVg/Loo0hOt3SVE7yHe4oEFVzThYBZMOp0pH6MUT2/JjSV99N4/tH
+	 +a6H3XxnQOlHhEmDlHLUfHd6tc3+tGD7BeopM85h5samHBdHjxNk0Az88BPEL9uGTv
+	 FxP5cG00Q39J9HYOZsSkoP6q37v4JqBYTm+VyBASBixVgFdB9XCR+JMWM1m6nkQzM/
+	 OZ4tgNe1RT8n/JVcv8MqNxz2zXX0muNQSXwVurF9CVsp1dY9eTnJxXRvrdDDjoo2Ym
+	 Kv3TarXmRWbrg==
 Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 1255426B4C;
-	Mon, 23 Nov 2026 17:02:31 +0300 (MSK)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 25BC826B6A;
+	Mon, 23 Nov 2026 17:02:33 +0300 (MSK)
 Received: from mail.astralinux.ru (unknown [10.205.207.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Mon, 23 Nov 2026 17:02:28 +0300 (MSK)
+	Mon, 23 Nov 2026 17:02:30 +0300 (MSK)
 Received: from DESKTOP-D46TNHI (unknown [10.198.55.149])
-	by mail.astralinux.ru (Postfix) with ESMTPA id 4jY71H741xz1FqH;
-	Mon, 23 Nov 2026 17:02:27 +0300 (MSK)
+	by mail.astralinux.ru (Postfix) with ESMTPA id 4jY71K69V3z1FqJ;
+	Mon, 23 Nov 2026 17:02:29 +0300 (MSK)
 From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -77,9 +77,9 @@ Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
 	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15 v2 3/4] ocfs2: validate orphan slot during inode read
-Date: Mon, 23 Nov 2026 16:59:36 +0300
-Message-ID: <20261123143419.ocfs2-slot-validation-v2-3-mdmitrichenko@astralinux.ru>
+Subject: [PATCH 5.10/5.15 v2 4/4] ocfs2: validate DIO orphan slot during inode read
+Date: Mon, 23 Nov 2026 16:59:37 +0300
+Message-ID: <20261123143419.ocfs2-slot-validation-v2-4-mdmitrichenko@astralinux.ru>
 X-Mailer: git-send-email 2.54.0.windows.1
 In-Reply-To: <20261123143419.ocfs2-slot-validation-v2-0-mdmitrichenko@astralinux.ru>
 References: <20261106104249.1811-1-mdmitrichenko@astralinux.ru> <20261123143419.ocfs2-slot-validation-v2-0-mdmitrichenko@astralinux.ru>
@@ -111,28 +111,13 @@ X-KSMG-Rule-ID: 1
 
 From: ZhengYuan Huang <gality369@gmail.com>
 
-commit b2d31acbd3b182755b019183fb46949ba5e39b9f upstream.
-
-Patch series "ocfs2: validate active orphan slots during inode read".
-
-OCFS2 trusts active ordinary and append-DIO orphan slots read from dinodes.
-A corrupted slot can therefore index osb_orphan_wipes or the slot-local
-system-inode cache outside their allocations before the corruption is
-reported.
-
-Patch 1 validates the ordinary orphan slot used by inode wipe processing.
-Patch 2 validates the append-DIO orphan slot used by DIO completion and
-orphan recovery.  Both checks reject corrupt metadata at the existing inode
-validation boundary.
-
-
-This patch (of 2):
+commit bb88131c9831075b8dc08cdd375743e5d44c7ca2 upstream.
 
 [BUG]
-A corrupted dinode with OCFS2_ORPHANED_FL can carry an
-i_orphaned_slot outside the mounted filesystem slot range.
-ocfs2_wipe_inode() uses it to index osb_orphan_wipes before looking
-up the orphan directory, causing an out-of-bounds memory access.
+A corrupted append-DIO dinode (high byte at offset 0xa1
+corrupted from 0 to 1) can carry an i_dio_orphaned_slot
+outside the mounted filesystem slot range and trigger a
+use-after-free error:
 
 BUG: KASAN: slab-use-after-free in ocfs2_get_system_file_inode+0x780/0x820 fs/ocfs2/sysfile.c:102
 Read of size 8 at addr ffff88800b767c00 by task kworker/u8:3/85
@@ -151,17 +136,17 @@ Call Trace:
  ...
 
 [CAUSE]
-ocfs2_validate_inode_block() validates i_suballoc_slot but leaves
-the active ordinary orphan slot unchecked. Downstream consumers
-assume that the value is smaller than osb->max_slots.
+ocfs2_del_inode_from_orphan() uses i_dio_orphaned_slot to index the
+slot-local system inode cache. The dinode validator does not check
+this active slot, so an out-of-range value produces an invalid cache
+entry pointer that is dereferenced as an inode pointer.
 
 [FIX]
-Reject an active i_orphaned_slot outside the slot range during
-dinode validation, before the inode reaches orphan wipe processing.
+Reject an active i_dio_orphaned_slot outside the slot range during
+dinode validation, before DIO orphan recovery can consume it.
 
-Link: https://lore.kernel.org/20260803030007.3993199-1-gality369@gmail.com
-Link: https://lore.kernel.org/20260803030007.3993199-2-gality369@gmail.com
-Fixes: b4df6ed8db0c ("[PATCH] ocfs2: fix orphan recovery deadlock")
+Link: https://lore.kernel.org/20260803030007.3993199-3-gality369@gmail.com
+Fixes: 06ee5c75b575 ("ocfs2: add functions to add and remove inode in orphan dir")
 Signed-off-by: ZhengYuan Huang <gality369@gmail.com>
 Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 Cc: Mark Fasheh <mark@fasheh.com>
@@ -171,27 +156,26 @@ Cc: Changwei Ge <gechangwei@live.cn>
 Cc: Jun Piao <piaojun@huawei.com>
 Cc: Heming Zhao <heming.zhao@suse.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: bb88131c9831 ("ocfs2: validate DIO orphan slot during inode read")
 Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 ---
-Backport fix for CVE-2026-90205
+Backport fix for CVE-2026-90204
 
  fs/ocfs2/inode.c | 8 ++++++++
  1 file changed, 8 insertions(+)
 
 diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 2b4936c8a789..117b60ef0aff 100644
+index 117b60ef0aff..18e5303e55d5 100644
 --- a/fs/ocfs2/inode.c
 +++ b/fs/ocfs2/inode.c
-@@ -1479,6 +1479,14 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+@@ -1487,6 +1487,14 @@ int ocfs2_validate_inode_block(struct super_block *sb,
  		goto bail;
  	}
  
-+	if ((le32_to_cpu(di->i_flags) & OCFS2_ORPHANED_FL) &&
-+	    le16_to_cpu(di->i_orphaned_slot) >= OCFS2_SB(sb)->max_slots) {
-+		rc = ocfs2_error(sb, "Invalid dinode %llu: orphaned slot %u\n",
++	if ((le32_to_cpu(di->i_flags) & OCFS2_DIO_ORPHANED_FL) &&
++	    le16_to_cpu(di->i_dio_orphaned_slot) >= OCFS2_SB(sb)->max_slots) {
++		rc = ocfs2_error(sb, "Invalid dinode %llu: DIO orphaned slot %u\n",
 +				 (unsigned long long)bh->b_blocknr,
-+				 le16_to_cpu(di->i_orphaned_slot));
++				 le16_to_cpu(di->i_dio_orphaned_slot));
 +		goto bail;
 +	}
 +
