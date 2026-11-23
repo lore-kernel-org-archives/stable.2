@@ -1,47 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795451894;
-	b=dNZzwCqbvIfi90zPwsM+ULbe8tfZZYKPnkj8Ke7lYoUbhsDFu6iBcQQvjjd5eLblWs4X
-	 MnchFP4aMLlpMU3yE5FU8h3kaRKTZsLLlZrTom2n12M9OgmxltmuSyEdsayd/br5SPF/G
-	 4db5F0M5ivQgiJ6ELkbikeKQ+a59nevzj47PoKUVDu7ZB0Uu0Vl6rD9wkZZeUFrm13mtg
-	 rl6Lsx4/RLT6WYQzGVPyfb4gIkf90CH9L5AsMqxV2/i+qY4BL4rPIJF3R4UHO0q6I0Aur
-	 OSTkg14tC2QzD3oOtxaCwltNjRcxZUONKOHD5bC2W9seDw6AowuO0MIOAHzk1Zqxq5A==
+	t=1795452047;
+	b=MjAcodhPVi0W+vHyLK8jcI4Fkm55MW+1w7i1ftwREEgD3pqW0hPopaFqf4Mo8f2Oyjt7
+	 7dwE+wOwUcQfA+iz6Mx6JiorSoWE/DjTsF6FsFFZ3So0pIf8fJHccCyFpT+zfwywPjcgO
+	 or9CgAeHm4QCMt1zuGYcJyEIMki/6PR7NYlxdZDjCScq5LRzEs1EbUHqHtVZzQz5yD4QZ
+	 GwKkbLhI/Uqra//OJQerhUBfCOiklgnyCqC5bx04af57jA7Ut9SXgxoZ79quSOCU/NYIg
+	 JobriUClv+7oEKblXmsMEAVaErLYFTvMYeQJYXdkOjpMSDgeeLsZq18yO766seEQ1zA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795451894;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=BX2g8Y4HGKdlZ1kRSAOIsbxsW5G+eW95mvD7IhCq3Nk=;
-	b=2eMm0Z400jGIkWA9dMRPhtjDEruQz3Z0BxOgv05kUEJ8fmKwFKz6+Dan26FCkrtPs7Uj
-	 JFXRijaHjzDEGheRyK2VITmy2qCsrQDNM2aaYGs+uYInZt0XERt5FxJOqDg3saz8CiQJI
-	 Olghq6eQAQkndNr9obGH6NozHbec7yKWd8vSPs6K6nckkCFKvTb9PnzTRZnOJr2LpUr5q
-	 YYdtgtjO3d2IFLhjezf+Q/57Op/v81uCuJZke20t4ov17xi+ByIAZ82jnO5JFLoPp0+5U
-	 4ZnGnX1KvgYd2wj8nu6t0+AfhduzuZp0Zz3pUC3vRevta5wPYPRdfSJnMsrKOH7g0Iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795452047;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=P5/ZiEeoOQolEtqZd6duqT2B+ydqubbd46Mv2EwUK7A=;
+	b=gbK1qXnUwAXAlb5xSwPu7u6EAtEG7cpgnmfqTJRsSn0nJXR23p8dXudb7wYtTUc+ZfFp
+	 WaNL0F5SEsPjon0KzorK30sZE6z6TfWlABQFiKn+3y4fJWXH7jPpPuKn6D/pv+Y24u8q5
+	 m8vLyU4DqunJaR1dDs/ca9HTn+MJAaFvZP1bgJbv1ftK6DbkDQuWUWv1hCHS+9jU0T0D1
+	 uCKlbyRn0VCStB1PqASGqk1AgLVtnPzeB781L2TxgZALBCax+vaRjBMIkCy0xexcqm+Ty
+	 3WTe7/7SQIyY/KOYTSbkX+zg60V59s6msZB1lmwAt2HkRK6ex2UwuqfnA84yoF+AE4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRBwAeck;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vbpMdQoi;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4CF606A31A;
-	Mon, 23 Nov 2026 16:38:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF73D606A31E
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:40:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF73D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRBwAeck
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584FB1F000C4;
-	Mon, 23 Nov 2026 16:38:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795451893;
-	bh=BX2g8Y4HGKdlZ1kRSAOIsbxsW5G+eW95mvD7IhCq3Nk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eRBwAeckG0wIXF13+5haRM83QgRUvcGG5FS1ubKeHVkvDr3k65QyJcsTA+0TW+aoY
-	 3U8kOTLamW1dN0MDrNuBUQpFmQpQc/Oe5NcKSDiwYKK4EiNZZBvWM8rFbBA2fizqSs
-	 baZ9FmtEe47sdBH1KJYkvwTGBa2c03cFCjE5d6TA4egY4dEIzbSJO7MJP3Mf/KIwmY
-	 RBL4cZm+/K1/jDmrQeV9wCbcJ0FSLViAFKVaUgSbAIPrR7NebZ4YQwYfXpXODwIKAv
-	 QiA5DOz+EeGSIUphl35vUfT/UU+0X/fa8yUuSBRtAGOr8V+YoJ+7XFcNg0ZFMbSlLE
-	 yNfTAgeqIeRyQ==
-Message-ID: <43ecd498-71a8-4b60-9f03-3cd96810a4ca@kernel.org>
-Date: Mon, 23 Nov 2026 17:38:08 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vbpMdQoi
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1b50a4bd2f3so5162099c88.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:40:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795452046; x=1796056846; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P5/ZiEeoOQolEtqZd6duqT2B+ydqubbd46Mv2EwUK7A=;
+        b=vbpMdQoiG9qBH8Tl6U7EVOleFGxsrHTy0mVYXW6H+MRhrHrfwiAVBAdwZayZumctqK
+         TjAfKEAnfrjr4j6oEW/cEYCOBj1+AV19XLVfz2mSeSpyi0+JFw8DFQVJXbtbFtagdP0E
+         baE/uVWY9vzZstUi/ZpsJ07RzWunWb//7HKrxuNGitcvwHrLPXNwaPmXzMWgE05nLAQl
+         sS5QwQMzgs4+UdkcXzbn4Mt8ueUsE5U3xufdoU+dhEZlXnDT4P/6Pgpg9X3SJxrhdr0E
+         djNugvM++2GRtA2GnhQMsxjY3VIrtZO8oloUIyWEZKFD/GXznbLz5MwpfhzUqzgwVZ/R
+         a8pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795452046; x=1796056846;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P5/ZiEeoOQolEtqZd6duqT2B+ydqubbd46Mv2EwUK7A=;
+        b=dB+UaPGdyL1OxTSlgZmjFFRchVI9lEo6crza2Wf8h8tTVFFlv0ekQSINkNZVECsuY6
+         8Y7v2BS9A8x7aoOvJs0b1xKwWP9I90awwqevnoXqxYr5O+OmcHzTtyIXMgoiDfi5kOYo
+         cTKNdZVC+yb3GpGf3Cm57gzZEuWkDO3c1RArciDbyqDfjjiPHMhKatrck4j7yyXWITLC
+         xPyheGa5jfOSuiKbjghNk+aaIZ8qt+pXocctLvMY1ZbqvxKg7WuAyPlPc+Sd6TCRD3Q/
+         yZTxxGpOqUqgwinAnpPtubfbs61r/OeW4LjOmv70I8iUsAOmpXSC5M5rP4H79sNnvQRi
+         ohjQ==
+X-Forwarded-Encrypted: i=1; AL+hErHE9tKGTrtq1ZaFXOzNUwzTW4t113UKU28jNRApF6VAtjgnIY/VwKsk1V45U2Fu3x4OzVEQE4k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++RNzF8Nh/dSwyIs95t8CqeqMWoLsLLRF3ZXlYHa/0RalgQtJz
+	81GdSHgHJCPsxl3wBWtrmj8SUAeRIraVyrtha8wR+BAhWoQv/gKWrNf5
+X-Gm-Gg: AZFdTZdaCUwa7f/Z4I8fCteQu/+byy4afc/sdU1+QfFINp3RA5RlCOjfsG6c+rYoQoW
+	LlJ05NpETq65XQGzVrT0L6/7kMe1UHSgj1v5UJuKD56Xg4ltbRiyNMtvckGTdSjEcJf4FEU6vwS
+	Y3JKHDHvIcOs5JwD7wZ4M2Nt81ApnDERuwNqLtBayzf7yToaQ0uXMGhWZD4T7aB+BF/VqLHKued
+	3iqrri8yvf5PIoaZbgIiA7TmfLk0Tpl8rGmOrKinrKL3h0q47iFpuPVw5rvtpNHC9W7TNPUh3mG
+	99SLWb/OHtKCqI0HyVnGO+8y3cGtWPGOOZibFNFx4TV7qqJyh2Dg10tKbQeG8UP++MfB9zmoOwB
+	b4u5ef3v5+K9r/6nHbOReTBROHQXus2pCMMDLe6aAawuMO9fU5RVV8GWe+QGZ0aXKHAPZtxyzW1
+	WcPjkdMLvUKTCMlJO1VAIyspaP1beVuquCa00p3E25Sw4OTgIagq9qwluiBbugjG+2qpBMdyGBl
+	7IvURKj6xj3YUqiuQ5Pd/6433pg4PW2udaZ96aQmov+nWdRpDCf8vGF6KKgbe6bU6a+jTnvJrUF
+	+IulfF43EwR0cTx6cw/4Entca5UIBxZzNeicQ2HWPsdaAquBWnECDNIL54J2L9YFAgaDip5tqdp
+	pBTRwyBhB
+X-Received: by 2002:a05:701a:844e:20b0:1b5:6c13:c76c with SMTP id a92af1059eb24-1b56c13c7a8mr6689110c88.15.1795452045824;
+        Mon, 23 Nov 2026 08:40:45 -0800 (PST)
+Received: from lounas.tail428e48.ts.net ([157.131.129.22])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b556847fdasm33225486c88.13.2026.11.23.08.40.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 08:40:45 -0800 (PST)
+From: Louis Thiery <thiery.louis@gmail.com>
+To: agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com,
+	bmarzins@redhat.com
+Cc: ming.lei@redhat.com,
+	dm-devel@lists.linux.dev,
+	linux-block@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Louis Thiery <thiery.louis@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] dm: clear REQ_DM_POLL_LIST on embedded clone bio
+Date: Mon, 23 Nov 2026 16:40:21 +0000
+Message-ID: <20261123164021.463361-1-thiery.louis@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,154 +103,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] mm/ksm: do not inherit ksm_zero_pages counter or
- PTE markers on fork
-To: "Xu Xin (vivo)" <xu.xin@linux.dev>
-Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev,
- donettom@linux.ibm.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- stable@vger.kernel.org, Karl Mehltretter <kmehltretter@gmail.com>
-References: <20261123034136.209410-1-xu.xin@linux.dev>
- <20261123034331.236509-1-xu.xin@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261123034331.236509-1-xu.xin@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/23/26 04:43, Xu Xin (vivo) wrote:
-> As documented in Documentation/admin-guide/mm/ksm.rst, ksm_zero_pages
-> accounts only for zero pages actually placed by KSM.  However, the
-> current implementation wrongly accounts for forked zero-page PTEs as
-> KSM's contribution, inflating both the child's per-mm counter and the
-> global ksm_zero_pages counter.
-> 
-> Originally, commit e2942062e01d ("ksm: count all zero pages placed by
-> KSM") marked KSM-placed zero-page PTEs with the dirty bit for unmap
-> accounting, but forgot to clear this marker during fork().  Later, to
-> prevent ksm_might_unmap_zero_page() from underflowing the counters on
-> child exit[1], commit 4d6fc29f3634 ("mm/ksm: fix incorrect KSM counter
-> handling in mm_struct during fork") kept the child's inherited per-mm
-> counter and added it to the global counter.
-> 
-> Instead of inflating the counters, fix the root cause by resetting the
-> child's mm->ksm_zero_pages to 0 in ksm_fork() and clearing the KSM
-> zero-page marker via ksm_fork_pte() when copying present PTEs in
-> copy_present_ptes().  With the marker cleared,
-> ksm_might_unmap_zero_page() will not decrement the counters on child
-> exit, MADV_UNMERGEABLE in the child will not unnecessarily unshare
-> inherited zero pages, and the global counter remains untouched.
-> 
-> [1] https://lore.kernel.org/all/53a7bf3d-843d-4e19-b0a3-cc6852fe72c1@redhat.com/
-> 
-> Fixes: 4d6fc29f3634 ("mm/ksm: fix incorrect KSM counter handling in mm_struct during fork")
-> Cc: stable@vger.kernel.org
-> Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-> Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
-> ---
-> Changes in v3:
-> - Rename might_clear_ksm_zero_pte() to ksm_fork_pte() and move the
->   is_ksm_zero_pte() check into copy_present_ptes() under the !page
->   branch, as suggested by David Hildenbrand.
-> - Expand the comment above ksm_fork_pte() to explain why the marker is
->   cleared on fork.
-> - Add Tested-by tag from Karl Mehltretter.
-> 
->  Documentation/admin-guide/mm/ksm.rst |  7 ++++++-
->  include/linux/ksm.h                  | 22 +++++++++++++++++++---
->  mm/memory.c                          |  5 ++++-
->  3 files changed, 29 insertions(+), 5 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/mm/ksm.rst b/Documentation/admin-guide/mm/ksm.rst
-> index c329ca747b8c..8968ae3f55c0 100644
-> --- a/Documentation/admin-guide/mm/ksm.rst
-> +++ b/Documentation/admin-guide/mm/ksm.rst
-> @@ -214,7 +214,12 @@ stable_node_dups
->          number of duplicated KSM pages
->  ksm_zero_pages
->          how many zero pages that are still mapped into processes were mapped by
-> -        KSM when deduplicating.
-> +        KSM when deduplicating. Note: on fork(), the child process does not
-> +        inherit the ``ksm_zero_pages`` counter, and any inherited KSM-placed
-> +        zero-page mappings are converted into ordinary shared zero-page
-> +        mappings. Consequently, these mappings are neither accounted for in
-> +        the child's counter nor unshared when ``MADV_UNMERGEABLE`` is called
-> +        in the child.
->  
->  When ``use_zero_pages`` is/was enabled, the sum of ``pages_sharing`` +
->  ``ksm_zero_pages`` represents the actual number of pages saved by KSM.
-> diff --git a/include/linux/ksm.h b/include/linux/ksm.h
-> index 596c04ca7326..f29aec4496d0 100644
-> --- a/include/linux/ksm.h
-> +++ b/include/linux/ksm.h
-> @@ -32,6 +32,17 @@ void __ksm_exit(struct mm_struct *mm);
->   */
->  #define is_ksm_zero_pte(pte)	(is_zero_pfn(pte_pfn(pte)) && pte_dirty(pte))
->  
-> +/*
-> + * Since the inherited mappings on fork are not expected to be accounted for
-> + * in the child's ksm_zero_pages counter (reset in ksm_fork()), we must
-> + * clear KSM's dirty-bit marker on KSM-placed zero-page PTEs to avoid
-> + * underflowing the counters on child exit.
-> + */
-> +static inline pte_t ksm_fork_pte(pte_t pte)
-> +{
+When a polled bio is split across a target boundary (for example a
+dm-striped chunk boundary), dm_split_and_process_bio() re-submits the
+trimmed remainder of the original bio and then calls dm_queue_poll_io(),
+which sets REQ_DM_POLL_LIST (aliased to REQ_DRV) on the original bio.
 
-Instead of the long function comment, I'd just have here instead:
+When the remainder subsequently enters dm_split_and_process_bio(),
+alloc_io() clones it into the embedded io->tio.clone, inheriting
+REQ_DM_POLL_LIST. alloc_tio() only clears REQ_DM_POLL_LIST in its else
+branch for non-embedded clones, leaving REQ_DRV set on the embedded
+clone that polled normal I/O uses.
 
-/*
- * Strip KSM information from the PTE for the child to simplify
- * ksm_zero_pages accounting, and to indicate each deduplicated zeropage
- * only once towards the user.
- */
+The leaked REQ_DRV flag is misinterpreted by lower layers. On NVMe
+(where REQ_NVME_MPATH is also defined as REQ_DRV), nvme_start_request()
+calls nvme_mpath_start_request(). For a single-path namespace where
+ns->head->disk is NULL (with CONFIG_NVME_MULTIPATH=y), dereferencing
+disk->queue triggers a kernel NULL pointer dereference:
 
-I can fix that up when applying.
+  BUG: kernel NULL pointer dereference, address: 0000000000000050
+  RIP: 0010:nvme_mpath_start_request+0x28/0xc0
+  Call Trace:
+   nvme_prep_rq+0x5e0/0xa90
+   nvme_queue_rq+0x40/0x1a0
+   __blk_mq_issue_directly+0x45/0xb0
+   blk_mq_try_issue_directly+0x85/0x100
+   blk_mq_submit_bio+0x6c9/0x710
+   submit_bio_noacct_nocheck+0x127/0x330
+   blkdev_direct_IO+0x230/0x680
 
+On stacked DM devices, a lower DM layer also sees REQ_DM_POLL_LIST
+already set on the incoming clone and treats its bi_private as a dm_io
+poll list head.
+
+Move the REQ_DM_POLL_LIST clear out of the else branch in alloc_tio() so
+it applies to both embedded and non-embedded clones.
+
+Fixes: b99fdcdc3636 ("dm: support bio polling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Louis Thiery <thiery.louis@gmail.com>
+---
+ drivers/md/dm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 1881d8611..79972f17f 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -628,13 +628,13 @@ static struct bio *alloc_tio(struct clone_info *ci, struct dm_target *ti,
+ 		if (!clone)
+ 			return NULL;
+ 
+-		/* REQ_DM_POLL_LIST shouldn't be inherited */
+-		clone->bi_opf &= ~REQ_DM_POLL_LIST;
+-
+ 		tio = clone_to_tio(clone);
+ 		tio->flags = 0; /* also clears DM_TIO_INSIDE_DM_IO */
+ 	}
+ 
++	/* REQ_DM_POLL_LIST shouldn't be inherited */
++	clone->bi_opf &= ~REQ_DM_POLL_LIST;
++
+ 	tio->magic = DM_TIO_MAGIC;
+ 	tio->io = ci->io;
+ 	tio->ti = ti;
 -- 
-Cheers,
+2.43.0
 
-David
