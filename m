@@ -1,75 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.82
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795430115;
-	b=ApSmbnV7pJE5y1G6MPvTLJQ5NZMFOfXuH8AnWRkCSy2TOFbaxInE4nyzeJdq+H3Ri/4y
-	 EkLayKamj5C4W9sYEENJ3fKBwjYvmyp6tdr7cph1Pdk6LkML8Ayl9TvLWQWdFySuur9To
-	 XGYxdHNDYQv0kCNuusfe1xnYHoWe6A8AkbE5ZFudlIWBmOaIUVB0F2YCrl3zypq+8xU/r
-	 212LW6prBtVCXvAyZoNp1PGr9xOYKKTYEX/IolKLAlUnybf6WOd0q2V8c7bR4VkeqAea+
-	 PHRm5qmqPDc/gMZxNiGxpx0TDU6/bfijXovSpfvuBG55xhOEK3FSs8zr1Jsx/Vo9ccA==
+	t=1795430213;
+	b=XHqV5VHXACkOfM1mTBM/jbphqR/uhgJlzjz3FRHzrnpqRMZg4/U19SDbnxyc1Uuhh+6Z
+	 Gx3BQcDOQFiISNpYjB1L3EKlJ8N0otyjxVy6iEA/zZjzf8V/rNnYzKZ786pxgDn4wNJzP
+	 e61fHiLqN7jeFYVmP6frDvTO50tyiO3ie5J4AtfXmxD6dL53Fw9kBw/E9AtUHq1hKr3kT
+	 oSWzFY322wjRf3Byk2WT4jUn9Fs0+DfIWrWfM5T/cBeOyRsZeIiTowOIA/kVX5Nmz9884
+	 2k7V6+nVgRVpEViiPuTq4xuPQXkVTfaJlduk8B44ASDNutY/J62o3CVkCryy/WsPWpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795430115;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cIh+Iax7BM1D9H5+u/MnfHAua0Cwb6nfRtbILLfMpJ4=;
-	b=Xzjz9zxbgSj2WdSghOHf+FolXzJ1jKaeTK4q/yKtWG0F0/C/YZE16/dQKfa148cs8wKd
-	 zPdOapAXyAmTn4LOO3AWB0ikRIzilUkELXNPcdaSYWRrM29R7afF5PEQkCepGdNeM2+aS
-	 sBJZsD39RH4UNgCax4SmAAqpVILy1KNS/kB6MObMB4vaybObVWyMw3l5pds/XrdysNaJT
-	 aHlMfFHJonU7OhpwrUJ553xqWZi6Qgm1bgekiS0VhiuUh+MUchyFtqFmwOenRpTd5co9p
-	 ijIerI6bIJ1vfPrc/3yFiN9l3pvmSpEc3WcDkmT5j5gq2fr+kOibDwlBNs7+AcJ2VKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795430213;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=uDIyL8csS0OafYWL+DTmNWGdhbsOuiWOQJkObodqJlE=;
+	b=0g4d5LFxy+mTJx5+onRRiplcvYN8wu1csUrnGn4+doGdqs1TlfaZXemzE8whJXOvlesk
+	 QT/gPoAwTXPOGkTKo/ng1UnN/aMhMZ+09q7tDarPo90zHXXF0e+5XoZBbznBxcatpBpqr
+	 H1sKd63s3lOOtlPiwdTIMZCJKbAHewvfoKO6IUyoJqqEiyoywPUrpdAZdmOdFazO8Q+kf
+	 jNPqH97HyOO2w0W/w/KAncfamC0StB4hu8y85bbBb/NYk8sthnCCom5SfNGxAg8+4fEIH
+	 MClnB/956wo82fcktita7koZS2Uxgf+S71cF2KAiZ9y+wNfg8ZOBon5l8HTQMXnXfUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CGvoZVyW;
-	arc=none smtp.remote-ip=95.215.58.82
-Received: from mta1.migadu.com (out-82.mta1.migadu.com [95.215.58.82])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61436606A688
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 10:35:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61436606A688
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=pkO3cxgd;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 37113606A31E;
+	Mon, 23 Nov 2026 10:36:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37113606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CGvoZVyW
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=80DSeNgLr4gsI8o+Z1IuJ6m5ooSb7Rnaj6ZFYHuYkyA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795430110; v=1; x=1796034910;
- b=CGvoZVyWhBT92ElzgOOfOuph4j0qKjTklFTmoj6JdgCWVzddqYEYil7ZGEr6zHuvsBoFv3M0
- XnyIUpczwZ0tuc13rl2fKUv+EV6SZx5uxBOuXfZmDSYoldisug/xgUWyPxKEMWg7FwS3+nPQ9to
- nzofNZeZgt1ZJHf8hvGyNN44=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f6937f6a9f32d691;
-	Mon, 23 Nov 2026 10:35:08 +0000
-X-Mizu-Trace-ID: f6937f6a9f32d691
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Gavin Shan <gshan@redhat.com>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Fuad Tabba <tabba@google.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] KVM: arm64: Fix THP block mapping when the PMD level is folded
-Date: Mon, 23 Nov 2026 10:35:04 +0000
-Message-ID: <20261123103505.1006067-2-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261123103505.1006067-1-fuad.tabba@linux.dev>
-References: <20261123103505.1006067-1-fuad.tabba@linux.dev>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=pkO3cxgd
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 62F0A143D;
+	Mon, 23 Nov 2026 02:36:49 -0800 (PST)
+Received: from [10.57.91.245] (unknown [10.57.91.245])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 25D723F632;
+	Mon, 23 Nov 2026 02:36:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795430212; bh=zxMgJ0Zod2wpdsyWepEtw4oVnjAoyPgBY3VWNAhnP7M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=pkO3cxgdC1Ma9566c7PDIZgUyDTw/GTPNKPYUHG2BR63OXTEzzEQs+CraFnUg2myV
+	 5AIDh+wbSitzPRL3+3WA0saItk2Mgsq01o/7l++5BdhZ2n1FKd8uE58qHfkf3GUHTD
+	 ozS0U8gq/7uNSrzNX6QhEEhYJr4uc0eTMD/zGtko=
+Message-ID: <5b0a26ee-30b0-4a79-9cca-9848dc9d65c5@arm.com>
+Date: Mon, 23 Nov 2026 10:36:48 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,47 +53,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: mm: Don't defer the barriers when installing a
+ fixmap entry
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Yang Shi <yang@os.amperecomputing.com>, Kevin Brodsky
+ <kevin.brodsky@arm.com>, Anshuman Khandual <anshuman.khandual@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261120121638.194154-1-fuad.tabba@linux.dev>
+ <20261120121638.194154-4-fuad.tabba@linux.dev>
+ <6782b5ee-3dfe-4076-a79c-fbeb2c2ac7da@arm.com>
+ <CA+EHjTziXrRdR+guikKbj93Az96T+AMx_=0sVeyWG5C4fwaaTg@mail.gmail.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <CA+EHjTziXrRdR+guikKbj93Az96T+AMx_=0sVeyWG5C4fwaaTg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When a THP backs guest memory, transparent_hugepage_adjust() rounds the
-faulting gfn and pfn down to the THP's first page, and KVM maps the
-whole THP with a PMD_SIZE block. However, the rounding uses a mask of
-PTRS_PER_PMD - 1, and PTRS_PER_PMD is 1 when the PMD level is folded
-(64K pages with a 42-bit VA, or 16K pages with a 36-bit VA). KVM then
-maps PMD_SIZE worth of pages starting at the faulting page, and the
-guest gets the host memory that follows the THP. With pKVM, the
-hypervisor rejects the unaligned block, so the guest doesn't get that
-memory.
+On 23/11/2026 07:35, Fuad Tabba wrote:
+> Hi Ryan,
+> 
+> On Sat, 21 Nov 2026 11:01:49 +0000, Ryan Roberts <ryan.roberts@arm.com> wrote:
+> [...]
+>>> kernel then warns about a spurious translation fault. When kgdb stops a
+>>> CPU in lazy MMU mode, its breakpoint writes through FIX_TEXT_POKE0 can
+>>> fault the same way, and fail.
+>>>
+>>> Emit the barriers directly in __set_fixmap().
+>>>
+>>> Fixes: 5fdd05efa1cd3 ("arm64/mm: Batch barriers when updating kernel mappings")
+>>
+>> My memory might be betraying me, but I think this change went in before BBML3
+>> (BBML2_NOABORT)? In which case, the bug is only exposed by the latter series?
+> 
+> It did, and the set_swapper_pgd() path is only exposed by the later
+> series. The tag is for the kgdb path, which doesn't depend on BBML3.
+> When kgdb is entered from a breakpoint in process context,
+> in_interrupt() is false, so in lazy MMU mode the barriers for its
+> FIX_TEXT_POKE0 mapping are still deferred.
 
-Before the conversion to the generic page-table API, the unrounded pfn
-went into a block descriptor, where the address bits below the block
-size aren't part of the output address, so only the THP was mapped.
+ACK
 
-Round to PMD_SIZE >> PAGE_SHIFT pages instead.
+> 
+> [...]
+>>> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
+> [...]
+>>> @@ -127,7 +127,9 @@ void __set_fixmap(enum fixed_addresses idx,
+>>>          ptep = fixmap_pte(addr);
+>>>
+>>>          if (pgprot_val(flags)) {
+>>> -                __set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+>>> +                /* The slot must be usable on return, even in lazy MMU mode. */
+>>> +                __set_pte_nosync(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+>>> +                emit_pte_barriers();
+>>
+>> I wonder if it would be clearer to wrap __set_ptes():
+>>
+>> lazy_mmu_mode_pause()
+>> __set_ptes()
+>> lazy_mmu_mode_resume()
+> 
+> That would work. However, there's the stable backport. 6.18 has the
+> bug, but lazy_mmu_mode_pause() was added in 7.0, so 6.18.y would need
+> its own patch. This patch applies to 6.18 unchanged.
+> 
+> I'm happy with either, or with a followup patch in the same series.
 
-Fixes: 6f745f1bb5bf2 ("KVM: arm64: Convert user_mem_abort() to generic page-table API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/kvm/mmu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I'd personally prefer to use pause/resume since it's makes it very clear what's
+going on and avoids the layer violation. Perhaps your approach as the back
+portable one, then pause/resume as follow up (along with ptep_try_set() tidy
+up)? Others might think differently though...
 
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 1db10d8d6db73..bab44021654a0 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1573,9 +1573,9 @@ transparent_hugepage_adjust(const struct kvm_s2_fault_desc *s2fd, kvm_pfn_t *pfn
- 		if (sz < PMD_SIZE)
- 			return PAGE_SIZE;
- 
--		gfn &= ~(PTRS_PER_PMD - 1);
-+		gfn = ALIGN_DOWN(gfn, PMD_SIZE >> PAGE_SHIFT);
- 		*gfnp = gfn;
--		pfn &= ~(PTRS_PER_PMD - 1);
-+		pfn = ALIGN_DOWN(pfn, PMD_SIZE >> PAGE_SHIFT);
- 		*pfnp = pfn;
- 
- 		return PMD_SIZE;
--- 
-2.47.3
+Regardless:
+
+Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
+
+> 
+> Cheers,
+> /fuad
 
