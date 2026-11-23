@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795428419;
-	b=oLxlTgFmWWBYvqA4SDPRfNoXqVX/bbzTh4TKdRrvqB4iiG8xPTQW07xT5bRjNuZPkL+H
-	 5IuofFtv1y6bsJNqvQrH1Ao0Fcxr/Rgeg6XhRha1rw5pb9VrKDhFJlAGd6Gr+pOBqtu/x
-	 CGWR6+F08jrDLCpJrirCK2jxo/bbfDiSt0VK2X0ixaDIwfa44+fvGCcQSYqxIQNYviFHf
-	 29QquMNqX8bU507HnRiDtTtAD9D+mLVfmrnZOWMIDt5Wg0IbE7ZfNr+jfbaoxVkcAjuB+
-	 4CT7vsp2/Lxqav+xrvaqt2kfiCMupz4aTKpE90oIrFy8UUtk2Rb305RS9ioA7Rj1l+A==
+	t=1795428421;
+	b=b28qYGLYXaQtzv+PGpoB1otEYuOY4RT97ZGfkozXqDRRsmWaD8DhZBVmN2RXGORavjFv
+	 vE98YnjozeWrF8yzS+ks+nGKJb1/Ve1Um5/D5FHu+6n8YKj0x3Zhk83pN7eXsOAlsoNU4
+	 htjCvY7gSf9ZsiFcmxbmAB0u4rWijsdPWsGwHj1ihXyqYaQ325zOLBHnZAvJyT5RvvllX
+	 WZyPBBmT2nfrMDnxRDn+WTWwPRAFz+u4T/+ilyTEPMVNUE6N+bNMpsugaOOMzanuYHDo1
+	 nZgNye7HY7C42PzPcRn5sSMYvUTe2nstXSy2jmsWZrd4pWF/ANO7tiaTHj2jxGqLDPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795428419;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795428421;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=vctwdCkQx24yaGhbYfazmBWlj/Lh+OTA9NgY45mgVYs=;
-	b=EQXFDbpdoQrodbzH5eREDHV0YDRyr87E5qSVdmLp9dfKRoCd1RwyRNdS9AluDhEaryZT
-	 AGIDxjY9xH/NJOpY0HJjE/Gy6hCRKD686sHeJOz4ko7phWJjnq3dmPcg4+vmJVSyO37Ui
-	 lLll9hgDCr7zvLo9Zc9YCX/cnf8Av6PF662luR/DK9P9RN4VeyZ4MhzqfLBoTx6WBGxgs
-	 qCP9WESaIaTxE3mPdAMogQltjzUQBdWwlUs1N49BXd+HZbcwTxn8Td2ZMiUI2OvIjd7O+
-	 kD8eiJAweYsrjk8CAwfwVvFuEerY7+kV3whUUo9uLWfcNDzR1cZEcGkDBg8U/qo1DIA==
+	bh=6dWrzTEqrK6nKc1TJcUidD5GK19M6KlUED1psMXUX8s=;
+	b=w7XYKvWE9KY474PjntLdJszjUKauXQ2oD0tQLhO4ehcd4hEU1tUT9Xt1SnZdh2eIwKSK
+	 9nnBP+U0UIqU2yvRjGqZiXWaVJDsiyrevWOjrigHvpQHcNaN6thFZQ084wa5gg9vUJ1+H
+	 VNoMt0I+RIVoyYe58KNYrwgv1rwZSIyi/Y/7rd97HqLwmtGKiaJnwhSOOBoDNjrbT0VgO
+	 Bl8j199BxWif3pMwgy/xnKewTI7dGy3rRuSrmYv16StWk8zj2iKrX523iyHlxvWdS2K1c
+	 jXXiwMLBn05UEmEn8hNlE00VG0LoIVYXgexdfH/qQFn1AJsOo4CUpVWc8fjzIpahEHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h902wYg3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dsrkcxhg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5070C606A336;
-	Mon, 23 Nov 2026 10:06:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2048D606A336;
+	Mon, 23 Nov 2026 10:07:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h902wYg3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37931F000D1;
-	Mon, 23 Nov 2026 10:06:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dsrkcxhg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E551F000D8;
+	Mon, 23 Nov 2026 10:06:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795428418;
-	bh=vctwdCkQx24yaGhbYfazmBWlj/Lh+OTA9NgY45mgVYs=;
+	s=k20260515; t=1795428420;
+	bh=6dWrzTEqrK6nKc1TJcUidD5GK19M6KlUED1psMXUX8s=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=h902wYg3EeR42ee+cZNAQXroQOZoRhDWCGwKrGL2jCbtvet7e8IUKMCkvZoegC+SG
-	 E9eILrT9B4c/wW+F1I1e8hDjwsZxM9mVkkpbKcWmsSZxK4HQ0KU5vPEL3CTwGSKXla
-	 sMjyzRdxGbxGAxnPZ5pIotKBbzsO91C2+gZY6L6hizd+BJhVhVaxkVTM5UJgR1WvCp
-	 BCN0oL6ZzggsBqe4O2v472KmNEyJ1mleq/LCsd6PyG5qlV/UvifoUtBOb2bskwWJUZ
-	 fn7XmiUPD8Ce4fDf5GUxRsn9OaBjwBCwoXWbgSSiH0fuQbjAjKP0n9ouWCoiPfxIDe
-	 xhxcMZwN2MZ8Q==
-Subject: Re: [PATCH net v2 1/2] net: stmmac: Limit the MTU of normal
- descriptors to one buffer
+	b=Dsrkcxhg1JctUS6kzFQxFlyk5X67Z+ZI3nDmladFozerpVBrQpgk9Sy12Ec05yQ6Z
+	 Nz80e8sE9yrbv0SpzoPuusPH3f0gkuQDAuYYz9gWv8vmMUkdX4Vlcn7kxfVASgeDF+
+	 lGFtldgSDVgsGG+ts9EiN0O6EpuT40RHaN4F03ix8sQf8zNWzh76Ndu4s2EBeFnWBn
+	 XqHMVsnLzjl50UIrFqDGL5tzwgSfFimzMLZEw7hlTlyKBENHbPkPWaNujOKAB+x/cx
+	 zZ7lPl1ffVVWTVMyLuZEhmxPRoVytWlmDpyaGNrUcNVFrJq3qLg9qTzsAeE3zwBB3Q
+	 mxYTFXlNGjYKA==
+Subject:
+ Re: [PATCH net v2 2/2] net: stmmac: dwmac-sun8i: Limit the MTU to 2018
 From: netdev-bot+sashiko@kernel.org
 To: aiyengar1990@gmail.com
 Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
@@ -51,10 +51,10 @@ Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
  rmk+kernel@armlinux.org.uk, nb@tipi-net.de, stable@vger.kernel.org
-Date: Mon, 23 Nov 2026 10:06:57 +0000
-Message-ID: <179542841718.3135.3290374626862889297@kernel.org>
-In-Reply-To: <20261122-sun8i-emac-mtu-limit-v2-1-c4081e5b83cf@gmail.com>
-References: <20261122-sun8i-emac-mtu-limit-v2-1-c4081e5b83cf@gmail.com>
+Date: Mon, 23 Nov 2026 10:06:59 +0000
+Message-ID: <179542841933.3135.13344268634308620175@kernel.org>
+In-Reply-To: <20261122-sun8i-emac-mtu-limit-v2-2-c4081e5b83cf@gmail.com>
+References: <20261122-sun8i-emac-mtu-limit-v2-2-c4081e5b83cf@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -68,10 +68,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -79,225 +79,128 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] In ring mode, normal RX descriptors still give the DMA a
-  1-byte buffer2 that has no address.
-- [Medium] The commit says stmmac does not split TX frames for normal
-  descriptors, so a frame must fit one 2047-byte buffer.
-- [Medium] The new normal-descriptor limit, max_mtu = 2047 - ETH_HLEN -
-  2*VLAN_HLEN - ETH_FCS_LEN = 2021, leaves zero slack.
-- [Medium] net: stmmac: unaligned 2047-byte RX buffer limit in
-  __stmmac_dvr_probe()
+- [Medium] The patch hard-codes a 2044-byte limit as an MTU cap in one
+  glue driver.
+- [Low] The commit message and the code do not cover the same hardware.
+- [Low] The 2044-byte fill limit was measured on the H616, an arm64 SoC
+  where NET_IP_ALIGN is 0 (arch/arm64/include/asm/processor.h:17).
 
 --
 
-net: stmmac: Limit the MTU of normal descriptors to one buffer
+net: stmmac: dwmac-sun8i: Limit the MTU to 2018
 
-This patch sets max_mtu for normal descriptors to BUF_SIZE_2KiB - 1 -
-ETH_HLEN - 2 * VLAN_HLEN - ETH_FCS_LEN. The old limit was SKB_MAX_HEAD().
-The goal is to fit a double-tagged frame plus FCS into one 2047-byte
-buffer.
+This commit caps the maximum MTU of the dwmac-sun8i glue driver by setting
+plat_dat->maxmtu in sun8i_dwmac_probe(). The cap makes a frame with two
+VLAN tags and the FCS fit in 2044 bytes. According to the commit message,
+the H616 RX DMA fills only 2044 bytes of a buffer.
 
-Link: https://lore.kernel.org/r/E1vLJcL-0000000ExBL-0GFe@rmk-PC.armlinux.org.uk [1]
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> index 2ece7ba9dd73b..ec401cae8187b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> @@ -1208,6 +1208,7 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
+>  	plat_dat->mac_setup = sun8i_dwmac_setup;
+>  	plat_dat->tx_fifo_size = 4096;
+>  	plat_dat->rx_fifo_size = 16384;
+> +	plat_dat->maxmtu = 2044 - ETH_HLEN - 2 * VLAN_HLEN - ETH_FCS_LEN;
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index a685ce4638f61..2a27e1e7f9b9f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -8247,6 +8247,9 @@ static int __stmmac_dvr_probe(struct device *device,
->  		ndev->max_mtu = XGMAC_JUMBO_LEN;
->  	else if (priv->plat->enh_desc || priv->synopsys_id >= DWMAC_CORE_4_00)
->  		ndev->max_mtu = JUMBO_LEN;
-> +	else if (priv->hw->desc == &ndesc_ops)
-> +		ndev->max_mtu = BUF_SIZE_2KiB - 1 - ETH_HLEN - 2 * VLAN_HLEN -
-> +				ETH_FCS_LEN;
-
-[Severity: Medium]
-The new limit assumes the RX DMA can fill all 2047 bytes of buffer1.
-Does it on these cores?
-
-common.h has:
-
-	/* RX Buffer size must be multiple of 4/8/16 bytes */
-
-That rule is why BUF_SIZE_8KiB and BUF_SIZE_16KiB are 8188 and 16368
-rather than 2^N - 1. BUF_SIZE_2KiB - 1 does not follow it.
-
-For any MTU above 1510, stmmac_setup_dma_desc() picks
-dma_buf_sz == BUF_SIZE_2KiB. ndesc_init_rx_desc() then programs RBS1
-as min(bfsize, BUF_SIZE_2KiB - 1), which is 2047. If the DMA only
-writes whole bus-width words, buffer1 really holds 2044 bytes on a
-32-bit bus, 2040 on a 64-bit bus and 2032 on a 128-bit bus.
-
-With max_mtu = 2047 - 14 - 8 - 4 = 2021, a double-tagged frame with
-FCS can be up to 2047 bytes. Anything past the usable part of buffer1
-leaves the first descriptor without LS:
-
-- In chain mode, ndesc_get_rx_status() takes the
-  !RDES0_LAST_DESCRIPTOR path and returns discard_frame.
-- In ring mode, ndesc_rx_set_on_ring() has set RBS2 to 1 while des3
-  is still 0. The tail goes to address 0 or to the next descriptor.
-
-The follow-up "net: stmmac: dwmac-sun8i: Limit the MTU to 2018" looks
-like exactly this case. H616 fills only 2044 bytes, and
-2044 - 26 = 2018. Other ndesc_ops users would hit the same problem.
-On wider buses it starts at MTU 2015 (64-bit) or 2007 (128-bit), and
-the sun8i change does nothing for them.
-
-There is also dwmac1000_core_init(), which sets GMAC_CONTROL_JE once
-mtu > 2000. MTU 2001-2021 is now allowed, so the MAC is told to
-accept jumbo frames that can never fit one normal descriptor buffer.
-
-Should the generic limit be based on a bus-width aligned size, for
-example ALIGN_DOWN(BUF_SIZE_2KiB - 1, 16), instead of
-BUF_SIZE_2KiB - 1? That gives 2006, which is still above the JE
-threshold. Should max_mtu for normal descriptors also be capped at
-2000, or should JE not be set when ndesc_ops is in use? And is the
-DMA bus width known at this point, so that 32-bit cores don't lose
-more MTU than they need to?
-
-[Severity: Medium]
-Does the RX ring still give the DMA a buffer2 with these MTUs? Every MTU
-from 1511 up to the new limit of 2021 ends up with dma_buf_sz ==
-BUF_SIZE_2KiB:
-
-stmmac_setup_dma_desc()
-    len = mtu + ETH_HLEN + 2 * VLAN_HLEN + ETH_FCS_LEN;
-    stmmac_set_bfsize(len)
-
-ndesc_init_rx_desc() caps buffer1 at 2047. It then passes the uncapped
-2048 to ndesc_rx_set_on_ring():
-
-drivers/net/ethernet/stmicro/stmmac/descs_com.h:ndesc_rx_set_on_ring() {
-	if (bfsize >= BUF_SIZE_2KiB) {
-		int bfsize2;
-
-		bfsize2 = min(bfsize - BUF_SIZE_2KiB + 1, BUF_SIZE_2KiB - 1);
-		p->des1 |= cpu_to_le32(FIELD_PREP(RDES1_BUFFER2_SIZE_MASK,
-						  bfsize2));
-	}
-	...
-}
-
-So RBS2 is set to 1.
-
-RDES3 is never programmed for normal descriptors at this buffer size:
-
-- ndesc_ops has no set_sec_addr.
-- stmmac_init_rx_buffers() and refill_desc3() only write des3 when
-  dma_buf_sz == BUF_SIZE_16KiB.
-
-RDES3 therefore stays 0, or holds the timestamp seconds the hardware
-writes back.
-
-The comment in stmmac_rx_check_buf2_cap() says buffer2 is never handed
-to the hardware on legacy cores, but ndesc_rx_set_on_ring() appears to do
-exactly that.
-
-dwmac1000_core_init() sets GMAC_CONTROL_JE when mtu > 2000. MTU
-2001-2021 is now allowed, so the MAC accepts frames much larger than
-2047 bytes.
-
-If a peer sends a frame longer than 2047 bytes, can the DMA write one
-byte to the unmapped RDES3 address? The rest of the frame would then go
-to the next descriptor and be dropped through the !LS path in
-ndesc_get_rx_status().
-
-The databook says buffer sizes that are not a multiple of the bus width
-give undefined results, so the exact hardware behaviour with RBS2 = 1 is
-uncertain. The same RBS2 = 1 programming was also reachable before this
-patch. Still, the commit relies on every frame fitting in buffer1.
-
-Should ndesc_rx_set_on_ring() skip programming the buffer2 size for
-normal descriptors unless RDES3 holds a valid mapped address?
-
-The follow-up "net: stmmac: dwmac-sun8i: Limit the MTU to 2018" only
-lowers maxmtu on sun8i and does not change this.
-
-[Severity: Medium]
+[Severity: Low]
 The commit message says:
 
-  "stmmac neither splits TX frames nor joins RX descriptors for them, so
-  a frame must fit one 2047-byte buffer."
+  The H616 RX DMA fills only 2044 bytes of a buffer, so frames of 2045 to
+  2047 bytes, allowed by the previous patch, are dropped.
 
-Is max_mtu enough to enforce this on TX? In stmmac_xmit(), the jumbo
-handling only runs for enhanced descriptors:
+This assignment in sun8i_dwmac_probe() does not check gmac->variant. So
+it applies to every entry in sun8i_dwmac_match[]:
 
-	if (enh_desc)
-		is_jumbo = stmmac_is_jumbo_frm(priv, skb->len, enh_desc);
+  allwinner,sun8i-h3-emac
+  allwinner,sun8i-v3s-emac
+  allwinner,sun8i-a83t-emac
+  allwinner,sun8i-r40-gmac
+  allwinner,sun50i-a64-emac
+  allwinner,sun50i-h6-emac
+  allwinner,sun50i-h616-emac1
 
-For normal descriptors, skb_headlen() and each frag size go straight to
-stmmac_prepare_tx_desc(). Nothing checks them against 2047.
+H616 EMAC0 is covered too, through the a64-emac fallback. On all of these
+max_mtu drops from 2021 to 2018.
 
-In ring mode, ndesc_prepare_tx_desc()->norm_set_tx_desc_len_on_ring()
-then does:
+Has the 2044 byte limit been seen on the non-H616 parts as well? If it
+belongs to the whole sun8i EMAC IP, could the commit message say so? If
+not, should the cap be per variant, for example kept in struct
+emac_variant?
 
-	if (unlikely(len > buffer1_max_length)) {
-		p->des1 |= cpu_to_le32(FIELD_PREP(TDES1_BUFFER2_SIZE_MASK,
-						  len - buffer1_max_length) |
-	...
+The Fixes: tag points to 9f93ac8d4085 ("net-next: stmmac: Add
+dwmac-sun8i"). That commit added H3/A83T/A64 support, and H616 was not
+supported at the time. Doesn't the tag contradict the H616-only
+explanation?
 
-ndesc_set_addr() only writes DES2. On this path DES3 stays 0 from the
-coherent allocation, or is cleared to 0 by clean_desc3().
-
-The stack does not guarantee skb length <= MTU at ndo_start_xmit:
-
-- tcf_mirred_forward() in net/sched/act_mirred.c calls
-  tcf_dev_queue_xmit() without an MTU check.
-- BPF egress redirect can deliver oversized skbs.
-- AF_PACKET with vnet_hdr GSO uses a user-chosen gso_size.
-- A bridge with mixed port MTUs can pass GSO skbs through.
-
-Can the NIC then DMA-read up to 2047 bytes from the unprogrammed DES3
-address and put them on the wire?
-
-Would stmmac_xmit() need a length check that drops oversized frames on
-normal descriptors? Without it, the single-buffer assumption does not
-hold on TX. The second patch in the series does not address this.
+The phrase "allowed by the previous patch" also seems misleading. Before
+"net: stmmac: Limit the MTU of normal descriptors to one buffer", max_mtu
+for normal descriptors was SKB_MAX_HEAD(), about 3712. So frames of 2045
+to 2047 bytes were allowed long before that patch. Once the series is
+merged, "the previous patch" will also mean little to stable backporters.
 
 [Severity: Medium]
-The new limit works out to 2047 - 14 - 8 - 4 = 2021, which leaves no
-slack. Does it allow for Type-1 RX checksum offload engines?
+Is 2044 really a sun8i-specific limit? It could also come from the RX
+buffer size that the shared normal descriptor code programs.
 
-ndesc_get_rx_frame_len() notes that those engines write two checksum
-bytes after the frame, and those bytes are included in the frame length:
+drivers/net/ethernet/stmicro/stmmac/common.h states:
 
-	/* The type-1 checksum offload engines append the checksum at
-	 * the end of frame and the two bytes of checksum are added in
-	 * the length.
-	...
-	if (rx_coe_type == STMMAC_RX_COE_TYPE1)
-		csum = 2;
+/* RX Buffer size must be multiple of 4/8/16 bytes */
+#define BUF_SIZE_16KiB 16368
+#define BUF_SIZE_8KiB 8188
 
-stmmac_hw_init() picks STMMAC_RX_COE_TYPE1 from dma_cap.rx_coe_type1,
-independently of enh_desc. So a pre-4.00 GMAC without the alternate
-descriptor feature can run ndesc_ops with Type-1 COE.
-dwmac1000_rx_ipc_enable() then sets GMAC_CONTROL_IPC.
+But ndesc_init_rx_desc() in norm_desc.c still programs 2047:
 
-At MTU 2020 or 2021, a double-tagged frame with FCS is 2046-2047 bytes.
-With the appended checksum it needs 2048-2049 bytes in the buffer.
+	bfsize1 = min(bfsize, BUF_SIZE_2KiB - 1);
+	p->des1 |= cpu_to_le32(bfsize1 & RDES1_BUFFER1_SIZE_MASK);
 
-ndesc_init_rx_desc() caps buffer1 at 2047. The leftover bytes would go
-into the 1-byte buffer2 at RDES3, then into the next descriptor. The
-first descriptor has no LS, so ndesc_get_rx_status() returns
-discard_frame.
+2047 is not a multiple of 4, and 2047 & ~3 is exactly 2044.
 
-Wouldn't that drop QinQ frames at the advertised max MTU? That conflicts
-with:
+__stmmac_dvr_probe() also still sets this for every ndesc_ops platform:
 
-  "Limit max_mtu so that a frame with two VLAN tags and the FCS fits."
+	else if (priv->hw->desc == &ndesc_ops)
+		ndev->max_mtu = BUF_SIZE_2KiB - 1 - ETH_HLEN - 2 * VLAN_HLEN -
+				ETH_FCS_LEN;
 
-stmmac_setup_dma_desc() also sizes the RX buffers without counting the
-Type-1 checksum bytes.
+Other normal descriptor users, such as older GMAC 3.x and MAC100 cores
+without enhanced descriptors, would still advertise an MTU of 2021. The
+largest frames at that MTU need the out-of-spec 2047 byte buffer. If that
+hardware handles an unaligned RBS1 the way the H616 does, those frames
+would span descriptors and be silently discarded. On 64-bit or 128-bit
+buses the aligned size would be 2040 or 2032, so the gap would be larger.
 
-The follow-up "net: stmmac: dwmac-sun8i: Limit the MTU to 2018"
-suggests the 2047 formula is already too tight on real hardware: H616
-fills only 2044 bytes. That change only covers sun8i, which uses Type-2
-COE.
+Could ndesc_init_rx_desc() program an aligned RBS1 instead, with the
+ndesc max_mtu in __stmmac_dvr_probe() derived from it? That would remove
+the need for the hard-coded 2044 here.
 
-Should the generic limit reserve 2 more bytes when rx_coe ==
-STMMAC_RX_COE_TYPE1, or reserve them always?
+Neither the code nor the commit message explains where 2044 comes from.
 
-[ ... ]
+[Severity: Low]
+Was 2044 measured only on the arm64 H616? There NET_IP_ALIGN is 0, so
+RX buffers start word-aligned at page + NET_SKB_PAD.
+
+On the 32-bit sun8i SoCs (H3/H2+, V3s, A83T, R40), arch/arm does not
+override NET_IP_ALIGN, so the default of 2 applies. stmmac_rx_offset()
+includes it in the DMA buffer start:
+
+static unsigned int stmmac_rx_offset(struct stmmac_priv *priv)
+{
+	if (stmmac_xdp_is_enabled(priv))
+		return XDP_PACKET_HEADROOM + NET_IP_ALIGN;
+
+	return NET_SKB_PAD + NET_IP_ALIGN;
+}
+
+So every RX buffer on those SoCs starts 2 bytes into a 32-bit word.
+
+Suppose the EMAC DMA rounds its fill relative to the start address and
+not only the size field. Could the usable fill on the 32-bit variants
+then be below 2044? Maximum-size frames at MTU 2018 would span
+descriptors and be silently dropped again.
+
+Could the commit message say which SoCs and buffer alignments the 2044
+constant was checked on?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261122-sun8i-emac-mtu-limit-v2-0-c4081e5b83cf%40gmail.com
