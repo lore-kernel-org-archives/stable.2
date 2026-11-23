@@ -1,44 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=145.239.82.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795457255;
-	b=qPk750NkXnQWp5bmr5ebveecqYWUTb5LoUtCYhyFWbs7PmZ2OrHc93TNVVZWkx4f076e
-	 +6UsP+5ZPWMlHVSR1xGPrYF0oXiz0XpESItw9gXQy9peIBlUbn8km0BDZq7wEmoWyhseH
-	 5GSK9h3zf3XoLhEKcTZtSz8++YL9klwNzhnvCmixFWheSib5rytcGRpZVP7AY33U5w6e+
-	 BKGfAPqfMlrFlf4R51ASDeoc8Oe4Wpy7Bw5N7fMk+yQBSRuGLRm+7mOd3lOZARL8f0ebK
-	 TBLz+3oVNPmZbY1dIkFRWz01Ps+DWGy6t7fevMUXRwB8NvFNnrWHOehptWyZ49fpf1Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795457255;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:
-	 Disposition-Notification-To:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:Sender;
-	bh=6b5/gSRFYVQxbGpZr4BwafOmkvBNL0mPfWWVRMwohUI=;
-	b=AIAEj1yTM+z0tMhOYCawaNMxpbfAmKRpxxcl21hHAG/pBNCGS/AzrmqFkHtffNMdply8
-	 /yj3iXmPLVKTF1BowX7+bX5ca61G4b6dSQ3/G38GSoRIsp9oRI6IaEsT5suOsr6Y52ZhY
-	 2BBk4VL5NfVg2pndN4Zb70f+hyKExantaw0Qb5Tkb9F16ViDkWrPLZuniPLot5zQ53RbZ
-	 lHPiT+YA5GaRQkkXO68Dihq39tnK3El6loxTw54f6gTeYpIl+JRfw/3WM33jWIcT7GiaD
-	 9BN7vFztF4R6Pz3SM8kJGAVYXI2V8ZFNfV5Ydc/IzsAYFaFFUksasSxc4ye8z5BEFUw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=maciej.szmigiero.name;
-	spf=pass smtp.mailfrom=vps-ovh.mhejs.net;
-	arc=none smtp.remote-ip=145.239.82.108
-Received: from vps-ovh.mhejs.net (vps-ovh.mhejs.net [145.239.82.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795457707;
+	b=T4LzfNZp/S3ZeFxoTmwL9jxuPhiuaK/LMH6ZtTTsf5tcQFFC9q0XHDyq/S0/4u9x1Yd3
+	 75f/3xgH2gkYcAbIoLTtZrKhiY+S1uVog5c7YW7rwtKFlU2KXlKElI97fWX1b3ui+C5yz
+	 wyPxw+BVzfslxZpLOHYYPzHXqbz61ANnsOnWTeDSastn3bysRXY6qNHogFDZU99eDyyhg
+	 lPc9ctf/fPpTyMtnWKX/WXDHqYFiBPJmyxAF2M0dv+8T99YuIOT5ZVgP1Lio7JUd1nVyj
+	 SNaBksuA/VUMFUIghOdt/rbtNwuFSYI7bl2AFZzc3pRuJjV8Tgu+1tdh6q5qmNoJ/qQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795457707;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=4RwVRi4lv4NFCDPuBReyKfH02H3CYgQbpkPiInk4r68=;
+	b=gGHP+xEufN+507oMWJCmXPE+psWuub8B/Kdi1pcvrYVn0YzJnEnBBnJ5WLP/jqkHIJc6
+	 elcciTU/Lpgc96Iu8pup4iTBn0rgyYGR/4OsbNNxp1KJrf5QPqnAWvC2L1iGazcwKnSBh
+	 ZDRuvWJE9VbKyDjAeJa3LzecJtWYjyAF9MEc8MJuqZ/HlLjaoDA46IN4Ii8+oOFtAhAnR
+	 RZdSMeCLhF0a4Lf7gvgEu4kAwPPupwfHwi8Z+p92DlEdm8wQW5xZiRDwlU2GQx0HrK7pk
+	 6mtOVZkr3m9ZM/F+yRYkH123csMWGYMLHzi0q5eHOlALt1G/9M/19avSM+OyIXKWBaA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amGZ0qx+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE10606A31E;
-	Mon, 23 Nov 2026 18:07:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FE10606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=maciej.szmigiero.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vps-ovh.mhejs.net
-Received: from MUA
-	by vps-ovh.mhejs.net with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <mhej@vps-ovh.mhejs.net>)
-	id 1xVYRw-000000016i8-1Pqr;
-	Mon, 23 Nov 2026 19:07:32 +0100
-Message-ID: <aca74a0e-2672-4b93-b94a-e80b8fee5c9b@maciej.szmigiero.name>
-Date: Mon, 23 Nov 2026 19:07:27 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C763606A31E;
+	Mon, 23 Nov 2026 18:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amGZ0qx+
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795457706;
+	b=n8eqTMkSReYnqMgTt/2aeepPVT3VcI07xOduI/FrzKHRpjR5jjpVFQMGcS4dQ/q4wdUK
+	 o579f6SjtPf/gUg5bIfkNFuYffvrxVaBhAB+bfDQJbt3DoSNOeifqUEODr7Ye371B/nuh
+	 u3EYucw7XuAXiHkEizFLNb+3NNw4EXgIw3/MFiYyaONKe2P6JGc2ly1esVrIJipQVSSh2
+	 g4qhIjlVkJ69e37/Hy7iMKbwqQt84nX6f2lpbN7owrFuRyeNrP8hl8HNwoFfkPb3DuYu2
+	 UpCusx6l1joXDbqigKSKsX0DxFxc8f9p0FetBPL3Lbcj/0x9AvOYqiiackK3oXbWYVw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795457706;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=4RwVRi4lv4NFCDPuBReyKfH02H3CYgQbpkPiInk4r68=;
+	b=BS/gTQCkfg21EwAVaMzIKUZyJEAKP+LPv5sbtHCqh5NxE/erxouF0VsAb1X3P88+z1Ls
+	 34oa6Oky8stAwMZNZ6/vn/se5qQnd1KOM1kAXYAKxv8x0EyW5Y1ycQe3QRXZjZ+Lig2cM
+	 quH8PbGGG4r/bJBM4lSCg8VB8p1Oe1+sTor19mSqUc+gBpHjgNSXWTAPu655dii70C06i
+	 O+TUkonzITA7OXiPZYvrZOD1zZB23oZP2El1GFK11DNXqnsZc91kGMKke6s6bf9sM/WY1
+	 K1vvKmurSYOEGtcjzMBtsO9UyllJh0B0IQC9WT2HCBL139+oThygyOb0NYt7k6FoZ+w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5B7651F000C0;
+	Mon, 23 Nov 2026 18:15:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795457706;
+	bh=4RwVRi4lv4NFCDPuBReyKfH02H3CYgQbpkPiInk4r68=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=amGZ0qx+yaSKQilg6liPp5xrFJJc/BaXguXIZmDDoZqr+vJTUuba9QxL5wABfFYFa
+	 UCPPG/5ADbhQO1zEpy8B1vNoOz1m7rP4SpvhRAmrV7yJOQ/QDcyA2giyDwFTl8bKYW
+	 LFhLA5ds3XlsAn/K+g53F2rlBndCVxxN1zQtacjjGYzQEZ5Rhf/FOkdpfCqUZ8VB0F
+	 ROEPDtVgXo9JhgCXtLkc3GZVSagZY0JRCmoWrnEThkrIFMyYvXv3w/V+vMcFg/jNsZ
+	 S4Yq0KUaQE6/ka0/bXmmCfDGKQquZjew3rC6JcaUfIpt4BdeyXQOSMoR/jdWBBb7nV
+	 pBcA06qXFxQHw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C52554C599;
+	Mon, 23 Nov 2026 18:15:01 +0000 (UTC)
+From: =?utf-8?q?Aykut_C=C4=B1nc=C4=B1k_via_B4_Relay?= <devnull+aykutcincik.ogr.eskisehir.edu.tr@kernel.org>
+Date: Mon, 23 Nov 2026 21:15:01 +0300
+Subject: [PATCH] ext4: undo the splice when ext4_splice_branch() fails
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -48,122 +82,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: wwan: iosm: always send the host sleep message
- on suspend
-To: David Westen <davidlwesten@gmail.com>
-Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
- netdev@vger.kernel.org, johannes@sipsolutions.net, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, m.chetan.kumar@linux.intel.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261122050039.861287-1-davidlwesten@gmail.com>
- <925a4f3f-95bb-496e-be19-abf96af34d89@maciej.szmigiero.name>
- <813dc217-9753-4f9a-bf1d-1d8878dc9012@gmail.com>
-From: "Maciej S. Szmigiero" <mail@maciej.szmigiero.name>
-Content-Language: en-US, pl-PL
-Autocrypt: addr=mail@maciej.szmigiero.name; keydata=
- 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
-In-Reply-To: <813dc217-9753-4f9a-bf1d-1d8878dc9012@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Sender: mhej@vps-ovh.mhejs.net
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261123-ext4-splice-unsplice-v1-1-d291b741d15a@ogr.eskisehir.edu.tr>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y3M0Q5EMBCF4VeRudZES5B9FdmLdgxGpKSDSMS76
+ 1p357s4/wlCgUngk5wQaGfh2UfoNAEcrO9JcRsNJjOl1iZXdKyFkmViJLX5d1S1zW2LrjboIF6
+ XQB0fT7b5/i2bGwnXXwuu6wYXwdFleAAAAA==
+X-Change-ID: 20261123-ext4-splice-unsplice-78a3adcb82cb
+To: Theodore Ts'o <tytso@mit.edu>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>
+Cc: Jan Kara <jack@suse.cz>, Baokun Li <libaokun@linux.alibaba.com>, 
+ Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ =?utf-8?q?Aykut_C=C4=B1nc=C4=B1k?= <aykutcincik@ogr.eskisehir.edu.tr>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795457701; l=2094;
+ i=aykutcincik@ogr.eskisehir.edu.tr; s=20261121; h=from:subject:message-id;
+ bh=Ls4C+dOUY3TCmbcSSyBWCu5aT7wRmuBH47WNxUck0+g=;
+ b=OFJbPSfHX2f9wrqb18yNB7lNY7h+rGZD3Mu739L7AigYtB4io6L/8uULPlHKIZE0wWIeWpVON
+ cSPhkJ2DarrAn51ImuhxUY4U0LaOhRcHSt0/eqneOZ+qDWCCNzl1621
+X-Developer-Key: i=aykutcincik@ogr.eskisehir.edu.tr; a=ed25519;
+ pk=0VzUGJI+NLEekrIgYW4SWfh5kCTg8XsSWzEwmTagNes=
+X-Endpoint-Received: by B4 Relay for
+ aykutcincik@ogr.eskisehir.edu.tr/20261121 with auth_id=1593
+X-Original-From: =?utf-8?q?Aykut_C=C4=B1nc=C4=B1k?= <aykutcincik@ogr.eskisehir.edu.tr>
+Reply-To: aykutcincik@ogr.eskisehir.edu.tr
+Content-Transfer-Encoding: 8bit
 
-On 23.11.2026 04:05, David Westen wrote:
-> Hi Maciej,
-> 
-> Thanks for taking a look!
-> 
-> On 11/22/26 12:01 PM, Maciej S. Szmigiero wrote:
->> On 22.11.2026 06:00, David Westen wrote:
->>> This ignores the BIOS RTD3 setting for system suspend. The setting
->>> only selects the sleep protocol; the PCI core chooses the power state
->>> without it, and here chooses D3hot, which the doorbell protocol
->>> doesn't survive. Honoring D0L12 literally would mean keeping the
->>> device in D0, as commit f4dd5174e273 ("net: wwan: iosm: Keep device
->>> at D0 for s2idle case") did. That was reverted, D3 being the expected
->>> state.
->>
->> I have mixed feelings about this.
->>
->> Your platform specifies D0L1.2 as the target state so I presume that
->> is the state that the platform expects the modem to be put into?
-> 
-> It turns out it doesn't specify anything: the WWAN _DSM function 3
-> returns no result here (BIOS 1.56 and the latest 1.68), so D0L12 is
-> only the driver's default.
+From: Aykut Cıncık <aykutcincik@ogr.eskisehir.edu.tr>
 
-The driver code does only care for value 3, any other value or absence
-of value is taken as D0.
+If ext4_handle_dirty_metadata() or ext4_mark_inode_dirty() fails,
+ext4_splice_branch() frees the new blocks but leaves the pointers to
+them in place.  A later write then reuses the freed blocks, which can
+silently overwrite another file's data.
 
-Unfortunately, it's not known whether Lenovo intended this empty return
-value to be implemented as D0 or they just neglected to put a value there.
+Clear the pointers before freeing the blocks.
 
->> The reverted commit f4dd5174e273 on the other hand always put the modem
->> into D0, which was incorrect in a different way - as, for example, my
->> platform explicitly requests D3.
-> 
-> Agreed. How does yours request it, through the _DSM returning 3?
+Found and fixed with the help of Claude Code (Claude Opus).
 
-Yes, the method explicitly returns 3 for that "WWAN" GUID on my (HP) platform.
+Fixes: ac27a0ec112a ("[PATCH] ext4: initial copy of files from ext3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aykut Cıncık <aykutcincik@ogr.eskisehir.edu.tr>
+---
+Tested in QEMU by making each of the two calls fail with the dm "error"
+target.  Without the fix all 12 runs showed corruption (another file
+overwritten, or a double free); with it all 12 were clean, with KASAN
+and lockdep enabled.
 
->> Could you try the reverted commit to see if D0 actually works for your
->> platform?
-> 
-> I tried f4dd5174e273 on 7.2.15. With it, the modem is no longer put
-> into D3hot, but it still crashes during suspend-to-idle: when the
-> resume callback runs, the modem already reports CD_READY, the same as
-> without the commit. So it seems it's the FORCE_SLEEP doorbell that the
-> modem doesn't survive, whether it stays in D0 or goes to D3hot.
+Tested on top of [1]; the two patches apply in either order.
 
-So I guess this test settles it - at least for your platform.
+[1] https://patch.msgid.link/20261121-ext4-ind-discard-pa-v1-1-ee92928f7797@ogr.eskisehir.edu.tr
+---
+ fs/ext4/indirect.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-I would cautiously proceed with unconditionally using D3 (as this patch
-does), however would be ready to revert it and use a DMI-based override
-list instead if it turns out that there are platforms that actually
-require D0.
+diff --git a/fs/ext4/indirect.c b/fs/ext4/indirect.c
+index a495080df710..764f01057aca 100644
+--- a/fs/ext4/indirect.c
++++ b/fs/ext4/indirect.c
+@@ -471,18 +471,21 @@ static int ext4_splice_branch(handle_t *handle,
+ 		BUFFER_TRACE(where->bh, "call ext4_handle_dirty_metadata");
+ 		err = ext4_handle_dirty_metadata(handle, ar->inode, where->bh);
+ 		if (err)
+-			goto err_out;
++			goto err_unsplice;
+ 	} else {
+ 		/*
+ 		 * OK, we spliced it into the inode itself on a direct block.
+ 		 */
+ 		err = ext4_mark_inode_dirty(handle, ar->inode);
+ 		if (unlikely(err))
+-			goto err_out;
++			goto err_unsplice;
+ 		ext4_debug("splicing direct\n");
+ 	}
+ 	return err;
+ 
++err_unsplice:
++	/* Do not leave the tree pointing at the blocks freed below. */
++	memset(where->p, 0, sizeof(*where->p) * (num == 0 ? ar->len : 1));
+ err_out:
+ 	for (i = 1; i <= num; i++) {
+ 		/*
 
-> David
+---
+base-commit: c44104f3642da720164042623e4832836aefdd8e
+change-id: 20261123-ext4-splice-unsplice-78a3adcb82cb
 
-Thanks,
-Maciej
+Best regards,
+--  
+Aykut Cıncık <aykutcincik@ogr.eskisehir.edu.tr>
+
 
