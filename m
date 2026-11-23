@@ -1,61 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795411072;
-	b=fgpl31Bsp8sxbiZel9maCKMYAjXbjLrpL4aLNnaMmhBKoTRIvgnXhSnGfENsgeRRif8G
-	 dJ7y4vrDpOhi47TYIpqx5CMQrsGEzn3Q48hsEafVsXUqk9u6/2NOEv3/vdbZrVFlwH1wE
-	 X8YYfWWQtC7qMIQ1JHFONapT/fyfRRLKDsAJPAU2W76AigemsC6iktV3uaWS7LW+Md1qo
-	 aSkQbTbpRx3EIb9MsV19h6u/7VUKTSVolxY/3MWXhXRu3xxRxqEHaoh3ktP3hiyXV2lCO
-	 4RPDsggj3/d7BqltRHpVFCt+SntEE6nbzD0z3uWreZxkNl1WrK4/lgnuuCR4NeyJwNw==
+	t=1795412068;
+	b=BEu5aWAhfxLQ/PwBgc/t/Z4eFUj8KAnmeeYizXivyJBO5t7qDTscYwNETbzrH3rqm0/s
+	 fIB0zHc9MoC9sO9KbuCWwQV3BpDEUli6WTGETFZ1qLzSPAO1vCTQnoNR8BkeEr9DJ0pd7
+	 UD/bCzYJcp6Qdq7omJ1cy+UFSyawafQ3wl0SJLfn+UJ/fRLu3M6R7lk6eFAWCsyvSxl7q
+	 7KAPe68BPhDAE0cI7Ox/C/2PQs8xJMiWr0X+Wfc50xqjVGWLkm/UMVmqJ5ay8OiFR8VIy
+	 3b7OyVK2dQhif8ihHlN/55m04o+iOcP+/bPLRmzwJgix2Kq9F7qzQ9n7jktTx9/LI7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795411072;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=p4ilBBmu4wqkUrExqEeONwlOBor94s/7aXOC9EBEpWM=;
-	b=VDk5cPPgDYvwJtIxA0P8DREDBhGYcH9lKz9tBL7WdvEQCuNZuvt7xC6PnE53LABoIjpO
-	 m3SKi3z3xj3Pu03LysaQhIUbcNs0L5y8wNi4eJUkUBJaCCHXagIlhRCFUhXGvSzZ6vvPj
-	 OGj5XVIaSZKNTn4P9OjqcvtE4cSEMsKhUZw970O1qobXsQSDr+aLS9hvQxoyoxNKruWKO
-	 gkSRqwC/7exhG3ywx1rUwyKL2+4HxCxT6E8JjFic8WQihaSibiUtrS9N1WHdUaAU2X9FP
-	 +JQtU6DLfvSHA9g45ZgeU6Gr/B4526mDUdQQTMzrMrHku2pO7No66TEr18rGUTwgG/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795412068;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=TL6UwEo4t7VzBEu1IbZXOdiAUAUzzK5wSbC1wgdlVr0=;
+	b=ECumjfrCVMh5tFg/UgRcZeXgZBU2N7vPEEqSWUn3/H5YSwW7QUAf+E0wBRX5hlPlzx0U
+	 0nZI1eJbq9LxqlG6GM9f9VtvyYEK5iHEzlqn4smMCf8r32Oa59SrA7suZQHLxBfMxmPUh
+	 FuO1xvs3YvaCHWgHn0Oj1sqipQr8mMlltjjDu0JInrPKe1Jdcwmkw4iD8BlHU6HYpLaZy
+	 ept5WT9l799FBmOaWSxDn9/+I3YW2XBp+P0kM4LzFm/QJlYFTKet0EZ7Kjt6D/49HxAKl
+	 MqA3yx8t3sePYMHEinue3oFFyJURhzwzXa7hbTFalFmk0K0EhaKkoc5Qg32e3mvqGjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NHyDgflT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bkh3Clqf;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21FC3606A336;
-	Mon, 23 Nov 2026 05:17:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8039C606A31A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 05:34:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8039C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NHyDgflT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39EE11F000D0;
-	Mon, 23 Nov 2026 05:17:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795411072;
-	bh=p4ilBBmu4wqkUrExqEeONwlOBor94s/7aXOC9EBEpWM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NHyDgflTwXBT0Xrs/2H7JNc/Ij6du99K29Hen2VvceONUtEVCZPe/gMDTEsACnoD4
-	 jQcXlEiqM+m7RpoJeRL89u+S/s5s/6/QORkAKrGQQ/llMbDTipUcndCyTtpgl+o5hE
-	 m6NlDdBns9q3ORCl73/RSZP2kwXAj3QkQbv847fno+hQ9iFANo54HZJmizfA/dqO97
-	 g36qpeo8TW6gjtLt7JaAimXuuhfr0hYRlBuxGj6Vwgq8UgjNfwG7esbQ4F2zQermt8
-	 QE8dORK7CE/EDGvx4SaK6yrruBuDBz0wMuh0pC2XAPB8vmqcdKbXLln7js4GcLW0Qf
-	 3hdJ+h1sHXZzw==
-Subject: Re: [PATCH net v2 2/2] net: wwan: iosm: fix S3 resume by re-binding
- the driver around it
-From: netdev-bot+sashiko@kernel.org
-To: davidlwesten@gmail.com
-Cc: netdev@vger.kernel.org, loic.poulain@oss.qualcomm.com,
- ryazanov.s.a@gmail.com, johannes@sipsolutions.net, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- m.chetan.kumar@linux.intel.com, linux-kernel@vger.kernel.org,
- mail@maciej.szmigiero.name, nihaal@cse.iitm.ac.in, stable@vger.kernel.org
-Date: Mon, 23 Nov 2026 05:17:50 +0000
-Message-ID: <179541107082.3135.11504382259893948340@kernel.org>
-In-Reply-To: <20261119042714.505405-2-davidlwesten@gmail.com>
-References: <20261119042714.505405-2-davidlwesten@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bkh3Clqf
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4bb55cda775so17492225e9.0
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 21:34:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795412067; x=1796016867; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TL6UwEo4t7VzBEu1IbZXOdiAUAUzzK5wSbC1wgdlVr0=;
+        b=Bkh3ClqfZW8YDFCp8x3h+qrByx9HiwGPmEHmKo5SOE/0SSUKA9gYOTUs7I4/IU92+Z
+         tqFW0FZZ8SXDMGb9YQJK+rIqAsfImVCwYeIQDyMkHOC8bPr/sqgSFCApXNyf+3b6hboB
+         fuCo7Ptp4EnspSR10dDuabgkfAM7fCEF8Yd5NDtmNdDp2rtqSrVu8pTAPMkBaMu79HbK
+         gL+r1IhRgmrVwy5Eafk8URJH28nmAnOSHYo60/JbvUWbfVx5yU0BepF/cgwmH0F6p6sp
+         wTMFX1UStr9g6gn9y7Mhvd0NmO5kmvG0PtIB9vsq//OB6SklOTc03UeGwbchLuI6NeRz
+         j2VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795412067; x=1796016867;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TL6UwEo4t7VzBEu1IbZXOdiAUAUzzK5wSbC1wgdlVr0=;
+        b=j1DRr3vFYzhACUWNrI6dSA3DmbVD/iCqEetCqR6xxmSyUjFwShJWo9U/0YILZTaaya
+         +eWIuc+Jb8M09fvVi17tZuaZ7PAmGAevnSDX9SHwk5aVSnwmrKTwHm5a6Wos14Z7bDrl
+         mNFFW1pkWk9EUA0ZZLYMzJWZnYltjmENZuA9xxX53q7nm8hgPrnrnMb3Fog/zw0uvYBu
+         pfWJd3c9wkzmU6U20oqkPgefoCFUV6qxpaguVC13JZXVPNIDyJg+eRinjNbXt1/FJmLe
+         lYmSmr3ArJ8ZqQrSbiBxY8py8JVeuf9voGNn9ueF7iNJeu+yuqayjU9S71MuRcfSW/UO
+         FFlQ==
+X-Forwarded-Encrypted: i=1; AL+hErFY96ghqFRi5GWvmvYHYWFw3+Azr+hmYJ9MGCgVeah98I32orXiGKy//6+ehc4+uZe/c8TgoGs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9zVLFJGtcKS3Y3ADUOZyPU8/Hl5JFkI0zfoCGS2RTs0cOGuNjK
+	VSXEMH22btv0zDwbSDtBth3IpmrprVKNPv5p+z4jlNPwjAFbJkIAYFd+nrD2z/t9bWY=
+X-Gm-Gg: AZFdTZcFCCY1pGE01Gfmhjau728ReQeYidZdvn0tck1kAz/Vc9KNwz1W4IeBejEcA9Y
+	zGK9Nhp5jbrh/1Jk44edaazEF3kgHAqNYrol2ka0KApftztTpF1dwCuvVfeppL0Y8LEwZGDsvPt
+	qQf6UmPda7njUUC3CQEFHFYGJwIrpZZWvbGJ47+F/p+CSUqGzPuPBaxIHay2ja5jjTfYfTCBqKx
+	6Ylkh/WB/PXSzBiI1SjIYg1cht/GsjJKV4Ic8MNyoKkmHDoLgd3NPiJhHWvcvnItjzcxyOesuMW
+	4dAC8J79f6BY8VKJ1fX6ChapcpLL+jB4g2KEri9naQ1C14Y7IBFi4LPNuFAt0hwcr3IdKjVJt9Q
+	cflr4d1YYOUeC7Ys9ie2kQ2RdIUGm6l9Ng0xwkcFd3xkKHUpfv8C6LTmfQKv+qSu5YksIziGZYO
+	kI4baqXVwVVWfr92pWi+cxlOO9YtWo6t+enByPv1OHS7KJGlbXnBBhkOieodqMa53CFNmaKJLdm
+	zidinM63wToph7JtiFNLA+p09kXT95k0HByPAzQ/bCl+lkAtNEbmj8MV6+Ty+Oat1iBBLkfP58K
+	su4rMMOAX9tkWomfio+hSXecI90KEkAXpFitxYfbv7bX0+NQNWRWXcQ=
+X-Received: by 2002:a05:600c:1d83:b0:4bb:687c:4fbe with SMTP id 5b1f17b1804b1-4bb88805c26mr190080905e9.8.1795412066659;
+        Sun, 22 Nov 2026 21:34:26 -0800 (PST)
+Received: from DESKTOP-V28CTA4.localdomain ([37.111.157.44])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8d4f9aa8sm273173265e9.4.2026.11.22.21.34.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 21:34:26 -0800 (PST)
+From: Arbab Haider <arbabhaider649@gmail.com>
+To: Dave Kleikamp <shaggy@kernel.org>
+Cc: jfs-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	syzbot+9c3df8acb6283d0cf12d@syzkaller.appspotmail.com,
+	stable@vger.kernel.org,
+	Arbab Haider <arbabhaider649@gmail.com>
+Subject: [PATCH] jfs: validate inode link counts before decrementing in rmdir, unlink, and rename
+Date: Mon, 23 Nov 2026 10:34:09 +0500
+Message-ID: <20261123053409.53956-1-arbabhaider649@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,214 +97,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+syzbot reported a WARN_ON(inode->i_nlink == 0) in drop_nlink() called
+from jfs_rmdir() when removing subdirectories from a corrupted JFS
+directory with an undercounted on-disk di_nlink:
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 2
+  inode->i_nlink == 0
+  WARNING: fs/inode.c:408 at drop_nlink+0xc5/0x110 fs/inode.c:408
+  Call Trace:
+   inode_dec_link_count include/linux/fs.h:2276 [inline]
+   jfs_rmdir+0x416/0x850 fs/jfs/namei.c:395
+   vfs_rmdir+0x3e9/0x700 fs/namei.c:5533
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+In JFS, every valid directory containing at least one subdirectory has
+i_nlink >= 3 (its own entry, '.', and the child's '..'), and every valid
+empty directory has i_nlink == 2.  If a corrupted on-disk directory has
+an undercounted di_nlink, jfs_rmdir() decrements dip->i_nlink down to
+0 and then underflows it on the next rmdir, triggering the drop_nlink()
+warning and wrapping i_nlink to 0xffffffff.
 
-- [High] Use-after-free in the remove path, which this patch now runs on
-  every S3 suspend while the modem is live.
-- [Medium] When the card keeps power, the modem now goes into system
-  sleep fully awake.
-- [Low] The new PM_POST_SUSPEND branch in pm_notify() registers the
-  driver again based only on the global `pci_registered` flag, which…
-- [Low] The stable backport prerequisite is not declared.
+The same link-count underflow can occur in jfs_unlink() if ip->i_nlink
+is already 0, and in jfs_rename() when moving or overwriting a
+directory (old_dir->i_nlink < 3 or target directory new_ip->i_nlink != 2)
+or overwriting a non-directory with new_ip->i_nlink == 0.
 
---
+Validate the expected link counts before starting a transaction in
+jfs_rmdir(), jfs_unlink(), and jfs_rename(), reporting filesystem
+corruption via jfs_error() and returning -EIO.
 
-net: wwan: iosm: fix S3 resume by re-binding the driver around it
+Tested locally in QEMU (x86_64, KASAN+UBSAN) using syzbot's C
+reproducer and a corner-case suite covering corrupt rmdir (nlink=1, 2),
+corrupt rename (parent nlink=1, target dir nlink=1), and valid rmdir
+and directory-overwrite rename operations: triggered the exact
+drop_nlink() warning before the patch, and returned -EIO cleanly with
+zero warnings or regressions after the patch.
 
-This patch extends the iosm PM notifier. It now unregisters the PCI driver
-on PM_SUSPEND_PREPARE, unless the default suspend mode is s2idle, and
-registers it again on PM_POST_SUSPEND. This reuses the hibernation
-mechanism from commit 0b6f6593aa8c, so the modem is probed again after it
-reboots during S3.
+Reported-by: syzbot+9c3df8acb6283d0cf12d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9c3df8acb6283d0cf12d
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
+---
+ fs/jfs/namei.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-> Fixes: 1f52d7b62285 ("net: wwan: iosm: Enable M.2 7360 WWAN card support")
-> Cc: stable@vger.kernel.org
-
-[Severity: Low]
-Will this apply to the stable trees that this Fixes: tag selects?
-
-Commit 0b6f6593aa8c ("net: wwan: iosm: Fix hibernation by re-binding the
-driver around it") added pm_notify(), pm_notifier and pci_registered. That
-commit has no Fixes: or Cc: stable tag. A tree that has 1f52d7b62285 but
-not 0b6f6593aa8c has no pm_notify() at all.
-
-Could the prerequisite be named, for example with
-"Cc: stable@vger.kernel.org # depends on 0b6f6593aa8c"?
-
-The dependency on the preceding ADB timer patch is only described below
-the --- line. That patch carries the same Fixes: and stable tags, so that
-part is less of a concern.
-
-> diff --git a/drivers/net/wwan/iosm/iosm_ipc_pcie.c b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
-> index 49052eb511baa..13e81012d818c 100644
-> --- a/drivers/net/wwan/iosm/iosm_ipc_pcie.c
-> +++ b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
-> @@ -534,12 +534,17 @@ void ipc_pcie_kfree_skb(struct iosm_pcie *ipc_pcie, struct sk_buff *skb)
->  
->  static int pm_notify(struct notifier_block *nb, unsigned long mode, void *_unused)
->  {
-> -	if (mode == PM_HIBERNATION_PREPARE || mode == PM_RESTORE_PREPARE) {
-> +	/* The modem may lose power in S3 and S4 and boot again on resume,
-> +	 * which the suspend/resume callbacks can't handle, so probe it again.
-> +	 */
-> +	if (mode == PM_HIBERNATION_PREPARE || mode == PM_RESTORE_PREPARE ||
-> +	    (mode == PM_SUSPEND_PREPARE && !pm_suspend_default_s2idle())) {
->  		if (pci_registered) {
->  			pci_unregister_driver(&iosm_ipc_driver);
->  			pci_registered = false;
->  		}
-
-[Severity: High]
-Can this expose a use-after-free of ipc_imem->ipc_task on every S3
-suspend?
-
-Here pci_unregister_driver() goes through ipc_pcie_remove() into
-ipc_pcie_cleanup(). That function frees the imem resources before it
-releases the MSI handlers:
-
-drivers/net/wwan/iosm/iosm_ipc_pcie.c:ipc_pcie_cleanup() {
-	/* Free the shared memory resources. */
-	ipc_imem_cleanup(ipc_pcie->imem);
-
-	ipc_pcie_resources_release(ipc_pcie);
-	...
-}
-
-Inside ipc_imem_cleanup(), the CP is told to go to IPC UNINIT. Then the
-tasklet and its container are freed, and the pointer is not cleared:
-
-drivers/net/wwan/iosm/iosm_ipc_imem.c:ipc_imem_cleanup() {
-	...
-	ipc_imem_device_ipc_uninit(ipc_imem);
-	ipc_imem_channel_reset(ipc_imem);
-
-	ipc_protocol_deinit(ipc_imem->ipc_protocol);
-	ipc_task_deinit(ipc_imem->ipc_task);
-
-	kfree(ipc_imem->ipc_task);
-	...
-}
-
-The threaded MSI handler is still registered at that point. Its only gate
-is the s2idle suspend bit, and this path never sets it:
-
-drivers/net/wwan/iosm/iosm_ipc_irq.c:ipc_msi_interrupt() {
-	...
-	if (!test_bit(0, &ipc_pcie->suspend))
-		ipc_imem_irq_process(ipc_pcie->imem, instance);
-	...
-}
-
-ipc_imem_irq_process() only checks ev_irq_pending[irq].
-ipc_imem_handle_irq() clears that flag before its IPC_P_OFF_REQ early
-return, so the flag doesn't block a new enqueue either.
-
-An MSI that arrives after tasklet_kill() in ipc_task_deinit() schedules
-the tasklet again just before it is kfree'd. An MSI that arrives after
-kfree(ipc_imem->ipc_task) makes ipc_task_queue_add_task() read and write
-the freed structure:
-
-	struct tasklet_struct *ipc_tasklet = ipc_imem->ipc_task->ipc_tasklet;
-	struct ipc_task_queue *ipc_task = &ipc_imem->ipc_task->ipc_queue;
-	...
-	spin_lock_irqsave(&ipc_task->q_lock, flags);
-	...
-	tasklet_schedule(ipc_tasklet);
-
-The softirq could then run that tasklet after ipc_pcie_deinit() has also
-freed imem and ipc_pcie.
-
-The unbind and hibernation paths already use this ordering. This patch
-puts it on the S3 path while the modem is running and has just been told
-to go to UNINIT. Could the MSIs be quiesced or freed before
-ipc_imem_cleanup() tears down the tasklet?
-
-[Severity: Medium]
-Does the modem now enter system sleep in D0 with its firmware still
-running? This applies when the card keeps power in S3, or when freeze or
-standby is entered while mem_sleep is deep.
-
-The driver is unbound at PM_SUSPEND_PREPARE, so ipc_pcie_suspend_cb() no
-longer runs and neither sleep handshake is sent:
-
-	switch (ipc_pcie->d3l2_support) {
-	case IPC_PCIE_D0L12:
-		ipc_pcie_suspend_s2idle(ipc_pcie);
-		break;
-	case IPC_PCIE_D3L2:
-		ipc_pcie_suspend(ipc_pcie);
-		break;
-	}
-
-This skips both the IPC_MEM_DEV_PM_FORCE_SLEEP doorbell and the
-ipc_imem_pm_suspend() host sleep message.
-
-The PCI core also stops putting the device into a low power state. With no
-driver bound, pci_pm_suspend_noirq() takes this branch and never reaches
-pci_prepare_to_sleep():
-
-drivers/pci/pci-driver.c:pci_pm_suspend_noirq() {
-	...
-	if (!pm) {
-		pci_save_state(pci_dev);
-		goto set_unknown;
-	}
-	...
-}
-
-Before suspend, the modem only gets IPC UNINIT from
-ipc_imem_device_ipc_uninit(), which is not a sleep request.
-
-Could this raise sleep power, or keep the platform out of S0ix during an
-explicit s2idle? The changelog lists lost data sessions for these cases,
-but it doesn't mention this.
-
-> -	} else if (mode == PM_POST_HIBERNATION || mode == PM_POST_RESTORE) {
-> +	} else if (mode == PM_POST_HIBERNATION || mode == PM_POST_RESTORE ||
-> +		   mode == PM_POST_SUSPEND) {
->  		if (!pci_registered) {
->  			int ret;
-
-[Severity: Low]
-Can this register the driver again in the middle of a uswsusp
-hibernation?
-
-The hibernation and suspend paths now share pci_registered.
-snapshot_open() sends PM_HIBERNATION_PREPARE, which unbinds iosm. It then
-drops system_transition_mutex while /dev/snapshot stays open:
-
-kernel/power/user.c:snapshot_open() {
-	...
-	error = pm_notifier_call_chain_robust(PM_HIBERNATION_PREPARE, PM_POST_HIBERNATION);
-	...
- Unlock:
-	unlock_system_sleep(sleep_flags);
-	...
-}
-
-enter_state() only does a trylock on that mutex:
-
-	if (!mutex_trylock(&system_transition_mutex))
-		return -EBUSY;
-
-Suppose a suspend to RAM starts before SNAPSHOT_FREEZE. PM_SUSPEND_PREPARE
-does nothing because the driver is already unregistered. PM_POST_SUSPEND
-then calls pci_register_driver() and sets pci_registered = true.
-
-The hibernation image would then be created with iosm bound. The later
-PM_POST_HIBERNATION from snapshot_release() does nothing, so the unbind
-added by 0b6f6593aa8c is lost. Before this patch PM_POST_SUSPEND was
-ignored, so this couldn't happen.
-
+diff --git a/fs/jfs/namei.c b/fs/jfs/namei.c
+index 8ab2e952c..5a06fd8c4 100644
+--- a/fs/jfs/namei.c
++++ b/fs/jfs/namei.c
+@@ -357,6 +357,14 @@ static int jfs_rmdir(struct inode *dip, struct dentry *dentry)
+ 		goto out;
+ 	}
+ 
++	if (dip->i_nlink < 3) {
++		jfs_error(dip->i_sb,
++			  "corrupt parent directory link count (%u)\n",
++			  dip->i_nlink);
++		rc = -EIO;
++		goto out;
++	}
++
+ 	if ((rc = get_UCSname(&dname, dentry))) {
+ 		goto out;
+ 	}
+@@ -483,6 +491,12 @@ static int jfs_unlink(struct inode *dip, struct dentry *dentry)
+ 	if (rc)
+ 		goto out;
+ 
++	if (!ip->i_nlink) {
++		jfs_error(ip->i_sb, "corrupt inode link count (0)\n");
++		rc = -EIO;
++		goto out;
++	}
++
+ 	if ((rc = get_UCSname(&dname, dentry)))
+ 		goto out;
+ 
+@@ -1135,13 +1149,33 @@ static int jfs_rename(const struct mnt_idmap *idmap, struct inode *old_dir,
+ 	}
+ 
+ 	if (S_ISDIR(old_ip->i_mode)) {
++		if ((new_ip || old_dir != new_dir) && old_dir->i_nlink < 3) {
++			jfs_error(old_dir->i_sb,
++				  "corrupt parent directory link count (%u)\n",
++				  old_dir->i_nlink);
++			rc = -EIO;
++			goto out3;
++		}
+ 		if (new_ip) {
+ 			if (!dtEmpty(new_ip)) {
+ 				rc = -ENOTEMPTY;
+ 				goto out3;
+ 			}
++			if (new_ip->i_nlink != 2) {
++				jfs_error(new_ip->i_sb,
++					  "corrupt target directory link count (%u)\n",
++					  new_ip->i_nlink);
++				rc = -EIO;
++				goto out3;
++			}
+ 		}
+ 	} else if (new_ip) {
++		if (!new_ip->i_nlink) {
++			jfs_error(new_ip->i_sb,
++				  "corrupt target inode link count (0)\n");
++			rc = -EIO;
++			goto out3;
++		}
+ 		IWRITE_LOCK(new_ip, RDWRLOCK_NORMAL);
+ 		/* Init inode for quota operations. */
+ 		rc = dquot_initialize(new_ip);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261119042714.505405-1-davidlwesten%40gmail.com
+2.53.0
+
