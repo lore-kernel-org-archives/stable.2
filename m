@@ -1,82 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795433190;
-	b=zq2eJ/2jCJVRrpmYOliVYkPVX60C+PaD1OxagXF3rcIKzLg7EpzRQUhgp5n//VKnd6c/
-	 89u8v5QlrlZ30Ma0tNLq7nw+De97a9mzHUg1C+GEPQl1eocKSRl99UuvQ0J/FMKgj8H8l
-	 yN9Fg4D9GJF4beLFPU07bEHSjm37pKPUiA0aAYyurMKcAU9VFZwxaUkz+E6+QaLGUFUcz
-	 D3+HOmStm6MV3EfDk1enGsGXNpE5DxLOQ0rt8SpQBh9xl/VTysnFzKJcqQFTc45Il4dyu
-	 kxlHJbalDg956yetGXZiBgGJNTiUelEUTDRjpsyQLAZsGwD7d1CCfqJk+Eo1Dymosyw==
+	t=1795433269;
+	b=4DzS9Be2m41MKINAWVPwdEyEcQAPvP5J8LkRNtT2qGE9FxA6CDHcHwd1jQxtg/Tng17y
+	 E8TCHPAAemS2iQCAF3S9Xl4mRgCJ/TURphx5PZn2CLvoP6bc97G3km/odzULcXSZX96AM
+	 q0AosCOylH3Uldphmbg9Y3f+129CXo2DBpOKTmspr4BCha84f6kkXALqKxGDm+Mdi04qg
+	 JTGt54QdvV4nvQj6zdUVxRf91HiB+uaRJ9j4KCJ2SlFscwV0UezuD2E5i8B/vouXUwayx
+	 IAA5vDcA8GKwM/56o3deCs0P8q5m0xZGgPx7SAP0AsRcgQ/NoiI9ZRhvcoBdK7ge48Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795433190;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=eRHJYff7xbuoGc4caiW1C1gZpXcbzwTAvEFSpmbyqfs=;
-	b=SX8D8bAO+e10vB70yCfDnS3vmU/sJlyPV2fl6G9icXQq6IS+DZ3KFA/t6SxShBiOusf9
-	 EJqzXg1g35/9mWYIr7nQq9DUir5LxaUn20LIEjIB48QxMCZEmZBNRGxQLkn86weHp+yMV
-	 fX/7kn8PDM+3ZoC25ekVuEMKli0/NjgSZoc/618900nprSW+v52NYUUj9EcVn/mOpbc3G
-	 pgJiWMyympYbbfc6f8RK6inGj1Ca+lyUIB6rI24QR2+FnbZggmBjefdZH7IIFZERV49Qo
-	 LC8xCQrr4Z74uM6NAYVMkA1YGV+MXbiAbtzSzv086jpHM4nCSazhTeoPjfxLPuxaq1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795433269;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:Organization:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ssgL7DxzXbUZ7tJgWltGij1VtPlNzWyPW+YycDs+SSQ=;
+	b=2F5HbKFkbJ0kG9Q3cczpE41F1EJewK1O1/YkGsj5c28OkZI9xkf3KTvtPCMCjVSJug6U
+	 CM1FKy/4pt6rUHIFOYakwgWbY7h03zpksZsDUIPvd5GDuC33844T/jDN69/+wqcp0O3Qy
+	 cxohKmqnBuRm3pzZeMFIksFSbtvs+Jq22rl5MG6jonlvv7FP8c9UPOtFrWAUarpFQ0KWQ
+	 CI4Thf90Tc7lC2ntGfl8Ftt0QcOLfeuAIUY651vpLbwYYd4g5R8Mekb/pshcn5jgh0WR4
+	 Hju7zvNcQLE1OEWICWMKynkN+I8m4pAwQ72eBMZTCEe15VBJ9jzgNzT8kelSBcQsJyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MgENCpS4;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E38D606A31A;
-	Mon, 23 Nov 2026 11:26:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E38D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BlDbpH9G;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C1673606A31A;
+	Mon, 23 Nov 2026 11:27:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1673606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MgENCpS4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795433190; x=1826969190;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=scRuyMIVv2lSRt7Jqqyl2xDUabYgnyyzF+RNayr6wKA=;
-  b=MgENCpS4ION/zXFfXyRtERugp/JjLOb8jhVWPJF88eVlKyHUY0arZsjq
-   VH2aIpJKj289Mfh3COQOZzhZELvDJ6Y/h/cxTUlHLlrG4/cEO2Kgb2LrR
-   wjMv5APOiv+VMk+sAKNnXzl5Kzn5Pl8TISd6vw4XPi8v0/6Sys+FfDzLJ
-   ubxpRfRVyxoVY392CzL3e6zZCiDBatdnLewZcaWw7zO++FJ1w0s6qjeBX
-   0XwzXcZIGAOL6SpDGvNMIoHEkBTWDQa3f7hIEOehaWJlEoTtXDSI62loS
-   0Q8OmEnC0lE7srEOUc1hHJ5a3EY4CnetB5Gju6kr+Yvz+Yq4UuBzVFsFU
-   A==;
-X-CSE-ConnectionGUID: LKd5JXJwQ2CDmMarhiXT/Q==
-X-CSE-MsgGUID: U8uIx+IPRWW/KovgHkeJ/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4145911"
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4145911"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 03:26:30 -0800
-X-CSE-ConnectionGUID: cbCy/wYMRJyyTIi9MGLbzg==
-X-CSE-MsgGUID: yZuAygo+QousR0HtCJACrA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="11363503"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 03:26:27 -0800
-Date: Mon, 23 Nov 2026 13:26:24 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Marius Cristea <marius.cristea@microchip.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Bogdan Bolocan <bogdan.bolocan@microchip.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/7] iio: adc: pac1934: Fix custom attribute
- allocation and channel bounds
-Message-ID: <awQi4MTY4CMM0hsV@ashevche-desk.local>
-References: <20261123075122.373060-1-lee@kernel.org>
- <20261123075122.373060-5-lee@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BlDbpH9G
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 45116143D;
+	Mon, 23 Nov 2026 03:27:45 -0800 (PST)
+Received: from [10.2.213.11] (unknown [10.2.213.11])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6D7323F882;
+	Mon, 23 Nov 2026 03:27:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795433268; bh=ssgL7DxzXbUZ7tJgWltGij1VtPlNzWyPW+YycDs+SSQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=BlDbpH9GOBYSN/1fZzJq1X8wn0398nEuLJMN7Lftbd1i1Z+673bgMeFgBM73EZ+fD
+	 TMCWiWL0SrE0T/ocQVq5iEnYFkaa7E9tkSksb8AWEWegoyBO6JmnO4ZNj+OyTh4ymr
+	 R0cO5BUY8o0g9BEdQeTg7Xi2MY6QF7ixE36FCq/E=
+Message-ID: <9b0461dd-0616-4c7e-9c03-6eca1e452a3d@arm.com>
+Date: Mon, 23 Nov 2026 11:27:43 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,53 +54,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123075122.373060-5-lee@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: head: set __entry_task along with task setup
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Cc: Vladimir Murzin <vladimir.murzin@arm.com>,
+ linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Breno Leitao <leitao@debian.org>, Jinjie Ruan <ruanjinjie@huawei.com>,
+ Doug Anderson <dianders@chromium.org>, Linus Walleij <linusw@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Thomas Huth <thuth@redhat.com>,
+ Dawei Li <dawei.li@linux.dev>, mrigendrachaubey
+ <mrigendra.chaubey@gmail.com>, kernel-team@meta.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Ada Couprie Diaz <ada.coupriediaz@arm.com>
+References: <20261117174814.95936-1-ada.coupriediaz@arm.com>
+ <20261117174814.95936-4-ada.coupriediaz@arm.com>
+ <f232d0ff-3286-4d85-b9e3-cad8c6bc7178@arm.com>
+ <2ce350f9-4dc4-480f-8a53-07ef9586d49b@arm.com>
+ <av8sxUCg4m492Tx6@shutemov.name>
+From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Content-Language: en-US, en-GB, fr
+Organization: Arm Ltd.
+In-Reply-To: <av8sxUCg4m492Tx6@shutemov.name>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 23, 2026 at 07:50:30AM +0000, Lee Jones wrote:
-> pac1934_prep_custom_attributes() sizes the pac1934_custom_attr pointer
-> array using sizeof(*pac1934_group) instead of
-> sizeof(*pac1934_custom_attr) and adds 1 byte rather than one pointer
-> element for the terminating NULL entry.  When active_channels_count is
-> zero, only a single byte is allocated and iio_device_register_sysfs()
-> reads past the allocation when scanning the attribute list.
-> 
-> In addition, active_channels_count is counted over info->phys_channels,
-> whereas the population steps unconditionally inspect all four entries of
-> info->active_channels[], which can write past the end of the array on
-> 1-, 2-, and 3-channel chip variants.
+Hi Kyril,
 
-...
+On 19/11/2026 17:09, Kiryl Shutsemau (Meta) wrote:
+> On Wed, Nov 18, 2026 at 03:30:06PM +0000, Ada Couprie Diaz wrote:
+>> However, as far as I can tell this is not the case for secondaries :
+>> their first task on boot is set to the idle task, which they go to
+>> without switching until (and unless) something gets scheduled on the core.
+>> This would be the same path taken for CPU hotplug.
+> Secondaries brought up at boot have run their cpuhp thread before SDEI
+> probes: smp_init() comes before the initcalls. A CPU that was online
+> before still has its idle task in __entry_task. So only a CPU onlined
+> for the first time after SDEI probed can see NULL there.
+That makes sense, thanks for clarifying.
+So there is a very small window, only on first booting secondaries,
+where we could see this issue, but it does exist.
 
->  - Order local variables in reverse Christmas tree style (Andy,
->    Jonathan)
-
-Oh, I meant only this for the case when we touch the content.
-Since now it's not changed there, no need to do it, probably?
-
-...
-
->  static int pac1934_prep_custom_attributes(struct pac1934_chip_info *info,
->  					  struct iio_dev *indio_dev)
->  {
-> -	int i, active_channels_count = 0;
-> +	struct device *dev = &info->client->dev;
->  	struct attribute **pac1934_custom_attr;
->  	struct attribute_group *pac1934_group;
-> -	struct device *dev = &info->client->dev;
-> +	int i, active_channels_count = 0;
-
-It took me a while to understand why, but no need to resend, if Jonathan is not
-okay with that, this hunk may not be applied while the rest is fine.
-
-TL;DR:
-Up to Jonathan (but personally I would leave this as in the original code).
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Kind regards,
+Ada
 
