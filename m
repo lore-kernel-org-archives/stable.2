@@ -1,70 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795440917;
-	b=ot1nWpXjCubuOMHq02x9Et33deZ4xAzwuuaXqbAhl/LYWGzSpc84vWItBXXv3DFZ7KyR
-	 mZeylviWcyr3/bF1R1+bNmokBGIPMJQf9Nx1+GBeBggYpvXNQN1XAcofqMr7VIBl6p5MU
-	 FZziOpSt8ieyVtefejZGKNIfgSgixJ1zAbPugN/KMrYvTtSHRjkc6mmh6SGjiinQhtUvs
-	 ht8VvK3g5YvKwaSX+t+F7CF+KZ6BZz1UVRh5SiDEj3nQAZ//vpubipqGJ0yEXXKFamTZd
-	 PXCNFyCQvoXInbeIctjFg8efxNJfX0MGoyHnsnYdWn/Csg5kZZUPiuzY/9Kkzv4uDEw==
+	t=1795441650;
+	b=je5PWSOGSIcQ6Ev+TtLDLyncNbwHQwhlPTsffbRXfuoGthXFR6sKg5kuQgEZwaexJc5i
+	 IrLAA8EtyIa9zNw5/nOPoIbVYbxgM5ueeUQzEcZ7dZL14fH/uGMvGPJu5LlahJhDozpm2
+	 ExjxdbmThguVZA2e3t1wxSiT35MeXOEP5jvpK2Zyn/dX1dQwKXBXMZQFM36Osx/qeU9+F
+	 TpTx6Ib4LTp5Mnz5PInu+ERBERol0EsFpTUMp/htx/c3oV2DKRzsEll9xONCrNvw+gjC1
+	 56QEkB7AKWjFWk0LD95LvqStN/AX9CiXaqUwgUIdypSRwVjpJx2d9gKQBLfD+r980Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795440917;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=PVsLeXRTOahAG2VllZyPWnhqfQeDNFZhs6x5OHNr+L0=;
-	b=TQoqqHinA2pkPFejuT7mw36DhbY3CRIJP7j1fDRUm36PVm88KVkjlar+SqO2zLO2yRyI
-	 3rTJVy4ayZPIcgP8YAAutFH4/KGvelwKedpJ6x1nC1rpJYADFKjCgBSGKv096x+WwG0wC
-	 3LAg8wpK7OHE1rYdDT0M6IgydiiwLvsbB/VpCzm6KrkNK8b9z6Zrj5zeOg+EZnjlMdb4k
-	 3H06KMzT57yQ84NMhv7IjLPz9Kn2LRQRdJgJ6OB34MUAUl5hHoYj1V0dFKnUINpvmVIhW
-	 cebk2d6FB1ZoMcdSpbU7E8Vc2QF5vhx9/safK1g9awBN/yPij8o0d20R0ak5BKjTEiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795441650;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=YLrN3M1XfLMhZZJEefU5MTc8mdCMhL4DOsawNJPcdvE=;
+	b=UuDOOiBZTqOaHSzGSVYTiULfKFRpY6TXa+/fDjcNDO6yqSOUUcUwMbP016JusCBDIJJ0
+	 nJUa2qz/684ofIDRAHcYs1nhKVptgNM2xBhsueniI1lQG0k3kB+EIclGT2Xx4tf8CXgwy
+	 wvoCRiamE5mUJNQ7nL8UlQvqBhjfsNkPMvBPd/AnVl+mcVNws80lSkgLPDsKfmIjE3moZ
+	 ufCadcQApVErEJpbQhdXhiBGXzull0SsRQ0IJp7sIY6mQF7T/CgGIa36EbYSzKd9MXtvo
+	 yFLXX8BH36GrqXL06LlWFByLERSkV3EIUAz6iESOAb4HhpwD27ireNsPxJQxYy54LYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSMPdru2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TEElbL9+;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MVBeloww;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4AC606A31A;
-	Mon, 23 Nov 2026 13:35:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82C2606A31F
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 13:47:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D82C2606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSMPdru2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EAC1F000C4;
-	Mon, 23 Nov 2026 13:35:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795440916;
-	bh=PVsLeXRTOahAG2VllZyPWnhqfQeDNFZhs6x5OHNr+L0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OSMPdru2FWrEagYOoaXRYsM+Um4FAS8VHNHm/hJ5tSMzeqDEx/H5j+2PSbNaHlAPr
-	 NR3kzA65WNJ2uwfqn/jnwqmmgnK1w5Mem5YySoddV5TCXcE50P6u2+AFVhPRd/EGB4
-	 ctWYjpLbdoro8w50bDxZIQwKz6Jwznmx7cPD3a6qD3/AvcIFQhIDCIVYF27kRbgTLU
-	 7qz66np6YpYCQCSsNqd0Nkm6xJhNBqLmFMvm3Zc77TwlRBJ6YJ8nPcxGo/GILOUVON
-	 yFJQvS10jYNcX9xOQR2+lOCOXn40LMzEwKEdWrKSHRojbhTxxuZMsDsIPcCVBpHT57
-	 7aLStW/OV91PQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xVUCQ-00000001zlA-1AXV;
-	Mon, 23 Nov 2026 13:35:14 +0000
-Date: Mon, 23 Nov 2026 13:35:13 +0000
-Message-ID: <86h5h7zn5a.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Dan Carpenter <dan@pereq.eu>
-Cc: Oliver Upton <oupton@kernel.org>,	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,	Zenghui Yu
- <yuzenghui@huawei.com>,	Catalin Marinas <catalin.marinas@arm.com>,	Will
- Deacon <will@kernel.org>,	Mark Rutland <mark.rutland@arm.com>,	Karthik
- Bhargavan <karthik@pereq.eu>,	=?UTF-8?B?Q2zDqW1lbnQ=?= Blaudeau
- <clement@cryspen.com>,	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,	stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: nv: Never invalidate less than a page for a TTL hint
-In-Reply-To: <20261123-inval_range-v1-1-815e15797089@pereq.eu>
-References: <20261123-inval_range-v1-1-815e15797089@pereq.eu>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TEElbL9+;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MVBeloww
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795441649;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YLrN3M1XfLMhZZJEefU5MTc8mdCMhL4DOsawNJPcdvE=;
+	b=TEElbL9+IhYUMR7UShaacTfs3gUDH8tMqn4d9NxZXS4ymv+D7cBu12yLUI/B2InxToVw//
+	pGmaiooHO3cFPO6YU/507LPci6u8nHA289zCvFOOsNPuP1iDkC2ebITUwyOfJGyZ3eU8Sy
+	HI+8VYsqkkNbukLubfyi6Cruzsd6h1U=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-573-oE3zmcivNOyWKfaqV9dPow-1; Mon, 23 Nov 2026 13:47:26 +0000
+X-MC-Unique: oE3zmcivNOyWKfaqV9dPow-1
+X-Mimecast-MFC-AGG-ID: oE3zmcivNOyWKfaqV9dPow_1795441646
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6b586b0a795so2630830a12.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 05:47:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1795441646; x=1796046446; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YLrN3M1XfLMhZZJEefU5MTc8mdCMhL4DOsawNJPcdvE=;
+        b=MVBeloww5mnD8r+eZnMeR9Ryb911xBNhv7v00DCT4CrVvAkGS0sISuWGItbJQneRy3
+         0UvdoxlIu0oGueA80re4THmH0qJzn6xTPAqY7Akc4YJmYOqvKYStjG4seCPZfft/cIum
+         N3sje3R4zj6v37LhkkqAj/C4AZIOmN2o7QUTkvg2tzf84rGnl6ODVzWxTofaZyf2Xe9E
+         H/x4hdFRIZYoN1OgkHMQttJC1G9F0OU+svS0ElyHrPzRl9iLPGnF9JGW1SWGLBPQyqYf
+         0eMMV6yI+3E934FK3/RgtnAVXm/OTXZsW0AD4j88C3TlGX/MN16rIdKTDSS4FxthA6UH
+         WckA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795441646; x=1796046446;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YLrN3M1XfLMhZZJEefU5MTc8mdCMhL4DOsawNJPcdvE=;
+        b=CCE2i2TDwxk4598t6NkTD8WYt9ey8+6hMx//mD966L/41wkKjasRVdEaHHPw4fas2Z
+         FukNw2fWgQgCXPpU/D7Cm1PKLjfH1ZZkZCLRMyN5rVobrBr3E2ol/QCbM8joKcaSEigY
+         igJHbkZsgXf1eXbZkKzww/Ab1sVl0Kj7xyi3nED09BpDvZxcfrHdkgQzGOBPDEkpEFPj
+         L5AxS3YHS6yTzPPnB3E2jTJXnsk3EPenzuE54L4iUutcZ4osvE2ZPvRYoLZd8bB7G7TQ
+         OfejifhZsOrb9VzuMgAf0zEKs5RwORJY8lI9344Ox1Unjnw7rPsFsCuMx/uqZtJxOqBR
+         JCwg==
+X-Forwarded-Encrypted: i=1; AL+hErHjN5xtDVluWrDP4scSObYQ3feSmbFkKTI9tkDLrcJAt68ggUnPrAaRbyorKEA0fnnU/vr/rzQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+tpztMGvcVbXmN5eHR1xglh/RI5F6Lmoz2ewzOswP2ggQT5N+4
+	TqhcoBMSsqirkyKLg3VEkfRrv+uVoUXPT/EssERQgdTQTs/Uk0gMtqjjfWA4V6KWhqma6hNVCpt
+	v3LMBsnt/SLvLDb+SD5unDH1V7zK5rs+0rzHGRAmLOhm88JLHXf5tMFC7Dg==
+X-Gm-Gg: AZFdTZebe+/HKhCHGPPQLSaz5gbqfAx8tDUEmFkOQEsuTqE3+n8yfAMmdXG076+c6I3
+	QB1IGs8cY7+8B+tv6nvj5LuoYPvZF6xyMNIvTH2sKyPifj2TxXUrv1ccaaF9UOjJNNeNDocK/eu
+	nHWtJFberoI+ptIARYzbFB1kaYzn5jyzoFpt3lfqUDDowefVYS8rMHoP7Bj35gTQKccGXYYNqxu
+	J4SRLUXrjnOzoRR5jlfAbUVt+IUiBSnUTRU8ujBDoXpCgzzmvJlNUtN0v4A/g2fQrbdVQ+ZLA7u
+	yLpRYIYJIqN9JVM4JuTsX+2QsFAyz0iENXldHm43uXoBfxJoItEUZCqgKc48hXJWJNlZCq2IfZG
+	eth7vIHXWRJPYBsJcZhWmbqTPRj02YmHEjTmMbkw2jnUidH3MXE3BSd0XtAgo7ULlEYTxUZc3bW
+	9aV8UGB2eYYeXZnTRY7dXXRfm2jy2EdloQkx297yTRIVMm
+X-Received: by 2002:a05:6402:400d:b0:6b5:9849:e328 with SMTP id 4fb4d7f45d1cf-6ba37ebdda1mr7965710a12.39.1795441645547;
+        Mon, 23 Nov 2026 05:47:25 -0800 (PST)
+X-Received: by 2002:a05:6402:400d:b0:6b5:9849:e328 with SMTP id 4fb4d7f45d1cf-6ba37ebdda1mr7965674a12.39.1795441645139;
+        Mon, 23 Nov 2026 05:47:25 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba37109c58sm5253555a12.33.2026.11.23.05.47.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Nov 2026 05:47:24 -0800 (PST)
+Message-ID: <923664db-2b04-4440-8b07-2965c1e97aa0@redhat.com>
+Date: Mon, 23 Nov 2026 14:47:22 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,113 +111,48 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: dan@pereq.eu, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, karthik@pereq.eu, clement@cryspen.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v10 2/4] net: hsr: refuse forwarding devices as
+ HSR/PRP ports
+To: Xin Xie <xiexinet@gmail.com>, netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
+ kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
+ fmaurer@redhat.com, luka.gejak@linux.dev, bigeasy@linutronix.de,
+ xiaoliang.yang_1@nxp.com, skhawaja@google.com, liuhangbin@gmail.com,
+ stable@vger.kernel.org, sdf.kernel@gmail.com, lukma@denx.de,
+ fmancera@suse.de, danishanwar@ti.com
+References: <20261117141922.20-3-xiexinet@gmail.com>
+ <179514132185.3136.17085396682149520983@kernel.org>
+ <1f2ccb87-9017-4053-b8c8-5b31a211bd21@gmail.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <1f2ccb87-9017-4053-b8c8-5b31a211bd21@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 23 Nov 2026 10:30:16 +0000,
-Dan Carpenter <dan@pereq.eu> wrote:
+On 11/20/26 22:30, Xin Xie wrote:
+> On 20/11/2026 03:22, netdev-bot+sashiko@kernel.org wrote:
+>> Can a plain veth slave still re-enter the xmit path of its own HSR master?
 > 
-> The compute_tlb_inval_range() function takes the size of a nested TLB
-> invalidation from the TTL hint in the TLBI operand.  A guest hypervisor
-> can give a 4K level-3 hint, which asks for a 4K invalidation.  On a host
-> with 16K or 64K pages that is less than one page.  s2_mmu_unmap_ipa()
-> passes the 4K size to kvm_stage2_unmap_range(), which hits
-> WARN_ON(size & ~PAGE_MASK).
-> 
-> WARNING: arch/arm64/kvm/mmu.c:407 at kvm_stage2_unmap_range+0x38/0x60, CPU#1: ipas2e1_ttl_tes/568
-> Call trace:
->  kvm_stage2_unmap_range (arch/arm64/kvm/mmu.c:410) (P)
->  s2_mmu_unmap_ipa (arch/arm64/kvm/sys_regs.c:4246)
->  kvm_s2_mmu_iterate_by_vmid (arch/arm64/kvm/nested.c:770)
->  handle_ipas2e1is (arch/arm64/kvm/sys_regs.c:4258)
->  perform_access (arch/arm64/kvm/sys_regs.c:4917)
->  kvm_handle_sys_reg (arch/arm64/kvm/sys_regs.c:5455)
->  handle_exit (arch/arm64/kvm/handle_exit.c:466)
->  kvm_arch_vcpu_ioctl_run (arch/arm64/kvm/arm.c:1583)
->  kvm_vcpu_ioctl (virt/kvm/kvm_main.c:4595)
-> 
-> The shadow stage-2 is built from host pages, so invalidating less than
-> a page makes no sense.  Return at least PAGE_SIZE.
-> 
-> Fixes: d1de1576dc21 ("KVM: arm64: nv: Handle FEAT_TTL hinted TLB operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dan Carpenter <dan@pereq.eu>
-> ---
->  arch/arm64/kvm/nested.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> index 78d5b18dbd2d..e964b122e9d0 100644
-> --- a/arch/arm64/kvm/nested.c
-> +++ b/arch/arm64/kvm/nested.c
-> @@ -735,7 +735,7 @@ unsigned long compute_tlb_inval_range(struct kvm_s2_mmu *mmu, u64 val)
->  	}
->  
->  	WARN_ON(!max_size);
-> -	return max_size;
-> +	return max(max_size, PAGE_SIZE);
->  }
->  
->  /*
-> 
+> Yes. The redirect case exists without the patch, and the commit message
+> lists it as not covered. seqnr_lock has been held across the port
+> transmit since 06afd2c31d33 and 430d67bdcb04. The patch refuses port
+> types that make no sense as HSR/PRP ports, which covers the syzbot
+> topology, as Sebastian suggested [1].
+What about explicitly detecting the AA deadlock maintaining a per cpu
+status?
 
-I'm a bit on the fence about this one.
+	if (<percpu_hst_xmitting>)
+		// warn_on_once && free skb && return
 
-On the surface, this seems the logical thing to do. However, KVM
-imposes strong limitations on the granule sizes that a guest can
-use. Specifically, we don't allow guest S2 page sizes smaller than
-what the host can do, and advertise so in the ID regs.
+	<set percpu_hst_xmitting>
+	spin_lock_bh(&hsr->seqnr_lock);
+	hsr_forward_skb(skb, master);
+	spin_unlock_bh(&hsr->seqnr_lock);
+	<clear percpu_hst_xmitting>
 
-This means that a guest issued 4kB TLBI IPAS2E1 on a 16kB host is not
-required to take effect at all, since the page size is not advertised
-as supported at S2, as captured by the architecture:
+/P
 
-<quote>
-If an incorrect value of the TTL field is specified for the entry
-being invalidated by the instruction, then no entries are required by
-the architecture to be invalidated from the TLB.
-</quote>
-
-The trouble is that by the time we realise that the TTL is stupid,
-we're way too deep in the bowels of the invalidation code, and we're
-committed to giving a reasonable answer to this.
-
-So given that the guest is totally buggy, I'd rather treat the TLBI as
-if it didn't have a TTL field at all, as over-invalidation is always
-safe.
-
-This has the advantage of using a size that is correct for the guest:
-a 64kB guest on a 16kB host using a 4kB TTL TLBI would otherwise
-result in a 16kB invalidation, which doesn't make much sense either...
-
-Untested hack follows.
-
-Thanks,
-
-	M.
-
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 78d5b18dbd2d6..36e4e83badf0a 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -714,6 +714,13 @@ unsigned long compute_tlb_inval_range(struct kvm_s2_mmu *mmu, u64 val)
- 	 */
- 	max_size = __ttl_to_size(ttl);
- 
-+	/*
-+	 * IMPDEF behaviour: treat subpage TTL-annotated TLBI as the largest
-+	 * possible invalidation. Don't try this at home, kids!
-+	 */
-+	if (max_size < PAGE_SIZE)
-+		max_size = 0;
-+
- 	if (!max_size) {
- 		/* Compute the maximum extent of the invalidation */
- 		switch (vtcr_to_tg0_pgsize(kvm, mmu->tlb_vtcr)) {
-
--- 
-Without deviation from the norm, progress is not possible.
