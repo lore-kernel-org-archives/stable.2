@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795466699;
-	b=mb6eEuZE8o0czjKr/9RXEqZZ7hDnjJAlt4T8o2bTAUfUtNNoKaFg+NFPCLkFCQngQ0L6
-	 OD6a/bBh9AvkwQv40RZ7zXP5kEDvJto6m5T2wYaWv6Ib5Omass2L3RkqRqpBEBbKZ2NMG
-	 u9We8bXCJE5EzoaHCMawVUmlbyqy7fXW+gPlYWF/yvPR51Qwn8zCVtePw8oPfKJkzGkRU
-	 Dn+sYoQMisRFAsCMzujOrtl5iNOxQxGP7lbUwzFuJCQqiR3J9R9LIdjWqZEgzPhKOCbt/
-	 0SeNDr278SuLipwtMmwvuwQkSO6qmzZq6lVnbQCBYC3tQDC9FGf5xkcAeM7HKdtZeyw==
+	t=1795466772;
+	b=y4yrz/mmS8xLPgYXUXHQfc0FavUGoYpr+oUo7cDpXtXEd3nD/Q2RL3zZ/+S3ZbzZ1Bbk
+	 3lMNP5RsYJBxCbsNO+sQnGNUkcz7xbkg0NSf5kW2eyNXiX0Q0AZvJnxb4Hyxf6d5d9ST3
+	 85EQQ4m39op/pGxeawum3AEg8xhadvwNJlgXoacHW2FxdlGeDkeKhJc+MqoX4hy8P1PSn
+	 9uoRm39R9pg3Nr6CVbawtL/KmBUd3/vdE8mz2fQmUDEXiBhHUZB0TVz5Ypaj2KmiMohBV
+	 Vkulq0k4AzZ0lSYWVZP5pgAy9qmxDGY9nJy+GMJuULHq6WGKMfemztGLJrGScPvpD/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795466699;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795466772;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=Y+OCxwI9lwKAuuqKZI6U557wp+tJEVNdQ059Xmhr2uw=;
-	b=H/I4jCylyFyxKd+OQlV1VmXLrHjzqljQr45Q7E/49+qsYsc33AE1VPcY3J8hbdZSgrkK
-	 HwKOYS+sSL5XPYaUU9cyR8SFEDi2mSVahRg669XZ2pvAcv4qi7ivYti7FS07RvjLYPC7i
-	 p20ZCyoiOfUBoDTBR3sM4JecrFJ8Y1ScpL/gnetS1hNfFE0zoj1tqpoum0LHSQxY7MIdQ
-	 x0YZc+dzQmGU9fkJD90QS878QIISVwPLTY/zOqPqeD2kDAOTlduvaFDJHS5XjdrUJA8sk
-	 EUswgVnnCtD664wtjNtzE7PE/B9WCSSUMgcBuKo7jq/oq+MGTJ2cD7S4Ci0eKP5PeLA==
+	bh=iE5vwZ52FCrf/Yf1bfaqRjLKYFiqG7NiHPUuhaY2RUE=;
+	b=EUfJJZYaZUVB9mcfkgL58fYGSXi0jPuqi6CP9iHTKrFiE1Mr/4ZBih/m0N4eULToVZrr
+	 msH0yFVBLNf8/jsUP6UODljJm9tqvTVf9ak5L+PVtR45VX6HgSn8wdJ6g5lBfHDmfx8hK
+	 JnQlZTMy/nVPaou1Mo3+k2aiRFDwHbGp1kkUrvLhHJ1ZzCO9jlEjAGdonYnX+5KWjZ3PF
+	 RTrFJuA4/GlrLywqJYZSt/K37ijdERpJT6qihCF2O8XMVAcjcFJO8EMT2bOP2WzD4Kk12
+	 voFJ4K8tVwh+PROL/KG41vqkOJ3rMty2tz1ihbApmd/BbQhWtsQpt1hkUuZpReYISSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=msRudmS1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nWCnlAlR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176DA606A321;
-	Mon, 23 Nov 2026 20:44:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B34606A321;
+	Mon, 23 Nov 2026 20:46:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=msRudmS1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E7D71F000C4;
-	Mon, 23 Nov 2026 20:44:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nWCnlAlR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E0B51F000C6;
+	Mon, 23 Nov 2026 20:46:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795466698;
-	bh=Y+OCxwI9lwKAuuqKZI6U557wp+tJEVNdQ059Xmhr2uw=;
+	s=k20260515; t=1795466771;
+	bh=iE5vwZ52FCrf/Yf1bfaqRjLKYFiqG7NiHPUuhaY2RUE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=msRudmS1+Jot4KjLYg1anHYSSlhnwYw8ctVrwkYkz0l4hAZ5g8NYT56kSS+Rlqd8b
-	 fDm2jo1E06w/mxDg/E4WZw7U/ZSZwOvYUgiRyyKy/sV/NXo9vcAEACVnHARFy/gJFS
-	 fAmBUuIx/oodveQtWtpXlmvFKfzbDaF63gkY+nqcdiD9POMATbk1UlVzPeH4Ftptuv
-	 bWhL8rbNOB3SA3ek+c9ITMyIXdgVcjcx/4fsjM579SchHtTJEafWXe5xbT/i+SBkTp
-	 QRBeTdwt2sHLmPO7/Hy4XBwphKFi+/prPjY9ANW12/QzIukjcagVrlli0k8KPkYQbU
-	 yYJ/XpcgFIKsA==
-Message-ID: <2cb3ddae-9ece-4d91-afcd-9adc3251fa35@kernel.org>
-Date: Mon, 23 Nov 2026 21:44:45 +0100
+	b=nWCnlAlRSrYcmt1N3LrIiGlo7ITb22rQ0nLhDggE4JyA9gyFUmf0xEchJxTiQf81h
+	 ZKeHd/THIZR+7txgcGVcMCSAdaw132w0xi+hd0jYuZ3RA5RkRL7eoWiC950+y75oMa
+	 QffL8s8c9SZLIB9S0vLf2qfARj514d/3iDOTf9YHKBBxPgRFW6QTLTPwC46ftjXX7m
+	 TvtnSOoBgL+pZXB2nslP3BBlw6ZsrvQP10v6dgDRmrFPDkMpKoY6iOBwZc6REEg6ml
+	 bgEROSIxRGuzgZF5K2OTXwczXczOKpb6tBNBnblx/tvLEm8L5/feIq+gMu22x8Niwu
+	 sbBMzLhbCKpug==
+Message-ID: <a590ab03-da4b-413b-aca4-1072c0669d2a@kernel.org>
+Date: Mon, 23 Nov 2026 21:45:59 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,15 +52,15 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/huge_memory: use NOFS when allocating while
- splitting folios
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+Subject: Re: [PATCH 2/2] mm/migrate: allocate destination folios before
+ locking a batch
+To: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
  "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
  Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
  Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
  Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
  William Kucharski <william.kucharski@oracle.com>,
  Heiko Carstens <hca@linux.ibm.com>,
  Alexander Gordeev <agordeev@linux.ibm.com>,
@@ -71,13 +71,13 @@ Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
  Gregory Price <gourry@gourry.net>, Ying Huang
  <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
  Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Miklos Szeredi <miklos@szeredi.hu>, Joanne Koong <joannelkoong@gmail.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Miklos Szeredi <miklos@szeredi.hu>, Joanne Koong <joannelkoong@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, stable@vger.kernel.org,
  Chris Mason <mason@kernel.org>
 References: <20261122-migrate_reclaim_deadlock-v1-0-83c56185b0fb@kernel.org>
- <20261122-migrate_reclaim_deadlock-v1-1-83c56185b0fb@kernel.org>
- <awSgk1VTUsiVQOAT@casper.infradead.org>
+ <20261122-migrate_reclaim_deadlock-v1-2-83c56185b0fb@kernel.org>
+ <DN2RK7R9T87V.1DLJWTHIM19Y5@nvidia.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -124,24 +124,24 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <awSgk1VTUsiVQOAT@casper.infradead.org>
+In-Reply-To: <DN2RK7R9T87V.1DLJWTHIM19Y5@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/23/26 21:22, Matthew Wilcox wrote:
-> On Sun, Nov 22, 2026 at 01:42:17PM +0100, David Hildenbrand (Arm) wrote:
->> Various callers (migration, memory-failure, s390_wiggle_split_folio) split
->> locked folios without holding a reference on the folio's inode.
+On 11/23/26 18:24, Zi Yan wrote:
+> On Sun Nov 22, 2026 at 7:42 AM EST, David Hildenbrand (Arm) wrote:
+>> Migration locks folios without holding a reference on their inode.
+>> migrate_pages_batch() keeps a whole batch locked while allocating the
+>> destinations of the next folios. If such an allocation ends up in direct
+>> reclaim with __GFP_FS, reclaim can evict an inode through the dcache
+>> shrinker, and wait in truncate_inode_pages_final() for a folio that we
+>> hold locked:
 >>
->> Splitting a file folio might allocate memory for the xarray and call
->> filemap_release_folio(). If either ends up in direct reclaim with
->> __GFP_FS, reclaim can evict the inode through the dcache shrinker, and
->> wait in truncate_inode_pages_final() for the folio that we hold locked:
->>
->>     try_split_folio()
->>       folio_lock(A)
->>       split_folio_to_list(A)
->>         xas_split_alloc()
+>>     migrate_pages_batch()
+>>       migrate_folio_unmap(A)
+>>         folio_trylock(A)
+>>       migrate_folio_unmap(B)
+>>         get_new_folio()
 >>           try_to_free_pages()
 >>             super_cache_scan()
 >>               prune_dcache_sb()
@@ -149,43 +149,68 @@ On 11/23/26 21:22, Matthew Wilcox wrote:
 >>                   evict()
 >>                     truncate_inode_pages_final()
 >>                       folio_lock(A)
+>>
+>> This requires that nothing else holds a reference on the inode, and can
+>> be triggered most easily with FUSE, which evicts inodes on the last
+>> reference.
+>>
+>> Consequently, allocations under the folio lock are dangerous if we
+>> cannot prevent that scenario through an inode reference; and we want to
+>> avoid grabbing inode references, because we might then drop the last
+>> one, and would have to evict the inode from migration context, ideally
+>> without holding any folio locks.
+>>
+>> Allocating in a NOFS scope would be one option, but it would have rather
+>> bad side effects, such as direct compaction not migrating file folios
+>> and the OOM killer not being invoked.
+>>
+>> So let's fix it by allocating all destination folios of a batch before
+>> locking any source folio. Now, we no longer allocate destination folios
+>> while holding folio locks, which also avoids holding these locks during
+>> direct reclaim or compaction for these allocations: an improvement on
+>> its own.
+>>
+>> We keep the destination folio of a folio that we have to retry, instead
+>> of freeing it and allocating a new one. If we would have to allocate
+>> while already holding folio locks, which can happen when retrying a
+>> failed split for longterm pinning, we leave the folio to the synchronous
+>> fallback in migrate_pages_sync() instead, which migrates folios one by
+>> one.
+>>
+>> Note that nfs_migrate_folio() still writes back the folio while holding
+>> its lock in MIGRATE_SYNC mode, which allocates memory. As NFS only
+>> evicts stale or unlinked inodes on the last reference, this is unlikely
+>> to deadlock; this must be sorted out in NFS code independently.
+>>
+>> This has medium urgency.
+>>
+>> Fixes: 5dfab109d519 ("migrate_pages: batch _unmap and _move")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Chris Mason <mason@kernel.org>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>  mm/migrate.c | 134 ++++++++++++++++++++++++++++++++++++++++++-----------------
+>>  1 file changed, 97 insertions(+), 37 deletions(-)
+>>
 > 
-> The "holding a reference to the inode" piece is a red herring.  We can
-> deadlock even without it (although maybe the AI can't see it).  If we
-> don't remove __GFP_FS, we can hit this path:
+> <snip>
 > 
->   folio_lock(A)
->   kmalloc
->     alloc_pages
->       try_to_compact_pages
-> 	compact_zone_order
-> 	  compact_zone(MIGRATE_SYNC_LIGHT)
-> 	    migrate_pages
-> 	      migrate_pages_sync
-> 		migrate_pages_batch
-> 		  try_split_folio
-> 		    folio_lock(A)
-
-Quite nasty, thanks for these details. I was aware that memcg v1 would run into
-deadlocks whenever we would perform a charged allocation, but sync compaction
-triggering it is even worse.
-
+>> +			/* Remember the source folio until we unmap it. */
+>> +			dst->private = folio;
 > 
-> See this discussion:
-> https://lore.kernel.org/all/20200214065504.GK31689@dhcp22.suse.cz/
-> which led to patch f2c817bed58d in June 2020.
-
-Thanks for the pointer.
-
+> Clever to use ->private, but I wonder if we want a new field name, like
+> we added migrate_info, to clarify its use.
 > 
-> So yes, anywhere we're allocating memory with a file folio locked, we
-> should enter nofs scope.  Perhaps we can teach the AI that rule?
+> In addition, it will be great to keep migration info for each pair of
+> src and dst in an array of structs to avoid the ->private being used for
+> different things at different migration phases, but allocating such an
+> arrary will cause headaches. So this patch is probably the best we can
+> get.
 
-I have a couple of reports here regarding memcg v1 deadlocks, so it's not
-completely aware of the issues yet.
+Right, this is something for stable that doesn't get to wild, but we should
+clean it up further on top.
 
-We should document the rules of what you can or can't do while holding the folio
-lock somewhere, yes!
+Thanks!
 
 -- 
 Cheers,
