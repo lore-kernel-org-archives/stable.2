@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795439081;
-	b=sX72Y+zp6+0Kd6OgIi+vEZ8r0xXwG5jloWTi5waV9zCVw45yiycBiLY/g8Gxs3Gl6jmT
-	 /DqubXQx0DitXcW/Bo+vkDvNC7/x+p85HU0TLlq2i0tvjKJM7n4a4MFYYkXKc7ZITOqy0
-	 j918CRWZ0bhqlsfiVr1h1iWrv9sUfh4gx3VIQ26R4E4YqRWSmr6+LqAnnDl0E4+7spXdD
-	 9FV1UXp1Ds4PnkCyFHpFnWR1dUSn2a9VQoSGXV7E9NI6fG+aOqP7rJSNIsIS6+lU2F6Fi
-	 0BFBYbK87tYmx8v0XuNimhEg5maqMFuAGQSkiG15hsOrArk2nGcn608ZACYkSWM5Fow==
+	t=1795439300;
+	b=09aqyKOEl32IBkNpbU45bh0rhTz/5Ir+b5199Bmrz+9sNZek758sTUUVyhJ617PrdqVI
+	 34mVEqomhXKPY6DzUWIXiBF1mPA/kPUxfUHYxXsk0laCh4kRzFbrJm53wNjgWOKtcnLJ/
+	 J6N0zYqmcnjl3TubGFxy59U3rWbSUA2SbjZJgqEyGcntcUv715TJZUbetb0xO2S8V76ew
+	 V9oRweb0X4XTWdxY6tsqWmFLItZjcPEjzlC0E538BfKlZUbN8UamnWC3ABh+Zah2FTLLN
+	 isMoLq26rlTkiakF4IqhO8apyUA+gy2azLOilP6sVQbMWuXxk+pGlisyAH+fLhSwOkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795439081;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type;
-	bh=zCDqV6y0doa5WYO5K5fzLNOLmziMydS10KViqm3njzo=;
-	b=oKcBGU20cJV0+fU2ZHXe3r4TUb5BpLJw5vox+1W4U3bfYUfIFQdYFGlZwR4ytLG+UfEc
-	 EXBy+idtHLpGddIRgoZRHc7mpXDqjMjW9TVLmOc1Oh0Cw/BwhrwTe/3LyIdVPxwrq9s2r
-	 rflIrai9dSqoQIjoJSSMibCXdF6nEwM1WhwFoq60i11+qh10Dv4Vyuso7Mbaplq8yb/pB
-	 jg5tgtel8J5axPQDrwuJT22Ei+1kO+ZXTkkXW6MqT1UQx3+a4WtCecYv4Yhwjopwcjflf
-	 zDOl2up1vS6ELIVhG1jwVAljzCbnOnJUzKLiOf7tM2ZQ+Axgs0aiPmUnvModoss+L4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795439300;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=IfBYhQEgKpwaPrKRintjbxeYpbMzHP46mzrr0D1B6ac=;
+	b=wlFgnWOpN06c1i1eRxag6NDhedi4pIgP9n1jYZ8UBd/GrxpGakkdbJpZCxZuNso2Tnsx
+	 AvBPajxpDVv1C45cqfp5wLWamTIOildjO3Zv/cpzRLPk7Koo3SYWWwA78N8fqOwNHJ2wQ
+	 Tgm9IOHgr1D5bUaLzfagxXerq9M9HDnuetk20bQ3HKlS533zEK++atoYpLM4fPM1Odk3e
+	 NEzlXQab77fKtPCjLxic0r2pqB/KDeEszn+IipUl0hQpg1Ca6qdBPKVI/nxpMyDiqlJcr
+	 KoUzcZLgxTWpt6yt549nD2ylxb9FptEFM+Qltp+FvJlHiZ4h5NpXCGTmmoWKbzV1IUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=nnCIjnJ5;
-	arc=none smtp.remote-ip=79.135.106.120
-Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF50E606A330
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 13:04:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF50E606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RAzeYCjm;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE94F606A31A;
+	Mon, 23 Nov 2026 13:08:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE94F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=nnCIjnJ5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1795439078; x=1795698278;
-	bh=zCDqV6y0doa5WYO5K5fzLNOLmziMydS10KViqm3njzo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=nnCIjnJ5ZmOSizYmh88sfXzIIFh8+ZZGCtuRvtFSnBmaNZ6Te3pmHNpK2KHz3QF8v
-	 +oOZG2DcPJD5rrRwYTxKD8EmoYZXF7lhwhYn28Zg3hnapzRjLsurnzmYamuUltjDbS
-	 2OiLbv14o9owmDycb/LGv1wKC5JqmPxxGFMBQOsT22JvjhU/KI5/Nz4jeQJdOi2bBK
-	 Q4TlMN59MBEb1GwSZDziAxVxNZoqDjFI20rCLvOw06VnOCyvn/TDC1WMpv0oNfPA8c
-	 a5u8sjdjbRULifjkaNim2rGwxn9eMKbiSGVLOSk5hyoS7ALonbKtvMIYAQEfr7HYiQ
-	 +vVL+fDtb6xdw==
-Date: Mon, 23 Nov 2026 13:04:33 +0000
-To: netdev-bot+sashiko@kernel.org
-From: fadouse <fadouse@pm.me>
-Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net/sched: act_ife: return -EAGAIN after dropping rtnl_lock in load_metaops_and_vet()
-Message-ID: <9VcRS9CU-2EQHb_vgmqLp8_F5UYnRrlqgIlr_IpKMsNgNGXJDg9nJZOILB_d2TuFVAacbsK28Ow9_zpxNdYQeL0Ts6s7oXJUcm1Urs36POk=@pm.me>
-In-Reply-To: <179543813406.3135.15745616872300382040@kernel.org>
-References: <20261122-b4-02-act-ife-rtnl-uaf-v2-102eba468698-v2-1-67c413c45928@pm.me> <179543813406.3135.15745616872300382040@kernel.org>
-Feedback-ID: 173252840:user:proton
-X-Pm-Message-ID: eed5be8e258cc27723349af12f37dff59c8fe4d8
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RAzeYCjm
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 041DB143D;
+	Mon, 23 Nov 2026 05:08:16 -0800 (PST)
+Received: from [10.57.63.68] (unknown [10.57.63.68])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C85D3F882;
+	Mon, 23 Nov 2026 05:08:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795439298; bh=ahbRbR3XjEmixrc6o49AmVmSn0rHTdwpUMW55Mj3SNM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RAzeYCjm5E+gUtL5lb7UpxDnCX1FDHV9QzvHeAhnVBMMc4A34OhQSsb1Byidwllvi
+	 eeR7C6LtSyysuwvcbX7IrqyzPH9RR2HJ53UVmYDzsmdbmRtc47Sjq6DZJc7laoCzQW
+	 8WG/BtCbDWFd7soSi6D8/0naxl2XkH1J/ZTyHv8c=
+Message-ID: <f543aea2-3a21-44ce-bb44-c84bd66b0a76@arm.com>
+Date: Mon, 23 Nov 2026 14:08:14 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,58 +53,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------50a90c1dfec43a8dd15b8afbe1635532f6c0ea395e5089f5674adfdceea9a0aa"; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: mm: Don't defer the barriers when installing a
+ fixmap entry
+To: Ryan Roberts <ryan.roberts@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Yang Shi <yang@os.amperecomputing.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261120121638.194154-1-fuad.tabba@linux.dev>
+ <20261120121638.194154-4-fuad.tabba@linux.dev>
+ <6782b5ee-3dfe-4076-a79c-fbeb2c2ac7da@arm.com>
+ <CA+EHjTziXrRdR+guikKbj93Az96T+AMx_=0sVeyWG5C4fwaaTg@mail.gmail.com>
+ <5b0a26ee-30b0-4a79-9cca-9848dc9d65c5@arm.com>
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+Content-Language: en-GB
+In-Reply-To: <5b0a26ee-30b0-4a79-9cca-9848dc9d65c5@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------50a90c1dfec43a8dd15b8afbe1635532f6c0ea395e5089f5674adfdceea9a0aa
-Content-Type: multipart/mixed;boundary=---------------------befe82236b17a543bc1350b048947fc5
+On 23/11/2026 11:36, Ryan Roberts wrote:
+>>
+>>>> @@ -127,7 +127,9 @@ void __set_fixmap(enum fixed_addresses idx,
+>>>>          ptep = fixmap_pte(addr);
+>>>>
+>>>>          if (pgprot_val(flags)) {
+>>>> -                __set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+>>>> +                /* The slot must be usable on return, even in lazy MMU mode. */
+>>>> +                __set_pte_nosync(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+>>>> +                emit_pte_barriers();
+>>> I wonder if it would be clearer to wrap __set_ptes():
+>>>
+>>> lazy_mmu_mode_pause()
+>>> __set_ptes()
+>>> lazy_mmu_mode_resume()
+>> That would work. However, there's the stable backport. 6.18 has the
+>> bug, but lazy_mmu_mode_pause() was added in 7.0, so 6.18.y would need
+>> its own patch. This patch applies to 6.18 unchanged.
+>>
+>> I'm happy with either, or with a followup patch in the same series.
+> I'd personally prefer to use pause/resume since it's makes it very clear what's
+> going on and avoids the layer violation. Perhaps your approach as the back
+> portable one, then pause/resume as follow up (along with ptep_try_set() tidy
+> up)? Others might think differently though...
 
------------------------befe82236b17a543bc1350b048947fc5
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
+Using pause/resume does work, but it is a bigger hammer than necessary.
+If other features make use of lazy MMU mode, then we may end up paying
+extra cost by leaving/re-entering the mode.
 
-Hi,
+For instance, with page table hardening [1], using the pause/resume
+approach means 4 extra ISBs:
+- 1 when pause() leaves lazy MMU mode: restoring default kpkeys context
+- 2 in __set_pte(): switching to page table update kpkeys context, and
+then back to default
+- 1 when resume() enters lazy MMU mode: entering page table update
+kpkeys context
 
-Thanks for the review.  The u32_change() new-key unwind path on an
-unpinned non-root hash table is valid: returning -EAGAIN still reaches
-erridr: idr_remove(&ht->handle_idr, handle).  As noted, that is a
-separate pre-existing cls_u32 issue also reachable via existing
-RTNL-dropping autoload paths such as tc_action_load_ops() (both on
--EAGAIN and on -ENOENT), and changing act_ife alone cannot fix
-cls_u32's error unwind.
+An explicit __set_pte_nosync() + emit_pte_barriers() achieves exactly
+what we're after (immediately visible PTE update) and doesn't disrupt
+lazy MMU mode - we don't unnecessarily set TIF_LAZY_MMU_PENDING. 
 
-Returning -EAGAIN from load_metaops_and_vet() matches the other
-RTNL-dropping TC autoloaders checked (tc_action_load_ops(),
-tcf_em_validate(), and em_text_change()) so callers unwind instead of
-continuing on the success path with stale filter pointers.  The
-cls_basic replacement UAF was reproduced and verified fixed at runtime;
-by code inspection, cls_flow, cls_fw, cls_route, and cls_u32's
-filter-replacement branch (the `if (n)` path, which destroys `new` on
-error without touching `n`) also avoid their success-path use of the
-old filter pointer.
+An alternative approach that addresses your point about layer violation
+is to call arch_flush_lazy_mmu_mode() and leave the __set_pte() call
+unchanged. This is slightly slower as we still end up setting/clearing
+the TIF flag in that case. Not sure this is worth it - ultimately we
+have to be mindful of what lazy MMU mode is doing to ensure this code is
+correct. I'm happy with the current approach.
 
-Since I am respinning v3 to drop the comment per Stephen Hemminger's
-feedback, I will also narrow and clarify the cls_u32 scope in the v3
-commit message accordingly.
+Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
 
-pw-bot: cr
------------------------befe82236b17a543bc1350b048947fc5--
+- Kevin
 
---------50a90c1dfec43a8dd15b8afbe1635532f6c0ea395e5089f5674adfdceea9a0aa
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wrsEARYKAG0FgmsEOdMJELmdYLfl5tl0RRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmeF9uKMBwl7PKMOpqA1eXo4ul0NhAEtc3z91lku
-IgC/hhYhBJlIWqN2fwJwSOCwWLmdYLfl5tl0AAAkwAD+NiV9OOO0c4E+vipV
-15sxybG3N54IlqKJBxIAe6bQyJMBAPfYzYQKFzaCO4VsJCZ1yNgb0Moj35Ox
-26OW76x6o70J
-=+Yjn
------END PGP SIGNATURE-----
-
-
---------50a90c1dfec43a8dd15b8afbe1635532f6c0ea395e5089f5674adfdceea9a0aa--
-
+[1] https://lore.kernel.org/r/20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com
