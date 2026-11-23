@@ -1,116 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795450858;
-	b=y0lagqT1k2SOrOxazUS8QWQGYLXEje6BZVBAk0N5YiC7Hc32DNDiYaycP5VlPF9PCz89
-	 TIjXUgchdinkdC0/fOuZ7Rekkuf6apttVBPHrYUVPsMVylBgunVXra5C3InqiRar8bX25
-	 T40m/6Z5XqSWjRcpePMky29mC6JUWu2FsDK01OhFhpKbWHqCYIJDKL7J1Ap6Wko+wQkBB
-	 n78Cc6sZXwTxAt+ySUf3uWAIIw65mJQ+u1hwHk03zH2JKaecda8P4j6sZ++JnjIP1S34b
-	 lpSqncpn9SvFwI5eNxw1kzQkzWXYRFRJQONa6OCI8/zmcNPbdUE+t5lQY8vEoRDjQUA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795450858;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OMtq5aBML9D8zyZzLVDbeex6HGKBk1QCt6vR9V0tuYU=;
-	b=ioV60V+ySoYWDW2BWpNBj+Cp7De9wHl7hlzNXldwK2D3+MDHqDUmkEbNXz6hdevvKFnO
-	 chMPg/brAQg/VAEO5tmUUpUSR7g3AsO+0q9hf6EtkUzdXQkkFQcs06W+Cc7/Pjdn/7bTg
-	 kL8+wGMy/OgIxl8/nicBk9X1gj5q+7qZmsBehSbk8h7KoA1YxkwV5+GyB6D3+0bmsXtdq
-	 8CDk52LA57YpPI6exKc2JiCDI1GpeiHC3HJ1+aWx9WYNLpQMxah8XdUg3k60eDzYYtGjZ
-	 SQxAbLKAT96WPh476VXdjyOaB/o9t/1qW0oxCgnltqtI0Sl3BLd18/iAEGpsUC3waEQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Yf48H/7w";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bUzFLfz7;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795450876;
+	b=AHKB4i48XDSeifsqU6vDJmVx8YuCDsT1+wvUKZCLFOa4egTCLw6ZAoMAVA9auD6rWI1y
+	 2ABJE9eqt/G1E8Jt9r/JcELH6KUMJH1VZBOs+cNVO9yepURyRwOsCdAWeaajQA+Oql/Hs
+	 QzT+CTbOjFNQl6I1OXZBD5htY7E8IH2JgWr7W7QvwAeRgfqU/JLq1LX2CN1FaxJdLIMK7
+	 a7HqEWvSyC7eMPVxJoQNaZC5PTnrFY+MblELt/qfTRV8AV8OwcmJoyz3Fk+u3AULXs+EB
+	 oIOZSDgCZNRCZW1KgXld/r9QWNWo4f2ZtH8mDCiOrx2JeDTn2BVIAz3ZMFqLjZ9rw+g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795450876;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=pk67/hXS9CWh4vlTcztHypEGoxMFfpG8vfbm7E4XmBY=;
+	b=IqcbT4gzPQEfxVoM2F2wRaMzfrlqbpTadl2X+X/7QzU9QXOa8WVSdb1FNGKGEEEVVx4t
+	 9STSnknkJD7oQf3cmQpxr84xubOlHircKXUm9n2oo9ga96uXFBWw7XsIfjGt/wJZWgBUf
+	 Te6PWrCMdSbxyE90Do8gJ5paET20nrHUuQfrt5zplQEp3t/USaVVRuPqgpuAnpijudXd7
+	 /mw9Sz6M93NSjHoVrP4Q1i6QxKZY3Y0rXTaIar1mYg8XuRu5g5W35WQan7xfziV2jngSg
+	 oVrhu78ghu41o16VzOYytGn1X86QT13E1lRSgs++R4K+2rO76UPx8XsLjzHgtW7d3mQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SUNHin0O;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A1zHvwHu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B3D606A31F
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:20:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98B3D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FB4606A31F
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:21:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99FB4606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Yf48H/7w;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bUzFLfz7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795450856;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OMtq5aBML9D8zyZzLVDbeex6HGKBk1QCt6vR9V0tuYU=;
-	b=Yf48H/7w/9FB+A/8Me5stvnMKxqMCtMCAx1qe18pen+y8aOXIdb91/iK7dr7owJc/Lm62m
-	HdbUgCccy8sUq+aQEbaHD5mGo4eShDRnkwlkCr04tOczE5bqi23jSoxJqISgRWd3uhluO5
-	3oOrK6lempKzvyHKPSBsXaOnE9GBvXA=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-595-rcvp0Z4TNWCSfOPndZ-R-g-1; Mon, 23 Nov 2026 16:20:52 +0000
-X-MC-Unique: rcvp0Z4TNWCSfOPndZ-R-g-1
-X-Mimecast-MFC-AGG-ID: rcvp0Z4TNWCSfOPndZ-R-g_1795450851
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4925ef75fc4so2181322f8f.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:20:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SUNHin0O;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A1zHvwHu
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANGH3YU1093811
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:21:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	pk67/hXS9CWh4vlTcztHypEGoxMFfpG8vfbm7E4XmBY=; b=SUNHin0OhRr3bhDm
+	CtAfmREiUshcu9bxq7PMGoMcyYoE03SfrDgJ0hqiASjaqsLtV1Jk+mAWywtR4czA
+	KjbVxkG3VQjfS/SIxkPyhKpqGcXWkcispE/n8DM5ZKQGHqtrIXBmOW4eEmoDPzOZ
+	XSTgJF0cl55LL4iL2Pv3Szag3X3IrqvoWxzvfvISb1sxffxe0WFQtEkLHyPx2GMm
+	wzD2BHy0v+CQ1NM1JPKZ8C72CY3+G2+Ht9/2yfD0EZrrX5Ty3HPOdbqGzPFrpqNH
+	tpZ6hSMGUHFb7Z/MPEQ8es5Wj1roZsmWcqqbNE8LQvyY90Ahv96yLSjB0wIPxgTk
+	eOGPBQ==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4ma0s8qh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:21:14 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b41b099809so3021094a91.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:21:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795450874; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NcPBy8/FgKss0e6ri0x5/arU1Jlfmrs8ge8DOW8DNdJl8WMv1277nHNr0UxxWNDyj8
+         YoSEBLn7H4Qzl9LPn4FeFeTZl3GHKYcIJ0+KJtJ93zASJW3oL+5R1HQtp3RADHTLymq3
+         CAzz7Iy6FbR81+IGBZsKnqDCjqf7HbzV2pbOavi7heg70KN+HkjuNadZyYMtjlQqecMp
+         A6v3clYiVJiUZSOXlOTS8p9RkdIEV1+B0EoMKWmL1tfwRYO4vyTABoAJ81J03r3Lxwac
+         Tx8s6JM93scU3Y1KkXeDXX1LB4cBwTlJUzjw+cr5lyouY2xZmbdX0FG/UzUjRQGy6JUh
+         fe2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pk67/hXS9CWh4vlTcztHypEGoxMFfpG8vfbm7E4XmBY=;
+        fh=GwJKxsi9eY+14dStrYzL1tQQcU08vLSmFhhPR7PMmZg=;
+        b=Hnei2pG0svG4yPN4V/i9/7i323EREc7Z3d2v+if4Y8cSKkQtZ9TlJf0BEi0UDcXq8h
+         yQ0WWMjGj5LxGcPpKpsCRKRbnWGK5VzX2u850nmqBXjdKwlScZ/qhxOmt0pwWiTzFRqW
+         HwAnuyV9zbD+icOqVdE8YbUeHoJfmd/wBK1fLruvklzvbYr/aqEWV/BSGqNC6V5pmB2u
+         r4u9GotSFftYTJbGiKOPskWgseqqUrmsPBJFu64OChIwl9ffneNKVMkt6vM8v4ncwl4Y
+         TqQlNzgK9YnGxsbkF/MahO+zwjAU4FsFbs/3SNgf0BX6v2mfuM3Td7CNSdODHsTQlSj+
+         L9xA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795450851; x=1796055651; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1795450874; x=1796055674; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=OMtq5aBML9D8zyZzLVDbeex6HGKBk1QCt6vR9V0tuYU=;
-        b=bUzFLfz74y5qbCVGHjDhYxEeigC9aluW+HztuPAdq6hFzOqtRKHTLhHflo4IUPnUeY
-         mW19uZKUQxKJfnkMKlvmEa8N8oaM4GsEYK103xruhls/JD5evz4v0DRnZfkM7oc4UPcM
-         d93andd6WDsPFdoE3mrK2vW7lheN1Kg/Njm7J1UoYFLDCLSlROCmSuZRK/7b30t9ML9n
-         N6Maf5faXrPHKvnCTCRv2kOK5XqBqZYcl1iFsgeIlDiXtnmIpEfFoeou0TyTcVKzXBM5
-         30O70kW3LUdx5NsFrrEnX6ObGQygOQUw5AcEjBOZr/mICWP8qiXSEXVFrRHISjX5+GJn
-         hVyA==
+        bh=pk67/hXS9CWh4vlTcztHypEGoxMFfpG8vfbm7E4XmBY=;
+        b=A1zHvwHu4ho0BioIlPVNcen6by5M+AaLJb76KigsDbRNdWIHWFf1TJjLjd4BliJq0S
+         7up/DPRjMjD33DcY/1bM9BJUf0JLWttTbM1uTedLKAsz54rhcN6TaXj82mJaHzFmaE2b
+         nxkaVmRjX/d1EH3tptP+qKqpOFHtnMTmwU+C8ZqLxJvxdvb/M9w367ypqDkdWYCHDU8v
+         hHD+Cnw9Ivd1P70Q5PfKE37yc84AkTHjxvzUGQVnWUGrFZ/mPzSokB49FrF4EykYqK4v
+         HrC3Pkri7BLiPerw9B2GksKphl3BF4/TOc0MhPf9ohLN9pKsyJZJPtTvPcFdXLKMdAhP
+         UGEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795450851; x=1796055651;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1795450874; x=1796055674;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OMtq5aBML9D8zyZzLVDbeex6HGKBk1QCt6vR9V0tuYU=;
-        b=hnFELGlRT4GHsZ4gpC1AQ4Rv+1E3aKEb6iTZ6xvJb7bc4P/YDoDXyfjLU8FXH0+OWB
-         l2rVvCxO/gNzJXMOaWPQMj2wq1KA2Ax3FqwG1eOa4MqCSIQMRM19yz4UI7lWRV9kHmeY
-         h7ypUS38DPfnp6cu/N1Qtjg13bbcCGTSn4WXYUWu50hgCItLNxaVbgysNpsNSaIcTdOG
-         YVTDV/p3ZHnIByRdu9RC1wt42S6OeOGB5xIuSX50NJT6FvUPRtt826akz8DfG07hzypa
-         y4kkubWq0rZBU0fVofnZ+8Kz4twwCQFRdPhIORta0h+XM++x31gJlj9a2NcSz300eUrn
-         vyHw==
-X-Forwarded-Encrypted: i=1; AL+hErG7PQV89X3fLGOboas04qjXWlpdPMFD902P3XZBIt5RYJKjFolfAOaM5sswURUBBW+5vtvCF/k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8SNjjdUxSoSEYnXtONsX+l3QGmk4VXlxoco176lbgEnhUYxkIg
-	/O3a/7mE6BGI9ReXf8TxFGJnoj/WolXZSQMUNEUeCRZlBstXCN8Diloc1ZEoJ6hoiXKkn211A2d
-	vcgYElsXbgiGvwgxcc3ZJOB/C5Sl/nOE5Glzex1BhM1xEe6Whq+XXbfg+kA==
-X-Gm-Gg: AZFdTZec/qzyA7oTSzA06y+MG80PLxRqNQG7Rj622SSOKSILWuIiROiZPv1H5UZbpDu
-	feVp1wf3LYBzWCx/4od44vS00MwRVDYOvu9jvrhFaH6uchDj1SVAgxukKQA3FrkwK0k+0tJxo3q
-	tTNOcrgeU+PxCK+4RPkahWlbl89R2o4w3qNSOxMgfRd3xJz9EIeNV8zwXdga1UvzUlXs3iFDh6b
-	nAn1MvOYFjswA1wEO+FIfI5Q46yes4paK8I0EoTk+4YEHLnxzoery6a70sFUTlWV9sqZRb/KCCV
-	hRrb1vPk2tnkAUdjmOS0Z5n2mMZ0uAUm7I+picG9m0aiSuPX4EPHnNdVC7PNijIPe+5dhBaxcO0
-	wU7hU0iBk0+qnnM5ixO7XtJNPBOw0cqxWV1WJPKVQVtQic6O307sMYw==
-X-Received: by 2002:a05:600c:3b8a:b0:4bb:76d9:f81a with SMTP id 5b1f17b1804b1-4bb88824fc8mr265197935e9.34.1795450850730;
-        Mon, 23 Nov 2026 08:20:50 -0800 (PST)
-X-Received: by 2002:a05:600c:3b8a:b0:4bb:76d9:f81a with SMTP id 5b1f17b1804b1-4bb88824fc8mr265197125e9.34.1795450850173;
-        Mon, 23 Nov 2026 08:20:50 -0800 (PST)
-Received: from sgarzare-redhat ([80.116.143.202])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8849e598sm320400955e9.8.2026.11.23.08.20.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 08:20:49 -0800 (PST)
-Date: Mon, 23 Nov 2026 17:20:44 +0100
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: jrmmhm.kernel@eldare.de
-Cc: Bobby Eshleman <bobbyeshleman@meta.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Alexei Starovoitov <ast@kernel.org>, 
-	Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v6 2/2] vsock/bpf: release sock lock while waiting
- for data in recvmsg
-Message-ID: <awRnkbbxYUw-ihGb@sgarzare-redhat>
-References: <20261114-kbh3-1-022-fix-v2-v6-0-96b6029bbffa@eldare.de>
- <20261114-kbh3-1-022-fix-v2-v6-2-96b6029bbffa@eldare.de>
+        bh=pk67/hXS9CWh4vlTcztHypEGoxMFfpG8vfbm7E4XmBY=;
+        b=XvO6mu4mk6JAuXPX6MxbUIpAOW2D2mQENXvQTg0T0PnX5sGlS1pjhNUYOZ7LsG4xtM
+         HZJEYHYwV/TOTiD8mwaJgjtfFyDLLy4aUVxKwjLfvcy6MPzOR0ll5t+zbAJsOEAtYNY7
+         A4OfTz0oFUk/7NvDm8GkVok8fRwtgKSLG7mXMpzLADG6O1ZUmtx0+Z5JOayzmCnp4I/h
+         jNsLrhqwZ/jSpBimAtyC9NsOS4mrLLrgAjYBun4jI8ngLGIGFuAzSm2cKS8ut3Oc3K+a
+         j+DPuTKx5+mgP803qrEgUDaZMDvOA9yFFqAkToUTYmcA2fkTPtMqysCmyRszE9sm1SaE
+         O8NA==
+X-Forwarded-Encrypted: i=1; AL+hErFqiJtdPgtqOC0THN+X3eYFSagcISi5JpOjIpf6ANpGdYg0y0a+0aNGxpu3mcTpiM/RJRujk4k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Q0mTznzL5czvlZHf02Q2QY4OuQjmC3McmAb9SsR+sT8U0lxT5
+	NX3pCOju87H5RUY9t9N+NC1gFmqILQWvxSHz9Uodh7zWbx/3mq8HzNvwSPHTL6mcpiMUHZr4Xvg
+	PFKPqanvxDxNbfQ4YGxMUEEBUahD+8b8ljn5T7UuZgqI90Edd9StYy+YPY52qXHS12I5xhN0E/l
+	q1WWnmbhmpGrahDQWf5mU/rojKTLZGLU1aHg==
+X-Gm-Gg: AZFdTZcaj71qfKM0a2/CPgzz3iDe9pUfTl74YCpTralcNieL0I6r0JVMLdi/4idIBl5
+	9Y1/fSTu1Bt7ksJ6FVbnVd0BWZMMTQMTQow9Hc3ojvb1jLUJX+AMHrflXnlZXwkBldiyk71Pewc
+	7uPXGr/eNFzTDniCuGHSov0kz1Q+Iq5mrXwij7WA0c5r+IseMwQkd2HueHg7hgE0vZTVbZ8LaZY
+	mA/n2x8rQB5zyAl
+X-Received: by 2002:a17:90b:3b49:b0:3ac:b048:fa13 with SMTP id 98e67ed59e1d1-3b41c9beaefmr11525926a91.67.1795450874039;
+        Mon, 23 Nov 2026 08:21:14 -0800 (PST)
+X-Received: by 2002:a17:90b:3b49:b0:3ac:b048:fa13 with SMTP id
+ 98e67ed59e1d1-3b41c9beaefmr11525901a91.67.1795450873365; Mon, 23 Nov 2026
+ 08:21:13 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,128 +128,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261114-kbh3-1-022-fix-v2-v6-2-96b6029bbffa@eldare.de>
+References: <179259111932.19580.13027750156272888992@gmail.com>
+In-Reply-To: <179259111932.19580.13027750156272888992@gmail.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Mon, 23 Nov 2026 17:21:01 +0100
+X-Gm-Features: Aa3M54p5hRWYEEHgjaTJlT9_Lb0ZXa0hS2O8Lw6qo7tyI0uEXYOUPeVJEQxKehY
+Message-ID: <CAPx+jO8xT3thJqDfTGNDdEe_EZ7fL5HHP-gjy3uZJtvemmNeyg@mail.gmail.com>
+Subject: Re: [PATCH] pmdomain: core: clear states after freeing them
+To: Anfernee Cao <anferneemelokc5@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: gqRy5X9PqSwsdEpezlPaiGk3x3QqSfV0
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA2NSBTYWx0ZWRfX2zOQ3ZPxBPqa
+ PgbHgtyze0aANMFFOFJ2+oB6dzc4vO6N34uIiiH3XAdRiVtc2El4nQiAGucqyCqWMpO7NsaBQrb
+ xkPD2EHwRwcrwfUSkB1CWO5YNcFGqpw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA2NSBTYWx0ZWRfX944/h4Dg6/XF
+ OtvgEi21QkZL4VVCGvoWOFnOHa9QUfhk9A/mcUd5ZugKmAO+7IDEUfOZ0fQ7uo2fMo55Bgv/9YX
+ iY7gUx80ix8tWXfZWsLaXF+7KNuJasBdx6FAVHAlaxZTEasZcVC6TsO4YrS12Y/RZPitvBH4e5m
+ 6pD7PKo+50RABnQKG37KUJtXZX7e2zLwvbrS4jqnnXhwwKsFroUHK98s/zbg/Zs8Zuw0V7uKtjk
+ VRTxF3GTxbzN5zWOnCweTwsNTTNy0C5SQas7lNCjhx7NXLomLuYP4efhI0uO9cm+cMJr7W+S22N
+ 4ecdKelVJz94BsPsT/Z40OLs2P1m14FqPxW3td8Nw/ofoDWN6TGLmh0+l+pv6v0nNwWh6nqgPqv
+ g8sa7iQrteEgGrrc4AE7zRVlUJK5nsLUU0jazd0x+IzuhwhbxJyY7O5ZK7I7brbkyuGZZiZis8w
+ ajwWW/1sKd2AjLMBS4Q==
+X-Authority-Analysis: v=2.4 cv=Yr+a1IYX c=1 sm=1 tr=0 ts=6b0467fa cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8
+ a=gKRGjSYNajUN44eR1FMA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: gqRy5X9PqSwsdEpezlPaiGk3x3QqSfV0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_04,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 impostorscore=0 malwarescore=0 suspectscore=0
+ clxscore=1015 phishscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230065
 
-On Sat, Nov 14, 2026 at 12:59:15PM +0100, Jerome Mohm via B4 Relay wrote:
->From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+On Wed, Oct 21, 2026 at 3:58=E2=80=AFPM Anfernee Cao <anferneemelokc5@gmail=
+.com> wrote:
 >
->vsock_bpf_recvmsg() sleeps in vsock_msg_wait_data() with the socket lock
->held, so the virtio delivery worker, which needs that lock, deadlocks
->with the reader and all vsock rx on that worker stops.
+> genpd_free_data() frees the genpd power states through the ->free_states(=
+)
+> callback, but leaves genpd->states and genpd->state_count pointing at the
+> freed memory.
 >
->Release the lock around the wait. The reader can then wake without
->data, so the wait also has to loop; the fix needs both halves. The loop
->ends on data, the timeout, a signal (the sleep returns at once while
->one is pending), a lost transport after a failed connect(), or a state
->in which __vsock_recvmsg() would not wait. Those states go to
->__vsock_recvmsg(), so a non-blocking read now sees them before -EAGAIN.
->A blocking read interrupted by a signal now gets -EINTR, or restarts,
->instead of -EAGAIN. One tested difference remains: a reader asleep at a
->virtio transport reset gets -ENOTCONN, where a native socket gets
->-ECONNRESET (0 on seqpacket).
+> Providers that allocate the states themselves hand them over to genpd by
+> setting ->free_states().  When they fail after genpd has taken over, they
+> still run their own free helper, as psci_pd_init() and the RISC-V SBI idl=
+e
+> driver do:
 >
->The deadlock was found with the help of Anthropic's Claude; the netdev
->Sashiko reviews and Alexei found the wakeup, reset, shutdown and
->lost-transport cases. Each was reproduced in a VM without kernel
->changes or error injection (the resets unbind the guest's virtio-vsock
->device), except the lost transport and a SHUT_RD with a pending socket
->error, which were checked only in the code. With this patch the
->reproduced cases behave as on a native socket, apart from the reset. I
->ran the vsock vmtest.sh single-VM tests and the BPF sockmap selftests
->with the series; they pass, though none of them sleeps in this wait.
+>     remove_pd:
+>             pm_genpd_remove(pd);  /* frees states via ->free_states() */
+>     ...
+>             dt_idle_pd_free(pd);  /* frees them again */
+>
+> The second call dereferences the freed states array and frees it again,
+> causing a use-after-free and a double free.
+>
+> Clear genpd->states and genpd->state_count once the states have been
+> freed, so that a later free helper becomes a no-op.
+>
+> This issue was found by manual code inspection.
+>
+> Fixes: 9d976d6721df ("cpuidle: Factor-out power domain related code from =
+PSCI domain driver")
+> Cc: stable@vger.kernel.org # v5.18+
+> Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
 
-Ditto about series/patches.
+Applied for fixes, thanks!
 
->
->Fixes: 634f1a7110b4 ("vsock: support sockmap")
->Suggested-by: Alexei Starovoitov <alexei.starovoitov@gmail.com>
->Cc: stable@vger.kernel.org
->Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
->---
-> net/vmw_vsock/vsock_bpf.c | 42 +++++++++++++++++++++++++++---------------
-> 1 file changed, 27 insertions(+), 15 deletions(-)
->
->diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
->index c9b399f37720..41307759da99 100644
->--- a/net/vmw_vsock/vsock_bpf.c
->+++ b/net/vmw_vsock/vsock_bpf.c
->@@ -34,24 +34,37 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
-> 	return vsock_sk_has_data(sk, psock);
-> }
->
->-static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
->+/* __vsock_recvmsg() doesn't wait in these states. */
->+static bool vsock_rx_done(struct sock *sk)
-> {
->-	bool ret;
->+	return sk->sk_err || sk->sk_state != TCP_ESTABLISHED ||
->+	       (sk->sk_shutdown & RCV_SHUTDOWN) ||
->+	       (vsock_sk(sk)->peer_shutdown & SEND_SHUTDOWN);
->+}
->+
->+static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock,
->+			       long timeo)
->+{
->+	struct vsock_sock *vsk = vsock_sk(sk);
->+	int ret = 0;
->
-> 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
->
->-	if (sk->sk_shutdown & RCV_SHUTDOWN)
->-		return true;
->-
->-	if (!timeo)
->-		return false;
->-
-> 	add_wait_queue(sk_sleep(sk), &wait);
-> 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
->-	ret = vsock_has_data(sk, psock);
->-	if (!ret) {
->-		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
->-		ret = vsock_has_data(sk, psock);
-
-nit: a comment here to explain why a transport can become null would be 
-nice.
-
->+	while (vsk->transport && !vsock_has_data(sk, psock) &&
->+	       !vsock_rx_done(sk)) {
->+		if (!timeo) {
->+			ret = -EAGAIN;
->+			break;
->+		}
->+		if (signal_pending(current)) {
->+			ret = sock_intr_errno(timeo);
->+			break;
->+		}
->+		release_sock(sk);
->+		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
->+		lock_sock(sk);
-> 	}
-> 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
-> 	remove_wait_queue(sk_sleep(sk), &wait);
->@@ -105,10 +118,9 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
-> 	while (copied == 0) {
-> 		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
->
->-		if (!vsock_msg_wait_data(sk, psock, timeo)) {
->-			copied = -EAGAIN;
->+		copied = vsock_msg_wait_data(sk, psock, timeo);
->+		if (copied)
-> 			break;
->-		}
->
-> 		if (sk_psock_queue_empty(psock)) {
-> 			release_sock(sk);
->
->-- 
->2.56.0
->
->
-
-I can't see anything wrong, just some nit comments left.
-
-Acked-by: Stefano Garzarella <sgarzare@redhat.com>
+Kind regards
+Uffe
 
 
+> ---
+>  drivers/pmdomain/core.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+> index 052ec478dfcc..12db69f53aee 100644
+> --- a/drivers/pmdomain/core.c
+> +++ b/drivers/pmdomain/core.c
+> @@ -2353,8 +2353,11 @@ static void genpd_free_data(struct generic_pm_doma=
+in *genpd)
+>                 ida_free(&genpd_ida, genpd->device_id);
+>         if (genpd_is_cpu_domain(genpd))
+>                 free_cpumask_var(genpd->cpus);
+> -       if (genpd->free_states)
+> +       if (genpd->free_states) {
+>                 genpd->free_states(genpd->states, genpd->state_count);
+> +               genpd->states =3D NULL;
+> +               genpd->state_count =3D 0;
+> +       }
+>         kfree(genpd->gd);
+>  }
+>
+> --
+> 2.54.0.windows.1
+>
