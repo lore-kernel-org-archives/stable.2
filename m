@@ -1,89 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.227.64.183
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795424033;
-	b=2YD+xzcnyMWNGJzCdJUmYzYOcv8ccQxHXIevSBjpu/dmj6phLTY/3hS/XQ4q1BnJjF+S
-	 kNtXM6HSvAUlVQPIF7OYjn/VZVtHvqplCijAHoyIUQpoJR5d06ikyRbIvWHCCY8t/mjIk
-	 ml0qtnIcM6AUQJcMYOg8UgkdGb+3jefX/XaM09oOoQ53Y13WhwfX497Haw48q59aR1KGw
-	 JRCFtv66xAsJzlyonHaXe8yxLDforlk/5/y5Vx2+GluAmDnC0bQLWF9DsSx/8XXPz20bM
-	 26gqtNmWxMkBbAaJjBFi+wYL1u18XfUEyKBZitXntGgkmSxE7tzEzAOZqwe96Ocw9Jg==
+	t=1795424120;
+	b=pD+RGkE4zpSihSXyWQ/CcqELfmU1g9pYvvftfoG6DjQwXOlLOxEWmALBeXwWlNj6vn3B
+	 ZSPFrdoJO1VnvzWs+KJZqApxRMqmdCxqvvhiF18kAtTKqGg0yxkuA8QO8nU2O4Vpl2n2o
+	 Jy339owoJ8gOrwefdZ45X9PhX7OPeLHyALeFJjkF3jxnQ3TYJeOJ646gyw4133TJJKtrC
+	 k3k6yEEHN5132Nia5FM3mx1uqB0KVIuyiuTjOxYzPK+kvDs8xeTAmooF2Zu3H9G5Ugxx0
+	 JR6afMpNIxGcaXeA5n0d09tnfA1JoYjGwraguc1kEJLzQrk90dzPO8rkNDikeIWifiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795424033;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qvGcuiMvzkgnIAM2MInhiFXlOFrLbqnlcDucLLp7jgw=;
-	b=GnR/1OcIXmaO4UKza4mFbPIuxDTDXgvXxdFCQlOADfWxR/hjWE8mOslIGlIgcmoOUvXu
-	 LfcH/zidPX2EPpFvOTx/wLQZPIHj0LqMS2kb4U687KaQUfjfpQ6I7jWyee5fipf5GlpwQ
-	 Vd+AbiWnJiftVkMF9zHdRNqs5tXh8x4A35Zq6dL/TCQAjFky5tWzFwzVd0Gylo9jgUJk1
-	 4mvee0T4JP+fy2Uwyj7zRzxBEPrlDt0sOZ9s23c5v8S+a60ugLHI8e9Zbxu78n7323zQS
-	 4UsaPXdEM35q1s0TXpZGCBI8pdmkU3BEx/AlXqe9HuKmZPa/hM1xcOZvz/XxgwjNwlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795424120;
+	h=DMARC-Filter:DKIM-Signature:X-Virus-Status:X-Virus-Scanned:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=Q7uv1CKc/8sdlZCsInf0Vq7h+/2V0p40nDYXC2y66DU=;
+	b=xhErk6Uae4YUdMBPbG4P/I+GkDa0LOGUGDO9TM5BpozB9vUihbPetzSYIvHBQNja7Co8
+	 UfSUSe5CwbcFeuKjIsBlC3VLhoFk6V2b6SUkBIRBWIENxfzpo+8Zg8BUV3obU2fBMWVeY
+	 BmRCeY4wIJFbFKDVzo5Z9ti42+gXYTv5uOaV1easP9uhfK+Re6oYwaDJ7fxXPhDX6teV6
+	 RbdBjQn2w92KmGuEHox8nviAV4snzBfMkUohP/vK/LGLZ/OTj/3G4u6hKdGOTOSNFBfyH
+	 GMgvh9KqdKfbIkIeC7hG0t+w2K6XuAueh6KvdXSbs9TrI70RM12b+MGbgtrg5vWsVLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="Y36KJ/+u";
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rere.qmqm.pl;
+	spf=pass smtp.mailfrom=rere.qmqm.pl;
+	dkim=pass header.d=rere.qmqm.pl header.i=@rere.qmqm.pl header.a=rsa-sha256 header.s=1 header.b=peOC68H3;
+	arc=none smtp.remote-ip=91.227.64.183
+Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06DA8606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:53:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06DA8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683D6606A31A;
+	Mon, 23 Nov 2026 08:55:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 683D6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rere.qmqm.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rere.qmqm.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Y36KJ/+u
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-49465892f7bso2200192f8f.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 00:53:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795424031; x=1796028831; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qvGcuiMvzkgnIAM2MInhiFXlOFrLbqnlcDucLLp7jgw=;
-        b=Y36KJ/+uELTQEZY98mnBxgqeidd1AjqL6IC95iTjrD1MQcPwDUAXoqOQ41nEjnqhX8
-         z+C32A3W7nsGEaBnaGCIo+bjaki/dH78Q79x41OkQ0jPmlpMg0f9GPwXGCTQj7e5sAIN
-         3QpwxALgM9ZbVEVL0ADyu548sPr9F18ErgG9ucJvSVpA0QGP/IrQ45fl18X1fZrB/bi7
-         akMgL+3K5DDuXjoeg37350xVfUriTAywWa11RdTCQbwm++MUV33DfSHBYlahX7YT+cYj
-         ad1AKzg71It2G3mnFkZbT0zqu8KLJJMdbLkxUEPvJB+KT0nwrmmiyEUEGdokT0TkOWc2
-         NBwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795424031; x=1796028831;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qvGcuiMvzkgnIAM2MInhiFXlOFrLbqnlcDucLLp7jgw=;
-        b=VmpsNIMokxWYS3mGJLiDsANFFSoEzQxQSguf6I/v9TDNKvOYpXsE3y4aboMqmNTjqv
-         B9ZJDUNqQInmXN8zFd52dJ63b9de2GPqak0z7DLP3SEhD5G3IJid6hBubQDCJwOW0oWb
-         iEBUyYAc/CWQETQ0LUenxstE2crATAxNGdpmksbe8OIyXxFMLVvGFTHuhSxIjW+9i8QF
-         ge4vKZvVKx7Nyz5shK8IIgGvrFdXr+KFpAsRvgs8Rkg5CWgz2tuezLBPyZwBolUffliC
-         FvsnLs6DkLte1kEUtXfvnphr7Stlj8bEzi1gZKxXHOa5vZxUImGpDmda91CS6J5S9egm
-         WwRA==
-X-Forwarded-Encrypted: i=1; AL+hErEiWvb1VCdA5ob/ALNyeZXRwfrJh0sSGQg3OxfH2mZJmAx8ye3jrhXxQEf67hnqbXpnuL0yku0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9hhPXeEDX5URZvnhk0lVDbMg9V96/NQYfUzZjzqaaUzgl1CJSr
-	yE7Y9z8MnX5B1dQTNYzK/EyrRfFN/phais9kaW31CrM7KQPwKr1eqpyAfRTBbCFOdlU=
-X-Gm-Gg: AZFdTZdOL6WkZjj6mmOY2GM4YkY6PlDb0kcDgQhgXZg+rxXKpBBE1M190kANkMRe+8C
-	+ldxJ8I8xBCRKEAT2djGE0hYXLzMMZzlr2gWp35caVuS+rOgqgoNwAjn6BGGBZ2B0vCBkaUFS0q
-	a+k7AviDe0YuSwf8Zwn2cp7PxESijKx2LeISRrBWFSGW29PCNiR2cxHQsive+3VAKEAEzaX0uOv
-	RmKPtnwU+m3ljr0O7C/chLev+bxaJ+h3WYdgjNVnImOHHd7dsu9BtXfeessCIEBVPcwRmxy8fia
-	w96wPSS1J2/YOZyE4j5zzx+a1cpB6B9L34bt0Yf6arkHc4VctTgH8uDrcBlP6vKdd2KWnpyWn+E
-	Be0wJDzdxKFBH18J3Jkru9EkUeuVj/HJo8qs6p7rMODGsk9Gu/lWp5LSJ/7gjKvQRnp1yHLkpeP
-	owiuPwTUhuVdjWVo37P7GvJpAdEoj56g9xF/9GxhkFtpznpD3S8H/5pCY/4buaZNY+50lokNlzs
-	uS2jH1M8YKO8n08vppYgpWN5d4mBC3eaOd41fKBGIExx0//ZrXMLRlCxqEjo4FDoNGDSj9L1PGw
-	sELr0GwOScOpX99d6HN9ZT5o5sMoOuNHrxQGxTUEr9+x9Afhq+hJCSipgxF9xLPanCCaM3HkccP
-	Y1S0/LLk5G8Owf16Q
-X-Received: by 2002:a05:600c:1d09:b0:4bb:6fd3:5ac0 with SMTP id 5b1f17b1804b1-4bb88816c7emr237165875e9.28.1795424031393;
-        Mon, 23 Nov 2026 00:53:51 -0800 (PST)
-Received: from ?IPV6:2001:a61:131e:b901:6da9:459e:7c6c:e85e? ([2001:a61:131e:b901:6da9:459e:7c6c:e85e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853ca452sm331210845e9.15.2026.11.23.00.53.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Nov 2026 00:53:51 -0800 (PST)
-Message-ID: <f9715edb-94be-47cb-8bf1-f84a3323f000@suse.com>
-Date: Mon, 23 Nov 2026 09:53:49 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl header.a=rsa-sha256 header.s=1 header.b=peOC68H3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
+	t=1795424110; bh=Gh8XrR/kQDGr9B/T4iYtI0fqTNghQLQy/youiwIJ9S0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=peOC68H3AzJeeW8cN8dk/AmhuUSFFEfGoEFDlEw4A735DfxrENq01HjaTuzQO/d1y
+	 MW4lk2VNNRJQJ9Rh7xbChj7o6lC9M9NtaLNm0/JlvBU3c59vYhnDnQftYQ/n5tRRQ/
+	 PvWip+vIuB0Ih5r79JQPBgWKpoy37ccFWVaMkQRGevLH+QYXpbWZsrlb5ey2AQjY+Y
+	 g/fKlfzmf2L2Z/N0mUU+n0tyEjg2LbTCabvWFhvuyzc3VMQI9QUc+Wfzt6r1TpL6Mo
+	 c9mZXdaRX8uCHyduSW1l4xaLHzHsfNMzuzcVjhsNScGIfEYkc6BwZY23wqxQQglp31
+	 wHMiWncBMsISQ==
+X-Virus-Status: Clean
+X-Virus-Scanned: clamav-milter 1.4.6 at mail
+Received: from remote.user (localhost [127.0.0.1])
+	by rere.qmqm.pl (Postfix) with ESMTPSA id 4jY0Bj24FDz5J;
+	Mon, 23 Nov 2026 09:55:09 +0100 (CET)
+Date: Mon, 23 Nov 2026 09:55:07 +0100
+From: =?iso-8859-2?Q?Micha=B3_Miros=B3aw?= <mirq-linux@rere.qmqm.pl>
+To: fabricioakio@gmail.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Neill Kapron <nkapron@google.com>,
+	Krystian Kaniewski <krystianmkaniewski@gmail.com>,
+	Brian Ellis <brianellis@gotenna.com>, Ai Chao <aichao@kylinos.cn>,
+	Prashanth K <prashanth.k@oss.qualcomm.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] usb: gadget: u_serial: Publish the console only
+ under port_lock
+Message-ID: <awP_a5IqlYHPvx-G@qmqm.qmqm.pl>
+References: <20261122-u-serial-console-dequeue-v2-0-820f355827e6@gmail.com>
+ <20261122-u-serial-console-dequeue-v2-1-820f355827e6@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,41 +72,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: image: microtek: don't receive REQUEST SENSE data
- into sense_buffer
-To: Alexandre Becholey <alex@becholey.ch>, Oliver Neukum <oneukum@suse.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- linux-usb@vger.kernel.org
-References: <20261119084526.535901-1-alex@becholey.ch>
- <643a71e0-7347-47f3-8cad-ce31f76cb8af@suse.com>
- <AP57iwtzG1Kr6EB4hY7F0Hd-DaLhPZJzxoKNuvDpeiAKZvyxsddI1fl6kRKAc2Xg1ox0kL-KAdNYmZrRMEYN_mZRamfiV6nXjdcfDhJhGyY=@becholey.ch>
- <e3956050-8b80-4270-998e-2e5ec70cbdf8@suse.com>
- <8iDv29vCFEOxycORJWCZZoTT9dMFbUZZ9VK25sT27tKoWWtaKvLKZaW2YoQDygTrSRkZRE6Pu5PmkMFLl-PDCWXI9n1l-LSB9aJCByn8gks=@becholey.ch>
-Content-Language: en-US
-From: Oliver Neukum <oneukum@suse.com>
-In-Reply-To: <8iDv29vCFEOxycORJWCZZoTT9dMFbUZZ9VK25sT27tKoWWtaKvLKZaW2YoQDygTrSRkZRE6Pu5PmkMFLl-PDCWXI9n1l-LSB9aJCByn8gks=@becholey.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-2
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261122-u-serial-console-dequeue-v2-1-820f355827e6@gmail.com>
 
-On 20.11.26 16:14, Alexandre Becholey wrote:
+On Sun, Nov 22, 2026 at 10:48:34PM -0300, Fabricio Akio via B4 Relay wrote:
+> From: Fabricio Akio <fabricioakio@gmail.com>
+> 
+> gserial_connect() and gserial_disconnect() find the console through
+> port->console under port_lock, but gs_console_init() sets it before
+> taking the lock, and gs_console_exit() clears it after dropping it.
+> A host connect while the console is being turned on through configfs
+> can then connect it twice, leaking the first request. While it is
+> being turned off, a connect can attach a request to the console being
+> freed and schedule its work after cancel_work_sync().
+> 
+> Set and clear port->console under port_lock, together with connecting
+> and disconnecting the console.
+> 
+> Fixes: d7cb8fb7aa7d ("usb: gadget: u_serial: allow more console gadget ports")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
+> ---
+>  drivers/usb/gadget/function/u_serial.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+> index 0a304f508bc3..1f0110ea7f6a 100644
+> --- a/drivers/usb/gadget/function/u_serial.c
+> +++ b/drivers/usb/gadget/function/u_serial.c
+> @@ -1173,10 +1173,10 @@ static int gs_console_init(struct gs_port *port)
+>  		return err;
+>  	}
+>  
+> -	port->console = cons;
+>  	register_console(&cons->console);
 
-> I looked at the other drivers for that special-case REQUEST SENSE
-> (in drivers/scsi, drivers/ata and drivers/usb). They either
-> transfer its data into the command's data buffer like any other
-> data-in command, or emulate it there. I found no other driver that
-> copies a caller-sized transfer into sense_buffer, so I think the
-> fix belongs in microtek. If you see a place where the core should
-> enforce the size, I am happy to look at it.
-Thank you, that makes the situation clearer. Yet it kind
-of brings back one question: Why does scsi_cmnd have the
-member sense_buffer at all, if you simple can write the
-result into the generic buffer?
+Note that there is `if (port->console) return` just at the start of this
+function. If there is indeed a race here, that should be taken into
+account.
 
-I have no problem with cleaning up an issue in the microtek
-driver, but if an issue is to be cleaned up, it should
-be done fully.
-
-	Regards
-		Oliver
-
+-- 
+Micha³ Miros³aw
