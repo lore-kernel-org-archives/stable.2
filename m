@@ -1,95 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795415878;
-	b=K1tCiejWiqGschZFNeRuRy3Bozh1DJBiIKzpoc+hv2ihZuCSYOhvI6hvHEE2jW7F93J+
-	 sCxK5htLe4VAICWEMZGo6U15fat3AVjfBqS1x+dejHsrZHFqebhqi+dBlyiy36Vt5dbip
-	 fxPYx99VRsJ9ITAL2RQ6ppbCFBnrZjE+X7P/XDaZffVJivc2Z5513yaOrX3DkGCQ89Cd7
-	 sqH193qAOIbjOPXCc84ltHBad1PP3iqBBbahRXRAQ2OYFYHBx7puI4OT5URqrbBqmOKm5
-	 b0FCgY71d0ABH2Vkcmtnfj263qQ0HUtL3HOD2Ql6C8DiIjBraY1gV/cTwlMTKIlWvmw==
+	t=1795415969;
+	b=epdhtve3j53VztQYEENwl/KX0/wOSwfEc2hpIXK2nMupaptEFCGvEtMfZxgeYdX5gjcP
+	 J84o5BJycI12ArvZqqKmb87/z0BCME+wynBieiPM2BOpkioN0fy0nUQm2uU4oanpq7+Ct
+	 bxgm1raR4ysrB7EmXG+TqtfPRYMMfHgJv+9UhUUxjcTZ9BlTmAzj6E4KBvmQhof++Ugcl
+	 sF1Er6+ylRdqr8OCXwK5SUzW7DvN38xkNB0LUx4tXggZbZuj1WvrsPEml3nXBIuTA38sv
+	 YZ2DuwMeb0vu/GeYNH5SIKq0Gyj4Adkyf1XfvT2PYH4+zajnE3oIlU63AWpcir9SMag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795415878;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=afbt2rmomwUI+307ATY0ZNant7Tutup0OxSCpoe3UL8=;
-	b=bRDH1rFw8iXvBQmJroxUYtXO8Cazg0L63OJ4K138wCFbs5wNM6p0c+U7JaCcaXS+ZcHb
-	 yGGRNWbK7oTS28dkyY+CLE3CYjC7T1FpqZXROPZOxQrJLu0RoSryHTxzTWbTcBqCTva5f
-	 BGcIEmoT/EnqryAEz1K93JqWlBhjsPrTATEzc9h06nMSgwRsyCRlXQHd9s+MRg6I6QOkz
-	 QlD1GYB1L6Zphs3ZTCqUqEI6ZPHw0lvx+YIyQYR62GDoqLgA9WSD6I1otas318dZX9/0W
-	 Vm+snGwyzxR9Amq0UZamb9d6U4AlwoQoPyDb3u9xuL7GG5zUDWLYjR2ge5oeBP1EN9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795415969;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=7agXcixM5SUecxuwupsf5SFmE1L7F0iLFU7WsXCvLCo=;
+	b=Z7ow5/bcnSDi18kZJU6BXO7Z3ICMwUocwzJG4t+udrm1c36l/4HLOoJVh8ZAP5R2WCsD
+	 6AfXQ5B6NGJ7h0yfHf2LsSbVzhBWab9MPTk75NMdixxMmM6CE0rydxFypkCf9HqSQz6Y9
+	 fNbSYosrSmlox9kQcmOgQ/UpRLboASJoOYrUTrfdMbKPO4RLwUbZNzmOhEcehd+KWGf2K
+	 ZKcpmffQhQZxWukQTXYITsvzvji5sf0NC6TSZR0sT/oUUat551JmHwuJ89dmvE51E+CXy
+	 Q/aOyoFMbvuvEnNYjVeU4CRksFSCoRbh9m8IWeKEoqbn6/8wbAGuqMkFE+zCtqt9D+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HF8ETJgy;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOKrRDrr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6423E606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:37:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6423E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56497606A31A;
+	Mon, 23 Nov 2026 06:39:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HF8ETJgy
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so3549701c88.0
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 22:37:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795415877; x=1796020677; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=afbt2rmomwUI+307ATY0ZNant7Tutup0OxSCpoe3UL8=;
-        b=HF8ETJgy3K3P7rv90VlZFwWi6J86eea2v2fnG0piKVB5kjIpj0a0AQ9G7cHH7YngGz
-         KXfKEwtvjrnuQZtt/HZ54IUDoUm0nwhMjsgTAn8+A7vUYiARe/zVs0WCd2Cb4JAb9k2T
-         k8fgvsLynXsXqE2U/hGr5zmeZHCRiuHHDIPJPEOQh4D7Fus3hMMwWdKx8mOUqvuquXFI
-         iP8TvCgSp+qnE00Vx/he9GuRfMQYyzGxumdM0f+DWb3gilrBstStbjI0qyMZHq4wsm26
-         HGvDecJuiGSpyMatqkkTWh2l4vN5DBG3rPGGlQB3nxr3P7+4+7kUKgqAAuBLLny2pJoi
-         xJYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795415877; x=1796020677;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=afbt2rmomwUI+307ATY0ZNant7Tutup0OxSCpoe3UL8=;
-        b=UYtlVhDiM1wpZOPkFftAVl+IwI4bzXzYeZ8ujYbBHIDYzokWtjXjXWq3c4HkrCYU8z
-         47rCDI/2+xuGC0O0nyCK5yrauQ8KFnpjnwvc4hRhyaWyZsRbhXsVjpmtdEXw0FG9PEXT
-         JrVsh55ugYdXiwdoGP7qqmo0rzaQYEWwmkk15Bs0DjFu9aAZ/8aq+QGER/B3W3vII/qU
-         VZz2L1ExeDCCTKZnkgu2V0R/SFoe51eRov8ApnhO2CRcZ/MVMNFPkaQYGst0NKAmpqOy
-         cWkee2ue18+R29VMEOIfH16XrvimT/0m1RzLytKBSiPMlIR38YTBqBJVZDZ73N6SfFJq
-         nuAA==
-X-Forwarded-Encrypted: i=1; AL+hErF1NrVUgzfNkiVltoZEzKsTOOYUIJqu03qwamalO3a9w3THgWZMS7jWOQGyz6ISvu2J+j868rI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8nyZTZMmHWojrqt/QdDmB2PZ8+0hm9xUHgQ7v5sDLsZyDUhei
-	+PDcNXisIR6Zuv1ZtNap1j4501nUF8kW3kZCr+SH0VSiyTJZV1Ye07YhWJE6S9Ty
-X-Gm-Gg: AZFdTZcdXy7uY/xHDygYRtwy7MC5b2So94/4YTu0GiOZzGbTe7wNz8a9jty20k7hl1K
-	8GhN5G1RQnIxUPQUA9uYJ/dcFJgBDPoxe6U+gglGw02Pj0hZbfvMFdDf5iNM4XYoM0NE1mq+4U/
-	BUCitxP85utPZd7EBCrRabsGFSfK8Fu0HvrYLJ49FW+C5prxZcy7F+ea7C2EPcp8sDU8N7annU1
-	F7vAV1Hk6wmZBVZsAhLzKnMa0d8CZkRkzZLrDDVIRJVtWkwa7mDaaVAp/rZ0saLxdZqhggS5Gd/
-	oFY0E1laJrqGmKFRPQn6WWfxqAscd2yUlKYIybz9Eoj3LSMetFecXF8Hl9IR7Hc8Vy85H9F32kt
-	60O6WRS1dgd3nwHmpYgeXaD/UOWFlcnM/Xm33wOYWFqhYa4izcsEvL3oB8o5j5hZvpz6RUlsWWc
-	3X+4LpXgYR9M/s4rq+DXoTiOmHuLm65M/5BeKLQbhNOb+i6W367QIF+Qa4nW66cyIQw+oDJuG8N
-	Q9MCF888sKzcEw+KGUKtdzJqqyYTPMoiXYf8HPkC8WZzOwF6aV0bpmmONee3DV+u3O3w7onsIed
-	npFnC3oWjyNH6tR/VqPETTN7eimAMtfCbrmwH5DtRBMb0ePuhbxAlBnjHCLPZKyhvWA68rYCMd6
-	irZJe8TJII4DTzsEWDeWyWHY992YB0vuLszsWS/WGMGa5
-X-Received: by 2002:a05:7022:f106:b0:1b3:afa2:2d7e with SMTP id a92af1059eb24-1b5567dab3cmr9096340c88.1.1795415877349;
-        Sun, 22 Nov 2026 22:37:57 -0800 (PST)
-Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:a7dc:f03c:3f60:caaf])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55684c85fsm35934568c88.14.2026.11.22.22.37.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 22:37:57 -0800 (PST)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>
-Cc: Ho Jie Feng <hjf3108@gmail.com>,
-	stable@vger.kernel.org,
-	Ho Jie Feng <hj3108@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: dvb-usb: do not clear the raw IR change_protocol
-Date: Mon, 23 Nov 2026 14:37:31 +0800
-Message-ID: <20261123063732.1615570-1-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOKrRDrr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F21701F000CF;
+	Mon, 23 Nov 2026 06:39:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795415968;
+	bh=7agXcixM5SUecxuwupsf5SFmE1L7F0iLFU7WsXCvLCo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=NOKrRDrrj6eRUaabPUhzPcwV+gkEJogXEb2Au13b84teh3Gk8VNyNCNENuvdHjNGl
+	 oqdOWYsPCA/87fO+bc/dNhjmfYcnY4NtPWfNiGr30RnbvoIvDiaN4dRAhApBnLAqER
+	 epTUnH28hTOj5uvLuHtT4U/4yqPcjmpy6Er8/88a6ckSUARkXlgUzBkML4a2fBvGEn
+	 BQ7uGI6K/FMOi11L881IUooUP4HYlhOIkySp306IXn4QVi8/AslHUQoFHSKgwdMbFw
+	 eEolOWrQixXJOJBXzXLbV3Fq469UNk1bEFGTtI4M1pVACy8vyfcFGSlP7HmgGwxeVf
+	 IltdaeN86w5Ag==
+Subject:
+ Re: [PATCH net] net: wwan: t7xx: validate PIT data offset before skb_reserve
+From: netdev-bot+sashiko@kernel.org
+To: fangxy@xiaopeng.com
+Cc: chandrashekar.devegowda@intel.com, loic.poulain@oss.qualcomm.com,
+ ryazanov.s.a@gmail.com, ilpo.jarvinen@linux.intel.com, netdev@vger.kernel.org,
+ haijun.liu@mediatek.com, johannes@sipsolutions.net, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, linqj@xiaopeng.com
+Date: Mon, 23 Nov 2026 06:39:27 +0000
+Message-ID: <179541596756.3135.6965744505387412637@kernel.org>
+In-Reply-To: <20261119062044.72261-1-fangxy@xiaopeng.com>
+References: <20261119062044.72261-1-fangxy@xiaopeng.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,59 +65,175 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Since commit ec7cb49871e5 ("media: rc: Fix race condition during
-rc_register_device()"), rc_allocate_device() prepares raw IR handling,
-which sets dev->change_protocol for RC_DRIVER_IR_RAW devices.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-dvb-usb and dvb-usb-v2 then overwrite dev->change_protocol with the
-callback from the device properties, which is NULL for raw IR devices
-such as rtl28xxu. Without it, rc-core enables no protocol decoder
-when the device is registered, so keys are no longer decoded.
+Critical: 0 · High: 2 · Medium: 1 · Low: 0
 
-Only set change_protocol when the device provides one.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Tested with a rtl28xxu device.
+- [High] The patch fixes the modem-supplied PIT address/length problem
+  only for the normal BAT path.
+- [High] The new err_drop path in t7xx_dpmaif_set_data_to_skb() calls
+  `t7xx_dpmaif_set_bat_mask(rxq->bat_req,…
+- [Medium] The patch makes the normal-BAT error path free the skb and set
+  the entry's bit in bat_req->bat_bitmap, so release can move past it.
 
-Fixes: ec7cb49871e5 ("media: rc: Fix race condition during rc_register_device()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ho Jie Feng <hj3108@gmail.com>
----
- drivers/media/usb/dvb-usb-v2/dvb_usb_core.c | 3 ++-
- drivers/media/usb/dvb-usb/dvb-usb-remote.c  | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+--
 
-diff --git a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
-index bd86d25043..218397cc68 100644
---- a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
-+++ b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
-@@ -149,7 +149,8 @@ static int dvb_usbv2_remote_init(struct dvb_usb_device *d)
- 	dev->driver_name = d->props->driver_name;
- 	dev->map_name = d->rc.map_name;
- 	dev->allowed_protocols = d->rc.allowed_protos;
--	dev->change_protocol = d->rc.change_protocol;
-+	if (d->rc.change_protocol)
-+		dev->change_protocol = d->rc.change_protocol;
- 	dev->timeout = d->rc.timeout;
- 	dev->priv = d;
- 
-diff --git a/drivers/media/usb/dvb-usb/dvb-usb-remote.c b/drivers/media/usb/dvb-usb/dvb-usb-remote.c
-index 6dc11718df..f5f30d714e 100644
---- a/drivers/media/usb/dvb-usb/dvb-usb-remote.c
-+++ b/drivers/media/usb/dvb-usb/dvb-usb-remote.c
-@@ -277,7 +277,8 @@ static int rc_core_dvb_usb_remote_init(struct dvb_usb_device *d)
- 
- 	dev->driver_name = d->props.rc.core.module_name;
- 	dev->map_name = d->props.rc.core.rc_codes;
--	dev->change_protocol = d->props.rc.core.change_protocol;
-+	if (d->props.rc.core.change_protocol)
-+		dev->change_protocol = d->props.rc.core.change_protocol;
- 	dev->allowed_protocols = d->props.rc.core.allowed_protos;
- 	usb_to_input_id(d->udev, &dev->input_id);
- 	dev->device_name = d->desc->name;
+net: wwan: t7xx: validate PIT data offset before skb_reserve
 
-base-commit: b7ac871daee981f1963f632586ff9b9d898ce5dd
+This patch makes t7xx_dpmaif_set_data_to_skb() check the modem-supplied
+PIT data address and length against the skb tailroom and the DMA mapping
+length before it calls skb_reserve(). On error it now frees the skb and
+marks the normal BAT entry consumed, so the BAT ring can be released and
+refilled.
+
+> diff --git a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
+> index 5af90ca6e0631..44e2ba15984df 100644
+> --- a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
+> +++ b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
+
+[ ... ]
+
+> @@ -643,22 +643,35 @@ static int t7xx_dpmaif_set_data_to_skb(const struct dpmaif_rx_queue *rxq,
+>  	data_bus_addr = le32_to_cpu(pkt_info->pd.data_addr_h);
+>  	data_bus_addr = (data_bus_addr << 32) + le32_to_cpu(pkt_info->pd.data_addr_l);
+>  	data_base_addr = bat_skb->data_bus_addr;
+> -	data_offset = data_bus_addr - data_base_addr;
+>  	data_len = FIELD_GET(PD_PIT_DATA_LEN, le32_to_cpu(pkt_info->header));
+
+[ ... ]
+
+> +	if (data_bus_addr < data_base_addr) {
+> +		dev_err_ratelimited(dev, "Invalid PIT data address\n");
+> +		goto err_drop;
+> +	}
+> +
+> +	data_offset = data_bus_addr - data_base_addr;
+> +	tailroom = skb_tailroom(skb);
+> +	max_len = min(tailroom, bat_skb->data_len);
+> +	if (data_offset > max_len || data_len > max_len - data_offset) {
+> +		dev_err_ratelimited(dev, "Invalid PIT data offset or length\n");
+> +		goto err_drop;
+>  	}
+
+[Severity: High]
+Does t7xx_dpmaif_set_frag_to_skb() need the same validation? It derives
+the offset in the same way from the modem-supplied PIT address, and
+still stores it in an int:
+
+drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c:t7xx_dpmaif_set_frag_to_skb() {
+    ...
+	int data_offset;
+    ...
+	data_offset = data_bus_addr - data_base_addr;
+	data_offset += page_info->offset;
+	data_len = FIELD_GET(PD_PIT_DATA_LEN, le32_to_cpu(pkt_info->header));
+	skb_add_rx_frag(skb, shinfo->nr_frags, page_info->page,
+			data_offset, data_len, page_info->data_len);
+    ...
+}
+
+On this path the only check is t7xx_frag_bat_cur_bid_check(). It
+validates the BID, but not the address or the length. PD_PIT_DATA_LEN is
+a 16-bit field (GENMASK(31,16)), and the fragment buffer is only
+DPMAIF_HW_FRG_PKTBUF (128) bytes. skb_add_rx_frag() does no bounds
+checking of its own.
+
+PKT_BUF_FRAG PD PITs come from the same PIT ring, through
+t7xx_dpmaif_rx_start()->t7xx_dpmaif_get_frag(). A backwards address, or
+an oversized offset or length, would produce a fragment that points
+outside the 128-byte DMA-mapped buffer. A negative int offset would also
+become a huge fragment offset.
+
+Could later GRO header pulls, checksum walks or socket copies then read
+memory outside the fragment allocation? Should the frag path also reject
+data_bus_addr < data_base_addr, and any offset plus length beyond
+page_info->data_len?
+
+>  
+> +	skb_reserve(skb, (int)data_offset);
+
+[ ... ]
+
+> +
+> +err_drop:
+> +	dev_kfree_skb_any(skb);
+> +	bat_skb->skb = NULL;
+> +	t7xx_dpmaif_set_bat_mask(rxq->bat_req, t7xx_normal_pit_bid(pkt_info));
+
+[Severity: High]
+This line reads the BID from the PIT entry again. The PIT ring
+(rxq->pit_base) is dma_alloc_coherent() memory, so the device can write
+to it.
+
+The caller t7xx_dpmaif_get_rx_pkt() has already read the BID into
+cur_bid and bounded it with t7xx_bat_cur_bid_check()
+(cur_bid < DPMAIF_BAT_COUNT). That checked value is not passed down to
+this function.
+
+A re-read BID can be as large as 65535 (PD_PIT_H_BID << 13 plus
+PD_PIT_BUFFER_ID). bat_bitmap comes from
+bitmap_zalloc(DPMAIF_BAT_COUNT), so it holds 8192 bits. Because
+dma_unmap_single() and dev_kfree_skb_any() sit between the reads, the
+value really is loaded again from coherent memory.
+
+If the modem rewrites the PIT entry after the caller's check, can the
+set_bit() in t7xx_dpmaif_set_bat_mask() write past the end of
+bat_bitmap?
+
+Even if the index stays in range, the bit could land on a different slot
+from the one whose skb was just freed. The freed slot would then stay
+unmarked, and a slot the hardware still owns would be counted as
+consumed and refilled.
+
+The earlier re-read in "bat_skb += t7xx_normal_pit_bid(pkt_info)" has
+the same problem and predates this patch. Would it help to pass the
+validated cur_bid down (or read the PIT words once) and use that one
+value for both the bat_skb indexing and the bitmap update?
+
+> +	return -ENOBUFS;
+>  }
+
+[Severity: Medium]
+This path now marks the normal BAT entry consumed. Can the frag BAT ring
+still stall in the same way, from the same malformed input?
+
+When the head PD is rejected here, skb_info->cur_skb stays NULL. Every
+following PKT_BUF_FRAG PIT of the same packet then takes this branch in
+t7xx_dpmaif_rx_start():
+
+		else if (!skb_info->cur_skb)
+			ret = -EINVAL;
+
+That branch leaves the frag page mapped and never sets its bit in
+rxq->bat_frag->bat_bitmap.
+
+t7xx_dpmaif_get_frag() also sets the bit only on success:
+
+	ret = t7xx_dpmaif_set_frag_to_skb(rxq, pkt_info, skb_info->cur_skb);
+	if (ret < 0) {
+		dev_err(rxq->dpmaif_ctrl->dev, "Failed to set frag data to skb: %d\n", ret);
+		return ret;
+	}
+
+	t7xx_dpmaif_set_bat_mask(rxq->bat_frag, cur_bid);
+
+So a failure such as shinfo->nr_frags >= MAX_SKB_FRAGS leaves the entry
+unmarked as well.
+
+t7xx_dpmaif_avail_pkt_bat_cnt() counts set bits with
+find_next_zero_bit() starting at bat_release_rd_idx. One unmarked frag
+entry therefore stops release and refill of the frag ring for good.
+
+Isn't this the same "stall BAT release and buffer replenishment" problem
+the commit message describes, only on the frag ring?
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261119062044.72261-1-fangxy%40xiaopeng.com
