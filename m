@@ -1,49 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795431003;
-	b=Mc1qHi75xqIUj2Qp3XWvCc36YoghumYSLLLsDoMqXBe2rWrJA+v6256wq/uXcf8fAu4E
-	 8NwNmzgIbKNHkOyCgFOUosZ4yOhuWwpibGoq3j9RC3nud+b7pOGq14I2Grv6q0rAwy3PP
-	 S/5PgkQwMLUbSgFA8O+cQW+frYTrajL5c4qcX2igmQ7V+YK+sr0V0xBqySL0M0INZJxJF
-	 IuaEzknvhTcpDmd9qrS0UBI8yKKaeOrr4bG9LQRNjfVrmn2OQYjzFzuLnbvIfmGjlvPE9
-	 DpL6AYuKzMvh9MlP4fsoIZHE6mR90DefD+btC7wy7NuSGlaWl+DmpM2BBW1LhxAUAWQ==
+	t=1795432050;
+	b=PC4MDNk93WLLILJ8tNK6no9gMfcuEVfknnbaFxPXOHkOMhPPlXxsPEEe1wJGvIXXUl77
+	 LtjYsCKGJIZsbZVH1JaQ9pyiP3Tw0PHTZjcBTKdh6tSd2Uzws0kK9g4aWOzDrhQOD70zI
+	 ZQortkF1GN2amKLwl+h9abm4N5Uuy5r8q+BSqom1w9FLRvWh97LM+dkvM2mUnU5HwPskq
+	 B2W6ao7na7dTsX8JhD323NaB7T+Kn2Nw7wK43fHFm53xGy8jXGFmU3qhogvWviW6J/dr+
+	 JDqHTPfxan4CF4zYZ/0VwiLw4LyHzaucY/1h6LE2pTmgu+qLFDO1b88Xn2153KUOt7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795431003;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=HONgwvcLnwdQ2wr7NdDYe7XePSqL8bRXwzbHmI19pt4=;
-	b=yJEjCwnnr5292ugHb0+KcaY894pICECQPMtLf547WJioQDpcPOxr9ewV07W3pRs8PkMd
-	 RL+apkZREFLvWOurewQL5gruwbWUdyh38g7Eo73vrub/NLTwhR2OLjUQsvllbvpcZh9Nr
-	 qEq2imm7nb0lmzPSTcYI1y0HCf2WCsHUekV9QAv2Ny5P3iNXT3LlhKYCmz/kYZ4QnNuqr
-	 EqnFVs29gSa7qC5njtyDkCYnrg6G4T2Eeily/btKoEDAGEI1xn00czl2K9Wn9BqVo9NIS
-	 OD6Tepjfqc91SqfcvAC9c6aOwwnTZwrPQoTi285QzEHyCDRBYW14YpfxgkcCCmJcCWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795432050;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
+	 Subject:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=6pR8SSegYg1KVe2AG81HovfC0ggHBRsxnqfkLUlHYho=;
+	b=MM9ZJm+Yc1iZ3LSaBwvF9tMlvDuLjE8Ct7Y7US/AMSN/dpQGXt8vFQcscNb6tHrCjI4A
+	 bpOv3U+/iuE+dcg3zaP5d9aC9DDLNjR7bSKfxrVfAWV9RXBPROFO3hS+tLMp53yeL82og
+	 sb/3mKuiyDS1T3OJPt34dR1ApdOlGIEcaCgAbDZky4hh1643b2hF9A8uXy1nGRxcMzl1+
+	 uGQXtXaLklsTfjneCwpB9RHLV3S2W7Nw8ZZNBZBjrrGwvrglbPxHXfCgrE16xZoy8ZOw+
+	 tSItoxTRH4H5WwNXQwYxLEEYVk9W3PtFhQcp1KQqtADoEwAVYJgSRV8ZLe0q1f5dFBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h+WxKwoB;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D6758606A31A;
-	Mon, 23 Nov 2026 10:50:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6758606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0KB7+wZ5;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60986606A6B9;
+	Mon, 23 Nov 2026 11:07:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60986606A6B9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h+WxKwoB
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 32286143D;
-	Mon, 23 Nov 2026 02:49:59 -0800 (PST)
-Received: from [10.57.91.245] (unknown [10.57.91.245])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0B8093F632;
-	Mon, 23 Nov 2026 02:49:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795431002; bh=88wKm6a3kg+rRCdOpXoIcUGAgG5m2xf6YFDPEexucGk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=h+WxKwoB8MqOR3y6DbBUX+gVZWSCUCEStlY/uJ4F5pyUZHSJkTOnOl5qaT+iImAQz
-	 SibvFVG+nLxs2gyjgFTTpoSjEGXdKvhdtuB+LekSEzw6CMbTE4PCvbAGjhbsDR7iw6
-	 1uPYGOcS1CkKqQFZ+hRzzeAZi6Hd+4PL/Q7rEBEs=
-Message-ID: <85385aae-af06-4742-a39b-5a95e3e73a7e@arm.com>
-Date: Mon, 23 Nov 2026 10:49:58 +0000
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0KB7+wZ5
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 20A1BC69149;
+	Mon, 23 Nov 2026 11:07:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 26A395FAEB;
+	Mon, 23 Nov 2026 11:07:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A070F11E68321;
+	Mon, 23 Nov 2026 12:07:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795432045; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=6pR8SSegYg1KVe2AG81HovfC0ggHBRsxnqfkLUlHYho=;
+	b=0KB7+wZ55Ik74gigHduK29oowjMSoJnPIDU2lWOL4NJ24CeNXqNY1P8tEoZ1hRzXAiMYSI
+	6ADnL6f/pMSLVh152j/UqF92+bJaMEIagBBl5Kyuvldc4rBvKTS39wB/e9MlN4K10Sn/gf
+	fgxfiyxtOuu+Fhh79wX6MXzvSzZcTAYs1+Hc8oSp+nqGH/6AJSHScj1WZ310IFds2SDvLF
+	Ry8y9BXpEXPglXsvB5IQkkhmxq/OYfmiqxRParwF/HKa9sOBn6Vl+QCvafiZdUvC2VYd2B
+	u+mi5aVSC5HpKYcmuJGZsG5fMhE1wM5uolJTBicL1inXTRotS3SWIA8fNtm/XQ==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,105 +58,77 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] arm64: Mitigate Spectre v1 in the BPF interpreter
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, stable@vger.kernel.org
-References: <20261117172341.3152407-1-ryan.roberts@arm.com>
- <DMYSI3BOQWOC.2P2FZB0H872DR@gmail.com> <awAay4FFj1_wQtaL@arm.com>
- <DN07ZMOAD4GP.37PG3XUPBG4CM@gmail.com>
- <a6cda8a2-992f-41f9-a814-ee78363c3a69@arm.com>
- <DN2ALO12MI1Z.3HI553HDMO2FL@gmail.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <DN2ALO12MI1Z.3HI553HDMO2FL@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Mon, 23 Nov 2026 12:07:21 +0100
+Message-Id: <DN2JJHBVAPCY.2CNUCGCO781D6@bootlin.com>
+Cc: "Roger Quadros" <rogerq@kernel.org>, <linux-usb@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+To: "Guomin chen" <chenguoming88s@gmail.com>, "Peter Chen"
+ <peter.chen@kernel.org>, "Pawel Laszczak" <pawell@cadence.com>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Subject: Re: [PATCH v4] usb: cdns3: fix NULL dereference in
+ cdns_host_resume()
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261123044347.3273-1-chenguoming88s@gmail.com>
+ <20261123075116.3868-1-chenguoming88s@gmail.com>
+In-Reply-To: <20261123075116.3868-1-chenguoming88s@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 23/11/2026 04:07, Alexei Starovoitov wrote:
-> On Sun, Nov 22, 2026 at 12:58 AM Ryan Roberts <ryan.roberts@arm.com> wrote:
->> I view this patch as a fix to arm64, not as a fix to BPF. I haven't changed any
->> BPF code - I've only removed an out of date comment in BPF code, which assumed
->> the code path was for Spectre v4 only. But that's not true since Commit
->> dff883d9e93a ("bpf, arm64, powerpc: Change nospec to include v1 barrier").
-> 
-> Fair enough, but the arm64 part of that comment is stale.
-> The verifier relies on nospec for v1 since
-> commit d6f1c85f2253 ("bpf: Fall back to nospec for Spectre v1").
-> 
->> arm64 was previously nop'ing barrier_nospec() despite seemingly needing it in
->> the same situation as x86. I think this is orthogonal to whether or not the BPF
->> interpreter permits speculation attacks in other places?
-> 
-> Not quite. In the interpreter the barrier sits behind an indirect branch:
-> 
->   goto *jumptable[insn->code];
-> 
-> arm64 has no retpoline, and the prog can train this branch.
-> With a wrong target the CPU skips ST_NOSPEC and runs the next insn.
-> So the interpreter is still not safe.
-> Yet you're arguing that you're making bpf interpreter a viable option
-> on arm64. That's just not fair to users.
+Hello Guomin,
 
-I'm not saying that at all. I wasn't aware that it previously considered unviable.
+On Mon Nov 23, 2026 at 8:51 AM CET, Guomin chen wrote:
+> From: Guoming Chen <chenguoming88s@gmail.com>
+>
+> cdns_host_resume() assumes that the xhci-hcd child is bound and passes
+> platform_get_drvdata() to hcd_to_xhci_priv() unchecked.  The child is
+> created by __cdns_host_init(), but xhci-plat probes it only when it
+> registers; cdns3/ precedes host/ in drivers/usb/Makefile, so with both
+> built in the child is registered before xhci-plat's initcall runs, and
+> with xhci-plat as a module it stays unbound until the module loads.
+> Platforms that allow runtime PM (cdns3-imx is the only in-tree user)
+> autosuspend the controller after 20 ms, so the parent may already be
+> suspended when the child is probed.
+>
+> Resuming the parent, either for the child's probe
+> (__driver_probe_device() calls pm_runtime_get_sync(dev->parent)) or on
+> a system-wide resume, runs cdns_host_resume() while the drvdata is
+> still NULL; xhci_plat_probe() sets it later via __usb_create_hcd().
+> hcd_to_xhci_priv(NULL) then dereferences NULL + offsetof(struct
+> usb_hcd, primary_hcd):
+>
+>   pc : usb_hcd_is_primary_hcd+0x0/0x1c
+>   lr : cdns_host_resume+0x24/0x44
+>
+> Commit 87e4b043b98a ("usb: cdns3: fix role switching during resume")
+> only skips the callback when the role changes during resume, which is
+> not the case here.
+>
+> Return early when there is no hcd to notify: the host role can fail to
+> start after cdns_role_start() set cdns->role, or the child may not be
+> probed yet.  An unbound child has no state to restore, power_lost is
+> only consumed by an initialized host, and cdns_wakeup_irq() already
+> checks cdns->host_dev the same way.  Also publish cdns->host_dev only
+> after platform_device_add() succeeds: the error paths free the child
+> with platform_device_put() while the pointer stays set, and the next
+> resume would dereference freed memory instead of bailing out.
 
-I noticed this particular issue while doing manual code inspection while working
-on something else. I sent the patch to close what I perceived to be a bug to try
-to be a good citizen.
+Your commit is too long and robotic; didn't read!
 
-> Say it in the commit log that you're fixing one tiny issue and leaving
-> giant security hole in place.
-> With that I'm no longer nacking it.
+Reading the patch, you protect against two things:
+ - cdns->host_dev =3D=3D NULL
+ - platform_get_drvdata(cdns->host_dev) =3D=3D NULL
 
-Happy to fix up the commit log as you suggest.
-
-> 
->> Looking at bpf-next, it is still possible to deselect BPF_JIT when building. If
->> this is such a security issue, shouldn't we disallow that on arm64, or at the
->> every least make it an EXPERT option?
-> 
-> Yeah. Good point. Let's disallow it on arm64 and x86-64.
-> 
-> I'm thinking to push something like this
-> 
-> diff --git a/kernel/bpf/Kconfig b/kernel/bpf/Kconfig
-> index d705d7b..8b8688d 100644
-> --- a/kernel/bpf/Kconfig
-> +++ b/kernel/bpf/Kconfig
-> @@ -26,8 +26,8 @@ config HAVE_EBPF_JIT_KASAN
->  config ARCH_WANT_DEFAULT_BPF_JIT
->  	bool
->  
-> -# Used by archs to tell that kernels that were compiled with BPF JIT support
-> -# have no BPF interpreter.
-> +# Used by archs to tell that kernels with the bpf() system call have the
-> +# BPF JIT compiler and no BPF interpreter.
->  config ARCH_WANT_BPF_JIT_ALWAYS_ON
->  	bool
->  
-> @@ -36,6 +36,7 @@ menu "BPF subsystem"
->  config BPF_SYSCALL
->  	bool "Enable bpf() system call"
->  	select BPF
-> +	select BPF_JIT if ARCH_WANT_BPF_JIT_ALWAYS_ON
->  	select IRQ_WORK
->  	select NEED_TASKS_RCU
->  	select TASKS_TRACE_RCU
-
-Seems reasonable as long as we're sure that there are no users that rely on the
-interpreter on arm64 for some reason?
-
-Would you propose that this is something that should be backported? If so, I'll
-drop this patch. Otherwise, I'll send a v2 with a more cautious commit log.
+Your commit message should say that out loud and give an exact way for
+those two to occur. It should also mention the hardware used to
+reproduce the issue, with full kernel panic log.
 
 Thanks,
-Ryan
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
