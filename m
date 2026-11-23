@@ -1,99 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795443077;
-	b=RXYUiYBZOVfPo67BVeLyfCFWw20vxVvyUmiOa0XjV+L7SnGOc4P+APFqHKZaL1GA0GDB
-	 91bTj4u5SSxY3+4rananqK8BOH8eQt8bSGshImmBfzf6ITHwFzLUV+eqb0GiB7ZMW262Y
-	 V08aVP3TVRIq6iyGMZ+trtmF0Mb3/A8V9vJRFmvqmhsc1P13Krm7Rw7xhzEr5XpNa+bzG
-	 bH5UtNNSsv6BwPcKnieqDH4kRpau5x4zkcFZzvnDWF6twCNxxwHU9tG9KuG9hOmYo+nJP
-	 4FtOJWx5eUn2unRI/myjyeDDpU7HkHDmD1JhxpYK0l7hxgNH6HS+PBgE3z4kiypGF4Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795443077;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795443162;
+	b=Q2+C3CQFN7L6dSTVAP4NZUL0193D/I9DECc2f/lq96qEB0CzlDtSmVqjq7aosCBCOQTf
+	 ojB6ICkeTVCiRu5GW26fyITrbAAC7loId+KDMwPIRefb2C3acLaxEz5x2kxMjTzq+qg3R
+	 e8iLvdwW4HwRv0nSgsjFDghEM6MX7GeK60UNAgMJBdSC9TU5ibCP6F8iMPdZHIquvJXQF
+	 hZYdC2C8xOZKaxNnb/hLqXNMzIBApPoOyw3EMrSUyGg3+oHM3tsdPzbltm1+Tv/DVas0k
+	 P4oBAxmlDarr/cRR7rZ6ovyb4yw7tzN4B/EwbvqW6nH3V5do81Dr9WLgXz5bgdGX8Hw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795443162;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=R32xhf3Kvq/DaeS/L7g8lPdJxhRkFnoaSwXaedjNBvc=;
-	b=VixvQwoEW1babnM341YF0k4gEdcWD7T9lieXhr+LK8Uw1hV0lZBaPbHJEhoxIJZJ7TxY
-	 vAIckKBujHnPnaPKuUEYxnxbBou0Ei40xje9kvdNoBC56bww0RDYzby5vYPujerAtch/U
-	 sAIw/U5XfKoHZmfB/x63ZaFCXIRT921RlMnr99ZtrsiFO229A0bhUB9H4WNqDjoDpIOxE
-	 eb/TOZ3KGyxk/JywEbnkNlPkIkEldArx4Rfvhd9SbFoCavSKh3Df6vF1NvmMLlJVaVtCU
-	 5KDcsL7cwfXf9TiXa4JWwFCYqHzGHIyLkMdkIABmNED/JUSKnBe1uHbUihMLia+orxw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="mt6QSq/L";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FpQteIPOJ7jso2isVNK/FXoPVqd5TxYTuttF9zGO1yA=;
+	b=GxeeWJsOumNDcTiJ/oJjdKe8O4IFY28/gcgzGCqs8DeiSNBTZrOYvBQNACjHWUgeO7XI
+	 M6TKU0avI6wkatjx1MzTsru1aOPRqxzdaFn/q8kQePVPNGqB6Lomr+OfTrZCD7KqvsSo1
+	 qgWKrxk8lUADzWM6+WxGCu98V1G0S3ZfwwjLtGs6qLG+3HPoZ+n4kYF16Wn9tWtF4vYqi
+	 Ps50e9FNnEaijPtUhzca/mxQfYx2f+L0+mYyvPaFYQqWPdfobxdAhWoP5TFWT+OrQ2qei
+	 7gBjB6ZhOG+pqajEJlL72YGn4E3wbqZ31HQwhA7q1BFplNd8ywKqOrY5znwlBcEicaA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="HSDIN/qx";
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922C8606A31F
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:11:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 922C8606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88544606A32A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:12:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88544606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mt6QSq/L
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b10d24345dso29102797b3.3
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:11:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795443076; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D+KcrFbX4cY+4DGtAcKbp4iTHMt2FtIhhXuMewlFX5+jHtDEPAB4roWjNxktlMEanE
-         G5gYt8yU/AsofErPu7Dkax94uHxxxDkWQt/uCGyntFkhiBpk/SD5mOZjXCWqNKiLxCBw
-         MCCX8kDcA8Vgm74OC4J9e2Q7Z8GkfLn7YkZ6Jak5hXpWep3i1EDeWIl1dclHA8kVj/UV
-         MJufSIBgdrf3Y27RElXwsg6L6qzeGpCpiQTA7LHOJFgdyeO4h4GfO5luh4gF8rRzzFtI
-         7rRH8cacCwBqmUBO4UJnJjGOlZua+4Ak0GkjWgJSRkabgf8dkDTn7CWT/VwAURM+gdF/
-         Ahfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=R32xhf3Kvq/DaeS/L7g8lPdJxhRkFnoaSwXaedjNBvc=;
-        fh=t9iVnjWgYT0ci7bwPk4aL51PRSG3m38PFWNzsBxf1as=;
-        b=Nhq9MbqrrYqC5nOPcOhTDkoVKEpuwlfmkfnTDxKcuvpNWrPdz5bZ+kRIi9pcL85Rck
-         UmsNucRXUqRiHgE3HYf8/SKfXHweTb7tEHDwR3R/yo6V8xUIU28Z/p54nvkgdyhI6w/O
-         gE1Rg18ABPM/13NOKdC2QLf2aKzbWe3Ya026U20QEZup7gwWPSZXjJXm8zmtG06b9phC
-         NrhlUEtXTzOlQuMzILc9HQitVCrsrbwuaT1Yf/See/J7AVKZTAz5+SQlyvN+seepx9bd
-         uxOU9GY7CahtnUevBuhf5kFtRIn7TeqpGP3mPdy5oHo9qT60dbQdgmibZs+GUf8OosdO
-         kRtw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HSDIN/qx
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a2af4c8d00so5676623c88.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:12:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795443076; x=1796047876; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R32xhf3Kvq/DaeS/L7g8lPdJxhRkFnoaSwXaedjNBvc=;
-        b=mt6QSq/LFQut6h4oZSdjvYr8Idf9w4lkznGy0QGM7B1G72LmWCJanAFeMyFMZHMsaa
-         X8HV98dU1oVjQj1bYwtZeO4x24YvdNJoix0gSNTS6CqxHPsMRJeq9p9c4YvekrZ/vet/
-         J7KHq6pkfwiykUJXBM+0gEXVOToX1EqRHEfVghpSAZc7s8BLxr+Fftxwze9PLTtOfg59
-         5DF/sExzIiV4ZYkFv/3t+oRUxesLvdJAIDpCYX29LWoP/K587C6YfJGiICmN8U1WegJe
-         jO5V+ItEj7e151rYN8Jszf9nrz2UWTMeWOF8d3jeiG0f2PVqnHa3pvbb/X2GMZYH9nm7
-         7HsA==
+        d=gmail.com; s=20260707; t=1795443161; x=1796047961; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FpQteIPOJ7jso2isVNK/FXoPVqd5TxYTuttF9zGO1yA=;
+        b=HSDIN/qxhXjIe8cpCe89tmnGrEkq/g67ziZZmU9iYOrYOh8IF5sUmzhBx+5YJP1wDM
+         f6Ut/vhOK71Vib7hIAvZxFVaDViu80YZrsA9EZJJEnW3+YaEJPT2ContZLY24lpR2SxN
+         QTvzTWO8r1i3mMO8SzY41qYfMuhHGnX+LxVi63vXhkJSCeBixtwQylAyvfS6zpmPxMO+
+         h3h1ALkFm5mP1ylfVejUswRjCOD+Flu8f+wcxbPSV00bKOYKZDznMCpsfwxmn3HVe/B9
+         53/KwBCt/xCPmR7d6yQsPCiSGcVyVstJNVCqsKCFJ9vZ9KB1jpjFBTOmr5rRTxRd0R9B
+         6gqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795443076; x=1796047876;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=R32xhf3Kvq/DaeS/L7g8lPdJxhRkFnoaSwXaedjNBvc=;
-        b=AY3O5Kierrt9d/CIP2LddpxY/JmROvrg6nwbeQmhOOo9EVdYq0vskF3UACI87mp/ps
-         j5HThrRGPa26VfmEDqm5wvSR4peM7zOZp2d6vLCjrIMD5vi5+2rBQEVie1sDa4Yh4niz
-         x8mQMcXpMK/ii2pIYhNcDXCvF+UcxQCS4OfzA2uI+odqLIn/A5XuZY9ewQxD9UPkeXv3
-         58NIiLqCJNbxMO9EHHDJSjTfAqRKNEyuEws7AbMPmyM7cqADnsGxnOLdWkuinGLsfFZ1
-         POI44ZitkIBWSyYqu46KUHtgFgNGoDFjC4n4+jEJGGpmZVe2MwRnfDpNtQFO8Ue6Zalu
-         YT5g==
-X-Forwarded-Encrypted: i=1; AL+hErHF+cccK111IE34x/VBjVKQtl8mNZ9zJibnKm6YFKPIRO+cCXiKz1WhfQQw4wOJmiDxeNh+mWg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+W7SYaeq59qLqexgD1L/TUH+2Y9aF14U/A2vXIx1ehPUMyYnPW
-	a/x3uQclYYOfq30il3QqoHK1cLFV0L6Fe4KHCBIpZskcpHjoh7XOeg8P3OEJ523W+6PaeMbpCJa
-	BPLG7/P643YNJ9TKlPpe1clgw74pnzTt3cm9tcQDZwA==
-X-Gm-Gg: AZFdTZcvRmZ6jeAuQ1tWBQjpBEXCNwOhDy6tnezQqvzbx6LiRdfpQZ3mffzP0ShwKv7
-	1MTPHtnAJxi05Upry8JkBWip5y3GqP7FZCo2Iu6aUwXdZYOzRXgL2vEv8Z1YrpCgCcelGEprhwm
-	FgZQK6tGCFDLsHHgskLMoWTjyuorVvFXhY8ud008NzDHkre1Yt/Gef5aUxF5zA5RX+gBYOZSNk7
-	XR0L0Js1xzarJ/2ZhDBc4Oow11CICVcDFtQ7rtEAQcpKbq39/Jthyih0FOxX3WIM3SeHl3FjR32
-	5FATHKF1hJE+dkUdKPlhphyGQy6tMFeKGFRTPDFADRZOUrYtcJ/4ovarujDvOAB0QTft2h9OfAT
-	S4sKhyzvDeatXTpu4Tgnyc7rCf6xO1MrC4koh2Vr3PumG5uZ4Wn82aDuyuxHGXppuTZfp1pQ=
-X-Received: by 2002:a05:690c:6b07:b0:8b5:61d:f3ff with SMTP id
- 00721157ae682-8b5204e9571mr53022067b3.46.1795443075492; Mon, 23 Nov 2026
- 06:11:15 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795443161; x=1796047961;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FpQteIPOJ7jso2isVNK/FXoPVqd5TxYTuttF9zGO1yA=;
+        b=JD2gSt3L7SEuQ0qgAhZhvOIF3lhfn27h+zHV/GwCT2W5EDotulxWs3s5SkxeqE15Tr
+         poA8ghTn+7WP93aD1EMS4WELjreO1dhbnjlmVat1ZqMijvXDsYi2tkNQfl1jEBRSpuJP
+         764G+Ny5Z5/uWtoeNEVXlmN7hDyyR+R/Q5OhTToDIM+grEi/PcOElbVUZn4H6sInknHV
+         KQydDHxbHWAQuQaW1ckzNTwEc3gRuqEdfcqjLiZnVh128PZvO1/gskOpZdneoW+8Dye1
+         5JBNWfP4OAknofJIm0UppIoEXj2rHjAJMgHTvnPvfhhOzE6OhLoG7zSy27VnqQBj0lAs
+         0AGA==
+X-Forwarded-Encrypted: i=1; AL+hErFkgE8D7jZb7txg0c5hj4LQrRX8wcLrKJv/PptZDLlyrG3SA1Q5+gOLkPOATasYzw/5IPMoSRo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+YmzXK/wbV2yQUrGO74W0SCm+u9jRNTMzYTpIG/93s1GI/bqbV
+	T8Od1z9+BZz/3p2itVu6ICawnPIa4p/ZoTrHJo9oKst971Dur2FC/9Ht
+X-Gm-Gg: AZFdTZf9F6LcAD4v2o/cQw345UwQ24eFu8qq0xYL7n3orVyPRUDJgcPc+kEYSXylAqm
+	bWWRoq/+L+Rlo5fLOVhyF2lrrT2JcUvUN58YQd88npOc/oVGjgG4BPOg59HOluDO0VbOAiUp7Eu
+	wPsUgkD8ZrB5boviBZvLq2jPIffkQZTMatY2mKi1XiHkC4Y6y8OQ1ttCY31k8oYwoQniaaSK+xx
+	0OSW3N2OTTQQZH4mkXtAUaMw2NHLGjykKFra2ar7xa46YLQYwUrbBEBDOr0pOIqdul+KiOQOsoX
+	pRKMmUIsYw8p7JubRjQFiG3PnlbsuhCyS0xeLZMVnZDrpd+fyX5IpQvSNz47wwEQyb73Oo1z+U4
+	TYXAhRIKnF8Mjf7g83OvvJxhdDN3Hd3ZZZg6EWLH+m0ewQKKdel7h04hIkW8RwUyDzbnyvMzQMq
+	vnRUPBf3y80qnGAKco4IFiS5qV/5bAeURJrpLjMSrxQu4B43aeKWRNN+km5CZCFZYsH0vGwKWtJ
+	9U9V3J9jGWDFLA+LQMx35L3hy/jPzO5BIqPgMM/lYhrYKsQhLhbFN8x2tsfaeKDcKzuenY5tC4P
+	Hhp77pnB2aAOCFnubSzWl/kG7yV9pdUm8pTMvHygapsHw8kG1g==
+X-Received: by 2002:a05:701b:42d1:20b0:1af:d88f:fc51 with SMTP id a92af1059eb24-1b5568edb1dmr12692628c88.30.1795443161493;
+        Mon, 23 Nov 2026 06:12:41 -0800 (PST)
+Received: from localhost.localdomain ([112.170.44.210])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385672c6f31sm35997230eec.15.2026.11.23.06.12.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 06:12:40 -0800 (PST)
+From: Junyoung Jang <graypanda.inzag@gmail.com>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Junyoung Jang <graypanda.inzag@gmail.com>,
+	Gwanhyun Lee <gwanhyunlee@gmail.com>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Bernd Schubert <bernd@bsbernd.com>,
+	Dharmendra Singh <dsingh@ddn.com>,
+	Amir Goldstein <amir73il@gmail.com>,
+	fuse-devel@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 6.12.y] fuse: fix fuse_set_nowrite() race with parallel direct writes
+Date: Mon, 23 Nov 2026 23:12:34 +0900
+Message-ID: <20261123141235.2477526-1-graypanda.inzag@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,100 +102,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-imx-rproc-free-mbox-v1-1-3e33ff98570d@linux.dev>
- <avMgJNyGez2Eyr3a@nxa18884-linux-1.ap.freescale.net> <awPmc_4VFkcpW0C_@bombadil>
-In-Reply-To: <awPmc_4VFkcpW0C_@bombadil>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Mon, 23 Nov 2026 08:11:04 -0600
-X-Gm-Features: Aa3M54rmzuqQaag6_hKersoZSWqoaB26gF7bb-M07qfK52BJ_PrHvuWnVFcXIfA
-Message-ID: <CANLsYkx=M_TXN10qAcQC0be065TYnzfOae6E8ss-9DTj9MzogA@mail.gmail.com>
-Subject: Re: [PATCH] remoteproc: imx_rproc: revert channel freeing order in imx_rproc_free_mbox
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Peng Fan <peng.fan@oss.nxp.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>, 
-	linux-remoteproc@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	weinshec@holodeck2.de, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 23 Nov 2026 at 01:09, Richard Leitner <richard.leitner@linux.dev> wrote:
->
-> On Tue, Nov 10, 2026 at 09:46:12PM +0800, Peng Fan wrote:
-> > On Tue, Nov 10, 2026 at 01:29:08PM +0100, Richard Leitner wrote:
-> > >The imx_rproc driver is affected by a race condition in the shutdown
-> > >ordering in imx_rproc_free_mbox(). A received message might cause a
-> > >virtqueue_kick resulting in tx_ch access. When imx_rproc_free_mbox() is
-> > >triggered between the if (!priv->tx_ch) check and the mbox_send_message()
-> > >call in the imx_rproc_kick() function the mbox_send_message() then tries
-> > >to dereference a NULL pointer on the tx_ch (as seen in the call trace
-> > >below).
-> > >
-> > >Therefore fix this behaviour by first freeing the rx channel, so no new
-> > >messages are received and therefore no kicking on tx_ch can happen.
-> > >Afterwards release the tx channel.
-> > >
-> > >This problem was encountered on a fleet of i.MX8MP devices on about 1 in
-> > >500 system shutdowns, resulting in Oops below. This Oops was recorded
-> > >from a v7.3.0 kernel before the work-queue removal.
-> > >
-> > >    remoteproc remoteproc0: stopped remote processor imx8mp-cm7
-> > >    Unable to handle kernel NULL pointer dereference at virtual address 0000000000000008
-> > >    Internal error: Oops: 0000000096000004 [#1]  SMP
-> > >    CPU: 0 UID: 0 PID: 32710 Comm: kworker/0:1 Not tainted 7.3.0-XXX #1 PREEMPT
-> > >    Hardware name: XXX (DT)
-> > >    Workqueue: imx8mp-cm7 imx_rproc_vq_work [imx_rproc]
-> > >    pstate: 40000005 (nZcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> > >    pc : mbox_send_message+0x8c/0x178
-> > >    lr : mbox_send_message+0x88/0x178
-> > >    sp : ffff8000897f3b70
-> > >    x29: ffff8000897f3b70 x28: ffff80007a07b248 x27: ffff0000d90e1a20
-> > >    x26: ffff80007a07b328 x25: ffff0000c1d31300 x24: ffff0000d90e1a40
-> > >    x23: 0000000000000001 x22: 0000000000000005 x21: ffff8000897f3ba4
-> > >    x20: 000000000000000b x19: ffff0000c1b24240 x18: 0000000000000000
-> > >    x17: ffff80006a453000 x16: ffff800081ac8000 x15: 0000000000000000
-> > >    x14: 0000000000000040 x13: 0000000000000228 x12: ffff0000c115a3e8
-> > >    x11: 0000000000000000 x10: 0000000000000001 x9 : ffff800080cd6570
-> > >    x8 : ffff8000897f3ba0 x7 : 0000000000000002 x6 : 0000000000000000
-> > >    x5 : 000000000000000c x4 : 0000000004400000 x3 : 0000000000000000
-> > >    x2 : 0000000000000000 x1 : ffff0000cb268000 x0 : 0000000000000000
-> > >    Call trace:
-> > >     mbox_send_message+0x8c/0x178 (P)
-> > >     imx_rproc_kick+0x50/0xc0 [imx_rproc]
-> > >     rproc_virtio_notify+0x3c/0xa0
-> > >     virtqueue_kick+0x4c/0x68
-> > >     rpmsg_recv_done+0x224/0x658 [virtio_rpmsg_bus]
-> > >     vring_interrupt+0xbc/0x158
-> > >     rproc_vq_interrupt+0x40/0xb0
-> > >     imx_rproc_notified_idr_cb+0x20/0x40 [imx_rproc]
-> > >     idr_for_each+0x74/0x100
-> > >     imx_rproc_vq_work+0x2c/0x40 [imx_rproc]
-> > >     process_one_work+0x194/0x520
-> > >     worker_thread+0x19c/0x320
-> > >     kthread+0x134/0x148
-> > >     ret_from_fork+0x10/0x20
-> > >    Code: 37f80574 aa1303e0 97ffff39 f9400a60 (39402001)
-> > >
-> > >Fixes: 99b142cf7191 ("remoteproc: imx_rproc: Request mbox channel later")
-> > >Cc: stable@vger.kernel.org
-> > >Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> >
-> > LGTM:
-> >
-> > Reviewed-by: Peng Fan <peng.fan@nxp.com>
-> >
-> > BTW: would you plan to fix the other issue that sashiko reported
-> > regarding imx_rproc_xtr_mbox_init()?
->
-> Thanks for the review and sorry for the late reply.
->
-> Sure. Should this be a separate patch or added to a v2 of this series?
->
+In 6.12.y, queuing a FUSE_WRITE_CACHE request clears folio writeback
+immediately while keeping the request in fi->writepages until the
+daemon replies. Cached writepage requests can outlive the cached file
+handle in two ways: if write_inode_now() fails in fuse_flush(), it
+returns early before calling fuse_sync_writes(); and if a file is
+mapped with mmap() and closed while clean, final unmapping drops the
+last file reference via fuse_release() without calling fuse_flush().
 
-Please send another revision with the fix.
+Once the cached file is released, FOPEN_PARALLEL_DIRECT_WRITES allows
+concurrent direct writes under inode_lock_shared(). If a request is
+still pending in fi->writepages, two direct writers can both enter
+fuse_set_nowrite(). The first sets FUSE_NOWRITE (making fi->writectr
+negative) and waits on fi->page_waitq; the second sees fi->writectr < 0
+and hits BUG_ON(fi->writectr < 0).
 
-> regards;rl
->
-> >
-> > Regards
-> > Peng
+Fix this by waiting on fi->page_waitq in fuse_set_nowrite() while
+fi->writectr < 0 before setting FUSE_NOWRITE, and waking waiters in
+fuse_release_nowrite(). Also still run fuse_sync_writes() in
+fuse_flush() when write_inode_now() returns an error so close() drains
+in-flight writes before returning the error.
+
+Mainline is unaffected since commit 0c58a97f919c ("fuse: remove tmp
+folio for writebacks and internal rb tree") removed fi->writepages and
+keeps folio writeback active until the daemon replies. Fix the ordering
+directly in 6.12.y rather than backporting that larger rework.
+
+This bug was found with an in-house LLM-based tool, and the root cause,
+reproducers, and fix were manually verified by the authors.
+
+Fixes: 153524053bbb ("fuse: allow non-extending parallel direct writes on the same file")
+Cc: stable@vger.kernel.org
+Co-developed-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
+Signed-off-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
+Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
+---
+Tested on v6.12.116 with KASAN in a 2-vCPU QEMU guest using an
+unprivileged FUSE daemon (UID 1000 via fusermount3). Verified against
+both C reproducers (FUSE_SETATTR -EIO on close, and dirty mmap
+followed by munmap after clean close), which previously triggered
+BUG_ON(fi->writectr < 0) and now complete cleanly without BUG or KASAN
+reports. Standalone reproducers are available on request.
+
+The patch also applies cleanly to linux-6.6.y (5139929c698c), though
+6.6.y was not runtime-tested.
+
+ fs/fuse/dir.c  | 10 ++++++++--
+ fs/fuse/file.c |  5 +++--
+ 2 files changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
+index 45cbe0cb2..54b9138fa 100644
+--- a/fs/fuse/dir.c
++++ b/fs/fuse/dir.c
+@@ -1821,8 +1821,13 @@ void fuse_set_nowrite(struct inode *inode)
+ 
+ 	BUG_ON(!inode_is_locked(inode));
+ 
+-	spin_lock(&fi->lock);
+-	BUG_ON(fi->writectr < 0);
++	for (;;) {
++		spin_lock(&fi->lock);
++		if (fi->writectr >= 0)
++			break;
++		spin_unlock(&fi->lock);
++		wait_event(fi->page_waitq, READ_ONCE(fi->writectr) >= 0);
++	}
+ 	fi->writectr += FUSE_NOWRITE;
+ 	spin_unlock(&fi->lock);
+ 	wait_event(fi->page_waitq, fi->writectr == FUSE_NOWRITE);
+@@ -1850,6 +1855,7 @@ void fuse_release_nowrite(struct inode *inode)
+ 	spin_lock(&fi->lock);
+ 	__fuse_release_nowrite(inode);
+ 	spin_unlock(&fi->lock);
++	wake_up(&fi->page_waitq);
+ }
+ 
+ static void fuse_setattr_fill(struct fuse_conn *fc, struct fuse_args *args,
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index 33ba8ae3b..5e01dd2b7 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -538,13 +538,14 @@ static int fuse_flush(struct file *file, fl_owner_t id)
+ 		return 0;
+ 
+ 	err = write_inode_now(inode, 1);
+-	if (err)
+-		return err;
+ 
+ 	inode_lock(inode);
+ 	fuse_sync_writes(inode);
+ 	inode_unlock(inode);
+ 
++	if (err)
++		return err;
++
+ 	err = filemap_check_errors(file->f_mapping);
+ 	if (err)
+ 		return err;
+
+base-commit: 5c40a1750f44dd6c7292d8c8d0b4ffff1734576e
+-- 
+2.43.0
+
