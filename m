@@ -1,49 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795415118;
-	b=rSaOjKAp7g76cc/XJbBOXi6+LLyEO9/dcqx0S7RLq9N55jRVc9nUbiyJkEtQ+nZEsu+G
-	 XxpIFnrKEkJjR3znu8X7bIbBu1lNxQlJGVc2nDtIcjNiYT+cK52tcfHKmnKBD9vclb8Rj
-	 q1qoNFollgFmBUXa/Kr2YhzzqwAXnTgRLwlaGogyc5m5wAc2Vc3LG4q9Cl1e+Fu2Tem1k
-	 kP/Z6r44ZtoctVrPtNjaBo/mS6JIpAYBjwvQDbKGeftKPmgwr/nEU7MEwPY/og3e/yKM0
-	 3MNIxyLzA3LkJnoW/VpIfA8zBWjcU031Uygc5am0D0s/XQ04rIAZedg6w14PSX2YKIg==
+	t=1795415122;
+	b=d8l3XzuL4yb0E9ZMMLEI6h0Pe+FAB+TJxWqRr1VTfWuCWvZSt3l+rQY2EpJWt359ip6x
+	 U4tNy95mgFxinicHGlwpWFwFcxRJ9knGOkFcO0O86MCdKt4QFbReAlbuCfs0zmjnQCW8j
+	 8igwXqe+zW01ZqXu2hynRQeVqGtKvq8PbrnQfdcnB27lw+3Y7qB8OTgJpojvcKVDTeoZQ
+	 pYElOeJUF/yUhsoaB2b+ctxIbR5D4VP7mx68mpl4oZ9ZMx5PPcVTtr+YelpgbF4EEVlum
+	 v/aSBRVTAieuOL+n9Jh8PJzDoctzZFGco6PWEWGTkOzPJgmXG358rkbymtgaa2vCntg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795415118;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=SS+oosl80XdyL0Z9mmC1t2YRkv0wru6lPfW23UT6QMY=;
-	b=xzgCfr/RjUeqfuag3ULR6Vco5epTDmkZTQFQ7BDUC5mvVp4ymugx1EtEwoJoEeNgemPs
-	 EuagIkuBWiZsdr9xLYOlGcdNeOB7gDT2SZdeAA4Ry3I7MletUN5Rka/67iZvb8qnG22qi
-	 8bSnwKCbg/aRLgs0Y6rFhHioDlibzQ7vDXpzCfSA3MRnUaR1v8f2aqlR3IWnwNfjNOn7L
-	 1T4nknHVUI0dVObdzRKtBKTDRIEdouSYhRkiE6VDBQwY6I0ekN7Rdl9KJhwbrS3t84per
-	 GtE3TpSlXX6QQhXXq8b43fiHteKQ2/FjZgyVrpk7sW/vqzvjcBdmwfZoosMijG2jrng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795415122;
+	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
+	 Message-Id;
+	bh=XPN1MOvK5gk35OoBSkn58TaJvxRSnN53SqThAw2Ak5s=;
+	b=l9ndO5KGSf27VKtUicsSqZ9R7ky4/AEBeeNI9kH9vonF4j1rSh5iJbaIEthlZwVF7F1E
+	 71aiz7qwNzGvka0Z8CsmVSoeaLAKnHPz3IEQl62TUcgTUDsIQHmF7+p2UXUgJidGNFdg7
+	 EUbILApoIrnqvVH/Ln4A0lhoIJjk9tlY5qb4vladwbyTdPqIBrruQuhB6xP0Q8WAyGssi
+	 PsXFOquhIDPyDxWDXEup6rWA2aXjUAYE/D6U5M1H5LAg/sQj2wekYApvGeyElrLdQdQtY
+	 +TRklY77iVGfdJmJHCHc86u5aijrM7q8D2eMv3hpiyJnGUEZAGPB28toYfNj1zsammQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=NqCDXcii;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=IPbabZTt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47503606A327;
-	Mon, 23 Nov 2026 06:25:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6996D606A327;
+	Mon, 23 Nov 2026 06:25:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=NqCDXcii
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A05F41F000CF;
-	Mon, 23 Nov 2026 06:25:17 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=IPbabZTt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57931F000C6;
+	Mon, 23 Nov 2026 06:25:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795415117;
-	bh=SS+oosl80XdyL0Z9mmC1t2YRkv0wru6lPfW23UT6QMY=;
-	h=Date:To:From:Subject;
-	b=NqCDXciiD1MZ6od2VBAB6qyODde/9eko/R0o5oLMlL6txXQjk8ZN7KTVBU83Wi1V2
-	 DsZ+2CN56r6Iv8pRDQjw5Ie/qN3mdV2aGIhX8qWti9GpnbHIQIVM/S3PK2Te7lXojt
-	 9RRb59/poe0kmcViAx06hnv3U5EHoTT1dgr/xRsk=
-Date: Sun, 22 Nov 2026 22:25:17 -0800
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
-	stable@vger.kernel.org,shuah@kernel.org,rppt@kernel.org,peterx@redhat.com,
-	mhocko@suse.com,ljs@kernel.org,liam@infradead.org,kas@kernel.org,
-	david@kernel.org,aarcange@redhat.com,donggeunyoo.kernel@gmail.com,
-	akpm@linux-foundation.org
+	d=linux-foundation.org; s=korg; t=1795415121;
+	bh=XPN1MOvK5gk35OoBSkn58TaJvxRSnN53SqThAw2Ak5s=;
+	h=Date:To:From:In-Reply-To:References:Subject;
+	b=IPbabZTt3/dbm+IhnofDlqgqhGj2qCRlnYriY+1N3G2x2A3MF/x7yvVPewJnM1A/A
+	 7++ZIFsmh/W2bAKty6wGekiXHFdUNnd4KSMRRrg6qQJ0AaZeqoYgg9fuuSEpknhyZP
+	 geqRWOYMY9YPc+gCShh3hf6g3gfbJtd5gmq9bg18=
+Date: Sun, 22 Nov 2026 22:25:21 -0800
+To: mm-commits@vger.kernel.org,youngjun.park@lge.com,stable@vger.kernel.org,
+	shikemeng@huaweicloud.com,nphamcs@gmail.com,kasong@tencent.com,
+	chrisl@kernel.org,baoquan.he@linux.dev,baohua@kernel.org,aquini@redhat.com,
+	oleksandr@natalenko.name,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte.patch removed from -mm tree
-Message-Id: <20261123062517.A05F41F000CF@smtp.kernel.org>
+In-Reply-To: <20261118112610.122799-1-oleksandr@natalenko.name>
+References: <20261118112610.122799-1-oleksandr@natalenko.name>
+Subject: [merged mm-hotfixes-stable] mm-swapfile-really-fix-integer-overflow-in-swap_show-and-swapon.patch removed from -mm tree
+Message-Id: <20261123062521.A57931F000C6@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,86 +57,67 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: userfaultfd: clear the inherited uffd bit in move_swap_pte()
+     Subject: mm/swapfile: really fix integer overflow in swap_show() and swapon()
 has been removed from the -mm tree.  Its filename was
-     userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte.patch
+     mm-swapfile-really-fix-integer-overflow-in-swap_show-and-swapon.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: userfaultfd: clear the inherited uffd bit in move_swap_pte()
-Date: Sat,  3 Oct 2026 19:30:29 +0900
+From: Oleksandr Natalenko <oleksandr@natalenko.name>
+Subject: mm/swapfile: really fix integer overflow in swap_show() and swapon()
+Date: Wed, 18 Nov 2026 12:26:10 +0100
 
-UFFDIO_MOVE on a swapped-out page installs the source PTE at the
-destination unchanged, so a uffd bit set on a write-protected or
-RWP-protected source lands in a destination VMA that was never
-registered for either.  Nothing clears it there, and userspace sees:
+One of the enterprise customers uses 6 TiB of swap, and the values
+reported in /proc/swaps as well as in dmesg are still not correct.
 
- - /proc/<pid>/pagemap reports the page as uffd-tracked (bit 57), both
-   while it is swapped out and after it is faulted back in.
- - MADV_COLLAPSE fails with EINVAL on a range containing it, because the
-   collapse scan bails on a swap entry with the uffd bit set.
- - With CONFIG_PAGE_TABLE_CHECK, faulting the page in warns.
-   do_swap_page() carries the bit into the present PTE and, since the
-   destination isn't WP-registered, also makes it writable:
+Cast si->pages to long explicitly so that the bitshift in K() doesn't
+truncate the value to 32 bits.
 
-   WARNING: mm/page_table_check.c:202 at __page_table_check_ptes_set+0x185/0x1e0
-   Call Trace:
-    set_ptes+0x67/0xc0
-    do_swap_page+0x990/0xfe0
-    __handle_mm_fault+0x7d0/0xeb0
-    handle_mm_fault+0x9c/0x250
-    do_user_addr_fault+0x207/0x650
-    exc_page_fault+0x65/0x150
-    asm_exc_page_fault+0x26/0x30
+Also do the same in swapon() for the same reason.
 
-Reaching it takes UFFDIO_MOVE out of a WP- or RWP-protected area into
-one that isn't, on a page that is swapped out at the time.  It hasn't
-been seen in practice.
-
-A resident page doesn't carry the bit, because move_present_ptes() builds
-the destination PTE from dst_vma->vm_page_prot.  Clear it on the moved
-swap entry as well, then re-arm it if the destination is RWP-registered.
-
-The WP case has been there since v6.8, where UFFDIO_MOVE was added.
-
-Link: https://lore.kernel.org/20261003103030.63380-1-donggeunyoo.kernel@gmail.com
-Link: https://lore.kernel.org/20261003103030.63380-2-donggeunyoo.kernel@gmail.com
-Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Link: https://patch.msgid.link/20261118112610.122799-1-oleksandr@natalenko.name
+Fixes: 642929a2ded0 ("mm/swapfile: fix an integer overflow in swap_show()")
+Signed-off-by: Oleksandr Natalenko <oleksandr@natalenko.name>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Assisted-by: LLM
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Andrea Arcangeli <aarcange@redhat.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Youngjun Park <youngjun.park@lge.com>
+Cc: Rafael Aquini <aquini@redhat.com>
+Cc: Christopher Li <chrisl@kernel.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
 Cc: <stable@vger.kernel.org>
 
- mm/userfaultfd.c |    1 +
- 1 file changed, 1 insertion(+)
+ mm/swapfile.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
---- a/mm/userfaultfd.c~userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte
-+++ a/mm/userfaultfd.c
-@@ -1403,6 +1403,7 @@ static int move_swap_pte(struct mm_struc
- 	orig_src_pte = ptep_get_and_clear(mm, src_addr, src_pte);
- 	if (pgtable_supports_soft_dirty())
- 		orig_src_pte = pte_swp_mksoft_dirty(orig_src_pte);
-+	orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
- 	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
- 	if (userfaultfd_rwp(dst_vma))
- 		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
+--- a/mm/swapfile.c~mm-swapfile-really-fix-integer-overflow-in-swap_show-and-swapon
++++ a/mm/swapfile.c
+@@ -3452,7 +3452,7 @@ static int swap_show(struct seq_file *sw
+ 		return 0;
+ 	}
+ 
+-	bytes = K(si->pages);
++	bytes = K((unsigned long)si->pages);
+ 	inuse = K(swap_usage_in_pages(si));
+ 
+ 	file = si->swap_file;
+@@ -3968,8 +3968,8 @@ SYSCALL_DEFINE2(swapon, const char __use
+ 	/* Sets SWP_WRITEOK, resurrect the percpu ref, expose the swap device */
+ 	enable_swap_info(si);
+ 
+-	pr_info("Adding %uk swap on %s.  Priority:%d extents:%d across:%lluk %s%s%s%s\n",
+-		K(si->pages), name->name, si->prio, nr_extents,
++	pr_info("Adding %luk swap on %s.  Priority:%d extents:%d across:%lluk %s%s%s%s\n",
++		K((unsigned long)si->pages), name->name, si->prio, nr_extents,
+ 		K((unsigned long long)span),
+ 		(si->flags & SWP_SOLIDSTATE) ? "SS" : "",
+ 		(si->flags & SWP_DISCARDABLE) ? "D" : "",
 _
 
-Patches currently in -mm which might be from donggeunyoo.kernel@gmail.com are
+Patches currently in -mm which might be from oleksandr@natalenko.name are
 
-selftests-mm-add-tests-for-uffdio_move-of-a-uffd-protected-swap-entry.patch
 
