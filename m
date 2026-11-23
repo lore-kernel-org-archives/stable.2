@@ -1,87 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795463767;
-	b=g/Wbm7bEOrqk5ml8Zbg0+PI4ts9t402/cJnbZkrpTM6FZ82m6OD6T9EzSJ56Rz46t9Mm
-	 i5EJR7EOy3efHVMplRotgPuSwy0aUYQ/7OimTixOsHXjWuxHr6YLlkRZyFi5Fjq8YdCd5
-	 tw1IrB1KFAkKa9m1IXbu7fqbPVCRjhZQa573rgo8EyclM06t09aSNghuH02jocXP8Ak7M
-	 hIu2FIkoPht8H3uz7uyI+IJvr0WqbzddyRURXkmMsyttN6zb7QdtxLiicCmUXEz//CcVj
-	 HUYpCQP9iBveXWGGDIHDIpNpMC1i83ootqhF7o78tVaV0TQdXxqmjfOUZpUyGFTkjzA==
+	t=1795463914;
+	b=QbGmBdYRYBMsA3FFiHWlM1zkjULl0KIO21bTvKwCE84saWmqJtUw6Dh553Y6xd3cxkyK
+	 oCoeIP4yYSKny5LLj+Y36kh/dCeOenu325pGxsgbFFERJCHDgilS1Fh5WbgEB2L0jp7dy
+	 SWdmvkLlGYqWjjDm2n6s9CzaWcOWbRBy7GI7EcLsUnLq0bSWwXwjO7FLRjuyUa62DRRd8
+	 AlNhQTdzJ3T1Xvsnlt+JtFphtRGNUxKtogSNAe1JEphFxyCzWg4xHVlUz4eLId80uhQtL
+	 DdhKk2DgvOyUhMayFXeVCEryy4QejQLwz2HXeu0H64x69cRpy3C6kK7CURTjkMI5Bcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795463767;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=Lny4behPT6icoCVAkyq71pF7Sa0197S234mEpHRXxu4=;
-	b=5C40iEWCHeeJKlLlo99Xz91Dy9jOiQlE0q0ebqPbY9oMt9nDX1FtQFkeIf1dQXMXw7q8
-	 xoqOwRRt8y2xoU7ja3vuQDrbh6xQFogj78Pkv1kFg2rcp0HttGNil1gBAqyCPSgco6aCN
-	 FRvhTjrC9YLGH1bn6BcmU4sIDlv1v31VVyoJS6lr5lLqjZ/eIVlhHV8ooy5keUQyl13DQ
-	 5+Q+QBqYVpjvgvbp+kQ5KTL4DjEbyRVDClFc0mggu1zsJhtIgSdk0aWRjYqRilLYhgJrB
-	 sDUCnR/wG73jw4JVVDST7ujzOqZKhBaw2swhgkrAJbXt+pKwH1mxRDNM3h90vOea+fQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795463914;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Jbgjqw32VLBRaeFrxNCfaOtdz5dT39ANdUeCJfLoCZE=;
+	b=WeT4JOwBy9EhmY4QMfRl+3MAZx3CH3iexKDiKLZlsY62A2j+eD4SDNedn683kIRxzk/S
+	 y5VUvadQXFwLUTpQd2Lw6DSDsM/w6XZ3J9+7rzPrkT6uZQwg/rcvxGAFn++yCvy5Nbxem
+	 hCnymlA37wTCfjCJuPFWrzYhUOYFvY6CKaTKHSx57j/e04VIfzOaGRw2dyhEYFB7FUYCe
+	 u2J7IUYvBDxuO5TAtsJoB32KTn3vflsDzl9H4M/Fc30QoN39tk3wvREkK42H39P/dw5md
+	 RK4CTad2xNsFa5Uiyq96tepuCFrCZtdbtCW62xmYJNv2/sD9Ob/QN89XLqCHm+NiMCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=i4Y825zs;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mKpDCKPa;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B76606A31F;
-	Mon, 23 Nov 2026 19:56:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56B76606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1599E606A31E;
+	Mon, 23 Nov 2026 19:58:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1599E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=i4Y825zs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795463764;
-	bh=ej1A2i9QZRafCNfeT6JWyFzOuIrzj4KPCVhaGpxwfXk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=i4Y825zsyQV02ClJ7aP4vIcOI+J5pyZvmyHpYV2d2BjSn36TKXmQTm/xsRtFXreTA
-	 Lm8Rk7sHpRpehKcbXV31fXsB776xyOPwxqVhCMT14sqbjsRP5ZiqIYvspLnrKQe9QR
-	 aKjMOox2qWHUiK48Nw81CKsmdvWjWBH3nr2saKbUcGCF1ExXsCTwhG7OUVIYTNneP5
-	 05GSeOyFFuMXUfN3EJnTwmR1OocHPHFOsfjhfhka4RZwF85EhDiOpfmq6q0B6xaf1h
-	 mNsMoIN1WUbqr99SP/fWOwg2ct6RR4REEs/aGhgFOJu0+jRVUija8g0zD5PXtUFVoo
-	 pAo4rN4f8y8Eg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D89F417E0883;
-	Mon, 23 Nov 2026 20:56:02 +0100 (CET)
-Message-ID: <3bcac49dbe7d0510e2cbab0d56f319b14c0f5ca9.camel@collabora.com>
-Subject: Re: [PATCH] media: verisilicon: suspend the device before
- unregistering it on remove
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: shomenkow@gmail.com, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
-	 <hverkuil+cisco@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Frank Li
-	 <Frank.Li@nxp.com>, Tharit Tangkijwanichakul <tharitt97@gmail.com>, 
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mKpDCKPa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795463914; x=1826999914;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=97YcdWLc2+JkIa8bZoIY0I1lj7BEeb8HYpmUcAy1Gro=;
+  b=mKpDCKPaY4IawuaDnVJkHzZCJE/UUmUCAK+U+KQooNeo5SdZ4VUR2nto
+   7h3XwBiX92q0gn4S2IKJyZNRZYEpCsU7AAQXSCOiKYBpisg5h1yXinHBA
+   wxQQrT3SLKl4fgvAVPDgacBzrwgApbtZb9NyuAAMBGHjnW40mHcZaPq6V
+   kMS9NnputU8a+ZOtNhgS8e2740J9u8yNml+tXr1jX2A712wo7ueMdo1Yk
+   6EtRd/TFd4VsX65EHxN21RHV2bmsa/+V/Kniq6F2L8xN2m7OISI+yyyLx
+   4KpDP+RyyLLPDjFjgicysLHtp3O5iUGBIg3zDsMmztlJbdB4tzRowI0/V
+   Q==;
+X-CSE-ConnectionGUID: jnka5orvSMW0mGSE8TCMDQ==
+X-CSE-MsgGUID: mqEHItI+TVSm1pO2y2f64Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4262808"
+X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
+   d="scan'208";a="4262808"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 11:58:33 -0800
+X-CSE-ConnectionGUID: CcaAgwlcT8exNpy91VNXrw==
+X-CSE-MsgGUID: ZC2uiqIYQL6TB4N6dqdSgw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
+   d="scan'208";a="11756296"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 11:58:30 -0800
+Date: Mon, 23 Nov 2026 21:58:27 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Gary Wang <is0124@gmail.com>
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Daniele Cleri <danielecleri@aaeon.eu>,
+	JunYingLai <junyinglai@aaeon.com.tw>,
+	Louis Chen <louischen@aaeon.com.tw>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, BillyChou <BillyChou@aaeon.com.tw>,
 	stable@vger.kernel.org
-Date: Mon, 23 Nov 2026 14:56:01 -0500
-In-Reply-To: <20261106-hantro-remove-v1-1-d0a4678886d7@gmail.com>
-References: <20261106-hantro-remove-v1-1-d0a4678886d7@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Z+d3cBSs+hNXNcM5M5wA"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+Subject: Re: [PATCH 0/5] upboard pinctrl support for device id INTC1055 &
+ INTC1057 & INTC105E
+Message-ID: <awSa447uHSd9IAXt@ashevche-desk.local>
+References: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-0-f2322a91686d@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,120 +86,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-0-f2322a91686d@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
---=-Z+d3cBSs+hNXNcM5M5wA
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Mon, Nov 23, 2026 at 11:16:13PM +0800, Gary Wang wrote:
+> Add missing groups and functions in Tigerlake & Alderlake & Meteorlake
+> for INTC1055 & INTC1057 & INTC105E.
+> Add support "UP Xtreme ARL","UP Xtreme i14","UP Squared Pro 7000",
+> "UP Squared i12","UP 7000".
+> Fix pinmux-select set CPLD GPIO OUT not function mode for I2C pins
+> on the AANT0F04.
 
-Hi,
+Can we actually see some activity to eventually implement a missing part to
+support PinGroup() and PinFunction() ACPI resources? With that being done
+this information should be provided by BIOS.
 
-ack on your previous feedback.
+> The pinctrl-upboard is provide additional driving power & pin mux function
+> through native SOC pins->FPGA/CPLD->hat pins for flexable board level
+> applications. it's probe from ACPI device id AANT0F01 & AANT0F04.
 
-Le vendredi 06 novembre 2026 =C3=A0 12:04 +0300, Sergei Khomenkov via B4 Re=
-lay a
-=C3=A9crit=C2=A0:
-> From: Sergei Khomenkov <shomenkow@gmail.com>
->=20
-> The clocks are enabled and disabled by the runtime PM callbacks.
-> hantro_remove() calls v4l2_device_unregister() and clk_bulk_unprepare()
-> first and only then pm_runtime_dont_use_autosuspend(), which suspends
-> an active device right away. By then v4l2_device_unregister() has
-> cleared the driver data (it points to the v4l2_device, the first member
-> of struct hantro_dev), so hantro_runtime_suspend() dereferences NULL.
->=20
-> The device is always active at that point: the driver core resumes it
-> before calling remove(), and its put only starts the 100 ms autosuspend
-> timer. So every unbind and every module unload, with or without a
-> decode before it, gives an "Unpreparing enabled" warning for each clock
-> and then that oops.
->=20
-> Stop runtime PM before the unregister and the unprepare. If runtime PM
-> is forbidden through sysfs (power/control set to "on"), the device is
-> still active after that, so disable its clocks and mark it suspended by
-> hand.
->=20
-> The probe error path unwinds in the same order. It can only hit this if
-> a job runs between the encoder node registration and a later probe
-> failure, so it is left for a follow-up.
->=20
-> Found with an LLM coding assistant while porting mainline Linux to a
-> Rockchip RK3026 board (G1, ID 0x6731); the assistant also drafted this
-> change. Tested on that board. Without this change, unloading the idle
-> module (runtime status "suspended") gives the warnings and the oops.
-> With it, the idle module unloads with no warning or oops, and so it does
-> right after an H.264 or VP8 decode with the autosuspend delay raised to
-> 10 s through sysfs; the clock enable and prepare counts are back to
-> their values before the load. The same holds with power/control set to
-> "on", over three load, decode and unload cycles on one boot. kmemleak
-> reports nothing after five load, decode and unload cycles. Built with
-> W=3D1 with and without CONFIG_PM. Not tested on other SoCs or with a
-> power domain.
+It's cross-driver series, is there any compile-time dependencies?
+Or how do you consider them to go?
 
-I'll drop that paragraph.
+-- 
+With Best Regards,
+Andy Shevchenko
 
->=20
-> Fixes: 556ab0b2741d ("media: hantro: release runtime resources when devic=
-e_run fails")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
-> ---
->  drivers/media/platform/verisilicon/hantro_drv.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
-dia/platform/verisilicon/hantro_drv.c
-> index 26e5d5547466..8af47375d471 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -1286,10 +1286,16 @@ static void hantro_remove(struct platform_device =
-*pdev)
->  =09hantro_remove_enc_func(vpu);
->  =09media_device_cleanup(&vpu->mdev);
->  =09v4l2_m2m_put(vpu->m2m_dev);
-> -=09v4l2_device_unregister(&vpu->v4l2_dev);
-> -=09clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
-> +=09/* Suspend first: v4l2_device_unregister() clears the driver data. */
->  =09pm_runtime_dont_use_autosuspend(vpu->dev);
->  =09pm_runtime_disable(vpu->dev);
-> +=09/* Runtime PM forbidden through sysfs: the device is still active. */
-> +=09if (IS_ENABLED(CONFIG_PM) && !pm_runtime_status_suspended(vpu->dev)) =
-{
-> +=09=09clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-> +=09=09pm_runtime_set_suspended(vpu->dev);
 
-I will edit to:
-=09=09hantro_runtime_suspend(vpu->dev);
-
-Its exactly the same, it just keep the implementation in one place, its mor=
-e
-future proof.
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-> +=09}
-> +=09v4l2_device_unregister(&vpu->v4l2_dev);
-> +=09clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
->  =09reset_control_assert(vpu->resets);
->  }
-> =20
->=20
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261106-hantro-remove-9afbc9b601f9
->=20
-> Best regards,
-
---=-Z+d3cBSs+hNXNcM5M5wA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawSaUQAKCRDZQZRRKWBy
-9P+6AP9+UQyJTJdWEo+S5hFOtmylc/lWN2MktaCaDIIh1an/vQD9G3k8P9NpNa0W
-If8ZNN1ia4f/BFOVW2M6501nL1Jn8gs=
-=fTte
------END PGP SIGNATURE-----
-
---=-Z+d3cBSs+hNXNcM5M5wA--
