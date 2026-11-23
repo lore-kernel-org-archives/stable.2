@@ -1,62 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795458782;
-	b=BjgIy/xln/pz6fJPdnp4Ckwrw5TDzFMjeSWBBs1K51iAaEzyGcWDelQdcDmx3ykVfbOe
-	 uN8uYcr+WLqu5qSYVnkKgqYS2ow/7lVdtcwJbkLJESuODWPMQDioQ91DfDM0iAC9Da7MW
-	 E7+zxy1XTJxNbR4y9gMdolX+dQVTbNlr8cvXAmicFI4RWe4F8zh3jQFzI0t/0vdfnvjfg
-	 mVokpDMBLkowv6jMvRyeWqV1SSoIqe3k/eOcg7yvSNyVp8hNzzmRyhnbu3QJfZvxyUXDP
-	 DzBC4AgQcd4NsvRmyXBinqzITBvE9aIkcgpZMWOr1AmflAZ4eEZaNhIN+5Oqh5LNBmw==
+	t=1795458788;
+	b=ySEVFDX+5FOl3Rxa6TnTovzKahc+23RTeeKYRBck2THaRThgSxDa5tCoUY1LsZpja7xS
+	 JTtp67rh9ONJ5waj9itg+kthIAKn8LUP5goeR7TWve7qXPWn4B6Q2Dxciy4sO4N1Iac7K
+	 ysuzgeyDQeIm2tir2Ig8wQenWu6t6J1DA+U/4emMzfOZLd7BAhxfXozGDtGWyX6t+zWB/
+	 To8XK4Y8m97Vfukn9PCWgBohesK5FDIbU+fEG+R8W8TBQMd0GNpnQ91+bZK1Z0qxIAYww
+	 anXBA/7QOh1JcEAuhtZofX7/8UhiqYK4a3c6y82H1X9GF3UN7qXD29TanVsguznA//g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795458782;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795458788;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=U1MSPx3VfyoIifR48nEATYANkG7RJJfwnA8zIXFxovA=;
-	b=Tft08Z24JTMFUC1vHCN0tb8UZz9e0U8AQNcihl/BBMLfcYBAk1Cr4UIFFpmAPalWa/b+
-	 Ey0kKvlxZGwjGRzQFpowuJQpGxUnzLxI0vahME3QFJY8xQleESwfu+aZj9eZP8pCndXm7
-	 Ws+8U9Rj2ov3okDaCvaRYjbdHp2ucr0z755Lt0CyUxnNPa52uTJloGJUSAXaJ/0ILGFt0
-	 /V/aKkdNNmmFt7qnxBgXCFLS7e+akRgoY0zd2eHNdbGGpytrJ0A/jeUH2bMxDjWRHOd0/
-	 q7yItvVN9V04Gcv/Fbbion3GYELBaVVOSjhreQRCG4ovy2tjpqp7pkCKx/6PCZ8r3fQ==
+	bh=ewYq6AIbBNsZwelrKkc+xEBWvdNQGiW8QGnMZ/P338c=;
+	b=sRoa/o0BVRwvbbM2sy4sjPrMhgUeIMHHkpuxGUddPwgwy+Zc0KY6jAq4cBkgxKQ2tBT+
+	 5/nWgw36n73b9e+a8y8tuZDbt+f24/nsvJPs1HAhAvxHPAH0fnP1e899cCYF/WEZcgW+Z
+	 0MqN1//YlV9k47UG+/m8jXI+o+uZjru5H1sX6OZ2cJN/AyhHvd7PBRjf/S1EIn8eHtZmw
+	 JMY/Kkpw7yXzP0O4UbUOgA0B9bgq+6WHVLc9JtZrwamHIK6d1iXo2PAKz0eZ4Xf4H0d2s
+	 1GlvBJnth6ThmkwaIgbl0uGvj7FpIuGHhoVZ+RIM9HfY8D+d63In1xStACgavLmPw4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YxHbG4Qj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fw7itiBg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D74606A31A;
-	Mon, 23 Nov 2026 18:33:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE54606A31E;
+	Mon, 23 Nov 2026 18:33:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YxHbG4Qj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD83A1F000C4;
-	Mon, 23 Nov 2026 18:32:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fw7itiBg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8A0F1F000D0;
+	Mon, 23 Nov 2026 18:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795458781;
-	bh=U1MSPx3VfyoIifR48nEATYANkG7RJJfwnA8zIXFxovA=;
+	s=k20260515; t=1795458788;
+	bh=ewYq6AIbBNsZwelrKkc+xEBWvdNQGiW8QGnMZ/P338c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YxHbG4QjoBEKcii62/p3xWuNgfK5sV5ywr53zd7ByLM327S1//TTe0j61atw+hNzP
-	 l7BX91cdgPODL6eKAUZQIVWJ38hyog4Ez9fGDgucWrQY2CtQs6kAaLKM1ZBUaKHbMM
-	 hjZKaJ7mWvsJ6q9tjUZ/OhkFr3eR+w0qVmHkKs446j4jx/OyJsGm3ObXtf6fGRPwOq
-	 +clCPN8Hhd9YZPplHL3Dvo6XSCQdBJH4gkeiHV5HTZyEfq7zJV1JSVc7yHLHdQI8d/
-	 56nHAguwU8BaPBUeddkHI/PvGvdrgLLUqP7h2HtqaJawFEolx0h9wrSqggaeD+TKZu
-	 xeuwW0rqFxbwA==
+	b=Fw7itiBg/4bO92QnraKYawehunCcURbXpYI8xwE3yAPUKnCymsO+c7wqPvekvu/FH
+	 QRsa3SuEy5qWyRBZFUu2ngPhFOXEBJ3V8shSI0Pm0+0O0t1M6tWzjra+ew6kYXMUss
+	 AzTUGdYiGPDGYkA107w9LQRufO9ClVLMxZem4AAI2eQ2A1aWbpYl7Dm1Cv/tWBhlgR
+	 QqqVyiOqkzcQ/aH4HboaGQ3arG5lQ4x9NSrI0IFlC2vB6wqXeJXkshWSQ5SDcPsh1U
+	 3FMVEz8IErCqJHyVS6QuiulX6+spYk3bEgjXoB0oqucrANSyhFZqU8hcPDdl8cyhyN
+	 2Ke/j7qswIVdw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>,
+	Samuel Holland <samuel@sholland.org>,
 	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Fengping Yu <fengping.yu@mediatek.com>,
-	Marco Felsch <m.felsch@pengutronix.de>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
 	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
+	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 08/10] Input: mt6779-keypad - enable keypad clock before programming registers
-Date: Mon, 23 Nov 2026 18:31:14 +0000
-Message-ID: <20261123183200.3900004-9-lee@kernel.org>
+Subject: [PATCH 09/10] Input: pinephone-keyboard - request IRQ before registering input device
+Date: Mon, 23 Nov 2026 18:31:15 +0000
+Message-ID: <20261123183200.3900004-10-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123183200.3900004-1-lee@kernel.org>
 References: <20261123183200.3900004-1-lee@kernel.org>
@@ -72,51 +69,60 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-mt6779_keypad_pdrv_probe() writes the debounce and matrix selection
-registers over MMIO before acquiring and enabling the "kpd" clock via
-devm_clk_get_enabled().
+ppkb_probe() registers ppkb->input before installing its threaded
+interrupt handler with devm_request_threaded_irq().
 
-When the keypad clock is gated off at boot or its clock provider defers
-probe, accessing unclocked keypad MMIO registers can trigger a bus abort
-or silently drop the configuration writes.
+As soon as input_register_device() exposes the keyboard (including
+synchronous open by the console keyboard handler), ppkb_open() enables
+matrix scanning.  If a key is held during this window, the controller
+asserts its level-triggered interrupt line before the handler is
+registered, causing the kernel to disable the unhandled IRQ.  In
+addition, devres unwinds in reverse order on unbind, freeing the IRQ
+handler before input unregistration invokes ppkb_close() to disable
+scanning.
 
-Acquire and enable the "kpd" clock before accessing the keypad
-registers.
+Request the threaded IRQ before calling input_register_device() so the
+handler is in place before scanning can be enabled and outlives input
+unregistration on teardown.
 
-Fixes: f28af984e771 ("Input: mt6779-keypad - add MediaTek keypad driver")
-Closes: https://sashiko.dev/#/bug/linux-fc15622a-407a-48b2-88db-195cdb311dbf
+Fixes: 17406967ec0f ("Input: pinephone-keyboard - add PinePhone keyboard driver")
+Closes: https://sashiko.dev/#/bug/linux-f24d8390-cd48-42d7-a3ea-c075b69c127a
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/input/keyboard/mt6779-keypad.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/input/keyboard/pinephone-keyboard.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/input/keyboard/mt6779-keypad.c b/drivers/input/keyboard/mt6779-keypad.c
-index 60e6ad97cf59..a9f62f02439e 100644
---- a/drivers/input/keyboard/mt6779-keypad.c
-+++ b/drivers/input/keyboard/mt6779-keypad.c
-@@ -195,6 +195,10 @@ static int mt6779_keypad_pdrv_probe(struct platform_device *pdev)
+diff --git a/drivers/input/keyboard/pinephone-keyboard.c b/drivers/input/keyboard/pinephone-keyboard.c
+index b4a02ade3a80..fdf2c270bacd 100644
+--- a/drivers/input/keyboard/pinephone-keyboard.c
++++ b/drivers/input/keyboard/pinephone-keyboard.c
+@@ -412,12 +412,6 @@ static int ppkb_probe(struct i2c_client *client)
+ 		return error;
+ 	}
  
- 	input_set_capability(keypad->input_dev, EV_MSC, MSC_SCAN);
- 
-+	keypad->clk = devm_clk_get_enabled(&pdev->dev, "kpd");
-+	if (IS_ERR(keypad->clk))
-+		return PTR_ERR(keypad->clk);
-+
- 	regmap_write(keypad->regmap, MTK_KPD_DEBOUNCE,
- 		     (debounce * (1 << 5)) & MTK_KPD_DEBOUNCE_MASK);
- 
-@@ -208,10 +212,6 @@ static int mt6779_keypad_pdrv_probe(struct platform_device *pdev)
- 	regmap_update_bits(keypad->regmap, MTK_KPD_SEL, MTK_KPD_SEL_COL,
- 			   MTK_KPD_SEL_COLMASK(keypad->n_cols));
- 
--	keypad->clk = devm_clk_get_enabled(&pdev->dev, "kpd");
--	if (IS_ERR(keypad->clk))
--		return PTR_ERR(keypad->clk);
+-	error = input_register_device(ppkb->input);
+-	if (error) {
+-		dev_err(dev, "Failed to register input: %d\n", error);
+-		return error;
+-	}
 -
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
- 		return irq;
+ 	error = devm_request_threaded_irq(dev, client->irq,
+ 					  NULL, ppkb_irq_thread,
+ 					  IRQF_ONESHOT, client->name, client);
+@@ -426,6 +420,12 @@ static int ppkb_probe(struct i2c_client *client)
+ 		return error;
+ 	}
+ 
++	error = input_register_device(ppkb->input);
++	if (error) {
++		dev_err(dev, "Failed to register input: %d\n", error);
++		return error;
++	}
++
+ 	return 0;
+ }
+ 
 -- 
 2.56.1.750.gf70dc682cf-goog
 
