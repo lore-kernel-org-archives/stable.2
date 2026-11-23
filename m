@@ -1,83 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795464090;
-	b=DgxgwQSYKWNXpKDtnD6FEvLaRumABNYdLDwC+LSSq0mZDECXYG6DCZ9G87Z4pcQCXuPp
-	 jCruQwMW5JKIxEyxdMb5STtGD6TiJMDKEcp+kxX0BoPVOphfxOkGX9m6aQDbbY1o7tqDP
-	 FeoDSpGYLxNmp1pz8t7gusRvOQ/eM8sn412bCCBq1EN9shSC46yvyxv+yLEpFRx9zYiki
-	 hZPFQU3wGHK5SMae6dXCd7nC06leWXwM6eo3iA4Z3calXcOV9C+ZgzGEQ17wcjo6s11sm
-	 r4KW35VdTZr+Ufnh6uaTTsLB9WNme6Ch8LHf+Cz7HEjIJCKVz99WXQ7ZpC04a7i/+XA==
+	t=1795464096;
+	b=FLotbTwJ+MkZJpgK++gSi99TmiNWhutFQzb3nO8u2qEV9kLWukkDhE/CJlZXAwu+fpcp
+	 78kq8/RN6wUn6u+2tg2EgeWvczLSE6/dJNcknVs3WR7v54t6XGulEOV51z2F0gM3y3P/R
+	 RD7XTH2NTKLtCZN1Hl2/3NP8DyNaudHbLWLhaVFGYmTgoimgMTISymeu37oTXan+EU1Bb
+	 zKmNkFBmR794MrHNIevfIMdUJx9eDTAzDcH2w8ZQak7ZzFDCKkTa15/KLyz/gRRZhIxkf
+	 h3n6u9YFXtStZvVNZMvvYxMohKrYAchdGxRbWzCcKdEwX/spRWP7mt0iHOm0Jy4aBKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795464090;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=b79lk37u0SJ8mJ3I7WmNVa3EmDE+Rjthr4bhnCPqMpQ=;
-	b=LFNiezF1cyGCe51ytCyQHDRalJ6Hx9EsCb6GES4DGEXkbIRwPqQQxC3GIyOS4iAJl4m9
-	 26QZDD0jgySGhoCtaAuf48c+XalF3ZbeF4596JTXUF5PZa48b1KQrOiOvvAURFyjd3C0k
-	 B02zBcrHrEAwC+D/CJB1/HjWMpUH0TOCBPNokcAsGOIB62GCw7mcVQo9rfyOY0m1nI03l
-	 ZGI9EG9UA02rCHXiEEkSBp8KnLtmAP2Vx//xkVmQN+/Ad2pvTtJQZZOPUpnl47s2vKj0W
-	 GQmMzX11GjFHeDRkYgDMnPLfQ4jCek8zw0s0MmdwwUUj2dpqCJ0OBAE2DFY2a0aZ6SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795464096;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rIXsJMehOPg1X0Zqd0qk76Y3DfAiySDWaSSPKtHk4ok=;
+	b=qDp4UmzcPEMq9Z5Cnt80TyzSKBo3GcsMaOWKPErY5rqwn33a7XMxXKhS5f0ux14M/Chn
+	 fqKFOTyFZpY3WjF34VpzQYPz2Ejp+ipqNM1RoYfy4uvPbsnOcckj/EYyHy3Wfa6sefqVn
+	 B9BJ5mU/UtwGpK1lsdDjkd9+WftBZEv6OzXn7tthEff5WFIlAgI2E/gfNeWV3C2K+vyNl
+	 rnjd6eBdynJY38vE+QZVu99L61rNIxk0aLIqx0aeYSK/g/dSRge8EHqtx6qlx4KmFzeMG
+	 Cw9eQaQCduoyD6MUDPMmmFezkcSJix/n4h9CGlhC8/SqwYX3rnlnDCWX0jvWkHRINcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eK70WAKg;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kN64DBPq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA8D606A32E;
-	Mon, 23 Nov 2026 20:01:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AA8D606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85E0606A31E;
+	Mon, 23 Nov 2026 20:01:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eK70WAKg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795464090; x=1827000090;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=d4BrmHEXpgt7oMAzMDt8SUlATSq1VlxdwbnTLGIvVfA=;
-  b=eK70WAKgSG6TLw84A1DukT1wW0QyRZHFuQC5viY/XoWuTqrOSLe5V2Kn
-   B3g2EqFsRGvPjSop/QWf/TbkiLkEeIEJN2JbMuNaQBesRGneMaANcBYZY
-   UZAQZgmR02JEuuP9f3MmNUwEE3/vIe/m45o15ErOcG9ViuzxCRqM5rKE/
-   LV3NfksQYNj+I6d6pTgwTh2CTs6CzHAi60ks/KHFatuwEL+wfHWj6IjNd
-   no7tSFOT/mFr2VztjL36BaNHaodT27fjBTJvT/cfi/wbs4qagaHQk0nxq
-   cHeTquUaELJWkJ1Bh+KTyXcyG/8XK4RiOBXycw4UfRnuAqruS23bZWBqQ
-   g==;
-X-CSE-ConnectionGUID: 51mgXu26SYKbY6oN8NH5+w==
-X-CSE-MsgGUID: SewgYZoBTpKM/VPKw1faEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4127378"
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="4127378"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 12:01:27 -0800
-X-CSE-ConnectionGUID: aCErOLmZQLSSlaHc6h+Epw==
-X-CSE-MsgGUID: RxQv2lpfQ8OSiPc/k+2Ckg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="11720551"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 12:01:23 -0800
-Date: Mon, 23 Nov 2026 22:01:20 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Gary Wang <is0124@gmail.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Thomas Richard <thomas.richard@bootlin.com>,
-	Daniele Cleri <danielecleri@aaeon.eu>,
-	JunYingLai <junyinglai@aaeon.com.tw>,
-	Louis Chen <louischen@aaeon.com.tw>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, BillyChou <BillyChou@aaeon.com.tw>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 4/5] pinctrl: upboard: fix I2C pinmux-select set CPLD
- GPIO OUT not function mode
-Message-ID: <awSbkAjWErc0ac_n@ashevche-desk.local>
-References: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-0-f2322a91686d@gmail.com>
- <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-4-f2322a91686d@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kN64DBPq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846FC1F000EC;
+	Mon, 23 Nov 2026 20:01:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795464096;
+	bh=rIXsJMehOPg1X0Zqd0qk76Y3DfAiySDWaSSPKtHk4ok=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kN64DBPqSjG+Fugy/hLzaaFYsQ3XKdnGiJc35gj6B0l5HVSBpZWO7tALW84V8/SOU
+	 /DGsf0knpSiN9eYQqOWEa9hIUf5TQ9uomQ/1a1VGerpHS+jjcM8g5l3ssK0gozDrNT
+	 NFwcr+TyOoqJrwARQ0+8SItQoym+F/mav2ufDhzvvq+4Cuw3s6tEbfnu1p1z6aKprN
+	 0WjpeJZ7esLN4BGRXrdr+Vcv1zpfAs14M3AylZ4K38QMXx3Syrgomy3o/BEuXwCfCO
+	 PabL3DJY9YVaRN79QmXy2Qui1HhIZBizKhe7M12e3Pau4nAB36Bo0Pz6Aajy94OKs4
+	 3Cn5e6EJtce4g==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Adriana Stancu <adriana@arista.com>,
+	Pavel Machek <pavel@denx.de>,
+	Piotr Ziecik <kosmo@semihalf.com>,
+	Enric Balletbo i Serra <eballetbo@kernel.org>,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 10/10] rtc: bq32k: use u8 register buffer in trickle_charge_bypass sysfs
+Date: Mon, 23 Nov 2026 19:59:21 +0000
+Message-ID: <20261123200012.502284-11-lee@kernel.org>
+X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
+In-Reply-To: <20261123200012.502284-1-lee@kernel.org>
+References: <20261123200012.502284-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,30 +65,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-4-f2322a91686d@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 23, 2026 at 11:16:17PM +0800, Gary Wang wrote:
-> The CPLD I2C pin mode setting following uart & spi used modes array
+bq32k_sysfs_show_tricklecharge_bypass() and
+bq32k_sysfs_store_tricklecharge_bypass() pass an uninitialised int to
+1-byte bq32k_read() and bq32k_write() transfers.  This leaves three
+bytes of reg uninitialised on the stack, and on big-endian systems
+populates the most significant byte while bitwise operations with
+BQ32K_TCFE inspect and modify the uninitialised least significant byte,
+leaking a bit of stack memory on reads and failing to update the
+hardware register on writes.
 
-UART
-SPI
+Declare reg as u8 in both callbacks.
 
-> on device AANT0F04.
+Fixes: 4c466872d8ae ("rtc: bq32000: add support to enable disable the trickle charge FET bypass")
+Closes: https://sashiko.dev/#/bug/linux-1ab3635e-98ec-4ca3-a4d3-58033a48c44d
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/rtc/rtc-bq32k.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-> CC: stable@vger.kernel.org
-
-Should be better Cc: (CC: works, but looks non-standard).
-
-> Fixes: dca2f73cf19f ("pinctrl: Add pin controller driver for AAEON UP boards")
-
-You need to read the AI slops, test them and add your formal SoB.
-
+diff --git a/drivers/rtc/rtc-bq32k.c b/drivers/rtc/rtc-bq32k.c
+index 0f50cfce88cb..7e5080eeee3a 100644
+--- a/drivers/rtc/rtc-bq32k.c
++++ b/drivers/rtc/rtc-bq32k.c
+@@ -204,7 +204,8 @@ static ssize_t bq32k_sysfs_show_tricklecharge_bypass(struct device *dev,
+ 					       struct device_attribute *attr,
+ 					       char *buf)
+ {
+-	int reg, error;
++	u8 reg;
++	int error;
+ 
+ 	error = bq32k_read(dev, &reg, BQ32K_CFG2, 1);
+ 	if (error)
+@@ -217,7 +218,8 @@ static ssize_t bq32k_sysfs_store_tricklecharge_bypass(struct device *dev,
+ 						struct device_attribute *attr,
+ 						const char *buf, size_t count)
+ {
+-	int reg, enable, error;
++	int enable, error;
++	u8 reg;
+ 
+ 	if (kstrtoint(buf, 0, &enable))
+ 		return -EINVAL;
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.1.750.gf70dc682cf-goog
 
