@@ -1,98 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795454993;
-	b=BFHHvqH7QITjwbB8iAlnFpLq/7hQOPUGYNNhSg12ZiUODzo0K3Tak5qcyQI3J7TEFw/C
-	 OGJcG40FYf5pVLi5N3sFfDS6IeFXkvH/dHCwWjxgaipQP1y+J5AN5uJ9JPpMsIEfqr6d0
-	 cvxW3YXKQ34TDHbKsDfL7B93D+nNTEADK0+6wlTkyjSyo669NkVKXEt9I6M0MGA1F5viY
-	 g0/PTKDB96124KXoE/pMNejuVpXV3vt1ztdRvfekWa1SCbACD+ioybpZM60idF16JP4jp
-	 j6vR9lP/aMitOq7bgr9s/cepfeA7PyEbK4W+zpcIqGvvDkgHlYoSaCmVOds0y6fvM4g==
+	t=1795455128;
+	b=i2r65fjV90midKQxMh4TzCs4/MLrRiEEMfkA2MeSqc7TdMV/EgUVeWELKxxNYs1fKL+0
+	 /TYoCTxviaIr3+U957i9BkOSktHROO2zOeZoTPZiIPX12ex/VcZiCL+BqEL0ojetb1qDy
+	 BI+ShF25s4RF/KGE/aisbq63vlDQRPAVNcVRL8Bfuw3gbWzPDtfR6oIlhEWkOfrQCh78M
+	 3baUdoepSvU52s+Bwg4GwK+EXUgD6zbHNMPItwx/bqsYZYJ2LX2TzPioK+gA1w3tDg4bE
+	 6zi2+HPn9EMXGv6Whigw+P4+/xGSnCM/SWFmvOHlOiNzWnvfhGo042bFXUxWelXjevQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795454993;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=P7Nne5ji9F4bYhC6KrYcAqIhYijl8pxHpY3INoGZQk0=;
-	b=mSPcMSe0t+dUam12gKUqcYxQ0s9YKZBTuIkZnDfm2fcTi41bBr2elimYOn4coDAt1fhJ
-	 tGN4m/gghJaqQ1ig3GnFH9iIsL7s5fO1xeS2P8bG/2dT6iyyzYcUrVbSB9X2/n4LizeWv
-	 JJSNagyjstBL5o4HmE4AZBistseAF5yzTs9+HSls4z50n5fn0tTL/Qw1Se10m6RDL8y+h
-	 oK29O7G+/J4OKo7mmA4AaX0hRkRjJxUcWlRbjSi45au7L279SwcR0i8gqLKvcbVRohacA
-	 XTyyaxfL3g7Yq+Dnlvd5pJr85Z0YhhI8WJ/abjYZaQI+3SdoU96j2GiU8F6HKiBHHQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795455128;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=1a4TM24Bx37KhzPX0EKcngcxqi/da9ANdKbxr2maRdo=;
+	b=0fIMb2fTPGVYpLud1jYoATbr+Vj4rngL47ST8sfYU2TPVLIDRqaa/HkNo73BlijVbJAn
+	 7/pgI+fOcfuU/Vbvge4ykjGKVeEO6HIDgYJDl4FFHw7U1zhmPuRDvR9QRhYJMhDRY5Xbs
+	 tz3/X/1GLwLnBtQIkC3x9FjRp12ZbSDjWy/rRC+nX2DPjEOgH4C4L4yGY38CSaBWNgWd2
+	 2C0TeipgZtX682oEWrbCWK68B7LnulWPjntslg4C6TyWfFx+gLXcZ5CGuY0u1TpSVDTWf
+	 /h5/NvjNO8O5Wc05efF7euZJFL90uNEqVJdhb6OknIaYaJmgvpANS7vcMQ8cgmNyYpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w7hm4+LN;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=e84uq7aT;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=fgajgmYm;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF7ED606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 17:29:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF7ED606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66568606A33C
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 17:32:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66568606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w7hm4+LN
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4bb70074ab2so37522815e9.0
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:29:51 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=e84uq7aT;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=fgajgmYm
+Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANFXfAB3631273
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 12:32:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=1a4T
+	M24Bx37KhzPX0EKcngcxqi/da9ANdKbxr2maRdo=; b=e84uq7aTN+paLgiRpBNO
+	jFpZrFwSkNAZb0pLrPBFBMpeq7xY5VF5Ke74YGVhQQhgB2XMzCUH3wtB+DektBiR
+	qPo9ynkIbzCzlLUmkih4RkrbewMTNmaLvk6XxPhBoaZ8L4ukPmaKxPqpWeBbJLLc
+	uelcoHkyG8W6GveecAnwBSg3Yp8SkpLpDehjKoA99YhreNu9TwIUWlL5Tbv8AAM7
+	bQOYm9/5nWyXZcsZXTj1dP+reEx73v7sueTzpgokaO7URE3kspWKIKGZsluDsTH3
+	+sZgnA+tjE6t19HGhCCmkFQBefGvug9EszN1p4Ts6fdQLWzQIgVR9TFNWu/q/bNX
+	NQ==
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4j4qg99uc3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 12:32:05 -0500 (EST)
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-677c2db10b1so5368903d50.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:32:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795454990; x=1796059790; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P7Nne5ji9F4bYhC6KrYcAqIhYijl8pxHpY3INoGZQk0=;
-        b=w7hm4+LN5fPT+lPHeN+Pd1qlDmizClPSVuPvglSoPGeKJTBGsmiMXPdY6qYaPtU4K7
-         iTjGQnTEoGCtJEBLYztxRH6behZf9WBrMr+9x+zmNjU3WCuHJc1X0Ju+fN4ovrWB6Ade
-         JxtmMyysijUudXYO/m3LL71e+hfH5bsR+mX45WtlyyGP+0PYCAedihbGLgJu7yp/hkJM
-         NmS7QR1dwftYSrgfT3l8DxsCzBQYfAgHY/bfuz75kLCJ1zfPHxDe745HaAVXXE1MI1oO
-         fGi7FbddhY+fig+yQhoaFAZUJmOpS+8+qjUpdXe68rKICR5OXHMBCg9D7l6lo0runOQz
-         yltw==
+        d=columbia.edu; s=lionmail; t=1795455125; x=1796059925; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1a4TM24Bx37KhzPX0EKcngcxqi/da9ANdKbxr2maRdo=;
+        b=fgajgmYmeS2XJLI+qYcBemiE4xcL1SjJ3q6gm8aGHAabTQZq4w3gsWXurlCJ2bn5ls
+         xaslu/vLTxTO0grqUUpYfv3R2YHBqaN3WTtsWeCI/vyAvcZnN/L/HBqXWOCqY6Tzz+YL
+         i2jeC/2ToZ49F+CWBjS5pZLZIRz1ncc18QuH/N5wwi8ddRVzveDCC4Qj6LCTZ9peGRGs
+         /n65F6pukhY1lsB2lp4S9LAr+Ri8arYWgG+IepkieWiAjyJ+jJGZHc9vZTSnxk4LlKEa
+         eU5YvqCtEA4YwYi9PMKAkpy4nljRzmiVP4lU5u2LCpyanSlQr/UHsrBhhG9X5cMBQD8G
+         /xOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795454990; x=1796059790;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795455125; x=1796059925;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P7Nne5ji9F4bYhC6KrYcAqIhYijl8pxHpY3INoGZQk0=;
-        b=uQOZADvcl9KiqIOrtw389t5Eb5NKGkYBVnO5JPfYG36fD3ZAzDY11Y1NkKvSmcQYqT
-         YhrBdVX1Rhz3awa3L34zy9Na3R+E5/cHOLfjF1ALPWyx/LqrFxI/fkZdAiODQQHsHt8+
-         dBIGTJo/JSuZpfBIHRSjqgidmCFNGciOv7+zq6cBN4dxu0NsgaPGwKRlgJE/cCNXyYQZ
-         2/eRJSt9qlnEaqrYrr3Ji98YRi6V6I5ptIKBS+DWv2TssvUECwbGsCmyBJAZGAuurvx2
-         k53yvwWGujV2SBWJfTeXUtBj2zG/Odu71WfxwbGjjbDHT0RdZhYcyF1ROpfmjT8xHSl3
-         nEwA==
-X-Forwarded-Encrypted: i=1; AL+hErH5TEO8MdKWw1XQphd4iLfa3f+hQQpRZPMviOSOMzzSjaFMrio5vb70GkRLGKrpCum+Twb7bHg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8m2L0kAil4iEnCGxxbIMbE/8/Of9ogN/kxkm2uNHuLkMR8aLiw
-	n73uEbAMELeDIsI90kZiW+Jd4tM9LhNpDQuJl4YzbIspBd4imjh2GjKF
-X-Gm-Gg: AZFdTZdF/NjL3QnRfok5daY0F7mQnYhhyiyn5CKArfX49EguMVQGvtNm0d837ilyRXf
-	RZsAwVhF2crkXtxGRsBhJdYgmpCx+ITPpyv2Du4LpaG7E3yrXt5pjbKLZ0b9b9GgZBA8cPw9CZZ
-	RglwiuCMmM/oFDHFBbYULRxrclPaYaSuz5nVX/LKWLrNg7YlGARhPt1QdBp4+7YAD43OFTQj63n
-	WsVCu4k22ZoL4EufxSxfDPI0YTL8l9E2HDRha0FUEYByZzCv7Durlmcm6Q8SjtQ0ksVC+DpSgsQ
-	32pVOJnET1ssS6et1avBUUpdeC9d9pPTahEsUnHRbor9D/q0QQUsIJ1tj4zjFptnpjNCQHnd239
-	VkB/ldYZFsPJFvE6O5W/HdhGtNK87xnG7e44RIzZwhijstF2ZJubHCURuyZ31CUwMQf4QY93QR6
-	PTcyQcJnspfP0MsqAD9itDYoNGglJhphfWt9zdhSjZ+kcSASV1z8vb9SuB7fL3pqvwDt3VxJMzP
-	2aVKGJsLY/RLgJqzUXh/1w4qIkN8T15ffvRlExTQ1dJXD1jAv0RXJ8B+GRD6EOm5mGSxs67K4wD
-	ez7VchNp+02LAMdrNVrycvIR+w01+8AQiAhg51uz/+tjkvAkTK7+iY5v
-X-Received: by 2002:a05:600c:4e0d:b0:4a5:e6fd:65e5 with SMTP id 5b1f17b1804b1-4bb88922a67mr247745395e9.31.1795454990125;
-        Mon, 23 Nov 2026 09:29:50 -0800 (PST)
-Received: from DESKTOP-V28CTA4.localdomain ([103.125.177.105])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906cdcc1sm180101075e9.2.2026.11.23.09.29.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 09:29:49 -0800 (PST)
-From: Arbab Haider <arbabhaider649@gmail.com>
-To: Theodore Ts'o <tytso@mit.edu>
-Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Arbab Haider <arbabhaider649@gmail.com>
-Subject: [PATCH v3] ext4: fix inline data conversion races when !EXT4_STATE_MAY_INLINE_DATA
-Date: Mon, 23 Nov 2026 22:28:57 +0500
-Message-ID: <20261123172856.100887-2-arbabhaider649@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        bh=1a4TM24Bx37KhzPX0EKcngcxqi/da9ANdKbxr2maRdo=;
+        b=0sxmynZK8Zz5RTP0hR2OtdSR+1A6n0fjmi8jQUJUg4RtdsR/eu7AmvWXl8k+vtiDlp
+         Ww+0jTblRYf5fePyjMhYYGYuQgQqUTBReW80KtqO2M7Oh7bFnQuzQUQreuSxIvYxIsAM
+         O7ODz4zmFUvtSJuDzTnOW013yQuvQkDIQYQ69Yg6bVoSY902fpFZCR2xzlY9gTTRAjYs
+         S9ZLlp8s1dvPlGJ7343p48SIGLPgHz2Hnq3+Y8KLTv2Dr6P1wZLl6dLZxQ5riQ6UOMFv
+         Easf0MePZWJfeYPlaqqgBmj/iVFP75xDy/xtf8+eiNOImK3yeVMkAFzT6NytdmgTt7mf
+         lNbg==
+X-Forwarded-Encrypted: i=1; AL+hErHDA8NmwsU/4+s7fhSQVobB/t6MDxf0xLgv6AYdGKaDcq7qLIdx0ERnA9KM8VdxVJ8L9DqdGhQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HyoqmzRLsLnXjHgDOHGpZpCFRJTk/R9bmwJ/et+ZrgfkQMy9R
+	1e2Leq6YxxBduoCvvymr2aX1Dc2WCnB1cKF5MCy6K3Ls6SiVxNyOcLeOFqg+X54qovuIbPXYx9g
+	jA2CXXmvsD4mRLFhsWd2yVQKItlGTTYZK347hA65l1X/x/j4OikGt3Q==
+X-Gm-Gg: AZFdTZfPzZkSy8sMgBFQxOTGEWcquwtWwM45VbNKrV/vafRkZmNdojJ0iux+10IHVuO
+	ay4acRCMinO+7yVPxzC2rkLSpCSleCsWXYV4WhULtxgNnEIUxPfkk+VScMRga+KkORowLxvsGX5
+	4VijypYwp/VW5v4917p3gtlih1go8w9C84wS95iLlIdXZ2XsF4cL2Pe6dRH+Eev5E2L18gZWIyV
+	a4o12zElG/nirDxLx7hpvwH2U9mWd1qyvD6kg08ziotZEJUANYYquXGPUmsdEZpQxqF8CNh/+gM
+	3P5htn8O7SStXSf5mwoGFKhDDP95uEsFTEOrNscMJg+SNooLQaWf/msd9NB1hdHNgnJYwEAeWAU
+	B/0pS52nxxU3l+l9q9pacSOMi46gcKHT/pURij3Hws3YpAHGSAPSBQnceyXL6z7vkkpAkeYLeEs
+	TcZwIUJoWZqTJgjioFjeTIxYDQx63YIHc5HFJCbW3dvLv8uZ52jwZQZRnYFC7ZpYblizOF10Y5x
+	5FqVE9XsvPjpZ4FTVsfFuuu8EW3AAsL1yNHgyqUkFF5Oja1KrJ0m0xAvj4Al7S8CXA=
+X-Received: by 2002:a05:690e:1209:b0:67d:c588:e55c with SMTP id 956f58d0204a3-67df42cdb00mr3845651d50.5.1795455124696;
+        Mon, 23 Nov 2026 09:32:04 -0800 (PST)
+X-Received: by 2002:a05:690e:1209:b0:67d:c588:e55c with SMTP id 956f58d0204a3-67df42cdb00mr3845632d50.5.1795455124303;
+        Mon, 23 Nov 2026 09:32:04 -0800 (PST)
+Received: from [10.206.149.246] ([129.236.230.139])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-921349f2186sm113214946d6.29.2026.11.23.09.32.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Nov 2026 09:32:03 -0800 (PST)
+Message-ID: <625b9f25-9d9c-4445-8920-b8a4e549127b@columbia.edu>
+Date: Mon, 23 Nov 2026 12:32:03 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,222 +117,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/shmem: fix swapin livelock on a mismatched large swap
+ cache folio
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+        "David Hildenbrand (Arm)" <david@kernel.org>,
+        Hugh Dickins
+ <hughd@google.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Kairui Song <kasong@tencent.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu,
+        Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+        Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+        Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+        stable@vger.kernel.org
+References: <20261027-shmem-swapin-mismatch-v1-1-84e30aa3b9e5@columbia.edu>
+ <3c61a49f-6a0d-49eb-8682-aece4e7e7226@kernel.org>
+ <4af8b7ef-8028-4b98-ad21-5620f8b92f42@linux.alibaba.com>
+Content-Language: en-US
+From: Mani Tofigh <mt4022@columbia.edu>
+In-Reply-To: <4af8b7ef-8028-4b98-ad21-5620f8b92f42@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA2OSBTYWx0ZWRfXyA+WKCSDf2jk
+ cI4r9J72MZFaKifIxINbQrrBWVQJ23d451KwGPZUfXx2xyqo7/M09dyTNe3XLoZ5NTQYgz4KA7O
+ q5xuVyB4Ii3wZF9PaXrlT68ml4IwarXFlBh85shx3+RiTh4PIaKV
+X-Authority-Analysis: v=2.4 cv=MYv5KJ/f c=1 sm=1 tr=0 ts=6b047895 cx=c_pps
+ a=S/uc88zpIJVNbziUnJ6G4Q==:117 a=0AiHgshebfoioin7TVvpCA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
+ a=VwQbUJbxAAAA:8 a=EcUMADH1NWUpQPqG1_UA:9 a=QEXdDO2ut3YA:10 a=QYH75iMubAgA:10
+ a=nd2WpGr1bMy9NW-iytEl:22
+X-Proofpoint-GUID: CRdqHwUpVwxUTl1vQsOEl3actKVwR_U-
+X-Proofpoint-ORIG-GUID: CRdqHwUpVwxUTl1vQsOEl3actKVwR_U-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA2OSBTYWx0ZWRfX/HU4UKHSoBwL
+ dXC/J32V7ExA/Fm2kyxmlKEpTWcSqAc70BM6fvF/J/uV5OxsYIdSMRV0meLL5sibNMtZgaIjNpL
+ pWuV9+2AP6bq4wTcbdAl6FKZwOxa4v5oaKxkHaJo6BoIBSbs0I21DWGAvaSmDit27VfibTgFk7d
+ AHRpjwM5myEUvNtFl000apXqQOQwxL1FqF24vT8gA81jEVQLeU7zbTJ5dZ4aMOPkQBKvHkRPuWF
+ ZgYXqNwLWXvk97ofYPgEKcRs9M6aYxsJkGOuE2H7NZRhhL5ALC9c/guc0kNwv56G/Rjvhzk/fVz
+ fMfefjxSor7JcSYHiNYCTbKS4GWet7W6rr1I6WQP7lk22c117yUqJcPgpjjXvz7eJp0l2Oul/j3
+ MOurEsS6ZHJZATRGxDiRgxM+uo39pOGquhvrVQu+Wt5uVGQL/nPAvsQfrk79U/Xyg++RdlNBl07
+ gSEB2P82yjlEMXtNwkg==
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11975
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=10 malwarescore=0 spamscore=0 lowpriorityscore=10 impostorscore=10
+ suspectscore=0 adultscore=0 priorityscore=1501 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230069
 
-Commit ef09ed5d37b8 ("ext4: fix bug_on in ext4_writepages") attempted to
-prevent ext4_convert_inline_data() from racing with delayed-allocation
-inline data conversion by calling filemap_flush() when
-EXT4_STATE_MAY_INLINE_DATA is already cleared.
+On 11/23/26 2:18 AM, Baolin Wang wrote:
+> That makes sense to me. If Mani has no time, I'll take care of this fix.
 
-However, filemap_flush() is asynchronous (WB_SYNC_NONE) and can return 0
-while folio 0 is locked by a concurrent buffered write and
-ext4_has_inline_data(inode) is still true.  ext4_convert_inline_data()
-then proceeds to ext4_convert_inline_data_nolock() even though
-EXT4_STATE_MAY_INLINE_DATA is already cleared (meaning
-ext4_da_convert_inline_data_to_extent() has already moved the data into
-dirty folio 0).  This causes multiple bugs:
+Thanks Baolin, I was actually about to send it this morning (and just
+did!) And yup the race is real and the patch fixes it. sent here:
+https://lore.kernel.org/all/20261123-shmem-swap-write-failed-v1-1-41a0115dfbf1@columbia.edu/
 
-1. If ext4_convert_inline_data_nolock() succeeds, it copies stale
-   on-disk inline data into the newly allocated block instead of the
-   newer dirty data in folio 0.
-2. If ext4_map_blocks() fails (e.g. -ENOSPC or a corrupted block
-   bitmap), ext4_destroy_inline_data_nolock() has temporarily cleared
-   EXT4_INODE_INLINE_DATA and set EXT4_INODE_EXTENTS before
-   ext4_restore_inline_data() restores EXT4_INODE_INLINE_DATA and
-   unconditionally re-sets EXT4_STATE_MAY_INLINE_DATA.  This races with
-   ext4_do_writepages() and triggers:
-
-     kernel BUG at fs/ext4/inode.c:2949!
-     RIP: 0010:ext4_do_writepages+0x25c0/0x39a0
-     Call Trace:
-      ext4_writepages+0x285/0x500
-      do_writepages+0x205/0x520
-      filemap_writeback+0x1a6/0x250
-      file_write_and_wait_range+0x8c/0x150
-      ext4_sync_file+0x2cf/0x950
-      ext4_buffered_write_iter+0x428/0x5d0
-      ext4_file_write_iter+0x7cb/0x1450
-
-3. A concurrent ext4_da_convert_inline_data_to_extent() can also clear
-   EXT4_STATE_MAY_INLINE_DATA between the initial check in
-   ext4_convert_inline_data() and acquiring ext4_write_lock_xattr().
-
-In addition, ext4_inline_data_truncate() mishandles inodes that are
-already in the delayed-allocation transition (!EXT4_STATE_MAY_INLINE_DATA):
-
-- When truncated to i_size == 0, truncate_pagecache() drops dirty folio 0
-  and ext4_es_remove_extent() removes delayed extents, but
-  EXT4_INODE_INLINE_DATA was left set with !EXT4_STATE_MAY_INLINE_DATA and
-  no dirty pages, causing subsequent synchronous writeback in
-  ext4_convert_inline_data() to leave EXT4_INODE_INLINE_DATA set.
-- When truncated to 0 < i_size <= inline_size, ext4_inline_data_truncate()
-  removed delayed extents starting from block 0 (instead of last_block)
-  when i_size < inline_size and skipped removal when i_size == inline_size,
-  evicting block 0's delayed extent while dirty folio 0 remained in the
-  page cache and triggering WARN_ON_ONCE(!err) in ext4_do_writepages().
-
-Fix both functions so that EXT4_STATE_MAY_INLINE_DATA transitions are
-strictly monotonic and ext4_convert_inline_data_nolock() is never called
-with !EXT4_STATE_MAY_INLINE_DATA:
-
-- In ext4_convert_inline_data():
-  * Use synchronous filemap_write_and_wait() instead of filemap_flush()
-    when !EXT4_STATE_MAY_INLINE_DATA.
-  * If ext4_has_inline_data(inode) is still true after writeback, return
-    ext4_emergency_state(inode->i_sb) or -EIO instead of falling through
-    to ext4_convert_inline_data_nolock().
-  * Re-check EXT4_STATE_MAY_INLINE_DATA under ext4_write_lock_xattr()
-    and retry via filemap_write_and_wait() if it was cleared concurrently.
-- In ext4_inline_data_truncate():
-  * When !EXT4_STATE_MAY_INLINE_DATA and inode->i_size == 0, remove all
-    delayed extents and finish converting the empty inode out of inline
-    data via ext4_destroy_inline_data_nolock().
-  * Otherwise when !EXT4_STATE_MAY_INLINE_DATA, remove only delayed
-    extents from last_block onward so block 0's delayed extent is
-    preserved while dirty folio 0 remains in the page cache.
-
-Tested locally in QEMU (x86_64, 4 CPUs, KASAN+UBSAN+PROVE_LOCKING) with:
-- A 14-case inline_data torture suite covering delalloc -> fallocate/mmap,
-  delalloc -> ftruncate(0/16/60) -> fallocate/mmap, 1KB blocksize, ENOSPC
-  recovery, 2-CPU ftruncate(0) vs fsync races, and 4-thread concurrent
-  write/ftruncate/fallocate/mmap torture (all passed, 0 errors/lockdep).
-- A multi-mount concurrent mmap + O_SYNC write reproducer on a corrupted
-  inline_data image: hit kernel BUG at fs/ext4/inode.c:2949 on mount #1
-  before the patch, and completed 30 fresh mounts with zero BUG, WARNING,
-  KASAN, or lockdep reports after the patch.
-
-Fixes: ef09ed5d37b8 ("ext4: fix bug_on in ext4_writepages")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
----
-Changes in v3:
-- Address Sashiko v2 review feedback: in ext4_inline_data_truncate(), when
-  !EXT4_STATE_MAY_INLINE_DATA and inode->i_size == 0, destroy inline data
-  via ext4_destroy_inline_data_nolock() so truncating a delalloc-pending
-  inline file to 0 does not leave an orphaned !MAY_INLINE state that would
-  cause spurious -EIO in ext4_convert_inline_data().
-- In ext4_inline_data_truncate(), remove delayed extents starting from
-  last_block (rather than 0) when !EXT4_STATE_MAY_INLINE_DATA and
-  i_size > 0, preserving block 0's delayed extent for dirty folio 0.
-- Simplify ext4_convert_inline_data() retry/error handling using
-  ext4_emergency_state().
-
-Changes in v2:
-- Address Sashiko v1 review feedback: prevent ext4_convert_inline_data()
-  from calling ext4_convert_inline_data_nolock() when
-  !EXT4_STATE_MAY_INLINE_DATA (using filemap_write_and_wait() and
-  re-checking under xattr_sem).
- fs/ext4/inline.c | 62 ++++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 49 insertions(+), 13 deletions(-)
-
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index ceee69a66..a74054961 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
-@@ -1890,6 +1890,25 @@ int ext4_inline_data_truncate(struct inode *inode, int *has_inline)
- 	if ((err = ext4_orphan_add(handle, inode)) != 0)
- 		goto out;
- 
-+	/*
-+	 * If the file was already moved to delayed allocation
-+	 * (!EXT4_STATE_MAY_INLINE_DATA) and is now truncated to zero,
-+	 * truncate_pagecache() has already dropped dirty folio 0. Finish
-+	 * converting the empty inode out of inline data here instead of
-+	 * leaving EXT4_INODE_INLINE_DATA set with !EXT4_STATE_MAY_INLINE_DATA
-+	 * and no dirty pages.
-+	 */
-+	if (!ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA) &&
-+	    inode->i_size == 0) {
-+		down_write(&EXT4_I(inode)->i_data_sem);
-+		EXT4_I(inode)->i_disksize = 0;
-+		ext4_es_remove_extent(inode, 0, EXT_MAX_BLOCKS);
-+		up_write(&EXT4_I(inode)->i_data_sem);
-+
-+		err = ext4_destroy_inline_data_nolock(handle, inode);
-+		goto out;
-+	}
-+
- 	if ((err = ext4_get_inode_loc(inode, &is.iloc)) != 0)
- 		goto out;
- 
-@@ -1898,16 +1917,21 @@ int ext4_inline_data_truncate(struct inode *inode, int *has_inline)
- 	inline_size = ext4_get_inline_size(inode);
- 	EXT4_I(inode)->i_disksize = i_size;
- 
--	if (i_size < inline_size) {
--		/*
--		 * if there's inline data to truncate and this file was
--		 * converted to extents after that inline data was written,
--		 * the extent status cache must be cleared to avoid leaving
--		 * behind stale delayed allocated extent entries
--		 */
--		if (!ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA))
--			ext4_es_remove_extent(inode, 0, EXT_MAX_BLOCKS);
-+	/*
-+	 * If this file was moved to delayed allocation (EXT4_STATE_MAY_INLINE_DATA
-+	 * cleared), remove delayed extents beyond the new i_size while keeping
-+	 * block 0 if i_size > 0 (folio 0 is still dirty in the page cache).
-+	 */
-+	if (!ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)) {
-+		ext4_lblk_t last_block =
-+			(inode->i_size + i_blocksize(inode) - 1) >>
-+			inode->i_blkbits;
- 
-+		ext4_es_remove_extent(inode, last_block,
-+				      EXT_MAX_BLOCKS - last_block);
-+	}
-+
-+	if (i_size < inline_size) {
- 		/* Clear the content in the xattr space. */
- 		if (inline_size > EXT4_MIN_INLINE_DATA_SIZE) {
- 			if ((err = ext4_xattr_ibody_find(inode, &i, &is)) != 0)
-@@ -1977,6 +2001,7 @@ int ext4_convert_inline_data(struct inode *inode)
- 	handle_t *handle;
- 	struct ext4_iloc iloc;
- 
-+retry:
- 	if (!ext4_has_inline_data(inode)) {
- 		ext4_clear_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
- 		return 0;
-@@ -1984,14 +2009,18 @@ int ext4_convert_inline_data(struct inode *inode)
- 		/*
- 		 * Inode has inline data but EXT4_STATE_MAY_INLINE_DATA is
- 		 * cleared. This means we are in the middle of moving of
--		 * inline data to delay allocated block. Just force writeout
--		 * here to finish conversion.
-+		 * inline data to delay allocated block. Force synchronous
-+		 * writeout here to finish conversion.
- 		 */
--		error = filemap_flush(inode->i_mapping);
-+		error = filemap_write_and_wait(inode->i_mapping);
- 		if (error)
- 			return error;
- 		if (!ext4_has_inline_data(inode))
- 			return 0;
-+		error = ext4_emergency_state(inode->i_sb);
-+		if (error)
-+			return error;
-+		return -EIO;
- 	}
- 
- 	needed_blocks = ext4_chunk_trans_extent(inode, 1);
-@@ -2008,8 +2037,15 @@ int ext4_convert_inline_data(struct inode *inode)
- 	}
- 
- 	ext4_write_lock_xattr(inode, &no_expand);
--	if (ext4_has_inline_data(inode))
-+	if (ext4_has_inline_data(inode)) {
-+		if (!ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)) {
-+			ext4_write_unlock_xattr(inode, &no_expand);
-+			ext4_journal_stop(handle);
-+			brelse(iloc.bh);
-+			goto retry;
-+		}
- 		error = ext4_convert_inline_data_nolock(handle, inode, &iloc);
-+	}
- 	ext4_write_unlock_xattr(inode, &no_expand);
- 	ext4_journal_stop(handle);
- out_free:
--- 
-2.53.0
-
+Sorry for the delay!
+Mani
