@@ -1,101 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795447990;
-	b=25EvwzZtEr1hZw31geYXkn5vyzGbkWVs6nhUUAF9DyDJLBYiaHX0NshxUDOehc1upHyB
-	 v/0enHrzk5MeXImGJpoSgQuCEn2KOZRQ2isqXIWIRD3/+auBe80ZuqVjvLf5TK+Krq5wQ
-	 bL267Al8r+1+XWKtO1aigeggrNxprb1yxeVbB5RqlBTQOKjJKVSVZNDqTGff4XWyReueh
-	 EmRRkSWxfm4HOnxy6QNGYJ1HZsWmPJvn3CxIiyiTe75fCW3uceHHY6+zkI1w4sNpggrj+
-	 dBoak8p+wre+07d9YRRwx2goJp9IEudL5i42BRlU8JP7HyasmpkR2K3gGElJqBp/fvA==
+	t=1795448234;
+	b=w2vM/MUWwmTrjBtGMkPaEaZCwjqJSkhJTN+rFXdNf26jxpaVkgje0gYizkLleyVUErcd
+	 RuL3qHIBDgu4vQcYbb94s5eYTqReolpoHoiq5Ivz9K0FUgjNtsR358Xv1CyP8m93Dn20v
+	 J/gymu26ZSTvTJp5WrCcSum0tbuJg9GNfvpNiZ2iOjT2HJ9GgQ/bkwCqct/Q4wD0VvZL7
+	 S9i8cAjuM94lrW+qDuE/9yXJKAZ5Uaw64K8mueu3RV+BV9AGgBnWenwGf6shhn9QKQOQL
+	 MR/Xp8ce78+BtwLt4CGdeotSgFkW1nZkounipmkO3Ri6B3SoPqt3eaAIZlDuQ5gA8Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795447990;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795448234;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Om3+ZF0XtREIm6HCfdv7ugOGpXmbs7kvx8h4qtcjszM=;
-	b=49ccME19Pao+wkFuP6BNQJBnOQCTenuvoMOIh2jFQpRHqk0vulMc0HE9UKfkd9QRHdfA
-	 yXahHW98SoCDOyg5WWPQ6WVv1jLxiH7wPFteCEvEk2mAOs+UrfoQ6Byman6YQ8zq22wXw
-	 DLCKPfRc2aaNAaCQzFTRcganbi4xbTXpL/fkUMKDWcz/Cn3Xauyzq8Ui2SNIcuaPOVU9J
-	 I882MFSKYUzckxu/PnNgtrj5I7hw1cjrbE3kr6p9hCpdm2NRoDl0fN5I97F4wUx+M4SgF
-	 bdDirSxcnkGuBTFycT8uwV7LRlI7X5/pko4xamt5rSGu4N1/FWqyQtvtKLKnyKoyP8A==
+	bh=rF0mx83XmYPM2qNwRzWvVTGOMjzCPdNgkj+Hi/DwTQk=;
+	b=McO3b79HA1TWU8egnVYXcdUfM5BCGakbkIPbCm/NlqizM1J+8xH5j0YeWBRPdXYrTiQ8
+	 kGPmh87ocTUAotwqUsDiBxCdFocQNTDi9m7YKQviyKgwlJJooPFOh8TT2HLLrKGVIQu4d
+	 W81ET6D8JNS7FXfH54zMp8qYOkGxECrR/74hi5jLwgqLRZQ+yNtYOFfZ6Z7RV9SS34hdy
+	 pT1SCQKVCRzmP0QZ5dTN3A38nhpQb7UiY7DJ7CDd5Yp5U8gtR7KS4BDJLDOZr4joOz8yV
+	 SP8AQgXHdFOS0sWW8cLd/OXeKzL7KbE5iQIScrkjSrsRWchGvhI3Q7rF24s74k1t8kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asu.edu;
-	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=PDpaJYuZ;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ttCI1wx0;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 596CC606A684
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:33:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 596CC606A684
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC72B606A31A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:37:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC72B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=PDpaJYuZ
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-38699cf08dfso3307663eec.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 07:33:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ttCI1wx0
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b083afebe4so390868a91.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 07:37:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1795447989; x=1796052789; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795448233; x=1796053033; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Om3+ZF0XtREIm6HCfdv7ugOGpXmbs7kvx8h4qtcjszM=;
-        b=PDpaJYuZb+DORPk4kwRe6ZpuRcQHMCKRWIbtR2XvtYy7GdBAgIH2GezVfCd2rGjJ/m
-         5rT5z5RSWLl+ftMa7vlJPFotH8mJMWu2CrcEm5RMDRWU8d2bkS+Z3C/phqgJUa9eWb2u
-         vRZOgjAG6HY0Xg+nGeLndPrxNDTdJNzCO1jsRN/vPHvTTilRiRPPmku299ZIt+FF22Bd
-         4abR9gbzYe4ZB04LCtHIb+foAkU33R8OGQJJIpvfjuM3CDKzXR0fSQh6EeOtL7Hd4L53
-         VvQl9Ol7LHDS12NQB5k2i9m531Q4Z8bTahV/i+OEi1Rtd2o3zIiMS65VwcYGnbPMARGb
-         juDQ==
+        bh=rF0mx83XmYPM2qNwRzWvVTGOMjzCPdNgkj+Hi/DwTQk=;
+        b=ttCI1wx0aaqMSTE1b4pbgAQXeBS6wuUkYvonNVSXOfd9WYHb5ef37UrQePoPZA6FPK
+         drl15Pk9fYg5nM9vcpFPJlthr0SS7aqklu9XFZxuCvYjVoroZA9rBN9tkgo34DfWsjVm
+         QDNF2SDfIbrPBnZmxSXSDm54wCfigwB2rkOoVIjzpBlnqmXLn0DnGxLCNWMpL3VhnYtO
+         DFHOy6y0cV9jQ69o0jcZtQ2qeChfhsmhoigNsPMbIx1fh1icwwtkWGcRXTAa3S8zmCBy
+         spJU1JSA+OTmgk87oDL4Up5uika/3Ke7F59rYaH+FvWnmCdLTwJ2GR8Zt7N5x3ex+l7N
+         khBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795447989; x=1796052789;
+        d=1e100.net; s=20260707; t=1795448233; x=1796053033;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Om3+ZF0XtREIm6HCfdv7ugOGpXmbs7kvx8h4qtcjszM=;
-        b=LSEMwVz8uu8guW/uvX+r6XtIheTapzHda3aVQ3xamdWHC8Hpk6b0XVEWopVtBgesJI
-         p4OQ//pdeTABT1JKF1EPhZGVzjRhQA9CcJsri8pIAmX/zO13N3bTDALu4B0OGMw3ROu0
-         0vk0N+S5BUDfyDc6Z3vk1eLd7RqZFdyiAP+hJkWVdg8n0lIFtOKz3gXn+aXDCUJ/TdGZ
-         146NZ1BtD3s6bxglV4lg1X4s+gpWojAlvd2fQQS6XI65PkQ8woo5SRX+9iijAUAEjTvN
-         KJqAbYxz/sVPlkejUIE0t7MYsYQyy6O2eH+b9ZKJdr5dmO9pGl5G4g35ng1TERxx/64m
-         VaUA==
-X-Forwarded-Encrypted: i=1; AL+hErGRYE7AUTyxJMM45MtV8nhj5FSNvcconaV/YFKemTm3NDlHTK5btyIFp60k3zEwaj0vWcZ5mII=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Q3KVoNg/VSZ1a6zV9K5XJIgp/XePPJQ2ykiK3J3xK1solkyiF
-	Y9gS4jGDzljwE6Gs2BN+XIIy2uhowXVOodJMgQGpiV2fjHEH4h487Qf8XI8vLnjTMg==
-X-Gm-Gg: AZFdTZeTE237637Sq/JRCGNmZn7pAGSYvjiuoStHSPshTOadDtYUqEePO6/xud73XPC
-	dGemThAtb20gdDvvW20kx60ddXAz4Sm3uDI5QU9xPahIjClqcRLlSZSCYOFyz+PAFE7UsBJyXRC
-	kwxc9q8JSp+pii5MY35oXdXHWh2ZTn1KEwcR+EK9EidXzniDFmGCCWIC/wV+kDWYS2CO8cb5Cyn
-	03wJ5WLkyDAMbQFxgEnJ0qlBfpEfVD8vH88AGLpFWIuDCvxik1lAqaUVFLHggVhU5zARiSnJ7qk
-	ugHlTm4Q95vZfQxpAfi21e/5Bm4VcIZBaPL34okG+mjSqueOhTBpa15P6gRytIuBMC1AKxUAs5h
-	J/gatP7xxyVfz+iMJvn5iJP0ot6Xy3DYsp7w9f1VHVoagUeoK1jft43R8kWINB6R0ZhyA6CYlnc
-	RtY8baYUM3D+7juwRvxq6RaWbYQJ9C1zxwtxjiGuRPnr+jY+qcC2qImgaQuKBFPoO2NKi59lKEM
-	YplPVgQ//oeTShewiIrm1DdPPtGtaqKzTez/wpu9+ZsP1jWm0tUigFNHZUr/tfl/8YGaqlmylhd
-	efG4C30ohu9FOuwJMgz/gko/mHBDRZhr6fRCOjH51Q==
-X-Received: by 2002:a05:693c:8947:20b0:386:9ef2:8e01 with SMTP id 5a478bee46e88-3869ef28fe2mr6486341eec.0.1795447989335;
-        Mon, 23 Nov 2026 07:33:09 -0800 (PST)
-Received: from localhost.localdomain ([2600:8800:1e00:25f0:3391:10c3:1717:1522])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385672ce402sm34601237eec.16.2026.11.23.07.33.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 07:33:09 -0800 (PST)
-From: Siddharth Mishra <smish149@asu.edu>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Peter Xu <peterx@redhat.com>,
-	James Houghton <jthoughton@google.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
+        bh=rF0mx83XmYPM2qNwRzWvVTGOMjzCPdNgkj+Hi/DwTQk=;
+        b=Mqb0207EkktQTj2gbw+pWKqpJkn04TPGk2jp4qjTGRbeDKiZvjPDVOJHeRDSDlEBie
+         NyKqBLBGzthG4RpM+4O35A7eK/XHs+Zx1gjhivEJb6sc6EGarRTaZLaJp6qReVEW2WEh
+         9eWvYmx9X3sSXUPCUzcNXBOe71Z5oTxHWErR7e0dDYEED1ShLt1Yddz6CFtZFMs+po7Q
+         tCC5mNs9jKmCZz5azzE0zvok07IlJxbq8OevEMh2BGp7ElhyLApqCjK1fLjT1MbnzZCi
+         OK3WMjK/A3LIt7Ijy/Nt4AgsEGLppDbqqN1FZEm2HKRhCTIWQLo9jcBIoyU+sSUxAcfZ
+         0xOg==
+X-Forwarded-Encrypted: i=1; AL+hErFnrtu/Qb8TjLRtVKbCeLIY1JyQyiCNegEtWRZfbJ+kWKWyT7uUNX+oRooialaMMKy9ringBb0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9NqvNeuK8LjD2Js22j5tEIecGyqyPbx0BL5nwgv2Wn1GQqCgyT
+	yacAAfeYMKMcxhwtiBJn7KTc8IPl4s4S65dJdgo66sKKjw9igjKNZgoB
+X-Gm-Gg: AZFdTZff4KMRtUIwfF8PklkM5pk4CHp/18yVqtcRfAgrRGGGCGD1H1A2pMp7dF0PxiO
+	p7MdS6EYHxiBQxDEJK0UwShFw6TMlBhkvQ3Qsdp3pfX/btr0mBGSY7bMC7KB5dfE1NMaxOI4Rzn
+	K0M1jkAZP8r3swiwdgSKQUCbKBFKadlxWYM4eB9U2E+UsaDSfoZUuYSzR9D4RrZVAM68iWG63M5
+	/Thgzwf5Q2Lz/FPEK9i4B6e7pBHbWpBxJEHY4BMR4YLxzOlabzia9ZzGkUNe8gtxiFihWd9BE+0
+	b+V34qQ9dxmNqmCC+3ZQK7Mh4bypv1d+U5gGg3WoKvjlgAfEbYtAh7GVkmMJSNie9uY9/ifu97p
+	Os6wQ7sJqZHgewbSe9tI+tOKLCiUpcqP0v7MPFFbTs2Fn/Q+iUjhalq+mkFe7HqlzJZHXqD5kw7
+	DQSMWfegWRlS26SmUxmBQa3wUBSlSY8IfVtlODCPTOPBQBAR/pCnP+ejQvmqFZ9NwXJXNbPFMGe
+	JjEFZ4q78AdsZLEin9chtMBpvgKZ1O1Ck68A7nnYl68KbgWNzUjbR3idAUFw3UMSuNLeEC2XgGH
+	C+knlXICb0G9WzmhotExHR7PxhwFixZtwtGKAP6Y
+X-Received: by 2002:a17:90b:3d8d:b0:3ab:a188:b898 with SMTP id 98e67ed59e1d1-3b41c80b970mr17701792a91.2.1795448233074;
+        Mon, 23 Nov 2026 07:37:13 -0800 (PST)
+Received: from gmail.com ([36.112.205.124])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde797af60dsm4050341a12.29.2026.11.23.07.37.02
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 23 Nov 2026 07:37:12 -0800 (PST)
+From: Ziyu Zhang <ziyuzhang201@gmail.com>
+To: ian.ray@gehealthcare.com,
+	david@ixit.cz
+Cc: clement.perrochaud@nxp.com,
+	sameo@linux.intel.com,
+	oe-linux-nfc@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Siddharth Mishra <smish149@asu.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] KVM: Disable preemption while pushing to the dirty ring
-Date: Mon, 23 Nov 2026 08:32:37 -0700
-Message-ID: <20261123153238.1036972-2-smish149@asu.edu>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261123153238.1036972-1-smish149@asu.edu>
-References: <20261123153238.1036972-1-smish149@asu.edu>
+	stable@vger.kernel.org,
+	ziyuzhang201@gmail.com,
+	baijiaju1990@gmail.com
+Subject: Re: [PATCH v2] NFC: nxp-nci: fix deadlock between firmware download and IRQ handler
+Date: Mon, 23 Nov 2026 23:36:34 +0800
+Message-Id: <20261123153634.66973-1-ziyuzhang201@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <b707c629-97a7-4766-955b-64a2a7626004@ixit.cz>
+References: <b707c629-97a7-4766-955b-64a2a7626004@ixit.cz>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,47 +105,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Disable preemption in kvm_dirty_ring_push() so that another push to the
-same dirty ring cannot run in the middle of it.
+Hi Ian and David,
 
-kvm_dirty_ring_push() selects an entry with dirty_index, fills the entry,
-and only then increments dirty_index, all with preemption enabled, e.g.
-when vmx_flush_pml_buffer() pushes the logged GPAs on VM-Exit.  If the
-vCPU task is preempted in that window, kvm_sched_out() calls
-kvm_arch_vcpu_put() while kvm_running_vcpu still points at the vCPU, and
-kvm_steal_time_set_preempted() or kvm_xen_runstate_set_preempted() marks
-a page dirty, which pushes to the same ring.  That push fills the
-selected entry and increments dirty_index, then the interrupted push
-overwrites the entry and increments dirty_index again.  The entry after
-it is never written, its flags stay zero, and the entries after that one
-are dirty.
+Thanks for the patch and review.
 
-Userspace harvests the ring in order and stops at the first entry that
-is not dirty, so it never harvests any later entry, and the GFN of the
-overwritten push is lost.  A VMM that tracks dirty memory with the dirty
-ring, e.g. for live migration or to restore a snapshot, then misses every
-page that the vCPU dirties afterwards.
+For the timeout/late-response race David pointed out, I suggest checking
+info->mode at the start of nxp_nci_fw_work(), after taking info_lock.
 
-Fixes: fb04a1eddb1a ("KVM: X86: Implement ring-based dirty memory tracking")
-Cc: stable@vger.kernel.org
-Signed-off-by: Siddharth Mishra <smish149@asu.edu>
+On timeout, nxp_nci_fw_work_complete() sets the mode to NXP_NCI_MODE_COLD
+and releases the firmware while the worker holds info_lock. When the
+work queued by a late response runs after this cleanup, the mode check
+makes it exit before accessing the released firmware data.
+
+The diff below combines Ian's unlock/wait/relock fix with this additional
+check and applies to the original code before v2.
+
+I have not fixed the other two issues yet. I think these would be best addressed in separate
+patches.
+
+Signed-off-by: Ziyu Zhang <ziyuzhang201@gmail.com>
 ---
- virt/kvm/dirty_ring.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/nfc/nxp-nci/firmware.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/virt/kvm/dirty_ring.c b/virt/kvm/dirty_ring.c
-index 572b854edf74..1ed8b8771c3e 100644
---- a/virt/kvm/dirty_ring.c
-+++ b/virt/kvm/dirty_ring.c
-@@ -221,6 +221,8 @@ void kvm_dirty_ring_push(struct kvm_vcpu *vcpu, u32 slot, u64 offset)
- 	struct kvm_dirty_ring *ring = &vcpu->dirty_ring;
- 	struct kvm_dirty_gfn *entry;
+diff --git a/drivers/nfc/nxp-nci/firmware.c b/drivers/nfc/nxp-nci/firmware.c
+index a953397..33193fe 100644
+--- a/drivers/nfc/nxp-nci/firmware.c
++++ b/drivers/nfc/nxp-nci/firmware.c
+@@ -154,8 +154,10 @@ static int nxp_nci_fw_send(struct nxp_nci_info *info)
+ 		if (fw_info->fw)
+ 			schedule_work(&fw_info->work);
+ 	} else {
++		mutex_unlock(&info->info_lock);
+ 		completion_rc = wait_for_completion_interruptible_timeout(
+ 			&fw_info->cmd_completion, NXP_NCI_FW_ANSWER_TIMEOUT);
++		mutex_lock(&info->info_lock);
+ 		if (completion_rc == 0)
+ 			return -ETIMEDOUT;
+ 	}
+@@ -174,6 +176,9 @@ void nxp_nci_fw_work(struct work_struct *work)
  
-+	guard(preempt)();
+ 	mutex_lock(&info->info_lock);
+ 
++	if (info->mode != NXP_NCI_MODE_FW)
++		goto out_unlock;
 +
- 	/* It should never get full */
- 	WARN_ON_ONCE(kvm_dirty_ring_full(ring));
+ 	r = fw_info->cmd_result;
+ 	if (r < 0)
+ 		goto exit_work;
+@@ -190,6 +195,7 @@ void nxp_nci_fw_work(struct work_struct *work)
+ exit_work:
+ 	if (r < 0 || fw_info->size == 0)
+ 		nxp_nci_fw_work_complete(info, r);
++out_unlock:
+ 	mutex_unlock(&info->info_lock);
+ }
  
 -- 
-2.54.0
+2.34.1
 
