@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795460157;
-	b=cxxFSv8Er19jB/6v/382Kt9e/5+UU4g9O/OAkV3xn1b8oukl5LGQslOXF+5DOUH22uM8
-	 Vzrfvr+QsIUnYmGZEr7SMtDzxid/t7YXit0n1l7VbuFc0jOj3cULVj3K3a8MuShnvnt5T
-	 ts/RU2dFT29vE45XwaxbIoq/X+70HBr2QwEKwE2GNzxDraCXOz15w9qh2dS/GrwQrpEd3
-	 TYsjkTdFxj2FWpNbkfXcmGNsadZLntm/0dzBDQguUyuKH6QCvCLvr2XvfhKxeg1qYOwqw
-	 zljLDPY70oBNBYBFChOv0dXiLmDeWwIOoOSnfAS4kwEly7nmtfKbc92LmeC1IYY8mGA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795460157;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BNSwJg+0HhZxN5eag1txmGeKFOOyqEA8cbyAFIEA6yM=;
-	b=DOA3mBniJfHKUSRXNj5bGHOve5huIYe29289Rl3k9mIrZiCIrfH3I7wJng0NNRCdR34a
-	 Xuwr9t1cLX7R5ycHWMy3lVd9SdOuV7iyElcKJ0z4M4yvBoWvR7N17Sk6A0FzYIZyP5Hh1
-	 bo7uDOxxN6iimK7Kn8liSfKHG5aZpryS48TtYGllkQQ0+s32ZZbqUmFWQIhtUx+mQekV7
-	 g8Xa5NSr/1BJaQHt9yC+euWfV9TorAyADSVGGrZLUutP+2oMLFax8BpW4qpuJ8bi2FNDf
-	 sEVH87QZaVKW38E68p09Xc1wtMisLeHPfJVqJQz3zjgMod88WvJlTc4pccpHLWBbj+A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SWjJFVer;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795460455;
+	b=dcUZNt8mWr4gwbwvzQXizDGe0Xdsypui7YWWDS6J6vFceTIMsPhB72pFUCmNdyK6dtLv
+	 5KckzLJiN+PWvzj2nnDPVY0pbgB+DdFp0c9Z7g8H30qf2yQLybEFYYa4F1LL2UBtNqOOW
+	 lGAUvyH65xOHCvORi23XtTwsh17bUf9KmVLb/HvBHSRcgk+kNfC0Z4+mP4f5mmtJuAPlK
+	 LOlqFqZ7Nwc1SYkwakatb5xPpuP0bbjkTKXc38c9WiwQTYqnVwYnX67Apoc4fV8domy1H
+	 GPOXLCzAW1TH47Dip+w7ZMzFjlx+b23w6UUENdIUitqSU4v3wG2c82ieDRL1Ys2MHYA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795460455;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=6hqSEVVgw4CPVV6h2E6Vul+wGHSIIB7M/bfVK6/0gN0=;
+	b=TgsxY6N9vGXGL+2XIrAwQq8gLNj12/hq7cKYUykDZqAGxZPE98FFL8nNsRChsm00NRSB
+	 C62BfI97g+U6Z4Ck71nHHqE2V98IVwepspoNpzzSe6XWoObCm9gPNEvtPku82JdqyvAy0
+	 d01mykeDCSXjX0zo7Ql+XmkZYlTcJL+z+fSGcXb9bm9ELSjm6UVstm9yiKtSTR07W53t9
+	 dCaeI0vT8Sfhm3D0QGe1OFqcQpOgRL4K5jpOk3Wj5+hT/GLq3UxYrcHG38hiKr8SSu4mW
+	 nxdyGTqHH356jHjYs/sTEJMi/Wvho5nXO4dp2jIN24Isuwrq7Ix2epKVq9WOV7G7CXA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHoxSiHJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21DF606A332
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 18:55:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B21DF606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A18606A31A;
+	Mon, 23 Nov 2026 19:00:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SWjJFVer
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c50ac25cdd4so496994666b.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 10:55:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795460155; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gl17anYRFe861sELn/o315HKHY2oqrbyXvGvaJqsmXQBI/nhUZUYvRFCi2+WZxqR4b
-         QN56oOKDJSiZwwGbQGxBmKaF/Uv7TD1VKA0VRHd71arNn6amfocz3H9w6OsZMXTd+9Iq
-         8G/1w11gLY0htj+dRnq4kRKbmzQL6zTVT1Cg0EAlOuh8A9irISuyaE/EspO3QzcurxaR
-         Vxi3yh9aUX03lk73EoDVGXanJtGiWlU4L2baUbuNs/fSAp3UPTJj2BhpBzpk+0z6Oppw
-         0/GUps9hz0PRDC+LDA8nvDmDigFbCYutQlWhxf2+nx3maq9QmjmV7A05uVZjLRe7GvL3
-         740w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BNSwJg+0HhZxN5eag1txmGeKFOOyqEA8cbyAFIEA6yM=;
-        fh=QTvCAPmOresTffanluaoNG8Lr9qj4Bjx+E1q5DfsDxg=;
-        b=iF+8h+L5XTbnM6wBr8mLPnzUB2xE8U6diNaC9eHwp7qpv0pBONwF+8PvSnytLtEFhg
-         Z2upXvJ4NTdEExjSCxJQiMSsbq/lclTsabHfYDGiWMmEx/WFVmtbtr2/aAMARUMhNMSy
-         U6oASEGlBjF0rqXMV66LxyOOgyjA1DXNY4/nTE3QwRTAxdDTmGeubURtrFhzK8PH0rwm
-         2iPWqsgu1OnCoP18GpPlZ0YDen9xiwS8J4KQ5YCu8EU+EJrmYCDyjgtASFRGL5/GSaoU
-         7XztsNsff5gZOeminZzaCYR32NVwmOAq7F69kePpCF8AmOH1eaWsDA5iueQWMub1NIlB
-         qu1A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795460155; x=1796064955; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BNSwJg+0HhZxN5eag1txmGeKFOOyqEA8cbyAFIEA6yM=;
-        b=SWjJFVerFZwp5gdpwgSwsHCvH/MuBZwcTTCLGvQ2+MQp4fpwRO1TEnK3PIl5WkZa/U
-         4PYBssodVjWkRVnC2iPkYD4laPHHByLLCScMdEpXN4Fcji3zhcktPBk3hTnNfJvWWx6i
-         +xT/2XPzIryntCkoeUD40+jQ9uoeFBS1E4DsHtsDFb5r+ZMBj4ulQvwbkFCvxi/wsmef
-         tYLPWBzGqaQWWib7PVsEorJgj25Ih2Bn+igCF6imMbkjrGjtnADAPJuPHJvIXnQXn8Et
-         jP0ZfP/o/b9OqmZGm5854VD3POC/VDiGbANhdFn7ir5sxDaBdPzx2VSmKpsAU4dHgfOj
-         h97w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795460155; x=1796064955;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BNSwJg+0HhZxN5eag1txmGeKFOOyqEA8cbyAFIEA6yM=;
-        b=MdnfuE32Nd+n77tdUEGSP0BoDqs5HgTX72Oyie6MAtOa5DQ2h9pbYNodzsEzLlcsCE
-         iIJlQDfrykMfLgRfJxaYD1CcvnkE4I5ZsBgMbXuVQyZe/54Oov0Z21pExkb1PxLfgxj4
-         jY0CQM7uPeS54dYMS3qrv2DkVlUdxxvj8MLJc71L9Zy/PdLMDETMMMBzp6R9eLwF9AMq
-         pq+tBQh2KyLCQjnr1HhdpXwrHChCCWHKtIjszjzcJ+eh+mKQRrXJesL+Gx26bYGTmbgh
-         UGYKzRqCm7DLsgaP7zQKl1qAnppGgSNUHMrH18jC+JxODuin+xpqnC5p6MLe4jDARGgh
-         GRCw==
-X-Forwarded-Encrypted: i=1; AL+hErFczVyITA+e9+/26ZUSNL3VKflXZ8twx3mqt60XDKMcnlZ8BHp6QXG0uldLeYlgromalCwKh/A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xc3ljrq/TnFXOQOoYsZznfWwePg40oCg6sR1lkFCfHkcAxNar
-	KkvfJ16Yt9oZPgflbcFLcNZMORQ0H67MibnwCVcBS10Gzh0uUBKXPXj4QqHjOWSjyl8eNQ1Ib/b
-	By6KHP1w47/fSdAkGHrWgnUY42i6imXKli/tmBY8K
-X-Gm-Gg: AZFdTZe/IHwtFJuvxOzrIb3tKAA5qteiHsefFBNzQ18sTwACHFthFyZLFouBBF/jbFG
-	9kUfGHPFPd/f/S6VudqzJOt9u4iRrDWxhMR8ZAYG6NCt8VyrvT8hF7rMujf8DonjfF7oLBM0i7W
-	6uuDvcWjZ5d7Ja4OMvqsXAmMBjFCHOD0bC4EtY7MlcGkSCmzjr+MemY1YmOWbUueVy5/LT+sh3Y
-	wkfNnQLi5Q5zGf+AX5P1Fwd9+trn3yKQZ1WOcRSzkRdZIKtpxFJpTbTFfrHGrLtLLPFf8ypkyTd
-	Zl6zZQF5nqXXSS8QHjg2N//kzfuFO0gD5/KvKG1nfZWn0ub3/6+abz8kPSd15brxyZYzcCHyid6
-	VGiGHwaq+qQsVllDod9jh+j9x5jghiG9s19T9k1TiHaALml5U1fYS8+/eOpO8eOaq9dDZ+fZNfa
-	doXhZFydZLA9gnqM4BBWlZXjeEOX1//ktrNkDkeYARIeJs5Wxf55l4A/NqXm0psyhSVnjxz8jA
-X-Received: by 2002:a17:907:a890:b0:c50:9432:b7e3 with SMTP id
- a640c23a62f3a-c513aace654mr1151233566b.42.1795460154527; Mon, 23 Nov 2026
- 10:55:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHoxSiHJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6161F000D4;
+	Mon, 23 Nov 2026 19:00:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795460455;
+	bh=6hqSEVVgw4CPVV6h2E6Vul+wGHSIIB7M/bfVK6/0gN0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DHoxSiHJffR6+Nc606UOEyEd2EYQvC4vzuVqOae1qmLOC/IO4qvA1uz6gr3ob2D50
+	 7t/5jR6Uy9C7gRa5IG3B8eP4gzGoUZ2aX8kglQCIdNpkYlMdV05S2AqYag1ojqXh0G
+	 W5heKcti95GTV4kbKDY8e0OZc91JrNCtBM17rWSOqCn0MR8/X0V3TwpnzK/vciK2uq
+	 vsg4pIQw/Zf4OlMaCxDEmZXO3SeYB5EJ3Lw5sX/tNM0LgfVe2z8zBEFURhHzy2f8tp
+	 rfGVADs4HOKbNTZf1EjbanZGY3QWiVW4F3VsP3AHx3faB9SkcrFvZEgYKeahGMWqxf
+	 CaZhudOZL3YmA==
+Message-ID: <fbddbdbd-4052-4753-89ee-cc75198b9842@kernel.org>
+Date: Mon, 23 Nov 2026 20:00:48 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,72 +51,166 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261123153238.1036972-1-smish149@asu.edu> <20261123153238.1036972-2-smish149@asu.edu>
-In-Reply-To: <20261123153238.1036972-2-smish149@asu.edu>
-From: James Houghton <jthoughton@google.com>
-Date: Mon, 23 Nov 2026 13:55:17 -0500
-X-Gm-Features: Aa3M54o3BkLplxoImmTCvpPC5WgG3n0ZneGbPk_xxpY2ZYPc3HauVZVJB5o2TiI
-Message-ID: <CADrL8HWj6qLSB4h_JC7qSr6+t6Z6p7zzL7fgVne-m8_cfrHwOA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] KVM: Disable preemption while pushing to the dirty ring
-To: Siddharth Mishra <smish149@asu.edu>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
-	Shuah Khan <shuah@kernel.org>, Peter Xu <peterx@redhat.com>, 
-	David Woodhouse <dwmw2@infradead.org>, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net 08/10] mptcp: pm: don't let listeners pin their netns
+Content-Language: fr
+To: netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Willem de Bruijn <willemb@google.com>, Simon Horman <horms@kernel.org>,
+ Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
+ Christoph Paasch <cpaasch@openai.com>, Florian Westphal <fw@strlen.de>,
+ mptcp@lists.linux.dev, Davide Caratti <dcaratti@redhat.com>,
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org,
+ Eric Dumazet <edumazet@kernel.org>
+References: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-0-278042217e8d@kernel.org>
+ <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-8-278042217e8d@kernel.org>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-8-278042217e8d@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 23, 2026 at 10:33=E2=80=AFAM Siddharth Mishra <smish149@asu.edu=
-> wrote:
->
-> Disable preemption in kvm_dirty_ring_push() so that another push to the
-> same dirty ring cannot run in the middle of it.
->
-> kvm_dirty_ring_push() selects an entry with dirty_index, fills the entry,
-> and only then increments dirty_index, all with preemption enabled, e.g.
-> when vmx_flush_pml_buffer() pushes the logged GPAs on VM-Exit.  If the
-> vCPU task is preempted in that window, kvm_sched_out() calls
-> kvm_arch_vcpu_put() while kvm_running_vcpu still points at the vCPU, and
-> kvm_steal_time_set_preempted() or kvm_xen_runstate_set_preempted() marks
-> a page dirty, which pushes to the same ring.  That push fills the
-> selected entry and increments dirty_index, then the interrupted push
-> overwrites the entry and increments dirty_index again.  The entry after
-> it is never written, its flags stay zero, and the entries after that one
-> are dirty.
->
-> Userspace harvests the ring in order and stops at the first entry that
-> is not dirty, so it never harvests any later entry, and the GFN of the
-> overwritten push is lost.  A VMM that tracks dirty memory with the dirty
-> ring, e.g. for live migration or to restore a snapshot, then misses every
-> page that the vCPU dirties afterwards.
->
-> Fixes: fb04a1eddb1a ("KVM: X86: Implement ring-based dirty memory trackin=
-g")
+Hello,
+
+On 23/11/2026 14:24, Matthieu Baerts (NGI0) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> For a "signal" endpoint with a port, the in-kernel path manager creates a
+> listening MPTCP socket with sock_create_kern(). This socket is released
+> when the endpoint is deleted or, failing that, by pm_nl_exit_net() when the
+> network namespace is dismantled.
+> 
+> The MPTCP socket itself holds no reference on the namespace. But its first
+> subflow is created by mptcp_subflow_create_socket(), which always calls
+> sk_net_refcnt_upgrade(). So the namespace cannot be dismantled before
+> the listener is released, and the listener is not released before the
+> namespace is dismantled: unless somebody deletes the endpoint, both stay
+> around for ever once the last process of the namespace is gone.
+> 
+>   unshare -Urn sh -c 'ip link set lo up;
+>                       ip mptcp endpoint add 127.0.0.1 port 4321 signal'
+> 
+> leaks a namespace, with everything it contains, each time it is run. It
+> remains charged to the user's max_net_namespaces limit.
+> 
+> Only take the reference if the MPTCP socket has one. A listening TCP
+> socket has no timer of its own, and request sockets of a dead namespace are
+> taken care of by inet_twsk_purge().
+> 
+> The sockets cloned from that listener for incoming MP_JOIN requests do
+> need the reference, for their timers, but inherit sk_net_refcnt == 0. Take
+> it when they are created, with __sk_net_refcnt_upgrade(), from the
+> previous commit, as this is done in atomic context, and drop the
+> connection request if the namespace is already going away.
+> 
+> The TCP listener of such an endpoint is now a plain kernel socket, like
+> the MPTCP socket it belongs to: it is not counted in "sockets: used" in
+> /proc/net/sockstat any more, and its destruction is not broadcast to the
+> listeners of the SKNLGRP_INET*_TCP_DESTROY sock_diag groups.
+> 
+> This issue has been found with the help of an LLM, and reproduced in a
+> VM, with the reproducer shared with the original version of this patch:
+> the command above, run 1000 times by an unprivileged user. Without this
+> patch, all the network namespaces were leaked:
+> 
+>   result: 1000 network namespaces made, 0 taken down, 1000 are left
+> 
+> Fixes: 1729cf186d8a ("mptcp: create the listening socket for new port")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
-
-Feel free to add:
-
-Reviewed-by: James Houghton <jthoughton@google.com>
-
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ Use __sk_net_refcnt_upgrade(), from the previous commit, instead of an
+>   open-coded copy of sk_net_refcnt_upgrade(), with maybe_get_net() like
+>   rds_tcp_tune(). Shorter comments, and describe the condition: any
+>   kernel msk. Commit message: how the issue was found, and its
+>   symptoms. ]
+> Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 > ---
->  virt/kvm/dirty_ring.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/virt/kvm/dirty_ring.c b/virt/kvm/dirty_ring.c
-> index 572b854edf74..1ed8b8771c3e 100644
-> --- a/virt/kvm/dirty_ring.c
-> +++ b/virt/kvm/dirty_ring.c
-> @@ -221,6 +221,8 @@ void kvm_dirty_ring_push(struct kvm_vcpu *vcpu, u32 s=
-lot, u64 offset)
->         struct kvm_dirty_ring *ring =3D &vcpu->dirty_ring;
->         struct kvm_dirty_gfn *entry;
->
-> +       guard(preempt)();
+>  net/mptcp/subflow.c | 25 ++++++++++++++++++++++++-
+>  1 file changed, 24 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
+> index 20d506235074..3e674c21bdb2 100644
+> --- a/net/mptcp/subflow.c
+> +++ b/net/mptcp/subflow.c
+> @@ -844,6 +844,22 @@ void __mptcp_subflow_fully_established(struct mptcp_sock *msk,
+>  	WRITE_ONCE(msk->fully_established, true);
+>  }
+>  
+> +/* Children of a kernel listener need a netns ref for their timers */
+> +static bool subflow_child_get_net(struct sock *child)
+> +{
+> +	struct net *net = sock_net(child);
 > +
->         /* It should never get full */
->         WARN_ON_ONCE(kvm_dirty_ring_full(ring));
->
-> --
-> 2.54.0
->
+> +	if (likely(child->sk_net_refcnt))
+> +		return true;
+> +
+> +	if (!maybe_get_net(net))
+> +		return false;
+> +
+> +	__sk_net_refcnt_upgrade(child, GFP_ATOMIC);
+> +	put_net(net);
+
+I just noticed put_net() is somehow deprecated (according to
+netdev/deprecated_api test on PW). In net_namespace.h, above the
+declaration of "put_net()", it says "Try using put_net_track() instead",
+but I don't think it makes sense here: I would need to allocate a new
+tracker here. Indeed, I cannot use child->ns_tracker (it belongs to the
+reference __sk_net_refcnt_upgrade()) or NULL (no_tracker was never
+incremented) from what I see.
+
+If a new tracker is needed, it would be allocated before
+__sk_net_refcnt_upgrade() and released just after. The fix here follows
+what is done in rds_tcp_tune(), with the same sequence from 5c70eb5c593d
+("net: better track kernel sockets lifetime").
+
+So I think there is nothing to change here.
+
+Cheers,
+Matt
+-- 
+Sponsored by the NGI0 Core fund.
+
