@@ -1,125 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795461142;
-	b=o8jRfpHfPgLDGrwOueaPJSK+PZ2+KXdYkitG99hY5XNGe+4dsv0rCq1LBAv597GpDD6w
-	 7iHLr2nIsbiPQoaZqe5EEIWJuYMdHjjZytABEJH4iVrajAGMfL7ij9evIbbE3jGaKxWSf
-	 dBSgK+D7gLg3VsGY5mHdyO8shGMXCeJjGoZfiL1BQyM2OxJAMf90QbiPktX3nKr6rHD0g
-	 gTHawPhRrh0lZV7dwKVmD0Tp9yA0uT/WEYy9KZztsNDoSf8EXDm6rR3Ug/eN7hSWgCinH
-	 uNIiaqertGdaV+zHJcqcDBkGqnmM1tHDYYglSfOhjVfQADgRd3FnXGtUzezYZwTOe/Q==
+	t=1795461171;
+	b=LUECjcBIEOzd8AfBPxNByx3qObP/hq6qh3iqIhyez2+a9v+OqUSD25aPji8AOATEGCze
+	 2OmOHy8LvBUaEOl8e62Ozm83PScSKJF8BAIhAL0JsKB7shpPDVGsDERQzQZy6hnkM3vYf
+	 jQQr75RXy4+cAZ5A7CHeQ5l+ebHLGG0Ooe/rSuRcsZtKClQ+KT7xyEgNNyREL3wmGAUA+
+	 qiNx6XUw8Ec8HYkrlQcyhEW2P6Fzh66h2TDfp6wYHPZy/N3/uXRClJgqPc8jl607UTXIq
+	 J8YaAm33Dd2vVXeXN3WGG0GgTUqDfTFNTbvTivOIeLMT99hyUNKLBJ1cFSghZeOVNTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795461142;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZdUQUp3LwRE1rqDIK9upCqVPp3ZoKJh9GfW0EZyBwV0=;
-	b=mBEl7WCCdjJckFbyllwhjLrmaurj9amQO4uUtFEVk2d0Kr/xua8099/ZTO9oEDOkAb2o
-	 Zxg8kLU1LMBsnsCdE8XnyBZ2JM6vJDZLqM71Ot3n+mSbOLb1CNyv0HEUISo3rEs27xaYp
-	 3NS+gwWr3tcBVEtlEgTfwvMihiT82Vp1jwDLHy4a2qlz5oF1qjtvVN9+zHadqCidgSwFE
-	 wypk1/QZRUj1E9yT0R5QI9kANpiwCR7lHd9PTrq/dmcuRZB+jUXjcafGcTS4tFoNCSVdE
-	 41fWO5uQarMJTDqLPwi56Aw+l5DUjrKJd8jCRgTtRIEZL/tAMI/GqHAfUQcx/aVJi9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461171;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=1aSuqE91A4JA8nziXePdbRYInCs8V/0AUq1tsDNXB2k=;
+	b=0ha4KHQV8YBkomY1+/XknFGvABhLKyGyxP3re3Un4eu6DppKpc8SKy+bWAJYG6Cc2S9Z
+	 NlYLVfkzR0ClE2yX3mW7V9sgfHDxDg2YkbLXOR5T8IDuGl93ZTZHYsn03rx9K3IuEXDRM
+	 xh6JwV7WPDXt43gN21U0Iaf7qrvwFXppxWjUIxHSXQZmpmte8miciXlrIVojd/B15qwKr
+	 1nPrTBGbt9Q2sfg7IGUzMaV6gNdfoRmNjWhLMOnT7f+/LMnvj/6HRjKqy2UqQsa5RhXL2
+	 Akaeoi4LJw8VWYptpHlLnseL/pOJT/GYdUU/0nw21+2CYYJVtG3hAFFhzN9qiaMdmJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=queasysnail.net;
-	spf=pass smtp.mailfrom=queasysnail.net;
-	dkim=pass header.d=queasysnail.net header.i=@queasysnail.net header.a=rsa-sha256 header.s=fm1 header.b=rVs462hm;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=d56s9FR7;
-	arc=none smtp.remote-ip=103.168.172.147
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nt5GC4BA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38D5606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:12:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D38D5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 427E2606A32E;
+	Mon, 23 Nov 2026 19:12:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=queasysnail.net header.i=@queasysnail.net header.a=rsa-sha256 header.s=fm1 header.b=rVs462hm;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=d56s9FR7
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id 0C203EC1D05
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:12:20 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Mon, 23 Nov 2026 14:12:20 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1795461140; x=
-	1795547540; bh=ZdUQUp3LwRE1rqDIK9upCqVPp3ZoKJh9GfW0EZyBwV0=; b=r
-	Vs462hm3ZTTwmfJ/LANU5Bp2WK+CzBh9m+TtI+om51GmazmufwSRRu4ZJpQAKJRJ
-	pzuG7hO/ZIVv3F171CgAUorHitOyaWaApdSeSO+wgxP0ZErQ7msB+RNwZUjTgsgA
-	2Y4jjvFfprF2n4euSPZf8d/qE7c9UVir9lAclUKJMW6iwCktpM+Dh+obKfclvAsX
-	9pmt2DSPXNeOPjTCmiLEdE2F+0XjUgdEhtZ2VLUpeNfzjN/JVNV9f1/j/EBqh0IK
-	Pf8Mui7zUkHO0SLioWl/Gu1Js6mJyilXk8CUdGQdvhbdIAOzpGu2PmEFMeRMV4+z
-	78VXxexbgeJnCqJ2XNUyQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1795461140; x=1795547540; bh=ZdUQUp3LwRE1rqDIK9upCqVPp3ZoKJh9GfW
-	0EZyBwV0=; b=d56s9FR7dugRFejlNsCQauNUx4FToM+ZNfbEp7rsFttoEgbtz3G
-	PNI4rTqYZsmKwrXUlhKmH4unNa7Amuh7M14RPHrMXrefR4iSAJDIM3EbD59qMGhf
-	i5pV7sILDiiYEK0mCw/QkvYVkBV5kUv4I70yBYbnh2FHAfd2n5iJfUsF5g+yAOdy
-	g7pXMpwtcofcMFNbiNgrH36VnQ69+zMaemyVVkDyfS7yAEI9kd29yWgOj2J+Ttqo
-	j+Daicz7fgr2XlWj4aLqcuBd+mzZ4l+JYLagS2XwiRffdaNBBrnK+7wLTuwYMSlu
-	Az4cKmdfFVxYO0ZmU9oTJsRvV53/Lyf3XuQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=queasysnail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795461140; d=queasysnail.net;
-	mf=PHNkQHF1ZWFzeXNuYWlsLm5ldD4=;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:HGsWWIRVRPkJpYQ+5G3+EDIPiW+hzYSkZbxfWcUp8E8HoPo
-	lndPsxb0l2v6aTM7oAxfCB6eOVEL/HIDvYabpIgQl2+cqHDRBwVe3u3sm4pdvh5M
-	4S7Yx8zm86nfJ4oW+MqdVt6utXiddgqb9gOW4ZdmFeeGbrVyltcXVAq1bbD1aPhV
-	NO6TbpvD89rU/UDwIchExfQj9n31NJkng8fcrZ5dSRe7kSRjJDiDRvJPTpR3f+zn
-	RFGXqjfB19J9iXvBdqKnpHmqmLOKSteAumFLucQbUK6OZRRt2VGPpyfGD9E295ff
-	m1lk+6qAvVpnnaqMI16HvqgL8JVsAfafUowX3TA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:bufxvJwWPJL3RqRXEeaKLqgZ8ndCZ00zrZs7ISG+d64=:L++HDDslH/nMCC2g76db85vFJlKw4k4HTXdQxp16tl0=;
-X-ME-Sender: <xms:E5AEa5vx03GSXAvuqpp_AQQfQgE_HnNnjB6brswKP_5wfM4OsWwxzw>
-    <xme:E5AEa84uzNCk49oSKAqqoUgiiXiq9Xk9O2rzKILsxgxx84UDhK0s_QuqkP6IljLCr
-    ANOYb0LcWNR84MtWMCsMKSc7PoYVe3Hh3ZHfBPau-wub_VeuqDjcjKE>
-X-ME-Received: <xmr:E5AEa0SAT3W4J9u5K8WF6KahVSdlnazv1er-IZFFjPXXjsKJe1jIi2LJJRQ>
-X-ME-Proxy-Cause: dmFkZTFGfMpzRIlRD0JqalkLOXufcldaW5mPKf9gnwsFJ+vDBNXu+ucuA2mHV3sG8awFD7
-    TlQIpLKAlhdRZZzmHM5dzCLr9yCnlqE++1MlGQQlh2hXPAqwPuBKqVs+0+vPLr0jD3m21t
-    KMWW9e6Nr1j2suHosCkXbxWML5v/2o8alliubSq4BLKdJ8hbk8S/De75gOw23JrVIkPY8N
-    D1D3yW5QclrWuPlgXczruL49Qy/XefuKPG45Q8mhw3p9cd6s3zLGtXYEfumcXvrZY2eHdx
-    vAfqlz0+MYyB1suAIuZNChzbjL65w1LKUjDuaCq/DRfI4jG14yihH6ToIZrLFbuh+tdvsy
-    qqobtHJW75A5py4Dwv+RigPIEvPWFGHtQNxvt0r08bDNOn7mj1DClZ8etsIEQFkSAnl+Qg
-    vMV3JMfnq2533Cy6XJoUhqFcZ+K/iGg66/tkCSliXrxWC7Fl1RsWmOZZlyaaPS1Z2F33Xy
-    wdE6/do2ryEMjpqq6Rx41AYLp71oneCzukbKogCx7I38KcVO4k2CllfHKo94RMmgPREFEd
-    URGDsBoO3+C8AbHXc+MxOfdElfuM4172gASIoAzb6NhWEwhaO5pgqVVA58YNOgZVBzX++C
-    LG6HS9r9OSbFojsmNpCKDEfdzq7VWKBkJMa0WD4lFBXygFbv1mU6ghr4jywg
-X-ME-Proxy: <xmx:E5AEa3vWthM5yLcbJ4PuwK6FXeCXspXymyOCLSatAfeIqEkMLwcNMA>
-    <xmx:E5AEa-9zXXKTZS04cEi1yTHxkEAQsEpRqbANvz5_vqnQZZ9IEyju0Q>
-    <xmx:E5AEa4whMWMSIAMMOVkPCc3ZxaJICU-VuhF8N74AR_Ow7lqu3bl7bA>
-    <xmx:E5AEa49cycLdn6bpUBP4YVsSm6iVaHwCwPGgQ6iEqUuUqEJxRuCy2Q>
-    <xmx:FJAEa0_5qXRsoSOClbwXanZavhmZGkTEf8_aRUPh05sz25iMpP7bxqNZ>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 23 Nov 2026 14:12:18 -0500 (EST)
-Date: Mon, 23 Nov 2026 20:12:16 +0100
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: Rishikesh Jethwani <rjethwani@purestorage.com>
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
-	John Fastabend <john.fastabend@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Alice Mikityanska <alice.kernel@fastmail.im>,
-	Tariq Toukan <tariqt@nvidia.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v5 1/2] tls: fix socket use-after-free during
- device-down
-Message-ID: <awSQENPQBd7ogyyA@krikkit>
-References: <20261116183519.3314837-1-rjethwani@purestorage.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nt5GC4BA
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7994F1F000C4;
+	Mon, 23 Nov 2026 19:12:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795461171;
+	bh=1aSuqE91A4JA8nziXePdbRYInCs8V/0AUq1tsDNXB2k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nt5GC4BAe3Cpt9xRhfsbWl4ijfqR7/5oz7Aq532m7vMKgPvaJDDZZahV8kK3qw3BW
+	 7cmRdjOri6KvQ7Dwx4pTKiQwBJp5MggDtt2A888eRn7EO8sEVvwGg5A6I69TICXd5m
+	 9dQVgIPmRkRpymfoIgJby/ZdUo6jur5RFmRXb58B6lEvVqH4bjl8I2PtQaFmQvEdyb
+	 dA1e/HoX/07ZwmvvSeqkfpjIOomIB27vogZuQnkNZvn+TB8I0n7uD4NLac99Ok7O9P
+	 lttWSnQvUGJrRwDkOj2g1sD/9iizp9GyU4pkcdJbwDoXnhZWi9Sr0jjBtKYymUyyFZ
+	 zGHAdyYakULmg==
+Date: Mon, 23 Nov 2026 21:12:47 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
+	serge@hallyn.com, Jason@zx2c4.com, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] keys: fix crash on big_key read or revoke after a failed
+ update
+Message-ID: <awSQL3uLNktPEwIo@kernel.org>
+References: <20261123165443.4092852-1-bsdhenrymartin@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -129,76 +58,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261116183519.3314837-1-rjethwani@purestorage.com>
+In-Reply-To: <20261123165443.4092852-1-bsdhenrymartin@gmail.com>
 
-2026-11-16, 11:35:17 -0700, Rishikesh Jethwani wrote:
-> tls_device_down() pins each TLS context, then drops tls_device_lock before
-
-pin = hold a reference?
-
-> switching ctx->sk's TX validator. The socket destructor can run between
-
-Please stop calling it a "validator". Those abstract references are
-just obfuscation.
-
-> these steps: the context survives, but __sk_destruct() frees the socket.
+On Tue, Nov 24, 2026 at 12:54:43AM +0800, Henry Martin wrote:
+> big_key_update() destroys the old payload with big_key_destroy() before
+> calling generic_key_instantiate(), which can fail.  The destroy drops the
+> payload's path and data but keeps payload->length.  If instantiate fails,
+> e.g. with -EDQUOT when a concurrent allocation grabs the quota freed by
+> the destroy, the key stays positive with a gutted payload and a stale
+> length.
 > 
-> Switch the validator while selecting contexts from tls_device_list under
-> tls_device_lock. The destructor uses the same lock for its context put
-
-Which destructor? We shouldn't have to guess which functions are being
-called.
-
-> and list removal, so ctx->sk remains allocated through the switch.
+> A later KEYCTL_READ on such a key follows the stale length.  For a
+> file-backed payload it hits BUG_ON(!path->mnt) in dentry_open().  For a
+> buffer-backed one it memcpy()s from a NULL payload->data.  KEYCTL_REVOKE
+> passes the NULL path to vfs_truncate().  All of these crash the kernel,
+> e.g. on mainline v7.4-rc4:
 > 
-> Checking sk_refcnt would miss sockets whose queued SKBs still hold
-> sk_wmem_alloc and require fallback after sk_refcnt reaches zero.
+> kernel BUG at fs/open.c:1145!
+> Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+> RIP: 0010:dentry_open+0x7b/0x90
+>  big_key_read+0x141/0x280
 > 
-> Requires commit f08d8c1bb97c ("net/tls: Fix race in TLS device down flow"),
-> which moved the destructor's context put under tls_device_lock. Include
-> this prerequisite in older backports.
-
-Can we add the dependency in the Cc: stable line instead of bloating
-the actual commit message?
-
-> Found by code inspection. An ASan harness running the extracted teardown
-> functions with userspace shims reproduces the UAF before this fix and
-> passes afterward. Tested on Mellanox ConnectX-6 Dx (Crypto Enabled).
+> Fix the ordering: instantiate the new payload first and destroy the old
+> one only on success.  There is no need to release the old quota first:
+> a big_key payload always reserves a fixed 16 bytes, which was already
+> charged when the key was instantiated, so the instantiate of a positive
+> key leaves the reservation unchanged and cannot fail.  Releasing it
+> first was what allowed a concurrent allocation to take the quota and
+> make the instantiate fail after the payload had been destroyed.
 > 
-> Fixes: c55dcdd435aa ("net/tls: Fix use-after-free after the TLS device goes down and up")
+> This issue was discovered by Tencent CodeBuddy Security.
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
+> Fixes: b6f61c314649 ("keys: Implement update for the big_key type")
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 > ---
->  net/tls/tls_device.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
-
-Changelog? Links to previous versions?
-
-> diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
-> index 4cdfbb57ecff..866193a506d2 100644
-> --- a/net/tls/tls_device.c
-> +++ b/net/tls/tls_device.c
-> @@ -1345,16 +1345,19 @@ static int tls_device_down(struct net_device *netdev)
->  		    !refcount_inc_not_zero(&ctx->refcount))
->  			continue;
+>  security/keys/big_key.c | 23 +++++++++++++++++++----
+>  1 file changed, 19 insertions(+), 4 deletions(-)
+> 
+> diff --git a/security/keys/big_key.c b/security/keys/big_key.c
+> index 268f702df380e..3bf371f6c28d3 100644
+> --- a/security/keys/big_key.c
+> +++ b/security/keys/big_key.c
+> @@ -193,16 +193,31 @@ void big_key_destroy(struct key *key)
+>   */
+>  int big_key_update(struct key *key, struct key_preparsed_payload *prep)
+>  {
+> +	struct big_key_payload old = { };
+> +	bool positive = key_is_positive(key);
+>  	int ret;
 >  
-> -		list_move(&ctx->list, &list);
-> -	}
-> -	spin_unlock_irqrestore(&tls_device_lock, flags);
-> -
-> -	list_for_each_entry_safe(ctx, tmp, &list, list)	{
->  		/* Stop offloaded TX and switch to the fallback.
->  		 * tls_is_skb_tx_device_offloaded will return false.
-> +		 *
-> +		 * The context reference pins ctx; tls_device_lock keeps ctx->sk
-> +		 * allocated until the validator has been switched.
+> -	ret = key_payload_reserve(key, prep->datalen);
+> +	if (positive)
+> +		old = *to_big_key_payload(key->payload);
+> +
+> +	/*
+> +	 * The quota for a big_key payload is a fixed 16 bytes that was
+> +	 * already reserved when the key was instantiated, so the instantiate
+> +	 * below does not change the reservation of a positive key.  Do not
+> +	 * release it first: a concurrent allocation could take the quota and
+> +	 * make the instantiate fail after the old payload was destroyed.
+> +	 */
 
-I don't think this comment is helpful (and again with the obfuscation).
+I'd leave the comment out. It's very time variant and commit specific.
 
->  		 */
->  		WRITE_ONCE(ctx->sk->sk_validate_xmit_skb, tls_validate_xmit_skb_sw);
+> +	ret = generic_key_instantiate(key, prep);
+>  	if (ret < 0)
+>  		return ret;
+>  
+> -	if (key_is_positive(key))
+> -		big_key_destroy(key);
+> +	if (positive) {
+> +		if (old.length > BIG_KEY_FILE_THRESHOLD)
+> +			path_put(&old.path);
+> +		kfree_sensitive(old.data);
+> +	}
+>  
+> -	return generic_key_instantiate(key, prep);
+> +	return 0;
+>  }
+>  
+>  /*
+> -- 
+> 2.53.0
+> 
 
--- 
-Sabrina
+I did not specifically check the Sashiko output.
+
+Br, Jarkko
