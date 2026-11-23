@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795396460;
-	b=qIrAfDpYENM4AmBlo1NJ+C8gSco7W3WXayNoeUgX+lfA36OoWnTPy/CtyQ8deam7zPKO
-	 bEhMbI9cngKRGyd0n9SWSfKsBoz1y/TqH0Aws4wl7dEVqlqxmpXNCaxKoE71YdrH3e5uP
-	 /TpmCqQdX5Fe/SPTyvpVZ8y7u7D/XTJYR4Yo0pzSpshghpdyS0FHHdTo+9C3LCo0Mbj6Q
-	 svor3R84eMUaECMdEAXuu+FajrpL0T1xX20NPkCcNFLdd1jM+eMIshHiZHDHpC+UYFxvV
-	 b/04Btnr1FsaXxse5Mo4DmgIr4XeYrrS2cMfgqFQzNGcfXPRmdOILUv2i2Ro/35LzaQ==
+	t=1795396943;
+	b=GopmGnkCgDMe5mMP9qyzJJkuvDsPE9P9NDJUQijFegM6cAUFnzBT/jkuPDROmfBhsMwR
+	 HI/PyyjzUL+5m/w2y3dK2NaBAEg0R8m/JEQk7A8JTjY5xPEMvNAomq/y+nUJAkrvdJDs7
+	 5UqtH+dXFOjsBu3TtlloT/CErImZcL72GuJvmPAcGu4pnNij0Ui0kh5g8xdPr2UGlq2yL
+	 R1Ol4BUNWelZPjUqqKAYV1HLvYoYK+8PcbJMKmBmTCoNwGfY43iRKNqurg8ZvfD1lSQDg
+	 FjzyW4LqJe23jHV+BQmKfE3dAUaAoeKOUyBBbaBu0iWXIZmUhWCFb+MZaXLGckBtkQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795396460;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=beRsURI87z7ePC5UgnVhljfRVtiAk+JGSK5Yp7RQ++w=;
-	b=xf8WmsnxHrbR2T9oleoui2qWg2EnICpi3CFQh8lB4SiA3WVYXM+9yl+vS3E0AVukIhcb
-	 naXZOI9EBeh7r6oVszMM/kPc4zZ+OaTdLwy6/24yrfAZvIjNs6Sdo/u9UFA2jLy0AJ594
-	 h24Y7cnVhAFtmjjVdeenxNkfpHzilWhrDE7LjwAS86O35zvlLSodITWZxN+RitDOAhQji
-	 QH02IsWTBGx6fiYg9zPJMIbDLWXxCXjcN8yHxZwjCOMdSyEJbesAY2qHwmheCeBKau6pn
-	 Y1XuccVjQjApu6aZKwV0e0IheS42p15CxT1+HySJyAYA8rpQs/Pm1tzrKSXXWjv9WIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795396943;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-FangMail-Miltered:X-FangMail-Envelope:
+	 X-FangMail-Bounce-Flag:X-FangMail-Outinfo:X-CLEAN:Message-Id:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=hTSrzLpFQ4K6bpwZbZ08NkeidSei6B/cgppw/fPpF58=;
+	b=dY8YxROAlejU1QqSKA7BZmYcKvJ6xn8oaOGwScMOQO1i007jI93P+rHSha28qTNiKjtQ
+	 MGH5qs0GhFHi42f4RAlFBQpr6nCo+6R4Ys6iNakcPgTUzFdn4QW1BvJo8rhTIuHLz8fko
+	 1AB8UtDus3USv7Nm99AnBHq7xcBb+oqhdQwDyahCfnwE1pw/Y1JEuxZa02rCBjPCQCG/2
+	 cMF47m5Wr1JmXdzTCOqzYGp1omV0jOJ+xwePta93PrSB97wrGbdn6OFRwK+DYFodNQcaQ
+	 3xLVWHJ1LPdKyK54cOIcatncXEDsXVgGuO3Zgxi4nph0ShEowNpoa9+BXEdNYvBTf2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ys1yFoMi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=isoftstone.com;
+	spf=pass smtp.mailfrom=isoftstone.com;
+	arc=none smtp.remote-ip=219.143.121.9
+Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813F8606A68E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 01:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ys1yFoMi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1193F1F01568
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 01:14:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795396460;
-	bh=beRsURI87z7ePC5UgnVhljfRVtiAk+JGSK5Yp7RQ++w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Ys1yFoMi3EImki+984yKCe81INtZaQHTXOXdANgrHv9/I07zvlyD2nTpoYX/tGYqd
-	 yc6+SySpdaII+pw8XgsrTCpM3A66tynOC/z8F1MdwNB3kNHswhMNS41AJQhEFJWboD
-	 kiNSWkHXDArtd5kB8OIQ2CkeuPtd6BJI9R6GnvHBzCI9uDnu81zIxw13OUZ/mEDBWs
-	 ZuCk07qi0/QolXdTFeDPWAVBeP5vGK4IVAd16QuexIaRJjVoKX9uD5yUHroorHerxs
-	 ih8ab7EmuB5sbtxCgrx7uzM8MHnDn47aasBHwVh/E9KhwdGLxIAV2dlKcpxcdV+/9F
-	 FjfZHMSnH4gMw==
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-949664ee41cso316509985a.3
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 17:14:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHH+SpbvHuuV7O+HZSdlbwOj7TGkuAATko2GCcZpUXBEGKPoJ0MTMFs6snC6RvPoiGUGpvOVH8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ogguAuopu4LU3RzXW+xQUaGTi3RUWjG1p/j7lVjxDiI06/6Qg
-	xfolD1f1gQv9qQTEoe3NeFESoBqsSTm1e1k2DjW95u2t1aJFrZgqe34JroGIOOjITSvlWTJWyft
-	G9DD4QsyOQqIg26K1FPDurpMQyKnFbhU=
-X-Received: by 2002:a05:620a:450e:b0:949:5c62:e785 with SMTP id
- af79cd13be357-949ba9b7429mr1776786785a.21.1795396459175; Sun, 22 Nov 2026
- 17:14:19 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF10A606A333;
+	Mon, 23 Nov 2026 01:22:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF10A606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
+Received: from ldzh.. (unknown [221.226.109.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dlzhangak@isoftstone.com)
+	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jXp835gJkz40Rf;
+	Mon, 23 Nov 2026 09:22:11 +0800 (CST)
+From: Daolong Zhang <dlzhangak@isoftstone.com>
+To: Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Daolong Zhang <dlzhangak@isoftstone.com>
+Subject: [PATCH v2] ceph: fix inode and i_filelock_ref leak on file lock rollback
+Date: Mon, 23 Nov 2026 09:22:11 +0800
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20261122193828.1324376-1-amarkuze@redhat.com>
+References: <20261122193828.1324376-1-amarkuze@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,111 +61,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122-migrate_reclaim_deadlock-v1-0-83c56185b0fb@kernel.org>
- <20261122-migrate_reclaim_deadlock-v1-1-83c56185b0fb@kernel.org> <179537313704.412063.6683001223228002260.b4-reply@b4>
-In-Reply-To: <179537313704.412063.6683001223228002260.b4-reply@b4>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 23 Nov 2026 09:14:06 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yEeORJw8dQEH0U-JjWih3+3ZVx=1Va5F_9qsVbPzCLvQ@mail.gmail.com>
-X-Gm-Features: Aa3M54qG1iauJEScw2ktzAtei45vPodUuwGuthkS3X5FKVC_OPLT-7KU2cnzR8g
-Message-ID: <CAGsJ_4yEeORJw8dQEH0U-JjWih3+3ZVx=1Va5F_9qsVbPzCLvQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] mm/huge_memory: use NOFS when allocating while
- splitting folios
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Miklos Szeredi <miklos@szeredi.hu>, 
-	Joanne Koong <joannelkoong@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, 
-	Chris Mason <mason@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TLS: YES
+X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
+X-SOURCE-IP: 221.226.109.28 unknown Mon, 23 Nov 2026 09:22:12 +0800
+X-FangMail-Miltered: at fangwg01 with ID 6B039543.003 by FangMail milter!
+X-FangMail-Envelope: 1795396932/4jXp835gJkz40Rf/6B039543.003/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
+X-FangMail-Bounce-Flag: 1795396932.6B039543.003
+X-FangMail-Outinfo: 1795396932/6B039543.003/4jXp835gJkz40Rf/dlzhangak@isoftstone.com/1
+X-CLEAN: YES
+Message-Id: <1795396934.6B039543.003.4jXp835gJkz40Rf@fangwg01>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6B039543.003/4jXp835gJkz40Rf
 
-On Mon, Nov 23, 2026 at 2:46=E2=80=AFAM Gregory Price (Meta) <gourry@gourry=
-.net> wrote:
->
-> On 2026-11-22 13:42 +0100, David Hildenbrand (Arm) wrote:
-> > Various callers (migration, memory-failure, s390_wiggle_split_folio) sp=
-lit
-> > locked folios without holding a reference on the folio's inode.
-> >
-> > Splitting a file folio might allocate memory for the xarray and call
-> > filemap_release_folio(). If either ends up in direct reclaim with
-> > __GFP_FS, reclaim can evict the inode through the dcache shrinker, and
-> > wait in truncate_inode_pages_final() for the folio that we hold locked:
-> >
-> >     try_split_folio()
-> >       folio_lock(A)
-> >       split_folio_to_list(A)
-> >         xas_split_alloc()
-> >           try_to_free_pages()
-> >             super_cache_scan()
-> >               prune_dcache_sb()
-> >                 iput_final()
-> >                   evict()
-> >                     truncate_inode_pages_final()
-> >                       folio_lock(A)
-> >
-> > This requires that nothing else holds a reference on the inode, and can
-> > be triggered most easily with FUSE, which evicts inodes on the last
-> > reference.
-> >
-> > Further, xas_split_alloc() charges the XArray nodes to the memcg, and o=
-n
-> > cgroup v1, memcg reclaim waits for file folios under writeback if
-> > __GFP_FS is set. That can deadlock if writeback waits for a folio lock
-> > that we hold, for example with ext4.
-> >
-> > Let's fix it by splitting folios in a NOFS scope, so callers don't have
-> > to care. A NOFS scope also covers allocations that filesystems make wit=
-h
-> > their own gfp flags, for example in filemap_release_folio().
-> >
-> > On NFS, splitting folios with pending writes or ongoing writes to
-> > fscache might now fail slightly more often, until these writes have
-> > completed. On netfs, only folios that are being written to fscache are
-> > affected. All fairly irrelevant.
-> >
-> > This has medium urgency.
-> >
-> > Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
-> > Fixes: eef88fe45ac9 ("s390/uv: Split large folios in gmap_make_secure()=
-")
-> > Fixes: 789763523fb4 ("xarray: honor XA_FLAGS_ACCOUNT in xas_split_alloc=
-()")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Chris Mason <mason@kernel.org>
-> > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->
-> Reproduced the hang determnistically.
-> Base deadlocked.
-> With patch 1: -ENOMEM (safe)
+When ceph_lock() or ceph_flock() succeeds in acquiring a file lock on
+the MDS via ceph_lock_message() but fails to install the lock locally in
+VFS (for example when posix_lock_file() returns -EAGAIN or -EDEADLK, or
+locks_lock_file_wait() is interrupted), it sends a CEPH_LOCK_UNLOCK
+rollback request to the MDS reusing the same struct file_lock instance.
 
-Hi Gregory,
+Because ceph_lock_message() invokes fl->fl_ops->fl_copy_lock(fl, NULL)
+for every CEPH_MDS_OP_SETFILELOCK operation, the rollback call
+increments ci->i_filelock_ref a second time and overwrites
+fl->fl_u.ceph.inode with a second igrab(inode) reference. When the
+caller subsequently frees or releases the request file_lock,
+ceph_fl_release_lock() only runs once, permanently leaking one
+i_filelock_ref count and one inode reference per rollback and causing
+'VFS: Busy inodes after unmount of ceph' on unmount.
 
-Just curious how those -ENOMEM failures occur. With GFP_NOFS, we
-should still be able to reclaim anonymous folios (except in
-SWAP_OPS_F_REQUIRE_NOFS cases) and clean page cache folios, right?
+Fix this by guarding ceph_fl_copy_lock() against being called when
+dst->fl_u.ceph.inode is already set, ensuring a single file_lock never
+acquires multiple inode references across retries or rollbacks while
+preserving the temporary reference held during ordinary unlocks.
 
+Fixes: 89aa59301013 ("ceph: keep auth cap when inode has flocks or posix locks")
+Fixes: 8e1858710d9a ("ceph: avoid use-after-free in ceph_fl_release_lock()")
+Cc: stable@vger.kernel.org
+Link: https://tracker.ceph.com/issues/81372
+Signed-off-by: Daolong Zhang <dlzhangak@isoftstone.com>
+---
+v2:
+- Keep fl_copy_lock() for ordinary CEPH_LOCK_UNLOCK in ceph_lock_message()
+  so i_filelock_ref prevents auth cap trimming while the unlock request
+  is in flight after try_unlock_file() (Alex Markuze).
+- Keep only the dst->fl_u.ceph.inode guard in ceph_fl_copy_lock().
 
-> With patch 2: split succeeds
->
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
->
+ fs/ceph/locks.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-+1 for the patch itself.
+diff --git a/fs/ceph/locks.c b/fs/ceph/locks.c
+index 677221bd64e0..4d70a0e8381c 100644
+--- a/fs/ceph/locks.c
++++ b/fs/ceph/locks.c
+@@ -34,6 +34,10 @@ void __init ceph_flock_init(void)
+ static void ceph_fl_copy_lock(struct file_lock *dst, struct file_lock *src)
+ {
+ 	struct inode *inode = file_inode(dst->c.flc_file);
++
++	if (dst->fl_u.ceph.inode)
++		return;
++
+ 	atomic_inc(&ceph_inode(inode)->i_filelock_ref);
+ 	dst->fl_u.ceph.inode = igrab(inode);
+ }
+-- 
+2.48.1
 
-Reviewed-by: Barry Song <baohua@kernel.org>
-
-Thanks,
-Barry
