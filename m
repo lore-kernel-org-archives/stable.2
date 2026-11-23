@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795454573;
-	b=b6uPWmSNFk3Pu6pDd8vLd4wBtJfDnEg7+1MIG97zl8tCmXOPvswbObDBH8kM8blrsL/a
-	 UAKqeGccn3Kiy5HN9V0unb0utD2+GYfsZm7/+ipaOVjpQFmz84a6QKTegIePbXkeeVMdM
-	 ctpkwooeQealqf0PUKCsREtgoGH2LTc4AZtWyTbu9UZ35ExAgAxe773fBoSp+wLulBJHq
-	 Z17emZ1StvMcSaX7byuQjE21UMgmcHKfKQ0Q3Wtb4QQ/K/uOjaDcAPHGcM4444Wv0k0dw
-	 qzUFzLc8fPTz1crQArpGSZQCJOuX3j+OjzcEOk0K+yVhflfk+Uj/phQE49FyoWCRIJg==
+	t=1795454581;
+	b=llkDA+gDtNge6xf3sMcfxy+U3sR3GFh79dRxJamUwPtxqXSVnwEENjnOkLfylhx+/i32
+	 BWRnHhS3qoYg5st4CpTJtNVI8yvF3pr5cxbBbJOtYvzv+TeobITKeLPvAQojIrR5gh2et
+	 M+4SNegOoS2qhTeDzD2yqfGEns3Zlae2GsnVJX7K0iXN5o1s8rhkwmyrRe7fjph/0q+pU
+	 4oMt2k1LxwePsoOjIjKyMl6Iw9DlImoIvt6/zc7QGgYSRkSZf85jS0G7FzoHQGdTbGKbK
+	 UBTzKPMk6S6mQOPcQKveDGJrwQX1r+1VeI93ncbDnhiSAPuPd61eO77OT71thzhupdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795454573;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795454581;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=3FMYFsYc+wva2H/zEk/C4iK7aMpqtATF1UrEYEweIaM=;
-	b=JA6VAqpxjEytRqFiLZxmS/3WkX6NuUwCdPBfJYZxLY/A4d64WH6B/JVi/6Ji2mztmKwf
-	 waP1SwWFvRiLTlUsz8DSCv8zjLZ9Qz0Cd5dyWYG0Btz8DLbVkBs0DVNvd27zgD9r5qgu/
-	 TreujJ6IzSk90FZzqqBzdQir07epKqrIWUjuXa+2ba6vhuSUyaRR6Aum1VucaAZWFLIMv
-	 0yq1IXGWyI08g5MXbH9/CH9injgq4ZljZag8UO2lPv/FoKbkW2L7z0iOv/Z1+DYwehTwu
-	 feuKK6LZtjcChnVpS8E+IOBcHlbUNvPH4K2UtYIEeeHD6o/y862qH8AiDh8xeRoiJpA==
+	bh=HmV9sETKCIqTEm5gpQSn0ZKljOkssnactLIkz6YmI5s=;
+	b=lx3yxXnsF2C0zTYDyRgUKJWc7RO2J0bb0vlk5kcGZC7rZuLIWYbRL8bIlviN+WioUqnA
+	 S79oB6f2m3ubq0QmrJgmbumw3KaDRSvbt9ZT+B6eWnDwQtuZvka1wGBbJWXaOzKijsynH
+	 njEtNiI8dyM2uLfFDtl1jurV4tDXCtV5Rptsdd9kQxrgXb3JQ/7aFQ3QqA/KXeb7fVCBV
+	 Moyq3FT9o0UpnTv9IaCaBO/F2E4/UcjLaJEHq+qJPesEVnGlNQV4SCzds6TmIY/HcIYEY
+	 zHByyjGje0u5KoZRwWBog7nvchRSCuvapwEcNOv1eGA7SngpKnyLy28UhOOKZN8priA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mPnPtLD/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UdWIAy0I;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40226606A330;
-	Mon, 23 Nov 2026 17:22:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7E6606A31F;
+	Mon, 23 Nov 2026 17:23:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mPnPtLD/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3FF21F000E1;
-	Mon, 23 Nov 2026 17:22:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UdWIAy0I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4729D1F000D0;
+	Mon, 23 Nov 2026 17:22:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795454572;
-	bh=3FMYFsYc+wva2H/zEk/C4iK7aMpqtATF1UrEYEweIaM=;
+	s=k20260515; t=1795454580;
+	bh=HmV9sETKCIqTEm5gpQSn0ZKljOkssnactLIkz6YmI5s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mPnPtLD/VuZKnc5ZjfURUG5kqQ4DFhH+yLjIQ+XaA753XY/1ZQNEHXIMTKHli2Q+l
-	 6QuU+bMnjLB63jE8AnI7N2Lp1Oc7vpoROhVVJx3fvG/8o74wI5S8oXyVbjgeoONuIJ
-	 EyvYr0cM6oILwMmEBF7WVnmHM+PFM6D6iwBg5bstkuu1+gJb+WlaLaUqFl1zulSEmy
-	 MDUwmI43NgJgVz9Em5ooZ1ecJKfkGgCl0TirKf2zOqhj7Rr6Hzbb0LCDBgblxTXblG
-	 GODWu6a078+Wch/je8dTIBfn6/Fe3HNwqEMUubgwKdG/D9riVDrga2c6gHPNigRCqR
-	 h7iS7uXaJrImQ==
+	b=UdWIAy0IYBltJGVJMVfmHqWjwv6Mpp8Pq0EQnRnN4LY4bdqGl9tvW36dWPYuUjipM
+	 fG+6WkatUFaSKiUU7SdiMmcPybvYYg+fDz3X2HgPVi0Kp5wK0UakOut1SyuwjnJXHg
+	 6TtiX/5NcpW6iwm1HtZ/xVb69hkry+/4IMRDPS1Hf7m6zGK5QZ/XKkbJ3oJJT9Wo9q
+	 BxRTLBUCg4yxiUTCXs13qMY6F0Wq7pjl+RfoE4orvHnG8w8NxqJGBb16nQMyzdgrgm
+	 T5vrm7tIEVTXqrn1pAAg6QxhQnzQKS9WQLfW69M4v/8d58sK5yPOXALFdwdBbv1fNP
+	 uEOKxgr3hsrIw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Bjorn Andersson <andersson@kernel.org>,
@@ -55,9 +55,9 @@ To: lee@kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 09/10] remoteproc: imx_dsp_rproc: Fix pointer stride in imx_dsp_rproc_memset()
-Date: Mon, 23 Nov 2026 17:20:53 +0000
-Message-ID: <20261123172140.3547896-10-lee@kernel.org>
+Subject: [PATCH 10/10] remoteproc: imx_dsp_rproc: Fix off-by-one bitmask for trailing bytes
+Date: Mon, 23 Nov 2026 17:20:54 +0000
+Message-ID: <20261123172140.3547896-11-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.809.ga0b61035b5-goog
 In-Reply-To: <20261123172140.3547896-1-lee@kernel.org>
 References: <20261123172140.3547896-1-lee@kernel.org>
@@ -73,42 +73,45 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Commit 3c497f624d40 ("remoteproc: imx_dsp_rproc: Fix kernel test robot
-sparse warning") changed tmp_dst from u32 * to void __iomem *.  In GNU
-C, incrementing a void pointer advances it by 1 byte rather than 4
-bytes.  Consequently, the word-fill loop in imx_dsp_rproc_memset()
-steps by 1 byte per 32-bit writel(), triggering unaligned 32-bit MMIO
-accesses on Device-mapped DSP IRAM, mispositioning tmp_dst for the
-trailing-byte read-modify-write, and leaving roughly three quarters of
-the target region uninitialised.
+When size is not a multiple of 4, both imx_dsp_rproc_memcpy() and
+imx_dsp_rproc_memset() compute affected_mask as GENMASK(8 * r, 0) for
+the remaining r bytes (1 <= r <= 3).  Because GENMASK(h, l) is inclusive
+of bit h, GENMASK(8 * r, 0) sets 8 * r + 1 bits and clears or overwrites
+the least-significant bit of the first byte past the end of the target
+region during the 32-bit read-modify-write.
 
-Advance tmp_dst by 4 bytes per 32-bit word write.
+Use GENMASK(8 * r - 1, 0) to mask exclusively the r trailing bytes.
 
-Fixes: 3c497f624d40 ("remoteproc: imx_dsp_rproc: Fix kernel test robot sparse warning")
-Closes: https://sashiko.dev/#/bug/linux-720f943f-eefd-4df7-806e-0b50cad1abbe
+Fixes: 408ec1ff0caa ("remoteproc: imx_dsp_rproc: Add custom memory copy implementation for i.MX DSP Cores")
+Closes: https://sashiko.dev/#/bug/linux-2e407b68-a7e9-42ff-a613-e61b47a4461b
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/remoteproc/imx_dsp_rproc.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/remoteproc/imx_dsp_rproc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/remoteproc/imx_dsp_rproc.c b/drivers/remoteproc/imx_dsp_rproc.c
-index 96d619daf3f5..2771043ee433 100644
+index 2771043ee433..0e0325d5df9f 100644
 --- a/drivers/remoteproc/imx_dsp_rproc.c
 +++ b/drivers/remoteproc/imx_dsp_rproc.c
-@@ -843,8 +843,10 @@ static int imx_dsp_rproc_memset(void *addr, u8 value, size_t size)
- 	q = size / 4;
- 	r = size % 4;
- 
--	while (q--)
--		writel(tmp_val, tmp_dst++);
-+	while (q--) {
-+		writel(tmp_val, tmp_dst);
-+		tmp_dst += 4;
-+	}
+@@ -799,7 +799,7 @@ static int imx_dsp_rproc_memcpy(void *dst, const void *src, size_t size)
+ 		writel(source[i], dest + i * 4);
  
  	if (r) {
- 		affected_mask = GENMASK(8 * r, 0);
+-		affected_mask = GENMASK(8 * r, 0);
++		affected_mask = GENMASK(8 * r - 1, 0);
+ 
+ 		/*
+ 		 * first read the 32bit data of dest, then change affected
+@@ -849,7 +849,7 @@ static int imx_dsp_rproc_memset(void *addr, u8 value, size_t size)
+ 	}
+ 
+ 	if (r) {
+-		affected_mask = GENMASK(8 * r, 0);
++		affected_mask = GENMASK(8 * r - 1, 0);
+ 
+ 		/*
+ 		 * first read the 32bit data of addr, then change affected
 -- 
 2.56.1.750.gf70dc682cf-goog
 
