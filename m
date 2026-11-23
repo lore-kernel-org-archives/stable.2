@@ -1,61 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795449149;
-	b=RUvE+tiPHEs4aRmqFMYyrpPG7mBQnWXj19IpkrTrthAgUAa+2x66VM0T9GpvCApjH5dM
-	 swh9EabUmSkyw8arvqqZBYYIGD67/o0ixp9RCNSSjwx8fXYbqm2Eurx2diZN/6fU/NmRh
-	 eVJDSeZlJ3wTM9RpxinJmuTP/l1CvjzWHVlLLcnEOvb9Pepk9YNdgwQD+/dVIgjacXFau
-	 rJO6o+KXypXpaDQUQ9SQ6DoVU76kGLpCKtCCJKefdGz8wTP61mIsbJAxDa7OIbF6DScCl
-	 H/ScVxrxQrKczPbFOJr+Tbcy74Nz74ocTq69aBpNcqsSKcm6xaoxRE0fDJ5hNHwOvEw==
+	t=1795449156;
+	b=VKIvgn4rbE/EjOCGj7gKT5Fl76eLQvckzQZFDdjX8HI+Q3dgZAuVbmA+JGz6VStHtrw4
+	 bRZVLWaRIbmWCcTWPBhSXv2+3oj4ZyhdRqvuD11AWVtk2EPfZ5W6nK80YJSK3W6bs9Tmw
+	 WGIbc4vrwKYyCR+R2d2MNyfGvOe2+0PswRvY0W12kc4LJEnwxIlrEhBf8v7b6DO/kxBfL
+	 wkktWZlpc+yG+6acXkWfS+nodfOBW3OVBchyXSFfG3hjql9yQfoL5JTxAoS8xhuElQukz
+	 v0aeVOflFp9gIs76gvmNK5Vx2POKO74WlC+q55F8mAnFjhMG0eZO5UZT56oUYLt7QEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795449149;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795449156;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=T1eKsQdeP1W/szEmEQnzcI4fvm00qDmXu7Ua9kiN2Po=;
-	b=npz+99YuaJzhudk+Ytap6F67NFF7NNsCF/rh83JF5hEr3VWVZoouUUI3yerA6eMvp1nK
-	 F4KQwAEb2kxYJhnvCyNfFMtoeuFC3DdtHDX/eKWvoUx+d6a0UUWnPsftBkRUCBqpjngY4
-	 6wSRiRNEf4H9z3i3U/FIwLeAl/uaucnlTw5VzTDCnS6Bdn1FiXQCmVVnUGHU3gZS3FYY1
-	 iy7NbPLh5Oaw+hW35yk9Y0m7BIhch2iTXOUO+ouvdzplbSHek3Mw2m/ThvWpZ8+k5Ba3K
-	 QzF9mppFZVdSbvBP3lgO4IsD8KsbEGAhUSJ+rLHKGfy+BP/nFuyLFr6WcAiyrtTSW9w==
+	bh=wyD4YTIeCUEoFlpOc0rxRAwjtX3DJmoVeMGeibEBK3E=;
+	b=ieHB9yGZJ4dd7ICqQ8bJKadFf3fnUcVQaCZ6/MmJkz2leoP5DWt/n7JgPU6hYDwDcxSt
+	 w5olCQI4o4uOpbAmjtnZ3UA0iOmu1woWHNAunDtcK/AZXTvV+72JXPr7lBmJFJpF84ctx
+	 MgcZiqtqM0Tux92B4QganduLoLo24sd83VukihAzEFMYEoj94yn993FmZ3SzQ31EiBVdP
+	 Q1e0Kx7ST0NQu6yChCIv/U8X/qYhG+akg90m4+i9Q0vVmaegpfZ9y/W/qoqHMALVDXl/X
+	 /UeXIarSKb1d+aDwIqH3ZItxo/u/xidq4Q8+g8qwakey3UBpArEOpklOFIoM/AtWFsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c4VnL3nZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ggyh4GwP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4E0606A33F;
-	Mon, 23 Nov 2026 15:52:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E213606A331;
+	Mon, 23 Nov 2026 15:52:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c4VnL3nZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08911F000D1;
-	Mon, 23 Nov 2026 15:52:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ggyh4GwP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4179C1F000D2;
+	Mon, 23 Nov 2026 15:52:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795449149;
-	bh=T1eKsQdeP1W/szEmEQnzcI4fvm00qDmXu7Ua9kiN2Po=;
+	s=k20260515; t=1795449155;
+	bh=wyD4YTIeCUEoFlpOc0rxRAwjtX3DJmoVeMGeibEBK3E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c4VnL3nZwcgtGvdfTgYTFfjks6zqU3FAAeAPV8cpQJHC4DfIbEH98PbMItYdLuIB1
-	 I07mA4gpa4s70zl0WEaTwu/lciNC+GTv2MsEk5wJoX0iLabisUaCuZRM71VAq3JCA3
-	 HCMnhWyvA6z2Jqi8+WvMmlZp+arSpkWeQtB71eP9OEy6wZIVNwWpXooZX6hgJ/PZ9K
-	 gmziNb4p2oQGrNqeaafpKbfYtIsfCijQfgwed0uqX8WRW4mW2V0f01Gk1BaC7MFlIC
-	 Xn0HZqAB3OR33et7+wxW1PzjMcqV+bS2t5W6Qke60M/BqQC1X3iLDw68uQnFO6wneZ
-	 63A6Lccq5KLlA==
+	b=Ggyh4GwP2e6FPRNwMcQpLCwskA/BxztYiMefmnh4gnOWOSox9danTJYm7UAQU/49m
+	 FhRjjegXEviycnxTksKtf5FlC5yjjpynyvTm1IpG3laB+xHvnkleBo9MK6aspaipPp
+	 yThfXu1MZTEusmym41/9iFFoExvFiyjImcitpBfrORD+i/WBR20f0iQu5x9LxFinGk
+	 SJOnE1SJObEA7F7G6jvc2miVJPStMq5KNasHGbvxd4nkJyBVS4HHIZrN6V61v6plvm
+	 R3w7RyWDC02fjPNbiiCixEvxzp6TBnCF9Cc2ya+ExtDOVUT8fLfxo05lpK9wAJRWzt
+	 b1+RI0t1CJpVg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
 	Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
-	Michael Bommarito <michael.bommarito@gmail.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	linux-hyperv@vger.kernel.org,
+	Tianchu Chen <flynnnchen@tencent.com>,
+	Pan Chuang <panchuang@vivo.com>,
+	Charles Wang <charles.goodix@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 06/10] HID: hyperv: Validate VMBus packet and payload bounds on receive
-Date: Mon, 23 Nov 2026 15:50:50 +0000
-Message-ID: <20261123155138.2907049-7-lee@kernel.org>
+Subject: [PATCH 07/10] HID: hid-goodix-spi: Validate package sizes in goodix_hid_irq()
+Date: Mon, 23 Nov 2026 15:50:51 +0000
+Message-ID: <20261123155138.2907049-8-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
 In-Reply-To: <20261123155138.2907049-1-lee@kernel.org>
 References: <20261123155138.2907049-1-lee@kernel.org>
@@ -71,65 +69,102 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-mousevsc_on_receive() dereferences pipe_msg and hid_msg_hdr without
-verifying hv_pkt_datalen(packet), passes the untrusted pipe_msg->size
-to mousevsc_on_receive_device_info() without checking that the VMBus
-packet actually contains pipe_msg->size bytes, and copies up to
-sizeof(input_dev->input_buf) (16 KiB) from input_report->buffer in
-SYNTH_HID_INPUT_REPORT without checking input_report->header.size
-against the received packet buffer.
+goodix_hid_irq() reads incoming SPI reports into the 95-byte
+ts->event_buf heap buffer.  For the coordinate package, pkg->size is
+only checked against the 2-byte minimum header size with no upper bound
+check against GOODIX_HID_COOR_PKG_LEN (84 bytes), allowing an
+out-of-bounds read of up to 65533 bytes via hid_input_report().  For
+the trailing attachment package, neither the minimum header size nor
+the remaining report byte count is checked, allowing both a 32-bit
+unsigned length underflow when pkg->size < 2 and an out-of-bounds read
+past ts->event_buf.
 
-Validate that hv_pkt_datalen(packet) covers the pipe and SynthHID
-headers, that pipe_msg->size fits within the received VMBus packet, and
-that input_report->header.size fits within pipe_msg->size.
+Validate that the coordinate package size does not exceed
+GOODIX_HID_COOR_PKG_LEN, that the remaining report bytes hold a full
+package header before reading the attachment, and that the attachment
+package size lies within [GOODIX_HID_PKG_LEN_SIZE, rem_size].
 
-Fixes: b95f5bcb811e ("HID: Move the hid-hyperv driver out of staging")
-Fixes: 934b7778aa7b ("HID: hyperv: validate initial device info bounds")
-Closes: https://sashiko.dev/#/bug/linux-03d64dd2-820e-44e2-ba9e-b4a70f1e55ec
+Fixes: 75e16c8ce283 ("HID: hid-goodix: Add Goodix HID-over-SPI driver")
+Closes: https://sashiko.dev/#/bug/linux-07f163f5-b48d-4fd5-addc-ba577c30fc6e
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/hid/hid-hyperv.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/hid/hid-goodix-spi.c | 34 ++++++++++++++++++++++++----------
+ 1 file changed, 24 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/hid/hid-hyperv.c b/drivers/hid/hid-hyperv.c
-index cfc061dbdd24..1de03e38f363 100644
---- a/drivers/hid/hid-hyperv.c
-+++ b/drivers/hid/hid-hyperv.c
-@@ -272,14 +272,22 @@ static void mousevsc_on_receive(struct hv_device *device,
- 	struct synthhid_msg_hdr *hid_msg_hdr;
- 	struct mousevsc_dev *input_dev = hv_get_drvdata(device);
- 	struct synthhid_input_report *input_report;
-+	u32 pkt_len = hv_pkt_datalen(packet);
- 	size_t len;
+diff --git a/drivers/hid/hid-goodix-spi.c b/drivers/hid/hid-goodix-spi.c
+index a2c6b92f74ee..c8c158a74235 100644
+--- a/drivers/hid/hid-goodix-spi.c
++++ b/drivers/hid/hid-goodix-spi.c
+@@ -574,7 +574,7 @@ static irqreturn_t goodix_hid_irq(int irq, void *data)
+ 	struct goodix_ts_data *ts = data;
+ 	struct goodix_hid_report_event *event;
+ 	struct goodix_hid_report_package *pkg;
+-	u16 report_size;
++	u16 report_size, pkg_size, rem_size;
  
-+	if (pkt_len < sizeof(struct pipe_prt_msg) + sizeof(struct synthhid_msg_hdr))
-+		return;
+ 	if (!test_bit(GOODIX_HID_STARTED, &ts->flags))
+ 		return IRQ_HANDLED;
+@@ -600,13 +600,15 @@ static irqreturn_t goodix_hid_irq(int irq, void *data)
+ 		return IRQ_HANDLED;
+ 
+ 	pkg = (struct goodix_hid_report_package *)event->data;
+-	if (le16_to_cpu(pkg->size) < GOODIX_HID_PKG_LEN_SIZE) {
+-		dev_err(ts->dev, "invalid coordinate event package size, %d",
+-			le16_to_cpu(pkg->size));
++	pkg_size = le16_to_cpu(pkg->size);
++	if (pkg_size < GOODIX_HID_PKG_LEN_SIZE ||
++	    pkg_size > GOODIX_HID_COOR_PKG_LEN) {
++		dev_err(ts->dev, "invalid coordinate event package size, %u\n",
++			pkg_size);
+ 		return IRQ_HANDLED;
+ 	}
+ 	hid_input_report(ts->hid, HID_INPUT_REPORT, pkg->data,
+-			 le16_to_cpu(pkg->size) - GOODIX_HID_PKG_LEN_SIZE, 1);
++			 pkg_size - GOODIX_HID_PKG_LEN_SIZE, 1);
+ 
+ 	report_size = le16_to_cpu(event->hdr.size);
+ 	/* Check if there are other packages */
+@@ -614,22 +616,34 @@ static irqreturn_t goodix_hid_irq(int irq, void *data)
+ 		return IRQ_HANDLED;
+ 
+ 	if (report_size >= ts->hid_max_event_sz) {
+-		dev_err(ts->dev, "package size exceed limit %d vs %d",
++		dev_err(ts->dev, "package size exceed limit %d vs %d\n",
+ 			report_size, ts->hid_max_event_sz);
+ 		return IRQ_HANDLED;
+ 	}
+ 
++	rem_size = report_size - GOODIX_HID_COOR_PKG_LEN;
++	if (rem_size < GOODIX_HID_PKG_LEN_SIZE) {
++		dev_err(ts->dev, "invalid attachment data length, %u\n", rem_size);
++		return IRQ_HANDLED;
++	}
 +
- 	pipe_msg = (struct pipe_prt_msg *)((unsigned long)packet +
- 						(packet->offset8 << 3));
- 
- 	if (pipe_msg->type != PIPE_MESSAGE_DATA)
- 		return;
- 
-+	if (pipe_msg->size < sizeof(struct synthhid_msg_hdr) ||
-+	    pipe_msg->size > pkt_len - sizeof(struct pipe_prt_msg))
-+		return;
+ 	/* Read the package behind the coordinate data */
+ 	pkg = goodix_get_event_report(ts, ts->hid_report_addr + sizeof(*event),
+-				      ts->event_buf,
+-				      report_size - GOODIX_HID_COOR_PKG_LEN);
++				      ts->event_buf, rem_size);
+ 	if (!pkg) {
+-		dev_err(ts->dev, "failed read attachment data content");
++		dev_err(ts->dev, "failed read attachment data content\n");
++		return IRQ_HANDLED;
++	}
 +
- 	hid_msg_hdr = (struct synthhid_msg_hdr *)pipe_msg->data;
++	pkg_size = le16_to_cpu(pkg->size);
++	if (pkg_size < GOODIX_HID_PKG_LEN_SIZE || pkg_size > rem_size) {
++		dev_err(ts->dev, "invalid attachment package size, %u vs %u\n",
++			pkg_size, rem_size);
+ 		return IRQ_HANDLED;
+ 	}
  
- 	switch (hid_msg_hdr->type) {
-@@ -317,6 +325,10 @@ static void mousevsc_on_receive(struct hv_device *device,
- 		if (!input_dev->init_complete)
- 			break;
+ 	hid_input_report(ts->hid, HID_INPUT_REPORT, pkg->data,
+-			 le16_to_cpu(pkg->size) - GOODIX_HID_PKG_LEN_SIZE, 1);
++			 pkg_size - GOODIX_HID_PKG_LEN_SIZE, 1);
  
-+		if (input_report->header.size >
-+		    pipe_msg->size - sizeof(*input_report))
-+			break;
-+
- 		len = min(input_report->header.size,
- 			  (u32)sizeof(input_dev->input_buf));
- 		memcpy(input_dev->input_buf, input_report->buffer, len);
+ 	return IRQ_HANDLED;
+ }
 -- 
 2.56.1.750.gf70dc682cf-goog
 
