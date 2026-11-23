@@ -1,56 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795461491;
-	b=2lXzSNNJg2i/f8J+ovrkNtfjlP7Q1Vnrnuio3PJc8nQoONk7cyS/NeRcZQvKQLeEqtYR
-	 IZSIg3vESq86MWlt6PGdBl4HiP07pVlVGi0aHWonTVJjeZX7NmgrZBaiPkTOJen4J0blt
-	 yuYUlZJx3EowXti16vu8xvZplXL69rpzeCl7CaRTkT/+zv/JI1KOMt9awpMk2vnBDzwIB
-	 VEtMKzwbmX6fJKANL/gfTlV6DGrwKJ2ZHGsuJnnDS30ZiDhkmwJhg4n3Rk0g2csXFFzGo
-	 FJez7WcSuBkmMqJeBDwmV4VkmLH45utY3bgfuJldDTDfimKWbXy+8Umm8Kd+SorXtmA==
+	t=1795461499;
+	b=BZBBqUw/lmNgC0/H25b1Y9QKgiEpRL1JCBmRMqguHSRZySxjvmexMQEElzyIC88AJh7D
+	 3AtU2QpTzDa9zr2EMRNkQTc/LaycJWh+Jn8V0Wsf+3Ww8N8t1Pz+GPlgTmJUKn0L7XYbp
+	 aL81XBufSTuTOo/VHn/PkcjqQn6uzGLQyLPyzmXA0vI5SSmWRRXpSk5gB5bGMHN4NTg+K
+	 M8OdNJQrrlznP958//at/+26uWUCzRqnD4aa8LkKhu5mLTuffR8Y1Yec3VcWW4EXnPZgU
+	 lgPU7iDe9RRUdXgAXYRmWhY6sJAfWKhLv1JzEqhNkulI21N5QcPp0gWPuFeMAhdgaeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795461491;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461499;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=IBiXJSABWekdEHueXqCZaNtJq+L7qTfSTNmGLEe2rKQ=;
-	b=2GH9SgCrBZ8llJlkx9uWzReoyjYj14y/gSGP4/6CXPJqgK6sQM64XzfLTnktJ6Ijwl5d
-	 qQHRJdfiQKTSQAOUYDtE8ceGrbspPqDxNyzsrpoMakakybLm3JXUaetOxhKn2BnX3wDb3
-	 Riy6HXiW45YGOe0c8TqnLIiF05C+XsbgyzyyYAGrpfCXq0K2h1ZPvPqAotKCPTTYgsOsV
-	 X37Boge8DXlgARunASiTNQZP8Z24PfociRuNbn9eESN3cDmqf6uz/mhoyJ6dR8zsnmZJ7
-	 IMlRrb/sgxVgjrua2SaLaggF3zBWZdldrRO3JLvjVq0DqqaJpIXolg5djjw2cgyrlFQ==
+	bh=QeVL1oh/02zJrzsfFfCh64xNOfXvg6lZnkmRzYRsosw=;
+	b=PHzRvE0Ipmxkjkms0yv+b1wTmoX6TL4zWGv2CVyTJs6USTwayY+uS1ZDx/HzOIwGUC0y
+	 9MYlySJ8zNxNQgqHanLLlXy3vwLoBy3cCTYBNLHuEIrRaMM7BD73RZvN69VUEJNlaZrLI
+	 Wkgcvdpn4W0NJE5z+cbJRuAUulhIxcwCNHV7uyA0imqaGxunKcsmHrRw3SzdG0ioCfGqZ
+	 YdiHgx4BmiO+jIdcCqDmNQzhiJn4b2kpqzNic9UI3QWnnmrHrNDbylrW4k+re/Tj5ACu/
+	 Ld3c2xTQC/fLl4TXucYQ+m5bO47k3XtLxiaCi7pggpdZt1sZlU7WV/PnEaBArHZwPNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SJ8jAQNn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVOcXnOE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A72606A31E;
-	Mon, 23 Nov 2026 19:18:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3668606A31A;
+	Mon, 23 Nov 2026 19:18:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SJ8jAQNn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CB8C1F000D2;
-	Mon, 23 Nov 2026 19:18:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVOcXnOE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B11C1F000D1;
+	Mon, 23 Nov 2026 19:18:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795461490;
-	bh=IBiXJSABWekdEHueXqCZaNtJq+L7qTfSTNmGLEe2rKQ=;
+	s=k20260515; t=1795461498;
+	bh=QeVL1oh/02zJrzsfFfCh64xNOfXvg6lZnkmRzYRsosw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SJ8jAQNn3P2Xio/IWk8WIeR0XgOXfe4OJ8s7UOkXE2eJeRrS4ko9oJS3wx3sJ3tZj
-	 WzawRRGOWRwakcjzdQK19AeBufPa6CpJIIdBYcB4q0LMwA+2p2XFCO1n/SxGntF8r5
-	 Jv83kCoXz4u5e6KW8hGbBdTzCTm12Zus04OmvQSgmKgqZmXc58h0ZnmVsewvZ8xZiW
-	 pj5I0vE0N7YrddsZnii4zyATP1Rmppj6lMsHjjoV20eOXXinPL2McFR7Y9gpl60GiM
-	 hFxMjvdJYgBKDSlDqrLQBhqeR+LUg7KVAxZTE6TdmDEde/DbPiotub8S9jViyx3EI6
-	 nFQ+3NxC1SofA==
+	b=iVOcXnOEp2GsAyPxMFcuyOEVwMBipE8I6tGzJt3IzPs6FhuPv0lG0ZtSNBphUHeFf
+	 nAvykFFvkMXQLuZbSRu6l/7srxmzXqAWOod9oYD3eVCSgkAbQghQY3Yz2xob4RdSwd
+	 RzoWSx/P7sQ32REAPhuerb+4cHZ7+eK0oS9gWD/2mqGsxAUdUBhWBR8MWeXJoqN5iq
+	 UZ3nfVF56WNi3hfz5JNBAhWJHBgSlWfDP+6U/EF8WhRHCRU6hbyY5bXXRk+1cW/S2k
+	 JW+ObOMg48hxGrjJyfbs2rJoX1iOfNpfsnT2OeHAMP+FbhVkVYMLGT2IKJwrpVQ3Bh
+	 tuSRiP9keZlSw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Alex Dubov <oakad@yahoo.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
 	Ulf Hansson <ulfh@kernel.org>,
+	Juha Yrjola <juha.yrjola@nokia.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Hiroshi DOYU <Hiroshi.DOYU@nokia.com>,
+	Jarkko Lavinen <jarkko.lavinen@nokia.com>,
 	Pierre Ossman <drzeus@drzeus.cx>,
+	Aubin Constans <aubin.constans@microchip.com>,
+	=?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
+	Allen Pais <allen.lkml@gmail.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	linux-omap@vger.kernel.org,
 	linux-mmc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 07/13] mmc: tifm_sd: Synchronise timeout handler with request completion
-Date: Mon, 23 Nov 2026 19:15:51 +0000
-Message-ID: <20261123191703.179283-8-lee@kernel.org>
+Subject: [PATCH 08/13] mmc: omap: Shut down cover timer before disabling cover BH work
+Date: Mon, 23 Nov 2026 19:15:52 +0000
+Message-ID: <20261123191703.179283-9-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123191703.179283-1-lee@kernel.org>
 References: <20261123191703.179283-1-lee@kernel.org>
@@ -66,58 +75,48 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-tifm_sd_end_cmd() deletes host->timer with timer_delete() under
-sock->lock, clears host->req to NULL, and completes the request via
-mmc_request_done().  Because timer_delete() does not wait for an already
-executing timer callback and tifm_sd_abort() reads the active command
-opcode from host->req without holding sock->lock, a concurrent timeout
-expiry can dereference a NULL or freed struct mmc_request and spuriously
-eject the card after the request has already completed.
+In mmc_omap_remove_slot(), cancel_work_sync(&slot->cover_bh_work) is
+called before timer_delete_sync(&slot->cover_timer).  Because
+mmc_omap_cover_timer() queues slot->cover_bh_work and
+mmc_omap_cover_bh_handler() rearms slot->cover_timer, a timer expiry
+between the two calls (or a concurrent omap_mmc_notify_cover_event()
+before platform cleanup) can re-queue cover_bh_work so that it runs
+after the slot and its struct mmc_host have been freed.
 
-Serialise tifm_sd_abort() on sock->lock, return early if host->req has
-already been cleared or the socket is being ejected, and snapshot the
-command opcode and flags before releasing sock->lock prior to calling
-tifm_eject().
+When cover state polling is configured, shut down slot->cover_timer
+first with timer_shutdown_sync() to prevent re-arming, and then stop
+slot->cover_bh_work with disable_work_sync() so no further work can be
+queued during teardown.
 
-Fixes: 91f8d0118a0e ("tifm: layout fixes, small changes to comments and printfs")
-Closes: https://sashiko.dev/#/bug/linux-6535b228-4464-4a24-8fea-e969201c0f95
+Fixes: 7584d276d47a ("MMC: OMAP: Use tasklet instead of workqueue for cover switch notification")
+Fixes: 921c87ba3893 ("mmc: Convert from tasklet to BH workqueue")
+Closes: https://sashiko.dev/#/bug/linux-f30b1077-ed4d-4d62-a07b-11fff78d42c5
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mmc/host/tifm_sd.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/mmc/host/omap.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mmc/host/tifm_sd.c b/drivers/mmc/host/tifm_sd.c
-index 28ab2526dab1..30935214d17c 100644
---- a/drivers/mmc/host/tifm_sd.c
-+++ b/drivers/mmc/host/tifm_sd.c
-@@ -776,12 +776,24 @@ static void tifm_sd_end_cmd(struct work_struct *t)
- static void tifm_sd_abort(struct timer_list *t)
- {
- 	struct tifm_sd *host = timer_container_of(host, t, timer);
-+	struct tifm_dev *sock = host->dev;
-+	unsigned int opcode, cmd_flags;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&sock->lock, flags);
-+	if (!host->req || host->eject) {
-+		spin_unlock_irqrestore(&sock->lock, flags);
-+		return;
+diff --git a/drivers/mmc/host/omap.c b/drivers/mmc/host/omap.c
+index 36df578298c3..55efc4ec9d03 100644
+--- a/drivers/mmc/host/omap.c
++++ b/drivers/mmc/host/omap.c
+@@ -1356,11 +1356,11 @@ static void mmc_omap_remove_slot(struct mmc_omap_slot *slot)
+ 
+ 	if (slot->pdata->name != NULL)
+ 		device_remove_file(&mmc->class_dev, &dev_attr_slot_name);
+-	if (slot->pdata->get_cover_state != NULL)
++	if (slot->pdata->get_cover_state) {
+ 		device_remove_file(&mmc->class_dev, &dev_attr_cover_switch);
+-
+-	cancel_work_sync(&slot->cover_bh_work);
+-	timer_delete_sync(&slot->cover_timer);
++		timer_shutdown_sync(&slot->cover_timer);
++		disable_work_sync(&slot->cover_bh_work);
 +	}
-+	opcode = host->req->cmd->opcode;
-+	cmd_flags = host->cmd_flags;
-+	spin_unlock_irqrestore(&sock->lock, flags);
+ 	flush_workqueue(slot->host->mmc_omap_wq);
  
- 	pr_err("%s : card failed to respond for a long period of time "
- 	       "(%x, %x)\n",
--	       dev_name(&host->dev->dev), host->req->cmd->opcode, host->cmd_flags);
-+	       dev_name(&sock->dev), opcode, cmd_flags);
- 
--	tifm_eject(host->dev);
-+	tifm_eject(sock);
- }
- 
- static void tifm_sd_ios(struct mmc_host *mmc, struct mmc_ios *ios)
+ 	mmc_remove_host(mmc);
 -- 
 2.56.1.750.gf70dc682cf-goog
 
