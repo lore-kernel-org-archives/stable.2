@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795461478;
-	b=Vu6yWeN4ckwiaLjiwOFGfL+8i7e53pABSbpc5VdoxWDOf2cOAPiTnmRDwn7qJB3KZlf/
-	 zhUvNCJQFOkjFAR5/2zn65+WwahMv2YvlbvXYUNyNof9R5vZdpuj2qT78Aqdf1Dc5jCqD
-	 MwscZtnrBRRxCUvuVq0uz7y3FqFdnRgW4eR3mIFEd82rp8S6rYhRQFE4Z+V5YxPdCH/tq
-	 mg3G+vqxT9V2vq1jQJbzj05O84F0JKolpO8riuXtXP8RDbCDDpCaUzMgH45v8QDxrMXc6
-	 fPlyD2eH0e1koICE0dTYlwN8wgPFZczthG25nhS7DPwbrph/62P7YYswFspS+rpzCqA==
+	t=1795461484;
+	b=WqUMY5nZUWte7vO4vOfq34lcwXrGuT2mNw0sVzvYr3e7Fz/+O/IbxzXt10J0EQy2yML4
+	 EmcdCyIdVOLJE/PZAU8Cjyy1c8fIyZbdt4o/g1ij7v2Y0NfJInyIpguTgxqfxiPMA7Xnv
+	 D6I7x2aYErarIk2b1b5W4K4fupGkc+qNVutTS9ZGmFLkFKN5YV++Ml13tDTr7ViNCWB1f
+	 vDIg3Di3NH+xA2MdwRtB53eP1zJX9rns61GiDLnu3tgGpe6+nlFr50j7vXqe5uElYFz1w
+	 5Ryb/Qp/ZAi0NFEvobUrBcC/KyFLnDdEKrH3HDLyx3txqK9DQPeM4aIo7tM0UawY7xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795461478;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461484;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=q8DOoHoK2agKTRSI1QvotHZVuC//gdFVWTTraIvdnew=;
-	b=Q7vVes+JEBTpKNyBvVOTowXwbbTu9zg1dyk+p6D6sxpIpnu09urs6jUGQ/8aoYGwTv8G
-	 42GRiI51oAN4jc7Vyb/MqFBFtJ4N47QRFof/yUlxXwmdBH3SWf8yT8y6TXRhoxldELJzW
-	 fkPViq0FyF6kbjFf0+7BxsA8kRZ7YuM0cGf2qZHuOMh9iWQKq5dzYLwAQLGqccEgZZhRn
-	 +aVxL6NkVn0wu672JuBSlr/NaiYL/E63bkUcPaJX164/fUkFTYtvzAKCCvZ/7olJODZR/
-	 PAr7mBkGByb2v3yjhGI/Dgv0becodOs7/PM7rJh7ckZYWnQDDFxnY5I8kEnrogilMGg==
+	bh=aBzMS+ka1Rq8hvj4d1OdFgsS5C7iWSpuf0TYXqoFseE=;
+	b=YzW4qwA/3lI2oIRvXeswsjiv7IC62iHQmJRmQqYFPHuXiQ8neH/MPvE1V2zZhckdxzN0
+	 nVn2M2bqGLWNnjVvjnMhxXU+zPZeqYh34qFFDujn7K6e+IrWoeL8JV7vVemA6npO9LorU
+	 0MoF17YkDG3oDrsPKWVvF3T/BCpADW66i+ompQ6Tm8wHk8ZeZ5UIlXql0pFjtxC8D/Cvb
+	 6k3qDg+bI0g3Tg5KiWrI06SbUo2ZKvQHq+BG3oS13ifeWNLomwblGzdJYTa3C8iW4fWiJ
+	 ZMhpxc2DQrelvtjvmBrvgg4HCmPb40VS9ziWSM/wYC16pgRifrR2sZm1KOPqkO3y9Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fzNeHPV1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEx5oerY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 348A4606A327;
-	Mon, 23 Nov 2026 19:17:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BEA606A31A;
+	Mon, 23 Nov 2026 19:18:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fzNeHPV1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03B0C1F000CA;
-	Mon, 23 Nov 2026 19:17:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEx5oerY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE3F11F000C0;
+	Mon, 23 Nov 2026 19:18:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795461477;
-	bh=q8DOoHoK2agKTRSI1QvotHZVuC//gdFVWTTraIvdnew=;
+	s=k20260515; t=1795461484;
+	bh=aBzMS+ka1Rq8hvj4d1OdFgsS5C7iWSpuf0TYXqoFseE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fzNeHPV13w4KNibNsol2j8hMb7RRqlaH0iq4fUyBySWsSUlnimFPuEH34lMxQkOfU
-	 Pidy92HwWabacNwXgBOsn/PShq2nNjdacZSwma6Bk+l0/uy7FN425MU1hl6gRCgtKQ
-	 hFp+mLeM/5OVbaM0cKFaCSSPoTZajKKrMYW2SKL/spfu/VshLsr8ZzwFrfR0rof4Ku
-	 IPYVNxWWnFC6n+8OkIJwNlPgAXxDEi921R/B1UkoIUJHNGHY1xw52Ckov6IR+yIuKD
-	 5Lz9c6kSE5/YPDzPudNW/OilLWKvQjB39dnHqQhz75i3mzu6DsAKopSNOf3Spfe8Qj
-	 JQLEzpM+fTFIQ==
+	b=dEx5oerYnkgvth4XaUxvHfJCr+yBhfWrtAQl+6s1TLfLiBGyJvkQfmy5WBsmjxKPP
+	 mPuk3rKlmNYTw3+gqb41G4h9FeQH3fMKk+bPfnQduWwlNwnQcQZ2pNXL/TbXvDakpM
+	 OlcpkNBxWM1QOnuIPtaNoIyWcVBbcDBk14b2XhKIfIpyU4FAuAtJrGUog9I+buOk8r
+	 jerMq54zREA+RU0TixiYnQ5AnKC/S1p+xTAkQ7a9w3P0k4wTsnb7Qv+7qm2V+XbAJe
+	 8KnImr9WaNbq4hhibBvUDKhm5ejcqjLfUPPzWe2XUZOaYwR9AI5fcL8EenAePLmJyx
+	 S88xI0lxr9CgQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Paul Cercueil <paul@crapouillou.net>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
 	Ulf Hansson <ulfh@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Apelete Seketeli <apelete@seketeli.net>,
-	linux-mips@vger.kernel.org,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
 	linux-mmc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 05/13] mmc: jz4740: Skip DMA cleanup in PIO mode during post_req
-Date: Mon, 23 Nov 2026 19:15:49 +0000
-Message-ID: <20261123191703.179283-6-lee@kernel.org>
+Subject: [PATCH 06/13] mmc: renesas_sdhi: Guard host->cmd access in internal DMAC issue work
+Date: Mon, 23 Nov 2026 19:15:50 +0000
+Message-ID: <20261123191703.179283-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123191703.179283-1-lee@kernel.org>
 References: <20261123191703.179283-1-lee@kernel.org>
@@ -69,39 +68,54 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When DMA channel acquisition fails during probe, the JZ4740 MMC driver
-falls back to PIO mode with host->use_dma set to false and host->dma_tx
-or host->dma_rx left holding an ERR_PTR() or released channel pointer.
-Unlike jz4740_mmc_pre_request(), jz4740_mmc_post_request() does not
-check host->use_dma before calling dmaengine_terminate_all() on error,
-resulting in an invalid or dangling DMA channel pointer dereference
-whenever a PIO data transfer encounters an error.
+renesas_sdhi_internal_dmac_issue_work_fn() unmasks TMIO_STAT_DATAEND and
+dereferences host->cmd without holding host->lock or checking that
+host->cmd is still non-NULL.  If tmio_mmc_reset_work() times out and
+clears host->cmd under host->lock after tmio_mmc_cmd_irq() queues
+host->dma_issue, or if unmasking TMIO_STAT_DATAEND allows a concurrent
+data-end error completion to clear host->cmd via
+tmio_mmc_finish_request(), evaluating host->cmd->error triggers a NULL
+pointer dereference.  Unmasking TMIO_STAT_DATAEND outside host->lock
+also races with concurrent updates to host->sdcard_irq_mask.
 
-Return early from jz4740_mmc_post_request() when host->use_dma is false,
-matching jz4740_mmc_pre_request().
+Acquire host->lock across renesas_sdhi_internal_dmac_issue_work_fn() and
+bail out if host->cmd has already been cleared, matching the sibling
+system DMAC implementation.
 
-Fixes: bb2f45927f8e ("mmc: jz4740: prepare next dma transfer in parallel with current transfer")
-Closes: https://sashiko.dev/#/bug/linux-735efbcb-99f8-4d4a-8814-aa31e3634f29
+Fixes: c330601c9c93 ("mmc: renesas_sdhi: take DMA end interrupts into account")
+Closes: https://sashiko.dev/#/bug/linux-57271e16-2f7e-4151-a686-57ab2474fe6f
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mmc/host/jz4740_mmc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/mmc/host/renesas_sdhi_internal_dmac.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/mmc/host/jz4740_mmc.c b/drivers/mmc/host/jz4740_mmc.c
-index 923cf1450de5..e398a575f2dc 100644
---- a/drivers/mmc/host/jz4740_mmc.c
-+++ b/drivers/mmc/host/jz4740_mmc.c
-@@ -392,6 +392,9 @@ static void jz4740_mmc_post_request(struct mmc_host *mmc,
- 	struct jz4740_mmc_host *host = mmc_priv(mmc);
- 	struct mmc_data *data = mrq->data;
- 
-+	if (!host->use_dma)
-+		return;
+diff --git a/drivers/mmc/host/renesas_sdhi_internal_dmac.c b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
+index 0c3967f758c2..6831fc34cd22 100644
+--- a/drivers/mmc/host/renesas_sdhi_internal_dmac.c
++++ b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
+@@ -450,6 +450,13 @@ static void renesas_sdhi_internal_dmac_issue_work_fn(struct work_struct *work)
+ {
+ 	struct tmio_mmc_host *host = from_work(host, work, dma_issue);
+ 	struct renesas_sdhi *priv = host_to_priv(host);
++	unsigned long flags;
 +
- 	if (data && data->host_cookie != COOKIE_UNMAPPED)
- 		jz4740_mmc_dma_unmap(host, data);
++	spin_lock_irqsave(&host->lock, flags);
++	if (!host->cmd) {
++		spin_unlock_irqrestore(&host->lock, flags);
++		return;
++	}
  
+ 	tmio_mmc_enable_mmc_irqs(host, TMIO_STAT_DATAEND);
+ 
+@@ -462,6 +469,7 @@ static void renesas_sdhi_internal_dmac_issue_work_fn(struct work_struct *work)
+ 		if (test_bit(SDHI_DMA_END_FLAG_ACCESS, &priv->dma_priv.end_flags))
+ 			queue_work(system_bh_wq, &priv->dma_priv.dma_complete);
+ 	}
++	spin_unlock_irqrestore(&host->lock, flags);
+ }
+ 
+ static bool renesas_sdhi_internal_dmac_complete(struct tmio_mmc_host *host)
 -- 
 2.56.1.750.gf70dc682cf-goog
 
