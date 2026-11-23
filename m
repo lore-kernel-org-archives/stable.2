@@ -1,86 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795405683;
-	b=fe+wIRtR03KN22R0YIvTp/B1uZiupUv+Tj6BI151tj0rfh8YHkfrOah2iG1bPgXFFKzq
-	 mOdu6FjG23N1VyOXN+7q8OClX32Lf8enaF9qC/w9IKpsYX5dBFHGknB8sUz8g7y0+7mtf
-	 SwpWYZuFA/+qj1/kxolC6VUJDFE5iLi352bfkvJcVMitZkaL7Ww1Gf2bhs5N3Kk8z1eom
-	 GFRpcNvWychBBkJmoxxSAeihxgRZkdGaW8YPh+9sDs6aKh5a/MwTn4hbjeNGhE5vICagu
-	 EoKejgHM2x7G5Ck068iqOONsFHaocs/Q82AS/OOEaXlC1k1Vpejr1EFLaEIQTrYtndw==
+	t=1795406825;
+	b=jUTiehj9ueTk2oLwrbkgbCskNo4R952YYJ6JQN/LlOouHS4PWWLTE0D6QryDVrlFZEsZ
+	 HK5pABR09WBcO/DSg8TDWKZLnIB758XQkNgJfQlB8/mT64qbosSPCYU+beGZAKT25fB+1
+	 Ub27mQu1/xaReqYMuxas/6zC0LLWLlCmYX20j+fBSujWPbQrEU9fSIAZYbA+V62Nhk8ag
+	 Q+ZRAG8geZf8blfHNkNgu/tH+k2HUPnbN2Q1vUiY6DkFKAxE+oZrb9JYA+5U2rHqwPlm/
+	 n7IBTgyxITlnsORlI4lb+JaNyJqWw//dyq/NiKi+VAA56GyBCBt7GfKpwAmnGjdEP7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795405683;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MsrGKQGzP+EEZyfx8T7spQGnVkdm377jBo1ms48nKBs=;
-	b=ozIBh4smibDS5dT7BLw0yvrqy/RHCrouqQONmeS8tZZ14JOE8NhmmBG90PRp9kjCUpxl
-	 89CLc7FLH8/iPLB+SfPSaxT7/EbO9GaPc22FizipvthwtVI2ztQ0EWja926FV5i+8OYc9
-	 Zh7SmgXdpgyxFTikSGI8Pc48W0DKKXyuSUSeZz7Ue0tG9huN0fPjnLdExoaWw7ZymvyBL
-	 efui5KtxWHUMnVz3Iebh7b7gCO20YnX3x6AqfRzNwy1H4ruMZ0RHMpCjG1Nod5wFUSd+M
-	 KdwzcCD0NCK7rg1+F+bm4UGnwKSD/yReryglFMgpJDll04q5sVx+6i53X4UXF6+Tkvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795406825;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=LLWUQJfbd+q8VyoErsrKDBDgdA9nzb7m7pgg7/PG2U4=;
+	b=1PGxxqXvzFcp0gFK+APCxfbwiihhcewWqMrIDX+O1QE8eFVyKkl8O/AGakRSAcLXDX7P
+	 x8v+TpqhQkfFXamC7c5hq2f3DNLl7o3caJKiWuYpEjLliQFJ4gszi96ICWTDvJqH60w+m
+	 1aqJQp7YsgyXIz5cmn+Ibj6NygXfd+Jnm1czNL1zMR346gD4c3C+2lox6sp2aJexX9ns+
+	 eOE+f/TcU4uJrIoTeZTSuzS2oKzOxZaRXnPMgzkmgBtI64zl33jSUDNONJpFPYKtR5+F7
+	 uW1kDScgfKJAYH3E8tqQ462UR9daBvV6AHZk7R0Pmt0kHKXWdgbfDdobKjb8Dfy5DBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xo8ss3cl;
-	arc=none smtp.remote-ip=162.62.58.216
-Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zrkVMVM8;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664E2606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 03:48:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 664E2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1312606A31A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 04:07:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1312606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xo8ss3cl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795405671; bh=MsrGKQGzP+EEZyfx8T7spQGnVkdm377jBo1ms48nKBs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xo8ss3clFZ4gxYyauA1YzXZqrLA0ZyVvw2VMEW+8JntkD4JyUrKj3s1DAOSLCLxHt
-	 Nk7/d9KGTXZJVsy/uKr8yWCXQRrweZnnpuk11TjOMjPHkPH0pCJthgaIuEyEYes6PL
-	 fQEB86wh9Fx9hw2Ox5Wnf0ra9CYiBXsVUAlYc1Yk=
-Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id BF083E63; Mon, 23 Nov 2026 11:47:48 +0800
-X-QQ-mid: xmsmtpt1795405668tqjo36uf2
-Message-ID: <tencent_8BA4FF587EE5579AB67149C5062618DC7109@qq.com>
-X-QQ-XMAILINFO: NbgegmlEc3JumeUkE1gRqM72suL6ijtrDDc9aZgBbFWMkMQmDbzihCOKF+oGC9
-	 Ps+IHliJmhXho+7NzR5WzABe5kEEev7XR47AWfBZ0oZdezu0UPECjqxhnXeJ9/QWR+X2R8OwFjPZ
-	 thMLvjYDIzz24W8JAdB4Gos+sSFD8Y3GwqikxiLgU3KVGQw8W5dpeoOULv8WT4yZ8QAg7L+QTIGb
-	 /sv1FjmB9whl0gwHlBXNIM29K8DiWh5uwr3gJox7M8toSLpANMa1aIIKrL5sMhwGwd+Si+F+Ht76
-	 V787l8MHmk+J84Uy6z2visyXCAvAGHnu8ZNnOL5QObMzElXRK4B2b2SyppOJGmUZEGSDF1HuzJyh
-	 b7KuFOo6HosPJsQgPbiRlCpuJKZCiPBSbnmdhqTHcoSEoEU8XwjDi1FMtpMsErOLtCJK2a17OSbT
-	 hMS2ofXExK9d/m/H/L+wQyvc1VzqjA3gU7uThncBHz4wJCX3qjoUElREKqgSv4ucRClq3cZ/kSEq
-	 qdcSHT4xTVpfi6LmnFz3yL/+SnsSxeIkdWJvmEXDH+MJzzb/0Aw1VysI4MUdFAEP+z7BoGLfoiqk
-	 M6fuNRDdaTmd0lYuzCZWo2HbL4NNTgXj0f71hKtKDtKBX95EW7NXwfiv0ybUVGvL81m0jxV5DUPW
-	 LINlbBXZj4HxDQLcENtYlrm8//HAOmIS8Qf4jS/ftX75eoKTd1/Pwdw3Z0/MS0AS6BRKPVPfSphd
-	 nRbbwB0CnwtSTB/Xhh/rEheBY/DsQuoQNErCPQTDpQVA3HQHUJogVKwBPhgeVUwMrikm7oh30A5k
-	 uKuKKx/jOGILTUARUmVtlDp0OolbtWKs09tkPw4qZPkVrivlH4Aw+A/ceX8YVgN8sdcueiyyBzqn
-	 Aw5bPfB4cjImsKzsmZbJu6F+w2VQRawaJwzQtl3wnx+dxMX1FbeHA2OIrvkzdrIt9LUVaGHItCmT
-	 LSHmUaceEdTyF9ww18slfAfYt4jV99L3rBhRg+kkXQBGPThEz37s8Pz5JxWEyfIaKpqk+u8Nr946
-	 g9uGsdsZjb7+um3JiLzEtHTmTfLWqFU6aEJIDleGU61Zad/sXzX4eoYmKlwwNTHou21aGfnahvJY
-	 d6ihNeAZFUoQamOL6MTDNeLDcxjg==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Shuai Liu <847807867@qq.com>
-To: ms@dev.tdt.de,
-	linux-x25@vger.kernel.org
-Cc: netdev@vger.kernel.org,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	syzbot+300375dfd44665f063a6@syzkaller.appspotmail.com,
-	linux-kernel@vger.kernel.org,
-	847807867@qq.com,
-	netdev-bot+sashiko@kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] x25: defer socket cleanup on link termination to process context
-Date: Mon, 23 Nov 2026 11:47:48 +0800
-X-OQ-MSGID: <20261123034748.1269213-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179539800759.3135.17245752044060918891@kernel.org>
-References: <179539800759.3135.17245752044060918891@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zrkVMVM8
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cde84cb8803so308321a12.1
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 20:07:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795406824; x=1796011624; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LLWUQJfbd+q8VyoErsrKDBDgdA9nzb7m7pgg7/PG2U4=;
+        b=zrkVMVM8fiHIA2UIO1Um5i49tmxW5eAK/JbbSxShAL8W/6EY0z524g/bRIpvKqlMDo
+         6aKIXn27f6nZ/hN1j3RBtpx3nDs//cfaPPVaWZR6AvCdt+HOKLsKNZvWbsjXNtuO+SN9
+         /aI/c9/i1dEUrMglw2IFAf3wpR5tBymGIoQFag5KJ+JqP29kvrOa8hCq6xBemxljADkW
+         tzXv0bBUBqcFmUpbcirQeDeWwn9tD2B/2MUi9/4BtsfklBJX/0KFxHRZZrRkHs/zfdEe
+         Zma8doDyTSAzPcxB2PShBO+k9yTHKjjM7rRECrAgOvOz2+Za8g3vZm0zubw0SFWmzqwk
+         YNfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795406824; x=1796011624;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LLWUQJfbd+q8VyoErsrKDBDgdA9nzb7m7pgg7/PG2U4=;
+        b=Z5M1GaLEqhD7mhEEQ4OjP3OU8nrH0myjEkmQ9oD+nFY7KTe3k4DJgpwyWEanUwwSbb
+         DbykCeSnxQmPzgpMyPmH367mlfneMigOk9TrjqtQQls3ryWau/ON8KvNDjgXtTP1vgzM
+         6cADjlVoR/dMTgap7pEc41pIVyM0jiEgbJq55rGnUY4hx7COaVX+BjZ7EFcFMU84DVMT
+         PgzPzua3UCnNFHKSBgGi/2m1lY1+7ZVZz+404po19wxB7tWGtMSTV8KYB393EAEDCPfO
+         n7dyA25kisg1sWtJ3iCoFtiB0L64p/Yhr2OkGxLePQxml0AIYu41xKspURp0lsS1P8sj
+         QZpQ==
+X-Forwarded-Encrypted: i=1; AL+hErEdJ55lt/Ds8we+2WOq2YqtOL+xEi8xdSAbA/1hBNhf/72lXkXukCM31U/Kj2VQ2bzC2aAoAIA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XkffPI6S50i+cHa+lIudZfk/95d5O2s71FsE5OggZZafTGQRS
+	dD0yBX4iduzaXgYQqgI3puNQ3cF4SJ9tXfoUITq/r3dkreslTW6YmVLvpgi7uA==
+X-Gm-Gg: AZFdTZe5k9iWGy/LpjhThq2woaoLJof5IH+R2IkBqwqwFAoYtMhCN3jxF+Bb0Citz++
+	xcnJ2HhbPFnjonIheEUpO4LQikWbiwQrOPzkDg6jzwjdcKCXka9rhItPy8kkkgYd3CMsYaUTtZl
+	lgy4wEiOcV/6u6cVP8qXfK9cAxGm+lg1Gtg2Xz0P431emC6SvxmQLDwKOAerg4Oz3THOrTvSQ6r
+	dhdTCXMnSrnT/gS949FDqTTSR0Gv4FvDLswq6TYm4D4uk1zcwJHys6eM5j6Y/JkKAUm/uO5eRXf
+	SJLSrhQuFVKgfFyTpjJbBkKs9sYT0aVEcEdoe2iBeyZdl8x4ewq/Kc4F86N+dg+76BkK8akAzEZ
+	o0d7bEjlTyPBFdWBTz9XGm4+48ttbCc0g1FkqIHaHceIkTp2NOfCJ7z4dCgwwHetR/Dm1yOuB6S
+	MLrFUKEQScKyUcqoZ1q16jS0UTDyK31aHQpqnf9Za3wuwAEHDpD96J0eyIYTHmPfDDypliGNxRS
+	Pp8nRFD3EFC3AIxLke2kb0eHSJu5e3LpB6jk30kruHzq28MN9iYJYqvjS0WBsikNjsn/72igNTi
+	jrDhue+0zxPZTivdKN5zMuPqJrqNGgqObEWkWUEFLDZy2Hpl2wVyqbmWZ9+PP1lJDo4ueXxnQ5+
+	fL1aY+ON3Cw5d8TwtIyqjxEvQl0tXMQYADw==
+X-Received: by 2002:a17:90a:e70c:b0:3b0:d551:ab2 with SMTP id 98e67ed59e1d1-3b41c955b0emr9277361a91.51.1795406823840;
+        Sun, 22 Nov 2026 20:07:03 -0800 (PST)
+Received: from localhost ([153.61.198.252])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad0b2c4sm15511490a91.4.2026.11.22.20.07.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 22 Nov 2026 20:07:03 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 23 Nov 2026 04:07:03 +0000
+Message-Id: <DN2ALO12MI1Z.3HI553HDMO2FL@gmail.com>
+To: "Ryan Roberts" <ryan.roberts@arm.com>, "Catalin Marinas"
+ <catalin.marinas@arm.com>
+Cc: "Will Deacon" <will@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>,
+ "Daniel Borkmann" <daniel@iogearbox.net>, "John Fastabend"
+ <john.fastabend@gmail.com>, "Andrew Morton" <akpm@linux-foundation.org>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <bpf@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v1] arm64: Mitigate Spectre v1 in the BPF interpreter
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+In-Reply-To: <a6cda8a2-992f-41f9-a814-ee78363c3a69@arm.com>
+References: <20261117172341.3152407-1-ryan.roberts@arm.com> <DMYSI3BOQWOC.2P2FZB0H872DR@gmail.com> <awAay4FFj1_wQtaL@arm.com> <DN07ZMOAD4GP.37PG3XUPBG4CM@gmail.com> <a6cda8a2-992f-41f9-a814-ee78363c3a69@arm.com>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,227 +105,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-x25_kill_by_neigh() walks all sockets bound to a neighbour and calls
-lock_sock() and x25_disconnect() on each one.  It is invoked from
-x25_link_terminated() and x25_link_control(), which both run in softirq
-context when the LAPB link goes down or a restart frame arrives, e.g.
-from the lapbether NAPI poll path.
+On Sun, Nov 22, 2026 at 12:58 AM Ryan Roberts <ryan.roberts@arm.com> wrote:
+> I view this patch as a fix to arm64, not as a fix to BPF. I haven't changed any
+> BPF code - I've only removed an out of date comment in BPF code, which assumed
+> the code path was for Spectre v4 only. But that's not true since Commit
+> dff883d9e93a ("bpf, arm64, powerpc: Change nospec to include v1 barrier").
 
-lock_sock() takes a mutex in its slow path, so calling it from softirq
-sleeps in atomic context:
+Fair enough, but the arm64 part of that comment is stale.
+The verifier relies on nospec for v1 since
+commit d6f1c85f2253 ("bpf: Fall back to nospec for Spectre v1").
 
-  BUG: sleeping function called from invalid context at net/core/sock.c:3839
-    in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 14, name: ksoftirqd/0
-    ...
-    lock_sock_nested+0x66/0x70
-    x25_kill_by_neigh+0x90/0x110
-    x25_link_terminated+0x18/0x50
-    x25_lapb_receive_frame+0x1c2/0x1f0
+> arm64 was previously nop'ing barrier_nospec() despite seemingly needing it in
+> the same situation as x86. I think this is orthogonal to whether or not the BPF
+> interpreter permits speculation attacks in other places?
 
-and lockdep flags the sk_lock-AF_X25 usage violation because the same
-lock is registered in process context by x25_bind():
+Not quite. In the interpreter the barrier sits behind an indirect branch:
 
-  WARNING: inconsistent lock state
-  inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} usage.
-    ksoftirqd/0/14 [HC0[0]:SC1[1]:HE1:SE0] takes:
-    ...
-    x25_kill_by_neigh+0x90/0x110
-    x25_link_terminated+0x18/0x50
-    x25_lapb_receive_frame+0x1c2/0x1f0
+  goto *jumptable[insn->code];
 
-Defer the neighbour socket cleanup to a per-neighbour work item so it
-always runs in process context.  The work item holds a reference on the
-neighbour and on its net_device, so the deferred cleanup cannot race
-with neighbour or device teardown; both references are dropped again if
-queueing fails because the work is already pending.  A dedicated
-workqueue is drained in x25_exit() so that the module stays loaded until
-pending work has run, and NETDEV_DOWN flushes the work to keep device
-teardown synchronous as before.
+arm64 has no retpoline, and the prog can train this branch.
+With a wrong target the CPU skips ST_NOSPEC and runs the next insn.
+So the interpreter is still not safe.
+Yet you're arguing that you're making bpf interpreter a viable option
+on arm64. That's just not fair to users.
+Say it in the commit log that you're fixing one tiny issue and leaving
+giant security hole in place.
+With that I'm no longer nacking it.
 
-Fixes: 7781607938c8 ("net/x25: Fix null-ptr-deref caused by x25_disconnect")
-Reported-by: syzbot+300375dfd44665f063a6@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=300375dfd44665f063a6
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuai Liu <847807867@qq.com>
----
+> Looking at bpf-next, it is still possible to deselect BPF_JIT when building. If
+> this is such a security issue, shouldn't we disallow that on arm64, or at the
+> every least make it an EXPERT option?
 
-Changes in v2:
-  - Use a dedicated workqueue and drain it in x25_exit() so the module
-    stays loaded until pending work has run (Sashiko)
-  - Hold a reference on the neighbour's net_device for the deferred work,
-    and drop it again when queueing fails because the work is already
-    pending (Sashiko)
-  - Flush the work in NETDEV_DOWN to keep device teardown synchronous
-    (Sashiko)
-  - Explicitly request WQ_PERCPU to satisfy the workqueue API
-  - Add Fixes tag and Cc stable
+Yeah. Good point. Let's disallow it on arm64 and x86-64.
 
-Changes in v3:
-  - Flush kill_work in NETDEV_CHANGE as well, restoring synchronous
-    socket cleanup for both process-context notifier events (Sashiko)
+I'm thinking to push something like this
 
- include/net/x25.h  |  3 +++
- net/x25/af_x25.c   | 12 +++++++++++-
- net/x25/x25_link.c | 28 +++++++++++++++++++++++++---
- 3 files changed, 39 insertions(+), 4 deletions(-)
-
-diff --git a/include/net/x25.h b/include/net/x25.h
-index 414f3fd993454..125803d4f0ee7 100644
---- a/include/net/x25.h
-+++ b/include/net/x25.h
-@@ -13,6 +13,7 @@
- #include <linux/x25.h>
- #include <linux/slab.h>
- #include <linux/refcount.h>
-+#include <linux/workqueue.h>
- #include <net/sock.h>
+diff --git a/kernel/bpf/Kconfig b/kernel/bpf/Kconfig
+index d705d7b..8b8688d 100644
+--- a/kernel/bpf/Kconfig
++++ b/kernel/bpf/Kconfig
+@@ -26,8 +26,8 @@ config HAVE_EBPF_JIT_KASAN
+ config ARCH_WANT_DEFAULT_BPF_JIT
+ 	bool
  
- #define	X25_ADDR_LEN			16
-@@ -143,6 +144,7 @@ struct x25_neigh {
- 	struct sk_buff_head	queue;
- 	unsigned long		t20;
- 	struct timer_list	t20timer;
-+	struct work_struct	kill_work;
- 	unsigned long		global_facil_mask;
- 	refcount_t		refcnt;
- };
-@@ -317,6 +319,7 @@ extern struct list_head x25_forward_list;
- extern rwlock_t x25_forward_list_lock;
- extern struct list_head x25_neigh_list;
- extern rwlock_t x25_neigh_list_lock;
-+extern struct workqueue_struct *x25_wq;
+-# Used by archs to tell that kernels that were compiled with BPF JIT support
+-# have no BPF interpreter.
++# Used by archs to tell that kernels with the bpf() system call have the
++# BPF JIT compiler and no BPF interpreter.
+ config ARCH_WANT_BPF_JIT_ALWAYS_ON
+ 	bool
  
- int x25_proc_init(void);
- void x25_proc_exit(void);
-diff --git a/net/x25/af_x25.c b/net/x25/af_x25.c
-index f45c9ec7d2c68..3696414617db1 100644
---- a/net/x25/af_x25.c
-+++ b/net/x25/af_x25.c
-@@ -222,6 +222,7 @@ static int x25_device_event(struct notifier_block *this, unsigned long event,
- 			nb = x25_get_neigh(dev);
- 			if (nb) {
- 				x25_link_terminated(nb);
-+				flush_work(&nb->kill_work);
- 				x25_neigh_put(nb);
- 			}
- 			x25_route_device_down(dev);
-@@ -235,6 +236,7 @@ static int x25_device_event(struct notifier_block *this, unsigned long event,
- 				nb = x25_get_neigh(dev);
- 				if (nb) {
- 					x25_link_terminated(nb);
-+					flush_work(&nb->kill_work);
- 					x25_neigh_put(nb);
- 				}
- 			}
-@@ -1790,9 +1792,13 @@ static int __init x25_init(void)
- {
- 	int rc;
- 
-+	x25_wq = alloc_workqueue("x25", WQ_PERCPU, 0);
-+	if (!x25_wq)
-+		return -ENOMEM;
-+
- 	rc = proto_register(&x25_proto, 0);
- 	if (rc)
--		goto out;
-+		goto out_wq;
- 
- 	rc = sock_register(&x25_family_ops);
- 	if (rc)
-@@ -1825,6 +1831,8 @@ static int __init x25_init(void)
- 	sock_unregister(AF_X25);
- out_proto:
- 	proto_unregister(&x25_proto);
-+out_wq:
-+	destroy_workqueue(x25_wq);
- 	goto out;
- }
- module_init(x25_init);
-@@ -1843,6 +1851,8 @@ static void __exit x25_exit(void)
- 
- 	sock_unregister(AF_X25);
- 	proto_unregister(&x25_proto);
-+
-+	destroy_workqueue(x25_wq);
- }
- module_exit(x25_exit);
- 
-diff --git a/net/x25/x25_link.c b/net/x25/x25_link.c
-index d1e8cd81c2143..424044c1cf974 100644
---- a/net/x25/x25_link.c
-+++ b/net/x25/x25_link.c
-@@ -31,6 +31,8 @@
- LIST_HEAD(x25_neigh_list);
- DEFINE_RWLOCK(x25_neigh_list_lock);
- 
-+struct workqueue_struct *x25_wq;
-+
- static void x25_t20timer_expiry(struct timer_list *);
- 
- static void x25_transmit_restart_confirmation(struct x25_neigh *nb);
-@@ -58,6 +60,25 @@ static inline void x25_stop_t20timer(struct x25_neigh *nb)
- 	timer_delete(&nb->t20timer);
- }
- 
-+static void x25_kill_by_neigh_work(struct work_struct *work)
-+{
-+	struct x25_neigh *nb = container_of(work, struct x25_neigh, kill_work);
-+
-+	x25_kill_by_neigh(nb);
-+	dev_put(nb->dev);
-+	x25_neigh_put(nb);
-+}
-+
-+static void x25_defer_kill_by_neigh(struct x25_neigh *nb)
-+{
-+	x25_neigh_hold(nb);
-+	dev_hold(nb->dev);
-+	if (!queue_work(x25_wq, &nb->kill_work)) {
-+		dev_put(nb->dev);
-+		x25_neigh_put(nb);
-+	}
-+}
-+
- /*
-  *	This handles all restart and diagnostic frames.
-  */
-@@ -82,7 +103,7 @@ void x25_link_control(struct sk_buff *skb, struct x25_neigh *nb,
- 			break;
- 		case X25_LINK_STATE_3:
- 			/* clear existing virtual calls */
--			x25_kill_by_neigh(nb);
-+			x25_defer_kill_by_neigh(nb);
- 
- 			x25_transmit_restart_confirmation(nb);
- 			break;
-@@ -97,7 +118,7 @@ void x25_link_control(struct sk_buff *skb, struct x25_neigh *nb,
- 			break;
- 		case X25_LINK_STATE_3:
- 			/* clear existing virtual calls */
--			x25_kill_by_neigh(nb);
-+			x25_defer_kill_by_neigh(nb);
- 
- 			x25_transmit_restart_request(nb);
- 			nb->state = X25_LINK_STATE_2;
-@@ -254,7 +275,7 @@ void x25_link_terminated(struct x25_neigh *nb)
- 	x25_stop_t20timer(nb);
- 
- 	/* Out of order: clear existing virtual calls (X.25 03/93 4.6.3) */
--	x25_kill_by_neigh(nb);
-+	x25_defer_kill_by_neigh(nb);
- }
- 
- /*
-@@ -269,6 +290,7 @@ void x25_link_device_up(struct net_device *dev)
- 
- 	skb_queue_head_init(&nb->queue);
- 	timer_setup(&nb->t20timer, x25_t20timer_expiry, 0);
-+	INIT_WORK(&nb->kill_work, x25_kill_by_neigh_work);
- 
- 	dev_hold(dev);
- 	nb->dev      = dev;
--- 
-2.43.0
-
+@@ -36,6 +36,7 @@ menu "BPF subsystem"
+ config BPF_SYSCALL
+ 	bool "Enable bpf() system call"
+ 	select BPF
++	select BPF_JIT if ARCH_WANT_BPF_JIT_ALWAYS_ON
+ 	select IRQ_WORK
+ 	select NEED_TASKS_RCU
+ 	select TASKS_TRACE_RCU
