@@ -1,57 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795396943;
-	b=GopmGnkCgDMe5mMP9qyzJJkuvDsPE9P9NDJUQijFegM6cAUFnzBT/jkuPDROmfBhsMwR
-	 HI/PyyjzUL+5m/w2y3dK2NaBAEg0R8m/JEQk7A8JTjY5xPEMvNAomq/y+nUJAkrvdJDs7
-	 5UqtH+dXFOjsBu3TtlloT/CErImZcL72GuJvmPAcGu4pnNij0Ui0kh5g8xdPr2UGlq2yL
-	 R1Ol4BUNWelZPjUqqKAYV1HLvYoYK+8PcbJMKmBmTCoNwGfY43iRKNqurg8ZvfD1lSQDg
-	 FjzyW4LqJe23jHV+BQmKfE3dAUaAoeKOUyBBbaBu0iWXIZmUhWCFb+MZaXLGckBtkQg==
+	t=1795398009;
+	b=CnQO6dXK4dl96YGywT/A5+JHb+NveRqgopwVWyQOnaMYgQmHiqAUPZd2uPwQWj2CiVoL
+	 HirLGrMEhl2dm79jIY+O891+3fiKXWqLhTkefgTeulduoxtHZJ75h5Icup625zXwcPUbz
+	 RXL4skZzqIR6aWNMzsSCM4YJKNAvHS/Fdb9oeGnZcSnAk0vQ0mD4x+xX8YKbiFD+MRR3r
+	 RWfhHyCMN3dUgatJB4FiBArONSGshRs5y4USzRBqv/qkaO0KEfhuvWRE0Qze1TFLkDgs+
+	 N+MLFwXyrO0+Z2FkRYYb0p2EfNnH9F1xI4ycmp0kXVbyQAkyJoDca4IJFfyYyps7cgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795396943;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-FangMail-Miltered:X-FangMail-Envelope:
-	 X-FangMail-Bounce-Flag:X-FangMail-Outinfo:X-CLEAN:Message-Id:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=hTSrzLpFQ4K6bpwZbZ08NkeidSei6B/cgppw/fPpF58=;
-	b=dY8YxROAlejU1QqSKA7BZmYcKvJ6xn8oaOGwScMOQO1i007jI93P+rHSha28qTNiKjtQ
-	 MGH5qs0GhFHi42f4RAlFBQpr6nCo+6R4Ys6iNakcPgTUzFdn4QW1BvJo8rhTIuHLz8fko
-	 1AB8UtDus3USv7Nm99AnBHq7xcBb+oqhdQwDyahCfnwE1pw/Y1JEuxZa02rCBjPCQCG/2
-	 cMF47m5Wr1JmXdzTCOqzYGp1omV0jOJ+xwePta93PrSB97wrGbdn6OFRwK+DYFodNQcaQ
-	 3xLVWHJ1LPdKyK54cOIcatncXEDsXVgGuO3Zgxi4nph0ShEowNpoa9+BXEdNYvBTf2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795398009;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ceIIcc4zK+CPfUbBfPOZqR1EDh72ggw2yVO7k0cL/kQ=;
+	b=eDWxxkqAiujz9RkTLw9/gO8On8/o1ApMYjA2+hLc+PaRmNf2BLO60SwOV0BfQXZ9HE3O
+	 bJ4kN8qPwcJbGTfQhMuB9ItQv1sB/RS1xUmZ2LECm4kurpqweApz4B00jM8Whq+ujG2OD
+	 t2MR4W0okAqsdCV5HCsSp0ub19ZFL5XJPNxHHC0Vfm4GRG9eVK/OJIr7cDvsYrMd//10u
+	 omEeb6iuAaRdW7CbdJOPVWolXgrNHm3JdKJw8v2scTCFSUeu9ODIYQWFqwddlYvEleab7
+	 y0fNNaxd4pxePSJH1Y1FdJikbOWdWXiKxUfQbmugfmTgAg9oJxUcPT3dJwnFQwxpckQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=isoftstone.com;
-	spf=pass smtp.mailfrom=isoftstone.com;
-	arc=none smtp.remote-ip=219.143.121.9
-Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WsKWYh4s;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF10A606A333;
-	Mon, 23 Nov 2026 01:22:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF10A606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
-Received: from ldzh.. (unknown [221.226.109.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dlzhangak@isoftstone.com)
-	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jXp835gJkz40Rf;
-	Mon, 23 Nov 2026 09:22:11 +0800 (CST)
-From: Daolong Zhang <dlzhangak@isoftstone.com>
-To: Alex Markuze <amarkuze@redhat.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Daolong Zhang <dlzhangak@isoftstone.com>
-Subject: [PATCH v2] ceph: fix inode and i_filelock_ref leak on file lock rollback
-Date: Mon, 23 Nov 2026 09:22:11 +0800
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20261122193828.1324376-1-amarkuze@redhat.com>
-References: <20261122193828.1324376-1-amarkuze@redhat.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBF5606A31A;
+	Mon, 23 Nov 2026 01:40:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WsKWYh4s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4001F000CA;
+	Mon, 23 Nov 2026 01:40:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795398008;
+	bh=ceIIcc4zK+CPfUbBfPOZqR1EDh72ggw2yVO7k0cL/kQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=WsKWYh4sY2Lb7noH2Cjog3vul3I/aqK4L4wpahyxWlXhe0ytZeCFa6h9ZbLKFc9X/
+	 cuJyEkerxsU/paW8mFIT8I9hjeaH+tEU3rnHKeMSHXCJj5qOib9s4UNc3Sqs2b+snt
+	 lVVOeiSrfuwmi9lX7jbRqKIWTg86kmHczAGd6YagP6X/7qfqJUFB2VB6YCDAq+uhi/
+	 +oTDFGEVPzPC5V1a/q4UUqtk2DT+oprxjxD8sSKxBYvX0KAyw7VvJU7QTBTPD2kw3z
+	 lWSUZ/GtPcPPzSaKuij8Vy74fwS4RqvE8xCPQg9pf6B/ggaKvBScWh8yzxKX2ohowY
+	 7+nHJUcXHtE5A==
+Subject:
+ Re: [PATCH] x25: defer socket cleanup on link termination to process context
+From: netdev-bot+sashiko@kernel.org
+To: 847807867@qq.com
+Cc: ms@dev.tdt.de, linux-x25@vger.kernel.org, netdev@vger.kernel.org,
+ davem@davemloft.net, kuba@kernel.org, edumazet@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, syzbot+300375dfd44665f063a6@syzkaller.appspotmail.com,
+ linux-kernel@vger.kernel.org, netdev-bot+sashiko@kernel.org,
+ stable@vger.kernel.org
+Date: Mon, 23 Nov 2026 01:40:07 +0000
+Message-ID: <179539800759.3135.17245752044060918891@kernel.org>
+In-Reply-To: <tencent_EC124B80BC53531B2EAB18DD04B37BAE7406@qq.com>
+References: <tencent_EC124B80BC53531B2EAB18DD04B37BAE7406@qq.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,69 +65,188 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TLS: YES
-X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
-X-SOURCE-IP: 221.226.109.28 unknown Mon, 23 Nov 2026 09:22:12 +0800
-X-FangMail-Miltered: at fangwg01 with ID 6B039543.003 by FangMail milter!
-X-FangMail-Envelope: 1795396932/4jXp835gJkz40Rf/6B039543.003/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
-X-FangMail-Bounce-Flag: 1795396932.6B039543.003
-X-FangMail-Outinfo: 1795396932/6B039543.003/4jXp835gJkz40Rf/dlzhangak@isoftstone.com/1
-X-CLEAN: YES
-Message-Id: <1795396934.6B039543.003.4jXp835gJkz40Rf@fangwg01>
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6B039543.003/4jXp835gJkz40Rf
 
-When ceph_lock() or ceph_flock() succeeds in acquiring a file lock on
-the MDS via ceph_lock_message() but fails to install the lock locally in
-VFS (for example when posix_lock_file() returns -EAGAIN or -EDEADLK, or
-locks_lock_file_wait() is interrupted), it sends a CEPH_LOCK_UNLOCK
-rollback request to the MDS reusing the same struct file_lock instance.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Because ceph_lock_message() invokes fl->fl_ops->fl_copy_lock(fl, NULL)
-for every CEPH_MDS_OP_SETFILELOCK operation, the rollback call
-increments ci->i_filelock_ref a second time and overwrites
-fl->fl_u.ceph.inode with a second igrab(inode) reference. When the
-caller subsequently frees or releases the request file_lock,
-ceph_fl_release_lock() only runs once, permanently leaking one
-i_filelock_ref count and one inode reference per rollback and causing
-'VFS: Busy inodes after unmount of ceph' on unmount.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Fix this by guarding ceph_fl_copy_lock() against being called when
-dst->fl_u.ceph.inode is already set, ensuring a single file_lock never
-acquires multiple inode references across retries or rollbacks while
-preserving the temporary reference held during ordinary unlocks.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: 89aa59301013 ("ceph: keep auth cap when inode has flocks or posix locks")
-Fixes: 8e1858710d9a ("ceph: avoid use-after-free in ceph_fl_release_lock()")
-Cc: stable@vger.kernel.org
-Link: https://tracker.ceph.com/issues/81372
-Signed-off-by: Daolong Zhang <dlzhangak@isoftstone.com>
----
-v2:
-- Keep fl_copy_lock() for ordinary CEPH_LOCK_UNLOCK in ceph_lock_message()
-  so i_filelock_ref prevents auth cap trimming while the unlock request
-  is in flight after try_unlock_file() (Alex Markuze).
-- Keep only the dst->fl_u.ceph.inode guard in ceph_fl_copy_lock().
+- [Medium] The patch makes clearing of existing virtual calls
+  asynchronous.
+- [Low] x25_device_event() (net/x25/af_x25.c) calls x25_link_terminated()
+  from two process-context notifier events, and the patch treats them…
 
- fs/ceph/locks.c | 4 ++++
- 1 file changed, 4 insertions(+)
+--
 
-diff --git a/fs/ceph/locks.c b/fs/ceph/locks.c
-index 677221bd64e0..4d70a0e8381c 100644
---- a/fs/ceph/locks.c
-+++ b/fs/ceph/locks.c
-@@ -34,6 +34,10 @@ void __init ceph_flock_init(void)
- static void ceph_fl_copy_lock(struct file_lock *dst, struct file_lock *src)
- {
- 	struct inode *inode = file_inode(dst->c.flc_file);
-+
-+	if (dst->fl_u.ceph.inode)
-+		return;
-+
- 	atomic_inc(&ceph_inode(inode)->i_filelock_ref);
- 	dst->fl_u.ceph.inode = igrab(inode);
- }
+x25: defer socket cleanup on link termination to process context
+
+This patch moves x25_kill_by_neigh() out of softirq context and into a
+per-neighbour work item on a new dedicated x25 workqueue, which avoids
+calling lock_sock() from softirq. The work holds references on the
+neighbour and its net_device, and NETDEV_DOWN flushes the work.
+
+Closes: https://syzkaller.appspot.com/bug?extid=300375dfd44665f063a6
+
+> diff --git a/net/x25/af_x25.c b/net/x25/af_x25.c
+> index f45c9ec7d2c68..a1a8bc203a24f 100644
+> --- a/net/x25/af_x25.c
+> +++ b/net/x25/af_x25.c
+> @@ -222,6 +222,7 @@ static int x25_device_event(struct notifier_block *this, unsigned long event,
+>  			nb = x25_get_neigh(dev);
+>  			if (nb) {
+>  				x25_link_terminated(nb);
+> +				flush_work(&nb->kill_work);
+>  				x25_neigh_put(nb);
+>  			}
+>  			x25_route_device_down(dev);
+
+[Severity: Low]
+NETDEV_DOWN now flushes kill_work. Should the NETDEV_CHANGE case in
+x25_device_event() flush it as well?
+
+net/x25/af_x25.c:x25_device_event() {
+    ...
+		case NETDEV_CHANGE:
+			if (!netif_carrier_ok(dev)) {
+				nb = x25_get_neigh(dev);
+				if (nb) {
+					x25_link_terminated(nb);
+					x25_neigh_put(nb);
+				}
+			}
+			break;
+    ...
+}
+
+Both cases run in process context under RTNL. Before this patch, both
+cleared the sockets synchronously.
+
+After carrier loss, the sockets now stay attached to nb with
+nb->state == X25_LINK_STATE_0 until the worker runs. During that window
+they can still send through x25_transmit_link(), which would queue the
+frame and call x25_establish_link().
+
+Only the softirq callers seem to need the deferral. The process-context
+callers could keep the old behaviour with a flush, or by calling
+x25_kill_by_neigh() directly.
+
+[ ... ]
+
+> diff --git a/net/x25/x25_link.c b/net/x25/x25_link.c
+> index d1e8cd81c2143..424044c1cf974 100644
+> --- a/net/x25/x25_link.c
+> +++ b/net/x25/x25_link.c
+
+[ ... ]
+
+> +static void x25_defer_kill_by_neigh(struct x25_neigh *nb)
+> +{
+> +	x25_neigh_hold(nb);
+> +	dev_hold(nb->dev);
+> +	if (!queue_work(x25_wq, &nb->kill_work)) {
+> +		dev_put(nb->dev);
+> +		x25_neigh_put(nb);
+> +	}
+> +}
+> +
+>  /*
+>   *	This handles all restart and diagnostic frames.
+>   */
+> @@ -82,7 +103,7 @@ void x25_link_control(struct sk_buff *skb, struct x25_neigh *nb,
+>  			break;
+>  		case X25_LINK_STATE_3:
+>  			/* clear existing virtual calls */
+> -			x25_kill_by_neigh(nb);
+> +			x25_defer_kill_by_neigh(nb);
+>  
+>  			x25_transmit_restart_confirmation(nb);
+>  			break;
+
+[Severity: Medium]
+With this change, does the restart/terminate sequence continue while the
+old virtual calls are still bound to nb?
+
+x25_defer_kill_by_neigh() only queues the work and returns. In
+x25_link_control(), the restart confirmation (or the restart request,
+the move to X25_LINK_STATE_2, and T20 in the RESTART_CONFIRMATION case)
+goes out first. nb->queue is also drained in STATE_3 at the end of the
+function.
+
+The old sockets are still on x25_list at that point, with
+x25->neighbour == nb and their old LCIs. The same applies to
+x25_link_terminated(), which sets STATE_0 but leaves the sockets
+connected. Neither the softirq X25_IFACE_DISCONNECT path nor
+NETDEV_CHANGE flushes the work.
+
+Until the worker runs, a few things look possible.
+
+If the peer reuses an LCI after the restart, x25_receive_data() still
+matches the stale socket:
+
+net/x25/x25_dev.c:x25_receive_data() {
+    ...
+	if ((sk = x25_find_socket(lci, nb)) != NULL) {
+		...
+		queued = x25_process_rx_frame(sk, skb);
+		...
+	}
+
+	if (frametype == X25_CALL_REQUEST)
+		return x25_rx_call_request(skb, nb, lci);
+    ...
+}
+
+So could a new CALL_REQUEST on a reused LCI be handed to the old socket
+instead of reaching x25_rx_call_request()?
+
+A stale socket can also still transmit via x25_transmit_link(). In
+STATE_0 that queues the frame and calls x25_establish_link(), which
+brings the link back up for a dead call. In STATE_1/2 the frame is
+queued and flushed later onto the restarted link.
+
+When x25_kill_by_neigh_work()->x25_kill_by_neigh() finally runs, it
+disconnects every socket whose neighbour == nb at that moment. That
+includes calls set up after the triggering event, such as sockets from
+x25_rx_call_request() or outgoing calls from x25_connect():
+
+	x25->neighbour = x25_get_neigh(rt->dev);
+
+Can valid new calls get torn down with ENETUNREACH this way? The same
+question applies to forwards that x25_clear_forward_by_dev() removes
+after being created post-event.
+
+The comments "clear existing virtual calls" and "Out of order: clear
+existing virtual calls (X.25 03/93 4.6.3)" also no longer match what
+happens synchronously.
+
+One option might be to detach the sockets synchronously in softirq (for
+example, mark them dead or clear lci/neighbour under x25_list_lock or
+bh_lock_sock()) and defer only the part that sleeps.
+
+> @@ -97,7 +118,7 @@ void x25_link_control(struct sk_buff *skb, struct x25_neigh *nb,
+>  			break;
+>  		case X25_LINK_STATE_3:
+>  			/* clear existing virtual calls */
+> -			x25_kill_by_neigh(nb);
+> +			x25_defer_kill_by_neigh(nb);
+>  
+>  			x25_transmit_restart_request(nb);
+>  			nb->state = X25_LINK_STATE_2;
+> @@ -254,7 +275,7 @@ void x25_link_terminated(struct x25_neigh *nb)
+>  	x25_stop_t20timer(nb);
+>  
+>  	/* Out of order: clear existing virtual calls (X.25 03/93 4.6.3) */
+> -	x25_kill_by_neigh(nb);
+> +	x25_defer_kill_by_neigh(nb);
+>  }
+
+[ ... ]
+
 -- 
-2.48.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/tencent_EC124B80BC53531B2EAB18DD04B37BAE7406%40qq.com
