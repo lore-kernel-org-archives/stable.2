@@ -1,93 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.4
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795425824;
-	b=Gr+humUqEst7t8JmyLXg6refjptm7E1vXNkvyAc5cfdx6uWy+LKOelpzl6fWoUMg+WX5
-	 vidWdLQMlQPLxFHi1MVm9ZzGIl2tNWkKZPaBIz0amyYhPlbnNxwEn9HKVD0Opewf4pdqQ
-	 ECKRoMVDszz4QfsflgBeBlK7HUcUzmEEuRZEwZwoXW2xF2dtc8qrdW7rWV4+Jya70cKtr
-	 l98thsTt5gpBEUpxTQcnSO0pBS+t0hY6HEgdKq2sqZZPPAaOrKVEH0v9CTqVW577VpXle
-	 KXSxKPyu0toMkApkYC2Zf/Mxbpu5mkW1GUdwhsb+JpMVZ7p8DVyUduDrIZ/AAvQp5rA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795425824;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WEDFWHZ2jvUwTjdMWSt84PGAjx5jfxfv/wgRS1+CzQY=;
-	b=4Q7vLWpwyHF1k0z9LL2Ei1C7TCdvR0aNDRk8ylKCx02CARkFPzOMRLAEg2YY9CxWqtSR
-	 G+MfpjbYe40zcfet78YSjDSAzrTHh3Ca1PQxngCxFTlaiH6kzQ7Y1D/JBtf3T9PHu8cUO
-	 nZ56LXwLK21GDYEWTu6WdsLht5DX3rDqk1BQwTzxg3cIQB9Sa6uKWMb66aPR5GQrmNAco
-	 dCntWcwHULAtEfp13KzNe6F25EXCDxzKLAvBSlAEM7s+Q2krXRA9mI+4BAiCvbQZvMzwX
-	 vjmIVgCakDFOnn+XreHUZrG/oQmO1og3wndLKYQKnIr50CtR1Ig9MZttHxDa/dSwUcg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=YUbps2ym;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.4
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010004.outbound.protection.outlook.com [52.101.69.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.84
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795426012;
+	b=zGuKTExYZkuEIme9vuuTU5qMLU+3ckOfvWd7PxUYw1ns5+mHjAfdujQuBIvfuMioHUkP
+	 u8jUZpj48pht0jWp+9dOzlNJfNF6PEaadP+dahKOyL7ldRKLBmB582IyMwIG6wPCKpv/n
+	 Vba65ZVfd+ZQd7JaqdvPFixIM12uT77GOr/QKYJ8ysROI/FBliyNrCctqjEouVml3M6WH
+	 S1fo3w98ik/JOoIVnfnzanouXzeJxhSXajnK1/V4NuZw70h+oFAoYSdh9Y9knM0TYlHX+
+	 4/qAkBuLLXvUguLlKS+mX/GkpON2eTmhqPjS3Gqbq2zQbSgKurzRvq0MCXx0TajD8iQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795426012;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:
+	 X-Mailer;
+	bh=czfx09lVEJ+5qbSUxtIYbjWuSXbhH8LThXJ7vZTPIOM=;
+	b=L8a04/oXiN6nYTizAoX+QK3qKwbUz63MA1dZDHCDplY+n+BWbVpFswoOqKEJ7GYsoUIk
+	 OVnSnCRovKwjOcZx3sfDncYPZDptmrYek6Q7tBYDhMLxnJUN8HDUe6cNpY/lPfEQMXJDR
+	 NvDoUYBPg/FWKz1uQfEA8gJJRogG7dzAzWQFAAxf+zt3MdHNJ6mAJgnaiin8IyTZNscfC
+	 UgrKYOC1ZWfkfURhJZXbZLSIufA6KxrpB+U0tGVmv6fmZF4tT5UeVonIq8W+mNOD1UaGO
+	 JyarKkSa1EhASSAjcxq5iWH3jTTbwy/fKFn5hhLRA5+4Z0edOw00ZPhxhcJg0efJlNA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Gi2Bgny2;
+	arc=none smtp.remote-ip=91.218.175.84
+Received: from mta0.migadu.com (out-84.mta0.migadu.com [91.218.175.84])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB98606A31F
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:23:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BB98606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F26E606A31F
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:26:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F26E606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=YUbps2ym
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HTHgV+8vXnuYzohDmhln9pMooquwa3qoKZPWdP+bej7pONVHYyyMOPuyZpQcjLU67BfhD45Wr+lgp+7j2HzD6nucoEi6lXv/T7q7yi/t5OEnHY7GznPwbxMf2mnAJKoy1qtKOyhKoioTXEGnoEferBrTgGYskqW12+lUJRjOMZkl7ZTvww2yRpqnOZTE5BIcmwrxm4ib9yjJ1ORrFOqLnr+0mqlbaOAiQY7ZekwlC0Wsolgd5Kpo++z70O6TTqSDVLTWqaJHGfOXsOvwFlvwFU2D0zddQLDeFTepNFbc7kQO7QpSKw+SR2neBlvfW/FHsI/lVNtjPoA2sTlVJ+QuNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WEDFWHZ2jvUwTjdMWSt84PGAjx5jfxfv/wgRS1+CzQY=;
- b=KWG11yILxhsSQnwEmWkKw5O4hLPDcaWpmW1Bk5p3WL7PXG/GqIRId0j2qyUzlwc3RdFixaaUsO9tRvBuhQQ5XzSHw71r192LbDZjfEBDcQ14Aj9+eVFPeEvlMIdTsh/e/IOaA1j7X0bQlYvO1yEXWKE2bkeiHBT8RmMpqCZYKBVXoVpTqPbjc5ubrbbJlmVYCngto9r4eLtqV6gttQGz25Sg0LfS+aVhCxYF4TdVXA9RiCiD/NWDYSvWGgqMGQ9Ul4Y44rTPJyrtG1BF5TqPgONl5c1EKyKGSf49yIK94tBQAzP1/erFZV4GyD0SsWWOXf7WF2LCYtx+5lIXO909vA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WEDFWHZ2jvUwTjdMWSt84PGAjx5jfxfv/wgRS1+CzQY=;
- b=YUbps2ym7XQDGURBQuAEPbxrsp4Jw0QEIbCJ9FrtwtWlM/TKIbT5lJr8JidKMKevdbL2rlMY7EGMcoKeA4UaCAhid1oGccbhbs3Yv56uTlGipQ8ifdxlsRl+GUj0Qt2PkdjW2L6LuxYgxmN+9Tp5D270Lkr8i6EN40dbz/oINnK9rAGCTS6p4Snvf1qQbc+Mglyvz+k/AEiP7KffbVsoScJFaESdEUl7OywAJTf7vIG1dU28e1JynYE1aKVKJ0U5FhuMHI08eDqtWk2396j3Pl8VImdJycOEwkGIjza6iXskeXsaMnqZy4s0lEPO9gwp2vrDS+duy/MOkqKDexDAXA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by MI9PR04MB608809.eurprd04.prod.outlook.com
- (2603:10a6:290:b5::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
- 2026 09:23:40 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 09:23:40 +0000
-Date: Mon, 23 Nov 2026 11:23:36 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: marex@denx.de, mripard@kernel.org, imx@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/mxsfb: lcdif: Fix use-after-free on unbind
-Message-ID: <awQFcyLF3u3Z8_f_@vm>
-References: <20260909210213.946159-1-festevam@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909210213.946159-1-festevam@gmail.com>
-X-ClientProxiedBy: AS4P190CA0001.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:20b:5de::7) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Gi2Bgny2
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=g5DXUn2a5VY10LYZ28Rn2x9UC5KFh89OzpiCFa3tU90=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795426007; v=1; x=1796030807;
+ b=Gi2Bgny21XFAYLT6spZSkExUZiIhaTtUnNbcG2bGb8s1m95uI3X7HKojpZEH2S3oo3VDsDGJ
+ kN0pQIeMbCBMM0GzD/WkSfOrj2wKHCr9p+KbDuHH/MENJqGeLLpLfRSkPQ0imFpuIJrnms562+e
+ 16lM9tN4SAQA0jnczKDMzFeY=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 918bf4bc19c1858d;
+	Mon, 23 Nov 2026 09:26:47 +0000
+X-Mizu-Trace-ID: 918bf4bc19c1858d
+X-Migadu-Flow: FLOW_OUT
+From: Qiliang Yuan <qiliang.yuan@linux.dev>
+Date: Mon, 23 Nov 2026 04:26:42 -0500
+Subject: [PATCH for-rc] RDMA/rxe: Allocate the MR page array with
+ kvzalloc()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,94 +60,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|MI9PR04MB608809:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac648deb-e9f9-4fa4-23a5-08df494375dc
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|19092799006|10067099003|11063799006|56012099006|261021121427099003|261022075727099003|261022105027099003|261026140227099003|261009223027099003|261028144727099003|261102123227099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	FmuDSP4648SDG9M1WSdu28L8rBk+m0rK8V39QhRBRp+hwqDPMGQQ+8uhFYtYa5+FnLR0Em6oZmy0PAZw1ertZqcXLRWkiecZtmCDgx/eS1dg0AOvzOhvIhNKIlC0J95TpVB6OGlbsn3oQI6I0zomZb4BBUMJ19hAYonIrDAzqTQRlwYx+34ALh5ZOLcIaWH4gA/3Y7CIGx9muXVAQgZoTEScvpcOCakT1AlGreCjckEDuSnUMktwk6EKAGDXOFwRPq4fTlIY59BNsyVBmsOjJ6wZvOlsWtUKAv4s6R4AlcE7Op+u4MQW49mOuDrixl9U2rdT2i3TQR4wbpJJll5k2uap7D2jNQ1jzLOYtpjeO0httHAU6bWDBMx8X0D6XyLlxHDrkUj5d2WmLePttREE5ZMPeigxiL71uzIGfayFMQrAVx964+S1Wg8M0NRZrrqw7c6yEXcpfB/7M42rZQopODVnMQLAgwTg5Yh12ywVETo7iZFkyh2rx4efthPfaqAWrI43PFXg9BNohmka819hc7wXYrg1beHh5k6Q5/YeQNgtPsH3Ct1gSdAQcULgNjYrxrQYAwUP87R8UO/5f3Pfl8zkreUIWd8moT4Jx/7O2yqCuKVO4Ppndr/BNs2MI75lKKUuikFStEZvoVteQrmIJXpNMtVY0Zinh6EWjxQwCVQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(19092799006)(10067099003)(11063799006)(56012099006)(261021121427099003)(261022075727099003)(261022105027099003)(261026140227099003)(261009223027099003)(261028144727099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ot2Rw4dVJLbquU7q2CnGNAMBzOcZKPWrZrJ/moSksPOCq+1zmFh91qKGlMJ6?=
- =?us-ascii?Q?+TeVHaObKJkETzfbCunCMW5InInUrag1fHodpTJtYa59J4w0in5/HxvDH3Qy?=
- =?us-ascii?Q?7BnSbAfCYdkTO+B01epU80T+V1jRe6Mj0NBPqoqAWEUG1iZm1HPVBw0nLFc/?=
- =?us-ascii?Q?HxaOBuxJCjbmJ7cpjrXoff9+8fpvuJZz0+ICUkYNVG5DXgqddu2kLDkN+Nt2?=
- =?us-ascii?Q?Tb9sWhtqDpOHyxd2WZg1qAQlp3voMaj1K0FGvfSOQdDcnMwPkfj4/M39Dgz0?=
- =?us-ascii?Q?ivuxr58tioLyFNyLxe+Noti1H9Zltms02FauxmwIUcKeyQJu3wL9mINDemGr?=
- =?us-ascii?Q?Q3MrhpwRNerILxoxPteq8HsLzxPWTZPYvi8inL8QinRMCc1y9jNS3+CLXk1I?=
- =?us-ascii?Q?pTlMpo6RSqsENzwD4aa/aXRTgzRiVx4HR5DsFhdhdM+O4UCibLeuzP1afXs4?=
- =?us-ascii?Q?vArQGRqjJBqf9XSc2/jO9cwGKbX9K9kvzMhZlSuqccUFTzbhSKRN8lft3doh?=
- =?us-ascii?Q?x9xkQXlWmDdSNr8oms2VR8eWmeenZ4VfYEDr9aAzW7nqHhnI3b9NdufPaVH4?=
- =?us-ascii?Q?S3ffX27DtzOT0L+4+Sq70m5uKeV5VcVC/qv4LJmMAWOWMFCnCBgTfwx2T1fV?=
- =?us-ascii?Q?UPum2NGWfZ1IDsgK5Fb7vytAYaBnf/qfvRF7USiWPD4i90nKOHawtqswSt+n?=
- =?us-ascii?Q?C4e8Q3UyAgNS5u4cRk9dAdaIctk8sBaYJD5O1951hBqcrwWnM+gBnosjgE7q?=
- =?us-ascii?Q?Pcre0zO1JvdbQuGz81lCEnw/G7+NBaiZiiqd+e2JJxXKiiwxa2g1B7G48rYI?=
- =?us-ascii?Q?H+W0Oxp3SqxedUWE9Q8/0pgWyolW5YUAhJHSFAgxzRg++lB2mxIfKZRlEppv?=
- =?us-ascii?Q?CQNusUi0HvKF92c2eSwm7zMF2p8o/0Y5WJPGiDHc9P+M0IgBkALHfH8mkCu5?=
- =?us-ascii?Q?aXhjDJvdLFSGCHsuOMH41BSBgwKmH8knWY6iH1FOnBXYRiaHT+nrq+abvgOh?=
- =?us-ascii?Q?TWcRgNmR4+w7+vSz4aduUWDOD2r1U9vuJ0EKeYdehlI1U52Gpw/Gu13PWAQ2?=
- =?us-ascii?Q?8XTZGg+6b0kj6Twg/Nv1q2nWTW32XPn5PCazYOolSVfCg+YI5cigTJ4db+14?=
- =?us-ascii?Q?1SX+wREwIKgg0s73EtNFf7h0iIfqR1YBAnrJYSKH7erFyPXe+ktV2tZ9DtRn?=
- =?us-ascii?Q?UEkKSciW4vrlcpL6P+QtaojqwD6o7VWpIe5giApTYlyHcZOjtq5ZwVfcZYmJ?=
- =?us-ascii?Q?3FZcFK+GIVG/A6m92/x46YHWGhZXDosh4bAwl+ZkxTkPufJpeDf0dNbohv18?=
- =?us-ascii?Q?6bu6TEVlqGevk7v+w+sbaNnTXydAZm4aBo16NuZcWn87cgU/j617e64bl1jS?=
- =?us-ascii?Q?OZRMshuRIUVY7CREA9b71ZLLY2ChU19XtUlQaSkIunCN8ZXMd++wq53aADis?=
- =?us-ascii?Q?JCaiq0LUsX7N+qxU+orrG7GD1kQTZayYmuHcH1WSPUsjasH1NPl3hvUj3Elw?=
- =?us-ascii?Q?PjwqwUcbEgKA6G2lvEVFmkQZwpN8jU+43BSF2UnCyupZCamx92pao5Rj4Z8V?=
- =?us-ascii?Q?JKDaQI25bfSgSvK+p8GKirLQI6pQNSo6iOWdLyjR9Nq/hFjiKRjM3VejV8fy?=
- =?us-ascii?Q?CNKZYQM4e+HotDPa/uiHetHvKJZFduNWaXTao4zYYDzVwr2bzE2PvJzIo62V?=
- =?us-ascii?Q?7KFK4TLhW0di+YVk0ERDN2GJ6BGYhudUcS/1j7isLA4I8IDHVV0/bSB1AXkz?=
- =?us-ascii?Q?0alxdDSBXg=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac648deb-e9f9-4fa4-23a5-08df494375dc
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 09:23:40.4717
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: H69ZmV1/wRZXzNv2B36DaDxM3F9JmV3HGCs6ztbxrc+xEarI3rRf4GuihnOo7IKFeaVp++FZYcg3clnKZ44qRw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB608809
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261123-bug-rdma-rxe-large-mr-v1-1-8d0748ac4a3f@linux.dev>
+X-B4-Tracking: v=1; b=H4sIANEGBGsC/x2MwQqDMBAFf0X27IJJ1Lb+iniIZmMXqpYXWgTx3
+ w0eB2bmoCRQSdQVB0H+mnRbM5iyoOnt11lYQ2aylW2NsY7H38wIi2fswh+PbCzg+Gisr1/h6dq
+ GcvuFRN3vb09xA2Oi4Twvub+JWm8AAAA=
+To: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Li Zhijian <lizhijian@fujitsu.com>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Zhu Yanjun <yanjun.zhu@linux.dev>, stable@vger.kernel.org, 
+ Qiliang Yuan <qiliang.yuan@linux.dev>
+X-Mailer: b4 0.13.0
 
-Hi Fabio,
+A user MR keeps a struct rxe_mr_page, 16 bytes on 64-bit, for every
+PAGE_SIZE page it covers, in one array allocated with kzalloc() when the
+MR is registered. Before the array, the pages were kept in an xarray.
 
-On Wed, Sep 09, 2026 at 06:02:13PM -0300, Fabio Estevam wrote:
-> lcdif allocates its private data, which embeds the CRTC and primary
-> plane, and its encoders using devres. These DRM objects are linked into
-> the mode_config lists.
-> 
-> Since mode_config cleanup is DRM-managed, it is deferred until the DRM
-> device is released. An open DRM file can keep the DRM device alive after
-> the platform device has been unbound and devres has freed those objects.
-> The later mode_config cleanup then dereferences freed memory.
-> 
-> Allocate the private data with drmm before initializing mode_config so
-> that it remains alive until mode_config cleanup has completed. Allocate
-> encoders with drmm_plain_encoder_alloc(), which cleans up each encoder
-> and removes it from the mode_config list before freeing its memory.
-> 
-> This can be reproduced on i.MX8MP by keeping the DRM card open across an
-> LCDIF unbind and closing it afterwards.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 1c71d925c03a ("drm: lcdif: Switch to drmm_mode_config_init")
-> Signed-off-by: Fabio Estevam <festevam@gmail.com>
+With 4 KiB pages, the array of an MR larger than 1 GiB exceeds
+KMALLOC_MAX_SIZE, so registering it fails with -ENOMEM, and the first
+attempt warns:
 
-Just a heads-up, this patch will not apply on latest linux-next. Probably
-because devm_kzalloc() was swapped for devm_kzalloc_obj() in latest tree. So,
-you may need to send a v2 anyway.
+  WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0xe9/0x130
+  Call Trace:
+   __kmalloc_large_node_noprof
+   __kmalloc_noprof
+   __alloc_mr_page_info
+   rxe_mr_init_user
+   rxe_reg_user_mr
 
-But other than that,
-Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Allocate the array with kvzalloc_objs() and free it with kvfree(), so
+that MRs of any size can be registered again.
 
+Registering an MR over THP-backed memory, median of 3:
+
+  size     before (ms)   after (ms)   change
+  1 GiB            5.3          5.2      -2%
+  2 GiB        -ENOMEM         10.8      n/a
+  4 GiB        -ENOMEM         21.1      n/a
+  16 GiB       -ENOMEM         85.9      n/a
+
+Fixes: 12985e5915a0b ("RDMA/rxe: Fix iova-to-va conversion for MR page sizes != PAGE_SIZE")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
+---
+ drivers/infiniband/sw/rxe/rxe_mr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/infiniband/sw/rxe/rxe_mr.c b/drivers/infiniband/sw/rxe/rxe_mr.c
+index 13cb28d3916f6..fbf4d89947383 100644
+--- a/drivers/infiniband/sw/rxe/rxe_mr.c
++++ b/drivers/infiniband/sw/rxe/rxe_mr.c
+@@ -157,7 +157,7 @@ static int rxe_mr_fill_pages_from_sgt(struct rxe_mr *mr, struct sg_table *sgt)
+ 
+ static int __alloc_mr_page_info(struct rxe_mr *mr, int num_pages)
+ {
+-	mr->page_info = kzalloc_objs(struct rxe_mr_page, num_pages);
++	mr->page_info = kvzalloc_objs(struct rxe_mr_page, num_pages);
+ 	if (!mr->page_info)
+ 		return -ENOMEM;
+ 
+@@ -186,7 +186,7 @@ static void free_mr_page_info(struct rxe_mr *mr)
+ 	if (!mr->page_info)
+ 		return;
+ 
+-	kfree(mr->page_info);
++	kvfree(mr->page_info);
+ 	mr->page_info = NULL;
+ }
+ 
+
+---
+base-commit: e7732ec135b501e87ab060d992b3b5f2ec4396c9
+change-id: 20261123-bug-rdma-rxe-large-mr-f752a49d8365
+
+Best regards,
 -- 
-Thanks,
-Laurentiu
+Qiliang Yuan <qiliang.yuan@linux.dev>
+
