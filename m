@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=145.239.82.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795457241;
-	b=EgPYMWpM7V30fbFJLBKYAkjvXEsUDaXg95HXDfmvSrZJAMX1L05gw+AJrk1TawnaVXm4
-	 Ptb2xeKhy7vfSVoItdGtrsryfr9cN5RR2l6P4TTBRfcmYlif43nrf1M0bMllTjcvftw2d
-	 su7Ic2DDV4mhh5V2nwtDKXne5cDtP/J93BAQj+cfAt0NE9MLaCeBNcUHd41b4t2G1ylvr
-	 OG8CCe3+gHyH/C2VCXEjKlsdJZ85FwvB9nf1M7lY+eWMVlfuDqReMZWslVfhUu+cXGfKY
-	 Q3gH9VPpX9Wd/rKb08XaZP6HMUSWqVKOf7XArK1HybYMvp7CFFng6VsJC289/oXplaA==
+	t=1795457255;
+	b=qPk750NkXnQWp5bmr5ebveecqYWUTb5LoUtCYhyFWbs7PmZ2OrHc93TNVVZWkx4f076e
+	 +6UsP+5ZPWMlHVSR1xGPrYF0oXiz0XpESItw9gXQy9peIBlUbn8km0BDZq7wEmoWyhseH
+	 5GSK9h3zf3XoLhEKcTZtSz8++YL9klwNzhnvCmixFWheSib5rytcGRpZVP7AY33U5w6e+
+	 BKGfAPqfMlrFlf4R51ASDeoc8Oe4Wpy7Bw5N7fMk+yQBSRuGLRm+7mOd3lOZARL8f0ebK
+	 TBLz+3oVNPmZbY1dIkFRWz01Ps+DWGy6t7fevMUXRwB8NvFNnrWHOehptWyZ49fpf1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795457241;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795457255;
 	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:
 	 Disposition-Notification-To:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding:Sender;
-	bh=bp70Jh8sDMsjODuz8bbDpOzCbB8Sp/wdentCbU1pHRE=;
-	b=yUobbpzHNQ2z3h4dB2Ka/bMHfwz2O/NGjZdhRp2k/IUdh2bVyKz7XttDKRzM0Zu/Vnvk
-	 vLFF3ZaEFv+mAIqp5qkdZf5BIoBon4sxlJW6PFAd1j78XpNQMWvyln2/fi+pelF1Snju3
-	 znPYvZ+7GrFD1K2z8lCukt/fE6rOm9FM2apwv071ON9Is3BircfFHoRhfTWe2PlbeVh9E
-	 dSO9bWnd9n3h1kWNus7KPx7EZlyJG6l5xBLstzG8/rqa4dmR4tMNZ4ObxlOANJ4i98quo
-	 zKc2hHRFFqqKCsWwtzHOLTKM2fpAH2BtGLVyErNx3IfNB9iYEPOBhvlFjYWehkIy0Ng==
+	bh=6b5/gSRFYVQxbGpZr4BwafOmkvBNL0mPfWWVRMwohUI=;
+	b=AIAEj1yTM+z0tMhOYCawaNMxpbfAmKRpxxcl21hHAG/pBNCGS/AzrmqFkHtffNMdply8
+	 /yj3iXmPLVKTF1BowX7+bX5ca61G4b6dSQ3/G38GSoRIsp9oRI6IaEsT5suOsr6Y52ZhY
+	 2BBk4VL5NfVg2pndN4Zb70f+hyKExantaw0Qb5Tkb9F16ViDkWrPLZuniPLot5zQ53RbZ
+	 lHPiT+YA5GaRQkkXO68Dihq39tnK3El6loxTw54f6gTeYpIl+JRfw/3WM33jWIcT7GiaD
+	 9BN7vFztF4R6Pz3SM8kJGAVYXI2V8ZFNfV5Ydc/IzsAYFaFFUksasSxc4ye8z5BEFUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=maciej.szmigiero.name;
 	spf=pass smtp.mailfrom=vps-ovh.mhejs.net;
 	arc=none smtp.remote-ip=145.239.82.108
 Received: from vps-ovh.mhejs.net (vps-ovh.mhejs.net [145.239.82.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41A4606A31E;
-	Mon, 23 Nov 2026 18:07:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A41A4606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE10606A31E;
+	Mon, 23 Nov 2026 18:07:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FE10606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=maciej.szmigiero.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vps-ovh.mhejs.net
 Received: from MUA
 	by vps-ovh.mhejs.net with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
 	(Exim 4.100.1)
 	(envelope-from <mhej@vps-ovh.mhejs.net>)
-	id 1xVYRb-000000016hu-1kRu;
-	Mon, 23 Nov 2026 19:07:11 +0100
-Message-ID: <6d09e0b3-e718-4112-99fa-bbe1fd2aa97c@maciej.szmigiero.name>
-Date: Mon, 23 Nov 2026 19:07:06 +0100
+	id 1xVYRw-000000016i8-1Pqr;
+	Mon, 23 Nov 2026 19:07:32 +0100
+Message-ID: <aca74a0e-2672-4b93-b94a-e80b8fee5c9b@maciej.szmigiero.name>
+Date: Mon, 23 Nov 2026 19:07:27 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,18 +49,17 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 2/2] net: wwan: iosm: fix S3 resume by re-binding
- the driver around it
+Subject: Re: [PATCH net] net: wwan: iosm: always send the host sleep message
+ on suspend
 To: David Westen <davidlwesten@gmail.com>
 Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
- johannes@sipsolutions.net, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org, nihaal@cse.iitm.ac.in, stable@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20261119042714.505405-1-davidlwesten@gmail.com>
- <20261119042714.505405-2-davidlwesten@gmail.com>
- <5651d569-d291-48e1-b38d-8cbdb2c2f0a8@maciej.szmigiero.name>
- <e011f909-bc90-45b0-9065-e517ffcbcf2a@gmail.com>
+ netdev@vger.kernel.org, johannes@sipsolutions.net, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, m.chetan.kumar@linux.intel.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261122050039.861287-1-davidlwesten@gmail.com>
+ <925a4f3f-95bb-496e-be19-abf96af34d89@maciej.szmigiero.name>
+ <813dc217-9753-4f9a-bf1d-1d8878dc9012@gmail.com>
 From: "Maciej S. Szmigiero" <mail@maciej.szmigiero.name>
 Content-Language: en-US, pl-PL
 Autocrypt: addr=mail@maciej.szmigiero.name; keydata=
@@ -104,59 +103,64 @@ Autocrypt: addr=mail@maciej.szmigiero.name; keydata=
  WHQjcZZbROLql/+ngphSgdthGIhVWrIMHJu1UxnRiwKc/fzDFUZ9hFL+W4ZLm+52TzMatpta
  oNdcP9rtsQjdYMNLuwysP4keDX8yBXADwJD7eQ+ryIIKh6X1lBMIWxeZG5W0DQ6/4BCUEbCe
  1DqkYRtZyUEzgAbaHliaa5t3dfCtSMz5cAbGqxarXc7bKOjA6P8hCwgP0tEypA==
-In-Reply-To: <e011f909-bc90-45b0-9065-e517ffcbcf2a@gmail.com>
+In-Reply-To: <813dc217-9753-4f9a-bf1d-1d8878dc9012@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: mhej@vps-ovh.mhejs.net
 
-On 23.11.2026 04:17, David Westen wrote:
+On 23.11.2026 04:05, David Westen wrote:
 > Hi Maciej,
 > 
-> Thanks for the review!
+> Thanks for taking a look!
 > 
 > On 11/22/26 12:01 PM, Maciej S. Szmigiero wrote:
->> On 19.11.2026 05:27, David Westen wrote:
->>> - Entering suspend-to-idle or standby explicitly while the default is
->>>     S3 also re-binds the driver.
+>> On 22.11.2026 06:00, David Westen wrote:
+>>> This ignores the BIOS RTD3 setting for system suspend. The setting
+>>> only selects the sleep protocol; the PCI core chooses the power state
+>>> without it, and here chooses D3hot, which the doorbell protocol
+>>> doesn't survive. Honoring D0L12 literally would mean keeping the
+>>> device in D0, as commit f4dd5174e273 ("net: wwan: iosm: Keep device
+>>> at D0 for s2idle case") did. That was reverted, D3 being the expected
+>>> state.
 >>
->> I think this re-binding should never happen on s2idle, even though S3
->> might be the default mem sleep method.
+>> I have mixed feelings about this.
 >>
->> It looks to me that the only remaining case here is the "opportunistic
->> sleep" code which does not use mem_sleep_current (so won't be covered by
->> pm_suspend_default_s2idle()) - but uses autosleep_state instead.
+>> Your platform specifies D0L1.2 as the target state so I presume that
+>> is the state that the platform expects the modem to be put into?
 > 
-> Agreed, that would be better. The problem is that the PM notifier
-> isn't told the target state, and pm_suspend_target_state is only set
-> after PM_SUSPEND_PREPARE, so the default was the closest the driver
-> could get on its own.
+> It turns out it doesn't specify anything: the WWAN _DSM function 3
+> returns no result here (BIOS 1.56 and the latest 1.68), so D0L12 is
+> only the driver's default.
+
+The driver code does only care for value 3, any other value or absence
+of value is taken as D0.
+
+Unfortunately, it's not known whether Lenovo intended this empty return
+value to be implemented as D0 or they just neglected to put a value there.
+
+>> The reverted commit f4dd5174e273 on the other hand always put the modem
+>> into D0, which was incorrect in a different way - as, for example, my
+>> platform explicitly requests D3.
 > 
-> Covering both cases would need the PM core to make the target state
-> available before the notifiers run, like pm_suspend_notify_state in
-> your earlier S3 patch. Do you think that's needed for this fix, or
-> would it be acceptable as a follow-up?
+> Agreed. How does yours request it, through the _DSM returning 3?
 
-I think if this would be considered a regression when this driver is used
-with opportunistic sleep functionality then such case should be covered
-already in the initial patch set.
+Yes, the method explicitly returns 3 for that "WWAN" GUID on my (HP) platform.
 
-However, looking deeper in this opportunistic sleep functionality it seems
-that most major "generic" x86 distributions disable it and there's no
-credible report of anyone using it on a generic x86 laptop.
+>> Could you try the reverted commit to see if D0 actually works for your
+>> platform?
+> 
+> I tried f4dd5174e273 on 7.2.15. With it, the modem is no longer put
+> into D3hot, but it still crashes during suspend-to-idle: when the
+> resume callback runs, the modem already reports CD_READY, the same as
+> without the commit. So it seems it's the FORCE_SLEEP doorbell that the
+> modem doesn't survive, whether it stays in D0 or goes to D3hot.
 
-So in this case I think it would be fine just documenting the limitations
-of this fix both in the commit message and in the comment in pm_notify().
+So I guess this test settles it - at least for your platform.
 
->>> - A suspend to S3 that calls pm_suspend(PM_SUSPEND_MEM) directly while
->>>     the default is suspend-to-idle is not covered and fails as before.
->>
->> Are there any such pm_suspend(PM_SUSPEND_MEM) calls in the kernel (outside
->> some test code)?
-> I found a few: APM emulation, pseries, via-pmu, ZynqMP, SCMI power
-> control and the SPI slave system control driver. None of them seem to
-> be x86 ones.
-
-I'm pretty sure we don't need to worry about these.
+I would cautiously proceed with unconditionally using D3 (as this patch
+does), however would be ready to revert it and use a DMI-based override
+list instead if it turns out that there are platforms that actually
+require D0.
 
 > David
 
