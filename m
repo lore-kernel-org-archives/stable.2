@@ -1,92 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795451609;
-	b=vFriGVMGV9Ehx+cYHxQ/oUlkCfbCWdjqM9p5UwZXujvgNG8yCbOZESFrsz4i7uAx3K/m
-	 K+mB98r39gOSVCQhGW/q+skLqf8doaO5X1PMjaj1HokKh17HFdmm0SWV62DCG/qyHyFad
-	 mC0fD8IVxlBlI1CwjR/BEuJAIjD07wwrOSNO8/7Wburtd58wzqESpo4TD1zk+NNG8Grw2
-	 Cngux2ACeYEhTXn+zv94x1J7L+cm2XTtbmd5tUoJnh6zb6uRaEAEtC58tTuMjO3FVreG3
-	 vmIGJuVCLwtNA3fir+kYDJlk2RlNBy1yDqbetVJu/LaB4mv2k2aKz4rKR09lhDVsTgQ==
+	t=1795451894;
+	b=dNZzwCqbvIfi90zPwsM+ULbe8tfZZYKPnkj8Ke7lYoUbhsDFu6iBcQQvjjd5eLblWs4X
+	 MnchFP4aMLlpMU3yE5FU8h3kaRKTZsLLlZrTom2n12M9OgmxltmuSyEdsayd/br5SPF/G
+	 4db5F0M5ivQgiJ6ELkbikeKQ+a59nevzj47PoKUVDu7ZB0Uu0Vl6rD9wkZZeUFrm13mtg
+	 rl6Lsx4/RLT6WYQzGVPyfb4gIkf90CH9L5AsMqxV2/i+qY4BL4rPIJF3R4UHO0q6I0Aur
+	 OSTkg14tC2QzD3oOtxaCwltNjRcxZUONKOHD5bC2W9seDw6AowuO0MIOAHzk1Zqxq5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795451609;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=G976aLSquKCcdH7Ogl2LQAUo5cChr1sJGUGr2ohKZsw=;
-	b=4s5HfU8J6/1oqSusqPNwTtLQgBhv+ri8b9+v8YaL0rHSFW4De9V1849+NwNbS9Rz1dNP
-	 2ZN6UDyotvsmVqTzBX/VMIyM9eoPJXtvEimX4Q9fRv+sNbHBvGu0hmPjDzzxDReMHV6l5
-	 snBxSYhy59664HUCrQ1m765IpxcfcYLG5mapIKCYnlOkFMar0Hv2tPUK4G3kFpV2UgX5W
-	 6kn+vcP7EzN3qB38c85EMfawsOU093vBmGfyG1McZhdZepvkJHDjB1OrlAhOgcDZUecdH
-	 fdfLa8MpQMUtTqjq9v35gKfjfURpARhywT5LqlPpbVNqQtvtxzD0okm+QyYl7xbeOJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795451894;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=BX2g8Y4HGKdlZ1kRSAOIsbxsW5G+eW95mvD7IhCq3Nk=;
+	b=2eMm0Z400jGIkWA9dMRPhtjDEruQz3Z0BxOgv05kUEJ8fmKwFKz6+Dan26FCkrtPs7Uj
+	 JFXRijaHjzDEGheRyK2VITmy2qCsrQDNM2aaYGs+uYInZt0XERt5FxJOqDg3saz8CiQJI
+	 Olghq6eQAQkndNr9obGH6NozHbec7yKWd8vSPs6K6nckkCFKvTb9PnzTRZnOJr2LpUr5q
+	 YYdtgtjO3d2IFLhjezf+Q/57Op/v81uCuJZke20t4ov17xi+ByIAZ82jnO5JFLoPp0+5U
+	 4ZnGnX1KvgYd2wj8nu6t0+AfhduzuZp0Zz3pUC3vRevta5wPYPRdfSJnMsrKOH7g0Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lhiY8j35;
-	arc=none smtp.remote-ip=95.215.58.144
-Received: from mta1.migadu.com (out-144.mta1.migadu.com [95.215.58.144])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRBwAeck;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48481606A331
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:33:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48481606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4CF606A31A;
+	Mon, 23 Nov 2026 16:38:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lhiY8j35
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=E4KTVYZa4EaH7tbY0q+Km6luC5aM7T4+GRj8B16qzEE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795451607; v=1; x=1796056407;
- b=lhiY8j356DctKds/1LkWMP1w9ks9GgPpYfJ5av6sF9SNvskpDlFYI8CaC8KCt10aSuWUjMXk
- gCoGqsLu39VoxBfRYo1O0aOYTuCIpN+HYUL878KOT0gxxFeHb66uIhqD4Uut2qTtdoBGZPzCVb6
- JJG7wwnJRm3vE+Iaz3H5SFxQ=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id a33978e7f9751d3e;
-	Mon, 23 Nov 2026 16:33:26 +0000
-X-Mizu-Trace-ID: a33978e7f9751d3e
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	apopple@nvidia.com,
-	byungchul@sk.com,
-	david@kernel.org,
-	gourry@gourry.net,
-	jannh@google.com,
-	joshua.hahnjy@gmail.com,
-	liam@infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	matthew.brost@intel.com,
-	mhocko@suse.com,
-	pfalcato@suse.de,
-	rppt@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	ying.huang@linux.alibaba.com,
-	ziy@nvidia.com,
-	kas@kernel.org,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	kernel-team@meta.com,
-	baolin.wang@linux.alibaba.com,
-	Nico Pache <nico.pache@linux.dev>,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev
-Cc: Usama Arif <usama.arif@linux.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 5/5] fs/proc/task_mmu: account device-private PMDs as present in smaps
-Date: Mon, 23 Nov 2026 08:32:11 -0800
-Message-ID: <20261123163301.1568240-6-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.1
-In-Reply-To: <20261123163301.1568240-1-usama.arif@linux.dev>
-References: <20261123163301.1568240-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRBwAeck
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584FB1F000C4;
+	Mon, 23 Nov 2026 16:38:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795451893;
+	bh=BX2g8Y4HGKdlZ1kRSAOIsbxsW5G+eW95mvD7IhCq3Nk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eRBwAeckG0wIXF13+5haRM83QgRUvcGG5FS1ubKeHVkvDr3k65QyJcsTA+0TW+aoY
+	 3U8kOTLamW1dN0MDrNuBUQpFmQpQc/Oe5NcKSDiwYKK4EiNZZBvWM8rFbBA2fizqSs
+	 baZ9FmtEe47sdBH1KJYkvwTGBa2c03cFCjE5d6TA4egY4dEIzbSJO7MJP3Mf/KIwmY
+	 RBL4cZm+/K1/jDmrQeV9wCbcJ0FSLViAFKVaUgSbAIPrR7NebZ4YQwYfXpXODwIKAv
+	 QiA5DOz+EeGSIUphl35vUfT/UU+0X/fa8yUuSBRtAGOr8V+YoJ+7XFcNg0ZFMbSlLE
+	 yNfTAgeqIeRyQ==
+Message-ID: <43ecd498-71a8-4b60-9f03-3cd96810a4ca@kernel.org>
+Date: Mon, 23 Nov 2026 17:38:08 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,44 +51,154 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] mm/ksm: do not inherit ksm_zero_pages counter or
+ PTE markers on fork
+To: "Xu Xin (vivo)" <xu.xin@linux.dev>
+Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev,
+ donettom@linux.ibm.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ stable@vger.kernel.org, Karl Mehltretter <kmehltretter@gmail.com>
+References: <20261123034136.209410-1-xu.xin@linux.dev>
+ <20261123034331.236509-1-xu.xin@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261123034331.236509-1-xu.xin@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Device-private PMDs represent mapped pages, but smaps_pmd_entry()
-passes present=false to smaps_account(). That treats them like migration
-entries: mapcounts are ignored, PSS is charged in full, and exclusive
-mappings are accounted as shared.
+On 11/23/26 04:43, Xu Xin (vivo) wrote:
+> As documented in Documentation/admin-guide/mm/ksm.rst, ksm_zero_pages
+> accounts only for zero pages actually placed by KSM.  However, the
+> current implementation wrongly accounts for forked zero-page PTEs as
+> KSM's contribution, inflating both the child's per-mm counter and the
+> global ksm_zero_pages counter.
+> 
+> Originally, commit e2942062e01d ("ksm: count all zero pages placed by
+> KSM") marked KSM-placed zero-page PTEs with the dirty bit for unmap
+> accounting, but forgot to clear this marker during fork().  Later, to
+> prevent ksm_might_unmap_zero_page() from underflowing the counters on
+> child exit[1], commit 4d6fc29f3634 ("mm/ksm: fix incorrect KSM counter
+> handling in mm_struct during fork") kept the child's inherited per-mm
+> counter and added it to the global counter.
+> 
+> Instead of inflating the counters, fix the root cause by resetting the
+> child's mm->ksm_zero_pages to 0 in ksm_fork() and clearing the KSM
+> zero-page marker via ksm_fork_pte() when copying present PTEs in
+> copy_present_ptes().  With the marker cleared,
+> ksm_might_unmap_zero_page() will not decrement the counters on child
+> exit, MADV_UNMERGEABLE in the child will not unnecessarily unshare
+> inherited zero pages, and the global counter remains untouched.
+> 
+> [1] https://lore.kernel.org/all/53a7bf3d-843d-4e19-b0a3-cc6852fe72c1@redhat.com/
+> 
+> Fixes: 4d6fc29f3634 ("mm/ksm: fix incorrect KSM counter handling in mm_struct during fork")
+> Cc: stable@vger.kernel.org
+> Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
+> ---
+> Changes in v3:
+> - Rename might_clear_ksm_zero_pte() to ksm_fork_pte() and move the
+>   is_ksm_zero_pte() check into copy_present_ptes() under the !page
+>   branch, as suggested by David Hildenbrand.
+> - Expand the comment above ksm_fork_pte() to explain why the marker is
+>   cleared on fork.
+> - Add Tested-by tag from Karl Mehltretter.
+> 
+>  Documentation/admin-guide/mm/ksm.rst |  7 ++++++-
+>  include/linux/ksm.h                  | 22 +++++++++++++++++++---
+>  mm/memory.c                          |  5 ++++-
+>  3 files changed, 29 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/mm/ksm.rst b/Documentation/admin-guide/mm/ksm.rst
+> index c329ca747b8c..8968ae3f55c0 100644
+> --- a/Documentation/admin-guide/mm/ksm.rst
+> +++ b/Documentation/admin-guide/mm/ksm.rst
+> @@ -214,7 +214,12 @@ stable_node_dups
+>          number of duplicated KSM pages
+>  ksm_zero_pages
+>          how many zero pages that are still mapped into processes were mapped by
+> -        KSM when deduplicating.
+> +        KSM when deduplicating. Note: on fork(), the child process does not
+> +        inherit the ``ksm_zero_pages`` counter, and any inherited KSM-placed
+> +        zero-page mappings are converted into ordinary shared zero-page
+> +        mappings. Consequently, these mappings are neither accounted for in
+> +        the child's counter nor unshared when ``MADV_UNMERGEABLE`` is called
+> +        in the child.
+>  
+>  When ``use_zero_pages`` is/was enabled, the sum of ``pages_sharing`` +
+>  ``ksm_zero_pages`` represents the actual number of pages saved by KSM.
+> diff --git a/include/linux/ksm.h b/include/linux/ksm.h
+> index 596c04ca7326..f29aec4496d0 100644
+> --- a/include/linux/ksm.h
+> +++ b/include/linux/ksm.h
+> @@ -32,6 +32,17 @@ void __ksm_exit(struct mm_struct *mm);
+>   */
+>  #define is_ksm_zero_pte(pte)	(is_zero_pfn(pte_pfn(pte)) && pte_dirty(pte))
+>  
+> +/*
+> + * Since the inherited mappings on fork are not expected to be accounted for
+> + * in the child's ksm_zero_pages counter (reset in ksm_fork()), we must
+> + * clear KSM's dirty-bit marker on KSM-placed zero-page PTEs to avoid
+> + * underflowing the counters on child exit.
+> + */
+> +static inline pte_t ksm_fork_pte(pte_t pte)
+> +{
 
-Match smaps_pte_entry() and mark device-private PMDs as present so
-smaps_account() uses mapcounts for PSS and private/shared accounting.
+Instead of the long function comment, I'd just have here instead:
 
-Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-Cc: stable@vger.kernel.org
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- fs/proc/task_mmu.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+/*
+ * Strip KSM information from the PTE for the child to simplify
+ * ksm_zero_pages accounting, and to indicate each deduplicated zeropage
+ * only once towards the user.
+ */
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 34aaf80cd46cc2..fd32840a8cd7c3 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -1034,8 +1034,11 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
- 	} else if (unlikely(thp_migration_supported())) {
- 		const softleaf_t entry = softleaf_from_pmd(pmdval);
- 
--		if (softleaf_has_pfn(entry))
-+		if (softleaf_has_pfn(entry)) {
-+			if (softleaf_is_device_private(entry))
-+				present = true;
- 			page = softleaf_to_page(entry);
-+		}
- 	}
- 	if (IS_ERR_OR_NULL(page))
- 		return;
+I can fix that up when applying.
+
 -- 
-2.53.1-Meta
+Cheers,
 
+David
