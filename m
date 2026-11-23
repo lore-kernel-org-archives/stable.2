@@ -1,99 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795442021;
-	b=sUE4T4LrPdbwF1VboGAJOW5ZZPMvZkQRaEd3cns2lAYbONVK61JHtbi8Ev9wpTMZkd1+
-	 XSld4RCC/APcdUWq98/xBC2hLbOGvuO59bW1jBpbX5I6w65fWQvG0AYryBzw3wxBc5/fA
-	 5MbF/SlDVqC/M+AcTubaJYQTGJPsU9lBAVaR5mSX90JFoqSS5B2gOppr6XMZjG8ACsX5K
-	 v6iE7UFQ3aVxl8R7v3rfLNDsJEeBxrH0+8KtY9xoHYzrNPJ3yi8/l8GVGoueKmR8eig4J
-	 bZg6AfC4AmbEhOSvqjizThPMJtaeTAmVfNINUIUvuJ1CddqbkteI39uF4aPGfY+VIpQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795442021;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795442205;
+	b=ZGE8sB0XkjbBRcW59BVCOO3wLHV9FFagHhMfnjWYER6Q28d8upevqn59eJcwsht3NUHv
+	 Khv87M3yLEOaWk2w0xGjEV0NvWaKF6W1+4/JJeWJiMuyq9AXgC12tljCcats241DSaRXy
+	 PCS+wG0WCSIbyJTOkx17NX17MBO1sTR/Gj2zPiymwhuuPNoL1Ab8IME++jJ3cwFxoQx6S
+	 Zopfrc9bGEB/kspVtsysNvtCfJF+f/8LL8lslfgmCaQMThfajGl5hvcaH96wvm+2G7e4b
+	 Ghvtqegoy9+NjPBH15e1xMcKTJJeNmR2q7V5FoJmIUvwg5bEJiK5JaOvLlwaukevwiA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795442205;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FJA1Mx+hi1xZ6sMkH8I1j9DsgU9hex1yMjgo0es64EA=;
-	b=ic+pRSo0DzYK4470KSkGRBkLm7yKh329eu0C62epW8l0nubDfXQxzz47DQlQ0LE/z+pT
-	 jtQwe+A1Cr3whpmTNVVOpGpjwQVOJPw9jMHUEmK3pyozvGaoT37FEgmUlV7kEr9NvKOWF
-	 19dWu70UK4udT8selviSrhrwR8UCTTWtoWQ8UMH+Z7/CdvReezwcLaZGLPDxH9fhqesbm
-	 2GVM9FiKu8zCMnYQNHaZWupvgTERV1Ce8fSgPkBDi1cVIG+2IxqGz2Z+kAg8fLNgJcOfh
-	 ehiXdZ//wXvxVAoG37LD6h+pZkKAXNjbb71jbtnKCJWtRiuHWO28IRpDwVgipDk1n+A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iiitd.ac.in;
-	spf=pass smtp.mailfrom=iiitd.ac.in;
-	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=U9G5iww3;
-	arc=none smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=B57sPxPIPVjsjDHQj6Icpe8hDfL+4AlWPDMZGCnEF9M=;
+	b=gqveY++BOyxq7AqjDOnKT/YWirkbo2YPJZOPksJhQSl/XANdRsao1K3qK4zcgcqxKOkI
+	 TZdUMWCZRla7d2DkBlQsSdZhSPu40tN0sVGx1wayasfRc1ITU8GZ5Fy3AemS2WjOi4kRj
+	 deY2fVqn4zH1bOK8uTkqpQfQQetehWCP4wHtnxeBIjHxgR0XDTrg+bCUqRQ/N0U1exGjk
+	 pYyD7TRW+3WAjcm+De52DspgyJvTyvwVjT44KzARgKyoPpFOHPDm4QqKk17FtcGLFvePa
+	 J1JLXSTkZzdKWibZL7CcvnmBsTorIFiiSbo8XfU1g17CHWuNYHIF4V5JGjH9pEuTIHQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N05ndNkH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CAAB606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 13:53:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CAAB606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iiitd.ac.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iiitd.ac.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA34C606A33A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 13:56:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA34C606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=U9G5iww3
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8c20d68c83fso2394538b3a.0
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 05:53:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N05ndNkH
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-67583c777abso3279914d50.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 05:56:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795442204; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rDFiD375E4/iyIjW9NKETtaIZGxhp9KjqF7E3sQaYLwkaF1+zH7t3vySe7RpCeoK0K
+         d5+vU0KHAdY3LZt4Zf+SbS1I+v7Yx7pnnOdumF8hBy3m9Q5Ld5O27zuaYjE8bKlXUAX2
+         vHVdxf85BScFoKI0LaGWdiGM1bm53Vio/onSFep4cnRgjisMlPX3MSCCUYHC+IegRxVX
+         CFghxKbHLjGvO9JoSJqSc7x+F2+5GQkIBUfl1ZJteE/hSVBFy5yUfLPLRSFzE40wxROe
+         CGco7T7DX0hhcO6kLdeeu9S8kfrPU8I/57K+5ALW/CkzjuU5dcaxawxuLTSTwDX0L92S
+         /5sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=B57sPxPIPVjsjDHQj6Icpe8hDfL+4AlWPDMZGCnEF9M=;
+        fh=cc5mYr+tnfRNBGIt7z0fcwkPnWPgaRqW1XuPyg7GivM=;
+        b=l+KTd6l88EW1guFA4s5Ss23q5JZ3gOcBjg1lZU4a0YIGPbTxQhWBocS+WRpR7OiE9D
+         eb8HuGkiLw8ok/x/BEiIaFc9t96irmUtltHKSKKD5aWUlpiyfSaXA/EsN1gc5+rwmfDA
+         s8g23fNVhY9qgHK3IjL4f6DvjTzVDScxc2yB0F5PkbVu45h33suoIbjpayNvI/CXe00i
+         pGpWFPUdnnviA4yh/aMc7P1Li7TjTz3Wuy+Fx4UIkqwJS3a1uOMcjPMmaLP4gs4G2Wtg
+         /IbjCYhQNb51ku9j7UStneOuKXe7ZB7ehqwO+WA6R15LQfv+HLxVvB+PyR8rTfvFaqSR
+         P8Ow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=iiitd.ac.in; s=google; t=1795442016; x=1796046816; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FJA1Mx+hi1xZ6sMkH8I1j9DsgU9hex1yMjgo0es64EA=;
-        b=U9G5iww3ty6df8p3bEjxBTFkMjPtqfsMEV777nVwf+GnIHPsE0VzumR7b2p6hK33Au
-         toKp6nAU1vGoGXsE9dxmuSZJLe0I+2jAwBKuMRs9F92eqf2Iy5ZLnGcRJROvYKOnhRmi
-         x2kkod4SwwoOwxZ4AVMXkwNSQfoMnBuXB9l0g=
+        d=gmail.com; s=20260707; t=1795442204; x=1796047004; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B57sPxPIPVjsjDHQj6Icpe8hDfL+4AlWPDMZGCnEF9M=;
+        b=N05ndNkHQknyOMHIsNDSQqDEHwWvBE34ol5L+NvHcll/S/4WXaj++2GoPLo1p0IC8z
+         gX/I3PJUYDJrIBjomKK5he6tDcr+7qNfzTw/fVNK6iyw7MXQHR+h9Lu0yzCnVSjbFqTX
+         vT1RZlgf8szD33EB47X817ciOpxJuCTCUyTPbW6oS820UTQzA35wsGhglddcxYJMPaum
+         cl03V+nb6AAHXAaSOWdd1M0KIH/jBpnDLiyY2KhsPK02Y/3kSKsrWoU+xGzuuLNoyb8B
+         +PPPLQCj+/5OLf25/GpHP22dca45YRXd+cHd6qmSOgxOBJJW0GdT4HuEbz1UWoAlgVBz
+         Qe5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795442016; x=1796046816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FJA1Mx+hi1xZ6sMkH8I1j9DsgU9hex1yMjgo0es64EA=;
-        b=p0QtCuWIjuFAD17ce8UmCeaV/1MLHK2psi4/jOhwpZpCyh8QKKlmaziebEch1Ifumb
-         avV4XJYSxp+N9odKl2AaSmHwUdaEFaOxpA9TwPXTW6zPQTnWwRI2JOpzf/pUUSQQdKjj
-         TG991LjOJChCxeEUQl7DsWmP0Xjp7LJIgLmM3+pKGr505zLVwegYczVH47Yhubl5dii6
-         t/YnUVH+8iBJxYzKRPKI/nJc7OrsMkQC/uMhFQudt5mbPcfIBlJd9d9sCCdIieAZMJSO
-         +z2MHtH4QMvfewcHatqEKuVyIfQjT00hacVUO9nye+DhGEhKaLqfVUn0imp0TdcWu/Ul
-         RU2Q==
-X-Forwarded-Encrypted: i=1; AL+hErFX9GT0+Nas/hrldpPFXff8o1U9RfxfGnVlI4WFHs/STyGt/FFq8I4TzKQ2QdmDWzRvmdvVzhI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/119wLiVSXRP83KC8BeAeIeKBJDVwy116UYXEUF4XdGMQ6bKtm
-	Y428ukrkRP+xRpetB5WBLBKagURNW1IvDltvsz2DBg6W8pOcc89vKFpZzKhgQFGYlQw=
-X-Gm-Gg: AZFdTZceBEGIGBzfV0DDyaf3cVXteVt+XKd/4fqsDFtEzDXQEE6Of5+BdWChzHeUC+W
-	PTMQ3cfVIL/PgdhFGsiBhq5yIMVWoNVDcRhlLFOKZT7c+D3COUOd3T1RjdTWGx0WVzVkNg7WaJn
-	WDwUZmSlKMl75Vg0c6ROUuZVX/9OgEUhpWGvuJyqAzKhHebiOnFTB1dPrjYkM6xUtD/0KAf439E
-	v6nI1IGKk9KPxMZ3t165j6dMwq+6vV/4FSJtFgYzYHa/U+1stz7hnpNZMccRUY9BamrteqDsP63
-	zAs/stMJp6woqt2Zx2EbBe2QowcKlh2umIA7h/lz5w/oLJ/1qqavg6CiOTvBoB19zTgQbRirVCb
-	b0tvUATVpEOy51JrFnE6UggyphloLHNOvOxlAurRt8avCI0lWU/VrnvrAP1gUrgifCY2dBP2Bty
-	N1N2PlH3gVXDvnSSuCedwyASU7HwrX6b2kMI7rMUJBMQNlFoeLBs2pUY1wthAR5XabafX/RoOrz
-	3JyOP7KFKiX+MdwwaqSH9psE41vy+gtvTEW4MdJDqAyNKeEI9LWqS2eTv2EsW1fFZfo1BRnSZwS
-	nBczaVNaFlKuLReFs5P6QdVR9Ad7tUATmucSIhSJnBMsvl6h+AwUI1OIctSC5E47EvJITxQCnWb
-	CkHBFqzySe3QhbAsoTN+fWw6il7dZ6GBwqtuWc4ARmWH8ePeNepyGJhHfXKdJdfMM8GWygWDEbD
-	FXDkeBIJ93IQ==
-X-Received: by 2002:a05:6a21:62ca:b0:3e1:9071:acb2 with SMTP id adf61e73a8af0-4014e35c5a5mr7994102637.33.1795442015677;
-        Mon, 23 Nov 2026 05:53:35 -0800 (PST)
-Received: from iiitd-S2600STB.iiitd.edu.in ([103.25.231.160])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c873c1cfafsm5713466b3a.50.2026.11.23.05.53.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 05:53:35 -0800 (PST)
-From: Piyus Kedia <piyus@iiitd.ac.in>
-To: alibuda@linux.alibaba.com,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	netdev@vger.kernel.org
-Cc: Tony Lu <tonylu@linux.alibaba.com>,
-	Wen Gu <guwen@linux.alibaba.com>,
-	linux-rdma@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kapil Vaswani <kapil@presceralabs.ai>,
-	Piyus Kedia <piyus@iiitd.ac.in>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 1/2] net/smc: bound the failover cursor catch-up by what is outstanding
-Date: Mon, 23 Nov 2026 19:23:26 +0530
-Message-Id: <20261123135327.3953509-1-piyus@iiitd.ac.in>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1795442204; x=1796047004;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=B57sPxPIPVjsjDHQj6Icpe8hDfL+4AlWPDMZGCnEF9M=;
+        b=YtZSqWwp97hnDk6mxAKWML/RiECOl90GS2vxcoK2Z3EMKXcVOCxH0+lMgnBE5ImrpM
+         NjKE0dZ+pLKTBmJUkNEIezGV52t2S8HP0mn5F1PU9PPEt3QrwO2ApLSiUGoBpiskvdhI
+         y9gQT418vqoh1MxHmVT7v8MpZGxQnjUL51d6iPPC6X0C6QqfmJQ/qCcjnls+FavyF12T
+         HgsC5LwNwkOq3Gh1VWs0V3/zAvzklq+c90DlCFHKlVpdM9K4r3Vqo7gkTAOMiYGhK58s
+         lS4RXN5qy7lbbZJuOfQXPrfoGv5+IlNbw/h6Fn3e3fsDjOohvsNmyxMmwxLTxUJvJi38
+         xEjw==
+X-Forwarded-Encrypted: i=1; AL+hErEDxjkPsP76JpsjCCU1oalijSawliHcwsFpKUdr5HkGEXfEhCMGoFFSaJHlvRsugBXPrnjdnpE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2pJselVB8v8mczoDoeQ03HfknA7Bsvf6SZFP8HvGEb/7iaEZS
+	Iq9iTPbPaSbVKggNivQg2lU2cf9K8NvwSA0LfOMtSgRkfbmaU4heFJa/qx8EtnoaEODD3XYhbcK
+	d5SxN3ym3ihIaNxRb6GwscAVM9nJt5wY=
+X-Gm-Gg: AZFdTZfN96slEgXh9KTt3Oy2E2goUslvUXkVjMshf+y3Yr5eZLrhNHiKHG53gojvxA+
+	biEBqv7UJU+gFFFIBmdf0R6IGP+TMu86iOFjER5qnAaPP1T+NYThgFieXjfq8dDkVqtcNjWRNd2
+	3QkGwu0mtMjCq6XI48wEARnu9glCviVoIECRXclRTBpOLc86Nh4KqDmoupubcHKz9IxFFVXY/mM
+	sHqTxc6H2aHXsom6jKAuoLDBbsDGVUwRIHJGa/+7yXiExLjVWe6POuJINr0KlztpYivBWpTOmIc
+	8nQqKFa2HP5NAEGLuMK14ghZ0NXyoHpaFP/yM60GSAdrSXyXKJmH2fd2GzzcAcG0ZGbOJpQdcq1
+	khmWMvHMXdW8A/cXrnDb55iE/fCV+jnTlD6RM
+X-Received: by 2002:a05:690e:4009:b0:67d:c045:d0bb with SMTP id
+ 956f58d0204a3-67dec2bb682mr5299099d50.5.1795442203710; Mon, 23 Nov 2026
+ 05:56:43 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,161 +101,141 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Topaz Tatiana <topaz.tatiana@gmail.com>
+Date: Mon, 23 Nov 2026 16:56:32 +0300
+X-Gm-Features: Aa3M54oaOANjxm60lcXKWTf95uEoy0bGNPmQx6GVjt7EoZcN70llMH67uYSpuw8
+Message-ID: <CAOhmvYWzq8MOg2C=kkKU5oXSquxXOjCxQNd=ZS0rEt92HxKZgg@mail.gmail.com>
+Subject: [REGRESSION] 6.12.117: soft lockup in sched_balance_softirq /
+ _nohz_idle_balance on KVM guest without NUMA
+To: linux-kernel@vger.kernel.org
+Cc: mingo@redhat.com, peterz@infradead.org, vincent.guittot@linaro.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-smc_switch_cursor() credits conn->sndbuf_space from the consumer cursor
-the peer reported, with nothing bounding the amount:
+Hi all, after upgrading to kernel 6.12.117+deb12-amd64 (Debian), we
+are observing
+massive soft lockups in the scheduler on a KVM guest. The previous kernel
+version worked without any issues.
 
-	smc_curs_copy(&cons, &conn->local_rx_ctrl.cons, conn);
+Environment:
+- Virtualization: kvm (QEMU Standard PC)
+- NUMA: No NUMA configuration found (Faking a node)
+- CPU: 200 vCPUs, 4 sockets, 1 thread per core (see lscpu below)
+- uname: Linux dev-kulet2 6.12.117+deb12-amd64 #1 SMP PREEMPT_DYNAMIC
+Debian 6.12.117-1~deb12u1 (2026-11-14) x86_64 GNU/Linux
+- Cmdline: BOOT_IMAGE=/vmlinuz-6.12.117+deb12-amd64
+root=/dev/mapper/vg1-lv--root ro ipv6.disable=1 quiet
+- watchdog_thresh: 10
+- nohz_full: (null) (NOHZ_FULL is not used)
 
-	if (smc_curs_comp(conn->peer_rmbe_size, &cons, &fin) < 0) {
-		diff = smc_curs_diff(conn->peer_rmbe_size, &fin, &cons);
-		smc_curs_add(conn->sndbuf_desc->len,
-			     &conn->tx_curs_sent, diff);
-		smc_curs_add(conn->sndbuf_desc->len,
-			     &conn->tx_curs_fin, diff);
+Symptoms:
+CPUs are 99% idle, memory is free (419 GiB free), and load average is low.
+However, the kernel watchdog triggers on swapper/N and kworker/N with delays
+of 60-97 seconds. The stack traces point directly to the scheduler functions:
+sched_balance_softirq, sched_balance_update_blocked_averages, and
+_nohz_idle_balance.
 
-		smp_mb__before_atomic();
-		atomic_add(diff, &conn->sndbuf_space);
+Trace 1 (_nohz_idle_balance):
+[Mon Nov 23 11:48:17 2026]  _nohz_idle_balance.isra.0+0x31a/0x3c0
+[Mon Nov 23 11:48:17 2026]  do_idle+0x31/0x2a0
+[Mon Nov 23 11:48:17 2026]  cpu_startup_entry+0x29/0x30
+[Mon Nov 23 11:48:17 2026]  start_secondary+0x11e/0x140
+[Mon Nov 23 11:48:17 2026]  common_startup_64+0x13e/0x141
+[Mon Nov 23 11:48:17 2026]  </TASK>
+[Mon Nov 23 11:48:17 2026] watchdog: BUG: soft lockup - CPU#6 stuck
+for 50s! [swapper/6:0]
+[Mon Nov 23 11:48:17 2026] CPU: 6 UID: 0 PID: 0 Comm: swapper/6
+Tainted: G             L     6.12.117+deb12-amd64 #1  Debian
+6.12.117-1~deb12u1
+[Mon Nov 23 11:48:17 2026] Tainted: [L]=SOFTLOCKUP
+[Mon Nov 23 11:48:17 2026] Hardware name: QEMU Standard PC (i440FX +
+PIIX, 1996), BIOS rel-1.16.2-0-gea1b7a073390-prebuilt.qemu.org
+04/01/2014
+[Mon Nov 23 11:48:17 2026] RIP:
+0010:sched_balance_update_blocked_averages+0x62b/0x7b0
+[Mon Nov 23 11:48:17 2026] Code: 74 07 c7 41 20 00 00 00 00 45 84 f6
+0f 85 b9 00 00 00 48 89 cf e8 65 3b ff ff 48 f7 04 24 00 02 00 00 74
+06 fb 0f 1f 44 00 00 <48> 83 c4 48 5b 41 5c 41 5d 41 5e 41 5f 5d e9 7d
+28 de 00 80 3d 6d
+[Mon Nov 23 11:48:17 2026] RSP: 0018:ff7601b9c00f3df8 EFLAGS: 00000206
+[Mon Nov 23 11:48:17 2026] RAX: 0000000000000001 RBX: 0000000000000000
+RCX: ff26d7d979bb6040
+[Mon Nov 23 11:48:17 2026] RDX: 0000000000000007 RSI: 0000000000000000
+RDI: ff26d7d979bb6040
+[Mon Nov 23 11:48:17 2026] RBP: ff7601b9c00f3e68 R08: 0000000000000434
+R09: 0000000000000003
+[Mon Nov 23 11:48:17 2026] R10: 000000000000000a R11: 0000000000000000
+R12: 0000000000000000
+[Mon Nov 23 11:48:17 2026] R13: ff26d7d979bb6950 R14: 0000000000000001
+R15: ff26d7d979bb6a98
+[Mon Nov 23 11:48:17 2026] FS:  0000000000000000(0000)
+GS:ff26d7d979b00000(0000) knlGS:0000000000000000
+[Mon Nov 23 11:48:17 2026] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[Mon Nov 23 11:48:17 2026] CR2: 00007f32c305ce00 CR3: 0000000106884004
+CR4: 0000000000771ef0
+[Mon Nov 23 11:48:17 2026] PKRU: 55555554
+[Mon Nov 23 11:48:17 2026] Call Trace:
+[Mon Nov 23 11:48:17 2026]  <TASK>
 
-local_rx_ctrl.cons is whatever arrived in the peer's last CDC message.
-smc_cdc_cursor_to_host() drops only a cursor that moves backward within
-one wrap, so a peer can advance cons.count by nearly peer_rmbe_size and
-report consuming data this side never sent.  diff becomes that amount and
-sndbuf_space ends above sndbuf_desc->len, which the tx path reads as free
-room in the send ring:
+Trace 2 (sched_balance_update_blocked_averages):
+[Mon Nov 23 11:48:17 2026] RIP:
+0010:sched_balance_update_blocked_averages+0x62b/0x7b0
+[Mon Nov 23 11:48:17 2026] Code: 74 07 c7 41 20 00 00 00 00 45 84 f6
+0f 85 b9 00 00 00 48 89 cf e8 65 3b ff ff 48 f7 04 24 00 02 00 00 74
+06 fb 0f 1f 44 00 00 <48> 83 c4 48 5b 41 5c 41 5d 41 5e 41 5f 5d e9 7d
+28 de 00 80 3d 6d
+[Mon Nov 23 11:48:17 2026] RSP: 0018:ff7601b9c0663df8 EFLAGS: 00000206
+[Mon Nov 23 11:48:17 2026] RAX: 0000000000000001 RBX: 0000000000000000
+RCX: ff26d7d97f2b6040
+[Mon Nov 23 11:48:17 2026] RDX: 00000000000000b5 RSI: 0000000000000000
+RDI: ff26d7d97f2b6040
+[Mon Nov 23 11:48:17 2026] RBP: ff7601b9c0663e68 R08: 0000000000000015
+R09: 0000000000000001
+[Mon Nov 23 11:48:17 2026] R10: 000000000000b944 R11: 000000000000cef5
+R12: 0000000000000000
+[Mon Nov 23 11:48:17 2026] R13: ff26d7d97f2b6950 R14: 0000000000000001
+R15: ff26d7d97f2b6a98
+[Mon Nov 23 11:48:17 2026] FS:  0000000000000000(0000)
+GS:ff26d7d97f200000(0000) knlGS:0000000000000000
+[Mon Nov 23 11:48:17 2026] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[Mon Nov 23 11:48:17 2026] CR2: 00007f2fca0ccccc CR3: 00000001a8058002
+CR4: 0000000000771ef0
+[Mon Nov 23 11:48:17 2026] PKRU: 55555554
+[Mon Nov 23 11:48:17 2026] Call Trace:
+[Mon Nov 23 11:48:17 2026]  <TASK>
+[Mon Nov 23 11:48:17 2026]  ? srso_alias_return_thunk+0x5/0xfbef5
+[Mon Nov 23 11:48:17 2026]  ? srso_alias_return_thunk+0x5/0xfbef5
+[Mon Nov 23 11:48:17 2026]  ? finish_task_switch.isra.0+0x97/0x2f0
+[Mon Nov 23 11:48:17 2026]  _nohz_idle_balance.isra.0+0x31a/0x3c0
+[Mon Nov 23 11:48:17 2026]  do_idle+0x31/0x2a0
+[Mon Nov 23 11:48:17 2026]  cpu_startup_entry+0x29/0x30
+[Mon Nov 23 11:48:17 2026]  start_secondary+0x11e/0x140
+[Mon Nov 23 11:48:17 2026]  common_startup_64+0x13e/0x141
+[Mon Nov 23 11:48:17 2026]  </TASK>
+[Mon Nov 23 11:48:17 2026] watchdog: BUG: soft lockup - CPU#6 stuck
+for 50s! [swapper/6:0]
 
-	writespace = atomic_read(&conn->sndbuf_space);
-	/* not more than what user space asked for */
-	copylen = min_t(size_t, send_remaining, writespace);
+CPU Topology (lscpu -e, first 30 lines out of 200):
+CPU NODE SOCKET CORE L1d:L1i:L2:L3   ONLINE
+  0    0      0    0 0:0:0:0            yes
+  1    0      0    1 1:1:1:0            yes
+  2    0      0    2 2:2:2:0            yes
+  3    0      0    3 3:3:3:0            yes
+  4    0      0    4 4:4:4:0            yes
+  5    0      0    5 5:5:5:0            yes
+  6    0      0    6 6:6:6:0            yes
+  7    0      0    7 7:7:7:0            yes
+  8    0      0    8 8:8:8:0            yes
+  9    0      0    9 9:9:9:0            yes
+ 10    0      0   10 10:10:10:0         yes
+...
+149    0      2  149 177:177:177:128    yes
+150    0      3  150 192:192:192:192    yes
+...
+199    0      3  199 241:241:241:192    yes
 
-The first chunk of a two-part write is clamped against the buffer, the
-second is not, so memcpy_from_msg() copies past the end of the send
-buffer.  The two cursors advanced beside the credit can also leave the
-ring: smc_curs_add() subtracts the size only once, so a diff of two
-buffers or more leaves tx_curs_sent.count at or above sndbuf_desc->len,
-and smc_tx_rdma_writes() uses that count as a source offset.
+This looks like a regression in NOHZ idle balancing for large KVM systems
+without NUMA. Are there any known fixes for this in the 6.12 stable branch
+or mainline?
 
-A peer reaches this path on an SMC-R link group with a second link by
-asking for the active one to be deleted:
-
-  smc_llc_rx_delete_link()
-    smc_llc_process_cli_delete_link()
-      smc_switch_conns()
-        smc_switch_cursor()
-
-An honest peer cannot have consumed more than this side has outstanding,
-so bound the catch-up by that.  For a correct peer the bound changes
-nothing.  For a lying one sndbuf_space keeps the invariant that
-smc_tx_sendmsg(), smc_tx_prepared_sends() and SIOCOUTQ in smc_ioctl()
-all depend on, and both cursors stay inside the send buffer.
-
-Bounding the credit where it is added is deliberate.  Clamping the copy
-length in smc_tx_sendmsg() instead stops the overflow but leaves
-sndbuf_space inflated, so the producer never blocks in smc_tx_wait(),
-later writes can overwrite data that has not been sent yet, and SIOCOUTQ
-reports a negative queue length.
-
-How this was found: by AI-driven fuzzing built on top of syzkaller.  It
-reached the overflow through the other writer of sndbuf_space, the
-DMB-nocopy credit patched next, on a loopback-ism connection with the
-peer's consumer cursor forged by a debug patch: KASAN reported an
-869056-byte write past the send buffer in smc_tx_sendmsg()
-(use-after-free in _copy_from_iter).  The failover route above was then
-found by reading the other writers of that counter; we do not have a
-multi-link SMC-R group with two RDMA devices, so that route comes from
-the code and not from a run.  The bound was tested on the path we can
-drive, where the forged cursor no longer inflates sndbuf_space and the
-write stays inside the buffer.
-
-Fixes: c6f02ebeea3a ("net/smc: switch connections to alternate link")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
-Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
----
-Link: https://lore.kernel.org/all/20261122053223.2497832-2-piyus@iiitd.ac.in/
-
-Changes in v2:
-
- - Corrected the threat model, which was wrong in v1 in a way that matters.
-   v1's subject and commit message named the SMC-D DMB-nocopy path as the
-   attack.  That path runs only when smc_ism_support_dmb_nocopy() is true,
-   which needs a dibs device providing support_mmapped_rdmb(), and the only
-   provider in the tree is drivers/dibs/dibs_loopback.c - where both ends of
-   the connection are the same kernel and the cursor is written by SMC
-   itself.  It is not reachable from a hostile peer.  The remotely reachable
-   writer is smc_switch_cursor(), which v1 did not mention at all; it is
-   patch 1/2 here.
-
- - Replaced the fix.  v1 clamped the copy length in smc_tx_sendmsg().  That
-   stops the overflow but leaves sndbuf_space inflated, so the producer never
-   blocks in smc_tx_wait(), later writes can overwrite data that has not been
-   sent yet while sendmsg() reports success, smc_tx_prepared_sends()
-   misreports pending bytes, and SIOCOUTQ in smc_ioctl() returns a negative
-   queue length.  v2 bounds the credit where it is added instead, and does
-   not touch smc_tx.c.
-
- - Fixed a second fault v1 left alone: the cursors advanced beside the credit
-   in smc_switch_cursor() could also leave the ring, because smc_curs_add()
-   subtracts the size only once, and smc_tx_rdma_writes() uses
-   tx_curs_sent.count as a source offset.  Bounding the difference fixes both.
-
- - Added Fixes: tags to both patches, each confirmed by blaming the
-   atomic_add() in question, and Cc: stable to 1/2 only.  2/2 is unreachable
-   on any device in the tree, so by stable-kernel-rules it is not a bug that
-   bothers anyone.
-
- - One patch became two, since the two sites have different Fixes: tags and
-   different reachability.
-
-Measured, and not: the overflow and the fix were both measured on a
-loopback-ism connection with the peer's consumer cursor forged by a debug
-patch - KASAN reported an 869056-byte write past a 65504-byte send buffer
-without the series, and with it no report at forged cursors of 100000,
-1000000 and 2000000, the credit refused because nothing was outstanding, and
-ordinary SMC-D traffic unaffected (SMC_DIAG mode=2, fb_reason=0x0).  The
-route to the writer in 1/2 is from reading the code: we have no multi-link
-SMC-R group with two RDMA devices, so the LLC DELETE_LINK path to
-smc_switch_cursor() has not been exercised here.
-
-The receive side has the same unclamped second chunk in smc_rx_recvmsg(),
-credited from the peer's producer cursor; that is a separate patch, "net/smc:
-validate the peer's CDC cursors against our own buffers".  The two are
-independent: that one bounds cons by peer_rmbe_size, which still permits "I
-consumed more than you sent", so it does not bound the credit this series
-bounds.
- net/smc/smc_core.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-index a3164201c142..436a702f3d8d 100644
---- a/net/smc/smc_core.c
-+++ b/net/smc/smc_core.c
-@@ -1057,6 +1057,7 @@ static int smc_switch_cursor(struct smc_sock *smc, struct smc_cdc_tx_pend *pend,
- 	union smc_host_cursor cons, fin;
- 	int rc = 0;
- 	int diff;
-+	int sent;
- 
- 	smc_curs_copy(&conn->tx_curs_sent, &conn->tx_curs_fin, conn);
- 	smc_curs_copy(&fin, &conn->local_tx_ctrl_fin, conn);
-@@ -1069,6 +1070,16 @@ static int smc_switch_cursor(struct smc_sock *smc, struct smc_cdc_tx_pend *pend,
- 		 * fin above, so now prod is smaller than cons. Fix that.
- 		 */
- 		diff = smc_curs_diff(conn->peer_rmbe_size, &fin, &cons);
-+		/* The peer's consumer cursor is taken as it arrives, so this
-+		 * difference is a value the peer chose.  An honest peer cannot
-+		 * have consumed more than this side has outstanding, so bound
-+		 * the catch-up by that: sndbuf_space then keeps the invariant
-+		 * the tx path relies on, and the cursors advanced below stay
-+		 * within the send buffer.
-+		 */
-+		sent = conn->sndbuf_desc->len - atomic_read(&conn->sndbuf_space);
-+		diff = min_t(int, diff, max_t(int, sent, 0));
-+
- 		smc_curs_add(conn->sndbuf_desc->len,
- 			     &conn->tx_curs_sent, diff);
- 		smc_curs_add(conn->sndbuf_desc->len,
--- 
-2.34.1
-
+Best regards, Tatiana Topaz
