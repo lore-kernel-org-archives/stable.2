@@ -1,50 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795438963;
-	b=cSI65WowmCQ3/hp2t49awdlBL/ktY9miQZU7X4N3ZLwBTN+heJRGcxC1gv4RxI7IZycJ
-	 ZtAzwimp8QT092Eayvx34TCdcTBWtkog6MdXunVItwYyDHpBLwC4rRAT8PLh99jN/mLj9
-	 Bdkw/vPsc0GlXbGthP8kgoMmYZMGKDWvoixfDIWo+qM6h5Ps1qxg3qZ/kjHpVtx87kVPA
-	 gFif3Q1+ZuwTD80FbKaoonjnqWqNd/lo2MEuRpNybdw5AQnXYH8Lt/mi0dEnrVkp1nqXq
-	 zse/kwjfCC4/FOsEiVn38n7HPrqm0IOozhGJEfdWkxEwDBJo1U1OCNSNEnkpYlFZh7Q==
+	t=1795438969;
+	b=vSXKpceko/TqzOpwgpXuwAy4vsl+4wg4UCVmUF6a7zSp4HZW4wHqtqydJ9tgZmi2f9gG
+	 BvznNdQG8n34J/J+1JbXbabLLBhy5Zt8+EMAlHmeNF72DHDqUiyLszmt8Pc5knK4QqZ53
+	 7VkxCXxBdngqnqlFbmrq8yjvM8BI6Z8Oniocm8LRB/M7lFXggLO5RyoH5AiI6YTXsDKG6
+	 NV4qctIzoMixZUnfNmX2GrmbbNFBQdR5RV4sQ1tWESItWIyooSBO9h7BIOpP4GZGy9fFG
+	 fLO0MZ1s2p3cS1oRiyVBAJGprkM593LO+iyIVI4R6XsNr0zVg7Axi27NVlqcNDX2m7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795438963;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=9uAEzucA1XHicOymbt25Lb6AkI8Cg709d3DyNRzqVhM=;
-	b=l3uO8Sltva3u8TKQr9wJGAcywO0lEs/RToHV5lrxst/3QljmiLJHK8Tlogtds6KTIiZM
-	 MAHIrA9/KSZfFGVmHI71m4QykJRMBhlLnoUupEExBac3w2+Odkl5Nohok1TJ3iCVT7d9r
-	 yi2j+egeDVOEGLaKbhY9idlKHupvYrAVTblcPxbj+M+SXABiv6MVNoJkjMpmOiJ2LZZ2m
-	 I2Ds9cCuXdzSi75bWWuAkABblkQr9lCzF+faZ0FZwp2ek7MBOhmpRwBLdWC7ST/AZ4Z2v
-	 BA22E7r7oNodMxgj2SPktfdaqstyQVvvs1bmy38vxZeOegtMk1mJF/QojkBkb7C1W7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795438969;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=9kGDZUqKQUexLM07zlp91pvIAfI6qEAMqWfY2Nhi7p4=;
+	b=QuC4sm/zAEdfXpWtt5AVR4cP7wJ5yKTC157c8JAyDrI8FrO6OekYVM0rQaSPLSdTn0WE
+	 HniiEqFgJkIrr2vFnKiAzJAXyiqOt4wmDScGT3hmigRIJjJT8qXkH4QG11rktGpxbqpry
+	 CRUg+hfziUk6lHHEUvAr6gQG62JOVGji8sJTp6eldG0ptbpHcGm0a9np5+78guXkauy6b
+	 w7PHPKzzjfDMQcInDujJwoBtb7RI9fiR38or4Tj350I746nF/m4MjRHemB+sR9etNQFrF
+	 pxWifIKb/k9kHRACm6NgsfNxYlccsQCxnC6q4bz9FyI//y+lLWbBuRHUk4WLKQNM5lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K7Z4BVBl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gMOq0Wc8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4F6606A31A;
-	Mon, 23 Nov 2026 13:02:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054C4606A31A;
+	Mon, 23 Nov 2026 13:02:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K7Z4BVBl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9656C1F000E6;
-	Mon, 23 Nov 2026 13:02:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gMOq0Wc8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C11F1F000C6;
+	Mon, 23 Nov 2026 13:02:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795438963;
-	bh=9uAEzucA1XHicOymbt25Lb6AkI8Cg709d3DyNRzqVhM=;
-	h=From:Subject:Date:To:Cc;
-	b=K7Z4BVBlFxPya5fSvgrNZTKrATOmKi6SB2UBkpIR2251Rk1oE4V8U9wtGyvUjAUQl
-	 BALd2SBlYDnewYzyjgWY0IVDOHoXNE5E1/PopyDMz3b8pwvvB1smrUuWDnCYo0SqbH
-	 gyXZlgP8okUzj/T0MRHdUWRJGdXc76k+uyUD42k8jebfC1ELBfyRZpHOswdd8upWHx
-	 qIVhSxNK3TDW2cqajUQwB2q/WPAQLEvdM7W+b7mz5cloMNpUtATRARwUDRKWrkFJ7W
-	 DnqzfEh63VshfgC6mRgTDUzNdbH3qmVbSS0gZfZRSfL3S6lbsiJW7nzwmtm4z72Uut
-	 mJP9mhkZcIWhw==
+	s=k20260515; t=1795438968;
+	bh=9kGDZUqKQUexLM07zlp91pvIAfI6qEAMqWfY2Nhi7p4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=gMOq0Wc88wdd/i1Tx0eHPjeonGAkYj70GAArRvPSiUkYYtRdp4FZYxyG+4AR2dy4r
+	 QoNdBTRF4bJKdG0b9qw33Grj923KZNSepVEg3vCijOfQTtI+Xhgrd2LgGNtSEEBHH9
+	 uVu82LXEaIMjIFTw2ksvaqEJFmgqrz7a4FOneXCQOeQDIeYH6f2K55j5NOGsEe9+ua
+	 44cUr7UIcHDrfn2c8rcLnffYv+tf43prWKy5hOIN09E+qJVRya50egyC5I6o5n+p7E
+	 kR1PwLEg6zBTc31qxRcec5J41B16MZ4J9UFcMgWEarQR12XBdMswNAFv0DY/c2D4zW
+	 GzTFx9Wps6SKQ==
 From: Christian Brauner <brauner@kernel.org>
-Subject: [PATCH 0/2] jfs: fix lbmDONE races in lbmIODone() (was "loop bug
- saga")
-Date: Mon, 23 Nov 2026 14:02:17 +0100
-Message-Id: <20261123-work-loop-backing-file-v1-0-48f83eaf2499@kernel.org>
+Date: Mon, 23 Nov 2026 14:02:18 +0100
+Subject: [PATCH 1/2] jfs: wait for lbmDONE under LCACHE_LOCK in lbmRead()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,10 +54,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/03MSQ7CMAyF4atUXuMoA+qCqyAWGdzWtEqqpAxS1
- buTwIblbz1/OxTKTAUu3Q6Znlw4xRrq1IGfbBwJOdQGLXWvlDb4SnnGJaUVnfUzxxEHXgi9Cko
- a6U3oz1Cf10wDv7/w9fbr8nB38lvT2sLZQuiyjX5qp+aK5op/V7QVHMcHI4BSwagAAAA=
-X-Change-ID: 20261123-work-loop-backing-file-c1d1030c3d64
+Message-Id: <20261123-work-loop-backing-file-v1-1-48f83eaf2499@kernel.org>
+References: <20261123-work-loop-backing-file-v1-0-48f83eaf2499@kernel.org>
+In-Reply-To: <20261123-work-loop-backing-file-v1-0-48f83eaf2499@kernel.org>
 To: linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
  Bart Van Assche <bvanassche@acm.org>
 Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>, 
@@ -73,139 +70,153 @@ Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org, 
  syzbot+cd8a9a308e879a4e2c28@syzkaller.appspotmail.com, 
  syzbot+ecf51a7ccb6b1394e90c@syzkaller.appspotmail.com, 
- syzbot+bc273027d5643e48e5b3@syzkaller.appspotmail.com, 
- syzbot+2e5cf2352e9f69ebf172@syzkaller.appspotmail.com
+ syzbot+bc273027d5643e48e5b3@syzkaller.appspotmail.com
 X-Mailer: b4 0.17-dev-04696
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6357; i=brauner@kernel.org;
- h=from:subject:message-id; bh=59plAhsw669/rZ1LR8UV0GoaOEfChUxYdBUgkQqShho=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSzWGaoM5Y+8H+6rHxBRX8ws/CyHUWFOy1Ef7oEnghfJ
- pbufy+mo5SFQYyLQVZMkcWh3SRcbjlPxWajTA2YOaxMIEMYuDgFYCKNqxn+O9on+zwTubBUaPkk
- 3+/Be+KkVuel8wSYWdUs09P4Jii4keF/bbXcnOmfX4mHn15xIWjRyUpuZXYtWT6vpYueNpvdFfn
- FAQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6530; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=9N5EHJOYs+e80Rlb9NuImJmX7Upo8CeUohDPDCeNZYQ=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSzWGbFK3u7fnXi+8aYtPveOp6Z17e0nxcqSE5ZNdFPZ
+ m306SypjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIl4BzAyzD5Ucfjt88nts9c+
+ 2xFc1b7/83umfff0PFmPhyp6fNdsC2dkWKA3/Wains7rf7G12+oZ/rEwXArKnhnzUd64NGjTpss
+ 2TAA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-This is the root cause of syzbot's "general protection fault in
-lo_rw_aio" (cf. [1]) which got a lot of loop patches over the last
-months (cf. [2]). It's not a loop bug. jfs releases the block device
-while its own log superblock write is still queued and the loop device
-gets torn down underneath it. Bart already pointed at b15e4310633f
-("jfs: Set the lbmDone flag at the end of lbmIODone") in [3].
+lbmRead() waits for the read without taking LCACHE_LOCK and returns as
+soon as bp->l_flag is no longer lbmREAD. Since commit b15e4310633f
+("jfs: Set the lbmDone flag at the end of lbmIODone") lbmIODone() clears
+lbmREAD and wakes the reader first and only sets lbmDONE right before it
+drops LCACHE_LOCK. So the reader can already be using the buffer again
+when lbmIODone() ORs lbmDONE into bp->l_flag.
 
-Since b15e4310633f lbmIODone() sets lbmDONE as the last thing it does.
-lbmRead() doesn't take LCACHE_LOCK and returns as soon as lbmREAD is
-gone. So in lmLogShutdown() the late lbmDONE of the read completion can
-land on the superblock write that lbmDirectWrite() just submitted.
-lbmIOWait() returns right away, jfs frees the buffers and the unmount
-finishes. The first patch makes lbmRead() wait for lbmDONE under
-LCACHE_LOCK.
+lmLogShutdown() reads the log superblock, updates it and writes it back
+via lbmDirectWrite(). lbmDirectWrite() sets bp->l_flag without taking
+LCACHE_LOCK and submits the write. If that store happens before the late
+lbmDONE from the read completion then the write is marked as done before
+it has even been issued:
 
-On PREEMPT_RT the woken umount task preempts the completion that holds
-LCACHE_LOCK on the same CPU, so this happens all the time. With the
-reproducer from [4] every RT VM I booted hit the lbmIODone() UAF within
-a minute and the lo_rw_aio() NULL deref a few seconds later. With some
-instrumentation that's an early lbmIOWait() return in about one out of
-70 unmounts. Without PREEMPT_RT I've seen it once in 26400 unmounts.
-With the first patch applied it's zero in 19200 unmounts and the
-reproducer doesn't trigger anything anymore.
+  umount                                  read completion
+  ======                                  ===============
+  lmLogShutdown()
+  -> lbmRead(log, 1, &bpsuper)
+                                          lbmIODone()
+                                          -> LCACHE_LOCK()
+                                             bp->l_flag &= ~lbmREAD
+                                             wake_up(&bp->l_ioevent)
+     // bp->l_flag != lbmREAD
+  -> lbmDirectWrite(log, bpsuper, ...)
+     bp->l_flag = lbmWRITE | lbmRELEASE | lbmSYNC | lbmDIRECT
+     submit_bio()
+  -> lbmIOWait(bpsuper, lbmFREE)
+     -> LCACHE_LOCK()
+                                             bp->l_flag |= lbmDONE
+                                             LCACHE_UNLOCK()
+        // lbmDONE is set, don't wait
+  -> lbmLogShutdown()
+     // free all lbufs and their pages
 
-The lockless wait in lbmRead() isn't new. Before b15e4310633f the early
-return let lbmDirectWrite()'s flags get lost in the read-modify-write
-that clears lbmREAD instead. That's the much rarer pre-7.1 version
-syzbot hit in [4]. With b15e4310633f reverted I've seen it once in
-244600 unmounts.
+lmLogShutdown() returns, the unmount finishes and the block device is
+released while the superblock write is still queued. What happens next
+depends on who gets there first. If the write is still sitting in the
+loop device when the device is torn down then __loop_clr_fd() has
+already cleared lo->lo_backing_file and the loop worker dereferences
+NULL:
 
-The second patch is the group commit side of b15e4310633f. lbmIODone()
-now sets lbmDONE after lmPostGC() ran with the lock dropped, which may
-have freed or requeued the buffer already. That's syzbot's "kernel BUG
-in lbmIOWait" (cf. [5]) and it's a lot harder to hit. On PREEMPT_RT the
-late lbmDONE lands on a new I/O of the buffer in about one out of ten
-group commit completions but I haven't seen it land on lmLogShutdown()'s
-final write on its own in about a million unmounts. With a delay that
-holds the completion after lmPostGC() until lmLogShutdown() has
-submitted that write every VM hits syzbot's BUG within the first few
-unmounts, down to the 0x2e in R12. With the second patch the same delay
-is harmless. The details are in the patch.
+  KASAN: null-ptr-deref in range [0x00000000000000a0-0x00000000000000a7]
+  Workqueue: loop6 loop_workfn
+  RIP: 0010:file_inode include/linux/fs.h:1351 [inline]
+  RIP: 0010:kiocb_start_write include/linux/fs.h:2797 [inline]
+  RIP: 0010:lo_rw_aio+0xc26/0x1100 drivers/block/loop.c:398
+  Call Trace:
+   do_req_filebacked drivers/block/loop.c:430 [inline]
+   loop_handle_cmd drivers/block/loop.c:1847 [inline]
+   loop_process_work+0x638/0x11d0 drivers/block/loop.c:1882
+   process_one_work kernel/workqueue.c:3495 [inline]
+   process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+   worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+   kthread+0x38b/0x470 kernel/kthread.c:436
 
-None of the loop changes that were proposed are needed for this.
+If the loop worker gets to it first the freed page is written to the
+backing file and lbmIODone() then runs on the freed lbuf:
 
-/*
- * I'm also appending some deets on the nilfs detour that was in the
- * original patch series so we don't have to rehash that discussion:
- */
+  BUG: KASAN: slab-use-after-free in lbmIODone+0x130e/0x16b0 fs/jfs/jfs_logmgr.c:2192
+  Read of size 4 by task ksoftirqd/0/16
+  Call Trace:
+   lbmIODone+0x130e/0x16b0 fs/jfs/jfs_logmgr.c:2192
+   blk_update_request+0x57b/0xe50 block/blk-mq.c:1036
+   blk_mq_end_request+0x3e/0x70 block/blk-mq.c:1167
+   blk_complete_reqs block/blk-mq.c:1242 [inline]
+   blk_done_softirq+0x10a/0x160 block/blk-mq.c:1247
+   handle_softirqs+0x1d4/0x6c0 kernel/softirq.c:669
+   run_ksoftirqd+0x53/0x190 kernel/softirq.c:1133
+  Freed by task 5632:
+   kfree+0x1c7/0x6d0 mm/slub.c:6930
+   lbmLogShutdown fs/jfs/jfs_logmgr.c:1862 [inline]
+   lmLogShutdown+0x456/0x850 fs/jfs/jfs_logmgr.c:1681
+   lmLogClose+0x28c/0x530 fs/jfs/jfs_logmgr.c:1457
+   jfs_umount+0x2da/0x3b0 fs/jfs/jfs_umount.c:124
+   jfs_put_super+0x8c/0x190 fs/jfs/super.c:194
+   generic_shutdown_super+0x140/0x2d0 fs/super.c:723
+   kill_block_super+0x44/0xa0 fs/super.c:1852
+   cleanup_mnt+0x204/0x2a0 fs/namespace.c:1396
 
-Tetsuo's loop debug check (cf. [6]) also fired for nilfs2 on syzbot ci
-(cf. [7]). His "block: wait for inflight requests in bdev_release()"
-(cf. [8]) cites that report as evidence that reads leak past the
-release of the block device via readahead. I looked into it and it's a
-false positive of the check.
+If the loop worker got hold of lo->lo_backing_file right before
+__loop_clr_fd() cleared it then it writes through a file that is being
+released instead. That's syzbot's "WARNING in file_remove_privs_flags".
+I haven't seen that one in my runs but in all four logs of it that
+syzbot kept the process that owns the loop device had mounted a jfs
+image a few seconds earlier.
 
-When nilfs2 searches for the super root at mount it reads ahead through
-buffer heads in the page cache of the block device. If the mount fails
-it doesn't wait for that readahead. That's fine because the last close
-waits for it:
+On PREEMPT_RT LCACHE_LOCK doesn't disable preemption. The woken umount
+task preempts the completion on the same CPU, gets all the way to
+lbmIOWait() and only then lets the completion finish. With syzbot's
+reproducer that happens in about one out of 70 unmounts. Without
+PREEMPT_RT the umount task has to be running on another CPU already and
+I've only seen it once in 26400 unmounts. lmLogFileSystem() does the
+same read, update and direct write of the log superblock for external
+logs.
 
-  bdev_release()
-  -> blkdev_put_whole()
-     -> blkdev_flush_mapping()
-        -> kill_bdev()
-           -> truncate_inode_pages()
-              -> discard_buffer()
-                 -> lock_buffer()
+The lockless wait isn't new. Before commit b15e4310633f ("jfs: Set the
+lbmDone flag at the end of lbmIODone") lbmIODone() set lbmDONE first and
+that ended the reader's wait early as well. lbmDirectWrite()'s
+store could then get lost in lbmIODone()'s read-modify-write of
+bp->l_flag when it cleared lbmREAD, leaving nothing but lbmDONE behind.
+That window was a lot smaller but syzbot hit it too.
 
-The reports are printed by the loop worker while it processes exactly
-the reads that the closing task waits for. lo_release() and
-__loop_clr_fd() haven't run yet and lo->lo_backing_file is still valid.
-Both logs go on for more than ten seconds after the reports without a
-splat.
+So wait for the read via lbmIOWait() which waits for lbmDONE under
+LCACHE_LOCK. lbmIODone() sets lbmDONE and drops the lock as the last
+thing it does so once lbmIOWait() returns the completion is done with
+the buffer. Note that lbmRead() keeps ignoring lbmERROR like it did
+before. That's a separate problem.
 
-The check fires because loop_clr_fd() already switches the device to
-Lo_rundown when the caller is the only opener and blkdev_put_whole()
-drops bd_openers to zero before it flushes the page cache and calls
-->release(). So "lo_state != Lo_bound && disk_openers() == 0" is true
-for every command a final close drains after such a LOOP_CLR_FD.
-syzkaller closes the loop device before mount(2) and opens it again
-afterwards to issue LOOP_CLR_FD. That only reports if another opener,
-probably udevd's blkid probe, kept the device open across the mount and
-closes it in between. That happened about once in 600 to 700 mounts of
-those images.
-
-There's no hole in the block layer or in mm that would let these reads
-escape. The bios belong to locked buffer heads in the page cache of the
-block device and nothing gets rid of those without waiting for them.
-All 48 crash reports of [1] I looked at are on the write side as well.
-A read would fault on file->f_op instead of in file_inode() and I
-couldn't find a syzbot report like that.
-
-So a check that wants to catch I/O after the teardown should test
-whether __loop_clr_fd() has started, e.g., by looking at
-lo->lo_backing_file. lo_state and the number of openers can't tell a
-final close that is still draining from the teardown. The comment in
-the debug patch says the state "should remain unchanged unless
-__loop_clr_fd() by error starts" but loop_clr_fd() changes it.
-
-jfs is different. It writes its log from pages it allocated itself, so
-kill_bdev() never sees that I/O and nothing in the block layer can wait
-for it.
-
-[1]: https://syzkaller.appspot.com/bug?extid=cd8a9a308e879a4e2c28
-[2]: https://lore.kernel.org/69e2ca14.a00a0220.1bd0ca.0031.GAE@google.com
-[3]: https://lore.kernel.org/fb1e0f16346994e32b479e4be596436b2a614b03.1791234123.git.bvanassche@acm.org
-[4]: https://syzkaller.appspot.com/bug?extid=ecf51a7ccb6b1394e90c
-[5]: https://syzkaller.appspot.com/bug?extid=2e5cf2352e9f69ebf172
-[6]: https://lore.kernel.org/cc2910d3-3113-44d4-94ef-0c8d365fac9c@I-love.SAKURA.ne.jp
-[7]: https://lore.kernel.org/6acbe268.8cdf6287.1eb53.00ed.GAE@google.com
-[8]: https://lore.kernel.org/81c9adbe-14f3-4d1b-8a88-8b796e91f3a9@I-love.SAKURA.ne.jp
-
+Link: https://lore.kernel.org/69e2ca14.a00a0220.1bd0ca.0031.GAE@google.com
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: b15e4310633f ("jfs: Set the lbmDone flag at the end of lbmIODone")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+cd8a9a308e879a4e2c28@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=cd8a9a308e879a4e2c28
+Reported-by: syzbot+ecf51a7ccb6b1394e90c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ecf51a7ccb6b1394e90c
+Reported-by: syzbot+bc273027d5643e48e5b3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=bc273027d5643e48e5b3
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Christian Brauner (2):
-      jfs: wait for lbmDONE under LCACHE_LOCK in lbmRead()
-      jfs: set lbmDONE before dropping LCACHE_LOCK for lmPostGC()
+ fs/jfs/jfs_logmgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- fs/jfs/jfs_logmgr.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
----
-base-commit: 2dc60bd9975fc8666a13d58410499e06e6799ba9
-change-id: 20261123-work-loop-backing-file-c1d1030c3d64
+diff --git a/fs/jfs/jfs_logmgr.c b/fs/jfs/jfs_logmgr.c
+index 306165e61438c..e96593d79a1df 100644
+--- a/fs/jfs/jfs_logmgr.c
++++ b/fs/jfs/jfs_logmgr.c
+@@ -1984,7 +1984,7 @@ static int lbmRead(struct jfs_log * log, int pn, struct lbuf ** bpp)
+ 		submit_bio(bio);
+ 	}
+ 
+-	wait_event(bp->l_ioevent, (bp->l_flag != lbmREAD));
++	lbmIOWait(bp, 0);
+ 
+ 	return 0;
+ }
+
+-- 
+2.53.0
 
