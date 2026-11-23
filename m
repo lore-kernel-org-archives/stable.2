@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795439453;
-	b=EmH0AvzBScl9xrxvc2nTXFo9Q3zVh5L5ofB7hgL//MPh9GYgD3E0x0GnxNhX0GlArMsf
-	 g71+hbDZsDJPTfsiBkmVXr4Iwl3Lb1Cmlh75n5fxj4sJThSP5ANAtdlnuM97f/nN8UfSY
-	 Dq5CHJMoGFTQRHiYEN+QjzgMU0/fPlpV1Jrr6vKt7KBilKTpaRI1JJ82NA2mqNGy7pM2N
-	 0ql1Xg+ngo+z1wji6HfPXtY4n+6gQM0FmtGMkCdG3DYIvAZpryhlTLMsdQbrW60f1hL5K
-	 xtfty63h4F80MTyqTjKjKRFJi7/DlT5KIIjON0UbZZM42nmkQ8HmU5fjjIAcytKKUiw==
+	t=1795439454;
+	b=DR51YN2GTFCBjt6pqNy5YqaUV9GZE7RzRcR1MshfZpADprW2HHoyjrE7o9neVRKfkAII
+	 iLSEyUfPmnEmyr6d8liiYViraXFT4NmHzLoSoLvDD45nE4YYMvodkQRrMAcDcMxPOKQMR
+	 skhT+oHCQZj1Bh5LuzTo4+sKwD4M9eVNuV1ZiElA7ZlmMOIeUYGyB/mAzRF7JwRfzeUga
+	 k9L0FoselLeRSR7a0ND8yAvS/C+v/K1ONre4hlo37idkPFRiLQZVmDUOPS4ZAxPi91MHe
+	 tBwgZIKWWRRd4+YzZOR9fTKnjbgVZcPG/5JtPmpYm5h3/dXLq4Lz6MwtyFeWFdiKiWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795439453;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795439454;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=EwieZqtgauufTvTK5llynH/xO/39KPDUAQ86grulatw=;
-	b=Xai0pVytytuTkPj5GDGrnqXpGkjsBvPWeT6HHlz75woDs3znwxgbOETQ8R1jFdY/9a4d
-	 T1fs7+hNs8lwF4C5A8h++YQPrLBckpqeuH7Hs/K/9dnO2WTZ6cQTiMVt8qCviBW5o+3+N
-	 y583TYOWFeR+hoWPQpDIHvygCsbdn9j+3AOu+9GH+NgpshT8SQi2lNGaxMZpImkHBwHq2
-	 zDiNNhFKbaTqVPEzaBAVMUr4SEUKapvYKEj4V+242p0MeoEWM17bK8j5tzCISXLGs+U+U
-	 wKkTdy/N9jbrheg+z8wV80WfgezVAndClLga0i3O9m8e3SCBFu2+k2/fAYY23sz+30Q==
+	bh=7dSUYZEgNCLN4peeDNcu8u/0Z/HyiOcYEuA7oi+4CJg=;
+	b=NBMBPK6ODHQ1rkIXWYrJNQohAPfp9OisE8jCCClZniI+syk0yMRsmCgma66pXYMs9p+M
+	 52V/XPx8K082/TH+lTg3yRo0cA09ig0nklZhSnIO3BjgoSHsLf/PDmIC5ZcrB9OfkV71J
+	 al0eb04GkiiQEdFs/l99UbWg1agvoCUIimsu26xbvBQfoJ6BECihhKj/L1+pCo6iu/1YF
+	 7pxZ8+mrOjhfP0oNFU1jzRtnEMSzSoKRUne5QrAEbTJRvqGg0a6sFDcdOCo40qAHDbiu7
+	 8GwRzRQ5vbGxjTv67S2WAryGEIHbJ9qizaIhFcNFTvT7eNZc99BtEFCTqWh8rl9jGQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RKQ3jHRE;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qpg7mrlE;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE5B606A69A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 13:10:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEE5B606A69A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB8E606A337
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 13:10:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DB8E606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RKQ3jHRE
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb5b8ef642so27159625e9.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 05:10:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qpg7mrlE
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so31794445e9.2
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 05:10:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795439451; x=1796044251; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795439452; x=1796044252; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=EwieZqtgauufTvTK5llynH/xO/39KPDUAQ86grulatw=;
-        b=RKQ3jHREKKn3ZJjIHrgF7TjaMwmiNKzcTWiVLRPjq3pLIGwkGf6KtWB6by698I94jQ
-         XCsMnQjUe1LaaTUfbs8ozGg5OaoeG9ugFN6f5/8AvWqixSem3Fa1Q6ocP2FMUO4o2/sI
-         Okju4V8yF2HkARROWjNxTgZmDoe4lBm5qU9rSRX1XHxJsbQZPJ/aNPfADmUDJ+ICo5QK
-         Zs249JKgCGlN2r3ka1THqd0kZykkJdfOktSblnB2dSskiIH0kBVRVEzIwL8N7CyBFVYz
-         BPP76bo9aKT4Y0fmz3dWvxiNaG+a/J8+oplyiCljZIbzurVOlGTTsGbG09b2ZY213O8c
-         J69A==
+        bh=7dSUYZEgNCLN4peeDNcu8u/0Z/HyiOcYEuA7oi+4CJg=;
+        b=qpg7mrlE4nx9XMuqFOY5eJZKNJ/e2FFVQF44i1PR0LIdAWJot+5EKNuzCEMHKDDoZM
+         3x/PA+x9v70n7md58LQRfkW3JxPqmYL5RerRnSEe90ukVisxYXuN7b3im7TrMRxR+tKK
+         y04w3vOyY2kHGHPMObdgCo6aZtAijmoZGoKAg0tIarIVw9kpRFaTMJtNgxxBI5unpcTz
+         QlSxo0EqHTAeWXnLvLcVpGZm1N3npH3kU8LZUg2xS1uqB3xU6OuJROrZafzsizwq5xMg
+         UfZNlQqPULlRWv866+OkKKAZNlDNWPXfwV8B7qLh7fOWj5FfHazQqoeX8sS+lihCriAb
+         C87A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795439451; x=1796044251;
+        d=1e100.net; s=20260707; t=1795439452; x=1796044252;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EwieZqtgauufTvTK5llynH/xO/39KPDUAQ86grulatw=;
-        b=tHWn7dZTHqKpxd0xHoED0BcUqRQktghS3X49BEGP/poGSmM+jxjHAeVxtA77CT1+un
-         z+cMKV1jVofkZC4X4qdlSEJXYys6R4UC5J91vWSz8brTWcr96v2bZIi4LyNCyE8MejcF
-         Gc1vNGY43dL5EcwomxRg8hwCJ0ZvHr5r6eO3w9+JRizY2eVaArhNtqV+tcU5RVr0nagP
-         hiAlE9N1TKd0U4PhXklJsAwqrVQb+v/NJGwZZacrzv5uFjHIFduKsRsAXMeLh8T+8HfS
-         EN9MWQiXxwoWQ8i0BhQ7RyfrEh63QLPslGLzPb53qH1KuISSIUQGzn4zytgJMNlsCxyp
-         ObLQ==
-X-Forwarded-Encrypted: i=1; AL+hErHMRCGKfEghh4f40CFjFCxAA3CuoUsXGCwpeHIs5CKawJXenBVPRt7qFGpgZFjERdQfElWfuTE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8HdhSTR3n9NyJ6uoh9eeLgxXAht/WA6BtZ9O7F5yjS1dKC4Og3
-	PeDy+qbS3W9ywWGcC9gD2RWXkeiG+Mqzws69Zmg5J+WaCBo2O/1rap8z
-X-Gm-Gg: AZFdTZc5tcwr+0dGmKvdWRB+7eokusZiuEhzv4NmFkHZEC+J2uUX9O0CLLE/05TbmN1
-	fsLPXClIUxl1FD3f/Dq4TcKWOYqhXGE/fJKLD66wZgpmYc1Ed0ni6QeKca/pKsf+CkJ5Ut7hOar
-	DAgKq67zSjeGNfpgNG+gQ4jIVGMVtbVVhOcn6x09D0MGvMTDxvpDnQgYAFeJsC+IgQkCjOhzVJR
-	Esm894MGZABgHi4Zfu0301wFLanFngQz+E6K+CelOUdcKUjkLqX/PMJDnrvUGFzXOPiVOzPntje
-	cdk1IFp87BzrQ6p1lZaHzoqY+afCkk+nnsCg5iQughpYEtDx3DAgixQG2zXXrZOIoii4WMc/xf2
-	uwNHUsnCZvepv/Z3REKv6oZJnMbFggTEY5dHr/5zGQlrIXTe3BCOPEuWGIfCodoOSsifZo6YTIF
-	1eET7glOOi6i0LpUF2WmvKwsZdMYyzEanWejW4jbzkjeaSLFYvsux6OAYkW+vWZatwwmnmnHs3E
-	juG4qEtYeuZjfkmEmk3U7AwCE2zhPcNSL2Ydc5j/LfacF9ubznNeaTdft+LrW+Aeiul8qNby4wR
-	QaapdPrXcGe9P8mP7a0g6oU0hwVr9OQ5NlMYDLJXjDOQV/1nLAXL6AiuccBftUXWaTeUZUPs+OE
-	yH4lmty1y7bYK/yhGnZ45fx4PoVJAweATc3plcg/A8iLQzmvCc/u4Ru1HEVWOuaUaBGwtQiPEwZ
-	Mdp8TedqzgSNh2zQhh8/M=
-X-Received: by 2002:a05:600d:18:b0:4bb:9001:1aa with SMTP id 5b1f17b1804b1-4bb900102b8mr139194055e9.10.1795439451189;
-        Mon, 23 Nov 2026 05:10:51 -0800 (PST)
+        bh=7dSUYZEgNCLN4peeDNcu8u/0Z/HyiOcYEuA7oi+4CJg=;
+        b=WkfePwk4w7bWSL6E3lCNzkf40+FOqcFJ1eAu1I2hQdozJ5rCs9ncGXz3vNfpdHzs1r
+         ZLXxo4ieTBVPwfEyCAB18tTJtdGfe3RhKKi0pJrbayQUgI7UtLFbzGBb+NUz0IppoSW7
+         sr+Eu8JV8C9vGB+oy5R38GuquzYXdboKlKDZecanhkGReWdKXcWzYyy4opY0VMDk/neL
+         sh7mIxvtCREQvT0fzBUfdSuhkzcXTeY+E8U2wMyyxepBQOaCNrx4zNgvZK7bJy7AJiHi
+         h0FAVApqvgRKTheLDrutfKhA219XjfrQtxQ2/zJfCcLtRa7Id46mFatmohC7nV0NW/IK
+         S77A==
+X-Forwarded-Encrypted: i=1; AL+hErESo3wLdt5RuYA2UN67acB8PMra9gnsU5JKrkKusETy9Ja+o/W+xkMQgxxM4AEjzCPUqfLwY/g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9pqTaNm7YAsLXkKpS9VHuT6W6ie6O7RR+PLZ95pUbSHEPzmvnd
+	lbiQEnVYMOgjCcD1lzy1wzE9ewWDyLia6hA9W3AxhfwpaybUUaXnQuGL
+X-Gm-Gg: AZFdTZdzac0vy/teYAKjTvH/xlQ6oEFTV1RLRiWh+ZyXsg/CXp6g1NrFVbzdFFJDoXq
+	3IBjOC69AoGF76m6B+yPIXDDQzEtQRJE7UKEN3YlsDonIHN/JVn4DWGxj4RbNHIrB35OuWuZBFv
+	T2oB4Z9vtUlNcapYAVkabAHJa21t0eq+XLGrIYYzBL+WMmR66ucrZ+1o6UILC9KKN/YZu0cjDUd
+	9vMhyRtKp7lO0tvQ8CFuTpkXBqJcDog5QMnFbv84dXvpHtINannzUmbePR6s84w0CP7rXqAJa+a
+	GFyvOc59wQoWlrUI+Prrnf4L8sLHohdIu8Qxl4+ZA4AhtWPBTGlv72UWyAZVS2f9NYM56rsNQdX
+	TuMm8c/VscEhJJih6S72JcRtvUOzzbMr/AlJx+TqiLWnj9NrwETLjzW4UC9Q2CZYdFDPgpQbg9e
+	eRjLKQu+Q5BvOT81DIE4MhjBYH5D7sskFY6XLHZ43wa6NtnQxzOwe+QJZo+Z/afS7tcek4W6+HN
+	OqZHdTaH3PhWLM9YXAuP1qlCpRUdqaBsZ1wTiJn/XImmupUI03Th1QlIg50ldnlA7xxr6b+ZTf7
+	w/m86Hhtl6B6IPlv7ci93P17sBH7Rubfp2i+466ihnyMFrEVki5RYr8HGVvjszpeVGZvgFzczcN
+	SVzkMVEbzoulirAioNpd7WoFZnunT0eC89eoHMQi7RwaGPGg9oySZIJweFtXHR/vvIT0Ie+NFhL
+	s=
+X-Received: by 2002:a05:600c:a087:b0:4bb:5c92:ce22 with SMTP id 5b1f17b1804b1-4bb887fe887mr233753995e9.8.1795439452477;
+        Mon, 23 Nov 2026 05:10:52 -0800 (PST)
 Received: from iku.lan ([2a00:23c8:254f:fd01:f273:2c28:9387:7d5c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb85399e2esm400714065e9.7.2026.11.23.05.10.50
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb85399e2esm400714065e9.7.2026.11.23.05.10.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 05:10:50 -0800 (PST)
+        Mon, 23 Nov 2026 05:10:52 -0800 (PST)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
@@ -101,9 +101,9 @@ Cc: Florian Fainelli <f.fainelli@gmail.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v6 3/4] net: dsa: rzn1-a5psw: Fix MDIO clock divider calculation
-Date: Mon, 23 Nov 2026 13:08:51 +0000
-Message-ID: <20261123130852.3420491-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH net v6 4/4] net: dsa: rzn1-a5psw: Set driver data in probe
+Date: Mon, 23 Nov 2026 13:08:52 +0000
+Message-ID: <20261123130852.3420491-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261123130852.3420491-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20261123130852.3420491-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -121,12 +121,14 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-The MDC frequency is hclk / (2 * CLKDIV + 1) on RZ/N1 as well as
-RZ/T2H and RZ/N2H. The existing calculation uses the wrong divisor
-formula and can set MDC above the requested clock-frequency.
+a5psw_remove() and a5psw_shutdown() retrieve the driver private data
+using platform_get_drvdata(), but a5psw_probe() never sets it.
+Consequently, both callbacks return early without unregistering or
+shutting down the DSA switch.
 
-Calculate the smallest CLKDIV that keeps MDC at or below the requested
-frequency.
+Set the driver data in probe to ensure the remove and shutdown
+callbacks can access the private data and perform the required DSA
+cleanup.
 
 Fixes: 888cdb892b61 ("net: dsa: rzn1-a5psw: add Renesas RZ/N1 advanced 5 port switch driver")
 Cc: stable@vger.kernel.org
@@ -135,32 +137,23 @@ Reviewed-by: Clément Léger <clement.leger@linux.dev>
 ---
 v6:
   - Added reviewed-by tag
-v5: https://lore.kernel.org/all/20261120002549.1908299-11-prabhakar.mahadev-lad.rj@bp.renesas.com/
+v5: https://lore.kernel.org/all/20261120002549.1908299-12-prabhakar.mahadev-lad.rj@bp.renesas.com/
 ---
- drivers/net/dsa/rzn1_a5psw.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/dsa/rzn1_a5psw.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
-index 4c32e06a3cd2..7fc62956c5d0 100644
+index 7fc62956c5d0..4925d24ec2a3 100644
 --- a/drivers/net/dsa/rzn1_a5psw.c
 +++ b/drivers/net/dsa/rzn1_a5psw.c
-@@ -11,6 +11,7 @@
- #include <linux/if_bridge.h>
- #include <linux/if_ether.h>
- #include <linux/kernel.h>
-+#include <linux/math.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_mdio.h>
-@@ -1102,7 +1103,7 @@ static int a5psw_mdio_config(struct a5psw *a5psw, u32 mdio_freq)
- 	u32 cfgstatus;
+@@ -1219,6 +1219,7 @@ static int a5psw_probe(struct platform_device *pdev)
+ 	if (!a5psw)
+ 		return -ENOMEM;
  
- 	rate = clk_get_rate(a5psw->hclk);
--	div = ((rate / mdio_freq) / 2);
-+	div = DIV_ROUND_UP(DIV_ROUND_UP(rate, mdio_freq) - 1, 2);
- 	if (div > FIELD_MAX(A5PSW_MDIO_CFG_STATUS_CLKDIV) ||
- 	    div < A5PSW_MDIO_CLK_DIV_MIN) {
- 		dev_err(a5psw->dev, "MDIO clock div %ld out of range\n", div);
++	platform_set_drvdata(pdev, a5psw);
+ 	a5psw->dev = dev;
+ 	mutex_init(&a5psw->lk_lock);
+ 	spin_lock_init(&a5psw->reg_lock);
 -- 
 2.56.1
 
