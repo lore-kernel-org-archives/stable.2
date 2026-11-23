@@ -1,75 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795450177;
-	b=1Qs77wwKRz+pQiIeDH3tRxkdaQo78a1+vb3ZCzWw6TNtkamKx9mEazmcool0Mo7J2mP7
-	 5z1RZ/bU4Q3OeLIKypFyRhi9B5BA3jq//zQhlWrDep9AbOiMG9LaY29bFGdd9O2WW7DoJ
-	 nsUCbBdvOaZMPPu4Dm81Clpq7S6TOCytCG9IJkKUP4TKvxx9kxAiBmfqBsyaAxQ6lBuyO
-	 eoZK+CWH/X2V4oDmF3zFK7iQHlhA1Su1aAknJV+wC52CuhPLBZ+MfuSACxpRQwHB7rWve
-	 csR8hIx7thgjR6JqJqMOMmID1F9a/qgWdx3tgVjsqbDt3PEMASJsHX9k444yChk07Ig==
+	t=1795450641;
+	b=exueAUd72Ps1hMxVAmOhO2WeAdzF/AG0rTMnT43axXuBTT4/XaFHaZQbq2wMoFyVUgFr
+	 2/B4aQtF4T471ioIet1aVHiJkT9GSC9n5ys7yNaT3PGaP143RnmOA62KND2JpVESxEC6T
+	 4XcRdN2a9dVgymkN6fkQz1tfcoKRzr8FYFdoiFxTEHdByPti5LR5oWcvxHADrKGC607gg
+	 H/W+on8KxB93VNmmvtfGy3eoQ09ZgJvsf2bPHMZdEwXOWwAzrxDBifL/yHmYlisvA7YIr
+	 i1JNrPFJdQ0b2FgZ1fSTR52jgKw2I/0ODI2GndigWhFsiV+SAMgaCn1DL2llV4OOwUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795450177;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=JhcfpBwHSU7MgwxhgP4Qq1k5bLuK7ieaSxmvk+gyAcc=;
-	b=2bkAXmb5KQRlZNpSLCjgAFEkiZo27MY2zLC+3Bq0h9BnDd0UERu0ci/RKWSI3C9ZKLKD
-	 rY5orEgp1jnRDx0rMwYreFKsIbL7vVI1Vjibh/zX4JWXPn7J0Xcb4owoNwN5LFToFk8+r
-	 RzK/EHfNU893PlKhKRQyARFpVXeNATZct7iRAIa+HuvHxzi2Ap6IaJjfkqTrifKJg6GPM
-	 Vr3n0F3ZHa6w+ZjfvEtyco6Lj2ew4y4W/b9pfKkT+Vm3bunaFxUoNSg3Rqqq4j78WCXWi
-	 waAIHsYTTsPwkj5ScmtfVZfVu3bWVTEcX4KnbGN1hdOkvnlwywQSFyTPwcDQ4JFJKaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795450641;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+GHb/SYd6gXinJYqxw1GDlcMLdqBI2V3zFyLkxFbZ0k=;
+	b=nthSSr23Tm0b3egkZqEb6e7A60AX49b/ft+SuVgbQsma3UV9ZlAnJq43amQGmf14P40L
+	 D6iXdCph2FH6n4XsdPPLhmwrN14wX0XmyFglraRdXkVlHEp/E/j+qSxKRmFv9uw7UpLHu
+	 NUfilOtRMYgcXcq6mxNPZ2rk1Su4n2cQ9btJ3Kv0p9DnjwjlkI8cwn2C8zbrfMODj/58a
+	 vrI2r85UpbP9xAogy+/7L8pslCFgoGw1BSl0HmCrTXWCXT1geHNzA1w/GyNKelPu8ZPnD
+	 mbP3uJ5IP/+O8aP3ZG+t+V+Eo3+EwoZ0kCB4Crtbx73j05oxWm0cpivaGAH4NvMbYCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--penghuang.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ewKOjoXP;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d0y4f7iL;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=EFWjYSTs;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04F5606A31F
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:09:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E04F5606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--penghuang.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3773606A33B
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:17:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3773606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ewKOjoXP
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3869865a304so1559794eec.0
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:09:36 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d0y4f7iL;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=EFWjYSTs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795450639;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+GHb/SYd6gXinJYqxw1GDlcMLdqBI2V3zFyLkxFbZ0k=;
+	b=d0y4f7iLfivHQWBFjZe0Gb0OBVayfWhwiCEqqJPb++ZTF43w9Evr2zOYx/xaqsOAMzMnWO
+	XUq3Pj8B/mM93fSY62IjCEmz/wM6AFBX7ho+YTAqAj1P9+aiPlCOgEwb3QN2JdW8KPYe/E
+	5pdEqWMJK7WCfhOPW31VK2v1cVqB7Rw=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-383-WUbOqgssMwCV1FhaB-Gl0A-1; Mon, 23 Nov 2026 16:17:16 +0000
+X-MC-Unique: WUbOqgssMwCV1FhaB-Gl0A-1
+X-Mimecast-MFC-AGG-ID: WUbOqgssMwCV1FhaB-Gl0A_1795450635
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a20e41008cso5482425e9.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 08:17:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795450176; x=1796054976; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JhcfpBwHSU7MgwxhgP4Qq1k5bLuK7ieaSxmvk+gyAcc=;
-        b=ewKOjoXPN39yp0jVeaMqx6C2OwF0rXLLiqjYLeRo3WkCV1R48gogHGci439v1gMnsa
-         BmbLTPcjth/T6hJBuzIgCHOkUnYmt/HjQYaU0A/R9Dcw2nkveWRI2fvNP1tdESzac5+b
-         gtX4cEuex2rGRf90bGPd/0ovDW6gAYokWYdb0D9bbYL8N8BOH/Tpd30U6qK3p3uU0QaA
-         94FHbBLRK7YUWFDFOLEQX49n7R/5rzhJizbn5nKL3wVBV7vQ5bK0694LnQ+aUIcd6dFE
-         Qu1KVM0Yct4VZgRlfK4/fYxSfCJSxseXUh+G7gMdcJFDaTL/+Nhvf2IoaP13D51+f5U/
-         DIhg==
+        d=redhat.com; s=google; t=1795450635; x=1796055435; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+GHb/SYd6gXinJYqxw1GDlcMLdqBI2V3zFyLkxFbZ0k=;
+        b=EFWjYSTs6eZbKtZfTzVI20evhQuKBSbQFwBnL7ixe6pYNqb3IX5FdNJ1NXk12la/fo
+         mtcq8GhB5fbnQhWtE3XAnfyxUDceh6nkUkIoCsejjiZ5xIUIo3D/lpZrrdqy6JZ1Uw13
+         i8gGNOQfWASM9FbNeEqtG58xOZ0gLZR8bMdPEOX2aXVh5toHQitzAoqzO7HXU7XK/nni
+         2yJbyWsuJtKRhA10Zs2K92JS5vL+KOQjUYEnkDWYjbNa0+6B+VTKq8E5pBfICJiVZpG4
+         jYCFjpoDjxCISpe4VOF/NOPsukP9LGBo41m8ux/OAQcxreEp8Ej6xJTjSYH05IAQwH8/
+         xjAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795450176; x=1796054976;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JhcfpBwHSU7MgwxhgP4Qq1k5bLuK7ieaSxmvk+gyAcc=;
-        b=UMu83qBlwO2bh19pG+XT0RdFUNVaKEJMjuR05HcBf2fcMFYw0aDSWwwhokuQeX2+3b
-         ARXCCc30O7v8TU1H9vN39sMjaFkKU7KT2xd/uB23z1+tHeSO3ty2XBC/E/avfYWwUYZU
-         LuhS1n+wQ8EVlEownFCqnfupVdp8Ox43GZhzPyLLitW9+WyXMMA55CkdcyLKEuzuh1Dd
-         4sB1Crp2r/xnlAd7qW2A5gzpptb9nRCaDk5TQPJ8CCfuPMiPwIJQoBY7QkIela4qYkQe
-         HuJUEd8sXWelI5l0DmBb2ixhUHcXxJtVSuafj7HZwfgkO/g96KzyMXzdddG7Tty14Oh5
-         dyaw==
-X-Forwarded-Encrypted: i=1; AL+hErEp/oEBSvejtJ/050XmWW7qP5lQXJTfpi36QcotrzhTgpUfgQ7KhDvuEBxVOXtFdHBn8CMc1HY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9gAefHGj/nJ6N5zZDG0xtlsexDwmOml8+ICAZ+H19nG9FFvpo3
-	cVZjQ2wOgsW6fEKeQgNYp6EUj786gkcg27caXyb6Ci7OUKBjpTtLIkaLh0OTJcl/ZJ4eetTBfyR
-	8fChnxph90eF6hDXlQQ==
-X-Received: from dybmf40.prod.google.com ([2002:a05:7301:928:b0:36c:9b55:8436])
- (user=penghuang job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:4284:b0:382:1aea:c21d with SMTP id 5a478bee46e88-3857191bcf7mr12981179eec.41.1795450175386;
- Mon, 23 Nov 2026 08:09:35 -0800 (PST)
-Date: Mon, 23 Nov 2026 08:09:34 -0800
-In-Reply-To: <CAKfTPtCQpVhtVT7Mhqe1=Ukcmc1pX8Jgn9ypb64--8cJ-7G4BQ@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1795450635; x=1796055435;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+GHb/SYd6gXinJYqxw1GDlcMLdqBI2V3zFyLkxFbZ0k=;
+        b=MqOMwiEe11s++/ee+5d5sKDMjkCDEXRvHEESGhTWSLeaOXM7xXwjkTzKTRwsp5tit/
+         gi/wCBCbYmQLX6FDfuZsSSBCTu89VEnVHiiRIx3vpofam+mUr2zNcFLgkUaiUbG+XtZk
+         CpJO+maepCrZ103WIErQWO5+TpXRi14dYTOyagSt84L5GXIM3sSWie7FRs/2JAHafm8p
+         IfL/nGJSG7OoAm+eBvLmFnaBEeUwswTa5suy3N03PXpf7KvFEQjve9re5iI1bVLiDWCM
+         98omhe3VexXXkIR3fE8dgniKcoN5OoAAJRIHKUTOC2wzzpz/oHcRSM/Ljd1rm3g7vAYE
+         zglw==
+X-Forwarded-Encrypted: i=1; AL+hErFH0UwqiXtzQKxAGznydp0AMwS7OT+poIKVuEZXt8KC2GRoHaY+vSzbSe4zWeBQfEjQKdLAOuw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FWifCkEecQ2CHlvpibImYc288OZT2XUknN6V6+esYD0grYToB
+	V8O2g9+QGe+QmH+uEpCRtAmiogcy9BYRMI1hvMtQBno6tiTAY3KIzM4iTPapn9w7l0Lqu4XaiDC
+	2jkVl9hC/Mzv+J3hXRVc1vzM71FzVmfRKPQCcInCvWxcQgYlLOKTCk7vMiQ==
+X-Gm-Gg: AZFdTZe5od55leo3KJ9xLU1x0GE6Sv2oki4u7fL4OaKvLcm7fIXkz4eLUbPw4wdfog0
+	TuUfZjwY1OzmSCaRF+3DlmfliQCLDKwQRXXS3vYP5zxgEtqmBe9Dfn5DillVeTK7y529CMS/tVD
+	enLXDDNNjbr1FA0QhO2I9MiFM4JkwIVGxsHszL+3OeYcwaM1bKl589M557EDWQfdOZU1SufKN0K
+	s6GxjGgZkx2CQdqQi1fKm+2Qs7gOFNxPvCE17pExbrpQcK6QeAmt4bIZnRvEWixP+QQMKpglK8G
+	uXUFN1JI6rb4GdkPD5sZa6qqoLjTMbV/4CCxGbC9qSdrvcFHYNNkJDb5Kn56cg8Jdefueqlq6gF
+	l9xKdddvGHC4KuPy1QaOBD5mkB0EKh1r0yt3FV/7/84ree0GRB8RqOg==
+X-Received: by 2002:a05:600c:674d:b0:4a0:1fb9:2f51 with SMTP id 5b1f17b1804b1-4bb88808263mr270420345e9.14.1795450634806;
+        Mon, 23 Nov 2026 08:17:14 -0800 (PST)
+X-Received: by 2002:a05:600c:674d:b0:4a0:1fb9:2f51 with SMTP id 5b1f17b1804b1-4bb88808263mr270419595e9.14.1795450634202;
+        Mon, 23 Nov 2026 08:17:14 -0800 (PST)
+Received: from sgarzare-redhat ([80.116.143.202])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb9067846esm209571105e9.4.2026.11.23.08.17.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 08:17:13 -0800 (PST)
+Date: Mon, 23 Nov 2026 17:17:07 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: jrmmhm.kernel@eldare.de
+Cc: Bobby Eshleman <bobbyeshleman@meta.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Alexei Starovoitov <ast@kernel.org>, 
+	Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v6 1/2] vsock/bpf: fix zero-length, MSG_OOB and
+ MSG_ERRQUEUE reads
+Message-ID: <awRlwL1epH1j61Z7@sgarzare-redhat>
+References: <20261114-kbh3-1-022-fix-v2-v6-0-96b6029bbffa@eldare.de>
+ <20261114-kbh3-1-022-fix-v2-v6-1-96b6029bbffa@eldare.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,77 +119,77 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261122015729.2512645-1-penghuang@google.com> <CAKfTPtCQpVhtVT7Mhqe1=Ukcmc1pX8Jgn9ypb64--8cJ-7G4BQ@mail.gmail.com>
-X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
-Message-ID: <20261123160934.2289260-1-penghuang@google.com>
-Subject: Re: [PATCH] sched/pelt: Skip dormant cfs util_sum under scx_switched_all
-From: Peng Huang <penghuang@google.com>
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Peng Huang <penghuang@google.com>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, Tejun Heo <tj@kernel.org>, 
-	David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
-	Changwoo Min <changwoo@igalia.com>, linux-kernel@vger.kernel.org, 
-	sched-ext@lists.linux.dev, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261114-kbh3-1-022-fix-v2-v6-1-96b6029bbffa@eldare.de>
 
-On Mon, 23 Nov 2026 at 11:34, Vincent Guittot <vincent.guittot@linaro.org> wrote:
+On Sat, Nov 14, 2026 at 12:59:14PM +0100, Jerome Mohm via B4 Relay wrote:
+>From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 >
-> When all tasks are moved to sched_ext, fair utilization should be 0
+>On a vsock socket in a sockmap, vsock_bpf_recvmsg() sends zero-length,
+>MSG_OOB and MSG_ERRQUEUE reads down the sockmap path whenever the psock
+>queue has data or nothing is queued at all. That path copies from the
+>psock queue and waits for data, and it handles none of these reads:
 >
-> ...
+> - a zero-length read with data in the psock queue spins with the
+>   socket lock held, and the delivery worker blocks on that lock;
+> - MSG_ERRQUEUE consumes stream bytes from the psock queue, and the
+>   zero-length MSG_ERRQUEUE read that MSG_ZEROCOPY users make to collect
+>   completions gets -EAGAIN or blocks instead of reading the error
+>   queue;
+> - MSG_OOB consumes ordinary stream bytes or waits for data, where a
+>   connected native socket returns -EOPNOTSUPP.
 >
-> This is not the right solution but a bandaid to hide the issue. When
-> there is not fair task,  rq->cfs.avg.util_sum shoudl become null.
-> Please look at why it is not null.
-> It could be that the update stops before everything has been
-> propagated correctly in the task group tree
+>Hand these reads to __vsock_recvmsg(), the path of a socket outside a
+>sockmap, which does not wait for any of them. They now take one path,
+>so the order of the checks no longer matters.
+>
+>The MSG_ERRQUEUE case was found with the help of Anthropic's Claude,
+>its stream-byte and MSG_ZEROCOPY parts by Stefano, and the zero-length
+>and MSG_OOB cases by the netdev Sashiko reviews. Each was reproduced in
+>a VM with a vsock-loopback socket in a sockmap, without kernel changes
+>or error injection. With this patch alone they behave as on a native
+>socket. The vsock vmtest.sh single-VM tests and the BPF sockmap
+>selftests pass with the series; I did not run them on this patch alone.
 
-Thanks for pointing this out -- you are right, and looking into the
-code confirms your suspicion about stopped updates and incomplete task
-group propagation:
+nit: IMO talking about series/patch is confusing while reading when the 
+patches will be applied.
 
-1. Deferred cfs_rq->removed and unvisited sibling task groups:
-   Tasks that exited (task_dead_fair()) or migrated while sleeping
-   (migrate_task_rq_fair()) before scx_enable() queue their load/util
-   in cfs_rq->removed via remove_entity_load_avg() rather than
-   deducting and propagating immediately.
+>
+>Fixes: 634f1a7110b4 ("vsock: support sockmap")
+>Suggested-by: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+>---
+> net/vmw_vsock/vsock_bpf.c | 3 +++
+> 1 file changed, 3 insertions(+)
+>
+>diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+>index 9049d2648646..c9b399f37720 100644
+>--- a/net/vmw_vsock/vsock_bpf.c
+>+++ b/net/vmw_vsock/vsock_bpf.c
+>@@ -80,6 +80,9 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+> 	struct vsock_sock *vsk;
+> 	int copied;
+>
 
-   During scx_enable(), switched_from_fair() -> detach_task_cfs_rq()
-   only visits and propagates along cfs_rq chains that still have at
-   least one live attached fair task. Any CPU or sibling cgroup cfs_rq
-   with no remaining live fair task is never visited, so its
-   cfs_rq->removed stays undrained and its tg_se contribution remains
-   in rq->cfs.avg. Once __scx_switched_all is enabled,
-   scheduler_tick() skips sched_balance_trigger() and fair_sched_class
-   is bypassed, so __update_blocked_fair() never runs to drain and
-   propagate those remaining leaf cfs_rqs.
+nit: a brief comment here with the reason would be nice
 
-2. Sub-divider util_sum residuals:
-   Even on visited chains, if tg_se->avg.util_avg has already decayed
-   to 0 (with 0 < tg_se->avg.util_sum < divider) when the child
-   gcfs_rq's last task detaches, update_tg_cfs_util() sees
-   delta_avg == 0 and returns early without subtracting
-   tg_se->avg.util_sum from the parent cfs_rq. Independent PELT decay
-   truncation and integer removed.util_avg accounting can also leave a
-   < divider remainder in cfs_rq->avg.util_sum after util_avg hits 0.
+>+	if (unlikely(!len || (flags & (MSG_OOB | MSG_ERRQUEUE))))
+>+		return __vsock_recvmsg(sk, msg, len, flags);
+>+
+> 	psock = sk_psock_get(sk);
+> 	if (unlikely(!psock))
+> 		return __vsock_recvmsg(sk, msg, len, flags);
+>
+>-- 
+>2.56.0
+>
+>
 
-For v2, rather than touching update_idle_rq_clock_pelt(), how about
-adding a fair helper (similar in spirit to rq_offline_fair() ->
-clear_tg_offline_cfs_rqs()) and calling it from scx_enable() in the
-existing per-CPU scx_switched_all() loop (where rq->lock is held,
-rq->clock is updated, and rq->cfs.h_nr_queued == 0)? Specifically, it
-would walk leaf_cfs_rq_list bottom-up (plus &rq->cfs) to:
-- flush cfs_rq->removed,
-- clear load/runnable/util _sum and _avg on the empty cfs_rqs and
-  their tg_ses while preserving last_update_time and period_contrib,
-- clear tg contributions via clear_tg_load_avg(), remove the empty
-  cfs_rqs from leaf_cfs_rq_list, and update rq->has_blocked_load.
+Code LGTM, if you have to respin, maybe you can improve a bit more.
 
-Does this direction look reasonable to you?
+Acked-by: Stefano Garzarella <sgarzare@redhat.com>
 
-Thanks,
-Peng
+
