@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795430881;
-	b=WbcSg3D04iY4+N5k0n4xdSLWBLB33izqdKLV7Vp+SsutiZ89+NjrpFYaxVhYvRlD8IZb
-	 ZpXobOMJnnqxSCaNancCVnohicrqUk7ITJvxju/cUWJ2Qjtc9K/TWO+k6j3lAt8Lu4Wl1
-	 mDPZeYGOgYc8uIEnZQIFt2iUlSwY5KwSfneKiRTIXWKSxNAbZqT+vdLV5KSsnYreH/fh6
-	 ywdjrW6TIn7UZJjCKnaMR7gdHr22DMp4CH4NORE8MEXnCX3cKbjClZd+AOwalC9uN/Vyn
-	 bF0Q5kp8ZUhcMdK7xsP2iyM7KBn8IacMsqd/Cv3xXTVOao6al/Xk2Cq8Su4+Kh6YaHA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795430881;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HvoT7Anl9hphNmVfzcXuCYVLME3jPhO7743SpeB5e/o=;
-	b=ElJ/ZpmeCaHtm9A9veL8DxquP3WWaHQTAkv5m5v0ec7z9v2V54CThnvrRyEQJGoujhiF
-	 hQmA3t7nT8r2+Pm5sMXkvHqE5oUQal409DGIANlbJCx9EkLtDKDA79v3S2iDqa26oO0Yo
-	 5IJkuB2vLHE0BQH/HZRK1T3z7UhhYHQbmg+3ckl/8U3tgeHEuXzWSbO6lia7UscmK1m0V
-	 bLU3aMarSQ0/Yvevz8OVgDVS7mkeIHg65mHzzw7l8n99JcatgREePBv6N0kFx44Tez29C
-	 KKIhbh2uiYYdCH2Im+vTbpJ1eRuP92HNNSkXsKQm/VedSpJ7O+a/Xc03gTrkmivU9Ng==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=EzvkQHYQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49DC606A331
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 10:48:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C49DC606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795431003;
+	b=Mc1qHi75xqIUj2Qp3XWvCc36YoghumYSLLLsDoMqXBe2rWrJA+v6256wq/uXcf8fAu4E
+	 8NwNmzgIbKNHkOyCgFOUosZ4yOhuWwpibGoq3j9RC3nud+b7pOGq14I2Grv6q0rAwy3PP
+	 S/5PgkQwMLUbSgFA8O+cQW+frYTrajL5c4qcX2igmQ7V+YK+sr0V0xBqySL0M0INZJxJF
+	 IuaEzknvhTcpDmd9qrS0UBI8yKKaeOrr4bG9LQRNjfVrmn2OQYjzFzuLnbvIfmGjlvPE9
+	 DpL6AYuKzMvh9MlP4fsoIZHE6mR90DefD+btC7wy7NuSGlaWl+DmpM2BBW1LhxAUAWQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795431003;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=HONgwvcLnwdQ2wr7NdDYe7XePSqL8bRXwzbHmI19pt4=;
+	b=yJEjCwnnr5292ugHb0+KcaY894pICECQPMtLf547WJioQDpcPOxr9ewV07W3pRs8PkMd
+	 RL+apkZREFLvWOurewQL5gruwbWUdyh38g7Eo73vrub/NLTwhR2OLjUQsvllbvpcZh9Nr
+	 qEq2imm7nb0lmzPSTcYI1y0HCf2WCsHUekV9QAv2Ny5P3iNXT3LlhKYCmz/kYZ4QnNuqr
+	 EqnFVs29gSa7qC5njtyDkCYnrg6G4T2Eeily/btKoEDAGEI1xn00czl2K9Wn9BqVo9NIS
+	 OD6Tepjfqc91SqfcvAC9c6aOwwnTZwrPQoTi285QzEHyCDRBYW14YpfxgkcCCmJcCWA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h+WxKwoB;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D6758606A31A;
+	Mon, 23 Nov 2026 10:50:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6758606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=EzvkQHYQ
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c5126505cb3so394786666b.0
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 02:48:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795430879; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Gh1ws7m2E+PbMAad4G7j5+PMeXo8QbaE8VgauPGtNwVW0lwG70xFEO8rZ48SjVfmun
-         xuqeOcWdZzL1nONu7HHESP9SWpv2yH2F4slxPKAaUOxfJQrjoLZ5i5BkENOYwkQYRU1c
-         hTKOzufkJ6wAsei9Y7E4mqObl/8nGnfYqtv2kZCPRpDJ+2akBM9uUr+RdT0JLj/FKpOy
-         7eGIMQw/8hUua3cAVRSdxnhxdhbbjVbatVzmyrigyIJTMzxXh0aLhchpm+m9M5jpDXyJ
-         EyvSFwy4y85fYzF2JwL3DCbPx0xLqZEq8lf4LUoGgnvWbrVL/svPWy9PhuLOi80SR4yM
-         mgdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HvoT7Anl9hphNmVfzcXuCYVLME3jPhO7743SpeB5e/o=;
-        fh=4PbhyjMK7E4cfKExrSYTKwiTSs4MKePNN+aS2XPLuOI=;
-        b=JMsXTVaJ001bfr3eujFN7oYRaiX/ZAwApvN9xYRhJttKwZwDVV+gQmvvSoJQiSzCA7
-         7aKubSBlMyEbvW6miSSbGiBeTYHQ0GsTGNvia89idAZe1RD6xBzgJ3f4Uq7Z3EWKVtYF
-         7BWk1WkZIH+27ZN1kq36TrUUCnM/gjWWUKYdDNKHQvjv80ukHAeVihM2Ev/trMunT9eg
-         tkF6dEVW5wtEbE5uV6l2WRz8SjHnYII5CEsTWUdd9inUwBA7ryU5x1TYxyhGTNvBuJZl
-         rYEFTt3Ja5CiqtJhukZUdLI599BIMTsdZktzRVnSd2XapFk3uVuvpDsEbjTlkJrApXhg
-         wxIA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795430879; x=1796035679; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HvoT7Anl9hphNmVfzcXuCYVLME3jPhO7743SpeB5e/o=;
-        b=EzvkQHYQol/Cq4j4qvyk4vT5eoqfh3xOMREdIutC7U43kJ7WlRjGjF1QiKiIeZJhhT
-         64/scM0R5jqI4nP3Cl7VAamQcExdSP4wQZWh+dmW2P/DvguXnTf+dVwIhv6KUwoyuYDv
-         hpDsMHO1YE7d7nmO5Z/5Wy7oLFz9SAwph9v0R49R+NWbwEzOp8qWwZLPgXOxijnOg4Om
-         Pzawc3hy7N+Qzj5xWP1ar97rK9hEBX8dCLPDYqP/gFaUiFVS4LqiH5c1Eair1rnX4pBs
-         XJJdXJJetOW9jxQ/fGnl7WiQGdZKrvqKFqzQpnbCEHv3DLTiQrdJvARCD6DRK88dZHt3
-         3Xyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795430879; x=1796035679;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HvoT7Anl9hphNmVfzcXuCYVLME3jPhO7743SpeB5e/o=;
-        b=MrEScD8jv1OKp+jt8ly5+q+s1wi4pMcWN4/PHpH31qDj14OmRSLJryxuOWtZe17u03
-         w01RUa1gIHmgXtPmtBweuRpoPx51LVK3tEYQoKuUhzboAwR8rZud9illw8jOuV5sM4uu
-         PZfSh2j4H4vE9nCtH2SdpCT0knFZvnsiMLqVd69Xs/eZsoHi9tO0ZWrTnH438i97JdWp
-         1zfIgcMJ2x7mFAArOoR9pCDrKegDi0KydK739mmcdGQBLoeP+aoTKECs64xiL3lYwmdk
-         p9FdkGwBE/XlZ1wafWoQfJhWjdEuOLpJocjSXmb7QhTFMo41QW6yyV2NG4C9royqLp+O
-         e7cA==
-X-Forwarded-Encrypted: i=1; AL+hErENR1gmVbMHTz85LEBRnaefKPBiPzb3Qpq3xzDGuFsyw2IWy8doX6P4xLqNafe6GKi5mBYo390=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cL8akWa8kIT7uxaycTB8nBVG4DiVdSFYoqbKaxme3ZZLVUFpJ
-	pMWnU8ze7vUcF5WNAi43ZMyrhN5ZjD+2XoUJAKQ+QHVgY7foo3SGDbATu8QChiblzjtN02aLV1w
-	o5ivef9xp1xAZyGJ82r3ycuY6dl4wBImeOXDzLukbYQ==
-X-Gm-Gg: AZFdTZdwlFPF9NnWpGkDPeCDvnNCfSAAeUV+w25UcIsEmHKka1hPA/bk06fB4EQGW4W
-	4KBGPJUrnH2SMnmIjS3U2AN+6IsWpGVZJP4hKjIjEpIEg85ewYbA5ghDu2G0iY6W0C/oy1AJbOK
-	6shQSEe4/1Bvu9xFnLkLG+r2CjPP50hHIpULiixi0+GAs7SQ92RZL5bsOGT57Ss2fwuu51USYj7
-	UEVwHxaZDCYx0xpSw4HrE9xpzCCsqAb0zM1LrjB9Iyzg2zVwFEqXYbB+/3AYyIlYCxF5dsZyC0T
-	0wPqeoaypigBYTD9TwIjgpiXbr067hC5M/huE2GASFJ+FGj2x2VZ2OZasBRAKicu9RsThwD45je
-	o3tF36Ga27Zwh/f3zvBM9OObJvRWSySipMZiBkgUE8r6kjfiwJXhX3suG1bMOIQ2P+pQvbQ==
-X-Received: by 2002:a17:906:1304:b0:c4d:212a:192a with SMTP id
- a640c23a62f3a-c513acaff9fmr662453266b.48.1795430879222; Mon, 23 Nov 2026
- 02:47:59 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h+WxKwoB
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 32286143D;
+	Mon, 23 Nov 2026 02:49:59 -0800 (PST)
+Received: from [10.57.91.245] (unknown [10.57.91.245])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0B8093F632;
+	Mon, 23 Nov 2026 02:49:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795431002; bh=88wKm6a3kg+rRCdOpXoIcUGAgG5m2xf6YFDPEexucGk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=h+WxKwoB8MqOR3y6DbBUX+gVZWSCUCEStlY/uJ4F5pyUZHSJkTOnOl5qaT+iImAQz
+	 SibvFVG+nLxs2gyjgFTTpoSjEGXdKvhdtuB+LekSEzw6CMbTE4PCvbAGjhbsDR7iw6
+	 1uPYGOcS1CkKqQFZ+hRzzeAZi6Hd+4PL/Q7rEBEs=
+Message-ID: <85385aae-af06-4742-a39b-5a95e3e73a7e@arm.com>
+Date: Mon, 23 Nov 2026 10:49:58 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,55 +53,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261121235203.811792-1-atomlin@atomlin.com>
-In-Reply-To: <20261121235203.811792-1-atomlin@atomlin.com>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Mon, 23 Nov 2026 11:47:47 +0100
-X-Gm-Features: Aa3M54oo137bS41nML-swPW4_-JFZpCl2eqix2NZRtkklgargqyy1BBEeTkW998
-Message-ID: <CAAofZF5D+ycbtMxsnUgZjhUbfD+_ZD6kYyci95OTdXug_aw-dQ@mail.gmail.com>
-Subject: Re: [PATCH v5] blk-mq: dispatch kworker to housekeeping CPU when hctx
- cpumask is empty
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: axboe@kernel.dk, tom.leiming@gmail.com, hare@suse.de, dwagner@suse.de, 
-	emilne@redhat.com, frederic@kernel.org, tj@kernel.org, sean@ashe.io, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] arm64: Mitigate Spectre v1 in the BPF interpreter
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, stable@vger.kernel.org
+References: <20261117172341.3152407-1-ryan.roberts@arm.com>
+ <DMYSI3BOQWOC.2P2FZB0H872DR@gmail.com> <awAay4FFj1_wQtaL@arm.com>
+ <DN07ZMOAD4GP.37PG3XUPBG4CM@gmail.com>
+ <a6cda8a2-992f-41f9-a814-ee78363c3a69@arm.com>
+ <DN2ALO12MI1Z.3HI553HDMO2FL@gmail.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <DN2ALO12MI1Z.3HI553HDMO2FL@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Aaron,
+On 23/11/2026 04:07, Alexei Starovoitov wrote:
+> On Sun, Nov 22, 2026 at 12:58 AM Ryan Roberts <ryan.roberts@arm.com> wrote:
+>> I view this patch as a fix to arm64, not as a fix to BPF. I haven't changed any
+>> BPF code - I've only removed an out of date comment in BPF code, which assumed
+>> the code path was for Spectre v4 only. But that's not true since Commit
+>> dff883d9e93a ("bpf, arm64, powerpc: Change nospec to include v1 barrier").
+> 
+> Fair enough, but the arm64 part of that comment is stale.
+> The verifier relies on nospec for v1 since
+> commit d6f1c85f2253 ("bpf: Fall back to nospec for Spectre v1").
+> 
+>> arm64 was previously nop'ing barrier_nospec() despite seemingly needing it in
+>> the same situation as x86. I think this is orthogonal to whether or not the BPF
+>> interpreter permits speculation attacks in other places?
+> 
+> Not quite. In the interpreter the barrier sits behind an indirect branch:
+> 
+>   goto *jumptable[insn->code];
+> 
+> arm64 has no retpoline, and the prog can train this branch.
+> With a wrong target the CPU skips ST_NOSPEC and runs the next insn.
+> So the interpreter is still not safe.
+> Yet you're arguing that you're making bpf interpreter a viable option
+> on arm64. That's just not fair to users.
 
-On Sun, Nov 22, 2026 at 12:52=E2=80=AFAM Aaron Tomlin <atomlin@atomlin.com>=
- wrote:
->
-> [...] In real-time environments, an active SCHED_FIFO workload will
-> starve this SCHED_NORMAL worker and stall hardware dispatch, whilst also
-> introducing unwanted latency jitter on nohz_full cores, defeating that
-> commit's original objective.
+I'm not saying that at all. I wasn't aware that it previously considered unviable.
 
-I would phrase this differently. cpu_is_isolated() checks HK_TYPE_DOMAIN,
-so the jitter argument holds only when the nohz_full CPU is also
-domain isolated (isolcpus=3Ddomain or an isolated cpuset partition). With
-nohz_full alone, or isolcpus=3Dnohz without domain, this patch does not
-apply and the behavior is unchanged.
+I noticed this particular issue while doing manual code inspection while working
+on something else. I sent the patch to close what I perceived to be a bug to try
+to be a good citizen.
 
-> +static inline int blk_mq_hctx_unbound_cpu(void)
-> +{
-> +#ifdef CONFIG_CPU_ISOLATION
-> +       if (static_branch_unlikely(&housekeeping_overridden)) {
-> +               int cpu;
-> +
-> +               guard(preempt)();
-> +               if (!cpu_is_isolated(raw_smp_processor_id()))
-> +                       return WORK_CPU_UNBOUND;
+> Say it in the commit log that you're fixing one tiny issue and leaving
+> giant security hole in place.
+> With that I'm no longer nacking it.
 
-Since preemption is disabled by guard(preempt)(), you can use
-smp_processor_id() here instead of raw_smp_processor_id().
+Happy to fix up the commit log as you suggest.
 
-Thanks!
+> 
+>> Looking at bpf-next, it is still possible to deselect BPF_JIT when building. If
+>> this is such a security issue, shouldn't we disallow that on arm64, or at the
+>> every least make it an EXPERT option?
+> 
+> Yeah. Good point. Let's disallow it on arm64 and x86-64.
+> 
+> I'm thinking to push something like this
+> 
+> diff --git a/kernel/bpf/Kconfig b/kernel/bpf/Kconfig
+> index d705d7b..8b8688d 100644
+> --- a/kernel/bpf/Kconfig
+> +++ b/kernel/bpf/Kconfig
+> @@ -26,8 +26,8 @@ config HAVE_EBPF_JIT_KASAN
+>  config ARCH_WANT_DEFAULT_BPF_JIT
+>  	bool
+>  
+> -# Used by archs to tell that kernels that were compiled with BPF JIT support
+> -# have no BPF interpreter.
+> +# Used by archs to tell that kernels with the bpf() system call have the
+> +# BPF JIT compiler and no BPF interpreter.
+>  config ARCH_WANT_BPF_JIT_ALWAYS_ON
+>  	bool
+>  
+> @@ -36,6 +36,7 @@ menu "BPF subsystem"
+>  config BPF_SYSCALL
+>  	bool "Enable bpf() system call"
+>  	select BPF
+> +	select BPF_JIT if ARCH_WANT_BPF_JIT_ALWAYS_ON
+>  	select IRQ_WORK
+>  	select NEED_TASKS_RCU
+>  	select TASKS_TRACE_RCU
 
---=20
+Seems reasonable as long as we're sure that there are no users that rely on the
+interpreter on arm64 for some reason?
 
-Marco Crivellari
+Would you propose that this is something that should be backported? If so, I'll
+drop this patch. Otherwise, I'll send a v2 with a more cautious commit log.
 
-SUSE Labs
+Thanks,
+Ryan
+
