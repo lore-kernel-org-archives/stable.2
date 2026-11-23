@@ -1,99 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795444598;
-	b=gkuTCBvAyvJW3zfGwn9tvTwBq1mFDgnFEzRlIzVUoreIGV48Nr8HyjlcCgVNPExjYsE+
-	 KBn3z08IGRNtKjuTwjoVj03cdf2lsQfhjoNJjETQylxdWWLwWXnmQ8AYBRsDDLqPcoL3s
-	 yDPUEWmnukTtntna0z09cBKUPUGXdzqierh9I7jYrfjNEJ3vFYWVBRNkN1htur20uvvdH
-	 ixKnvgABo90fNNrMapa1Xz24CkCX4rmEsd573Tm2NV8Us/muvAegjL7vbaL/UgusxX8mI
-	 jnjmdT+FPS018d+/lz/di7666tT/+dl8xlqKchRh+p/JRfil0pt6suLPnjJiA0bqjuQ==
+	t=1795445314;
+	b=zKv9gY6FxcpNjqIB6qYJplaLcxC2Qp2XV9gBacskoZJzeO809dnRbsuBTcIfiGlXUiGa
+	 gNE0GajoIvuJ8lcarm6HuvW5zW0cf8PmHX+CiaDOfDdWqHCgU2zXEM2URKiP0vMK0SsrJ
+	 hhTewUF6R/YV1P3yBtAZIZJ/YCufL3Sb1z5BPnqHrhw6cU1LOVi8FS2H7z5BO+L6eVdnS
+	 Dj1Kt0bwCXZyTb5JMACC+JWulfc0yhMes13+2jAkL4e8gF+k9YsyUPwosyoVOwBfOYmva
+	 tN8Kw6zYM7gEEyVXjRQEOXn5ivb9aBgWHuu0t84xLSVUcczABRpwHoni9AMsHpPJoCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795444598;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795445314;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=c7RIFJ9JCRdyaG8UKVxLRWxNqNn9TfnyLCzHHvdNicM=;
-	b=CSF6iIq9Dxl9jy8PFAJyUmfy35mMXWHAmXb1C18c7Nmk+D7FwgoF6mGlU3UF4WMTuuAh
-	 flZc17cSOLh+z9573IEp4gGeqaWFFzUUBKw3xunaB6jEhL4dPzmAHGCWqgGMGE4uGl/AK
-	 UF2iK2EfuH3EOxlyMg9Fwp7eZE0PICeCMkIK0u03ibz5E44vqZ6gSQqO7w+5CFeENC1rB
-	 r9c5dJ4wxHMd0zONjxeKHDRaO4Gjty+gVWTSlgEMcSxki7qtN3myPn5bl0sP3q96bacFS
-	 QwRI+79cCNrHLGkcIybrH0dn9KIMaomu7qTD3+66NppmT+ZLG3scvH8bQb5GrnXdb0Q==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=xZF0Y2fdOckMYZ5OQvo53Uy9aotpRIWurFGH1UvKcdA=;
+	b=lTXmaEel6AYShlYy+c8r8vRGI2uEmRJnPws1NnxyoYY9uFJU3fj+5lnTk0nmZmSt/jQP
+	 HIAg37zPrYqUyO2jVZh7t/ESFUZV/6c5PkMHDUUS4Lxbrpn8u5xNfATrQQECjWomtix3Z
+	 GhNTOxgt8slWdKaEtpwX/ry2eRkAxTukmt/5JZ16ZX/+MESvR9jthbFYf8w5RSR2lvBeD
+	 f66vBJu6xQIxidrn7ONOCXp2sdDJZKIbduNP1GGnUo8kPjML8n7OcyEeMTJHQaS3Rx1cL
+	 MWEJjKe4Ro7lJykLFgenLgqUlqwv8Fqz8cGH8oCFl5m/EFWfLW0fT7FswAFDTAQ0uEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iiitd.ac.in;
-	spf=pass smtp.mailfrom=iiitd.ac.in;
-	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=HQ61VKDz;
-	arc=none smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=cUfdMJJY;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F233606A31F
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:36:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F233606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iiitd.ac.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iiitd.ac.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F59606A32C
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:48:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5F59606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=HQ61VKDz
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2f02f04a426so27406305ad.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:36:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=cUfdMJJY
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4bb5b8ef642so28387515e9.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:48:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=iiitd.ac.in; s=google; t=1795444597; x=1796049397; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c7RIFJ9JCRdyaG8UKVxLRWxNqNn9TfnyLCzHHvdNicM=;
-        b=HQ61VKDzJuSyLg0GiLde4RIIRMg54I5xdOttpoZvzcz3swdIwdA/eSKH7IrbCIaMFH
-         1ftQy0jVuo5nXxQBRZcVdZovUXDtn1enquSp8suF8HRaLvAAz2EKh4Af0WRRUH4/wAlv
-         esH1cGnI3PK8URfa4yjsw4UQA14K+y/p53Aos=
+        d=baylibre.com; s=google; t=1795445312; x=1796050112; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xZF0Y2fdOckMYZ5OQvo53Uy9aotpRIWurFGH1UvKcdA=;
+        b=cUfdMJJY3f/reliHpqxivdPBRUxH7MRW6dVHwyAPTsQMdqU+KijZ7gi6y7j9Z0QY5B
+         HXhu8F1ZgdCCe5jq4rt24Vt7ZeafgB4hhzhK1PN/wYw4R1j9YK8ZpYBtZ4NeTy5RpblW
+         KaI3DyruCrqOUSzmOtJQJTLXeoipzGvuZSUeiE2VRKlZdb11jgQyJF4nsv5gUDhDc5gu
+         r/SVIsRuuyFDzGMVJeaIlZATYxJ+0wH9VMOBWWnvt4FVJaS+ZHk6n3CTnc5R5Yh/qEha
+         EDeG9XS8yG8TnQSocyLmA9mswbyGtmlHpnBCDD0LvfZ9LuVGn09EoDawyCAaAODsrr9p
+         /r9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795444597; x=1796049397;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c7RIFJ9JCRdyaG8UKVxLRWxNqNn9TfnyLCzHHvdNicM=;
-        b=yTukA/u64mkjDHw+DnHdfRMA5aV54E0FjjAqWMuXe7sqLLhMRysaPXZg3yRtv1qqHc
-         STJgDFg53uMaLVVjtlCzWmX2V7dC5Atv/50tmrS54aN3BncfAFJ7NzdIxM1Wm2UlyeDV
-         Ax/l4ZJkor+ZIXVFMtsY3zarBykdO+/xKs5X6l2k5H3s7/CkQN5zFQax5Urucml7rHo0
-         gIFaTfD/fIiDZPm2XUj2ybjS2//c6IKxNPppf8MVSmY+NHKrBoKCDTEYZqgYzBN2CCzg
-         Q/zVVGRl35ssM4++9PujG/lK+V9OuE6qhxHIPY2W0Gukpd4cdgeRSBCud7gpcLPFOe18
-         c0aw==
-X-Forwarded-Encrypted: i=1; AL+hErF40aXuXXFFNQi58D+E8J6IX8J3bd8IlpUVVKALGvw2U7IIQoQHPLDhRpXyNOGYgk4sVU44LV8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9L5I7Bf+z/QmlP9FotaFBzt7FbSKw/IKMuHrS+kfSahHoX6Ie/
-	laukHbjfuQ7VCypF9tdm4nNsVwbn9fPaYUrBM2PSaQgiYpv8U662wS1baVgn5I7Z7pc=
-X-Gm-Gg: AZFdTZfOAnvJReLd6sfJ8F7Pzfs5vetgRmJNvOkxMuRb3A3alo2uahk5AVXC0siRKxV
-	eFFnFAIC/HbwdlVYM88rkNCuqSZBGrDD7nrEatRTjpHzoCrWLvM5r/tPy7CSL0zEAQJFdRJVnT1
-	cGNc51gSdo5X0NnKl01FRjP0K4RU2jjRvZ5GRc+3W/b+Do4ASsDInOFjEG6zlZ+RuGJrzmSj+d3
-	W7mxU9isQGUPcVzwzWMtpvzc3ChY2OiyLeu43/Elfzk08R+u3BLYkMbgdNcwDz20Qe7g0Y3mR3f
-	gb9L+Xg4MbSyfmPYH6KwutKCoBABA1sxbc9eE9VDsPfehLap1+waVQT0GJE212yIVsQTAq3r0cT
-	MZFVLSv37rFpuIDqoREegneoBtmo33AGGaV4ajxj+KHXD4nGJUQ9DaTz4tYBXJjAEMr3xTP3khf
-	wA5DtPVo5AsFd4HLKQ276VfmLDkWY2mqAN84EOu4hPjcW280qzckZPQbAgVIk9JEp5rZhXjelzf
-	cHdaAIcWY1M3oKkNjFyMB8ADajM9CWBP95TKPPNcUW81kNvF0mBpQ0pTsbUrmj8ztpLbUuDyPK5
-	Qyg0F+IGfzdTUXZN9xHmhQKIUVxXuZEeZQunJwSYjX3Xxw/gcM/1fO2MpNf2+PIj6EmtrJaefKc
-	Ha3/eMk1GKYnurauzYaP/CR9h3YoNZxTxPSiJstyKCNyH9P0eni5EiJqZBnOAcZlJWQ==
-X-Received: by 2002:a17:902:ced1:b0:2f0:340d:dda4 with SMTP id d9443c01a7336-2f03f1ec3fcmr143338425ad.24.1795444597511;
-        Mon, 23 Nov 2026 06:36:37 -0800 (PST)
-Received: from iiitd-S2600STB.iiitd.edu.in ([103.25.231.160])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03ee85466sm54062085ad.4.2026.11.23.06.36.33
+        d=1e100.net; s=20260707; t=1795445312; x=1796050112;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xZF0Y2fdOckMYZ5OQvo53Uy9aotpRIWurFGH1UvKcdA=;
+        b=fQHmLRkjH3iQVLRmIZQVEFltPF2NMahrY82zP7U7pHCm9bV1mvJ1VSZZ9+wpK3FqTf
+         D8gjmc2YkStMB/eHlGpgfxzEXF1V96qllTkVUKIol8iCVKquC7F8hdW9sQk4ezn1XDaj
+         HQPTi6WBGP+sZ+cMZoNuXzq6Z+wjfSKMglRfpkYjaX5jiaDq7guIjlMr/5P03PHd+Y2M
+         RBwKDLdB7bNtSDTzmkc6J68Zt9JzeS3fxpWA8ufgeBKRLjCCqX6nsltu/rTmOm3y7uWf
+         vTNeNN4Byl53b025MmShRZpCzWy8OBPfAVrA6pvg3CxVnVYzoly3iPfaHEaN8hqfztCh
+         KNsA==
+X-Forwarded-Encrypted: i=1; AL+hErGTUe99GxYEbVI2ikO3iHoe8V+t3jhejaq8z1a+JbtzRbAf/yDic/NiOkR05Tmz7Lnoaj/lJcQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NKWnjHylECJ0T1vtfd7MzYBpvWgjxNDhIqU21GhYZs4HRNV/t
+	tyLXqp2gXK0x1Yt3h4wF8XHK2kgZFbmzcTvpFnUPEwSnsqaVs5vkCdu6jXZAEBMMTRQ=
+X-Gm-Gg: AZFdTZewHVwufr33D0ba5Aeh+6z6jy3ra8Ic+jiCuaUEuW1Unny8AXayC5fe1gpABE5
+	bwL7SAPUCmYuQkVSDgQpk3mNUiV9z5vYALqyENe8ojXhL74NyTNWravQRnU44ERdcEH1GDJSIFW
+	ZYESKxOoIrEIRF15+y05HjzPQmceB2f6NN/X1buNkOx1PlfM9fdOySJxL9kyklVm/If2gbEZAOr
+	PfQb4TlH5+nz/Oh4qACUUvlbMpzLUPUycFMYzqxHaA36QcsJLpJfXZ3j0R/0YvhFlhLBRQge73D
+	25ZfTFtaOVJNJN41auXB59+4Uy/iOdkFj9fZOGslvTo7IqWBu5IyXSWz3cxHGZWZQNBc7gBDdmh
+	pQ8FpbMx3sg14ayK7S+wd5jryLcIN6IqqUvTcB7yYBJTvdBztyIxYEwRzIDMBH7VlttvR/wSrUK
+	WIcwAEdtZdeeQPFNKvxArkH8neASuBqD0xwrQQplRk9TJlh3IQtjFbuQWW22HGEs+ABTdHofELi
+	kx/KpwJ7BfiW/02ZFdtsBO5joGiSz/Cn+7w0EeiG2nPjosKnuBQGO62zXs76di5VE2hNh96kwT2
+	NnFpsiHE3ueqcLfL8BVmUCxZdFfmICEcMhpr289BWdPlz+39XGU=
+X-Received: by 2002:a05:600c:1c11:b0:4a1:e57b:667c with SMTP id 5b1f17b1804b1-4bb8881c357mr274976895e9.26.1795445311988;
+        Mon, 23 Nov 2026 06:48:31 -0800 (PST)
+Received: from [127.0.1.1] ([2a01:e0a:e50:3860::e1d1:d182])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b8b7888sm22471477f8f.42.2026.11.23.06.48.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 06:36:36 -0800 (PST)
-From: Piyus Kedia <piyus@iiitd.ac.in>
-To: Robin van der Gracht <robin@protonic.nl>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	linux-can@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: kernel@pengutronix.de,
-	linux-kernel@vger.kernel.org,
-	Kapil Vaswani <kapil@presceralabs.ai>,
-	Piyus Kedia <piyus@iiitd.ac.in>,
-	stable@vger.kernel.org
-Subject: [PATCH net] can: j1939: do not pass a NULL session skb to the socket layer
-Date: Mon, 23 Nov 2026 20:06:25 +0530
-Message-Id: <20261123143625.4021586-2-piyus@iiitd.ac.in>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261123143625.4021586-1-piyus@iiitd.ac.in>
-References: <20261123143625.4021586-1-piyus@iiitd.ac.in>
+        Mon, 23 Nov 2026 06:48:31 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,84 +89,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] drm/imagination: Fix the value of
+ ROGUE_COMPUTE_FLAG_PREVENT_ALL_OVERLAP
+From: Guillaume La Roque <glaroque@baylibre.com>
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Donald Robson <donald.robson@imgtec.com>, 
+ Sarah Walker <sarah.walker@imgtec.com>, imagination@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Brajesh Gupta <brajesh.gupta@imgtec.com>
+In-Reply-To: <20261120-rbrue-suez-pvr-compute-overlap-flag-v2-1-ca2b0d3adb4e@gmail.com>
+References: <20261120-rbrue-suez-pvr-compute-overlap-flag-v2-1-ca2b0d3adb4e@gmail.com>
+Date: Mon, 23 Nov 2026 15:48:27 +0100
+Message-Id: <179544530793.3861580.6891548435680251826.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795445311; l=806;
+ i=glaroque@baylibre.com; s=20261019; h=from:subject:message-id;
+ bh=00LSWVmN0FB1IQwX/OYvVQBvFJYhXx7VT3sxIQ7c0wc=;
+ b=MxhtnwKz3q5p0JRhWOpgCiX3vyfV7rQQ51LTmpRjQM20hO7cKOSFMmrLXqJpDYOF7v7p+++iW
+ v5Quzv11UhXD5dm2KIb64yezSzKCo6+m+F7XOlWpmN1sM7cpfqQ28Q6
+X-Developer-Key: i=glaroque@baylibre.com; a=ed25519;
+ pk=nMpSg4NT6M6q143E089emouMc+MXpHO9CWmnEUfjhjI=
 
-j1939_session_completed() hands the session's skb to the socket layer
-without checking that there is one:
+On Fri, 20 Nov 2026 12:10:21 -0600, Ryan Brue <ryanbrue.dev@gmail.com> wrote:
+> The firmware takes "prevent all overlap" from bit 1 of a compute
+> command's flags; bit 2 is FORCE_TPU_CLK. The kernel has used bit 2 since
+> the FWIF headers were added, so the firmware has never seen
+> DRM_PVR_SUBMIT_JOB_COMPUTE_CMD_PREVENT_ALL_OVERLAP.
 
-	if (!session->transmission) {
-		se_skb = j1939_session_skb_get(session);
-		/* distribute among j1939 receivers */
-		j1939_sk_recv(session->priv, se_skb);
-		consume_skb(se_skb);
-	}
+Hi,
 
-j1939_session_skb_get() returns the skb covering the session's current
-offset, or NULL when the queue holds none, and j1939_sk_recv_one() then
-dereferences it on its first statement:
+Tested on a TI AM67A (BXS-4-64) and a SpacemiT K3 (BXM-4-64) with Mesa
+main. While a fragment load runs, a compute job using a workgroup
+barrier goes from 19.1 to 8.8 ms per submit on the AM67A and from 47.6
+to 20.7 ms on the K3, and is unchanged when run alone.
 
-	if (oskb->sk == &jsk->sk)
 
-sk_buff::sk sits at offset 0x18, which is the address in the report below.
-consume_skb() tolerates NULL, so the dereference is the only fault.
+Regards
+Guillaume
 
-A peer reaches this by completing a transport session that has no data
-queued - an EOMA for a connection whose data packets never arrived:
+Reviewed-by: Guillaume La Roque <glaroque@baylibre.com>
+Tested-by: Guillaume La Roque <glaroque@baylibre.com>
 
-  BUG: KASAN: null-ptr-deref in j1939_sk_recv_one+0x34/0x170
-  Read of size 8 at addr 0000000000000018 by task syz-executor
-   j1939_sk_recv_one          net/can/j1939/socket.c:318
-   j1939_sk_recv              net/can/j1939/socket.c:363
-   j1939_session_completed    net/can/j1939/transport.c:1247
-   j1939_xtp_rx_eoma_one      net/can/j1939/transport.c:1424
-   j1939_xtp_rx_eoma          net/can/j1939/transport.c:1439
-   j1939_tp_cmd_recv          net/can/j1939/transport.c:2153
-   j1939_tp_recv              net/can/j1939/transport.c:2201
-   j1939_can_recv             net/can/j1939/main.c:108
-
-Test the skb before using it, as the two other callers of the getter in
-this file already do (j1939_session_tx_dat() returns -ENOBUFS, and
-j1939_xtp_rx_dat_one() warns and cancels the session).  Nothing is warned
-about here: a session completed with no data queued is a peer's protocol
-error rather than a kernel one, and a netdev_warn() on this path would let
-a peer flood the log.
-
-Cancelling the session instead of dropping the completion may be the more
-correct protocol behaviour; that is left alone deliberately, so this stays
-a fix for the dereference.
-
-How this was found: by AI-driven fuzzing built on top of syzkaller.  Its
-analysis was checked by hand against the code, the fault was reproduced on
-net.git main under KASAN, and the patched kernel is clean on the same
-reproducer with ordinary J1939 transport sessions unaffected.
-
-Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
-Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
----
- net/can/j1939/transport.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
-index 8fcfd13e5e6f..af54e6a6bd71 100644
---- a/net/can/j1939/transport.c
-+++ b/net/can/j1939/transport.c
-@@ -1243,9 +1243,11 @@ static void j1939_session_completed(struct j1939_session *session)
- 
- 	if (!session->transmission) {
- 		se_skb = j1939_session_skb_get(session);
--		/* distribute among j1939 receivers */
--		j1939_sk_recv(session->priv, se_skb);
--		consume_skb(se_skb);
-+		if (se_skb) {
-+			/* distribute among j1939 receivers */
-+			j1939_sk_recv(session->priv, se_skb);
-+			consume_skb(se_skb);
-+		}
- 	}
- 
- 	j1939_session_deactivate_activate_next(session);
 -- 
-2.34.1
-
+Guillaume La Roque <glaroque@baylibre.com>
