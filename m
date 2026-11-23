@@ -1,69 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795452576;
-	b=JrnlHnCXxNFEkaDmQkqqA5KwzOV1IITG72A4VdcKNXnSnItN4Xje/k46gF2hWOm8GR0Y
-	 V2eXEq29h/gp0eUrJ0m4xHkdVd9rqXfXnvPzISYLDYGOqDAaugPPNs5egSRJDdNXk6jat
-	 njmDqxkXjMA4Za2pJcEQBgQp0jmwWLDFW7Tnevqf22kvevie9xO0/VS1XYmGJv564jWle
-	 etB6mmi3rjTt1J97oXlh3k6nPisCe8N+0a1wXO+RBszUWx/ez1KyWRk+Vg9H5Jl3h6xa+
-	 XngZPQg9qGmB4+ZxCIEFRzT4BXySuyLYH04K+dtPqEGVMIdTfhrWR96SJv29/mNSbUQ==
+	t=1795452590;
+	b=x3xgCynrkSCCv7hvYB8q+MEPNtby0qtiNzFeo4x7GGonP03UulGSXlS1tIj2QrtdAFVG
+	 67I6XywbQbuJgitB9QNbU89wYQaG/xZkpHFlmpTxH7s3x+jbYuhpsv4lMChE2kp3XIjJ4
+	 Pu2ZZodtjd4k3S7aHt3MgXdti37Wk5KDE/4DIrpHwqLXpMWShAjpUAQJovd12ZlEuyUMR
+	 RA43hjZdJhPEQKRBnLUnFpGlS1sM9HT0fFuJEhk2ByNCNnB8OTcnkFnFXRJF5s7pcBx5F
+	 ECPYSIkj+nDjSLSvyFi07xZ3SdXg2cAGDVIvpKQ8dLgI+q+JRit/kKvCtEfZdVEQ8ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795452576;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795452590;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=S1Gp2Tv8FiLL9zGaZkwNFKOWLqDNS1bHIMrQXS8jtIQ=;
-	b=rquHUNSJvv9xN3dRjuNzbDi3nDAFoCDJFh34JUYmhMFIpKcGBEVpynDy88+XU//ELmBA
-	 OUN3tsdkvlHVYSaC9vp0ynnEup0lC9MmowzEjudHFnwbwiXXWOzxbU3xgHzwlbCSI6lD6
-	 Hk+Rpigh7OIvbIrIwZZ+iJReBxpZGQ/pkDkekLskyRPhw3ziqBlHN9RsJonm8ergCswqE
-	 gW+9TEyTgKQtxC2ui0MTp4b0mIXGKPDPybBl33eMOzewaUD6vnKrT8/8UXCzIkqy81KG5
-	 hCaztKmedGggCc1i95Q9eLcpBIrhQHJ2jo3yYlQPxgZ5hQx3dEw70/KwDMxUhwqq9ng==
+	bh=f+VbVKcweoeen5B0jtSKCf/3jM4Xab72+IxryIhEnYs=;
+	b=WnLTnMmQJwYE53ft47f5ALXzRKdmGX7K/UVlFoTwYha3pAgC3o3s8x0oA/2cIyTodlZo
+	 K5JmMdMTASr3m61akSJfXqjwr63ax1ie+1gLwf5ISz5Y806mRHyTLjboxtJoSJk2MGvao
+	 VKfFTX89Y47iMAg7m7qRYP9r5g+qZO45Ha3FYDEEjZZ4nqsGrVOcndCSryM58rKdYQh1W
+	 GLq9b+zpcCja/8w7uA8UJ+kSLir92DVTil6F9uOn3i8RdQnH7fmhpjT4OwK89n64gj11o
+	 /6hZ07CORbqbooldxYB7N9bGEYaEZF1TGEF3n36LiyEg96RkH5xr9Y+DxNhpYB68+Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGez+3Tb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtvcV6th;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A70606A69C;
-	Mon, 23 Nov 2026 16:49:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB07606A697;
+	Mon, 23 Nov 2026 16:49:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGez+3Tb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEEE51F000EE;
-	Mon, 23 Nov 2026 16:49:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtvcV6th
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296DD1F000C4;
+	Mon, 23 Nov 2026 16:49:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795452576;
-	bh=S1Gp2Tv8FiLL9zGaZkwNFKOWLqDNS1bHIMrQXS8jtIQ=;
+	s=k20260515; t=1795452590;
+	bh=f+VbVKcweoeen5B0jtSKCf/3jM4Xab72+IxryIhEnYs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WGez+3TbhzDNmdt3TH3qQ2mUFSBDqJipZdrUehk+BuWGlCZygu3oxgjQAavQVtsu/
-	 +OysUCxOj/tDJTC7Kl2fFGLJEZJ83KK3yP7eEehbi+PGQVLDf300s85Z4+F0Bekk26
-	 +bb3PTVFJ6WBZsSKZ8O0L1IY4fvnerVFsVA79cZuINjM6RCckp0A/3LFH2PrRETDes
-	 NR81R+HKsMKHm7SZIdaYCV6IXdBKb+ooanP0zaUYm5rfqwCWd2Ylnt9SfqqcO5Fn24
-	 Ixqnj6MB/a0mXHnqHvCCdAI0fgOV0ne8wzS5dZnkTEVCpxWqtcTzHsJtSFNor2q6Ls
-	 MEJbNoTnIQL3g==
+	b=gtvcV6thoKzdYK0dmH/+9OZnYe1QbfYPD/u5kw2Gc4b38bHylZOnW4IEtBisrjWt6
+	 M/DvxmvSWrO679bnGfa0+JhBxVaSxGmU1hd4f+x57N8Zre5h9m+3jDP+q148LQ3kxf
+	 afPlA9aNE8J62B8Q+fF0hCOOwtComG8VCSDfukUaiqF9BPFszYeWiBWf2CmMqark8Q
+	 qV3Ka4UPqH+cWwcUHO0oohWnGzFj4fHdcZEVZS3eBw9X5dYN+wCKLvzmd8cOovi9dl
+	 hEING+hxNAyOQbRiTx/Vqu52HDbRWhQbTb2d5e+Lr6/1GnLm3xIen4Isb0yalwno1c
+	 d7GMMVYmOp+Kg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
+	Drew Fustini <fustini@kernel.org>,
+	Joel Stanley <jms@oss.tenstorrent.com>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
 	Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thomas Abraham <thomas.ab@samsung.com>,
-	Chander Kashyap <k.chander@samsung.com>,
-	Amit Daniel Kachhap <amit.daniel@samsung.com>,
-	Tomasz Figa <t.figa@samsung.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Marian Mihailescu <mihailescu2m@gmail.com>,
-	linux-samsung-soc@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
 	linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 07/10] clk: samsung: exynos5420: Terminate PLL rate tables with sentinels
-Date: Mon, 23 Nov 2026 16:47:40 +0000
-Message-ID: <20261123164834.3330320-8-lee@kernel.org>
+Subject: [PATCH 08/10] clk: tenstorrent: Poll atomically in atlantis_clk_pll_enable()
+Date: Mon, 23 Nov 2026 16:47:41 +0000
+Message-ID: <20261123164834.3330320-9-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
 In-Reply-To: <20261123164834.3330320-1-lee@kernel.org>
 References: <20261123164834.3330320-1-lee@kernel.org>
@@ -79,63 +70,43 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-_samsung_clk_register_pll() sizes each PLL rate table by scanning until
-it encounters an entry with .rate == 0, then copies the counted entries
-into pll->rate_table.  However, exynos5420_pll2550x_24mhz_tbl,
-exynos5422_bpll_rate_table, exynos5420_epll_24mhz_tbl, and
-exynos5420_vpll_24mhz_tbl all omit a terminating zero sentinel, causing
-out-of-bounds reads into adjacent read-only data and populating
-pll->rate_table with bogus entries.
+The Common Clock Framework invokes .enable callbacks in atomic context
+with interrupts disabled and enable_lock held.  In atlantis_clk_pll_ops,
+atlantis_clk_pll_enable() is registered as the .enable callback yet
+waits for PLL lock using regmap_read_poll_timeout() with a 500 us sleep
+interval, triggering a sleep-in-atomic bug via usleep_range().
 
-Append a sentinel entry to each of the four PLL rate tables.
+Since the PRCM regmap is backed by MMIO, use
+regmap_read_poll_timeout_atomic() instead.
 
-Fixes: ca5b40293822 ("clk: samsung: register exynos5420 apll/kpll configuration data")
-Fixes: 9842452acd3d ("clk: samsung: exynos542x: Add EPLL rate table")
-Fixes: 8b4a7acf7b30 ("clk: samsung: add BPLL rate table for Exynos 5422 SoC")
-Fixes: b92981de92cb ("clk: samsung: exynos5420: Add VPLL rate table")
-Closes: https://sashiko.dev/#/bug/linux-553831f9-0a7b-4e94-be60-222de60ca8c3
+Fixes: 23c8ebc95284 ("clk: tenstorrent: Add Atlantis clock controller driver")
+Closes: https://sashiko.dev/#/bug/linux-980395a6-f282-478a-bf18-b5695a725735
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/clk/samsung/clk-exynos5420.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/clk/tenstorrent/atlantis-prcm.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/clk/samsung/clk-exynos5420.c b/drivers/clk/samsung/clk-exynos5420.c
-index 400a5c59815c..35baeabf3ccb 100644
---- a/drivers/clk/samsung/clk-exynos5420.c
-+++ b/drivers/clk/samsung/clk-exynos5420.c
-@@ -1419,6 +1419,7 @@ static const struct samsung_pll_rate_table exynos5420_pll2550x_24mhz_tbl[] __ini
- 	PLL_35XX_RATE(24 * MHZ, 400000000,  200, 3, 2),
- 	PLL_35XX_RATE(24 * MHZ, 300000000,  200, 2, 3),
- 	PLL_35XX_RATE(24 * MHZ, 200000000,  200, 3, 3),
-+	{ /* sentinel */ }
- };
+diff --git a/drivers/clk/tenstorrent/atlantis-prcm.c b/drivers/clk/tenstorrent/atlantis-prcm.c
+index eccc8015da23..d9155f133713 100644
+--- a/drivers/clk/tenstorrent/atlantis-prcm.c
++++ b/drivers/clk/tenstorrent/atlantis-prcm.c
+@@ -313,10 +313,11 @@ static int atlantis_clk_pll_enable(struct clk_hw *hw)
+ 			   PLL_CFG_EN_BIT, PLL_CFG_EN_BIT);
  
- static const struct samsung_pll_rate_table exynos5422_bpll_rate_table[] = {
-@@ -1430,6 +1431,7 @@ static const struct samsung_pll_rate_table exynos5422_bpll_rate_table[] = {
- 	PLL_35XX_RATE(24 * MHZ, 275000000, 275, 3, 3),
- 	PLL_35XX_RATE(24 * MHZ, 206000000, 206, 3, 3),
- 	PLL_35XX_RATE(24 * MHZ, 165000000, 110, 2, 3),
-+	{ /* sentinel */ }
- };
- 
- static const struct samsung_pll_rate_table exynos5420_epll_24mhz_tbl[] = {
-@@ -1448,6 +1450,7 @@ static const struct samsung_pll_rate_table exynos5420_epll_24mhz_tbl[] = {
- 	PLL_36XX_RATE(24 * MHZ,  49152000U, 197, 3, 5, -25690),
- 	PLL_36XX_RATE(24 * MHZ,  45158401U, 90, 3, 4, 20762),
- 	PLL_36XX_RATE(24 * MHZ,  32768001U, 131, 3, 5, 4719),
-+	{ /* sentinel */ }
- };
- 
- static const struct samsung_pll_rate_table exynos5420_vpll_24mhz_tbl[] = {
-@@ -1459,6 +1462,7 @@ static const struct samsung_pll_rate_table exynos5420_vpll_24mhz_tbl[] = {
- 	PLL_35XX_RATE(24 * MHZ, 266000000U,  266, 3, 3),
- 	PLL_35XX_RATE(24 * MHZ, 177000000U,  118, 2, 3),
- 	PLL_35XX_RATE(24 * MHZ, 100000000U,  200, 3, 4),
-+	{ /* sentinel */ }
- };
- 
- static struct samsung_pll_clock exynos5x_plls[nr_plls] __initdata = {
+ 	/* Step 3: Wait for PLL lock */
+-	ret = regmap_read_poll_timeout(pll->common.regmap,
+-				       pll->config.reg_offset, val,
+-				       val & PLL_CFG_LOCK_BIT,
+-				       PLL_BYPASS_WAIT_US, PLL_LOCK_TIMEOUT_US);
++	ret = regmap_read_poll_timeout_atomic(pll->common.regmap,
++					      pll->config.reg_offset, val,
++					      val & PLL_CFG_LOCK_BIT,
++					      PLL_BYPASS_WAIT_US,
++					      PLL_LOCK_TIMEOUT_US);
+ 	if (ret) {
+ 		pr_err("PLL failed to lock within timeout\n");
+ 		return ret;
 -- 
 2.56.1.750.gf70dc682cf-goog
 
