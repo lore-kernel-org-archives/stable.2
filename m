@@ -1,65 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.38
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795417773;
-	b=Cmz8ANYOOvnrK+6jNF7FHs0/oMngHJY3sKpnZsA7wOAx9prUSm2+ERSxVLQ6zBv19OM2
-	 SIYnQHM/KH0mHYcslvGNsRdaWM4EsxaEp77vjYwiPxGGjjbvGkLYAkkVK8PmHWuk9Zmju
-	 Kxd4fbjORbJKDsC8MqGA9OG6lka9ceuFvFeyz1c12vTF+VoIsvpr0VxRAQ8pZknxM/cFo
-	 62f29mzwjeV5hm5LL0j5b72Um7bZOMex2oHf6Ta9tTmIYQ6Wy8+BY1MRXWRaZhuBCeI6A
-	 a4/tcRGyLpdT7IzB5Lc/xHbJckHP2CXu4o1qFb2bL6PpfrfMvEhRhvZ4ibO5iVdazFw==
+	t=1795418154;
+	b=nAHixhGhYjzbuO8H2Cyr3DkuAZETciti9GPpnSd0Jw2CTVORR9Fv6fexItwmD8Bmmbni
+	 ItDFzMIP5Teh9vTpO2oLEe45k4/fEQdX96S/+gC0gnk2/VPcLKGXOHrBq7agKmg8HIAXM
+	 obhZvVhxo8H3lQFOxxspSHY5JNy1pQui9rQRLRZKuYpipS0v0xO1LkMhp+Po936smkW7R
+	 b9NYRAC0r+yLlycj9JWmkEgS2/GSVja6tEjdgWFlpV67d4PRP3xNfqMSQbn8XbX0jdQ1t
+	 lqxqzxYqup5Z/4HpCRKQGg9OVg4DcnlWK3eUevxClik+y/5EOUgtW2yrnqj4xL1XmfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795417773;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iKeZ2tXUAbc+Q1yEFhsgCE9SEarvq7KvC09KIeMlRqg=;
-	b=CVMMFy24dy4SjFBxPR09rikzIHliDAGm1nFhXQQJqVpKtNJNiGxU65nc+5mQeElYZsR/
-	 use95ZVBLaQZb0wL4xMmHlXktw2SFXSi5OpEVojd82v1fqQnYUi7dM3z8rSYquXvgO2hr
-	 zGfX4crtXxg0NZNGR5S38+rH8Z2KmWNMa7+0tI92qCCKwoyGUtZgP1KlQuJWfDhtduxnm
-	 leVCC81MeXak2p50jc87Ll2TSIsQiBUQzD5O8GqJjecfshfI8rBzPmZLqmWBRxFIXHkjk
-	 Ey7ANaAbPsnNCEWkHuEXfHAXqojnSm3CyIhluXBfpJg2mTd3+QeDLsw56hlBvMRJ4rQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795418154;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=629g86cRTauZQlhr9Wri/E7+EASS87C5XJjWnCiTchI=;
+	b=T/XJIQ9Qi60vazBx8gMBL5ZZxKdMi69ces/GJBUpmZqYrhHy0TqTTBnqPY7CZnbVnPSY
+	 V5WHh0CFwNSOD+/CaYF3kxVQYDGjuQ/33aBUtFJhue046cpxT/ycQkmT0BVwoNQCdzwsB
+	 6/v94Kc5QI5KnREB1RjAZFGv7c08zTISUPsmzYT+ukGxHS4kKb0Q0hAhncTMc92hzWb1R
+	 HJGF/psbLq2xojFYUA4/ZxcyFwQDd5EN44E8q/1JYpGVqIt6nd0ZO/fEdtvZN74sTPZte
+	 /pivTqY6nUyaIIt7GTC15VK5UjygUS3v9XKMV29yeYoqFcKwq+A2RkEuisuyvq376Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=slSYe7we;
-	arc=none smtp.remote-ip=95.215.58.38
-Received: from mta1.migadu.com (out-38.mta1.migadu.com [95.215.58.38])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.71
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E20606A327
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 07:09:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30E20606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=slSYe7we
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=q3tQG3ndRBja5RIwJmSbJq8oOy/7QF8ip5BzTsP8piU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795417770; v=1; x=1796022570;
- b=slSYe7weT505Px2/vLvB70Al9S5OgU2HDX15Bp2NVZAJR7Xj7Pska8bqp65nCf+FNHhtXRDN
- fQFYCKcEL5vhQRBbt91tp5qHTF1+yU9FeKiSfX1v1Aw+HH/jIMb7o73f9lkgOuP7PCsH1O8THAQ
- opMMcZCWEDBJvVRpczQSiwYU=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 34a5fd8e430d72d2;
-	Mon, 23 Nov 2026 07:09:30 +0000
-X-Mizu-Trace-ID: 34a5fd8e430d72d2
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 23 Nov 2026 08:09:24 +0100
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>, linux-remoteproc@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, weinshec@holodeck2.de, stable@vger.kernel.org
-Subject: Re: [PATCH] remoteproc: imx_rproc: revert channel freeing order in
- imx_rproc_free_mbox
-Message-ID: <awPmc_4VFkcpW0C_@bombadil>
-References: <20261110-imx-rproc-free-mbox-v1-1-3e33ff98570d@linux.dev>
- <avMgJNyGez2Eyr3a@nxa18884-linux-1.ap.freescale.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC6D606A31A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 07:15:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DC6D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-84c4dce8182so3499787a34.2
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 23:15:53 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795418153; x=1796022953;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=629g86cRTauZQlhr9Wri/E7+EASS87C5XJjWnCiTchI=;
+        b=2C8Ce5FTObrFwCk/MUkxgWMY2Tt0+2oYsC1B42kVzNDNA6ptJcO5R2DACTrRh18zEx
+         Cb3XwYfJlSvxzVoTBT1R9V4Vj4ZFaotTeGDgqlbecbsVa47QyfxDYVHO3jXVpICZkgI+
+         PkUC1oiGJanKqnw58nISaoMCHxiYp6zOO28fcocEJVzwwtZViWtvr64u7Z5befKJ00BU
+         4xpIvJ0BF0nbGTtOtVt7UfL53wzXXlvESrL/Pb8ZrmPBN26Lx574vyhZlfBbbvhAUE+f
+         327dwmrE9OJUtkdYDek9n6JCUGFuP4AeFoVJlkeIVMKw9aAKanR1Z6Hvw9I0YkubBL/G
+         nR/A==
+X-Forwarded-Encrypted: i=1; AL+hErGTOHvi5X59aOtB7cp+KMof4GtlpBzfjw4O3URg0mmgQLBhWWTEzdWtI+6FzbF99tbYhcJpecw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z94vG4SeET7hap65ahFtWRsoNqecCoEadWjFIFseYMxwxfYnpgw
+	eGkQfa2meN098kIGAmu+OJdppm3ET0G70tuLqHSJU4EZoiT2yQY1IXeOgLgBgNx9hld+pMczy8f
+	fuzQvmXCvvZcCMsocONwnLDJNvTd5HZFHt8luMaNlkVkpcIVJONIaAIzWG4Q=
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,82 +58,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <avMgJNyGez2Eyr3a@nxa18884-linux-1.ap.freescale.net>
+X-Received: by 2002:a05:6808:198f:b0:573:7a6b:f33d with SMTP id
+ 5614622812f47-57a0ab2f9c8mr12792402b6e.42.1795418153219; Sun, 22 Nov 2026
+ 23:15:53 -0800 (PST)
+Date: Sun, 22 Nov 2026 23:15:53 -0800
+In-Reply-To: <20261118132710.29751-1-suruurism@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6b03e829.a481e175.27cf24.0019.GAE@google.com>
+Subject: [syzbot ci] Re: ntfs3: clear VMA_MAYWRITE on read-only
+ compressed-file mmap
+From: syzbot ci <syzbot+cie4518cb24e7c0c99@syzkaller.appspotmail.com>
+To: almaz.alexandrovich@paragon-software.com, ntfs3@lists.linux.dev, 
+	stable@vger.kernel.org, suruurism@gmail.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 10, 2026 at 09:46:12PM +0800, Peng Fan wrote:
-> On Tue, Nov 10, 2026 at 01:29:08PM +0100, Richard Leitner wrote:
-> >The imx_rproc driver is affected by a race condition in the shutdown
-> >ordering in imx_rproc_free_mbox(). A received message might cause a
-> >virtqueue_kick resulting in tx_ch access. When imx_rproc_free_mbox() is
-> >triggered between the if (!priv->tx_ch) check and the mbox_send_message()
-> >call in the imx_rproc_kick() function the mbox_send_message() then tries
-> >to dereference a NULL pointer on the tx_ch (as seen in the call trace
-> >below).
-> >
-> >Therefore fix this behaviour by first freeing the rx channel, so no new
-> >messages are received and therefore no kicking on tx_ch can happen.
-> >Afterwards release the tx channel.
-> >
-> >This problem was encountered on a fleet of i.MX8MP devices on about 1 in
-> >500 system shutdowns, resulting in Oops below. This Oops was recorded
-> >from a v7.3.0 kernel before the work-queue removal.
-> >
-> >    remoteproc remoteproc0: stopped remote processor imx8mp-cm7
-> >    Unable to handle kernel NULL pointer dereference at virtual address 0000000000000008
-> >    Internal error: Oops: 0000000096000004 [#1]  SMP
-> >    CPU: 0 UID: 0 PID: 32710 Comm: kworker/0:1 Not tainted 7.3.0-XXX #1 PREEMPT
-> >    Hardware name: XXX (DT)
-> >    Workqueue: imx8mp-cm7 imx_rproc_vq_work [imx_rproc]
-> >    pstate: 40000005 (nZcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> >    pc : mbox_send_message+0x8c/0x178
-> >    lr : mbox_send_message+0x88/0x178
-> >    sp : ffff8000897f3b70
-> >    x29: ffff8000897f3b70 x28: ffff80007a07b248 x27: ffff0000d90e1a20
-> >    x26: ffff80007a07b328 x25: ffff0000c1d31300 x24: ffff0000d90e1a40
-> >    x23: 0000000000000001 x22: 0000000000000005 x21: ffff8000897f3ba4
-> >    x20: 000000000000000b x19: ffff0000c1b24240 x18: 0000000000000000
-> >    x17: ffff80006a453000 x16: ffff800081ac8000 x15: 0000000000000000
-> >    x14: 0000000000000040 x13: 0000000000000228 x12: ffff0000c115a3e8
-> >    x11: 0000000000000000 x10: 0000000000000001 x9 : ffff800080cd6570
-> >    x8 : ffff8000897f3ba0 x7 : 0000000000000002 x6 : 0000000000000000
-> >    x5 : 000000000000000c x4 : 0000000004400000 x3 : 0000000000000000
-> >    x2 : 0000000000000000 x1 : ffff0000cb268000 x0 : 0000000000000000
-> >    Call trace:
-> >     mbox_send_message+0x8c/0x178 (P)
-> >     imx_rproc_kick+0x50/0xc0 [imx_rproc]
-> >     rproc_virtio_notify+0x3c/0xa0
-> >     virtqueue_kick+0x4c/0x68
-> >     rpmsg_recv_done+0x224/0x658 [virtio_rpmsg_bus]
-> >     vring_interrupt+0xbc/0x158
-> >     rproc_vq_interrupt+0x40/0xb0
-> >     imx_rproc_notified_idr_cb+0x20/0x40 [imx_rproc]
-> >     idr_for_each+0x74/0x100
-> >     imx_rproc_vq_work+0x2c/0x40 [imx_rproc]
-> >     process_one_work+0x194/0x520
-> >     worker_thread+0x19c/0x320
-> >     kthread+0x134/0x148
-> >     ret_from_fork+0x10/0x20
-> >    Code: 37f80574 aa1303e0 97ffff39 f9400a60 (39402001)
-> >
-> >Fixes: 99b142cf7191 ("remoteproc: imx_rproc: Request mbox channel later")
-> >Cc: stable@vger.kernel.org
-> >Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> 
-> LGTM:
-> 
-> Reviewed-by: Peng Fan <peng.fan@nxp.com>
-> 
-> BTW: would you plan to fix the other issue that sashiko reported
-> regarding imx_rproc_xtr_mbox_init()?
+syzbot ci has tested the following series
 
-Thanks for the review and sorry for the late reply.
+[v1] ntfs3: clear VMA_MAYWRITE on read-only compressed-file mmap
+https://lore.kernel.org/all/20261118132710.29751-1-suruurism@gmail.com
+* [PATCH] ntfs3: clear VMA_MAYWRITE on read-only compressed-file mmap
 
-Sure. Should this be a separate patch or added to a v2 of this series?
+and found the following issue:
+WARNING in mmap_validate
 
-regards;rl
+Full report is available here:
+https://ci.syzbot.org/series/2cf8a8c7-bfcc-4bcc-bfda-dccd333a025d
 
-> 
-> Regards
-> Peng
+***
+
+WARNING in mmap_validate
+
+tree:      torvalds
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux
+base:      b3f1631d362539cfe14571ccfd7db919ffbc08c7
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/92ccdff0-04ed-4a0e-80d7-77102143beb7/config
+syz repro: https://ci.syzbot.org/findings/189d2e19-2002-455d-a0ed-c3a015048eaa/syz_repro
+
+loop0: detected capacity change from 0 to 4096
+ntfs3(loop0): Failed to load $Extend (-22).
+ntfs3(loop0): Failed to initialize $Extend.
+------------[ cut here ]------------
+was_maywrite && !is_maywrite
+WARNING: mm/vma.c:2872 at mmap_validate+0x1c3/0x1e0 mm/vma.c:2872, CPU#1: syz.0.17/5893
+Modules linked in:
+CPU: 1 UID: 0 PID: 5893 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:mmap_validate+0x1c3/0x1e0 mm/vma.c:2872
+Code: 5c 41 5d 41 5e 41 5f 5d e9 1a 34 d8 09 cc e8 e4 8a 98 ff 90 0f 0b 90 eb 1f e8 d9 8a 98 ff 90 0f 0b 90 eb 14 e8 ce 8a 98 ff 90 <0f> 0b 90 eb 09 e8 c3 8a 98 ff 90 0f 0b 90 41 be ea ff ff ff eb bb
+RSP: 0018:ffffc900041ef428 EFLAGS: 00010293
+RAX: ffffffff82309662 RBX: ffffc900041ef9a0 RCX: ffff8881686c3c00
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000200000000001 R08: ffffc900041ef9a7 R09: 1ffff9200083df34
+R10: dffffc0000000000 R11: fffff5200083df35 R12: dffffc0000000000
+R13: 1ffff9200083df34 R14: 0000000000000001 R15: 0000000000000001
+FS:  00007fb956e196c0(0000) GS:ffff8882a7809000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fb955e71a20 CR3: 00000001baeae000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ call_mmap_prepare mm/vma.c:2975 [inline]
+ __mmap_region mm/vma.c:3075 [inline]
+ mmap_region+0x12d8/0x2800 mm/vma.c:3173
+ do_mmap+0xe0a/0x1300 mm/mmap.c:573
+ vm_mmap_pgoff+0x27a/0x520 mm/util.c:581
+ ksys_mmap_pgoff+0x4dc/0x760 mm/mmap.c:619
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fb955fa8fd9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fb956e19028 EFLAGS: 00000246 ORIG_RAX: 0000000000000009
+RAX: ffffffffffffffda RBX: 00007fb956225fa0 RCX: 00007fb955fa8fd9
+RDX: 0000000000000001 RSI: 0000000000400000 RDI: 0000200000000000
+RBP: 00007fb956037fed R08: 0000000000000004 R09: 0000000000000000
+R10: 0000000000010012 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fb956226038 R14: 00007fb956225fa0 R15: 00007ffcdbaed6f8
+ </TASK>
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
