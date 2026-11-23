@@ -1,88 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795442555;
-	b=2f7rJXednaJaFZq76HgH0K1TA7R6jl1xXsZAb4l7HAL+XDiMhFjiJ/C0KIVe8jNTkeme
-	 QKFAlwwqv1yIlBLuPNE3/A5o8o7iXR5CwXUIgCpJdN0NVpS7CWwRx4rjhDRo/LJp5wlU3
-	 IoCIt3bgemErflwIrYiqV1D2N3UDY9ViVW/Md/Bhv1sOPeaIdVUPVTBHtgwZ6V4I7OdU7
-	 Rc+xTGnaA92BigqruiyXeIJnjdjQ683HzQKM9cgzTYAGJhDj28/KWvP4mpZi1JVBOmMOQ
-	 0ke8mlR/JYwbpEhhOqNcUqR0alQAq+GfMkkXiyZJ4P4fa76cyvrUgXEwzFKbxHxJuFA==
+	t=1795442891;
+	b=B/aoePx2R1cPRZe4J1Kd6WB36MBQyihu+bEDXud9XG/IaU5qMwZI9z8vIVvL6K08bBiJ
+	 ZO1r9dlRdRvdjsn7RmlZgw63G0ifwclqCHRmH/lk5Rs12p+2ApZ03kSNoTNUlCq9bHfSq
+	 vxII76uwdwptHRW6gnjIgmE8ZxR3SQka4XxcdSEW3xFhFoKbgqQn0APBotso3xGWzUPhs
+	 3FkOgVvSIuJOw6o989MvPPwXGay3DZJsgwn0YFG6WQDiH/Tf2oAjVAs1V8NicwJ3PQ8dV
+	 VC98cC5VtAmqMRk+vB1Dv9rZhMYbxP1plMpY65nOvIEfv6l6Tc5YmOhA6srtFyh8V4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795442555;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=1atnC9AuJrhB8fulAsNtM32hSGbPVQ1Bt8uHk0JYjxE=;
-	b=FIE83Gfvb4DLVx3cXQPXNlW5Kiyj+nKQR76rMBwWAV7rjnb3NW+k1QGCxRP+RBN577A9
-	 Mtqor4J/K0nYT3mwuCQ/X6sK2EYPoaaemiMazi2B8pPfC1uSpvUtGQgSQU4C1KypzBGmj
-	 PSVQSYqNKrwHPMMIiyQbp+jRD+FN7TR5IkobH1dd4p5VLI5zB4w0sG9Kwn3TA6vADAa60
-	 Rffn6jPysxHfEHdQ8T2b6XxVVyuFDmANqQ3nLaUndxvbJR5VAXW8t11pzuFdfCp/Ig9kl
-	 8yZeBjVVC5aHnhxQ0Ze4DIVbfVjNwVswbSgTIokIRtVvZ40t4BtILjddjZHtaxgk5ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795442891;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=Uz1t2WKqlXJVIyc0jqpnA6TrFMwUBuQ3w8Lin5TW0wo=;
+	b=XfAo0XUIije/GJuA8n4IKbOXApCtxv40pbC5OZjUQb7GNNyYrCeKz32DhRlQ9/rJxxDC
+	 z7STpIs59osga75C9C2ldsyfbgG4oHe9UWn+7f45wdm7YNDsPaIPWnigHrCIH0aqHtrHh
+	 tp+M5q9A84oxYDtW5OZ1g9A6CAkyFILq07C+Y7rDgbEamGbuoYBjX0qF55Hk6hK9ktcSi
+	 5CZMP1dEm/8lQQZj0vsFduVpp44gwMOY/kZob/ybmcI3IETQ0lyCmhryrd3j4lZV0Rs31
+	 QKfZn1hIy/vRIi31zz+rF7ijgg3szXrIu3/sJVZq4/DRLtXB3gC72BFvciGBBlk2u1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=XJF1E+wH;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=amutable.com;
+	spf=pass smtp.mailfrom=amutable.com;
+	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=o1duoT41;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52EB606A683;
-	Mon, 23 Nov 2026 14:02:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B52EB606A683
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F5D606A31A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:08:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49F5D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=XJF1E+wH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1795442553;
-	bh=VonueuUjBSWV638/H3oixKhiSY8bmRr9CvNuw0iCOng=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=XJF1E+wHrIKC5JMudT6YHMExiYmfEpQ8FVtCfGDk9lFK2yRaSw+TYaE1Jr4Zm70Me
-	 3SxCWyCkWN+ERvVg/Loo0hOt3SVE7yHe4oEFVzThYBZMOp0pH6MUT2/JjSV99N4/tH
-	 +a6H3XxnQOlHhEmDlHLUfHd6tc3+tGD7BeopM85h5samHBdHjxNk0Az88BPEL9uGTv
-	 FxP5cG00Q39J9HYOZsSkoP6q37v4JqBYTm+VyBASBixVgFdB9XCR+JMWM1m6nkQzM/
-	 OZ4tgNe1RT8n/JVcv8MqNxz2zXX0muNQSXwVurF9CVsp1dY9eTnJxXRvrdDDjoo2Ym
-	 Kv3TarXmRWbrg==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 25BC826B6A;
-	Mon, 23 Nov 2026 17:02:33 +0300 (MSK)
-Received: from mail.astralinux.ru (unknown [10.205.207.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Mon, 23 Nov 2026 17:02:30 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.55.149])
-	by mail.astralinux.ru (Postfix) with ESMTPA id 4jY71K69V3z1FqJ;
-	Mon, 23 Nov 2026 17:02:29 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Dmitry Antipov <dmantipov@yandex.ru>,
-	ZhengYuan Huang <gality369@gmail.com>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Junxiao Bi <junxiao.bi@oracle.com>,
-	Changwei Ge <gechangwei@live.cn>,
-	Jun Piao <piaojun@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15 v2 4/4] ocfs2: validate DIO orphan slot during inode read
-Date: Mon, 23 Nov 2026 16:59:37 +0300
-Message-ID: <20261123143419.ocfs2-slot-validation-v2-4-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
-In-Reply-To: <20261123143419.ocfs2-slot-validation-v2-0-mdmitrichenko@astralinux.ru>
-References: <20261106104249.1811-1-mdmitrichenko@astralinux.ru> <20261123143419.ocfs2-slot-validation-v2-0-mdmitrichenko@astralinux.ru>
+	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=o1duoT41
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4bb6adaf0f1so29237145e9.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 06:08:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1795442889; x=1796047689; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Uz1t2WKqlXJVIyc0jqpnA6TrFMwUBuQ3w8Lin5TW0wo=;
+        b=o1duoT410yfYPOkeOEqglCp3ucRjy9hZ52w3OD/hNUBkzgp8+marZhEP9j2b9DSsKj
+         rvOlrGrueumhV3qIVTe5RlKFFtSIlZx2CsoCJzzjIBoG7aQ6K9ckODNMmnM3CqWt/swZ
+         HI0sYk1bTW6+xdK0aGcFvkAbtCYUPkyU6wy4fWN88qieSUneMUodWPbyRMiN9uEHWQuc
+         pt1G6pPI6l9hZSZe3Y9ulmQzEvNpjgGvOSGZU8OS08J1C5wukblXL4yFduVFZOwPcofk
+         QvWoOCyZq1RMKWUQiak2+o6FMkhizRkFnRTKSM/m8uFrNG0VOG3qeuN9myw6wFupglGA
+         KNNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795442889; x=1796047689;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Uz1t2WKqlXJVIyc0jqpnA6TrFMwUBuQ3w8Lin5TW0wo=;
+        b=UYLGaE5mRG192XGk+Sw2lCu3RszJ07W1F3BAGuya/BOqFCsxKwHW5GdQYP9HHVS5th
+         f5B79zTVgUu4VphGIBtGZJpXqo5RaGK8NLAc06+4w/VlItrK53nKXECmQ2Ze1pj5wmVG
+         3e8SB4qcVrGjJKRh/FSBLv3hPTkM34sECGnfksT9v1QcrbfI6WW66v2AkLmST9JFYxWM
+         2wtnZ5rvXeKLFCXe0SBuI2iHZjzYf3xLlxFxDpiZeRTX3649yS9Dm+j3kh2tmcU/TRSH
+         BdYANs/kDJK3hBy0DDnpeLURQTh/WvhPa53uMuV/HQDI6Ica+2bH7TGfRCfsQpikB+Ez
+         K5Dw==
+X-Forwarded-Encrypted: i=1; AL+hErGCjNkdupPoR1AyD45helSxu2T3dB4PU615TNl0dxeZZrhoYpXc6yZ+KCqCIPox+lyWhjEnUHo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z85TXuLRWFAOLHeq8rK25yLWxyT4PxFuyNU+UsyKkKlwO0rFlsn
+	/aU8QXJQrDYbtSOtNBVm0Uedog/MR1c3EdL18JkzvpTJV5MS2QGljIpTr+THhPHh2tMS
+X-Gm-Gg: AZFdTZdaqVVExs7SXar+RuADVrAYtUbdrljpGfzw80jLJucbR5iib8L5p9cBptqt0+o
+	Dn/7nFGg8RrjCUjoogE0fdMMaeK6MlbMcIs5A3k2MNrfgiJ+ILXH3CsU/jMFu+TCfpnWk0qjQ7Q
+	mfakZMxITlWDXqEEhHj55NRfUnxoQKuigw1uPT0jwH0/566jUQhDKuQcPruq2q6g7uzkDsYZWgI
+	dWqorR+u60/kru7ee7Icp2PZAdbit/1nV+dEqoSwD9ReXV4Uj5GTSlbL5CZW57FUvpI8kZg5pp4
+	YrTODy2KAFnwOBSP0lnZW4waxL9WE+Z6T2fHgTT82hiuT0LjV3rkpNMTeMVus6Nh1Ow63Xnmj1n
+	/fxJPZz2GfzxdB/erBmUtE3VOrg0BPHr/5kHXsnZbGlHBWBa47DFftHDOvKP0jW+qk3Mjm97mPY
+	XUHE55RRuVXF/YwmB0vJgkYqomBCApeW246Nw164GofivgAk7v2tt1FV+fU7+BYNhfDJ1N0KxvR
+	TXwZshau3ZZSyL4uCsExBeFPWpSAjyUi9mby7b3s5DSg/QOvCZz/Q7y7FFpCb7dprqQ4qcKhphl
+	IIrBRnUuG12DiXG6V6HwCxrCiPtYxuiC0kufEJlbWBWtiG64nmikdQRwCwUizRVDIEPu5t4jKE5
+	D6gfc4MzQecpazFVV5A69u3RFR7dIyzi+j9slhe6kbSu03y8fjN8=
+X-Received: by 2002:a05:600c:3e1a:b0:4bb:6814:7391 with SMTP id 5b1f17b1804b1-4bb8881921cmr230462625e9.25.1795442888314;
+        Mon, 23 Nov 2026 06:08:08 -0800 (PST)
+Received: from ?IPv6:2003:cf:572c:2800:799:2965:d32:cc64? (p200300cf572c2800079929650d32cc64.dip0.t-ipconnect.de. [2003:cf:572c:2800:799:2965:d32:cc64])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b09bsm659142555e9.4.2026.11.23.06.08.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 06:08:07 -0800 (PST)
+Message-ID: <9de7d49b52769206709d87749085cc453aabf104.camel@amutable.com>
+Subject: Re: [PATCH] xattr: enforce the name and size limits for in-kernel
+ callers
+From: Alexander Mikhalitsyn <alex@amutable.com>
+To: Amir Goldstein <amir73il@gmail.com>, Christian Brauner
+ <brauner@kernel.org>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Chris Mason <mason@kernel.org>, 
+ Christoph Hellwig	 <hch@lst.de>, Theodore Ts'o <tytso@mit.edu>, Carlos
+ Maiolino <cem@kernel.org>, 	linux-fsdevel@vger.kernel.org,
+ linux-unionfs@vger.kernel.org, 	stable@vger.kernel.org
+Date: Mon, 23 Nov 2026 15:08:06 +0100
+In-Reply-To: <20261123113513.1910906-1-amir73il@gmail.com>
+References: <20261123113513.1910906-1-amir73il@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,93 +105,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/23 12:55:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 135 0.3.135 58dcfca10e9e4d27990d8f7387f1467d65061802, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, lore.kernel.org:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;astralinux.ru:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207749 [Nov 23 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/23 09:07:00 #28960424
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/11/23 12:55:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
 
-From: ZhengYuan Huang <gality369@gmail.com>
+On Mon, 2026-11-23 at 12:35 +0100, Amir Goldstein wrote:
+> The xattr system calls refuse a name longer than XATTR_NAME_MAX and a
+> value larger than XATTR_SIZE_MAX, but the VFS helpers do not. An
+> in-kernel caller may pass a name or a size that it got from another
+> filesystem, such as overlayfs copy up from a lower layer.
+>=20
+> Check both limits before calling the xattr handler of the filesystem,
+> and fail with the errors that the system calls return for them.
+>=20
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+> ---
+> =C2=A0fs/xattr.c | 31 ++++++++++++++++++++++++++++++-
+> =C2=A01 file changed, 30 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/fs/xattr.c b/fs/xattr.c
+> index 0705801a62cc5..824e8349e8c10 100644
+> --- a/fs/xattr.c
+> +++ b/fs/xattr.c
+> @@ -178,6 +178,18 @@ xattr_permission(const struct mnt_idmap *idmap,
+> struct inode *inode,
+> =C2=A0	return inode_permission(idmap, inode, mask);
+> =C2=A0}
+> =C2=A0
+> +/*
+> + * The xattr system calls refuse a name above XATTR_NAME_MAX and a
+> value above
+> + * XATTR_SIZE_MAX, but an in-kernel caller may pass a name or a size
+> that it
+> + * got from another filesystem, such as the lower layer of
+> overlayfs.
+> + */
+> +static int xattr_check_name(const char *name)
+> +{
+> +	if (strnlen(name, XATTR_NAME_MAX + 1) > XATTR_NAME_MAX)
+> +		return -ERANGE;
+> +	return 0;
+> +}
+> +
+> =C2=A0/*
+> =C2=A0 * Look for any handler that deals with the specified namespace.
+> =C2=A0 */
+> @@ -209,10 +221,17 @@ __vfs_setxattr(const struct mnt_idmap *idmap,
+> struct dentry *dentry,
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 size_t size, int flags)
+> =C2=A0{
+> =C2=A0	const struct xattr_handler *handler;
+> +	int error;
+> =C2=A0
+> =C2=A0	if (is_posix_acl_xattr(name))
+> =C2=A0		return -EOPNOTSUPP;
+> =C2=A0
+> +	error =3D xattr_check_name(name);
+> +	if (error)
+> +		return error;
+> +	if (size > XATTR_SIZE_MAX)
+> +		return -E2BIG;
 
-commit bb88131c9831075b8dc08cdd375743e5d44c7ca2 upstream.
+Hi Amir,
 
-[BUG]
-A corrupted append-DIO dinode (high byte at offset 0xa1
-corrupted from 0 to 1) can carry an i_dio_orphaned_slot
-outside the mounted filesystem slot range and trigger a
-use-after-free error:
+> +
+> =C2=A0	handler =3D xattr_resolve_name(inode, &name);
+> =C2=A0	if (IS_ERR(handler))
+> =C2=A0		return PTR_ERR(handler);
+> @@ -416,6 +435,8 @@ vfs_getxattr_alloc(const struct mnt_idmap *idmap,
+> struct dentry *dentry,
 
-BUG: KASAN: slab-use-after-free in ocfs2_get_system_file_inode+0x780/0x820 fs/ocfs2/sysfile.c:102
-Read of size 8 at addr ffff88800b767c00 by task kworker/u8:3/85
-Call Trace:
- ...
- ocfs2_get_system_file_inode+0x780/0x820 fs/ocfs2/sysfile.c:102
- ocfs2_wipe_inode+0x292/0xf70 fs/ocfs2/inode.c:840
- ocfs2_delete_inode fs/ocfs2/inode.c:1155 [inline]
- ocfs2_evict_inode+0x6c9/0x1170 fs/ocfs2/inode.c:1295
- evict+0x38e/0x8f0 fs/inode.c:810
- iput_final fs/inode.c:1914 [inline]
- iput fs/inode.c:1966 [inline]
- iput+0x55b/0x8b0 fs/inode.c:1926
- ocfs2_recover_orphans+0x610/0xe40 fs/ocfs2/journal.c:2374
- ocfs2_complete_recovery+0x5af/0xd00 fs/ocfs2/journal.c:1373
- ...
+Don't we want to have xattr_check_name() in vfs_getxattr_alloc() too?
 
-[CAUSE]
-ocfs2_del_inode_from_orphan() uses i_dio_orphaned_slot to index the
-slot-local system inode cache. The dinode validator does not check
-this active slot, so an out-of-range value produces an invalid cache
-entry pointer that is dereferenced as an inode pointer.
+Kind regards,
+Alex
 
-[FIX]
-Reject an active i_dio_orphaned_slot outside the slot range during
-dinode validation, before DIO orphan recovery can consume it.
-
-Link: https://lore.kernel.org/20260803030007.3993199-3-gality369@gmail.com
-Fixes: 06ee5c75b575 ("ocfs2: add functions to add and remove inode in orphan dir")
-Signed-off-by: ZhengYuan Huang <gality369@gmail.com>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-90204
-
- fs/ocfs2/inode.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 117b60ef0aff..18e5303e55d5 100644
---- a/fs/ocfs2/inode.c
-+++ b/fs/ocfs2/inode.c
-@@ -1487,6 +1487,14 @@ int ocfs2_validate_inode_block(struct super_block *sb,
- 		goto bail;
- 	}
- 
-+	if ((le32_to_cpu(di->i_flags) & OCFS2_DIO_ORPHANED_FL) &&
-+	    le16_to_cpu(di->i_dio_orphaned_slot) >= OCFS2_SB(sb)->max_slots) {
-+		rc = ocfs2_error(sb, "Invalid dinode %llu: DIO orphaned slot %u\n",
-+				 (unsigned long long)bh->b_blocknr,
-+				 le16_to_cpu(di->i_dio_orphaned_slot));
-+		goto bail;
-+	}
-+
- 	/*
- 	 * Reject dinodes whose i_mode does not name one of the seven
- 	 * canonical POSIX file types.  ocfs2_populate_inode() copies
+> =C2=A0	error =3D handler->get(handler, dentry, inode, name, NULL, 0);
+> =C2=A0	if (error < 0)
+> =C2=A0		return error;
+> +	if (error > XATTR_SIZE_MAX)
+> +		return -E2BIG;
+> =C2=A0
+> =C2=A0	if (!value || (error > xattr_size)) {
+> =C2=A0		value =3D krealloc(*xattr_value, error + 1, flags);
+> @@ -434,16 +455,24 @@ __vfs_getxattr(struct dentry *dentry, struct
+> inode *inode, const char *name,
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void *value, size_t size)
+> =C2=A0{
+> =C2=A0	const struct xattr_handler *handler;
+> +	ssize_t ret;
+> =C2=A0
+> =C2=A0	if (is_posix_acl_xattr(name))
+> =C2=A0		return -EOPNOTSUPP;
+> =C2=A0
+> +	ret =3D xattr_check_name(name);
+> +	if (ret)
+> +		return ret;
+> +
+> =C2=A0	handler =3D xattr_resolve_name(inode, &name);
+> =C2=A0	if (IS_ERR(handler))
+> =C2=A0		return PTR_ERR(handler);
+> =C2=A0	if (!handler->get)
+> =C2=A0		return -EOPNOTSUPP;
+> -	return handler->get(handler, dentry, inode, name, value,
+> size);
+> +	ret =3D handler->get(handler, dentry, inode, name, value,
+> size);
+> +	if (ret > XATTR_SIZE_MAX)
+> +		return -E2BIG;
+> +	return ret;
+> =C2=A0}
+> =C2=A0EXPORT_SYMBOL(__vfs_getxattr);
+> =C2=A0
