@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795420295;
-	b=LPyTCdkHyHOdaitFf+CLBib4y5gVMR7TioeebrPY4ae9l19XnCjv6b8zwm/fS5hTl11A
-	 4Rbj31PEH3Zu7YDpcnCWnGVRUQpyqinI6M7q2/1wRTfI5PkgD5dm8IVwH78/y5bGLK8Y9
-	 a2J9SNApE10G+5Ddn5z6KwiapqrPpNrnq4is+WnhB6qhWuyUpqGmEoqEGRWx8EyFoplG7
-	 WO2LNkMzwbNA7R2eQCNtY4/ZwvBussdPMPlIUfPseaDot519f2SyIdmYNyl41Yq5Hdmck
-	 i5ZgsMqw4gtiO3QZ2/2LMPPPRNZdhJA7/8jGMIcX5CjQ8vqZEWx8LnW55ylwNqexyew==
+	t=1795420306;
+	b=GsV0aHv/R5Xt9Ew7g97AEcdbF+lDKrbKZlmDxkL7Km1C5dPed03HZ2Jh8pm2ZvgFC9az
+	 /9KLrAjDpVYnck3j2jp/jdH9vpLpeay0evIuQvaMPWcQAGkh+TA3CKvtUCcAg7ZgKL/6l
+	 9DzjBV0pjEdYzFGRHwfe9QSzsWnkgSJRXXx3BBgg/yF+iOK2FszbT/wrQobJ2tePcgxe0
+	 XhNAaOLzFUpQ/07c00VUM0xK2NBTrwQxanTjjXsqCkJkUs23ziaQm6vKylwLWOdz7lxPD
+	 Uqco2k7+aHhs9OgcHmQny4MYpcgA3lk0A0wirqn1VieekYg/4qUPyxLKmv6PyKZzpDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795420295;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795420306;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oazF4+IESuembcd1tmGXA1W/tSrKsfNqYpwuKjqwHus=;
-	b=0NUQAe4j+NTdGBQzn0WqzbuWzFdMZQikUaPg695LVMMzf4055/pthPkDAycokAbT7G5A
-	 4l+8aaK1sD4ADd5iM5WWFFRhvBBZ+yiWb1HqzuGp3bnk2fwLP1N79XlcDyiV9yHSWpLyR
-	 gKXbtVkRfNiTQS7940DabNgzm/gbUP1pKM8abvNrukb/sRIuK5hzLzFobuLZaCplPho0T
-	 7uirpcwE8p7fBkEV1jTkyuma3BUsiN/v0pASF+cCz4ACjJw/M2c2fovDE+LC2rJE14XpS
-	 QesodGOb7YhBU6eET1RAku2/MVA7bt3MXsSPkfVn8FtGdsrDOD0NNE66H/0OnX1uIAg==
+	bh=4U9CbCw+DHOvkyr6gju/PyFcVkH3hB0bo/MNj6uBwF8=;
+	b=g2+Vz2OcraD2nYy9YVaUhvLBA6nStlNpXRv8GkKD7IZTfAwyqZtYqK9Bm/8MQRNb79tQ
+	 QtKEM97EBxxEUr8t3v/TS97r/XvQeGJ3EEeox6GgBnvDpRtj4vfxSBw5hbZRSpfZeJyi6
+	 P0SGrM2izxd1CfW4jpfA7YzJnxf8qfq3ti2WqcwjPodigkb4dcsltt+7S5qmEnTv0+msg
+	 8tWa2l8fe6glI2Y2GPhSp6kAUBz0wJgccNjUQwl9pleeZKqt5cH06ieIuec81xY7duGQo
+	 pvGNXdQZgoSZ2fh0BQEyKso8kdXBGVArs3HkHmrVhVjUm2AkZMGzu50IikCx5jr4e4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oAw/MZxR";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SX2gE6Gl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E14606A32D;
-	Mon, 23 Nov 2026 07:51:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B69606A31A;
+	Mon, 23 Nov 2026 07:51:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oAw/MZxR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060D11F0089E;
-	Mon, 23 Nov 2026 07:51:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SX2gE6Gl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E7C1F000CA;
+	Mon, 23 Nov 2026 07:51:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795420294;
-	bh=oazF4+IESuembcd1tmGXA1W/tSrKsfNqYpwuKjqwHus=;
+	s=k20260515; t=1795420306;
+	bh=4U9CbCw+DHOvkyr6gju/PyFcVkH3hB0bo/MNj6uBwF8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oAw/MZxRKAaHI/0Jn+L7RisNTjper98Nn7krMKpqlG0xbESKfwvMYrPelp5ZJ6O0c
-	 WXWIWui4Xy2tPCQiWiRhV+8pSN9NNu0/XGtnLTlGJAKz9ElbAS1k6ZojdtPNAsHyZ6
-	 w9KHQI0tTtYos3m06HPxHBrVAwekGSRrzdjnAnvPQIRKY3GxwKhBihNxQGoM22xrny
-	 f6TGmzhJWctg69g5RnBml+SJh94967rJ4yMirKoFTMgSvCHJaEOnvyHxqO3lF7S+pg
-	 fJZehShZaXATK+ZjrIGXVnentbDNReUg7sOLX3yJ6ufOB2A6cMrHLDmswHtTiBapNN
-	 XLtm3mupnQYKw==
+	b=SX2gE6Gls7B9LjRpUvHD3NISkbLG9H2oKGq8Yt1mPvZ41+PH2rdULZ5n5OWyjrb2h
+	 z5AYtdwdFlNtBrc1oqRmXhB7o0Vq0Ay4qqH0SX1h2jJhvGiiKEDKZklOXIfCxV+P41
+	 +5akEKaL71bAkLzaERkrRDEuvKByKhDTqLY2cKjtUwrL9kta06mfr3vhofVwy+ZDR+
+	 S1FKISkCj27b22xjyvsYBbCQDBsLTC5IAdh4Rl0zDAR8uN+c1e6qBDMXLj14b2T5ZY
+	 Z3KL6neI36qp+GDp0/HfK8OkSu3+yuCu0ft0yV+lttvzrJhUSEOEdbQlp1vHT4MR66
+	 HWCLBhRusM1Lw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
+	Lucas Stankus <lucas.p.stankus@gmail.com>,
 	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
 	Michael Hennerich <Michael.Hennerich@analog.com>,
 	Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
 	Andy Shevchenko <andy@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
+	Lothar Rubusch <l.rubusch@gmail.com>,
 	linux@analog.com,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Radu Sabau <radu.sabau@analog.com>
-Subject: [PATCH v2 1/7] iio: imu: adis: Clear pointers after freeing in adis_update_scan_mode()
-Date: Mon, 23 Nov 2026 07:50:27 +0000
-Message-ID: <20261123075122.373060-2-lee@kernel.org>
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2 2/7] iio: accel: adxl313: Prevent FIFO buffer overflow in adxl313_fifo_transfer()
+Date: Mon, 23 Nov 2026 07:50:28 +0000
+Message-ID: <20261123075122.373060-3-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
 In-Reply-To: <20261123075122.373060-1-lee@kernel.org>
 References: <20261123075122.373060-1-lee@kernel.org>
@@ -69,46 +69,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-adis_update_scan_mode() frees both adis->xfer and adis->buffer at the
-start of a scan mode update without clearing either pointer to NULL.
+The ADXL313 32-entry FIFO plus one sample held in the output filter can
+yield up to 33 3-axis samples (ADXL313_FIFO_SIZE + 1).  Because of
+missing parentheses in ADXL313_NUM_AXIS * ADXL313_FIFO_SIZE + 1,
+fifo_buf is sized at 97 16-bit elements instead of 99, overflowing the
+buffer by four bytes whenever all 33 entries are read.
 
-In both adis_update_scan_mode_burst() and the non-burst path, adis->xfer
-is allocated before adis->buffer.  If the adis->xfer allocation fails,
-the function returns -ENOMEM while adis->buffer still holds the freed
-pointer from the previous scan configuration, causing a double-free on
-the next scan mode update or during device teardown in
-adis_buffer_cleanup().
+In addition, adxl313_get_samples() returns the 6-bit FIFO_STATUS entries
+field (0..63) without bounds checking, allowing a malfunctioning or
+spoofed bus device to overflow fifo_buf on the heap in
+adxl313_fifo_transfer().
 
-Clear both pointers immediately after freeing them.
+Parenthesise (ADXL313_FIFO_SIZE + 1) when sizing fifo_buf and reject
+entry counts exceeding ADXL313_FIFO_SIZE + 1 with -EIO in
+adxl313_get_samples().
 
-Fixes: aacff892cbd5 ("staging:iio:adis: Preallocate transfer message")
-Closes: https://sashiko.dev/#/bug/linux-966f0cd4-488a-4d69-b8a5-449c751365d2
+Fixes: ff8093fa6ba4 ("iio: accel: adxl313: add buffered FIFO watermark with interrupt handling")
+Closes: https://sashiko.dev/#/bug/linux-6baeb7fe-ad68-4961-b5f9-5f0c7628df1e
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 
-Cc: Radu Sabau <radu.sabau@analog.com>
-
 v1 => v2:
- - CC Radu Sabau (Jonathan)
+ - Return -EIO instead of -EINVAL when FIFO entries exceed
+   ADXL313_FIFO_SIZE + 1 (Andy, Jonathan)
 
- drivers/iio/imu/adis_buffer.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/iio/accel/adxl313.h      | 2 +-
+ drivers/iio/accel/adxl313_core.c | 7 ++++++-
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iio/imu/adis_buffer.c b/drivers/iio/imu/adis_buffer.c
-index 501da4eaef69..9d317b627eba 100644
---- a/drivers/iio/imu/adis_buffer.c
-+++ b/drivers/iio/imu/adis_buffer.c
-@@ -74,7 +74,9 @@ int adis_update_scan_mode(struct iio_dev *indio_dev,
- 	__be16 *tx, *rx;
+diff --git a/drivers/iio/accel/adxl313.h b/drivers/iio/accel/adxl313.h
+index 75ef54b60f75..de0bccfcdd0a 100644
+--- a/drivers/iio/accel/adxl313.h
++++ b/drivers/iio/accel/adxl313.h
+@@ -93,7 +93,7 @@ struct adxl313_data {
+ 	struct mutex	lock; /* lock to protect transf_buf */
+ 	u8 watermark;
+ 	__le16		transf_buf __aligned(IIO_DMA_MINALIGN);
+-	__le16		fifo_buf[ADXL313_NUM_AXIS * ADXL313_FIFO_SIZE + 1];
++	__le16		fifo_buf[ADXL313_NUM_AXIS * (ADXL313_FIFO_SIZE + 1)];
+ };
  
- 	kfree(adis->xfer);
-+	adis->xfer = NULL;
- 	kfree(adis->buffer);
-+	adis->buffer = NULL;
+ struct adxl313_chip_info {
+diff --git a/drivers/iio/accel/adxl313_core.c b/drivers/iio/accel/adxl313_core.c
+index 6dc918c4ae17..dd0b3efd594e 100644
+--- a/drivers/iio/accel/adxl313_core.c
++++ b/drivers/iio/accel/adxl313_core.c
+@@ -921,7 +921,12 @@ static int adxl313_get_samples(struct adxl313_data *data)
+ 	if (ret)
+ 		return ret;
  
- 	if (adis->data->burst_len)
- 		return adis_update_scan_mode_burst(indio_dev, scan_mask);
+-	return FIELD_GET(ADXL313_REG_FIFO_STATUS_ENTRIES_MSK, regval);
++	/* 32 FIFO entries plus 1 entry at the output filter */
++	ret = FIELD_GET(ADXL313_REG_FIFO_STATUS_ENTRIES_MSK, regval);
++	if (ret > ADXL313_FIFO_SIZE + 1)
++		return -EIO;
++
++	return ret;
+ }
+ 
+ static int adxl313_fifo_transfer(struct adxl313_data *data, int samples)
 -- 
 2.56.1.750.gf70dc682cf-goog
 
