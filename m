@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795462335;
-	b=IGzMXasIMhjKBjm67lb6S19+LMkT9/4vcqGccqsPsTToUJp1+W/xRlCi7WeKocXf6NSG
-	 02axYodGqFBvcgZP4KNXdac79XwxqyCsirivO3RxpbA/wwXByMCJiujasewfpEoZHLvff
-	 mnOJvlnsuIQ5muPWR11nRbl9Z9UqH6RUcEB8woSsYzZtGt33li35zhAVetWJsJAv3oI8P
-	 +y2Eqfq3Ywg2gjy2iNfrig3BkgwHGVnONe/ZtOCfVofR3cTKGUj5KqG3nGGm1zeo5XfoA
-	 itpSJRtrjID+g+l+4n4YEzv6obsQ0jQAteZMeE/WIBgRnt2rNJnPTdBZiKlZAjFAk1g==
+	t=1795462721;
+	b=CWYF9HeIrWkBVUIjwbkb8IkEtZN14nziO29rNYbMFY/0tCZcnGI7O+6WHCiQmNisYJDf
+	 0BZtTaEs62nBVHSMCbDhGJ9R26v50YLE1WYiKfQXWoNkoE5+kloUQavXgqgxdJI4grapm
+	 I5adrKrXGcI0IOD2SfTOqSa3+LB08mLWBI1nPUQr4u4oJv3+nzJTs/7CXwa4TP81ghMFT
+	 0jCt2z2GiLjsHiYEBI/2/ASq3eNr69H95HPjNhUMhRYGgBZdaNMHZ/+xW2x+hiSk1n6zG
+	 j206dPe7USkK+oriuu9xyVEmFUWDnCTTpBuWQLe6hJsgdBIyFoOetOT0boJkP2G/+eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795462335;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
-	 DKIM-Signature:X-Received:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:Autocrypt:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=ZhoRZJWv5WDLgSJ4NW+wzm1D4iqQUFLyqGAdX1OGoBc=;
-	b=26FKttoRA5UJ8HuiqhRhiFx6ddt51kRrVkYkUJ8eWlCossANQk1t3mVHxiLVL22PD5X2
-	 zfn3wrv7w9bggicr2eO5ymj6ABFEjE3tsPknOHY1dLdALmepRh5qXKplVAdCVVj2ToeoS
-	 vIWzdhCj5RCPJ5KFp0ac4CZaimQDnKUyGqpc7RFKoBbWt7UNed5f+BI9fOq2zdVCQ3zZ0
-	 gO7mSxQBM0DAg1eUKr4eny+6JalbrFKo7mreLg0bGgDhCnSrCMbKDblqY/j1I8q597DtV
-	 471L7oqCNrdtuz4aD3dB6WJjn8mUXyGPsF4raOkx5giFBXmRM0vY1h996cR6gxqm/uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795462721;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0DaLrAjJERB9nEFU7eyItkBxKjBtjK0prxAqaKWShPw=;
+	b=K1Zh4xzK75myUZLt5Z/TIOvoYLPXkKOQx4+qLM0dyXrwG1OZ1zI3S5IklTJruuaUYQA7
+	 5GC9sNhSAC9H3sYlrInu5kMkT755WOvp2eAhtW39YHKaC5iviuzEbKzJDuEkpjLI0XqMb
+	 Cl49exqlo6rXWlfzSdTPBxLM5N7bVeZLmGobBqOp2CPfdz7P3Mms/vFF3nYAukpUOgY3s
+	 aFTyxIcPQMvnYGGWJKzzL+WjHiI4ewQRPAeS98vT8rU8dkUp27gbvi7dBQK8xgWc64/We
+	 jmHjGuMoi63Cl+JuskmoU3R1iffeJlqRxt2/l3RkMqpeksVFgqvdtgJX82BQjVy1M6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=D8IR7l22;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsR2Wh+5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA50606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:32:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CA50606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FBB606A692;
+	Mon, 23 Nov 2026 19:38:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=D8IR7l22
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3b44bdcea8aso1560819a91.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:32:14 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795462334; x=1796067134;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ZhoRZJWv5WDLgSJ4NW+wzm1D4iqQUFLyqGAdX1OGoBc=;
-        b=fX0sp9xkwbTz7Ov+6YYDwa40DmK73pD89Xw5PDq7n9tZBVE9uUrBBvXc4+uPp4/GNI
-         Snkwxbhud9gaePh+kd0IrXsssAy3JCC11e+XpD5dAOBKjh19lXWf+odc7odoV/q9PIPr
-         bQJBbqJ2INsHxdllBRk+z4lN5IUmHrHg2OpZuDyDbB+mis95jLzsLjo/GD1UAanJpiAd
-         eey4IbOfm3VTMm0PZCw7fFg8tsHVHhHHhyN9+VJX0R+HHA/nHzOSqy5dgmC8HQ2Y0Dz3
-         +o2A+NlzCcUU/Zh1Yv6VVHNT5hViPRTgYcPReq7uXIG/UCk0Fj1eU0SRNzACCIkTLbhH
-         KbWQ==
-X-Gm-Message-State: APuU4Z8LUzDAJbJl8C4b+Ur7WFziHx19bG/xY+Hptgi9XXGKz00ljoS9
-	7u1QKcHULhl22YIFXUfg7quSfTV+YnW0eoa9JyX0AlfSLbBJ3VWQpQxTxt50ZAhRAYomSECrkB+
-	7w6EbYLGUfaFD9HRMsL5wl4CadOAZSGrkm5v0BicJTyt1hQIFj+27p0ih0i890C5+4EfvwQxuWr
-	ezyuR1dXTNNPsJe997gpz8KNW16CKEDz1rrlxjkmoXJBhp7WD0BSMD/QmdmRSRzbSgr3WRBIByn
-	hWDq2++4zycVkKI
-X-Gm-Gg: AZFdTZeoZmrS0P/60SuGlXkvsNLZH30/vAgsO7t/TE/tjERmVRXDI54ytUJAHAe5yHP
-	Ek+A+CsdonVUMHfeADabr3U1BfhtHbS8e8weE2dI6/PbPyjAfeZDew/NuGwePu6McVmUquBBRtI
-	G0jOOfGWALJFbzUmRInVbwV70ydTb1U4c/JPDAevmrokZW1C6G/sWwRzwbKq7CrCfLSA+Y5FfH7
-	gu8n6+HB5f3Se2uzDn9mfPlOfWVKRrrGygc53ahSOsjb401Q9AeRiBc0OIxkh9i1WSn+/woO7Ds
-	uKbnpiQRmNWHNIaYFizwlOjbsw+QqMuaELry4tXppxtXonKtoxpYLzcG71qZoP4WgJNSuZWHcgn
-	noqs/8nxj4pJpmeUtNWR2SX/xvTxwgE+nAGEO8sMD2vbid57Y2Zoedo/gPB8QRuZrG8nDMd2B1v
-	BwUbLm9JfxP9RxurhJicvCYOZMC4V/IreWoiGPYxy1
-X-Received: by 2002:a17:90a:c10e:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3b41c9080c5mr8196180a91.18.1795462333517;
-        Mon, 23 Nov 2026 11:32:13 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b4062a77f5sm10007167a91.6.2026.11.23.11.32.13
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 23 Nov 2026 11:32:13 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3817a0ffd5eso4542606eec.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 11:32:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1795462332; x=1796067132; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZhoRZJWv5WDLgSJ4NW+wzm1D4iqQUFLyqGAdX1OGoBc=;
-        b=D8IR7l226jkbPt2XLGzFEHKpeTcJaBjbSqQsPqZ4b+DQwih2VLzrUFRMbRraJLMovl
-         HQiaquV5UJtPt5sWGhLWFQKjTH1xYDbOJ9fl76z0bqCCbgp/epo72Jc1kJY/iT4nkJj4
-         bltyeyFPizUCr+Qnt1NacASIfizPqZyw+2iWY=
-X-Received: by 2002:a05:701b:4550:10b0:1b5:337a:6456 with SMTP id a92af1059eb24-1b55247eff6mr12630854c88.5.1795462331714;
-        Mon, 23 Nov 2026 11:32:11 -0800 (PST)
-X-Received: by 2002:a05:701b:4550:10b0:1b5:337a:6456 with SMTP id a92af1059eb24-1b55247eff6mr12630821c88.5.1795462330903;
-        Mon, 23 Nov 2026 11:32:10 -0800 (PST)
-Received: from [192.168.10.3] (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55684c85fsm42340205c88.14.2026.11.23.11.31.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Nov 2026 11:32:10 -0800 (PST)
-Message-ID: <60b6bd4a-c508-44e2-ae22-3f8bcc594457@broadcom.com>
-Date: Mon, 23 Nov 2026 11:31:49 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsR2Wh+5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 019511F000D0;
+	Mon, 23 Nov 2026 19:38:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795462720;
+	bh=0DaLrAjJERB9nEFU7eyItkBxKjBtjK0prxAqaKWShPw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LsR2Wh+5JU4k7rgs/Pxd+WRv7lmJ7zsASZ+wbZcpBeBuS2ShH+1SXGW2ZVCuSv7Za
+	 +m63aZ1smrwrwk/ajOfbjQs3Knr136/sZ9XM7brd+DHdevDn/rONMER1Tk54o0MSM+
+	 ZsBG3yS0AzDvZhImULsg9eFVbw9hddxVBGSYS9TySyA++XoKrQJbMSYPbvO5GgUNWF
+	 ueumWEOw7W9d3EZlZhikorcZqydHztD/F/0K33LA7lBQhZ7k6cdX+0PQMh4oabAFVK
+	 ZOt46kv/GnuUx2JAsIMNV1oLlG002sm3xGPZfKQOYCsSppBkj7dORmhmFL8ROPFF8L
+	 P+FaWNW7Cn2aA==
+Message-ID: <98acd21e-a97e-4299-a206-639ed9fd29d8@kernel.org>
+Date: Mon, 23 Nov 2026 20:38:34 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,78 +52,105 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/13] mmc: sdhci-brcmstb: Handle absent optional
- sdio_freq clock in probe
-To: Lee Jones <lee@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
- Kamal Dasu <kamal.dasu@broadcom.com>, Al Cooper <alcooperx@gmail.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Ulf Hansson <ulfh@kernel.org>,
- linux-mmc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261123191703.179283-1-lee@kernel.org>
- <20261123191703.179283-14-lee@kernel.org>
+Subject: Re: [PATCH] mm/shmem: don't drop a folio whose swap write failed
+To: mt4022@columbia.edu, Andrew Morton <akpm@linux-foundation.org>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Kairui Song <kasong@tencent.com>
+Cc: Chris Mason <mason@kernel.org>, Chris Li <chrisl@kernel.org>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Youngjun Park <youngjun.park@lge.com>, Tal Zussman <tz2294@columbia.edu>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261123-shmem-swap-write-failed-v1-1-41a0115dfbf1@columbia.edu>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261123191703.179283-14-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261123-shmem-swap-write-failed-v1-1-41a0115dfbf1@columbia.edu>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-
-
-On 11/23/2026 11:15 AM, Lee Jones wrote:
-> Standard MMC Device Tree nodes may specify "clock-frequency" on SoCs
-> that do not provide the optional 72116B0 "sdio_freq" clock, in which
-> case devm_clk_get_optional() legitimately returns NULL.  However,
-> sdhci_brcmstb_probe() only checks IS_ERR(base_clk): when base_clk is
-> NULL, clk_get_rate(base_clk) evaluates to 0 and overwrites
-> SDHCI_CLOCK_V3_BASE_MASK in host->caps with 0 MHz while leaving
-> priv->base_freq_hz non-zero for system resume.
+On 11/23/26 18:21, Mani Tofigh via B4 Relay wrote:
+> From: Mani Tofigh <mt4022@columbia.edu>
 > 
-> Check IS_ERR_OR_NULL(base_clk) and clear priv->base_freq_hz on the
-> fallback path before jumping to add_host.
+> shmem_swapin_folio() drops a large folio that does not fit the mapping
+> from the swap cache if the folio is neither dirty nor under writeback.
+> The folio can belong to another file and be under swap writeback, when
+> the swap entry was freed and reused before the swap cache lookup.
 > 
-> Fixes: 97904a59855c ("mmc: sdhci-brcmstb: Add ability to increase max clock rate for 72116b0")
-> Closes: https://sashiko.dev/#/bug/linux-88799a75-1ece-4f9d-bdab-eeb713627ab2
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+> Swap write completion does not take the folio lock.  On a failed write,
+> swap_write_end() marks the folio dirty and then ends writeback.  Since
+> dirty is tested first, the folio can look clean and written:
+> 
+>   CPU0 (swapin of file Y)             CPU1 (swapout of file X)
+>   -----------------------             ------------------------
+>   shmem_swapin_folio()
+>     folio_test_dirty() == false
+>                                       swap_write_end(), failed write
+>                                         folio_mark_dirty()
+>                                         folio_end_writeback()
+>     folio_test_writeback() == false
+>     swap_cache_del_folio()
+>     /* X's data is lost */
+> 
+> The next swapin of X reads the slot whose write failed.
+> 
+> Test writeback first.  Both flags are in folio->flags.  If the
+> writeback test sees the write ended, the dirty test then sees the dirty
+> bit set before it.
+> 
+> With the fix, a folio whose swap write failed stays in the swap cache.
+> 
+> Fixes: fc2c19648d68 ("mm/shmem: fix swapin livelock on a mismatched large swap cache folio")
+> Suggested-by: Chris Mason <mason@kernel.org>
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Nest to make that a Reported-by:
 
-Not sure this deserves a Fixes: tag.
+I'll wait a bit before I pick that up. But it will be a v7.4 hotfix.
+
 -- 
-Florian
+Cheers,
 
+David
