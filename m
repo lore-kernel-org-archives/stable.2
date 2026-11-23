@@ -1,96 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795407785;
-	b=IIZfWR5iXTTlWJEwyCstrmcqJlFHhnbFArTsPWt8/ry39S1PzFOXW4Z1POaqdZln8fXR
-	 d0aOdEwYBcZZu/hx1GPGL5taoVafI+3SW8n/dxMwJGa+PxXNXTKUV2Z73dmL12HoObV1g
-	 yFFmmEj8txyzCjWxUXyxCOb81CaMXe+Ch4DO13YdYO9fP/U8vE4ns75/m1GKMA7JxE7c3
-	 lzgIPCghirP13eyOQ6OXPow93yAWcOdT4ZvQ++cz6+p6Kw75Lv3LiQ85+5ztVic5p/ClJ
-	 F9yZXpIuQgL0/j5MdW6J8QeX9Tkn4J+dOJDd7Qj9ADqOODDIEI7pWrh+fO73tA0XkHQ==
+	t=1795408811;
+	b=P5sxr2t5fNxLptHX5aTAxFvelLiTndGqH+tJ0TXY27R9WAJaLaIgVVtclnnPiK2+v4JB
+	 ru8lFse2Iyg97OJMLmX5AYS9Z1a5wMWI2kfITCpWyJKVDRVSlmRecoK/OaLSS0tMaJaQC
+	 3Zq+EoocukjgLlq1Zn4IE5aGVAnsqdZ+CL4+7U6MWsHQEjK2fGhttwYVGVCnLknryZtEs
+	 ADdZY0gsKdQ8k87Hz3KXtYZkXYHUxIC2jXfRCo4bkweaszfT2BZv4fl117lVWJJkd3n9U
+	 IR5Q4tKgqELjjDAvk1J92fVsndV8IKjGKxjXLNUX4B01hyz4skou74YX/ZJclFPKPCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795407785;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795408811;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Z7nPTI5arwtfLvJ1u0SNc3tfHxfngmeM3rWmqkRPFe0=;
-	b=WMl8LspaYYcHNcGD/mALTHXsGKgQdruuQWUVAQefAozh/5wIHqfaaXuOkj33VS9U6HoN
-	 ZkZxI0x3fIZjd/bggTs8+KUAShTSPLuHwhfVxhtFzGrxqkvvTJUsPw8txDbdbXKXAaGMx
-	 /USdvzmqjULoGF7tQIJ85V8CpjRjvg/McmPuqFk0tkWD6TUbZX0RPRvGslcfCo3mK4bWw
-	 KpLReNxd6/QenvobIfblSgVASFohUYj462+HNPYYTxi0z9KFKomqSZpizEfwtyKLMPlfX
-	 yrLjmLvcJmrpYSNp0AakBBn/YVNTu5mBWkZEfSaKq/h6qZYVXX//V+iV4nHoKwRcJiw==
+	bh=Gdrcz7ax90Dmq2ghAsgN9C5sw5lV7csK9Wkpqn6bdEE=;
+	b=Agliu40oSzSYw7ebnHOWCwwBguSJXPFfKlATcJMhr8q18EAJrbHn6UnUYfVRw2KGhi+P
+	 cOfKruVS4H5+q4ExlJC39eVkxCxu23JVAsFHJw16ZgH4mLPPlx6CUADezixl1vJt11gkv
+	 jvlfuMMxlXkljfnDA9HOMmf+/hoi7/rieSVTpz1rr3B5mIzZC03VBZmAwP/k8OlURQNQh
+	 zIxvz8OcaIAszuHHnLEpp58UJzlirms18t+Qreb06wuaesI7j7iHNDUqNv5R0vDsv+yKF
+	 4x1o4U5w/VT/CzTgj5HMVv8eQeoVRoGJ1gv1M5hsYel5/f7npMFoicLEvFMt0Xmwuvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Akvb2KTo;
-	arc=none smtp.remote-ip=209.85.222.179
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	dmarc=none header.from=ikotaslabs.com;
+	spf=pass smtp.mailfrom=ikotaslabs.com;
+	dkim=pass header.d=ikotaslabs.com header.i=@ikotaslabs.com header.a=rsa-sha256 header.s=google header.b=lfO+y+7Q;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F22606A32D
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 04:23:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79F22606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B98606A32A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 04:40:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77B98606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ikotaslabs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ikotaslabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Akvb2KTo
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-94961ed97bcso324537285a.1
-        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 20:23:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ikotaslabs.com header.i=@ikotaslabs.com header.a=rsa-sha256 header.s=google header.b=lfO+y+7Q
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b40d23e1adso2065496a91.0
+        for <stable@vger.kernel.org>; Sun, 22 Nov 2026 20:40:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1795407783; x=1796012583; darn=vger.kernel.org;
+        d=ikotaslabs.com; s=google; t=1795408810; x=1796013610; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z7nPTI5arwtfLvJ1u0SNc3tfHxfngmeM3rWmqkRPFe0=;
-        b=Akvb2KToJ3Ak1XsuDnYKBtbnhh9DBx5jCOEwkXgnAWKJ1gOMmH78uj2GxxBO9gCO6t
-         GMt8G8Mqg3loK9qNScCW+6j/7XOvuTeqYCQZlHM1+earUWSLsh/SpnyfnGV70d64iCPn
-         6hvDtDHLV1GNruB06Gsukzt+tYEQ3lamByTnCv3vBIwLPmRqUNcdQl1qzCVH9tnVjpXu
-         3zp+Ixy2fD4tL6Nyl3HL9sKrUcyufJGYp/c7X/CwpDeNtlSJSGClfjEqPDCnzSGwdrCt
-         Q4LD2xw+qGpGsL1TrBKx1iV2YizypbOUYUfiSsq6Shnz3VoWUz9cg7SEZzBRjnTSABfn
-         9BDw==
+        bh=Gdrcz7ax90Dmq2ghAsgN9C5sw5lV7csK9Wkpqn6bdEE=;
+        b=lfO+y+7QIdN8L3Vwj2YzzhfjLGdDRLQM4IbcJCTi74MuDaeLTjf4wm5gDBDwLJaZFi
+         bJpRfqlw+6BCpliJDc+klY7xO6QokRYnRzJqi8oA2/ibEztkIfmpLfhGBfhN28ihXZOW
+         7T95r8fjFyssK1dw8wxxbmg2P/MmyY5ud+ycwdniqYHpTiNXtRMRouZ9fL5ltPin5AVS
+         wV6lr3OGNwGXiFgoAlTbOWqg+/wAjkoXQDLZOso3ZQi5lJ3cJuSPLD722eLFdcuVJxUu
+         I+xFahsTL7LJCOYdQt//+m2XkAygf6m8Qx/jXPGUg2jA9vwNQTlgCbOfyyymCvT+H7SN
+         /Ljg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795407783; x=1796012583;
+        d=1e100.net; s=20260707; t=1795408810; x=1796013610;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Z7nPTI5arwtfLvJ1u0SNc3tfHxfngmeM3rWmqkRPFe0=;
-        b=HScdwAiXWNpjQS7xrjG566gGhYH21nhXlx5RTPlTm0ybS0r3g/TmY++AA59nx4BKf4
-         2HCC0HpJvVR0XbGy6d5fM6AyMRGWStogC3L+/ngvRIuO0t8sonTg9oNjOgsBSDNYVe+v
-         s1vEh+7NOxEnHl19GHOlZ4s2MaaK/qJS0rKqAVQqqEOc2PCkgKV/VztXUNYlXP4jv/ic
-         QWSsC63jJKQpmzrl/y99Xvtq9teABXrgowksThfJMuxAnnayqna3rEK2F2b+C1xuwy5/
-         /FPkCGIvVIueGijGzZRZSKBT9XC2eLI6K8i5mM27YhwsXQoXDKDnGYEkTzBj/uus3ib1
-         LcKA==
-X-Forwarded-Encrypted: i=1; AL+hErEVZZzYKhIN2RM2B3Ge8E3nGERSYk0cnr3XGKsoMvjxeaKWyz1O8plXI+taic9CPKk49t1gxIQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LGEnpWSvL2K2qjsaW0eaZS9uABeIhSeChbhg2K4Owi8NhGXeU
-	qIALy7wLZeyNBOG3dJFujf0NTn7KOVWrAu7fjXaK9jlI/EwQmeWrssWRydQPCyCY+A==
-X-Gm-Gg: AZFdTZeY45U7hX9x7xMqqC+8DkbHd0tismow4icZybQpyVr2IKAKVUZbislJHU7DQZa
-	XHhNn2WUO+Vqy0KBaPitandYTFcGrwL3ulLhtlPvW3uFEaNMAtpvQ/Cq/vaT4Yqbs82IpZocW8C
-	mpshLOcdE9MPZ9UH2es15vlcBa0sFtAW6VzZc/DLPlhW5LIqgBQFkPpjMyvuYNWCFO/pQsmgo8E
-	Ug8ZpGu13XWgTFulGVtDn60rCKgXsGqg/6M9uYNFpImHzxkfzP7CMkVS4y9HsleZM/qdAskxnhh
-	spenMYAbxMVPZclhgSW07MuNcpEiPUiNfVqooDdWBZcxne0ah9m5hfAgB/qYwwq5LuIVOqF08UA
-	WrE0mCTLlcb5+LjYIPCqHQW4yXRAwur6CxZipCNk6fJdCBCPDIE7PVKOlUAD7jGEGaRCAPxVnGy
-	4NT5iQWRYkzvL3WKkaNtHDE1YdapIo3k+xU/EDW1DEP61pxDU/TdspDmDIZxvsXW1HAFUuR+Kt3
-	1wEmeLvpJ6CrDfMUbKXLbDyM3F8u0TOAyk02Abg+B8HZqikX7tsDf50wYG/3QLhLymwhoXPy+dT
-	O8Ibc1aO8nJ/K+YWija5wI8BL/6eMcXt3DWwR/xfPcwNATu+zYgR
-X-Received: by 2002:a05:620a:4397:b0:93c:8e3f:3036 with SMTP id af79cd13be357-949ba827abemr1807820185a.4.1795407783349;
-        Sun, 22 Nov 2026 20:23:03 -0800 (PST)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb34a38bsm717421185a.13.2026.11.22.20.23.02
+        bh=Gdrcz7ax90Dmq2ghAsgN9C5sw5lV7csK9Wkpqn6bdEE=;
+        b=nXPPaPAo7qygvKP4nSdVzR+HxqZUwFpu1uH68vm1TvWWv86x4traJ/zfljfImp7tF+
+         Ky4sE7uHGLXLMVmEThGJwRW7CaEvwW1Qfk8SmniXh0+/UDVxFt6TpwksXemjQajgQtiC
+         zuvjvOyRFfISc2Dn0UO4iXofKC/g+fgUh39JC+CGGGjbEEZIow5NpBy+47EzrP8ox9Mk
+         ZTBchGWn2NPHBC2q1dtzh30PESCmJQzcndeTHuGB0XgABWvL7Henq6OIvKfT68gmUpQa
+         kpfAW5cHv9dykMsnjrCYjQ2OIQDvwSF3+2mavOdb7loBorMRLyBsQiGYvEv/Ttz+ILV5
+         Ajwg==
+X-Forwarded-Encrypted: i=1; AL+hErEfmQ2HEYa2rA1FsZMHi/wZT2gj250f6ccmDEtAchoS3RSuaTbDJxScvr/lgaMoS0d4TvYyw8o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/794UYFX2fKEQYgad5V2P7gCh0eEANez0HTwLTgyDDIbNWY3Vr
+	mxIe8YMVhqs1HlRtgUH+ro1m1uxkNbUKjW7OwORAAy7xLjyWnbn0Hxge2RGBmtWWQDw+
+X-Gm-Gg: AZFdTZcaBbKPKtdvnb/b0kKsXQD80yn23oWhzrrjMiuAsgSa6DdOo/uUd2uxjFUOpYX
+	gHoBLRdvABnx4mvPW8dSRtZDbONYXj5SkhiknEIvyE+K2msEQn24U9XTtTRxH70lAlxNNs0rSeS
+	WpJRdW6lLWWNNdVc38GpV/64Ow/EvoiQZRVxCaBUiDWT+FgyrU46F3H+OsPLFQVe5KN9OJST2Tm
+	hvKH8Pmkf9p+lj55zmez24P9fqit4Ak4u1EhPr6QdyUY/DRPW36DgrmOUunsfD/bO1gU5UoEO+9
+	+yJnOyjcckqqmBV5Y+BURQsWyx+GIaFoLH3kShhwTIPqntrpSnMMyoIP3B1ylfzMSafSMw/AJqL
+	AqW6cUqHg6eP7yNswjhl0+dnKeFv270TVLiP4uMaGQf/+escV2kq4dM8EViw3vTKPB5DtaMgGg6
+	+D9N6n7Dtuy0XzyPyG5i+m1p/UWELRqnmdlB6RiUUxOnmMCQjSRmth/KQu9wG412XHvTYfn0u2F
+	9tqC5mW5uztoTOfU9IukVEUumOd3oxASs8ioRgbLYKXeegWtC5WpNANOYBnn9C3/SE2wwqS65WM
+	VsEnBw+6inoPSWa7vexw42EOS05MbkVpWdUSRmNU6lFdL/kDbcK4AGVTw0FhwNJnErEk4TtRMJ8
+	ydZYDflpLVGHstdOOz/VbiBVkDTTU0+NqKepUuDeA2bFNJqPCmSufWqkSMzJQNA==
+X-Received: by 2002:a17:90b:2f8c:b0:3b4:10c3:c1b6 with SMTP id 98e67ed59e1d1-3b41c9286acmr9856003a91.25.1795408809770;
+        Sun, 22 Nov 2026 20:40:09 -0800 (PST)
+Received: from gx81.tail3ecf1.ts.net ([240b:11:99c0:1c00:9e6b:ff:fe84:e26e])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6c9c7dcbsm4648673a12.0.2026.11.22.20.40.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 20:23:03 -0800 (PST)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	kvm@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+        Sun, 22 Nov 2026 20:40:09 -0800 (PST)
+From: Ryosuke Iwahashi <ryosuke@ikotaslabs.com>
+To: pablo@netfilter.org,
+	fw@strlen.de
+Cc: Phil Sutter <phil@nwl.cc>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2] vhost/net: ignore extra words in VHOST_SET_FEATURES_ARRAY
-Date: Sun, 22 Nov 2026 23:22:59 -0500
-Message-ID: <20261123042259.3484334-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH v3 nf] netfilter: nf_conntrack_reasm: fix IPv6 transport header offset
+Date: Mon, 23 Nov 2026 13:40:07 +0900
+Message-ID: <d648a02b8a1928708125e07b.nf-v3-ryosuke@ikotaslabs.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,72 +100,149 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 333c515d1896 ("vhost-net: allow configuring extended features")
-added VHOST_SET_FEATURES_ARRAY. The ioctl reads the number of feature
-words from user space, copies the words it supports, and then reads
-every remaining word, one at a time, to check that it is zero.
+nf_ct_frag6_reasm() resets the transport header to the bytes following
+the Fragment header. If Destination Options precedes Fragment, the Next
+Header field at IP6CB(skb)->nhoff still selects the options handler,
+which may misread the following UDP header as options and drop a valid
+packet.
 
-That loop has no upper bound and no scheduling point. A caller can pass
-a count of U64_MAX and a pointer into a large zero-filled mapping. The
-ioctl then stays in the kernel for as long as the mapping is readable,
-and a fatal signal is not handled until it ends. On a v6.18 debug kernel
-booted with preempt=none, two such calls from a non-root user, each on a
-4 GiB mapping, froze a 2-CPU VM for 56 s with soft lockup reports.
+On native IPv6 input, preserve the transport offset and use fhoff to
+locate the Fragment header.
 
-The check is not needed: the extra words can only hold features that
-this kernel does not know about, and they are never stored. Drop the
-loop and ignore them. A nonzero extra word is now ignored instead of
-failing with EOPNOTSUPP. Unsupported bits in the words the kernel knows
-still fail with EOPNOTSUPP.
+The UDP test datagrams dropped on the unpatched kernel are received
+after the fix, and the ipv6_fragmentation and ip_defrag selftests pass.
 
-Fixes: 333c515d1896 ("vhost-net: allow configuring extended features")
-Cc: stable@vger.kernel.org # v6.17+
-Suggested-by: Michael S. Tsirkin <mst@redhat.com>
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Fixes: 6aafeef03b9d ("netfilter: push reasm skb through instead of original frag skbs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ryosuke Iwahashi <ryosuke@ikotaslabs.com>
 ---
-Changes in v2:
-- Drop the loop instead of rejecting counts above one page (Michael).
-- v1: https://lore.kernel.org/r/20261122120919.1718445-1-hengyul@cs.unc.edu
+v3:
+- Preserve the receive position so v3 processes options that v2 skipped
+  before Fragment.
+- Retarget Fixes to the commit that first passed the reassembled skb up
+  the stack.
+v2: https://lore.kernel.org/netfilter-devel/20261101170633.625161-1-ryosuke@ikotaslabs.com/
 
-I found this while comparing the behavior of different kernel versions.
-I used an LLM to analyze the problem and to draft the patch and this
-message, and I analyzed the result myself.
+Codex assisted with this patch.
 
-Tested on the vhost tree at 44293796526f with KASAN and lockdep. With a
-count of U64_MAX on a 1 GiB zero-filled mapping, the ioctl now returns
-at once (before: EFAULT after 27.4 s), and a SIGKILL sent during the
-call no longer waits for the walk. Counts of 0, 2, 3, 512 and 514 with
-zero words succeed as before. Unsupported bits in the first two words
-still give EOPNOTSUPP. A nonzero third word now succeeds instead of
-giving EOPNOTSUPP. VHOST_GET_FEATURES_ARRAY is unchanged.
- drivers/vhost/net.c | 12 ------------
- 1 file changed, 12 deletions(-)
+ include/net/netfilter/ipv6/nf_defrag_ipv6.h |  2 ++
+ net/ipv6/netfilter/nf_conntrack_reasm.c     | 30 +++++++++++++++------
+ net/ipv6/netfilter/nf_defrag_ipv6_hooks.c   |  6 +++--
+ 3 files changed, 28 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/vhost/net.c b/drivers/vhost/net.c
-index 631855064b3d..f6b59def4a21 100644
---- a/drivers/vhost/net.c
-+++ b/drivers/vhost/net.c
-@@ -1802,18 +1802,6 @@ static long vhost_net_ioctl(struct file *f, unsigned int ioctl,
- 		if (copy_from_user(all_features, argp, copied * sizeof(u64)))
- 			return -EFAULT;
+diff --git a/include/net/netfilter/ipv6/nf_defrag_ipv6.h b/include/net/netfilter/ipv6/nf_defrag_ipv6.h
+index ceadf8ba25a4..99f6a5ae73ed 100644
+--- a/include/net/netfilter/ipv6/nf_defrag_ipv6.h
++++ b/include/net/netfilter/ipv6/nf_defrag_ipv6.h
+@@ -11,6 +11,8 @@ void nf_defrag_ipv6_disable(struct net *net);
+ int nf_ct_frag6_init(void);
+ void nf_ct_frag6_cleanup(void);
+ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user);
++int nf_ct_frag6_gather_hook(struct net *net, struct sk_buff *skb, u32 user,
++			    bool preserve_transport);
  
--		/*
--		 * Any feature specified by user-space above
--		 * VIRTIO_FEATURES_BITS is not supported by definition.
--		 */
--		for (i = copied; i < count; ++i) {
--			if (copy_from_user(&features, featurep + 1 + i,
--					   sizeof(features)))
--				return -EFAULT;
--			if (features)
--				return -EOPNOTSUPP;
--		}
--
- 		for (i = 0; i < VIRTIO_FEATURES_U64S; i++)
- 			if (all_features[i] & ~vhost_net_features[i])
- 				return -EOPNOTSUPP;
+ struct inet_frags_ctl;
+ 
+diff --git a/net/ipv6/netfilter/nf_conntrack_reasm.c b/net/ipv6/netfilter/nf_conntrack_reasm.c
+index be72c4346f8b..6fd8f7d064e0 100644
+--- a/net/ipv6/netfilter/nf_conntrack_reasm.c
++++ b/net/ipv6/netfilter/nf_conntrack_reasm.c
+@@ -320,8 +320,9 @@ static int nf_ct_frag6_reasm(struct frag_queue *fq, struct sk_buff *skb,
+ 			     struct sk_buff *prev_tail, struct net_device *dev,
+ 			     int *refs)
+ {
++	struct frag_hdr *fhdr;
+ 	void *reasm_data;
+-	int payload_len;
++	int payload_len, unfrag_len;
+ 	u8 ecn;
+ 
+ 	inet_frag_kill(&fq->q, refs);
+@@ -345,14 +346,16 @@ static int nf_ct_frag6_reasm(struct frag_queue *fq, struct sk_buff *skb,
+ 
+ 	/* We have to remove fragment header from datagram and to relocate
+ 	 * header in order to calculate ICV correctly. */
+-	skb_network_header(skb)[fq->nhoffset] = skb_transport_header(skb)[0];
++	fhdr = (struct frag_hdr *)skb->data - 1;
++	skb_network_header(skb)[fq->nhoffset] = fhdr->nexthdr;
+ 	memmove(skb->head + sizeof(struct frag_hdr), skb->head,
+ 		(skb->data - skb->head) - sizeof(struct frag_hdr));
+ 	if (skb_mac_header_was_set(skb))
+ 		skb->mac_header += sizeof(struct frag_hdr);
+ 	skb->network_header += sizeof(struct frag_hdr);
+ 
+-	skb_reset_transport_header(skb);
++	skb->transport_header += sizeof(struct frag_hdr);
++	unfrag_len = -skb_network_offset(skb);
+ 
+ 	inet_frag_reasm_finish(&fq->q, skb, reasm_data, false);
+ 
+@@ -365,8 +368,7 @@ static int nf_ct_frag6_reasm(struct frag_queue *fq, struct sk_buff *skb,
+ 
+ 	/* Yes, and fold redundant checksum back. 8) */
+ 	if (skb->ip_summed == CHECKSUM_COMPLETE)
+-		skb->csum = csum_partial(skb_network_header(skb),
+-					 skb_network_header_len(skb),
++		skb->csum = csum_partial(skb_network_header(skb), unfrag_len,
+ 					 skb->csum);
+ 
+ 	fq->q.rb_fragments = RB_ROOT;
+@@ -443,7 +445,8 @@ find_prev_fhdr(struct sk_buff *skb, u8 *prevhdrp, int *prevhoff, int *fhoff)
+ 	return 0;
+ }
+ 
+-int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
++int nf_ct_frag6_gather_hook(struct net *net, struct sk_buff *skb, u32 user,
++			    bool preserve_transport)
+ {
+ 	u16 savethdr = skb->transport_header;
+ 	u8 nexthdr = NEXTHDR_FRAGMENT;
+@@ -474,9 +477,15 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
+ 	if (!pskb_may_pull(skb, fhoff + sizeof(*fhdr)))
+ 		return -ENOMEM;
+ 
+-	skb_set_transport_header(skb, fhoff);
++	/* On IPv6 input this cursor and IP6CB(skb)->nhoff describe the
++	 * next header for local delivery. It can precede the fragment.
++	 */
++	if (!preserve_transport || !skb_transport_header_was_set(skb) ||
++	    skb_transport_offset(skb) < skb_network_offset(skb) + (int)sizeof(*hdr) ||
++	    skb_transport_offset(skb) > fhoff)
++		skb_set_transport_header(skb, fhoff);
+ 	hdr = ipv6_hdr(skb);
+-	fhdr = (struct frag_hdr *)skb_transport_header(skb);
++	fhdr = (struct frag_hdr *)(skb->data + fhoff);
+ 
+ 	rcu_read_lock();
+ 	fq = fq_find(net, fhdr->identification, user, hdr,
+@@ -500,6 +509,11 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
+ 	inet_frag_putn(&fq->q, refs);
+ 	return ret;
+ }
++
++int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
++{
++	return nf_ct_frag6_gather_hook(net, skb, user, false);
++}
+ EXPORT_SYMBOL_GPL(nf_ct_frag6_gather);
+ 
+ static int nf_ct_net_init(struct net *net)
+diff --git a/net/ipv6/netfilter/nf_defrag_ipv6_hooks.c b/net/ipv6/netfilter/nf_defrag_ipv6_hooks.c
+index be7817fbc024..f84adba42175 100644
+--- a/net/ipv6/netfilter/nf_defrag_ipv6_hooks.c
++++ b/net/ipv6/netfilter/nf_defrag_ipv6_hooks.c
+@@ -64,8 +64,10 @@ static unsigned int ipv6_defrag(void *priv,
+ 		return NF_ACCEPT;
+ #endif
+ 
+-	err = nf_ct_frag6_gather(state->net, skb,
+-				 nf_ct6_defrag_user(state->hook, skb));
++	err = nf_ct_frag6_gather_hook(state->net, skb,
++				      nf_ct6_defrag_user(state->hook, skb),
++				      state->hook == NF_INET_PRE_ROUTING &&
++				      !nf_bridge_in_prerouting(skb));
+ 	/* queued */
+ 	if (err == -EINPROGRESS)
+ 		return NF_STOLEN;
 
-base-commit: 44293796526f4343639f87b2acc53811c78b5d54
--- 
-2.53.0
-
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
