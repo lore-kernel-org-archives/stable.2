@@ -1,56 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.84
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795426012;
-	b=zGuKTExYZkuEIme9vuuTU5qMLU+3ckOfvWd7PxUYw1ns5+mHjAfdujQuBIvfuMioHUkP
-	 u8jUZpj48pht0jWp+9dOzlNJfNF6PEaadP+dahKOyL7ldRKLBmB582IyMwIG6wPCKpv/n
-	 Vba65ZVfd+ZQd7JaqdvPFixIM12uT77GOr/QKYJ8ysROI/FBliyNrCctqjEouVml3M6WH
-	 S1fo3w98ik/JOoIVnfnzanouXzeJxhSXajnK1/V4NuZw70h+oFAoYSdh9Y9knM0TYlHX+
-	 4/qAkBuLLXvUguLlKS+mX/GkpON2eTmhqPjS3Gqbq2zQbSgKurzRvq0MCXx0TajD8iQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795426012;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:
-	 X-Mailer;
-	bh=czfx09lVEJ+5qbSUxtIYbjWuSXbhH8LThXJ7vZTPIOM=;
-	b=L8a04/oXiN6nYTizAoX+QK3qKwbUz63MA1dZDHCDplY+n+BWbVpFswoOqKEJ7GYsoUIk
-	 OVnSnCRovKwjOcZx3sfDncYPZDptmrYek6Q7tBYDhMLxnJUN8HDUe6cNpY/lPfEQMXJDR
-	 NvDoUYBPg/FWKz1uQfEA8gJJRogG7dzAzWQFAAxf+zt3MdHNJ6mAJgnaiin8IyTZNscfC
-	 UgrKYOC1ZWfkfURhJZXbZLSIufA6KxrpB+U0tGVmv6fmZF4tT5UeVonIq8W+mNOD1UaGO
-	 JyarKkSa1EhASSAjcxq5iWH3jTTbwy/fKFn5hhLRA5+4Z0edOw00ZPhxhcJg0efJlNA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Gi2Bgny2;
-	arc=none smtp.remote-ip=91.218.175.84
-Received: from mta0.migadu.com (out-84.mta0.migadu.com [91.218.175.84])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795426055;
+	b=ye5ydywIZoqq58ruzmnH8cPu6QfjCmHu/CvAHIMCLmHFxf6YM9wDvia75bDYA3VEOwXv
+	 vhJeL5pI3KtaxjLqA4gnxY1ub0h6ayO7RrKhHPlEcVU2chencYU9vx4wvZvAfBiCN+iLU
+	 X37U1hZZFcwWcto5v3uD8HuERFr6BKLHagEq59Tw/tSJi0N2zNIYKxqqB8YkaHsWAO+Ae
+	 IP0HfehImWVrLhsV2aOPGqUI7SgUlgRJY4S02XCw+beX2K0rSXzXGNtbwRXiQSgJMwXzj
+	 m1X+eJFVmTxC8Wi0/nGUrITprRa6o5Gw7xiBbzTud4gliRmh53bv+3HYOVjq4PDxFSA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795426055;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=O9WYOpMy3rGcu2QFyMreqnCz0RC3LAV/SW4SChJTtnQ=;
+	b=CisWB3cr/JEa50T94kynepseFSYDO5Hlq6YkPjo/YH5QTuimub+jKNexTDCMiwkEVH4A
+	 m9rsTNu94v+USwUbrifIjj2orR6guNtqlcIrBhKGTlAZ34GBK41VhwXcG3BscW+d/5oWt
+	 +5BHoe0qjuzUDyOUZNQQZ9ulrVpdDjw3Ue11CtJP/gN2KnBbGoHLYOtmsRYHAhgelCpUg
+	 cjIJ/0Y/68xA6PqUiJvWJ8lh5ccsxOZ61pBHMojfOP1bi7AOa3Z3hguhs5zufrX83fT57
+	 l99h5PSf4kNlQs2/VA28Fio5PHySt6YZXaJJBeAZ6gQWnNQ9cAigYyb4jUPolyLztrQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Lq8kSUT0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F26E606A31F
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:26:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F26E606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2049606A31E;
+	Mon, 23 Nov 2026 09:27:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2049606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Gi2Bgny2
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=g5DXUn2a5VY10LYZ28Rn2x9UC5KFh89OzpiCFa3tU90=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795426007; v=1; x=1796030807;
- b=Gi2Bgny21XFAYLT6spZSkExUZiIhaTtUnNbcG2bGb8s1m95uI3X7HKojpZEH2S3oo3VDsDGJ
- kN0pQIeMbCBMM0GzD/WkSfOrj2wKHCr9p+KbDuHH/MENJqGeLLpLfRSkPQ0imFpuIJrnms562+e
- 16lM9tN4SAQA0jnczKDMzFeY=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 918bf4bc19c1858d;
-	Mon, 23 Nov 2026 09:26:47 +0000
-X-Mizu-Trace-ID: 918bf4bc19c1858d
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Date: Mon, 23 Nov 2026 04:26:42 -0500
-Subject: [PATCH for-rc] RDMA/rxe: Allocate the MR page array with
- kvzalloc()
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Lq8kSUT0
+ARC-Seal: i=1; a=rsa-sha256; t=1795426001; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=lULQlH/iWZZAdHdVhCjEwlcIzQA41m4SqeNp1MPnq9Jt/tYdxzg3aHTgGj1D2rz+KsuCUGwWnaVUvosX47EyOBrDbAiRBsYZxxwyIk7N28IBwB/qIZbt0oHJQb7YCfzbN+/0X/vCy6DZt97F/biYn2YeSVTsI/G2hWO9GPU6IzY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795426001; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=O9WYOpMy3rGcu2QFyMreqnCz0RC3LAV/SW4SChJTtnQ=; 
+	b=Vd2ywhMpqKj7PqWkZl2NRUcPuWD5TwNdurhTts1g7C9OI3IlVBXUkByYjeBXo+DMs3X/V74YIyp1KYAV1tCnS1Fcgm1IOqY+D3aGt6r1r3PoN3fPTs0rIxBZi6h7khs/Lgol0aJ+k6PzcYR6ijxXRgTFbD16sYrLLTXP3emy6GI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
+	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=Lq8kSUT0J+v9ygmmcSasd3NU78h95TZpZxPHb+q8M9V34UAys8cfLKpk78g6OMR0k0Tr3dwBNTdK/2MN3UtIZfH/i4xwvvn5zc+9mqrh/acmWBugjARWoaC/mLFSVdmxrSvVEA//lCYB2L2TmkaREdzX42092zNRrBzhUiYCxq8=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=O9WYOpMy3rGcu2QFyMreqnCz0RC3LAV/SW4SChJTtnQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795425996155774.0498302105844;
+	Mon, 23 Nov 2026 01:26:36 -0800 (PST)
+Message-ID: <793eccf2-712b-44b8-8d71-5c69460cd5b8@collabora.com>
+Date: Mon, 23 Nov 2026 10:26:31 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,81 +58,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-bug-rdma-rxe-large-mr-v1-1-8d0748ac4a3f@linux.dev>
-X-B4-Tracking: v=1; b=H4sIANEGBGsC/x2MwQqDMBAFf0X27IJJ1Lb+iniIZmMXqpYXWgTx3
- w0eB2bmoCRQSdQVB0H+mnRbM5iyoOnt11lYQ2aylW2NsY7H38wIi2fswh+PbCzg+Gisr1/h6dq
- GcvuFRN3vb09xA2Oi4Twvub+JWm8AAAA=
-To: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Li Zhijian <lizhijian@fujitsu.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Zhu Yanjun <yanjun.zhu@linux.dev>, stable@vger.kernel.org, 
- Qiliang Yuan <qiliang.yuan@linux.dev>
-X-Mailer: b4 0.13.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] media: verisilicon: Size the VP8 segment map for
+ the largest frame
+To: aiyengar1990@gmail.com, Nicolas Dufresne
+ <nicolas.dufresne@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Hans Verkuil <hverkuil@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261115-hantro-fixes-v2-0-bfecfb07a3e7@gmail.com>
+ <20261115-hantro-fixes-v2-1-bfecfb07a3e7@gmail.com>
+Content-Language: en-US
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+In-Reply-To: <20261115-hantro-fixes-v2-1-bfecfb07a3e7@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-A user MR keeps a struct rxe_mr_page, 16 bytes on 64-bit, for every
-PAGE_SIZE page it covers, in one array allocated with kzalloc() when the
-MR is registered. Before the array, the pages were kept in an xarray.
 
-With 4 KiB pages, the array of an MR larger than 1 GiB exceeds
-KMALLOC_MAX_SIZE, so registering it fails with -ENOMEM, and the first
-attempt warns:
+Le 15/11/2026 à 09:39, Arun Iyengar via B4 Relay a écrit :
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>
+> The segment map is sized at STREAMON, but the CAPTURE format can grow
+> while streaming and overrun it. Size it for the largest frame, as VP9
+> does.
+>
+> Fixes: bbd267daf4fc ("media: verisilicon: vp9: Allow to change resolution while streaming")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 
-  WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0xe9/0x130
-  Call Trace:
-   __kmalloc_large_node_noprof
-   __kmalloc_noprof
-   __alloc_mr_page_info
-   rxe_mr_init_user
-   rxe_reg_user_mr
+Reviewed-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 
-Allocate the array with kvzalloc_objs() and free it with kvfree(), so
-that MRs of any size can be registered again.
-
-Registering an MR over THP-backed memory, median of 3:
-
-  size     before (ms)   after (ms)   change
-  1 GiB            5.3          5.2      -2%
-  2 GiB        -ENOMEM         10.8      n/a
-  4 GiB        -ENOMEM         21.1      n/a
-  16 GiB       -ENOMEM         85.9      n/a
-
-Fixes: 12985e5915a0b ("RDMA/rxe: Fix iova-to-va conversion for MR page sizes != PAGE_SIZE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
----
- drivers/infiniband/sw/rxe/rxe_mr.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_mr.c b/drivers/infiniband/sw/rxe/rxe_mr.c
-index 13cb28d3916f6..fbf4d89947383 100644
---- a/drivers/infiniband/sw/rxe/rxe_mr.c
-+++ b/drivers/infiniband/sw/rxe/rxe_mr.c
-@@ -157,7 +157,7 @@ static int rxe_mr_fill_pages_from_sgt(struct rxe_mr *mr, struct sg_table *sgt)
- 
- static int __alloc_mr_page_info(struct rxe_mr *mr, int num_pages)
- {
--	mr->page_info = kzalloc_objs(struct rxe_mr_page, num_pages);
-+	mr->page_info = kvzalloc_objs(struct rxe_mr_page, num_pages);
- 	if (!mr->page_info)
- 		return -ENOMEM;
- 
-@@ -186,7 +186,7 @@ static void free_mr_page_info(struct rxe_mr *mr)
- 	if (!mr->page_info)
- 		return;
- 
--	kfree(mr->page_info);
-+	kvfree(mr->page_info);
- 	mr->page_info = NULL;
- }
- 
-
----
-base-commit: e7732ec135b501e87ab060d992b3b5f2ec4396c9
-change-id: 20261123-bug-rdma-rxe-large-mr-f752a49d8365
-
-Best regards,
--- 
-Qiliang Yuan <qiliang.yuan@linux.dev>
-
+> ---
+>   drivers/media/platform/verisilicon/hantro_vp8.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/media/platform/verisilicon/hantro_vp8.c b/drivers/media/platform/verisilicon/hantro_vp8.c
+> index 381bc1d3bfda..98ad86269bc3 100644
+> --- a/drivers/media/platform/verisilicon/hantro_vp8.c
+> +++ b/drivers/media/platform/verisilicon/hantro_vp8.c
+> @@ -151,8 +151,8 @@ int hantro_vp8_dec_init(struct hantro_ctx *ctx)
+>   	int ret;
+>   
+>   	/* segment map table size calculation */
+> -	mb_width = DIV_ROUND_UP(ctx->dst_fmt.width, 16);
+> -	mb_height = DIV_ROUND_UP(ctx->dst_fmt.height, 16);
+> +	mb_width = DIV_ROUND_UP(ctx->vpu_src_fmt->frmsize.max_width, 16);
+> +	mb_height = DIV_ROUND_UP(ctx->vpu_src_fmt->frmsize.max_height, 16);
+>   	segment_map_size = round_up(DIV_ROUND_UP(mb_width * mb_height, 4), 64);
+>   
+>   	/*
+>
