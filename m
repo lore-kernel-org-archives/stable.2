@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795452597;
-	b=34ZR6XCsNz+b4NqcvVAWXfy6Xk7gBOVaw1yQ9ebg9McDiOROPFYfNh4HP4pA9a0kCqI8
-	 9lyW3etfYutDVmi+4sN/WALkw1mNU4Fe7r03Mh1tqVZ3wcHNwX239lUkK2WudnpxyghHq
-	 vwbdNEjwuHZf355U1bsidtvZ06NHkcLyqPBPQq41Zv5CycwVJ07KSQxicrBgwMQpTFGSl
-	 Cd8f1qEz0e0fHORgkLuLx4QOX/3gJa2sTaFNw2JDAETWR8D4KGfqbhZ0d4Ur0J/mPiyd1
-	 rStMVgKwYjTRE21St8YcKUAXZc+xmbou1cpW8/RnzhSo0Mxj5zvZVmKwC7SQZeWGdRQ==
+	t=1795452603;
+	b=LoFlfoElwjUEvNjTt3WIKmNS4v7UTsKBmwkhC6OaFCNm24ActXDqYz/86Cy10Hrlmyr7
+	 aQWYGer227pMTyZY7103ib+zhGpHg/ixKiJ4I9bsmnA49gTvuniAUvw2a7eqcAnEPxPTw
+	 /Qf1pTSGtiIPF0EGVCXnTTNOKyKYtmrFOZsSyeb/df4W/bGT0oOA+ixoshzOAuQjG8Ek7
+	 vOwFr7Xxdkddjz+y1rM6M+FDQ74lzncF35nnjXTtrWgnJtVpkby2Zh5TJxhCB3KXgOvEp
+	 pF8olMXpncB0h+t/aA/iRNzoVnU0Y89vtGrMyXn+bcGnbY/p+u4IUOB9o8LC6OtjrOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795452597;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795452603;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Yiuz3nKQQdprhCmGaRKEJvFMwJkVpQ19Oh5cjxYdZdk=;
-	b=HgaQ1mukiKkhvaNnmvTc7yCv+zNv1fuon+XfmquFkmeHmqXMRPr3+XdweQ6JIdVkQYMw
-	 wosUL7DxZrJ8JQro+bPxHOKOCK0rK30GbDOodxc//BYmAF23tFJHOcBik3k/lrwCZ5lqT
-	 SA6o1Lqq5DUee+iItpqHDDSYQnUhYfkCEtyA7nrcATIrvqiLFldJKNEKXgtVI3K4Zi1oo
-	 NIVMRdePofFt7//lvZo73qeE44Ve4L8vNa9Sjf/nJXIn9Dyg1LmC/Ci81WEtwuJgeMFI6
-	 NAzqRGVxGOtB8ra23vOJxBDMc8ja7Bo61N0/VhwRyaRlkqz1wkc6gLdKWQmt1YQL4kw==
+	bh=j2EuaIxk4oysf6OviyRPJrkK5hc9SHiGg82we225gU8=;
+	b=QKRnp2kIG52YMSZn781/jZ8KCSEX9vDcVcIdd1EiZAEoAaqdgZ/5wcC8oel3dKGOhBVK
+	 g1icT06XGEBYLMRoeIuyKM9c7JKGI+IDH9AB+x88h0KM+kfjpvzH7EzMHhaUjKxnK/W/l
+	 jl7OwqhOiFRXOtoYM8rfcE1uj/+yBHc8njkQ+8Qzb4WIT+fk4zVgXIHcb1/4fLY3j5GsV
+	 KsJNUV8QSwaY9PJdRUEjoq2Y+GxCuUmDK1ZqhOIJpqE1VoeZxkCHtLvMnwCkTSxvaRaYa
+	 2COaqKJIHfJuc5zdoAwWiJ9okMaw/8tq4aLPiToWZlQxfi2JBpWxPVAauJe4AqcBEHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G8sfh2he;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EqRdB0Ww;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D81606A690;
-	Mon, 23 Nov 2026 16:49:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D59F7606A336;
+	Mon, 23 Nov 2026 16:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G8sfh2he
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE851F000C4;
-	Mon, 23 Nov 2026 16:49:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EqRdB0Ww
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBD0B1F000C0;
+	Mon, 23 Nov 2026 16:50:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795452596;
-	bh=Yiuz3nKQQdprhCmGaRKEJvFMwJkVpQ19Oh5cjxYdZdk=;
+	s=k20260515; t=1795452603;
+	bh=j2EuaIxk4oysf6OviyRPJrkK5hc9SHiGg82we225gU8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G8sfh2heXpRab2+he9tSVnFh9I06GNblCEf6EBKsV9FcDMGdtJ29lhk3sOXfXkt1e
-	 W59LSgMXqTFxbkHtIH9sU2qJSeZuNm4DCy//c6bTAZFJHrWNli+gLRpxrXNlTA7zDN
-	 lI7eyb61VpVUwhEmX8uEKcUbDtmkjebVqTb/4+GZWqvu4wlAEafyGxRAiFe/ktGWyP
-	 YkUa6px22h4n2FAKKmcUuNTyzy59GBXMNhwgtZ5pRl1mm027v6Y0gsNYkeH0lgMGa/
-	 6mRAJzbWfDRVtkV4IgqEc78HDMRwqFAuK8PrGkTU0NOHQHQ8IHpwCjjKIgSV4GMUSU
-	 9YKDGEEeQHIHw==
+	b=EqRdB0WwNM7TrYVHS+B0zOzXCJp1yXvy7gn3VxXIiEIrfoKWHvouJgRTMb+SI/UEB
+	 ZBoNW5xSP+8LpNqenhFvQkQSsU28EZKRqA4hbZTFjQSL3UsV0P/mVv0s37v2ey73Oq
+	 LXbAr7teh69H3hZ58BD1TgQ3f8eOOQQiywIGQVeLsLuQpD/5/nOqxV2b5r+Okk29pl
+	 CXA+azaCyUKX8OMzUiMT2yat0pLArk6LRAzdkwRVgytqQO3TD9AeHiNp2At1Y79Eju
+	 qkAKNGxsoza5eSJMSmr574uolEfqJAcK2o8GNKsVnCvAT81Te8L8JJCMBk7OXJoe9Y
+	 5c7Uu+6AwMI4A==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Mike Looijmans <mike.looijmans@topic.nl>,
-	Michael Turquette <mturquette@linaro.org>,
+	Lubomir Rintel <lkundrak@v3.sk>,
 	linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 09/10] clk: cdce925: Use devm_of_clk_add_hw_provider() to avoid UAF on unbind
-Date: Mon, 23 Nov 2026 16:47:42 +0000
-Message-ID: <20261123164834.3330320-10-lee@kernel.org>
+Subject: [PATCH 10/10] clk: mmp: audio: Use devm_of_clk_add_hw_provider() to prevent UAF
+Date: Mon, 23 Nov 2026 16:47:43 +0000
+Message-ID: <20261123164834.3330320-11-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
 In-Reply-To: <20261123164834.3330320-1-lee@kernel.org>
 References: <20261123164834.3330320-1-lee@kernel.org>
@@ -68,39 +67,39 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-cdce925_probe() allocates its clk_cdce925_chip state and registers its
-clocks using devres, but registers its OF clock provider with the
-unmanaged of_clk_add_hw_provider() and provides no remove callback.
-When the I2C device is unbound or the module is unloaded, data is freed
-while the provider remains on the global OF clock provider list, causing
-of_clk_cdce925_get() to dereference freed memory on subsequent lookups.
+mmp2_audio_clk_probe() allocates priv via devres and registers all
+clocks with devm_clk_hw_register(), but register_clocks() registers the
+OF clock provider using the unmanaged of_clk_add_hw_provider() while
+mmp2_audio_clk_remove() never deletes the provider.  Unbinding the
+driver frees priv while leaving a dangling clk_data pointer on the
+global OF clock provider list.
 
-Register the provider with devm_of_clk_add_hw_provider() so it is
-automatically removed before the clocks and driver state are released.
+Use devm_of_clk_add_hw_provider() so the provider is automatically
+removed on teardown before the clocks and private data are freed.
 
-Fixes: 19fbbbbcd3a3 ("Add TI CDCE925 I2C controlled clock synthesizer driver")
-Closes: https://sashiko.dev/#/bug/linux-30a4148f-b048-49b1-a21a-4665f03e4cf8
+Fixes: 725262d29139 ("clk: mmp2: Add audio clock controller driver")
+Closes: https://sashiko.dev/#/bug/linux-c4f4539f-43f7-43ff-938f-01a855925960
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/clk/clk-cdce925.c | 4 ++--
+ drivers/clk/mmp/clk-audio.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clk/clk-cdce925.c b/drivers/clk/clk-cdce925.c
-index 52d350f91496..6dfba3158d8e 100644
---- a/drivers/clk/clk-cdce925.c
-+++ b/drivers/clk/clk-cdce925.c
-@@ -795,8 +795,8 @@ static int cdce925_probe(struct i2c_client *client)
- 	}
+diff --git a/drivers/clk/mmp/clk-audio.c b/drivers/clk/mmp/clk-audio.c
+index 19233684fbf9..9ef5cca1e1f3 100644
+--- a/drivers/clk/mmp/clk-audio.c
++++ b/drivers/clk/mmp/clk-audio.c
+@@ -342,8 +342,8 @@ static int register_clocks(struct mmp2_audio_clk *priv, struct device *dev)
+ 	priv->clk_data.hws[MMP2_CLK_AUDIO_SSPA1] = &priv->sspa1_gate.hw;
+ 	priv->clk_data.num = CLK_AUDIO_NR_CLKS;
  
- 	/* Register the output clocks */
--	err = of_clk_add_hw_provider(client->dev.of_node, of_clk_cdce925_get,
--				  data);
-+	err = devm_of_clk_add_hw_provider(&client->dev, of_clk_cdce925_get,
-+					  data);
- 	if (err)
- 		dev_err(&client->dev, "unable to add OF clock provider\n");
+-	return of_clk_add_hw_provider(dev->of_node, of_clk_hw_onecell_get,
+-				      &priv->clk_data);
++	return devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get,
++					   &priv->clk_data);
+ }
  
+ static int mmp2_audio_clk_probe(struct platform_device *pdev)
 -- 
 2.56.1.750.gf70dc682cf-goog
 
