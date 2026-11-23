@@ -1,75 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795454175;
-	b=J1VugTiPYMhBeQ/N69+EdBbefd8gFGuKCK3qMNsAYeQL6YBaUD7CmGnbIa/nPJS2AsOm
-	 LgoUdMpRn354oo1XBAW0NWp1WfbqEY4RDzDw5goFz49wthR3IIphn6mOkJjHq8YbEkZZ7
-	 jdwnVNyTDyu5CM4+281mzj5a+IWZ0gwtHP+xIj4fymi9BeyNiDys5g9M+OOXfQIya4xpP
-	 HQ3pDT3EW+V4QChSvZ+eoyqAcGA3SC27Ek8WPYro2G5qn99udr6d0kgeKAP38lo8PBXdq
-	 QE7XQJSNIBX2UEQtMlAC3gbyoR8pGdMBtNRZGrafQcnn2jhR0/aadrehFcNVjD+ymJg==
+	t=1795454219;
+	b=29TWN4T3pplgl4yMeE4K/x1OjfdbfXzRSXonc4AdrugzOXAa/XBEaWLYpSGur570Viyu
+	 FFf3sxinOyr81bdit1LfxkYxAT4TckRMS15ZV5ITctazLyTCia/CDAIOLk8rbPhS8e3sU
+	 zn25696iAS97E6IA03rb5dPPw0Vz+UoMj9rLFQ/wv8LOjuTVu4D9Cn52rYqVikTS4/p3y
+	 AHAhPbTcmKVqlrjsmvw5nHV8bt6paIq7o/uOXG4hQ1YmBK8gCSmTnME7MeeHbaczYGt8e
+	 rCqoTbWcUyUUVPzib531u1ikDeL20VE02X4lHibV7+Hs2jv3/tXrOYFGNPhE9DBxXFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795454175;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dnt2GtHzfP5h866vP0cRtDl18L844ZAZum/+U48ESm4=;
-	b=5mf2R64b034Kc24Egdkxwtd4fbuAiyehUWuB4YhPCCtCCTGnRXduJVvP1BXbJW5TQV/N
-	 dVRbytXpuVQP9Oy5BMRW3+DrALeM3Tl70AQxV5gjXCOyAC2AvGnm+9eVZJmPiavSDxpOP
-	 10bR4KXgRoLfXfC/X60OLu6ZOWkW3I1qBrQiwvVm3BLYg6+cibGA1v9ROraW/IakX35kW
-	 F0V9IoCnC8U+2mTBNOE+o86smoULr/AG+LkX/I0UvIPd8HQBDiXh0gnn9CjC6utczISHt
-	 /CI2y7sTJOny5YTEZDKXVAj7dCLsBX+n4C+l9/jXe0kf9UpFGENO62cQGMgzjOPlPKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795454219;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=oj2zs7YpNjut+Fle9NDI2/nVbuq1xcuWOh/20pAlrQ0=;
+	b=tRUaqlDh2OV3BR7rgMRDAIOLKymAWsk3E7UWBSc39L4ve3vsHyiZXilDzPlJRamveOUz
+	 9HkVA4wLecMXXqfsKKMG5QzQdyEK7wxKJYpl63GkWbkDOg81wmqtcJjYD8HylvLtCYRA+
+	 Ar5R4Qfv6hHHJ5lJi6x+dvqNXZoZBXdBGxQaZlrK4vSy/MoVs2LjKGxodPuHUji0ob2Jg
+	 AfbAgU9Gxqo3JvXXG6vPbeT65B1xCsE9RKhMEPagSkNyz9yBkW7vEhRaC0ZcJxl/uAvHa
+	 N9PCVtaRNiZvUJjocsjrcXe9I+kyd5ekFQvh62UJXv2AZdkPAxhaoMUqpFwCY2J1SYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vcQIYCkg;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE30F606A33B;
-	Mon, 23 Nov 2026 17:16:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE30F606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHNFVvLl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC39E60A2617;
+	Mon, 23 Nov 2026 17:16:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vcQIYCkg
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4743819F6;
-	Mon, 23 Nov 2026 09:16:11 -0800 (PST)
-Received: from e137867.cambridge.arm.com (unknown [10.2.213.11])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7BABE3F86F;
-	Mon, 23 Nov 2026 09:16:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795454174; bh=OKpA5BGzsnvMNkmETrY5EVQga+MEy2xQO6CCLFEttso=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=vcQIYCkgDxusqCN8hgHN6yqNXMxn0KtyUYXFr9Ob2sXYdpscTr0HybhfuF9sLu8Ud
-	 xboVdIOA0RmuwR2vaBmLJhWHvAKapg8h2SebzWv5T9hlr3b6kBl5e1huSjIlk5J2cB
-	 PZTKbUaPV9G2rs6z1CqSFFbJ70652hCWDw8+JYOQ=
-From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Vladimir Murzin <vladimir.murzin@arm.com>,
-	James Morse <james.morse@arm.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	Marc Zyngier <maz@kernel.org>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	Jinjie Ruan <ruanjinjie@huawei.com>,
-	Doug Anderson <dianders@chromium.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Huth <thuth@redhat.com>,
-	Dawei Li <dawei.li@linux.dev>,
-	mrigendrachaubey <mrigendra.chaubey@gmail.com>,
-	kernel-team@meta.com,
-	linux-kernel@vger.kernel.org,
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 3/3] arm64: head: set __entry_task along with task setup
-Date: Mon, 23 Nov 2026 17:15:57 +0000
-Message-ID: <20261123171557.140944-4-ada.coupriediaz@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261123171557.140944-1-ada.coupriediaz@arm.com>
-References: <20261123171557.140944-1-ada.coupriediaz@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHNFVvLl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527D91F000C6;
+	Mon, 23 Nov 2026 17:16:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795454219;
+	bh=oj2zs7YpNjut+Fle9NDI2/nVbuq1xcuWOh/20pAlrQ0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iHNFVvLlLyiTkqH1GZFsTD3AgGpFJWtMmMK2njvCIp4abaC8s7+IH13Ln35I6oD2m
+	 w/RKQscrKgbLRFhdRDJ2yEmzRwWKOcAUJ9C40YRQCwQ871VAq2nQjz7b5b577FC58R
+	 QEvU3ofPteXd9Saj5Av3wiWtibf6LJo0g1aZIEzulr14OZT+jH198oxSDPAjckoOyG
+	 4yXPDIg2tsKBRDohouMuVp9jUrGenpABuCWX8QB3jTB9WV2CsCuZLxsnS1TcQzcrBK
+	 ho8W0XBEHp2cfcnG6FBXPVOJEW09NPjNe6avTXVIoyJfmURRowyJ2Fc8FgdVxFoORx
+	 f4PFhyGyJfScg==
+From: netdev-bot+sinfo@kernel.org
+To: Fang Xieyan <fangxy@xiaopeng.com>
+Cc: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+ Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ netdev@vger.kernel.org, Liu Haijun <haijun.liu@mediatek.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Lin Qiaojie <linqj@xiaopeng.com>
+Subject: 
+ Re: [PATCH net v2] net: wwan: t7xx: validate PIT data before building RX skb
+Date: Mon, 23 Nov 2026 17:16:57 +0000
+Message-ID: <179545421789.3294.8652562780118952990@kernel.org>
+In-Reply-To: <20261123171519.33975-1-fangxy@xiaopeng.com>
+References: <20261123171519.33975-1-fangxy@xiaopeng.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,66 +70,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-`__entry_task` is only set after the first `switch_to()`, despite
-a proper task being set up in SP_EL0 as soon as CPUs go through
-`__{primary,secondary}_switched()`.
+Hi!
 
-As SDEI can interrupt execution at any time, it can interrupt before
-the first `switch_to()`[0] and use a NULL `__entry_task`
-to set its current task.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Set `__entry_task` as soon as we have a proper task set up in
-`init_cpu_task()` in case we get interrupted before switching threads.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Remove the second paragraph of the comment on `__entry_task`, as it has
-been incorrect since the introduction of SDEI, and even more so
-with this change.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by LLM and not proven at runtime). If it was triggered
+   please include the symptoms, like the stack trace or kernel messages.
 
-[0]: This can only happen on secondary CPUs first brought online after
-     initial boot :
-     - all CPUs onlined at boot-time switch at least once
-       before drivers are probed ;
-     - hotplugged CPUs that booted once still have their `__entry_task`
-       in memory, so it would not be NULL.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account.
 
-Fixes: f5df26961853 ("arm64: kernel: Add arch-specific SDEI entry code and CPU masking")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
----
- arch/arm64/kernel/head.S    | 3 +++
- arch/arm64/kernel/process.c | 3 ---
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-index d6ba3c0af811..e53a9c6fec83 100644
---- a/arch/arm64/kernel/head.S
-+++ b/arch/arm64/kernel/head.S
-@@ -209,6 +209,9 @@ SYM_CODE_END(preserve_boot_args)
- 	ldr	w\tmp2, [\tsk, #TSK_TI_CPU]
- 	ldr	\tmp1, [\tmp1, \tmp2, lsl #3]
- 	set_this_cpu_offset \tmp1
-+
-+	adr_l	\tmp2, __entry_task
-+	str	\tsk, [\tmp2, \tmp1]
- 	.endm
- 
- /*
-diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 42b15b0c069f..c3d194676efc 100644
---- a/arch/arm64/kernel/process.c
-+++ b/arch/arm64/kernel/process.c
-@@ -584,9 +584,6 @@ static void ssbs_thread_switch(struct task_struct *next)
- /*
-  * We store our current task in sp_el0, which is clobbered by userspace. Keep a
-  * shadow copy so that we can restore this upon entry from userspace.
-- *
-- * This is *only* for exception entry from EL0, and is not valid until we
-- * __switch_to() a user task.
-  */
- DEFINE_PER_CPU(struct task_struct *, __entry_task);
- 
+*IMPORTANT*: If you do repost (for other reasons) - please include
+the relevant info in the cover letter or commit messages.
 -- 
-2.43.0
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
