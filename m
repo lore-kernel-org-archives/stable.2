@@ -1,95 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795465597;
-	b=14SCCdQauwjGe7I9Z41awaFZXJwooup4sqFSjAqkZ7cK+b7Ju0/2Lqwv4ELBYelrxssA
-	 ZE0+YNlSHj28Qt6MNtbb4MZUaX0Ktru9D55f/D4tSmljVkftvITAGQ/vuRggLqCJsnt2a
-	 rHYVoUUMIwQkAhXhC/UvtRYnubzzBi1AB8boA7uc9qo2WOkAQMf1b7QeoOhPn8yyt/Hb5
-	 JzKlLybMLTBnoIFFmRsMbEQOO7/Kdh0L/VkykRvfjLEQjQVvBvNOdbcKEZ8fEobKd0MCz
-	 vqVkHy8Au7CtE4bb/o99iGwEIGKSsoU36si9OaAwUKP2ZyZFcYdQ444XizAFlhdLnQQ==
+	t=1795465742;
+	b=IZynVSDfhFt0F8OrG0Y73q9O4/Q2P6knw91LlHqZJiGi7dKr5PK6OwSkUr7zgC3ydeeb
+	 s0FKm5Gk6JE7++0UgaTuASIFI3p98a9ZRo8M5w73uelVv9cWSlEqHdQx1XF0LltTdGIdB
+	 SHGiCQKkFqL+F2m3ZSqRtv6TuFVD1nYx9pywkXlV8iM7aPxDVHfadYqBhfXCL6rcnhLfb
+	 VnYOxO6P8EEJLRFK593oSUdncHRE++rOxXrtCVIVmCcsUnJZeOS+ijaWd+U02nJfnX1sT
+	 6kHwh6Ty9mw4lCFjBNda5GUaowP9hubNyVSy20lX2XSG4vmCMKCfpFAtUFLrfY/fGrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795465597;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=HF7kC7ehUvjMLFdO+wj8zalglx6VqyJuBB04EXzZxKg=;
-	b=GEM7zLyw7nWYtLqRguA4NuOyz+c55S7v1G8+ygloXGE/8cQeQEpE0Z5QJDXDCUCzyWyW
-	 8fVWckMB+dIrfYNrhXcHzmoFPxuF9ZonG4+kjQyO1wA1AEfFfTPIBU/3bVGTIj7zgfSwe
-	 Yw2DpvdyQ+h1T7rd8e8LaAhlVOEaivwpVZtdZYdWr2jBco0v066JApFVC5OtNsJOgve44
-	 SC3Gv/vtUAVv5jAl3ROuCGkm47CmVdgajxHxJd1cCKDD0z/kSZ/qKblCmoqUBqfL5ScwW
-	 2Xi/qFywBKg7zPFWouWAQzkslb6QBgeRBfvOC4m/1+quPcCK20h/ANi6tNYG8RNhjTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795465742;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=XE7qcYgylreJp0JifMPhFDkqe26p/1tmu93DZNaIw5M=;
+	b=j7WoDSquhfgNbqNh4p2DbaawmQGMNMzruk8H45sCEUCYkivc/YWgRkXstF/qVTO2G4KC
+	 8kqkSkLLteIKHu/s9tLqUQMlnhpewGvXh7MYHBSJFRqwK4v1n+wzEZrUddkkEC+4bECc4
+	 KC5lTjyq8WV/HaE+AjrQ2Ay7DyyflxrBIDiV3Kgcn5uR9H/pySKIKPIYQN0KU+gSXr4dG
+	 /wsz+EvWhxbSPVEMRr5iIC2s+1OfbqaFfB/g9Z6Nz2j6Ld3BrBp2nGlRDxNykZ9yl4iG4
+	 Ujlsnbd0MpS9bZWtKT8HTrkfKc8iTo7irIv9W9w8fLnyO6MYQ1cnLpE8SGPFLFiUUeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JDQEEOjt;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=mandelbit.com;
+	spf=pass smtp.mailfrom=mandelbit.com;
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=FKA0CLkf;
+	arc=none smtp.remote-ip=195.10.208.42
+Received: from mout-b-112.mailbox.org (mout-b-112.mailbox.org [195.10.208.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973A2606A31E
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 20:26:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 973A2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39540606A31E;
+	Mon, 23 Nov 2026 20:29:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39540606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JDQEEOjt
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-385c497bf94so2973042eec.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 12:26:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795465596; x=1796070396; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HF7kC7ehUvjMLFdO+wj8zalglx6VqyJuBB04EXzZxKg=;
-        b=JDQEEOjtQi4j7/aQ9NeZ5rJt2c9HVesTmaMZZFOcX4uaBY92kBL95IIrzoq0Ax30pr
-         gLAHUHeWc2ooegw/GHvR3MNLB1ifvcF/Rb+AMj6GqueKAlA0shXumJ2NoRRMxxTwrH+1
-         tg/zyLFCAvTi8L+5EVNsgXz/lb31rjVOip6dDi9mR5MkpS6APLMmUbbjVP2mKNbCTCaN
-         ZaGVkza5xa2VByAMUz7668CZBKKugWiOUn/TL9N/OUPqxvTs/m52ZQf09LzwrJwS4B29
-         8+Te87KL9Xzl0WvEq4cDDttiIo39RvGFfEeL17zFbFGZfjFA3Vtnvz+2eSnH6Jgglvtv
-         DTqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795465596; x=1796070396;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HF7kC7ehUvjMLFdO+wj8zalglx6VqyJuBB04EXzZxKg=;
-        b=WgohTxVV1HYSsyacrAqS+K4rC5pGA41C3lFc34DkylC+e/8nkI+35Q63ONgDMorECG
-         CtrssWIxMBKiMvWTI+cq8hu6eLsKMZNMH6zsB0SvDjIoYodhRU/Ff3FjzjRFziBVI9AV
-         eXO0ua2AvkXnaiecX0zJG/WFlGrZRn8xAsXDdeaga8UKV1R1pMCmQU+91clD4lZ/3/g+
-         NvuyAWBLA8202IOv6cGTl7eots0QtgihnDgl77zxDjG/bIPMuWpOK6UXla5Ml1XRfqHa
-         eHGt8Co9IaVPUootj9PdPta8PpnKLSLDXZ0uHGjA4QlcBn3NutDZE2X69eSZytmPa1R7
-         8OAw==
-X-Forwarded-Encrypted: i=1; AL+hErFfIFwcLaA1Z4cnxvyMfbB8/D+ZGevuwyCsez+9n5TJXifcy8qwWPd7xdMjCZlsD5z/XTOaG4M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z811ipQJctzpkUPOxUexrTZ9yVsPbVCo9bKeZzB8fMBB1q49Zay
-	VCyIZ97Sx9zevFw1GGRcDkezbPjzuGuizBmM9VN4+BVDaZeyxXG0kyIQ
-X-Gm-Gg: AZFdTZc7X4BUbLuTxOg1aACWjZYk3JyX50/ISBmyVKWmt0pxX9AQdRga6ot09vcyRwl
-	7zAxSxEvtMle204KcbEJEROBdAcinmnZAo+WQMM4EwAxZkGzY5bznaqe1BjwZobIi05eptxEDbL
-	zTTqfVbSj+UaCjXBt6u6AP+sh0YHT5Q4tjlpjgkfJUwHYVKO9jjW4e0Md8Ow0wPumcMpRDgifFR
-	eeYWa1Uc85M2mylQsKieviYIUwgUvH0SASQZP+tWeUOlLO8BsXKmFEOWJW19qHTYA0sUrhR6GuM
-	Ypj040tD96gmo2VWSDBhVtudYKHiL8CXehf1SzF/Rq5DzWLodiBM8tb/SpfUllo9t6c4i8/IpIG
-	nFf5z25ab1KRcePpRB94+jKzhPOSzBYdxEZiDpVCGDu7pZ378fN2NHG6zjTYqQl1fR2ZlV0HOsd
-	ZrsOfsqfwuGLQKaGBe2H7UI5+dmVbv0eMzJ8TpzfCHrlFCWP+3q6WmrCEDug2515I7PAB0GB4w0
-	WM+58Z+WZ48LUQw5NAuFnVME01ClL4D3bsoRpzD9Pe1j6sZUUqrQ83rWVd/vfgw37OeMRLFmu5t
-	6TdLGrt7lohsbJPVGfUWPmeBq8G9IMfCBfCQukML/D45iDe6mQ83PUJa7SY2ZpuLlJzEsJI=
-X-Received: by 2002:a05:7300:ce11:b0:381:a037:b060 with SMTP id 5a478bee46e88-3856e63b3dfmr13805896eec.9.1795465595743;
-        Mon, 23 Nov 2026 12:26:35 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:4121:d698:201c:9274])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e96bdsm36533049eec.7.2026.11.23.12.26.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 12:26:34 -0800 (PST)
-Date: Mon, 23 Nov 2026 12:26:32 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Ian Bridges <icb@fastmail.org>, "Cheng, Wacom" <pingc@wacom.com>, 
-	Jaya Kumar <jayakumar.lkml@gmail.com>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 10/10] Input: wacom_w8001 - use reinit_completion() in
- w8001_command()
-Message-ID: <awShdGUZ-Ur-nLtp@google.com>
-References: <20261123183200.3900004-1-lee@kernel.org>
- <20261123183200.3900004-11-lee@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=FKA0CLkf
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-b-112.mailbox.org (Postfix) with ESMTPS id 4jYHb705X0z5vQ7;
+	Mon, 23 Nov 2026 21:28:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1795465731;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XE7qcYgylreJp0JifMPhFDkqe26p/1tmu93DZNaIw5M=;
+	b=FKA0CLkfyWAcxUq1oWz9e0gq1cOVbJ9lfQ/Gioeu6GSlMfc1GEm+LmsBniqVZaIzwp/sCl
+	1SipGsLM4pPbvE2iJxAWrCVc5kiEafYwA0LxsJZa/KkAUMNf6svm5E7qmecY5I1IhmgTn6
+	zthoe8ZvvqICZi9+l9yGb5Ls6Tux5Sahr7NCAzkc8PmNgDiP03onhJsImaxDBEd98Zfk9G
+	dWASAhlejk/mpxZzCi17ObjmqylKZM9HXFAFqvfxHiDxho44PyUB8n2FnQc2USOLo3QAS8
+	l4Wm+iOolVvpdsaY1bl63sPHW9zNGnGLkDWT8IPZdTNe+zgNjNflp6sYPFOuXg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
+Message-ID: <5b8c4005-ed10-4be5-b79b-8f59089d6fbf@mandelbit.com>
+Date: Mon, 23 Nov 2026 21:28:47 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,28 +66,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123183200.3900004-11-lee@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4 1/4] igb: don't touch rings that don't exist when
+ disabling an XSK pool
+To: Janis Edvarts Lacis <janislacis06@gmail.com>
+Cc: intel-wired-lan@lists.osuosl.org, Tony Nguyen
+ <anthony.l.nguyen@intel.com>, Przemek Kitszel
+ <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@fomichev.me>,
+ Sriram Yagnaraman <sriram.yagnaraman@ericsson.com>,
+ Kurt Kanzenbach <kurt@linutronix.de>,
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
+References: <20261120210134.133238-1-antonio@mandelbit.com>
+ <20261120210134.133238-2-antonio@mandelbit.com>
+ <xupy6jbpnziq2qji54zjbvm7neggrwkxg3sfrhlolmrd6ysifl@zptk6ynkbu5f>
+Content-Language: en-US
+From: Antonio Quartulli <antonio@mandelbit.com>
+Organization: Mandelbit SRL
+In-Reply-To: <xupy6jbpnziq2qji54zjbvm7neggrwkxg3sfrhlolmrd6ysifl@zptk6ynkbu5f>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 4jYHb705X0z5vQ7
 
-On Mon, Nov 23, 2026 at 06:31:16PM +0000, Lee Jones wrote:
-> w8001->cmd_done is already initialised in w8001_connect() before opening
-> the serio port, yet w8001_command() calls init_completion() again for
-> each command.
-> 
-> Calling init_completion() on an active completion reinitialises its
-> internal waitqueue spinlock, triggering lockdep warnings and racing with
-> complete() in w8001_interrupt() if a late response to a previously
-> timed-out command arrives concurrently.
-> 
-> Use reinit_completion() in w8001_command() instead.
-> 
-> Fixes: 3eb1aa43ef5c ("Input: add support for Wacom W8001 penabled serial touchscreen")
-> Closes: https://sashiko.dev/#/bug/linux-002efaac-c345-4827-8f1c-7b9d9226c713
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
 
-Applied, thank you.
+
+On 21/11/2026 00:17, Janis Edvarts Lacis wrote:
+> On 20 Nov 22:01, Antonio Quartulli wrote:
+>> xsk_get_pool_from_qid() checks the queue id against the stack's real
+>> queue counts, which can be higher than the number of rings the device
+>> has: on 82576, enabling VFs leaves a single Tx queue while keeping two
+>> Rx queues, and igb can fall back from MSI-X to MSI with a single queue
+>> on resume. Disabling the pool of such a queue, e.g. one bound to queue 1
+>> before enabling VFs, then passes a NULL Tx ring to
+>> igb_txrx_ring_disable().
+>>
+>> Only disable and re-enable the rings the device has: skip the queue if
+>> it has no Rx ring, and only the Tx part if it has no Tx ring, so that
+>> an Rx ring using the pool still stops using it.
+>>
+> 
+> What happens if a pool is bound to, say, queue 1 and the socket stays 
+> open across a runtime resume that falls back from MSI-X to MSI (queue 1 
+> becomes invalid)?
+> 
+> If the socket is closed after igb_rtnl_resume_task() has reduced both
+> real queue counts to one, xsk_get_pool_from_qid() will return NULL for
+> queue 1. As I read it, igb_xsk_pool_disable() then returns -EINVAL
+> before doing the cleanup and resources get leaked.
+> 
+> I may be mistaken here, if so, please let me know :)
+
+Hi Janis,
+
+actually you're not mistaken, thanks for spotting it.
+Once the real Rx queue count is lowered below a queue with a bound XSK 
+pool, xsk_get_pool_from_qid() no longer finds the pool, the disable 
+fails ("Failed to disable zero-copy!") and the pool's DMA mappings are 
+never unmapped.
+
+igb already does this today (it lowers the counts on runtime resume, 
+just without RTNL), and so does any shrink done by the driver itself 
+(e.g. SR-IOV reinit), so it's worth fixing here.
+
+In v5 igb I will follow what ethtool does for channel changes: when the
+driver lowers its queue counts, it keeps the real Rx count up to the
+highest queue that still has an XSK pool, so the pool can still be
+disabled and unmapped (the rings are skipped as they don't exist). The
+Tx count follows the device, and the Rx count is lowered at the next
+open.
+
+This said, I will first wait for Sashiko to report any other potential 
+issue and then I'll work on v5.
+
+Best regards,
 
 -- 
-Dmitry
+Antonio Quartulli
+
+CEO and Co-Founder
+Mandelbit Srl
+https://www.mandelbit.com
+
