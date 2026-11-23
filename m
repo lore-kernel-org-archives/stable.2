@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795446995;
-	b=lfSHVPwlkR7B1/rmS0957sErVZQZWyT9nTOgxLP+ES9pKS1nIzHF79kr/8lXXyY2yg/p
-	 mBPPigd2uX5wTiaFfzkkp8xUOH3pvFoyU4jE4ZFryG+Dv8IsMjL0BsLLERNXUz8VkKNZv
-	 EyKtX+pPqZR86aN6R5+ej0Q4+ChTdSWY9ptHU55tq45reJKbt5JjvjtFK969PieIowwM3
-	 +BppuXt7ihtOmnMkG6NBhIauEST/iuVgnKHqy2hyrkTnuxUkqpO4cIrg59tdWnULazyS5
-	 8sp5/UgqgYax71yXs0H9Jy+YhfSKopG6a5sD4mPojtlRipe2b45VmXGU+Lx3xbLddLA==
+	t=1795447019;
+	b=RYo5KqpR1GdNp9PTLGV/Tt0wM5JIkC3D5dDdrgh+Ib/v3Lrmc64K1CN7Lflvu7TnxY1d
+	 9VFWNg6gYtn8rBdpMYxb5SG1KKjOkEYOVjndeW3gdpo6VDjt/0r92y4nEnsa1wUZNyO/N
+	 3HR8/YvZ/AZbgKN/uHFaN0NHS3i0Ol/hPG1+qyKZUMYlHvlofMcWq+zNI+l/sCbY4rgwp
+	 MF9OhM+nRlT9w62QPPbVWjbsJhC/YzXUmBbJEfCTB4jYyl2dZR0gQ0wFVgvyh8KFSajTd
+	 AqFfl2mCe6lHeV4B5tPK3tcpPTVRijmGQxs1Zv3jLlaBTk8hYLw4VyzJOuG+mUV7cIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795446995;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795447019;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer;
-	bh=UfQmc2c/VBqjJpzYZJV/mvR5pLjgufyNtaYeJb3a0XA=;
-	b=AnTvwpLhEJ7LpzzOuOvAaULNO5NzBnBKwbaSN9Qpn88bX04aA81yLrFEHVuVP+YRwmsE
-	 PjHU/36J7QFjle74qpHzmpubvXLnkRe5uiZMXnYhzOGghLupnEI/mL9bQXLgnqII8uxIY
-	 i8Vt5J29ZggAZ5617OwJ4BMymcCZny2WD7cMfd3ZG8Q74KkuYS6jx4/kJ4uNIKVxj4D/+
-	 2aw2SkYld+6knilIzpBjrqiqPxeWr4ah4XA/8tHe29/0HCe3crGl1jjD3L333AvL/Hfm6
-	 CUXMxyHSe1IwTm1RMl47BlH7tEpYhsfmkEgpVhw0bbNPsHo/JeiIYeDJz3rPwEyoQ9w==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=tSXne0eFSt3J93YlYm+5HBbf8tEO/NOSC0O1Mc/J9n0=;
+	b=EpUOfUKCXpTtBz+2SDeQ7wvGtEsKCrHOXQOx812yyQwsdpeiIkYqSXN0SCSjPJjhQGw/
+	 J4IT4gW60CvKeGIYHj/+JvVAUswQoxnQYaGArgBuz8/v8ofd0OPmxLK3nm0qkt57ov001
+	 Md6FQWNVo0yWe6Gj6u3RODHNL1Fir4ykuEd1rw8i1XgmLggLypdtCxU9buCDDrOPGVXci
+	 PGAsFwD1xxnCvR+5qDxR82qJ4du2gsISoogh9iT5CQK4O3aSx1rlCfuXRPKqZoSciWXYB
+	 w4Z4BGV3zperBh1r96kPxVUyug0ziaw+9Bhy5wtGSuj0SWD1ZjNfeIHwhBT/1Upr6Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mw4m1gfp;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DxCvjj8Z;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44DD606A331
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:16:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C44DD606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56227606A31F
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:16:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56227606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mw4m1gfp
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3b0e0e65adbso1433458a91.3
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 07:16:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DxCvjj8Z
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso1626019a91.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 07:16:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795446994; x=1796051794; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UfQmc2c/VBqjJpzYZJV/mvR5pLjgufyNtaYeJb3a0XA=;
-        b=mw4m1gfpUrv2FreNB1ZNFYzNad9WSMfE2DUOWTxfu1Js/8bHT/D3Nb3OHw9uGeIhLD
-         yW7CNvkhOKWcTfFvvMZts8R2aR6t6AR0cHwm8pZD705K4Tqbf7Xz2x+0BymycsMY4xPV
-         tLu7++89hUi8MRiMUa3u+4QcVY4op8HfQtdfE3iX8fg2y/LVLiCIUPe53HdFEIg9H94M
-         IBcdG6op9YsSCfqQyKfdzHrxG5N6VP7mGesC4g1GzO7EpdpbcWrdFaUO+8C41JQtVxDI
-         p/Y13atkvC1BHSqzbKx+glAXQt9AEf8vgZy1Zx3RmDhis4kCCd8a8c41g8/I2SCq/c+n
-         0zTA==
+        d=gmail.com; s=20260707; t=1795447018; x=1796051818; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tSXne0eFSt3J93YlYm+5HBbf8tEO/NOSC0O1Mc/J9n0=;
+        b=DxCvjj8Zy05C/UG/Gosszmux+ROyuvE93znej2tokQMY1UAJ3+kguZ508V6luN55Al
+         yaKj2zvKa9jlVvjarByCANCpUh+gqq/zwnvFfqFZJjSkarc0bpxjDlHdyqUGpN3gBGsw
+         uL+YdSfiUNF+uezoBDZrgna9xHCbgiPCQ/ZUZ8zVIkzcc6b2UaZDK5EQ6pNU7fX0XVxY
+         qcAJelmxa2k64GqMwlZy4+HXhAGlPi5xDFxfuh8WCZs0zSuNrTj23wIHrO56EiMlTbTf
+         7ERxDdm0yVaIO20pN44TlXipI8IN3ixMfJZ/SCDUnAogeRt7bCFF84UnCuYFhs0xYvT3
+         2MkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795446994; x=1796051794;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UfQmc2c/VBqjJpzYZJV/mvR5pLjgufyNtaYeJb3a0XA=;
-        b=rSR24eFevtUyHRCPjvAHCCua5cO9oGGg2Qz2s/YqZ8JLfCPW96emNdBfkfn5h7+HCq
-         HgB198N/rYWCTuZHLKL2jwQr3orTqUsNKNCgrs4D+j6+RT5n/tNo+DcYvpGL2K3jydQc
-         AHGJDWfOQxFf+jbRIsq+CKSdEWoBOXWCZTv3dcDs6gg93QQiZYOxex3+1vJWzT/1pMDN
-         mEP1d3lsN/FT06qn0STvweDNxxAqaoIJ+LhN4jNlutGNf6vaXltKUNCpaOWUuDQRy+jh
-         TsqXxcnX/G2qahkqWzFtBPvEUTtnOkNEAFjs2LwCYBeQ3DNg9RyTZZzF30Q7hwQfmC1q
-         nnhQ==
-X-Forwarded-Encrypted: i=1; AL+hErHk016j1kJnFPTsnro8+vLrqQzJK8i1uhmX1+7w3v/Bso1S6ufc7NiUkDUZDBpg5KuetLim5jI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4wBB+4sPtZGOHPotULajEMpALe5fJlqgYsRXCC034NKb7Mcdj
-	rQUL4gCh8YBED0kefMaYBCGsQsACQiDjP7ZVUwoLZg+G7hR8632C6+mz
-X-Gm-Gg: AZFdTZfASU7cNs6ZGi6BbzXfs8rF1xVq5ja4+oEO7KIl/6ce6KPMRlRcBtCRe6vVMf3
-	6yERbRRfaeBdvXVfjBi91akWpTaPZny23kESEKTlHHyLJdv7R3ItDvFennyPAn656GILKwCFSOU
-	azGwJHA7cN9qpFOJFeWSrhrrSdce8cEsu6lyVULspXRA4RL9pVVjzJWGcDZx+5g+71rccGPzQa3
-	RM8ugwqeHzkZfwd00iDi8lLhSXF4aCw9xNbX1CnKDvTPoBfRMPWdhI02DnvQjau2xBHvvJsziqx
-	8K3Wx5TV98vIx/GnDtlxV85/oZJHORlMaTUcV/PajYyQt0a+R8jSrUq2b1XDAgGLlyYT8YCwXKz
-	RoQ2ajQyfOU542LkQOeXC7fJFVwXRaKHTQiw9c46hponEGCNwLTm2REKSo00OwodrdjJldgCl1m
-	Vkejhh9y9tk9PoXjBgsHDjFAdQZOanimHTMzsiGqjZ5U09SZWyTDk+ukGRV5g4wLa7UAQgKijRX
-	HjWcVcf46vdBF3fL/qdH+O2N+BfaPD8SicSwsVjIs3VoKnWnz1F8/waE/lWNIe6UotWI53UQzr/
-	XefJONCOV3aIr4H252OSFDLeBPRkmw==
-X-Received: by 2002:a17:90b:3d8d:b0:3b3:b750:d2ed with SMTP id 98e67ed59e1d1-3b41c7b56c9mr10763673a91.8.1795446994016;
-        Mon, 23 Nov 2026 07:16:34 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795447018; x=1796051818;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tSXne0eFSt3J93YlYm+5HBbf8tEO/NOSC0O1Mc/J9n0=;
+        b=s5QXw5qMKf9RyOZ0fLIJhS0mIGV342h1ZrHN09gqy1oBRFPJKmVlVhzMmpWlVKk+ao
+         +CBUNCsNUQ0Yi9COlwMDZgj7aG5YuF4bd4ls+iVk3h+zH4kRuHUDpuwLXx/BeuuOcgpw
+         IS8gaV6FDvgMrrmz6FnMCJ4eBkEOz41mnsKc7k11z2sI4htOfh01yytcmCBKPLib7n38
+         TEz1cqimG4B72NlWWddZTQSL1Qk+p+ZtauswqDdeYqzV4hzI8SIoCpiem3PLzMBgJnCg
+         ON03ApUhVLWjHGNUDeFH0CDeswQQBpbaUkFtB9/bjt8WF4YEQRbzmZA5VSncDF1etdKu
+         QGfA==
+X-Forwarded-Encrypted: i=1; AL+hErEnsbI7pZ8DRC9/6Km5hJENIlMJ10rvhLHYCIH3FkFe09tKOS3D4YicntEsdlyYJbpPGr0kZeA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8GnuZNLmErMKbHeAht4JHryCfW3Epxph2MW+YmQEggTkFExeT0
+	AwJ/6IVvIUYpO1L1/XuZVGSWBejP7qhLOhnh4742ePfztNYGW1XNHbGh
+X-Gm-Gg: AZFdTZdTy9cLSLvKwb0jRPu9gmuOphAB6nf91RYqiN24Oa1MoqmOTcV50OXAz6MBvNr
+	NXkZeBtNdwsxWkQ/Ff+/6zhHQxzWRpjqQdz/SuNsxhbySyhN9Co08tVteioBs1HnpIPLWHRRnXo
+	wtBODRfM5MwiKCr5Ugg2/f+EKiTiGe9KlaoNAP9xETb9veKiCNViDyceS+5aQQrgBaEtenyu/Xw
+	okZbaJzYr+WmQwmLilb2p5I7cPSCa67mw3+5J4sw7l4la0SywlvWV8fu04D4DDvrFRcrvR1H6ul
+	eczE9+m5sWCmx/CeIzV2XMPG52dfDcIqp242QyEVEhoUTtJgmcTeScC03SgfSKagnMmt/1C1ohU
+	i+/+YQxQOgbgjWMMWbtnBG39FVhkgeuEg+MVoH7iQxBEAg+5Y3q89FNNgdMKqfn6huC/BjE9heY
+	D+/f46FSa7nDEYxTD7gl1T4OkMK3GJu3LBPtq5mk7YZSy1/k9Nu7zrZX0ztV864LOq0slakBMsB
+	N7PQz/ZHOcO++mpUnyBU5SZ/pgIqnJpEt72wqVdaR2b9DF8SMR8ZZ0r+pc//obm8HJz5Sm3QYRc
+	BksYI/6MuslM1g8S0UOK3Jss45vjww==
+X-Received: by 2002:a17:90b:2fd0:b0:3a4:e735:b39d with SMTP id 98e67ed59e1d1-3b41c982d97mr10577101a91.64.1795447017561;
+        Mon, 23 Nov 2026 07:16:57 -0800 (PST)
 Received: from [127.0.1.1] ([150.117.174.129])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad0b52dsm20067482a91.5.2026.11.23.07.16.26
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad0b52dsm20067482a91.5.2026.11.23.07.16.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 07:16:33 -0800 (PST)
+        Mon, 23 Nov 2026 07:16:57 -0800 (PST)
 From: Gary Wang <is0124@gmail.com>
-Subject: [PATCH 0/5] upboard pinctrl support for device id INTC1055 &
- INTC1057 & INTC105E
-Date: Mon, 23 Nov 2026 23:16:13 +0800
-Message-Id: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-0-f2322a91686d@gmail.com>
+Date: Mon, 23 Nov 2026 23:16:17 +0800
+Subject: [PATCH 4/5] pinctrl: upboard: fix I2C pinmux-select set CPLD GPIO
+ OUT not function mode
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,9 +94,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAL1YBGsC/zWNQQrCMBAAv1L27EK20lT8inhIN1tdkCRsUhFK/
- 24QvM1cZnaoYioVrsMOJm+tmlMXOg3Az5Aeghq7w+hGT0Qet7LkYBGLJm72whAjampMbpr/IFi
- 3UrI1dMTnmdfgL9MCvVlMVv38frf7cXwBCl4bkX8AAAA=
+Message-Id: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-4-f2322a91686d@gmail.com>
+References: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-0-f2322a91686d@gmail.com>
+In-Reply-To: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-0-f2322a91686d@gmail.com>
 To: Mika Westerberg <mika.westerberg@linux.intel.com>, 
  Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>, 
  Thomas Richard <thomas.richard@bootlin.com>, 
@@ -108,36 +108,53 @@ Cc: Daniele Cleri <danielecleri@aaeon.eu>,
  stable@vger.kernel.org
 X-Mailer: b4 0.13.0
 
-Add missing groups and functions in Tigerlake & Alderlake & Meteorlake
-for INTC1055 & INTC1057 & INTC105E.
-Add support "UP Xtreme ARL","UP Xtreme i14","UP Squared Pro 7000",
-"UP Squared i12","UP 7000".
-Fix pinmux-select set CPLD GPIO OUT not function mode for I2C pins
-on the AANT0F04.
+The CPLD I2C pin mode setting following uart & spi used modes array
+on device AANT0F04.
 
-The pinctrl-upboard is provide additional driving power & pin mux function
-through native SOC pins->FPGA/CPLD->hat pins for flexable board level
-applications. it's probe from ACPI device id AANT0F01 & AANT0F04.
-
-Signed-off-by: Gary Wang <is0124@gmail.com>
+CC: stable@vger.kernel.org
+Fixes: dca2f73cf19f ("pinctrl: Add pin controller driver for AAEON UP boards")
 ---
-Gary Wang (5):
-      pinctrl: tigerlake: add ish_uart groups and functions for INTC1055
-      pinctrl: alderlake: add some groups and functions for INTC1057
-      pinctrl: meteorlake: add some groups and functions for INTC105E
-      pinctrl: upboard: fix I2C pinmux-select set CPLD GPIO OUT not function mode
-      pinctrl: upboard: add device id INTC1055 & INTC1057 & INTC105E based UP boards support
+ drivers/pinctrl/pinctrl-upboard.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
- drivers/pinctrl/intel/pinctrl-alderlake.c  |  40 ++++++++++
- drivers/pinctrl/intel/pinctrl-meteorlake.c |  32 ++++++++
- drivers/pinctrl/intel/pinctrl-tigerlake.c  |   4 +
- drivers/pinctrl/pinctrl-upboard.c          | 116 +++++++++++++++++++++++++++--
- 4 files changed, 185 insertions(+), 7 deletions(-)
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261116-upboard-pinctrl-add-intc1057-intc105e-support-01c37cfa685b
+diff --git a/drivers/pinctrl/pinctrl-upboard.c b/drivers/pinctrl/pinctrl-upboard.c
+index b9af6dd93c34..66c1c3e3bfe0 100644
+--- a/drivers/pinctrl/pinctrl-upboard.c
++++ b/drivers/pinctrl/pinctrl-upboard.c
+@@ -225,11 +225,21 @@ static const unsigned int upboard_up_i2c0_pins[] = {
+ 	UPBOARD_UP_BIT_TO_PIN(I2C0_SDA),
+ };
+ 
++static const enum upboard_pin_mode upboard_up_i2c0_modes[] = {
++	UPBOARD_PIN_MODE_FUNCTION,
++	UPBOARD_PIN_MODE_FUNCTION,
++};
++
+ static const unsigned int upboard_up_i2c1_pins[] = {
+ 	UPBOARD_UP_BIT_TO_PIN(I2C1_SCL),
+ 	UPBOARD_UP_BIT_TO_PIN(I2C1_SDA),
+ };
+ 
++static const enum upboard_pin_mode upboard_up_i2c1_modes[] = {
++	UPBOARD_PIN_MODE_FUNCTION,
++	UPBOARD_PIN_MODE_FUNCTION,
++};
++
+ static const unsigned int upboard_up_spi2_pins[] = {
+ 	UPBOARD_UP_BIT_TO_PIN(SPI_MOSI),
+ 	UPBOARD_UP_BIT_TO_PIN(SPI_MISO),
+@@ -289,8 +299,8 @@ static const unsigned int upboard_up_adc0_pins[] = {
+ 
+ static const struct upboard_pingroup upboard_up_pin_groups[] = {
+ 	UPBOARD_PINGROUP("uart1_grp", upboard_up_uart1_pins, &upboard_up_uart1_modes[0]),
+-	UPBOARD_PINGROUP("i2c0_grp", upboard_up_i2c0_pins, UPBOARD_PIN_MODE_GPIO_OUT),
+-	UPBOARD_PINGROUP("i2c1_grp", upboard_up_i2c1_pins, UPBOARD_PIN_MODE_GPIO_OUT),
++	UPBOARD_PINGROUP("i2c0_grp", upboard_up_i2c0_pins, &upboard_up_i2c0_modes[0]),
++	UPBOARD_PINGROUP("i2c1_grp", upboard_up_i2c1_pins, &upboard_up_i2c1_modes[0]),
+ 	UPBOARD_PINGROUP("spi2_grp", upboard_up_spi2_pins, &upboard_up_spi2_modes[0]),
+ 	UPBOARD_PINGROUP("i2s0_grp", upboard_up_i2s0_pins, &upboard_up_i2s0_modes[0]),
+ 	UPBOARD_PINGROUP("pwm0_grp", upboard_up_pwm0_pins, UPBOARD_PIN_MODE_GPIO_OUT),
 
-Best regards,
 -- 
-Gary Wang <is0124@gmail.com>
+2.43.0
 
