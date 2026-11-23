@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795461457;
-	b=ixM44ZFJ33sRDekIknq6KuCv1mfjWILdHPxdfABf4d/oWzr/kWa2/AvF7xYKWH5htu2F
-	 HPRm2gJrC0ipKCUyyN6l41E9JtSjioBtNcSV3rQ1qvO/2d9lxtf7rjsLAQoeopK1EjRKS
-	 Hcyd2EKaQb+vqfMaW9ies6SY7sUXNJww5rhTfRANXqwLi6BUk+jG/cuE+0zj0G/kxBf2n
-	 7FwZiLB6hqEbZGftfFR/MzTH5QMTNPp9wgl+HUXcVhJjfY56TIV9H13/xtbBghmi+htXY
-	 dK+ISoCfLJCknHKAgGWA2ruR6XMAyQk4LhNwqBwCvggjX8uG1sPjchNVzvhNZ8bl6Lw==
+	t=1795461463;
+	b=X33shJVCd8HwjxKOXzLJwtVdiMh4mhx7ez26ff6hT1zlg0vDRq+/KdyZHVNLi8N8ITuP
+	 nqRkviNzG5Ih9cc08FTLkZQpqcty14h6VkzYklzEPuG4SuGA5OC8nnaF+RAyXuIaWhxB9
+	 YNSP9c2HdhlfEuN6Wg4gq6f5UYvNkK0i0Wp8vqxV/i21QoIc9DzUKqrAun1D03DkkWref
+	 HeSc8JI4jtQ0Da60Sb7D/Xw93fA5K7NRedL/OoTiEl9entHHdMh/J1HBNHB62P+M9GHx4
+	 QbNU6wKK5FZfoAkY7NJ55RfHW1iuHXvFSJvGd5GNTCVtfU5PMWSXObjbwUgLKTf50QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795461457;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461463;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=6vGaJElMWM2rStgk6mNbr07Zv4kcStJ5HrbIJWU0CZ0=;
-	b=2di7xhQB6aejOJe/nqR5mTTCpBDgjl2xmmIaDyGyaO4hYKcq9vPxXa+NcMWCwwj1Brgr
-	 jBu5Nxg5eKJrIKLnYfgPv1H7oy4igTDqrdBBwyCgv0CfsDUJzHPk2DXP4poCUtmqeysFi
-	 9X4lujSMJJMmPcYxt+I3tog7xP1N39B+DxnaznaYdrwevXZsOiDXLSgl6XQnbBIIwpQwi
-	 xwB4RbsQS7NFQU2wjNdQ7vBcQV81OugatZ4d2VSrqHEVXecv/1MAbSxwLdwL8inXO7/a3
-	 bqJw40VI2WAexMdy5SMelqkhcHw56CIG/XJJ51J7TN0KBp7HZCPFBb6SDb/nRIDaUHg==
+	bh=WVvrLYe+Hr8XZzmJ9/PJQzMWlXZOpSw+WTvHLUOEJ9U=;
+	b=FSbb8OrMFDyVQB+dsT1n7RpGu26aXRZWWn0kTjJAdMkGyavoCvVWAl+cbJbfo42M4Aeg
+	 sUAZNAg1mEtsw4zS24S65rNngKklKsUd1LfAQfQkxTUF/1EIcM7SWy5J/6McNh56zW+Py
+	 8XzbnDRZOlpdO4L8erVw6n/x8tJSBtM9P2ApGqtYDW+6Yco/EGrZh1d4DDJLLW+l9E7Dk
+	 fBlPsG5ZOBSDRylL2H4qpd8o5H2tWZhXzrdQyZqoz3yjerZh7sqSa2Sjvsm7e/JMWDuP4
+	 jUcIhyrt8EHEsrBoVvGm5/JUCGEKquL5VmQjSMCFHF/vCg3hsgOb1TnppU84Aofru5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CEzdOoQ/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fz9AQfIT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689EA606A31A;
-	Mon, 23 Nov 2026 19:17:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6966606A31A;
+	Mon, 23 Nov 2026 19:17:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CEzdOoQ/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E03A1F000CF;
-	Mon, 23 Nov 2026 19:17:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fz9AQfIT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D85191F000D3;
+	Mon, 23 Nov 2026 19:17:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795461456;
-	bh=6vGaJElMWM2rStgk6mNbr07Zv4kcStJ5HrbIJWU0CZ0=;
+	s=k20260515; t=1795461463;
+	bh=WVvrLYe+Hr8XZzmJ9/PJQzMWlXZOpSw+WTvHLUOEJ9U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CEzdOoQ/qfpZkIFa4BHAY2ix+cTc3HKopnS2Us4ELy1dxLBOufi7u7GOlHjIbfNxc
-	 +FK0azajpQizVo6b5X5lqGp/o3jIn0YVnPpvKOAfUaqy7yl20Z8rjIJSMA+H4rTRpg
-	 DfbZqgxOnoN4X9QGclvs2sx0drLY9pFhs+tMYbwe95JhDHBrhIVmxA03flWf9UgpS5
-	 mvjqPUf69RbUKldzyTQj0v2LJbSXFcDbKGQdimIab6qg11a03Cmvl2AnyfOimZ8GlX
-	 loRyZggOLLqLy522OYGOw+sews8qJBLwxCAWhMpNraPeGkyqOYsN0IMOvnowBWnNFa
-	 ZDvGmR/3T8r5A==
+	b=fz9AQfIT/8/QaG6nmABuSlqAUbTZXm6LEXBDVBXA6RkbrASFRoIiHKVgM08+JzXea
+	 xyvMBsshkORNP4rTv+YBzbY0FpFETyic+n/YGJFZoaNxaEDh6sk97MMAL0s3iGyBtJ
+	 sB2kk6Jo9FxjvyKcM61qi1/XCW1IkRnnMH2DsGBDdOWzKu8PS5vLviMCfzPqNv0n3e
+	 L7deHmkgf9pxZtsr7NWd6FlG2JlSSaHaa1bWyySoik79Wx0h8advpDDtU7NnljyE6d
+	 M4FmvGiOjLcNrQSwOb30qIpnf8UQ3U7wgcPn0ZMB63aGPtV84Q79T4icZPHBSALyPB
+	 8YFzlJJTIOeDQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Robert Richter <rric@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
 	Ulf Hansson <ulfh@kernel.org>,
-	Cavium Inc <support@cavium.com>,
-	Jan Glauber <jan.glauber@gmail.com>,
+	Ritesh Harjani <riteshh@codeaurora.org>,
+	Georgi Djakov <djakov@kernel.org>,
+	Pramod Gurav <pramod.gurav@linaro.org>,
 	linux-mmc@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 02/13] mmc: cavium: Prevent slot_pdev[] out-of-bounds write during probe
-Date: Mon, 23 Nov 2026 19:15:46 +0000
-Message-ID: <20261123191703.179283-3-lee@kernel.org>
+Subject: [PATCH 03/13] mmc: sdhci-msm: Resume runtime PM before accessing registers on remove
+Date: Mon, 23 Nov 2026 19:15:47 +0000
+Message-ID: <20261123191703.179283-4-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123191703.179283-1-lee@kernel.org>
 References: <20261123191703.179283-1-lee@kernel.org>
@@ -67,96 +69,54 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-octeon_mmc_probe() and thunder_mmc_probe() iterate over Device Tree
-child nodes and store each created slot platform device in
-host->slot_pdev[i], which is sized to CAVIUM_MAX_MMC (4).  Neither
-function checks that i remains below CAVIUM_MAX_MMC before writing to
-host->slot_pdev[i], and both increment i even for disabled or
-non-mmc-slot child nodes.  When a controller node has more than four
-child nodes (or four valid mmc-slot nodes alongside another child node
-on ThunderX), host->slot_pdev[i] writes past the end of the array and
-corrupts the adjacent set_shared_power and acquire_bus callback
-pointers in struct cvm_mmc_host.
+During driver unbind, __device_release_driver() drops its temporary
+runtime PM reference via pm_runtime_put_sync() immediately before
+invoking sdhci_msm_remove().  If the 50 ms autosuspend delay has already
+elapsed, sdhci_msm_runtime_suspend() gates msm_host->bulk_clks before
+sdhci_msm_remove() is entered.
 
-Iterate only over available child nodes, advance the slot_pdev[] index
-only when a slot platform device is created, and fail the probe with
--EINVAL if more than CAVIUM_MAX_MMC slots are present.
+sdhci_msm_remove() currently reads SDHCI_INT_STATUS and calls
+sdhci_remove_host() before waking the device via pm_runtime_get_sync(),
+performing MMIO accesses while the controller interface and core clocks
+are disabled and triggering a synchronous external abort on Qualcomm
+platforms.
 
-Fixes: 8fb83b142823 ("mmc: cavium: Fix probing race with regulator")
-Fixes: 166bac38c3c5 ("mmc: cavium: Add MMC PCI driver for ThunderX SOCs")
-Closes: https://sashiko.dev/#/bug/linux-022f7ab4-a7fe-4881-b87d-613d4b8f010f
-Closes: https://sashiko.dev/#/bug/linux-04e9d7cc-573a-4ea4-ab4e-d65b9b0626ac
+Wake the device with pm_runtime_get_sync() and disable runtime PM prior
+to reading SDHCI_INT_STATUS and calling sdhci_remove_host(), matching
+other SDHCI platform drivers.
+
+Fixes: 67e6db113c90 ("mmc: sdhci-msm: Add pm_runtime and system PM support")
+Closes: https://sashiko.dev/#/bug/linux-5ebb28b3-9cdd-4423-bfe8-361008b2aa89
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mmc/host/cavium-octeon.c   | 13 +++++++++----
- drivers/mmc/host/cavium-thunderx.c | 11 +++++++++--
- 2 files changed, 18 insertions(+), 6 deletions(-)
+ drivers/mmc/host/sdhci-msm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mmc/host/cavium-octeon.c b/drivers/mmc/host/cavium-octeon.c
-index 7b75b3dfd3e6..375d8f23b26e 100644
---- a/drivers/mmc/host/cavium-octeon.c
-+++ b/drivers/mmc/host/cavium-octeon.c
-@@ -262,13 +262,18 @@ static int octeon_mmc_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, host);
+diff --git a/drivers/mmc/host/sdhci-msm.c b/drivers/mmc/host/sdhci-msm.c
+index aecd425bf095..f62e942bf9f0 100644
+--- a/drivers/mmc/host/sdhci-msm.c
++++ b/drivers/mmc/host/sdhci-msm.c
+@@ -2925,15 +2925,15 @@ static void sdhci_msm_remove(struct platform_device *pdev)
+ 	struct sdhci_host *host = platform_get_drvdata(pdev);
+ 	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
+ 	struct sdhci_msm_host *msm_host = sdhci_pltfm_priv(pltfm_host);
+-	int dead = (readl_relaxed(host->ioaddr + SDHCI_INT_STATUS) ==
+-		    0xffffffff);
+-
+-	sdhci_remove_host(host, dead);
++	int dead;
  
- 	i = 0;
--	for_each_child_of_node_scoped(node, cn) {
-+	for_each_available_child_of_node_scoped(node, cn) {
-+		if (i >= CAVIUM_MAX_MMC) {
-+			dev_err(&pdev->dev, "Too many slots\n");
-+			ret = -EINVAL;
-+			octeon_mmc_set_shared_power(host, 0);
-+			goto error;
-+		}
- 		host->slot_pdev[i] =
- 			of_platform_device_create(cn, NULL, &pdev->dev);
--		if (!host->slot_pdev[i]) {
--			i++;
-+		if (!host->slot_pdev[i])
- 			continue;
--		}
-+
- 		ret = cvm_mmc_of_slot_probe(&host->slot_pdev[i]->dev, host);
- 		if (ret) {
- 			dev_err(&pdev->dev, "Error populating slots\n");
-diff --git a/drivers/mmc/host/cavium-thunderx.c b/drivers/mmc/host/cavium-thunderx.c
-index b8296b2de127..a5346fb96f9b 100644
---- a/drivers/mmc/host/cavium-thunderx.c
-+++ b/drivers/mmc/host/cavium-thunderx.c
-@@ -129,7 +129,7 @@ static int thunder_mmc_probe(struct pci_dev *pdev,
- 	if (ret)
- 		goto error;
+ 	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ 	pm_runtime_put_noidle(&pdev->dev);
  
--	for_each_child_of_node(node, child_node) {
-+	for_each_available_child_of_node(node, child_node) {
- 		/*
- 		 * mmc_of_parse and devm* require one device per slot.
- 		 * Create a dummy device per slot and set the node pointer to
-@@ -137,6 +137,13 @@ static int thunder_mmc_probe(struct pci_dev *pdev,
- 		 * of_platform_device_create.
- 		 */
- 		if (of_device_is_compatible(child_node, "mmc-slot")) {
-+			if (i >= CAVIUM_MAX_MMC) {
-+				dev_err(dev, "Too many slots\n");
-+				of_node_put(child_node);
-+				ret = -EINVAL;
-+				goto error;
-+			}
++	dead = (readl_relaxed(host->ioaddr + SDHCI_INT_STATUS) == 0xffffffff);
++	sdhci_remove_host(host, dead);
 +
- 			host->slot_pdev[i] = of_platform_device_create(child_node, NULL,
- 								       &pdev->dev);
- 			if (!host->slot_pdev[i])
-@@ -147,8 +154,8 @@ static int thunder_mmc_probe(struct pci_dev *pdev,
- 				of_node_put(child_node);
- 				goto error;
- 			}
-+			i++;
- 		}
--		i++;
- 	}
- 	dev_info(dev, "probed\n");
- 	return 0;
+ 	clk_bulk_disable_unprepare(ARRAY_SIZE(msm_host->bulk_clks),
+ 				   msm_host->bulk_clks);
+ 	if (!IS_ERR(msm_host->bus_clk))
 -- 
 2.56.1.750.gf70dc682cf-goog
 
