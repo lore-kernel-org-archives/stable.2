@@ -1,55 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795430320;
-	b=w39DoEAJ17zUSmyqw3bY7Ina1viTSoqOQ8ZqvRaYW0U9PuTttdxm4/Di2S76oROe2lTJ
-	 lGH4Gggl1nie4VaftfEa32IyFRqeX7A74k1Y0GYF6Ed7SERaJFnRqFNY1XheJCGjRRp2h
-	 Irhz8VAdMmZGM7Xe5iUr2Oa7eNLpLedKCxCO7jwjVlI0moKz5bsDq5em7Liv6lFlt1oO/
-	 zhvCOf1/LcRNznDquCc2Q/llvwyFOjXBDwq1IdN/puVIBZ9znQ7611y0VT/0wlizPRw+d
-	 ekQl81ejsVtZyUeqzYmJg9SaXg5VFFBU4tELI6nYFS6IlEFyXswIDKKEkl2f8TnS8TQ==
+	t=1795430338;
+	b=taN5o+8uVbNpR3ReSwYm9Zzp8BHFyk3JVOZwSMCCX6cXO0cRxnBz7u2yK0aE92E+5pPO
+	 VgnXrhIznagfxWRuB4phcmy2rRrowT8nXIwwxotLo1SvzL71ZOsToSyjxbzLdcbFSLI+k
+	 Zn+ikvrclphzgi6qs7pqHr63AnAYBuoee1tIjDpXvQc0rUrcAo36128MaaQvXMhnzjEcf
+	 WexI+Fih/HSjHx1vO+tMM6oY3OKVVTYnqpqH4+1yHH3M0jkTEh6G4yMbX51ZUgqye4TPM
+	 Ldo/1c8hdq+JRqerh3uaIxhG+XkBWCe8uwrpkuc73NjHZsyIf/bbZvjDVdUicC8HKBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795430320;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=4uMBHgBjHPr5TrgiVfTBcQRGxAuQekn3tbU+m3Rem5w=;
-	b=frgfBR+EVtQatQa6p8PlyBij85/1Fy7MczGBrtA/JV4XelY70sHnrkqkvXGHvNecfnE2
-	 bxWnlMNX9B4CYrTGDomuNBIZTL0S3pC6pPf91+vJh/ZiCbo376I47ZJHKKuEOZPUBCbTE
-	 deOmAiwC4N+KAf4yf0pMUsH0ppjy3nIb9OHiBeWZH0sSaJGRSD4/LKo7cV8PX6basurJW
-	 Ts5YOeagD6VNzNjFmBWvsDzgHa5MGG4xhxBu3aCB2nwh22sebTkcFrap8zvL8AhbxUbI3
-	 pWqF+Ps2eEJLE7Dy0siiLB7sja1TJiefY62rtj+uUJ3S2a25QmHBBGovHF18B9syI+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795430338;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=25HQwnu7e3FGuiwMIPkT94HGf3K/Bf7tNaljloY0VDM=;
+	b=CE+FfBcGQaWkaukyX4l94G0/LgZt0jdzBtfvJe1p7KMUhB0yhd54XiNRvFfGMIitydbh
+	 04bgUrhb9NY/jzM7pDePBnBtxHp95HWwuR7z4WHSnCQCO4Mhf2BfHVn6/L1cUCAn5vyc4
+	 Bt7vzWGJbsBGzRxBJljAneXZciDGz/QuewtBfmypiqF0BI+20NxmXsJEHwBRk2rvMncqp
+	 uERbilmPelWE4T5KyQ7t/bt3KhyhbCtbQ5j+cGkXMx8cwsgjN24HZ+xxSPhAd3O0VrOH5
+	 qOMAhYQHITgOV9eOjajvCt8VQiUsM1vAIBlZY+GCH2ELyELAqilUqaoU6URULJ6zerQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X6kZQUpK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=eXFg6f0E;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EOI4hZlt;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=VgMODSmF;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QMQzL15M;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FD1606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 10:38:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C07C606A31A
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 10:38:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C07C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X6kZQUpK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4575D1F000C0
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 10:38:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795430319;
-	bh=4uMBHgBjHPr5TrgiVfTBcQRGxAuQekn3tbU+m3Rem5w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=X6kZQUpKCnlcvvx8/m22zj3JYZNRBppgl38bJfin75SRiOdZZW07QMJFmI+UhTZm/
-	 BVsfSJ+SX5RDGQNhYyI5OgDvRFpHWyX/7d5sIpFvBWLdsGJ68Mec3EJoTKvYdePozL
-	 lrokFRgdsVl2avYPb6cABUK8smsfvmChhgOalWDVT91z9kFkU64csOXhORVjotIPHy
-	 yRBYfgLDzu7uYm7c2IUH6/ZpaQ2i6goFZi9RXP3ye8+fuXeln9/jpRQvJ5hKJSUmrx
-	 kTrPsuGdfvfOhXU4bZ6zkDpdLQXJ4LEh3hqORHN8FeB9woNaUzsCmgFrAQNo9BwGCm
-	 gU+Bq3MiyWkQw==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5c1c0c8d61aso1887939e87.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 02:38:39 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH/3/Aa0KDkqoqnQQpG42gVpbDrjkWTV+EQp1hqroU9ccdgNXj4BIfcHCMNqvQfGfYL+5gsMik=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96+IpMU1SbTgH75MI9m/8YXq19FGUvQHJYkd12OCea7oXjxxPm
-	l7+++QKoopPfSFfs7TWI6rYXqv8sST+V1zxwGVZ6Qf4xVbedtF3lOeCNcG4rV6XggWtSFGgJswm
-	h6LnkuKoYcoiJLI4EZuToCFLkrhJZSO0=
-X-Received: by 2002:a05:6512:2301:b0:5bf:d000:bca3 with SMTP id
- 2adb3069b0e04-5c1bc80af80mr2599775e87.49.1795430318053; Mon, 23 Nov 2026
- 02:38:38 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=eXFg6f0E;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EOI4hZlt;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=VgMODSmF;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QMQzL15M
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B67FD22098;
+	Mon, 23 Nov 2026 10:38:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795430328; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=25HQwnu7e3FGuiwMIPkT94HGf3K/Bf7tNaljloY0VDM=;
+	b=eXFg6f0ETZg6Z005XQCOn7gRg3XRZYpcBd/STGQVniKXeDk0p8g1oxe6eIMxNhdxQjRXBd
+	G6OW6+eN1BQvlLv40cbtrOlu0sU011Eu3F+0Pwe5qc/x2D5R35lojwaoV7Q2LOiOxe2nNJ
+	oVrpbnUKkzPXhApFsT7VomP5m6DcQmU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795430328;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=25HQwnu7e3FGuiwMIPkT94HGf3K/Bf7tNaljloY0VDM=;
+	b=EOI4hZlte2PozI7e75cDQ5JyubRkVvRc3Zm0mM8g0w+6KuyCyDpd1QAkXaSHSLb7QUtmBl
+	un7UTguWKvUEGRDg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=VgMODSmF;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=QMQzL15M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795430326; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=25HQwnu7e3FGuiwMIPkT94HGf3K/Bf7tNaljloY0VDM=;
+	b=VgMODSmF11gwFn08muFFUuXAPKh2NR5Nmbe2A9fdhlgq5mwfUoUGzRsfw410SGfgs2kXU9
+	gV01oRajU7l+4KSa3x5J8dJ5wuMpzGORO81Jav/RZ1YpHG3UHJ5M5VkaGchrbuDpAhliFM
+	rcHI0geL4rClm4xKYkkTLQd3ks3ODbk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795430326;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=25HQwnu7e3FGuiwMIPkT94HGf3K/Bf7tNaljloY0VDM=;
+	b=QMQzL15M0ID233nroooDuiyVoPowyyJasKmFSfmcbB1S8NX8oCb0EowiT3Aupu2OhzKCBR
+	A9l3h6X5VXSaMbDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8F79C13510;
+	Mon, 23 Nov 2026 10:38:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 854JG7YXBGtTawAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 23 Nov 2026 10:38:46 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 192702764E; Mon, 23 Nov 2026 11:38:31 +0100 (CET)
+Date: Mon, 23 Nov 2026 11:38:31 +0100
+From: Jan Kara <jack@suse.cz>
+To: Arbab Haider <arbabhaider649@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Eric Sandeen <sandeen@redhat.com>, 
+	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+1d23ad199a3bfd6f9149@syzkaller.appspotmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH] ext2: handle NULL fc->source in ext2_msg_fc()
+Message-ID: <csic66pmgrepiii5gkegqjykm3oceytmjymq323kqpx3mzlfrf@u6leijtq2hrh>
+References: <20261122182331.13740-2-arbabhaider649@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,132 +112,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org>
- <avMP-y1B9K0cp4M8@zed> <CAD++jLnuS9ZE8mRwkCizsqo3f40s5etqOJAUqLJNsCtE5eEkDg@mail.gmail.com>
- <awP0mKeNtrJj8zh6@zed>
-In-Reply-To: <awP0mKeNtrJj8zh6@zed>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 23 Nov 2026 11:38:26 +0100
-X-Gmail-Original-Message-ID: <CAD++jLnTCEPKG5hNtfQ8rbijxF8nsk3H_K+R4H+f1HJak3Dhvw@mail.gmail.com>
-X-Gm-Features: Aa3M54rRKaj8R3sfZW-3iO4iridVTVI6IfP5ufKPSkuf_T5v6hl73pARMuoD_pk
-Message-ID: <CAD++jLnTCEPKG5hNtfQ8rbijxF8nsk3H_K+R4H+f1HJak3Dhvw@mail.gmail.com>
-Subject: Re: [PATCH v2] media: mali-c55: Keep IRQ requested during suspend
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Li Youhong <dayou5941@163.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Nayden Kanchev <nayden.kanchev@arm.com>, linux-media@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122182331.13740-2-arbabhaider649@gmail.com>
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	TAGGED_RCPT(0.00)[1d23ad199a3bfd6f9149];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[appspotmail.com:email,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,vaf.va:url,suse.cz:dkim,syzkaller.appspot.com:url]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -11.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: B67FD22098
 
-Hi Jacopo,
+On Sun 22-11-26 23:23:31, Arbab Haider wrote:
+> With the new mount API (fsopen()/fsconfig()), userspace can pass mount
+> options such as "nobh", "dax", or "reservation" before setting the
+> "source" parameter, leaving fc->source as NULL during option parsing.
+> 
+> In ext2_msg_fc(), when fc->purpose != FS_CONTEXT_FOR_RECONFIGURE,
+> strrchr(fc->source, '/') is called unconditionally without checking if
+> fc->source is non-NULL, causing a kernel NULL pointer dereference:
+> 
+>   KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+>   RIP: 0010:strrchr+0x24/0x80
+>   ext2_msg_fc+0x157/0x1e3
+> 
+> Check fc->source before calling strrchr(), and omit the "(%s)" device
+> prefix when s_id is NULL or empty (e.g., when source is unset, empty,
+> or ends with '/').
+> 
+> Tested locally in QEMU (x86_64, KASAN+UBSAN) using fsopen()/fsconfig()
+> with NULL, empty, trailing-slash, relative, and full-path sources.
+> 
+> Reported-by: syzbot+1d23ad199a3bfd6f9149@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=1d23ad199a3bfd6f9149
+> Fixes: 98f18c76c2c3 ("ext2: create ext2_msg_fc for use during parsing")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
 
-On Mon, Nov 23, 2026 at 9:28=E2=80=AFAM Jacopo Mondi
-<jacopo.mondi@ideasonboard.com> wrote:
+Thanks but I've already merged a similar fix on Friday to my tree.
 
-> So yeah, maybe Sashiko would tell you this is possible but I hardly
-> believe it is.
-> Anyway, there is a remote possibility for a window here, so let's
-> increase the pm runtime counter.
+								Honza
 
-I'm honestly not sure. The framework should ideally stop this
-from ever happening but I'm not good enough with the media
-framework to have even a vaguest idea of how to fix this.
-
-What happened is that I asked an LLM to review the code
-using the Sashiko scripts and it complains about this risk.
-
-> > PM reference. The probe reference keeps the ISP active until the IRQ is
-> > installed, so runtime suspend cannot call disable_irq() on an IRQ we
-> > haven=E2=80=99t requested yet. I=E2=80=99ll add a comment.
->
-> A suspend will always follow a resume, and if a resume tries to enable
-> an irq before it is installed we'll have problems as well.
->
-> If that's a real concern to you, shouldn't we install the irq handler
-> before enabling pm runtime and powering the device up ?
-
-Often that is not a good idea, because the IRQ line can
-be in an undefined state and give rise to interrupt storms
-if you do that. As soon as the irq handler is installed it gets
-unmasked by enable_irq().
-
-Also right now the device is powered up
-by directly calling __mali_c55_power_on() in probe() maybe
-we should just let the PM runtime resume power it up
-for clarity?
-
-It's quite common to power up a device (enable clocks
-and de-assert resets) before enabling
-runtime PM though, that's what I usually do.
-
-Remove problems:
-
-> > > > +     pm_runtime_disable(&pdev->dev);
-> > > > +     free_irq(mali_c55->irqnum, &pdev->dev);
-
-Note: here we disable runtime PM and free the IRQ and this will
-make sure no further IRQs appear from this point.
-
-But clocks can still be running and resets can still be
-de-asserted because there is no guarantee that runtime
-suspend has executed just because we disable pm_runtime.
-
-> > > >       mali_c55_media_frameworks_deinit(mali_c55);
-> > > > -     if (!pm_runtime_suspended(&pdev->dev)) {
-> > > > +     if (!pm_runtime_status_suspended(&pdev->dev)) {
-> > >
-> > > I guess this is required because you moved pm_runtime_disable() up
-> >
-> > The remove ordering is part of the IRQ lifetime change. Both runtime
-> > PM callbacks now assume the IRQ is installed, so we need to drain
-> > them befor free_irq(). Then free_irq() waits for the threaded handler
-> > before we unregister the media entities it uses.
->
-> I'm sorry, this is certainly me missing some pm_runtime internals,
-> but where is this happening ?
-
-It's not a pm runtime thing more of a free_irq() thing,
-it will wait for outstanding threaded handlers to complete.
-
-When we get here we know no further IRQs can happen, but we
-have no guarantee that runtime suspend has been called,
-so we check just like the old code did to make sure it
-gets de-clocked and resets are asserted.
-
-Compare with the old code:
-
-static void mali_c55_remove(struct platform_device *pdev)
-{
-        struct mali_c55 *mali_c55 =3D platform_get_drvdata(pdev);
-
-        mali_c55_media_frameworks_deinit(mali_c55);
-        if (!pm_runtime_suspended(&pdev->dev)) {
-                __mali_c55_power_off(mali_c55);
-                pm_runtime_set_suspended(&pdev->dev);
-        }
-        pm_runtime_disable(&pdev->dev);
-        kfree(mali_c55->context.registers);
-}
-
-Since IRQs are unregistered in the runtime suspend callback,
-this is not a problem here.
-
-> > That=E2=80=99s also why I switched to pm_runtime_status_suspended().
-> > It reports the actual status after pm_runtime_disable(), so we only
-> > power off the ISP if it=E2=80=99s still active.
->
-> It seems to me pm_runtime_status_suspended() ignores the runtime
-> counter and is only there because you pm_runtime_disable() earlier ?
-
-Kind of, I guess it's a bad idea to free_irq() before disabling
-runtime PM?
-
-An alternative is to call pm_runtime_force_suspend() before
-free_irq() so you know for sure the device is powered off,
-I can try this if you like it better.
-
-Hm actually that would probably be better... shall I try that?
-
-Yours,
-Linus Walleij
+> ---
+>  fs/ext2/super.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/ext2/super.c b/fs/ext2/super.c
+> index 54a6c26d0..c99367652 100644
+> --- a/fs/ext2/super.c
+> +++ b/fs/ext2/super.c
+> @@ -89,20 +89,25 @@ static void ext2_msg_fc(struct fs_context *fc, const char *prefix,
+>  
+>  	if (fc->purpose == FS_CONTEXT_FOR_RECONFIGURE) {
+>  		s_id = fc->root->d_sb->s_id;
+> -	} else {
+> +	} else if (fc->source) {
+>  		/* get last path component of source */
+>  		s_id = strrchr(fc->source, '/');
+>  		if (s_id)
+>  			s_id++;
+>  		else
+>  			s_id = fc->source;
+> +	} else {
+> +		s_id = NULL;
+>  	}
+>  	va_start(args, fmt);
+>  
+>  	vaf.fmt = fmt;
+>  	vaf.va = &args;
+>  
+> -	printk("%sEXT2-fs (%s): %pV\n", prefix, s_id, &vaf);
+> +	if (s_id && *s_id)
+> +		printk("%sEXT2-fs (%s): %pV\n", prefix, s_id, &vaf);
+> +	else
+> +		printk("%sEXT2-fs: %pV\n", prefix, &vaf);
+>  
+>  	va_end(args);
+>  }
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
