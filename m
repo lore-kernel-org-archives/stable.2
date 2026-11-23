@@ -1,58 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795464032;
-	b=CDZ01aXGQHegEMwG1edwi9lkoEdE66Mv9irIkIBIuBarFh5ZeEdCww79HhJhzyckUJVb
-	 P2QnjLnz/C6LOLYMne7S4CC4ukpE5tremyrJ+861LTXsX5XsfkWqi29DbS3QwpqXq0psD
-	 G4J16dnrLcCLTq6xWOg3F/1N8r7oTKV0jgrZdCttebqvFZtu22GsEE7fv1erheOhqwKAI
-	 x/ldC3QuSGRbcu+xO9Nn6wpuJMBl8sJLZDqwc6H0NtgyihgOHbYj62in5UkcGGp8A/xKW
-	 WUVXX/j39XMQ6ExOVhpR7OkXyRbOnhd3U/9ZQOm9ryH78c3JtttHqH2YEJemGejV0sQ==
+	t=1795464040;
+	b=zDLWapvIbQgpyeIshM2mOkF6Wg36Whs9UUkNEmwmzp9TXUkJJBcuWkFX/l+wt/x9eAJQ
+	 4BqjpmZKfqc8IvxVAUV1fGx8K/9bGDo476sm14/re0RplxR/dFKiS4+LM8QkXIjwU10qi
+	 KDn9GNJLWsHmJO4CAFrAtYwbLCbuiUG+HB3cbTeRpeeI8NmyBLxCW9eRy7JOTZuJ45Zqj
+	 D1Lq0aac40F0Co2NRv45gHSyCVD6OcMWK9j6knnwDuvxuyOZiA1EljdDQDz0tkB2cFf1H
+	 bBo+if007I8BYxlEAs9ei4cXzD3TwXvpDmZMEd9c79z2UeCaWK0SMkRc7MTrA+NPLSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795464032;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795464040;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=wJmHuysGlrzUFkpREAfhZMaFYaFsHG8yDDRDlHUspmA=;
-	b=afXf8Ca2dxWU+jpoMUQPevMUoPAK58x8QeHYsMWupX1U/hHcT100852/tuSXwKkGLuhR
-	 bEdXhF0BeX3zhDdNqPB5rSJm0QaFi5dMsqd4QDoEC5gU1kv4K4yEwL6amjFFoXv+xwYgz
-	 OBWftL/V0vaNvmbJd1W1HH93GeVFtE5mhhopuf3eGiWjSADIGwdwa7Xi6EdjqlAOpM7hn
-	 pphOO+vq4KxGBuwNultcCywOJjddPXz1EQSERZa6V7kPTRBMhinhDqAZxRMcmtjXLVti4
-	 J73Lx0kznc8xlhyX/3URgJifUDrL/GggiXXlk3KfxwxU1vqTbn+8tdYDOc1igvvNI+g==
+	bh=2XPrAVxeEBOl/91jeQU5k7j8fuWUtX0/F5/UrgSfTUQ=;
+	b=GMuUbWve+n4PIwJvyyzHFZ5LIjxDaiCA01yR1kd/ZgmPB8v4uhaXI1TR6OMUaUUZo+g9
+	 m8+K90TaKxGctwnjchGqlOv3S+HmmzJh5/sDyVrET60chMWZPOeOqa6dXWgDL7PC3kPkg
+	 nHbl95CBIIqnbTkm/cHx29r6tywVa6dpTxC71TN5ZYmy4Z1/IWnvy34JnKtgz1o94NvXQ
+	 PflksjFOXOcY4hHfWLv4LeCNQjoF122UWQwmVdhnnGNNReR2Furdyh0sNCXhMFFS0BBpZ
+	 yMzH0BUFKPK0k60Y9X0lhTfMUZKh6Su6UyF4vJlZImIHllQZ6Zizid79nzV1ueBRuLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BKkr1tiw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hTYRYfo2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A07606A332;
-	Mon, 23 Nov 2026 20:00:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D27B606A32D;
+	Mon, 23 Nov 2026 20:00:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BKkr1tiw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932811F000C4;
-	Mon, 23 Nov 2026 20:00:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hTYRYfo2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 658591F000C0;
+	Mon, 23 Nov 2026 20:00:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795464031;
-	bh=wJmHuysGlrzUFkpREAfhZMaFYaFsHG8yDDRDlHUspmA=;
+	s=k20260515; t=1795464040;
+	bh=2XPrAVxeEBOl/91jeQU5k7j8fuWUtX0/F5/UrgSfTUQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BKkr1tiw2ceUf6Ky8hMnKRSKYuCRupbDO2zhLMCHl9MvroL5Xs1SLGYpYVIL5O5LX
-	 V+ZWMXfhXfvzI03cPCilmR+zweACy3zNnHkQKwoJgY20p+FtSQntCemRTHVfeHzsmi
-	 Gy939rqUaTKMDnhmxzq8t17cvFYfV6PhVxjfdRyQbA/qQ1kninTGSH/MAEfn0jJChO
-	 WQ5m0/2//02Zy2L9Awgc+8/Vuf5cinNe5AVxMeOT1xYBcnYNXInNgX1TeDlmLI7Xgt
-	 oL7cG1okt01VXYqHQ+w8rUa0Exe1yaDMxtbx6VSFoOWo+GizVGvPfAUoepwQqekkdf
-	 NK0159O9bw15w==
+	b=hTYRYfo2s+ByadcdVqp89uBh0lCXz0eBLSeSrCSF1ZVmkASs7w6m5Q26vD2aeqi5/
+	 qI9Z2HsdhqYKBU9KV5P0TWFUdR5hnBEpzbsbHPm93QEssAbVsljnoboHXxTGJJEBCN
+	 hrXf0ErfvA315/YeANd6Y+CRBA2xVxF4wy8WAsBE9nUWJYK2tZKR5bJbMPAh6zs/I2
+	 i6JnClLwWrfegfB52TqFH3wDPYH4KJE7XF83gED+C3w2/F8yvucGAH2z1uWbKrBD2O
+	 FznccK18Ksua6d1K1rRkmL1R9gh4zHUplB4pkag5FgunplTuiQHPYScyZzAQXFG26i
+	 xdlPoo3TIoXqA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
+	Eddie Huang <eddie.huang@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
 	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Wolfgang Grandegger <wg@grandegger.com>,
-	lm-sensors@lm-sensors.org,
-	Sergei Poselenov <sposelenov@emcraft.com>,
-	Dmitry Rakhchev <rda@emcraft.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Ryan Brue <ryanbrue.dev@gmail.com>,
+	"Tianping.Fang" <tianping.fang@mediatek.com>,
+	Yingjoe Chen <yingjoe.chen@mediatek.com>,
+	Hsin-Hsiung Wang <hsin-hsiung.wang@mediatek.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
 	linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 01/10] rtc: rx8025: pass parent I2C device in clock_adjust_ppb sysfs callbacks
-Date: Mon, 23 Nov 2026 19:59:12 +0000
-Message-ID: <20261123200012.502284-2-lee@kernel.org>
+Subject: [PATCH 02/10] rtc: mt6397: handle non-DT platform device matching in probe
+Date: Mon, 23 Nov 2026 19:59:13 +0000
+Message-ID: <20261123200012.502284-3-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123200012.502284-1-lee@kernel.org>
 References: <20261123200012.502284-1-lee@kernel.org>
@@ -68,47 +75,69 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Since rx8025_attr_group was converted to rtc_add_group(), the device
-pointer passed to rx8025_sysfs_show_clock_adjust() and
-rx8025_sysfs_store_clock_adjust() is the RTC class device (&rtc->dev)
-rather than the parent I2C client device.  Passing dev directly to
-rx8025_read_offset() and rx8025_set_offset() invokes to_i2c_client() on
-the RTC class device, causing type confusion and an invalid pointer
-dereference during SMBus register access.
+The parent MediaTek PMIC MFD driver instantiates RTC platform
+subdevices even when the optional RTC child Device Tree node is omitted,
+and devices can also be bound via sysfs driver_override.  In those
+cases, of_device_get_match_data() returns NULL, yet mtk_rtc_probe()
+succeeds with rtc->data left NULL and mtk_rtc_write_trigger()
+subsequently crashes when dereferencing rtc->data->wrtgr.
 
-Pass dev->parent to rx8025_read_offset() and rx8025_set_offset() so
-they operate on the underlying I2C client device.
+Provide a platform_device_id table covering the MediaTek PMIC RTC cells
+and fall back to platform_get_device_id() when no OF match data is
+present, returning -ENODEV if neither match path provides driver data.
 
-Fixes: 3d35840dfb75 ("rtc: rx8025: use rtc_add_group")
-Closes: https://sashiko.dev/#/bug/linux-39839b9a-7a00-4bdc-8d5a-b28de75dda80
+Fixes: 29ee40091e27 ("rtc: mt6397: Add support for the MediaTek MT6358 RTC")
+Closes: https://sashiko.dev/#/bug/linux-35993d35-d776-4f86-9bd2-42c6ee078f88
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/rtc/rtc-rx8025.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/rtc/rtc-mt6397.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/drivers/rtc/rtc-rx8025.c b/drivers/rtc/rtc-rx8025.c
-index 1ccec7b5ae42..ab3a30982863 100644
---- a/drivers/rtc/rtc-rx8025.c
-+++ b/drivers/rtc/rtc-rx8025.c
-@@ -482,7 +482,7 @@ static ssize_t rx8025_sysfs_show_clock_adjust(struct device *dev,
- 	int err;
+diff --git a/drivers/rtc/rtc-mt6397.c b/drivers/rtc/rtc-mt6397.c
+index ab402f9f85c3..c40644ae509a 100644
+--- a/drivers/rtc/rtc-mt6397.c
++++ b/drivers/rtc/rtc-mt6397.c
+@@ -343,6 +343,14 @@ static int mtk_rtc_probe(struct platform_device *pdev)
+ 	rtc->addr_base = res->start;
  
- 	dev_warn_once(dev, "clock_adjust_ppb is deprecated, use offset\n");
--	err = rx8025_read_offset(dev, &adj);
-+	err = rx8025_read_offset(dev->parent, &adj);
- 	if (err)
- 		return err;
+ 	rtc->data = of_device_get_match_data(&pdev->dev);
++	if (!rtc->data) {
++		const struct platform_device_id *id = platform_get_device_id(pdev);
++
++		if (!id)
++			return -ENODEV;
++
++		rtc->data = (const struct mtk_rtc_data *)id->driver_data;
++	}
  
-@@ -500,7 +500,7 @@ static ssize_t rx8025_sysfs_store_clock_adjust(struct device *dev,
- 	if (kstrtol(buf, 10, &adj) != 0)
- 		return -EINVAL;
+ 	rtc->irq = platform_get_irq(pdev, 0);
+ 	if (rtc->irq < 0)
+@@ -427,6 +435,16 @@ static const struct of_device_id mt6397_rtc_of_match[] = {
+ };
+ MODULE_DEVICE_TABLE(of, mt6397_rtc_of_match);
  
--	err = rx8025_set_offset(dev, -adj);
-+	err = rx8025_set_offset(dev->parent, -adj);
++static const struct platform_device_id mt6397_rtc_id[] = {
++	{ "mt6323-rtc", (kernel_ulong_t)&mt6397_rtc_data },
++	{ "mt6357-rtc", (kernel_ulong_t)&mt6358_rtc_data },
++	{ "mt6358-rtc", (kernel_ulong_t)&mt6358_rtc_data },
++	{ "mt6359-rtc", (kernel_ulong_t)&mt6358_rtc_data },
++	{ "mt6397-rtc", (kernel_ulong_t)&mt6397_rtc_data },
++	{ }
++};
++MODULE_DEVICE_TABLE(platform, mt6397_rtc_id);
++
+ static struct platform_driver mtk_rtc_driver = {
+ 	.driver = {
+ 		.name = "mt6397-rtc",
+@@ -434,6 +452,7 @@ static struct platform_driver mtk_rtc_driver = {
+ 		.pm = &mt6397_pm_ops,
+ 	},
+ 	.probe	= mtk_rtc_probe,
++	.id_table = mt6397_rtc_id,
+ };
  
- 	return err ? err : count;
- }
+ module_platform_driver(mtk_rtc_driver);
 -- 
 2.56.1.750.gf70dc682cf-goog
 
