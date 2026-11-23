@@ -1,87 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795427282;
-	b=cCSiQzq5had5j/QZ6UJrxw+EEZdNm8WOuOqDC89RKRBA78G9YN5BGH2Xze0MX0mOWThW
-	 Fq5QC4cZoFFqhA08yimI6jX0KlKgzDYfy8rErVB5CRb8kb9jKgT1pROlK+o3wKJJAv8tv
-	 TqkiyRkISbMucWGorf22y87vPRmV9MZGw21j+iOZNSqzpaHtXzaias54voa+Xhc3J653g
-	 tq037W+9HqfstIU8tP3mOXDYh+x74kieFVEU7Dbb9wp20PAtkdwc2/Bib9BfECFTbKKQ6
-	 R8kBNOPS0o6/lMP4524PvhAUtIWTmtFyCPX3AGv5cJpq4hZMI7N4fD+XkSb7fVN4byQ==
+	t=1795427358;
+	b=bSnwgp8/RpTE+LDjtgxOqDKjr/AvzNyitOizo/zaYEXld8wq8nfBwp8n3jxA9aIy0EGK
+	 C1zb73kcP+1jv/rn1osK/NW2p3qmtGvc54sXfZc2nWhI5d1hY+ShRLBL66y7TG2PRMfJR
+	 9MBpkkmbNq0PaymeyN2ClCUZB/3jrfZtwlgj+RQBxJ3iLqPYzSQQvXPniW+S7MMe47/u7
+	 bg1Ry41ZdrD8hLT+XoxW7gP/Lq9ChWl3WbrrQybnrZNJQ2xQlr/waeTtXDy1RNH2aK5jS
+	 3BIorVG11HhUfFRhZvOSdBf55y2IdBI3RdTmbO7rdmHeD7vUT2qKDzzs067Z1+i1bdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795427282;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=xXoaW7puZQVXtPvVEP8J871ckV5Jm7nnXRP/lyhSBaM=;
-	b=RoIYHM+IA8op9nHK6+W8gX4GStWPXE2r9xJz3NlvG744KIwOUcO3/neHvBwRXjAQd1Sj
-	 UFpyAmC7JsX+NjngNKyaj6zQ9B/j0daurqKRs8KK9auUEs+8WvJflvz8wfQjpFpY3mPlk
-	 bG048WlbCurpjQDq3bnIXKY7k1VT9FnJygywG9ZH04MLWoZMTz1osBTliOq1Pfvgcavv/
-	 OlFwg0IB/4ecKkm1Z+4VlJ+lBaR8QJuNRZd7Nf51SZ4QAd+a9w5j6gGVB2Bk/4WUXt7sV
-	 /ZLM2Y5VKiknNHYDwuzNn63NPCEpyD7HIUJ+QdVLK/CGwrac4oCkbEFntg5eF7G/yOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795427358;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=5PlAEmszs4I4I295Pe06hQbjyqPhFRRqJ+vKSzs0Ya8=;
+	b=BXrM5RHjWYaVDTRD1TJYdlEal2yd5U+dKyaVA0RxDbEZtAZiOhg58pgUMKFFDssREd8a
+	 mf+M0AC0t957T3ec19kYKaJnC6c/oO9TgYfJkuJdsaxdIVIqqQEL8v5vy4x5pdgy6L+oZ
+	 JiYsMm7JfB5DE86EBp08y6crj59yel7ofamDySoYpeyG+awlElmaF684ucSJtkQ+ktfmS
+	 hhRDNO8PuB/aNvjGc9oQ8R+2BjwnCpbp1+UBG8QztkRhtMzplVo7tcd/ubXE7E6tp2AMS
+	 WtiyUBcxC0ztdATuT70tbBe5li6Sqy0tnoFMtnPaeNo0d0VGZRiL7Zu4AjmRibcjFRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pereq.eu;
-	spf=pass smtp.mailfrom=cryspen.com;
-	dkim=pass header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=cDRx5VKa;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE29606A31A
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 09:48:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABE29606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pereq.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cryspen.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=cDRx5VKa
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e47347279so1749211f8f.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 01:48:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pereq.eu; s=google; t=1795427280; x=1796032080; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xXoaW7puZQVXtPvVEP8J871ckV5Jm7nnXRP/lyhSBaM=;
-        b=cDRx5VKaRZr23mtKysSknJ0mCuExdPqtt4rwbBGe1jtrHNJTBbvGqDtqXWwYn/QI/7
-         YLzKmxT3p/PZF+1ZnUnsvINT9+g5UbeFOwPwSdcGWrzvnGhQ8aoxvRcfFowrAuxv13q3
-         amPNZqECsB+GeIztDdxp3yI1NwxldImQsSNpoH8U89kqNlFQ73AJhR9E4nZhSDwTdpPf
-         d7MoGqfFogKmMpTKxyV1X6Skc7D0vTt9b7A0cDC1M+BMIlJma5/JLhdUQInfvPEUDdW7
-         lWAV9kIUtRLOdrW88c770R0cWkvI1VV8QeZBcRWW1TnM38o8pJxHKRvlSr02j9OTCP3A
-         5nYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795427280; x=1796032080;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=xXoaW7puZQVXtPvVEP8J871ckV5Jm7nnXRP/lyhSBaM=;
-        b=Q0lLMjhbAt/LRTU73mzV7HhSQH1OPqGHl7v8JFB9WFvfNiMk03pH5II3hePyG+Lju5
-         3VIqthgqqGC6wVBbIbjv7+Vzd12JSdzjM15z4dBZ41i7bbyZc/v6neROAW2L6VtEYcot
-         dmOF+HaXQXPWAcv7HONfFdsJ2DbfKS0YMQYLmL6shAiQaVhZUHHYrOOiJ4Q8Y4vNEQYi
-         BVtP/cudGTuf0MVcO95EaVhSpyXZYXsR5wtYV2VcWu59wtnd7HvzyZp+gPjyEs7h5esa
-         WNLh/Buy17Gep1yuEnTl4d/eZFXDHJmSHimzjLkGmnlCAd6VMhNud9DS5Sq1t4FNhVBL
-         3K5A==
-X-Forwarded-Encrypted: i=1; AL+hErGTTgwvSjzDSyjnYJMajtQZnLcl+pvf1vsdS6LJMNadIAfdF10QSLZYmZ5nfmAB19FBGC6v/lo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9i7KE5PWlac4gUAWx/DDVMpawhBCXBbHzI3eIC+lXLVFj8+ydC
-	Ty1vuCIRFCHWc6vDM3fGLcro3Y66uCvf/IgRL4+E09M/gETYdM+lk/ZxmdjFpVAw3hA=
-X-Gm-Gg: AZFdTZcgizkwXJb15tOAEz4oAEgH+uorl8y9kttxoCzRKbCKaHdadAxchOICPGPWA/W
-	8Ig9PrhBoWRllDbV9t6LS4IA/MtuvaWdbra1MQ9/RppOYjbLi3Jbas+uGfSfgfPkQt1cAi0Ffco
-	bK0C43E7YRS3klG4N/sl2IPXQS2hCUiorl5aJCgEE7wgjAPqrkOgVA1/kjF7FjlG7DlSlKjegkU
-	gXEh2IIqrLQ+o0vMCIkzCQQD2KboebCQWHTeHLkRU7NFXSROo2bCqt5KMWOFXuqiD/FJYkRrlAD
-	CTx55uXqEurPBecRwSF7Cns7Ga+ZLS116POxzoCE0cAkPmMXURPLXC+sO+Bvvx8ZEwV+VlXMTgy
-	2hTVIC5rLzU7aF1Jb9FiBHY8hlrRYrNzBHFVtCNAbmnHi1TshSvQnOWbQsxB38f0juVgHT8P3hq
-	OkKO3XxSpJdZZZi3MWAYlsUMB1OrlCXMfwFbDFhxCazmKUPlqb2AEiGwcW6D8qUiefMDLx82BDq
-	naH74M4ajjwnh5SpCrphIBbr2w6vl5rfvSzKZHTASmRS+lQGnuuj22ZWLPPGYOLURtFxBY0TZPE
-	RHSP9UidPWoC5zPRqvRp
-X-Received: by 2002:a05:6000:26c1:b0:4b3:b495:d5ad with SMTP id ffacd0b85a97d-4b3b495d6efmr3113266f8f.23.1795427279778;
-        Mon, 23 Nov 2026 01:47:59 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b110ba3sm17295126f8f.35.2026.11.23.01.47.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 01:47:59 -0800 (PST)
-From: Dan Carpenter <dan@pereq.eu>
-Date: Mon, 23 Nov 2026 12:47:42 +0300
-Subject: [PATCH] KVM: arm64: nv: Reset MMIO state when committing a nested
- exception
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFBD606A321;
+	Mon, 23 Nov 2026 09:49:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EFBD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from f3f1baf57000.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAXr7QLDARryhPDAQ--.35445S2;
+	Mon, 23 Nov 2026 17:48:59 +0800 (CST)
+From: liutong <liutong@iscas.ac.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>,
+	Anup Patel <apatel@ventanamicro.com>,
+	linux-serial@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] serial: earlycon: bail out on zero progress in SBI DBCN write
+Date: Mon, 23 Nov 2026 09:48:43 +0000
+Message-Id: <20261123094843.540808-1-liutong@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,101 +55,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-stale_mmio-v1-1-73f9c67a1bb0@pereq.eu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/02MTQqDMBBGryKzbsAkNEKvUkqZxKmO1FgyKoJ4d
- 5N20+X7ft4OQolJ4FbtkGhl4Slm0JcKQo+xI8VtZjC1cVqbWsmMb3qOI08KrUXXNNZ6d4V8+CR
- 68faV3R8/lsUPFOZiKAuPQsonjKEv0Z+rNHAcJ++xAeuQAAAA
-X-Change-ID: 20261120-stale_mmio-a33a67733b65
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
- Steffen Eiden <seiden@linux.ibm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>
-Cc: Karthik Bhargavan <karthik@pereq.eu>, 
- =?utf-8?q?Cl=C3=A9ment_Blaudeau?= <clement@cryspen.com>, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org, 
- Dan Carpenter <dan@pereq.eu>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAXr7QLDARryhPDAQ--.35445S2
+X-Coremail-Antispam: 1UD129KBjvJXoWruryUXFy5Aw48ZFyfury7trb_yoW8Jr4fpw
+	129FyqyFW5tF1fZ3ZF9F15uFyrZa9rAry7KFyUCwnYv3sYqF4SkFW3ta4YgFyrJr97JF12
+	kF4YyFWrA3Wjk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0ow
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l
+	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
+	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
+	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r
+	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
+	6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07b818PUUUUU=
+X-CM-SenderInfo: xolx301qj6x2xfdvhtffof0/
 
-KVM has two ways to commit a pending exception, commit_pending_events()
-which also resets the MMIO emulation state, and a direct call to
-__kvm_adjust_pc() which doesn't.  The EL1 to EL2 path in
-kvm_inject_nested() uses __kvm_adjust_pc(), but it needs to use
-commit_pending_events() instead.
+sbi_dbcn_console_write() loops until all bytes are written and exits
+early only on an error. When sbi_debug_console_write() returns 0 it
+stays in the loop forever.
 
-The scenario is: the vcpu exits to userspace for an MMIO access and
-userspace then injects a synchronous external abort or an SError using
-the KVM_SET_VCPU_EVENTS ioctl.  If the vcpu is in L2 context and L1 has
-asked for the exception, then kvm_inject_nested() enters the exception
-straight away and vcpu->mmio_needed stays set.  On the next KVM_RUN,
-kvm_handle_mmio_return() completes the access in L1's context so it
-skips the first instruction of L1's exception vector and writes the
-MMIO data to one of L1's registers.
+A zero return is not an error. Per the SBI specification, the call "may
+do partial/no writes if the debug console is not able to accept more
+bytes".
 
-Replace the __kvm_adjust_pc() with commit_pending_events() so that the
-MMIO emulation state is cleared.
+OpenSBI can return 0 here. Its semihosting console reports 0 when a host
+write fails, and SBI passes that number back unchanged.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-221074@kernel.org/
-Fixes: 9aba641b9ec2 ("KVM: arm64: nv: Respect exception routing rules for SEAs")
-Fixes: 77ee70a07357 ("KVM: arm64: nv: Honor SError exception routing / masking")
+Fix the check to use <= instead of <, so that a zero return also ends
+the loop.
+
+Fixes: c77bf3607a0f ("tty/serial: Add RISC-V SBI debug console based earlycon")
 Cc: stable@vger.kernel.org
-Signed-off-by: Dan Carpenter <dan@pereq.eu>
+Signed-off-by: liutong <liutong@iscas.ac.cn>
 ---
- arch/arm64/include/asm/kvm_host.h | 1 +
- arch/arm64/kvm/emulate-nested.c   | 2 +-
- arch/arm64/kvm/guest.c            | 2 +-
- 3 files changed, 3 insertions(+), 2 deletions(-)
+ drivers/tty/serial/earlycon-riscv-sbi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 0614c3b3a40d..c75b0c623824 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -1354,6 +1354,7 @@ int __kvm_arm_vcpu_get_events(struct kvm_vcpu *vcpu,
+diff --git a/drivers/tty/serial/earlycon-riscv-sbi.c b/drivers/tty/serial/earlycon-riscv-sbi.c
+index 0162155f0c83..a8ffee389e15 100644
+--- a/drivers/tty/serial/earlycon-riscv-sbi.c
++++ b/drivers/tty/serial/earlycon-riscv-sbi.c
+@@ -29,7 +29,7 @@ static void sbi_dbcn_console_write(struct console *con,
  
- int __kvm_arm_vcpu_set_events(struct kvm_vcpu *vcpu,
- 			      struct kvm_vcpu_events *events);
-+void commit_pending_events(struct kvm_vcpu *vcpu);
+ 	while (n) {
+ 		ret = sbi_debug_console_write(s, n);
+-		if (ret < 0)
++		if (ret <= 0)
+ 			break;
  
- void kvm_arm_halt_guest(struct kvm *kvm);
- void kvm_arm_resume_guest(struct kvm *kvm);
-diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
-index 39136a89d74b..5a7019bb719b 100644
---- a/arch/arm64/kvm/emulate-nested.c
-+++ b/arch/arm64/kvm/emulate-nested.c
-@@ -2921,7 +2921,7 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
- 	 * Make sure the exception actually took place before we load
- 	 * the new context.
- 	 */
--	__kvm_adjust_pc(vcpu);
-+	commit_pending_events(vcpu);
- 
- 	kvm_arch_vcpu_load(vcpu, smp_processor_id());
- 	vcpu_clear_flag(vcpu, IN_NESTED_EXCEPTION);
-diff --git a/arch/arm64/kvm/guest.c b/arch/arm64/kvm/guest.c
-index ba4570c52a91..b7d36c2abfdf 100644
---- a/arch/arm64/kvm/guest.c
-+++ b/arch/arm64/kvm/guest.c
-@@ -770,7 +770,7 @@ int __kvm_arm_vcpu_get_events(struct kvm_vcpu *vcpu,
- 	return 0;
- }
- 
--static void commit_pending_events(struct kvm_vcpu *vcpu)
-+void commit_pending_events(struct kvm_vcpu *vcpu)
- {
- 	if (!vcpu_get_flag(vcpu, PENDING_EXCEPTION))
- 		return;
-
----
-base-commit: 5a7235e9adff42aa043ac9473dbeb0354dca0967
-change-id: 20261120-stale_mmio-a33a67733b65
-
-Best regards,
---  
-Dan Carpenter <dan@pereq.eu>
+ 		s += ret;
+-- 
+2.34.1
 
