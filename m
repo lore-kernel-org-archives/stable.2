@@ -1,68 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.74.67.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795443566;
-	b=ZEUADOr/GBcvTPKqoWxvXcLOzJDzgtT/dAiMFe/wTtLC88JLnlRJqpjz/BaGoo9Hr5tM
-	 8KKIwd+btn1HIhNXz69vmQnBu5lWEp73RfUYQdN9R0cQWGeV2OOcIvmABta2wlV9omrX0
-	 ZxOASB8EYvLfiOIPR+kW00TPDFNCqYRpJM7dlYJyVqbTYJyDUaG/vAVakcJGn1vU/3owL
-	 dr889Ycgk5RK/O53+1SbbEGXrosRnL7q+EqC4b+AY2mggQ0RAWNVAhwngcykMLogY6SSG
-	 rsEqNz0vlk7d93P+Nr4qcL4va4LewrMK2ADear3atnPXGLrd4iTBNIKGeDrwuwfaQsg==
+	t=1795443937;
+	b=WJZb0+pdYml0QE1gFjMFAjwIlhHsy05V++6GDkvUwe2g0o+6vR3fWpezuCliwaY0pLOH
+	 DhlOucfdmY32T9Mu7lis3zmAU36wPKmtdRczVUjkUQKj1dc+FiQr4EQscB3MJe5xvPTQr
+	 pCr0Y9Uk7GFXu6O7Db9J7sWbDBmTP25zd4k/395pQVUaO0b+PNxqO7N1uXuFYQ8ritsmS
+	 7RRXfAhDdWxxbbvh7f/XhSk61w34syLPBNgUdsCNTt6SokLwI3RXujRXewfqZSBS0Q+0u
+	 2qUFCRPQC99NlME+f9keu6C7p2l2Gj9T0HAy+Jwh6vcvuJ6Mi+fkJflDZCYd486MRKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795443566;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=GYUmmEAb22LnKFiDajxYM3OVr0FaSmECDdgEbAZ9rAE=;
-	b=pBL+3TnbvwWQClfsDyjkaK3hFeWl9noga+XQUgCeNlvDGQruaGkttDnf1GuIGEOEG3Wx
-	 yrCGJ5PBxtAA8n4N/NQAoh9pU6bQHlTlaWpDPX8Mcj4qpSACCdXQ8Ls6CT5/HhNOhqj+8
-	 0eTa2W4kc9JqfCCQEufii9t28DmqCeH9998I6K9Qc4NMTjdxIImUGSPOElJIkfykP9/0V
-	 RbfOq3vanoL5jCIIN7Cj4T21ng7q/UxcUFS6U9pQjv74auma7EMWx7VHQ9D7Mzh5XUxbl
-	 7P1MYzMf2eoJRjJBp3ZK0y9PMB3n+vfNlvTYzxDEzxTPmphmWq4oq8F+3xp2r7XFrww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795443937;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 DKIM-Signature;
+	bh=s993QDJ+0cBPgokfj9se/N7j69mh8bQ7H38pHF7uEYs=;
+	b=oVuHWSEQ+tGKo/X9RkmI+wTjLK+Th0RwfBKhJRb9//tECdkgTBRqs3Ju7DFjUR9HZi3N
+	 eJkWX41K26vReZ/AJWjMqdhAQAuPYDrOfeqHq5mKwoceSyx31HAkfmDteBjsUwA7BNLis
+	 aa8GMOsj4HDc39zyLvE/v+qt+avtRJPpYTZPeVZZX/eLqKh9HEa9RzlTQhR0ZSxVmROL3
+	 yOU9fn75D9/OINdL654B+6LNPvh6pyI9O/I4QezZc8rgietUnF2raY80FbVZmZd5Es661
+	 gSdAFlQ3YXo94RRw7+U/EQiBnt5lCbw17odONqYol7rWjo4XzxoXr4ZwXDM7yLvzt3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AaLVXHtb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=poczta.fm;
+	spf=pass smtp.mailfrom=poczta.fm;
+	dkim=pass header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=C3I7JFgh;
+	arc=none smtp.remote-ip=217.74.67.49
+Received: from smtpo49.interia.pl (smtpo49.interia.pl [217.74.67.49])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8F0606A330;
-	Mon, 23 Nov 2026 14:19:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BEE1606A337
+	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 14:25:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BEE1606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AaLVXHtb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB2B1F00A01;
-	Mon, 23 Nov 2026 14:19:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795443565;
-	bh=GYUmmEAb22LnKFiDajxYM3OVr0FaSmECDdgEbAZ9rAE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AaLVXHtbhSoF5Kp0N7n7e1/qzwNIKpxRTRfbxy4X/KCRSq5u0Dm7EjcZ2MeLid9BO
-	 YD4Ii1u0BRqi+IHBl35rj2kTDey1hEBSDKuESK941QQS5xjXXjV1eq7sVsb0MYTmL4
-	 q5ciDi+Dllfw2U2vISzGBs9dXwNgEmsibenM7OqW4ZcSpIqcM0k2C28rztNb/qIE/E
-	 T/+Px2OaLLuQ7KDeo6/bDFQkvIqDwM12oFhqvDXSj1wfhjpWbQ/Gg9NirHzS7hRsPG
-	 By/Rm52+U9rZkwyhJQzJjgl8y7rlGW+tS3jvIbiJ+6RVmBu1fL4RmPTXAC9XGWHP0Z
-	 UvlsaiSK88xog==
-From: "Harry Yoo (Meta)" <harry@kernel.org>
-To: vbabka@kernel.org,
-	Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: kernel-team@meta.com,
-	urezki@gmail.com,
-	paulmck@kernel.org,
-	qiang.zhang@linux.dev,
-	akpm@linux-foundation.org,
-	hao.li@linux.dev,
-	cl@gentwo.org,
-	rientjes@google.com,
-	roman.gushchin@linux.dev,
-	linux-mm@kvack.org,
-	rcu@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=C3I7JFgh
+Received: from localhost (unknown [80.68.231.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
+	Mon, 23 Nov 2026 15:25:33 +0100 (CET)
+From: Slawomir Stepien <sst@poczta.fm>
+To: gregkh@linuxfoundation.org,
+	jiashengjiangcool@gmail.com,
+	yun.zhou@windriver.com,
+	zzzccc427@gmail.com,
+	bigeasy@linutronix.de,
+	nab@linux-iscsi.org
+Cc: Slawomir Stepien <sst@poczta.fm>,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com,
+	syzbot+2799146a53c356f8017d@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] mm/slab: restore the rcutree. prefix of the kvfree_rcu parameters
-Date: Mon, 23 Nov 2026 14:19:18 +0000
-Message-ID: <179544354578.3575060.11576418215536505542.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261120083707.296481-1-zhanxusheng1024@gmail.com>
-References: <20261120083707.296481-1-zhanxusheng1024@gmail.com>
+Subject: [PATCH v2 2/3] usb: gadget: f_tcm: detach gadget when dropping an enabled TPG
+Date: Mon, 23 Nov 2026 15:25:12 +0100
+Message-ID: <20261123142513.204652-3-sst@poczta.fm>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261123142513.204652-1-sst@poczta.fm>
+References: <20261123142513.204652-1-sst@poczta.fm>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,27 +65,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
+	t=1795443935; bh=s993QDJ+0cBPgokfj9se/N7j69mh8bQ7H38pHF7uEYs=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=C3I7JFghO79ez0l2jAaJZRSQBVG7fflMuDZIA6Z4Px98Np4D9JtopLW49a6KRZVCZ
+	 1b9sojHd9knbxNtVCETubSDbat52YPcuOQL3lkKLtazpQoVfkHUAGv18B3k1Djd55O
+	 HtKIs11qOsetCvtOycSPTXSRBMl80a5geZyIdXGM=
 
-On Fri, 20 Nov 2026 16:37:06 +0800, Zhan Xusheng wrote:
-> The move of kvfree_rcu() to mm/slab_common.c dropped the "rcutree."
-> MODULE_PARAM_PREFIX, so rcu_min_cached_objs and
-> rcu_delay_page_cache_fill_msec became slab_common.* and the documented
-> rcutree.* names are silently ignored.  Restore the prefix; the
-> slab_common.* names, never documented, stop working.
-> 
-> 
-> [...]
+Removing a TPG directory via configfs rmdir ends up in usbg_drop_tpg()
+through target_fabric_tpg_release(). The target core does not disable
+the TPG first, so if the TPG is still enabled and the gadget is bound to
+a UDC, usbg_drop_tpg() destroys the TPG workqueue and frees the TPG
+while the bound function still references it through fu->tpg.
+Subsequent USB traffic (tcm_setup(), bot_submit_command(),
+usbg_submit_command(), ...) then dereferences freed memory and queues
+work onto a destroyed workqueue.
 
-Applied to mm/slab.git slab/for-next-fixes, thanks!
+Disable the TPG through usbg_enable_tpg() before tearing it down, so the
+gadget is unbound in the same way as when writing 0 to the enable
+attribute. Only do so when the gadget is connected: for the legacy
+g_target driver, detaching a never-attached TPG would call
+usb_composite_unregister() on a driver that was never registered.
 
-[1/2] mm/slab: restore the rcutree. prefix of the kvfree_rcu parameters
-      commit: 2197ea27ed0ff25cb294a3e6656ae6e0a23c8efd
-[2/2] mm/slab: don't queue the page cache work under krcp->lock
-      commit: 0983f88e2d6d734dc35cd9ba4f4c3b4082555024
+This goes through tcm_unregister_callback(), which no longer holds
+dep_lock across unregister_gadget_item() after the previous patch.
+With it, a TPG is never freed while a function is still bound to it.
+fu->tpg is still only set at link time; the next patch fixes that.
 
+Fixes: c52661d60f63 ("usb-gadget: Initial merge of target module for UASP + BOT")
+Cc: stable@vger.kernel.org
+Signed-off-by: Slawomir Stepien <sst@poczta.fm>
+---
+ drivers/usb/gadget/function/f_tcm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/f_tcm.c b/drivers/usb/gadget/function/f_tcm.c
+index 110a7d334afa..3949b5c50cc0 100644
+--- a/drivers/usb/gadget/function/f_tcm.c
++++ b/drivers/usb/gadget/function/f_tcm.c
+@@ -1739,6 +1739,7 @@ static struct se_portal_group *usbg_make_tpg(struct se_wwn *wwn,
+ }
+ 
+ static int tcm_usbg_drop_nexus(struct usbg_tpg *);
++static int usbg_enable_tpg(struct se_portal_group *se_tpg, bool enable);
+ 
+ static void usbg_drop_tpg(struct se_portal_group *se_tpg)
+ {
+@@ -1747,6 +1748,9 @@ static void usbg_drop_tpg(struct se_portal_group *se_tpg)
+ 	unsigned i;
+ 	struct f_tcm_opts *opts;
+ 
++	if (tpg->gadget_connect)
++		usbg_enable_tpg(se_tpg, false);
++
+ 	tcm_usbg_drop_nexus(tpg);
+ 	core_tpg_deregister(se_tpg);
+ 	destroy_workqueue(tpg->workqueue);
 -- 
-Cheers,
-Harry / Hyeonggon
+2.56.0
 
