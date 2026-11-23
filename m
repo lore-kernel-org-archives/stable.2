@@ -1,73 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795415306;
-	b=5HhrvRqPJkCBNxGrm0uGM7m8G4HfWA/zXozUB0DaxZTtacBaKutt5peV6O114xq/qLzC
-	 EVQjej72Y7k233n3CgQ+ItFOHXYwApVirdtaSyISrUdJxC7il+qFK1MmY/PMifBYdHTSS
-	 bJUjmTvbJ/2GqbSj1pWe9i4a6yx5Mssc16+hNXIjAvO6NzHCVgJXRuO6KoLqsSMatBdWV
-	 6GRv+gtjQnbpZBf3Air+ItXTLxHihCjASCIMY/LhpTWBfUpqbZ9F+hUy4Qk396MHRiw2W
-	 IPb4pqudcH5o70za0ipQnTjq6h8uxeCcv1cFZgJLPxde9PD4wWuGzWRJN3DRDiH+/sw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795415306;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9Do6A6bkw7UrGMEL6iSs8ctS3fr5QAv60balSROo8WY=;
-	b=UppdH34OyOSR1sTyaXDICPAusVdGmMxVYofdz6Yx7Cz3FHrQazQ14VDsT602HOsJmpnN
-	 5E2DYGs4GzBjCOsUosfyd/3pgPte1eBsdWTYElpleMQtH84NY6p0v3SyWSq+vaeEa9ix2
-	 2S4Qdkq4Fm5bBtl/LUzBgLaAhDaao1eeJx03Hjm9Zr90949KoerQuXpromdbWnPclfEUO
-	 NsDqhazw6vfA/S2JuwyT/YPVOR54bHOdjsxQgErpz2D8B1g2wD96bgf2S77nTAHvzZS5w
-	 jpTrfVJTlzpu/Ju5BN4etPV2OZxRfSWnBm0ZwCvtnCKPvHtjY1N9+rvObl56KWU4+mA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=FDLcCc7T;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0CAA9606A31A;
-	Mon, 23 Nov 2026 06:28:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CAA9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795415576;
+	b=aRB5HlML8Cs0a4OO47s4VORLFpoY5J3tqyiTr1rVQ5QCBkutsmVK6DHgs4SO8rKqX1mt
+	 xEUoSspXdqkn/YTNOnedVwPG0De+KpK96z/IopBWCld9wgRcGhpLw7QabZtmrwG4aylBL
+	 jK0AHhp39BLK+7P7EC6q/FTnA7EHPpruCs1qHeF4nNVuBbOEUNg9L8kXvqsklUKHp4LZ3
+	 10zTlb116uDM9PsHekP97S3WFQeXlAPNnr5hjp4mQbc7bywtAGl6Sz5oGKK9Ydsi+tmkb
+	 AfRXrq3Eyf0Y8iJFUvlkI9/FfVRDkNJrVRJto03LfrqZ7QgmQPV2emBWpcbMFwry5nw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795415576;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jJ5HTt6plunxin31vtC4rDMiI3PR3fN6iuRHRpNNp8k=;
+	b=TaD/J3VjknLbTP9MLY8LJKVCqM8Os5fdmhYetIUq3YHU2SrQ4f1WGNLvFnIjCYTGhA3A
+	 RpeE2Hgsjmb/j4kr6c8i7EWoBOiJ8Ln7HoLArGUNegUYccj5bizBN801HxN3z0SVRxQhJ
+	 w40Q9N1uIdsPit3k8E0sfx53G17f/yVjPvJzX/abBE2BJGHZ+QoAk8pTqxkJvMmgMBZQ/
+	 wAUlNJx/yyGOZwppBtleiyeDO2cj2vBm4LxL80sL/D4wYOMD+rroZjWs1xVRTRd7dmztI
+	 Wll9KfBgztKdwmlK64XFGMcGA2xhQ6SiZAmRlJ7wSFqm+hKVOPiubhe4VyZYecWsNOA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mO4UuqUH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC77606A31A;
+	Mon, 23 Nov 2026 06:32:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=FDLcCc7T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=FDLcCc7TJb9uroW6TilmI+UlMIeFAv0uqJVf4c/+HUJM1VZCjuIzWhJmOQHsoN6Kmh0XgW5FAoLlA
-	 qH+JQFDWn5AN5+gd0K2byBJ4uMSL9UDG6WezCAX5I5yIRAVAIookKH6ZR8KG2U3Qy8aIRtW7EhCSvv
-	 WTNXdpYGKe9CXIB0=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56b03dcfd61e-373c7;
-	Mon, 23 Nov 2026 14:28:20 +0800 (CST)
-X-RM-TRANSID:2ee56b03dcfd61e-373c7
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from openEuler-24.03.03 (unknown[104.224.130.48])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96b03dce908d-89c0d;
-	Mon, 23 Nov 2026 14:28:19 +0800 (CST)
-X-RM-TRANSID:2ee96b03dce908d-89c0d
-From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] ip_gre: fix stale header length after erspan version change
-Date: Sun, 22 Nov 2026 22:27:50 -0800
-Message-ID: <20261123062752.27920-1-yanhaishuang@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261120060254.3766851-1-bsdhenrymartin@gmail.com>
-References: <20261120060254.3766851-1-bsdhenrymartin@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mO4UuqUH
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795415576;
+	b=v+wDBH3k6afTKz7auXzC1E2PhpSZNF13SLI0fO8iRuSdDQJLTeG6uOarnQ6wR8hM2XGd
+	 S658toaYmIByvkFUA5OKpSl8+KD1urv3ijvNQgeLDFaPa67kOzkC+7qOZxBR0U16Dk1Mb
+	 U3teCoRPcetyZ0z026l1PuWu/kM26+ZpFT0LTLP3VB27FOaFdeyyPER/0b7oo4LRHIlUE
+	 GfGlWIo1b24KRLybdWDCrAJxrw1RtodVW1Cerdpi3o1XF2U6eXNBG/kxJKNMt4k/2styY
+	 Ri3jIxjYVZaxuP5x/I1ErveiFVlEoZCS1W9FTjh0xo3w9T3YEROOccz2L7Sh54eNWQg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795415576;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jJ5HTt6plunxin31vtC4rDMiI3PR3fN6iuRHRpNNp8k=;
+	b=u1IhZPFzwmUuNNdkgRTiy0WvdHRi11B8jBUCnbnDnIGQzb/sdg1dQPfmLu+kX2tM7bQV
+	 1stEgfCCzhH4cjTlIaUW7uRewnh1Dqt5Xxrc21HeMPA8hZbQAQ/cl0KO1V4SB9HTZdTXJ
+	 /6HPz804n22ACQ/jKhhUa7FFne2c3vp2TEWVBTuSvp8tSSSPjZevRrxVjQLdOGTDHqOLv
+	 FVQ8NtTnwj48+2UGl+ZvDfLjblbdxkizyZA2fmShjj5DnJjATz/LQj0WxLk+NyRxIwNTm
+	 HUJ6E9VvXYBwCHr8X7QJtegX/REYSrnADnn/bemt1t0VVHKUPBXY0XsJnHy1UtApg4g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 2FCEB1F000CA;
+	Mon, 23 Nov 2026 06:32:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795415575;
+	bh=jJ5HTt6plunxin31vtC4rDMiI3PR3fN6iuRHRpNNp8k=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=mO4UuqUHklj3xa2LjzYeh5smm+9jQgMuQ7AkfEqt6jFk+DhFTuKbYagt1YvjPUdob
+	 +jE4jmmMMz6kLRKj4sWOxVRI3nt6+aZdr2P3qmOwNmdMVs+Oe/cfwhwbTR9lRd0SGL
+	 0/CQAM4Tw5JPbVOLl3X9NyGHDQwXHtszfKR2tlw1BBzgQ4cNfDeQjF9RuTcVVXDZwn
+	 n7fJWN3ekBPu8quGHK0DCEwQKuYI5jg6jnGlvRnVwtYBU98Eqt1FqEM3dLpZZy9i9a
+	 BW3X6+D7RqsJFqC/cXzhNdky5aybvsfWjiB796nn+r+PG3OX2mclWzwli2ZUD5cwGF
+	 et4gx/rCyhrJQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 42DB04C38F;
+	Mon, 23 Nov 2026 06:32:45 +0000 (UTC)
+From: Markus Haberlander via B4 Relay <devnull+markus.haberlander.rosenberger.com@kernel.org>
+Date: Mon, 23 Nov 2026 07:32:28 +0100
+Subject: [PATCH] mfd: cgbc-core: Add support for conga-PA7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,28 +82,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261123-cgbc-conga-pa7-v1-1-f3d17fb02e43@rosenberger.com>
+X-B4-Tracking: v=1; b=H4sIAPvdA2sC/yXMQQrDIBBA0auEWWegKhjoVUoXZpza6UJFkxCQ3
+ D0mXb7F/w0qF+EKz6FB4U2qpNihxgHo62JgFN8N+qGtUtoghZmQUgwOs5vQk528Yc3eWOhRLvy
+ R/R6+3n/Xdf4xLdcFjuMEGVKK8HIAAAA=
+X-Change-ID: 20261123-cgbc-conga-pa7-dc67d3e2ed36
+To: Thomas Richard <thomas.richard@bootlin.com>, Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ Markus Haberlander <markus.haberlander@rosenberger.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795415564; l=1513;
+ i=markus.haberlander@rosenberger.com; s=20261123;
+ h=from:subject:message-id;
+ bh=v1CPWN/2XkF2f1MoPpYxZuyNZds9qyQfrKK/LTczYvU=;
+ b=Y2uothSjoELTvG4Mb6hN5yuCH4QqU5F6vr3ENRqv1VUiWrYP30Km46XE/zr7onLPqOz4YGiws
+ 1b2VGJMzJ4cCHecyB24R07WlKZv9zD5RwgXp7oSmw/ppYxk8Rz8iFC9
+X-Developer-Key: i=markus.haberlander@rosenberger.com; a=ed25519;
+ pk=baNIWlZCf58g17gE2FS6ir0ymNwyBXguoQENSJkXdeQ=
+X-Endpoint-Received: by B4 Relay for
+ markus.haberlander@rosenberger.com/20261123 with auth_id=1612
+X-Original-From: Markus Haberlander <markus.haberlander@rosenberger.com>
+Reply-To: markus.haberlander@rosenberger.com
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 20, 2026 at 02:02:54PM +0800, Henry Martin wrote:
-> +	if (data && data[IFLA_GRE_ERSPAN_VER]) {
-> +		int len = t->hlen;
+From: Markus Haberlander <markus.haberlander@rosenberger.com>
 
-The bug is real (on 0 -> 1 the GRE sequence number even overwrites the
-GRE base header), and the patch fixes the packets. But t->hlen has
-already been reset to tun_hlen + encap_hlen by ipgre_newlink_encap_setup(),
-so the delta is wrong. iproute2 always sends IFLA_GRE_ERSPAN_VER, so
-each "ip link set erspan1 type erspan ttl N" on a ver 1 device lowers
-the MTU by 8 (1450, 1442, 1434, ...) and raises needed_headroom by 8.
+The conga-PA7 is a Pico-ITX board with an Intel Elkhart Lake SoC, like
+the conga-SA7 SMARC module. Its board controller is of the same
+generation and is accessed through the same I/O ports, so the existing
+driver works with it once the board is matched.
 
-Saving t->hlen before ipgre_newlink_encap_setup() and always
-recomputing it fixes that in my tests:
+Match the board vendor and name, as for the other boards: the system
+vendor and product name are empty on this board.
 
-	erspan_calc_hlen(dev);
-	hlen = t->hlen - hlen;
-	if (hlen) {
-		dev->needed_headroom += hlen;
-		if (!tb[IFLA_MTU])
-			WRITE_ONCE(dev->mtu, max_t(int, dev->mtu - hlen, 68));
-	}
+Tested on a conga-PA7 (board revision A.2, BIOS PA70R026): the core
+driver loads through its DMI alias and adds its GPIO, I2C and hwmon
+cells.
+
+The patch and this changelog were drafted with the help of Claude
+Opus 5.5 and reviewed and tested by me.
+
+Cc: stable@vger.kernel.org # 6.13.x
+Signed-off-by: Markus Haberlander <markus.haberlander@rosenberger.com>
+---
+ drivers/mfd/cgbc-core.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
+index 8a63923d1..cd68d396d 100644
+--- a/drivers/mfd/cgbc-core.c
++++ b/drivers/mfd/cgbc-core.c
+@@ -379,6 +379,13 @@ static struct platform_driver cgbc_driver = {
+ };
+ 
+ static const struct dmi_system_id cgbc_dmi_table[] __initconst = {
++	{
++		.ident = "PA7",
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "congatec"),
++			DMI_MATCH(DMI_BOARD_NAME, "conga-PA7"),
++		},
++	},
+ 	{
+ 		.ident = "SA7",
+ 		.matches = {
+
+---
+base-commit: 1cb7268b6638c411fc32f373e965eb8ba9e9b2b4
+change-id: 20261123-cgbc-conga-pa7-dc67d3e2ed36
+
+Best regards,
+--  
+Markus Haberlander <markus.haberlander@rosenberger.com>
 
 
