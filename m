@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795458761;
-	b=IU2B6IBk46ETrqOT2/bE6fwATAx+lNh3MF/sylRP77dtR5QB6UpDYg/opJQgJKiB1Xk3
-	 v2jLuow7h59bkqsXxB7V6iT2YbZ4AIfu+sVMf3+nZFrHYr5OIcSlG0S9v/uF6ER9NCDs5
-	 gjfxjoCkjRz+WocEXXMk4yTuXolhDMGwA1JiasIutQwiMkFGF/zYhN2yFM7cGXzO3ehDE
-	 97CZra+j+oXlgvUDzeqy3A4RqGzWyiBJ0jhvURD7zZb5dsnbZLb/OLxIDArgRa6XO1U3f
-	 fG0Xe45opAdvvgPNRf5L4u0V5412lCZYmfu65v2WtA69VwK/Op/FZCLv7Ov7L9+o75g==
+	t=1795458768;
+	b=BOaYf2iM1vY86yWyp2P/LM2TtcsBZj0TB/t6U9kaShZfbDUooYhNmKcxcFgjl6c4kGya
+	 rmcqBkzRZ5Nro91xHf0DjWb0RYugA9DqbYT/qbrgmAoKsqBtUwCk2UI5YV6gnw0mXCc7R
+	 deDm8ACdQAsdHdXIXwbQYkww4td6PyisRLgfcf2KZnqZTQQE1TZ7Z109uwIdgoWVwlsZm
+	 j14HeMMkhiUo1smD1HUST3Kjp5V70nGiHWS13zoy5937TU9NZJw34bP605LEpwhddOdm/
+	 XIZWgzJleU25rqX+3MyEtxqg2XgmRmY99RM6nEb+cXBGPLq4JQByMyonvRjPFOQGHeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795458761;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795458768;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=ZvOaChR5qJW9QxRGc38ZD60Y8kBGkcLpTHhpADdCCRM=;
-	b=Ml4hoEKgmLJUh14PzJsh6i3vo587F8nqUnmDTKiUxRm/ocC28QW+ucGe4utMugluez+I
-	 i6ZKLx26A3uZxh8LI+Hi1CTO5RQoDfD7dQd1pgvYwFTgaTp/In2Vz8jL3xDkINlwzvpey
-	 7Qc6QPWPetVDdSVlZq1skg/GGo7ti7Z3p3uKwYstG2dMUk7wsAbHBEfYtaaFJyk1PBnaG
-	 ZzG9LiP5EMbxvl37ToFcF474M9eO6klbEKxpZE7QWiRuOheWkqgynxFYyiJuePPzsY+9H
-	 Z8O1oY/ih/sz3rSjJYoR2U6Bitcen451bYQ8V9daqaMpmQjOw2q+YIq1tgCNoz6tWCA==
+	bh=3ncvdCiD+I++psXwF99QZqk8+VbB3yg3sCWIKX61dB4=;
+	b=ZwXrwbwqpfsVSiXHUZRtHH68VgFiOVSGdZ6HCMJ52kLidSDWUlGH5dXzaqVsoyOc6jKy
+	 heK3/4j00yRVMqFPaZfnKTX3+gmZ7y2u3OwUm8T6O4ZtFiq2TMOOrHHxawavYLSUoNF00
+	 liPwiqnqbsByIshxJTxz3twsvIPISvssaUlClewTiqcEaF/DUoV3sbQXidr/eBy4FRTQ7
+	 R4xcYU036FtDTmqd6/CTereUg9vavuH5r+5x30il/n07UnoS6IE7YixYqKByzB39Wtt8U
+	 z91BB7gUlX/ZX6L2FghWS4HkmDUx/0sTcz5GfRjSKvUCfDmM4KZ+SU8BzKp/3PMrnAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y62II9IL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrbHt3Yg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93085606A681;
-	Mon, 23 Nov 2026 18:32:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45068606A32A;
+	Mon, 23 Nov 2026 18:32:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y62II9IL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A6571F000C0;
-	Mon, 23 Nov 2026 18:32:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrbHt3Yg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7B821F000CA;
+	Mon, 23 Nov 2026 18:32:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795458761;
-	bh=ZvOaChR5qJW9QxRGc38ZD60Y8kBGkcLpTHhpADdCCRM=;
+	s=k20260515; t=1795458768;
+	bh=3ncvdCiD+I++psXwF99QZqk8+VbB3yg3sCWIKX61dB4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y62II9ILA3rN3No3O6m5eWsc4cqBw6I17lR0XMhB4mPbY+o9smCMNRy+QaDbn6qfq
-	 Lg5kSnFhk8u2oI0d8XhAXaRfFk/2KbuUL5aNKQSTCRd2lCiIpSypF7iFctu5FiAFr2
-	 EnlbEkjqPcrPOrKGVvbPx/BBvsHHKvlpraAMO8a/PZ7IvLOj86gsxx9HpAK+QGbxYo
-	 mfjo8hvryUyTXxlOJu+B+/v6b0P1y0fS0pyqyTfYY5nAAEZsr3/zSUsgeF+xX/4btW
-	 3PBBRrFPEsNhov37l/B5KKeleDpfuwjfLCrhgQtoVD4D9Pvj5izdjqcO2Vn4l+WxJr
-	 hXTUXbX0pWFDQ==
+	b=JrbHt3YgkiFXdHbQbhoUtMmRC3ygFVXXkJa6hGAzLYU0bE25BLp3vA98Y5ou5yOGg
+	 oW1Cp3uS0YpSO6Lae6X25eKn91VmG0RbiXaArp/1yFltT8USqqBQyfEpGxfV4EqbM+
+	 cqPq8SepfOYcseRSo1bThZp1m6cp32gqFqX7zYbjiqhkaTWxHAglK92O42D2xHNQM7
+	 RVQofOX6Jmwd1crBs1yaC9bDsMS2wjmItgvXYDBgqTgwRuD81CFVlwZoJdjY7DFh+Z
+	 VrduTueN7J1KCxaUakkbzRkF1y9GhxC9F4gzcPb8JM3g4z1wCqTwjPB/ipxM4M2Pv2
+	 xRsunEgQIZuYw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Vojtech Pavlik <vojtech@ucw.cz>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Andrew Duggan <aduggan@synaptics.com>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 05/10] Input: stinger - zero-initialise driver state in stinger_connect()
-Date: Mon, 23 Nov 2026 18:31:11 +0000
-Message-ID: <20261123183200.3900004-6-lee@kernel.org>
+Subject: [PATCH 06/10] Input: synaptics-rmi4 - check for NULL drvdata in rmi_set_attn_data()
+Date: Mon, 23 Nov 2026 18:31:12 +0000
+Message-ID: <20261123183200.3900004-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
 In-Reply-To: <20261123183200.3900004-1-lee@kernel.org>
 References: <20261123183200.3900004-1-lee@kernel.org>
@@ -66,40 +66,38 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-stinger_connect() allocates struct stinger with kmalloc_obj() without
-initialising the signed packet index stinger->idx.
+Transport drivers such as hid-rmi remain registered and continue
+delivering attention reports via rmi_set_attn_data() even if the
+physical RMI driver failed to probe rmi_dev or was unbound via sysfs.
 
-When serial bytes arrive in stinger_interrupt(), negative values of
-stinger->idx pass the stinger->idx < STINGER_MAX_LENGTH check and cause
-stinger->data[stinger->idx++] to write before the start of stinger->data
-on the heap, corrupting stinger->dev or adjacent slab memory.  Initial
-values of 4 or greater never match the stinger->idx == 4 reset check and
-permanently wedge packet assembly.
+When rmi_dev is unbound, dev_get_drvdata(&rmi_dev->dev) returns NULL and
+rmi_set_attn_data() dereferences drvdata->enabled in interrupt context.
 
-Allocate struct stinger with kzalloc_obj() so stinger->idx and the
-packet buffer start zeroed.
+Check that drvdata is non-NULL before accessing drvdata->enabled,
+matching rmi_process_interrupt_requests(), rmi_driver_suspend(), and
+rmi_driver_resume().
 
-Fixes: 17dd3f0f7aa7 ("[PATCH] drivers/input/joystick: convert to dynamic input_dev allocation")
-Closes: https://sashiko.dev/#/bug/linux-bad333c0-5b62-4ca5-ad93-204400bcba3a
+Fixes: b908d3cd812a ("Input: synaptics-rmi4 - allow to add attention data")
+Closes: https://sashiko.dev/#/bug/linux-0165ea80-0dcb-4d48-96cf-e2c1532199a0
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/input/joystick/stinger.c | 2 +-
+ drivers/input/rmi4/rmi_driver.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/input/joystick/stinger.c b/drivers/input/joystick/stinger.c
-index 011f9b137dca..021216f811c0 100644
---- a/drivers/input/joystick/stinger.c
-+++ b/drivers/input/joystick/stinger.c
-@@ -118,7 +118,7 @@ static int stinger_connect(struct serio *serio, struct serio_driver *drv)
- 	struct input_dev *input_dev;
- 	int err = -ENOMEM;
+diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
+index 7bbe9e801c35..5053c1edad6f 100644
+--- a/drivers/input/rmi4/rmi_driver.c
++++ b/drivers/input/rmi4/rmi_driver.c
+@@ -172,7 +172,7 @@ void rmi_set_attn_data(struct rmi_device *rmi_dev, unsigned long irq_status,
+ 	struct rmi4_attn_data attn_data;
+ 	void *fifo_data;
  
--	stinger = kmalloc_obj(*stinger);
-+	stinger = kzalloc_obj(*stinger);
- 	input_dev = input_allocate_device();
- 	if (!stinger || !input_dev)
- 		goto fail1;
+-	if (!drvdata->enabled)
++	if (!drvdata || !drvdata->enabled)
+ 		return;
+ 
+ 	fifo_data = kmemdup(data, size, GFP_ATOMIC);
 -- 
 2.56.1.750.gf70dc682cf-goog
 
