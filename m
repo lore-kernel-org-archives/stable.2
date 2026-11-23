@@ -1,47 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795454807;
-	b=pmtxdWXchFZ8r9eeGiLSXLA0bcSMvJ5Fhiomky+ddyAr2AGwuOyZGI7cfwLSuTWeTwk0
-	 RmdydyTcmVIe+otchxBZHEj/mn6GVMAxu/oWgvZezynHBxa3jOmbMh9qCE6w4TO9XmM5h
-	 6c/oOLaH7Xt9pJhnPJtG87T5LEryI+HGOo3W3F+8XeWSDKen4Np77sK88nabNaSrB9OKe
-	 OnwVMOzwnSia75IpT6Xk1hisuZqVuaDArIHay7gigcWKf93ievnSKIx9PenZsN9xJmCdp
-	 YA8FoSYEyNgIjJ1+IaGzQJmqrScQ/HpLJ18yh2MrjPcyM5mGUI257U401bcv0siX5dg==
+	t=1795454829;
+	b=A5yApZ+Bnhn6GkC6JH5go4cJmKZEpJGf65luR3Ds5h7k8xDVlpI4EPm0mDnAG9wj7i/8
+	 zdpELmwe1WRX0r6fquo/N7JQr4m9gwG//e7X3V7MUqfJtqeu1xY4co30jLzkuYM9yds1C
+	 5QxlfKHHgsKP7O04tIX3jXlDTc69sVWBcch8PPiRa+cJPKEl+pC13vXaxYlpv37NV4mmI
+	 eYcDbiqzW0NQFQMD48u8wSuY0KnJwA0DY+nwzx9FRL/8jX1e4m3i94zDhDjUJGKSyFXEl
+	 vsjW5s6nGh+8Qu5XR+PR5emsmfjZFTqvrW9C+FnorgHI+G7TyrhkNLtkkQ+P6A6aYfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795454807;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=RxK9WwiPMWhUvSnP5bQzWfmCjy6XNvfbfYHJbk6okn0=;
-	b=Wd1HvgJcBkzP2sMEzi9gQzcVJ3Ptk1joTBng1AqKEp+TNJ5Oi7RG44MpJ0ZziwxLNjfF
-	 /Wj0mvRBOf+wAPU/OJ5SVbeYlcQ4yZdxerDQUZDBs/kav+lJs05DONVfIPyNNNuAMAMSw
-	 uXM1JGGwGBzryFepHpbCJhlqbmFvfGocsfEzrbaSfzuUD5Egvc665I5Cbb58X2gLE9pFi
-	 B1r/UcNQ3BApbqvyt/46pU9he3SEzVtkdiYsaWLU9IA07foQpn0DMTEPbJuFUMH2B9wGw
-	 s7fafOt9M+XzuBpTRiYqAzdOxisW9MiQ4AcfFixWFbPHjurKUKiShJreNbFnkVorzjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795454829;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=rwO0qR/5dA2BfbWBM6Y4o8lfCur4ww/twWJTPGcgLzQ=;
+	b=mF2jdwlX6qlAzCkL1qH3BCy5bnjTytgSqahba4euill8/SWSO1pJc+ZPuconyRJwU5Vs
+	 tunK4m3uwF0fNItKk8O5yr8ntMIHg1EBXlcGWHIDTsCOGSpacW1PA4QyuOV2ouk9e4zuE
+	 aKpf3DXs7s+PCg3tww0tEXvub/ECtNygxiGw8aS0hSRPBBxGQ1OCvQ8OkS3Gfjb1TX8cV
+	 RlU9TCjBZWV6TNCcBv7mxrDBTT89Z2Y40hU+omUFOLIERhQxIbmz0KIBUD4QI+hQsQb3T
+	 a9g8xBWMDkvxkyR8PhtmtqkDFLcjN7p+A36mxBrZhdkQFv7qYPhCH7Audz84hbJONiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R6QIJ/yn";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHG0DSDK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A14606A31A;
-	Mon, 23 Nov 2026 17:26:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B030606A31A;
+	Mon, 23 Nov 2026 17:27:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R6QIJ/yn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A2811F000C6;
-	Mon, 23 Nov 2026 17:26:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHG0DSDK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ECDA1F000C0;
+	Mon, 23 Nov 2026 17:26:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795454806;
-	bh=RxK9WwiPMWhUvSnP5bQzWfmCjy6XNvfbfYHJbk6okn0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=R6QIJ/yndruX4g/WD6Tf6L/UmL4uvbrpw7JbnR3bkIVFf727QH+R7tZIwh8qG23kg
-	 JN9OzRI3nyYGErukZ6splkVHylRIUCN/GBikdfCf9/v0Lek/OinUPrYJtyzCKRbOym
-	 0XvNQpsX0rP4LHkgqK1Nvb5qAKaQvzISQg+rGWYtfrkXUyAD2OpH3qpWNUWDORRpaV
-	 3jEJqX8qPlZUME8EY5XJUsPkayiMd737mkbenwaNbXRPP/lZMtCvdetmHIKz1KT8Rv
-	 KSPKTaUVbPaT3YBWzkAOKZx0K68iTcrAJnFSWWI0oibcUJXN5a2QPj81we2kD7HWtW
-	 hCIsuuQUq0kDQ==
-Message-ID: <ff973b48-043c-4cd8-88fb-dc38ec54c09d@kernel.org>
-Date: Mon, 23 Nov 2026 18:26:37 +0100
+	s=k20260515; t=1795454828;
+	bh=rwO0qR/5dA2BfbWBM6Y4o8lfCur4ww/twWJTPGcgLzQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KHG0DSDKmw1s9Nld6eJQBGskQxG8+fGTfS95ZXpiCvzSvsH1WR5GDMuTbP4yuvTqb
+	 53THpea6CtIlrN+S8vwrcuVZQbjJTfTwzn15sm4B/NhslGZtmZRvwhi7/PphkfRRgP
+	 z4uiJdMAGxS+AsEYtm49AzUp7LCEV2LXBWsuRg9eaoBPyRzuV6Y1Ncx+pJvT1gQW1F
+	 +gitMGVoD9V/qvRIdqZHfmk9fmWjQAi5Spjv09gQES9NRAZyFz+N2VxxrT8UpWT9Dj
+	 XSQEy+w41yKaJAw7w2hgwyhk6WNnVMGODwVNKEnA02f00qhxSh0HmnV7vYvqrBx8p3
+	 5ay1qBdDu4svA==
+Date: Mon, 23 Nov 2026 17:26:57 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Miklos Szeredi <miklos@szeredi.hu>, 
+	Joanne Koong <joannelkoong@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, Chris Mason <mason@kernel.org>
+Subject: Re: [PATCH 1/2] mm/huge_memory: use NOFS when allocating while
+ splitting folios
+Message-ID: <awR3IxFld3ms836N@gremlin>
+References: <20261122-migrate_reclaim_deadlock-v1-0-83c56185b0fb@kernel.org>
+ <20261122-migrate_reclaim_deadlock-v1-1-83c56185b0fb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,93 +70,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/10] clk: samsung: exynos5420: Terminate PLL rate tables
- with sentinels
-To: Lee Jones <lee@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Thomas Abraham <thomas.ab@samsung.com>,
- Chander Kashyap <k.chander@samsung.com>,
- Amit Daniel Kachhap <amit.daniel@samsung.com>,
- Tomasz Figa <t.figa@samsung.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Marian Mihailescu <mihailescu2m@gmail.com>,
- linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261123164834.3330320-1-lee@kernel.org>
- <20261123164834.3330320-8-lee@kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261123164834.3330320-8-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122-migrate_reclaim_deadlock-v1-1-83c56185b0fb@kernel.org>
 
-On 23/11/2026 17:47, Lee Jones wrote:
-> _samsung_clk_register_pll() sizes each PLL rate table by scanning until
-> it encounters an entry with .rate == 0, then copies the counted entries
-> into pll->rate_table.  However, exynos5420_pll2550x_24mhz_tbl,
-> exynos5422_bpll_rate_table, exynos5420_epll_24mhz_tbl, and
-> exynos5420_vpll_24mhz_tbl all omit a terminating zero sentinel, causing
-> out-of-bounds reads into adjacent read-only data and populating
-> pll->rate_table with bogus entries.
-> 
-> Append a sentinel entry to each of the four PLL rate tables.
-> 
-> Fixes: ca5b40293822 ("clk: samsung: register exynos5420 apll/kpll configuration data")
-> Fixes: 9842452acd3d ("clk: samsung: exynos542x: Add EPLL rate table")
-> Fixes: 8b4a7acf7b30 ("clk: samsung: add BPLL rate table for Exynos 5422 SoC")
-> Fixes: b92981de92cb ("clk: samsung: exynos5420: Add VPLL rate table")
-> Closes: https://sashiko.dev/#/bug/linux-553831f9-0a7b-4e94-be60-222de60ca8c3
+On Sun, Nov 22, 2026 at 01:42:17PM +0100, David Hildenbrand (Arm) wrote:
+> Various callers (migration, memory-failure, s390_wiggle_split_folio) split
+> locked folios without holding a reference on the folio's inode.
+>
+> Splitting a file folio might allocate memory for the xarray and call
+> filemap_release_folio(). If either ends up in direct reclaim with
+> __GFP_FS, reclaim can evict the inode through the dcache shrinker, and
+> wait in truncate_inode_pages_final() for the folio that we hold locked:
+>
+>     try_split_folio()
+>       folio_lock(A)
+>       split_folio_to_list(A)
+>         xas_split_alloc()
+>           try_to_free_pages()
+>             super_cache_scan()
+>               prune_dcache_sb()
+>                 iput_final()
+>                   evict()
+>                     truncate_inode_pages_final()
+>                       folio_lock(A)
+>
+> This requires that nothing else holds a reference on the inode, and can
+> be triggered most easily with FUSE, which evicts inodes on the last
+> reference.
+>
+> Further, xas_split_alloc() charges the XArray nodes to the memcg, and on
+> cgroup v1, memcg reclaim waits for file folios under writeback if
+> __GFP_FS is set. That can deadlock if writeback waits for a folio lock
+> that we hold, for example with ext4.
+>
+> Let's fix it by splitting folios in a NOFS scope, so callers don't have
+> to care. A NOFS scope also covers allocations that filesystems make with
+> their own gfp flags, for example in filemap_release_folio().
+>
+> On NFS, splitting folios with pending writes or ongoing writes to
+> fscache might now fail slightly more often, until these writes have
+> completed. On netfs, only folios that are being written to fscache are
+> affected. All fairly irrelevant.
+>
+> This has medium urgency.
 
-Also drivers/clk/samsung/clk-artpec8.c, artpec9, exynos5410,
-clk-exynos7885.c and probably others?
+But medium-rare tests best!
 
-Best regards,
-Krzysztof
+>
+> Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
+> Fixes: eef88fe45ac9 ("s390/uv: Split large folios in gmap_make_secure()")
+> Fixes: 789763523fb4 ("xarray: honor XA_FLAGS_ACCOUNT in xas_split_alloc()")
+> Cc: stable@vger.kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+LGTM so:
+
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  mm/huge_memory.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index e22daf846dbe3..c4f6c642c2620 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -4425,11 +4425,20 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+>  	const bool is_swapcache = folio_test_swapcache(folio);
+>  	int old_order = folio_order(folio);
+>  	struct folio *new_folio, *next;
+> +	unsigned int nofs_flags;
+>  	int ret;
+>
+>  	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
+>  	VM_WARN_ON_ONCE_FOLIO(!folio_test_large(folio), folio);
+>
+> +	/*
+> +	 * We might not hold a reference on a locked folio's inode, but we might
+> +	 * allocate memory under the folio lock. Direct reclaim could try
+> +	 * evicting the inode, or wait for writeback on cgroup v1, to then
+
+Ahhh. Cgroup v1. Of course.
+
+> +	 * deadlock on folio locks.
+> +	 */
+> +	nofs_flags = memalloc_nofs_save();
+> +
+>  	if (folio != page_folio(split_at) || folio != page_folio(lock_at)) {
+>  		ret = -EINVAL;
+>  		goto out;
+> @@ -4478,6 +4487,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+>  	if (is_pmd_order(old_order))
+>  		count_vm_event(!ret ? THP_SPLIT_PAGE : THP_SPLIT_PAGE_FAILED);
+>  	count_mthp_stat(old_order, !ret ? MTHP_STAT_SPLIT : MTHP_STAT_SPLIT_FAILED);
+> +	memalloc_nofs_restore(nofs_flags);
+>  	return ret;
+>  }
+>
+>
+> --
+> 2.56.1
+>
+
+--
+Cheers, Lorenzo
