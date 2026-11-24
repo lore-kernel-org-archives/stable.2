@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795533119;
-	b=4+KCHiUoF9PKLYGzxsOKdLeMthy/KKVPvP1Wdg5RNDS02/dhjyQqZlRQwK+zZSGcUBxS
-	 1iseYhkdgBZ10DHE8Aly9pcdxqtR1rkLE9f5bj629xj5/juybZaNZGtK3p2VLu0c8xpI7
-	 80AwIT46rZn1uSdOQE3EQMBPCWBd7vg/qggt1s/zhOwa9D4ds49Ulu+tCrnoajl118UnK
-	 DE4yDyHQWHz3GoayipmEKZ3YaDozLd1nmg1GWwRq+Gb50amBnrlXBotiqNFrDcEPZlteE
-	 GbZbFRJPe55y1AMFpaoc1GnPnqtnLxkCNn8yjFAemmYetExVbpN9ZAXbB2Dqt/MXVPQ==
+	t=1795533127;
+	b=Y/DN1cYlYyfO8eGoxwPKm9W1GIPS4jJv17v8FKjtw37PQ9lBMJYWypfeKkVK5cViD1CU
+	 KsPcwZ3UltePDZmfz/8RwnH0iy1P2TDEArruljCZ+sWEhivlZs7TxUQqKhdYXK3YO5ekA
+	 Zxf+wDJ/wWHiSuD+BzlFR9JS2zK6vfZuSN6CqHqPQGgToYO8NtSa4K5E/3Uq8zA6baap1
+	 JYrlkDct5DB6PlP1S8Xqdz2+uNMrJvCovZ4qpWeMjsabws8IkeAhnP7g2s8teDU1v9ZhM
+	 Pjolj1y4tHiChQAZ4DNYlv81qwnEfgwZwaBE//9xQ+JClYimEKKNmSKxknoRoHYWzhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533119;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795533127;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=dVBxJrfBeYwnLW7mrW2TMXeZcX+3e7fcFL9VBp7/+fU=;
-	b=uGa4X1ckeGfqfldcIu9W/KbsaH0f6arYdTmhEWa3CgF2dQxd8xyppeOQr3nunyU0vdng
-	 wVaplU7yT9OnZsdMHCdMXK48fuxIPMY6AaCc6gEdoguritZWW3yTIWNZstUU1TtySkzrn
-	 5nC1Hd4/sV2Ocu6lwomMjxrlOUVpUkKQnxettsHZnUo8wLJUFpyT37Fa/q90+JtaUpHWo
-	 5PPMuK7VLtamOVEI2CICbGWIpn8xTZM1FPEd2DudtmQiJEMgrHliX984DYwYbuFvfnRcQ
-	 i3g1Wlrr4ZgNo6nBT7YQlpTAwKvHUVK4HXsG690fUvBDE3sAWY3x5mv1RRam9FfOVFQ==
+	bh=/ZZbegTlr3GeN3JMgIrd9FHkjMame/XNJnE1jaHd0kQ=;
+	b=MX9NffmUhEfwOiSnecaSA+bHeyVpELFAkM3P4BPY61BCg3JPVPg6tnpXHl/AajssFjK/
+	 yGmplB2CX+cONpF/DT0dsLg1jt1NJdETXCdrz9CfIw8xZ0Ek/IW+qZpCl91W2sC84XNRn
+	 bHalh5lrBXICTp+uXwcdMYIshxV7Cfaq9FMf/b4JpZGl8FVPtA5Emdg9QXs0mBExU8pdI
+	 wtP2hJ78wunpXUnnK/i4wRpYxjpvGYtPxX76wMig2MVQyIAxBS2Q2B6Hd2t5YfjUGSXU0
+	 KEDhPkxFjWAlsYAjRha9f7H8HLA5+4ASwuIz+sgbV7RXL99kfJuBbJE2/9n/rmdhEPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tSj4uZf6;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qsoSgoQz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26C3606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:11:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40538606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:12:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tSj4uZf6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97C8D1F000D0;
-	Tue, 24 Nov 2026 15:11:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qsoSgoQz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E059B1F000D4;
+	Tue, 24 Nov 2026 15:12:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795533118;
-	bh=dVBxJrfBeYwnLW7mrW2TMXeZcX+3e7fcFL9VBp7/+fU=;
+	s=korg; t=1795533126;
+	bh=/ZZbegTlr3GeN3JMgIrd9FHkjMame/XNJnE1jaHd0kQ=;
 	h=Subject:To:Cc:From:Date;
-	b=tSj4uZf6vE0BZe6/cqy7jGTgJ/LOFlQq1iW7W+6PgFTkWsea6WRKBa6a/W+6BPxwD
-	 mTZocgqiJ6OQ2GwjDQNQcyYUhrXbXf83B5gHBZTTXPOs2bVP+WktE18LcYz3xfmMsV
-	 KFL4O7TXrggoCm+lH3uHwaxT+2qko+pqXRbXZ5rU=
-Subject: FAILED: patch "[PATCH] mmc: meson-gx: report the longest busy wait the controller" failed to apply to 5.15-stable tree
+	b=qsoSgoQzYnSgXMKoD5ez1BzojLuJpVnVUCe8RuuqEcpSIb6W5bl0jUR4crxVAgq8J
+	 dmxUmbX+PoAhys8eqrW08UMowdj4L2U+oRbCIaRQ/WEaH1zedLqsCOmtVmPheNFrB1
+	 H9/Xe/VtsSspLBPBOwuf+ebRDnvMP5Or31mHEjyY=
+Subject: FAILED: patch "[PATCH] mmc: meson-gx: report the longest busy wait the controller" failed to apply to 5.10-stable tree
 To: iav@iav.lv,neil.armstrong@linaro.org,ulfh@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:12:18 +0100
-Message-ID: <2026112418-shading-sequel-d38d@gregkh>
+Date: Tue, 24 Nov 2026 16:12:19 +0100
+Message-ID: <2026112419-tinker-unsterile-d556@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 18e9f7fb05ada68d491ff49165b9644f790e0e0c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112418-shading-sequel-d38d@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112419-tinker-unsterile-d556@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
