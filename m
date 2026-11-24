@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795537118;
-	b=tocZJ3NRj3Pbb3bR+K7nFkrRZEN2XY7ZLnxX5/Fm/oc3X/a67KzStw4YdkITD7nsUxma
-	 /4IK1fyEPczEaDjYNIw3+o08SYC0k4vZcnMK/ehHGnPbGIcDAxFscz5yap1gZo8lw46P8
-	 HgNFM8CJfkmANIoEzOgq+bSCGvwMxg8Paqp99sls08Yi24hrgwHpX+TOj7opSBRI4oCqZ
-	 o0Vc1sIMT+u2PZ9umSZiS9R5Zum0Bz36h99gSWqF6gLdrGWZ3YQRTQgeennZR22txIkWl
-	 TKNUxvxn9Xm16dMX+4vWKIgQtYmw/20lcuF7/7m+hANY18M6ZK3yg3SDso2nNZj+HEA==
+	t=1795537128;
+	b=Tbn8c+eGkIsTo8+JX0Vbf5n4P8s2tjuH00MaHlx8RzchHiFqSdo7BfiUoulagUy+/OqS
+	 +4b9/hv/aobMsqxS51c0t8T4CBPaPDVBvPVDz79qe7tnSShjp6fQrkHdx/IlkajU+7a45
+	 7B1YOLqs7vcBBKF7NDWtlCoFH8T5LfAg0VzbsORDB12NNiEZH2bGCYCk/04cpdYCsToza
+	 c5PM39whOH+6DD3vv9rfvEiBXs3PZyfQpAVRFxQ5azhsMrv1rOt0tayDR5vnhQEy15iG8
+	 3jrs3Z47NcDpny5VFpmCd4X8Fi6GuPEJVsw1J4hZl4vMVcUnPGlsD9EDajUPw5WLRwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795537118;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795537128;
 	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
 	 Message-Id;
-	bh=FEhuUM7mHNHAS11xNQ44m+0BU6+qI7JwmoONMHAlb+k=;
-	b=ACiTozItb6/1oX1sfHgb7GVGKQJmTfSgqtRcXOGd31NPkr/c92NJCZLmYUI5Lh5VoHt9
-	 vDtBr7aNRA7D5r1SdEp50GbgeCVBvi60gfwvNkUD86+avteewiwZ5bKFE7d/FRNFQ6aCy
-	 JDaEwr0Dri00PZatgeGlzdP4GSXE1cqdr7125dRv5FjNoY5gi2wqkrK/KAts4FMZGwGhP
-	 Md6XtFZmbTfxkTgVIveCqerdX7FYoKewjQ/B0k5jre7qRn6z9NZNUsvkHb0b1bVGPV2Tx
-	 gw8xGLgjeiPfLvguLFn2qkxy5Gj4nbX4gPsTzl2VBbvKf7fjEm/vgOeiCfkmIGNoNaQ==
+	bh=ujMTuwPOsmr1whJF+yqRvOV96KTaU05Y6dPCwFRLQMs=;
+	b=ds/S9f7xKUwWxUWA/aebqbykd3s6dQyzmvb7WmOimA2TqNewVHZ16tk+B9/7OHM5JLV7
+	 I+I0O8yXH49df+8fe7f2ogJXoPR80Nw0R+JsJyYtwwZ2J51Ze3uoXzNLRXFcIB0VbZKAm
+	 /DIDZB12rKhcSDsf61/a3t6/bCfiqmvYzYMLVBda8CHNgumAlDV17MPeUNu9OpZ+vI/7C
+	 A+3V1mA3jybIKj+AnRh1hXw2r7sbkntL3Ea+ECjNHkD86HU9tEq6CLamQhBRFcwgFBFqv
+	 bSDeC2BS6W9ukobrLcyHj2M7+B4d+/9HKss3B0hCScI+3Kj3I+gJcllL53JJkcpbMFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=xIDho9no;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=yjUiG9uA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E8E606A326;
-	Tue, 24 Nov 2026 16:18:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87DC3606A326;
+	Tue, 24 Nov 2026 16:18:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=xIDho9no
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0565C1F000D2;
-	Tue, 24 Nov 2026 16:18:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=yjUiG9uA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0691F000D4;
+	Tue, 24 Nov 2026 16:18:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795537118;
-	bh=FEhuUM7mHNHAS11xNQ44m+0BU6+qI7JwmoONMHAlb+k=;
+	d=linux-foundation.org; s=korg; t=1795537128;
+	bh=ujMTuwPOsmr1whJF+yqRvOV96KTaU05Y6dPCwFRLQMs=;
 	h=Date:To:From:In-Reply-To:References:Subject;
-	b=xIDho9nowtpwlDWbc7KEX04Wft6pMM0kIkOeSRtgwz29WXJskjdBtPhrPWiy7/lSg
-	 +E5t6ml25YNHeiJGPYNSpFQKI/Bfvd35fXiSwKMcV7qecWv7ZALZtbmGqqK4rIRP0d
-	 t1E99TwREkmwQwFsEd5NWP2MOL/juDugnDLkprN0=
-Date: Tue, 24 Nov 2026 08:18:37 -0800
+	b=yjUiG9uABcG5/WVN7CU7nmnxBVAR8rh+AeleR2fTNlZt2khdUKrUs6M+WPghDGsNL
+	 9Rt3ZwfvBF4yNjTfGOz0bOkJCmYEB/KvwzEmQq8dmTJ3cSQ1fzytSBCzWTGCBWtxnD
+	 QKgRzjrIKJpBisoyElYP+k+lvbfyqHy04nRn0yjo=
+Date: Tue, 24 Nov 2026 08:18:47 -0800
 To: mm-commits@vger.kernel.org,ziy@nvidia.com,yu-cheng.yu@intel.com,
 	ying.huang@linux.alibaba.com,willy@infradead.org,vbabka@kernel.org,
 	usama.arif@linux.dev,tj@kernel.org,surenb@google.com,stable@vger.kernel.org,
 	shakeel.butt@linux.dev,rppt@kernel.org,rientjes@google.com,
 	rick.p.edgecombe@intel.com,pfalcato@suse.de,peng.fan@nxp.com,
-	nphamcs@gmail.com,mhocko@suse.com,matthew.brost@intel.com,ljs@kernel.org,
+	nphamcs@gmail.com,mhocko@suse.com,matthew.brost@intel.com,mason@kernel.org,
 	liam@infradead.org,kasong@tencent.com,kas@kernel.org,joshua.hahnjy@gmail.com,
 	jglisse@redhat.com,jbacik@fb.com,jannh@google.com,jack@suse.cz,
 	hannes@cmpxchg.org,gourry@gourry.net,dennisszhou@gmail.com,dennis@kernel.org,
 	david@kernel.org,dave.hansen@linux.intel.com,cl@gentwo.org,
 	chris@chrisdown.name,byungchul@sk.com,broonie@kernel.org,bp@alien8.de,
-	balbirs@nvidia.com,apopple@nvidia.com,mason@kernel.org,
+	balbirs@nvidia.com,apopple@nvidia.com,ljs@kernel.org,
 	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-2-50a2ed382b61@kernel.org>
-References: <20261113-mason-migrate-et-al-fixes-v2-2-50a2ed382b61@kernel.org>
-Subject: + mm-cachestat-count-each-page-only-once.patch added to mm-unstable branch
-Message-Id: <20261124161838.0565C1F000D2@smtp.kernel.org>
+In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-12-50a2ed382b61@kernel.org>
+References: <20261113-mason-migrate-et-al-fixes-v2-12-50a2ed382b61@kernel.org>
+Subject: + percpu-search-the-whole-reserved-chunk.patch added to mm-unstable branch
+Message-Id: <20261124161848.2C0691F000D4@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,12 +66,12 @@ Precedence: list
 
 
 The patch titled
-     Subject: mm: cachestat: count each page only once
+     Subject: percpu: search the whole reserved chunk
 has been added to the -mm mm-unstable branch.  Its filename is
-     mm-cachestat-count-each-page-only-once.patch
+     percpu-search-the-whole-reserved-chunk.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-cachestat-count-each-page-only-once.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/percpu-search-the-whole-reserved-chunk.patch
 
 This patch will later appear in the mm-unstable branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
@@ -89,55 +89,41 @@ branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 and is updated there most days
 
 ------------------------------------------------------
-From: Chris Mason <mason@kernel.org>
-Subject: mm: cachestat: count each page only once
-Date: Fri, 13 Nov 2026 21:45:20 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: percpu: search the whole reserved chunk
+Date: Fri, 13 Nov 2026 21:45:30 +0000
 
-It turns out that filemap_cachestat() can unwittingly return incorrect
-page counts, if large folios are present.
+Loading a module with static percpu data can fail with -ENOMEM even
+though the reserved chunk has a free area that fits the data.
 
-This can occur due to underflow - nr_cache is nearly 2^64 on a 64-bit
-kernel if the input range starts more than 64 pages into a folio that is
-split during the call.
+pcpu_find_block_fit() does not scan the allocation bitmap, rather it
+tests the request against hints, starting with the contig_hint of the
+chunk, which describes its largest free area. If that area is too small
+once aligned, the search gives up even if a smaller free area fits.
 
-It can also occur due to pages after a large folio being skipped if the
-range starts in its second or later XArray slot and the call reschedules at
-that folio.
+Consider:
 
-Finally it can be caused by pages being counted twice due to folios in the
-range being split or collapsed during the call.
+    request:      256 bytes, aligned to 256 bytes
+    contig_hint:  260 bytes, starts 4 bytes after a 256-byte boundary,
+                  so 8 bytes remain after alignment
+    also free:    256 bytes, starts on a 256-byte boundary
 
-filemap_cachestat() walks the page cache under the RCU read lock only,
-and for each entry it counts the pages that lie in the range. It does
-not track how far it has counted, so the counts are only right if the
-walk returns each index once.
+Ordinarily this is fine as the allocator moves on to the next chunk or
+creates a new one, but the static percpu data of modules can only come
+from the reserved chunk.
 
-But a large folio can be split during the walk, or small folios can be
-collapsed into a large one, and the next entries then cover indices that
-were already counted.
+Fix this by searching the allocation bitmap of the reserved chunk
+directly rather than using hints.
 
-Resolve the issue by tracking the current index as one past the last index
-in the folio, and explicitly using xas_set() to set the current position in
-the XArray.
-
-Additionally, add a check for folio_last_index reaching or exceeding
-last_index and break out of the loop if so.
-
-[ljs@kernel.org: updated to use curr_index, fixed comments, updated commit message]
-Link: https://patch.msgid.link/20261113-mason-migrate-et-al-fixes-v2-2-50a2ed382b61@kernel.org
-Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
-Signed-off-by: Chris Mason <mason@kernel.org>
+Link: https://patch.msgid.link/20261113-mason-migrate-et-al-fixes-v2-12-50a2ed382b61@kernel.org
+Fixes: 13f966373f92 ("percpu: skip chunks if the alloc does not fit in the contig hint")
+Fixes: b4c2116cfae6 ("percpu: update pcpu_find_block_fit to use an iterator")
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reported-by: Chris Mason <mason@kernel.org>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Acked-by: Nhat Pham <nphamcs@gmail.com>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Usama Arif <usama.arif@linux.dev>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 Reviewed-by: Chris Down <chris@chrisdown.name>
-Tested-by: Chris Down <chris@chrisdown.name>
-  Link: https://lore.kernel.org/20261114115635.8346206195d50372@chrisdown.name
 Cc: David Hildenbrand <david@kernel.org>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
@@ -147,14 +133,18 @@ Cc: Michal Hocko <mhocko@suse.com>
 Cc: David Rientjes <rientjes@google.com>
 Cc: Shakeel Butt <shakeel.butt@linux.dev>
 Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
 Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
 Cc: Jan Kara <jack@suse.cz>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
 Cc: Zi Yan <ziy@nvidia.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
 Cc: Byungchul Park <byungchul@sk.com>
 Cc: Ying Huang <ying.huang@linux.alibaba.com>
 Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Usama Arif <usama.arif@linux.dev>
 Cc: Kairui Song <kasong@tencent.com>
 Cc: Balbir Singh <balbirs@nvidia.com>
 Cc: Jérôme Glisse <jglisse@redhat.com>
@@ -172,63 +162,36 @@ Cc: Dennis Zhou (Facebook) <dennisszhou@gmail.com>
 Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
 Cc: <stable@vger.kernel.org>
 
- mm/filemap.c |   16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ mm/percpu.c |    7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
---- a/mm/filemap.c~mm-cachestat-count-each-page-only-once
-+++ a/mm/filemap.c
-@@ -4665,6 +4665,7 @@ static void filemap_cachestat(struct add
- {
- 	XA_STATE(xas, &mapping->i_pages, first_index);
- 	struct folio *folio;
-+	pgoff_t curr_index = first_index;
+--- a/mm/percpu.c~percpu-search-the-whole-reserved-chunk
++++ a/mm/percpu.c
+@@ -1778,8 +1778,11 @@ void __percpu *pcpu_alloc_noprof(size_t
+ 	if (reserved && pcpu_reserved_chunk) {
+ 		chunk = pcpu_reserved_chunk;
  
- 	/* Flush stats (and potentially sleep) outside the RCU read section. */
- 	mem_cgroup_flush_stats_ratelimited(NULL);
-@@ -4694,13 +4695,19 @@ static void filemap_cachestat(struct add
- 		folio_first_index = round_down(xas.xa_index, 1 << order);
- 		folio_last_index = folio_first_index + nr_pages - 1;
- 
-+		/* Skip already counted entries, e.g. after a split/collapse. */
-+		if (folio_last_index < curr_index)
-+			goto resched;
-+
- 		/* Folios might straddle the range boundaries, only count covered pages */
--		if (folio_first_index < first_index)
--			nr_pages -= first_index - folio_first_index;
-+		if (folio_first_index < curr_index)
-+			nr_pages -= curr_index - folio_first_index;
- 
- 		if (folio_last_index > last_index)
- 			nr_pages -= folio_last_index - last_index;
- 
-+		curr_index = folio_last_index + 1;
-+
- 		if (xa_is_value(folio)) {
- 			/* page is evicted */
- 			void *shadow = (void *)folio;
-@@ -4748,8 +4755,11 @@ static void filemap_cachestat(struct add
- 			cs->nr_writeback += nr_pages;
- 
- resched:
-+		if (folio_last_index >= last_index)
-+			break;
-+
- 		if (need_resched()) {
--			xas_pause(&xas);
-+			xas_set(&xas, curr_index);
- 			cond_resched_rcu();
+-		off = pcpu_find_block_fit(chunk, bits, bit_align, is_atomic);
+-		if (off < 0) {
++		/* No other chunk to fall back on, so don't rely on hints. */
++		off = bitmap_find_next_zero_area(chunk->alloc_map,
++						 pcpu_chunk_map_bits(chunk), 0,
++						 bits, bit_align - 1);
++		if (off >= pcpu_chunk_map_bits(chunk)) {
+ 			err = "alloc from reserved chunk failed";
+ 			goto fail_unlock;
  		}
- 	}
 _
 
-Patches currently in -mm which might be from mason@kernel.org are
+Patches currently in -mm which might be from ljs@kernel.org are
 
-mm-swap-fix-large-swap-in-across-swap-file-extents.patch
-hugetlbfs-do-not-grow-a-sealed-file-in-mmap.patch
-mm-hugetlb-keep-surplus-folios-that-are-reserved.patch
-mm-hugetlb-fix-reservation-leak-on-min_size=-mounts.patch
-mm-cachestat-count-each-page-only-once.patch
-mm-cachestat-restart-the-walk-after-each-entry.patch
-percpu-queue-the-balance-work-on-an-unbound-workqueue.patch
+mm-msync-return-enomem-if-page-aligned-length-overflows.patch
+mm-vma-predicate-vma_assert_stabilised-on-config_debug_vm.patch
+mm-only-assert-mmap-locks-if-config_debug_vm-or-lockdep-is-set.patch
+mm-only-assert-vma-locks-if-config_debug_vm-is-set.patch
+mm-convert-warn_on_onces-to-vm_warn_on_once-in-vma-lock-code.patch
+mm-madvise-zap-markers-from-guard-regions.patch
+mm-mmap-free-gathered-pages-before-mmf_oom_skip.patch
+percpu-fix-contig-hints-that-are-too-low.patch
+percpu-search-the-whole-reserved-chunk.patch
 
