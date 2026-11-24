@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795552937;
-	b=Z0OG1cfGvH5P0Xpu6sfrkFzNQnsUMtv6Q91NCn1Zb9mB0F9ISFoYIDt+gi9XnlVJNiT6
-	 ZoUcNlDxSVANKDg8/rsjEK6hp4hSTEH1rIobZVagDI1adEBOh1sMe2WPa7YLsru6VWMc9
-	 FHeewADf3eZN0oncuFhGC5OKND7TujUzFNU8AXKJKF5d8CmTl+9ytc1rKuDcbJFQd9fgs
-	 Ag877i3NoQYOe0sESv+Qm3ttSNYknzthXCfbKVEDCjRl1tNBVRgahKX56T+YARomqJ46g
-	 qAowGKvX/zb3Xswsrl9X8bJv9ErBsFUGRj/2WXsLPLb1CVVf4xRfPQN+HCzEEXhLtHg==
+	t=1795552942;
+	b=nNC8LNAI6DphODNPvZhHj7Av6FyrC5i6hCwEjzYFKJQbd8YaU5SN7lH7tCiz7vd6O5px
+	 kJii4co9hYAkYhaW/aeShbikJORJDVPd9IpWDnUyLg49jZF2AdrviCVVyzTKkKhCW6mfw
+	 uAvdtB8E5/jckZx/In8yRdiUCI3V8jVqiyKk083EJdn4CpBtpqvArDK+1ddx9nEt+ic/I
+	 r/sD3W6a1m328LfPBFse7O9iAovwCw9TOczVgZ+BJ5sAs7jtOyft/v3PyKEsIWDsEqtUP
+	 qlI2dpPKzZ2++9UiY+vaSwy8X/Sg7wU0TQ8QISuLjmJWdU1E+Gf0liB+MtKKj0z7zJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795552937;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795552942;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mwWmbnqF1VGlsLm/PDlJK0acEp8xAzvfoOPNFiPeEJU=;
-	b=iwBqZWq5o/6TRy7PFR/QILRSm2mesYbpfvboG9brT1esMWaOAeNYk83p0hlA1SGEGamz
-	 fIUhn1wsHmOoSTII/7gkWAJAw0KZf0yvSNhnA++oICuehwWMXUxM3v9CV0X24XQQHslal
-	 wcQjkKXsdLVMlC9vaErkTRykIAJUJTOBqd8R0eKmPf/kWgfy8i9WTYAX6GkF6bVwZhT7H
-	 979nlxSGD54Q/TxledOttZ6BmwF+dBRap985BkbhE5mPzLov+YUlsF1I5JZPSXR/mLr7A
-	 I+Wb4lnzAu7G8pc2kEp9dpo2R382RoxJFQhdOl1b0wd/JvBZSMD1gSHyqQzKtORHQ0Q==
+	bh=VUSPphQu9sh2ZMlytLnNygL6R6G6J+z7O+/PhhjF8AQ=;
+	b=DCwFkrKpfmYZzZ2dLepLprQK8q2bI2u/bwtxhnWBFhotpngRXjcPBc/KNLrYoDDeaSCc
+	 zh85e3VVYZ2jm9cpHHLPYNM3OEQSmz6qo3z6Xrrq13i+faCPEwIbX7G8E9gHy/U7GrBtg
+	 t3T6fejjKYKTdqI1ixFEYAl2ZJdudzqJvUVY0e3CsttmKw203oXBq4mjvUdA0+jT61+Gj
+	 L++s5CCEYUwCSL2qKgTgbQtKaQRUcpXl3Af5BquzYYRB2+E4bUd5JhwY/T0KiXEUYzakQ
+	 6x/1ey1S7ogbIZYpHiqeVcF1gU07f5TxYshlw06LPpUkVJ7rI1o8WHmMbhNMDbXKIyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ThU/BGHE";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=georcv9s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1084A606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 20:42:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1EA606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 20:42:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ThU/BGHE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5D91F000C4;
-	Tue, 24 Nov 2026 20:42:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=georcv9s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18A91F000C0;
+	Tue, 24 Nov 2026 20:42:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795552936;
-	bh=mwWmbnqF1VGlsLm/PDlJK0acEp8xAzvfoOPNFiPeEJU=;
+	s=k20260515; t=1795552942;
+	bh=VUSPphQu9sh2ZMlytLnNygL6R6G6J+z7O+/PhhjF8AQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ThU/BGHEvENrEb2vzbWrxW7qgJzKYhNfBONMwfHquySpNFk2bnKhVYBs2nlsWFIyj
-	 IP1EPA7CdYIS0y7StJuxpHmcWwzvIhAO9sCEj/f3VlEuO+AK+0W8iUbGLE8F6CQ5qR
-	 NIb23Yz3gDHSsBBFYVFi+xDgoaIrJZVNemvQG7wlZ6wCDy+DabRM50YpToRalo6ezd
-	 4zEIy3UNuOcyu/giQyLWq1wzr09G5wpTdHfLTbd/nhyYIyKzoyLg7LKY22BrZdrVnl
-	 aMDv95F6ribY5oyfcszu41kvz8wdGy0uS/iKIIvGTDirScYe3CzqmNaXgWZqBK5aa5
-	 L1Q9TOubTL/qQ==
+	b=georcv9s+94nCV+MIaEETjivNCYcABCfqJVqD4RtPYcgUmInPtjRkH8AlvIyi83ie
+	 MKXtzNsvPOHfEtW2g0xq7jsR3JMgADAdo5wXlQozMRVnDkt8dQ3UGwC8JIfz2Q1Pxd
+	 4Rybg9MzJIhJ7aHbFIJy+f7pFSjxDlk14YGzqEB6Rqr/wKI/Y0roYlebVPODVakXWd
+	 BDOBYoDB6zM7O84qv5y24N1GlS3XPL0N9bPre0YNugZeKTIZ2D4Rx6+3O/KQwoUlVN
+	 jPpmFA2KcdVmQjZmhpsRytjldP8LYIke6kyn7APnKvoh1cs8EZsS9V+Li1x/yCw3Oo
+	 kyjfNVQuolx9A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
 	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
 	Zi Yan <ziy@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/mmzone: read each zoneref slot once when filtering by nodemask
-Date: Tue, 24 Nov 2026 15:42:14 -0500
-Message-ID: <20261124204035.2602544-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/page_alloc: retry alloc_contig_pages() when the zonelist is rebuilt
+Date: Tue, 24 Nov 2026 15:42:20 -0500
+Message-ID: <20261124204036.2608507-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112416-earthling-upstroke-d7e8@gregkh>
-References: <2026112416-earthling-upstroke-d7e8@gregkh>
+In-Reply-To: <2026112437-action-disregard-a0f7@gregkh>
+References: <2026112437-action-disregard-a0f7@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,83 +64,87 @@ Content-Transfer-Encoding: 8bit
 
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-[ Upstream commit e55119ab611a0e47595db7e1d2ac1e69f7a73ff0 ]
+[ Upstream commit da0d7a895e9021dc2cffa90fb6fafd8b9379e544 ]
 
-__next_zones_zonelist() tests a slot's zone for NULL, then reads the
-slot again to look up the zone's node. Offlining a zone's last block
-rebuilds the zonelists in place, so the second read can return the
-terminator:
+Onlining the first block of a zone rebuilds every zonelist in place,
+shifting the slots after the new zone.
+alloc_contig_frozen_pages_noprof() approves a slot by the caller's gfp
+and nodemask, then loads the zone from it:
 
   CPU 0                             CPU 1
-  __next_zones_zonelist(nodemask)
-    zonelist_zone(slot 1) = NORMAL
-                                    offline_pages()
+  alloc_contig_frozen_pages_noprof(GFP_HIGHUSER | __GFP_THISNODE)
+    slot 0 (NORMAL1) approved
+                                    online_pages()
                                       build_all_zonelists()
-                                        [MOVABLE, NORMAL, NULL]
-                                        -> [NORMAL, NULL]
-    zref_in_nodemask(slot 1)
-      zone_to_nid(NULL)
+                                        [NORMAL1]
+                                        -> [MOVABLE1, NORMAL1]
+    zone = zonelist_zone(slot 0)    /* MOVABLE1 */
+    alloc_contig_frozen_range(MOVABLE1 pfns)
 
-Current GCC and clang merge the two reads, but nothing requires it.
-With mm/mmzone.o built with -fno-inline -fno-ipa-sra, holding a
-nodemask allocation between the reads while the node's last movable
-block goes offline oopses every time:
+A gigantic hugetlb page can then land in ZONE_MOVABLE, and a nodemask
+caller can get a range from another node.  Gigantic pages are kept out
+of ZONE_MOVABLE since commit 79b63f12abcb ("mm, hugetlb: do not allocate
+non-migrateable gigantic pages from movable zones").
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000060
-  RIP: 0010:zone_to_nid+0x0/0x10
-  Call Trace:
-   zref_in_nodemask+0x9/0x20
-   __next_zones_zonelist+0x23/0x70
-   prepare_alloc_pages.constprop.0+0x16c/0x190
-   __alloc_frozen_pages_noprof+0xaf/0x330
+Check zonelist_update_seq before using each zone, and restart the walk
+if it changed, as the hugetlb pool walk does.  Check again before
+escalating to the pass that may migrate hugetlb pages, so a pass a
+rebuild cut short is redone rather than escalated.
 
-Read the slot once and test that zone. A NULL zone still ends the walk.
-To achieve that, rename zref_in_nodemask() to zone_in_nodemask() and
-pass a zone instead of zoneref pointer.
+With kprobes holding the walk across the online, the base kernel put the
+1G page in ZONE_MOVABLE in 3 of 3 runs, and this change put it in
+ZONE_NORMAL in 3 of 3.  Direct GFP_KERNEL calls with nodemask {1} and
+{2} got a ZONE_MOVABLE range and a node 1 range on base, 3 of 3 each,
+and neither with this change.
 
-Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
+Fixes: 5e27a2df03b8 ("mm/page_alloc: add alloc_contig_pages()")
 Cc: stable@vger.kernel.org
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Link: https://patch.msgid.link/20261101021340.2251928-8-gourry@gourry.net
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+Link: https://patch.msgid.link/20261101021340.2251928-11-gourry@gourry.net
+Acked-by: Zi Yan <ziy@nvidia.com>
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-[ sashal: Replaced zref_in_nodemask() with zone_in_nodemask() taking non-const pointers, since zone_to_nid() here takes a non-const struct zone, and adjusted the loop-condition context that tested z->zone directly. ]
+[ sashal: Backported to the older alloc_contig_pages() function, since the frozen-pages variant doesn't exist here, and the retry label and check were placed at the end of the function with no hugetlb escalation path. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mmzone.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ mm/page_alloc.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/mm/mmzone.c b/mm/mmzone.c
-index 68e1511be12de..34a1d89486752 100644
---- a/mm/mmzone.c
-+++ b/mm/mmzone.c
-@@ -43,12 +43,13 @@ struct zone *next_zone(struct zone *zone)
- 	return zone;
- }
- 
--static inline int zref_in_nodemask(struct zoneref *zref, nodemask_t *nodes)
-+/* A NULL zone terminates the zonelist, so it ends the search. */
-+static inline bool zone_in_nodemask(struct zone *zone, nodemask_t *nodes)
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index ba7f386331a65..c421d83b9448f 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -9479,13 +9479,20 @@ struct page *alloc_contig_pages(unsigned long nr_pages, gfp_t gfp_mask,
+ 				int nid, nodemask_t *nodemask)
  {
- #ifdef CONFIG_NUMA
--	return node_isset(zonelist_node_idx(zref), *nodes);
-+	return !zone || node_isset(zone_to_nid(zone), *nodes);
- #else
--	return 1;
-+	return true;
- #endif /* CONFIG_NUMA */
+ 	unsigned long ret, pfn, flags;
++	unsigned int zonelist_cookie;
+ 	struct zonelist *zonelist;
+ 	struct zone *zone;
+ 	struct zoneref *z;
+ 
++retry:
+ 	zonelist = node_zonelist(nid, gfp_mask);
++	zonelist_cookie = zonelist_iter_begin();
+ 	for_each_zone_zonelist_nodemask(zone, z, zonelist,
+ 					gfp_zone(gfp_mask), nodemask) {
++		/* A rebuild may have shifted an ineligible zone into this slot. */
++		if (unlikely(check_retry_zonelist(zonelist_cookie)))
++			goto retry;
++
+ 		spin_lock_irqsave(&zone->lock, flags);
+ 
+ 		pfn = ALIGN(zone->zone_start_pfn, nr_pages);
+@@ -9509,6 +9516,9 @@ struct page *alloc_contig_pages(unsigned long nr_pages, gfp_t gfp_mask,
+ 		}
+ 		spin_unlock_irqrestore(&zone->lock, flags);
+ 	}
++	/* Redo a pass that a rebuild cut short. */
++	if (unlikely(check_retry_zonelist(zonelist_cookie)))
++		goto retry;
+ 	return NULL;
  }
- 
-@@ -66,7 +67,7 @@ struct zoneref *__next_zones_zonelist(struct zoneref *z,
- 			z++;
- 	else
- 		while (zonelist_zone_idx(z) > highest_zoneidx ||
--				(z->zone && !zref_in_nodemask(z, nodes)))
-+		       !zone_in_nodemask(zonelist_zone(z), nodes))
- 			z++;
- 
- 	return z;
+ #endif /* CONFIG_CONTIG_ALLOC */
 -- 
 2.53.0
 
