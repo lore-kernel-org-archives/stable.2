@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795527633;
-	b=lk8rJT4cHdwQ2Fi8bM9EeccjWNniCH46B+ueXcGF6CEh+sV96k3yQs5ObGBsIZJa4Q3w
-	 CA57aDq7Odkh6TbfayYgmX7mOsl5LIGaWBCc2Br6OgEfASIiph5BIIP1vC0WOzlJhrbOd
-	 ZHRZXun6SVwKy/Xe4uzJQA5bxW9kLztzPerdX36NI18IErXUXRtewimdBHeCWVh29Qa+d
-	 buUpff8uPCXXsvOVoh+833R8fezu1kf0iClTG9Q51IM8TPWC+uDjQfbv0TEIo8fGqp7+o
-	 Oif9nI6F/V5ImR+CjLS+A046lWrocep5WD6LdDZJTuAQrNBVfoe2WL2XN3bO/L3td9A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795527633;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zN0w1+qLFqtq0+s8ZKdMVda+A74jQgGZWePF7NvjW/g=;
-	b=pr3M3UmD6E7pb0nS+MLrXf95uyeWcXkWQAMo3O1aSphzbvAHPL49oKs7w/L6b2euPS2B
-	 mdr2xo1+ue6ZXr8glplCw+beRvSg6LLFdkUf7lIlbElKY1ttvhLZnRB3smXWm9z5RFoSq
-	 3NaoAxOBxz1WhcGQ8fvV7lnxg4Q7P8I1aiZZSZCVvFWwhEbhCia+BcMedAYW8i3XXBMB7
-	 pGDDSXAFzvOlVlBYJ9l8+iiGGqVWdiB488a46mL3HBY0FANfnJaakpYcm2ZblYWtlg6G/
-	 IlXHAmf5XYeBUCRZMdiWm7yGTNo5Js+VRQ40lmpClPllShfbunCKNtsKOdxYi+XDLNg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AxYtJQJl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795528301;
+	b=z80BdZRE3HHwlBCZbNk0rnje7N6FGBOC7o9oAMIFvNbcu8fM6hGN68PnqD5r/MsLraD2
+	 2jeW5cHju63NqwlEckMZ364sReMzTPD6bygYd2o0HfcKVQQw/W2HVA7MHqzcq4GIC3jX4
+	 dvbUPrY/aKR9lYxHr9QSNQbJ2dzFfqno94eJNfbqDTwHtMmYyqyJX6S2LiwUt+OcuxofO
+	 6AjTpHwJ2mcULb2efkTjRt2Yf8GauP1s/s9bSOnX7J06USnjHCAywWMf+FxvTAb6aRlkM
+	 1vRD8XiuJNzDdGBe2evL48f8n67HXhtHYmW4cpenmFo5iNB+GC2T73nJ+ch+6BfMCdw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795528301;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wG3ZtixJaFFhkZXxYdcnHox9YkW7VVSHInEX8jMe+5w=;
+	b=xMj/Q1VcelD0TV0GOLfhxulp4H8Be/vmtQAmSVc0JSNPxI6hnj03cOoUnTWgKeCy2IyA
+	 D/uF+bzdXNY/sEb72fxOVbDqIF4ARDj/ao28hkIrML3FJC8S/r9vLSoAoczk/lJhyFxdO
+	 Ld1oFn3wOsfVtSwIqdox4+QvNzCoDRxGZJ8XblX4XpJm2rwZ6KdPEFwZp3iJ58ND19hXh
+	 LCGJ2JvFmilXQMCmZ+7RaJyEkgX4VMV11H3FQpfKNVbd619akUR4Fwv05KHEEGqgXO4Is
+	 QGv6iOUY232uyd2bACNEvLDsN0q7WzFYZqQuocS9iJFyF6JSwC4cJsN7vA/UaIRHpDA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BKhJ5xLI;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C36606A32A;
-	Tue, 24 Nov 2026 13:40:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506D4606A31E;
+	Tue, 24 Nov 2026 13:51:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AxYtJQJl
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795527632;
-	b=uL4+oO6IAhWwKgifrDsFwlKZWT1PBtgG8w9euQfJ+y7h7lW5Bb0WhPY0jJjhHHwinbl6
-	 10jkhT2Tvau2E5OioCszoNzXZa7S3erd2xean5NtYYLQbnQMFxTLfjt7DkQzx7hg3CaX9
-	 Z255XA4oVnYO088DiQKTdoBWE9dQiQDnPllTKdt2q9T2D4hyH1tPj8GFECIhzCpsBi3zo
-	 jSB+RuoLvWvYVfCXValzfK7jNJvM/fZpDaf2oKRE9BirscPDYUCbZU0ICncp0n6qjaL/n
-	 XKrRFurfBM7C60iNTlUsdXaAI7QEPg7Bxwi7kWSm1CKm9wcRuRH3a5jMqm4eWYX5THQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795527632;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zN0w1+qLFqtq0+s8ZKdMVda+A74jQgGZWePF7NvjW/g=;
-	b=yFJWLTyLpExWlwsnI8OhR0uk8vlOnwzkZffWhVbD+OwWeFCgqNyfh99voBlrTH74VmuS
-	 OhdiZAdDZ74p3Jl3XyvBtuXa7obhxuWow3SduWyZij4NrgBRxZGr1FID5zbqEyLCZL9eZ
-	 ClW2QvWqidP9DY7MAtGntqfiX7h0cihPBZgkiJ7A9QmkgLVUX19wNAO4oYyXdZ+oj7Inf
-	 8/xCokxWQClcDVXLuU/74tMa+YCbidnpVU9xozPAwVtclkIKM4No+q0yVqe/eGBqjt4oq
-	 ZdnRpVJ+EhN+LLmjLudArDttMMfQ5iPcNMCnabTrLUO5zFi+MjscrgsWDlwcSNdVkNQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 104A91F000D1;
-	Tue, 24 Nov 2026 13:40:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BKhJ5xLI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160D31F000C0;
+	Tue, 24 Nov 2026 13:51:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795527632;
-	bh=zN0w1+qLFqtq0+s8ZKdMVda+A74jQgGZWePF7NvjW/g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=AxYtJQJl5vg21sPFcmjqJqBq0uxkIp3s7XEBw8jKDODPv0m6FdUxsJb8EdmSi0Ibq
-	 eV0gKtkqCYXRsZ9il9mnZW/geyZaf+gvB0woUT3ZEVJK8UjcWi+Po21Qvzv6GY+Xwi
-	 NVuh93ODFoWsaci65awpKgFMRPoCxqYi6+J5Uw9jaKcmXLW88o00nlypZOdJX4rQpu
-	 KGmoun6kgp7BNy6+DF5PsvU3s+QEnfbBv7owkjmqBbZTmGNReGgOJTDAENrhN62Ejp
-	 +RlsPkKka8MBAZQ01VvhMftlfMGI9kzb0N0MzSXbocZpvmsd/udQyRHSKnzPd/RaUG
-	 eg0c3voxau7RA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 95E514CA63;
-	Tue, 24 Nov 2026 13:40:21 +0000 (UTC)
-From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
-Date: Tue, 24 Nov 2026 16:40:19 +0300
-Subject: [PATCH v3 3/3] media: verisilicon: leave room for the JPEG header
- and one stream burst
+	s=k20260515; t=1795528300;
+	bh=wG3ZtixJaFFhkZXxYdcnHox9YkW7VVSHInEX8jMe+5w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BKhJ5xLI57wn3jcdh+k3UYMM+UZH/iP3LwGv3HpcYTAoS7feQKOPpAaR9qn3kUsth
+	 vhoY/yvQd+Vbke+6trVtFw2wfac1ic3ibsn1lKpZ7h7zWG3Re5RfpxKcYWb+fRhbSO
+	 vkrIYcEg0evcjLmDX6Qs24X0cPCxS5NYQ100VdjZ3HPx1rc39UbHRgyth/e+hZ3oSl
+	 tDQpsNq+vvcfGOQu95049GJxDBFm2NcxzC17vmRGtf/8cZ2hyUHR7Nhko/L4bdnUUP
+	 ef5f2Me+jA6dLerR0uj8pREuFrxw43n0k6GOh71YtVQ+XClfgJBkVFlbWZo6YZujpe
+	 zBcg8RxjFwkkw==
+Date: Tue, 24 Nov 2026 13:51:29 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, kvm@vger.kernel.org, 
+	virtualization@lists.linux-foundation.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	2312891301@qq.com, blum@kernel.org, co+6dcbccedc9ec6452@bugs.sh, 
+	eperezma@redhat.com, fangxy@xiaopeng.com, jasowangio@gmail.com, 
+	kmehltretter@gmail.com, linfeng.sun.dev@gmail.com, lirongqing@baidu.com, 
+	longpareto@gmail.com, oss.patchbox@gmail.com, p@1g4.org, phx0fer@gmail.com, 
+	physicalmtea@gmail.com, sergiiushakov@google.com, shubham@octane.security, 
+	stable@vger.kernel.org, stjepan.poljak@gmail.com, 
+	syzbot+13df72e0dc4be5c62215@syzkaller.appspotmail.com, tavhadia@gmail.com, tjdqudcks0424@naver.com, tz2294@columbia.edu, 
+	xieyongji@bytedance.com, xmei5@asu.edu, yuz08559@gmail.com, zenghui.yu@linux.dev, 
+	zhaimingbing@cmss.chinamobile.com, zhangjiao2@cmss.chinamobile.com
+Subject: Re: [GIT PULL] vhost,virtio,vdpa: bugfixes
+Message-ID: <awWOpS3HR_2FTN3I@gremlin>
+References: <20261104081535-mutt-send-email-mst@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,128 +65,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-hantro-buflimit-v3-3-780903970ca0@gmail.com>
-References: <20261124-hantro-buflimit-v3-0-780903970ca0@gmail.com>
-In-Reply-To: <20261124-hantro-buflimit-v3-0-780903970ca0@gmail.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Chen-Yu Tsai <wenst@chromium.org>, 
- Hugues Fruchet <hugues.fruchet@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795527620; l=4102;
- i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
- bh=TiSzcOqC25j0e7itf9kkOEO+cKiYOn5aUH2hDB8nhgU=;
- b=jW5fYvcKbkWssPYObNaxhqM72zSZMbb7b9O5FS5MeHiXeZaCt+uToeE5hT7tZlwAb6E5w6MmS
- /2PZNFVgMCDCCXe4zrVtiIAfl6r4rv5Z1iSXTCBy4U2fQf7khO2rOPZ
-X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
- pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
-X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
- auth_id=1409
-X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
-Reply-To: shomenkow@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104081535-mutt-send-email-mst@kernel.org>
 
-From: Sergei Khomenkov <shomenkow@gmail.com>
+On Wed, Nov 04, 2026 at 08:15:35AM -0500, Michael S. Tsirkin wrote:
+> chenglong.ma (1):
+>       vduse: fix VA/PA confusion in the coherent page fault path
 
-hantro_try_fmt() keeps any non-zero CAPTURE sizeimage of the JPEG
-encoder, however small. The CPU writes the 624-byte header into the
-plane, and on the RK3026 the H1 then writes at least one 64-byte burst
-even with a stream limit of 0, so a smaller plane is written past its
-end. A plane smaller than the header also makes the WARN_ON() in
-hantro_h1_jpeg_enc_set_buffers() fire on every job.
+This has landed as commit bb2e6f166547 ("vduse: fix VA/PA confusion in the
+coherent page fault path") but I don't see the patch anywhere on lore (off-list
+security report?)
 
-Add a minimum plane size to struct hantro_fmt, set it to header_size +
-64 in the JPEG encoder formats of the Rockchip and STM32MP25 variants,
-and raise a smaller coded sizeimage to it in hantro_try_fmt().
+Anyway, clearly nobody actually _ran_ this code in 7.4, not even claude, as
+it's completely broken.
 
-Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
----
-Found with an LLM coding assistant while porting mainline Linux to a
-Rockchip RK3026 board; the assistant also drafted this change. Tested
-on that board: a sizeimage of 1 or 600 now reads back 688, and frames
-that do not fit a 688-byte plane stop exactly at its end. Not tested on
-other SoCs.
----
- drivers/media/platform/verisilicon/hantro.h           | 2 ++
- drivers/media/platform/verisilicon/hantro_v4l2.c      | 3 +++
- drivers/media/platform/verisilicon/rockchip_vpu_hw.c  | 1 +
- drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c | 1 +
- 4 files changed, 7 insertions(+)
+Commit 99fd6bf43d5d ("mm/vma: enforce that mm-managed mappings may not set
+VMA_IO_BIT") literally made setting VM_IO incorrectly, like this patch does, a
+WARN_ON error on mmap(), i.e. it _refuses_ to mmap it :)
 
-diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
-index 0353de154a1e..f51beae79f1f 100644
---- a/drivers/media/platform/verisilicon/hantro.h
-+++ b/drivers/media/platform/verisilicon/hantro.h
-@@ -286,6 +286,7 @@ struct hantro_ctx {
-  * @codec_mode:	Codec mode related to this format. See
-  *		enum hantro_codec_mode.
-  * @header_size: Optional header size. Currently used by JPEG encoder.
-+ * @min_size:	Optional minimum sizeimage, for bitstream formats.
-  * @max_depth:	Maximum depth, for bitstream formats
-  * @enc_fmt:	Format identifier for encoder registers.
-  * @frmsize:	Supported range of frame sizes (only for bitstream formats).
-@@ -297,6 +298,7 @@ struct hantro_fmt {
- 	u32 fourcc;
- 	enum hantro_codec_mode codec_mode;
- 	int header_size;
-+	u32 min_size;
- 	int max_depth;
- 	enum hantro_enc_fmt enc_fmt;
- 	struct v4l2_frmsize_stepwise frmsize;
-diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 83af9fa1ce94..b3dbc0629d25 100644
---- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-+++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-@@ -394,6 +394,9 @@ static int hantro_try_fmt(const struct hantro_ctx *ctx,
- 		 */
- 		pix_mp->plane_fmt[0].sizeimage = fmt->header_size +
- 			pix_mp->width * pix_mp->height * fmt->max_depth;
-+	} else {
-+		pix_mp->plane_fmt[0].sizeimage =
-+			max(pix_mp->plane_fmt[0].sizeimage, fmt->min_size);
- 	}
- 
- 	return 0;
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-index d201b058e5e8..ab5abe2c78ad 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-@@ -50,6 +50,7 @@ static const struct hantro_fmt rockchip_vpu_enc_fmts[] = {
- 		.codec_mode = HANTRO_MODE_JPEG_ENC,
- 		.max_depth = 2,
- 		.header_size = JPEG_HEADER_SIZE,
-+		.min_size = JPEG_HEADER_SIZE + 64,	/* header + one burst */
- 		.frmsize = {
- 			.min_width = 96,
- 			.max_width = 8192,
-diff --git a/drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c b/drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c
-index 833821120b20..3f337554e936 100644
---- a/drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c
-@@ -83,6 +83,7 @@ static const struct hantro_fmt stm32mp25_venc_fmts[] = {
- 		.codec_mode = HANTRO_MODE_JPEG_ENC,
- 		.max_depth = 2,
- 		.header_size = JPEG_HEADER_SIZE,
-+		.min_size = JPEG_HEADER_SIZE + 64,	/* header + one burst */
- 		.frmsize = {
- 			.min_width = 96,
- 			.max_width = FMT_4K_WIDTH,
+It looks like it doesn't need VM_IO anyway, the other changes in the patch
+make it redundant AFAICT, so you should send something like the below with
+a Fixes pointing at bb2e6f166547:
 
--- 
-2.53.0
+--- a/drivers/vdpa/vdpa_user/iova_domain.c
++++ b/drivers/vdpa/vdpa_user/iova_domain.c
+@@ static int vduse_domain_mmap(struct file *file, struct vm_area_struct *vma)
+-       vm_flags_set(vma, VM_IO | VM_DONTDUMP | VM_DONTEXPAND);
++       vm_flags_set(vma, VM_DONTDUMP | VM_DONTEXPAND);
 
-
+--
+Cheers, Lorenzo
