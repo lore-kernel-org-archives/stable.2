@@ -1,98 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795480478;
-	b=nG/X+zQAiVQN3cWIS90tmjDsb2OHnW+dpOsUni/hs2yx3SdfHRKQ0qTuiQidWRp/MtEs
-	 aaf7kGSZPkk1cFgTmg8PL/635W5O+hOCaUFDuqAod0e5pzZDzRkSpwQ53pkJqhFPmMpYA
-	 5dkXJlI1GHAOw9aFkiiDzygEXXiWY8+/45fOq1LvbEXdgaR78s9P74tlTqELy5pWhBJ0M
-	 5ACs3PB/nWCKOBUfSLi5RyVo+4+aamXQhYmvCL6o7C5uSBDqe9TNmQCNdkyYaBrIIdwN3
-	 k/y7EP/zSY74BdvBrhlAJH4JZCeu3QJq+b4NNiEj1tfBucKP2A5GwGhjrtUNG10a9jw==
+	t=1795480539;
+	b=TQyxyXSUg6j36YoU/WwfxVGLzNjW+PbmgLCyX2o27T1robuHkC1qnMLfrETMCXzCmwV0
+	 Up5ALswKgbH9F3xPw+YI40XaOmKxjhC7J45xv5Kvj2wgnpVnBsJaWPQDGSBG0P5+UrHNw
+	 n3ozeTBNBeuCuyuFdOPGWfJkkiHoXUea3uURF0mADYgioYz03BZFZgvIsjTjCCLOKou+n
+	 uIZzKSRunnXbSQ9RANMh67bJpvScG7IBwA4FBNlNaqYTU24V5PLc8zfhqcMyxE3/Ah+FC
+	 d4wT7uhbaPnzl+2YiaYLBXyATfo+KjQbLd7wGo2WVFmSwzfilpDRbHO2px/YdcPFNCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795480478;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795480539;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=l7RsmPiXmsKn+Pr+oiok7oJbW9rtNR1UkxIP+KjD2WM=;
-	b=XokG5MCiW6XvyuNWY3Hv2T5cfIvDsSQUmIJ4Lq9oPekTPjmOHtmtwzdC0z3+wfX7+AtP
-	 BScp/v06I/YQ66jI+SCEqfZT7+rBQEawIwWfEfri/KnSn6wFbUwzVn/fkNAhhhsX1zu17
-	 0g1Z5O8iVHXfnkN4EWS5PoN9bgZB1yBeSXwqr58/Z7H3xdDTSdZLnags46vdwZx6YUXUB
-	 MYFzLDULp9HIBYRY9qNlR8ftDY+LHNW8Flrv3H+E3p6ac1+dy79nx/6fEsdgupMbwWmsG
-	 aXS/F2jasAKC84enFZXbQ32/cfj5fmLavEVyBHcaacTggvlmz1lYXK35Ye8HAM0RTmQ==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cEtlzbFffNbXEfnRfrfQt3jwhoK6waIbjHPV7EqbNas=;
+	b=UCBKCdb35+vdgxohkF8QqRH1yxiK3cOMFpYI5EZvwBnR0fTaryPpV93nji2O9pLCXEqb
+	 A2iBK3lapZb/UuWrKogcrKkevnTTLeI62YO7PmWF2jlz1jnJ2LRDuek7eZgSTv/JaNx8H
+	 J+hJ2VOebb2dMNtBo1JVzlHqtG/gZeKQ3LFLYIKdZFh2Alpe2FntIFQ2gp7dlotW9woei
+	 ZHAqcoNIoaJhYRZTOuoD8xIqhcVuqh8nFt8faSWQZ1NwaVB7eynG02LOSPS2GcWkMMy8+
+	 26Xk7TcdpnBC/c94xhji2CPE5gVsP0vvcxYT/xQGJXAiFe8nyJLexkyoaUPKf8iGNgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=morsemicro.com;
-	spf=pass smtp.mailfrom=morsemicro.com;
-	dkim=pass header.d=morsemicro-com.20260707.gappssmtp.com header.i=@morsemicro-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Fl95uPc2;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dmarc=none header.from=iiitd.ac.in;
+	spf=pass smtp.mailfrom=iiitd.ac.in;
+	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=ANJWtQn0;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DCD606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 00:34:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90DCD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=morsemicro.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=morsemicro.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEAE606A333
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 00:35:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDEAE606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iiitd.ac.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iiitd.ac.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=morsemicro-com.20260707.gappssmtp.com header.i=@morsemicro-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Fl95uPc2
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b0e0e65adbso1691681a91.3
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:34:37 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=ANJWtQn0
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8b67f25e6e1so1872244b3a.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:35:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=morsemicro-com.20260707.gappssmtp.com; s=20260707; t=1795480477; x=1796085277; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l7RsmPiXmsKn+Pr+oiok7oJbW9rtNR1UkxIP+KjD2WM=;
-        b=Fl95uPc2lWIRLyNUr23VSjU/b4abaP1c5nkdSmtoCKLrh85iqjzNtkD9lEH0v9g+5D
-         fhSoOyjdI426VOA181RhnHHat6RimdbYi3kT0Kt/aVO/K8CwlSw8wFY5V4vxRaoJLP2F
-         1TVJHq3XMkLsfB7buzrGpDxAbck2qM/2Km/Qrr8J+hehuWDi0t7s4Eusl3hd7NjhVmO5
-         5E0Z3RGf04wVwv7Wxt7S/ne+0xb1RSadAB7djYE7OuqIisEqWIvY7vKqMBG0FgEkn6qh
-         L4qyAMxwiZNvZkk3q99S0TMP+F1irub7VBBJY2isyF59cFxAyusXqIORZKzoBwucaQF1
-         QBJw==
+        d=iiitd.ac.in; s=google; t=1795480538; x=1796085338; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cEtlzbFffNbXEfnRfrfQt3jwhoK6waIbjHPV7EqbNas=;
+        b=ANJWtQn07idnhIuzVfW3nPlfg6xJ5aMg8KP5bLevx3ryF2EWMf5Y2C2WnH6ulnyDwL
+         eyV0Rx92s0RCZMZDUL2ElO3Uo4+YC/BngcH6FawYWA+xrCOfKO9bKLQ9mOYbWuLJdHpf
+         HRKvwqw581M4r2LNr72lq0FbnDg2OG/qqKnD0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795480477; x=1796085277;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l7RsmPiXmsKn+Pr+oiok7oJbW9rtNR1UkxIP+KjD2WM=;
-        b=DSyUpDFG7EDX9Ike/fBEjKEKsRDK+mCelsi9QOj/J9/D0cWYdSeV544TKXUu+PGHia
-         WmMIw1PnOrs6jX6o7ycbXqSbFON8Ydtsz3TpIkJuksGd7S9742KyX5pvyWtHzB96gJ0y
-         jMx5ygtxEob8FL17QZeCYmXuv/UuK5gZs6m6tPNRFFptkWxu1QrFM/oBl/TdTo5fdBjU
-         Ap2ao4suWl2HTiwZPCifMRImlaigIeIhY9YCCHfs7jyNlC63+LiuXgk3+7xjzaYhkX5+
-         O4wZe+PD78NpUBk/M/klySBkzdlSV4P0EDoUx/p9cuxO6OfQk3KaKSXUHULCgJ8bvDB+
-         rj+A==
-X-Forwarded-Encrypted: i=1; AL+hErHMmD3HWRhS7EZwHrsbOlg04GGl64OIUiMNwGO/J/5uwFBJ7AcFeVU9bpOhinHS3dCW+yC9Ios=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WbrLOC4L+P98/dZZGu4WyFUYFmZ15i3fNaPxfkcgqxZ635zii
-	SNJ+svaz4RfQFu67Bs2+wCAbfkdFFwHAREt3HauF0nW7S378gMwms8816seBmEVAv/nGM7PjrpP
-	G+FVd6qk=
-X-Gm-Gg: AZFdTZdaYmEO1M26q1h6nkmEi3L5VuS6411uOtGNCNHsJocQML4kqviFKSPaD6Ma5Qf
-	qDEmLapfasvWUquP0Wd7iSTGsGK3duEusjaK1ZaiFVX09GAg5POsmRZlfI/7Ihm6IHhn9SAzjFY
-	3+qSo1UhlGlBo1hnRCfgZEtehVQ44b7KRDhjN/CubVeztEJVY0uwVIPUJVQkaux0MjnX0uoJMOu
-	kGGe+0C92JopUNBMaTtec382L7MIb9ZxL9vGj0ZV9EnfME0Gn16ytv4UGoHllvYvd/+9LewztSx
-	26ga4AVRX5cZwCGOUrCqW+0MXiGj1fMUzgtU74NEJ9zAASFlSi05EEeJ3+2ziyKfuhPqCWvrx1+
-	5LUQwIl3OSWUDOL3N62WgIFUCjKRHbq8Vuuf6GblsU/7Sl3felF62qUxpQClOaTba68FPdJCcS6
-	ostNjCsScX4TPRGtyDNhriFT58xkAVS6AzrBeL2ObMGgpboHqvTmNexZpNT6rGSJ7J9ZknWW/Si
-	gZYpD3CSBt5ukkATxsZSpisX4B4XeCOwvnQ3mZCpjVzECwGSNBGnY8Z7wywYG8MFV1a1Jm3RRbM
-	eP7xCPHTIYFotJ6fM2EOVbI3cXPsZ89qrPD1B26fF8FTiokSGragTyQxtdAR8JvqiOtueplvFT4
-	v4mMMEoB9zKNlQQ55/Pf1rFzJ8Q==
-X-Received: by 2002:a17:90b:4e83:b0:3a8:32f2:f4a5 with SMTP id 98e67ed59e1d1-3b41c956a0cmr11971327a91.53.1795480476894;
-        Mon, 23 Nov 2026 16:34:36 -0800 (PST)
-Received: from localhost (60-242-93-14.static.tpgi.com.au. [60.242.93.14])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b704cfesm7131414a91.1.2026.11.23.16.34.35
+        d=1e100.net; s=20260707; t=1795480538; x=1796085338;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cEtlzbFffNbXEfnRfrfQt3jwhoK6waIbjHPV7EqbNas=;
+        b=fORF1qpm6LURZDbnTrNbSvDg8kdOOtVPzY2xmhpoq6d5OPsOfDKFwZJAILoxVzEwnP
+         yiD+/Ooy9uD+J4G12+iWnKP+ovB/arrJSfEOKhTZhO9XT4wCLWSu9mdhMZMag05TA6kj
+         98C0vN5Mmmv/tQ+HswutmpS4faaJSiMbHIx3GsiivI5yOWWI5R5hhJVgvRA20uC+foQd
+         FqAuY3sV/QPmbJpLKzFL2iFGktj0QvZ8ogAjgRzIZYNKhegDCcQY5BPl2WMO7t1SV27C
+         q5qvGTdky525djkW4WN3onJe4WLgWo8Mi6E6BQhaW28I2c6uchgVmI4HUdMoxrlU+mIF
+         f1oA==
+X-Forwarded-Encrypted: i=1; AL+hErGZM/L8aj7YqfXXjVWJ0H/ArhF5vt3MG9BkIgNFY0404f4v3Ke4Ru4bK136F1kudcys6wusgPA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/7uqQaV250UBfsUjTqHeCt98DlherbHBhmQEb09/qao4LEVl1+
+	lWjYNp7kEQ8mEKhcK7RUQLICjib3FtcZp7qQ6T7jBEsrU+nzgxxHgZKFRWuGxov75FQ=
+X-Gm-Gg: AZFdTZe7KZj2THZ5ONryYsqIrgUsEmbo9dU9ESVMuScDlktqfkYJg0RdNYmaFVhYoNO
+	DiD9fLrvEq0bxHuShkJ+Hqbbu1W4qxPdfaeeu6pX887Rc8rbcWL2u610Vraw277tFChOzEv89dT
+	B9F/1v07dP9vDzDS/inn/obZuOKW0yn5z6lnpSQZIoKbxqBfcwqhHuQhTXZf/zfxOlu/W7QiWvV
+	fU3K2IA2RH5QrB7beUbhZg8Pix0VN0QNnQNsU9X9FSyCXCMr9QIq/aeVKiEu8EZAEGgXSY+LH8+
+	CQyPhFwxuJmzjpRHFtaceoPJOdQZRFuk6qeco0wus1bMUVnwxUc+QYnLuZzj5U7LoItzKSkM/90
+	o1NXaklC5Eyo2+eVQpojrGtTpwWKBwtRVzaUF9uecy/YVWxrVrmmguno9Rf31Xi/T8VfKgPA3l8
+	vV9gb9OS3P2G/SBpRywGw5rcr3lOIPVuZZncH/5lwlwEitf2+p7Bqx/uowrB6tB1bl6vSXb/8Iu
+	DQiTr/1/7h3vCgnt7o16RHvSMU816Qgp4su/AeCSGq+7oINtMXmAHDgUKyr4lDgLyajJsXXUTG+
+	aFAueHMMUWKdVsRFU1ALl+lbFUJHh3LYEvHmgWTO1bBOgX5dCZH3Ty9QLqRSxDpO+OBmGZRnfny
+	McQTIMeTdSlqjVPM+CjLnf4fFVJhQL7EeNEzfL0OYh3yhmbhChk6JJ3QpVw4fMY9h
+X-Received: by 2002:a05:6a21:9188:b0:3eb:abb7:f92c with SMTP id adf61e73a8af0-4014cb3eed2mr11300988637.22.1795480538338;
+        Mon, 23 Nov 2026 16:35:38 -0800 (PST)
+Received: from iiitd-S2600STB.iiitd.edu.in ([103.25.231.160])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfc8829sm6076667a12.8.2026.11.23.16.35.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 16:34:36 -0800 (PST)
-Date: Tue, 24 Nov 2026 11:34:33 +1100
-From: Lachlan Hodges <lachlan.hodges@morsemicro.com>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: Dan Callaghan <dan.callaghan@morsemicro.com>, 
-	Johannes Berg <johannes@sipsolutions.net>, Arien Judge <arien.judge@morsemicro.com>, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH 2/2] wifi: mm81x: clear a stalled bulk endpoint before
- the next transfer
-Message-ID: <vshptwv5idooqjvdirp5ssf2ofiff6tjhgjnzqgptte556uzem@f7kec5a632s7>
-References: <20261121164923.8862-1-25031212351@stu.xidian.edu.cn>
- <20261121164923.8862-3-25031212351@stu.xidian.edu.cn>
+        Mon, 23 Nov 2026 16:35:37 -0800 (PST)
+From: Piyus Kedia <piyus@iiitd.ac.in>
+To: Johannes Berg <johannes@sipsolutions.net>,
+	linux-wireless@vger.kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kapil Vaswani <kapil@presceralabs.ai>,
+	Piyus Kedia <piyus@iiitd.ac.in>,
+	stable@vger.kernel.org
+Subject: [PATCH wireless 1/2] wifi: mac80211: do not copy the mesh RSN IE twice into the beacon
+Date: Tue, 24 Nov 2026 06:05:25 +0530
+Message-Id: <20261124003526.78471-2-piyus@iiitd.ac.in>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261124003526.78471-1-piyus@iiitd.ac.in>
+References: <20261124003526.78471-1-piyus@iiitd.ac.in>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,28 +99,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261121164923.8862-3-25031212351@stu.xidian.edu.cn>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 22, 2026 at 12:49:23AM +0800, YuanZhe Liu wrote:
-> A bulk endpoint stays halted after it has answered a transfer with a
-> stall, and only a CLEAR_FEATURE(ENDPOINT_HALT) request resumes it. The
-> driver never sends one: the completion callbacks only record -EPIPE in
-> musb->errors, so every later register or memory access on that endpoint
-> stalls immediately and the device remains unusable until it is
-> re-enumerated.
-> 
-> Clear the halt of the endpoint that reported -EPIPE before returning the
-> error, so that a following restart can reach the device again. The command
-> endpoint is the memory write endpoint, hence the same recovery is applied
-> when the command urb itself stalls.
-> 
-> usb_clear_halt() sends a control request and may sleep, so it is called
-> from the process-context paths that wait for the transfer and never from a
-> completion callback.
+ieee80211_mesh_build_beacon() budgets the user's extra IE blob once:
 
-I applied patch #1, but this one seems .. interesting. Have you run
-into this problem? Do you have a reproducer?
+	tail_len = ... +
+		   ifmsh->ie_len;
 
-lachlan
+	bcn = kzalloc(sizeof(*bcn) + head_len + tail_len, GFP_KERNEL);
+
+but two of the builders that fill the tail draw from that blob.
+mesh_add_vendor_ies() emits everything from the first vendor IE to the
+end of it:
+
+	offset = ieee80211_ie_split_vendor(ifmsh->ie, ifmsh->ie_len, 0);
+
+	if (offset < ifmsh->ie_len) {
+		len = ifmsh->ie_len - offset;
+		data = ifmsh->ie + offset;
+		...
+		skb_put_data(skb, data, len);
+
+while mesh_add_rsn_ie() searches the whole blob:
+
+	data = cfg80211_find_ie(WLAN_EID_RSN, ifmsh->ie, ifmsh->ie_len);
+
+A blob that begins with a vendor IE therefore has its RSN IE emitted
+twice - once inside the verbatim vendor range, once on its own - and the
+tail copy runs past the allocation:
+
+  BUG: KASAN: slab-out-of-bounds in ieee80211_mesh_build_beacon+0xe3f
+  Write of size 479 at addr ffff88805ca1887b by task syz-executor
+   __asan_memcpy
+   ieee80211_mesh_build_beacon          net/mac80211/mesh.c:1110
+   ieee80211_start_mesh                 net/mac80211/mesh.c:1187
+   ieee80211_join_mesh                  net/mac80211/cfg.c:3330
+   rdev_join_mesh
+   __cfg80211_join_mesh                 net/wireless/mesh.c:214
+   nl80211_join_mesh                    net/wireless/nl80211.c:15399
+
+One NL80211_CMD_JOIN_MESH carrying such an NL80211_ATTR_IE is enough.
+
+Confine the RSN search to the non-vendor part of the blob, so the two
+builders cover disjoint ranges and their total cannot exceed the single
+ifmsh->ie_len the beacon was sized with.  The blob reaches us having passed
+validate_ie_attr(), which walks the element chain and requires it to end
+exactly at the end of the attribute, so the split returns an element
+boundary that is not past ifmsh->ie_len.
+
+An RSN IE placed behind a vendor IE is still emitted, as part of that
+verbatim vendor range; nothing that a well-formed configuration sends is
+dropped.
+
+How this was found: by AI-driven fuzzing built on top of syzkaller.  Its
+analysis was checked by hand against the code, the fault was reproduced on
+net.git main under KASAN, and the patched kernel is clean on the same
+reproducer with ordinary secure-mesh beacons unaffected.
+
+Fixes: 2b5e19677592 ("mac80211: cache mesh beacon")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
+Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
+---
+ net/mac80211/mesh.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/net/mac80211/mesh.c b/net/mac80211/mesh.c
+index 8f8814125375..eb54bd98f282 100644
+--- a/net/mac80211/mesh.c
++++ b/net/mac80211/mesh.c
+@@ -379,12 +379,19 @@ int mesh_add_rsn_ie(struct ieee80211_sub_if_data *sdata, struct sk_buff *skb)
+ 	struct ieee80211_if_mesh *ifmsh = &sdata->u.mesh;
+ 	u8 len = 0;
+ 	const u8 *data;
++	size_t prefix;
+ 
+ 	if (!ifmsh->ie || !ifmsh->ie_len)
+ 		return 0;
+ 
+-	/* find RSN IE */
+-	data = cfg80211_find_ie(WLAN_EID_RSN, ifmsh->ie, ifmsh->ie_len);
++	/* Find the RSN IE in the non-vendor part of the blob only.  Everything
++	 * from the first vendor IE onwards is emitted verbatim by
++	 * mesh_add_vendor_ies(), and ieee80211_mesh_build_beacon() budgets
++	 * ifmsh->ie_len once for both of them, so an RSN IE sitting behind a
++	 * vendor IE would be copied twice and overrun the beacon's tail.
++	 */
++	prefix = ieee80211_ie_split_vendor(ifmsh->ie, ifmsh->ie_len, 0);
++	data = cfg80211_find_ie(WLAN_EID_RSN, ifmsh->ie, prefix);
+ 	if (!data)
+ 		return 0;
+ 
+-- 
+2.34.1
+
