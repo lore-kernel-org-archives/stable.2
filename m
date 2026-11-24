@@ -1,60 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795539142;
-	b=B0TKzxB0JMGYVFhYzmuRUDuhNzD2/38WravOLOcrha4RpkmudusrrD9FooL6tjmlJZll
-	 7WHZsNfmckhkcLlwL5YSU1avNxso901qD5MO1Q1uIaqjyf8peBxIsdM1Vet/DefZ1Ktd9
-	 7z+3KIsU+CYka9oB2ikEC6qKhY7syMjyl93s1sbut7ROQUxpkpCIR8LUkRAjUy9hozvgk
-	 Jup8f0/aEqfA6+gNDpOh4dCscgh2iqwWkbEL+ZWsiFiiVPCX+2lFJY9zxJWg70LH8PZ9G
-	 UXJmywyPczVdhJZjAot8468HdbWr65i5ShcJisfeQ2yHFR4P4t7BA5jWFJgvNS1MWqA==
+	t=1795539145;
+	b=R50Qi5Z7wAfnAWdXOUiQt2ve9Jlly3KNpOo0ip1TmfdwL2WWURqFxkQa358f11WIDiSt
+	 tyJz7iZDzPHmIL72+jJQq6UTMbelylsE7kgRRZCE3yRn4VXk8frIb4ctL476pHgnJK92C
+	 Y0op7m7jupvY1Gq9e8VMuJVa5FCROV2ljAL/flCYrjxKXi9X9wun0ucz1eGfMQKkA/cDP
+	 YB36/ilZgOHfGHP8yz0ss0YMHy5agPT3ZZWm3J+0PVC5U9BVtUTPkk67EkUFRH8104oK1
+	 cSwKgUXq6/XNIagmBsds8L5inhGK7DIZrwmc3Fon6VPZMnwEexjkUl2/N2v+rHNG0gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795539142;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=6LqMW44Pa+lvl+KXTsNy1SDQbG2Lyy5coaNy1fbzw4E=;
-	b=zE87QAAww9bP/e2GKpXCzQDOXCmSabSzNcrd2Jntpkc1wz6tiQTkh8aWM+XWDZs4gyBT
-	 EE/x0QxysDrZYn25OW+8N7rt0puJwOirl+9+2l4UCj3Dlzdtyesnj+oM03oPPij8eFgxX
-	 q5eWrpMZxY9YZuEiaD/ApO1cIcL/J3BXtbh8vFmfTNmhUTrgCVAvHVAzyJrhioivpy+EE
-	 uZhkiqSMlbgSST8qBFspHiF++pIwD0WnEhajLPYABfzv0YyEbNYwoWqnjr25kjEobpRsF
-	 8L9WMGya1NaXv2bU3CdQekPxwe8b+wSjuSrozBtX46NL+5nGO0ZHSce/WnZ1P0Ipkpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795539145;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=e9/oR9mWS1WKPmGomi/5W0W8MOD9LULGfpTOrsM0bLc=;
+	b=DaeC294v1e4JtLqXCQ4KeSgCnqPfLl6ziA0gxBTE+VlGcbUcVHIKcdQa/qEGLCP+DCsZ
+	 bFS0rClJGGz2RWnSWmewnPTUyoAPln8ArN5OXAfU3B0ExH4zt7p+JYh91WQfUYZkpz0WW
+	 aGbOljgGesh3EAkCvMSnr1S1cucO7dy/BYAigeOosDzEchbytFN6TNVvngzX1Zsc4U4pD
+	 oMEmUo3mQ7hmiyBDKL/zLvfVDpOwH1JA3Ms4dYvVf/mjq5eyj3v5xCZTis/waRM51RpV1
+	 D7kZNDmWnIJLSZs5WesqOzkory/Q+sTlivkQ3lGu7cRwUbyyos+uy/OV6u/7ppOIbZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ivv5iAn8;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tt+Z3qyS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74D4606A697;
-	Tue, 24 Nov 2026 16:52:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A74D4606A697
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528A4606A33B
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:52:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ivv5iAn8
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id BE456C2BB2F;
-	Tue, 24 Nov 2026 16:52:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3FD8E601E1;
-	Tue, 24 Nov 2026 16:52:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 105B211E694D3;
-	Tue, 24 Nov 2026 17:52:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795539136; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=6LqMW44Pa+lvl+KXTsNy1SDQbG2Lyy5coaNy1fbzw4E=;
-	b=Ivv5iAn8SQ3fNMublLmyshWwo6freMzX6V7Vh9a7CKO3kEF4MTPb97aIBSW7Mv99tYSpZk
-	XSbAM/RF6P4Qe891l8CslmB29GnTWaj7h85vFn8J6dpHQoa3mbWmrpbBNh5jAL9/ohPcIA
-	MIuMO4W7OtcJ59xIWjnXOMGUFqqf1O+MYd6oewNhxPQE1n9rxU7Q8gbUs8khTdTdtm3gBf
-	NESyT0Tx3ehnsjnTRUdo9O2zCds7zuF2ITPKFAigLpjeajDpfYSwxm4XL+9VqtEbY0CQTy
-	EzRhvqU3aGmnut0m+TlA96xP5Tf2BR/jAXKGJl3RB52k0b5ekZmo/5SKpOHxKw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Tue, 24 Nov 2026 17:51:29 +0100
-Subject: [PATCH v13 04/10] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
- when possible
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tt+Z3qyS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9015D1F00A01;
+	Tue, 24 Nov 2026 16:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795539144;
+	bh=e9/oR9mWS1WKPmGomi/5W0W8MOD9LULGfpTOrsM0bLc=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=Tt+Z3qySazQDNevtcIVFUXsucoVNkegboHtm4If/WUHepEuG3qv9Tm49ecaATePMT
+	 xxXfeCz98cQ3IbXJUgoMjC+NUfbykaS+iutN9nQ6yXSw52Yn0JKEwmL6dlSqXkLtb5
+	 Ic8kAH4G39gDmFLrn4NUKun9rB90W3x3RGp0uN7kawYw+9o/5B0FT1z3C5gwKKnZVS
+	 eNAx4ZfT6UitW5sqcCI5oUvDoGOvB6A9NqskO8D02Seas3iJCuL2AwdcHH/mGsDOD8
+	 arxaVU72AI4guMHEu1CTHwZcOk/vXeUCFNc7MTbSWMPOXj4VP6MfCNKzx+nHQ5rx40
+	 DIsqTCuqF9T5Q==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 7D259F40066;
+	Tue, 24 Nov 2026 11:52:23 -0500 (EST)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Tue, 24 Nov 2026 11:52:23 -0500
+X-ME-Sender: <xms:x8AFa0JvY8eIhhhuqEEGFPYZYeE5SH4sMYrcY5WFCogeGX64IB5utw>
+    <xme:x8AFa-9-suNJopYKr85HOjeHYXllf0uiMrmtUbm4THOU1sHLYzE-HTdjn5CBrPdqA
+    HDXOigWeDKQJ2VUK5SBgLHPH4TJr3X6VdFqJyqvKqrUtl2MpGkWSRM>
+X-ME-Proxy-Cause: dmFkZTFvffRiS/ihXQ+YlJikK6/tQ9o9zou164jyx6LFNSPLtLOpM/z5pCkpE2k7W5A3uY
+    +dtSa7IoGmWq+8CMRVel6H4toMv+YitB6FZdwMpEDoazElCpx7m2KIlcpn2sL7NohjG0Yq
+    WvJdSa1jfUXhcEojoCwPdW4vT/1LueE5TbPt7GryfKu+nNw4pddnqHDAUe4SUTvPZ3Y2T/
+    42PewF4uInOOZu4uOgiCJre05f2aQr54265zJnw7xRS2eSB/NRaaX2/MSNa8dzZEGFsbSr
+    chZtgtOh3e1Az8tqkIgzb0HJKtQ+PBlZ5J4RGZ0Fmdty3rtOTzVZeGFIokBDDZ8j039OXC
+    K+vyK2cu7Go+E9WkYANqiHpGQhIKl6UsZD4Fk0Xvh9x4C9d1BF+YusJV7/hcbnmlYsVRWa
+    v7cEouQoimmSnscH4TsZPo5Gs+GToxlmoX4ZifoAD7F3KRtSs9r+YTAtSFeMRjzArKLkRk
+    3EF2r4jiFjIdv8jxpexdM2doAvbGVCUNPgqTUxB6LAMRdN/w+YNM59VmvJ0sBMwHjhF608
+    HVqNUnEuyrDD07bPcdLaoqDir+/Xw5Js9nUthGb8OOyLduKdxdBH3cHKabdAjQd4GJzbpt
+    Zxi4Fsu34vPtZ4SM66WKD7bsfI6F/fRT+9BJPvIGaDfBuPVz4rWyRGNAv3Sg
+X-ME-Proxy: <xmx:x8AFa4YpndLo0kCYSEOENU5U8F7agU7DYGm_X-RBfOgSzVC7kbByuw>
+    <xmx:x8AFa_yRoZz0IKTZpY5nhhbU-8zI9sq4LFih-wGEqoViJ1RziplYag>
+    <xmx:x8AFa3Yh_zjshc_CDNFtEik9ECnVmJlV9qOT3OTutJM_7Up6PZ4x_A>
+    <xmx:x8AFawxYrjCHo7Hf8ABGNsBTQeOXPu1uVyW0xkCUGksK8Is2dLVLDw>
+    <xmx:x8AFawHlLJ1rJI-As23fi1xTxX1CPxcu8lRrulIZhNFmTILUPWSCvVh7>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 53CB4780070; Tue, 24 Nov 2026 11:52:23 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,132 +77,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: AK3k8V--uDCJ
+Date: Tue, 24 Nov 2026 11:52:03 -0500
+From: "Chuck Lever" <cel@kernel.org>
+To: "Li Xiasong" <lixiasong1@huawei.com>, "Jeff Layton" <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, "Olga Kornievskaia" <okorniev@redhat.com>,
+ "Dai Ngo" <Dai.Ngo@oracle.com>, "Tom Talpey" <tom@talpey.com>,
+ "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org, linux-rdma@vger.kernel.org,
+ stable@vger.kernel.org, yuehaibing@huawei.com, zhangchangzhong@huawei.com,
+ weiyongjun1@huawei.com
+Message-Id: <187e2fd0-165a-4dc5-a542-6d87d4750bf7@app.fastmail.com>
+In-Reply-To: <20261124021842.130141-2-lixiasong1@huawei.com>
+References: <20261124021842.130141-1-lixiasong1@huawei.com>
+ <20261124021842.130141-2-lixiasong1@huawei.com>
+Subject: Re: [PATCH v3 1/3] rpcrdma: Serialize notification registration with device
+ removal
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-perso-ma35d1-upstream-clk-v13-4-c920f4a9f0ce@bootlin.com>
-References: <20261124-perso-ma35d1-upstream-clk-v13-0-c920f4a9f0ce@bootlin.com>
-In-Reply-To: <20261124-perso-ma35d1-upstream-clk-v13-0-c920f4a9f0ce@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
 
-HXT and LXT are crystal oscillator inputs of the clock controller. As
-such, they are external clock sources which should not be registered by
-this driver.
 
-HXT is already described in the DT, but is not named. In order to point
-to this parent from its direct child which is HXT_GATE, we must provide
-a fw_name (when it is named, new DTs) and a .name (for when it's not
-named, but the fixed clock node name is used).
+On Mon, Nov 23, 2026, at 9:18 PM, Li Xiasong wrote:
+> Registration can race with device removal between the client-data
+> lookup, the removing-state check, XArray publication and device
+> reference acquisition. Serialize these operations and client-data
+> teardown with a module-wide mutex, keeping callbacks and completion
+> waits outside it.
+>
+> Enter a NOIO allocation scope before taking the mutex to prevent reclaim
+> from waiting for RPC I/O on a transport whose reconnect needs the same
+> mutex.
+>
+> Fixes: 7e86845a0346 ("rpcrdma: Implement generic device removal")
+> Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
 
-LXT is missing in old DTs, so we must create that clock and register it
-for backward compatibility reasons. It should however be described and
-pointed at in updated DTs.
+> @@ -187,8 +209,11 @@ static void rpcrdma_remove_one(struct ib_device *device,
+>  	}
+> 
+>  	trace_rpcrdma_client_remove_one_done(device);
+> +	mutex_lock(&rpcrdma_device_mutex);
+> +	ib_set_client_data(device, &rpcrdma_ib_client, NULL);
+>  	xa_destroy(&rd->rd_xa);
+>  	kfree(rd);
+> +	mutex_unlock(&rpcrdma_device_mutex);
+>  }
 
-Both HXT and LXT are exposed by this driver only in the backward
-compatibility case. Otherwise, both clocks are expected to be retrieved
-from the DT.
+Nit: The conventional practice in the kernel is to release resources outside
+the mutex. AFAICT that is safe to do so here; only the ib_set_client_data()
+call needs serialization.
 
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
- drivers/clk/nuvoton/clk-ma35d1.c | 44 +++++++++++++++++++++++++++++++++-------
- 1 file changed, 37 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index f9806a878725..20c6390fc2bc 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -65,6 +65,14 @@ static DEFINE_SPINLOCK(ma35d1_lock);
- 
- #define MA35D1_MUX_MAX_PARENTS	10
- 
-+static const struct clk_parent_data hxtg_parent_data[] = {
-+	{ .fw_name = "hxt", .name = "clk_hxt" },
-+};
-+
-+static const struct clk_parent_data lxtg_parent_data[] = {
-+	{ .fw_name = "lxt", .name = "lxt" },
-+};
-+
- /* Mux parent selection, by index into the controller's clock table */
- static const int ca35clk_parent_idx[] = { HXT, CAPLL, DDRPLL };
- static const int sysclk0_parent_idx[] = { EPLL_DIV2, SYSPLL };
-@@ -194,6 +202,15 @@ static struct clk_hw *ma35d1_clk_gate(struct device *dev, const char *name, cons
- 				    reg, shift, 0, &ma35d1_lock);
- }
- 
-+static struct clk_hw *ma35d1_clk_gate_parent_data(struct device *dev, const char *name,
-+						  const struct clk_parent_data *parent_data,
-+						  void __iomem *reg, u8 shift)
-+{
-+	return devm_clk_hw_register_gate_parent_data(dev, name, parent_data,
-+						     CLK_SET_RATE_PARENT,
-+						     reg, shift, 0, &ma35d1_lock);
-+}
-+
- static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *pllmode)
- {
- 	const char *of_str;
-@@ -222,7 +239,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	static struct clk_hw **hws;
- 	static struct clk_hw_onecell_data *ma35d1_hw_data;
- 	u32 pllmode[PLL_MAX_NUM];
--	int ret;
-+	int ret, num_clks;
- 
- 	ma35d1_hw_data = devm_kzalloc_flex(dev, *ma35d1_hw_data, hws,
- 					   MA35D1_CLK_COUNT);
-@@ -242,12 +259,25 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
--	hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
--	hws[HXT_GATE] = ma35d1_clk_gate(dev, "hxt_gate", "hxt",
--					clk_base + REG_CLK_PWRCTL, 0);
--	hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
--	hws[LXT_GATE] = ma35d1_clk_gate(dev, "lxt_gate", "lxt",
--					clk_base + REG_CLK_PWRCTL, 1);
-+	num_clks = of_clk_get_parent_count(clk_node);
-+	if (num_clks < 1 || num_clks > 2)
-+		return -EINVAL;
-+
-+	/*
-+	 * Old DTs do not describe the low-speed crystal. They may also expect
-+	 * an HXT output from this driver. In practice, nobody should use these
-+	 * clocks directly, but they must be kept for backward compatility
-+	 * purposes.
-+	 */
-+	if (num_clks == 1) {
-+		hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
-+		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
-+	}
-+
-+	hws[HXT_GATE] = ma35d1_clk_gate_parent_data(dev, "hxt_gate", hxtg_parent_data,
-+						    clk_base + REG_CLK_PWRCTL, 0);
-+	hws[LXT_GATE] = ma35d1_clk_gate_parent_data(dev, "lxt_gate", lxtg_parent_data,
-+						    clk_base + REG_CLK_PWRCTL, 1);
- 	hws[HIRC] = ma35d1_clk_fixed("hirc", 12000000);
- 	hws[HIRC_GATE] = ma35d1_clk_gate(dev, "hirc_gate", "hirc",
- 					 clk_base + REG_CLK_PWRCTL, 2);
 
 -- 
-2.56.0
-
+Chuck Lever
