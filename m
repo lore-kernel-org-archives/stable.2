@@ -1,63 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795507334;
-	b=O0+Pww9nE4alDiebtVQy9Tt3Ohxsl4EpuatltuSNM/7n7M9QZS2ezL+QfO7JWq06YuDy
-	 JQUS0xtR0PCJMSUwCMqvhRYe92NfH1dLXK47p34P4anTYUZdOx8On0OoKbUALtRUwl9jb
-	 6l5x8ul/TQgBWOyjYtFWaHI+Mc2lviOw+HuGG9Tic2o0jc4EwPmmEegblA0PXcbbARgcE
-	 lTYzgxR0rlPNdnZA9GAkE9QR4wvuRogtgLL+xNFdinXYuwtfN7aozI8cf1vwfZcRBkoH0
-	 re4zwbIHjtevOvSbslMBUXk17AUNsy6VUNvj3Lk1zwCTqP2dUnsFCzrrZENgU5puadQ==
+	t=1795507496;
+	b=I8SPkh4XzUbN6f2Wi0xn8TIh+Hs5hWC8UxsCDWWS7yaMyF5UCNXxGnKEXQki92X613rq
+	 S52Rnxh/yHNYUyQUxwNWnl1u85/n/37gSekbi8hbIBuIlQk22bzOvkQVjhGLEF9wTkJHP
+	 RrvBIM7ioHHzUrdLN1qyCsZH32PFZnWToxG/N9CnzMo/qpFi+/0CQsPkjE4vrfyPgeokg
+	 a38C8MDocaRKhRw/JfzGE1Lkf21Gu3a0lqRebyEJzLLHcrydU3tASuD72ksrbPheR1IpK
+	 WRs8kFu/bik4RSTen6fL1T8N5XmG1cMkFCuCRwxLH7LdbKHmH1P09Ygd85J7pw10pUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795507334;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=+pKXu3qkgJSPLozlW00PL8TqTAeUCLEtzNRMzovbU6c=;
-	b=eIwfVzdsYJw+gbWjZ+0IEjxey77V4uM0KVN4qemWHlDPWI2MyD14aWMmndSXdQR5cllX
-	 SCZXt1Z6tCQ3KOvRveWy2Rq8B3WlO1Jf5o0FcjqCWa/5e5IoVq9wOvve6t1cQ4N6F269l
-	 aN0Gkxm1FP82E22fbqtxLQ5jnYCkUZVObvRW+Aqz8w6zD5IY2dEZ4jJoijNlC9FIbkY2/
-	 0OLpZIwGXW8Aw59P/C5br1YDbXXFUGfKrnh5tWCMVmabfH0HHNpy8yKLNKnmItjbJObRK
-	 AByM1feJ9vpAI4HM4Q+Gam24fT0FQ+989PDWHSH2V8aKO66EHEL8BrbzhNEYSN/mWcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795507496;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Hs9uypOQfbHnpPTNW01WGbHmNfbbsXyvVNcORTX/v4U=;
+	b=toPMQirQokue0U2SQwHCmoInLEOPnBgeEWBJmrPNqKSU8B0d5oCHAUCpyfhaKC/YfuPR
+	 iEFp489uitSZZWsC5lX5NL2SXOxs4DJMLkY/mqYYrnq39oTUhVGu4oYHVmUq9Gb1B6DR2
+	 0eRIrOuZV+PldoSvRXkakG6mgoaXQDFDqEhOqWiiyg1K6rI01LHal5odnd1lnFFEdVICi
+	 uux4ryZ8GUnsRlpgk9+lXZt6rb0lEf38H9RdGirdecsLBwsfC1V9bKBXgWu2ubumA9WXb
+	 N6aduD/vNAR732SCrPZCxGerZ7kkFfNF8d7hQTqsPyMO8nmkEZ9u16NiYo1UQAinyrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fXMTKtGL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CFe2Ckdo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AEF0606A31E;
-	Tue, 24 Nov 2026 08:02:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBBF606A31E;
+	Tue, 24 Nov 2026 08:04:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fXMTKtGL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFDA41F000C0;
-	Tue, 24 Nov 2026 08:02:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CFe2Ckdo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 994DB1F000C6;
+	Tue, 24 Nov 2026 08:04:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795507334;
-	bh=+pKXu3qkgJSPLozlW00PL8TqTAeUCLEtzNRMzovbU6c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fXMTKtGLNHeemfUWTOrZ53U0gq5PMgpFosjoZDra4ZDVlRXrcCfAOWlJ26RXadcWF
-	 26QoawHDjPyR0sYYJ4kD5wa+k8f8Zjvqce6ieocTLZlm6ag1kE3uLgMFL4UpIOUVRy
-	 GftvWGWABuBaXVL3OQYLiMlMKBHH9K6AnTKOruEH8eKkKCEOfEb7WjWNCvn2imBVXk
-	 MMFwVDJH2/d2c/baEABqtfxDV+Xt8SuHPxbMRAb4Ajbd/blAwS4YL8kzgkLKldinrB
-	 8iTUxHzNhBhUrtQOU205fMBjj3KhaHl2/mf2uxdhOr/vaY7bcdzFEWxpnhp+uiKsnm
-	 qXi4DNMmKhTNA==
-Subject: Re: [PATCH net] net: stmmac: retry a failed RX refill from a timer
-From: netdev-bot+sashiko@kernel.org
-To: Anandu.Padinhare@electrifex.com
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
- sdf@fomichev.me, cfsworks@gmail.com, rmk+kernel@armlinux.org.uk,
- david.wu@rock-chips.com, stable@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org
-Date: Tue, 24 Nov 2026 08:02:12 +0000
-Message-ID: <179550733234.3135.14826070962327647886@kernel.org>
-In-Reply-To: <MA0PR01MB921746F36D90C7080287ACC9FD782@MA0PR01MB9217.INDPRD01.PROD.OUTLOOK.COM>
-References: <MA0PR01MB921746F36D90C7080287ACC9FD782@MA0PR01MB9217.INDPRD01.PROD.OUTLOOK.COM>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1795507496;
+	bh=Hs9uypOQfbHnpPTNW01WGbHmNfbbsXyvVNcORTX/v4U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CFe2Ckdo05q1ECZMujaLOsgd95d45YaQcTFQjQENKNZOWMloqihcy4iIcN9C7Gq+k
+	 RD3lbkHVphvpE39yR5DHEofBUlYLbLvm3Lb9B+7EX5HwMJj2xmNb/3WMCPXPCylXCZ
+	 SkKnV1X6dv0b9abphEgwbPKztrMAtNrmJBGzH4sn5tzqjYVotq6hYDgErV4MUwzFB0
+	 fiw9Z3wdVQxhZUoauY61BLbBVAhKRBY1MsjEQZABlB6K0N7H1UEXl3n2x6Kb2wiGD7
+	 cC8B/cFFDrTJ3RiQ36WZnqJrEaeJiTSUfb/DgrKAErk45XfLJsipmq/HBFbVAbE3oW
+	 gI9p7mB0NmQwA==
+Message-ID: <c4f270f1-3196-4ae0-8a7c-7b61155285ca@kernel.org>
+Date: Tue, 24 Nov 2026 09:04:51 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,263 +51,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] selftests/mm: verify ksm_zero_pages is not
+ inherited on fork
+To: "Xu Xin (vivo)" <xu.xin@linux.dev>
+Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev,
+ donettom@linux.ibm.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ stable@vger.kernel.org
+References: <20261123034136.209410-1-xu.xin@linux.dev>
+ <20261123034548.237302-1-xu.xin@linux.dev>
+ <16d172a9-bf5c-4a69-93d1-b48cd53b67b2@kernel.org>
+ <awT6Yc/rFuyp2r13@dgvxl46587.localhost.localdomain>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <awT6Yc/rFuyp2r13@dgvxl46587.localhost.localdomain>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 11/24/26 03:45, Xu Xin (vivo) wrote:
+> On Mon, Nov 23, 2026 at 05:49:30PM +0100, David Hildenbrand (Arm) wrote:
+>> On 11/23/26 04:45, Xu Xin (vivo) wrote:
+>>> Extend test_fork_ksm_merging_page_count() to enable use_zero_pages and
+>>> merge zero pages alongside non-zero pages before fork(), verifying that>
+>> neither ksm_merging_pages nor ksm_zero_pages is inherited by the child.
+>>>
+>>> Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
+>>> ---
+>>>  .../selftests/mm/ksm_functional_tests.c       | 44 +++++++++++++++----
+>>>  1 file changed, 35 insertions(+), 9 deletions(-)
+>>>
+>>> diff --git a/tools/testing/selftests/mm/ksm_functional_tests.c b/tools/testing/selftests/mm/ksm_functional_tests.c
+>>> index b871d5656688..0e128c579d5c 100644
+>>> --- a/tools/testing/selftests/mm/ksm_functional_tests.c
+>>> +++ b/tools/testing/selftests/mm/ksm_functional_tests.c
+>>> @@ -655,45 +655,71 @@ static void test_prot_none(void)
+>>>  	munmap(map, size);
+>>>  }
+>>>  
+>>> -static void test_fork_ksm_merging_page_count(void)
+>>> +static void test_fork_ksm_statistic_count(void)
+>>
+>> "statistic_count" sounds odd. did you mean "statistics" or "counters". Below you
+>> use "stats".
+> 
+> Yes, I meant "counters" (my phrasing was inaccurate). I will rename it to
+> test_fork_ksm_counters() in v4.
+> 
+>>>  	}
+>>>  
+>>> -	ksft_test_result_pass("ksm_merging_pages is not inherited after fork\n");
+>>> -
+>>> +	ksft_test_result_pass("ksm_merging_pages and ksm_zero_pages are reset after fork\n");
+>>> +unmap_zero:
+>>> +	munmap(zero_map, size);
+>>>  unmap:
+>>>  	ksm_stop();
+>>>  	munmap(map, size);
+>>
+>> This ordering is odd.
+>>
+>> Why stop in between?
+>>
+>> Also, I suggest using a single label, like:
+>>
+>> char *zero_map = MAP_FAILED, *map = MAP_FAILED;
+>>
+> 
+> Agreed, the ordering was just kept from the original code and looks odd.
+> I will unify this into a single cleanup label in v4, unmapping both
+> regions cleanly before calling ksm_stop().
 
-Critical: 0 · High: 0 (2) · Medium: 1 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] net: stmmac: stmmac_rx() runs receive loop before
-  stmmac_rx_refill() on retry
-- [Low] The new block comment above stmmac_rx_refill_needed()
-  (stmmac_main.c lines 268-271) says: "The RX DMA suspends without an…
-
-Pre-existing issues:
-- [High] Suspend/resume while an RX refill is failing hands unpopulated
-  and stale descriptors back to the DMA.
-- [High] stmmac_setup_tc_block_cb() can leave a channel's DMA RX
-  interrupt masked, which stalls RX on that channel.
-
---
-
-net: stmmac: retry a failed RX refill from a timer
-
-This commit adds a per-channel timer to stmmac. When a poll leaves at most
-STMMAC_RX_REFILL_THRESH slots with the DMA, the timer schedules RX NAPI
-10 ms later, so a refill that failed in page_pool is retried without
-waiting for an RX interrupt. The timer is cancelled after rx_napi is
-disabled, and stmmac_enable_all_queues() re-arms it if the ring is still
-short of buffers.
-
-Link: https://lore.kernel.org/netdev/20260331195927.3353cc6d@kernel.org/
-Link: https://lore.kernel.org/netdev/20260402174049.0ac088cc@kernel.org/
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index a685ce4638f61..ad9873aaf2dba 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-
-[ ... ]
-
-> @@ -263,6 +265,32 @@ static void stmmac_verify_args(void)
->  		pr_warn("stmmac: module parameter 'flow_ctrl' is obsolete - please remove from your module configuration\n");
->  }
->  
-> +/* The RX DMA suspends without an interrupt once it has used all its buffers,
-> + * so a refill that failed for lack of memory would never be retried. Retry it
-> + * from a timer when few slots are left with the DMA.
-> + */
-
-[Severity: Low]
-This isn't a bug, but is the first sentence of this comment accurate for
-dwmac4?
-
-In dwmac4_dma.h, DMA_CHAN_INTR_ABNORMAL includes DMA_CHAN_INTR_ENA_RBU.
-That macro is part of DMA_CHAN_INTR_DEFAULT_MASK, which is written to
-DMA_CHAN_INTR_ENA. dwmac4_dma_interrupt() then gets the RBU status but
-only counts it:
-
-	if (unlikely(intr_status & DMA_CHAN_STATUS_RBU))
-		x->rx_buf_unav_irq++;
-
-The sentence is true for dwxgmac2, where XGMAC_DMA_INT_DEFAULT_EN has no
-RBUE, and for dwmac1000. The commit message also says the RBU interrupt
-"is not enabled on every core and kernel version".
-
-Could the comment say that RBU is not enabled on every core, or is not
-used to drive the refill, rather than that there is no interrupt?
-
-> +static bool stmmac_rx_refill_needed(struct stmmac_priv *priv, u32 queue)
-> +{
-> +	struct stmmac_rx_queue *rx_q = &priv->dma_conf.rx_queue[queue];
-> +
-> +	return CIRC_SPACE(rx_q->cur_rx, rx_q->dirty_rx,
-> +			  priv->dma_conf.dma_rx_size) < STMMAC_RX_REFILL_THRESH;
-> +}
-
-[ ... ]
-
-> @@ -328,8 +360,17 @@ static void stmmac_enable_all_queues(struct stmmac_priv *priv)
->  			continue;
->  		}
->  
-> -		if (queue < rx_queues_cnt)
-> +		if (queue < rx_queues_cnt) {
-> +			/* Disabling the queues cancelled any pending refill
-> +			 * retry, but the ring may have been kept as it was.
-> +			 * Check it while no poll can run.
-> +			 */
-> +			bool refill = stmmac_rx_refill_needed(priv, queue);
-
-[Severity: High]
-This is a pre-existing issue, but does the "ring may have been kept as it
-was" case also need to cover stmmac_resume() after a failed refill?
-
-When stmmac_rx_refill() stops at a page_pool allocation failure, the
-slots in [dirty_rx, cur_rx) keep buf->page == NULL. The DMA write-back
-has already overwritten their buffer address words (RDES0/RDES1 on
-dwmac4).
-
-If the system suspends at that point, stmmac_suspend() leaves the ring as
-it is, and resume does:
-
-stmmac_resume()
-  stmmac_reset_queues_param()
-    stmmac_reset_rx_queue()
-      rx_q->cur_rx = 0;
-      rx_q->dirty_rx = 0;
-  stmmac_clear_descriptors()
-    stmmac_clear_rx_descriptors()
-      stmmac_init_rx_desc()
-        dwmac4_rd_init_rx_desc()
-          dwmac4_set_rx_owner(p, disable_rx_ic);
-  stmmac_hw_setup()
-    stmmac_init_dma_engine()
-      stmmac_set_queue_rx_tail_ptr(priv, rx_q, chan,
-                                   rx_q->buf_alloc_num);
-  stmmac_enable_all_queues()
-
-Nothing in this sequence rewrites the buffer addresses from buf_pool.
-Every descriptor gets the OWN bit, and the tail pointer gives the whole
-ring to the DMA.
-
-Could the DMA then write received frames to addresses taken from old
-write-back data? Those may be garbage, or the stale DMA address of a page
-already returned to the stack or page_pool.
-
-When stmmac_rx() later reaches such a slot, it would call
-dma_sync_single_for_cpu() on a stale buf->addr and page_address() on a
-NULL buf->page, and pass the result to xdp_prepare_buff() and
-napi_build_skb().
-
-The new check here does not see this case. Resume has just set cur_rx
-and dirty_rx to the same value, so stmmac_rx_refill_needed() returns
-false and no retry is armed.
-
-Even if a retry were armed, stmmac_rx_dirty() would return 0, so
-stmmac_rx_refill() would not fill the NULL slots before the DMA uses
-them.
-
-> +
->  			napi_enable(&ch->rx_napi);
-> +			if (refill)
-> +				stmmac_rx_refill_timer_arm(ch);
-> +		}
-
-[Severity: High]
-This is a pre-existing issue, but can stmmac_setup_tc_block_cb() leave the
-channel's DMA RX interrupt masked? The new re-arm logic does not cover
-that case.
-
-Consider this sequence:
-
-CPU1 (RX interrupt and NAPI)
-stmmac_napi_check()
-  stmmac_disable_dma_irq(priv, priv->ioaddr, chan, 1, 0);
-  __napi_schedule()
-stmmac_napi_poll_rx()
-  work_done == budget, so the IRQ re-enable is skipped
-
-CPU2 (CAP_NET_ADMIN adds a tc u32 or flower offload rule)
-stmmac_setup_tc_block_cb()
-  __stmmac_disable_all_queues()
-    napi_disable()    <- sets NAPI_STATE_DISABLE
-
-Then __napi_poll() in net/core/dev.c does this:
-
-	if (unlikely(napi_disable_pending(n))) {
-		napi_complete(n);
-		return work;
-	}
-
-The core completes NAPI itself and napi_disable() returns. The only place
-the RX IRQ is re-enabled, in stmmac_napi_poll_rx(), never runs:
-
-	if (work_done < budget && napi_complete_done(napi, work_done)) {
-		...
-		stmmac_enable_dma_irq(priv, priv->ioaddr, chan, 1, 0);
-
-stmmac_enable_all_queues() then calls napi_enable(). It arms the refill
-timer only when stmmac_rx_refill_needed() is true, which is usually not
-the case because stmmac_rx() has refilled the ring.
-
-The open, resume and XDP setup paths call stmmac_enable_all_dma_irq() or
-schedule a poll. stmmac_setup_tc_block_cb() does neither.
-
-On dwmac4, the RBU interrupt recovers the channel once the ring fills.
-dwxgmac2 also uses dwmac510_tc_ops, but RBUE is not in
-XGMAC_DMA_INT_DEFAULT_EN.
-
-With per-channel MSI, or with RX-only traffic, would the dwxgmac2 channel
-stay dead until the interface is reopened?
-
-Would scheduling rx_napi after napi_enable() in this path fix both this
-stall and the refill case?
-
-[ ... ]
-
-> @@ -6164,6 +6205,8 @@ static int stmmac_napi_poll_rx(struct napi_struct *napi, int budget)
->  	u64_stats_update_end(&rxq_stats->napi_syncp);
->  
->  	work_done = stmmac_rx(priv, budget, chan);
-> +	if (unlikely(stmmac_rx_refill_needed(priv, chan)))
-> +		stmmac_rx_refill_timer_arm(ch);
->  	if (work_done < budget && napi_complete_done(napi, work_done)) {
->  		unsigned long flags;
->  
-
-[Severity: Medium]
-Once memory is available again, does the retry poll deliver the frame
-that is already waiting in the ring?
-
-When the ring has run completely dry, stmmac_rx() stops on the last
-descriptor the DMA completed, at rx_q->cur_rx. It stops there because
-the next entry equals rx_q->dirty_rx:
-
-	next_entry = STMMAC_NEXT_ENTRY(rx_q->cur_rx,
-				       priv->dma_conf.dma_rx_size);
-	if (unlikely(next_entry == rx_q->dirty_rx))
-		break;
-
-The refill only runs after the receive loop, at the end of stmmac_rx().
-The timer-driven poll that finally succeeds then does this:
-
-stmmac_rx_refill_timer()
-  napi_schedule(&ch->rx_napi)
-stmmac_napi_poll_rx()
-  stmmac_rx()
-    receive loop breaks at once on next_entry == rx_q->dirty_rx,
-    count == 0
-    stmmac_rx_refill()    <- succeeds, dirty_rx catches up to cur_rx
-  stmmac_rx_refill_needed()    <- false, timer not re-armed
-  napi_complete_done(napi, 0)
-
-The DMA wrote the descriptor at cur_rx before it suspended, and it
-resumes at the entry after it. It will not raise another RX interrupt
-for that descriptor, and nothing else schedules a poll.
-
-So the frame stays in the ring until another packet arrives on that
-queue. If the frame spans several descriptors, the same applies to its
-last segment, with the partial skb kept in rx_q->state.skb. On a quiet
-queue that can take a long time, and this is the recovery path the
-patch adds.
-
-There is a smaller effect while allocations keep failing. Every 10 ms
-retry calls stmmac_rx_status() again on the same descriptor at cur_rx
-before it breaks. Any per-frame counters that call updates in
-priv->xstats are counted again on each retry.
-
-Could stmmac_rx() go back through the receive loop when the refill has
-made room? Or could stmmac_napi_poll_rx() schedule another poll when
-the refill advanced dirty_rx? Another option would be to refill before
-the receive loop when the ring is full. Which of these fits the ring
-accounting from commit 0bb05e6adfa9 best?
+Thanks!
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/MA0PR01MB921746F36D90C7080287ACC9FD782%40MA0PR01MB9217.INDPRD01.PROD.OUTLOOK.COM
+Cheers,
+
+David
