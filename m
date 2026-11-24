@@ -1,103 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795543399;
-	b=seJJqAbOyyeVrHZc8b+W2czmhA9prMtRRZtVWQJ48Ui2px1/raGDGhHmijK2S1GdvKvC
-	 /0VZHjerEKSyYBhwAHAgr6j2sM7pbTS1V56HA1BeOq0PWk6thrG8ckCBtvDCywr19eRiV
-	 V5F5YBf3nzl2iF559NCmMwz/ojKyXMMaIx9P3qIVaclc4vcaWkrkLa2zJLU1uzV2fJf3D
-	 2IbpaiZpuWk6EQVdUnlI2romE1H2GdpD7WWLDOgXtDPxhXTU3B0oBz6qgMFGqRm5oxcTD
-	 2UfyT8afFx8WlpgWJUoxjj5BTtIEvLnNhWqvNMgjN9xbVrXfIw2aen1IXW5nHL2KXow==
+	t=1795543571;
+	b=1gA90+3Z1udgp3lHpl+Nv3AjArvqihfTFSC/7Orysq8HSOzfibea7SpJqGkiVzWQqkFg
+	 IsswDm29tV99LyjSSoOLgVNRcJEOgIDeSMIq+pbOMcxBDu2UErtX3Rw0pp7+tOh8pDW2w
+	 VGQsn+lM98EOHjpM//xEvKmpnBGWvA77JzgLxYDdOay/8b7AQ2woNkmdvBlwwqEP0W4Xl
+	 V5v33Mzn9LI9IT54kesaOz1Yd3Zb/mYmJbF6cn4KbKLCnelwZ6M0IqqMC5aDkcoUZd0SB
+	 yGf2TkmVn898ujohlIk/0Fl85UJSYxgVdxUokVJxACkCzKJ3fEzOAsEysbWcw9C738Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795543399;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=fp+A2IBIJBhlc95VqLzwi8xXI2svbhFRA1unILMyFZE=;
-	b=STi23d/XcvKWNb8Y2bjGAeNtgjZ3Y0v5uLSK9h9/iknLXFQDMq9GLAE1/KXVwWLiyaBh
-	 e7djxXtISvY/lTxHT4GEVJ+XLnPYL0mnmXkRqF9dBHfKW1ZBDQ7A+aYjywlWwPBJ4/iQa
-	 PAGG0BBuyugB529dsY1+S5FaJ9MDc/vJQdRZycn3NzJ9IhN4huzqs5p+wdVhx3p/DFPme
-	 cbwn+95guXzovQ6MTPIY0N+WPzb3rTZgOxRtoSIWzhAjmZnRIfErgRfEQSp/dlyyEQitV
-	 5041R4ZdphrgEt1p3M0bZW6lRXPw3ALvS/5d6oWzga+nzWV+8q6uRNvd1gX0s/x1Jww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795543571;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=kagbCpv1QEtmm+QT0IKoz1HubJ8iePC5aHt6FNXFlZ0=;
+	b=thNU4Dss32QPQNwS3nep0VNnfEHuSIn8HFrWWW3Yq9j3de0Jsn22sudDqyoY2IHuPbGe
+	 0gZnyssDnQEQxZQnWRWoHaCTUckHHRNkeyZK/WVRe2UDtrhuVC8LyByBz+ptO7nQbdMEf
+	 lQj4/RIhgbi8uPz17qiGSEoxwBqJaJzZgNfxLDqS/zkxRBVOpY8m97PPffxvALssOJlvO
+	 I4CVEWtuWanLrtzoNrTH+TJz+R6sxFexLAiATvRyExlkkgvEpAauE790UB0n1zPlgqlZH
+	 ePjV/eG0rmicMovHsw8djbCPyQYTJ2+m1oYPy4R/joahgTmATNMFcCKfP5Ksd43tvxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iiitd.ac.in;
-	spf=pass smtp.mailfrom=iiitd.ac.in;
-	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=dz9t0zlm;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC9E606A329
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:03:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBC9E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iiitd.ac.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iiitd.ac.in
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lsmJm5pU;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9EC51606A68B;
+	Tue, 24 Nov 2026 18:06:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EC51606A68B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=dz9t0zlm
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2f04fab527eso36389395ad.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 10:03:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=iiitd.ac.in; s=google; t=1795543392; x=1796148192; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fp+A2IBIJBhlc95VqLzwi8xXI2svbhFRA1unILMyFZE=;
-        b=dz9t0zlmm8R2fkO7mnxJ3INo/OsP6/g1LMXAS2NmXszuoqB5yL09fiBO9x907+5kac
-         /bHB+8+X/mTELSy4Jo5xKmd2yaCvrEIPNCc8H0h1vvR9qkxwOOqoLCH1zl3lyQ2UyzLg
-         /ABrNBByraMRdUHgcdov2HegrLy81ZaSVPj1Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795543392; x=1796148192;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fp+A2IBIJBhlc95VqLzwi8xXI2svbhFRA1unILMyFZE=;
-        b=hgu27mYGBopzMuN8cKkA2rxr7rhX7w8FwHDgUo2YLGomoBns87ZozCxuti9srLeFgf
-         ftWZ32Ef+421b6r8/TNab7CpLOm9vFzR9vKsDyPI1f96oyFjbcJTnql8lufo8V/Z7Car
-         5XfA3+VOEeMGG5plZxX+CHzMlXAU/srV6ggr2EazUmQ2DPAaONXPz63SKXPEcAM0Bl/k
-         Dy/Of7VvnfZxjvYv5Zu76v/Ysxu49cYMt0GyvM67eJTFDlmYAdwHa+4N0wDtkqgyfyqN
-         v93PqcQXHDUVeYRGSip4xvo7Dfll3azxYE9pls4xayM4lpyERbHVN6bX40u/tEkrvF/Y
-         6eFw==
-X-Forwarded-Encrypted: i=1; AL+hErHZnuQHe2Tjt7f5frfVwWIDQ2TbZbBI5llZ5b0ZymCTpWOjVH6inUHJFZ3S9weAkbTV+42uqxI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zqoWjt/YEomENk4eAlACoTLnnu4Yk7ps7iLieRDoqZxxp3dRO
-	ot3Euup+CQwvUI8blMm74PBbADXyul2uGZZse8Wqb67cpsSBAN6YNvfGJAxEMK2bbho=
-X-Gm-Gg: AZFdTZcsMx6y5SpDPoBMUpodP4crqn9MEp+cz1H+Y+9x3peSMf+kLxMPMxwt9Lm5EEL
-	ENGdjRkhLfC+MAhqLSfP+iV6X+EO5QUwPJGV2eBRUtDbLCxrQidyGpUzdCETOn60ewiLV6qzUOZ
-	A963Gk7+P+rzsixivE6X5Of0sdbq4oIazyP9crLr/MnfoZEUGohBmgCCKR1ZT9/pnrz0gCY7mp8
-	4eTZPg81rit9fyXjW9WIAPq18OEQacjvCCtHJwyaQxVgag/B5er5xX6hvCDAbyI81qN/2ZGpk9w
-	/vWDnVuNIW5lUGzjEzEfVKIfA1Xphj4eyW3zITbMBQLtTjIavd+qcUaBbWifCveAA0CPue2eOn3
-	8eQJ671GNebDHhZmhHO9lYl1TFZv6lTRu13XqnE15GmvWwsM+zha9WESHNAnIFHzac/17UTCB6d
-	ZNZ2lw83y7PLnPb4rWNTCRk+Wo8P148EMelG0ts8pwhRp7sNwy+xfpiYu3G2w1FVOQEs/T+B44+
-	sS/G0VXLTVqGYEb1He60lK1H+NeMA4b5uqdjKKaKPVl6e0U59QLsASQ41Z1Mn+W5/GBF60TNtI2
-	A0SqzA0fCUwy9Lal346+EsTxeaPWI95ULXe/BRvaOHNy+gDZZ9i6rtIg8Qc92DagAgY2oc9bGoy
-	QWg4Ayg1H9cTuj71DfLQCKskJR/CoktpbDOxfxw2ofH2/Ac+9Os7iIEg6Sw293+Cd
-X-Received: by 2002:a17:902:e847:b0:2ed:3d74:b640 with SMTP id d9443c01a7336-2f03f26b691mr143912525ad.59.1795543392125;
-        Tue, 24 Nov 2026 10:03:12 -0800 (PST)
-Received: from iiitd-S2600STB.iiitd.edu.in ([103.25.231.160])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0dc0ebsm70508185ad.33.2026.11.24.10.03.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 10:03:11 -0800 (PST)
-From: Piyus Kedia <piyus@iiitd.ac.in>
-To: wenjia@linux.ibm.com,
-	jaka@linux.ibm.com,
-	alibuda@linux.alibaba.com,
-	tonylu@linux.alibaba.com,
-	guwen@linux.alibaba.com
-Cc: netdev@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	kapil@presceralabs.ai,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lsmJm5pU
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4BF0497;
+	Tue, 24 Nov 2026 10:06:06 -0800 (PST)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9D8BD3F86C;
+	Tue, 24 Nov 2026 10:06:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795543569; bh=NZoB2/gQBelnDkcKG2o810x2RG3gJOlJVfE8j9DhwZE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=lsmJm5pUvXw5zs6ZQXJH7igNWStTyPpD3nzfAq5AtIy5J8p2J1iXcK0YKa+eBD28s
+	 E3Bk4Ks6sAeUHkiPBMGwU5Rz4fBeXlu31neTMri1+KVSJiMV+j9F5PUBd81mgRqUYv
+	 VlMyutM0mTuozmAp/io0096/63A6y/zc86AExrto=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Dan Carpenter <dan@pereq.eu>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH net v2 2/2] net/smc: bound the DMB-nocopy send-buffer credit as well
-Date: Tue, 24 Nov 2026 23:33:05 +0530
-Message-Id: <20261124180305.622194-1-piyus@iiitd.ac.in>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <179552966151.3135.8162716126718648323@kernel.org>
-References: <179552966151.3135.8162716126718648323@kernel.org>
+Subject: Re: [PATCH] KVM: arm64: nv: Upgrade sub-page TTL hint to maximum size
+Date: Tue, 24 Nov 2026 18:06:02 +0000
+Message-ID: <awXSCgN4JLLKXErv@LeoBrasDK>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <864id6yyjy.wl-maz@kernel.org>
+References: <20261123182312.4842-1-maz@kernel.org> <awW5QKqGZAqw1ru9@LeoBrasDK> <864id6yyjy.wl-maz@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,108 +71,135 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-Thank you - both of these were worth the mail.  The first changed the patch:
-the bound is now the one you suggest.  The second is pre-existing, as you
-say, and I have answered its two questions below rather than fold an
-unrelated counter into this one.
+On Tue, Nov 24, 2026 at 04:38:41PM +0000, Marc Zyngier wrote:
+> On Tue, 24 Nov 2026 16:20:16 +0000,
+> Leonardo Bras <leo.bras@arm.com> wrote:
+> > 
+> > On Mon, Nov 23, 2026 at 06:23:12PM +0000, Marc Zyngier wrote:
+> > > Should a guest be slightly foolish and submit a S2 TLBI with a TTL hint
+> > > that describe a base granule size smaller than the host's page size,
+> > > we take the resulting size at face value and feed it to the S2 unmapping
+> > > code. Which legitimately screams about something not being page-aligned.
+> > > 
+> > > The architecture allows us to drop the TLBI on the floor, as we don't
+> > > support a S2 granule size smaller than the host's page size. But it turns
+> > > out that doing so is proving pretty hard (we call compute_tlb_inval_range
+> > > from a number of places, none of which is amenable to an early out).
+> > > 
+> > > Instead, detect the annoying case, and pretend that we don't have a TTL
+> > > hint at all, leaving the size upgrade mechanism to take place and use
+> > > the largest possible size for the guest's S2 granule size.
+> > > 
+> > > This will still allow nonsensical stuff to get through, such as a 4kB
+> > > level 2 (aka 2MB) from a guest with a 64kB S2 base granule size running
+> > > on a 16kB page size host, but that's not worse than doing nothing, and
+> > > the host code won't get shouty.
+> > > 
+> > > Reported-by: Dan Carpenter <dan@pereq.eu>
+> > > Link: https://lore.kernel.org/r/20261123-inval_range-v1-1-815e15797089@pereq.eu
+> > > Fixes: d1de1576dc21 ("KVM: arm64: nv: Handle FEAT_TTL hinted TLB operations")
+> > > Signed-off-by: Marc Zyngier <maz@kernel.org>
+> > > Cc: stable@vger.kernel.org
+> > > ---
+> > > 
+> > > Notes:
+> > >     Reposting this as a first class patch, as I'd like to plug that one
+> > >     as early as possible (and Dan has plenty of other patches in flight...)
+> > > 
+> > >  arch/arm64/kvm/nested.c | 7 +++++++
+> > >  1 file changed, 7 insertions(+)
+> > > 
+> > > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> > > index 78d5b18dbd2d6..36e4e83badf0a 100644
+> > > --- a/arch/arm64/kvm/nested.c
+> > > +++ b/arch/arm64/kvm/nested.c
+> > > @@ -714,6 +714,13 @@ unsigned long compute_tlb_inval_range(struct kvm_s2_mmu *mmu, u64 val)
+> > >  	 */
+> > >  	max_size = __ttl_to_size(ttl);
+> > >  
+> > > +	/*
+> > > +	 * IMPDEF behaviour: treat subpage TTL-annotated TLBI as the largest
+> > > +	 * possible invalidation. Don't try this at home, kids!
+> > > +	 */
+> > > +	if (max_size < PAGE_SIZE)
+> > > +		max_size = 0;
+> > > +
+> > >  	if (!max_size) {
+> > >  		/* Compute the maximum extent of the invalidation */
+> > >  		switch (vtcr_to_tg0_pgsize(kvm, mmu->tlb_vtcr)) {
+> > > -- 
+> > > 2.47.3
+> > > 
+> > 
+> > Hey Marc,
+> > 
+> > I think the changes make sense, although rounding up to PAGE_SIZE also 
+> > looks a valid solution in my unexperienced viewpoint.
+> 
+> No, it isn't the same thing. Taker the example I have given, where the
+> host is 16k, the guest 64k, and the invalidation 4k. If you round
+> things up to 16k, you're still not invalidating anything that is
+> consistent with the *minimum page size* for the guest. Anything larger
+> is a multiple of both the host and guest page sizes, and therefore
+> always correct.
 
-v3 of this patch is posted as a separate thread:
+Ah, right!
+In this case, could we not invalidate the largest page size supported 
+(64k)?
 
-  [PATCH net v3] net/smc: bound the DMB-nocopy send-buffer credit by what
-                 was sent
+IIUC:
+- To have max_size between 0 and PAGE_SIZE means it's either 4k or 16k, 
+  so invalidating the 64k should be enough?
+ 
+- max_size=0 from __ttl_to_size() means largest blocksize supported by 
+  stage2 in current TG. 
 
-Each patch of the v2 series drew its own review, so each is respun in its own
-thread; the other one is answered where it was reviewed.  The v3 changelog is
-under the --- line with a Link: back to the v2 posting.
+The two above are opposite ends, no? Like, the first is "this is too small 
+for us to invalidate, let's pick something bigger", and the other one is 
+"we want to invalidate the largest supported block".
 
+Is it really ok to put them in the same bucket?
 
-1. Is len - sndbuf_space the right bound here?
+> 
+> > 
+> > I am curious if there is any particular reason not to merge that with the 
+> > test below, such as:
+> > 
+> > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> > index 78d5b18dbd2d6..36e4e83badf0a 100644
+> > --- a/arch/arm64/kvm/nested.c
+> > +++ b/arch/arm64/kvm/nested.c
+> > @@ -714,6 +714,13 @@ unsigned long compute_tlb_inval_range(struct kvm_s2_mmu *mmu, u64 val)
+> >  	 */
+> >  	max_size = __ttl_to_size(ttl);
+> >  
+> > +	/*
+> > +	 * IMPDEF behaviour: treat subpage TTL-annotated TLBI as the largest
+> > +	 * possible invalidation. Don't try this at home, kids!
+> > +	 */
+> > +	if (max_size < PAGE_SIZE) {
+> > - 	if (!max_size) {
+> >  		/* Compute the maximum extent of the invalidation */
+> >  		switch (vtcr_to_tg0_pgsize(kvm, mmu->tlb_vtcr)) {
+> > --
+> > 
+> > Given max_size is unsigned (>=0), and it will be changed again in the 
+> > switch case below, I was not able to understand the need to make it zero 
+> > first.
+> 
+> There is more than one way to write similar things, and what I wrote
+> made the most sense to me.
+> 
+> I want to single out this particular corner case, which is not the
+> much more general case if "max_size is 0 because there is no TTL
+> information". Lumping these two things together makes it, IMO,
+> pointlessly hard to reason about the various cases.
 
-> The peer can only consume up to the producer cursor it was given.
-> smc_tx_rdma_writes() advances that cursor together with tx_curs_sent. A
-> consumer cursor that claims more than tx_curs_sent is therefore clamped
-> only to prep - fin. The smc_curs_add() above can then move tx_curs_fin
-> past tx_curs_sent.
-> Would that break the fin <= sent <= prep ordering implied by the
-> tx_curs_sent ("sent data") and tx_curs_fin ("confirmed by peer") field
-> comments in smc.h?
+Ah, I see it now, makes much more sense to have it that way.
 
-It is not the right bound, and yes it would.  The ordering is what those
-comments say:
-
-	union smc_host_cursor	tx_curs_prep;	/* tx - prepared data */
-	union smc_host_cursor	tx_curs_sent;	/* tx - sent data */
-	union smc_host_cursor	tx_curs_fin;	/* tx - confirmed by peer */
-
-and nothing else in this branch moves tx_curs_sent, so the clamp was the only
-thing standing between a forged cursor and fin > sent.  Your consequence
-follows too: once fin is past sent, a later smc_tx_sendmsg() can wrap out of
-tx_curs_prep into [tx_curs_sent, tx_curs_prep) and overwrite data that has
-been queued but not yet advertised - on this path, in the peer's DMB.
-
-v3 uses the bound you give:
-
-	unconfirmed = smc_curs_diff(conn->sndbuf_desc->len,
-				    &conn->tx_curs_fin, &conn->tx_curs_sent);
-	diff_tx = min_t(int, diff_tx, unconfirmed);
-
-The honest-peer case is unchanged: a cursor that reflects real consumption
-cannot be past the producer cursor the peer was given, so it is at most
-tx_curs_sent and the bound does not bind.  smc_curs_diff() already returns 0
-rather than a negative value, so the max_t() that guarded the subtraction is
-gone with it.  The variable is no longer called "sent", and neither the
-comment nor the commit message says "outstanding" any more - as you note,
-that described a tighter bound than the code computed.
-
-Your reading of smc_switch_cursor() is right as well: it rewinds tx_curs_sent
-to tx_curs_fin and then advances both, so the order holds there even with the
-longer distance.  That patch has a review of its own and v3 of it stops
-clamping altogether - a cursor that claims more than was prepared is treated
-as a protocol violation and the connection is dropped - so the two patches no
-longer share a formula.
-
-
-2. peer_rmbe_space is credited with no bound (pre-existing)
-
-> With a forged cursor, can peer_rmbe_space exceed peer_rmbe_size here?
-> That would make the comment false.
-
-Yes.  diff_cons is bounded only by peer_rmbe_size, since that is the size
-passed to smc_curs_diff(); the atomic_add() applies no clamp, and the only
-thing that lowers peer_rmbe_space is smc_tx_rdma_writes() as it writes.  So a
-cursor that reports consumption this side never produced raises it without
-limit, and the "guarantee 0 <= peer_rmbe_space <= peer_rmbe_size" above it is
-not a guarantee.  It runs for every SMC-R and SMC-D connection, as you say,
-not only the nocopy ones.
-
-> Would an inflated peer_rmbe_space mean the urgent data sender is never
-> woken through that path?
-
-Through that path, yes.  The wake-up tests equality:
-
-	if (diff_cons && conn->urg_tx_pend &&
-	    atomic_read(&conn->peer_rmbe_space) == conn->peer_rmbe_size) {
-
-so while the counter sits above peer_rmbe_size the test cannot become true
-and urg_tx_pend stays set.  I have not traced whether another route clears it
-in practice, so I would not claim more than that the condition here can no
-longer be met.
-
-And your point that the two counters can now disagree is fair: after this
-patch sndbuf_space and tx_curs_fin are bounded while peer_rmbe_space still
-takes the full diff_cons, and the comment above the nocopy branch does speak
-of both being updated because "peer has already consumed the data".
-
-I have left it out of this patch rather than fixed it quietly.  It is a
-different counter with a different Fixes: tag, it is not confined to the
-loopback-only branch this patch is about, and the natural bound is a
-different quantity - the distance from cons_old to the producer cursor the
-peer has actually been given, rather than anything derived from the send
-buffer.  Getting that wrong would stall flow control on every connection, and
-we have no SMC-R setup here to exercise it on; the route to this patch's
-branch is loopback-ism, which is why this one is hardening rather than a fix.
-So I would rather post it on its own, or leave it to the SMC maintainers if
-they would prefer to take it.  Either way it should not be lost - it is the
-same class of bug on a path that every connection uses.
+Thanks!
+Leo
