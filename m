@@ -1,42 +1,42 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795559246;
-	b=vo7cRCiOYFC/aq2qaltHe04tuyoJjwjMeZ661GTk07baZtSZeiZ2QbE69mBRedXPoW7U
-	 t8OWfdg3r3gCxHhDY0dC5s0j92NFadUk0uIKxuHCXEuXOJ19lF9ssSPEVWfaQxcFEnGfc
-	 imKEoqWGtLNBwo5fREwMMuoTmHRQH+DThxGMmz9rg0twoS2wpQipHa7EdudRnr9sHC1Ii
-	 NxFyYIRhqB83Y9QPEZeub3wQGmWKGt3g69FijBNBUTeTyxtPCZDn3RZNppRhvOigiP7Af
-	 bCejDrlEL1twFxAmGN5yZ1/FLJ+ov347OR4oGL54GqLTiRJRGILiW/tbU6IVERwPB8w==
+	t=1795559251;
+	b=FhTx/5LxUJuSWuidPGyD5qBnbFAPXs1513gRBOH/eoGrstHcnj7ZJ7kgVx5BaLAwD4iu
+	 wFYfJC+siIb4YE6z8wpEfGRbA/u5yo0EeDFDS+68MkzEGmspBMmYYJwZbpHM4VNQap2QJ
+	 wwEDKH5pKcPOQF4BYkP4FD+pqWX5Ncc/ttiEpwfoZLVV8xfT++GAyClPcKcJGGTpPX12R
+	 aojPIGFQZ6u0l7ARt9fgM+WiFUO/MEttHO6tCY0WcB3AlkplB1k7evv23pjplL9ByEpue
+	 7CO1bXWrIuS6wXRlg1EvhYhr22sTmO+JD/kRWK8nzVAegzlnRNUY6WZ0PMWMx7OBDqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795559246;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795559251;
 	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
 	 Message-Id;
-	bh=Dr5ubJWB0hJe+ALyJFqd9IbMpA/4SYmejGZ7ZlRj8vM=;
-	b=mlThkxAkjSPZkSmZNIQo8MqG014alqkSTtaB8sl82gK77vyDH98c8OmXP2mUzSRY4Ajp
-	 lNlTQpvheZ+sbhmWlWDbn9i8mxbspibeKK4fYsITcr56zffvqicq9l29XbN+sFpLAUfZ4
-	 s7ILR0xIGhjm0pFQV6eV/V0EI8wFiFqzbbOp6YOa5mkq4C+QjCWzAmLL5DBqk1jOn+kUz
-	 HL6rxVtNvJkHLbRb2C4dysNDWg2Gj3pc0f158mT4MrME26Vqpx77bkbZiU/XwpOOTuzt3
-	 NL6RLsu3kqshDdJ5DyBeCDnNPN2MTRiD/v1hLOGO4u+rmzdHv4BZ25lpVsWuLQdly/A==
+	bh=D7B7g5kpmxkfVM81aGQfim/MUcsVKL78GDiqH5BYNkw=;
+	b=u/cC7WqCY1wpNLrK3ZgCG+fEvd6AdMYS0qMixzh4Ha0H4VK5D+a8s9e8RkW4Y/OL38VD
+	 lG3bRIs5vVoLpgJzA+AIGO/4BNyTRHgZY/ae4kgtXcNHFAiaLrlxf/1Gg+42pMnChwEW6
+	 +eZVGFsrlKpVVHVbee3vrFwfMarVv3nzfVSMcBzvOcKCoQbgwYuu9LTV5K6zPls0Mxe2i
+	 KrgWTBeS82Ud3JZ8j3wPSzc8SaoBXYyRZY/qwepEAKxC+hfVtSRC4QOW5XzgY2Yz8heHp
+	 7iaDV44OQWE3IJL0F0fn/PM28pfgrT0ujowLPFQhxmZ7US2bus8w3+HKAMVVkwRScyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=qDsJBnkD;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=dFPWROPy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C898606A31E;
-	Tue, 24 Nov 2026 22:27:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4668606A31E;
+	Tue, 24 Nov 2026 22:27:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=qDsJBnkD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3251F000D3;
-	Tue, 24 Nov 2026 22:27:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=dFPWROPy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95711F000C0;
+	Tue, 24 Nov 2026 22:27:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795559245;
-	bh=Dr5ubJWB0hJe+ALyJFqd9IbMpA/4SYmejGZ7ZlRj8vM=;
+	d=linux-foundation.org; s=korg; t=1795559250;
+	bh=D7B7g5kpmxkfVM81aGQfim/MUcsVKL78GDiqH5BYNkw=;
 	h=Date:To:From:In-Reply-To:References:Subject;
-	b=qDsJBnkDDrs9M1BTQyTsqyDmw4Z/x/qDQMbq1+MI3WiFY+3MoO8uXe9p1WDQPDZlL
-	 JDBCSxl05cwd6FAHk2dkVSKeAAPQaXB7PYUxusYaOkkg+EwcdFN6pOUWnFSIFMf44F
-	 iLejzFBIPqBzOawiOMV4a+yvd6+Ox/83hoPlP6kA=
-Date: Tue, 24 Nov 2026 14:27:24 -0800
+	b=dFPWROPy5s4NcrZew+naJ4mhFap7HkqjApTbw9/vcY6voRdSZxfqWGMiNfpaKQVrF
+	 3LWrHWmyGb6+3q22DincNmNNw1p7Z8ESi7ZtaPthTSvyXeDP9QzvgL0M+YmwIdjcHS
+	 WxypL9tToW9jTq16QinfOOWw3cu7hoXVFYyONqWc=
+Date: Tue, 24 Nov 2026 14:27:30 -0800
 To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,
 	vbabka@kernel.org,usama.arif@linux.dev,usama.anjum@arm.com,surenb@google.com,
 	stable@vger.kernel.org,sfr@canb.auug.org.au,ryan.roberts@arm.com,
@@ -50,10 +50,10 @@ To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,
 	balbirs@nvidia.com,avagin@gmail.com,arnd@arndb.de,apopple@nvidia.com,
 	aarcange@redhat.com,tz2294@columbia.edu,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-In-Reply-To: <20261117-uffd-state-fixes-v3-1-b617009d1a4a@columbia.edu>
-References: <20261117-uffd-state-fixes-v3-1-b617009d1a4a@columbia.edu>
-Subject: + userfaultfd-use-anonymous-memory-for-uffdio_zeropage-on-private-file-mappings.patch added to mm-new branch
-Message-Id: <20261124222725.1D3251F000D3@smtp.kernel.org>
+In-Reply-To: <20261117-uffd-state-fixes-v3-3-b617009d1a4a@columbia.edu>
+References: <20261117-uffd-state-fixes-v3-3-b617009d1a4a@columbia.edu>
+Subject: + fs-proc-task_mmu-downgrade-writable-migration-entries-in-pagemap_scan-write-protect.patch added to mm-new branch
+Message-Id: <20261124222730.A95711F000C0@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,12 +65,12 @@ Precedence: list
 
 
 The patch titled
-     Subject: userfaultfd: use anonymous memory for UFFDIO_ZEROPAGE on private file mappings
+     Subject: fs/proc/task_mmu: downgrade writable migration entries in PAGEMAP_SCAN write-protect
 has been added to the -mm mm-new branch.  Its filename is
-     userfaultfd-use-anonymous-memory-for-uffdio_zeropage-on-private-file-mappings.patch
+     fs-proc-task_mmu-downgrade-writable-migration-entries-in-pagemap_scan-write-protect.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/userfaultfd-use-anonymous-memory-for-uffdio_zeropage-on-private-file-mappings.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/fs-proc-task_mmu-downgrade-writable-migration-entries-in-pagemap_scan-write-protect.patch
 
 This patch will later appear in the mm-new branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
@@ -100,82 +100,42 @@ and is updated there most days
 
 ------------------------------------------------------
 From: Tal Zussman <tz2294@columbia.edu>
-Subject: userfaultfd: use anonymous memory for UFFDIO_ZEROPAGE on private file mappings
-Date: Tue, 17 Nov 2026 23:28:41 -0500
+Subject: fs/proc/task_mmu: downgrade writable migration entries in PAGEMAP_SCAN write-protect
+Date: Tue, 17 Nov 2026 23:28:43 -0500
 
-Patch series "userfaultfd: assorted fixes (part 1)", v3.
+PAGEMAP_SCAN with PM_SCAN_WP_MATCHING write-protects pages in a VMA
+registered for async uffd-wp, and sets the uffd bit on non-present
+entries as they are. An entry with the uffd bit set must not be
+writable, so that the page is write-protected once it is mapped again.
+change_protection() therefore downgrades writable migration and
+device-private entries to readable ones first, but PAGEMAP_SCAN does
+not.
 
-This is a first batch of userfaultfd fixes, with more to come.
+For a writable migration entry at the PTE level,
+remove_migration_pte() restores a writable PTE without the uffd bit. So
+if a page is under migration while PAGEMAP_SCAN write-protects it, the
+write protection is lost. A user tracking writes with async uffd-wp
+sees the page reported as written on the next scan although nothing
+wrote to it.
 
-These were found by a mix of regular old LLM review and by having an LLM
-write a TLA+ model of uffd interactions with PTE bits and other state and
-seeing what issues fell out.
+With CONFIG_PAGE_TABLE_CHECK, setting the uffd bit on a writable
+non-present PTE or PMD also triggers a warning.
 
-Most of these fix places where mm code loses uffd-wp or RWP protection
-while moving or migrating an entry. Userspace then either misses writes
-and accesses, or gets pages reported that nobody touched.
-There is also a hang in UFFDIO_MOVE, and UFFDIO_ZEROPAGE modifying a
-file through a private mapping.
+To fix it, downgrade writable migration and device-private entries
+before setting the uffd bit, as change_protection() does, at the PTE,
+PMD, and hugetlb levels.
 
-A few of the fixes change what userspace sees:
+Add softleaf_is_writable() and softleaf_mkreadable() to leafops.h for
+the downgrade. The open-coded copies in change_protection() can be
+converted to them separately.
 
- - UFFDIO_ZEROPAGE on a private file mapping no longer fails with
-   -EEXIST where the file already has a page, on an mm that cannot use
-   the zero page (patch 1)
- - UFFDIO_MOVE returns -EEXIST for any huge destination PMD, not only
-   for a present THP (patch 2)
- - UFFDIO_UNREGISTER with a misaligned hugetlb end fails before
-   unregistering anything, also if that hugetlb VMA is not registered
-   (patch 9)
- - UFFDIO_REGISTER and UFFDIO_UNREGISTER accept a misaligned start that
-   lies in a gap before the first hugetlb VMA of the range (patch 9)
- - UFFDIO_REGISTER returns -EINVAL rather than -EPERM for a misaligned
-   end in a hugetlb VMA without VM_MAYWRITE (patch 9)
-
-
-This patch (of 7):
-
-If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
-mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
-installs it through vma_uffd_ops(), no matter what kind of mapping it
-is. An s390 KVM guest with storage keys or protected virtualization is
-such an mm.
-
-For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
-cache of the file. That is wrong: a private mapping must never modify
-the file it maps, and the file might even be mapped from a read-only fd.
-
-The ioctl can also fail where it should succeed. A missing fault is only
-delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
-an address that did not fault, or can race with a write to the file. If
-the file has a page at that offset by then, inserting the zeroed folio
-fails and the ioctl returns -EEXIST although nothing is mapped at the
-destination address.
-
-What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
-shared zero page can be used, and what UFFDIO_COPY does: only check that
-nothing is mapped at the destination address, map zeroed memory there,
-and leave the page cache alone. The zeroed folio path did that before it
-was moved to vm_uffd_ops.
-
-To fix it, pick the ops in the common folio path, as
-mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
-mapping, the ops of the VMA otherwise. That makes
-mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
-so remove them and rename __mfill_atomic_pte() to
-mfill_atomic_pte_folio().
-
-While at it, use vma_is_cow_mapping() to check for a private mapping.
-
-UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
-if something is already mapped at the destination address.
-
-Link: https://lore.kernel.org/20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu
-Link: https://patch.msgid.link/20261117-uffd-state-fixes-v3-1-b617009d1a4a@columbia.edu
-Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
+Link: https://patch.msgid.link/20261117-uffd-state-fixes-v3-3-b617009d1a4a@columbia.edu
+Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
 Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reported-by: Breno Leitao <leitao@debian.org>
+Closes: https://lore.kernel.org/all/avNEgmvYdoukt6MS@gmail.com/
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Cc: Peter Xu <peterx@redhat.com>
@@ -184,6 +144,7 @@ Cc: Andrea Arcangeli <aarcange@redhat.com>
 Cc: Suren Baghdasaryan <surenb@google.com>
 Cc: Balbir Singh <balbirs@nvidia.com>
 Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Jann Horn <jannh@google.com>
 Cc: Pedro Falcato <pfalcato@suse.de>
@@ -197,7 +158,6 @@ Cc: Zi Yan <ziy@nvidia.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
 Cc: Byungchul Park <byungchul@sk.com>
-Cc: Gregory Price <gourry@gourry.net>
 Cc: Ying Huang <ying.huang@linux.alibaba.com>
 Cc: Alistair Popple <apopple@nvidia.com>
 Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
@@ -211,95 +171,149 @@ Cc: Kiryl Shutsemau <kas@kernel.org>
 Cc: Muchun Song <muchun.song@linux.dev>
 Cc: Oscar Salvador <osalvador@suse.de>
 Cc: Mikołaj Lenczewski <miko.lenczewski@arm.com>
-Cc: Breno Leitao <leitao@debian.org>
 Cc: <stable@vger.kernel.org>
 
- mm/userfaultfd.c |   46 +++++++++++++++------------------------------
- 1 file changed, 16 insertions(+), 30 deletions(-)
+ fs/proc/task_mmu.c      |   40 +++++++++++++++++++++++++++--
+ include/linux/leafops.h |   51 ++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 88 insertions(+), 3 deletions(-)
 
---- a/mm/userfaultfd.c~userfaultfd-use-anonymous-memory-for-uffdio_zeropage-on-private-file-mappings
-+++ a/mm/userfaultfd.c
-@@ -535,15 +535,27 @@ static int mfill_copy_folio_retry(struct
- 	return 0;
+--- a/fs/proc/task_mmu.c~fs-proc-task_mmu-downgrade-writable-migration-entries-in-pagemap_scan-write-protect
++++ a/fs/proc/task_mmu.c
+@@ -2400,6 +2400,25 @@ static unsigned long pagemap_page_catego
+ 	return categories;
  }
  
--static int __mfill_atomic_pte(struct mfill_state *state,
--			      const struct vm_uffd_ops *ops)
-+static int mfill_atomic_pte_folio(struct mfill_state *state)
- {
-+	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
- 	unsigned long dst_addr = state->dst_addr;
- 	unsigned long src_addr = state->src_addr;
- 	uffd_flags_t flags = state->flags;
- 	struct folio *folio;
- 	int ret;
- 
-+	/*
-+	 * The normal page fault path for a MAP_PRIVATE mapping in a
-+	 * file-backed VMA will invoke the fault, fill the hole in the file and
-+	 * COW it right away. The result generates plain anonymous memory.
-+	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
-+	 * generate anonymous memory directly without actually filling the
-+	 * hole. For the MAP_PRIVATE case the robustness check only happens in
-+	 * the pagetable (to verify it's still none) and not in the page cache.
-+	 */
-+	if (vma_is_cow_mapping(state->vma))
-+		ops = &anon_uffd_ops;
++/*
++ * An armed entry must not come back writable, so downgrade a writable
++ * migration or device-private entry before giving it the bit, as
++ * change_softleaf_pte() does.
++ */
++static pte_t set_uffd_wp_softleaf_pte(pte_t pte)
++{
++	softleaf_t entry = softleaf_from_pte(pte);
++	pte_t newpte;
 +
- 	if (!ops) {
- 		VM_WARN_ONCE(1, "UFFDIO_COPY for unsupported VMA");
- 		return -EOPNOTSUPP;
-@@ -601,32 +613,6 @@ err_folio_put:
- 	return ret;
++	if (!softleaf_is_writable(entry))
++		return pte_swp_mkuffd(pte);
++
++	newpte = softleaf_to_pte(softleaf_mkreadable(entry));
++	if (pte_swp_soft_dirty(pte))
++		newpte = pte_swp_mksoft_dirty(newpte);
++	return pte_swp_mkuffd(newpte);
++}
++
+ static void make_uffd_wp_pte(struct vm_area_struct *vma,
+ 			     unsigned long addr, pte_t *pte, pte_t ptent)
+ {
+@@ -2413,7 +2432,7 @@ static void make_uffd_wp_pte(struct vm_a
+ 		set_pte_at(vma->vm_mm, addr, pte,
+ 			   make_pte_marker(PTE_MARKER_UFFD_WP));
+ 	} else {
+-		ptent = pte_swp_mkuffd(ptent);
++		ptent = set_uffd_wp_softleaf_pte(ptent);
+ 		set_pte_at(vma->vm_mm, addr, pte, ptent);
+ 	}
+ }
+@@ -2472,6 +2491,21 @@ static unsigned long pagemap_thp_categor
+ 	return categories;
  }
  
--static int mfill_atomic_pte_copy(struct mfill_state *state)
--{
--	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
--
--	/*
--	 * The normal page fault path for a MAP_PRIVATE mapping in a
--	 * file-backed VMA will invoke the fault, fill the hole in the file and
--	 * COW it right away. The result generates plain anonymous memory.
--	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
--	 * generate anonymous memory directly without actually filling the
--	 * hole. For the MAP_PRIVATE case the robustness check only happens in
--	 * the pagetable (to verify it's still none) and not in the page cache.
--	 */
--	if (!(state->vma->vm_flags & VM_SHARED))
--		ops = &anon_uffd_ops;
--
--	return __mfill_atomic_pte(state, ops);
--}
--
--static int mfill_atomic_pte_zeroed_folio(struct mfill_state *state)
--{
--	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
--
--	return __mfill_atomic_pte(state, ops);
--}
--
- static int mfill_atomic_pte_zeropage(struct mfill_state *state)
++/* Same as set_uffd_wp_softleaf_pte(), for a PMD. */
++static pmd_t set_uffd_wp_softleaf_pmd(pmd_t pmd)
++{
++	softleaf_t entry = softleaf_from_pmd(pmd);
++	pmd_t newpmd;
++
++	if (!softleaf_is_writable(entry))
++		return pmd_swp_mkuffd(pmd);
++
++	newpmd = softleaf_to_pmd(softleaf_mkreadable(entry));
++	if (pmd_swp_soft_dirty(pmd))
++		newpmd = pmd_swp_mksoft_dirty(newpmd);
++	return pmd_swp_mkuffd(newpmd);
++}
++
+ static void make_uffd_wp_pmd(struct vm_area_struct *vma,
+ 			     unsigned long addr, pmd_t *pmdp)
  {
- 	struct vm_area_struct *dst_vma = state->vma;
-@@ -638,7 +624,7 @@ static int mfill_atomic_pte_zeropage(str
+@@ -2482,7 +2516,7 @@ static void make_uffd_wp_pmd(struct vm_a
+ 		pmd = pmd_mkuffd(old);
+ 		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
+ 	} else if (pmd_is_migration_entry(pmd)) {
+-		pmd = pmd_swp_mkuffd(pmd);
++		pmd = set_uffd_wp_softleaf_pmd(pmd);
+ 		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
+ 	}
+ }
+@@ -2552,7 +2586,7 @@ static void make_uffd_wp_huge_pte(struct
  
- 	if (mm_forbids_zeropage(dst_vma->vm_mm) ||
- 	    (dst_vma->vm_flags & VM_SHARED))
--		return mfill_atomic_pte_zeroed_folio(state);
-+		return mfill_atomic_pte_folio(state);
+ 	if (softleaf_is_migration(entry)) {
+ 		set_huge_pte_at(vma->vm_mm, addr, ptep,
+-				pte_swp_mkuffd(ptent), psize);
++				set_uffd_wp_softleaf_pte(ptent), psize);
+ 	} else {
+ 		pte_t old_pte, new_pte;
  
- 	_dst_pte = pte_mkspecial(pfn_pte(zero_pfn(dst_addr),
- 					 dst_vma->vm_page_prot));
-@@ -931,7 +917,7 @@ static __always_inline ssize_t mfill_ato
- 	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_POISON))
- 		return mfill_atomic_pte_poison(state);
- 	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_COPY))
--		return mfill_atomic_pte_copy(state);
-+		return mfill_atomic_pte_folio(state);
- 	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_ZEROPAGE))
- 		return mfill_atomic_pte_zeropage(state);
+--- a/include/linux/leafops.h~fs-proc-task_mmu-downgrade-writable-migration-entries-in-pagemap_scan-write-protect
++++ a/include/linux/leafops.h
+@@ -435,6 +435,57 @@ static inline struct folio *softleaf_to_
+ }
  
+ /**
++ * softleaf_is_writable() - Is this leaf entry writable?
++ * @entry: Leaf entry.
++ *
++ * Returns: true for a writable migration or device private entry.
++ */
++static inline bool softleaf_is_writable(softleaf_t entry)
++{
++	return softleaf_is_migration_write(entry) ||
++	       softleaf_is_device_private_write(entry);
++}
++
++/**
++ * softleaf_migration_mkreadable() - Downgrade a writable migration entry to a
++ * readable one.
++ * @entry: Leaf entry, softleaf_is_migration_write(@entry) must return true.
++ *
++ * Returns: A readable migration entry for the same PFN, which is exclusive if
++ * the folio is anonymous.
++ */
++static inline softleaf_t softleaf_migration_mkreadable(softleaf_t entry)
++{
++	const pgoff_t offset = swp_offset(entry);
++
++	VM_WARN_ON_ONCE(!softleaf_is_migration_write(entry));
++
++	/* A writable anon migration entry implies AnonExclusive. */
++	if (folio_test_anon(softleaf_to_folio(entry)))
++		return make_readable_exclusive_migration_entry(offset);
++	return make_readable_migration_entry(offset);
++}
++
++/**
++ * softleaf_mkreadable() - Downgrade a writable leaf entry to a readable one.
++ * @entry: Leaf entry.
++ *
++ * Returns: A readable entry if @entry is a writable migration or device
++ * private entry, otherwise @entry unchanged.
++ */
++static inline softleaf_t softleaf_mkreadable(softleaf_t entry)
++{
++	switch (softleaf_type(entry)) {
++	case SOFTLEAF_DEVICE_PRIVATE_WRITE:
++		return make_readable_device_private_entry(swp_offset(entry));
++	case SOFTLEAF_MIGRATION_WRITE:
++		return softleaf_migration_mkreadable(entry);
++	default:
++		return entry;
++	}
++}
++
++/**
+  * softleaf_is_poison_marker() - Is this leaf entry a poison marker?
+  * @entry: Leaf entry.
+  *
 _
 
 Patches currently in -mm which might be from tz2294@columbia.edu are
