@@ -1,101 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795529171;
-	b=jJbuupE40lXb/1u4c2ZAD5ifw1Ye8XGLej6QwdDL5r08yJW9BI75y+Z9C9SsC0Judz1s
-	 /2Bwl7MFViyp34evl9eN6dahj854sL41szPqOqjWxc0/kJ/g7llqw+D3jCK07PJb7g43Q
-	 Br702EQVz6SGhEHTf7ck6r8Bph5buYmy7PS5cBH8ZSdPxm8hz5gxMAWIz2TsBrbFALWkg
-	 XC785a2REjNlhiynk0u+w3CHykkAuClQpWV6gVREYnlKMfTEK+zjfBs8OVfY3EuzYmnxc
-	 lq1DwNOJEQ+d8MYjaByi8ExCELWkdRJXvBAMhsi6WuJkKUdLDzhVq3yDi1PN3YTm+mQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795529171;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=S8YJkHkm/SxGQO4kohbKqn+J7zEdKLPkqIyPpPevv7g=;
-	b=5LKXCVa6cKNhXKjgIKu7E6BwsDKQgaJFdgxcU8g8PKAHGrkMrdtwFgI1G3JZdAeHtFV8
-	 C/W8JDSgfAeQp38kzb3KLKkjOacCHtRoHftSTRSZg6+W1K6IkxHFBJk06qNM5vHcNFU0z
-	 4x4pOy0WVLBXbTxbBWKW3oHUYN07MoGcFXrEH1zsdC8DuekXJqpoXWxHZNzmV5fYMMP2u
-	 Bd3n5vni8mj0zItiRyfI8lPa3FwLFRt7f8QSf+la8D/Jvyr12bxpulRVZjOdZ6MtC3Fgx
-	 166i/HeiTfB/7rdYNrnC0dQwUj+15H2lWArq5iLes76rHN7hmAi0ojmR1okolpjHg9w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DSpjVVcq;
-	arc=none smtp.remote-ip=209.85.167.46
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.160.110
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795529215;
+	b=JJ4CiFkuttA3agvscBqt4ZPgmkGJSDerQC6uAIUzagqL1kBWymvJRIFOvcVdPbcHsEre
+	 cr0mzmJZ9LVmhdBxoKua4OpIB0waU3HMJmuGSmjD0SrhmFox12xCd4MxMy4E7ixyPhxAD
+	 WZTnanSVhJhx6HviT+iUPxvvZv8UZDCVlegZqEN4u1bx7xYQHPUhSFjWdL7XWeaeB0Bxs
+	 QMwjnsGJ5i0gsKZNtX6CFIbf2lTauX8LNzaS0Rox2Kc7cF8xK/gnxg6Nq3MQxgqkSEoCf
+	 njVmY8xvIe6+39g121lILkcuGbP48yEvb4CC3zGITEMoEBHwtXVNjlipdBsADSyOVqQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795529215;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uAZyIjIYSxUKllcewpoHABXS4mX8F9Jyc32ESP8v5Es=;
+	b=R//Ja6oms30vdEzxycHsbA0hezheIXiorONzetF13FV/7csNRXRqYDNKsoR5cZYQKER2
+	 R8F2PqDeOp4oMC42869Coqm75xJ1sJYLcmQm0Cvc4azSxO4k8RnsulRW9ICwNuhmxhqc6
+	 MbA3YCF+fbRlcqV2HQ0jRjm4X0nBY274RZ2hJ5JG1erkfBJSMsMdju6QUbiKknxHT3txQ
+	 yfDUWLOaXC/gNv+NE9j5oo9Bi0kSECI0Tz8kiyJMCje3CtRx0no1jEw/AYDUKXPdmBLZM
+	 vLN4gNyIh8Lg3gAUSYhg2RXA2VCsAgtDBA3gbXF7H82rYITxLQTcenEcQGaXb3Nq4gQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=wenske.fr;
+	spf=pass smtp.mailfrom=wenske.fr;
+	dkim=pass header.d=wenske.fr header.i=@wenske.fr header.a=rsa-sha256 header.s=selector1 header.b=dOmdpNGj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.160.110
+Received: from PAUP264CU001.outbound.protection.outlook.com (mail-francecentralazon11021110.outbound.protection.outlook.com [40.107.160.110])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD663606A69F
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:06:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD663606A69F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CE360A380A;
+	Tue, 24 Nov 2026 14:06:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66CE360A380A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wenske.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wenske.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DSpjVVcq
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bfa65c8617so2833985e87.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 06:06:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795529168; x=1796133968; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S8YJkHkm/SxGQO4kohbKqn+J7zEdKLPkqIyPpPevv7g=;
-        b=DSpjVVcq8TeO6xu2p0bIyse844LUdtnK12XipX9WJfEckvekJT6TGuo5IfecGiEZsr
-         v071ioGelwCA7o5zeO7eJTG8/QBO1Kz+VIB6TlcVHLWi/N90IqBjX1QiTbM54iYGrAPI
-         JFQVArhHv2J3shIslplatk9W7G35DDP6cJWcawYkLSsAl5n+yef3zBa3+aT4zc8WvQ8J
-         JPApD3jOSJsDnOgqnDl7p7UaQ/3arAd91Z+R3l0h27Bs2EBq0xvRdp3Jhi6A638poxVG
-         o0qf8wBg8e5vZVka9anRlXVegXB+wg91whsM1cfYYn3A4pR12aDrZHMJpB9ofp3f7dPA
-         HTjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795529168; x=1796133968;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S8YJkHkm/SxGQO4kohbKqn+J7zEdKLPkqIyPpPevv7g=;
-        b=zFvG35tiOC7eNFeVCEWhNbwjWoRH16Q9Ap711baV0SlHDxtEAsfgS0R3xnxhr4jPlm
-         xhxQuImwuZZ3wx/d9sRDnPJlbpBIvB07YlBok6ytieLSCn4c4gSob5+p3jrC56o1cL+r
-         CsfZ6itzMG3n5rA/Vs71IIw9f6iZkiHoALxAuhOwOlMQFtCOlYFIYkj73jsj2JhQ3PWO
-         cu5Ri0gyKynBgRFgobkbKFJzRfieC/ALqFeahyPznw0ZnOGEx1b6wbhhIPCMh+TXf+8K
-         rhTayZvpCZHPoQBodghu2i8siurB+BT7rQuOgyBu7kXnhc2VRayu8ctfsGtMwFqfsqzP
-         NdmQ==
-X-Forwarded-Encrypted: i=1; AL+hErFHsBQgmVdpNlvlSW5LmxvWe8Wxs/McsNWtbLG8jAMjN+weGeHVQEyC7bYVgRQ0skIowElHn0s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/pjDOFENubb5trn3MBSuOSeA2Nfx6pfF/p81Dqvii+sxNQRwIZ
-	mOAN6LiP/9BRAg3h35yDdPua8wS4Xbv8zG6wqQu6Ih74ZUIZCBy8XcCy
-X-Gm-Gg: AZFdTZc2NOt8ksFfsHdhWbiI9/J6dggXJ6EusdC90zuMSrkBQd/m2UXrP341aaU9fRg
-	Np7zEDrlpHHJ2hZNMaxaAJWpqrNnIDL0VzK6HvPRsWBCaMhCfeeGXgRrXXaJWXzGNJsxYI8YYpC
-	YWtHXuMMznSMYnFKAz8JLshgLFkUVQJzwQqir8mZMSFJ4nydFfQyNYw0hc/gm1XwrdMZaHZX2gk
-	Fp6Fd01qqO6YWsbljV7MAht19ACtjLXfiHI57YJgCiipLOC6Rim5q3kVOO3hcKieD/SdUa2JDYA
-	JU8p/0mQB38gRzA5hCDz20HOPY69zm1m90hE0lqXJfZKpcJAbRwX1mPNzE7pFwYHBixwKtjpoVI
-	QNHs6i/9qCOfX3tobax2Bdp0RL/jjev0KWZx7p79JoKv5YHsIsKUhFPR18ItwHxOJ63+A45JtqO
-	EM4qfHZ1cC41XUtHY5HpqGahm7TvpM5gwtVMs+siE6GsOqOmWnPfLQ70a/4CO47nbsyaYHVRCXQ
-	rcSv/bdZDO1RLQ+0YFwSHS3ivGnG3agjAVMIEsZEmQzgjqt1JP5cIxX1dNe0BhnwR39p6aEWUtf
-	1lWQ7heMDd29YN1GlI4puJyFmaVqZYZqd3cD4CAQ+TS5P0Fu/w==
-X-Received: by 2002:a05:6512:3043:b0:5bf:a34d:5961 with SMTP id 2adb3069b0e04-5c1bc660762mr4326463e87.1.1795529168154;
-        Tue, 24 Nov 2026 06:06:08 -0800 (PST)
-Received: from rigel (106-68-220-184.tpgi.com.au. [106.68.220.184])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd04451csm3787629e87.59.2026.11.24.06.06.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 06:06:07 -0800 (PST)
-Date: Tue, 24 Nov 2026 22:05:55 +0800
-From: Kent Gibson <warthog618@gmail.com>
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Jia Jia <physicalmtea@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v8 8/8] gpiolib: remove the shared GPIO proxies before
- freeing the remaining IRQs
-Message-ID: <20261124140555.GB48187@rigel>
-References: <20261124-gpiolib-chip-removal-v8-0-aambrozewicz@nvidia.com>
- <20261124-gpiolib-chip-removal-v8-8-aambrozewicz@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=wenske.fr header.i=@wenske.fr header.a=rsa-sha256 header.s=selector1 header.b=dOmdpNGj
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qj2zb3uHv+XYxVQk2XE1veKj/3E4aF7Gmd8Isrjcj3SacXU45F8VgrJ2wBp8yzFPuY6eGd/XB0dg/SZ9DgtIf147vb52sHu845aK3yZrYHCwpacYCC2vVAVdIosyKB1R7jKGSM+BZT4OFTklWQWeeIy0GDyUVo9FrrCloDVvoIkyKQtGqv5wj7wLDoeQXF+d4nAtJ93ZzqbvHnhdfYLRGVnb5eEEjDk3LEmb/8psFvFEIf1TPYYNPKWGnZBpwUaD2qo1faKRbGLegIZYBXlCnAbSKTBhZEIcZHssL3jyKQvQ/3ElgZNJmhGAt8JS30Sg3TQoz2Gfs2viKvwUq7HiIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uAZyIjIYSxUKllcewpoHABXS4mX8F9Jyc32ESP8v5Es=;
+ b=VEnLBGE+tX3HsEpk+Ed9CeVLUzwIWJKjmXKQyarZcr7DERAZOfh0hjOlhhcFTXlSA7NJ3H8t33BIzQkr4ltpAxdpj38LM9HdYh8b0t+6DPRrUGI2SeRwOXOSWhO3ugx0vdPUxPWUDfbfm54GgrySCBD0t91rSkEApWcDRvXVoZdxHYk3W1U9PAWLbokJgUKvHm6Nlsl+h5zCc/aicmWurASXHvQi11pzrXlzaJ3Nz7e1Nos/hxOAhCNaNk8dRWxsSzpWrfLHIlzUWpum7CHe4m/BafRkGvFmcp+Lobwh3wDOS9ARLjfc+akp01AqJFeWgMYFsI7wJ9G+sD412W2R0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 82.65.107.217) smtp.rcpttodomain=gentoo.org smtp.mailfrom=wenske.fr;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=wenske.fr; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wenske.fr;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uAZyIjIYSxUKllcewpoHABXS4mX8F9Jyc32ESP8v5Es=;
+ b=dOmdpNGjSx2fwcAPU0V9qnUfw1uPRQu5JdKYSGT7ivPsZo0uLfHLN8Yv1DaJ6WaM8IXEq3i7GL2IBhHl62Fo/gvjsP4w9oq84/ZJ0iBNII/6xJLZZlrX9gnoW6TKz19C2eiIDG8jct9TasvSTBvDgDfpDZE0ITqZnnNHP9qQSIzdkWtv5zAj5opbYbhCrgKrTHr6FlOG4mCMm9A48AR5vjD+Xyd888tB8dnC6/KXPQx7zWiplarwuU7OikWAXz1rtxC3bnGzTp14fz1/SHIl6kXsQUNHQE4XZq/b7WQM0aPUpiRkENyLxPqGTGx+rQTdF7A7WqpF4DK+0i1HBDnvug==
+Received: from PA7P264CA0262.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:375::13)
+ by PA3PPFADE62A42B.FRAP264.PROD.OUTLOOK.COM (2603:10a6:108:1::67b) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
+ 2026 14:06:49 +0000
+Received: from PA2PEPF00019230.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:375:cafe::51) by PA7P264CA0262.outlook.office365.com
+ (2603:10a6:102:375::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.15 via Frontend Transport; Tue,
+ 24 Nov 2026 14:06:49 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 82.65.107.217) smtp.mailfrom=wenske.fr; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=wenske.fr;
+Received-SPF: Fail (protection.outlook.com: domain of wenske.fr does not
+ designate 82.65.107.217 as permitted sender) receiver=protection.outlook.com;
+ client-ip=82.65.107.217; helo=lgs.sw-servers.net;
+Received: from lgs.sw-servers.net (82.65.107.217) by
+ PA2PEPF00019230.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.3
+ via Frontend Transport; Tue, 24 Nov 2026 14:06:49 +0000
+Received: from zephy.int.sw-servers.net (zephy.int.sw-servers.net [10.1.2.3])
+	by lgs.sw-servers.net (Postfix) with ESMTPS id 77BD232D;
+	Tue, 24 Nov 2026 15:06:49 +0100 (CET)
+Received: by zephy.int.sw-servers.net (Postfix, from userid 1000)
+	id 59B8010B2C3; Tue, 24 Nov 2026 15:06:49 +0100 (CET)
+From: Sebastien WENSKE <sebastien@wenske.fr>
+To: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org
+Cc: swenske@veepee.com,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ James Le Cuirot <chewi@gentoo.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] efi/libstub: Allocate the INITRD table in ACPI reclaim memory
+Date: Tue, 24 Nov 2026 15:06:41 +0100
+Message-ID: <20261124140640.0f627d7e212c@wenske.fr>
+In-Reply-To: <37c38d1e-03cc-44ae-b617-d45fbf80acc5@app.fastmail.com>
+References: <20261012133712.618913-1-sebastien@wenske.fr>
+ <37c38d1e-03cc-44ae-b617-d45fbf80acc5@app.fastmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,33 +111,71 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261124-gpiolib-chip-removal-v8-8-aambrozewicz@nvidia.com>
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA2PEPF00019230:EE_|PA3PPFADE62A42B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88015a63-dce8-4efa-5ffa-08df4a342efa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|260925021911599003|260925022911599003|260925021311599003|10067099003|56012099006|5023799004|261026140227099003|4143699003|261021121427099003|261022105027099003|261022075727099003|261102123227099003|261028144727099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	W9E3ObsSffmNdXlc+LiaiZw/V5/83lFtRDcsFxx1h75+hCNISMAKzmL6tjNTwqzndVs+f9W1VbYQQCG9yP1SXtInt8QzH7UwSny5/6dKgnYYIm1MkYI9YvpypczJ9x9DdhxevOEKPSuR+Yus5QuvNH377ehQsjtYYtvL7LOA9gLC3n7my6CdTD/nJxX8Dny1qsYRLpq00oPrc/x1lJVXlQRBeJkJxmS97j5uV7cyhQG2DbG3YyXDOUVjNmj9oIEiUXveA2hNvBsBJjZicSvYE3s0NieP/A4p7HlmWRjMqYwcpFMCq3xjb1vv5sz8dM8BOKjWI4vhAPpX3k4oJgvQEqn00pIHfcOPRF9ltlvLtFSQgiBvwseNorQ/W/Lnu8a0Og03WyNV0rOXQmKZh3IUItueQuSkmupnLVfPgwifhGbxi9XykWoetcEhTE6Nmhg9V7xAk8Cbm7Vz5EwvhNdciMK0xzsrRuojYVJP14x9SuNoNa5QV4kBVrghOOIwacq4EoE5kRINg88o7xdV3CIqMB4yQJYbCq/9XjnlRUMjrZWbFQDCwXQcorBNQiQmmq+YNiFI1PK3Whz7mj5ojpPvQ3LmQdbn/8B7vhlBr+DBSq8OT5SUpwiSdQlAD07t0u4n3yZAiWzK/CMByz7a97C6Dg==
+X-Forefront-Antispam-Report:
+	CIP:82.65.107.217;CTRY:FR;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lgs.sw-servers.net;PTR:lgs.sw-servers.net;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(260925021911599003)(260925022911599003)(260925021311599003)(10067099003)(56012099006)(5023799004)(261026140227099003)(4143699003)(261021121427099003)(261022105027099003)(261022075727099003)(261102123227099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	tMOpfCS3V/QqIv53Y732yLMiNzNLAi32jHyMvTLNmfyUAPqgQn7EsKFN8TSJxLM5Ix0ajbsc3WmA5OA5ZOBKL/tnjcs90G3sVG4l6UWJOUNIdYeE144O1oXqbHPVh5u6vMF0035/Jk9a9uth6pGq2sd7kaG2BFJYeyZxy3YJaYemKVCSzFOitLttzhOsTav+C7mca7Hw1/vNEtqc2GjAAqySECguJOfJUPxF3kw5BnbEZ2XMLfwunEemCBsE3tPoDtOTEQG2iy3IgsfTVXwJT7kSnSfBEOXaU3pTcbQJBlwKH1ZfLHasTwWTvz6/1I9zNHRis4nN3cC2bEp5mVadKesBeixFvlNrvjbxEn0EJZCCm7REU/yDGmAigK203+eV7tFz8OKeJRIiI6wdaiVcHzIGnyZpzx7xHQnDohlbG9mACPp2eLTRZYX3lzqVYtuR
+X-OriginatorOrg: wenske.fr
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 14:06:49.6331
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88015a63-dce8-4efa-5ffa-08df4a342efa
+X-MS-Exchange-CrossTenant-Id: ff4ca3b8-6c54-4519-8b0b-9389fb15cdbb
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff4ca3b8-6c54-4519-8b0b-9389fb15cdbb;Ip=[82.65.107.217];Helo=[lgs.sw-servers.net]
+X-MS-Exchange-CrossTenant-AuthSource: PA2PEPF00019230.FRAP264.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA3PPFADE62A42B
 
-On Tue, Nov 24, 2026 at 11:20:39AM +0200, Adrian Ambrozewicz wrote:
-> gpio_shared_proxy_to_irq() returns the parent chip's IRQ, so an edge
-> request on a proxy line holds an IRQ of the parent.
-> 
-> When the parent is removed, gpiochip_remove() frees the IRQs still
-> requested on its lines before it removes the proxies in
-> gpio_device_teardown_shared(). The release of a proxy line request is
-> serialized only with the proxy's own removal notifier, so if
-> gpiod_free_irqs() frees the IRQ between the release's irq_has_action()
-> check and its free_irq(), free_irq() warns:
-> 
->   Trying to free already-free IRQ 22
-> 
-> Remove the proxies first, so the character device on each proxy frees
-> its IRQs before the rest are forcibly freed.
-> 
-> Reproduced on arm64 QEMU with a shared gpio-sim line and a test delay
-> before the release's free_irq(): 3 of 3 runs warned; with this change,
-> none.
-> 
-> This patch depends on patch 7 of this series.
-> 
+On Tue, 24 Nov 2026, at 12:38, Ard Biesheuvel wrote:
+> There was a report recently about EFI_ACPI_RECLAIM_MEMORY being
+> problematic in combination with hibernate, as those regions tends
+> to move around.
+>
+> Can you try this fix instead please?
+>
+> https://git.kernel.org/pub/scm/linux/kernel/git/efi/efi.git/commit/?h=urgent&id=6863183e8b65e833f8140e20d526282a725e040e
 
-Reviewed-by: Kent Gibson <warthog618@gmail.com>
+Hello Ard,
 
-Cheers,
-Kent.
+It works, thanks - please consider my patch withdrawn.
+
+Tested on x86_64 under QEMU/KVM (q35, SMM) with Debian's OVMF
+2025.02, both the plain and the Secure Boot capable builds (no keys
+enrolled), the kernel booted as a systemd-stub UKI (initrd through the
+LINUX_EFI_INITRD_MEDIA_GUID device path), then kexec'd twice in a row
+with kexec_file_load() and an initrd:
+
+- v7.2.10, the setup of my report: without any patch the kexec'd
+  kernel oopses in tcp_parse_options+0xe7 again, 16 bytes of its text
+  zeroed at the stale table's address (0x1d4bcf98). With your patch
+  both kexec'd kernels log
+
+    efi: ... (MEMATTR=0x1d4b9018 unusable) (INITRD=0x1d4bcf98 unusable)
+
+  and run normally.
+
+- v7.3.6, with a debug print before the wipe: without a fix the
+  kexec'd kernels read what looks like their own text at the table's
+  address (e.g. base 0x74fb894800000002 size 0x7400000208b73b26) and
+  clear it, without any visible failure this time. With your patch the
+  table is disregarded and the wipe never runs - also with the flash
+  locked to SMM (-global driver=cfi.pflash01,property=secure,value=on).
+
+- v6.18.65: applies, both kexecs fine.
+
+Tested-by: Sebastien WENSKE <sebastien@wenske.fr>
+
+Thanks,
+Sebastien
