@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534633;
-	b=HRR1sFCGvxXBGUA60roq36c8QTHcv26Sa3ZC6Ta7qxuhx5JpMMKrDxa987O9uLSvVksG
-	 hxJRTsfNM9ninRI2AN+L+K+8g0CXeUnNNhN4o5sX9LDjABGzd3HXYtOPdOp1vjaTNuwyL
-	 K5Gy3REYtkkBlrkbBDp+7p204t+s4PTery+na/bApiukcWL7WykV876+vowO8S12N0SSd
-	 6V24eL0xdNpw0VpiaDgMz9Tj1iZqAUWn1v2uj5cOahmd+Yr0NxCDPlxu8twjQV0fSNi6s
-	 0CvORmY5I6XpDIvnYoKj9vdPoKAAfzVOicBPq/PHux6Vwi9/GjHc74Uj3zVBCCD3NvQ==
+	t=1795534637;
+	b=W6hv/kjk2lzmQvpfIWvz0Is21TkBcNf0ezR3LuIwo/BdCVO735hT2WdEMoanB8rwTzBb
+	 gSADVhDGdhmk1yBhI5DgolPASCJWh7l+EYVyi5gJT5V3PK6SC97aCQ5dqSugWcD5m+gly
+	 D9PzlRACir95b7E7TQeesLo/VFrY6DPr+kNxuqUGQ33Xp3cBXZO0/Jt4lk/z8lj1TUQjB
+	 1x72QfkGfZXzCDelSPMlc6c0Ov+GWIc7kFT7/uRRH0ut+rIGesANvVQBPHRbM3inIK4Jx
+	 4wlOhC+ptQfMRC3YohJSZ9mpUOq/h/cW7+G+rGv33hZBHjfw19nPNPrwYOCIxBWuI1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534633;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534637;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DP2poqqQiD0FZF5TRmf9cGqqpxX0G7xGln/fhZQYbD8=;
-	b=D43OOrx4V6GjZTD6R1hcUTNAxcLytHkZ3qTATxB1hdPUoKmO0KPQyQ9qACJFNh1C3LnX
-	 6OqozZY1ny0swD+u3HQdVDpJNnl0+mu0b13kDysWW4AeF8PKKxSIBCn9Y+D5Hwx+bB/ze
-	 NZBLB+HsLDlBX/Oq0V+ViZNHuWRZom5FRHbP72Cs7PAio03ivOM6Vc7GtmAy6aNdPke+r
-	 UFBcvIfMrMwyZ7lO8x5NUYwULdR1R6tu6FEM6WfAdpvsW3sMr+ZJwg+4NMMFk1ZDSAp7H
-	 GSsA/Ne1fcNtL9pRKY2DNjqpV7iNLkpwscQkATYzgF7h6szxF30dfs0qG+MQyoblv6g==
+	bh=esjWNhOaNfs2iHcOz+FBX57wMbJjx8sA3KtWJ8/6Iqc=;
+	b=NspZpTjcfiZjFYbS8x6Bs9Y3Jtv5g7uDTElmB4qaiUb6B7fCwz4GAtnkfMOWn9IFXU9D
+	 QDH0ieH552LGi/Ywz8OYu/QHdq5tg4vGRpF7GKmXj5RxqKG+qFdpIwEj0b+DzpTBZI7a5
+	 pokn+QgUjLbEBI7oCETLXlV0WHJH0DyyqL6UQ+zziRU1lYvGKqBkMFAYl+Mk8QLzMg0ta
+	 WhkdV6i5UI/dDsrvwnnG3zpaLEPrkZ/ekZL/6CKYNG2EHtCj58UqjTbtgXLbyQBsXf2rv
+	 MwHAvjLw6gkGH6doPqE9mX3GbtrEGwAdObKjE1Vc9DB0rO/qbUB/G5zj4RhJa+8lNCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pR96mOnF;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Vym9vHqB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F68606A323
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:37:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7315606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:37:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pR96mOnF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93B4A1F000D0;
-	Tue, 24 Nov 2026 15:37:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Vym9vHqB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B751F000D4;
+	Tue, 24 Nov 2026 15:37:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795534633;
-	bh=DP2poqqQiD0FZF5TRmf9cGqqpxX0G7xGln/fhZQYbD8=;
+	s=korg; t=1795534636;
+	bh=esjWNhOaNfs2iHcOz+FBX57wMbJjx8sA3KtWJ8/6Iqc=;
 	h=Subject:To:Cc:From:Date;
-	b=pR96mOnFOh90k8UOk8RqOzDow8vgYkvBHUaDRaJ1oi2hN4zlpaP7lMUOPWKQLwHNO
-	 n9ZD5vkUFbOS1+1mBvos0rwDTjzwNAqFTZuaYU366Jaik19K7D01A6zgpFQw5WCIxO
-	 dV++WS7ggoXDE4pFn3CnXZPFkA8yzqT4NWnC9qM4=
-Subject: FAILED: patch "[PATCH] mm/mmzone: read each zoneref slot once when filtering by" failed to apply to 6.1-stable tree
+	b=Vym9vHqBiNTM45+kINVJQuf+yzi4CXqXvZ7uTA8BaxSNL+vH0xqlzmhQfp6h+LPOx
+	 yvOUICO4M434A2HcwTSJ+l6zmMnyoFVPqA0CiwlLeFzC/kiFXEG053+DowlbYpdDlV
+	 XutxB5KcovO5JA2FOhLTIF3mSBamfoJYrP+og8AM=
+Subject: FAILED: patch "[PATCH] mm/mmzone: read each zoneref slot once when filtering by" failed to apply to 5.10-stable tree
 To: gourry@gourry.net,vbabka@kernel.org,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:37:17 +0100
-Message-ID: <2026112417-science-punctured-2e09@gregkh>
+Date: Tue, 24 Nov 2026 16:37:18 +0100
+Message-ID: <2026112418-atonable-justice-3d6c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x e55119ab611a0e47595db7e1d2ac1e69f7a73ff0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112417-science-punctured-2e09@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112418-atonable-justice-3d6c@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
