@@ -1,97 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795556083;
-	b=0RKLX/KFTib8/29kF+EZbv682hxWV6EJ6yd/VMIVll9HJa/BlNPwmdMuSh7XZXo2lmsP
-	 tnF9wHnxoy7efCrdWXVUFsHJHHSy2I2luo7DA8y69vVTryZo7dlEHOjVLvmcBxPK55bGH
-	 X1kc+LadypBT9pqYHlPeCOKddNdSq+kS91DUvz8ZwoLOOulZK4a9sQ5FiF0LR5BhzBiU9
-	 EjH6uSQBq4WUdXNzu5w1M4kHmBXiYj2dwKR9GrJq8JDo/e+fvQRnTydcZUcftNAH+T0Bx
-	 wj3oVqhG+Qtup/3TesWSE7bbTUwIaF7ZKX4LbuxoyZsSdKfQ4Tp0ySSc9O8HKMI6BJg==
+	t=1795556325;
+	b=r3XyyHPF/0Bdx4eOKrvY0bMcrjhD5ekrjB9eetaaRBw0Wl0DFK5ML01LFOH6JorxTqAf
+	 mB0aNvru05OkTJKwjknmOEivHiiZ+GFK5GRXBlfRDsMCIYEvgH+SvCGQqDXksCogHepz8
+	 RoA792MJGayttFLMbqZokxcNElj64+4UkjlFlfzhDuM1Z63KhlgsLiyMUbRrbgCcgItV7
+	 QWdliNhnt6LwkpVVnlBka/M6UlcexcgPyaSDhWRoYNnRA9TcB70Amn9GoQtsZRwZ2CFqw
+	 1omk6fysG+sPmOtAeEF2QIubUenQwB70XBZBn9uZkDK0jU6oTelIaJd+y0/KaM2LlsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795556083;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PyyQwKmFe9iM2Cp50Hb1UepVeU0i/+dyb3nhRaBGF3U=;
-	b=UI8vMMzMCnd/ouUriHB770WSxrkm9Z6n02RjEa7KcstJNFdQYQUQmezA+NFMmrOOZ8Z6
-	 NcnGcHEPMtmxPnYFcdJ+SW247yWWHaTKhbTPt1owyIOF7R11LL61yq0q+P4ISAEUiZoyR
-	 PISpUTF/tQZT8UGxLk1ML/AExKvwXQ3c7thEpCIphoyweJGpkEU6wFrjKi53IbvGbbOCl
-	 NbgoFYOi7CJ0lkhkAsXNfBXtS2tW0wqN6PDmOdJY45XCKiSNBK+WrJBCP0Y+FMmzqju7L
-	 c+gJt07cfZiXTxDinI4oG6B7iz+03tsrbagII6359iyldX3tpa2o2ZhD8nzshaqGGQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795556325;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=T4ujcwTXv4aKkxDzI3Lgu2BX9IseB8k8Wnrt4WDlNMA=;
+	b=RUjwKKH70pqATKcMd1V6wew67wxphoxGBhh0Oqk5RYyLrEFxuUqNfU5hfXa8Xf/nSJRO
+	 E5ueGKZeU7hl2s+xLvdQABlrDGesQdHckQbKwoxmehjpJA1esFu4X8cCkYdk3GgdiVLF7
+	 ubu6KyXcLsBLwGKzZ47z0T0Idu241HohhSSh7pajp73k1hq4UYR7wLDuYjJN+MBGkyTLt
+	 yp3WKYEnnvtOL0+JoyrrLjppWL7LoPsVmNmxh3jc7kDMsIqJ+zpHdaCrhGY6giKXd1kry
+	 nlpwTtzCOsA3xElC0VycpjiD+waro2tnoC3OJM75nv9/5C6eUA3w+iwB+T0V2a+eHFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oOjlOt8j;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c7V5uZrC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22AFD606A326
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 21:34:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22AFD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CAA2606A68E;
+	Tue, 24 Nov 2026 21:38:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oOjlOt8j
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4bb606491faso27629035e9.3
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 13:34:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795556081; x=1796160881; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PyyQwKmFe9iM2Cp50Hb1UepVeU0i/+dyb3nhRaBGF3U=;
-        b=oOjlOt8jNFXVtNx13w4rQVGTgE8/JSWvYa95a33OuG/Nchqm5WrW4BBXjdYKLtJ28W
-         A1JDuw5B8eWUeHHiwbhq8WVOcxptXsFPWIrKnEtpfI2ti2yvkUb+PFaP5kIN02mgvUgK
-         pCzsS5dJivxyKh7tSL+PEypJyDo2yokfKFWtwnuRVrDmJ1qbocihDhfENZYBh0tghUQz
-         WGOS+FkV+FLFGcXzrGsm/echy3MjDe0T+VnHgW7P2gMWx01W6yap/5b9/rWkWuj+VZry
-         W1YJoOdCYrkBYxPDFR52nf36PKNMQhFLqAsU8x7OUbr86Y9Yz8zeg91OA7Jm7/r2tlHQ
-         /tFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795556081; x=1796160881;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PyyQwKmFe9iM2Cp50Hb1UepVeU0i/+dyb3nhRaBGF3U=;
-        b=ioFRzuadOdOWUb3EFHrEsseiNAWR2KpVhlkX/+PKQmT+qfBf+Ko8SzwrdyhMQDvif8
-         EglbL+QP5wKfleOAXANKyR7G9UhY14GoHxaZJQpkFUdvDuY3eM7K2cPRm9Joqv1h8TR1
-         /ntBTmQEDO3/3xCFtaBcgFKjgW8bhKRRB13+fuAvYzBdRRz7SlumVLRaOVwsBcPopc36
-         Qz+7bRCdJmmICEaeDEvppSRsAaar7ST9yiZc2Bywk5sfCCPGm8496J9rFybBS/1dQaDj
-         4WbFeoZr+TZij8mxJCSade/2Z8dz5IVBwAw7pN5r77VrxbBfuBKCfsFi9JMz+ROYPRx/
-         48lQ==
-X-Forwarded-Encrypted: i=1; AL+hErHihVV5OCwv2pxF1SPR7LXELh0xhVy3NdpejLGQtPBQoTkOnl7U3HRBWqWKcqNm/6LtOTCKsew=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xFixxGYU+CBfhbDOmbzvSLkJ6dw9g94rhqPNquBkUgaFSFXPg
-	G0zCWWDRRa8uianm7rkzlatNMIGPRN4jmIcDkmhwZTx087SwIH/GjqDn4BAutla0/bNSrw==
-X-Gm-Gg: AZFdTZeG8hDcEoi3gwBhtnNs2L9RsVRYYgdgMaYXnEOTAEOTumEoQP8FcrU1mG3+c23
-	GBgaguvTtMMwKHLUWh3df5KKTuabqIu7YDTxW5Mj+njdhm/I+9fVXOKmnvWiTH2GkRnV/e9b9rm
-	keP+hB+JesVv/LHAmFk5Grnar5lrbvfmdhVAVnzVve3MzBhLgYt8oRiTpIwaonQc3Spyj1HnGrf
-	iClW4RJmyVt8fYOeU0Q6KB2gl504DcBGKEZE7mnT2WEkaGesTFWztKDu3Z9uU1dxcvJPyugzlbY
-	5fs9Yl5bJ5Rkr3Cd+BijUTZXJXbwkcWr64kLq0Txxd1qhj2oi+h7XLoTCUu7ij4zzArVTgACO4i
-	wWdmkA3uLOdTmxwuejNVorBfqLxCCqRit8gYocCyEt0f4lQm2WtnGgLsY6rjVpAHsuv9OEJvW4T
-	kwA9hMmyptgqVPuOXWkq+nFwe9CZZK30P1AtI6tsNprj14/Fo3pnoYIde29JYJwPZ9Qyiau1KmE
-	GnlWxW2BkHlStMnyvjiQYYbtHSQJEorCfioawVEUb+qYcksq2iUhZVsEM9gt4PhgEx7la156sJZ
-	VWwGaRanPGgu+gas2oh8XI5mYx35gQ==
-X-Received: by 2002:a05:600c:800e:b0:4bb:7757:fe58 with SMTP id 5b1f17b1804b1-4bb8881b9d7mr328897525e9.19.1795556081300;
-        Tue, 24 Nov 2026 13:34:41 -0800 (PST)
-Received: from fra-x8664 ([151.83.244.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb90660cb4sm403974515e9.2.2026.11.24.13.34.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 13:34:40 -0800 (PST)
-From: Francesco Magazzu <postadelmaga@gmail.com>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Ilia Mirkin <imirkin@alum.mit.edu>,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/nouveau/devinit/gf100-: fix POST being skipped on GPUs without display
-Date: Tue, 24 Nov 2026 22:34:30 +0100
-Message-ID: <20261124213430.9525-1-postadelmaga@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c7V5uZrC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29DD91F000E1;
+	Tue, 24 Nov 2026 21:38:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795556324;
+	bh=T4ujcwTXv4aKkxDzI3Lgu2BX9IseB8k8Wnrt4WDlNMA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=c7V5uZrC0CvuG3jk6tu82MuBPX9sRdAtVEkl5S5f82txbE6407XOivxh3o4ynhV9t
+	 1FV2ZiMGDtigmioVvp5ipyR7JHbQzdtsCyU8qKYpoplcKLwKpQr6aey62ZWXk8lWjE
+	 D6kAApGknpAbhpvF+Xy0O/RgxxA0jhm5cQGAriBLTiP9DkiLgy+AVmuMeGp+hzmXX3
+	 Csx3jscUVDgema04S8Tey5bZvyKp2XQNc3Fcf9glDqxzBAXqeCIiqr3lUoih75+iMD
+	 O45udHrEjDfL1Uy0d3rPAWuLEmn6a2StOo7MSoAXZOkVHmlyZyGuttJ0QiQeq7yQW2
+	 m8VmXOJT+LNAg==
+Subject: Re: [PATCH net v4 1/4] igb: don't touch rings that don't exist when
+ disabling an XSK pool
+From: netdev-bot+sashiko@kernel.org
+To: antonio@mandelbit.com
+Cc: intel-wired-lan@lists.osuosl.org, anthony.l.nguyen@intel.com,
+ przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ janislacis06@gmail.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Tue, 24 Nov 2026 21:38:43 +0000
+Message-ID: <179555632368.3135.16785834510606239982@kernel.org>
+In-Reply-To: <20261120210134.133238-2-antonio@mandelbit.com>
+References: <20261120210134.133238-2-antonio@mandelbit.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,68 +65,207 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Commit 2139cb633d48 ("drm/nouveau/devinit/gf100-: try to avoid
-double-running vbios scripts") skips devinit if VGA CRTC register 0x00
-or 0x1a is non-zero, unless the display engine is disabled.  It detects
-the latter from the return value of nvkm_devinit_disable(), which is
-always 0: the strapped-off engines are removed with
-nvkm_subdev_disable() instead.  So the VGA registers are always read.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-On a GM108 (GeForce 940MX: no display engine, not POSTed by the
-firmware) those reads fault and return 0x13.  devinit is skipped, the
-GPU is used uninitialised and the machine panics at boot:
+Critical: 0 · High: 1 (2) · Medium: 0 · Low: 0
 
-  nouveau 0000:01:00.0: fifo: fault 01 [WRITE] at 00000000001a1000 engine 05 [BAR2] client 08 [HUB/HOST_CPU_NB] reason 04 [UNBOUND_INST_BLOCK] on channel -1
-  mce: CPUs not responding to MCE broadcast (may include false positives): 1,3
-  Kernel panic - not syncing: Timeout: Not all CPUs entered broadcast exception handler
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Check device->disp instead, once nvkm_devinit_disable() has removed the
-disabled engines, like nv50_devinit_preinit() does.
+- [High] The new `qid < adapter->num_rx_queues` guard in
+  igb_xsk_pool_disable() (and `qid < adapter->num_tx_queues` in…
 
-Fixes: 2139cb633d48 ("drm/nouveau/devinit/gf100-: try to avoid double-running vbios scripts")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5-2
-Signed-off-by: Francesco Magazzu <postadelmaga@gmail.com>
----
+Pre-existing issues:
+- [High] igb_txrx_ring_disable() and igb_txrx_ring_enable() in
+  drivers/net/ethernet/intel/igb/igb_xsk.c only stop and restart…
+- [High] On error, igb_xsk_pool_disable() returns early with the queue
+  half torn down.
 
-Notes:
-    v7.3.4 boots on this machine; v7.3.5, which has the stable backport
-    (992f7f5f34f8), panics.  Tested on v7.3.5: with this patch the GM108 is
-    POSTed again at probe and on runtime resume.  Not tested on a board
-    that has a display engine.
-    
-    Read at preinit on this board: 0x2240c = 0x00000000, CR00 = CR1A = 0x13,
-    0x021c04 = 0x00000001 (display strapped off).
-    
-    The regression was analysed and the patch drafted with an AI coding
-    assistant (Claude Code); I tested it on the hardware above.
+--
 
- drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+igb: don't touch rings that don't exist when disabling an XSK pool
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c b/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
-index 186e09ea0c..b256404c24 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
-@@ -107,12 +107,12 @@ gf100_devinit_preinit(struct nvkm_devinit *base)
- 	 * VBIOS multiple times may have detrimental effects.
- 	 */
- 	if (base->post) {
--		u64 disable = nvkm_devinit_disable(base);
-+		nvkm_devinit_disable(base);
- 		/* magic to detect whether or not x86 vbios code has
- 		 * executed the devinit scripts to initialise the
- 		 * board. only works if there's a display engine.
- 		 */
--		if (!(disable & (1ULL << NVKM_ENGINE_DISP))) {
-+		if (device->disp) {
- 			if (nvkm_rdvgac(device, 0, 0x00) ||
- 			    nvkm_rdvgac(device, 0, 0x1a)) {
- 				base->post = false;
+This commit makes igb_txrx_ring_disable() and igb_txrx_ring_enable() skip
+the Tx ring when qid is not below num_tx_queues. It also makes
+igb_xsk_pool_disable() skip the ring teardown when qid is not below
+num_rx_queues. The goal is to stop passing a NULL ring when the stack
+knows about more queues than the device has, for example on 82576 with
+VFs or after an MSI fallback on resume.
 
-base-commit: 8d7fe9885c62fc9a95bf55d9db244d9672a8aadc
+Link: https://lore.kernel.org/netdev/20261116153041.3002666-2-antonio@mandelbit.com/
+
+> diff --git a/drivers/net/ethernet/intel/igb/igb_xsk.c b/drivers/net/ethernet/intel/igb/igb_xsk.c
+> index ce4a7b58cad2f..3b4212a9521e0 100644
+> --- a/drivers/net/ethernet/intel/igb/igb_xsk.c
+> +++ b/drivers/net/ethernet/intel/igb/igb_xsk.c
+> @@ -31,15 +31,22 @@ static int igb_realloc_rx_buffer_info(struct igb_ring *ring, bool pool_present)
+>  	return 0;
+>  }
+>  
+> +/* With VFs, the device has a single Tx queue but can have more Rx queues */
+> +static struct igb_ring *igb_xsk_tx_ring(struct igb_adapter *adapter, u16 qid)
+> +{
+> +	return qid < adapter->num_tx_queues ? adapter->tx_ring[qid] : NULL;
+> +}
+> +
+
+[ ... ]
+
+> @@ -47,24 +54,27 @@ static void igb_txrx_ring_disable(struct igb_adapter *adapter, u16 qid)
+>  	/* Rx/Tx share the same napi context. */
+>  	napi_disable(&rx_ring->q_vector->napi);
+>  
+> -	igb_clean_tx_ring(tx_ring);
+> +	if (tx_ring) {
+> +		igb_clean_tx_ring(tx_ring);
+> +		memset(&tx_ring->tx_stats, 0, sizeof(tx_ring->tx_stats));
+> +	}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the "Rx/Tx share the
+same napi context" assumption always hold here?
+
+igb_set_flag_queue_pairs() only sets IGB_FLAG_QUEUE_PAIRS in some cases:
+
+	if (adapter->rss_queues > (max_rss_queues / 2))
+		adapter->flags |= IGB_FLAG_QUEUE_PAIRS;
+	else
+		adapter->flags &= ~IGB_FLAG_QUEUE_PAIRS;
+
+Without the flag, igb_alloc_q_vectors() gives each Rx ring its own vector.
+The Tx rings then sit on separate Tx-only vectors, each with its own NAPI.
+Examples are an i350 or 82576 without VFs on a machine with 4 or fewer
+CPUs, or an i210 with 2 queues. The comment in igb_xsk_wakeup() in this
+same file says the NAPI is only shared "If IGB_FLAG_QUEUE_PAIRS is
+active".
+
+In that setup, napi_disable(&rx_ring->q_vector->napi) leaves the Tx
+ring's NAPI running. It can still be scheduled by late write-back
+interrupts or by the watchdog's EICS kick. igb_poll() on that vector
+then does:
+
+	if (q_vector->tx.ring)
+		clean_complete = igb_clean_tx_irq(q_vector, budget);
+
+Also, igb_clean_tx_irq() does not check IGB_RING_FLAG_TX_DISABLED.
+
+Can igb_clean_tx_irq() and igb_clean_tx_ring() then walk the same entries
+from tx_ring->next_to_clean at the same time? Neither one clears
+tx_buffer->skb or xdpf. So napi_consume_skb() or xdp_return_frame() on
+one side, and dev_kfree_skb_any() or xdp_return_frame() on the other,
+could free the same skb or xdp_frame twice.
+
+igb_clean_tx_irq() could also write back a stale next_to_clean after
+igb_clean_tx_ring() has reset it to 0. igb_configure_tx_ring() in
+igb_txrx_ring_enable() does not reset that index. It does memset
+tx_buffer_info and rewrite TDH/TDT while the Tx NAPI may still be
+polling.
+
+The patch keeps this flow for every qid that has a Tx ring.
+
+[ ... ]
+
+> @@ -148,7 +158,12 @@ static int igb_xsk_pool_disable(struct igb_adapter *adapter, u16 qid)
+>  		return -EINVAL;
+>  
+>  	rx_ring = adapter->rx_ring[qid];
+> -	if_running = netif_running(adapter->netdev) && igb_xdp_is_enabled(adapter);
+> +	/* The stack can know more queues than the device has, e.g. after a
+> +	 * fallback to fewer queues on resume: skip the rings it doesn't have.
+> +	 */
+> +	if_running = netif_running(adapter->netdev) &&
+> +		     igb_xdp_is_enabled(adapter) &&
+> +		     qid < adapter->num_rx_queues;
+
+[Severity: High]
+Is this check enough for the resume case named in the comment?
+
+The check reads num_rx_queues under RTNL, but __igb_resume() rebuilds that
+state without RTNL. It calls igb_init_interrupt_scheme() before
+rtnl_lock(), and for runtime PM it never takes RTNL. Inside that call,
+igb_set_interrupt_capability() publishes:
+
+	adapter->num_rx_queues = adapter->rss_queues;
+
+This happens before igb_alloc_q_vectors() fills in adapter->rx_ring[i]
+and adapter->tx_ring[i]. Suspend had already set those to NULL through
+igb_free_q_vectors(). netif_running() stays true across suspend, and
+adapter->xdp_prog is kept.
+
+Suppose an XSK pool teardown runs under RTNL while a runtime resume is in
+progress on pm_wq. The teardown could come from closing a zero-copy
+socket, or from xp_release_deferred(). Could it see qid < num_rx_queues
+while adapter->rx_ring[qid] is still NULL? If so, igb_txrx_ring_disable()
+would dereference NULL:
+
+	wr32(E1000_RXDCTL(rx_ring->reg_idx), 0);
+
+The num_tx_queues and tx_ring[] read in igb_xsk_tx_ring() has the same
+race.
+
+There is also a slightly later window where the ring exists but its NAPI
+has not been enabled yet. Would napi_disable() then spin while holding
+RTNL and the netdev lock? Meanwhile, __igb_open() in the resume path
+would be waiting for the netdev lock in napi_enable() (runtime PM) or for
+RTNL (system resume).
+
+The later patches in this series ("igb: fix RTNL assertion when resuming
+from runtime suspend" and "igb: link queues to NAPIs under RTNL after
+runtime resume") still leave igb_init_interrupt_scheme() outside RTNL. So
+this race seems to remain at the end of the series.
+
+>  	if (if_running)
+>  		igb_txrx_ring_disable(adapter, qid);
+>  
+
+[Severity: High]
+This is a pre-existing issue, but the error path just after this hunk in
+igb_xsk_pool_disable() returns with the queue half torn down:
+
+	xsk_pool_dma_unmap(pool, IGB_RX_DMA_ATTR);
+
+	if (if_running) {
+		err = igb_realloc_rx_buffer_info(rx_ring, false);
+		if (err)
+			return err;
+
+		igb_txrx_ring_enable(adapter, qid);
+	}
+
+If the vmalloc() in igb_realloc_rx_buffer_info() fails,
+igb_txrx_ring_enable() is never called. That leaves:
+
+- the Rx q_vector NAPI disabled
+- IGB_RING_FLAG_TX_DISABLED set
+- rx_ring->xsk_pool and tx_ring->xsk_pool pointing at the pool that is
+  about to be freed
+- rx_buffer_info_zc still attached to the ring
+
+Can the next igb_down() then hang? It can come from close, reset, an XDP
+program change or suspend. igb_down() calls napi_disable() on every
+q_vector, and napi_disable_locked() never exits on a NAPI that is already
+disabled:
+
+	while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
+		usleep_range(20, 200);
+		val = READ_ONCE(n->state);
+	}
+
+This loop runs with RTNL and the netdev lock held.
+
+Without queue pairs, the Tx NAPI keeps running. Could it read the stale
+tx_ring->xsk_pool through igb_clean_tx_irq() after the pool is freed?
+
+igb_xsk_pool_enable() has the same pattern. When
+igb_realloc_rx_buffer_info(rx_ring, true) fails, it unmaps the DMA and
+returns with the rings stopped and the NAPI disabled.
+
+With this patch, the Rx-only teardown also goes through this error path.
+
 -- 
-2.56.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261120210134.133238-1-antonio%40mandelbit.com
