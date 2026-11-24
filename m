@@ -1,55 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.76.10.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795535573;
-	b=p9059IxP7n1zzbysGxFFewyIHxLF6DViJroKDhu3Ml8LBdPUZAS6DY2JFhStsmaIsl9M
-	 AAZR+KEqzxF/vaFzzPDxArwG6otlckFLGHxhwZBvSCEFBj3CxHafFltDGfQ0A4btq2DZn
-	 8vKtEb/cIsPsQkCle8pTeRs76emcLgaIC1ImnUJLf3rsLF7N2JSqzhdXyFtSRY7Oqu4Md
-	 maCsy5s5vDmaDc6ogJ3QjulbSPGjAirEkWxSqopQ2PicZHhu6DvurNuDTgneYGoI+qmy+
-	 RqFuopJwKzkbfJZ2ARf+OBw2hZLRPqlwPCr1ljVukF/hBFXTfQVy+I32D9eYzPey1qA==
+	t=1795535671;
+	b=p6iVNTGjmvOiw7dxHGbDGorGP3rhpCakHllB1fdOL7kxEZOKvFI3EkrKTkvHq9k4fRQa
+	 V4c2xl7GLkx1xItQRYhw71YPsMwn7cWaOJTrj8AHXThULS4SKppUSo6ETxhjqlU1TflrX
+	 g2TsIdpCCK0fDjwlkwQupfMZNxeMcHXlji2tUtTRwZf0PUJZ1FwxpeKP/RM+cQRSaG66F
+	 6EWn27Oo3pUecU7uO7PcLLV644YRHYKjgG/kxjFxY+tGLH+Twmx/IElcXPtHA60SEz5Ed
+	 rrw+5FpC5YdxgtA3mvYXrGnHV5MIRH/knzoiUUeDXuxra4FsqDv4Yqt2HX4e6JD2QkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795535573;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4eOA9nhCLrthb8A5D6i2egVSSqgkc7RggQAHbEdwixc=;
-	b=yZTo0XmFsogrTeume5KntucfGswan8QIAzIIO+MOEYnD5xhwwYEwSfIVxj7Lg3qfDKw0
-	 wZe+bypLDIFiQ6AjGY+XwtyjTkYPP3AzDlaGju3W7N49sAgP1UffCv7O3yt+eL+y+Amz6
-	 JFTAQ7tg5QPrIwjVvl1NMlN5MImn10r41ZHey6YD9Vu7+YXSmfq3CmLW2ZBNtEoAsnodU
-	 cM2CZ2TEc8WUx5XM6PckiaIxE29q03QPCqn4wzAf/xal/d36BU14KUGtWJfLrz/bB+Rzu
-	 XNXfB+OGjGnRONkWyOU47PfvMuqB9B13ICxwnNg7fw869/WZeHUo7EghgLjyoVsrRqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795535671;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-Virus-Scanned:X-Spam-Level;
+	bh=hSy+H+hShpXfVAx28ypP7A4wHZge7gvgNn4QOg2Gqzo=;
+	b=n9h0CYuoGKrrFmYDEkYKJExDnJPQnhgrlqsqGIZS6DgGLpnLplvDUYZoQQBrxUI222rM
+	 AAQEhzbn1hSKQOfEJEETbgTt8GtdH7+XiO+ShM9eTvtJCjSy5WKOeqy2de+NW0WANMcgE
+	 t7ySFJ2x7RsFDhmebbc23L8FGk3CHpY0xo49rW8hyEqtZojXaSM4Eui1ZxchF8RI+wGpW
+	 PZW2/gECLz6ao4U0qR6UuK+GRS1Nmc3GgGzOx8+mZqfUCcc2RQvMeNgt0jzyQWSJQoHs5
+	 92maFD8hMkmENkq70cN3ivwt5J7NdvnlePsjG3eRhNcKsG+tyoBrVDbuZe3OIGea5qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RNQHuUBe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=cispa.de;
+	spf=pass smtp.mailfrom=cispa.de;
+	dkim=pass header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=sDLOnWzf;
+	arc=none smtp.remote-ip=134.76.10.21
+Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B005606A33D
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:52:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E52D606A699;
+	Tue, 24 Nov 2026 15:54:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E52D606A699
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cispa.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RNQHuUBe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 504861F000EC;
-	Tue, 24 Nov 2026 15:52:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795535572;
-	bh=4eOA9nhCLrthb8A5D6i2egVSSqgkc7RggQAHbEdwixc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RNQHuUBeKKv8LYETU0CWF1w3LAaU3+OAyQmjcs3uamLXabtxXY2sKT8AXc7jblqqs
-	 5+jp+YzyGRaVkVyK/cXFEJ8GEJ9GxQSRSyS9cYypO39JH3PgIKima7z3l9o/uwSTjU
-	 ja1p5BQPxPKhLvzuP8WAW6U7fv6ZWad5fWkR8f530idSl4RN+cqod89mv1whlhADdH
-	 wG48S5Zub8cg8Ux1eee2PEv8gz+WhBPoPztJsw3xxmc9OP5O9QsQvknpVqDK54jRuq
-	 X9nlROh2exP1blQ3wCz/Qz9GYUkgYa3mVOjoPMQR1rixXRZ3LC/F0XpFCXdu59DphH
-	 soPjVGlUHokiw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Olivier Louvignes <olivier@mgcrea.io>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mmc: jz4740: Remove the host before resetting the controller
-Date: Tue, 24 Nov 2026 10:52:51 -0500
-Message-ID: <20261124155237.812616-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112435-glamour-animating-1da7@gregkh>
-References: <2026112435-glamour-animating-1da7@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=sDLOnWzf
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cispa.de;
+	s=2023-rsa; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:CC:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=hSy+H+hShpXfVAx28ypP7A4wHZge7gvgNn4QOg2Gqzo=; b=sDLOnWzfkw17DBTLsqtuUDih7F
+	S7xbEZP3p29/Udy9/Rq23ZEluJQM5Gocg/zi0sT9qo3Q4mZC+tVrK1dXi1dnqlsdGyyW75jvp/6/n
+	oSYpA5DhCLer9AG+FMH6ZCg4Z/NPIPQPsmQ2AQ3FjCMtI9XPhJVSYFt+v517bV4MNl9TixbaAea5h
+	y4oKub/Tm2Q+BZDS9qEl9/sHlOmYvkeNAOyNlXEaczGSEPIUg/xz1ALoWGxAiurkvfzUefV3/tnKU
+	BzrrA5QdZAyJx1UoqlgjJWnEA69OAkH7PpQpvNB8BWz9VTROWzHfLj96eALBpDCKi1q3Jh0RKTZ1J
+	EwxpCf5Q==;
+Received: from mailer.gwdg.de ([134.76.10.26]:43056)
+	by mailer.gwdg.de with esmtp (GWDG Mailer)
+	(envelope-from <florian.bauckholt@cispa.de>)
+	id 1xVsqV-00BiEy-2u;
+	Tue, 24 Nov 2026 16:54:16 +0100
+Received: from mbx19-sub-11.um.gwdg.de ([10.108.142.88] helo=email.gwdg.de)
+	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+	(GWDG Mailer)
+	(envelope-from <florian.bauckholt@cispa.de>)
+	id 1xVsqV-000RMN-2l;
+	Tue, 24 Nov 2026 16:54:16 +0100
+Received: from [10.100.202.21] (10.250.9.200) by mbx19-sub-11.um.gwdg.de
+ (10.108.142.88) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 24 Nov
+ 2026 16:54:15 +0100
+Message-ID: <5d833d4c-bf8b-4ffb-a214-126de4403d4e@cispa.de>
+Date: Tue, 24 Nov 2026 16:54:15 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,58 +73,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] KEYS: fix signature length passed to
+ KEYCTL_PKEY_VERIFY
+To: Jarkko Sakkinen <jarkko@kernel.org>, Rodolfo Giometti
+	<giometti@enneenne.com>
+CC: David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>, Ignat
+ Korchagin <ignat@linux.win>, Herbert Xu <herbert@gondor.apana.org.au>, "David
+ S. Miller" <davem@davemloft.net>, Paul Moore <paul@paul-moore.com>, James
+ Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Hui Peng
+	<benquike@gmail.com>, Stefan Berger <stefanb@linux.ibm.com>,
+	<keyrings@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
+	<linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, Guicai Ma <maguicai@kylinos.cn>
+References: <20261119-keyctl-pkey-fixes-v2-0-9e2d1c7db7ec@cispa.de>
+ <20261119-keyctl-pkey-fixes-v2-1-9e2d1c7db7ec@cispa.de>
+ <80ded1ae-51a7-46d1-bb67-02b4b06de71b@enneenne.com>
+ <av7x53CigERu-cf2@kernel.org>
+Content-Language: en-US
+From: Florian Bauckholt <florian.bauckholt@cispa.de>
+Autocrypt: addr=florian.bauckholt@cispa.de; keydata=
+ xjMEav3GRRYJKwYBBAHaRw8BAQdAnELDrQj5frnVfDEzfgTLq+dYQyGwNlrF4RK4Lnh0EtLN
+ LkZsb3JpYW4gQmF1Y2tob2x0IDxmbG9yaWFuLmJhdWNraG9sdEBjaXNwYS5kZT7CjwQTFggA
+ NxYhBCzYgazhZyFPZBJ6GB4ZurGrnfo1BQJq/cZFBQkFo5qAAhsDBAsJCAcFFQgJCgsFFgID
+ AQAACgkQHhm6saud+jWpqAEAvdY72AqnlDNhbzgaDPghigkZxQsXy0SguVI4rIFdkYoA/RRN
+ yQMEpqS/x1bseRnNFeLmtDviMLMoLUrKGY23VuUPzjgEav3GRhIKKwYBBAGXVQEFAQEHQElQ
+ tDrQlEp5XdrAZUWzYVj26t0q0BhMLOqKLXSMmA5xAwEIB8J+BBgWCAAmFiEELNiBrOFnIU9k
+ EnoYHhm6saud+jUFAmr9xkYFCQWjmoACGwwACgkQHhm6saud+jUl5AD/S78nLqAgIn53lOzT
+ A8NTSByrtVvDBb9G9heETfLzVBIBANDFhjZQpssjUeVZ7QV/1GDL9ZhGssjnTQmzHKavboEK
+In-Reply-To: <av7x53CigERu-cf2@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MBX19-GWD-07.um.gwdg.de (10.108.142.60) To
+ mbx19-sub-11.um.gwdg.de (10.108.142.88)
+X-Virus-Scanned: (clean) by clamav
+X-Spam-Level: -
 
-From: Olivier Louvignes <olivier@mgcrea.io>
+On 11/19/26 13:56, Jarkko Sakkinen wrote:
+> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-[ Upstream commit 6b8b1e8827837bf4cf1f87219038fddae9e81b0b ]
+Hi,
 
-jz4740_mmc_remove() masks every interrupt and resets the controller
-before mmc_remove_host(), which removes the card and lets the card's
-driver send its last commands. Those commands then run on a controller
-that was just reset, and can wait out the driver's 5 s request timeout.
+I saw that for-next-keys now has 94cd21592349 ("KEYS: Fix asym key
+overflow in keyctl_pkey_verify()") with the same (trivial) patch.
+I'm not sure how this goes, but if you'd like to add some context, a
+link to this thread and these tags can probably be moved over:
 
-With an SDIO card that cost 5 s on every unbind: on a HiBy R1 (Ingenic
-X1600, a BCM43430A1 driven by brcmfmac), the CMD52 that
-sdio_release_irq() sends from brcmfmac's remove waited 5.1 s. The
-command had finished (END_CMD_RES set in MSC_STAT), but MSC_IMASK read
-0xffffffff although the request had unmasked END_CMD_RES. MSC_STAT can
-still show IS_RESETTING after jz4740_mmc_reset() returns, so the reset
-most likely completed after that write and undid it.
+https://lore.kernel.org/all/20261119-keyctl-pkey-fixes-v2-1-9e2d1c7db7ec@cispa.de/
 
-Remove the host first, then quiesce the controller, as other host
-drivers do. On the R1, unbinding the Wi-Fi's MSC now takes 0.65 s.
+  Tested-by: Stefan Berger <stefanb@linux.ibm.com>
+  Reviewed-by: Guicai Ma <maguicai@kylinos.cn>
+  Tested-by: Guicai Ma <maguicai@kylinos.cn>
+  Tested-by: Rodolfo Giometti <giometti@enneenne.com>
 
-Fixes: 61bfbdb85687 ("MMC: Add support for the controller on JZ4740 SoCs.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-[ sashal: Adapted to the older API: the function returns int rather than void, and timer_delete_sync() is del_timer_sync(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/mmc/host/jz4740_mmc.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/mmc/host/jz4740_mmc.c b/drivers/mmc/host/jz4740_mmc.c
-index eda1e2ddcaca8..a1fc48f17a9a1 100644
---- a/drivers/mmc/host/jz4740_mmc.c
-+++ b/drivers/mmc/host/jz4740_mmc.c
-@@ -1132,12 +1132,13 @@ static int jz4740_mmc_remove(struct platform_device *pdev)
- {
- 	struct jz4740_mmc_host *host = platform_get_drvdata(pdev);
- 
-+	/* The card's driver may still send commands as it goes */
-+	mmc_remove_host(host->mmc);
-+
- 	del_timer_sync(&host->timeout_timer);
- 	jz4740_mmc_set_irq_enabled(host, 0xff, false);
- 	jz4740_mmc_reset(host);
- 
--	mmc_remove_host(host->mmc);
--
- 	free_irq(host->irq, host);
- 
- 	if (host->use_dma)
--- 
-2.53.0
-
+Thanks,
+Florian
