@@ -1,71 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.13.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795513268;
-	b=TQbyHlcpj0E45rV1v9VHRqXEUDadoB6Ec77PnnZpiHhbdOjALzur2Ekqqdctgxbhy7l0
-	 V0yMTHCBJh/3QXGjmiXhNBlXYLA2RBLp1/fh56w0yQulZE95GC16YWiIR0YAtqevgJKIC
-	 EdoTQxi5UsgYHBEmcewaE4xv+td+uMfj2mIj+yY9i7xg+zTJ+xzlk5C4A1Q1uvkf85Dmq
-	 3c2R+aFG1XzrqnCadSbMSDSs1qhZbuZIFAjoDaf3HN3EW16awa/PjHY9+ZhCiCKvfCHLs
-	 ZFRzTNy3LAzB0xPxpHhp5XS+BjWjDZqtx08Y+c46c9NnZor62Bc1Huz5Z4fcCztL3Kw==
+	t=1795513288;
+	b=f71km6oBa7jsT3dASPROamadzEK6E/wBla5R6RjwrXSY/LfLmqAaREjaai9BJSxeV9BJ
+	 J7FH1zJKku0l5jeUSKn6pYqu6C3fG5wkneBnFo7zMMBKe5rpM2l43AasEoAlCbOTKk94v
+	 pVKhvgZMk0Q2Qx2TtVakQtAGq0ZxdIqobNvvhKeoG7KOhf1XR67Fxr7nIn72tJnd1N6xK
+	 e9OmV68PVENeu9x2sqoD1TrvUyh5Ux2GVn7fxqzWlzoOtUWFQkq9Hls38BZxDbD7LnC2w
+	 NxBInP0NgE0NVIQieKfVItt9uplqGPa5m3wEzvsCg5xSGMDqASyg1km7SMOwbD0H42A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795513268;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795513288;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:X-Originating-IP:X-ClientProxiedBy:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=NuIlpaMiYTHMQPmZ3V/JomVHe0nIq9gdD5u1MrfR3i4=;
-	b=3UQJp16PDVQAtI3ahxS3/Q84qhIAVJVeabw6X/h7DEl6xj02MSSix176VHl+fYpdRcHR
-	 b/qYgQ78TFuTUGE/32UZ8AiTx4pF1C0r86+IHvHDF/4/AWJUMZjOvSoaTuLH9VM6nFkJi
-	 ufsWVIe1kGabkLMUf8NhqLVdkDvNaiWMJWIJpKnYkMx+3zEy+UabIB+v+vZVdpArJ0gFh
-	 XZ3Hd01hnPbGnKrPagb8N5PzEdiYD8ZsqJjo/y8RegT7enNEKkF91wSjie7qvMkBkwBKS
-	 ApqPk4pmTDBqMFX+EOamqcf/9VeUY0w6ejVlaz7NIwee1934TY99r1gZhyE+a7wPTBA==
+	bh=9RUqJuZjjF4EFmIXY+oekF6v4fxHg7gQYiw1+M/5kjk=;
+	b=YaXrTMwhyrwdWr6JxjNFORmgiKmrwQdRkMjOj7mxNnI+2yBZayprE3QhozxZi0AvOHfQ
+	 Tm05Wgzz+05RnHQzee58jF/qdJ6NwPOJ7RkszX88l02jqbquSQ2aiIw8DBhzMLlI6L+rW
+	 sQ4AG/CAo90yYJjU1Tsi4dlXbWulF98BJVy9Ac5aZrgyNHK73Q38n+yZh+WMXunwvbyzp
+	 r3Q9sdbk5rd+Aet8KUQ3CoKFmXcvoylB829nzGRI18ZFEiU7/IB/iIuYepKZRv2Te6kmX
+	 sE+bcqE9qyyX9HKEHdz97CCaSqx7fggsRKvqCCKyABu5X89ik4IMavs7Ht9LnpX35Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.com;
 	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=B0SDCiQ4;
-	arc=none smtp.remote-ip=52.13.214.179
-Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=EJLDe3U8;
+	arc=none smtp.remote-ip=52.34.181.151
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978FE606A33E;
-	Tue, 24 Nov 2026 09:41:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 978FE606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F02560A2627;
+	Tue, 24 Nov 2026 09:41:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F02560A2627
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=B0SDCiQ4
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=EJLDe3U8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1795513265; x=1827049265;
+  t=1795513286; x=1827049286;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=NuIlpaMiYTHMQPmZ3V/JomVHe0nIq9gdD5u1MrfR3i4=;
-  b=B0SDCiQ46dDtpkoJTLFP4Na3w2+SqPRZo4BdE2km1SbSo22DhNyVGFrY
-   sRI9c/e73Se6ZkZsaDzHhPBXj7AawPMmP7ADVlpo6yA17AYQ544WEOrtE
-   et0rzfyRdMoY0EiTZ13vJt11uRFMX5umLhItS2h6JPblJJNHSKh88XlSr
-   jF59Jg/fcTIJNz6jDhVKRRdcq2Ma5GFjpJNs1kNaTiMfF7S2liw4zTG/w
-   4OlJhVDlMsKRA51qa4yQHTFS7MOsWSJtNmJvPZBG+e6O5ntGwiHm+vzNp
-   zQT/z5z5FfmZ9WWBjJvVjkvMw3L7RqZ4eyK39baNAwl0GPnWCYeN5LaiW
-   w==;
-X-CSE-ConnectionGUID: 7R0bqCtFQH2Ztt/M3gwEqw==
-X-CSE-MsgGUID: iXdy9ZjnTs2L6ir5aLeSGA==
+  bh=9RUqJuZjjF4EFmIXY+oekF6v4fxHg7gQYiw1+M/5kjk=;
+  b=EJLDe3U8xGVUZJ4UHdNQYlSyMMNqhhrNVmse5q+JyFHp2qHSO7u3Luu0
+   /5LDGlr6K1Aj0XcWC23uRFfIM/9yoPvqzbnv2E6rXYUBsw+9Odu5/0OwT
+   qXGPoG8OIqIROWa7Og/jzIrbacUwJrZS7yAS5TPqbGJ3uO2WDLv/OCxuk
+   y1xiCG4v3jaEL1tX2/fP65Ix3ujnJ9M1rGUNXPN9x51T/yZH+b39mAv1a
+   eBpE7hTV9/vyTC1nvKSHaf1qG69eaF1kV39bsAp2dGKreuCgEpqWKdqVq
+   TUC0vIoqSm1ymf2t2AkybF0dylw4o8p95/4JLjbus+onwezwepafOg4Wm
+   A==;
+X-CSE-ConnectionGUID: QdMdIDfITy6SQLr3B1ZFmw==
+X-CSE-MsgGUID: P5vxPcEZRd2nUC4+xhtyoA==
 X-IronPort-AV: E=Sophos;i="6.27,230,1787011200"; 
-   d="scan'208";a="34944075"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 09:41:02 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:21440]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.36.204:2525] with esmtp (Farcaster)
- id faae0fa9-fa9e-45e9-8752-cdd1a246c23b; Tue, 24 Nov 2026 09:41:02 +0000 (UTC)
-X-Farcaster-Flow-ID: faae0fa9-fa9e-45e9-8752-cdd1a246c23b
+   d="scan'208";a="34971951"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 09:41:23 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:2261]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.27.12:2525] with esmtp (Farcaster)
+ id 12c28dd8-953b-4045-aff1-3d5406bd0857; Tue, 24 Nov 2026 09:41:22 +0000 (UTC)
+X-Farcaster-Flow-ID: 12c28dd8-953b-4045-aff1-3d5406bd0857
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.57;
- Tue, 24 Nov 2026 09:41:02 +0000
+ Tue, 24 Nov 2026 09:41:22 +0000
 Received: from dev-dsk-sieberf-metal-1a-7543e84d.eu-west-1.amazon.com
  (172.19.116.227) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.57; Tue, 24 Nov 2026
- 09:40:58 +0000
+ 09:41:18 +0000
 From: Fernand Sieber <sieberf@amazon.com>
 To: Peter Zijlstra <peterz@infradead.org>
 CC: Fernand Sieber <sieberf@amazon.com>, Karl Mehltretter
@@ -81,9 +81,9 @@ CC: Fernand Sieber <sieberf@amazon.com>, Karl Mehltretter
 	<nh-open-source@amazon.com>, Fahad Mubeen <fmubeen@amazon.de>, "David
  Woodhouse" <dwmw@amazon.co.uk>, Misha Karataiev <karataev@amazon.com>,
 	Hendrik Borghorst <hborghor@amazon.de>, Ibrahim Elshahed <lshahed@amazon.de>
-Subject: [PATCH 1/2] sched/deadline: Keep forced idle uncharged when a sibling ends it
-Date: Tue, 24 Nov 2026 11:40:30 +0200
-Message-ID: <0eb24d6c957d45f9f7274eb9e92d9dbd3c76117d.1795510960.git.sieberf@amazon.com>
+Subject: [PATCH 2/2] selftests/sched: Let the FIFO task block in cs_dl_server_test
+Date: Tue, 24 Nov 2026 11:40:31 +0200
+Message-ID: <0bea929ef61909f5eb5038d111027e1d5e710fee.1795510960.git.sieberf@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1795510960.git.sieberf@amazon.com>
 References: <20261124080737.1988-1-kmehltretter@gmail.com> <cover.1795510960.git.sieberf@amazon.com>
@@ -96,145 +96,220 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
+X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Commit f4626e1c3c14 ("sched/deadline: Don't charge core-sched forced
-idle to the DL servers") keeps forced idle from being charged to the
-fair and ext servers. But it tests forced_idle_rq() when the idle time
-is charged, not when the idle task started running. When the sibling
-ends the forced idle, the test reads false by then and the forced-idle
-span is charged anyway.
+The FIFO child of cs_dl_server_test never blocks, so forced idle on its
+sibling only ends through the fair server's pick. The test therefore
+missed forced idle charged to the fair server when the cookied task
+blocks and the sibling's core-wide pick ends forced idle.
 
-The timeline below describes the issue:
+Run the test a second time with the FIFO child spinning 800us and
+sleeping 10us, and hold that pass to the same floor of half the fair
+server's reservation.
 
-  Setup. CPU0 and CPU1 are SMT siblings.
-  - CPU1 runs R, a SCHED_FIFO task with cookie X, which spins and
-    sleeps briefly in a loop.
-  - CPU0 has C, a CFS task with no cookie, which only runs through
-    CPU0's fair server.
-
-  t0, CPU0 is forced idle. The core cookie is X and CPU0 has no
-  cookie-X task, so CPU0 runs idle. core_forceidle_count is set and
-  idle->se.exec_start is stamped.
-
-  t1, R blocks. CPU1 does the core-wide pick. No cookie-X task is
-  left, so forced idle ends: the pick clears core_forceidle_count and
-  picks C for CPU0.
-
-  t2, CPU0 switches from idle to C. update_curr_idle() charges the
-  idle time since its last update to the fair and ext servers.
-  forced_idle_rq(rq0) reads false, since t1 cleared the count, so the
-  forced-idle span up to t1 is charged.
-
-  t3, result. The fair server spends its runtime on time in which C
-  could not run, and C gets throttled. With R spinning 800us and
-  sleeping 10us (HZ=1000, 2-core 2-thread KVM guest), C gets 0.8-1.8%
-  of the CPU instead of the 5% reservation.
-
-With this patch, the core-wide pick settles the idle time of each idle
-sibling under the state from before the pick: at t1 it drops CPU0's
-forced-idle span, and a pick that starts forced idle charges the idle
-time before it. As only this pick changes core_forceidle_count,
-forced_idle_rq() then holds for the whole span that update_curr_idle()
-charges.
-
-With this, C gets 5.6-5.8% in the same setup.
-
-Fixes: f4626e1c3c14 ("sched/deadline: Don't charge core-sched forced idle to the DL servers")
 Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
 Closes: https://lore.kernel.org/all/20261124080737.1988-1-kmehltretter@gmail.com/
-Cc: stable@vger.kernel.org
 Signed-off-by: Fernand Sieber <sieberf@amazon.com>
 ---
- kernel/sched/core.c  |  8 ++++++++
- kernel/sched/idle.c  | 25 +++++++++++++++++++------
- kernel/sched/sched.h |  1 +
- 3 files changed, 28 insertions(+), 6 deletions(-)
+ .../selftests/sched/cs_dl_server_test.c       | 107 +++++++++++-------
+ 1 file changed, 68 insertions(+), 39 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index ea89471d4743c..825d9bbea3128 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -6451,6 +6451,14 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 		if (i != cpu && (rq_i != rq->core || !core_clock_updated))
- 			update_rq_clock(rq_i);
+diff --git a/tools/testing/selftests/sched/cs_dl_server_test.c b/tools/testing/selftests/sched/cs_dl_server_test.c
+index 38aa005080f1f..c085f7059e054 100644
+--- a/tools/testing/selftests/sched/cs_dl_server_test.c
++++ b/tools/testing/selftests/sched/cs_dl_server_test.c
+@@ -14,6 +14,10 @@
+  * whenever the FIFO task runs, and checks that the CFS task still gets a
+  * sensible fraction of the fair server's reservation.
+  *
++ * A second pass lets the FIFO task sleep briefly between spins, so forced idle
++ * mostly ends through the core-wide pick made when the FIFO task blocks rather
++ * than through the fair server.
++ *
+  * Copyright (c) 2026 Amazon.com, Inc. or its affiliates.
+  */
+ #define _GNU_SOURCE
+@@ -21,6 +25,7 @@
+ #include <limits.h>
+ #include <sched.h>
+ #include <signal.h>
++#include <stdbool.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+@@ -48,6 +53,8 @@ enum pid_type {PIDTYPE_PID = 0, PIDTYPE_TGID, PIDTYPE_PGID};
  
-+		/*
-+		 * This pick can start or end forced idle on rq_i while its
-+		 * idle task runs on, and the old state is already reset.
-+		 * Charge the idle time so far under the old state.
-+		 */
-+		if (rq_i->curr == rq_i->idle)
-+			charge_idle_to_dl_servers(rq_i, fi_before && rq_i->nr_running);
-+
- 		p = pick_task(rq_i, rf);
- 		if (unlikely(p == RETRY_TASK)) {
- 			/* rq lock may have been dropped, clocks invalidated */
-diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
-index 451b4846219d5..0449ccefba6c7 100644
---- a/kernel/sched/idle.c
-+++ b/kernel/sched/idle.c
-@@ -561,7 +561,14 @@ prio_changed_idle(struct rq *rq, struct task_struct *p, u64 oldprio)
- 	BUG();
+ #define RUN_TIME	5	/* measurement window, in seconds */
+ #define FIFO_PRIO	50
++#define FIFO_SPIN_US	800	/* blocking pass: spin this long ... */
++#define FIFO_SLEEP_US	10	/* ... then sleep this long */
+ 
+ /*
+  * The reservation is only approached, not reached: every slice the fair server
+@@ -208,6 +215,20 @@ static double monotonic_now(void)
+ 	return ts.tv_sec + ts.tv_nsec / 1000000000.0;
  }
  
--static void update_curr_idle(struct rq *rq)
-+/*
-+ * Charge the time the idle task of @rq ran since its se.exec_start to the
-+ * fair and ext servers, and advance se.exec_start to now. Nothing is
-+ * charged if @span_was_forced_idle: forced idle was not time available to
-+ * any class on @rq, so the deferred servers must not consume their runtime
-+ * on it.
-+ */
-+void charge_idle_to_dl_servers(struct rq *rq, bool span_was_forced_idle)
- {
- 	struct sched_entity *se = &rq->idle->se;
- 	u64 now = rq_clock_task(rq);
-@@ -573,11 +580,7 @@ static void update_curr_idle(struct rq *rq)
- 
- 	se->exec_start = now;
- 
--	/*
--	 * Forced idle was not time available to any class on this rq, so
--	 * don't let the deferred servers consume their runtime on it.
--	 */
--	if (forced_idle_rq(rq))
-+	if (span_was_forced_idle)
- 		return;
- 
- 	dl_server_update_idle(&rq->fair_server, delta_exec);
-@@ -586,6 +589,16 @@ static void update_curr_idle(struct rq *rq)
- #endif
- }
- 
-+/*
-+ * Only the core-wide pick starts or ends forced idle, and it charges the
-+ * idle time up to that point under the old state, so the current state is
-+ * the state of the whole span here.
-+ */
-+static void update_curr_idle(struct rq *rq)
++/* Spin for FIFO_SPIN_US, then sleep for FIFO_SLEEP_US, until killed. */
++static void spin_sleep_forever(void)
 +{
-+	charge_idle_to_dl_servers(rq, forced_idle_rq(rq));
++	struct timespec nap = { .tv_nsec = FIFO_SLEEP_US * 1000 };
++	double until;
++
++	while (1) {
++		until = monotonic_now() + FIFO_SPIN_US / 1000000.0;
++		while (monotonic_now() < until)
++			;
++		nanosleep(&nap, NULL);
++	}
 +}
 +
  /*
-  * Simple, special scheduling class for the per-CPU idle tasks:
-  */
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 32f76551a0c5e..1c61a1a9309a0 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -3005,6 +3005,7 @@ static inline bool sched_fair_runnable(struct rq *rq)
+  * Diagnostic only: how long the FIFO task's CPU was forced idle. Needs
+  * CONFIG_SCHEDSTATS and schedstats enabled, so it must not gate the result.
+@@ -233,7 +254,7 @@ static void print_forced_idle(pid_t pid)
+ }
  
- extern struct task_struct *pick_task_fair(struct rq *rq, struct rq_flags *rf);
- extern struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf);
-+void charge_idle_to_dl_servers(struct rq *rq, bool span_was_forced_idle);
+ /* Cookied SCHED_FIFO spinner. Only this task gets a cookie. */
+-static void fifo_child(int cpu, int ready_fd)
++static void fifo_child(int cpu, int ready_fd, bool blocks)
+ {
+ 	struct sched_param param = { .sched_priority = FIFO_PRIO };
  
- #define SCA_CHECK		0x01
- #define SCA_MIGRATE_DISABLE	0x02
+@@ -252,6 +273,8 @@ static void fifo_child(int cpu, int ready_fd)
+ 		signal_status(ready_fd, CHILD_ERROR);
+ 	}
+ 	signal_status(ready_fd, CHILD_READY);
++	if (blocks)
++		spin_sleep_forever();
+ 	spin_forever();
+ }
+ 
+@@ -287,45 +310,18 @@ static void kill_child(pid_t *pid)
+ 	*pid = -1;
+ }
+ 
+-int main(void)
++/*
++ * Run the FIFO and CFS spinners for RUN_TIME and check the CFS task's share.
++ * With @blocks the FIFO task sleeps between spins.
++ */
++static void test_forced_idle(int sib0, int sib1, double want, bool blocks)
+ {
+-	double fifo_runtime, cfs_start, cfs_end, t_start, t_end, share, want;
+-	unsigned long long runtime, period;
++	double fifo_runtime, cfs_start, cfs_end, t_start, t_end, share;
+ 	pid_t fifo_pid = -1, cfs_pid = -1;
+ 	int fifo_ready[2], cfs_ready[2];
+-	unsigned long long cookie;
+-	int sib0, sib1;
++	const char *pass = blocks ? " (FIFO task sleeps)" : "";
+ 	char status;
+ 
+-	ksft_print_header();
+-	ksft_set_plan(1);
+-
+-	if (read_sibling_pair(&sib0, &sib1)) {
+-		ksft_test_result_skip("CPU0 has no SMT sibling\n");
+-		ksft_finished();
+-	}
+-	ksft_print_msg("SMT siblings: CPU%d (FIFO) and CPU%d (CFS)\n", sib0, sib1);
+-
+-	if (prctl(PR_SCHED_CORE, PR_SCHED_CORE_GET, 0, PIDTYPE_PID,
+-		  (unsigned long)&cookie)) {
+-		ksft_test_result_skip("core scheduling unavailable: %s\n",
+-				      strerror(errno));
+-		ksft_finished();
+-	}
+-
+-	if (read_fair_server(sib1, &runtime, &period)) {
+-		ksft_test_result_skip("cannot read " FAIR_SERVER "/cpu%d, debugfs not mounted?\n",
+-				      sib1);
+-		ksft_finished();
+-	}
+-	if (!runtime || !period) {
+-		ksft_test_result_skip("fair server on CPU%d is disabled (%llu/%llu)\n",
+-				      sib1, runtime, period);
+-		ksft_finished();
+-	}
+-	ksft_print_msg("CPU%d fair server reservation: %llu/%llu ns = %.3f%%\n",
+-		       sib1, runtime, period, 100.0 * runtime / period);
+-
+ 	if (pipe(fifo_ready) || pipe(cfs_ready))
+ 		ksft_exit_fail_perror("pipe");
+ 
+@@ -334,7 +330,7 @@ int main(void)
+ 		close(fifo_ready[0]);
+ 		close(cfs_ready[0]);
+ 		close(cfs_ready[1]);
+-		fifo_child(sib0, fifo_ready[1]);
++		fifo_child(sib0, fifo_ready[1], blocks);
+ 	} else if (fifo_pid < 0) {
+ 		ksft_exit_fail_perror("fork FIFO child");
+ 	}
+@@ -348,7 +344,7 @@ int main(void)
+ 		close(cfs_ready[1]);
+ 		if (status == CHILD_EPERM) {
+ 			ksft_test_result_skip("need privileges for SCHED_FIFO\n");
+-			ksft_finished();
++			return;
+ 		}
+ 		ksft_exit_fail_msg("FIFO child setup failed\n");
+ 	}
+@@ -388,7 +384,6 @@ int main(void)
+ 		ksft_exit_fail_msg("cannot read CLOCK_MONOTONIC\n");
+ 
+ 	share = (cfs_end - cfs_start) / (t_end - t_start);
+-	want = MIN_SHARE_OF_RESERVATION * runtime / period;
+ 
+ 	ksft_print_msg("FIFO task ran %.3fs, CFS task ran %.3fs over %.3fs\n",
+ 		       fifo_runtime, cfs_end - cfs_start, t_end - t_start);
+@@ -396,7 +391,41 @@ int main(void)
+ 		       sib1, share * 100, want * 100);
+ 
+ 	ksft_test_result(share >= want,
+-			 "CFS task gets the fair server reservation while forced idle\n");
++			 "CFS task gets the fair server reservation while forced idle%s\n",
++			 pass);
++}
++
++int main(void)
++{
++	unsigned long long runtime, period;
++	unsigned long long cookie;
++	int sib0, sib1;
++	double want;
++
++	ksft_print_header();
++
++	if (read_sibling_pair(&sib0, &sib1))
++		ksft_exit_skip("CPU0 has no SMT sibling\n");
++	ksft_print_msg("SMT siblings: CPU%d (FIFO) and CPU%d (CFS)\n", sib0, sib1);
++
++	if (prctl(PR_SCHED_CORE, PR_SCHED_CORE_GET, 0, PIDTYPE_PID,
++		  (unsigned long)&cookie))
++		ksft_exit_skip("core scheduling unavailable: %s\n",
++			       strerror(errno));
++
++	if (read_fair_server(sib1, &runtime, &period))
++		ksft_exit_skip("cannot read " FAIR_SERVER "/cpu%d, debugfs not mounted?\n",
++			       sib1);
++	if (!runtime || !period)
++		ksft_exit_skip("fair server on CPU%d is disabled (%llu/%llu)\n",
++			       sib1, runtime, period);
++	ksft_print_msg("CPU%d fair server reservation: %llu/%llu ns = %.3f%%\n",
++		       sib1, runtime, period, 100.0 * runtime / period);
++
++	ksft_set_plan(2);
++	want = MIN_SHARE_OF_RESERVATION * runtime / period;
++	test_forced_idle(sib0, sib1, want, false);
++	test_forced_idle(sib0, sib1, want, true);
+ 
+ 	ksft_finished();
+ }
 -- 
 2.47.3
 
