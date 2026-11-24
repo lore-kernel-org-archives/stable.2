@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795533096;
-	b=KzfKngYlbMv12zUm5oDS9bV8MofKL0tZY0tFQ/SD7t24MNAVAimcWcJQYv5IQcTUJprJ
-	 njZPDbDAX/s6vv+OLOhLEqokMjNa9d/fImYG3R4MaeZ339XwE79523RW0/Lz1GfSgFvyY
-	 FimRTfjq9Yu+YjXaXDcTeZldU5aFvppCP7BM3Nu1ThF5baD2DQRietTA+ffjNZgM3/+Zf
-	 m7hwdRgV04vAnU8GHzwazvLprBwyfYshcqGoCOhwYTB3KwQ+4cSAD3AcLypJILiXnIQN6
-	 8oGBIAg34hUtusieAIScGveHwiKBcR4gEkdibpl0mgTBemYmqJefRa3xXR6JC7EwSUg==
+	t=1795533099;
+	b=CXJrBUQhfNNz2RjS8lw0lrdtuAjOaQboAF/v7vLUZFJF7rSAE3ULEqKtx0N17/3pJwI+
+	 38JlnwX9mmbxwmRK3Qjumi5Kr3ry0X50vtqC92Xp7+uOAbzX543URBmqrbrcf8a5i1hP7
+	 AVAC7eLjKGQnQz1lukK3VwRqpoy+yXKhubuyetZfExvpAOrfbwPMTKKVubaW+8ibJs38y
+	 jo76tPHSsA14ILqH0JGUxyS8pX8y/ePVHQd+qVjFh5wuP/34xQliq62WdzprgEM1PPF7e
+	 71IBr78LLiy8sJ2bOvUCtxDd1OlsprCSzvsmX+jSxt7d+mAlBsfbUy/E1sU0+lipm+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533096;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795533099;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CjJGmzDaV5z1CROxQ7+Na9qJQ4fn1bJ26/xwSLBTLqU=;
-	b=jwaPR01u9K0YmrzIG80Pu4XYU5xA8MuMvUvVxQnZXa6bd18/E8Ubte8YYAylRGHQFe5c
-	 9Jty4xj7hComaJa+YNjZ+Os0loHteEnN6UFk/JdlWtEorj7FLJIrOxlQY5obich0Ej1Gb
-	 2bWsgJEkLSd9AcWrQdLYD6qDWWW7c0FDile+90G2q7+fkgInQ0c3RbfUdrgs4VRulYDzv
-	 jUJ7uuf7/NK29QvpBI1p4fEfKNNXrNUeG6sZElCY93GqmtR5K0OnPvROsDeUeqlYCIIWG
-	 Zq0cWlrxAmerGuwOySKrY85jkRLK6CJhz/eBnFTJpfzeMsRODQ+SIZHyNUiFbtWrlUg==
+	bh=nz7bMj8MwknJebIKhkCH9EdK+BY8e67kPk3N9NyL7w8=;
+	b=OpJXqrjDc9p7GMSwxdyetYI/4jJx90WWsJGzGlFK+5hpuai06P+k89R8H74VMTpGmXlz
+	 weplyZM9IZn/3gAuK2tWGdudFFVq4EUkso90Y8ZzZI4UjpRWfpC3gQnU9r1coHt19VjQI
+	 /ajgwyhKMLv6wYtxe++Eq+NeYvYqEAYlJI7Q/9AYXlw3AfFcuoVFY4+NUaC2+ZtCk74I0
+	 Y9tis+xoTgBaNhZCwBB1osXCgAiW4x1RQNCVyz+V7Svn7370WP89VlacDrsuDLR+tWxua
+	 GKUZ6H9JyBm8aChtxQYDqamUdCjFdDrM6Rx0ThzdG7EHDX+E9IU62GH19k1tbikjSEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gvu2YUHe;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dIYIu7ib;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302DF606A323
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:11:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE16606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:11:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gvu2YUHe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A7D61F000D3;
-	Tue, 24 Nov 2026 15:11:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dIYIu7ib
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50C491F000C4;
+	Tue, 24 Nov 2026 15:11:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795533095;
-	bh=CjJGmzDaV5z1CROxQ7+Na9qJQ4fn1bJ26/xwSLBTLqU=;
+	s=korg; t=1795533098;
+	bh=nz7bMj8MwknJebIKhkCH9EdK+BY8e67kPk3N9NyL7w8=;
 	h=Subject:To:Cc:From:Date;
-	b=gvu2YUHekF3cjBlXJ+dCboQYrXee4nokqnLS+mfCkeIvGVSNYs0Oh+oAcW+eN7opK
-	 6HTAZKJu3JPkSI3s77DxofY8wEo0Gz2s1QS0wMp0SacrMwxp88Q2xo7dsNAzwXT88O
-	 QcpuJLOT5iGcfxUiNQxrOcoskqvpGpGf/cPhEx/E=
-Subject: FAILED: patch "[PATCH] mmc: sdhci-esdhc-imx: map unsupported driver type to Type B" failed to apply to 5.10-stable tree
+	b=dIYIu7ib3R7tzhrTqxJUwaNjNq4dTVVdEv6UFDuLtyuGII819+NEKhYO7piRmVE7q
+	 Ju3jopa3Ax8yXQi3/aDZejQOQC7GG+vNPXXYfdKqYk4jfre2wCKNo5Cm6bBO74y3A7
+	 PU7H2CgRwBnmeNVpUWXHnJ1MEh3CFQ9RV5AX6RGM=
+Subject: FAILED: patch "[PATCH] mmc: sdhci-esdhc-imx: map unsupported driver type to Type B" failed to apply to 6.1-stable tree
 To: ian.ray@gehealthcare.com,adrian.hunter@intel.com,haibo.chen@nxp.com,ulfh@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 24 Nov 2026 16:11:45 +0100
-Message-ID: <2026112445-unviable-busload-101a@gregkh>
+Message-ID: <2026112445-preoccupy-capped-e0f2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x d35d93c2902592a84347a15deac4d67a323694c9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112445-unviable-busload-101a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112445-preoccupy-capped-e0f2@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
