@@ -1,57 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795538728;
-	b=Zjqri7fvkw39qdgLxdElG/wSKs7+KGKoPLOQG6QkbXQ/lj4YSkbe+gq+4p/E6sN0bYUE
-	 aS2xB1wTCHTVnUn10XEKjn/n+9J26zPczRtTf5TvdVcEJvvpmmqs2Ax3F5nZVLnTImKMH
-	 /W8kaKSK0yQEa2ctVvqCMdSjYx+Wbzo4+DZPm409bfdASPu0vxuydDHlcFyLjYUvX1+To
-	 BFpUM8hWFIGETzNU6VxHBbo6jV3qoS1cqQMtpWHW4aQHx/yb4o/2NX7H4nrw6XvlGrX3H
-	 Q43JSXFSWKPALiPwq3j2oSgQRw3KG2GWtDi5PQNEXOzCm505CWrmFFtwifBb4w9Tajg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=sbiebsAgbvqXyaIlDqYqy10o7dWej1VGajjewiH2AJgJI6NHKvHFHOrpuwk9RvRbk0jN
+	 altP8Eq0dVFexRtEqdaycuTuh8LHO+8mxxULaU8KsDDysqhTpaohP97o6118iqrO6cp9s
+	 dS/UD8Lz7ru5oOJpmFwGg0N9gi06/ML3YWuq94Doowfp/QOCmo8haNCiDnJTH1VrKvC3x
+	 m/YiZtaPMpx0Dyin8hKDIQvjvvY2DQc7kFnxpLzcgYzyETzWS1lt6/hZErm9G/3F7TcuR
+	 im9h0CP5X56954dP4b/sBrHx21wXKHSvAKMz427nF8ITN/v8sKMJWF+bBSFXbgpCofA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795538728;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=nyv4qyKmmJjP5p8S4igRIebh+SCli2h19+peO2noHyY=;
-	b=gzqmEGFUL70SsZfqnFW5hj44fwtkeOn6YAP+sMxF/dwm+5T/6mZmb3JP5qyUtbgt0o0M
-	 98PABaxbcCtKtr5FKCeQSETY8kTsDykCoSKU1vw6Jriy272a58osFjq3WIKJQr8wdWcQT
-	 ru/94+OlzRb/dkn7pSZkkv8S3Gv72QCSbYHBEB9LtIy0WYS2+sz7y+W/Ei+ScT42H0avd
-	 Ugsgh+Wr2Lg2ncgTtOBwFq9CriDfpRX0vzGFemG16sEQjW2rUmXi1FCj99LDrftl494dd
-	 DgBCcpj8wba2V8bOS0fKq68U9tYG8OrRSrj/z7KDwrJAmsSxbiwlPnJi8pnS95jDqjA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=mjpezHqM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.112
-Received: from sender6-pp-f112.zoho.com (sender6-pp-f112.zoho.com [165.173.180.112])
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=3NNn+X6mBYpzhsvkcgn80LErUaFlJtswiOwKmKVX65k=;
+	b=wY/oyeC+nUqvPco/2s/rEi5fcvEig04Xh5S2R3R89SSh3qrGso0wsAZBSwsOqGPa0jKr
+	 3zRtmNv7ne3hTcY8Q4iArXlRCWhpTP2zn6Tr6FHzKT2OmJ/eVtgfCV9kfYlMlDDmh8QCC
+	 SKRjbfnQG6Z0TaoFQG61kCkAudANA++3oXtS2wvCaTKvyxW5fKjzhZXEVVpGSgnSAZAsK
+	 QYUlNo0nPZWku7aB+x4m+KAaxtxGlBZxPlLkJWeqfvo6Vy/bmUCgJGb2+kqL7/M3wFyhK
+	 YSIFaoZfhVxiHAciUblVHVTqvc7VrPofpwPPmQ7f5UUzVleFXGeo9lT+NBsxE+W971Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CeiMxS5G;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A43A606A32A;
-	Tue, 24 Nov 2026 16:45:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A43A606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FC3606A333
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:45:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=mjpezHqM
-ARC-Seal: i=1; a=rsa-sha256; t=1795538704; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=PqoW9vEsosk0kWNe8mN/b5cWz13IAD3NV/CfIq16wkKKeOS1TQtUeMItdUcUHeE6+aC1WFewJinRGk6LpXlOb8TYNSK0+yCbrA5iBn8bJ4HStdQQdcpa7D/zWG0wTBuwDqFoDdOBSZyUzhP9VsvajGp5t3oC8kGVWV1DQ1pJWCg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795538704; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=nyv4qyKmmJjP5p8S4igRIebh+SCli2h19+peO2noHyY=; 
-	b=WVo+S8VsfugagYmMoeFru00PgL+LOWKhv4UI2qir4qVRkXvbLuB/GZM+hfFlqSp/iZ0c0RWoW9yPMwkBcz6+GIL6TsZQsBH7PmxZJEYj+I72p/Uj5OyevPYlO8yxHsnDy5/lxsY+E9+3eG8r2IqVHQfgEhY7Gi2gyNCsJ018q+Y=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=mjpezHqM7WgrErdIArXe+3GmEMZ6UhhR8asE/IpDYc7WLymPHyRMrdLtyAXIf7FSKVWDtRswIIiJ1GxOTqdQUiSQhZ0b3ZTKPiJEnxpoLzuF0IvY4q2IkaC+EhcW125kQpvgqUopoRG96KtI/JLWV+nLXTzVbl60wmhyYh/V7OqmJe/IRQnG1EHSc3FYjEKL4UVtWTzbSQza3ZXCPekrWjmZSX0mU5xIUdolZokBIujYHKQiVwFGVOVHLhsGa/LWiUvHuqJI1whx16rsyLosvKq7mn/MNVxvYK129pmk+O4xdJ8Uv+XNPa81L3poKQ3ypV+tXpmzLaoybcCmMdnkew==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=nyv4qyKmmJjP5p8S4igRIebh+SCli2h19+peO2noHyY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795538701913519.779254016571;
-	Tue, 24 Nov 2026 08:45:01 -0800 (PST)
-From: Rong Zhang <i@rong.moe>
-Subject: [PATCH v4 0/9] HID: Add hid-plugin framework & convert haptic into
- a plugin
-Date: Wed, 25 Nov 2026 00:44:28 +0800
-Message-Id: <20261125-hid-haptic-kmod-v4-0-03713a89f656@rong.moe>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CeiMxS5G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7761F000D4;
+	Tue, 24 Nov 2026 16:45:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795538728;
+	bh=3NNn+X6mBYpzhsvkcgn80LErUaFlJtswiOwKmKVX65k=;
+	h=Subject:To:Cc:From:Date;
+	b=CeiMxS5GLJPK9J1HPuFw4Jk1J+1vmhzbJGouieX77yNczS7H1xPolJnlCoIyRIZmn
+	 DlkRuYLDMu/ee7H2TGeVeDMQ45D0wGqD5Pfzt1/btuUc8uaaMBUPLvuBEpx2TtMibx
+	 pCQTik449N2sHd5R8OHEUZ7UZOkjl9pfhz9bIZ3s=
+Subject: FAILED: patch "[PATCH] macsec: reject frames that decapsulate into runt Ethernet" failed to apply to 5.10-stable tree
+To: kylebot@openai.com,davem@davem-thinkpadp1gen8.ibmlond.csb
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 24 Nov 2026 17:45:40 +0100
+Message-ID: <2026112440-cranial-zen-ea50@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,131 +51,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XNTQ6CMBCG4auYrq3pHwO48h7GRWkHqQZKWmw0h
- rtbdENk+SXzvPMmEYPDSI67NwmYXHR+yEPtd8R0ergidTZvUoNSCmpNO2dpp8fJGXrvvaUKK1S
- CtRUWLclqDNi657d4vvx2fDQ3NNOSWS46FycfXt+XiS93RDABnDOxqSdOGdXSYgECrLZ4Cn64H
- nqPZIknseKcbbnIvKlkoRmUpgHxx+Wayy2XmWNpW12VAIbZFZ/n+QOzHv8oPQEAAA==
-X-Change-ID: 9644469a-hid-haptic-kmod-4e8e420f8e5f
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
- Angela Czubak <aczubak@google.com>, Henrik Rydberg <rydberg@bitmath.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-ce4c1
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Recently I am working on adding HID LampArray support for hid-input [1].
-I would like it to be a loadable plugin module. While looking through
-LKML, I found hid-haptic, which is a plugin-like support code collection
-that must be built into vmlinux. Therefore, I decided to develop a
-generic framework for loadable plugin modules, so that it can be used by
-multiple drivers.
 
-This series aims to introduce the said framework and convert hid-haptic
-into the first plugin, as it's easy to convert and perfectly
-demonstrates how the framework works. For simplicity, hid-haptic still
-attaches to hid-multitouch after the conversion.
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Recently, I brought a Logitech MX Master 4 with haptic feedback, so I am
-also planning to prepare another series to make hid-haptic generic by
-attaching it to hid-input after this is applied.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-The first five patches fix pre-existing bugs in hid-haptic and
-hid-multitouch that may become more frigile once the former is
-converted. The last four patches refactor hid-haptic, implement the
-hid-plugin framework and finish the conversion.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x 1d5e2c57e9ffc134e14b3f837c8d7c53b508bd22
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112440-cranial-zen-ea50@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
-The plugin framework is designed for devices with additional HID usage
-pages which enhance their capabilities. The support code for these usage
-pages is called "HID plugin".
+Possible dependencies:
 
-The corresponding HID driver calls functions provided by the plugin to
-take the advantage of such enhancements. Without the framework, the HID
-driver must have a linkage dependence on the plugin, which is not
-optimal because the plugin is always loaded into memory even if no
-device actually supports it.
 
-Logically, the dependence should be reversed, i.e., the plugin should be
-an optional component of the HID driver, which is only loaded when the
-driver finds that the device needs it.
 
-Introduce hid-plugin framework for loadable plugin modules to achieve
-the said logical dependence. Each plugin has a unique hid_plugin_id when
-enabled, so that HID drivers can request it accordingly. The framework
-aims to be lightweight. It loads the plugin module when needed. Once
-loaded (or if the plugin is builtin), requesting the plugin is just an
-RCU dereference plusing an module refcount increment.
+thanks,
 
-When a plugin is disabled, its id maps to HID_PLUGIN_DISABLED, and calls
-to the plugin helper functions are eliminated by the compiler.
+greg k-h
 
-With it, hid-haptic can be easily converted into a loadable plugin
-module, so that hid-multitouch only requests it on demand.
+------------------ original commit in Linus's tree ------------------
 
-I volunteer to maintain the framework as well as its plugins, including
-hid-haptic and future ones.
+From 1d5e2c57e9ffc134e14b3f837c8d7c53b508bd22 Mon Sep 17 00:00:00 2001
+From: Kyle Zeng <kylebot@openai.com>
+Date: Thu, 29 Oct 2026 21:22:37 -0700
+Subject: [PATCH] macsec: reject frames that decapsulate into runt Ethernet
+ frames
 
-Thanks Benjamin Tissoires for the inspiration for the implementation.
+When an SCI is unknown and the C bit is clear, macsec_handle_frame()
+removes the SecTAG and the default ICV without checking how much of the
+frame remains. A short frame can therefore become an skb shorter than
+ETH_HLEN. eth_type_trans() cannot pull its Ethernet header, and a second
+stacked MACsec device can copy stale skb headroom into a packet delivered
+to a packet socket.
 
-[1]: I know Texudo folks are working on adding hid-lamparray to connect
-it to hid-generic. I am not in favor of their design, so I decided to
-write a new one. In my local tree, I've had an independent
-implementation with HIDRAW sniff, autonomous mode as an LED trigger,
-RGB/non-RGB LampArray support, per-key LED device support, etc. I will
-submit it once this series settles.
+The matched-SCI path has a related hole: macsec_validate_skb() accepts a
+short_length of one, so a frame that passes the existing length check can
+still become a 13-byte Ethernet frame.
 
-Suggested-by: Benjamin Tissoires <bentiss@kernel.org>
-Link: https://lore.kernel.org/linux-input/auypydfkhx2eg7vp764way4batdilzc35inqda3exwzs3tk3ff@oagat6g46zto/
-Signed-off-by: Rong Zhang <i@rong.moe>
----
-Changes in v4:
-- Drop get_device()/put_device() and try_module_get()/module_put()
-  completely, as they are needless now (thanks Dmitry Torokhov)
-- Drop synchronize_rcu() during registration as other drivers do, as
-  there is nothing to protect
-- Link to v3: https://patch.msgid.link/20261113-hid-haptic-kmod-v3-0-e7dfa8766c0d@rong.moe
+Require enough bytes for the MACsec overhead and a complete Ethernet
+header before decapsulating an unknown-SCI frame. Apply the same bound
+in macsec_validate_skb(), using the selected SecY's ICV length, to cover
+the no-SA, synchronous-decrypt and asynchronous-decrypt delivery paths.
+Leave other unknown-SCI handling unchanged.
 
-Changes in v3:
-- Correct the Fixes: tag of PATCH 4 (thanks Sashiko)
-- Add missing Return: to hid_plugin_register()'s kernel-doc (ditto)
-- Fix the return value of hid_haptic_connected_to_input() when
-  hid-haptic is disabled (ditto)
-- Link to v2: https://patch.msgid.link/20261110-hid-haptic-kmod-v2-0-b835a067cb62@rong.moe
+Fixes: c09440f7dcb3 ("macsec: introduce IEEE 802.1AE driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
 
-Changes in v2:
-- Reject touchpad applications with non-force units (thanks Sashiko)
-- Only call runtime methods if the event source is the same input device
-  as the stored one (ditto)
-- Rebase on top of v7.4-rc2 due to the devm_kzalloc_obj() changes
-- Link to v1: https://patch.msgid.link/20261102-hid-haptic-kmod-v1-0-a3de5626dade@rong.moe
-
----
-Rong Zhang (9):
-      HID: haptic: Get rid of input_ff_destroy() in error paths
-      HID: haptic: Fix use-after-free when draining workqueue
-      HID: haptic, multitouch: Check haptic prerequisite properly
-      HID: haptic, multitouch: Fix haptic device double-free and unnecessary allocation
-      HID: haptic: Postpone GET_REPORT to init
-      HID: haptic: Convert simple methods into static inline ones
-      HID: Add hid-plugin framework for loadable plugin modules
-      HID: haptic: Convert into a loadable plugin module
-      HID: haptic: Remove stubs in favor of inlined dead code elimination
-
- MAINTAINERS                  |   7 ++
- drivers/hid/Kconfig          |  21 +++-
- drivers/hid/Makefile         |   4 +-
- drivers/hid/hid-haptic.c     | 194 ++++++++---------------------------
- drivers/hid/hid-haptic.h     | 233 +++++++++++++++++++++++++++++++------------
- drivers/hid/hid-multitouch.c |  75 ++++++++------
- drivers/hid/hid-plugin.c     | 108 ++++++++++++++++++++
- drivers/hid/hid-plugin.h     | 147 +++++++++++++++++++++++++++
- 8 files changed, 542 insertions(+), 247 deletions(-)
----
-base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-change-id: 9644469a-hid-haptic-kmod-4e8e420f8e5f
-
-Thanks,
-Rong
+diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
+index 87f3f4bdb026..240ba0ae07d1 100644
+--- a/drivers/net/macsec.c
++++ b/drivers/net/macsec.c
+@@ -408,8 +408,10 @@ static bool macsec_validate_skb(struct sk_buff *skb, u16 icv_len, bool xpn)
+ 	int len = skb->len - 2 * ETH_ALEN;
+ 	int extra_len = macsec_extra_len(!!(h->tci_an & MACSEC_TCI_SC)) + icv_len;
+ 
+-	/* a) It comprises at least 17 octets */
+-	if (skb->len <= 16)
++	/* a) It comprises at least 17 octets. The SecTAG and ICV must
++	 * also leave a complete Ethernet header.
++	 */
++	if (skb->len < ETH_HLEN + extra_len)
+ 		return false;
+ 
+ 	/* b) MACsec EtherType: already checked */
+@@ -1331,9 +1333,12 @@ static rx_handler_result_t macsec_handle_frame(struct sk_buff **pskb)
+ nosci:
+ 	/* 10.6.1 if the SC is not found */
+ 	cbit = !!(hdr->tci_an & MACSEC_TCI_C);
+-	if (!cbit)
+-		macsec_finalize_skb(skb, MACSEC_DEFAULT_ICV_LEN,
+-				    macsec_extra_len(macsec_skb_cb(skb)->has_sci));
++	if (!cbit) {
++		len = macsec_extra_len(macsec_skb_cb(skb)->has_sci);
++		if (skb->len < ETH_HLEN + len + MACSEC_DEFAULT_ICV_LEN)
++			goto drop_nosc;
++		macsec_finalize_skb(skb, MACSEC_DEFAULT_ICV_LEN, len);
++	}
+ 
+ 	list_for_each_entry_rcu(macsec, &rxd->secys, secys) {
+ 		struct sk_buff *nskb;
 
