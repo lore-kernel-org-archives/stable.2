@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795545685;
-	b=3Xz2onqwkpHRTllnQ0VSe4H8Y3ZkgKsSGIQFn6ZOyScdN60E8k4upwT0TYqAdy6bV4TZ
-	 6GyIaY0JnJ1nE8hk9Xe41KdiH2Gr21y7d+RYFK8Wz9eZc3KUkdJ0ySCZpHORPOxxTcdQ9
-	 R+6/pNo0Cd8vKj8NuG8LKksaTEnkjbDqIo170Sdl6Fzi6wmRF3M0Kr80QKnbIRfdOidua
-	 jf+Nt353W/fgVNJOKmqcxI/sot/0luaewIorJd3V5aTXRj2hYqzlpIQFrjfN87oO5uXBc
-	 ch3lIMHtjDFumcrNQ22F8b7MCJd+lWk6kIIowdzpNTlvGvZuC74jbDimKVB3NH+Ansg==
+	t=1795545686;
+	b=0Dg8Mg/Gf5ghoAMrDkC5AjyoSP8KCUAbJuyuH8+psk8cwbtI25imVX5E0rxzMqMayur/
+	 GSSep/VHl3TvMCkzinuY5UgbPjlFEvMlbFHGngHWMxyv9qGU3CMYaQWN6CbF+msZBqNRX
+	 SkncXCowFeRGopZkwa7Dt/tmaJ/Mde2W5flL2I3j/88ZcIFSro6su3NHk1nxsyVsVhswt
+	 NpvUQgjWVKq9elHYfu4szAvG1DsHl6e5XMWnLGAR1/IOaUIWDQjSfY4UDQvpsTQ5d2KlD
+	 ThysLfK2U2HWPHOLGvN2cBmBmme3GmNTs4t3Bajq+MsNUUJDjK/R1BRbPMWqm0KEN+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795545685;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795545686;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=m+2Qxb4KEwgXHMupJHko5OK7Cy+4Jk91JdwfZsJm5Ks=;
-	b=wvWlQoesowc2QaUusqoDEe+2Pa1AnLLEAgSISB+/cb+X40t1YhWmoQbmoYmLCdTeETwd
-	 JwHhd2lGGxYLy6UzUvOvT5VD7C0Oytxr7TZ81/l/idxpGAiPzsPDXGciq+etuCwoT8gnz
-	 pMrQWHzQEGRdqBR963/TXLqAJIyAsBS8HxXSNs5r2k5xZlsdJs9ygD8c2vQE8c1FhNeHu
-	 oKni55BJzlsXZsDC/WEZpRxDC7PTxVgCxF7/1kDBQmEDcNqLc4Ucm5oPkanwY0ACpucM6
-	 QvVn6XT1sPKdSyTTboeOMwBbA/dCbt12iG/rNcoIz9foX4kc3SEfEKlpN3F5RjXkeWg==
+	bh=hl/bX5DuVZchMo6SL6jKXGgpfSjzwnMjbakQZjrbrQM=;
+	b=kesu1M6PqvupLl3g6FM2rNSJEWgre2No5+VZx/eMdtpAYR7ylQGAoMOgc6j+gRPcrd0F
+	 TjHgYWmoc+tkJOQItQgFeuvNv91xZIhOs1lHz4iZ+5jGZbwlPXGEjfBYsssAurW8GpvG6
+	 z1gvEs6tskGpgfjpMs2QqruyiE36eZpT2ik6WqtX61HlJCHIzL3bqektQAws4Y+54fBq1
+	 vsIt3KJE2g82fzIg38Y+Y8LFnDrxBix2OsaW8ZmsSLjwmf4PSRL0C8sodpBFpx2jwYp4e
+	 nM8z2FkcT2g54rmCCcrpgjfgF+IZClPd+JpkjhfS1xzLDP1bVPT/I6OkuriZ6DRA7vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijKevbUk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFTaMFxt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B7D606A326
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:41:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C36606A32C
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:41:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijKevbUk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8331F000D2;
-	Tue, 24 Nov 2026 18:41:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFTaMFxt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F5461F000D8;
+	Tue, 24 Nov 2026 18:41:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795545685;
-	bh=m+2Qxb4KEwgXHMupJHko5OK7Cy+4Jk91JdwfZsJm5Ks=;
+	s=k20260515; t=1795545686;
+	bh=hl/bX5DuVZchMo6SL6jKXGgpfSjzwnMjbakQZjrbrQM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ijKevbUk/MgHCXCeHJLjh4nfk7/BwOUHZxwIgQakQUDU7BYv7BRH+BblHhwPajgCB
-	 s2bboNTGvlg9BFsW+83QgMDnX6AmOFpIbxoWdRmJYycER8Y4ClcWsz+7n3C5DHz64y
-	 jKo95+vIl/bJqZAIF7AZSqlqsXk2OSzGitRQcwiUA07RdhVAwP7fdMBnPTWQU03QkA
-	 PbKzdtBybfoFJ7tVpjbKtO098mtS9aykaxPy1MpAuGbQm1KGfF3suWi4DbDhNpM3D0
-	 i2lwPqEkxyFiwmftRwSQOEirU1FzvPSNbAUWjWwtyIsVjW3eD611x2i3GswjRa7grK
-	 rwWMkx313LU4g==
+	b=JFTaMFxtelVPxapnuFKPNOAYW6CuD8o1OIWPIgx3LDXVbjw9/4eIOexpA3svNFUcP
+	 UbS1uyZFgXkkUEESGsUUu92M5qayQFn3dPKf+pEaYkEGYxQynfDYah2s43wVOqf3Ay
+	 pO4w0+1CVE/z+gxPR72myzwarRCPGGHZlsyxXTK5rLruPmRfDV5zP6CvUS4BtduzMt
+	 ZwjXtbhBLy+WKD99OnQA5CEa/pQVQs4HTG8weHJPhHRKHVgr8BwqL43QoyaFnNK7+W
+	 +ELM+d6VkCOPEJnhBHCcFgXDVfUXifFAlSpvaFb7GBZU5DfPJ1+Ty2wqdYFMPy23/4
+	 1FVc7Vz9oLAlA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wei Yang <richard.weiyang@gmail.com>,
-	Shivank Garg <shivankg@amd.com>,
-	David Hildenbrand <david@redhat.com>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Zi Yan <ziy@nvidia.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] mm: improve code consistency with zonelist_* helper functions
-Date: Tue, 24 Nov 2026 13:41:21 -0500
-Message-ID: <20261124184032.2321147-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] mm, page_alloc: pass zone pointer to trace_reclaim_retry_zone
+Date: Tue, 24 Nov 2026 13:41:22 -0500
+Message-ID: <20261124184032.2321147-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112421-retrace-illusion-ba9a@gregkh>
+In-Reply-To: <20261124184032.2321147-1-sashal@kernel.org>
 References: <2026112421-retrace-illusion-ba9a@gregkh>
+ <20261124184032.2321147-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,201 +65,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wei Yang <richard.weiyang@gmail.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit 29943248af0a8ac3edb808564baa417b40e35521 ]
+[ Upstream commit 6c48b3ab4ee435c41c3395d31e8ec3dbccc3478c ]
 
-Replace direct access to zoneref->zone, zoneref->zone_idx, or
-zone_to_nid(zoneref->zone) with the corresponding zonelist_* helper
-functions for consistency.
+should_reclaim_retry() walks a zonelist and passes the zoneref pointer
+to the reclaim_retry_zone tracepoint, which loads the zone from the
+entry again to find the node.
 
-No functional change.
+Memory hotplug rebuilds the zonelists in place while allocations are
+under way. When a zone in front of the zoneref entry has become empty,
+the entries move up, and this one can be the end marker by the time the
+tracepoint looks at it. zonelist_node_idx() then dereferences a NULL
+zone. Short of that, the event can name another zone than the one its
+numbers belong to.
 
-Link: https://lkml.kernel.org/r/20240729091717.464-1-shivankg@amd.com
-Co-developed-by: Shivank Garg <shivankg@amd.com>
-Signed-off-by: Shivank Garg <shivankg@amd.com>
-Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
-Acked-by: David Hildenbrand <david@redhat.com>
-Cc: Mike Rapoport (IBM) <rppt@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 6c48b3ab4ee4 ("mm, page_alloc: pass zone pointer to trace_reclaim_retry_zone")
+Pass the zone pointer instead of the zoneref pointer.
+
+Fixes: d379f01de095 ("oom, trace: add oom detection tracepoints")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Link: https://patch.msgid.link/20261101021340.2251928-4-gourry@gourry.net
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/mmzone.h     |  4 ++--
- include/trace/events/oom.h |  4 ++--
- mm/mempolicy.c             |  4 ++--
- mm/mmzone.c                |  2 +-
- mm/page_alloc.c            | 22 +++++++++++-----------
- 5 files changed, 18 insertions(+), 18 deletions(-)
+ include/trace/events/oom.h | 8 ++++----
+ mm/page_alloc.c            | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 7951de0ca970e..f0a0288bafc7b 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -1524,7 +1524,7 @@ static inline struct zoneref *first_zones_zonelist(struct zonelist *zonelist,
- 			zone = zonelist_zone(z))
- 
- #define for_next_zone_zonelist_nodemask(zone, z, highidx, nodemask) \
--	for (zone = z->zone;	\
-+	for (zone = zonelist_zone(z);	\
- 		zone;							\
- 		z = next_zones_zonelist(++z, highidx, nodemask),	\
- 			zone = zonelist_zone(z))
-@@ -1560,7 +1560,7 @@ static inline bool movable_only_nodes(nodemask_t *nodes)
- 	nid = first_node(*nodes);
- 	zonelist = &NODE_DATA(nid)->node_zonelists[ZONELIST_FALLBACK];
- 	z = first_zones_zonelist(zonelist, ZONE_NORMAL,	nodes);
--	return (!z->zone) ? true : false;
-+	return (!zonelist_zone(z)) ? true : false;
- }
- 
- 
 diff --git a/include/trace/events/oom.h b/include/trace/events/oom.h
-index b799f3bcba823..8c834a0d22817 100644
+index 8c834a0d22817..008c62cc078b1 100644
 --- a/include/trace/events/oom.h
 +++ b/include/trace/events/oom.h
+@@ -33,7 +33,7 @@ TRACE_EVENT(oom_score_adj_update,
+ 
+ TRACE_EVENT(reclaim_retry_zone,
+ 
+-	TP_PROTO(struct zoneref *zoneref,
++	TP_PROTO(struct zone *zone,
+ 		int order,
+ 		unsigned long reclaimable,
+ 		unsigned long available,
+@@ -41,7 +41,7 @@ TRACE_EVENT(reclaim_retry_zone,
+ 		int no_progress_loops,
+ 		bool wmark_check),
+ 
+-	TP_ARGS(zoneref, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
++	TP_ARGS(zone, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(	int, node)
 @@ -55,8 +55,8 @@ TRACE_EVENT(reclaim_retry_zone,
  	),
  
  	TP_fast_assign(
--		__entry->node = zone_to_nid(zoneref->zone);
--		__entry->zone_idx = zoneref->zone_idx;
-+		__entry->node = zonelist_node_idx(zoneref);
-+		__entry->zone_idx = zonelist_zone_idx(zoneref);
+-		__entry->node = zonelist_node_idx(zoneref);
+-		__entry->zone_idx = zonelist_zone_idx(zoneref);
++		__entry->node = zone_to_nid(zone);
++		__entry->zone_idx = zone_idx(zone);
  		__entry->order = order;
  		__entry->reclaimable = reclaimable;
  		__entry->available = available;
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index a8e990a6aa0c0..bfc94fb823608 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -1925,7 +1925,7 @@ unsigned int mempolicy_slab_node(void)
- 		zonelist = &NODE_DATA(node)->node_zonelists[ZONELIST_FALLBACK];
- 		z = first_zones_zonelist(zonelist, highest_zoneidx,
- 							&policy->nodes);
--		return z->zone ? zone_to_nid(z->zone) : node;
-+		return zonelist_zone(z) ? zonelist_node_idx(z) : node;
- 	}
- 	case MPOL_LOCAL:
- 		return node;
-@@ -2617,7 +2617,7 @@ int mpol_misplaced(struct page *page, struct vm_area_struct *vma, unsigned long
- 				node_zonelist(numa_node_id(), GFP_HIGHUSER),
- 				gfp_zone(GFP_HIGHUSER),
- 				&pol->nodes);
--		polnid = zone_to_nid(z->zone);
-+		polnid = zonelist_node_idx(z);
- 		break;
- 
- 	default:
-diff --git a/mm/mmzone.c b/mm/mmzone.c
-index 68e1511be12de..9e268ee0a34db 100644
---- a/mm/mmzone.c
-+++ b/mm/mmzone.c
-@@ -66,7 +66,7 @@ struct zoneref *__next_zones_zonelist(struct zoneref *z,
- 			z++;
- 	else
- 		while (zonelist_zone_idx(z) > highest_zoneidx ||
--				(z->zone && !zref_in_nodemask(z, nodes)))
-+				(zonelist_zone(z) && !zref_in_nodemask(z, nodes)))
- 			z++;
- 
- 	return z;
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index ba7f386331a65..5b5a64db3f3be 100644
+index 5b5a64db3f3be..1db53951ff585 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -4303,7 +4303,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 		}
- 
- 		if (no_fallback && nr_online_nodes > 1 &&
--		    zone != ac->preferred_zoneref->zone) {
-+		    zone != zonelist_zone(ac->preferred_zoneref)) {
- 			int local_nid;
- 
- 			/*
-@@ -4311,7 +4311,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 			 * fragmenting fallbacks. Locality is more important
- 			 * than fragmentation avoidance.
- 			 */
--			local_nid = zone_to_nid(ac->preferred_zoneref->zone);
-+			local_nid = zonelist_node_idx(ac->preferred_zoneref);
- 			if (zone_to_nid(zone) != local_nid) {
- 				alloc_flags &= ~ALLOC_NOFRAGMENT;
- 				goto retry;
-@@ -4340,7 +4340,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 				goto try_this_zone;
- 
- 			if (!node_reclaim_enabled() ||
--			    !zone_allows_reclaim(ac->preferred_zoneref->zone, zone))
-+			    !zone_allows_reclaim(zonelist_zone(ac->preferred_zoneref), zone))
- 				continue;
- 
- 			ret = node_reclaim(zone->zone_pgdat, gfp_mask, order);
-@@ -4362,7 +4362,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 		}
- 
- try_this_zone:
--		page = rmqueue(ac->preferred_zoneref->zone, zone, order,
-+		page = rmqueue(zonelist_zone(ac->preferred_zoneref), zone, order,
- 				gfp_mask, alloc_flags, ac->migratetype);
- 		if (page) {
- 			prep_new_page(page, order, gfp_mask, alloc_flags);
-@@ -5152,7 +5152,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 	 */
- 	ac->preferred_zoneref = first_zones_zonelist(ac->zonelist,
- 					ac->highest_zoneidx, ac->nodemask);
--	if (!ac->preferred_zoneref->zone)
-+	if (!zonelist_zone(ac->preferred_zoneref))
- 		goto nopage;
- 
- 	/*
-@@ -5164,7 +5164,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 		struct zoneref *z = first_zones_zonelist(ac->zonelist,
- 					ac->highest_zoneidx,
- 					&cpuset_current_mems_allowed);
--		if (!z->zone)
-+		if (!zonelist_zone(z))
- 			goto nopage;
- 	}
- 
-@@ -5544,8 +5544,8 @@ unsigned long __alloc_pages_bulk(gfp_t gfp, int preferred_nid,
- 			continue;
- 		}
- 
--		if (nr_online_nodes > 1 && zone != ac.preferred_zoneref->zone &&
--		    zone_to_nid(zone) != zone_to_nid(ac.preferred_zoneref->zone)) {
-+		if (nr_online_nodes > 1 && zone != zonelist_zone(ac.preferred_zoneref) &&
-+		    zone_to_nid(zone) != zonelist_node_idx(ac.preferred_zoneref)) {
- 			goto failed;
- 		}
- 
-@@ -5604,7 +5604,7 @@ unsigned long __alloc_pages_bulk(gfp_t gfp, int preferred_nid,
- 	pcp_trylock_finish(UP_flags);
- 
- 	__count_zid_vm_events(PGALLOC, zone_idx(zone), nr_account);
--	zone_statistics(ac.preferred_zoneref->zone, zone, nr_account);
-+	zone_statistics(zonelist_zone(ac.preferred_zoneref), zone, nr_account);
- 
- out:
- 	return nr_populated;
-@@ -5662,7 +5662,7 @@ struct page *__alloc_pages(gfp_t gfp, unsigned int order, int preferred_nid,
- 	 * Forbid the first pass from falling back to types that fragment
- 	 * memory until all local zones are considered.
- 	 */
--	alloc_flags |= alloc_flags_nofragment(ac.preferred_zoneref->zone, gfp);
-+	alloc_flags |= alloc_flags_nofragment(zonelist_zone(ac.preferred_zoneref), gfp);
- 
- 	/* First allocation attempt */
- 	page = get_page_from_freelist(alloc_gfp, order, alloc_flags, &ac);
-@@ -6633,7 +6633,7 @@ int local_memory_node(int node)
- 	z = first_zones_zonelist(node_zonelist(node, GFP_KERNEL),
- 				   gfp_zone(GFP_KERNEL),
- 				   NULL);
--	return zone_to_nid(z->zone);
-+	return zonelist_node_idx(z);
- }
- #endif
- 
+@@ -5043,7 +5043,7 @@ should_reclaim_retry(gfp_t gfp_mask, unsigned order,
+ 		 */
+ 		wmark = __zone_watermark_ok(zone, order, min_wmark,
+ 				ac->highest_zoneidx, alloc_flags, available);
+-		trace_reclaim_retry_zone(z, order, reclaimable,
++		trace_reclaim_retry_zone(zone, order, reclaimable,
+ 				available, min_wmark, *no_progress_loops, wmark);
+ 		if (wmark) {
+ 			ret = true;
 -- 
 2.53.0
 
