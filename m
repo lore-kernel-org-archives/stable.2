@@ -1,59 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795545686;
-	b=0Dg8Mg/Gf5ghoAMrDkC5AjyoSP8KCUAbJuyuH8+psk8cwbtI25imVX5E0rxzMqMayur/
-	 GSSep/VHl3TvMCkzinuY5UgbPjlFEvMlbFHGngHWMxyv9qGU3CMYaQWN6CbF+msZBqNRX
-	 SkncXCowFeRGopZkwa7Dt/tmaJ/Mde2W5flL2I3j/88ZcIFSro6su3NHk1nxsyVsVhswt
-	 NpvUQgjWVKq9elHYfu4szAvG1DsHl6e5XMWnLGAR1/IOaUIWDQjSfY4UDQvpsTQ5d2KlD
-	 ThysLfK2U2HWPHOLGvN2cBmBmme3GmNTs4t3Bajq+MsNUUJDjK/R1BRbPMWqm0KEN+A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795545686;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hl/bX5DuVZchMo6SL6jKXGgpfSjzwnMjbakQZjrbrQM=;
-	b=kesu1M6PqvupLl3g6FM2rNSJEWgre2No5+VZx/eMdtpAYR7ylQGAoMOgc6j+gRPcrd0F
-	 TjHgYWmoc+tkJOQItQgFeuvNv91xZIhOs1lHz4iZ+5jGZbwlPXGEjfBYsssAurW8GpvG6
-	 z1gvEs6tskGpgfjpMs2QqruyiE36eZpT2ik6WqtX61HlJCHIzL3bqektQAws4Y+54fBq1
-	 vsIt3KJE2g82fzIg38Y+Y8LFnDrxBix2OsaW8ZmsSLjwmf4PSRL0C8sodpBFpx2jwYp4e
-	 nM8z2FkcT2g54rmCCcrpgjfgF+IZClPd+JpkjhfS1xzLDP1bVPT/I6OkuriZ6DRA7vQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFTaMFxt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795545912;
+	b=LlObpDvJdO7z5uTkPNo86Y6ASfWaEbOFMeah6dP1tIvEU2dKg4Lj5Vz+8cwScowPSm7R
+	 kqfEFqyrJVt9TRqcxSuYTN4t0Gr+yi0RcvhTBjGfthhfqgwiHzSwyjfSu5ctlJoN1ATAF
+	 VTDiCOho2RWoF945UK43u/Izq6DhiuIEL18Z8h3srGBRw9hMCEJoZrfgFDc33PYzYlUyv
+	 Nk3lwpU4A8lokfpXHAcM9Cn8c/tM5yfoN0DCwDiGGgoLnPj/w3vVWXpGbz878LdGegpCC
+	 gkn5/tA9zRJ5oLUa2LMlv2CRtdaADHAvq5WN2SeI9G0nyEW5QSZuYaXJSlXO1YO1c7Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795545912;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=eVt63sFAXFALqIi2TYrbUsERABkXRLEjuN5CXIXLcg8=;
+	b=vIS1bRTtGMzWvxSjJoSne8whEMkJFVPwLAfys3uBr9zNwCikdNdiEjubu93XfYljsDZ+
+	 /zD4vslZmss2MZvInZTLGX0/ujtoZRMKARpPs2bCibIkBVPKTbKXmC6Ih1rRQdYJOS6E6
+	 Vv0LfSkx5TMs+v/L6I7GohGw0d9KZlLngnuU6vGae9d+R+/vTr/uVHvLlHTzDFMfIHzlT
+	 dkoQrPOi3lPJNKfummOhRvVwhSTYX6+UUWMF4WYr2/9lxH26oM4smZNBM25AcF5EAdKXC
+	 Svdv+xQoxuHRYN4pa3fOwF85bzPkotJQC8HQlzNbYxTkJKKF26qMk+7fnCy5qW0uF7g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EX5Ip8Vy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C36606A32C
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:41:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21864606A32D
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:45:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21864606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFTaMFxt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F5461F000D8;
-	Tue, 24 Nov 2026 18:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795545686;
-	bh=hl/bX5DuVZchMo6SL6jKXGgpfSjzwnMjbakQZjrbrQM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JFTaMFxtelVPxapnuFKPNOAYW6CuD8o1OIWPIgx3LDXVbjw9/4eIOexpA3svNFUcP
-	 UbS1uyZFgXkkUEESGsUUu92M5qayQFn3dPKf+pEaYkEGYxQynfDYah2s43wVOqf3Ay
-	 pO4w0+1CVE/z+gxPR72myzwarRCPGGHZlsyxXTK5rLruPmRfDV5zP6CvUS4BtduzMt
-	 ZwjXtbhBLy+WKD99OnQA5CEa/pQVQs4HTG8weHJPhHRKHVgr8BwqL43QoyaFnNK7+W
-	 +ELM+d6VkCOPEJnhBHCcFgXDVfUXifFAlSpvaFb7GBZU5DfPJ1+Ty2wqdYFMPy23/4
-	 1FVc7Vz9oLAlA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	Zi Yan <ziy@nvidia.com>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] mm, page_alloc: pass zone pointer to trace_reclaim_retry_zone
-Date: Tue, 24 Nov 2026 13:41:22 -0500
-Message-ID: <20261124184032.2321147-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124184032.2321147-1-sashal@kernel.org>
-References: <2026112421-retrace-illusion-ba9a@gregkh>
- <20261124184032.2321147-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EX5Ip8Vy
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a018493d57so193905e9.0
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 10:45:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795545910; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OGaOP8nMPZ2FjZEnP7IO3nDfprOjGiJOyN33IV+Fop7rSmus1I1+jemWu0M0beOnv7
+         2/HhtxptJXFbPTqqp2+qgEGzxuLGFt/Cw+IAy4QOTm+SRBy4NJQAPlMel//Ahp5Nl7Uy
+         qfaorgLi7wW0MwVipmL+u1Rwt9tOntDV46VnbSbNYEXA5c4OqdIG87Zax4VjzxxGNUI/
+         HCCzBwZQoTxr/w8HIOhqbQtOapG8uIaJbC48XXk/yNjCAtw7l65So5ji4n+qG4PT16/q
+         NtraMXDKprcG5aW83/npWVtAqLpRxVuR0YkNtw+TEvZubOPyCpu/yaZAijXaluNFih0e
+         skVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eVt63sFAXFALqIi2TYrbUsERABkXRLEjuN5CXIXLcg8=;
+        fh=2J+GZFK6gc7p+ddHuLI/nSrRpquGNmjsoabR3egNwjY=;
+        b=c7yP+4QdcLGP1fXb/mKVj/ZvtFg0mlE+dW8PjkhlsGboZ5QOJT67E2vrm9sPkna3bS
+         DpSRE1UWQiia7qYYd+qps/GJzO8TwBMf2p3KDuttNt1Z11Ts6XJueDonUDPVftRwbdXW
+         mD/vj7NRoXqkKTjrchsJe6KSJohshXZZ5ZSHDa5dENS8pl/powfPyQaEs7OTAU5/nMIj
+         +DZoMN8/OCbNGp2zRE4ULrEipHv0mUHFnlcuz3VyV6vIUK29pJEyXwKOqBlYByfqrAp5
+         R5lfG0yyuwLtF+1BYqik6nv77cvKNw1Kw06SU/cy+M1NKSAuk2iEzZOBdFn8HC5kuv8H
+         QOFg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795545910; x=1796150710; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eVt63sFAXFALqIi2TYrbUsERABkXRLEjuN5CXIXLcg8=;
+        b=EX5Ip8Vy8G2bSo/ueWGnhESIlAs0mrbqdtxZuoA9LwMy/GlKMShQ1UAI4/cv+GFurL
+         +I0ZkpTeWfSYy6CugwTvmvx82ZOqEt2YK6jHg503nlno9cTCNMqoon8un66aypMAtIpY
+         Je7VBF1+Bk1ABJ9z+SAkTdSy6ezf5Gi3LSIMWvaj6MPTyhZXFdF3jOFaaGUxSwKp8wVB
+         4oBAZcisTHpzOeoHX195Wfv8XGFRIXx6fkUHieNJRuiiUhXl+Kl/RSF/R7bQar3C2amW
+         PgGYsAMlXhlLSR6w4RbKQxbXRp2Nsuv0otkolUSSmje/nt4dJdwI/XYhLX2PleA6wFXk
+         AKoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795545910; x=1796150710;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eVt63sFAXFALqIi2TYrbUsERABkXRLEjuN5CXIXLcg8=;
+        b=Pveh8czGiKtCtHDYiQiP/ZvbL6AHQlCyaI/dmXG3hUy8ToJI+hdAk/63m9cTF6cZgu
+         GRzgZHOYkWIGE6a3Z4V4FKA8NdcACt/FS9MQoQOooA7fgTF/zCiMUbGHHoxLLNlaea7/
+         cTyX0qzolFfpX3S4IcvSUUHJcD18VmZ6+oXB4bfdrvAQCxiWGu4r5t3OI67c3xzdbawV
+         /EgsZnuCbLwSCg1V4yrs6Le/BcJuGgHhxNCuPflHuKVTh4DeXzhp+u3PtwjjkXU2CTEW
+         yCDx9bJHsO2XIr9Mk5VPVKjbs5mt+ZPct10V5chRneIyCfyAr9eAjcoFrSOojrN5X1F5
+         /8DQ==
+X-Forwarded-Encrypted: i=1; AL+hErHhyipEOP+OlIzz/Ek5pUvO5aeW+LQjJkaw+hRy1e8un0zKiIW4MYDDb+qIwGRNmzdTjHVSeKo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/joiM/Np1azirnTDfYmpBZH90Ff9+O0H4oIIRLiXW8d69NRYyp
+	Elz6CGX2jQg7tJYu7bgoeWOBEk83JMNYWcOHNSKRI8dZzs6LLmpgGeHQ+kedNPkYfNkD7FHKgVW
+	OivoNTKeCmN1sI0uUz2RAMi9wsAT9IyunrUIul7va
+X-Gm-Gg: AZFdTZeEzJYc2gnBTaL8/Q+Tb5VbAfIcBHz+bffFrnRxw8tODFlVetgX/tAvcs4euHM
+	KQ1XSCmjuni3bNMf6GNmk6/2hnccCswcGGfAFTXoUYbHmd2ZN89AR1frfcWluUJXPrqLVb2ToAY
+	L/EKQ8MWVve7ntgTa8CmUSPnwxBHUiAeHJAm5YmJ2inYBA9TqJa4OriuEW5Azu0nwWWd5xM8Q3C
+	tFsfIxMgdvOlpQ9U/UBic+2RkA6L4yCfNIq0vWIP4y5xFOhQfNpo+LXTaFSSFyxXiad9c4mMILz
+	mZ5Ly9uGrwgo3DtNtJGWIjD0EE52z9SnAnq55eAKJpPUUmBBa0UO/KJoV0TXDYvqdVvAOdUYjnt
+	3NXAm0RCLd+xtp3G0oZqfvLd5Uv3MOWpXguJlEtjN+tRUksylyXsN8XyTpncbPUbNNCVDfv2k9i
+	3hNvzf/1ivBLohnBt4pUWpnqY=
+X-Received: by 2002:a05:600c:5346:b0:4b6:7744:f4d with SMTP id
+ 5b1f17b1804b1-4bb916bdf08mr2257135e9.15.1795545910040; Tue, 24 Nov 2026
+ 10:45:10 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,89 +105,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261117-huge-pfnmap-fault-races-v2-0-276007e73bcb@kernel.org> <20261117-huge-pfnmap-fault-races-v2-1-276007e73bcb@kernel.org>
+In-Reply-To: <20261117-huge-pfnmap-fault-races-v2-1-276007e73bcb@kernel.org>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Tue, 24 Nov 2026 10:44:58 -0800
+X-Gm-Features: Aa3M54p26FbeOYUnrfBkiQh43qYkPRTQzVHFI8sjfXLSBe0jiLLjZbk3gYWYOKo
+Message-ID: <CABdmKX2PQu7VvJ_Xs9NpkFo-wD8LWxO+FNqmdTEZBt0iAd=w4g@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] mm: update walk_to_pmd() to explicitly return an error
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, 
+	Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
+	Roman Kisel <romank@linux.microsoft.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
+	Naman Jain <namjain@linux.microsoft.com>, Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Josef Bacik <josef@toxicpanda.com>
+On Tue, Nov 17, 2026 at 10:32=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.=
+org> wrote:
+>
+> Rather than callers inferring an error from a NULL pmd return, explicitly
+> return error codes.
+>
+> This allows different error codes to be returned for different failure
+> conditions.
+>
+> No functional change intended.
+>
+> This is a prerequisite for the fix to insert_pfn() which follows, as that
+> needs to be able to tell a failure to allocate a page table apart from a
+> race with a huge fault, so mark it for stable alongside that fix.
+>
+> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-[ Upstream commit 6c48b3ab4ee435c41c3395d31e8ec3dbccc3478c ]
-
-should_reclaim_retry() walks a zonelist and passes the zoneref pointer
-to the reclaim_retry_zone tracepoint, which loads the zone from the
-entry again to find the node.
-
-Memory hotplug rebuilds the zonelists in place while allocations are
-under way. When a zone in front of the zoneref entry has become empty,
-the entries move up, and this one can be the end marker by the time the
-tracepoint looks at it. zonelist_node_idx() then dereferences a NULL
-zone. Short of that, the event can name another zone than the one its
-numbers belong to.
-
-Pass the zone pointer instead of the zoneref pointer.
-
-Fixes: d379f01de095 ("oom, trace: add oom detection tracepoints")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Link: https://patch.msgid.link/20261101021340.2251928-4-gourry@gourry.net
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/trace/events/oom.h | 8 ++++----
- mm/page_alloc.c            | 2 +-
- 2 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/include/trace/events/oom.h b/include/trace/events/oom.h
-index 8c834a0d22817..008c62cc078b1 100644
---- a/include/trace/events/oom.h
-+++ b/include/trace/events/oom.h
-@@ -33,7 +33,7 @@ TRACE_EVENT(oom_score_adj_update,
- 
- TRACE_EVENT(reclaim_retry_zone,
- 
--	TP_PROTO(struct zoneref *zoneref,
-+	TP_PROTO(struct zone *zone,
- 		int order,
- 		unsigned long reclaimable,
- 		unsigned long available,
-@@ -41,7 +41,7 @@ TRACE_EVENT(reclaim_retry_zone,
- 		int no_progress_loops,
- 		bool wmark_check),
- 
--	TP_ARGS(zoneref, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
-+	TP_ARGS(zone, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
- 
- 	TP_STRUCT__entry(
- 		__field(	int, node)
-@@ -55,8 +55,8 @@ TRACE_EVENT(reclaim_retry_zone,
- 	),
- 
- 	TP_fast_assign(
--		__entry->node = zonelist_node_idx(zoneref);
--		__entry->zone_idx = zonelist_zone_idx(zoneref);
-+		__entry->node = zone_to_nid(zone);
-+		__entry->zone_idx = zone_idx(zone);
- 		__entry->order = order;
- 		__entry->reclaimable = reclaimable;
- 		__entry->available = available;
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 5b5a64db3f3be..1db53951ff585 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -5043,7 +5043,7 @@ should_reclaim_retry(gfp_t gfp_mask, unsigned order,
- 		 */
- 		wmark = __zone_watermark_ok(zone, order, min_wmark,
- 				ac->highest_zoneidx, alloc_flags, available);
--		trace_reclaim_retry_zone(z, order, reclaimable,
-+		trace_reclaim_retry_zone(zone, order, reclaimable,
- 				available, min_wmark, *no_progress_loops, wmark);
- 		if (wmark) {
- 			ret = true;
--- 
-2.53.0
-
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
