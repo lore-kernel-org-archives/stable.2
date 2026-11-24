@@ -1,59 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795549116;
-	b=p836NGZAswx/xbBATFx8Q8kVoJs+8567W8ZbP4t5NfqhsOsTFRPFqQxpqCMNOiHEHyD9
-	 BahEduRmisp3jqNokVafQOMfeQ3s3NyfRETV93wJ/PzJSl86em4onIlj5LzK8aeyrc62J
-	 jpV6srZeKXxLV+X3XVpYcN1cB4hYcVhf7rrvHvj7jarS1Bj8IO2a4AQj0GRsM31LYE8Ao
-	 N7urEilTTuTtRltG8vp6Z0sCoUGVzsbv3oPYbXfcHJNqTjJ3ZjK5YT7G+AfCUXQqZuppL
-	 v/hj2aEUFGOz2qYcai3NnRwyC/YxHBkjTu+SNZlvPTHqBYejHUUhU7Ac2KT6V4KVp4g==
+	t=1795549468;
+	b=XpVJX9yISdZmtz9w15FOvieJpqn4QaY7CoQs6LSDh368Xu3NLDCUCggGmTaOvaiKfphM
+	 pISp37EMlkMSU9XjqNtv4yAxvJVn9OpCQAt0H3hS8Pbzso9Fsfj3JaZO+PvjBlpjPf6MK
+	 nGjn1tIz6jZETCxLRYt4+eSVK+blnMOQLPAkxF28Rh9QWwJAu1wVp4ivlcDBksqjjpe0W
+	 biBsE0VewWVAAJDEJbEF03mFBtxccav1MH+UcbipE2R7hwMCWH50kTxyp7XnMJ/EMziMi
+	 HBpXLaCziFRkxrJ1JrRYqipNwr9prZ28myqgqRMPpvZeG7J9fIlsqUsorZbgqjsTKJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795549116;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=nIMwh/EZ5KBGfXndC+0JmUW1NvrySoPw8ZiRjJBqJec=;
-	b=byN/aOjM55uF4JQYmdoxMR5QnSud68l8yunLYpD3iow+4OuYbRJb5D39vgGWjrvlgd6r
-	 02JcI/jYACFGjMbkcXPbZKArkX1T2Qkqzy0zvBdYOSjE8Vp1GK1Xq27xkkXDQfnOvJ1Yr
-	 3iiwG4TIF32vMdhj0XJMrWQ3V29Ky6jQ59tKs5zh1OrAaenquvpgQfvl1zsYzmsTxNnzU
-	 JtUCRETT1TSGF/0egVvWKV3IjRCKqcx7HYhDD1UGspCw2RubwXaGMxFQACxQjz7kx7NzI
-	 /pCius8R/JTpi3Pr5RmalNltDcFhKycV0pUGKtqRJcatXgKtCosfofutGtvybMpKhAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795549468;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
+	 X-SRS-Rewrite;
+	bh=O31Czn1AwWMnxNPMpREucXy12+Bq/Zd2pE8Xe2nZEbM=;
+	b=N/37wNhQU6wqrmEsBvlfbTpTbNqx+DdQtECK2RJk34Y4EekBsOUtB148t+rPsNtSyXr7
+	 QuCB9UlAJaDuh1W8Z/E6Pj0Ou3boKiBti1AxUPJYCNQskjiGmWYxJFQ7do/GYuJpKnSR1
+	 nYVjDEklOIhgIwUl/VA95tthKkdHnD8f6GTeBwYdv2T5nQ53Wnd0C4NnlLs2KvlncAn59
+	 n8ewUH3QFTCg0zDnvp2OxvtYCsuuz6umm+2P9gNdv7tctwkUDt+RmY4PWwLUlk46358JN
+	 WFu3hrugN6SjJQbi8Ep/u9TvvTEfc0fz0vvQjfB0aFY0NpyUHKGsF84YsVA0DaXEZFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZXYpuTqh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="i/T2c1/G";
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A6D606A31E;
-	Tue, 24 Nov 2026 19:38:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A89606A31E;
+	Tue, 24 Nov 2026 19:44:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2A89606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZXYpuTqh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA5DE1F000CF;
-	Tue, 24 Nov 2026 19:38:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795549115;
-	bh=nIMwh/EZ5KBGfXndC+0JmUW1NvrySoPw8ZiRjJBqJec=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZXYpuTqhBYTkz2wb/VlF0ju2SHfd0LxXzU5cnaZnXa++mk+htMLkr28DmuezixwlG
-	 ExZZ9hWGdAx4NVxRN01p260RSOnt6qgiQ/pt4OcJjpSAko6toLC3TXVzTrRh8ILsAd
-	 58MvXL9NKd3aOp1rWjv+KBs4sRzT9iVCStnkWPdXbMYGCTKfBy8I/Q54RjkcC+YW4j
-	 UnDjYYXr4XQtq+ihQoBnFM74QYaVOyl5wWMQ3GFjd5jidLFUSn3iBPsZGE1fragRpX
-	 ZWHOe2t+HMvremb/ogaKqk7YxuBoJrtIwPBE8swh3vZGfvoWjjMZ4f1PQNDSHQPhO5
-	 Gj1F5ZcWVaXxg==
-Subject:
- Re: [PATCH net v4] net: preserve skb header offsets during headroom changes
-From: netdev-bot+sashiko@kernel.org
-To: kylebot@openai.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
- edumazet@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Tue, 24 Nov 2026 19:38:34 +0000
-Message-ID: <179554911437.3135.8676992672560141664@kernel.org>
-In-Reply-To: <20261120192330.48965-1-kylebot@openai.com>
-References: <20261120192330.48965-1-kylebot@openai.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=i/T2c1/G
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=O31Czn1AwWMnxNPMpREucXy12+Bq/Zd2pE8Xe2nZEbM=; b=i/T2c1/GoD48Kw1JFJMSr2o+ne
+	o9dpnKUKiDSkr2O7RxdIK3p90A5M1AALZF1hN7vJ48kgeUIc/FD6iLKzFqHzPbXatOj6G3SIYtlTd
+	dfIJKfonmDLk2/FlyM14xz8U7gYacN4oGgSVlPBFgLpxC0d/1yw6Pi0D8H9lzWYDUOiVKsj99qWLy
+	WtMsIm7LKJrNLWNBzvc6OxgH21GywcQrqxfuEevy/W+n5CpJYmfg7Z9Ut/SFFDsmW2oy6Qzs3hkIl
+	ye81PFn6amW+5f4UUKvapVzk/cN7eXzK0BbIZHFshdNdv6v9W+leHkO5KVhNDWwFU7TAjVnHn/l/z
+	B9T7ftZA==;
+Received: from 54-240-197-239.amazon.com ([54.240.197.239] helo=freeip.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xVwRD-0000000CUFX-0MkM;
+	Tue, 24 Nov 2026 19:44:23 +0000
+Message-ID: <1f77fa9014f8dfafb2be9cf15a66c5541880656a.camel@infradead.org>
+Subject: Re: [PATCH net v3] ptp: vmclock: keep the device state until the
+ last file is closed
+From: David Woodhouse <dwmw2@infradead.org>
+To: Chad Aldreda <ca@modelmiser.com>, Richard Cochran
+ <richardcochran@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>,  Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,  Shuangpeng Bai
+ <shuangpeng.kernel@gmail.com>, netdev@vger.kernel.org,
+ stable@vger.kernel.org, 	linux-kernel@vger.kernel.org
+Date: Tue, 24 Nov 2026 19:44:21 +0000
+In-Reply-To: <20261119061517.1142436-2-ca@modelmiser.com>
+References: <20261119061517.1142436-2-ca@modelmiser.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-F5EVYuBQNmdZNJbvbcsL"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,290 +73,180 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
 
-Critical: 0 · High: 3 · Medium: 1 · Low: 0
+--=-F5EVYuBQNmdZNJbvbcsL
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On Thu, 2026-11-19 at 06:15 +0000, Chad Aldreda wrote:
+> vmclock_probe() allocates struct vmclock_state with devm_kzalloc_obj()
+> and maps the shared page with devm_memremap(), so both are released
+> when the driver is unbound, but an open /dev/vmclockN keeps using them
+> through its file state. After an unbind, read() runs on the freed
+> struct and reads through the released mapping, and a poll() in
+> progress sleeps on a wait queue in the freed struct. KASAN reports a
+> slab-use-after-free in vmclock_miscdev_read(). In testing, the same
+> read() faulted on the unmapped page once the device had been bound
+> again.
+>=20
+> Allocate the state with kzalloc_obj() and map the page with memremap(),
+> and release both on the last reference: open() takes a reference and
+> release() drops it, and a devm action drops the device's own reference
+> after vmclock_remove() has called misc_deregister(). misc_open() calls
+> open() with misc_mtx held, and misc_deregister() takes misc_mtx, so
+> open() always runs while the device's reference is held.
+>=20
+> vmclock_remove() now marks the device as removed and wakes every waiter
+> on the wait queue. A read() or mmap() on a file that is still open fails
+> with -ENODEV once it sees the mark. On a device that supports
+> notifications, poll() returns EPOLLHUP | EPOLLERR, including a poll()
+> that was already waiting; it tests the mark after poll_wait(), so it
+> cannot miss the wake-up. The wake-up uses wake_up_interruptible_all(),
+> because no later notification will reach a waiter that the remove-time
+> wake-up skips, such as a second epoll instance that registered the file
+> with EPOLLEXCLUSIVE. Without notifications poll() already returns
+> POLLHUP.
+>=20
+> Separately from the report below, the bug was also found by a
+> Coccinelle script that reports device nodes in devm-allocated memory,
+> posted at
+> https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.com,
+> and reproduced in QEMU 10.2.4 with -device vmclock. There is no access
+> to EC2 hardware with this device, so the fix has only been tested in
+> QEMU. QEMU's device has no notifications, so the poll() path was tested
+> with a local change that lets poll() wait without them.
+>=20
+> Fixes: 205032724226 ("ptp: Add support for the AMZNC10C 'vmclock' device"=
+)
+> Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+> Closes: https://lore.kernel.org/all/178144969601.60470.144935696082710691=
+60@gmail.com/
+> Cc: stable@vger.kernel.org=C2=A0# 7.0+
+> Signed-off-by: Chad Aldreda <ca@modelmiser.com>
 
-- [High] The fix is incomplete.
-- [High] net: skb_headers_offset_update() corrupts unset transport and
-  inner_network sentinels
-- [High] net: u16 transport_header wrap after skb_mpls_pop() and
-  mpls_forward()
-- [Medium] skb_header_offsets_fit() (net/core/skbuff.c:2133-2153) is
-  meant to ensure that skb_headers_offset_update() cannot wrap any…
+Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
---
+We did have a plan to pull the PHC-only drivers out into drivers/phc
+and leave only the *real* PTP in drivers/ptp. I kind of stalled on that
+because I wasn't sure I had consensus especially from Richard and the
+net maintainers. Shall I revive that and repost it?
 
-net: preserve skb header offsets during headroom changes
+--=-F5EVYuBQNmdZNJbvbcsL
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
-This commit adds skb_header_offsets_fit(), which makes pskb_expand_head()
-and skb_copy_expand() reject growth that would wrap the 16-bit skb header
-offsets. It also adds headroom bounds to skb_mpls_pop(), mpls_forward()
-and mpls_xmit(). This stops MPLS processing from producing a negative
-skb_network_offset(), which leads to an out of bounds write in
-eth_header().
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+2OteTuH1xPvv9LJ6HJlxPeYAAAAAAAA=
 
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 1ac1e327ac4c6..bc836adafecd9 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -2130,6 +2130,28 @@ struct sk_buff *skb_clone(struct sk_buff *skb, gfp_t gfp_mask)
->  }
->  EXPORT_SYMBOL(skb_clone);
->  
-> +static bool skb_header_offsets_fit(const struct sk_buff *skb,
-> +				   unsigned int nhead)
-> +{
-> +	if (!nhead)
-> +		return true;
-> +	if (nhead > U16_MAX - skb->network_header)
-> +		return false;
-> +	if (skb_transport_header_was_set(skb) &&
-> +	    nhead >= U16_MAX - skb->transport_header)
-> +		return false;
-> +	if (skb_mac_header_was_set(skb) &&
-> +	    nhead >= U16_MAX - skb->mac_header)
-> +		return false;
-> +	if (skb->ip_summed == CHECKSUM_PARTIAL &&
-> +	    nhead > U16_MAX - skb->csum_start)
-> +		return false;
-> +	if (skb_inner_network_header_was_set(skb) &&
-> +	    nhead > U16_MAX - skb->inner_network_header)
-> +		return false;
-> +	return true;
-> +}
 
-[Severity: High]
-The was_set() checks here assume that an unset transport_header or
-inner_network_header keeps its sentinel value across relocation.
-skb_headers_offset_update() only does that for mac_header:
-
-net/core/skbuff.c:skb_headers_offset_update() {
-    ...
-	skb->transport_header += off;
-	skb->network_header   += off;
-	if (skb_mac_header_was_set(skb))
-		skb->mac_header += off;
-	skb->inner_transport_header += off;
-	skb->inner_network_header += off;
-	skb->inner_mac_header += off;
-}
-
-Can this turn unset headers into set ones and then make later
-expansions fail?
-
-With a positive off, an unset transport_header (~0U from
-__finalize_skb_around() or skb_unset_transport_header()) becomes
-off - 1. An unset inner_network_header (0) becomes off. After that,
-skb_transport_header_was_set() and skb_inner_network_header_was_set()
-both return true, for offsets that point into the headroom in front
-of skb->data. The commit message says a set transport header must
-not be relocated onto its unset value, but the opposite direction
-is not handled.
-
-With a negative off, the 0 sentinel becomes 65536 + off and the ~0U
-sentinel becomes 65535 + off. Both then look set and sit near
-U16_MAX. A negative off happens in skb_copy_expand() when
-newheadroom < oldheadroom. It can also happen in skb_segment(),
-skb_segment_list() and skb_pp_cow_data().
-
-Any later pskb_expand_head() on that skb with nhead >= -off then
-fails skb_header_offsets_fit() and returns -EINVAL. The same
-expansion succeeded before this patch. Callers such as
-skb_cow_head() on tunnel or driver TX paths would therefore start
-dropping ordinary non-encapsulated packets after segmentation or a
-shrinking copy.
-
-Should skb_headers_offset_update() leave unset transport and inner
-headers alone, as it already does for mac_header? Or should
-skb_header_offsets_fit() stop relying on the was_set() helpers for
-these fields?
-
-[Severity: Medium]
-
-skb_headers_offset_update() moves more inner offsets than this function
-checks:
-
-net/core/skbuff.c:skb_headers_offset_update() {
-    ...
-	skb->inner_transport_header += off;
-	skb->inner_network_header += off;
-	skb->inner_mac_header += off;
-}
-
-Can inner_transport_header or inner_mac_header still wrap after this check
-passes?
-
-In an encapsulated skb, inner_transport_header is normally
-inner_network_header plus the inner L3 header length. If
-inner_network_header + nhead lands at or just below U16_MAX, the check
-above passes, but inner_transport_header wraps to a small value near the
-start of the new head.
-
-Earlier processing can also leave stale inner_mac_header or
-inner_transport_header values that are larger than inner_network_header.
-For example, mpls_xmit() resets only the inner network header.
-
-Inner GSO segmentation, skb_inner_transport_offset() and driver encap
-offload paths would then use a wrapped offset. A complete trigger hasn't
-been traced, but should inner_transport_header and inner_mac_header be
-bounded here as well?
-
-[ ... ]
-
-> diff --git a/net/mpls/mpls_iptunnel.c b/net/mpls/mpls_iptunnel.c
-> index 1a1a0eb5b787f..5123394234cc5 100644
-> --- a/net/mpls/mpls_iptunnel.c
-> +++ b/net/mpls/mpls_iptunnel.c
-> @@ -59,6 +59,9 @@ static int mpls_xmit(struct sk_buff *skb)
->  	    !dst->lwtstate || skb_warn_if_lro(skb))
->  		goto drop;
->  
-> +	if (unlikely(skb_headroom(skb) > U16_MAX))
-> +		goto drop;
-> +
-
-[Severity: High]
-
-This check implies that skbs already reach mpls_xmit() with more than
-U16_MAX of headroom and a wrapped network_header. In that case the wrap
-happened before any expansion.
-
-Is the same wrap, and the eth_header() write that follows, still reachable
-without MPLS and without pskb_expand_head()?
-
-netkit accepts any u16 headroom (the policy is a plain NLA_U16):
-
-drivers/net/netkit.c:netkit_new_link() {
-    ...
-		if (data[IFLA_NETKIT_HEADROOM])
-			headroom = nla_get_u16(data[IFLA_NETKIT_HEADROOM]);
-    ...
-		dev->needed_headroom = headroom;
-}
-
-netkit_set_headroom() does the same through ndo_set_rx_headroom.
-
-ether_setup() sets hard_header_len to 14. With needed_headroom set to
-65535, LL_RESERVED_SPACE(dev) is ((14 + 65535) & ~15) + 16 = 65552.
-
-For a plain UDP/IPv4 send routed over that device:
-
-__ip_append_data()
-    hh_len = LL_RESERVED_SPACE(rt->dst.dev);   /* 65552 */
-    skb_reserve(skb, hh_len + exthdrlen);
-    skb_reset_network_header(skb);             /* stores 16 */
-
-The only thing that catches the truncation is the DEBUG_NET_WARN_ON_ONCE()
-in skb_reset_network_header().
-
-ip_finish_output2() then does:
-
-	if (unlikely(skb_headroom(skb) < hh_len && dev->header_ops)) {
-		skb = skb_expand_head(skb, hh_len);
-
-Headroom (65552) is not less than hh_len (65552), so neither
-pskb_expand_head() nor the new skb_header_offsets_fit() check runs.
-
-The first packet then goes to neigh_resolve_output() (and later ones to
-neigh_connected_output()):
-
-			__skb_pull(skb, skb_network_offset(skb));
-
-Here skb_network_offset() is -65536, which becomes an unsigned pull of
-0xFFFF0000. skb->data moves about 4GB forward. Next,
-dev_hard_header()->eth_header()->skb_push() writes 14 bytes at that
-address, and the driver then reads skb->len bytes from the same place.
-
-Creating a netkit link only needs CAP_NET_ADMIN in the netns. That makes
-this look reachable from an unprivileged user namespace with an ordinary
-UDP send.
-
-skb_header_offsets_fit() also doesn't bound the resulting headroom
-(headroom + nhead). A later skb_reset_*_header() could therefore still
-wrap after an expansion that succeeds.
-
-Would it be better to cap the headroom where it comes from? For example,
-netkit's needed_headroom could be clamped, or LL_RESERVED_SPACE() kept
-within 16-bit offsets, instead of adding checks to individual consumers.
-
->  	skb_forward_csum(skb);
->  
->  	tun_encap_info = mpls_lwtunnel_encap(dst->lwtstate);
-
-[ ... ]
-
-> @@ -6804,11 +6834,16 @@ EXPORT_SYMBOL_GPL(skb_mpls_push);
->  int skb_mpls_pop(struct sk_buff *skb, __be16 next_proto, int mac_len,
->  		 bool ethernet)
->  {
-> +	unsigned int headroom = skb_headroom(skb);
->  	int err;
->  
->  	if (unlikely(!eth_p_mpls(skb->protocol)))
->  		return 0;
->  
-> +	if (unlikely(headroom >= U16_MAX - MPLS_HLEN ||
-> +		     (unsigned int)mac_len > U16_MAX - MPLS_HLEN - headroom))
-> +		return -EINVAL;
-> +
->  	err = skb_ensure_writable(skb, mac_len + MPLS_HLEN);
->  	if (unlikely(err))
->  		return err;
-
-[Severity: High]
-Does bounding the post-pop network_header at U16_MAX leave enough
-room for the inner L3 header?
-
-After skb_mpls_pop(), the new network_header is
-headroom + MPLS_HLEN + mac_len. The check above lets that value
-reach U16_MAX.
-
-The new check in mpls_forward() allows the same. It also runs before
-skb_cow(skb, hh_len + new_header_size). In the penultimate hop
-popping case, skb_cow() can grow the headroom further.
-pskb_expand_head() then keeps network_header within U16_MAX only
-through skb_header_offsets_fit(). At that point transport_header is
-either unset or equal to the outer network_header set by
-__netif_receive_skb_core(), so it does not limit the growth much.
-
-The decapsulated packet can then be received as IPv4. For example,
-tcf_mpls_act() can pop on ingress, or mpls_forward() can send the
-packet to a netkit or veth peer. ip_rcv_core() then does:
-
-	iph = ip_hdr(skb);
-	skb->transport_header = skb->network_header + iph->ihl*4;
-
-If network_header + iph->ihl * 4 exceeds U16_MAX, the u16
-transport_header wraps to a small offset. If it equals U16_MAX,
-transport_header lands on the unset value. ip6_rcv_core() has the
-same problem with sizeof(struct ipv6hdr).
-
-ip_local_deliver_finish() then does:
-
-	__skb_pull(skb, skb_network_header_len(skb));
-
-skb_network_header_len() returns transport_header - network_header
-as a u32, so the pull length becomes about 0xFFFF0014. On a linear
-skb, skb->len wraps to a value that still passes the skb->data_len
-check in __skb_pull(). skb->data then moves about 4GB past
-skb->head before ip_protocol_deliver_rcu() reads the transport
-header.
-
-Setting up the large-headroom device and the MPLS route or pop
-action needs CAP_NET_ADMIN in a netns.
-
-Should these checks reserve room for the largest inner network
-header? Or would capping the headroom at its source, as suggested
-for mpls_xmit(), avoid choosing a margin in each MPLS consumer?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261120192330.48965-1-kylebot%40openai.com
+--=-F5EVYuBQNmdZNJbvbcsL--
