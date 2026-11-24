@@ -1,58 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795528423;
-	b=MPJzcFzIGHPkSGI+h7HxpktG7EaZvllA9avOwQ8TqEUnIDrWWnJt70lHlPsihH/Cj25C
-	 COf8gxjynsYjbfolYtSYn1i6L9DRqep8E6Tdx9POsvknsUvSPxsPgGHnres1prdXRotU+
-	 r5vLM442fxxyYU+KmvkBpdXluJ4vpUKXT9XbcBMFNeuJD82O0fID2h4NGU9XQ9UPP7hnT
-	 w2eVt39KfhF499/9S0pmYbVB8OzBVuxYd0BfMTmw+W6It2G4ZHu0DDR04I1jojPJoTsQu
-	 J5sGLYuccOqJpMzd5PcJcdydm6C0VI2FBmxY1jBUAXNt64SdJdCp1vm2yVwqHERwl3A==
+	t=1795528529;
+	b=CjPj/3Dd3hyqcNpgj9pzTaTpawR9bpfteEHVNBx7M2kVi3RXAoeNl1CfzGxMQsuQPUpA
+	 U5jFjJrMzyOHhAkmxMcpxFd2qNRtftyS/SG71m4m+0rNpgynAZkEYaOqUO8K6JjK5H5Dw
+	 8eFCLz+eKV/UMlwcdxIM7tHxyWo+HBfuF4/PjHu4ZUvpUMBZ7KHlfKSSoWGCf7w+pfejH
+	 +olRwy+c+kgP9ruYMN1ClE6SUHys5Y39bJ/aWqHpd7kifPu1SLNiB9yPAMb+Jce6wxMIJ
+	 d1zcqhOZu86jWrti1d8VNgvJsUZs9a/iHQjbmMC0NJRixf6fVHPTDA7QDDoUtbZPJvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795528423;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=MIkTVr4RcMW6zywCfrJZui4jF3ihGLOv2lESiFwO/2g=;
-	b=nn3RWBj6ZRd9kBCuxB8ElYUXxiq0fQMFSn4cPrHz6S0wWN0uK9vZHClANs5dHo2ysMFY
-	 4LGrkzIoMACpeoUhXA8skz5xIZBeQ7UwGwx0M6UiXUMvo5uKc5i6Dk+OHNq49AKbGVx4W
-	 sanFNJ+Olt7FeNhXbUUvmFmvJRSW0m7B0E/LJewL5g2qFqhlTBzOD/dLErDyal0Lkqj7j
-	 e+W4m5d/iSWJAag8LNuhlbM91dVh4DaIkCgsDYPqRXVaKRGkab6wz3NLZHr10rDFFpD5w
-	 nto/j80Ol+NkacQ20BoAnwtpuH+VwD7koft9l4ohWqIO4GxGqmALOKiLwyym/FFz/Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795528529;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:To:Cc:
+	 References:From:Content-Language:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=I1beTTuDkHcJrFtkrdIEDwGOge1ar4jfKSDiYm+SAes=;
+	b=JNUM1ls3DJfAp/orC6x6n/qYc3XRPPazrT9zKs7XnT6VXlNNJNHj07WlBfnGdRDfC5UL
+	 1Pn+IXCeXGvc7z1YVA/dKmVKitTuKz1F9IhzqenHsyN14CCVm/ndLD7MLGMYuiHD+UFRq
+	 Kba49/znLNUhFbAvBrc1S524+juZNHDCpc2lyxwVSKVwpJ0/xUN8gmpNKX76iA2eRC9Yq
+	 2n+O39vDVT/W3tTb3lYu6tZlUikoyWVxVmBsgPceiSaUgzXzxLINpdUSpX0pSJ8Q9ylVd
+	 n1F0bRtzT2wX8RC9hQvgQq+nNHkZKkEywmc39/YipGPZZbz20FsdgDXP1vXx6twq4iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nndDHg3l;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED1D5606A321;
-	Tue, 24 Nov 2026 13:53:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED1D5606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=6wind.com;
+	spf=pass smtp.mailfrom=6wind.com;
+	dkim=pass header.d=6wind.com header.i=@6wind.com header.a=rsa-sha256 header.s=google header.b=Y2bsdeUG;
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9795606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 13:55:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9795606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nndDHg3l
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 27C3E339;
-	Tue, 24 Nov 2026 05:53:39 -0800 (PST)
-Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AE6213F763;
-	Tue, 24 Nov 2026 05:53:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795528422; bh=+APSVgCGhYAgoDVaz3XyVGIzx7Jm+ECnvgl+Mo3ccbw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nndDHg3lTtR63L3UJR/QPaZ1wafVNDpQBCCZ+cFzjl1lRrB7pNlrxCK3t2fyafFkt
-	 0/1iW09TNYzVrXfe88pK0leeZh6RmvKXyxAbsp1/DFld5IZ7Cbf3CXC7/KuhEEPeqa
-	 GHttcEwpGz7XbYz+SVSOE/BCApFxVLy7aaxqOCBs=
-Date: Tue, 24 Nov 2026 13:53:27 +0000
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev, 
-	kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Cc: Steffen Eiden <seiden@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Oliver Upton <oupton@kernel.org>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>, Dan Carpenter <dan@pereq.eu>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: nv: Upgrade sub-page TTL hint to maximum size
-Message-ID: <abrygylfbe47jhkufe3hl5wpdawazeno554ovwijwvh43hzpab@uqxszjzp63jc>
-References: <20261123182312.4842-1-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.a=rsa-sha256 header.s=google header.b=Y2bsdeUG
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c50686daf9cso77373966b.0
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 05:55:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=6wind.com; s=google; t=1795528527; x=1796133327; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=I1beTTuDkHcJrFtkrdIEDwGOge1ar4jfKSDiYm+SAes=;
+        b=Y2bsdeUGRkhvEwUU7zA+Ccwi7nQaUwSHzxZBaZ4811Twitth90vemfuauNp3AqPTj5
+         FzQ2ayO2yIqj2+f5itd7nxfGgGmg46Y42OdYNwLVeKI1BvNLReA7ROzQg5P5QM1jfE+x
+         ERu6bMFz1PNLPKVM/wxS0Z1Ggk2SW9lhivGplwZnVpSMC5fdYcuB/Cn9qGdq4URirwED
+         van4HZN7J1SKjJ9KU/JspZfLnbHYMonP2cokgyoMnPREAQDWLkuFpvMwLbwyKFxv/WZy
+         DH7TB2xui6Lg3bS8WmzuzW2wxpA7MXXUCrNaKcxy+XTz28I3PPQMyWL6amYPir4Ud9ax
+         32Kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795528527; x=1796133327;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=I1beTTuDkHcJrFtkrdIEDwGOge1ar4jfKSDiYm+SAes=;
+        b=N2d/dhV6yKesZQRMhhSkqy7zOKdSrf4HvV+bvUk+ZlBjKKswdN3xaC0BBrYoTwckta
+         k/bE1udbkkpxwi+bpvQqCeb8yW44eL7ScIWRtjQSSwu1HSE9vdVg4BIcAasPN2sbL+OC
+         cU/KWDfIhTiJSYbEYGSQp0se2fcH6a+ro4vfT3Qc3m4QwpETGFowOpzili/N7BPWCDDs
+         73qKtxAC/IiQXGrvN3xWeFFL1f0K+VZ/7dkjmVxjVQHNq67UTJqiCA3XlXK9rskkN98e
+         /xhJpVTSQx/R6UQzyfPls8GdGOtx5k7fbqoQda/BcWxe+YNuciXBvkuSKQ/W65eApecj
+         u4kA==
+X-Forwarded-Encrypted: i=1; AL+hErFTP4TyUN01CzLTNpcLUcdjQbWTe/qL8GHE+C/1YxDssE4RXXO/ynbsuzp1slTsWECuq4MmdSA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+iGhdX9Fjqo0cYgV6rajTbaC4UT4FkkcWVgrnrqw8G7rNqwjdp
+	O6yC/wrZR+qDCk8HvXq5Rphbccww0i1ip+iQcYSeOVuvknaZUU53A2FtlY7JsY74jPA=
+X-Gm-Gg: AZFdTZefFyThVXLR5M+c8rXXogR1mu0zsLXHebbUKnq6xZ6FccfnWAZr2VXw3b/buqz
+	PL9T6M9Gt2RlyV8ZY/7Hz/ald2iLa+EN85rhLiIsUr7Ag7nn5fVmRX74wjZQbd8x/OWtdzc5bS/
+	/t5uy4DrW5ccTNP0GVzMOOzWhcZecyeR+CkML00thf6TJeBMo169Y7f+N1LilXzihSrUoLLl+Pw
+	lGD+rRSEsalZVhG1WjWIq7OZXAgX5hmxDbRuRMTbKYAibUCH873GBnDta5fkV5ex2yfIc0R+u8n
+	2K8lFLot1pBKrPNhGqiuty9uHIipHcuBT5h0HR7eauiak4us7V7BZF1qp2W2vZJwK6z0dQcA+FY
+	VK/lHHHpC5FjaXzHXVJnPhMEIq0gnCaf/uy7LDZ3m4udB5+3aOHn1GntMYjDV7wRan44mi+p1wP
+	/wgdjChAXLvZhoHuZtkhTA2wUCx3sZz0A6XJzwEt4qYGTw2wA84N9tLCXG7oNRyj0CFRP1Incvb
+	/NHQM45O31zMYBw3W8e/pgRqqNUgkhIB/FCzB6k3NdhuowKapLqEsiWKgJaUHAgh3XbB7G6lZim
+	x0Lv2V8fYZbNDw9ds57PC8Md3yfaX2OW9O1rFjRtvJ8cn7kuXjuBWoH0WgC+ochdDYNMcXgOqoC
+	cJGMfPIZQT2XbbULXKQjzHTda8f8=
+X-Received: by 2002:a17:906:2b5b:b0:c29:4634:5c8f with SMTP id a640c23a62f3a-c513a284994mr1056327766b.0.1795528527042;
+        Tue, 24 Nov 2026 05:55:27 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ad01afbsm518330366b.5.2026.11.24.05.55.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 05:55:26 -0800 (PST)
+Message-ID: <8f0c4cb5-8754-4636-abdd-ccec7ad5d932@6wind.com>
+Date: Tue, 24 Nov 2026 14:55:25 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,65 +93,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123182312.4842-1-maz@kernel.org>
+User-Agent: Mozilla Thunderbird
+Reply-To: nicolas.dichtel@6wind.com
+Subject: Re: [PATCH net 1/2] ipv6: check the scope of the best source address
+ candidate in a VRF
+To: vjardin@free.fr, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>,
+ Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261123-for-upstream-ipv6-vrf-saddr-scope-v1-v1-0-f667ab150ade@free.fr>
+ <20261123-for-upstream-ipv6-vrf-saddr-scope-v1-v1-1-f667ab150ade@free.fr>
+From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+Content-Language: en-US
+Organization: 6WIND
+In-Reply-To: <20261123-for-upstream-ipv6-vrf-saddr-scope-v1-v1-1-f667ab150ade@free.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 23, 2026 at 06:23:12PM +0000, Marc Zyngier wrote:
-> Should a guest be slightly foolish and submit a S2 TLBI with a TTL hint
-> that describe a base granule size smaller than the host's page size,
-> we take the resulting size at face value and feed it to the S2 unmapping
-> code. Which legitimately screams about something not being page-aligned.
+Le 23/11/2026 à 15:30, Vincent Jardin via B4 Relay a écrit :
+> From: Vincent Jardin <vjardin@free.fr>
 > 
-> The architecture allows us to drop the TLBI on the floor, as we don't
-> support a S2 granule size smaller than the host's page size. But it turns
-> out that doing so is proving pretty hard (we call compute_tlb_inval_range
-> from a number of places, none of which is amenable to an early out).
+> When a packet is sent through a device of a VRF, ipv6_dev_get_saddr()
+> first checks the addresses of that device and of the VRF device.
+> It stops there when the best of them has a scope that fits the
+> destination.
 > 
-> Instead, detect the annoying case, and pretend that we don't have a TTL
-> hint at all, leaving the size upgrade mechanism to take place and use
-> the largest possible size for the guest's S2 granule size.
+> Since the commit abb9a68d2c64 ("ipv6: take care of scope when
+> choosing the src addr"), that is what the scopedist of the best
+> candidate is tested for.
 > 
-> This will still allow nonsensical stuff to get through, such as a 4kB
-> level 2 (aka 2MB) from a guest with a 64kB S2 base granule size running
-> on a 16kB page size host, but that's not worse than doing nothing, and
-> the host code won't get shouty.
+> scopedist is only written when the rule scope compares 2 candidates.
+> With a single candidate, the rules stop at the first one, which only
+> tells that there was no candidate yet, then scopedist is read without
+> having been written.
 > 
-> Reported-by: Dan Carpenter <dan@pereq.eu>
-> Link: https://lore.kernel.org/r/20261123-inval_range-v1-1-815e15797089@pereq.eu
-> Fixes: d1de1576dc21 ("KVM: arm64: nv: Handle FEAT_TTL hinted TLB operations")
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
+> It is 0 with CONFIG_INIT_STACK_ALL_ZERO, which passes the test:
+> a device that only has an IPv6 link-local address sends to
+> global destinations with that link-local address,
+> although another device of the VRF has a global address.
+> 
+>   # ip link add site2 type vrf table 30
+>   # ip link set site2 up
+>   # ip link add dummy0 type dummy
+>   # ip link set dummy0 master site2 up
+>   # ip addr add fd00:91::1/64 dev dummy0 nodad
+>   # ip link add dummy1 type dummy
+>   # ip link set dummy1 master site2 up
+>   # ip -6 route add fd00:93::/64 vrf site2 dev dummy1
+>   # ip -6 route get fd00:93::1 vrf site2
+>   fd00:93::1 dev dummy1 table 30 src fe80::5cb7:13ff:fe96:87ac metric 1024 pref medium
+> 
+> When the scope rule does run, scopedist is negative, whether the scope
+> fits or not: the test fails, and the other devices of the VRF are
+> checked too. One of their addresses can then win on a later rule,
+> the longest matching prefix for instance, over the address of the VRF
+> device, which the first lookup is meant to prefer.
+> 
+> So let's compare the scope of the best candidate with the scope of the
+> destination instead.
+> 
+> This issue was found for a development of a UDP tunnel device with
+> IPv6 addresses in a VRF selecting an IPv6 link-local source
+> address for a global destination: then it was confirmed with the
+> fib_tests.sh case of the next commit, whose first two checks fail without
+> this fix on a CONFIG_INIT_STACK_ALL_ZERO=y kernel.
+> 
+> Fixes: abb9a68d2c64 ("ipv6: take care of scope when choosing the src addr")
 > Cc: stable@vger.kernel.org
-
-Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
-
-> ---
-> 
-> Notes:
->     Reposting this as a first class patch, as I'd like to plug that one
->     as early as possible (and Dan has plenty of other patches in flight...)
-> 
->  arch/arm64/kvm/nested.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> index 78d5b18dbd2d6..36e4e83badf0a 100644
-> --- a/arch/arm64/kvm/nested.c
-> +++ b/arch/arm64/kvm/nested.c
-> @@ -714,6 +714,13 @@ unsigned long compute_tlb_inval_range(struct kvm_s2_mmu *mmu, u64 val)
->  	 */
->  	max_size = __ttl_to_size(ttl);
->  
-> +	/*
-> +	 * IMPDEF behaviour: treat subpage TTL-annotated TLBI as the largest
-> +	 * possible invalidation. Don't try this at home, kids!
-> +	 */
-> +	if (max_size < PAGE_SIZE)
-> +		max_size = 0;
-> +
->  	if (!max_size) {
->  		/* Compute the maximum extent of the invalidation */
->  		switch (vtcr_to_tg0_pgsize(kvm, mmu->tlb_vtcr)) {
-> -- 
-> 2.47.3
-> 
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
