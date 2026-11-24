@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795532419;
-	b=ViSiUkhrb6yCujW6wUopoIKECKFmm9HvehjjjkC/5qwbcvY9dXxV9hkcCc3wEYyu10WN
-	 jb4TKZMxQZNaZjm2RNyBIBrudFMTWbDt/cBusrZRSBiN7Ibmr1X94BkV2rHhWoVMAnmlQ
-	 3Bqdm/eW1vAgyCi2JVXxBijQ6ml32705ilSjWl/39XuykgRjDU9f6d3Wq04MtAK/BghFg
-	 uri5lDZMz4t++Tomahc5pF6PB53amz5/9QOlNRwsOOdrXD2i8heKM8RbhM+ULxYaJjjKf
-	 P1/UObpevaYB5/d/DUSaHqslGK4osE170zfgk2J6+0BYKfEArm5b84+bg8YTKo31PHw==
+	t=1795532423;
+	b=28SwTAjAQo9MmV+N5wTUn4Rdonb81mBhWFebd90pF7r/13wuV5YsxE8Wd8zd17/t5aKD
+	 7wupVoBWBqhj9rENrGUYlQPgLiuJOM2hf6hsBaGhNCVvrMmWsNdcZE4F3te4DV1sOvO2L
+	 yG2yJNUiPJOq8lM4RG3G6p2mmIfHc1ZO+XRjqeYuaKxy7AFbBEHTtlRCQDsMuCttXPIlH
+	 OtixCU3pkXT8NTe5PpLdCxU4By8ofbbIqUdTcy/OyiYINGemGcym/cyboWclS0iZFW5hW
+	 rcQVI83u1n5WTBk9QhbdM3HFfdfNk7j+In+PSd37ODgIj3rZjk5mZjmJnPGEzcV4RcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795532419;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795532423;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cmjgnLuv2LYNVPx6u330/T2X36YegSo3M7nHdrHrAE0=;
-	b=OVCNY+BrDgKXjoNvcYKw9uQZBm2fLBitIWsHYNdYX5u/s72iYU5x2lelXfJUsLblcFax
-	 Rhh5phn8XJGZ4QLHtN7+0CUU5KziYxkR6JPnBD+sqgVgzDKt0Ej3+EO6EdxudcRwk5Mmn
-	 VMwu1duP0f4aBCxuxieCliCOzdTJNAgNLhNBcUuYgbFFAqU3PiScOMme2OVW8rgCz/V45
-	 EOTTcooRSZTeoKpPJCRMU25THKdE/ALeQGLI//A0A0UphLQe5OYfRUbMYgsUQigI2yJt9
-	 PujvPuQQYiKMI3aSPyenmWSEi4RsQWbwhM6MtVBDmW2MjO78Bo2+EQcRvuUE5WyxHrg==
+	bh=R6FXAQPP45efo5eQYC+uL964qvSNw092+JWWr/EXqmc=;
+	b=tGNZ5O7BYpc7WFaoLv7otE1ilhIOPiu9+mQMHpnTrazTwb2JF1LAqGFW2jZFupxG/Uac
+	 TDBlkY+dGXE8jofxejEzpajE+H52kCn5oK8ZezD/L9fNn8g+KrijqoIpLh/EG55eFOP+j
+	 uCci60bGCpyfC5FBnYf3vmT1HMlvBEZf0UFS4Ei1A+TbCQWe+gflDxzlqToNG1R6/fFCu
+	 6o3ojWFlbhyRsSF74NDttFZJltH9uR8D6JFOrtXagUfD9dmKmGq9FGAABMF3RJWygkkp5
+	 Xoe9vDGAFCX2uzXKPH7z4cArNO8TvZlvPj8fG0HligqDAfFUZKwfctAlRA7mnDs+P4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ftiXLFGo;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TBlfV+dE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51EA606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:00:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D71606A32A
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:00:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ftiXLFGo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2AA91F000C0;
-	Tue, 24 Nov 2026 15:00:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TBlfV+dE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBEAD1F000C4;
+	Tue, 24 Nov 2026 15:00:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795532419;
-	bh=cmjgnLuv2LYNVPx6u330/T2X36YegSo3M7nHdrHrAE0=;
+	s=korg; t=1795532422;
+	bh=R6FXAQPP45efo5eQYC+uL964qvSNw092+JWWr/EXqmc=;
 	h=Subject:To:Cc:From:Date;
-	b=ftiXLFGoTHpj4zbIvXHl9vAg3t0n3bVk+MJSMsWJ4eXdBmaj8pcGSQg//TFQo9M7e
-	 VAmK1GlDcadShFkJcHIIilpKBmbCnnSwUkOLz+GdbmCF/ZNvVUhUHTwGki/qrD/NVz
-	 1qsvcqcvHlwuErJ7rdVIiim5M8TWOnv6pHExGf5I=
-Subject: FAILED: patch "[PATCH] KEYS: Protect pkey method checks against type removal" failed to apply to 6.12-stable tree
+	b=TBlfV+dEwPewhFKeX5PieiH0OeTB6cl1xWVBBbyi4wdKIdTyX90mWJAfCcprS/fFK
+	 MVIZl1wj5RmC3gamwmLzY0ODowMEIKQuNZwF5uDcWK0JilotYJPBybKVBmzxIi2c+e
+	 sKg39n5hm5fB/yYEqHWPJGVgbsYEeW6GFfPWq960=
+Subject: FAILED: patch "[PATCH] KEYS: Protect pkey method checks against type removal" failed to apply to 6.1-stable tree
 To: 0xbeac@gmail.com,jarkko@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:00:37 +0100
-Message-ID: <2026112437-flatworm-handprint-6101@gregkh>
+Date: Tue, 24 Nov 2026 16:00:38 +0100
+Message-ID: <2026112438-irate-occupancy-7430@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x bab48a1044475f62d6e910c6d7267ce4bae847f9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112437-flatworm-handprint-6101@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112438-irate-occupancy-7430@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
