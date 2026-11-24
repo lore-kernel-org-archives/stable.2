@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.73
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795495983;
-	b=L+bmvngDOlT79IHSoY5dX/I2HTsXmYgwrrMuO4EZK/93uPpxdNEexs7hPlouWje4hfpR
-	 GuGfUsEwG7dAerex0fT+H7ty7n2uFCmgx9fWJzqKtYIyTkBoSsp1H3EEjR0XQMinITmdE
-	 yhucRDNadX+rtieTDKk6zuaBsmDjxiyzbewDvfNUKWB2bs8FSysR2Jp21zDLhKW0/eTw7
-	 bRNhVfFNEB2LBTHoZnka/6kTXkqw+lQ4jIGiO2zG6IBp8qhXbxeu0/xqWohE2cBB70D70
-	 0nmy8un+KOjNJ9PoB5isQ4aAmLVyzBw6zWaDIbypn2YPFTRTK0jKhfkAhytBj3wCGVA==
+	t=1795496265;
+	b=GdpobZVDDZ8upCptzrjv1Y5GPZy5U6uUwyPWJ70B3i4DV8FHoYG25mMKVYyuYulBrDi4
+	 R+ZZGmaYnBDWfz4YDZNBpIDVE6tzAI1IgZ7vTIgsd4RLXfCAkL3qhZwQLTwxlCVmCX6Sq
+	 CnNutduLNyOXXdFzkuTPU7n9nt0QeJDZWUNNblVo/0RGX+dSId5bDG+lknBSwt9M7Ixg7
+	 VhK+/ScECrnuZO5GNtIagB4JYhckyN4r/cqpEvrRlcoqyVUeand0a7XtW1m1psLECcpHb
+	 pYZL4soqTKswPg2NpT6bMgt79oMWHFfi0ySuVg9ws11N/0nGky9WgZc+yk43e1lVKqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795495983;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=OiIzwEHdzzAJR7e70QGL0R+/3Yj1cTamKyRrwNi0fyg=;
-	b=ajqNNy7O7CdkzyD0n4NXnFcuEn4q8zBqQdS17oJwnrBCYXG5AlMsNXIKcnSNu6UV9DLr
-	 8lsehMIDsUw6kfvKFLiHPikLQeVL+zgm7IrM4eiRYuyfwylEFY3mwSBNkH1WIz8Elhmtv
-	 FtaSDiSdZXl/0CrqDdBZL4wPiT7pKfg/dZbd8wuZ+Wsx/nPeDlBWcP2ST4XtczTKZYRvF
-	 h/YJkYpMU2IQCAn0UV8c2RiJJz0KOVxdaT/3Wb4PkizLNm0zp1UYPboi9aEICGTEhb5te
-	 v/S8QRLr0Jomaoj/7Q6ayamEYhSj8VwQqqGSI1LLqIJpDi4MJGfEIliK6I0i82JsbIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795496265;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=cooFJK8G2ydt42Nd2Iv2R9B/Oq1zVhrUhV5l7JceOdg=;
+	b=pYJenZ7GZsWPEjjMm6CDuYBDtKfl+BOrbufoI5O5WAvEgkQTooFI2EiASjsRQj3Z2Uu6
+	 /NdwZVRSsc5T/HZEXRC7/+EaYcFB2brNBILMl/syRxsxGQuhzOTqL7yMOdaeSBF2kqkEi
+	 ySszKdocRU6MCSePjjy6r1bMUqC+xJIg6EqzqoEdmcH9BX9dD/KCfCMIrK12u7fl8KWgB
+	 +klAUGI6lNl59TiTwG+FC/KSfCpWMRezBGQO7e05uUQwP9iygHHzEIAUS3NWqBHxvt4q5
+	 7961CTqCwVlnjARxyiqoBqGWs1W/YZg84ay2PiWC+qCZJdv1T+LQcPdigpDz/wnIuXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=r1e5CRtK;
-	arc=none smtp.remote-ip=95.215.58.73
-Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5E9606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 04:53:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D5E9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="Z/dRd1f0";
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3ED34606A321;
+	Tue, 24 Nov 2026 04:57:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ED34606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=r1e5CRtK
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=s/slY6o6wSEczfY7MjDTmcG9POL3RXKg4WQAsPd+j7A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795495980; v=1; x=1796100780;
- b=r1e5CRtKl/EPAtOKOj3DJ1DMGKukAqhyex1TbxxaiNzdZxxU3HVDvqqoFiclT7D+iEUsqXnj
- EDXH52TtiB9Ee+HL55KmQfuKvW4DRTnbU723G8Gedi++KFVbh1k1XlOcecSs/LLUm+OwiAKqArt
- ny/YDiRvcp1MtYCCbkCYJK60=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ca530465533cab93;
-	Tue, 24 Nov 2026 04:53:00 +0000
-X-Mizu-Trace-ID: ca530465533cab93
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Z/dRd1f0
+Received: from [10.26.7.43] (unknown [4.213.232.18])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 7B75D20B7167;
+	Mon, 23 Nov 2026 20:57:35 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7B75D20B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1795496260;
+	bh=cooFJK8G2ydt42Nd2Iv2R9B/Oq1zVhrUhV5l7JceOdg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Z/dRd1f07VxE6zEy9nZ2x8AxUd3aX/c5gjwWH1eSe+lzK1kkTtYaS+jKAG6MRrZN5
+	 EDQF6JUEmMe+sgY00PvbuejB8UULveSKyWsxAJ3BL75co8WaIJVaRW4xbcvOKiPkMZ
+	 7ynHyuglFEGH2GqyXVnyWNtKgeCgQUXutUVkbKoA=
+Message-ID: <c8f26062-3d88-4efb-8548-f233a6c234bd@linux.microsoft.com>
+Date: Tue, 24 Nov 2026 10:27:37 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,74 +52,228 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH] memcg: free the private ID of a memcg that never comes
- online
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <awUTKy9tx8nWJgXf@linux.dev>
-Date: Tue, 24 Nov 2026 12:52:41 +0800
-Cc: Muchun Song <muchun.song@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal Koutny <mkoutny@suse.com>,
- Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Meta kernel team <kernel-team@meta.com>,
- cgroups@vger.kernel.org,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4] net: mana: Avoid waiting on dead HWC after device
+ reset
+To: netdev-bot+sashiko@kernel.org
+Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, kotaranov@microsoft.com,
+ horms@kernel.org, ernis@linux.microsoft.com, gargaditya@linux.microsoft.com,
+ mawasthi@linux.microsoft.com, kees+treewide@kernel.org,
+ schakrabarti@linux.microsoft.com, leitao@debian.org,
+ linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
  stable@vger.kernel.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <2FE2D209-FB57-4191-A324-F179B2394DB1@linux.dev>
-References: <20261124000439.967403-1-shakeel.butt@linux.dev>
- <F39B4A81-BB17-4C5D-851E-2740EBBBBA8B@linux.dev> <awUTKy9tx8nWJgXf@linux.dev>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+References: <20261118091436.3985155-1-sahilchandna@linux.microsoft.com>
+ <179534285205.3135.17134166045415765008@kernel.org>
+Content-Language: en-US
+From: Sahil Chandna <sahilchandna@linux.microsoft.com>
+In-Reply-To: <179534285205.3135.17134166045415765008@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-> On Nov 24, 2026, at 12:33, Shakeel Butt <shakeel.butt@linux.dev> wrote:
+On 22-11-2026 15:50, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
 > 
-> On Tue, Nov 24, 2026 at 10:50:00AM +0800, Muchun Song wrote:
->> 
->> 
->>> On Nov 24, 2026, at 08:04, Shakeel Butt <shakeel.butt@linux.dev> wrote:
->>> 
-> [...]
->> 
->> The leak analysis and the fix look correct to me. However, using
->> CSS_RELEASED here makes the private ID cleanup depend on a generic CSS
->> teardown state, and adds an accessor solely for this failure path.
->> 
->> The private ID is not needed until mem_cgroup_css_online(), so could we
->> instead reserve it at the beginning of that callback? Failures in
->> css_create() before ->css_online() would then never own a private ID,
->> while failures after the reservation would continue to use the existing
->> mem_cgroup_private_id_remove() cleanup.
->> 
->> This would also make the private ID lifecycle more explicit: reserve and
->> publish it during online, then drop the initial reference during offline.
->> It would avoid both the new css_is_released() helper and special handling
->> in mem_cgroup_css_free().
+> Critical: 0 · High: 0 · Medium: 1 · Low: 1
 > 
-> Thanks Muchun. Nothing needs the private ID before ->css_online(), so
-> reserving it there would work. But it moves the out-of-IDs failure from
-> ->css_alloc() to ->css_online(). By then css_create() has linked the
-> css into the parent's children list and css_idr, so mem_cgroup_iter()
-> can css_tryget() it and cache it in iter->position. A css that fails
-> online is freed without ->css_released(), so
-> invalidate_reclaim_iterators() never runs, and the free does not wait
-> for those references. Today memcg's ->css_online() fails only when a
-> small allocation fails. With the move, every mkdir on a system that is
-> out of IDs would take that path. I would rather keep failing in
-> ->css_alloc(), before anything is visible.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 > 
-> To drop the CSS_RELEASED dependency, I can test the ID's own state:
-> !memcg->private_id_objcg means the ID was never published and the memcg
-> still owns the reservation. Let me know if that works for you.
+> - [Medium] In mana_dealloc_queues()
+>   (drivers/net/ethernet/microsoft/mana/mana_en.c), the patch cuts the…
+> - [Low] When mana_gd_dev_reset() fails in mana_dealloc_queues(), hwc_dead
+>   is deliberately left clear, and v4 dropped the hwc_timeout reduction…
+> 
+> --
+> 
+> net: mana: Avoid waiting on dead HWC after device reset
+> 
+> This commit replaces the 120 second sleep-based TX drain in
+> mana_dealloc_queues() with synchronous CQ polling. Each queue gets about
+> 300 ms, and the device is reset if sends are still outstanding after that.
+> After a successful reset a new hwc_dead flag is set, so that
+> mana_hwc_send_request() fails fast with -ETIMEDOUT, and mana_fence_rqs() and
+> the SHM teardown handshake are skipped.
+> 
+>> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+>> index 7e9223143fc75..5e4379107b457 100644
+>> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
+>> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+> 
+> [ ... ]
+> 
+>> @@ -3774,19 +3780,24 @@ int mana_attach(struct net_device *ndev)
+>>  	return 0;
+>>  }
+>>  
+>> +#define MANA_TX_DRAIN_RETRIES	3
+>> +
+>>  static int mana_dealloc_queues(struct net_device *ndev)
+>>  {
+> 
+> [ ... ]
+> 
+>> @@ -3799,31 +3810,79 @@ static int mana_dealloc_queues(struct net_device *ndev)
+>>  	 * to false, but it doesn't matter since mana_start_xmit() drops any
+>>  	 * new packets due to apc->port_is_up being false.
+>>  	 *
+>> -	 * Drain all the in-flight TX packets.
+>> -	 * A timeout of 120 seconds for all the queues is used.
+>> -	 * This will break the while loop when h/w is not responding.
+>> -	 * This value of 120 has been decided here considering max
+>> -	 * number of queues.
+>> +	 * Drain the in-flight TX completions for each queue. TX is already
+>> +	 * stopped, so pending_sends can no longer grow. For each queue,
+>> +	 * disable NAPI so it cannot run at the same time as this drain,
+>> +	 * then poll its CQ for up to 300 ms. If sends are still missing,
+>> +	 * the hardware is not responding: reset the device and mark the
+>> +	 * HWC dead so that later HWC commands fail fast.
+>>  	 */
+>>  
+>>  	if (apc->tx_qp) {
+>>  		for (i = 0; i < apc->num_queues; i++) {
+> 
+> [ ... ]
+> 
+>> +				tx_cq->budget = 0;
+>> +				for (retry = 0; retry <= MANA_TX_DRAIN_RETRIES;
+>> +				     retry++) {
+>> +					do {
+>> +						tx_cq->work_done = 0;
+>> +						mana_poll_tx_cq(tx_cq);
+>> +					} while (tx_cq->work_done);
+>> +
+>> +					if (!atomic_read(&txq->pending_sends) ||
+>> +					    trigger_flr ||
+>> +					    READ_ONCE(hwc->hwc_dead))
+>> +						break;
+>> +					if (retry < MANA_TX_DRAIN_RETRIES)
+>> +						msleep(100);
+>>  				}
+>> -				break;
+>> +			}
+>> +
+>> +			pending = atomic_read(&txq->pending_sends);
+>> +
+>> +			if (!trigger_flr && pending > 0) {
+>> +				trigger_flr = true;
+>> +				flr_txq_id = txq->gdma_txq_id;
+>> +				flr_pending = pending;
+>> +			}
+>> +		}
+> 
+> [Severity: Medium]
+> Before, the driver waited up to 120 seconds for completions before deciding
+> the device was unresponsive. Now it waits about 300 ms per queue. Is 300 ms
+> a safe threshold for a function-wide reset?
+> 
+The 300 ms budget rests only on testing which shows pending CQs can be
+drained in this time.
+> mana_dealloc_queues() runs during routine operations. These include
+> mana_close(), mana_change_mtu(), mana_set_channels(), mana_set_ringparam(),
+> mana_set_priv_flags(), mana_xdp_set() and the per-port queue reset work.
+> 
+> Suppose a device works but is slow, and a TX completion is still outstanding
+> after the fourth poll. Then trigger_flr is set and mana_gd_dev_reset() runs:
+> 
+> drivers/net/ethernet/microsoft/mana/gdma_pci.c:mana_pci_dev_reset() {
+> 	return pcie_flr(to_pci_dev(gc->dev));
+> }
+> 
+> On CDX this is cdx_dev_reset() instead. Both reset the whole function. That
+> hits every vPort on the gdma_context and any mana_ib user, not just the port
+> being torn down. Also, pcie_flr() here does not save and restore config
+> space.
+> 
+> A successful reset sets hwc->hwc_dead. Nothing clears it until
+> mana_hwc_destroy_channel() frees the hwc and a new one is allocated. Until
+> then mana_hwc_send_request() fails at once:
+> 
+> 	if (READ_ONCE(hwc->hwc_dead))
+> 		return -ETIMEDOUT;
+> 
+> Wouldn't the mana_attach() that follows mana_detach() then fail and leave
+> the interface down?
+> 
+> On PCI, recovery seems to happen only when mana_gf_stats_work_handler()
+> sees -ETIMEDOUT and schedules a service reset.
+> 
+> The CDX bus_ops have no schedule_serv_work callback, so
+> mana_schedule_serv_work() returns -EOPNOTSUPP there. Would a CDX device stay
+> down until the driver is rebound?
+> 
+> The commit message says the budget "is not based on a hardware limit". It
+> also says that in testing the late completions had all arrived "by its
+> second poll", which comes after the first 100 ms sleep. That is about a 3x
+> margin for a decision that resets the whole device, in a patch marked for
+> stable.
+> 
+This patch changes only how long the driver waits before deciding for
+reset, not what it does afterwards.
+mana_attach() failing after the reset is also what happens today: after
+the FLR, HWC commands time out (the first after the full hwc_timeout,
+the rest after 1 ms), attach fails, and on PCI the port comes back
+through the gf_stats worker and the service reset. With this patch the
+same thing happens without the long waits.
+The CDX has no schedule_serv_work, so a CDX port stays
+down after the reset. That is even true without this patch.
+>> +
+>> +		if (trigger_flr && !READ_ONCE(hwc->hwc_dead)) {
+>> +			/* Completions never arrived: the device is
+>> +			 * unresponsive. Issue device reset and
+>> +			 * mark the HWC dead so subsequent HWC commands
+>> +			 * fail fast instead of each waiting the full
+>> +			 * hwc_timeout.
+>> +			 */
+>> +			err = mana_gd_dev_reset(gd->gdma_context);
+>> +			if (err) {
+>> +				netdev_err(ndev, "device reset failed %d with %d pkts pending in txq %u\n",
+>> +					   err, flr_pending, flr_txq_id);
+>> +			} else {
+>> +				WRITE_ONCE(hwc->hwc_dead, true);
+>>  			}
+>>  		}
+> 
+> [Severity: Low]
+> Two comments here say that missing sends lead to a reset and to the HWC
+> being marked dead so later commands fail fast. One is the block comment at
+> the top of the drain, the other is the comment just above
+> mana_gd_dev_reset(). But hwc_dead is only set when the reset succeeds. Do
+> these comments match the error path?
+> 
+> If mana_gd_dev_reset() fails, hwc_dead stays false and hwc_timeout is not
+> changed (v4 dropped the step that lowered it). The next call is
+> mana_disable_vport_rx()->mana_hwc_send_request(). It passes both hwc_dead
+> checks, posts MANA_CONFIG_VPORT_RX, and then waits:
+> 
+> 	timeout = READ_ONCE(hwc->hwc_timeout);
+> 	if (!wait_for_completion_timeout(&ctx->comp_event,
+> 					 (msecs_to_jiffies(timeout)))) {
+> 
+> That wait uses the full firmware value, 60s on the tested system.
+> mana_fence_rqs() also still runs on this path and sleeps 100 ms per RX queue
+> on error. pcie_flr() can itself block in pci_dev_wait() before it fails.
+> 
+> This is still shorter than the old 120s drain plus 60s wait. Item 2 of the
+> commit message also says that posting teardown commands after a failed reset
+> is intentional.
+> 
+> Could the comments and the commit message say that RTNL can still be held
+> for the full hwc_timeout on this path?
+> 
+> [ ... ]
+> 
+If the reset fails, hwc_dead is not set and the next HWC command still
+waits the full hwc_timeout. Lowering the timeout in that case was
+dropped on purpose: the device may still be alive, and timing out its
+destroy commands after 1 ms would free CQs the hardware may still own. I
+will fix both comments and the commit message.
 
-You're right. I missed that the css is visible to mem_cgroup_iter()
-before ->css_online() completes. Using private_id_objcg to track whether
-the reservation was published makes sense to me. Thanks Shakeel!
-
+pw-bot: cr
