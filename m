@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795524023;
-	b=gYMLdI/BIYhfVS8pzWO6aukRHpHj8KNOQltJL5DJXMFXX6C0niKHsdWVBLth1q1hibKf
-	 OSHEehzvlOGDPX3GA9jARDC7vwnxuXf+Tcdz8+KQBwYVo49uTyHGB3gcbr4B+qv8IdO1N
-	 GwjkZSdrGG/W/OpEN7LB5IkhOODhKMmAh33W0Ad9SR7kdlRskjK2PQlC3IoBXqoMqhUgO
-	 BK0zupL7zdE8NHjRcyyanJD84/EmtZCnIY/1dQbdGQjstQkkBBnPPbWKg86Q10lA3Cu7S
-	 5p2FsTEu0rGwa3E4rOypShmR9gIxm+3bB3Sw+4QtrHHat2LaQkw9Am8AzimljxQkSQg==
+	t=1795524094;
+	b=3VGEyxapLPcH4G29eXKh+H33nM3smKXsNmvVL36A/BzetlQc8MzT6Td8lQhXUfPUWU3S
+	 RXQxeYFWHibkR894zuTsmd2ZLTCBIsGKfsdZ1tL47GEh6iNHgecfgizxVYmA1DaDe9fgb
+	 /a1EDRI+jA85rewT2ZqvUasTHZATBC2gtTx4YgyJXqgdUwIgXmZ9htlq90GR9zzkNho6p
+	 s8Qkjt4qeVEwSdYvxT0H0XooGchAOVpSpnXFSvUUJdvpC+adH31d0M23w6E4/LqVq91RP
+	 LiVrvmBPZ5GAb8ohviVCBDGyj6kCzvLh+DgdGgOXtiK+OiPDkfsqj/dJXVeKoen1r/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795524023;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795524094;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=fmJU1hjBtut2ZClpTk0/Uyfv4hHhwMNPcQa921A/cjI=;
-	b=SJ0ofwX3ZveBND+dvWz+PBEr2Uw70CC34BLUirtZ3KdIZa5XO5+9nL2kGs2sNZ/Bp62R
-	 +MjHfc8lfHxEoPnjhtXLYOGfh1Gcn4BTkHCdNl8JG6VMD83KHycjyxc9HVXYBI1spZ78J
-	 POB7saqABangEPGC7Dl+5Hv1onetqMtYJy0Et96+bbviuZ3VTMfJ6nKpZWxOHuUwRmOu2
-	 Ajjg9fPNPpEjeCojY/BInHeGm/HgfiB6kIVy4TMwqruJFZYNvyYT1a+uwzBO8JGFE+kQ7
-	 PsvT2fujLyTxyoEeBl/a5empQp5mEN3yLW4KI4EQlN2cVH7XqAX4AsDkYxss7NHPZuA==
+	bh=AXISzIl2GmdrgiGiNCrKwwMWhjga6IdbyVL6t7e5v3Q=;
+	b=ghX4LvX/KxYvxcMfB4PLvPGDUdmnOsEgiPHcSL3CQ0wXaTvhPyUGCMdQx3O+vRcPA1PZ
+	 a5UmqtGaHeVh+i9vrZvmKyELU3Wjt9O37Dy0jWVXYp25v6b+o8NjsuQmvZJWkA+P4CnDX
+	 KKZx9sBIy50mMOBwfc79sER3X7iThpGmRcHYHcgq8fssKBsm7gPtWgdDG1+hPmzzKBOBh
+	 2HQmpKZ8XsG0xElurB2kp/ZOh+alq+z5O5BK3EBQZilIpX+caglt+HLY2zIanJgg0gq7i
+	 ZSVdrr4CGreDSxEzRIfo4reP0NUYCD2WdzziK8w3PiNRFVAwX8g2NfpQDIfYsYnfQVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=ndz7wbr4ebftpiguigrsldtefu.protonmail2 header.b="j/cWJcDy";
-	arc=none smtp.remote-ip=79.135.106.99
-Received: from mail-10699.protonmail.ch (mail-10699.protonmail.ch [79.135.106.99])
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=Iacf0nFz;
+	arc=none smtp.remote-ip=109.224.244.25
+Received: from mail-24425.protonmail.ch (mail-24425.protonmail.ch [109.224.244.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48333606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 12:40:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48333606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD615606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 12:41:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD615606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=ndz7wbr4ebftpiguigrsldtefu.protonmail2 header.b=j/cWJcDy
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=Iacf0nFz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=ndz7wbr4ebftpiguigrsldtefu.protonmail2; t=1795524019;
-	x=1795783219; bh=fmJU1hjBtut2ZClpTk0/Uyfv4hHhwMNPcQa921A/cjI=;
+	s=protonmail2; t=1795524091; x=1795783291;
+	bh=AXISzIl2GmdrgiGiNCrKwwMWhjga6IdbyVL6t7e5v3Q=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=j/cWJcDyE1LJFJt1lsYHUyt5wY0iew0bPCEjGAWJuCSRCmhgg4xdsULHug7l0DT9x
-	 UuyGAjVF3TpmZpSsga+vZZBC3RXS2avPqLfJdLX2a5IOnacdljp57RUOxu4nt7J9P4
-	 DCthNWYBuoV8Q64y2LUH9iI8WXpnnnGqPHQAIGXOCY0c0aR/paAg4maRUlhAQBuJ4R
-	 VucgBGlVP+L+AjSYEttL22HK3T6GCQiFx8lRqSmq4nkoHdBeIrNzIP9SbWUDxZyoCS
-	 iwfvkfUsYguYRPxweWkuNJWbZJBXFPlBCXLo66KnNWi7lTx0Cp2URLv+PaPmn6wMYB
-	 vWNm6bc1exmAQ==
-Date: Tue, 24 Nov 2026 12:40:14 +0000
+	b=Iacf0nFzacgSAMU0Da/ajlV1EAEgzHG8ARPTDPdDf7ghexVQaBNkmvqktpWycGoFf
+	 0f6xrJDcA73vBvVACjdUKHe5FxqzFJvqo0V4x2GvNq0ZFvfMGFRNwN2Fu2lotrJaKD
+	 n9g3uiPuadkIwLDZGOhTXrNIg064QG+xGmwmT0Hr8HXBGNqRyQWNoubQ89WW/BINea
+	 0qE+gGHFLxkRxpQwfmPNCBCoWDsh63kUq1iQqxjETq1wey5qTpH2qU2DnpD8HOxFjV
+	 iHn+l6JxkgxMHPRtOAR2F12xX0DQ0TC+xZ5xceUlhOR7+tU5+kDR91FXJtPTsQ6d7o
+	 wXD4GY77tdUoA==
+Date: Tue, 24 Nov 2026 12:41:26 +0000
 To: Hyunchul Lee <hyc.lee@gmail.com>
 From: Ernest Borowski <ernest.borowski.git@proton.me>
 Cc: ernest.borowski.git@proton.me, Namjae Jeon <linkinjeon@kernel.org>, Baolin Liu <liubaolin12138@163.com>, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng1024@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 5/7] ntfs: punch out the delalloc reservation of a failed buffered write
-Message-ID: <179552401127.2437814.5296523363339090299.b4-reply@b4>
-In-Reply-To: <awPTjheQrp6sxB5W@hyunchul-PC02>
-References: <20261122-b4-ntfs-delalloc-fixes-v1-0-0726f0dce403@proton.me> <20261122-b4-ntfs-delalloc-fixes-v1-5-0726f0dce403@proton.me> <awPTjheQrp6sxB5W@hyunchul-PC02>
+Subject: Re: [PATCH 6/7] ntfs: zero new delalloc clusters even when writeback allocates them
+Message-ID: <179552408028.2458487.7065441678711617197.b4-reply@b4>
+In-Reply-To: <awPUQP3VxjqgW9Lf@hyunchul-PC02>
+References: <20261122-b4-ntfs-delalloc-fixes-v1-0-0726f0dce403@proton.me> <20261122-b4-ntfs-delalloc-fixes-v1-6-0726f0dce403@proton.me> <awPUQP3VxjqgW9Lf@hyunchul-PC02>
 Feedback-ID: 236360163:user:proton
-X-Pm-Message-ID: 96cd9f2e223e2295cbc6d5f0c93ff9b921a6e372
+X-Pm-Message-ID: b499bba2639c34d5bee5f32abf88e83afe610d0b
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,61 +67,51 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 23, 2026 at 02:47:58PM +0900, Hyunchul Lee wrote:
-> Could this leave clean dealloc clusters reserved?
+On Mon, Nov 23, 2026 at 02:50:56PM +0900, Hyunchul Lee wrote:
+> Could the buffered-write iomap become stale after this unlock but before
+> the data is copied?
 >
-> For example, with 1 KiB clusters and 512-byte blocks,
-> iomap_write_dealloc_ifs_punch() calls this callback seperately for each
-> clean block in a dirty folio. For a cluster covering [1024, 2048),
-> the callback receives [1024, 1536) and [1536, 2048) separately. Rounding
-> each range produces an empty punch range, so neither call removes
-> the reservation, even if the entire cluster is clean.
+> For example, suppose a buffered write obtains an IOMAP_DEALLOC mapping
+> for a hole. After the unlock, a mmap write can allocate the cluster
+> and write another byte in the same block. If that foilo is written back
+> and reclaimed before the buffered write resumes, the buffered write
+> still uses its old IOMAP_DEALLOC iomap. __iomap_write_begin() can zero
+> the rest of the block instead of reading the mmap data from disk.
 
-Yes, thanks.  The test only used 512-byte, 4 KiB, 16 KiB and 64 KiB
-clusters (either one block or at least 4 KiB), so it missed this.
+Yes, it can.  This is pre-existing: on ntfs-next, buffered writes take
+no lock against page faults, and the ntfs_iomap_valid() removed by this
+patch only guarded the zeroing in ->iomap_begin(), not the copy.
 
-Triggering it requires a folio with clean, uptodate blocks behind dirty
-ones after a short write.  That takes a hole below the initialized size
-already read into the page cache (a write past the initialized size
-drops the cache first) and a copy ending on a cluster boundary.  If the
-copy ends inside a cluster, patch 7 calls folio_mark_dirty() to cover
-the rest of that cluster, which dirties every block, so nothing is
-punched; that makes writeback write the whole page, and I will look at
-narrowing it in v2.
+I wrote a reproducer for your sequence.  The copy blocks on a
+userfaultfd page before the write's second folio.  While it is blocked,
+the test stores a byte through a shared mapping into the block where the
+write ends, runs sync_file_range() (which does not wait for the inode
+lock), drops the page with POSIX_FADV_DONTNEED, and resumes the copy.
+The byte reads back as zero on ntfs-next and with v1, and is kept with
+the v2 fixes.  This holds in all 16 cases (512 B, 4 KiB, 16 KiB and
+64 KiB clusters; files initialized to their end or not; Ubuntu 26.04
+and Arch Linux):
 
-For example, with 1 KiB clusters on a file initialized to its end:
-pread() 32 KiB at 0, then pwrite() 32 KiB at 0 from a source that
-faults after 1 KiB.  With v1 the three clean clusters of the first folio
-keep their reservation, and writeback allocates them but writes only the
-dirty blocks, so [1024, 4096) reads back the old disk contents after a
-remount.  A failed write at a lower offset than a dirty cluster in the
-same folio keeps the reservation until the inode is evicted.
-
-                                  v1                  v2
-  short copy, 1 KiB clusters      4 clusters, 3072 B  1 cluster, 0 B
-  short copy, 2 KiB clusters      2 clusters, 2048 B  1 cluster, 0 B
-  failed write, 1 KiB clusters    4 clusters          1 cluster
-  failed write, 2 KiB clusters    2 clusters          1 cluster
-
-(clusters allocated or reserved, of which 1 is the written cluster;
-bytes of old data read back after a remount.  Same results on Ubuntu
-26.04 and Arch Linux.)
-
-v2 adds an iomap patch before this one that passes each run of clean
-blocks to ->punch() in one call.  A cluster no larger than a folio then
-reaches ->punch() whole when all its blocks are clean.  A larger cluster
-overlapping a dirty folio has dirty data and must stay.  XFS and ext4
-punch whatever range they get, so for them it only means fewer calls.
-The iomap patch alone fixes both the short copy and the failed write.
-
-CI runs:
+  ntfs-next:                 https://github.com/xerrni/linux-ntfs/actions/r=
+uns/45292350658
   ntfs-next + v1:            https://github.com/xerrni/linux-ntfs/actions/r=
-uns/45386115143
+uns/45292355094
   ntfs-next + v1 + v2 fixes: https://github.com/xerrni/linux-ntfs/actions/r=
-uns/45386121459
+uns/45292359194
 
-The cases are in tests/delalloc_partial_fail.sh in
+Reproducer: tests/stale_write_mapping.sh (with stale_write_mapping.c) in
 https://github.com/xerrni/linux-ntfs.
+
+v2 adds a ->iomap_valid() check for the delalloc mapping of a buffered
+write.  ntfs_attr_map_cluster() bumps a per-inode sequence count when it
+allocates clusters, and the mapping records that count.  If the count
+has changed, the mapping is stale unless all of its clusters are still
+delalloc.  A stale mapping is handled like a short write: ->iomap_end()
+releases the clean delalloc clusters the write did not reach and, if
+the cluster where it stopped is still delalloc, zeroes the rest of that
+cluster where it is not cached and dirties it where it is, as for any
+short copy.  The remaining range is then mapped again.  It is now
+allocated, so __iomap_write_begin() reads the block.
 
 Thanks,
 Ernest
