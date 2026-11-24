@@ -1,98 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795484310;
-	b=FxZy7niKnGcZSwU8eI7jbuYkid62RSX78E39JVHDM28bn4pI68DsIlp6LcY7lYcMso7c
-	 Z53hDQLvxBehqbut7u6wiSdoN6OjfOWZcV01yxp+YkG9Wcfr7pEwqbNpV/kx+HE+vMEN1
-	 K756gK/LPegkl+FnkxJTqlqrEuQW87AvyEVYRifDSIuwfaYJmUGVm/YbM/esX28RXMKwd
-	 MAc+lCA3lAxluhZVlnFlMqshmwb7ys9cVBlkleTGVIEYDnOddlsOYqLcUHHFlHwXR5qfX
-	 bhNeS59Sleuu6qt07aqCLZtn93teCF6O6gdsEGutxA77Lyo4lvxz1gO848Qalku+nxw==
+	t=1795484408;
+	b=j58Aq8w/qe+8G84ZKA5M/KRGMxxHc53dBMZx9P0YUcUBWck/PGT4j5NeXCQlsFobnftN
+	 pJealS852vLlu/OJB4lO7RtS+ANdbR9HbVqmJUKUtJI1CyKDavvjfMkKX+EMX3pZ7CKhy
+	 xib0V89dOFflKwmwpbFzvyVhheOH58ogZsJr2XnnecKqCGRp2T9WYXw8tZg9RlYpR8qp0
+	 lOeA7dlVqH4HFU3ESjK4kihd+T8Ggl0IYMQVvqElTZj/Dc28Va6erVB/N4JcLvMoaOfqd
+	 RMYm6IU6LaASaV/+god7zQaUO1WmlRuVaGFpvwpyQ+obh6GZERKuzQxnakAXRyKv7vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795484310;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zPEkjCEVqbn6YbsK/3IOudjnU9MkfzVsn/g6qbuTA7w=;
-	b=xfFwi3d5EX10/7JCAKfiEGnLYT2mZb7igcmEJ6DbRjhFqAitnlBK7a1EN85BGA//T8SK
-	 fNxFD9FxPNpjreaeiA9wSZb6vHk7RbdhrkG7PPqJjEvTuEUr8nzwePKD+zKSuNfAkTntR
-	 oS3FDIDitMaalYc6UfRpl6Uj9X/JdW0xtkCnV2UFtD44o3EFW3D6DfKBf8PoSOapZc0UQ
-	 3g9/28aTmjD57UzCVJwVtAxkyZQIuf+/4g9cT2geUqiXMVr63unKWQTWaMi3i7ukZf0pe
-	 nNXA0nD0hm0SUPihlE1KasJjh7eYrTSSpgUnz6NtEcNcsdgcJdQxTPZWqidWn5s1ECw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795484408;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=FhNSJyAl8M2ftrmL501v23K9HFYihd0BQJIUzsZGTic=;
+	b=aNI+RzCZBmkosUDw+XYMhzUw5hnKTdCfqw3TYep6JAe4KyZJDdM/4HLFZrGtOLeEGAVQ
+	 KbIjCldJGs2bIpjhbGn8EVSFWFoRTOKTeWvokQssjmkflc28ORVgf9z3IaEh4qPNQ/Lbw
+	 jEFvZyM6oyRKwyb3FAk1CGGCyFVNgTahxzcI8dE63Izdrf8Ng/uEKb0gpei0iKv8ic9cM
+	 SBheG+zxSni21j6h0BaCIS9kylC5C18lCFMe9vF9sCC7BQyQ3Lqk4uVU/BdYZeikTNQbS
+	 R1TO08PZNNpk+aGaevCnUDJEDk08jRRt0lCvuHG4NHvCqRZRuE2sHroRKl5hldDKJGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tis7Ks6Y;
-	arc=none smtp.remote-ip=74.125.224.54
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=D1cJO60x;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8FRfdyVd;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26238606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 01:38:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26238606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DBD606A32C;
+	Tue, 24 Nov 2026 01:40:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3DBD606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tis7Ks6Y
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-67db89857abso4095425d50.0
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 17:38:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795484309; x=1796089109; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zPEkjCEVqbn6YbsK/3IOudjnU9MkfzVsn/g6qbuTA7w=;
-        b=Tis7Ks6YH3lIFYhtif3vvVyETTXpbJHyX8WoZh7J60hvENiYqzcvsnVH4Q/df67uGT
-         vfpdue3Xzbl7nDk0myzXBlXaxsB4MsIL8BwzD/bQemrz70xqpJA1tNSrpWoyXCQW7Fjo
-         sCvjn9DXt241tTDV8VUGDXq/Du6JCtFWkMdBP3u3RapBy7CxMAKK9W9mjSYw7j4LpsY/
-         nttToLwinv0jVXq7uDMiVlnxJd92W1SaEiyU1yzpdUUlOR4fxQ20VUM7Z2sW+UiCdv7K
-         YXuKRnm+vB2+Ex6QlGOyqhuMV7Z/qnp5bew4recieYpL2EVRC//cuA9SjTwoITtcDcRm
-         a0OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795484309; x=1796089109;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zPEkjCEVqbn6YbsK/3IOudjnU9MkfzVsn/g6qbuTA7w=;
-        b=0wQWlTG8C8xrelvzYO6kb/9Lc6m8EJFwIaMws+FEtOPvh59qvOfS3R8U7+z9hbBZmb
-         /REaFTInivV7vdqGywSjnRl2sKgpkCcwLTmkEQSd+r5sLA3blnQRCcBMM8XcbW1P+nAX
-         s4hh8/IX36wV6M0aXKb3uOl/rhuwxAOudognLKG4Bn9g7Wb+KFSf4MeugfDR5Uo8Ol3Q
-         xZzo0KoNvlwIW8XwPhDbWw3TYa5xMG+SP98QX7MLz3WdcUY3zjCZO2Oxv9GkVeqXq1It
-         zH/OIFOFwtMedrgGN8CfpmUe7GCrO56K9RS6vCIIqHZsrfER/np1AtpX5D6MC2vVGrHt
-         bmPw==
-X-Forwarded-Encrypted: i=1; AL+hErEA3qN+ao5EQ/X3YL8rfOg262DuyHeqAJe39iU/uZpyr0+38O2CGq0E9LqYAZMu8Q0zQ76hXjg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MWc0BRVdaDKXLELkSYtjyLHHAcqvftGS09TgfXkhP2WUo5GTs
-	LY3nwXuOPrrahvzV1p3YHfcHRn38mwBNgfzP9mGo7RgqiezJAUDfcxUS
-X-Gm-Gg: AZFdTZdOkOYXEuaq+lnJN/p2Pn58eYzT6Er13px8GE1f/+m4JMgY0S0fW/x/sC6uu26
-	tLhcnsfzy6ZdmKdKO90d/GXjb3f4TGkSAMDTcZGUyiPlnbJK7bn2GzbB8W/IkIOhmjrggRbTQfA
-	JKvmvdESMm6kmDwX13NXwjDcxCASItSr/unswl07pEMcGYFptPHnPY85WCeJO8SUIL6OxiKGfob
-	e6uF9qo8SNWneWOA0oSHoFHXacz3HuUyUoz1KkE1Mz5uEWCj8CZFQLgvDsBItx0c910LJwAeRGi
-	Qk1XaBUbjm4Q3VwoMgkWtqcuR07TLhGV5MNOt321KpT4XhEddSDxUuNdrFi4kVmPl5rh4f1yL3u
-	QB5I66CL8Op8+1X0cOS0pz/w6ZbqlxCCNfhlMPiabytPc2G3jPb+mDzIEJpdfEojsrkfJMXSL/y
-	CRWLTTMnc8VPm2MSP5A1zgPqM8ib96dVEFcbqucQ+MbhU6EYhh8y2upSwkx2yn/LJSJxl2L+Uos
-	yz1RgXqSLoj8/gpMusR++sRlFblsRKGEq5llj+zdabpbVQxEk7bAuf3msa+Uw5VXYkZ7meOCuu4
-	A/gcZgmfEJ1xJxrGPB9ZE5BwOwn/3S0KS62QY0PlAkqIOfaGy0P4dzE6UWzQ5TGCDmaRP77dI4w
-	UwlCzsxOm7Imd8o5KgrJXXFHhnbMpph2PhEEviDBfqBcQ3+eWeZJmyquifJHENp7poOL0uV8QMv
-	a8j/MKD7GJGPDqmVMfbdYKlEUK
-X-Received: by 2002:a05:690e:12cc:b0:679:a943:7da7 with SMTP id 956f58d0204a3-67df447de99mr5037121d50.81.1795484309083;
-        Mon, 23 Nov 2026 17:38:29 -0800 (PST)
-Received: from localhost.localdomain ([2600:1702:7bd1:1ca0:6d54:522c:b8ac:678d])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b52036d72csm52271787b3.45.2026.11.23.17.38.27
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 23 Nov 2026 17:38:28 -0800 (PST)
-From: Aviral Srivastava <aviralyash27@gmail.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	willemb@google.com,
-	horms@kernel.org,
-	Aviral Srivastava <aviralyash27@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] udp: gro: do not match tunnel-processed and plain packets
-Date: Mon, 23 Nov 2026 17:38:23 -0800
-Message-ID: <20261124013823.96835-1-aviralyash27@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=D1cJO60x;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8FRfdyVd
+Date: Tue, 24 Nov 2026 01:39:57 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1795484399;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FhNSJyAl8M2ftrmL501v23K9HFYihd0BQJIUzsZGTic=;
+	b=D1cJO60x2YSc5s1FfRbmjsWxteqsjoWV/wRtHIXF5A/x1ICqycX+dXhLBWgugTOFgA0bfh
+	gus9P9Z5zCCxLCFcauADb/QNkDQhYQMizWoem4u6T2aQMTYn9L+xZ4YMWuBgqgmqc0CEom
+	oV9irV7El1JDPueaTWr7yOanH/aIccXPrB5OTM5uW9ImZwmIbogAxt1Cq3zttgxhg7VtoW
+	SUE7E/4CQxNaAQPtec13lhTSVFpvpzo251TP2JmH0aD4YlrcN1//i/3mgQEVfuZPoDYwEZ
+	iBLuFpHTov1fbB7HLOgcu0SnSi+5zX4mIB5HuvKOFM3mdF/TiuhTdQnESolffA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1795484399;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FhNSJyAl8M2ftrmL501v23K9HFYihd0BQJIUzsZGTic=;
+	b=8FRfdyVdvlHQ2/h3vlHlHkobdxadFa9l7Cz3gUcauMtEyzpAsY0nHMRbVFza+Ig+COsFR4
+	4QfFwazM0kvzQcBg==
+From: "tip-bot2 for Yazen Ghannam" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: x86/urgent] x86/mce/amd: Fix bank lookup in amd_mce_usable_address()
+Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261123232701.1923094-2-yazen.ghannam@amd.com>
+References: <20261123232701.1923094-2-yazen.ghannam@amd.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,120 +79,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <179548439725.92412.1492758991101428916.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-udp_gro_receive_segment() matches an incoming UDP packet against the
-held packets using udp_hdr(p), while every other GRO layer compares at
-p->data + off. When an inner network header was parsed for p (vxlan,
-geneve, or IPIP/SIT/GRE carried over FOU/GUE), the transport header of
-p points at the inner L4 header. The port check then compares the ports
-of an incoming plain UDP datagram with the inner TCP/UDP ports of the
-tunnelled flow, and on a match the datagram is handled as the next
-segment of that flow.
+The following commit has been merged into the x86/urgent branch of tip:
 
-This needs both packets in the same GRO bucket with the same outer
-addresses (no RX hash, or an equal one), a UDP tunnel GRO socket on the
-receiver, and a UDP_GRO socket on the port, rx-udp-gro-forwarding or
-rx-gro-list. Plain and tunnelled TCP cannot meet this way, their outer
-IP protocols differ.
+Commit-ID:     d734667216e3fe13f0d81231f0e5691816ec42f4
+Gitweb:        https://git.kernel.org/tip/d734667216e3fe13f0d81231f0e5691816e=
+c42f4
+Author:        Yazen Ghannam <yazen.ghannam@amd.com>
+AuthorDate:    Mon, 23 Nov 2026 17:26:59 -06:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Mon, 23 Nov 2026 16:35:45 -08:00
 
-Since commit e20cf8d3f1f7 ("udp: implement GRO for plain UDP sockets.")
-the datagram can be merged into the tunnelled aggregate. On v6.6.162 a
-plain datagram with ordinary outer header values (same TTL, TOS and DF
-as the vxlan packet) is appended to the inner TCP segment and never
-reaches the UDP socket.
+x86/mce/amd: Fix bank lookup in amd_mce_usable_address()
 
-Since commit 4b0ebbca3e16 ("net: gro: move L3 flush checks to
-tcp_gro_receive and udp_gro_receive_segment")
-gro_receive_network_flush() also derives the network header of the
-incoming skb from p's offsets (outer network header to inner transport
-header: 70 bytes for vxlan over IPv4, more with larger inner headers)
-and reads before the incoming skb's network header, out of bounds on
-skbs with small headroom:
+amd_mce_usable_address() reads the per-CPU smca_banks array at index m->bank
+on the running CPU. The index is not checked, and the bank belongs to
+m->extcpu, not to whichever CPU is decoding.
 
-  BUG: KASAN: slab-out-of-bounds in __gro_receive_network_flush
-  Read of size 1 ...
-   udp_gro_receive <- udp4_gro_receive <- inet_gro_receive <- dev_gro_receive
+m->bank is unbounded here. apei_mce_report_mem_error() sets it to -1, which is
+255 in the u8 field, and apei_smca_report_x86_error() takes it from a firmware
+CPER record (BERT or GHES). Both reach this function through the decoder
+chain, which runs from a workqueue on any CPU. Bank counts can differ per CPU
+on SMCA systems. So the read can land past the end of the array, or on a CPU
+where that bank means something else.
 
-The merge then depends on the bytes read there. When it happens with
-rx-gro-list and forwarding, the datagram is forwarded as part of the
-inner flow's aggregate, so netfilter rules matching the datagram itself
-are not applied to it. Without a merge, the wrong comparison still
-flushes the tunnelled flow on every such datagram.
+Use m->extcpu for both the bound and the lookup. A bank number outside that
+CPU's range makes the record inconsistent. Don't act on such a record: report
+its address as not usable.
 
-When udp_gro_receive_segment() runs, NAPI_GRO_CB()->encap_mark is set
-only if an inner network header was parsed for the packet, which is
-also the only case where the transport header is past the first UDP
-header. FOU and GUE clear encap_mark, but when they carry an L4
-protocol directly the transport header and network offsets still
-describe the outer headers, the same layer as for plain UDP; when they
-carry IPIP, SIT or GRE the inner handler sets it again. Skip held
-packets whose encap_mark differs from the incoming packet: both are 0
-or both are 1 within one flow, so legitimate aggregation is unchanged.
-
-Found by an AI code review agent (Claude) reviewing the UDP GRO code.
-Confirmed with reproducers on unmodified kernels (arm64 QEMU with
-KASAN, network namespaces over veth), and the fix was tested there:
-- torvalds/master 4843f6873f7c, vxlan, geneve, and FOU/GUE carrying
-  IPIP, SIT, GRE and vxlan: KASAN reports on every run before, none
-  after; forced merge of 98% of the datagrams before, none after.
-- v6.6.162 with this change backported, vxlan and geneve: 2000 of 2000
-  datagrams merged before, none after; no KASAN report either way.
-- Plain UDP GRO, UDP and TCP in vxlan, UDP in geneve and UDP in
-  FOU/GUE + IPIP/GRE still aggregate.
-Not tested: x86_64, real NICs, vxlan-gpe.
-
-Fixes: e20cf8d3f1f7 ("udp: implement GRO for plain UDP sockets.")
-Fixes: 4b0ebbca3e16 ("net: gro: move L3 flush checks to tcp_gro_receive and udp_gro_receive_segment")
+Fixes: 821f5fe4dbcb ("x86/mce: Add support for physical address valid bit")
+Signed-off-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
 Cc: stable@vger.kernel.org
-Signed-off-by: Aviral Srivastava <aviralyash27@gmail.com>
+Link: https://patch.msgid.link/20261123232701.1923094-2-yazen.ghannam@amd.com
 ---
+ arch/x86/kernel/cpu/mce/amd.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Notes:
-    v2:
-    - Add Fixes: e20cf8d3f1f7 and Cc: stable. The merge without the
-      out-of-bounds read is reproduced on v6.6.162 (Sashiko).
-    - Reword the comment and changelog on what encap_mark means with
-      FOU/GUE. No functional change: FOU/GUE carrying L4 directly keep the
-      transport header at the outer UDP header (Sashiko).
-    - Changelog: state the preconditions, correct the netfilter sentence
-      (the hooks see the aggregate, not the datagram), move discovery and
-      testing into the changelog, add geneve, FOU/GUE and v6.6 results.
-    - v1 reported "28 and 29" KASAN reports; that was the dmesg ring
-      limit. The console logs of those runs hold 1023 and 308 reports.
-    v1: https://lore.kernel.org/netdev/20261122183951.73210-1-aviralyash27@gmail.com/
-    
-    The analysis, reproducers, fix and changelog were drafted with an LLM
-    coding assistant (Claude). I reviewed them before sending. Reproducers
-    and logs are available on request.
-
- net/ipv4/udp_offload.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/net/ipv4/udp_offload.c b/net/ipv4/udp_offload.c
-index b77ae2f00c62..a9368a6abde2 100644
---- a/net/ipv4/udp_offload.c
-+++ b/net/ipv4/udp_offload.c
-@@ -723,6 +723,19 @@ static struct sk_buff *udp_gro_receive_segment(struct list_head *head,
- 		if (!NAPI_GRO_CB(p)->same_flow)
- 			continue;
- 
-+		/* encap_mark is set here only if an inner network header
-+		 * was parsed (UDP tunnels, IPIP, SIT, GRE, also when carried
-+		 * over FOU/GUE). udp_hdr() then points at the inner L4
-+		 * header and the network offsets describe the inner packet.
-+		 * FOU/GUE carrying an L4 protocol directly clear it and
-+		 * leave udp_hdr() at the outer UDP header, as for plain UDP.
-+		 * Never match packets across the two cases.
-+		 */
-+		if (NAPI_GRO_CB(p)->encap_mark != NAPI_GRO_CB(skb)->encap_mark) {
-+			NAPI_GRO_CB(p)->same_flow = 0;
-+			continue;
-+		}
+diff --git a/arch/x86/kernel/cpu/mce/amd.c b/arch/x86/kernel/cpu/mce/amd.c
+index 1cc20b8..255d09c 100644
+--- a/arch/x86/kernel/cpu/mce/amd.c
++++ b/arch/x86/kernel/cpu/mce/amd.c
+@@ -837,7 +837,10 @@ bool amd_mce_usable_address(struct mce *m)
+ 			return false;
+ 	}
+=20
+-	if (this_cpu_ptr(smca_banks)[m->bank].paddrv)
++	if (m->bank >=3D per_cpu(mce_num_banks, m->extcpu))
++		return false;
 +
- 		uh2 = udp_hdr(p);
- 
- 		/* Match ports only, as csum is always non zero */
--- 
-2.55.0
-
++	if (per_cpu(smca_banks, m->extcpu)[m->bank].paddrv)
+ 		return m->status & MCI_STATUS_PADDRV;
+=20
+ 	/* Check poison bit for all other bank types. */
