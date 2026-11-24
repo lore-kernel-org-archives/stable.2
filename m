@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795510961;
-	b=CcQbvH4XKDvKk0hBefbmhqKFAZm+5HeiUlyMlKXToyyYeJkbgkfjTgOu7u/IkBZESS9S
-	 nSBK24wxppU0g6GCiXtb4AAMMmRS+UWHS2seaCEvFug/nUZVNQTGrsHqBI/ls6LGF7ZPY
-	 odMD13hDQ/qGtX1MhraaLJA4c4ayivPJrZ7ZzwB4xtHDZ2Ar2HUfR62NDXQmIICMA+mpn
-	 rkV8N7XJBWojp0IHpq4nEFzM0FYhwMTFkHbJYxMHMQ2XjrhVcCLh1X7jDwXrZWk1VOwPR
-	 HI3BnIg51dpNEMst2UgHeHn0noLu+pPKkwbOhpWrR8nSVYFa4zRaxs03gu2iv2Lrmxg==
+	t=1795511031;
+	b=4hqT/1z7PfPyrJywQ+LxCfpXDkzYp/zd3MrxWCstH6uGLPskMQ/Pm9V/gIrJN00KCDYA
+	 Mi8REUoGGm20CJeB7AQYN71iiHQyD7Y2uPBaIeQwG+HiRtZ/Agr9ZXo8jGUcZS9bl1K6n
+	 3eeikRCGCDJbJ5LAiBpgB0LfsR5sZqCG8vVFIlU26Y6r1Zxd8DufRhd50i7iUtc9mfGxD
+	 oPzjAK92jHnJudRIyg7rj4cuAKQ5iym8QPht9Vd3OaFLocWygQGS2DRmNupFRcj2YTAAA
+	 jCN61hu6F/pNAzOScCzBEwHpS2l075V94HJs8zaHjtHU6/sK+AL81gXosjbSKVbYDqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795510961;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=f3rJv8YrmzEdADJbDlr8p5ker/HZcgTcdaAmPaPw5V4=;
-	b=gzucSyQSUCDpAZVJKHT4DeIw6Qm/PTwiAPn9yg086GT/XnhWToF8myFksH3W5b1rq8ER
-	 C/wtd+z0JlVt7NKS/6C6338tpVKB6lCcR5bnj44zFTdNzU96c7DfBrTNLZZ1Dfp9yMAtM
-	 ttWy2dOKNaggAUD0ME7yTdWeZ3Zb7p4T+i4QLOAuxmcMyltSZ5fiveyapHNMbX4zmONDE
-	 rdFq1C2fdsRWl5n9t6cKQOL4kFpjBf+BsI92u7DnxmuPUlmL2lnSGkpmwDXqN1v7JCUI/
-	 GXI3bm884qhHVAVj3sbKB2+ljoQpaeZRrynOyTLhYNMATxfEVwXAM70FAlgdLib7E2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795511031;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=+8s5J/Ij8rDmsLY8v0GD789s4jqD/QoQaBCQD+5CJeI=;
+	b=OUmZy/z+nAqjS+DwLb6+7uXkVE9vZWrtTLkeUFUrCsMdXAvnzr5R4MAJnpB+TdTf2U4N
+	 FemtpdwsAC2SnIewdkGpcOIrU0eAX1VGR9n5PogxA1/W2NxuRK0qYUBZIlGka0GkxF/Y1
+	 zPGJVM6tAqmTW1EiTmvdnPQ5ixOmgszkZ2rM+/fFOmM01Cz8clOKx3qOe7SwaP06zR3zW
+	 04wvkeO4Hbm/ViJyRtEX+elCX54nhAmASuaJezxl9NdTaescb7bcDLqExFRqIp/49tBCd
+	 D/7dmW6Qk2o19wuRGCinJUNum6AxjQ0LXkrGgaUlSua4qoBbIG1cSDw4r+/q5Q/WazA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=WFJuKjiP;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.94.104
+Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81524606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:02:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81524606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=WFJuKjiP
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e46e449e8so2695571f8f.3
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 01:02:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795510959; x=1796115759; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=f3rJv8YrmzEdADJbDlr8p5ker/HZcgTcdaAmPaPw5V4=;
-        b=WFJuKjiPPTJLRL6xA9N6lY6hH1meTzrIl/OigvIKepYtiB01JB+aMQ81VP7vJDfJ8G
-         cL3MBSh7Vju7iS82p+0+qV6NL6y6olYF73IuiRJIT04sl+R/GGwnXY4axFWvQiU/CfCg
-         kioc8wGgGcVnCPSh2e3C/vtN8O/qPTHutptLQcyh8Xl6utlIm8SH4xykGIEzZA3AcbqH
-         xsuzBfFjC5vD6L/GvB+zWV4lTPkTHY/6GrxMWag4wdZ2zJwVrTTw/w+pDrgf+0EA2cb1
-         IzA7+yGoukChqRrUpl+Iwp7J4oveB4q+PimwdAv9KzO1y+/q86u3q4e0DH0d0cVntiso
-         om5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795510959; x=1796115759;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f3rJv8YrmzEdADJbDlr8p5ker/HZcgTcdaAmPaPw5V4=;
-        b=sv56SVzFKa2QFeYWolWxsBjWcsSLvc0SMBapPH2tE1qEl3kIB8UEwY2m/kUGEzL7Ip
-         Ec83xV3evSZetXAkSnWd4Wpws4qfpSk8g4Ou0p5VHcqvFOqLoE26F1ecG8ewZtiNS03K
-         pu9RZsQFVwMbdQLov6x44EJQEPosJ7TBxv28yEd/WIlH9Bz1uSUaYGM4N0LYC+s2FJzH
-         kqCbTziCJUygT4QkKhym6n1lxSJ7qrcr9dtmjPoKS8neGcihck1i4ioSTbU+qMuGBrmX
-         Z/3DOtFaShitaw76ZJG0dUcjhZHrgkWOHsWnuU1iqCbqa2aN1KuyRf3TfJEI7L2O3w1j
-         BRyg==
-X-Forwarded-Encrypted: i=1; AL+hErHQ7tK4n1/+5EroOZUu+osSabRgcBHkvFxbZDjKPk40QPkE+TeLHtfXUMtFd9YkIMlEB9jNj8o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Vn8HtHGBR2d4IMg+2BBvXjSOyRDneJpgCUJYsad9AlE/FA5VJ
-	DhHv/Ju3EXc1EwpSPyHBe/wIUVgCCCvPfR36l+BqEKazOMSyzNKqPMNyqSuDQJlZz8o=
-X-Gm-Gg: AZFdTZd8xIL8+FplPqeXMXMYqC4i7jOVFdYq9eBhre7LPgwk8bMVwKbSsWZMk2vDRBI
-	YKbVs+gFsOJPungy/6IjGbVrievnC0c64/WfZyvIszFB2d4Qgco0ikXV9xggvDFs7eZAXMGlgiz
-	eQsOa8++Z26NGo7tB1/cWKL6gjCo2TUapslTfXgCxuC0RZd/Ykmxrd1GVTxhXhspMy5iUkJz6XE
-	N07Jwsoaz2PdykJcQgUOkpWTiDotmbljlbs0SOx0nL62/ktfjyl1y1tT4mt9OrEWXw+Ip451Q2I
-	HM0vwenbAvlXceQV0jr8+19jVMJCNlgIqCMDpbmvBuqnzqB9BqY7mJDjCDZmZDCFlA7tYW2IDAJ
-	U9+rsCm5AoSQn0IDdn/R60AJrinsUnd9Vxz1s4yAv/GtJ2LXTqCXNztWOmuo1d6QcK33ojMXHXt
-	ZbxF28mZ+Mxwq7TatBwix3xmGEHyvtJebBQMq5w2AJdvxEtX49jYHehzi9/e/CLrPY30LdF9z4R
-	UakSiPyY6TugZYVhXUgcACkj/Ivw6glprb4433cCn6/KnkadzFLoNsTrm3hf5dcBlLOr4bl72rX
-	05ZlpFHeoie3Zii6vaN6Qzt73DSKW90jycccpAxyogI=
-X-Received: by 2002:a05:6000:26ca:b0:4a6:4687:2ce9 with SMTP id ffacd0b85a97d-4abad5ac73dmr26444918f8f.4.1795510958871;
-        Tue, 24 Nov 2026 01:02:38 -0800 (PST)
-Received: from localhost (109-81-82-199.rct.o2.cz. [109.81.82.199])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b110ba3sm21973988f8f.35.2026.11.24.01.02.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 01:02:38 -0800 (PST)
-Date: Tue, 24 Nov 2026 10:02:37 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Koutny <mkoutny@suse.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] memcg: free the private ID of a memcg that never comes
- online
-Message-ID: <awVSrbJn00wmh1nn@tiehlicka>
-References: <20261124000439.967403-1-shakeel.butt@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19E2606A31E;
+	Tue, 24 Nov 2026 09:03:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B19E2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jYcL84nJtz1rqCW;
+	Tue, 24 Nov 2026 17:03:44 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.252])
+	by mail.maildlp.com (Postfix) with ESMTP id D8763406B3;
+	Tue, 24 Nov 2026 17:03:45 +0800 (CST)
+Received: from [10.67.109.234] (unknown [10.67.109.234])
+	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgC3vgHwUgVrihQZFg--.18582S2;
+	Tue, 24 Nov 2026 17:03:45 +0800 (CST)
+Message-ID: <78cb7510-9e14-4632-bab3-01fce0b819fd@huaweicloud.com>
+Date: Tue, 24 Nov 2026 17:03:43 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,82 +51,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261124000439.967403-1-shakeel.butt@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH stable/linux-6.6.y] perf, bpf: Fix NULL
+ event->orig_overflow_handler dereference
+Content-Language: en-US
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Alexei Starovoitov <ast@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ alexander.shishkin@linux.intel.com
+References: <20261124084837.2327711-1-luogengkun@huaweicloud.com>
+ <2026112402-dictation-juror-2e5d@gregkh>
+From: Luo Gengkun <luogengkun@huaweicloud.com>
+In-Reply-To: <2026112402-dictation-juror-2e5d@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_Ch0CgC3vgHwUgVrihQZFg--.18582S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWw1kGF45ur4xWw1rZw4UXFb_yoW5urWrpr
+	ZxKFZ0kr4DWF12qwsYyF1vyF17ur4fWrs8Jw1vy3yruayFgr93XF9rK34Y9FWfGryDCa4x
+	tw1Ut34Yva45ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
+	wI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUIa
+	0PDUUUU
+X-CM-SenderInfo: 5oxrwvpqjn3046kxt4xhlfz01xgou0bp/
 
-On Mon 23-11-26 16:04:39, Shakeel Butt wrote:
-> mem_cgroup_alloc() reserves the private ID of a memcg when its css is
-> allocated. The ID is erased when the last reference to it is put, and
-> that reference is first taken in mem_cgroup_css_online(). The failure
-> paths of mem_cgroup_alloc() and mem_cgroup_css_online() erase the ID
-> themselves.
+On 2026/11/24 16:21, Greg Kroah-Hartman wrote:
+> On Tue, Nov 24, 2026 at 08:48:37AM +0000, Luo Gengkun wrote:
+>> We hit the following problem on x86:
+>>
+>> 	BUG: kernel NULL pointer dereference, address: 0000000000000000
+>> 	#PF: supervisor instruction fetch in kernel mode
+>> 	#PF: error_code(0x0010) - not-present page
+>> 	RIP: 0010:0x0
+>> 	Call Trace:
+>> 	 <IRQ>
+>> 	 bpf_overflow_handler+0xa4/0x120
+>> 	 __perf_event_overflow+0x11d/0x2f0
+>> 	 perf_swevent_hrtimer+0x127/0x140
+>> 	 __hrtimer_run_queues+0x108/0x250
+>> 	 hrtimer_interrupt+0xfb/0x230
+>> 	 sysvec_apic_timer_interrupt+0x69/0x90
+>> 	 </IRQ>
+>> 	 <TASK>
+>> 	 asm_sysvec_apic_timer_interrupt+0x1a/0x20
+>> 	 __perf_event_set_bpf_prog+0xb7/0x180
+>> 	 _perf_ioctl+0x1f9/0xb40
+>> 	 perf_ioctl+0x41/0x70
+>> 	 __se_sys_ioctl+0x82/0xc0
+>> 	 do_syscall_64+0x44/0xb0
+>> 	 entry_SYSCALL_64_after_hwframe+0x78/0xe2
+>> 	 </TASK>
+>>
+>> RIP is 0 with error_code(0x0010) (instruction fetch, not-present), i.e.
+>> an indirect call through a NULL function pointer.
+>>
+>> perf_event_set_bpf_handler() records the handler currently installed on
+>> the event and replaces it with bpf_overflow_handler():
+>>
+>> 	event->prog = prog;
+>> 	event->bpf_cookie = bpf_cookie;
+>> 	event->orig_overflow_handler = READ_ONCE(event->overflow_handler);
+>> 	WRITE_ONCE(event->overflow_handler, bpf_overflow_handler);
+>>
+>> WRITE_ONCE() is a single-copy atomic access, not a compiler barrier, and
+>> the store to orig_overflow_handler is a plain assignment, so the compiler
+>> may reorder the two stores. GCC 11.4.0 does; disassembly of
+>> __perf_event_set_bpf_prog():
+>>
+>> 	mov    0x3d0(%rbp),%rax                  ; prev = overflow_handler
+>> 	mov    %rsi,0x3e8(%rbp)                  ; event->prog = prog
+>> 	mov    %r13,0x3f0(%rbp)                  ; event->bpf_cookie = cookie
+>> 	movq   $bpf_overflow_handler,0x3d0(%rbp) ; publish overflow_handler
+>> 	mov    %rax,0x3e0(%rbp)                  ; orig_overflow_handler = prev
+>>
+>> Use smp_store_release()/smp_load_acquire() to guarantee both the compiler
+>> and the memory ordering.
+>>
+>> Upstream status:
+>> Not affected. commit f11f10bfa1ca ("perf/bpf: Call BPF handler directly,
+>> not through overflow machinery") removed orig_overflow_handler and
+>> calls bpf_overflow_handler() directly from __perf_event_overflow(), so
+>> the reordering window no longer exists. That rework was not backported
+>> to any stable tree.
 > 
-> But css_create() can also fail after css_alloc() and before
-> online_css(): in percpu_ref_init(), cgroup_idr_alloc() or
-> css_rstat_init(). The memcg is then freed through mem_cgroup_css_free()
-> without ever coming online, and nothing erases its ID. The reserved
-> entry stays in mem_cgroup_private_ids for good, and each such failure
-> takes one of the 65,535 IDs away. With failslab failing radix tree node
-> allocations during mkdir, 1,500 mkdirs leaked 6 IDs this way.
+> Please backport that rework instead of doing a one-off patch.
+Makes sense, thanks for the guidance.
 
-Considering these error paths they should be pretty impossible in
-practice (and without fault injection), right?
+To properly eliminate the reordering window on stable trees without introducing
+a one-off fix, I am looking at backporting the upstream rework commits
+(around 7 patches in total, covering the refactoring parts from Kyle's series up
+to and right after f11f10bfa1ca while skipping the new feature, plus Ingo's
+follow-up stub cleanup) along with the bpftrace regression fix:
 
-> Erase the ID in mem_cgroup_css_free() if the memcg never came online,
-> which is when (memcg->css.flags & CSS_RELEASED) will be false: it is
-> only set when an fully onlined memcg is released.
+• Rework series:
+https://lore.kernel.org/all/20240412015019.7060-1-khuey@kylehuey.com/
+
+• Regression fix ("perf/bpf: Don't call bpf_overflow_handler() for tracing events"):
+https://lore.kernel.org/all/20240813151727.28797-1-jdamato@fastly.com/
+
+Once I finish backporting and testing this series, I will send it out for review.
+
+Thanks,
+Gengkun
 > 
-> Fixes: 73f576c04b94 ("mm: memcontrol: fix cgroup creation failure after many small jobs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-
-Acked-by: Michal Hocko <mhocko@suse.com>
-Thanks!
-
-> ---
->  include/linux/cgroup.h | 5 +++++
->  mm/memcontrol.c        | 7 +++++++
->  2 files changed, 12 insertions(+)
+> thanks,
 > 
-> diff --git a/include/linux/cgroup.h b/include/linux/cgroup.h
-> index 2afb4cb2bb4f..123c713dcc91 100644
-> --- a/include/linux/cgroup.h
-> +++ b/include/linux/cgroup.h
-> @@ -449,6 +449,11 @@ static inline bool css_is_online(struct cgroup_subsys_state *css)
->  	return css->flags & CSS_ONLINE;
->  }
->  
-> +static inline bool css_is_released(struct cgroup_subsys_state *css)
-> +{
-> +	return css->flags & CSS_RELEASED;
-> +}
-> +
->  static inline bool css_is_self(struct cgroup_subsys_state *css)
->  {
->  	if (css == &css->cgroup->self) {
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 091401cecf39..e7dfc96fd1b9 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -4545,6 +4545,13 @@ static void mem_cgroup_css_free(struct cgroup_subsys_state *css)
->  	irq_work_sync(&memcg->high_irq_work);
->  	cancel_work_sync(&memcg->high_work);
->  	free_shrinker_info(memcg);
-> +
-> +	/*
-> +	 * The css_create() error path bypasses normal CSS release, leaving
-> +	 * CSS_RELEASED clear. Drop any private ID that is still reserved.
-> +	 */
-> +	if (!css_is_released(css))
-> +		mem_cgroup_private_id_remove(memcg);
->  	mem_cgroup_free(memcg);
->  }
->  
-> -- 
-> 2.53.1-Meta
-> 
+> greg k-h
 
--- 
-Michal Hocko
-SUSE Labs
