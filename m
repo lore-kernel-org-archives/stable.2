@@ -1,60 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795531270;
-	b=UYLnMCGiGy8J+y2adlSqi7Afik3+xdHEv/w7r/FYPesyLu0IXSHZ0OTAEtMg0p04kCyl
-	 8TYREEOir60zq1/5fIwhubItAm1YWyInsR8GFshFgC4AGJa46BN3urbQyUScmvx8Oqrf0
-	 aO7YUIUcTaNoF7UzYN9cM9MiDldgAi7nprBZi+uRJm2Wo/VtbJbqVGPFgJHVZrxB9Cd+k
-	 SiG7jAuoNWMKIOGRDM0cqBGvbSB+uoFOV05tZbzBfX0K7yJQrvDhhnXv+LVpk21lEpuBc
-	 2XP72ibr/f8WTmnG8ZfWQC0xFV439/TMxQ0fJmci8sKxsOQCQ0N1VHXRVemv2sy979A==
+	t=1795531852;
+	b=DaImXjPmfr1WzSJ+rdqc3AzdmrWCE1zOfVeogpaJpDJccczHfBSPidYeQ5771AViKaLT
+	 IlaynSvb+kmYtYJEdwV6ihsPX3BEy+IrYeB3TcpFE4HTfmNs8g/Y7IlQBfnal+A4aM8fQ
+	 JkjYh7AcHayl2/+MFzoUD8bX1pp039yPUN3CjHy30o/zCGs9cpUYqUMR0yAZrwt9Ye+xO
+	 tc7gMJDTdkthy60Ig8TLh+V2wo2AycVpvDDWcNF7NyWtJq9FszVSd5SnMgRmfXRZPsENx
+	 8qfmGxR3ks+BHDlzGjoJlR20oH6nTzGyd7uJ7Li/1ieejUKHTyUZ0nEuhTMC4T62SlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795531270;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=q4aixxSA4YbX+AKyocTUx+s1rBXdCvRgd5mhuqNcLf4=;
-	b=CbHEqS+Gn+kV+kp+/5bMcE/jeWPXC1pTTl7wNxHmbTng6aysVTCEjIhkm3tI5vNppbS9
-	 +ecRkTjkq6gmdnzXQf1AtsD5RoiqSxEURO8AlIoobdQHgdcUt3y+pJxNX6P1BP3iJtEUD
-	 qG/JW623HlyIiL6Qphym8UYw3qXb7k8Lm7yzzDlVBZK85ubWxiKorCV+dz/iafJjmqSVh
-	 WZq+llokntOSasm59nnuT1vSWqCrMc94kKsvm8H1xB9X6ihrBVSB5swYv78PD9u5xB0du
-	 WgCxIH38/34+tBd50ri8Y7EIznfr5vYVT2axZeCPOvC7PzC6lFNXO7P5K21ZSnGLWHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795531852;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cqpJMVDcI6RbJhyFDHk1sH3juPS+chDXW4qLSUHX3QM=;
+	b=V/djf8H8tZwINtO7nVT9paYftbX1jS2t1inD6+Vo5wKBtz7n8ticLYFWc9mDFx0NWEUp
+	 48flaxiQkXQBMiGpUoLfucS1paO9JLh2T2/7IHmmj4IRJBiHB6D3COBXqLxzQT9IbwCLL
+	 e3thEPoNcVdrH06aL2nKe0433+d/bY5qS2BHfN94fi6mfV2mnkklZNd/unE0K3Sc0XJHv
+	 9ngccA12ve4X1OXB7u9o9zz/RjWjSfvFwN89HS0W8kCltlkw8pcOfsMx5A4NK4NFpLNDK
+	 lX+gC2e1qlhyPnHCeVoKYk9piQp7cCfm5SpN3TVM6W7i7GA+vIoyv2svh0we2yOINhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h0NnDrGy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B+PpQxUM;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87335606A31E;
-	Tue, 24 Nov 2026 14:41:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6428606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:50:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6428606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h0NnDrGy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27BAF1F000C0;
-	Tue, 24 Nov 2026 14:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795531269;
-	bh=q4aixxSA4YbX+AKyocTUx+s1rBXdCvRgd5mhuqNcLf4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=h0NnDrGyCWmdpe+8fZjohb5qyZj9Ta5CecJ4+LBfz7rH2vlFnB7IlpQosDH14XyE9
-	 IMtsi20dEaEhEst/d6Pfm7p63Vddhxr0ZnWPfoiJfS6iOHmPQV0tg6Yxi3he28oYn5
-	 bs6VtNWo27+jYXN/VifsGmf9pzl90O2zc4INw2tutIWxQ5+FMMyY/2SApVEEg7tgKZ
-	 Q+X4bDbHtimFiiJadVW+ZWVrx+VxfW6f/ww5zEbxleehpuxpxVl1pVnDQi8Ntpchkj
-	 ud/hp5PGJl1jrjiFfOOU+DcbkbN7uUOezhC7kEvkZL9pTuZ3esn9t5Ug449hNCA1nV
-	 dWFwcXbVnkJAg==
-Subject: Re: [PATCH net] can: j1939: do not pass a NULL session skb to the
- socket layer
-From: netdev-bot+sashiko@kernel.org
-To: piyus@iiitd.ac.in
-Cc: robin@protonic.nl, o.rempel@pengutronix.de, socketcan@hartkopp.net,
- mkl@pengutronix.de, linux-can@vger.kernel.org, netdev@vger.kernel.org,
- kernel@pengutronix.de, linux-kernel@vger.kernel.org, kapil@presceralabs.ai,
- stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 24 Nov 2026 14:41:08 +0000
-Message-ID: <179553126874.3135.14817947057284289051@kernel.org>
-In-Reply-To: <20261123143625.4021586-2-piyus@iiitd.ac.in>
-References: <20261123143625.4021586-2-piyus@iiitd.ac.in>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B+PpQxUM
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a2761c69fbso4568936c88.0
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 06:50:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795531851; x=1796136651; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cqpJMVDcI6RbJhyFDHk1sH3juPS+chDXW4qLSUHX3QM=;
+        b=B+PpQxUM/HIt53cx0GXcfD3AVOb/Pt1uFe71Hq5AUMObRk0U9PG8SJTq7C48g9e46Y
+         MsUVdRgQnBySkdUW1KHDpOqIpCFjUMtF/bEza87GtAXnKzXk5U2pyxix9qSXD2P4n3sQ
+         pZuRQyqugvdAxvKS9P5Bfi1SgCOp7xsDhej8PpCehdylwRXTdhjh3Z2ae9TG0076em01
+         VaQ9kl6d/V1AAF1auxwW1fxICUahoJ1U3vQTgCeR2yzTabt4Di1NHXfZW+FpPPn9xoxH
+         MK+lZA4BBivqL/rPUpb4kOKKpYIfen1E59DcuWGJW8twzSHEFtETylknZfu/yeKql5Rb
+         gyhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795531851; x=1796136651;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cqpJMVDcI6RbJhyFDHk1sH3juPS+chDXW4qLSUHX3QM=;
+        b=jWczHiUzEdniDV3gz0BUAL++MbXlL6PdVxzvhBXPSuILXbo/zs7kojsusMS6WLb1Np
+         d7qtXwz8ya5cXOXOZLBWcX/9Uz0Vng/PC3NgidH3nnTjLmWckEwDwjGVLbq9r9qwFtp7
+         iIfxrgSmjOA2eI++RPOSSQVOtqiZFQW149mUIRLoU2DUo/2V7duRhNSPY5AGPenR3kJs
+         a5MQGO1BbGaE/4Zmx3BrF501eb3bjduxjrxy0a6qrGdRcnhAYfFz7e5qsU6zdSedlVDj
+         SEgTPm8lmwJx8Y8gj+wOjGmux982qG8Et5QyVtBLbvmy0wf8lnXa+/qs5BWJ8kbjl63W
+         RTiw==
+X-Forwarded-Encrypted: i=1; AL+hErE+50/zkviNHnzCaNzm7JDOUEaCbpDJw+V0pkTleqhBLeVPLKX3kkZCz9krvvPaSgINfTGigds=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8vdb+jsTJy8y4eqEy0/n4aO9Gg8ouekOfvcRPz1t497P7hovIM
+	4wuPgdV4MlQxbaB7Ks5Geyo1wn257aS7/ur//xlljSJe7yzA/Y5Hpdwd
+X-Gm-Gg: AZFdTZdH0pRkx0qvgOY3C2v4Udfyi4IAoccXL/MzSU4bbKs6UvWILuc2Uje6377R+Mv
+	K+astQ5IyFzKmiSXGRfLgKyoyxm3vb3jTh7MgMTAWSX+R/03V7AuNlgh8z7JP3mEtuFFu/WFIgc
+	zaPuwFXao681laiMvZTQTAM6FORBClTxNALNXKg+6fcRzKEADywHvtgPxjrxcihAM6oDK00ajwc
+	Qg7I9YlGW9eKvpOHz17WVl0Q9al4z3r4NFbFk3IZv9Uh5ozaoFKTr2QV6gJBlS4PyUSiDIc4evA
+	UTdJC3OXWGLIfXLRcDiADKChirF74xza8OL0ewCWu/8/vPvvnnq0wlUr4xbmPdk2s00QJLyJECE
+	T9DBKaFmMEGItazLz7jwH7bNBP41gJSKjjBQrJTUjr1Y7cINRv4406rT6BId37w2psR4sLkHCo6
+	075XLNvr3GaTZZ5qExKtIJi9ebLfXerhRZf+IiM97P5kIbL0U6f2rfntQTnXdxMd9X2kB0iRTA+
+	0EZohAHcR+58IMMJNEk4YuJvL7610O5LVfCOR/4P/bWeSH/RcEGyB3ICDt8auyGNXGQuS5UCGVD
+	WUE8PxPVnaapPKNvGECc5loSaKBGR4t9NS2KJfUGO1jkg4tHh65ct5HX3snd
+X-Received: by 2002:a05:7300:7a21:b0:384:b001:4350 with SMTP id 5a478bee46e88-3856f04b191mr17978338eec.24.1795531850725;
+        Tue, 24 Nov 2026 06:50:50 -0800 (PST)
+Received: from houminxi ([61.170.225.237])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386aaae4960sm20684238eec.18.2026.11.24.06.50.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 06:50:50 -0800 (PST)
+From: Minxi Hou <houminxi@gmail.com>
+To: netdev@vger.kernel.org
+Cc: dev@openvswitch.org,
+	aconole@redhat.com,
+	echaudro@redhat.com,
+	i.maximets@ovn.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	matttbe@kernel.org,
+	shuah@kernel.org,
+	netdev-bot+sashiko@kernel.org,
+	Minxi Hou <houminxi@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v6 1/3] net: openvswitch: read the datapath features once when sending an upcall
+Date: Tue, 24 Nov 2026 09:50:31 -0500
+Message-ID: <20261124145033.627044-2-houminxi@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261124145033.627044-1-houminxi@gmail.com>
+References: <20261124145033.627044-1-houminxi@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,151 +109,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+queue_userspace_packet() decides from OVS_DP_F_UNALIGNED whether to copy
+the packet with skb_zerocopy(), and pad_packet() reads the same field
+again after the copy. A concurrent OVS_DP_CMD_SET can clear the bit
+between the two reads, so the copy leaves a nonlinear skb and the padding
+calls skb_put_zero() on it. skb_put() asserts that the skb is linear, so
+the kernel oopses, and a host built with panic_on_oops goes down.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+OVS_DP_CMD_SET needs CAP_NET_ADMIN, which a user namespace that owns a
+network namespace provides, so the window is reachable without
+privileges on the host.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Read the field once and pass that value to pad_packet().
 
-- [Medium] The commit message gives the wrong cause for the NULL, and the
-  real cause is not fixed.
-- [Low] When se_skb is NULL, the new branch in j1939_session_completed()
-  still ends the receive session as a success.
+Fixes: aea0bb4f8ee5 ("openvswitch: Pad OVS_PACKET_ATTR_PACKET if linear copy was performed")
+Cc: stable@vger.kernel.org
+Signed-off-by: Minxi Hou <houminxi@gmail.com>
+---
 
---
+  v6: split out of the fix v5 carried as one patch. Reading the field
+    once is an older and separate crash, so it stands as its own patch
+    with its own Fixes: tag (aea0bb4f8ee5, the commit that added the
+    second read).
 
-can: j1939: do not pass a NULL session skb to the socket layer
+ net/openvswitch/datapath.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-This patch adds a NULL check on the skb returned by
-j1939_session_skb_get() in j1939_session_completed(). A receive session
-that completes without a matching skb no longer passes NULL to
-j1939_sk_recv(). The session is still deactivated as before.
-
-> j1939_session_skb_get() returns the skb covering the session's current
-> offset, or NULL when the queue holds none, and j1939_sk_recv_one() then
-> dereferences it on its first statement:
-
-[ ... ]
-
-> A peer reaches this by completing a transport session that has no data
-> queued - an EOMA for a connection whose data packets never arrived:
-
-[ ... ]
-
-> Test the skb before using it, as the two other callers of the getter in
-> this file already do (j1939_session_tx_dat() returns -ENOBUFS, and
-> j1939_xtp_rx_dat_one() warns and cancels the session).
-
-[Severity: Medium]
-Is this the actual trigger?  For a receive session, the queue does not
-seem able to be empty while the session is alive.
-
-j1939_xtp_rx_rts_session_new()->j1939_session_fresh_new()->
-j1939_session_new() queues one skb:
-
-net/can/j1939/transport.c:j1939_session_new() {
-    ...
-	skb_queue_head_init(&session->skb_queue);
-	skb_queue_tail(&session->skb_queue, skb_get(skb));
-    ...
-}
-
-j1939_session_fresh_new() then sizes that skb to the full message:
-
-	/* alloc data area */
-	skb_put_zero(skb, size);
-
-Only j1939_session_skb_drop_old() and j1939_session_destroy() remove skbs
-from the queue. drop_old() returns early when fewer than two are queued.
-
-j1939_session_skb_get() looks up the skb by the DPO window, not by
-offset 0:
-
-	offset_start = session->pkt.dpo * 7;
-	return j1939_session_skb_get_by_offset(session, offset_start);
-
-So for a receive session it returns NULL only when pkt.dpo * 7 is at or
-past total_message_size.
-
-For a receive session, pkt.dpo is only written in j1939_xtp_rx_dpo_one().
-That function stores the 24-bit value from the peer without checking it
-against pkt.total:
-
-	/* transmitted without problems */
-	session->pkt.dpo = j1939_etp_ctl_to_packet(skb->data);
-
-j1939_xtp_rx_dat_one() does reject packet > session->pkt.total before it
-does its lookup.
-
-That means the splat needs an ETP RTS, then an ETP DPO with an
-out-of-range offset, then an EOMA. An EOMA alone with dpo == 0 finds the
-zero-filled skb. It then delivers zero or partly filled data to the
-matching sockets, both before and after this patch.
-
-Could the commit message describe the DPO trigger instead?
-
-Would it also make sense to fix the cause? j1939_xtp_rx_dpo_one() could
-reject or cancel the session when the DPO is >= pkt.total. Another option
-is to fetch the RX message at offset 0 in j1939_session_completed(). The
-NULL check would then stay as a second guard.
-
-One more point: j1939_session_tx_dat() and j1939_xtp_rx_dat_one() both
-call j1939_session_skb_get_by_offset(), not j1939_session_skb_get(). The
-only other caller of j1939_session_skb_get() appears to be
-j1939_simple_txnext().
-
-> diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
-> index 8fcfd13e5e6f8..af54e6a6bd714 100644
-> --- a/net/can/j1939/transport.c
-> +++ b/net/can/j1939/transport.c
-> @@ -1243,9 +1243,11 @@ static void j1939_session_completed(struct j1939_session *session)
->  
->  	if (!session->transmission) {
->  		se_skb = j1939_session_skb_get(session);
-> -		/* distribute among j1939 receivers */
-> -		j1939_sk_recv(session->priv, se_skb);
-> -		consume_skb(se_skb);
-> +		if (se_skb) {
-> +			/* distribute among j1939 receivers */
-> +			j1939_sk_recv(session->priv, se_skb);
-> +			consume_skb(se_skb);
-> +		}
->  	}
->  
->  	j1939_session_deactivate_activate_next(session);
-
-[Severity: Low]
-When se_skb is NULL, the receive session still ends as a success. Is
-user space told anything at all?
-
-j1939_session_deactivate_locked() sets session->state to
-J1939_SESSION_DONE and leaves session->err at 0. j1939_session_destroy()
-only queues an abort for a receive session when err is set:
-
-	} else if (session->err) {
-			j1939_sk_errqueue(session, J1939_ERRQUEUE_RX_ABORT);
-	}
-
-Sockets using the error queue have already seen J1939_ERRQUEUE_RX_RTS and
-J1939_ERRQUEUE_RX_DPO for this session. After that they get neither the
-data nor J1939_ERRQUEUE_RX_ABORT.
-
-The peer gets no abort frame either, because j1939_session_cancel() is
-never called on this path.
-
-j1939_xtp_rx_dat_one() handles a NULL lookup differently. It jumps to
-out_session_cancel, which sets err, sends an abort, and later queues
-RX_ABORT.
-
-The commit message says cancelling was left out on purpose. Could it also
-mention that error-queue users are left with a transfer that never
-completes or aborts?
-
+diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
+index b2a0b09fd4a5..96baa2488c26 100644
+--- a/net/openvswitch/datapath.c
++++ b/net/openvswitch/datapath.c
+@@ -439,9 +439,9 @@ static size_t upcall_msg_size(const struct dp_upcall_info *upcall_info,
+ 	return size;
+ }
+ 
+-static void pad_packet(struct datapath *dp, struct sk_buff *skb)
++static void pad_packet(struct sk_buff *skb, u32 features)
+ {
+-	if (!(dp->user_features & OVS_DP_F_UNALIGNED)) {
++	if (!(features & OVS_DP_F_UNALIGNED)) {
+ 		size_t plen = NLA_ALIGN(skb->len) - skb->len;
+ 
+ 		if (plen > 0)
+@@ -461,6 +461,7 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+ 	size_t msg_size;
+ 	size_t skb_len;
+ 	unsigned int hlen;
++	u32 features;
+ 	int err, dp_ifindex;
+ 	u64 hash;
+ 
+@@ -494,11 +495,18 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+ 	    (err = skb_csum_hwoffload_help(skb, 0)))
+ 		goto out;
+ 
++	/* A concurrent change to the features can land between the head room
++	 * decision below and the padding after the copy, which would pad a
++	 * nonlinear skb and trip SKB_LINEAR_ASSERT. Read the field once and use
++	 * that value for both.
++	 */
++	features = READ_ONCE(dp->user_features);
++
+ 	/* Older versions of OVS user space enforce alignment of the last
+ 	 * Netlink attribute to NLA_ALIGNTO which would require extensive
+ 	 * padding logic. Only perform zerocopy if padding is not required.
+ 	 */
+-	if (dp->user_features & OVS_DP_F_UNALIGNED)
++	if (features & OVS_DP_F_UNALIGNED)
+ 		hlen = min(skb_zerocopy_headlen(skb), cutlen);
+ 	else
+ 		hlen = skb_len;
+@@ -598,7 +606,7 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+ 		goto out;
+ 
+ 	/* Pad OVS_PACKET_ATTR_PACKET if linear copy was performed */
+-	pad_packet(dp, user_skb);
++	pad_packet(user_skb, features);
+ 
+ 	((struct nlmsghdr *) user_skb->data)->nlmsg_len = user_skb->len;
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261123143625.4021586-2-piyus%40iiitd.ac.in
+2.56.1
+
