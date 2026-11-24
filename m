@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534765;
-	b=fJFmirhwe+S4yGG5HLcZqdcNQVTVnBU0wLc1Dq3aZ9kewOK6OeJQGwEzRP0J2Ys06JJV
-	 J0mavrxffvxDuEb/ZmuLpADlu2MOjmPJuBqzqW7H2dwE4Aijx+aJRstEwBudN8zBlRgTF
-	 sbgrsIjfyH3oi4vQaSNEFHPow8BxqN6i4rU5jTeeI+TopJvZsV343qbAM20Y0j0+KVClr
-	 kgbLy38nF2+i2idbYvPtM16lAUoUx54b/e36SXczIYShPQYrQQiUl9NzL8wa27t9MOW7+
-	 IidIGY2HOSI8VPrqcVS0RxjMSN+ss96bDKuvNQX2VNXznmOaLI8zvOhpFDygxU+wPuQ==
+	t=1795534776;
+	b=k/AjhV7XGi0TN5ehMt36QVBciP2scgA4Uxi7gHYwyHpx9XnCZ90JSZg/HCDf9Kvq+NWW
+	 LlpHthsA9EUDpaYjYpaG8L/TOlp7AdgLrYhMrDcVSXJdDlx9X90QuBDmtH36I8ZrtA4Cn
+	 w2klU/pqlc9FW76jmgE3f0/Y6XmBVfSWR3vTuqsJrjSYmflL+mYfoTYoidf9KykifzA1v
+	 9BJ4s91eyqIGFuungEExx0GWwUl7YO4IMoyHdCrSt+b0AB3cBkFb5YsPmI0g24/6yYNWL
+	 VGKA6TD/k6674ZYgifwro8d3Bp6E4/EV0IB8SPcJ16rhBwMw9m87bNKw1zERyA7n3PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534765;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534776;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=soYGbERiba/uMKr6Z793i+eFi06gh2VpYCaSfdNNOc8=;
-	b=jRAB8I4YlkNz/JE29suO6E2ENHl6Bvg3cvXN35nbiWT7qkotTFvmWzJHOYAAGg2QGdTw
-	 uWk1bWGwMqKRDrLtWxQjUII07/+8f+XrzESGGm1jmpPMTaQn8Dd2IFnEvPiuU6TZAkFpA
-	 6Z9QUOnk6WS1UoidrojqMlg1pfWN0LcflTG0DENOXm6CXD7UBbr/hvt2bGT4eeWkEQzpJ
-	 bk9fwQdkxxAgt5fR57Lo2Uq4K4DdGsVfi1lnUjarMfvUWfiFZgVkc6pUEx08Z6IJAW+6D
-	 CDmxCfDNmp8uH5dHJfPE48c0iZKk/oxgaRUL/UZtmIQXn6oDn8sdJ4yXEYblKnZg74A==
+	bh=rsZz2IkW18YqFuNDdj2sHCy1F3uqyy7be/NVtovrymw=;
+	b=DN5KZr+sEL71KwHvTc6enG7EBLYFtt0k/aXkZ4v6O7nJPuSjfoMKnd6iimVdKwe1hF/H
+	 zPCllfAAkYc1oFGmTfsjNUkpZFgueC6uNlcTI52S3TlFKP7WHOKqoUVx9IWlxRiyXKZfa
+	 9dGaAQHksnpgSYNDAS1G1hnc3LYjlEUIEeti7ph0+wrsDeuyMeGrtiIclXDllONofuOXh
+	 38pOcx6g9hH54V1YYF6ApzgCDo+LOpJHA+4mTduvBu7pqcgFBmMaKjfv95/zx370SLGVG
+	 tJ5do76kV9+rzR0UVUeDd+UtSHNbnK+lo4+KiREsakapJ/WuXFAqRX3C0DM7JBxaJRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UVLL3sZ3;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mDDsfnVT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49014606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:39:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC11606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:39:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UVLL3sZ3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BA9C1F000D8;
-	Tue, 24 Nov 2026 15:39:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mDDsfnVT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B3C71F000D1;
+	Tue, 24 Nov 2026 15:39:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795534764;
-	bh=soYGbERiba/uMKr6Z793i+eFi06gh2VpYCaSfdNNOc8=;
+	s=korg; t=1795534775;
+	bh=rsZz2IkW18YqFuNDdj2sHCy1F3uqyy7be/NVtovrymw=;
 	h=Subject:To:Cc:From:Date;
-	b=UVLL3sZ3LUNURkLJFBX6+/itHVMWj6avgDV3cIJse7DxHALAQD6hsv1CzEozm6k1v
-	 zI31v7Pgw8/i+kRiDHF4504+pQySFJguzWHty46AsaJwneyeuUmV0OhDIc+hshAX/i
-	 2a/mtxyj/+jKiRhrQfDF5tJrpbz3PSeV3t/3zn/Y=
-Subject: FAILED: patch "[PATCH] mm/page_alloc: keep the pagesets of an empty zone" failed to apply to 5.15-stable tree
+	b=mDDsfnVTwm7fyr/FaOt8K2JURdaFWM0VfxiXUzcZqYpQfzjW0myViYnTDJNn06Z9k
+	 E1EP34TphnWCBq0FDWozrNsAGw8dghmuqOGA7Yh762H3WGTARcD1IDYBTlDOwT55BB
+	 TeGOkrMqeVFam0L2540ODsfw4l5BdMxpb9IytGGQ=
+Subject: FAILED: patch "[PATCH] mm/page_alloc: keep the pagesets of an empty zone" failed to apply to 5.10-stable tree
 To: josef@toxicpanda.com,david@kernel.org,gourry@gourry.net,hannes@cmpxchg.org,vbabka@kernel.org,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:39:45 +0100
-Message-ID: <2026112445-kimono-cavity-bc8a@gregkh>
+Date: Tue, 24 Nov 2026 16:39:48 +0100
+Message-ID: <2026112448-coke-coming-a4ad@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7bfcf81b1cb469bc016fa8e07939c0924b9ff8db
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112445-kimono-cavity-bc8a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112448-coke-coming-a4ad@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
