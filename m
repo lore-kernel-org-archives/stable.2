@@ -1,61 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795528301;
-	b=z80BdZRE3HHwlBCZbNk0rnje7N6FGBOC7o9oAMIFvNbcu8fM6hGN68PnqD5r/MsLraD2
-	 2jeW5cHju63NqwlEckMZ364sReMzTPD6bygYd2o0HfcKVQQw/W2HVA7MHqzcq4GIC3jX4
-	 dvbUPrY/aKR9lYxHr9QSNQbJ2dzFfqno94eJNfbqDTwHtMmYyqyJX6S2LiwUt+OcuxofO
-	 6AjTpHwJ2mcULb2efkTjRt2Yf8GauP1s/s9bSOnX7J06USnjHCAywWMf+FxvTAb6aRlkM
-	 1vRD8XiuJNzDdGBe2evL48f8n67HXhtHYmW4cpenmFo5iNB+GC2T73nJ+ch+6BfMCdw==
+	t=1795528423;
+	b=MPJzcFzIGHPkSGI+h7HxpktG7EaZvllA9avOwQ8TqEUnIDrWWnJt70lHlPsihH/Cj25C
+	 COf8gxjynsYjbfolYtSYn1i6L9DRqep8E6Tdx9POsvknsUvSPxsPgGHnres1prdXRotU+
+	 r5vLM442fxxyYU+KmvkBpdXluJ4vpUKXT9XbcBMFNeuJD82O0fID2h4NGU9XQ9UPP7hnT
+	 w2eVt39KfhF499/9S0pmYbVB8OzBVuxYd0BfMTmw+W6It2G4ZHu0DDR04I1jojPJoTsQu
+	 J5sGLYuccOqJpMzd5PcJcdydm6C0VI2FBmxY1jBUAXNt64SdJdCp1vm2yVwqHERwl3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795528301;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wG3ZtixJaFFhkZXxYdcnHox9YkW7VVSHInEX8jMe+5w=;
-	b=xMj/Q1VcelD0TV0GOLfhxulp4H8Be/vmtQAmSVc0JSNPxI6hnj03cOoUnTWgKeCy2IyA
-	 D/uF+bzdXNY/sEb72fxOVbDqIF4ARDj/ao28hkIrML3FJC8S/r9vLSoAoczk/lJhyFxdO
-	 Ld1oFn3wOsfVtSwIqdox4+QvNzCoDRxGZJ8XblX4XpJm2rwZ6KdPEFwZp3iJ58ND19hXh
-	 LCGJ2JvFmilXQMCmZ+7RaJyEkgX4VMV11H3FQpfKNVbd619akUR4Fwv05KHEEGqgXO4Is
-	 QGv6iOUY232uyd2bACNEvLDsN0q7WzFYZqQuocS9iJFyF6JSwC4cJsN7vA/UaIRHpDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795528423;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=MIkTVr4RcMW6zywCfrJZui4jF3ihGLOv2lESiFwO/2g=;
+	b=nn3RWBj6ZRd9kBCuxB8ElYUXxiq0fQMFSn4cPrHz6S0wWN0uK9vZHClANs5dHo2ysMFY
+	 4LGrkzIoMACpeoUhXA8skz5xIZBeQ7UwGwx0M6UiXUMvo5uKc5i6Dk+OHNq49AKbGVx4W
+	 sanFNJ+Olt7FeNhXbUUvmFmvJRSW0m7B0E/LJewL5g2qFqhlTBzOD/dLErDyal0Lkqj7j
+	 e+W4m5d/iSWJAag8LNuhlbM91dVh4DaIkCgsDYPqRXVaKRGkab6wz3NLZHr10rDFFpD5w
+	 nto/j80Ol+NkacQ20BoAnwtpuH+VwD7koft9l4ohWqIO4GxGqmALOKiLwyym/FFz/Yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BKhJ5xLI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506D4606A31E;
-	Tue, 24 Nov 2026 13:51:41 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nndDHg3l;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED1D5606A321;
+	Tue, 24 Nov 2026 13:53:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED1D5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BKhJ5xLI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160D31F000C0;
-	Tue, 24 Nov 2026 13:51:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795528300;
-	bh=wG3ZtixJaFFhkZXxYdcnHox9YkW7VVSHInEX8jMe+5w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BKhJ5xLI57wn3jcdh+k3UYMM+UZH/iP3LwGv3HpcYTAoS7feQKOPpAaR9qn3kUsth
-	 vhoY/yvQd+Vbke+6trVtFw2wfac1ic3ibsn1lKpZ7h7zWG3Re5RfpxKcYWb+fRhbSO
-	 vkrIYcEg0evcjLmDX6Qs24X0cPCxS5NYQ100VdjZ3HPx1rc39UbHRgyth/e+hZ3oSl
-	 tDQpsNq+vvcfGOQu95049GJxDBFm2NcxzC17vmRGtf/8cZ2hyUHR7Nhko/L4bdnUUP
-	 ef5f2Me+jA6dLerR0uj8pREuFrxw43n0k6GOh71YtVQ+XClfgJBkVFlbWZo6YZujpe
-	 zBcg8RxjFwkkw==
-Date: Tue, 24 Nov 2026 13:51:29 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, kvm@vger.kernel.org, 
-	virtualization@lists.linux-foundation.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	2312891301@qq.com, blum@kernel.org, co+6dcbccedc9ec6452@bugs.sh, 
-	eperezma@redhat.com, fangxy@xiaopeng.com, jasowangio@gmail.com, 
-	kmehltretter@gmail.com, linfeng.sun.dev@gmail.com, lirongqing@baidu.com, 
-	longpareto@gmail.com, oss.patchbox@gmail.com, p@1g4.org, phx0fer@gmail.com, 
-	physicalmtea@gmail.com, sergiiushakov@google.com, shubham@octane.security, 
-	stable@vger.kernel.org, stjepan.poljak@gmail.com, 
-	syzbot+13df72e0dc4be5c62215@syzkaller.appspotmail.com, tavhadia@gmail.com, tjdqudcks0424@naver.com, tz2294@columbia.edu, 
-	xieyongji@bytedance.com, xmei5@asu.edu, yuz08559@gmail.com, zenghui.yu@linux.dev, 
-	zhaimingbing@cmss.chinamobile.com, zhangjiao2@cmss.chinamobile.com
-Subject: Re: [GIT PULL] vhost,virtio,vdpa: bugfixes
-Message-ID: <awWOpS3HR_2FTN3I@gremlin>
-References: <20261104081535-mutt-send-email-mst@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nndDHg3l
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 27C3E339;
+	Tue, 24 Nov 2026 05:53:39 -0800 (PST)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AE6213F763;
+	Tue, 24 Nov 2026 05:53:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795528422; bh=+APSVgCGhYAgoDVaz3XyVGIzx7Jm+ECnvgl+Mo3ccbw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nndDHg3lTtR63L3UJR/QPaZ1wafVNDpQBCCZ+cFzjl1lRrB7pNlrxCK3t2fyafFkt
+	 0/1iW09TNYzVrXfe88pK0leeZh6RmvKXyxAbsp1/DFld5IZ7Cbf3CXC7/KuhEEPeqa
+	 GHttcEwpGz7XbYz+SVSOE/BCApFxVLy7aaxqOCBs=
+Date: Tue, 24 Nov 2026 13:53:27 +0000
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev, 
+	kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: Steffen Eiden <seiden@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Oliver Upton <oupton@kernel.org>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>, Dan Carpenter <dan@pereq.eu>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: nv: Upgrade sub-page TTL hint to maximum size
+Message-ID: <abrygylfbe47jhkufe3hl5wpdawazeno554ovwijwvh43hzpab@uqxszjzp63jc>
+References: <20261123182312.4842-1-maz@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,32 +64,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104081535-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20261123182312.4842-1-maz@kernel.org>
 
-On Wed, Nov 04, 2026 at 08:15:35AM -0500, Michael S. Tsirkin wrote:
-> chenglong.ma (1):
->       vduse: fix VA/PA confusion in the coherent page fault path
+On Mon, Nov 23, 2026 at 06:23:12PM +0000, Marc Zyngier wrote:
+> Should a guest be slightly foolish and submit a S2 TLBI with a TTL hint
+> that describe a base granule size smaller than the host's page size,
+> we take the resulting size at face value and feed it to the S2 unmapping
+> code. Which legitimately screams about something not being page-aligned.
+> 
+> The architecture allows us to drop the TLBI on the floor, as we don't
+> support a S2 granule size smaller than the host's page size. But it turns
+> out that doing so is proving pretty hard (we call compute_tlb_inval_range
+> from a number of places, none of which is amenable to an early out).
+> 
+> Instead, detect the annoying case, and pretend that we don't have a TTL
+> hint at all, leaving the size upgrade mechanism to take place and use
+> the largest possible size for the guest's S2 granule size.
+> 
+> This will still allow nonsensical stuff to get through, such as a 4kB
+> level 2 (aka 2MB) from a guest with a 64kB S2 base granule size running
+> on a 16kB page size host, but that's not worse than doing nothing, and
+> the host code won't get shouty.
+> 
+> Reported-by: Dan Carpenter <dan@pereq.eu>
+> Link: https://lore.kernel.org/r/20261123-inval_range-v1-1-815e15797089@pereq.eu
+> Fixes: d1de1576dc21 ("KVM: arm64: nv: Handle FEAT_TTL hinted TLB operations")
+> Signed-off-by: Marc Zyngier <maz@kernel.org>
+> Cc: stable@vger.kernel.org
 
-This has landed as commit bb2e6f166547 ("vduse: fix VA/PA confusion in the
-coherent page fault path") but I don't see the patch anywhere on lore (off-list
-security report?)
+Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
 
-Anyway, clearly nobody actually _ran_ this code in 7.4, not even claude, as
-it's completely broken.
-
-Commit 99fd6bf43d5d ("mm/vma: enforce that mm-managed mappings may not set
-VMA_IO_BIT") literally made setting VM_IO incorrectly, like this patch does, a
-WARN_ON error on mmap(), i.e. it _refuses_ to mmap it :)
-
-It looks like it doesn't need VM_IO anyway, the other changes in the patch
-make it redundant AFAICT, so you should send something like the below with
-a Fixes pointing at bb2e6f166547:
-
---- a/drivers/vdpa/vdpa_user/iova_domain.c
-+++ b/drivers/vdpa/vdpa_user/iova_domain.c
-@@ static int vduse_domain_mmap(struct file *file, struct vm_area_struct *vma)
--       vm_flags_set(vma, VM_IO | VM_DONTDUMP | VM_DONTEXPAND);
-+       vm_flags_set(vma, VM_DONTDUMP | VM_DONTEXPAND);
-
---
-Cheers, Lorenzo
+> ---
+> 
+> Notes:
+>     Reposting this as a first class patch, as I'd like to plug that one
+>     as early as possible (and Dan has plenty of other patches in flight...)
+> 
+>  arch/arm64/kvm/nested.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> index 78d5b18dbd2d6..36e4e83badf0a 100644
+> --- a/arch/arm64/kvm/nested.c
+> +++ b/arch/arm64/kvm/nested.c
+> @@ -714,6 +714,13 @@ unsigned long compute_tlb_inval_range(struct kvm_s2_mmu *mmu, u64 val)
+>  	 */
+>  	max_size = __ttl_to_size(ttl);
+>  
+> +	/*
+> +	 * IMPDEF behaviour: treat subpage TTL-annotated TLBI as the largest
+> +	 * possible invalidation. Don't try this at home, kids!
+> +	 */
+> +	if (max_size < PAGE_SIZE)
+> +		max_size = 0;
+> +
+>  	if (!max_size) {
+>  		/* Compute the maximum extent of the invalidation */
+>  		switch (vtcr_to_tg0_pgsize(kvm, mmu->tlb_vtcr)) {
+> -- 
+> 2.47.3
+> 
