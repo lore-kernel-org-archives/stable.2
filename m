@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795488056;
-	b=mSYPo79Vslb3pEozuXjc1fxWKYbdkDU5YwT9RgLsuVyamYFBvPOlw64o4XPVUbkvrPeB
-	 vz7JM6q2Xn8mdrEmZJlPNrl78h4JIfp7jA5WVQswL8IVU9GoNGCU/bj3qBG8FkikCzmst
-	 AqRNK7zean4WCYNUUDqOZ9lmtltEelJEL8bJ+3227b5nxArzH1j+9dhZKgf1MYfhtqalD
-	 rtxEgC6xtCEzqgxgb5C27WhorLSJqPqR92urWp71q5crwDobRuJBh3W6ETAzr7Qznft2a
-	 VngBa5tFPwkzHU94TAKPF44NnlhOnt5myFZdKao66weuFLRP5uznKhHUJq5VqW0uGEA==
+	t=1795488338;
+	b=pfZ1YevwqWMiaDZYMXy7e00LyuvlUZkpx+nTEjFUdbJ+rQvhPbzpDNwvlVoNODa+CdvC
+	 7oZYjlcRN2swIknw09msMlChyzoCejHqiD5CZETyfOhp1sAyvmEtAF5YPMFdFR5GQMXEJ
+	 a6X5u3+1V7FOYq5KfDC8mdWJceYDzjVvV4AyZ/sXE2BIV+pCP6KEFqHUt+WFu7yj2ZUKT
+	 iiYljQI0tPfY5NmdHcmGbR2u3LI5oOpeDKRcTA+GuggKsPY779t8bGj7hPzolTcJvsxAE
+	 5Q2ahrvy1qh3WGnEFiP43Po8kvkhCwEwBVCO0bF70kr3f+cuY9S1dBOT6N6u02GI4WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795488056;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795488338;
+	h=DMARC-Filter:X-UUID:X-CID-CACHE:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:
+	 X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
 	bh=fgpttzXHXOwMzQVloHp+GVdUMpOqfpnhZMTL9/tKDM4=;
-	b=neQkep/uh/7HOIQqcKW7BW8ba0H1of18qbvJO6e8hpJhB5QssDoUJhEqp24/YiFkLJXF
-	 gSOtFRmEdM3M9r0XhZdKLYv9p+lsO90snSAuMKIcnATiC5QtjR1neSUe9Rjye1nq8OHFN
-	 MA6RrAgV72P19OG3DEH8FiJ0huPlRu5Y1y71IlfwQ41ZNdYzu3ipjsBfLoZKr+BEvJkV2
-	 kmtXiJ6fzJTuIa+QL2cHOqkU1keHqPFbq5o7O06n/mx2utMe+42T6zYciSSxAOklg8spM
-	 8Y7TEJI7VhBTXVYP5CU5POJe8wCjPZc4EsMenJIoPE0u+H2YndBUjO8wHUxUK6qPzQw==
+	b=oXb6WXxYHaZdFg3JNt9+5qtdEYOBQE0+XklLmBm0GyYtYvIW0GAyGfDOypRlVXQStWDr
+	 yml1jkJVmGElkY7OYMq64o0x9nGSw6vRQykUOZhTl0/d3Swur4/ckqt53S0y6Qp1YNtEp
+	 4/Yfj0HMfPfJ0mDqiEVOR9p55k4WEwYIqndv0b1UUkR/bdk8noLA28PIOXm3rC3z6w0TN
+	 lrLhhTXGBmMYNS6Bbr6SbFfCExsFkHR4enHwOq++LkvPwLlOIRDxTLIHoDjJxB6BmsBJz
+	 WHFYjbMfRmXYdc7uoZ710NQXXGWZbpuI+TP2mJTBEdeCmU8VwYyd0ksRRAOalR0k+5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kylinos.cn;
 	spf=pass smtp.mailfrom=kylinos.cn;
@@ -26,14 +26,15 @@ Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C089F606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 02:40:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C089F606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0888606A321;
+	Tue, 24 Nov 2026 02:45:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0888606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 762a827ee7b011f19a56ed5b684f684d-20261124
+X-UUID: 188c0ab0e7b111f19a56ed5b684f684d-20261124
+X-CID-CACHE: Type:Local,Time:202611241040+08,HitQuantity:1
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:8db0e65b-5d9e-43c6-b7e7-18cd34301a0c,IP:0,U
+X-CID-O-INFO: VERSION:1.3.19,REQID:8e27f014-2349-4788-96ee-a2b033117f39,IP:0,U
 	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
 	:release,TS:25
 X-CID-META: VersionHash:7db8b62,CLOUDID:a1994da0e658bd37d7b78e0e0f45c24a,BulkI
@@ -44,18 +45,23 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 762a827ee7b011f19a56ed5b684f684d-20261124
+X-UUID: 188c0ab0e7b111f19a56ed5b684f684d-20261124
 X-User: huyuming@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <huyuming@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1977970569; Tue, 24 Nov 2026 10:40:50 +0800
+	with ESMTP id 959411961; Tue, 24 Nov 2026 10:45:23 +0800
 From: Yuming Hu <huyuming@kylinos.cn>
-To: huyuming@kylinos.cn
-Cc: stable@vger.kernel.org
+To: hminas@synopsys.com,
+	gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thinh.Nguyen@synopsys.com,
+	stable@vger.kernel.org,
+	Yuming Hu <huyuming@kylinos.cn>
 Subject: [PATCH] USB: dwc2: shut down the wakeup timer before removing the HCD
-Date: Tue, 24 Nov 2026 10:40:46 +0800
-Message-Id: <20261124024046.2614379-1-huyuming@kylinos.cn>
+Date: Tue, 24 Nov 2026 10:45:16 +0800
+Message-Id: <20261124024516.2621743-1-huyuming@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
