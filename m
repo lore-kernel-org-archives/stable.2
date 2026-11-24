@@ -1,66 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795538284;
-	b=5N3mtdyu+mLU6WhcbJH+QDyODYtrXDnwacmPV41H5b6D+gxzKYagBCYIHDI4rUjuPMLd
-	 6+XohbffIiPOxsV+1+wxs0ksrVpyQEL3Tp1Mjfl5uHLn/2BSn449fZO1nK7Ckq/i+0Yx1
-	 XKs3VDOpvNaRZYxJqiQQ7tf1DGJ40TU3p3uueuLP5FKlDaI5G6t+n4T6o1vBkVJeBUKA8
-	 cwjOt5IxN9OenOO29Usv+clPLEmshTpIVd5oWP4xReJb0Dw+gCWRRtb+NxraMcTzd9keZ
-	 82y5M8bfQciqX/IFkuYZzokH16ZA90WMJEGv3oidxfKdZ7TMVm/WpwHD0tcLW2VyULw==
+	t=1795538318;
+	b=Cxn2HIXAOlodZuX/5VmnAwCgbRABM6ZF9c0ocNyBZFkJ/qPxeGHv7LdLuCrRTLOgWU/s
+	 5N7mjGAAttAo8YtUTetFrNsp4pz2D5rMCLq0bjIei+JiMdXmddbwIfJu7UyiPJNNWiz9n
+	 RnMAMZI7E5J33jSHA4zuAhgWRLNQSJLgOb+QstEeNXL/pywVjiKi+SVWllYSmREakCWdz
+	 sukMjRNTj+xSr3f4Eo8Bq9I54uyNlhcwZOneMWbu7YGw9UBKN2Ne1S2uAVxWsIzB3vD1/
+	 X6pNzgeSxqnGXkOlMiI7sEPcD6XaaU4gAWMC+JYQEn+0dyuA7sYXlbvXjSuKdzAmaPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795538284;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=VcKqAindQ+wtPkjkunJkcwHZ0Zj0u+55F0mjged3HyQ=;
-	b=M4lwzgHHMtvuqKDBn8ncyy+0eo8l664cAyns56wSxYReLxa+BBXhTcOtRO6IH58eMbLa
-	 GimHgM6w3ePz6D6l4xoVMUpv+E+LTrDj2U7GZF86S7wMFF4I5SM/5sz6/hYj5VgXtJasE
-	 qclFJo6d30omX50+eqg5JHt1WOmQ9jl6f5J1zWbiIFfAFthak1tfJWWiDyjuFjlsEv+KS
-	 unJyg91/tnOfb78CBZBNTRHJ9wmdHPjgHRuZZy41S/ocWzKxUagBZwgIVHWMzA4wstcC2
-	 nWeNxYJZrp/PUPRzeW5sF/uqe2Ei+dO0+wr+/YnJAJp69apRCknG9q4Rg99mY5JV8lQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795538318;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=/EJeu8eqnYrieEoQuogN5jN7oNvPxu+IBN2eMIBR7Us=;
+	b=QhgMNHdA9qQJqSBGlsGTfT/5zHK0Haubq98S6qQcjeGrVYKHTXFp4Y492Qn4Ztt4qeXr
+	 F7/Gzj/WwKUv/QUm1QVdQdwo3MtMVFvh8p95ChnJGG+zPBSfLnfabm5uUhtuNrldy85CK
+	 /KYgJ4fHMjdIk8Quek8L7keVgYfyvJThSGZ2O4YmZZJZMKVdHOA3IvED/hEI72ct8yA3q
+	 PMb88gkYxVp6Udl9dgb8wp2qmond0yc9wYXNWfE6cHDPIQCtcBaZxsCJjDX923MU7FLBC
+	 CAEn/XPjHd0ACcnGO7s8TtLFKBZXVxUZhvlv0DnQxlTkvDUaqi/DJMuG2xuvIpCNSCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=AaHe7eAY;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=SmXRxnky;
+	arc=none smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C289606A32D;
-	Tue, 24 Nov 2026 16:38:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C289606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED18F606A326
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:38:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED18F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=AaHe7eAY
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jYpQF6p9WzlfvqM;
-	Tue, 24 Nov 2026 16:37:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1795538272; x=1798130273; bh=VcKqAindQ+wtPkjkunJkcwHZ
-	0Zj0u+55F0mjged3HyQ=; b=AaHe7eAYuU8vzjg7cR1Z3k75naI24NXULG++7wgI
-	DLYImG5O+Q6lE0HGJ/IwjQQVs6tal314bXGukXQj/dlzsGqFUZ7e7AvEliOJ9Mdw
-	iMqzZR9NzQ4tPcaDAfsJmhDhe7BE4yIMrJXWSnnig+KDgX9s0L0F9IoLHjEERY+7
-	OU8yqGz/E2JfbItUw6FU1vyt2XXtWuBejLx55PbSwmJtsLdUD/8CXxRd7+PmcmVh
-	JA8c76xbSiV0/7oMrZeQQDkVCox03oA8fgAyardlcqOH3RKhO9mRn6ExKndlMKC8
-	rkPbNdC3afxHuJObuUQGtF1TBqXo2HfWL2xAyq6fs6Rz9Q==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id LkaBam14LBfH; Tue, 24 Nov 2026 16:37:52 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:b87d:aea9:8f72:a6cd] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jYpQ83pdbzlkvPv;
-	Tue, 24 Nov 2026 16:37:52 +0000 (UTC)
-Message-ID: <207069e4-6c99-40b3-ac0c-7ffe675a0c9f@acm.org>
-Date: Tue, 24 Nov 2026 08:37:51 -0800
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=SmXRxnky
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c50933bdf4bso939400166b.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 08:38:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1795538316; x=1796143116; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/EJeu8eqnYrieEoQuogN5jN7oNvPxu+IBN2eMIBR7Us=;
+        b=SmXRxnkyJOLfjP32m9hhuB7ThQS51Qqg4E8pnGZT731XzZv9AmeQPYedNc4kvhkkg9
+         QgNtGVEqszVIACPOtKfyriOR/kb0aSARrq0rqH1Nt2PNgVjyHCS9An+G7RtbRXF3JiiI
+         1LJN/DPgC0zS5NXRHTnDlSOh6GIFmg3ThLESg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795538316; x=1796143116;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/EJeu8eqnYrieEoQuogN5jN7oNvPxu+IBN2eMIBR7Us=;
+        b=2HvB3Dh7PRdU+a76C04B9G82J4wnNQ+T+YnsZxbtt/VDpZNl3bOgicQfhTrmwfUVBr
+         HPafvt5CoYLtuQ9Ss99jbI35EKNkFeV91hgsOJLeIlqrUAOeAklDiOcXf+yTmLMyQp2w
+         QH/VCegOoh2rPoNfbb1hMvytnjQN9hGV4dVeZ0mFvdA8Bepas3GfeAB/mX33ehzLjFQx
+         mtn2oQBf271X9lQKiTkLDH0Nq7yFnOD3QK9PSW71k02H1Z/W1AcUw8YWh0PIoc+Gg/3X
+         6T0HjNl18F3Og+3fB+BLkxfc3igtkUI4XJni8L3cMfV8dE04fKGLj/DI60LVa1aFQVM6
+         D1FQ==
+X-Forwarded-Encrypted: i=1; AL+hErGGo/TpJI/bNCb4ohob638rzXoEza/rjPE/eFCRXptA2FgfEoi97baJWRhUc3p8xiiKUqWYiL4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z976InPhDfU9GgPQiBvKGgU90/gg+EYoz0ogovsd8EPI3er3Jfp
+	1P0V/ie16P4gD6XTXKGGVx0m4VhGxtychW58HF5B6mQKPAJoDmlMh1ErvgY6Xg0ll5Ah5Y7/Zyx
+	/o4z2MTs=
+X-Gm-Gg: AZFdTZfkKmCGegi1+4z65b6j6hTWTUr+B/pWMX/IucQ12gVhXFTIwa78YMiApB8p2ze
+	xuhJkrrdgIKXl37wyGihunvv6VaTMeqYNfQ+W0+2KJBMj1H2TS/lkB01k3+umYoVqkLsmmbvs9n
+	Duym3Cg52FqjBgZRfj3EGWcP3wa2AN+jRoCJj7rN06EW8vXj/DSc1MU0AVgbj+uNBlZgIhBJQ48
+	wiuL6L0jxte6zM74V+J1v+Zw7LhG/kZMNsmnJZTL2rvjEPD155UG+jjA+wj/smLiaCYmbHtbkBa
+	oAlnS71D4kL3cII7kwAdYuEWGSZ21gvYRBcHnsfcy9BPW9fSscnz5wNEEMo6dbseKlcsB7tcgdD
+	93i0BsX5953bfoFlNQXXa+55ZZy88lpkJptiY4ZWExL9Zwi3j7N81Is5ORvEmbuuR/gE8Rbbi63
+	MZwFS1Ck7HqogOCcy2B241Vd0HrISOfjC0LpodWudM6raQC0MFBFnqmWzjzRq0drn5qEkgUjX5s
+	NP1yPzIM1ce+szSlJa1FKiRfW9gg9mEW70Iw9nGnvkzrvgJZU/XvCVU18Gfv8Ycs4TapWsiu/xU
+	tO7CsQ9oj84Gh/7SYMsB7X5FOYj2IAtP8c44N7tE+fIT2+1lOdskbvVVyY9o5GhoTISQuT1PVZa
+	9/2E=
+X-Received: by 2002:a17:907:3f18:b0:c46:9711:e30e with SMTP id a640c23a62f3a-c5131a1601amr1321439166b.29.1795538316325;
+        Tue, 24 Nov 2026 08:38:36 -0800 (PST)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com. [209.85.218.45])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba3711ad52sm7130943a12.35.2026.11.24.08.38.35
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 08:38:35 -0800 (PST)
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c50933bdf4bso939394866b.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 08:38:35 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFqX/Fj6aBp56J64c5z7jPKwqUYIs4kNrXzhBa0BQa3ZwdRA4Lt1kTMlU+RuBk/UwA9+xToTCQ=@vger.kernel.org
+X-Received: by 2002:a17:906:99c9:b0:c48:a838:c17e with SMTP id
+ a640c23a62f3a-c5131848f19mr1340338866b.14.1795538314950; Tue, 24 Nov 2026
+ 08:38:34 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,86 +94,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] loop: fix stale dma_alignment when direct I/O is silently
- dropped
-To: Tao Cui <cui.tao@linux.dev>, Jens Axboe <axboe@kernel.dk>
-Cc: Keith Busch <kbusch@kernel.org>, Jan Kara <jack@suse.cz>,
- Ming Lei <tom.leiming@gmail.com>, Damien Le Moal <dlemoal@kernel.org>,
- Hannes Reinecke <hare@kernel.org>, Zhao Gongyi <zhaogongyi@bytedance.com>,
- stable@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, cuitao@kylinos.cn
-References: <20261124093342.838490-1-cui.tao@linux.dev>
- <96ffc97d-62bc-4a91-ae3d-9baa28ef500b@linux.dev>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <96ffc97d-62bc-4a91-ae3d-9baa28ef500b@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu>
+ <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
+ <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com> <awWSwmvaTwBxfU-r@redhat.com>
+In-Reply-To: <awWSwmvaTwBxfU-r@redhat.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 24 Nov 2026 08:38:17 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wj3GCXZohdFWWPAOkC_LHno4X0oQW+0sQFJzRMvjpODUg@mail.gmail.com>
+X-Gm-Features: Aa3M54rSVXLeJrh34QUL8f4_MzvjAY0ztkaZZD6rbZrwl4RoBJ3r5dHQUBjwBMQ
+Message-ID: <CAHk-=wj3GCXZohdFWWPAOkC_LHno4X0oQW+0sQFJzRMvjpODUg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] sched/wait: Queue non-exclusive waiters at the
+ head in do_wait_intr*()
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>, Michal Nazarewicz <mina86@mina86.com>, Wen Yang <wen.yang@linux.dev>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	tz2294@columbia.edu, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/24/26 2:56 AM, Tao Cui wrote:
- > I noticed the sashiko report [1].  The lock order in loop_set_status()
- > is indeed different from 06a2ff603f1f, but I think the reported
- > deadlock cannot be reached through this code.  The queue is frozen and
- > fully drained before queue_limits_start_update() takes q->limits_lock,
- > and nothing between start_update() and commit_update() blocks, so the
- > new code never waits for anything while holding the lock.
+On Tue, 24 Nov 2026 at 05:36, Oleg Nesterov <oleg@redhat.com> wrote:
+>
+> Well. It is not that I like this idea (and I bet neither you ;) but
+> we can add WQ_FLAG_EPOLLEXCLUSIVE set by ep_ptable_queue_proc() and
+> __io_queue_proc(), and change __wake_up_common() to check it
 
-Whether or not a deadlock can be triggered, I expect lockdep to complain
-about this patch. blk_mq_freeze_queue() acquires q->io_lockdep_map and
-that map is only released by blk_mq_unfreeze_queue(). Hence, calling
-queue_limits_start_update() between these two calls records the
-dependency q_usage_counter(io) -> limits_lock. The opposite order is
-already used by loop_set_dio(), loop_set_block_size() and
-queue_limits_commit_update_frozen(). This is the same complaint that has
-been fixed by commit 06a2ff603f1f ("loop: Fix recently introduced lock
-inversion"). A lockdep complaint is a problem by itself since it
-disables lockdep and hence hides later reports. Has this patch been
-tested with lockdep enabled?
+Yes. I called it WQ_FLAG_POLL_EXCLUSIVE. Let me send out a series
+after I've cleaned it up a bit.
 
- > I am more worried about the suggested reorder: with start_update()
- > before blk_mq_freeze_queue(), loop_set_status() would hold limits_lock
- > while draining, and an in-flight write-zeroes request on an
- > unsupported backing file would block in loop_clear_limits() on that
- > lock while holding a queue usage counter, so the freeze would never
- > complete.
-
-That scenario is not specific to loop_set_status(). loop_set_dio(),
-loop_set_block_size() and the sysfs store methods already hold
-limits_lock while freezing the queue. Making loop_set_status() follow
-the same convention does not introduce a new class of problems. The
-proper fix is the loop_clear_limits() rework, so please make this patch
-depend on "loop: defer the queue limits clear to a workqueue" instead of
-deviating from the locking convention.
-
- > The snapshot taken before the drain could also overwrite a concurrent
- > loop_clear_limits() commit.
-
-I don't think that can happen. limits_lock is held from
-queue_limits_start_update() until queue_limits_commit_update(), so
-loop_clear_limits() cannot commit anything in between.
-
- > So I would like to keep the patch as it stands, but happy to discuss
- > further.
-
-Please call queue_limits_start_update() before blk_mq_freeze_queue() in
-loop_set_status() and call loop_set_dma_limit() and
-queue_limits_commit_update() after loop_update_dio().
-
-A few more comments about the patch itself:
-- lo_can_use_dio() is now evaluated twice, once before the limits are
-   committed and once in loop_update_dio(), and both results must agree.
-   That seems fragile to me. Please consider documenting this
-   requirement above loop_set_dma_limit().
-- With this patch every LOOP_SET_STATUS call updates the queue limits.
-   Can that be restricted to the case where LO_FLAGS_DIRECT_IO has been
-   cleared?
-- Please mention in the patch description that the stale limit is too
-   strict rather than too permissive, in other words, that the effect is
-   that O_DIRECT I/O with 512-byte aligned buffers is rejected.
-- How has this patch been tested? A blktests test would be welcome.
-- Please use 12 characters for the commit ID in the Fixes: tag.
-
-Thanks,
-
-Bart.
+                 Linus
