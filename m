@@ -1,58 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540862;
-	b=FDMEpHWm0CoK7rGRRwXIHKx7qcASl682HQ4fH+1ztow1+30en/0JNpR3PSV4RWMsx/9c
-	 vg7XdRQG1R47tkFzZ5kWldsrmWeFtCm0NLyKHd43eLyMK42zRb8nhobhMO1nE5BZU/PrO
-	 5xEywK9WAH5zVnJNfrO4YKumBRpf+j6VsREJYV/pjLaV5Mo6mfRVfxlzIFmtcZdEeabQl
-	 AcDGf/7BOpYHrTIurEDV5NorY75WTIxAdCELys7tkOtSsMaTiWGI3cibSo48kMrwu4qSX
-	 10UyhAxdNo12rw3RJmvMDpVTQzaikjLEBVE5EeAcXCrI9krYDJxoDJ3vdxlNLXwCiXw==
+	t=1795540893;
+	b=gAEIi/1Bz8sljFShj+EZUhpnrvBYOgBGP0eibvjCmAfi0ixkvUI+98gBV5q68IuxknDl
+	 KIM3jR06RSEOjsgwfNY5L4qmRdFZJX04gCE7JCwBasfwudAeDm/079BtVMh/7vOTikDRK
+	 ChnOuwOr3VWru24JAX4eLQVcm+Yk3AmEHcHJo44VRzwNJP+30VR6eAo4rxe3V0lt4oM/X
+	 Ck60KXGqsSE3Y/JyISYjfW76nuBikEA9ryLkI9vU6xvZhFcfUIwXEFfT6PwH3JURL/YgG
+	 IkRFEaN3HiKAR9xhAIn1xgEQj6hZgTuzD460uFHdcCDB3c4Bs1OfgXPilbcsFAtlzhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540862;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540893;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Rk2J6ClzSqyN6a1JQNbue4HuCLpZeYjPJq84JL6g2NU=;
-	b=GRzB/5BpOFOegsuPo9MIWjLh577DhRT+KLw8rp9MjT7wdMP+zABAt/K3aWo1FiChe7Ed
-	 U4KspxNkqRC2CWhCEdEzwenTL3XVkxYhvmkwootez/qo05KJeglMl4jLAhXSXAIv9Y3eC
-	 j7RZwrdFL8wjwBy9KkXEilkOmLR7//EbiCCc2FEjFibPuiGg9Bi+zYKDcX57RfaQk9As/
-	 cUJZVWofqimeyFrzkpVVwj03qJiS/aGHZDfCrx/NjZrS/JOenzl6zC/7Th2yVhaqx3r4u
-	 d6YNEE0f6CqbEKL9BK4Q5OAB+RX3oURYmrybiZoNLCRDIeYmyQiPYREbUC3/nYVkw5g==
+	bh=uwY/0A1OSyJ1Rbh//vO8ifmxEm4TO3RKzRf4I66f87M=;
+	b=slbycOTe5te1xgyHcslbrSIi5oK+53IIpIW+itJI3P64L3k/jngyktSZzWhQiXbBVzLa
+	 JcJDEJLxLLbl2H+IpjXzjikvg/5MqQ6rHVXcAgZJZyEfO9U3y9ftKkm6lj1fpUXw8nDdw
+	 AhQgYoDPPrHIGIaZP1A/SiVgyEkZEK4W0kk4+vCULamrcKhq3DUhjZhthmUaSa001Clea
+	 n6rE87SZMb3HEck1XSPBjUxJXAiGjAnkbGB79wUEXnaArMwXKhDIf6SRhKjYhqj/zTNom
+	 zNF6tMCqrErp/H7r8GLVY4S/OAPrvTcm0sol1GwaIMfJThUM6y+WdcrUPm3MErCescQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zb197vQ5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WG2Hs1so;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70112606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:21:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0E2606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:21:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zb197vQ5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 855D01F000C0;
-	Tue, 24 Nov 2026 17:21:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WG2Hs1so
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89FF51F000D0;
+	Tue, 24 Nov 2026 17:21:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795540862;
-	bh=Rk2J6ClzSqyN6a1JQNbue4HuCLpZeYjPJq84JL6g2NU=;
+	s=k20260515; t=1795540893;
+	bh=uwY/0A1OSyJ1Rbh//vO8ifmxEm4TO3RKzRf4I66f87M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Zb197vQ5OD5W1/4JgXrdHZHBwT7qrbixyOt7bE5q6zNJwWdM4KhvzNMmuVMhRip8W
-	 3QNyDvsai4YvLgG3uzVSlmIQiokohPdhaQHxSmVCjxRPw7BWDKw7ZY8G51yAXYINEv
-	 Jm5wsFJVMPr0V+KIGR+vF4CKSM84Vpg/agPCYXckFrMQknr05HEn738BjXFUkF2f7o
-	 m0e4ePjqqrP4rNMGYbAEHQ20t8TfogFHBVB9Ce5mGVGOn2VrmWZqnws/hhdiD0Ebjy
-	 551rKWr8ig4FK4fRGr7GZD4XBqVXZ3vx92GirA/mIfeNepVc9GvfOT+FD/Ztn7ttwP
-	 5lXUof68zZ0XQ==
+	b=WG2Hs1so7sPaCqwQYAcBTGp8HmDs5UuHyOZzLKf/2y1jV7BrpkmpUQaxCfrKasa7J
+	 hY6dTWsAJ+M8Z9q8PzjZnwvi+K+CM/L98bF3IWAVcEpmG6dmJAv8f6FNMB42rQfkFy
+	 Nv42vOZjnnBzHO4VqCsP63rATS1KjUM8uIQ38Cl7wNaljK8XHQd082fOtL2uFeTNQN
+	 Fn1PX+Yocn1b/qatuw7R9CujCKe4rN7u7/udc4A+cmIR6N6guX8Frytwh2HCYHdr6h
+	 IPnKAd1JJCDDrw7s565qdYC0xeP9Df3G3Eoo0KUYsZYso2AoNxorHrW+oxXTOZCqiG
+	 WZF8ly0HPPT8w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ian Ray <ian.ray@gehealthcare.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Haibo Chen <haibo.chen@nxp.com>,
-	Ulf Hansson <ulfh@kernel.org>,
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] mmc: sdhci-esdhc-imx: map unsupported driver type to Type B
-Date: Tue, 24 Nov 2026 12:20:57 -0500
-Message-ID: <20261124171905.1826571-3-sashal@kernel.org>
+Subject: [PATCH 5.10.y] kprobes: Validate re-registration earlier in register_kretprobe()
+Date: Tue, 24 Nov 2026 12:21:31 -0500
+Message-ID: <20261124171956.1702364-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124171905.1826571-1-sashal@kernel.org>
-References: <2026112445-decent-yeast-d230@gregkh>
- <20261124171905.1826571-1-sashal@kernel.org>
+In-Reply-To: <2026112411-outpost-baked-168d@gregkh>
+References: <2026112411-outpost-baked-168d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,74 +60,150 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ian Ray <ian.ray@gehealthcare.com>
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-[ Upstream commit d35d93c2902592a84347a15deac4d67a323694c9 ]
+[ Upstream commit a553b499f22bf054964d4fd16d136f3d4f836c23 ]
 
-Since commit 5a52c5701a67 ("mmc: core: Fix host controller programming
-for fixed driver type"), the eMMC driver strength is passed directly to
-mmc_set_driver_type(), which propagates the value through ios.drv_type
-all the way to sdhci_set_ios().  For value 4, SDHCI correctly warns:
+register_kretprobe() only checked for re-registration if rp->kp.addr was
+specified, skipping the check when rp was registered with symbol_name
+and rp->kp.addr was NULL. In that scenario, register_kretprobe()
+proceeded to allocate a new rethook (or kretprobe holder), and when
+register_kprobe(&rp->kp) subsequently failed due to re-registration, the
+error path freed and NULL-ed rp->rh (or rp->rph) on the still-active
+kretprobe, leading to NULL pointer dereferences when the active probe
+was hit.
 
-  mmc2: invalid driver type, default to driver type B
+Resolve the target address via _kprobe_addr() up-front and check whether
+the probe is already registered at that address via
+check_kprobe_rereg_at() before allocating any resources, and drop the
+WARN_ON_ONCE() in the re-registration check now that re-registration is
+gracefully detected and rejected.
 
-The host driver type has no effect on this controller: esdhc_writew_le()
-never programs the driver-type field of SDHCI_HOST_CONTROL2.  Hook
-set_ios() and force drv_type to the always-valid Type B, so that SDHCI
-never sees an unsupported value.
+Link: https://lore.kernel.org/all/179375032568.247640.17429793187163536192.stgit@devnote2/
 
-Tested on i.MX8MP (usdhc3, eMMC in HS400) with
-`fixed-emmc-driver-type = <4>`: the warning is gone and the HS_TIMING
-register contains 0x43 as expected.
-
-Fixes: 5a52c5701a67 ("mmc: core: Fix host controller programming for fixed driver type")
-Link: https://lore.kernel.org/all/20260926122908.866-1-ian.ray@gehealthcare.com/
+Fixes: 0188b87899ff ("kretprobe: Avoid re-registration of the same kretprobe earlier")
 Cc: stable@vger.kernel.org
-Suggested-by: Adrian Hunter <adrian.hunter@intel.com>
-Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
-Acked-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Haibo Chen <haibo.chen@nxp.com>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+[ sashal: Replaced the combined address and function-entry check with kprobe_addr() followed by kprobe_on_func_entry(addr, NULL, 0). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mmc/host/sdhci-esdhc-imx.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ kernel/kprobes.c | 54 +++++++++++++++++++++++++++---------------------
+ 1 file changed, 31 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/mmc/host/sdhci-esdhc-imx.c b/drivers/mmc/host/sdhci-esdhc-imx.c
-index 0b36ff7c53b05..2ad19afeb9f70 100644
---- a/drivers/mmc/host/sdhci-esdhc-imx.c
-+++ b/drivers/mmc/host/sdhci-esdhc-imx.c
-@@ -1063,6 +1063,20 @@ static void esdhc_reset_tuning(struct sdhci_host *host)
- 	}
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index 4f2d0638644c8..7ec55356c82db 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -1584,34 +1584,43 @@ static kprobe_opcode_t *kprobe_addr(struct kprobe *p)
  }
  
-+static void sdhci_esdhc_imx_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
-+{
-+	/*
-+	 * This controller has no driver-type control: esdhc_writew_le()
-+	 * discards the driver-type field when writing SDHCI_HOST_CONTROL2.
-+	 * The programmed value is therefore irrelevant, but SDHCI rejects
-+	 * non-SD values such as 4 (eMMC 40 ohm, from fixed-emmc-driver-type).
-+	 * Force an always-valid Type B.
-+	 */
-+	ios->drv_type = MMC_SET_DRIVER_TYPE_B;
-+
-+	sdhci_set_ios(mmc, ios);
-+}
-+
- static void usdhc_init_card(struct mmc_host *mmc, struct mmc_card *card)
+ /* Check passed kprobe is valid and return kprobe in kprobe_table. */
+-static struct kprobe *__get_valid_kprobe(struct kprobe *p)
++static struct kprobe *__get_valid_kprobe_at(struct kprobe *p, kprobe_opcode_t *addr)
  {
- 	struct sdhci_host *host = mmc_priv(mmc);
-@@ -1704,6 +1718,9 @@ static int sdhci_esdhc_imx_probe(struct platform_device *pdev)
- 		host->mmc_host_ops.init_card = usdhc_init_card;
- 	}
++	struct hlist_head *head;
+ 	struct kprobe *ap, *list_p;
  
-+	/* No SDHCI driver type control */
-+	host->mmc_host_ops.set_ios = sdhci_esdhc_imx_set_ios;
+ 	lockdep_assert_held(&kprobe_mutex);
+ 
+-	ap = get_kprobe(p->addr);
+-	if (unlikely(!ap))
++	if (unlikely(!addr))
+ 		return NULL;
+ 
+-	if (p != ap) {
+-		list_for_each_entry(list_p, &ap->list, list)
+-			if (list_p == p)
+-			/* kprobe p is a valid probe */
+-				goto valid;
+-		return NULL;
++	head = &kprobe_table[hash_ptr(addr, KPROBE_HASH_BITS)];
++	hlist_for_each_entry_rcu(ap, head, hlist,
++				 lockdep_is_held(&kprobe_mutex)) {
++		if (ap == p) {
++			p->addr = addr;
++			return ap;
++		}
++		if (ap->addr == addr && kprobe_aggrprobe(ap)) {
++			list_for_each_entry(list_p, &ap->list, list) {
++				if (list_p == p) {
++					p->addr = addr;
++					return ap;
++				}
++			}
++		}
+ 	}
+-valid:
+-	return ap;
 +
- 	if (imx_data->socdata->flags & ESDHC_FLAG_MAN_TUNING)
- 		sdhci_esdhc_ops.platform_execute_tuning =
- 					esdhc_executing_tuning;
++	return NULL;
+ }
+ 
+ /* Return error if the kprobe is being re-registered */
+-static inline int check_kprobe_rereg(struct kprobe *p)
++static inline int check_kprobe_rereg_at(struct kprobe *p, kprobe_opcode_t *addr)
+ {
+ 	int ret = 0;
+ 
+ 	mutex_lock(&kprobe_mutex);
+-	if (__get_valid_kprobe(p))
++	if (__get_valid_kprobe_at(p, addr))
+ 		ret = -EINVAL;
+ 	mutex_unlock(&kprobe_mutex);
+ 
+@@ -1716,7 +1725,7 @@ int register_kprobe(struct kprobe *p)
+ 		return PTR_ERR(addr);
+ 	p->addr = addr;
+ 
+-	ret = check_kprobe_rereg(p);
++	ret = check_kprobe_rereg_at(p, p->addr);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1797,7 +1806,7 @@ static struct kprobe *__disable_kprobe(struct kprobe *p)
+ 	int ret;
+ 
+ 	/* Get an original kprobe for return */
+-	orig_p = __get_valid_kprobe(p);
++	orig_p = __get_valid_kprobe_at(p, p->addr);
+ 	if (unlikely(orig_p == NULL))
+ 		return ERR_PTR(-EINVAL);
+ 
+@@ -2149,19 +2158,18 @@ int register_kretprobe(struct kretprobe *rp)
+ 	int i;
+ 	void *addr;
+ 
+-	ret = kprobe_on_func_entry(rp->kp.addr, rp->kp.symbol_name, rp->kp.offset);
++	addr = kprobe_addr(&rp->kp);
++	if (IS_ERR(addr))
++		return PTR_ERR(addr);
++
++	ret = kprobe_on_func_entry(addr, NULL, 0);
+ 	if (ret)
+ 		return ret;
+ 
+-	/* If only rp->kp.addr is specified, check reregistering kprobes */
+-	if (rp->kp.addr && check_kprobe_rereg(&rp->kp))
++	if (check_kprobe_rereg_at(&rp->kp, addr))
+ 		return -EINVAL;
+ 
+ 	if (kretprobe_blacklist_size) {
+-		addr = kprobe_addr(&rp->kp);
+-		if (IS_ERR(addr))
+-			return PTR_ERR(addr);
+-
+ 		for (i = 0; kretprobe_blacklist[i].name != NULL; i++) {
+ 			if (kretprobe_blacklist[i].addr == addr)
+ 				return -EINVAL;
+@@ -2345,7 +2353,7 @@ int enable_kprobe(struct kprobe *kp)
+ 	mutex_lock(&kprobe_mutex);
+ 
+ 	/* Check whether specified probe is valid. */
+-	p = __get_valid_kprobe(kp);
++	p = __get_valid_kprobe_at(kp, kp->addr);
+ 	if (unlikely(p == NULL)) {
+ 		ret = -EINVAL;
+ 		goto out;
 -- 
 2.53.0
 
