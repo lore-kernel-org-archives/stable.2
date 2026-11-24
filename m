@@ -1,57 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.217
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795530414;
-	b=yxZdi39BUWxkAiEyq+gMxFu2FcpCmg78ogh3C6MgVv60qqun0bGfLsebVlxwjbVJku4e
-	 NAy0wwokeOVO9ya2BKgghLyLKo1umHap82aeFR0JvGEtol01ULIjajR7lVKsFyWOD0NuC
-	 4NPn6D6kP2RXFNcoTdxuzGs7zjMekP/EE1rjHXnQf9koZbv5NY+3LE9ZqUuJrgw//2uLW
-	 RzAFvR02olOdckHnjY8C6UhBs80QzfB4x8jrxnuaAwPEdpCrqFqqUQkyTKjVFVhjf2ljg
-	 Y8nKZLEgByOytHNuISYj08E2Y2IT9u3M+vadbHJGEYvJtYqlZj4JW2Odg8Vy3987IkA==
+	t=1795530415;
+	b=LFbHeSI73QcR8XzoDfq5BTHYcJc6wp6qcSgSnWv+lLULzH38ly6o+Q+zmcAbkPiPY6Rw
+	 GuUC4+ZQHxBaqcY8FrQBDzisQF5FXQIeAWZlmkGTBHV+xJUxvXpcAwtjs8nvBwRCgnikX
+	 IzNOZMzr/0rQs6u2gMMbHwZkIcw6CUsjXPQnkMxaFVwP9vs5TOzlAyuHUWZCFte/xhG1b
+	 dcnaOZ6BMgBikd0wnaEmlZ4/Y6zLx6ShCzXUl106zmYiIDn4N1vuwTo4bYF6bP8qdThFE
+	 qTSVD+zQGRMPCYZJLN79zGVe5M5HPaVq6wnjBCuVy/iA127VAQ0lt3/5OpqobKRbpFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795530414;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=lSJ8idID075Lrq50XU2h31Hf6+IOl1gV9gV+AgGjEBI=;
-	b=5UF5wuO7qBznCRArqtsscP2Xn2fEMn2GeLuFhzW8NXse+GvUcvhaGKVmumbSC/r9TS+B
-	 /+aNkgPe0HuCSrHV3NNhvvEpJxZp07xKTOJZXt0/UgzrH7uNS7JqhinjVopn/zSSUlzKY
-	 0d7nUy2U5w8CuDwa8ZVvwPyb4/9F+e/Fw1ZZA3LWpXBpyawhHpl8Rv+dM1NetMDkQsjhN
-	 Bh/GdPqzEjx+OUqgTdmqN3ukADRSW33iItjwPI4PwRAvXdsDBafnwF34qWdD4QUdxxsDB
-	 3fM4rVKeE1Hwr9sOXCpUzqxXi4/s0EwVSjiktMZYcQzpD83XDWPVpNknISO/sj4KDbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795530415;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=2W98WMA2F89UxTt3tVs6ea84R2YSQk6xYZ8adTkQopM=;
+	b=yBGPOIJQwbs6Dx42ucGiuzdKEDvZFdf0cmzZwusXCeRlwIQR1CX2TxHRNUoidphuP5IX
+	 yH/iTGUAC+2VTGmxu2+dv0fUWITwsk4Jmu1km0z7UgurBusi1V21B+uP8GETZXj8hcTY6
+	 CrP3DSDKh6aA+f5LU22BrYJ/5appB0FW6kRGQKXhtLf8UBCGqQJac5lYHh+C6OzL8enxT
+	 RQfSchHvkcBlK4b3IYcEY6PF9azwWE7qudf2Ihc/NTp/1b97EWK5qm8+vFli9Um5N2t1u
+	 GtjKvcRa7tAJmNyjBf64q+MRzql4VjrLTZKFTdTuzwrJ1r1sIEJsXabB3BMlpf/UCxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.217
-Received: from out28-217.mail.aliyun.com (out28-217.mail.aliyun.com [115.124.28.217])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dq++lBKt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA44F606A31E;
-	Tue, 24 Nov 2026 14:26:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA44F606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0724083|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00540879-0.0168623-0.977729;FP=12386842953067793899|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033025068124;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.k9CxAJc_1795530395;
-Received: from localhost.localdomain(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.k9CxAJc_1795530395 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 24 Nov 2026 22:26:40 +0800
-From: Tina Zhang <zhang_wei@open-hieco.net>
-To: x86@kernel.org
-Cc: puwen@hygon.cn,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	andrew.cooper3@citrix.com,
-	david.laight.linux@gmail.com,
-	hpa@zytor.com,
-	linux-kernel@vger.kernel.org,
-	yangzhen@hygon.cn,
-	dengqiming@hygon.cn,
-	Tina Zhang <zhang_wei@open-hieco.net>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] x86/cpu/hygon: Work around XSAVES Erratum 1386
-Date: Tue, 24 Nov 2026 22:26:32 +0800
-Message-ID: <20261124142632.844105-1-zhang_wei@open-hieco.net>
-X-Mailer: git-send-email 2.43.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE4F606A33D;
+	Tue, 24 Nov 2026 14:26:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dq++lBKt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13CC1F000C4;
+	Tue, 24 Nov 2026 14:26:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795530414;
+	bh=2W98WMA2F89UxTt3tVs6ea84R2YSQk6xYZ8adTkQopM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Dq++lBKtUX5wfJnxdHuFpToVWB0ZydGzynS/vzx0AEKYTDuLPay7ijxFed9yV3DJV
+	 CoyzyOYQpkBfDjkbBuypkByfC1sBIhIEv69xwvKTI1k51TYgtrSpvtTL/ktV78W7sf
+	 wf5t28+QAZ0hXNgMtiRO8Pt6FszQGtfJKL4VjnHFAkcE63jnccsH/GZcV7fQbl204H
+	 3S7vfHnVLzmHw8127+1ovl9FfUxABf1Bh9qBC4UjrLhCQ2JtcdDNt4KF8wS6ow18or
+	 M6Ugnpe1N05a2QW9egUxOQnWhN0KL6Ip5xKcFhZYoazOihmA+12umIBdQDlenoBiV2
+	 bi+i+x5innaRQ==
+Subject: Re: [PATCH net 08/10] mptcp: pm: don't let listeners pin their netns
+From: netdev-bot+sashiko@kernel.org
+To: matttbe@kernel.org
+Cc: edumazet@kernel.org, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, willemb@google.com, horms@kernel.org, martineau@kernel.org,
+ geliang@kernel.org, cpaasch@openai.com, fw@strlen.de, netdev@vger.kernel.org,
+ mptcp@lists.linux.dev, dcaratti@redhat.com, mason@kernel.org,
+ stable@vger.kernel.org, ncardwell@google.com, kuniyu@google.com, kafai@fb.com,
+ daniel@iogearbox.net, ast@kernel.org, martin.lau@kernel.org,
+ bpf@vger.kernel.org
+Date: Tue, 24 Nov 2026 14:26:53 +0000
+Message-ID: <179553041337.3135.9610172277728846515@kernel.org>
+In-Reply-To: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-8-278042217e8d@kernel.org>
+References: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-8-278042217e8d@kernel.org>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,126 +66,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The XSAVES malfunction described in AMD Erratum 1386 also affects
-certain Hygon Family 18h processors. Under specific conditions, XSAVES
-may fail to save XMM register state, allowing stale register values to
-reappear after the state is restored.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The failure mode is documented as Erratum 1386 in "Revision Guide for
-AMD Family 19h Models 00h-0Fh Processors", Publication #56683 [1].
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-None of the affected processors enumerate supervisor XSAVE state
-components. XSAVEC is therefore equivalent for their enabled state
-components and is not affected by the erratum.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Family 18h models 00h through 06h and model 10h are affected. Other
-Family 18h models contain the fix in hardware.
+- [High] The netns leak this patch claims to fix can still be triggered
+  through the SYN-cookie path.
 
-For the following model and stepping combinations, the minimum
-microcode revisions containing the fix are:
+--
 
-  Model  Stepping  Microcode
-  04h    0         0x9040000f
-  04h    1         0x9041000f
-  06h    0         0x9060000f
-  06h    1         0x9061000f
-  10h    0         0x91000004
+mptcp: pm: don't let listeners pin their netns
 
-These are the only known steppings for those models.
+This patch stops the subflow of an in-kernel PM listener from taking a
+netns reference when its MPTCP socket is a kernel socket. As a result, a
+"signal" endpoint with a port no longer pins its namespace. Children cloned
+from such a listener in subflow_syn_recv_sock() now take the reference
+themselves, using __sk_net_refcnt_upgrade() in atomic context.
 
-Disable XSAVES on affected processors unless a matching model and
-stepping entry identifies a sufficiently recent microcode revision
-containing the fix. This allows the x86 FPU code to use XSAVEC
-instead.
+> diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
+> index 20d5062350742..3e674c21bdb2a 100644
+> --- a/net/mptcp/subflow.c
+> +++ b/net/mptcp/subflow.c
 
-[1] https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/revision-guides/56683.pdf
+[ ... ]
 
-Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
-Tested-by: Qiming Deng <dengqiming@hygon.cn>
-Reviewed-by: Zhen Yang <yangzhen@hygon.cn>
-Cc: stable@vger.kernel.org
----
-Changes in v3:
-- Match Family 18h model 00h explicitly because a model field of zero
-  in an x86_cpu_id entry is treated as X86_MODEL_ANY.
+> @@ -912,6 +928,11 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
+>  
+>  		tcp_rsk(req)->drop_req = false;
+>  
+> +		if (!subflow_child_get_net(child)) {
+> +			subflow_add_reset_reason(skb, MPTCP_RST_EUNSPEC);
+> +			goto dispose_child;
+> +		}
+> +
 
-v2: https://lore.kernel.org/r/20261121105320.478279-1-zhang_wei@open-hieco.net
-v1: https://lore.kernel.org/r/20261028235712.383977-1-zhang_wei@open-hieco.net
+[Severity: High]
+Can the namespace still get pinned through the syncookie path here?
 
- arch/x86/kernel/cpu/hygon.c | 46 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
+mptcp_subflow_create_socket() no longer upgrades the PM listener ssk, so
+every child cloned from it inherits sk_net_refcnt == 0. Here
+subflow_child_get_net() runs for every owned child, before the
+!ctx || fallback check and the mp_capable / mp_join branching. That means
+plain-TCP fallback children and MP_CAPABLE children of a PM listener also
+get a real netns reference. The commit message only mentions MP_JOIN
+children needing one.
 
-diff --git a/arch/x86/kernel/cpu/hygon.c b/arch/x86/kernel/cpu/hygon.c
-index ec51c2b9a257..6670dc8bb22f 100644
---- a/arch/x86/kernel/cpu/hygon.c
-+++ b/arch/x86/kernel/cpu/hygon.c
-@@ -10,6 +10,7 @@
- 
- #include <asm/apic.h>
- #include <asm/cpu.h>
-+#include <asm/cpu_device_id.h>
- #include <asm/cpuid/api.h>
- #include <asm/smp.h>
- #include <asm/numa.h>
-@@ -170,11 +171,56 @@ static void early_init_hygon(struct cpuinfo_x86 *c)
- 	set_cpu_cap(c, X86_FEATURE_VMMCALL);
- }
- 
-+#define X86_MATCH_HYGON_MODEL_STEP_UCODE(model, step, ucode) \
-+	X86_MATCH_VFM_STEPS(VFM_MAKE(X86_VENDOR_HYGON, 0x18, model), \
-+			    step, step, ucode)
-+
-+static const struct x86_cpu_id erratum_1386_microcode[] = {
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x00, 0x9040000f),
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x01, 0x9041000f),
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x00, 0x9060000f),
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x01, 0x9061000f),
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x10, 0x00, 0x91000004),
-+	{}
-+};
-+
-+static const struct x86_cpu_id erratum_1386_cpus[] = {
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x01, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x02, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x03, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x04, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x05, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x06, NULL),
-+	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x10, NULL),
-+	{}
-+};
-+
-+static void fix_erratum_1386(struct cpuinfo_x86 *c)
-+{
-+	/*
-+	 * Work around Erratum 1386.  The XSAVES instruction malfunctions in
-+	 * certain circumstances on affected Hygon processors. Clear the feature
-+	 * flag only on microcode revisions without the fix.
-+	 */
-+	if (x86_match_min_microcode_rev(erratum_1386_microcode))
-+		return;
-+
-+	clear_cpu_cap(c, X86_FEATURE_XSAVES);
-+}
-+
- static void init_hygon(struct cpuinfo_x86 *c)
- {
- 	u64 vm_cr;
- 
- 	early_init_hygon(c);
-+	/*
-+	 * Model 00h is a valid Hygon processor model, but x86_match_cpu()
-+	 * treats a model value of 0 as X86_MODEL_ANY. Match Model 00h
-+	 * explicitly.
-+	 */
-+	if ((c->x86 == 0x18 && c->x86_model == 0x00) ||
-+	    x86_match_cpu(erratum_1386_cpus))
-+		fix_erratum_1386(c);
- 
- 	set_cpu_cap(c, X86_FEATURE_REP_GOOD);
- 
+On a pm_listener, MPC and plain requests are rejected only at SYN time, in
+subflow_check_req():
+
+	if (opt_mp_capable) {
+		...
+		if (unlikely(listener->pm_listener))
+			return subflow_reset_req_endp(req, skb);
+	} else if (opt_mp_join) {
+		...
+	} else if (unlikely(listener->pm_listener)) {
+		return subflow_reset_req_endp(req, skb);
+	}
+
+mptcp_subflow_init_cookie_req() has no such check. It picks mp_capable or
+mp_join from the options in the third ACK only:
+
+	opt_mp_capable = !!(mp_opt.suboptions & OPTION_MPTCP_MPC_ACK);
+	opt_mp_join = !!(mp_opt.suboptions & OPTION_MPTCP_MPJ_ACK);
+	if (opt_mp_capable && listener->request_mptcp) {
+
+Syncookies are in effect when net.ipv4.tcp_syncookies=2 (a per-netns
+setting) or when the SYN queue is full. In that case, could this sequence
+happen?
+
+1. An MP_JOIN SYN with a valid token passes subflow_check_req() and gets
+   a cookie SYN-ACK.
+2. The third ACK has no MPJ_ACK, or has MPC_ACK instead.
+3. cookie_tcp_reqsk_init() leaves mp_join = 0, so fallback_is_fatal is
+   false. In the plain case the child falls back with ctx == NULL. In the
+   MPC case it clones the kernel listener msk.
+4. subflow_child_get_net() sets sk_net_refcnt = 1 on the child, which is
+   then returned with drop_req == false.
+
+tcp_get_cookie_sock() then puts the child on the PM listener's accept
+queue:
+
+	if (rsk_drop_req(req)) {
+		reqsk_put(req);
+		return child;
+	}
+
+	if (inet_csk_reqsk_queue_add(sk, req, child))
+		return child;
+
+Nothing ever accepts from that queue. Only inet_csk_listen_stop() drains
+it, either when the endpoint is deleted or from pm_nl_exit_net(). But
+pm_nl_exit_net() can't run while the queued child holds the netns
+reference. Doesn't that leak the namespace the same way as before this
+patch?
+
+The setup is the same as the commit's reproducer: an unprivileged user in
+their own user and net namespace. That user can set tcp_syncookies, get a
+token from a loopback connection via MPTCP_INFO, and use CAP_NET_RAW to
+send the MP_JOIN SYN and a bare ACK. While cookies are active, a remote
+peer that knows a token could also trigger it, and so could a middlebox
+that strips MPJ_ACK.
+
+The later patches in this series, "mptcp: initialize drop_req in
+subflow_init_req()" and "tcp: do not pass a BPF reqsk to an MPTCP
+listener", don't seem to change this.
+
+Could the reference be taken only for MP_JOIN children that get attached
+to an msk? Another option would be to reject non-MP_JOIN cookie ACKs on a
+pm_listener in mptcp_subflow_init_cookie_req().
+
+>  		/* we need to fallback on ctx allocation failure and on pre-reqs
+>  		 * checking above. In the latter scenario we additionally need
+>  		 * to reset the context to non MPTCP status.
+
+[ ... ]
+
 -- 
-2.43.7
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261123-net-mptcp-misc-fixes-7-4-rc5-v1-0-278042217e8d%40kernel.org
