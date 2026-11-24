@@ -1,98 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795563096;
-	b=ftPCh/qZaHjxlZgpUaNjFTpApFMLY3izGRkDpp5iszPhI9Mm5SimB1eYAI4qmeCDOWw0
-	 n1aGbAlXSBAPgWYOPodNy1ZPzLkhzMsn/ZrOOng5HOxNTJRINKL3NVqvfBfa1qwHeKuHC
-	 zXBZbRXq647EdWGYwyqAG9Eg9VHA5sXHYeDjiPkQm1yOqdXqddxuV3br3dTcqc31wejkz
-	 SA2Ni29YHjj5cD7K13MOJFtNCKlP8bjMV8QYYC+8k6iuDy/JolRfSXXIwNIX9uvRDRB9M
-	 +WUUaE73MRRSYitQHt5e//wsAH/zuJ2j3a2cpVO+c+70UWFYEcXZTZTKW3xMldDJc0A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795563096;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=OKIVDoQ6IbjrbJSFAkyn2r8WUZW+fQ5wkN0UYjtVEY4=;
-	b=jbQhQ3Lwj12k4OUDyIYAfiPl6oiKv2JSoVmG6dGWijzrzHFNJ2t4qTNpIOzWSKjCFYSy
-	 WsBEmll7PvCZbhtijR8xECByqH9NHuXgxQNqWPFnWwZR1hG6iDHJJdk/DwG4CNJRLaUwh
-	 iOOcxyLgkDhaom37HAx8RkTSFJ1LQnCcqtTWNd5TUGaIfdSJ1sVjpd9uuqfS5dvm7e7mn
-	 j9g/ftWQKClAGF78au8dMT5YkV1s3yKqV1pPPNiFF0pHx0/4Gew7UNpr4sf9/iRNerYFp
-	 rsZj66E2adfQx3Pn4x7MF1c+I8D6TIvSksLsU4qfFQmofyXQ+9siBPUOsWPeh2Zhpqw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=OWNmR4bQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795563499;
+	b=t1XFWTmLxjhTmYfmDmWgKvzlZOTt1sxe84kVPDycRFCR6inzhz2uKcEI9UEgzBy7FcrN
+	 8oFZY07qzHDUlPpF5EdL2dWpkkBWYvQskelfvmrf555299RH6tzSyrf3nX0EIf2Vk/mAw
+	 V9IFSpbqZAd0ReSm1Tgk2hWmgC1lQO/NGZOpigXw0J0caGNII6M7/uvWznTqWnvh6tMXp
+	 DY+XeFonpJRRobjKveRdIlNqv014pKJSF/K/rt+fg4Ag6nuX5zqI71xKqS80uf82xgY4n
+	 EvrAbkWHBVrDUNq3+q+1fVxMwsSdGArhFZdovQWaA8GZc1SrLuTRojLabdBXijDY4+g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795563499;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:X-B4-Tracking:X-Change-ID:X-Mailer:MIME-Version:
+	 Content-Type:Content-Disposition;
+	bh=4PU89QwU68LrW3sJImUGX91LxCYEkUcPPey1S+s13qM=;
+	b=nZN5bTBbsXZbxYPQJJcZp+W3MoG+/MZPSBijAHT/GNL0YmJbw8OEDiMrr5/wyW2wDGvy
+	 ZY6qLhmI6bsrtgKhh0fTW0xEu9+qnGs2RWF4nb/VBalJ2bDXbs3yxU5QMJn4X0xmzgf+A
+	 58V7qDvoGQGPUhMrvzwlWghXamr103OJ/b7LSQ0RtqLwE/C6l9KGa3SszJ8x1lc7T1YlN
+	 UfW6wKbOCviz6BHJmqiM9m4+E4WXltfSt/faea4t7BvxyiRiEUOHuTfNq1aWhyLYDJ46f
+	 fIkCm4LbwUXrO40mbuAiIh4TRzcmMxG9V0GkJYH2K4CVSdeOgD2HJn7PkhlXS1oXYqQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=niA3MBir;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172CB606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 23:31:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 172CB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7709B606A31E;
+	Tue, 24 Nov 2026 23:38:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7709B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=OWNmR4bQ
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a06e79e152so2480089b3a.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:31:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795563094; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NnRuMQqwbMdIYL0W7AF36MPGcYFmWk8csDVpOI+bhw1Nr2poZCcGhP5CCRCHcw3bXe
-         tUBThRbH8SLndT6syV5/6yY87qRtOFzBPt7VNYCWjfXBF9QBSmOzdFzLdEbllqVq8Yn0
-         myhQAA/Q1QJcG6OFrFiwTMA/0u6IllX7uXmwOe1KfCPEhOhUfyPUpH/pMtNtQPoXR1XO
-         DSE+i4PzdOOxIydx/VMDf/Ja93iVu3gVgjosFgK3qYD7Ra4Wtm2aS9zBorHu9xuZBKtA
-         0Q4bgTVtHTms7YcOvkJlikA6+QIq5v19MgARdHGd4sqzKVQLoTS8PgXc1WlgqMPXNThp
-         8mJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OKIVDoQ6IbjrbJSFAkyn2r8WUZW+fQ5wkN0UYjtVEY4=;
-        fh=KkPuvWqnARHHcY2rW/Sh0qLRc/0BhCoBmSvKRTQJ/p0=;
-        b=msV6ew+OIzld1eGpNiTn+UwxH6DbfvpcXxT7D+C4EYzniBpBXuIL0gJhKoJxpyPazn
-         QKUWxXoecSF1qIqRVbf32r0IifYbjlNWiY7hc7iH3e1pnT6SkrodmAxJ9AQI+RSZPWgv
-         fY1YLuvE8S37feCumkmEOG/dnSQ2REyzrnd34fZlgYJXpZA6XF2u5/ZIG6sSahjCNXDf
-         QuD0DFqmt5n6OyXCf6VfKgT3dHkZlIT5fmtdJgcTXaME3dHwiSakvxOj6GXdPxqMvkCN
-         w7mtSo/ffQzfvRJqkXylKSP2BFJ6GwFRo31BuFkQLe5jVdRtR6Ir8j1ozOAwCAjKz/q7
-         +vJw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1795563094; x=1796167894; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OKIVDoQ6IbjrbJSFAkyn2r8WUZW+fQ5wkN0UYjtVEY4=;
-        b=OWNmR4bQNuAY2g8kn3mBIKMy1mDBz5BqS5/LTU5OFQyzDO4CHsNkaczpxT16SbqhOF
-         aAR2c3qhiE3pTNOd7NMDyF7Zgv7mp8W9tixXX5dUCwy47PMIHFy8wfnilK7npcisz0hI
-         p+aSstV/JJpBGjRY7jpdgIwyq9pAim4oZ8kFk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795563094; x=1796167894;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OKIVDoQ6IbjrbJSFAkyn2r8WUZW+fQ5wkN0UYjtVEY4=;
-        b=diFddisD69CRsCjl2/Z2+u3T/2uIOia8iB8Es7tnYtH9SRRTADdTNSc63JzYTv1yGU
-         1KMWf6fVKcPKYS6m281zIiHdv2rlogY3FzSuC/F9RRnYeeUKcKBYJ020qOs87WFswe1p
-         VrTL7sgIX8V9odm3YTQ+90odLpNEtPmBrK9tJOtWmMW3KTkB82e7bsP8LVmuXpb1ODMZ
-         GnPbIassEtPI7vbUk0DEaJGCg0zDy/UaCV+Sw/W4l/dREZbqgwHYK1orlRB1m6gZF+vS
-         MooUrqMm9LSl1ZnHRCWdR3qGELoBRzE51N9/+3T/ishhRSx/XM/M3eBPsKwVkYx7Vg1X
-         O7hQ==
-X-Forwarded-Encrypted: i=1; AL+hErF+cnwa2fUri60wDoWgqeNiLyKIznUGqthsSs31wbacCdtQdCQkyj1x0oo5ew1rGVQEJw16oK4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Rzmrh0bqknXjhHrT9ZWpabT6yKL/1+1owwZXo2TnI5kpeHOXg
-	8gDji3ChjlOaHbJDXcZV7p9o0SogsVdC/86E/h9pX175R7iiWfeiJn4SlWBsOZ9ty+xZuuORQ54
-	Cx3ROnJA/Uj/kftfvR5H5bHrlk5ehxkqkgLyJ76J4
-X-Gm-Gg: AZFdTZeX2r6AXLf2DdN6ER0DmMlIl8wSlpNMhokutAmK9AR534/3+kgPP6Xjb/K054x
-	fvGWyhFOcw7nx188bnVK0CRpFim6eFQiOCsfRBkxX8ysbYh7JNZR1g0GiMbX1kCCPp/VTDLoE0I
-	2sukrEvskjUr3QEnJyhFdc7UTCACD5mex3+L/d5zUli9lq5hW0hcjst35BnqDrlq0IWvhQEbbPq
-	VFGqn2vSiq7+TrDy7oQtzy0llztd5PK9pfFO9jYJQVddoI3I/60dYKWKPC4oe71ZskZ9Q2OpBlU
-	k1TM9naj/8vC1ut0Z2h3yrxfsFwiqj4umcTHl/icsGTZMlCPm61uiBtvnfH6u25gQK5H4Peg53T
-	3UO9As3tJW2xQjCdQM/VlipYYS8QvGbwob5OODeopPMd0ozS//Ov17iICQ5Wkn+sQiJuow6onWk
-	S/fqeRthHmC4F8oHI=
-X-Received: by 2002:a05:6a20:a108:b0:3fa:f23f:a1d1 with SMTP id
- adf61e73a8af0-4014df5edebmr15730791637.75.1795563094342; Tue, 24 Nov 2026
- 15:31:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=niA3MBir
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795563498; x=1827099498;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=MRZPPyR6ZqF34fP+tah/EHivSvxSMcRvQ5hawpHzCPM=;
+  b=niA3MBirBepic8NG6lx1PTG322qXaoUCzckwlpF0F6wWwXYNMW3Ak1rB
+   m2O6WjCL0Cevv96abbvZ/bZIkYxl65GRLQvnBkJ3u+fkXc6bAy20IjksL
+   mmJO5WsLtHFaT09bS9t5njba6jEYjB+g75OuHnRF/UaxRSnifi2Akc4dD
+   ZVkl/mnUQwIOK2nIharYR1CC4smEe0Sw6Hx8hdGOqOhNFlYRYlewsQUs4
+   HlbgrzgjqRAwEYq304p9DEUky/tPKStxrxnnl9fTUO3fBrk3L7+/OINNI
+   m4QUQjIyV67NsM2EkMb/mB/Pc3BAHBEuDWQxdtrUaaFseYMw5V6mLLNI+
+   w==;
+X-CSE-ConnectionGUID: TcVUjcQzQreQNJh/URy8zw==
+X-CSE-MsgGUID: /zrrLe6kSqyp9WmRsli+YA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4441221"
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
+   d="scan'208";a="4441221"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 15:38:18 -0800
+X-CSE-ConnectionGUID: NFHe3L7WTVuVLE3jn7h6yQ==
+X-CSE-MsgGUID: BLz4NK4MRQWi1DWLqrjJVA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
+   d="scan'208";a="11901365"
+Received: from guptapa-desk.jf.intel.com (HELO desk) ([10.165.239.46])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 15:38:17 -0800
+Date: Tue, 24 Nov 2026 15:38:17 -0800
+From: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, peterz@infradead.org
+Cc: Alexandra Sandulescu <aesa@google.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: [PATCH] x86/its: Account for CS prefixes to indirect branches
+Message-ID: <20261124-its-cs-prefix-v1-1-10f2c01687cf@linux.intel.com>
+X-B4-Tracking: v=1; b=H4sIAKEfBmsC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQyMT3cySYt3kYt2CotS0zArdlORUU0NL06Q007RkJaAeiDDYvGilAMc
+ QZw+lWIhwcWlSVmpyCcgspdpaAL36P154AAAA
+X-Change-ID: 20261124-its-cs-prefix-dce5195bf5fc
+X-Mailer: b4 0.17-dev
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,57 +83,176 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <ACT-WEXM.v4.r0.20261124074514@mojatatu.com> <ACT-WEXM.v4.r0.20261124074514-1@mojatatu.com>
- <DN3PFJ14HKX6.1W8QEBXWGFTHH@gmail.com>
-In-Reply-To: <DN3PFJ14HKX6.1W8QEBXWGFTHH@gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Tue, 24 Nov 2026 18:31:22 -0500
-X-Gm-Features: Aa3M54p0BIuXeFK1hQe6wGuidNpnYhDPisOyEEe-Ji5-LRTxpCvmnGc2U6AgJTE
-Message-ID: <CAM0EoM=rNfC8O0+XVBTaCFX-NNf9TGp9scdETqju18PVaG=_dg@mail.gmail.com>
-Subject: Re: [PATCH net v4 1/3] net/sched: act_gate: bound the cycle time and
- start time arithmetic
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Willem de Bruijn <willemb@google.com>, Simon Horman <horms@kernel.org>, 
-	Victor Nogueira <victor@mojatatu.com>, Po Liu <Po.Liu@nxp.com>, stable@vger.kernel.org, 
-	syzbot+0054fed3dc9085390f51@syzkaller.appspotmail.com, 
-	shaos <shawnq1@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Tue, Nov 24, 2026 at 2:57=E2=80=AFPM Alexei Starovoitov
-<alexei.starovoitov@gmail.com> wrote:
->
-> On Tue, Nov 24, 2026 at 06:12 AM Jamal Hadi Salim <jhs@mojatatu.com> wrot=
-e:
-> > Conditions to recreate the bug:
-> > CONFIG_NET_ACT_GATE=3Dy, and CAP_NET_ADMIN in the initial user namespac=
-e:
-> > tc_ctl_action() tests netlink_capable(), which checks init_user_ns, so =
-a
-> > user namespace of its own does not help.  iproute2 parses cycle-time as
->
-> Well ...
-> after "unshare -Urn" an unprivileged user can add a dummy device, clsact
-> and a matchall filter with this gate action.
->
-> That check covers RTM_NEWACTION only.
-> RTM_NEWTFILTER creates the action too:
+cpu_wants_indirect_its_thunk_at() finds the last byte of an indirect
+branch as addr + 1 + reg / 8. This assumes the branch has no prefix
+other than REX.B. But since commit 4a1e02b15ac1 ("x86,retpoline:
+Optimize patch_retpoline()"), emit_indirect() pads an indirect CALL
+with up to three CS prefixes. These prefixes move the end of the branch
+by up to three bytes, and the ITS check looks at the wrong byte. A CALL
+that ends in the lower half of a cacheline because of the CS prefixes
+does not get the ITS thunk.
+
+ITS mitigation must use the same CS prefix logic as emit_indirect() to
+find the correct end of the branch. But emit_indirect() also adds INT3
+padding for SLS.
+
+Move the encoding of the branch itself into pre_emit_indirect_unsafe()
+and keep the SLS INT3 padding in emit_indirect(). The CS prefix logic
+does not change. Let ITS mitigation call pre_emit_indirect_unsafe() to
+get the actual end of the branch.
+
+The new pre-emit version must not be used directly for patching, as it
+leaves out the SLS guard.
+
+Fixes: 4a1e02b15ac1 ("x86,retpoline: Optimize patch_retpoline()")
+Reported-by: Alexandra Sandulescu <aesa@google.com>
+Cc: stable@vger.kernel.org # 6.18.x
+Signed-off-by: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
+---
+ arch/x86/kernel/alternative.c | 62 ++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 47 insertions(+), 15 deletions(-)
+
+diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
+index efbc11f8c336..16e0bce7fd6e 100644
+--- a/arch/x86/kernel/alternative.c
++++ b/arch/x86/kernel/alternative.c
+@@ -721,11 +721,15 @@ static inline bool is_jcc32(struct insn *insn)
+ #if defined(CONFIG_MITIGATION_RETPOLINE) && defined(CONFIG_OBJTOOL)
+ 
+ /*
+- * [CS]{,3} CALL/JMP *%\reg [INT3]*
++ * This only encodes the indirect branch without the INT3 padding required for
++ * SLS. Therefore, it is unsafe to use this for patching directly. ITS
++ * mitigation uses this to identify the branches that require mitigation.
++ *
++ * [CS]{,3} CALL/JMP *%\reg
+  */
+-static int emit_indirect(int op, int reg, u8 *bytes, int len)
++static int pre_emit_indirect_unsafe(int op, int reg, u8 *bytes, int len)
+ {
+-	int cs = 0, bp = 0;
++	int cs = 0;
+ 	int i = 0;
+ 	u8 modrm;
+ 
+@@ -747,7 +751,6 @@ static int emit_indirect(int op, int reg, u8 *bytes, int len)
+ 
+ 	case JMP32_INSN_OPCODE:
+ 		modrm = 0x20; /* Reg = 4; JMP r/m */
+-		bp = len;
+ 		break;
+ 
+ 	default:
+@@ -769,8 +772,24 @@ static int emit_indirect(int op, int reg, u8 *bytes, int len)
+ 	bytes[i++] = 0xff; /* opcode */
+ 	bytes[i++] = modrm;
+ 
+-	while (bp--)
+-		bytes[i++] = 0xcc; /* INT3 */
++	return i;
++}
++
++/*
++ * pre_emit_indirect_unsafe() + [INT3]*
++ */
++static int emit_indirect(int op, int reg, u8 *bytes, int len)
++{
++	int i = pre_emit_indirect_unsafe(op, reg, bytes, len);
++
++	if (i < 0)
++		return i;
++
++	/* Pad INT3 to tail calls against SLS */
++	if (op == JMP32_INSN_OPCODE) {
++		while (i < len)
++			bytes[i++] = 0xcc; /* INT3 */
++	}
+ 
+ 	return i;
+ }
+@@ -840,13 +859,23 @@ static int emit_its_trampoline(void *addr, struct insn *insn, int reg, u8 *bytes
+ }
+ 
+ /* Check if an indirect branch is at ITS-unsafe address */
+-static bool cpu_wants_indirect_its_thunk_at(unsigned long addr, int reg)
++static bool cpu_wants_indirect_its_thunk_at(int op, int reg, int len,
++					    unsigned long addr)
+ {
++	u8 bytes[16];
++	int ind_len;
++
+ 	if (!cpu_feature_enabled(X86_FEATURE_INDIRECT_THUNK_ITS))
+ 		return false;
+ 
+-	/* Indirect branch opcode is 2 or 3 bytes depending on reg */
+-	addr += 1 + reg / 8;
++	if (WARN_ON_ONCE(len > sizeof(bytes)))
++		return false;
++
++	ind_len = pre_emit_indirect_unsafe(op, reg, bytes, len);
++	if (ind_len <= 0)
++		return false;
++
++	addr += ind_len - 1;
+ 
+ 	/* Lower-half of the cacheline? */
+ 	return !(addr & 0x20);
+@@ -854,7 +883,8 @@ static bool cpu_wants_indirect_its_thunk_at(unsigned long addr, int reg)
+ #else /* CONFIG_MITIGATION_ITS */
+ 
+ #ifdef CONFIG_FINEIBT
+-static bool cpu_wants_indirect_its_thunk_at(unsigned long addr, int reg)
++static bool cpu_wants_indirect_its_thunk_at(int op, int reg, int len,
++					    unsigned long addr)
+ {
+ 	return false;
+ }
+@@ -941,7 +971,7 @@ static int patch_retpoline(void *addr, struct insn *insn, u8 *bytes)
+ 	 * Check if the address of last byte of emitted-indirect is in
+ 	 * lower-half of the cacheline. Such branches need ITS mitigation.
+ 	 */
+-	if (cpu_wants_indirect_its_thunk_at((unsigned long)addr + i, reg))
++	if (cpu_wants_indirect_its_thunk_at(op, reg, insn->length - i, (unsigned long)addr + i))
+ 		return emit_its_trampoline(addr, insn, reg, bytes);
+ #endif
+ 
+@@ -1471,6 +1501,7 @@ extern u8 fineibt_paranoid_end[];
+ 
+ #define fineibt_paranoid_size (fineibt_paranoid_end - fineibt_paranoid_start)
+ #define fineibt_paranoid_ind  (fineibt_paranoid_ind - fineibt_paranoid_start)
++#define fineibt_paranoid_ind_size (fineibt_paranoid_size - fineibt_paranoid_ind)
+ #define fineibt_paranoid_ud   0xd
+ 
+ static u32 decode_preamble_hash(void *addr, int *reg)
+@@ -1772,13 +1803,14 @@ static int cfi_rewrite_callers(s32 *start, s32 *end)
+ 		memcpy(bytes, fineibt_paranoid_start, fineibt_paranoid_size);
+ 		memcpy(bytes + fineibt_caller_hash, &hash, 4);
+ 
+-		if (cpu_wants_indirect_its_thunk_at((unsigned long)addr + fineibt_paranoid_ind, 11)) {
++		if (cpu_wants_indirect_its_thunk_at(op, 11, fineibt_paranoid_ind_size,
++						    (unsigned long)addr + fineibt_paranoid_ind)) {
+ 			emit_paranoid_trampoline(addr + fineibt_caller_size,
+ 						 &insn, 11, bytes + fineibt_caller_size);
+ 		} else {
+-			int len = fineibt_paranoid_size - fineibt_paranoid_ind;
+-			ret = emit_indirect(op, 11, bytes + fineibt_paranoid_ind, len);
+-			if (WARN_ON_ONCE(ret != len))
++			ret = emit_indirect(op, 11, bytes + fineibt_paranoid_ind,
++					    fineibt_paranoid_ind_size);
++			if (WARN_ON_ONCE(ret != fineibt_paranoid_ind_size))
+ 				continue;
+ 		}
+ 
+
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20261124-its-cs-prefix-dce5195bf5fc
+
+Best regards,
+--  
+Pawan
 
 
-True - based it on poc i could create; should have checked that code path.
-I hope the over-hyper bots dont complain this is "high" and have me
-resend to fix the commit log.
-
-cheers,
-jamal
->   rtnetlink_rcv_msg()            netlink_net_capable(CAP_NET_ADMIN)
->     tc_new_tfilter()             no check
->       mall_change()
->         tcf_exts_validate_ex()
->           tcf_action_init()
->             tcf_gate_init()
->
-> Acked-by: Alexei Starovoitov <ast@kernel.org>
