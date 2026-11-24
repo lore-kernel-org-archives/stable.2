@@ -1,63 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541778;
-	b=LeUiFmAroTyZOnfJu/Y8KFJ0dvZ1reQdR/ggOdysp456kuog7bQQn3Fj/8pNlScKL73/
-	 g/41yxzGzXJ86i1SPPcbbTcQufHQCt2O9rsNA9uKQTCPxw42zvW0PGmGSTMtH/fdHB1wP
-	 QXeHQwcnRchxBrYiElEfl8NB1ZXE8H9NPTHC//qr9RSDbkars/StJ1aw/+1IhpEmZXtlJ
-	 MC2KNSwIqubp/jmlVl40WTGaaZzrFnEN58LBnXDdKMrE9rHou8yolpzf3EyfmbClgBY8a
-	 hUEjUqdwjVHaf/KieDXbTgm0539o3YkWbOn4379qPT+vHyspv8Qyl4qU8fhdV2t+CoA==
+	t=1795541789;
+	b=l7c1YFPR2SW+rWAYT1vRjAW310PhSgSfTfsJ7neauaIPR/YjtFq0rgfC8zTUlsnfijwG
+	 mUzG9xNkpF/4sUX1ArC8sKDIG9faMK2pcqh785iqgW3EvVu/N24zYk2C3x2FeeijkDH/p
+	 FihDQg/LQIN2iXRyCBIJrjgtl9vUxgmfyvNKpL9Kgh9o9pAcqUh05+MMHyLIw9dKne7wH
+	 wGTi6SK+UqVLu3aUr5s3mG1C2twT8ST5JLTIZn/QJkMOCzamSHzltanaAGZ4f4A00XTc4
+	 +HhSgYfN7al9nUG7VDKdJLq1MKQrnM2KG9yd6v29Az08OxAS2ATqEm2vl15XhSLWG+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541778;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 User-Agent;
-	bh=tfymlDcljSjuvF26uzxj/WXRQgXdLURskmE2fWlkPsA=;
-	b=EAuSwzV4frJ1r4uqOk20rl48D1YWimxP9lzsqPwyYoUmP0eFVzgDhijsrOqsJV0uRXJ1
-	 zvY33KTJiW9buW218jEz1dgIcRguParOz+9aR8yqJHFz4FhduwlMdF7voxoMeSXS3qtcA
-	 nP5HNseH86k76cKbHXDGYRXqRZw+xLZQ+LW1aLYytlWYrM26meEgjJ1BcdPlvDECzrJ1q
-	 nQ7CIQBxV53DOWUm+XUU0WSSCl0bbE0WISsagstZchc1OXd22zA0bLQAgsqVSzzwWsb7q
-	 drDHrALU97h87oSXChgYA0Gs1fYcSkuEKGAWPv2d2awijkEqps1sMO2kCfO6zkz0+Qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541789;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rbNl23hJg1zhKbb7G3pd1XhcFGZFlCFFFZsOCpK/2p4=;
+	b=VP4hTLNs5vlDgxAEGk0Yk6qaj2/cKm/OoRRGE59GE7u8gVM2RcYEbidS2+BEyq3tM0Fj
+	 GrZIz6avSYxE9WucMBvqSjwiKeK8ZD5FtM0yG6HYUc2PWv/LdhMqFJEefNodX+qwDRsHx
+	 oLrPidpZXauqGRhSk1s328KECFjKYt30grlp+gkjOLCgeH/PKOhSJ4tewrzT7/drki7gB
+	 znDi3WxmHbLapQcasu+/tJJZS9qqcMlidOUZtcBxqeZDz38bR102V84ajXtDHHyRog1Km
+	 /w5N0cD9wuIk5KqR+cT7iFq8Yy2GyH88UtCsIRzQxGihGj+/016CpgoWL0YxBfK+/PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yf05ie99;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PvctpYzb;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFCB606A31E;
-	Tue, 24 Nov 2026 17:36:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6857606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:36:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6857606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yf05ie99
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 037221F000C0;
-	Tue, 24 Nov 2026 17:36:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795541778;
-	bh=tfymlDcljSjuvF26uzxj/WXRQgXdLURskmE2fWlkPsA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Yf05ie99WCEH3z5Bh5ZjkjaYMGpqa5c0dWCUG/aleYLfppE+V+1nkgGoTgNv2woQL
-	 q91oJAz+jzY84f1fDS3zTVyUgXljZFKWNQyxfqjdMwRWFyYHpey7LSg1i/OX5essit
-	 /0gQAJun5dgptmQJGRZ6EOE1cvo5xZdDgLE+n3Qc/PaK6RE7DEEeZyc9Rqxs7zMjG/
-	 yRB4VSJMcFHzaAV+YehR2OunxXCnMrpakiuMCAfJscLSMmlqfcsFUexdR7vkJLuc7J
-	 F0poHPePg+2XGAJa5vW8i3Sp75+1JqQI0J5EPNWvHE/gWyO0E21vuiN0spUR9tYpfI
-	 K9+NSpE9XxcXQ==
-Date: Tue, 24 Nov 2026 12:36:12 -0500
-From: Brian Masney <masneyb@kernel.org>
-To: Lee Jones <lee@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	"Zhao, Linaro" <richard.zhao@linaro.org>,
-	Linaro Ltd <mturquette@linaro.org>,
-	Maxime Coquelin <maxime.coquelin@st.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 05/10] clk: divider: Avoid division by zero in
- _div_round_closest()
-Message-ID: <awXLDDmHUpELwCio@x1g10>
-References: <20261123164834.3330320-1-lee@kernel.org>
- <20261123164834.3330320-6-lee@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PvctpYzb
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so38791025e9.3
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:36:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795541787; x=1796146587; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rbNl23hJg1zhKbb7G3pd1XhcFGZFlCFFFZsOCpK/2p4=;
+        b=PvctpYzb1u8JcsH4LrpwM+4rqwqAK72f/fTIrzOhUkIixFwHQ9WL5vVg2312aYuVbM
+         AGcYgYla9aGPLyNb9IP0fDDKLyQMABmh+NLYEa1i8dty0WVBU1pfZfGDEuP/5sluGNQs
+         0S9ZJsNluykyCjIv1X+PSTmYNpePwlqM5WnEjEREFupbPvb95pykVdWtEwH49zPwIPdn
+         ZetU2iXYJ2ME30gv71vmUR3Jza0oqC9J+NEW9m56psYlVSSIsBvTVQjJC580s7hlRe0v
+         OSyFcfoUZltHJGOhmz7htLKD2i/eI6wfJelNL5LTkxqg2Jt4x3aCtY6u83F6FJep5TCx
+         3nrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795541787; x=1796146587;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rbNl23hJg1zhKbb7G3pd1XhcFGZFlCFFFZsOCpK/2p4=;
+        b=RuqI1HJRT+2g3jMpr6NkiTV98EWUhaIcCEByJymUExw0+/9u0s+NUXblKGq04BXI1H
+         3EXeZYOQxr+onEgVL3oMNwc6fqtbdPH9AhoUhJcMShxUSNKW9ENh4cjDDZQL4PCHqICc
+         QjOelHPYl2H+U/HQ7y34vCQYDTjkuMFgJwGOWWXzeno3A8L31nScPoNe2uWzih7Uv8vG
+         MJXRIr8GCi1MH35PwdKgzHdwvR8zvvZNDr1uxmGNA+oS/kZ5N/C6WYKM2DUpRYofzGgj
+         1RCDpATtg0wzcl/E6CefJ819NOqNUQFqtDFsy/Ag9cps7sjoLhjcgacRApS4J3SIXeCI
+         k5eQ==
+X-Forwarded-Encrypted: i=1; AL+hErG1nvghY/szYJ4iUBjsv9sUfCQU1JiK9lSjiBPPBGQ/d/+jrSYVH+SAgIQ789WsvX7p9/1vaRg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/suJL+UTdq1SvIvRPGloM1LeZqYc49rKPYEKz/PtsbkHSOo64T
+	rtAAHO2vjnWb3XVneLPL+XghAjxpp7Kuv3wZ55792ocIaiRN/ZrW7BE=
+X-Gm-Gg: AZFdTZfceWCMvMMjt+j7iPgL1vX3A2q/mkVAx8fHl7qt7v2ke+VqN8mDrnPD/ZMjnPj
+	UhBpcSjWN4M7TDRK8GfrzWj8RFbIdIWW7CZm6sdkbyfyyLPmXKjrgIcQK6F50rXwbd5f+ibvS4n
+	N6IA4wKTpdV7AMBnN2mRpjzShOkslNjILlMa3UqSrh/0kxCqjANFiWgx98ScBcnlNo492+D5RSF
+	p5OqL8pOuoPUd0I/iDIcQkSmbdCGdAUa0+XDU7Lf133zYVcBrlVF90ovbb8Vs5rdYycd35WEDUD
+	C0y+GlyzLPR+tBHHhWlCkvr1yBaSJkr9ZF0Gr9+tBbAmYvxnuQZlPYTW+pK/IOyyLVGR28gZc+Z
+	HYPD3BkPyvY5A/mFs++iAiRh8j6UlY35/lzLaKsu1gcdUTgMT0D2lgl9WfM3UUtunqgcX2W6cjD
+	wXzgWL7QGVskXzmHdcPnZRzXA+XhA6ET6gzhEHpR9ee9P+fDfOghNybx/FhkEyFYuWyx/B1akIO
+	qXhy4F8w6xevVtCfrlm487rdqaTGiIBXb/JZU+JBcewBRvETMVQbemFgmQNpwJq96sjuzP6Cdi7
+	VgGIaBTuxG1PgrQ=
+X-Received: by 2002:a05:600c:c8c:b0:4b7:6942:39bd with SMTP id 5b1f17b1804b1-4bb88820e06mr308628985e9.26.1795541787091;
+        Tue, 24 Nov 2026 09:36:27 -0800 (PST)
+Received: from localhost.localdomain ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb90655f5asm267098675e9.1.2026.11.24.09.36.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 09:36:26 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Jeff Chen <jeff.chen_1@nxp.com>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Bing Zhao <bzhao@marvell.com>,
+	Amitkumar Karwar <akarwar@marvell.com>,
+	"John W . Linville" <linville@tuxdriver.com>,
+	linux-wireless@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2 wireless 0/2] wifi: mwifiex: validate firmware response sizes
+Date: Tue, 24 Nov 2026 17:36:15 +0000
+Message-ID: <20261124173617.802875-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,51 +100,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123164834.3330320-6-lee@kernel.org>
-User-Agent: Mutt/2.4.3 (2026-10-09)
+Content-Transfer-Encoding: 8bit
 
-Hi Lee,
+From: Tristan Madani <tristan@talencesecurity.com>
 
-On Mon, Nov 23, 2026 at 04:47:38PM +0000, Lee Jones wrote:
-> When CLK_SET_RATE_PARENT is not set on a CLK_DIVIDER_ROUND_CLOSEST
-> divider, clk_divider_bestdiv() invokes _div_round_closest() before
-> clamping the resulting divisor to at least 1.  If the requested rate
-> exceeds parent_rate (for instance via clk_round_rate(clk, ULONG_MAX))
-> or parent_rate is zero, parent_rate / rate evaluates to 0.
-> 
-> Passing down == 0 into __rounddown_pow_of_two() triggers an undefined
-> shift and truncates back to 0, after which DIV_ROUND_UP_ULL() divides by
-> zero.
-> 
-> Since a divider cannot increase its parent rate, return the minimum
-> valid divisor directly whenever rate is greater than or equal to
-> parent_rate.
-> 
-> Fixes: 9315514252a9 ("clk: divider: fix calculation of initial best divider when rounding to closest")
-> Closes: https://sashiko.dev/#/bug/linux-cc7c0851-a317-4348-ab29-9d748aa20cfc
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
->  drivers/clk/clk-divider.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/clk/clk-divider.c b/drivers/clk/clk-divider.c
-> index f68216c65d3d..d05dc595ec4c 100644
-> --- a/drivers/clk/clk-divider.c
-> +++ b/drivers/clk/clk-divider.c
-> @@ -244,6 +244,9 @@ static int _div_round_closest(const struct clk_div_table *table,
->  	int up, down;
->  	unsigned long up_rate, down_rate;
->  
-> +	if (rate >= parent_rate)
-> +		return table ? _round_up_table(table, 1) : 1;
-> +
+Two missing bounds checks on firmware-provided size fields in mwifiex:
 
-Carlo Caione posted a separate fix for this that I merged yesterday.
-Patch 2 in his series covers what you posted.
+  1. ext_scan event: buf_size is used to determine scan response
+     parsing length but never checked against the event buffer.
 
-https://lore.kernel.org/linux-clk/20261119-upstream-clk-divider-large-rates-v3-0-838eccd2e497@baylibre.com/
+  2. command response: resp->size is passed to individual handlers
+     but never validated against the response skb length.
 
-Brian
+Both patches add early validation that the declared size fits within
+the actual buffer before proceeding with parsing.
+
+Changes in v2:
+- Patch 2/2: moved the response size check after timer_delete_sync()
+  so the command timer is properly cancelled before the early return
+  (Jeff Chen)
+
+Tristan Madani (2):
+  wifi: mwifiex: validate ext_scan buf_size against event buffer length
+  wifi: mwifiex: validate command response size against buffer length
+
+ drivers/net/wireless/marvell/mwifiex/cmdevt.c | 14 ++++++++++++++
+ drivers/net/wireless/marvell/mwifiex/scan.c   |  9 +++++++++
+ 2 files changed, 23 insertions(+)
+
+-- 
+2.47.3
