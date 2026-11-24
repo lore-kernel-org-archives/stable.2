@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534829;
-	b=Vu9e5NKG/+07oPfY37WX6xdHpcq0ADzaWlDv3Z3SSFOsexNREWWsd9Wf2f82da6K+wf/
-	 qKoZ8YCCUWWqHGNc1CzmTgs991+ekLRVplZc0JsvjDPvyWIg3iJZz1uJj5lQYIPLM4xnO
-	 my/nFYvFyOsAYtdTMKxPpcMZ7yjHJ3isyFJiE/9R0vpTl+NuVJxvbduh1RDJN62qej8fS
-	 Czp7+2TWpxyJw5aQ+ef20KorQNltVXZVluu8fSnrOfND7/YkF0bOyOMCSBoK8e0tiEPFv
-	 WCTi50QSy/w93gCxAmQQOSL7JAhE/rukPMjUF3F1Zq3XXUiWiGST10ndzAWbllW8lGg==
+	t=1795534832;
+	b=zUvvCuKXSCXp02bhJv7nxUFQ/w0WxqvEsNwMwaxblZV0JRFN/MWvwNOoBmk6E8VEuBa/
+	 Z4dSUtvAq0n0J9yuCin0U37LYtgO+tO0pVR+zXYnZs+H6MKyXrmBknLSgk9f4xY3hjIK/
+	 KgHsTd9n+7yJ6dTAFrdhSRSdV1jkBrbktN7/UOeBypaEMgw9rQxDwoG8UYWVedSMjwPCX
+	 Ww/qpW6RXyLCoGejS7iJRTGjOKFRVgiQ8vU1KhrS5RqmGBz/mdHICwhznmTA7Wmf05n1q
+	 2WOta6w9yUv5RvHeDPXd4yPkO6QE6kZ6B+akWNuuaoIy76hlsxB8evTlOmkkONrHSWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534829;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534832;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fg6dgrqQ5j/jfghRGzZpRCM8Mwf2oxZjQZ5KASYv/BM=;
-	b=MVn3chNUzPdA3ozLsaJkSoCziab49UWEQfL7P0al2Ulf2aTEfDS8klKvNPIuXG3eRSd3
-	 FwaAR9KD+qmVxSBIM6XqPJPKiI7l6kYtcOg3jQ+sjftuRiPkhOfhtiJg8BXiohAdeX8VA
-	 Q9jKKCDLj8IFYAYFzmErI5XLo8KtYdnfAPU9O/OEcogBYTo/IL+ATiGKP1vFRIstoTyzY
-	 tj8vRnRCZ5Fs0oDq243UjrEv/hbcrEuk1V01U/a5zem1y4eIFjDos+yaYgDN8eNWyFHDm
-	 Q/7yMT82697PqTthzhz7QQAoNORKXLj5vx7T014ssQ8EXhnW4Hix192nzEbK+x2ebJg==
+	bh=Ccpolbx+USW2j+KISkEWGf5BFNUPkXf1bJSVSqMKcWA=;
+	b=ev1i1XdnExb218ImVKV6htl93nm28ziDXC7aj68QSlkw9Cz7OhBmqFNBiqDVhTDiEI/c
+	 mcVvb6SzE4bpQ9o+B6puXtbbEhEYGZNLtUk3NIn74iWxE1Y8rE62eou7+vI8o6oqT4cbY
+	 u1hjOtsoJNX+BDh7QnofxYqkgIsGONxzUqQ0h34waC2cKk6qSAgVWiYwhnaoRhK7J0Dki
+	 FLMpBbvEh478/o2f3JsZpCsgZtUBLq2vGo/MkB2oGpl7pqC+2oODjQgxoUugf9kxSrdY3
+	 rdPXdkz+Hco5nxC3i/1B1J2AbH0NSCFHU92/NSXqIR76sV7Kd6EqMffhgH+qI3/tE4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cSLf+1bR;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n6NpgQ2H;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D6D606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:40:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F59606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:40:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cSLf+1bR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6649C1F000C0;
-	Tue, 24 Nov 2026 15:40:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n6NpgQ2H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90EC81F000C6;
+	Tue, 24 Nov 2026 15:40:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795534828;
-	bh=fg6dgrqQ5j/jfghRGzZpRCM8Mwf2oxZjQZ5KASYv/BM=;
+	s=korg; t=1795534832;
+	bh=Ccpolbx+USW2j+KISkEWGf5BFNUPkXf1bJSVSqMKcWA=;
 	h=Subject:To:Cc:From:Date;
-	b=cSLf+1bRCuicH/4+mGK8YI3LN07gKg+nU4VmAPK8laAbKP2SSzyrytO8X0GdjyLTy
-	 KUITd6eitOAMf4/p0IkLyn/x7q2V6S5Koey1+aIZ3n5jgD6C8WwokRB9+sFNhWSp3V
-	 y7rSEgrnPCfi5GE7+kUSCWA4YiK/AhfTugE8hF9k=
-Subject: FAILED: patch "[PATCH] mm/page_alloc: snapshot the preferred zone against shrink" failed to apply to 5.15-stable tree
+	b=n6NpgQ2HSlcDY0B3xXLrNnGScya4QJLVyIK12HgF3nXTZGyXd8vdnGBHkViQs0LK8
+	 p/3d0tt5m6E6kGnoQ4sEe0Q0RuBslmYySkbHRumu5/cbaPDLHEBKjFCgFqZF/aGBHm
+	 Fm9GUgK5xyWChfRPbe4K7+a9mUJgqYXsQRDb5taE=
+Subject: FAILED: patch "[PATCH] mm/page_alloc: snapshot the preferred zone against shrink" failed to apply to 5.10-stable tree
 To: gourry@gourry.net,vbabka@kernel.org,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:40:41 +0100
-Message-ID: <2026112441-mumps-legend-37a2@gregkh>
+Date: Tue, 24 Nov 2026 16:40:43 +0100
+Message-ID: <2026112443-pentagon-half-0c17@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x b3e3a760eb68449e2794ef68ab212173d9c3e8c7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112441-mumps-legend-37a2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112443-pentagon-half-0c17@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
