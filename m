@@ -1,94 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795557118;
-	b=h5c6270jsVbil5/o2QczbbR6+JwjRoEfXRf+PrgOt175h7ZnnG8w0SKAoMEMsWCUi6PB
-	 bF/n8ult8qubm7pNssxc8OxoO7WtDuAQ7M/vA7Te8jaOfGCEamD0gvJ+4TiBZNK4HbOoa
-	 0pH7eGi29brGjGnO/3Ec7tbyrMeqxhztfuNanODuvc9wB0ZUUFPk+ASYAU6PFZjHWHxpn
-	 F8fMwoz/lJscsnal/+o0fmr5ydY11DoIQZeQAbuKtNbv5oEIjuva2IdtaMYsg2nwv/fwL
-	 LxCfXl0Yv9HObdL5N3m8T3/u5Mmm6m2W2I7OVYveGiNH6mEnZpG6h8/rePK/90wm/uA==
+	t=1795557188;
+	b=UUz8rbDvZey62HqxMvOFUqnvsX0MjO7dRNLGwepuwlvpQbKg0ptEc5ZqYncsq/+OJgbT
+	 AmhLspkVHD18fMXFi61sUO9q+qoexcc6hJVbgU4FrsschQTLeBjkRgxqdB0ne4EOg4u5T
+	 AwQjxubUk9hIhasYOnGa77p79I67b5Xw5xAmgEwjj6uMo3Mh+E3yU0Fs3ikPzfxhVQUiN
+	 AqE7e4l8Jybry/IKBsTX6s/uOslQL3ySgOz4xOaGEWYtw1p4AheHWlU5y3FDrdTEtt9Mi
+	 Q85XjXM9Nog63S/wLP+9m4yF5O4iIJZuxajTVw5Do+B5hlJJjR/JYhXGXd/zUly9lWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795557118;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795557188;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=m0dxOe8vy7ZKObR4eQwVjJK4jXbzDOG/YuLGrV68Qbw=;
-	b=Ds7N4Zs7NHD39tA53nLl2eSl0QHUOwKbiH5MkOkEFhoURPpQb/DTgMJ3gRL/lkHzGAxP
-	 hHfUD9KIk4fhSC61GOeWeb8H47R03FghgF0tjhoecAqBE7P16neVxYWAqdyVw25gyVA3I
-	 XWjZk63fi4bfy3OWO/xChp8FrDaSdjCYX7lHM7nsQX3IcJ1jBk9PzT9DgIQ7bgMHBRh4H
-	 Q3XeRZumaUOobFDIR/OqTxcHlpHfD9sz/Fy62xstXWTwG2dIYlchiJ1ah66OzgZbvDDyr
-	 C5BRU78WK1bMrLrMZcwKTYt+OKzyOmygq2PlKSDKc35Ev4BPcoQPI6ZQz3ykrJ0n8xQ==
+	bh=vn3URFnRIWVoIF0NpOGs1A1tfVNX7pqnXS/S+sLc+LA=;
+	b=x32eIyjN7HQQ0KfCFshHA8FP4RR8VeuD2ct5SAuqqo/j8wae68/wXAfp5u7R9iFyc884
+	 fUo2HQAfs8QjEP+T+XRZyQEF/g4jdOz6yCiq5p5raqZoBP/fa4sp738l3dkKT3YLDBGdr
+	 wZyueH2NNOQz7ITStaGPHAomMMgF2gcdJdbrI62ZyhWZcd5QjPfTaPREpxni50NUI6p0Y
+	 G+Wd6igqopPo6nEoutzSFXLtw40CKiOfc0HuylwugXkQCos8zDsLYCyBL9wZ0Xn8FnNXQ
+	 YJ8Io+xL4YDvTPGNsVhxQh6MJQCx2Y/Rv93t4BfV4m5S8J0LiSQVRWbSQfFA92gJisQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=trailofbits.com;
 	spf=pass smtp.mailfrom=trailofbits.com;
-	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=VUqZ9o90;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=CWKarD3k;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4FD8606A33C
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 21:51:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4FD8606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B811606A33E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 21:53:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B811606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=VUqZ9o90
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-14394530ec6so7247358c88.1
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 13:51:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=CWKarD3k
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-385d8a00598so7378442eec.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 13:53:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1795557117; x=1796161917; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1795557187; x=1796161987; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=m0dxOe8vy7ZKObR4eQwVjJK4jXbzDOG/YuLGrV68Qbw=;
-        b=VUqZ9o903UUlmH2Uc9V7IBWLGor29J4VpABq6UTfY+1D+zvs6MPS7A+RYLAPeKl+yH
-         My2/2gMmoj+di3Ys9ySOVLsKTSS859jStTnMV6HUMYoRPvTRnk8UsjwpRVXoMdktfZ9g
-         qBPSPsa6wOK98OSR64DbsGVZ6P+AI0VqIHIPQr+GW6MI5znMZBsDcMwqLfdN9rhnqB8p
-         d5FbPIXKtjFO01PwguzMp3EbCSXFAK3mvmPv1w4kvBt6gS2GycrfGRs8TlUlu1qFazkB
-         /obj40l2WLLiwLUrDAQtE/MYbOVRWTiVbyJE56kHaKBgMV3jzYpBtNWh6RhUTdt+G+RX
-         li7Q==
+        bh=vn3URFnRIWVoIF0NpOGs1A1tfVNX7pqnXS/S+sLc+LA=;
+        b=CWKarD3kiJXkKxEVd0tigM0ZY6z0A2tw5zJ8V8bwvVHj6FtfhbWw9v5UN2Y5mzQ9/C
+         Iyicn81hc/fUymVTOxJb8hsaNthuTd/Z/yflzONLHT7O2c58OtlZizs6ntWrWePaFPH1
+         EI4TJwKHh2vs1F6q1/vx4iMAlFXpHFQrzU0c6LTVr5A83iLq9f3gEUAQnmeZVJQzUHWN
+         4LywJnA0UKEBS6uxEgKPSkxT1SWG3FRjaJPc5pKfTMDRpCYTk19MfWFitD/4+OUIO3Ij
+         fmdNSy1nS6W9tQi4644QdJdxx+O35xscL3XZXsFE8Wm064MiQX8NQyNfNZSf51vapf7A
+         6Ijg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795557117; x=1796161917;
+        d=1e100.net; s=20260707; t=1795557187; x=1796161987;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=m0dxOe8vy7ZKObR4eQwVjJK4jXbzDOG/YuLGrV68Qbw=;
-        b=YRp5+k5Wl5BYAYeq3gEcWpN/70iUJQ9Lh2ebzji9rtkRo7H31sFv0M+Ibfo5hiqh+K
-         aOzPPgdGtCx0RYjOV0/pIGrSiOMJi8lyLiJrWVnNDQ/vBaV/4Blw1g6wbdyNs1cSgYGg
-         +3MBwEZiTgamxLmnGixD40FF+4wnnq+GDL7FDLa6v3jmhiJAZHip+JxKvNmSp66T4xBS
-         4aZW2qiwL/Lmy+/KzoIoIZb8KblhuLsO9k9xFzNTxsOgXkfRKYJYO4tODwSk2h1xdhd8
-         BOByG1Mg0jMNCoi6RHPZfgXTH9cH+ahWkKkIYPCeMzGqIwegpC7PNgJOWaduW3IKjpb9
-         whEQ==
-X-Gm-Message-State: APuU4Z9qOrVS2f1QGMLw4FFCxpuBqEQ1g8rB9U3KoeeG3M+H9A8Ngp1c
-	9ETkHsKv2erC11XM5P9uWZ0bqAX/qfkSWUMVa4d2f9LbsrBNJ987pxg/9D7/OlUFfJbB4KyFWzm
-	pM+vr
-X-Gm-Gg: AZFdTZcEuP7U7U+p4eXN7U1lEYaWpFkMbdBVgOGF3kkboVYOOqMFpR5VL4t0w5ofEsW
-	bHXJBhpAiHueBssVZTLxi2aqiKJkgwZuAj170rtVygK5NqZydAlZukeSHbJWVdfaI6MDL4eaA6M
-	ILZLb5lS7yFPNRwxlQ4dMdq3h3Kk8A7/qBJYhiz52IaGIDYTzTzopwwtpqfZOY828Gg2AaKf3VA
-	PKt2QVXXJJ5I3EAf/OOMBOiH7CGMaCzw6MCxJxtt+eXZE7vyyPftgfMoXQtlYMeGmzbhnKDnqwy
-	3QFIJ/1kY31VxEC20Ml1L5DBaLfw76ijZXPFl9SO20MeqhQlbQWP5nimfQTSxSKtJxYrMIFEMOq
-	lBM8U8tzLLzuWKQNwZpFnTadlrL6pXHuhorHASZ2IefxVOnezhietTFtjzHYNNsNgaRjr627Pmy
-	9zbF5PxvIkihdKXUwVJr8/w6K19ImR7adXgMLSkf4+1m/+6Upm2AlZnOH1+13PFOC48mQRnkpSf
-	zcBV0NHOaSgdpartuiIj/jPoyW2XM6Hh97Qf4veVVXJ/Aykm5WLeUfvmQSuZGajWSlX9/kE9FrW
-	L4dtoENFS2vvLC9OuvryWbDvkNFwyZNDHEh7nJdxwI/bLQwh4bcGJ6+bV6NpBeft8yvQKvMqhe4
-	j1aF+RCfq6s5eBBzTzSKwwcvt4sEZq1yEWrdbhtQYhb6fjvU=
-X-Received: by 2002:a05:7023:b18:b0:168:3243:c937 with SMTP id a92af1059eb24-1b5568bcb9amr19336582c88.16.1795557116769;
-        Tue, 24 Nov 2026 13:51:56 -0800 (PST)
+        bh=vn3URFnRIWVoIF0NpOGs1A1tfVNX7pqnXS/S+sLc+LA=;
+        b=Q5GLGtrY7TWU5l5tfY95blhMVxEPC744C8iSThHPjXQ3xZFeI+XNGRD7id0QbYfuH8
+         KhVNduLZYtd4XTENSIhEwv7vkxs9IWNft5X2fxjJi7TWbXGfEjTVpVAlfv29UPDgFYdq
+         JNvDuwqkABId8ik+3kS1zorHjEtPYTX9vq78+Zsgav7BefwD8MsVg8B3Gll2Peax4asX
+         SONnHJxcvs/t/HNolcQQz/Qh3qXD6HDt3PS/cRYjL4GoU1lHI9W90Si4UjkkGx/9/SdJ
+         HPYKuBoZCKshB53P5uh+WBrofFwxSAF0rrFukhnjVXB69/pdX+Z9sFbEg1ZkIdbnOK6Q
+         tilw==
+X-Gm-Message-State: APuU4Z8Hj2DHMSPyV8nITQuJd41/BFQz2wvLbygWjrUeZVRxh/+1neMU
+	mzRu/V6zdG6xMqB2f+IKEb8iZ0kA8DbhRa5Usn8qFSkZm3wbVeSmqRG5yAyOyoXJ1PBDuDcrrIU
+	gBkHR
+X-Gm-Gg: AZFdTZfwpqmeGDaT/ifR2KFqjzjvMYlWKGlmY9SEt9NB88PRINuH+yDViPoj+D+CCyd
+	fOGtJ1fy0BLXqYEUTTuojjVmkgvBVHsjryPZuckeRVWhwciJj0XQD+rfDYWJwFBZFRjJE5dzDeq
+	Crg2vAK2/hsEv40Mcj/7cVcinO8gv6gsAxkPQqi2qwhgApCAXxDMZa8HD2UcBorqRnnTTm8NwYZ
+	zgyH9mis0BgIMcpqMqDh3EyqqaWHLzDTl+JvlGmV3m4j+oklt/zveRuLZgrA95ssjqkti1zz5L2
+	dNFbYHn1qwE3s6DrzVcGaJ/7rp+IQ+djAfjImc+W6I7ZaRbA2GdHbP0LHCF6VyDDQYf86nDcWTV
+	T6xbSlCj7WkQYihXPPB/UVOO3odLa2jTceFAshRbcVow4ILGyUyWqr1n+SDKvwckHFI0qc9weTt
+	UkgrMJ19GjyWYSkEU5cyhHahPZMxj0l+fX1Yo3USM65uYhMJbYtOQCvcD0uDbRNO/sabTiFMzNX
+	1+kPhwtAu8WI+C9nSkLrR62BsKYqcrNXVz/BPDbk0Mg1dgE6nGcq4DLCZx+bRmxLi6KjKxe3jv5
+	m0ArPZ6uBNAMV4ctW4KTG3wSvAPpbcUROxMg129xDphzb3ttjLE8wFiQeMDy/jWiubEu31KrPn+
+	6qaqp0XAwIALgkjCn94JTpfzUhqzN4KHC3svrbpAnhNMqlWc=
+X-Received: by 2002:a05:7300:ce93:b0:36c:a44c:1763 with SMTP id 5a478bee46e88-386bbfa6402mr4406242eec.32.1795557187272;
+        Tue, 24 Nov 2026 13:53:07 -0800 (PST)
 Received: from localhost.localdomain ([2603:8003:6d40:6669:75a7:83bd:63db:baa9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567ff27bsm41362637c88.6.2026.11.24.13.51.55
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385646633d0sm84442424eec.3.2026.11.24.13.53.06
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 24 Nov 2026 13:51:56 -0800 (PST)
+        Tue, 24 Nov 2026 13:53:06 -0800 (PST)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
-Cc: damien.riegel@silabs.com,
-	elder@kernel.org,
-	gregkh@linuxfoundation.org,
-	greybus-dev@lists.linaro.org,
-	johan@kernel.org,
-	linux-staging@lists.linux.dev
-Subject: [6.18.y] Please pick greybus raw write-after-disconnect fix
-Date: Tue, 24 Nov 2026 16:51:37 -0500
-Message-ID: <20261124215137.40304-1-artem@trailofbits.com>
+Cc: kmehltretter@gmail.com,
+	linux-mtd@lists.infradead.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Subject: [6.18.y] Please pick MTD OTP NVMEM double-free fix
+Date: Tue, 24 Nov 2026 16:53:04 -0500
+Message-ID: <20261124215304.40737-1-artem@trailofbits.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,23 +102,22 @@ Content-Transfer-Encoding: 8bit
 
 Hi,
 
-Please pick commit 84265cbd96b97058ef67e3f8be3933667a000835 ("greybus: raw:
-fix use-after-free if write is called after disconnect") for 6.18.y. It
-fixes CVE-2026-53024.
+Please pick commit 26300879cd8e4612dce66bb8f6ff7cd35fcf3e59 ("mtd: core:
+avoid double-free of OTP NVMEM device") for 6.18.y. It fixes
+CVE-2026-98834.
 
-An open raw character device can outlive its Greybus connection. In 6.18.y,
-raw_write() can still pass the destroyed connection to gb_operation_sync()
-after disconnect. The fix serializes writes with disconnect and returns
--ENODEV for writes issued after disconnect.
+If user OTP registration succeeds but factory OTP setup fails,
+mtd_otp_nvmem_add() unregisters the user NVMEM device but leaves
+mtd->otp_user_nvmem set, so later cleanup unregisters it a second time.
+The fix clears the pointer after unregistering it.
 
-The fix is in 6.1.191, 6.6.160, 6.12.114 and 7.0.10, and in mainline since
-7.1. 6.18.y received only its companion, upstream commit 983cc2c7efbc
-("greybus: raw: fix use-after-free on cdev close"), in 6.18.57; this fix
-needs that commit for context and did not apply to 6.18.56. It applies
-unchanged since 6.18.57, including on 6.18.65.
+The fix is in 7.2.10 and in mainline since 7.3. It carries no stable tag
+and so far has been backported only to 7.2.y. 6.18.65 has the same error
+path, and the patch applies to it unchanged (one-line offset). Older
+stable series are affected as well; this request covers only 6.18.y.
 
-Compiled drivers/staging/greybus/raw.o on 6.18.64 from a cumulative x86_64
-tree using allmodconfig. No kernel boot or runtime test was performed.
+Compiled drivers/mtd/mtdcore.o on 6.18.64 from a cumulative x86_64 tree
+using allmodconfig. No kernel boot or runtime test was performed.
 
 An LLM was used to check applicability and stable-queue history and to
 draft this request; I reviewed the result.
