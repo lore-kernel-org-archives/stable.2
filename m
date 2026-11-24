@@ -1,119 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795520061;
-	b=Lk1AoMz0h2yv1WEaqy5qMuzXKLNUKvBLOI8TBTeePmwvqnlM925xjEwoZhvpYakvpNkX
-	 5lV36AOT/JcWVl7TshNNXNLvgEcd7ZqbIBdWFQ/8Gr+Tmha5S76SbCg9dmvBVLp6gS54T
-	 F9zKsqV5cLhoMYHNQ3S/1+C6MrB4m8IXdkhLBTn5yHlADnsk5nOXWLnY+1g5SnY9oKkig
-	 qawhfYUuYnyYLmX659Gr5emzCBpLF5d2r3sie46DzKX4jI12U/TYl0N67yc1GJric3mQ2
-	 igJTWnDSEx0W7B14hmPVE7OFPLSCiIgXO9R2Riqpw9V7FZuE0UIT4FgLapSwpfK4NIw==
+	t=1795520258;
+	b=n2+ifDLWUHLitmTU5SzYq1AwWq3ptQfgb5TjKPlGThU4bPTRGk3bHbYKJSMLh5Q9psko
+	 EWYPh7G8ftZnHEe9puu2Lued2IyT3a8h4Btfs0n8BvAfdSc7IWBYnyWIMnYgV7MFKllji
+	 QsI0ihl9qXHWxuYPh/fv5JG8keIC/L+pmsernpbktuGN3jbujIpjxZz8OsmCfynCh0SPG
+	 9l6568LWypyN8MfWC02EvbZTlL9geSni3zVQEpxN3xzuZFRPqIgCd5pXM4N9g9Dwanyk+
+	 FmBAbBpAizgOLNSnjBj5b6YmC1I9q5GDUFL8SQfH7tpFok0elEEqTM5d6n9xHZmyGLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795520061;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=m8Fzs925Xr4/4DIBabyECw/hUQw8zIv4C/h21g95nvQ=;
-	b=cfWU79F/VRlztCOu9juxHnUjaQLL5EmPJn8uMe1avLK8cT2DFbU0bcLGwFaqGRo1RT5y
-	 rwvqKh0+HGZG5y8hd0u/svmD7+PIXs4ZmLS2iHNwh/aLKphPZDakLqI+0I2W5IoNgR2IP
-	 p0k935WnyWfJtCVR/GQCp+LyZNbmo8AamLJeW1zGDEZkBhCcojkZsO5f2ofcQ/+Apf3Np
-	 ZMujBExPT/KHgCDzp3sRs/wrfFa/YLKLVnjEOLSCtCYP6/BgIKShYhASC4MBSB9SiquT3
-	 aBYQsXqVq11zYEqOKgX6cFKSSH9/Mb6yiMoNCv7jltUwv9q+pNqo8xI30UdijzYSyjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795520258;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ffFcW/wEVn0upi3qmE81RMYECIu3yhVq9k41vKWVWh8=;
+	b=qGOFA3XK5ej/VaVpraa2hvD5dJM9dfJicGcw2UkrRsiOTXPd7BwQ4SvBQB35lJm87OGh
+	 2TYURAQ7wFvccsuQs1EIL4VkyVReKfPEyOMRimN4lV010eNTyW3i5f1AYRHDuqHQRY5hP
+	 TblLD7Jjs9lBKo1z9MJ3uwoBLzdHO2FZiYinUGjUvDQl9QcRZA921UyRMotuwgLEs+osM
+	 yxRuiP2b214m5emXuBXq2UAWTWVXw936UO3ShGThMYziH3hMQpk7rzCNQR8zNPfjeo9Go
+	 8V2AD/tIwi5tEdttaayipcXm8cMNYpv0pYN0yX2/SQMbe+wq5FuyB6nN36UB4cbc9LQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CdRjt4Cd;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=XRkdCCuw;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=none header.from=kaihong.com;
+	spf=pass smtp.mailfrom=kaihong.com;
+	arc=none smtp.remote-ip=115.124.28.49
+Received: from out28-49.mail.aliyun.com (out28-49.mail.aliyun.com [115.124.28.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6DD606A322
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 11:34:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF6DD606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CdRjt4Cd;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=XRkdCCuw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795520059;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m8Fzs925Xr4/4DIBabyECw/hUQw8zIv4C/h21g95nvQ=;
-	b=CdRjt4CdmQdWlAg6g7HNKf1gLHn9OgPZAP/PIns1K/xoukXPXsL1EDBZzEIkYEHuCTX0pG
-	9Ip2onwYdbqwgSPqy1Vh/TXVXkl5I25XvGZ1VV6mbkGbKen1ddALsGtU4cnOYh/dDOkw6Q
-	2ExksMjLFQYD+SG/5t3qljGvjk9zxvs=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-154-dnUaq6gHPpee01SJ3dgHOQ-1; Tue, 24 Nov 2026 11:34:17 +0000
-X-MC-Unique: dnUaq6gHPpee01SJ3dgHOQ-1
-X-Mimecast-MFC-AGG-ID: dnUaq6gHPpee01SJ3dgHOQ_1795520057
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9495dd0f07eso798574685a.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 03:34:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795520057; x=1796124857; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m8Fzs925Xr4/4DIBabyECw/hUQw8zIv4C/h21g95nvQ=;
-        b=XRkdCCuw87EOb9837lr8iXSna20nBlqrT/MVq2g54ZVKvApYDUwAGeIiPhrEfdfNr3
-         RU1FDILE8sjV2+5vby+0m92Ztw49gS+8N+1YjghSmIcOSCu/ut7V39UxuO7gtj/2Q37n
-         KHAGb00FTSyni6sYGyukaMkUg0R/S+ZNzBXV23RdAUBlDiw8BFDaLZYAXYJtJ9rLpbL2
-         4UuZcVZ6b1gn3ZtmLcto/eSQsCdfbA22yxQSiocCKwKp60JxnFPpqVa8D8AXN+Mt0t/2
-         kC2Tq3o9fokFYjM1XAQ5b91o911tqe97toZbSzM1ZWNT46xHG8TzxFMPHVsnKWzt02jq
-         k2Yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795520057; x=1796124857;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m8Fzs925Xr4/4DIBabyECw/hUQw8zIv4C/h21g95nvQ=;
-        b=b/lStZFcz4f3Iv50g8uxUm36CjZXiMzby8HTfOeSeH44K8qax3FZUagTgiw5mvA/Ks
-         zGyO6xCUUvV7tNI+ebpX1vvLc2LGVAvasofKA3u0UJKz46MP6QCfL/0PIVjmGi2U4rv8
-         LLetwS4dmifDuyKwMaUILq1JFptHyjndllVVO+m8/U9GSb6xZYRdH1uhyxVNE3Xs0ljz
-         Pc3vjxKy6BYz4RYWS5VTA342adc6G2Bkc7IVya4acb+uxr1GSBF+rbGTazO0gznoN5Va
-         G0JFRUMDUWBJeDnZz2n8nRiSJ9ZljO9t1AtZ0TAIkuhijwbROM3MDRzK+onAn0FcvufA
-         Pndg==
-X-Forwarded-Encrypted: i=1; AL+hErHWNuhhlV+gx9P/X380riulCZv6y000v+NhkBh8DBxxoyplyA32FN4mWmzSxyOJ5lty+opZECw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sJd+GwCmxI17sex1V8Vk2bSIFUrqjYQjzKeMgJ+aBu9jDIDIJ
-	nPIzDskVwNRFWuM9/WJWanhhio2UGZ6McAG9eylGqlt4i/qMUpINHmWay0XY2wSLu5lnP9qZTeb
-	aNr5PZcbwm5XOxaC3Ts2MPlYqiGbzP9q6nBQ+mfrHnwATjRwUwtwPpeaOEt2ee/vbkIYy
-X-Gm-Gg: AZFdTZcbNobS99GiIWNCjT9eevVxjM66RpsJQQdBJTr4JX9JxfiMMXe+WwX5aEGgnAW
-	RTpMWTi7GTeQK3y5aI6TJGX+DGUjl2C+q2K0wF2EhLP/CuCTzGdSBctK2RhASz0F2pxJrZFxE+n
-	w2VDHloibWiF/oYZcwiqzxmxmtw5EVw1u1TIEvjZbKoT2HKJlkh2LGXR/P0ZhPgvyv3HQP7wC0M
-	GV5VVGq2NmYUjQwsVR4U/lQ7fSGvkqcYl781ZtpBfqCSR96YBbqGILZjvBG+NgP4wHctXPtKIec
-	wLzRDKulLWNUyYaUSblK+Kh3uKk8/OkvesrdwPjG6Rml5/slWAxfhFfoFhTfMKPzi6oTHM4c46L
-	O+KK7dsk8PJNpHn9oBbhJQQotpCQ60di1GnHdbeQ+1rau/n3tN8HIUbBPyCttW3tL1EdSu3L9gm
-	0C52ozljZ0dUZbinu8t+rHxDM0iMH5rFh+fGEMfBR/GEFbg9RyzuMs72plfZqPVKHIOQoAOz5dL
-	/gDTb8FU8GHmcqN7mVLL2OFLEiYE/jHfWId0O/lSNuO27HcN8WQ
-X-Received: by 2002:a05:620a:44c5:b0:949:a9b4:bd11 with SMTP id af79cd13be357-949bab4d986mr2487712085a.73.1795520057203;
-        Tue, 24 Nov 2026 03:34:17 -0800 (PST)
-X-Received: by 2002:a05:620a:44c5:b0:949:a9b4:bd11 with SMTP id af79cd13be357-949bab4d986mr2487708785a.73.1795520056784;
-        Tue, 24 Nov 2026 03:34:16 -0800 (PST)
-Received: from cluster.. (4f.55.790d.ip4.static.sl-reverse.com. [13.121.85.79])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb34d427sm999811385a.9.2026.11.24.03.34.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 03:34:16 -0800 (PST)
-From: Alex Markuze <amarkuze@redhat.com>
-To: Kaho Jiang <kj2864@nyu.edu>
-Cc: Ilya Dryomov <idryomov@gmail.com>,
-	Xiubo Li <xiubo.li@clyso.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	ceph-devel@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB82606A321;
+	Tue, 24 Nov 2026 11:37:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EB82606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kaihong.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaihong.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06463327|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00439941-0.000242477-0.995358;FP=1009340942401455331|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037033194;MF=wangxiaolei01@kaihong.com;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.k9B4J50_1795520244;
+Received: from nj-vm-261.pxvirt.local(mailfrom:wangxiaolei01@kaihong.com fp:SMTPD_---.k9B4J50_1795520244 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 24 Nov 2026 19:37:25 +0800
+From: Xiaolei Wang <wangxiaolei01@kaihong.com>
+To: mcanal@igalia.com,
+	mwen@igalia.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	tvrtko.ursulin@igalia.com,
+	wangxiaolei01@kaihong.com
+Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	co+408fcc361565713f@bugs.sh
-Subject: Re: [PATCH v3] ceph: Use unsigned types for snapshot split counts
-Date: Tue, 24 Nov 2026 11:34:12 +0000
-Message-Id: <20261124113412.2078323-1-amarkuze@redhat.com>
+	itoral@igalia.com
+Subject: [PATCH v3] drm/v3d: Fix double free of query arrays on parse failure
+Date: Tue, 24 Nov 2026 11:37:23 +0000
+Message-Id: <20261124113723.3055530-1-wangxiaolei01@kaihong.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261123050440.223436-2-kj2864@nyu.edu>
-References: <20261123050440.223436-2-kj2864@nyu.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -123,27 +61,451 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Kaho,
+On a parse error the timestamp and performance parsers free the query
+array, and the job release path then frees it again: query_info->count
+had not been set yet, so no syncobj was put twice, but the stale array
+was handed to kvfree() a second time.
 
-On a malformed SPLIT, the failure path calls ceph_monc_blocklist_add()
-with snap_rwsem held. If the blocklist command succeeds but the subsequent
-OSD map version or map does not arrive, cached snapshot lookups can remain
-blocked on that lock.
+Make the job the only owner: the parsers just fill the array and record
+how far they got. count is set before the parse loop, the arrays are
+zero allocated, and the free helpers stop at the first entry that was
+never set up, which keeps put-count equal to find-count. That also
+removes the inline kvfree() of kperfmon_ids and the count arguments of
+the free helpers.
 
-After the blocklist call returns, ceph_mdsc_close_sessions() can queue a
-close request and wait for it from the MDS connection worker that is
-running this handler. The worker cannot send the request or process its
-reply until the handler returns, so with mount_timeout=0 the wait can be
-indefinite.
+Tested on Raspberry Pi 5 (v3d).
 
-Please move the blocklist/map and session-close waits out of the MDS
-connection worker, and avoid holding snap_rwsem while waiting. Keep the
-client fenced, prevent further stale-context submissions and account for
-writes already on the wire before releasing session authority; retain the
-required references until the deferred cleanup finishes.
+Fixes: 0e50fcc20bd8 ("drm/v3d: Fix potential memory leak in the timestamp extension")
+Fixes: 32df4abc44f2 ("drm/v3d: Fix potential memory leak in the performance extension")
+Cc: stable@vger.kernel.org
+Cc: Maíra Canal <mcanal@igalia.com>
+Cc: Iago Toral Quiroga <itoral@igalia.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Xiaolei Wang <wangxiaolei01@kaihong.com>
+---
 
-Thanks,
-Alex
+Changes in v3:
+- Stop the query free loops at the first entry that has no syncobj.
+- Do not free the query arrays from the parser error paths; the job is
+  the only owner now, so the array is released exactly once.
+- Set query_info->count before the parse loop in every parser, and drop
+  the count argument from v3d_copy_query_info() as well as from the two
+  free helpers.
+- Drop the superfluous comment in v3d_sched.c and rewrite the commit
+  message.
+
+Link to v2: 
+- https://patchwork.kernel.org/project/dri-devel/patch/20261120022828.2612091-1-wangxiaolei01@kaihong.com/
+Link to v1:
+- https://patchwork.kernel.org/project/dri-devel/patch/20261110061341.2075931-1-wangxiaolei01@kaihong.com/
+
+ drivers/gpu/drm/v3d/v3d_drv.h    |   6 +-
+ drivers/gpu/drm/v3d/v3d_sched.c  |  40 +++++----
+ drivers/gpu/drm/v3d/v3d_submit.c | 136 ++++++++++---------------------
+ 3 files changed, 70 insertions(+), 112 deletions(-)
+
+diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+index 7c7bdf6e51a5..e5c9ad86449a 100644
+--- a/drivers/gpu/drm/v3d/v3d_drv.h
++++ b/drivers/gpu/drm/v3d/v3d_drv.h
+@@ -669,10 +669,8 @@ static __always_inline int v3d_pm_runtime_put(struct v3d_dev *v3d)
+ }
+ 
+ /* v3d_sched.c */
+-void v3d_timestamp_query_info_free(struct v3d_timestamp_query_info *query_info,
+-				   unsigned int count);
+-void v3d_performance_query_info_free(struct v3d_performance_query_info *query_info,
+-				     unsigned int count);
++void v3d_timestamp_query_info_free(struct v3d_timestamp_query_info *query_info);
++void v3d_performance_query_info_free(struct v3d_performance_query_info *query_info);
+ struct v3d_stats *v3d_stats_alloc(void);
+ void v3d_stats_release(struct kref *refcount);
+ void v3d_job_update_stats(struct v3d_job *job);
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index 1924e3440dc9..6e55523be66b 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -96,33 +96,41 @@ v3d_sched_job_free(struct drm_sched_job *sched_job)
+ }
+ 
+ void
+-v3d_timestamp_query_info_free(struct v3d_timestamp_query_info *query_info,
+-			      unsigned int count)
++v3d_timestamp_query_info_free(struct v3d_timestamp_query_info *query_info)
+ {
+-	if (query_info->queries) {
+-		unsigned int i;
++	unsigned int i;
+ 
+-		for (i = 0; i < count; i++)
+-			drm_syncobj_put(query_info->queries[i].syncobj);
++	if (!query_info->queries)
++		return;
+ 
+-		kvfree(query_info->queries);
++	for (i = 0; i < query_info->count; i++) {
++		if (!query_info->queries[i].syncobj)
++			break;
++
++		drm_syncobj_put(query_info->queries[i].syncobj);
+ 	}
++
++	kvfree(query_info->queries);
+ }
+ 
+ void
+-v3d_performance_query_info_free(struct v3d_performance_query_info *query_info,
+-				unsigned int count)
++v3d_performance_query_info_free(struct v3d_performance_query_info *query_info)
+ {
+-	if (query_info->queries) {
+-		unsigned int i;
++	unsigned int i;
+ 
+-		for (i = 0; i < count; i++) {
+-			drm_syncobj_put(query_info->queries[i].syncobj);
+-			kvfree(query_info->queries[i].kperfmon_ids);
+-		}
++	if (!query_info->queries)
++		return;
+ 
+-		kvfree(query_info->queries);
++	for (i = 0; i < query_info->count; i++) {
++		kvfree(query_info->queries[i].kperfmon_ids);
++
++		if (!query_info->queries[i].syncobj)
++			break;
++
++		drm_syncobj_put(query_info->queries[i].syncobj);
+ 	}
++
++	kvfree(query_info->queries);
+ }
+ 
+ static void
+diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+index 7548faab67ba..288283900022 100644
+--- a/drivers/gpu/drm/v3d/v3d_submit.c
++++ b/drivers/gpu/drm/v3d/v3d_submit.c
+@@ -174,11 +174,9 @@ v3d_cpu_job_free(struct kref *ref)
+ 	struct v3d_cpu_job *job = container_of(ref, struct v3d_cpu_job,
+ 					       base.refcount);
+ 
+-	v3d_timestamp_query_info_free(&job->timestamp_query,
+-				      job->timestamp_query.count);
++	v3d_timestamp_query_info_free(&job->timestamp_query);
+ 
+-	v3d_performance_query_info_free(&job->performance_query,
+-					job->performance_query.count);
++	v3d_performance_query_info_free(&job->performance_query);
+ 
+ 	if (job->indirect_csd.indirect)
+ 		drm_gem_object_put(job->indirect_csd.indirect);
+@@ -734,7 +732,6 @@ v3d_get_cpu_timestamp_query_params(struct drm_file *file_priv,
+ 	struct drm_v3d_timestamp_query timestamp;
+ 	struct v3d_timestamp_query_info *query_info = &job->timestamp_query;
+ 	unsigned int i;
+-	int err;
+ 
+ 	if (!v3d_validate_cpu_job(file_priv, job))
+ 		return -EINVAL;
+@@ -747,43 +744,34 @@ v3d_get_cpu_timestamp_query_params(struct drm_file *file_priv,
+ 
+ 	job->job_type = V3D_CPU_JOB_TYPE_TIMESTAMP_QUERY;
+ 
+-	query_info->queries = kvmalloc_objs(struct v3d_timestamp_query,
++	query_info->queries = kvzalloc_objs(struct v3d_timestamp_query,
+ 					    timestamp.count);
+ 	if (!query_info->queries)
+ 		return -ENOMEM;
+ 
++	query_info->count = timestamp.count;
++
+ 	offsets = u64_to_user_ptr(timestamp.offsets);
+ 	syncs = u64_to_user_ptr(timestamp.syncs);
+ 
+ 	for (i = 0; i < timestamp.count; i++) {
+ 		u32 offset, sync;
+ 
+-		if (get_user(offset, offsets++)) {
+-			err = -EFAULT;
+-			goto error;
+-		}
++		if (get_user(offset, offsets++))
++			return -EFAULT;
+ 
+ 		query_info->queries[i].offset = offset;
+ 
+-		if (get_user(sync, syncs++)) {
+-			err = -EFAULT;
+-			goto error;
+-		}
++		if (get_user(sync, syncs++))
++			return -EFAULT;
+ 
+ 		query_info->queries[i].syncobj = drm_syncobj_find(file_priv,
+ 								  sync);
+-		if (!query_info->queries[i].syncobj) {
+-			err = -ENOENT;
+-			goto error;
+-		}
++		if (!query_info->queries[i].syncobj)
++			return -ENOENT;
+ 	}
+-	query_info->count = timestamp.count;
+ 
+ 	return 0;
+-
+-error:
+-	v3d_timestamp_query_info_free(&job->timestamp_query, i);
+-	return err;
+ }
+ 
+ static int
+@@ -795,7 +783,6 @@ v3d_get_cpu_reset_timestamp_params(struct drm_file *file_priv,
+ 	struct drm_v3d_reset_timestamp_query reset;
+ 	struct v3d_timestamp_query_info *query_info = &job->timestamp_query;
+ 	unsigned int i;
+-	int err;
+ 
+ 	if (!v3d_validate_cpu_job(file_priv, job))
+ 		return -EINVAL;
+@@ -805,11 +792,13 @@ v3d_get_cpu_reset_timestamp_params(struct drm_file *file_priv,
+ 
+ 	job->job_type = V3D_CPU_JOB_TYPE_RESET_TIMESTAMP_QUERY;
+ 
+-	query_info->queries = kvmalloc_objs(struct v3d_timestamp_query,
++	query_info->queries = kvzalloc_objs(struct v3d_timestamp_query,
+ 					    reset.count);
+ 	if (!query_info->queries)
+ 		return -ENOMEM;
+ 
++	query_info->count = reset.count;
++
+ 	syncs = u64_to_user_ptr(reset.syncs);
+ 
+ 	for (i = 0; i < reset.count; i++) {
+@@ -817,25 +806,16 @@ v3d_get_cpu_reset_timestamp_params(struct drm_file *file_priv,
+ 
+ 		query_info->queries[i].offset = reset.offset + 8 * i;
+ 
+-		if (get_user(sync, syncs++)) {
+-			err = -EFAULT;
+-			goto error;
+-		}
++		if (get_user(sync, syncs++))
++			return -EFAULT;
+ 
+ 		query_info->queries[i].syncobj = drm_syncobj_find(file_priv,
+ 								  sync);
+-		if (!query_info->queries[i].syncobj) {
+-			err = -ENOENT;
+-			goto error;
+-		}
++		if (!query_info->queries[i].syncobj)
++			return -ENOENT;
+ 	}
+-	query_info->count = reset.count;
+ 
+ 	return 0;
+-
+-error:
+-	v3d_timestamp_query_info_free(&job->timestamp_query, i);
+-	return err;
+ }
+ 
+ /* Get data for the copy timestamp query results job submission. */
+@@ -848,7 +828,6 @@ v3d_get_cpu_copy_query_results_params(struct drm_file *file_priv,
+ 	struct drm_v3d_copy_timestamp_query copy;
+ 	struct v3d_timestamp_query_info *query_info = &job->timestamp_query;
+ 	unsigned int i;
+-	int err;
+ 
+ 	if (!v3d_validate_cpu_job(file_priv, job))
+ 		return -EINVAL;
+@@ -861,37 +840,32 @@ v3d_get_cpu_copy_query_results_params(struct drm_file *file_priv,
+ 
+ 	job->job_type = V3D_CPU_JOB_TYPE_COPY_TIMESTAMP_QUERY;
+ 
+-	query_info->queries = kvmalloc_objs(struct v3d_timestamp_query,
++	query_info->queries = kvzalloc_objs(struct v3d_timestamp_query,
+ 					    copy.count);
+ 	if (!query_info->queries)
+ 		return -ENOMEM;
+ 
++	query_info->count = copy.count;
++
+ 	offsets = u64_to_user_ptr(copy.offsets);
+ 	syncs = u64_to_user_ptr(copy.syncs);
+ 
+ 	for (i = 0; i < copy.count; i++) {
+ 		u32 offset, sync;
+ 
+-		if (get_user(offset, offsets++)) {
+-			err = -EFAULT;
+-			goto error;
+-		}
++		if (get_user(offset, offsets++))
++			return -EFAULT;
+ 
+ 		query_info->queries[i].offset = offset;
+ 
+-		if (get_user(sync, syncs++)) {
+-			err = -EFAULT;
+-			goto error;
+-		}
++		if (get_user(sync, syncs++))
++			return -EFAULT;
+ 
+ 		query_info->queries[i].syncobj = drm_syncobj_find(file_priv,
+ 								  sync);
+-		if (!query_info->queries[i].syncobj) {
+-			err = -ENOENT;
+-			goto error;
+-		}
++		if (!query_info->queries[i].syncobj)
++			return -ENOENT;
+ 	}
+-	query_info->count = copy.count;
+ 
+ 	job->copy.do_64bit = copy.do_64bit;
+ 	job->copy.do_partial = copy.do_partial;
+@@ -900,73 +874,51 @@ v3d_get_cpu_copy_query_results_params(struct drm_file *file_priv,
+ 	job->copy.stride = copy.stride;
+ 
+ 	return 0;
+-
+-error:
+-	v3d_timestamp_query_info_free(&job->timestamp_query, i);
+-	return err;
+ }
+ 
+ static int
+ v3d_copy_query_info(struct v3d_performance_query_info *query_info,
+-		    unsigned int count,
+ 		    unsigned int nperfmons,
+ 		    u32 __user *syncs,
+ 		    u64 __user *kperfmon_ids,
+ 		    struct drm_file *file_priv)
+ {
+ 	unsigned int i, j;
+-	int err;
+ 
+-	for (i = 0; i < count; i++) {
++	for (i = 0; i < query_info->count; i++) {
+ 		struct v3d_performance_query *query = &query_info->queries[i];
+ 		u32 __user *ids_pointer;
+ 		u32 sync, id;
+ 		u64 ids;
+ 
+-		if (get_user(sync, syncs++)) {
+-			err = -EFAULT;
+-			goto error;
+-		}
++		if (get_user(sync, syncs++))
++			return -EFAULT;
+ 
+-		if (get_user(ids, kperfmon_ids++)) {
+-			err = -EFAULT;
+-			goto error;
+-		}
++		if (get_user(ids, kperfmon_ids++))
++			return -EFAULT;
+ 
+ 		query->kperfmon_ids =
+ 			kvmalloc_array(nperfmons,
+ 				       sizeof(struct v3d_performance_query *),
+ 				       GFP_KERNEL);
+-		if (!query->kperfmon_ids) {
+-			err = -ENOMEM;
+-			goto error;
+-		}
++		if (!query->kperfmon_ids)
++			return -ENOMEM;
+ 
+ 		ids_pointer = u64_to_user_ptr(ids);
+ 
+ 		for (j = 0; j < nperfmons; j++) {
+-			if (get_user(id, ids_pointer++)) {
+-				kvfree(query->kperfmon_ids);
+-				err = -EFAULT;
+-				goto error;
+-			}
++			if (get_user(id, ids_pointer++))
++				return -EFAULT;
+ 
+ 			query->kperfmon_ids[j] = id;
+ 		}
+ 
+ 		query->syncobj = drm_syncobj_find(file_priv, sync);
+-		if (!query->syncobj) {
+-			kvfree(query->kperfmon_ids);
+-			err = -ENOENT;
+-			goto error;
+-		}
++		if (!query->syncobj)
++			return -ENOENT;
+ 	}
+ 
+ 	return 0;
+-
+-error:
+-	v3d_performance_query_info_free(query_info, i);
+-	return err;
+ }
+ 
+ static int
+@@ -987,12 +939,13 @@ v3d_get_cpu_reset_performance_params(struct drm_file *file_priv,
+ 	job->job_type = V3D_CPU_JOB_TYPE_RESET_PERFORMANCE_QUERY;
+ 
+ 	query_info->queries =
+-		kvmalloc_objs(struct v3d_performance_query, reset.count);
++		kvzalloc_objs(struct v3d_performance_query, reset.count);
+ 	if (!query_info->queries)
+ 		return -ENOMEM;
+ 
++	query_info->count = reset.count;
++
+ 	err = v3d_copy_query_info(query_info,
+-				  reset.count,
+ 				  reset.nperfmons,
+ 				  u64_to_user_ptr(reset.syncs),
+ 				  u64_to_user_ptr(reset.kperfmon_ids),
+@@ -1000,7 +953,6 @@ v3d_get_cpu_reset_performance_params(struct drm_file *file_priv,
+ 	if (err)
+ 		return err;
+ 
+-	query_info->count = reset.count;
+ 	query_info->nperfmons = reset.nperfmons;
+ 
+ 	return 0;
+@@ -1027,12 +979,13 @@ v3d_get_cpu_copy_performance_query_params(struct drm_file *file_priv,
+ 	job->job_type = V3D_CPU_JOB_TYPE_COPY_PERFORMANCE_QUERY;
+ 
+ 	query_info->queries =
+-		kvmalloc_objs(struct v3d_performance_query, copy.count);
++		kvzalloc_objs(struct v3d_performance_query, copy.count);
+ 	if (!query_info->queries)
+ 		return -ENOMEM;
+ 
++	query_info->count = copy.count;
++
+ 	err = v3d_copy_query_info(query_info,
+-				  copy.count,
+ 				  copy.nperfmons,
+ 				  u64_to_user_ptr(copy.syncs),
+ 				  u64_to_user_ptr(copy.kperfmon_ids),
+@@ -1040,7 +993,6 @@ v3d_get_cpu_copy_performance_query_params(struct drm_file *file_priv,
+ 	if (err)
+ 		return err;
+ 
+-	query_info->count = copy.count;
+ 	query_info->nperfmons = copy.nperfmons;
+ 	query_info->ncounters = copy.ncounters;
+ 
+-- 
+2.34.1
 
