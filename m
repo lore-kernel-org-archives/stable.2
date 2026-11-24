@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795533083;
-	b=RxPg3sQoPNdLjQM2euF+LwZoSocXVKSc3uRA6semnMpp97wQD6aX2XoSxs6JEMu4hxWY
-	 zYEs4EDyv/NeV72fK9CoQeKhG118I/v472LUd4VCcvWz8jKeoHMb46QPP91avHueYamWi
-	 6easwGHF6IidoJC475soALDz55eSiTJW5oQWZxyHQLBUyqzkL6TngqkCux+AXOGsKy7Nb
-	 RwnuDnXdRMTU/kLek9iBaHZJgy+932gRvEllt3nM/++nJfwiIAabV662R2z6kVO+jhfpO
-	 ImCQzdDs5WWVUUS1cPz+jauC7UPlxkz2YiKRupPGJD69E895VdzIc2ArAmxE/DGNBpQ==
+	t=1795533087;
+	b=ENzaVGF7NBOeb+acXSqC53wG/jqvP2rZGDmDubOxtXcfmZL8AGs+s4S4aoTNnYHKUju1
+	 l2viq0VhcXk1rlMrRHogwOMiNSb3wkYNxu8WVTRqp4u69XKOjVryA+Btq937oCMB2s7Xq
+	 TvlbY1XODiVHiHdxLRLLsI3RF6PW3NoQI17gKfkJ8aBs+rO7DhwRtiHAI+sVdYRXn+AWm
+	 n/2FF9Wot9zcSMChH9XduQ5xFCnlM+/Ry/IssYgUNividKr6EECax7r7JkYUMiWyLs7jH
+	 uQzF1V8XEqCKm9PPJI9vFtnyN/Va4q+IrHCKqYIP2MnqFA+zDlkXkbDLMz30YgDk4Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533083;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795533087;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FoCt5litKUHrdNrtlJDySp7WXZzqnATGrPBjgi9yCsI=;
-	b=psEQygUuI0KQSwZaJ5jSHnQxrWNWcAI172N8AcDbuDyqJDo7LDP98aiD2Rq5PUD+V75y
-	 bHqSU9/U7Y/1bdfKUHrLT5SxF61hs6siceTLUXJumFurx8z1HV7Wz6HdQN69NrcQ/W2NC
-	 Qn8cKWn5EpZd35ybdezm5Bn7RekkTWma9YUsFSMIyvpD9e+uJXV3d1nyGIhXwRbiGdu36
-	 KwizwgOkKbiHTpfSE2ZYORP1dLkLlvfp3pIwUJlQetokplFJEy7kH2610P1VVQ33sPCnl
-	 RkGtXXkW5AFMnUKP0z6iGswBrSwrEK5NJiexNxMqusD3vdGdLS0XqJUzuZxzkKTCJww==
+	bh=SD6pU6DYQavpD+IB/UYZ2o1sMZ65IbmyZCEbq/Z7hLk=;
+	b=TUktHByrAT7u4F5qZfnt825oOuH+4H0KEoRyjRKp4orv7/wEVw/sB4THBXN3MfVGQgC1
+	 JdBwn6/8E3tu/Pk687jvP1Yku19zTjB+rFQdvE7fZKgXmWJTQbHPnJ9eORBc5sFXo46Ku
+	 l6EmTFTQKTRLbXRvdC7p+1EyXs9yoh6cpIRMcSKKWEtzCPmvcBCdz0+6XY0t8Eo8iQxFu
+	 B9fom8ragVko/sd+sPdZF3bkrrzfMf68wFhKeK3AmZYMldU0EROaDbreTn3AJQPCJclKb
+	 cRv/PLeqS7+hSX6Kf4w2sn86JnPkUJNr62mUE63EIBO4vdftwJ5kmjG2LXNJQHQl64g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="h/9aJyth";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a1GEh2gU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B51606A329
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:11:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E400B606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:11:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=h/9aJyth
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B71221F000C0;
-	Tue, 24 Nov 2026 15:11:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a1GEh2gU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04E0E1F000C0;
+	Tue, 24 Nov 2026 15:11:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795533083;
-	bh=FoCt5litKUHrdNrtlJDySp7WXZzqnATGrPBjgi9yCsI=;
+	s=korg; t=1795533086;
+	bh=SD6pU6DYQavpD+IB/UYZ2o1sMZ65IbmyZCEbq/Z7hLk=;
 	h=Subject:To:Cc:From:Date;
-	b=h/9aJythaxcPFXHR2Z24dzaGXQg3CsaIrVJLLBI2OhFHIAqErrR0MtgOY5Wv4P8rX
-	 wysZk57B4harAyl0DdiARhYRbGyUjWLbh9gY9D9dNDhluucIgycvSwo3n0llcSMCjs
-	 DARMIXU7og+3qz1cwGTSSYSAPLS4etSDUNE9s+6I=
-Subject: FAILED: patch "[PATCH] mmc: omap: synchronize clock timer before disabling fclk" failed to apply to 5.10-stable tree
+	b=a1GEh2gUsm7zrblsXnx/XX3ryaMau+1qoIV2blmfgCrjwVKeIrZ3O6YSlsNcnuWrC
+	 HwicAmuc4t0gQLo+oNBmgf1e6u4IMEgoYm0WxSCaPyEneCBkdm8JFVXfjLdlHaY2Oy
+	 cweaPA/YPwdWCMpQpc6nxxVrNt4ANyyiM1qXz7SY=
+Subject: FAILED: patch "[PATCH] mmc: omap: synchronize clock timer before disabling fclk" failed to apply to 5.15-stable tree
 To: runyu.xiao@seu.edu.cn,ulfh@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 24 Nov 2026 16:11:30 +0100
-Message-ID: <2026112430-lemon-ranging-6009@gregkh>
+Message-ID: <2026112429-handgun-idealist-1f47@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x c931c51681e33b24bc8d65c6df35b70e1827daa2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112430-lemon-ranging-6009@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112429-handgun-idealist-1f47@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
