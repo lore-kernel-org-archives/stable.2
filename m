@@ -1,47 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795538740;
-	b=07prPJDoTh6nAy4pGlpEVyLpBN/3aRK2gVZ+wgV2jnUO6EILJ5usU8LXNAn1GLcuf5yj
-	 PbstfBfXyDdj/MynaFXTfuzgGGXM1GdWj2j0iep/xKs/WgAZnfVXBZihkLllQZfaJ6Oly
-	 NFnYbbr8IS96vhMAlQ+GRyO16Iy0arie+oKGLmMXs3leFkYA1wJanLyM+v80x548s0TlO
-	 GR4PGku6m/Gdq/Ir1DUi9sphjt2mDIv11ubsIfy309GlMXS04FO9vjUwE65IZ7QsKPXTz
-	 Z39fKohVQpGUoNq/ZG/ZCUiZaqQKJgRtjxvZKlGhWVGk+70nWN6n08au16co6VaqR1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795538740;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XzT2Go3eqUUnXjs7kAT1XsoxXEeM5nz0Og1UBfw8u6s=;
-	b=qUu7Qhs3q/c/S3IYZGIoP5rjz73PLQ4IOQCu1ZST5ytPoHnNcjjuhgAH3p/iB3Ip3G+B
-	 GWHittgVhiiKZsVP++6/WJi/mfM1XP5wUVVn82f5l5DAA9R4vVJE8FQEzLlL8w7AIpTMk
-	 meaE10afUC4IxxLJ03w8F9fkd09g6Zwk4jWtinIk8nH0EmdLobJgBpkTeR35xuXPtGPhQ
-	 a2yck5YiCZvm6c8kOB91Ya1YtOvlQTr3cgnplGz34Jo01AZ66iO0UVdsIhPsII8F93F+J
-	 PlwTclDqwSTXXmrGW4bvnDa32UeiVlX07xnXb8DdcozYnRLiRrfd8yc8M5HaHB9i/wQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a54hSiI5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795538749;
+	b=hnHdRDsoVXlIje8dAw0Jg1gwFYYPiIpHihfDMP6XUkrm0rG5G6jhlQJpig/4S69Pu/OD
+	 bj4Jz1JtDHzarZ8CUVO5ocaKvXXDUCQZ2HEDBvBUbStOLGyl9uH3tvYYmGnKuyML+XL3O
+	 gUrJ/K4fDLAIZraHb6iU3j568ZM7AAdz65AZ+h85Xvla4XvzfkVBgqMhT86wZK4qrnsLk
+	 VzMZ4NkzPBeOQcVju5rjKRzWQhu2/B7X9yMoRcG2nBqMLE8Eqvoar7H2raekces0C/ygt
+	 HO3plnO3/FS20PrQDWKonGkivDgBtSODqHjCWZfQy6RVDp6WPvc9bc83sZWAJ0PrE9w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795538749;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
+	bh=NxEUqxMS4+QPrlaTVEWgJwJSWYwUiBTj4xqIdeG8VuI=;
+	b=c6hs31roB6kRA28bVebgk3uvyn8FYF5Zxf5WR+zoiaeZGMKTAuB1TlWKvx0py73UCOzE
+	 v7LG4DRrhrQwTggHTHaZHW26+s+OrtJbR0GzsAOa4cYkeY2kb8ob2cqLP+vbTGDRuv70Z
+	 ZPzj6eP1tiVZOK78nP5iZtRLhETAjVlZdF10IxE4mmW530ZPRhVbPWAuGgRGJOxd+Gjse
+	 CVoqcunpmPf05qNgg1Ue0ImEF5/TnD0Lnbz7zW7cKGTcJ6TMJalq1mUYOOL6aWnUpmm2p
+	 gvws3o6cs2dDUlA3jDTp4W6s45uFGKgwcbuw2Uxnw9khcPfb8/uJiPAfFYjWOR0YOtQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=j+SuMpjC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
+Received: from sender5-pp-f112.zoho.com (sender5-pp-f112.zoho.com [165.173.182.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85F5606A323
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:45:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC28606A323;
+	Tue, 24 Nov 2026 16:45:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFC28606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a54hSiI5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC18E1F000C0;
-	Tue, 24 Nov 2026 16:45:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795538740;
-	bh=XzT2Go3eqUUnXjs7kAT1XsoxXEeM5nz0Og1UBfw8u6s=;
-	h=Subject:To:Cc:From:Date;
-	b=a54hSiI5b3qHPgmYwobzPJTL42ubE7qqy6Uihy+nh3mmjVuCy+Ew+u37/GrdfL0ju
-	 hV3t0bXUgStPnxsot4V22FQnxHchHyR6M8Jmovwl5VPFzQwNfmFyiyWpQAsIAuk+2W
-	 3jLzBNHP0XaF6bIHbE+IhpaAItPCQD93+NsORTVw=
-Subject: FAILED: patch "[PATCH] net/mlx5e: Fix queue stats access to queues without stats" failed to apply to 6.12-stable tree
-To: leitao@debian.org,kuba@kernel.org,tariqt@nvidia.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 17:46:01 +0100
-Message-ID: <2026112401-catnip-barn-1ab6@gregkh>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=j+SuMpjC
+ARC-Seal: i=1; a=rsa-sha256; t=1795538706; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=hBw7/fL+7KNbfb2O6t/yUndg7jvZphFbt0KjZyW6VH/GfxRVH5PDanZiZdZswWhUnN8y3yRZzEOCYZvTYZXQuPoDyhTaZCnNHtgafWk5cJsQmNzsoDs5hg5D4Mu2/JfOPIuHNoREaqkgboy7aEcc3UEFUfpsf5WsrGLNdZT+eQY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795538706; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=NxEUqxMS4+QPrlaTVEWgJwJSWYwUiBTj4xqIdeG8VuI=; 
+	b=HhtG0/YORTLcH1iFSvA0p7zRqb5kS0KtedG2bngTNjE6IwSCQbXvvGzWWzggTAZsjIKEC0qXcXarjnmod99KoRmzJ1f+0ndfg1LonTIcehIXpIQJhUR+D/p1y1hNHRvwBO8XrWD8ar70tfbNiJ+8dxss76IWTv81SlwfIkgpfKE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=j+SuMpjCQK1dtnTgay5IQIcy7CDGV3eL2KQN+OY0LydmB5njXLP9fPEGaGpzRf70YJ2PMeUJ3lsFZC3plIObpkzukmbZC2SPflVe+Q2pYqNTaqSpBaQBcz89PgrWwIymYZkJxPiMIb8+rEq3UmILHKTIxDS5/Y0ckIJfMjCvKC4dNRpf5IfTcK1TZ9rg5891JbNT9Hd8c98+JydByDOA16fsYaXMMOj3SRLgTBBIP1VSf2RtXTQIvQVgSgGYITc2ZhBGitfUaFFQLMmbGB+2rnQrQjX/VuZLrONQdnb1kiyrXC/ZqKGUaahCvS7wqqM2i6ZloO+fMqMNwApb964mIQ==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=NxEUqxMS4+QPrlaTVEWgJwJSWYwUiBTj4xqIdeG8VuI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795538704996748.7946167071358;
+	Tue, 24 Nov 2026 08:45:04 -0800 (PST)
+From: Rong Zhang <i@rong.moe>
+Date: Wed, 25 Nov 2026 00:44:29 +0800
+Subject: [PATCH v4 1/9] HID: haptic: Get rid of input_ff_destroy() in error
+ paths
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,95 +60,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261125-hid-haptic-kmod-v4-1-03713a89f656@rong.moe>
+References: <20261125-hid-haptic-kmod-v4-0-03713a89f656@rong.moe>
+In-Reply-To: <20261125-hid-haptic-kmod-v4-0-03713a89f656@rong.moe>
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ Angela Czubak <aczubak@google.com>, Henrik Rydberg <rydberg@bitmath.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-ce4c1
+X-ZohoMailClient: External
 
+It's painful to have error paths after calling input_ff_create(),
+because input_ff_destroy() frees too much things but does not restore
+some other things. For example, every error path calling
+input_ff_destroy() frees ff->private, while the others don't. This
+divergence has caused quite a lot of trouble.
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Additionally, the driver's get_device() bail-out path calls module_put()
+right before hid_haptic_destroy() calling it again, causing refcount
+underflow.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Since commit 2ae35f090d02 ("Input: destroy force-feedback device on
+input unregistration"), the HID device is now guaranteed to have a
+longer lifetime than the FF device, making get_device()/put_device()
+unnecessary.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 9a24799e219b1699bb1c144248c8c500b9504db5
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112401-catnip-barn-1ab6@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+Due to the driver being unable to build as a module since commit
+083a4f3f3cc7 ("HID: Kconfig: Fix build error from CONFIG_HID_HAPTIC"),
+try_module_get()/module_put() is needless, too.
 
-Possible dependencies:
+Remove the said calls, so that there is no error path after
+input_ff_create(), eliminating the call to input_ff_destroy(). In this
+manner, we don't need to restore dev->flush and dev->event either.
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 9a24799e219b1699bb1c144248c8c500b9504db5 Mon Sep 17 00:00:00 2001
-From: Breno Leitao <leitao@debian.org>
-Date: Wed, 4 Nov 2026 09:04:11 -0800
-Subject: [PATCH] net/mlx5e: Fix queue stats access to queues without stats
-
-I am seeing the following mlx5e crash in the Meta fleet:
-
-  pc : mlx5e_get_queue_stats_rx+0x4c/0xc8
-  Call trace:
-   mlx5e_get_queue_stats_rx+0x4c/0xc8 (P)
-   netdev_stat_queue_sum+0x78/0x480
-   netdev_nl_qstats_get_dump_one+0xf0/0x268
-   netdev_nl_qstats_get_dumpit+0x7c/0x1f8
-
-When dumping device-wide qstats, the core calls the per-queue callbacks
-for every queue below real_num_{rx,tx}_queues, regardless of whether the
-netdev is up. Some of those queues have no stats behind them:
-
- - RX stats live in priv->channel_stats[], which only has entries for
-   channels that have been opened (stats_nch). real_num_rx_queues can
-   be larger, for example after the channel count is raised while the
-   netdev is down, or after opening the channels failed part way.
-
- - TX stats are looked up in priv->txq2sq_stats[], which is NULL for
-   SQs that were never activated and for HTB queues while the channels
-   are closed.
-
-In both cases the callback dereferences a NULL pointer. The dump needs
-no privileges, so any user can trigger it.
-
-Return early for RX queues at or above stats_nch and for TX queues
-without SQ stats.
-
-Fixes: 7b66ae536a78 ("net/mlx5e: Add per queue netdev-genl stats")
+Fixes: 083a4f3f3cc7 ("HID: Kconfig: Fix build error from CONFIG_HID_HAPTIC")
 Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
-Link: https://patch.msgid.link/20261104-mlx5e-qstats-null-v1-1-a6a003245cec@debian.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Link: https://msgid.link/f44447354f28c295e79a025bbcab7a4e@gmail.com
+Signed-off-by: Rong Zhang <i@rong.moe>
+---
+Changes in v4:
+- Drop get_device()/put_device() and try_module_get()/module_put()
+  completely, as they are needless now (thanks Dmitry Torokhov)
+---
+ drivers/hid/hid-haptic.c | 25 -------------------------
+ 1 file changed, 25 deletions(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-index c3c2c5720c6f..72bca10c579d 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-@@ -5489,7 +5489,7 @@ static void mlx5e_get_queue_stats_rx(struct net_device *dev, int i,
- 	struct mlx5e_rq_stats *xskrq_stats;
- 	struct mlx5e_rq_stats *rq_stats;
+diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
+index b7fadfbddc4c..c675e14f06e1 100644
+--- a/drivers/hid/hid-haptic.c
++++ b/drivers/hid/hid-haptic.c
+@@ -380,12 +380,8 @@ static int hid_haptic_erase(struct input_dev *dev, int effect_id)
+ static void hid_haptic_destroy(struct ff_device *ff)
+ {
+ 	struct hid_haptic_device *haptic = ff->private;
+-	struct hid_device *hdev = haptic->hdev;
+ 	int r;
  
--	if (mlx5e_is_uplink_rep(priv) || !mlx5e_stats_nch_read(priv))
-+	if (mlx5e_is_uplink_rep(priv) || i >= mlx5e_stats_nch_read(priv))
- 		return;
+-	if (hdev)
+-		put_device(&hdev->dev);
+-
+ 	kfree(haptic->stop_effect.report_buf);
+ 	haptic->stop_effect.report_buf = NULL;
  
- 	channel_stats = priv->channel_stats[i];
-@@ -5521,6 +5521,9 @@ static void mlx5e_get_queue_stats_tx(struct net_device *dev, int i,
- 	 * inactive sqs.
- 	 */
- 	sq_stats = priv->txq2sq_stats[i];
-+	if (!sq_stats)
-+		return;
-+
- 	stats->packets = sq_stats->packets;
- 	stats->bytes = sq_stats->bytes;
+@@ -404,8 +400,6 @@ static void hid_haptic_destroy(struct ff_device *ff)
  
+ 	kfree(haptic->hid_usage_map);
+ 	haptic->hid_usage_map = NULL;
+-
+-	module_put(THIS_MODULE);
+ }
+ 
+ int hid_haptic_init(struct hid_device *hdev,
+@@ -419,8 +413,6 @@ int hid_haptic_init(struct hid_device *hdev,
+ 	};
+ 	const char *prefix = "hid-haptic";
+ 	char *name;
+-	int (*flush)(struct input_dev *dev, struct file *file);
+-	int (*event)(struct input_dev *dev, unsigned int type, unsigned int code, int value);
+ 
+ 	haptic->hdev = hdev;
+ 	haptic->max_waveform_id = max(2u, haptic->max_waveform_id);
+@@ -499,8 +491,6 @@ int hid_haptic_init(struct hid_device *hdev,
+ 
+ 	input_set_capability(dev, EV_FF, FF_HAPTIC);
+ 
+-	flush = dev->flush;
+-	event = dev->event;
+ 	ret = input_ff_create(dev, FF_MAX_EFFECTS);
+ 	if (ret) {
+ 		dev_err(&hdev->dev, "Failed to create ff device.\n");
+@@ -513,23 +503,8 @@ int hid_haptic_init(struct hid_device *hdev,
+ 	ff->playback = hid_haptic_playback;
+ 	ff->erase = hid_haptic_erase;
+ 	ff->destroy = hid_haptic_destroy;
+-	if (!try_module_get(THIS_MODULE)) {
+-		dev_err(&hdev->dev, "Failed to increase module count.\n");
+-		goto input_free;
+-	}
+-	if (!get_device(&hdev->dev)) {
+-		dev_err(&hdev->dev, "Failed to get hdev device.\n");
+-		module_put(THIS_MODULE);
+-		goto input_free;
+-	}
+ 	return 0;
+ 
+-input_free:
+-	input_ff_destroy(dev);
+-	/* Restore dev flush and event */
+-	dev->flush = flush;
+-	dev->event = event;
+-	return ret;
+ stop_buffer_free:
+ 	kfree(haptic->stop_effect.report_buf);
+ 	haptic->stop_effect.report_buf = NULL;
+
+-- 
+2.55.0
 
