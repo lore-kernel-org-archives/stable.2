@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795536495;
-	b=Uudk0EAq2oI9PnFLAkNb+++JM6hddhQ0mXU6VyXbCtiX5wowpRsS/+78ZhYcMEJBONMd
-	 CacuuN7Upa5sJ9ucR7T4XHqVJ7GA1Y0hnqsJlKfzIsxUI0pBL/SC3LiRGoPf51VsXe+WX
-	 ei5GWseO0mL3OtuV/GJfFFgpcPsQslE1O5qaWmYUN7CRP69dEiNF4/O4lk2CQsgnCwjr0
-	 cvWgUTYXpHxWF3X6xwtreJRodZA4p6U56R5LYkgm1ytYz7f0pHI9uRhUSaSuFc9vs+rS9
-	 z4tbd3ZgdB7pLczAFkJYx8pIFombuTv53AXgl6bo5W5yehsHfDJC77/2jynOLquZx7w==
+	b=K3ZGdoFYrOBVGtSj8lYnyGm10B4seK5DaM+D9IeKS5UjERjLOtykYJDOS5PEVBHLsM74
+	 6HZqhNiwAGLCquaCPEYH0wiqE3CVK/gNn2gYbHg2WAsnprz23Uf+b9niDzDQOGlQiUgsl
+	 b2dfMCSK3NKOvlSRToRuI2p1SKU3ohX8TGqXJtdWSPv1sOpD2CGkXCibSkk/vdvwtwWux
+	 FpGZZ8Hoxu/UEtge1Bayb8JNADjWEsyw9VC3Z2+IK05FDTuzWCcDL0ucu3VzQyqfL94jS
+	 YGSYzA+CmEuOFSS7vzEhrg8uxl3Y7HkLjYk3XvY8XT0uxD60Pn/hAQB/YxtMdwVUBAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795536495;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KqBiztSQeQD4jq+LzznM4b8cED7lYqyt739F8ZCBk/w=;
-	b=CveuW/VepnrWn4O7tRNEg/LR7hkRga0YABtf+NhfEBw4pZY9QtFJxsVVl9JTEPgtZ4fZ
-	 yMXBLpK7ZRb4uvKrZ0OFFI5hJ1PQBDq8wdrtqE7w0qfNZMLNLxBnE9SUHT+acuk+Kjut9
-	 ipzR+wv565gmxLbsl6NAnFF+xEp24gdKKJ5lHhFTQaVpJFIW7YsOduqfWiswKkPb8lprt
-	 eUaDYv0B+I7yVaCv4ipEKaxaGvJw58JzoymxCJ1wXH/S7IMYaEYSC5DG7ddQaa64mDLsG
-	 rqsVdZGD5cuWcbtUzAv3KB0jxAj6+Uq/6JcbbvJqFfEdITSOfShyoF4z/rqMavTIVPg==
+	bh=kFTNabQtDL8NHvywAjkEy5v1oK3QmEloNZ6WNxs+EVY=;
+	b=k37JmpSx1out5TscUOktmsiqRYowhhopdKifJj3wqx7C6Q78y2q2Zi/IrvZ0CBiCWPge
+	 dgy0/Heca7QimPIb2OFQ7LN0YxcRw0mprsZZdyYP4VUpLn3BdOg/P2oFmLc2Jjt4g2y2T
+	 f6ZM9iQN2WeVUlrJE0ZY1Er6T9GVVbUJu2GcYCoKmR+ykp06pf8Ms+fulo+XNarYtUfBN
+	 3WDKo133CCvNGlRAsXhNRIXSLUoJj+tHhscgS3u1E1pPlnAjT+iMDsrlPFQEWu1jVXUPq
+	 9JJJYamn3aFYNpnu2b0vHYX1tdXSoDzZvDWHiu7ORxiTkvos89bC/0ZXgw780cfh2aA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kapMGbGe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CUjwLo3F;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A9D606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:08:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0AD7606A32E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:08:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kapMGbGe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0959D1F000C4;
-	Tue, 24 Nov 2026 16:08:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CUjwLo3F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6DD51F000C0;
+	Tue, 24 Nov 2026 16:08:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795536494;
-	bh=KqBiztSQeQD4jq+LzznM4b8cED7lYqyt739F8ZCBk/w=;
+	s=k20260515; t=1795536495;
+	bh=kFTNabQtDL8NHvywAjkEy5v1oK3QmEloNZ6WNxs+EVY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kapMGbGejeGOeGxO54S+VCa4jp5NyO1AxuMpBYQ8iX9gMvPnxrvtsJet5F8HOBjcf
-	 KL6Pu8hsxX7wKpkxb+8TMYPzBXIpFWrTmu84bGzLJoSmAguF+HP+HWAZa2EasrhrDR
-	 FcCQZtYpzRjLJ2YvlCydltiAr0SovU/MYNzPGo2rYAl7OGGCAYL2fEFlZ54NX9LXUd
-	 XbHk+Z5ksRlrXIuGJlUCABgItkNCagN/UBIvRCivV50TWsVeJnbfMpyZDoCwMha74K
-	 y++V5I3QNldeFWHNEMsvkeaYkT4qJHDMYcyqSuXsTwmkNKrThHuoKyj0mfZXTCHPZk
-	 cWCoYjbILuAoA==
+	b=CUjwLo3FrhOdCQTbAEJn4oFnFAaWGY7V2TYPS/oVtwx0iCyO2vnayqm/g7tXXs1eM
+	 6tBdu5UmHNTEmNPJ6A/0mPhtg+z8nk52MrB7JY5LWeHhKp5LpeMZo41WXIdmwKvnB0
+	 J+H2lWX9GTxwE8AGzX/ZSe8fpNecmOeiDt48vFO7PGVMpk5vFVbsngL+OT1ZXa8SU1
+	 xE1ugs6GMmFMY+eGUQlNHHFQxGGYmF+mUexTz/gO5S8BF8n+SQra+nThK1PWh9a5GT
+	 9O1K4Z4SvoOQTCEA889Wx5E2QhadfMehJ4aQ/GfqddnI+byyQrEEQzAgI4TAJ/2Jz9
+	 OAoEF4ds3cO4g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>,
+Cc: Yuansheng Yang <0xbeac@gmail.com>,
 	Jarkko Sakkinen <jarkko@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] keys: keyctl_pkey: replace BUG with return -EOPNOTSUPP
-Date: Tue, 24 Nov 2026 11:08:11 -0500
-Message-ID: <20261124160735.11606-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] KEYS: Protect pkey method checks against type removal
+Date: Tue, 24 Nov 2026 11:08:12 -0500
+Message-ID: <20261124160735.11606-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112436-utility-parasitic-7f63@gregkh>
+In-Reply-To: <20261124160735.11606-1-sashal@kernel.org>
 References: <2026112436-utility-parasitic-7f63@gregkh>
+ <20261124160735.11606-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,45 +62,244 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+From: Yuansheng Yang <0xbeac@gmail.com>
 
-[ Upstream commit 1b9524250996b1f2f49833a1b2ae21c34e486f85 ]
+[ Upstream commit bab48a1044475f62d6e910c6d7267ce4bae847f9 ]
 
-Replace two BUG() calls in keyctl_pkey_params_get_2() and
-keyctl_pkey_e_d_s() default cases with -EOPNOTSUPP, matching
-the error style already used in these functions.
+keyctl_pkey_query(), keyctl_pkey_e_d_s() and keyctl_pkey_verify() check
+that key->type has the ->asym_*() method they need and call it later,
+without holding key->sem.  A reference keeps the key alive, but does not
+pin the module that provides its type.
 
-Signed-off-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+When that module is unloaded, unregister_key_type() waits for the key GC
+to process every remaining key of the type.  For each such key, the GC
+takes key->sem for writing, switches key->type to key_type_dead, whose
+->asym_*() methods are NULL, and destroys the payload.  If that happens
+between the check and the call, the keyctl calls a NULL method; if it
+happens while the method runs, the method returns into freed module text.
+In-tree, turris-signing-key provides ->asym_query() and ->asym_eds_op()
+and can be built as a module.
+
+Take key->sem for reading around each method call, and check the method
+again under it, right before the call.  While the lock is held the GC
+cannot switch the key to key_type_dead, so unregister_key_type() and the
+module unload cannot complete until the method returns.  If the type is
+already gone, the check finds key_type_dead and the keyctl fails with
+-EOPNOTSUPP, as it does for any key type without the method.
+
+memdup_user() and copy_to_user() stay outside key->sem, as in
+keyctl_read_key(), so no page fault is taken with key->sem held.  The
+in-tree ->asym_*() methods do not take key->sem themselves.  Nothing else
+in the kernel calls these methods, so these four call sites are the full
+coverage:
+
+ - keyctl_pkey_query(): ->asym_query() for KEYCTL_PKEY_QUERY
+ - keyctl_pkey_params_get_2(): ->asym_query(), and the op-specific check
+   for KEYCTL_PKEY_ENCRYPT, _DECRYPT, _SIGN and _VERIFY
+ - keyctl_pkey_e_d_s(): ->asym_eds_op() for _ENCRYPT, _DECRYPT and _SIGN
+ - keyctl_pkey_verify(): ->asym_verify_signature() for _VERIFY
+
+This problem was recently fixed for keyctl_read_key() by 925c84e3cc21
+("keys: Protect the read method check against type removal") and for
+key_update() by aef3a8a4f988 ("KEYS: Protect the update method check
+against type removal").
+
+Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops for asymmetric keys [ver #2]")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Link: https://lore.kernel.org/r/20261110030252.9979-1-0xbeac@gmail.com
 Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-Stable-dep-of: bab48a104447 ("KEYS: Protect pkey method checks against type removal")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/keys/keyctl_pkey.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ security/keys/keyctl_pkey.c | 100 +++++++++++++++++++++++++++---------
+ 1 file changed, 76 insertions(+), 24 deletions(-)
 
 diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
-index ba150ee2d4a37..15b6bf6399b59 100644
+index 15b6bf6399b59..e7121523b9c9a 100644
 --- a/security/keys/keyctl_pkey.c
 +++ b/security/keys/keyctl_pkey.c
-@@ -163,7 +163,7 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
+@@ -129,45 +129,77 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
+ 	if (ret < 0)
+ 		return ret;
+ 
++	down_read(&params->key->sem);
++
++	if (!params->key->type->asym_query) {
++		ret = -EOPNOTSUPP;
++		goto out_up_key_sem;
++	}
++
+ 	ret = params->key->type->asym_query(params, &info);
+ 	if (ret < 0)
+-		return ret;
++		goto out_up_key_sem;
+ 
+ 	switch (op) {
+ 	case KEYCTL_PKEY_ENCRYPT:
+ 		if (uparams.in_len  > info.max_dec_size ||
+-		    uparams.out_len > info.max_enc_size)
+-			return -EINVAL;
++		    uparams.out_len > info.max_enc_size) {
++			ret = -EINVAL;
++			goto out_up_key_sem;
++		}
+ 
+ 		params->out_len = info.max_enc_size;
+ 		break;
+ 	case KEYCTL_PKEY_DECRYPT:
+ 		if (uparams.in_len  > info.max_enc_size ||
+-		    uparams.out_len > info.max_dec_size)
+-			return -EINVAL;
++		    uparams.out_len > info.max_dec_size) {
++			ret = -EINVAL;
++			goto out_up_key_sem;
++		}
+ 
+ 		params->out_len = info.max_dec_size;
+ 		break;
+ 	case KEYCTL_PKEY_SIGN:
+ 		if (uparams.in_len  > info.max_data_size ||
+-		    uparams.out_len > info.max_sig_size)
+-			return -EINVAL;
++		    uparams.out_len > info.max_sig_size) {
++			ret = -EINVAL;
++			goto out_up_key_sem;
++		}
+ 
+ 		params->out_len = info.max_sig_size;
+ 		break;
+ 	case KEYCTL_PKEY_VERIFY:
+ 		if (uparams.in_len  > info.max_data_size ||
+-		    uparams.in2_len > info.max_sig_size)
+-			return -EINVAL;
++		    uparams.in2_len > info.max_sig_size) {
++			ret = -EINVAL;
++			goto out_up_key_sem;
++		}
+ 
  		params->out_len = info.max_sig_size;
  		break;
  	default:
--		BUG();
-+		return -EOPNOTSUPP;
+-		return -EOPNOTSUPP;
++		ret = -EOPNOTSUPP;
++		goto out_up_key_sem;
  	}
  
  	params->in_len  = uparams.in_len;
-@@ -245,7 +245,8 @@ long keyctl_pkey_e_d_s(int op,
- 		params.op = kernel_pkey_sign;
- 		break;
- 	default:
--		BUG();
+-	return 0;
++
++	switch (op) {
++	case KEYCTL_PKEY_VERIFY:
++		if (!params->key->type->asym_verify_signature)
++			ret = -EOPNOTSUPP;
++		break;
++	case KEYCTL_PKEY_ENCRYPT:
++	case KEYCTL_PKEY_DECRYPT:
++	case KEYCTL_PKEY_SIGN:
++		if (!params->key->type->asym_eds_op)
++			ret = -EOPNOTSUPP;
++		break;
++	}
++
++out_up_key_sem:
++	up_read(&params->key->sem);
++	return ret;
+ }
+ 
+ /*
+@@ -185,7 +217,16 @@ long keyctl_pkey_query(key_serial_t id,
+ 	if (ret < 0)
+ 		goto error;
+ 
++	down_read(&params.key->sem);
++	if (!params.key->type->asym_query) {
 +		ret = -EOPNOTSUPP;
-+		goto error_params;
- 	}
++		goto out_up_key_sem;
++	}
++
+ 	ret = params.key->type->asym_query(&params, &res);
++
++out_up_key_sem:
++	up_read(&params.key->sem);
+ 	if (ret < 0)
+ 		goto error;
+ 
+@@ -230,10 +271,6 @@ long keyctl_pkey_e_d_s(int op,
+ 	if (ret < 0)
+ 		goto error_params;
+ 
+-	ret = -EOPNOTSUPP;
+-	if (!params.key->type->asym_eds_op)
+-		goto error_params;
+-
+ 	switch (op) {
+ 	case KEYCTL_PKEY_ENCRYPT:
+ 		params.op = kernel_pkey_encrypt;
+@@ -260,7 +297,16 @@ long keyctl_pkey_e_d_s(int op,
+ 	if (!out)
+ 		goto error_in;
+ 
++	down_read(&params.key->sem);
++	if (!params.key->type->asym_eds_op) {
++		ret = -EOPNOTSUPP;
++		goto out_up_key_sem;
++	}
++
+ 	ret = params.key->type->asym_eds_op(&params, in, out);
++
++out_up_key_sem:
++	up_read(&params.key->sem);
+ 	if (ret < 0)
+ 		goto error_out;
+ 
+@@ -305,31 +351,37 @@ long keyctl_pkey_verify(const struct keyctl_pkey_params __user *_params,
+ 	ret = keyctl_pkey_params_get_2(_params, _info, KEYCTL_PKEY_VERIFY,
+ 				       &params);
+ 	if (ret < 0)
+-		goto error_params;
+-
+-	ret = -EOPNOTSUPP;
+-	if (!params.key->type->asym_verify_signature)
+-		goto error_params;
++		goto out_free_params;
  
  	in = memdup_user(_in, params.in_len);
+ 	if (IS_ERR(in)) {
+ 		ret = PTR_ERR(in);
+-		goto error_params;
++		goto out_free_params;
+ 	}
+ 
+ 	in2 = memdup_user(_in2, params.in2_len);
+ 	if (IS_ERR(in2)) {
+ 		ret = PTR_ERR(in2);
+-		goto error_in;
++		goto out_free_in;
+ 	}
+ 
+ 	params.op = kernel_pkey_verify;
++	down_read(&params.key->sem);
++	if (!params.key->type->asym_verify_signature) {
++		ret = -EOPNOTSUPP;
++		goto out_up_key_sem;
++	}
++
+ 	ret = params.key->type->asym_verify_signature(&params, in, in2);
+ 
++out_up_key_sem:
++	up_read(&params.key->sem);
+ 	kfree(in2);
+-error_in:
++
++out_free_in:
+ 	kfree(in);
+-error_params:
++
++out_free_params:
+ 	keyctl_pkey_params_free(&params);
+ 	return ret;
+ }
 -- 
 2.53.0
 
