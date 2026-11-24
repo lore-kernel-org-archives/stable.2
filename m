@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795512276;
-	b=iLblysR+9RUCcsHmxvaIBTTjmCfnV27W2ISBK+27RtpERCBd6y5LrtUAv88t3yfpStnQ
-	 z86zL/estq6iWHB8GAhwmNN6hJJDsWYn9SSnKYjYONjFT06rWI3C7heGhshwt78KLgPpf
-	 P3rhhCFuYeYuaxyTPMbPl6LEmRe7gaH92r3UqQzkVvLjF911dzaPXOn5o8+2vv+gpwW0q
-	 bvDoHoKhgrnoBWTYtCWAek2SJzbqgDviaXduksKTGOUmEkMqHEgmAsH2BWmkGVLZh2QRf
-	 /ARguQq8ppwSDzsDm8BuiYx/pIsC4s6IiMDFu+iYmWWLb/UDMQAqCWgJYOomxAEuLAQ==
+	t=1795512315;
+	b=mHnXsorl6McbNLXy0285yfhomgitrzqThlwwLfnjQ2hkMno5ZafIcUtjtOnbxp9iFGpy
+	 yn4uVNySzw+z9AJavTXOziL34rqyxs1cQh7IDFsVQoAbRperGUQrg897tYVq3q1L8fGR4
+	 BskJatIrCMOfPs74EFVj46rJzjGk5t+zwSrwsHzLr2OHFPox+Q0oaiDaV7r9arE9hRgbA
+	 I4r7o0RVxCdSRhqMgUr6M5OGmNvv17VeJb8t7nAQciBdpfHD1ZI9b86iRUpaxnjuKVzx+
+	 hToCJAiTbb65caVNMMClg1zcN9u4LpzUW/lRUvOJAs/xroCv3NnQNbsPcaBo3kodktw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795512276;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=aoI8AlSI3VF7hQCQWNsK0cPXv5qsgsj2161PVO/bKVs=;
-	b=NvLvgCninbpEjj9EdnbX58uYkasWZd60CIcsY4tEKC5ckhF0dmzu/bcUEYZee+NDLEpe
-	 84Oyl+ix5xRMsYF1WyArKAgVQzTZJZxn6xpIRFXL2eo9csAibUlPzEGTmalAGbdystd47
-	 enEdrHKjxsMreBxQbOWR1jRbv60Mjab6RKStJwspah5PRYNwVmEGNpSAH9mK0A1vURypO
-	 9D1BbDioD76DFLwdCT8POcHV+LHY9zv2lIgKFH+XcdUowGoH0z2VjJ0WhQJAVYC61aBHj
-	 qjbAad5PG3FWGS2MgXzAZGNxTUhWCDClKvyWPtPNgTal7yhaVRG5xHNHyEGHg99devg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795512315;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dLxgkF8kSB2RTpMkpmTwaaceB4lAL0xhonWTFjC6GmE=;
+	b=i8fkXXZmVhPXLyFmP2UxE9AjE7EpJBjxYpwvhO3fKIu7x/F0aJq/Eo1neznzgcZC3V55
+	 sDSTvSQ8Zo/FIlrtnHN9+EOnnOjsqArBvXbG0h4f73w9WUyFFouECt6TDZaMUu/sxLxNA
+	 UpxuBKQlK6vXY5kDyEaSd6IetTjJXwWz+brqBe42QIfMdK3aSiGpetiTYyoHm+Zt2hPp2
+	 tWabJaFYxdY5bnQTGf8mfWOPp134ccO8gxDsHx6/yQAnV03At5vH8voXiOgdzOHBPG+nV
+	 9I2HmRGfvCtJjAkIsG9NPKz7wg+7iqqb0dgqS+VYAEXUO3kwO+BBZD3ifqbahkOZvVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ip0+fvPH;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m901xYFi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58789606A683
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:24:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58789606A683
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id CA685606A33B;
+	Tue, 24 Nov 2026 09:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ip0+fvPH
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 72D0CC4CBEC;
-	Tue, 24 Nov 2026 09:24:41 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1ABBA601E1;
-	Tue, 24 Nov 2026 09:24:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2218111E6A9B3;
-	Tue, 24 Nov 2026 10:24:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795512273; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=aoI8AlSI3VF7hQCQWNsK0cPXv5qsgsj2161PVO/bKVs=;
-	b=Ip0+fvPHtXLgnCo+SM/S6acz+lzzOI2el35iIWyX2xi4rAK9gb3vRfvcvlvXPPDKYDc4pt
-	f+PAElG4w5jIS5GbdLpOd83QRbfjcDZeV3udvjURNFvdrNEzGgXU0Ctajj0KyfnEV2NUdH
-	VBOl338USGubER0qQInlPiieVM4PtCJBv47K/kXWaMRhwQVCiKcyF1y6BzWXCRPV2Of3Rw
-	VuGTcAkLAaQBlGfRlNpJR0LxVscdRbIKXDa7vtxt90DQr9o4TH59WISWZ33QnWUhXxI4SV
-	qZ65R6dd9vXt2+oKXji30m6KeBZWPEi7i+YRYMJEOVXFAKs24WUkWEo4tpd60g==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Tue, 24 Nov 2026 10:24:23 +0100
-Subject: [PATCH v2 2/3] mtd: rawnand: cadence: Resize the bounce buffer
- before the BBT scan
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m901xYFi
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 225F91F000C4;
+	Tue, 24 Nov 2026 09:25:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795512315;
+	bh=dLxgkF8kSB2RTpMkpmTwaaceB4lAL0xhonWTFjC6GmE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m901xYFivPLFlqRAoJB1RhhCoEumUaGmujKZ8Gb83Z7PcZtEllTILPK8fD13RO+m0
+	 XwaIfddnS62WYaUDS2GjVkOHI4axEKg6Ql9ZJ/dCFepeTXgoGbf9oSZh61LVs6d3R4
+	 gjMvwjRjGfCJ3OJivzYSPKdLs9kPsP+1sn0qutRc/qLc/meqQ/cC5AWiBcMGDYSEfH
+	 lpfvjnMgqf126W95ENJa4C1wRj0blpg9eUq/3XQtm31kauAGpDTOFvKfRQp3xNNvSA
+	 JbwZpxV7sQZWL7ICpfFFIMByds/8nWtuJYx1gtrVeB5Sf/VFZdxKeohnoqdNtOf7pC
+	 6stHNF1GegTfQ==
+Date: Tue, 24 Nov 2026 11:25:12 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
+	serge@hallyn.com, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] keys: fix crash on big_key read or revoke after a
+ failed update
+Message-ID: <awVX-N25GzGKK_Od@kernel.org>
+References: <20261124025759.39344-1-bsdhenrymartin@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,91 +58,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-perso-upstreaming-rawnand-fixes-v2-2-69db17ad07bd@bootlin.com>
-References: <20261124-perso-upstreaming-rawnand-fixes-v2-0-69db17ad07bd@bootlin.com>
-In-Reply-To: <20261124-perso-upstreaming-rawnand-fixes-v2-0-69db17ad07bd@bootlin.com>
-To: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, 
- Niravkumar L Rabara <niravkumarlaxmidas.rabara@altera.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Miquel Raynal <miquel.raynal@bootlin.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261124025759.39344-1-bsdhenrymartin@gmail.com>
 
-The bounce buffer is allocated with a default size and only resized to
-the actual page + OOB size once all the chips have been
-scanned. However, the bad block table is scanned during nand_scan(),
-before that resize happens, using the same bounce buffer. Chips with a
-page + OOB size larger than the default size may therefore overflow the
-heap buffer.
+On Tue, Nov 24, 2026 at 10:57:59AM +0800, Henry Martin wrote:
+> big_key_update() reserves quota with the raw payload length and then
+> destroys the old payload before instantiating the new one.  For a payload
+> of N < 16 bytes that reserve releases 16-N bytes, so the reserve of 16
+> done by generic_key_instantiate() charges them again and can fail with
+> -EDQUOT once the payload is already destroyed.  big_key_destroy() keeps
+> payload->length but clears path and data, so the key stays positive with
+> a stale length that KEYCTL_READ and KEYCTL_REVOKE then follow:
+> 
+> kernel BUG at fs/open.c:1145!
+> Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+> RIP: 0010:dentry_open+0x7b/0x90
+>  big_key_read+0x141/0x280
+> 
+> Instantiate the new payload first and destroy the old one only on success;
+> a positive key's reservation is already 16 bytes, so it cannot fail.
+> 
+> This issue was discovered by Tencent CodeBuddy Security.
+> Cc: stable@vger.kernel.org
+> Fixes: b6f61c314649 ("keys: Implement update for the big_key type")
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> ---
+> Changes in v2:
+> - Drop the comment in big_key_update(); it belongs in the changelog.
+> - Rework the changelog per the review below: the quota is released by the
+>   removed key_payload_reserve() call, not by big_key_destroy(), which only
+>   drops path and data.
+> 
+> Link: https://sashiko.dev/#/patchset/20261123165443.4092852-1-bsdhenrymartin@gmail.com?part=1
+> 
+>  security/keys/big_key.c | 16 ++++++++++++----
+>  1 file changed, 12 insertions(+), 4 deletions(-)
+> 
+> diff --git a/security/keys/big_key.c b/security/keys/big_key.c
+> index 268f702df380e..aa3e82ac93ee2 100644
+> --- a/security/keys/big_key.c
+> +++ b/security/keys/big_key.c
+> @@ -193,16 +193,24 @@ void big_key_destroy(struct key *key)
+>   */
+>  int big_key_update(struct key *key, struct key_preparsed_payload *prep)
+>  {
+> +	struct big_key_payload old = { };
+> +	bool positive = key_is_positive(key);
+>  	int ret;
+>  
+> -	ret = key_payload_reserve(key, prep->datalen);
+> +	if (positive)
+> +		old = *to_big_key_payload(key->payload);
+> +
+> +	ret = generic_key_instantiate(key, prep);
+>  	if (ret < 0)
+>  		return ret;
+>  
+> -	if (key_is_positive(key))
+> -		big_key_destroy(key);
+> +	if (positive) {
+> +		if (old.length > BIG_KEY_FILE_THRESHOLD)
+> +			path_put(&old.path);
+> +		kfree_sensitive(old.data);
+> +	}
+>  
+> -	return generic_key_instantiate(key, prep);
+> +	return 0;
+>  }
+>  
+>  /*
+> -- 
+> 2.53.0
+> 
 
-In practice, this default is safe since it is set to 16kiB and I
-currently know no chip with a bigger page size, but chances are that
-this is not a future-proof bet, so let's resize the bounce buffer
-whenever we attach a chip whose geometry needs a bigger buffer.
+LGTM, thank you.
 
-Fixes: ec4ba01e894d ("mtd: rawnand: Add new Cadence NAND driver to MTD subsystem")
-Cc: stable@vger.kernel.org
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
- drivers/mtd/nand/raw/cadence-nand-controller.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-diff --git a/drivers/mtd/nand/raw/cadence-nand-controller.c b/drivers/mtd/nand/raw/cadence-nand-controller.c
-index 42cc62b36457..912148f90ece 100644
---- a/drivers/mtd/nand/raw/cadence-nand-controller.c
-+++ b/drivers/mtd/nand/raw/cadence-nand-controller.c
-@@ -2970,8 +2970,17 @@ static int cadence_nand_attach_chip(struct nand_chip *chip)
- 	chip->ecc.read_oob_raw = cadence_nand_read_oob_raw;
- 	chip->ecc.write_oob_raw = cadence_nand_write_oob_raw;
- 
--	if ((mtd->writesize + mtd->oobsize) > cdns_ctrl->buf_size)
-+	if ((mtd->writesize + mtd->oobsize) > cdns_ctrl->buf_size) {
-+		u8 *buf;
-+
-+		buf = krealloc(cdns_ctrl->buf, mtd->writesize + mtd->oobsize,
-+			       GFP_KERNEL);
-+		if (!buf)
-+			return -ENOMEM;
-+
-+		cdns_ctrl->buf = buf;
- 		cdns_ctrl->buf_size = mtd->writesize + mtd->oobsize;
-+	}
- 
- 	/* Is 32-bit DMA supported? */
- 	ret = dma_set_mask(cdns_ctrl->dev, DMA_BIT_MASK(32));
-@@ -3136,8 +3145,11 @@ static int cadence_nand_init(struct cdns_nand_ctrl *cdns_ctrl)
- 	if (!cdns_ctrl->cdma_desc)
- 		return -ENOMEM;
- 
--	cdns_ctrl->buf_size = SZ_16K;
--	cdns_ctrl->buf = kmalloc(cdns_ctrl->buf_size, GFP_KERNEL);
-+	/*
-+	 * Allocate a scratch buffer for the identification phase. It gets
-+	 * resized to the actual chip geometry in ->attach_chip().
-+	 */
-+	cdns_ctrl->buf = kmalloc(SZ_16K, GFP_KERNEL);
- 	if (!cdns_ctrl->buf) {
- 		ret = -ENOMEM;
- 		goto free_buf_desc;
-@@ -3194,13 +3206,6 @@ static int cadence_nand_init(struct cdns_nand_ctrl *cdns_ctrl)
- 		goto unmap_dma_resource;
- 	}
- 
--	kfree(cdns_ctrl->buf);
--	cdns_ctrl->buf = kzalloc(cdns_ctrl->buf_size, GFP_KERNEL);
--	if (!cdns_ctrl->buf) {
--		ret = -ENOMEM;
--		goto unmap_dma_resource;
--	}
--
- 	return 0;
- 
- unmap_dma_resource:
-
--- 
-2.56.0
-
+Br, Jarkko
