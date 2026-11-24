@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795551994;
-	b=BytSr+KuL66i1BDP5K/aQb76dD6Kq2arV2/kSR7dugAWzMd42NlcO892W4nVSCCVDCoZ
-	 4UjgU+T6Xk9bap//JeDzrq9KWSH2F+l43AOfH3v+cx1PH1ZAVwon7Pu72pvxFB/EG6Qyr
-	 MQf+lglfxIfuuEWUcBONYqH70D3fYPs/siEZris6tt6LgSLusTrQY/y3dzJ8fV5yk5426
-	 o62x9B2AGQaqrKeG/s01UpG1ab7NWXj3nTxacBqyRKWP7J/FdIm2O3XCX70R01BZPJ262
-	 zNBIyf/uxGqWMqJtBgd9mBeWlqeCWxuEbr321Ln7n2UJbehRsHHrV6lGnZvDLE2M2yg==
+	t=1795552051;
+	b=AkVN+1/AJUJdONN0FS2A59gxltJ/0kctpOM+cKFei9s3aHb6Tox3XyFpMxyl63kHT7Y6
+	 vwCpo1V5D0pX29+E2tKF63IdBjuzEKDNHuAfVO24yGkpvTHBF8ywKUsj5FCD0w4FIxCb1
+	 sYuuT64DyCsO3UNa2WgRLP4/O08qlIvmvro+pDPNxWeF1j7FD6DCzPx16CTBZfIIImWwU
+	 9cFGnRFvMIuRZhdW/BaX0hGnzS7TLhXzhSVXsdyI7wZBMXuyy56fWr2VlUJ7F3RhfH05M
+	 29ggVBIL4hMQ93mYLc+x4xuTiKvDmKKqDdnxJwb08tCXCA+ykPbyg0Vk045FixfSZ+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795551994;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795552051;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ktH5TAE21QJzLreEKi040qitJNuzD7hMryn67Jdt2Vw=;
-	b=amvj9ZMJP5keplFhJkt3VC9WdJUJFtSPsjLLOTr0HT0G3g0H1zis9yCdlnNLvbolAtk/
-	 kU9sZD6vpB4azu7j5U3ZpzmRwKW2FrURY6TWzQD+B04GCzmezn4RYlNFaYOyl0sv3pVdL
-	 L/8Nx6KPd0whgx9YfK0mWfqqsBvhmbxwL2LCM6Sjp+e9w7odJRJo0o1YyK3q5SUIiaBq3
-	 HFm3473ZoqVnT3pH16KtME4j/m4KFwbuGGjvZiMBW8BHi1WR4FqiBDbytdmEq7md1z41G
-	 /eXMITXzsumBrWCReRtYCELCxwFf2sn1MUMWhHtMJADk+2QqUpDcizZ5wh7LCdjOKIQ==
+	bh=zEbs46BmQbPoNqmhI/JvyMr0ABkzwedIosc+vFTPXhY=;
+	b=JIfYJADaGSybSqxsWl5ExZ0/q1UX1XoaYj4zZcCs+SFVVBKPR9x/sM7lCKBXnp08QIrA
+	 NvlXBWpVMkC7r//SLGToQsn31XmPbdjx/UJqvMK05eps3X9lAAfu+YMgpG5aFu69FhNpV
+	 BwcqQM1/h4JhutZTNjj4ZXqpOD+OBncfRgfEq5p3HMLEB5MAZ8Oms4JpMxCyvgSBGG7hk
+	 Fu6oVk5Ig1UaTUuYm3RNWULfSayMmDer81oq+UrSrTyG+nk/QadtC5AoJIGJrQ+uute3D
+	 n39RS7wMkD7Q7bTiEzo81+P8ATZfhN9I3ZM8ejJ/NODM+ZrcddHY1NBymZ6LfoIvHvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCbFrZSC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iiYLh8hG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075AA606A326
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 20:26:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140D4606A323
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 20:27:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCbFrZSC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16AD81F000CA;
-	Tue, 24 Nov 2026 20:26:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iiYLh8hG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7AD21F000C4;
+	Tue, 24 Nov 2026 20:27:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795551993;
-	bh=ktH5TAE21QJzLreEKi040qitJNuzD7hMryn67Jdt2Vw=;
+	s=k20260515; t=1795552050;
+	bh=zEbs46BmQbPoNqmhI/JvyMr0ABkzwedIosc+vFTPXhY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HCbFrZSCLnsCJW4ItnTARMwlKZJ8S/S+qd/cAbeB+khBU+XMNaGYripMAnl7ooqiB
-	 kGUosFZEl0K+A4ol9z3LgSMweJb0CMRZR+5Ghh2Xm0muQ4mB+DuOhb4V/bWrEGl3pi
-	 bqDsgMd6GCBWA/Er4hqBbedFi7/U3lQ/51VSl3yiyUvdyw3bs9ab7z4NcK3PmbaAVY
-	 Z3ImdoxS1xjCGDIDCCVycw9U51mOoxqXJggH+lnyHFjk2/weZlx8Ggtf9K6nNFdNeB
-	 ONHeM33ty0sUuveVJzRpvo3jF4lTk+S/5beUWxHXpJtSlcHR8gvOOuOOpfW69uDX9r
-	 4Sn44mZGYmT1w==
+	b=iiYLh8hG350ZR+UitieyMMqTPb5+DeVFC3w9I6pIKSjYJkTA/LrUcK/uQQnJKyewR
+	 qjKKl2PmfbOUz4vmCajBO/dJUKOMf2EGGlIRQBICLPmffOTbHxtoKvSYhfjBqoWnhG
+	 ts9TU4dGqD6eypxdiqWX3irCfjQX+v4x7Ji7Nnp6IJP7y+hqXCZFwoyKEjAZbqeY0H
+	 oQVMAIgn7RffxsC3Kjj+zm0CuCWEnt2g1wzlpqsBqLGqNfd/IT1B1pzoLWUaa6NUgY
+	 bgFkOYZ+iK057G9sQNybYUu73JW8Akr1aKbhVJYzW0xantDEzmFeOxzcUG2x9/ATSq
+	 6OKUdrxPHVggQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
 	Zi Yan <ziy@nvidia.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm/mempolicy: read the zoneref slot once in mempolicy_slab_node()
-Date: Tue, 24 Nov 2026 15:26:31 -0500
-Message-ID: <20261124202622.2579917-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/page_alloc: don't undo another isolation in alloc_contig_range
+Date: Tue, 24 Nov 2026 15:27:28 -0500
+Message-ID: <20261124202645.2592499-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112405-defuse-expectant-b8c2@gregkh>
-References: <2026112405-defuse-expectant-b8c2@gregkh>
+In-Reply-To: <2026112445-quartet-reseal-bdc1@gregkh>
+References: <2026112445-quartet-reseal-bdc1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,75 +64,70 @@ Content-Transfer-Encoding: 8bit
 
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-[ Upstream commit 4cc1bcdf2e4ebcd319005ce2ea132489f6155139 ]
+[ Upstream commit 7d9c29ed8feec8bfbe5e5f673ba2b5926da11375 ]
 
-For a bind or preferred-many policy, mempolicy_slab_node() tests the
-first matching slot's zone for NULL, then reads the slot again to look
-up the zone's node. Offlining a zone's last block rebuilds the
-zonelists in place, so the second read can return the terminator:
+An alloc_contig_range() that overlaps a block going offline can leave
+the offline spinning until it gets a signal, holding the device hotplug
+lock.  When isolation fails, alloc_contig_frozen_range() undoes it over
+the whole range, clearing the offline's MIGRATE_ISOLATE too:
 
-  CPU 0                             CPU 1
-  mempolicy_slab_node()
-    zonelist_zone(slot 4)
-      = node 2 NORMAL
-                                    offline_pages()
-                                      build_all_zonelists()
-                                        slot 4 = NULL
-    zonelist_node_idx(slot 4)
-      zone_to_nid(NULL)
+  CPU 1 (offline_pages)               CPU 2 (alloc_contig_range)
+  start_isolate_page_range()
+    blocks are MIGRATE_ISOLATE
+                                      start_isolate_page_range()
+                                        -EBUSY on CPU 1's blocks
+                                      undo_isolate_page_range()
+                                        blocks are MIGRATE_MOVABLE
+  test_pages_isolated()
+    never succeeds again
 
-Current GCC merges the two reads, but nothing requires it. With
-mm/mempolicy.o built with -fno-inline -fno-ipa-sra, holding a bound
-task's slab_strict_numa allocation between the reads while a movable
-block earlier in the zonelist goes offline oopses every time:
+start_isolate_page_range() fails only on a block someone else isolated,
+after undoing its own, so this undo only ever clears another caller's.
+Return directly, as before alloc_contig_range() went pageblock granular.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000060
-  RIP: 0010:zone_to_nid+0x0/0x10
-  Call Trace:
-   kmem_cache_alloc_noprof+0x294/0x610
-   do_getname+0x34/0x230
+With offline_pages() parked after isolating a DIMM block and a 1G
+hugetlb allocation made over it, the offline on base still loops 30s
+later in 4 of 4 runs:
 
-mempolicy_slab_node() and zonelist_node_idx() are tail calls here, so
-neither appears in the trace.
+  offline_pages+0x5b2/0x1570
+  memory_subsys_offline+0x17e/0x470
+  device_offline+0x250/0x340
+  state_store+0x88/0x110
 
-Read the slot once and use that zone.
+With this patch the allocation still fails, and the offline completes in
+3 of 3 runs.
 
-Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
+Fixes: b2c9e2fbba32 ("mm: make alloc_contig_range work at pageblock granularity")
 Cc: stable@vger.kernel.org
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Link: https://patch.msgid.link/20261101021340.2251928-12-gourry@gourry.net
+Link: https://patch.msgid.link/20261027042204.3741307-5-gourry@gourry.net
 Reviewed-by: Zi Yan <ziy@nvidia.com>
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+[ sashal: Adapted the change to alloc_contig_range(), where start_isolate_page_range() takes migratetype, 0, and gfp_mask instead of mode. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Depends on <20261124194508.2505154-1-sashal@kernel.org>
+ mm/page_alloc.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
- mm/mempolicy.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 928d0ccbb8931..6dc743d35238c 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -1838,6 +1838,7 @@ unsigned int mempolicy_slab_node(void)
- 	case MPOL_PREFERRED_MANY:
- 	{
- 		struct zoneref *z;
-+		struct zone *zone;
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index ba7f386331a65..155029b96bf7e 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -9328,9 +9328,13 @@ int alloc_contig_range(unsigned long start, unsigned long end,
+ 	 * put back to page allocator so that buddy can use them.
+ 	 */
  
- 		/*
- 		 * Follow bind policy behavior and start allocation at the
-@@ -1848,7 +1849,8 @@ unsigned int mempolicy_slab_node(void)
- 		zonelist = &NODE_DATA(node)->node_zonelists[ZONELIST_FALLBACK];
- 		z = first_zones_zonelist(zonelist, highest_zoneidx,
- 							&policy->nodes);
--		return zonelist_zone(z) ? zonelist_node_idx(z) : node;
-+		zone = zonelist_zone(z);
-+		return zone ? zone_to_nid(zone) : node;
- 	}
- 	case MPOL_LOCAL:
- 		return node;
++	/*
++	 * On failure this has undone its own isolation, and any other
++	 * isolated blocks in the range belong to someone else, e.g. offline.
++	 */
+ 	ret = start_isolate_page_range(start, end, migratetype, 0, gfp_mask);
+ 	if (ret)
+-		goto done;
++		return ret;
+ 
+ 	drain_all_pages(cc.zone);
+ 
 -- 
 2.53.0
 
