@@ -1,55 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.101.131.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795511856;
-	b=HbyT0zrvvkW+MusTVFPtHGEIH6SJUlwoSQrGx3hWrOUgqlDdO6kSeqpKoe+Q5SBzQ095
-	 HkvbGwmBJNWKH5r1+7mnjAyBcu5DpsptdEs1s00KKb1Cn+WBPJXojwa6rntnPgXgjSt/n
-	 QZaCVuMadr8gIsaCKELAHgrYLLscS3vPRUOUxuwbiRZRDXFxXOBKwZncAGwVOaGNEaSWX
-	 guMOjcn+CkI8YS1je++oB6BUpO7QwLwST+mQIxU6gCpzEvGmC2FZpB712kHQo8TT6CeX8
-	 rkJkkjBdv95SzSNfgLmDmSwlJ6D4aOnNsG7n44sIAy+U97HCcWWIk5m/RK7rNwoblew==
+	t=1795511896;
+	b=j388Agkz96KoZO4BEg7xU11zXLKUNBvpWII2hfaHyKVGMCu7FExnMoYOh2B50r/35xxz
+	 QnkWpbPHIn2Zx1TICnZ8xSvClcgGbdRnnx7CLAxFop0p4S/YuxqX40IAS7YFoS8s+2b9B
+	 kciXbRHsRhpbimiukD8+F+WYjjUy3Ms5o1H1BooB7qFp/WnyobeQVWN68D8zw26SHkgFn
+	 T5inkcFx/f30kRDZINYkfW5dYc45yKfTDbklhiKWVwH7v1cSWLsCX5CZl+cHPK1vgLTYE
+	 DNow1L9KzJo5g4wD4A/ZPUknlTRBCjRFIWCywhR+0eOKhIs72/XHcWx7V0sl6W6jdyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795511856;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
-	bh=F9ZILuSuybDZtjSD48JBlRkjyPSEXtkqyJScsyUc8/I=;
-	b=uvqqU/ZMLm0Gex2p8dUHkfy2TIPHth5ycZVqGZxupjzlFZBZT56r9XxWTa9EtpxPvdHF
-	 rHm++qTSjlKRj2YrGvUEVX7HdFQWqZ94eUcAmID7zH2pRy8nZJ+O058t7MBIveYIfLS+p
-	 P37WeHDK+fRvg81899A6e+F+5QiS6thjkLZwbFPDWuN2n2MGJTK939a9C2XkWpYHBiWJi
-	 tTg1FgbARom0etZFmBWXWXeBLmMLTyc1LE10xTbT1K0ei8VDCvy2xG4iynqnVJqws+Dzf
-	 H3BozJ7zUIbJKRLR0oCo3BMqXDwH56k3inXuSCRfFatTmE3TQXWJuXvLDanHNt8HQ7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795511896;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=VIVHFdR/MmlluOtjRkycwLxPeI+HMWe1SECTlY1/a68=;
+	b=QgQ1WQryGr3kNle/biYh4fbG80T/WeBKYUDgn8inr+4Zntj/EISNNruS2MJjdBFydvAp
+	 22UyWtwci/dYCExkt8snWbnaWE4s0+MaQ2Z8MBg88CDou/EV0BBuelOadTf1OoiIr1Fol
+	 z8+oL+eG8MGLKkF/vFwkMEg/wT8KLKrV/1yFW+nx5FMsyATOtUQxnLrNt6yhip31KPAzB
+	 AL7NT31JPnJaPwMLwa4SG1Bkn4BQ8EMQCICnKaY9K7xr0wd7SGXRirEUwUV82AXdlE8QD
+	 Da8Ssw3n0bDFKiexGhBfrjcbwRfTm5oDNvqvi1fm6dtAjPOoop7TZbg+NfoNQwICzlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=iXkg0yr1;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=citrix.com;
+	spf=pass smtp.mailfrom=citrix.com;
+	arc=none smtp.remote-ip=160.101.131.9
+Received: from na1pdmzitismtp02.tibco.com (unknown [160.101.131.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C1A606A321;
-	Tue, 24 Nov 2026 09:17:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8C1A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=iXkg0yr1
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 4F8E01A17A9;
-	Tue, 24 Nov 2026 09:17:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1C1DA601E1;
-	Tue, 24 Nov 2026 09:17:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DDEAC11E68486;
-	Tue, 24 Nov 2026 10:17:29 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795511853; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=F9ZILuSuybDZtjSD48JBlRkjyPSEXtkqyJScsyUc8/I=;
-	b=iXkg0yr1nNVuTsr4GiTS/DwpT1NFo55nN3RDXLum7wXL/qOmZC/f7kMIAP9HQd7SEQsjOB
-	GZ4sagC/F8K1m/vGOYPT979NXRBSvtiY5nVCfD7ZD6poekg69eNODjp/NsnF6oiERoxYck
-	+VxNTbbOPzbpiSGHMoxSkV3kGLv1soQyS48NbDmzKiTjcmsB+sRjE9SAW3LAwOPVWjyT7+
-	4ewO4TmA4B854PVAIEIUb/Th29xv/BDsmi/US5sXZyy1TIKYsCdqrwDw3WE3pdo9HYyzKm
-	iJQHXGu4zoOLdhCHwCUFaAQ1b+FW0jMHZE68VxiC782rs5aAJY7wYFx9cQimNw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0196606A688;
+	Tue, 24 Nov 2026 09:18:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0196606A688
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=citrix.com
+Received: from mewpvdipd1070.citrite.net (unknown [10.113.40.46])
+	by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id 5CC6184D50E7;
+	Tue, 24 Nov 2026 04:16:31 -0500 (EST)
+From: Mark Syms <mark.syms@citrix.com>
+To: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Jesper Dangaard Brouer <hawk@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	netdev@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	bpf@vger.kernel.org,
+	Mark Syms <mark.syms@citrix.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] xen-netfront: unregister the XDP rxq before destroying its page_pool
+Date: Tue, 24 Nov 2026 09:18:06 +0000
+Message-ID: <20261124091806.2736453-1-mark.syms@citrix.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,85 +64,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 4/5] pinctrl: upboard: fix I2C pinmux-select set CPLD
- GPIO OUT not function mode
-From: Thomas Richard <thomas.richard@bootlin.com>
-To: Gary Wang <is0124@gmail.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>, 
- Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Thomas Richard <thomas.richard@bootlin.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Daniele Cleri <danielecleri@aaeon.eu>, JunYingLai <junyinglai@aaeon.com.tw>, 
- Louis Chen <louischen@aaeon.com.tw>, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, BillyChou <BillyChou@aaeon.com.tw>, 
- stable@vger.kernel.org
-In-Reply-To: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-4-f2322a91686d@gmail.com>
-References: <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-0-f2322a91686d@gmail.com>
- <20261123-upboard-pinctrl-add-intc1057-intc105e-support-v1-4-f2322a91686d@gmail.com>
-Date: Tue, 24 Nov 2026 10:17:15 +0100
-Message-Id: <179551183567.11700.4795900066384429160.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-> The CPLD I2C pin mode setting following uart & spi used modes array
-> on device AANT0F04.
-> 
-> CC: stable@vger.kernel.org
-> Fixes: dca2f73cf19f ("pinctrl: Add pin controller driver for AAEON UP boards")
+Each receive queue registers its page_pool as the XDP memory model,
+which takes a second reference on the pool. On disconnect,
+xennet_disconnect_backend() calls page_pool_destroy() but never
+unregisters the rxq, so the pool's user count never reaches zero and
+the pool is never released, together with the receive buffers that
+xennet_release_rx_bufs() has just recycled into it. Every
+suspend/resume or backend reconnect therefore leaks one pool per
+receive queue. The pool never begins shutdown, so the page_pool stall
+warning does not fire and the leak is silent.
 
-Please explain the real issue you met and how you fixed it.
+Unregister the rxq before destroying the pool, and clear the pointer
+so that a second disconnect without a reconnect is harmless.
 
->
-> diff --git a/drivers/pinctrl/pinctrl-upboard.c b/drivers/pinctrl/pinctrl-upboard.c
-> index b9af6dd93c34..66c1c3e3bfe0 100644
-> --- a/drivers/pinctrl/pinctrl-upboard.c
-> +++ b/drivers/pinctrl/pinctrl-upboard.c
-> @@ -225,11 +225,21 @@ static const unsigned int upboard_up_i2c0_pins[] = {
->  	UPBOARD_UP_BIT_TO_PIN(I2C0_SDA),
->  };
->  
-> +static const enum upboard_pin_mode upboard_up_i2c0_modes[] = {
-> +	UPBOARD_PIN_MODE_FUNCTION,
-> +	UPBOARD_PIN_MODE_FUNCTION,
-> +};
-> +
+The leak was observed in CI testing: in XenServer suspend/resume
+stress runs, HVM guests lost available memory on every cycle until
+they stalled. Over 100 suspend/resume cycles the loss scaled with the
+number of VIFs, on Debian 12 (6.1.0-50) and Ubuntu 26.04 (7.0.0-30)
+guests alike; the missing unregister was then found by code
+inspection. Reproducing it needs no kernel modification: suspend and
+resume a guest repeatedly and compare MemAvailable.
 
-Add a static_assert.
+Tested on Debian 12 HVM guests on XenServer 9 (Xen 4.21, AMD EPYC),
+running two builds of the same 6.1.192 source with and without this
+patch. Over 100 suspend/resume cycles the unpatched kernel lost
+1107 KiB per cycle with one VIF and 2279 KiB with two; the patched
+kernel lost 51 and 42 KiB. On current mainline the patch builds
+without warnings at W=1 but was not boot-tested, and kernel selftests
+were not run.
 
->  static const unsigned int upboard_up_i2c1_pins[] = {
->  	UPBOARD_UP_BIT_TO_PIN(I2C1_SCL),
->  	UPBOARD_UP_BIT_TO_PIN(I2C1_SDA),
->  };
->  
-> +static const enum upboard_pin_mode upboard_up_i2c1_modes[] = {
-> +	UPBOARD_PIN_MODE_FUNCTION,
-> +	UPBOARD_PIN_MODE_FUNCTION,
-> +};
-> +
+An AI coding assistant (Claude Code) was used to locate the cause,
+write the fix and draft this changelog.
 
-Ditto.
+Fixes: 6c5aa6fc4def ("xen networking: add basic XDP support for xen-netfront")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mark Syms <mark.syms@citrix.com>
+---
+ drivers/net/xen-netfront.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
->  static const unsigned int upboard_up_spi2_pins[] = {
->  	UPBOARD_UP_BIT_TO_PIN(SPI_MOSI),
->  	UPBOARD_UP_BIT_TO_PIN(SPI_MISO),
-> @@ -289,8 +299,8 @@ static const unsigned int upboard_up_adc0_pins[] = {
->  
->  static const struct upboard_pingroup upboard_up_pin_groups[] = {
->  	UPBOARD_PINGROUP("uart1_grp", upboard_up_uart1_pins, &upboard_up_uart1_modes[0]),
-> -	UPBOARD_PINGROUP("i2c0_grp", upboard_up_i2c0_pins, UPBOARD_PIN_MODE_GPIO_OUT),
-> -	UPBOARD_PINGROUP("i2c1_grp", upboard_up_i2c1_pins, UPBOARD_PIN_MODE_GPIO_OUT),
-> +	UPBOARD_PINGROUP("i2c0_grp", upboard_up_i2c0_pins, &upboard_up_i2c0_modes[0]),
-> +	UPBOARD_PINGROUP("i2c1_grp", upboard_up_i2c1_pins, &upboard_up_i2c1_modes[0]),
-
-I personnally prefer the actual implementation because it saves some lines.
-
-But if you really want to use modes array even if the mode is the same for all
-pins of the group, you should convert all groups to modes array, drop dead code
-and explain the benefits.
-
+diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
+index fdcb91042..b82b3bdb2 100644
+--- a/drivers/net/xen-netfront.c
++++ b/drivers/net/xen-netfront.c
+@@ -1860,7 +1860,10 @@ static void xennet_disconnect_backend(struct netfront_info *info)
+ 		queue->tx.sring = NULL;
+ 		queue->rx.sring = NULL;
+ 
++		if (xdp_rxq_info_is_reg(&queue->xdp_rxq))
++			xdp_rxq_info_unreg(&queue->xdp_rxq);
+ 		page_pool_destroy(queue->page_pool);
++		queue->page_pool = NULL;
+ 	}
+ }
+ 
 -- 
-Best Regards,
-Thomas Richard
+2.56.0
 
