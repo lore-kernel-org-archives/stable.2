@@ -1,52 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795483450;
-	b=sckvsPkSNVY2R5IPXtCY7VmkDXeaJzEddvznY2WCT19c369JUxyvb6B7wi/4O7EN/Sj9
-	 DpzLE0twiWSJPjh+3NDZgC536qKh/LTL887lSYN2UaEk4oQgGFn5hTKt6Al/xat2F50hz
-	 O6u2D99bL8l+bFUuY+MaxT3NcvFYI7drvCWqaavuQ2grDbvelsFvNP7PaP1vqn8DRct8l
-	 svyIHjwS87Y0gPe8QpwnT/ZwtZFfkZ50Z92Jypt9biBRvvZcnBMq/gDFWcfiRdi56exma
-	 bLDDTI3vIfz3MMPaupOsjd8nkR31nbYNKyykkgPeUxITUVKbT1ipZpfEE2dctatMiig==
+	t=1795483943;
+	b=c/4S0AHKhWByZFgNXd6ud1ResUyaQPwc5Y1T4XDYL/TH1yABfs1oG2k01g/IfIsmPXxR
+	 crAMBW1j7UKf87PoQVK7GKjnHf774AnVIbA4Bo47q2dmqn71oPqrbc2BVBYVmQpKf8tIK
+	 se0tGsVSCzJMqLmfE20BWA+ai3YebdNzxDo0OoIDiX02T8P8jEFjKlUgCWdd9v30eoSjv
+	 CWOoLxVvb1pS9Lo1d7czzomTXVk77xUe9RTtOpMtSJudlEwGT1AtsQt/8AKm1rGxbC0nO
+	 gkUAfrgCDMG0dccTi+m47TrO3ebT5G4xBXoCjcLQSYLDEPJRloeul8Xl+8NnqtZeqrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795483450;
-	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
-	 Message-Id;
-	bh=OLoNZDyMLQI21RHk+/5JP/aH++Lj8NdTnXZy1GNjgV8=;
-	b=XJKcMsmdMwkjLVh7IjKyJhSVaTecWVFMV4bW6wp8AQD8kK3MFNpy/EaT0DxC4BcjkZvd
-	 Cu9CtdTvhfWOJ2LbTltipct/xn2lmBSXM5Ye/pNPJiYm7CkRwnsFTSVRe4Rng7M0Hs54O
-	 V/TRUoXTxjKpyxXe39uWG5GWJTHxjJelFB+e3H/8Fp6LSklHvVj8rTKW7h8U7dWpo5GFq
-	 dud3DGQMT68/eT3G4ttUunHWWPHkXkaWPVnwVEtyKsJAc4vmyyhK2UjXfZXtDvRKG9N46
-	 AHX0GIknCH4/s5boBXCOce/vwckbd6MbMBQ/WO1SHnJshG/KddV/fZ98QjfyRndYhMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795483943;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=nAKiNemk2GJJwDYP8p1zRplDTIqlR1poJkDMNc9BGdA=;
+	b=UdWEJPN9cSdLgHd35F/XzsWLuE6Bhp9/IPGjEODg3YJqeTIbkvp5/fy24XwkKog3HpOr
+	 Zmn2wpBfh7Jpr80KfIfoxmkum5Ao/rwvOZhkvFWFZqUHdyDCAnh9aDY+Cb6B/tJsK7ZiL
+	 Qk9aFv2EQT1t5sTTkOK8GAXQ+qzhLiXDMZhCyEb0Jqle2KITFM2u7cijHtMy8WRbRdo0A
+	 yEEDuSP7iizhGCR6c02JearqO0WM1s3hlKlw7J8C3ZkBI0bHlXhgX2kM1PviZ+K1ZCUoc
+	 czDD2t51JvAvTMErcDwcpLsTLmAPJyxP+dvjEVLrF5Skjkr4AdMF7LgZHJHdIaoRz7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=HtTC17eR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fgZSWi0C;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CED3606A31E;
-	Tue, 24 Nov 2026 01:24:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0352606A32A
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 01:32:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0352606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=HtTC17eR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7437F1F000C6;
-	Tue, 24 Nov 2026 01:24:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fgZSWi0C
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1b3b4944a0eso2818920c88.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 17:32:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795483449;
-	bh=OLoNZDyMLQI21RHk+/5JP/aH++Lj8NdTnXZy1GNjgV8=;
-	h=Date:To:From:In-Reply-To:References:Subject;
-	b=HtTC17eR13qZImNHpUyhWhm+S7/Fiiq4xBRUhoW840txrygcaPNDf9BQ3TdI8yIqU
-	 gKfLHHUt195X+OAuOs+gf1jZnhHv+HOVY2tH1I4xVSFU3Pll7U0L0+QYbX9H/dpkMq
-	 ZwuWuozt5HG+2Qgqe9K33idU9u9lLX3JXscK2D7k=
-Date: Mon, 23 Nov 2026 17:24:09 -0800
-To: mm-commits@vger.kernel.org,youngjun.park@lge.com,stable@vger.kernel.org,
-	sj@kernel.org,shikemeng@huaweicloud.com,nphamcs@gmail.com,kees@kernel.org,
-	kasong@tencent.com,gustavo@embeddedor.com,gustavoars@kernel.org,
-	chrisl@kernel.org,baoquan.he@linux.dev,baohua@kernel.org,
-	android-mm@google.com,kaleshsingh@google.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-In-Reply-To: <20261120061750.2973004-1-kaleshsingh@google.com>
-References: <20261120061750.2973004-1-kaleshsingh@google.com>
-Subject: + mm-swap-make-swap_header-badpages-a-flexible-array.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261124012409.7437F1F000C6@smtp.kernel.org>
+        d=gmail.com; s=20260707; t=1795483942; x=1796088742; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nAKiNemk2GJJwDYP8p1zRplDTIqlR1poJkDMNc9BGdA=;
+        b=fgZSWi0CfA8PjW8babAeGvHSPwaWYbL89BEAHJy+ktqIoYDUEZME1smhCOfnnxW0+v
+         AFjfxviZRLBb005A2J+N/u36TKD+8tMxY/1SOdJbY7xYvu/hKN6jekjXk0e1gaIPmd74
+         QPSr+c9G1gHQukDwmEGlBUeunAbqz5t0Vbq4EqemoslU1kmBx3b8CA+HoBhDsv0ArvYq
+         U+QjlfzW1u1efaiUDglKRnzWqaBCiPSsx7ev1Q6t8ZLwrCeywfWkt5bYPmdbipveu3Tw
+         bK8aaKxc3z/js/1HAmRkiAQn8uwcnzE+jUkhP05Jyge0CHDjEMfxgwhiIi2bShYoInug
+         rYsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795483942; x=1796088742;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nAKiNemk2GJJwDYP8p1zRplDTIqlR1poJkDMNc9BGdA=;
+        b=OxlCW58o7+m+RmqNxfzBAdgOoTuiKHjYYRfJWLCnC111/63Bi50KCaZEsU//yB+vHp
+         zIUqtHImFdDeztcvkVPYg+p1tXV3PJysRtOe3vcEcTARwP7zJ/BQtiL7+SvM+QSsqCSM
+         RPszy75CkRDX13xc+hnx2I3f80VMelUdW2O37tjXKCi5wBZUK8yrJ8OfU0m/PXDy/461
+         93gpFJJaihoN2QUlC81Jr/etlvu17CSLZNgdg3x/J+qxW8ADj09jwJYf5/T26wB2zyxz
+         8/S+NeWrYbWPYtkgE4pOOrya7/hdXY6HbUizXNekjGuST5xzpUc4PbfiakLEWlQfKWE9
+         q/Bw==
+X-Forwarded-Encrypted: i=1; AL+hErE7FV76RIQ3rvY2Lyna/sGJuEx1kgpTrf2xKBleTOenw9YoeexB4JLueQE4glwtvqBGm9kjJn0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gg2EWdXzxUsiYmThVxHPbBPKmA9b8ZL28qU8IS6x9VNH1JJ9O
+	vHPhZ5sx3VuEYYvMs5JvMtovYNA/BKUiXj9gMoDdCSTqwsQibXB8zDiECRKqG3uc
+X-Gm-Gg: AZFdTZcwX0Gvvd0G2RdvoOCMgHSr8xd1pRSN3VUKm5a6Nh6JVLPTrh7SrwgKJBk+c7U
+	zHsGIm9nBJxszUpDfxw6rVwlCVjjZ8Bjmxt1R6egYL1aguSY6x5tXOJ9iKBfs/aJTpTUZ2oKb2t
+	sgEAYxxmHEITy1a4qU9Z9t6kwsD8T8F3d6Z7T+j/2Tqf2ea61S7NNotXAEvH90GSb4PNY+zSzut
+	w2DJRd9FKa3cZAKIo67zDIL9wfpVzflSMMtClz3BnqwlBg11LvAqgItzkqs3RFRElPWAxym8AkV
+	RlPztq83D3OAG0a145uwbC2EDm1qJYjxtM+MZG/TG7Wxq3vaq6jMNcmARedxlGvudj4QCeH8pSO
+	V4HzgAAhJQgDlH/2gX5lqiadZwc1/I1RLobjLZntNy2JNknDkBBtGcYb29KrtpXJyYWgYyVnnmn
+	ZFRfEIQHHM/cCX/INgIOk1wKPZmIKLGakqggPny4m93jAGI411WINgD3bACeNJlHynM67NY/j8k
+	zpHG2PUHg+CLkyUNk7hhZv+bgrFq90m4+Yt5h9QJqVaKulEc8Xr3SGJE1Zx4UxLaCdpyHQMa6ei
+	ys0cpgsJ4BH1xe+AeXXnPZN4PUukOZpMqgGFhdiVhwxRAVDKtYuU31Vvg64rkEorx9FWlB0=
+X-Received: by 2002:a05:7022:f90b:b0:18d:5ef2:1644 with SMTP id a92af1059eb24-1b5568ebfaamr12146790c88.30.1795483941534;
+        Mon, 23 Nov 2026 17:32:21 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:4121:d698:201c:9274])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567ff27bsm34017451c88.6.2026.11.23.17.32.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 17:32:20 -0800 (PST)
+Date: Mon, 23 Nov 2026 17:32:18 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Guo Zihao <guozh23@xiaopeng.com>
+Cc: Markus Armbruster <armbru@redhat.com>, 
+	Thomas Gleixner <tglx@kernel.org>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] Input: xen-kbdfront - bound the backend-supplied
+ keycode
+Message-ID: <awTpHuucnYYCHdx7@google.com>
+References: <20261106014957.4130059-1-guozh23@xiaopeng.com>
+ <20261106020217.48481-1-guozh23@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,86 +98,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106020217.48481-1-guozh23@xiaopeng.com>
 
+On Fri, Nov 06, 2026 at 10:02:17AM +0800, Guo Zihao wrote:
+> Keycodes arrive from the shared ring the backend writes:
+> 
+> 	if (test_bit(key->keycode, info->ptr->keybit)) {
+> 		dev = info->ptr;
+> 	} else if (test_bit(key->keycode, info->kbd->keybit)) {
+> 		...
+> 	} else {
+> 		pr_warn("unhandled keycode 0x%x\n", key->keycode);
+> 		return;
+> 	}
+> 
+> The keycode is a plain u32 from the ring page, while the keybit
+> bitmaps it is tested against are sized for the KEY_CNT keycode bits
+> declared to the input core. A backend that sends a keycode at or
+> above KEY_CNT makes test_bit() read past the bitmap to decide which
+> device gets the event, and no keycode at or above KEY_MAX is a valid
+> EV_KEY code in the first place.
+> 
+> Since the event sits in memory the backend keeps writing access to,
+> the keycode must also be fetched exactly once: re-reading key->keycode
+> after the bounds check would let a concurrent backend write feed an
+> unchecked value to test_bit() and input_event(). Snapshot the keycode
+> into a local variable with READ_ONCE() before validating it, and use
+> the snapshot (as well as the already snapshotted pressed value)
+> throughout.
+> 
+> Ignore keycodes the bitmaps cannot hold.
+> 
+> Fixes: 4ee36dc08e5c ("xen pvfb: Para-virtual framebuffer, keyboard and pointer driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 
-The patch titled
-     Subject: mm: swap: make swap_header badpages a flexible array
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-swap-make-swap_header-badpages-a-flexible-array.patch
+Applied, thank you.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-swap-make-swap_header-badpages-a-flexible-array.patch
-
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Kalesh Singh <kaleshsingh@google.com>
-Subject: mm: swap: make swap_header badpages a flexible array
-Date: Fri, 20 Nov 2026 06:17:49 +0000
-
-The swap header declares its list of bad pages as a one-element array,
-even though the list can fill the rest of the header page.  Since the
-kernel is built with -fstrict-flex-arrays=3, the compiler takes that size
-literally, so with UBSAN bounds checking, swapon() of a swap area with two
-or more bad pages reports an out-of-bounds access:
-
-  UBSAN: array-index-out-of-bounds in mm/swapfile.c:3674:26
-  index 1 is out of range for type '__u32[1]' (aka 'unsigned int[1]')
-
-Kernels that trap on UBSAN reports and panic on oops, such as Android GKI
-kernels, crash instead.
-
-Declare the list as a flexible array. The layout of the swap header
-does not change.
-
-Link: https://patch.msgid.link/20261120061750.2973004-1-kaleshsingh@google.com
-Fixes: df8fc4e934c1 ("kbuild: Enable -fstrict-flex-arrays=3")
-Signed-off-by: Kalesh Singh <kaleshsingh@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Christopher Li <chrisl@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Youngjun Park <youngjun.park@lge.com>
-Cc: <android-mm@google.com>
-Cc: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Cc: <stable@vger.kernel.org> # 6.6.y, 6.12.y, 6.18.y
-
- include/linux/swap.h |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/include/linux/swap.h~mm-swap-make-swap_header-badpages-a-flexible-array
-+++ a/include/linux/swap.h
-@@ -129,7 +129,7 @@ union swap_header {
- 		unsigned char	sws_uuid[16];
- 		unsigned char	sws_volume[16];
- 		__u32		padding[117];
--		__u32		badpages[1];
-+		__u32		badpages[];
- 	} info;
- };
- 
-_
-
-Patches currently in -mm which might be from kaleshsingh@google.com are
-
-mm-swap-make-swap_header-badpages-a-flexible-array.patch
-
+-- 
+Dmitry
