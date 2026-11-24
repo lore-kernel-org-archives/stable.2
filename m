@@ -1,57 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795546426;
-	b=0T+/hlT11ItKHi1XdIiIpcT0bPlAvogd9d0ZypY/iqvefuUG/dig7/7IIi9nJC5CY7Tr
-	 icT/klGZf3n1O+mwSztMw/qIkoLXh+fUftDQPCHforvdc2uLd1foysriB0e30qeuiRNiU
-	 uyKVglpFKYijqsk5/9iF4u3DXPFE7fed2WagVNbkEMEx7Rmy2aM9U0UemV/vJ/HJ6dhUs
-	 R1EVtBmKEvKIxLEwSPvpV5goy8TzpBojomukkcUZEmERLxb4OGX3R+L7yYeG4o1Q16Q87
-	 uezVQvFpBpgBT0GUAyVluTMCM6XLGhErk2zDYgOv8KQKTj9YnPg0Qk6gdyUrmcQ4nWA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795546426;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=eOqJH/E3G0LjMOjD5N2wNzcmizmY4M0edAxM6+coObc=;
-	b=M2rCHJe2VNB/m5uYJpX0bfbdQOt/g+KCDxNSDsH2vwrkMiOhLjyzbEko6XSH7nfVOcrM
-	 W0ungV5xgkEjk8csNiSneT1XUZWcF3l5v5lHAdTXkhoYVLdFqfBxPpfSuRx3yKr8XUPnG
-	 o1CEtICkhMfehAx0J2jqaQ4eCo6eH2ZUQt+qLjQ1fcMMty4yqH95SDUHVMR/z/yI5x0DA
-	 s6HznAx6kxRotTTyLOmFM0etVA2MKcsxT1YpEz5LReWtfEXFoE/zD7hHsla48O+Xf6Epp
-	 cLlMDS+klEdH5rl+KTJHcsbJ9QEeqUqP5kEV05N1rR58tYkyZLxF7V2lUtWuCa4c1Lg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+T7y8xe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795546526;
+	b=R/4uJoDRidLNbR+bCoTq02ULoMWktzuE9Qb9gOaKxisRQ+MTMuTxP1NiXxHF2n/1CFqw
+	 22hQ9bIDbowfL/lrIVK9ua2eh2ycTMibBN0YIBChBzf8D/HvJ5YPIQbOz/5aotJ1x0v+Y
+	 LTuhL+kR2YFhQGZ2qHY9xGiaSPQ7nKU7TMCQNjZeQOeHeOzvj69cOiTMjr8OXFxsygzdh
+	 KXh3GCcTIQv+pb6Qbx6xWbW5xM8zBFOYlp44lldgf0U8qi5T8OgMt5+KILjRzyaLEY2e1
+	 h3u+xL6fyXnqC8Bj93KC3QxAPIqBUc5UUor+9MfeS0MqgLAyvejNI1SKhBN9+EnUduw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795546526;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=1u8Dtdr50GkWxwr/o6Art46QnZZWoGSZDLZvedZdu3g=;
+	b=IpGUWn0ocAbtpcuM4+7Fw+9x6R1Wl/E2nafJgILIu3QfosEsMd7c/PvWe/QLxy9Q2uyq
+	 FhSGH1eNnCjTi8NIi/+PaQLODFDVKRgYY/q3L/TG/JA3vQVyFjx6xhKOn/QYwhauQS6bS
+	 Zjo1HN0JzCgam15tXCNFXxuupfiSiRQVLJe0IZnjupWtgo+jGVRc60m9uoCz0UMTFCLyP
+	 0u4lQg1zq1HqCI3EAJb4AF+zxInHAeTm3ZBrHB1st0PxSzAwQ06prxUh1x0CtoLtSrLzk
+	 apTbSPrEFZ+O0bjvkneRM5UZpYvr1WLpB8WwBwFLdTbg/jCopjhWZ2Cq1e8pt0O8E8g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Vz+5HP28;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D11606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:53:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EAE6606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:55:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EAE6606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+T7y8xe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7D801F000C0;
-	Tue, 24 Nov 2026 18:53:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795546426;
-	bh=eOqJH/E3G0LjMOjD5N2wNzcmizmY4M0edAxM6+coObc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D+T7y8xeSIp0uaRMK+eWLUleHlA8N5qgR+EwympUY8kWENyWYdH27aBROpZjelg77
-	 NwCQ2s0gifYhaJQvt+hKL9xh5wX6FVxrlmfS/y2yQhjUvixP1iUP/lYi5/dO01prm5
-	 VonyzQktk1LVJR9qrAu8Rl92P5jFVdWRIsiCEW2gPjyiZny7HmB+19RP6+UZ7A9DO4
-	 HT8dktuo9lyvhswGIR0oMZq/diPenzeUueLp6N1cpq/zo4dFg4AjXCqoWJplOpYhai
-	 QC+07DxlUK2hUPP8oZZ98EsKsRVZPN3I87avDtE+pHbG/jgZwzSVX2RtGt0YDx9ltO
-	 F8ZnKkYesJy5A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] mm/page_alloc: retry alloc_contig_pages() when the zonelist is rebuilt
-Date: Tue, 24 Nov 2026 13:53:42 -0500
-Message-ID: <20261124184358.2182291-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124184358.2182291-1-sashal@kernel.org>
-References: <2026112435-unnoticed-capsule-b761@gregkh>
- <20261124184358.2182291-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Vz+5HP28
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb5b33e2ffso127205e9.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 10:55:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795546524; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TLb0e+Six/9eK+SeI/glPGyvsSdySRzTCDUdTmskAPJ3Eg2/pvosxm/PcIxNewJtsz
+         oF/cz4NX2lVkwSzrx1iXsEeFv9oSWzpd0WG8IGCOfr6bHHhVuetwPywbqATrwU4yY+P2
+         57rzgr1fM06J6XX5Bln1wMgUWZPdVVCm3n/9InqsqzFoyjp7+CmJxyW2bLssfNWXs07R
+         AnskqVsvQ62lW9jIQs6j82V+q0FG6jqjzG7l0Fkd8krUhVrp5mJtlIEvx7kP84BqBMRz
+         TGtivzNb7f0g6yN19PCyzHG1/0/rKucJld+jcTnG5VghWgiJ6T0xxrV2+9IH9lW9nPgc
+         5QnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1u8Dtdr50GkWxwr/o6Art46QnZZWoGSZDLZvedZdu3g=;
+        fh=6uTIcqOv2oY8dXOTLa/43bnEgG/h46TXq7HWhdhl5YY=;
+        b=hemOL4RSaD1TosEwV4COxaBNQSJWnfbA8sDTxmCZRQ79pkmKnpGgWRcX5yWiYlc9Py
+         M5Ht/jb0Krb3mrwt6P541WezA9CsXuPuYRPhtB7NVb/mZYJMWwzzCWMb7HdejNCTVHEl
+         0f2snZ8MXsfk+rFii5Bsyxw+rpON/5xUlqC29eiI2BsTWkVIrBiYNCLnHjxEElndNW/p
+         hxe86Wmv/RXeJr5jpGxHtxyH9HtjziMmHrji55WWF9AOQaQFYyEmvDRklYsEO77PDvuD
+         qnP3fTYkSAks1kiirPDxckvAZbQUCCJTVdFY86pmovcoAYcgiRCaJ9AXOkeliaPDi20E
+         cdBA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795546524; x=1796151324; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1u8Dtdr50GkWxwr/o6Art46QnZZWoGSZDLZvedZdu3g=;
+        b=Vz+5HP2869Z5ONW8Y9OVdf/1LqgOzZK2Y2POGAE2IeSEJXBWuGcBsTqNnhD7kYfpK3
+         rSw+ii//1wdSuglD1QviPlArcxERzzQ3x3TZ/cVQRm/xf9GAJvcBPYvP7rkPTY4dBAn0
+         DNOANmiVCizIcZjr89te8FclDZEEQAGW+kvy6QXEhnEQuZrkBf8rUMj0cSAdNHpFX52g
+         fwdXfpWeuPjibt+/J4buOzFwtc0ZorwGu6cQAkLxDQ+XwGJQoedHLGtSKh5elSWf2vfA
+         KBmdqtzhJFh/ydpeLFJdf4tf+Qbwrvtdjfs9UBtaMvsRfUhB17OS+klyMr4j93nZ9eWM
+         5SZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795546524; x=1796151324;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1u8Dtdr50GkWxwr/o6Art46QnZZWoGSZDLZvedZdu3g=;
+        b=x4hxl2ijA9I9sI6/PaGCyV+v+FPzw2mV0C7yscj1icQt438/KXDGOXZXfnyn6TnsJu
+         iLMibbxHoqFTTLPfS/+DifdBnK6jmwI0GNLU3yGMgxYaidMqQET0gwpsuhA1DNfGSyrj
+         jsPqRtF4JXwkPvbriuXcnVWcR9kbMYOwRXnt8FYGthPJfzYFUpme2Qe8HmRJx3e9AI7w
+         7Ky+yOyVNW46XfXJibuyQrxUg3GLMxgMKvc4EnPojNcyUCdT6XypjwfRvCccFdaeKW23
+         CJ6xBMVHTei9Rsz4ffiVgPlt0DAxUiaTjZ9+ZOyFjiqqaekO2lBNrKVzFCWlf+fYJrza
+         1BNQ==
+X-Forwarded-Encrypted: i=1; AL+hErF80MULDWfPq8ZQ4YSUsR9clmm9Ld5LeIWLikyrFvQ7WDOLsaRh5EbvbmIOOb363WDPgvKvpYk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cuBAftVW2mL8BSjiex5exXN7b3vFG8nwZYQYQ8IS9n7G5Iepm
+	qm3ecgPIpYi4sgotlvFdF7+49U12NbiS4fohjFmgYcW+/V5szPG1cX5oQPpop8067NM1NZTPa8X
+	+buzFnFGll+StevHC0nqT5qTrDvLpXaHXN+iL2o2d
+X-Gm-Gg: AZFdTZcsKi3RGXKtbxIW7o0GeI62v+XGR0nZrWIT2Np7VD5amO3r8Rar05k7lb2Y1A3
+	TbOngw7Al3Df0TIh8qr8aCGIJM+XdZQj14PoqSIcFHKETRCNLZAlL07MiM87YRqTK2pIT+MDwqF
+	kT4XN/hs8JZfTgor7lacXcLfryZ0oEOZSZJ+/jse9EnMAVVN3WWYIVk1GEcNyveFtfWV4sVOkNf
+	wy1ke9mW7+FEbYxMp0msdsEVa8C7/Wzf0j/4APFBd+oFWnjF0qGnGsqkqmpeIqNKvS8SBbbOC6E
+	PRUq4ELoLyoHf28q0MbHTN88PatsyGmEYVmHIfm76YydUHTU/aiVJBKY/J7vRWuKhmBwH560b2w
+	xmvMjOYyJnrbP/AkrHyJOXznwNvbWjG0xdXLBJTqAzfxEnqbhpMQWbGjawfFzQdrQ9cPQf8QNHu
+	i18XoRWjvPbBibXThJfeo8o470
+X-Received: by 2002:a05:600c:608e:b0:4a1:e7fc:fed3 with SMTP id
+ 5b1f17b1804b1-4bb916aef09mr3131205e9.13.1795546523926; Tue, 24 Nov 2026
+ 10:55:23 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,91 +105,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261117-huge-pfnmap-fault-races-v2-0-276007e73bcb@kernel.org> <20261117-huge-pfnmap-fault-races-v2-3-276007e73bcb@kernel.org>
+In-Reply-To: <20261117-huge-pfnmap-fault-races-v2-3-276007e73bcb@kernel.org>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Tue, 24 Nov 2026 10:55:11 -0800
+X-Gm-Features: Aa3M54rcD7lAjqTBZlWobdm479k0AAUvm_iZ5SlmrfOCMEFaBN5uZR2IYPu5xbA
+Message-ID: <CABdmKX3Cfv9wO3SuzYOg-+UXC=BOSAAPRfMQUAep6JStd0DjUw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] mm/memory: do not report OOM if insert_pfn() races
+ a huge fault
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, 
+	Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
+	Roman Kisel <romank@linux.microsoft.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
+	Naman Jain <namjain@linux.microsoft.com>, Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org, 
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: "Gregory Price (Meta)" <gourry@gourry.net>
+On Tue, Nov 17, 2026 at 10:32=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.=
+org> wrote:
+>
+> A driver that implements both ->fault and ->huge_fault must anticipate
+> concurrent use of both.
+>
+> This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
+> concurrent with faulting, as that only holds the mmap write lock and thus
+> does not exclude faulting threads stabilised by VMA lock.
+>
+> This is not currently safely handled by insert_pfn(), however, which
+> obtains its PTE entry via get_locked_pte(), and treats a NULL return valu=
+e
+> as an allocation failure, returning VM_FAULT_OOM.
+>
+> The issue is that get_locked_pte() also returns NULL if the PMD entry is
+> not a page table which can happen if a concurrent huge fault installs a
+> huge PMD entry between __handle_mm_fault() observing the PMD entry to be
+> empty and insert_pfn() being invoked.
+>
+> This can result in VM_FAULT_OOM being reported incorrectly.
+>
+> Fix this by introducing and using __get_locked_pte() which returns -ENOME=
+M
+> if a page table allocation fails or -EFAULT if raced.
+>
+> This allows insert_pfn() to return VM_FAULT_OOM only when an allocation
+> fails and VM_FAULT_NOPAGE otherwise so the fault is retried.
+>
+> The same change is applied to insert_page(), which only impacts DAX (whic=
+h
+> has its own locking).
+>
+> This means that insert_page() now propagates the returned error, so -EFAU=
+LT
+> in the case of a race. It's not possible currently, but guards against th=
+at
+> changing in future.
+>
+> Similarly, update walk_to_pmd() to return -EFAULT if it encounters a huge
+> PUD leaf.
+>
+> Target the commit introducing the first driver able to do this.
+>
+> Reported-by: Eliav Farber <farbere@amazon.com>
+> Closes: https://lore.kernel.org/all/20261112051440.16140-3-farbere@amazon=
+.com/
+> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-[ Upstream commit da0d7a895e9021dc2cffa90fb6fafd8b9379e544 ]
-
-Onlining the first block of a zone rebuilds every zonelist in place,
-shifting the slots after the new zone.
-alloc_contig_frozen_pages_noprof() approves a slot by the caller's gfp
-and nodemask, then loads the zone from it:
-
-  CPU 0                             CPU 1
-  alloc_contig_frozen_pages_noprof(GFP_HIGHUSER | __GFP_THISNODE)
-    slot 0 (NORMAL1) approved
-                                    online_pages()
-                                      build_all_zonelists()
-                                        [NORMAL1]
-                                        -> [MOVABLE1, NORMAL1]
-    zone = zonelist_zone(slot 0)    /* MOVABLE1 */
-    alloc_contig_frozen_range(MOVABLE1 pfns)
-
-A gigantic hugetlb page can then land in ZONE_MOVABLE, and a nodemask
-caller can get a range from another node.  Gigantic pages are kept out
-of ZONE_MOVABLE since commit 79b63f12abcb ("mm, hugetlb: do not allocate
-non-migrateable gigantic pages from movable zones").
-
-Check zonelist_update_seq before using each zone, and restart the walk
-if it changed, as the hugetlb pool walk does.  Check again before
-escalating to the pass that may migrate hugetlb pages, so a pass a
-rebuild cut short is redone rather than escalated.
-
-With kprobes holding the walk across the online, the base kernel put the
-1G page in ZONE_MOVABLE in 3 of 3 runs, and this change put it in
-ZONE_NORMAL in 3 of 3.  Direct GFP_KERNEL calls with nodemask {1} and
-{2} got a ZONE_MOVABLE range and a node 1 range on base, 3 of 3 each,
-and neither with this change.
-
-Fixes: 5e27a2df03b8 ("mm/page_alloc: add alloc_contig_pages()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Link: https://patch.msgid.link/20261101021340.2251928-11-gourry@gourry.net
-Acked-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/page_alloc.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 18c0e6d2ba298..d44cf80dd75fb 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -7322,6 +7322,7 @@ struct page *alloc_contig_pages_noprof(unsigned long nr_pages, gfp_t gfp_mask,
- 				 int nid, nodemask_t *nodemask)
- {
- 	unsigned long ret, pfn, flags;
-+	unsigned int zonelist_cookie;
- 	struct zonelist *zonelist;
- 	struct zone *zone;
- 	struct zoneref *z;
-@@ -7330,8 +7331,13 @@ struct page *alloc_contig_pages_noprof(unsigned long nr_pages, gfp_t gfp_mask,
- 
- retry:
- 	zonelist = node_zonelist(nid, gfp_mask);
-+	zonelist_cookie = zonelist_iter_begin();
- 	for_each_zone_zonelist_nodemask(zone, z, zonelist,
- 					gfp_zone(gfp_mask), nodemask) {
-+		/* A rebuild may have shifted an ineligible zone into this slot. */
-+		if (unlikely(check_retry_zonelist(zonelist_cookie)))
-+			goto retry;
-+
- 		spin_lock_irqsave(&zone->lock, flags);
- 
- 		pfn = ALIGN(zone->zone_start_pfn, nr_pages);
-@@ -7364,6 +7370,9 @@ struct page *alloc_contig_pages_noprof(unsigned long nr_pages, gfp_t gfp_mask,
- 	 * second pass, we will try moving HugeTLB pages when those pages are
- 	 * smaller than the requested contiguous region size.
- 	 */
-+	/* Redo a pass that a rebuild cut short before escalating. */
-+	if (unlikely(check_retry_zonelist(zonelist_cookie)))
-+		goto retry;
- 	if (skip_hugetlb && skipped_hugetlb) {
- 		skip_hugetlb = false;
- 		goto retry;
--- 
-2.53.0
-
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
