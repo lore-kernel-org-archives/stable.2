@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795521969;
-	b=jIsht3uYyakKnmY3Ii09RGOJDl7w77YW7zat93zzix1Y5wAT+myT+SW11aufZIDDUceN
-	 QN3Plid58SHinh2b0fsnOSNRKLqQI5l/m1hX+HS2g99UmFhxMwXSNWWDG7y8d+7wwstrH
-	 ynhzD082fcUPzRPSqhPxPk8EWHGIY6iZ8hBrEsMWbHubVu6MLuE0gVA3kdEmDo4ZR4/Tk
-	 /N/3ttQETfdvE9ZDkSXIu8/kELOMglu9MQloO6UEoGXfgepjJOzCEqgDATmDmqlj2pi2A
-	 P3V/kjSS6Z1rniTlMNli3TffW5uADRrtEvqexnz94WRKj+bcbS+mWpivohPSPe8hPOg==
+	b=OXWNY3Vz6agg7u5Oqfmov2upvrgc+BeX7dI1diiNaDCX8NR5IhLktUEKSJveh0q2PFmm
+	 oAtOulQrxL94rfubI7uR9lCTpBOsgVGWfEhnHeiyLwvaQMiBVNs4lJl0K100dgQiCLPNn
+	 xzcXwEZxi4TwPaLQzT1cyrMYSn1Dv+HBTMM3fgHWQhPArti5LC7LRmy/ZiKzVicRrkada
+	 UQXls78PAqqiYo5k6PtKB9dvwRVQsAKNOp0RgahduHmMgMiMVdfVrX4xIOUQHTOgj6fDr
+	 jsSatNQUSo19m4w00zlKrKJXXNyHQX5x+FFdPaXwduIOw6+KEMLyHdtsCB357Khs/3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795521969;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=KOl2yz4M7C/s7a2F3laG5SJ8ROMJ5wzUSTSBiLclugA=;
-	b=zVQQPZSAaeAARDmym/HVFP1vt3gGE0ADFk+cH0YvQN++h24VhoUqCC1kj+d0Mr6GVJpp
-	 TrvTilI5tufweqbiTdqsrgwzcXo7uyOhEmqR0ZqaAGJrRHyxSJmLuVSfMd7fKRkRdfk3z
-	 l8TYxJOESzZybr7NcDlfme/oXs72Lhw5NpSfvpVuzkIEsjeCsuX6hv9WRLlbPms5x7j/4
-	 Yl0XydOM+C38p4xrJ7PoNdun1dKHQHOvp0Je7hKN8ucbydoJ7+FCq7f5BRUyqyG1jExms
-	 qpdDAr+GKCTkzwgI1InB6J1By0i+SYRB30aSBlL6OuDiiySZOtSu0HVKuM5noy1NNCw==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=FowArMSorhehwd66hZPNEOpPYmolYsFPd3fHPYFoqLg=;
+	b=CypAuOiroExOWmv38LM/1vN/shHfJkWIfT8snfOOAMCsMQ/er2hO9uYOysqOrRV0t91x
+	 pBKks/BhwhP+NKC21OegrVtlt7Xd+7lXOyujscU7dEGnYZO6CV2I20WMyoAiUnLkYocjC
+	 3kK+73og3e3GJs4unJuPhNldEuU6XMa778mZf89Tzk/uvHZ6yxgAcw2ae6XNoUD6ZNDET
+	 WkyP9qSm4QqeruxoyxKgZbGtRhmbEyABEDu4DYNzcV0up4rqlTVGXf1ys9i2GMtEM/qLE
+	 XVUcs4GNatmGuLDCQ4favmBzKz//6xbUwigY5kGpYJporvMWngwwE3ew2viZtEZzrUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="MQ/RXhgV";
-	arc=none smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="NcUeM/a2";
+	arc=none smtp.remote-ip=209.85.208.172
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9185E606A334
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 12:06:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9185E606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C133606A339
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 12:06:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C133606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MQ/RXhgV
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5c14470729eso4309430e87.2
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 04:06:08 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=NcUeM/a2
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ab30b3212aso34166291fa.0
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 04:06:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795521967; x=1796126767; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KOl2yz4M7C/s7a2F3laG5SJ8ROMJ5wzUSTSBiLclugA=;
-        b=MQ/RXhgVqU5sAcBNnuTQ5U0+AZ6JbM/oIPEOQ2KoEQwTD+GMBeWAGs5HSHWf5LbnjY
-         0dlv/BunRCPGkSSliuOGd524M5yxjRd8aHmBHJJOuW5cL9ddleDulX+v9QfPjxrB12in
-         pehtr+vEznWV+PMiZ0Vz5rsflnAJ2nOcmL/ck=
+        d=chromium.org; s=google; t=1795521968; x=1796126768; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FowArMSorhehwd66hZPNEOpPYmolYsFPd3fHPYFoqLg=;
+        b=NcUeM/a2llWn0/CpChtJnRNTF4yDcB1QkwvEu8HXRj2Q1GHRynF4I/P5rBLWGpV27v
+         IPKudErBDxhqvlf3xOVaSG2DYfbHDO4kyc88Eds6yYkAEwlNMxqstb96t1HCbuSKaRWM
+         ljuGqoKRQaDrP5kFtxKw3A2oQuQWxaY8iOJ48=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795521967; x=1796126767;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KOl2yz4M7C/s7a2F3laG5SJ8ROMJ5wzUSTSBiLclugA=;
-        b=XfOEpgNA5mYeEkmh3ip8np7gv0TipTuleelIWZSLsU7TKEjJB9CRZKDNCJZQRFhUtn
-         ru4mlHJyklpa5Qcp4OhK/QQX1QNwMYP2kbFCyk+qwcqJMTmYH8f9PW0pdxdM6/mJgvfJ
-         rEEZbUK5g9C/cqVMODLbyfjQIZ1egREMDE8S8ykePLBiNvLZO6qbAZIFf26zchJYaeCQ
-         w/+94G1O7ucEdJ8e1SUK7nBlwmCjtOHwmRe/+CmbaW27LOW+6QRNk3A5xxy2QJD0DVd6
-         ttEuBHV0aG6RdlLqDIZV6gkayuHONP/+5UXaA5v41iZ0isW2vIix2X0HcIPkI8KiMaQ0
-         NnwA==
-X-Forwarded-Encrypted: i=1; AL+hErHxfeLKQJsbthfkDF9tMrvDfCVCr31PFF6hPwhSX4S9SxNbTeKzSH5Y3rtoWC7bhRZl32xsK+U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8XvNx+1OWOVfjrZdAH1fIx4axKYS5g5ovyh2/45vke+/RKmfKg
-	BqPGkTOLJ0DVISwUzwvkplY9PuPaANVuPe57NkVMTSnGxzxT6m7UNZloxjhSx7y09g==
-X-Gm-Gg: AZFdTZdYRTBo4J/vGhy5uogssPmkCa9j7HK1qJvAJDFZPPhruRRHaIv4B8PaKvpiOIN
-	nzhdS3OEsrsoarTZh77zByP+jSA3TejYtTObGX1wcIqVSsZWAycH/3ib4Ag53eM5s22+rRouBeb
-	lmySvx3ZCxjqh7AdMIBOSnFnbNk1GzCkJmtCIsyqlb7e1tk5vf5wtnr6/u4OvqebWgcv7OjY9r1
-	mQ14hvQCFY2vQ2iagOAQnhy74UhWkvWVxL0R4vxk/Uqs6c9i65NxqRFLTUZOGaNp3g1q8aPvcb2
-	mjVHs2DZ8D5mxYJ+dfjcsWrJWJ8gffcSX7vIED89KkOF8SS+3P7++gE2gIWeq5kIPwu1HHGRThh
-	JoB510gNocqNhylZ+5mLwXLWg09iCIIdcdqiqyQHySDNfPiXduWI6J5X1xqrzUbl/AZhRbCjiVZ
-	Ygdz6F4RRPGxFL4UNpyEHaIVfTuwmz2BexCaxk8y0WDMhH0F01FEIkMQFGzLeFhpvLCB1xoUSfk
-	ZMAJxoeWdUJ2e6da8kQ34/yfWBVOM+T1bionGWVq4MobXbIFyz7ugDiYBvhLWR5LU/qm6G1Vd/3
-	xaO7AAqdBxCL2dBJE1c3i9WCJrhf1RXCkFl7SutJ4nJ/8u5y0nq7WYQ4R3NBxc8oSHdMV/UeK0V
-	OQLsogKIJNw==
-X-Received: by 2002:a05:6512:3087:b0:5c1:4a42:fb17 with SMTP id 2adb3069b0e04-5c1bc89ed7amr4414564e87.59.1795521966845;
-        Tue, 24 Nov 2026 04:06:06 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795521968; x=1796126768;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FowArMSorhehwd66hZPNEOpPYmolYsFPd3fHPYFoqLg=;
+        b=ZRo6YqEPoJ30/bcW+a6rwlZeH8d9z8uhoKhmVFx+yif+qK9fUtYu8igq+nuDu9kSuh
+         1sFw+/UtMtXj4b0Ts8hxsnN4w0439IEEC7J6ytWiCF+Sg/Beh3NwFzZalUqDDhkogWg9
+         PeKF0XB0VZ/RGLtecqymnvownsDgp++J1kTYyANtNvvXRYbAnW2Io3PXncnLBsUHkO/b
+         vhRzqct6u4mfb7CyWTWU9mrY6FWUR13brMkm0fCioTjHvO8ZtKrMtOR+58x5XfzUH6sy
+         GgQUDxXwXhGKeJdclVAcG/qOWtbJ05JLUvbJZNoP31R70Jek76tIhza0D4VYO8JvHldJ
+         /Dow==
+X-Forwarded-Encrypted: i=1; AL+hErG/dCqxMH1OFS5cwLx8d7D066FE6dq6IOVEQwfhEfUIOqgX8LZy9nCuO8NNKLavVqBFU7z9vr8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+LzkIhEjUIb56b3of4G0cyX5YPmMMQ+t3NgCjg/5Fqw9CY4SnK
+	tHNr6T4TwrxeYOHGTEz7WeKiogapAFucoZB3cue56LYh6nJV+qWT2sK0k1mv9RYOlA==
+X-Gm-Gg: AZFdTZcxiaMBV2InYs/YCp4kbycXaJ92ltFmgvvVvP19L8Qp53vYebJoZ7pUPEfpYkd
+	HZBbaVr6tVV4XLnb5MQNRwGnhgVrMt4v7TPp/nR+dgx7wQ8ScIG4UERR97jBSkOqvWG6v7aG/wx
+	RzS42W8P5qO1ilubiX23+CuRAG5biAmgmZIbYVqPfcKnK+biCNJ6ecoyf2hkAV776hEzM+3AQU2
+	+HnYfy06YsFlC8Jx25NP7yxogvDzC1f0z+RZe/zvXGOdg/2dJ+GjGZgSHHH6oYqutzzvLsKI+KO
+	FQw3y+uGzv9OF7cSNDSR1xeJg5SGLfQbIyGx20yuWaFD3wfXJF4V7Xyge83LTUon7z0TbUfuunG
+	GzIOOffnT0PhNwYJnC/i0ThYMfr+hBlvx/T+of8RNjZn/9m00niJNPn3SPhaG65n6NM57ADvEiA
+	D02QLWygIprQJWhC6bxCANPoGmspScFMXOUUHQeHpoGLGze5j3psfYmQAO2/YdIJPUTdmMn6Q46
+	DV254n/5cYumKC9VPv/tx3ZT5o3oGE/j3MiCzDsYETCOMLs3K59rq6TUkAWn6D2clR+IwfeHeEJ
+	fb7/ldxCVI1m53vrlm5kok1v3gc5C00pXUe53ukpqHSrfbFS43mEN+ghd+AX4f2Qo9jHy0yFHkY
+	jQ8Dw0vNVGw==
+X-Received: by 2002:a05:6512:b88:b0:5c1:4cab:2ce4 with SMTP id 2adb3069b0e04-5c1bc84e055mr4936072e87.42.1795521967663;
+        Tue, 24 Nov 2026 04:06:07 -0800 (PST)
 Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd01772esm3654675e87.39.2026.11.24.04.06.05
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd01772esm3654675e87.39.2026.11.24.04.06.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 04:06:06 -0800 (PST)
+        Tue, 24 Nov 2026 04:06:07 -0800 (PST)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Subject: [PATCH v3 0/2] media: uvcvideo: Fix race condition on metadata
- buffers
-Date: Tue, 24 Nov 2026 12:06:03 +0000
-Message-Id: <20261124-uvc-racemeta-v3-0-f82822cbadb3@chromium.org>
+Date: Tue, 24 Nov 2026 12:06:04 +0000
+Subject: [PATCH v3 1/2] media: uvcvideo: Fix race condition for meta buffer
+ list
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,11 +92,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKt9BWsC/3XMQQ6DIBCF4asY1p0GsNLQVe/RdDHCoCyUBpS0M
- d69aNKNSZfvJf+3sETRU2K3amGRsk8+jGXUp4qZHseOwNuymeSy4VdxgTkbiGhooAnBEUlSum2
- dsawkr0jOv3fu8Sy792kK8bPrWWzvHygLEFArbosnGtR4N30Mg5+Hc4gd26wsf73iSupDL4GD4
- KSFleha5Id+XdcvXrJgeOsAAAA=
-X-Change-ID: 20250714-uvc-racemeta-fee2e69bbfcd
+Message-Id: <20261124-uvc-racemeta-v3-1-f82822cbadb3@chromium.org>
+References: <20261124-uvc-racemeta-v3-0-f82822cbadb3@chromium.org>
+In-Reply-To: <20261124-uvc-racemeta-v3-0-f82822cbadb3@chromium.org>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  Hans de Goede <hansg@kernel.org>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -106,50 +104,166 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-This series fixes a race condition when calling streamoff only on the
-metadata queue while streaming.
+queue->irqqueue contains a list of the buffers owned by the driver. The
+list is protected by queue->irqlock. uvc_queue_get_current_buffer()
+returns a pointer to the current buffer in that list, but does not
+remove the buffer from it. This can lead to race conditions.
 
-The first patch fixes the race condition and the second patch replaces a
-busy wait with a waitqueue. It is probably overkilled and this is why it
-is a follow-up patch.
+Inspecting the code, it seems that the candidate for such race is
+uvc_queue_return_buffers(). For the capture queue, that function is
+called with the device streamoff, so no race can occur. On the other
+hand, the metadata queue could trigger a race condition, because
+stop_streaming can be called with the device in any streaming state.
 
-Feel free to apply the first patch, both, or squash them into one patch.
+We can solve this issue by introducing two flags, stream->meta.streaming
+and stream->meta.in_flight, protected by a spinlock. in_flight tells us
+if the buffer is in use by the irq handler and streaming lets the irq
+handler know if the metadata queue is streaming.
 
-Regards!!
-
+Reported-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Closes: https://lore.kernel.org/linux-media/20250630141707.GG20333@pendragon.ideasonboard.com/
+Reported-by: Georg Neis <neis@google.com>
+Cc: stable@vger.kernel.org
+Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
-Changes in v3:
-- Fix race condition in uvc_video_get_current_meta_buffer() by checking
-  stream->meta.streaming under stream->meta.irqlock before peeking the
-  metadata queue.
-- Introduce stream->meta.streaming set in uvc_start_streaming_meta() and
-  cleared in uvc_stop_streaming_meta() to prevent URB completions from
-  acquiring metadata buffers or starving stop_streaming.
-- Add Reported-by: Georg Neis <neis@google.com>, who also reported the
-  same bug internally and pointed at the race condition without
-  meta.streaming.
-- Link to v2: https://lore.kernel.org/r/20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org
-
-Changes in v2:
-- Use a new flag in_flight to avoid keeping the spinlock for long
-  periods of time
-- Link to v1: https://lore.kernel.org/r/20250714-uvc-racemeta-v1-1-360de2e15a9a@chromium.org
-
----
-Ricardo Ribalda (2):
-      media: uvcvideo: Fix race condition for meta buffer list
-      media: uvcvideo: Use wait queue for metadata streamoff
-
- drivers/media/usb/uvc/uvc_queue.c | 27 ++++++++++++++++++++++++---
- drivers/media/usb/uvc/uvc_video.c | 32 +++++++++++++++++++++++++++++++-
- drivers/media/usb/uvc/uvcvideo.h  |  4 ++++
+ drivers/media/usb/uvc/uvc_queue.c | 30 +++++++++++++++++++++++++++---
+ drivers/media/usb/uvc/uvc_video.c | 30 +++++++++++++++++++++++++++++-
+ drivers/media/usb/uvc/uvcvideo.h  |  3 +++
  3 files changed, 59 insertions(+), 4 deletions(-)
----
-base-commit: b7ac871daee981f1963f632586ff9b9d898ce5dd
-change-id: 20250714-uvc-racemeta-fee2e69bbfcd
 
-Best regards,
+diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+index 3c002c8f442f..844e9baa8066 100644
+--- a/drivers/media/usb/uvc/uvc_queue.c
++++ b/drivers/media/usb/uvc/uvc_queue.c
+@@ -206,12 +206,36 @@ static void uvc_stop_streaming_video(struct vb2_queue *vq)
+ 	uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
+ }
+ 
++static int uvc_start_streaming_meta(struct vb2_queue *vq, unsigned int count)
++{
++	struct uvc_video_queue *queue = vb2_get_drv_priv(vq);
++	struct uvc_streaming *stream = queue->stream;
++
++	lockdep_assert_irqs_enabled();
++
++	guard(spinlock_irq)(&stream->meta.irqlock);
++
++	stream->meta.streaming = true;
++
++	return 0;
++}
++
+ static void uvc_stop_streaming_meta(struct vb2_queue *vq)
+ {
+ 	struct uvc_video_queue *queue = vb2_get_drv_priv(vq);
++	struct uvc_streaming *stream = queue->stream;
+ 
+ 	lockdep_assert_irqs_enabled();
+ 
++	spin_lock_irq(&stream->meta.irqlock);
++	stream->meta.streaming = false;
++	while (stream->meta.in_flight) {
++		spin_unlock_irq(&stream->meta.irqlock);
++		schedule();
++		spin_lock_irq(&stream->meta.irqlock);
++	}
++	spin_unlock_irq(&stream->meta.irqlock);
++
+ 	uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
+ }
+ 
+@@ -229,10 +253,10 @@ static const struct vb2_ops uvc_meta_queue_qops = {
+ 	.buf_prepare = uvc_buffer_prepare,
+ 	.buf_queue = uvc_buffer_queue,
+ 	/*
+-	 * .start_streaming is not provided here. Metadata relies on video
+-	 * streaming being active. If video isn't streaming, then no metadata
+-	 * will arrive either.
++	 * Metadata relies on video streaming being active. If video isn't
++	 * streaming, then no metadata will arrive either.
+ 	 */
++	.start_streaming = uvc_start_streaming_meta,
+ 	.stop_streaming = uvc_stop_streaming_meta,
+ };
+ 
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index a92a986ab714..5de7f215ee28 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1732,6 +1732,26 @@ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
+ 	urb->transfer_buffer_length = stream->urb_size - len;
+ }
+ 
++static struct uvc_buffer *
++uvc_video_get_current_meta_buffer(struct uvc_streaming *stream)
++{
++	struct uvc_video_queue *queue = &stream->meta.queue;
++	struct uvc_buffer *buf;
++
++	guard(spinlock_irqsave)(&stream->meta.irqlock);
++
++	if (!stream->meta.streaming)
++		return NULL;
++
++	buf = uvc_queue_get_current_buffer(queue);
++	if (!buf)
++		return NULL;
++
++	stream->meta.in_flight = true;
++
++	return buf;
++}
++
+ static void uvc_video_complete(struct urb *urb)
+ {
+ 	struct uvc_urb *uvc_urb = urb->context;
+@@ -1767,7 +1787,7 @@ static void uvc_video_complete(struct urb *urb)
+ 	buf = uvc_queue_get_current_buffer(queue);
+ 
+ 	if (vb2_qmeta)
+-		buf_meta = uvc_queue_get_current_buffer(qmeta);
++		buf_meta = uvc_video_get_current_meta_buffer(stream);
+ 
+ 	/* Re-initialise the URB async work. */
+ 	uvc_urb->async_operations = 0;
+@@ -1778,6 +1798,12 @@ static void uvc_video_complete(struct urb *urb)
+ 	 */
+ 	stream->decode(uvc_urb, buf, buf_meta);
+ 
++	if (buf_meta) {
++		scoped_guard(spinlock_irqsave, &stream->meta.irqlock) {
++			stream->meta.in_flight = false;
++		}
++	}
++
+ 	/* If no async work is needed, resubmit the URB immediately. */
+ 	if (!uvc_urb->async_operations) {
+ 		ret = usb_submit_urb(uvc_urb->urb, GFP_ATOMIC);
+@@ -2328,6 +2354,8 @@ int uvc_video_init(struct uvc_streaming *stream)
+ 	for_each_uvc_urb(uvc_urb, stream)
+ 		INIT_WORK(&uvc_urb->work, uvc_video_copy_data_work);
+ 
++	spin_lock_init(&stream->meta.irqlock);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index af8cef94ffff..26d4461f2774 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -483,6 +483,9 @@ struct uvc_streaming {
+ 		struct uvc_video_queue queue;
+ 		u32 format;
+ 		u32 buffersize;
++		bool in_flight;
++		bool streaming;
++		spinlock_t irqlock; /* Protects in_flight and streaming. */
+ 	} meta;
+ 
+ 	/* Context data used by the bulk completion handler. */
+
 -- 
-Ricardo Ribalda <ribalda@chromium.org>
+2.56.1.809.ga0b61035b5-goog
 
