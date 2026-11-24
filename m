@@ -1,73 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795549639;
-	b=WbfNlMJ6m0L+npn5/qR+42Mymiv1QHac7uy+l0CcITsBduobu9pQHDBHTcXTM40pGsVJ
-	 LqHBO65vqZB8cqn9h2aYDvX1/FXQQWrHL6ie3jOBv/5koTtLynW4nrXnwf8bAP+y65CC+
-	 CTUfhVXEz4S0UNKYSrXgCsBPImjT1bSjxn5zNLmtmGVv2wrJngovIIvVD5HsnVh0xRZUR
-	 YBbp42bVFk9xzrq77oLNhzgfMxXi19JmD2LCCFP45ye/TyLJqt1guD2xNQ1RRsNegdS9Y
-	 NUPeEb3Zi3QRk2TY36Fe/odO/oL35FdvRa7sQTwDJ+NpsGppyBAuNVA8PNzLWUvQ2GQ==
+	t=1795549643;
+	b=TVqxhfz/sYV+kDqm0ewWHmixyYNjwunpsxN+CRgg7dgEM/l2wkAhhnQMYDjGfZkg4PKK
+	 1CYd6GK5dk1BDuazTh6n2E557dy/i4QRpc8t60BSPFfTyQCMK/83Njv4EJKnK55Dx7t6x
+	 ASSRuOgUQx9mSY7167AzEYpYViipWQu58UE1ANwc4UPPfzR8c6wLsp49hWEITuHB4cgpy
+	 kysrUfWAgrpuU1tK6LMU3xZTsd4KGtkVGZXvb5l4fNjegNO+Q3qjqiAU2SRTv+4H0Wt5p
+	 eT0KmnToThko0YL9/EENpeLuzy01k/FajEZK8g9z19mY+t6wKqPuhgZhodEsO+BznEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795549639;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795549643;
 	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
 	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=3cFWDXQ8KAU5Elp0nNN8Nv6NxB/OcWYqOm4mw2XxwUk=;
-	b=e/Ncp/HhYljnlGjZBAXYzrbrkX1PzRLsc2IrUW2kSuKYhDsQWEgD9QLz0RQwDiGk98qZ
-	 sQgnrz3lA+4TJ0cynHIemtSexPsnnhI4PiufyXv8D0qB2mfKS/v9HSZsRKws5QJRBd1OZ
-	 6kYnI8dU6B2ZeHOsDMFYtsKGYbEzLwPRNf5koM/4ybQ6LsJDXM4EGMMrpSncrMNqN/39j
-	 rR/p6qrpTCBuoMny3vZ4IttRRBg3+6/VAXfZtrn7E/4BRSOca8fEZH1fV7/eTNvjP6spI
-	 ll4Bdbffgo2uriAjHalJ9ApWqnZn/LQDeY/uOuUzMO/+MT4OHMc/ypccQdIxA05Sf7w==
+	bh=Jb7UacLdyzgROEM6VeFj8C1lCP+Li5b9218DpdLXBEc=;
+	b=4ObEWU6BLwT7uQtikhXKUNNSvntrXsQuP+EUMCht93y6+mhR4MLN64zeQ7CTCiA0v+k6
+	 hCfmqPvmlmv7+8D0IyW0M4zh/paAnurZEMf7EV7L6y3lH0GVaGb8uqAciF6E1ThTMUPEu
+	 gQNnU0v0huRZAtJZRkMU5R+URnKypRitBfSkiNlgVgrZ/2WCCuF7B1w6QM7y2gj+pcgZk
+	 DARLu0VlDjsyTOiC0lHox13e53esG42FzzQVPFT2/xCPDXNAgiEDsIt2XLaxgujQYsnCE
+	 Od+igzvHvAyc/4iR1T3RUxc37+9ZJ2ZsdNIVaFqtIKzu2Tep0aRv+FyNRAKmbt02E2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXTGiMP5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ke7n9tdz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B726606A6A5;
-	Tue, 24 Nov 2026 19:47:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB869606A6A9;
+	Tue, 24 Nov 2026 19:47:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXTGiMP5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6E51F000D4;
-	Tue, 24 Nov 2026 19:47:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ke7n9tdz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C7AD1F000F4;
+	Tue, 24 Nov 2026 19:47:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795549638;
-	bh=3cFWDXQ8KAU5Elp0nNN8Nv6NxB/OcWYqOm4mw2XxwUk=;
+	s=k20260515; t=1795549643;
+	bh=Jb7UacLdyzgROEM6VeFj8C1lCP+Li5b9218DpdLXBEc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CXTGiMP5o1HjrrxbddYHp7Kl3EFPOW3NEUYGxFmuZ6iv5SKNAP+cuEf8gmOBJC2Dg
-	 XwwIAKCXou/Er59Dlb+Ljpiirovg4bPxpqxjvBu3bnJxjtGmiW9nb0QIsIuAp2xLpg
-	 WVNNyABhF5Fv3nUaAL3ayw/vo0LJRG2aAorBid+KgKHQMrKD+NH0TlDE5LcXwC/UgD
-	 0pjxAO2KYScsAxc37DkWGzXb9p6mIjz8gcNtqQ/yRqSaZSuQlZaPzamA0sXSqqu0RO
-	 LvqnOiYRtoytQdnBUR/ZX2O7gxMUGyxuHCCgGHMoqJmMENCQaZwbAra3x/iXByxaIh
-	 3rTzbRbA2Ee1A==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 33964198003A;
-	Tue, 24 Nov 2026 14:47:14 -0500 (EST)
+	b=Ke7n9tdzmh78RWE/vlZb+cPXV5Am6Cyy+xNXTKld/9H1PgV1OOgytyfroznoOcaiz
+	 nreVQuF0SWmYrfhJ3eVZNIJa71/TNc9hrEixvhfrsI3qLPFOh6JC7PWGrrL73MTtSV
+	 +ZJBzOWmlP1u4KZRdE51Pb+VMqC819ECQWn1y1epSk+lFb0S6wNy8uUC5yNKkLVMHT
+	 eh/3SIUa04c/LLl12Qk7FpZkE7l9m68H4k7FJrz66o3uMcWH8I1+1DQyqWTsXw43CE
+	 foH82+lKPsNhh2cRvQi/eREsWrIBtQh1NqNB30D/1ixITP/pCOc/hH7bYz3u5DJUj0
+	 0rGC7knzTYlxw==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 5ACE81980047;
+	Tue, 24 Nov 2026 14:47:18 -0500 (EST)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Tue, 24 Nov 2026 14:47:15 -0500
-X-ME-Sender: <xms:wekFa2UMKVClpYZJ8UdpOBVZIz58cAtZ1FgIt2UWtJV_W2QNG8wfJw>
-    <xme:wekFaw_vK1kiNNY6j8SFc1kmcrR1P_cV52qaOqpXKcbu_uFbtkSTIhIKgBiG3x1o2
-    gzrdaEMaaq1qKQszB97tqX5hQ9_mw7YLSYbpm2AMhxM4Dc4tY0dzI8>
-X-ME-Received: <xmr:wekFa2b8u0_nmyom0sB5SKxwXyPOrv30K5gLQmHO98xXzEx_fDYpn6bJ-_A>
-X-ME-Proxy-Cause: dmFkZTFIQ4tDLKOBhlA/ENs8WzyAMimFg22DdBTCB4/PNzsw0l7JAKIq/J4+DfcZKkGy55
-    cO9k8L7OujezxEtNbSKmlZ39KiNaX6MyE3qmZh9H4FNogjnItVh72OPWWUJY0JdfskwGrb
-    yW2faYz7cdZXKaCUPUBDuwpj/hlyYlpQOZduQRtnw0vKtXfyFfWkUuHXLQQUuZhf9IAiyZ
-    qs5tnA+Guqr3Qt5eVQb/lDt6YW5+26zBOWQCNlwwrVm+4vln1C+G36qn+8IitS1AQ65hG5
-    thEuuZWxJ2BsQ+dvSmXmOt0dNW4lM0lnb3fflFk8hyuNMxBqdzPFbdGZ6nfyQkuUjFfDi8
-    zl/hQo+v5/WPhrqpeFHvMRQwbh4SNwnxioCtt+cGKistMycK0RqV8vY79MWJ2CMyAKhDYB
-    XJKci2sUoQv811xP5xZGEpGAas23Z0B4nIODKLturESkZz4nAHEVUxB4kKo/CA6ahnn/Pz
-    murtjvr4n41cL2mAfaBEPSkUVkHHNs6iQFuojwymAkdekVp49iV5AQZokEKG7wH+7zfaqD
-    ns0k3W3+BWSiN8OusUuNNR1i3qVUJJ8PwUVHlHDQYUfpPIyUbPJkBOepZ2J2XcBsPb8Bzf
-    bb8dXsVRQ/j0KqoAjQZT/wREmYSuqULEI78Ze3oRDd8f5BVlTsYCj+MHiHjA
-X-ME-Proxy: <xmx:wekFaweyMbp4UVcB93yOWNn22e95yuzklEa07mZW0Td6YXtlf4Fp7Q>
-    <xmx:wekFa4o4WSdP47Cq7UiMxWiNNx3DhRNodJgypqcRvSmJj0mjYLdkiA>
-    <xmx:wekFa_DCD3_Te6L1Jv8Xr8IhGZnrsUf3qmsxaKJrwcoQUlqjU6_gNg>
-    <xmx:wekFa-Wt05Zc5zSruvW2PRQ-ofg29OLTURN-tXuD0YZgW0Ix_omYXA>
-    <xmx:wekFa755Sul1KRp1_nv4dKXRna6B3CW3a1nTUsOLDnpwY0exdazse5f4>
+  by phl-compute-05.internal (MEProxy); Tue, 24 Nov 2026 14:47:20 -0500
+X-ME-Sender: <xms:xekFa0cmu2gUb8M5YJxYK7s8sCMxYvibiLGG3W40q2-VN4Jo4GW3rQ>
+    <xme:xekFa0kA-upSFROVy9-3OKa8CkNOj4J6kTWdtM83VLNK7MiQthhOT7d4LN-CWau0B
+    JTPv8jjkWJvO7mxy0beNkQOwY59hgK9IImgBIE6hbL98n4O7CS34UmW2w>
+X-ME-Received: <xmr:xekFaxhua7X7NHCCrwHeXtuMWatqn1SAQaW-Wiv026GNNERfs8Fi3kmtsdI>
+X-ME-Proxy-Cause: dmFkZTF8mK3hTCRd90aqnSvOpCd4gzquwbaRY1ybcFkVdEZH36HujOrk/L6VV6Y1vtNMHJ
+    6VVt7i5u8kMpzFTrCKxhljVCQ0KWilRMz8P/2EHJr4WvH0fuZpYQC7sK293mDxYM5fCpxr
+    1T3W9hf6dB8LZqtzE4IkJAYo0VMIBVV8zOeHK0H62E2wvN3S7anHOZYKNhLPFJ87IUM61S
+    qHy4D0IvnCfOjgesgxbhRacdN4oSj4TucPlCavxmzsp4Gkj0PCKNRZJx/kx70DdCFDXw+q
+    7xJwCo/wVwK7Yl9cyU5U0q9sKTnCGo1ZKourJqEYJheN6vPystHS9LyDe6Aaf2u3+CwkI8
+    K0JxkNkTYnrafKZ/rTj/3+9Cp9lcsGjXEwFv/7cqddgUQW1JxEbcN2FXocQC6sokP77iTz
+    4rFrL77wxX12ppPWSMVZwxp19CXJ0zfLguT3cdPHVkfzezIu+smY5OQy4cfTbZFhJai4jB
+    qioc+3L14it17ZZqJ4ZF6Bnn419bRnXUI5OLbowlPINKMA4fFjOlriEYMVbgvrEMVmIGoe
+    G0Me4uLkDxVpzwekgnG0s9azudRcd/8aoyRo2FA7cagRqEdCXxQUA4Z/C5Q2BrbWG+Nvx/
+    +OoIzYgvtUzHpR22FRjEmXOcLWgi+Kvv0g9Kvv04EWtoKGWbRjR5HU7A/p7Q
+X-ME-Proxy: <xmx:xekFa9EGI9L4ahECNeOKy9PLeZNJLwtB0SeRXNELsui-ZeELFs6Fnw>
+    <xmx:xekFa4zOf4H4XkBgNVEFRyaEqZGefgnS87-IiO3iXpUh-wAp0q-6TQ>
+    <xmx:xekFa8ptG5LFDO8P2LynCZIsBDBtiu_gC354pp1S3Bi3FyMHFmG2dA>
+    <xmx:xekFa7dIQ7vp6XFCWc-hwYoO9-kQslgtqXxz4YU-ZIH-o1qvT7-nJA>
+    <xmx:xekFaygRgIctcxYKCfXNpWhmSCYbso94vTf0CMNuc6xBx11D26g_Z-wE>
 Feedback-ID: i10464835:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 24 Nov 2026 14:47:13 -0500 (EST)
+ 24 Nov 2026 14:47:17 -0500 (EST)
 From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 To: Catalin Marinas <catalin.marinas@arm.com>,
 	Will Deacon <will@kernel.org>,
@@ -89,9 +89,9 @@ Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] firmware: arm_sdei: Do not signal event 0 to a masked PE
-Date: Tue, 24 Nov 2026 19:47:04 +0000
-Message-ID: <20261124194707.1030653-2-kas@kernel.org>
+Subject: [PATCH 2/2] firmware: arm_sdei_nmi: Send the backtrace IPI to CPUs with SDEI masked
+Date: Tue, 24 Nov 2026 19:47:05 +0000
+Message-ID: <20261124194707.1030653-3-kas@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261124194707.1030653-1-kas@kernel.org>
 References: <20261124194707.1030653-1-kas@kernel.org>
@@ -106,311 +106,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SDEI NMI backtrace signals event 0 to every other CPU, idle ones
-included. The kernel masks SDEI on a PE around power-down idle states,
-on its way offline and when it stops.
+sdei_event_signal() refuses a CPU that has SDEI masked. An NMI
+backtrace then gets nothing from such a CPU and, after 10 seconds,
+reports it as not responding.
 
-TF-A raises event 0 with an SGI. On a masked PE it acknowledges the SGI
-and never ends it; the event should stay pending until SDEI_PE_UNMASK.
-TF-A v2.13 and later refuse to signal a masked PE, but a target that masks
-just after the check still takes the SGI. A fix is under review [1].
+The CPU is in a power-down idle state or going offline, and the regular
+backtrace IPI wakes it. Send that IPI to the CPUs SDEI refused; every
+other CPU still gets event 0.
 
-The PE keeps running at the SDEI priority and takes no Non-secure
-interrupt again, even after SDEI_PE_UNMASK. Other CPUs hang in
-csd_lock_wait() on their next cross-call to it. One sysrq-l locked up a
-384-CPU machine.
+A stop needs nothing extra: smp_send_stop() has sent its IPIs before it
+signals SDEI, and a CPU still online after that is reported as not
+stopped.
 
-Keep event 0 away from masked PEs. Each PE gets a lock, an unmasked flag
-and a count of signals raised at it. sdei_event_signal() signals a PE
-only under its lock with the flag set, and returns -EAGAIN otherwise.
-Before it masks, a PE clears the flag under the lock and waits for the
-signals already raised to arrive, which SDEI delivers whatever the PE's
-interrupt masks. The wait is limited to a millisecond: a signal raised
-while another is pending merges into it, and the count never drains.
-
-Senders can run from an SDEI event or a pseudo-NMI, so they only try the
-lock. A panicking CPU skips it, as a panic from such a context may have
-left it held by that CPU.
-
-The cpu_pm notifier also runs on a PE that is masked already: before
-sdei_cpuhp_up(), and between sdei_cpuhp_down() and CPU_OFF. Make it
-unmask only what it masked itself, or the PE comes back from CPU_OFF
-masked while the kernel takes it as unmasked.
-
-sdei_event_signal() now takes a logical CPU number.
-
-[1] https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/55414
-
-Fixes: 9141eda9eec7 ("firmware: arm_sdei: add SDEI_EVENT_SIGNAL support")
+Fixes: 0c2c56598cc1 ("drivers/firmware: add SDEI cross-CPU NMI service for arm64")
 Cc: stable@vger.kernel.org
-Reported-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Closes: https://lore.kernel.org/r/17149b32-6b9c-4364-b664-5789f0633e9d@huawei.com
 Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- drivers/firmware/arm_sdei.c     | 130 ++++++++++++++++++++++++++++++--
- drivers/firmware/arm_sdei_nmi.c |   9 ++-
- include/linux/arm_sdei.h        |   4 +-
- 3 files changed, 131 insertions(+), 12 deletions(-)
+ arch/arm64/include/asm/nmi.h    |  7 +++++++
+ arch/arm64/kernel/smp.c         |  2 +-
+ drivers/firmware/arm_sdei_nmi.c | 21 ++++++++++++++++++---
+ 3 files changed, 26 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/firmware/arm_sdei.c b/drivers/firmware/arm_sdei.c
-index e8dd2f0f3919..47f36efdc04e 100644
---- a/drivers/firmware/arm_sdei.c
-+++ b/drivers/firmware/arm_sdei.c
-@@ -12,6 +12,7 @@
- #include <linux/cpuhotplug.h>
- #include <linux/cpu.h>
- #include <linux/cpu_pm.h>
-+#include <linux/delay.h>
- #include <linux/errno.h>
- #include <linux/hardirq.h>
- #include <linux/kernel.h>
-@@ -32,6 +33,8 @@
- #include <linux/smp.h>
- #include <linux/spinlock.h>
- 
-+#include <asm/smp_plat.h>
-+
- /*
-  * The call to use to reach the firmware.
+diff --git a/arch/arm64/include/asm/nmi.h b/arch/arm64/include/asm/nmi.h
+index 2e8974ff8d63..447d681a5475 100644
+--- a/arch/arm64/include/asm/nmi.h
++++ b/arch/arm64/include/asm/nmi.h
+@@ -45,4 +45,11 @@ static inline void sdei_nmi_stop_cpus(const cpumask_t *mask) { }
   */
-@@ -299,10 +302,78 @@ static int sdei_api_get_version(u64 *version)
- 	return invoke_sdei_fn(SDEI_1_0_FN_SDEI_VERSION, 0, 0, 0, 0, 0, version);
- }
+ void __noreturn arm64_nmi_cpu_stop(struct pt_regs *regs, bool die_on_crash);
  
 +/*
-+ * Event 0 must not reach a PE that has SDEI masked. Firmware may
-+ * acknowledge the SGI behind it and never end it, and the PE then takes
-+ * no Non-secure interrupt at all.
-+ *
-+ * A sender signals a PE only with the PE's lock held, and only if the PE
-+ * is unmasked. The PE takes its lock to mark itself masked: no sender gets
-+ * through after that, and a sender that got through before has counted
-+ * its signal in @raised and raised it. The PE lets its signals arrive
-+ * before it masks: each event 0 takes one off @raised. @pm_masked records
-+ * what the cpu_pm notifier masked.
++ * Send the regular backtrace IPI (an NMI with pseudo-NMI) to @mask. The
++ * SDEI provider uses it for the CPUs it cannot signal. Defined in
++ * arch/arm64/kernel/smp.c.
 + */
-+struct sdei_pe {
-+	raw_spinlock_t	lock;
-+	atomic_t	raised;
-+	bool		unmasked;
-+	bool		pm_masked;
-+};
++void arm64_backtrace_ipi(cpumask_t *mask);
 +
-+static DEFINE_PER_CPU(struct sdei_pe, sdei_pe) = {
-+	.lock = __RAW_SPIN_LOCK_UNLOCKED(sdei_pe.lock),
-+};
-+
-+/* Wait for event 0 signals in flight to this PE to arrive */
-+static void sdei_wait_in_flight(struct sdei_pe *pe)
-+{
-+	int i;
-+
-+	/* Bounded: a signal that never arrives must not hold up masking */
-+	for (i = 0; i < USEC_PER_MSEC && atomic_read(&pe->raised) > 0; i++)
-+		udelay(1);
-+
-+	if (atomic_read(&pe->raised) > 0) {
-+		pr_warn_once("event 0 to CPU[%u] did not arrive within 1ms\n",
-+			     smp_processor_id());
-+	}
-+
-+	/*
-+	 * A signal raised while an earlier one is still pending merges into
-+	 * it, and the count stays high with nothing on its way: drop it. A
-+	 * signal that arrives after this finds the count at zero and leaves it.
-+	 */
-+	atomic_set(&pe->raised, 0);
-+}
-+
-+/* Stop event 0 signals to this PE, waiting for the senders under the lock */
-+static void sdei_block_signal(void)
-+{
-+	struct sdei_pe *pe = this_cpu_ptr(&sdei_pe);
-+	unsigned long flags;
-+
-+	/*
-+	 * A panic from an SDEI event or a pseudo-NMI may have left the lock
-+	 * held by this CPU. The CPUs that could signal it are stopped by now.
-+	 */
-+	if (panic_on_this_cpu()) {
-+		WRITE_ONCE(pe->unmasked, false);
-+	} else {
-+		raw_spin_lock_irqsave(&pe->lock, flags);
-+		WRITE_ONCE(pe->unmasked, false);
-+		raw_spin_unlock_irqrestore(&pe->lock, flags);
-+	}
-+
-+	sdei_wait_in_flight(pe);
-+}
-+
- int sdei_mask_local_cpu(void)
- {
- 	int err;
- 
-+	sdei_block_signal();
-+
- 	err = invoke_sdei_fn(SDEI_1_0_FN_SDEI_PE_MASK, 0, 0, 0, 0, 0, NULL);
- 	if (err && err != -EIO) {
- 		pr_warn_once("failed to mask CPU[%u]: %d\n",
-@@ -330,6 +401,8 @@ int sdei_unmask_local_cpu(void)
- 		return err;
- 	}
- 
-+	/* No lock: a sender that misses this only refuses an unmasked PE */
-+	WRITE_ONCE(this_cpu_ptr(&sdei_pe)->unmasked, true);
- 	return 0;
+ #endif /* __ASM_NMI_H */
+diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
+index 014b163ce658..8369a4cd3e32 100644
+--- a/arch/arm64/kernel/smp.c
++++ b/arch/arm64/kernel/smp.c
+@@ -946,7 +946,7 @@ static void arm64_send_ipi(const cpumask_t *mask, unsigned int nr)
+ 			__ipi_send_single(get_ipi_desc(cpu, nr), cpu);
  }
  
-@@ -340,14 +413,34 @@ static void _ipi_unmask_cpu(void *ignored)
- }
- 
- /*
-- * Signal the software-signalled event (event 0) to @mpidr. Does nothing
-- * but the SMC -- no locks, no event lookup -- so it is safe from NMI /
-- * crash context (e.g. the cross-CPU NMI service).
-+ * Signal the software-signalled event (event 0) to @cpu. It waits for no
-+ * lock and looks up no event, so it is safe from NMI / crash context (e.g.
-+ * the cross-CPU NMI service).
-+ *
-+ * Returns -EAGAIN without signalling if @cpu has SDEI masked or is masking.
-  */
--int sdei_event_signal(u32 event_num, u64 mpidr)
-+int sdei_event_signal(u32 event_num, unsigned int cpu)
+-static void arm64_backtrace_ipi(cpumask_t *mask)
++void arm64_backtrace_ipi(cpumask_t *mask)
  {
--	return invoke_sdei_fn(SDEI_1_0_FN_SDEI_EVENT_SIGNAL, event_num,
--			      mpidr, 0, 0, 0, NULL);
-+	struct sdei_pe *pe = per_cpu_ptr(&sdei_pe, cpu);
-+	u64 mpidr = cpu_logical_map(cpu);
-+	unsigned long flags;
-+	int err = -EAGAIN;
-+
-+	/* IRQs off: the PE may be waiting for the lock to mask */
-+	if (!raw_spin_trylock_irqsave(&pe->lock, flags))
-+		return -EAGAIN;
-+
-+	if (READ_ONCE(pe->unmasked)) {
-+		atomic_inc(&pe->raised);
-+		err = invoke_sdei_fn(SDEI_1_0_FN_SDEI_EVENT_SIGNAL, event_num,
-+				     mpidr, 0, 0, 0, NULL);
-+		/* A late signal may have taken this count already */
-+		if (err)
-+			atomic_dec_if_positive(&pe->raised);
-+	}
-+
-+	raw_spin_unlock_irqrestore(&pe->lock, flags);
-+	return err;
+ 	arm64_send_ipi(mask, IPI_CPU_BACKTRACE);
  }
- NOKPROBE_SYMBOL(sdei_event_signal);
- 
-@@ -680,6 +773,9 @@ static int sdei_cpuhp_down(unsigned int cpu)
- 	struct sdei_event *event;
- 	int err;
- 
-+	/* A signal must arrive while event 0 is still registered here */
-+	sdei_block_signal();
-+
- 	/* un-register private events */
- 	spin_lock(&sdei_list_lock);
- 	list_for_each_entry(event, &sdei_list, list) {
-@@ -733,16 +829,30 @@ static int sdei_cpuhp_up(unsigned int cpu)
- static int sdei_pm_notifier(struct notifier_block *nb, unsigned long action,
- 			    void *data)
- {
-+	struct sdei_pe *pe = this_cpu_ptr(&sdei_pe);
- 	int rv;
- 
- 	WARN_ON_ONCE(preemptible());
- 
- 	switch (action) {
- 	case CPU_PM_ENTER:
-+		/*
-+		 * Leave alone a PE that is masked already: before
-+		 * sdei_cpuhp_up(), or after sdei_cpuhp_down(), as cpuidle runs
-+		 * until CPU_OFF. CPU_PM_EXIT must not unmask it.
-+		 */
-+		if (!pe->unmasked)
-+			return NOTIFY_DONE;
- 		rv = sdei_mask_local_cpu();
-+		if (!rv)
-+			pe->pm_masked = true;
- 		break;
- 	case CPU_PM_EXIT:
- 	case CPU_PM_ENTER_FAILED:
-+		/* Unmask only what CPU_PM_ENTER masked */
-+		if (!pe->pm_masked)
-+			return NOTIFY_DONE;
-+		pe->pm_masked = false;
- 		rv = sdei_unmask_local_cpu();
- 		break;
- 	default:
-@@ -1114,6 +1224,14 @@ int sdei_event_handler(struct pt_regs *regs,
- 	int err;
- 	u32 event_num = arg->event_num;
- 
-+	/*
-+	 * One signal raised at this PE has arrived. If the PE gave up waiting
-+	 * for it and dropped the count, leave the count at zero: below zero,
-+	 * the PE would not wait for the next signal raised here.
-+	 */
-+	if (!event_num)
-+		atomic_dec_if_positive(&this_cpu_ptr(&sdei_pe)->raised);
-+
- 	err = arg->callback(event_num, regs, arg->callback_arg);
- 	if (err)
- 		pr_err_ratelimited("event %u on CPU %u failed with error: %d\n",
 diff --git a/drivers/firmware/arm_sdei_nmi.c b/drivers/firmware/arm_sdei_nmi.c
-index 038eb79e28ac..edea68ef881e 100644
+index edea68ef881e..b8ebb97caf18 100644
 --- a/drivers/firmware/arm_sdei_nmi.c
 +++ b/drivers/firmware/arm_sdei_nmi.c
-@@ -36,7 +36,7 @@
-  *
-  * Delivery uses the standard SDEI software-signalled event (event 0) and
-  * SDEI_EVENT_SIGNAL. We register a handler for event 0, enable it, and
-- * poke a target CPU with sdei_event_signal(0, mpidr): firmware makes
-+ * poke a target CPU with sdei_event_signal(0, cpu): firmware makes
-  * event 0 pending on that PE and dispatches the handler NMI-like,
-  * regardless of the target's DAIF.
-  * Availability is simply whether event 0 registers and enables -- if SDEI
-@@ -58,7 +58,6 @@
- #include <linux/types.h>
+@@ -124,7 +124,7 @@ static int sdei_nmi_handler(u32 event, struct pt_regs *regs, void *arg)
+ }
+ NOKPROBE_SYMBOL(sdei_nmi_handler);
  
- #include <asm/nmi.h>
--#include <asm/smp_plat.h>
- 
- static bool sdei_nmi_available;
- 
-@@ -127,11 +126,13 @@ NOKPROBE_SYMBOL(sdei_nmi_handler);
- 
- static void sdei_nmi_fire(unsigned int target_cpu)
+-static void sdei_nmi_fire(unsigned int target_cpu)
++static int sdei_nmi_fire(unsigned int target_cpu)
  {
--	int err = sdei_event_signal(SDEI_NMI_EVENT, cpu_logical_map(target_cpu));
-+	int err = sdei_event_signal(SDEI_NMI_EVENT, target_cpu);
+ 	int err = sdei_event_signal(SDEI_NMI_EVENT, target_cpu);
  
--	if (err)
-+	/* -EAGAIN: the CPU has SDEI masked and is not signalled */
-+	if (err && err != -EAGAIN) {
+@@ -133,8 +133,13 @@ static void sdei_nmi_fire(unsigned int target_cpu)
  		pr_warn("SDEI_EVENT_SIGNAL to CPU %u failed: %d\n",
  			target_cpu, err);
+ 	}
++
++	return err;
+ }
+ 
++/* CPUs to IPI instead; nmi_trigger_cpumask_backtrace() serialises its users */
++static cpumask_t sdei_nmi_ipi_mask;
++
+ /*
+  * Raise callback for nmi_trigger_cpumask_backtrace(): signal event 0
+  * at every CPU still pending in @mask. The framework excludes the local
+@@ -151,8 +156,18 @@ static void sdei_nmi_raise_backtrace(cpumask_t *mask)
+ 	 */
+ 	dsb(ishst);
+ 
+-	for_each_cpu(cpu, mask)
+-		sdei_nmi_fire(cpu);
++	cpumask_clear(&sdei_nmi_ipi_mask);
++	for_each_cpu(cpu, mask) {
++		if (sdei_nmi_fire(cpu) == -EAGAIN)
++			cpumask_set_cpu(cpu, &sdei_nmi_ipi_mask);
 +	}
++
++	/*
++	 * A CPU with SDEI masked is in a power-down idle state or going
++	 * offline. The IPI wakes it and it reports like any other.
++	 */
++	if (!cpumask_empty(&sdei_nmi_ipi_mask))
++		arm64_backtrace_ipi(&sdei_nmi_ipi_mask);
  }
  
  /*
-diff --git a/include/linux/arm_sdei.h b/include/linux/arm_sdei.h
-index b9dc21c241be..a63ab4774783 100644
---- a/include/linux/arm_sdei.h
-+++ b/include/linux/arm_sdei.h
-@@ -39,9 +39,9 @@ int sdei_event_disable(u32 event_num);
- 
- /*
-  * Signal the software-signalled event (event 0) to another PE, NMI-like.
-- * @mpidr is the target's MPIDR affinity.
-+ * Returns -EAGAIN if @cpu has SDEI masked.
-  */
--int sdei_event_signal(u32 event_num, u64 mpidr);
-+int sdei_event_signal(u32 event_num, unsigned int cpu);
- 
- /* Was SDEI firmware probed and usable? */
- bool sdei_is_present(void);
 -- 
 2.54.0
 
