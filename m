@@ -1,95 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795509219;
-	b=xDkHgUKBA09+jltxSNXwZ2pwo2IolPTJcFblyZcTxW8P9cJ4xInKYrbzl45wRNwmJrAf
-	 sz976kC+qm1ytw+AhybK66d3QVObDN4zlCYCh06WePSNEuNKfayOYINZJQahQLoXHvNvo
-	 rfHT9OG7HrpOnTnIKbb5PM2iN+6O7oAs2fjGOoZtoUw3p6qqelx38s3PdQ9TWNnPdq2cW
-	 +q0PycvHuDjvLBkYghG2zV+tsb4q0yx/c86+qIU0hCWefT0yzdRByx78HwRDQpqaIkuYC
-	 28HHyxo0M536yvD5fzTw1v9Rt/E0BBOfS57R6chgX6ErDmtWBGykZo8WwgpfCIQQ3bw==
+	t=1795509298;
+	b=aLBSB01Q4EDGXiNvvaglVSN/X2uYh5lsALXnMbUx2RJthmSbAInIXUXdAQC8XwJMjLlH
+	 MKNjUMQdROOK91nryyDp2gealXPu0uoTuLuEJed0c1nfBT/I+xbxKUUPwX4fUvZkF01vu
+	 pis6j+/eVSqRbyiwDui46SneryPLnaBj/QiJ0Sva2dCXy0gAnqnTQtwqusNm4bQedxm4V
+	 NcvkI+AagurVir3VixfiMxef2qC+paj6XKDd1YC+mJTyQLWbx6i+E99s3Qv4DLuc85ZEz
+	 SQJccoxhoAZZCMR7VjKht01SQqamZojSGLuS3Q0OsvA0Ej1dGHSszUUGsJErfY7x0xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795509219;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IHaPZxvGPPauklr++9jBux27Uh1MCS1CpxGOkczFd/A=;
-	b=ThnoJ2pR7iCkIYKKWP89pX5Ec2UgAOY0yKlkpjUAvwV2e3gnPaESCL1WYRqTKpBWeZKu
-	 1Yef/+Hbm64VJGCDjJvILDFI+dFINfdQ5DqnkaJZBzlzkd2MK/G2Ayq6I/8CC0pD74JPR
-	 yNc35A4Dht8efs20b9EC6wcwJLxfgaAEQPXBnyWlhIm6n+2aP4ljIsxcSkULNYnWSjJ0n
-	 ry08WC5vRN7dDOKvcY7bmoNTpLPER2PJV6caAZM0SU3E8oI3Ax9g38sPDbSK2J0V4yAId
-	 xK0+Oz6HL3e/dqzuObQHR/BhwmgGDABw4yl3plel2uKfQnOHHk5kf+zfUkYHUrb6sbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795509298;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=/+C9IDErX90bAu4WHPOk3aBMUel6TJ2TV50UzPHUj/A=;
+	b=bF5pq65Tqp47zA8yWQnLZrit3UCdNn7M5j2pOaddeD1ezfdyH2Z0MKZXCf9FNbTRZAN+
+	 3Oh2h0SfOJkFJOfSiAHMC+6WlNt/pnbsbHYdE40VE3GsVJKaxyXuNHe5f7TDKpOXU61KE
+	 vTnrG6Vfyd4lyojV5j+B7lIsfH32Ig5vyB7zbxRRouqPU2URKPmI7ln5bk7/USyLaKs6b
+	 Sek7zZhAZeCwveI62c/B8RZzfC/3czWjT1Prh8op5M+XmZ55kl3uF8ICrWuT7ltQzpW6C
+	 RGm+F1qf+RcNPfxHhUS/SYdV2by/P8mPQ9pq5M+dFVMCt6i1PqLRnDRJtNA6Ew6/LdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asu.edu;
-	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b="bkH3c/n/";
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=n1xnuyXN;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F5D606A693
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 08:33:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87F5D606A693
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42820606A31E;
+	Tue, 24 Nov 2026 08:34:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42820606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=bkH3c/n/
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-170135e43c7so6141251c88.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 00:33:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1795509217; x=1796114017; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IHaPZxvGPPauklr++9jBux27Uh1MCS1CpxGOkczFd/A=;
-        b=bkH3c/n/jScsSPF0AtfJbwWKG3EGbh3eR9Oq9iW56tUWHAbE05TTA/jlR1Yzn1QKzW
-         XVSWmcE95xz1B+mjnPaFbEVRwZqUeV5l7eqy52+L3OQYoNfHS+k5g5sMRwm6NZPd004i
-         YVXHAspEaC1j6oJhKgUcSADHuBJFdX6QG34QwaNrkOYXntwP4VITflsxiOKvcGhnZubl
-         vVHd/s546Os+2lu8fBGolT1yJP54gDwIQwj31laVTe+Bcwl7ook9mE5KHxJqtJ7xMUpr
-         zHW4MSVddUNFrVz2cN1pUzQg9GYnHByCCQt+TqJ+Lff6JMDj+dMOa4zPC7l3blNlWrBs
-         TgSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795509217; x=1796114017;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IHaPZxvGPPauklr++9jBux27Uh1MCS1CpxGOkczFd/A=;
-        b=xxeaLSvnNLxpGmjvcCSVhmK8lUW7EPjvR76VxR0uYvRZIRy7GvgItbaqBkZISBRYHE
-         v2JoU9riqJVGMxBo3/oDeax4nm/qwYhDnrb4ORxfXTYysQvcIf9zjjF+n25fI7O6m53l
-         XqIhaSnktyRLy+3RgTq+qMUlbwSgFEkWagBBhh2fLL+t1UaZtHjLbuBASr8SQBlansQg
-         LcDel3WaVXAwuInL5dSnQm7RpW3cKAhPcSXrq1rbLOA+0Dnv8PbIj2/IWgzaXY8THIEc
-         Q2ChxLExi5ChjDbBuHPtn3SyWyYKOSvUWK9nWkqa0zGLUGegaB5REBDYMpP3DcDICHge
-         A/Nw==
-X-Forwarded-Encrypted: i=1; AL+hErF+N1dXUUluUzhLnYzkcQ1uPCegRf1gHpx4f7b6XbOm9vHtAHgn3McfWGO6FKTEnHrQVqBNoqk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9QZud8ghvSmhxxhmuz84kYsnQD8Bb1T+6AcBMHARj4evhEwm6N
-	S23C+ylDKPqE8HlNtjTMRPQahKiXe7x1iD4uy3dJruIPOOeSwlfMd25RGhHW6AYaig==
-X-Gm-Gg: AZFdTZdqt6sDzj4bgB7sY+7qYh7JBcKFHCxjGQW/JGz+Mh37Bz7flqf1cwHAcOdA/PF
-	lPrPj/sTJ1EEfXYnl2+PA8ousyQF5A0Estb3lsQcEfLeO9t1CN2krE+3c5E2cOv+6FauKflZQYq
-	p//+JW9auw2xom9k6D+IWX2/9GpyvlGkTUnQCj64PGCdgXlDLb1BfEMErLaDxzo0dQbJpWE4n+N
-	WzxRPcZeWSJo9E97H81N6maEVpEMc2P2zhhHUkdK8LvgTd757B8SuO62ZEC+lVVZgQ1TGpWZha0
-	iBlv8cs4EbcdaFWWW6TBmJARvmE1DABlNuLvmd9Lsf4ZXLswLX4jSngjzAJTBinzBNShi1I0m4d
-	Ee3Ix0pRYuMXFxp4CMn5hAJU6M6XRWlRkmJeZv5KLNust2E9VYXlTiKxOB1DHFKLtIljTVO1tgJ
-	U1tora66qJuoH1eX+oquLDjdYlyJTm7cDDM5fzM05bdCU04KlVsz3rqp+aV4bMjIpeoiEryIpDi
-	dq9bmjy4/YBmOrb8FTKsBFelJSGOs21JZpgiAaCIwBCfBqfSnP7q/wxU/rq/s3nJ3G2KGsL1OHN
-	xLnhm7jMIlZyonvtKo+PrOQVvXlpdTb+BMy8rpTtHRiD2iGZX/cqu/8rjn/MnP5TFPgBxPuoc5A
-	UkYjnRPObHfk5Hg==
-X-Received: by 2002:a05:7022:7f12:b0:1b5:4dff:8b67 with SMTP id a92af1059eb24-1b5568eeba1mr14216791c88.29.1795509216390;
-        Tue, 24 Nov 2026 00:33:36 -0800 (PST)
-Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5568592adsm32784012c88.15.2026.11.24.00.33.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 00:33:36 -0800 (PST)
-From: Xiang Mei <xmei5@asu.edu>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+3d9e2c65bdd43a254924@syzkaller.appspotmail.com,
-	co+0b5d5f4d3472df53@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH wireless] wifi: cfg80211: don't parse the SNAP header of a too-short A-MSDU subframe
-Date: Tue, 24 Nov 2026 01:33:27 -0700
-Message-ID: <20261124083327.2037092-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=n1xnuyXN
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8F93EC4B;
+	Tue, 24 Nov 2026 09:32:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795509142;
+	bh=ugyRtjgKK8tDPPuYVG8t/8De6KYQmiKIIQ8VnT3FnWM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=n1xnuyXN4gYKtsvxBRG56IzsiQmR3BBVOguTFQtGOcC0LConreodsV+lPjfoeP1iT
+	 CSLH2lCVHvOx8yqdVWPGRfhUMRqIJfPUohbFz2+OE17vMnGzrerAMveCkutexD1VOI
+	 8EEoed3dqS4YvnP4Z23YJAsH3a/bG+jGPApYr63I=
+Date: Tue, 24 Nov 2026 09:34:52 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: linux-media@vger.kernel.org, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Nayden Kanchev <nayden.kanchev@arm.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: mali-c55: Serialise the ISP enable in the params
+ and stats paths
+Message-ID: <awVLwIfpxeOW_7Qx@zed>
+References: <20261114164933.2657337-1-devnexen@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,55 +64,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261114164933.2657337-1-devnexen@gmail.com>
 
-ieee80211_amsdu_to_8023s() bounds a subframe only from above
-(subframe_len > remaining), so an associated peer can declare a payload
-Length of 0..7, yet ieee80211_get_8023_tunnel_proto() always reads 8
-bytes from frame->data. With Length = 6 and payload aa aa 03 00 00 00,
-the rfc1042_header match succeeds on the peer's own bytes, and the two
-bytes past the frame are copied into h_proto and delivered up the stack.
-The frame length sets where they sit in the skb head, so the read is
-aimable and repeatable. Injected over mac80211_hwsim (init_on_alloc=0),
-the delivered EtherType is stale heap content instead of the declared
-0x0006:
+Hi David
 
-  aimed at object offset 410 -> leaked 7372
-  aimed at object offset 410 -> leaked 3d31
-  aimed at object offset 414 -> leaked 225f
-  aimed at object offset 418 -> leaked 7573
+On Sat, Nov 14, 2026 at 04:49:33PM +0000, David Carlier wrote:
+> Only the capture devices hold isp->capture_lock around the
+> mali_c55_pipeline_ready() check and the ISP enable or disable. When the
+> last two queues to start are on different video devices, both can see
+> a ready pipeline and both enable the ISP. The second call fails with
+> -EALREADY and its queue's start_streaming_called flag is cleared, so
+> the ISP is never disabled again and every later start fails.
+>
+> Take capture_lock in the params and stats paths too.
 
-With this patch the same frames deliver 0006. syzbot reported the same
-read as a KMSAN uninit-value.
+Should we then:
 
-Only parse the header when the subframe holds those 8 bytes; a shorter
-one keeps the 802.3 length semantics it already gets on a SNAP mismatch.
+        lockdep_assert_held(&mali_c55->isp.capture_lock);
 
-Cc: stable@vger.kernel.org
-Fixes: eaf85ca7fecb ("wireless: add ieee80211_amsdu_to_8023s")
-Reported-by: syzbot+3d9e2c65bdd43a254924@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3d9e2c65bdd43a254924
-Reported-by: co+0b5d5f4d3472df53@bugs.sh
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
----
- net/wireless/util.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+in mali_c55_pipeline_ready() ?
 
-diff --git a/net/wireless/util.c b/net/wireless/util.c
-index ebb1f6ec7efc..0a0823d1d517 100644
---- a/net/wireless/util.c
-+++ b/net/wireless/util.c
-@@ -1034,7 +1034,9 @@ void ieee80211_amsdu_to_8023s(struct sk_buff *skb, struct sk_buff_head *list,
- 		frame->priority = skb->priority;
- 
- 		if (likely(iftype != NL80211_IFTYPE_MESH_POINT &&
--			   ieee80211_get_8023_tunnel_proto(frame->data, &hdr.eth.h_proto)))
-+			   pskb_may_pull(frame, ETH_ALEN + 2) &&
-+			   ieee80211_get_8023_tunnel_proto(frame->data,
-+							   &hdr.eth.h_proto)))
- 			skb_pull(frame, ETH_ALEN + 2);
- 
- 		memcpy(skb_push(frame, sizeof(hdr.eth)), &hdr.eth, sizeof(hdr.eth));
--- 
-2.43.0
-
+>
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+>  drivers/media/platform/arm/mali-c55/mali-c55-params.c | 4 ++++
+>  drivers/media/platform/arm/mali-c55/mali-c55-stats.c  | 4 ++++
+>  2 files changed, 8 insertions(+)
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+> index 16e895e3488e..6515c78c1bb2 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+> @@ -762,6 +762,8 @@ static int mali_c55_params_start_streaming(struct vb2_queue *q,
+>  	struct mali_c55 *mali_c55 = params->mali_c55;
+>  	int ret;
+>
+> +	guard(mutex)(&mali_c55->isp.capture_lock);
+> +
+>  	ret = pm_runtime_resume_and_get(mali_c55->dev);
+>  	if (ret)
+>  		goto err_return_buffers;
+> @@ -796,6 +798,8 @@ static void mali_c55_params_stop_streaming(struct vb2_queue *q)
+>  	struct mali_c55 *mali_c55 = params->mali_c55;
+>  	struct mali_c55_isp *isp = &mali_c55->isp;
+>
+> +	guard(mutex)(&isp->capture_lock);
+> +
+>  	if (mali_c55_pipeline_ready(mali_c55)) {
+>  		if (v4l2_subdev_is_streaming(&isp->sd))
+>  			v4l2_subdev_disable_streams(&isp->sd,
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
+> index a9c28b090b2a..cbd2a2f77da3 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
+> @@ -146,6 +146,8 @@ static int mali_c55_stats_start_streaming(struct vb2_queue *q,
+>  	struct mali_c55 *mali_c55 = stats->mali_c55;
+>  	int ret;
+>
+> +	guard(mutex)(&mali_c55->isp.capture_lock);
+> +
+>  	ret = pm_runtime_resume_and_get(mali_c55->dev);
+>  	if (ret)
+>  		goto err_return_buffers;
+> @@ -180,6 +182,8 @@ static void mali_c55_stats_stop_streaming(struct vb2_queue *q)
+>  	struct mali_c55 *mali_c55 = stats->mali_c55;
+>  	struct mali_c55_isp *isp = &mali_c55->isp;
+>
+> +	guard(mutex)(&isp->capture_lock);
+> +
+>  	if (mali_c55_pipeline_ready(mali_c55)) {
+>  		if (v4l2_subdev_is_streaming(&isp->sd))
+>  			v4l2_subdev_disable_streams(&isp->sd,
+> --
+> 2.55.0
+>
