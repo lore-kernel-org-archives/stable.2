@@ -1,55 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795561194;
-	b=GGnzYG3iTDujJqT5v0JCzUrTFQ2rZ/RPGHKsJ9yB9Zycuz0yW717DYdEaoJEiTsad/jh
-	 +bSUiGNQVLqBdiptVqgdU/RS5hjJeidFHE3fsJe0JhR4L9bdT7l+Via/h9/MoJ7g5YDup
-	 7Hgc1KwZ8m1MS59RdrLc96VrGFrpa1otZcGLSJcZ9ECgGVxWGgKmtD6lALYcQUXo+D0/8
-	 puDZPdvG+Cwh1FX8VPX8j3DOqP2xfFmrjq/rLSTVytVtj9Gj3lOr5TimHEXnPgHk5w11L
-	 iFlFMlZEIdNqXgd0+hvxLr3631SofdoL6/WqteyJFh2egWgq3zCDu7EgX+XKAmOH5Yg==
+	t=1795561189;
+	b=SuclmCQBxKrjfsYCplwuPT/ci3e84KN1lMkucPQt0ErePBP31BEAZg4ZWlA+SUaYzvQ0
+	 cqKrpuiuap1DAMhF5RP4XFTx2eKJ5FvSFw5mPhtG/jZrgF3F6CSUk3DSE4hoPj2g7zU+4
+	 XTjtzdUiOJEV2q7p7uLWB8gqDlbEIOA0+fv5XbQy9TlgtazgjN4W/vZbGzQXzCY8frU6i
+	 daRBw6yJxb7+4T8D82iPmvg+ihaXcAto2ju2JS29+DvJcbKMkO/VB3TuKNJ/5K6WQVrCl
+	 crnStwIey5iNPmqn6vb9h3qz7L/EJA/VS0Z02qvnSX/u8vOkNznfILVjAW0WkswY8xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795561194;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FAvU2wBAS6YDbd/Yj36MbSgD1wbX+rF4ce9SRDIwpHw=;
-	b=TzkzTF4F6Ynbi7Fm+oBrmhg+mC4SeUpKLfsw7BAqKV0bLZVqTYv2K0Wxh1xFiJvaF9iI
-	 +jdByA3SeVtrwFiP2imqoh1ijRj1Jb0AIr43KXwDyTkoZTtqHDd1fd9OW4mcuXpSsuC14
-	 AnHF71wLlV5Au8B2cREEWHl0sxr41mAKSdDqunttkxTewWlthfHKhPsaPT/s3Lk04h8M6
-	 Cju5GU//2nKXHQdR+4RBSMB+DLoUsTGkskHgg1yjnv1ELO3QPntlT/Kvl3zmd+j+cHg8G
-	 HwkE/WwEU5JKm6VtcknyhBAOXbNLSQIoPdRGXwLYROgVij8QS+Ehz62pXHXraQ6FdLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795561189;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=zmxU8jlcQAoOmz9SVXAVr4svm8Xhliz6+CM8YIPXeGA=;
+	b=lPp0JoBd65TdAIZD3jcDqqFkxro0evnnh4MijYvOLMd+K4/vJpwhXi66dzvnF4aLJgZQ
+	 o8KxoUFUQIJ84YG2IKVJWyiFUNI8emvqG95XDK0oc8HOl4rMazJG8nEnJHfGgFL9qbBa0
+	 tYaNLg+XMgtK8ULOt963R7SrswQTVQdmRRovZ9aeeklB/tJfoMpw73FN/qr+SmRcOLDhN
+	 +232zUMe4ErQPppErlaRnnaaSuZ8PCx+D2SQoX6UxMQGJbVNJwy/gG8fAJ2CPfOCTpVTV
+	 sitCb2jl0TWjvyL7/iK4L/kAfrtNF558e81XoyeFcBK9x0YV8/TTiSnPKtKSz+fnoaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jzo83BCN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nN+bXffD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664C5606A329
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 22:59:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3CA606A323;
+	Tue, 24 Nov 2026 22:59:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jzo83BCN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C4361F000F0;
-	Tue, 24 Nov 2026 22:59:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nN+bXffD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A7E11F000E6;
+	Tue, 24 Nov 2026 22:59:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795561193;
-	bh=FAvU2wBAS6YDbd/Yj36MbSgD1wbX+rF4ce9SRDIwpHw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jzo83BCNaHWRemqq51hhsBEAPF6khfOyn2PQQpNIZz/ilFbEtImyw9aa0jAa6AGkM
-	 31acAPmEMmayKZDlJLGpoy22QMk9PFGVlkkkGpuTogegfu0hIpUxm9SKt7bsQn8+BN
-	 0azO3QXEvGRuaO36Kpk4oYLg5Z8TgdfOjbLu+S3+l6foNpfy3ofETI6j5of2kqB14a
-	 YGBf7oig9iym5eEpSuon3fGwQFVpUqUGA2mx+yDeQw1LbXEIiYXGPA+sJIJGsMDo77
-	 YZdckfEuvAUNC+9AlcRlrkhm+GdVftizSAnyKZHO2cp6AzfRRLq8SMrtEnHt+50mTz
-	 yYpuolT2Je6qg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Kyle Zeng <kylebot@openai.com>,
-	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] macsec: reject frames that decapsulate into runt Ethernet frames
-Date: Tue, 24 Nov 2026 17:59:51 -0500
-Message-ID: <20261124225928.3162910-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112440-matrimony-ranking-b2f6@gregkh>
-References: <2026112440-matrimony-ranking-b2f6@gregkh>
+	s=k20260515; t=1795561189;
+	bh=zmxU8jlcQAoOmz9SVXAVr4svm8Xhliz6+CM8YIPXeGA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=nN+bXffDCKcamcRSHOh5LpKsvzSpQ4Oz6YaZpVhZycBqOy4qNra1dIBQPQVbRwKse
+	 gyrbI74wweoIfmrfNK8rnMlkMEfh8lf22IdjZwG41fENFIJiGE0/NmlfZ0Q02U1eaS
+	 G2/wrQNK232sNjP0Efb3USghHe7mRkOAlVzuvorzInur9xifSP3mrUTUAH6pjk8Sci
+	 l0g+ssPoT6SVPzdqWZu00+5IDx7U0H3GOa+aQY/QCTbI8Xox1hOxxpD6YgmVMS44dA
+	 bXG0qdWyrE301cHq8lu657MvuUMAGKO9+EAhtOhmZIpmEJ5a5sVegWi7/mcwa2PnJ7
+	 D0dqKukkyizSQ==
+From: Christian Brauner <brauner@kernel.org>
+Date: Tue, 24 Nov 2026 23:58:28 +0100
+Subject: [PATCH RFC 05/19] selinux: close inherited files that can't be
+ replaced
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,72 +53,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261124-work-exec-update_lock-v1-5-e489035395b8@kernel.org>
+References: <20261124-work-exec-update_lock-v1-0-e489035395b8@kernel.org>
+In-Reply-To: <20261124-work-exec-update_lock-v1-0-e489035395b8@kernel.org>
+To: Jann Horn <jannh@google.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ linux-fsdevel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ linux-perf-users@vger.kernel.org, bpf@vger.kernel.org, 
+ selinux@vger.kernel.org, Kees Cook <kees@kernel.org>, linux-mm@kvack.org, 
+ linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com, 
+ David Hildenbrand <david@kernel.org>, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-04696
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1883; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=TCu0Afse6zxwaqsM5MKt1enhe1sRx5apMR0b/GxRpJo=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSzie02NNi+8c483o4E8+/B6jW3rr7Trn3++k+o6Eeju
+ nal15laHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABP5kcvwh59P//HztS8EZL3+
+ G55I/Wl6JehfoE2aCLcsy5rbUk/YjRh+MQend/Fkpq3bFT2vPFTqyqk45/D5E4PvFHVs9tt1e3s
+ xMwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-From: Kyle Zeng <kylebot@openai.com>
+When an exec transitions to a new SID flush_unauthorized_files()
+replaces the inherited files the new SID isn't allowed to use with the
+null device. It uses replace_fd() for that and ignores the return value.
 
-[ Upstream commit 1d5e2c57e9ffc134e14b3f837c8d7c53b508bd22 ]
+replace_fd() refuses a file descriptor at or above RLIMIT_NOFILE. And a
+task can lower its own soft limit as it likes. So a task that sets
+RLIMIT_NOFILE to the number of a file descriptor right before the exec
+keeps that file open in the new image:
 
-When an SCI is unknown and the C bit is clear, macsec_handle_frame()
-removes the SecTAG and the default ICV without checking how much of the
-frame remains. A short frame can therefore become an skb shorter than
-ETH_HLEN. eth_type_trans() cannot pull its Ethernet header, and a second
-stacked MACsec device can copy stale skb headroom into a packet delivered
-to a packet socket.
+	fd = open(path, O_RDONLY);	/* 3 */
+	getrlimit(RLIMIT_NOFILE, &rl);
+	rl.rlim_cur = fd;
+	setrlimit(RLIMIT_NOFILE, &rl);
+	execve(...);
 
-The matched-SCI path has a related hole: macsec_validate_skb() accepts a
-short_length of one, so a frame that passes the existing length check can
-still become a 13-byte Ethernet frame.
+The new SID still can't read from the file as that is checked again on
+every use. But it holds on to the file and what isn't checked on use
+like lseek() works.
 
-Require enough bytes for the MACsec overhead and a complete Ethernet
-header before decapsulating an unknown-SCI frame. Apply the same bound
-in macsec_validate_skb(), using the selected SecY's ICV length, to cover
-the no-SA, synchronous-decrypt and asynchronous-decrypt delivery paths.
-Leave other unknown-SCI handling unchanged.
+Before commit ee97cd872d08 ("switch flush_unauthorized_files() to
+replace_fd()") the file was closed first and stayed closed if its file
+descriptor couldn't be allocated again. So close the file if it can't be
+replaced.
 
-Fixes: c09440f7dcb3 ("macsec: introduce IEEE 802.1AE driver")
+Fixes: ee97cd872d08 ("switch flush_unauthorized_files() to replace_fd()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
-[ sashal: Adapted the nosci path to use this tree's DEFAULT_ICV_LEN macro name instead of MACSEC_DEFAULT_ICV_LEN. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/net/macsec.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ security/selinux/hooks.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-index 15bfe10b2cf91..0af5157efa111 100644
---- a/drivers/net/macsec.c
-+++ b/drivers/net/macsec.c
-@@ -417,8 +417,10 @@ static bool macsec_validate_skb(struct sk_buff *skb, u16 icv_len, bool xpn)
- 	int len = skb->len - 2 * ETH_ALEN;
- 	int extra_len = macsec_extra_len(!!(h->tci_an & MACSEC_TCI_SC)) + icv_len;
- 
--	/* a) It comprises at least 17 octets */
--	if (skb->len <= 16)
-+	/* a) It comprises at least 17 octets. The SecTAG and ICV must
-+	 * also leave a complete Ethernet header.
-+	 */
-+	if (skb->len < ETH_HLEN + extra_len)
- 		return false;
- 
- 	/* b) MACsec EtherType: already checked */
-@@ -1309,9 +1311,12 @@ static rx_handler_result_t macsec_handle_frame(struct sk_buff **pskb)
- nosci:
- 	/* 10.6.1 if the SC is not found */
- 	cbit = !!(hdr->tci_an & MACSEC_TCI_C);
--	if (!cbit)
--		macsec_finalize_skb(skb, DEFAULT_ICV_LEN,
--				    macsec_extra_len(macsec_skb_cb(skb)->has_sci));
-+	if (!cbit) {
-+		len = macsec_extra_len(macsec_skb_cb(skb)->has_sci);
-+		if (skb->len < ETH_HLEN + len + DEFAULT_ICV_LEN)
-+			goto drop_nosc;
-+		macsec_finalize_skb(skb, DEFAULT_ICV_LEN, len);
-+	}
- 
- 	list_for_each_entry_rcu(macsec, &rxd->secys, secys) {
- 		struct sk_buff *nskb;
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 9950f89dfaa23..4ec9ec723cacc 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -2521,7 +2521,9 @@ static inline void flush_unauthorized_files(const struct cred *cred,
+ 		devnull = NULL;
+ 	/* replace all the matching ones with this */
+ 	do {
+-		replace_fd(n - 1, devnull, 0);
++		/* replace_fd() fails for an fd at or above RLIMIT_NOFILE. */
++		if (replace_fd(n - 1, devnull, 0) < 0)
++			close_fd(n - 1);
+ 	} while ((n = iterate_fd(files, n, match_file, cred)) != 0);
+ 	if (devnull)
+ 		fput(devnull);
+
 -- 
 2.53.0
 
