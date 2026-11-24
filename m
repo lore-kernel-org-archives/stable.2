@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795533655;
-	b=lLhJaO0i/ingFisP2nRiTJv7PwAagnO5f6Y/Dxfng8WfpGOFjSiTCi4IQzXEWtk+JaI/
-	 UDlOwlsJUIwX02dTggsDBb9YyH+kFJGSkyJlV4G/C5W0ZHXQxcpoVTpOL9gWlqZLBZbP7
-	 LPsC8RQh+UEHeQtBu6fX9QdSHMyTKYSTU7JCKjkw3DqW+3EGVy575FEl4IJ2sidKvUgM/
-	 sdGR0MuN6x8cr2hSl3bBygonotv6STJc0Wscgi0pV/Iv2/BTYGxKdh7eFEp4HM1WFlje/
-	 uYvtg2BNTXupTVA8s8rVXE34D1LGU7gdyYqtmqcM4GGejN/uDjtIznijlYYG1RcOjDA==
+	t=1795533658;
+	b=BPw39aBkmEBTerOlbPiR8KmUbrx4kPMFdapBohPo8XMmyTKKxRgRw1XEVn5MXD1xZD2V
+	 RuPxmqQhrgCkQnqtJquMzOW9fR5DpDBZObjEkBdESXW3CrIJUliDVtzlpC+ZytvtV7AqZ
+	 lSwiMSuV77w13g97usVf+fxoDEBtaR17AL0awlCbkcooeTkZm5uxfi+nCzyYwJnS58QFs
+	 y1bNR2ZqR+nWwCe1KeDdX+CMERwOnbZIJh+a5sQ9+cTFayHNV1XKx9R7q1W4N7fPi+Si3
+	 FIpOuUW52Ca/tukhT4KCd5fL2fVb6yITD5d8bVv6nSd10Qy3wyJxWP24u15FIoRIeqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533655;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795533658;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gSpkW3MOxOFAITrZEyN5ArohxbmkcLL8eZF7B6+jbus=;
-	b=SeihXETRgVuAY6tUbJxYmTmDdSyk0G/48b0EK+n8yI6FEUmSEXiYUmdO1LL2pk8FOSRj
-	 yCgsQUhoXh5ohJhl7165dOpkjd40s1MRmMfy84wqpieg3QRcho//VGCUs12eyJ1Am0zBP
-	 rBb0HribwNRJw60BF3kjr+vDQeSCZSKGeboQH2Sn3ZJDJBWR1RixPCn206cNwlckuuUbj
-	 rhFWK/hswzZs9aPs81VHhjvC9HnyTfNqh9AXZkzdbfMlfyHj0QM3J3hh0ZfeIK4NSmAil
-	 l+Bqd9hUZm6RtUkR7d1CK1N8Vmzka0gOIAVD46sWkKSwmqGg/YUDAprX4mrpYRelh/Q==
+	bh=PNgHp236+aUFul2KKzxTGcdzNByq+T5iECecDppszgs=;
+	b=5OYS2yByALWmH8u2jsyp6WoiPI8Yj06qXBNSwLV6LumnCoWWmgyDQgYoe42VrI69YEPr
+	 B64IT6i+mZnNqaqWsvGXnJw4WfbP2NRgEhzB/KKJD5CvJMCmsKb3kz3gHM/YfOonIEv6h
+	 Qw/ovkSqkQhTC6j5ay30ccF0RBVCcx6TAL06SFwDJCetlwkZbfA/9JZQLPj1ONQyvaB+D
+	 lEANGfK/G6s7VeQ2F6BJWg6uUVYDvuK1dQ8QiUCiIgNQhTQov5lLOlYKDYtEVIC8V+BHv
+	 UvjROTDjKAnLduqO/idZbznT2lSwBt9mzVKLBhkzD1pzfzpEiwUobK2UPDtJg96679Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jGrD8NKs;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Qnus6Kmj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5FC606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:20:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B73606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:20:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jGrD8NKs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC4311F000C4;
-	Tue, 24 Nov 2026 15:20:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Qnus6Kmj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C2401F000C0;
+	Tue, 24 Nov 2026 15:20:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795533654;
-	bh=gSpkW3MOxOFAITrZEyN5ArohxbmkcLL8eZF7B6+jbus=;
+	s=korg; t=1795533658;
+	bh=PNgHp236+aUFul2KKzxTGcdzNByq+T5iECecDppszgs=;
 	h=Subject:To:Cc:From:Date;
-	b=jGrD8NKs8KKLa4zGwy4gHlnjyr82w7SAk+QTc1E+aoMUt1HpW/SsrpA41q0Dpnigv
-	 Ku6OP+xt5HOOIsju0rq9WsSHseoMWhbtiislPH2iiPLcfC+BKGx3asFFAjKF+MVQY9
-	 rrx5atl0tQO44Mx9qWPQXROlCQN180ZIYWG49swA=
-Subject: FAILED: patch "[PATCH] errseq: don't let errseq_check_and_advance() hide later" failed to apply to 6.12-stable tree
+	b=Qnus6Kmj3HWRPUmQ31DJ2ITnZPB6jRgCQjhWyQ9OXOV848PqvS5uQU5bhTFc2CjQf
+	 4X6HCDsGPgG/LhTbA5VQ2TgcxjE13sP+C+uRuDPc2qqk3lV7YWRo2hv+j48xPvDXuI
+	 FnE0muD8LhFXaHU39Gw0MlbYkeTNcl5V658wkRaM=
+Subject: FAILED: patch "[PATCH] errseq: don't let errseq_check_and_advance() hide later" failed to apply to 6.6-stable tree
 To: jain.sm@gmail.com,brauner@kernel.org,jack@suse.cz,jlayton@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:20:40 +0100
-Message-ID: <2026112440-lark-unfiled-3dec@gregkh>
+Date: Tue, 24 Nov 2026 16:20:41 +0100
+Message-ID: <2026112441-ducking-trophy-90cc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 94defd41d80f10bbe883c0c8d1b28d1665b6b153
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112440-lark-unfiled-3dec@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112441-ducking-trophy-90cc@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
