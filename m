@@ -1,79 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795548371;
-	b=BQ+gh1OJ3iP65jNQdh+QzmXni8ionw+ZEI0nqHHAB+zn+NdIYNy3JHREVsJqbUxQYd13
-	 nbtkwqY4k3CQ+EXKgoOJ4IvXSXCzziDYMJIUv2fcZMXSDojxeqVT0N9sRLLAX0RgbIs6j
-	 iKLt40YQY02py+nN+zFvCpUNMPIbnmuqafkbwi7kw9k1e9So5k90jmyRXtgS+8F+Ov5qf
-	 nbJ/i7ZPANPoly8NcMmZak7jTxNWlnMin3ell60O8l3YBASGjL59eV/dcP6frUYgbPCYm
-	 vdTUaNMrfVdpX0fqB69wcoHKEH1Iup9ow5ijKTMrkT+N/xjW58BGDnbUWtuZLonf3ng==
+	t=1795549041;
+	b=ZJmHyKgqpHoLvedT4JgD0Zngf1UzOK3+hpkVxdE7KHkBQtRaCKajR7jnMDK6YHfpPAgl
+	 5rvar1E1ERXgPGSz6dhhWbT06Kui1C2yTynMiJHQQVezBMNTn/FA1l1FC3/82hE7NqTzS
+	 8577TN5QoSFvBREZupR10sEvpm+pft7gWgYfLB50rUfUkfSWuwH94GJIoom/Dr5DlbhKl
+	 NC28N3tASmfclKwWz4uvTjzJMG0tZ2/f3Z46P0b6552TNT/s5I4Wk+oiVPQCbwafOCMeS
+	 3jGp/xKLQyJTzPpVVex2Xoxhwpe6RnDN7tDB1HC7zvlsinp0LM2+WC4KsJAJxq/JsGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795548371;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1BnuF23XQPA0m74Vl+zVMfRMHbdMZPwomn/o/FDuIqk=;
-	b=FjMuKn/AV0zfTs5+DYCfZMGLcQbB0WHwDh/vdULxX3Er/EqZycGlQJHpaqhdKvIcH967
-	 UyW+y5w9nDVAi+f6kP3de+GZpBQMP2i7FpEXptVNY/5MkdJfjdtMawr2X/2+1oYt1M8pJ
-	 jbBiOusJrSwGPSLYABgXkK0B8ElBhJO0erzkRPgN6ALNSUAWVYW/zJ6OoJI37VVF9qLCX
-	 2GNjzCLXO2LQzBtq4bKeGtwc2BMN813U3/9aJVlqzfDB2lSL8g8KyOP4x6xtOnCIbAPLP
-	 GzwJfE7Wqk3N/7Rlw3vZHVMPD7vWC94+ojvHrmoVyA8pHbAO6WVONCoYHb32ayN3Nkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795549041;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=OMjgnMOdm5LC9Ve7tJbATj56ZsHM2zVs1s6tMJ9jz2Y=;
+	b=sZjKZxkNyoWPxEzKelal4Y51tklZk/8stZzQh/9OZladtdDk9Il1Zo+lUgkxhj/4yYF/
+	 b2ANlt252+d/F9vN56lx83gaJOVV5e4PuTpp0xw58pxlnXsUHNRT7q/o1Iid9uext3KKN
+	 81H4Hz7VuoXlebgKgWgczdoidS8HxEeh4GEan3LN5wjXoOS2+Ln0bWwsFA82wjmzNkKHn
+	 f0lHMQIIyEw6EzFroT7gP0r7hNlhQleCzthmXcLrg3WAvGhMunSYrN3pjyj8OBBS2YhbW
+	 3scRYpU6QARDhloICj7DiQ4D4a2tQoA+1uukaBXzpj2muZLe8wRurxKeoYaSSerU4gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JLoolxZh;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=ArQqb01A;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b="b7CR/Rfv";
+	arc=none smtp.remote-ip=148.163.139.74
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C84606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 19:26:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37C84606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0B5606A33C
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 19:37:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC0B5606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JLoolxZh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795548370; x=1827084370;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=A/Kb9OtXc9sWmShUGKKnDOfx52PCBRfWt5X5T8P/DRo=;
-  b=JLoolxZhI46tgqLO/X7a0mBInvY7ai+CNVrG7kY6BxioTE0etNEC7sao
-   AGi0RpMbR6MT0ZJDdTW1T+Dg8HCDzcx5x75zOgYx/KR3HPSr5LTJAQKQW
-   6JOO9bNfLPJ16IllJQsGgEY7xsBjSUDBQ5eI/IqcUbW4w+cQngEsSAL6P
-   Lfdn4kalYqTCa997cMmwyG1cXgVhLyClLAoM1ysQLDy5Cj8/GE0cUBE/H
-   nXqHB6EA4fsPrEkRBO+dGJD2HBkCTFn72Ab9hKBcuKUOOUYS0xuOVee12
-   bHeDAQImBesDqQcO5jKrOMlw67pGhL/q4uYC9beny/otmB8sBsI4DLNZR
-   A==;
-X-CSE-ConnectionGUID: 8r1eloThQf+4eTOZE1d1Yg==
-X-CSE-MsgGUID: s/gH3oW/QFGgwxKyz+hjsw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4488659"
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="4488659"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 11:10:18 -0800
-X-CSE-ConnectionGUID: IcURFiI9Qsi7gEmd3aNJ9A==
-X-CSE-MsgGUID: rg2omO0TTKeOHk6h/jH6hg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="12066008"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO fedora) ([10.245.245.188])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 11:10:16 -0800
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Natalie Vock <nat@pixelcluster.dev>,
-	Arun Pravin <arunpravin.paneerselvam@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/ttm: Destroy the ttm_tt in ttm_bo_move_null() when it's no longer needed
-Date: Tue, 24 Nov 2026 20:09:54 +0100
-Message-ID: <20261124190954.47690-1-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=ArQqb01A;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=b7CR/Rfv
+Received: from pps.filterd (m0167075.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AOJYJJu2842081
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:37:14 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=OMjg
+	nMOdm5LC9Ve7tJbATj56ZsHM2zVs1s6tMJ9jz2Y=; b=ArQqb01Alvqy+ezQ3O+b
+	wFGaLKLkRPslDfTTnR/1n3YHEnzFvpSAXsSLtAema3OMBGvQTr8MjsfnQdizF1DR
+	Y35c9K1YbdbrokVp6lJBFIYVrUHqLLS3WYYBtEDDKg/6m1bODWncA+LZwiNP1MH8
+	Z3bx2LUxG6sfpmxDdUI+/kyZI7guQlRgIUWOBYQ6reZ57nqjYw3JFREOmJXGhsy0
+	5UyyJqrfI8VjX2MlX1xqtk46jQix4pqRNZv16i1aL2PIz3aAJytU8fQlN33iF7Uo
+	xruvXaD2EFNKvtzNiOaeLj7AUiUNlwagsbKMIv+l5TRcoparlTssaELubPi31AEG
+	DQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4j5fangypa-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:37:14 -0500 (EST)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5383d650f2dso88840211cf.0
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 11:37:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1795549034; x=1796153834; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OMjgnMOdm5LC9Ve7tJbATj56ZsHM2zVs1s6tMJ9jz2Y=;
+        b=b7CR/RfvfQFhd7RLSUV7lty/ZLnME/O3SIVBqogZpBKc5kWbTS6XOXLLtHAdx6qPnr
+         GLx9wIF4Ww4QBBzLi1rfOBnuxr0JAv1yTnG4pUXExvThtMqTc97cKp+Z1h+pCVB4nXRo
+         tgx8ds6qPdyVt2BG0hZu7Js1CUMYgRQoXbcHZ2L8eyOM8lgOjUJPCl7yqCAjRMmEMl8w
+         7yEG3GKOnP3k9k9ABIteGqF13sEWTiupKHLO7WWmzv6jE6HmUFHqQtTtep4guibr4fvN
+         fCeMtXZBo8LG9rK/kdXoR7e8/Boax5ngkEHQ2+xMkquXqR4MIvpygOuBEgr7JOmObhVL
+         QKSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795549034; x=1796153834;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OMjgnMOdm5LC9Ve7tJbATj56ZsHM2zVs1s6tMJ9jz2Y=;
+        b=XxsCMFd2AmVyP0uzDYo2tTxJoWwPL1Ng4anoPrMhyPzuUHn/Z/HqVNtExij6R5pV11
+         6gLG15x7Pgq8xCoO/DvorAXQ40TxjBFp+gOpd8gTY3e9N+jPKnjwE8ejMJ2aLdeDoZrZ
+         QhV5rNzcyCvwvr81+N6QboK57sBtYiuazGkG7HNDF0eZTb7msFt+HIDxuoF2O2pPkDBl
+         ZwvB8R3cflaJJ4V948Xo98rZTo1f7y3BD+A5LMgSUVB+IIaydGh4IsQJ5tRBYE63pynz
+         lIpptC7h7+RRy+qcOsJr5L0TwMz7qEXdZS7HsNuCOOKrYlPNSYQyEx/xChRnf4WqqqBV
+         TaoA==
+X-Forwarded-Encrypted: i=1; AL+hErGJEBz4r2MtILBYeg1GElycHX2w7BQD8OrXc08gZ9NCem7Mhr85cUUTy4MSNWMRT/qiXu8Azks=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8OXrzmfVnMpOzp/rcGdpfW21dDVKRvGwyEZqQubz3ZZQnqf1l
+	WW2888akFG5C5hSi6tISHJ7NAJ0EQqs/66JZ9ucGWNcWaDURcRA8ZgSKF6hctfueU218rHYDeWl
+	GVP2KkmLs2CqOtlxW2PJgGOJdPNp+IHd1ayQ8t3lo2GETKi6BWYu3Vw==
+X-Gm-Gg: AZFdTZeQtqkP2DR+cZETBCgwK21wawXLINFAM3t5wRFpbB12M1LErq/ciKAwrPwZq1o
+	h6WT6eR/RC9rwUHWd2grd0LgvO3nG5oKDHrZHQiUFBb9lWyYLu4FzoIHSv/kx2Rjdi8zHfS9ML+
+	4SUMTsYgjDi7gO5YyTmb2DfX85NZ0eJeA+/avR0YAyHe/toExZM9M/JexiBfeXZ3jxff4aO15Na
+	j/ptq6RmkNhqQSTMztehWCqoIULtpsVwl2O1IFmTc9jgocAGliLOufAMoXsBb+4Qa2Yh2q/A4iS
+	C+P1YOEKBOX6cRXJihIcR+33LJBGL9MXqM1L205KqgVQPXobyNgAIGhHT5eykNKTK+Xq1OB0E7F
+	kESVMz8tT5Al25ROVMe9KXaIPKTivPS/4A5znR/qYgEmAfPziFrCp+BkexZDswT3uLQ==
+X-Received: by 2002:a05:622a:313:b0:55d:1944:a2ab with SMTP id d75a77b69052e-55d76a5af8dmr288718101cf.49.1795549033796;
+        Tue, 24 Nov 2026 11:37:13 -0800 (PST)
+X-Received: by 2002:a05:622a:313:b0:55d:1944:a2ab with SMTP id d75a77b69052e-55d76a5af8dmr288717631cf.49.1795549033344;
+        Tue, 24 Nov 2026 11:37:13 -0800 (PST)
+Received: from [10.206.101.158] ([129.236.231.128])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9213515f467sm140631006d6.41.2026.11.24.11.37.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 11:37:12 -0800 (PST)
+Message-ID: <3ebb01ea-fe77-4467-a1de-7f30a91593f3@columbia.edu>
+Date: Tue, 24 Nov 2026 14:37:11 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,93 +115,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/9] userfaultfd: assorted fixes (part 1)
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
+        James Houghton <jthoughton@google.com>,
+        Andrea Arcangeli <aarcange@redhat.com>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Balbir Singh <balbirs@nvidia.com>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+        Michal Hocko <mhocko@suse.com>,
+        =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+        Andrei Vagin <avagin@gmail.com>,
+        Muhammad Usama Anjum <usama.anjum@arm.com>,
+        Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
+        Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+        Joshua Hahn <joshua.hahnjy@gmail.com>,
+        Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+        Ying Huang
+ <ying.huang@linux.alibaba.com>,
+        Alistair Popple <apopple@nvidia.com>,
+        Baolin Wang <baolin.wang@linux.alibaba.com>,
+        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+        Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+        Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+        Oscar Salvador <osalvador@suse.de>,
+        =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org, stable@vger.kernel.org,
+        Breno Leitao <leitao@debian.org>,
+        =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+        Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+        Felix Kuehling <Felix.Kuehling@amd.com>,
+        Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+        dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+        nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
+ <4f23b0bc-b89a-46c1-b8cd-853e7815b7ac@kernel.org>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <4f23b0bc-b89a-46c1-b8cd-853e7815b7ac@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: MEwcvCbJ7gTw-wF9FZkgB1hDUrsrGDWt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDA3NiBTYWx0ZWRfXw6AjPjgiDrpJ
+ p+DYB9Li0GNIzAtqt4mSlXDkv71wQldxsr5e0roVPcXhRJLFUnzmPCxXFvk979i8e4e0Ldcwphr
+ M9c2nflieUsdeFrI3X/ury4t6If6LxM2u07XIbtO5vcvtpGGm8cJy2lu8f3NkWYzBdxTTiyuDQf
+ /yoAwYd6jXcd7SF/m+m55RPKNflHVt8QbxlO4wKNJzGYc9dxtHkhsQUmm7JKYfONuH5xr2/InOO
+ BWtlyQ8n10/Sw/u+pxCw6uMnjgqTN+3DUTDdoKnI7c8qnREHJSE8xOiNR0h9+WfUjCnprt/AwYB
+ YfCldcviLrEBCXpGhahnIE/JRMacyAkZ9TOm26clMjrjfjaqfsztVBEL+VmPHbUUhrb/YAzmeaY
+ hsXz4T3zRZ5GnNC/XfHSINIndUkYoANGmascuoOOn/ORV1GOyWyA1hJgy8pK6VU0Cnik2W3FXxz
+ QHa28sjU+4fZjIIjvgg==
+X-Proofpoint-ORIG-GUID: MEwcvCbJ7gTw-wF9FZkgB1hDUrsrGDWt
+X-Authority-Analysis: v=2.4 cv=acr0Dhot c=1 sm=1 tr=0 ts=6b05e76a cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=LNQXEAmb7IHcZyFqmLK0PA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=HpS3TJQ9O3Ob1ozEcmik:22
+ a=Z7cX3StJxvrjZLnT-lEA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDA3NiBTYWx0ZWRfX1dX7OsXDk6pV
+ QWI+AxvuqDXtVDJ/xMV23HKKv8xHpWAGPFf1EgEHNjlC7NsvsO6qfRyL6N/ivQ7gE1PrgSS06S7
+ XXPEW5nFJWLINdsAJksKwj43YwmbJLgmMC8AE1peYzRrliClFXjJ
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11976
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=10 adultscore=0 phishscore=0 clxscore=1015
+ priorityscore=1501 suspectscore=0 impostorscore=10 malwarescore=0
+ lowpriorityscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611240076
 
-The xe kmd uses ttm_bo_move_null() when moving an unpopulated bo to
-VRAM. In that case the bo may still carry a ttm_tt that was created
-for its deferred placement, and it is left dangling on a bo whose new
-resource doesn't use a ttm_tt.
 
-Make ttm_bo_move_null() destroy the bo's ttm_tt when @new_mem is NULL
-or its memory type manager doesn't use a ttm_tt.
 
-ttm_bo_tt_destroy() is internal to TTM and not exported. Rather than
-exporting it, move ttm_bo_move_null() out to ttm_bo_util.c and
-export that instead.
+On 11/18/26 4:41 AM, David Hildenbrand (Arm) wrote:
+...
+> 
+> So, I would be picking up ...
+> 
+>> Tal Zussman (9):
+>>       userfaultfd: use anonymous memory for UFFDIO_ZEROPAGE on private file mappings
+>>       userfaultfd: refuse UFFDIO_MOVE into a non-present huge destination PMD
+>>       fs/proc/task_mmu: downgrade writable migration entries in PAGEMAP_SCAN write-protect
+>>       mm/migrate: warn on a writable migration entry with the uffd bit set
+> 
+> This
+> 
+>>       fs/proc/task_mmu: write-protect device-private THPs in PAGEMAP_SCAN
+>>       mm/huge_memory: build the moved huge zero PMD from the destination VMA
+> 
+> This
+> 
+>>       mm/mremap: resolve uffd state when the context is dropped, not during the move
+>>       mm/migrate_device: do not migrate a uffd-protected zero page
+> 
+> This
+> 
+>>       mm/userfaultfd: check the hugetlb alignment of every VMA in the pre-scan
+> 
+> 
+> After waiting a bit longer for more review. Andrew can take the rest.
+> 
+> 
 
-Patch and commit message was drafted using an LLM.
+@Andrew, could you pick up the rest of these (everything but 4 and 8)?
+I'd like to send the next batch of uffd fixes I have on top of these.
 
-Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
-Cc: Natalie Vock <nat@pixelcluster.dev>
-Cc: Arun Pravin <arunpravin.paneerselvam@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.8+
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/ttm/ttm_bo_util.c | 20 ++++++++++++++++++++
- include/drm/ttm/ttm_bo.h          | 15 ++-------------
- 2 files changed, 22 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index f9458a4d5a09..7f3459db596a 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -202,6 +202,26 @@ int ttm_bo_move_memcpy(struct ttm_buffer_object *bo,
- }
- EXPORT_SYMBOL(ttm_bo_move_memcpy);
- 
-+/**
-+ * ttm_bo_move_null() - assign memory for a buffer object.
-+ * @bo: The bo to assign the memory to.
-+ * @new_mem: The memory to be assigned, or NULL.
-+ *
-+ * Free the current resource of @bo and assign @new_mem to it. If @new_mem is
-+ * NULL or its memory type manager doesn't use a &struct ttm_tt, the bo's
-+ * &struct ttm_tt, if any, is unpopulated and destroyed.
-+ */
-+void ttm_bo_move_null(struct ttm_buffer_object *bo,
-+		      struct ttm_resource *new_mem)
-+{
-+	if (!new_mem || !ttm_manager_type(bo->bdev, new_mem->mem_type)->use_tt)
-+		ttm_bo_tt_destroy(bo);
-+
-+	ttm_resource_free(bo, &bo->resource);
-+	ttm_bo_assign_mem(bo, new_mem);
-+}
-+EXPORT_SYMBOL(ttm_bo_move_null);
-+
- static void ttm_transfered_destroy(struct ttm_buffer_object *bo)
- {
- 	struct ttm_transfer_obj *fbo;
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 32791c4db2a9..d525e04893ed 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -356,19 +356,8 @@ static inline void ttm_bo_assign_mem(struct ttm_buffer_object *bo,
- 	bo->resource = new_mem;
- }
- 
--/**
-- * ttm_bo_move_null - assign memory for a buffer object.
-- * @bo: The bo to assign the memory to
-- * @new_mem: The memory to be assigned.
-- *
-- * Assign the memory from new_mem to the memory of the buffer object bo.
-- */
--static inline void ttm_bo_move_null(struct ttm_buffer_object *bo,
--				    struct ttm_resource *new_mem)
--{
--	ttm_resource_free(bo, &bo->resource);
--	ttm_bo_assign_mem(bo, new_mem);
--}
-+void ttm_bo_move_null(struct ttm_buffer_object *bo,
-+		      struct ttm_resource *new_mem);
- 
- /**
-  * ttm_bo_unreserve
--- 
-2.56.1
+Thanks,
+Tal
 
