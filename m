@@ -1,84 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795538670;
-	b=X1iRc0t/5OtUBTzpt+ZDGikZdT8u5+KK9kiBJMV8+nTfACwjkVLAo8L85f2qMnUWpue/
-	 iV5+vttMJaZ8a8/+8hydbInTJnzKOlqwB0Ni6gtWYNy10D5+2RJooVawF6zlfUUKpFENy
-	 K/vcEVE7MI9c8xW6xtUvCRNC6eIJiA9rHsLkLbe/1leui/x5BgtkWH36vGpKj99w6+UmC
-	 IvFUphO0j63dCVS9556wURWnC9luQSKDq8onByTOGS6ZW4+kmaFWSCxAsIRsGghw6afJJ
-	 yEzeSkIQCuyF8F5wYee6SQn5srPwrec8a7OA88cwOEu1iW0r8fTbXdHryHPp+bec/hg==
+	t=1795538720;
+	b=YvT2PESwjo5nTbzKNrvC2PX9xAux922FpCcqMpsFCiA9NnhkLEPGVtwG9kbzIw/LKQFd
+	 sNozDzWVsE0vfUZq0KcxiXtv/LTPR0J/pU5hXTQ0NCXOjcu5S8gSaXwM1PSjVNc9ZtoKq
+	 pbr9rvGwNzynb+bS2xELhuuJoSGW74Axwc4ajDRjU1/ZQLxWkY78kwikTgv0QHZZ0VjFi
+	 d80wKjgZ62hF1cqH8HSgMJt5FRYl1rAJD7XxT0Xoqrc73DbmhlHZSqRSl4N2ka39rSyCA
+	 38Y9uJpk2IbZLuRu6MXwli2Y2PsE4GHHId3Ix2Q3aVZ7YQM+nlgC6FObT/naXs6gOmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795538670;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=53M/jNU7gvao9zbUz+MPtUuoMg3rbooohKcY2RF1rFE=;
-	b=xdvuRnQ0ByVBr6peV99e74qkgBE5F8BVvjaK9O6gChLkEGmSJfcOXTWYtCzFdQQo6oRJ
-	 7Pr8Rn3cLDJgGcQ9oV2eOh+ju062zcL60i+WYt63n1NfjuCE4o9jr9EGf6YMaaO3hOSlG
-	 S9GEFZ5A8He4FhfdFT143L8fv/4gm7/EYtCb+01Ff/sarMv7vK01hw/bO6zYDe3ZU6xxm
-	 5eVIkBm/1ad3KnODf3fqqcxe+07Ppyt5KKXGYQjL6uVHqYjSUDOul/+a2HF9O15N4a8f9
-	 F8jxvtTzi93PIdlk1bImPtQvG/1Km5qt+Bx6fBl+h9QMJXkHk74yszxHJKaQT8LjE+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795538720;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=H3+GEV9ky/igYI53wMWUB7i4jI1ECRXFu21Wq++qzNE=;
+	b=u4HddKCfOu9dh+IlVzlNq91guWcO/9IgvYoqMczUtTl6bwhmqOdg/Hm7G67wkc4sg00A
+	 0EAVnk1vZnPMlufoJz0JsSqhDxJsmuMZFgym/IxNzUBaD+lHg5UdqjBi8OFQj8MitJsOb
+	 y5+A8Pe6yFUqvcrcNRbt+12chjxOsBaPKqziIQK/Jea9u6a/BteU7/SAOu076Yacjs5xa
+	 8jzjs9OECOWYMKvmUaDBYIEN6yh9wwGpLMpSWMOqwc75/8Aeh5flz8hO1ach8nCGzLaV4
+	 yK1ulwUj7iLPJIsrCA0HTNwOyTFG+Dgt4bvZxx0kqIRLRMuFeC+fAPWOxMutQ9t0yBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lLrpdG3Y;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=djphAd8e;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0561606A32A
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:44:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0561606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD86606A68F
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:45:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lLrpdG3Y
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id F04C11A1747;
-	Tue, 24 Nov 2026 16:44:27 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id BA401601E1;
-	Tue, 24 Nov 2026 16:44:27 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D5BD011E69A74;
-	Tue, 24 Nov 2026 17:44:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795538666; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=53M/jNU7gvao9zbUz+MPtUuoMg3rbooohKcY2RF1rFE=;
-	b=lLrpdG3YSYonKsqjZ0nA4v/luC/lUV71hkWM0DMSi1Ut0YO3tpa3cvoqynxNCaoMzUu59p
-	XibZaxK6u94QFBrZOu94Dvi2gNXxAZ4gTtAVdvriNTG/55I7Pqy1NrDfxCX+WIkOSzmX6f
-	ScdRBDRkFB7dYJU4SutHy0rRYSABMxX8JeyMNWwId/jrOufL/rdbuszoslllhDDBeFxah0
-	ZbLayFiNzZNjTcJKomgKeB4uwH+D559Jt4Goj5tjp6oHx0Y3MClE/5WbPg02Q5FyuPpb0N
-	lL8Q+pAeGEjfDpE3g7RH0OhB3qY+KGGoRzjTfr4Mv136UL3b1tigVv4EOix67Q==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
- <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
-  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
- <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
- <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
- Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>,  Andrew Jeffery
- <andrew@codeconstruct.com.au>,  Avi Fishman <avifishman70@gmail.com>,
-  Tomer Maimon <tmaimon77@gmail.com>,  Tali Perry <tali.perry1@gmail.com>,
-  Patrick Venture <venture@google.com>,  Nancy Yuen <yuenn@google.com>,
-  Benjamin Fair <benjaminfair@google.com>,  Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
-  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
-  devicetree@vger.kernel.org,  openbmc@lists.ozlabs.org,
-  stable@vger.kernel.org
-Subject: Re: [PATCH v12 02/10] clk: nuvoton: ma35d1: Use clk_hw pointers as
- mux parents
-In-Reply-To: <179519171774.3795820.3637822831411003847.b4-review@b4> (Jerome
-	Brunet's message of "Fri, 20 Nov 2026 17:21:57 +0100")
-References: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
-	<20261118-perso-ma35d1-upstream-clk-v12-2-bee2c8dad4e1@bootlin.com>
-	<179519171774.3795820.3637822831411003847.b4-review@b4>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 24 Nov 2026 17:44:16 +0100
-Message-ID: <87y0aiqivz.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=djphAd8e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0B71F0157F;
+	Tue, 24 Nov 2026 16:45:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795538719;
+	bh=H3+GEV9ky/igYI53wMWUB7i4jI1ECRXFu21Wq++qzNE=;
+	h=Subject:To:Cc:From:Date;
+	b=djphAd8e7bkUOAFoZwIXlZE6LgZlfiOTkUK+FsMEMLWcIMjhoGLMSOxIfRziTKA2Q
+	 dwQSjC4dfAQ04Ffm+EPV/iIWS99F+4LxDL9D8y/Tdb5hJ9OzeFw4+zImE+R06cKunt
+	 V+xwcARYNeZUgl9Rrs6XiNBcg72UFdgYABFJyry4=
+Subject: FAILED: patch "[PATCH] macsec: reject frames that decapsulate into runt Ethernet" failed to apply to 5.15-stable tree
+To: kylebot@openai.com,davem@davem-thinkpadp1gen8.ibmlond.csb
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 24 Nov 2026 17:45:40 +0100
+Message-ID: <2026112440-matrimony-ranking-b2f6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,32 +51,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hi Jerome,
 
->>  static struct clk_hw *ma35d1_clk_mux(struct device *dev, const char *na=
-me,
->>  				     void __iomem *reg, u8 shift, u8 width,
->> -				     const struct clk_parent_data *pdata,
->> -				     int num_pdata)
->> +				     struct clk_hw **hws,
->> +				     const int *parent_idx, int num_parents)
->>  {
->> -	return clk_hw_register_mux_parent_data(dev, name, pdata, num_pdata,
->> -					       CLK_SET_RATE_NO_REPARENT, reg, shift,
->> -					       width, 0, &ma35d1_lock);
->> +	const struct clk_hw *parent_hws[MA35D1_MUX_MAX_PARENTS] =3D {};
->
->
-> It works but a little check to make sure we do not overflow the table here
-> would be nice.
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-That's maybe a bit more future-proof so I'll add it, but at the moment
-I believe this is almost dead code since every caller passes a static
-ARRAY_SIZE(). But not a blocker for me, will be added to v13.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Thanks,
-Miqu=C3=A8l
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x 1d5e2c57e9ffc134e14b3f837c8d7c53b508bd22
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112440-matrimony-ranking-b2f6@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 1d5e2c57e9ffc134e14b3f837c8d7c53b508bd22 Mon Sep 17 00:00:00 2001
+From: Kyle Zeng <kylebot@openai.com>
+Date: Thu, 29 Oct 2026 21:22:37 -0700
+Subject: [PATCH] macsec: reject frames that decapsulate into runt Ethernet
+ frames
+
+When an SCI is unknown and the C bit is clear, macsec_handle_frame()
+removes the SecTAG and the default ICV without checking how much of the
+frame remains. A short frame can therefore become an skb shorter than
+ETH_HLEN. eth_type_trans() cannot pull its Ethernet header, and a second
+stacked MACsec device can copy stale skb headroom into a packet delivered
+to a packet socket.
+
+The matched-SCI path has a related hole: macsec_validate_skb() accepts a
+short_length of one, so a frame that passes the existing length check can
+still become a 13-byte Ethernet frame.
+
+Require enough bytes for the MACsec overhead and a complete Ethernet
+header before decapsulating an unknown-SCI frame. Apply the same bound
+in macsec_validate_skb(), using the selected SecY's ICV length, to cover
+the no-SA, synchronous-decrypt and asynchronous-decrypt delivery paths.
+Leave other unknown-SCI handling unchanged.
+
+Fixes: c09440f7dcb3 ("macsec: introduce IEEE 802.1AE driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
+
+diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
+index 87f3f4bdb026..240ba0ae07d1 100644
+--- a/drivers/net/macsec.c
++++ b/drivers/net/macsec.c
+@@ -408,8 +408,10 @@ static bool macsec_validate_skb(struct sk_buff *skb, u16 icv_len, bool xpn)
+ 	int len = skb->len - 2 * ETH_ALEN;
+ 	int extra_len = macsec_extra_len(!!(h->tci_an & MACSEC_TCI_SC)) + icv_len;
+ 
+-	/* a) It comprises at least 17 octets */
+-	if (skb->len <= 16)
++	/* a) It comprises at least 17 octets. The SecTAG and ICV must
++	 * also leave a complete Ethernet header.
++	 */
++	if (skb->len < ETH_HLEN + extra_len)
+ 		return false;
+ 
+ 	/* b) MACsec EtherType: already checked */
+@@ -1331,9 +1333,12 @@ static rx_handler_result_t macsec_handle_frame(struct sk_buff **pskb)
+ nosci:
+ 	/* 10.6.1 if the SC is not found */
+ 	cbit = !!(hdr->tci_an & MACSEC_TCI_C);
+-	if (!cbit)
+-		macsec_finalize_skb(skb, MACSEC_DEFAULT_ICV_LEN,
+-				    macsec_extra_len(macsec_skb_cb(skb)->has_sci));
++	if (!cbit) {
++		len = macsec_extra_len(macsec_skb_cb(skb)->has_sci);
++		if (skb->len < ETH_HLEN + len + MACSEC_DEFAULT_ICV_LEN)
++			goto drop_nosc;
++		macsec_finalize_skb(skb, MACSEC_DEFAULT_ICV_LEN, len);
++	}
+ 
+ 	list_for_each_entry_rcu(macsec, &rxd->secys, secys) {
+ 		struct sk_buff *nskb;
+
