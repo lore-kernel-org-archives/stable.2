@@ -1,64 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795519740;
-	b=Y5gbUcQJRZjee1+OSP9aVx63aRSqkCkaYH52alyhZf5mNZpaG1ZVwuHTYvAMqHSANEqy
-	 jwHRjK4jks3ugRA2V8Wy6hrK04IFQhmO8+8MHrqOHBnqUzcSLjD+smVp9PzRY5Km6dV7Z
-	 REynH9JnNt2s8Klnx6Ckm5lVK7HQBHUEtx5Bs18p4jrIMQqDKskyP8TNrqq6BfHjomTR5
-	 FKylbt7cM53C1nLo0jUs5oKejUpjP+bv2PB8YwgFIXEqO6mZ8dueUyq22ZiH3V2N4AJbX
-	 lT2AN+nUADLt23P4iP0UZVDHd4goVA4DGYycx+mwYPuDFyBfLFGkL1DylM3nNCkpxHQ==
+	t=1795519928;
+	b=ZGjwcdDzXFSdUNPJgcYMeQKVIolh0np/tx7gafiHa8WIsU4vpXgDkhnM2O/v2Zjd5Js6
+	 c9czIcFn6l4B1cg3vMywQQETokHCZsTt/HfhYB4tgOzZqaUoCRzPDScyLehbGJPa/Q2iN
+	 33XNGvJoFgNzScPiwzz+JRICZrQeFloABWguG45fI62SSmvzXYD5l5U2NACQATqXW64iY
+	 SFp6YI8YEsKcMP1WAkwekUbDEqDMExE4tQVgk3peVKuQmmV1FR2Hz9XFapbR8Vyg9DO0B
+	 HEXOO0JwupRqwPqxk/nOGhiN4Qjjgone46W8A5jy9wCG/Us+AqHapM5MtNtzb7peOUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795519740;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=tLnWd5jhubOeFNRkHGC8qqDZ8N8UGLt+6HY9hXZev7c=;
-	b=qZ9Gh8M70EL4y91aNbHz/B4mNNEcPe5QnOPt4PTh/4DUgzZqeeTmj6IX8CGd91f3cf6g
-	 +RuJaq9KORY7W912aLUw7yYsQo1oBqeiyzD05fw5pQ+Ynj+844YrXb/3tBqN38Eo2b3o5
-	 OF/Zp+zWrp3eBTshmR+FtWnR26xcGKgsD0AvvWDSPPHZW4VzaIjc2VfI2ef3mPs4o9JeP
-	 Dv1Mv7TUJM0ieU0Z/TfnB9NKI43oM6jG5A9MjvoZ9FqCELQ55s2wSQsNiRblGdOak3GGe
-	 CSXbLQobM4s10iMp+Jwgccj4imZE34ZutOcRGKxxFsNwEXjLl860SMT6dEPe0bo8Gfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795519928;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=4yhgTB2b4MbxQevqr7E5Hvejx3zY2tPTaRjJ3Th8LfM=;
+	b=r/vD0LnFfU3DloPPJafgMMLhaiDz4xrox6TMbvG+gqRp1T23NCZKbKGetxxYpx++UhCi
+	 aIMWEUCaegfF0TA336MiyHYwoJ43m5W3N/A9Yy14DtA4RFZHfwzsU769JhnjgTT9TjY/t
+	 G3mUvxeERuYM6TWtqKpbPPylLiQhMY4PCU3iQgxqWJcsFJURBrJikmTCQtyhAVD/84lTt
+	 dHuFS6rjwmFU+h6upK8xA8zI4s2QPpb4Wkl3/WgVvOkU8v/kg81srVa4mwqSb7Lt6YNtB
+	 gcFZMu1jfjBh2Z+kYp8mIkUdL/z3i/zVgRCtzjBlhLWRq+xyknJHLie+zr5ydcjyI7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQlFSDZY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hEJcLswg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04F9606A32A;
-	Tue, 24 Nov 2026 11:28:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71048606A31E;
+	Tue, 24 Nov 2026 11:32:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQlFSDZY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B46201F000CF;
-	Tue, 24 Nov 2026 11:28:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hEJcLswg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B687A1F000D0;
+	Tue, 24 Nov 2026 11:32:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795519739;
-	bh=tLnWd5jhubOeFNRkHGC8qqDZ8N8UGLt+6HY9hXZev7c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=AQlFSDZYR64armauKEVSNe6Wu9SaNzuS+A7VVAn/pvdYyNRgjnGn0la5OcsEBZcb5
-	 Xa7er29p3u4mj4KAs3APV3EPmQbgbqbV+mMSfCm312q79v3rJf/ag7zM8k86aLT7yQ
-	 cdfCSf1KMEEZsfPcBBddzIhmoVcVt3lCYQHi8hfc8bsKsu3clKtVzr9DGqiiVDLQVm
-	 MbK9MLQIrldXLOrKDIFHiOkkDGqdL88rWzQYyygVcf6lTtG2QjtH6PiNZiPIKzE5Ll
-	 v0pw5FBByM8yj6Z1dEe2ZTE9dI096b9ZpZPFnzkdXyMaLyBJQJF6HXzXQqHRE2oupI
-	 Dde9sjK5u1R3A==
-Subject: Re: [PATCH net v7 3/3] igb: do not split AF_XDP zero-copy frames over
- several Rx buffers
-From: netdev-bot+sashiko@kernel.org
-To: tkusters@aweta.nl
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net,
- hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me,
- sven.auhagen@voleatech.de, richardcochran@gmail.com, kurt@linutronix.de,
- sriram.yagnaraman@ericsson.com, intel-wired-lan@lists.osuosl.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- maciej.fijalkowski@intel.com, p@1g4.org, stable@vger.kernel.org
-Date: Tue, 24 Nov 2026 11:28:57 +0000
-Message-ID: <179551973728.3135.7219099542453397459@kernel.org>
-In-Reply-To: <20261120-igb-rx-ts-fix-v7-3-63b03045978e@aweta.nl>
-References: <20261120-igb-rx-ts-fix-v7-3-63b03045978e@aweta.nl>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1795519928;
+	bh=4yhgTB2b4MbxQevqr7E5Hvejx3zY2tPTaRjJ3Th8LfM=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=hEJcLswgSBG8aMXFoyE1WPvF7kRP2R6SnXa/zR3nLQr3Av2x0YJP4jESZ1u/P0Kqp
+	 E5E5JZFDbvZ+Bmk6zgTJ6icQxAWD+Ctm9BiR2mnMN3ZSr9Xe1lf97x3GanRoAZ88vG
+	 y+vBANLV9UWi5CUgpTr4qEjYMCnVfB4uLaRehwgLg/mmsRg32bJSwLg8jTvFxKF56M
+	 1TmxGOtR8YeXRVGS/SDjQfXF1W8q3Cf8s5h+yjJOqStUkuwEV6raBs8T7CI8Qzr/Lg
+	 ATmiFqWJC+kDJl5Zjqmuq33hDKyLgr7Qnhwuj+BLljwyfimqyPeSsolivMPeO/Q14B
+	 EZ3JXxCCWFwmA==
+Content-Type: multipart/mixed; boundary="===============5305319266284041173=="
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,112 +49,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Message-Id: <f2e662d99995522aab39e990c48d77e8d3d852c0b603bb064f893ebbf0b8889d@mail.kernel.org>
+In-Reply-To: <20261124104016.532341-4-sst@poczta.fm>
+References: <20261124104016.532341-4-sst@poczta.fm>
+Subject: Re: [PATCH v8 bpf 3/7] xdp: introduce xdp_convert_skb_to_buff()
+From: bot+bpf-ci@kernel.org
+To: sst@poczta.fm,ast@kernel.org,daniel@iogearbox.net,davem@davemloft.net,kuba@kernel.org,hawk@kernel.org,john.fastabend@gmail.com,sdf@fomichev.me
+Cc: bpf@vger.kernel.org,netdev@vger.kernel.org,maciej.fijalkowski@intel.com,tianyi@cloudflare.com,tavip@google.com,toke@redhat.com,aleksander.lobakin@intel.com,ilias.apalodimas@linaro.org,lorenzo@kernel.org,lorenzo.bianconi@oss.qualcomm.com,magnus.karlsson@intel.com,ihor.solodrai@linux.dev,edumazet@kernel.org,pabeni@redhat.com,andrew+netdev@lunn.ch,horms@kernel.org,andrii@kernel.org,martin.lau@linux.dev,eddyz87@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,memxor@gmail.com,emil@etsalapatis.com,shuah@kernel.org,linux-kselftest@vger.kernel.org,syzbot+ff145014d6b0ce64a173@syzkaller.appspotmail.com,stable@vger.kernel.org,sst@poczta.fm,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 24 Nov 2026 11:32:04 +0000 (UTC)
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+--===============5305319266284041173==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> xdp: introduce xdp_convert_skb_to_buff()
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+TL;DR:
+- Kernel-doc may wrongly say the head is page_pool backed only if copied; a
+  future caller could free a page_pool page via page_frag_free()
+- Commit message may omit a stable backport prerequisite (e6d90293fd16)
 
-- [Medium] This is a hardware-dependent DMA bound.
-
---
-
-igb: do not split AF_XDP zero-copy frames over several Rx buffers
-
-The patch programs SRRCTL.BSIZEPKT for AF_XDP zero-copy rings with the
-same 2 KiB or 3 KiB buffer size as the other rings. Before, it used the
-XSK frame size rounded down to 1 KiB. To keep DMA inside the XSK frame,
-it relies on the receive length limit and adds checks on pool bind, MTU
-change, ring setup and VF enable, so that the frame plus the timestamp
-header fits.
-
-Link: https://lore.kernel.org/all/20261028083344.3047350-3-p@1g4.org/
-
-> diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-> index a59ee6575c560..d3165ae97b00d 100644
-> --- a/drivers/net/ethernet/intel/igb/igb_main.c
-> +++ b/drivers/net/ethernet/intel/igb/igb_main.c
+> diff --git a/include/net/xdp.h b/include/net/xdp.h
+> --- a/include/net/xdp.h
+> +++ b/include/net/xdp.h
 
 [ ... ]
 
-> @@ -4846,9 +4882,13 @@ void igb_setup_srrctl(struct igb_adapter *adapter, struct igb_ring *ring)
->  	u32 srrctl = 0;
->  	u32 buf_size;
->  
-> -	if (ring->xsk_pool)
-> -		buf_size = xsk_pool_get_rx_frame_size(ring->xsk_pool);
-> -	else if (ring_uses_large_buffer(ring))
-> +	/* SRRCTL.BSIZEPKT has a 1 KiB granularity, so programming the XSK
-> +	 * frame size would round it down and split frames over several
-> +	 * buffers. XSK rings use the same buffer size as the other rings.
-> +	 * While XDP is attached, the receive length limit keeps frames
-> +	 * within the XSK frame, see igb_xsk_frame_fits().
-> +	 */
-> +	if (ring_uses_large_buffer(ring))
->  		buf_size = IGB_RXBUFFER_3072;
->  	else
->  		buf_size = IGB_RXBUFFER_2048;
+> +/**
+> + * xdp_convert_skb_to_buff - build an xdp_buff on top of an skb
+> + * @skb: skb to describe, packet data is taken from its MAC header onwards
+> + * @xdp: xdp_buff to initialize
+> + * @xdp_rxq: Rx queue info to attach to @xdp
+> + *
+> + * Sets the memory type of @xdp_rxq to MEM_TYPE_PAGE_POOL; the change stays
+> + * on @xdp_rxq after the call. A non-linear @skb is expected to have gone
+> + * through skb_pp_cow_data(), so all of its fragments are page_pool backed.
+> + * The head is page_pool backed only if the whole skb was copied that way:
+> + * a caller that may release the head through the memory type, e.g. by
+> + * converting @xdp to an xdp_frame, has to set the type that matches it.
+> + */
 
-[Severity: Medium]
-After this change, BSIZEPKT can be larger than the XSK frame. With 2 KiB
-aligned chunks and the default headroom, the XSK frame is 1792 bytes, but
-BSIZEPKT is now 2048 (or 3072 with the 3K buffer flag). Before, BSIZEPKT
-was never larger than the XSK frame, so the MAC could not DMA past it,
-whatever the packet length.
+Is the statement "The head is page_pool backed only if the whole skb was
+copied that way" accurate?
 
-The commit message says the receive length limit is now the only thing
-that keeps the MAC inside the frame. Does that limit cover every ingress
-path once VFs are enabled?
+A driver can build an skb on a page_pool page and call
+skb_mark_for_recycle() without any copy.  For example,
+mvneta_swbm_build_skb() does:
 
-With VFs, igb_set_rlpml() leaves the global RLPML at MAX_JUMBO_FRAME_SIZE
-and limits the PF only through its pool's VMOLR:
+    skb = napi_build_skb(xdp->data_hard_start, PAGE_SIZE);
+    ...
+    skb_mark_for_recycle(skb);
+    skb_reserve(skb, xdp->data - xdp->data_hard_start);
 
-	if (igb_xdp_is_enabled(adapter)) {
-		pool_rlpml = min(pool_rlpml, adapter->max_frame_size);
-		if (!vfn)
-			rlpml = min(rlpml, adapter->max_frame_size);
-	}
-	wr32(E1000_RLPML, rlpml);
+and reserves MVNETA_SKB_HEADROOM, which is at least XDP_PACKET_HEADROOM.
 
-igb_vmm_control() turns on loopback and replication whenever VFs exist:
+netif_receive_generic_xdp() only calls netif_skb_check_for_xdp() when:
 
-	if (adapter->vfs_allocated_count) {
-		igb_vmdq_set_loopback_pf(hw, true);
-		igb_vmdq_set_replication_pf(hw, true);
+    if (skb_cloned(skb) || skb_is_nonlinear(skb) ||
+        skb_headroom(skb) < XDP_PACKET_HEADROOM) {
 
-A VF can also raise its own pool limit to 9728 with the
-E1000_VF_SET_LPE mailbox message, which igb_set_vf_rlpml() handles.
+so a linear, uncloned skb like that reaches bpf_prog_run_generic_xdp() ->
+xdp_convert_skb_to_buff() with a page_pool head that was never copied.
 
-The patch explicitly allows VFs to be enabled while a zero-copy socket
-is bound to PF queue 0. So this setup can be reached: XDP and a 2 KiB
-chunk XSK pool on PF queue 0, plus VFs assigned to guests.
+Nothing breaks today, since generic XDP never releases the head through the
+mem type, and veth takes its own page references before consume_skb().
 
-Suppose the 82576/i350 internal switch does not apply the destination
-pool's VMOLR.RLPML to VF-to-PF loopback frames. Could a VF then send a
-jumbo frame to the PF MAC address and make the MAC write up to BSIZEPKT
-bytes from the DMA start of the XSK frame?
+But a future caller that turns @xdp into an xdp_frame and relies on this
+sentence to pick MEM_TYPE_PAGE_SHARED for an uncopied head would free a
+page_pool page with page_frag_free().
 
-For the second 2 KiB chunk of a 4 KiB page, the frame ends exactly at
-the page boundary. That would mean writing 256 bytes past the page, or
-1280 bytes with 3K buffers. Aligned-mode UMEM pages are DMA-mapped one
-at a time, so those bytes would go into unrelated memory, or cause a
-fault when an IOMMU is present.
+Could the wording say that the head is only known to be page_pool backed
+after the copy, or that it may be page_pool backed for other reasons, so
+that callers check rather than assume?
 
-The tests in the commit message only used wire frames from a peer. Was
-the loopback path tested? One example would be a VF with MTU 9000
-sending to the PF while a 2 KiB chunk zero-copy socket is bound to PF
-queue 0.
+[ ... ]
 
-igb_xsk_frame_fits() compares max_frame + IGB_TS_HDR_LEN with the XSK
-frame size. It never compares the XSK frame size with the programmed
-BSIZEPKT, so it would not catch an ingress path that skips the per-pool
-length check.
+Separately, the commit message has this paragraph:
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261120-igb-rx-ts-fix-v7-0-63b03045978e%40aweta.nl
+> The problem exists since v6.9, see Fixes:. The stable range starts at
+> 6.4.x, because the veth fix later in this series, which goes back to
+> v6.4, uses this helper. Before v6.9 generic XDP linearizes all skbs, so
+> there the mem type set here is never consulted.
+
+Is the last sentence accurate for stable kernels between v6.4 and v6.9?
+
+The mem type is written to the shared netdev rxq, and the write stays
+there.  In those kernels bpf_prog_test_run_xdp() runs multi-buffer test
+packets with alloc_page() frags on
+__netif_get_rx_queue(loopback_dev, 0)->xdp_rxq, and reads that mem type
+when the test program shrinks frags.
+
+On a kernel that has this patch but not e6d90293fd16 ("bpf: test_run: Use a
+private rxq info for XDP test runs"), those alloc_page() frags would be
+freed as page_pool pages.
+
+Should the commit message record e6d90293fd16 as a backport prerequisite,
+the way the veth commit lists its prerequisites?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/45379686209
+--===============5305319266284041173==--
