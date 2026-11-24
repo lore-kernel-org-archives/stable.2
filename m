@@ -1,94 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795554432;
-	b=wfBUhbT2mvXIP5HRWprE90uf5EEz89Du+YOyVqPLLCBQzwJ1MUWYPlLKlaTmn6tzdQ2y
-	 WugXnSIfeBXghqfYxW5+5Ky0m4JXoFaIUAuhLYgAH9V+2GUFVAujpibvPZPh2oorowe/W
-	 lVzBdOj0hIKPslCsW+mUDY4dyAyLAAkepOcdn2kbxXvWmzcwCu1C7zWAYtRciU/EbM65j
-	 S+0cNbUTFSHmVqsL3X6jw4vgM+5RES+EwICcGrOqxla6E5xNzjc4v2ACAmH+WGB6qnp3V
-	 KmJ02rYapwNGN4ZmdF7wTUONCr/Bi0kuoJGSchsVkRb0/55dnkygC7ikhqFIMAla5kg==
+	t=1795554553;
+	b=vMUeM0MIA6xtE8CkxcfrNgukf7qGd7gNWk9krf8CPQCvQ0TfpBTOHBxgCcZ7SQrbys6H
+	 6i4Cz0LcJpyEhiF+YJQTJKbhThohVsvIrb+J5ZvQgTVkuDyqLS1El/sDqVEbuo0GwdMI1
+	 bzMAX0RZLt93oLq6YMhpxhOJkoFSR3d2ipo++VSFIumAEARBWQxgNCDp4bRZlSdpX3qT8
+	 sdu8Hw0Jr0npvK54FJocY17LVrs4doPtByZ8nbic4VpfZOvEhB8EmU6R6vuJ+BbuqyyU8
+	 a9ynp1gxGawJ1scojBGLJ+O6jW7KhE0xpfiC0zCtI3mLTWbcLkvJVH9rZInzw15ot4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795554432;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JInzWrdR95K0ZD2w0DNtIwvg4U0S5n5bYRBjEebUBec=;
-	b=pamADcwAwy5G4uhpcHzQxMy/VlkTWblaAtEvLl+BgK2qHWeVXOWT1IJZy5R3qGzu1b87
-	 1Kx44gijtPOv7jxBwBpUQ/z7RZSMgYgYhFvaOivrix3ilXOcRmwjBHtF91N3QLalz/3j2
-	 Z0oGW9ByAHeyhrogeyBpIgkS5hLpBd+96zVbs+mIy/Jwb6Qs23bCVbieNmxXksSUbw9JK
-	 ZZS4tjrsqe+ubSAQXwZAHS3Frqhxfk2UirZSGgzcq+Hy5c0IITYSajSekQmEfxRyaSwlb
-	 Bu0EKA7WXuxgIszE8Mev+NhY8ZWgQlVW+W7z3YEAT6jacKjXSza6defOmPMR6tN9O/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795554553;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=MQhzeHdb6rG7TWO/0j8tbHOFmSkEGn9pGfv3qkl5UTk=;
+	b=f18nBv7lGfGwKKz5ejmokAE+ULazAocAddi4rVkZxcouXkgxHlQU8oeSHLdB2V6iixk9
+	 +9btTCd/nEv/BFn5AIcP2FFehK+WGhfmnwIPHlJ7RchKbHdX9vTWdpgOud8FfiW+x8Y0+
+	 t/utERj6XaUrWXN4sqnFZ6KJWfdEwz2bWP+kT6Efc1E9EKIKHQmemNRs89tQk38BxSneL
+	 80/3JOIeZHvS9j0HMdJFX4e6HzU7lsG7bw9eX3kKFoHBuRVRQ6qtNUpfJi2TnlKca1oj4
+	 w+fnfMwPDex5Gzp6/N5STtQdeMW5sAzLaQaP4Tp1Ws2pyT1MplXL0xe7UpM1KB/Zoeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uWHjpanv;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dUbZw8gE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D2D606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 21:07:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07D2D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1BA5606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 21:09:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uWHjpanv
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e09aa5264so2880365f8f.2
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 13:07:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795554430; x=1796159230; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JInzWrdR95K0ZD2w0DNtIwvg4U0S5n5bYRBjEebUBec=;
-        b=uWHjpanvqc/mTWJdw+g4Yybt0opescilBObMqIrYUps17Uu7aDh5XrT4n5PV98YcNH
-         J5c5c6FuYscirjbNE64jRUtzR14AnPlenEVkZZ2F6uioeoArxFsg5Nh1ExJdzcQrcPBt
-         BrMbl+XNomWilTo/7OHQD7f6bucYLb1Tl2vFaxKBrRibacSEmFKV+JX3UPKgHZfbeS1R
-         kVF9lE9Zn0C1kyfHi8f7WV7hFbTfDS8QDaryt10I8hSNJ3qre6LJwMgq341AYbPA6Kri
-         eOE216qEsyZb/qOIwKzgC9LkRbMdVS+xTK3rE3u1eIcnIchNvK7KyCGH4CS6ZxM35p5f
-         cWOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795554430; x=1796159230;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JInzWrdR95K0ZD2w0DNtIwvg4U0S5n5bYRBjEebUBec=;
-        b=N/7ROv7DeCj8lH4n6Na28KbhtdkcKII2iBhWCyqcXReG1lA1vQcVKRQTYEu/dgIX6P
-         XwcBDHZorc9JYo2+EVcNPvWSMpWchCpJwH/OQq4Y43m3YL/fZCglDqvcUSz6SNbStu/J
-         ViUBC7NszQCngxyPIY+e4X3IOw+dQ+6QXg9g1Z+4ZyPK8oocZmvu1pZ8wSi8wIhYqokk
-         dn07nNzjpVEfQv/BZB+g25yfhzkx85jf4nvd725xeiQIvfrLPn0Kr18BTlbFL5R6iQfF
-         6UMD7VHCD1aNA3oO9Vt+HICn9POqK11xXimqMbs/HFAgtJiRd2mraOikMd94A0bpxVPS
-         6iBg==
-X-Forwarded-Encrypted: i=1; AL+hErGtVOCgeuLRhh4tec+71muY0O6kE3xVsMzAyhqcORXF4SvX5fJrRK2usZvKTvxAhqsG9Jd213U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z85LDFDAgyvjpMKVrsyL2h/pq0Wk4uRzfIOm+W9kBHr2hH8/ZPu
-	w/KCTkPyt260oLhrY4Ms3AVaTbfRAlioJkmHv7VIR0vymkPbhbri7V8=
-X-Gm-Gg: AZFdTZdwakT54fvZE03aDUScQ3ZEQ20cRkrCS+dmfXupsn4nhGxvTl4b06BAY4FF+zc
-	IUOl6mVlcci4j3p6pi35vZiaHE+uYI19uBUDz2Qi/HbjG5/DxobU3yVL5R1TfHRBUccipg59lMH
-	ZN2rMATvc9I9zPPTSF0AjFvjxAwLct/61qfKgfnXPjuyLc6uzxqVq2RJzizmJCxM8lEYJZEA/zC
-	8eDIvEuHtoQhOx6SCyaLANBPmdPhd/kUnerZ9qRYqNAKCHhYMmVlgFGl9h3/R2pI8eJqTa4Rvhu
-	o8ScyghZ3x8xSFYtawDaDa/ccGrXxyCX1g713VEzuLLDSuuks7qhsLGapB+99ahE5KEhQXVbhwS
-	sRRCUijhs5NiJz105rYqtzsloRxXSXg5i+O0iEtcda0TmEYewV45//xqPZtCEE+2xvt0Gxakasx
-	JKd/TtHzrbKguU2Ok/YZKPtMdG1tcGwcgykEPtA/mHtiNpSgn2Weom/mXm35WbVYYUU8dXbS8gc
-	KOVw+PJhsJRn4v0OKMhuDXD+gIirQsBZ8zoOT99rgVXEplkAgPdhK7PxpyzRVgEwmUZXpQtu0GT
-	5By9S7YgH+QP5Qbdg7Dly8meirWcz7KfJjnGbw==
-X-Received: by 2002:a05:6000:258a:b0:4a6:4f35:1bdb with SMTP id ffacd0b85a97d-4abb44d3448mr31982884f8f.39.1795554430199;
-        Tue, 24 Nov 2026 13:07:10 -0800 (PST)
-Received: from localhost.localdomain ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ad644140b5sm27085045f8f.17.2026.11.24.13.07.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 13:07:09 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-To: Brian Norris <briannorris@chromium.org>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Jeff Chen <jeff.chen_1@nxp.com>,
-	Bing Zhao <bzhao@marvell.com>,
-	linux-wireless@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v2 wireless] wifi: mwifiex: zero-pad SDIO TX buffer to block-aligned transfer length
-Date: Tue, 24 Nov 2026 21:07:01 +0000
-Message-ID: <20261124210701.467325-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dUbZw8gE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B9191F000CF;
+	Tue, 24 Nov 2026 21:09:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795554552;
+	bh=MQhzeHdb6rG7TWO/0j8tbHOFmSkEGn9pGfv3qkl5UTk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dUbZw8gEWFE0oIlG8fh984WJ2ttbIpuVIV+Ux+8yG4rz4QIRqcnTIKWWEToZvBkoN
+	 xrW812XB+404V6Ucm5HVgnKpvFLCVR6R0gc1k1CE1/knbKsudUq8NEnNhFET455Ok2
+	 MgEH/Tosc3bn9ClrhVRhaTJuD84aADXqZnexy58MMIz1S6xzTEmQqQWUbOiVsnnYh1
+	 BB/d7R8dAB7cKAEGQ2HaJK2Jn9J6fkdYIxgs7fH6ZclgJOFqTLTZzMqJB4cVAUXs15
+	 6SYrZjk70hf+DvOqYGvSOTZDTSqtHqoMk6Mp0G9KoKkWJrl8VXC7LjiFqhm4J5IQ3f
+	 yMilMQnZeCuSg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y] mm/hugetlb: retry the pool walk when the zonelist is rebuilt
+Date: Tue, 24 Nov 2026 16:09:10 -0500
+Message-ID: <20261124210904.2758812-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112458-poise-swapping-02b1@gregkh>
+References: <2026112458-poise-swapping-02b1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,50 +61,166 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-mwifiex_sdio_host_to_card() rounds up the packet length to
-MWIFIEX_SDIO_BLOCK_SIZE (256 bytes) for SDIO block-mode transfers.
-When the original skb data is shorter than the rounded-up length, the
-SDIO controller reads past the valid payload into uninitialized skb
-tailroom, transmitting stale data to the wireless device firmware.
+[ Upstream commit 9f6674f842bbceda8326cf4e494af5ad3a5a05e6 ]
 
-Zero the padding bytes starting at skb_tail_pointer() without
-extending skb->len, so that reused buffers such as adapter->sleep_cfm
-keep their original length across sends. When tailroom is smaller than
-the padding, zero whatever is available.
+Onlining the first block of a zone rebuilds every zonelist in place,
+shifting the slots after the new zone.  dequeue_hugetlb_folio_nodemask()
+approves a slot by its node, then loads the zone from it, so a hugetlb
+fault bound to one node can take a pool page from another:
 
-Fixes: 5e6e3a92b9a4 ("wireless: mwifiex: initial commit for Marvell mwifiex driver")
+  CPU 0                             CPU 1
+  dequeue_hugetlb_folio_nodemask(nodemask {2})
+    slot 3 (NORMAL2) approved
+                                    online_pages()
+                                      build_all_zonelists()
+                                        [.., NORMAL1, NORMAL2]
+                                        -> [.., MOVABLE1, NORMAL1, ...]
+    zone = zonelist_zone(slot 3)    /* NORMAL1 */
+    dequeue_hugetlb_folio_node_exact(h, 1)
+
+Check zonelist_update_seq before using each zone, and on the way out
+with nothing found, and restart the walk if it changed.  Checking before
+the dequeue leaves nothing to put back.  Reset the last-tried node on
+restart, so it is not skipped.
+
+With kprobes holding the walk across the online, a fault bound to node 2
+took a node 1 page in 3 of 3 runs, and a node 2 page in 3 of 3 with this
+change.
+
+Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Link: https://patch.msgid.link/20261101021340.2251928-10-gourry@gourry.net
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2: use memset(skb_tail_pointer()) instead of skb_put_zero() to avoid
-permanently extending skb->len on reused buffers like sleep_cfm. Use
-min_t() to zero whatever tailroom is available when it is smaller than
-the padding. (Jeff Chen)
+Depends on <20261124210614.2758423-1-sashal@kernel.org>
 
-Build tested: x86_64 defconfig + CONFIG_MWIFIEX=m + CONFIG_MWIFIEX_SDIO=m,
-gcc 14.2, W=1, 0 warnings.
+ mm/hugetlb.c    | 13 ++++++++++---
+ mm/page_alloc.c | 18 +-----------------
+ mm/page_alloc.h | 19 +++++++++++++++++++
+ 3 files changed, 30 insertions(+), 20 deletions(-)
 
- drivers/net/wireless/marvell/mwifiex/sdio.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/net/wireless/marvell/mwifiex/sdio.c b/drivers/net/wireless/marvell/mwifiex/sdio.c
-index 417dc2649b99c..d097efb2afbee 100644
---- a/drivers/net/wireless/marvell/mwifiex/sdio.c
-+++ b/drivers/net/wireless/marvell/mwifiex/sdio.c
-@@ -2386,6 +2386,11 @@ static int mwifiex_sdio_host_to_card(struct mwifiex_adapter *adapter,
- 	/* Transfer data to card */
- 	pkt_len = buf_block_len * blk_size;
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 82963b9977b45..4d184378b89a7 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1285,11 +1285,11 @@ static struct folio *dequeue_hugetlb_folio_node_exact(struct hstate *h,
+ static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_mask,
+ 							int nid, nodemask_t *nmask)
+ {
+-	unsigned int cpuset_mems_cookie;
++	unsigned int cpuset_mems_cookie, zonelist_cookie;
+ 	struct zonelist *zonelist;
+ 	struct zone *zone;
+ 	struct zoneref *z;
+-	int node = NUMA_NO_NODE;
++	int node;
  
-+	if (pkt_len > skb->len)
-+		memset(skb_tail_pointer(skb), 0,
-+		       min_t(unsigned int, pkt_len - skb->len,
-+			     skb_tailroom(skb)));
+ 	/* 'nid' should not be NUMA_NO_NODE. Try to catch any misuse of it and rectifiy. */
+ 	if (nid == NUMA_NO_NODE)
+@@ -1298,10 +1298,16 @@ static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_
+ 	zonelist = node_zonelist(nid, gfp_mask);
+ 
+ retry_cpuset:
++	node = NUMA_NO_NODE;
+ 	cpuset_mems_cookie = read_mems_allowed_begin();
++	zonelist_cookie = zonelist_iter_begin();
+ 	for_each_zone_zonelist_nodemask(zone, z, zonelist, gfp_zone(gfp_mask), nmask) {
+ 		struct folio *folio;
+ 
++		/* A rebuild may have shifted a node outside @nmask into this slot. */
++		if (unlikely(check_retry_zonelist(zonelist_cookie)))
++			goto retry_cpuset;
 +
- 	if (tx_param)
- 		ret = mwifiex_host_to_card_mp_aggr(adapter, payload, pkt_len,
- 						   port, tx_param->next_pkt_len
+ 		if (!cpuset_zone_allowed(zone, gfp_mask))
+ 			continue;
+ 		/*
+@@ -1316,7 +1322,8 @@ static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_
+ 		if (folio)
+ 			return folio;
+ 	}
+-	if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie)))
++	if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie) ||
++		     check_retry_zonelist(zonelist_cookie)))
+ 		goto retry_cpuset;
+ 
+ 	return NULL;
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index bc02971867220..b006cc8217a6a 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4433,15 +4433,7 @@ EXPORT_SYMBOL_GPL(fs_reclaim_release);
+  * retries the allocation if zonelist changes. Writer side is protected by the
+  * embedded spin_lock.
+  */
+-static DEFINE_SEQLOCK(zonelist_update_seq);
+-
+-static unsigned int zonelist_iter_begin(void)
+-{
+-	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+-		return read_seqbegin(&zonelist_update_seq);
+-
+-	return 0;
+-}
++DEFINE_SEQLOCK(zonelist_update_seq);
+ 
+ /*
+  * Never wait for the writer, which an ALLOC_NOLOCK caller in NMI may have
+@@ -4456,14 +4448,6 @@ static unsigned int zonelist_iter_sample(void)
+ 	return 0;
+ }
+ 
+-static unsigned int check_retry_zonelist(unsigned int seq)
+-{
+-	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+-		return read_seqretry(&zonelist_update_seq, seq);
+-
+-	return 0;
+-}
+-
+ /* Perform direct synchronous page reclaim */
+ static unsigned long
+ __perform_reclaim(gfp_t gfp_mask, unsigned int order,
+diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+index a9b72cb9520e1..2ae37ffdb623f 100644
+--- a/mm/page_alloc.h
++++ b/mm/page_alloc.h
+@@ -9,6 +9,7 @@
+ #include <linux/mm.h>
+ #include <linux/mmzone.h>
+ #include <linux/nodemask.h>
++#include <linux/seqlock.h>
+ #include <linux/types.h>
+ 
+ #define ALLOC_DEFAULT		0
+@@ -267,6 +268,24 @@ extern void zone_pcp_disable(struct zone *zone);
+ extern void zone_pcp_enable(struct zone *zone);
+ extern void zone_pcp_init(struct zone *zone);
+ 
++extern seqlock_t zonelist_update_seq;
++
++static inline unsigned int zonelist_iter_begin(void)
++{
++	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
++		return read_seqbegin(&zonelist_update_seq);
++
++	return 0;
++}
++
++static inline unsigned int check_retry_zonelist(unsigned int seq)
++{
++	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
++		return read_seqretry(&zonelist_update_seq, seq);
++
++	return 0;
++}
++
+ enum fallback_result {
+ 	/* Found suitable migratetype, *mt_out is valid. */
+ 	FALLBACK_FOUND,
 -- 
-2.47.3
+2.53.0
 
