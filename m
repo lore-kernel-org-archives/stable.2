@@ -1,61 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795504766;
-	b=yfKYZ1lIL30mrDKj2AJjxTVCxdlL+O3Yao3ZrFHAjkse2bfi+qB9ClOeUxqB0t7b98gE
-	 U5QKGwJdOKE+8VBxVgUf27v9DFxJpl/hLKdN/BXS/rF5wdLwLP5ZTuHd9ALqXJYR8SIDo
-	 q1WlchIgvbjXmxzHmGKI+k+10iaHkJLJD7mDr8JYPUnyRy0OqeWb1DsuLh0CoEzdhH8PY
-	 OLNXZi6Ea/igDguNPnBXKSHxiYbvFJLWIt7mIWyb2OzGE8rnjopcCw+ijmVR6I8nMU87i
-	 FsIt0eE75DGZlPM6hH0c7ZVOhebveqpwOzAVg60f5QPmhlF4ynetR89gKj0+lB48QyA==
+	t=1795505621;
+	b=2Mw+Q0f5K2trMTL2CbMR6+sEHKcJG0sclWXiCf1s44FIlpEEpphGKlWeDikPL+dIXpvN
+	 WLlMctX7nsI301OUmVvhu6oRspXo9jPIa0Dp1gYD/w5yg5grAJX47El3wd5TtunwqKj/z
+	 80qYWtEPHpnrrlnPVrV8OqgjVegikt8VgaUjXP9qVgFaC3E44nY4aJhDIAQBPKdUlDju2
+	 3nlODk4uKGee4CugRsFxijG84E6bhjlfZqft3pHIQs1AClDVtM2JO8A7PusRFkrtcjzN3
+	 B7K0NZWyE9AmVcvcSv1GwSzag5PITCOlgwxLUseqQ/DX6FVkD/d7CyR3LiUwcyS37Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795504766;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=iqEGW7YrXkG1u5nBLzxdbiaTFloAHoNSMLITrHG2DkA=;
-	b=4JFcHh6JPuoj492uFQlcyh7P2Upy7MAH7UUbDZU4/YnFC/wq8jKdVBPFwKYn1o7/cSM3
-	 EJXpvCM7QqM5suHyLHkOndLqzUXLCjszeSaqpB2ubPFC2ZqT3SJRedwSwlllJiJS3ZQ2x
-	 xGROPHhhWBu7lZqxU3WEmfve5ahdxoJ7lZM970qMJCv2ghvq8s07Kzvca8+1wRQDJAIOX
-	 7TaFglBYt8val3JfJ5C5EicAPyEsVNKKSpwmp549S5Z+WVzE6dlWW+EpYr30MWWbv2CFj
-	 sOcNmF/JKOIQL1Y3sPq1sLEFneOmmHSAaQITHnf9S36Co6ReAuO/5ba619w1C3GRDAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795505621;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=gq87rGVVD4KSpSFWL7D6d3e24UEKtH1rPNqBfJ2s+4Q=;
+	b=DtVdVKntzDj/NrHtss6A4w1Krrk2zC8u+O6soyDqAJD6O7o94MVHPqwBiIcrlRPFPjhu
+	 d4WNlhZNsaAuiXt5DjHtWHB6Z5fe0CWM0MOPCWWvt5pidV4EBL5gOUaW02BVz5dIeQd2a
+	 dNDcqSP7gC8HF2HprAXjm8joxNK7ot674vhDL9dHSPHA0yOxW/QS9ig/knxX8F1BoR/L0
+	 R3H51piMpPtg+1nw97UughyY/CW2D7pyycAGr5pDBSJy7A+GzB/yM2g4XsR3prXUjTsrz
+	 marFMo3sZhEyVZAZ3UsaH2w2Vh8+0+pWiZe9dOIh8vA1whlLBHuW84Au6SOvf/2CLNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8asuU4n;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=IReWqivt;
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19E9F606A31E;
-	Tue, 24 Nov 2026 07:19:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164E0606A31E;
+	Tue, 24 Nov 2026 07:33:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 164E0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8asuU4n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6BB1F000D0;
-	Tue, 24 Nov 2026 07:19:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795504765;
-	bh=iqEGW7YrXkG1u5nBLzxdbiaTFloAHoNSMLITrHG2DkA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=m8asuU4nq8UldY+Y4KSPoTLuU7iU0LyPs9C2HSVxikOL79jBA6D0zp5HmX9t0bukX
-	 udEQCVy5QC3MHftfBfOHGsNHsoNYQYICMXxUteMwIdsSFRph9lqSixG35OK12GBf2m
-	 oO2HGzkeuXHHatek2UuZwKso4tm854cmT/mfLSLSrmRoM/c2Et3g3o8Kwztj4uxjCt
-	 etsXcoyHI35pUmmc21TkPHCPcNXpW+55xCqCSj0fH426s5bzGCjHRSObR23a+IpacQ
-	 /rNuKnT3Mgyn21MCifeA8o58iAPB3AeBL78Uf1lFiGediLBErQwJI7flJEQqdLUWzK
-	 1ppPM4CPFCYcQ==
-From: David Hildenbrand <david@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- David Hildenbrand <david@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Mani Tofigh <mt4022@columbia.edu>
-Cc: Chris Mason <mason@kernel.org>, Chris Li <chrisl@kernel.org>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
- Youngjun Park <youngjun.park@lge.com>, Tal Zussman <tz2294@columbia.edu>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261123-shmem-swap-write-failed-v1-1-41a0115dfbf1@columbia.edu>
-References: <20261123-shmem-swap-write-failed-v1-1-41a0115dfbf1@columbia.edu>
-Subject: Re: [PATCH] mm/shmem: don't drop a folio whose swap write failed
-Message-Id: <179550476098.5668.10320150453441389834.b4-ty@b4>
-Date: Tue, 24 Nov 2026 08:19:20 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=IReWqivt
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=gq87rGVVD4KSpSFWL7D6d3e24UEKtH1rPNqBfJ2s+4Q=;
+	b=IReWqivtOsblcN+tXM/8b+ODJiGrLJge40Zj53rVyoXBu732GcajweLdUfVu6XElEMAIEa6T0
+	bzq4GYAmSbeufVRem9hKBtjgD0jbcvXBmmHP/3k8UCuSRd8FCfqDrG2jwrACcWUkH7QgVUFHMGI
+	/FsvAk2OGug5dfXjXNqerA8=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jYZKj4QBmz1K96m;
+	Tue, 24 Nov 2026 15:33:13 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id E704C4056C;
+	Tue, 24 Nov 2026 15:33:30 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 24 Nov
+ 2026 15:33:30 +0800
+Message-ID: <5e4d8f95-ae3f-4143-a90e-c3ef51127230@huawei.com>
+Date: Tue, 24 Nov 2026 15:33:29 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,45 +62,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] resctrl: mpam: Fix potential per-CPU data leak on probe
+ failure
+To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>, James Morse
+	<james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>, Reinette Chatre
+	<reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20261120173519.3923924-1-liguangshuo@mail.sdu.edu.cn>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20261120173519.3923924-1-liguangshuo@mail.sdu.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Mon, 23 Nov 2026 12:21:34 -0500, Mani Tofigh wrote:
-> shmem_swapin_folio() drops a large folio that does not fit the mapping
-> from the swap cache if the folio is neither dirty nor under writeback.
-> The folio can belong to another file and be under swap writeback, when
-> the swap entry was freed and reused before the swap cache lookup.
+
+
+在 2026/11/21 1:35, Guangshuo Li 写道:
+> The PPI device IDs are allocated separately from the MSC. If subsequent
+> resource discovery fails, probe destroys the MSC without freeing its
+> per-CPU allocation.
 > 
-> Swap write completion does not take the folio lock.  On a failed write,
-> swap_write_end() marks the folio dirty and then ends writeback.  Since
-> dirty is tested first, the folio can look clean and written:
+> Use devm_alloc_percpu() so the device releases the allocation when probe
+> fails. Its cleanup remains valid even if the MSC is freed beforehand.
 > 
-> [...]
+> This issue was found by our static analysis tool under development.
 
-Applied, thanks!
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-tree: mm/core.git
-branch: for-next-fixes
-
-Applied patches will appear soon in mm-next, followed by linux-next.
-
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
-
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/1] mm/shmem: don't drop a folio whose swap write failed
-      https://git.kernel.org/mm/core/c/e3464357
-
--- 
-Cheers,
-
-David
+> 
+> Fixes: 49aa621c4dca ("arm_mpam: Register and enable IRQs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+> ---
+>  drivers/resctrl/mpam_devices.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index c067b6d57d71..3e89f9183041 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -2351,7 +2351,7 @@ static int __setup_ppi(struct mpam_msc *msc)
+>  {
+>  	int cpu;
+>  
+> -	msc->error_dev_id = alloc_percpu(struct mpam_msc *);
+> +	msc->error_dev_id = devm_alloc_percpu(&msc->pdev->dev, struct mpam_msc *);
+>  	if (!msc->error_dev_id)
+>  		return -ENOMEM;
+>  
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 
