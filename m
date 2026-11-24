@@ -1,90 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795560337;
-	b=mX8GUvDJMNoKY3ajXI4yu3JVr03w/reZFhsHLb7om/ckNr+1DE85Ena8W3DdIxlOWemG
-	 jNVzYxSasjGQTjM6TO/7hgsSC2ofr45st80A984v+TaFcHrizZC6GTHlEK28+eVJeMgnn
-	 6ITHDcBbh68GFn/FKX6AHeJ0gQ276S9TdVckJcX5SFUVhnQrXZ4IEv+bQ8spXDTgL6sFg
-	 vfXaTJWHZUo2b3ONQ4Kp4JxBcda/VUc8pxU0423MI2glCv76UayNYaiqtBHC2RhNjmiKX
-	 HkWciNhhBFTxdI9prInQ0hOrEdqe7ZIMxmPkHtKG69KiERwQQ6IFQ6b7IlfsmuskH7A==
+	t=1795560358;
+	b=CuCq2/ifSxFkLdlqN/yK8FiBBX/02sRrfbArRhH5R5gDQNlT4BJH/N6vkG7H84lfB06Q
+	 oSogRAxL0s6CG1Q9A7ScMa5jNNiE86lbhXXopc912ntUyj28aEkFniV4BnCNWN1CqdUEc
+	 nWDsKzX/zgzqTNw4af723ZIk1f92SL1Py37DEB561cQu1xhyTtnLuKgHtvZipMjYXgiWO
+	 tHPElTU5IOdl9cqQZyhUb2KsYyIRIiLm6eanxtqs6V0PQJ9rzhGA0RhDxqmwXn7pTqtEP
+	 6agnUnuJLwpzLdhC2GulVoNLTRBeCIT6WUdZsgvO6oEZVPp6UbvKfhSNMhwQ3TY2MxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795560337;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=V5sYfwDMH/K5iSEu23/0IBbtSjF5KPb2WUam7m4LP+k=;
-	b=rMYCjCybMzShkWUJvKv/Yzr7ZaIYVytZ29vda08yJXy0AD2nK/Sd9pX95n2lLtCFdd4w
-	 gQjhbyxRiZPXvm5ADDRwWM/nSPArmkR+//aTDeK2kijROVgXI1mCPZllpy1lyMsMiNMGL
-	 8Hi7d7nUGaYkhMBvToBlYZTSJhPMI9EVqu40ZMphYsTpYh6uybULkiTGBAlnQr+wQjczu
-	 Xj7QSsdqZIIr3tlj4fMoRqglX/UGozhyswxy8BlFOMxw7DevDRn5BxzdkxSNbhMEtNv+u
-	 07KFXkjRi+9oHZuHzLMIxLmgD+zD0+4AhM0ztVKTLJOtBHv3C2hmx0/ZWxaTGDglEWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795560358;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=XaHsIMY6GCdwAMM5rktMhsHaqS/UYvvihMsPHbZs9oQ=;
+	b=uPFzSR0cBHyjVLqIVV4r+UHXFaBS0Qd1O9p0OVNrDIhBAWW32oFiYEgnoS0IgSzw3KYJ
+	 FHoQ9Jv+SFvfxP0FKOqHE/doBOEV7ArLojAC4cbFDlARxHEFGYSi/JbhzVTYPMTE7/cHm
+	 3yf2Ro+gRtKweZxWetFp+tDiyq+XJh074h3z7yzB05X9EBIdrJZEbFZEtIS4oAEr4J/9/
+	 N8mEHxcCR3z8P6fV9YFkV7pzfXvrtobIyozDuMjCQCxtaOb5ROi/Kkzsxiq/7K21YxNlD
+	 8JRKxlsDkIgpTG6xWKnjNhoi8vh6iGwtw0+tgrDpoN45GtKlSGWIixVBmLBGOxpo0sA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b="IbPW/3nb";
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhFeLbBr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC0F606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 22:45:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAC0F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FD3606A326
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 22:45:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=IbPW/3nb
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c516a192844so441878166b.1
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:45:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1795560335; x=1796165135; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V5sYfwDMH/K5iSEu23/0IBbtSjF5KPb2WUam7m4LP+k=;
-        b=IbPW/3nbi7ZvK2Cr6RWP39Ces0R00/NjmV6EEjpjtit+MG8J21HmhPjo92clz92nBb
-         47p7y94ilg5HwlMdqOyL3QCZ6O1MePR/DwWf5/yCB3DRqlamX92BXoOnoRsLWEp/TdrX
-         iGJkI2SaV6Gl22xmjifdBg4VYWTQ//Ff4IVMw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795560335; x=1796165135;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=V5sYfwDMH/K5iSEu23/0IBbtSjF5KPb2WUam7m4LP+k=;
-        b=NLQtWi3dBZNSsSEPV2+875XvOS3RIkZ0UjjfFHkFKZPEJIrjF14pttcL8EqH3eAIvM
-         GwCUaex+CF/HfvBDtcWbs1uV6aSP84aETjeYGl+Ru/oQJoa+g+PoHAY8/oXeYwWdkxbt
-         T1VEzgZ/9Feo5MOw+nfxOdVPcSeZJTRgTnnhw3F0PwIcPH49PYF7IHbQ1uNvbhjEkETt
-         3ea7xSZ3Kkv35RnVHyhx/nNA9RlXlQbdwkFyCuwJwjwzHQvNukbr3deNbJxz7TZeb+ws
-         rRFS9F4x4Seu9aldx+Q3ywqzlSdKvGbfSDiGzW1qRkreftkYp9qLihMDAywAD0+bCpCz
-         TqOw==
-X-Forwarded-Encrypted: i=1; AL+hErHdnjlfF5fq/Do0udGOT811a8DZPMNDDex75iVNlRrtQ9BkCZ0UDE0rPFDgO5WHx3F42hxYAig=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8rxhVTMF5qskeTZ2o+99Zk4gyOr/6x6QoDZdEDLjZyCn9fwcQS
-	qbSnNDB+04HFgLz2BVWjFJNTaumzHwxwugSJ2x9QTWaucX+RqztKk+Fkj1SJeHQshKmEkXD/scj
-	RQpNwsirHbg==
-X-Gm-Gg: AZFdTZf1/w8m/OyY6sZoalPtmuUo5rVLajsQesA12M5tUP5QzyQ/EuTPuAs/MrCKeD2
-	ovMS2JiVaXXtKwGMMldLg82tj1guh9BYh2qC/siDr8pHh2lSTosPy1Kxn77YiRqse2dp6ob3eR7
-	bL5TUnaXKQAIu9niyFKcDIyrk+IL3RZ36ZMiTZHxvocszx8/l0ol7W+kC+0MPsgN2UhC9KNNSI6
-	QXFNi+y91AR7e9aqCKZ2wGLfPsSJzeNgTNaPa9l0egnIyVfpJlNF/rY2eZS+oRwtcw0AwT8d80d
-	OQZY/9cMrrmv5bsIyTdfpdXxLa0REaIwVVkSl3M+jo1X1QnO6ITefT7KRT49Cn6xHyJCvAncb+L
-	oA/d0qm13+DRsx55zSY1wfhF5jMOa+/o1+yOtp2z5bVJH2LelzCFl8pAiYwHvZBeH3leAxUtN/K
-	oD+O41dK/Ds4ffrdxClmXOBGRV7CXZH+hozfLSxoK4X6HooDoTWqZf7Lx/l1VnGROnqp9UT+iIX
-	TZeReD+ro1UcEIkozC8mf5iI5FmJ/uQBjZHWX5Ammivg1wwrFzHYsPaO99VYXlwcWB0FOKmHZ9V
-	TZreKuqi5O7qR27e9DTC9eV+vG9ICrRNN32K0dwf3JHagHoeS7LpodpNKjNb3hftAqNp34Mr2TA
-	5mek=
-X-Received: by 2002:a17:906:680c:b0:c29:f5d5:5a9c with SMTP id a640c23a62f3a-c513aaacfc1mr1017882766b.38.1795560335041;
-        Tue, 24 Nov 2026 14:45:35 -0800 (PST)
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com. [209.85.218.49])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ae6841asm577672366b.24.2026.11.24.14.45.34
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 14:45:34 -0800 (PST)
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c516a192844so441875166b.1
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:45:34 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH1DJhBOgLms4u/+X2pRwvLNww9zYXsO/8NWvXJRvS+NVQZCIRvyialOcfAbJpjJZPUlwRQ6cU=@vger.kernel.org
-X-Received: by 2002:a17:907:3c8d:b0:c4d:8e7:29b9 with SMTP id
- a640c23a62f3a-c513a43532cmr1247732366b.5.1795560334053; Tue, 24 Nov 2026
- 14:45:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhFeLbBr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF6BA1F00A3E;
+	Tue, 24 Nov 2026 22:45:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795560357;
+	bh=XaHsIMY6GCdwAMM5rktMhsHaqS/UYvvihMsPHbZs9oQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NhFeLbBrr6bRq4mRhef6mn4/sE6DfwLGBQnRI9YaLuDFe/+cXZM71G5Ql3PXcErwU
+	 CZC/S4rFVB25L/0r2wVnyRNcAO+MRZF9Wd6ihgkqNpnUiXRaL/Ibt8VImClpKMZ7Jn
+	 gxojg7GGTe2dX7AW692x6dQCPnv9c3+i/mgzdpXwYynJwKhWOv4sAlYigh4VEo6Wvd
+	 m0UlBkrf0Wcp0+OWCqTAq9DiwBxwNKrPwacjyquJw7sv5Z64Q0BCu5adVnc8k5F79H
+	 bZKWychxnF5LcHZ77Xqi/c1nvbg9y+BlCHQRwRpCCHFJrjdEqoIeJWYS0Bjp3q4wm+
+	 /dp9cLC7RjMrQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Qu Wenruo <wqu@suse.com>,
+	David Sterba <dsterba@suse.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] btrfs: check type flags in alloc_ordered_extent()
+Date: Tue, 24 Nov 2026 17:45:53 -0500
+Message-ID: <20261124224517.3116600-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112428-spearmint-famished-4675@gregkh>
+References: <2026112428-spearmint-famished-4675@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,40 +59,169 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <fb224bad9baf5f44cf17e1d664776a4e@kernel.org> <CAHk-=wg4jAWZvxWo0OZ+fFTU=SBtQ7dnsUCV7hx+UAifkwPUwQ@mail.gmail.com>
- <avs4uWg9ch-Bqobj@slm.duckdns.org> <CAHk-=wg+MO19H7KVgA+SaZvvt5O+3Tp8AxHVhpN23JtaSq=G4g@mail.gmail.com>
- <CAHk-=wjm3vbiNYsR+aHxmM3KCEgsSWb379ZQbCuZEsN1dhvbKg@mail.gmail.com>
- <20261123120125.375076-1-tj@kernel.org> <8f4845c5a8f9f8927ab3903d6938b3f9@kernel.org>
-In-Reply-To: <8f4845c5a8f9f8927ab3903d6938b3f9@kernel.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 24 Nov 2026 14:45:17 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wjrKQDEtPjHv4COh3Y+PHVntX2V6gZeLqWV8uHUz_ePFg@mail.gmail.com>
-X-Gm-Features: Aa3M54r4Obmz65qTRKcahDOrnNP6nsZ9FLK3p7kXHoVLqWiGH_ZNRDKlgOkrm1U
-Message-ID: <CAHk-=wjrKQDEtPjHv4COh3Y+PHVntX2V6gZeLqWV8uHUz_ePFg@mail.gmail.com>
-Subject: Re: [PATCH wq/for-7.4-fixes] workqueue: Fix drain_workqueue() missing
- work items chained across pwqs
-To: Tejun Heo <tj@kernel.org>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>, Breno Leitao <leitao@debian.org>, 
-	Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 24 Nov 2026 at 13:59, Tejun Heo <tj@kernel.org> wrote:
->
-> Mark Brown wasn't happy about the missing author SoB, so I made myself the
-> author and switched it to Originally-by.
+From: Qu Wenruo <wqu@suse.com>
 
-Honestly, that's typically my preferred form anyway: when I send out
-my untested patches to maintainers, they may work, they may even look
-real, but they are quite often meant as a "maybe something like this"
-kind of thing rather than necessarily the final end result.
+[ Upstream commit 232770bcf3aa65ae83fd7389961fa651f09f7b3a ]
 
-It's just easier and less error-prone to send out a patch than it
-would be to try to describe what I mean some other way.
+Unlike other flags used in btrfs, BTRFS_ORDERED_* macros are different as
+they cannot be directly used as flags.
 
-And I _really_ don't need the credit.
+They are defined as bit values, thus they should be utilized with
+bit operations, not directly with logical operations.
 
-So "Originally-by" or "Suggested-by" is obviously fine, but I will not
-be in the least slighted if you don't even mention me in the commit
-message at all.
+Unfortunately sometimes I forgot this and passed the incorrect flags
+to alloc_ordered_extent() and hit weird bugs.
 
-              Linus
+Enhance the type checks in alloc_ordered_extent():
+
+- Make sure there is one and only one bit set for exclusive type flags
+  There are four exclusive type flags, REGULAR, NOCOW, PREALLOC and
+  COMPRESSED.
+  So introduce a new macro, BTRFS_ORDERED_EXCLUSIVE_FLAGS, to cover
+  above flags.
+
+  Add an ASSERT() to check one and only one of those exclusive flags can
+  be set for alloc_ordered_extent().
+
+- Re-order the type bit numbers to the end of the enum
+  This is make it much harder to get a valid false negative.
+
+  E.g., with the old code BTRFS_ORDERED_REGULAR starts at zero, we can
+  have the following flags passing the bit uniqueness check:
+
+  * BTRFS_ORDERED_NOCOW
+    Be treated as BTRFS_ORDERED_REGULAR (1 == 1UL << 0).
+
+  * BTRFS_ORDERED_PREALLOC
+    Be treated as BTRFS_ORDERED_NOCOW (2 == 1UL << 1).
+
+  * BTRFS_ORDERED_DIRECT
+    Be treated as BTRFS_ORDERED_PREALLOC (4 == 1UL << 2).
+
+  Now all those types start at 8, passing any of those bit numbers as
+  flags directly will not pass the ASSERT().
+
+- Add a static assert to avoid overflow
+  To make sure all BTRFS_ORDERED_* flags can fit into an unsigned long.
+
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Stable-dep-of: 9a58e56e70f6 ("btrfs: reject refs=0 subvolume without DEAD in SUBVOL_SYNC_WAIT")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/btrfs/ordered-data.c | 13 ++++++++++
+ fs/btrfs/ordered-data.h | 55 +++++++++++++++++++++++------------------
+ 2 files changed, 44 insertions(+), 24 deletions(-)
+
+diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
+index b3ed4212bfecd..03b1d1e28cfec 100644
+--- a/fs/btrfs/ordered-data.c
++++ b/fs/btrfs/ordered-data.c
+@@ -156,6 +156,19 @@ static struct btrfs_ordered_extent *alloc_ordered_extent(
+ 	const bool is_nocow = (flags &
+ 	       ((1U << BTRFS_ORDERED_NOCOW) | (1U << BTRFS_ORDERED_PREALLOC)));
+ 
++	/* Only one type flag can be set. */
++	ASSERT(has_single_bit_set(flags & BTRFS_ORDERED_EXCLUSIVE_FLAGS));
++
++	/* DIRECT cannot be set with COMPRESSED nor ENCODED. */
++	if (test_bit(BTRFS_ORDERED_DIRECT, &flags)) {
++		ASSERT(!test_bit(BTRFS_ORDERED_COMPRESSED, &flags));
++		ASSERT(!test_bit(BTRFS_ORDERED_ENCODED, &flags));
++	}
++
++	/* ENCODED must be set with COMPRESSED. */
++	if (test_bit(BTRFS_ORDERED_ENCODED, &flags))
++		ASSERT(test_bit(BTRFS_ORDERED_COMPRESSED, &flags));
++
+ 	/*
+ 	 * For a NOCOW write we can free the qgroup reserve right now. For a COW
+ 	 * one we transfer the reserved space from the inode's iotree into the
+diff --git a/fs/btrfs/ordered-data.h b/fs/btrfs/ordered-data.h
+index 2e7879c6cbc77..96486c4015c45 100644
+--- a/fs/btrfs/ordered-data.h
++++ b/fs/btrfs/ordered-data.h
+@@ -47,8 +47,25 @@ struct btrfs_ordered_sum {
+  * IO is done and any metadata is inserted into the tree.
+  */
+ enum {
++	/* Extra status bits for ordered extents */
++
++	/* Set when all the pages are written. */
++	BTRFS_ORDERED_IO_DONE,
++	/* Set when removed from the tree. */
++	BTRFS_ORDERED_COMPLETE,
++	/* We had an io error when writing this out. */
++	BTRFS_ORDERED_IOERR,
++	/* Set when we have to truncate an extent. */
++	BTRFS_ORDERED_TRUNCATED,
++	/* Used during fsync to track already logged extents. */
++	BTRFS_ORDERED_LOGGED,
++	/* We have already logged all the csums of the ordered extent. */
++	BTRFS_ORDERED_LOGGED_CSUM,
++	/* We wait for this extent to complete in the current transaction. */
++	BTRFS_ORDERED_PENDING,
++
+ 	/*
+-	 * Different types for ordered extents, one and only one of the 4 types
++	 * Different types for ordered extents, one and only one of these types
+ 	 * need to be set when creating ordered extent.
+ 	 *
+ 	 * REGULAR:	For regular non-compressed COW write
+@@ -61,37 +78,27 @@ enum {
+ 	BTRFS_ORDERED_PREALLOC,
+ 	BTRFS_ORDERED_COMPRESSED,
+ 
++	/* Extra bit for encoded write, must be set with COMPRESSED. */
++	BTRFS_ORDERED_ENCODED,
++
+ 	/*
+ 	 * Extra bit for direct io, can only be set for
+-	 * REGULAR/NOCOW/PREALLOC. No direct io for compressed extent.
++	 * REGULAR/NOCOW/PREALLOC. Must not be set for COMPRESSED nor ENCODED.
+ 	 */
+ 	BTRFS_ORDERED_DIRECT,
+ 
+-	/* Extra status bits for ordered extents */
+-
+-	/* set when all the pages are written */
+-	BTRFS_ORDERED_IO_DONE,
+-	/* set when removed from the tree */
+-	BTRFS_ORDERED_COMPLETE,
+-	/* We had an io error when writing this out */
+-	BTRFS_ORDERED_IOERR,
+-	/* Set when we have to truncate an extent */
+-	BTRFS_ORDERED_TRUNCATED,
+-	/* Used during fsync to track already logged extents */
+-	BTRFS_ORDERED_LOGGED,
+-	/* We have already logged all the csums of the ordered extent */
+-	BTRFS_ORDERED_LOGGED_CSUM,
+-	/* We wait for this extent to complete in the current transaction */
+-	BTRFS_ORDERED_PENDING,
+-	/* BTRFS_IOC_ENCODED_WRITE */
+-	BTRFS_ORDERED_ENCODED,
++	BTRFS_ORDERED_NR_FLAGS,
+ };
++static_assert(BTRFS_ORDERED_NR_FLAGS <= BITS_PER_LONG);
++
++/* One and only one flag can be set. */
++#define BTRFS_ORDERED_EXCLUSIVE_FLAGS ((1UL << BTRFS_ORDERED_REGULAR) |		\
++				       (1UL << BTRFS_ORDERED_NOCOW) |		\
++				       (1UL << BTRFS_ORDERED_PREALLOC) |	\
++				       (1UL << BTRFS_ORDERED_COMPRESSED))
+ 
+ /* BTRFS_ORDERED_* flags that specify the type of the extent. */
+-#define BTRFS_ORDERED_TYPE_FLAGS ((1UL << BTRFS_ORDERED_REGULAR) |	\
+-				  (1UL << BTRFS_ORDERED_NOCOW) |	\
+-				  (1UL << BTRFS_ORDERED_PREALLOC) |	\
+-				  (1UL << BTRFS_ORDERED_COMPRESSED) |	\
++#define BTRFS_ORDERED_TYPE_FLAGS (BTRFS_ORDERED_EXCLUSIVE_FLAGS |	\
+ 				  (1UL << BTRFS_ORDERED_DIRECT) |	\
+ 				  (1UL << BTRFS_ORDERED_ENCODED))
+ 
+-- 
+2.53.0
+
