@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534988;
-	b=w+0piUodWcilQJO4127PPbrRjYIvVNVdLTrWB4z9+vonAm3Mdb/IFKhdnMN1Rkg2MFlG
-	 Umud9e41E0vfaDt/rOS5CNXcvhDuSHpXM1VDLCZmO+/TDiFON/CaBMVDYwb+P21R3O6sH
-	 7Th7GKcNOPGcl+FF/0Pbhqo/WLwuuBG0/DqG/QZINtF3yAoB3Wjbg28g28BqZ99ohjKW2
-	 GdUOP6+lSeAGL38CFImMRy1HsSNix+eplENAYnDu9n0hEu+u4qIr/rGwFp0zKyqn6axmd
-	 2uEEpCaFHVPfBE6mDhTQSY4oXjYlLmZESqEV5MTh6xwYvNSiiuBIsykcVLrODM/7V4w==
+	t=1795535057;
+	b=oTLks7uPId6MR/deKM9mZvhmudYc3yCD96GdHx6kgpkq+wxFiuO2SxBm/jNfI6RWXWvg
+	 k845cREVKygFs19ejnIGT2xUH+VqoXdB1Z68DfjVX0cgTi5xWTl6r6mzLsG0Mqlnp6mFp
+	 aLqHYoeFhB+cWwGLf3heCmE+XIPNohrm3ae5eXvgaih1i6f7zsnvxySZ+Wpij5lYGtwtX
+	 WBp6IOvM2GoF8EcIlBdmJJi2YD7UbyU++TPMgxam/n91XhzVstIVhw+NvjLSK+/toSUwo
+	 /lCJQzzjSTl7+7NMQ6HexbLTap0YtR/Sc0uIYEH0+Ig0xiJRNYeIb9BWoKvb7sCcnDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534988;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XWwx40Fc2d4fw+4DgSXIQdfumTmq2OJztcy+UXXcpVY=;
-	b=LxPCtS5rxLg+TUroiguZNsgdNDIoEhyGdG4uX5QtkPwBdnnuD0QwRY/aTZytjkp041Iy
-	 3R7KDtf1TPrOBWzlNJayYzhg2B0sFv6NR1JTvz1/819wr1Vaeb/HDgiH0SdPnHf+u6ZS4
-	 hIlb2mX1scbukL2GdT25k7Zg1AfZzZK07/q6x8BpsfCVSVektrpmdK9cJwPqDwQnlg/+8
-	 vHaiDrlUxFQ1xMoi3OSHmrFwq9yytviq1NkcfLowj6/7UeHpa3Qm+66plpIRbI9kN10Xh
-	 5tTYANfmAxok/oI6pV3a3C2xSBYgyXV2KOPo6ZoAXfj4T2w+ZhRsV+F+Lija+dPay0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795535057;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=3jNs1MILqfa4/4VhvpYhodfxfTwdslwp5GRZqCmyGQg=;
+	b=DHU56z5l3qr8wEEmuPmCFIOJpQpxyX8m25PxsJa2cyLfi7KaUhnGcnbRuadL4QeFtl3h
+	 93ugNlMSlcbTa8pyUBev2Qsp96GPMfnIxLX+xlnu1gxJMR4p6t/0JY5QgcJlm2gIEPf/t
+	 47qDhlUJX6i/72sx/UyD2kzzI5C3OPyugdAb64jWGp+E4rehxKA3rgIToCe0SaVWifT5d
+	 p0h4tgp7O4ovchcRY8/C1uzWwp9AwvSS6m7/9oImYsITzPVc+qiIFtXcPO8PE6NGT1jaJ
+	 f0zKFspy+I08vcIUoGT8Pu53VJmfBOJRa3Hxgqv0ksOugm2DJ6ZwcUGhgrkt6Jhj6Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cuGA2L6G;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZWdSILv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA884606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:43:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E385E606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:44:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cuGA2L6G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F286A1F000C4;
-	Tue, 24 Nov 2026 15:43:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795534988;
-	bh=XWwx40Fc2d4fw+4DgSXIQdfumTmq2OJztcy+UXXcpVY=;
-	h=Subject:To:Cc:From:Date;
-	b=cuGA2L6GgnzeOKvGEQjaF1l0BFAUhd0ygxUbrJd0xDFkpZR0dXffy35rmJspFUBkG
-	 00Z1eGDy9cflftoij8AF8BimkpWUdE1dhXKzWivwvBFSv8u8txfL8Mv1wWRU1ulPZD
-	 S0wZkHvOIQdqc5jRKvhVynuxjstLp0ng7xiMX6hE=
-Subject: FAILED: patch "[PATCH] btrfs: reject refs=0 subvolume without DEAD in" failed to apply to 6.18-stable tree
-To: teel4res@gmail.com,dsterba@suse.com,quwenruo.btrfs@gmx.com,wqu@suse.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:43:28 +0100
-Message-ID: <2026112428-spearmint-famished-4675@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZWdSILv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03FDD1F000E6;
+	Tue, 24 Nov 2026 15:44:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795535056;
+	bh=3jNs1MILqfa4/4VhvpYhodfxfTwdslwp5GRZqCmyGQg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hZWdSILvP24RvavI+HnODCZ8prC66RHWFzcRDt9Jhg/K3yD7iH4Ss1xlfOzyrCijX
+	 1kU2CUe2XBZPuE5ki4MW1Ssr5bb6rc/yY5KKoH8qjyYedk1MCKfiaqdv2LPDtDsPm7
+	 EVcXhxZgdPIDJNMwVKm0qopcicYtKfdqIrdsj7SRKP9oEtbhIGwRJ8eH2KZFAAz/Ag
+	 FVlokmZobqtVQKOQJQuiZdAsEZzSpZIwJvQz0UhoaiuWKWmUKQI5wl31K8QWLkFFSM
+	 ZlTpvArVu+UQjzC5IOZAejqk2XCdFRB+5uB+jMKsTOwUwbausPp9aRCdEu648qWaRd
+	 5rmZux0H93acg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Olivier Louvignes <olivier@mgcrea.io>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] mmc: jz4740: Remove the host before resetting the controller
+Date: Tue, 24 Nov 2026 10:44:14 -0500
+Message-ID: <20261124154403.783980-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112434-enchilada-curled-d598@gregkh>
+References: <2026112434-enchilada-curled-d598@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,82 +59,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Olivier Louvignes <olivier@mgcrea.io>
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 6b8b1e8827837bf4cf1f87219038fddae9e81b0b ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+jz4740_mmc_remove() masks every interrupt and resets the controller
+before mmc_remove_host(), which removes the card and lets the card's
+driver send its last commands. Those commands then run on a controller
+that was just reset, and can wait out the driver's 5 s request timeout.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x 9a58e56e70f610e29b53821e9c706600e529cca3
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112428-spearmint-famished-4675@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+With an SDIO card that cost 5 s on every unbind: on a HiBy R1 (Ingenic
+X1600, a BCM43430A1 driven by brcmfmac), the CMD52 that
+sdio_release_irq() sends from brcmfmac's remove waited 5.1 s. The
+command had finished (END_CMD_RES set in MSC_STAT), but MSC_IMASK read
+0xffffffff although the request had unmasked END_CMD_RES. MSC_STAT can
+still show IS_RESETTING after jz4740_mmc_reset() returns, so the reset
+most likely completed after that write and undid it.
 
-Possible dependencies:
+Remove the host first, then quiesce the controller, as other host
+drivers do. On the R1, unbinding the Wi-Fi's MSC now takes 0.65 s.
 
+Fixes: 61bfbdb85687 ("MMC: Add support for the controller on JZ4740 SoCs.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+[ sashal: changed timer_delete_sync() to del_timer_sync() for the older timer API ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/mmc/host/jz4740_mmc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 9a58e56e70f610e29b53821e9c706600e529cca3 Mon Sep 17 00:00:00 2001
-From: Cheng Yongkang <teel4res@gmail.com>
-Date: Sat, 31 Oct 2026 23:25:39 -0700
-Subject: [PATCH] btrfs: reject refs=0 subvolume without DEAD in
- SUBVOL_SYNC_WAIT
-
-btrfs_ioctl_subvol_sync() assumes that a cached root with zero
-references has BTRFS_ROOT_SUBVOL_DEAD set, and asserts that before
-waiting for the cleaner. Two states break the assumption:
-
-- A corrupt ROOT_ITEM with zero references and a matching orphan item,
-  on a writable filesystem.
-- A failed subvolume deletion. btrfs_delete_subvolume() zeroes the
-  root references, aborts the transaction, which forces the filesystem
-  read-only, and then clears DEAD again. No on-disk metadata is
-  corrupted in this case.
-
-With CONFIG_BTRFS_ASSERT=y, both reach a BUG().
-
-Change the ASSERT() into a proper rejection to avoid triggering a BUG().
-
-Fixes: 6c83d153ed86 ("btrfs: add new ioctl to wait for cleaned subvolumes")
-CC: stable@vger.kernel.org
-Suggested-by: Qu Wenruo <quwenruo.btrfs@gmx.com>
-Link: https://lore.kernel.org/linux-btrfs/dd97efe9-91ec-495b-b698-acff1447421c@gmx.com/
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
-[ Rework the commit message, drop the ad-hoc RW check. ]
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index 847fdc19bd40..000276bb49ad 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -5161,8 +5161,12 @@ static int btrfs_ioctl_subvol_sync(struct btrfs_fs_info *fs_info, void __user *a
- 			return -ENOENT;
+diff --git a/drivers/mmc/host/jz4740_mmc.c b/drivers/mmc/host/jz4740_mmc.c
+index f379ce5b582d4..46e5b3b16ccc3 100644
+--- a/drivers/mmc/host/jz4740_mmc.c
++++ b/drivers/mmc/host/jz4740_mmc.c
+@@ -1167,12 +1167,13 @@ static void jz4740_mmc_remove(struct platform_device *pdev)
+ {
+ 	struct jz4740_mmc_host *host = platform_get_drvdata(pdev);
  
- 		wait_for_deletion = true;
--		ASSERT(root_flags & BTRFS_ROOT_SUBVOL_DEAD, "root_flags=0x%llx",
--		       root_flags);
-+		if (unlikely(!(root_flags & BTRFS_ROOT_SUBVOL_DEAD))) {
-+			btrfs_err(fs_info,
-+				  "subvol %llu has refs 0 without DEAD flag",
-+				  args.subvolid);
-+			return -EUCLEAN;
-+		}
- 		sched_ret = schedule_timeout_interruptible(HZ);
- 		/* Early wake up or error. */
- 		if (sched_ret != 0)
++	/* The card's driver may still send commands as it goes */
++	mmc_remove_host(host->mmc);
++
+ 	del_timer_sync(&host->timeout_timer);
+ 	jz4740_mmc_set_irq_enabled(host, 0xff, false);
+ 	jz4740_mmc_reset(host);
+ 
+-	mmc_remove_host(host->mmc);
+-
+ 	free_irq(host->irq, host);
+ 
+ 	if (host->use_dma)
+-- 
+2.53.0
 
