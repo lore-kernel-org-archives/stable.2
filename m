@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534861;
-	b=mpsjxZfRDhJD9nnOB6pZcyci3EDqETb1bOlsf0EsL5QYSLKQ0t9F3hpuQ6gW59NQUv4z
-	 Nvao75T/KhWKEGvO9YMksW+aJiUR4oJ+crZck51BC1i4H4+W4+xYisiAhorbWGr5AFalD
-	 m3nLQE7ExXBHfrJ85mWw2+6yZnuoO0g1VRYCwo0W3AnS4Sjzc/VGb4M6eBm2BAZwpBoex
-	 U84WAOUpXI4vxIjF+/GIMbjmYdjFrab3Zy7E1f+CZ0GJ0oLd8Wn8JsrFBklJQvfPzhKVX
-	 IRK7SYmCZlM8VlwPmPVfr67I3SCQb0YbBIaoasrwitslgdxXF2I7mhKkyfs5XKrNhAQ==
+	t=1795534864;
+	b=ZmQKRwOCZmF2hd35JJM9hfZRoJAJJ+/RSPo5ITbWs8Fjg0aJps/zfv+Sa/G/fO0mk2yq
+	 AiVhnekC0aCr8VxQ6qxWQWSCrrGjidLaMGMtSYa+CVyQ3JqEMYueF5MkWHhb035v3u8Al
+	 Md5GlwVmbZcLk/25B5XDi8rgID4k2CUEKhbbAkWOH6KxDWoYjn6J/SXBH6aX/g9YmCohl
+	 yAaqGwEgx4VJEVLcYU0gNZy9lXmDx8/M4Uhbzf9lPhPbsRSr8S1dIpIXc2ggWfosJsHwy
+	 u5bYj7cCRTbKSjPzWaIPI/6318mVFf+SKPMm0eUZ5Ntf5PG/hUSBT0I/BFDCE9ekv/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534861;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534864;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=R2ngPOhdCZn+4s4Fh51sCR+O0TmKDOIMsjnbTOiZrdk=;
-	b=wrEQzfjEWzM4ww1V9n0y8D65VncXwD5PBdJgtBKPYWHa2bvJbK8An7VaxfPZT9iXXvRB
-	 0uCOjYc17uRPlma8pWdPvm7oS7wdPEREXPXjX3DDJngxjwaRApvVnX0wtcjxFtfj2rUDs
-	 U9Vt5dn2LyOUx4lOKaWsC/ZV1Q7/dG6jqVEwCXZ2J5DAsldvbm0xgxlfoi0nIsRmIsbPD
-	 S/MntVJQtYSVMRPNMturqm1bzxQXkSsUz0uIfQ2NPw4oMej4KraO6RzSWN1Kq9A9TQViK
-	 tr2g8fj/Kk8Nue3t5UxCdS2DkE605H8TA7OVzpSr3DcgawmZRXQPa/WlDobpyN12WBg==
+	bh=3k5ZDdgnGpsRzilJ6OAc3K7HgGb+MXCMjm/SDVq0VIY=;
+	b=LRkhlzDXBWM4MNT6fFXrn1rqKInGp01Tf7Yvzduvqnh7zIh5cUv/wS4MSiOzedjvfr3g
+	 s4nCxOMtOz7qqGBk6qtXGwcr/w4xgopWY2WEK9ltkJ1cxnDOEYLheGK5TcnSGOdhbufLY
+	 Tv6VeFjNJN5PxeNYhmkSSglHdqoMWv5f2a8/C3okgxuSdSEBc7G6AF8HipHtqhM6NBTEX
+	 5bL3XHgGJH5EH6mdKpfzJk0eU6WGsaDUsfx8IqNCNSf9J6+gtyR2BMTx7Cch22R8Gxdn0
+	 0InBYMSk54b/GbDEmx/WA+E6vx6l5qe8w62dyC3n8PFnmsKo7LhfZLvgWpv72e6ZSmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=inCw08nL;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FFY2hCz9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A90606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:41:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4AE606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:41:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=inCw08nL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43FC41F000C0;
-	Tue, 24 Nov 2026 15:40:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FFY2hCz9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DC331F000C4;
+	Tue, 24 Nov 2026 15:41:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795534860;
-	bh=R2ngPOhdCZn+4s4Fh51sCR+O0TmKDOIMsjnbTOiZrdk=;
+	s=korg; t=1795534863;
+	bh=3k5ZDdgnGpsRzilJ6OAc3K7HgGb+MXCMjm/SDVq0VIY=;
 	h=Subject:To:Cc:From:Date;
-	b=inCw08nLZwd6ncBrh002r4z6fo+EwtAY9YYSX81e7GhvXe+nDdH0N5At8q43rS4sh
-	 c4sSVtbSqX7Sa/ANNs8UcMpsuCahge59KmLbpLawzxs/LRO/eOy4n2G3wfIVCZitDb
-	 mlt5ElrY2Kgkc0t7D67pnFy3rFY3kFwAlfasW9IY=
-Subject: FAILED: patch "[PATCH] mm/page_alloc: remove the zone_spans_pfn() check from" failed to apply to 6.1-stable tree
+	b=FFY2hCz91M76hx5g9Ayo9paf7HMTYBDNVzIJm8bQxXLuPARshgWxkMVA0a5PFUw1k
+	 N6M5m+FAJRsmMyrofQDCHEGAMNJu9wFgSvZn/NjpU3MoMPM5TCHIoaHeU9LOY5DL/c
+	 L7NUsB+8KJZ0s3bX3gG2GKZvfyOLzHj8c3k2CN7o=
+Subject: FAILED: patch "[PATCH] mm/page_alloc: remove the zone_spans_pfn() check from" failed to apply to 5.15-stable tree
 To: vbabka@kernel.org,josef@toxicpanda.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 24 Nov 2026 16:41:11 +0100
-Message-ID: <2026112411-legume-maturely-0dba@gregkh>
+Message-ID: <2026112411-resolved-runway-7889@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2122887b04f3f2d76daa80055c2c273926032fa0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112411-legume-maturely-0dba@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112411-resolved-runway-7889@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
