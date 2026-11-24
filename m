@@ -1,104 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795507080;
-	b=2iwBlECRNjFMEXY1wJtiVjAf4eOSluQ6ZzfhbgZ2I41ktRyZnaz2BY3LfJwxglaq+DKG
-	 JkC1QfLHo/sjvPoazZIXZxE/13i65uN4d4BYLpwyRx9TsGu5Hg8lZRIF4f7NjcbttKM7O
-	 zWamb1vT12WdbO8ttmAw7DWA0jUNg9GRubOsAGKnG2Ww7oE5eATIpnJ1HH0ZYGoDp267K
-	 X68N7rnsPjVsODNuRbuuU5uvjaqQ3563LXoYPHmNJOSyypQNOJuuY3Aue1cO+k1vSzfed
-	 fCXI/6f2D8B3sAQykKtdmFW043EtIaiK+3LNtmmGNKtyG6RmEJQ0phY0Y0T150STV8g==
+	t=1795507161;
+	b=Fkvo4kWL9moC1VjKyv9XvCzassKMJlEdBmMhRm94LvZHZx1ZYJhBcBuGjJbtpljv4s1e
+	 IXkJQVuhjev9vFgGKs1pxO3pC4lcffntjCcGoToViySjXB77B/Q//uHhVp1WDRVfwEN+C
+	 GqzFsIFWWtxI+FnEYTyDpwGrPTAfUR43zim20Oav+MVgNNNSFR0dwk0Tut7bKxP1TzSuZ
+	 YaVFxkKK/G7/Wf5buao4SA9qSTj9WyXAevuQD0yLIfMbkdgk8CrOffC0UbMoRF4uQgOfQ
+	 QsbWwyMIHh2BZVZJ9x8cPdoXHEzKliQAht4fkBUVFAxv1KHCey2ZlYYFPPxNoPjOjcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795507080;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=+lTcW2tHFQB1C3Nlj5p7HmcW5Co2wEM9UlQh+yZacDY=;
-	b=VeJydK0wfAOyCf6DX2sZhE8CmM2bbcpIydFCbkjt4LpD/xDY2BBD4xOvTyL4XMa4yFRZ
-	 urdeUnOhmrLV5vk/aDFDFv7Qakh2YemyYLyuilUKHxIeA/4Gs9iUZAkGQr8hhGxsKkMMB
-	 8TJKNTxUmMNLEozdJvxuvzooIiT6s1kVYAujKMxti1I0+Z5RXoDbOrh0Ao7/H0CzigIMP
-	 w/cenFhkHBP4Xui3Km+2XzgXzuC19x0jEnRsD/+Pq+8Pgjn1xUpUzUJEtFd3Nqfybjqys
-	 29rFYgSNrtXJ+p1Dsor6PmKMEBnuyE1KiKX9RRmrE6vpfND3QwzuCmLvUqZseOUcxyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795507161;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=puTQ6q6aVXUBDkeL+o3EOPQPEL5ILRceyCXV4OQTW+A=;
+	b=Wl8Fw2UoeBB2MO546hQHehhLUvcPvM6JyNTw9Ib3kgVkMpxfQ+D5KAhuKJlG5ft6Q0Nq
+	 XA1q8XgKFPFprL/lAO6J5p7ACae9JIHNOc/YpewVuTci7RgFmR8W+KblNBeL4FRe/Den1
+	 9N82clLAAqbAaveKqKC9E/6Y9Rzn/4gMUxN+4MpJmnKlhb1IazQgzL4oR5z3M2XKbAIm5
+	 THUlJJ9iMH74onoT+30LZnSXnt6H9BEhosjT6bLCXNQSlLHABbxRese/5KAA8FmXMMtNH
+	 w5Pp/2Uh3lArRu4O0NV1mauLQtTVxXLuuMkpE8FA2gQPfic+u7Qcw1kL4yMrSnLnZ/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=t6QZHWyB;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=2F5ECXx5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=V5mKWLC2;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OLVgPb3g;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ToykQe9j;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1638A606A321;
-	Tue, 24 Nov 2026 07:57:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1638A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1503606A31E;
+	Tue, 24 Nov 2026 07:59:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=t6QZHWyB;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=2F5ECXx5;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=V5mKWLC2;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OLVgPb3g
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CA2AE222A0;
-	Tue, 24 Nov 2026 07:57:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795507077; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+lTcW2tHFQB1C3Nlj5p7HmcW5Co2wEM9UlQh+yZacDY=;
-	b=t6QZHWyB+uwrXEMViAOb3jw8v3rFzTwiexBazr/M9jtcQfKL16akSjckIaiPR5aVv1MlZN
-	hreHc7aqXFqryIQDW3XPrFCViGtUMYRSRQ+ZEygQtsmE8otNstFX4UUluGO0QiQNiBJGlu
-	B4pls7m8ILY/4H2Vu+P1QtX42dk+Wns=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795507077;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+lTcW2tHFQB1C3Nlj5p7HmcW5Co2wEM9UlQh+yZacDY=;
-	b=2F5ECXx5Gt5cRFJ2/teE9NeAGYBh8u07py1GiJQYxbA9bcZ4O1RUmRuL3vrN5Eol3fsoNz
-	y6nGiypRf5a1A1AA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=V5mKWLC2;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=OLVgPb3g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795507076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+lTcW2tHFQB1C3Nlj5p7HmcW5Co2wEM9UlQh+yZacDY=;
-	b=V5mKWLC2LKBl7WBvuGIYdTJ8l+f2lZ7B66HdbCZS72OAF+qFWuhpeVaYpHR31luoizoZP7
-	XqD4b5xE6qjLwDUpUE7bg84QWh2cpk7WX0l/FUGpG7IYPPKd/O5aWKw5nqyVDf0Q7QrrFW
-	x3UQbgfkryFqF+Cy6a2ljl+AdRhrKGo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795507076;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+lTcW2tHFQB1C3Nlj5p7HmcW5Co2wEM9UlQh+yZacDY=;
-	b=OLVgPb3g3TEsd2zNnGv6r47ADixoKiJap6uGDCDRVug5SHA+7W3Vajse22lzZMFXhaKM5J
-	O2ZWnNNbC0f3nFBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3DF9F1339F;
-	Tue, 24 Nov 2026 07:57:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Xh+vB4RDBWs3bAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 24 Nov 2026 07:57:56 +0000
-Message-ID: <19cd5949-05dc-4107-bd2b-d8ad1e2332eb@suse.de>
-Date: Tue, 24 Nov 2026 08:57:55 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ToykQe9j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15FF61F000C0;
+	Tue, 24 Nov 2026 07:59:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795507160;
+	bh=puTQ6q6aVXUBDkeL+o3EOPQPEL5ILRceyCXV4OQTW+A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ToykQe9jdoRfKV/NY/xbUphVJDhJ+OVd4BKbcgZ6lPatcWpUff3ztZun+IFOa9Vw9
+	 5inQA09ivc2VZnv1Y8eWHXlFfWt9Uuuxmruq9tW6tADiwLUFFQxTVmSM6j1Xk6SoKf
+	 5Mjd4gOxQ+V687vBcKchddpMbTLfkg0QPw5WsJ/EVG5Il1QGYNVgaXUU0sCWhnjWMe
+	 uuOkKcmkmoI4SaLkQZe1QgwOH9F2W6zYak0k/xnpMK7hQ+JjR+BZsRggNI9s/lQb0U
+	 YGTgX+gEj4/bQvYGwhsYqySvvYDPnDMzPuV4QAXtwvmMUVMEHIooygGn2t5Lihhf6v
+	 W4gifJpdRGoqA==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xVlQr-00000007ypS-2fVg;
+	Tue, 24 Nov 2026 08:59:17 +0100
+Date: Tue, 24 Nov 2026 08:59:17 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Lee Jones <lee@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Nishanth Menon <nm@ti.com>, "George G. Davis" <gdavis@mvista.com>,
+	or <source@mvista.com>, Andrew Morton <akpm@linux-foundation.org>,
+	linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 09/10] rtc: omap: prevent NULL and dangling pointer
+ dereferences in power-off path
+Message-ID: <awVD1YwurAJDjien@hovoldconsulting.com>
+References: <20261123200012.502284-1-lee@kernel.org>
+ <20261123200012.502284-10-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,204 +65,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT v3 2/5] drm/fb-dma-helper: Add
- drm_fb_dma_get_gem_clipped_addr()
-To: Chen-Yu Tsai <wenst@chromium.org>, Liu Ying <victor.liu@nxp.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261124074041.115251-1-wenst@chromium.org>
- <20261124074041.115251-3-wenst@chromium.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261124074041.115251-3-wenst@chromium.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.linux.dev,lists.freedesktop.org,lists.infradead.org,vger.kernel.org];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[chromium.org:email,suse.com:url,suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: CA2AE222A0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123200012.502284-10-lee@kernel.org>
 
-Hi
+On Mon, Nov 23, 2026 at 07:59:20PM +0000, Lee Jones wrote:
+> omap_rtc_remove() only clears the global omap_rtc_power_off_rtc pointer
+> if pm_power_off still equals omap_rtc_power_off.  If another driver
+> overwrote pm_power_off after probe, unbinding the RTC leaves
+> omap_rtc_power_off_rtc pointing to freed memory.  Furthermore,
+> omap_rtc_power_off_program() is exported and called directly from
+> am33xx_rtc_only_idle() during suspend without checking whether
+> omap_rtc_power_off_rtc is NULL, causing a NULL pointer dereference if
+> omap_rtc_power_off_rtc was never assigned or was cleared on unbind.
 
-Am 24.11.26 um 08:39 schrieb Chen-Yu Tsai:
-> drm_fb_dma_get_gem_addr() returns the DMA address to the "unclipped"
-> framebuffer. However some display drivers want the "clipped" framebuffer
-> instead, as they are also using the clipped coordinates to program the
-> hardware.
->
-> Some of these drivers are open-coding drm_fb_dma_get_gem_addr() with
-> the source coordinates replaced, while others have been incorrectly
-> converted to using drm_fb_dma_get_gem_addr(), which would end up
-> causing incorrect parts of the framebuffer to be displayed if it were
-> somehow clipped.
->
-> Add drm_fb_dma_get_gem_clipped_addr(), a "clipped" version of
-> drm_fb_dma_get_gem_addr() for these drivers to use.
->
-> Cc: <stable@vger.kernel.org> # dependency for next patch
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+This sounds like two separate issues and the am33xx_rtc_only_idle call()
+was added later by commit 5a99ae0092fe ("soc: ti: pm33xx: AM437X: Add
+rtc_only with ddr in self-refresh support").
+
+> Always clear omap_rtc_power_off_rtc when removing the matching RTC
+> instance, and return -ENODEV from omap_rtc_power_off_program() when
+> omap_rtc_power_off_rtc is NULL.
+> 
+> Fixes: 222a12fca604 ("rtc: omap: add support for pmic_power_en")
+
+So this isn't the right fixes tag for that.
+
+> Closes: https://sashiko.dev/#/bug/linux-97b795c5-f68f-4228-948f-547a106c6775
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 > ---
-> Changes since v1:
-> - Use new drm_framebuffer_get_block_offset() helper
-> ---
->   drivers/gpu/drm/drm_fb_dma_helper.c | 37 +++++++++++++++++++++++++----
->   include/drm/drm_fb_dma_helper.h     |  4 ++++
->   2 files changed, 37 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/drm_fb_dma_helper.c
-> index ab0f37d8a5ff..0aaf4926db4e 100644
-> --- a/drivers/gpu/drm/drm_fb_dma_helper.c
-> +++ b/drivers/gpu/drm/drm_fb_dma_helper.c
-> @@ -60,15 +60,16 @@ struct drm_gem_dma_object *drm_fb_dma_get_gem_obj(struct drm_framebuffer *fb,
->   EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_obj);
->   
->   /**
-> - * drm_fb_dma_get_gem_addr() - Get DMA (bus) address for framebuffer, for pixel
-> - * formats where values are grouped in blocks this will get you the beginning of
-> - * the block
-> + * drm_fb_dma_get_gem_addr() - Get DMA (bus) address for unclipped framebuffer,
-> + * for pixel formats where values are grouped in blocks this will get you the
-> + * beginning of the block
->    * @fb: The framebuffer
->    * @state: Which state of drm plane
->    * @plane: Which plane
-> - * Return the DMA GEM address for given framebuffer.
->    *
->    * This function will usually be called from the PLANE callback functions.
-> + *
-> + * Return: GEM DMA address for given framebuffer, unclipped.
->    */
->   dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
->   				   struct drm_plane_state *state,
-> @@ -86,6 +87,34 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
->   }
->   EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_addr);
->   
-> +/**
-> + * drm_fb_dma_get_gem_clipped_addr() - Get DMA (bus) address for clipped
-> + * framebuffer, for pixel formats where values are grouped in blocks this
-> + * will get you the beginning of the block
-> + * @fb: The framebuffer
-> + * @state: Which state of drm plane
-> + * @plane: Which plane
-> + *
-> + * This function will usually be called from the PLANE callback functions.
-
-You should mention what clipping means in this context. It's not obvious 
-what it's clipping against. Or maybe point to other docs that explain it.
-
-> + *
-> + * Return: GEM DMA address for given framebuffer, clipped.
-> + */
-> +dma_addr_t drm_fb_dma_get_gem_clipped_addr(struct drm_framebuffer *fb,
-> +					   struct drm_plane_state *state,
-> +					   unsigned int plane)
-> +{
-> +	struct drm_gem_dma_object *obj;
+>  drivers/rtc/rtc-omap.c | 21 +++++++++++++--------
+>  1 file changed, 13 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/rtc/rtc-omap.c b/drivers/rtc/rtc-omap.c
+> index 3c978edd6c2c..156444fab916 100644
+> --- a/drivers/rtc/rtc-omap.c
+> +++ b/drivers/rtc/rtc-omap.c
+> @@ -416,6 +416,9 @@ int omap_rtc_power_off_program(void)
+>  	int seconds;
+>  	u32 val;
+>  
+> +	if (!rtc)
+> +		return -ENODEV;
 > +
-> +	obj = drm_fb_dma_get_gem_obj(fb, plane);
-> +	if (!obj)
-> +		return 0;
-> +
-> +	return obj->dma_addr + drm_framebuffer_get_block_offset(fb, plane,
-> +								state->src.x1 >> 16,
-> +								state->src.y1 >> 16);
+>  	rtc->type->unlock(rtc);
+>  	/* enable pmic_power_en control */
+>  	val = rtc_readl(rtc, OMAP_RTC_PMIC_REG);
+> @@ -481,17 +484,19 @@ EXPORT_SYMBOL(omap_rtc_power_off_program);
+>   */
+>  static void omap_rtc_power_off(void)
+>  {
+> +	struct omap_rtc *rtc = omap_rtc_power_off_rtc;
+>  	u32 val;
+>  
+> -	omap_rtc_power_off_program();
+> +	if (omap_rtc_power_off_program())
+> +		return;
+  
+>  	/* Set PMIC power enable and EXT_WAKEUP in case PB power on is used */
+> -	omap_rtc_power_off_rtc->type->unlock(omap_rtc_power_off_rtc);
+> -	val = rtc_readl(omap_rtc_power_off_rtc, OMAP_RTC_PMIC_REG);
+> +	rtc->type->unlock(rtc);
+> +	val = rtc_readl(rtc, OMAP_RTC_PMIC_REG);
+>  	val |= OMAP_RTC_PMIC_POWER_EN_EN | OMAP_RTC_PMIC_EXT_WKUP_POL(0) |
+>  			OMAP_RTC_PMIC_EXT_WKUP_EN(0);
+> -	rtc_writel(omap_rtc_power_off_rtc, OMAP_RTC_PMIC_REG, val);
+> -	omap_rtc_power_off_rtc->type->lock(omap_rtc_power_off_rtc);
+> +	rtc_writel(rtc, OMAP_RTC_PMIC_REG, val);
+> +	rtc->type->lock(rtc);
 
-I had to look several times to spot the difference to the regular 
-helper. In any case
+This is an unrelated change.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+>  	/*
+>  	 * Wait for alarm to trigger (within one second) and external PMIC to
+> @@ -913,9 +918,9 @@ static void omap_rtc_remove(struct platform_device *pdev)
+>  	struct omap_rtc *rtc = platform_get_drvdata(pdev);
+>  	u8 reg;
+>  
+> -	if (pm_power_off == omap_rtc_power_off &&
+> -			omap_rtc_power_off_rtc == rtc) {
+> -		pm_power_off = NULL;
+> +	if (omap_rtc_power_off_rtc == rtc) {
+> +		if (pm_power_off == omap_rtc_power_off)
+> +			pm_power_off = NULL;
+>  		omap_rtc_power_off_rtc = NULL;
+>  	}
 
-> +}
-> +EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_clipped_addr);
-> +
->   /**
->    * drm_fb_dma_sync_non_coherent - Sync GEM object to non-coherent backing
->    *	memory
-> diff --git a/include/drm/drm_fb_dma_helper.h b/include/drm/drm_fb_dma_helper.h
-> index c950732c6d36..b2a0bd7ef9d0 100644
-> --- a/include/drm/drm_fb_dma_helper.h
-> +++ b/include/drm/drm_fb_dma_helper.h
-> @@ -17,6 +17,10 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
->   				   struct drm_plane_state *state,
->   				   unsigned int plane);
->   
-> +dma_addr_t drm_fb_dma_get_gem_clipped_addr(struct drm_framebuffer *fb,
-> +					   struct drm_plane_state *state,
-> +					   unsigned int plane);
-> +
->   void drm_fb_dma_sync_non_coherent(struct drm_device *drm,
->   				  struct drm_plane_state *old_state,
->   				  struct drm_plane_state *state);
+You can only have one legacy power off handler, but leaving the
+omap_rtc_power_off_rtc pointer set after unbind wasn't an issue before
+the later added am33xx_rtc_only_idle() call.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+So with the Fixes tag fixed and the unrelated changes in
+omap_rtc_power_off() dropped I guess this can all go in one patch.
 
-
+Johan
