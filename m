@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.59
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795513406;
-	b=UJvF2mNIadg1v7apD8Jrzf0b1zo5g9BCoFUsWwihFUNs/2BZjecNob8tsAoF8mrGxPjw
-	 dMWi3UfNvHf3kJb0Rz1M9QFy7Hu6UW3Cf1DvArhbVk+HJfIiE3VvFI2cd7spszH5qZnPw
-	 IefO7iHMoeaxZTz2Nas30/PvBde7nIsAQ3SRS6d9l7XzCEcdadWpOZ3Asz0cbTihMj1YL
-	 NxHYmU84Pk3SxAE8QoPQ/f2BHIgtgB/9yDP1KvQo8LMhzSw7ZUP4Wb24UC07mWa9o6/TU
-	 N4Jl9DlN1tMIBuYeQaCjQS4HCqDKdctcbUcgqIxoO2XDe8o2Oux1q+RmKF01PChzfGw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795513406;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=KU8Dr3J60PmTanKiFFbUDhLRx/eyKakjPN6r5APrkko=;
-	b=ok1tOz6cvUzKvTp6Mul23p6p5csA4Q8QhGLm8rJ5IvlF6EBm73srdm3YS27eTs3j4OSK
-	 eXH3Psx0Im1TVXZt7rCO2ffsS4opkyHfHPukA3dUHmlmfmkEjWQXj0L2WfQYkgLMQZhKN
-	 ZBeuuoGgy2cJvvW4nJARz8tvmUDkEHrog6AG8u6Op02kvESdrBs09lsxqod9J9+5rYzDc
-	 P89i/p3noMuuIPQjcIA7Y2iJYtiZLQTZVB1eAaPTyVsQP6Q+UYvKuOSTp35AzRDWzHGP1
-	 W4MwKlssK6fmOCyoQufGlKk1s4JAz+wfHEnfJ6AB3CKFqiSLaXVioXcSptiat+83xkg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=feYB6ywp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.59
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011059.outbound.protection.outlook.com [52.101.57.59])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795513650;
+	b=afaIi6v7nUBPFP22EgltYUs4Q4qO+9fIdfwYzqk8OmUsI+kXmelOw5fto10RXg09OWmF
+	 /e33ABbwu3UJVBRkkDm3iz8Q/IEwCWiSSUhpM8XDNyE0IcAQSKajYE4/rnie9w2ltdsMy
+	 8MJumGP4szwyMU+ShKuKJiCEEvkj6if+1mFWD7kkzUEoLvb3orOQrytZtX/43h3NAsoWZ
+	 xCBbFOvGwEqHjD7NbepOgQnqPo/HXdr2OAf6EBuNX78k6MnWYrOUPL1MS8EcTf2UVPBWN
+	 6Pm/zJiVKMgFthj7B/omGRM3MdJqkjjQwQ5LRSHPRJuPsYkz+7SOSMztcormcYOu3jA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795513650;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=BE5LNOJgpR9371JeC5ubWrbf/K2t8V/MrLNI+7kIZnU=;
+	b=qjA5TVfK9tzHbICi4wtNV7UetE3qt9ut5Q6zT7Hn+QSz6bEs0A0odV0ZIgwXSYBdMTJt
+	 oev8sqNkCMVSgsqaLnMbFJMeVTWsAcKVVBy1MH7uAg+NIXCFPCQd/aMmdutiWBbGFKZ6A
+	 I4a8inuZlj6fXvdTXxIehbYIQXMcQMSZQwRKgRCWRphDA6Stn+9sgFl7AjMdUDf+AVO+H
+	 FQu5++NmZtS5WDeNK8ZvM6TRACfrrZxx5bBysUrHeb6Dne8r0LBP34w8uAUOtZzZmBMLZ
+	 5GqvqbWTpx/HbIwHknbB3Iq0OQ4SKch8d+STnGLjwu8dSa1gjhUxngmLyu+ILyeRx2g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P21imY+g;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC18606A6A9
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:43:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FC18606A6A9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D94606A866;
+	Tue, 24 Nov 2026 09:47:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=feYB6ywp
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vf8MEz7SrF2K8/Eokt0XUce73HmFRxn9H1q3PmBcnDUhK+gdjF86q/3/BpRY3zvu8cIThtV4P/miqF0e99F9VMcVkRFZq5XnbEIyYDWKI5deX48j47wsmsqRPMmIIuF3FH17rJn4X87JyBafb9D/oHUuQwhv5PDFNDuFTUGMxBOTSZ3mIrOmeRUXm1V28JSmuPM0GZNncbQfhQKhAEJ8KnB8BNxLRSMd2z/bhk3M9crP1p+baVTtVjzjTw31RKMUqm7mYOlgnxRSaiJcPam2gl7ZNn35iadQqh30ra8gn25Qj6gbBAWjRHnhtKnWKK9FWuVbI2f0aR6TJAePMS8rLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KU8Dr3J60PmTanKiFFbUDhLRx/eyKakjPN6r5APrkko=;
- b=kP71IvQ62csX498fBeOpCAz+x0NntwrSmaj3AyhxbFEu1Y5UwCulSPNm6gyhG5pJW/5lojj6KzkDOYS6zYoyTLBB63AY7LGCW8Tx2glrfTFcLsAoQMnKPezxyck3oGD7cKhSW8Rop335zrZMBuA8/054Kdfl2TbHCOkYLfZz0vzs9w9FVlv230zs6cmxZ6T448BCKxzwj5YzrUtGN+Jw0cUVN/s/H8T5xXc1jrfurmCy0/YFbGb6b3oLr3JMEHW96s/yPCuJkqDUErUiRFaCvw/g+rmwyTcQFguWF7L1OJwn4csmbdQWkcXbrg48FEv7Vr/mfW3GVZCE17I6Oxj0sA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KU8Dr3J60PmTanKiFFbUDhLRx/eyKakjPN6r5APrkko=;
- b=feYB6ywp+fh5OtSHU+Z6a2Iu1BwOiCkw1gljP+fKtOvvsphXUI1i6e6QBHOg8q98+5q1ZpGG42EZJtSjJEGFg/vPxugSpHSYS+iGYCwf3JzcwKO8/fsmVa/Q/dhmngbQ47Zkq/CcSqyhdX+khsFNyrAJlzO/Xg7FIrBnUgCm3X88XnfzK6f2GTl/QpBqOgcz187cw3YLm32EZ0mWBfmMkVmwb9qxO04+bAbRGqx9dy6FRTX84sVp3BOpn+9qz3dAzncSV9RuKnM+5Tr0V6ekwxPFXtn8JklycRGyB2M6DaXeKMA5W3kWp0l0MsLLv9BWVuNKlKB4sdejSD7soeVCYw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by MN0PR12MB6054.namprd12.prod.outlook.com (2603:10b6:208:3ce::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Tue, 24 Nov
- 2026 09:43:14 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 09:43:14 +0000
-Date: Tue, 24 Nov 2026 10:43:05 +0100
-From: Andrea Righi <arighi@nvidia.com>
-To: Cheng-Yang Chou <yphbchou0911@gmail.com>
-Cc: sched-ext@lists.linux.dev, Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Ching-Chun Huang <jserv@ccns.ncku.edu.tw>,
-	Chia-Ping Tsai <chia7712@gmail.com>, chengyang.chou@mediatek.com,
-	stable@vger.kernel.org, JaeJoon Jung <rgbi3307@gmail.com>
-Subject: Re: [PATCH sched_ext/for-7.4-fixes] sched_ext: Don't request private
- stacks the JIT can't provide
-Message-ID: <awVcKS_leVA8gmix@gpd4>
-References: <20261123145450.12725-2-yphbchou0911@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123145450.12725-2-yphbchou0911@gmail.com>
-X-ClientProxiedBy: MI3PEPF00004EA9.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::44d) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P21imY+g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB7271F000EB;
+	Tue, 24 Nov 2026 09:47:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795513650;
+	bh=BE5LNOJgpR9371JeC5ubWrbf/K2t8V/MrLNI+7kIZnU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=P21imY+gWhrYCpeL/HiKbV+EYfI2Wx8PC7+4DSG+t3BwYqFQfayWh74rAYl2eJwsc
+	 /pps4EmuqT43Ahbu7j7pWoxc8SVjTHgzOT7F4EuPOtozkAt14zJXbqcsQNhruX9yCQ
+	 nP/NJCvh373cAS+Pot/J5GWhaMRDho39Iq0I+1NEFphF4407BvED0vNACW3HHwIfQF
+	 NLhf674Q713NGMRmtpf/3+XzNCufwPSiI1dm+OsE18odtnWpwtRadgpY1oZV6rQLt9
+	 TGlp7VSzF/1cO+cLsOKtumRZJ2avSwVW72e4cSHWVFtrk67QGXiKTVL2yMTQ0mC05E
+	 rAFN7XX2B5pgg==
+Message-ID: <66e5f9e3-17d4-4635-8919-c67ed562f9f0@kernel.org>
+Date: Tue, 24 Nov 2026 10:47:19 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,138 +51,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|MN0PR12MB6054:EE_
-X-MS-Office365-Filtering-Correlation-Id: b74b98f4-fab9-40e7-da7c-08df4a0f5bfb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|11063799006|261022075727099003|261026121527099003|10067099003|261009223027099003|56012099006|261022105027099003|261021121427099003|261102123227099003|261026140227099003|261028144727099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	LOBX+iw5X0zXiYZutcNNStLczlHdFweXtUUPf6HPt9//2y+7z/CNFlal/Qe/zSBLA+MS9+SaCbit0xh3rv+GDUC2p4WfRcTHM1RPf2SJzxaKmdJVdPnV4s+DEFYQqQjGXZoH0WXnKMnx6dGUyJ/f0Sdz+sQg/cIsnEdlw8hmClbQpm4JH/33gPABiLBKqkuP5KU6n40DVOMk6Nz9XkEpeGbjRfogft0xBeRgQiaUAX1o0bvLGAkEHzf9mkHYop1a5dXQ1ZMfvHp5BaF2rSzUASFwz9pOGYXCFIuh4CZozp9LGYv0XYTEd+tqODbJ4sv+SlJz1YLRMM3WEBRp3kTRDKecpg6JAEZf5JsoZc9KbrOqb7FdF9Mu3czmEABgzSjUVEldR3ezn4wmIB90NYNcEPfooT8K2Oh8go/AatYAk+8rImjPzp4xlkARL41+Yzg+Rna+fvykZaJJf33OhkGJDA71Pzq1r0WCBfiwy9n/7xVZYT6oE7NRZoV11+WGPvzs77/BWG+BTejZ3WojQUEmNVuaImt1L4aqxSeLecAE9ZDSWlT8bMwAM3wstabps8kxUsI+bs44SNay9+JJVq9rZhe8E5mgor55J3e3clKfaK05oRlstLjZX1zZn/K3LCwxoZ+g/hZ9N4pagxVTZGeVFfJYq5uDruGEWWr2Mv5Nh0M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(11063799006)(261022075727099003)(261026121527099003)(10067099003)(261009223027099003)(56012099006)(261022105027099003)(261021121427099003)(261102123227099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CFUPXRdMMjzuoAqG+WjQfpDI7xqVB0DWe9SDBDNbemdYCcqrDn6nD3dnc+Hj?=
- =?us-ascii?Q?cOrkwy/PMkoUT3DoJxo36LNONS/iNmdsdo6mEnvfKR7ZyOC5ps5MND34xDqF?=
- =?us-ascii?Q?yZubZC9+v/Vbo36JNi2sKCk5Vftrt8uQ2lzSjL485mTVgDuG0+jnLqPIYDWg?=
- =?us-ascii?Q?UrzPlnTDMV8YL2OncrWqyHdQ9Jee9mGx/jx/WRn9ilEMtVhayjp4G4E029FE?=
- =?us-ascii?Q?6Ye5PUgdspZd8jEvJvlpzBeaPfpC/KR/MO3ASknpyO1gO76rfEdqAVF+9MBU?=
- =?us-ascii?Q?BYlvRFuw8XvQHA+3xcSTJCoSjG2sUFUPEnkDidVtn3fKn61dZfR81146jkR2?=
- =?us-ascii?Q?0PpCuzf/QcSq0A+8mkXce+TiSYPsIBsPnRRwMrUzT8lJ8A21ti8Ef3qo8mOD?=
- =?us-ascii?Q?z6kQiwx4T+o63Gonr6deOzZwflWR+RPgwkzO/DDjT/EJf6pHHoTHH2IYTddY?=
- =?us-ascii?Q?beNs9jlwbSPsfLHP72o4Ql6RkhU/6YNqNWN2kNeHnE46Vd5MXqggHP8J4gC1?=
- =?us-ascii?Q?0uFbEaroff7MP7bKY3HunLvGp+3sjXBAqXQEGI/eevcD/y8INnPvr+TqzKqc?=
- =?us-ascii?Q?3zfX/BnU3U5HSt5J+vjs/tTlU15VaFEfRuOYj8Uj9FX03MbJzjf3Zl5518Wb?=
- =?us-ascii?Q?X94k+bkXe2bQXtsAnteK2uIuVbRFaFszareG9k6nnwrlNMB4m/17C+cegg1C?=
- =?us-ascii?Q?jKqDYrJK2E9/UYn7VoKFyEjUG4xrXaoo1azTys4cUZ0IcvaM4Bko2To+14jT?=
- =?us-ascii?Q?Tsap33JbIVtKAydo8JI6gCUCWAm3Z+xNQ2TlNHCr9kUdgT2CPn56Aj/xCvr/?=
- =?us-ascii?Q?ldxoHDSGyO+Oz68t8QfsKiOQZcMPg8IvGQZo7I1Ovw9SaaZBfhgnVE6zISGq?=
- =?us-ascii?Q?8XFNI8OZPsxNItcCua3WE62OzNwqYp/uLIjPFtGU2yV0Tp4IH+mFo0N6GxbC?=
- =?us-ascii?Q?oSQGX4AAe9VhxjsykPy2jy45zIPKFEnh9TcV1wdSBjtIE5MOKQTx+qB13Y59?=
- =?us-ascii?Q?0+vrUToYZ9YizFvL8y2JMoMUfG58ph2sRSljfxCkUFW7HzSK8Q2lAmUM4Q1N?=
- =?us-ascii?Q?sEAC2oHyFvmqqe9K7zE1xBUSj9uqdaT+T0OdBQUvRSC8+hOUNgayLbN+Juu0?=
- =?us-ascii?Q?S/p51ozueqiBqhFVU5nhhz9U3dzrON31BD3C8tNEnMHpV0FBflSLDFC5ZHra?=
- =?us-ascii?Q?ljfX7qz1XByLC6FRr+z80iTmfoJp+qQZFLqWWu3B4A5RicTJHsUhjr0GWo2Z?=
- =?us-ascii?Q?gVg59nS8b0VcHz1i4KJwMMJIP+aPNfm/EXIAFE/4fLUoqbbR0jXnIs/lwNGT?=
- =?us-ascii?Q?rQlYvlsUBXA4iTAYsadxgBhd2q0QPCRB700RgOtAoJV2+Cjnu7paFID0SUuQ?=
- =?us-ascii?Q?aw0Oo4g/b1WvJQ9h0ZPh0CmssfZ0s5lRLQjVDUVq8VZC3nUddZp9kzm0gcbE?=
- =?us-ascii?Q?/jKh029qZatAbB35Ju7DFYXAxHF1TntfBUNXasHUl4/17PYPs1kpbla9zaVu?=
- =?us-ascii?Q?abf5sm8V86G4f92V2MlyD7o3nNJUPOwdvyVIqYHRnUtHEQXXLYddoNOcH9M+?=
- =?us-ascii?Q?rRmJK5TI13lUlkVbwznmZ1lFcj0qh4zG9gOFvSVd2Ht3W773w+8yywzJory1?=
- =?us-ascii?Q?BOTo3ecBIGhi3cebHYJ5RnZiBNftyzhLwNz99aDDYuQMOJ0zwYVf3v2Ppl5G?=
- =?us-ascii?Q?NFtmMl253ijlo+6A9GFr/SBJRM6Ogcc4uYYKzwxVLdDVpE+e?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b74b98f4-fab9-40e7-da7c-08df4a0f5bfb
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 09:43:14.1012
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: naBdBWBZsdcoNzNnDZyIHfSgarTl9XbGg6qUdaUajGfqk6nbp2PSLTKg6jo4NJC+taYQfEOz0G5p02v98lvAxA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6054
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] mm: fix deadlock on the folio lock when migrating
+ and splitting folios
+To: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Heiko Carstens <hca@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, "Lorenzo Stoakes (ARM)"
+ <ljs@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Miklos Szeredi <miklos@szeredi.hu>, Joanne Koong <joannelkoong@gmail.com>,
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>, "Jose A. Perez de Azpillaga"
+ <azpijr@gmail.com>, Chris Down <chris@chrisdown.name>
+References: <20261124-migrate_reclaim_deadlock-v2-0-03cc147e1e36@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20261124-migrate_reclaim_deadlock-v2-0-03cc147e1e36@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Cheng-Yang,
+On 11/24/26 08:56, David Hildenbrand (Arm) wrote:
+> Whenever we allocate memory with __GFP_FS while holding folio locks, we
+> can deadlock on the folio lock when triggering direct reclaim or
+> compaction.
+> 
+> For example, evicting inodes with a populated page cache takes folio
+> locks, and if we happen to need one of the folio locks we already hold,
+> we'll deadlock.
+> 
+> FUSE makes this example easier to trigger, because it evicts inodes on
+> the last reference. A similar deadlock with FUSE was recently fixed in
+> FUSE [1].
+> 
+> Let's handle folio splitting by simply running in NOFS context. We only
+> perform small allocations, so it doesn't really make a difference.
+> Interestingly, this also fixes one of a handful of possible memcg v1
+> deadlocks.
+> 
+> For page migration, change the code to allocate destination folios
+> without holding folio locks, which is in any case the right thing to do
+> to reduce folio lock holding times.
+> 
+> Some of this might also be fixable using Jan's work on deferred inode
+> reclaim [2]. However, that is not stable material, and not allocating
+> folios while holding other folio locks is an improvement on its own.
+> 
+> Unprivileged users can trigger this deadlock with FUSE and
+> mbind()/migrate_pages(); however, it requires multiple NUMA nodes and
+> quite some luck.
+> 
+> I reproduced the original deadlocks with FUSE and made sure they can no
+> longer be triggered with these fixes. Further, I ran the usual migration
+> and folio splitting selftests.
 
-On Mon, Nov 23, 2026 at 10:54:51PM +0800, Cheng-Yang Chou wrote:
-> Since commit 4f8b122848db ("sched_ext: Add basic building blocks for
-> nested sub-scheduler dispatching"), bpf_scx_check_member() requests a
-> private stack for ops.dispatch(), and later also for ops.sub_caps_updated(),
-> whenever CONFIG_EXT_SUB_SCHED is set, which is the default.
-> 
-> The verifier fails the load with -EACCES if the JIT doesn't support
-> private stacks, so on architectures whose JIT doesn't, like riscv64,
-> no BPF scheduler that implements ops.dispatch() can be loaded.
-> 
-> The private stack is only needed when these operations nest, which only
-> happens with sub-schedulers. Don't request it if the JIT can't provide
-> it, and refuse to attach sub-schedulers in that case. Root schedulers
-> then load as they did before sub-scheduler support was added.
-> 
-> Fixes: 4f8b122848db ("sched_ext: Add basic building blocks for nested sub-scheduler dispatching")
-> Cc: stable@vger.kernel.org # v7.1+
-> Reported-by: JaeJoon Jung <rgbi3307@gmail.com>
-> Link: https://lore.kernel.org/all/20260810031418.95364-1-rgbi3307@gmail.com/
-> Signed-off-by: Cheng-Yang Chou <yphbchou0911@gmail.com>
+@Jose, could you find and fix other cases where we allocate under the folio lock
+with __GFP_FS (and direct reclaim enabled?).
 
-Looks good to me.
+I think at least do_set_pmd() might have a problem when allocating a page table
+through pte_alloc_one(). And I'm sure there's more.
 
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
+-- 
+Cheers,
 
-Thanks,
--Andrea
-
-> ---
-> On riscv64 in QEMU (-M virt) running for-7.4-fixes,
-> 
->   # echo 1 > /proc/sys/net/core/bpf_jit_enable
->   # ./scx_simple
-> 
->   libbpf: prog 'simple_dispatch': BPF program load failed: -EACCES
->   libbpf: prog 'simple_dispatch': -- BEGIN PROG LOAD LOG --
->   Private stack not supported by jit
-> 
-> With it, scx_simple loads and runs.
-> 
->  kernel/sched/ext/ext.c | 3 +++
->  kernel/sched/ext/sub.c | 6 ++++++
->  2 files changed, 9 insertions(+)
-> 
-> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-> index 10de6bd865e8..3248ed57c2bb 100644
-> --- a/kernel/sched/ext/ext.c
-> +++ b/kernel/sched/ext/ext.c
-> @@ -9294,6 +9294,9 @@ static int bpf_scx_check_member(const struct btf_type *t,
->  	 * sub-scheds and sub-scheds themselves but I don't know how to access
->  	 * struct_ops from here.
->  	 */
-> +	if (!bpf_jit_supports_private_stack())
-> +		return 0;
-> +
->  	switch (moff) {
->  	case offsetof(struct sched_ext_ops, dispatch):
->  		prog->aux->priv_stack_requested = true;
-> diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-> index d2a20114eaa2..7c069a289766 100644
-> --- a/kernel/sched/ext/sub.c
-> +++ b/kernel/sched/ext/sub.c
-> @@ -2246,6 +2246,12 @@ void scx_sub_enable_workfn(struct kthread_work *work)
->  		goto out_unlock;
->  	}
->  
-> +	/* nesting ops need private stacks, see bpf_scx_check_member() */
-> +	if (!bpf_jit_supports_private_stack()) {
-> +		ret = -EOPNOTSUPP;
-> +		goto out_unlock;
-> +	}
-> +
->  	cgrp = cgroup_get_from_id(ops->sub_cgroup_id);
->  	if (IS_ERR(cgrp)) {
->  		ret = PTR_ERR(cgrp);
-> -- 
-> 2.56.0
-> 
-> 
+David
