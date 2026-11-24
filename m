@@ -1,56 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795551924;
-	b=wH1tnRtcf6tqIJf2szT2FFjxU0X7CegWBakHHasegF8i9g/lSv0KYlAqhNxpIUJWT/JI
-	 LsNrVBJTzt6fr8pDG4YiFQZ+RstcLr/qdmoLIB2Ozlq1oJxVa2mzTAc50Har/5r8ysa2o
-	 LrZLLES8cQtTQPaK9syMiIjFym7bJ+3oFfvXKUWFkKELMBFGueu894TrI3OXpLsWvJyCU
-	 sBQqgg9Tv5jav86q36hK1KJh6mO2N8auIHhxOzLDNY9bnkI1/6Z/wUhuaxv6Q0OmbHQcw
-	 X4JcwMEqU375cpTgEWOc3uTeV/Od9PYWzX78rIC/VHnFZdKPNdJVmVVpEm4BasIr3YQ==
+	t=1795551959;
+	b=txuiVPsodM80fJ3GhTtklQjYXmOag1JQ7KEEM2jorVAOmfp/zymYlERtlDlwj5KCpoHV
+	 MiFc+JmK93vF/dqqGmdTESU4ufHhqbEWYXdhUKMsb62PpphwXzjnMfMNgPl4QBn177Mzk
+	 Q6TxhbYMCHCWtLdO41tSxsbqHixu+N/F4JBgzj8j0cMouvRZQQqs4JpSzEQbvojQ0hKxJ
+	 TrEpFWtUxkgx0wEDES8dAq0l0rKOBcaTtBiZFhLUGQYL4d0Zab8J97jWvFgSNznyAYuVO
+	 x+K1D7K48pckJSDowFs4IwCzNAoam6k75O60yYmg/qYHu0I0BzJQqjAS3v8/ZXIddbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795551924;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nETtC1uzCtaB0VB0DBLZInUOHEh/gjIE+RllwKVAMM4=;
-	b=PkHQn7QetKTzRL1Yhyxg/H6X9evil4g1cYZNWE/+JTdYP5/1cGbh92gvRWgZLWYfZvh5
-	 4TdwxIQe3+PJfJ5rkIGoCfSqDnhAVK9jB5zOoA7v96gs9ojMWskkzHKOaL0/tPvfl3NH5
-	 4frlF95RSsdyM3K/284/Lhco4T1KUg2BKHflIj4MSXYMsd5s1I9kvrpyA3DzrWT4fi7c9
-	 CHgHAjkQz5Lu21iz6ghccjgRwWmx3DrsxseP9M1s7jMxoMR6hh1nZzC71uXYQdwesGSqh
-	 DDiHwJisJU/nFXRT+VzwwgSnl15iJCken2gqrPx247klpZLGsMYl+HFhCDRvwE9N+iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795551959;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=0vmGYU81o8BUW+PFvlj0Jh8YYINSsIZoDFwQ+4K/uBY=;
+	b=kshqbRVriKH9mcAHL1Tx93aok6lCuLPdYEUiN50cwAf3D3yscrlCqJM4ZHWN0PZ1zBPc
+	 hHHA7e6GCrezWv+nUAU/W/O1nZUh1okm4cDy/XCGQP+xPGkB/4YLSz5bQuspsJJErVG74
+	 sGYi61piKKnqmGQ9ubbSat0poC0W1zW19fy0yXQLA0jAjybLeMBGFkIqnqyNaX7mjrGww
+	 Xgr/xAsC0hwfZr/i8iWyxuncKMgR28Jznr6tCVf66HpkAS0nVekylDCqxpvayKfZutm+c
+	 DhXcDxIfwqOAFsyBFLC+knYetzUSldRjrTQGNfYAF8zXD4VCsj7TANPI/Ei/5uKvtbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ARmvTKx5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CTpyTfXP;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CFE606A329
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 20:25:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87DF5606A331
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 20:25:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87DF5606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ARmvTKx5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3201C1F000CF;
-	Tue, 24 Nov 2026 20:25:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795551923;
-	bh=nETtC1uzCtaB0VB0DBLZInUOHEh/gjIE+RllwKVAMM4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ARmvTKx5PyNTB6x6VO5txSSZ6coIJrFhAttVK4/1EASxfHpviM7MNZuT3/huxNDPL
-	 kJsqTL3QAhZGOKt4xhmA2bKb400ozlVhv0Mf1WjP0e0ZvWGI1Rs1+uf8tYUI9ENSql
-	 ElNgDi2E5jZVqR7fvjy16iZnAe570aAXfQY79y5yhLiLRxnyff/ixmylwh+Qq2Xy+E
-	 uazc/PlLwBpW+PgLMPlukQXkIBAp54Ah4Z8pl0PCB958aFPm+FOOlukeYwFXsP159B
-	 8jzWjhRmEQSw0C2S0An+Zsru3eLA1+SHR6DbkSdrCPawU/EXPe+O20wrphIaVX5H6S
-	 /I/OD5VgMpj0g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/page_alloc: retry alloc_contig_pages() when the zonelist is rebuilt
-Date: Tue, 24 Nov 2026 15:25:22 -0500
-Message-ID: <20261124202452.2588099-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112436-anthem-overfill-0e2d@gregkh>
-References: <2026112436-anthem-overfill-0e2d@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CTpyTfXP
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-49465892f7bso3614155f8f.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 12:25:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795551958; x=1796156758; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0vmGYU81o8BUW+PFvlj0Jh8YYINSsIZoDFwQ+4K/uBY=;
+        b=CTpyTfXPdC7C9HnwuyN6Ne+WgvDbpIoFikodQvfucLMnITY52nrw2XpqOvsAyXRq2Y
+         QXPaOjDEkx1bTlM727iumbjEeuX84l9z8JmHadfk7K6XFLWQystooPtj3h9hZLBlKM6v
+         ukToTBVTwY+2OCHMcdBcMuyW/TlsL+MRpr+AJ+EAR2q4EZvFY+pTD4/NEBqs61/USSda
+         SXfpfK7xNxLg0dy3KSd6ZTGqwlFoj3vznqDfvmM7seh94yuYAkY3lCYd/Lc6r2B1bzNB
+         PeAmWw+/T1xJNVBubvUujCYgtJS9SNdaPuGxJh/ne7vaV2g8gT2pTojeNcojgdLwnpfa
+         u0ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795551958; x=1796156758;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0vmGYU81o8BUW+PFvlj0Jh8YYINSsIZoDFwQ+4K/uBY=;
+        b=MJlos0aOL6XaKeQPTFrK1MFTlYgTw/YONz0x3yyQOpx/D38fumSz3YiuBRRrHTs8xx
+         KVt0CA4DBt+/XVjQrqjHU+cBdCTVV/qrSG34jrKDsF2Ej5snOHLNa99EoItsbSJ0nSOg
+         uN1qUxpMTsy8ljUX/qmwmEoAAJ+Ew7BhAKvffhywwrfiF2j/wxPecFVeRm8/ZUiajdCB
+         8NRTN5hrQDeh15swTwg72nQzkGP+eZ24iiusAcqbqDZjLYvTl7pqJcmgqmp2/5gnHQ2v
+         4drH0XBbQQqhBri+C9hsZwf3PmL3h8/TqYom3k1kCo2XlOnyKYILWotjzeimqXwfqzDJ
+         Mi9Q==
+X-Forwarded-Encrypted: i=1; AL+hErGRVvc20RPKje1vHRszJTdbI9Loi/Zqa/OMrtAkrO1/pjgr2sBOc3fTCQy0RLkBvlbEb9lcms4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eIRqreR0dSToZ4LFXehzasSdd8q+7gdTphgkhQBcJfvFRamqq
+	lsTEc3UzMN48RXMDtKsjZmFIa4ZJItY4Fk9Z4ykwQIu4O4BwixDWhME=
+X-Gm-Gg: AZFdTZeNS4aCy/3hzBqKMLem5oUsEXOfyeJdZGqE1RxHjjvEgbsFhojhlJlAHXE2ahT
+	vwzuqXWGuS5xHlUBstvvug4uF4WMa0WARpmPlj+BwWd0/XjjTjtqcyOMQG7XqIyMATY/2okm+pN
+	aE7J5eSZipkdkC91jIGD/TwFFyEIyLVnGkoQz8Wc63MYblPfVC+v/Zj5AyqSsr9mnTJjPVSHNVF
+	dEbC5N3RTF1WV0eqni11T0MB2KKSHKPddMPZyE08X1vTHRAiIuNin4GDYrTWqbdMuXLvYsA32Wz
+	r0CQT94iW239U2/XRW7AYhkZDksjOoe5nOu3hk5Qu9YkbJ7MIGFOEPTlxEWzsuW2FIZYWbW0ui4
+	Gh5hbkdxbxLAjc41J60C7EoP4qpkNL3NpPDOtfX+uLDuTBvVPdFsUWQByrws7DBB0lLuJwj9H9E
+	AT5l6MnKLlQ53mS2zk22UoYU1XHZSF4iXZEvjW7c1wFTg2jmbgGwT34HUyfVz8fePbSOx0pO2T+
+	gInN6xegl09LkLZD24Eh/ugg5DlqAoquyJknQvE4aNYy0o4C50yB3P09Wj4Hb1lrx0yDCXx/UiD
+	JIVbM7rBkQWkpX1Y1rwo1x1jviZVaWnXvw7f
+X-Received: by 2002:a05:600c:848d:b0:4bb:694e:496c with SMTP id 5b1f17b1804b1-4bb88810b39mr337481915e9.22.1795551957657;
+        Tue, 24 Nov 2026 12:25:57 -0800 (PST)
+Received: from localhost.localdomain ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8849e598sm422589015e9.8.2026.11.24.12.25.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 12:25:57 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Tristan Madani <tristmd@gmail.com>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Jeff Chen <jeff.chen_1@nxp.com>,
+	linux-wireless@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: Re: [PATCH v2 wireless 0/3] wifi: mwifiex: fix three firmware-triggered validation issues
+Date: Tue, 24 Nov 2026 20:25:48 +0000
+Message-ID: <20261124202548.1421427-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <awXQpeeRwME1kVFs@google.com>
+References: <20261124174620.1572200-1-tristmd@gmail.com> <awXQpeeRwME1kVFs@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,91 +102,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Gregory Price (Meta)" <gourry@gourry.net>
+Sorry for the broken Cc, and thanks for fixing the threading.
 
-[ Upstream commit da0d7a895e9021dc2cffa90fb6fafd8b9379e544 ]
+Build tested with the series applied on wireless/main (v7.4-rc4),
+x86_64 defconfig, gcc 14.2, W=1:
 
-Onlining the first block of a zone rebuilds every zonelist in place,
-shifting the slots after the new zone.
-alloc_contig_frozen_pages_noprof() approves a slot by the caller's gfp
-and nodemask, then loads the zone from it:
+  make W=1 drivers/net/wireless/marvell/mwifiex/
+  all four modules (mwifiex, mwifiex_sdio, mwifiex_pcie, mwifiex_usb)
+  build clean, 0 errors, 0 warnings.
 
-  CPU 0                             CPU 1
-  alloc_contig_frozen_pages_noprof(GFP_HIGHUSER | __GFP_THISNODE)
-    slot 0 (NORMAL1) approved
-                                    online_pages()
-                                      build_all_zonelists()
-                                        [NORMAL1]
-                                        -> [MOVABLE1, NORMAL1]
-    zone = zonelist_zone(slot 0)    /* MOVABLE1 */
-    alloc_contig_frozen_range(MOVABLE1 pfns)
+I do not have mwifiex hardware for runtime testing.
 
-A gigantic hugetlb page can then land in ZONE_MOVABLE, and a nodemask
-caller can get a range from another node.  Gigantic pages are kept out
-of ZONE_MOVABLE since commit 79b63f12abcb ("mm, hugetlb: do not allocate
-non-migrateable gigantic pages from movable zones").
-
-Check zonelist_update_seq before using each zone, and restart the walk
-if it changed, as the hugetlb pool walk does.  Check again before
-escalating to the pass that may migrate hugetlb pages, so a pass a
-rebuild cut short is redone rather than escalated.
-
-With kprobes holding the walk across the online, the base kernel put the
-1G page in ZONE_MOVABLE in 3 of 3 runs, and this change put it in
-ZONE_NORMAL in 3 of 3.  Direct GFP_KERNEL calls with nodemask {1} and
-{2} got a ZONE_MOVABLE range and a node 1 range on base, 3 of 3 each,
-and neither with this change.
-
-Fixes: 5e27a2df03b8 ("mm/page_alloc: add alloc_contig_pages()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Link: https://patch.msgid.link/20261101021340.2251928-11-gourry@gourry.net
-Acked-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-[ sashal: Ported the zonelist-retry fix to alloc_contig_pages(), adding a retry: label and placing the final recheck before return NULL, since the HugeTLB escalation logic is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/page_alloc.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 50cb81d42b1c0..0c7aaf7c068f1 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -6415,13 +6415,20 @@ struct page *alloc_contig_pages(unsigned long nr_pages, gfp_t gfp_mask,
- 				int nid, nodemask_t *nodemask)
- {
- 	unsigned long ret, pfn, flags;
-+	unsigned int zonelist_cookie;
- 	struct zonelist *zonelist;
- 	struct zone *zone;
- 	struct zoneref *z;
- 
-+retry:
- 	zonelist = node_zonelist(nid, gfp_mask);
-+	zonelist_cookie = zonelist_iter_begin();
- 	for_each_zone_zonelist_nodemask(zone, z, zonelist,
- 					gfp_zone(gfp_mask), nodemask) {
-+		/* A rebuild may have shifted an ineligible zone into this slot. */
-+		if (unlikely(check_retry_zonelist(zonelist_cookie)))
-+			goto retry;
-+
- 		spin_lock_irqsave(&zone->lock, flags);
- 
- 		pfn = ALIGN(zone->zone_start_pfn, nr_pages);
-@@ -6445,6 +6452,9 @@ struct page *alloc_contig_pages(unsigned long nr_pages, gfp_t gfp_mask,
- 		}
- 		spin_unlock_irqrestore(&zone->lock, flags);
- 	}
-+	/* Redo a pass that a rebuild cut short. */
-+	if (unlikely(check_retry_zonelist(zonelist_cookie)))
-+		goto retry;
- 	return NULL;
- }
- #endif /* CONFIG_CONTIG_ALLOC */
--- 
-2.53.0
-
+Tristan
