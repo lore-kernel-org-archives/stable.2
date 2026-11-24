@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795532989;
-	b=moTpYTV1PVK45dYxi6TaNCAPEaOKlcMxsRjI3ekKB/aKMykuGFk3lfTdx1WOX0WEI46l
-	 mmbqUujOBXVwCbcxIjuCV/KH0SnM6x6IMWj8O6KSgdLjQ9lX8q/JxAA3ApJFZHIHw0NDb
-	 uA1eUmyj6giEcng/G5XObVbHPDXgoZ3WbYpvWKAtM/GtaBhx3sZVNrcCll7T9bxFhW08g
-	 g9qmdc+yrzDcC2lZfs7pJCjl1zV/CMjAFLWJubYFPvcRPjGo0H/IBeh/TeitFU0Cpll4d
-	 ECQ+bt6wkYenkLArRkrPS4LQMCkSa86Z2u536VFxuwUgP7hnpn4hpUlCJorWF1PonAw==
+	t=1795532998;
+	b=tFK6N/KErpA2CZlUnzh1mxaCuRWW47t+xP+C0Ng2mbH702eELN3Y1/xCO3N4Ih+eWnST
+	 TTMlaPIZc3Swi8YXRrs2/IPvTwXU2q6/ylOud/VZiVdRoBEfJb+J0Jo/3/YdzDFYI11cz
+	 1+fdNMG2MQB2dC7Eq0PPnjh8D6ZCYyHai+UO4jEOD/g+JsFenR4OrKNhzedwYUKRSJlXX
+	 E0Zw5iR5Y7YMp9ifKKCGuYHa283OJR0emlbER7ebO4OhEoj2+ZcwF1BcGZ5WA4n9qLI7W
+	 v2pCu1EyjA1s5ik4rjYwr3VnSvGFUQ1ya8thCdKGIigrLMUgvUZOWfdpRG2E3ERMaxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795532989;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795532998;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=iO+ScCXIuBnkMjUFQbu8g81U8j71hbPQ1RwW0MeFD94=;
-	b=Wx7uDTMwq8ypnSsS24e9400b/ShRfsE0js5g8Zdmx0D3/nBcyK6db0gseiQvrRxJ5uv+
-	 OQ+EY68zYznmOioYoJym/uQPGpm0+4kCLQTXpuU+dStNb+nZm0DpIAUV1LLBo9TGgbGUz
-	 hZXm+3m0LU631y0RNn3PaiQ38h5gHvm69APTrbq0Fn19K4iaf3lInK7es352YGDpIeMXs
-	 8gJpNWHhih1I3yKhcgLB9ZcLIQ6vGxe44QQXXU2q8EkNuvLiP7sNFL9YAPFIcpWNm/uFy
-	 /1QbdPOXCvTWwZsSq/NNJshTr7J4kT1xWBGGGAhFH0w/m7s3cA8uwHvc+Ebrx8WXxuQ==
+	bh=a96j+xjfTvIXX0pnFukaF3wruc4qXTkWNBrIQWWi70k=;
+	b=uXkPm/Sj5KRRY6xPDlDrI47FRbcBq2RcW3oWdyRxpX2oDvJmAVu9Ep+/yGrzf5imMw1A
+	 5Z6wK5QzAeDv+D8DJa+qfVmFK+SpDTqmh8hlHhZq1qUbv6SLVOVq3ip1WsEotrydJTvjk
+	 PlyBtGrbOFypcvScL1RzN3V8ZEeNrYUHCrfC1MXqgU0zdc4ImSXOKJircG9xMKboW9k6A
+	 6Gs7tl491H1S/9XdAubMxwYbcQES7Kq4hXcvmc4BqCBfpZTMfZTZ/FPtJ7dVfv6Ebsnd3
+	 1zFY+9gsZ/LSu16qNEEpp30B+i3o6UCdZlrH85pssmcvMmGoafzJ9qJprwyQ8y5c+BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="TM/qLoz/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TNj97sc1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504E2606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:09:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0498606A329
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:09:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TM/qLoz/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CDB41F000C4;
-	Tue, 24 Nov 2026 15:09:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TNj97sc1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65541F000C4;
+	Tue, 24 Nov 2026 15:09:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795532989;
-	bh=iO+ScCXIuBnkMjUFQbu8g81U8j71hbPQ1RwW0MeFD94=;
+	s=korg; t=1795532997;
+	bh=a96j+xjfTvIXX0pnFukaF3wruc4qXTkWNBrIQWWi70k=;
 	h=Subject:To:Cc:From:Date;
-	b=TM/qLoz/Y2UoKO/F1BX4Tpb9KgnKa67Mxbe7sXK0+gnh+DXFZWikAz4liJasiAoZe
-	 g6byXWqRt044ViE7MEJMuh4Y9DNKrn8R5OmsyZfKPj4OlggnjKlnkkvtLRXJo6qDoj
-	 Jg5+h98q1ZtgEGfEx9dEfE9YWqM7bnWvWsC+cSd0=
-Subject: FAILED: patch "[PATCH] kprobes: Validate re-registration earlier in" failed to apply to 6.12-stable tree
+	b=TNj97sc1ll1qadfZcRG1FUFCy3kzx40QfFxYckBa+OfoOYjfl0P+OP9L0SvNi7NJA
+	 HwkeiJQhjoX5NumOL3JT920x0DSA1f9hrFamiVV4oQiSEoFiyt57y1TjhxG8vlIDgS
+	 E4m+aOH5TDJfY9Bsk6lOYrbWfTcF9np2AX5MA9qI=
+Subject: FAILED: patch "[PATCH] kprobes: Validate re-registration earlier in" failed to apply to 6.1-stable tree
 To: mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:10:09 +0100
-Message-ID: <2026112409-navy-chute-3322@gregkh>
+Date: Tue, 24 Nov 2026 16:10:10 +0100
+Message-ID: <2026112410-hurried-barbell-533d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x a553b499f22bf054964d4fd16d136f3d4f836c23
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112409-navy-chute-3322@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112410-hurried-barbell-533d@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
