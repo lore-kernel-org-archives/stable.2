@@ -1,93 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.74.67.63
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795516569;
-	b=Qmq/fwuHDaTLAKxRtjYisXsAGJ/sF4Y96YJVvUyMctvCHlYyyY48MTXJ1JefdFGoB0i5
-	 tQoe8aI7kPWvbI8j9gQGV6IyeE3jCKDm6pzdGkOj4QVOilWtCc6st0ifIapqGbBwEKmn4
-	 PbF8x7ePTmQ/Ilq9VqYE/LDbEqpHuYRfb8bKqh8NwqvvYtxiX1+SQB3FXeMKaAW4RI3ot
-	 eL5qTVBaoiDa75MIbLzGMa35FTaDTzdOtiGA1IyHpZLo2Ucd1lW5IV9tjGMF6W34LyymS
-	 3CFSwQ7ZegiE1+yggXB0XQyosEZ0GxAtajF/Nw0TMDRWYdsk2c/nuqyTF36KMVEwYQQ==
+	t=1795516830;
+	b=wNC3hZMK/9Gbe99+kjM2uRpaeKkym9FmWu2npZUDAAxIDzSximcvtceW67oPSf5bLUYZ
+	 1jGOeFePPX4w6zcW1RsQ4GiGDrB4BrOdd/V7+u5TpzTMZmC0C9Zlig0BlUC/G6P5lw5uj
+	 NDP0iMwbfVUE+0SDDYxNQnCpFtoE5Lc73JE147VjVxBpiUdIrhlVNzRia6FkAOGVBZT0m
+	 Ik4P3Z8M1yWkB7Lp+Lch+/D2Xf+8VnJMrPj4+LhCuOzjmgjN4mt3tadk5EdUmSWnWqAi6
+	 qEPWSBF+w8IgAJmVUC0YVW/evlSHTtNkT5uBGq+ohhOQi0wP+tJo6DvnweUDAUW5pNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795516569;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=2+HSkOtOU1kljM1v3ikCzTVJIjfkEJGNjipK7N4p86Y=;
-	b=M+kNQEab4uYIWnXnQz2krSJeA4FkVlo47VI0zgLrB06fUTnzx4eL8lbMS3r5fa2QkxEI
-	 lRFrb5OMmDFyyBOJ+/FbODutjz3acpXH7OiHMceDXVWBPsqDETZi4uG9icK196VMjA8XV
-	 EIvCVhpVyk/Wu1G7hAZafgA1bcJoq6S1/yaaEUl6xJtp1vCDcqGz7YdibOodbHsOkg8co
-	 soAAA5LEM8bONn6tP6YLExvHZclV6tmbvtwwScqQA2pGxNrZDm8SSpioGkYEN2mY+BX4a
-	 y3LLfDN22oRuS0S78FdACyMxYrKSCRh/vupcN+D/eGTpQmfMIkSo+kTg0B73mWUtjfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795516830;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 DKIM-Signature;
+	bh=/6dSyAvYrkzZrB+rNJ+F7xck+uglAdRkmahkz9MM2p4=;
+	b=NZS0NCw61meSwuKCY7pNfcK1Si8zxjyA1/wrxxlRXI9JAhr1nE0zJlxpKR5mCNMQTDqk
+	 +hZPUIEnhg5cVPx9cxlFIC7tBD94svuSoVUav58TCeshr3v+gpXlMj1xKxxuw3eTznEZU
+	 zL4zVkF0d+V4eXfZbLnh0107iLodj+c9tNRT4Ye61XnOO6mCCfvanhDsgutUvmHotCZt7
+	 oQWUJ9N/zAP+WuE0UvkYYoBFGLPDOu8ZtxlyGkXELChjYwcvn3SprfGmOFiY9ErRUBf8Z
+	 bVWlEVfY0wX43U0k0FqcXPxiJcbJKcyq1W/B1dYHUPe7JiHVt6nBcg1hKzqbI6QkPww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="bu28w/jw";
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=poczta.fm;
+	spf=pass smtp.mailfrom=poczta.fm;
+	dkim=pass header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=DaxkLhMM;
+	arc=none smtp.remote-ip=217.74.67.63
+Received: from smtpo63.interia.pl (smtpo63.interia.pl [217.74.67.63])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98641606A32A
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 10:36:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98641606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CE5606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 10:40:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01CE5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bu28w/jw
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4bb666304fdso47424295e9.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 02:36:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795516567; x=1796121367; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2+HSkOtOU1kljM1v3ikCzTVJIjfkEJGNjipK7N4p86Y=;
-        b=bu28w/jwTIfb21GVEMo0GqvKyj4hNRPCml04a4XI2W5+iXWoj/Lp3u+KDc+cbsFwrX
-         ZzKLgH/kC12yGTZL2iXgaRjqU3oDCxUiskS0ElFrMMemS+jL3BuxsCEn4pRuE5LkngBP
-         caKNy70UyspHh3iaCbyB/QjxjBy9gQcdYIavQUuy+wyWLNMaH/ijIOx4OedGKLxdOsHT
-         yZ18Vd8m2oMeBt3bJU7wBs0YKThrTyZ1juo5im5DNd+eJQx8E9dbPqzWxrTChVYt1QxA
-         mE7gKEllcyFTtI0Jxk7KGBUwnYEdKIsAimV4yfWt6i71aWl7Cu0qF+g25rs5UXfJxc+w
-         MS8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795516567; x=1796121367;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2+HSkOtOU1kljM1v3ikCzTVJIjfkEJGNjipK7N4p86Y=;
-        b=oOs/56Ok2HLzMsRfOgQjqLJc3dycOWmucfmSrpJbIhbTp5L3kjxQOhgIQWoXGuMlxd
-         Sq6icswA5BYz3rJ6310kfRoAqZv90ypgjN3KCk/eRGsBk62TuQdUEKzdyTZIpLthzsbq
-         52LO5EEnFXY4ywKmmmTSfEKzGP6xmzADr7CxQkOfXFciflJ6Vv2n8XZWMt/3IFWaJE+z
-         RCXqahlcNpxsvlpOgVOMHpULn993lBJ6CNxBOlF7VY5wBlc9fXEinUEDbG/v4Z2t9zGa
-         wquJO5tNEMQJXwwpawfkNZ66fhwttoRpN4AsVD5uZiSsmc2SFiLcF4ClDv0NYlvaA9wn
-         67iw==
-X-Gm-Message-State: APuU4Z+1uUv1BqBfodm5lAs8tNYzCaF/77ywGv5jsvaSY23VkXnZNrC7
-	iFzoGGlX0X+qZmMnKS1+8vgy4QfzXcuXXWszG99AwVQxVThhmkEVzl5UaTT/eQ==
-X-Gm-Gg: AZFdTZf6tHN7O+7ZFtCPDd+KUXPcPQ7qRxooh6sbZkGC1/Rx6WFqAiigjAmZAfqI2wX
-	0Vd7S+sm0yzJZrq6WLaKYWtvGfED5EOQugtcjJ4sfElvfLfDjE0ctF8LJYoMTy1ocFNklg4T/tR
-	zBlQJep8apoUopjeZggVTOocK+MeuTeamMexGFvGfW6VrsmErvRnE3XFVwpvbgMKkDmrc4KsFW+
-	6TeT3/FTkCESJrEArrY8Q5NUuiyFy1JVS4q5NyQeJ9qfOM+wPZy35Z9n1Nx0SbLuvEBsAFuaeK0
-	KsyXUaEYwIkin+O2C2I5ATxfJmGcURm9CWyRniyg9nzcUQjQjWtx+Hso5hAtdLwbIzlBK4sA/Ii
-	Mqhj11PPt+UEi1UzUtaOec4A2PfPIJXlzAiWw+f16Rkh6LZlwg0l6y2FP2LZ+gWcqiQ9G4KaTnh
-	udNahrDbm8CySV+oSjRiVtZuCFl2cnOyATfzJkvEPiqukVExNJdSf7d8f0i5+gTNitQv0CWAwKh
-	SbuPUYllXJv7IKqGhZvREdM34x3jztk545skUpLQIVzbCSmvgR3Jitc8UZNhjzhGwNsDphRHKK8
-	tGxUngqEAXRqUFYOQ7KQ7JunE4YaXExJXiuwRTzCwiyP0nRupf0EhL5dPuzRKqkipyVdm60i8ZO
-	wRK6+nxH+cCGalUJvQ+4=
-X-Received: by 2002:a05:600c:4f81:b0:4bb:5e8c:13bc with SMTP id 5b1f17b1804b1-4bb88805902mr275755005e9.7.1795516566777;
-        Tue, 24 Nov 2026 02:36:06 -0800 (PST)
-Received: from grower.termidesk.ru (ppp91-78-12-234.pppoe.mtu-net.ru. [91.78.12.234])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb895eec06sm165954765e9.2.2026.11.24.02.36.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 02:36:06 -0800 (PST)
-From: Alexander Martyniuk <alexevgmart@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alexander Martyniuk <alexevgmart@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Kyle Zeng <kylebot@openai.com>
-Subject: [PATCH 5.10/5.15/6.1/6.6] io_uring/io-wq: save worker type before dropping its reference
-Date: Tue, 24 Nov 2026 13:35:59 +0300
-Message-ID: <20261124103600.39642-1-alexevgmart@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=DaxkLhMM
+Received: from localhost (unknown [80.68.231.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
+	Tue, 24 Nov 2026 11:40:24 +0100 (CET)
+From: Slawomir Stepien <sst@poczta.fm>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>
+Cc: bpf@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	Tianyi Gao <tianyi@cloudflare.com>,
+	Octavian Purdila <tavip@google.com>,
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+	Alexander Lobakin <aleksander.lobakin@intel.com>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	Magnus Karlsson <magnus.karlsson@intel.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Simon Horman <horms@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	Slawomir Stepien <sst@poczta.fm>,
+	stable@vger.kernel.org
+Subject: [PATCH v8 bpf 1/7] bpf: test_run: Use a private rxq info for XDP test runs
+Date: Tue, 24 Nov 2026 11:40:10 +0100
+Message-ID: <20261124104016.532341-2-sst@poczta.fm>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261124104016.532341-1-sst@poczta.fm>
+References: <20261124104016.532341-1-sst@poczta.fm>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,56 +90,88 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
+	t=1795516828; bh=/6dSyAvYrkzZrB+rNJ+F7xck+uglAdRkmahkz9MM2p4=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=DaxkLhMMN05JVK8MD95W1fNKay9sozcTpyFGOjZpb0bAMnWvjGGkicMZVulCO5QSg
+	 bDuOIyYYREKzX325Vf3v7wqH88YVhNi5/jVAiV9SnoC7WyTFRAvXy1HG4aQ0K+xWCu
+	 8K2EHCx8r8E82J3c1yuHR4BQgqLf2nmkTmE8N3Ws=
 
-From: Kyle Zeng <kylebot@openai.com>
+bpf_prog_test_run_xdp() runs the program with xdp->rxq pointing to the
+xdp_rxq_info of a real device queue: queue 0 of the loopback device, or
+the queue given by ingress_ifindex and rx_queue_index in the context.
+The frags of a multi-buffer test packet come from alloc_page(), and when
+the program releases one with bpf_xdp_adjust_tail() or
+bpf_xdp_pull_data(), __xdp_return() frees it according to
+xdp->rxq->mem.type. This only works as long as nobody else changes the
+mem type of that shared queue.
 
-commit 37e425460b7c41687e51e3254b1eb1d799da9614 upstream.
+A later patch in this series adds xdp_convert_skb_to_buff(), which makes
+generic XDP set the mem type of the queue it runs on to
+MEM_TYPE_PAGE_POOL, since frags it hands to the program come from
+skb_pp_cow_data(). After any packet went through generic XDP on lo, a
+later test run would free its alloc_page() frags as page_pool pages:
 
-io_wq_cancel_tw_create() inspects cb->func after calling
-io_worker_cancel_cb(). For an existing worker, that call can drop the
-last worker reference and wake io_worker_exit(). If the canceling task
-is preempted, the worker can be unlinked and freed by kfree_rcu() before
-the callback function is inspected. KASAN reports a slab-use-after-free
-read in this path.
+  WARNING: include/net/page_pool/helpers.h:305 at __xdp_return+0x828/0x9c0
+  Call Trace:
+   bpf_xdp_adjust_tail+0x8a0/0xd10
+   bpf_prog_..._xdp_adjust_tail_shrink+0xe1/0x101
+   bpf_test_run+0x31a/0xc30
+   bpf_prog_test_run_xdp+0x948/0x1740
 
-Save whether the callback belongs to an unpublished continuation worker
-while its reference is still held, then use the saved result for the
-conditional free. This preserves the existing accounting and frees only
-the worker allocated for the canceled continuation.
+and leak the page. Restoring the mem type after generic XDP would not
+be enough, as generic XDP may run on the same queue on another CPU at
+the same time.
 
-Fixes: e6db6f9398da ("io_uring/io-wq: only free worker if it was allocated for creation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
+Run the program on a private copy of the rxq info instead, with
+MEM_TYPE_PAGE_SHARED, which describes the memory test_run allocates.
+devmap and cpumap already do the same for the programs they run. The
+device and queue index stay the same, so the program sees the same
+ingress_ifindex and rx_queue_index, and xdp_convert_buff_to_md() still
+drops the device reference. Live frames mode does not allow frags and
+uses its own rxq info for the page_pool frames, so it is unaffected.
+
+No Fixes: tag, as nothing is broken until xdp_convert_skb_to_buff()
+changes the mem type; this goes to stable together with that patch.
+
+The problem was found by Sashiko AI review and BPF CI in the review of
+v6 of this series.
+
+Link: https://lore.kernel.org/all/sashiko-outbox-197255@kernel.org/
+Cc: <stable@vger.kernel.org> # 6.4.x
+Signed-off-by: Slawomir Stepien <sst@poczta.fm>
 ---
-Backport fix for CVE-2026-99804
- io_uring/io-wq.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ net/bpf/test_run.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index f57743d911b4..2692f5ef387f 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -1232,14 +1232,16 @@ static void io_wq_cancel_tw_create(struct io_wq *wq)
+diff --git a/net/bpf/test_run.c b/net/bpf/test_run.c
+index d6c9dc62182e..9bbd83ece67b 100644
+--- a/net/bpf/test_run.c
++++ b/net/bpf/test_run.c
+@@ -1348,6 +1348,7 @@ int bpf_prog_test_run_xdp(struct bpf_prog *prog, const union bpf_attr *kattr,
+ 	u32 repeat = kattr->test.repeat;
+ 	struct netdev_rx_queue *rxqueue;
+ 	struct skb_shared_info *sinfo;
++	struct xdp_rxq_info rxq;
+ 	struct xdp_buff xdp = {};
+ 	int i, ret = -EINVAL;
+ 	struct xdp_md *ctx;
+@@ -1426,6 +1427,15 @@ int bpf_prog_test_run_xdp(struct bpf_prog *prog, const union bpf_attr *kattr,
+ 	if (ret)
+ 		goto free_data;
  
- 	while ((cb = task_work_cancel_match(wq->task, io_task_work_match, wq)) != NULL) {
- 		struct io_worker *worker;
-+		bool free_worker;
- 
- 		worker = container_of(cb, struct io_worker, create_work);
--		io_worker_cancel_cb(worker);
- 		/*
- 		 * Only the worker continuation helper has worker allocated and
--		 * hence needs freeing.
-+		 * hence needs freeing. Save this before dropping its reference.
- 		 */
--		if (cb->func == create_worker_cont)
-+		free_worker = cb->func == create_worker_cont;
-+		io_worker_cancel_cb(worker);
-+		if (free_worker)
- 			kfree(worker);
- 	}
- }
++	/*
++	 * xdp.rxq points to the rxq info of a real device queue, which
++	 * generic XDP updates for every packet it runs on. Use a private
++	 * copy with the mem type of the frags allocated below.
++	 */
++	rxq = *xdp.rxq;
++	rxq.mem = (struct xdp_mem_info){ .type = MEM_TYPE_PAGE_SHARED };
++	xdp.rxq = &rxq;
++
+ 	size = linear_sz;
+ 	if (unlikely(kattr->test.data_size_in > size)) {
+ 		void __user *data_in = u64_to_user_ptr(kattr->test.data_in);
 -- 
-2.43.0
+2.56.0
+
