@@ -1,49 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795507033;
-	b=foGyWC/FUscaqw0fl9kO9BORZ4pe+ZooqNOwhe0QoKwvqa1LNf+ITaeUR5aSUMSWni4a
-	 ccmqJI+d2XTY0mx23G26tjpI8dfl52LZSSorwAvyLSM+MV01E7kZpntoIoqroJkGHNGYt
-	 IQGm3s6VqPORw5Bv9qefpSh3Faab5mhRWLpLGqL7vEbfrmsuh+busW90tymgq4ZTYAqyS
-	 07ph8Sl9Q791okxSuvDL+cLl5sGJkQ5ubsLHnGZqnqzITZyHP1Iqx0AUqSeEAteKs5BG3
-	 icd7QbhjX7EscbU95Yz9528lLh3Lnr50Quaq4S/xiWDGrAcRrX9SnQg/Goqz71kWUyg==
+	t=1795507080;
+	b=2iwBlECRNjFMEXY1wJtiVjAf4eOSluQ6ZzfhbgZ2I41ktRyZnaz2BY3LfJwxglaq+DKG
+	 JkC1QfLHo/sjvPoazZIXZxE/13i65uN4d4BYLpwyRx9TsGu5Hg8lZRIF4f7NjcbttKM7O
+	 zWamb1vT12WdbO8ttmAw7DWA0jUNg9GRubOsAGKnG2Ww7oE5eATIpnJ1HH0ZYGoDp267K
+	 X68N7rnsPjVsODNuRbuuU5uvjaqQ3563LXoYPHmNJOSyypQNOJuuY3Aue1cO+k1vSzfed
+	 fCXI/6f2D8B3sAQykKtdmFW043EtIaiK+3LNtmmGNKtyG6RmEJQ0phY0Y0T150STV8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795507033;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=p67jc7GTHhhno+1ZLmTPXYLc0RaHrv3DS6K1thH9gv8=;
-	b=wwSMCBHQNkyXwI6ftnVHvZ/nS+tNTpPpBsJF8xh/A8zqzvmkKjAkeMuY2ceS6gsanC+5
-	 1At0ITSu+PjMzRji4jQu7R08HC1QCN98s/CvhNXFTi0TxlQ9ygaN8Ei7azySImu3yovzY
-	 oVEi6grgtG1fgTvRsVqJDMRhH3Xi5udKwGSpbK0nrp29Hc5KpxM2Al7NwG1zXWYUU+Jo1
-	 bpqprx2+Pdu++yAhgo5ivURPlJWOpuAFYRDxFZxO5NBHL3VeXAKe3dVaKZVz2NkA7nGpk
-	 LOfBeoPxqpkO2feCc8ATLQHsglau5/0ESSgEjJLDN3cfCNEftVlIrAUykBTRNKw6vWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795507080;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=+lTcW2tHFQB1C3Nlj5p7HmcW5Co2wEM9UlQh+yZacDY=;
+	b=VeJydK0wfAOyCf6DX2sZhE8CmM2bbcpIydFCbkjt4LpD/xDY2BBD4xOvTyL4XMa4yFRZ
+	 urdeUnOhmrLV5vk/aDFDFv7Qakh2YemyYLyuilUKHxIeA/4Gs9iUZAkGQr8hhGxsKkMMB
+	 8TJKNTxUmMNLEozdJvxuvzooIiT6s1kVYAujKMxti1I0+Z5RXoDbOrh0Ao7/H0CzigIMP
+	 w/cenFhkHBP4Xui3Km+2XzgXzuC19x0jEnRsD/+Pq+8Pgjn1xUpUzUJEtFd3Nqfybjqys
+	 29rFYgSNrtXJ+p1Dsor6PmKMEBnuyE1KiKX9RRmrE6vpfND3QwzuCmLvUqZseOUcxyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQ1HtCcz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=t6QZHWyB;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=2F5ECXx5;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=V5mKWLC2;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OLVgPb3g;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9D2606A31E;
-	Tue, 24 Nov 2026 07:57:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1638A606A321;
+	Tue, 24 Nov 2026 07:57:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1638A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQ1HtCcz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80AE01F000F0;
-	Tue, 24 Nov 2026 07:57:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795507033;
-	bh=p67jc7GTHhhno+1ZLmTPXYLc0RaHrv3DS6K1thH9gv8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PQ1HtCczfso6zJlYQ4oZftApjx7LVdUnM40aAvBsDeIMlqEzmYDtqxBypUHNbRffw
-	 pCKvXxNOqPCkUvaCSFjV2icCOvAqVjMPyeihLNoUKXHcJqdkCED62xiSXgvTA0aE4m
-	 iOG0XaFqvFikegrjObm8Uk2E54ToaVGgMjEVtt0HzdtOJoDR6w6Isb5VuLy1LiyRch
-	 LxY7tNrTmw7Gu37K/OtVQYTp8G0UqUk5772az3apQkNya0JJx/rdtxxD3AYVMdyD0t
-	 uG9JI2ZQ2KUL+iV9M1YEuxS7et0Dc88m7gwHJofGUK9E+/pq/Yet7xzf/QQHKTcmCc
-	 HHb74cY1/Ohgg==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 24 Nov 2026 08:56:44 +0100
-Subject: [PATCH v2 2/2] mm/migrate: allocate destination folios before
- locking a batch
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=t6QZHWyB;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=2F5ECXx5;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=V5mKWLC2;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OLVgPb3g
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id CA2AE222A0;
+	Tue, 24 Nov 2026 07:57:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795507077; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=+lTcW2tHFQB1C3Nlj5p7HmcW5Co2wEM9UlQh+yZacDY=;
+	b=t6QZHWyB+uwrXEMViAOb3jw8v3rFzTwiexBazr/M9jtcQfKL16akSjckIaiPR5aVv1MlZN
+	hreHc7aqXFqryIQDW3XPrFCViGtUMYRSRQ+ZEygQtsmE8otNstFX4UUluGO0QiQNiBJGlu
+	B4pls7m8ILY/4H2Vu+P1QtX42dk+Wns=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795507077;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=+lTcW2tHFQB1C3Nlj5p7HmcW5Co2wEM9UlQh+yZacDY=;
+	b=2F5ECXx5Gt5cRFJ2/teE9NeAGYBh8u07py1GiJQYxbA9bcZ4O1RUmRuL3vrN5Eol3fsoNz
+	y6nGiypRf5a1A1AA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=V5mKWLC2;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=OLVgPb3g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795507076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=+lTcW2tHFQB1C3Nlj5p7HmcW5Co2wEM9UlQh+yZacDY=;
+	b=V5mKWLC2LKBl7WBvuGIYdTJ8l+f2lZ7B66HdbCZS72OAF+qFWuhpeVaYpHR31luoizoZP7
+	XqD4b5xE6qjLwDUpUE7bg84QWh2cpk7WX0l/FUGpG7IYPPKd/O5aWKw5nqyVDf0Q7QrrFW
+	x3UQbgfkryFqF+Cy6a2ljl+AdRhrKGo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795507076;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=+lTcW2tHFQB1C3Nlj5p7HmcW5Co2wEM9UlQh+yZacDY=;
+	b=OLVgPb3g3TEsd2zNnGv6r47ADixoKiJap6uGDCDRVug5SHA+7W3Vajse22lzZMFXhaKM5J
+	O2ZWnNNbC0f3nFBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3DF9F1339F;
+	Tue, 24 Nov 2026 07:57:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Xh+vB4RDBWs3bAAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Tue, 24 Nov 2026 07:57:56 +0000
+Message-ID: <19cd5949-05dc-4107-bd2b-d8ad1e2332eb@suse.de>
+Date: Tue, 24 Nov 2026 08:57:55 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,341 +108,204 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-migrate_reclaim_deadlock-v2-2-03cc147e1e36@kernel.org>
-References: <20261124-migrate_reclaim_deadlock-v2-0-03cc147e1e36@kernel.org>
-In-Reply-To: <20261124-migrate_reclaim_deadlock-v2-0-03cc147e1e36@kernel.org>
-To: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- William Kucharski <william.kucharski@oracle.com>, 
- Heiko Carstens <hca@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Miklos Szeredi <miklos@szeredi.hu>, Joanne Koong <joannelkoong@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>, 
- stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
- Chris Down <chris@chrisdown.name>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9909; i=david@kernel.org;
- h=from:subject:message-id; bh=ZvWFZecsWOAHo59h/ui+A5Vn6KCDS14KJjpg2/wc7e0=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJZne2i2DxmS3Om8J7aceKmJMe8Ce+8/n6fVKLqezDnE
- 8O6faz/OkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZjIm38MPxm7+xOPxjy95CsZ
- EZZU+lo7+nrDHraII2VzpFoWTJOawsLIcPzXzDN+t7WzgnQl3Bd1qy6ucJN59SxcUFZTQM1K+7A
- sBwA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFT v3 2/5] drm/fb-dma-helper: Add
+ drm_fb_dma_get_gem_clipped_addr()
+To: Chen-Yu Tsai <wenst@chromium.org>, Liu Ying <victor.liu@nxp.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261124074041.115251-1-wenst@chromium.org>
+ <20261124074041.115251-3-wenst@chromium.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261124074041.115251-3-wenst@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.linux.dev,lists.freedesktop.org,lists.infradead.org,vger.kernel.org];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[chromium.org:email,suse.com:url,suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: CA2AE222A0
 
-Allocating memory while holding folio locks is problematic, as we
-would require a NOFS scope to avoid deadlocks.
+Hi
 
-Migration locks folios and can end up triggering direct reclaim or
-compaction with __GFP_FS. For example, reclaim can evict an inode
-through the dcache shrinker, and wait in truncate_inode_pages_final()
-for a folio that we hold locked:
+Am 24.11.26 um 08:39 schrieb Chen-Yu Tsai:
+> drm_fb_dma_get_gem_addr() returns the DMA address to the "unclipped"
+> framebuffer. However some display drivers want the "clipped" framebuffer
+> instead, as they are also using the clipped coordinates to program the
+> hardware.
+>
+> Some of these drivers are open-coding drm_fb_dma_get_gem_addr() with
+> the source coordinates replaced, while others have been incorrectly
+> converted to using drm_fb_dma_get_gem_addr(), which would end up
+> causing incorrect parts of the framebuffer to be displayed if it were
+> somehow clipped.
+>
+> Add drm_fb_dma_get_gem_clipped_addr(), a "clipped" version of
+> drm_fb_dma_get_gem_addr() for these drivers to use.
+>
+> Cc: <stable@vger.kernel.org> # dependency for next patch
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+> Changes since v1:
+> - Use new drm_framebuffer_get_block_offset() helper
+> ---
+>   drivers/gpu/drm/drm_fb_dma_helper.c | 37 +++++++++++++++++++++++++----
+>   include/drm/drm_fb_dma_helper.h     |  4 ++++
+>   2 files changed, 37 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/drm_fb_dma_helper.c
+> index ab0f37d8a5ff..0aaf4926db4e 100644
+> --- a/drivers/gpu/drm/drm_fb_dma_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_dma_helper.c
+> @@ -60,15 +60,16 @@ struct drm_gem_dma_object *drm_fb_dma_get_gem_obj(struct drm_framebuffer *fb,
+>   EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_obj);
+>   
+>   /**
+> - * drm_fb_dma_get_gem_addr() - Get DMA (bus) address for framebuffer, for pixel
+> - * formats where values are grouped in blocks this will get you the beginning of
+> - * the block
+> + * drm_fb_dma_get_gem_addr() - Get DMA (bus) address for unclipped framebuffer,
+> + * for pixel formats where values are grouped in blocks this will get you the
+> + * beginning of the block
+>    * @fb: The framebuffer
+>    * @state: Which state of drm plane
+>    * @plane: Which plane
+> - * Return the DMA GEM address for given framebuffer.
+>    *
+>    * This function will usually be called from the PLANE callback functions.
+> + *
+> + * Return: GEM DMA address for given framebuffer, unclipped.
+>    */
+>   dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
+>   				   struct drm_plane_state *state,
+> @@ -86,6 +87,34 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
+>   }
+>   EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_addr);
+>   
+> +/**
+> + * drm_fb_dma_get_gem_clipped_addr() - Get DMA (bus) address for clipped
+> + * framebuffer, for pixel formats where values are grouped in blocks this
+> + * will get you the beginning of the block
+> + * @fb: The framebuffer
+> + * @state: Which state of drm plane
+> + * @plane: Which plane
+> + *
+> + * This function will usually be called from the PLANE callback functions.
 
-    migrate_pages_batch()
-      migrate_folio_unmap(A)
-        folio_trylock(A)
-      migrate_folio_unmap(B)
-        get_new_folio()
-          try_to_free_pages()
-            super_cache_scan()
-              prune_dcache_sb()
-                iput_final()
-                  evict()
-                    truncate_inode_pages_final()
-                      folio_lock(A)
+You should mention what clipping means in this context. It's not obvious 
+what it's clipping against. Or maybe point to other docs that explain it.
 
-This example requires that nothing else holds a reference on the inode,
-and can be triggered most easily with FUSE, which evicts inodes on the
-last reference.
+> + *
+> + * Return: GEM DMA address for given framebuffer, clipped.
+> + */
+> +dma_addr_t drm_fb_dma_get_gem_clipped_addr(struct drm_framebuffer *fb,
+> +					   struct drm_plane_state *state,
+> +					   unsigned int plane)
+> +{
+> +	struct drm_gem_dma_object *obj;
+> +
+> +	obj = drm_fb_dma_get_gem_obj(fb, plane);
+> +	if (!obj)
+> +		return 0;
+> +
+> +	return obj->dma_addr + drm_framebuffer_get_block_offset(fb, plane,
+> +								state->src.x1 >> 16,
+> +								state->src.y1 >> 16);
 
-Allocating in a NOFS scope would be one option, but it would have rather
-bad side effects, such as direct compaction not migrating file folios
-and the OOM killer not being invoked.
+I had to look several times to spot the difference to the regular 
+helper. In any case
 
-So let's fix it by allocating all destination folios of a batch before
-locking any source folio. Now, we no longer allocate destination folios
-while holding folio locks, which also avoids holding these locks during
-direct reclaim or compaction for these allocations: an improvement on
-its own.
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-We keep the destination folio of a folio that we have to retry, instead
-of freeing it and allocating a new one. If we would have to allocate
-while already holding folio locks, which can happen when retrying a
-failed split for longterm pinning, we leave the folio to the synchronous
-fallback in migrate_pages_sync() instead, which migrates folios one by
-one.
-
-Note that nfs_migrate_folio() still writes back the folio while holding
-its lock in MIGRATE_SYNC mode, which allocates memory. This must be
-sorted out in NFS code independently.
-
-This has medium urgency.
-
-Fixes: 5dfab109d519 ("migrate_pages: batch _unmap and _move")
-Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Chris Down <chris@chrisdown.name>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/migrate.c | 133 ++++++++++++++++++++++++++++++++++++++++++-----------------
- 1 file changed, 96 insertions(+), 37 deletions(-)
-
-diff --git a/mm/migrate.c b/mm/migrate.c
-index e6cd83cf32aa1..8015202158013 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -1220,25 +1220,15 @@ static void migrate_folio_done(struct folio *src,
- }
- 
- /* Obtain the lock on page, remove all ptes. */
--static int migrate_folio_unmap(new_folio_t get_new_folio,
--		free_folio_t put_new_folio, unsigned long private,
--		struct folio *src, struct folio **dstp, enum migrate_mode mode,
--		struct list_head *ret)
-+static int migrate_folio_unmap(struct folio *src, struct folio *dst,
-+		enum migrate_mode mode, struct list_head *ret)
- {
--	struct folio *dst;
- 	int rc = -EAGAIN;
- 	int old_folio_state = 0;
- 	struct anon_vma *anon_vma = NULL;
- 	bool locked = false;
- 	bool dst_locked = false;
- 
--	dst = get_new_folio(src, private);
--	if (!dst)
--		return -ENOMEM;
--	*dstp = dst;
--
--	dst->migrate_info = 0;
--
- 	if (!folio_trylock(src)) {
- 		if (mode == MIGRATE_ASYNC)
- 			goto out;
-@@ -1364,7 +1354,8 @@ static int migrate_folio_unmap(new_folio_t get_new_folio,
- 
- 	migrate_folio_undo_src(src, old_folio_state & FOLIO_WAS_MAPPED,
- 			       anon_vma, locked, ret);
--	migrate_folio_undo_dst(dst, dst_locked, put_new_folio, private);
-+	if (dst_locked)
-+		folio_unlock(dst);
- 
- 	return rc;
- }
-@@ -1809,6 +1800,25 @@ static void migrate_folios_undo(struct list_head *src_folios,
- 	}
- }
- 
-+static void migrate_folio_free_dst(struct folio *dst,
-+		free_folio_t put_new_folio, unsigned long private)
-+{
-+	list_del(&dst->lru);
-+	dst->private = NULL;
-+	migrate_folio_undo_dst(dst, false, put_new_folio, private);
-+}
-+
-+static void migrate_folios_undo_unused(struct list_head *pending_folios,
-+		struct list_head *new_folios, free_folio_t put_new_folio,
-+		unsigned long private, struct list_head *from)
-+{
-+	struct folio *dst, *tmp;
-+
-+	list_for_each_entry_safe(dst, tmp, new_folios, lru)
-+		migrate_folio_free_dst(dst, put_new_folio, private);
-+	list_splice(pending_folios, from);
-+}
-+
- /*
-  * migrate_pages_batch() first unmaps folios in the from list as many as
-  * possible, then move the unmapped folios.
-@@ -1831,8 +1841,10 @@ static int migrate_pages_batch(struct list_head *from,
- 	int pass = 0;
- 	bool is_thp = false;
- 	bool is_large = false;
--	struct folio *folio, *folio2, *dst = NULL;
-+	struct folio *folio, *dst, *tmp;
- 	int rc, rc_saved = 0, nr_pages;
-+	LIST_HEAD(pending_folios);
-+	LIST_HEAD(new_folios);
- 	LIST_HEAD(unmap_folios);
- 	LIST_HEAD(dst_folios);
- 	bool nosplit = (reason == MR_NUMA_MISPLACED);
-@@ -1845,7 +1857,13 @@ static int migrate_pages_batch(struct list_head *from,
- 		thp_retry = 0;
- 		nr_retry_pages = 0;
- 
--		list_for_each_entry_safe(folio, folio2, from, lru) {
-+		/*
-+		 * Prepare the source folios, and allocate the destination
-+		 * folios before locking any source folio. We must be careful
-+		 * when allocating memory while holding folio locks, so just
-+		 * avoid it.
-+		 */
-+		list_for_each_entry_safe(folio, tmp, from, lru) {
- 			is_large = folio_test_large(folio);
- 			is_thp = folio_test_pmd_mappable(folio);
- 			nr_pages = folio_nr_pages(folio);
-@@ -1925,21 +1943,24 @@ static int migrate_pages_batch(struct list_head *from,
- 				continue;
- 			}
- 
--			rc = migrate_folio_unmap(get_new_folio, put_new_folio,
--					private, folio, &dst, mode, ret_folios);
- 			/*
--			 * The rules are:
--			 *	0: folio will be put on unmap_folios list,
--			 *	   dst folio put on dst_folios list
--			 *	-EAGAIN: stay on the from list
--			 *	-ENOMEM: stay on the from list
--			 *	Other errno: put on ret_folios list
-+			 * Don't allocate while holding folio locks, but leave
-+			 * the folio to the one-by-one fallback in
-+			 * migrate_pages_sync().
- 			 */
--			switch(rc) {
--			case -ENOMEM:
-+			if (!list_empty(&unmap_folios)) {
-+				retry++;
-+				thp_retry += is_thp;
-+				nr_retry_pages += nr_pages;
-+				continue;
-+			}
-+
-+			dst = get_new_folio(folio, private);
-+			if (!dst) {
- 				/*
- 				 * When memory is low, don't bother to try to migrate
--				 * other folios, move unmapped folios, then exit.
-+				 * other folios, migrate the folios that we have
-+				 * destination folios for, then exit.
- 				 */
- 				nr_failed++;
- 				stats->nr_thp_failed += is_thp;
-@@ -1950,7 +1971,7 @@ static int migrate_pages_batch(struct list_head *from,
- 					if (!ret) {
- 						stats->nr_thp_split += is_thp;
- 						stats->nr_split++;
--						break;
-+						continue;
- 					} else if (reason == MR_LONGTERM_PIN &&
- 						   ret == -EAGAIN) {
- 						/*
-@@ -1963,18 +1984,42 @@ static int migrate_pages_batch(struct list_head *from,
- 						/* Undo duplicated failure counting. */
- 						nr_failed--;
- 						stats->nr_thp_failed -= is_thp;
--						break;
-+						continue;
- 					}
- 				}
- 
--				stats->nr_failed_pages += nr_pages + nr_retry_pages;
--				/* nr_failed isn't updated for not used */
--				stats->nr_thp_failed += thp_retry;
--				rc_saved = rc;
--				if (list_empty(&unmap_folios))
--					goto out;
--				else
--					goto move;
-+				stats->nr_failed_pages += nr_pages;
-+				rc_saved = -ENOMEM;
-+				break;
-+			}
-+			/* Remember the source folio until we unmap it. */
-+			dst->private = folio;
-+			list_move_tail(&folio->lru, &pending_folios);
-+			list_add_tail(&dst->lru, &new_folios);
-+		}
-+
-+		/*
-+		 * Lock and unmap the source folios. Each destination folio
-+		 * remembers its source folio in ->private, so walk the
-+		 * destination folios.
-+		 */
-+		list_for_each_entry_safe(dst, tmp, &new_folios, lru) {
-+			folio = dst->private;
-+			is_thp = folio_test_pmd_mappable(folio);
-+			nr_pages = folio_nr_pages(folio);
-+
-+			cond_resched_tasks_rcu_qs();
-+
-+			rc = migrate_folio_unmap(folio, dst, mode, ret_folios);
-+			/*
-+			 * The rules are:
-+			 *	0: folio will be put on unmap_folios list,
-+			 *	   dst folio put on dst_folios list
-+			 *	-EAGAIN: stay on the pending_folios list,
-+			 *		 keep dst
-+			 *	Other errno: put on ret_folios list, free dst
-+			 */
-+			switch (rc) {
- 			case -EAGAIN:
- 				retry++;
- 				thp_retry += is_thp;
-@@ -1982,7 +2027,7 @@ static int migrate_pages_batch(struct list_head *from,
- 				break;
- 			case 0:
- 				list_move_tail(&folio->lru, &unmap_folios);
--				list_add_tail(&dst->lru, &dst_folios);
-+				list_move_tail(&dst->lru, &dst_folios);
- 				break;
- 			default:
- 				/*
-@@ -1991,12 +2036,24 @@ static int migrate_pages_batch(struct list_head *from,
- 				 * removed from migration folio list and not
- 				 * retried in the next outer loop.
- 				 */
-+				migrate_folio_free_dst(dst, put_new_folio,
-+						       private);
- 				nr_failed++;
- 				stats->nr_thp_failed += is_thp;
- 				stats->nr_failed_pages += nr_pages;
- 				break;
- 			}
- 		}
-+
-+		if (rc_saved) {
-+			stats->nr_failed_pages += nr_retry_pages;
-+			/* We return rc_saved, so don't update nr_failed. */
-+			stats->nr_thp_failed += thp_retry;
-+			rc = rc_saved;
-+			if (list_empty(&unmap_folios))
-+				goto out;
-+			goto move;
-+		}
- 	}
- 	nr_failed += retry;
- 	stats->nr_thp_failed += thp_retry;
-@@ -2026,6 +2083,8 @@ static int migrate_pages_batch(struct list_head *from,
- 	/* Cleanup remaining folios */
- 	migrate_folios_undo(&unmap_folios, &dst_folios,
- 			put_new_folio, private, ret_folios);
-+	migrate_folios_undo_unused(&pending_folios, &new_folios, put_new_folio,
-+				   private, from);
- 
- 	return rc;
- }
+> +}
+> +EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_clipped_addr);
+> +
+>   /**
+>    * drm_fb_dma_sync_non_coherent - Sync GEM object to non-coherent backing
+>    *	memory
+> diff --git a/include/drm/drm_fb_dma_helper.h b/include/drm/drm_fb_dma_helper.h
+> index c950732c6d36..b2a0bd7ef9d0 100644
+> --- a/include/drm/drm_fb_dma_helper.h
+> +++ b/include/drm/drm_fb_dma_helper.h
+> @@ -17,6 +17,10 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
+>   				   struct drm_plane_state *state,
+>   				   unsigned int plane);
+>   
+> +dma_addr_t drm_fb_dma_get_gem_clipped_addr(struct drm_framebuffer *fb,
+> +					   struct drm_plane_state *state,
+> +					   unsigned int plane);
+> +
+>   void drm_fb_dma_sync_non_coherent(struct drm_device *drm,
+>   				  struct drm_plane_state *old_state,
+>   				  struct drm_plane_state *state);
 
 -- 
-2.56.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
