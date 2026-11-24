@@ -1,67 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=147.229.8.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795555165;
-	b=4JsVnJd0YhtfT2ELnFVi54ysWI+wLQHBMm5xwUG6dIJqs5aGxoN6ePWZCe9/rkqginvT
-	 3LPkAEOpDqT0t9BIMJskreJNVuxkpUWaXDiuthmj+8fX/tFx06Hbat48e20kDaq+A98SN
-	 l1tXPziYcn25LKEnz4AVBqwUERcKFKRs/agc6F1vl8yL0yrI76OTgp2dMcdP4iO4ZJri8
-	 RXQrK96QPnsp9Oe5R2LIDUdB92ioaPITMo50aSUjDOMXYKY+sP/sh0fXfhO/ACOvyhO07
-	 S8Xw33o85tZLNzmN7NpGd3Od1t2kiH1Wrp95fVj00hDLu4Ey5O35mKs//qg7rV9BbwA==
+	t=1795555213;
+	b=rZyvW4PlFogTfXIV7/XegbQ+JaQMjfHm3XehWN9j5W6dThvmfyV6bzuaS5nedXPO1RN7
+	 Z5WgB4Zjlg58mxicTgLiSpYwaN0OuRlqf8CPg29RTWnei/G/ZJfzrjuA+hbb+oq0Wmb9X
+	 nGo/plGZxqaWMs3LpLrkF1bgKuG+S4NtC6aopfWhUtGmQZQzWZxQXtdC59GKfmUk6T2x9
+	 WniadKVpqOyr1k/FiXQ5P3TvzpYFZQAoLoJVHjdPLxifEmk2pU1DbLgzmE8EJJQDI6w6y
+	 4CHQ+shWP9yw3W+XOxE10ybKNB6P+oSROcH7da3RJiZeadQaxJQCo86fdODn7t41BTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795555165;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Virus-Scanned:X-Virus-Status:X-Spam-Status:X-Spam-Checker-Version;
-	bh=D6ZHYEI070EvMU4ryionbOt3ndI7Wv+kJj983byjX+M=;
-	b=23WLc880Mavp79tGfzVihUiLYk0GZFiQ7YCFNupZ3u/sTsUXw7V+WzvCfQ0agpivwMOr
-	 YgAxysaEsRGK9dFI3IGrCFWSpeVHbQYiewdf8nxLAQ7uL+G2+WS7xoVFYRZUC1qZWVd/x
-	 Fo5ZK1347YKChB7hgx4dffcc5yNb3ejDw8+z2Ihvl7n9uc9QVuuEIkesE/YRjUomQIQt0
-	 AOB80KubBjyF5/yE/eXMj5fn8VnweWpV8TQIpo0CT8i/DqyeEWSOvgRb/gij8vOI98Jge
-	 g1ikirJ2+x/vnEzYTiEElIGg2jqqkukeRzGT17VbxHufa/3izKFhxREyMjZGIjGEtDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795555213;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ckj9LwNy2a/Ej+tzsq+SqRCRrQB7TtiTvm4hn/bQ/Pk=;
+	b=dpssW/yLEw5vsaz7CsTTSpOswR190qZWH2F4adNM+aOAasZ2h5TO5kcuiIxOoSmqPAGt
+	 dYEe/a9ZJwtMPT3nUvLDMGXicWvFQtr2RZhUpIWKnWHwj4TOEW9poczA5PTVCwII9xl8l
+	 w0/rSE8BO11SrxW240pnR7/w7ktb4ufbreRP1WRa+J6BVyT22vb8nZOB45OFQn4LeJGn6
+	 UG5hvZsmLDype3dkoIb8xzb0nzjZBd9oyo7QT87Tktb9dIHLZ9XyfEHHKKdypjTPNnjMm
+	 8kAIvLq/9epadaWtWUKHlwCmrx4/T4szFiylveai8OoMWmhTgTAgig92oeC7P6L+K4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fit.vut.cz;
-	spf=pass smtp.mailfrom=fit.vut.cz;
-	dkim=pass header.d=fit.vut.cz header.i=@fit.vut.cz header.a=rsa-sha256 header.s=a2025 header.b=gvmdE4hi;
-	arc=none smtp.remote-ip=147.229.8.13
-Received: from adela.fit.vutbr.cz (adela.fit.vutbr.cz [147.229.8.13])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="l/oYwO6M";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5EA606A331;
-	Tue, 24 Nov 2026 21:19:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE5EA606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fit.vut.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fit.vut.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B13E606A33A
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 21:20:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fit.vut.cz header.i=@fit.vut.cz header.a=rsa-sha256 header.s=a2025 header.b=gvmdE4hi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fit.vut.cz; s=a2025;
-	t=1795555151; bh=ryF2cRoqhRQLhwKI7awrvQor3e+pqAG0UR4cvEwkDwQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=gvmdE4hiccdHUep/rpfCfJm5vzu7yYTOBV/TDRmcrWGOpjUYxPrI7rgT4Z9Gp4r3p
-	 NV+7MudJiYfpJDfFCWT67tKnQ6IWGE5ag7C4A5SG1ryMCcvvAJqqHLpixrTJ0qW/E4
-	 7nPgXC/XoeQVbvsFKDlj0ND6F9MNvXZKmCmd4+AMqLOw5zetWeim7v7IdCLL1Wy1AI
-	 MQZkrAEXiha/urzvXkJZftY4bJjY/YCWj58Meq9C1OnDP/uuL9XI5jCe6eaLsaIOOD
-	 RfvHrDqCqvAVs5pjI3mNYX0BJV4ejKRPHtFnCd/bt+p12AgQobpus3DvwJRP+JDAZT
-	 NL0S7OnZMnWBg==
-Received: from tomoka (unknown [100.72.76.61])
-	(Authenticated sender: inguyen)
-	by adela.fit.vutbr.cz (Postfix) with ESMTPSA id 4F90B260127;
-	Tue, 24 Nov 2026 22:19:11 +0100 (CET)
-From: Nguyen Le Duy <inguyen@fit.vut.cz>
-To: gregkh@linuxfoundation.org,
-	arve@android.com,
-	tkjos@android.com,
-	brauner@kernel.org,
-	cmllamas@google.com,
-	aliceryhl@google.com
-Cc: ojeda@kernel.org,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	Nguyen Le Duy <inguyen@fit.vut.cz>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] rust_binder: make work items of a deleted node a no-op
-Date: Tue, 24 Nov 2026 22:18:09 +0100
-Message-ID: <20261124211809.3692554-1-inguyen@fit.vut.cz>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l/oYwO6M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9E81F000C0;
+	Tue, 24 Nov 2026 21:20:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795555212;
+	bh=ckj9LwNy2a/Ej+tzsq+SqRCRrQB7TtiTvm4hn/bQ/Pk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=l/oYwO6MblQz8VPhFQykB3WSnNGoU+H0MngKLQdT8pHEC15OSED15EQszr8PVo/OE
+	 auRPF5pTCpMztVR9IPmPvktaM1y/Snk+jStcRozKgFI7fZei7W/x4JqlO4w4VBKtV7
+	 gXZlSUCnpO5ycAn+z/yY+QEWpdU6wZ3f9piLtsnIDATxFmr/oisXPqiWPcCIyz6sqN
+	 mRBGDekMEJdhxXZevyqtLBocwuV1xnoDzTzT0eEBUItcLvizyLG94Jcta9c6Ve6YVC
+	 sSrqornRMBq1nCxKSlg9zDBj7jOS6I5bcX3qGv9j1mZim2QuokhM5SlFG/77kRvgqL
+	 oXbKKZ7VrNGjw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/hugetlb: retry the pool walk when the zonelist is rebuilt
+Date: Tue, 24 Nov 2026 16:20:10 -0500
+Message-ID: <20261124211933.2912265-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112459-salvaging-glaring-8952@gregkh>
+References: <2026112459-salvaging-glaring-8952@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,150 +60,159 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: clamav-milter 1.4.6 at adela
-X-Virus-Status: Clean
 
-When a node has no references left, do_work_locked() removes it from
-the owner's nodes tree. However, a Node work item may still be queued
-at that point. This happens when a strong zero2one increment is
-scheduled through a NodeWrapper while the Node is already queued, all
-references are dropped again, and the wrapper runs first and deletes
-the node.
+From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-When the stale work item runs later, do_work_locked() calls
-remove_node(self.ptr) again. If userspace has created a new node with
-the same ptr in the meantime, this removes the new node from the tree.
-The owner can then no longer look it up, so BR_RELEASE and BR_DECREFS
-are never sent for it, and the next BINDER_TYPE_BINDER with that ptr
-creates yet another node. Since update_node() looks nodes up by ptr,
-freeing a buffer that refers to the hidden node decrements the other
-one, and a later NodeRef::absorb() hits:
+[ Upstream commit 9f6674f842bbceda8326cf4e494af5ad3a5a05e6 ]
 
-  rust_kernel: panicked at drivers/android/binder/node.rs:822:17:
-  assertion `left != right` failed
-    left: 0
-   right: 0
-  kernel BUG at rust/helpers/bug.c:7!
-  Call Trace:
-   NodeRef::absorb
-   Process::insert_or_update_handle
-   AllocationView::transfer_binder_object
-   Thread::copy_transaction_data
-   Transaction::new
-   Thread::transaction
+Onlining the first block of a zone rebuilds every zonelist in place,
+shifting the slots after the new zone.  dequeue_hugetlb_folio_nodemask()
+approves a slot by its node, then loads the zone from it, so a hugetlb
+fault bound to one node can take a pool page from another:
 
-No race is needed, and with CONFIG_USER_NS=y an unprivileged user can
-trigger this with a binderfs mount in its own user namespace.
+  CPU 0                             CPU 1
+  dequeue_hugetlb_folio_nodemask(nodemask {2})
+    slot 3 (NORMAL2) approved
+                                    online_pages()
+                                      build_all_zonelists()
+                                        [.., NORMAL1, NORMAL2]
+                                        -> [.., MOVABLE1, NORMAL1, ...]
+    zone = zonelist_zone(slot 3)    /* NORMAL1 */
+    dequeue_hugetlb_folio_node_exact(h, 1)
 
-Fix this by tracking in NodeInner whether the node has been deleted,
-and making Node::do_work() and Node::cancel() only clear the delivery
-state of a deleted node. A node is only deleted once it has no
-references, so any BR_RELEASE and BR_DECREFS were already sent, and no
-new reference can be taken on it. NodeWrapper::do_work() does not need
-the check, since the node is never deleted while the wrapper is queued.
+Check zonelist_update_seq before using each zone, and on the way out
+with nothing found, and restart the walk if it changed.  Checking before
+the dequeue leaves nothing to put back.  Reset the last-tried node on
+restart, so it is not skipped.
 
-The delivery state is cleared by a new DeliveryState::node_done(), which
-also replaces the open-coded reset that Node::do_work() already had.
+With kprobes holding the walk across the online, a fault bound to node 2
+took a node 1 page in 3 of 3 runs, and a node 2 page in 3 of 3 with this
+change.
 
-Found with the Kani model checker. Tested with a reproducer on v7.4-rc3
-in QEMU, x86_64 only.
-
-Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
 Cc: stable@vger.kernel.org
-Suggested-by: Alice Ryhl <aliceryhl@google.com>
-Signed-off-by: Nguyen Le Duy <inguyen@fit.vut.cz>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Link: https://patch.msgid.link/20261101021340.2251928-10-gourry@gourry.net
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+[ sashal: moved the zonelist_update_seq declaration and retry helpers into mm/internal.h (page_alloc.h doesn't exist here), and check_retry_zonelist() returns seq instead of 0. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Make the work items of a deleted node a no-op instead of checking the
-  tree entry in remove_node(), as suggested by Alice
-- Add DeliveryState::node_done() to clear the Node's delivery state
-- Link to v1: https://lore.kernel.org/r/20261122191322.929005-1-inguyen@fit.vut.cz
+ mm/hugetlb.c    | 13 ++++++++++---
+ mm/internal.h   | 19 +++++++++++++++++++
+ mm/page_alloc.c | 18 +-----------------
+ 3 files changed, 30 insertions(+), 20 deletions(-)
 
-The reproducer was sent to the maintainers separately. The Kani
-harnesses that found the bug pass with this patch.
-
-I used an AI assistant (Claude) for the analysis, the reproducer, the
-code and the changelog. The fix follows Alice's suggestion.
-
- drivers/android/binder/node.rs | 28 +++++++++++++++++++++++++---
- 1 file changed, 25 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
-index efdafc2..1f2bab6 100644
---- a/drivers/android/binder/node.rs
-+++ b/drivers/android/binder/node.rs
-@@ -124,6 +124,13 @@ impl DeliveryState {
-         self.has_pushed_wrapper = true;
-         self.has_strong_zero2one = true;
-     }
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 19186b66bbc75..83e81c8d1b2a6 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1372,11 +1372,11 @@ static struct folio *dequeue_hugetlb_folio_node_exact(struct hstate *h,
+ static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_mask,
+ 							int nid, nodemask_t *nmask)
+ {
+-	unsigned int cpuset_mems_cookie;
++	unsigned int cpuset_mems_cookie, zonelist_cookie;
+ 	struct zonelist *zonelist;
+ 	struct zone *zone;
+ 	struct zoneref *z;
+-	int node = NUMA_NO_NODE;
++	int node;
+ 
+ 	/* 'nid' should not be NUMA_NO_NODE. Try to catch any misuse of it and rectifiy. */
+ 	if (nid == NUMA_NO_NODE)
+@@ -1385,10 +1385,16 @@ static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_
+ 	zonelist = node_zonelist(nid, gfp_mask);
+ 
+ retry_cpuset:
++	node = NUMA_NO_NODE;
+ 	cpuset_mems_cookie = read_mems_allowed_begin();
++	zonelist_cookie = zonelist_iter_begin();
+ 	for_each_zone_zonelist_nodemask(zone, z, zonelist, gfp_zone(gfp_mask), nmask) {
+ 		struct folio *folio;
+ 
++		/* A rebuild may have shifted a node outside @nmask into this slot. */
++		if (unlikely(check_retry_zonelist(zonelist_cookie)))
++			goto retry_cpuset;
 +
-+    /// The `Node` was delivered or dropped, and the wrapper is not scheduled.
-+    fn node_done(&mut self) {
-+        self.has_pushed_node = false;
-+        self.has_weak_zero2one = false;
-+        self.has_strong_zero2one = false;
-+    }
- }
+ 		if (!cpuset_zone_allowed(zone, gfp_mask))
+ 			continue;
+ 		/*
+@@ -1403,7 +1409,8 @@ static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_
+ 		if (folio)
+ 			return folio;
+ 	}
+-	if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie)))
++	if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie) ||
++		     check_retry_zonelist(zonelist_cookie)))
+ 		goto retry_cpuset;
  
- struct CountState {
-@@ -178,6 +185,8 @@ struct NodeInner {
-     active_inc_refs: u8,
-     /// List of `NodeRefInfo` objects that reference this node.
-     refs: List<NodeRefInfo, { NodeRefInfo::LIST_NODE }>,
-+    /// Set when `do_work_locked` removes the node from the owner's `nodes` tree.
-+    is_deleted: bool,
- }
+ 	return NULL;
+diff --git a/mm/internal.h b/mm/internal.h
+index 41a0b79fd71d3..4fd084fe9a7d5 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -14,6 +14,7 @@
+ #include <linux/pagemap.h>
+ #include <linux/pagewalk.h>
+ #include <linux/rmap.h>
++#include <linux/seqlock.h>
+ #include <linux/swap.h>
+ #include <linux/swapops.h>
+ #include <linux/swap_cgroup.h>
+@@ -742,6 +743,24 @@ extern void zone_pcp_disable(struct zone *zone);
+ extern void zone_pcp_enable(struct zone *zone);
+ extern void zone_pcp_init(struct zone *zone);
  
- use kernel::bindings::rb_node_layout;
-@@ -238,6 +247,7 @@ impl Node {
-                     has_oneway_transaction: false,
-                     active_inc_refs: 0,
-                     refs: List::new(),
-+                    is_deleted: false,
-                 },
-             ),
-             debug_id: super::next_debug_id(),
-@@ -636,6 +646,7 @@ impl Node {
-         }
-         if no_active_inc_refs && !weak {
-             // Remove the node if there are no references to it.
-+            inner.is_deleted = true;
-             guard.remove_node(self.ptr);
-         }
-         drop(guard);
-@@ -727,9 +738,13 @@ impl DeliverToRead for Node {
-             return Ok(true);
-         }
- 
--        inner.delivery_state.has_pushed_node = false;
--        inner.delivery_state.has_weak_zero2one = false;
--        inner.delivery_state.has_strong_zero2one = false;
-+        inner.delivery_state.node_done();
++extern seqlock_t zonelist_update_seq;
 +
-+        if inner.is_deleted {
-+            // Nothing is pending for a deleted node, and userspace may already have reused its
-+            // address for a new node, so leave the tree alone.
-+            return Ok(true);
-+        }
- 
-         self.do_work_locked(writer, owner_inner)
-     }
-@@ -743,6 +758,13 @@ impl DeliverToRead for Node {
-             return;
-         }
- 
-+        let inner = self.inner.access_mut(&mut owner_inner);
-+        if inner.is_deleted {
-+            // A deleted node has nothing to deliver, so don't requeue it.
-+            inner.delivery_state.node_done();
-+            return;
-+        }
++static inline unsigned int zonelist_iter_begin(void)
++{
++	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
++		return read_seqbegin(&zonelist_update_seq);
 +
-         // If BINDER_THREAD_EXIT is invoked on a thread with a pending node refcount update, we
-         // should move ourselves to ensure the refcount update is still delivered.
-         if let Some(node) = ListArc::try_from_arc_borrow(self.as_arc_borrow()) {
-
-base-commit: 4405c18c95d2d0f99f6c581ef0ee8591a1aa6ccd
++	return 0;
++}
++
++static inline unsigned int check_retry_zonelist(unsigned int seq)
++{
++	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
++		return read_seqretry(&zonelist_update_seq, seq);
++
++	return seq;
++}
++
+ extern void *memmap_alloc(phys_addr_t size, phys_addr_t align,
+ 			  phys_addr_t min_addr,
+ 			  int nid, bool exact_nid);
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index e9aadaf6e91b6..45c41ac8710fa 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -3978,23 +3978,7 @@ EXPORT_SYMBOL_GPL(fs_reclaim_release);
+  * retries the allocation if zonelist changes. Writer side is protected by the
+  * embedded spin_lock.
+  */
+-static DEFINE_SEQLOCK(zonelist_update_seq);
+-
+-static unsigned int zonelist_iter_begin(void)
+-{
+-	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+-		return read_seqbegin(&zonelist_update_seq);
+-
+-	return 0;
+-}
+-
+-static unsigned int check_retry_zonelist(unsigned int seq)
+-{
+-	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+-		return read_seqretry(&zonelist_update_seq, seq);
+-
+-	return seq;
+-}
++DEFINE_SEQLOCK(zonelist_update_seq);
+ 
+ /* Perform direct synchronous page reclaim */
+ static unsigned long
 -- 
-2.56.1
+2.53.0
 
