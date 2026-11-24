@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795549636;
-	b=u9BS5dObbH7aveo5S5qELv1wmcgWrEpw6C/FYvz16xynk/XWgFjiKSnAYdGT7Z87rxBW
-	 WvT8p8+NSbG8P/IvipI8gaEuzP1U4SbcTrXqQ4ShNrtyZpCUd2H0CnUv7HF9A0Mr/AaLk
-	 piZ2E/N46FiEDfrjVlaJtm4gSR/Y2oF2mRXFyTrM+As/X7fouaZvDVtjNXQVRQmFgCp0X
-	 6P2vPxHzfoqNv9MnclJgZHbt5k10U1+2kZhM/i3UyCcOkGUUf7b6eJUZT0AFjKtEJWeoi
-	 K10DrEuV5yTzH92auQ1GR0OYXS2Bg0Du6k765j4kAcJ4wWAKB8BSBCwNBHT8oPqJ0QQ==
+	t=1795549638;
+	b=Q6Igj6Qfqd8kEodRH1rG+SENEKz/a+6Z7CnDyKMQ8tGQikExTQyF1uH8IPmsNNW8Tt8J
+	 14J0fIGR3+yzV0yf8unvJVDuTgFSVNhL2vXLoZQ9sIKxzA3Z1VVNbSySojKH5RR9iZAWO
+	 OMBozmHdiv2DvGK4DI+9tHJI3gIPrYL73ilK9hyrle2d+zKNXWCgvq6Dj/67kcgCM+RFu
+	 VNEjXzRDieaDXcvVEYKJeVE3zoYocEAAPPOqINx4rDZ9PNDWrj2E6R7OpgzdS1OIaJAQ0
+	 tPaCHyIevdwIEBAd9Qw2S3t5HBcIC6pt1xvX6QRAtiva2jZmysvf4Q2ey5V/4eGI8sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795549636;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795549638;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=k2IlC6GjWldtRhqSIRBrMSiabjvS1fTm5+fT2QABfEY=;
-	b=ff77NsxaFFe6qIMo8KVT55ByavoluE3F2a0iipRUG7kcNpF5YWpl9zemcla+6kOkt+G8
-	 s16srQEt8Aeng0ZyrZ0n501HGKZeKt2uMIDxwuiPmFlaQMD5Vta1XErhnHHuWl+P5AXpS
-	 kqmY3zdz6EmLK64qNSDsx5/pozelAoDXnvYYZXuHDr1SFpdqWbGGjvrJbTeF1C2LssdNt
-	 hiTcty+Cnv3twNB1kupdL6rCLr8aqlfqmk7IIspGo0i21ZhbgKEhgD3RB+BgKKS4OycWd
-	 v2BwZRgHWqf58bvdZqp0wnvn3aGE2RflnBqu6lXvH8CzxclCwnBuxZWbDf+NBg7uO6A==
+	bh=J3Z/iG6i8DU6ZQh4DtG79WYAyIaGqOiYgKvVjjJnoCE=;
+	b=aSN6tO4w9YMkyLzAXxCoNX4lA+al7vSBYNXarcSyWq47y17OO9weviXVRTAtBgocTRjy
+	 mOEqdxfiG8QgQhxxXJEUttwje6f5afeank5/cDzsVcrrg67udpUrC8zp074w4Tdqvkb5b
+	 sQjPZD/PMnMZXXrulPuPTDE3ZIwQGpB6WRxX6LrjMb9+YxmgvLa7J8CEIE0iWWaJ0ApmP
+	 hywx2B40hgrhkQslfyiUbe29GhxhjoZKGjgEftGh3OqQrKkrT5lUNn2idU33uyjrVDy0/
+	 BKZL6DWwy9dELzGWXIlkRH3NFsUUJ46rE4ffaUvF+L/C0J6xoo9DVYkJ79DClFC/Sbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4G375Mh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rn30rT85;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E5A606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 19:47:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44D7606A686
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 19:47:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4G375Mh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860C01F000F0;
-	Tue, 24 Nov 2026 19:47:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rn30rT85
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36A491F000D0;
+	Tue, 24 Nov 2026 19:47:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795549636;
-	bh=k2IlC6GjWldtRhqSIRBrMSiabjvS1fTm5+fT2QABfEY=;
+	s=k20260515; t=1795549638;
+	bh=J3Z/iG6i8DU6ZQh4DtG79WYAyIaGqOiYgKvVjjJnoCE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g4G375Mh/wshg8OZUpTimAghyOqHrDpmuvq4FATRi0TpnvIZ6UR9NQLTRpEvNVeWW
-	 Ak2ElI/IkI0A0fjUFmJgh7V2Hhhh+ViaFnKGgy6u3gAoN5B8hhsTqseoOB3zp/gx0l
-	 IY4u50V9f5xIBgax97K95TXtXC6tCNkLNYM5N2OZSTo2vETUUvusUuO6aExXXFEmfv
-	 /UG9EgwB/Bd6unGs0+C954k1dTqwG4NdgxTDBoRHMV5eNxkpdg0WYgmSPyXhdjDF83
-	 vUXoptS/+WJqz8Y86rF57f0Vpe4/elz406OIDGF5GYKtqLu/2iJq7StARc9uaMPq50
-	 d8029CIUFArvw==
+	b=Rn30rT85txbFKg5jCE1XAsonOAlU82vC0qq1zpkYQujw8jJu8ExWf8XovvStA7lsB
+	 5aXQIahRft+xTMBMZ4C8OHVCp9kUVrrZJlQ8peh08Tj6hKdr/JxIqrUHPUA9n+pJ+V
+	 2/pPfJlujR9zSXprX4HtO53bIR1HwbYlBceYZqEdvQan/c8kS/tKhR+o+dxoeIu63v
+	 r51THCLxEcag8JKG1rYu4ZMIuLTeFeJmDboBGORXTKvgXCrdm/ASeBi9FxoP00C8m3
+	 MPQPoFYPwxaSJpGq0UPl3ClxXl93nHzgTe8ugOf3BTPzcp3Z70A2ddk9vCSGkgTCG4
+	 yaDerB54Cfm0g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zijun Hu <quic_zijuhu@quicinc.com>,
+Cc: Shashank Mohan Jain <jain.sm@gmail.com>,
+	Jan Kara <jack@suse.cz>,
 	Jeff Layton <jlayton@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] errseq: eliminate special limitation for macro MAX_ERRNO
-Date: Tue, 24 Nov 2026 14:47:11 -0500
-Message-ID: <20261124194647.2515886-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] errseq: don't let errseq_check_and_advance() hide later errors
+Date: Tue, 24 Nov 2026 14:47:12 -0500
+Message-ID: <20261124194647.2515886-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112443-guileless-cradle-1a11@gregkh>
+In-Reply-To: <20261124194647.2515886-1-sashal@kernel.org>
 References: <2026112443-guileless-cradle-1a11@gregkh>
+ <20261124194647.2515886-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,84 +64,133 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zijun Hu <quic_zijuhu@quicinc.com>
+From: Shashank Mohan Jain <jain.sm@gmail.com>
 
-[ Upstream commit 3eff6a3e574c2f704f9be1f4867c3d0b3d804435 ]
+[ Upstream commit 94defd41d80f10bbe883c0c8d1b28d1665b6b153 ]
 
-Current errseq implementation depends on a very special precondition that
-macro MAX_ERRNO must be (2^n - 1).
+errseq_check_and_advance() reads the errseq_t, sets ERRSEQ_SEEN with a
+cmpxchg() and then advances *since to the value it computed, ignoring
+whether the cmpxchg() succeeded. When it fails because errseq_set()
+recorded a different error in the meantime, *since ends up holding a
+value that was never stored in the errseq_t.
 
-Eliminate the limitation by
+errseq_set() only bumps the counter when ERRSEQ_SEEN is set. So as long
+as nobody has seen the new error, recording the original errno again
+recreates exactly the old value, and once another subscriber marks it
+seen, it is equal to the stale *since. The next check through that
+cursor then reports nothing, although -ENOSPC was recorded after the
+value that check reported, and -EIO was recorded again after it
+returned:
 
-- redefining macro ERRSEQ_SHIFT
-- defining a new macro ERRNO_MASK instead of MAX_ERRNO for errno mask.
+  cursor f                writeback              cursor g
+  --------                ---------              --------
+                          set(-EIO)
+  check_and_advance(&f)
+    old = [c, EIO]
+                          set(-ENOSPC)
+                          -> [c, ENOSPC]
+    cmpxchg() fails
+    f = [c, EIO, SEEN]
+    returns -EIO
+                          set(-EIO)
+                          -> [c, EIO]
+                          (no bump: unseen)
+                                                 check_and_advance(&g)
+                                                 -> [c, EIO, SEEN]
+                                                 returns -EIO
+  check_and_advance(&f)
+    [c, EIO, SEEN] == f
+    returns 0             <- -ENOSPC and the second -EIO are lost
 
-There is no plan to change the value of MAX_ERRNO, but this makes the
-implementation more generic and eliminates the BUILD_BUG_ON().
+For file->f_wb_err this means that fsync() on one descriptor can return
+0 although writeback failed after the previous fsync() on that
+descriptor returned, when writeback errors race with fsync() on another
+descriptor of the same file. The same applies to syncfs() through
+sb->s_wb_err, which every file on the filesystem shares, and to the
+ext4 and jbd2 cursors on the block device mapping. The kernel-doc
+promises "Negative errno if one has been stored, or 0 if no new error
+has occurred".
 
-Link: https://lkml.kernel.org/r/20250407-improve_errseq-v1-1-7b27cbeb8298@quicinc.com
-Signed-off-by: Zijun Hu <quic_zijuhu@quicinc.com>
+Retry with the value found when the cmpxchg() fails, so that *since is
+only ever advanced to a value that was actually stored with ERRSEQ_SEEN
+set. Every later errseq_set() then has to bump the counter, and the
+error is reported. The retry loop terminates because each iteration
+needs a concurrent update, like the loop in errseq_set().
+
+A TLA+ model of errseq_set() and errseq_check_and_advance(), checked
+with the TLC model checker, finds the lost error with the current code;
+with this change TLC checks that an error recorded after a check
+returned is always reported by the next check (exhaustively for two
+subscribers with three checks each, and one writer recording four
+errors or two writers recording two each). The KUnit race test added
+in the next patch misses the error in 1-6% of 2 million rounds on
+4-CPU UML before this change (depending on host load), and in none
+after it.
+
+Fixes: 84cbadadc6ea ("lib: add errseq_t type and infrastructure for handling it")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
+Link: https://patch.msgid.link/20260927051726.71337-2-jain.sm@gmail.com
+Reviewed-by: Jan Kara <jack@suse.cz>
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 94defd41d80f ("errseq: don't let errseq_check_and_advance() hide later errors")
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- lib/errseq.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ lib/errseq.c | 29 ++++++++++++++++++-----------
+ 1 file changed, 18 insertions(+), 11 deletions(-)
 
 diff --git a/lib/errseq.c b/lib/errseq.c
-index 93e9b94358dc6..13a2581c5a878 100644
+index 13a2581c5a878..ea4ff9cc21669 100644
 --- a/lib/errseq.c
 +++ b/lib/errseq.c
-@@ -34,11 +34,14 @@
-  */
- 
- /* The low bits are designated for error code (max of MAX_ERRNO) */
--#define ERRSEQ_SHIFT		ilog2(MAX_ERRNO + 1)
-+#define ERRSEQ_SHIFT		(ilog2(MAX_ERRNO) + 1)
- 
- /* This bit is used as a flag to indicate whether the value has been seen */
- #define ERRSEQ_SEEN		(1 << ERRSEQ_SHIFT)
- 
-+/* Leverage macro ERRSEQ_SEEN to define errno mask macro here */
-+#define ERRNO_MASK		(ERRSEQ_SEEN - 1)
+@@ -162,7 +162,8 @@ EXPORT_SYMBOL(errseq_check);
+  * points to. If it does, then just return 0.
+  *
+  * If it doesn't, then the value has changed. Set the "seen" flag, and try to
+- * swap it into place as the new eseq value. Then, set that value as the new
++ * swap it into place as the new eseq value. If the swap fails because the
++ * value changed, retry with the new value. Then, set that value as the new
+  * "since" value, and return whatever the error portion is set to.
+  *
+  * Note that no locking is provided here for concurrent updates to the "since"
+@@ -184,24 +185,30 @@ int errseq_check_and_advance(errseq_t *eseq, errseq_t *since)
+ 	 * to take the lock that protects the "since" value.
+ 	 */
+ 	old = READ_ONCE(*eseq);
+-	if (old != *since) {
++	while (old != *since) {
+ 		/*
+ 		 * Set the flag and try to swap it into place if it has
+ 		 * changed.
+ 		 *
+-		 * We don't care about the outcome of the swap here. If the
+-		 * swap doesn't occur, then it has either been updated by a
+-		 * writer who is altering the value in some way (updating
+-		 * counter or resetting the error), or another reader who is
+-		 * just setting the "seen" flag. Either outcome is OK, and we
+-		 * can advance "since" and return an error based on what we
+-		 * have.
++		 * If the swap fails, a writer or another reader changed the
++		 * value under us, so retry with the new value.  "since" must
++		 * only ever be set to a value that was stored with the SEEN
++		 * flag: errseq_set() does not bump the counter while the
++		 * flag is clear, so an unstored value could come back later
++		 * and hide the errors that were recorded in the meantime.
+ 		 */
+ 		new = old | ERRSEQ_SEEN;
+-		if (new != old)
+-			cmpxchg(eseq, old, new);
++		if (new != old) {
++			errseq_t cur = cmpxchg(eseq, old, new);
 +
- /* The lowest bit of the counter */
- #define ERRSEQ_CTR_INC		(1 << (ERRSEQ_SHIFT + 1))
- 
-@@ -60,8 +63,6 @@ errseq_t errseq_set(errseq_t *eseq, int err)
- {
- 	errseq_t cur, old;
- 
--	/* MAX_ERRNO must be able to serve as a mask */
--	BUILD_BUG_ON_NOT_POWER_OF_2(MAX_ERRNO + 1);
- 
- 	/*
- 	 * Ensure the error code actually fits where we want it to go. If it
-@@ -79,7 +80,7 @@ errseq_t errseq_set(errseq_t *eseq, int err)
- 		errseq_t new;
- 
- 		/* Clear out error bits and set new error */
--		new = (old & ~(MAX_ERRNO|ERRSEQ_SEEN)) | -err;
-+		new = (old & ~(ERRNO_MASK | ERRSEQ_SEEN)) | -err;
- 
- 		/* Only increment if someone has looked at it */
- 		if (old & ERRSEQ_SEEN)
-@@ -148,7 +149,7 @@ int errseq_check(errseq_t *eseq, errseq_t since)
- 
- 	if (likely(cur == since))
- 		return 0;
--	return -(cur & MAX_ERRNO);
-+	return -(cur & ERRNO_MASK);
- }
- EXPORT_SYMBOL(errseq_check);
- 
-@@ -200,7 +201,7 @@ int errseq_check_and_advance(errseq_t *eseq, errseq_t *since)
- 		if (new != old)
- 			cmpxchg(eseq, old, new);
++			if (cur != old) {
++				old = cur;
++				continue;
++			}
++		}
  		*since = new;
--		err = -(new & MAX_ERRNO);
-+		err = -(new & ERRNO_MASK);
+ 		err = -(new & ERRNO_MASK);
++		break;
  	}
  	return err;
  }
