@@ -1,56 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795554199;
-	b=zpvs0AwzCiGrnnKf+zA334b6b9+ZUjdkbRJn36PrTNQ4RCSHxnvHFbtXNR7IfBtZhiIl
-	 aJpHx2pOGmyuUJUfUzUqc2VkAW9K4gJB6H/V0L1B3Ejhd1RTCj2YEAn5Hc6Me99UbnFse
-	 Q9U+XTgMTo+3N9CIUJAxJWqxCPSIFdWG1HKNfxZJp8U1IJ1lbJNVIKD0ka3CEQgg9P5k5
-	 w4cE84+8NPjUaFRtK97fhX9cfrrtC81r3gpISWhdjthgTRCbHO+qpo+0Zmx2cincjQET8
-	 QTlcRi8k7HJZBsC4wlV1wjstHsr/DG6tREPAUIMLjOinF8QA6TwzQOe8OgqZwk9D4Ug==
+	t=1795554250;
+	b=ZiqXeOzChfrf+RmhBSMSk7ftkssYGa5jvYBwgJhDqOu0W/FfhodNehcrEadn60odllba
+	 B4LAz21EM57pyet0S5rvu4nZHPMtmdLVfKcjYtCMcpjknHWcuNR17PImweKsIgmxh7R0/
+	 QphNEa6Hwe+HvTYzZq5SPL7436FuXmKc6yzV07Qk/ZFo6r6fdoTdOX+Wa2dRWgxY0yG18
+	 fyI8NaOl2Eovl1mxoAOx1UQeHaTPNvk3tCwzSG3Cjtw9vL4smjD+rf+Yqu9Dk+64BqeMj
+	 aelGYd04ddHD2Fpbvqx7Y2z5Pl8ViBgpAFKsrGV7GIsZvVWy0KT2dCM3fsSakxvg3Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795554199;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=P8s/qRNNDjxxOfHjEFCSCQRq6rE0IDpT83tOYMr8/ko=;
-	b=0B29gof6ijpeC126qeru//cC8j8UBS7I6DplEhEFhe6NBKV3ysNKmbg1+IScinYKeoSb
-	 uqsGHWr8bCK0XPyZtlYArPfPi+v0KvB9+TFCTeSLoIrS8kICH4d7OTkKpW7Sh8SOJRdsx
-	 jJEEL8of06IgIlYyk1FNnrrXsJzzushjJttWXdq/2o0GRDYBLOY6kOomAmmPW+ySnw5ha
-	 ug53LtktqCyvXN5hIiHViBPpifOWdqlntBfB8yOj7BdOaNGCzOWaqYxsDLrxWA0CJmdjG
-	 CWpGcQbZkApHbqa9odFl3mP5yM2p1b0rGWqduvNnGqK2FbTjqPcCHWpG5GZG2fr5e/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795554250;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
+	 X-Pm-Original-To:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-MIME-Autoconverted;
+	bh=f1LrI4F2sKsO306nzg/h2ovN7/3ZcOp7p0chdwD8VeA=;
+	b=0lzYA4k8b3Zm3PhZ6wmB7KGUdXwXa5aENF3V9sBNAsszQsPRYAaRUs8nXIFIbguiKJDS
+	 PrOvjbjZZlo9hfruQeodYo0lZRm4OisMqPoJ2fGNd5kmZsLW6PriTVKPjNI9OI+X4/kf+
+	 YtFDbdUDowxU3o3Ny3HmZ4GkIQ1nzjVp+WB9yDSkhqIfdyx2ngxzUcTfBfn0x2kVCz6b9
+	 2jIL4HJu/PPS2V5/+kz031PQX4hB56V/8eRYXlUmN4wVMVKf2Ez3gLuenFQYgHEjmKGJV
+	 ztqdA2tSiJUBGnur5Bg/XzqlNcIjQCb9JcfjSZ42VLzY7Lbj6j3qugnTgMAWGzhcs0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oKIglAb4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=atomlin.com;
+	spf=pass smtp.mailfrom=atomlin.com;
+	dkim=pass header.d=atomlin.com header.i=@atomlin.com header.a=rsa-sha256 header.s=purelymail2 header.b=bvY+kW9s;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=NV3pbREF;
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F347606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 21:03:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579FA606A32D
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 21:04:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 579FA606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oKIglAb4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E2B1F000C6;
-	Tue, 24 Nov 2026 21:03:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795554199;
-	bh=P8s/qRNNDjxxOfHjEFCSCQRq6rE0IDpT83tOYMr8/ko=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oKIglAb4axKBIEj3Vebt80Bu39gFtbyL4MbzVLtrPiD/SDwHO2QgK+zk1Lo7iGjiV
-	 w2SHkAydkd6EWG+R/dqve7Lffk5fnHzUpz4zfTL9Ov4PSgsqHQ45b8efPham3ojdZY
-	 r2HgG8YxhflH53zd4Gnp6sSb0bv/NWviWEyQnvCZum9UGWN/hWd3YoqhTXJziBOycz
-	 o3PkLAlFlpggL0xkfM1o4RjG7ha3l5SQaX/6QJuCIL8QGI8CpJqYUENvnvSeheOwkG
-	 /WSxGfirUDThust1EJPPliDGt9Zc99ii5RUmZ9C4nxhsarJzxqZJ7eELDZWwcJBEMG
-	 /U41CCrZ5U5uQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm/page_alloc: retry alloc_contig_pages() when the zonelist is rebuilt
-Date: Tue, 24 Nov 2026 16:03:17 -0500
-Message-ID: <20261124210249.2766164-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112437-refutable-mundane-47fa@gregkh>
-References: <2026112437-refutable-mundane-47fa@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=atomlin.com header.i=@atomlin.com header.a=rsa-sha256 header.s=purelymail2 header.b=bvY+kW9s;
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=NV3pbREF
+DKIM-Signature: a=rsa-sha256; b=bvY+kW9smQ/USSNTgGxUuIjv7MH+/vcE3aruhQ3qL5AJS471/M00i6PR9yIqof3dDsH+yvfsKhhymID5zTPUHJcso/W9qory1BilPTnB0rBdjzxUWmkFqakHISanXgAMu8xlEqQlEGpBfyOq+F3JUjIvSDrjVlfhOI8eb+WXYGoqIk9kGzQPAYeDHKIl4ehMndr4wpa4cw1IweczFimpUxNuTNy9QM9k20cfTPwt9QEO0Jh6xPyp76WsQkkWhqWWz8GDirX/FBIAgf0ndnqUbsGLF13YDOxFdB8xsMn7RqdBEQwJ72PAEMDftEk3BMbvjBWz1vwINeOn0ZJPVpYqpA==; s=purelymail2; d=atomlin.com; v=1; bh=LBTIbpSasOIttazXOXIKcClliW3GfeA4oLmDKjXQ628=; h=Received:Date:From:To:Subject:Message-ID;
+DKIM-Signature: a=rsa-sha256; b=NV3pbREFn0LmAuGk5gPXW0P/M6HzawY5DFxLnmR/wb6GoOcr+7EseirwQ0rRCTKihZ/IxJ0vyjZ/9cGp/WP+ivzlS8+PBT++F6C3r9LRVdw4VwzVOwmmFiVSBwWNmBI6WzdYskgAkPx1WJglBNEhwvm0pWUFaSy0i9C9Wp6yOvzks3PK5hCGRPJBu0yiH88iGuFw4TLTBdwUXRgCXVip1Ikia+ZvzBTZf1/18lIw1dSEahWNxSPC3k7aMLkcPrcr20+h//Y/iVr+/Ms1rQonZu3INGQ5Kofcbj9dmLFMll+hfXO+RncjNtyS02XNqJ+Pal+NGYZqMoVPru4Ir73KxQ==; s=purelymail2; d=purelymail.com; v=1; bh=LBTIbpSasOIttazXOXIKcClliW3GfeA4oLmDKjXQ628=; h=Feedback-ID:Received:Date:From:To:Subject:Message-ID;
+Feedback-ID: 1802931:67223:null:purelymail
+X-Pm-Original-To: stable@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1233994586;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Tue, 24 Nov 2026 21:03:22 +0000 (UTC)
+Date: Tue, 24 Nov 2026 16:03:21 -0500
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: axboe@kernel.dk, tom.leiming@gmail.com, hare@suse.de, dwagner@suse.de, 
+	emilne@redhat.com, frederic@kernel.org, tj@kernel.org, sean@ashe.io, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v5] blk-mq: dispatch kworker to housekeeping CPU when
+ hctx cpumask is empty
+Message-ID: <b7vpfd7x6mqmxlu2kqpdzx4oeyxvak7tiit7xslkjdrqblcoh4@aujkhfpmwqnh>
+References: <20261121235203.811792-1-atomlin@atomlin.com>
+ <CAAofZF5D+ycbtMxsnUgZjhUbfD+_ZD6kYyci95OTdXug_aw-dQ@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,91 +64,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAAofZF5D+ycbtMxsnUgZjhUbfD+_ZD6kYyci95OTdXug_aw-dQ@mail.gmail.com>
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 
-From: "Gregory Price (Meta)" <gourry@gourry.net>
+On Mon, Nov 23, 2026 at 11:47:47AM +0100, Marco Crivellari wrote:
+> Hi Aaron,
 
-[ Upstream commit da0d7a895e9021dc2cffa90fb6fafd8b9379e544 ]
+Hi Marco,
 
-Onlining the first block of a zone rebuilds every zonelist in place,
-shifting the slots after the new zone.
-alloc_contig_frozen_pages_noprof() approves a slot by the caller's gfp
-and nodemask, then loads the zone from it:
+>=20
+> On Sun, Nov 22, 2026 at 12:52=E2=80=AFAM Aaron Tomlin <atomlin@atomlin.co=
+m> wrote:
+> >
+> > [...] In real-time environments, an active SCHED_FIFO workload will
+> > starve this SCHED_NORMAL worker and stall hardware dispatch, whilst als=
+o
+> > introducing unwanted latency jitter on nohz_full cores, defeating that
+> > commit's original objective.
+>=20
+> I would phrase this differently. cpu_is_isolated() checks HK_TYPE_DOMAIN,
+> so the jitter argument holds only when the nohz_full CPU is also
+> domain isolated (isolcpus=3Ddomain or an isolated cpuset partition). With
+> nohz_full alone, or isolcpus=3Dnohz without domain, this patch does not
+> apply and the behavior is unchanged.
 
-  CPU 0                             CPU 1
-  alloc_contig_frozen_pages_noprof(GFP_HIGHUSER | __GFP_THISNODE)
-    slot 0 (NORMAL1) approved
-                                    online_pages()
-                                      build_all_zonelists()
-                                        [NORMAL1]
-                                        -> [MOVABLE1, NORMAL1]
-    zone = zonelist_zone(slot 0)    /* MOVABLE1 */
-    alloc_contig_frozen_range(MOVABLE1 pfns)
+Agreed, that distinction is much clearer. Since both commit a46c27026da1
+and blk_mq_hctx_unbound_cpu() test cpu_is_isolated() (HK_TYPE_DOMAIN), CPUs
+configured solely with nohz_full=3D or isolcpus=3Dnohz without domain isola=
+tion
+(or an isolated cpuset partition) remain unaffected. I will reword the
+commit log in the next iteration to clarify that this applies specifically
+to domain-isolated CPUs (including when combined with nohz_full).
 
-A gigantic hugetlb page can then land in ZONE_MOVABLE, and a nodemask
-caller can get a range from another node.  Gigantic pages are kept out
-of ZONE_MOVABLE since commit 79b63f12abcb ("mm, hugetlb: do not allocate
-non-migrateable gigantic pages from movable zones").
+>=20
+> > +static inline int blk_mq_hctx_unbound_cpu(void)
+> > +{
+> > +#ifdef CONFIG_CPU_ISOLATION
+> > +       if (static_branch_unlikely(&housekeeping_overridden)) {
+> > +               int cpu;
+> > +
+> > +               guard(preempt)();
+> > +               if (!cpu_is_isolated(raw_smp_processor_id()))
+> > +                       return WORK_CPU_UNBOUND;
+>=20
+> Since preemption is disabled by guard(preempt)(), you can use
+> smp_processor_id() here instead of raw_smp_processor_id().
 
-Check zonelist_update_seq before using each zone, and restart the walk
-if it changed, as the hugetlb pool walk does.  Check again before
-escalating to the pass that may migrate hugetlb pages, so a pass a
-rebuild cut short is redone rather than escalated.
+Oops! raw_smp_processor_id() was a leftover from v4 before guard(preempt)()
+was moved ahead of cpu_is_isolated(). I will switch to smp_processor_id()
+in the next iteration.
 
-With kprobes holding the walk across the online, the base kernel put the
-1G page in ZONE_MOVABLE in 3 of 3 runs, and this change put it in
-ZONE_NORMAL in 3 of 3.  Direct GFP_KERNEL calls with nodemask {1} and
-{2} got a ZONE_MOVABLE range and a node 1 range on base, 3 of 3 each,
-and neither with this change.
+Thank you for the review!
 
-Fixes: 5e27a2df03b8 ("mm/page_alloc: add alloc_contig_pages()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Link: https://patch.msgid.link/20261101021340.2251928-11-gourry@gourry.net
-Acked-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-[ sashal: adapted to the older alloc_contig_pages() function, adding the retry label and moving the zonelist retry check to the end of the zone loop since there is no hugetlb skip pass. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/page_alloc.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index e58f3f514e640..38cf6cb4f187b 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -9393,13 +9393,20 @@ struct page *alloc_contig_pages(unsigned long nr_pages, gfp_t gfp_mask,
- 				int nid, nodemask_t *nodemask)
- {
- 	unsigned long ret, pfn, flags;
-+	unsigned int zonelist_cookie;
- 	struct zonelist *zonelist;
- 	struct zone *zone;
- 	struct zoneref *z;
- 
-+retry:
- 	zonelist = node_zonelist(nid, gfp_mask);
-+	zonelist_cookie = zonelist_iter_begin();
- 	for_each_zone_zonelist_nodemask(zone, z, zonelist,
- 					gfp_zone(gfp_mask), nodemask) {
-+		/* A rebuild may have shifted an ineligible zone into this slot. */
-+		if (unlikely(check_retry_zonelist(zonelist_cookie)))
-+			goto retry;
-+
- 		spin_lock_irqsave(&zone->lock, flags);
- 
- 		pfn = ALIGN(zone->zone_start_pfn, nr_pages);
-@@ -9423,6 +9430,9 @@ struct page *alloc_contig_pages(unsigned long nr_pages, gfp_t gfp_mask,
- 		}
- 		spin_unlock_irqrestore(&zone->lock, flags);
- 	}
-+	/* Redo a pass that a rebuild cut short. */
-+	if (unlikely(check_retry_zonelist(zonelist_cookie)))
-+		goto retry;
- 	return NULL;
- }
- #endif /* CONFIG_CONTIG_ALLOC */
--- 
-2.53.0
-
+Kind regards,
+--=20
+Aaron Tomlin
