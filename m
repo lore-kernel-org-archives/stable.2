@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795560907;
-	b=0/sBM80A5sj3th7DuBVQufYbJ8QItAfb0vcXiW0UnI5VZSLCfxGELrJE8ezZ+7dIwxY1
-	 M58T67WRu5yvOZoN4Nr89WGAbmeURs3JgIpws+thYRgyB4I5h67yYHD6sG3MMwKfDSyxC
-	 faxYH9Ft4WljXAjoKV/inRK5b/nz9l04mKLdB7Hz6/TBgDciK4UfF4TM4gn03WTjPCmaE
-	 DI8t/PeS381OyovaNzjEUwSsUlyom9qLKB1mVMLizmT+nc+gp1Bx3vaLRt7ffEDwOfVll
-	 fK2S4LtxvJWhhv1iov5K7H15D1/U+/9G2FHFApp+VbpWw/S1QWa0xlGEKRqKNZLoqSA==
+	t=1795560935;
+	b=mz6ueaOHYOdIwezhwb1psORheHjjJotIMBYyrK1VybbJVM0kDqoWpEIC5P4qNj3rtNet
+	 JmCgVq2WAG0m+thfwf71/sUR7R/7DGyCwPRaSx3t5WmERESu+mJtVPXdjfIDAt/GTNzCC
+	 gjRYFhgiZqIVbUoTPBFS9lmuTuZcEd6ODJtKuUUixJrOfey88ELnkRTIEEF11s7Ata1Cx
+	 nmx3iR6mDteph4a2Q0dAZEgJLvoFRV6LmY5locDSHBo0K8vWWfd9L/Iy23iQlpr9g/aji
+	 ONIZDNrnjxkLAHXjMab5JCxYRVyFg50NTjlF+FtlF4S8osDHJLsSoChfhJlD3tDT1/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795560907;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795560935;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=B1/Cqp65t4KpyQYiFFprcCUsT/emI6pCwzCPIpeaY4A=;
-	b=PPaQoSYbOj6qS1jCRvx+bPoDqg/7M833pndYPvGVbpk4mM9Zd12bcvR9Pcoc4+l4dD5I
-	 1PGPsvi8Ctq9odgITzGnzqwzQju/oZY8wzRjxQRiOkNy+2QP1z+NRlLymOQQ/mzxMVKkG
-	 JCRTkcZBkFXGhnM3wzlaUO10oITc1Hqd0t+/4pBtnX/WlXjD+i3W+v9bVoNZfEUbDfoqh
-	 NUtbkGg1KzO76289yh4K0CDNwskR0SNrQAdS9GUv/7gTGbe5eplaK/K0ZNGaMlg7Besfp
-	 W/LSPX3iEDqWo4wcsvS1cFiZ7uuIJiHcY0QuMPMa+EuvhiZCHSaA4V7BsRxuyq1ON8g==
+	bh=xjnhU4XqnoPrSSInmlTA3nciVVu3/TjnJCmjrI0Lq9s=;
+	b=YRTDjZM+ZPQJLP3nmJtPc8teOpP7Rwts5tovT86bpkO96JwfqCwQkhDg8as+BG1twB91
+	 BbPMVAgouy4Hz+gAtlgNX4G2lW00hSsxR9+K40o+xB15ZbOPMQyDCL8gu2Ew1MLAh/8kR
+	 funm5RAS/xRbiIcvFUnsyNOYa7CF9ToLuQrD2G3bVOhNwDPaDITBrwcjbp9w5Xb1qgsEy
+	 x17tMyIcerGTr1Fai4YB5QaD493R/wYLB/KyxlPpWik3YTsM1VEm0PzHmc7L5+mt9yh6o
+	 6CHXsgunCXcXHvHDe8M/Q+K0uGc7CBMoudIkC60fF7O3oqXA+X3vg0hbjO+EIGmTH2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RW9Kj0/J";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gI2BF5Lr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BAE606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 22:55:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D031606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 22:55:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RW9Kj0/J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9706C1F000CA;
-	Tue, 24 Nov 2026 22:55:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gI2BF5Lr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B19B1F000D0;
+	Tue, 24 Nov 2026 22:55:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795560906;
-	bh=B1/Cqp65t4KpyQYiFFprcCUsT/emI6pCwzCPIpeaY4A=;
+	s=k20260515; t=1795560934;
+	bh=xjnhU4XqnoPrSSInmlTA3nciVVu3/TjnJCmjrI0Lq9s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RW9Kj0/JIEGlWRzeObbTUgNYxxEzqQlj20TyfnvTtyuPM+DU5uu5+rrufRHMkXhBL
-	 V+jSBTGahynVU5+vV+3fvIwEfCk2J1krF0WfZan/l7IPZZDNKG0nD15Kv4holYT6mZ
-	 cmTZafE6E7NGomsxxzfh8ZxfQJzIWPEn1bQ/GhPF6FzpjJ0rzfVzVzwvr/JYjvGwW1
-	 t7H3tAHo6eSitr7bvY864zWKRtS48GNf2/anYYa129Y3N8VPHfNsQs28rQ2Y9bY41k
-	 vAmlKTc/Ge5Had2RNs51KbYdXKW2P9U+RVKCEVEymqwQyPgLcELaFsCqDBhXppcWma
-	 wsCHG/Y8pUEZg==
+	b=gI2BF5LrPN4NBNph2DR5isj1rXRMSdM3bf3lRVxWLNlJWZl18EDusmcgfEPm1msTW
+	 ayCNSMoKfrTfJxkdwWHnPh4P49gQV/h7L8H4fuEz6LzQStHMxojOHytJf4x4HMO90e
+	 z0qrvKei8NW4EgQRSdtG9lw9HBujFH3/fnya+os9q91R6FkDeYpn1O3sPX/V/nwFzq
+	 fDzzdAzaEOPwlLooSsFwGjN7I1usL0E3TOB5PHE9doAj8D/y5A8TrncuXcWdZATU3t
+	 yEmfzCq2H4hC+gifuBnasZC7nGWT5zStN8US+stL3jbOaHPVEMgG7D1Znu3hzDybO3
+	 Lc8XAooESYb3A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/page_alloc: remove the zone_spans_pfn() check from get_pfnblock_bitmap_bitidx()
-Date: Tue, 24 Nov 2026 17:55:04 -0500
-Message-ID: <20261124225437.3115786-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/hugetlb: retry the pool walk when the zonelist is rebuilt
+Date: Tue, 24 Nov 2026 17:55:32 -0500
+Message-ID: <20261124225441.3116409-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112411-legume-maturely-0dba@gregkh>
-References: <2026112411-legume-maturely-0dba@gregkh>
+In-Reply-To: <2026112400-travel-cobbler-35de@gregkh>
+References: <2026112400-travel-cobbler-35de@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,58 +61,155 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-[ Upstream commit 2122887b04f3f2d76daa80055c2c273926032fa0 ]
+[ Upstream commit 9f6674f842bbceda8326cf4e494af5ad3a5a05e6 ]
 
-Whenever the flags of a pageblock are read or written, a kernel with
-CONFIG_DEBUG_VM makes sure that the pfn lies within the zone of the page.
-Unlike bad_range(), that check reads zone->zone_start_pfn and
-zone->spanned_pages without zone->span_seqlock.
+Onlining the first block of a zone rebuilds every zonelist in place,
+shifting the slots after the new zone.  dequeue_hugetlb_folio_nodemask()
+approves a slot by its node, then loads the zone from it, so a hugetlb
+fault bound to one node can take a pool page from another:
 
-Memory hotplug changes the two fields one after the other. If the lower
-end of a zone moves, the zone seems to end before its last pages in
-between. A page of that part which is freed at that moment, on another
-CPU, ends in
+  CPU 0                             CPU 1
+  dequeue_hugetlb_folio_nodemask(nodemask {2})
+    slot 3 (NORMAL2) approved
+                                    online_pages()
+                                      build_all_zonelists()
+                                        [.., NORMAL1, NORMAL2]
+                                        -> [.., MOVABLE1, NORMAL1, ...]
+    zone = zonelist_zone(slot 3)    /* NORMAL1 */
+    dequeue_hugetlb_folio_node_exact(h, 1)
 
-  page dumped because: VM_BUG_ON_PAGE(!zone_spans_pfn(page_zone(page), pfn))
-  kernel BUG at mm/page_alloc.c:372!
-   free_unref_folios+0x55e/0xed0
-   folios_put_refs+0x2b5/0x530
+Check zonelist_update_seq before using each zone, and on the way out
+with nothing found, and restart the walk if it changed.  Checking before
+the dequeue leaves nothing to put back.  Reset the last-tried node on
+restart, so it is not skipped.
 
-An attempt has been made [1] to fix this with the span seqlock check.
-But that can trigger all sorts of problems in restricted contexts, as
-noted by sashiko [2].
+With kprobes holding the walk across the online, a fault bound to node 2
+took a node 1 page in 3 of 3 runs, and a node 2 page in 3 of 3 with this
+change.
 
-Since this is just a sanity debug check and anything with BUG_ON is
-frowned upon anyway, just remove it altogether.
-
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Closes: https://lore.kernel.org/all/20261027-pgalloc-ai-hotfixes-v1-9-9c7d1aca801e@kernel.org/ [1]
-Link: https://lore.kernel.org/all/sashiko-outbox-188081@kernel.org/ [2]
-Fixes: 86051ca5eaf5 ("mm: fix usemap initialization")
+Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261103-pgalloc-ai-hotfixes-v2-5-e0d2890ab74f@kernel.org
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Link: https://patch.msgid.link/20261101021340.2251928-10-gourry@gourry.net
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-[ sashal: Adapted the zone_spans_pfn() check removal to its location in set_pfnblock_flags_mask(). ]
+[ sashal: Adapted to the older tree: folio-based dequeue code became struct page, and the zonelist seqlock helpers moved into mm/internal.h (not page_alloc.h), with check_retry_zonelist() returning seq. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/page_alloc.c | 2 --
- 1 file changed, 2 deletions(-)
+ mm/hugetlb.c    | 13 ++++++++++---
+ mm/internal.h   | 19 +++++++++++++++++++
+ mm/page_alloc.c | 18 +-----------------
+ 3 files changed, 30 insertions(+), 20 deletions(-)
 
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index a0372189a23d4..fdd23db12875e 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1361,19 +1361,25 @@ static struct page *dequeue_huge_page_node_exact(struct hstate *h, int nid)
+ static struct page *dequeue_huge_page_nodemask(struct hstate *h, gfp_t gfp_mask, int nid,
+ 		nodemask_t *nmask)
+ {
+-	unsigned int cpuset_mems_cookie;
++	unsigned int cpuset_mems_cookie, zonelist_cookie;
+ 	struct zonelist *zonelist;
+ 	struct zone *zone;
+ 	struct zoneref *z;
+-	int node = NUMA_NO_NODE;
++	int node;
+ 
+ 	zonelist = node_zonelist(nid, gfp_mask);
+ 
+ retry_cpuset:
++	node = NUMA_NO_NODE;
+ 	cpuset_mems_cookie = read_mems_allowed_begin();
++	zonelist_cookie = zonelist_iter_begin();
+ 	for_each_zone_zonelist_nodemask(zone, z, zonelist, gfp_zone(gfp_mask), nmask) {
+ 		struct page *page;
+ 
++		/* A rebuild may have shifted a node outside @nmask into this slot. */
++		if (unlikely(check_retry_zonelist(zonelist_cookie)))
++			goto retry_cpuset;
++
+ 		if (!cpuset_zone_allowed(zone, gfp_mask))
+ 			continue;
+ 		/*
+@@ -1388,7 +1394,8 @@ static struct page *dequeue_huge_page_nodemask(struct hstate *h, gfp_t gfp_mask,
+ 		if (page)
+ 			return page;
+ 	}
+-	if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie)))
++	if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie) ||
++		     check_retry_zonelist(zonelist_cookie)))
+ 		goto retry_cpuset;
+ 
+ 	return NULL;
+diff --git a/mm/internal.h b/mm/internal.h
+index a94aae7f6c8df..0e586201b0fb7 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -11,6 +11,7 @@
+ #include <linux/mm.h>
+ #include <linux/pagemap.h>
+ #include <linux/rmap.h>
++#include <linux/seqlock.h>
+ #include <linux/tracepoint-defs.h>
+ 
+ struct folio_batch;
+@@ -404,6 +405,24 @@ extern void zone_pcp_reset(struct zone *zone);
+ extern void zone_pcp_disable(struct zone *zone);
+ extern void zone_pcp_enable(struct zone *zone);
+ 
++extern seqlock_t zonelist_update_seq;
++
++static inline unsigned int zonelist_iter_begin(void)
++{
++	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
++		return read_seqbegin(&zonelist_update_seq);
++
++	return 0;
++}
++
++static inline unsigned int check_retry_zonelist(unsigned int seq)
++{
++	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
++		return read_seqretry(&zonelist_update_seq, seq);
++
++	return seq;
++}
++
+ extern void *memmap_alloc(phys_addr_t size, phys_addr_t align,
+ 			  phys_addr_t min_addr,
+ 			  int nid, bool exact_nid);
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index ba7f386331a65..013dc3a6dd939 100644
+index ba7f386331a65..5e3d9f5ba4bc4 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -623,8 +623,6 @@ void set_pfnblock_flags_mask(struct page *page, unsigned long flags,
- 	word_bitidx = bitidx / BITS_PER_LONG;
- 	bitidx &= (BITS_PER_LONG-1);
- 
--	VM_BUG_ON_PAGE(!zone_spans_pfn(page_zone(page), pfn), page);
+@@ -4799,23 +4799,7 @@ EXPORT_SYMBOL_GPL(fs_reclaim_release);
+  * retries the allocation if zonelist changes. Writer side is protected by the
+  * embedded spin_lock.
+  */
+-static DEFINE_SEQLOCK(zonelist_update_seq);
 -
- 	mask <<= bitidx;
- 	flags <<= bitidx;
+-static unsigned int zonelist_iter_begin(void)
+-{
+-	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+-		return read_seqbegin(&zonelist_update_seq);
+-
+-	return 0;
+-}
+-
+-static unsigned int check_retry_zonelist(unsigned int seq)
+-{
+-	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+-		return read_seqretry(&zonelist_update_seq, seq);
+-
+-	return seq;
+-}
++DEFINE_SEQLOCK(zonelist_update_seq);
  
+ /* Perform direct synchronous page reclaim */
+ static unsigned long
 -- 
 2.53.0
 
