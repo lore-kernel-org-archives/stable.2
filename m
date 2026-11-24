@@ -1,80 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795559226;
-	b=k2b6lPpU0T+1lzZPA/AeA9QluWccogsalE0lEP8yXJZxemgaVG7sLL0LLBaG9Jx0cZom
-	 UvyFsS6fAe5VraGedU0QFM5x8wAhSAmrlDrmk3hE1DNGDcq15fbsInKkVXRWnZN2xc59B
-	 Ag0w3pd5kQe7Yi1KPuDbqsObXxeRHmYe9RQodl3G0ejOg8Mw8AqJgSeLF3azZ/29dptuX
-	 uegh07pNivbFwBDXvtJC+u6/5+33bvS3mSjgHVHXA5eMNocCTKgMwoOFib7tU2jHydo81
-	 AWA13JsLYH8Gmo7bIfJNP8/QHOBqGfA1Y72/6UN7R+9UMx+OaQFickVxhc5Ptu0Zo8Q==
+	t=1795559246;
+	b=vo7cRCiOYFC/aq2qaltHe04tuyoJjwjMeZ661GTk07baZtSZeiZ2QbE69mBRedXPoW7U
+	 t8OWfdg3r3gCxHhDY0dC5s0j92NFadUk0uIKxuHCXEuXOJ19lF9ssSPEVWfaQxcFEnGfc
+	 imKEoqWGtLNBwo5fREwMMuoTmHRQH+DThxGMmz9rg0twoS2wpQipHa7EdudRnr9sHC1Ii
+	 NxFyYIRhqB83Y9QPEZeub3wQGmWKGt3g69FijBNBUTeTyxtPCZDn3RZNppRhvOigiP7Af
+	 bCejDrlEL1twFxAmGN5yZ1/FLJ+ov347OR4oGL54GqLTiRJRGILiW/tbU6IVERwPB8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795559226;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dtMZbHm3lkM6o/yW+HmQOChZENqEt7jGlIYiYyXmUrc=;
-	b=MkSYg/ltagjX51R3H8BXXDm6+ET6TWRFH7MbBO9dzcK/Q7LkTQWslBm66W3B7Yozcdum
-	 J6NABQVR7fLcVQERsFaqTkv+5HuAcjI1TX/8G4dy+jdy/W4oWSqd8pCM7YkKR2FqyMnLy
-	 nIGJvJbVw9ZgWKcaZQD+m8Ijrlj+08yBToo4yr2gMtsJVI6MsNZ2EcQFZ6kYp/goKbUYx
-	 KEHLJXxzCC8UupiEDX8iTWsK7HAib1hsq2JaMTj3dGi3hEB9KqoiXh1vu2kZkXwYI2O75
-	 ZftysgPdE3Ub5NDoLF7VhXS1Ri/M+xYQU3f8bC4+sel3mBqG9euwywY4v9Mg/HQyxTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795559246;
+	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
+	 Message-Id;
+	bh=Dr5ubJWB0hJe+ALyJFqd9IbMpA/4SYmejGZ7ZlRj8vM=;
+	b=mlThkxAkjSPZkSmZNIQo8MqG014alqkSTtaB8sl82gK77vyDH98c8OmXP2mUzSRY4Ajp
+	 lNlTQpvheZ+sbhmWlWDbn9i8mxbspibeKK4fYsITcr56zffvqicq9l29XbN+sFpLAUfZ4
+	 s7ILR0xIGhjm0pFQV6eV/V0EI8wFiFqzbbOp6YOa5mkq4C+QjCWzAmLL5DBqk1jOn+kUz
+	 HL6rxVtNvJkHLbRb2C4dysNDWg2Gj3pc0f158mT4MrME26Vqpx77bkbZiU/XwpOOTuzt3
+	 NL6RLsu3kqshDdJ5DyBeCDnNPN2MTRiD/v1hLOGO4u+rmzdHv4BZ25lpVsWuLQdly/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="ugOr/v4c";
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=qDsJBnkD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7774606A327;
-	Tue, 24 Nov 2026 22:27:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C898606A31E;
+	Tue, 24 Nov 2026 22:27:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ugOr/v4c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5741F000ED;
-	Tue, 24 Nov 2026 22:27:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=qDsJBnkD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3251F000D3;
+	Tue, 24 Nov 2026 22:27:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795559226;
-	bh=dtMZbHm3lkM6o/yW+HmQOChZENqEt7jGlIYiYyXmUrc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ugOr/v4ceQqckoPQJ/g4UCaTyO+koHIT2A4RUIfXBsU1JVNTjLPiYJiVbIG3PBhXs
-	 cQ9UXFCWsh7ke9FpqJnH2bUu4Jume8Vz7EZPuKtb9E8g8EMBIGl7EyVWY/I16PMPbn
-	 B5BPEJXFGwvq3OGEHbKmuOIcSyHevi31Sq/46n4I=
-Date: Tue, 24 Nov 2026 14:27:03 -0800
+	d=linux-foundation.org; s=korg; t=1795559245;
+	bh=Dr5ubJWB0hJe+ALyJFqd9IbMpA/4SYmejGZ7ZlRj8vM=;
+	h=Date:To:From:In-Reply-To:References:Subject;
+	b=qDsJBnkDDrs9M1BTQyTsqyDmw4Z/x/qDQMbq1+MI3WiFY+3MoO8uXe9p1WDQPDZlL
+	 JDBCSxl05cwd6FAHk2dkVSKeAAPQaXB7PYUxusYaOkkg+EwcdFN6pOUWnFSIFMf44F
+	 iLejzFBIPqBzOawiOMV4a+yvd6+Ox/83hoPlP6kA=
+Date: Tue, 24 Nov 2026 14:27:24 -0800
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,
+	vbabka@kernel.org,usama.arif@linux.dev,usama.anjum@arm.com,surenb@google.com,
+	stable@vger.kernel.org,sfr@canb.auug.org.au,ryan.roberts@arm.com,
+	rppt@kernel.org,pfalcato@suse.de,peterx@redhat.com,osalvador@suse.de,
+	nico.pache@linux.dev,muchun.song@linux.dev,mirq-linux@rere.qmqm.pl,
+	miko.lenczewski@arm.com,mhocko@suse.com,matthew.brost@intel.com,
+	ljs@kernel.org,liam@infradead.org,leitao@debian.org,lance.yang@linux.dev,
+	kas@kernel.org,jthoughton@google.com,joshua.hahnjy@gmail.com,
+	jannh@google.com,gourry@gourry.net,dev.jain@arm.com,david@kernel.org,
+	byungchul@sk.com,baolin.wang@linux.alibaba.com,baohua@kernel.org,
+	balbirs@nvidia.com,avagin@gmail.com,arnd@arndb.de,apopple@nvidia.com,
+	aarcange@redhat.com,tz2294@columbia.edu,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, James Houghton
- <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, Suren
- Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro
- Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
- =?UTF-8?Q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>, Andrei
- Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, Zi
- Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, Joshua Hahn
- <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, Gregory Price
- <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, Alistair
- Popple <apopple@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev
- Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
- <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau
- <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
- <osalvador@suse.de>, =?UTF-8?Q?Miko=C5=82aj?= Lenczewski
- <miko.lenczewski@arm.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- stable@vger.kernel.org, Breno Leitao <leitao@debian.org>, Thomas
- =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, Lyude Paul
- <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Felix Kuehling
- <Felix.Kuehling@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky
- <leon@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v3 0/9] userfaultfd: assorted fixes (part 1)
-Message-Id: <20261124142703.8b6e07eabcd510e9b99b03a4@linux-foundation.org>
-In-Reply-To: <3ebb01ea-fe77-4467-a1de-7f30a91593f3@columbia.edu>
-References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
-	<4f23b0bc-b89a-46c1-b8cd-853e7815b7ac@kernel.org>
-	<3ebb01ea-fe77-4467-a1de-7f30a91593f3@columbia.edu>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+In-Reply-To: <20261117-uffd-state-fixes-v3-1-b617009d1a4a@columbia.edu>
+References: <20261117-uffd-state-fixes-v3-1-b617009d1a4a@columbia.edu>
+Subject: + userfaultfd-use-anonymous-memory-for-uffdio_zeropage-on-private-file-mappings.patch added to mm-new branch
+Message-Id: <20261124222725.1D3251F000D3@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,54 +62,256 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Tue, 24 Nov 2026 14:37:11 -0500 Tal Zussman <tz2294@columbia.edu> wrote:
 
-> 
-> 
-> On 11/18/26 4:41 AM, David Hildenbrand (Arm) wrote:
-> ...
-> > 
-> > So, I would be picking up ...
-> > 
-> >> Tal Zussman (9):
-> >>       userfaultfd: use anonymous memory for UFFDIO_ZEROPAGE on private file mappings
-> >>       userfaultfd: refuse UFFDIO_MOVE into a non-present huge destination PMD
-> >>       fs/proc/task_mmu: downgrade writable migration entries in PAGEMAP_SCAN write-protect
-> >>       mm/migrate: warn on a writable migration entry with the uffd bit set
-> > 
-> > This
+The patch titled
+     Subject: userfaultfd: use anonymous memory for UFFDIO_ZEROPAGE on private file mappings
+has been added to the -mm mm-new branch.  Its filename is
+     userfaultfd-use-anonymous-memory-for-uffdio_zeropage-on-private-file-mappings.patch
 
-1
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/userfaultfd-use-anonymous-memory-for-uffdio_zeropage-on-private-file-mappings.patch
 
-> >>       fs/proc/task_mmu: write-protect device-private THPs in PAGEMAP_SCAN
-> >>       mm/huge_memory: build the moved huge zero PMD from the destination VMA
-> > 
-> > This
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-2
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
-> >>       mm/mremap: resolve uffd state when the context is dropped, not during the move
-> >>       mm/migrate_device: do not migrate a uffd-protected zero page
-> > 
-> > This
+The mm-new branch of mm.git is not included in linux-next
 
-3
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
 
-> >>       mm/userfaultfd: check the hugetlb alignment of every VMA in the pre-scan
-> > 
-> > 
-> > After waiting a bit longer for more review. Andrew can take the rest.
-> > 
-> > 
-> 
-> @Andrew, could you pick up the rest of these (everything but 4 and 8)?
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-9-3 != 9-2
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-np, I grabbed 1,2,3,5,6,7,9 (whatever isn't in other-peoples-trees) and
-massaged the cover letter a bit.
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Tal Zussman <tz2294@columbia.edu>
+Subject: userfaultfd: use anonymous memory for UFFDIO_ZEROPAGE on private file mappings
+Date: Tue, 17 Nov 2026 23:28:41 -0500
+
+Patch series "userfaultfd: assorted fixes (part 1)", v3.
+
+This is a first batch of userfaultfd fixes, with more to come.
+
+These were found by a mix of regular old LLM review and by having an LLM
+write a TLA+ model of uffd interactions with PTE bits and other state and
+seeing what issues fell out.
+
+Most of these fix places where mm code loses uffd-wp or RWP protection
+while moving or migrating an entry. Userspace then either misses writes
+and accesses, or gets pages reported that nobody touched.
+There is also a hang in UFFDIO_MOVE, and UFFDIO_ZEROPAGE modifying a
+file through a private mapping.
+
+A few of the fixes change what userspace sees:
+
+ - UFFDIO_ZEROPAGE on a private file mapping no longer fails with
+   -EEXIST where the file already has a page, on an mm that cannot use
+   the zero page (patch 1)
+ - UFFDIO_MOVE returns -EEXIST for any huge destination PMD, not only
+   for a present THP (patch 2)
+ - UFFDIO_UNREGISTER with a misaligned hugetlb end fails before
+   unregistering anything, also if that hugetlb VMA is not registered
+   (patch 9)
+ - UFFDIO_REGISTER and UFFDIO_UNREGISTER accept a misaligned start that
+   lies in a gap before the first hugetlb VMA of the range (patch 9)
+ - UFFDIO_REGISTER returns -EINVAL rather than -EPERM for a misaligned
+   end in a hugetlb VMA without VM_MAYWRITE (patch 9)
+
+
+This patch (of 7):
+
+If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
+mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
+installs it through vma_uffd_ops(), no matter what kind of mapping it
+is. An s390 KVM guest with storage keys or protected virtualization is
+such an mm.
+
+For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
+cache of the file. That is wrong: a private mapping must never modify
+the file it maps, and the file might even be mapped from a read-only fd.
+
+The ioctl can also fail where it should succeed. A missing fault is only
+delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
+an address that did not fault, or can race with a write to the file. If
+the file has a page at that offset by then, inserting the zeroed folio
+fails and the ioctl returns -EEXIST although nothing is mapped at the
+destination address.
+
+What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
+shared zero page can be used, and what UFFDIO_COPY does: only check that
+nothing is mapped at the destination address, map zeroed memory there,
+and leave the page cache alone. The zeroed folio path did that before it
+was moved to vm_uffd_ops.
+
+To fix it, pick the ops in the common folio path, as
+mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
+mapping, the ops of the VMA otherwise. That makes
+mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
+so remove them and rename __mfill_atomic_pte() to
+mfill_atomic_pte_folio().
+
+While at it, use vma_is_cow_mapping() to check for a private mapping.
+
+UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
+if something is already mapped at the destination address.
+
+Link: https://lore.kernel.org/20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu
+Link: https://patch.msgid.link/20261117-uffd-state-fixes-v3-1-b617009d1a4a@columbia.edu
+Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Andrea Arcangeli <aarcange@redhat.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+Cc: Andrei Vagin <avagin@gmail.com>
+Cc: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Nico Pache <nico.pache@linux.dev>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Usama Arif <usama.arif@linux.dev>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Mikołaj Lenczewski <miko.lenczewski@arm.com>
+Cc: Breno Leitao <leitao@debian.org>
+Cc: <stable@vger.kernel.org>
+
+ mm/userfaultfd.c |   46 +++++++++++++++------------------------------
+ 1 file changed, 16 insertions(+), 30 deletions(-)
+
+--- a/mm/userfaultfd.c~userfaultfd-use-anonymous-memory-for-uffdio_zeropage-on-private-file-mappings
++++ a/mm/userfaultfd.c
+@@ -535,15 +535,27 @@ static int mfill_copy_folio_retry(struct
+ 	return 0;
+ }
+ 
+-static int __mfill_atomic_pte(struct mfill_state *state,
+-			      const struct vm_uffd_ops *ops)
++static int mfill_atomic_pte_folio(struct mfill_state *state)
+ {
++	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
+ 	unsigned long dst_addr = state->dst_addr;
+ 	unsigned long src_addr = state->src_addr;
+ 	uffd_flags_t flags = state->flags;
+ 	struct folio *folio;
+ 	int ret;
+ 
++	/*
++	 * The normal page fault path for a MAP_PRIVATE mapping in a
++	 * file-backed VMA will invoke the fault, fill the hole in the file and
++	 * COW it right away. The result generates plain anonymous memory.
++	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
++	 * generate anonymous memory directly without actually filling the
++	 * hole. For the MAP_PRIVATE case the robustness check only happens in
++	 * the pagetable (to verify it's still none) and not in the page cache.
++	 */
++	if (vma_is_cow_mapping(state->vma))
++		ops = &anon_uffd_ops;
++
+ 	if (!ops) {
+ 		VM_WARN_ONCE(1, "UFFDIO_COPY for unsupported VMA");
+ 		return -EOPNOTSUPP;
+@@ -601,32 +613,6 @@ err_folio_put:
+ 	return ret;
+ }
+ 
+-static int mfill_atomic_pte_copy(struct mfill_state *state)
+-{
+-	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
+-
+-	/*
+-	 * The normal page fault path for a MAP_PRIVATE mapping in a
+-	 * file-backed VMA will invoke the fault, fill the hole in the file and
+-	 * COW it right away. The result generates plain anonymous memory.
+-	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
+-	 * generate anonymous memory directly without actually filling the
+-	 * hole. For the MAP_PRIVATE case the robustness check only happens in
+-	 * the pagetable (to verify it's still none) and not in the page cache.
+-	 */
+-	if (!(state->vma->vm_flags & VM_SHARED))
+-		ops = &anon_uffd_ops;
+-
+-	return __mfill_atomic_pte(state, ops);
+-}
+-
+-static int mfill_atomic_pte_zeroed_folio(struct mfill_state *state)
+-{
+-	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
+-
+-	return __mfill_atomic_pte(state, ops);
+-}
+-
+ static int mfill_atomic_pte_zeropage(struct mfill_state *state)
+ {
+ 	struct vm_area_struct *dst_vma = state->vma;
+@@ -638,7 +624,7 @@ static int mfill_atomic_pte_zeropage(str
+ 
+ 	if (mm_forbids_zeropage(dst_vma->vm_mm) ||
+ 	    (dst_vma->vm_flags & VM_SHARED))
+-		return mfill_atomic_pte_zeroed_folio(state);
++		return mfill_atomic_pte_folio(state);
+ 
+ 	_dst_pte = pte_mkspecial(pfn_pte(zero_pfn(dst_addr),
+ 					 dst_vma->vm_page_prot));
+@@ -931,7 +917,7 @@ static __always_inline ssize_t mfill_ato
+ 	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_POISON))
+ 		return mfill_atomic_pte_poison(state);
+ 	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_COPY))
+-		return mfill_atomic_pte_copy(state);
++		return mfill_atomic_pte_folio(state);
+ 	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_ZEROPAGE))
+ 		return mfill_atomic_pte_zeropage(state);
+ 
+_
+
+Patches currently in -mm which might be from tz2294@columbia.edu are
+
+mm-memcontrol-remove-mod_memcg_page_state.patch
+mm-memcontrol-remove-page_memcg_check.patch
+mm-userfaultfd-store-the-childs-new-uffd-context-in-the-wait-queue-entry.patch
+userfaultfd-use-anonymous-memory-for-uffdio_zeropage-on-private-file-mappings.patch
+userfaultfd-refuse-uffdio_move-into-a-non-present-huge-destination-pmd.patch
+fs-proc-task_mmu-downgrade-writable-migration-entries-in-pagemap_scan-write-protect.patch
+fs-proc-task_mmu-write-protect-device-private-thps-in-pagemap_scan.patch
+mm-huge_memory-build-the-moved-huge-zero-pmd-from-the-destination-vma.patch
+mm-mremap-resolve-uffd-state-when-the-context-is-dropped-not-during-the-move.patch
+mm-userfaultfd-check-the-hugetlb-alignment-of-every-vma-in-the-pre-scan.patch
 
