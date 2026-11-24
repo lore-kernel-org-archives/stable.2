@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795533025;
-	b=rr+XQpwge5CHUDh9205uoDx4GmDGC4E2VjMf8uo5QoJ/4ZVg0cKb0r0167+POwr1rorV
-	 O7Ic1sLojWdZvWVoPAwZ+KhxyJJWoF0UFxYiXUV7wEgGa2sS2cP9u1wyqpJZl+7OOWBsy
-	 YWKkyXKDoYM5iFjtSabOcUjAcCAQN3f1uNJlF0I8D2drx8waLc81OokuToe8mdGe1I5mE
-	 ruUSz5AdFu8lI6DrZTjv+XyKE+x/4+CtUVU+UlzS5bLtPWiJC8l2RB0Jty/B9QzbtLZSK
-	 Il87sNxdldQSiW9ZFWzn1dhvMSLaQQ9O5rUHzunUElSe7vFnPqnsGKazvxltcGWDRig==
+	t=1795533028;
+	b=ijxoS/j85QZGON3gC8Tj7foazyvn+9UfxL4Koz2CXI0c19zodhK/PF3tOi6vj29rMDq2
+	 Xs0vXWWI7BcqbcVJPk9HmqFldEZXSxZ8kndsxaF65ooowE9zNjnAILPQzYOO4f957tW6K
+	 QdTe3SqdOtdLM/S8bCHOg98dbkEzfdwh/Lr/vP0sk5jk6nRuyPocoTJidost280oxd25d
+	 ZmEojjZZxh+uJ8Ybgb1mhb3CTvHpH2y+Php47FfT5UzE1jBI3nal+IYLZyA/2RlYO8CcZ
+	 9FTzQMfJb+1Ib7d4smuMc7pFGm0WgESnItllhQ+aYv3hpy07jQK8pzn4OYUJ/DA/3KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795533028;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ssP1M6W3gOW+5UpWs6tC1Xnom9O+66GQyMEDJR0pBbQ=;
-	b=m1eVuBuvWtxof2PITeZFaqxuaYa506Rtsvgz9zrGPll0tTj183bDhZYwSDkerr6v7d5T
-	 SgrdQ0CvD97eLT+MwnialuQHZk29SmYyzBzyQAu84W+jUxtoeTxNw7FjZsI4g4fjir32s
-	 GmwcbwfDHHPjhHbAIwlwoBMvcDOjXZeieKVmz9TL1p6gPuyrVzDW2kpAI+OurNOvs+WsO
-	 EQ7Hc8SLUtGir1YWiVcNRxnAcm3SExMWsY/A6Ipx3BCVnw7cP+PPUnW0DrAcnnmAqDncI
-	 aBaOHvcWeEKaCOk6boy08DQHJ+1JQhcaPWv2Pp40qYvexRpSEswkmiH0KewV4xE7JdA==
+	bh=2dy4pVciuW/NtQJVAW20ZB4SFxxQOiIkDD11VuwfuJs=;
+	b=audHxD7ABKSXbvNaEqP1RtkpT3xXqaChR0RC5dp+0z1lHwiGT639iRCG1KP+DmT7kjr1
+	 Nxhx7HcivSwLl180WD7MTUg4/cIhkCtI8zAfme/Y6D5GYl8hJDUbXtBTeMoF0AwTHNC0b
+	 8LcGarutK6R3mBAA6fEHJp6pv/wWzwbIVcOP250tPRA944GzhqG511Gqu7PUGydkrVP5y
+	 7NyFnvSNpU3m9Csxmf1aBbySSCdFA11lVUDRMMD0+/358yCF/WQ8QH7kE8tGrv2zCTTUH
+	 yvGmjpjgunMd3sGuVG4R/2BAzQ7uY2RT82M2exDZuMrb5qjkHHIhWvK4spUnEK0SjyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dLQe6dXf;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Zdvs4uwv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC7C606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:10:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2963F606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:10:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dLQe6dXf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77EE61F000D8;
-	Tue, 24 Nov 2026 15:10:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Zdvs4uwv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5037C1F000C0;
+	Tue, 24 Nov 2026 15:10:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795533024;
-	bh=ssP1M6W3gOW+5UpWs6tC1Xnom9O+66GQyMEDJR0pBbQ=;
+	s=korg; t=1795533027;
+	bh=2dy4pVciuW/NtQJVAW20ZB4SFxxQOiIkDD11VuwfuJs=;
 	h=Subject:To:Cc:From:Date;
-	b=dLQe6dXfUzrkdGGgiiy5rX8qfMCChOuMcZKyZXIuMOwYV6xLP5Njf61r06GIIjFpC
-	 ks8xbywnWr3JcMAPaoF41+mNGbBtm61yPlPL7XnCgNBuW9+fYPxc0Wm8U0RqhPniEG
-	 Vqehu8vEGx5bn4CsBobc0XedjAp+4zZgJdFhuvcg=
-Subject: FAILED: patch "[PATCH] mmc: jz4740: Remove the host before resetting the controller" failed to apply to 5.15-stable tree
+	b=Zdvs4uwvKq/v73cePv4lh0yH9HprNa6duubKErkgl5xPVYBR7Dl5TRK5BSbQPKAlL
+	 On99YNuyBdeSmGqhg8YjsTNht5kkfI2eLQEwYM2OEAWGZMik9SfcuS3KtJHd39rDKH
+	 Ow+OhldQasUx7ehEh+S7EletkrHeDi2GVWbkrEFQ=
+Subject: FAILED: patch "[PATCH] mmc: jz4740: Remove the host before resetting the controller" failed to apply to 5.10-stable tree
 To: olivier@mgcrea.io,ulfh@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 24 Nov 2026 16:10:35 +0100
-Message-ID: <2026112435-undone-daily-7520@gregkh>
+Message-ID: <2026112435-active-relight-4a16@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 6b8b1e8827837bf4cf1f87219038fddae9e81b0b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112435-undone-daily-7520@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112435-active-relight-4a16@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
