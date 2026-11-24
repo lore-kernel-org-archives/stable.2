@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795533055;
-	b=qE7JO2GzFvAMlQ7WNJQZPvkVHEut2u92a0aVqAj1rz6tIPg/jSOlR74Hh12VctATq98U
-	 0xJMMvoCjDTUu9Ht/zCXRlt1cOllis2bqqEAagHPTchQ1zA79kb1+5L1SRZcBfAR3rUDa
-	 NtcwHUNDstzjkcdVJSdNz+lHVXnhKDwQMAC1N0RLlNAKmyEO+hy+FZk3NVf0dcuIZcB3z
-	 wuC3uyvetcc+wspK1+BI09rKw+IhLynJYpuIXgTd14hWVtJUhJL1I4pyHz2kyN8fSCrqX
-	 3zr8kJ/EQ6RHfgDOxYRD1nrBQP9H8UAq5r+VzE1QoU/D3AOOXBg3pxLgYWeuoZkABRA==
+	t=1795533068;
+	b=gJGl6rWhZc5cdZ4luG/HhRbSktSbOutL4o0yuaj6V+psVmgXzI0m0saSIzEkKNtRPJzR
+	 YDGXSWxuwGy0GlR1yrvn7sFmkCeQQ+BC5O6xnkv4s09Dgbj11G8w+TWTR2uRvnMuk4Xry
+	 XdO9tkmA2xulhEeora/OS3h7k7tVg+oa63gQ3gR9H0uv/9X0sUOqRCa+EaMRbqIc4/R3C
+	 gzUsxPeYoD5YtAGaGpWtu1CBDR9s2y8b8uTG5QAibK0vyKy9F2veVOVWIWvpTwU3Awa2E
+	 SqDYmgFlD4FEgW+F70mxUljULG9YqGbmleiJkagnIKuzR3QoAhjpOAWTxXDWAkJf59g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533055;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795533068;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9Ss7BXi4WSEmDpeMvPKsqBRjWVYsV7DXDjmIYdPfJ+8=;
-	b=2XxCYwWL9fMjhbmBCI1Vd7J7Hp8Tcz5ps4lCO/FVzW8rH6WR9V6rKIzQ/g5FWQfnuo9M
-	 4tB9fWGkAs0oqy03wKekOxkAxcOg9w9ovSvHXfurj6ZIf8qzMFbkScEFj+ZZwedlJVQdt
-	 1gyqCWXqt/n5iD6J/kWPC5I16H4zyBPkzw2qZr3juTMyu/DoHSLw5voORBCt6cxfEloOg
-	 icrLRcf1HtwZYKdjkW+6LmGC21JbgBlOIwxDyFcLnFPJbBjPi4vqvCxtYqLn62k+cg+x0
-	 pdC9TtF/KndIoCnt/o+FhVB7VPAVSf61a7bcnuXfKsDvqDlAWdjcBX6366Vw9MnmKJA==
+	bh=+kKF467m9GtT8kP3Mv9jVUHq04Tqfqk4uC6CC+ky3Yg=;
+	b=M+6aTz1Ln1GKB9dmvpQtksWw6C5t30eZni4r+b5KtRL4eT2/Adux43UN8XODDoPu1YcR
+	 3bkqEOL9W77T5RHWEjwQizuUS9dAoP2ECj8HTRONru+0dVPuaTLp4A/b/0r2DOmFwtodY
+	 t8VNgOeHSmkiKzXSlEXLGg87NV2fei5OitauahMT63NA+GJlgsBr3sfO0nwjrRgL7NLkJ
+	 xNS4+bhHac6CWvLOhQhNNGRNtaAXzs4qsB/8qAvqsiOtl4WeTSK052S2BD8Zwkzk/URUY
+	 +FDHprQ9nvj69DqaZtBX5nIx7SyTNkEJ5XqkoAtVqJ8faJqF/ZScKcfrPxzOuCpn+Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CrlSUQhG;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Yb6RckEK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81986606A329
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:10:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C070A606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:11:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CrlSUQhG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D40A11F000C6;
-	Tue, 24 Nov 2026 15:10:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Yb6RckEK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A10E11F000D0;
+	Tue, 24 Nov 2026 15:11:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795533055;
-	bh=9Ss7BXi4WSEmDpeMvPKsqBRjWVYsV7DXDjmIYdPfJ+8=;
+	s=korg; t=1795533068;
+	bh=+kKF467m9GtT8kP3Mv9jVUHq04Tqfqk4uC6CC+ky3Yg=;
 	h=Subject:To:Cc:From:Date;
-	b=CrlSUQhGshb1smc7Dw+u3qQan48NsvabnjshX7kSipKURWeDQ25qBD8u0/EULLV1M
-	 L7IBwBpkQ18tgYBR3JakS8t3msRU0UXqwynHSb1zWR+1GnGADekuhMrlDAJ7pnWIUV
-	 IkhyEv2UCo2xc3/cpd/1yjC5pN4Ko8+awXiM7JOc=
-Subject: FAILED: patch "[PATCH] mmc: sunxi: fix clock and runtime PM leaks on probe failure" failed to apply to 5.15-stable tree
-To: anferneemelokc5@gmail.com,ulfh@kernel.org
+	b=Yb6RckEKtvVV+ReoI2LJT1FnkAHpadRfKahlk/NdSieZ2aBB99Z7pY+jOmfQ0JzMs
+	 8NmWEW8xxg/qY5kQH9Mra0ePt94DeHfGUvpei7RTgWsHMt0NLABkr//GCGia2seaFp
+	 9SQ+dvdiMEditYp+LDZmo35pCAFFDeFMg72PHza4=
+Subject: FAILED: patch "[PATCH] mmc: omap: synchronize clock timer before disabling fclk" failed to apply to 6.12-stable tree
+To: runyu.xiao@seu.edu.cn,ulfh@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:11:00 +0100
-Message-ID: <2026112400-cope-retiree-6c55@gregkh>
+Date: Tue, 24 Nov 2026 16:11:28 +0100
+Message-ID: <2026112428-nullify-reactive-9011@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x e35e360bd66898a977c296ab71fe4bae17ddceb7
+git cherry-pick -x c931c51681e33b24bc8d65c6df35b70e1827daa2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112400-cope-retiree-6c55@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112428-nullify-reactive-9011@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,98 +79,50 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e35e360bd66898a977c296ab71fe4bae17ddceb7 Mon Sep 17 00:00:00 2001
-From: Anfernee Cao <anferneemelokc5@gmail.com>
-Date: Tue, 20 Oct 2026 23:36:47 +0800
-Subject: [PATCH] mmc: sunxi: fix clock and runtime PM leaks on probe failure
+From c931c51681e33b24bc8d65c6df35b70e1827daa2 Mon Sep 17 00:00:00 2001
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Date: Tue, 29 Sep 2026 20:45:22 +0800
+Subject: [PATCH] mmc: omap: synchronize clock timer before disabling fclk
 
-sunxi_mmc_resource_request() enables the bus, card, output and sample
-clocks before returning. Several failure paths later in
-sunxi_mmc_probe() leave them running:
+mmc_omap_select_slot() removes clk_timer with timer_delete() before
+switching slots and changing the functional clock state.  timer_delete()
+only removes a pending timer and does not wait for a callback that is
+already running.
 
- - If devm_request_threaded_irq() fails, the clocks enabled by
-   sunxi_mmc_enable() are never disabled.
- - If dma_alloc_coherent(), mmc_of_parse() or sunxi_mmc_init_host()
-   fails, probe only frees the DMA buffer and the mmc_host.
- - If mmc_add_host() fails, runtime PM has already been enabled, but
-   pm_runtime_disable() is never called.
+If mmc_omap_clk_timer() is already running, it can therefore call
+mmc_omap_fclk_enable() while the request or slot-switch path changes the
+same clock state.  During host removal, the same window can overlap the
+final clock shutdown.
 
-Besides leaking the clocks, this leaves the clock enable counts
-unbalanced, so a reprobe (for example after -EPROBE_DEFER) calls
-clk_prepare_enable() on the same clocks again.
+Use timer_delete_sync() so the callback has completed before slot switching
+or changing the functional clock state.  Keep the timer restartable for
+normal request handling.
 
-Disable the IRQ and the clocks in the probe error path, and disable
-runtime PM on the mmc_add_host() failure path. Also handle a failure of
-devm_request_threaded_irq() in sunxi_mmc_resource_request().
-
-Tested with QEMU's orangepi-pc machine: with forced sunxi_mmc_init_host()
-and mmc_add_host() failures the MMC clocks stay disabled in clk_summary,
-and a normal probe with an emulated SD card still works.
-
-This issue was found by manual code inspection.
-
-Fixes: 3cbcb16095f9 ("mmc: sunxi: Add driver for SD/MMC hosts found on Allwinner sunxi SoCs")
-Fixes: 9a8e1e8cc2c0 ("mmc: sunxi: Add runtime_pm support")
-Cc: stable@vger.kernel.org # v4.18+
-Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
+Fixes: 0807a9b5739a ("MMC: OMAP: Lazy clock shutdown")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 Signed-off-by: Ulf Hansson <ulfh@kernel.org>
 
-diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
-index fe4c0f6d73f3..437fdadb5950 100644
---- a/drivers/mmc/host/sunxi-mmc.c
-+++ b/drivers/mmc/host/sunxi-mmc.c
-@@ -1354,8 +1354,13 @@ static int sunxi_mmc_resource_request(struct sunxi_mmc_host *host,
- 		goto error_disable_mmc;
+diff --git a/drivers/mmc/host/omap.c b/drivers/mmc/host/omap.c
+index 527b89a5ed70..02d288e4e9dc 100644
+--- a/drivers/mmc/host/omap.c
++++ b/drivers/mmc/host/omap.c
+@@ -214,7 +214,7 @@ static void mmc_omap_select_slot(struct mmc_omap_slot *slot, int claimed)
+ 	host->mmc = slot->mmc;
+ 	spin_unlock_irqrestore(&host->slot_lock, flags);
+ no_claim:
+-	timer_delete(&host->clk_timer);
++	timer_delete_sync(&host->clk_timer);
+ 	if (host->current_slot != slot || !claimed)
+ 		mmc_omap_fclk_offdelay(host->current_slot);
+ 
+@@ -273,7 +273,7 @@ static void mmc_omap_release_slot(struct mmc_omap_slot *slot, int clk_enabled)
+ 		/* Keeps clock running for at least 8 cycles on valid freq */
+ 		mod_timer(&host->clk_timer, jiffies  + HZ/10);
+ 	else {
+-		timer_delete(&host->clk_timer);
++		timer_delete_sync(&host->clk_timer);
+ 		mmc_omap_fclk_offdelay(slot);
+ 		mmc_omap_fclk_enable(host, 0);
  	}
- 
--	return devm_request_threaded_irq(&pdev->dev, host->irq, sunxi_mmc_irq,
--			sunxi_mmc_handle_manual_stop, 0, "sunxi-mmc", host);
-+	ret = devm_request_threaded_irq(&pdev->dev, host->irq, sunxi_mmc_irq,
-+					sunxi_mmc_handle_manual_stop, 0,
-+					"sunxi-mmc", host);
-+	if (ret)
-+		goto error_disable_mmc;
-+
-+	return 0;
- 
- error_disable_mmc:
- 	sunxi_mmc_disable(host);
-@@ -1385,9 +1390,11 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
- 
- 	host->sg_cpu = dma_alloc_coherent(&pdev->dev, PAGE_SIZE,
- 					  &host->sg_dma, GFP_KERNEL);
--	if (!host->sg_cpu)
--		return dev_err_probe(&pdev->dev, -ENOMEM,
--				     "Failed to allocate DMA descriptor mem\n");
-+	if (!host->sg_cpu) {
-+		ret = dev_err_probe(&pdev->dev, -ENOMEM,
-+				    "Failed to allocate DMA descriptor mem\n");
-+		goto error_disable_mmc;
-+	}
- 
- 	if (host->cfg->ccu_has_timings_switch) {
- 		/*
-@@ -1467,7 +1474,7 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
- 
- 	ret = mmc_add_host(mmc);
- 	if (ret)
--		goto error_free_dma;
-+		goto error_disable_rpm;
- 
- 	dev_info(&pdev->dev, "initialized, max. request size: %u KB%s\n",
- 		 mmc->max_req_size >> 10,
-@@ -1475,8 +1482,13 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
- 
- 	return 0;
- 
-+error_disable_rpm:
-+	pm_runtime_disable(&pdev->dev);
- error_free_dma:
- 	dma_free_coherent(&pdev->dev, PAGE_SIZE, host->sg_cpu, host->sg_dma);
-+error_disable_mmc:
-+	disable_irq(host->irq);
-+	sunxi_mmc_disable(host);
- 	return ret;
- }
- 
 
