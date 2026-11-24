@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534705;
-	b=J3qEArIZz2RQXbTsn4LbX/llwpBNAgpKRyPJaFBCIgNgBUzwKcmZxhrhwjtH9yGsBMQu
-	 0esaDkB0nP1LBjKobOXJWyN0ri5hhMxddEaroUSy32IHD2oXQzg7GH+/FPCHvWGCPbkjP
-	 WelKd6ZzjvXRLAD/o1mMacXMzdOMDKaw9ZqeCmGNjQqk42hdRLL8qkbvfdCh9pyUWpEjT
-	 2x30n6IWN5amwp3bpu3S0NNRCrmPCeHfYnZmy7qaG4f3+B2EuBUpW0DMMjRT3ZAtcHK6R
-	 NmQHzuudgVQLnJsDOfUdB02Xz/U5oxDOaAVgfXJS4KcgS4mZSnE9kox+fC1LY5fPWnw==
+	t=1795534708;
+	b=3X2ofhVeurQsZ56ZqG8iBYrSIVyf33eu/ctvSUSX21MTB4U7QtUCmGlH/6XvzPtuSw/t
+	 o6/lDDmJ4ZQYQ0ZFDr9P3kZTyzaPhnGqGbrfZKvDcEVDxBef2z0edEFUErJU8rhxu5DQJ
+	 AnwWetV+ISaXJtaM+WVRmZnLWui/Nf2nrxfSKDJhtIS4OzPaHGBObmXkYGWbpdin3cEeF
+	 J8plUxF7pa/NoIeAPjZRYMxvgbbQkIGda/iWeMQiB/53M76tZbCsKTmZINEb2zotH4Zk0
+	 xylom6Nwx1o91mh93qS6fIRF4HvhLlw9OfYGLLniTvh/AKWPsBtW6t2XI7lccDUKmVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534705;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534708;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=InVqV/vaggiU6gFEBudgv65yZvBhkR6aPNfJTeAiXDY=;
-	b=fOBbMkYL82e7812P8+w/WiSPEzdBtHFhPKzTBYaUo04Y/eXrt2mATUzyqp/i+T+7dTT1
-	 k3Qo3pv4zNZITUeeFXP1ZsNTyTQyhdurX2LTylFISYy87DTByaILaaGQwK062PVwidRAG
-	 WXHzdNO6Jk8I3m9GRho/+q3y1QneJ+hUlq71HZ81yEUa8auoUwU0Z2OEDx/fc+85t+m9b
-	 mfV2DRZrCBl1eP3H3EBgwh/BNDcvupTL5tSnJ2szme1zpXfolkEmwv3VX9GOiOpFWut4p
-	 gelE3g5Gqynb2LiWO6n9AG0/o31napuV6ef53G8eHG78m798L2oV72XjXWp+7JIVuNg==
+	bh=zCUFeNqYy5RXwhw1/VefdswJGLY/WLSW4+uAeWESDTM=;
+	b=5EJvL16jmPYUsk47X6igsV33VB3OMSDCZ/nSiTZERhcrPBRJHsjsstEU1gpoMol8VxNI
+	 1/xEmVxPkQ/7U8nydMTJEcx/1FUYzXiHKPeWullu6k3Rsdu5tX/Ma2CPOb6p9Uettverp
+	 6dMCw35YHFLm/l6YSKMlOkg6ZIbN6NBNkH38kIscqz73E0zo+v82/B/F9TJvzKq0vUIJS
+	 cCxUdnkLi50wzlkSq/v76wV2bANOvVWcdtKpKPVsvisAyzJ4WTOcBwvtcUC5bMI4arGl+
+	 R/GNjJJYMG8fk4n1iphZQfXDTlXDv+0nzpvL0EQAYRN77Pomo01tWhyxP/qc1W4HMdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="wBG/JKLe";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yL3vcH8j;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C36606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:38:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D63606A323
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:38:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wBG/JKLe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A38B91F01563;
-	Tue, 24 Nov 2026 15:38:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yL3vcH8j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F6741F000C4;
+	Tue, 24 Nov 2026 15:38:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795534705;
-	bh=InVqV/vaggiU6gFEBudgv65yZvBhkR6aPNfJTeAiXDY=;
+	s=korg; t=1795534708;
+	bh=zCUFeNqYy5RXwhw1/VefdswJGLY/WLSW4+uAeWESDTM=;
 	h=Subject:To:Cc:From:Date;
-	b=wBG/JKLejobonu8gkjpl8Zg8E4o+3ckTXI51mcRtMXzomxq4QjUofsgCNL86NDuiI
-	 ScP63PXbOfkIVYsA9eoA8somhGBwM5nUYIT9kuV4KCa3AF992LU3U0LMLQ6cVewJmh
-	 d9JTxTLg2X0R2SK1dViXsoMrkdRm9vKzRbm3jJJY=
-Subject: FAILED: patch "[PATCH] mm/page_alloc: don't undo another isolation in" failed to apply to 6.6-stable tree
+	b=yL3vcH8jmn+WxnjrJXpTZS3rt8XL8csBqzXiZGRcTGI7qADqb76F1kPqFNrtQR5bP
+	 ETgQL8bM6ogqe3MY31QyCbnhUXBZi3IaL1WweMlR8oz0tN09vG44ANyKE1e3xvDW6L
+	 5D2mIuKUc1CPVTJPPdJGUcbNZ/XMrMji+7MYpe6Q=
+Subject: FAILED: patch "[PATCH] mm/page_alloc: don't undo another isolation in" failed to apply to 6.1-stable tree
 To: gourry@gourry.net,vbabka@kernel.org,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:38:44 +0100
-Message-ID: <2026112444-removable-storm-556a@gregkh>
+Date: Tue, 24 Nov 2026 16:38:45 +0100
+Message-ID: <2026112445-quartet-reseal-bdc1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7d9c29ed8feec8bfbe5e5f673ba2b5926da11375
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112444-removable-storm-556a@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112445-quartet-reseal-bdc1@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
