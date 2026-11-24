@@ -1,56 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541868;
-	b=q5cT1CFbkPl38HdnJ8jKkAnoVT0w5NXjG4CqowAE7ZUExtoIECZyhru6eHeUzcp2sGdR
-	 GXVzSdWumctcJipzF5nHxQUqLERoesfTf09miBX1X9pFbOYaIq6L8sBL8UQpts8+X/LUq
-	 CCVFYu01qFPYgsRaA4pEn9b5akaaaYnGfm7AcAqZjVjk5BpyIQQZWYtXqreOnPc8ZAVJH
-	 OR58VP7aWhAkLEYtXpgIl9d+VHTtEQQVH33YtS9IC6f4VURvjd6NfylcLXYcKTL7yZ5FI
-	 b6y/Lgm18gdMPku6CSXk0X36wj8ZEanDOIuNqOj8i6HtgCRZYevb6xlQkjP/qIdNJFg==
+	t=1795541877;
+	b=PaZzgQ8wihSVcCsb/Ce3/3RbCXE4o5PvPvc8s7mTQXLEQ/1KLeBZ+wmQEDO9rmeeqtU3
+	 0wy2qSPFyww+0Bz5Lv2LH1BFTP3yFeqM/bNlytcjGO+7w9KccQiiFOqJHu8x6MxtEDmHJ
+	 xKe0hGzkY8+7aoHkWPeLbpqk3YHSZuD9nzVeS6Ju7vJr9tVV5V9/waG6l7GKBIn9o0wbV
+	 YiTKLxRCLU0vdj1B4xyrXR3YUbCyfhVfguyK6xNCBEI5wakLT3t8w+RTMe9jM7uFxgUa+
+	 FviCS9BY0uMVqvqlNGnUcmf/6cWZ1l4A9/QFYTBGDmHil12IqE8eEL0Z/74+opDIXvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541868;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8Ru3F+1AhaGJKmQnbOij53xiM6aZ93gudvcU501r+wA=;
-	b=4v9hVSb3XwYg6Ho46zelKLRLrS0J7Ra6boVYkhqWVqHI3npuQR2Np3sqjUH8fHF9u/86
-	 Hg9HUUhrH0LEDfY8S7F/BVu1SOzhwcWNIHaRT4FYixXFEIiLjED8EJgoEGMfpZmvz06Z3
-	 uMLi78C3/6PL0zrEr6aR0Dzc/jr8eEjTYuhHqqVlVRNH70ikNcY3qx12bYKaxdAG9d8NB
-	 vkxufF1S8v/7s8d4K9SfuusBQFI/xa/NxybjTvxCD1QCnn4Av1h2+dzSZV76eKpa1ayvE
-	 ALPDsqGv5S6WadjQhF290Bw7NpjXGV2HT71SCYyF1TiJf5l4o3OGS0IR/nE713GutPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541877;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Developer-Key:X-Developer-Signature:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=lr8eROeYqOwVYDYKaKs4dok8lqJtCln9w99IrPpRWrY=;
+	b=KZ3Bijf2af+Bt/RBv48JhY+74MyUu8thUfStDzicNaeuDtG1wXdzjdvV+yB1wMTTaCTt
+	 l+MroUzrMnIe7kLHb2HxNLMt7SUhMFv7aHJU06l6RWAj4t1UBDaamBXmyYzLs4qmCc5vI
+	 xN6OIksVfZ7fPByJCnCmP4TPjVMKe+Z8ZJ3O9tZ5yNO6OQ+b+HkwXPWvKmfOHCFR9K5Kx
+	 9TAIN1SXRLGsvqA1qnWVorIKKfyg7dor0qceEjNMpmKyPzAhLKgK1PX+dkoMxgXvFAsYm
+	 P0MOVrsD9/+hW4v+oEQxkbuZ7EyQLLNOHg2p/nfyuAVT9Tew2S2oJPPxhxMMu4tGSAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Xo/v3riw";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--ardb.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jKh8Gq+P;
+	arc=none smtp.remote-ip=209.85.128.70
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CE7606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:37:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7547A606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:37:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7547A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xo/v3riw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D1C1F000C4;
-	Tue, 24 Nov 2026 17:37:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795541868;
-	bh=8Ru3F+1AhaGJKmQnbOij53xiM6aZ93gudvcU501r+wA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Xo/v3riwSJn3SP3Q4R6C1pLxDXu44o6oDMYAbvuxaJ9QUuAxZEnw8480UTBFvd9xW
-	 trTX2mKy5rC1W20l8raWBdmw2jrNcp4hqXboaNEk/V6/LMwUgMpnDeQbRNuMjN2Awl
-	 rHRyPBLVupZKhTamxqTH+riM5IwUqRWHvUlnNoHwcZ3qj0VkSvGuTKU48k0xtY1bU/
-	 1n3tlnRMOEavZ4tUhzloJy5yEPwckDhVHiBPsct+67hisFRpQWCFjHYbDpe9DMMvm2
-	 fcJyentmNlrrrhBTybRVKHTd2nXJ/sPr8TdmF1QodmJZO9mspJgDvNNwURoBTRpzqI
-	 4H+Xa0yGb588A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Anfernee Cao <anferneemelokc5@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] mmc: sunxi: fix clock and runtime PM leaks on probe failure
-Date: Tue, 24 Nov 2026 12:37:44 -0500
-Message-ID: <20261124173733.2004923-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124173733.2004923-1-sashal@kernel.org>
-References: <2026112459-diameter-aroma-1a35@gregkh>
- <20261124173733.2004923-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jKh8Gq+P
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4bb68d624baso18819125e9.2
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:37:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795541876; x=1796146676; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lr8eROeYqOwVYDYKaKs4dok8lqJtCln9w99IrPpRWrY=;
+        b=jKh8Gq+P/AaKNhplNkIOvENYy5oA8gA6ZkVHBgI/hUhhooDfz58syc2fuVZRUOkVHW
+         Z5hKCcZYsuxYfeewPKn/N79iPVqw6PZmM6fKib44ubvN/zHLUr/eNDOkW3ZQSh1SF+Ei
+         4++gastOFZ4oYJnmqfqkIJsbZpW8QV+TK70EtUdngiiQ86o/rAYbDIq4f74xMWlypjd7
+         PoN5L0EGT1p3s+uIJS5o1Gqcs9XLkZM47qRlVoj0g0xRgH7Lb9OBPgJg9MBYoSwcoY5K
+         GPRvmjURJzTjcaZ6OIyzXFC3c2un/Fh2U1vMML7bW/w/PWzFMl31mXSioiObEBEnVKaN
+         qN4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795541876; x=1796146676;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lr8eROeYqOwVYDYKaKs4dok8lqJtCln9w99IrPpRWrY=;
+        b=GHWEXS7KNgDHbCPJE19nPiy/tyztmW4QiJceiRnH049eGDuGGa3y/sfai6yyxPytMm
+         v8NMt2+btxP8+eYMRYDv3A/DB44mFYCLg7QB5xVmYmE8B2KrjXDr91CAXhy9YOGzzhx1
+         MXAeVkAegjjd1oXs0/SLSutMuRxt5kq5reSCfvA7biI0nqtlubLAPwX0J0T8ZKuoB6mQ
+         jYY7cpC4dJVdkvnfobHUu8bem/54utBWKV6iyxZonmDLHxeDKKlkjrntWJVGi0Ku3IOX
+         1oPDzyIBeD6RrLUso3AFC/OGc5oCsbmhmWm8jFTMqptG7a2oYZ2pMLBRTeP7QbvF7PCj
+         gp+g==
+X-Forwarded-Encrypted: i=1; AL+hErGdYHmcOAYbxXzLncXih0V6fz6BNYkb00iFcA3owAGGFnLtG6Co03a3hdZUclue3fKin/Cm7Mc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8sAd7wdBjZ8yKMa9RuimQhHElYMXAefoJUHKsGx5khCoE3bK+J
+	Yt2sCJiBgWbrp7AVQHZMcqqS+65IDqLY+H3jA/zaUMndtC3UySxS/9N/TuhXQsY2dWBRSeDC7A=
+	=
+X-Received: from wmg25.prod.google.com ([2002:a05:600c:22d9:b0:4b6:4096:72ad])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:4f4a:b0:4bb:6752:8413
+ with SMTP id 5b1f17b1804b1-4bb8880015bmr354089625e9.8.1795541875757; Tue, 24
+ Nov 2026 09:37:55 -0800 (PST)
+Date: Tue, 24 Nov 2026 18:28:11 +0100
+In-Reply-To: <20261124172811.2580784-7-ardb+git@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,106 +78,128 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261124172811.2580784-7-ardb+git@google.com>
+X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3707; i=ardb@kernel.org;
+ h=from:subject; bh=WAeSq122zmRN6UBtMnHF67HzqKFqId87iOExF570bmk=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIZv1pF7ZsZUMFnbhvKsE7JdZ+Yt1ztwxpbvr+gLGUx0XM
+ 1aViHF1lLIwiHExyIopsgjM/vtu5+mJUrXOs2Rh5rAygQxh4OIUgImcW8XIsHDvvUObHv3xK/jO
+ GZy5qexqyqyjy+J/sTguEFnk47dfroHhn1LC3gO93Omu9YEJNglTWaTYbaQsI/jTTPeIJjQzvuh jBQA=
+X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
+Message-ID: <20261124172811.2580784-8-ardb+git@google.com>
+Subject: [PATCH v2 1/5] efi: pstore: Make pstore_disable parameter read-only again
+From: Ard Biesheuvel <ardb+git@google.com>
+To: linux-efi@vger.kernel.org
+Cc: Ard Biesheuvel <ardb@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+	"=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?=" <u.kleine-koenig@baylibre.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Anfernee Cao <anferneemelokc5@gmail.com>
+From: Ard Biesheuvel <ardb@kernel.org>
 
-[ Upstream commit e35e360bd66898a977c296ab71fe4bae17ddceb7 ]
+Commit a28655c330ab ("efi: pstore: Allow dynamic initialization based on
+module parameter") wired up a kernel_param_ops::set callback for
+pstore_disable that invokes efivars_pstore_init() directly.
 
-sunxi_mmc_resource_request() enables the bus, card, output and sample
-clocks before returning. Several failure paths later in
-sunxi_mmc_probe() leave them running:
+Because parse_args() runs before module initialization (and before
+mm_core_init() during early boot when built-in), calling
+efivars_pstore_init() from the parameter setter is fundamentally broken:
 
- - If devm_request_threaded_irq() fails, the clocks enabled by
-   sunxi_mmc_enable() are never disabled.
- - If dma_alloc_coherent(), mmc_of_parse() or sunxi_mmc_init_host()
-   fails, probe only frees the DMA buffer and the mmc_host.
- - If mmc_add_host() fails, runtime PM has already been enabled, but
-   pm_runtime_disable() is never called.
+ - Loading efi-pstore as a module with pstore_disable=N initializes and
+   registers efi_pstore_info during parse_args(), and then runs
+   efivars_pstore_init() a second time from do_init_module(), leaking
+   the first buffer, failing pstore_register() with -EBUSY, and zeroing
+   efi_pstore_info.buf/bufsize while leaving efi_pstore_info registered
+   with pstore.
+ - If load_module() fails after parse_args() (e.g., due to a subsequent
+   unknown parameter), the module is freed without calling module_exit,
+   leaving pstore with a dangling backend pointer.
+ - Passing pstore_disable=N before record_size=<N> initializes the
+   buffer using the default record_size before record_size is parsed.
 
-Besides leaking the clocks, this leaves the clock enable counts
-unbalanced, so a reprobe (for example after -EPROBE_DEFER) calls
-clk_prepare_enable() on the same clocks again.
+Module parameters are meant for boot/load-time configuration rather than
+runtime driver state control via sysfs. Revert the dynamic parameter
+callback changes and tighten the sysfs permissions of pstore_disable from
+0644 to 0444 (matching record_size) so it is no longer misleadingly
+writable at runtime.
 
-Disable the IRQ and the clocks in the probe error path, and disable
-runtime PM on the mmc_add_host() failure path. Also handle a failure of
-devm_request_threaded_irq() in sunxi_mmc_resource_request().
-
-Tested with QEMU's orangepi-pc machine: with forced sunxi_mmc_init_host()
-and mmc_add_host() failures the MMC clocks stay disabled in clk_summary,
-and a normal probe with an emulated SD card still works.
-
-This issue was found by manual code inspection.
-
-Fixes: 3cbcb16095f9 ("mmc: sunxi: Add driver for SD/MMC hosts found on Allwinner sunxi SoCs")
-Fixes: 9a8e1e8cc2c0 ("mmc: sunxi: Add runtime_pm support")
-Cc: stable@vger.kernel.org # v4.18+
-Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: a28655c330ab ("efi: pstore: Allow dynamic initialization based on module parameter")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- drivers/mmc/host/sunxi-mmc.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+ drivers/firmware/efi/efi-pstore.c | 39 +++-----------------
+ 1 file changed, 6 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
-index cc7c8594a6cac..785899eb9f868 100644
---- a/drivers/mmc/host/sunxi-mmc.c
-+++ b/drivers/mmc/host/sunxi-mmc.c
-@@ -1355,8 +1355,13 @@ static int sunxi_mmc_resource_request(struct sunxi_mmc_host *host,
- 		goto error_disable_mmc;
- 	}
+diff --git a/drivers/firmware/efi/efi-pstore.c b/drivers/firmware/efi/efi-pstore.c
+index a5db3534f0a6..19a7e4fe5b52 100644
+--- a/drivers/firmware/efi/efi-pstore.c
++++ b/drivers/firmware/efi/efi-pstore.c
+@@ -19,37 +19,10 @@ MODULE_PARM_DESC(record_size, "size of each pstore UEFI var (in bytes, min/defau
+ 	 EFI_VARIABLE_BOOTSERVICE_ACCESS | \
+ 	 EFI_VARIABLE_RUNTIME_ACCESS)
  
--	return devm_request_threaded_irq(&pdev->dev, host->irq, sunxi_mmc_irq,
--			sunxi_mmc_handle_manual_stop, 0, "sunxi-mmc", host);
-+	ret = devm_request_threaded_irq(&pdev->dev, host->irq, sunxi_mmc_irq,
-+					sunxi_mmc_handle_manual_stop, 0,
-+					"sunxi-mmc", host);
-+	if (ret)
-+		goto error_disable_mmc;
-+
-+	return 0;
+-static bool pstore_disable = IS_ENABLED(CONFIG_EFI_VARS_PSTORE_DEFAULT_DISABLE);
++static bool efivars_pstore_disable =
++	IS_ENABLED(CONFIG_EFI_VARS_PSTORE_DEFAULT_DISABLE);
  
- error_disable_mmc:
- 	sunxi_mmc_disable(host);
-@@ -1386,9 +1391,11 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
+-static int efivars_pstore_init(void);
+-static void efivars_pstore_exit(void);
+-
+-static int efi_pstore_disable_set(const char *val, const struct kernel_param *kp)
+-{
+-	int err;
+-	bool old_pstore_disable = pstore_disable;
+-
+-	err = param_set_bool(val, kp);
+-	if (err)
+-		return err;
+-
+-	if (old_pstore_disable != pstore_disable) {
+-		if (pstore_disable)
+-			efivars_pstore_exit();
+-		else
+-			efivars_pstore_init();
+-	}
+-
+-	return 0;
+-}
+-
+-static const struct kernel_param_ops pstore_disable_ops = {
+-	.set	= efi_pstore_disable_set,
+-	.get	= param_get_bool,
+-};
+-
+-module_param_cb(pstore_disable, &pstore_disable_ops, &pstore_disable, 0644);
+-__MODULE_PARM_TYPE(pstore_disable, "bool");
++module_param_named(pstore_disable, efivars_pstore_disable, bool, 0444);
  
- 	host->sg_cpu = dma_alloc_coherent(&pdev->dev, PAGE_SIZE,
- 					  &host->sg_dma, GFP_KERNEL);
--	if (!host->sg_cpu)
--		return dev_err_probe(&pdev->dev, -ENOMEM,
--				     "Failed to allocate DMA descriptor mem\n");
-+	if (!host->sg_cpu) {
-+		ret = dev_err_probe(&pdev->dev, -ENOMEM,
-+				    "Failed to allocate DMA descriptor mem\n");
-+		goto error_disable_mmc;
-+	}
+ static int efi_pstore_open(struct pstore_info *psi)
+ {
+@@ -255,12 +228,12 @@ static struct pstore_info efi_pstore_info = {
+ 	.erase		= efi_pstore_erase,
+ };
  
- 	if (host->cfg->ccu_has_timings_switch) {
- 		/*
-@@ -1468,7 +1475,7 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
+-static int efivars_pstore_init(void)
++static __init int efivars_pstore_init(void)
+ {
+ 	if (!efivar_supports_writes())
+ 		return 0;
  
- 	ret = mmc_add_host(mmc);
- 	if (ret)
--		goto error_free_dma;
-+		goto error_disable_rpm;
+-	if (pstore_disable)
++	if (efivars_pstore_disable)
+ 		return 0;
  
- 	dev_info(&pdev->dev, "initialized, max. request size: %u KB%s\n",
- 		 mmc->max_req_size >> 10,
-@@ -1476,8 +1483,13 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
- 
+ 	/*
+@@ -287,7 +260,7 @@ static int efivars_pstore_init(void)
  	return 0;
- 
-+error_disable_rpm:
-+	pm_runtime_disable(&pdev->dev);
- error_free_dma:
- 	dma_free_coherent(&pdev->dev, PAGE_SIZE, host->sg_cpu, host->sg_dma);
-+error_disable_mmc:
-+	disable_irq(host->irq);
-+	sunxi_mmc_disable(host);
- 	return ret;
  }
  
+-static void efivars_pstore_exit(void)
++static __exit void efivars_pstore_exit(void)
+ {
+ 	if (!efi_pstore_info.bufsize)
+ 		return;
 -- 
-2.53.0
+2.56.1.831.g720f3f5937-goog
 
