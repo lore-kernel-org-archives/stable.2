@@ -1,58 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795531909;
-	b=lzOV7IiWFHxhdBXL6ioh79SZJVdMcUClUZS01NbzwnR9qVKP5d1DzjXuBuOWlzx/5G2w
-	 X3Qyek8pyuDntwAy2OtCWbmQcy4gbNRA70yi3o1sU33Rf5o/U5he0DyL9ZR6cTD1EX1jj
-	 nj7gRnsNboAEsCWCegZadwBkffY2uPgIxh2q3JJu3vgOsaeojF9SnEmfrsjTQZ80LsdRI
-	 ZIFyP9y33rJaJ22z/8/LWl8ev6bGc6sUgHkQdG2pgU3fDh687bvWlAXm1O16cWweRBPJB
-	 pVhej2ExWAx6cFlxOtXVxoncroXIDh9laVeaM2xutgAictqUDLKNS1U6JOlVoXgdAsw==
+	t=1795532117;
+	b=TUlt/CZIAiPtjHRbA2NOkbbfUa886qc9FYrjUugAoDXb0HxwwxoFtWCIvqQfjo9EGYZd
+	 Ond8FJpGPRwreWfm/k8psGvifUe/ZXObQbyIS1oEYDteyfQyE3FTQjL48E/Wo5tWGtJTB
+	 ABNKOnXpN06m+TcYQZD4QM0l2C0b32faKP7f1ach9qOU4R6sYCl85ZIYRWzfCjpSznmkq
+	 YNmJLQ1Wq8/bTpPnN4W+TnNb+PEFM9lE9okmDjQHz7sI1fwVKUTdmiiX9Ipjh36fuVcEP
+	 Tz8NzljB7CAvWJoZtM7/B4IhibhuXi3S1N8plWWyijaqbxuLeDAWm8om23lt4HrdxHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795531909;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795532117;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Last-TLS-Session-Version;
-	bh=ULSJeJaQRalsTqoU5W1rSuYhUrpQTwSQEQPfYYy36zk=;
-	b=ePsn9L6hji6aoDN2XJOaD8hmOW9DoRvTDJiXyBa+1CWsMIEXpaSwzt4tkDcG0yOgIL98
-	 uyLMFbXApblEYi7ZtYi95WRBk67pc9KKKSQwd/Kzoju/kqD9gZEG04w9iDt5Cn+o1J8vd
-	 WUcgWPOt+VP+P+SumaqTkzCRDpIA52y3Hy6KbkVSGuGJ0vyKyZfd1JL37Nmq/xW+pFa6I
-	 r5XLVLivXvE+6B/fUum2uSMs2ju8oJGwH3PHoHTJEDrfpCBvzYpn7iG48TKn+/HfobboV
-	 2HnjtanfSYP66fm5Pr/fCmismblJdqlJ5dKoNYb7kYp1Ysh7857go/akorrR4VV0VQw==
+	bh=D+hSgyqO/o/m5Gc+8nN83BXmFEuYW3cQNIGgjao79ow=;
+	b=4LEOmmLaVwcRarJjy4RDyZ0iekYB17IvPptMvj2O1bGEZcSfbimpAGPw9TNO+nXH9Q8u
+	 bZbyB3I96otEpqaS9wZT2xtnzGiwbpmtI4TvHhfYnX0fySIy1m6hybkL3NFNg1fDXy4pm
+	 Cp4jgqsqQOVTHs1JQXoaFcvmSQTVwJ29sooWtpJz1Z6IK31fZaY9LZQdi05QeP/xlPIvf
+	 zavIvd3oYnLnU/vCIhI8drJ4thBLw0SAu2zs9bUqL28nM6E9IeYBzQATqir6Rbq3STQuG
+	 MRe03a1KdTfj+GUi7sp9b1OhV3L4JyzSsztIlh+xYwkhqDyn6tH9ISNQw4qs/2CyCsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Jzg3QENG;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=apShX2Xm;
 	arc=none smtp.remote-ip=185.171.202.116
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E732606A327
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:51:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E732606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC2B606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:55:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AC2B606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Jzg3QENG
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=apShX2Xm
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id B9F1CC2C64B;
-	Tue, 24 Nov 2026 14:51:53 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 095A4C2C64B;
+	Tue, 24 Nov 2026 14:55:22 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 45162601E1;
-	Tue, 24 Nov 2026 14:51:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5FCCE11E698C3;
-	Tue, 24 Nov 2026 15:51:36 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 829BC601E1;
+	Tue, 24 Nov 2026 14:55:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5324011E682C5;
+	Tue, 24 Nov 2026 15:55:10 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795531905; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=ULSJeJaQRalsTqoU5W1rSuYhUrpQTwSQEQPfYYy36zk=;
-	b=Jzg3QENGVlhk4j/SENqmtOZebmGfYqsEyLpCNZMOV9RWteUNWbt9h7o5HLWm2gZ6UlACu9
-	Iz3GhKtkvPZU0gNvccDbmmZeYo63x1kb1z7kPU0wFk0t/hCn3II/U/3dia72VeQgXsZscw
-	Zi1TaVrwWsdn2+Rg7yIR8wT1DUNJc7qY5CuIjkCUjZ4T0n92DsYJNRL/QEMQNrjAUOI/m6
-	DqrOe8D5SwORGMVaXLAwj0+X8sWjyaBW4VRjsZZse5qJWyDPctLkPRbLS8s4DxFOEA0qHK
-	Ik/pYTwLm2pGLZ7Y7ZP+sxFxgNao51qbMd96bpcDXMpgGumI2jHaiqOpm6lW3Q==
-Message-ID: <73996d83-47bc-495d-ac5f-539c32b5147f@bootlin.com>
-Date: Tue, 24 Nov 2026 15:51:35 +0100
+	t=1795532113; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=D+hSgyqO/o/m5Gc+8nN83BXmFEuYW3cQNIGgjao79ow=;
+	b=apShX2XmOcZ8Y9rsgu2DhgLWhow7BGxZ29+aVKYkUNeIHDKVD3XOlDxcg1Ith9pI39a2YS
+	ZluQ9EZWe/AYKBOZXTH46yvBn6BTO4WLbUHY4t2xntNdo0bN+V49DQdBZ5AOGi0hvUedXp
+	GW/jYLMdoUrpseuB1nh5lRlkzZNlhhqALhCLXMTxBWvTMIsFmrWPKDUyJY+zU9siZCNKuR
+	cwrCbSZTgUtScu+8x/nQIpFqb70a5GSK5RhCkJrsL6WaLOStVZlhq3w3Lk1XMewW9QE3Ol
+	nj9vYqgUR1oUvqzADk1CkRKtjhAZpAf+XdLzByQ7yADRokS+3cWRLVM4hL+56g==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Arseniy Krasnov <AVKrasnov@sberdevices.ru>,  Boris
+ Brezillon <bbrezillon@kernel.org>,  Kyle Roeschley
+ <kyle.roeschley@ni.com>,  linux-mtd@lists.infradead.org,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] mtd: rawnand: macronix: serialize OTP access
+ with NAND operations
+In-Reply-To: <20261122-submit-rawnand-operation-locking-v1-v2-1-030bc867f0c7@gmail.com>
+	(James Hilliard's message of "Sun, 22 Nov 2026 02:25:20 -0700")
+References: <20261122-submit-rawnand-operation-locking-v1-v2-0-030bc867f0c7@gmail.com>
+	<20261122-submit-rawnand-operation-locking-v1-v2-1-030bc867f0c7@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 24 Nov 2026 15:55:09 +0100
+Message-ID: <87a4mys2ia.fsf@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,59 +76,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 2/2] net: stmmac: dwmac-sun8i: Limit the MTU to
- 2018
-To: Nicolai Buchwitz <nb@tipi-net.de>, wens@kernel.org
-Cc: aiyengar1990@gmail.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- LABBE Corentin <clabbe.montjoie@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- Russell King <rmk+kernel@armlinux.org.uk>, stable@vger.kernel.org
-References: <20261122-sun8i-emac-mtu-limit-v2-0-c4081e5b83cf@gmail.com>
- <20261122-sun8i-emac-mtu-limit-v2-2-c4081e5b83cf@gmail.com>
- <CAGb2v65_vY86WqvKr1m=g0N1Qr2UhLC1v3OHKPG3x+oURUKp7Q@mail.gmail.com>
- <5e09c85c2c33885fecbdf81cd0b9209b@tipi-net.de>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <5e09c85c2c33885fecbdf81cd0b9209b@tipi-net.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
 
-On 11/22/26 17:31, Nicolai Buchwitz wrote:
-> On 22.11.2026 12:39, Chen-Yu Tsai wrote:
->> [...]
-> 
->> FWIW I think this applies to all DWMAC cores.
-> 
->> [...]
-> 
->> So for normal descriptors the buffer size is bound to (2KB - bus width).
->> Not tested, but I think there is more evidence supporting a cross-platform
->> limit.
-> 
-> The sun8i EMAC isn't a Synopsys core, so this needs a test on one.
-> Maxime, could you try MTU 2019-2021 on your boards?
+> OTP I/O can also run while the chip is suspended.
 
-Sorry for the delay, I'm back with numbers :)
+Really? Where does that come from?
 
-So on net-next, w/o this patch, I see:
+[...]
 
- - dwmac-sunxi (Allwinner A20), the first MTU that fails is 2029 (so frame size is 2046 incl. FCS)
- - dwmac 3.70a (meson-g12a), first failing MTU is 2031
- - dwmac-sun8i (H2+), first failing MTU is 2025
+> --- a/drivers/mtd/nand/raw/nand_base.c
+> +++ b/drivers/mtd/nand/raw/nand_base.c
+> @@ -207,7 +207,7 @@ EXPORT_SYMBOL_GPL(nand_deselect_target);
+>   *
+>   * Release chip lock and wake up anyone waiting on the device.
+>   */
+> -static void nand_release_device(struct nand_chip *chip)
+> +void nand_release_device(struct nand_chip *chip)
 
-The first two are ring mode, the last is chain mode.
+You export a core helper...
 
-This was all untagged traffic.
+>  {
+>  	/* Release the controller and the chip */
+>  	mutex_unlock(&chip->controller->lock);
+> @@ -336,7 +336,7 @@ static int nand_isbad_bbm(struct nand_chip *chip, lof=
+f_t ofs)
+>   *
+>   * Lock the device and its controller for exclusive access
+>   */
+> -static void nand_get_device(struct nand_chip *chip)
+> +void nand_get_device(struct nand_chip *chip)
+>  {
+>  	/* Wait until the device is resumed. */
+>  	while (1) {
+> diff --git a/drivers/mtd/nand/raw/nand_macronix.c b/drivers/mtd/nand/raw/=
+nand_macronix.c
+> index 16847f28b19d..d7f5a9e7c240 100644
+> --- a/drivers/mtd/nand/raw/nand_macronix.c
+> +++ b/drivers/mtd/nand/raw/nand_macronix.c
+> @@ -380,6 +380,7 @@ static int __macronix_30lfxg18ac_rw_otp(struct mtd_in=
+fo *mtd,
+>  	int ret, cleanup_ret;
+>=20=20
+>  	nand =3D mtd_to_nand(mtd);
+> +	nand_get_device(nand);
 
-Maxime
+...and you use it across the entire OTP operation...
+
+>  	nand_select_target(nand, 0);
+>=20=20
+>  	ret =3D macronix_30lfxg18ac_otp_enable(nand);
+> @@ -426,6 +427,7 @@ static int __macronix_30lfxg18ac_rw_otp(struct mtd_in=
+fo *mtd,
+>  			write ? "write" : "read");
+>=20=20
+>  	nand_deselect_target(nand);
+> +	nand_release_device(nand);
+>=20=20
+>  	return ret ? ret : cleanup_ret;
+>  }
+
+...and in the commit log you mention:
+
+> Make the existing NAND serialization helpers available within the raw
+> NAND core and hold them across the entire OTP transaction
+
+Why are you doing the serialization in one vendor driver then? Aren't
+all the vendors affected by the exact same issue? Why isn't taking the
+lock once for all in the core a better idea?
+
+Miqu=C3=A8l
