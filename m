@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795512663;
-	b=QyuNWI8M4wglvYv88f1ceMJlfGYdQ7NVLoh3QrP8jWOPkOqWvifUnVkcZZ+xrOi0jd7B
-	 BKDkr42gSGhqoKIccVd1yO7tCTp5a4IE5g8wG0PmJgUV10I8c2APzeZFVpdK+sMjqnZ6F
-	 zCLmZCI034iHhvX4USgjkAVnFxrWelXHJcZLuQ+o3k3kq0jJ8bfznmdARFeYRAr601gF0
-	 2e66xMj4sLA8xiVGbTpC8f3nfJBuhyHn98qrWiHK05bRTh40HVQSc6/Fdk4HIDDh3BL+Z
-	 6M5SQuUjza29dI8PbszcPA/lEcKCEmjp2NVf3hCyzRdf5KW5KfVf/od33s1DrSOZa3A==
+	t=1795512664;
+	b=Q+Tp/4WUO8uf58RvuhT1kn0YFmIvC1Dr9fMTmScw6DpUGpaceNpuiR1RYoQHbpEXZwQF
+	 YW9Ql/eJxEX55+UiGg/QBpCL2AGIvBhU2XASLeWmkCM3EmrOQ+PfzRC8/Iab8eOtrUgif
+	 av1xbomUbZnmsEl6xNdPEvnl5b9ui5luKqkHNx1JdTpQrHDOOs04JqsmtRlG4tU8Pwwry
+	 gHFxG0pqLrrW5dtSd6y6ofAcTfokRKAJXfHJvgu+WXGogDMlTxQgR6KY7gnrzKPMuA2wD
+	 GbsuELM/3v76A5lNsHM8ej8N8IIuJqobVhEhONbeQEqrcUlCqPAil9wMZ5xyVfzFPGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795512663;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795512664;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=wxs9sFPe8ncOvSyteUdGMIPB6LVRyBPAvxC8TMhY7s4=;
-	b=Z4nV4GhiiOBaEXl/BLKWBb8YVYnna+zZ8VCmsAi3wBO6fuv5iTbjkGjWq7JRG3rjfZMJ
-	 Xbx4vyTsnORaeT+u15lhKw9YTttZZb4bVTBYd+u/bqEgfUvsoUKz0B79gQrV57/3a4TLF
-	 hwyizGhlIU5iDQ9P4iXnZr315MIsYsa5E5NOMnyOqhBNYHin3/IDL430jc4SN1T7+eg1c
-	 JT+j8C66T4CdrDotB1PVLGUvpC0jFXOx3q5aFCqMD9ZvNFQ3NK3AkA/sPQ1vb7wxlS4ap
-	 o4IU5Wmtp1cGiSPzSTDIp4t5PlCIn1nLeyOizatQwWdFaW7GMbYDTmzKQKsxGpNeQ9A==
+	bh=6aNvAfGgueTvpTlhUrmJk5+spY0XMUeD9zKAbtQbabo=;
+	b=mDlBacx81xstcmB1QWOQJ6ZFhVxYIGGVZfW6ucLI+gAMnL9C1n4NXxB3s/MBE8MXuyKF
+	 yNf/AbOc/MId/+P558LywSAIKCUqDEYjWrY0KcMNxeo9Qzg8v8PBradvtls0p5IBxGRYI
+	 Fqw4aINbUAE7FTnGYlNuCCCkmMdhRroAOpEQ9ifv1RrHo0r2MggNBJiN7/GT/K9l34ElH
+	 9pslAL9ZHxm0STbxzTvZQsdfA5BegPcYWL52g2EkS0F9ClNhcdtK3/Ypf9VTVqVl27ffL
+	 ryh4GsMqlse9OavRDIh6b7IdJkQAGQdVJNl0h6Ouh5oyrbiNzI4vi+b5m6k2PBZ8Xag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhaokije;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jy74G+j+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E93606A334;
-	Tue, 24 Nov 2026 09:31:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADA4606A33E;
+	Tue, 24 Nov 2026 09:31:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhaokije
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EEDD1F000EE;
-	Tue, 24 Nov 2026 09:31:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jy74G+j+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF7531F000EE;
+	Tue, 24 Nov 2026 09:31:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795512662;
-	bh=wxs9sFPe8ncOvSyteUdGMIPB6LVRyBPAvxC8TMhY7s4=;
+	s=k20260515; t=1795512664;
+	bh=6aNvAfGgueTvpTlhUrmJk5+spY0XMUeD9zKAbtQbabo=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jhaokijeq1xNdVgxYVnXDgQfYGo4o+EIxtcclOzeR9ss82tSh9BCDVDugRYlSsI4S
-	 s+EqARG2hpDLprV/XdM6n+6weXjZhzgyuidWkrZATyHLVyZl2+Tf3FvRbL5GXXFtLg
-	 WAkCgVowS4OL9Lx13mJV8aQTW7XQtaRITdtjs9dxhKJEyIuj6u+mA0dQSJs7VJIYwS
-	 nxZdRFTYWW2/OSic04FwcbadEU9+XXH1BK5WmsCbzUy0Bpqyqso46rGa/hunaoNhRh
-	 Qikr5qruKCKnxZ9MK1Elhoi9XYHbKLzDwYq222SCH6OcDupoTF+W7yeX/AYimsEj2I
-	 0S3w+KrVWpYJA==
-Subject: Re: [PATCH can-next v10 11/14] can: gs_usb:
- gs_usb_get_rx_data_length(): new function to consolidate validation of host
- frame
+	b=Jy74G+j+WNX7ce4LmqsrOOeZ4DCc4ClvZmWGOMQtdDp0s40fEKAvw9AgTrcLT0zdw
+	 t8KB04nBI36uakMU8qG0OeVsuXo1ifP1dx9csy+ln+9TiVPHC8i0Hp2cyDlGUrrGCJ
+	 7+BIZ4dkKrBwPZpeLKdCbbpmpzsZziFufqG0F1xJDWmY23/Lnh733yuieHOQMBl5SN
+	 9LIeTpVGxUa51i3zEhmj7NLVb+zRtDBu91ntPjxza58SNkLDDLeLI847OOgy8lygMl
+	 eRbYkMmU7WForCl9uWis7lkTkjT6ccpL9fCElzGi2SWfxJZWeYdCLugdKPJvAdjsZt
+	 iDD2yI5qASqMQ==
+Subject: Re: [PATCH can-next v10 12/14] can: gs_usb: gs_can_start_xmit(): mask
+ invalid parts of CAN ID before sending
 From: netdev-bot+sashiko@kernel.org
 To: mkl@pengutronix.de
 Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
  max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
  linux-can@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 24 Nov 2026 09:31:01 +0000
-Message-ID: <179551266159.3131.6265981861655766301@kernel.org>
-In-Reply-To: <20261122-gs_usb-fixes-v10-11-7c165c35d04a@pengutronix.de>
-References: <20261122-gs_usb-fixes-v10-11-7c165c35d04a@pengutronix.de>
+Date: Tue, 24 Nov 2026 09:31:03 +0000
+Message-ID: <179551266332.3131.13201472550336097370@kernel.org>
+In-Reply-To: <20261122-gs_usb-fixes-v10-12-7c165c35d04a@pengutronix.de>
+References: <20261122-gs_usb-fixes-v10-12-7c165c35d04a@pengutronix.de>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -71,175 +70,94 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The commit message says the patch only adds
-  gs_usb_get_rx_data_length() to consolidate host-frame validation, but…
-- [Low] After this patch, the driver's two paths for rejecting a bad TX-
-  completion echo ID handle stats and logging differently.
-- [Low] The patch makes gs_usb_get_minimum_rx_length() return `int` and
-  take an `int *data_length_p`, and gs_usb_get_rx_data_length() declares…
+- [Low] The commit message names the wrong macro.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  gs_can_start_xmit() sends uninitialized kernel heap memory to the USB…
 
 --
 
-can: gs_usb: gs_usb_get_rx_data_length(): new function to consolidate validation of host frame
+can: gs_usb: gs_can_start_xmit(): mask invalid parts of CAN ID before sending
 
-This patch adds gs_usb_get_rx_data_length() and
-gs_usb_host_frame_header_valid(). They take the minimum length check and
-the out of range echo ID check out of gs_usb_receive_bulk_callback(). The
-new helper returns the data length of the host frame, or a negative errno.
+This commit masks the CAN ID in gs_can_start_xmit() before the frame is
+sent to the device. Flags that are not valid in the TX path are removed,
+and the ID is limited to 11 or 29 bits depending on CAN_EFF_FLAG.
+CAN_RTR_FLAG is kept only for CAN-CC frames.
+
+> - CAN_ERR_MASK is used exclusively in the receive path between the
+>   driver and user space to signal problems with the CAN controller.
+
+[Severity: Low]
+Should this bullet say CAN_ERR_FLAG instead of CAN_ERR_MASK?
+
+include/uapi/linux/can.h has:
+
+#define CAN_ERR_FLAG 0x20000000U /* error message frame */
+#define CAN_ERR_MASK 0x1FFFFFFFU /* omit EFF, RTR, ERR flags */
+
+CAN_ERR_MASK has the same value as CAN_EFF_MASK. In gs_can_start_xmit(),
+the new EFF masks keep every CAN_ERR_MASK bit and drop only CAN_ERR_FLAG:
+
+    can_id &= CAN_EFF_MASK | CAN_EFF_FLAG;
+    ...
+    can_id &= CAN_EFF_MASK | CAN_RTR_FLAG | CAN_EFF_FLAG;
 
 > diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-> index df5ea6cb0cf2a..4aa674c743f67 100644
+> index 4aa674c743f67..b345ab34a200a 100644
 > --- a/drivers/net/can/usb/gs_usb.c
 > +++ b/drivers/net/can/usb/gs_usb.c
-> @@ -620,9 +620,31 @@ gs_usb_get_echo_skb(struct gs_can *dev, struct sk_buff *skb,
->  	return len;
->  }
->  
-> -static unsigned int
-> +static bool gs_usb_host_frame_header_valid(const struct gs_can *dev,
-> +					   const struct gs_host_frame_header *header)
-> +{
-> +	struct net_device *netdev = dev->netdev;
-> +	struct net_device_stats *stats = &netdev->stats;
-> +	bool valid = true;
-> +
-> +	if (header->echo_id >= GS_MAX_TX_URBS &&
-> +	    header->echo_id < GS_HOST_FRAME_ECHO_ID_RX) {
-> +		stats->rx_errors++;
-> +
-> +		if (net_ratelimit())
-> +			netdev_err(netdev,
-> +				   "out of range Echo ID (echo_id=0x%08x, max_echo_id=0x%08x)\n",
-> +				   header->echo_id, GS_MAX_TX_URBS - 1);
-> +
-> +		valid = false;
-> +	}
-
-[Severity: Low]
-The commit message only talks about adding gs_usb_get_rx_data_length() to
-consolidate validation. This hunk also brings in some visible changes that
-the message doesn't mention:
-
-  - a second helper, gs_usb_host_frame_header_valid(), is added
-  - an out of range TX echo ID now increments netdev->stats.rx_errors;
-    before, no counter changed
-  - the message is now rate limited with net_ratelimit(); before, it was
-    an unconditional netdev_err()
-  - the message text changes from "Unexpected out of range echo id %u"
-    (decimal) to "out of range Echo ID (echo_id=0x%08x,
-    max_echo_id=0x%08x)" (hex)
-  - in gs_usb_get_rx_data_length(), the echo ID range check now runs
-    before the minimum length check; before, it ran after it, in the else
-    branch of gs_usb_receive_bulk_callback()
-
-None of these look harmful. Still, rx_errors in ip -s link and the log
-text both change for the same device input.
-
-Could the commit message describe these changes, so it doesn't read as a
-purely mechanical consolidation?
-
-> +
-> +	return valid;
-> +}
-> +
-> +static int
->  gs_usb_get_minimum_rx_length(const struct gs_can *dev, const struct gs_host_frame *hf,
-> -			     unsigned int *data_length_p)
-> +			     int *data_length_p)
->  {
->  	unsigned int minimum_length, data_length = 0;
->  
-> @@ -651,6 +673,33 @@ gs_usb_get_minimum_rx_length(const struct gs_can *dev, const struct gs_host_fram
->  	return minimum_length;
->  }
->  
-> +static int gs_usb_get_rx_data_length(const struct gs_can *dev,
-> +				     const struct gs_host_frame *hf,
-> +				     const u32 actual_length)
-> +{
-> +	struct net_device *netdev = dev->netdev;
-> +	struct net_device_stats *stats = &netdev->stats;
-> +	int minimum_length, data_length;
-> +
-> +	if (!gs_usb_host_frame_header_valid(dev, &hf->header))
-> +		return -EINVAL;
-> +
-> +	minimum_length = gs_usb_get_minimum_rx_length(dev, hf, &data_length);
-> +	if (actual_length < minimum_length) {
-> +		stats->rx_errors++;
-> +		stats->rx_length_errors++;
-> +
-> +		if (net_ratelimit())
-> +			netdev_err(netdev,
-> +				   "short read (actual_length=%u, minimum_length=%u)\n",
-> +				   actual_length, minimum_length);
-
-[Severity: Low]
-minimum_length is now a signed int. It is still compared against the u32
-actual_length and printed with %u.
-
-gs_usb_get_minimum_rx_length() above now returns int and fills an int
-pointer. Internally it still computes unsigned int minimum_length and
-data_length from sizeof() and struct_size().
-
-The value is always a small positive number today, so nothing misbehaves.
-But what happens if this helper ever returns a negative errno, as the int
-return type suggests it could? The comparison actual_length <
-minimum_length would turn it into a huge unsigned value, the check would
-fail, and the error path would be taken for every frame.
-
-Would it be cleaner to keep minimum_length as unsigned int or u32 here, or
-to print it with %d?
-
-> +
-> +		return -EINVAL;
-> +	}
 
 [ ... ]
 
-> @@ -780,13 +820,6 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+> @@ -1006,8 +1012,14 @@ static netdev_tx_t gs_can_start_xmit(struct sk_buff *skb,
+>  		memcpy(hf->canfd->data, cfd->data, cfd->len);
+>  	} else {
+>  		cf = (struct can_frame *)skb->data;
+> +		canid_t can_id = cf->can_id;
+> +
+> +		if (can_id & CAN_EFF_FLAG)
+> +			can_id &= CAN_EFF_MASK | CAN_RTR_FLAG | CAN_EFF_FLAG;
+> +		else
+> +			can_id &= CAN_SFF_MASK | CAN_RTR_FLAG;
 >  
->  		gs_usb_rx_offload(dev, skb, hf);
->  	} else { /* echo_id == hf->echo_id */
-> -		if (hf->echo_id >= GS_MAX_TX_URBS) {
-> -			netdev_err(netdev,
-> -				   "Unexpected out of range echo id %u\n",
-> -				   hf->echo_id);
-> -			goto resubmit_urb;
-> -		}
-> -
->  		txc = gs_get_tx_context(dev, hf->echo_id);
+> -		hf->can_id = cpu_to_le32(cf->can_id);
+> +		hf->can_id = cpu_to_le32(can_id);
+>  		hf->can_dlc = can_get_cc_dlc(cf, dev->can.ctrlmode);
 >  
->  		/* bad devices send bad echo_ids. */
+>  		memcpy(hf->classic_can->data, cf->data, cf->len);
 
-[Severity: Low]
-With the out of range check moved into gs_usb_host_frame_header_valid(),
-the two ways of rejecting a bad TX echo ID now behave differently.
+[Severity: High]
+This isn't a bug introduced by this patch, but does gs_can_start_xmit()
+send uninitialized kernel heap memory to the USB device?
 
-An out of range echo ID increments rx_errors, is rate limited and is
-printed in hex. An echo ID that is in range but unused still ends up here
-in gs_usb_receive_bulk_callback():
+The TX buffer is not zeroed when it is allocated:
 
-		if (!txc) {
-			netdev_err(netdev,
-				   "Unexpected unused echo id %u\n",
-				   hf->echo_id);
-			goto resubmit_urb;
-		}
+    hf = kmalloc(dev->hf_size_tx, GFP_ATOMIC);
 
-This path changes no counter and isn't rate limited.
+The function writes only the header fields plus cf->len (0..8) or
+cfd->len (0..64) payload bytes. It then submits the whole buffer:
 
-Before this patch the two paths behaved the same. Should the unused echo
-ID case also bump rx_errors and use net_ratelimit()? Otherwise the
-rx_errors value depends on which kind of bad echo ID the device sent.
+    usb_fill_bulk_urb(urb, dev->udev,
+                      dev->parent->pipe_out,
+                      hf, dev->hf_size_tx,
+                      gs_usb_xmit_callback, txc);
 
-Also, gs_get_tx_context() keeps its own range check:
+When CAN_CTRLMODE_FD is enabled, gs_can_open() sizes the buffer for a
+64 byte payload, even when the frame is classic CAN:
 
-	if (id < GS_MAX_TX_URBS) {
+    dev->hf_size_tx = struct_size(hf, canfd, 1);
 
-This duplicates the check in gs_usb_host_frame_header_valid(). Is it meant
-to stay, given that the goal is to keep host frame validation in one
-place?
+In FD mode, a classic frame leaves at least 56 data bytes unwritten. A
+short or zero-length FD frame leaves up to 64. The quirk byte in
+classic_can_quirk and canfd_quirk (LPC546XX devices) is never written
+either.
+
+That would expose leftover slab contents with every transmitted frame,
+to the device or to anyone sniffing the bus. Would kzalloc(), or a
+memset() of the area after the copied payload, fix this?
+
+Later patches in this series do not seem to address it.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261122-gs_usb-fixes-v10-0-7c165c35d04a%40pengutronix.de
