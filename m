@@ -1,72 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795532117;
-	b=TUlt/CZIAiPtjHRbA2NOkbbfUa886qc9FYrjUugAoDXb0HxwwxoFtWCIvqQfjo9EGYZd
-	 Ond8FJpGPRwreWfm/k8psGvifUe/ZXObQbyIS1oEYDteyfQyE3FTQjL48E/Wo5tWGtJTB
-	 ABNKOnXpN06m+TcYQZD4QM0l2C0b32faKP7f1ach9qOU4R6sYCl85ZIYRWzfCjpSznmkq
-	 YNmJLQ1Wq8/bTpPnN4W+TnNb+PEFM9lE9okmDjQHz7sI1fwVKUTdmiiX9Ipjh36fuVcEP
-	 Tz8NzljB7CAvWJoZtM7/B4IhibhuXi3S1N8plWWyijaqbxuLeDAWm8om23lt4HrdxHQ==
+	t=1795532346;
+	b=42tQ1ACyDVjCxRKOmvzOJaakWR0in9bDGW7aG23eaMlep6wDrjwbVG7PCb4c73IQVhp0
+	 89awhYXqVo3mL+Y2i5GUFVBZvS5obRkehAwyGNU7IcuNSWzCdBalVw66uRWXg2NiZZq5/
+	 zWkjIyF1YFsEh6mFIJCEvpq9hlvlgXlIlIkWAigf/yA6gCBvLIDvxl+7x3t4a0QtEVL+D
+	 rVlewgbkNJAIy+We6J8uwWOLSIOaMsCKx4p1YXxlk7TwDQuvcRNv2ALHHydS9GgUo41sw
+	 HagUYThc42jnBbXg8vPRRBxS8pUvZsYH5T5mlPAEDQMyVUP1XeOyPyh55BcvfHiRZrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795532117;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=D+hSgyqO/o/m5Gc+8nN83BXmFEuYW3cQNIGgjao79ow=;
-	b=4LEOmmLaVwcRarJjy4RDyZ0iekYB17IvPptMvj2O1bGEZcSfbimpAGPw9TNO+nXH9Q8u
-	 bZbyB3I96otEpqaS9wZT2xtnzGiwbpmtI4TvHhfYnX0fySIy1m6hybkL3NFNg1fDXy4pm
-	 Cp4jgqsqQOVTHs1JQXoaFcvmSQTVwJ29sooWtpJz1Z6IK31fZaY9LZQdi05QeP/xlPIvf
-	 zavIvd3oYnLnU/vCIhI8drJ4thBLw0SAu2zs9bUqL28nM6E9IeYBzQATqir6Rbq3STQuG
-	 MRe03a1KdTfj+GUi7sp9b1OhV3L4JyzSsztIlh+xYwkhqDyn6tH9ISNQw4qs/2CyCsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795532346;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=2U5UKfxVMTrAszdoT3HKGhTwdJUswH8c/IhgIQKW1Xc=;
+	b=a4AvuaxbQKz9FdEZgLOhjfIPfhocJOzJvk4ntPwjHTBip9y8O2V9BtzTQii3mfnE2bnU
+	 Y5kTKTvg0PiOw4BWXoqlvxk0wBOmFvj3gLeo3a2FcdjzK8V8Eprbi7BvB8mCXlEj9LZNQ
+	 Il9wxDBvVJGhwbBfUyZyv9/l5jYuJgxzJVCeENjxj4NZNmUHZGP72fDHgYdcUGwLz/3U5
+	 H7+EubB0F6x+GGC6lEnc+ke1bW4/rHVMUCIMWd7+WrwGUWirMoJ6KUdqF+AWOWn2v3lBL
+	 YnLTVA6FxC/tO6Y8Qdjk6+Ad+6Aw2Gg0PSwcIBfElCvAnNyHwX6JOX+7hyLvJ8V0dGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=apShX2Xm;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JobQ3aKs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC2B606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:55:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AC2B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19AB606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:59:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=apShX2Xm
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 095A4C2C64B;
-	Tue, 24 Nov 2026 14:55:22 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 829BC601E1;
-	Tue, 24 Nov 2026 14:55:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5324011E682C5;
-	Tue, 24 Nov 2026 15:55:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795532113; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=D+hSgyqO/o/m5Gc+8nN83BXmFEuYW3cQNIGgjao79ow=;
-	b=apShX2XmOcZ8Y9rsgu2DhgLWhow7BGxZ29+aVKYkUNeIHDKVD3XOlDxcg1Ith9pI39a2YS
-	ZluQ9EZWe/AYKBOZXTH46yvBn6BTO4WLbUHY4t2xntNdo0bN+V49DQdBZ5AOGi0hvUedXp
-	GW/jYLMdoUrpseuB1nh5lRlkzZNlhhqALhCLXMTxBWvTMIsFmrWPKDUyJY+zU9siZCNKuR
-	cwrCbSZTgUtScu+8x/nQIpFqb70a5GSK5RhCkJrsL6WaLOStVZlhq3w3Lk1XMewW9QE3Ol
-	nj9vYqgUR1oUvqzADk1CkRKtjhAZpAf+XdLzByQ7yADRokS+3cWRLVM4hL+56g==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Arseniy Krasnov <AVKrasnov@sberdevices.ru>,  Boris
- Brezillon <bbrezillon@kernel.org>,  Kyle Roeschley
- <kyle.roeschley@ni.com>,  linux-mtd@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] mtd: rawnand: macronix: serialize OTP access
- with NAND operations
-In-Reply-To: <20261122-submit-rawnand-operation-locking-v1-v2-1-030bc867f0c7@gmail.com>
-	(James Hilliard's message of "Sun, 22 Nov 2026 02:25:20 -0700")
-References: <20261122-submit-rawnand-operation-locking-v1-v2-0-030bc867f0c7@gmail.com>
-	<20261122-submit-rawnand-operation-locking-v1-v2-1-030bc867f0c7@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 24 Nov 2026 15:55:09 +0100
-Message-ID: <87a4mys2ia.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JobQ3aKs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D51D01F000C6;
+	Tue, 24 Nov 2026 14:59:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795532346;
+	bh=2U5UKfxVMTrAszdoT3HKGhTwdJUswH8c/IhgIQKW1Xc=;
+	h=Subject:To:Cc:From:Date;
+	b=JobQ3aKs3r1AZgNSjA7HrYXdUyS56LCqa8PDLa0wAalKKX0ndPdSh43h65BX1ygr+
+	 Hjlal859xyF56PHyqDzg7cOLPTQ4AXn/sZ1f9g+gAALVS8bSnlahzmpo6EueMe0sw1
+	 IQ7YVY/r7t88MO362h8FWoZLx9jF4AMOchED4JjE=
+Subject: FAILED: patch "[PATCH] tracing/eprobe: Install the trigger for every instance that" failed to apply to 6.1-stable tree
+To: devnexen@gmail.com,mhiramat@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 24 Nov 2026 15:59:27 +0100
+Message-ID: <2026112427-galvanize-pointed-f15e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,75 +51,159 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
 
-> OTP I/O can also run while the chip is suspended.
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Really? Where does that come from?
+To reproduce the conflict and resubmit, you may use the following commands:
 
-[...]
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x be94710b1f6ba1bea33e73129c110af80e999b2d
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112427-galvanize-pointed-f15e@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
-> --- a/drivers/mtd/nand/raw/nand_base.c
-> +++ b/drivers/mtd/nand/raw/nand_base.c
-> @@ -207,7 +207,7 @@ EXPORT_SYMBOL_GPL(nand_deselect_target);
->   *
->   * Release chip lock and wake up anyone waiting on the device.
->   */
-> -static void nand_release_device(struct nand_chip *chip)
-> +void nand_release_device(struct nand_chip *chip)
+Possible dependencies:
 
-You export a core helper...
 
->  {
->  	/* Release the controller and the chip */
->  	mutex_unlock(&chip->controller->lock);
-> @@ -336,7 +336,7 @@ static int nand_isbad_bbm(struct nand_chip *chip, lof=
-f_t ofs)
->   *
->   * Lock the device and its controller for exclusive access
->   */
-> -static void nand_get_device(struct nand_chip *chip)
-> +void nand_get_device(struct nand_chip *chip)
->  {
->  	/* Wait until the device is resumed. */
->  	while (1) {
-> diff --git a/drivers/mtd/nand/raw/nand_macronix.c b/drivers/mtd/nand/raw/=
-nand_macronix.c
-> index 16847f28b19d..d7f5a9e7c240 100644
-> --- a/drivers/mtd/nand/raw/nand_macronix.c
-> +++ b/drivers/mtd/nand/raw/nand_macronix.c
-> @@ -380,6 +380,7 @@ static int __macronix_30lfxg18ac_rw_otp(struct mtd_in=
-fo *mtd,
->  	int ret, cleanup_ret;
->=20=20
->  	nand =3D mtd_to_nand(mtd);
-> +	nand_get_device(nand);
 
-...and you use it across the entire OTP operation...
+thanks,
 
->  	nand_select_target(nand, 0);
->=20=20
->  	ret =3D macronix_30lfxg18ac_otp_enable(nand);
-> @@ -426,6 +427,7 @@ static int __macronix_30lfxg18ac_rw_otp(struct mtd_in=
-fo *mtd,
->  			write ? "write" : "read");
->=20=20
->  	nand_deselect_target(nand);
-> +	nand_release_device(nand);
->=20=20
->  	return ret ? ret : cleanup_ret;
->  }
+greg k-h
 
-...and in the commit log you mention:
+------------------ original commit in Linus's tree ------------------
 
-> Make the existing NAND serialization helpers available within the raw
-> NAND core and hold them across the entire OTP transaction
+From be94710b1f6ba1bea33e73129c110af80e999b2d Mon Sep 17 00:00:00 2001
+From: David Carlier <devnexen@gmail.com>
+Date: Sat, 7 Nov 2026 10:12:32 +0000
+Subject: [PATCH] tracing/eprobe: Install the trigger for every instance that
+ enables the eprobe
 
-Why are you doing the serialization in one vendor driver then? Aren't
-all the vendors affected by the exact same issue? Why isn't taking the
-lock once for all in the core a better idea?
+The eprobe trigger lives in the instance of the enabling file, but it is
+only added when the eprobe is first enabled and only removed when the
+last file goes away. A second instance then records nothing, and the
+first instance's trigger is left behind once the eprobe is disabled
+there, so the eprobe can be deleted while that trigger still uses it.
 
-Miqu=C3=A8l
+Add and remove the trigger for each file. The file is never NULL here,
+so warn if it is and drop the dead perf paths.
+
+Link: https://lore.kernel.org/all/20261107101233.151434-1-devnexen@gmail.com/
+
+Fixes: 7491e2c44278 ("tracing: Add a probe that attaches to trace events")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Carlier <devnexen@gmail.com>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+
+diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
+index 998e6390937a..474be2f5ccd9 100644
+--- a/kernel/trace/trace_eprobe.c
++++ b/kernel/trace/trace_eprobe.c
+@@ -644,37 +644,32 @@ static int enable_trace_eprobe(struct trace_event_call *call,
+ {
+ 	struct trace_probe *tp;
+ 	struct trace_eprobe *ep;
+-	bool enabled;
+ 	int ret = 0;
+ 	int cnt = 0;
+ 
++	if (WARN_ON_ONCE(!file))
++		return -EINVAL;
++
+ 	tp = trace_probe_primary_from_call(call);
+ 	if (WARN_ON_ONCE(!tp))
+ 		return -ENODEV;
+-	enabled = trace_probe_is_enabled(tp);
+ 
+ 	/* This also changes "enabled" state */
+-	if (file) {
+-		ret = trace_probe_add_file(tp, file);
+-		if (ret)
+-			return ret;
+-	} else
+-		trace_probe_set_flag(tp, TP_FLAG_PROFILE);
+-
+-	if (enabled)
+-		return 0;
++	ret = trace_probe_add_file(tp, file);
++	if (ret)
++		return ret;
+ 
++	/* The trigger lives in the instance of the file, add it for each file */
+ 	for_each_trace_eprobe_tp(ep, tp) {
+ 		ret = enable_eprobe(ep, file);
+ 		if (ret)
+ 			break;
+-		enabled = true;
+ 		cnt++;
+ 	}
+ 
+ 	if (ret) {
+ 		/* Failed to enable one of them. Roll back all */
+-		if (enabled) {
++		if (cnt) {
+ 			/*
+ 			 * It's a bug if one failed for something other than memory
+ 			 * not being available but another eprobe succeeded.
+@@ -687,10 +682,7 @@ static int enable_trace_eprobe(struct trace_event_call *call,
+ 					break;
+ 			}
+ 		}
+-		if (file)
+-			trace_probe_remove_file(tp, file);
+-		else
+-			trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
++		trace_probe_remove_file(tp, file);
+ 	}
+ 
+ 	return ret;
+@@ -702,33 +694,21 @@ static int disable_trace_eprobe(struct trace_event_call *call,
+ 	struct trace_probe *tp;
+ 	struct trace_eprobe *ep;
+ 
++	if (WARN_ON_ONCE(!file))
++		return -EINVAL;
++
+ 	tp = trace_probe_primary_from_call(call);
+ 	if (WARN_ON_ONCE(!tp))
+ 		return -ENODEV;
+ 
+-	if (file) {
+-		if (!trace_probe_get_file_link(tp, file))
+-			return -ENOENT;
+-		if (!trace_probe_has_single_file(tp))
+-			goto out;
+-		trace_probe_clear_flag(tp, TP_FLAG_TRACE);
+-	} else
+-		trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
++	if (!trace_probe_get_file_link(tp, file))
++		return -ENOENT;
+ 
+-	if (!trace_probe_is_enabled(tp)) {
+-		for_each_trace_eprobe_tp(ep, tp)
+-			disable_eprobe(ep, file->tr);
+-	}
++	for_each_trace_eprobe_tp(ep, tp)
++		disable_eprobe(ep, file->tr);
+ 
+- out:
+-	if (file)
+-		/*
+-		 * Synchronization is done in below function. For perf event,
+-		 * file == NULL and perf_trace_event_unreg() calls
+-		 * tracepoint_synchronize_unregister() to ensure synchronize
+-		 * event. We don't need to care about it.
+-		 */
+-		trace_probe_remove_file(tp, file);
++	/* Synchronization is done in below function. */
++	trace_probe_remove_file(tp, file);
+ 
+ 	return 0;
+ }
+
