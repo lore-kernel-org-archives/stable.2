@@ -1,105 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795490975;
-	b=VCCcmFJCGlMa0IZWNShqMWVLl8qLK0CyQmrOc9RJTUcaJLff3ShEfOBRyTdjtDVqWq1O
-	 MxuzlzIr73GLvBEhtX89Z9h3EG+RYWV8k5vb2jkGrMKnEHNAEKk1iontF8HVWxT866auN
-	 p5HrtWELgvT3OfTAjZs+PhB5OSYGcYGvcEBtYcd11Nbtma64bjs3LkDW+zV5/CQRImkL4
-	 H6YgKLMMTkhZnumnS6NFDzH2YJAhXrcPnTtGOy9AXKusc75nwXmi8nEE4sQA1IzKocb7C
-	 MvqPlunLGwBStE99OEnSFBPAkEtvafYuWhGTV1l65xizVL4pJA7ewrGX3rasZBeTwiQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795490975;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=9u58MWnUPBv+wpIoHoqA+g4jSEnmA4T+QSzu9v1QMbk=;
-	b=iERW4IJkFCsj35OwmH4z+EzxsGh3NusTGh+kE5gqRxZmYGPysA/ynNts+U5uJ8KwSDuC
-	 RS/7OWGTv7PnHyZLiT/m95O5KdSm3FMb+gV9JrqvceZCdZ8yEfRfDZnc0d6kFH8HT+N6Z
-	 LA8Qb9A3Vx4qY/solvDc1iyLW0W6nQ9Sd2AS8Gw3me63wUlpIrwgNDoIVb6nT7kF9FPtD
-	 421KVMU0z+Qb7rFcitlR5aK+wAaiv8iYT26KidlBZDiJJOm3DIzKsO/3BAy8WG3awMo9c
-	 IFC/WLwy82+d+PG9ysOgOPUEq0wfUxCZZz6uHAeyNutff6ArLB+fq6RZ4YeWrzIHJWw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="hZRf/p/X";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.53
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013053.outbound.protection.outlook.com [52.101.83.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.226
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795490992;
+	b=F4UI+4LfStsuuu8rdWSHMgCSe6N/+GGJsoQGFLN/ClRNr2zx3kYiUk0L47I4hooCt3Nt
+	 U3bmrcZY+7t1ULJPbs46xs+2+HF1sMIZSZb38xkKhxbJWD9oeIdAcpq9Xl10kVfJsFeJx
+	 9lrifx4gKiYeAKFiVJv2XIc4iV6n/cvMuM1VT8+1osKik21oPVgACXA9+Qw8mVFsz/JjH
+	 bsUAFvdt3N0cUIg13qyMvjE/6ox/11Jz6kwo6T2ZIoV+l9hOCZHECnnGNSbARtiO7zGJW
+	 kUsPyympUiS5ksuu6KgYtG7h3zaqYRYi8kx1H5+MYUQkudLbKmxhfWMQ8sORNajYq1A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795490992;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=e5Opmlw6W+7IY9g9unaFxu16R4gE9zSxgAoE/RUOQJw=;
+	b=19RRXZUc5tgRIZVUjwhrL5uN6jGsSIbzSMaGTapsJ8DQMeaWrh6p7fE+TzbAoeO4YTBf
+	 8Ek475ZxajvEQwgdxuhrSmzyxrF9fYw3iuNxoskGl/jRqZLGuyVG6YwGEUGg5lGmWKBz/
+	 YuYn3QLjzJXTmGdTnCkNGigEHcYuZx7m/nly0NuRDE+5kcYIsxcqCG/EI1eldjAcXaQUq
+	 et+gR0mbYAFSr7sq1NsEGKG0GmEMwhSIVezRa0z2FhXzOcwpUOkzlq1c97IYQujHniHzJ
+	 byfu88GgG0a37r817FaGbzZybwvltv0NIsiUO/5jxjrmsuUnHWn3ztWTTT/U8s3RW2A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=andrii.net;
+	spf=pass smtp.mailfrom=andrii.net;
+	dkim=pass header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=cyVEFZrL;
+	arc=none smtp.remote-ip=209.85.214.226
+Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com [209.85.214.226])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4247E606A32A;
-	Tue, 24 Nov 2026 03:29:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4247E606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA58606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 03:29:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEA58606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrii.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrii.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=hZRf/p/X
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EZQwMZZxb3pR6mqN1dRiIqUcpmhTPPJcHyziSxP6Mfh4c0LRmdftinG7FeDwsxHROjcR+T3s0vyvHS00WhZm3nd5hSxPLJkhos9aBRV0ZcVYFH5pQVaTNJJ0DEHUdSJM2k+Ro2QVIQmISs5Y63w3Hz4I1OwlU725XVT6cFmFESpZ1Mrr49+UW8FgBWDr/3W2myofC13bHCkbs+9gjW1EbGVNZtsD2lFcgEyMBqzcj2dHp+dVQJzmR7ZW7VUDRXSVtyPFH6aNCUN2om1wjRyXiAzeqdjfBFj5eW2qmz1U7aOdzdEXcLlMVO/Vx08VopyI7JJ683SqQYqXxXkxVOTrww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9u58MWnUPBv+wpIoHoqA+g4jSEnmA4T+QSzu9v1QMbk=;
- b=MZmbMCqvRZTUcscY4DaNHuQ1phI8HAJNVonjmO7kBx4XMypZbztHEOs3slaBf5pC5LWNBQrpCRmHyYMckJFT1iGRYELwBmyjPMPnq8zgsyX3JEcDZVkdHkVlIsoSPuKxucDGUhb51uswL8eq548aqTbm3NM1oZMZeMtifVDz7Liz/wk6UsQ21YvwjzEkCBXSKgv54yuD2//gVW2x1ULA4BzGpGZO2p3zYnn5Li9A7c8F2CXe7Yxjy9el6a6EhFqMfCrJ6uRbA6ugiRRat4Cp0TPEtbTXcyhlZkI7h+q040FNhg1a1fCtnEFihy6JvEHSXnMeE/byfMSQ+9YpyTMmnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9u58MWnUPBv+wpIoHoqA+g4jSEnmA4T+QSzu9v1QMbk=;
- b=hZRf/p/X2FvcxyHiuwVf4aOF9F9gWXSKoBc5xqi7tyUkyfYRLg+DXaugUaQG1k0YaUq0nj4INLGfA3ZBsWwgKZmXCrQHVihgNqg9F9yuqDa3r8+Y3di08OXkyyLAR8xI5qOwuNJK5euqmyjWbbM5OJUwLa5OERLRC6MKvstCIYRl/JHDOyrcCAS3602rM4EqqW3exgfKgkIBnyfbPJzwS0LGsO1kPdBChrVLGTFBWBohyrBP3l2J3W0xhNIGEQU6kvJxkXvRVd1Y/Hwc4AeWadR6Ov0isFHJIHrZ3nPSQ7mtwRhUCucL55NgNrbZt4NNLu8lifOkIsQJsIoGaThJrA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by DB9PR04MB8393.eurprd04.prod.outlook.com (2603:10a6:10:25f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
- 2026 03:29:32 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%5]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 03:29:32 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Peng Fan <peng.fan@oss.nxp.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>,
-	Iuliana Prodan <iuliana.prodan@nxp.com>,
-	linux-remoteproc@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=cyVEFZrL
+Received: by mail-pl1-f226.google.com with SMTP id d9443c01a7336-2f05b465cd1so18637135ad.3
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:29:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=andrii.net; s=gmail-2025; t=1795490991; x=1796095791; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e5Opmlw6W+7IY9g9unaFxu16R4gE9zSxgAoE/RUOQJw=;
+        b=cyVEFZrLqgJ70eSeLwYbJxeW1eLKC/b8ZFkHJAdgnDtJFTVOyziG9CfUFViuDFd1K5
+         K19BbuIDmf+DQepi6NYJgahfL15NBziUZL/2Wm8WcNshMG2e3Eoio93BPosykeph6NMF
+         1Q8CQn3L13ByWVExtc/46sEKeasUK1GHeZsfTPHGUTWWpKYcbL0t//rQurEsCv6Jvzfz
+         A20Rvygg/F0n7QIF2c/CLIlnLpg7sePiLWdqqF96lTzJdxcTizbQgEuml9W2FRC5weuR
+         KfXQ61n0Y5TT4rjCz3IiifOxSQF70MdBL1r3Hw2R8oVUZnY0roqF30ZO3mQtIPhd87o+
+         c0Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795490991; x=1796095791;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e5Opmlw6W+7IY9g9unaFxu16R4gE9zSxgAoE/RUOQJw=;
+        b=Msh7omZBMggCUI9XFTOwWw2koRWq2vr+D/yR8fB6lVD04WXPR9L1ugyG1GCkTz2yg6
+         vrB7QEjl8xP+fToolGdXYwl7jqmsWn8gnUDDWp7qyFgh56A7K/2+E7SmSW4qrDlc1D+P
+         QD3PmRaU/TWWdayC1bMICCpIsNapHOyYOsCNCE7VaCVLv0lDWpfa4KZS7Xoheh/YyZjV
+         SjqVIHpfQFkhjpAgA7oZZSXYa921NzwBrwAXAplg4XeJ5OTR+oyGGGiUxsXUn9dcajRz
+         on4kghrqCyk964L2dRkAyZYFWWstomHAFo2pMd203ve0zzHLS5iKN/DBJrGB7NfIr/pO
+         h1hg==
+X-Forwarded-Encrypted: i=1; AL+hErF6nGmU+RwNI7yp2lqj9tzQbkHVTWcsT9KDcShj1muP1Uw9OJzXVnqtdiKLmNuRS22xN9yfgiM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Yd+BNlxLgDIaL9W5ReH17mF3LuPorJPGszOgz05rAr8vq3+VH
+	JY5LFUvHvrqusqGHRv1MxMeS+l1piJJvCVA8vxwPdRu8xZZSEnw2Pr85JTf57D4uLyEewluNHNb
+	/vzrlDz9qUxAb0+xEZ2f74/XxTHb83K0UQ4g5ykEMzbGjKX6lGo8C
+X-Gm-Gg: AZFdTZfLuUw34pgJ1Ld5rPWVLYb9eoANxKU4zmQt+gCALFjVLTMoGNFoi2vEnP0TONk
+	6ootCNuynN7JEwY2BzT9WIN4qb1Q3eb0FCvOx2z7+H27UwZURtpgmyczRQY0MmWYKoX276KZ1Bu
+	HguN874Te+HtXC2KzYcgwssPofOUTydgHm8RXAvdxL7zgGUBehygSBPSVK+OQ/iYdNQFRO54K+Y
+	3qApQ4Pt1L5+X3ME6dT2NaUYpemQADSiNAEK+6i5RC91Xoz2klxHbyUX16txSBQ8+rbHJWcRttW
+	hjwfMlft0HNrcgP466VfUUlMUV3L1TrSraYF8rZ33KvhG1QQmb93/siimDCC23g0qKnoE2YwyjD
+	QXM/m/s70OecSVBHna0mI5/fcBWA=
+X-Received: by 2002:a17:90b:17d1:b0:3a8:a98c:ea07 with SMTP id 98e67ed59e1d1-3b41c8e1735mr11583721a91.13.1795490991106;
+        Mon, 23 Nov 2026 19:29:51 -0800 (PST)
+Received: from andrii.ai (mac.hestia.andrii.net. [2602:f337:ed:4865:7374:6961:204d:6163])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b41cfc74bcsm4445939a91.0.2026.11.23.19.29.50
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 23 Nov 2026 19:29:51 -0800 (PST)
+X-Relaying-Domain: andrii.net
+From: Andrii Tereshchenko <opensource@andrii.net>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Dmitry Safonov <0x7f454c46@gmail.com>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	netdev@vger.kernel.org,
+	ipsec@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH 10/10] remoteproc: imx_dsp_rproc: Fix off-by-one bitmask for trailing bytes
-Date: Tue, 24 Nov 2026 11:26:34 +0800
-Message-ID: <20261124032636.5382-1-peng.fan@oss.nxp.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261123172140.3547896-11-lee@kernel.org>
-References:
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI6PR03CA0005.apcprd03.prod.outlook.com
- (2603:1096:4:285::21) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	stable@vger.kernel.org
+Subject: [PATCH ipsec] xfrm/compat: pass on the translated length of a socket policy
+Date: Mon, 23 Nov 2026 19:29:46 -0800
+Message-ID: <5249741d-fa84-4d54-bf77-45f48dbbb169@mid.andrii.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,75 +103,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DB9PR04MB8393:EE_
-X-MS-Office365-Filtering-Correlation-Id: b111646f-c19d-41f5-558c-08df49db27c3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|376014|7416014|366016|261026135527099003|261022115727099003|261102123227099003|261026121527099003|261022113327099003|261022075727099003|261022105027099003|261026130827099003|261026140227099003|261028144727099003|261021121427099003|261021123027099003|261021130227099003|261021133027099003|261021135927099003|10067099003|11063799006|56012099006|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	BRBXsAu5QPjhmYmu6Lvt3fuxJQTSACJf3C+vmnjXA+yuozGAi8Szd8SQmDIBzWMmlDBjsEnGDXw/ZaXWp+mIF4zcgZisijBi41IPJyWP6rXnUfRQhq9tiJTx31ST4IYmZndPEDiaPgUzcZNsDIcQynD3c6xguREH7BCcomwxPBDMTi14ddHpYUBylvbtuY0BmMSwHm5AOjlxe6R0XIo4JIoLexjett02GdnrMEycj5wfUZLiON8qvFaHFop+Hmi9gS13E0Zn8lUnj/Os8pt/ZSFtp8BIG4d3AvPbfIBfYTNVdStK48YdnGe+uaBfRiOCaOmVpSUAA8UVLqd+QnmgwQi4M/6N4lIXwCRroR1psWyQ3G8+tsRMbBU6nM+eO76uLBN8YMRyXRRGUUZtMerB5+4f4EH8cc30Is1GAbsQsHc8AusYbwDxZRfFL1E3PuD2UxPvlVzzcmU5LRjNkAuzHgvrdBufUv2UwWAzBI6S3SM/2jzxB52WyUzbgrZSP6FNF9OF04SDQe21HI20xs/DCd6DBCssaGhsMyjgGJldSbHQiNQ0rou6JgKvBFRZWegW/TWqazNou3jgriFsyFaKLpPWtc6ABmTU8qyY/lpKj78=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(376014)(7416014)(366016)(261026135527099003)(261022115727099003)(261102123227099003)(261026121527099003)(261022113327099003)(261022075727099003)(261022105027099003)(261026130827099003)(261026140227099003)(261028144727099003)(261021121427099003)(261021123027099003)(261021130227099003)(261021133027099003)(261021135927099003)(10067099003)(11063799006)(56012099006)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?SFTqWOkvjHdhboCUqPGtVgzjcJxAaW8UA4fjt3RsO2wIZCBSLd1cR5i3MLoo?=
- =?us-ascii?Q?WpcfnwIi1XzW4gvChyT3cccCJHdeUU6fYg8J8szZDk/By2riIGSu/1jg+pVY?=
- =?us-ascii?Q?M8cttzFIYEEbIIxYje2lUwYcWVJDE72IiaxOkxH3NJcHZ2hSDx7EqME/8Tb8?=
- =?us-ascii?Q?Pnbl3mkR3uhWPNR6G923XJ8UB53kqJoX3jhgbTiHb53LMMvMpTPzVe5ZnP2Q?=
- =?us-ascii?Q?K95euG6z/tzCbBQpD6u/BP42CS7Fq9fDQxHG+cI/DDW6O/ZDkmShkbJRumxA?=
- =?us-ascii?Q?u1fLLSWBXOn1ohyIoTzUHAhIW8cOI/Lh0ZjLJBN0+ZEgKwwqxZaSGPW/IJUS?=
- =?us-ascii?Q?kEQXpROPp9KqzxfszOmmxOhLJpZgMC0JnYmoghwKYTN8rrCJn8v67qv7GC9a?=
- =?us-ascii?Q?RDc8iK60kJjXfpQueqpDgNhcKOlmZaFsd1erT4cdj1t5aRjW3rOrnbDJZwYl?=
- =?us-ascii?Q?0e9haTSh3Qie3RgZUrM9nNftiVwuNF+hEGTww+TP4A4vrcm2Ewdx8qai3gT+?=
- =?us-ascii?Q?Z73JRtj2lxK5ApLJdOMqgo1pbKCj8RiB2QWAD81BL/Mi+Fv0Eg4NaI3hFUr8?=
- =?us-ascii?Q?eIXFjLUgPhou9f8EoOZE+DGZXdPpZRE1tU9fpYir//RGM3ZSluMDouv5loQO?=
- =?us-ascii?Q?yFReXqQX7Qwdv9tVBx50eEAILWxxeNtYklHBDF+NQvbUqfj5dX+FS4K834mL?=
- =?us-ascii?Q?jJqcbOPjH5nfareJZU1w2rACt5ciuy6OzfRvpQnv9mwbFiOp3BHoFkAvvr3z?=
- =?us-ascii?Q?uxaY+FoHWUQ2G88yWbefSNzjPcQSvt5kosx/nWFDggrMUGni6Oy+XYPp6sR+?=
- =?us-ascii?Q?xJWSksneoF5MDyQBczqIj/tzoaXUWq7JHniAmXNnEmDHBmAy0PeDDpnM1Wy2?=
- =?us-ascii?Q?sMx/LBATsdIcbZkirOFAetJooXSRZSwmDoiRi69NHwgsGULCuc105YYWezKN?=
- =?us-ascii?Q?ilHDEcpM/4jDAFvicQ0WfYhG1Dp8SSrDGyHXENbZe6IXVUFO7WGVxVqr4g2M?=
- =?us-ascii?Q?RrHuuNAyOiCc/iRn8AUZeNmRUoaluBlKU7scAxprqXG3L7P4JsEx6Xc7r1q/?=
- =?us-ascii?Q?SS4UvIe2LRftc3saaqKNRKatap6BxVpgCsbOoxxWGEytkIZwcz+fODjXL0LH?=
- =?us-ascii?Q?SUBVB3T5roTwetT+R2F4vxyyiFUjBe5sYnTlFLMfv1CwiB4QhluS3KKrPWRJ?=
- =?us-ascii?Q?1C9BxRCSaWGYm1xMeEcJ1nUpy5SIB0WbhBBdINNHf2rgOVi6HJHdtWC2z2b2?=
- =?us-ascii?Q?uD9ck8E9TRcoilsUgRMyvi+Tb3psGKK/jTHt6l+iLMW9GYc+xTfOJj7fvxTz?=
- =?us-ascii?Q?v5kevKiUWCpzhC3XdMZqNJsvrjlfqi5sx8spw6Y11jcylSm9v1NtfVKUC6RD?=
- =?us-ascii?Q?G+KNekjUcs4Szh2VUjCGfVsctcLuBknpL6Mq2npfiCT79AR88Un5RhAn+GED?=
- =?us-ascii?Q?hbU8fAE/PkmmqKdNZ4EIyKAh+Op8MRhv1qV/iAwyhRS6xAx4PsWMA4J29XLw?=
- =?us-ascii?Q?YvLlXsdxaKpr3tAMBgm/ghWDmPOnp2wRs1bPrdvWdMW4h4MxHUjvirejUZRo?=
- =?us-ascii?Q?bg70zYUpjYjLkcNoMGpU3nkkoAdVgyKSoB/fDMC7cT1VzKADNLfXmZCsy69N?=
- =?us-ascii?Q?unRceADVsqbME1jVbqs9MRzcmdq9FaPMG+L457mUN7VlVaIsUrmSOtJmeGP4?=
- =?us-ascii?Q?FmvVh1Ij1nlhz8z7nlTNcKnmRzpA4MvrktgM1EEkgmi7xqZMQoQWzRW7lf91?=
- =?us-ascii?Q?+hyS6OABFTGBWe5w/VO6g1/H7OoMY4nghNZylyckAenhURf/ZznB?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b111646f-c19d-41f5-558c-08df49db27c3
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 03:29:32.4990
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UhhHm3opsYnSehmAoOvYkWHVENShG/0Fta6OaZt72nP0GwTaYw7Zpt559bdeyx9XXL8GGl6J7ePhjhHjcKEFHun23i8Z6dRTvLPY2ZAevXGGQODdCP0NEpZZe1RUSYGw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8393
+Content-Transfer-Encoding: 8bit
 
-On Mon, 23 Nov 2026 17:20:54 +0000 Lee Jones <lee@kernel.org> wrote:
+xfrm_user_policy() compiles a 32-bit task's translated socket policy
+with the untranslated length, 4 bytes short, so the policy loses its
+last template: an ESP-required socket policy then sends in clear
+text. Have the translator return the translated length.
 
-> When size is not a multiple of 4, both imx_dsp_rproc_memcpy() and
-> imx_dsp_rproc_memset() compute affected_mask as GENMASK(8 * r, 0) for
-> the remaining r bytes (1 <= r <= 3).  Because GENMASK(h, l) is inclusive
-> of bit h, GENMASK(8 * r, 0) sets 8 * r + 1 bits and clears or overwrites
-> the least-significant bit of the first byte past the end of the target
-> region during the 32-bit read-modify-write.
-> 
-> Use GENMASK(8 * r - 1, 0) to mask exclusively the r trailing bytes.
-> 
-> Fixes: 408ec1ff0caa ("remoteproc: imx_dsp_rproc: Add custom memory copy implementation for i.MX DSP Cores")
-> Closes: https://sashiko.dev/#/bug/linux-2e407b68-a7e9-42ff-a613-e61b47a4461b
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+Made with an AI coding assistant, reviewed by the submitter.
 
-Reviewed-by: Peng Fan <peng.fan@nxp.com>
+Fixes: 96392ee5a13b ("xfrm/compat: Translate 32-bit user_policy from sockptr")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrii Tereshchenko <opensource@andrii.net>
+---
+The 64-bit struct xfrm_userpolicy_info has 4 bytes of tail padding
+that the 32-bit one lacks (168 and 164 bytes on x86-64), and
+xfrm_compile_policy() counts the templates as (len - sizeof(*p)) /
+sizeof(*ut). With the 32-bit length one template counts as none, so a
+32-bit program's ESP-required socket policy requires nothing: its
+datagrams leave in clear text, with no SA and no acquire. For the same
+reason a policy without templates, which IKE daemons set on their own
+sockets, is refused.
+
+The BUILD_BUG_ON()s check what the translator's memcpy()s rely on:
+4 = sizeof(struct xfrm_userpolicy_info) -
+sizeof(struct compat_xfrm_userpolicy_info), the fields before the
+padding at the same offsets in both layouts, and templates that need
+no 8-byte alignment.
+
+Found with an AI coding assistant. It reproduces on an unmodified
+kernel (ipsec master), without kernel changes or fault injection, and
+no longer with this change. Tested with the reproducer, a selftest,
+two boots each way, and with the xfrm_policy and xfrm_state
+selftests. The reproducer is available on request; the selftest
+follows once stable has the fix.
+
+ include/net/xfrm.h     |  2 +-
+ net/xfrm/xfrm_compat.c | 18 ++++++++++++++----
+ net/xfrm/xfrm_state.c  |  2 +-
+ 3 files changed, 16 insertions(+), 6 deletions(-)
+
+diff --git a/include/net/xfrm.h b/include/net/xfrm.h
+index 445223a8dc6f1..455b9f986ea5b 100644
+--- a/include/net/xfrm.h
++++ b/include/net/xfrm.h
+@@ -2331,7 +2331,7 @@ struct xfrm_translator {
+ 			struct netlink_ext_ack *extack);
+ 
+ 	/* Translate 32-bit user_policy from sockptr */
+-	int (*xlate_user_policy_sockptr)(u8 **pdata32, int optlen);
++	int (*xlate_user_policy_sockptr)(u8 **pdata32, int *optlen);
+ 
+ 	struct module *owner;
+ };
+diff --git a/net/xfrm/xfrm_compat.c b/net/xfrm/xfrm_compat.c
+index 670e3512fc090..af5cb36d691ea 100644
+--- a/net/xfrm/xfrm_compat.c
++++ b/net/xfrm/xfrm_compat.c
+@@ -642,16 +642,25 @@ static struct nlmsghdr *xfrm_user_rcv_msg_compat(const struct nlmsghdr *h32,
+ 	return h64;
+ }
+ 
+-static int xfrm_user_policy_compat(u8 **pdata32, int optlen)
++static int xfrm_user_policy_compat(u8 **pdata32, int *optlen)
+ {
+ 	struct compat_xfrm_userpolicy_info *p = (void *)*pdata32;
+ 	u8 *src_templates, *dst_templates;
+ 	u8 *data64;
+ 
+-	if (optlen < sizeof(*p))
++	/* The 64-bit layout only adds tail padding, and the templates
++	 * after it are the same in both layouts.
++	 */
++	BUILD_BUG_ON(sizeof(struct xfrm_userpolicy_info) -
++		     sizeof(struct compat_xfrm_userpolicy_info) != 4);
++	BUILD_BUG_ON(offsetof(struct xfrm_userpolicy_info, share) !=
++		     offsetof(struct compat_xfrm_userpolicy_info, share));
++	BUILD_BUG_ON(__alignof__(struct xfrm_user_tmpl) > 4);
++
++	if (*optlen < sizeof(*p))
+ 		return -EINVAL;
+ 
+-	data64 = kmalloc_track_caller(optlen + 4, GFP_USER | __GFP_NOWARN);
++	data64 = kmalloc_track_caller(*optlen + 4, GFP_USER | __GFP_NOWARN);
+ 	if (!data64)
+ 		return -ENOMEM;
+ 
+@@ -660,10 +669,11 @@ static int xfrm_user_policy_compat(u8 **pdata32, int optlen)
+ 
+ 	src_templates = *pdata32 + sizeof(*p);
+ 	dst_templates = data64 + sizeof(*p) + 4;
+-	memcpy(dst_templates, src_templates, optlen - sizeof(*p));
++	memcpy(dst_templates, src_templates, *optlen - sizeof(*p));
+ 
+ 	kfree(*pdata32);
+ 	*pdata32 = data64;
++	*optlen += 4;
+ 	return 0;
+ }
+ 
+diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
+index f4a4ddaeb9b37..eb984ed118884 100644
+--- a/net/xfrm/xfrm_state.c
++++ b/net/xfrm/xfrm_state.c
+@@ -3115,7 +3115,7 @@ int xfrm_user_policy(struct sock *sk, int optname, sockptr_t optval, int optlen)
+ 			return -EOPNOTSUPP;
+ 		}
+ 
+-		err = xtr->xlate_user_policy_sockptr(&data, optlen);
++		err = xtr->xlate_user_policy_sockptr(&data, &optlen);
+ 		xfrm_put_translator(xtr);
+ 		if (err) {
+ 			kfree(data);
+
+base-commit: b88c75488ecc768acadb14e980bbfa087b1dbf38
+-- 
+2.53.0
+
