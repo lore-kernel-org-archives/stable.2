@@ -1,59 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795512666;
-	b=rYaUtfVhZ1j0R0P//7Fd0ePY4fzX59Srw5bOgn012YxdMFNFalkJ43npA+xr7iCZ5hN4
-	 DSnGzsf+OTVSLQvxez32defYiJnp290zs2V5A/G4rihUsJ0NlV+tSul+ren2b7C8DhnPc
-	 9fWpo6fJgazXsePcqzaphkJhM+RMzxrcdN74ZrMgYofHhmAMoQOrMIisUsyl1ZV0TvCZu
-	 BUijLSFoF+JPsAdwE8q3XxR1O/AOGoPYjKRmcyNcgU9UOACg1q8uXtMbYxg6pvFeM/zxb
-	 Lu5/4F3vcfYManHJRM1PiaqXVuH7TdxQNf5SW1QUu0dXKvvWCUTNqUdTPHlk/g17l6g==
+	t=1795512802;
+	b=ge1tpzti+JyCDgY3SOWJD9Y7kEKIgMl3xxZlwj6LCX8o8ZhnxjADQdLe2irOaXdHAZbt
+	 oaTu/8Mwa2BqmjxoTYtNr0bd6Q5qWSKiWQX/BpRW4Ysss/Y7qZVcZVq4dvZLrOhzqe8YB
+	 nT8Ft1uqC6OQ3T6GrMg5i48ZmXqtNCzOLCMjVF9M9PStkEb2E4e9qPZ9awkPlnrhQuljh
+	 QaT9OdzFUxPnmOrUeO7No4hZQ2aOyIzW0PEQ555u7Sh478YJk38/7gCRa2R7SgGY8H8IP
+	 7iZZ6HxzS0ff6d6bIMuclIXg7Wakl81w31qrVi4/e0eX/B9beZgouH1qAjR7AXzalyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795512666;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=U/HNWif1ZVECeK3JYpem65ii+B67CFXrmyP8vaDY9lY=;
-	b=1jo1OK8Fn4Lbz+kQz2RwDPeJSEoZ3Pgyth8DNtRfSgTFmChcH+C1GwwnJ/9/2tAkJ6GS
-	 fAsUtrCWVg1UB58FHIwp+BHjCpoNFglyISJOZ8BXbvZ3GN5mwXljHbVMCkU95zmGbpSEM
-	 1qLm8P7r2vhf1Ee4eYf37jk0wry5JzYDYrfv+DhW5agPhC/W39EwL2TYX4AyzO4C5nUjd
-	 LQDrEMnxUbFbFdrtT5IVWUj2VDoAg9b9uICUELKQ8KStKmv20E3SxBAgjW+T1fDlFrQC6
-	 yzl1vYEybT/AZO7aquleHhj7swcI/NnE55AAMhjzmomCr5irtOBprLncdp0tRADYnMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795512802;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+9Uysq/mCotcK4cVqe4SE28D+xwBYIuoWTUDfUIopk4=;
+	b=X97UoNyT1c9OINoi5rhGRBCZBBOpuhFu+x9w0/4/SCymEc+fmca1JEdMrUZocDvMI81e
+	 iHqjxWqGl9P8DmL3gIEN2uSAjNP7dvUAWV5ROwkqwVa0/VYQNNID0y3jFgaXB5AdyL0hQ
+	 6CrTfl9tdK7nuFqlMKvoCHIbW/xiaJ10pSMBlE6tV7NGjyUm3AZpjeU6cmzAG03fanJrP
+	 aPbJcWdzmYblVuuuvrzNfXKgbzjsTF/ADc3ZOItEER+Im/xovFbuf87otlUgb52WtN47A
+	 5s/HQKRcMLu2TNFHK2L/mSRzQqVKH/Fi8eJgnXxqUR49lcnUm+n2biP0m4Wm7oI9SOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="f3/CJm6u";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xjmm5CM1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47234606A68F;
-	Tue, 24 Nov 2026 09:31:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59117606A32D;
+	Tue, 24 Nov 2026 09:33:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3/CJm6u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8727C1F000C6;
-	Tue, 24 Nov 2026 09:31:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xjmm5CM1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1FDC1F000C0;
+	Tue, 24 Nov 2026 09:33:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795512666;
-	bh=U/HNWif1ZVECeK3JYpem65ii+B67CFXrmyP8vaDY9lY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=f3/CJm6uOD0E0Rpou9IthYh6bIvFVB2GTOOTgL248PjV8F18DW/fsT0ojbM2IkWP2
-	 g5b+EKFyyouivhC3UEkY1MaLG7Hotu8+yB6iQfKGat52XC5/enBg4yjSIrl8I2+CNq
-	 Wc3yqjw+B3XmgY6t8NbVDG08DgXbkWbOYh0E0jGncb9ZA3sLtLH6PYXR71N3/Y7fGV
-	 LRbtACsGxLK56rSH+wZOw7oo9Z2+i+SkW3dKfDJU82/IOlENRfLJtiFo+doyp1hF+b
-	 nPATVf35eVim+zLDc8PVTydp8s1OQZGWKLcLXJ9Xt81jTdgzzI/OSjBknVOu2fk9J7
-	 IG1GJJbPK+ImA==
-Subject: Re: [PATCH can-next v10 13/14] can: gs_usb:
- gs_usb_host_frame_header_valid(): drop invalid CAN error frames
-From: netdev-bot+sashiko@kernel.org
-To: mkl@pengutronix.de
-Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
- max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
- linux-can@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 24 Nov 2026 09:31:05 +0000
-Message-ID: <179551266509.3131.3496151929213632849@kernel.org>
-In-Reply-To: <20261122-gs_usb-fixes-v10-13-7c165c35d04a@pengutronix.de>
-References: <20261122-gs_usb-fixes-v10-13-7c165c35d04a@pengutronix.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1795512801;
+	bh=+9Uysq/mCotcK4cVqe4SE28D+xwBYIuoWTUDfUIopk4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Xjmm5CM1kfF7V02HVtT4oCwtOJPH49nNm2tA2ktDhwJXYBZjyL6fS5SqZrNEXI1Uz
+	 ivM9VNMzGFh2xzdwRvl0f9ddocuGcDMLqpcD/bi/AFDOlXKD0EkTg6NXVyI0sRIJP9
+	 AULjbB715ndUw8a4kemAX1wl9PK9UhC76GXudieAPTIERxPiuN7EUVzZyR9f8cA9ek
+	 Syz4igaBrE7nMLRACT4exq+loAaJ46t4m01Di2NyQAFS+CJXU2CsvTLxwtNVJ/ZUan
+	 E5Vpbzn5JoqsrJy6GfCYfPviA+mm6CkS000UNW66qH9o0pZ55RVOFhZ8F3HxLqpDnh
+	 IB0O/UNjjJdGA==
+Message-ID: <a2242fd8-5fed-458d-9723-e57a4d9015d6@kernel.org>
+Date: Tue, 24 Nov 2026 10:33:16 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,216 +51,159 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 -resend] drm/qxl: fix use-after-free and NULL pointer
+ deref
+To: airlied@redhat.com
+Cc: Gemini <gemini@google.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ stable@vger.kernel.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <d9930eabe544a4bec5d55113ccd6b1bcd2998bd6.1793704291.git.jirislaby@kernel.org>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <d9930eabe544a4bec5d55113ccd6b1bcd2998bd6.1793704291.git.jirislaby@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+Can someone pick this up?
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 3
+Thanks.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On 03. 11. 26, 12:11, Jiri Slaby (SUSE) wrote:
+> When allocating a `qxl_release` structure with `kmalloc()`, the underlying
+> memory contained uninitialized garbage. Specifically, `release->base.flags`
+> (part of the embedded `dma_fence`) was not cleared.
+> 
+> This garbage in `base.flags` caused helper functions such as
+> `dma_fence_was_initialized()` to return true even for releases where the
+> fence was never actually initialized (e.g. via `dma_fence_init()`).
+> 
+> Consequently, during release cleanup in `qxl_release_free()`, the driver
+> attempted to put/free an uninitialized `dma_fence`, leading to refcount
+> underflows (`refcount_t: underflow; use-after-free`) and subsequent NULL
+> pointer dereferences in `dma_fence_signal_timestamp_locked()`.
+> 
+> Fix this by switching from `kmalloc()` to `kzalloc_obj()` in
+> `qxl_release_alloc()`, ensuring all fields (including embedded fence
+> flags) are properly zero-initialized upon allocation, and remove
+> redundant explicit zero-initializations.
+> 
+> The dumps in question:
+>   refcount_t: underflow; use-after-free.
+>   WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90, CPU#0: kworker/0:0/1534
+>   Modules linked in: af_packet nft_fib_inet ...
+>   CPU: 0 UID: 0 PID: 1534 Comm: kworker/0:0 Not tainted 7.1.3-1-default #1 PREEMPT(full) openSUSE Tumbleweed  b041a6527f6e58424f4cd3de0fade8d408b378fd
+>   ...
+>   RIP: 0010:refcount_warn_saturate+0x59/0x90
+>   ...
+>   Call Trace:
+>    <TASK>
+>    qxl_release_free+0xee/0xf0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
+>    qxl_garbage_collect+0xd1/0x1b0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
+>    process_one_work+0x19e/0x3a0
+>   ...
+> 
+> And then of course:
+>   BUG: kernel NULL pointer dereference, address: 0000000000000028
+>   ...
+>   RIP: 0010:dma_fence_signal_timestamp_locked+0x32/0x120
+> 
+> Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+> Assisted-by: Gemini <gemini@google.com> # only commit log
+> Fixes: 2bcbc706dfa0 ("dma-buf: add dma_fence_was_initialized function v2")
+> Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271081
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Dave Airlie <airlied@redhat.com>
+> Cc: Gerd Hoffmann <kraxel@redhat.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: stable@vger.kernel.org
+> ---
+> Cc: virtualization@lists.linux.dev
+> Cc: spice-devel@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> 
+> [v2] use kzalloc_obj() instead of bare kzalloc()
+> ---
+>   drivers/gpu/drm/qxl/qxl_release.c | 6 +-----
+>   1 file changed, 1 insertion(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+> index 06979d0e8a9f..07dc6eafe6f7 100644
+> --- a/drivers/gpu/drm/qxl/qxl_release.c
+> +++ b/drivers/gpu/drm/qxl/qxl_release.c
+> @@ -89,17 +89,13 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
+>   {
+>   	struct qxl_release *release;
+>   	int handle;
+> -	size_t size = sizeof(*release);
+>   
+> -	release = kmalloc(size, GFP_KERNEL);
+> +	release = kzalloc_obj(*release);
+>   	if (!release) {
+>   		DRM_ERROR("Out of memory\n");
+>   		return -ENOMEM;
+>   	}
+> -	release->base.ops = NULL;
+>   	release->type = type;
+> -	release->release_offset = 0;
+> -	release->surface_release_id = 0;
+>   	INIT_LIST_HEAD(&release->bos);
+>   
+>   	idr_preload(GFP_KERNEL);
 
-- [Medium] gs_usb_host_frame_header_valid()
-  (drivers/net/can/usb/gs_usb.c) now rejects every received CAN error…
-- [Low] The patch is titled "drop invalid CAN error frames" and checks
-  only DLC and RTR.
-- [Low] In gs_usb_host_frame_header_valid(), the new DLC check (line 648)
-  and RTR check (line 660) are independent if-blocks.
-- [Low] When the new checks reject an RX error frame,
-  gs_usb_receive_bulk_callback() goes from the data_length < 0 check…
-
---
-
-can: gs_usb: gs_usb_host_frame_header_valid(): drop invalid CAN error frames
-
-This commit adds checks to gs_usb_host_frame_header_valid() for received
-CAN error frames. They must have a length of CAN_ERR_DLC and must not have
-the RTR flag set. Frames that fail are reported with a rate limited error
-message, and the URB is resubmitted without delivering the frame.
-
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261004-gs_usb-cleanups-and-fixes-v1-0-7b4b06244a77@pengutronix.de
-
-> diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-> index b345ab34a200a..7229d002b938a 100644
-> --- a/drivers/net/can/usb/gs_usb.c
-> +++ b/drivers/net/can/usb/gs_usb.c
-> @@ -639,6 +639,35 @@ static bool gs_usb_host_frame_header_valid(const struct gs_can *dev,
->  		valid = false;
->  	}
->  
-> +	if (!(header->echo_id == GS_HOST_FRAME_ECHO_ID_RX))
-> +		return valid;
-> +
-> +	/* checks for RX'ed (non-echo) CAN frames */
-> +
-> +	if (header->can_id & cpu_to_le32(CAN_ERR_FLAG)) {
-> +		if (header->can_dlc != CAN_ERR_DLC) {
-> +			stats->rx_errors++;
-> +			stats->rx_length_errors++;
-> +
-> +			if (net_ratelimit())
-> +				netdev_err(netdev,
-> +					   "invalid DLC in CAN error frame (can_dlc=%u, exptect_can_dlc=%u)\n",
-> +					   header->can_dlc, CAN_ERR_DLC);
-> +
-> +			valid = false;
-> +		}
-
-[Severity: Medium]
-Can dropping the whole frame here lose controller state transitions?
-
-When this check fails, gs_usb_get_rx_data_length() returns -EINVAL, and
-gs_usb_receive_bulk_callback() jumps straight to resubmit_urb. That also
-skips the gs_update_state() call:
-
-drivers/net/can/usb/gs_usb.c:gs_usb_receive_bulk_callback() {
-    ...
-	data_length = gs_usb_get_rx_data_length(dev, hf, urb->actual_length);
-	if (data_length < 0)
-		goto resubmit_urb;
-    ...
-			/* ERROR frames tell us information about the controller */
-			if (le32_to_cpu(hf->can_id) & CAN_ERR_FLAG)
-				gs_update_state(dev, cf);
-    ...
-}
-
-gs_update_state() is the only runtime code that updates dev->can.state and
-the bus_off, restarts, error_warning and error_passive counters. Its
-bus-off and restart branches look only at cf->can_id:
-
-drivers/net/can/usb/gs_usb.c:gs_update_state() {
-	if (cf->can_id & CAN_ERR_RESTARTED) {
-		dev->can.state = CAN_STATE_ERROR_ACTIVE;
-		can_stats->restarts++;
-	} else if (cf->can_id & CAN_ERR_BUSOFF) {
-		dev->can.state = CAN_STATE_BUS_OFF;
-		can_stats->bus_off++;
-    ...
-}
-
-A bus-off or restart frame with a short DLC carried everything the driver
-needed, but it is now discarded. If firmware sends such a frame, would
-dev->can.state stay ERROR_ACTIVE or ERROR_WARNING while the controller is
-actually bus-off? User space would also never see the event.
-
-Nothing appears to correct the state later. gs_usb_get_state() is only
-reached through do_get_berr_counter, the driver sets no do_get_state, and
-gs_usb_can_get_berr_counter() ignores the polled state.
-
-Short frames were not a memory safety problem before this patch.
-alloc_can_skb() zeroes the can_frame and memcpy() copies only data_length
-bytes, so data[1] reads as 0.
-
-Would it be better to repair the frame instead? Setting len to CAN_ERR_DLC
-and clearing CAN_RTR_FLAG, with a rate limited warning, would give user
-space well formed frames without losing the state transition. The same
-applies to the RTR check below.
-
-It is not confirmed that any deployed gs_usb firmware (candleLight, CANtact
-Pro, cannectivity, the original Geschwister Schneider firmware) sends error
-frames with a DLC other than 8. The commit message also does not say that
-state changes carried only in can_id are dropped as well.
-
-> +
-> +		if (header->can_id & cpu_to_le32(CAN_RTR_FLAG)) {
-> +			stats->rx_errors++;
-
-[Severity: Low]
-Is a single frame counted twice in rx_errors here?
-
-The DLC check above and this RTR check are independent, and neither
-returns. An RX error frame with CAN_ERR_FLAG | CAN_RTR_FLAG and can_dlc != 8
-therefore adds 2 to rx_errors. include/uapi/linux/if_link.h describes
-rx_errors as the "Total number of bad packets received on this network
-device".
-
-The next patch in the series ("can: gs_usb:
-gs_usb_host_frame_header_valid(): drop CAN frames with invalid DLC") adds a
-third independent block for can_dlc > CAN_MAX_RAW_DLC. That block also
-increments rx_errors and rx_length_errors. At the end of the series, an
-error frame with can_dlc > 15 and RTR set would add 3 to rx_errors and 2 to
-rx_length_errors.
-
-Could the counter be incremented once per rejected frame instead? For
-example, gs_usb_get_rx_data_length() could do it when
-gs_usb_host_frame_header_valid() returns false.
-
-> +
-> +			if (net_ratelimit())
-> +				netdev_err(netdev,
-> +					   "invalid RTR flag in CAN error frame\n");
-> +
-> +			valid = false;
-> +		}
-> +	}
-
-[Severity: Low]
-Should these checks also reject error frames that have GS_CAN_FLAG_FD set
-in header->flags?
-
-An RX error frame with GS_CAN_FLAG_FD (and optionally BRS or ESI) set and
-can_dlc == 8 still passes here. gs_usb_receive_bulk_callback() then takes
-the FD branch:
-
-drivers/net/can/usb/gs_usb.c:gs_usb_receive_bulk_callback() {
-    ...
-		if (hf->flags & GS_CAN_FLAG_FD) {
-			skb = alloc_canfd_skb(netdev, &cfd);
-			...
-			cfd->can_id = le32_to_cpu(hf->can_id);
-			cfd->len = data_length;
-			if (hf->flags & GS_CAN_FLAG_BRS)
-				cfd->flags |= CANFD_BRS;
-			if (hf->flags & GS_CAN_FLAG_ESI)
-				cfd->flags |= CANFD_ESI;
-    ...
-}
-
-The resulting canfd_frame keeps CAN_ERR_FLAG. gs_update_state() is only
-called in the classic branch, so the driver state ignores this frame.
-
-can_rcv_filter() in net/can/af_can.c delivers any frame with CAN_ERR_FLAG
-to RX_ERR subscribers. Sockets with CAN_RAW_FD_FRAMES enabled would
-therefore receive the error frame as a struct canfd_frame.
-
-SocketCAN error frames are always classic struct can_frame. This looks
-like another kind of invalid error frame that, going by its subject, the
-patch is meant to drop. The behaviour predates this patch, but it falls
-within what the patch sets out to cover.
-
-> +
-> +	return valid;
->  }
-
-[Severity: Low]
-When the new checks reject an RX error frame,
-gs_usb_receive_bulk_callback() goes straight to resubmit_urb and skips the
-overflow handling:
-
-drivers/net/can/usb/gs_usb.c:gs_usb_receive_bulk_callback() {
-    ...
-check_overflow:
-	if (hf->flags & GS_CAN_FLAG_OVERFLOW) {
-		stats->rx_over_errors++;
-		stats->rx_errors++;
-    ...
-}
-
-Is it intended that a GS_CAN_FLAG_OVERFLOW bit in a rejected error frame
-is lost? In that case rx_over_errors is not counted and no
-CAN_ERR_CRTL_RX_OVERFLOW error frame is generated.
-
-The flags byte does not depend on can_dlc or the RTR bit, and
-gs_usb_get_gs_can() has already confirmed that the full header was
-received.
-
-Earlier validation failures (out of range echo_id, short read) already
-skip overflow handling this way. This patch adds new cases that reach the
-same path.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261122-gs_usb-fixes-v10-0-7c165c35d04a%40pengutronix.de
+js
+suse labs
