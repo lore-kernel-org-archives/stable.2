@@ -1,49 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795520731;
-	b=MYsw5r7bImQX7Tw0BVvnXRqqpVfkKnS+zUSbshnbF6k+iDFLESdeFJYwluQbLPeoQRGS
-	 Awch3n5x27uPYglOl+k302CORQxB2meJgiG66GYwOMDiDK32aR2BFPLRM7eaaezcCsuUh
-	 czSZVpl5eNBGA44HmouE4qCut0MfZe8jGxg92cJiqEDptDSwJ4pP9R18tCYb1YJEd5g+O
-	 vOz6zo39pXj0MMB0dPYPGAxQJDbwWP7Na7JnnN5D2gzbvjbdlwOHh/dpMz2UyNxGzgeo4
-	 zKbO4X9OBNFKEGd7SY8hFs2csqSGIWEcJp/m9OQpvPnXzTD5oBpqqaoxyLNoXiZai+w==
+	t=1795520953;
+	b=Q2J0kXYX/iga25fBfu79Y+O2q9+IVgFrmc2lgU1rvU1Vw8R5kIExrZn9khJd2jn37tOy
+	 tfK2vsXF/BcuTcf0QDt7aNhFsXMXdSp5fFvJoyJdi3sgQ8axR0cVXPQr6SZ1+kyV0gfWd
+	 rQFHYpXMcBOkhI1sv3NTwMr1MTOKDhH8QCwe/Ll8cW6diiwbG4eXRK/IEvzNsvswJa8tR
+	 1TtND7icw1bz6BFNm4Kkwt9kgW7aWjtnmvY5kHvQKt0125O/E+hyXSKYwZ/ZJeFgVTZrA
+	 9rtmPVFn7qhxXfNJ9ViqRvXIraJQsZ2birjNhcOHn4RlbbhcSpH09PovI6MnLdXUSDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795520731;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=FaOzZeSEcsiEu7Danddjhvc2fvrZGUSlNkNLOC9h7EU=;
-	b=zYx4TRGD1gQiUkTlofQtwWzqPahOoqi1h8OVcWdyN3mvVfvduQAGpp444tkQSr9an1v5
-	 clqi0xDVQI2pRb/9JpdSH3lfVLMwGS+EldOg/79YXTZsiJ0bioky/ODvuvGEdzKTHmTyE
-	 oWvitog98yQOC1hmEW3R+2XsnPh+e5ABPlJy8P+xzmDLcHZ3Z10rmJ+lFIAgoYVklLupn
-	 j9NVm6wpDMMIEFAwNMgclSjdkxkvDoJT6d9vX7QSvrGgCtb9/5f3H29r3glk4XuGw8EHv
-	 /+Ll9qITShG/3qbNsU7cx8UVKn4MM+auXHmLEmwBqFL2IcAsyeVyVjNb64KyqDBHgVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795520953;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=otCJ5d1UzM/T9DZmT1DhstzhCZjq10O+wJq0ht/u0fg=;
+	b=fWBR6Ztp7TMT7sbjjRRW3KskbYxJX9U3pKGtdZm2W24MjPNtu6/86C9LsVLS/MkaOvQI
+	 OGZmfrXVAih2re/ee6uPwoxuCKOdJivaqCjI+A8P5z62v6eOiPUJDI9o9mh5KgwrQu1+9
+	 KttVhfeNn1oGhcM4kcdF6hGa4TfGlJIFo+uVXvuaTQ36O2FThwZFmnn10K7g8shInh+qk
+	 /bQIJOH90OdTS6htHYFHZ26Q1NdKgdshZHU6KINVvi7gx93faCtn1i3r5VlDRma1noJDt
+	 r72zK5ztHlAvs79Kkpxmk3imkLVbWwyMUjjkCPxIPlgjqpGDZMtV9+Z2t9j8FsQ0qxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="oHS1j/OD";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DEAD4606A327;
-	Tue, 24 Nov 2026 11:45:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEAD4606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Mmiyp+mA;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D206A606A31E;
+	Tue, 24 Nov 2026 11:49:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D206A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=oHS1j/OD
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 36740339;
-	Tue, 24 Nov 2026 03:45:27 -0800 (PST)
-Received: from [10.0.136.47] (LRYFGMQP07.cambridge.arm.com [10.0.136.47])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8C7EC3F86F;
-	Tue, 24 Nov 2026 03:45:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795520730; bh=okJBaBQeKqLQjanlOT9Hdjoxc/5u+umivG32ad9P2p0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=oHS1j/ODs9XrlcrwFcErJAuiUASAVqGdlM5jJ0TrHu5LO/ecVQpI92au9My9i5YB4
-	 IsEgPf5Eg2D9VfrdTht5Jho7YM+cHWoKdHuykVuNBYuauGW6ByyOMfILaILRHgrzmk
-	 HHo8zI77+KVFXie7ld9oLUNxjfzFuhYGbQQR91gM=
-Message-ID: <3d88c31d-04cc-49e4-b30a-3ece06908da6@arm.com>
-Date: Tue, 24 Nov 2026 11:45:27 +0000
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Mmiyp+mA
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=otCJ5d1UzM/T9DZmT1DhstzhCZjq10O+wJq0ht/u0fg=; t=1795520952; x=2110880952; 
+	b=Mmiyp+mAnZDG19NW610SyF32ULiUUJ5UyJyUEO2HYkR0tc7VzGYl5UbRZiyJjFGmIYukedwiHIE
+	jeDkD89OIjKnZ+0MLCg943qJ1r9sWiAf9BIFZ3Oi14BxgsrLC5HnOekBh9vUbqDKjbZCA2vAaV5qS
+	Q6MwX+FuldrsDOkeRodtKRDpgZSfiC3Y+vQ6973qQmApWLTUIbSVdc6WYkO6KMj6mpKxHjC8AfAXr
+	W6MpCgt4nJXfZ/eAb81K4ue9XZO2wcItVCyJjHw5yM6qGsCjKpAKeFJFXrJEexhyioVdkq3NhvjTl
+	mRCxsiDtYspon1yrG8jgBwzN6BoQjuww0UDg==;
+Received: from bl17-56-70.dsl.telepac.pt ([188.82.56.70] helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xVp1J-00000003L0T-2V2N;
+	Tue, 24 Nov 2026 12:49:09 +0100
+From: Luis Henriques <luis@igalia.com>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>,  fuse-devel@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  Miklos Szeredi <mszeredi@redhat.com>,
+  stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] fuse: defer dentry_tree_work until
+ fuse_dentry_tree_init()
+In-Reply-To: <20261120150008.1144420-2-ekffu200098@gmail.com>
+References: <20261120150008.1144420-1-ekffu200098@gmail.com>
+	<20261120150008.1144420-2-ekffu200098@gmail.com>
+Date: Tue, 24 Nov 2026 11:49:06 +0000
+Message-ID: <874id6cuvh.fsf@igalia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,105 +68,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: mm: Don't defer the barriers when installing a
- fixmap entry
-To: Kevin Brodsky <kevin.brodsky@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Yang Shi <yang@os.amperecomputing.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261120121638.194154-1-fuad.tabba@linux.dev>
- <20261120121638.194154-4-fuad.tabba@linux.dev>
- <6782b5ee-3dfe-4076-a79c-fbeb2c2ac7da@arm.com>
- <CA+EHjTziXrRdR+guikKbj93Az96T+AMx_=0sVeyWG5C4fwaaTg@mail.gmail.com>
- <5b0a26ee-30b0-4a79-9cca-9848dc9d65c5@arm.com>
- <f543aea2-3a21-44ce-bb44-c84bd66b0a76@arm.com>
- <74b99755-bc3d-4cad-9678-c2de740fe20a@arm.com>
- <f9a42849-fe8f-4a96-81a1-ab58193b222d@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <f9a42849-fe8f-4a96-81a1-ab58193b222d@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 24/11/2026 08:22, Kevin Brodsky wrote:
-> On 23/11/2026 19:54, Ryan Roberts wrote:
->> On 23/11/2026 13:08, Kevin Brodsky wrote:
->>> On 23/11/2026 11:36, Ryan Roberts wrote:
->>>>>>> @@ -127,7 +127,9 @@ void __set_fixmap(enum fixed_addresses idx,
->>>>>>>          ptep = fixmap_pte(addr);
->>>>>>>
->>>>>>>          if (pgprot_val(flags)) {
->>>>>>> -                __set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
->>>>>>> +                /* The slot must be usable on return, even in lazy MMU mode. */
->>>>>>> +                __set_pte_nosync(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
->>>>>>> +                emit_pte_barriers();
->>>>>> I wonder if it would be clearer to wrap __set_ptes():
->>>>>>
->>>>>> lazy_mmu_mode_pause()
->>>>>> __set_ptes()
->>>>>> lazy_mmu_mode_resume()
->>>>> That would work. However, there's the stable backport. 6.18 has the
->>>>> bug, but lazy_mmu_mode_pause() was added in 7.0, so 6.18.y would need
->>>>> its own patch. This patch applies to 6.18 unchanged.
->>>>>
->>>>> I'm happy with either, or with a followup patch in the same series.
->>>> I'd personally prefer to use pause/resume since it's makes it very clear what's
->>>> going on and avoids the layer violation. Perhaps your approach as the back
->>>> portable one, then pause/resume as follow up (along with ptep_try_set() tidy
->>>> up)? Others might think differently though...
->>> Using pause/resume does work, but it is a bigger hammer than necessary.
->>> If other features make use of lazy MMU mode, then we may end up paying
->>> extra cost by leaving/re-entering the mode.
->>>
->>> For instance, with page table hardening [1], using the pause/resume
->>> approach means 4 extra ISBs:
->>> - 1 when pause() leaves lazy MMU mode: restoring default kpkeys context
->>> - 2 in __set_pte(): switching to page table update kpkeys context, and
->>> then back to default
->>> - 1 when resume() enters lazy MMU mode: entering page table update
->>> kpkeys context
->>>
->>> An explicit __set_pte_nosync() + emit_pte_barriers() achieves exactly
->>> what we're after (immediately visible PTE update) and doesn't disrupt
->>> lazy MMU mode - we don't unnecessarily set TIF_LAZY_MMU_PENDING. 
->> It's so ugly to spill this stuff everywhere though.
->>
->> How about a nested lazy mmu section?
->>
->> lazy_mmu_mode_enable()
->> __set_ptes()
->> lazy_mmu_mode_disable()
->>
->> If it's nested the enable() is essentially nop, and the disable is a flush,
->> which emits the barriers. If it's the first enable, we still set
->> TIF_LAZY_MMU_PENDING though...
-> 
-> Yes that's essentially the same as the explicit call to
-> arch_flush_lazy_mmu_mode() I mentioned below. IMHO that looks pretty
-> obfuscated though - the casual reader will wonder why we're creating a
-> lazy MMU section for setting just one PTE. If we go down this route, I'd
-> argue the explicit call to arch_flush_lazy_mmu_mode() is clearer (and
-> our implementation is safe to call even outside of a lazy MMU section).
+On Sat, Nov 21 2026, Sang-Heon Jeon wrote:
 
-OK let's just leave it as Faud has done it then. I don't have a strong opinion.
+> inval_wq_set() schedules dentry_tree_work when inval_wq is enabled.
+>
+> But inval_wq_set() can be called at boot or module load before
+> fuse_dentry_tree_init() initializes the work, so __queue_delayed_work()
+> warns and the work never starts.
+>
+> So defer scheduling the work until fuse_dentry_tree_init() sets it up.
+> Also hold kernel_param_lock() in fuse_dentry_tree_init(), because a
+> sysfs write can call inval_wq_set() at the same time.
+>
+> Fixes: ab84ad597386 ("fuse: new work queue to periodically invalidate exp=
+ired dentries")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+> ---
+>  fs/fuse/dir.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
+> index da23ccd8685c..0d5d04df477b 100644
+> --- a/fs/fuse/dir.c
+> +++ b/fs/fuse/dir.c
+> @@ -39,6 +39,7 @@ static struct delayed_work dentry_tree_work;
+>  /* Minimum invalidation work queue frequency */
+>  #define FUSE_DENTRY_INVAL_FREQ_MIN 5
+>=20=20
+> +static bool inval_wq_ready;
+>  unsigned __read_mostly inval_wq;
+>  static int inval_wq_set(const char *val, const struct kernel_param *kp)
+>  {
+> @@ -62,6 +63,10 @@ static int inval_wq_set(const char *val, const struct =
+kernel_param *kp)
+>=20=20
+>  	*((unsigned int *)kp->arg) =3D num;
+>=20=20
+> +	/* Defer the work until fuse_dentry_tree_init() sets it up. */
+> +	if (!inval_wq_ready)
+> +		return 0;
+> +
+>  	if (num && !old)
+>  		schedule_delayed_work(&dentry_tree_work,
+>  				      secs_to_jiffies(num));
+> @@ -224,6 +229,14 @@ void fuse_dentry_tree_init(void)
+>  		dentry_hash[i].tree =3D RB_ROOT;
+>  	}
+>  	INIT_DELAYED_WORK(&dentry_tree_work, fuse_dentry_tree_work);
+> +
+> +	kernel_param_lock(THIS_MODULE);
 
-> 
-> - Kevin
-> 
->>> An alternative approach that addresses your point about layer violation
->>> is to call arch_flush_lazy_mmu_mode() and leave the __set_pte() call
->>> unchanged. This is slightly slower as we still end up setting/clearing
->>> the TIF flag in that case. Not sure this is worth it - ultimately we
->>> have to be mindful of what lazy MMU mode is doing to ensure this code is
->>> correct. I'm happy with the current approach.
->>>
->>> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
->>>
->>> - Kevin
->>>
->>> [1] https://lore.kernel.org/r/20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com
+I wonder if this is the right solution.  The solution I had in my local
+tree was to simply declare a spinlock with DEFINE_SPINLOCK() and use it to
+synchronise access in fuse_dentry_tree_work(), fuse_dentry_tree_cleanup()
+and inval_wq_set().
+
+Do you have a reason for using this kernel_param_lock() instead?  (Honest
+question! I've never used that before :-) )
+
+Cheers,
+--=20
+Lu=C3=ADs
+
+> +	inval_wq_ready =3D true;
+> +
+> +	if (inval_wq)
+> +		schedule_delayed_work(&dentry_tree_work,
+> +				      secs_to_jiffies(inval_wq));
+> +	kernel_param_unlock(THIS_MODULE);
+>  }
+>=20=20
+>  void fuse_dentry_tree_cleanup(void)
+> --=20
+> 2.53.0
+>
 
