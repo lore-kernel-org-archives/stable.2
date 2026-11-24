@@ -1,92 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795535119;
-	b=QY2XS4kM2qIZAWtSBNvfDRT3vy45LP37/GSpXpmA7LmRnT34SBXnedVMMWxX9RZ6xefM
-	 wBosgbZoAZuBEJfmaepMrXOuZ2xw+A37yQIw+JIoisAYpUqIUGeaBpMYW5WhNv5u7gmzo
-	 DycMqmQWaL6v9u4V7PZr6DZSTFPeGBFQo+vnJXc8O3uQPXuHAyDdPixdekvuaVN3W8V1O
-	 dxu2Y+c9mEaofvPGuemt0vOUH0DMmRwBEzLt9GsgMp3BLZzB19y3TRH6WPd8PO0wp48Dj
-	 HSA+aKbFJzMdQjx3l8zT17mUVcFsZvcrNVJipFh7ube4E5Ia6UAyL+bx0/fyo8Hvfmw==
+	t=1795535128;
+	b=eY9LAojkYlx4Qmz8XVrFSu/9i4ieY5r7Bh9S9P9p3yY0NsGsxZ4Jumq1k5hUIWgNu/8+
+	 qDJvtvqbxPLTC/977wYDodt4W6gmJEBjPFxtl1yLyEX9dY0vZDznML3G/ASopVI+9qUhh
+	 ZgKy1YUbwAszdMFUriNS32e95fgZPJC7v4plFmtp+8hoMOeQwDxf1LJn7sQyI2pXwZKVs
+	 7DU/GmOx9zLAJi6rOdRB+1hoxXDmMEmf0V0wL7yD1a03ajsLmMIty9lXExouFpRnxUAi5
+	 +4OQUCkOOD+p4g9m/KaMlFbBFuc69Yk4mtYSLHOc+aIDvxvUXeOHPWXG0mXi22zVTjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795535119;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795535128;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=fGnAXl9mAkM8+L7H53FV4IJ0uW8w/+sPQwCsSY5K0ME=;
-	b=iyBLGkxJRwhJlAgM1hHyQVSER5Z1NYhFIvaydH5wWsI+xI4cCsXhbFlHrBf8vz1Xw7ER
-	 h0rfbLqGE09aXaqPHXVCISmI4PNDscTodRIBuSTTUo+t4R8gQdSasdRRxyXqNKnZN4YKN
-	 hqU8asYMSXdc/FLY/iggAC7HQV/VUk7+FCIfmg1Hf6zUo+yk0rajz0P/ulEUFG1kqFb2B
-	 vR9GiGpxAgabv9X2HOAENR9WPg9BBind65GJmoGOG4QFS1ktn6VOyuaiDvCbsPJQFCFFz
-	 qIpjYUgNwNTlOiW+HvZF2dSIUmHbxhdBQgUbH1FOqyOT2Y0nxhFElYaFmSFoR45q72g==
+	bh=3hkJat/Gg3boX44Q1mafJG1F0JYnnq/y7sAswGXXbDI=;
+	b=RQ/rT6OJ4kXPLNUoYnoRWXPwT71RL8JV6qxq1DWYmo1CpLp1yc+g7udwwa9jY++rpspk
+	 qv5dPD/CJ+5OxKnXVqklGOndAQ/fnHEm9VAL4C24FwCQoNVBt3mv6o7cM+pgQK7YasJg7
+	 qm1En4DveuMu58mGjdFSMjLaAo0xD+dFXXTEY0U2O84uxmRmjYlCda7mj63iuzdVfdY2l
+	 31RqrbgUWNtnM1Xo2MBPmQGQzeCp+5cOqmbjQkMuGbQ9oHwdabl9Xu5O7AqCJE4BHJ6i3
+	 p+EYRHvs6a6ZT7R7A1yIJ8KeqJeGEtZmq8pHp+FVZXgHEzQIqXh7HTdLt5dntnr/JHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0afrJRym;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T08HQVU+;
+	arc=none smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE55606A323
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:45:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BE55606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912FC606A326
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:45:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 912FC606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0afrJRym
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a9f9473029so3519505b3a.2
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 07:45:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T08HQVU+
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8ca6a12efd9so1333778b3a.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 07:45:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795535118; x=1796139918; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795535128; x=1796139928; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fGnAXl9mAkM8+L7H53FV4IJ0uW8w/+sPQwCsSY5K0ME=;
-        b=0afrJRymnEvSPq9raSIN79bW6rqNKweAzFUGMkjj84rWQ+xIXL+KA33tTUOZQV2xcA
-         eHcNc5gmsXHLH1RxUPtdZc6MpyCsbIwFg3CjZg2FU6QuDQAkOPBXGv09TZy3plj+FLJK
-         /jcrggGDqiobpdIORciyxOwufp/1PEBHif0hg+ph84Of30B7VU2iMGb0j9Wdlko/YdJW
-         2YqAY85A351EClfDqmetEUQ0jmx7ILRr7eamwWxm4ML3tU4zFA5tVx/HzGZQbmuS1cvV
-         qGz/ArVCmxivDlFi9PVMhj51+PZFG3nhQSm1lvBUz1hLZoLyPnKVhY3xezS9UVGfY4MJ
-         y0kA==
+        bh=3hkJat/Gg3boX44Q1mafJG1F0JYnnq/y7sAswGXXbDI=;
+        b=T08HQVU+RG0vW7CTZSiFCGrFWeD1QNQWCYFAfRXlUt8EbYsylC69ARNtHNoxccWMgD
+         0XjlKPgKy6YFYTO2xeVhl23Czdkzs2g5Gs4osvH3SV5fLBB1heBG7EhNQZ0cFx7h8Bq1
+         XgqV7tZGT1QDqN0WU4wXZEUjXOrJBiiaL9EyKV7FvrSHQrIcFNGVHOsMGDrh6Yg5EY1U
+         ltbUUwQDEFYLjWxPd3dR8NUujAmPorV+/4c4O806ocsqOL/CUw6EoS1YP9j+wYiTPy1o
+         kJLTi7Q/TzRRISTM2ICkPs77NSR1cQjIjGCAYd+YPEv4LbtnYhznhnBmlvXUbn6MZ81q
+         GYsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795535118; x=1796139918;
+        d=1e100.net; s=20260707; t=1795535128; x=1796139928;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fGnAXl9mAkM8+L7H53FV4IJ0uW8w/+sPQwCsSY5K0ME=;
-        b=zsMgiUPHdwTDxK/EJ5IfMmW8BdBToRhLm1wDuD8atEyisNR0jRNyqs4ab2FZ2Dvy7c
-         2f5wuMSIeIyXm8EUnReUroFHIdtg4cscaWpdizubPw5ibKUEBXW0WJIEz8kXSYZREkFU
-         YeOmTBcJCluNEdLW0OUiL7fj2+iJyb7ti87lndo3Xvj0SWkGgDq74QbEOwqu11aHPgJS
-         +cRlskLBJoPumgBdHLQqkOeNFjSMSoCo/X/YubOR9LQQ1o/kc7DVmMfN/79h6dvr8JfV
-         IgFsFKWGRUziOKXOK+HhTspgD8K9pduzPY9rOu+cX3sXvTm8Mxp3QigeuaunFM88xoYV
-         zphw==
-X-Forwarded-Encrypted: i=1; AL+hErGrvyCIFEeDZCRm47sLyh6jHncv49k1tfn/ag8lmqRZhvMKF3gsMO9++V2Vxw36Su7F0l+QS5U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z840x4LiYX9/NedkcG8GMgQ/UOIuXumBYboEW+HuIMPAuX53OQ/
-	76FAg4M3c07Q9LeDhCnOz/72WzB7UsxhU4SXxMFNWmzZr9QWOEnI5yg=
-X-Gm-Gg: AZFdTZdjHBRa3JaNjzScSsYDLY9YqIcgwZfYmgaDO6MzjeH93D+BSqQS00Ol/bhS8kY
-	re8Y/QTMjPamRHWqs5+Dk4bIqlmSFZgl/0djbJcGkmaz7Ib3Nm1LMdQ/TpTf8sc5Idt9uI0gok0
-	hJuiICLmGZDrmngw51daF0fTA1jWwTa+/RoU7SfTn3qC+f7vOi+FmIcDCNrezNVuYQoT2STbXEa
-	ykFvHn9UR82XqNLFBMHo6a98se0ojDQlseAZBPlriaDKaCK8zIlt3jOf6HhXax7BO1aAvmPfdzs
-	ssHHZJIaKyKdakk47Qo52POy6qnEVOjCJDCeNHIdyivKm5YmgajzztDwgM2Xlh+vUFgjo0CSLfd
-	yP61spdI68Qe1UlkMFUG4RX+P87lWV+WDgIL5nLQmOtRAGkk7g5RkwV6ccWMawzncN3RhKa1mdq
-	MlU5BK4Qli+IxVO+3LsKU1tIK5tt5IoMF1q4li4EIUp0EkIzKBiA7wkhAVzKoM8tSlZtI4AOZfJ
-	wy5fNPua0HHgOlI/SlcikB0z15U7ERmNkiH7AbXb/ZPmG1uTzRdIpJ9JQX4h2bTOsvIg6jD0Had
-	7QSRXTgBUggCjh7PDUsveqo8kGAxyF/eceNPzdKR7d4O9r9AVkZWB/KGvG8TTl2K+CzE
-X-Received: by 2002:a05:6a00:a117:b0:8bf:ef6e:1eb5 with SMTP id d2e1a72fcca58-8c87d022919mr12535440b3a.43.1795535117471;
-        Tue, 24 Nov 2026 07:45:17 -0800 (PST)
+        bh=3hkJat/Gg3boX44Q1mafJG1F0JYnnq/y7sAswGXXbDI=;
+        b=Sfdx0J4pFnuxYW8WGwSgYTyFcTxIdF9zddgLAmJWpoThZw7k3g0aYkCOTu4SZsJKqy
+         hl+v63azVP5//+r2mGLi3F7afhSx8nPoNTOvEUNgxuuaaJx9fd1/oUG/nfgR7xkJSSKm
+         AdxoT/UV7Y/ZcFF8xtKcOVtN7KVmzft1anWlqaUc+iqx+AsLOKZhlDZYKaSjqlQpLMBQ
+         PUowKBYaAQVSXHKWVlobr5U6W91p54Yybna8cVUlaZps5kJa56YTqdf1lwIUb1j5H28m
+         bBtVKC+/H7pBZCJGDSZlw0t1mnCTR6B9/KE7C8aRPhYvkG43jYT893NpQQt9fZ+5ld98
+         BmxA==
+X-Forwarded-Encrypted: i=1; AL+hErHwcp0SNC9PteEq3Al3auGVAXzjgv9spKHHC8+qRq2tUyobxLruGzAhUP/f+9m4Dv8w8mjOlcQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9J35vWaYposEOHKMZhXfyXPZX0IGo+6rLcD/6+D5xvanBeZ/BW
+	BC2CXqajKMNf3+5SOFATSqdkBavibD9D82ag1YpRGRotbB/kq13B5jQ=
+X-Gm-Gg: AZFdTZcMqxBSjeE1ouPKz2xsNFNktw44iZTXeSELnZIboNA88ksafk3NLnPMy5OnEmc
+	7ldfVc5fSPudp2M8brF9gcsquO2YC0NFhbv4zvbCW86S8AFYsemns6ltdFgILpavirvi1ukRh+V
+	U3FMImGLx/XTkkhunYr/rrnAJSjfW9Mq4LLkifV1ja9+c2PktXdN7gUHIVE6N+6b+4GhtlzxJx+
+	TZ/UwyM0e1CDVzHSmXqYNnPI4/jyGE5X7I0kRuU+KjFbJ5KjsrhJC0XncMAijzYfi/g6xQmdZHe
+	WD8iU7vCin3N7+h1nGp1KDOGTH1+q+RUqQs2ieWU41/egO3vgjMm5pZAfRDQnQXMeEI0q+KLCiM
+	eSUSSTVQ0Sys1pXI+152BkcyyMs988CC8CkLUQ6fMI+G4qIDkMzk6lDIJSJR0lEFBMWfQJu7mbW
+	lJMmE/FXh34vRRTJri2tUaGeUhUGblUHdNkKj7CW3Kog03HP4M/09ILsmmIYHiCGD6QTH+w3AsQ
+	Lx0fOKQadRtokFOdAtBbHwUaYnl3gzSX7J4ewHMKndGjtJEN2L1KCWy+oAP3Y42CdTN34jddjLc
+	8xC6IJxnAFLAVpYNewaeGpk7Res2dDp7eq8MfhjSsVbGBLZAiIThdA0jJESGytTw/Vwy
+X-Received: by 2002:a05:6a00:1f17:b0:8a0:f375:d1c0 with SMTP id d2e1a72fcca58-8c87c57b5fcmr12396223b3a.33.1795535127699;
+        Tue, 24 Nov 2026 07:45:27 -0800 (PST)
 Received: from localhost.localdomain ([2406:3003:2002:639c:5da8:85f0:b5f6:2eae])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c872951febsm7338465b3a.14.2026.11.24.07.45.15
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c873f11da2sm7136132b3a.55.2026.11.24.07.45.25
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 24 Nov 2026 07:45:17 -0800 (PST)
+        Tue, 24 Nov 2026 07:45:27 -0800 (PST)
 From: Yige Jiang <yigejiang86@gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>,
-	Javier Martinez Canillas <javierm@redhat.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
 Cc: Yige Jiang <yigejiang86@gmail.com>,
-	dri-devel@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] firmware: sysfb: Clear the device pointer on registration failure
-Date: Tue, 24 Nov 2026 23:45:11 +0800
-Message-ID: <confirmed-20261105-25-a16124b5ff57@gmail.com>
+Subject: [PATCH] remoteproc: qcom: Clear the GLINK node after name allocation failure
+Date: Tue, 24 Nov 2026 23:45:21 +0800
+Message-ID: <confirmed-20261105-37-9a8d5cd59eb0@gmail.com>
 X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -99,41 +100,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sysfb_init() stores the legacy framebuffer device in the file-scope pd
-pointer before adding its data and registering it. If either operation
-fails, the error path drops the allocation reference but leaves pd set.
-A later sysfb_disable() then passes this stale pointer to
-platform_device_unregister().
+If kstrdup_const() fails, qcom_add_glink_subdev() puts the acquired node
+reference and returns without adding the subdevice. However, glink->node
+remains set, so qcom_remove_glink_subdev() later treats the subdevice as
+registered. It attempts to remove an uninitialized list entry and can
+also drop the node reference a second time.
 
-Clear pd after releasing the failed device, while disable_lock is still
-held. This makes sysfb_unregister() skip it just as it skips an absent
-or already unregistered framebuffer.
+Clear glink->node after the error-path put so that the existing guard in
+qcom_remove_glink_subdev() skips a subdevice that was never added.
 
-Fixes: bde376e9de3c ("firmware: sysfb: Add sysfb_disable() helper function")
+Fixes: 44f4911ab8e6 ("remoteproc: qcom: Fix glink->node reference leak in qcom_add_glink_subdev")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
 ---
 AI assistance was used for analysis and patch preparation.
 
 Based on next-20261104 (8b7179210b22).
-Compile-tested: x86_64, GCC 14.2.0, W=1, drivers/firmware/sysfb.o;
+Compile-tested: arm64, GCC 14.2.0, W=1, drivers/remoteproc/qcom_common.o;
 baseline and patched objects built with no warnings.
 Static source review; no hardware, boot, or KASAN test was performed.
 
- drivers/firmware/sysfb.c | 1 +
+ drivers/remoteproc/qcom_common.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
-index 8833582c188301afb4a9c9dbdf969828ab9449f6..9cd660a509da939c28e93956d7b6420c794048c1 100644
---- a/drivers/firmware/sysfb.c
-+++ b/drivers/firmware/sysfb.c
-@@ -214,6 +214,7 @@ static __init int sysfb_init(void)
- 	goto put_device;
- err:
- 	platform_device_put(pd);
-+	pd = NULL;
- put_device:
- 	put_device(parent);
- unlock_mutex:
+diff --git a/drivers/remoteproc/qcom_common.c b/drivers/remoteproc/qcom_common.c
+index 5294e327f1587efc917eb01dde59bd1e723c225e..cb3f6f93c6da85010f89244a6991f4d74ae57dc1 100644
+--- a/drivers/remoteproc/qcom_common.c
++++ b/drivers/remoteproc/qcom_common.c
+@@ -255,6 +255,7 @@ void qcom_add_glink_subdev(struct rproc *rproc, struct qcom_rproc_glink *glink,
+ 	glink->ssr_name = kstrdup_const(ssr_name, GFP_KERNEL);
+ 	if (!glink->ssr_name) {
+ 		of_node_put(glink->node);
++		glink->node = NULL;
+ 		return;
+ 	}
 
 base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
