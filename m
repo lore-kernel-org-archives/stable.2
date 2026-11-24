@@ -1,65 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.94
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795528999;
-	b=boCeFYxOUh1WCXpX6AuMAmmJPzORtV3+NP2DykKX/jfj2t/oFD6GHm4gWYSO++4ZGqJ1
-	 nNMEEXlbBY8IAipZx1lSFUtHIturUcMxtLbMqyoRUEcVv+PYzHiVymCaoubQTcg8J5l2m
-	 DLLDmgQD97i4d+0c8smK0/mY7hmKHSObSwth9eRdIrkpZTTTYcHBjuW+W13GettYwGKAB
-	 hK/lddJ217a8kxE0D887mYW2N08CWDuG3qmdpH3wiDU7kEvLJRMZVnE+0dua57mpXSVyK
-	 8+i+BrC9RkimYgcV8azzjAKJnoEk0efFnjV30I/mkuT71VDdwiLFhmNKK7CwXBxPuCA==
+	t=1795529022;
+	b=EV2RsXlCXkmR0xllkZxabdcms+KcuxMR4SMDgt9quqGOyWdBL0hljk/BLSiTyDIWTTfB
+	 DHJf+m+aenAMhzOJJu6LHYbWKEfW7rD1kcSYqO1e/e7hl/7iw6v3D+CsNXITgeplvsccz
+	 H26eAbTZvasAs7kV+qP/k+t9645Yfu7EeSC1qKF7/ManNE5dqaYThtl//+CTZff2CQi6/
+	 MoAVBh6iaIZT3R/kwn+R6Lg/KWF9MSfnrQAhUSDe4fBhzo89u5ImlaqKt1Y03i1H9fRGm
+	 VTFOiwsJr+6Wb2BOkBdddDfMSDKU5jI37OoTq88WMCe77Xw2V2MIl0sSoRdiPqUhY4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795528999;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=cWU+Ua6rZSLlzoNFkOQ/4j8IAFswY5s2+ptQ88azqGo=;
-	b=dPQE5NNlrbswgL9O88FjeKbn0TYAI0u4AnQXYLPeaZcAptUndxq7mOY3leXZ2HHfQpMY
-	 GbXuXgCAr8TwjjZxcGX5g6r877uPVvE8ln3LRJUpTTp9wiXGj1SH044M9IJc+Gq6UVGRh
-	 PF9oiasRm+/uob6UkeWL7JNHrGzFckSnrDpMqeHIcH5hX2BgvdPc3nHI0Ky/WyzPBo8at
-	 QpDraVG9wtuLwVAJ0yYvYODZYZJ0tMliko+DIHLkZjuuyL7y4vsUwfj759Hja7stv6ZkE
-	 aW1tjwjyBLnIvAc1KzliWXJ9JExVxhMTQVUkpDta72hDwz1Chandbtu694FDMkRfyxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795529022;
+	h=DMARC-Filter:Content-Type:Content-Transfer-Encoding:Message-ID:To:Cc:
+	 Subject:X-Priority:X-Mailer:X-Originating-IP:In-Reply-To:References:
+	 MIME-Version:Received:From:Date:X-HM-Tid:X-HM-MType:X-HM-NTES-SC:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=HI3+zRoML73VqUDFgUkem+fi9Zk9wVZtNVO6T+O4umo=;
+	b=U0OQkIFDYJHSQ6HPzYGiLazbetJMdpcEAhc5pkoutbd9JpSLhary5zqGbS7yNzYcaNOh
+	 bfxH4bxp89LRwHLI7tWVUr/clewjx+5FJEsFAzvxRVbH7SvV9Ly8f75Q0LerpAikihpKu
+	 RJ+4KzBQ39/lu1cPHGpzEbNnWpWodagwU4Gd3/8Q8Y1yg7FStQCZ6QZeCRB9TaGYGE4vG
+	 uTWI3ZKObeBHjI4yM+RT6ROM5kEhJJuIgxw4hLXmyOx/OtnmfsCY8eaP1mwrA06AIMzh5
+	 Ltvlnzm6Qnhyv6t9U9dvG58pUVhHNnO+GM4K2+RQSLKA1RPUnAtpq7FiemdDaYN8WwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=p6+WRS8w;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b="D/uKJ+0u";
+	arc=none smtp.remote-ip=154.81.10.94
+Received: from mail-m1094.netease.com (mail-m1094.netease.com [154.81.10.94])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF19606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:03:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADF19606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599DB606A326;
+	Tue, 24 Nov 2026 14:03:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 599DB606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=p6+WRS8w
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=cWU+Ua6rZSLlzoNFkOQ/4j8IAFswY5s2+ptQ88azqGo=; t=1795528998; x=2110888998; 
-	b=p6+WRS8wsGkc9/B9OcIQr8qsysBI1U2Vs7HIfg+fvYVgg+Tx5Q6JW0EZz6ocr5sLcp5jO8GfFWN
-	4+iZ7UDekLUXiYdl4bi9oMxQIcy3+Ls8vx8/32ITarbNqLDhmen5tf7qyy6fdaTWphBxWgioyVpQD
-	0P/e/Cxw3fP/aKCh+W2CCOLZnjaF+Rm6vB+1C5GIhIwoZoRtxtssc437g5KBaFWzRSr/o3ebdxfBI
-	lUdzVjGKjqn/9ttFHnWFCHlMZeI06yrx728aGqUhFXR43LKGvq/Vc54iDKIreE2lA43CwUM1/AT6W
-	BW2nAIvtyO6/HxM+JlaY/rjjXgVHLoSF2kNw==;
-Received: from [179.105.94.163] (helo=prince)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xVr75-00000003NuD-0NAu;
-	Tue, 24 Nov 2026 15:03:15 +0100
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: stable@vger.kernel.org
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	Daniel Drake <dan@reactivated.net>,
-	dri-devel@lists.freedesktop.org,
-	kernel-dev@igalia.com,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Subject: [PATCH 6.18.y] drm/gem-dma: Support dedicated DMA device for allocation and mapping
-Date: Tue, 24 Nov 2026 10:51:30 -0300
-Message-ID: <20261124140251.4131801-1-mcanal@igalia.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=D/uKJ+0u
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+Message-ID: <ALsAxABOLObQtvY4cNh8h4ri.3.1795529011462.Hmail.202321181@mail.sdu.edu.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Neill Kapron <nkapron@google.com>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	stable@vger.kernel.org
+Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSCAxLzJdIHVzYjogZ2FkZ2V0OiBmc2xfdWRjOiBGaXggcG90ZW50aWFsIHVzZS1hZnRlci1mcmVlIGR1cmluZyByZW1vdmFs?=
+X-Priority: 3
+X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+In-Reply-To: <2026112015-lumber-flyer-d8f6@gregkh>
+References: <20261118-324f82bd41-usb-gadget-0@mail.sdu.edu.cn> <20261118-324f82bd41-usb-gadget-1@mail.sdu.edu.cn> <2026112015-lumber-flyer-d8f6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,122 +55,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from 202321181@mail.sdu.edu.cn( [101.76.249.61] ) by ajax-webmail ( [127.0.0.1] ) ; Tue, 24 Nov 2026 22:03:31 +0800 (GMT+08:00)
+From: =?UTF-8?B?5p2O5bm/56GV?= <liguangshuo@mail.sdu.edu.cn>
+Date: Tue, 24 Nov 2026 22:03:31 +0800 (GMT+08:00)
+X-HM-Tid: 0aa20dde1987d0cdkusyef3b67ad248cc
+X-HM-MType: 1
+X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMVHpP02bZAKsMEiErRSAekjx+ys+KNZNl0PLwl
+	f2MeqR5lbiqKsoq8sm3hZVy9q3VetZ+Wq0Te/EdHEVk+2W3XygE0t2b+veD5v+x2w+urvHGDFo8E
+	1w4QTE3rOb9NJ317UcvoSbBVgCnZeqAYiPp08=
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTktDVh8eSU5PQhpPGk8dSVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVCQk
+	lOS1VKS0tVSkJLQlkG
+DKIM-Signature: a=rsa-sha256;
+	b=D/uKJ+0uwPuQOme/sVt2TP4G6VPwy62d+GMDXMtIrTTShkyH0r3pSRn8f/YzLIMUeoHDoKJHy2pq070Mr0I4lxhjimhb52/HJvxpCMb1U9efMRFuT/rsq1K7a/QiYST4zIKCVKvR8SUDuWv24uaDQGMhBx0TLMT73Dr5iNTsogI=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=HI3+zRoML73VqUDFgUkem+fi9Zk9wVZtNVO6T+O4umo=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Chen-Yu Tsai <wenst@chromium.org>
-
-[ Upstream commit a9da24732aaa80d631bffc8a1390836d4b896690 ]
-
-Support for a dedicated DMA device for prime imports was added in commit
-143ec8d3f939 ("drm/prime: Support dedicated DMA device for dma-buf imports").
-This allowed the DRM driver to provide a dedicated DMA device when its
-own underlying device was not capable of DMA, for example when it is a
-USB device (the original target) or a virtual device. The latter case is
-common on embedded SoCs, on which the display pipeline is composed of
-various fixed function blocks, and the DRM device is simply a made-up
-device, an address space managing the routing between the blocks, or
-whichever block the implementor thought made sense at the time. The
-point is that the chosen device is often not the actual device doing
-the DMA. Various drivers have used workarounds or reimplemented the
-GEM DMA helpers to get the DMA addresses and IOMMUs to work correctly.
-
-Add support for the dedicated DMA device to the GEM DMA helpers.
-
-No existing driver currently uses the GEM DMA helpers and calls
-drm_dev_set_dma_dev() to set a dedicated DMA device, so no existing
-users should be affected.
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Link: https://patch.msgid.link/20260311094929.3393338-3-wenst@chromium.org
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
-Since 6.18.65, vc4 on Raspberry Pi 5 fails to allocate buffers:
-
-  vc4-drm gpu: [drm] *ERROR* fbdev: Failed to setup emulation (ret=-12)
-
-6.18.65 includes 008dd935c79d ("drm/vc4: Set DRM DMA device directly from
-HVS and V3D"), which makes HVS the DRM DMA device and stops configuring
-the vc4 GPU device. It depends on this patch, which was not backported.
-Without it, drm_gem_dma_helper still allocates from drm->dev, which keeps
-the default 32-bit mask, while the Pi 5 HVS IOMMU aperture is above 4 GB.
-With that, every allocation fails.
-
-This bug was reported on https://github.com/raspberrypi/linux/issues/7794.
-
-7.3.y already has this commit, so it's not an issue there.
-
-Best regards,
-- Maíra
-
- drivers/gpu/drm/drm_gem_dma_helper.c | 21 ++++++++++++---------
- 1 file changed, 12 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_gem_dma_helper.c b/drivers/gpu/drm/drm_gem_dma_helper.c
-index 4f0320df858f..55246a59e8bb 100644
---- a/drivers/gpu/drm/drm_gem_dma_helper.c
-+++ b/drivers/gpu/drm/drm_gem_dma_helper.c
-@@ -144,12 +144,13 @@ struct drm_gem_dma_object *drm_gem_dma_create(struct drm_device *drm,
- 		return dma_obj;
- 
- 	if (dma_obj->map_noncoherent) {
--		dma_obj->vaddr = dma_alloc_noncoherent(drm->dev, size,
-+		dma_obj->vaddr = dma_alloc_noncoherent(drm_dev_dma_dev(drm),
-+						       size,
- 						       &dma_obj->dma_addr,
- 						       DMA_TO_DEVICE,
- 						       GFP_KERNEL | __GFP_NOWARN);
- 	} else {
--		dma_obj->vaddr = dma_alloc_wc(drm->dev, size,
-+		dma_obj->vaddr = dma_alloc_wc(drm_dev_dma_dev(drm), size,
- 					      &dma_obj->dma_addr,
- 					      GFP_KERNEL | __GFP_NOWARN);
- 	}
-@@ -234,12 +235,14 @@ void drm_gem_dma_free(struct drm_gem_dma_object *dma_obj)
- 		drm_prime_gem_destroy(gem_obj, dma_obj->sgt);
- 	} else if (dma_obj->vaddr) {
- 		if (dma_obj->map_noncoherent)
--			dma_free_noncoherent(gem_obj->dev->dev, dma_obj->base.size,
-+			dma_free_noncoherent(drm_dev_dma_dev(gem_obj->dev),
-+					     dma_obj->base.size,
- 					     dma_obj->vaddr, dma_obj->dma_addr,
- 					     DMA_TO_DEVICE);
- 		else
--			dma_free_wc(gem_obj->dev->dev, dma_obj->base.size,
--				    dma_obj->vaddr, dma_obj->dma_addr);
-+			dma_free_wc(drm_dev_dma_dev(gem_obj->dev),
-+				    dma_obj->base.size, dma_obj->vaddr,
-+				    dma_obj->dma_addr);
- 	}
- 
- 	drm_gem_object_release(gem_obj);
-@@ -428,7 +431,7 @@ struct sg_table *drm_gem_dma_get_sg_table(struct drm_gem_dma_object *dma_obj)
- 	if (!sgt)
- 		return ERR_PTR(-ENOMEM);
- 
--	ret = dma_get_sgtable(obj->dev->dev, sgt, dma_obj->vaddr,
-+	ret = dma_get_sgtable(drm_dev_dma_dev(obj->dev), sgt, dma_obj->vaddr,
- 			      dma_obj->dma_addr, obj->size);
- 	if (ret < 0)
- 		goto out;
-@@ -535,12 +538,12 @@ int drm_gem_dma_mmap(struct drm_gem_dma_object *dma_obj, struct vm_area_struct *
- 	if (dma_obj->map_noncoherent) {
- 		vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
- 
--		ret = dma_mmap_pages(dma_obj->base.dev->dev,
-+		ret = dma_mmap_pages(drm_dev_dma_dev(dma_obj->base.dev),
- 				     vma, vma->vm_end - vma->vm_start,
- 				     virt_to_page(dma_obj->vaddr));
- 	} else {
--		ret = dma_mmap_wc(dma_obj->base.dev->dev, vma, dma_obj->vaddr,
--				  dma_obj->dma_addr,
-+		ret = dma_mmap_wc(drm_dev_dma_dev(dma_obj->base.dev), vma,
-+				  dma_obj->vaddr, dma_obj->dma_addr,
- 				  vma->vm_end - vma->vm_start);
- 	}
- 	if (ret)
--- 
-2.56.1
-
+CgoKSGkgR3JlZywKClRoYW5rcyBmb3IgdGhlIHJldmlldy4KCgoKRnJvbTogR3JlZyBLcm9haC1I
+YXJ0bWFuIDxncmVna2hAbGludXhmb3VuZGF0aW9uLm9yZz4KRGF0ZTogMjAyNi0xMS0yMCAyMDox
+MDo1NApUbzogIEd1YW5nc2h1byBMaSA8bGlndWFuZ3NodW9AbWFpbC5zZHUuZWR1LmNuPgpDYzog
+IE5laWxsIEthcHJvbiA8bmthcHJvbkBnb29nbGUuY29tPixsaW51eC11c2JAdmdlci5rZXJuZWwu
+b3JnLGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcsbGludXhwcGMtZGV2QGxpc3RzLm96bGFi
+cy5vcmcsc3RhYmxlQHZnZXIua2VybmVsLm9yZwpTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gdXNi
+OiBnYWRnZXQ6IGZzbF91ZGM6IEZpeCBwb3RlbnRpYWwgdXNlLWFmdGVyLWZyZWUgZHVyaW5nIHJl
+bW92YWw+T24gV2VkLCBOb3YgMTgsIDIwMjYgYXQgMTA6MTA6NTNQTSArMDgwMCwgR3VhbmdzaHVv
+IExpIHdyb3RlOgo+PiB1c2JfZGVsX2dhZGdldF91ZGMoKSBjYW4gZHJvcCB0aGUgbGFzdCBnYWRn
+ZXQgZGV2aWNlIHJlZmVyZW5jZSBhbmQgY2FsbAo+PiBmc2xfdWRjX3JlbGVhc2UoKSwgd2hpY2gg
+ZnJlZXMgdWRjX2NvbnRyb2xsZXIuIFRoZSByZW1haW5pbmcgcmVtb3ZlIHBhdGgKPj4gdGhlbiBk
+ZXJlZmVyZW5jZXMgaXQgdG8gcmVsZWFzZSBpdHMgcmVxdWVzdHMsIGVuZHBvaW50cyBhbmQgRE1B
+IHBvb2wuCj4+IAo+PiBIb2xkIGEgZ2FkZ2V0IGRldmljZSByZWZlcmVuY2UgdW50aWwgdGhpcyBj
+bGVhbnVwIGhhcyBmaW5pc2hlZC4KPj4gCj4+IFRoaXMgaXNzdWUgd2FzIGZvdW5kIGJ5IG91ciBz
+dGF0aWMgYW5hbHlzaXMgdG9vbCB1bmRlciBkZXZlbG9wbWVudC4KPj4gCj4+IEZpeGVzOiBlYWIz
+NWM0ZTZkOTUgKCJ1c2I6IGdhZGdldDogZnNsX3VkY19jb3JlOiBsZXQgdWRjLWNvcmUgbWFuYWdl
+IGdhZGdldC0+ZGV2IikKPj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKPj4gU2lnbmVkLW9m
+Zi1ieTogR3VhbmdzaHVvIExpIDxsaWd1YW5nc2h1b0BtYWlsLnNkdS5lZHUuY24+Cj4+IC0tLQo+
+PiAgZHJpdmVycy91c2IvZ2FkZ2V0L3VkYy9mc2xfdWRjX2NvcmUuYyB8IDIgKysKPj4gIDEgZmls
+ZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKPj4gCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3Vz
+Yi9nYWRnZXQvdWRjL2ZzbF91ZGNfY29yZS5jIGIvZHJpdmVycy91c2IvZ2FkZ2V0L3VkYy9mc2xf
+dWRjX2NvcmUuYwo+PiBpbmRleCA4NzhkNzBiNTU1MzAuLjlkOWQyMTY0YzViZiAxMDA2NDQKPj4g
+LS0tIGEvZHJpdmVycy91c2IvZ2FkZ2V0L3VkYy9mc2xfdWRjX2NvcmUuYwo+PiArKysgYi9kcml2
+ZXJzL3VzYi9nYWRnZXQvdWRjL2ZzbF91ZGNfY29yZS5jCj4+IEBAIC0yNTM3LDYgKzI1MzcsNyBA
+QCBzdGF0aWMgdm9pZCBmc2xfdWRjX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2
+KQo+PiAgCURFQ0xBUkVfQ09NUExFVElPTl9PTlNUQUNLKGRvbmUpOwo+PiAgCj4+ICAJdWRjX2Nv
+bnRyb2xsZXItPmRvbmUgPSAmZG9uZTsKPj4gKwlnZXRfZGV2aWNlKCZ1ZGNfY29udHJvbGxlci0+
+Z2FkZ2V0LmRldik7Cj4KPlRoaXMgZmVlbHMgd3JvbmcsIHdoeSBhcmUgeW91IG5lZWRpbmcgYSBm
+YWtlIHJlZmVyZW5jZSBoZXJlPwo+Cj4+ICAJdXNiX2RlbF9nYWRnZXRfdWRjKCZ1ZGNfY29udHJv
+bGxlci0+Z2FkZ2V0KTsKPgo+VGhpcyBpcyB3aGVyZSBpdCBzaG91bGQgYWxsIGdvIGF3YXkuICBJ
+ZiBub3QsIHRoZW4gcmVvcmRlciB0aGUgY29kZQo+cHJvcGVybHkuCj4KCkkgdW5kZXJzdGFuZCB0
+aGF0IHRoZSBkcml2ZXIncyBjbGVhbnVwIHNob3VsZCBwcmVjZWRlIHRoZSBmaW5hbCBnYWRnZXQK
+cmVsZWFzZSwgd2l0aG91dCBhZGRpbmcgYW5vdGhlciByZWZlcmVuY2UuIHVzYl9kZWxfZ2FkZ2V0
+X3VkYygpIGNvbWJpbmVzCnVucmVnaXN0ZXJpbmcgdGhlIGdhZGdldCB3aXRoIHRoYXQgZmluYWwg
+cHV0LgoKV291bGQgdXNpbmcgdXNiX2RlbF9nYWRnZXQoKSBmaXJzdCwgdGhlbiBjbGVhbmluZyB1
+cCB0aGUgZHJpdmVyIHJlc291cmNlcwpiZWZvcmUgdXNiX3B1dF9nYWRnZXQoKSwgYmUgdGhlIG9y
+ZGVyaW5nIHlvdSBtZWFudCBmb3IgdjI/CgpUaGFua3MsCkd1YW5nc2h1bwo=
