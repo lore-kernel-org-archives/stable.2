@@ -1,105 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795490804;
-	b=CsG8fgihXCpHv4jkkZTq7bwhk9GjwI230HcMuuHNzwS+DrEYr9bsAZojB4J/puvjlf0E
-	 vLXx+2Ul8rbtw2hTSeDBqCyrBB4gdSl/VH96ygnqsO10nhPFSztzJcZ6U/FmYIjv4uAW2
-	 eQCgMNWtbG66aN98WL/JNQZqP1z1MiAXmYXPMFxfxUKRzXt5LWmmzDTsX8iYPwLeK1GXf
-	 vsTAVuxL82CK/dv0MPp8Ri0J0aARBsUuz78gxOyLRuyDmC58C/sbw9njvHdK5pqybIFk9
-	 5nY7AiO4tBWOI85lpyj2udlsM7rfmlm2BTUoIdDCSZnGx7DwPk3Nk9HVWvH4SXm1Wog==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795490804;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=YIORp6q/P1qKgPQYUZWgE3F4lhaiOBn++PmMuecLoNA=;
-	b=kiTO0peE3naE0BRY5EsF28fPayKDUA5DO6RpuHdYYDpCqNzYUHwDqAssf5SsPGSnX+Ki
-	 NPk2/trrc/UQ3RLAI38HY4eFX31BrqfDyk3rpZ6ntzIBUSxx+jqCRWleJKYxzAPkXv1xs
-	 o/gJJ9DQH7gkntSu1s2rAPo+fvi4I+DQ5+E4I/k2jyO6AXNVwt8gY7WMW0SgwZY8Ykw6N
-	 Ux7XssF+4Wu33Tg+8VJaArXgr14ZxjV0mr+rXvU6oj6cs5gVMWPtywkuncA4QE6gJgC6a
-	 vnyFppJzNk2KBI0YK8YFzdC4+9hNcqmrXfzGOCaEy/vKU+PRxpCji1aX7azdy1SpVAQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=KBV+fsOT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.18
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012018.outbound.protection.outlook.com [52.101.66.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795490854;
+	b=iWI7bQg+roEmiyr2r1WDd5B4vxhEtImh61SknU1tox9A7gtWfonSmP67iVjGk7xhy+TX
+	 WbSWcbf6e1rmdEJT5t5FKiMa/qCWoLy9pyycIHu4nuVf0dExch0V6UDmy9PUexgPNE2wV
+	 MuWhRreBeL/Numja6WxqhvmWcbOXbwHizD6TcZifNNdh/Ri3LuMfN3xazNkP7Q3rKnbUA
+	 Gwc5N3lSKZ7hHbCCvTWLuonMgjmRaclnWhDlgc559P0qnsZpfHNF56yZvm2723v+3C08f
+	 XlUt1JP5Skt/dbez+qj7FjMlUroz/4QU8E5+BfuSTL0up1FAH122HJdJa6HH5L/52lw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795490854;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CRsPULxn0TVgyaRnH2WeqzWMxmvl+M8D4wkPXB0EWCU=;
+	b=bl2CUfYPRg6smpyFJqXmbke9R4y/gcJ+GrJs7pPD2uqMVYjbqT3cuZIipjdv4l1W7cDP
+	 8+XOqVgAcGLdNH7XJJue7dPgRCAxUZVyLuG1zecQa772lF++o7m7LYOVSfD0Z5c5brV7N
+	 CecloW/QGTPlP05E61tUUztJEYzWCuFxKqZHDzxccdaopIsYqeGduQQQ7mto4lEfTH1pa
+	 +WiI9lbTDKNmVL60kVEDTFw0JA2mW3ESsOZSWvlKBxDxM7sp7M895FYYwp3tJfbwzAnMi
+	 r9dX/0HGeA3paU3HYu8qtTlzURNdyFEMCWGz4JqoO+7Fs7pYqo1lQndMtDbhCz1mSGw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eXdAkJvT;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2234D606A31E;
-	Tue, 24 Nov 2026 03:26:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2234D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41527606A330
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 03:27:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41527606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=KBV+fsOT
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TVIWsmF7B5kHRrR1lMsZhkIkxGgF1/mJoIjkUQ/8EMgFqXEYkbETw7vtPocg7Z+EUGCC1j0TFnMWNlADcQT8hi+hts/Xrp/vTJyl1uc/K3IjizY+AaPcdQlu9Dlmc849om6RqLYrNpJ0aidG6r4T2jKidbC6y/61zSbaig5NTy0wD7N9vwn82eM3reBNssGvV8elYsRn+0ctkpclXRTNtGzXr0aLLsC9l5+3kG/U8jQRoT5G6tSzUHh8HnO+n0G+XHSqJssTpMFEBg0VYCC3+yHa3h1Myw+vHQpPXFUxiNu2Xxb03QKiQUhAXjQJ7GQVqYAspibpy4ueZ1BC+r+HmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YIORp6q/P1qKgPQYUZWgE3F4lhaiOBn++PmMuecLoNA=;
- b=VPzV0xZzFPQmod2Bmud/SjRzCnidjrhM5mTsvKWH4E52TBQGYZoYX9NVUKxvXzExDhgJzCJgaoCUepL3xZ7z+BZUtgOPIOblZBGYql1nBsIzb248FbfY9EHkn+iCx5ij+OS7xs4oHcdw9CbIQeoNymjInANjl86JIhHwIH4YBsoTJMQEx2Osqg9Zi66iWr2tW4mSOtMA8liafqm3A6nJ/lOhnZN+xgDfiG9Wgl1MyHKG0+Y2VBW9/EqyViR62xncJ+rdfu/JpKxoG7fVTM0I6xhRtVNKeNLMYAJkM7Rc1903pOhd/v5cuT0E9sO0AhHk3TOm7w0xAGIoyGCAvzTZUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YIORp6q/P1qKgPQYUZWgE3F4lhaiOBn++PmMuecLoNA=;
- b=KBV+fsOT7jmSMYrjgP0EgyqkuOdXZLN7/ZDpNqpxwOs8SlrxAtQlDu03bu49n2NIEN1HaOQehJSZqfRGmfnZYKZkc32EVokjbEjEU9pmymilUQnqIokvmMcN03Ag364CLjV//j96rbn+p8tTMI/B0AROjuy0wTUMZQYkmYmidZHp3cp8mFWOUaavBb1gZcOKCwi0FF4fvizymtJitCaFjsOiiOtbqxiuhcDYnlgibSUQ/rESxDotIdOh7Rh3Utf+L+FZFEyO0s7ZWWUN96qZ0Yu5/L2JbziMIZ6B58Q0kQtB3bV/yMwmNniAen1vTHBo7/vXmcTBQcM3PFq4EmACyg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by DB9PR04MB8393.eurprd04.prod.outlook.com (2603:10a6:10:25f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
- 2026 03:26:41 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%5]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 03:26:41 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-To: Lee Jones <lee@kernel.org>,
-	Richard Leitner <richard.leitner@linux.dev>
-Cc: Peng Fan <peng.fan@oss.nxp.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Peng Fan <peng.fan@nxp.com>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	linux-remoteproc@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 05/10] remoteproc: imx_rproc: Avoid stale mailbox pointers on request failure
-Date: Tue, 24 Nov 2026 11:23:41 +0800
-Message-ID: <20261124032344.5314-1-peng.fan@oss.nxp.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261123172140.3547896-6-lee@kernel.org>
-References:
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR01CA0052.apcprd01.prod.exchangelabs.com
- (2603:1096:4:193::11) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eXdAkJvT
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso4088743a91.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:27:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795490853; x=1796095653; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CRsPULxn0TVgyaRnH2WeqzWMxmvl+M8D4wkPXB0EWCU=;
+        b=eXdAkJvT4HW+jc931UYjjdH6dPF4RFWQBbXA4uaq3q/BAPTEl9yR+7/86kxvDEVVmT
+         KeNrdZHr+Y/JgEHwWXLiN6ydYDR2vSU9IecWEf/ZB2KUqxBdJQK4dca4aGRj5G9iYTgR
+         LKJ1u2VUgsk0oNT9iwr/fkWZzm962CeOu1caeVgQeTsh/yGb1tNG6d2CCpEXfNNTKjEM
+         7bejhVTmWiQIt8M0zY3IVFaBAs6MPVk683WxL/FrQ14eCo8CZqx75Y8sPZu8OKqSs0FU
+         5EjTztpW4h9vbxb+oIWx+3LySZPq+oPNmJdr5ng7fnHFbt2NLwTErf665G5C0pgqPswf
+         g2Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795490853; x=1796095653;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CRsPULxn0TVgyaRnH2WeqzWMxmvl+M8D4wkPXB0EWCU=;
+        b=JAInEJcztDg1aKnIpxj60uq8/vrpFaifR4DRHxyD+fJKL9mkWhSq2CGNz/i5hlEeNX
+         1Hm8UXgmebk1Yyfl5CvMaP3ITSHBmBPKZGYlhGhorvLt6bnXzfxAv7h1LkVA+J1LAF2/
+         BHpFZOBDcV9lBxFSZp02b5iCebURGvXrsQ+BRuuMd0LnVHl9UsypdxqO/rZjUv6s/X0+
+         0RJhCbtK9ZhaqSo4BiMXn0iOixUoIHnofhP7fJ43yYC16T1UPsK4c9HmW6o5yN33wbAC
+         ZtfXgXWWo3bKROQshsCr9O8o+0gj820aspxDEH1rqaRfQSXI8AzxpuIpVxH0HhuZ+wDc
+         Csfg==
+X-Gm-Message-State: APuU4Z9/MUBt/xubXIquImzIr/kfHVjW3I6gogkrocgFUYxUoD/Jn9AN
+	/xMBl+cjalyFkiTO/UQ57bhIF/ub21HbV+P+09Spki1DlqyI+A/RUjnrnz7vTA==
+X-Gm-Gg: AZFdTZc+Pl+Vmli2rZEBo6L81LMIRMl44SzQjmIznkmXuFV7N2UvZldDaG6C4eQRPGR
+	os4k/9LKCwFPHJz10zFzEdVeRAmXa3S4DCPJ92qijbbzNUHuncru6vTWRSOtcbx9vjy2bGKzIld
+	9XrqA8bJUl7AoRoUvlk0qb7CaMnfPmNK87Eg2SN8Ibra36A/mZFbwtMiX2qkUQcFSKQghmfSDTk
+	UG50BjYdlGhYfxAGxN8QxcF2GToLGq6mMfP2fv/zfWT/iMm+AaxOHlWgep9kGz2AOQcM29rUejq
+	Sgs3V/FKsOGyiXAcGwuIu5qwj6Hk34VqaII1EgFIkUVAePYPS6qMoDmYSXYtGH5t2BO87qExbJM
+	is/0qO8hN5+uNftd3DmRLSWd1MQlyT/AWEKlKpoEgHDBviJjCaJKo9hGtuGunlR/szJ0LWs6L92
+	bVCR8Fvi4hGLgPojWBPA8y2AYgEn5Cg4tb0EPgVGg6tBlZdikGS0hyGtHEbQbF2kWZjsMSCGdh6
+	m3KBw2VJ7htaCwYjUC06CATA7TrSAB5dkMvIjdXz4pI505dm2WUuCsjKsaULhy4sq6HnKkjbfXC
+	biMc+x8dU7r7JcH8EnRTXoKL2ew3mw==
+X-Received: by 2002:a17:90b:3e81:b0:3a8:337d:228a with SMTP id 98e67ed59e1d1-3b41c7bc57cmr8264511a91.6.1795490853461;
+        Mon, 23 Nov 2026 19:27:33 -0800 (PST)
+Received: from ubuntu2204.. ([2408:84e2:440:fab2:5934:daa:c53e:abbe])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b21e19fsm7360273a91.0.2026.11.23.19.27.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 19:27:33 -0800 (PST)
+From: Yi Xu <xuyi0562@gmail.com>
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	bvanassche@acm.org,
+	hulianqin@vivo.com
+Subject: [PATCH 5.10.y] scsi: sd: Mark the disk dead if runtime resume fails in sd_remove()
+Date: Tue, 24 Nov 2026 11:27:22 +0800
+Message-Id: <20261124032722.102378-1-xuyi0562@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026112304-aids-poplar-61f6@gregkh>
+References: <2026112304-aids-poplar-61f6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,136 +98,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DB9PR04MB8393:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11ffd282-7307-4c41-fb21-08df49dac136
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|376014|7416014|366016|261102123227099003|261026121527099003|261022075727099003|261022105027099003|261026140227099003|261028144727099003|261021121427099003|261021123027099003|10067099003|261102124527099003|11063799006|56012099006|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	6ETOvD0Q+kdlKZ8fbw37N2D06nI8mZdLLNcICF4zKmctPZfc4CGZogqoiZA/PCT/SYuIkhmeA9ClqipRsalTM+KCSXSOKDAfAfoQsiJPTuB37m+CmEDZLow8Tf6uYRHUwZ9NfgFszf33lFrzpNl7f22cRUCUh+YurL/9yLHukG8sR+pEx15MmVad/ZuEuekUBPEo4MmIWpogMndY6FAz8VStMEnfPdnCWmZZtzPIKfy99mBQ9TcUcHHzw+Qym5l6zi7icLP42MqekMxztoE3wpUtH3/OQ4By1rhXGpRpkhaQg+skuJctabXfVjKDygG0xXySfFT4QrBvvuBAF/U1HQDd9wre5e9OaeJpJFjJ/vEqK5V1Dnm1dCLvbZYU6Wi1rT+Sipv4L9tdTNG+8lo9Kzu9YcQmtDzm9ArMSU9mDp0S7xYhH/YVlZnPUu8FwHm1JRr6ucp4BnZwcS3lhgr/PCDriqP/ui5H3EDpikRMVsQxZHUsWN4nHyKaW7glYJMl9ZIVOYXz1Uez+6S7zC2STEuj7dMhVLNcsn0lZKHp/wFqBNFRM+DozXRm3FjGmhf/csfs0EBCsl9AU3WWYS1+slqxr0EIeO63qOut7e8CLfY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(376014)(7416014)(366016)(261102123227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261026140227099003)(261028144727099003)(261021121427099003)(261021123027099003)(10067099003)(261102124527099003)(11063799006)(56012099006)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?34BLfn2KY3sBOT2BzwsAo3Vsk0y+zsMpUTU02VU00dBoWKRIK6XzHNEBQLVr?=
- =?us-ascii?Q?A3c541K0Htmg9vAP9WAe4bUD1EAGWCqDV3OQ8A3mBMIQ7L84MNRwF1HV2aHn?=
- =?us-ascii?Q?5VjQFqbi7zBN7zlrlibhsNoshznLx+iIwrK1UnnQlWN8tSLuPNhYrlnwge3Q?=
- =?us-ascii?Q?JBSH1qopGlhHJD9NFflGsj5KP1lstq9445kd+ebegWghLXzCf/+bPC0l0HUH?=
- =?us-ascii?Q?41OrfgZcLaiti2BefvEWxNqwAcDvJNRuCrmUP+yorut8GSpJp7lfoHQn0vSg?=
- =?us-ascii?Q?YaF6vGIxdSxQxXxesrfRtjXobQr5pvAltWAApz8iVnOgyXXFd0FDZQmoPveQ?=
- =?us-ascii?Q?0KUc99AQj3D1N5bPb+FTQO+4bnv7ggrkG4Skrk0yaMmzjZLmNJj/PYXxV6+6?=
- =?us-ascii?Q?saEgWNHQwHiFvgTz7B6jWwYc6kWWp+fi0fr9C0no7luOGoGwtUZAAVXWBgXu?=
- =?us-ascii?Q?9o7czT87gLEn1ES9BiQSyunfJIDw7Ox7/A7Rs5uyFXWFsPBYdqWujwNgZRtz?=
- =?us-ascii?Q?bNoM71n2ZMDwuEwCZwQD/+uZloyjPz+BcpPxIUlqMBbg7IFq9c1yJu8Bzji9?=
- =?us-ascii?Q?vP6HQ5TaSlOaHeY3ab/1fIwIMi/YxX3GxkdoLAB0ueuuvXX3XkdAUFzX3slS?=
- =?us-ascii?Q?9CPxhQB23wErNDQ9kkaGbH5X7imNhp4pOymeO1/+Z2wFrYjJVG2JmB/vIi0G?=
- =?us-ascii?Q?+uWbysR+E7ho4Hn88OeQZbk0nRbP7Dj7A1QBZNBb+xe7lviZiECQAN+8qYAA?=
- =?us-ascii?Q?iKvEmC4bAa9lX8d5h8qW21RqYr64/P35I+kukSD5q24xiJ6GmMfZ/dat5zJY?=
- =?us-ascii?Q?nFdrKwsBts/++USYmN8tttuVdHq3vWVMsG1Etmq10AENC9Snn0a1Tmhldrqp?=
- =?us-ascii?Q?pqjGP3uR02mjycIMlcSJzSlPySyGhEPiYtEZBjl74n1+e70Z2i3mNPjWjfes?=
- =?us-ascii?Q?k4Vwin7QbnT5tW4s6kJnwUmVq09DB2FN6t35Jv3bLJpMytexOom2igSjsrY2?=
- =?us-ascii?Q?99jMnwJL947IDPvCNUQtd59MiCEs2Qq7iTsV91omNpzU3QP2K1ygguBv+iWv?=
- =?us-ascii?Q?n2loMwDTzhwtm7dtc/LC5HBo/cepGnE1fS8ephyVGICirGeWY9HlLYC4pKjA?=
- =?us-ascii?Q?nTxG3BhAcqjlDPBxZdcL6gAe1Il4n7ZMhJVVMlr5b9BuEFCstzP9PVtveAtM?=
- =?us-ascii?Q?ulhaV0bRRxM1Ndxhe1nKivmvNH+h/PyyicOkiIM/yvXL0vhEbJ0HSslAd0Ue?=
- =?us-ascii?Q?sWbp/JdyTgFUNNasR9FzDNrIPIQ8aOfQR2k8sVD/TB7EuIGPPCSKVf12hb6I?=
- =?us-ascii?Q?bMpEL6eh+M9fF0zfVaXh0gumk9mQz++c/1NTfZs1tl25CMkBAiC2gLS0zW+b?=
- =?us-ascii?Q?i6yMuKNtoS+xyEthG6xVCa4+HKBX7k7Ch08GN4NNes1amtz4YNRWr4dxGGRM?=
- =?us-ascii?Q?nL+dLozYPgg36MxpLPusSrZmHtRt1LsNguwr9XxlVchLHm0L4f+/h03WXdii?=
- =?us-ascii?Q?PagWXOabfyAk24qPmInj/VO9sVUEoemlp0Le7vUFKip9DqdZ0powYrnCCtq4?=
- =?us-ascii?Q?qu7ik2EGtytjznjE2EmKkLnOgLSIcmixSHoiqRC1baM8xIa7HOOUitcBiRNp?=
- =?us-ascii?Q?Qc+jUj9S4Kja1Bh8LlSTtWAklGDdEiysOR+eDtqkxdz3i+bE9ky2gzLYiwtx?=
- =?us-ascii?Q?a8MJBp+HlqLEHVlsTNsxBXmEpVLftEja9cWg8BIW52eeIy0MB9AZXZf+yqFR?=
- =?us-ascii?Q?uixwiai5Z+SknLs2EiKCnmZZJfAfuj5AbHgLH9ta0BgFjFTcErjK?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11ffd282-7307-4c41-fb21-08df49dac136
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 03:26:41.1168
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iT8XvBFBshZywSCO/Gi7qjSGp90JoNp4AIEL+J+c47UMJ880G+5vkrjjZ54vWn293MI2frBisrQbxYvLpIEsITtt67Cf2S+zBxdCzpN+vDVLm2fD/H8gKsc8w0p3JFHu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8393
+Content-Transfer-Encoding: 8bit
 
-Hi Lee,
-On Mon, 23 Nov 2026 17:20:49 +0000 Lee Jones <lee@kernel.org> wrote:
+[ Upstream commit 085bb18a0b91007f04ddca13af30277c78040157 ]
 
-> imx_rproc_xtr_mbox_init() stores the result of
-> mbox_request_channel_byname() directly into priv->tx_ch and priv->rx_ch.
-> Because mailbox channels are freed on stop() and detach() and
-> re-requested on start(), attach(), and system shutdown, a failure while
-> requesting "tx" leaves an ERR_PTR in priv->tx_ch, which is later
-> dereferenced by imx_rproc_kick() and imx_rproc_free_mbox().  If "rx"
-> fails after "tx" succeeds, priv->tx_ch is freed without being cleared
-> while priv->rx_ch retains an ERR_PTR, causing subsequent calls to see
-> both pointers as non-NULL and skip initialisation, leading to a
-> use-after-free on priv->tx_ch and an ERR_PTR dereference on priv->rx_ch.
-> 
-> Request both channels into local variables and assign priv->tx_ch and
-> priv->rx_ch only after both requests succeed.
+If a SCSI disk is unplugged while runtime suspended, its request queue
+is still in the pm-only state when sd_remove() is called. The runtime
+resume attempted by scsi_autopm_get_device() fails because the parent
+device, e.g. a USB device in the USB_STATE_NOTATTACHED state, cannot be
+resumed. Hence, sdev_runtime_resume() is not called and the pm-only
+state is not cleared. Next, del_gendisk() calls invalidate_partition(),
+which calls fsync_bdev() and thus sync_filesystem(). Any bio submitted
+by the filesystem is queued through submit_bio() and waits forever in
+blk_queue_enter() because the queue will never leave the pm-only state
+and because the queue is not yet marked dying:
 
-I think Richard Leitner <richard.leitner@linux.dev> is working on this.
+ blk_queue_enter  (wait_event on mq_freeze_wq -- HANGS HERE)
+ bio_queue_enter
+ __submit_bio_noacct_mq
+ submit_bio_noacct
+ submit_bio
+ submit_bio_wait
+ blkdev_issue_flush
+ ext4_sync_fs  (sb->s_op->sync_fs)
+ sync_filesystem
+ fsync_bdev
+ invalidate_partition
+ del_gendisk
 
-https://lore.kernel.org/linux-remoteproc/CANLsYkx=M_TXN10qAcQC0be065TYnzfOae6E8ss-9DTj9MzogA@mail.gmail.com/T/#ma2f8e4c332d47e5bdd1787f82f4dd2feeafc67d6
+Fix this hang by calling blk_set_queue_dying() if runtime resume fails.
+The hang point is the wait_event() in blk_queue_enter(), whose exit
+condition includes blk_queue_dying(q) (i.e. QUEUE_FLAG_DYING set on
+the queue). blk_set_queue_dying() sets that flag, freezes the queue
+and wakes up all waiters on mq_freeze_wq, so the wait_event exits and
+the pending sync bio fails immediately with -ENODEV; the removal then
+completes instead of hanging. Syncing the filesystem is not possible
+anyway if runtime resume failed, so no data is lost that could
+otherwise have been written. If runtime resume succeeds, behavior is
+not changed. Make this change in sd_remove() instead of in a SCSI LLD
+such that it works for all SCSI transports.
 
-Regards
-Peng
+Please note that this patch converts temporary runtime resume failures
+into permanent failures. Before this patch, if runtime resume fails
+temporarily, a filesystem sync would be postponed until a later resume
+succeeds.
 
-> 
-> Fixes: 99b142cf7191 ("remoteproc: imx_rproc: Request mbox channel later")
-> Closes: https://sashiko.dev/#/bug/linux-ac0f248a-bdfd-41da-95f8-44b8f1f7091d
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
->  drivers/remoteproc/imx_rproc.c | 18 +++++++++++-------
->  1 file changed, 11 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
-> index 581bb07f5893..a77a3342e1ed 100644
-> --- a/drivers/remoteproc/imx_rproc.c
-> +++ b/drivers/remoteproc/imx_rproc.c
-> @@ -875,6 +875,7 @@ static void imx_rproc_rx_callback(struct mbox_client *cl, void *msg)
->  static int imx_rproc_xtr_mbox_init(struct rproc *rproc, bool tx_block)
->  {
->  	struct imx_rproc *priv = rproc->priv;
-> +	struct mbox_chan *tx_ch, *rx_ch;
->  	struct device *dev = priv->dev;
->  	struct mbox_client *cl;
->  
-> @@ -900,18 +901,21 @@ static int imx_rproc_xtr_mbox_init(struct rproc *rproc, bool tx_block)
->  	cl->knows_txdone = false;
->  	cl->rx_callback = imx_rproc_rx_callback;
->  
-> -	priv->tx_ch = mbox_request_channel_byname(cl, "tx");
-> -	if (IS_ERR(priv->tx_ch))
-> -		return dev_err_probe(cl->dev, PTR_ERR(priv->tx_ch),
-> +	tx_ch = mbox_request_channel_byname(cl, "tx");
-> +	if (IS_ERR(tx_ch))
-> +		return dev_err_probe(cl->dev, PTR_ERR(tx_ch),
->  				     "failed to request tx mailbox channel\n");
->  
-> -	priv->rx_ch = mbox_request_channel_byname(cl, "rx");
-> -	if (IS_ERR(priv->rx_ch)) {
-> -		mbox_free_channel(priv->tx_ch);
-> -		return dev_err_probe(cl->dev, PTR_ERR(priv->rx_ch),
-> +	rx_ch = mbox_request_channel_byname(cl, "rx");
-> +	if (IS_ERR(rx_ch)) {
-> +		mbox_free_channel(tx_ch);
-> +		return dev_err_probe(cl->dev, PTR_ERR(rx_ch),
->  				     "failed to request rx mailbox channel\n");
->  	}
->  
-> +	priv->tx_ch = tx_ch;
-> +	priv->rx_ch = rx_ch;
-> +
->  	return 0;
->  }
->  
-> -- 
-> 2.56.1.750.gf70dc682cf-goog
+[The upstream fix calls blk_mark_disk_dead(), introduced by
+commit 6f8191fdf41d ("block: simplify disk shutdown"). That
+helper and the GD_DEAD flag do not exist in this series. The
+v5.10.y equivalent is blk_set_queue_dying(): in this series
+blk_queue_enter() (the counterpart of the upstream
+__bio_queue_enter()) releases waiters on QUEUE_FLAG_DYING, and
+del_gendisk() itself marks the queue dying later via
+blk_unregister_queue(); this fix only moves that point ahead of
+the hanging invalidate_partition()/fsync_bdev() sync. Function
+name mapping vs. the upstream message: sync_filesystem() call in
+del_gendisk() -> invalidate_partition()/fsync_bdev();
+__bio_queue_enter() -> blk_queue_enter(); blk_mark_disk_dead() ->
+blk_set_queue_dying(). The trigger condition
+(scsi_autopm_get_device() < 0) and the "temporary failures become
+permanent" trade-off are identical to upstream. The normal removal
+path is unchanged.]
 
-Sent using hkml (https://github.com/sjp38/hackermail)
+Reported-by: Lianqin Hu <hulianqin@vivo.com>
+Suggested-by: Bart Van Assche <bvanassche@acm.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Yi Xu <xuyi0562@gmail.com>
+---
+Hi stable team,
+
+Per Greg's feedback, this resend fixes the message layout: the subject
+line now matches the upstream title, and the upstream anchor line is in
+the expected format and position. The code change and the equivalence
+argument are unchanged from the previous submission.
+
+Manual backport of upstream commit 085bb18 to v5.10.y. The automated
+cherry-pick does not apply to this series: the upstream fix calls
+blk_mark_disk_dead(), which does not exist here, and the sd_remove()
+context differs. This patch assembles the identical effect from
+primitives available in 5.10.y -- see the bracketed section in the
+commit message for the equivalence argument and function-name mapping.
+The fix builds cleanly on v5.10.274.
+
+Background: the problem was reported against USB storage surprise
+removal on the linux-scsi list
+(https://lore.kernel.org/all/2c0c76d70f0fe197932836b9bcf8496095135d1b.1792446921.git.bvanassche@acm.org/);
+Cc'ing the reporter and the author for visibility.
+
+base-commit: 3a323bc22b881a5bdc1646080f93f5ecb22850bf
+
+Thanks,
+Yi Xu
+
+ drivers/scsi/sd.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
+index da6df9809b0c..6cf56b936f14 100644
+--- a/drivers/scsi/sd.c
++++ b/drivers/scsi/sd.c
+@@ -3545,7 +3545,15 @@ static int sd_remove(struct device *dev)
+ 
+ 	sdkp = dev_get_drvdata(dev);
+ 	devt = disk_devt(sdkp->disk);
+-	scsi_autopm_get_device(sdkp->device);
++	/*
++	 * If runtime resume fails, e.g. because the device was unplugged
++	 * while runtime suspended, the request queue stays in the pm-only
++	 * state and any I/O submitted by del_gendisk(), e.g. from
++	 * invalidate_partition(), would wait forever in blk_queue_enter().
++	 * Prevent this by marking the queue dying.
++	 */
++	if (scsi_autopm_get_device(sdkp->device) < 0)
++		blk_set_queue_dying(sdkp->disk->queue);
+ 
+ 	async_synchronize_full_domain(&scsi_sd_pm_domain);
+ 	device_del(&sdkp->dev);
+-- 
+2.34.1
+
