@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534637;
-	b=W6hv/kjk2lzmQvpfIWvz0Is21TkBcNf0ezR3LuIwo/BdCVO735hT2WdEMoanB8rwTzBb
-	 gSADVhDGdhmk1yBhI5DgolPASCJWh7l+EYVyi5gJT5V3PK6SC97aCQ5dqSugWcD5m+gly
-	 D9PzlRACir95b7E7TQeesLo/VFrY6DPr+kNxuqUGQ33Xp3cBXZO0/Jt4lk/z8lj1TUQjB
-	 1x72QfkGfZXzCDelSPMlc6c0Ov+GWIc7kFT7/uRRH0ut+rIGesANvVQBPHRbM3inIK4Jx
-	 4wlOhC+ptQfMRC3YohJSZ9mpUOq/h/cW7+G+rGv33hZBHjfw19nPNPrwYOCIxBWuI1w==
+	t=1795534674;
+	b=I08JEannt6pxwDVF8VEt8aVM60BT+NCJ/4cSogWoQ1dzn58lxQWxoW7AtjCb2LPukavE
+	 51pERgLq2ZUrWDaD/CfvwL+E4JMtfbO2S/idS8g6qMt+oLCg73a7qJTiwXKIKGSHXGEGb
+	 OkacX72hLdhd9nEihLaXhPnE77t2TYe41fYxrCCJ0F3mV3pSHgfZqFzeE87cC2v9e53hv
+	 r/6xRyM9roq16ELr4ACMnx/4Rvxzr5ssBaxHG+IwNSrgpLAvm8hepHdQRKOn6GjP0dr32
+	 RhW93hL5CdmxBw43eVjEXweBrQ+ms1xSOHoFocMA50nO8RcaVQ1DTpSYWq1a9EsqL/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534637;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534674;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=esjWNhOaNfs2iHcOz+FBX57wMbJjx8sA3KtWJ8/6Iqc=;
-	b=NspZpTjcfiZjFYbS8x6Bs9Y3Jtv5g7uDTElmB4qaiUb6B7fCwz4GAtnkfMOWn9IFXU9D
-	 QDH0ieH552LGi/Ywz8OYu/QHdq5tg4vGRpF7GKmXj5RxqKG+qFdpIwEj0b+DzpTBZI7a5
-	 pokn+QgUjLbEBI7oCETLXlV0WHJH0DyyqL6UQ+zziRU1lYvGKqBkMFAYl+Mk8QLzMg0ta
-	 WhkdV6i5UI/dDsrvwnnG3zpaLEPrkZ/ekZL/6CKYNG2EHtCj58UqjTbtgXLbyQBsXf2rv
-	 MwHAvjLw6gkGH6doPqE9mX3GbtrEGwAdObKjE1Vc9DB0rO/qbUB/G5zj4RhJa+8lNCg==
+	bh=xi+3zgb6ldnqUYj9HYS4GGyWoPdzWpgl7Oc4nHkZlqs=;
+	b=bqe1cYMCsVZJa5WbN8w+3o3lI32I9f5qjL2bwkfWPffxPt3wzNQQSBYw1wSDUadRlU55
+	 YLrNIHSUQrckPyvMHCCfW95lWqpGLhyzbiNeUt3cvuSjH82Dj0yIjGNJin3vZ7eAP3FyE
+	 VFogu87iCjTFxbLk0AzRmUeA9cC9vY2MIJ2I8SR8PUYjxZJMzMWmI0J5iUIOqT2yBJM2F
+	 q/oNQBA0F18qDQjz2fCaq9Onn3MjIo1AS0w1INHt0ygrdWSTQy699idLMo4eN4HLfhdnq
+	 IlG9XNn/0bL2AmxH0h+6eQ02SxKea3sckt90MI4H8U4tv5YV3xgD+idpsVTkETMfNew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Vym9vHqB;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Inm5TwT8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7315606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:37:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B037606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:37:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Vym9vHqB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B751F000D4;
-	Tue, 24 Nov 2026 15:37:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Inm5TwT8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70BAE1F01561;
+	Tue, 24 Nov 2026 15:37:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795534636;
-	bh=esjWNhOaNfs2iHcOz+FBX57wMbJjx8sA3KtWJ8/6Iqc=;
+	s=korg; t=1795534674;
+	bh=xi+3zgb6ldnqUYj9HYS4GGyWoPdzWpgl7Oc4nHkZlqs=;
 	h=Subject:To:Cc:From:Date;
-	b=Vym9vHqBiNTM45+kINVJQuf+yzi4CXqXvZ7uTA8BaxSNL+vH0xqlzmhQfp6h+LPOx
-	 yvOUICO4M434A2HcwTSJ+l6zmMnyoFVPqA0CiwlLeFzC/kiFXEG053+DowlbYpdDlV
-	 XutxB5KcovO5JA2FOhLTIF3mSBamfoJYrP+og8AM=
-Subject: FAILED: patch "[PATCH] mm/mmzone: read each zoneref slot once when filtering by" failed to apply to 5.10-stable tree
-To: gourry@gourry.net,vbabka@kernel.org,ziy@nvidia.com
+	b=Inm5TwT8Qcn8MoN2BXmtdIW0v7laUnn8q/EWtpnuD7ewTsZk4jRGJ2VF9lvocaaKH
+	 Jgjx8E954jaV98dl8+4aXm18W5nw3grGZ6vWRK34FgLYuSmbaPLI+jqtfc/KDXnEQj
+	 PjSDgWDf0//KtwKxXyTXQnv3ybn7FOcZBBZeJurc=
+Subject: FAILED: patch "[PATCH] mm: page_isolation: do not take slab pages for free" failed to apply to 6.18-stable tree
+To: josef@toxicpanda.com,david@kernel.org,hannes@cmpxchg.org,vbabka@kernel.org,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:37:18 +0100
-Message-ID: <2026112418-atonable-justice-3d6c@gregkh>
+Date: Tue, 24 Nov 2026 16:38:14 +0100
+Message-ID: <2026112414-subtract-calculus-aa18@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x e55119ab611a0e47595db7e1d2ac1e69f7a73ff0
+git cherry-pick -x 213268869301f747d19ca00a391757a6cf2d4fa8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112418-atonable-justice-3d6c@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112414-subtract-calculus-aa18@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,82 +79,67 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e55119ab611a0e47595db7e1d2ac1e69f7a73ff0 Mon Sep 17 00:00:00 2001
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-Date: Sat, 31 Oct 2026 22:13:35 -0400
-Subject: [PATCH] mm/mmzone: read each zoneref slot once when filtering by
- nodemask
+From 213268869301f747d19ca00a391757a6cf2d4fa8 Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 3 Nov 2026 17:16:49 +0100
+Subject: [PATCH] mm: page_isolation: do not take slab pages for free
 
-__next_zones_zonelist() tests a slot's zone for NULL, then reads the
-slot again to look up the zone's node. Offlining a zone's last block
-rebuilds the zonelists in place, so the second read can return the
-terminator:
+page_is_unmovable() regards a page with a reference count of zero as free
+or about to be freed. Since slab allocates frozen pages, they will
+be wrongly considered to be freed if order 0 (higher-order compound
+pages are caught earlier).
 
-  CPU 0                             CPU 1
-  __next_zones_zonelist(nodemask)
-    zonelist_zone(slot 1) = NORMAL
-                                    offline_pages()
-                                      build_all_zonelists()
-                                        [MOVABLE, NORMAL, NULL]
-                                        -> [NORMAL, NULL]
-    zref_in_nodemask(slot 1)
-      zone_to_nid(NULL)
+If such slabs are the only unmovable pages of a memory block, memory
+offlining now isolates the block, this can lead to offline_pages()
+looping without progress.
 
-Current GCC and clang merge the two reads, but nothing requires it.
-With mm/mmzone.o built with -fno-inline -fno-ipa-sra, holding a
-nodemask allocation between the reads while the node's last movable
-block goes offline oopses every time:
+Thus detect the slab pages as removable to return -EBUSY, as would
+happen before commit 9aec2fb0fd5e ("slab: allocate frozen pages").
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000060
-  RIP: 0010:zone_to_nid+0x0/0x10
-  Call Trace:
-   zref_in_nodemask+0x9/0x20
-   __next_zones_zonelist+0x23/0x70
-   prepare_alloc_pages.constprop.0+0x16c/0x190
-   __alloc_frozen_pages_noprof+0xaf/0x330
-
-Read the slot once and test that zone. A NULL zone still ends the walk.
-To achieve that, rename zref_in_nodemask() to zone_in_nodemask() and
-pass a zone instead of zoneref pointer.
-
-Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
+Fixes: 9aec2fb0fd5e ("slab: allocate frozen pages")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Link: https://patch.msgid.link/20261101021340.2251928-8-gourry@gourry.net
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Link: https://patch.msgid.link/20261103-pgalloc-ai-hotfixes-v2-3-e0d2890ab74f@kernel.org
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-diff --git a/mm/mmzone.c b/mm/mmzone.c
-index 9cc9ef588580..65880396f104 100644
---- a/mm/mmzone.c
-+++ b/mm/mmzone.c
-@@ -43,13 +43,14 @@ struct zone *next_zone(struct zone *zone)
- 	return zone;
- }
+diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+index c9cc42e54f05..0ab9a6e09222 100644
+--- a/mm/memory_hotplug.c
++++ b/mm/memory_hotplug.c
+@@ -1832,6 +1832,13 @@ static int scan_movable_pages(unsigned long start, unsigned long end,
+ 		if (PageOffline(page) && page_count(page))
+ 			return -EBUSY;
  
--static inline int zref_in_nodemask(struct zoneref *zref,
--				   const nodemask_t *nodes)
-+/* A NULL zone terminates the zonelist, so it ends the search. */
-+static inline bool zone_in_nodemask(const struct zone *zone,
-+				    const nodemask_t *nodes)
- {
- #ifdef CONFIG_NUMA
--	return node_isset(zonelist_node_idx(zref), *nodes);
-+	return !zone || node_isset(zone_to_nid(zone), *nodes);
- #else
--	return 1;
-+	return true;
- #endif /* CONFIG_NUMA */
- }
++		/*
++		 * A page that was allocated, but was not a slab page yet, when
++		 * its pageblock was isolated.
++		 */
++		if (PageSlab(page))
++			return -EBUSY;
++
+ 		folio = page_folio(page);
+ 		if (!folio_test_hugetlb(folio))
+ 			continue;
+diff --git a/mm/page_isolation.c b/mm/page_isolation.c
+index 5aaad037384e..f4f0571607ab 100644
+--- a/mm/page_isolation.c
++++ b/mm/page_isolation.c
+@@ -74,6 +74,13 @@ bool page_is_unmovable(struct zone *zone, struct page *page,
+ 		return false;
+ 	}
  
-@@ -67,7 +68,7 @@ struct zoneref *__next_zones_zonelist(struct zoneref *z,
- 			z++;
- 	else
- 		while (zonelist_zone_idx(z) > highest_zoneidx ||
--				(zonelist_zone(z) && !zref_in_nodemask(z, nodes)))
-+		       !zone_in_nodemask(zonelist_zone(z), nodes))
- 			z++;
- 
- 	return z;
++	/*
++	 * Slab pages are frozen: do not take their reference count of zero
++	 * for that of a free page.
++	 */
++	if (PageSlab(page))
++		return true;
++
+ 	/*
+ 	 * We can't use page_count without pin a page
+ 	 * because another CPU can free compound page.
 
