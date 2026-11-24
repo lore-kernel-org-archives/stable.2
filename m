@@ -1,41 +1,41 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795510698;
-	b=VZIgdib2YyMeaPhOgA25cFhwFoW1IC8r9DfbllikK/jk7JDnTIL+FKgYjLJIYYvI5MQR
-	 bjOFhwfs1QIx/WuuWS3MwtpJ+jmqafe+Sjmyp4mYTDN3YHXk7nZjZLdX3lTGU53Jx+cG5
-	 m87l1RfCyEltBrGJGxHP+HjvlDxunVXIVnz4Zak7RpFYvdRkXO22TIAN7icDdS1XfDLwg
-	 GbWXIVLfJcXnQPo/pExmLwHcazmjneGva0GLfBloaLhwrcDP7WXjcI+AKoGymKVf4+4R1
-	 y8eKL9sMIAUsUY9+wOKKCFb4h+m7iNeaBjsGaVsqZ7H3z39Q9TwlVzd6q1EyqeLDQyQ==
+	t=1795510693;
+	b=K/NqiNkrqtr5eig4YCK/+SfUWR8vVmSml4fpJTwACUa+BiQOtSnBOEoUV+dnxkPegGFe
+	 L0z9wndScX562CpIOEzd4HXKe8hiyhtPkLmUkjNZFSG+2PD8hC7G61bdeNwz1PoZYox02
+	 3MWb7ZGApyv8chWQlN23WVRliOtuY7kj+00axzoJn+7MZwrE6HrKf3m4dGe/Qv1QKWxS8
+	 XSKd8PYIaJk/ueyJhP5i4Hy+nSLrz7qzkZ3ZDvED++omGJAgauKrVjS0LzPL8ykrdAmPV
+	 xUxGoRd+DBKz1Z0Q4iu6+xp3nhF3V5muwe31P9+yJo97gP+p0lRXmUARKwqjW7y5v4g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795510698;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795510693;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9zywkjszLE/9ltEvJUfp+fkwkpacqMgHzmbP6X2blTA=;
-	b=1BoF/UghbWKGqBb6M5dk5MHz9FsVX+oWPEIFJYq5CzJyuQeNLOil8e0+Q5EXZDHD+DuJ
-	 njYtoBSb8XEpcnhK5gseoEYaAXOF4FJx1fxXdbDT22n+VwGM2kajYWlsyqCYe4xkJu+cJ
-	 jbV2pPOcMse4es990wyXtIVtBQdXl4Ux8PZpZ7Y9+gm9zFYHtRM8RVsV/v1/Dt1i8JDfv
-	 +lRUeLWX1UDxEpTxfOCY+SuPmHw9lrbiXGTs6Ixxs7II8FGnwcYUI1YJW0bRHK9+rLp/B
-	 F7fJE4w9iLoPksAUAJ7trBdRA8roo6JYNyYprcZodGCP7le74mbxnpOEmv+ea7hSaxA==
+	bh=2ZCKJUkcPCKNP1mFV2hmd1YZNhy6cxlOHxjxjiaagQ4=;
+	b=bT7ZRmS+X2G0bwhA/jzAYIJS/ASfJ7+VG9dNtV1TNWZ8cT0ufe0UE1N3KEdnFwUvayMx
+	 RVHVbnG1S/Ww9tjod0xwsm1j4a/kiFT3MoHkn6GQC6HIPYtPQ2irhu6sRSNi0MfyU5Hrt
+	 8IQSvF3tZ5HjWxoBZWWb9kF9ZQG2k2XKQoeD2/UCIhENsmeoKH4m/Mtj+4tQNEc+TUBY8
+	 E3Phsg8k21GKhJTu9QvKvCj7gz6c54x6ygeEQ06OjgDzrTnjPs7hZYE8teSjqHZ/WU0M7
+	 BY23dEk7SDlkB5ZGqch/7s4dr859uHVyiIHAUUkBgbpsi0zOqeQ4HKef1D3MzwWrnRQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="H4/eYFgz";
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="P5/lM8AX";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D33760A2606;
-	Tue, 24 Nov 2026 08:58:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D33760A2606
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71944606A33C;
+	Tue, 24 Nov 2026 08:58:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71944606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=H4/eYFgz
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=P5/lM8AX
 Received: from pengutronix.de (p20030102af17cb00d2e697ee776c6466.dip0.t-ipconnect.de [IPv6:2003:102:af17:cb00:d2e6:97ee:776c:6466])
 	(Authenticated sender: mkl@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 87687205A2C;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BDC01205A2E;
 	Tue, 24 Nov 2026 09:58:07 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1795510687;
@@ -43,47 +43,45 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9zywkjszLE/9ltEvJUfp+fkwkpacqMgHzmbP6X2blTA=;
-	b=H4/eYFgzGe9BxNHfa1OcqQgwYtj6uyWtznZBsQgysvCcRF94/LwMNwJB78UiYApAMP3jSg
-	7BnRffatWc4ZE0YTTurUiGAFSKUnhaG6GrE9+w8PPHP7HkhY7uXEdrS7IUsv8dDzOm9v41
-	0dsGftkfRnvGvd7dgDvkbMFpLPaBPgwdaGz90YUJUdI2lcXBldMPnhMXqlwF4A+1QTtkvY
-	6fpmsKgrbpbHGVraGEEc4WLmiYyMoAtYqE4Ew/fh15Kh65ZW0NiAoEa3WBrXyVo0OkhoEs
-	lMw7Ck6wZNGurmuIik8i1rhF5Oz+eC/AR7JOhLl4PUoUERCRxwLQVKiPVKkdHg==
+	bh=2ZCKJUkcPCKNP1mFV2hmd1YZNhy6cxlOHxjxjiaagQ4=;
+	b=P5/lM8AXmErJiHzaMxssXebEUOoE5qtfCqOKshycNjuHokQLJTgQylEmjEJAeHPHTzS06b
+	X1BRpNMaL4xmnfnXNHYtUmL1MaBT9l3xs/QRAqqSdrlnmxyoUYbB+qXA46mqU8jhbk/YC7
+	/aLA8XySYXmzU7OzTgvJsPgrXRIc0FIS/Dp2CLWt7rAKji4njLGdIa5simyXc0srOIP3A6
+	MTNS0dwlwxQctgRLb3MSYfaSj2qPT2L4nSuXapv49jZjK93q/got6DaI+xkSnKJfx3DPax
+	sX5UtTgtv2OACo6l315GSMfsCatcK91Ahk47Hg5O8Pfzbk16uoVNxe0zYqiSHg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1795510687;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9zywkjszLE/9ltEvJUfp+fkwkpacqMgHzmbP6X2blTA=;
-	b=RibEFsvNqI93Hqpk1gxRFRjEoQ8Yky2xEKNWK7ABkigFcmPRqztAxrpsv92XoNEioshV7V
-	BbgcHCpCmoFE+Ltzjvytg9F57qPMv28NctPjioMFD6UaHWteR6kQeC7A2v8QW5PIIm0z5w
-	SrTvKPnEnG8vLSI2y/Ur/JMzrOiNFedTafrU+uRmsPQzJIItuCrSSaKaMXip0RqXtoFzce
-	M8CMl8FUNeL3YEEd4asAjZbYs7+/7xOfvuWuAjMoHECSP8neV3hayiKie9gxgwoGavUvl1
-	yGsz1yNjCJhtyvkFSe8HxSavG7EkLChEVBoF0g7d7b0YAkLCRiWpcSPNUFvBZw==
+	bh=2ZCKJUkcPCKNP1mFV2hmd1YZNhy6cxlOHxjxjiaagQ4=;
+	b=DInkK4lB+kKss7GhncpLtdDNQWXvbHyrjbOdZu/SArIrf1rI7QcQMpxrslxwM0RNVOTIg2
+	bwe8lCxi5WFJGysUzuNVci7GDRHaV8VzsBC3rBCskFCfbu/cRov/z/XQgoaaZCWA/UeoYZ
+	9tCWopwcp7CvnTDZ06mz6brVOzvmm2sWcFTkLdXgHVVEkOb17ptNGeH9fdDGYSMYF4bv9j
+	2YrleWEYSylBGs753bzxWEBEHy2N1PSOw4XdMjKcIQ2QMLQRncqa3LeeCpalsQzFSQNU+Y
+	Z4D6cqYocTjUKzDYT6/A2iKl1d03VRG6idd7gilmP3D6VTGx+Wa+R68InSfdcw==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=mkl@pengutronix.de smtp.mailfrom=mkl@pengutronix.de
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795510687; a=rsa-sha256;
 	cv=none;
-	b=K+ia8J4/909k0Z6+Wqz1OxVBvYdBEGGrYnJkTLYTk3wq/Iu8MkWBt7zdAvjDLYpaOe62++
-	ffcC37BL7/WfQIbOsGWXYvMyTtaB6BbBZbSrMjMghWtNOh4spWt1orcNGNk8F8AW664H2q
-	DKwmkwgMekAmD35qX1q3CJC0QpZom05dvppp7oIdl3pwCF9a7w+gIjJN5ive/p83ZLttAj
-	gl8ZNJ2JriOQWgHfVkXzM2ezSt5K+ObwEVDDulvyYtC1DQExE8ZOGR/8oURcK01ekInFg4
-	ShSszEDpGEIzufu97IuUBSR+3t0ZGO15YzpEG+zau1Xb53wwVjeH43Ou5O+zsQ==
+	b=JM7E3VrCbkNfEl8BQidfuOAtAO69k6iys7EV32Pa34siMRlViPc9X1un1kbPbAFYNDHleo
+	OUdHrjTsAbrHMMBArI1UyRzibpC7K/nO9Q/yFr8pH4E92K20XeCva8bBzmnQg/JM24MOoJ
+	/oK0fY/C8IV95/qXJc/oYCkvNCrCmHE18rqVHVR/IcXiwGyCGwR/qYJ8HOsmQ5xmpQZGr7
+	t8HfmdqGeU+4qikiFX3iuJgeb0qmOV1RbbNL6RA8Xh67RCdmLYm2LvgsyZ5UCY/GYW6k7R
+	16zQkL2mindSQqBtGH6S79JLVp7ApcdadQQPxqrX3dnzYNB0AqNi7parn6HeBQ==
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 To: netdev@vger.kernel.org
 Cc: davem@davemloft.net,
 	kuba@kernel.org,
 	linux-can@vger.kernel.org,
 	kernel@pengutronix.de,
-	Zhu Ling <zhuling0805@qq.com>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net 10/12] can: netlink: fix CAN XL PWM attribute sizing
-Date: Tue, 24 Nov 2026 09:51:37 +0100
-Message-ID: <20261124085757.1093632-11-mkl@pengutronix.de>
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	stable@vger.kernel.org
+Subject: [PATCH net 11/12] can: gs_usb: gs_can_start_xmit(): don't leak uninitialized memory over USB
+Date: Tue, 24 Nov 2026 09:51:38 +0100
+Message-ID: <20261124085757.1093632-12-mkl@pengutronix.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261124085757.1093632-1-mkl@pengutronix.de>
 References: <20261124085757.1093632-1-mkl@pengutronix.de>
@@ -98,57 +96,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhu Ling <zhuling0805@qq.com>
+The driver allocates the transmission buffer using kmalloc(), which means
+the memory remains uninitialized. Then various headers are filled and, but
+only the actual CAN frame data payload (of length cfd->len or cf->len) is
+copied into the buffer, leaving the remaining buffer uninitialized.
 
-can_pwm_fill_info() emits the PWM capability limits whenever pwm_const is
-present, regardless of whether TMS is enabled. In contrast,
-can_pwm_get_size() currently returns 0 when TMS is disabled. It
-therefore underestimates the required netlink message size by the nested
-attribute header and 6 u32 attributes.
+Fix this information leak, allocate the buffer with kzalloc().
 
-Always account for the PWM capability attributes when pwm_const is present,
-and account for the 3 runtime PWM values only when TMS is enabled.
-
-Fixes: 46552323fa67 ("can: netlink: add PWM netlink interface")
+Closes: https://sashiko.dev/#/bug/linux-0a8c0e8a-c623-426a-8db3-f55111f6cd84
+Fixes: d08e973a77d1 ("can: gs_usb: Added support for the GS_USB CAN devices")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhu Ling <zhuling0805@qq.com>
-Link: https://patch.msgid.link/tencent_9A525E0656A4F7D4CA9CFA1AB1A4BFC6D706@qq.com
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-3924d490-baed-49dc-880a-6fd1163cf08d
-Reviewed-by: Marc Kleine-Budde <mkl@pengutronix.de>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/net/can/dev/netlink.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/net/can/usb/gs_usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
-index 10e7ccaf40fb..7f597c975c6f 100644
---- a/drivers/net/can/dev/netlink.c
-+++ b/drivers/net/can/dev/netlink.c
-@@ -791,7 +791,7 @@ static size_t can_pwm_get_size(const struct can_pwm_const *pwm_const,
- {
- 	size_t size;
+diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+index 3b9b2f104d86..15f28833f2de 100644
+--- a/drivers/net/can/usb/gs_usb.c
++++ b/drivers/net/can/usb/gs_usb.c
+@@ -861,7 +861,7 @@ static netdev_tx_t gs_can_start_xmit(struct sk_buff *skb,
+ 	if (!urb)
+ 		goto nomem_urb;
  
--	if (!pwm_const || !pwm_on)
-+	if (!pwm_const)
- 		return 0;
+-	hf = kmalloc(dev->hf_size_tx, GFP_ATOMIC);
++	hf = kzalloc(dev->hf_size_tx, GFP_ATOMIC);
+ 	if (!hf)
+ 		goto nomem_hf;
  
- 	size = nla_total_size(0);			/* nest IFLA_CAN_PWM */
-@@ -803,9 +803,11 @@ static size_t can_pwm_get_size(const struct can_pwm_const *pwm_const,
- 	size += nla_total_size(sizeof(u32));		/* IFLA_CAN_PWM_PWMO_MIN */
- 	size += nla_total_size(sizeof(u32));		/* IFLA_CAN_PWM_PWMO_MAX */
- 
--	size += nla_total_size(sizeof(u32));		/* IFLA_CAN_PWM_PWMS */
--	size += nla_total_size(sizeof(u32));		/* IFLA_CAN_PWM_PWML */
--	size += nla_total_size(sizeof(u32));		/* IFLA_CAN_PWM_PWMO */
-+	if (pwm_on) {
-+		size += nla_total_size(sizeof(u32));	/* IFLA_CAN_PWM_PWMS */
-+		size += nla_total_size(sizeof(u32));	/* IFLA_CAN_PWM_PWML */
-+		size += nla_total_size(sizeof(u32));	/* IFLA_CAN_PWM_PWMO */
-+	}
- 
- 	return size;
- }
 -- 
 2.53.0
 
