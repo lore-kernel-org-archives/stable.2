@@ -1,60 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795554250;
-	b=ZiqXeOzChfrf+RmhBSMSk7ftkssYGa5jvYBwgJhDqOu0W/FfhodNehcrEadn60odllba
-	 B4LAz21EM57pyet0S5rvu4nZHPMtmdLVfKcjYtCMcpjknHWcuNR17PImweKsIgmxh7R0/
-	 QphNEa6Hwe+HvTYzZq5SPL7436FuXmKc6yzV07Qk/ZFo6r6fdoTdOX+Wa2dRWgxY0yG18
-	 fyI8NaOl2Eovl1mxoAOx1UQeHaTPNvk3tCwzSG3Cjtw9vL4smjD+rf+Yqu9Dk+64BqeMj
-	 aelGYd04ddHD2Fpbvqx7Y2z5Pl8ViBgpAFKsrGV7GIsZvVWy0KT2dCM3fsSakxvg3Lw==
+	t=1795554305;
+	b=z96YO0zGUqCehJbDfs1cMO5XZldE3hP5HZr4OdRq9CDwe89ZvVGcZNwxiZ/iC/XFIwqA
+	 dT1GqajqXzLxalJ+7yZxvrQFiW4tGqcX0jKpUSwjxOKWlOIRKg++xriPKDIzWSaTSr9wU
+	 j4OUNAd4+1novMyfvx5VFjeFmA8ONHTvpgOB2pmmOek9U+HlQBIasxeKgrV0OicqW/3KM
+	 GbkysftZuKG4Wo2dnqbPBPWVMve5mat6TdmrtV+LwWeRngwf2zcmozN/4UaVPoAzita5b
+	 dQbZKvxddg2A8b43YPYMgycFh856gjrtSbN+6zgiXlrRN4SL7khlDUO7dZDpNjyqo9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795554250;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
-	 X-Pm-Original-To:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-MIME-Autoconverted;
-	bh=f1LrI4F2sKsO306nzg/h2ovN7/3ZcOp7p0chdwD8VeA=;
-	b=0lzYA4k8b3Zm3PhZ6wmB7KGUdXwXa5aENF3V9sBNAsszQsPRYAaRUs8nXIFIbguiKJDS
-	 PrOvjbjZZlo9hfruQeodYo0lZRm4OisMqPoJ2fGNd5kmZsLW6PriTVKPjNI9OI+X4/kf+
-	 YtFDbdUDowxU3o3Ny3HmZ4GkIQ1nzjVp+WB9yDSkhqIfdyx2ngxzUcTfBfn0x2kVCz6b9
-	 2jIL4HJu/PPS2V5/+kz031PQX4hB56V/8eRYXlUmN4wVMVKf2Ez3gLuenFQYgHEjmKGJV
-	 ztqdA2tSiJUBGnur5Bg/XzqlNcIjQCb9JcfjSZ42VLzY7Lbj6j3qugnTgMAWGzhcs0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795554305;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8989DAIhEGp2+SqiqOgHbnDP3tqjvddGwcJYPtRttbc=;
+	b=0KoqcTvPuOXoT/1gTyPkmOi21GmulmTNhVLLoLmNlIJUVIaJdA/JPu0BFZqpq8d+A4ph
+	 7r3Pp4UgFwE8VNMsugW4IGcYn1b4AfpRYdtWNT0xyZygivnz7xGwuzZf1hqqvi7JlJEPy
+	 lURI4RVCkqMSH+/BRBLBgCVUYLAkREb1bb2Wx9swN4fv8nx42btpdezieJyJpWzq33kIl
+	 byVgDvZ0M94N0y6Q2gpT/9Tso3eMWMjcfG/HGC2bbB5YE13pPFRib5dTcznaBvJdf4jxn
+	 Dyq+fqKiV/0PuIajMVtfCXIEVyodvPwSzgNhh+kb3HNlDuzWLSkwKTwNF193qaFoayQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=atomlin.com;
-	spf=pass smtp.mailfrom=atomlin.com;
-	dkim=pass header.d=atomlin.com header.i=@atomlin.com header.a=rsa-sha256 header.s=purelymail2 header.b=bvY+kW9s;
-	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=NV3pbREF;
-	arc=none smtp.remote-ip=34.202.193.197
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Zk43yelt;
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579FA606A32D
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 21:04:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 579FA606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE5E606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 21:05:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CE5E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=atomlin.com header.i=@atomlin.com header.a=rsa-sha256 header.s=purelymail2 header.b=bvY+kW9s;
-	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=NV3pbREF
-DKIM-Signature: a=rsa-sha256; b=bvY+kW9smQ/USSNTgGxUuIjv7MH+/vcE3aruhQ3qL5AJS471/M00i6PR9yIqof3dDsH+yvfsKhhymID5zTPUHJcso/W9qory1BilPTnB0rBdjzxUWmkFqakHISanXgAMu8xlEqQlEGpBfyOq+F3JUjIvSDrjVlfhOI8eb+WXYGoqIk9kGzQPAYeDHKIl4ehMndr4wpa4cw1IweczFimpUxNuTNy9QM9k20cfTPwt9QEO0Jh6xPyp76WsQkkWhqWWz8GDirX/FBIAgf0ndnqUbsGLF13YDOxFdB8xsMn7RqdBEQwJ72PAEMDftEk3BMbvjBWz1vwINeOn0ZJPVpYqpA==; s=purelymail2; d=atomlin.com; v=1; bh=LBTIbpSasOIttazXOXIKcClliW3GfeA4oLmDKjXQ628=; h=Received:Date:From:To:Subject:Message-ID;
-DKIM-Signature: a=rsa-sha256; b=NV3pbREFn0LmAuGk5gPXW0P/M6HzawY5DFxLnmR/wb6GoOcr+7EseirwQ0rRCTKihZ/IxJ0vyjZ/9cGp/WP+ivzlS8+PBT++F6C3r9LRVdw4VwzVOwmmFiVSBwWNmBI6WzdYskgAkPx1WJglBNEhwvm0pWUFaSy0i9C9Wp6yOvzks3PK5hCGRPJBu0yiH88iGuFw4TLTBdwUXRgCXVip1Ikia+ZvzBTZf1/18lIw1dSEahWNxSPC3k7aMLkcPrcr20+h//Y/iVr+/Ms1rQonZu3INGQ5Kofcbj9dmLFMll+hfXO+RncjNtyS02XNqJ+Pal+NGYZqMoVPru4Ir73KxQ==; s=purelymail2; d=purelymail.com; v=1; bh=LBTIbpSasOIttazXOXIKcClliW3GfeA4oLmDKjXQ628=; h=Feedback-ID:Received:Date:From:To:Subject:Message-ID;
-Feedback-ID: 1802931:67223:null:purelymail
-X-Pm-Original-To: stable@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1233994586;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Tue, 24 Nov 2026 21:03:22 +0000 (UTC)
-Date: Tue, 24 Nov 2026 16:03:21 -0500
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Marco Crivellari <marco.crivellari@suse.com>
-Cc: axboe@kernel.dk, tom.leiming@gmail.com, hare@suse.de, dwagner@suse.de, 
-	emilne@redhat.com, frederic@kernel.org, tj@kernel.org, sean@ashe.io, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v5] blk-mq: dispatch kworker to housekeeping CPU when
- hctx cpumask is empty
-Message-ID: <b7vpfd7x6mqmxlu2kqpdzx4oeyxvak7tiit7xslkjdrqblcoh4@aujkhfpmwqnh>
-References: <20261121235203.811792-1-atomlin@atomlin.com>
- <CAAofZF5D+ycbtMxsnUgZjhUbfD+_ZD6kYyci95OTdXug_aw-dQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Zk43yelt
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2f0afdb97abso150505ad.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 13:05:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795554304; x=1796159104; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8989DAIhEGp2+SqiqOgHbnDP3tqjvddGwcJYPtRttbc=;
+        b=Zk43yelt/tm8w8qrnUw/rYu8FoZfnG9Xcmo++SabJlb6abZbjfVjnfXI9XBZw/hv16
+         t9J8gTLH1sX5tjg/It/0QBr2WzKZaY4XroMeHNijrqAwKoXlcMeh8MCUjdw4+fKdt+md
+         RJ362duEdbPSO3k5gsNh20PW+bipuMnBbFmth+eRATzNg7Dyn1iPORbToeVVtiu2b6AI
+         hm4eeLQByAl4SS2/bYpWwJkDm00JSFY4WW83me9on7ZD4LR2C0L+7ip0ebIuUjbEEJKB
+         R3YRFTxd2ka1it3eIloE22crT1tiIze58b8gMdGr/dFPC5uLraumWlzqrK3w/8ZePRfc
+         zyHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795554304; x=1796159104;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8989DAIhEGp2+SqiqOgHbnDP3tqjvddGwcJYPtRttbc=;
+        b=ae3uvBv3NZ5Rs0cTzcxfX0X8qT/qQ+mmmTyw+jIVDUPXuTyzLLEEyMjVh6IoLBhVaz
+         ilpzaQPh13oSuUon4aXPwJwvlWgdQhOTDEYSMLxvyLV6jfPjbwSSjdl+ngpEMqWblkyu
+         fPaltyuLVCSG5OvAXM/mMaQdqVMxDfCWT/pe9TW+/j6q81lX7lN7N5TNk5xJ5WoI8MkG
+         F82AV4ki322CQDD2ikLjKiSt9WYQjZpplxfDN2B2rKvq9vr255CmnGyy28Vt+T16cgzW
+         rSLB5NxfBoxxSrZODtjjAq6zYCC9DH/ZYGjG/eem7crvln3/BS+nsS/sWb0xLIQkNwSL
+         eARg==
+X-Forwarded-Encrypted: i=1; AL+hErGZhfwnuakMzFjC466dbT94XSn0MVLzYScbJogbZ06pc25APA4FRd3ngnz+Rx/kvAaSACQzVbE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NFFOHiLTTe4UP4FaLAHRq7iOA5kcnL7CSX+ksQkR6615PRj5U
+	r3AJ6H689bZjwbCPyttWGqHFKZz9l3tsz8QUqXHrG70TrkZFgrx4wda/KN2XRar8tg==
+X-Gm-Gg: AZFdTZfSdvSEMOasrdEJGkPr4j2MQs+o0R854hl/aLPZ9BTTi+uSMKOMJF0I6wTPKBo
+	E0oO1/lArrK6UBSWv1BxbCQ4zRpWkHKdyhVZNe3RMTMZpJtGqLh0KiL8YNr0fClkiAsJXY2K7MV
+	Mqe9sv6Qz41Oox5P3izngdcuO6VH1i9dgMzufzgxrC8j6uU6P8zyO73kou6T7FmV0K8bFizmsKa
+	Xw9W5C4nSVvn5baj89LIx5r6CcHAr4W/OYC25lbn+zFmmZyuc02JSLprDWT7SQMLqsR706l2RSb
+	M2HtXVux/VMR4WXdXwd1nIeEMIx67r+ClvCF+WXtROR+P1PgssShEaJOxQLQSZA+pvdo3eZ2tV5
+	Cq1gqxG6juUk52OM5kgOjbsg7KOssOOxbS9u8rplhUQzIlJ3C9XvgN1Y+vXD4v4FyLtVNxSHrly
+	HTOhBlC/xFOKbFaBFqlLX4Y0QvIWHn0KEc8FsGEOfCFTwjdkIQVo6eNXXuQrcO1CbnJ64q9P49J
+	miwLomR+DXWWaS08a4zq7Htj30WqGn1d0T7CrppVdfErCVqk6VC1vULmXpT3wXDDKyJJwMpNxcj
+	ccyh+DVB9eKDHmvrRBKnJnx3HnU6XbauaMc1DKygL9Ds9gGQv5exd2kEV6chf7iAqyuMervDJHo
+	1uIibdS+cLaF/mCnL8glmNw==
+X-Received: by 2002:a17:903:3887:b0:2e2:d665:6ad8 with SMTP id d9443c01a7336-2f062b6ecb2mr14518045ad.4.1795554303196;
+        Tue, 24 Nov 2026 13:05:03 -0800 (PST)
+Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41abb1b66sm25196583a91.1.2026.11.24.13.04.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 13:05:00 -0800 (PST)
+Date: Tue, 24 Nov 2026 21:04:57 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Alex Williamson <alex@shazbot.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Anthony Pighin <anthony.pighin@nokia.com>, 
+	Dave Jiang <dave.jiang@intel.com>, Dan Williams <dan.j.williams@intel.com>, kvm@vger.kernel.org, 
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] vfio/pci: Only lock the upstream bridge if the reset may
+ need it
+Message-ID: <awXedVCoT7M79Rk5@google.com>
+References: <20261112235700.2029562-1-skhawaja@google.com>
+ <20261118163706.7138d246@shazbot.org>
+ <20261119143237.4bf54796@shazbot.org>
+ <awC5Ldqmue6DiO44@google.com>
+ <20261124084852.661dd7c1@shazbot.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,61 +104,147 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <CAAofZF5D+ycbtMxsnUgZjhUbfD+_ZD6kYyci95OTdXug_aw-dQ@mail.gmail.com>
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
+In-Reply-To: <20261124084852.661dd7c1@shazbot.org>
 
-On Mon, Nov 23, 2026 at 11:47:47AM +0100, Marco Crivellari wrote:
-> Hi Aaron,
+On Tue, Nov 24, 2026 at 08:48:52AM -0700, Alex Williamson wrote:
+>On Fri, 20 Nov 2026 22:21:16 +0000
+>Samiullah Khawaja <skhawaja@google.com> wrote:
+>
+>> On Thu, Nov 19, 2026 at 02:32:37PM -0800, Alex Williamson wrote:
+>> >On Wed, 18 Nov 2026 16:37:06 -0800
+>> >Alex Williamson <alex@shazbot.org> wrote:
+>> >
+>> >> On Thu, 12 Nov 2026 23:57:00 +0000
+>> >> Samiullah Khawaja <skhawaja@google.com> wrote:
+>> >>
+>> >> > Commit 962ae6892d8b ("vfio/pci: Lock upstream bridge for
+>> >> > vfio_pci_core_disable()") makes vfio_pci_core_disable() trylock the
+>> >> > upstream bridge before resetting the device, and skips the reset if the
+>> >> > trylock fails.
+>> >> >
+>> >> > All VFs of a PF have the same upstream bridge. Take a device with two
+>> >> > VFs, both used by one process. When the process is killed, both VFs can
+>> >> > be released at the same time. The first one takes the bridge lock and
+>> >> > does its FLR, the second one fails the trylock and is never reset.
+>> >> >
+>> >> > The bridge lock is only needed for a bus reset, which is done through
+>> >> > the bridge. A VF is reset with FLR, and pci_parent_bus_reset() never
+>> >> > resets the bus for it because the PF and the other VFs are on the same
+>> >> > bus.
+>> >> >
+>> >> > Add pci_reset_needs_bridge_lock(), which returns true if any reset
+>> >> > method enabled for the device is a bus reset, and only lock the bridge
+>> >> > in vfio_pci_core_disable() when it does.
+>> >> >
+>> >> > Fixes: 962ae6892d8b ("vfio/pci: Lock upstream bridge for vfio_pci_core_disable()")
+>> >> > Cc: stable@vger.kernel.org
+>> >> > Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>> >> > ---
+>> >> > Tested in QEMU with an igb PF behind a PCIe root port, bound to vfio-pci
+>> >> > with two VFs. Both VFs are opened through VFIO and then closed from two
+>> >> > threads at the same time, counting FLRs with a kprobe on pcie_flr().
+>> >> > Without this patch one VF missed its FLR in 50 of 50 rounds, with it
+>> >> > both VFs were reset in every round. I will send a VFIO selftest for this
+>> >> > separately.
+>> >> > ---
+>> >> >  drivers/pci/pci.c                | 28 ++++++++++++++++++++++++++++
+>> >> >  drivers/vfio/pci/vfio_pci_core.c |  3 ++-
+>> >> >  include/linux/pci.h              |  1 +
+>> >> >  3 files changed, 31 insertions(+), 1 deletion(-)
+>> >> >
+>>
+>> [snip]
+>>
+>> >> > +
+>> >> > +		if (pci_reset_fn_methods[m].reset_fn == pci_reset_bus_function ||
+>> >> > +		    pci_reset_fn_methods[m].reset_fn == cxl_reset_bus_function)
+>> >>
+>> >> This looks like a maintenance nightmare.  What if instead we did
+>> >> something like:
+>> >>
+>> >> bool pci_parent_bus_reset_possible(struct pci_dev *dev)
+>> >> {
+>> >> 	struct pci_dev *pdev;
+>> >>
+>> >> 	if (pci_is_root_bus(dev->bus) || dev->subordinate ||
+>> >> 	    !dev->bus->self || dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET)
+>> >> 		return false;
+>> >>
+>> >> 	list_for_each_entry(pdev, &dev->bus->devices, bus_list)
+>> >> 		if (pdev != dev)
+>> >> 			return false;
+>> >>
+>> >> 	return true;
+>> >> }
+>> >> EXPORT_SYMBOL_GPL(pci_parent_bus_reset_possible);
+>> >>
+>> >> static int pci_parent_bus_reset(struct pci_dev *dev, bool probe)
+>> >> {
+>> >> 	if (!pci_parent_bus_reset_possible(dev))
+>> >> 		return -ENOTTY;
+>> >>
+>> >> 	if (probe)
+>> >> 		return 0;
+>> >>
+>> >> 	return pci_bridge_secondary_bus_reset(dev->bus->self);
+>> >> }
+>> >>
+>> >> Where we'd then condition acquiring the bridge lock on whether it's
+>> >> even possible for a function scoped reset to perform a bus reset.
+>> >>
+>> >> It's a bit broader of a test than whether we actually have the necessary
+>> >> methods in our reset_fn list, but since we're not locking the reset_fn
+>> >> list between test and function-reset, it's also safer.  Thanks,
+>> >
+>> >After exploring Ionut's patch[1], what I propose above is probably
+>> >wrong.  We don't have any guarantees that the sibling topology is
+>> >static and this bus-reset-possible function presents it as immutable.
+>> >The existing bus-reset function has the same race, but the gap is
+>> >smaller, let's not make it bigger.
+>> >
+>> >There are however immutable properties we can test that cover a fair
+>> >number of cases.  For example:
+>> >
+>> >bool pci_reset_function_needs_bridge_lock(struct pci_dev *dev)
+>> >{
+>> >	return pci_upstream_bridge(dev) &&
+>> >		!(dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET) && !dev->is_virtfn;
+>> >}
+>> >EXPORT_SYMBOL_GPL(pci_reset_function_needs_bridge_lock);
+>> >
+>> >We should be able to use this as a condition on whether we acquire the
+>> >bridge device lock, in pci_reset_function() and in vfio-pci code.
+>> >Thanks,
+>>
+>> This sounds good and it will also fix the bug that I am seeing.
+>>
+>> The only caveat is that pci_dev_wait() might fail during VF reset and
+>> then it might try to do a bus reset if the VF is behind a pciehp or CXL
+>> port. I would prefer to do it only for vfio-pci code as that is where
+>> the reset skip issue is. pci_reset_function() takes the lock and
+>> serializes the VF reset. Are you ok with doing it just for vfio-pci?
+>
+>I think the test I'm proposing precludes a bus reset, ie. there is no
+>upstream bridge, the device flags prevent it, or we're provided with a
+>VF.  It's only those cases where we can't do a bus reset anyway, that
+>we can skip the bridge device lock.  I think that means it's useful in
+>PCI-core as well as vfio-pci.  Did I miss something?
 
-Hi Marco,
+Yes, the slot reset probe doesn't account for the VFs and will allow
+reset of the slot when hotplug is enabled.
 
->=20
-> On Sun, Nov 22, 2026 at 12:52=E2=80=AFAM Aaron Tomlin <atomlin@atomlin.co=
-m> wrote:
-> >
-> > [...] In real-time environments, an active SCHED_FIFO workload will
-> > starve this SCHED_NORMAL worker and stall hardware dispatch, whilst als=
-o
-> > introducing unwanted latency jitter on nohz_full cores, defeating that
-> > commit's original objective.
->=20
-> I would phrase this differently. cpu_is_isolated() checks HK_TYPE_DOMAIN,
-> so the jitter argument holds only when the nohz_full CPU is also
-> domain isolated (isolcpus=3Ddomain or an isolated cpuset partition). With
-> nohz_full alone, or isolcpus=3Dnohz without domain, this patch does not
-> apply and the behavior is unchanged.
+I think that is probably a fix that needs to be done orthogonal to this.
+I will send a v2 of this by doing the needs_bridge_lock() as you
+mentioned above.
 
-Agreed, that distinction is much clearer. Since both commit a46c27026da1
-and blk_mq_hctx_unbound_cpu() test cpu_is_isolated() (HK_TYPE_DOMAIN), CPUs
-configured solely with nohz_full=3D or isolcpus=3Dnohz without domain isola=
-tion
-(or an isolated cpuset partition) remain unaffected. I will reword the
-commit log in the next iteration to clarify that this applies specifically
-to domain-isolated CPUs (including when combined with nohz_full).
+>
+>I do see that cxl_reset_bus_function() only does a cursory test for
+>probe, but then calls pci_reset_bus_function() when it executes, which
+>is an inconsistency issue of its own.  Thanks,
+>
+>Alex
 
->=20
-> > +static inline int blk_mq_hctx_unbound_cpu(void)
-> > +{
-> > +#ifdef CONFIG_CPU_ISOLATION
-> > +       if (static_branch_unlikely(&housekeeping_overridden)) {
-> > +               int cpu;
-> > +
-> > +               guard(preempt)();
-> > +               if (!cpu_is_isolated(raw_smp_processor_id()))
-> > +                       return WORK_CPU_UNBOUND;
->=20
-> Since preemption is disabled by guard(preempt)(), you can use
-> smp_processor_id() here instead of raw_smp_processor_id().
-
-Oops! raw_smp_processor_id() was a leftover from v4 before guard(preempt)()
-was moved ahead of cpu_is_isolated(). I will switch to smp_processor_id()
-in the next iteration.
-
-Thank you for the review!
-
-Kind regards,
---=20
-Aaron Tomlin
+Thanks,
+Sami
