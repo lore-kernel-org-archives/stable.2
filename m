@@ -1,73 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795520447;
-	b=CelI7NCr3VtMSzqC9xlpinw/QzNyeDP/wAWdDJDGMZZJopRn9Q/byRcw55sSMkMAYuJi
-	 iFTd/U6M2CNrlbCL1x9mwcokoJ6emvNjpm+gYhyTHYXQHN9yX3LSyn779j4q1rRucaJQv
-	 NdCGMYYkZMpa5HT1fI2lW7Nxo3jOKHNk41SYkDv92OepFKW9Jr1eQDuA2oq+cZXXLmUPf
-	 wXug/ipY0GpQWPDhBzWXGXDM7Lx3NPazj+i4dtUAG29Q31kIK/9f1L1Xoqlj/J1tuIIF5
-	 DiII/Z0QMuXT9NPY0YFIaoZ7sEvGip4JiOJuXHpsaKZAHbFSGMyvx/KbkmNB9/fUvnQ==
+	t=1795520731;
+	b=MYsw5r7bImQX7Tw0BVvnXRqqpVfkKnS+zUSbshnbF6k+iDFLESdeFJYwluQbLPeoQRGS
+	 Awch3n5x27uPYglOl+k302CORQxB2meJgiG66GYwOMDiDK32aR2BFPLRM7eaaezcCsuUh
+	 czSZVpl5eNBGA44HmouE4qCut0MfZe8jGxg92cJiqEDptDSwJ4pP9R18tCYb1YJEd5g+O
+	 vOz6zo39pXj0MMB0dPYPGAxQJDbwWP7Na7JnnN5D2gzbvjbdlwOHh/dpMz2UyNxGzgeo4
+	 zKbO4X9OBNFKEGd7SY8hFs2csqSGIWEcJp/m9OQpvPnXzTD5oBpqqaoxyLNoXiZai+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795520447;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type:Content-Transfer-Encoding;
-	bh=YNKB+l0kbHZ2LFgYHq1tz3KLItdS3YCyjSFJuwPFLv0=;
-	b=UFaw3FHsfsBxHZ8GUmR0mypOGIxFiEVrJNJwqNM1KvLM4ZdJ34qrKRdh4wkRut46tWSw
-	 0PJtsbuYIZZTQn54w7kQzi5mtvSV++QOybZ7TyVGCTDu4Oi68qLD8XKmoJ6rHvZmYnBu+
-	 aHtUeljwXKTDt/y/Qx5v0WtBdVVKfpcPrmLmO83P2BVf2bvjz1ArXwWhVM3sB+5Vtoi9r
-	 8NQaULDwOE98HRfeWCxTQTHOZ9UcZqzh+gh4n/Onrcq157AJlL44ppyL4SbsntslsbNGx
-	 BE9x4JTezDOpWceHorXPxztcsoTnpuyUmq5uUj8ysGG+OrwAWP4nBUcQDNCRzY6ZnhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795520731;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=FaOzZeSEcsiEu7Danddjhvc2fvrZGUSlNkNLOC9h7EU=;
+	b=zYx4TRGD1gQiUkTlofQtwWzqPahOoqi1h8OVcWdyN3mvVfvduQAGpp444tkQSr9an1v5
+	 clqi0xDVQI2pRb/9JpdSH3lfVLMwGS+EldOg/79YXTZsiJ0bioky/ODvuvGEdzKTHmTyE
+	 oWvitog98yQOC1hmEW3R+2XsnPh+e5ABPlJy8P+xzmDLcHZ3Z10rmJ+lFIAgoYVklLupn
+	 j9NVm6wpDMMIEFAwNMgclSjdkxkvDoJT6d9vX7QSvrGgCtb9/5f3H29r3glk4XuGw8EHv
+	 /+Ll9qITShG/3qbNsU7cx8UVKn4MM+auXHmLEmwBqFL2IcAsyeVyVjNb64KyqDBHgVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y/KWG8/t";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671F1606A321;
-	Tue, 24 Nov 2026 11:40:47 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="oHS1j/OD";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DEAD4606A327;
+	Tue, 24 Nov 2026 11:45:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEAD4606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y/KWG8/t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF9C1F000D0;
-	Tue, 24 Nov 2026 11:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795520447;
-	bh=YNKB+l0kbHZ2LFgYHq1tz3KLItdS3YCyjSFJuwPFLv0=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=Y/KWG8/t01CyWXnuuxn5Fq6dG5U0E/DUCU9cLtTKyJCmyZpLPtz4H5tDoHmhjT0Y1
-	 6LVawp8QEZn0HS8F9iB9sABq0TgEer9xApKgILOghCb/TWwQiFTwASnLtqmDnK7p9d
-	 uJgGVhqzlPa7PnWK+5Ey6/Kb5r7XHf/MHKzE/m8edUN80AmhKmcTYbffqmuRec7uc4
-	 d9mhARS3a9G6QwypWQJblwQB1kWsG89+ctM0xLetzNd1o6PD9CegiBD/LfWccVOPV/
-	 mwmFaZY+FKMjMnznslikv6KFIdgbcvnwye4jOW7hxxlNtkIkQMnuklCiCZqRCsPY7V
-	 o8COXWTCVS4RQ==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id CB8041980047;
-	Tue, 24 Nov 2026 06:40:44 -0500 (EST)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Tue, 24 Nov 2026 06:40:44 -0500
-X-ME-Sender: <xms:u3cFa2WZAvaq-MEvL7K33-JMO8R2L3mYuau5n5hO2SMrNJWVXCfjFg>
-    <xme:u3cFa9bhlu9ODSrVznatnlU66U-X0sdpA7b4RyfQSL4FyGhJh5d3MrwfKWl-EX0HA
-    sXHlxQXvPDbgWoMy0fZq-dC9FFEENqFl2QrJ5Iv48L6_VfwgqhbPvA>
-X-ME-Proxy-Cause: dmFkZTEMmXa45SeVrzxdc8lVdrKvq22c5nOCVcabUq5/b3DwR+SZOjCmU5hPlCMvPbD/jG
-    xGX/zl+7UgdvrJtoEo2C2qX4tYzFehBttg3Q8pP42dTF1E6KmxXWfoidEoMJMsjro+itt4
-    Dvv+paoMENJtR1YVe1RrOmxWDJu+Dos+BL3NJB36HHYZEWQoPEfd2f0f49jDOmEwPJ5GWP
-    HzPV+D0S+5nz6CFwdVCwYRZ08IiLIvurA8XdTqHAWDn2e2iTnwalYGGrM/GMJlp2i9czsj
-    82jckTGxIKmWMZZoZjXotXZ30EwOrPwkcptldPdi9BERQbuh3XwGbk+bNvIevBmPzeESm8
-    kL3uHHbFpDKe/Qyr9qP7Bsd7LDWIe7a+gt6ZL+4J6xE+91VqGzmNCe+jrMdd0SKXcfAiWb
-    PqwEqqVTb6q1ZRikefhsevZPrtcPGrWz6A43HiI7rzNIufnWqEW8dIGgqU3jjStfzPjTkj
-    WU7PzjcqaagORtAW2YwEJSIS0dnpDAvF41+ytAJwUBRUeY9kHDr+exsb+ShZdtXPPwsW6v
-    8O2uGG7oshIGaqwGKOpm++TsqBweO19oaOIEGOmOLONzIR9NcfhwgfT6qGw/s2lNNEKdlN
-    G2lBH9CJHUyFnqUPatunvuFiUz83ZcNPj/ACHVAuvCdQddxAX9yskvkuzOTw
-X-ME-Proxy: <xmx:vHcFa14LWtxuoXQSCXztkRGKGGXPr9Fhc0nRNZECL5mHK6cj9eTvcg>
-    <xmx:vHcFa1JPA7ZCqMHIN6AcbZ9wj1llof3hXNUNdIwzaBx1q0zmqFfZeA>
-    <xmx:vHcFa-tNiJ8O6EcYswXmUD32CLau-OR3Dc-qYFb1N917WyGLFFE52Q>
-    <xmx:vHcFa0K9XZBHP6EtZCT73GFUDk43H4P62P4pZq7syHLXwfgabnpgwA>
-    <xmx:vHcFa3-1f6wVJb3kq-WjMyorYBzmD6N_8sGUlMyiB6J2AJI-tp0_LE-4>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 75E98F80093; Tue, 24 Nov 2026 06:40:43 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=oHS1j/OD
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 36740339;
+	Tue, 24 Nov 2026 03:45:27 -0800 (PST)
+Received: from [10.0.136.47] (LRYFGMQP07.cambridge.arm.com [10.0.136.47])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8C7EC3F86F;
+	Tue, 24 Nov 2026 03:45:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795520730; bh=okJBaBQeKqLQjanlOT9Hdjoxc/5u+umivG32ad9P2p0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=oHS1j/ODs9XrlcrwFcErJAuiUASAVqGdlM5jJ0TrHu5LO/ecVQpI92au9My9i5YB4
+	 IsEgPf5Eg2D9VfrdTht5Jho7YM+cHWoKdHuykVuNBYuauGW6ByyOMfILaILRHgrzmk
+	 HHo8zI77+KVFXie7ld9oLUNxjfzFuhYGbQQR91gM=
+Message-ID: <3d88c31d-04cc-49e4-b30a-3ece06908da6@arm.com>
+Date: Tue, 24 Nov 2026 11:45:27 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,111 +53,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Tue, 24 Nov 2026 12:40:23 +0100
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Nicolas Brainez" <nicolas@brainez.net>
-Cc: "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Lukas Wunner" <lukas@wunner.de>, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Message-Id: <756a713a-dfc8-420b-8c70-76828e2b0bf6@app.fastmail.com>
-In-Reply-To: <20260928072832.25399-1-nicolas@brainez.net>
-References: <20260928072832.25399-1-nicolas@brainez.net>
-Subject: Re: [PATCH] efistub/x86: Fix the size type of the Apple properties protocol
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: mm: Don't defer the barriers when installing a
+ fixmap entry
+To: Kevin Brodsky <kevin.brodsky@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Yang Shi <yang@os.amperecomputing.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261120121638.194154-1-fuad.tabba@linux.dev>
+ <20261120121638.194154-4-fuad.tabba@linux.dev>
+ <6782b5ee-3dfe-4076-a79c-fbeb2c2ac7da@arm.com>
+ <CA+EHjTziXrRdR+guikKbj93Az96T+AMx_=0sVeyWG5C4fwaaTg@mail.gmail.com>
+ <5b0a26ee-30b0-4a79-9cca-9848dc9d65c5@arm.com>
+ <f543aea2-3a21-44ce-bb44-c84bd66b0a76@arm.com>
+ <74b99755-bc3d-4cad-9678-c2de740fe20a@arm.com>
+ <f9a42849-fe8f-4a96-81a1-ab58193b222d@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <f9a42849-fe8f-4a96-81a1-ab58193b222d@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On Mon, 28 Sep 2026, at 09:28, Nicolas Brainez wrote:
-> The size argument of the get(), set() and get_all() methods of the
-> Apple device properties protocol is a UINTN, not a u32. The reverse
-> engineered declaration added by commit 58c5475aba67 ("x86/efi: Retrieve
-> and assign Apple device properties") uses u32, and
-> retrieve_apple_device_properties() passes the address of a u32 on the
-> stack to get_all(). 64-bit Apple firmware writes 8 bytes through that
-> pointer, so the upper half of the store lands on whatever the compiler
-> placed next to the variable. OpenCore's
-> Include/Apple/Protocol/DevicePathPropertyDatabase.h declares the same
-> methods with UINTN, and a u32 canary placed right after the u32 size
-> is zeroed by both get_all() calls on a Mac mini 2018 (Macmini8,1).
->
-> With clang and CONFIG_EFI_MIXED=n, the neighbour is the protocol
-> pointer p: the first get_all() call zeroes its low half, the second
-> call jumps through the corrupted pointer, and the machine powers off
-> before printing anything. A GCC build leaves padding in that slot, and
-> a clang build with CONFIG_EFI_MIXED=y places the setup_data pointer
-> there; neither crashes, so the bug went unnoticed since 2016. Talos
-> Linux, which builds its kernel with clang, reported it on several Mac
-> generations.
->
-> Declare the size as unsigned long, as the stub does for every other
-> UINTN. No mixed mode argument mapping is needed: 32-bit firmware
-> writes the low 32 bits of the zero-initialised value, and the upper
-> half stays zero across both calls.
->
-> Tested on a Macmini8,1 with v6.18.51, clang 22.1.8 and LLD,
-> CONFIG_EFI_MIXED=n, booted as EFI/BOOT/BOOTX64.EFI: the machine powers
-> off without the patch and boots with it. Builds with clang and GCC,
-> with and without CONFIG_EFI_MIXED. Mixed mode was not boot tested (no
-> 32-bit EFI Mac at hand).
->
-> Claude Code assisted with reading the disassembly, writing the debug
-> patches and drafting this changelog; the tests ran on the hardware
-> above.
->
-> Fixes: 58c5475aba67 ("x86/efi: Retrieve and assign Apple device properties")
-> Cc: stable@vger.kernel.org
-> Cc: Lukas Wunner <lukas@wunner.de>
-> Link: https://github.com/siderolabs/talos/issues/13231
-> Link: https://github.com/siderolabs/talos/issues/13579
-> Assisted-by: LLM
-> Signed-off-by: Nicolas Brainez <nicolas@brainez.net>
-> ---
->  drivers/firmware/efi/libstub/efistub.h  | 8 +++++---
->  drivers/firmware/efi/libstub/x86-stub.c | 2 +-
->  2 files changed, 6 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/firmware/efi/libstub/efistub.h 
-> b/drivers/firmware/efi/libstub/efistub.h
-> index fd91fc15e..1002c17a8 100644
-> --- a/drivers/firmware/efi/libstub/efistub.h
-> +++ b/drivers/firmware/efi/libstub/efistub.h
-> @@ -838,15 +838,17 @@ union apple_properties_protocol {
->  		unsigned long version;
->  		efi_status_t (__efiapi *get)(apple_properties_protocol_t *,
->  					     struct efi_dev_path *,
-> -					     efi_char16_t *, void *, u32 *);
-> +					     efi_char16_t *, void *,
-> +					     unsigned long *);
->  		efi_status_t (__efiapi *set)(apple_properties_protocol_t *,
->  					     struct efi_dev_path *,
-> -					     efi_char16_t *, void *, u32);
-> +					     efi_char16_t *, void *,
-> +					     unsigned long);
->  		efi_status_t (__efiapi *del)(apple_properties_protocol_t *,
->  					     struct efi_dev_path *,
->  					     efi_char16_t *);
->  		efi_status_t (__efiapi *get_all)(apple_properties_protocol_t *,
-> -						 void *buffer, u32 *);
-> +						 void *buffer, unsigned long *);
->  	};
->  	struct {
->  		u32 version;
-> diff --git a/drivers/firmware/efi/libstub/x86-stub.c 
-> b/drivers/firmware/efi/libstub/x86-stub.c
-> index cef32e2c8..87e142cae 100644
-> --- a/drivers/firmware/efi/libstub/x86-stub.c
-> +++ b/drivers/firmware/efi/libstub/x86-stub.c
-> @@ -158,7 +158,7 @@ static void retrieve_apple_device_properties(struct 
-> boot_params *boot_params)
->  	efi_guid_t guid = APPLE_PROPERTIES_PROTOCOL_GUID;
->  	struct setup_data *data, *new;
->  	efi_status_t status;
-> -	u32 size = 0;
-> +	unsigned long size = 0;
->  	apple_properties_protocol_t *p;
+On 24/11/2026 08:22, Kevin Brodsky wrote:
+> On 23/11/2026 19:54, Ryan Roberts wrote:
+>> On 23/11/2026 13:08, Kevin Brodsky wrote:
+>>> On 23/11/2026 11:36, Ryan Roberts wrote:
+>>>>>>> @@ -127,7 +127,9 @@ void __set_fixmap(enum fixed_addresses idx,
+>>>>>>>          ptep = fixmap_pte(addr);
+>>>>>>>
+>>>>>>>          if (pgprot_val(flags)) {
+>>>>>>> -                __set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+>>>>>>> +                /* The slot must be usable on return, even in lazy MMU mode. */
+>>>>>>> +                __set_pte_nosync(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+>>>>>>> +                emit_pte_barriers();
+>>>>>> I wonder if it would be clearer to wrap __set_ptes():
+>>>>>>
+>>>>>> lazy_mmu_mode_pause()
+>>>>>> __set_ptes()
+>>>>>> lazy_mmu_mode_resume()
+>>>>> That would work. However, there's the stable backport. 6.18 has the
+>>>>> bug, but lazy_mmu_mode_pause() was added in 7.0, so 6.18.y would need
+>>>>> its own patch. This patch applies to 6.18 unchanged.
+>>>>>
+>>>>> I'm happy with either, or with a followup patch in the same series.
+>>>> I'd personally prefer to use pause/resume since it's makes it very clear what's
+>>>> going on and avoids the layer violation. Perhaps your approach as the back
+>>>> portable one, then pause/resume as follow up (along with ptep_try_set() tidy
+>>>> up)? Others might think differently though...
+>>> Using pause/resume does work, but it is a bigger hammer than necessary.
+>>> If other features make use of lazy MMU mode, then we may end up paying
+>>> extra cost by leaving/re-entering the mode.
+>>>
+>>> For instance, with page table hardening [1], using the pause/resume
+>>> approach means 4 extra ISBs:
+>>> - 1 when pause() leaves lazy MMU mode: restoring default kpkeys context
+>>> - 2 in __set_pte(): switching to page table update kpkeys context, and
+>>> then back to default
+>>> - 1 when resume() enters lazy MMU mode: entering page table update
+>>> kpkeys context
+>>>
+>>> An explicit __set_pte_nosync() + emit_pte_barriers() achieves exactly
+>>> what we're after (immediately visible PTE update) and doesn't disrupt
+>>> lazy MMU mode - we don't unnecessarily set TIF_LAZY_MMU_PENDING. 
+>> It's so ugly to spill this stuff everywhere though.
+>>
+>> How about a nested lazy mmu section?
+>>
+>> lazy_mmu_mode_enable()
+>> __set_ptes()
+>> lazy_mmu_mode_disable()
+>>
+>> If it's nested the enable() is essentially nop, and the disable is a flush,
+>> which emits the barriers. If it's the first enable, we still set
+>> TIF_LAZY_MMU_PENDING though...
 > 
->  	status = efi_bs_call(locate_protocol, &guid, NULL, (void **)&p);
+> Yes that's essentially the same as the explicit call to
+> arch_flush_lazy_mmu_mode() I mentioned below. IMHO that looks pretty
+> obfuscated though - the casual reader will wonder why we're creating a
+> lazy MMU section for setting just one PTE. If we go down this route, I'd
+> argue the explicit call to arch_flush_lazy_mmu_mode() is clearer (and
+> our implementation is safe to call even outside of a lazy MMU section).
 
-Queued up as a fix - thanks!
+OK let's just leave it as Faud has done it then. I don't have a strong opinion.
+
+> 
+> - Kevin
+> 
+>>> An alternative approach that addresses your point about layer violation
+>>> is to call arch_flush_lazy_mmu_mode() and leave the __set_pte() call
+>>> unchanged. This is slightly slower as we still end up setting/clearing
+>>> the TIF flag in that case. Not sure this is worth it - ultimately we
+>>> have to be mindful of what lazy MMU mode is doing to ensure this code is
+>>> correct. I'm happy with the current approach.
+>>>
+>>> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
+>>>
+>>> - Kevin
+>>>
+>>> [1] https://lore.kernel.org/r/20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com
 
