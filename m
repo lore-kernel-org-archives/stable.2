@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795542169;
-	b=aAdW3SkLnsG3alcun8V97GlxyH05XOWL9eFSr6cknJWoAneVjAzlRCZ3KO8bLy5tEpeE
-	 NziEWxhOge1JNaTy79CoYpKV10Z1eJh4N9s+EaWPKisf3kIBCaVRKoOar6o5l4zAo5vyC
-	 BfJp52wymrDLXaIF6IgN2uZ2T8zJ8zEycl7Ea/puR05S9fFQbTIcTCss5/1QmkOnu6X8W
-	 dYuNkapEFo6JCGlziT2WqRdQVmHwS748QWJ+X5JZE8wfhgjJYzcyZ+GoZsyL20/htoGWx
-	 WtGRZIwmUpO0mV+mKMdXU735DF/hz8PwfPmryCe7mNtlNgfRnNTacwgrJf69MmA7i3A==
+	t=1795542193;
+	b=Qe74rGOt7eaA6gkQcPz7kBJqc3adoQUPzeJyzCrU6wZYl6yXqQJO/SZduGuBXsz9pXd/
+	 Wne7sVbCEUvFQvVyzrXSM2eOP3kzRLL2sggUqpOQq3LYaRBrsjrS+FcKnoEUdZu+gi3lT
+	 uN8SL5TfkZz0SFVAQRQT7LaKSR5sSChssgsIxiyaLNd9E26G0PH81ZTW/PTI0xemoA0LL
+	 L1KVKVXw2hrLUujLKuU8XfNat7rmWH6Z3xTfPDsp88RKmhieuGMziDMdAEKVS7caQqWOR
+	 qC5Co+IW7E7NuSXKzudjVRuDpZARfCuoIX3/H1QANIaee9xCJHfEN1337D+uEd9JZyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795542169;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=J3Z/iG6i8DU6ZQh4DtG79WYAyIaGqOiYgKvVjjJnoCE=;
-	b=UZq+Pv3j+A1NKBav12Th43dLBk62niYx9N5XTllGEkxedPzllEEDV8RNmEo0V+kGHzy3
-	 u0YG8AYoAOifRS70lZmBRfhQOm1Dlp8P4WPpSghcXu+XsVPmMlltSyb5SfvBDLd8tZcMq
-	 Afr3s6JDJCy4UwM8JqLGE97RRT+rQ4p5gOvcvV62pAu998F4Lgb8KkX2y/y044RakaTJd
-	 DHx//EVPieIVNohYIrA28gtwtZuYW0Weq8NISeKiDtH8yzQSt3uKNzZnpPD0rL+gRo1fP
-	 Fz3geo9wOn2UnQCVaOHTrAE/pM1EZ99T0+1qYontDHBvLeFJUtECAAZ5TWgVeYjHdXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795542193;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:Received:From:In-Reply-To:
+	 References:MIME-Version:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=sGwL+rAjN7ROYVGUA8Ywk3WhpiIIp3H2Jwa6afAFCVc=;
+	b=ehE85RUV28vKpzKtufdlYuqUH8TK7BPFNcs4hKx/NTJ6+52/VhT0AiLzH/HzLRqEFBgm
+	 2OlP+CtpevBRK+n/mVNvPAMHLFkLKxJLZnoYxlIA0O5U/5cTR08Qg2JAfBnmnGpYVKl9v
+	 QwtyXQ8//Hcv+f62x8ZiZ05/uWdrrvC2PQfJ8cXzI/th4rSkSM2eMmRLTJgEr/YgR7wTJ
+	 rYVe5zgb2bKTvS+GuEEKmdrRWQ/ZO1MdXviNSMXkWFXpZw4YHvKjPGS0mwwv3tscQwe/j
+	 +Q8sYHpiE2AMm2i42Ycf93sW9uUl3WLba3QI+R51sapF031nd3CRyFw4USB8qzvnMcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GLcuXCvt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=KMMLETkZ;
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14CB8606A32A
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:42:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E25606A326
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:43:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56E25606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GLcuXCvt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04D891F000C6;
-	Tue, 24 Nov 2026 17:42:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795542168;
-	bh=J3Z/iG6i8DU6ZQh4DtG79WYAyIaGqOiYgKvVjjJnoCE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GLcuXCvtBoA0aaBdRiNPm8SB/zRuneT7qHhmIGAlu6cflbN4UXYN+zv5BKeI1iIBf
-	 boAy6RwCTp6nF3ThHXFy7Yp/JzoPPujhAf6YnSWMznRGBKF+9hRZWZ2o3eZRF5jOb+
-	 qn02rLI6fJqalQIdDVryOLJW4uRiXXwMS8yuMxCPoeY6DAVnrsxenexCpfkmxE3iWQ
-	 3BCtkgrQ645Wnt1DXa4p9bajtzhRAZsMcfbtGuoAlD3uEwGJebq14npIAbRjC6u0L8
-	 oqQH/74ddIxbHki5hU/+U4a5olJKXTKPqtoNbe5ZJg+UcQoUuTVaS6RE9bEn0lcVuv
-	 XO2taUuGUsPbg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Shashank Mohan Jain <jain.sm@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	Jeff Layton <jlayton@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] errseq: don't let errseq_check_and_advance() hide later errors
-Date: Tue, 24 Nov 2026 12:42:46 -0500
-Message-ID: <20261124174229.2018672-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124174229.2018672-1-sashal@kernel.org>
-References: <2026112440-lark-unfiled-3dec@gregkh>
- <20261124174229.2018672-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=KMMLETkZ
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b8a2518f7cso5623480a12.2
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:43:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1795542192; x=1796146992; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sGwL+rAjN7ROYVGUA8Ywk3WhpiIIp3H2Jwa6afAFCVc=;
+        b=KMMLETkZ4BGYa+5B7Cf3aD+4pEtmzCxPaAyGY+dPo+iSjpJLp0P41pL7E9fy0WGHUv
+         jVKfKPyV/Lz5NdM2ljPtHojff8LDblbCTBKn+2GPBSkFxcvjp/0LM/iV0HpG9SPVMAZv
+         H2KoRggIWqVq4HZRKVuGcWfEZ38caB2gGG8jM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795542192; x=1796146992;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sGwL+rAjN7ROYVGUA8Ywk3WhpiIIp3H2Jwa6afAFCVc=;
+        b=xxW8jRmEDajvjb+O1qaUR6y2+ohAhcSAEiv41Dir8EULZUR+VRw3kTtoYp2ZNZkQt6
+         CktyjQZqsxs67klPjg1b75IzEY7R8N1dIMTIqxo9ScCJbOdWshKWvhCvASWCQtKXBtys
+         EUgVo5/agzZlr9ToWr8wB4/CHtHHcb2kw3w8SyHLqQUlDhQcUfoSbmb0BwiUe65VQzui
+         +/d7n6JMCTqnOQCytDjLtfuCXlfEZnW3exRWLBiFS3uAe6sLkPJvGBlY4xisho9flhab
+         qq8Xfo+QY8HtlhB5B39mhRCC8XOPyglO5f2na5QpKP3zQvl6WPOxPCwV20S8O5dRQGlB
+         Z75Q==
+X-Forwarded-Encrypted: i=1; AL+hErH90pzkK6WRWajxOzVTVX62hXFyiHDfsgiNsbODLGjeu1dPcGb2HDXgixV5uQh2EbdwUsetsos=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9F54fYL1fmZyvbwHwak1fJirKV1p2kXxzkuyqM7v/Ed5Yfp+Jq
+	VOzjcxU5ZkXDaTqjl295merV2N+djlggLKHZ1emH80b1w25+tSRUYNerwi4zk7m3JFlibPUzzQ9
+	VgZtzrEpI9A==
+X-Gm-Gg: AZFdTZdVXhDORmFjqQQJy/SanMnSFbZsjXstYMNSGfBRu5Zyf1mAeHPmB6dBH7PYMnO
+	IGQO1XSUiMZayOdhBGCDv9RJyXJIxykERHL9o4wjAM0bdIswKb12LXjg9/1UsN69q6lTsUrzBMV
+	a4plPFAaMd0zp+F4uIIXxwSLieg2koLLJ7OswoCkEDDwglPIric/L4W/Q4x7Mq61mSYkasFXbPN
+	nP1YOSD+9uu7fj528yejHY3RUBYy3sBMk8q9c+fEFcipiS7DF4HEsT9aAyZTD3/BbXc9i6PjMAw
+	qk3FvZRB93Ud8y5Gbnone3V3uBnYyOTnK2LWF3FgsYDLXviD+DP2AKNf62GGl3pQyAuUaobFbBx
+	DbPg0B4vArM4JBeHVSfV90i8i8rDJdTVWlaEUR9cxBHzLwkDbrWXnfAyD2lnQzXtdR0XocTBUrG
+	xZzrdrrwegnwPUUvlpcZ4AxunnXoBz1Knhn7FhpoMy0gQ75+iPXnMH0LpLJglPVP5TWoEVA3kN6
+	8GEjlxhsC0XCDMeXm9c2eUUD90ip5Qlyqo3Tyk4YbQedapYrjut/0DXkWLR9BYHU+Tw0Q9UhAQQ
+	upPbQSd4nvksIapsy5f8rQihEp9exJGYqNnVxYJSQGPG7p9i46PCmGG1q1vVw2nWWRc03vYMzW0
+	KOeU=
+X-Received: by 2002:a05:6402:210e:b0:6aa:f0e:a15f with SMTP id 4fb4d7f45d1cf-6ba37ec43c0mr12116937a12.38.1795542191704;
+        Tue, 24 Nov 2026 09:43:11 -0800 (PST)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com. [209.85.218.46])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6bb07844211sm738266a12.6.2026.11.24.09.43.09
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 09:43:10 -0800 (PST)
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4d581da0aaso673706466b.2
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:43:09 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErE7aPR20yc44U4rimVuFJApqmg8ov8GC8DqoAt8pZiJYFY6p1JRtV3qVdBMQYfKIycCSRU5O+M=@vger.kernel.org
+X-Received: by 2002:a17:907:a88e:b0:c42:5363:38dc with SMTP id
+ a640c23a62f3a-c513ab0e03fmr1346144566b.25.1795542189561; Tue, 24 Nov 2026
+ 09:43:09 -0800 (PST)
+Received: from 425495914135 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 24 Nov 2026 09:43:09 -0800
+From: Linus Torvalds <torvalds@linux-foundation.org>
+In-Reply-To: <CAHk-=wgYc9vFEmyV0Ch_e49j6GOhUCMQMnMV4f1FLLvumZOmRw@mail.gmail.com>
+References: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu>
+ <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
+ <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com>
+ <awWSwmvaTwBxfU-r@redhat.com> <CAHk-=wj3GCXZohdFWWPAOkC_LHno4X0oQW+0sQFJzRMvjpODUg@mail.gmail.com>
+ <CAHk-=wgYc9vFEmyV0Ch_e49j6GOhUCMQMnMV4f1FLLvumZOmRw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,138 +103,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Tue, 24 Nov 2026 09:43:08 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wiBBNtcLyu2fq47oXi-v2hX02m2=xFiG7tNa_hssaMNTw@mail.gmail.com>
+X-Gm-Features: Aa3M54qKnfQZwxI-mjKB8QHeQk1--kc11z_QwsMG6NLOaQrTy8GdH9me-KahpT4
+Message-ID: <CAHk-=wiBBNtcLyu2fq47oXi-v2hX02m2=xFiG7tNa_hssaMNTw@mail.gmail.com>
+Subject: [PATCH 1/7] sctp: don't let a blocked reader take write-space wakeups
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>, Michal Nazarewicz <mina86@mina86.com>, Wen Yang <wen.yang@linux.dev>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	tz2294@columbia.edu, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Shashank Mohan Jain <jain.sm@gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 23 Nov 2026 17:33:14 -0800
+Subject: [PATCH 1/7] sctp: don't let a blocked reader take write-space wakeups
 
-[ Upstream commit 94defd41d80f10bbe883c0c8d1b28d1665b6b153 ]
+sctp_wait_for_packet() waits exclusively on sk_sleep() with the default
+autoremove wake function, so it accepts any wakeup and consumes it.
 
-errseq_check_and_advance() reads the errseq_t, sets ERRSEQ_SEEN with a
-cmpxchg() and then advances *since to the value it computed, ignoring
-whether the cmpxchg() succeeded. When it fails because errseq_set()
-recorded a different error in the meantime, *since ends up holding a
-value that was never stored in the errseq_t.
+Then __sctp_write_space() sends EPOLLOUT with a wake-one wakeup:
+sctp_wait_for_packet() wakes up, finds no data, goes back to sleep, and
+the walk stops.
 
-errseq_set() only bumps the counter when ERRSEQ_SEEN is set. So as long
-as nobody has seen the new error, recording the original errno again
-recreates exactly the old value, and once another subscriber marks it
-seen, it is equal to the stale *since. The next check through that
-cursor then reports nothing, although -ENOSPC was recorded after the
-value that check reported, and -EIO was recorded again after it
-returned:
+End result: anybody else queued behind it that was waiting for EPOLLOUT
+will never see it.
 
-  cursor f                writeback              cursor g
-  --------                ---------              --------
-                          set(-EIO)
-  check_and_advance(&f)
-    old = [c, EIO]
-                          set(-ENOSPC)
-                          -> [c, ENOSPC]
-    cmpxchg() fails
-    f = [c, EIO, SEEN]
-    returns -EIO
-                          set(-EIO)
-                          -> [c, EIO]
-                          (no bump: unseen)
-                                                 check_and_advance(&g)
-                                                 -> [c, EIO, SEEN]
-                                                 returns -EIO
-  check_and_advance(&f)
-    [c, EIO, SEEN] == f
-    returns 0             <- -ENOSPC and the second -EIO are lost
+Filter on EPOLLIN | EPOLLERR like receiver_wake_function() in
+net/core/datagram.c.  State changes (using sock_def_wakeup()) use an
+unkeyed wake-all and still get through and will ignore the exclusive
+nature of sctp_wait_for_packet().
 
-For file->f_wb_err this means that fsync() on one descriptor can return
-0 although writeback failed after the previous fsync() on that
-descriptor returned, when writeback errors race with fsync() on another
-descriptor of the same file. The same applies to syncfs() through
-sb->s_wb_err, which every file on the filesystem shares, and to the
-ext4 and jbd2 cursors on the block device mapping. The kernel-doc
-promises "Negative errno if one has been stored, or 0 if no new error
-has occurred".
-
-Retry with the value found when the cmpxchg() fails, so that *since is
-only ever advanced to a value that was actually stored with ERRSEQ_SEEN
-set. Every later errseq_set() then has to bump the counter, and the
-error is reported. The retry loop terminates because each iteration
-needs a concurrent update, like the loop in errseq_set().
-
-A TLA+ model of errseq_set() and errseq_check_and_advance(), checked
-with the TLC model checker, finds the lost error with the current code;
-with this change TLC checks that an error recorded after a check
-returned is always reported by the next check (exhaustively for two
-subscribers with three checks each, and one writer recording four
-errors or two writers recording two each). The KUnit race test added
-in the next patch misses the error in 1-6% of 2 million rounds on
-4-CPU UML before this change (depending on host load), and in none
-after it.
-
-Fixes: 84cbadadc6ea ("lib: add errseq_t type and infrastructure for handling it")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
-Link: https://patch.msgid.link/20260927051726.71337-2-jain.sm@gmail.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: Oleg Nesterov <oleg@redhat.com>
+Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
+Cc: Xin Long <lucien.xin@gmail.com>
+Cc: Eric Dumazet <edumazet@kernel.org>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 ---
- lib/errseq.c | 29 ++++++++++++++++++-----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
+ net/sctp/socket.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/lib/errseq.c b/lib/errseq.c
-index 13a2581c5a878..ea4ff9cc21669 100644
---- a/lib/errseq.c
-+++ b/lib/errseq.c
-@@ -162,7 +162,8 @@ EXPORT_SYMBOL(errseq_check);
-  * points to. If it does, then just return 0.
-  *
-  * If it doesn't, then the value has changed. Set the "seen" flag, and try to
-- * swap it into place as the new eseq value. Then, set that value as the new
-+ * swap it into place as the new eseq value. If the swap fails because the
-+ * value changed, retry with the new value. Then, set that value as the new
-  * "since" value, and return whatever the error portion is set to.
-  *
-  * Note that no locking is provided here for concurrent updates to the "since"
-@@ -184,24 +185,30 @@ int errseq_check_and_advance(errseq_t *eseq, errseq_t *since)
- 	 * to take the lock that protects the "since" value.
- 	 */
- 	old = READ_ONCE(*eseq);
--	if (old != *since) {
-+	while (old != *since) {
- 		/*
- 		 * Set the flag and try to swap it into place if it has
- 		 * changed.
- 		 *
--		 * We don't care about the outcome of the swap here. If the
--		 * swap doesn't occur, then it has either been updated by a
--		 * writer who is altering the value in some way (updating
--		 * counter or resetting the error), or another reader who is
--		 * just setting the "seen" flag. Either outcome is OK, and we
--		 * can advance "since" and return an error based on what we
--		 * have.
-+		 * If the swap fails, a writer or another reader changed the
-+		 * value under us, so retry with the new value.  "since" must
-+		 * only ever be set to a value that was stored with the SEEN
-+		 * flag: errseq_set() does not bump the counter while the
-+		 * flag is clear, so an unstored value could come back later
-+		 * and hide the errors that were recorded in the meantime.
- 		 */
- 		new = old | ERRSEQ_SEEN;
--		if (new != old)
--			cmpxchg(eseq, old, new);
-+		if (new != old) {
-+			errseq_t cur = cmpxchg(eseq, old, new);
-+
-+			if (cur != old) {
-+				old = cur;
-+				continue;
-+			}
-+		}
- 		*since = new;
- 		err = -(new & ERRNO_MASK);
-+		break;
- 	}
- 	return err;
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index bc68af88e271..85ac4952e9cb 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -9070,6 +9070,15 @@ static int sctp_msghdr_parse(const struct
+msghdr *msg, struct sctp_cmsgs *cmsgs)
+ 	return 0;
  }
--- 
-2.53.0
 
++/* Don't take wakeups for other events, e.g. EPOLLOUT from write space. */
++static int sctp_receiver_wake_function(wait_queue_entry_t *wait,
++				       unsigned int mode, int sync, void *key)
++{
++	if (key && !(key_to_poll(key) & (EPOLLIN | EPOLLERR)))
++		return 0;
++	return autoremove_wake_function(wait, mode, sync, key);
++}
++
+ /*
+  * Wait for a packet..
+  * Note: This function is the same function as in core/datagram.c
+@@ -9078,7 +9087,7 @@ static int sctp_msghdr_parse(const struct msghdr
+*msg, struct sctp_cmsgs *cmsgs)
+ static int sctp_wait_for_packet(struct sock *sk, int *err, long *timeo_p)
+ {
+ 	int error;
+-	DEFINE_WAIT(wait);
++	DEFINE_WAIT_FUNC(wait, sctp_receiver_wake_function);
+
+ 	prepare_to_wait_exclusive(sk_sleep(sk), &wait, TASK_INTERRUPTIBLE);
+
+-- 
+2.56.0.313.g975a75ca90
