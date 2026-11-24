@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795533667;
-	b=uCVmBreigvA8dh2h2gPTzyEfyIFGltTQ5+Cdr4xFwrp1LsFY9AjQvsPLMfK+oluCGGF2
-	 5gwFUAuKznxsytL7RZ5o+cmKM4+Sn0twlMRv882HSE+g6gcAwMX+T6nkmNaKFV7CsZuTI
-	 3Mc7DHIyGLRO5Tqd8+tuAS5UZU85aiISueNShtkdz1WQsL22Feh2GOpLl/dqx6GFhYNbZ
-	 SRzkcM5YixX7oJ1uSI0u2MoNPTYKLWNqpzOPoJ5KnlW5p87tHcHApou1J58WIKwWY9Rbc
-	 UbkD3fVlLLDGC8VieEXn3cIyhXZf86CaMsRCl7E27pGbWQrvBRlJVtwZbtIxjtsb3JA==
+	t=1795533804;
+	b=mXSMHKTwq5rkLjGQHmoCUOo0klQy7YE+W7ULYjEXjH1bXS9899qBHrZg+S37eaJPaq/M
+	 K7fLXogJ9sBmgvlmLGleNhcauVUU6+5qAsl2S4OYME1sAjtqLiI30UoYodTAzBayaFZgi
+	 Gym9C+s2bzh7c81if54bpIghKHQ3aZYUJhLhxalw0Gp5hybUlqsk4dSuADFtws6pHOi5V
+	 K7ueHv0pvuPv+3JinCXyAmFjsLlcMRW3UE9NQxHPtizMhV90ezHihZI5oE4R83GYNneTd
+	 oDP6x32LXLMvnVZh1Fr07NrgB/CUF3EzJE8tWqRzzawXNj/kQI6RYJyZKrtzmZShxOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533667;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795533804;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=j4kF7QkZ9Saud9Tnd8Ws62T0T+CYdafz9N2UW4Otje0=;
-	b=sXkvufJIKq7/vp9IrHiFOO5XbpoRP+09S4z8GD50IATWl88gGNh+ez9cFwUxTqIYoJN2
-	 +DnnMC3WSJ0/nM9h5BEplZvG2eLFJPy7ADcKeR3Cp71nomK237rBrrU/DmvRLeTRNs9zO
-	 NzZ5rMxXgD3OB2ENiYU+bpLt7dny5QdprWCOcJdyl7T2H4YitGnSoyYleHL1/Sb4YOpoi
-	 cLM1TaYsVZ7BPon/jSqGVPjkMMmDPGLJk8PiLYc5b6qbXkE3O05Eb6eZqf1SivX/K2JWx
-	 NTqBjpSKq7a2bfaGwGvsj2buz2af1moBovaScl6tjORbJSwjkB0m+UeLebJWrbx/0bw==
+	bh=tM0CIXS0YKX0CWkq+pLSO/o6JfejdP8Z0Jf6O6mRF8I=;
+	b=r9WNU+gFgioG0C9K3w0PmXlpb0SkMXi/oN1hCBT09SbFtMTWHZZ7X1lPr3NV8vMk8GBM
+	 Ud+jEZcLEZWxNiKfC60pzvmqLHxd/NMYSaz7zkgPcZGikSexqHPtl7awPrGhvKUGWzuf/
+	 YDM3VgQnel9grZR49bQJDAx3u9mOYJ+PjiFtgRXa1Mt+5K+JPR1rxVdVDnmqXIiBcpfRg
+	 ZqzWOFNpgEh+eCA9/qlgDo8nqv9NFhiISt1m6W/Azoo6hDE365YhHQVEiVAeY91QwKTjE
+	 fxJadMmXBHP0fKRs7vpop9mIRuLnnwhD6Wxx84StxzpSXsjx61mA8YCGun+F+vAtrsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x+2ZECTG;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wJCuqMO3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48884606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:21:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513D1606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:23:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x+2ZECTG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56DF81F000C6;
-	Tue, 24 Nov 2026 15:21:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wJCuqMO3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07F8E1F000EB;
+	Tue, 24 Nov 2026 15:23:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795533666;
-	bh=j4kF7QkZ9Saud9Tnd8Ws62T0T+CYdafz9N2UW4Otje0=;
+	s=korg; t=1795533803;
+	bh=tM0CIXS0YKX0CWkq+pLSO/o6JfejdP8Z0Jf6O6mRF8I=;
 	h=Subject:To:Cc:From:Date;
-	b=x+2ZECTGsNtKhOdcCcTVvNDI9qXs1PZ4oIteP4RAgpxs5U1NN130xQuns0yTAiNRL
-	 W7qcJppX8jeeptO0qhcItRGw5vb077oTT+QJiOFBS5OuAYnKjrTMuYmj/zBMscw0eG
-	 x7LQL8S93uG4iRxdLX3FYqjasuHyn118PrVFG7y0=
-Subject: FAILED: patch "[PATCH] errseq: don't let errseq_check_and_advance() hide later" failed to apply to 5.10-stable tree
-To: jain.sm@gmail.com,brauner@kernel.org,jack@suse.cz,jlayton@kernel.org
+	b=wJCuqMO3kx8MGBPLmXQn54V0Et0mZIe4lnzoddnIEGuvaOGvufvXeNdiTA4W0rQ/E
+	 hnuppQyiYVYsgYV901P5lGB2g554VUsmzstNQhsyGNxauuQdGij451D19Ph8lmfpod
+	 RHcSh2st3xfvbaUm3zZt5EQgFwmE8lC885iG+Wrc=
+Subject: FAILED: patch "[PATCH] eventpoll: wake the next waiter when a woken waiter is killed" failed to apply to 5.10-stable tree
+To: mt4022@columbia.edu,brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:20:44 +0100
-Message-ID: <2026112444-preschool-blaming-08e8@gregkh>
+Date: Tue, 24 Nov 2026 16:23:44 +0100
+Message-ID: <2026112443-enactment-candle-5f6b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 94defd41d80f10bbe883c0c8d1b28d1665b6b153
+git cherry-pick -x 9f4413e522faed76f4cf610098b2369eb3ba1f1c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112444-preschool-blaming-08e8@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112443-enactment-candle-5f6b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,132 +79,70 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 94defd41d80f10bbe883c0c8d1b28d1665b6b153 Mon Sep 17 00:00:00 2001
-From: Shashank Mohan Jain <jain.sm@gmail.com>
-Date: Sun, 27 Sep 2026 10:47:25 +0530
-Subject: [PATCH] errseq: don't let errseq_check_and_advance() hide later
- errors
+From 9f4413e522faed76f4cf610098b2369eb3ba1f1c Mon Sep 17 00:00:00 2001
+From: Mani Tofigh <mt4022@columbia.edu>
+Date: Tue, 3 Nov 2026 13:19:01 -0500
+Subject: [PATCH] eventpoll: wake the next waiter when a woken waiter is killed
 
-errseq_check_and_advance() reads the errseq_t, sets ERRSEQ_SEEN with a
-cmpxchg() and then advances *since to the value it computed, ignoring
-whether the cmpxchg() succeeded. When it fails because errseq_set()
-recorded a different error in the meantime, *since ends up holding a
-value that was never stored in the errseq_t.
+Processes sharing an epoll instance can sleep forever while an event is
+ready.  An event wakes only one waiter, which then wakes the next one in
+ep_done_scan() if events are still ready.  Since commit c257a340ede0
+("fs, epoll: short circuit fetching events if thread has been killed"),
+ep_send_events() returns before the scan when the waiter has a fatal
+signal.  If the woken waiter is killed before it runs, nobody wakes the
+next one:
 
-errseq_set() only bumps the counter when ERRSEQ_SEEN is set. So as long
-as nobody has seen the new error, recording the original errno again
-recreates exactly the old value, and once another subscriber marks it
-seen, it is equal to the stale *since. The next check through that
-cursor then reports nothing, although -ENOSPC was recorded after the
-value that check reported, and -EIO was recorded again after it
-returned:
+  Task A                     Task B                 Task C
+  epoll_wait(ep, -1)         epoll_wait(ep, -1)
+                                                    write(efd)
+                                                      /* wakes A only */
+                                                    kill(A, SIGKILL)
+  ep_send_events()
+    return -EINTR
+      /* skips ep_done_scan() */
+                             /* still asleep */
 
-  cursor f                writeback              cursor g
-  --------                ---------              --------
-                          set(-EIO)
-  check_and_advance(&f)
-    old = [c, EIO]
-                          set(-ENOSPC)
-                          -> [c, ENOSPC]
-    cmpxchg() fails
-    f = [c, EIO, SEEN]
-    returns -EIO
-                          set(-EIO)
-                          -> [c, EIO]
-                          (no bump: unseen)
-                                                 check_and_advance(&g)
-                                                 -> [c, EIO, SEEN]
-                                                 returns -EIO
-  check_and_advance(&f)
-    [c, EIO, SEEN] == f
-    returns 0             <- -ENOSPC and the second -EIO are lost
+B then sleeps until another file on the instance becomes ready, if ever.
+This can hit eg a pre-fork server whose worker gets OOM killed.  Commit
+7fab29e35630 ("fs/epoll: restore waking from ep_done_scan()") fixed the
+same kind of hang when the wakeup in ep_done_scan() was removed.
 
-For file->f_wb_err this means that fsync() on one descriptor can return
-0 although writeback failed after the previous fsync() on that
-descriptor returned, when writeback errors race with fsync() on another
-descriptor of the same file. The same applies to syncfs() through
-sb->s_wb_err, which every file on the filesystem shares, and to the
-ext4 and jbd2 cursors on the block device mapping. The kernel-doc
-promises "Negative errno if one has been stored, or 0 if no new error
-has occurred".
+Keep the early return so that a dying task still doesn't take events
+nobody will see, but wake the next waiter there if events are ready, as
+ep_done_scan() would have.  With the fix, B gets the event.
 
-Retry with the value found when the cmpxchg() fails, so that *since is
-only ever advanced to a value that was actually stored with ERRSEQ_SEEN
-set. Every later errseq_set() then has to bump the counter, and the
-error is reported. The retry loop terminates because each iteration
-needs a concurrent update, like the loop in errseq_set().
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 2s.
 
-A TLA+ model of errseq_set() and errseq_check_and_advance(), checked
-with the TLC model checker, finds the lost error with the current code;
-with this change TLC checks that an error recorded after a check
-returned is always reported by the next check (exhaustively for two
-subscribers with three checks each, and one writer recording four
-errors or two writers recording two each). The KUnit race test added
-in the next patch misses the error in 1-6% of 2 million rounds on
-4-CPU UML before this change (depending on host load), and in none
-after it.
-
-Fixes: 84cbadadc6ea ("lib: add errseq_t type and infrastructure for handling it")
+Fixes: c257a340ede0 ("fs, epoll: short circuit fetching events if thread has been killed")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
-Link: https://patch.msgid.link/20260927051726.71337-2-jain.sm@gmail.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Link: https://patch.msgid.link/20261103-epoll-killed-waiter-v1-1-36e08c16b8a2@columbia.edu
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-diff --git a/lib/errseq.c b/lib/errseq.c
-index 13a2581c5a87..ea4ff9cc2166 100644
---- a/lib/errseq.c
-+++ b/lib/errseq.c
-@@ -162,7 +162,8 @@ EXPORT_SYMBOL(errseq_check);
-  * points to. If it does, then just return 0.
-  *
-  * If it doesn't, then the value has changed. Set the "seen" flag, and try to
-- * swap it into place as the new eseq value. Then, set that value as the new
-+ * swap it into place as the new eseq value. If the swap fails because the
-+ * value changed, retry with the new value. Then, set that value as the new
-  * "since" value, and return whatever the error portion is set to.
-  *
-  * Note that no locking is provided here for concurrent updates to the "since"
-@@ -184,24 +185,30 @@ int errseq_check_and_advance(errseq_t *eseq, errseq_t *since)
- 	 * to take the lock that protects the "since" value.
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index 7a32c70bf2ad..b959af04772c 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -2144,10 +2144,17 @@ static int ep_send_events(struct eventpoll *ep,
+ 	/*
+ 	 * Always short-circuit for fatal signals to allow threads to make a
+ 	 * timely exit without the chance of finding more events available and
+-	 * fetching repeatedly.
++	 * fetching repeatedly. The wakeup that got us here may have been the
++	 * only one for the events on ->rdllist, so pass it on to the next
++	 * waiter, as ep_done_scan() would have.
  	 */
- 	old = READ_ONCE(*eseq);
--	if (old != *since) {
-+	while (old != *since) {
- 		/*
- 		 * Set the flag and try to swap it into place if it has
- 		 * changed.
- 		 *
--		 * We don't care about the outcome of the swap here. If the
--		 * swap doesn't occur, then it has either been updated by a
--		 * writer who is altering the value in some way (updating
--		 * counter or resetting the error), or another reader who is
--		 * just setting the "seen" flag. Either outcome is OK, and we
--		 * can advance "since" and return an error based on what we
--		 * have.
-+		 * If the swap fails, a writer or another reader changed the
-+		 * value under us, so retry with the new value.  "since" must
-+		 * only ever be set to a value that was stored with the SEEN
-+		 * flag: errseq_set() does not bump the counter while the
-+		 * flag is clear, so an unstored value could come back later
-+		 * and hide the errors that were recorded in the meantime.
- 		 */
- 		new = old | ERRSEQ_SEEN;
--		if (new != old)
--			cmpxchg(eseq, old, new);
-+		if (new != old) {
-+			errseq_t cur = cmpxchg(eseq, old, new);
-+
-+			if (cur != old) {
-+				old = cur;
-+				continue;
-+			}
-+		}
- 		*since = new;
- 		err = -(new & ERRNO_MASK);
-+		break;
- 	}
- 	return err;
- }
+-	if (fatal_signal_pending(current))
++	if (fatal_signal_pending(current)) {
++		spin_lock_irq(&ep->lock);
++		if (!list_empty(&ep->rdllist))
++			wake_up(&ep->wq);
++		spin_unlock_irq(&ep->lock);
+ 		return -EINTR;
++	}
+ 
+ 	init_poll_funcptr(&pt, NULL);
+ 
 
