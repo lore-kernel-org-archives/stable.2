@@ -1,102 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795538924;
-	b=m2iHfs2nttcvTKlj8371Scs2k3t2v4A/8fkgI11kZjRA/arlQGoxoWgNZEhLnFtv4ybT
-	 AjwQevKZVJzZcRYT5JJtAdgnU5LHDDDk4/aUoLsT+xMbrixx0wInsgaFiZCHMW5VTVnkg
-	 V6OARAlKVNEUnhktVdOavgymOs9JkOq1zD1S93QfLJ5pQQh6LKWT69GfEVF0pPZgfrxZJ
-	 27QgUMt1YIaBi+CcajGaa65XSXar7k01lbIdhqCdOHzDexfipsWQbYSzK9Zpm7cwQpGhA
-	 MMlMMLjjJIGvEQ8SsCq9jjrXQ+T/tDEqAKjtbdGwF5Jnx/K2Qo2vgDYh/vJTqVwt9fQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795538924;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3a1UzAxON6Gb0wbVEW/7fTu+LaDAW+iOda+qUlDV++c=;
-	b=vy3I8fvZF1ZSuwhcMnwQ+sMsMfZJ8ptvyAT1Sq6KCB5sozAkoq671oK5T14m68MkTza9
-	 bD5kDOmC/5DlCOOr0IUKTZ4Y2FYgdXUypyr3Gq0+nvNzwXdn/uxfrvn8G/EYZuoNmXSDb
-	 XRAuyZ924/+8C5EudLSMhV/5OB633Vl7n7Iik+fxYpZGltVjVY6F6mtJOGz9vrjbQCyrW
-	 wve236Uq3u68lofJzbY/yr5yokg4Ee88ovtBU8mpqgAc7bshK2cxtWobqy0hhP9yQES/6
-	 q9EtvKmNq1e+Lf3KtQ63wilR5hbwRWm4h5WQaBQBCnlQcAmvL+VSvVsHyOkk9Aot1Ww==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j802lkn0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.45
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795539120;
+	b=wyX7Dm4Nv3NM2Kr/opYJa9cDuOqmETz4vyG3oXvQh1599+KLvXGkwd7X5BccIH0hJNzR
+	 BQjHtiJZWRgJU10pjnB0O0RmaWD5RUfZil/+XsRy4DveCb1EEe9WhDY/cd9nP9tk4HvI4
+	 q7CRrnHiORYIknxc08FbJuzceD90Tltmspiagm1tE3i92DsfmdYl/yROr9l4YpasFCbGx
+	 K/tPpQLbVeOhUHMg/hhwprsvdqCf9B9/RoC1belRAazZIkbUmErEu7N121vZH4eKJgx19
+	 LEqlODO1qiso5B7W1G0oyVh0pO5AqPOSEdmsS0RTS7WAiPgCuW6hNGg+yjl05r3LOlQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795539120;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=JCMRNLCXtjAixKYiY0U1Z6bAmyp64/cEbJSr4K8irp0=;
+	b=vAPtAHB++LKBnB12/VZPDesA+ZYLMSiuwzyVRqAiJKiiJ9IeotXjsp4QiL3KsleEKhal
+	 FWsry8rtR8pgZacH0L2Sokltg1iUv91HuIO8CVrHZCVelOOsVWaHLwhZCadBwFZVY1NlH
+	 kpzyzx43aF4YXKv6H1erCEtQp14WD8KSRxxouf6dmiEMjKJ9XgB3wBLCcxjalQYCfw/Z1
+	 B1n/BN7ek/ehvAGswO0ZY19wRPfZQsAj+hKmLKm6K+37NSc71lNf/C3rxnp2XKKVQVxJL
+	 Kvrs/2fRfqPOxM4yLkKAVQ/I/1lAC5zcyAfoUfLcqw2bOVwPEEeOkHaBCs3/Bi3JFyA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1dC1xdIB;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A40E6606A683
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:48:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A40E6606A683
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AE1606A32A;
+	Tue, 24 Nov 2026 16:51:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3AE1606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j802lkn0
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-7cc81984fceso1867521137.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 08:48:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795538922; cv=none;
-        d=google.com; s=arc-20260327;
-        b=R8MCr7VpnvE6MmaO9+J8U/8mX7UXKJV5VEuMY+BEab397nyogVdj3fpqZJLEt72Ciq
-         mmkFj6BRna7DmLZxQr1NR9sUtS6V4GjAEmrrZroB7M8ZVD3bQfbf3gzHdi3IOXeVzdEv
-         BQ2isRhXkwxh/T3kW5eDmebpUl3lCtO2JqrdrZf4Pz9I4vzXh1dyD2/3TQF2OPw+AG+w
-         KKNzcIL21HLTB1DJmem/eETQLYoljrHmS7vE3+og0sq1Z78Zpt/IzedHzFj2Nr8lAHV8
-         r/L5f8ysFI+RBFm26TsONkoCLxzm8MeLl7FntBOU+CTgKGbnmcFrWu2MEqDUvW57F9L6
-         Y30A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3a1UzAxON6Gb0wbVEW/7fTu+LaDAW+iOda+qUlDV++c=;
-        fh=CTTgYvseGA5imYbFgINvDIKk/wzoN7crRjElq4tOGYg=;
-        b=PWHiQNXy/VNpXbL8i0ATMzieyQMaCtJ2EsUmDRPmaKMMisA3uni1k2fmu1i25fX23t
-         Kn3b5vr4/u8E3A8uNiLA53FrrCKZI+Mqs1MJZ9jV5MRtpm6t4+uFOlcjhWYOt/1/0ugw
-         h3Sa9YbHXgSU7nTtAmmFBWhNijvQwDdU1Yxsp3TnOHXBZCNeraWdHF08hp50tBkASKdP
-         3VSQe94XamJAYflA66vRaq7r1Ec3w1udrpUjJjAN2GGApGvK1nD/FfI4mshk9TxOzrK7
-         CqtsjWn9zuhG4PxHeL9vonMILpjZSdRdqDKm9YTT1/p4Zi4XuhpvANF2QPRLkXdRtzrg
-         3A2g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795538922; x=1796143722; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3a1UzAxON6Gb0wbVEW/7fTu+LaDAW+iOda+qUlDV++c=;
-        b=j802lkn0jn13hyNcrrnqRcyqOAZuLpLL5wL1qn7j3+kERPxe/HCWDG7A8dJKb+dI12
-         sDqIV66GVFqV0JLzhTvfzgWEYUSKU2vhh3aOdBsG9Jg5EvdKArdrrnCepqknZlF3O4rC
-         s635dBIFbxlye3QzObbDvfB1aWlSqkfcxd5Ko/Uq+pfhB3V4BXXx/IPWroWx2etBmruf
-         8cbbgZoejAeKFVxwetlXtD6DBzQLCJacugRDd5shZcJGvk20LhYFJ722vqRMNofy1ZV4
-         uRRf2HKSrRwdMwFHrg0Nmn6ycT5NW8/dFAeJShIT6qnj4VgSnaxhsN30MT35t3DrO7Ze
-         uD/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795538922; x=1796143722;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3a1UzAxON6Gb0wbVEW/7fTu+LaDAW+iOda+qUlDV++c=;
-        b=2WFjIx6viAAqPfSNYxRGMh2nagmahYbD7vSHUHfqFOlEf5KXhoR2eFLMp7kdChhRSO
-         rkF4w8SPmgUElH6/TLH1FfejS7CfKACut47xyLUQjINuXtEu9l+xWKW9TPmfdlJAmbbJ
-         DUP/cXv1Ai2YVijorigfXjZk/d57f34Y7Aeaf+KgmGz3XmkA9NFzx97xDCSqLonNTl1t
-         0g+L5RZI37hOQbXMiw+7xD3XMA6dnIOprs7cPzi2Ga1g8bfOeihH9lvH0ZN9FxJkeXK5
-         oFYJxi5nbIZ5OAdmsRERLWDWkWdCDdVEDK6xb+fzSlBIGOIJSKrSgTVRZCuuMKPsfgAi
-         fh3A==
-X-Forwarded-Encrypted: i=1; AL+hErGH5GaMuptbzhRv+U6PBWeWJ5dsfdgQNh2FMKNPKv1YwebjtdDYbNJhG58uNBfhNlqt9/AidNI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9LCT30PliAqYtvPUrNcHSa8QZ9a1/KDHfG7UhvYeRWFYp8PTmv
-	36IW+hArsRb6zS30ePDMCqsaw2Prb1PeXk/aL7V+JWGRPh38522F08zeP2N7qJtJnv7+luDO9V+
-	33UF6n0Y/8+KHLGSKlL9scMU/5Wg/oRQ=
-X-Gm-Gg: AZFdTZekYQn3KOFKge83FBFAJgT1VdPzaHoZF/pkvJW7VPBL7q1fjbuGZbJO/xCuJym
-	gqeYTRKD4pBiVQE9wOaD86hLiTWCrNNNEypghbyL18x/6B2O8ryKzbP5PveLC8pWB0hXf8RI2T4
-	0vGgiN8L50BqUsT9vXTnGEqdPY+rFrvu+IoQeqlVYpMT69vdr/mvYq4/CxYAPWsXccviPKNdLZL
-	ik0av98EjH12piCH6qoLBzBksTlk2fC4bJ26WFwqd4hRqKHDHZA/ohoY5iBYpxZ2juVnQwFhI7h
-	1kUpPjiiQehvMt3Y3KCD8Eu/y7TyZMuWEC5R9O7C2RV8f5NwfmvQzSyd0UJ1wDDnOT4Ft6QkWHu
-	fiCW2XyML7LWyb91ba+ww7QauUgSJm3Z9bCH2Z5ebA03QRsyMDCf5dlGlZF00nCRA0DXh4UFM6h
-	vbBS9QH8N91dV8SJntTJP7nB1EQ4asPWT9EHqAjtiM2FhsqTo7B+oa7sIUmYzvH1+rx6+2Lo8iy
-	DViCOwYE1ZyonhlRLsjpiO5rSbaCg==
-X-Received: by 2002:a05:6102:a52:b0:7cb:bbcc:e52 with SMTP id
- ada2fe7eead31-7d71e34b0b8mr6779532137.0.1795538922506; Tue, 24 Nov 2026
- 08:48:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1dC1xdIB
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 25E291A17A4;
+	Tue, 24 Nov 2026 16:51:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E3D60601E1;
+	Tue, 24 Nov 2026 16:51:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 628CC11E694D3;
+	Tue, 24 Nov 2026 17:51:41 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795539108; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=JCMRNLCXtjAixKYiY0U1Z6bAmyp64/cEbJSr4K8irp0=;
+	b=1dC1xdIB51jeovzPjBjMheF06Xdo8/PLae8qAQAeaL6OnlrncczAdrXxXsZDDMhf3Auwe0
+	MvtF1EeSKo3+Td+ra+qhZgOpJQkIFeWDnd3qVxni2uyjoZQivPLsfrJJlzrb2nQx4j3mU1
+	6rPPpn2CzxFng+8WxBIvNXHb1tonQ9U4WzaWh6smJfD7dgTgD/09AI5MMHwj7kKssQZFYB
+	2JyjDkcNmBOgg9PrcaYehdplWKlqBtRN6vDkw2ufyAwwlB+EO31kL4epeIWD30AJVlm0pO
+	OFg965oP1Qf8ALLVn5MmapDIAW3D4A508CIqO1UDDF8CfnPWR6OuM6kt2HcooA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v13 00/10] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+Date: Tue, 24 Nov 2026 17:51:25 +0100
+Message-Id: <20261124-perso-ma35d1-upstream-clk-v13-0-c920f4a9f0ce@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,130 +63,164 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117-submit-nvmem-wp-serialization-v1-v1-1-539d121f8f5e@gmail.com>
- <8c0a616b-e7a5-4043-bc86-3bee5d0c9e48@kernel.org> <p4nohmtiuicrys4i2ipwstdjt7sj3g2yyli4beygutkyn5ghky@d54oxjwiyzm4>
-In-Reply-To: <p4nohmtiuicrys4i2ipwstdjt7sj3g2yyli4beygutkyn5ghky@d54oxjwiyzm4>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 24 Nov 2026 09:48:31 -0700
-X-Gm-Features: Aa3M54rl89evM17dx3plH-kopVYIX-ZwZ8BLirVjwFm8RebbVDbXT4NQijY58eM
-Message-ID: <CADvTj4ou6+gg8xK4p9623xr=mZecmrgPpV76pU_-h=qS23UUrg@mail.gmail.com>
-Subject: Re: [PATCH] nvmem: keep write protection disabled while writers are active
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Khouloud Touil <ktouil@baylibre.com>, 
-	Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43SS2rDMBAG4KsEr6syo7ey6j1KF3qMGtMkDnZqW
+ kLuXjmFxsVGZDkD+jT6NZdmoL6lodluLk1PYzu03bEUKJ42Tdz54zuxNpVGw4FrsCjYifqhYwc
+ vVEL2eRrOPfkDi/sPplX0MUf0VoemnD/1lNuvG/76VupdO5y7/vt216im7q/quKuoo2LAtFVCk
+ BOKSL6Erjvv2+Nz7A7N5I54t+oTjsiQkbGkSKPh5JcWn8+FNYuXuTi4nAT3NgAsLTG3VM0Sxco
+ 5eDIEHLxdWvJhS06W0M6okpnDvLT0zBJQs3SxpHXCEOnoQlha5s9CAF6zTLFiSK6M5DU3K3nZu
+ SVrli0WoUfQHrmNK5abWVjNyxULs5I2e16eQCv7BQ9jCFNiJjoTlPQW3Ip2X1dEtFUNixYSJiS
+ Y/l2vaPxxbdrYQMSjTT5Jwv/a9Xr9AVY1YUAPBAAA
+X-Change-ID: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ stable@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Nov 24, 2026 at 6:04=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.or=
-g> wrote:
->
-> On Mon, Nov 23, 2026 at 10:56:54PM +0000, Srinivas Kandagatla wrote:
-> >
-> >
-> > On 11/17/26 10:09 PM, James Hilliard wrote:
-> > > The core deasserts the WP GPIO before calling the provider and assert=
-s
-> > > it again on return. Two concurrent writes can both deassert WP before
-> > > the first one finishes. That writer then protects the device while th=
-e
-> > > other is still writing or waiting for the provider lock.
-> > >
-> > > Count active writers per device under a mutex. Only the first writer
-> > > deasserts WP and only the last one restores it, including on provider
-> > > errors. Keep the mutex outside the provider callback so providers tha=
-t
-> > > forward writes to another NVMEM device can still nest.
-> > >
-> > > Fixes: 2a127da461a9 ("nvmem: add support for the write-protect pin")
-> > > Cc: stable@vger.kernel.org
-> > > Link: https://lore.kernel.org/r/sashiko-outbox-219526@kernel.org/
-> > > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> > > ---
-> > >  drivers/nvmem/core.c      | 35 +++++++++++++++++++++++++++++++++--
-> > >  drivers/nvmem/internals.h |  2 ++
-> > >  2 files changed, 35 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-> > > index 7d4cce8e2742..c0da902d909b 100644
-> > > --- a/drivers/nvmem/core.c
-> > > +++ b/drivers/nvmem/core.c
-> > > @@ -70,6 +70,36 @@ static int __nvmem_reg_read(struct nvmem_device *n=
-vmem, unsigned int offset,
-> > >     return ops->reg_read(nvmem->priv, offset, val, bytes);
-> > >  }
-> > >
-> > > +static int nvmem_wp_write_begin(struct nvmem_device *nvmem)
-> > > +{
-> > > +   int ret;
-> > > +
-> > > +   if (!nvmem->wp_gpio)
-> > > +           return 0;
-> > > +
-> > > +   guard(mutex)(&nvmem->wp_lock);
-> > > +   if (!nvmem->wp_writers) {
-> > > +           ret =3D gpiod_set_value_cansleep(nvmem->wp_gpio, 0);
-> > > +           if (ret)
-> > > +                   return ret;
-> > > +   }
-> > > +   nvmem->wp_writers++;
-> > > +
-> > > +   return 0;
-> > > +}
-> > > +
-> > > +static int nvmem_wp_write_end(struct nvmem_device *nvmem)
-> > > +{
-> > > +   if (!nvmem->wp_gpio)
-> > > +           return 0;
-> > > +
-> > > +   guard(mutex)(&nvmem->wp_lock);
-> > > +   if (--nvmem->wp_writers)
-> > > +           return 0;
-> > > +
-> > > +   return gpiod_set_value_cansleep(nvmem->wp_gpio, 1);
-> > > +}
-> >
-> > This refcouning belong to more generic framwork, I see few more drivers
-> > doing pretty much the same.
-> > @Bart has this been discussed before?
-> >
->
-> Well, we have a use-counted gpio-shared-proxy, but this addresses real
-> hardware components sharing pins. This is a case of "logical sharing"
-> where you have a pin requested by the subsystem, which is then used by
-> multiple consumers. Normally, we do this at the subsystem level, like in
-> regulators - which BTW probably suffer from the same issue - but here
-> it's more visible and more likely to be hit.
+I am in possession of an MA35D1 NuMaker board. The SPI controller has
+been contributed, but at this stage it does not work with the current
+clock driver.
 
-Both NVMEM writes use the same WP descriptor. They look like one
-consumer to gpio-shared-proxy, so it can't tell when the last write
-through that descriptor has finished.
+The clock controller registers its muxes with .fw_name parent data,
+which requires every internal clock name to be declared in the DT. As
+the DT does not declare them, all parent lookups fail: muxes end up
+registered as root clocks and most peripherals read a zero rate.
 
-> We can either address it here or we can possibly introduce a use-count
-> helper for GPIO descriptors at the GPIOLIB level and re-use it in
-> regulator core. In that case, we'll still need serialization but I don't
-> like the idea of using a mutex and holding it over the entire operation.
+This conversion exposed a first issue with the WDT/WWDT parents which
+were actually missing in the clock driver. I am not using these clocks
+myself but it is worth fixing.
 
-The posted patch drops wp_lock before calling ops->reg_write(). The
-mutex protects the writer count and the GPIO changes: the first writer
-finishes deasserting WP before a second writer can enter, and only the
-last writer reasserts it. The provider callbacks can still overlap.
+The second round of reviews raised another problem with the
+crystals. HXT and LXT are external crystal oscillators wired on the
+board, while HIRC and LIRC are on-chip RC oscillators. HXT was described
+whereas LXT was not. The series now also takes the two crystal inputs
+from the DT: they get documented in the bindings, described in the
+boards and looked up by the driver (with a fallback for backward
+compatibility).
 
-One detail for a shared helper is how to handle a GPIO error on the
-last user. regulator_ena_gpio_ctrl() keeps its enable count if disabling
-the GPIO fails. In NVMEM the last provider write has already finished,
-so we return the error if restoring WP fails, but there is no writer
-left to count.
+Finally, I was still unsatisfied by the clock tree because there were
+too many root clocks. Many "gates" were wrongly set aside from the
+downstream clocks they would gate, and SYSPLL was simply not parented at
+all (?).
 
-> How about a read-write semaphore, taking it for writing, checking if
-> we'll need to set value and keeping it for writing during
-> gpiod_set_value_cansleep() or - if not - calling downgrade_write() and
-> running the actual nvmem callback allowing for concurrent operations as
-> it is now?
+The clock tree now looks much more accurate.
 
-If every writer starts with down_write(), a second writer still has to
-wait while the first holds the downgraded read lock across its callback,
-even though WP is already deasserted. Did you have a way for that
-second writer to take the read side directly in mind?
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Changes in v13:
+- Collect tags.
+- Add a guard asked by Jerome in the clk_mux() helper.
+- Fix typos and correct the MAINTAINERS topic line.
+- Link to v12: https://lore.kernel.org/r/20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com
 
->
-> Bart
+Changes in v12:
+- Rebased on 7.4-rc2 because of the treewide allocator change, fixed
+  patch 3.
+- Link to v11: https://lore.kernel.org/r/20261118-perso-ma35d1-upstream-clk-v11-0-bd1d1e060926@bootlin.com
+
+Changes in v11:
+- Add a patch to fix the CCAP mux bus width.
+- Add comments stating that the HXT and LXT IDs are legacy clock IDs.
+- Collect R-by tag.
+- Dropped the DTS patches from the clock series.
+- Link to v10: https://lore.kernel.org/r/20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com
+
+Changes in v10:
+- Make sure muxes registration is device managed like all the other clocks.
+- Link to v9: https://lore.kernel.org/r/20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com
+
+Changes in v9:
+- Create devm_clk_hw_register_fixed_rate_parent_hw().
+- Use the above helper to register SYSPLL.
+- Keep hws[HXT] available in the legacy case.
+- Propose myself for maintaining this driver.
+- Link to v8: https://lore.kernel.org/r/20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com
+
+Changes in v8:
+- Fix an out-of-bound bug (syspll parenting structure was wrongly
+  defined).
+- Make sure HXT_GATE is validated before being reused (and possibly
+  dereferencced blindly by the core.
+- Link to v7: https://lore.kernel.org/r/20261002-perso-ma35d1-upstream-clk-v7-0-cbd991fa6270@bootlin.com
+
+Changes in v7:
+- Avoid opencoding core helpers, replace them with existing helpers
+  (mentioned by Jerome)
+- Rebased on top of clk-next since the first patches have been applied
+- Link to v6: https://lore.kernel.org/r/20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com
+
+Changes in v6:
+- Drop the clock output names entirely, they are not relevant.
+- Error out when the crystal providers defer probing.
+- Make sure gates are correctly parented.
+- Make sure SYSPLL is parented.
+- Link to v5: https://lore.kernel.org/r/20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com
+
+Changes in v5:
+- Fix the bindings wrt HXT and LXT.
+- Fix the DT descriptions of HXT and LXT.
+- Collect tags.
+- Link to v4: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com
+
+Changes in v4:
+- I forgot to bump the clock counter in the driver after adding the two
+  new clocks in the bindings. Sashiko will keep complaining about the
+  incoherency though. Since binding and driver changes should be kept
+  separated, I cannot do both at the same time.
+- Link to v3: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com
+
+Changes in v3:
+- Drop the number of clocks from the binding, set it in the driver only
+- Split the binding/driver patches completely
+- Link to v2: https://lore.kernel.org/r/20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com
+
+Changes in v2:
+- New patch 1/3: register the missing WDT/WWDT parent clocks
+- New patch 3/3: harden the code
+- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com
+
+---
+Miquel Raynal (10):
+      dt-bindings: clock: ma35d1: Mark HXT and LXT legacy
+      clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
+      clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
+      clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT when possible
+      clk: nuvoton: ma35d1: Reparent the gates correctly
+      clk: nuvoton: ma35d1: Use device managed helpers for fixed rate clocks
+      clk: Create devm_clk_hw_register_fixed_rate_parent_hw()
+      clk: nuvoton: ma35d1: Reparent SYSPLL correctly
+      clk: nuvoton: ma35d1: Fix CCAP muxes bus width
+      MAINTAINERS: Add myself as Nuvoton MA35D1 clock controller maintainer
+
+ MAINTAINERS                                    |   8 +
+ drivers/clk/nuvoton/clk-ma35d1-divider.c       |   3 +
+ drivers/clk/nuvoton/clk-ma35d1-pll.c           |   3 +
+ drivers/clk/nuvoton/clk-ma35d1.c               | 719 +++++++++----------------
+ include/dt-bindings/clock/nuvoton,ma35d1-clk.h |   2 +
+ include/linux/clk-provider.h                   |  13 +
+ 6 files changed, 284 insertions(+), 464 deletions(-)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
+
