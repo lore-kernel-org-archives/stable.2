@@ -1,112 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795539975;
-	b=b7U4fpom8KH1qy7WJfYE+HlJnQvee7kO7jregXHRLXlzw1yfzqvNJqd5pH+8vzFp/1mn
-	 YYMkACD5QxoA3tn++BJa8EDLlyBFvhhDZs9stQli+NmGrW9NCj8hyiBGxchVacAcBlgfQ
-	 ajVha9epy+N51X15gS0MnXpLGcZWg2+WvDJJ0MOegpBC5AVSDDmEj8c+KQk46gMXu1wqJ
-	 7Nuw3cusj/nlzSbza6xgaI1AjBZ2jOM5qyvyssjAIvWv5omUiuhwwctfDJtNtBU7aqGD8
-	 rJMlf3TOVoN8Yin66g53+Au5VQhsa/wp15Bsy2OguethO/yR0AvZlFDGhgZzAPhUL3w==
+	t=1795540035;
+	b=orQBIxgfmjQMwD8tQOBzpVvnNwCGJCO2SnZr/MKOU9CTNbS4ans72v/8Ms7lXR7j7TBv
+	 Q8gQF1X9m6kKtdBzAjYGF/eka938QHrB80wp5BmulLm/TOK+xNDkMuz/U/IG0HsuH+Caw
+	 /cfIIuyNKDuFbjB8fvo61Q/nwLKXnFRi0WNbLR+bmdkiSGfacRwvhdmNIohVcb7jnDsxs
+	 FM7z+t9tHh5XzowqWuY7ICm4a6kyogtyH/sBC5ub0JpvycOU34jS111Yh0H1E0jg0m/Q4
+	 XC/9N4ESaZI7+CBpx22j96TZiRVNPYELtOElBHOwoJ6KCd2SwEPAk/+TSGrf/98E79g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795539975;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=3H/OahWV+3RChA14ZDJSZnina6/d+GytEJVi+69LbEU=;
-	b=BOmx8056sL+BjeOUxifaVCQ1pPKvI9kLtLKD9gAVpV1L1ax8IDRtg3P2vXQW9LzAQkRt
-	 qT3MGBrHMwTg4tqSbo3tX3QYypYB6qxBAuqriSNRHvfNFo70oGPOOv8+W5URfBUcMRCTa
-	 izoo0trRfmUuB55p9K4ZIBKbwXhCcmQhugGpKlbuUa2YEA+/hSTMB+eqaKUVZyoCtPQDk
-	 iHKpmy132pbMWnFGSpIcnths8EQwnj/J7YoF6pLXi73ma2e5d5rC2WXrkmKfA77JCrgyI
-	 6zdicFvLxbAOQ+28pL4Y0Y106WeY2I1qbRB2BNQc5eT2bJ2zwxLi7121N6pRRLC7X2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540035;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=PdeRcBZfQ/0omXJZhIA/UvjOC4zkr2LWXvXBdpvLpE8=;
+	b=Em2+lVpBJDWtOSqxetCNppqNd5aohHx7DvARlrF2LyVXSl/Vso0DncVveuvMB+fr4udh
+	 00F5gJvCxERpCGaqDEYrfKlZyfBQQrr28rPKaK0cVQokA/TDXoheOfyK2ayXXqluQDNxU
+	 uqE8B+4G136Y2AO27g1lCFpzRLr5c3kvl7jZYXfrlE81bAdHpF6fp3HN4fOwOr6d86Hqw
+	 RXbh5BWthPuCi/ypijCgKTeeZ/dxBX64CoBWWgzAqRlznd+vpb/bYk839sRLzqgIR2Wpe
+	 yA578ak0p3/1yX/yqIbpChw1fNRqNfa4LBhSmmeDwiG3CworwSptF1OsHptHVsG5A3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=GUHb7dR8;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jl13DaVU;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FyD4ctRM;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5hH8EiLM;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gq3b442w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB12606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:06:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AB12606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606E1606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:07:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=GUHb7dR8;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jl13DaVU;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FyD4ctRM;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5hH8EiLM
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 17CAC21EA6;
-	Tue, 24 Nov 2026 17:06:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1795539966; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3H/OahWV+3RChA14ZDJSZnina6/d+GytEJVi+69LbEU=;
-	b=GUHb7dR8DJcZCqltWabaoCMras6AdDniYmZhte7Kv3mosa4KVlVWDPqtEmx8cG2tjgpNi3
-	+nwFoigcsIzkC33vA/WNyrwkyv6KwVopZqq8CMB1yV6p0kPwe+Gj6ICS3WWDTiN8yLvhBi
-	BG/zx73fiaVH4cThpt5CkeqGjXBTrbM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1795539966;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3H/OahWV+3RChA14ZDJSZnina6/d+GytEJVi+69LbEU=;
-	b=jl13DaVUtIuXwE8gkzhwqa+lmoyR8acxkuwi++RjMoBOZqSmaf20AgDdIwkNkXlcfCfkus
-	2C5aS1H0ceKbxbDQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=FyD4ctRM;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=5hH8EiLM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1795539964; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3H/OahWV+3RChA14ZDJSZnina6/d+GytEJVi+69LbEU=;
-	b=FyD4ctRMa6vURRKaq+lEiQnTTsufczdXTOD+TgEpAd4Ugmc8TISjBPDkWxxZ22VzwGwWDq
-	3OCxg/v0esF87RkH+wNknxFIroaJeOdBR7Vj7kuEAyh2kmFdB31hts7+jFCcfkuCdPvj/9
-	b8qCwFiimMRe+FT8q3nCtENsWLgmAEA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1795539964;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3H/OahWV+3RChA14ZDJSZnina6/d+GytEJVi+69LbEU=;
-	b=5hH8EiLMLcRIlXipgzw7UImf8yYu80scHY0CPwrmyI4gmq48c/V1RAsb2+qt4WKZ4uo4Y6
-	AdtQZNL4sjXkH0Ag==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DE6B11339F;
-	Tue, 24 Nov 2026 17:06:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id cAOALfvDBWulUQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 24 Nov 2026 17:06:03 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 6BA2127A34; Tue, 24 Nov 2026 18:06:03 +0100 (CET)
-Date: Tue, 24 Nov 2026 18:06:03 +0100
-From: Jan Kara <jack@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Miklos Szeredi <miklos@szeredi.hu>, 
-	Chris Mason <mason@kernel.org>, Christoph Hellwig <hch@lst.de>, Theodore Ts'o <tytso@mit.edu>, 
-	Carlos Maiolino <cem@kernel.org>, Alexander Mikhalitsyn <alex@amutable.com>, 
-	linux-fsdevel@vger.kernel.org, linux-unionfs@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] xattr: enforce the name and size limits for in-kernel
- callers
-Message-ID: <p3k36hsnj5ucuzbu7e2x6mtlr6rku3j4ec2ighu4td6tbllbzd@5zfm6yvgttsi>
-References: <20261123113513.1910906-1-amir73il@gmail.com>
- <20261123165807.1939942-1-amir73il@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gq3b442w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 321F21F000C0;
+	Tue, 24 Nov 2026 17:07:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795540034;
+	bh=PdeRcBZfQ/0omXJZhIA/UvjOC4zkr2LWXvXBdpvLpE8=;
+	h=Subject:To:Cc:From:Date;
+	b=gq3b442wwJmyGckhsXBcvhNLvwKTtB3MPxS8rO9tvKqHJd+8ipEeTr4jHkZbhZwsS
+	 HMrmGpsEQp2WjpODNshCh7L0OMNKBOnMt1JW/WFl+sS7piSJ4cBHZq1O1svgXEGTCP
+	 2oP0nzmB4pr4o5syMbWbwpiK94BTKcZKu/qpIsrs=
+Subject: FAILED: patch "[PATCH] net/smc: fix link group ownership in handshake abort" failed to apply to 6.12-stable tree
+To: mjambigi@linux.ibm.com,kuba@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 24 Nov 2026 18:07:35 +0100
+Message-ID: <2026112435-economic-unearned-ea8a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,162 +51,272 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123165807.1939942-1-amir73il@gmail.com>
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 17CAC21EA6
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Mon 23-11-26 17:58:07, Amir Goldstein wrote:
-> The xattr system calls refuse a name longer than XATTR_NAME_MAX and a
-> value larger than XATTR_SIZE_MAX, but the VFS helpers do not. An
-> in-kernel caller may pass a name or a size that it got from another
-> filesystem, such as overlayfs copy up from a lower layer.
-> 
-> Check both limits before calling the xattr handler of the filesystem,
-> and fail with the errors that the system calls return for them.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 
-Looks sensible. Feel free to add:
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+To reproduce the conflict and resubmit, you may use the following commands:
 
-								Honza
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x e227b511582828c5a6513f70fc6a71211e5efbf0
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112435-economic-unearned-ea8a@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-> ---
-> 
-> Changes since v1:
-> - Check the name in vfs_getxattr_alloc() too (Alex)
-> 
-> v1: https://lore.kernel.org/r/20261123113513.1910906-1-amir73il@gmail.com/
-> 
->  fs/xattr.c | 35 ++++++++++++++++++++++++++++++++++-
->  1 file changed, 34 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/xattr.c b/fs/xattr.c
-> index 0705801a62cc5..fb5e43d4ff356 100644
-> --- a/fs/xattr.c
-> +++ b/fs/xattr.c
-> @@ -178,6 +178,18 @@ xattr_permission(const struct mnt_idmap *idmap, struct inode *inode,
->  	return inode_permission(idmap, inode, mask);
->  }
->  
-> +/*
-> + * The xattr system calls refuse a name above XATTR_NAME_MAX and a value above
-> + * XATTR_SIZE_MAX, but an in-kernel caller may pass a name or a size that it
-> + * got from another filesystem, such as the lower layer of overlayfs.
-> + */
-> +static int xattr_check_name(const char *name)
-> +{
-> +	if (strnlen(name, XATTR_NAME_MAX + 1) > XATTR_NAME_MAX)
-> +		return -ERANGE;
-> +	return 0;
-> +}
-> +
->  /*
->   * Look for any handler that deals with the specified namespace.
->   */
-> @@ -209,10 +221,17 @@ __vfs_setxattr(const struct mnt_idmap *idmap, struct dentry *dentry,
->  	       size_t size, int flags)
->  {
->  	const struct xattr_handler *handler;
-> +	int error;
->  
->  	if (is_posix_acl_xattr(name))
->  		return -EOPNOTSUPP;
->  
-> +	error = xattr_check_name(name);
-> +	if (error)
-> +		return error;
-> +	if (size > XATTR_SIZE_MAX)
-> +		return -E2BIG;
-> +
->  	handler = xattr_resolve_name(inode, &name);
->  	if (IS_ERR(handler))
->  		return PTR_ERR(handler);
-> @@ -408,6 +427,10 @@ vfs_getxattr_alloc(const struct mnt_idmap *idmap, struct dentry *dentry,
->  	if (error)
->  		return error;
->  
-> +	error = xattr_check_name(name);
-> +	if (error)
-> +		return error;
-> +
->  	handler = xattr_resolve_name(inode, &name);
->  	if (IS_ERR(handler))
->  		return PTR_ERR(handler);
-> @@ -416,6 +439,8 @@ vfs_getxattr_alloc(const struct mnt_idmap *idmap, struct dentry *dentry,
->  	error = handler->get(handler, dentry, inode, name, NULL, 0);
->  	if (error < 0)
->  		return error;
-> +	if (error > XATTR_SIZE_MAX)
-> +		return -E2BIG;
->  
->  	if (!value || (error > xattr_size)) {
->  		value = krealloc(*xattr_value, error + 1, flags);
-> @@ -434,16 +459,24 @@ __vfs_getxattr(struct dentry *dentry, struct inode *inode, const char *name,
->  	       void *value, size_t size)
->  {
->  	const struct xattr_handler *handler;
-> +	ssize_t ret;
->  
->  	if (is_posix_acl_xattr(name))
->  		return -EOPNOTSUPP;
->  
-> +	ret = xattr_check_name(name);
-> +	if (ret)
-> +		return ret;
-> +
->  	handler = xattr_resolve_name(inode, &name);
->  	if (IS_ERR(handler))
->  		return PTR_ERR(handler);
->  	if (!handler->get)
->  		return -EOPNOTSUPP;
-> -	return handler->get(handler, dentry, inode, name, value, size);
-> +	ret = handler->get(handler, dentry, inode, name, value, size);
-> +	if (ret > XATTR_SIZE_MAX)
-> +		return -E2BIG;
-> +	return ret;
->  }
->  EXPORT_SYMBOL(__vfs_getxattr);
->  
-> -- 
-> 2.56.1
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From e227b511582828c5a6513f70fc6a71211e5efbf0 Mon Sep 17 00:00:00 2001
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Date: Fri, 6 Nov 2026 14:04:57 +0100
+Subject: [PATCH] net/smc: fix link group ownership in handshake abort
+
+An aborted first-contact handshake can hang the handshake worker on the
+socket lock it already holds, reset the clcsock of a socket that has
+fallen back to TCP, or corrupt the alert-node lookup when the handshake
+retries with the same connection.
+
+The abort leaves a connection registered in a link group that another
+context has already unlinked for termination: smc_conn_free() skips the
+unregister when lgr->list is empty, so the alert token and alert node
+stay in lgr->conns_all. If the handshake retries another device or SMC
+version, smc_conn_create() creates a second link group and
+smc_lgr_register_conn() inserts the same alert node into it: the token
+loop is skipped, rb_link_node() links a node that is still in the old
+tree into the new one, and a second sock_hold() is taken where only one
+sock_put() will follow. The old group's terminator then keeps returning
+that node from rb_first() and can kill a connection that now belongs to
+the new group.
+
+smc_lgr_cleanup_early() also starts a second termination of the link
+group that is already being terminated, which takes lock_sock() on the
+socket the handshake worker holds; if the termination work wins the race
+instead, it later kills the freed connection and aborts the clcsock of a
+socket that has fallen back to TCP. Making the unregister unconditional
+also lets smc_conn_free() reach the delayed free work on a claimed link
+group, where the lockless freeing check can arm it after the owner has
+cancelled it.
+
+Always unregister the connection, claim a link group for termination
+once under lgr_lock, keep the link group alive across the abort, and arm
+the delayed free work only under the same lock and cancel it
+synchronously before the teardown. Drop an already freed connection in
+smc_conn_kill() without running the connection and socket teardown.
+
+Fixes: 2a0674fffb6b ("net/smc: improve abnormal termination of link groups")
+Fixes: f9aab6f2ce57 ("net/smc: immediate freeing in smc_lgr_cleanup_early()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Link: https://patch.msgid.link/20261106130457.1092203-1-mjambigi@linux.ibm.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+index ec5980add7a9..bfc0c7e71a12 100644
+--- a/net/smc/af_smc.c
++++ b/net/smc/af_smc.c
+@@ -1013,14 +1013,15 @@ static void smc_conn_abort(struct smc_sock *smc, int local_first)
+ {
+ 	struct smc_connection *conn = &smc->conn;
+ 	struct smc_link_group *lgr = conn->lgr;
+-	bool lgr_valid = false;
+-
+-	if (smc_conn_lgr_valid(conn))
+-		lgr_valid = true;
++	bool lgr_valid = local_first && smc_conn_lgr_valid(conn);
+ 
++	if (lgr_valid)
++		smc_lgr_hold(lgr);	/* lgr_put below */
+ 	smc_conn_free(conn);
+-	if (local_first && lgr_valid)
++	if (lgr_valid) {
+ 		smc_lgr_cleanup_early(lgr);
++		smc_lgr_put(lgr);
++	}
+ }
+ 
+ /* check if there is a rdma device available for this connection. */
+diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+index 0a9f5418329a..a3164201c142 100644
+--- a/net/smc/smc_core.c
++++ b/net/smc/smc_core.c
+@@ -80,16 +80,21 @@ static void smc_ibdev_cnt_dec(struct smc_link *lnk)
+ 
+ static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
+ {
++	spinlock_t *lgr_lock;
++
+ 	/* client link group creation always follows the server link group
+ 	 * creation. For client use a somewhat higher removal delay time,
+ 	 * otherwise there is a risk of out-of-sync link groups.
+ 	 */
++	smc_lgr_list_head(lgr, &lgr_lock);
++	spin_lock_bh(lgr_lock);
+ 	if (!lgr->freeing) {
+ 		mod_delayed_work(system_percpu_wq, &lgr->free_work,
+ 				 (!lgr->is_smcd && lgr->role == SMC_CLNT) ?
+ 						SMC_LGR_FREE_DELAY_CLNT :
+ 						SMC_LGR_FREE_DELAY_SERV);
+ 	}
++	spin_unlock_bh(lgr_lock);
+ }
+ 
+ /* Register connection's alert token in our lookup structure.
+@@ -679,19 +684,34 @@ int smcd_nl_get_lgr(struct sk_buff *skb, struct netlink_callback *cb)
+ 	return skb->len;
+ }
+ 
+-void smc_lgr_cleanup_early(struct smc_link_group *lgr)
++/* Claim a link group for termination. Only one context can succeed: the
++ * lgr is removed from its list and marked freeing under lgr_lock.
++ * Returns false if @lgr is NULL or another context owns it.
++ */
++static bool smc_lgr_claim(struct smc_link_group *lgr)
+ {
+ 	spinlock_t *lgr_lock;
+ 
+ 	if (!lgr)
+-		return;
+-
++		return false;
+ 	smc_lgr_list_head(lgr, &lgr_lock);
+ 	spin_lock_bh(lgr_lock);
++	if (lgr->freeing || lgr->terminating || list_empty(&lgr->list)) {
++		spin_unlock_bh(lgr_lock);
++		return false;
++	}
+ 	/* do not use this link group for new connections */
+-	if (!list_empty(&lgr->list))
+-		list_del_init(&lgr->list);
++	list_del_init(&lgr->list);
++	lgr->freeing = 1;
+ 	spin_unlock_bh(lgr_lock);
++	return true;
++}
++
++/* The caller must keep @lgr alive for the duration of the call. */
++void smc_lgr_cleanup_early(struct smc_link_group *lgr)
++{
++	if (!smc_lgr_claim(lgr))
++		return;	/* another context owns the termination */
+ 	__smc_lgr_terminate(lgr, true);
+ }
+ 
+@@ -1281,10 +1301,12 @@ void smc_conn_free(struct smc_connection *conn)
+ 		if (current_work() != &conn->abort_work)
+ 			cancel_work_sync(&conn->abort_work);
+ 	}
+-	if (!list_empty(&lgr->list)) {
++	/* The handshake can retry another device or SMC version with this
++	 * connection, so it must never stay registered in an lgr it left.
++	 */
++	if (!list_empty(&lgr->list))
+ 		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
+-		smc_lgr_unregister_conn(conn);
+-	}
++	smc_lgr_unregister_conn(conn);
+ 
+ 	if (!lgr->conns_num)
+ 		smc_lgr_schedule_free_work(lgr);
+@@ -1519,6 +1541,15 @@ static void smc_conn_kill(struct smc_connection *conn, bool soft)
+ {
+ 	struct smc_sock *smc = container_of(conn, struct smc_sock, conn);
+ 
++	if (conn->freed) {
++		/* The connection was already freed, e.g. by a close or
++		 * a handshake that fell back to TCP. Do not abort a socket
++		 * that is no longer part of this link group.
++		 */
++		smc_lgr_unregister_conn(conn);
++		return;
++	}
++
+ 	if (conn->lgr->is_smcd && conn->lgr->peer_shutdown)
+ 		conn->local_tx_ctrl.conn_state_flags.peer_conn_abort = 1;
+ 	else
+@@ -1566,12 +1597,20 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
+ 	struct smc_connection *conn;
+ 	struct smc_sock *smc;
+ 	struct rb_node *node;
++	spinlock_t *lgr_lock;
+ 
+-	if (lgr->terminating)
++	smc_lgr_list_head(lgr, &lgr_lock);
++	spin_lock_bh(lgr_lock);
++	if (lgr->terminating) {
++		spin_unlock_bh(lgr_lock);
+ 		return;	/* lgr already terminating */
+-	/* cancel free_work sync, will terminate when lgr->freeing is set */
+-	cancel_delayed_work(&lgr->free_work);
++	}
+ 	lgr->terminating = 1;
++	spin_unlock_bh(lgr_lock);
++	/* The lgr is claimed, so no new free_work can be armed; wait for
++	 * one that is already queued or running.
++	 */
++	cancel_delayed_work_sync(&lgr->free_work);
+ 
+ 	/* kill remaining link group connections */
+ 	read_lock_bh(&lgr->conns_lock);
+@@ -1582,7 +1621,11 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
+ 		sock_hold(&smc->sk); /* sock_put below */
+ 		read_unlock_bh(&lgr->conns_lock);
+ 		lock_sock(&smc->sk);
+-		smc_conn_kill(conn, soft);
++		/* The connection may have been re-registered in another
++		 * link group by a retried handshake in the meantime.
++		 */
++		if (conn->lgr == lgr)
++			smc_conn_kill(conn, soft);
+ 		release_sock(&smc->sk);
+ 		sock_put(&smc->sk); /* sock_hold above */
+ 		read_lock_bh(&lgr->conns_lock);
+@@ -1596,17 +1639,8 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
+ /* unlink link group and schedule termination */
+ void smc_lgr_terminate_sched(struct smc_link_group *lgr)
+ {
+-	spinlock_t *lgr_lock;
+-
+-	smc_lgr_list_head(lgr, &lgr_lock);
+-	spin_lock_bh(lgr_lock);
+-	if (list_empty(&lgr->list) || lgr->terminating || lgr->freeing) {
+-		spin_unlock_bh(lgr_lock);
++	if (!smc_lgr_claim(lgr))
+ 		return;	/* lgr already terminating */
+-	}
+-	list_del_init(&lgr->list);
+-	lgr->freeing = 1;
+-	spin_unlock_bh(lgr_lock);
+ 	schedule_work(&lgr->terminate_work);
+ }
+ 
+diff --git a/net/smc/smc_core.h b/net/smc/smc_core.h
+index 5c18f08a4c8a..bff4c9e17792 100644
+--- a/net/smc/smc_core.h
++++ b/net/smc/smc_core.h
+@@ -301,9 +301,9 @@ struct smc_link_group {
+ 	struct delayed_work	free_work;	/* delayed freeing of an lgr */
+ 	struct work_struct	terminate_work;	/* abnormal lgr termination */
+ 	struct workqueue_struct	*tx_wq;		/* wq for conn. tx workers */
+-	u8			sync_err : 1;	/* lgr no longer fits to peer */
+-	u8			terminating : 1;/* lgr is terminating */
+-	u8			freeing : 1;	/* lgr is being freed */
++	u8			sync_err;	/* lgr no longer fits to peer */
++	u8			terminating;	/* lgr is terminating */
++	u8			freeing;	/* lgr is being freed */
+ 
+ 	refcount_t		refcnt;		/* lgr reference count */
+ 	bool			is_smcd;	/* SMC-R or SMC-D */
+
