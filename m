@@ -1,63 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795530413;
-	b=m7aP1Yyc8iJDoPUbRVy+mAI5BGZt5ZWswMa7+mZuuvTnXLrfODsT3Xglp4PoOSiI7/Dt
-	 u2nBW1NDu/LIxMkX1RTHqZ8OpMrr7lr/VjDjwgo1VqpA3o3/qa+gVUBbCgGT/Z73ZD4r4
-	 fEGPML7RDFHO6/h8B4XCZP3GSZG6/JljWmXVuC4LC5OTEK45ehwDGmDlDx3h5InLOuP29
-	 flPP6f+cx4xevpnhFjfD7tRDHRHUrA/dji/f6fjo6mt7Y8vglpqgXjOY4jRGYZL82STK0
-	 JGqrZPFZDuEPXFHkUD51ddow3U+ONjrEvWw0OUncSONlKXU4SfQDP2ky9n9OIPWxXnA==
+	t=1795530414;
+	b=yxZdi39BUWxkAiEyq+gMxFu2FcpCmg78ogh3C6MgVv60qqun0bGfLsebVlxwjbVJku4e
+	 NAy0wwokeOVO9ya2BKgghLyLKo1umHap82aeFR0JvGEtol01ULIjajR7lVKsFyWOD0NuC
+	 4NPn6D6kP2RXFNcoTdxuzGs7zjMekP/EE1rjHXnQf9koZbv5NY+3LE9ZqUuJrgw//2uLW
+	 RzAFvR02olOdckHnjY8C6UhBs80QzfB4x8jrxnuaAwPEdpCrqFqqUQkyTKjVFVhjf2ljg
+	 Y8nKZLEgByOytHNuISYj08E2Y2IT9u3M+vadbHJGEYvJtYqlZj4JW2Odg8Vy3987IkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795530413;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=mTwBFRyFSROWCnCFCSSel89ouxGBgoxE6b1oZnyUXq4=;
-	b=wE9dX2kk6M7avozW0o+Je6gCmHzmv3nUHYQDmOd1jNQ/aOq5blqh/ga/HVa2m8G81rnP
-	 3mzvVTZod9Chl1W3imuj9pVCdcdZ2xmM5VnF31jYqLjpg+VO7BkPYYGmpGfoszkZWt7JF
-	 1+6qyrcMdeULMG7rguLLTnMYgpPG10sgJnWZCYuON8R5h+LTyfC4yEahES8V747GU3Etq
-	 h2DD6VNHJwCbZwDyUMK7k2Ea5mzQ7M46KKnES5XCP55TVwF3S+jdxaeyQvncjiCmyljvJ
-	 yWSvt07nvnzlm9y1Sfm5wKdmfo10++Ryn4vOQodfxDmvUsB7YYQ0/6iazu/WvJ9v1IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795530414;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=lSJ8idID075Lrq50XU2h31Hf6+IOl1gV9gV+AgGjEBI=;
+	b=5UF5wuO7qBznCRArqtsscP2Xn2fEMn2GeLuFhzW8NXse+GvUcvhaGKVmumbSC/r9TS+B
+	 /+aNkgPe0HuCSrHV3NNhvvEpJxZp07xKTOJZXt0/UgzrH7uNS7JqhinjVopn/zSSUlzKY
+	 0d7nUy2U5w8CuDwa8ZVvwPyb4/9F+e/Fw1ZZA3LWpXBpyawhHpl8Rv+dM1NetMDkQsjhN
+	 Bh/GdPqzEjx+OUqgTdmqN3ukADRSW33iItjwPI4PwRAvXdsDBafnwF34qWdD4QUdxxsDB
+	 3fM4rVKeE1Hwr9sOXCpUzqxXi4/s0EwVSjiktMZYcQzpD83XDWPVpNknISO/sj4KDbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5UEACMU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.217
+Received: from out28-217.mail.aliyun.com (out28-217.mail.aliyun.com [115.124.28.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B17606A321;
-	Tue, 24 Nov 2026 14:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5UEACMU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0CC91F000C6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA44F606A31E;
 	Tue, 24 Nov 2026 14:26:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795530413;
-	bh=mTwBFRyFSROWCnCFCSSel89ouxGBgoxE6b1oZnyUXq4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=n5UEACMURgjfpgLFKrsVZFmC2awe4D2PQaskzHFD4iJKlNUhanPH9qPBzrspXZY91
-	 baGS4Fj1wT/jhTrGgr7T1gMIx0J3gfqmR77tS6normc8sU1b6DqOcRfcJJ1YgxX9hb
-	 OT5lNHfWt0gW3ayaKFpt/Pi55o0akAfLOAe+1s/I8SRbMktmNzMAKx+UwcCA264ZtM
-	 snimwJfXoSB3HZeOoF5i+K2nfaLIteU4laOZv3YWc3kyo8xdD0g6i3XmkehtZMxa+U
-	 Es/BMhvxtxpu3zTaohOPN1BTmL0Kh67iz83EfFLMYmRWG0r5WehR6lLFK3cG4Cbvgf
-	 kTEwORPTf0lYg==
-Subject: Re: [PATCH net 04/10] mptcp: fix use-after-free of the subflow
- context on the delegated list
-From: netdev-bot+sashiko@kernel.org
-To: matttbe@kernel.org
-Cc: edumazet@kernel.org, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, willemb@google.com, horms@kernel.org, martineau@kernel.org,
- geliang@kernel.org, cpaasch@openai.com, fw@strlen.de, netdev@vger.kernel.org,
- mptcp@lists.linux.dev, dcaratti@redhat.com, mason@kernel.org,
- stable@vger.kernel.org, ncardwell@google.com, kuniyu@google.com, kafai@fb.com,
- daniel@iogearbox.net, ast@kernel.org, martin.lau@kernel.org,
- bpf@vger.kernel.org
-Date: Tue, 24 Nov 2026 14:26:51 +0000
-Message-ID: <179553041150.3135.10012593386905502123@kernel.org>
-In-Reply-To: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-4-278042217e8d@kernel.org>
-References: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-4-278042217e8d@kernel.org>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA44F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0724083|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00540879-0.0168623-0.977729;FP=12386842953067793899|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033025068124;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.k9CxAJc_1795530395;
+Received: from localhost.localdomain(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.k9CxAJc_1795530395 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 24 Nov 2026 22:26:40 +0800
+From: Tina Zhang <zhang_wei@open-hieco.net>
+To: x86@kernel.org
+Cc: puwen@hygon.cn,
+	tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	andrew.cooper3@citrix.com,
+	david.laight.linux@gmail.com,
+	hpa@zytor.com,
+	linux-kernel@vger.kernel.org,
+	yangzhen@hygon.cn,
+	dengqiming@hygon.cn,
+	Tina Zhang <zhang_wei@open-hieco.net>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] x86/cpu/hygon: Work around XSAVES Erratum 1386
+Date: Tue, 24 Nov 2026 22:26:32 +0800
+Message-ID: <20261124142632.844105-1-zhang_wei@open-hieco.net>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,107 +61,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+The XSAVES malfunction described in AMD Erratum 1386 also affects
+certain Hygon Family 18h processors. Under specific conditions, XSAVES
+may fail to save XMM register state, allowing stale register values to
+reappear after the state is restored.
 
-Low priority / nit picks for your consideration:
+The failure mode is documented as Erratum 1386 in "Revision Guide for
+AMD Family 19h Models 00h-0Fh Processors", Publication #56683 [1].
 
-- [Low] The comment in the sock_owned_by_user() branch of
-  mptcp_napi_poll() (net/mptcp/protocol.c) is now wrong for the case…
+None of the affected processors enumerate supervisor XSAVE state
+components. XSAVEC is therefore equivalent for their enabled state
+components and is not affected by the erratum.
 
---
+Family 18h models 00h through 06h and model 10h are affected. Other
+Family 18h models contain the fix in hardware.
 
-mptcp: fix use-after-free of the subflow context on the delegated list
+For the following model and stepping combinations, the minimum
+microcode revisions containing the fix are:
 
-This fixes a use-after-free. subflow_ulp_release() frees the subflow
-context with kfree_rcu() while the context is still linked on the per-CPU
-delegated napi list. A new MPTCP_DELEGATE_DEAD bit hands the free to
-mptcp_napi_poll() when the subflow is scheduled, skips delegated actions
-for dead contexts, and moves delegated_status out of struct_group(reset).
+  Model  Stepping  Microcode
+  04h    0         0x9040000f
+  04h    1         0x9041000f
+  06h    0         0x9060000f
+  06h    1         0x9061000f
+  10h    0         0x91000004
 
-> diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-> index 50c294d925b0c..23d35f43b566e 100644
-> --- a/net/mptcp/protocol.c
-> +++ b/net/mptcp/protocol.c
+These are the only known steppings for those models.
 
-[ ... ]
+Disable XSAVES on affected processors unless a matching model and
+stepping entry identifies a sufficiently recent microcode revision
+containing the fix. This allows the x86 FPU code to use XSAVEC
+instead.
 
-> @@ -4803,10 +4803,13 @@ static int mptcp_napi_poll(struct napi_struct *napi, int budget)
->  	delegated = container_of(napi, struct mptcp_delegated_action, napi);
->  	while ((subflow = mptcp_subflow_delegated_next(delegated)) != NULL) {
->  		struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
-> +		long status;
->  
->  		bh_lock_sock_nested(ssk);
->  		if (!sock_owned_by_user(ssk)) {
-> -			mptcp_subflow_process_delegated(ssk, xchg(&subflow->delegated_status, 0));
-> +			status = xchg(&subflow->delegated_status, 0);
-> +			if (!(status & BIT(MPTCP_DELEGATE_DEAD)))
-> +				mptcp_subflow_process_delegated(ssk, status);
->  		} else {
->  			/* tcp_release_cb_override already processed
->  			 * the action or will do at next release_sock().
-> @@ -4814,11 +4817,15 @@ static int mptcp_napi_poll(struct napi_struct *napi, int budget)
->  			 * CPU that scheduled it.
->  			 */
->  			smp_wmb();
-> -			clear_bit(MPTCP_DELEGATE_SCHEDULED, &subflow->delegated_status);
-> +			status = set_mask_bits(&subflow->delegated_status,
-> +					       BIT(MPTCP_DELEGATE_SCHEDULED), 0);
+[1] https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/revision-guides/56683.pdf
 
-[Severity: Low]
-This isn't a bug, but is the comment above this branch still accurate
-once MPTCP_DELEGATE_DEAD is set?
+Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
+Tested-by: Qiming Deng <dengqiming@hygon.cn>
+Reviewed-by: Zhen Yang <yangzhen@hygon.cn>
+Cc: stable@vger.kernel.org
+---
+Changes in v3:
+- Match Family 18h model 00h explicitly because a model field of zero
+  in an x86_cpu_id entry is treated as X86_MODEL_ANY.
 
-The comment says tcp_release_cb_override "already processed the action or
-will do at next release_sock()". However, every path that reaches
-mptcp_subflow_free_ctx() runs after mptcp_subflow_ops_undo_override() has
-restored ssk->sk_prot to plain tcp_prot/tcpv6_prot:
+v2: https://lore.kernel.org/r/20261121105320.478279-1-zhang_wei@open-hieco.net
+v1: https://lore.kernel.org/r/20261028235712.383977-1-zhang_wei@open-hieco.net
 
-net/mptcp/subflow.c:subflow_ulp_release() {
-    ...
-	mptcp_subflow_ops_undo_override(ssk);
-	if (release)
-		mptcp_subflow_free_ctx(ctx);
-}
+ arch/x86/kernel/cpu/hygon.c | 46 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
-mptcp_subflow_drop_ctx() reaches the same undo through
-subflow_ulp_fallback(). __mptcp_close_ssk() only calls
-mptcp_subflow_free_ctx() when icsk_ulp_ops is already NULL.
-
-So for a dead context, the next release_sock() calls tcp_release_cb()
-rather than tcp_release_cb_override(). Any pending action bits are dropped,
-and the commit message says that is intended ("the pending actions must not
-run").
-
-A dead context can reach this branch. __mptcp_close_ssk() holds
-lock_sock_nested(ssk) across this chain:
-
-__tcp_close()->inet_csk_destroy_sock()->tcp_cleanup_ulp()->
-    subflow_ulp_release()->mptcp_subflow_free_ctx()
-
-That means a concurrent mptcp_napi_poll() can see sock_owned_by_user(ssk)
-after DEAD has been set.
-
-Could the comment be updated to say that dead contexts have their pending
-actions discarded here? It could also mention that status is captured so
-the context can be freed with kfree_rcu() after bh_unlock_sock() and
-sock_put().
-
->  		}
->  		bh_unlock_sock(ssk);
->  		sock_put(ssk);
->  
-> +		if (status & BIT(MPTCP_DELEGATE_DEAD))
-> +			kfree_rcu(subflow, rcu);
-> +
->  		if (++work_done == budget)
->  			return budget;
->  	}
-
-[ ... ]
-
+diff --git a/arch/x86/kernel/cpu/hygon.c b/arch/x86/kernel/cpu/hygon.c
+index ec51c2b9a257..6670dc8bb22f 100644
+--- a/arch/x86/kernel/cpu/hygon.c
++++ b/arch/x86/kernel/cpu/hygon.c
+@@ -10,6 +10,7 @@
+ 
+ #include <asm/apic.h>
+ #include <asm/cpu.h>
++#include <asm/cpu_device_id.h>
+ #include <asm/cpuid/api.h>
+ #include <asm/smp.h>
+ #include <asm/numa.h>
+@@ -170,11 +171,56 @@ static void early_init_hygon(struct cpuinfo_x86 *c)
+ 	set_cpu_cap(c, X86_FEATURE_VMMCALL);
+ }
+ 
++#define X86_MATCH_HYGON_MODEL_STEP_UCODE(model, step, ucode) \
++	X86_MATCH_VFM_STEPS(VFM_MAKE(X86_VENDOR_HYGON, 0x18, model), \
++			    step, step, ucode)
++
++static const struct x86_cpu_id erratum_1386_microcode[] = {
++	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x00, 0x9040000f),
++	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x01, 0x9041000f),
++	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x00, 0x9060000f),
++	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x01, 0x9061000f),
++	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x10, 0x00, 0x91000004),
++	{}
++};
++
++static const struct x86_cpu_id erratum_1386_cpus[] = {
++	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x01, NULL),
++	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x02, NULL),
++	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x03, NULL),
++	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x04, NULL),
++	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x05, NULL),
++	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x06, NULL),
++	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x10, NULL),
++	{}
++};
++
++static void fix_erratum_1386(struct cpuinfo_x86 *c)
++{
++	/*
++	 * Work around Erratum 1386.  The XSAVES instruction malfunctions in
++	 * certain circumstances on affected Hygon processors. Clear the feature
++	 * flag only on microcode revisions without the fix.
++	 */
++	if (x86_match_min_microcode_rev(erratum_1386_microcode))
++		return;
++
++	clear_cpu_cap(c, X86_FEATURE_XSAVES);
++}
++
+ static void init_hygon(struct cpuinfo_x86 *c)
+ {
+ 	u64 vm_cr;
+ 
+ 	early_init_hygon(c);
++	/*
++	 * Model 00h is a valid Hygon processor model, but x86_match_cpu()
++	 * treats a model value of 0 as X86_MODEL_ANY. Match Model 00h
++	 * explicitly.
++	 */
++	if ((c->x86 == 0x18 && c->x86_model == 0x00) ||
++	    x86_match_cpu(erratum_1386_cpus))
++		fix_erratum_1386(c);
+ 
+ 	set_cpu_cap(c, X86_FEATURE_REP_GOOD);
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261123-net-mptcp-misc-fixes-7-4-rc5-v1-0-278042217e8d%40kernel.org
+2.43.7
+
