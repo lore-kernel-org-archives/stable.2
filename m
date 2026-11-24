@@ -1,60 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795532955;
-	b=L4FcXvlvxLYUts1Py4BffmNPVVcviBOm92ry9isrFvjFRF5MfuXnEJlLSBxADDM1V/zh
-	 kAh/DudJlyQp9Napt2aCP4yQ+bivrzWYel8leDl16T5tO7ip9VFzL7597S9g4IlmEQVK3
-	 gY5NNmFKT5Gwn9auwjZEN2TpjF6XciBj+gRdPUKf95nKMfJuGqHkBRLEhGDS655s/HOp5
-	 3D8t9cWp6WrbGyMW63D6jro4MxY6+y/MzIkC8ze41aiveAgcAj2LnHUINIy9mNg88FIF0
-	 k9vu6Uspy+FoveSxJRFO85hFKQnzoXDpvLMxfEpYD3z2D38MXRrSibIcIJQNI0C8Rew==
+	t=1795532989;
+	b=moTpYTV1PVK45dYxi6TaNCAPEaOKlcMxsRjI3ekKB/aKMykuGFk3lfTdx1WOX0WEI46l
+	 mmbqUujOBXVwCbcxIjuCV/KH0SnM6x6IMWj8O6KSgdLjQ9lX8q/JxAA3ApJFZHIHw0NDb
+	 uA1eUmyj6giEcng/G5XObVbHPDXgoZ3WbYpvWKAtM/GtaBhx3sZVNrcCll7T9bxFhW08g
+	 g9qmdc+yrzDcC2lZfs7pJCjl1zV/CMjAFLWJubYFPvcRPjGo0H/IBeh/TeitFU0Cpll4d
+	 ECQ+bt6wkYenkLArRkrPS4LQMCkSa86Z2u536VFxuwUgP7hnpn4hpUlCJorWF1PonAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795532955;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=enBVvX1k6DHuUyx9bzwRXTq+Qx99sH7KK0CGQinMRgw=;
-	b=H0XPX7dySQU4xudGvEbXHEexHhyGPCUvEiHgeFNTz+IQej+MbBPmE7z6cNOX+ejdkmN5
-	 nev9XDb+r8psuCRiclS5rB4qY1nqSL3GgFyH6NyNCDLuUqTIhKwOZMfp/GjZEutZysh2e
-	 FYEnQC6l3VcIvR4wcLbl8c4DAk0XDHzftmoLeaRB1YaBthM65QXAbJizHwS2vUPh/8LRb
-	 //Ba+UnRe8XWEtydOh3qRqTlNkCJIeTdNFy/Tl4YloBk7QsHcyqSahouvTz6U3P+ppaVc
-	 NOwaY06shf2WXzPVwnyw3J1ZkDWVdjUhCs3/U5QXSe9A7y8d9ZEf6MQTyu1ifxwy5Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795532989;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=iO+ScCXIuBnkMjUFQbu8g81U8j71hbPQ1RwW0MeFD94=;
+	b=Wx7uDTMwq8ypnSsS24e9400b/ShRfsE0js5g8Zdmx0D3/nBcyK6db0gseiQvrRxJ5uv+
+	 OQ+EY68zYznmOioYoJym/uQPGpm0+4kCLQTXpuU+dStNb+nZm0DpIAUV1LLBo9TGgbGUz
+	 hZXm+3m0LU631y0RNn3PaiQ38h5gHvm69APTrbq0Fn19K4iaf3lInK7es352YGDpIeMXs
+	 8gJpNWHhih1I3yKhcgLB9ZcLIQ6vGxe44QQXXU2q8EkNuvLiP7sNFL9YAPFIcpWNm/uFy
+	 /1QbdPOXCvTWwZsSq/NNJshTr7J4kT1xWBGGGAhFH0w/m7s3cA8uwHvc+Ebrx8WXxuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+rVKpr2;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="TM/qLoz/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B72F606A31E;
-	Tue, 24 Nov 2026 15:09:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504E2606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:09:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+rVKpr2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAAAF1F000D1;
-	Tue, 24 Nov 2026 15:09:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795532954;
-	bh=enBVvX1k6DHuUyx9bzwRXTq+Qx99sH7KK0CGQinMRgw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y+rVKpr2Rj4o9vcYMYCo4+t0vsY7Gws87i5Zuk7jaF2TYerlKqKlfKLm9QDpF/COk
-	 NH+EFy7IcRYxW4blMHZcm9A1+6mekg7iD2VBtZFFfMX71XhO2PLSe3Ftznh3vUrYfS
-	 4HVC+MSWisXjPx+FCsAw6crsewKKEHYCojQXCBjTICmIyegobxmodSSSI+XoCMJLC9
-	 SQ7lcOZUDoHBOGQtF3it9vkYGm6CVbV9LnEB8f4C1Rl9Ja+/yOYcvtU6jNIhRnhRRP
-	 Od/cgS/IdR8WZ7wA8M3mXJwrEq5PpX5dXamlXSQYJv2cCPTWcFlMyFQEV5VmanMp0k
-	 pbfHWffYbaxvA==
-Date: Tue, 24 Nov 2026 16:09:08 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
-	Oleg Nesterov <oleg@redhat.com>, Tejun Heo <tj@kernel.org>, Bart Van Assche <bvanassche@acm.org>, 
-	Cen Zhang <blbllhy@gmail.com>, James Morris <jmorris@namei.org>, 
-	Lee Seong Hyeon <ihopenre@gmail.com>, Marco Elver <elver@google.com>, NeilBrown <neil@brown.name>, 
-	Nickolai Zeldovich <nickolai@csail.mit.edu>, Paul Moore <paul@paul-moore.com>, 
-	Peter Zijlstra <peterz@infradead.org>, "Serge E . Hallyn" <serge@hallyn.com>, 
-	Yihan Ding <dingyihan@uniontech.com>, linux-kernel@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] landlock: Do not hold exec_update_lock across the TSYNC
- wait
-Message-ID: <20261124-gehisst-modeerscheinung-hermelin-b3e1d5983901@brauner>
-References: <20261120151554.2651743-1-mic@digikod.net>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TM/qLoz/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CDB41F000C4;
+	Tue, 24 Nov 2026 15:09:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795532989;
+	bh=iO+ScCXIuBnkMjUFQbu8g81U8j71hbPQ1RwW0MeFD94=;
+	h=Subject:To:Cc:From:Date;
+	b=TM/qLoz/Y2UoKO/F1BX4Tpb9KgnKa67Mxbe7sXK0+gnh+DXFZWikAz4liJasiAoZe
+	 g6byXWqRt044ViE7MEJMuh4Y9DNKrn8R5OmsyZfKPj4OlggnjKlnkkvtLRXJo6qDoj
+	 Jg5+h98q1ZtgEGfEx9dEfE9YWqM7bnWvWsC+cSd0=
+Subject: FAILED: patch "[PATCH] kprobes: Validate re-registration earlier in" failed to apply to 6.12-stable tree
+To: mhiramat@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 24 Nov 2026 16:10:09 +0100
+Message-ID: <2026112409-navy-chute-3322@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,53 +51,185 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261120151554.2651743-1-mic@digikod.net>
 
-On Fri, Nov 20, 2026 at 04:15:52PM +0100, Mickaël Salaün wrote:
-> landlock_restrict_sibling_threads() write-locks
-> current->signal->exec_update_lock to serialize TSYNC callers, and holds
-> it until every sibling thread has run its task_work.  This wait is
-> unbounded: TWA_SIGNAL does not wake a TASK_KILLABLE sleeper, so a
-> sibling blocked as a vfork() parent runs it only once its child execs or
-> exits.
-> 
-> Meanwhile, readers of this lock block, mostly in D state:
-> /proc/<pid>/stat, mm_access(), pidfd_getfd(), kcmp(), perf_event_open(),
-> etc.  An unprivileged process can thus stall tools run by other users,
-> including root, such as ps and top.
-> 
-> Only a per-process "TSYNC in progress" marker is needed.  Use an unused
-> signal_struct.flags bit, protected by sighand->siglock, which is held
-> only to set or clear the marker.  A second caller still restarts the
-> syscall, and a cleanup class releases the marker on every return.
-> 
-> Like de_thread(), treat a group exit or an ongoing exec as a held
-> marker: a group exit may overwrite the flags, and both kill the other
-> threads, which the restart lets the caller handle.
-> 
-> Add KUnit tests for taking a free marker and for rejecting a held one.
-> A concurrent TSYNC caller cannot be started deterministically from user
-> space, but a KUnit thread has no sibling and can hold the marker itself.
-> 
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: Günther Noack <gnoack@google.com>
-> Cc: Nickolai Zeldovich <nickolai@csail.mit.edu>
-> Cc: Oleg Nesterov <oleg@redhat.com>
-> Cc: Tejun Heo <tj@kernel.org>
-> Cc: Yihan Ding <dingyihan@uniontech.com>
-> Cc: stable@vger.kernel.org
-> Reported-by: Lee Seong Hyeon <ihopenre@gmail.com>
-> Suggested-by: Lee Seong Hyeon <ihopenre@gmail.com>
-> Fixes: ff88df67dbf7 ("landlock: Serialize TSYNC thread restriction")
-> Signed-off-by: Mickaël Salaün <mic@digikod.net>
-> ---
 
-Yes please, this came up in another series that I'm about to send and
-this has been bothering me. exec_update_lock should not be taken lightly
-at all. We really need a way to limit the exposure of this forsaken
-lock,
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Acked-by: Christian Brauner (Amutable) <brauner@kernel.org>
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x a553b499f22bf054964d4fd16d136f3d4f836c23
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112409-navy-chute-3322@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From a553b499f22bf054964d4fd16d136f3d4f836c23 Mon Sep 17 00:00:00 2001
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Date: Wed, 4 Nov 2026 08:58:45 +0900
+Subject: [PATCH] kprobes: Validate re-registration earlier in
+ register_kretprobe()
+
+register_kretprobe() only checked for re-registration if rp->kp.addr was
+specified, skipping the check when rp was registered with symbol_name
+and rp->kp.addr was NULL. In that scenario, register_kretprobe()
+proceeded to allocate a new rethook (or kretprobe holder), and when
+register_kprobe(&rp->kp) subsequently failed due to re-registration, the
+error path freed and NULL-ed rp->rh (or rp->rph) on the still-active
+kretprobe, leading to NULL pointer dereferences when the active probe
+was hit.
+
+Resolve the target address via _kprobe_addr() up-front and check whether
+the probe is already registered at that address via
+check_kprobe_rereg_at() before allocating any resources, and drop the
+WARN_ON_ONCE() in the re-registration check now that re-registration is
+gracefully detected and rejected.
+
+Link: https://lore.kernel.org/all/179375032568.247640.17429793187163536192.stgit@devnote2/
+
+Fixes: 0188b87899ff ("kretprobe: Avoid re-registration of the same kretprobe earlier")
+Cc: stable@vger.kernel.org
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index 7a3da809bac7..0b41d69540ae 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -1793,52 +1793,61 @@ _kprobe_addr(kprobe_opcode_t *addr, const char *symbol_name,
+ 	return addr;
+ }
+ 
+-static kprobe_opcode_t *kprobe_addr(struct kprobe *p)
+-{
+-	bool on_func_entry;
+-
+-	return _kprobe_addr(p->addr, p->symbol_name, p->offset, &on_func_entry);
+-}
+-
+ /*
+  * Check the 'p' is valid and return the aggregator kprobe
+  * at the same address.
+  */
+-static struct kprobe *__get_valid_kprobe(struct kprobe *p)
++static struct kprobe *__get_valid_kprobe_at(struct kprobe *p, kprobe_opcode_t *addr)
+ {
++	struct hlist_head *head;
+ 	struct kprobe *ap, *list_p;
+ 
+ 	lockdep_assert_held(&kprobe_mutex);
+ 
+-	ap = get_kprobe(p->addr);
+-	if (unlikely(!ap))
++	if (unlikely(!addr))
+ 		return NULL;
+ 
+-	if (p == ap)
+-		return ap;
+-
+-	list_for_each_entry(list_p, &ap->list, list)
+-		if (list_p == p)
+-		/* kprobe p is a valid probe */
++	head = &kprobe_table[hash_ptr(addr, KPROBE_HASH_BITS)];
++	hlist_for_each_entry_rcu(ap, head, hlist,
++				 lockdep_is_held(&kprobe_mutex)) {
++		if (ap == p) {
++			p->addr = addr;
+ 			return ap;
++		}
++		if (ap->addr == addr && kprobe_aggrprobe(ap)) {
++			list_for_each_entry(list_p, &ap->list, list) {
++				if (list_p == p) {
++					p->addr = addr;
++					return ap;
++				}
++			}
++		}
++	}
+ 
+ 	return NULL;
+ }
+ 
+-/*
+- * Warn and return error if the kprobe is being re-registered since
+- * there must be a software bug.
+- */
+-static inline int warn_kprobe_rereg(struct kprobe *p)
++static inline struct kprobe *__get_valid_kprobe(struct kprobe *p)
++{
++	return __get_valid_kprobe_at(p, p->addr);
++}
++
++/* Return error if the kprobe is being re-registered */
++static inline int check_kprobe_rereg_at(struct kprobe *p, kprobe_opcode_t *addr)
+ {
+ 	guard(mutex)(&kprobe_mutex);
+ 
+-	if (WARN_ON_ONCE(__get_valid_kprobe(p)))
++	if (__get_valid_kprobe_at(p, addr))
+ 		return -EINVAL;
+ 
+ 	return 0;
+ }
+ 
++static inline int check_kprobe_rereg(struct kprobe *p)
++{
++	return check_kprobe_rereg_at(p, p->addr);
++}
++
+ static int check_ftrace_location(struct kprobe *p)
+ {
+ 	unsigned long addr = (unsigned long)p->addr;
+@@ -1969,7 +1978,7 @@ int register_kprobe(struct kprobe *p)
+ 		return PTR_ERR(addr);
+ 	p->addr = addr;
+ 
+-	ret = warn_kprobe_rereg(p);
++	ret = check_kprobe_rereg(p);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2505,20 +2514,19 @@ int register_kretprobe(struct kretprobe *rp)
+ 	int ret;
+ 	int i;
+ 	void *addr;
++	bool on_func_entry;
+ 
+-	ret = kprobe_on_func_entry(rp->kp.addr, rp->kp.symbol_name, rp->kp.offset);
+-	if (ret)
+-		return ret;
++	addr = _kprobe_addr(rp->kp.addr, rp->kp.symbol_name, rp->kp.offset, &on_func_entry);
++	if (IS_ERR(addr))
++		return PTR_ERR(addr);
+ 
+-	/* If only 'rp->kp.addr' is specified, check reregistering kprobes */
+-	if (rp->kp.addr && warn_kprobe_rereg(&rp->kp))
++	if (!on_func_entry)
++		return -EINVAL;
++
++	if (check_kprobe_rereg_at(&rp->kp, addr))
+ 		return -EINVAL;
+ 
+ 	if (kretprobe_blacklist_size) {
+-		addr = kprobe_addr(&rp->kp);
+-		if (IS_ERR(addr))
+-			return PTR_ERR(addr);
+-
+ 		for (i = 0; kretprobe_blacklist[i].name != NULL; i++) {
+ 			if (kretprobe_blacklist[i].addr == addr)
+ 				return -EINVAL;
+
