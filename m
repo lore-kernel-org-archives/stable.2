@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795532432;
-	b=2LhVFg+eWUe5netfJslFyi4d1s6qD1YSlzAcoGF+9yYLQfHkPhTjiPuvMYDFpan6EbLt
-	 ZV1ibaGl4383SK+XUQI/Z7FwHjs8HRq2vEtcqbHHBu1TltKXHFcEEK7/SEbAAgvSi/xiO
-	 JPupYJtfias7o+Pq3a2rIF5MzvchkH4vhYoZl/rgdDsPO+zcqN0Q4ZCYZlhu476c9XXIb
-	 XygtXHH2zv2maPWhdX69SYZFpCqjAnJibOnyAtuyPr3rzOcOdLAjMOzw2BoXjciya5YKV
-	 2WOyUhAbiHl70CAREb1VeIN8COHJzji9Lanu7UFhUDvorL0ioJ3zdSdEbgAcXjqZm3g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795532432;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=e94QPj9PV8HP5UrSKwfoNoFHM/hpzC5o5hL3QtbK3G4=;
-	b=29fSlC56kqLge4uQ0hj2Br1Zj7KlxwP3kOutsbYehvOaPaycmnFmv74mBJOG6ckGKCFg
-	 HJp+Ng0Y8wamLx+ehtoSjDZV6KH4JZGSpm+8DMb9M5xyNUB2YkQ7lvwi+L5ykUc+PfjKe
-	 Ttr7Zp2Lg7uORg0MgcDVNh7fh55mGJJnOXVQ2yPJtGjhXUPRSFQwdCyBxd2K1jx4E7NlL
-	 6a8u/0Hq+8vsN4cR/56tTIlme3qWPKbF+uJiEgs/Zzn9AB6XqELN4J6dBd5enu3LjKqqW
-	 3bkl4a9Q96nz8wJmu+7nnOtPIUKeGGzOpuJ3fA+Tb2dKeg0i4zGrEb0PdAlr+3fQeMg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IOToAA92;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795532572;
+	b=M4AKMEXgCf9bD+2p+9PlFGNWmZCHfaaFbOzRLX5efWVRxeJiMnrdp192ua920aLInA/2
+	 cPoXKpb+YquaEnihfX2XgDlqgOBtGqVWNTFz1WvtIQgW+HeWYO+0u2eL9EhUjjqZbc60O
+	 QT3DcP0sqAa08qck5q3khGhiV8ta2I5sEj1G2Wmw9rFb/p26PeACSmb2yhfmDFOSONj3x
+	 3Z9ltHE8K06Yk4dg5RqzBkESmwvu3HBkLPu5pAktNjuJT+ZSF0IDDCJVTYbwhN6f9d0Vl
+	 W8JfAISx24bnZD2MpzBYku3mgFHDCz7Fkc+jZrkHsslvWIGtCckHBScB+2WVtH5R6GA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795532572;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=15qhdURAff4Y2KbNVFJtyqKm6cg9Ddnc33WPFF64dLk=;
+	b=oQfvpVJeYb43l8ZJkthtnT697fLY8w5tr9NwnaSUMpa7mrj1eVR38DQ0jZENG9Jj5j0M
+	 fSXejNCgTmCZcmsU48V1i8+7WnfuX3WP4FYh1mKg3jEUz9sPS/rkN9iJCR/NtElBl++sw
+	 3DON2/LS2mox7KgcU+lhAlhSJNjOVRp8XbGRnn9q1lfeGz8T/KLa5H7zBwUG/cMWfnpQV
+	 CdQHiP0T+lJbcwOyPWaJDiZSTjXPAYZcUVvPYbYYEg9RuApuLFXsy2MZ1heEqmcKpsIpG
+	 QiJhzvJLbW3QPYZ4oaiKRPSmbepkX1gJlA2JSVlaLAaX14jxANKBk20YlN1dBP82mUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r7bZyl4z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C57606A329
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:00:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8553606A323
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:02:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8553606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IOToAA92
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B79C51F000C0;
-	Tue, 24 Nov 2026 15:00:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795532432;
-	bh=e94QPj9PV8HP5UrSKwfoNoFHM/hpzC5o5hL3QtbK3G4=;
-	h=Subject:To:Cc:From:Date;
-	b=IOToAA92fn7/AA7OVP5xyBeyLZumk1b1b9nWltITALDBMXBGszjvgdkHvO9nNmO5E
-	 L4hsepy0UGxDfkhKY2Kgu77z86/g3hsXCsiAt89FuPNU3UC0dcNYzYdi7O1XUs3yNf
-	 VdGFKT2GTTECjQxLArkpFhemYQWMGj+O75mlq4o4=
-Subject: FAILED: patch "[PATCH] KEYS: Protect pkey method checks against type removal" failed to apply to 5.10-stable tree
-To: 0xbeac@gmail.com,jarkko@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:00:40 +0100
-Message-ID: <2026112439-exchange-tissue-26cd@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r7bZyl4z
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b531cd9bbaso35863867b3.2
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 07:02:51 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795532571; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dYydIXs+BHPJxJl3qsobG/cWQ0MdktEET1ELMdSBZ3W46lQV4nUZZqTmsU7COBswQl
+         qn3v+vE9+q+2qJ7Dzt4StqseRGH4+3pozpqhjsiiHyfUzbQ9San5rDiT4jmPpFnC5/6l
+         wEjFNunnFxZs6LTsJOkGbwxjDG1rKM3hHcByrSU7J07k7fdnJBkLGWsefN4ssKjgFDNt
+         mfmoNSjzhp96H0aI/KILPtRks8xyVhXmwvPkmF5FRt3dhmH9geUbBeU/TgjiVbbAw4B+
+         sDMNatRhooAp0Avg04tdRuiIhQNvHsKuvca57GOyLRFuSpTCgpvlfd9bAgb9WWAegw1p
+         uOLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=15qhdURAff4Y2KbNVFJtyqKm6cg9Ddnc33WPFF64dLk=;
+        fh=XEH981/h7SXDlFvEn/hWgBbcs3k/+cSyHorKrBbmYAw=;
+        b=VUGNFiiBm/FRSHIS+mqF9DUxwj8FYQwityI4JXOW6U2d1KwlJFfwhI0yK4m7e2ydVP
+         D/xTuKx/GDpHQudzVZxLwv1VBeTThUGRaljey5VupjXM1TkiBpzih2nLrrMlVUSAkC6V
+         uolFDtKVJm6f7hR3DHdDIsP2OZ5BkRrDpk/fLUiyHp7WEmWLudgcf6hd48AFRnxe3Zdy
+         JaRSFbiS2/uXi/cb0IlxEWpDJuIBu5UUhnBZ6+Q0H8+GWSoVS+8LkSDnbbEBVyH1cLs/
+         uLDb+w7TJ6W6FJ3yhNP4vmq76h9izSOOKKt4JumH4zhw4xxiUBzQBC3Qy+U8jw33xZ/q
+         vwKw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795532571; x=1796137371; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=15qhdURAff4Y2KbNVFJtyqKm6cg9Ddnc33WPFF64dLk=;
+        b=r7bZyl4zJUFbtDloS96gjqVcF/HEKin3TvDEpPfRVdV/vlcCu63rkuoEQzURQjDD1F
+         qDxUNisfRi5vhJqJl/JQJSTw7gmq4P1r/+QRIXmrDexCPQorEL0fPkp7qPH6ghBZJRgN
+         n4DtsATmv5Qezhn/4OnKAicIHfHI379jaTS2bAG0jqAc9bMEaiQAM48A4C3lA5ZbY7lc
+         PQ1GLXHbxqwnXTOsgBVfjr1E5VM47M7TwsUWIB1zHCYd51u8UPsMwSsFpljTLPrGqkJs
+         Qns6YwdAY172Q7JlCFGSYYEfjlyVOfNyfWFfwlbycqO6tmYYB50pY58dKnKWm1IAnpLG
+         h0nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795532571; x=1796137371;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=15qhdURAff4Y2KbNVFJtyqKm6cg9Ddnc33WPFF64dLk=;
+        b=d5lVTIbi5iMUmrXQ4mSkbSAmljdhOhQqD+JpipIKC/S1l1mNS+qAxTn/aKgLjRMQun
+         xF0TfkZnN5Sn6GpQDkYKi4HUg8iXM0b4Yv++FMyRkHloOe/FII0DT/JvfVDuWgDLev+t
+         IKRYTbu9xSXPISUVRcC48SQ0H8sd4zZG//xzZOpM+OWS5olK+xiGG7Xyk7V4u3oT/56o
+         WerJvzjm+HHi5iVYSelgkUYacxeU+magV3AshM8xI9mRbUHLWr49JxdGHi8KXbWAGhnz
+         Z3ILgSCFqOGivob1l+gR7Se9/jUOYD3GMGJljR89yXRwIovqW/6/usgH0TlGpxyaZ3YM
+         nBsA==
+X-Forwarded-Encrypted: i=1; AL+hErEB8op8pSBK+h9vtwo0p/MdBldI1MbE+4BmQ34wdwsjpfRUUQFpacGlL3byXE2KpyVKAi+7JHQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8WiCw/xQexX17QzAImxwgLK6iuHB26ggnWJgaNtNjIAA0hXGI5
+	FpdpFMdGfotKHmAFvYItP/ij5ndjyLHR06K8komftd0CHcZiRvUvDezi1YyV2Cua05lVeaCvbYe
+	ZxshSe11r/ZzKtEmokSVMJW5qOEyfOe6G9A==
+X-Gm-Gg: AZFdTZf7kCt2GVk4LD22Kc6ryaccF8wPZ6L2cnu0TTiaN4iBMS5ahQcbNnYdeARnrGO
+	jeWrKU3f91nBVNsUF9jaW0B6t3bBs+Rwr07A4N2WY8AixM3neU+L287Y853pnwhj4ZvoLbYFVHT
+	KIIoyfqk/M+i8nLy68BIMiX8V7kpGnQFiUTKln36m3CBjvw8SuKO3Bun60gSW7ZarFiZgkfItUq
+	j/ZgUaej9Z4vb+SgAbj+22yrVQxfliMYX8PvgO+KayWXT0pZQ8uEzgTWn0RexJ3O9dbMMLQEkMI
+	c3g0luI1bAPxdc6NvtTDsAxuSeEWI2Wg8Rv0Vgzly3R0NJhZz2VnSXzXdGtLQy4/WtRhcxtSqW6
+	j2w/q/VFAspe0SdYuqiahLZo/k8uM4jzCKUQ/gI05H00DeaKhwD65vwM5R1+ua4Vupw==
+X-Received: by 2002:a05:690c:6c8a:b0:8b3:33cf:1fdf with SMTP id
+ 00721157ae682-8b52043a56fmr73445267b3.14.1795532570462; Tue, 24 Nov 2026
+ 07:02:50 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,267 +104,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+References: <20261120150008.1144420-1-ekffu200098@gmail.com>
+ <20261120150008.1144420-2-ekffu200098@gmail.com> <874id6cuvh.fsf@igalia.com>
+In-Reply-To: <874id6cuvh.fsf@igalia.com>
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+Date: Wed, 25 Nov 2026 00:02:37 +0900
+X-Gm-Features: Aa3M54q7McbRkX2Kvq38FE_QJzJaOozwIIO4D-O26WWXQe2rdNcekeLEZ0LCW74
+Message-ID: <CABFDxMGGtxxm5OyLiihbVLBJKihoTxtV2g-FG6rURdPWnQdwPw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] fuse: defer dentry_tree_work until fuse_dentry_tree_init()
+To: Luis Henriques <luis@igalia.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, fuse-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Miklos Szeredi <mszeredi@redhat.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi, Luis
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+2026=EB=85=84 11=EC=9B=94 24=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 8:49, =
+Luis Henriques <luis@igalia.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> On Sat, Nov 21 2026, Sang-Heon Jeon wrote:
+>
+> > inval_wq_set() schedules dentry_tree_work when inval_wq is enabled.
+> >
+> > But inval_wq_set() can be called at boot or module load before
+> > fuse_dentry_tree_init() initializes the work, so __queue_delayed_work()
+> > warns and the work never starts.
+> >
+> > So defer scheduling the work until fuse_dentry_tree_init() sets it up.
+> > Also hold kernel_param_lock() in fuse_dentry_tree_init(), because a
+> > sysfs write can call inval_wq_set() at the same time.
+> >
+> > Fixes: ab84ad597386 ("fuse: new work queue to periodically invalidate e=
+xpired dentries")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+> > ---
+> >  fs/fuse/dir.c | 13 +++++++++++++
+> >  1 file changed, 13 insertions(+)
+> >
+> > diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
+> > index da23ccd8685c..0d5d04df477b 100644
+> > --- a/fs/fuse/dir.c
+> > +++ b/fs/fuse/dir.c
+> > @@ -39,6 +39,7 @@ static struct delayed_work dentry_tree_work;
+> >  /* Minimum invalidation work queue frequency */
+> >  #define FUSE_DENTRY_INVAL_FREQ_MIN 5
+> >
+> > +static bool inval_wq_ready;
+> >  unsigned __read_mostly inval_wq;
+> >  static int inval_wq_set(const char *val, const struct kernel_param *kp=
+)
+> >  {
+> > @@ -62,6 +63,10 @@ static int inval_wq_set(const char *val, const struc=
+t kernel_param *kp)
+> >
+> >       *((unsigned int *)kp->arg) =3D num;
+> >
+> > +     /* Defer the work until fuse_dentry_tree_init() sets it up. */
+> > +     if (!inval_wq_ready)
+> > +             return 0;
+> > +
+> >       if (num && !old)
+> >               schedule_delayed_work(&dentry_tree_work,
+> >                                     secs_to_jiffies(num));
+> > @@ -224,6 +229,14 @@ void fuse_dentry_tree_init(void)
+> >               dentry_hash[i].tree =3D RB_ROOT;
+> >       }
+> >       INIT_DELAYED_WORK(&dentry_tree_work, fuse_dentry_tree_work);
+> > +
+> > +     kernel_param_lock(THIS_MODULE);
+>
+> I wonder if this is the right solution.  The solution I had in my local
+> tree was to simply declare a spinlock with DEFINE_SPINLOCK() and use it t=
+o
+> synchronise access in fuse_dentry_tree_work(), fuse_dentry_tree_cleanup()
+> and inval_wq_set().
+>
+> Do you have a reason for using this kernel_param_lock() instead?  (Honest
+> question! I've never used that before :-) )
 
-To reproduce the conflict and resubmit, you may use the following commands:
+AFAIU, parse_args() (boot, module load) and param_attr_store() (sysfs)
+already hold kernel_param_lock() when they call inval_wq_set(). So we
+don't need to declare another lock if we hold kernel_param_lock during
+init and cleanup. Let me know if I miss or misunderstand something.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x bab48a1044475f62d6e910c6d7267ce4bae847f9
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112439-exchange-tissue-26cd@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+But using a spinlock should be okay as well. So if you prefer using a
+spinlock instead of kernel_param_lock, just let me know and I'll
+switch in v3.
 
-Possible dependencies:
+> Cheers,
+> --
+> Lu=C3=ADs
+>
+> > +     inval_wq_ready =3D true;
+> > +
+> > +     if (inval_wq)
+> > +             schedule_delayed_work(&dentry_tree_work,
+> > +                                   secs_to_jiffies(inval_wq));
+> > +     kernel_param_unlock(THIS_MODULE);
+> >  }
+> >
+> >  void fuse_dentry_tree_cleanup(void)
+> > --
+> > 2.53.0
+> >
+>
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From bab48a1044475f62d6e910c6d7267ce4bae847f9 Mon Sep 17 00:00:00 2001
-From: Yuansheng Yang <0xbeac@gmail.com>
-Date: Tue, 10 Nov 2026 11:02:52 +0800
-Subject: [PATCH] KEYS: Protect pkey method checks against type removal
-
-keyctl_pkey_query(), keyctl_pkey_e_d_s() and keyctl_pkey_verify() check
-that key->type has the ->asym_*() method they need and call it later,
-without holding key->sem.  A reference keeps the key alive, but does not
-pin the module that provides its type.
-
-When that module is unloaded, unregister_key_type() waits for the key GC
-to process every remaining key of the type.  For each such key, the GC
-takes key->sem for writing, switches key->type to key_type_dead, whose
-->asym_*() methods are NULL, and destroys the payload.  If that happens
-between the check and the call, the keyctl calls a NULL method; if it
-happens while the method runs, the method returns into freed module text.
-In-tree, turris-signing-key provides ->asym_query() and ->asym_eds_op()
-and can be built as a module.
-
-Take key->sem for reading around each method call, and check the method
-again under it, right before the call.  While the lock is held the GC
-cannot switch the key to key_type_dead, so unregister_key_type() and the
-module unload cannot complete until the method returns.  If the type is
-already gone, the check finds key_type_dead and the keyctl fails with
--EOPNOTSUPP, as it does for any key type without the method.
-
-memdup_user() and copy_to_user() stay outside key->sem, as in
-keyctl_read_key(), so no page fault is taken with key->sem held.  The
-in-tree ->asym_*() methods do not take key->sem themselves.  Nothing else
-in the kernel calls these methods, so these four call sites are the full
-coverage:
-
- - keyctl_pkey_query(): ->asym_query() for KEYCTL_PKEY_QUERY
- - keyctl_pkey_params_get_2(): ->asym_query(), and the op-specific check
-   for KEYCTL_PKEY_ENCRYPT, _DECRYPT, _SIGN and _VERIFY
- - keyctl_pkey_e_d_s(): ->asym_eds_op() for _ENCRYPT, _DECRYPT and _SIGN
- - keyctl_pkey_verify(): ->asym_verify_signature() for _VERIFY
-
-This problem was recently fixed for keyctl_read_key() by 925c84e3cc21
-("keys: Protect the read method check against type removal") and for
-key_update() by aef3a8a4f988 ("KEYS: Protect the update method check
-against type removal").
-
-Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops for asymmetric keys [ver #2]")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Link: https://lore.kernel.org/r/20261110030252.9979-1-0xbeac@gmail.com
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-
-diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
-index 15b6bf6399b5..e7121523b9c9 100644
---- a/security/keys/keyctl_pkey.c
-+++ b/security/keys/keyctl_pkey.c
-@@ -129,45 +129,77 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
- 	if (ret < 0)
- 		return ret;
- 
-+	down_read(&params->key->sem);
-+
-+	if (!params->key->type->asym_query) {
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
-+	}
-+
- 	ret = params->key->type->asym_query(params, &info);
- 	if (ret < 0)
--		return ret;
-+		goto out_up_key_sem;
- 
- 	switch (op) {
- 	case KEYCTL_PKEY_ENCRYPT:
- 		if (uparams.in_len  > info.max_dec_size ||
--		    uparams.out_len > info.max_enc_size)
--			return -EINVAL;
-+		    uparams.out_len > info.max_enc_size) {
-+			ret = -EINVAL;
-+			goto out_up_key_sem;
-+		}
- 
- 		params->out_len = info.max_enc_size;
- 		break;
- 	case KEYCTL_PKEY_DECRYPT:
- 		if (uparams.in_len  > info.max_enc_size ||
--		    uparams.out_len > info.max_dec_size)
--			return -EINVAL;
-+		    uparams.out_len > info.max_dec_size) {
-+			ret = -EINVAL;
-+			goto out_up_key_sem;
-+		}
- 
- 		params->out_len = info.max_dec_size;
- 		break;
- 	case KEYCTL_PKEY_SIGN:
- 		if (uparams.in_len  > info.max_data_size ||
--		    uparams.out_len > info.max_sig_size)
--			return -EINVAL;
-+		    uparams.out_len > info.max_sig_size) {
-+			ret = -EINVAL;
-+			goto out_up_key_sem;
-+		}
- 
- 		params->out_len = info.max_sig_size;
- 		break;
- 	case KEYCTL_PKEY_VERIFY:
- 		if (uparams.in_len  > info.max_data_size ||
--		    uparams.in2_len > info.max_sig_size)
--			return -EINVAL;
-+		    uparams.in2_len > info.max_sig_size) {
-+			ret = -EINVAL;
-+			goto out_up_key_sem;
-+		}
- 
- 		params->out_len = info.max_sig_size;
- 		break;
- 	default:
--		return -EOPNOTSUPP;
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
- 	}
- 
- 	params->in_len  = uparams.in_len;
--	return 0;
-+
-+	switch (op) {
-+	case KEYCTL_PKEY_VERIFY:
-+		if (!params->key->type->asym_verify_signature)
-+			ret = -EOPNOTSUPP;
-+		break;
-+	case KEYCTL_PKEY_ENCRYPT:
-+	case KEYCTL_PKEY_DECRYPT:
-+	case KEYCTL_PKEY_SIGN:
-+		if (!params->key->type->asym_eds_op)
-+			ret = -EOPNOTSUPP;
-+		break;
-+	}
-+
-+out_up_key_sem:
-+	up_read(&params->key->sem);
-+	return ret;
- }
- 
- /*
-@@ -185,7 +217,16 @@ long keyctl_pkey_query(key_serial_t id,
- 	if (ret < 0)
- 		goto error;
- 
-+	down_read(&params.key->sem);
-+	if (!params.key->type->asym_query) {
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
-+	}
-+
- 	ret = params.key->type->asym_query(&params, &res);
-+
-+out_up_key_sem:
-+	up_read(&params.key->sem);
- 	if (ret < 0)
- 		goto error;
- 
-@@ -230,10 +271,6 @@ long keyctl_pkey_e_d_s(int op,
- 	if (ret < 0)
- 		goto error_params;
- 
--	ret = -EOPNOTSUPP;
--	if (!params.key->type->asym_eds_op)
--		goto error_params;
--
- 	switch (op) {
- 	case KEYCTL_PKEY_ENCRYPT:
- 		params.op = kernel_pkey_encrypt;
-@@ -260,7 +297,16 @@ long keyctl_pkey_e_d_s(int op,
- 	if (!out)
- 		goto error_in;
- 
-+	down_read(&params.key->sem);
-+	if (!params.key->type->asym_eds_op) {
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
-+	}
-+
- 	ret = params.key->type->asym_eds_op(&params, in, out);
-+
-+out_up_key_sem:
-+	up_read(&params.key->sem);
- 	if (ret < 0)
- 		goto error_out;
- 
-@@ -305,31 +351,37 @@ long keyctl_pkey_verify(const struct keyctl_pkey_params __user *_params,
- 	ret = keyctl_pkey_params_get_2(_params, _info, KEYCTL_PKEY_VERIFY,
- 				       &params);
- 	if (ret < 0)
--		goto error_params;
--
--	ret = -EOPNOTSUPP;
--	if (!params.key->type->asym_verify_signature)
--		goto error_params;
-+		goto out_free_params;
- 
- 	in = memdup_user(_in, params.in_len);
- 	if (IS_ERR(in)) {
- 		ret = PTR_ERR(in);
--		goto error_params;
-+		goto out_free_params;
- 	}
- 
- 	in2 = memdup_user(_in2, params.in2_len);
- 	if (IS_ERR(in2)) {
- 		ret = PTR_ERR(in2);
--		goto error_in;
-+		goto out_free_in;
- 	}
- 
- 	params.op = kernel_pkey_verify;
-+	down_read(&params.key->sem);
-+	if (!params.key->type->asym_verify_signature) {
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
-+	}
-+
- 	ret = params.key->type->asym_verify_signature(&params, in, in2);
- 
-+out_up_key_sem:
-+	up_read(&params.key->sem);
- 	kfree(in2);
--error_in:
-+
-+out_free_in:
- 	kfree(in);
--error_params:
-+
-+out_free_params:
- 	keyctl_pkey_params_free(&params);
- 	return ret;
- }
-
+Best regards,
+Sang-Heon Jeon
