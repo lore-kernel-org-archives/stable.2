@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795537253;
-	b=ySO4NFV2y6vHxWfMrrqUpSe0ZdfHa+ixy1di3ZlXrihzrK5+NOAWDRnwRJ8NzfP7MXEr
-	 OjpZuFlEdokB77lyutCq3u6cDJaggAvNGNodsxUzW2EpmHg47oOENf9EhXn0QRs7AZOiW
-	 XfEtdZ9OVFv5XriAjPdcRmXsbGsZgQItXgOaK73b/YzUa46up6Kzs7fn0OCjUmV/m6ndk
-	 U1sY1ou+fVI8/e9vLO7eiGT7JNn6TcMOCbWEnaprUyZA6yJe+jOhWnRQi9XbV9q4pMc4b
-	 WREyCy+4OTrLH28DepuRzKb+wtEOCRH4LebZuZXujAkaY2j61Ri/9PQjP571Lo339CA==
+	t=1795537271;
+	b=tvUxM8Glc/5KC50REMANhvgCCXyefyBLM7NPi0ujyZcfVU0WobKAEcfj53Aa2LHeZpCo
+	 gJmwMkVzGrAw1wCGuw9TIPodOWyK9oBYx42ytSMo3U2/dx7bECrMF38ySJaQ+ERmaHWoi
+	 kV/NKLblCW5Wmjju7JEbRWN2CIAjjjvK6U4b75plBiNfgF7N13HSAOaoy3qjf80VDXw6P
+	 TVBfBD8stL7k3NbFhSV3s+KGqeO58pbepsnYT9RF8hTwZxnwfKYDXheUm0j/Zo1PnZDQh
+	 BULoFqOcC/N7aNTnIlmzKtkZvL+oNkqwMgjlovrtNYT6MsZGPDjI5IjEDRb93mfnV1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795537253;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795537271;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=K1IVmqjVuSEX+KqD0ppV/9OnyzGxfs37dPZx3G7QH6w=;
-	b=GecwharH3ifUAdsnk24ibmkAa3Gedlvp+yGNax6bHJq5ha2xCEEGY7x4LaqLVGfh7P8y
-	 jZ+yEVPZNL82RdbLwa4rftupCwKoW0+VafQeNLIy5srJplM4wT/xCRAPzw64kj+2h9G0A
-	 3H2WFCJGbo0gjz4mFuYymiicmh2Y9mH96l+gK11YZQ+NlZSfie9YVA9lx5EYMpQbzZtWu
-	 mLcuTG+GE2J+/dlYUMx/TZqnDxu16OhjrxU2+t9svGSPDrBylBtZGDwOn3GqodVTS8p8z
-	 9r6+x1QPG6FDK67B3Rf4BipYqz/OKE/JXcddF8rmQJRT9u4fYbQGPoLw1kRhORh0Icw==
+	bh=Oie0KvEbG74bsGSSDfQlRVdUNkHoDzQ0ZMIFmkabVfg=;
+	b=n43ERIjG6QxY6sOnfLvsf6GyqyOANDLde7uEO/ZI+Bhu1c4jg8B0pmVAjjkDYWLDTOwB
+	 gO4LeuSZRPWlWacM0kbFoJompE7zv1E0KoUe83RbTNMhJ2NMmp7rYeEn7cilJ5i8yEq2+
+	 I4tuVRRfpPlImf18j63QIwuGID5QV3Oee/txDgQBtNdq2djCRD99xuizvbHFKWlbApJNV
+	 wl8wx/Fez737DvT1CSugylrwyk6A2VfD5y1CUlS88Ebmtv/NJs/zX64gaj4p68aPoMyBh
+	 t6VSS4Q766mTrmPcOY//xfwCQLX73jpauNsKDT+/2W00GeeLGgP8kkWpGZROt89tgQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0yndJjw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D4CBcYwq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C153606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:20:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 617F5606A330
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:21:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0yndJjw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9176C1F000CF;
-	Tue, 24 Nov 2026 16:20:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D4CBcYwq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31EF71F000C4;
+	Tue, 24 Nov 2026 16:21:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795537253;
-	bh=K1IVmqjVuSEX+KqD0ppV/9OnyzGxfs37dPZx3G7QH6w=;
+	s=k20260515; t=1795537270;
+	bh=Oie0KvEbG74bsGSSDfQlRVdUNkHoDzQ0ZMIFmkabVfg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V0yndJjw+MNYPiyxU7/VYZMsI1LgZslnoy38o1sRSTfE3IljRA+78OK2rRm3Dkk4Y
-	 DuWLU4i3j9mix4pkZ+PD3R/oa4BWL5ZWbrGmxn/nBeo5emLT72RalgibShUWKIhHSl
-	 kyX/5EiLyCgXgNjLAm488LfwVdcALZzSbP8fn7wddt/MgXFmXHfh7JJ4xwu8JSDVSO
-	 1ngyshnKdPRqek+c6RB3SgGSafItSQNH7rU1l5WOvgn032E9NSLy/A29v9YfhXlEAp
-	 XvA77uxIl3PqOX1kUE78eYgrVdBaV8TytgT7Z+P1P/4qk/Jf8Jk4GD5aYZ6tgh87xA
-	 ybcz0bgNfLGvA==
+	b=D4CBcYwqEEwFMmOe6/6e//soRO9ozrCQ1T5bZNIn/rCeE+MyGkWTGkTcL0HnL6UV+
+	 M5qinDMcppr8IcqDq6GHGNLNNvN8h4FowIz0TiA6DjBs4wY3jya21PDEVfReIJaZ3L
+	 BOSYKi6FMjc6bKCnxtsoR2uV/C/Eao8Gq99BUHQ9qydn95ideGPhCmw4RZgntvRqv1
+	 A+1I7Y+Fbf3/PlswpP+SIWXLnnSOBh4EM0heTsh0bO9l74uSDCQdGhjf4EtlKoCQBG
+	 nBifmqhuISU90sdNjVIubvFTFoUI0ugXVc0CFoLT/nkQcIqa7ys7YofbnNkXqwijBB
+	 x7gQ8pFSGxFsA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	David Howells <dhowells@redhat.com>,
+	Eric Biggers <ebiggers@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] kprobes: Validate re-registration earlier in register_kretprobe()
-Date: Tue, 24 Nov 2026 11:20:50 -0500
-Message-ID: <20261124162040.947082-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] KEYS: Expand key->{datalen,quotalen} to unsigned int
+Date: Tue, 24 Nov 2026 11:21:08 -0500
+Message-ID: <20261124162051.905744-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124162040.947082-1-sashal@kernel.org>
-References: <2026112410-hurried-barbell-533d@gregkh>
- <20261124162040.947082-1-sashal@kernel.org>
+In-Reply-To: <2026112410-pulsate-scariness-57af@gregkh>
+References: <2026112410-pulsate-scariness-57af@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,161 +62,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+From: Jarkko Sakkinen <jarkko@kernel.org>
 
-[ Upstream commit a553b499f22bf054964d4fd16d136f3d4f836c23 ]
+[ Upstream commit 4a65eaf146f0d10ebaa88cfaef9c3b24f93766d9 ]
 
-register_kretprobe() only checked for re-registration if rp->kp.addr was
-specified, skipping the check when rp was registered with symbol_name
-and rp->kp.addr was NULL. In that scenario, register_kretprobe()
-proceeded to allocate a new rethook (or kretprobe holder), and when
-register_kprobe(&rp->kp) subsequently failed due to re-registration, the
-error path freed and NULL-ed rp->rh (or rp->rph) on the still-active
-kretprobe, leading to NULL pointer dereferences when the active probe
-was hit.
+In key_alloc() and key_payload_reserve(), key->quotalen and key->datalen
+can receive values larger than USHRT_MAX.
 
-Resolve the target address via _kprobe_addr() up-front and check whether
-the probe is already registered at that address via
-check_kprobe_rereg_at() before allocating any resources, and drop the
-WARN_ON_ONCE() in the re-registration check now that re-registration is
-gracefully detected and rejected.
+Example:
 
-Link: https://lore.kernel.org/all/179375032568.247640.17429793187163536192.stgit@devnote2/
+  keyctl new_session >/dev/null
+  owner=$(keyctl newring owner @s)
+  keeper=$(keyctl newring keeper @s)
 
-Fixes: 0188b87899ff ("kretprobe: Avoid re-registration of the same kretprobe earlier")
+  for ((i=0; i<16384; i++)); do
+      key=$(keyctl add user "k$i" x "$keeper")
+      keyctl link "$key" "$owner"
+  done
+
+  awk -v uid="$(id -u):" '$1 == uid {print $NF}' /proc/key-users
+  keyctl clear "$owner"
+  awk -v uid="$(id -u):" '$1 == uid {print $NF}' /proc/key-users
+
+Because key->datalen wraps around 65535, the quota refunded upon clearing
+is truncated, causing quota bytes to leak in /proc/key-users.
+
+Change the types of key->datalen and key->quotalen from unsigned short to
+unsigned int so that they can carry the full payload length without
+truncation.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reviewed-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Eric Biggers <ebiggers@kernel.org>
+Link: https://lore.kernel.org/r/20261020174325.2229448-2-jarkko@kernel.org
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ sashal: Replaced the smb_EIO1/smb_EIO2 trace helper calls with plain rc = -EIO in the cifsacl.c hunks, since those helpers are missing here. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/kprobes.c | 72 +++++++++++++++++++++++++++---------------------
- 1 file changed, 40 insertions(+), 32 deletions(-)
+ fs/smb/client/cifsacl.c | 6 +++---
+ include/linux/key.h     | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index 7b3fe9307fb1a..bc77406e5d7b0 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -1483,52 +1483,61 @@ _kprobe_addr(kprobe_opcode_t *addr, const char *symbol_name,
- 	return addr;
- }
- 
--static kprobe_opcode_t *kprobe_addr(struct kprobe *p)
--{
--	bool on_func_entry;
--
--	return _kprobe_addr(p->addr, p->symbol_name, p->offset, &on_func_entry);
--}
--
- /*
-  * Check the 'p' is valid and return the aggregator kprobe
-  * at the same address.
-  */
--static struct kprobe *__get_valid_kprobe(struct kprobe *p)
-+static struct kprobe *__get_valid_kprobe_at(struct kprobe *p, kprobe_opcode_t *addr)
- {
-+	struct hlist_head *head;
- 	struct kprobe *ap, *list_p;
- 
- 	lockdep_assert_held(&kprobe_mutex);
- 
--	ap = get_kprobe(p->addr);
--	if (unlikely(!ap))
-+	if (unlikely(!addr))
- 		return NULL;
- 
--	if (p == ap)
--		return ap;
--
--	list_for_each_entry(list_p, &ap->list, list)
--		if (list_p == p)
--		/* kprobe p is a valid probe */
-+	head = &kprobe_table[hash_ptr(addr, KPROBE_HASH_BITS)];
-+	hlist_for_each_entry_rcu(ap, head, hlist,
-+				 lockdep_is_held(&kprobe_mutex)) {
-+		if (ap == p) {
-+			p->addr = addr;
- 			return ap;
-+		}
-+		if (ap->addr == addr && kprobe_aggrprobe(ap)) {
-+			list_for_each_entry(list_p, &ap->list, list) {
-+				if (list_p == p) {
-+					p->addr = addr;
-+					return ap;
-+				}
-+			}
-+		}
-+	}
- 
- 	return NULL;
- }
- 
--/*
-- * Warn and return error if the kprobe is being re-registered since
-- * there must be a software bug.
-- */
--static inline int warn_kprobe_rereg(struct kprobe *p)
-+static inline struct kprobe *__get_valid_kprobe(struct kprobe *p)
-+{
-+	return __get_valid_kprobe_at(p, p->addr);
-+}
-+
-+/* Return error if the kprobe is being re-registered */
-+static inline int check_kprobe_rereg_at(struct kprobe *p, kprobe_opcode_t *addr)
- {
- 	guard(mutex)(&kprobe_mutex);
- 
--	if (WARN_ON_ONCE(__get_valid_kprobe(p)))
-+	if (__get_valid_kprobe_at(p, addr))
- 		return -EINVAL;
- 
- 	return 0;
- }
- 
-+static inline int check_kprobe_rereg(struct kprobe *p)
-+{
-+	return check_kprobe_rereg_at(p, p->addr);
-+}
-+
- static int check_ftrace_location(struct kprobe *p)
- {
- 	unsigned long addr = (unsigned long)p->addr;
-@@ -1665,7 +1674,7 @@ int register_kprobe(struct kprobe *p)
- 		return PTR_ERR(addr);
- 	p->addr = addr;
- 
--	ret = warn_kprobe_rereg(p);
-+	ret = check_kprobe_rereg(p);
- 	if (ret)
- 		return ret;
- 
-@@ -2200,20 +2209,19 @@ int register_kretprobe(struct kretprobe *rp)
- 	struct kretprobe_instance *inst;
- 	int i;
- 	void *addr;
-+	bool on_func_entry;
- 
--	ret = kprobe_on_func_entry(rp->kp.addr, rp->kp.symbol_name, rp->kp.offset);
--	if (ret)
--		return ret;
-+	addr = _kprobe_addr(rp->kp.addr, rp->kp.symbol_name, rp->kp.offset, &on_func_entry);
-+	if (IS_ERR(addr))
-+		return PTR_ERR(addr);
- 
--	/* If only 'rp->kp.addr' is specified, check reregistering kprobes */
--	if (rp->kp.addr && warn_kprobe_rereg(&rp->kp))
-+	if (!on_func_entry)
- 		return -EINVAL;
- 
--	if (kretprobe_blacklist_size) {
--		addr = kprobe_addr(&rp->kp);
--		if (IS_ERR(addr))
--			return PTR_ERR(addr);
-+	if (check_kprobe_rereg_at(&rp->kp, addr))
-+		return -EINVAL;
- 
-+	if (kretprobe_blacklist_size) {
- 		for (i = 0; kretprobe_blacklist[i].name != NULL; i++) {
- 			if (kretprobe_blacklist[i].addr == addr)
- 				return -EINVAL;
+diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
+index f41db45fd7e7b..5fcb3b13ecb53 100644
+--- a/fs/smb/client/cifsacl.c
++++ b/fs/smb/client/cifsacl.c
+@@ -319,7 +319,7 @@ id_to_sid(unsigned int cid, uint sidtype, struct smb_sid *ssid)
+ 		goto out_revert_creds;
+ 	} else if (sidkey->datalen < CIFS_SID_BASE_SIZE) {
+ 		rc = -EIO;
+-		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%hu)\n",
++		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%u)\n",
+ 			 __func__, sidkey->datalen);
+ 		goto invalidate_key;
+ 	}
+@@ -336,7 +336,7 @@ id_to_sid(unsigned int cid, uint sidtype, struct smb_sid *ssid)
+ 	ksid_size = CIFS_SID_BASE_SIZE + (ksid->num_subauth * sizeof(__le32));
+ 	if (ksid_size > sidkey->datalen) {
+ 		rc = -EIO;
+-		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%hu, ksid_size=%u)\n",
++		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%u, ksid_size=%u)\n",
+ 			 __func__, sidkey->datalen, ksid_size);
+ 		goto invalidate_key;
+ 	}
+@@ -431,7 +431,7 @@ sid_to_id(struct cifs_sb_info *cifs_sb, struct smb_sid *psid,
+ 	 */
+ 	BUILD_BUG_ON(sizeof(uid_t) != sizeof(gid_t));
+ 	if (sidkey->datalen != sizeof(uid_t)) {
+-		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%hu)\n",
++		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%u)\n",
+ 			 __func__, sidkey->datalen);
+ 		key_invalidate(sidkey);
+ 		goto out_key_put;
+diff --git a/include/linux/key.h b/include/linux/key.h
+index af9d22150e719..23fb011c7a9a8 100644
+--- a/include/linux/key.h
++++ b/include/linux/key.h
+@@ -216,8 +216,8 @@ struct key {
+ 	kuid_t			uid;
+ 	kgid_t			gid;
+ 	key_perm_t		perm;		/* access permissions */
+-	unsigned short		quotalen;	/* length added to quota */
+-	unsigned short		datalen;	/* payload data length
++	unsigned int		quotalen;	/* length added to quota */
++	unsigned int		datalen;	/* payload data length
+ 						 * - may not match RCU dereferenced payload
+ 						 * - payload should contain own length
+ 						 */
 -- 
 2.53.0
 
