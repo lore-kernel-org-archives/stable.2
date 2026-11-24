@@ -1,56 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534986;
-	b=qq+hz/4OqGxTtIQcC/ttnDsbHb/hYo8BiUkvV4dNaJAmVMJ41E4INfptWnAsA3GXVxHI
-	 MV5qRp8PPszjCOdHzyryRvGzYbi4LjsCEM7uqVMPri/Uc1/FTQw6iAWQ5tOE6tzuWai18
-	 k5ZzNy8MiPP20HQFi47lIyJvQ4gCzxlgeSwvk/OzhONVuv6g9c5WJfQ0TXmNBXS2Hgxz3
-	 99szCDXVrCABqxoxqyb9+q1Tuxg7oliR9ZqM9fYem9UYZhfmifJ/HpmKmPEM06gGcLt0u
-	 xalWBBDhHLEtlCc2ZghaFq3w7ptTn9HomkDr9NI9x/7p6mmCS4bCEWhtf4H5E4oDmqQ==
+	t=1795534988;
+	b=w+0piUodWcilQJO4127PPbrRjYIvVNVdLTrWB4z9+vonAm3Mdb/IFKhdnMN1Rkg2MFlG
+	 Umud9e41E0vfaDt/rOS5CNXcvhDuSHpXM1VDLCZmO+/TDiFON/CaBMVDYwb+P21R3O6sH
+	 7Th7GKcNOPGcl+FF/0Pbhqo/WLwuuBG0/DqG/QZINtF3yAoB3Wjbg28g28BqZ99ohjKW2
+	 GdUOP6+lSeAGL38CFImMRy1HsSNix+eplENAYnDu9n0hEu+u4qIr/rGwFp0zKyqn6axmd
+	 2uEEpCaFHVPfBE6mDhTQSY4oXjYlLmZESqEV5MTh6xwYvNSiiuBIsykcVLrODM/7V4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534986;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AU1Qu7gdA/sqwFBXgQo8pGhRwe8E/cG9kUQFAmNhMrU=;
-	b=kiAYHYUBv1E9lcu13GEBOO3ltYeHIV5+JHkw1IzB4sF1MDACJJt1lVn4BXCX5d7qtwnt
-	 0zOrRtbK//iCzb/trWJCWmcAWFmPubDF+ZikFaPazk/uxZfFdO3C51o0wnFhunKp8sKIg
-	 IwOhP7i13tu6oKQU35CX4hHm40102HQbDvzY+ZhcRhZpcSPHVSkBmspgU/gxqzT0Ga1eG
-	 MUCD6wCOnODu0pfM0duWnQpdnP4uKyYWs7khG1t4LymHpSDyzaVIVum8k+4mTD5iLQAHE
-	 /f8MeAqCjdUq+0TiKjsOisrlqZ/emIuRp1/7HDTrl/lslkDi/arqktCrOPvJ8Jb7soA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534988;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=XWwx40Fc2d4fw+4DgSXIQdfumTmq2OJztcy+UXXcpVY=;
+	b=LxPCtS5rxLg+TUroiguZNsgdNDIoEhyGdG4uX5QtkPwBdnnuD0QwRY/aTZytjkp041Iy
+	 3R7KDtf1TPrOBWzlNJayYzhg2B0sFv6NR1JTvz1/819wr1Vaeb/HDgiH0SdPnHf+u6ZS4
+	 hIlb2mX1scbukL2GdT25k7Zg1AfZzZK07/q6x8BpsfCVSVektrpmdK9cJwPqDwQnlg/+8
+	 vHaiDrlUxFQ1xMoi3OSHmrFwq9yytviq1NkcfLowj6/7UeHpa3Qm+66plpIRbI9kN10Xh
+	 5tTYANfmAxok/oI6pV3a3C2xSBYgyXV2KOPo6ZoAXfj4T2w+ZhRsV+F+Lija+dPay0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L7BX5mRK;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cuGA2L6G;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E819606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:43:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA884606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:43:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L7BX5mRK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09A2F1F000C4;
-	Tue, 24 Nov 2026 15:43:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795534985;
-	bh=AU1Qu7gdA/sqwFBXgQo8pGhRwe8E/cG9kUQFAmNhMrU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L7BX5mRKyJYC5zE7NSQLHt64FvPYoTRBNby+rwltstjkvYb/mqQPrOLW3mdvOcNe0
-	 MRb7AtISR2WOhAoH2ozL2en0MlTEX5uqh4iL3ZjQ4PW+B8nG/Kkb0+tGa2P/QhtYAS
-	 3FNE7GUWg901U8JtKI7hbNYA7/m3H2xUMjliJPadVBk7/gOxbTQj6z6n2wLCDFDpGe
-	 8vOqnD+cUw+aicFOX7a4UFaXrAIagMS/5eck0xvn4S8XaBMw10QLT0RgvnFihaSCOD
-	 g/9TUzpUk8JhbiiTdDk57O6uUP4gjFKr6JPRSla59Kd6/CXf8aRHC32BRnA51xVZhH
-	 jkDwZWu7Z/gMQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: David Carlier <devnexen@gmail.com>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] tracing/eprobe: Install the trigger for every instance that enables the eprobe
-Date: Tue, 24 Nov 2026 10:43:02 -0500
-Message-ID: <20261124154254.4181285-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124154254.4181285-1-sashal@kernel.org>
-References: <2026112427-galvanize-pointed-f15e@gregkh>
- <20261124154254.4181285-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cuGA2L6G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F286A1F000C4;
+	Tue, 24 Nov 2026 15:43:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795534988;
+	bh=XWwx40Fc2d4fw+4DgSXIQdfumTmq2OJztcy+UXXcpVY=;
+	h=Subject:To:Cc:From:Date;
+	b=cuGA2L6GgnzeOKvGEQjaF1l0BFAUhd0ygxUbrJd0xDFkpZR0dXffy35rmJspFUBkG
+	 00Z1eGDy9cflftoij8AF8BimkpWUdE1dhXKzWivwvBFSv8u8txfL8Mv1wWRU1ulPZD
+	 S0wZkHvOIQdqc5jRKvhVynuxjstLp0ng7xiMX6hE=
+Subject: FAILED: patch "[PATCH] btrfs: reject refs=0 subvolume without DEAD in" failed to apply to 6.18-stable tree
+To: teel4res@gmail.com,dsterba@suse.com,quwenruo.btrfs@gmx.com,wqu@suse.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 24 Nov 2026 16:43:28 +0100
+Message-ID: <2026112428-spearmint-famished-4675@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,137 +51,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: David Carlier <devnexen@gmail.com>
 
-[ Upstream commit be94710b1f6ba1bea33e73129c110af80e999b2d ]
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-The eprobe trigger lives in the instance of the enabling file, but it is
-only added when the eprobe is first enabled and only removed when the
-last file goes away. A second instance then records nothing, and the
-first instance's trigger is left behind once the eprobe is disabled
-there, so the eprobe can be deleted while that trigger still uses it.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Add and remove the trigger for each file. The file is never NULL here,
-so warn if it is and drop the dead perf paths.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 9a58e56e70f610e29b53821e9c706600e529cca3
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112428-spearmint-famished-4675@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-Link: https://lore.kernel.org/all/20261107101233.151434-1-devnexen@gmail.com/
+Possible dependencies:
 
-Fixes: 7491e2c44278 ("tracing: Add a probe that attaches to trace events")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/trace/trace_eprobe.c | 56 ++++++++++++-------------------------
- 1 file changed, 18 insertions(+), 38 deletions(-)
 
-diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
-index 161afacb5c7ca..4a8c4c08de788 100644
---- a/kernel/trace/trace_eprobe.c
-+++ b/kernel/trace/trace_eprobe.c
-@@ -746,37 +746,32 @@ static int enable_trace_eprobe(struct trace_event_call *call,
- {
- 	struct trace_probe *tp;
- 	struct trace_eprobe *ep;
--	bool enabled;
- 	int ret = 0;
- 	int cnt = 0;
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 9a58e56e70f610e29b53821e9c706600e529cca3 Mon Sep 17 00:00:00 2001
+From: Cheng Yongkang <teel4res@gmail.com>
+Date: Sat, 31 Oct 2026 23:25:39 -0700
+Subject: [PATCH] btrfs: reject refs=0 subvolume without DEAD in
+ SUBVOL_SYNC_WAIT
+
+btrfs_ioctl_subvol_sync() assumes that a cached root with zero
+references has BTRFS_ROOT_SUBVOL_DEAD set, and asserts that before
+waiting for the cleaner. Two states break the assumption:
+
+- A corrupt ROOT_ITEM with zero references and a matching orphan item,
+  on a writable filesystem.
+- A failed subvolume deletion. btrfs_delete_subvolume() zeroes the
+  root references, aborts the transaction, which forces the filesystem
+  read-only, and then clears DEAD again. No on-disk metadata is
+  corrupted in this case.
+
+With CONFIG_BTRFS_ASSERT=y, both reach a BUG().
+
+Change the ASSERT() into a proper rejection to avoid triggering a BUG().
+
+Fixes: 6c83d153ed86 ("btrfs: add new ioctl to wait for cleaned subvolumes")
+CC: stable@vger.kernel.org
+Suggested-by: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Link: https://lore.kernel.org/linux-btrfs/dd97efe9-91ec-495b-b698-acff1447421c@gmx.com/
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+[ Rework the commit message, drop the ad-hoc RW check. ]
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index 847fdc19bd40..000276bb49ad 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -5161,8 +5161,12 @@ static int btrfs_ioctl_subvol_sync(struct btrfs_fs_info *fs_info, void __user *a
+ 			return -ENOENT;
  
-+	if (WARN_ON_ONCE(!file))
-+		return -EINVAL;
-+
- 	tp = trace_probe_primary_from_call(call);
- 	if (WARN_ON_ONCE(!tp))
- 		return -ENODEV;
--	enabled = trace_probe_is_enabled(tp);
- 
- 	/* This also changes "enabled" state */
--	if (file) {
--		ret = trace_probe_add_file(tp, file);
--		if (ret)
--			return ret;
--	} else
--		trace_probe_set_flag(tp, TP_FLAG_PROFILE);
--
--	if (enabled)
--		return 0;
-+	ret = trace_probe_add_file(tp, file);
-+	if (ret)
-+		return ret;
- 
-+	/* The trigger lives in the instance of the file, add it for each file */
- 	for_each_trace_eprobe_tp(ep, tp) {
- 		ret = enable_eprobe(ep, file);
- 		if (ret)
- 			break;
--		enabled = true;
- 		cnt++;
- 	}
- 
- 	if (ret) {
- 		/* Failed to enable one of them. Roll back all */
--		if (enabled) {
-+		if (cnt) {
- 			/*
- 			 * It's a bug if one failed for something other than memory
- 			 * not being available but another eprobe succeeded.
-@@ -789,10 +784,7 @@ static int enable_trace_eprobe(struct trace_event_call *call,
- 					break;
- 			}
- 		}
--		if (file)
--			trace_probe_remove_file(tp, file);
--		else
--			trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
-+		trace_probe_remove_file(tp, file);
- 	}
- 
- 	return ret;
-@@ -804,33 +796,21 @@ static int disable_trace_eprobe(struct trace_event_call *call,
- 	struct trace_probe *tp;
- 	struct trace_eprobe *ep;
- 
-+	if (WARN_ON_ONCE(!file))
-+		return -EINVAL;
-+
- 	tp = trace_probe_primary_from_call(call);
- 	if (WARN_ON_ONCE(!tp))
- 		return -ENODEV;
- 
--	if (file) {
--		if (!trace_probe_get_file_link(tp, file))
--			return -ENOENT;
--		if (!trace_probe_has_single_file(tp))
--			goto out;
--		trace_probe_clear_flag(tp, TP_FLAG_TRACE);
--	} else
--		trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
-+	if (!trace_probe_get_file_link(tp, file))
-+		return -ENOENT;
- 
--	if (!trace_probe_is_enabled(tp)) {
--		for_each_trace_eprobe_tp(ep, tp)
--			disable_eprobe(ep, file->tr);
--	}
-+	for_each_trace_eprobe_tp(ep, tp)
-+		disable_eprobe(ep, file->tr);
- 
-- out:
--	if (file)
--		/*
--		 * Synchronization is done in below function. For perf event,
--		 * file == NULL and perf_trace_event_unreg() calls
--		 * tracepoint_synchronize_unregister() to ensure synchronize
--		 * event. We don't need to care about it.
--		 */
--		trace_probe_remove_file(tp, file);
-+	/* Synchronization is done in below function. */
-+	trace_probe_remove_file(tp, file);
- 
- 	return 0;
- }
--- 
-2.53.0
+ 		wait_for_deletion = true;
+-		ASSERT(root_flags & BTRFS_ROOT_SUBVOL_DEAD, "root_flags=0x%llx",
+-		       root_flags);
++		if (unlikely(!(root_flags & BTRFS_ROOT_SUBVOL_DEAD))) {
++			btrfs_err(fs_info,
++				  "subvol %llu has refs 0 without DEAD flag",
++				  args.subvolid);
++			return -EUCLEAN;
++		}
+ 		sched_ret = schedule_timeout_interruptible(HZ);
+ 		/* Early wake up or error. */
+ 		if (sched_ret != 0)
 
