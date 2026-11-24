@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541532;
-	b=j6MqbRxbxlIUGi0uB/8RVBBGB/X9wwJMGq9oA2zpH/fJAvh1W4AHd3pxx/7wOSy8hiwC
-	 q3WrW4ByKPYMZUBuC1B4i6tSmZRmPYF5HsE3mZYROqAtUz6VX9RZUhqAKMw2x0yhxJ6IS
-	 Eo6/Oek8krFnhXU2wcdBbNbodcNa1I0KOcNlnVWY9fzm76iqO94x6QliuCA3nG2Sp41rO
-	 lqE/kElcAsD8GawPN8CGVbqeMs/OQ+NIhfmfaltvOAtNcgCnWCFTvd6X9Z8Yiw65eEi9i
-	 aBxIT71EGlAENpjy1+rmKRGfPfnUzL7NKl5Zm+4P8IG4UP3xGj79ZLcAQrPh0VClKrw==
+	t=1795541594;
+	b=uKprtTDgHAX3vfFTSUJBPdQX/gpVOkavUWEfESjGcme6+4CQGbYgYyN8OHrK2uvpiJfX
+	 5m0hwwC/0IUUZMfcleYyRzcwxrYd8sbhrTOA+rLmXwMUYzDBNDohNsN4fscSZc2X3fgNi
+	 B/v0NljnQ+404Ria60EzXrjFa4xoApXJDVBhBn+BOyr3NJo1EKYHs3BhfZ3G5WPf+X8pn
+	 29M9ghiwhltpSps6yHYrCgw49gRjQ0cfEAdUfh++2Ybq8z2vuvJISTsGw1ACETW6EuTNt
+	 J11HHDZvKbfRhTjtzn7wUFTRswcoMeK+UK/bNk1Bb8EYxK9LPI+UoxjTiWdgNNNqEYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541532;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=BTVY4aU3/L8miJpqzvWLyd9xWFkG1Y6BaRFcJkDciFA=;
-	b=qNiAjLovHzPyNVlsbftBclLnfe+vj+AzTYvm7jUrC8Ovnoy5l4ShEcOs6OmJr0kO/mX8
-	 8MxdbBXHi+JIcxbWD/629P9ZcdnAY/V8uTWo5et7ufeouQ8Ex+WC6j0q6hUUZ9jIvu+Sj
-	 EzmUIh1TFV4SwoPaoM61Q0X9rCUY3dBbAMMeT6+kMSkqWhTpRlYhnh+O62iJNfa+QgVWN
-	 xkc1EZggkz9fhxIXWsN1955nsRb7mmNttmq1d4Nzdjj1tErvX/QZzz1CAb8oGEbVTv9Ou
-	 3Qt2TRv0Swzi4vb8rWp6nrlfxoKmcq4bATccF6XKntX8+bVoqDnZI44cbqcCuNkXFDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541594;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=btLf8DwtGC2+ScoNJ4jVSnhrEjvDT0vyo3gW2DWZJRg=;
+	b=N+/o8qjaDyKUE90Okn2KTGwk+eZ1ATVItEl3Fxh/GCDY1EXtNPub9L40QtAI9nZt7VWg
+	 4MoGSXl9cByciArYYID2lj79HVWkJXm9aIr+CYj56hnJ/spGBaD39h94ZHwY/lYbonXbS
+	 a/rRApo5sAqS681qG0fjmVfaoHnTCot1eOKt8mVXe9E0rHylyp7LdP/sHb2D8lKGs6F/Z
+	 +8gcgT8dRI03GkRoS6LqXPU/mMmYsBzr7lnHJ4r+fFrV5kE3BV16rQfwvRqJ/mMfCy9CQ
+	 M5WWU/JgcvWXNtiW9Boa1mQ9rOaJXx41FVlP6KTj06PFIdyIk8GnG48kQEgxhvdCaDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QbzCjmMm;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF1F3606A335;
-	Tue, 24 Nov 2026 17:32:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF1F3606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRF2nKf8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A1F606A33C
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:33:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QbzCjmMm
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 42FC9339;
-	Tue, 24 Nov 2026 09:32:08 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DC4F13F763;
-	Tue, 24 Nov 2026 09:32:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795541531; bh=y+ueAXDgxzoT7mF7z9hhxx0rxTk5jOpaLKQ8IkUeO1c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QbzCjmMmg7TyLgKT+xUclxK1kp6FLshpTNpBNLnf/txH31j5v82n1H9jT1ZN8Cqk4
-	 k0Apd8y126QCGBt6QIwo6PVAveC3op3lmv7p8Kta4VZlDXiSV8enXJVvD13SBAg/Hs
-	 M1GcEsgah8M9GWmhbRHZQIf0g70tPUsSnJPRadCQ=
-Date: Tue, 24 Nov 2026 17:32:06 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: =?utf-8?B?6buE5Y2O5oiQ?= <1112433017@e.gzhu.edu.cn>
-Cc: linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
-	will <will@kernel.org>, "mark.rutland" <mark.rutland@arm.com>,
-	broonie <broonie@kernel.org>,
-	"szabolcs.nagy" <szabolcs.nagy@arm.com>,
-	"yury.khrustalev" <yury.khrustalev@arm.com>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	stable <stable@vger.kernel.org>
-Subject: Re: [PATCH 1/1] arm64: gcs: bind signal GCS restore to the live
- GCSPR_EL0
-Message-ID: <awXKFu9PAifaCay5@arm.com>
-References: <tencent_122AB752205D1FCC2B359940@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRF2nKf8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 892D41F00ADE;
+	Tue, 24 Nov 2026 17:33:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795541593;
+	bh=btLf8DwtGC2+ScoNJ4jVSnhrEjvDT0vyo3gW2DWZJRg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HRF2nKf8NdExQfXqPeEd7ievgJorP53uKGP32DjRcfd3VAyCuYmY/zSsctNl56Yqn
+	 I1KAGdLzmrXpNbLL1F/s8NMP5vmtEWTTbiV0Kil/AzVvNoJOLwADv107SH9AcowrPD
+	 KYa2ysm9JLVyzvr5dxKIfYacKWwZ/o6u7IIHs9b80fwKYl7cJ11nAjESCsmbhIHjfu
+	 Fdzbj7mDQi+Q4849sw3h65AqNZE4SNab2EX8Wrjbi15VV4S3qj2zgRqRV7ZizcLcIZ
+	 42lwtUey5WExmDVfqwwnxLfW90zmjXaHonYZopPXDhFjAF6CA61t7ZT+rwsJL9EOeC
+	 ZNIysGtMSTI8A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ian Ray <ian.ray@gehealthcare.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Haibo Chen <haibo.chen@nxp.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] mmc: sdhci-esdhc-imx: map unsupported driver type to Type B
+Date: Tue, 24 Nov 2026 12:33:11 -0500
+Message-ID: <20261124173112.2014464-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112445-unviable-busload-101a@gregkh>
+References: <2026112445-unviable-busload-101a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,29 +61,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <tencent_122AB752205D1FCC2B359940@qq.com>
 
-On Mon, Nov 23, 2026 at 11:56:52PM +0800, 黄华成 wrote:
-> Bind the restore to the live, kernel-visible GCSPR_EL0: for every
-> legitimate restore at every nesting depth the innermost frame's gcspr
-> equals the live GCSPR_EL0 (the handler's return pops its trampoline
-> record before rt_sigreturn).  Userspace cannot move the live GCSPR_EL0
-> without executing GCS instructions, which are themselves checked.
+From: Ian Ray <ian.ray@gehealthcare.com>
 
-(that's a pretty malformed patch, missing sign-off, lines not wrapped,
-based on an older tree)
+[ Upstream commit d35d93c2902592a84347a15deac4d67a323694c9 ]
 
-Changing GCSPR_EL0 via sigreturn is the intended ABI (see
-preserve_gcs_context() and Documentation/arch/arm64/gcs.rst). Any valid
-signal cap token is acceptable, including an outer context's token.
+Since commit 5a52c5701a67 ("mmc: core: Fix host controller programming
+for fixed driver type"), the eMMC driver strength is passed directly to
+mmc_set_driver_type(), which propagates the value through ios.drv_type
+all the way to sdhci_set_ios().  For value 4, SDHCI correctly warns:
 
-The patch would also break handlers that call rt_sigreturn directly,
-user-space stack switching and checkpoint/restore.
+  mmc2: invalid driver type, default to driver type B
 
-In conclusion, NAK.
+The host driver type has no effect on this controller: esdhc_writew_le()
+never programs the driver-type field of SDHCI_HOST_CONTROL2.  Hook
+set_ios() and force drv_type to the always-valid Type B, so that SDHCI
+never sees an unsupported value.
 
+Tested on i.MX8MP (usdhc3, eMMC in HS400) with
+`fixed-emmc-driver-type = <4>`: the warning is gone and the HS_TIMING
+register contains 0x43 as expected.
+
+Fixes: 5a52c5701a67 ("mmc: core: Fix host controller programming for fixed driver type")
+Link: https://lore.kernel.org/all/20260926122908.866-1-ian.ray@gehealthcare.com/
+Cc: stable@vger.kernel.org
+Suggested-by: Adrian Hunter <adrian.hunter@intel.com>
+Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
+Acked-by: Adrian Hunter <adrian.hunter@intel.com>
+Reviewed-by: Haibo Chen <haibo.chen@nxp.com>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+[ sashal: Hunks were placed by hand with different context: the new set_ios function goes before esdhc_reset_tuning() (no usdhc_init_card() here), and the probe hook goes after the probe_dt error check. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/mmc/host/sdhci-esdhc-imx.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/drivers/mmc/host/sdhci-esdhc-imx.c b/drivers/mmc/host/sdhci-esdhc-imx.c
+index b030f657e2534..d032f5d5aed20 100644
+--- a/drivers/mmc/host/sdhci-esdhc-imx.c
++++ b/drivers/mmc/host/sdhci-esdhc-imx.c
+@@ -1137,6 +1137,20 @@ static void esdhc_set_strobe_dll(struct sdhci_host *host)
+ 		"warning! HS400 strobe DLL status REF/SLV not lock in 50us, STROBE DLL status is %x!\n", v);
+ }
+ 
++static void sdhci_esdhc_imx_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
++{
++	/*
++	 * This controller has no driver-type control: esdhc_writew_le()
++	 * discards the driver-type field when writing SDHCI_HOST_CONTROL2.
++	 * The programmed value is therefore irrelevant, but SDHCI rejects
++	 * non-SD values such as 4 (eMMC 40 ohm, from fixed-emmc-driver-type).
++	 * Force an always-valid Type B.
++	 */
++	ios->drv_type = MMC_SET_DRIVER_TYPE_B;
++
++	sdhci_set_ios(mmc, ios);
++}
++
+ static void esdhc_reset_tuning(struct sdhci_host *host)
+ {
+ 	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
+@@ -1623,6 +1637,9 @@ static int sdhci_esdhc_imx_probe(struct platform_device *pdev)
+ 	if (err)
+ 		goto disable_ahb_clk;
+ 
++	/* No SDHCI driver type control */
++	host->mmc_host_ops.set_ios = sdhci_esdhc_imx_set_ios;
++
+ 	if (imx_data->socdata->flags & ESDHC_FLAG_MAN_TUNING)
+ 		sdhci_esdhc_ops.platform_execute_tuning =
+ 					esdhc_executing_tuning;
 -- 
-Catalin
+2.53.0
+
