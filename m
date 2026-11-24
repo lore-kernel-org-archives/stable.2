@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795536393;
-	b=5HLR9inhYJpbRNPBltwFvJnDqul8ZrXtoDU/4Ed0UC921AVaT68+Ps3E+moP2Ep1punT
-	 fMq+oI4gmDwlbudOGudyG7cWQwFFCihURtmElYEkqZzNVyVmg3QdOqDATF+3gqnsmGkym
-	 Fd3rZ5hKnlMmasq1Sn6NEtvOQCoPlVt/EKcsM728o63Ys5XosnM3ZrflhMnsSFsNkSawR
-	 UWEI502+nujFA5RsevlCTJ0JNFOOied+EBJx/QdFRCObbY9o2fOzPcFH1BYkcK57o3taK
-	 0XSgqWLkrdn7ysVtFOAUYIEebqFEjln/nWv4zKnOXyBiTEk8Kt17mbFukebmfEPa1Gg==
+	b=OrzwuiGZV/wW9N9DfdOUGhljfnCdiNaRhszjrltS0v/kO6VM1z0skkzNSckDVRE+l5sW
+	 vxS8eDpspjmnnvf7ygt70fQcfrQwsYIbAhj4k/ur03Fv5ro2AmAnFR/8hUo290A77zXsO
+	 mzScK+fosOFSM3jZl+8rQ7VMF9DOiyKRNAu/O/v2oC0Jhq7XdPm2Jgk5jsjL8zZMjX73d
+	 nJisphA4VKCs5TxZ67bheb2+Bw7Qsg6+2kNMSnM/qd3Gy3kUHrH93XI1Zk3oB/rLWtchl
+	 kT6CshBRT8dFU2Fc1Uzbe4rPuIGAbVVXAZeKRnb7RmXZnuyqCYY45aHEdKstoU8EeRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795536393;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SeiH+y9oEU8cX0xb0fJ15u3zmfwG8QzBATDeWrZBKN4=;
-	b=nT951Nunnv55svZvoZzAxsht7OHScccwQj+zQRyg8UC+QRcZybvTMP/GIF8H12wXaqFP
-	 p9n/YFxVHXzfqDg3qSVGjbPEz4hVYjRGwqec/lmeAGqfI5m7hyUa27q5kJMhWP7wA8M02
-	 w+NA6iVHp8siwyQpiq59Tu2xYcoMW9lKpp5qhGQ+aZ6iDY/npGhgs9F7bRT/afECJv11F
-	 apNRa26An5/IBm31Bzb0X0NzEs6hv6nW58VE79+xpMXcNoTiPlJmRRlQx9WZeOZNNKIg8
-	 I79kAba8jtvkRAQIPtmbdjrXFOROmWPJED/+zDdW/R8Uy1cz+7t5KOBcLFGR/16ViIg==
+	bh=GWetdlmfONo11YQTk/X6+IcmwdbOhBtD/XPAvzey1EU=;
+	b=5ZY6N3TOg+uwUlMyfKaHMuEQ3q6HP/oyF6WF+DD3S+MRGVHHWSiOqq5FpGiKdoXTq07C
+	 qD8lXnsvr1udW4h59i7A53TgAmU9UzR6U/bGE2+e+Pozavh5ZntAMwrkGyyWZFdaIuTCZ
+	 nycp4o6AL2MPNEd/X5AREFZbNIk/QrK6auMsUhGerZcdyCeGKE1NwbwJGGbcFH2N03CiU
+	 T6oSE5PnYnGvV9pfhHmaN0zSQDoaztIEfVTtv5Si8OvlFKW2LKRZb9wHO07OcqFuDit0b
+	 oaBUoOMv29kQqz+8XtOVBZWI1qW1msGXwYMerlW5YbquRJOnXmpOx65qS4goY09wmHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nlfxfKy0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AEzO2s8s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E82E606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:06:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA167606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:06:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nlfxfKy0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8081F000C6;
-	Tue, 24 Nov 2026 16:06:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AEzO2s8s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4839F1F000D3;
+	Tue, 24 Nov 2026 16:06:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795536392;
-	bh=SeiH+y9oEU8cX0xb0fJ15u3zmfwG8QzBATDeWrZBKN4=;
+	s=k20260515; t=1795536393;
+	bh=GWetdlmfONo11YQTk/X6+IcmwdbOhBtD/XPAvzey1EU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nlfxfKy0dcYMZqOGNOQetDQaaUvwFQFDLGb8GfUJaPakep+qO0eK+LYrpZjQLbEyc
-	 F0Cu23NyLK8DHzS1ycvf1CbpVQdP4TbxWT0hO52EYJjdwy19jOC/d3RllwBU+u4J1p
-	 ZBYRevsQYFRa5Q5LjgLcimNO2Ey1RXc1lghVTIHAtAlhFOTcOnv62eNBhC1lzRpjpY
-	 pqyryBcfbQSK94IekSERntYWrgpnOdx1UTnyhgnE7/trUa33PRqXfTPNcK+WH19HhK
-	 wL0e6bqogLnMr6oQ87CVZs2OUss/mh2DTgc/bmtwvCb3XWp1TINXT/c0nGK7R6fTtw
-	 BR52Fe91EGYmw==
+	b=AEzO2s8sZ0dFxEJemzYq3uZ5NDH5xwpX76JtovNB04rDuMKBe6OYdCeQU7Y3+gKGm
+	 b5qLihgjRezK447DiC6Tt4B0VOpOifFFmJWgL0JWfeR0MQf9JSwp4Qmdo4nxLpu/nl
+	 dpTVMccwVeI/phWGai3X+HcnfDdQgJXhKQ+xTzY46Vc7cIdsHWr21wtvocem1D0brJ
+	 s2iC25VuHG0ZYWRAx+vp6Zbxm6SzlFXi320Ej6JvVeRV2dXqiAbw4IwEpfdXHxNms/
+	 QhAnywGChYAySjyZv6rL9uOpUUTUt5y29tsP3htE7RIfgfUjnomXgG+fFmvTjlL3Yp
+	 k9nUP9Qvivb5g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] kprobes: Adopt guard() and scoped_guard()
-Date: Tue, 24 Nov 2026 11:06:29 -0500
-Message-ID: <20261124160620.845524-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] kprobes: Validate re-registration earlier in register_kretprobe()
+Date: Tue, 24 Nov 2026 11:06:30 -0500
+Message-ID: <20261124160620.845524-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112410-footman-resume-b431@gregkh>
+In-Reply-To: <20261124160620.845524-1-sashal@kernel.org>
 References: <2026112410-footman-resume-b431@gregkh>
+ <20261124160620.845524-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,527 +63,159 @@ Content-Transfer-Encoding: 8bit
 
 From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-[ Upstream commit 587e8e6d640bcf89a4bf29745a3c3fdfe8379ae0 ]
+[ Upstream commit a553b499f22bf054964d4fd16d136f3d4f836c23 ]
 
-Use guard() or scoped_guard() for critical sections rather than
-discrete lock/unlock pairs.
+register_kretprobe() only checked for re-registration if rp->kp.addr was
+specified, skipping the check when rp was registered with symbol_name
+and rp->kp.addr was NULL. In that scenario, register_kretprobe()
+proceeded to allocate a new rethook (or kretprobe holder), and when
+register_kprobe(&rp->kp) subsequently failed due to re-registration, the
+error path freed and NULL-ed rp->rh (or rp->rph) on the still-active
+kretprobe, leading to NULL pointer dereferences when the active probe
+was hit.
 
-Link: https://lore.kernel.org/all/173289887835.73724.608223217359025939.stgit@devnote2/
+Resolve the target address via _kprobe_addr() up-front and check whether
+the probe is already registered at that address via
+check_kprobe_rereg_at() before allocating any resources, and drop the
+WARN_ON_ONCE() in the re-registration check now that re-registration is
+gracefully detected and rejected.
 
+Link: https://lore.kernel.org/all/179375032568.247640.17429793187163536192.stgit@devnote2/
+
+Fixes: 0188b87899ff ("kretprobe: Avoid re-registration of the same kretprobe earlier")
+Cc: stable@vger.kernel.org
 Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Stable-dep-of: a553b499f22b ("kprobes: Validate re-registration earlier in register_kretprobe()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/kprobes.c | 205 ++++++++++++++++++++---------------------------
- 1 file changed, 89 insertions(+), 116 deletions(-)
+ kernel/kprobes.c | 72 +++++++++++++++++++++++++++---------------------
+ 1 file changed, 40 insertions(+), 32 deletions(-)
 
 diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index f05688f3acc55..8eb092fa66a82 100644
+index 8eb092fa66a82..c70f99610a78c 100644
 --- a/kernel/kprobes.c
 +++ b/kernel/kprobes.c
-@@ -144,10 +144,9 @@ static int collect_garbage_slots(struct kprobe_insn_cache *c);
- kprobe_opcode_t *__get_insn_slot(struct kprobe_insn_cache *c)
- {
- 	struct kprobe_insn_page *kip;
--	kprobe_opcode_t *slot = NULL;
- 
- 	/* Since the slot array is not protected by rcu, we need a mutex */
--	mutex_lock(&c->mutex);
-+	guard(mutex)(&c->mutex);
-  retry:
- 	rcu_read_lock();
- 	list_for_each_entry_rcu(kip, &c->pages, list) {
-@@ -158,9 +157,8 @@ kprobe_opcode_t *__get_insn_slot(struct kprobe_insn_cache *c)
- 				if (kip->slot_used[i] == SLOT_CLEAN) {
- 					kip->slot_used[i] = SLOT_USED;
- 					kip->nused++;
--					slot = kip->insns + (i * c->insn_size);
- 					rcu_read_unlock();
--					goto out;
-+					return kip->insns + (i * c->insn_size);
- 				}
- 			}
- 			/* kip->nused is broken. Fix it. */
-@@ -177,12 +175,12 @@ kprobe_opcode_t *__get_insn_slot(struct kprobe_insn_cache *c)
- 	/* All out of space.  Need to allocate a new page. */
- 	kip = kmalloc(KPROBE_INSN_PAGE_SIZE(slots_per_page(c)), GFP_KERNEL);
- 	if (!kip)
--		goto out;
-+		return NULL;
- 
- 	kip->insns = c->alloc();
- 	if (!kip->insns) {
- 		kfree(kip);
--		goto out;
-+		return NULL;
- 	}
- 	INIT_LIST_HEAD(&kip->list);
- 	memset(kip->slot_used, SLOT_CLEAN, slots_per_page(c));
-@@ -191,14 +189,12 @@ kprobe_opcode_t *__get_insn_slot(struct kprobe_insn_cache *c)
- 	kip->ngarbage = 0;
- 	kip->cache = c;
- 	list_add_rcu(&kip->list, &c->pages);
--	slot = kip->insns;
- 
- 	/* Record the perf ksymbol register event after adding the page */
- 	perf_event_ksymbol(PERF_RECORD_KSYMBOL_TYPE_OOL, (unsigned long)kip->insns,
- 			   PAGE_SIZE, false, c->sym);
--out:
--	mutex_unlock(&c->mutex);
--	return slot;
-+
-+	return kip->insns;
+@@ -1493,52 +1493,61 @@ _kprobe_addr(kprobe_opcode_t *addr, const char *symbol_name,
+ 	return addr;
  }
  
- /* Return true if all garbages are collected, otherwise false. */
-@@ -259,7 +255,7 @@ void __free_insn_slot(struct kprobe_insn_cache *c,
- 	struct kprobe_insn_page *kip;
- 	long idx;
- 
--	mutex_lock(&c->mutex);
-+	guard(mutex)(&c->mutex);
- 	rcu_read_lock();
- 	list_for_each_entry_rcu(kip, &c->pages, list) {
- 		idx = ((long)slot - (long)kip->insns) /
-@@ -285,7 +281,6 @@ void __free_insn_slot(struct kprobe_insn_cache *c,
- 			collect_one_slot(kip, idx);
- 		}
- 	}
--	mutex_unlock(&c->mutex);
- }
- 
- /*
-@@ -643,10 +638,9 @@ static void kprobe_optimizer(struct work_struct *work)
- 	mutex_unlock(&kprobe_mutex);
- }
- 
--/* Wait for completing optimization and unoptimization */
--void wait_for_kprobe_optimizer(void)
-+static void wait_for_kprobe_optimizer_locked(void)
- {
--	mutex_lock(&kprobe_mutex);
-+	lockdep_assert_held(&kprobe_mutex);
- 
- 	while (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list)) {
- 		mutex_unlock(&kprobe_mutex);
-@@ -658,8 +652,14 @@ void wait_for_kprobe_optimizer(void)
- 
- 		mutex_lock(&kprobe_mutex);
- 	}
-+}
- 
--	mutex_unlock(&kprobe_mutex);
-+/* Wait for completing optimization and unoptimization */
-+void wait_for_kprobe_optimizer(void)
-+{
-+	guard(mutex)(&kprobe_mutex);
-+
-+	wait_for_kprobe_optimizer_locked();
- }
- 
- bool optprobe_queued_unopt(struct optimized_kprobe *op)
-@@ -889,10 +889,10 @@ static void optimize_all_kprobes(void)
- 	struct kprobe *p;
- 	unsigned int i;
- 
--	mutex_lock(&kprobe_mutex);
-+	guard(mutex)(&kprobe_mutex);
- 	/* If optimization is already allowed, just return. */
- 	if (kprobes_allow_optimization)
--		goto out;
-+		return;
- 
- 	cpus_read_lock();
- 	kprobes_allow_optimization = true;
-@@ -904,8 +904,6 @@ static void optimize_all_kprobes(void)
- 	}
- 	cpus_read_unlock();
- 	pr_info("kprobe jump-optimization is enabled. All kprobes are optimized if possible.\n");
--out:
--	mutex_unlock(&kprobe_mutex);
- }
- 
- #ifdef CONFIG_SYSCTL
-@@ -915,12 +913,10 @@ static void unoptimize_all_kprobes(void)
- 	struct kprobe *p;
- 	unsigned int i;
- 
--	mutex_lock(&kprobe_mutex);
-+	guard(mutex)(&kprobe_mutex);
- 	/* If optimization is already prohibited, just return. */
--	if (!kprobes_allow_optimization) {
--		mutex_unlock(&kprobe_mutex);
-+	if (!kprobes_allow_optimization)
- 		return;
--	}
- 
- 	cpus_read_lock();
- 	kprobes_allow_optimization = false;
-@@ -932,10 +928,8 @@ static void unoptimize_all_kprobes(void)
- 		}
- 	}
- 	cpus_read_unlock();
--	mutex_unlock(&kprobe_mutex);
--
- 	/* Wait for unoptimizing completion. */
--	wait_for_kprobe_optimizer();
-+	wait_for_kprobe_optimizer_locked();
- 	pr_info("kprobe jump-optimization is disabled. All kprobes are based on software breakpoint.\n");
- }
- 
-@@ -947,7 +941,7 @@ static int proc_kprobes_optimization_handler(struct ctl_table *table,
- {
- 	int ret;
- 
--	mutex_lock(&kprobe_sysctl_mutex);
-+	guard(mutex)(&kprobe_sysctl_mutex);
- 	sysctl_kprobes_optimization = kprobes_allow_optimization ? 1 : 0;
- 	ret = proc_dointvec_minmax(table, write, buffer, length, ppos);
- 
-@@ -955,7 +949,6 @@ static int proc_kprobes_optimization_handler(struct ctl_table *table,
- 		optimize_all_kprobes();
- 	else
- 		unoptimize_all_kprobes();
--	mutex_unlock(&kprobe_sysctl_mutex);
- 
- 	return ret;
- }
-@@ -1031,7 +1024,8 @@ static void __disarm_kprobe(struct kprobe *p, bool reopt)
- #define __arm_kprobe(p)				arch_arm_kprobe(p)
- #define __disarm_kprobe(p, o)			arch_disarm_kprobe(p)
- #define kprobe_disarmed(p)			kprobe_disabled(p)
--#define wait_for_kprobe_optimizer()		do {} while (0)
-+#define wait_for_kprobe_optimizer_locked()			\
-+	lockdep_assert_held(&kprobe_mutex)
- 
- static int reuse_unused_kprobe(struct kprobe *ap)
- {
-@@ -1502,6 +1496,7 @@ _kprobe_addr(kprobe_opcode_t *addr, const char *symbol_name,
- static kprobe_opcode_t *kprobe_addr(struct kprobe *p)
- {
- 	bool on_func_entry;
-+
- 	return _kprobe_addr(p->addr, p->symbol_name, p->offset, &on_func_entry);
- }
- 
-@@ -1536,14 +1531,12 @@ static struct kprobe *__get_valid_kprobe(struct kprobe *p)
-  */
- static inline int warn_kprobe_rereg(struct kprobe *p)
- {
--	int ret = 0;
-+	guard(mutex)(&kprobe_mutex);
- 
--	mutex_lock(&kprobe_mutex);
- 	if (WARN_ON_ONCE(__get_valid_kprobe(p)))
--		ret = -EINVAL;
--	mutex_unlock(&kprobe_mutex);
-+		return -EINVAL;
- 
--	return ret;
-+	return 0;
- }
- 
- static int check_ftrace_location(struct kprobe *p)
-@@ -1631,44 +1624,17 @@ static int check_kprobe_address_safe(struct kprobe *p,
- 	return ret;
- }
- 
--int register_kprobe(struct kprobe *p)
-+static int __register_kprobe(struct kprobe *p)
- {
- 	int ret;
- 	struct kprobe *old_p;
--	struct module *probed_mod;
--	kprobe_opcode_t *addr;
+-static kprobe_opcode_t *kprobe_addr(struct kprobe *p)
+-{
 -	bool on_func_entry;
 -
--	/* Adjust probe address from symbol */
--	addr = _kprobe_addr(p->addr, p->symbol_name, p->offset, &on_func_entry);
--	if (IS_ERR(addr))
--		return PTR_ERR(addr);
--	p->addr = addr;
+-	return _kprobe_addr(p->addr, p->symbol_name, p->offset, &on_func_entry);
+-}
 -
--	ret = warn_kprobe_rereg(p);
--	if (ret)
--		return ret;
+ /*
+  * Check the 'p' is valid and return the aggregator kprobe
+  * at the same address.
+  */
+-static struct kprobe *__get_valid_kprobe(struct kprobe *p)
++static struct kprobe *__get_valid_kprobe_at(struct kprobe *p, kprobe_opcode_t *addr)
+ {
++	struct hlist_head *head;
+ 	struct kprobe *ap, *list_p;
  
--	/* User can pass only KPROBE_FLAG_DISABLED to register_kprobe */
--	p->flags &= KPROBE_FLAG_DISABLED;
--	p->nmissed = 0;
--	INIT_LIST_HEAD(&p->list);
+ 	lockdep_assert_held(&kprobe_mutex);
+ 
+-	ap = get_kprobe(p->addr);
+-	if (unlikely(!ap))
++	if (unlikely(!addr))
+ 		return NULL;
+ 
+-	if (p == ap)
+-		return ap;
 -
--	ret = check_kprobe_address_safe(p, &probed_mod);
--	if (ret)
--		return ret;
--
--	mutex_lock(&kprobe_mutex);
--
--	if (on_func_entry)
--		p->flags |= KPROBE_FLAG_ON_FUNC_ENTRY;
-+	guard(mutex)(&kprobe_mutex);
+-	list_for_each_entry(list_p, &ap->list, list)
+-		if (list_p == p)
+-		/* kprobe p is a valid probe */
++	head = &kprobe_table[hash_ptr(addr, KPROBE_HASH_BITS)];
++	hlist_for_each_entry_rcu(ap, head, hlist,
++				 lockdep_is_held(&kprobe_mutex)) {
++		if (ap == p) {
++			p->addr = addr;
+ 			return ap;
++		}
++		if (ap->addr == addr && kprobe_aggrprobe(ap)) {
++			list_for_each_entry(list_p, &ap->list, list) {
++				if (list_p == p) {
++					p->addr = addr;
++					return ap;
++				}
++			}
++		}
++	}
  
- 	old_p = get_kprobe(p->addr);
--	if (old_p) {
-+	if (old_p)
- 		/* Since this may unoptimize 'old_p', locking 'text_mutex'. */
--		ret = register_aggr_kprobe(old_p, p);
--		goto out;
--	}
-+		return register_aggr_kprobe(old_p, p);
+ 	return NULL;
+ }
  
- 	cpus_read_lock();
- 	/* Prevent text modification */
-@@ -1677,7 +1643,7 @@ int register_kprobe(struct kprobe *p)
- 	mutex_unlock(&text_mutex);
- 	cpus_read_unlock();
- 	if (ret)
--		goto out;
-+		return ret;
- 
- 	INIT_HLIST_NODE(&p->hlist);
- 	hlist_add_head_rcu(&p->hlist,
-@@ -1688,14 +1654,43 @@ int register_kprobe(struct kprobe *p)
- 		if (ret) {
- 			hlist_del_rcu(&p->hlist);
- 			synchronize_rcu();
--			goto out;
- 		}
- 	}
- 
- 	/* Try to optimize kprobe */
- 	try_to_optimize_kprobe(p);
--out:
--	mutex_unlock(&kprobe_mutex);
-+	return 0;
+-/*
+- * Warn and return error if the kprobe is being re-registered since
+- * there must be a software bug.
+- */
+-static inline int warn_kprobe_rereg(struct kprobe *p)
++static inline struct kprobe *__get_valid_kprobe(struct kprobe *p)
++{
++	return __get_valid_kprobe_at(p, p->addr);
 +}
 +
-+int register_kprobe(struct kprobe *p)
++/* Return error if the kprobe is being re-registered */
++static inline int check_kprobe_rereg_at(struct kprobe *p, kprobe_opcode_t *addr)
+ {
+ 	guard(mutex)(&kprobe_mutex);
+ 
+-	if (WARN_ON_ONCE(__get_valid_kprobe(p)))
++	if (__get_valid_kprobe_at(p, addr))
+ 		return -EINVAL;
+ 
+ 	return 0;
+ }
+ 
++static inline int check_kprobe_rereg(struct kprobe *p)
 +{
-+	int ret;
-+	struct module *probed_mod;
-+	kprobe_opcode_t *addr;
-+	bool on_func_entry;
++	return check_kprobe_rereg_at(p, p->addr);
++}
 +
-+	/* Canonicalize probe address from symbol */
-+	addr = _kprobe_addr(p->addr, p->symbol_name, p->offset, &on_func_entry);
+ static int check_ftrace_location(struct kprobe *p)
+ {
+ 	unsigned long addr = (unsigned long)p->addr;
+@@ -1675,7 +1684,7 @@ int register_kprobe(struct kprobe *p)
+ 		return PTR_ERR(addr);
+ 	p->addr = addr;
+ 
+-	ret = warn_kprobe_rereg(p);
++	ret = check_kprobe_rereg(p);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2211,20 +2220,19 @@ int register_kretprobe(struct kretprobe *rp)
+ 	struct kretprobe_instance *inst;
+ 	int i;
+ 	void *addr;
++	bool on_func_entry;
+ 
+-	ret = kprobe_on_func_entry(rp->kp.addr, rp->kp.symbol_name, rp->kp.offset);
+-	if (ret)
+-		return ret;
++	addr = _kprobe_addr(rp->kp.addr, rp->kp.symbol_name, rp->kp.offset, &on_func_entry);
 +	if (IS_ERR(addr))
 +		return PTR_ERR(addr);
-+	p->addr = addr;
-+
-+	ret = warn_kprobe_rereg(p);
-+	if (ret)
-+		return ret;
-+
-+	/* User can pass only KPROBE_FLAG_DISABLED to register_kprobe */
-+	p->flags &= KPROBE_FLAG_DISABLED;
-+	if (on_func_entry)
-+		p->flags |= KPROBE_FLAG_ON_FUNC_ENTRY;
-+	p->nmissed = 0;
-+	INIT_LIST_HEAD(&p->list);
-+
-+	ret = check_kprobe_address_safe(p, &probed_mod);
-+	if (ret)
-+		return ret;
-+
-+	ret = __register_kprobe(p);
  
- 	if (probed_mod)
- 		module_put(probed_mod);
-@@ -1870,12 +1865,11 @@ void unregister_kprobes(struct kprobe **kps, int num)
+-	/* If only 'rp->kp.addr' is specified, check reregistering kprobes */
+-	if (rp->kp.addr && warn_kprobe_rereg(&rp->kp))
++	if (!on_func_entry)
+ 		return -EINVAL;
  
- 	if (num <= 0)
- 		return;
--	mutex_lock(&kprobe_mutex);
--	for (i = 0; i < num; i++)
--		if (__unregister_kprobe_top(kps[i]) < 0)
--			kps[i]->addr = NULL;
--	mutex_unlock(&kprobe_mutex);
--
-+	scoped_guard(mutex, &kprobe_mutex) {
-+		for (i = 0; i < num; i++)
-+			if (__unregister_kprobe_top(kps[i]) < 0)
-+				kps[i]->addr = NULL;
-+	}
- 	synchronize_rcu();
- 	for (i = 0; i < num; i++)
- 		if (kps[i]->addr)
-@@ -2327,8 +2321,9 @@ void unregister_kretprobes(struct kretprobe **rps, int num)
- 
- 	if (num <= 0)
- 		return;
--	mutex_lock(&kprobe_mutex);
- 	for (i = 0; i < num; i++) {
-+		guard(mutex)(&kprobe_mutex);
-+
- 		if (__unregister_kprobe_top(&rps[i]->kp) < 0)
- 			rps[i]->kp.addr = NULL;
- #ifdef CONFIG_KRETPROBE_ON_RETHOOK
-@@ -2337,7 +2332,6 @@ void unregister_kretprobes(struct kretprobe **rps, int num)
- 		rcu_assign_pointer(rps[i]->rph->rp, NULL);
- #endif
- 	}
--	mutex_unlock(&kprobe_mutex);
- 
- 	synchronize_rcu();
- 	for (i = 0; i < num; i++) {
-@@ -2418,18 +2412,14 @@ static void kill_kprobe(struct kprobe *p)
- /* Disable one kprobe */
- int disable_kprobe(struct kprobe *kp)
- {
--	int ret = 0;
- 	struct kprobe *p;
- 
--	mutex_lock(&kprobe_mutex);
-+	guard(mutex)(&kprobe_mutex);
- 
- 	/* Disable this kprobe */
- 	p = __disable_kprobe(kp);
--	if (IS_ERR(p))
--		ret = PTR_ERR(p);
- 
--	mutex_unlock(&kprobe_mutex);
--	return ret;
-+	return IS_ERR(p) ? PTR_ERR(p) : 0;
- }
- EXPORT_SYMBOL_GPL(disable_kprobe);
- 
-@@ -2439,20 +2429,16 @@ int enable_kprobe(struct kprobe *kp)
- 	int ret = 0;
- 	struct kprobe *p;
- 
--	mutex_lock(&kprobe_mutex);
-+	guard(mutex)(&kprobe_mutex);
- 
- 	/* Check whether specified probe is valid. */
- 	p = __get_valid_kprobe(kp);
--	if (unlikely(p == NULL)) {
--		ret = -EINVAL;
--		goto out;
--	}
-+	if (unlikely(p == NULL))
+-	if (kretprobe_blacklist_size) {
+-		addr = kprobe_addr(&rp->kp);
+-		if (IS_ERR(addr))
+-			return PTR_ERR(addr);
++	if (check_kprobe_rereg_at(&rp->kp, addr))
 +		return -EINVAL;
  
--	if (kprobe_gone(kp)) {
-+	if (kprobe_gone(kp))
- 		/* This kprobe has gone, we couldn't enable it. */
--		ret = -EINVAL;
--		goto out;
--	}
-+		return -EINVAL;
- 
- 	if (p != kp)
- 		kp->flags &= ~KPROBE_FLAG_DISABLED;
-@@ -2466,8 +2452,6 @@ int enable_kprobe(struct kprobe *kp)
- 				kp->flags |= KPROBE_FLAG_DISABLED;
- 		}
- 	}
--out:
--	mutex_unlock(&kprobe_mutex);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(enable_kprobe);
-@@ -2654,11 +2638,11 @@ static int kprobes_module_callback(struct notifier_block *nb,
- 	unsigned int i;
- 	int checkcore = (val == MODULE_STATE_GOING);
- 
--	if (val == MODULE_STATE_COMING) {
--		mutex_lock(&kprobe_mutex);
-+	guard(mutex)(&kprobe_mutex);
-+
-+	if (val == MODULE_STATE_COMING)
- 		add_module_kprobe_blacklist(mod);
--		mutex_unlock(&kprobe_mutex);
--	}
-+
- 	if (val != MODULE_STATE_GOING && val != MODULE_STATE_LIVE)
- 		return NOTIFY_DONE;
- 
-@@ -2668,7 +2652,6 @@ static int kprobes_module_callback(struct notifier_block *nb,
- 	 * notified, only '.init.text' section would be freed. We need to
- 	 * disable kprobes which have been inserted in the sections.
- 	 */
--	mutex_lock(&kprobe_mutex);
- 	for (i = 0; i < KPROBE_TABLE_SIZE; i++) {
- 		head = &kprobe_table[i];
- 		hlist_for_each_entry(p, head, hlist)
-@@ -2691,7 +2674,6 @@ static int kprobes_module_callback(struct notifier_block *nb,
- 	}
- 	if (val == MODULE_STATE_GOING)
- 		remove_module_kprobe_blacklist(mod);
--	mutex_unlock(&kprobe_mutex);
- 	return NOTIFY_DONE;
- }
- 
-@@ -2708,7 +2690,7 @@ void kprobe_free_init_mem(void)
- 	struct kprobe *p;
- 	int i;
- 
--	mutex_lock(&kprobe_mutex);
-+	guard(mutex)(&kprobe_mutex);
- 
- 	/* Kill all kprobes on initmem because the target code has been freed. */
- 	for (i = 0; i < KPROBE_TABLE_SIZE; i++) {
-@@ -2718,8 +2700,6 @@ void kprobe_free_init_mem(void)
- 				kill_kprobe(p);
- 		}
- 	}
--
--	mutex_unlock(&kprobe_mutex);
- }
- 
- static int __init init_kprobes(void)
-@@ -2915,11 +2895,11 @@ static int arm_all_kprobes(void)
- 	unsigned int i, total = 0, errors = 0;
- 	int err, ret = 0;
- 
--	mutex_lock(&kprobe_mutex);
-+	guard(mutex)(&kprobe_mutex);
- 
- 	/* If kprobes are armed, just return */
- 	if (!kprobes_all_disarmed)
--		goto already_enabled;
-+		return 0;
- 
- 	/*
- 	 * optimize_kprobe() called by arm_kprobe() checks
-@@ -2949,8 +2929,6 @@ static int arm_all_kprobes(void)
- 	else
- 		pr_info("Kprobes globally enabled\n");
- 
--already_enabled:
--	mutex_unlock(&kprobe_mutex);
- 	return ret;
- }
- 
-@@ -2961,13 +2939,11 @@ static int disarm_all_kprobes(void)
- 	unsigned int i, total = 0, errors = 0;
- 	int err, ret = 0;
- 
--	mutex_lock(&kprobe_mutex);
-+	guard(mutex)(&kprobe_mutex);
- 
- 	/* If kprobes are already disarmed, just return */
--	if (kprobes_all_disarmed) {
--		mutex_unlock(&kprobe_mutex);
-+	if (kprobes_all_disarmed)
- 		return 0;
--	}
- 
- 	kprobes_all_disarmed = true;
- 
-@@ -2992,11 +2968,8 @@ static int disarm_all_kprobes(void)
- 	else
- 		pr_info("Kprobes globally disabled\n");
- 
--	mutex_unlock(&kprobe_mutex);
--
- 	/* Wait for disarming all kprobes by optimizer */
--	wait_for_kprobe_optimizer();
--
-+	wait_for_kprobe_optimizer_locked();
- 	return ret;
- }
- 
++	if (kretprobe_blacklist_size) {
+ 		for (i = 0; kretprobe_blacklist[i].name != NULL; i++) {
+ 			if (kretprobe_blacklist[i].addr == addr)
+ 				return -EINVAL;
 -- 
 2.53.0
 
