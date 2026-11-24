@@ -1,47 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534575;
-	b=BVWL5sUSeuxKNAgjvGZAH39LekC6rS1Cfhjefx9fXSYQHYHtNXteyav1rMhWVL6Y8bzD
-	 It6Zyp9hrn/JAH30N0fILpMhY1BPp+R2dEj5EChWSgZKRQgXW3xCsxyhXXmP9sQGl2NR6
-	 LiLSF0sP7AupvVHgPeOVPDdUX+/g96rSuUWKnxd8CAd7N9o3rLjORbkPCVJ3kswGvTFIn
-	 eZvHptp+c7qlWuYCONTLEYDFQHPRQBERU7ktfVhf0FrBOV1OAOw1xEagZS6WICK9dc0xJ
-	 LHY2cMRwNCAaXnd23Jw4q1ps42Xu0cCDt2p0kq5I+wPnfOREZRGDkqvue1fJHLSeQUQ==
+	t=1795534578;
+	b=x4v866iTtfLUcWmuC065chGsRHiOasgEcb87jlry5cXUe7cdvfPo/5+whjX7Vc5UGemW
+	 ZNBkIHaAdffOhsM1YaiI7qYimuUE8z/BQMGJ5HVQ6WddFzGc9DOEQqOhf+udjy7xuh/FT
+	 Ta5VMHQ2XZECZBJedwcf1sV8J4LMYxv1SbYjdIjqTtyb5U9LRU+9hW2UfsytQMeV9tKkq
+	 RFy3sEhCQ55nD+IymQavV+MEBQwjtsfR627gfqVa5kuoZPXnwucdKVTp19+4y045i0D5w
+	 zYvM82fZRMTvZIrSYJoKo7EKw+fDjEaoz87UUGOlZkaxb3GzO9KzQHoR+VhqasrUMEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534575;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=viZuXoQt+ROvfw8Edzwp3JM0IwCaNMa43QV51C+bLB4=;
-	b=01JdqZTFZIm65XyDtwuB+PCbVyScE1h+4ViJmvXjeTkMaEk0fuiL7ffePIxiOHwmE8ka
-	 +LFJhKPdAwO7sXTWNiH5ycPcJVNvzvY5pE+p987k3HRTnVOe9rpP8zGhUEIC9qEkyGKDg
-	 /3l4FmUWIfuQ6qET7i0lbgZxz5gYGQyhzNE9GHO/De8vc3QvL/E7PHfssZqWPBPCvpyN9
-	 AyUj29HFXY/NSMkopSP0y8ltGeyS+MaUqnFEpoQu4OdDBSCxza3xCkkeYSN2FwgKYEsIH
-	 zSkJCA10y9NQ4ESMMAC4ZgE2/MeTVnlluA+sXCqtYk43DqZs/6reKDNqWY9QSCVpe3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534578;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=pztq+Cm1+ZAP57GA6CuWEqPVZxEOeq25+Hlck3k+Nv8=;
+	b=VVfDYezVB+x3rVYR027FtZHaWk8VV5Wgbxf4Csml1R3uKQr1a6xg+QcKoDiIIaO54UtS
+	 BWSRXuFlcswV98DkZslBNoxDvrU2ZwoO/nbo2rON8nZh+JgIjnij7keMs+iLf1dbr9hTd
+	 nB/Ngj0fGA04Yjtff3sHu1sYZ79HlgRAzqHxt0UrAanx+GH5xfEIXKgpcg5tz9kd7aQ2N
+	 CBDyrbEsZUXNsafCcUUgnaUtIjt+lNBimD6AZbtH3VHlng+j3dqicqMAfMe133fB0I9+N
+	 BuhF0o/qFqfUXiLuvCm0reXKXDTIrKjuG11R0wn4bj6qgnj4is4lCCwzlOzFvXz0xNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VebbXlBJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=bVPOFHhq;
+	arc=none smtp.remote-ip=209.85.222.176
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B57606A329
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:36:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89FF606A326
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:36:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D89FF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VebbXlBJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54EAE1F000C4;
-	Tue, 24 Nov 2026 15:36:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795534574;
-	bh=viZuXoQt+ROvfw8Edzwp3JM0IwCaNMa43QV51C+bLB4=;
-	h=Subject:To:Cc:From:Date;
-	b=VebbXlBJdNFK5mPtfyzWbKNOkfhAq26yxDOz1WY/1syPBUhsWKE77a9QAPEYJHU/Z
-	 g01LWcePzDGo6nh+8pVug6x/Toyq4Ssrm9qAItb2kjb1s3Oxn/Zy+czFLX03z3B5VB
-	 MdZAS7idEwE1/j+/wiTKZos97eqb/48vOA+aj+tA=
-Subject: FAILED: patch "[PATCH] mm, page_alloc: pass zone pointer to trace_reclaim_retry_zone" failed to apply to 5.10-stable tree
-To: josef@toxicpanda.com,david@kernel.org,gourry@gourry.net,vbabka@kernel.org,ziy@nvidia.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:36:22 +0100
-Message-ID: <2026112422-swimsuit-outhouse-c2d6@gregkh>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=bVPOFHhq
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-94999a08973so441736585a.0
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 07:36:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1795534577; x=1796139377; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pztq+Cm1+ZAP57GA6CuWEqPVZxEOeq25+Hlck3k+Nv8=;
+        b=bVPOFHhq10ik9Bk7ROYmgO/NqxnMIXFTolb4IWLCiLnI45QyF+aI22nc4dKApDRJ33
+         fkOzWBPwR58km9K00ANe8Xd4L8ZoXuSdk9770GP841FM2prZb3EU4rL+8Bh8FitCLtG5
+         3UHMrqz0Tbx+t5Gi4YedcGBlfVoqK4HZfab9MjqST3leBqRmEeuGT9HJxM6n6W3QQsKg
+         2vWlhjRt4Ro/Hf0jILpiY545i6lEJPrjbIS7UcxZUIbfPkN8ikOEA/f62gfAM322RA+X
+         MNgvdwFKnGfrPzNEWtq3KGXj5Pn6pOyqW6EdH8ro2wvFheUQQaS2Ea7f3BOViCUF7fAg
+         M+kA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795534577; x=1796139377;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pztq+Cm1+ZAP57GA6CuWEqPVZxEOeq25+Hlck3k+Nv8=;
+        b=VXE9tM20vDGi9PnKbr9gPuFBy3P3Es3Qpr7JGHi2lwjmIRHsHelVU5JEC98IJyQlwJ
+         aMlGURFpgVuPCBzlzd/hNavXaFHhwXVeXmW0sqlT4zbCh7Mxaf/KFpZ/VXz24FrbnvPh
+         GlQD2tzKVctS7AOAWwEIUOEO/wky17ILij6q8P/I/JELQoxPTa+xzZTSLnUCOAqQyNnC
+         hsTw2kW3xe4Yve6/kP5wN1LiTKZoZmSDu1AxsHWNJHNDDjLnAk4T8TnE9F2IRRzl7eC1
+         5y0yAk2PU4X6AjrvQktq4FRQHFGGI4k3ceQ/cdLJCKlWrw7x6X3cKfIBPz6ByG/5MVE9
+         9rLA==
+X-Forwarded-Encrypted: i=1; AL+hErFhK18g7SY3IWfMFK47o+6sCOF+sFNus7Iep6fg478NnOcS19YA9rqq2OXqDxnJ48vC8DWawuc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jS8K4GYxkabbHtugmwhriNstXGmJAF2SQDDJue0kY/R0YB1E7
+	8iRsriZ8fwoBQmGpbo/skvFMNFqPJ7VKe2++OQxWNXFzlJ7HYQbl6zEl4qH8meRzjwc=
+X-Gm-Gg: AZFdTZeaCra0SG7huJDgJ3X+L1eQ7MBOvLuK+GVZ+swuWS8+P+4Fp4ATLbCoWD7UHD8
+	xcawEiFdqpJ8HmiMTzeNGcFO6U/lK4qaXzOheYuWdODmDaWyhgir7co5R+oj8tgDkzRE6lhrhgt
+	1pUCO7jxAjUHaCkyPuDmDtoQbZN+ofHrIrZMSt+QraZaIT43CkzbeOT8MJS7K9GYBrJd0Kcunjm
+	whh5o9t1J5X0FpVlx7p62v8qQNxwKgKE6b89VL3zxoMTe8isghCJR8/9DH2mkeGC4YiFzT8wnhr
+	uaDllqkmDz1oNDGXQGW8+LdyMAbbbbExEL1VhvY/pADU1MlArgF7dhTZ18kra1cuZ81OnV/rWQS
+	+T0hgfrrQyLZ7SGfrm/grGDpVwJi77RYZPVfKW33212GctSVSAFDmhesFsijH+aBVxwsCjml0p1
+	D5Od/d4+Fc2bGNHG7CzLAsnN5mtg/XFIHi/jc7wzGLXbOItF2zhTKkulvcIJVEXyOKYO5RM+3BK
+	vorHjyGuaAwk9yG8LU0QMemRrfhjf4eqwMUYc+F5pKjt+8crZ/bmopXeKFBOIG/Chr/8WzrF+xN
+	DunR1A==
+X-Received: by 2002:a05:620a:6892:b0:947:7691:7316 with SMTP id af79cd13be357-949bab3d3bemr2564224485a.81.1795534576594;
+        Tue, 24 Nov 2026 07:36:16 -0800 (PST)
+Received: from ziepe.ca ([142.177.118.84])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb4219c4sm1073980385a.41.2026.11.24.07.36.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 07:36:16 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xVsZ5-00000000WyP-1TgI;
+	Tue, 24 Nov 2026 11:36:15 -0400
+Date: Tue, 24 Nov 2026 11:36:15 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Shukai Ni <shukai.ni@kuleuven.be>, Robin Murphy <robin.murphy@arm.com>,
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Halil Pasic <pasic@linux.ibm.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Elena Reshetova <elena.reshetova@intel.com>,
+	Carlos Bilbao <carlos.bilbao@kernel.org>,
+	linux-coco@lists.linux.dev, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Subject: Re: [PATCH] swiotlb: clear read bounce buffers on confidential guests
+Message-ID: <20261124153615.GA114530@ziepe.ca>
+References: <CGME20261123205317eucas1p2f96032281e0f5e9f17acc7ec343acced@eucas1p2.samsung.com>
+ <20261123205302.1034348-1-shukai.ni@kuleuven.be>
+ <42415609-c784-45d4-a79d-ef3cc5e6c3ef@samsung.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,109 +112,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <42415609-c784-45d4-a79d-ef3cc5e6c3ef@samsung.com>
 
+On Tue, Nov 24, 2026 at 04:17:20PM +0100, Marek Szyprowski wrote:
+> Hi!
+> 
+> CCed Jason and Aneesh.
+> 
+> On 23.11.2026 21:53, Shukai Ni wrote:
+> > On confidential guests (AMD SEV, Intel TDX) all device DMA is bounced
+> > through swiotlb, whose pool is shared with and readable by the untrusted
+> > host. swiotlb_tbl_map_single() copies the destination buffer's current
+> > contents into the bounce buffer at map time even for DMA_FROM_DEVICE. For
+> > a reused read buffer that still holds private data, the host can read
+> > that data from the bounce buffer before the device overwrites it.
+> >
+> > For DMA_FROM_DEVICE into a host-shared pool, zero the bounce buffer
+> > instead. Zeroing rather than skipping the copy keeps a short read from
+> > returning a previous transfer's data.
+> >
+> > Fixes: ddbd89deb7d3 ("swiotlb: fix info leak with DMA_FROM_DEVICE")
+> > Cc: stable@vger.kernel.org
+> > Co-developed-by: Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>
+> > Signed-off-by: Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>
+> > Signed-off-by: Shukai Ni <shukai.ni@kuleuven.be>
+> 
+> 
+> I'm not sure if DMA-mapping or SWIOTLB is the right place for such fixups.
+> 
+> Drivers should be aware that doing DMA from unsecure device to the given
+> secure page might reveal its content to the host or other parties and
+> prepare for that (like zeroing that page).
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+I think given the semantics we have to support partial write we don't
+have a choice but to continue them as it is the DMA API.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The driver would have to opt out of partial write support somehow to
+trigger this, and in that case it is more of an optimization and
+shouldn't be linked to CC.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 6c48b3ab4ee435c41c3395d31e8ec3dbccc3478c
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112422-swimsuit-outhouse-c2d6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+I'm curious if there is a real issue here with a definitive issue on a
+driver or it is just speculation?
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 6c48b3ab4ee435c41c3395d31e8ec3dbccc3478c Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Sat, 31 Oct 2026 22:13:31 -0400
-Subject: [PATCH] mm, page_alloc: pass zone pointer to trace_reclaim_retry_zone
-
-should_reclaim_retry() walks a zonelist and passes the zoneref pointer
-to the reclaim_retry_zone tracepoint, which loads the zone from the
-entry again to find the node.
-
-Memory hotplug rebuilds the zonelists in place while allocations are
-under way. When a zone in front of the zoneref entry has become empty,
-the entries move up, and this one can be the end marker by the time the
-tracepoint looks at it. zonelist_node_idx() then dereferences a NULL
-zone. Short of that, the event can name another zone than the one its
-numbers belong to.
-
-Pass the zone pointer instead of the zoneref pointer.
-
-Fixes: d379f01de095 ("oom, trace: add oom detection tracepoints")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Link: https://patch.msgid.link/20261101021340.2251928-4-gourry@gourry.net
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-diff --git a/include/trace/events/oom.h b/include/trace/events/oom.h
-index 9f0a5d1482c4..cbcf6fe4cc61 100644
---- a/include/trace/events/oom.h
-+++ b/include/trace/events/oom.h
-@@ -33,7 +33,7 @@ TRACE_EVENT(oom_score_adj_update,
- 
- TRACE_EVENT(reclaim_retry_zone,
- 
--	TP_PROTO(struct zoneref *zoneref,
-+	TP_PROTO(struct zone *zone,
- 		int order,
- 		unsigned long reclaimable,
- 		unsigned long available,
-@@ -41,7 +41,7 @@ TRACE_EVENT(reclaim_retry_zone,
- 		int no_progress_loops,
- 		bool wmark_check),
- 
--	TP_ARGS(zoneref, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
-+	TP_ARGS(zone, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
- 
- 	TP_STRUCT__entry(
- 		__field(	int, node)
-@@ -55,8 +55,8 @@ TRACE_EVENT(reclaim_retry_zone,
- 	),
- 
- 	TP_fast_assign(
--		__entry->node = zonelist_node_idx(zoneref);
--		__entry->zone_idx = zonelist_zone_idx(zoneref);
-+		__entry->node = zone_to_nid(zone);
-+		__entry->zone_idx = zone_idx(zone);
- 		__entry->order = order;
- 		__entry->reclaimable = reclaimable;
- 		__entry->available = available;
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 20bfd11c5851..c09eca21a6b0 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -4670,7 +4670,7 @@ should_reclaim_retry(gfp_t gfp_mask, unsigned order,
- 		 */
- 		wmark = __zone_watermark_ok(zone, order, min_wmark,
- 				ac->highest_zoneidx, alloc_flags, available);
--		trace_reclaim_retry_zone(z, order, reclaimable,
-+		trace_reclaim_retry_zone(zone, order, reclaimable,
- 				available, min_wmark, *no_progress_loops, wmark);
- 		if (wmark) {
- 			ret = true;
-
+Jason
