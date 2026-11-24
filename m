@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795532346;
-	b=42tQ1ACyDVjCxRKOmvzOJaakWR0in9bDGW7aG23eaMlep6wDrjwbVG7PCb4c73IQVhp0
-	 89awhYXqVo3mL+Y2i5GUFVBZvS5obRkehAwyGNU7IcuNSWzCdBalVw66uRWXg2NiZZq5/
-	 zWkjIyF1YFsEh6mFIJCEvpq9hlvlgXlIlIkWAigf/yA6gCBvLIDvxl+7x3t4a0QtEVL+D
-	 rVlewgbkNJAIy+We6J8uwWOLSIOaMsCKx4p1YXxlk7TwDQuvcRNv2ALHHydS9GgUo41sw
-	 HagUYThc42jnBbXg8vPRRBxS8pUvZsYH5T5mlPAEDQMyVUP1XeOyPyh55BcvfHiRZrA==
+	t=1795532355;
+	b=5j8wQsHpKqMcOu60K5s8aQBt0lRrXvURLT1FEdqku2xyGFznmOEMJxbZEjQUNNquaQXT
+	 UST9Zpss4igON0k1jr3wwcO/uwLIdZmIWt5uErqIawX4tVWfY7sJU9/lWLfrYvj3tIln3
+	 +lRCFMnqTeyKTHRfuzxL3h8lK0gmH3mSRZXvVm4MLLnYyH46ZM9AH+7lkB5+jt7B3BD39
+	 ItgiNplOIs/6KLTgBv6caUgTEFZWAcaBu4CkiFHkzOE9A+4+56+BUCP7ASEp2SqsXU7Ft
+	 Fe9IWwKXJMK2I5AOTZsOTp5av6UUUGttd/I/TaElJEC5834vwR9XHtSZMgwsZGm/ibw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795532346;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795532355;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2U5UKfxVMTrAszdoT3HKGhTwdJUswH8c/IhgIQKW1Xc=;
-	b=a4AvuaxbQKz9FdEZgLOhjfIPfhocJOzJvk4ntPwjHTBip9y8O2V9BtzTQii3mfnE2bnU
-	 Y5kTKTvg0PiOw4BWXoqlvxk0wBOmFvj3gLeo3a2FcdjzK8V8Eprbi7BvB8mCXlEj9LZNQ
-	 Il9wxDBvVJGhwbBfUyZyv9/l5jYuJgxzJVCeENjxj4NZNmUHZGP72fDHgYdcUGwLz/3U5
-	 H7+EubB0F6x+GGC6lEnc+ke1bW4/rHVMUCIMWd7+WrwGUWirMoJ6KUdqF+AWOWn2v3lBL
-	 YnLTVA6FxC/tO6Y8Qdjk6+Ad+6Aw2Gg0PSwcIBfElCvAnNyHwX6JOX+7hyLvJ8V0dGQ==
+	bh=VFchZvlympmTz/noYpvrfzJ9j/gfqfwJm/2HvOovNSY=;
+	b=gVUUWK7cCL09G5yWTWLhdoM6l6aAPyQF2KCHkdV3eOnoP05patHaiot6qsJwoC0EDKRD
+	 HyPRVOMnFHyNE79fhuZmJLDXH3/CN413tr0d8v0KCEIQrZtKibcIosToKX3nSgEDkFTms
+	 ce4FkgGH7zWrUjLbPYO2N+kzUwxuR1CsOqwTiX/LmE6MH/ZOFuemOiCz4dUQSmOskOW8P
+	 a887bnREB8UbdOosfdYzFCvoZ7J4D3Nw/xSWPop6FpueeGbSk4vg5j0FgoOI220WPmzyC
+	 Qha9gFN3nBrdWRKO0SREcgOStySjxakiwZtw8ek4oQgG0k5IdHi8bCXHNv92bbuCsYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JobQ3aKs;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XcOFJGSL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19AB606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:59:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D21606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:59:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JobQ3aKs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D51D01F000C6;
-	Tue, 24 Nov 2026 14:59:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XcOFJGSL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A8961F000C0;
+	Tue, 24 Nov 2026 14:59:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795532346;
-	bh=2U5UKfxVMTrAszdoT3HKGhTwdJUswH8c/IhgIQKW1Xc=;
+	s=korg; t=1795532354;
+	bh=VFchZvlympmTz/noYpvrfzJ9j/gfqfwJm/2HvOovNSY=;
 	h=Subject:To:Cc:From:Date;
-	b=JobQ3aKs3r1AZgNSjA7HrYXdUyS56LCqa8PDLa0wAalKKX0ndPdSh43h65BX1ygr+
-	 Hjlal859xyF56PHyqDzg7cOLPTQ4AXn/sZ1f9g+gAALVS8bSnlahzmpo6EueMe0sw1
-	 IQ7YVY/r7t88MO362h8FWoZLx9jF4AMOchED4JjE=
-Subject: FAILED: patch "[PATCH] tracing/eprobe: Install the trigger for every instance that" failed to apply to 6.1-stable tree
+	b=XcOFJGSLEfyUZovCTORkfP2dpj8GhRfh2lzQ5wMXfYll5g4H4OC31QBzUxGzso184
+	 OS80L2cWN2lNlXxjIfWygOmdW9kKI7IfJlaNPa852IgaHx9fQx7ihwItgp08ruycE2
+	 H5wzPWYIL1jwqYaXh5m0ZTSBgZxPbpujtwvZQjOc=
+Subject: FAILED: patch "[PATCH] tracing/eprobe: Install the trigger for every instance that" failed to apply to 5.15-stable tree
 To: devnexen@gmail.com,mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 24 Nov 2026 15:59:27 +0100
-Message-ID: <2026112427-galvanize-pointed-f15e@gregkh>
+Message-ID: <2026112427-vastly-starter-c2ec@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x be94710b1f6ba1bea33e73129c110af80e999b2d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112427-galvanize-pointed-f15e@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112427-vastly-starter-c2ec@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
