@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534978;
-	b=QBelrRi49a4u/XuwwFM+5WH9hFx36qpsjH4B5RIXNKUR705cC7rreL2MC2YXMCsislTs
-	 zwrIS0uiX2kAxE9/xE+nH4T9WGMA9UDgJGyMet1PCiNbDjpzkbtB2Hte/0qpf4oNScWrO
-	 5ap7cWOAvwb8X7GGYFM4TI4HzgMH4KfRowwupbAWPqWXGu1pusKVgtVK6vqXTxu02M0tZ
-	 I3wybZOvaop/PDrt/0wkRbg64rQjwUPbC+IWVfFLqcSVdsnlAkBhGOD+UNNgOI8tSeW7W
-	 bgCdXVYh8UmlD1VnYsp6ixiXtBB6IdXk1shTtylga6yZdNJCKZlwRMsCJv30Xuiq9Bw==
+	t=1795534982;
+	b=O620fCcpLXIZ8sBoBSxMcXeF6f9Z5yRqep1jPCUwyXZghBQdAVD4LL96e7v0HN+R5o0J
+	 A5KIfX6ggVnlh5yl8LRj2YYRdQW3x61ur5oF1Oa/WooDdm+VOsFX1kkAmFjxaORtCrmat
+	 gfQD97v+JiTrObJkHRsQurH1lFWHMiWoR7jvTbSAZR7JhLMN3TMlN6fKK4IM05nEF6iPN
+	 f4uQesYp5JOyGClxrsYENsWOf/8N2SJYkyArqZJqbY1anYPYTTcCC+hzSQpDTTjinpi3W
+	 pvo1oKdoV+45HL3x5Akq+UpCPbji9CYVC+nUg7vQRayQ0fERmXDjPIKLVzZNnbsU7tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534978;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534982;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BoEK37axz3mL2C+KdUi4w6yQeGfVqCRhuzr9kT8+NdI=;
-	b=oALwBL6xPI0cPJ+EPLp00VhFePgp/hTvzJ1uVnWw66RsfGyJ8/fsV1+75q3LN37TnlBv
-	 2V/vtwzuCjVAxnZk506Yw58A7LMdVRhkFuH3iGMgI8n69LTk8w9N/g8cVhjA9ACTYB7DG
-	 3OgtYXjDEa5jTsIJjfU25qZkNGodZ5vQdri+t7rJc9ATU8naSUXtkYLbah+dTYMD7jOUf
-	 n6Gmmdo73f5FnK4KNdWXIlaO93KDRbVCt26+SlfXlPmMDcEfZJum5rMHWHmy2x047SNBg
-	 35GKAtfjQsOi7scRMZgcZQzcPwahPEFoGF5MiANGgjRaNBqljzWa0BApg47QzLN1a/g==
+	bh=39cOYPLFG3axXZxTmMDDueohhQagVaNQSVsNq4aFLSk=;
+	b=AB8C7aAQotyYp7A496nGWuZnLuoxDK4zwqZPG5y7oKjxBpwt2ASgDFqCyKNfuqbRAVzn
+	 rfwdhj6yX4jhjeZm79UgbS3LrNdwCkESdbb/5Cj2apUnORwnGkxEnDRj5qbUl/Juf0Jw8
+	 vtoJh01bTFIakE/l8otUo2DOrLvPEeLH7oxkGZgtDy2jqU4oMtJTJ0j7S1nkVaTAgCB/b
+	 7uAPwJxFIhgHRAf1/02DtHX7BaQ9L92UwntasfHv0/lxUmsc2dztAmIcul3tw2Ees+ye2
+	 UcszfOyJcQhRrFnj1l6BvaBO2ezime9XCjoMPs88rxScbp29Yc5eRPprqelxS/r0X4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iSnR3RJe;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LRo0eQa1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B1D606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:42:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BD2606A326
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:43:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iSnR3RJe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02F761F000D4;
-	Tue, 24 Nov 2026 15:42:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LRo0eQa1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4973D1F000EF;
+	Tue, 24 Nov 2026 15:43:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795534978;
-	bh=BoEK37axz3mL2C+KdUi4w6yQeGfVqCRhuzr9kT8+NdI=;
+	s=korg; t=1795534981;
+	bh=39cOYPLFG3axXZxTmMDDueohhQagVaNQSVsNq4aFLSk=;
 	h=Subject:To:Cc:From:Date;
-	b=iSnR3RJeym/co3YAZregE7IRbemTV7gjAzHB9FFXJ9FmPxfnBeSO3AmU79JWSxihy
-	 OO96vJYUWozlNLFNnMmD8pG5UP9ZfQPuiNDTAwk6mDThDVE8aBLGVVAeF+AtqZilQZ
-	 CF2gwfEj8RNbuht14M9uODp5YzmGyGy8t++84tHY=
-Subject: FAILED: patch "[PATCH] bootconfig: Trim unquoted values at end of file" failed to apply to 6.12-stable tree
+	b=LRo0eQa1uMm4eC2B1FcBA0lSh7KpHNj77AH/0LDk5UxlJ/HzbqmNhwSRVUpBp84Jf
+	 xq7HxeIkaonNSz4YWAaKIIF7AHJ+b3Bo08E9o1kR8kq24pKBSdWb8jszA/A0gXlPSJ
+	 YymoSSsJi5DZxec7KIQHxfZ6cvKN7BhyKhoHNwaI=
+Subject: FAILED: patch "[PATCH] bootconfig: Trim unquoted values at end of file" failed to apply to 5.10-stable tree
 To: edumucelli@gmail.com,mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:43:01 +0100
-Message-ID: <2026112401-settling-magenta-7f54@gregkh>
+Date: Tue, 24 Nov 2026 16:43:02 +0100
+Message-ID: <2026112402-grit-gauntlet-c172@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 381b391bfaa3f10d52da4740529804b0b6b8160d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112401-settling-magenta-7f54@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112402-grit-gauntlet-c172@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
