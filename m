@@ -1,64 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.240
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795542903;
-	b=mcpZGZF21jTcHeOfTp5YA0y0VajE+Za9eTh63VMZyMEnCnWkqFw0nHE/jOEzFToYT9Ti
-	 YtbvST3DmEVApqgA3fGxU1cvSubNpWMu00xZJMPmK2OtGGqTYu+fXnu0aZwn5/a5nA328
-	 BHI0c92fJ91YZF2NyvwUBMPncjJCGQD35FAbdZi6XMnHXNCYTTKIfIXR3hxaL0vBSpa9q
-	 WlPyewsYUrsraDWGdniAeBaEKE3hQ9tE01pbJmY2u+tBJZrkvz0zFcZhoHBa4oVsOzxJV
-	 V2Brdu4paVMogdft9MHFDLqJgLmzy+Kpqy/7URDOS9BZ22W7es72m56BgpzdZIc/b1A==
+	t=1795543033;
+	b=YYvcJQq4tWdFSnHQs0gFgAA0O4c5TAjIIbcirFsUDfNi3KVasbjQXgM+00FJXZMvHY0v
+	 ZGV6NdtsdESvIoL4ANZlINMfNgZevJ0qzyGJfu4vvyS4/mRHnS94GLRyr6hPJnQzkJnAH
+	 30nH82/okV7uIy+wx937yvzYOqMPbgr+4SueROAxnVSt6Bf68dmmY9Ul+C+bYPwEFUJuO
+	 jVlzyExjwR/2TdlWCixkkWlUoPCHo7IkIHu6syOYCTARwVrcB0g6nj0m+GlDe/u7amTc9
+	 /0PkSlOsupTEwX91x8sWXjPqBpD7wJYX5FPMT5D0s7qsFrToRfnWDsZliXZFf+aWRTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795542903;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=I2yxDbU7lOpiFweogZtcA4pKGDUYWG7cArF22khEzuE=;
-	b=pDVQk7ccPzaf8VYqB2gh4vc0wuXKbF1XAUOrNLNjeGeN2Y+NdQuTbyOH+zAGUJUw/Nfq
-	 xB82/hX9AZTNmQyKauhr0Gp+hQHn79seYeYXlTp7x5+zRO48OT19Qsg7WPfP7hMEtZzEF
-	 3T9xyUytmQnd6oULp/LyKWyiHsQ77iv/eoj1M9QtIAAv61QzgqDanFlnscgkmJVwDw27d
-	 Tpg3RFRzzaXBOH1Fgq6aDsEyEe+77qzqIHtQH1ly/2f4CNiTt9o9cyW/vqYTQicYrWwjt
-	 O1Kq9xOxFR5oWkHvCaAoMd5mRM1eRdwurA3r6Pgm70crJg+kBhb+AUD9Ctx/aDh64qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795543033;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=vz7alcHmga0aMGzVKg2ElhQnwNXnlfwvdDBq9MZQLDI=;
+	b=yBeAZ2srz7cjAq/dDOLm+g2pHVO4NDu+GQW/3xaup4VDsctkX37Mis3SADPuSE+sTqL4
+	 5q2E6ln9Aj0WI9KSr+dHCbL86fYkfDR+cG6LPqD+1lX1bS+TdSdYWfONNpxwwUfkpuiw+
+	 PR4dmEF3nBfDdAyj5htkuoWdnFCvGORhdUumkfBCg7g/CRIH/LNW3oCoH0R6Zvmo5b2zg
+	 7t6bwrMSMPpgCsr31ca6Kbe4CzR9nEKKsHBY4j525U3AMlpW+3fumClicyBkyL/Y9T3h/
+	 nhJMqZbp0DP1qWbHZdO5R9ZP5pODNpCz8Nn873NzVTnRLXJ6MbuLPm2Gu0Btm1hleug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K4qBbnj0;
-	arc=none smtp.remote-ip=95.215.58.240
-Received: from mta1.migadu.com (out-240.mta1.migadu.com [95.215.58.240])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h1HA7aaG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9565606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:55:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9565606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FE7606A32C
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:57:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K4qBbnj0
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WAB79C+6SpcJcXgk0rqpViA2L6QwhWPx0WDOvroYZdg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795542900; v=1; x=1796147700;
- b=K4qBbnj0YFn062jLpuAS6VoHfSwuSIIpz8YBKCjTCKImMV5ZwpQWPt8XDwLSkO7QdQC1UmKl
- hjsrkT1kI5tfcAjvd7Pll7mnLKqpb409L9UiyNFUavsgm7dSknAZaEKtMzfUj47ztHwybjfETir
- cxpqdrHG6XgiDmH0HOjHfb8s=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1aed601a24a53ad1;
-	Tue, 24 Nov 2026 17:54:59 +0000
-X-Mizu-Trace-ID: 1aed601a24a53ad1
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 24 Nov 2026 09:54:58 -0800
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Michal Hocko <mhocko@suse.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Tejun Heo <tj@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Koutny <mkoutny@suse.com>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] memcg: free the private ID of a memcg that never comes
- online
-Message-ID: <awXO66mRuz_BRWs9@linux.dev>
-References: <20261124000439.967403-1-shakeel.butt@linux.dev>
- <awVSrbJn00wmh1nn@tiehlicka>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h1HA7aaG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462B21F0089E;
+	Tue, 24 Nov 2026 17:57:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795543032;
+	bh=vz7alcHmga0aMGzVKg2ElhQnwNXnlfwvdDBq9MZQLDI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=h1HA7aaGbqEc1nm1w9wFVFrCOTsX9Kmy7VNRMX5vneH65VV3ZFbeZteW+sYZ56uVN
+	 1l3DzbPLI1dx/0KOoozsHF+iRQwUO7GewRidF0QyvC6hgbXxx+ubqSZ1nGb4GtYqIX
+	 5RPsGp4IS9UATUoNMngpd0lITJIfdI8EJ+2JqYPWA8fvR9ZyxOOxYYGHfXdxxAsW6j
+	 bMfEkVNY2ASH0iBhitmxyYW0535LwA2dRfhlhv+ox51CO1Nwy79ErL6obSL1HJNHzF
+	 3t5A8DbnE7kvN0AI5qNIByTKplfwgw1OC36EEciIlzxZ81YH9mbVskRk1BCu4aERCe
+	 UJsupgZHW1lNA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] mmc: omap: synchronize clock timer before disabling fclk
+Date: Tue, 24 Nov 2026 12:57:10 -0500
+Message-ID: <20261124175620.2158079-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112429-laziness-outgoing-f869@gregkh>
+References: <2026112429-laziness-outgoing-f869@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,43 +59,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awVSrbJn00wmh1nn@tiehlicka>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 24, 2026 at 10:02:37AM +0100, Michal Hocko wrote:
-> On Mon 23-11-26 16:04:39, Shakeel Butt wrote:
-> > mem_cgroup_alloc() reserves the private ID of a memcg when its css is
-> > allocated. The ID is erased when the last reference to it is put, and
-> > that reference is first taken in mem_cgroup_css_online(). The failure
-> > paths of mem_cgroup_alloc() and mem_cgroup_css_online() erase the ID
-> > themselves.
-> > 
-> > But css_create() can also fail after css_alloc() and before
-> > online_css(): in percpu_ref_init(), cgroup_idr_alloc() or
-> > css_rstat_init(). The memcg is then freed through mem_cgroup_css_free()
-> > without ever coming online, and nothing erases its ID. The reserved
-> > entry stays in mem_cgroup_private_ids for good, and each such failure
-> > takes one of the 65,535 IDs away. With failslab failing radix tree node
-> > allocations during mkdir, 1,500 mkdirs leaked 6 IDs this way.
-> 
-> Considering these error paths they should be pretty impossible in
-> practice (and without fault injection), right?
-> 
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Yes, this one is found by code inspection while I was debugging the memcg ID
-leaks happening in the Meta fleet. One of the biggest source I found is the
-orphaned swap cache of offlined memcg. I am still working on the fix for that.
+[ Upstream commit c931c51681e33b24bc8d65c6df35b70e1827daa2 ]
 
-> > Erase the ID in mem_cgroup_css_free() if the memcg never came online,
-> > which is when (memcg->css.flags & CSS_RELEASED) will be false: it is
-> > only set when an fully onlined memcg is released.
-> > 
-> > Fixes: 73f576c04b94 ("mm: memcontrol: fix cgroup creation failure after many small jobs")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> 
-> Acked-by: Michal Hocko <mhocko@suse.com>
+mmc_omap_select_slot() removes clk_timer with timer_delete() before
+switching slots and changing the functional clock state.  timer_delete()
+only removes a pending timer and does not wait for a callback that is
+already running.
 
-Thanks.
+If mmc_omap_clk_timer() is already running, it can therefore call
+mmc_omap_fclk_enable() while the request or slot-switch path changes the
+same clock state.  During host removal, the same window can overlap the
+final clock shutdown.
+
+Use timer_delete_sync() so the callback has completed before slot switching
+or changing the functional clock state.  Keep the timer restartable for
+normal request handling.
+
+Fixes: 0807a9b5739a ("MMC: OMAP: Lazy clock shutdown")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+[ sashal: changed timer_delete()/timer_delete_sync() calls to the older del_timer()/del_timer_sync() API in mmc_omap_select_slot() and mmc_omap_release_slot() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/mmc/host/omap.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/mmc/host/omap.c b/drivers/mmc/host/omap.c
+index cc2213ea324f1..6386d6a8cb87d 100644
+--- a/drivers/mmc/host/omap.c
++++ b/drivers/mmc/host/omap.c
+@@ -210,7 +210,7 @@ static void mmc_omap_select_slot(struct mmc_omap_slot *slot, int claimed)
+ 	host->mmc = slot->mmc;
+ 	spin_unlock_irqrestore(&host->slot_lock, flags);
+ no_claim:
+-	del_timer(&host->clk_timer);
++	del_timer_sync(&host->clk_timer);
+ 	if (host->current_slot != slot || !claimed)
+ 		mmc_omap_fclk_offdelay(host->current_slot);
+ 
+@@ -264,7 +264,7 @@ static void mmc_omap_release_slot(struct mmc_omap_slot *slot, int clk_enabled)
+ 		/* Keeps clock running for at least 8 cycles on valid freq */
+ 		mod_timer(&host->clk_timer, jiffies  + HZ/10);
+ 	else {
+-		del_timer(&host->clk_timer);
++		del_timer_sync(&host->clk_timer);
+ 		mmc_omap_fclk_offdelay(slot);
+ 		mmc_omap_fclk_enable(host, 0);
+ 	}
+-- 
+2.53.0
 
