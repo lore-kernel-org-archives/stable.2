@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540920;
-	b=aK+xvswobWT0EwU2sKoxNLVlG9d4AtUgm0JiBvyE0LpkK+27LHEHbYjqYUY0jGYTSnDo
-	 +UkzUzqipKmqUwriHKiOvTKs+9eeJfnd6dBbaMx7ndiUKE9s33wU+5md3uHNoS6tExrD6
-	 MrKHpEPZPX8uqC5hkDi8/KbTgH1uHFeSvNttcRRLSevNDJfjhiWQHZbrM8eOmi4gRU/Ll
-	 yvNxPk/7YyXGmmToKJy9T5DpAEUksDo7xDOUJBvELjul7ZanBplULpNun33Z0aDNsQchA
-	 apO+/jikhSlNzC4KO44XyWq/Teiwy2CnymcgpGekmTVrW5KZXK9oQQjktOQXGFyMu5g==
+	t=1795540921;
+	b=foDr/Gz1XxqU9zQF/f8I1iOhtSm4r7eSX31nuD11doAemu/ZKK4qZ0mA35uWLt2aKZiU
+	 W5f9n4KVWtPx/W175ex0hYFsLijO1amSXyn7NLrnk0FNaAbRfdP4hiiM2jNoEFs7mv3nW
+	 pSFdTy4kBS8pEJ108v1aU4yxCMaD6v5ve+EUrBuIQ9whBVpwrhwdeiy2+TwsNI23wUFoH
+	 e70svZaB9M/IWOtMFB17Io0RDR1Za+Hgmx/xeZ71Bu27J9cr0t5w9j6FdOA+VwZKjoG8o
+	 yKRQ4JyNupqRN3wjM17Bssj/2/uGBga3pBTS/SOgOLDBHMf956zbVAIKt3rS1DGXVqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540920;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540921;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sZh0LteIFXdmL7TCELOzeNvAYQWHVIaMRM6xektiJo4=;
-	b=spZ4frbbAox7XaObz23cGMKxE2gHTg2+45mWTK5KTuZQ9Qo6dSEfn7vkYpZzaTNGZoKp
-	 hAS69AwNAaH4nzow+8pay+JP8nCGDKf6QDTKb53KCiKmzyOg2nFnubB57OJGXiorbfZ0w
-	 pNj/3clOm+q11vyPnzowNew3VRGs7u0YjNKYDF53n2vIWP856U2Ey04/lNjQWR7e2vES+
-	 4xrEpHaKT/dnGO3DInTkiet+lztxwCJ+6LoL/nSTqKA28kzjBYp+UjbMmiSnfV+kvkqdo
-	 OfhoMQfeAr28aaaEriEQj4nNXvbsp7Xiks7pi9wqWoqU0vNj/NfLZk/3rORjKqJe3sQ==
+	bh=AB2nbvlA0Pj04jJPqZMjwWJRmYoDD6P13JYtTScEqi4=;
+	b=13ooTFvG8xfwdojEzx7EG/28z+O3R0VslLxEjWUXXPeGBM9zgRjTmkEKoQwBHHdvarGN
+	 UXN/zhSeHOhfbqVLsvdiw+W4+5bSaJ/dtmsULOdC96z25lUcXRqd7ZI6TQ88yGKzl5EtF
+	 5CiEB8xyjf0c3JJq2iVRztyKIxV/x/UtI83RIEjEBXdNAiUdzdZ2D7IYBrcxJc1tuCppW
+	 e0f4ZdkfWD16x1C3OTFVOQR8y2Uaq9K9uLi6o/7HnPM95pZqwr44X/tj46KNJdEcyXW6w
+	 0JrT+OKKK7EomwgccSPCCmkU2j6rbpbMTjiHXm8EGJpH+YRzFOXg4gBU9MTjEW1ixGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="G91Qk/SC";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dcs35+M1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A09A606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:22:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC57606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:22:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G91Qk/SC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C70CF1F000C0;
-	Tue, 24 Nov 2026 17:21:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dcs35+M1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABFC21F000C0;
+	Tue, 24 Nov 2026 17:22:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795540920;
-	bh=sZh0LteIFXdmL7TCELOzeNvAYQWHVIaMRM6xektiJo4=;
+	s=k20260515; t=1795540921;
+	bh=AB2nbvlA0Pj04jJPqZMjwWJRmYoDD6P13JYtTScEqi4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G91Qk/SCr4kmV3NvUDTWQHi5p2MmfLUa2UZU2P46Aa7S9+feaNyQO8XW/mXu62GXo
-	 u/9sDf9lFaj0O21o5MPtCJtaWrPYEgeTlLH4fZokWnyDLvE4oTMKD8LPSV39rIkSWx
-	 SXkUtT/e6xfob4Z7iEYI/e4C5Zhm+l9VNl9GBXUiAWn+AiZ26X4h1vw+vWO/JNYhHl
-	 m1zQaA+fwkLj9HUFylk17WMwo2mW4oEX923g5YChh0eGUwR0NXVuVJohdLdc9aFh5L
-	 y6be1vnFSdGI/JmZPOSrAWpi+QeKa7ZH8EJOMNKw8ng0DZMIOEL8cilK8DGIwM03/1
-	 LysTTSz/6b3zw==
+	b=Dcs35+M1OMUXFba+UbfYRZ/6Jp9m0N+b+VewmJ5V1ZHqGVpiXYfkyxuc2wemYQLmI
+	 NwwKRgTz3EWHqKCGD/oJOyZd/h16ZQHQVpx/Bv4njYWTMn66AmiG0RKU3Q+p0UzfQG
+	 shzF6TYeT79nril3mFeAVnqJwfPNmkujGZ3Jj0j598X+jIph3w3CQGUM+PHkFIMZE+
+	 rmNES4boRrY4nRKydfIQ/Dr6pLrueHVxcf8eaGvZM9K26XUF3IErLZTQ/aGk6RtctF
+	 f7BvPbdLjfkixO84vvwCqqDwgLzzAQLCIkLjbmRsx32lvBu0L02yhQlMta5K0syIQc
+	 CCjfzX0PQ0VhQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Haibo Chen <haibo.chen@nxp.com>,
 	Adrian Hunter <adrian.hunter@intel.com>,
 	Ulf Hansson <ulf.hansson@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/3] mmc: sdhci-esdhc-imx: reset the tuning logic before execute tuning
-Date: Tue, 24 Nov 2026 12:21:56 -0500
-Message-ID: <20261124172118.1820919-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/3] mmc: sdhci-esdhc-imx: only enable DAT[0] and CMD line auto tuning for SDIO device
+Date: Tue, 24 Nov 2026 12:21:57 -0500
+Message-ID: <20261124172118.1820919-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112445-preoccupy-capped-e0f2@gregkh>
+In-Reply-To: <20261124172118.1820919-1-sashal@kernel.org>
 References: <2026112445-preoccupy-capped-e0f2@gregkh>
+ <20261124172118.1820919-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,140 +65,107 @@ Content-Transfer-Encoding: 8bit
 
 From: Haibo Chen <haibo.chen@nxp.com>
 
-[ Upstream commit 4fb2786961c517d0a6e4e8bf947d6f7259155d6a ]
+[ Upstream commit 52e4c32baed2a4c79e20a82dc22e307499759852 ]
 
-For standard tuning method on usdhc, the previous tuning result can
-impact current tuning result, let current tuning can't set the correct
-delay cell. And from the logic, this is also reasonable for manual
-tuning method. So reset the tuning logic before execute tuning.
-To avoid compile issue, this patch also move the esdhc_reset_tuning()
-upper.
-
-Find this issue when support SDIO WiFi in band wakeup feature. After
-system resume back, will do re-tuning, but then meet data CRC error.
-
-Do not meet this issue on SD/eMMC, because we already call
-esdhc_reset_tuning() when config the legency ios, and SD/eMMC need
-to re-init when system resume back, but SDIO device don't do re-init
-if it has MMC_PM_KEEP_POWER pm_flags.
+USDHC IP has one limitation: the tuning circuit can't handle the async
+sdio device interrupt correctly. When sdio device use 4 data lines,
+async sdio interrupt will use the shared DAT[1], if enable auto tuning
+circuit to check these 4 data lines, include the DAT[1], this circuit
+will detect this interrupt, take this as data on DAT[1], and adjust the
+delay cell wrongly, finally will cause the DATA/CMD CRC error.
+So for SDIO device, only enable DAT[0] and CMD line for auto tuning.
+To distinguish the card type during card init, involve init_card().
 
 Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
 Acked-by: Adrian Hunter <adrian.hunter@intel.com>
-Link: https://lore.kernel.org/r/1666947869-7904-1-git-send-email-haibo.chen@nxp.com
+Link: https://lore.kernel.org/r/20221223025022.1893102-3-haibo.chen@nxp.com
 Signed-off-by: Ulf Hansson <ulf.hansson@linaro.org>
 Stable-dep-of: d35d93c29025 ("mmc: sdhci-esdhc-imx: map unsupported driver type to Type B")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mmc/host/sdhci-esdhc-imx.c | 82 ++++++++++++++++--------------
- 1 file changed, 44 insertions(+), 38 deletions(-)
+ drivers/mmc/host/sdhci-esdhc-imx.c | 41 ++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
 diff --git a/drivers/mmc/host/sdhci-esdhc-imx.c b/drivers/mmc/host/sdhci-esdhc-imx.c
-index 3c7b32c0d3f3f..e417fa52e1926 100644
+index e417fa52e1926..8637ad6bd90a1 100644
 --- a/drivers/mmc/host/sdhci-esdhc-imx.c
 +++ b/drivers/mmc/host/sdhci-esdhc-imx.c
-@@ -1014,6 +1014,44 @@ static void esdhc_pltfm_set_bus_width(struct sdhci_host *host, int width)
- 			SDHCI_HOST_CONTROL);
- }
- 
-+static void esdhc_reset_tuning(struct sdhci_host *host)
-+{
+@@ -337,6 +337,16 @@ struct pltfm_imx_data {
+ 	struct clk *clk_ahb;
+ 	struct clk *clk_per;
+ 	unsigned int actual_clock;
++
++	/*
++	 * USDHC has one limition, require the SDIO device a different
++	 * register setting. Driver has to recognize card type during
++	 * the card init, but at this stage, mmc_host->card is not
++	 * available. So involve this field to save the card type
++	 * during card init through usdhc_init_card().
++	 */
++	unsigned int init_card_type;
++
+ 	enum {
+ 		NO_CMD_PENDING,      /* no multiblock command pending */
+ 		MULTIBLK_IN_PROCESS, /* exact multiblock cmd in process */
+@@ -431,6 +441,8 @@ static inline void esdhc_wait_for_card_clock_gate_off(struct sdhci_host *host)
+ /* Enable the auto tuning circuit to check the CMD line and BUS line */
+ static inline void usdhc_auto_tuning_mode_sel(struct sdhci_host *host)
+ {
 +	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
 +	struct pltfm_imx_data *imx_data = sdhci_pltfm_priv(pltfm_host);
-+	u32 ctrl;
-+	int ret;
+ 	u32 buswidth, auto_tune_buswidth;
+ 
+ 	buswidth = USDHC_GET_BUSWIDTH(readl(host->ioaddr + SDHCI_HOST_CONTROL));
+@@ -447,6 +459,20 @@ static inline void usdhc_auto_tuning_mode_sel(struct sdhci_host *host)
+ 		break;
+ 	}
+ 
++	/*
++	 * For USDHC, auto tuning circuit can not handle the async sdio
++	 * device interrupt correctly. When sdio device use 4 data lines,
++	 * async sdio interrupt will use the shared DAT[1], if enable auto
++	 * tuning circuit check these 4 data lines, include the DAT[1],
++	 * this circuit will detect this interrupt, take this as a data on
++	 * DAT[1], and adjust the delay cell wrongly.
++	 * This is the hardware design limitation, to avoid this, for sdio
++	 * device, config the auto tuning circuit only check DAT[0] and CMD
++	 * line.
++	 */
++	if (imx_data->init_card_type == MMC_TYPE_SDIO)
++		auto_tune_buswidth = ESDHC_VEND_SPEC2_AUTO_TUNE_1BIT_EN;
 +
-+	/* Reset the tuning circuit */
-+	if (esdhc_is_usdhc(imx_data)) {
-+		if (imx_data->socdata->flags & ESDHC_FLAG_MAN_TUNING) {
-+			ctrl = readl(host->ioaddr + ESDHC_MIX_CTRL);
-+			ctrl &= ~ESDHC_MIX_CTRL_SMPCLK_SEL;
-+			ctrl &= ~ESDHC_MIX_CTRL_FBCLK_SEL;
-+			writel(ctrl, host->ioaddr + ESDHC_MIX_CTRL);
-+			writel(0, host->ioaddr + ESDHC_TUNE_CTRL_STATUS);
-+		} else if (imx_data->socdata->flags & ESDHC_FLAG_STD_TUNING) {
-+			ctrl = readl(host->ioaddr + SDHCI_AUTO_CMD_STATUS);
-+			ctrl &= ~ESDHC_MIX_CTRL_SMPCLK_SEL;
-+			ctrl &= ~ESDHC_MIX_CTRL_EXE_TUNE;
-+			writel(ctrl, host->ioaddr + SDHCI_AUTO_CMD_STATUS);
-+			/* Make sure ESDHC_MIX_CTRL_EXE_TUNE cleared */
-+			ret = readl_poll_timeout(host->ioaddr + SDHCI_AUTO_CMD_STATUS,
-+				ctrl, !(ctrl & ESDHC_MIX_CTRL_EXE_TUNE), 1, 50);
-+			if (ret == -ETIMEDOUT)
-+				dev_warn(mmc_dev(host->mmc),
-+				 "Warning! clear execute tuning bit failed\n");
-+			/*
-+			 * SDHCI_INT_DATA_AVAIL is W1C bit, set this bit will clear the
-+			 * usdhc IP internal logic flag execute_tuning_with_clr_buf, which
-+			 * will finally make sure the normal data transfer logic correct.
-+			 */
-+			ctrl = readl(host->ioaddr + SDHCI_INT_STATUS);
-+			ctrl |= SDHCI_INT_DATA_AVAIL;
-+			writel(ctrl, host->ioaddr + SDHCI_INT_STATUS);
-+		}
-+	}
+ 	esdhc_clrset_le(host, ESDHC_VEND_SPEC2_AUTO_TUNE_MODE_MASK,
+ 			auto_tune_buswidth | ESDHC_VEND_SPEC2_AUTO_TUNE_CMD_EN,
+ 			ESDHC_VEND_SPEC2);
+@@ -1052,6 +1078,15 @@ static void esdhc_reset_tuning(struct sdhci_host *host)
+ 	}
+ }
+ 
++static void usdhc_init_card(struct mmc_host *mmc, struct mmc_card *card)
++{
++	struct sdhci_host *host = mmc_priv(mmc);
++	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
++	struct pltfm_imx_data *imx_data = sdhci_pltfm_priv(pltfm_host);
++
++	imx_data->init_card_type = card->type;
 +}
 +
  static int usdhc_execute_tuning(struct mmc_host *mmc, u32 opcode)
  {
  	struct sdhci_host *host = mmc_priv(mmc);
-@@ -1025,6 +1063,12 @@ static int usdhc_execute_tuning(struct mmc_host *mmc, u32 opcode)
- 	if (host->timing == MMC_TIMING_UHS_DDR50)
- 		return 0;
+@@ -1678,6 +1713,12 @@ static int sdhci_esdhc_imx_probe(struct platform_device *pdev)
+ 		 * to replace the standard one in sdhci_ops.
+ 		 */
+ 		host->mmc_host_ops.execute_tuning = usdhc_execute_tuning;
++
++		/*
++		 * Link usdhc specific mmc_host_ops init card function,
++		 * to distinguish the card type.
++		 */
++		host->mmc_host_ops.init_card = usdhc_init_card;
+ 	}
  
-+	/*
-+	 * Reset tuning circuit logic. If not, the previous tuning result
-+	 * will impact current tuning, make current tuning can't set the
-+	 * correct delay cell.
-+	 */
-+	esdhc_reset_tuning(host);
- 	return sdhci_execute_tuning(mmc, opcode);
- }
- 
-@@ -1198,44 +1242,6 @@ static void esdhc_set_strobe_dll(struct sdhci_host *host)
- 		"warning! HS400 strobe DLL status REF/SLV not lock in 50us, STROBE DLL status is %x!\n", v);
- }
- 
--static void esdhc_reset_tuning(struct sdhci_host *host)
--{
--	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
--	struct pltfm_imx_data *imx_data = sdhci_pltfm_priv(pltfm_host);
--	u32 ctrl;
--	int ret;
--
--	/* Reset the tuning circuit */
--	if (esdhc_is_usdhc(imx_data)) {
--		if (imx_data->socdata->flags & ESDHC_FLAG_MAN_TUNING) {
--			ctrl = readl(host->ioaddr + ESDHC_MIX_CTRL);
--			ctrl &= ~ESDHC_MIX_CTRL_SMPCLK_SEL;
--			ctrl &= ~ESDHC_MIX_CTRL_FBCLK_SEL;
--			writel(ctrl, host->ioaddr + ESDHC_MIX_CTRL);
--			writel(0, host->ioaddr + ESDHC_TUNE_CTRL_STATUS);
--		} else if (imx_data->socdata->flags & ESDHC_FLAG_STD_TUNING) {
--			ctrl = readl(host->ioaddr + SDHCI_AUTO_CMD_STATUS);
--			ctrl &= ~ESDHC_MIX_CTRL_SMPCLK_SEL;
--			ctrl &= ~ESDHC_MIX_CTRL_EXE_TUNE;
--			writel(ctrl, host->ioaddr + SDHCI_AUTO_CMD_STATUS);
--			/* Make sure ESDHC_MIX_CTRL_EXE_TUNE cleared */
--			ret = readl_poll_timeout(host->ioaddr + SDHCI_AUTO_CMD_STATUS,
--				ctrl, !(ctrl & ESDHC_MIX_CTRL_EXE_TUNE), 1, 50);
--			if (ret == -ETIMEDOUT)
--				dev_warn(mmc_dev(host->mmc),
--				 "Warning! clear execute tuning bit failed\n");
--			/*
--			 * SDHCI_INT_DATA_AVAIL is W1C bit, set this bit will clear the
--			 * usdhc IP internal logic flag execute_tuning_with_clr_buf, which
--			 * will finally make sure the normal data transfer logic correct.
--			 */
--			ctrl = readl(host->ioaddr + SDHCI_INT_STATUS);
--			ctrl |= SDHCI_INT_DATA_AVAIL;
--			writel(ctrl, host->ioaddr + SDHCI_INT_STATUS);
--		}
--	}
--}
--
- static void esdhc_set_uhs_signaling(struct sdhci_host *host, unsigned timing)
- {
- 	u32 m;
+ 	if (imx_data->socdata->flags & ESDHC_FLAG_MAN_TUNING)
 -- 
 2.53.0
 
