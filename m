@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795563961;
-	b=Gtsg+Mkvnscz+sW2W1HcRohAsp8R+svd7dqz9bwQUrBvKqqKr68o3u/3LfUXlAFA6ga0
-	 gvE9tRhbjfdNKBePgYm8eObVtGffoutDeo3sJCbLcg5NFxvVV3MoCrht9nlrBwGMe9cki
-	 q3WIvjqYeKuQ8SqlBL02NQdJ+KQcUGJSLJ39wQLX/LVCtybtLtswR+Tnpf74tPyYvNYeg
-	 mYveBIMT14XxCrEnrUf06utHaeeKc4g/WIysT6+/Gk9pi9S4b1Z3Is7Ux0y1/TtTJhnhy
-	 CVuvU13Q3VBZsImTm5cgj//5k2h3/6E0L8ucaA14oRMwwrzv69eSkpa3JlR/DrVKHRw==
+	t=1795564028;
+	b=v0opL6VGe5sN1Nwd9i9zPYhXB1Hzy5r58tYYSuikh2tW8WIN5fBLUwsJPYgOu5n0qEMV
+	 4ohMG62FspwWQQ9ewi5dHQU8Cg0ZcRsUR9YSzaToxJ0gfAbhUa1evIfBQF/4wffi6Yxx1
+	 bpFHHoD2lC0Ogg8DC2bBp6WLg7/+jRUBDNDxyxVodmxWzLmq6R7W8faRnnseKGhVr4nf1
+	 ZqrzE8RkuCz2UaJUOTn/58KNag7h9yD5WP0BlA2ExGuCtUVzacH3VjyWfN77DcLIFm0/v
+	 xjwQUgGWUEYjs+h5sCEx+baLhCETy3S7w3l45EbvZpEA56JRffsDm9er3vfy/obEf1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795563961;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795564028;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lkQSTzenxhGk82VaYANPLel+QWoFH5mdVxGin9J1VVg=;
-	b=twTJjCY4eObE3aJSy8z6GZhmYkOs3yxv4VNqLmpsBmbe+5y4A6twKdrs6EUIXJlrYxqv
-	 hk/v/C1ZDfaBbZ1vLMzvCgS7FQpFLmRvLYWmsDWoX+5+gm7N2fuO8RbgJcfvoUbOrAt0G
-	 3GaAzF0xx0DXflAbxJmVgvZ99ScdIO0P4nytLDWtMFiNZDU00Enj0D/c1BFeg2jFRMT0i
-	 hnCwzto7gbpp+PvUjOSnzqm/irvOaaJ80vinlEJt9lCP/OLELEaPO5HPU1ijDnCfDJQhC
-	 QA7UC4+roMQ5VeFklgZW2x1WteXkaxrKw93lF95ZYZw99n6kTiqU40kr3d92k9PJYbg==
+	bh=2LfXPMZldRMZErZjAnv/u/j+h7RNZvtvgn6Q97qlr5g=;
+	b=0BaeXq36k6m6FlyCvbPZ8FkSS7Vn+HW6+cBb2ZKD78V8gbTdRxYB4bVtrCkXZ9Q37IQK
+	 0Q1XpAtUB0T2FzY7tMH17cTI1mRKhDaA8dCAwnLtCxkE3P9fHjnewBPfNQDEctuoqbDel
+	 ThOIGOeTv9KZAJVTOuMHiUflPA51LQBP5jHHU7FNuWdiPTHr9CbK+z/a9SaYYKKyaio6c
+	 e+ep1QtE8ldGG9ZwAc4yevClkNr6Ve+0dOp4JYmsfWkMn3pSZ+7VPO4b42+dDUx3vQb7e
+	 g/9UuBLy62hVKsMIavDKj+6Y9gGYsryJvcXoYgOXH/RrYMI3Poxx495+x+yyb/8oA2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYawpTkY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUGQ1MDG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DCE8606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 23:46:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECCD606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 23:47:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYawpTkY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959141F000C0;
-	Tue, 24 Nov 2026 23:46:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUGQ1MDG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8F3A1F000C6;
+	Tue, 24 Nov 2026 23:47:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795563961;
-	bh=lkQSTzenxhGk82VaYANPLel+QWoFH5mdVxGin9J1VVg=;
+	s=k20260515; t=1795564028;
+	bh=2LfXPMZldRMZErZjAnv/u/j+h7RNZvtvgn6Q97qlr5g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hYawpTkY4YnMmCpsLiVZbHulIy7uhz6P9iY/x+yMyrVavC+2K0+CQ+tsQkrsg7hgm
-	 vShS8mw0X20TRkgRvpZctHhg/pdI2zofTXQAGaYbF644hp4hKJ8tQLwEO+++Kl/uCf
-	 XhDualSrVfXQ8Yo5hyLGcQLMxZKLhSa34SIU1GidQEeWBaW1cNcn98obirRhm4eyg+
-	 pApgEPpHLqL0UJ1Cc7KzuI3cuywdM1ZJL7uzIBGrO9s4PIetkHHRe+3tGVCkSolmFn
-	 6+Yoeck6pEIFml7Y9EYKe/S4pyQedgUUFsgaeLwRIGaYQLw8MPDYpw584RdVwaWvEi
-	 zaUuWfQUzpP3w==
+	b=UUGQ1MDGWkMPhlCnGDt9tVMNmBTIA9BbLaVwA64L9T9SHqe2wO1g3B4FI1nQWr97G
+	 JOB9+JZY30I3Ku6ZKLjTunGqjcgbWlXXNFiSkpGpNvFmidL5O1FdFo9hh84hCBClLc
+	 oClAd+08FfnvgCPj1lxa1/uP0wEJtvMjtBv0b8oou7M1c4tLix/x4DzhRs05UHBVQZ
+	 YEmzqNUi2zsJlp6E1qZXCpuSx0JFE4CE1l3SdjiVkHD0ZQ3JjOqusNm6WvjMnRVfKh
+	 h6hFxQ4mbywCHZpi1GcuF5i6KSgzEtzk9/kOfayGZA8y8bb/1nppJNXoh8UpMuhJOK
+	 HS9+eDgCEKnGA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] net/mlx5e: Fix queue stats access to queues without stats
-Date: Tue, 24 Nov 2026 18:45:59 -0500
-Message-ID: <20261124234547.3359830-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/page_alloc: retry allocations that raced with a zonelist rebuild
+Date: Tue, 24 Nov 2026 18:47:06 -0500
+Message-ID: <20261124233907.3164961-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112401-catnip-barn-1ab6@gregkh>
-References: <2026112401-catnip-barn-1ab6@gregkh>
+In-Reply-To: <2026112434-expansive-dislodge-dd40@gregkh>
+References: <2026112434-expansive-dislodge-dd40@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,73 +61,157 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
+From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-[ Upstream commit 9a24799e219b1699bb1c144248c8c500b9504db5 ]
+[ Upstream commit bcfc8286f0cd5a74c827d502f9f1ad408d7eff30 ]
 
-I am seeing the following mlx5e crash in the Meta fleet:
+Onlining the first block of a zone rebuilds every zonelist in place,
+shifting the slots after the new zone.  The iterator approves a slot,
+then the allocator loads the zone from it, so a GFP_KERNEL request can
+land in ZONE_MOVABLE and a nodemask request on a node outside its mask:
 
-  pc : mlx5e_get_queue_stats_rx+0x4c/0xc8
-  Call trace:
-   mlx5e_get_queue_stats_rx+0x4c/0xc8 (P)
-   netdev_stat_queue_sum+0x78/0x480
-   netdev_nl_qstats_get_dump_one+0xf0/0x268
-   netdev_nl_qstats_get_dumpit+0x7c/0x1f8
+  CPU 0                             CPU 1
+  prepare_alloc_pages()
+    first_zones_zonelist(nodemask {1})
+      slot 0 (NORMAL1) approved
+                                    online_pages()
+                                      build_all_zonelists()
+                                        [NORMAL1, NORMAL2, ...]
+                                        -> [MOVABLE1, NORMAL1, ...]
+  get_page_from_freelist()
+    zone = zonelist_zone(slot 0)    /* MOVABLE1 */
+    allocates from MOVABLE1
 
-When dumping device-wide qstats, the core calls the per-queue callbacks
-for every queue below real_num_{rx,tx}_queues, regardless of whether the
-netdev is up. Some of those queues have no stats behind them:
+zonelist_update_seq detects the rebuild, but only the slowpath's failure
+exits check it.
 
- - RX stats live in priv->channel_stats[], which only has entries for
-   channels that have been opened (stats_nch). real_num_rx_queues can
-   be larger, for example after the channel count is raised while the
-   netdev is down, or after opening the channels failed part way.
+Check it whenever an allocation succeeds too, and if it changed, free
+the page and retry, as the memcg charge failure path does.  Eligible
+pages are dropped as well: zonelists only change when memory comes or
+goes, and a retry is simpler than rechecking the page.
 
- - TX stats are looked up in priv->txq2sq_stats[], which is NULL for
-   SQs that were never activated and for HTB queues while the channels
-   are closed.
+Freeing the page does not undo a block the allocation claimed.  A
+GFP_KERNEL request that lands in a fresh ZONE_MOVABLE converts a free
+block to MIGRATE_UNMOVABLE, which stays until the zone's movable free
+list runs out and a movable allocation takes it back.
 
-In both cases the callback dereferences a NULL pointer. The dump needs
-no privileges, so any user can trigger it.
+The fast and bulk paths read the seqlock's raw seqcount without waiting:
+an ALLOC_NOLOCK caller can be an NMI that interrupted the writer, and on
+PREEMPT_RT the seqlock accessor takes the spinlock.  A sample taken
+mid-write costs a retry, or NULL under ALLOC_NOLOCK.
+check_retry_zonelist() returns 0 when compiled out, so a backport
+without the hot-add change stays harmless.
 
-Return early for RX queues at or above stats_nch and for TX queues
-without SQ stats.
-
-Fixes: 7b66ae536a78 ("net/mlx5e: Add per queue netdev-genl stats")
+Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
 Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
-Link: https://patch.msgid.link/20261104-mlx5e-qstats-null-v1-1-a6a003245cec@debian.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Adjusted the patch context for the existing ASSERT_RTNL() in the RX callback and the TX callback ending after packet and byte counters. ]
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Link: https://patch.msgid.link/20261101021340.2251928-9-gourry@gourry.net
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+[ sashal: Replaced __free_frozen_pages() with __free_pages() and adapted the hunks to the older __alloc_pages/__alloc_pages_bulk code, dropping the nolock handling. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/mellanox/mlx5/core/en_main.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ mm/page_alloc.c | 33 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-index 1f46eae73319d..d6152dac2432e 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-@@ -5291,7 +5291,7 @@ static void mlx5e_get_queue_stats_rx(struct net_device *dev, int i,
- 	struct mlx5e_rq_stats *rq_stats;
- 
- 	ASSERT_RTNL();
--	if (mlx5e_is_uplink_rep(priv) || !mlx5e_stats_nch_read(priv))
-+	if (mlx5e_is_uplink_rep(priv) || i >= mlx5e_stats_nch_read(priv))
- 		return;
- 
- 	channel_stats = priv->channel_stats[i];
-@@ -5319,6 +5319,9 @@ static void mlx5e_get_queue_stats_tx(struct net_device *dev, int i,
- 	 * inactive sqs.
- 	 */
- 	sq_stats = priv->txq2sq_stats[i];
-+	if (!sq_stats)
-+		return;
-+
- 	stats->packets = sq_stats->packets;
- 	stats->bytes = sq_stats->bytes;
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 50cb81d42b1c0..88cb08966603c 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -3660,12 +3660,25 @@ static unsigned int zonelist_iter_begin(void)
+ 	return 0;
  }
+ 
++/*
++ * Never wait for the writer, which an ALLOC_NOLOCK caller in NMI may have
++ * interrupted. Read the raw seqcount: on PREEMPT_RT the seqlock accessor takes
++ * the spinlock while a write is in progress.
++ */
++static unsigned int zonelist_iter_sample(void)
++{
++	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
++		return raw_seqcount_begin(&zonelist_update_seq.seqcount.seqcount);
++
++	return 0;
++}
++
+ static unsigned int check_retry_zonelist(unsigned int seq)
+ {
+ 	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+ 		return read_seqretry(&zonelist_update_seq, seq);
+ 
+-	return seq;
++	return 0;
+ }
+ 
+ /* Perform direct synchronous page reclaim */
+@@ -4264,6 +4277,12 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 	warn_alloc(gfp_mask, ac->nodemask,
+ 			"page allocation failure: order:%u", order);
+ got_pg:
++	/* A rebuild during the walk may have handed out an ineligible zone. */
++	if (page && check_retry_zonelist(zonelist_iter_cookie)) {
++		__free_pages(page, order);
++		page = NULL;
++		goto restart;
++	}
+ 	return page;
+ }
+ 
+@@ -4344,6 +4363,7 @@ unsigned long __alloc_pages_bulk(gfp_t gfp, int preferred_nid,
+ 	struct alloc_context ac;
+ 	gfp_t alloc_gfp;
+ 	unsigned int alloc_flags = ALLOC_WMARK_LOW;
++	unsigned int zonelist_iter_cookie;
+ 	int nr_populated = 0, nr_account = 0;
+ 
+ 	/*
+@@ -4384,6 +4404,7 @@ unsigned long __alloc_pages_bulk(gfp_t gfp, int preferred_nid,
+ 	/* May set ALLOC_NOFRAGMENT, fragmentation will return 1 page. */
+ 	gfp &= gfp_allowed_mask;
+ 	alloc_gfp = gfp;
++	zonelist_iter_cookie = zonelist_iter_sample();
+ 	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &alloc_gfp, &alloc_flags))
+ 		goto out;
+ 	gfp = alloc_gfp;
+@@ -4418,6 +4439,10 @@ unsigned long __alloc_pages_bulk(gfp_t gfp, int preferred_nid,
+ 	if (unlikely(!zone))
+ 		goto failed;
+ 
++	/* The zone was chosen from a zonelist that a rebuild may have changed. */
++	if (unlikely(check_retry_zonelist(zonelist_iter_cookie)))
++		goto failed;
++
+ 	/* spin_trylock may fail due to a parallel drain or IRQ reentrancy. */
+ 	pcp_trylock_prepare(UP_flags);
+ 	pcp = pcp_spin_trylock(zone->per_cpu_pageset);
+@@ -4490,6 +4515,7 @@ struct page *__alloc_pages(gfp_t gfp, unsigned int order, int preferred_nid,
+ 	unsigned int alloc_flags = ALLOC_WMARK_LOW;
+ 	gfp_t alloc_gfp; /* The gfp_t that was actually used for allocation */
+ 	struct alloc_context ac = { };
++	unsigned int zonelist_iter_cookie;
+ 
+ 	/*
+ 	 * There are several places where we assume that the order value is sane
+@@ -4508,6 +4534,7 @@ struct page *__alloc_pages(gfp_t gfp, unsigned int order, int preferred_nid,
+ 	 */
+ 	gfp = current_gfp_context(gfp);
+ 	alloc_gfp = gfp;
++	zonelist_iter_cookie = zonelist_iter_sample();
+ 	if (!prepare_alloc_pages(gfp, order, preferred_nid, nodemask, &ac,
+ 			&alloc_gfp, &alloc_flags))
+ 		return NULL;
+@@ -4520,6 +4547,10 @@ struct page *__alloc_pages(gfp_t gfp, unsigned int order, int preferred_nid,
+ 
+ 	/* First allocation attempt */
+ 	page = get_page_from_freelist(alloc_gfp, order, alloc_flags, &ac);
++	if (likely(page) && unlikely(check_retry_zonelist(zonelist_iter_cookie))) {
++		__free_pages(page, order);
++		page = NULL;
++	}
+ 	if (likely(page))
+ 		goto out;
+ 
 -- 
 2.53.0
 
