@@ -1,89 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795526708;
-	b=U1oTw5fXrhPoetx4id6+wTC7lN/qWEOx7MeL4Lel0K7cTm40DtZJFXGzk47yyaTWQ/Rn
-	 eKS28AFROG2ZLDtLULWEzW0yEC+3o2Saw3uMOxDtCdT4i5d5adoKMM2CHfnaT/cDHzD0B
-	 r6U5xeqCiD5fdoTk09z3H+e0U2alFVZUNu97qqcrRfYgfIlEGx+ek4VKy0P8/O4CZsKa+
-	 MSuUcUKKKaS4T9/xdAp12x8FPjggsGUaNwlvRUs8uW6DLh0JchuL7TZxunDkkXPk20Fyh
-	 1trU588ImIfQBS+CV0/3g5lpaZxxPhNyFmWjgT2K9ceFvnj666q6HM7nPXkzcc2oYaQ==
+	t=1795526809;
+	b=SgUB9bqS7Uwisriu0ofXPuvMCAAyqRSAwulzPeh95AY46DA86SO8FlXVrPoet9stsdtl
+	 adxwDWTS6NWajO8c9abL84Y/iPjbSM0B2+AKeRpjF5N21+3Fr26b1TZoJf66kdBnKOQ9Q
+	 BKDoH3fvBrIiavOWdJJe4GV+rSZOJsrL/GYnkMvCrLIjby7kldDqXWVB71qON6B1ZFkzP
+	 oBvgNvii2ijg2UiD3FAN0UbKmZKWn15csmm96YiPR8AGsMVqnV5peea3Dgybd/UjPCPfA
+	 7x5cF020R9BVHmEuBLp4hF0XOmB3x+xsnc0Rq8qOrVImWOHjOAGTR5h73P4vy5pcjTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795526708;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+RtgrQ36JHyvhHGZvGGPZkAXfWTlvQfOhrnt2cyvwVs=;
-	b=igLRAgAYFu30Rdskv0MuKZCX25hFON8upUnId+qpgV3fkCdE9lPqF4Po76FUNWo5uYQI
-	 agJ13zJfsnncVX0xmaYo0lOmzWKOHVnCG5kiycq95xOHTF+CghmgHHLbEpyfVYI2CNDHZ
-	 NhGuvphewYW+QrEAYGaiauMQNlKKU4ksPJjIywxHf7rRGYneyzREN0R+RGEg9+01AVaYB
-	 +yDfn5N9/NZh7rDI0mGRuRk9+LF+ptBrTsbj38zHx66q0YMKMKxgogQp0swELatnKM2qL
-	 wPfYw3IRkY4ulPfq1vrA3YBRCAICZUlcHd5N6N50qfuFs7FagItpU4pMMYL4MrGaBEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795526809;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TGbRNMlBiqQcwxv0P2/3UU/uHuduzqYaI4dTeURK6EI=;
+	b=gvbRTjjDonn2nolmu+/6gQgIPBGnpkQw20YmxXiRlKSUoK7QKmnowcG71QwunAbOenR9
+	 va7oTYSyeOSY1Arx3mDbC6YowMMbq6sr79F0dP4InqThPuDotALcKe5auPSIxy2YmCyNz
+	 3MKIKedXhYYX4n3wZC+0xVZvmlC8YAYSrKPe5ECj0wfpdJcDiWCplIgIpIltZJ59zJ81T
+	 eeZH/lRarr+PHj/GU6MHnRmMsp+iorJZE2EJD6X8KcQGZtHDouHZtG4QmbpaCRFD6JT5U
+	 hie+LXAGPvFYR5/dSlSXOK+JcszmChXEMv/BcpReKV174eg144Jmq0E+8XJxeqWRrZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=zBRyiUY3;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omtiuRGg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E5A606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 13:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52E5A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 88F7B606A31E;
+	Tue, 24 Nov 2026 13:26:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=zBRyiUY3
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-38190551625so9138724eec.1
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 05:25:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel.dk; s=google; t=1795526706; x=1796131506; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+RtgrQ36JHyvhHGZvGGPZkAXfWTlvQfOhrnt2cyvwVs=;
-        b=zBRyiUY3rhQ831i6K0Q80YRK53wy/s16sGtc8qaWE3XszoZ/667xPbc9pI/ly+th+y
-         8C2crYafo+omUFFfwd0UArRoD4oPLMKu/J8MG2sDRlOrYbFMSqp0jqTqbGwPF6W1jYoK
-         ZLBbBElM6smNmHeMvleKKZGm7Dwid+s++sfKwP78RBkYAGwOEB/K/tklvROiYourIZ/d
-         VUIIe9gEdRb8Lds2LRmJ7KfMvlKptgGrtq76GeM+WG+WT34I8h1f6m8GrOU6umx1Fu8z
-         mKBkCtSPmPAWXBoBSUHJpRUiQsSyflZInH4weSkhX4KdhUiZl+VzcdBs9Bt+CVTVyNwY
-         YT/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795526706; x=1796131506;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+RtgrQ36JHyvhHGZvGGPZkAXfWTlvQfOhrnt2cyvwVs=;
-        b=lcbwfx3a68fH3m1veA+UmJd/eS+ixJ6wrqgyE3zZhGEOaqNdWQ3kkP6NfLb1Po4PqC
-         ntTz/DK51kjKGye2LGx8npYvVsk7BJ2/aKqHRgJanWdLg3NLzAPT69JPHWqROGo2Y0ek
-         S6KDcWuEfMyGSUn03jm2+86Ue9z+vHbDU/UC5RTQRCVOz+UlP3UU9mPxRVLudkIrvZpx
-         xqUcI2zJqh8ks/kbMTaVmxQQWp3vtFTIt5g8ynWp0omPLdCAE1Vff0qeQ32h9B/PerIa
-         5ipb7mpJiDeJWPvqUOMmtBGwX82NCzbaP7HkBxd+m6bzgrDZYqXr5y/A07gw2llOXh4w
-         ELfg==
-X-Forwarded-Encrypted: i=1; AL+hErGzFXtQ+hzsXirvEi6a8SpBG7tT+IuyBPVDpi0a3pbH8cI9JLk3jQvUG07rl88YtwvLm+pBXsM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4eCy6AT/b1S0vbZUsb1eoPkNpHWR9alM09V1wtKieHinPud2b
-	b0k5i6BBHvfjyUdW+PhuV4tCtwwDHsgYvaHk8yJij+QpSScz7MF91WRb/f6giF34k/I=
-X-Gm-Gg: AZFdTZfgBREfFpsX+ML95kUIsPMYP/JTnjHxFQplRVGLhMQd2t/bRgJJn+Hqu7zqkzF
-	aF/zKZGMpmPMz6j6TBaH5vzcjJu+uXJRNhpfRQfa7Qp4pp/ETpoPdAOUQ92rZkyTpIaPcifDItj
-	ArYWc/L+QgCbGKJo/Uf497movpUES243pQoHHmhTOtw3hORiM4s3kpm5PHkuU8dfJYhmPGE+0Fh
-	SIsZtAJjdn0lJ65p7h2l7KJSIQFMNYVSvvS51ZbKtyDVSNxmHCwr9Sbrw5AFlNKo3MSu6sWrlc2
-	jS/ftF4g7IwO1Z3ForF0t28UFNd3MimwC54d6X8cpCxFkpasAIUfuqT7fHvpfiiQe6UIp0dmp8F
-	aFcZN7o9KOH1J7GJEEJYK24pmYVVBkH7TLLFFdUz1bh48709iUCHufrIegGl4sZ9WLiKrnY1bu1
-	qnp454hW4in0q2KKaNRWEHcBJ26onE7VT+vnpnQ3x2D1bVY9S84sBSNeIMMHpW6ehcE2H9FVrwy
-	LQjldEahrPunHxlDE8BbwLv+Iz6EPiLGR64buabZl1JBaaFL2e+8AvcLmNfO9QD2h1g1Uvgvrs4
-	WgUYaebpsbmoKikFJVkTzeU249aREqy7VdeU/1vGH9OMBYoSanrpOA8eaHGDIkYdurk+m/87CRN
-	a6GFEQDAEniREE+Ssc9PhbukLmA/8bkt8ujvCX9LggKgvYPYQFZZrbpT5dmRNC4ryhUPpZg==
-X-Received: by 2002:a05:693c:8209:b0:383:e7af:c28d with SMTP id 5a478bee46e88-3856f14d5b2mr15436134eec.9.1795526706150;
-        Tue, 24 Nov 2026 05:25:06 -0800 (PST)
-Received: from [192.168.1.142] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e96bdsm42793514eec.7.2026.11.24.05.25.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 05:25:05 -0800 (PST)
-Message-ID: <f43872eb-6549-4087-a6b0-d49d877e867f@kernel.dk>
-Date: Tue, 24 Nov 2026 06:25:04 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omtiuRGg
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 969DE1F00A3C;
+	Tue, 24 Nov 2026 13:26:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795526809;
+	bh=TGbRNMlBiqQcwxv0P2/3UU/uHuduzqYaI4dTeURK6EI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=omtiuRGgWioc714Sp525Z1hVz4JVmy5BO+Xq0XWMZNEbT5E8pw/lYSrplLQCThmMx
+	 Q+Hs/1c9oV/a3JulF6gdm0xy+uhmYYQnwH2to/tg/YpHUVf4brynmd/FBSGU3OUatC
+	 g/ZqJg6MyJy5u/ILQEptaI3G+tvDMClleSJPzgfqg7YukZ4ShqRNHrEsz8lCq+g2qw
+	 URf8D7QbdBGVblT+Yv6vcWHt6eD/P8LktNfJOAHmohU0YK3XWtwFmbibLD8950rw2F
+	 GSIpq8fPSkka/7AygDKUtCSnG6LLBMdesl8k+ch8LMsYFzsnvFZgIlHRq4+3oUtSHh
+	 pf3VesqmGugOA==
+Date: Tue, 24 Nov 2026 14:26:46 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: Stefan Wahren <wahrenst@gmx.net>, 
+	Linus Walleij <linus.walleij@linaro.org>, linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] pwm: gpio: unregister the chip on driver unbind
+Message-ID: <awWQWD1RG-0F2r_o@monoceros>
+References: <20261101032646.11397-1-yuz08559@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,26 +57,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10/5.15/6.1/6.6] io_uring/io-wq: save worker type before
- dropping its reference
-To: Alexander Martyniuk <alexevgmart@gmail.com>, stable@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- Kyle Zeng <kylebot@openai.com>
-References: <20261124103600.39642-1-alexevgmart@gmail.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20261124103600.39642-1-alexevgmart@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="icbp37xdehavlxab"
+Content-Disposition: inline
+In-Reply-To: <20261101032646.11397-1-yuz08559@gmail.com>
 
-On 11/24/26 3:35 AM, Alexander Martyniuk wrote:
-> From: Kyle Zeng <kylebot@openai.com>
-> 
-> commit 37e425460b7c41687e51e3254b1eb1d799da9614 upstream.
 
-Not sure why you're sending this, it's already in stable?
--- 
-Jens Axboe
+--icbp37xdehavlxab
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] pwm: gpio: unregister the chip on driver unbind
+MIME-Version: 1.0
 
+Hello,
+
+On Sun, Nov 01, 2026 at 01:26:46PM +1000, Yu Zhang wrote:
+> pwm_gpio_probe() registers the chip with pwmchip_add(), but the driver
+> has neither a remove callback nor a devm action calling
+> pwmchip_remove(). On unbind the devres callbacks release the GPIO
+> descriptor, cancel the hrtimer and drop the reference taken by
+> devm_pwmchip_alloc(), while the chip stays registered: it is still in
+> the pwm_chips idr, its sysfs attributes and character device are still
+> there and chip->operational is still true.
+>=20
+> The chip can therefore still be reached through sysfs export, the
+> character device, debugfs and pwm_get() from a consumer. Those paths
+> call into chip->ops, which point into unloaded module text once the
+> module is gone, and pwm_gpio_apply() re-arms the cancelled hrtimer and
+> drives a GPIO descriptor the driver no longer owns.
+>=20
+> Use devm_pwmchip_add() so that the chip is removed before the hrtimer
+> is cancelled and the GPIO is released.
+>=20
+> Fixes: 7f61257cd6e1 ("pwm: Add GPIO PWM driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+
+Applied with Stefan's Reviewed-by tag to
+https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
+next
+
+Thanks
+Uwe
+
+--icbp37xdehavlxab
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsFkJMACgkQj4D7WH0S
+/k5nWAf+KbEtCX2TojwT9s89cuwvkSRQWogDjs+iq1QUnlR5Adse+e6q9UDhTNgW
+60BLcbTXyTCUZbybVqOdfkO6HrsTDbxh3CqlBpTLRx9OvWrhw+CSNBbCJBdd2VRq
+5qo7XLJQKEMlIzM1k0JTdiETY4sCXH0yQnxY+wMJ2PeqDm1H9leYznt98CKDQgZj
++3Eg6/gmowkCmlYWldMWga22780eFByBWwlxoLtSIe5Dz+b0uZBo6SfHtmVzI+PZ
+G/pLOrrvW4mraL1k5j4ktv0iP9K087/lSk8QF/Iln8hQvv1doi+u0loj8dOQ29eU
+XicX0aAbLMMFvvOEsmADQHgxi+4Fgg==
+=oZSU
+-----END PGP SIGNATURE-----
+
+--icbp37xdehavlxab--
