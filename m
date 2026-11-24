@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534880;
-	b=zPvsLV0/OuFNpPHZo+MN7aygMP++kD437zXEMbtxOXNm5YU0Y+S5LPZ267w3HX3zEKnN
-	 lMgd3St/pKzKIeQZ3guk0BVfVcJk5Gpo5IQbRh/j0wW73PcJLs0rcqwxgLlY4Zo/cYW1p
-	 rOnMnPQ4NHQNEz5+aKIM3ylg5Ki0AevUfoW+gbHgXDMeR2sKoXrG/v6KY3Hv2pnbZmRz1
-	 OmB5j0rG0dXSaubrmq++Dzao6Q8KBy/y6XNVB8tCMkZWezruuznf3kFE+EpumvMbr37qA
-	 yQjfcaGNQ3jHy5x/WpjQXMXnxuVbZBZMcOHZjb9E7HK/TlT76Bjxx9qLEb5GmQYa3jA==
+	t=1795534884;
+	b=ZeDP+BLvOTkwI/fP9nZ9Rhy3CXMIZcYBUpiG5+7IoDCQJmmTTlbaFRU7e+yNtHN2uIkz
+	 cWYzXdLtPfKm8JVhiMu1zsCJjEdyRUOYwDQjGb6BqspY3xW1h7j2db23tVq17yYtxRbxJ
+	 W5VEOj+/gyL9Sq5MSrg9M2pWYC18KOG54tANcSBkhhVIhPqNM249iVD3XPRDVpKG5J4T+
+	 g0AiYIF0zEf5c2jNyUnmKQrRAtq8sc2eudE05wmapKFegzlB7QqmAa5mtdkTVGx2J7/y6
+	 X5GJU7yLbdchUiZtJklWjOftXZiTv5yv+V0RUnTgr6FHBD2PzKk9j24SM1X+JatuHRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534880;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534884;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=snMNBHme33rca4NQsJHoFEkO5UURMSUjw9rcHErePLk=;
-	b=YW7w1vlazwWvKLXhp9969x7tNQwkjnami+TMelZuO4kW1S1wJm2VcUo62k+1j1maEdlv
-	 1pUTkI6IdDnWJP/rh7ZJTnKwAnuc6UoxVb3HzNR39ijBb/Kk4fc24OnSIiU1GTjZcM3zT
-	 RZvwgxa4GznYTVHBcaUt15HKw7UecrcB4cke7kMKi3bubxFYSD/KrzoO1DyhiXQ/OOdzX
-	 PtXbnj/PoaeVBGTo2DQejMKZHibrk3nRoyqnpuaJolwzLMSYkPpXAwZKyY5hZhpFO3XkG
-	 bTcwLHlfuaQl88j80ynSfLcj8Wra3/V36aOf5GewQ2On6sNnvuHsrSfWDuMyakIFfsQ==
+	bh=GuR2wYAUHtuTLZkyC70Wsc6Y8J0CYVOtOMTalvKD9Aw=;
+	b=BHl7f3tCbZmjdM6CbFpV914OgLQcCbqhoeS7847tpwp03v9kcqF2BoUikqv9sWMCobEE
+	 yffs/nYuq8D04IhDTYT3uFuMGPnN1w3BEsfSnn50uvllCTs6xLxxywNmtKJ9wpG4YGxDd
+	 roD1Nhy815XDy0ZAajKFj1iXsjKWUOmVsA61WJ9JaJjnW6/K70Pfv93XDR+2gFzVztQA3
+	 GSXVlogtYmenr5DLB/Z5jCgzP+/w0FCdRyWA9UFtxzqrzYjXhuE+qNzcz1+hYUw05vMpo
+	 UEAh5YxZYlIeB/UwdeF8qH9kS9LkWRomgY224vFlG7uUro2h4ObWPv93pMkROx+DA2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=G1aNmZ6l;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KEf7NrAX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B806606A32D
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:41:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B11606A327
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:41:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=G1aNmZ6l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0FC1F00A3C;
-	Tue, 24 Nov 2026 15:41:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KEf7NrAX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287571F000D3;
+	Tue, 24 Nov 2026 15:41:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795534880;
-	bh=snMNBHme33rca4NQsJHoFEkO5UURMSUjw9rcHErePLk=;
+	s=korg; t=1795534883;
+	bh=GuR2wYAUHtuTLZkyC70Wsc6Y8J0CYVOtOMTalvKD9Aw=;
 	h=Subject:To:Cc:From:Date;
-	b=G1aNmZ6l+4hQuPO6X6icL4b8eSGUKKYiyM4ncD3KFz/bt6fzCg5fGzxKVMXk7LbcR
-	 2JDzfI6OCVi6gk28UdpPTW24wPguhPsWRCANYsskgJL8kDdOcLltrz/le+Uu3gFgPj
-	 Z9Wtpn0XG4296TNwugTs933CX+dY9CL697E5I3Uk=
-Subject: FAILED: patch "[PATCH] mm/page_alloc: retry allocations that raced with a zonelist" failed to apply to 6.12-stable tree
+	b=KEf7NrAXj5pj9xCqEReP2mW/ZpIqonwcMaFOV0wQiI+SnrJqCraCPd5DDg70qR4wT
+	 jrHv7BMtAg0mwdn016UsSLQikmAHXhWUmlF3jJUjqf10LgQW+nYTWcd33Frg/ZzxZM
+	 AOxs3plcnRsJdGf1R3RTPURHF9yY4c0aGyrmQPYs=
+Subject: FAILED: patch "[PATCH] mm/page_alloc: retry allocations that raced with a zonelist" failed to apply to 6.6-stable tree
 To: gourry@gourry.net,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:41:32 +0100
-Message-ID: <2026112432-fringe-contrite-ffcb@gregkh>
+Date: Tue, 24 Nov 2026 16:41:34 +0100
+Message-ID: <2026112434-expansive-dislodge-dd40@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x bcfc8286f0cd5a74c827d502f9f1ad408d7eff30
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112432-fringe-contrite-ffcb@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112434-expansive-dislodge-dd40@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
