@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795532834;
-	b=Cc+hXEFwvszam6xzo9Y5Oyl9oo30bIQO+TnnAhGw0vfVB57XMytPD8C9X35QEydNeqw5
-	 UVpBE6crwFmsMFO1QyASbmalwtfPBMK919wry3T5D55JZxNQ6+C88umekoYESgrkE12yk
-	 Jtt8IVVkGONkjR2vcpZTBRUDMwBhG/fLXofs9x34k+q4S1+6aUTMAapPt6jq4CBDmOt5z
-	 5/cV5H9AWd3CKt4Gka5Aa9UyDw+w7ALYaiU4n9NtuFUUe2hTXdSQGkHFb2x1xhPSfG1Ni
-	 32U7N6YZ2g4hr8u8vCEkzwzyq040haTHOYfgug9rCCcimC4c71DAV6hon8HZhxpw5/Q==
+	t=1795532837;
+	b=gBWrOu6Oiq6v11PCJ81Du4BVPMsB+9kqLKastZoi4R4BXIMtQ7j4dzGgWlGRclzVqLfu
+	 tDrYLA7GcUAieWruP5okwYA1KKMwDrOhi9HMM3TEDuR2R7BweUZvBgIMx5JW5he1b9Kih
+	 cQEcXzXid9g2mAWiubN9e1FZBu/jwlftSKNuAus1vb7waGrO9KVU664/J/0M1xil5k9os
+	 AyZEe18UI84JvY0zDozjIBKj0pgzcohYbvShEWadUicLODxpcz1+gO2D/bk+5YsgKfidv
+	 kQpf7YrJJOM1fAMt5SKZrk9abmiw9y4yRnwAYSnXYH2V5dPZ1SFHTQar/rs+YgS40CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795532834;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795532837;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zuQTJ8T/2mEZt3bqxpuou/BFmgez/AG7DH1I+20gb24=;
-	b=jOYfKMUjJ+C/9Yv1RagQl21FXWU7xigYVtNwO3USR1HkN39OjO2zx7N4zKK65rHi3/Zy
-	 U3lFnGRqCeRB17tCzo129JOU7xL10EgP6qeDaxzsHb34+ovQd6KoZ/5S5jc8TiFEwmWKx
-	 BqtGNSa4EsKFsB5kOz0XnbviPrEkRzoxJfNVTG1uMDikmOFenARb3nZPOcsepds3UtCJV
-	 AzbH4dkiqvjBOvx0QEzIj4N3AK+UlVdcD0T+RfCBakt+mPNLpAPfUAUR8ceZwRzYsc7BF
-	 ugmjGQbpwEnI0/sxfu0eSbK46l6wg1ix+cDkspoR7saaKsmQBy4Wz00Kwellr0AiExA==
+	bh=fqCLHzjm6cj2tG/5nqIJnjwbE6JUX/isMRfzzCw0ZOA=;
+	b=gbXyu3X084/WGEalERQUfocPJtnqUd3Hk6tKLYI7lgDwhCj3s6jXvoUGBFonEpEPNMWG
+	 UlxV3vIWG2J7SIxi+DUZwy5Ik4ztk0pLTVKJb+63XyRldJIlRSfi30gc0S8dzTfQ3rjHy
+	 gaYiY9txzf2+os+9Av6QMcyfqdYA+xPUqY+LwN1Znt82GYRSeWR49rhtbrV+NtM9L004c
+	 /Curhs5HhXIK8OA/HaRGnmnXZXLrgAYBKfKHW12dH0MW4+tFY7xqYQzLRgjBJL3J7vhaX
+	 ZQ9PlI4NyuWA+ugCwLDPh8/3F/2Ko58EU6hyH5sYF41c+M++WTHOwpCuSEdzY8FSo0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MW5zkv7f;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mQYHXjIe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C643D606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:07:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DF2606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:07:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MW5zkv7f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4FB1F000C0;
-	Tue, 24 Nov 2026 15:07:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mQYHXjIe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 752AC1F000D2;
+	Tue, 24 Nov 2026 15:07:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795532834;
-	bh=zuQTJ8T/2mEZt3bqxpuou/BFmgez/AG7DH1I+20gb24=;
+	s=korg; t=1795532837;
+	bh=fqCLHzjm6cj2tG/5nqIJnjwbE6JUX/isMRfzzCw0ZOA=;
 	h=Subject:To:Cc:From:Date;
-	b=MW5zkv7fW/F6asMpr40G+2s/iqnRtCdiyfDMoUPIRF9rTAtAh3EUqBqtg4ku/5OYa
-	 83gLTsgOcRqjdEf12kDpt1cZkkC1d3WoazmIgxTiaiU8zaBb4us//tAB8VK0VJjCtU
-	 8WJ/PYBybxrXEL3F+A9aAgphGGuWgN+iOTUQTeiE=
-Subject: FAILED: patch "[PATCH] ALSA: hda: Fix [codec] ID matching in patch files for IDs" failed to apply to 5.10-stable tree
+	b=mQYHXjIeDjW+4wJG1kE33QbrAzR6g6yhU6f88PNEt22YY2ZnOvEsIm1fK5Z7pFen1
+	 FR6ir9SzjKO2WD0096z90GiA5VYbC2uGOqlj0Qr8YIgFeueDqwPN+t+9X4H9cubQFD
+	 UnFdHgqOVswOiKL+zoeVB/v7+IpGyP34h+jhugjw=
+Subject: FAILED: patch "[PATCH] ALSA: hda: Fix [codec] ID matching in patch files for IDs" failed to apply to 5.15-stable tree
 To: andy@dvsn.net,tiwai@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 24 Nov 2026 16:07:22 +0100
-Message-ID: <2026112422-autism-skimpily-3a64@gregkh>
+Message-ID: <2026112422-engorge-chief-3b0f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x fda103c1432f344e1cd548f346d157b1e67ee7c5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112422-autism-skimpily-3a64@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112422-engorge-chief-3b0f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
