@@ -1,94 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795490854;
-	b=iWI7bQg+roEmiyr2r1WDd5B4vxhEtImh61SknU1tox9A7gtWfonSmP67iVjGk7xhy+TX
-	 WbSWcbf6e1rmdEJT5t5FKiMa/qCWoLy9pyycIHu4nuVf0dExch0V6UDmy9PUexgPNE2wV
-	 MuWhRreBeL/Numja6WxqhvmWcbOXbwHizD6TcZifNNdh/Ri3LuMfN3xazNkP7Q3rKnbUA
-	 Gwc5N3lSKZ7hHbCCvTWLuonMgjmRaclnWhDlgc559P0qnsZpfHNF56yZvm2723v+3C08f
-	 XlUt1JP5Skt/dbez+qj7FjMlUroz/4QU8E5+BfuSTL0up1FAH122HJdJa6HH5L/52lw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795490854;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=CRsPULxn0TVgyaRnH2WeqzWMxmvl+M8D4wkPXB0EWCU=;
-	b=bl2CUfYPRg6smpyFJqXmbke9R4y/gcJ+GrJs7pPD2uqMVYjbqT3cuZIipjdv4l1W7cDP
-	 8+XOqVgAcGLdNH7XJJue7dPgRCAxUZVyLuG1zecQa772lF++o7m7LYOVSfD0Z5c5brV7N
-	 CecloW/QGTPlP05E61tUUztJEYzWCuFxKqZHDzxccdaopIsYqeGduQQQ7mto4lEfTH1pa
-	 +WiI9lbTDKNmVL60kVEDTFw0JA2mW3ESsOZSWvlKBxDxM7sp7M895FYYwp3tJfbwzAnMi
-	 r9dX/0HGeA3paU3HYu8qtTlzURNdyFEMCWGz4JqoO+7Fs7pYqo1lQndMtDbhCz1mSGw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eXdAkJvT;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.6
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795490899;
+	b=t/HGWR4+zkvkvmVlJQElW+8RA0Zw83Xj0HfnRy2mu4xdBvumQv3yHdN7o/gsZzm4qLVC
+	 Y/54xIWk+fDhGiRy1WzNIkLkkrSb3MpzurggNGl68K5uTUA+PS6l4u/kPyeCqRRfiBYSt
+	 HVHSdt/1/fojfrnGSFkTBJtkFxVSKKPo8TFaKAImJ5+hmmAoIWI7LbhXwWuzpyM2sCIHR
+	 U/GW1Sz+ty1Jei/LZSnvRNDnouzlKhI+VfuPsusavDrOBMl5zuJ7QrEgroe9AZIA3sZh9
+	 rYTeVR0Gf1SHESOg4gb70tDoXAmS/+SxtiAX7j2qVLuCmf88eRkTU69QNSvIh0W2I9A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795490899;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=hKYx5d0XorS3vbtbqf8M/0ktdLEpll7/AxGdZCUFBYY=;
+	b=S45Qj2aDMu1DhGjoRC2T1UjLypjrgTW9lun73d9ni5qf3MOmEH6DxwJFZVGCVEu/Q9nj
+	 gZTMrwReUR4dH3Tj9PfjJdaxj8qu0LhVMhEe1JJVmakeI8Tquye9ipBmyu806cSkFYj64
+	 HJKjS3MSsBoc9soliRR8onLk5JKtIqBit5QeypGkkH1p68kaK1WCRiNY2BllWidEjGcvx
+	 qFn/NJ3va8ukYiGNTV8mUt0RIoFbnWn9e+TdjZsa1p7wYPfqEEPNDUHmvrAIBbcA1Ta4d
+	 k3bBtGmM18MVT0/ZFTvYZnRLNIaHj2G6YNq65eQKwATBLxnUNL1nCPtzeoSxfKBDpZw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mqvkChGF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.6
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013006.outbound.protection.outlook.com [52.101.83.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41527606A330
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 03:27:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41527606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743DE606A321;
+	Tue, 24 Nov 2026 03:28:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 743DE606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eXdAkJvT
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso4088743a91.0
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 19:27:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795490853; x=1796095653; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CRsPULxn0TVgyaRnH2WeqzWMxmvl+M8D4wkPXB0EWCU=;
-        b=eXdAkJvT4HW+jc931UYjjdH6dPF4RFWQBbXA4uaq3q/BAPTEl9yR+7/86kxvDEVVmT
-         KeNrdZHr+Y/JgEHwWXLiN6ydYDR2vSU9IecWEf/ZB2KUqxBdJQK4dca4aGRj5G9iYTgR
-         LKJ1u2VUgsk0oNT9iwr/fkWZzm962CeOu1caeVgQeTsh/yGb1tNG6d2CCpEXfNNTKjEM
-         7bejhVTmWiQIt8M0zY3IVFaBAs6MPVk683WxL/FrQ14eCo8CZqx75Y8sPZu8OKqSs0FU
-         5EjTztpW4h9vbxb+oIWx+3LySZPq+oPNmJdr5ng7fnHFbt2NLwTErf665G5C0pgqPswf
-         g2Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795490853; x=1796095653;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CRsPULxn0TVgyaRnH2WeqzWMxmvl+M8D4wkPXB0EWCU=;
-        b=JAInEJcztDg1aKnIpxj60uq8/vrpFaifR4DRHxyD+fJKL9mkWhSq2CGNz/i5hlEeNX
-         1Hm8UXgmebk1Yyfl5CvMaP3ITSHBmBPKZGYlhGhorvLt6bnXzfxAv7h1LkVA+J1LAF2/
-         BHpFZOBDcV9lBxFSZp02b5iCebURGvXrsQ+BRuuMd0LnVHl9UsypdxqO/rZjUv6s/X0+
-         0RJhCbtK9ZhaqSo4BiMXn0iOixUoIHnofhP7fJ43yYC16T1UPsK4c9HmW6o5yN33wbAC
-         ZtfXgXWWo3bKROQshsCr9O8o+0gj820aspxDEH1rqaRfQSXI8AzxpuIpVxH0HhuZ+wDc
-         Csfg==
-X-Gm-Message-State: APuU4Z9/MUBt/xubXIquImzIr/kfHVjW3I6gogkrocgFUYxUoD/Jn9AN
-	/xMBl+cjalyFkiTO/UQ57bhIF/ub21HbV+P+09Spki1DlqyI+A/RUjnrnz7vTA==
-X-Gm-Gg: AZFdTZc+Pl+Vmli2rZEBo6L81LMIRMl44SzQjmIznkmXuFV7N2UvZldDaG6C4eQRPGR
-	os4k/9LKCwFPHJz10zFzEdVeRAmXa3S4DCPJ92qijbbzNUHuncru6vTWRSOtcbx9vjy2bGKzIld
-	9XrqA8bJUl7AoRoUvlk0qb7CaMnfPmNK87Eg2SN8Ibra36A/mZFbwtMiX2qkUQcFSKQghmfSDTk
-	UG50BjYdlGhYfxAGxN8QxcF2GToLGq6mMfP2fv/zfWT/iMm+AaxOHlWgep9kGz2AOQcM29rUejq
-	Sgs3V/FKsOGyiXAcGwuIu5qwj6Hk34VqaII1EgFIkUVAePYPS6qMoDmYSXYtGH5t2BO87qExbJM
-	is/0qO8hN5+uNftd3DmRLSWd1MQlyT/AWEKlKpoEgHDBviJjCaJKo9hGtuGunlR/szJ0LWs6L92
-	bVCR8Fvi4hGLgPojWBPA8y2AYgEn5Cg4tb0EPgVGg6tBlZdikGS0hyGtHEbQbF2kWZjsMSCGdh6
-	m3KBw2VJ7htaCwYjUC06CATA7TrSAB5dkMvIjdXz4pI505dm2WUuCsjKsaULhy4sq6HnKkjbfXC
-	biMc+x8dU7r7JcH8EnRTXoKL2ew3mw==
-X-Received: by 2002:a17:90b:3e81:b0:3a8:337d:228a with SMTP id 98e67ed59e1d1-3b41c7bc57cmr8264511a91.6.1795490853461;
-        Mon, 23 Nov 2026 19:27:33 -0800 (PST)
-Received: from ubuntu2204.. ([2408:84e2:440:fab2:5934:daa:c53e:abbe])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b21e19fsm7360273a91.0.2026.11.23.19.27.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 19:27:33 -0800 (PST)
-From: Yi Xu <xuyi0562@gmail.com>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	bvanassche@acm.org,
-	hulianqin@vivo.com
-Subject: [PATCH 5.10.y] scsi: sd: Mark the disk dead if runtime resume fails in sd_remove()
-Date: Tue, 24 Nov 2026 11:27:22 +0800
-Message-Id: <20261124032722.102378-1-xuyi0562@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2026112304-aids-poplar-61f6@gregkh>
-References: <2026112304-aids-poplar-61f6@gregkh>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mqvkChGF
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QCc3OrtEKf3c2omsi7kIYwXoZqVcPrxm9KcAtZdwjWdBlR00j/ImaLRDM0GL+Llln5YfY0JMUrCvAf5pyApN7+2XaFARwlsjIleVuQTrQIRPAaXUNAMjW9/WEPeInTB9H/v1kLJiz5hVyLHDzDyF6X178QFJ0wnpiVqCKSi7pfSeo5QAa98Z+bf3uMZ03oadqCmNEoYjq1Ltr5xWWx3urol5ZVteFn3S7nzFW6msKJfTZfdopmFbO2ub15J+2NFskffE3MFxDWX6mwAMBOzuNz6IEU25rfOzDviN29YDz0VIsZswsRba5C4kJxKIjQCV4IOwyc8WHCfCtIXOMdBUKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hKYx5d0XorS3vbtbqf8M/0ktdLEpll7/AxGdZCUFBYY=;
+ b=wdLQEYkxGe7wALx+dKOB8HIQKaogwgwcyVjD658mC+cwT+qLhlB22Gq6LOBe4TaH4xfaPvImD1RC212nkxKT91WgpJouPbLqoJVO2pgtXk7/grPPKCCprCdwDtnHdN8tmcZz6uX9hEdLPjp6spQZouGHDuNGUQuaVmYMOI0KnHz7T5kOGDCJL3slTdKA8GPNwkNyK1tsR/OQ8u6c5p27+Bi7wQa/cuuVi454KMFBT/2bBQQRfLm96QMrLhAXdosUIlEUSYbVgOjo2cR826A4H41QBuvDTm7iPJyr3o6QsxNWTikuAaCA2JGBC75j4Eim/iAmEBUJ9FWiWxV6TvB19Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hKYx5d0XorS3vbtbqf8M/0ktdLEpll7/AxGdZCUFBYY=;
+ b=mqvkChGFHCXU9eMGzoqUBsyq3THgioAPwLC/IwrHruukOwExvCSFTrRbGHBckti4SF7SajhJme1qXsjr3B5eEYBwYqhWGzZ71eK004p1h/5r0HGMzqLwz47cCzD2emYML/w482ICbHudV2+HABL9+oIy5l+oJvCka+t8kNxfxCtGN5Nm5AVFPSV6+4ll5K/6xoED99+Ra1EbRMCu6Q1gns7fHGZs73tssW8VwC4VivBqaykgdp9tzOWopVkH9BY6LoQRCB3NWHWkKZ6v2dkbgpI7gexF7SEiSeTSVjNu0ywBdWOgSH1Po2x7y6xQ+A4KzCjCyvOgz6ySOLe6G0/AIg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by DB9PR04MB8393.eurprd04.prod.outlook.com (2603:10a6:10:25f::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
+ 2026 03:28:15 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%5]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
+ 03:28:15 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Peng Fan <peng.fan@oss.nxp.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	linux-remoteproc@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 06/10] remoteproc: imx_rproc: Register SCU cleanup after resource acquisition
+Date: Tue, 24 Nov 2026 11:25:17 +0800
+Message-ID: <20261124032519.5338-1-peng.fan@oss.nxp.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261123172140.3547896-7-lee@kernel.org>
+References:
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI6PR03CA0003.apcprd03.prod.outlook.com
+ (2603:1096:4:285::8) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,122 +109,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DB9PR04MB8393:EE_
+X-MS-Office365-Filtering-Correlation-Id: 64caace4-18aa-4236-103d-08df49daf9c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|376014|7416014|366016|261102123227099003|261026121527099003|261022075727099003|261022105027099003|261026140227099003|261028144727099003|261021121427099003|10067099003|5023799004|11063799006|56012099006|261009223027099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	hOJ4Q9gGo95v4iKhBn2vnRnSWs8f39YIsq4rFJhqe/OYRFQa+mO1do6yvRns0Y7Rt7GPGCU8qJbBX8yH/cxaT9EFl4x/U0VbKFbleyjWjMZWOo/fmBw49ntbU4Zw3R50/GE1h5dFy3BfKWf5Ochj/Xa87R8Fp0qiLAN3qMt33nGuHErGNbK5CnEAySns5fOSK8nIFls+6bFelNQgjB+YeL03eUUCiEc58U05eplw0OLTaTX9kMW28L5QELBdKPgctSY7KBhfGVsmu27274g5LDcYGOPJY1Qva4rFNL4Wbs0fRWzxBG/oeH6DAADC4HdwDQXsJCq2vxU7nH18QlOqQwiOPbvoP+2v1ikXaIjHKN6YAeiw++RrlmNuAbixlNGFM/ska/niLdp1dTcKo/TpG06ZkqSJkwNbaAc1seNNCEo0u7DmZcZt5ry/SCLfIzsU6MZYkhCrqCsXUQk57pBaKB7h6gBeeMAzBCOnom7JKgzmQLEAzQCC3cSHIIf0zwzXwulSnChdNTlZSiSANogAdvYtHqcVCd/bYh+UgPGsY7yHvD5j/BwQ+szOKI6zuI9uuo8Vo6fbPRWasQjisCxa1LmWREnGObXpm+Go+R0SgSc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(376014)(7416014)(366016)(261102123227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261026140227099003)(261028144727099003)(261021121427099003)(10067099003)(5023799004)(11063799006)(56012099006)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?d37RgqZtFygds928bn7ORGOYnNDwfNadSfcVq8SS+6xmkxdWHjPQlvCS/tdj?=
+ =?us-ascii?Q?8WgBxUrLnhLCRk50d8nu5OQsr53GI5qHawiRnyHOGIO48iq4zSi5lZakFBdx?=
+ =?us-ascii?Q?DpGzrQzhlgEFt0jKHpQBdF/3oBfjoXS9q3pCmNFEGMCk5xhzXdIejV3mxEB1?=
+ =?us-ascii?Q?JQiYHJlzFR+2INsiy5C9GO50V6EMDwfCi98mHeHoJzwSDY9YuSiX+1lhbuzK?=
+ =?us-ascii?Q?M+nxnztgv+ZYHH6g3h43aU5dGopIzTD94NZ85AKPWH5xdeny9AF8fSccIaRX?=
+ =?us-ascii?Q?4yVlXnSY2AofSNLdsfvw998ZYhUvr2TUV2x9JTZXXBjqi+MAJnrk/A2YNdJQ?=
+ =?us-ascii?Q?qMG1NV573YAfnofIjaFYSYGKvFnl7LbV1B0KbHP6+Ia0NZLZ6trSs4DHjhYQ?=
+ =?us-ascii?Q?W3rI6tUP359mYzIW1ofCjmGJmX+tOyOrBEqOydMpCKh7sTlyK4tcp9N3FEl2?=
+ =?us-ascii?Q?2BPBh9YKAMr4BJU5y6nAkgPc0OIzqsibIYeVjplr2J7IOQWYwPuyJPzPOnqd?=
+ =?us-ascii?Q?01b1H2kzX1JMxYKLWSJBnyd0DPLt+WgfV8U1wmt2hQvSHtqXwIXr6JoLXpAq?=
+ =?us-ascii?Q?lRsYhYg6ElTG63VqWwZUZwqSr9kEPxyG903WDMMHOAOFJuSIFfuajVEOcGK2?=
+ =?us-ascii?Q?tBk9fc7/wA1PqigJUndlYrWJc2DU872YN3eEDRb7jQuEZlfvIgJmyMSR/38W?=
+ =?us-ascii?Q?hWmmP+2qe4gursGn35X6xH6JwtO5T6bais9S8swW+HTBTIf2vk3EGV4iQCkI?=
+ =?us-ascii?Q?Tb/88CbFMtlntEy+k8AcQgUK0chhAZCv7k81BKTDt7hUxjCaJUkpEfpszKp6?=
+ =?us-ascii?Q?t3uMJqJT0glzBvpQVd0P6HfvfH8WML17Jyc2kI52ViyZEIPn8DiRd4Y6SgIc?=
+ =?us-ascii?Q?GKOFyzwWxoFQvwnBCf6fYle+zY86j69oR1KsYHRfrl+r/7MzCRXNUNFtxbR2?=
+ =?us-ascii?Q?mGdCB+wyd+jV2aeyyXDQTfbPL1t1Wqy7hyRahRTpfzEXmUDIc67a5pjAsHmF?=
+ =?us-ascii?Q?U7HTn/HWKe3gpb4Yy1g5H/Xd3xp1WS6O+DE5wJEvRbz2uvuHtGM3kM6LV8n4?=
+ =?us-ascii?Q?T6Q53V1jRuTKVlreVj4s5KFuZrg5yVzAIWMsYch4F3og3uU3Lvv8hMSR9xps?=
+ =?us-ascii?Q?dBY4RRGZSSAo1VvkoHY32f4oewZ26hPYnsGQ9T2j+CJcQL5MxVTGuixvGp6J?=
+ =?us-ascii?Q?V0qAy0L/PKU5M/2qpmXWa4AQ3EmjvsFMmDA9jU1CBgcJMF67KwgSEakY1w1S?=
+ =?us-ascii?Q?P4kXoF//Tqcn3LzbTBl3HIPp1ZkvKQSH+PQhj6YnzlxDmZcCYSQqx5wVJvFV?=
+ =?us-ascii?Q?MVQXEdBxBDH7gghJNqH5iIW+vGLDEE9KzNyw2osrYfrmRto/eUVDZoG98o5Q?=
+ =?us-ascii?Q?/nivIl/hC9jbU7XUMfNpn+pw0moTRDYwnY67qumIPXosDEycmihM/tquKTwF?=
+ =?us-ascii?Q?LbRarZdf7bqVpd0RNXFH88of/8l2Ju7UcKkMfV4GzXdm108t91g1BLLC0+bT?=
+ =?us-ascii?Q?sh9U079ZabebtAAtb09WaPGXWiQpndQ6X0j5JoZYINGtzcF0z6m6mc2lk8D9?=
+ =?us-ascii?Q?wqUbVjlmWtDQ7SyUrAdmV9OjuyojiDA/QCy/2rxT3rkc5LwZhFlFCi4HZFsG?=
+ =?us-ascii?Q?L8Q+yA+DGHQRzPuD5Dz42bWjrL1cL47dBVXEj4KHLOOQCtG5gFmjSs9hsgsb?=
+ =?us-ascii?Q?YiQRNQlrzcaPn2a/jBw2YY5jY2s9jp8XAUFwpaQUFr+sz60mZbV6N9pKHf++?=
+ =?us-ascii?Q?3avpR8zjsKeIUjFpGGH1aTAfp6/by5xdeA3fNtoMU5P7joGBDVpy?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64caace4-18aa-4236-103d-08df49daf9c9
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 03:28:15.6043
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 94/6QseO4hut6OR8j23z+XSjJpX++Y/LMC5am5WrSap5cGiYWAg0teVPcpXk2em/O+873OWxMEUZy9I+M/LP9mxbccAZ/0VKJgDJ/ornsEcbCrzMDcFBrEXdImDth8xM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8393
 
-[ Upstream commit 085bb18a0b91007f04ddca13af30277c78040157 ]
+On Mon, 23 Nov 2026 17:20:50 +0000 Lee Jones <lee@kernel.org> wrote:
 
-If a SCSI disk is unplugged while runtime suspended, its request queue
-is still in the pm-only state when sd_remove() is called. The runtime
-resume attempted by scsi_autopm_get_device() fails because the parent
-device, e.g. a USB device in the USB_STATE_NOTATTACHED state, cannot be
-resumed. Hence, sdev_runtime_resume() is not called and the pm-only
-state is not cleared. Next, del_gendisk() calls invalidate_partition(),
-which calls fsync_bdev() and thus sync_filesystem(). Any bio submitted
-by the filesystem is queued through submit_bio() and waits forever in
-blk_queue_enter() because the queue will never leave the pm-only state
-and because the queue is not yet marked dying:
+> imx_rproc_scu_api_detect_mode() registers the imx_rproc_put_scu()
+> devres cleanup action before attaching power domains or registering the
+> SCU partition reboot notifier and enabling its interrupt group.  If
+> imx_sc_rm_get_resource_owner() or imx_scu_irq_register_notifier() fails,
+> imx_rproc_put_scu() runs during failure unwind and unregisters an
+> unregistered notifier block while disabling an unconfigured interrupt
+> bit.  Worse, if imx_scu_irq_group_enable() fails, the error path
+> explicitly unregisters priv->rproc_nb and devres subsequently invokes
+> imx_rproc_put_scu() to unregister the same notifier block a second time.
+> 
+> Defer devm_add_action_or_reset() until power-domain attachment or SCU
+> notifier and interrupt setup have completed.
+> 
+> Fixes: 9b2451658afa ("remoteproc: imx_rproc: Use devm_add_action_or_reset() for scu cleanup")
+> Closes: https://sashiko.dev/#/bug/linux-1230a154-7627-4ce2-96f3-d0033709ba4e
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
- blk_queue_enter  (wait_event on mq_freeze_wq -- HANGS HERE)
- bio_queue_enter
- __submit_bio_noacct_mq
- submit_bio_noacct
- submit_bio
- submit_bio_wait
- blkdev_issue_flush
- ext4_sync_fs  (sb->s_op->sync_fs)
- sync_filesystem
- fsync_bdev
- invalidate_partition
- del_gendisk
-
-Fix this hang by calling blk_set_queue_dying() if runtime resume fails.
-The hang point is the wait_event() in blk_queue_enter(), whose exit
-condition includes blk_queue_dying(q) (i.e. QUEUE_FLAG_DYING set on
-the queue). blk_set_queue_dying() sets that flag, freezes the queue
-and wakes up all waiters on mq_freeze_wq, so the wait_event exits and
-the pending sync bio fails immediately with -ENODEV; the removal then
-completes instead of hanging. Syncing the filesystem is not possible
-anyway if runtime resume failed, so no data is lost that could
-otherwise have been written. If runtime resume succeeds, behavior is
-not changed. Make this change in sd_remove() instead of in a SCSI LLD
-such that it works for all SCSI transports.
-
-Please note that this patch converts temporary runtime resume failures
-into permanent failures. Before this patch, if runtime resume fails
-temporarily, a filesystem sync would be postponed until a later resume
-succeeds.
-
-[The upstream fix calls blk_mark_disk_dead(), introduced by
-commit 6f8191fdf41d ("block: simplify disk shutdown"). That
-helper and the GD_DEAD flag do not exist in this series. The
-v5.10.y equivalent is blk_set_queue_dying(): in this series
-blk_queue_enter() (the counterpart of the upstream
-__bio_queue_enter()) releases waiters on QUEUE_FLAG_DYING, and
-del_gendisk() itself marks the queue dying later via
-blk_unregister_queue(); this fix only moves that point ahead of
-the hanging invalidate_partition()/fsync_bdev() sync. Function
-name mapping vs. the upstream message: sync_filesystem() call in
-del_gendisk() -> invalidate_partition()/fsync_bdev();
-__bio_queue_enter() -> blk_queue_enter(); blk_mark_disk_dead() ->
-blk_set_queue_dying(). The trigger condition
-(scsi_autopm_get_device() < 0) and the "temporary failures become
-permanent" trade-off are identical to upstream. The normal removal
-path is unchanged.]
-
-Reported-by: Lianqin Hu <hulianqin@vivo.com>
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Yi Xu <xuyi0562@gmail.com>
----
-Hi stable team,
-
-Per Greg's feedback, this resend fixes the message layout: the subject
-line now matches the upstream title, and the upstream anchor line is in
-the expected format and position. The code change and the equivalence
-argument are unchanged from the previous submission.
-
-Manual backport of upstream commit 085bb18 to v5.10.y. The automated
-cherry-pick does not apply to this series: the upstream fix calls
-blk_mark_disk_dead(), which does not exist here, and the sd_remove()
-context differs. This patch assembles the identical effect from
-primitives available in 5.10.y -- see the bracketed section in the
-commit message for the equivalence argument and function-name mapping.
-The fix builds cleanly on v5.10.274.
-
-Background: the problem was reported against USB storage surprise
-removal on the linux-scsi list
-(https://lore.kernel.org/all/2c0c76d70f0fe197932836b9bcf8496095135d1b.1792446921.git.bvanassche@acm.org/);
-Cc'ing the reporter and the author for visibility.
-
-base-commit: 3a323bc22b881a5bdc1646080f93f5ecb22850bf
-
-Thanks,
-Yi Xu
-
- drivers/scsi/sd.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
-index da6df9809b0c..6cf56b936f14 100644
---- a/drivers/scsi/sd.c
-+++ b/drivers/scsi/sd.c
-@@ -3545,7 +3545,15 @@ static int sd_remove(struct device *dev)
- 
- 	sdkp = dev_get_drvdata(dev);
- 	devt = disk_devt(sdkp->disk);
--	scsi_autopm_get_device(sdkp->device);
-+	/*
-+	 * If runtime resume fails, e.g. because the device was unplugged
-+	 * while runtime suspended, the request queue stays in the pm-only
-+	 * state and any I/O submitted by del_gendisk(), e.g. from
-+	 * invalidate_partition(), would wait forever in blk_queue_enter().
-+	 * Prevent this by marking the queue dying.
-+	 */
-+	if (scsi_autopm_get_device(sdkp->device) < 0)
-+		blk_set_queue_dying(sdkp->disk->queue);
- 
- 	async_synchronize_full_domain(&scsi_sd_pm_domain);
- 	device_del(&sdkp->dev);
--- 
-2.34.1
-
+Reviewed-by: Peng Fan <peng.fan@nxp.com>
