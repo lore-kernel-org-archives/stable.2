@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795512664;
-	b=Q+Tp/4WUO8uf58RvuhT1kn0YFmIvC1Dr9fMTmScw6DpUGpaceNpuiR1RYoQHbpEXZwQF
-	 YW9Ql/eJxEX55+UiGg/QBpCL2AGIvBhU2XASLeWmkCM3EmrOQ+PfzRC8/Iab8eOtrUgif
-	 av1xbomUbZnmsEl6xNdPEvnl5b9ui5luKqkHNx1JdTpQrHDOOs04JqsmtRlG4tU8Pwwry
-	 gHFxG0pqLrrW5dtSd6y6ofAcTfokRKAJXfHJvgu+WXGogDMlTxQgR6KY7gnrzKPMuA2wD
-	 GbsuELM/3v76A5lNsHM8ej8N8IIuJqobVhEhONbeQEqrcUlCqPAil9wMZ5xyVfzFPGQ==
+	t=1795512659;
+	b=B0j7ycjByRkNd9jx12qsmO4gUvQiJH6otokgtSLSJfXnpPEXLPDvrIl5rzpNh4gATYLc
+	 lV+lAy8KiLPRey4oZ/BK922lVunxTuD2o1ZHYEtKhhFTfZgdW7GAwX80CFe2/RkZTlNfz
+	 a4JLYd2II2XS7JfDYvVL+NlnHmENsXTsYwDnhGo7Y1NCWXkNqsnSw+3722AMseKODI42n
+	 G9sfbUA23UwvElEtRYPtQuBMU9wMIvSa+Tc/3nxJNjqGJhhbZ8fbZxEG6WJGtnFwKEll7
+	 SRRROdxvpAwd0aHpkTztjPD2+FBQLFl/nnPH480hOs5/2aUROT5b1sY8aL4InksK7sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795512664;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795512659;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=6aNvAfGgueTvpTlhUrmJk5+spY0XMUeD9zKAbtQbabo=;
-	b=mDlBacx81xstcmB1QWOQJ6ZFhVxYIGGVZfW6ucLI+gAMnL9C1n4NXxB3s/MBE8MXuyKF
-	 yNf/AbOc/MId/+P558LywSAIKCUqDEYjWrY0KcMNxeo9Qzg8v8PBradvtls0p5IBxGRYI
-	 Fqw4aINbUAE7FTnGYlNuCCCkmMdhRroAOpEQ9ifv1RrHo0r2MggNBJiN7/GT/K9l34ElH
-	 9pslAL9ZHxm0STbxzTvZQsdfA5BegPcYWL52g2EkS0F9ClNhcdtK3/Ypf9VTVqVl27ffL
-	 ryh4GsMqlse9OavRDIh6b7IdJkQAGQdVJNl0h6Ouh5oyrbiNzI4vi+b5m6k2PBZ8Xag==
+	bh=O8a6g5QhV9k5cJH5ydZd3gAgrZOeyFEhq+VUTsANy2E=;
+	b=bjLcqOs+etzt9+j69Q7dl+KKMoNZUwmzoFoQQokfjCTItpKx2Svu+akEWXJhXK1KjPdd
+	 NsNVLdN4uWRZkpIevlQtD8jjrHIfndJyY1wPJ3OVNI6hXS1EWHVzAN/OdtSr6Mfjy5kkb
+	 D5J6PveOe3UESaKrn2OQ2iYoQi6T8jxHIwVAz85NQbo2IebusbzDyjCEJzxq7ZSxbR7Yf
+	 uDLOw3wIpfpb+3bMB7qin/LX142hffEw3d8iCducN8KBk9pNnW38PVm90qRXMBgVJPB55
+	 7KaVRz8Duinppc+mJFGAQfgtZn0GNq2KGVP6ysGJRF+EQfEkQCieWdZO9E3+Zv+w/ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jy74G+j+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=neELXo5s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADA4606A33E;
-	Tue, 24 Nov 2026 09:31:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF2B606A32A;
+	Tue, 24 Nov 2026 09:30:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jy74G+j+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF7531F000EE;
-	Tue, 24 Nov 2026 09:31:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=neELXo5s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A405A1F000E6;
+	Tue, 24 Nov 2026 09:30:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795512664;
-	bh=6aNvAfGgueTvpTlhUrmJk5+spY0XMUeD9zKAbtQbabo=;
+	s=k20260515; t=1795512659;
+	bh=O8a6g5QhV9k5cJH5ydZd3gAgrZOeyFEhq+VUTsANy2E=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Jy74G+j+WNX7ce4LmqsrOOeZ4DCc4ClvZmWGOMQtdDp0s40fEKAvw9AgTrcLT0zdw
-	 t8KB04nBI36uakMU8qG0OeVsuXo1ifP1dx9csy+ln+9TiVPHC8i0Hp2cyDlGUrrGCJ
-	 7+BIZ4dkKrBwPZpeLKdCbbpmpzsZziFufqG0F1xJDWmY23/Lnh733yuieHOQMBl5SN
-	 9LIeTpVGxUa51i3zEhmj7NLVb+zRtDBu91ntPjxza58SNkLDDLeLI847OOgy8lygMl
-	 eRbYkMmU7WForCl9uWis7lkTkjT6ccpL9fCElzGi2SWfxJZWeYdCLugdKPJvAdjsZt
-	 iDD2yI5qASqMQ==
-Subject: Re: [PATCH can-next v10 12/14] can: gs_usb: gs_can_start_xmit(): mask
- invalid parts of CAN ID before sending
+	b=neELXo5smmln9BSULr6bIggpxkJdrw0ziYmTfNyoxicF+RJ9olWIwhBSuvbz8HdOw
+	 Vza44OZ0+pjfsQh2bz+GXda5WCTWvw0a3UhGP3+lT4bns9CsrDK1OGOG3C4KVRE009
+	 UD8/U1DpEYbNEZZJT5W/rqpdSs5mjwNB2btCzyd4wshFQ5uazc31bEzrfDxmwEL8tG
+	 CbYV4UHL22APDF6JKOyy8OiomrdGnAAZVCW5Zs78qQdHMgod+lzMdJ3PIIsUg4cBZv
+	 X0orF5A2XyZcwPrg7t7deB5HyPbvVUcA8wVQi2ZEn1KSRdNt2I7ssLm0bgcgRqdg4E
+	 qcjvcRJdOjNNQ==
+Subject: Re: [PATCH can-next v10 08/14] can: gs_usb:
+ gs_usb_receive_bulk_callback(): use dev_info() to print re-submit info
+ messages
 From: netdev-bot+sashiko@kernel.org
 To: mkl@pengutronix.de
 Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
  max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
  linux-can@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 24 Nov 2026 09:31:03 +0000
-Message-ID: <179551266332.3131.13201472550336097370@kernel.org>
-In-Reply-To: <20261122-gs_usb-fixes-v10-12-7c165c35d04a@pengutronix.de>
-References: <20261122-gs_usb-fixes-v10-12-7c165c35d04a@pengutronix.de>
+Date: Tue, 24 Nov 2026 09:30:58 +0000
+Message-ID: <179551265819.3131.8321640293465934935@kernel.org>
+In-Reply-To: <20261122-gs_usb-fixes-v10-8-7c165c35d04a@pengutronix.de>
+References: <20261122-gs_usb-fixes-v10-8-7c165c35d04a@pengutronix.de>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -70,94 +71,95 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The commit message names the wrong macro.
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  gs_can_start_xmit() sends uninitialized kernel heap memory to the USB…
+- [Low] The commit fixes a defect that a specific earlier commit
+  introduced, but it has no Fixes: tag.
+- [Low] The commit message does not match the code.
 
 --
 
-can: gs_usb: gs_can_start_xmit(): mask invalid parts of CAN ID before sending
+can: gs_usb: gs_usb_receive_bulk_callback(): use dev_info() to print re-submit info messages
 
-This commit masks the CAN ID in gs_can_start_xmit() before the frame is
-sent to the device. Flags that are not valid in the TX path are removed,
-and the ID is limited to 11 or 29 bits depending on CAN_EFF_FLAG.
-CAN_RTR_FLAG is kept only for CAN-CC frames.
+This commit changes the IN URB re-submit failure path in
+gs_usb_receive_bulk_callback() to use dev_info_ratelimited() on the
+parent USB device instead of netdev_info(). With this change the message
+names the affected device even when no network device has been
+identified yet. It also drops the NULL initializer of the local netdev
+variable.
 
-> - CAN_ERR_MASK is used exclusively in the receive path between the
->   driver and user space to signal problems with the CAN controller.
-
-[Severity: Low]
-Should this bullet say CAN_ERR_FLAG instead of CAN_ERR_MASK?
-
-include/uapi/linux/can.h has:
-
-#define CAN_ERR_FLAG 0x20000000U /* error message frame */
-#define CAN_ERR_MASK 0x1FFFFFFFU /* omit EFF, RTR, ERR flags */
-
-CAN_ERR_MASK has the same value as CAN_EFF_MASK. In gs_can_start_xmit(),
-the new EFF masks keep every CAN_ERR_MASK bit and drop only CAN_ERR_FLAG:
-
-    can_id &= CAN_EFF_MASK | CAN_EFF_FLAG;
-    ...
-    can_id &= CAN_EFF_MASK | CAN_RTR_FLAG | CAN_EFF_FLAG;
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260729102802.505168-1-mkl@pengutronix.de
 
 > diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-> index 4aa674c743f67..b345ab34a200a 100644
+> index 308daa2645ada..75adec495e657 100644
 > --- a/drivers/net/can/usb/gs_usb.c
 > +++ b/drivers/net/can/usb/gs_usb.c
 
 [ ... ]
 
-> @@ -1006,8 +1012,14 @@ static netdev_tx_t gs_can_start_xmit(struct sk_buff *skb,
->  		memcpy(hf->canfd->data, cfd->data, cfd->len);
->  	} else {
->  		cf = (struct can_frame *)skb->data;
-> +		canid_t can_id = cf->can_id;
-> +
-> +		if (can_id & CAN_EFF_FLAG)
-> +			can_id &= CAN_EFF_MASK | CAN_RTR_FLAG | CAN_EFF_FLAG;
-> +		else
-> +			can_id &= CAN_SFF_MASK | CAN_RTR_FLAG;
->  
-> -		hf->can_id = cpu_to_le32(cf->can_id);
-> +		hf->can_id = cpu_to_le32(can_id);
->  		hf->can_dlc = can_get_cc_dlc(cf, dev->can.ctrlmode);
->  
->  		memcpy(hf->classic_can->data, cf->data, cf->len);
+> @@ -819,9 +819,10 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+>  			if (parent->canch[rc])
+>  				netif_device_detach(parent->canch[rc]->netdev);
+>  		}
+> -	} else if (rc != -ESHUTDOWN && net_ratelimit()) {
+> -		netdev_info(netdev, "failed to re-submit IN URB: %pe\n",
+> -			    ERR_PTR(rc));
+> +	} else if (rc != -ESHUTDOWN) {
+> +		dev_info_ratelimited(&parent->udev->dev,
+> +				     "failed to re-submit IN URB: %pe\n",
+> +				     ERR_PTR(rc));
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does gs_can_start_xmit()
-send uninitialized kernel heap memory to the USB device?
+[Severity: Low]
+The commit message says:
 
-The TX buffer is not zeroed when it is allocated:
+    Replace netdev_info() with dev_info_ratelimited() to output the affected
+    USB device, and also rate limit the number of messages to prevent log
+    flooding.
 
-    hf = kmalloc(dev->hf_size_tx, GFP_ATOMIC);
+Is the "also rate limit" part accurate? The old code was already rate
+limited by the net_ratelimit() check in the else-if condition.
 
-The function writes only the header fields plus cf->len (0..8) or
-cfd->len (0..64) payload bytes. It then submits the whole buffer:
+What actually changes is the rate limit state. The old code used the
+global net_ratelimit_state, which all networking messages share. The new
+code uses the per call site state that dev_info_ratelimited() defines.
 
-    usb_fill_bulk_urb(urb, dev->udev,
-                      dev->parent->pipe_out,
-                      hf, dev->hf_size_tx,
-                      gs_usb_xmit_callback, txc);
+There are two smaller mismatches. The subject says "use dev_info()", but
+the code calls dev_info_ratelimited(). The commit message also doesn't
+mention that the netdev = NULL initializer was removed.
 
-When CAN_CTRLMODE_FD is enabled, gs_can_open() sizes the buffer for a
-64 byte payload, even when the frame is classic CAN:
+The removal looks safe at this commit. The short read check jumps to
+resubmit_urb before netdev = dev->netdev is assigned, but the code it
+reaches no longer reads netdev.
 
-    dev->hf_size_tx = struct_size(hf, canfd, 1);
+Could the commit message be updated to describe these changes?
 
-In FD mode, a classic frame leaves at least 56 data bytes unwritten. A
-short or zero-length FD frame leaves up to 64. The quirk byte in
-classic_can_quirk and canfd_quirk (LPC546XX devices) is never written
-either.
+[Severity: Low]
+This patch finishes a fix for a problem that an earlier commit
+introduced, but it has no Fixes: tag.
 
-That would expose leftover slab contents with every transmitted frame,
-to the device or to anyone sniffing the bus. Would kzalloc(), or a
-memset() of the area after the copied payload, fix this?
+Commit 79a6d1bfe114 ("can: gs_usb: gs_usb_receive_bulk_callback():
+unanchor URL on usb_submit_urb() error") added the netdev_info(netdev, ...)
+call on this path. That call can be reached from the short read check:
 
-Later patches in this series do not seem to address it.
+	minimum_length = sizeof(hf->header);
+	if (urb->actual_length < minimum_length) {
+		dev_err_ratelimited(&parent->udev->dev, ...);
+
+		goto resubmit_urb;
+	}
+
+That jump happens before netdev = dev->netdev is assigned. If
+usb_submit_urb() then fails with something other than -ENODEV or
+-ESHUTDOWN, the message is printed without a valid netdev.
+
+Commit 494fc029f662 ("can: gs_usb: gs_usb_receive_bulk_callback(): fix
+error message") carried Fixes: 79a6d1bfe114. It only set netdev to NULL,
+so the message prints "(NULL net_device)" and does not name the device.
+
+Should this patch carry Fixes: 494fc029f662 (or Fixes: 79a6d1bfe114)?
+That would let trees that took those commits find this follow-up.
+
+>  	}
+>  }
+>
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261122-gs_usb-fixes-v10-0-7c165c35d04a%40pengutronix.de
