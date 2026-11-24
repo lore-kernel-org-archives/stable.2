@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795532403;
-	b=WZyEtWHlCE2dEK4Db7Kd3dRNl4vjLtgTZ5oUmkCwMtZuClTPDQZovyFGyTGn7RNIO7iF
-	 ZHwTa2jpkg6gKPUDRQ5JGZkwQI1HjA79smXLW/wGL+s/bLq9IImv+mAdggkppJMDD8zlz
-	 lqQqGruwN84wLebNtfL17EU416KqYmaaEkAcKjPBvmAv6LD65h09Ovjcx3IdmNlnrRy8X
-	 LXHPWnkJWx6SdVE/R7Gc5GFLNnHUX2XkpYICzErHXTS7wuIpmcSPg00xy9n/U+1Tg+NNG
-	 BslLFY1jb5lzAdfW/9dMc+mL2j349WYDpDQii8MQjNPf5Q5Iu+ewceqwZ8gX300T8Xg==
+	t=1795532406;
+	b=KRnigmdY21QTeMdsoFKNdH1lt+uSh3XZ+dokhyzSZvCNjmZQTVbdEhBSN/d3xzBclya7
+	 n+vdXYFL3qAFo5eIHubc8aKe5VerMR4OwlvbHoZix2q7wThd+aj/5Fv1gIahUpdQuDuMD
+	 9PAs8IMDw7rjGsrtGASWHVeQWOoh2ZRloHV5xsWekqf9psKGiuR6cz55ncDNEVowGo1Zp
+	 4mmT4MUex87hrPLONBKjdBLKL9K8FRwcAiuHhzhLOPF6z37HEHIfXPO+LLTzeIXL0Zj5n
+	 XpA67NCSkrssaIc192sp37QpSkfd68wNq+b70/gDrWifDKadASNU6/+6LOFYkvRfknQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795532403;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795532406;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=rUdWqkNWr9D8fk7hLAhuYIuxmWTDK8dKf9NV2o8sCUk=;
-	b=LucQPV8QuifwsL2N57m67JCctTF22WU8rQTA/YVUoxabdKMCbfwvVGvG9OinkIbahnz3
-	 bmwbpHUvi07XNLLixHvRS1Rf6X4stXCEuctTIbLklvTm9GP+B9FjZkWISW2G5gNkmiqqE
-	 vMQnfL7U+59GFsKQ+ZIuBCqT7UkTXok45kmoFxzzmgMyMyJslGyaDAyqwZc5zLejJNINh
-	 iIpaee8KC+/VeSndEmJYKYVU/nm93y8wFRXtNfb3hpk0TTN90dJJtyP2qMtPcBoX8Tk2P
-	 r1Q6dWHnFo/ViBAe51piuH1m2kMh1zuV/qhXwlGmVm/O1RpszG0eKT/fI3wzwGnFdRA==
+	bh=gtESl2/Iw6CP5CBd8lo+j5Hc37VRnKwVh8AGr0QM2+w=;
+	b=CrweZPHPIaXsIegsnCur+wYVdGI9p/Mvced4FP/vEP+/kBIFm3m68aiQQA66FJppoCDZ
+	 xYD/pCeQb3wIctJhCsxB2Y2E0wgM9dKa4qPHo5LAhO5b97kwNti9RFSALST6CAdJgjnpN
+	 8sqs2RLFUCQBh1X3C0LYAuBsBQQtpAaPCIMm6H5CJ/7VWvzjO1EW/qYlF6t4GDEbpZ+cp
+	 TckAgygiYzosJkRVw7Kma8Ef2cblR5sbaUzOCIryn73Caxv6xxEl6SS3P8bkDpwTDMgT1
+	 3+BshD7cTZ7MCs9W3PL8YwwskFik2RxiilQcFTlr8ZOE/llF82ea6HZ7WtliZWnsOYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gSk6SkVg;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GD575Ywh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E476606A326
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:00:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C0A606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:00:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gSk6SkVg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA6B51F000C6;
-	Tue, 24 Nov 2026 15:00:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GD575Ywh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41D901F000D0;
+	Tue, 24 Nov 2026 15:00:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795532402;
-	bh=rUdWqkNWr9D8fk7hLAhuYIuxmWTDK8dKf9NV2o8sCUk=;
+	s=korg; t=1795532405;
+	bh=gtESl2/Iw6CP5CBd8lo+j5Hc37VRnKwVh8AGr0QM2+w=;
 	h=Subject:To:Cc:From:Date;
-	b=gSk6SkVgrbxPB/TUOIf9t1mN9eWwlN9Dqx1w8Db0eUXM3eJrlVUMdOyW8/gkhsfHW
-	 BkvJkxQRTDJ7SZi9RjxeVKJoP+BL+zMp9P8cTY9vh+Vw8mNNZ1FRzcXJCpcPLCwQBE
-	 wNVirHEgTFPdrpWUYHx/T3eutb+5Ai+EUq4tC0jE=
-Subject: FAILED: patch "[PATCH] KEYS: Expand key->{datalen,quotalen} to unsigned int" failed to apply to 6.1-stable tree
+	b=GD575Ywh8SQC51OWS00UdTYd9+ZyXxyhtSs2uYj2rKrwWBMk1p7AAHFz5j5ww6bRi
+	 W5j5QnH2hGse26RmHJzKw5sEbx+DUQud6P5MvhCbxB0uxWYU1ZeUR3cuZ79W2Pb8jB
+	 nbxT9Z3MMEaoPlicgJ8ebo8tIRLbo95AGzc8rTwA=
+Subject: FAILED: patch "[PATCH] KEYS: Expand key->{datalen,quotalen} to unsigned int" failed to apply to 6.12-stable tree
 To: jarkko@kernel.org,dhowells@redhat.com,ebiggers@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 24 Nov 2026 16:00:11 +0100
-Message-ID: <2026112411-isolated-overrule-c1ea@gregkh>
+Message-ID: <2026112410-pulsate-scariness-57af@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4a65eaf146f0d10ebaa88cfaef9c3b24f93766d9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112411-isolated-overrule-c1ea@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112410-pulsate-scariness-57af@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
