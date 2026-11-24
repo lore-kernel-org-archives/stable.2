@@ -1,109 +1,109 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795524162;
-	b=OtxoP2NMPd9aD1hnDXw3F2TZf50e769DhrOGFWu8qDNm4fvd/wvImQiawloOGrZ+oA/T
-	 QNG1KNoSCt7EFrQxy7knjILVjBHv7A/Co4pPbamxCWTBMLRW3+h4mYp381pqlLdQ0sMqg
-	 L17UTBy2z3NmqgUU7JiLo7XvDzg0Ss6rr5POr8/+k3KwIzXsJtruFZiABZYog5f09DgbD
-	 FPLziobWKIZWokq1GYn68QbsWmviAY4aqj2LNvKRq7FvcGE5iiWPI8uYy3XyLoxSodRpC
-	 TvSXJR/F0qGlxY2OteclYkN8CNOovjMu6xTFIC3k51IgoEC2hwHa8pN+TbNKjnijcQA==
+	t=1795524501;
+	b=gQFZWmD7uarTjxGAz50tY3kI6eRGjbRpcWfi7+Pww3bAYXCdJYmwRc9bLbSNzaW74FOV
+	 xOQmaY8KPbPoGwH8xT0XT5lc/+GGMt1X5wcgYy7bfLgyqsPd5V/adgGxCoFwiW90ruDDa
+	 Ih4B0K65Mz6LuWZk15pWSYyAQ2UF7SO1/pzlVVDqTptYeeof4K3vpzjKub0tVC9OC+KkP
+	 3snIDbrm4lYTt++/tH26pNs9/xURp8DqmQrPNz1JdCS9h1LvEvINNWGvFcqEEt59VfYEv
+	 l1tyAbVgleiXEeCw2AuMPoMACzUfBirajVkUMIC3JS9Jm2iu1+JnNgIy4OiDpSbl2Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795524162;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795524501;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=zTqJqtLVAhClH0Un/jCsQSvDa5fEGXg/BziUfu+XFT0=;
-	b=VRRdLUYKI08Q1tT1sANL2EpMCJZkBJfUjN3oa0k1hurnlMSKO93gENg7EawuDB76k75U
-	 i2ebnBkYNQtVbFNkEEA3qHFXOtmumUbZ73agJN8V6kl/lg0iwd9Hs5S6nlfsyXV/6HjA3
-	 hyq+j2LRNWlKa7Oy9ztOkSuVQHNVbdE+mdW8y5lrdPuJL5+LzoSf7edY9ZvqGMUDx6I0X
-	 3jO+57kwIR7rVNFEkfEi4Ywrqcldd9aCMZFXjieR05M5rbWOKIu/TAoLfDauXhWhbkMaN
-	 mKMZ2uzzNKxu5OBIeuWo82iQZFbZOPkiw6Cobqa9/Z2ZP1Fy9bXZuORempwOxrA8Twg==
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=DVCNnYLJZY3e50i2E0AcjEM5G+l/ZQuX7ihheHT8Xsg=;
+	b=XNST/3aKKMOofp1gYlJzNIO5aAZ7IOV5Y/1WaEwu8qBxtoLKTk2cYp4vRjp4lZW/t5Rt
+	 ySUqiGhO97XLj64Jy6gjzJOHwwmdKor81KkZd6E0PBUkfgASMW8tIOA3ThLzz9+5P/xTN
+	 univRM2MXYQWHoP9+qO+bpKSewnVzYmhBrPoIgxPzEZuQRsicM+Re8eWY8gQ6V5vhK/Ub
+	 WkejHuNaA61n32UIowiwLj3FaDDSkTyyTo19i7vLoYEACxsKK2d0wHfcnpZ8hsvp/inCc
+	 NG69UheLC9Qib+JLulr4AtRjW6b7eeZFHnb3pnti7hb0mzm7zjV/D0AIZbcCZErTk2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sp9xq77Y;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lCNfS4CM;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sp9xq77Y;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lCNfS4CM;
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=VIJrtD2Z;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DckehWoY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=VIJrtD2Z;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DckehWoY;
 	arc=none smtp.remote-ip=195.135.223.131
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A82606A32D;
-	Tue, 24 Nov 2026 12:42:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82A82606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBCE606A333
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 12:48:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCBCE606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sp9xq77Y;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lCNfS4CM;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sp9xq77Y;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lCNfS4CM
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=VIJrtD2Z;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DckehWoY;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=VIJrtD2Z;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DckehWoY
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6CA641F461;
-	Tue, 24 Nov 2026 12:42:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1795524159; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DDE2C1F7A0;
+	Tue, 24 Nov 2026 12:48:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795524491; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zTqJqtLVAhClH0Un/jCsQSvDa5fEGXg/BziUfu+XFT0=;
-	b=sp9xq77Y3UGi+wL44/r6/dl1iC7T/d1MmIfEnA/XjjNQjky3qmaYkvg4+UjHfbKMU2pK1+
-	Y3pMvDkyeho9IlFQKeIFMfe7nJBnrF0O1Vgw6lCUcMCkNL8mpySRs3rjsn01E0N1ZJKNtL
-	EtZwWvvrNUsa3i4vLB5h+zpoxOFn4Iw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1795524159;
+	bh=DVCNnYLJZY3e50i2E0AcjEM5G+l/ZQuX7ihheHT8Xsg=;
+	b=VIJrtD2Z4Y3waGoOlu+yxgBDR/tIJsGzZyVvy6jJ9fsoLq+Y+DJD+NA1RW4av10gzXhpMf
+	q+8QGxrqBASvqARqIUM0WBS1Wsey/JAAHtOnFpua8s2HMq2JxNYNio+5Q5EBmuS3CFJGxh
+	pNsbYHx8mZWoN+bbeMkIrHRmXWmk0Zc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795524491;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zTqJqtLVAhClH0Un/jCsQSvDa5fEGXg/BziUfu+XFT0=;
-	b=lCNfS4CMRo0oF/zKFxD4us1DHCLI/Qs7BRlFIV3VUqKxL2o0Q+2IOvaApUWJLy3TD1Cdsf
-	dwnMHQ606Uud1DAA==
+	bh=DVCNnYLJZY3e50i2E0AcjEM5G+l/ZQuX7ihheHT8Xsg=;
+	b=DckehWoYaKTUXjaT8lvEStmnoQ4A0gpO3ilH0WfyijB2YEQVqt3YVffQh8vfvMirMWBICj
+	5i0s9b0WgZKQkCDA==
 Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=sp9xq77Y;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=lCNfS4CM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1795524159; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795524491; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zTqJqtLVAhClH0Un/jCsQSvDa5fEGXg/BziUfu+XFT0=;
-	b=sp9xq77Y3UGi+wL44/r6/dl1iC7T/d1MmIfEnA/XjjNQjky3qmaYkvg4+UjHfbKMU2pK1+
-	Y3pMvDkyeho9IlFQKeIFMfe7nJBnrF0O1Vgw6lCUcMCkNL8mpySRs3rjsn01E0N1ZJKNtL
-	EtZwWvvrNUsa3i4vLB5h+zpoxOFn4Iw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1795524159;
+	bh=DVCNnYLJZY3e50i2E0AcjEM5G+l/ZQuX7ihheHT8Xsg=;
+	b=VIJrtD2Z4Y3waGoOlu+yxgBDR/tIJsGzZyVvy6jJ9fsoLq+Y+DJD+NA1RW4av10gzXhpMf
+	q+8QGxrqBASvqARqIUM0WBS1Wsey/JAAHtOnFpua8s2HMq2JxNYNio+5Q5EBmuS3CFJGxh
+	pNsbYHx8mZWoN+bbeMkIrHRmXWmk0Zc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795524491;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zTqJqtLVAhClH0Un/jCsQSvDa5fEGXg/BziUfu+XFT0=;
-	b=lCNfS4CMRo0oF/zKFxD4us1DHCLI/Qs7BRlFIV3VUqKxL2o0Q+2IOvaApUWJLy3TD1Cdsf
-	dwnMHQ606Uud1DAA==
+	bh=DVCNnYLJZY3e50i2E0AcjEM5G+l/ZQuX7ihheHT8Xsg=;
+	b=DckehWoYaKTUXjaT8lvEStmnoQ4A0gpO3ilH0WfyijB2YEQVqt3YVffQh8vfvMirMWBICj
+	5i0s9b0WgZKQkCDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4285A1339F;
-	Tue, 24 Nov 2026 12:42:39 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A2ED41339F;
+	Tue, 24 Nov 2026 12:48:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id yC5VCD+GBWucEgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 24 Nov 2026 12:42:39 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id CA50227875; Tue, 24 Nov 2026 13:42:34 +0100 (CET)
-Date: Tue, 24 Nov 2026 13:42:34 +0100
-From: Jan Kara <jack@suse.cz>
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
-	Andrew Morton <akpm@linux-foundation.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	id b0qDHouHBWugGAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 24 Nov 2026 12:48:11 +0000
+Date: Tue, 24 Nov 2026 13:48:11 +0100
+Message-ID: <87v75m9z04.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: abhirajdutta7@gmail.com
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] mm: fix cachestat NULL pgdat dereference on DAX mappings
-Message-ID: <lh4cnpy2kw3tdtmhubwhhvim25kxpqxo6xttt7sihyx7x5hqdf@3tvivew2qh7m>
-References: <20261123030014.3116755-1-bsdhenrymartin@gmail.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix duplicate LEDs on HP Spectre x360 16-f2xxx
+In-Reply-To: <20261123-hp-spectre-16-f2-led-fix-v1-1-a2a333dceeb5@gmail.com>
+References: <20261123-hp-spectre-16-f2-led-fix-v1-1-a2a333dceeb5@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,108 +112,50 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123030014.3116755-1-bsdhenrymartin@gmail.com>
-X-Spamd-Result: default: False [-13.01 / 50.00];
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.30 / 50.00];
 	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
 	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
 	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[infradead.org,suse.cz,linux-foundation.org,gmail.com,cmpxchg.org,vger.kernel.org,kvack.org];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 6CA641F461
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
 
-On Mon 23-11-26 11:00:14, Henry Martin wrote:
-> filemap_cachestat() treats every xarray value entry as a workingset
-> shadow.  On DAX mappings, value entries are DAX exceptional entries:
-> same value bit, different bit layout (flags in the low bits, pfn
-> above).  Decoded as a shadow, a DAX entry yields a bogus node id;
-> NODE_DATA() for it can be NULL, and lru_gen_test_recent() then
-> dereferences it:
+On Tue, 24 Nov 2026 03:17:57 +0100,
+Abhiraj Dutta via B4 Relay wrote:
 > 
->   Oops: general protection fault
->   RIP: 0010:lru_gen_test_recent+0xde/0x300
->   Call Trace:
->    workingset_test_recent
->    filemap_cachestat
->    __x64_sys_cachestat
+> From: Abhiraj Dutta <abhirajdutta7@gmail.com>
 > 
-> Any writable file on a DAX mount triggers this once an mmap write
-> fault has populated entries.
+> The EU0XXX fixup already sets up the mute and mic-mute LEDs, so chaining
+> ALC245_FIXUP_HP_X360_MUTE_LEDS after it registers both LEDs twice
+> (hda::mute_1 and hda::micmute_1 appear). Use the EU0XXX fixup directly.
 > 
-> DAX entries track present pages, not evicted folios.  Count them as
-> cached and skip the workingset decode, mirroring the dax_mapping()
-> split in the invalidation paths in mm/truncate.c.  PMD-order entries
-> are counted as one page, as value entries carry no order information.
+> The original commit message also got the SSID wrong: under SOF the PCI
+> SSID is 103c:891e, not 103c:0000.
 > 
-> This issue was discovered by Tencent CodeBuddy Security.
+> Fixes: e30ec632e1f0 ("ALSA: hda/realtek: Add quirk for HP Spectre x360 2-in-1 Laptop 16-f2xxx")
 > Cc: stable@vger.kernel.org
-> Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> Signed-off-by: Abhiraj Dutta <abhirajdutta7@gmail.com>
 
-I think that for DAX mappings, cachestat should just return all zeros
-because none of the fields really make sense there. There's simply no page
-cache for DAX mappings.
+Applied now.  Thanks.
 
-								Honza
 
-> ---
->  mm/filemap.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index a1b2ca5b933c..caad0adde792 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -4694,6 +4694,16 @@ static void filemap_cachestat(struct address_space *mapping,
->  			void *shadow = (void *)folio;
->  			bool workingset; /* not used */
->  
-> +			/*
-> +			 * DAX exceptional entries track present pages, not
-> +			 * evicted folios.  They must not be decoded as
-> +			 * workingset shadows.
-> +			 */
-> +			if (dax_mapping(mapping)) {
-> +				cs->nr_cache += nr_pages;
-> +				goto resched;
-> +			}
-> +
->  			cs->nr_evicted += nr_pages;
->  
->  #ifdef CONFIG_SWAP /* implies CONFIG_MMU */
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Takashi
