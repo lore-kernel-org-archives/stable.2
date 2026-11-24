@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795550557;
-	b=IIJVNe/ugro6giSJza+PtWYP8MTy8DexxTFX1jhmjRR/wMHJQJpA4HNX1RTUyYcJVn2S
-	 O9sWBWv9qwydg6CGzNPiUlz/rps0DLFToSfpA0Uby2voxyEjvGXhFfoSrSjsvxHYmciv4
-	 Gn/Mbw7limFp3dK01T8Jj8oV4Bi5X3/RWMBMl5WwAWGWdsferBSP7dDOwM1ImwM8WJMJI
-	 fzKxR4zuXWpWMbvcSKen2IRov6UFkHVuhgkBSyMW58GgPqdyORKcW7dfLDAkvLrwQUY/x
-	 P2GkUiBaIAePAXg6NCWmV+IMR23hT24iaTNDB9V63cQ/EDlX0JI7Pxl+WrFBNsM4cYA==
+	t=1795550711;
+	b=E0CRqU3C2Ss8hbU4hQUYd+tDbEnO5kRQf5tNNns1YtdTIm3cz4XDjUN+QZgvSqx5Mxgy
+	 OpPIrcV0a1jo69FW8QCZ4+G9pIIFrq+9wjTvB/XNxpkpa22C1kF5Q+gUcLOXCgGH2RhQY
+	 MxVPDV+UgviS2foW+JC4KdpIfJM50z2Kdo6T1JA+KNRr8tI9xpadtMMjNatrpqs9rdJfV
+	 g7c40/x4VbxomNtICrlm4Iego+uZ2A3okwMGWnZLNqiTKLQXcnK+YRStoxHkz6El0msHx
+	 4KdbZKOk/ttvOSBbQG9+T5XeV1VI59HvhEvoU9jfh3OJukmUk64xLXhb4cpbyD0FKTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795550557;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795550711;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9+1F3YK0VHNU18XrqeqxkeECye5BwVMaybchEHG6VAs=;
-	b=hgEzEqRXfNx0mJLshAZt5xtFlIpCZWtaKI9jNLvMmKueMGk0vQsu25jeitTYbJIuLnlB
-	 xf7uLxvhKUG0d2M9BNclKgLCuUjhbKbzQT1q7B3259l8rxcMPUji9XEE/mEDJNVBojSZ7
-	 f+bwMJlxeEehnadIjUDWjY7CUc/ZH5FMobYT61tTEVNjcyn8AGAyjAdc59AMkqSvarmGz
-	 Ldil+jYLGM3P0VPgCVelTOaDtQs9oiuGl+18ZWxQpN7Uxd0xwvHAdPuWjARYVAdNyfump
-	 yXbV3PaoH/w2OJa9v4uv7OKyo5QZoD5zwFtu2V5EnwRVPukwM29scTdCA6T+AS60LPA==
+	bh=Iee/PfzPgnDnguWLtiyx4rPx2P1n0IhYpp+nC26m2fA=;
+	b=AIWhShpjeZ0CmS5GYazCVMUjcimBpEjCZ76NahUdPHVh+bNZcni9K8ly+MsnfMVWGOkq
+	 4IWY4SN937znkYTM70bPFpi4vb7fHrQUe9i+oM6ncnItqQ0saTRw7Xk72SmChikVwWeWx
+	 fsp7mGwsQd7Jsh5Mu+skMwG58EGQYhIkgtKb+u2vfHiUBVt0vMduBEgVRYFsrzu7A7V1s
+	 Ua4LPHP+EP1ejtc55tl3x6i7Z/Bc1gIRI9JFrI+qIAwBJJLp9unG8MJ76G0x2xYJW/OKx
+	 wFtJrjbtX7NU4NvEfA/28XeECbbVRegskJIgyWXchEFcKYP+e7wBesxDp5/F2uIvzCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N86r4s72;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZW7H3XT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE50606A6A5
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 20:02:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 900C5606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 20:05:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N86r4s72
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2D621F02837;
-	Tue, 24 Nov 2026 20:02:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZW7H3XT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2450B1F000D0;
+	Tue, 24 Nov 2026 20:05:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795550556;
-	bh=9+1F3YK0VHNU18XrqeqxkeECye5BwVMaybchEHG6VAs=;
+	s=k20260515; t=1795550711;
+	bh=Iee/PfzPgnDnguWLtiyx4rPx2P1n0IhYpp+nC26m2fA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N86r4s72qttN6W/S+QgXtrHOoigDy3OVHyh/mNT0I+A0qTtucXUc7WL3bvakMHl/Y
-	 kK8Pk+SfBKXnISQMUAhGTS51hjDJYr/nHjWZVeVnfWIUxfkLIXrXkBx29A/DX2TZcR
-	 05dxjL+vYFLh4Yq7qo99djyXpAgYgcIMmpw6DhXhvoa4zt7r/KsH5oMHrBblHakCWp
-	 J1r371HfU3qsgfXjqxMCNEPCZZvUjh9elhZe+mUZ4n3nCJkYTqldBA/mjK7HUKw7nH
-	 riAHb7lzoT1EsSlJPKm3H/VWxJRZxU9514B38p+/eWAO/xOog5fa+Ik0aSTFPU49K8
-	 ajFg9eajwT6CA==
+	b=aZW7H3XTZ/yF8fxWfLSDnV+Qeyvi3n4yYAdgEcUgj/8ipNd9OY1frOGTqowbT6id+
+	 9paYPH0eWjbxV6LJcabYfM8dIQSU9f0OrRKKG7HFmAgrcKenQoVJQUe6IW9jGcINK7
+	 LVQVogjHNaCazW5dNqcG4Spt/dcWKCa4kgpU60tLH9AumQp5PcNNdDziUd5RBVfcxB
+	 hS7JQSP9yIuPcbXjcO3HNk6zBhVL9aKn6+KF/dhnWqxiDS5mPENYVJsLSwyTjx6p8F
+	 hlJTYs+TLlr4KXYkkmcX2pvr+t/+ieGYWp6KFVdgaZn2FMjEr2WBk8vetgTwtP/rRz
+	 e5vvelzhPYY2Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shashank Mohan Jain <jain.sm@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	Jeff Layton <jlayton@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Zi Yan <ziy@nvidia.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] errseq: don't let errseq_check_and_advance() hide later errors
-Date: Tue, 24 Nov 2026 15:02:29 -0500
-Message-ID: <20261124200034.2551100-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm, page_alloc: pass zone pointer to trace_reclaim_retry_zone
+Date: Tue, 24 Nov 2026 15:05:06 -0500
+Message-ID: <20261124200341.2541828-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124200034.2551100-1-sashal@kernel.org>
-References: <2026112444-preschool-blaming-08e8@gregkh>
- <20261124200034.2551100-1-sashal@kernel.org>
+In-Reply-To: <2026112422-swimsuit-outhouse-c2d6@gregkh>
+References: <2026112422-swimsuit-outhouse-c2d6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,136 +64,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shashank Mohan Jain <jain.sm@gmail.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit 94defd41d80f10bbe883c0c8d1b28d1665b6b153 ]
+[ Upstream commit 6c48b3ab4ee435c41c3395d31e8ec3dbccc3478c ]
 
-errseq_check_and_advance() reads the errseq_t, sets ERRSEQ_SEEN with a
-cmpxchg() and then advances *since to the value it computed, ignoring
-whether the cmpxchg() succeeded. When it fails because errseq_set()
-recorded a different error in the meantime, *since ends up holding a
-value that was never stored in the errseq_t.
+should_reclaim_retry() walks a zonelist and passes the zoneref pointer
+to the reclaim_retry_zone tracepoint, which loads the zone from the
+entry again to find the node.
 
-errseq_set() only bumps the counter when ERRSEQ_SEEN is set. So as long
-as nobody has seen the new error, recording the original errno again
-recreates exactly the old value, and once another subscriber marks it
-seen, it is equal to the stale *since. The next check through that
-cursor then reports nothing, although -ENOSPC was recorded after the
-value that check reported, and -EIO was recorded again after it
-returned:
+Memory hotplug rebuilds the zonelists in place while allocations are
+under way. When a zone in front of the zoneref entry has become empty,
+the entries move up, and this one can be the end marker by the time the
+tracepoint looks at it. zonelist_node_idx() then dereferences a NULL
+zone. Short of that, the event can name another zone than the one its
+numbers belong to.
 
-  cursor f                writeback              cursor g
-  --------                ---------              --------
-                          set(-EIO)
-  check_and_advance(&f)
-    old = [c, EIO]
-                          set(-ENOSPC)
-                          -> [c, ENOSPC]
-    cmpxchg() fails
-    f = [c, EIO, SEEN]
-    returns -EIO
-                          set(-EIO)
-                          -> [c, EIO]
-                          (no bump: unseen)
-                                                 check_and_advance(&g)
-                                                 -> [c, EIO, SEEN]
-                                                 returns -EIO
-  check_and_advance(&f)
-    [c, EIO, SEEN] == f
-    returns 0             <- -ENOSPC and the second -EIO are lost
+Pass the zone pointer instead of the zoneref pointer.
 
-For file->f_wb_err this means that fsync() on one descriptor can return
-0 although writeback failed after the previous fsync() on that
-descriptor returned, when writeback errors race with fsync() on another
-descriptor of the same file. The same applies to syncfs() through
-sb->s_wb_err, which every file on the filesystem shares, and to the
-ext4 and jbd2 cursors on the block device mapping. The kernel-doc
-promises "Negative errno if one has been stored, or 0 if no new error
-has occurred".
-
-Retry with the value found when the cmpxchg() fails, so that *since is
-only ever advanced to a value that was actually stored with ERRSEQ_SEEN
-set. Every later errseq_set() then has to bump the counter, and the
-error is reported. The retry loop terminates because each iteration
-needs a concurrent update, like the loop in errseq_set().
-
-A TLA+ model of errseq_set() and errseq_check_and_advance(), checked
-with the TLC model checker, finds the lost error with the current code;
-with this change TLC checks that an error recorded after a check
-returned is always reported by the next check (exhaustively for two
-subscribers with three checks each, and one writer recording four
-errors or two writers recording two each). The KUnit race test added
-in the next patch misses the error in 1-6% of 2 million rounds on
-4-CPU UML before this change (depending on host load), and in none
-after it.
-
-Fixes: 84cbadadc6ea ("lib: add errseq_t type and infrastructure for handling it")
+Fixes: d379f01de095 ("oom, trace: add oom detection tracepoints")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
-Link: https://patch.msgid.link/20260927051726.71337-2-jain.sm@gmail.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Link: https://patch.msgid.link/20261101021340.2251928-4-gourry@gourry.net
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+[ sashal: Replaced the TP_fast_assign lines that used zoneref->zone and zoneref->zone_idx with the new zone-based ones, since this tree lacks the zonelist_node_idx() and zonelist_zone_idx() helpers. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- lib/errseq.c | 29 ++++++++++++++++++-----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
+ include/trace/events/oom.h | 8 ++++----
+ mm/page_alloc.c            | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/lib/errseq.c b/lib/errseq.c
-index 63aeaadd71c38..efea7cdc8c42c 100644
---- a/lib/errseq.c
-+++ b/lib/errseq.c
-@@ -161,7 +161,8 @@ EXPORT_SYMBOL(errseq_check);
-  * points to. If it does, then just return 0.
-  *
-  * If it doesn't, then the value has changed. Set the "seen" flag, and try to
-- * swap it into place as the new eseq value. Then, set that value as the new
-+ * swap it into place as the new eseq value. If the swap fails because the
-+ * value changed, retry with the new value. Then, set that value as the new
-  * "since" value, and return whatever the error portion is set to.
-  *
-  * Note that no locking is provided here for concurrent updates to the "since"
-@@ -183,24 +184,30 @@ int errseq_check_and_advance(errseq_t *eseq, errseq_t *since)
- 	 * to take the lock that protects the "since" value.
- 	 */
- 	old = READ_ONCE(*eseq);
--	if (old != *since) {
-+	while (old != *since) {
- 		/*
- 		 * Set the flag and try to swap it into place if it has
- 		 * changed.
- 		 *
--		 * We don't care about the outcome of the swap here. If the
--		 * swap doesn't occur, then it has either been updated by a
--		 * writer who is altering the value in some way (updating
--		 * counter or resetting the error), or another reader who is
--		 * just setting the "seen" flag. Either outcome is OK, and we
--		 * can advance "since" and return an error based on what we
--		 * have.
-+		 * If the swap fails, a writer or another reader changed the
-+		 * value under us, so retry with the new value.  "since" must
-+		 * only ever be set to a value that was stored with the SEEN
-+		 * flag: errseq_set() does not bump the counter while the
-+		 * flag is clear, so an unstored value could come back later
-+		 * and hide the errors that were recorded in the meantime.
+diff --git a/include/trace/events/oom.h b/include/trace/events/oom.h
+index b799f3bcba823..008c62cc078b1 100644
+--- a/include/trace/events/oom.h
++++ b/include/trace/events/oom.h
+@@ -33,7 +33,7 @@ TRACE_EVENT(oom_score_adj_update,
+ 
+ TRACE_EVENT(reclaim_retry_zone,
+ 
+-	TP_PROTO(struct zoneref *zoneref,
++	TP_PROTO(struct zone *zone,
+ 		int order,
+ 		unsigned long reclaimable,
+ 		unsigned long available,
+@@ -41,7 +41,7 @@ TRACE_EVENT(reclaim_retry_zone,
+ 		int no_progress_loops,
+ 		bool wmark_check),
+ 
+-	TP_ARGS(zoneref, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
++	TP_ARGS(zone, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(	int, node)
+@@ -55,8 +55,8 @@ TRACE_EVENT(reclaim_retry_zone,
+ 	),
+ 
+ 	TP_fast_assign(
+-		__entry->node = zone_to_nid(zoneref->zone);
+-		__entry->zone_idx = zoneref->zone_idx;
++		__entry->node = zone_to_nid(zone);
++		__entry->zone_idx = zone_idx(zone);
+ 		__entry->order = order;
+ 		__entry->reclaimable = reclaimable;
+ 		__entry->available = available;
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index cb0614988479a..294ff057821f8 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4573,7 +4573,7 @@ should_reclaim_retry(gfp_t gfp_mask, unsigned order,
  		 */
- 		new = old | ERRSEQ_SEEN;
--		if (new != old)
--			cmpxchg(eseq, old, new);
-+		if (new != old) {
-+			errseq_t cur = cmpxchg(eseq, old, new);
-+
-+			if (cur != old) {
-+				old = cur;
-+				continue;
-+			}
-+		}
- 		*since = new;
- 		err = -(new & ERRNO_MASK);
-+		break;
- 	}
- 	return err;
- }
+ 		wmark = __zone_watermark_ok(zone, order, min_wmark,
+ 				ac->highest_zoneidx, alloc_flags, available);
+-		trace_reclaim_retry_zone(z, order, reclaimable,
++		trace_reclaim_retry_zone(zone, order, reclaimable,
+ 				available, min_wmark, *no_progress_loops, wmark);
+ 		if (wmark) {
+ 			/*
 -- 
 2.53.0
 
