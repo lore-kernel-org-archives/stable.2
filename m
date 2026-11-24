@@ -1,55 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.83.222.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795561355;
-	b=WQOReQUP8cpT99IEIRvNgUVQeNdshXcULkn49nPUf27+MB4NhC4Qo9rCYCncttL5kO/F
-	 muoYKnrOEYmihvooN/KGBT3OH5OdSc98fLTxwg9KHZQgkp0v0x5fZsqSHFWBVqM42ciSZ
-	 d/1bUbby2Rv2vC0tdvQPZOBdB+CS3aPcf+ZN4160RoWBDvY7pwC+WhyUDpm1jQFEF5hGT
-	 DYPxuAdjqFtEyIC60/sZqrgViWgRLM59wBJm6Pt7exvoZBCMR+1z9KhaimmLTzzJgFYrC
-	 LGK/Pcj9HmHGSfZ/5IaYdxUYMcdRc4w1K0yymgp/yH6pL0bb2zal42O3Ai0PKyHlVMg==
+	t=1795561389;
+	b=M2WyIJnShAiOP28/e43hlQ3MSg0DjMDWSducamG7InmYEnNM0glwcJjSRE6UPsjbQUDA
+	 rroMdh+4Dcpt+Uml0IDdxIbtXhs6OI58rFkLk3VMoQhMy40UD27okMamNFxAgc7GvDNyz
+	 +FqlM44yL30fL9dLvcwl8GuRLu12rMJ5UCX19Z7S57BjkMkXquayMZnmejSFFUpCWCUk2
+	 XffvJMncR5ASNU8J4oPgM8Saahq73nBwFAl6VL2CXf4cU/BbvF0RyOyZiBv7JUS+9v4rw
+	 N5qaTUUN+RbQhG6N8EVFgDTslUaZwGAwrWGHr92pClamV+sSsxQnbPOBDxDW8pc6b8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795561355;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BrGf6F0ds01w2sEjpmETxxxGalauS8R7LkJNgD80EI4=;
-	b=3vLt2zJbCkPbJGCzUR09HVcRxvPwiTeBG7SbIrnPLdFRO4sHUmupTSgiOW43Kln+36dE
-	 wZZb+wHcbirqg2XEY0d16BCJ5DV/MJsH3KdOL8pb763JRj2kHzA2j2qFPXYhA2IO6qAmB
-	 MIoZsk9b18rdWgKLjohAFc1M/spDh04OMCp+DLTbrCkEfqe/NAjgshDpBNXVXzLZvFi5h
-	 aSFBO0+Pz8FgSJCQUZ20JxwGzaIeplEIIqVDZ/NmnfaqsV+jWOs3scHKVJIYdj3OEzyaa
-	 kEoq930i0b3WsmzKp9nSJiAee01E2Gov00PZWZ5RLNI3A7inhnIiClhVXAnQBaMQKdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795561389;
+	h=DMARC-Filter:X-Sender-Id:Received:Received:X-Sender-Id:X-MC-Relay:
+	 X-MailChannels-SenderId:X-MailChannels-Auth-Id:X-Continue-Snatch:
+	 X-MC-Loop-Signature:X-MC-Ingress-Time:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-AuthUser;
+	bh=kp/deucgwzKBnen3+3AgwDCnzUqKLXSpu8EfTUn6Izk=;
+	b=vTz7g7cZdbxuTUPb1uScfBPw+ALKA9HH3FFBTzASRKWK0EE7Zu23RNJLgMdOti9DTGuu
+	 oZT8CQ7kTvbJBUmaLuEFdSejTuw+wjmySBYdU8DhwsJIfP36WwXOwGmTPazuQNHmSsdeT
+	 mLbUDyy2RJDPZs4D2jJG7+AEeRKgWnrTMz1aaJuiu8bDspuzhz8QR1h00rswztvcSfeN1
+	 yhiKPCZFztRiOU1hCPG/2e03kPIKhmooElT1FaaJQ2g+CBK3XBUXHtsWd2NvnPeaul4u6
+	 vEvLc7sWYagHTcoGfYGSyTPsLDenAjfjgH4XJj9UAyIFBTbGtI1lNazowGYaLnLY/Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrwzBAS3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sim.vu;
+	spf=pass smtp.mailfrom=sim.vu;
+	arc=none smtp.remote-ip=23.83.222.56
+Received: from egyptian.ash.relay.mailchannels.net (egyptian.ash.relay.mailchannels.net [23.83.222.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E7EA606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 23:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrwzBAS3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA84A1F000C0;
-	Tue, 24 Nov 2026 23:02:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795561355;
-	bh=BrGf6F0ds01w2sEjpmETxxxGalauS8R7LkJNgD80EI4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WrwzBAS3pxxCx9MTXC490bJZWl1quBf4oaGQaJKoosnznlAhIcvE/h+J7SQfj5oWF
-	 nWfay67m1U0IdkTzUQVWj+gzZctm05mUlfFzinq8DamvPI34CI3FTKCWCH9nPPiu0E
-	 +tpgMwruf3553vdW2QKgfepPJeth4+MPM9mFJLIg7csR+5V+EVrSfzKjXrO93qAWjU
-	 v5fYwZQ021yE/WiyCr/qf7kfiL7+tyHMI9zhoyUdUpd7QaVqBDsOvWZ0FLA6DmsJxw
-	 1Y0bFey0JF3LdHvFKINzvwyCi4Dl1iE0bl8wIpy/ZqMYsT/Z2qPxyx1sZTrfzFmlsO
-	 bF32u6d5t3qJw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Kyle Zeng <kylebot@openai.com>,
-	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] macsec: reject frames that decapsulate into runt Ethernet frames
-Date: Tue, 24 Nov 2026 18:02:33 -0500
-Message-ID: <20261124230209.3183849-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112440-cranial-zen-ea50@gregkh>
-References: <2026112440-cranial-zen-ea50@gregkh>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FEB2606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 23:03:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FEB2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sim.vu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sim.vu
+X-Sender-Id: instrampxe0y3a|x-authuser|brad@sim.vu
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id F0A55642983;
+	Tue, 24 Nov 2026 23:03:00 +0000 (UTC)
+Received: from cpanel-010-lon.hostingww.com (trex-green-9.trex.outbound.svc.cluster.local [100.97.173.43])
+	(Authenticated sender: instrampxe0y3a)
+	by relay.mailchannels.net (Postfix) with ESMTPA id F13E2642996;
+	Tue, 24 Nov 2026 23:02:58 +0000 (UTC)
+X-Sender-Id: instrampxe0y3a|x-authuser|brad@sim.vu
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: instrampxe0y3a|x-authuser|brad@sim.vu
+X-MailChannels-Auth-Id: instrampxe0y3a
+X-Continue-Snatch: 32cdd8697f597c43_1795561380886_2841758545
+X-MC-Loop-Signature: 1795561380886:1204463361
+X-MC-Ingress-Time: 1795561380886
+Received: from cpanel-010-lon.hostingww.com (cpanel-010-lon.hostingww.com
+ [18.130.191.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.97.173.43 (trex/8.0.2);
+	Tue, 24 Nov 2026 23:03:00 +0000
+Received: from 162-195-230-196.lightspeed.wchtks.sbcglobal.net ([162.195.230.196]:53986 helo=epyc.attlocal.net)
+	by cpanel-010-lon.hostingww.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <brad@sim.vu>)
+	id 1xVzXL-0000000ANIw-1Adt;
+	Tue, 24 Nov 2026 23:02:56 +0000
+From: Brad Hawthorne <brad@sim.vu>
+To: ljs@kernel.org
+Cc: akpm@linux-foundation.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	david@kernel.org,
+	surenb@google.com,
+	shakeel.butt@linux.dev,
+	linux-mm@kvack.org,
+	thehajime@gmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/nommu: keep the maple tree in step when mremap() resizes in place
+Date: Tue, 24 Nov 2026 17:02:34 -0600
+Message-ID: <20261124230235.859633-1-brad@sim.vu>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <awXMCqK5H2TOlvtf@gremlin>
+References: <20261121083139.803682-1-brad@sim.vu> <awXMCqK5H2TOlvtf@gremlin>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,71 +87,35 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-AuthUser: brad@sim.vu
 
-From: Kyle Zeng <kylebot@openai.com>
+Thanks for the review, Lorenzo.
 
-[ Upstream commit 1d5e2c57e9ffc134e14b3f837c8d7c53b508bd22 ]
+On the points you raised:
 
-When an SCI is unknown and the C bit is clear, macsec_handle_frame()
-removes the SecTAG and the default ICV without checking how much of the
-frame remains. A short frame can therefore become an skb shorter than
-ETH_HLEN. eth_type_trans() cannot pull its Ethernet header, and a second
-stacked MACsec device can copy stale skb headroom into a packet delivered
-to a packet socket.
+- The comments: agreed, they go.
 
-The matched-SCI path has a related hole: macsec_validate_skb() accepts a
-short_length of one, so a frame that passes the existing length check can
-still become a 13-byte Ethernet frame.
+- The unused iterator and setting it up twice: you're right. The
+  iterator can start at the old end, check for an overlap there with
+  vma_find(), and do the store, set up once.
 
-Require enough bytes for the MACsec overhead and a complete Ethernet
-header before decapsulating an unknown-SCI frame. Apply the same bound
-in macsec_validate_skb(), using the selected SecY's ICV length, to cover
-the no-SA, synchronous-decrypt and asynchronous-decrypt delivery paths.
-Leave other unknown-SCI handling unchanged.
+- The preallocation: there's no lock here that forces it. A single
+  vma_iter_store_gfp() would do.
 
-Fixes: c09440f7dcb3 ("macsec: introduce IEEE 802.1AE driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
-[ sashal: adjusted the ICV length macro name from MACSEC_DEFAULT_ICV_LEN to DEFAULT_ICV_LEN to match the older macsec.c naming. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/macsec.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+- The casts: they follow the rest of do_mremap(), but they aren't
+  needed on new lines.
 
-diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-index 7cbae621a4f00..8cd21629914c1 100644
---- a/drivers/net/macsec.c
-+++ b/drivers/net/macsec.c
-@@ -416,8 +416,10 @@ static bool macsec_validate_skb(struct sk_buff *skb, u16 icv_len, bool xpn)
- 	int len = skb->len - 2 * ETH_ALEN;
- 	int extra_len = macsec_extra_len(!!(h->tci_an & MACSEC_TCI_SC)) + icv_len;
- 
--	/* a) It comprises at least 17 octets */
--	if (skb->len <= 16)
-+	/* a) It comprises at least 17 octets. The SecTAG and ICV must
-+	 * also leave a complete Ethernet header.
-+	 */
-+	if (skb->len < ETH_HLEN + extra_len)
- 		return false;
- 
- 	/* b) MACsec EtherType: already checked */
-@@ -1313,9 +1315,12 @@ static rx_handler_result_t macsec_handle_frame(struct sk_buff **pskb)
- nosci:
- 	/* 10.6.1 if the SC is not found */
- 	cbit = !!(hdr->tci_an & MACSEC_TCI_C);
--	if (!cbit)
--		macsec_finalize_skb(skb, DEFAULT_ICV_LEN,
--				    macsec_extra_len(macsec_skb_cb(skb)->has_sci));
-+	if (!cbit) {
-+		len = macsec_extra_len(macsec_skb_cb(skb)->has_sci);
-+		if (skb->len < ETH_HLEN + len + DEFAULT_ICV_LEN)
-+			goto drop_nosc;
-+		macsec_finalize_skb(skb, DEFAULT_ICV_LEN, len);
-+	}
- 
- 	list_for_each_entry_rcu(macsec, &rxd->secys, secys) {
- 		struct sk_buff *nskb;
--- 
-2.53.0
+- Why the tree is updated: a shrink has to clear the range it gives
+  up, or the tree still points there after the VMA is freed. Once it
+  is cleared, a grow back has to store the VMA over that range again,
+  or find_vma() misses addresses that are mapped.
 
+That leads to the question that decides how small this can be: does
+nommu mremap() need to grow at all? If not, a grow could simply be
+refused, and only the shrink half is needed.
+
+Understood that it won't be looked at this cycle. Hajime is working
+on nommu mremap(), so I'll leave the fix with him and test his patch
+on the board.
+
+Brad
