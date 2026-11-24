@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795536585;
-	b=I1c9Cs6KSUhnugylcQ3UpNUzVeZTxlSEkSiwMUoOmxigrCN0ZMqY/+t748Wy/coVwDQ+
-	 ChwfHrFAF3MQ3crwRq1BQjuHnoV8c/XCuY3QrFpue2BtgRRnKy8K08a2opeoe2q6TBPSu
-	 rFYKKkPLY15eXIabnt9WLLkB30WTYzQZq5NaJp2t5zdeJYVuYYgVMIvhgQCa+t+2sqegD
-	 GkjeiXcp3slFa2nfMvW898cinfFNbGhr+P0LXuY3yoRtbnx9bpHETNMF8omK/VZVe5IDT
-	 LkM/2vhiHD+OZyWXfTT1biRR4vdYD2hy56pM55UuGrp8MW0feeRFcyw7Pu3UGQqO+Ig==
+	t=1795536608;
+	b=aLAvr1NllIJ3tcaeEHyVy2X7UpTqyikBSCz0kmjULlfZ41ZTGLRhw43la5uftB6+88xW
+	 VeuwvTIPp2jtdqUEEFz3jRgdSJzvIpOQ9dClC2PMesRRCwb++2W4WL/lUdLn/boi+6P08
+	 PvMf+l81VDlB4TaskxzqYtyuqQh69CQevLhMOPp/86OzFtdWUFHZck9LMXKGKtqIu5S5s
+	 /hOHmLqkrfcCxaNhkO/tQYmpT0mBxqWW79Z23lm575s6zu1DPnh8jmbEDrw6fJG6wzVTo
+	 5GT/dz9yCjaYZL3SViKXZMaTTrzKaYzQpFqUj8OiTiwMPyNP3Iq8J7CKm8Eq4zAzskA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795536585;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=26ZmCVTURw57N9TGILUG6PBhQ6HWjicTw+3qmyg9qhI=;
-	b=vxNUoBfl9oTNKvoBqq2MUg0hYG+VUo96gYodxYjJlzS+/Tcfr+HG4Jl235briSPV9ZqL
-	 FASaaaRGzDBpIZb+c24vmtxTHi80ariCe8gfmM8fwFeU9WM60RXkw0+zzq2hbOpyqijUm
-	 VzMG3+chd222VLffx2hbQNVKWWPWxXkOpRDL4CQqzgocKe91LRMuJKHcN3dJKccRW82sl
-	 r5tfVZGlO2xyR+hQ8fJ1UyyoYZEUAFUo5VPmUVa1d7WgxhYTZCOAJ5vHFXGhQ2Luesm/v
-	 55q29n9ZiUsZIHt0F5c7n5JY6aHm0Eq8fc3AVGd9hX+Oi4QtbIE/C1fOXsNmjj2rdZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795536608;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=aQkeTZmH8XpsI1Oreh3/KpwYWaBoDdXydZ5E4OkTTLg=;
+	b=Qtt/+ZrPCGeFxUxkN2F5YEuiawDh6h7arwDkVeB5Y6Q0pSV3JEtDGiUhGX6GUFbl28HB
+	 gyIagJ2IEGp5lHS4cE9j0EvS5ZLo2rkQWOunWs4eM0U5Yr6sSFE99QbbkJUDFfdfbrPGl
+	 6Qk26kcU/s0vJfRzH0b6CZxqkGnnGHPrKzKQX29C1w9FnzQYwt2bUxRzM4l8OwFbYEMUg
+	 eBKnXH6/KCWk9w8bAzzi+Vn/Czjt7VjEhBc/Mb5obsRyieNwfwyyZFxyY4Jf/g5GGHZHZ
+	 nABiOV6ebdndFrAidbb5mDV+t5FoMgehRnj5MRANyhs/4O/Dlb6BxjBtrT4+lNzpffQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ohgghLL6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AqjXipBv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72097606A327
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:09:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CEE606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:10:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ohgghLL6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26A6F1F000D1;
-	Tue, 24 Nov 2026 16:09:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795536584;
-	bh=26ZmCVTURw57N9TGILUG6PBhQ6HWjicTw+3qmyg9qhI=;
-	h=Subject:To:Cc:From:Date;
-	b=ohgghLL65GJ2AMPVflvkd+HUsGYtNJTIqyVovvY4wQjgyo9/81rL71JBpOvt/VL0d
-	 7e1Uwd2TDGtRR6Q9mCCMoLeZmniooThP1bNOoKkRUTz33GlpPT2IoABBhEdyXL8EOr
-	 08SVk3S6961seZVkuim04vvu44aDH0y0pBE4Fwuw=
-Subject: FAILED: patch "[PATCH] coda: honor the append state of each write" failed to apply to 6.1-stable tree
-To: dennylin0707@gmail.com,brauner@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 17:09:57 +0100
-Message-ID: <2026112457-parasite-maternity-b897@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AqjXipBv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 640AE1F000D3;
+	Tue, 24 Nov 2026 16:10:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795536607;
+	bh=aQkeTZmH8XpsI1Oreh3/KpwYWaBoDdXydZ5E4OkTTLg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AqjXipBvnC9lkakohqqBgBeFRfCsUL88/02M7bqvGMSa+7Ow9aqniz3ReqG5JM/Ae
+	 lJYWNMJFJbTTUVtCvDac7T56XDm2Qy0D34AgJxAeJ4vD7YLaXnoiALbRc7CjR0KPL7
+	 TznuJOppCM/bF5J2CXVAroifyNt4j055vcFBKU1IVj1ElqQ2iCRklRxeVnjR2O+gNn
+	 u/0pgFnN5Qq2gJ2ujc41Lh25oiOk1wX4sNumNsdwiaxabhtYEE+F1I4i4YQoT0kHmU
+	 Lx4aPQN3pPB7TbCB11mL25BCxcfE6w1pOomQ8tvcuEY242vLYalHLsXawdxh95KKru
+	 mFWlJxKdAX0Wg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Andrew Davison <andy@dvsn.net>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] ALSA: hda: Fix [codec] ID matching in patch files for IDs with bit 31 set
+Date: Tue, 24 Nov 2026 11:10:06 -0500
+Message-ID: <20261124160953.902289-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112422-autism-skimpily-3a64@gregkh>
+References: <2026112422-autism-skimpily-3a64@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,74 +59,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Andrew Davison <andy@dvsn.net>
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit fda103c1432f344e1cd548f346d157b1e67ee7c5 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+parse_codec_mode() reads the vendor and subsystem IDs of a patch file's
+[codec] line into an int, and skips the check when the value is zero or
+negative, as documented. An ID with bit 31 set, such as SigmaTel's
+0x8384xxxx or Intel's 0x8086xxxx, comes out negative, so it is taken as
+a wildcard and the section is applied to every codec instead of the one
+it names.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 87ea037a9166a5842356ce68e3585fc6e756603b
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112457-parasite-maternity-b897@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+This was seen on an OpenPeak OpenFrame 2 with an IDT 92HD75B2X5
+(0x111d7608). A patch file written for the STAC9202 (0x83847632) in the
+related OpenFrame 1 was applied to it, swapping the headphone and
+speaker pin configurations, so auto-mute never muted the speaker.
 
-Possible dependencies:
+Read the IDs as long long, so real IDs are compared exactly. Values
+written as negative numbers (e.g. -1) still act as wildcards, as
+documented; a hex value such as 0xffffffff is now compared as written.
 
+Tested on 6.18.60 on an OpenFrame 2, with a rebuilt snd-hda-codec and
+the STAC9202 patch file: user_pin_configs stays empty for the IDT codec,
+and the headphone and line-out pins are assigned as the BIOS sets them.
+Not tested on a STAC9202 itself.
 
+The bug was tracked down and this fix written with an AI coding
+assistant (Claude Code, Claude Opus 5.5), which also ran the tests
+above. I have reviewed the change and the tests.
 
-thanks,
+Fixes: ef940b0403d4 ("ALSA: hda - Allow patching with any vendor/subsystem ids")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrew Davison <andy@dvsn.net>
+Link: https://patch.msgid.link/20261106175518.18629-1-andy@dvsn.net
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/pci/hda/hda_sysfs.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 87ea037a9166a5842356ce68e3585fc6e756603b Mon Sep 17 00:00:00 2001
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Thu, 5 Nov 2026 05:14:06 +0000
-Subject: [PATCH] coda: honor the append state of each write
-
-coda_open() adds O_APPEND to the container file's f_flags after it has
-been opened, without updating its cached f_iocb_flags. An O_APPEND write
-can therefore overwrite existing data instead of appending. For example,
-writing "Z" to a file containing "abc" produces "Zbc" rather than "abcZ".
-
-Pass RWF_APPEND or RWF_NOAPPEND to vfs_iter_write() according to the
-incoming IOCB_APPEND state. This also honors changes made with F_SETFL
-and per-write append overrides instead of relying on the container's
-open-time flags.
-
-Fixes: 164f4064ca81 ("keep iocb_flags() result cached in struct file")
-Cc: stable@vger.kernel.org # 6.9+
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Link: https://patch.msgid.link/20261105051406.52442-1-dennylin0707@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-diff --git a/fs/coda/file.c b/fs/coda/file.c
-index 6ca8bfcb58f2..c9fba41f7cea 100644
---- a/fs/coda/file.c
-+++ b/fs/coda/file.c
-@@ -71,6 +71,7 @@ coda_file_write_iter(struct kiocb *iocb, struct iov_iter *to)
- 	struct file *host_file = cfi->cfi_container;
- 	loff_t ki_pos = iocb->ki_pos;
- 	size_t count = iov_iter_count(to);
-+	rwf_t flags = (iocb->ki_flags & IOCB_APPEND) ? RWF_APPEND : RWF_NOAPPEND;
- 	ssize_t ret;
+diff --git a/sound/pci/hda/hda_sysfs.c b/sound/pci/hda/hda_sysfs.c
+index 4d8410216c3e5..7c9eb4662b2dd 100644
+--- a/sound/pci/hda/hda_sysfs.c
++++ b/sound/pci/hda/hda_sysfs.c
+@@ -544,11 +544,12 @@ static inline int strmatch(const char *a, const char *b)
+ static void parse_codec_mode(char *buf, struct hda_bus *bus,
+ 			     struct hda_codec **codecp)
+ {
+-	int vendorid, subid, caddr;
++	long long vendorid, subid;
++	int caddr;
+ 	struct hda_codec *codec;
  
- 	ret = venus_access_intent(coda_inode->i_sb, coda_i2f(coda_inode),
-@@ -80,7 +81,7 @@ coda_file_write_iter(struct kiocb *iocb, struct iov_iter *to)
- 		goto finish_write;
- 
- 	inode_lock(coda_inode);
--	ret = vfs_iter_write(cfi->cfi_container, to, &iocb->ki_pos, 0);
-+	ret = vfs_iter_write(cfi->cfi_container, to, &iocb->ki_pos, flags);
- 	coda_inode->i_size = file_inode(host_file)->i_size;
- 	coda_inode->i_blocks = (coda_inode->i_size + 511) >> 9;
- 	inode_set_mtime_to_ts(coda_inode, inode_set_ctime_current(coda_inode));
+ 	*codecp = NULL;
+-	if (sscanf(buf, "%i %i %i", &vendorid, &subid, &caddr) == 3) {
++	if (sscanf(buf, "%lli %lli %i", &vendorid, &subid, &caddr) == 3) {
+ 		list_for_each_codec(codec, bus) {
+ 			if ((vendorid <= 0 || codec->core.vendor_id == vendorid) &&
+ 			    (subid <= 0 || codec->core.subsystem_id == subid) &&
+-- 
+2.53.0
 
