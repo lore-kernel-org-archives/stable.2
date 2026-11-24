@@ -1,61 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795508485;
-	b=gwQHrXb2IPIrj2NjMvklLLduTBiAVRTPnxpV4e/ZFIOH9/go8uYIbNW8TaoIfZncwUTm
-	 YqI8vuJlJcUYxFtYiq/chNSxzxxR3B1UX1QFhVImnkEUj4+rbRI8Kw+oVC2DH64WfHnHB
-	 V/ch6M7ZueOCwW4VTiVAcksj5MLcYe8o+uNEKHA/9vx3iJ4lYTos/YKBZySC/0C2U7ctt
-	 ymKt1elJhquXYlUYps/NOGrTi9ZMHMhdmzrC1xjZqBzm2zgixlMZzaoiEQfEW9EulL7yy
-	 hbvkHE+RNT1Yq0SjHIji9Krafv4r3EJY/9CIGvhDWUaegNEOwwIwAwCotL2qVCbOwqQ==
+	t=1795508536;
+	b=ygVEhBpMmQ4LKY7p5u4Q0pCpd18yrzmvrAi7R5fEAkfHUyeTl7FFWVe+ZQQPuwA98Vf1
+	 1agsP/bAUOrsc9jBzMe8Vn63ALlGAQKxZ5c8OML1H2mmpSOl9XFyB+4cfUnZFlDIEdJHq
+	 eZPk5gwJ5nzM8WncT7/s8NrX+VT1QTVyH0USpFn0Gp5zaabiMqkrZVq1lVIzxrsAfHPTH
+	 5Y4OSiuVRmo8cNG3NT45R5YqGlo+XQ5VKT8BGfu+eJ1SYttVdirQUyzGtElX7H6wade38
+	 45cb+ix7ItMlhYMLpYsSrg0L8zyDAuosbQtD521ECxXayUcDjV23Ye5muRelbC9acwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795508485;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wwj0QXSNreWEUy/rLPR1l2BY0WuGMY1+8NqMgEz9Gj4=;
-	b=oVwYacZDKLkxroVlzTiqwCjiJ8bUpCe/CWaK0eqK3H6lnBfzM7nI+mkj4hl9yJqGNM7g
-	 +e/1B9qZ/UiNbf8pwSH+dd23ciSsBpRHjAlzFmIrsBaDbiorWKF8UZ1Hr3pYvL0b+meFk
-	 Ct4ycazizgOwIJERKM8j7OwK6e1IHlMIUWmosDplAP926sYAzuoIi7nA+96UCdUybCB8Z
-	 GblEIU43fflc2+4eLDLzjYyuz0oPgmM7+tZiTOh01ZK7vpwwHjekY8FhFG0uwvETYp7RI
-	 C/7TS90Fjs08gA5N4vBXUudN71nmcnxFUetinzgEPOgx/S8VBlyMWT/JKWCdePy/dPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795508536;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=UTreTMQa8LvjdoM8COmSUHdlMhJFJeNrLGcsJogPxCo=;
+	b=P6WHY/p0uFGWNVU3++qORd3KzpP8oK8Zw5SEFyOZ9nrx85N3njNi+SgXPn1owMfT+Vcx
+	 tqqp71MHbs8tRm6QYRGdNCNjeMZXjpZiZi3mkqWTYc8rsTaJfhv8r3SZVuum/LFl21vSI
+	 A4Am15JkojwuQxoTCMEFWmCZfsvRtim6wZH36Az/JIjV0ky+cgBhP7luPtX50sgOle0SY
+	 4EkQLsRFRIenA7S94uDYgI9sqCgly9r3Z7qC1pNjhQUOvuTy6eToYnkTIkQa8u5dep9+j
+	 6PHfuJAwywlmDL6IvN4zW1pQZBl4d2WhI6B428wfN42SZIHMmCu73d+xC8Kxk4IRBEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ao01OcX3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF050606A322;
-	Tue, 24 Nov 2026 08:21:24 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DvXjesYv;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4DCC7606A31E;
+	Tue, 24 Nov 2026 08:22:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DCC7606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ao01OcX3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A7591F000CA;
-	Tue, 24 Nov 2026 08:21:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795508484;
-	bh=wwj0QXSNreWEUy/rLPR1l2BY0WuGMY1+8NqMgEz9Gj4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ao01OcX3G8/+JxAjCMpZCGjRN5lHadBQIdZmEtpffolZbq1Nf+ZtbyaMaCOrCXYKW
-	 w/rHzS39nSdkP2maH+oqTatNzFuUS+2/MG5FIEDHSSq2A3jxzZ5eXbQ5DTvwPKhRKE
-	 b+Sw6hH7z3sHevDQ18gET8jZIHeBN4D/P5xXh3C8=
-Date: Tue, 24 Nov 2026 09:21:20 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Luo Gengkun <luogengkun@huaweicloud.com>
-Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org, alexander.shishkin@linux.intel.com
-Subject: Re: [PATCH stable/linux-6.6.y] perf, bpf: Fix NULL
- event->orig_overflow_handler dereference
-Message-ID: <2026112402-dictation-juror-2e5d@gregkh>
-References: <20261124084837.2327711-1-luogengkun@huaweicloud.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DvXjesYv
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9430D339;
+	Tue, 24 Nov 2026 00:22:12 -0800 (PST)
+Received: from [10.57.32.89] (unknown [10.57.32.89])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 61A3D3F632;
+	Tue, 24 Nov 2026 00:22:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795508535; bh=UN0TYHD1/Q+IpKv1fvkTUAHvCf4+97rRTpT+UJ/8pek=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=DvXjesYvFiRzxrR8ub/OAEeqpByEnUvZsjIYvz7GrSaVJDYZQ8fIyW1SB908YskGi
+	 cokaybsZGddAylVKSgVoOADOobCypqvp0tq2WYZBxA7TASZHhGdMxPZDZEIZbW2UYA
+	 hTgi+lVGT5O/++htwhm0NbSaLGe5Y9PrfGn3c32Y=
+Message-ID: <f9a42849-fe8f-4a96-81a1-ab58193b222d@arm.com>
+Date: Tue, 24 Nov 2026 09:22:11 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,70 +53,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261124084837.2327711-1-luogengkun@huaweicloud.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: mm: Don't defer the barriers when installing a
+ fixmap entry
+To: Ryan Roberts <ryan.roberts@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Yang Shi <yang@os.amperecomputing.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261120121638.194154-1-fuad.tabba@linux.dev>
+ <20261120121638.194154-4-fuad.tabba@linux.dev>
+ <6782b5ee-3dfe-4076-a79c-fbeb2c2ac7da@arm.com>
+ <CA+EHjTziXrRdR+guikKbj93Az96T+AMx_=0sVeyWG5C4fwaaTg@mail.gmail.com>
+ <5b0a26ee-30b0-4a79-9cca-9848dc9d65c5@arm.com>
+ <f543aea2-3a21-44ce-bb44-c84bd66b0a76@arm.com>
+ <74b99755-bc3d-4cad-9678-c2de740fe20a@arm.com>
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+Content-Language: en-GB
+In-Reply-To: <74b99755-bc3d-4cad-9678-c2de740fe20a@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 24, 2026 at 08:48:37AM +0000, Luo Gengkun wrote:
-> We hit the following problem on x86:
-> 
-> 	BUG: kernel NULL pointer dereference, address: 0000000000000000
-> 	#PF: supervisor instruction fetch in kernel mode
-> 	#PF: error_code(0x0010) - not-present page
-> 	RIP: 0010:0x0
-> 	Call Trace:
-> 	 <IRQ>
-> 	 bpf_overflow_handler+0xa4/0x120
-> 	 __perf_event_overflow+0x11d/0x2f0
-> 	 perf_swevent_hrtimer+0x127/0x140
-> 	 __hrtimer_run_queues+0x108/0x250
-> 	 hrtimer_interrupt+0xfb/0x230
-> 	 sysvec_apic_timer_interrupt+0x69/0x90
-> 	 </IRQ>
-> 	 <TASK>
-> 	 asm_sysvec_apic_timer_interrupt+0x1a/0x20
-> 	 __perf_event_set_bpf_prog+0xb7/0x180
-> 	 _perf_ioctl+0x1f9/0xb40
-> 	 perf_ioctl+0x41/0x70
-> 	 __se_sys_ioctl+0x82/0xc0
-> 	 do_syscall_64+0x44/0xb0
-> 	 entry_SYSCALL_64_after_hwframe+0x78/0xe2
-> 	 </TASK>
-> 
-> RIP is 0 with error_code(0x0010) (instruction fetch, not-present), i.e.
-> an indirect call through a NULL function pointer.
-> 
-> perf_event_set_bpf_handler() records the handler currently installed on
-> the event and replaces it with bpf_overflow_handler():
-> 
-> 	event->prog = prog;
-> 	event->bpf_cookie = bpf_cookie;
-> 	event->orig_overflow_handler = READ_ONCE(event->overflow_handler);
-> 	WRITE_ONCE(event->overflow_handler, bpf_overflow_handler);
-> 
-> WRITE_ONCE() is a single-copy atomic access, not a compiler barrier, and
-> the store to orig_overflow_handler is a plain assignment, so the compiler
-> may reorder the two stores. GCC 11.4.0 does; disassembly of
-> __perf_event_set_bpf_prog():
-> 
-> 	mov    0x3d0(%rbp),%rax                  ; prev = overflow_handler
-> 	mov    %rsi,0x3e8(%rbp)                  ; event->prog = prog
-> 	mov    %r13,0x3f0(%rbp)                  ; event->bpf_cookie = cookie
-> 	movq   $bpf_overflow_handler,0x3d0(%rbp) ; publish overflow_handler
-> 	mov    %rax,0x3e0(%rbp)                  ; orig_overflow_handler = prev
-> 
-> Use smp_store_release()/smp_load_acquire() to guarantee both the compiler
-> and the memory ordering.
-> 
-> Upstream status:
-> Not affected. commit f11f10bfa1ca ("perf/bpf: Call BPF handler directly,
-> not through overflow machinery") removed orig_overflow_handler and
-> calls bpf_overflow_handler() directly from __perf_event_overflow(), so
-> the reordering window no longer exists. That rework was not backported
-> to any stable tree.
+On 23/11/2026 19:54, Ryan Roberts wrote:
+> On 23/11/2026 13:08, Kevin Brodsky wrote:
+>> On 23/11/2026 11:36, Ryan Roberts wrote:
+>>>>>> @@ -127,7 +127,9 @@ void __set_fixmap(enum fixed_addresses idx,
+>>>>>>          ptep = fixmap_pte(addr);
+>>>>>>
+>>>>>>          if (pgprot_val(flags)) {
+>>>>>> -                __set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+>>>>>> +                /* The slot must be usable on return, even in lazy MMU mode. */
+>>>>>> +                __set_pte_nosync(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+>>>>>> +                emit_pte_barriers();
+>>>>> I wonder if it would be clearer to wrap __set_ptes():
+>>>>>
+>>>>> lazy_mmu_mode_pause()
+>>>>> __set_ptes()
+>>>>> lazy_mmu_mode_resume()
+>>>> That would work. However, there's the stable backport. 6.18 has the
+>>>> bug, but lazy_mmu_mode_pause() was added in 7.0, so 6.18.y would need
+>>>> its own patch. This patch applies to 6.18 unchanged.
+>>>>
+>>>> I'm happy with either, or with a followup patch in the same series.
+>>> I'd personally prefer to use pause/resume since it's makes it very clear what's
+>>> going on and avoids the layer violation. Perhaps your approach as the back
+>>> portable one, then pause/resume as follow up (along with ptep_try_set() tidy
+>>> up)? Others might think differently though...
+>> Using pause/resume does work, but it is a bigger hammer than necessary.
+>> If other features make use of lazy MMU mode, then we may end up paying
+>> extra cost by leaving/re-entering the mode.
+>>
+>> For instance, with page table hardening [1], using the pause/resume
+>> approach means 4 extra ISBs:
+>> - 1 when pause() leaves lazy MMU mode: restoring default kpkeys context
+>> - 2 in __set_pte(): switching to page table update kpkeys context, and
+>> then back to default
+>> - 1 when resume() enters lazy MMU mode: entering page table update
+>> kpkeys context
+>>
+>> An explicit __set_pte_nosync() + emit_pte_barriers() achieves exactly
+>> what we're after (immediately visible PTE update) and doesn't disrupt
+>> lazy MMU mode - we don't unnecessarily set TIF_LAZY_MMU_PENDING. 
+> It's so ugly to spill this stuff everywhere though.
+>
+> How about a nested lazy mmu section?
+>
+> lazy_mmu_mode_enable()
+> __set_ptes()
+> lazy_mmu_mode_disable()
+>
+> If it's nested the enable() is essentially nop, and the disable is a flush,
+> which emits the barriers. If it's the first enable, we still set
+> TIF_LAZY_MMU_PENDING though...
 
-Please backport that rework instead of doing a one-off patch.
+Yes that's essentially the same as the explicit call to
+arch_flush_lazy_mmu_mode() I mentioned below. IMHO that looks pretty
+obfuscated though - the casual reader will wonder why we're creating a
+lazy MMU section for setting just one PTE. If we go down this route, I'd
+argue the explicit call to arch_flush_lazy_mmu_mode() is clearer (and
+our implementation is safe to call even outside of a lazy MMU section).
 
-thanks,
+- Kevin
 
-greg k-h
+>> An alternative approach that addresses your point about layer violation
+>> is to call arch_flush_lazy_mmu_mode() and leave the __set_pte() call
+>> unchanged. This is slightly slower as we still end up setting/clearing
+>> the TIF flag in that case. Not sure this is worth it - ultimately we
+>> have to be mindful of what lazy MMU mode is doing to ensure this code is
+>> correct. I'm happy with the current approach.
+>>
+>> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
+>>
+>> - Kevin
+>>
+>> [1] https://lore.kernel.org/r/20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com
