@@ -1,50 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795507015;
-	b=rX/XsblCRnxMogRyk2X5vjpGR+kRHB1DPf4DTPTYGBpfbs6W8cVi8W56c75FbcczCHsa
-	 jynx1X/gR4X5U6PMnozEvMNM0xHMoOJdJQ6VfNg8nI2qKf5f+904wIf5p/pSGst6RHw5U
-	 9kTqnGxs2sNPLfq8yJiAav60I5n+MsfibOFcxcrv8urALlmi3N9qZnxGmIS2z4RReGjIk
-	 oB1IykS3luFRc2i197BuAzTmAuHI63rU9Ze2EuSiwxhUweI5PoW4j+vMuohWqxbVc+9X4
-	 A6Vsj+mZ91CkRmP4atnwFoBCdS3yzjYFRT9jrcyzCsUnkbrr/DlcrkpfI7VSsXPQBMQ==
+	t=1795507024;
+	b=CEOmb9ptqko0MMDl5sGhahfetgA3ytOaX0WPrbJ8hH4XXAWr4Oo/NkA6iym2VgTrxXkc
+	 f262K6umc51ZogkPOpL9KwM1G8Hy1Cg8Gx1SytLRWkO7j6gy0biEPvN4L3fFHPQDtKIMx
+	 4FCdgYvSkax3vZ7i5OL33oWoUA5Bf3wDAzXsY3sM0P/5z2S+FpXTvMhbPAR78F43la88H
+	 nuOB7GhYs/FeVilHWQcaobxoSlwOybyT7IQF3s0DXVcUpTERgHvzaJGqfUOWpQsEUv6kf
+	 rDv/RAzxB6vCFzh4AZ1IMiugy08go5HINvNLRq1u/o+PYS/fHSowgK8+RijxXOvSZag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795507015;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=dkoXTcH1JAkjWwF6GsRFSEWSiFpC/R5+hZya15+v0Xk=;
-	b=ar0NGpDtI8paq6jJQWb5s8xlq98imvo8cCikX4sorFzxXKyzFrvuXuDJ3mmR/FuHGQMa
-	 IH3qBQXxl9xv7gA7R3GJ1Dr4YxVf3isdcPuEy9lsMMwE+LLBvQlwazcwfiWnCzPTYu3hd
-	 pCvhZO8z/CRZffQ42N4SXFIGxL1cgs2pFOk0jVGxo5LEY6rrk2gzrqiiEoOt8d00Wv+qI
-	 3m28wPlsXDe4KPKN7cDlq3q49HagmbFPI8S/9J20LVw13UkvdbkXDiRgMs8LIXVyLqvgn
-	 Hhf6FpI+muNK/OGEQWs9pJUJFSpvjFA+CjCmWeYvVL6Xii6BQa5u4p9VYFi1DrPkyxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795507024;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=sWC/0IiDWu/WZWqTxX3lta5UTbGrGNqTUaVbZk3NCrQ=;
+	b=i6jZcZ/Ck6hSGY/e1zA7MOhl9AkO78Jwn3uR44mKcW9uCSzCTIfl7UBxJgxXqa/NkapA
+	 1RQflMy+2ggo1jr1VCBcqpOXr57Nj/lZVsUXCytbMJj1Lke/QDN0TiHnjbwe+zYmzvYfb
+	 bguJtL/PiM4Vk+AI5iE6avZx7E0k7gbuUSCdIh/wS84i6VW15T5BpxikF3g7zuMTXWfP0
+	 UeJ6tIAJqtCrQnCeFU2OVYMMEmuROYXriMqccURrgl8VEQJewW4XhvtoH6lQzS+uBT7Xl
+	 7ooaJQlw9EgxsNUSycJoC0ilS80QnSUqzLmoCOo8dH19xAkgQVvuNNUcmX/TlgClYSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LokYdQRV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCWQ43Vl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A04606A31E;
-	Tue, 24 Nov 2026 07:56:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF435606A326;
+	Tue, 24 Nov 2026 07:57:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LokYdQRV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 290CE1F00AD4;
-	Tue, 24 Nov 2026 07:56:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCWQ43Vl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7350D1F00A3E;
+	Tue, 24 Nov 2026 07:56:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795507015;
-	bh=dkoXTcH1JAkjWwF6GsRFSEWSiFpC/R5+hZya15+v0Xk=;
-	h=From:Subject:Date:To:Cc;
-	b=LokYdQRVeQL9w6siU2QHUOrjlKa5qeLIcwIEfHkEm+Tl+QY5A4isUBqDEYeIIfOyC
-	 ynhYHavHuIYoffgRdyycob+JZxqt+i00MMasjRp5lMD9ht6rgwKeJyquDmBA0gxK3S
-	 9kaEEbWJO+qg/z/yXyZ5zbAOL8SpEC6Z7FJ/0r7iTN+fqPeT79oLQM9WJokQjNlI+i
-	 uP3WtnCDJtbNl53jH6gOFtq5ZXmOM75M7O4IPXoc8G6HL5STelDA2GMFpyfUN5StgL
-	 jY2syRPmIPrQP3j2FlGHbKzubbD/RxWmkn0vJBhnPsUPx2IilBguxapmgjTnza5FjF
-	 Xaef3I//eHBng==
+	s=k20260515; t=1795507024;
+	bh=sWC/0IiDWu/WZWqTxX3lta5UTbGrGNqTUaVbZk3NCrQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=jCWQ43Vl/X6+1imSMYtmfu4epf84/AtQZBQ6EatnOqP1uWNH9LlQWD/ckRAYttVDt
+	 vEGl7Ia+4MQBC+O95ewenwYL7rIH6gTId7V12t2PM9Kj3xu1cj5bRCPeSZhtdSdrTI
+	 N3QeKoOzNp2+bWguvzS7GD3MQyVACNSfG9WfwFl9vXCUk+0u2kgEozI73TMQBGUpL2
+	 o5M8jAknsqG5lgMwmCmtJIqtlWohLUjKuJ6q0M885aXAvih5QE2Vy6JEbK44zheNDF
+	 MVqZFcRVkTNCZT5dqiys16EBCtUzw0W7QcjvXPEtMoA8WrvIMOtwOb7bVn3ZqMN9Ef
+	 TudVim5GcFjAw==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: [PATCH v2 0/2] mm: fix deadlock on the folio lock when migrating
- and splitting folios
-Date: Tue, 24 Nov 2026 08:56:42 +0100
-Message-Id: <20261124-migrate_reclaim_deadlock-v2-0-03cc147e1e36@kernel.org>
+Date: Tue, 24 Nov 2026 08:56:43 +0100
+Subject: [PATCH v2 1/2] mm/huge_memory: use NOFS when allocating while
+ splitting folios
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,11 +55,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/3WNywqDMBAAfyXs2RSzVbGe+h9FJCarbn2kJFZax
- H8vWnrscWCYWSGQZwpQiBU8LRzYTVAIjASYTk8tSbZQCMAYM6VQyZFbr2eqPJlB81hZ0nZwppd
- JQpgTYlZfLEQCHp4afh3pW/nl8KzvZOa9txsdh9n59/Fe1O79Nvh/sygZy/xs0kzlaR039bUnP
- 9Fwcr6Fctu2D3h3uTLTAAAA
-X-Change-ID: 20261121-migrate_reclaim_deadlock-44e28e226b9d
+Message-Id: <20261124-migrate_reclaim_deadlock-v2-1-03cc147e1e36@kernel.org>
+References: <20261124-migrate_reclaim_deadlock-v2-0-03cc147e1e36@kernel.org>
+In-Reply-To: <20261124-migrate_reclaim_deadlock-v2-0-03cc147e1e36@kernel.org>
 To: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
  "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
  Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
@@ -87,73 +84,111 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
  Chris Down <chris@chrisdown.name>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2518; i=david@kernel.org;
- h=from:subject:message-id; bh=MPoyzCuILfG9ldGlrGnz5jnvIuovqvdkY8Yn+Us+N4c=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJZnW2/Rk+Z+sbf8+7ydXGvhUScHu97E99oXHHLs/TcD
- NGNSp68HaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEykfgYjwxaG2IO7A3fOM3Wc
- uapiI7vcmYVyJ//zZKX+3Mn+Rt6h7RzDf+fuf46KJ19db9M/0bm+4IsspyxHUV0S13x5cZXW7uk
- 17AA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3933; i=david@kernel.org;
+ h=from:subject:message-id; bh=ANBAHYNyZ+2A0JQUk/v0Mas4rhbNOvSUUQKPMwG3HAw=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJZne10tX99m/Qt+m3+VdeW0zx7VrXZTt1ynJcvcyPrz
+ Ef6lQYPO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZiIkzEjw9Hfs3t+ByypL3N/
+ 5Hi7vmGVpqfr7u+nZPbWpj4RqTVboMHIMOFKYfTGQA/VFykrWT/ZOnccvHWgN7PEW/IhQ83jqLn
+ 9vAA=
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-Whenever we allocate memory with __GFP_FS while holding folio locks, we
-can deadlock on the folio lock when triggering direct reclaim or
-compaction.
+Splitting a file folio might allocate memory for the xarray and call
+filemap_release_folio(). If either ends up in direct reclaim or
+compaction with __GFP_FS, we can deadlock on the folio lock.
 
-For example, evicting inodes with a populated page cache takes folio
-locks, and if we happen to need one of the folio locks we already hold,
-we'll deadlock.
+For example, when reclaim evicts the inode through the dcache shrinker
+it can wait in truncate_inode_pages_final() for the folio that we hold
+locked:
 
-FUSE makes this example easier to trigger, because it evicts inodes on
-the last reference. A similar deadlock with FUSE was recently fixed in
-FUSE [1].
+    try_split_folio()
+      folio_lock(A)
+      split_folio_to_list(A)
+        xas_split_alloc()
+          try_to_free_pages()
+            super_cache_scan()
+              prune_dcache_sb()
+                iput_final()
+                  evict()
+                    truncate_inode_pages_final()
+                      folio_lock(A)
 
-Let's handle folio splitting by simply running in NOFS context. We only
-perform small allocations, so it doesn't really make a difference.
-Interestingly, this also fixes one of a handful of possible memcg v1
-deadlocks.
+This example requires that nothing else holds a reference on the inode,
+and can be triggered most easily with FUSE, which evicts inodes on the
+last reference.
 
-For page migration, change the code to allocate destination folios
-without holding folio locks, which is in any case the right thing to do
-to reduce folio lock holding times.
+We really must not allocate with __GFP_FS while holding a folio lock. As
+Willy explains [1], direct compaction can also trigger deadlocks.
 
-Some of this might also be fixable using Jan's work on deferred inode
-reclaim [2]. However, that is not stable material, and not allocating
-folios while holding other folio locks is an improvement on its own.
+Further, xas_split_alloc() charges the XArray nodes to the memcg, and on
+cgroup v1, memcg reclaim waits for file folios under writeback if
+__GFP_FS is set. That can deadlock if writeback waits for a folio lock
+that we hold, for example with ext4.
 
-Unprivileged users can trigger this deadlock with FUSE and
-mbind()/migrate_pages(); however, it requires multiple NUMA nodes and
-quite some luck.
+Let's fix it by splitting folios in a NOFS scope, so callers don't have
+to care. A NOFS scope also covers allocations that filesystems make with
+their own gfp flags, for example in filemap_release_folio().
 
-I reproduced the original deadlocks with FUSE and made sure they can no
-longer be triggered with these fixes. Further, I ran the usual migration
-and folio splitting selftests.
+On NFS, splitting folios with pending writes or ongoing writes to
+fscache might now fail slightly more often, until these writes have
+completed. On netfs, only folios that are being written to fscache are
+affected. All fairly irrelevant.
 
-[1] https://lore.kernel.org/all/20250925224404.2058035-1-joannelkoong@gmail.com/
-[2] https://lore.kernel.org/all/20261009133253.20102-1-jack@suse.cz/
+This has medium urgency.
 
+Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
+Fixes: eef88fe45ac9 ("s390/uv: Split large folios in gmap_make_secure()")
+Fixes: 789763523fb4 ("xarray: honor XA_FLAGS_ACCOUNT in xas_split_alloc()")
+Cc: stable@vger.kernel.org
+Reported-by: Chris Mason <mason@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Chris Down <chris@chrisdown.name>
+Link: https://lore.kernel.org/r/awSgk1VTUsiVQOAT@casper.infradead.org [1]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
-Changes in v2:
-- Adjust cover letter (incl. subject), the patch descriptions and code
-  comments: allocating with __GFP_FS while holding folio locks can
-  deadlock also through compaction, independent of inode references
-- Collect tags
-- Link to v1: https://patch.msgid.link/20261122-migrate_reclaim_deadlock-v1-0-83c56185b0fb@kernel.org
+ mm/huge_memory.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
----
-David Hildenbrand (Arm) (2):
-      mm/huge_memory: use NOFS when allocating while splitting folios
-      mm/migrate: allocate destination folios before locking a batch
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index e22daf846dbe3..44424af08cdd0 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4425,11 +4425,20 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 	const bool is_swapcache = folio_test_swapcache(folio);
+ 	int old_order = folio_order(folio);
+ 	struct folio *new_folio, *next;
++	unsigned int nofs_flags;
+ 	int ret;
+ 
+ 	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
+ 	VM_WARN_ON_ONCE_FOLIO(!folio_test_large(folio), folio);
+ 
++	/*
++	 * We might allocate memory while holding the folio lock. Direct
++	 * reclaim or compaction could try evicting the inode, isolating and
++	 * locking our folio, or wait for writeback on cgroup v1, to then
++	 * deadlock on folio locks.
++	 */
++	nofs_flags = memalloc_nofs_save();
++
+ 	if (folio != page_folio(split_at) || folio != page_folio(lock_at)) {
+ 		ret = -EINVAL;
+ 		goto out;
+@@ -4478,6 +4487,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 	if (is_pmd_order(old_order))
+ 		count_vm_event(!ret ? THP_SPLIT_PAGE : THP_SPLIT_PAGE_FAILED);
+ 	count_mthp_stat(old_order, !ret ? MTHP_STAT_SPLIT : MTHP_STAT_SPLIT_FAILED);
++	memalloc_nofs_restore(nofs_flags);
+ 	return ret;
+ }
+ 
 
- mm/huge_memory.c |  10 +++++
- mm/migrate.c     | 133 +++++++++++++++++++++++++++++++++++++++----------------
- 2 files changed, 106 insertions(+), 37 deletions(-)
----
-base-commit: eb01811cc3713af1f78dfe18fa89c5270ebfc767
-change-id: 20261121-migrate_reclaim_deadlock-44e28e226b9d
-
-Best regards,
---  
-David Hildenbrand (Arm) <david@kernel.org>
+-- 
+2.56.1
 
