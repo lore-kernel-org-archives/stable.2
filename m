@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534832;
-	b=zUvvCuKXSCXp02bhJv7nxUFQ/w0WxqvEsNwMwaxblZV0JRFN/MWvwNOoBmk6E8VEuBa/
-	 Z4dSUtvAq0n0J9yuCin0U37LYtgO+tO0pVR+zXYnZs+H6MKyXrmBknLSgk9f4xY3hjIK/
-	 KgHsTd9n+7yJ6dTAFrdhSRSdV1jkBrbktN7/UOeBypaEMgw9rQxDwoG8UYWVedSMjwPCX
-	 Ww/qpW6RXyLCoGejS7iJRTGjOKFRVgiQ8vU1KhrS5RqmGBz/mdHICwhznmTA7Wmf05n1q
-	 2WOta6w9yUv5RvHeDPXd4yPkO6QE6kZ6B+akWNuuaoIy76hlsxB8evTlOmkkONrHSWA==
+	t=1795534850;
+	b=MI1LbMDB4T79kwY/4z1q/CtHK8n1+m4g9JfpgRZ7p2a9BwILdlNw++zGANJ4DepHPjhc
+	 Kl1KmKvJGZXtdeCtmS2CDZRMOi+lH93Ea2iiJ05bb4tUHVzD0A1kQZtVAMXi32jluf5BI
+	 Ru9anJox97FIFVNOh0aPcwVGfxukXaM2XQ4p0Dn/Ip3JhozllZD4tGvNP9kpdTJgebori
+	 LZ5qq6mTccRIfF00rEuWGj0t/4O6YytMBBK4AzfgNKdWwTtX0ZjLbJQN/kiVLNf+Iifc9
+	 4IjOPdu1nbY9SXf0dz1Rk0fPw7Zsi3sNQVn7KnjJxnE2Buwwe+f6pV0jgfkwZ1tNgeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534832;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534850;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Ccpolbx+USW2j+KISkEWGf5BFNUPkXf1bJSVSqMKcWA=;
-	b=ev1i1XdnExb218ImVKV6htl93nm28ziDXC7aj68QSlkw9Cz7OhBmqFNBiqDVhTDiEI/c
-	 mcVvb6SzE4bpQ9o+B6puXtbbEhEYGZNLtUk3NIn74iWxE1Y8rE62eou7+vI8o6oqT4cbY
-	 u1hjOtsoJNX+BDh7QnofxYqkgIsGONxzUqQ0h34waC2cKk6qSAgVWiYwhnaoRhK7J0Dki
-	 FLMpBbvEh478/o2f3JsZpCsgZtUBLq2vGo/MkB2oGpl7pqC+2oODjQgxoUugf9kxSrdY3
-	 rdPXdkz+Hco5nxC3i/1B1J2AbH0NSCFHU92/NSXqIR76sV7Kd6EqMffhgH+qI3/tE4A==
+	bh=vnEmVo6ZZAIqvZrpMijIkkaqWvMK5v/O8WSru8B/JK4=;
+	b=Tr0hL2cViHlFUscZpynchCnM/rXn1zMKZ4ZcnPXtMLpIoW45R3PWSbH6vNGT1wqodkir
+	 lfpj/yDDdiUsmDRx9vSfn7QPBGoAuNnELsqDCZKg39c01io8OrflVQBZqEPs5O4jTbjVS
+	 IrJmmMbzNMYGvN2gfnOxKgITcbETOIGfdyKO0l0EbpF1Rcm7wEq3cvOmcVA7jGD3w0k40
+	 q7zKud7PbKMO4RRmqHu3vOxXObluj0b2lGBaXR8Ayt0XSJqEz9ZfBF5LstqmZmPGdBElR
+	 ocd1gcHemlt4aZ+BuBQhlszBIxS7oKOYR1aAZG+8jcnPOHli6S+LUXB2e2Zj15qxKFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n6NpgQ2H;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ET2rajrV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F59606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:40:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1428C606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:40:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n6NpgQ2H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90EC81F000C6;
-	Tue, 24 Nov 2026 15:40:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ET2rajrV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF9FF1F000C6;
+	Tue, 24 Nov 2026 15:40:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795534832;
-	bh=Ccpolbx+USW2j+KISkEWGf5BFNUPkXf1bJSVSqMKcWA=;
+	s=korg; t=1795534849;
+	bh=vnEmVo6ZZAIqvZrpMijIkkaqWvMK5v/O8WSru8B/JK4=;
 	h=Subject:To:Cc:From:Date;
-	b=n6NpgQ2HSlcDY0B3xXLrNnGScya4QJLVyIK12HgF3nXTZGyXd8vdnGBHkViQs0LK8
-	 p/3d0tt5m6E6kGnoQ4sEe0Q0RuBslmYySkbHRumu5/cbaPDLHEBKjFCgFqZF/aGBHm
-	 Fm9GUgK5xyWChfRPbe4K7+a9mUJgqYXsQRDb5taE=
-Subject: FAILED: patch "[PATCH] mm/page_alloc: snapshot the preferred zone against shrink" failed to apply to 5.10-stable tree
-To: gourry@gourry.net,vbabka@kernel.org,ziy@nvidia.com
+	b=ET2rajrVFmYQJyne2bUxXIFrZpcgznfBJ2I72NPC5K+IkaGMxXth7lT9wqTWJuyiD
+	 Bc54DxG4+bIkxwJlGuIaCbdf7ghUYES4RbZ+kK1N24lNScqP4bBTHe3lJLP055aMFh
+	 mML28wNTWGPiRis8K6SJR3qIw01wDpoAK3JUXbHI=
+Subject: FAILED: patch "[PATCH] mm/page_alloc: remove the zone_spans_pfn() check from" failed to apply to 6.18-stable tree
+To: vbabka@kernel.org,josef@toxicpanda.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:40:43 +0100
-Message-ID: <2026112443-pentagon-half-0c17@gregkh>
+Date: Tue, 24 Nov 2026 16:41:10 +0100
+Message-ID: <2026112410-negligent-mutiny-06fc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x b3e3a760eb68449e2794ef68ab212173d9c3e8c7
+git cherry-pick -x 2122887b04f3f2d76daa80055c2c273926032fa0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112443-pentagon-half-0c17@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112410-negligent-mutiny-06fc@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,152 +79,52 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From b3e3a760eb68449e2794ef68ab212173d9c3e8c7 Mon Sep 17 00:00:00 2001
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-Date: Sat, 31 Oct 2026 22:13:34 -0400
-Subject: [PATCH] mm/page_alloc: snapshot the preferred zone against shrink
- rebuilds
+From 2122887b04f3f2d76daa80055c2c273926032fa0 Mon Sep 17 00:00:00 2001
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Date: Tue, 3 Nov 2026 17:16:51 +0100
+Subject: [PATCH] mm/page_alloc: remove the zone_spans_pfn() check from
+ get_pfnblock_bitmap_bitidx()
 
-get_page_from_freelist() and alloc_pages_bulk_noprof() reread
-ac->preferred_zoneref->zone at every use. Offlining a zone's last block
-rebuilds the zonelists in place, and the shrunk list's NULL terminator
-can land on the preferred slot mid-walk:
+Whenever the flags of a pageblock are read or written, a kernel with
+CONFIG_DEBUG_VM makes sure that the pfn lies within the zone of the page.
+Unlike bad_range(), that check reads zone->zone_start_pfn and
+zone->spanned_pages without zone->span_seqlock.
 
-  CPU 0                             CPU 1
-  get_page_from_freelist(GFP_KERNEL | __GFP_THISNODE)
-    zone = NORMAL (slot 1)
-                                    offline_pages()
-                                      build_all_zonelists()
-                                        [MOVABLE, NORMAL, NULL]
-                                        -> [NORMAL, NULL]
-    rmqueue(zonelist_zone(slot 1), zone)
-      zone_statistics(NULL, zone)
+Memory hotplug changes the two fields one after the other. If the lower
+end of a zone moves, the zone seems to end before its last pages in
+between. A page of that part which is freed at that moment, on another
+CPU, ends in
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000060
-  RIP: 0010:get_page_from_freelist+0x6a5/0x15f0
-  Call Trace:
-   __alloc_frozen_pages_noprof+0x125/0x330
+  page dumped because: VM_BUG_ON_PAGE(!zone_spans_pfn(page_zone(page), pfn))
+  kernel BUG at mm/page_alloc.c:372!
+   free_unref_folios+0x55e/0xed0
+   folios_put_refs+0x2b5/0x530
 
-Read the slot once. Zones are never freed, so a stale zone is safe, and
-a NULL slot fails the same way as walking off the end.
+An attempt has been made [1] to fix this with the span seqlock check.
+But that can trigger all sorts of problems in restricted contexts, as
+noted by sashiko [2].
 
-Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
+Since this is just a sanity debug check and anything with BUG_ON is
+frowned upon anyway, just remove it altogether.
+
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Closes: https://lore.kernel.org/all/20261027-pgalloc-ai-hotfixes-v1-9-9c7d1aca801e@kernel.org/ [1]
+Link: https://lore.kernel.org/all/sashiko-outbox-188081@kernel.org/ [2]
+Fixes: 86051ca5eaf5 ("mm: fix usemap initialization")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Link: https://patch.msgid.link/20261101021340.2251928-7-gourry@gourry.net
-Acked-by: Zi Yan <ziy@nvidia.com>
+Link: https://patch.msgid.link/20261103-pgalloc-ai-hotfixes-v2-5-e0d2890ab74f@kernel.org
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index c68c590c5822..37a25de68249 100644
+index b39ea1e51187..e3a2f54f63e2 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -3794,12 +3794,21 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- {
- 	struct zoneref *z;
- 	struct zone *zone;
-+	struct zone *preferred_zone;
- 	struct pglist_data *last_pgdat = NULL;
- 	bool last_pgdat_dirty_ok = false;
- 	bool no_fallback;
- 	bool skip_kswapd_nodes = nr_online_nodes > 1;
- 	bool skipped_kswapd_nodes = false;
+@@ -370,7 +370,6 @@ get_pfnblock_bitmap_bitidx(const struct page *page, unsigned long pfn,
+ 	BUILD_BUG_ON(NR_PAGEBLOCK_BITS != 4);
+ #endif
+ 	BUILD_BUG_ON(__MIGRATE_TYPE_END > PAGEBLOCK_MIGRATETYPE_MASK);
+-	VM_BUG_ON_PAGE(!zone_spans_pfn(page_zone(page), pfn), page);
  
-+	/*
-+	 * A concurrent zonelist rebuild can NULL or replace this slot. Zones
-+	 * are never freed, so reading it once keeps a usable zone.
-+	 */
-+	preferred_zone = zonelist_zone(ac->preferred_zoneref);
-+	if (!preferred_zone)
-+		return NULL;
-+
- retry:
- 	/*
- 	 * Scan zonelist, looking for a zone with enough free.
-@@ -3846,7 +3855,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 		}
- 
- 		if (no_fallback && !defrag_mode && nr_online_nodes > 1 &&
--		    zone != zonelist_zone(ac->preferred_zoneref)) {
-+		    zone != preferred_zone) {
- 			int local_nid;
- 
- 			/*
-@@ -3854,7 +3863,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 			 * fragmenting fallbacks. Locality is more important
- 			 * than fragmentation avoidance.
- 			 */
--			local_nid = zonelist_node_idx(ac->preferred_zoneref);
-+			local_nid = zone_to_nid(preferred_zone);
- 			if (zone_to_nid(zone) != local_nid) {
- 				alloc_flags &= ~ALLOC_NOFRAGMENT;
- 				goto retry;
-@@ -3916,7 +3925,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 				goto try_this_zone;
- 
- 			if (!node_reclaim_enabled() ||
--			    !zone_allows_reclaim(zonelist_zone(ac->preferred_zoneref), zone))
-+			    !zone_allows_reclaim(preferred_zone, zone))
- 				continue;
- 
- 			if (!node_reclaim(zone->zone_pgdat, gfp_mask, order))
-@@ -3929,7 +3938,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 		}
- 
- try_this_zone:
--		page = rmqueue(zonelist_zone(ac->preferred_zoneref), zone, order,
-+		page = rmqueue(preferred_zone, zone, order,
- 				gfp_mask, alloc_flags, ac->migratetype);
- 		if (page) {
- 			prep_new_page(page, order, gfp_mask, alloc_flags);
-@@ -5169,6 +5178,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- {
- 	struct page *page;
- 	struct zone *zone;
-+	struct zone *preferred_zone;
- 	struct zoneref *z;
- 	struct per_cpu_pages *pcp;
- 	struct list_head *pcp_list;
-@@ -5217,6 +5227,11 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- 	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &gfp, &alloc_flags))
- 		goto out;
- 
-+	/* Read once; see get_page_from_freelist(). */
-+	preferred_zone = zonelist_zone(ac.preferred_zoneref);
-+	if (!preferred_zone)
-+		goto failed;
-+
- 	/* Find an allowed local zone that meets the low watermark. */
- 	z = ac.preferred_zoneref;
- 	for_next_zone_zonelist_nodemask(zone, z, ac.highest_zoneidx, ac.nodemask) {
-@@ -5227,8 +5242,8 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- 			continue;
- 		}
- 
--		if (nr_online_nodes > 1 && zone != zonelist_zone(ac.preferred_zoneref) &&
--		    zone_to_nid(zone) != zonelist_node_idx(ac.preferred_zoneref)) {
-+		if (nr_online_nodes > 1 && zone != preferred_zone &&
-+		    zone_to_nid(zone) != zone_to_nid(preferred_zone)) {
- 			goto failed;
- 		}
- 
-@@ -5236,7 +5251,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- retry_this_zone:
- 		mark = wmark_pages(zone, alloc_flags & ALLOC_WMARK_MASK) + nr_pages - nr_populated;
- 		if (zone_watermark_fast(zone, 0,  mark,
--				zonelist_zone_idx(ac.preferred_zoneref),
-+				zone_idx(preferred_zone),
- 				alloc_flags, gfp)) {
- 			break;
- 		}
-@@ -5295,7 +5310,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- 	pcp_spin_unlock(pcp);
- 
- 	__count_zid_vm_events(PGALLOC, zone_idx(zone), nr_account);
--	zone_statistics(zonelist_zone(ac.preferred_zoneref), zone, nr_account);
-+	zone_statistics(preferred_zone, zone, nr_account);
- 
- out:
- 	return nr_populated;
+ 	bitmap = get_pageblock_bitmap(page, pfn);
+ 	*bitidx = pfn_to_bitidx(page, pfn);
 
