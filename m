@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795532355;
-	b=5j8wQsHpKqMcOu60K5s8aQBt0lRrXvURLT1FEdqku2xyGFznmOEMJxbZEjQUNNquaQXT
-	 UST9Zpss4igON0k1jr3wwcO/uwLIdZmIWt5uErqIawX4tVWfY7sJU9/lWLfrYvj3tIln3
-	 +lRCFMnqTeyKTHRfuzxL3h8lK0gmH3mSRZXvVm4MLLnYyH46ZM9AH+7lkB5+jt7B3BD39
-	 ItgiNplOIs/6KLTgBv6caUgTEFZWAcaBu4CkiFHkzOE9A+4+56+BUCP7ASEp2SqsXU7Ft
-	 Fe9IWwKXJMK2I5AOTZsOTp5av6UUUGttd/I/TaElJEC5834vwR9XHtSZMgwsZGm/ibw==
+	t=1795532390;
+	b=yiBQLmBCD9K3ElUd1riFjQVh0psqMxO4IMApAyqQ/bJga5qt4G4vfcLznsyg+HUf/hT5
+	 75DuF7mGda7C02sVhTN390Ck9QI15UVlS/A3ZValCMbkcyRkXH9RReGpra6MBs9V1lZjf
+	 jW/WuJUpMjv9v8HudoFHJ5uYayg9VP9m7f2XGAyuAUQbRNdQR4j44vZBoPnV1ceKTppbD
+	 gDTiOxTFhSsYfP8ct7Oic8PEFcGcUX+6dKhYFcyuaYF2q+zAkNhrYez4yyE6fRvGCC8B8
+	 Xvr0VTFQwTW1nuFIEuZWRW7hK5xRVp0rgXuTwdU+RZzABXt8LU/t489D8aK3GDEtYHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795532355;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795532390;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=VFchZvlympmTz/noYpvrfzJ9j/gfqfwJm/2HvOovNSY=;
-	b=gVUUWK7cCL09G5yWTWLhdoM6l6aAPyQF2KCHkdV3eOnoP05patHaiot6qsJwoC0EDKRD
-	 HyPRVOMnFHyNE79fhuZmJLDXH3/CN413tr0d8v0KCEIQrZtKibcIosToKX3nSgEDkFTms
-	 ce4FkgGH7zWrUjLbPYO2N+kzUwxuR1CsOqwTiX/LmE6MH/ZOFuemOiCz4dUQSmOskOW8P
-	 a887bnREB8UbdOosfdYzFCvoZ7J4D3Nw/xSWPop6FpueeGbSk4vg5j0FgoOI220WPmzyC
-	 Qha9gFN3nBrdWRKO0SREcgOStySjxakiwZtw8ek4oQgG0k5IdHi8bCXHNv92bbuCsYg==
+	bh=Pf8eK2G97eRFW7HkGVh1sCAERIS29NrY73J9nNDXnmo=;
+	b=O08SDnJI1fxzYvZz6/UXngwKZUi/z72AmJCTk9DlwOaIGW0Hwevc5kx1VCz8etz6kfsW
+	 TGIxaB23wDjmJTMDe/3ON2i2n1hFdvclv7EZv0laiWWX795IbM1Ap9LZmAyYSG+LqkB92
+	 F7pbGqXrrx/IrA0uyovMdEdRolmAiLqINoVeYdFKlIBzIBMXYR1bHEhXDvK6IjSQk+iPF
+	 O3/dncPjd4RgrulJdRwrWpgSrlG+pGmM7GHVP0Sr9r5Mqe4oZphvh3oXgAw246kFMPbYv
+	 4fRGyI8010LUQ2LILCEvl8zbSRn9D22pxDdoTnOuyUy3AxT/MzdY73KP+Wez4NCl1eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XcOFJGSL;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Y3Rfik2x;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D21606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:59:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7DA606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:59:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XcOFJGSL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A8961F000C0;
-	Tue, 24 Nov 2026 14:59:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Y3Rfik2x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B9E61F000CA;
+	Tue, 24 Nov 2026 14:59:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795532354;
-	bh=VFchZvlympmTz/noYpvrfzJ9j/gfqfwJm/2HvOovNSY=;
+	s=korg; t=1795532389;
+	bh=Pf8eK2G97eRFW7HkGVh1sCAERIS29NrY73J9nNDXnmo=;
 	h=Subject:To:Cc:From:Date;
-	b=XcOFJGSLEfyUZovCTORkfP2dpj8GhRfh2lzQ5wMXfYll5g4H4OC31QBzUxGzso184
-	 OS80L2cWN2lNlXxjIfWygOmdW9kKI7IfJlaNPa852IgaHx9fQx7ihwItgp08ruycE2
-	 H5wzPWYIL1jwqYaXh5m0ZTSBgZxPbpujtwvZQjOc=
-Subject: FAILED: patch "[PATCH] tracing/eprobe: Install the trigger for every instance that" failed to apply to 5.15-stable tree
-To: devnexen@gmail.com,mhiramat@kernel.org
+	b=Y3Rfik2xZvo36rIoBhkwo7kayUg11XptmwoTWfB2MvoLJBcmo+9nSNO6gnEXkZr2T
+	 pI9UvoRPNVcNyJXLfvkGUkcPbadZqWAzlqtBkjIk2JBY8JCO7dzMjpHL7kbgO2k1Jw
+	 utzhj4qWOqMqR5ygHQt2uoNmSKnM0oJFLiTdsNNQ=
+Subject: FAILED: patch "[PATCH] KEYS: Expand key->{datalen,quotalen} to unsigned int" failed to apply to 6.18-stable tree
+To: jarkko@kernel.org,dhowells@redhat.com,ebiggers@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 15:59:27 +0100
-Message-ID: <2026112427-vastly-starter-c2ec@gregkh>
+Date: Tue, 24 Nov 2026 16:00:10 +0100
+Message-ID: <2026112410-magenta-immerse-769f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x be94710b1f6ba1bea33e73129c110af80e999b2d
+git cherry-pick -x 4a65eaf146f0d10ebaa88cfaef9c3b24f93766d9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112427-vastly-starter-c2ec@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112410-magenta-immerse-769f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,131 +79,87 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From be94710b1f6ba1bea33e73129c110af80e999b2d Mon Sep 17 00:00:00 2001
-From: David Carlier <devnexen@gmail.com>
-Date: Sat, 7 Nov 2026 10:12:32 +0000
-Subject: [PATCH] tracing/eprobe: Install the trigger for every instance that
- enables the eprobe
+From 4a65eaf146f0d10ebaa88cfaef9c3b24f93766d9 Mon Sep 17 00:00:00 2001
+From: Jarkko Sakkinen <jarkko@kernel.org>
+Date: Tue, 20 Oct 2026 20:43:19 +0300
+Subject: [PATCH] KEYS: Expand key->{datalen,quotalen} to unsigned int
 
-The eprobe trigger lives in the instance of the enabling file, but it is
-only added when the eprobe is first enabled and only removed when the
-last file goes away. A second instance then records nothing, and the
-first instance's trigger is left behind once the eprobe is disabled
-there, so the eprobe can be deleted while that trigger still uses it.
+In key_alloc() and key_payload_reserve(), key->quotalen and key->datalen
+can receive values larger than USHRT_MAX.
 
-Add and remove the trigger for each file. The file is never NULL here,
-so warn if it is and drop the dead perf paths.
+Example:
 
-Link: https://lore.kernel.org/all/20261107101233.151434-1-devnexen@gmail.com/
+  keyctl new_session >/dev/null
+  owner=$(keyctl newring owner @s)
+  keeper=$(keyctl newring keeper @s)
 
-Fixes: 7491e2c44278 ("tracing: Add a probe that attaches to trace events")
+  for ((i=0; i<16384; i++)); do
+      key=$(keyctl add user "k$i" x "$keeper")
+      keyctl link "$key" "$owner"
+  done
+
+  awk -v uid="$(id -u):" '$1 == uid {print $NF}' /proc/key-users
+  keyctl clear "$owner"
+  awk -v uid="$(id -u):" '$1 == uid {print $NF}' /proc/key-users
+
+Because key->datalen wraps around 65535, the quota refunded upon clearing
+is truncated, causing quota bytes to leak in /proc/key-users.
+
+Change the types of key->datalen and key->quotalen from unsigned short to
+unsigned int so that they can carry the full payload length without
+truncation.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reviewed-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Eric Biggers <ebiggers@kernel.org>
+Link: https://lore.kernel.org/r/20261020174325.2229448-2-jarkko@kernel.org
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
-index 998e6390937a..474be2f5ccd9 100644
---- a/kernel/trace/trace_eprobe.c
-+++ b/kernel/trace/trace_eprobe.c
-@@ -644,37 +644,32 @@ static int enable_trace_eprobe(struct trace_event_call *call,
- {
- 	struct trace_probe *tp;
- 	struct trace_eprobe *ep;
--	bool enabled;
- 	int ret = 0;
- 	int cnt = 0;
- 
-+	if (WARN_ON_ONCE(!file))
-+		return -EINVAL;
-+
- 	tp = trace_probe_primary_from_call(call);
- 	if (WARN_ON_ONCE(!tp))
- 		return -ENODEV;
--	enabled = trace_probe_is_enabled(tp);
- 
- 	/* This also changes "enabled" state */
--	if (file) {
--		ret = trace_probe_add_file(tp, file);
--		if (ret)
--			return ret;
--	} else
--		trace_probe_set_flag(tp, TP_FLAG_PROFILE);
--
--	if (enabled)
--		return 0;
-+	ret = trace_probe_add_file(tp, file);
-+	if (ret)
-+		return ret;
- 
-+	/* The trigger lives in the instance of the file, add it for each file */
- 	for_each_trace_eprobe_tp(ep, tp) {
- 		ret = enable_eprobe(ep, file);
- 		if (ret)
- 			break;
--		enabled = true;
- 		cnt++;
+diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
+index f9f61c758a75..346899da91eb 100644
+--- a/fs/smb/client/cifsacl.c
++++ b/fs/smb/client/cifsacl.c
+@@ -385,7 +385,7 @@ id_to_sid(unsigned int cid, uint sidtype, struct smb_sid *ssid)
+ 		goto out_revert_creds;
+ 	} else if (sidkey->datalen < CIFS_SID_BASE_SIZE) {
+ 		rc = smb_EIO1(smb_eio_trace_malformed_sid_key, sidkey->datalen);
+-		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%hu)\n",
++		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%u)\n",
+ 			 __func__, sidkey->datalen);
+ 		goto invalidate_key;
  	}
- 
- 	if (ret) {
- 		/* Failed to enable one of them. Roll back all */
--		if (enabled) {
-+		if (cnt) {
- 			/*
- 			 * It's a bug if one failed for something other than memory
- 			 * not being available but another eprobe succeeded.
-@@ -687,10 +682,7 @@ static int enable_trace_eprobe(struct trace_event_call *call,
- 					break;
- 			}
- 		}
--		if (file)
--			trace_probe_remove_file(tp, file);
--		else
--			trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
-+		trace_probe_remove_file(tp, file);
+@@ -403,7 +403,7 @@ id_to_sid(unsigned int cid, uint sidtype, struct smb_sid *ssid)
+ 	if (ksid_size > sidkey->datalen) {
+ 		rc = smb_EIO2(smb_eio_trace_malformed_ksid_key,
+ 			      ksid_size, sidkey->datalen);
+-		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%hu, ksid_size=%u)\n",
++		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%u, ksid_size=%u)\n",
+ 			 __func__, sidkey->datalen, ksid_size);
+ 		goto invalidate_key;
  	}
- 
- 	return ret;
-@@ -702,33 +694,21 @@ static int disable_trace_eprobe(struct trace_event_call *call,
- 	struct trace_probe *tp;
- 	struct trace_eprobe *ep;
- 
-+	if (WARN_ON_ONCE(!file))
-+		return -EINVAL;
-+
- 	tp = trace_probe_primary_from_call(call);
- 	if (WARN_ON_ONCE(!tp))
- 		return -ENODEV;
- 
--	if (file) {
--		if (!trace_probe_get_file_link(tp, file))
--			return -ENOENT;
--		if (!trace_probe_has_single_file(tp))
--			goto out;
--		trace_probe_clear_flag(tp, TP_FLAG_TRACE);
--	} else
--		trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
-+	if (!trace_probe_get_file_link(tp, file))
-+		return -ENOENT;
- 
--	if (!trace_probe_is_enabled(tp)) {
--		for_each_trace_eprobe_tp(ep, tp)
--			disable_eprobe(ep, file->tr);
--	}
-+	for_each_trace_eprobe_tp(ep, tp)
-+		disable_eprobe(ep, file->tr);
- 
-- out:
--	if (file)
--		/*
--		 * Synchronization is done in below function. For perf event,
--		 * file == NULL and perf_trace_event_unreg() calls
--		 * tracepoint_synchronize_unregister() to ensure synchronize
--		 * event. We don't need to care about it.
--		 */
--		trace_probe_remove_file(tp, file);
-+	/* Synchronization is done in below function. */
-+	trace_probe_remove_file(tp, file);
- 
- 	return 0;
- }
+@@ -498,7 +498,7 @@ sid_to_id(struct cifs_sb_info *cifs_sb, struct smb_sid *psid,
+ 	 */
+ 	BUILD_BUG_ON(sizeof(uid_t) != sizeof(gid_t));
+ 	if (sidkey->datalen != sizeof(uid_t)) {
+-		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%hu)\n",
++		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%u)\n",
+ 			 __func__, sidkey->datalen);
+ 		key_invalidate(sidkey);
+ 		goto out_key_put;
+diff --git a/include/linux/key.h b/include/linux/key.h
+index 115db6e60254..5a6b335c1efa 100644
+--- a/include/linux/key.h
++++ b/include/linux/key.h
+@@ -216,8 +216,8 @@ struct key {
+ 	kuid_t			uid;
+ 	kgid_t			gid;
+ 	key_perm_t		perm;		/* access permissions */
+-	unsigned short		quotalen;	/* length added to quota */
+-	unsigned short		datalen;	/* payload data length
++	unsigned int		quotalen;	/* length added to quota */
++	unsigned int		datalen;	/* payload data length
+ 						 * - may not match RCU dereferenced payload
+ 						 * - payload should contain own length
+ 						 */
 
