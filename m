@@ -1,53 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795526809;
-	b=SgUB9bqS7Uwisriu0ofXPuvMCAAyqRSAwulzPeh95AY46DA86SO8FlXVrPoet9stsdtl
-	 adxwDWTS6NWajO8c9abL84Y/iPjbSM0B2+AKeRpjF5N21+3Fr26b1TZoJf66kdBnKOQ9Q
-	 BKDoH3fvBrIiavOWdJJe4GV+rSZOJsrL/GYnkMvCrLIjby7kldDqXWVB71qON6B1ZFkzP
-	 oBvgNvii2ijg2UiD3FAN0UbKmZKWn15csmm96YiPR8AGsMVqnV5peea3Dgybd/UjPCPfA
-	 7x5cF020R9BVHmEuBLp4hF0XOmB3x+xsnc0Rq8qOrVImWOHjOAGTR5h73P4vy5pcjTQ==
+	t=1795527002;
+	b=HRQ1xmneR5iIenwjH5L9qKcavR9xZaTY3VRfSIwmJil23cKsAoSFHhI850FoM5cLEpzb
+	 kU525QLxeb/FvFXNyrdXk5cfP5VbvLKMRvaM2hBZROcW9ClQbCJmWyLH4UvknJ6b7YzKz
+	 qsiDmwIFZCB3oFDUT2wmN7mtScN+XAqI4h8/2Q1Vx7/9D6TVskB4ft2ayvbsCeE+6vo5A
+	 SO0V+PUXxbgY95WIHcL/eozgCuWRcnHaUeuoCziQZPH6KfutXSuxWO7o4AdskwgOKFhr9
+	 5OzwpvXPDHlhgBsWkWAOfZX9G1sn1lANo6WSxejQvci15yu4JhWkpVAQwTZfZZWAgyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795526809;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TGbRNMlBiqQcwxv0P2/3UU/uHuduzqYaI4dTeURK6EI=;
-	b=gvbRTjjDonn2nolmu+/6gQgIPBGnpkQw20YmxXiRlKSUoK7QKmnowcG71QwunAbOenR9
-	 va7oTYSyeOSY1Arx3mDbC6YowMMbq6sr79F0dP4InqThPuDotALcKe5auPSIxy2YmCyNz
-	 3MKIKedXhYYX4n3wZC+0xVZvmlC8YAYSrKPe5ECj0wfpdJcDiWCplIgIpIltZJ59zJ81T
-	 eeZH/lRarr+PHj/GU6MHnRmMsp+iorJZE2EJD6X8KcQGZtHDouHZtG4QmbpaCRFD6JT5U
-	 hie+LXAGPvFYR5/dSlSXOK+JcszmChXEMv/BcpReKV174eg144Jmq0E+8XJxeqWRrZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795527002;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=HbHpUlOb1f43/quJqropjm+88ksUSksI9CVMWl4Gkh0=;
+	b=z6ofB8QdzNDxRX3smc01fOOB64+/DWEAFwbokOR+Ziax4/MHeYKgP8tkusg1fDja46db
+	 ba2ia6oqh1bwLP0HjBk9HyXtDVcpnkACsDJugQ3SF4Yo2+to17RGKKKEPz7zrlW7Dp5iz
+	 lgQ0G15MRs9S8iZFk9yJ1Fw1MxgSl9oMcspDx3oMt5mvOOufLdQB/zAZvnJZ/3IfUmwOU
+	 rcZ9jC6s18toAn922OXs57xrpOKdQg3lalDH2eWtLZunRdyuIwa8rfsvFO8p6eQZfSndf
+	 NpDYT1GopGdKN1chUlZdVuzae/DyTyTmUatISbX5jfFYKxeJDtyZ6ra8u7Pio9cXGfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omtiuRGg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="A/w2BtsE";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=NIDesLzg;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 88F7B606A31E;
-	Tue, 24 Nov 2026 13:26:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE3A606A330
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 13:30:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE3A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omtiuRGg
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 969DE1F00A3C;
-	Tue, 24 Nov 2026 13:26:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795526809;
-	bh=TGbRNMlBiqQcwxv0P2/3UU/uHuduzqYaI4dTeURK6EI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=omtiuRGgWioc714Sp525Z1hVz4JVmy5BO+Xq0XWMZNEbT5E8pw/lYSrplLQCThmMx
-	 Q+Hs/1c9oV/a3JulF6gdm0xy+uhmYYQnwH2to/tg/YpHUVf4brynmd/FBSGU3OUatC
-	 g/ZqJg6MyJy5u/ILQEptaI3G+tvDMClleSJPzgfqg7YukZ4ShqRNHrEsz8lCq+g2qw
-	 URf8D7QbdBGVblT+Yv6vcWHt6eD/P8LktNfJOAHmohU0YK3XWtwFmbibLD8950rw2F
-	 GSIpq8fPSkka/7AygDKUtCSnG6LLBMdesl8k+ch8LMsYFzsnvFZgIlHRq4+3oUtSHh
-	 pf3VesqmGugOA==
-Date: Tue, 24 Nov 2026 14:26:46 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Yu Zhang <yuz08559@gmail.com>
-Cc: Stefan Wahren <wahrenst@gmx.net>, 
-	Linus Walleij <linus.walleij@linaro.org>, linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=A/w2BtsE;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=NIDesLzg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795527000;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HbHpUlOb1f43/quJqropjm+88ksUSksI9CVMWl4Gkh0=;
+	b=A/w2BtsEyuK3/cBGzkK7wF9u/CHEP4OT3E+uUmft1q4TbhREGt+zUeYk+8fMApVfN90vzr
+	4ZVP7/S2s3OF2Bulc5K2xL70HBqrGVXxM7pFHtzRjAvrYIBbHjvKBH8mXGnaPHlQdZvv2H
+	aNVLSEfDri9RhgpQ+Aspc+gAoZ4DyLY=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-154-1AE9AqRkNNmwcGMnL4pUIQ-1; Tue, 24 Nov 2026 13:29:56 +0000
+X-MC-Unique: 1AE9AqRkNNmwcGMnL4pUIQ-1
+X-Mimecast-MFC-AGG-ID: 1AE9AqRkNNmwcGMnL4pUIQ_1795526996
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-949b0d322fbso654956485a.3
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 05:29:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1795526996; x=1796131796; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HbHpUlOb1f43/quJqropjm+88ksUSksI9CVMWl4Gkh0=;
+        b=NIDesLzgePeW1RI0l9jKnJHf2IhnwUfrUG2lBF5y+GZLhZ8Z3Ie7UpBf6SP23F4iYV
+         x2qvOckOntfNSX1HuCJ0VQoFYumN6u7TV8xuc40J42HiLZk/fq1i9FTtDmjBd2oau2LY
+         PGHK8eItVm68NPPY+LdgsqeEgv2Sb4wQ7am7tALLiq3Bfjsg72hnAkEsD7NvRKDAGQa9
+         A6WVvroMc+D7Tjo741ZXl4KdViQW8l3aAOD2YfJlq7hT1RbgByrpYDzs9hi0tUD7AJnO
+         OqN4vluVGic+u3umCBsMQ2KT+1vD3Wgpd1xXw43e9B0EFg85cQ0i1uewBw4wW2w9EvFB
+         tceg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795526996; x=1796131796;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HbHpUlOb1f43/quJqropjm+88ksUSksI9CVMWl4Gkh0=;
+        b=eK1wEwor3cTs8Gd56pdOngDaIo76fpuwf37YrNvmeYSrWm0xxpmjK/lUI9DEOoyJQ+
+         4Wf7fDc9TXhZDOliJp3xcW5wxRrhSzJy39NFMe8SlEsYvDCmr6dSBjM6OrljILY7WPaX
+         xihVBgGeGuR7kVG8TkBFZHajEKzOyo9Ln5iLIu2AOJpT5CYWbU+ZrTthCFwBon/cDFsY
+         oYFMzM//HuBffUZpiOxOqL/vCpAYQ3uLTcAZO+NR83QiCm0vC8tOVbDWFfhx6O9I2u9g
+         l9pT2H4EsUvxasNEmt3IQJtnne4s1Qr5rKgRrGcFx/bnEPvzCou6HwTNBoydyStDQrPn
+         suow==
+X-Forwarded-Encrypted: i=1; AL+hErHz8/tLRWIcqitGsE8rR6vVJ5+3nGEBJuz5Zaul4sTXt3fOg90Ybqeek7KWdVqNXhJqwOsSQoI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+j6aMyLhc1sBdc45Ge68wnADyhQbKsW1P46XgXL3JuNv/7WXW
+	nxS254Ip6ICGiimc5BWcISd2L3NLpRxArMLjRHAV0XroMu9kukqQm5lGGb416s01ijS6IowJ3SO
+	F2Ut/TRqyMxQ3oPrlbmIFD9zW87JpmXkmDUCCS/XT/wdXx35pgzm/gQBYEg==
+X-Gm-Gg: AZFdTZecgrl/R4f/K84k3dJeioNoUUI20nEIrzxi81dN6ESc65Q/Y14J+DGeh2nBKMl
+	jWj+rrREzXLdDEcUO8v+lmSOC6QR7oCeKJ8aVZeosBmexgfDl59hsKrYIMfjPUML9WmCBcQqEx8
+	Ntaw0Q+FCJL2QCIjRq8Yqy25QlwEI1U1sr+72t+gc1j/N0qJgeTDOMXLXtg6+lsKp93HVkzNeT+
+	OPrWoRkRrRu79expHMyJTW4tJLBenM/nKDGEZPkSbivRukMo5DL5FBtdNTrHCtVBrpQuAae4dDF
+	RjCHK82mb3zGojhJQoopmz8433B/lMrKbSNFUTEOZ7GEj31C/AJ7mdt/QoUAjVL4a5vQ7rnLt2p
+	ADQs2qHVsLxSZAJ/IT+LB5Iq7T+SuBAD7evBVeuZsBr669bkaBfBPrSPiYtJ56EbdqO3I5YcCK5
+	Lnoh08vw+E/CScfKRezXTL2oLElwTCX7ZnJXosxjdQAAh7hwTT9JWdeaNJ5Dr/mHQ8XbkGtzeSg
+	4yErgRGyJjzW8oOjzWiR11YeMkjwTd8PupHrC5poY+TGKxO4U58
+X-Received: by 2002:a05:620a:4004:b0:949:7920:9d06 with SMTP id af79cd13be357-949bab0e640mr2535560885a.68.1795526995951;
+        Tue, 24 Nov 2026 05:29:55 -0800 (PST)
+X-Received: by 2002:a05:620a:4004:b0:949:7920:9d06 with SMTP id af79cd13be357-949bab0e640mr2535555885a.68.1795526995359;
+        Tue, 24 Nov 2026 05:29:55 -0800 (PST)
+Received: from cluster.. (4f.55.790d.ip4.static.sl-reverse.com. [13.121.85.79])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb3f1ee7sm1033930385a.28.2026.11.24.05.29.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 05:29:55 -0800 (PST)
+From: Alex Markuze <amarkuze@redhat.com>
+To: Daolong Zhang <dlzhangak@isoftstone.com>
+Cc: Ilya Dryomov <idryomov@gmail.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
+	ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] pwm: gpio: unregister the chip on driver unbind
-Message-ID: <awWQWD1RG-0F2r_o@monoceros>
-References: <20261101032646.11397-1-yuz08559@gmail.com>
+Subject: Re: [PATCH v2] ceph: fix inode and i_filelock_ref leak on file lock rollback
+Date: Tue, 24 Nov 2026 13:29:52 +0000
+Message-Id: <20261124132952.2186886-1-amarkuze@redhat.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <1795396934.6B039543.003.4jXp835gJkz40Rf@fangwg01>
+References: <20261122193828.1324376-1-amarkuze@redhat.com> <1795396934.6B039543.003.4jXp835gJkz40Rf@fangwg01>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,63 +121,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="icbp37xdehavlxab"
-Content-Disposition: inline
-In-Reply-To: <20261101032646.11397-1-yuz08559@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+Hi Daolong,
 
---icbp37xdehavlxab
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] pwm: gpio: unregister the chip on driver unbind
-MIME-Version: 1.0
+Thanks for the patch.
 
-Hello,
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 
-On Sun, Nov 01, 2026 at 01:26:46PM +1000, Yu Zhang wrote:
-> pwm_gpio_probe() registers the chip with pwmchip_add(), but the driver
-> has neither a remove callback nor a devm action calling
-> pwmchip_remove(). On unbind the devres callbacks release the GPIO
-> descriptor, cancel the hrtimer and drop the reference taken by
-> devm_pwmchip_alloc(), while the chip stays registered: it is still in
-> the pwm_chips idr, its sysfs attributes and character device are still
-> there and chip->operational is still true.
->=20
-> The chip can therefore still be reached through sysfs export, the
-> character device, debugfs and pwm_get() from a consumer. Those paths
-> call into chip->ops, which point into unloaded module text once the
-> module is gone, and pwm_gpio_apply() re-arms the cancelled hrtimer and
-> drives a GPIO descriptor the driver no longer owns.
->=20
-> Use devm_pwmchip_add() so that the chip is removed before the hrtimer
-> is cancelled and the GPIO is released.
->=20
-> Fixes: 7f61257cd6e1 ("pwm: Add GPIO PWM driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+-- 
+Alex Markuze
 
-Applied with Stefan's Reviewed-by tag to
-https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
-next
-
-Thanks
-Uwe
-
---icbp37xdehavlxab
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsFkJMACgkQj4D7WH0S
-/k5nWAf+KbEtCX2TojwT9s89cuwvkSRQWogDjs+iq1QUnlR5Adse+e6q9UDhTNgW
-60BLcbTXyTCUZbybVqOdfkO6HrsTDbxh3CqlBpTLRx9OvWrhw+CSNBbCJBdd2VRq
-5qo7XLJQKEMlIzM1k0JTdiETY4sCXH0yQnxY+wMJ2PeqDm1H9leYznt98CKDQgZj
-+3Eg6/gmowkCmlYWldMWga22780eFByBWwlxoLtSIe5Dz+b0uZBo6SfHtmVzI+PZ
-G/pLOrrvW4mraL1k5j4ktv0iP9K087/lSk8QF/Iln8hQvv1doi+u0loj8dOQ29eU
-XicX0aAbLMMFvvOEsmADQHgxi+4Fgg==
-=oZSU
------END PGP SIGNATURE-----
-
---icbp37xdehavlxab--
