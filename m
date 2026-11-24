@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540053;
-	b=uQ5JOf76DbMLmOes1rr4JcicY1/NDjcWGB82erzYdgcxarzKPPCTgu/96aySEcO+bEBg
-	 U1MyYi8t0x7m0LyDSBTzp9Rmdsgc4PekBl7udeL6BdRU/iQe6AmJwnX1y2lvR2YshdWHc
-	 L1ipgSEeRXux14sYVbZ3G5AB/ltw7F+EZMFRi5HnLdsQ+geGEtr7Z3xGt5BKj7qG6gBdo
-	 GvlJt2U9LBiamKB4XVyUMQ9cNuVNPCk+2kSJssEo35BznQE9AcRhUOC641O/NXcGqKa/V
-	 IsnofmisU6le6TEtk68p5tGniMSydvBgsABMwmgWSRhuh3lT4IJQCjqJwG27RD/BlFg==
+	t=1795540075;
+	b=5ruhhM1yiNJSIpGlR3O6BynLMKL++v/vFuQexTRcShl+bxRjAxitMpOMlsgWTe6yfj7E
+	 rrRoMB0JuvUOoDWTugQp6nN0IoeKTA/hJR1yLhKU4cLAnEHSr/ctUx56M6YLstYfiA6jy
+	 gqRvWH1zXcwVF4LFum0rE4HsTHF0dNhisxU0aInw7odnnHwaFw5l8GCjWYDyzeUpGnvt+
+	 KBxyMRCsUtpwWLadzXbAG4+6o6kwF4hfA8pXfXChB9zEHqwTMGlhuZ0PNvrcFRCugFL+n
+	 InFMXOVjQ32crYV3rBASgjji3IDIRO/iBuw3+y24XGGp04vPVpWGykdN8ofG1LX6mHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540053;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540075;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=QNKVqNxaT+KOgtM2wwYRspHLvB/aHDFwTzWwH5vqRSU=;
-	b=RAsr7Q9lFiO36sVI5iuabm3cblaApETo1z0HjI8YSrH8owRk4oTm26DmDFqo1gxibjax
-	 7EYZt5nvUjCEq1ExvUvdCAKxii8e/ZqvzKDbc0zjJTYLYWLysu6/K9B0dEzbI0hfj9ACi
-	 97Y5gBDrlBOwns/ZJxy0/pEomFzVUKNcNgk5gF59rxMDfz2tlcRAogFF+pR5kicXn+7qU
-	 7xNWcRfHKRRd9hOR1WvAdNx1XfVC0FrQ+GAk5bOVgC9lb9gpnPYG1G2yn7W522PeDh7cG
-	 VSohD2zTEZmO6Rhw9+qBechrhYFcjMXEV82FCae3JB/FVvBhmPyS+qiIxUHR412VoyQ==
+	bh=QpSTrZuVUHcb2w4MGUeOUgD2wK8k3hqYw7Z93YAWBFc=;
+	b=wVtk3xG11lw+5Xw5b0x7atix5ZZJl/lcXPWPxyCFlBti/bRznPXiYlcHvgw8tOQ5oy5e
+	 qOhrlfCFhMPMvPppgthdQ8OuzwnOSTbFbTWIZbFJaq34BXyKjxm90Zvf7kGqhZUEXskKZ
+	 XRS1/1pOsz+OXb2olwkkhygsanJUhPQVZaqrKjK/BE93Q75qG4c4bzdRhR+WbV2OiQNOn
+	 XIEjQLZn1THyAcqNL5Ov4qLP97+D3mZ+BFGW4ws7OxQscQETRQWKOJp2Q/YVAhaCbx+/2
+	 ucpkya2iR7O2hmLr6aMR0U6y6sm4SmMkIGXeoFbbdhntQ3ax7474U/7bYlB7I7g68OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=urQtXnSC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YuN9rnn6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA83A606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:07:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6DB606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:07:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=urQtXnSC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A441E1F000C0;
-	Tue, 24 Nov 2026 17:07:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YuN9rnn6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17D631F000D1;
+	Tue, 24 Nov 2026 17:07:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795540053;
-	bh=QNKVqNxaT+KOgtM2wwYRspHLvB/aHDFwTzWwH5vqRSU=;
+	s=korg; t=1795540074;
+	bh=QpSTrZuVUHcb2w4MGUeOUgD2wK8k3hqYw7Z93YAWBFc=;
 	h=Subject:To:Cc:From:Date;
-	b=urQtXnSCZExl/ZhIMgglH29q9hfYwO7q4dzZvFq2gOM2cvDClDi6/DrIAIvG+ISYL
-	 ep9C1YsBwRuuTdjJMvQ0GHOxIJ4v6gu6hKfk7pxU7ubYT98niK8qLmorTeAL5C4x/m
-	 4f/OelL6CY/74OHWKQTIqc2loikiNHDGCESR26vA=
-Subject: FAILED: patch "[PATCH] net/smc: fix link group ownership in handshake abort" failed to apply to 5.15-stable tree
-To: mjambigi@linux.ibm.com,kuba@kernel.org
+	b=YuN9rnn6aN3lSjgYM9LMzYFD8w18S7q6yHEpM38OuXgO0GA6vp77aL3+cBz9PNf4o
+	 64Y7JJkSNOfOmNPlEWe+Xudi3QqMo8xNhJj6g5dTXWGZ9m5oMWhXYNXtLD6Y+bMCxM
+	 7rPITBC/dY7D9Nqebf0f8zluJ3OdvmbyYldsnL6U=
+Subject: FAILED: patch "[PATCH] net: mana: report RX checksum offload for IPv6" failed to apply to 5.10-stable tree
+To: hamzamahfooz@linux.microsoft.com,haiyangz@microsoft.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 18:07:37 +0100
-Message-ID: <2026112437-serpent-backtrack-b978@gregkh>
+Date: Tue, 24 Nov 2026 18:08:15 +0100
+Message-ID: <2026112415-battery-lubricate-18f6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x e227b511582828c5a6513f70fc6a71211e5efbf0
+git cherry-pick -x bbcd02741c4cfbf9e1c59b1906f21ef772bd15eb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112437-serpent-backtrack-b978@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112415-battery-lubricate-18f6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,244 +79,57 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e227b511582828c5a6513f70fc6a71211e5efbf0 Mon Sep 17 00:00:00 2001
-From: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Date: Fri, 6 Nov 2026 14:04:57 +0100
-Subject: [PATCH] net/smc: fix link group ownership in handshake abort
+From bbcd02741c4cfbf9e1c59b1906f21ef772bd15eb Mon Sep 17 00:00:00 2001
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Date: Mon, 9 Nov 2026 09:28:56 -0500
+Subject: [PATCH] net: mana: report RX checksum offload for IPv6
 
-An aborted first-contact handshake can hang the handshake worker on the
-socket lock it already holds, reset the clcsock of a socket that has
-fallen back to TCP, or corrupt the alert-node lookup when the handshake
-retries with the same connection.
+The hardware validates TCP and UDP checksums for both IPv4 and IPv6 and
+reports the result in rx_tcp_csum_succeed and rx_udp_csum_succeed.
+However, mana_rx_skb() also requires rx_iphdr_csum_succeed before it
+sets CHECKSUM_UNNECESSARY. That bit is only set for IPv4 (since IPv6
+has no header checksum), so IPv6 TCP and UDP traffic is always
+checksummed again in software.
 
-The abort leaves a connection registered in a link group that another
-context has already unlinked for termination: smc_conn_free() skips the
-unregister when lgr->list is empty, so the alert token and alert node
-stay in lgr->conns_all. If the handshake retries another device or SMC
-version, smc_conn_create() creates a second link group and
-smc_lgr_register_conn() inserts the same alert node into it: the token
-loop is skipped, rb_link_node() links a node that is still in the old
-tree into the new one, and a second sock_hold() is taken where only one
-sock_put() will follow. The old group's terminator then keeps returning
-that node from rb_first() and can kill a connection that now belongs to
-the new group.
+So, only look at the L4 result. For IPv4 this makes no material
+difference since CHECKSUM_UNNECESSARY only covers the L4 checksum, and
+ip_rcv_core() always verifies the IPv4 header checksum in software.
 
-smc_lgr_cleanup_early() also starts a second termination of the link
-group that is already being terminated, which takes lock_sock() on the
-socket the handshake worker holds; if the termination work wins the race
-instead, it later kills the freed connection and aborts the clcsock of a
-socket that has fallen back to TCP. Making the unregister unconditional
-also lets smc_conn_free() reach the delayed free work on a claimed link
-group, where the lockless freeing check can arm it after the owner has
-cancelled it.
+Between two Azure Standard_E16s_v6 VMs (VF enabled), IPv6 TCP and UDP
+packets (including VXLAN over IPv6), now arrive with
+CHECKSUM_UNNECESSARY instead of CHECKSUM_NONE, so GRO no longer
+checksums them in software. Calls to __skb_gro_checksum_complete() on
+the receiver during an 8 second iperf3 run:
 
-Always unregister the connection, claim a link group for termination
-once under lgr_lock, keep the link group alive across the abort, and arm
-the delayed free work only under the same lock and cancel it
-synchronously before the teardown. Drop an already freed connection in
-smc_conn_kill() without running the connection and socket teardown.
+                               before    after
+  TCP/IPv4, 12.2 Gbps              23       28
+  TCP/IPv6, 12.1 Gbps         8728419       25
+  UDP/IPv6, 1.5 Gbps          1071380       20
+  TCP/VXLAN/IPv6, 10.9 Gbps   7934373       18
 
-Fixes: 2a0674fffb6b ("net/smc: improve abnormal termination of link groups")
-Fixes: f9aab6f2ce57 ("net/smc: immediate freeing in smc_lgr_cleanup_early()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Link: https://patch.msgid.link/20261106130457.1092203-1-mjambigi@linux.ibm.com
+Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
+Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Link: https://patch.msgid.link/20261109142856.779955-1-hamzamahfooz@linux.microsoft.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-index ec5980add7a9..bfc0c7e71a12 100644
---- a/net/smc/af_smc.c
-+++ b/net/smc/af_smc.c
-@@ -1013,14 +1013,15 @@ static void smc_conn_abort(struct smc_sock *smc, int local_first)
- {
- 	struct smc_connection *conn = &smc->conn;
- 	struct smc_link_group *lgr = conn->lgr;
--	bool lgr_valid = false;
--
--	if (smc_conn_lgr_valid(conn))
--		lgr_valid = true;
-+	bool lgr_valid = local_first && smc_conn_lgr_valid(conn);
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 38249e092090..fd9f09abbbdf 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -2179,10 +2179,9 @@ static void mana_rx_skb(void *buf_va, bool from_pool,
+ 	skb_checksum_none_assert(skb);
+ 	skb_record_rx_queue(skb, rxq_idx);
  
-+	if (lgr_valid)
-+		smc_lgr_hold(lgr);	/* lgr_put below */
- 	smc_conn_free(conn);
--	if (local_first && lgr_valid)
-+	if (lgr_valid) {
- 		smc_lgr_cleanup_early(lgr);
-+		smc_lgr_put(lgr);
-+	}
- }
- 
- /* check if there is a rdma device available for this connection. */
-diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-index 0a9f5418329a..a3164201c142 100644
---- a/net/smc/smc_core.c
-+++ b/net/smc/smc_core.c
-@@ -80,16 +80,21 @@ static void smc_ibdev_cnt_dec(struct smc_link *lnk)
- 
- static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
- {
-+	spinlock_t *lgr_lock;
-+
- 	/* client link group creation always follows the server link group
- 	 * creation. For client use a somewhat higher removal delay time,
- 	 * otherwise there is a risk of out-of-sync link groups.
- 	 */
-+	smc_lgr_list_head(lgr, &lgr_lock);
-+	spin_lock_bh(lgr_lock);
- 	if (!lgr->freeing) {
- 		mod_delayed_work(system_percpu_wq, &lgr->free_work,
- 				 (!lgr->is_smcd && lgr->role == SMC_CLNT) ?
- 						SMC_LGR_FREE_DELAY_CLNT :
- 						SMC_LGR_FREE_DELAY_SERV);
- 	}
-+	spin_unlock_bh(lgr_lock);
- }
- 
- /* Register connection's alert token in our lookup structure.
-@@ -679,19 +684,34 @@ int smcd_nl_get_lgr(struct sk_buff *skb, struct netlink_callback *cb)
- 	return skb->len;
- }
- 
--void smc_lgr_cleanup_early(struct smc_link_group *lgr)
-+/* Claim a link group for termination. Only one context can succeed: the
-+ * lgr is removed from its list and marked freeing under lgr_lock.
-+ * Returns false if @lgr is NULL or another context owns it.
-+ */
-+static bool smc_lgr_claim(struct smc_link_group *lgr)
- {
- 	spinlock_t *lgr_lock;
- 
- 	if (!lgr)
--		return;
--
-+		return false;
- 	smc_lgr_list_head(lgr, &lgr_lock);
- 	spin_lock_bh(lgr_lock);
-+	if (lgr->freeing || lgr->terminating || list_empty(&lgr->list)) {
-+		spin_unlock_bh(lgr_lock);
-+		return false;
-+	}
- 	/* do not use this link group for new connections */
--	if (!list_empty(&lgr->list))
--		list_del_init(&lgr->list);
-+	list_del_init(&lgr->list);
-+	lgr->freeing = 1;
- 	spin_unlock_bh(lgr_lock);
-+	return true;
-+}
-+
-+/* The caller must keep @lgr alive for the duration of the call. */
-+void smc_lgr_cleanup_early(struct smc_link_group *lgr)
-+{
-+	if (!smc_lgr_claim(lgr))
-+		return;	/* another context owns the termination */
- 	__smc_lgr_terminate(lgr, true);
- }
- 
-@@ -1281,10 +1301,12 @@ void smc_conn_free(struct smc_connection *conn)
- 		if (current_work() != &conn->abort_work)
- 			cancel_work_sync(&conn->abort_work);
- 	}
--	if (!list_empty(&lgr->list)) {
-+	/* The handshake can retry another device or SMC version with this
-+	 * connection, so it must never stay registered in an lgr it left.
-+	 */
-+	if (!list_empty(&lgr->list))
- 		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
--		smc_lgr_unregister_conn(conn);
+-	if ((ndev->features & NETIF_F_RXCSUM) && cqe->rx_iphdr_csum_succeed) {
+-		if (cqe->rx_tcp_csum_succeed || cqe->rx_udp_csum_succeed)
+-			skb->ip_summed = CHECKSUM_UNNECESSARY;
 -	}
-+	smc_lgr_unregister_conn(conn);
++	if ((ndev->features & NETIF_F_RXCSUM) &&
++	    (cqe->rx_tcp_csum_succeed || cqe->rx_udp_csum_succeed))
++		skb->ip_summed = CHECKSUM_UNNECESSARY;
  
- 	if (!lgr->conns_num)
- 		smc_lgr_schedule_free_work(lgr);
-@@ -1519,6 +1541,15 @@ static void smc_conn_kill(struct smc_connection *conn, bool soft)
- {
- 	struct smc_sock *smc = container_of(conn, struct smc_sock, conn);
- 
-+	if (conn->freed) {
-+		/* The connection was already freed, e.g. by a close or
-+		 * a handshake that fell back to TCP. Do not abort a socket
-+		 * that is no longer part of this link group.
-+		 */
-+		smc_lgr_unregister_conn(conn);
-+		return;
-+	}
-+
- 	if (conn->lgr->is_smcd && conn->lgr->peer_shutdown)
- 		conn->local_tx_ctrl.conn_state_flags.peer_conn_abort = 1;
- 	else
-@@ -1566,12 +1597,20 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
- 	struct smc_connection *conn;
- 	struct smc_sock *smc;
- 	struct rb_node *node;
-+	spinlock_t *lgr_lock;
- 
--	if (lgr->terminating)
-+	smc_lgr_list_head(lgr, &lgr_lock);
-+	spin_lock_bh(lgr_lock);
-+	if (lgr->terminating) {
-+		spin_unlock_bh(lgr_lock);
- 		return;	/* lgr already terminating */
--	/* cancel free_work sync, will terminate when lgr->freeing is set */
--	cancel_delayed_work(&lgr->free_work);
-+	}
- 	lgr->terminating = 1;
-+	spin_unlock_bh(lgr_lock);
-+	/* The lgr is claimed, so no new free_work can be armed; wait for
-+	 * one that is already queued or running.
-+	 */
-+	cancel_delayed_work_sync(&lgr->free_work);
- 
- 	/* kill remaining link group connections */
- 	read_lock_bh(&lgr->conns_lock);
-@@ -1582,7 +1621,11 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
- 		sock_hold(&smc->sk); /* sock_put below */
- 		read_unlock_bh(&lgr->conns_lock);
- 		lock_sock(&smc->sk);
--		smc_conn_kill(conn, soft);
-+		/* The connection may have been re-registered in another
-+		 * link group by a retried handshake in the meantime.
-+		 */
-+		if (conn->lgr == lgr)
-+			smc_conn_kill(conn, soft);
- 		release_sock(&smc->sk);
- 		sock_put(&smc->sk); /* sock_hold above */
- 		read_lock_bh(&lgr->conns_lock);
-@@ -1596,17 +1639,8 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
- /* unlink link group and schedule termination */
- void smc_lgr_terminate_sched(struct smc_link_group *lgr)
- {
--	spinlock_t *lgr_lock;
--
--	smc_lgr_list_head(lgr, &lgr_lock);
--	spin_lock_bh(lgr_lock);
--	if (list_empty(&lgr->list) || lgr->terminating || lgr->freeing) {
--		spin_unlock_bh(lgr_lock);
-+	if (!smc_lgr_claim(lgr))
- 		return;	/* lgr already terminating */
--	}
--	list_del_init(&lgr->list);
--	lgr->freeing = 1;
--	spin_unlock_bh(lgr_lock);
- 	schedule_work(&lgr->terminate_work);
- }
- 
-diff --git a/net/smc/smc_core.h b/net/smc/smc_core.h
-index 5c18f08a4c8a..bff4c9e17792 100644
---- a/net/smc/smc_core.h
-+++ b/net/smc/smc_core.h
-@@ -301,9 +301,9 @@ struct smc_link_group {
- 	struct delayed_work	free_work;	/* delayed freeing of an lgr */
- 	struct work_struct	terminate_work;	/* abnormal lgr termination */
- 	struct workqueue_struct	*tx_wq;		/* wq for conn. tx workers */
--	u8			sync_err : 1;	/* lgr no longer fits to peer */
--	u8			terminating : 1;/* lgr is terminating */
--	u8			freeing : 1;	/* lgr is being freed */
-+	u8			sync_err;	/* lgr no longer fits to peer */
-+	u8			terminating;	/* lgr is terminating */
-+	u8			freeing;	/* lgr is being freed */
- 
- 	refcount_t		refcnt;		/* lgr reference count */
- 	bool			is_smcd;	/* SMC-R or SMC-D */
+ 	if (cqe->rx_hashtype != 0 && (ndev->features & NETIF_F_RXHASH)) {
+ 		if (cqe->rx_hashtype & MANA_HASH_L4)
 
