@@ -1,95 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795477976;
-	b=lJWOC7hfmDjmYs9FPm8fa3TpeiAqG9Sb8oIjyRax6BnBp+DTNdlB4Nu/4VLUktHllV+X
-	 dwjDs2thw9j6W04Q1D4R/biIeVPGmVkPq/VnIFt/9O+gD96vk8KBFYw/IAuVHwhVJ+3g+
-	 t20V5PQ0GRYy8lQBczcETqU/pvc8ygNRSjB5riD331p6QLAK7y5InpznZ9P4IEpGjyCPE
-	 LuLYBHaNh+Mdcn3QYdxV2Iz/W+2g8f0IWZtpJSNIZMwP/SvKAyZVqpx/GUClHAXlgPJ2r
-	 /1OaiWC57o0cLAoM6/ndbQsIym5S526/98Dt/ao/OR6GjUayV7BfFYDbKvOcBcGhK9Q==
+	t=1795478689;
+	b=JxZO2kFZxLgHiHQE1SfnGObvsO7udhNpi1xmZ+TVqr8E59SH9HLF46VA0RzQQHvYjWvP
+	 lqUuP0nGxcxDS2LaNDOZJUGPbV43VEc+5hPCmxwUZNsihgn6tkcIgjyDCVOuK0oNmceLZ
+	 w66cDQJoIXcMD710hTohN3FxLtLj0f2GxmMyvERMAQE17NUhbAPE8RU8PqgLe8yeuSunV
+	 O2VqBLWX71qsRWZDHFJLjvlbBD+yU3DnCncMwdW9CDKzAc61oC/P267GqWajX9AaSlvG8
+	 1gtMsJJfGBrMcd/VbINFS7cIgM58HC/4LZGV3XrGHQtk04dFUpUbbDsxgwh6mhzaDtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795477976;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795478689;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:Received:From:In-Reply-To:
-	 References:MIME-Version:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=t9R+ZhJLVRQZ6TU9eO+IUsJlMED8zPj1Twrn9PsgD0A=;
-	b=RtuKgScJPY39uKQMDfZlmRzwnvYEGhbYArwEhB8F1TbMdOVPW7v1mdlX4CD2Fd9q+xEl
-	 SajT7TA49NCddz5SyJPSG1LqO0cyH2UR3TKYd5n55b8bbp0l8WHLj2qIt4n/fFXp+pIWK
-	 koBOjVPLfRQynxn2tufe2qKhPM1ci9s9/588AZZWwpDHpqdNuggr9Fqv/abHTpwAAXu+a
-	 wscSergTVjIBuKU9lSfV5AQinG6o83cEWUEch1pkGFlEYQSHuqtIzrRgbI0i49NqMDwLV
-	 67Q6DM57dvRyPlM7UwKJabG7R66RY0HcE5myq4HoIJJJjtEWZPz2S2jTu+A6rrKqg1Q==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=NrqsfqzthGjJFnZQLwLkp8teKLCeBqgZhrjo/nTNW9k=;
+	b=iYXKJkbrDFaGvsGA+aPvyFquXwcz19aTM3mefpDaWPbogOvUqQ1dQVN9wvMKPdvxiHP0
+	 8F+hPq2j/0HItKH9WzxWVmMaxoqLbRpZPv1jx1TsjZOgOBSVds6fEwGfpNPXsKheb1wWm
+	 HFctRhev15cHnPlFids1/MWTmNWc/TgSq+y1JAg/JCNJjxODiDXZWQTYYUgpRHSUkYX2N
+	 VKF2fWhGtxQta/vBayWUtrYMpZp0v8uXzLRc9vmz30T6osin4zlbTQAFXwQ+M7OG+APx1
+	 c6c/SAnizjdaCfTfVnsNVTkqV78kb9rbDK8GcpU+HcXR71QT1450ypDBhO0ATmi/xdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=MkSWJMUZ;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gqnhxcHK;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6E4606A322
-	for <stable@vger.kernel.org>; Mon, 23 Nov 2026 23:52:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A6E4606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10383606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 00:04:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10383606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=MkSWJMUZ
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4d581da0aaso536870266b.2
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:52:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gqnhxcHK
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so2036727a91.0
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:04:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1795477974; x=1796082774; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1795478688; x=1796083488; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=t9R+ZhJLVRQZ6TU9eO+IUsJlMED8zPj1Twrn9PsgD0A=;
-        b=MkSWJMUZoHTs9htOkF0i0y7JmPCGhWE3njpwa70DX53WIjtb9nfmmfgDoyQnHzghJW
-         tzckNAmDhBiBR0CS7PuyT0I5PRjEHE21pj9EsE2+5UU17/EysUBJ0WDoO1+Z/cFQ/ghS
-         7bQFj3zVSt1wucVHaJCrVQOQ2pAqTxj4g7qzY=
+        bh=NrqsfqzthGjJFnZQLwLkp8teKLCeBqgZhrjo/nTNW9k=;
+        b=gqnhxcHKXD3IRaY+uy37bTOm0gMDtN0JowrvVe59uofy9L3GzXkmUymPMHMbYp1nFT
+         XrtL99E1WI/NqFV8PXSeq1CZ2iFUwGadsZIEr5ara+ITENybhtiSLgIHEjh3HB5stw03
+         TlA8A02gMafZr4AyP2p9yz96UQhmIKRVppwxAzHgRdbPOoacBhbpF8MOKpGDuFHCGvn4
+         Pr8erwNvSGoMB2UmNRDwG+AvAT80BBfnlfUiIG0VFSm9eNE7WjIpp4GqIWdepmFHSMhJ
+         kXI36RXcf7jjxTzcMra1CzTgWC1//uKaP7BxQUs7dC81fxIs8307b/a3L6MANmqxILob
+         KgpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795477974; x=1796082774;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795478688; x=1796083488;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t9R+ZhJLVRQZ6TU9eO+IUsJlMED8zPj1Twrn9PsgD0A=;
-        b=rVfPYd/RQZ1R+O+sRkrrivf66UdWHFHGcEXrQY8SHxAYpXwEHgTVsLk5L12wAXCQkk
-         LAWFDDhf4b5qNvhHTbGrYG0OFQXMGVr4y46jm8sB9RMVYvR0Fos9vahSmJmBKLlg/bQi
-         naAEDxMD1t7Cpm3DpHHTJ4zXwWIE6oJB6VNgpOAlS4tzWPsuFKQYzusR6agUBLi2Plzu
-         7I0+5BeaNB4kpNhHU1QjjiAazW977ZKiN9wFNaJB95/lYcT+B6Uwr49MN30Gj6RXm/dx
-         wt+SuYYEwSXjuOV+DJK4g608ha1iUPGu8pcNYal9k0z0jkIi+Kblw1Qg9I/GobHQ/OKU
-         N7dQ==
-X-Forwarded-Encrypted: i=1; AL+hErF8nk4l0QJOv5x2nshqRT5FWcpUqV6H96Go6tjNhozssuOTeMs4ukqpUfiy9sbyJpgO1a4B1qI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xl4uIcSZaY+gr7gL0hobYGgEWFzom7HtUM2a2rBnvScem/Ofo
-	qUWI1JvQF9os5T193S8U94pFERdFwaMBqh/Lgi8ix2QbzCTINs1yk0oMakH8rqpbc2q840pJazb
-	4NYPa6uY=
-X-Gm-Gg: AZFdTZdorqcg+Rd/6j2RPZ0aLGS0r8gZ9zNR0L63/NRLSwqqXQEqQk/E6OkIL9XzqLZ
-	4vvu3al5gez5q356y3Sh5mwHE7Nu3LFNfmMYZBLY9eC8Q4OzS0O5EyBoyz+vKrnMBBe2Pk9IQL1
-	UoToO9c+4kCL3WF1cxeE7AewYUmMU1ckTRIyQxmIWySXH2ydNms4ISyVgPHuvM7oLXYjMfUhmGf
-	h/assVnltPAmVIU+Wc6IZasAond/FepUblUmOimylkswcezfwjVh17VrhT2IXfMbywxiDaTUjEr
-	2wB0ac5S52KJEBEnxG/H5aDH2/39FFLvb66e5dEK8LNtPH5uugqbgxYf2L63oH/jKy6pwUieHii
-	MbJjMDaWYySTMn7t/+UJkE0ux5v86xKUPj1+XVuNUa6Bk84v9R2ZWMXYMA74GHoo9xVLwYR30Nj
-	GpgPPUO8gN5CdqahLsaGy6JYqhhj4CiVxResXSRH0YjiG5UOaa7ibB44LJ+s+3SSilQoYFIi5T9
-	i5xMKs/RZoT3nj8jEn7T+EufYdP95P4ozeVZSaijstqcmJWSLf3NvtmQkt49HNuLn43hXzOMmXA
-	4R1dn6WggWS8omg6ybXnL+/zDFfwJbhsRM5wQbzGF6LBeG6Jmi/+eLIRhb6zPY4b6Wx879ibUcV
-	k7JDJNt/UBXl39aGUQ1Hw03Va
-X-Received: by 2002:a17:907:9903:b0:c49:cdc8:10cf with SMTP id a640c23a62f3a-c513ac754cbmr804339666b.40.1795477973570;
-        Mon, 23 Nov 2026 15:52:53 -0800 (PST)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com. [209.85.218.41])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ae8f70fsm454244966b.40.2026.11.23.15.52.52
-        for <stable@vger.kernel.org>
+        bh=NrqsfqzthGjJFnZQLwLkp8teKLCeBqgZhrjo/nTNW9k=;
+        b=VYXo1dEUkRbQGo6pkQWoqhlzcgDEWHtXAUfvXA+6MKJoUeUdyyw3nPJHTilQuM6+vo
+         nY0N+HrapVHWNYHD9CTGb3hJhHm627PnzFIxm+xthIuhHNGhGqrVmql0N6Ak4Rht0obs
+         F3GutiM6OInAw+JohYxpum5t0dynDqGxizT10XNPQUDEEGz7bTj6HeoRQ/rSGNI5W7gu
+         qJsEpkISRR2j3Z/3LGgBJS/YVGWl+KOMUa+V5Cm8dFduw6QimVvwrVjw3nUYMZVoWb61
+         St6K6Ybu/F4YTg0t8ZW6d7VZochFzl+Nm9gYbSPw86qPoj1sMq0rkpo/gosSLtodLEFa
+         R9dQ==
+X-Forwarded-Encrypted: i=1; AL+hErGWSe0gpQ8wnXFT2Vo+2UUzdak36zH3VwiT5o3HIhMaCN5vgl3ZfCwEgNAxsQqGanRNdsGMFLk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9AdseCJ1m74Rj+xU4fRZHR/SQwZlNfq/yZUn10/ET2N/evcbel
+	oVlEIoMMJrFFEort0GbF6UjgeVlPbUNZvqoXcvcWAIC+gFbedU4j+N6W
+X-Gm-Gg: AZFdTZcNcHxeImCfW4ap0EjyEDiVbjrrpRVNNqASF3lCxXb6DbUuM5W2yZ9PrDAsZ9i
+	KEdGNIU3AKcy6tO45LwzVzOaSqvW55JKHp76tpF4rxzqH6d8qLgVr+UbdmADw026mDisasVqCzy
+	6kYhy6fjtP0wlYxgr3P6Y9EaQE1rhSYlZAl/1rdcOvnuJWaF51/wQrCVL1XSyqNLzvT+HQLXqZ6
+	Ndqr/NA1JMOqFqz2FvdkR8iJNK/vj2qiNvJubno5vZvT9z15r6V2SqWEDnyisM47FXHpYRXeGfE
+	mRSFLmNznNCkHvUMEelfra/IYP+y9wk7Ci8z4cY43VdHjMuqEdi6ucVRGQRRQ0vBDhC5MrN1EDH
+	f3i7YsWRwMpGmliDLshhIuVMxgPS72iGlLGcUhyNsvceqZt1rPMYHvaT5XFsuZSLP/Z+bSFL1Q6
+	Dtvl/J3/FklsetkYoHA8Qc2vbY+AO+R7lignUdZa9YTGu9rcB3AcWEOnqMGpZhbps33D4RPlrlG
+	0obf1VnFFmsRkLHYlBIGcHx5Mq2wJzgl4KlsrjJNcJFBV4lY5T5R5CZYa0j/2hoSnU4W1kTA/w3
+	wVTUAXPwtDEU5wKHF8z06f+679mhbauPt1khw/GB5V7N
+X-Received: by 2002:a17:90a:ec88:b0:3b3:b0f4:1bed with SMTP id 98e67ed59e1d1-3b41c8d4855mr11016819a91.19.1795478688087;
+        Mon, 23 Nov 2026 16:04:48 -0800 (PST)
+Received: from ?IPV6:2601:600:a482:7d70::b4f9? ([2601:600:a482:7d70::b4f9])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b704cfesm7096451a91.1.2026.11.23.16.04.47
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Nov 2026 15:52:53 -0800 (PST)
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4d427836e9so537732366b.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 15:52:52 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGpWMktYY/7LGhiQoA7Kc4crLF+obadYmnWMq8cDQRLM1ZY16hIP5THU2hNSjY+5gAiMvi9Fyo=@vger.kernel.org
-X-Received: by 2002:a17:907:934c:b0:c51:282b:5489 with SMTP id
- a640c23a62f3a-c513a4aea3bmr1033595066b.3.1795477972186; Mon, 23 Nov 2026
- 15:52:52 -0800 (PST)
-Received: from 425495914135 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 23 Nov 2026 15:52:51 -0800
-From: Linus Torvalds <torvalds@linux-foundation.org>
-In-Reply-To: <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
-References: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu> <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
+        Mon, 23 Nov 2026 16:04:47 -0800 (PST)
+Message-ID: <83ed6809-ff39-44af-8e3b-a8affa622177@gmail.com>
+Date: Mon, 23 Nov 2026 16:04:46 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,521 +92,187 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 23 Nov 2026 15:52:51 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com>
-X-Gm-Features: Aa3M54pEsdOqyFc5KVu7dlQgkogc1dFe3WsuMPH19Iy8jaujyc-mlv_689cT_78
-Message-ID: <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] sched/wait: Queue non-exclusive waiters at the
- head in do_wait_intr*()
-To: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Oleg Nesterov <oleg@redhat.com>, Christian Brauner <brauner@kernel.org>, 
-	Michal Nazarewicz <mina86@mina86.com>, Wen Yang <wen.yang@linux.dev>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: wwan: iosm: always send the host sleep message
+ on suspend
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, loic.poulain@oss.qualcomm.com,
+ ryazanov.s.a@gmail.com, johannes@sipsolutions.net, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, m.chetan.kumar@linux.intel.com,
+ mail@maciej.szmigiero.name, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261122050039.861287-1-davidlwesten@gmail.com>
+ <179541288475.3135.162337854159176054@kernel.org>
+Content-Language: en-US
+From: David Westen <davidlwesten@gmail.com>
+Autocrypt: addr=davidlwesten@gmail.com; keydata=
+ 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
+In-Reply-To: <179541288475.3135.162337854159176054@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, 22 Nov 2026 at 16:35, Mani Tofigh via B4 Relay
-<devnull+mt4022.columbia.edu@kernel.org> wrote:
->
-> A task blocked in read() on an eventfd or timerfd can sleep forever
-> while the file is readable, if an epoll(EPOLLEXCLUSIVE) watcher of the
-> same file was added before it.
+On 11/22/26 9:48 PM, netdev-bot+sashiko@kernel.org wrote:
+> [Severity: Low]
+> 
+> This removes the only callers of ipc_pcie_suspend_s2idle() and
+> ipc_pcie_resume_s2idle(). They are __maybe_unused, so a W=1 build won't
+> warn. ipc_imem_pm_s2idle_sleep(), ipc_protocol_s2idle_sleep() and
+> ipc_pm_set_s2idle_sleep() become dead code along with them.
+> 
+> ipc_pcie->d3l2_support is also still filled from the ACPI _DSM in
+> ipc_pcie_probe(), but nothing reads it any more. Should these be removed
+> too?
+> 
+> There is also a behaviour change. ipc_pcie_suspend_s2idle() was the only
+> code that set bit 0 of ipc_pcie->suspend, and that bit gates IRQ
+> processing:
+> 
+> [...]
+> 
+> On D0L12 platforms, MSIs that arrived between the suspend and resume
+> callbacks used to be dropped. Now they go to ipc_imem_irq_process() and
+> the tasklet. Was this intended?
 
-Honestly, I don't think this is the right approach.
+Yes. v2 removes the s2idle helpers, the _DSM read, d3l2_support and the
+suspend bit. The commit message says that MSIs arriving between the
+suspend and resume callbacks are now processed, as they already were
+with D3L2.
+> [Severity: Low]
+> 
+> Is this comment true in general? For platform-manageable devices,
+> pci_target_state() returns whatever the firmware chooses:
+> 
+> [...]
+> 
+> So firmware can choose PCI_D0. The commit message describes this as
+> platform-specific ("here chooses D3hot"). The comment turns it into a
+> general rule and uses it to justify ignoring d3l2_support.
+> 
+> Where firmware keeps the WWAN function in D0 for s2idle, the modem would
+> now get the ENTER_SLEEP/EXIT_SLEEP handshake while it stays in D0/L1.2.
+> The notes say that case was not tested, and neither were the XMM7560 or
+> platforms where the doorbells work.
 
-We need to fix the disaster area that is epoll, rather than work around
-more epoll bugs elsewhere and make other places more fragile and
-complex.
+No, v2 says the PCI core "may" put the device into D3.
 
-I think we should stop playing games with wait-queue ordering entirely.
+> [Severity: Low]
+> The Fixes: tag points at be8c936e540f ("net: iosm: power management").
+> That commit only added iosm_ipc_pm.c and iosm_ipc_pm.h.
+> 
+> The code this patch changes lives in iosm_ipc_pcie.c. That covers
+> ipc_pcie_suspend_cb() and ipc_pcie_resume_cb(), including the switch
+> on ipc_pcie->d3l2_support that picked between the s2idle doorbell path
+> and the host sleep message path. As far as I can tell, all of it came
+> in with 7e98d785ae61 ("net: iosm: entry point").
+> 
+> Should the tag be this instead?
+> 
+>   Fixes: 7e98d785ae61 ("net: iosm: entry point")
+> 
+> There is no runtime effect. But the stable tooling and anyone bisecting
+> later rely on the tag to find the commit that introduced the behaviour
+> being changed, so it is worth pointing at the right one.
 
-The problem WQ_EXCLUSIVE tries to fix is the thundering herd issue, and
-I think we could afford to just always walk the whole wait-queue list -
-just not wake up multiple exclusive waiters.
+Yes, fixed in v2.
 
-The wait-queue traversal itself was never the problem, and stopping
-early was a premature optimization that causes these kinds of problems.
+> [Severity: Medium]
+> 
+> Every platform now goes through
+> ipc_pcie_suspend()->ipc_imem_pm_suspend()->ipc_protocol_suspend(). That
+> includes D0L12 platforms and platforms without the _DSM. What happens when
+> the handshake fails?
+> 
+> [...]
+> 
+> Could host_pm_state be rolled back on failure, and then either fall back
+> to the doorbells or fail the suspend?
 
-For example, right now that ordering means not only that we have that
-subtle __add_wait_queue_entry_tail() vs __add_wait_queue() thing - we
-also have that disgusting WQ_FLAG_PRIORITY thing.
+Agreed, the state is left at SLEEP_WAIT_D3. v2 adds a patch that sets it
+back to ACTIVE when the modem doesn't report itself active in time, as
+the path where sending ENTER_SLEEP fails already does.
 
-I think the (single) user of add_wait_queue_priority_exclusive() should
-just walk the queue itself, and not mess up the global wait queue logic
-with its braindamage.
+Suspend still continues after that. Failing it would let a modem that
+doesn't answer block every system suspend, and falling back to the
+doorbells would use the path this XMM7360 doesn't survive.
 
-It's literally just kvm eventfd that is being special - and it's the "my
-mom told me I'm special" kind of special, not the "it's really important
-and fundamental" kind of special.
+An ENTER_SLEEP that times out still counts as success, since
+ipc_protocol_msg_send() returns 0 on a timeout. That's older than this
+series and affects every message the driver sends, so I'd rather leave
+it for a separate change.
 
-The whole hypervisor WQ_FLAG_EXCLUSIVE | WQ_FLAG_PRIORITY games should
-be removed from the core entirely and the those eventfd things should
-move to their own helpers that nobody else needs to care about.
+> [Severity: Medium]
+> 
+> Every system suspend now depends on ipc_pm_wait_for_device_active(). Can
+> it lose the wake ack?
 
-And I think we should always add new waiters to the end of the queue,
-and stop any other games. Just walk the whole queue at wakeup time.
+Yes, and the signal case is real too. v2 adds a patch for both: it sets
+the bit before testing ap_state, adds the pairing barrier in
+ipc_pm_on_link_wake(), reinitializes the completion before each wait,
+and waits uninterruptibly, like the wait for the ENTER_SLEEP reply does.
 
-Finally, I think we should make the return value from the wakeup
-function be a bitmask, and count "exclusive" as only "we haven't seen
-this bit returned yet". And then *real* exclusive users that actually
-guarantee that they react to the wakeup return all bits set, but the
-sh*t-for-brains garbage that is "epoll" only returns its own bit set -
-so we only wake up *one* epoll user, but we wake up other users anyway,
-because epoll clearl yis lying about its "exclusivity".
+> [Severity: Low]
+> 
+> SIMPLE_DEV_PM_OPS(iosm_ipc_pm, ipc_pcie_suspend_cb, ipc_pcie_resume_cb)
+> binds these callbacks to .freeze/.thaw/.poweroff/.restore as well as
+> .suspend/.resume. On D0L12 platforms, hibernation therefore also moves from
+> the doorbells to the ENTER_SLEEP/EXIT_SLEEP handshake. Is that intended?
+> 
+> [...]
+> 
+> S3 on D0L12 platforms changes too.
 
-Because trying to fix the mess that epoll has caused is not worth it. We
-need to just accept the fact that epoll is garbage, but we also need to
-fundamentally make that garbage not mess with the rest of the kernel.
+Since commit 0b6f6593aa8c ("net: wwan: iosm: Fix hibernation by
+re-binding the driver around it") the driver is unbound before
+hibernation, so hibernation only reaches these callbacks on older
+kernels. v2 says so in the commit message, together with the hardware
+it was tested on and what wasn't tested.
 
-Anyway, because I wanted to see who plays games with the wake-up
-function, and because that thing is horribly named ('func' - not exactly
-unambiguous), I did the attached patch. It makes it a bit more obvious
-who actually uses anything but the normal wakeup functions.
+S3 changes the same way. Where S3 cuts the card's power, as here, the
+modem reboots and resume fails with either protocol; my S3 series
+handles that case separately.
 
-It incidentally also made it obvious that very few people knew about out
-'init_wait_func()' helper. We had a couple of users. But we had more
-users that did
+Thanks,
+David
 
-        init_wait(wait);
-        wait->func = im_so_special_wake_fn;
-
-by hand instead. And memcontrol-v1 - that everybody loves - didn't do
-even that, but seemed to write things out by hand entirely.
-
-And the i915 driver did its own thing entirely and re-implemented the
-whole wakeup side. Christ. nilfss is doing something odd too.
-
-No, this patch has not been tested. It seems to compile, at least on
-x86-64 allmodconfig.
-
-Comments? Would anybody be willing to do a deep dive into the whole
-wakeup situation? I'd also love to make the wakeup functions return void
-instead of the number of things woken - because of that whole "exclusive
-would be better off not entirely exclusive" issue, but it looks like the
-sbitmap code actually uses it. Nobody else seems to.
-
-Added Jens because he's the sbitmap person.
-
-               Linus
-
---- untested patch just because I couldn't tell who played games ---
-
- drivers/gpu/drm/i915/display/intel_display_rps.c |  2 +-
- drivers/gpu/drm/i915/i915_active.c               |  2 +-
- drivers/gpu/drm/i915/i915_sw_fence.c             | 10 +++++-----
- drivers/gpu/drm/radeon/radeon_fence.c            |  2 +-
- fs/dax.c                                         |  9 +++------
- fs/eventpoll.c                                   |  3 +--
- fs/gfs2/glock.c                                  |  3 +--
- fs/nfs/nfs4proc.c                                |  3 +--
- fs/nilfs2/segment.c                              |  2 +-
- include/linux/sbitmap.h                          |  2 +-
- include/linux/wait.h                             | 12 ++++++------
- include/linux/wait_bit.h                         |  2 +-
- io_uring/io-wq.c                                 |  2 +-
- io_uring/rw.c                                    |  2 +-
- kernel/sched/wait.c                              |  4 ++--
- kernel/sched/wait_bit.c                          |  8 ++++----
- mm/filemap.c                                     |  6 ++----
- mm/memcontrol-v1.c                               |  5 +----
- 18 files changed, 34 insertions(+), 45 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display_rps.c
-b/drivers/gpu/drm/i915/display/intel_display_rps.c
-index 2f8248458826..fa707a144d5b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_rps.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_rps.c
-@@ -68,7 +68,7 @@ void intel_display_rps_boost_after_vblank(struct
-drm_crtc *crtc,
- 	wait->fence = dma_fence_get(fence);
- 	wait->crtc = crtc;
-
--	wait->wait.func = do_rps_boost;
-+	wait->wait.wake_up_fn = do_rps_boost;
- 	wait->wait.flags = 0;
-
- 	add_wait_queue(drm_crtc_vblank_waitqueue(crtc), &wait->wait);
-diff --git a/drivers/gpu/drm/i915/i915_active.c
-b/drivers/gpu/drm/i915/i915_active.c
-index b2442f05825e..1c207ddab5ba 100644
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -666,7 +666,7 @@ static int __await_barrier(struct i915_active
-*ref, struct i915_sw_fence *fence)
- 	}
-
- 	wb->base.flags = 0;
--	wb->base.func = barrier_wake;
-+	wb->base.wake_up_fn = barrier_wake;
- 	wb->base.private = fence;
- 	wb->ref = ref;
-
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c
-b/drivers/gpu/drm/i915/i915_sw_fence.c
-index f24f616e23ee..156a65f009eb 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence.c
-@@ -161,7 +161,7 @@ static void __i915_sw_fence_wake_up_all(struct
-i915_sw_fence *fence,
- 			if (pos->flags & I915_SW_FENCE_FLAG_FENCE)
- 				list_move_tail(&pos->entry, continuation);
- 			else
--				pos->func(pos, TASK_NORMAL, 0, continuation);
-+				pos->wake_up_fn(pos, TASK_NORMAL, 0, continuation);
- 		}
- 	} else {
- 		LIST_HEAD(extra);
-@@ -174,7 +174,7 @@ static void __i915_sw_fence_wake_up_all(struct
-i915_sw_fence *fence,
- 				if (pos->flags & I915_SW_FENCE_FLAG_FENCE)
- 					wake_flags = fence->error;
-
--				pos->func(pos, TASK_NORMAL, wake_flags, &extra);
-+				pos->wake_up_fn(pos, TASK_NORMAL, wake_flags, &extra);
- 			}
-
- 			if (list_empty(&extra))
-@@ -291,7 +291,7 @@ static bool __i915_sw_fence_check_if_after(struct
-i915_sw_fence *fence,
- 		return true;
-
- 	list_for_each_entry(wq, &fence->wait.head, entry) {
--		if (wq->func != i915_sw_fence_wake)
-+		if (wq->wake_up_fn != i915_sw_fence_wake)
- 			continue;
-
- 		if (__i915_sw_fence_check_if_after(wq->private, signaler))
-@@ -309,7 +309,7 @@ static void
-__i915_sw_fence_clear_checked_bit(struct i915_sw_fence *fence)
- 		return;
-
- 	list_for_each_entry(wq, &fence->wait.head, entry) {
--		if (wq->func != i915_sw_fence_wake)
-+		if (wq->wake_up_fn != i915_sw_fence_wake)
- 			continue;
-
- 		__i915_sw_fence_clear_checked_bit(wq->private);
-@@ -375,7 +375,7 @@ static int __i915_sw_fence_await_sw_fence(struct
-i915_sw_fence *fence,
-
- 	INIT_LIST_HEAD(&wq->entry);
- 	wq->flags = pending;
--	wq->func = i915_sw_fence_wake;
-+	wq->wake_up_fn = i915_sw_fence_wake;
- 	wq->private = fence;
-
- 	i915_sw_fence_await(fence);
-diff --git a/drivers/gpu/drm/radeon/radeon_fence.c
-b/drivers/gpu/drm/radeon/radeon_fence.c
-index 8e9402b8811b..d254278d0cb5 100644
---- a/drivers/gpu/drm/radeon/radeon_fence.c
-+++ b/drivers/gpu/drm/radeon/radeon_fence.c
-@@ -409,7 +409,7 @@ static bool radeon_fence_enable_signaling(struct
-dma_fence *f)
-
- 	fence->fence_wake.flags = 0;
- 	fence->fence_wake.private = NULL;
--	fence->fence_wake.func = radeon_fence_check_signaled;
-+	fence->fence_wake.wake_up_fn = radeon_fence_check_signaled;
- 	__add_wait_queue(&rdev->fence_queue, &fence->fence_wake);
- 	dma_fence_get(f);
- 	return true;
-diff --git a/fs/dax.c b/fs/dax.c
-index 9d161d7ef3ef..4e8cad4dcb95 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -215,8 +215,7 @@ static void *get_next_unlocked_entry(struct
-xa_state *xas, unsigned int order)
- 	struct wait_exceptional_entry_queue ewait;
- 	wait_queue_head_t *wq;
-
--	init_wait(&ewait.wait);
--	ewait.wait.func = wake_exceptional_entry_func;
-+	init_wait_func(&ewait.wait, wake_exceptional_entry_func);
-
- 	for (;;) {
- 		entry = xas_find_conflict(xas);
-@@ -248,8 +247,7 @@ static void *wait_entry_unlocked_exclusive(struct
-xa_state *xas, void *entry)
- 	struct wait_exceptional_entry_queue ewait;
- 	wait_queue_head_t *wq;
-
--	init_wait(&ewait.wait);
--	ewait.wait.func = wake_exceptional_entry_func;
-+	init_wait_func(&ewait.wait, wake_exceptional_entry_func);
-
- 	while (unlikely(dax_is_locked(entry))) {
- 		wq = dax_entry_waitqueue(xas, entry, &ewait.key);
-@@ -279,8 +277,7 @@ static void wait_entry_unlocked(struct xa_state
-*xas, void *entry)
- 	struct wait_exceptional_entry_queue ewait;
- 	wait_queue_head_t *wq;
-
--	init_wait(&ewait.wait);
--	ewait.wait.func = wake_exceptional_entry_func;
-+	init_wait_func(&ewait.wait, wake_exceptional_entry_func);
-
- 	wq = dax_entry_waitqueue(xas, entry, &ewait.key);
- 	/*
-diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index b959af04772c..0e13477f8be5 100644
---- a/fs/eventpoll.c
-+++ b/fs/eventpoll.c
-@@ -2333,8 +2333,7 @@ static int ep_poll(struct eventpoll *ep, struct
-epoll_event __user *events,
- 		 * performance issue if a process is killed, causing all of its
- 		 * threads to wake up without being removed normally.
- 		 */
--		init_wait(&wait);
--		wait.func = ep_autoremove_wake_function;
-+		init_wait_func(&wait, ep_autoremove_wake_function);
-
- 		spin_lock_irq(&ep->lock);
- 		/*
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index d22a088c66cd..cd3ad3cb91a8 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -1009,8 +1009,7 @@ static struct gfs2_glock
-*find_insert_glock(struct lm_lockname *name,
- 	struct gfs2_glock *gl;
-
- 	wait.name = name;
--	init_wait(&wait.wait);
--	wait.wait.func = glock_wake_function;
-+	init_wait_func(&wait.wait, glock_wake_function);
-
- again:
- 	prepare_to_wait(wq, &wait.wait, TASK_UNINTERRUPTIBLE);
-diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index 6759fa61b9b4..d817d12249da 100644
---- a/fs/nfs/nfs4proc.c
-+++ b/fs/nfs/nfs4proc.c
-@@ -7757,8 +7757,7 @@ nfs4_retry_setlk(struct nfs4_state *state, int
-cmd, struct file_lock *request)
- 	if (!test_bit(NFS_STATE_MAY_NOTIFY_LOCK, &state->flags))
- 		return nfs4_retry_setlk_simple(state, cmd, request);
-
--	init_wait(&waiter.wait);
--	waiter.wait.func = nfs4_wake_lock_waiter;
-+	init_wait_func(&waiter.wait, nfs4_wake_lock_waiter);
- 	add_wait_queue(q, &waiter.wait);
-
- 	do {
-diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-index af0c3560444f..ec14365762c2 100644
---- a/fs/nilfs2/segment.c
-+++ b/fs/nilfs2/segment.c
-@@ -2297,7 +2297,7 @@ static void nilfs_segctor_wakeup(struct
-nilfs_sc_info *sci, int err, bool force)
- 			atomic_set(&wrq->done, 1);
- 		}
- 		if (atomic_read(&wrq->done)) {
--			wrq->wq.func(&wrq->wq,
-+			wrq->wq.wake_up_fn(&wrq->wq,
- 				     TASK_UNINTERRUPTIBLE | TASK_INTERRUPTIBLE,
- 				     0, NULL);
- 		}
-diff --git a/include/linux/sbitmap.h b/include/linux/sbitmap.h
-index cc7ad189caa5..6317a60d8df2 100644
---- a/include/linux/sbitmap.h
-+++ b/include/linux/sbitmap.h
-@@ -595,7 +595,7 @@ struct sbq_wait {
- 		.sbq = NULL,							\
- 		.wait = {							\
- 			.private	= current,				\
--			.func		= autoremove_wake_function,		\
-+			.wake_up_fn	= autoremove_wake_function,		\
- 			.entry		= LIST_HEAD_INIT((name).wait.entry),	\
- 		}								\
- 	}
-diff --git a/include/linux/wait.h b/include/linux/wait.h
-index b3e94c71cd3e..0252fc690b26 100644
---- a/include/linux/wait.h
-+++ b/include/linux/wait.h
-@@ -28,7 +28,7 @@ int default_wake_function(struct wait_queue_entry
-*wq_entry, unsigned mode, int
- struct wait_queue_entry {
- 	unsigned int		flags;
- 	void			*private;
--	wait_queue_func_t	func;
-+	wait_queue_func_t	wake_up_fn;
- 	struct list_head	entry;
- };
-
-@@ -46,7 +46,7 @@ struct task_struct;
-
- #define __WAITQUEUE_INITIALIZER(name, tsk) {					\
- 	.private	= tsk,							\
--	.func		= default_wake_function,				\
-+	.wake_up_fn	= default_wake_function,				\
- 	.entry		= { NULL, NULL } }
-
- #define DECLARE_WAITQUEUE(name, tsk)						\
-@@ -81,7 +81,7 @@ static inline void init_waitqueue_entry(struct
-wait_queue_entry *wq_entry, struc
- {
- 	wq_entry->flags		= 0;
- 	wq_entry->private	= p;
--	wq_entry->func		= default_wake_function;
-+	wq_entry->wake_up_fn	= default_wake_function;
- }
-
- static inline void
-@@ -89,7 +89,7 @@ init_waitqueue_func_entry(struct wait_queue_entry
-*wq_entry, wait_queue_func_t f
- {
- 	wq_entry->flags		= 0;
- 	wq_entry->private	= NULL;
--	wq_entry->func		= func;
-+	wq_entry->wake_up_fn	= func;
- }
-
- /**
-@@ -1228,7 +1228,7 @@ int autoremove_wake_function(struct
-wait_queue_entry *wq_entry, unsigned mode, i
- #define DEFINE_WAIT_FUNC(name, function)					\
- 	struct wait_queue_entry name = {					\
- 		.private	= current,					\
--		.func		= function,					\
-+		.wake_up_fn	= function,					\
- 		.entry		= LIST_HEAD_INIT((name).entry),			\
- 	}
-
-@@ -1237,7 +1237,7 @@ int autoremove_wake_function(struct
-wait_queue_entry *wq_entry, unsigned mode, i
- #define init_wait_func(wait, function)						\
- 	do {									\
- 		(wait)->private = current;					\
--		(wait)->func = function;					\
-+		(wait)->wake_up_fn = function;					\
- 		INIT_LIST_HEAD(&(wait)->entry);					\
- 		(wait)->flags = 0;						\
- 	} while (0)
-diff --git a/include/linux/wait_bit.h b/include/linux/wait_bit.h
-index af077ed4caf6..0bec1e7ea485 100644
---- a/include/linux/wait_bit.h
-+++ b/include/linux/wait_bit.h
-@@ -41,7 +41,7 @@ int wake_bit_function(struct wait_queue_entry
-*wq_entry, unsigned mode, int sync
- 		.key = __WAIT_BIT_KEY_INITIALIZER(word, bit),			\
- 		.wq_entry = {							\
- 			.private	= current,				\
--			.func		= wake_bit_function,			\
-+			.wake_up_fn	= wake_bit_function,			\
- 			.entry		=					\
- 				LIST_HEAD_INIT((name).wq_entry.entry),		\
- 		},								\
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index 9609ae50dbd7..faf159d37026 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -1409,7 +1409,7 @@ struct io_wq *io_wq_create(unsigned bounded,
-struct io_wq_data *data)
- 	wq->acct[IO_WQ_ACCT_UNBOUND].max_workers =
- 				task_rlimit(current, RLIMIT_NPROC);
- 	INIT_LIST_HEAD(&wq->wait.entry);
--	wq->wait.func = io_wq_hash_wake;
-+	wq->wait.wake_up_fn = io_wq_hash_wake;
- 	for (i = 0; i < IO_WQ_ACCT_NR; i++) {
- 		struct io_wq_acct *acct = &wq->acct[i];
-
-diff --git a/io_uring/rw.c b/io_uring/rw.c
-index cf20597ba6a8..3e29bf8a1e57 100644
---- a/io_uring/rw.c
-+++ b/io_uring/rw.c
-@@ -804,7 +804,7 @@ static bool io_rw_should_retry(struct io_kiocb *req)
- 	    !(req->file->f_op->fop_flags & FOP_BUFFER_RASYNC))
- 		return false;
-
--	wait->wait.func = io_async_buf_func;
-+	wait->wait.wake_up_fn = io_async_buf_func;
- 	wait->wait.private = req;
- 	wait->wait.flags = 0;
- 	INIT_LIST_HEAD(&wait->wait.entry);
-diff --git a/kernel/sched/wait.c b/kernel/sched/wait.c
-index f8d6d8b9d03e..5339faf2c84d 100644
---- a/kernel/sched/wait.c
-+++ b/kernel/sched/wait.c
-@@ -105,7 +105,7 @@ static int __wake_up_common(struct wait_queue_head
-*wq_head, unsigned int mode,
- 		unsigned flags = curr->flags;
- 		int ret;
-
--		ret = curr->func(curr, mode, wake_flags, key);
-+		ret = curr->wake_up_fn(curr, mode, wake_flags, key);
- 		if (ret < 0)
- 			break;
- 		if (ret && (flags & WQ_FLAG_EXCLUSIVE) && !--nr_exclusive)
-@@ -269,7 +269,7 @@ void init_wait_entry(struct wait_queue_entry
-*wq_entry, int flags)
- {
- 	wq_entry->flags = flags;
- 	wq_entry->private = current;
--	wq_entry->func = autoremove_wake_function;
-+	wq_entry->wake_up_fn = autoremove_wake_function;
- 	INIT_LIST_HEAD(&wq_entry->entry);
- }
- EXPORT_SYMBOL(init_wait_entry);
-diff --git a/kernel/sched/wait_bit.c b/kernel/sched/wait_bit.c
-index 348f7211b4aa..2936887fad6f 100644
---- a/kernel/sched/wait_bit.c
-+++ b/kernel/sched/wait_bit.c
-@@ -198,10 +198,10 @@ void init_wait_var_entry(struct
-wait_bit_queue_entry *wbq_entry, void *var, int
- 			.bit_nr = -1,
- 		},
- 		.wq_entry = {
--			.flags	 = flags,
--			.private = current,
--			.func	 = var_wake_function,
--			.entry	 = LIST_HEAD_INIT(wbq_entry->wq_entry.entry),
-+			.flags	    = flags,
-+			.private    = current,
-+			.wake_up_fn = var_wake_function,
-+			.entry	    = LIST_HEAD_INIT(wbq_entry->wq_entry.entry),
- 		},
- 	};
- }
-diff --git a/mm/filemap.c b/mm/filemap.c
-index a1b2ca5b933c..931de8fedc36 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -1263,8 +1263,7 @@ static inline int folio_wait_bit_common(struct
-folio *folio, int bit_nr,
- 		thrashing = true;
- 	}
-
--	init_wait(wait);
--	wait->func = wake_page_function;
-+	init_wait_func(wait, wake_page_function);
- 	wait_page.folio = folio;
- 	wait_page.bit_nr = bit_nr;
-
-@@ -1430,8 +1429,7 @@ void softleaf_entry_wait_on_locked(softleaf_t
-entry, spinlock_t *ptl)
- 		thrashing = true;
- 	}
-
--	init_wait(wait);
--	wait->func = wake_page_function;
-+	init_wait_func(wait, wake_page_function);
- 	wait_page.folio = folio;
- 	wait_page.bit_nr = PG_locked;
- 	wait->flags = 0;
-diff --git a/mm/memcontrol-v1.c b/mm/memcontrol-v1.c
-index b7f286888507..cc5c64cbdfff 100644
---- a/mm/memcontrol-v1.c
-+++ b/mm/memcontrol-v1.c
-@@ -1053,10 +1053,7 @@ bool mem_cgroup_oom_synchronize(bool handle)
- 		goto cleanup;
-
- 	owait.memcg = memcg;
--	owait.wait.flags = 0;
--	owait.wait.func = memcg_oom_wake_function;
--	owait.wait.private = current;
--	INIT_LIST_HEAD(&owait.wait.entry);
-+	init_wait_func(&owait.wait, memcg_oom_wake_function);
-
- 	prepare_to_wait(&memcg_oom_waitq, &owait.wait, TASK_KILLABLE);
- 	mem_cgroup_mark_under_oom(memcg);
