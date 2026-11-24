@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795533804;
-	b=mXSMHKTwq5rkLjGQHmoCUOo0klQy7YE+W7ULYjEXjH1bXS9899qBHrZg+S37eaJPaq/M
-	 K7fLXogJ9sBmgvlmLGleNhcauVUU6+5qAsl2S4OYME1sAjtqLiI30UoYodTAzBayaFZgi
-	 Gym9C+s2bzh7c81if54bpIghKHQ3aZYUJhLhxalw0Gp5hybUlqsk4dSuADFtws6pHOi5V
-	 K7ueHv0pvuPv+3JinCXyAmFjsLlcMRW3UE9NQxHPtizMhV90ezHihZI5oE4R83GYNneTd
-	 oDP6x32LXLMvnVZh1Fr07NrgB/CUF3EzJE8tWqRzzawXNj/kQI6RYJyZKrtzmZShxOg==
+	t=1795534560;
+	b=haEwsPRcHV25VRtdEgfvmRfFFt5izaQciJDONFgFaaKZq8f9OR4enHno6qzsSlsTejuE
+	 yAr8lQUkuAB+c8lGEdmG8tT/kvGxEZekOtXafH4eBZAjp3fbNTHbma5izTmnLseFXat6U
+	 9NGx+3eKmPKOH+kMus3G3VWAKe5Ao8mMu5z4phDAgkQgp6NwI0euLDYt8zMiZE37xCBcx
+	 5UXMadYrjIA+43vOhC8WNgeN7gttuEYBjQ5ZB4PifuwcPzyoJjfEZrHeaFSROBavRu0yK
+	 96tzQZXnGu95VU6Btvxao7PvDpy8lLIyDJ1vBEp9m1ZGAalrdSveV3rl7QUSRR4eL+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533804;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534560;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tM0CIXS0YKX0CWkq+pLSO/o6JfejdP8Z0Jf6O6mRF8I=;
-	b=r9WNU+gFgioG0C9K3w0PmXlpb0SkMXi/oN1hCBT09SbFtMTWHZZ7X1lPr3NV8vMk8GBM
-	 Ud+jEZcLEZWxNiKfC60pzvmqLHxd/NMYSaz7zkgPcZGikSexqHPtl7awPrGhvKUGWzuf/
-	 YDM3VgQnel9grZR49bQJDAx3u9mOYJ+PjiFtgRXa1Mt+5K+JPR1rxVdVDnmqXIiBcpfRg
-	 ZqzWOFNpgEh+eCA9/qlgDo8nqv9NFhiISt1m6W/Azoo6hDE365YhHQVEiVAeY91QwKTjE
-	 fxJadMmXBHP0fKRs7vpop9mIRuLnnwhD6Wxx84StxzpSXsjx61mA8YCGun+F+vAtrsA==
+	bh=A6V2JwCOj+0RssqSlfBNT698dfMCswQXAEPDTkyDhiY=;
+	b=5CYtYhr9uA9v1AXpOdJmAHAP13FHAIKillkw8SVl3w4a3kel50sYailEt4hJBfvXIyf9
+	 lgPScM9TEELfxzJgzp5HN+CrjYIGTdJAx/pX53uyj5p+QKfUXmVe2QcCLYio8Tzw4SJpn
+	 wG+r6osx5c/f7hQg3eb+/ph8Mmf/ucSzgtEegd/FpZUpYSVoFnlBwghh/1jRXRY6MuPYX
+	 LMbyRJze97+WyRnYoNmJcmIViccPAJlHkZtcxjqx4foyo/IRF5rK29/86IP+jukqNxxg6
+	 lKjLk8M27RQFj8vQCBy76t/a9+C7vEU33jPisN7l7KZg/hS7jaj33/7zSvyS6ni2SGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wJCuqMO3;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yt3psuft;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513D1606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:23:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9358B606A323
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:36:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wJCuqMO3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07F8E1F000EB;
-	Tue, 24 Nov 2026 15:23:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yt3psuft
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76EA31F000C4;
+	Tue, 24 Nov 2026 15:35:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795533803;
-	bh=tM0CIXS0YKX0CWkq+pLSO/o6JfejdP8Z0Jf6O6mRF8I=;
+	s=korg; t=1795534560;
+	bh=A6V2JwCOj+0RssqSlfBNT698dfMCswQXAEPDTkyDhiY=;
 	h=Subject:To:Cc:From:Date;
-	b=wJCuqMO3kx8MGBPLmXQn54V0Et0mZIe4lnzoddnIEGuvaOGvufvXeNdiTA4W0rQ/E
-	 hnuppQyiYVYsgYV901P5lGB2g554VUsmzstNQhsyGNxauuQdGij451D19Ph8lmfpod
-	 RHcSh2st3xfvbaUm3zZt5EQgFwmE8lC885iG+Wrc=
-Subject: FAILED: patch "[PATCH] eventpoll: wake the next waiter when a woken waiter is killed" failed to apply to 5.10-stable tree
-To: mt4022@columbia.edu,brauner@kernel.org
+	b=yt3psuftiVibqIKEow35QB7OhZSbMfPZOCz4heHUl1kV6DlTH+2yN4mRA3PcYPSoR
+	 lJSKeC9zJrHGqLqjXoY1/065yEZUdbx3hPquVLqLZkQm4ZVeIgiNdhWBP9R/9EIJXS
+	 /mpOYxroHfv9pmCQjPLkpIljmJd6jBune/RQjndY=
+Subject: FAILED: patch "[PATCH] mm, page_alloc: pass zone pointer to trace_reclaim_retry_zone" failed to apply to 6.6-stable tree
+To: josef@toxicpanda.com,david@kernel.org,gourry@gourry.net,vbabka@kernel.org,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:23:44 +0100
-Message-ID: <2026112443-enactment-candle-5f6b@gregkh>
+Date: Tue, 24 Nov 2026 16:36:20 +0100
+Message-ID: <2026112420-diligence-gift-dd3f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9f4413e522faed76f4cf610098b2369eb3ba1f1c
+git cherry-pick -x 6c48b3ab4ee435c41c3395d31e8ec3dbccc3478c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112443-enactment-candle-5f6b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112420-diligence-gift-dd3f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,70 +79,81 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9f4413e522faed76f4cf610098b2369eb3ba1f1c Mon Sep 17 00:00:00 2001
-From: Mani Tofigh <mt4022@columbia.edu>
-Date: Tue, 3 Nov 2026 13:19:01 -0500
-Subject: [PATCH] eventpoll: wake the next waiter when a woken waiter is killed
+From 6c48b3ab4ee435c41c3395d31e8ec3dbccc3478c Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Sat, 31 Oct 2026 22:13:31 -0400
+Subject: [PATCH] mm, page_alloc: pass zone pointer to trace_reclaim_retry_zone
 
-Processes sharing an epoll instance can sleep forever while an event is
-ready.  An event wakes only one waiter, which then wakes the next one in
-ep_done_scan() if events are still ready.  Since commit c257a340ede0
-("fs, epoll: short circuit fetching events if thread has been killed"),
-ep_send_events() returns before the scan when the waiter has a fatal
-signal.  If the woken waiter is killed before it runs, nobody wakes the
-next one:
+should_reclaim_retry() walks a zonelist and passes the zoneref pointer
+to the reclaim_retry_zone tracepoint, which loads the zone from the
+entry again to find the node.
 
-  Task A                     Task B                 Task C
-  epoll_wait(ep, -1)         epoll_wait(ep, -1)
-                                                    write(efd)
-                                                      /* wakes A only */
-                                                    kill(A, SIGKILL)
-  ep_send_events()
-    return -EINTR
-      /* skips ep_done_scan() */
-                             /* still asleep */
+Memory hotplug rebuilds the zonelists in place while allocations are
+under way. When a zone in front of the zoneref entry has become empty,
+the entries move up, and this one can be the end marker by the time the
+tracepoint looks at it. zonelist_node_idx() then dereferences a NULL
+zone. Short of that, the event can name another zone than the one its
+numbers belong to.
 
-B then sleeps until another file on the instance becomes ready, if ever.
-This can hit eg a pre-fork server whose worker gets OOM killed.  Commit
-7fab29e35630 ("fs/epoll: restore waking from ep_done_scan()") fixed the
-same kind of hang when the wakeup in ep_done_scan() was removed.
+Pass the zone pointer instead of the zoneref pointer.
 
-Keep the early return so that a dying task still doesn't take events
-nobody will see, but wake the next waiter there if events are ready, as
-ep_done_scan() would have.  With the fix, B gets the event.
-
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it within about 2s.
-
-Fixes: c257a340ede0 ("fs, epoll: short circuit fetching events if thread has been killed")
+Fixes: d379f01de095 ("oom, trace: add oom detection tracepoints")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
-Link: https://patch.msgid.link/20261103-epoll-killed-waiter-v1-1-36e08c16b8a2@columbia.edu
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Link: https://patch.msgid.link/20261101021340.2251928-4-gourry@gourry.net
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index 7a32c70bf2ad..b959af04772c 100644
---- a/fs/eventpoll.c
-+++ b/fs/eventpoll.c
-@@ -2144,10 +2144,17 @@ static int ep_send_events(struct eventpoll *ep,
- 	/*
- 	 * Always short-circuit for fatal signals to allow threads to make a
- 	 * timely exit without the chance of finding more events available and
--	 * fetching repeatedly.
-+	 * fetching repeatedly. The wakeup that got us here may have been the
-+	 * only one for the events on ->rdllist, so pass it on to the next
-+	 * waiter, as ep_done_scan() would have.
- 	 */
--	if (fatal_signal_pending(current))
-+	if (fatal_signal_pending(current)) {
-+		spin_lock_irq(&ep->lock);
-+		if (!list_empty(&ep->rdllist))
-+			wake_up(&ep->wq);
-+		spin_unlock_irq(&ep->lock);
- 		return -EINTR;
-+	}
+diff --git a/include/trace/events/oom.h b/include/trace/events/oom.h
+index 9f0a5d1482c4..cbcf6fe4cc61 100644
+--- a/include/trace/events/oom.h
++++ b/include/trace/events/oom.h
+@@ -33,7 +33,7 @@ TRACE_EVENT(oom_score_adj_update,
  
- 	init_poll_funcptr(&pt, NULL);
+ TRACE_EVENT(reclaim_retry_zone,
  
+-	TP_PROTO(struct zoneref *zoneref,
++	TP_PROTO(struct zone *zone,
+ 		int order,
+ 		unsigned long reclaimable,
+ 		unsigned long available,
+@@ -41,7 +41,7 @@ TRACE_EVENT(reclaim_retry_zone,
+ 		int no_progress_loops,
+ 		bool wmark_check),
+ 
+-	TP_ARGS(zoneref, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
++	TP_ARGS(zone, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(	int, node)
+@@ -55,8 +55,8 @@ TRACE_EVENT(reclaim_retry_zone,
+ 	),
+ 
+ 	TP_fast_assign(
+-		__entry->node = zonelist_node_idx(zoneref);
+-		__entry->zone_idx = zonelist_zone_idx(zoneref);
++		__entry->node = zone_to_nid(zone);
++		__entry->zone_idx = zone_idx(zone);
+ 		__entry->order = order;
+ 		__entry->reclaimable = reclaimable;
+ 		__entry->available = available;
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 20bfd11c5851..c09eca21a6b0 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4670,7 +4670,7 @@ should_reclaim_retry(gfp_t gfp_mask, unsigned order,
+ 		 */
+ 		wmark = __zone_watermark_ok(zone, order, min_wmark,
+ 				ac->highest_zoneidx, alloc_flags, available);
+-		trace_reclaim_retry_zone(z, order, reclaimable,
++		trace_reclaim_retry_zone(zone, order, reclaimable,
+ 				available, min_wmark, *no_progress_loops, wmark);
+ 		if (wmark) {
+ 			ret = true;
 
