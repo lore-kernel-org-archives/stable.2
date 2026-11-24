@@ -1,58 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795545439;
-	b=Y8+jTkVjVr4RiySycs+/wSI4cMxT4P+/BCXYlZEMAnHtl6NmsP99hCMflnwKzMx8MSEt
-	 46KihBj8lzLUO3ARKQ9klI3852PQcxAIqtTYK0Ma+H3EfAgWT3UErGDxY+EuxyOxISQvh
-	 xl0zhdsG4kFQSxKUBlNs/O8Mc1URpwGhijzgwiTX4ckxkaW2NPlgzcOiqYmRya9ls4lfs
-	 d1wS2OZ1MaPMKDFaKJLaSAAoEJ6EvwUI4R3TaNAyjYUARcowTvDw8On0B6QYSwnalpXyy
-	 527uIJ6U1NpYB61XGHWxoMiwQ157DGWIKDMOIawKpaI/t/qBxn4qcgJs88gqHTh4GJg==
+	t=1795545465;
+	b=SBvb0gxn2rjCN+6mZoeh12GkkRdWvpWbcOwhtiFgMzJFmMLjbHAs8PoXW1JCbX5VJoc9
+	 LTjeJiLnWrlKlJYF0dpi5tcoTY8E2awoj5Jcz19JPZvbMELhpaXlOxBHlYs8adZXCA2fG
+	 1/xk2OgMhyETVJauNWP26CekCoWtgXzPKa854xtwcySgb7HYKp3NVfGXQHE3kFlVsBGnh
+	 rR9ECODDxIoKCY1qFVSRiQszxa59C++bkm3ymu5jF9TDnK201AJENw8UBI8WKSgDtdj/e
+	 l34fDpacSh+oUKjOsizN2Pf65b4LMsBilqkUYH6G2Tkun/Wg2cN8H59NYdAmi8ZWssQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795545439;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=J3Z/iG6i8DU6ZQh4DtG79WYAyIaGqOiYgKvVjjJnoCE=;
-	b=Zu9RZRumwdU5X2EIfB7pgJ+Lk9wvF6I33hl5f6vnxooDR9bV6Hc54qTtB+gXGzidd+nE
-	 eZNpEtEtzDENwYOXQ8I9pBxoe5z868O8AjCIl/cy/DQkyavnLnlikUsUDFK+i6auYwHSs
-	 l2XXLfw5awptgrHahZxDGAJPrNN8rLhLFd02r7oDEnOnCJCcPblIeFu8HTojjz+/I6faU
-	 KSCA9BgkrnvWjxyfgArO5Xb6GDBPGl0G2oObyTtnvMV6kX0zEimiRCO7d5dtIqp07MVOx
-	 FddK/Ocis1j/Vmrdio6t1EJ03fRD/LdHEv7qpZB310agMYMOvSKvDmf9Qz5ApBECi8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795545465;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=1zoOCvzXXxSjQ7psF4Sy29PKoeBfrrhdMZ3HpFuOxUw=;
+	b=O3TU7EzLeqk1jMXW8i2QkvqfSqBiV16F/Ci4LpAzBtTwqYt3/mDiduxM3L6OJ0Fn6MVj
+	 LYGNd0aII7eAuk5Nhh0RoJGGbDhNrDr8pn2izSf2phEI6aB+lDFyEOeMUi2v6E40YdJW+
+	 kuTyeIJuL2Qrb7hpdNQBm9v3eIL3lJmdFB5f4IhgN9le/xb1keVP1kfumLrix8ue9EdhT
+	 Ta9aMIHShM4g240l3pVASCrcztyDWnAKEjQMR0pp+GEgbwLvTZoEFC8ozf2uG60pm+OB1
+	 NXnaZXrzT58txn5Sp0ua6NBEf1zMnHD3q5B6SeOBff0dng5CPLn/k2JaQjYFUQA80gA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JjWrddy7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XV4ByG2X;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054BC606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:37:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC9D606A31E;
+	Tue, 24 Nov 2026 18:37:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JjWrddy7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAD661F000D2;
-	Tue, 24 Nov 2026 18:37:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XV4ByG2X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913561F000CF;
+	Tue, 24 Nov 2026 18:37:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795545438;
-	bh=J3Z/iG6i8DU6ZQh4DtG79WYAyIaGqOiYgKvVjjJnoCE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JjWrddy7bvz2JkSb5JAQ6G4B+EVkUmXsemiVTl6QF+BbojYaUffUj8CvJ+KaTb9v7
-	 3CpyAu8jWo4UuOqQGF1CFyWGJQ0Rqa56UKXaGdGJMcsPlOScFc5i4YDZpnDLwJ6iI9
-	 McnsclIQ4PMQY+e0bRpX/XLVWuhGcVOUJ7+agry7KrlThmfKvyyAk6lKWl8A+GvxDB
-	 Rv6B9DeVUXjbLawqHa7lDzoB9xjDD1UmbeBl0VSXmlnMDrEtpmfn14y1QleSHghFgZ
-	 1chZBOJ10VB7sEca6NphDj3BI3WyBl3+2ZA7NweIOY/O+ygEVOebOZ7fHEDmKViic0
-	 +tQQLAHEVLjeA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Shashank Mohan Jain <jain.sm@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	Jeff Layton <jlayton@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] errseq: don't let errseq_check_and_advance() hide later errors
-Date: Tue, 24 Nov 2026 13:37:14 -0500
-Message-ID: <20261124183544.2213071-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124183544.2213071-1-sashal@kernel.org>
-References: <2026112441-ducking-trophy-90cc@gregkh>
- <20261124183544.2213071-1-sashal@kernel.org>
+	s=k20260515; t=1795545464;
+	bh=1zoOCvzXXxSjQ7psF4Sy29PKoeBfrrhdMZ3HpFuOxUw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XV4ByG2XuzrRqRUkVee62FtVwtGgTWPmdUBklGJb424G4LLlpAtHqrmXf6s0G3W+A
+	 Q3NrSDu7uJHYRw5azuUfvjpsjI8bgbSorFLdlAJSfNw45tvlIcrrFVD38ufggAp4w8
+	 VG2xL/O5+lREKTAZu+jda5NIwR8XVt8/6JgLaZR3gdh12O0AsG9v6faZj4zUQninYN
+	 y20o4UKbarZ+wPITdIarifBBNF7cZx59m44UsYvivZPDArXuZD9cAyTxM9snwDeDsE
+	 Y9lMggrHiyjs07iCopzSQIdIEd8e/bHVww0DWHMUVP++Ey2MvhqfafsQRlgjPWrhvP
+	 H2JsNFWKnROiQ==
+Message-ID: <5e26dc91-37e9-4c29-b88a-bb3a3358709c@kernel.org>
+Date: Tue, 24 Nov 2026 19:37:38 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,138 +51,233 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/vma: drop mm asynchronously in vma_start_read()
+Content-Language: en-US
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Kees Cook <kees@kernel.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Pedro Falcato <pfalcato@suse.de>,
+ Jann Horn <jannh@google.com>, Puranjay Mohan <puranjay@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+References: <20261124-vma-read-lock-mmdrop-async-v1-1-257f99f551de@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261124-vma-read-lock-mmdrop-async-v1-1-257f99f551de@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Shashank Mohan Jain <jain.sm@gmail.com>
+On 11/24/26 13:26, Lorenzo Stoakes (ARM) wrote:
+> Commit bee9ef4a40a2 ("bpf: switch task_vma iterator from mmap_lock to
+> per-VMA locks") open-codes a lock_next_vma() implementation that does
+> roughly the same thing in bpf_iter_task_vma_find_next(), only without
+> fallback to an mmap_lock.
+> 
+> This is because bpf_iter_task_vma_find_next() can be called from
+> non-sleepable contexts.
+> 
+> However, lock_vma_under_rcu() gave no guarantee as to which contexts it is
+> safe to be called from, and indeed it turns out this assumption is unsafe.
+> 
+> Since commit 9bbffee67ffd ("mm: fix a UAF when vma->mm is freed after
+> vma->vm_refcnt got dropped"), this call chain is possible on x86:
+> 
+> lock_vma_under_rcu()
+>   -> vma_start_read()
+>     -> mmdrop()
+>       -> __mmdrop()
+>         -> mm_free_pgd()
+>           -> pgd_free()
+>             -> pgd_dtor()
+>               -> spin_lock(&pgd_lock)
+> 
+> Thus, a plain spin_lock() can occur when lock_vma_under_rcu() is
+> called. Since bpf_iter_task_vma_find_next() can be called in softirq
+> context, this can deadlock, for example:
+> 
+> pgd_alloc()
+>   -> spin_lock(&pgd_lock)
+>     <softirq>
+>     bpf_iter_task_vma_next()
+>       -> lock_vma_under_rcu()
+>         ...
+> 	  -> spin_lock(&pgd_lock) [ DEADLOCK ]
+> 
+> Alexei Starovoitov also pointed out that a BPF program attached to
+> trace_contention_end() can similarly cause a deadlock:
+> 
+>   pgd_alloc()
+>     spin_lock(&pgd_lock)
+>       queued_spin_lock_slowpath()
+>         trace_contention_end()          <- pgd_lock is held
+>           tp_btf/contention_end prog
+>             bpf_iter_task_vma_next()
+>               lock_vma_under_rcu()
+>                 vma_start_read()
+>                   mmdrop(other_mm)      <- last put takes pgd_lock again
+> 
+> Resolve the issue by having vma_start_read() use mmdrop_async() instead of
+> mmdrop() so the work is deferred to a work queue.
+> 
+> Make mmdrop_async() an internal mm function, defined in mm/internal.h, to
+> avoid abuse elsewhere (kernel/fork.c includes this header, so still retains
+> access).
+> 
+> Commit 0b16f8bed19c ("mm: change vma_start_read() to drop RCU lock on
+> failure") accounted for the fact that the RCU lock had to be dropped for
+> this operation, which is no longer applicable.
+> 
+> For the sake of a backported fix, retain this behaviour, however drop the
+> RCU lock last and remove the now irrelevant comment.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: bee9ef4a40a2 ("bpf: switch task_vma iterator from mmap_lock to per-VMA locks")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/all/DN267JUKDRNS.2VMV07CQ58R4X@gmail.com/
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-[ Upstream commit 94defd41d80f10bbe883c0c8d1b28d1665b6b153 ]
+Given how it should be rare to actually drop the mm here, it should be fine.
 
-errseq_check_and_advance() reads the errseq_t, sets ERRSEQ_SEEN with a
-cmpxchg() and then advances *since to the value it computed, ignoring
-whether the cmpxchg() succeeded. When it fails because errseq_set()
-recorded a different error in the meantime, *since ends up holding a
-value that was never stored in the errseq_t.
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-errseq_set() only bumps the counter when ERRSEQ_SEEN is set. So as long
-as nobody has seen the new error, recording the original errno again
-recreates exactly the old value, and once another subscriber marks it
-seen, it is equal to the stale *since. The next check through that
-cursor then reports nothing, although -ENOSPC was recorded after the
-value that check reported, and -EIO was recorded again after it
-returned:
-
-  cursor f                writeback              cursor g
-  --------                ---------              --------
-                          set(-EIO)
-  check_and_advance(&f)
-    old = [c, EIO]
-                          set(-ENOSPC)
-                          -> [c, ENOSPC]
-    cmpxchg() fails
-    f = [c, EIO, SEEN]
-    returns -EIO
-                          set(-EIO)
-                          -> [c, EIO]
-                          (no bump: unseen)
-                                                 check_and_advance(&g)
-                                                 -> [c, EIO, SEEN]
-                                                 returns -EIO
-  check_and_advance(&f)
-    [c, EIO, SEEN] == f
-    returns 0             <- -ENOSPC and the second -EIO are lost
-
-For file->f_wb_err this means that fsync() on one descriptor can return
-0 although writeback failed after the previous fsync() on that
-descriptor returned, when writeback errors race with fsync() on another
-descriptor of the same file. The same applies to syncfs() through
-sb->s_wb_err, which every file on the filesystem shares, and to the
-ext4 and jbd2 cursors on the block device mapping. The kernel-doc
-promises "Negative errno if one has been stored, or 0 if no new error
-has occurred".
-
-Retry with the value found when the cmpxchg() fails, so that *since is
-only ever advanced to a value that was actually stored with ERRSEQ_SEEN
-set. Every later errseq_set() then has to bump the counter, and the
-error is reported. The retry loop terminates because each iteration
-needs a concurrent update, like the loop in errseq_set().
-
-A TLA+ model of errseq_set() and errseq_check_and_advance(), checked
-with the TLC model checker, finds the lost error with the current code;
-with this change TLC checks that an error recorded after a check
-returned is always reported by the next check (exhaustively for two
-subscribers with three checks each, and one writer recording four
-errors or two writers recording two each). The KUnit race test added
-in the next patch misses the error in 1-6% of 2 million rounds on
-4-CPU UML before this change (depending on host load), and in none
-after it.
-
-Fixes: 84cbadadc6ea ("lib: add errseq_t type and infrastructure for handling it")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
-Link: https://patch.msgid.link/20260927051726.71337-2-jain.sm@gmail.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- lib/errseq.c | 29 ++++++++++++++++++-----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
-
-diff --git a/lib/errseq.c b/lib/errseq.c
-index 13a2581c5a878..ea4ff9cc21669 100644
---- a/lib/errseq.c
-+++ b/lib/errseq.c
-@@ -162,7 +162,8 @@ EXPORT_SYMBOL(errseq_check);
-  * points to. If it does, then just return 0.
-  *
-  * If it doesn't, then the value has changed. Set the "seen" flag, and try to
-- * swap it into place as the new eseq value. Then, set that value as the new
-+ * swap it into place as the new eseq value. If the swap fails because the
-+ * value changed, retry with the new value. Then, set that value as the new
-  * "since" value, and return whatever the error portion is set to.
-  *
-  * Note that no locking is provided here for concurrent updates to the "since"
-@@ -184,24 +185,30 @@ int errseq_check_and_advance(errseq_t *eseq, errseq_t *since)
- 	 * to take the lock that protects the "since" value.
- 	 */
- 	old = READ_ONCE(*eseq);
--	if (old != *since) {
-+	while (old != *since) {
- 		/*
- 		 * Set the flag and try to swap it into place if it has
- 		 * changed.
- 		 *
--		 * We don't care about the outcome of the swap here. If the
--		 * swap doesn't occur, then it has either been updated by a
--		 * writer who is altering the value in some way (updating
--		 * counter or resetting the error), or another reader who is
--		 * just setting the "seen" flag. Either outcome is OK, and we
--		 * can advance "since" and return an error based on what we
--		 * have.
-+		 * If the swap fails, a writer or another reader changed the
-+		 * value under us, so retry with the new value.  "since" must
-+		 * only ever be set to a value that was stored with the SEEN
-+		 * flag: errseq_set() does not bump the counter while the
-+		 * flag is clear, so an unstored value could come back later
-+		 * and hide the errors that were recorded in the meantime.
- 		 */
- 		new = old | ERRSEQ_SEEN;
--		if (new != old)
--			cmpxchg(eseq, old, new);
-+		if (new != old) {
-+			errseq_t cur = cmpxchg(eseq, old, new);
-+
-+			if (cur != old) {
-+				old = cur;
-+				continue;
-+			}
-+		}
- 		*since = new;
- 		err = -(new & ERRNO_MASK);
-+		break;
- 	}
- 	return err;
- }
--- 
-2.53.0
+> ---
+>  kernel/fork.c  | 16 ----------------
+>  mm/internal.h  |  3 +++
+>  mm/mmap_lock.c | 21 ++++++++++++++++++---
+>  3 files changed, 21 insertions(+), 19 deletions(-)
+> 
+> diff --git a/kernel/fork.c b/kernel/fork.c
+> index 5efceb8d58a7..4d5866c83481 100644
+> --- a/kernel/fork.c
+> +++ b/kernel/fork.c
+> @@ -744,22 +744,6 @@ void __mmdrop(struct mm_struct *mm)
+>  }
+>  EXPORT_SYMBOL_GPL(__mmdrop);
+>  
+> -static void mmdrop_async_fn(struct work_struct *work)
+> -{
+> -	struct mm_struct *mm;
+> -
+> -	mm = container_of(work, struct mm_struct, async_put_work);
+> -	__mmdrop(mm);
+> -}
+> -
+> -static void mmdrop_async(struct mm_struct *mm)
+> -{
+> -	if (unlikely(atomic_dec_and_test(&mm->mm_count))) {
+> -		INIT_WORK(&mm->async_put_work, mmdrop_async_fn);
+> -		schedule_work(&mm->async_put_work);
+> -	}
+> -}
+> -
+>  static inline void free_signal_struct(struct signal_struct *sig)
+>  {
+>  	taskstats_tgid_free(sig);
+> diff --git a/mm/internal.h b/mm/internal.h
+> index de4593b3e3b6..cc95019c7e4b 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -1671,4 +1671,7 @@ static inline bool can_spin_trylock(void)
+>  /* char-mem.c */
+>  bool file_is_dev_zero(const struct file *file);
+>  
+> +/* mmap_lock.c */
+> +void mmdrop_async(struct mm_struct *mm);
+> +
+>  #endif	/* __MM_INTERNAL_H */
+> diff --git a/mm/mmap_lock.c b/mm/mmap_lock.c
+> index 073c5125b424..28b387fe543a 100644
+> --- a/mm/mmap_lock.c
+> +++ b/mm/mmap_lock.c
+> @@ -306,11 +306,10 @@ static struct vm_area_struct *vma_start_read(struct mm_struct *mm,
+>  	 */
+>  	other_mm = vma->vm_mm; /* use a copy as vma can be freed after we drop vm_refcnt */
+>  
+> -	/* __mmdrop() is a heavy operation, do it after dropping RCU lock. */
+> -	rcu_read_unlock();
+>  	mmgrab(other_mm);
+>  	vma_refcount_put(vma);
+> -	mmdrop(other_mm);
+> +	mmdrop_async(other_mm);
+> +	rcu_read_unlock();
+>  
+>  	return NULL;
+>  }
+> @@ -560,6 +559,22 @@ void __mm_reset_vma_seqcounts(struct mm_struct *mm)
+>  }
+>  EXPORT_SYMBOL(__mm_reset_vma_seqcounts);
+>  
+> +static void mmdrop_async_fn(struct work_struct *work)
+> +{
+> +	struct mm_struct *mm;
+> +
+> +	mm = container_of(work, struct mm_struct, async_put_work);
+> +	__mmdrop(mm);
+> +}
+> +
+> +void mmdrop_async(struct mm_struct *mm)
+> +{
+> +	if (unlikely(atomic_dec_and_test(&mm->mm_count))) {
+> +		INIT_WORK(&mm->async_put_work, mmdrop_async_fn);
+> +		schedule_work(&mm->async_put_work);
+> +	}
+> +}
+> +
+>  #ifdef CONFIG_LOCK_MM_AND_FIND_VMA
+>  #include <linux/extable.h>
+>  
+> 
+> ---
+> base-commit: 913390e679e23e3a45643028ee7f992889094051
+> change-id: 20261124-vma-read-lock-mmdrop-async-ba417cd1c1f0
+> 
+> Cheers,
 
