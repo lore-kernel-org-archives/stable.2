@@ -1,47 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795539523;
-	b=xWm2coBQgRGEasIyery4CmCbsBYiowjbAgofrmneL1AyIY/EJwCiMdujuvtmTgz2qPyx
-	 HXW4Qj8HhvPKr8k4Whjqu/xoJyxl6KMj57vhjSQQuXEB5JBNJGH9tdYwNJsnyUh5wPGmB
-	 ox8X5qJBmLIFldX86q/c50FrLGGToR3KvqVowfZ2DMDV82nBn6njb7VsZh0Scn3nESzRn
-	 h2Ag0W0hWJB5MJ0VOQw0KT/LGaMCFoQK2wWttKcfkGPv5ct5GTY3mlLbjR7rCvTfDm7KX
-	 +/BxLVZhACFOqO/IeqTjsfFda1FxxalSiAmVHy0gaiibda7Qfa4OAkE5IJm2djaCksg==
+	t=1795539722;
+	b=a4vmi8QhiIqmzZO8DP1RMqCEzM3nnjIY4cO1k+++ce/z8dfouQ35BULkncWT5fUw/gML
+	 0ePKEwmwBQPYUwTTGg5xN8uo0oHjnWDu+p3QDAWItGhc/IrCmuIn7YpXSyCLzZ2812Wtp
+	 /wJ5MDZMp0ID0Xur7j+ihqs7WyIdLhJRt4NU8xdnWhZO4a5adcgNYLPgc7QDDLXK31N4o
+	 9fhHonG134pl3/fy7JojMTT6b6uY7XP2U4ND7BFZpEwNWcS2otVpPfXv4nMvnUaMNaTUt
+	 Zub9CaM91qegZzDkDYXr0JUc52KnWnHXR6VYWugQZCYQRUXY8hy1tSoIs+2yeAJntOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795539523;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=eHsnBaxBmQGoIJUeUlzJuErhbcGl+7GiPF8z+JaeIMA=;
-	b=suq8lL/vQEyyRYHdl/lXXwHeZSaMsuu1TgEsaGX5yfCTiJF45SioNcEQXWtRK4SIT3Qn
-	 gTSmK1tNrKGYm8eBUssqPxNaPB4kAhv5BUFcnlsZwEuY2n2ZaBAfO5opfg0QodsyRfNwS
-	 rNKtl85Cdwlg6nknFqSIdjXpI57MIuMoDxLMDQR8vpPNm29vh+f3TpQfh3n2ssvr3k2zZ
-	 5XG2VQ9GdZ/tcrF+wXEHg34VUI4cn3SFFAZYfIAz0towMX1NKcvPRXIj0njiNeXhTdJG7
-	 gFev0UOSXyZD5lhBoF8OhBNk/TUFnYpuqIb5rmv85vHhtf+tmPuire1MvTdcKRsCOJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795539722;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=/YR2NdyGpQphRBfeuwhxgCxGzrHtOehNZjit7K3pY8Q=;
+	b=KSu6d3+pPAFb4bzaMjaX/E37WNE+HpYMpzPU9qNaT5C//kLtisjX/unFkS0WPaWAi6xT
+	 QYNkyZQ7r9EvOwNdgPIDYw+PBDX7PJNtmqe8okBGEUWPUJGBlgzomwmI2lqKMknCtM69D
+	 fZ7jcc6LZPXq6Qmbm2cpOVhnhwLUr7pxmPJNWkiSzUZ/Mg3BTJ0Xnks0hEBu/g4Xlpovn
+	 suhviKW36XpvIJ1L+9dSQOumOhfPIYHaJsejNbxr05fJtneDsDyyDpkVxHVpqjs91JysQ
+	 9aDrdc8lIyG6pw4AxeWC01EEOwxjJWV3DspJbavlWPEpfm4itycoBvLJo9xswJPIezg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lGJ8WllI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6r7Kuur;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06008606A321;
-	Tue, 24 Nov 2026 16:58:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5268606A327;
+	Tue, 24 Nov 2026 17:02:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lGJ8WllI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B00FE1F000C6;
-	Tue, 24 Nov 2026 16:58:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6r7Kuur
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1418A1F000D0;
+	Tue, 24 Nov 2026 17:02:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795539522;
-	bh=eHsnBaxBmQGoIJUeUlzJuErhbcGl+7GiPF8z+JaeIMA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lGJ8WllI9Qt0HkomMWvWGBn5x1rznruEwe+F4WjZtAa78f6bSfHS91IbwQS1VNlJK
-	 CSE18bMi0avham49OZAnsLODB9kxzDyVybNtCU+hCBzqJDdetteBVNxbR8B7hvC5Os
-	 f8lqtZdvzTgeKlal+6ek9l+2DEJ8g+VsMiQsJ1TdoMgoSvJzGR82WuVMP83MLLwuNw
-	 zNbu2JwdNpzvxpPgfmxKudvSReBFRZpQF60ONlh9wnUoN56CyLjy/voVm16AfYkfq6
-	 FX1Jxh6do6bGVvwZFLJc6+ukcNvYT18VuPf0u10uRXPV6HALJ3TsPI5pMUWbrnReke
-	 xEvlULGHup+PA==
-Message-ID: <f1d92526-8468-4ad4-a9c0-13fc7dc641e0@kernel.org>
-Date: Tue, 24 Nov 2026 17:58:33 +0100
+	s=k20260515; t=1795539722;
+	bh=/YR2NdyGpQphRBfeuwhxgCxGzrHtOehNZjit7K3pY8Q=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=Q6r7KuurGcYYmLIkXt/WJ7+8UUfu37x0nDZP8djVlQ041HlbCxMyn4Kl/nrlGvUX3
+	 NAs3/l3Dfwq0YOGcnaCu8nvaue1VdNbeEQiQRD2c7L42qTbTaC9EjmTmZFx5kctAgM
+	 vSkKeoj4P75ttUNdFDmJb7aaIUXB9HlPt9q/NkW1ar+Q+Ac9ZVcZbZkwf1yeM6VBgm
+	 EKF+iI8MsWvaWljRiYWkLHQc726tHnkXbcno2VcKZHwIAiRq97cIh3BaZWtIimVVR0
+	 nVuUF+eN4B/5UweKHOa7gDnrJ6wDI9P+mb91hUG3MGLTjZp5x+OtEgR3eYjsvW1WET
+	 MzO3tCGlXWEyA==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 47F03F40067;
+	Tue, 24 Nov 2026 12:02:01 -0500 (EST)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Tue, 24 Nov 2026 12:02:01 -0500
+X-ME-Sender: <xms:CcMFa6VhvKzWWezBDCEVI9-iNiaw_GtjfX_wen_jE6gXnPQn7jNhrQ>
+    <xme:CcMFaxalmsFv48IzzzCDfQHyVQUa99_sK8AUfbrqyB8rpdyd_NI_4jGqX-gG6Eyjr
+    HW7UCkRSKF5UnBgplSuNtB7OX8WhSqhqhXTRdVEgjZX8xcVeofysfgw>
+X-ME-Proxy-Cause: dmFkZTFwXILTy4fQRfudKC0hWynHKvKwlza8s34nRlusPzeGPNvqBtaTo5l0TmHEx1Eu5e
+    cIwjFljVodOPqo2gBfY/h05A8TwW/b1JFqT1+ptiF0pQxoQ2A+Qe/wVC1gyuqhRskXXytV
+    X+SpdvMINxr8boRipFM6JVIyJSBEZwgqbmDrDXRC/mHxfLlQirs118vs006gGMqyG4dyMp
+    F0uTz44+9j/Zod8N7si79U0pEkaqiS+dPPDDmzsws4/MDJ3xmf9O1rNqCqGZQ5fHgneyAA
+    qSbBhZ1/JdJnb6dbVnZtVPD4q9gH3JboDauS/iK2U/Sl8Sac9TgCAQmRVgMv/vf/bNJyno
+    fkzVieuKII/jw9eQ3uuCEEH2wHsd7ethpwCy47MVDl/wZsIQlJUkWSsYX2hdyemACPbnBB
+    v0S5ckEvO3Kn5zbGLZrjV+mB1oTre18kZgpA+4mjKQLq/5PAaoGiDCOK08nItXQOAyNnay
+    NpeQNwhenintVlBsGGfsN8samSJ9oZ1KXXerlkFLZZyPtCh3iANjJwqdBMzdxfpzebpi00
+    TnQm8Y6MUmIpxOiRrm8xgR3uo9+1bwYTUp5sX+BvdwH9u+ENfRt4JFBU9kar7L1uQ7fmup
+    b7Z1pcLMiJr6qmrESZ2y7g69g8AnVEx/e3WtjReZak/DmqkZeycLVaHu9Y2w
+X-ME-Proxy: <xmx:CcMFazmMaSO0yDSxsO2ozkYPTgkjn6IK1ueRWu1DTfAEIvKjnz0gkg>
+    <xmx:CcMFazNqWNvDK1Ow315AenCCN7ZoWWVnr1YwjlDRybLYdhkCG78_bA>
+    <xmx:CcMFa-Gazjfw4O-qEbDK79ylh_xy_VhYq3l0bWqseg0F7_q4BiABMw>
+    <xmx:CcMFa5ssv84Qzxa-B3OSpAKnGfN_lfOsh2jxKRipQStc4tAMzbLVnA>
+    <xmx:CcMFa-TfI_9dq8GyDUiZPK4aefosCKMaclLq-0FxyOS7oOgEbl8TzedC>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 29F2678007B; Tue, 24 Nov 2026 12:02:01 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,103 +77,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net 00/10] mptcp: misc fixes for v7.4-rc5
-Content-Language: fr
-To: netdev@vger.kernel.org
-Cc: Eric Dumazet <edumazet@kernel.org>, "David S. Miller"
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>,
- Simon Horman <horms@kernel.org>, Mat Martineau <martineau@kernel.org>,
- Geliang Tang <geliang@kernel.org>, Christoph Paasch <cpaasch@openai.com>,
- Florian Westphal <fw@strlen.de>, mptcp@lists.linux.dev,
- Davide Caratti <dcaratti@redhat.com>, Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org, Neal Cardwell <ncardwell@google.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, Hyunwoo Kim <imv4bel@gmail.com>,
- Josef Bacik <josef@toxicpanda.com>, Martin KaFai Lau <kafai@fb.com>,
- Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>,
- Martin KaFai Lau <martin.lau@kernel.org>, bpf@vger.kernel.org
-References: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-0-278042217e8d@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-0-278042217e8d@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+X-ThreadId: A_umGGPHPaig
+Date: Tue, 24 Nov 2026 12:01:40 -0500
+From: "Chuck Lever" <cel@kernel.org>
+To: "Li Xiasong" <lixiasong1@huawei.com>
+Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
+ "Tom Talpey" <tom@talpey.com>, "Trond Myklebust" <trondmy@kernel.org>,
+ "Anna Schumaker" <anna@kernel.org>, linux-nfs@vger.kernel.org,
+ linux-rdma@vger.kernel.org, stable@vger.kernel.org, yuehaibing@huawei.com,
+ zhangchangzhong@huawei.com, weiyongjun1@huawei.com
+Message-Id: <40af69a1-be6b-4afd-acba-2185a7ad832a@slotpi15m67>
+In-Reply-To: <20261124021842.130141-4-lixiasong1@huawei.com>
+References: <20261124021842.130141-1-lixiasong1@huawei.com>
+ <20261124021842.130141-4-lixiasong1@huawei.com>
+Subject: Re: [PATCH v3 3/3] xprtrdma: Wake connect worker on device removal
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-Hello,
+On Tue, 24 Nov 2026 10:18:42 +0800, Li Xiasong wrote:
+> Device removal only forces a transport disconnect, leaving a connect
+> worker asleep while re_connect_status is zero and blocking endpoint
+> cleanup.
+>
+> Set -ENODEV and wake pending connects on removal.
 
-On 23/11/2026 14:24, Matthieu Baerts (NGI0) wrote:
-> Here are some unrelated fixes:
-> 
-> - Patches 1-2: drain the queues of a TCP or MPTCP socket when listen()
->   fails, not to leak sockets and their netns. Fixes for v4.4 and v5.11.
-> 
-> - Patch 3: clear inet_opt in the child of an IPv6 listener, to avoid a
->   double free with SELinux and NetLabel. A fix for v5.6.
-> 
-> - Patch 4: fix UaF in corner cases from delegated actions. A fix for
->   v5.12.
-> 
-> - Patches 5-6: do not leak an orphan moved to the CLOSE state outside
->   the worker. Fixes for v6.15, and for another fix introduced in v6.6
->   and targeting v5.11.
-> 
-> - Patches 7-8: do not let PM listeners pin their netns, leaked
->   otherwise. A fix for v5.12.
-> 
-> - Patch 9: initialize drop_req, not to leak sockets with SO_REUSEPORT
->   migration. A fix for v5.14.
-> 
-> - Patch 10: do not pass a BPF request sock to an MPTCP listener, to
->   avoid a slab-out-of-bounds write. A fix for v6.9.
+On InfiniBand, waking the connect worker works as described. On iWARP
+the woken connect worker goes on to rpcrdma_xprt_disconnect(), and
+the rdma_destroy_id() call in rpcrdma_ep_destroy() waits in
+destroy_cm_id() until IWCM_F_CONNECT_WAIT clears. Only the provider's
+connect reply clears that bit. The worker still waits for the peer or
+for the provider's connect timeout, and it now holds XPRT_LOCKED and
+rx_unmap_rwsem while it waits.
 
-TL;DR regarding Clashiko's reviews: no new versions needed I think.
+On iWARP, then, this patch moves the wait from re_connect_wait into
+rdma_destroy_id(). I don't see a way around that in xprtrdma. The
+patch description should still not claim that removal unblocks
+endpoint cleanup on every device type.
 
-Cheers,
-Matt
+
+> The final endpoint put can free id->context before rdma_destroy_id()
+> synchronizes with CM callbacks. Destroy the CM ID in the endpoint
+> destructor before freeing its context to close this window. Remove the
+> CM callback get/put pairs so final puts occur outside CM callbacks.
+
+Removing the get/put pairs from the CM event handler also moves the
+last ep put into rpcrdma_xprt_disconnect(), before xprt_rdma_destroy()
+reaches xprt_free(). That ordering closes the stale ep->re_xprt window
+I described in my reply to patch 2/3. Let's mention that ordering in
+this patch's commit message, since patch 2/3 relies on it.
+
+
 -- 
-Sponsored by the NGI0 Core fund.
-
+Chuck Lever
