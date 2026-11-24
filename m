@@ -1,68 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795526087;
-	b=k59Q/yohmdvgm7oq6OTFlpiO51qxf5kXn+4HMkY18TZVRhe0wvqJ4Zl6Kw4vZRbCoIg+
-	 kp7gIMFgekErhbDq7URv86EG+EXtwfTcF/aN9+ks1MgfK7pd651brKmtSmFAkNk5vTzjY
-	 8CeCt+eBO1wETccOC1HwkJbhAVqTuygkYr7XN1yTl1WH5gV10O5se51c/6+rMCGhPe6Wk
-	 MZGA3OP7TZA3zUuLhoKzQshEmYSnW6CKL8ucB8NInK39a9eLhrxSO16wZE7jqW5N2aiOH
-	 cKEfAilCpjNHoaxxk9jxyV/TrE/e5P4GBJwjG/Am+qCXIocJnnDpSU9+Ci+xI0u3C+Q==
+	t=1795526306;
+	b=1J9NZiNYS/Ibczi4geW5gQg+97MNqjh8cWUD0HVcZOrTp+YTtKDqyb2Km2Lg9cZH0ruq
+	 Sk6eHuDqHvbHxv9QVvbI0w4BH25naFfDN1Ood/rUcVeeOqwiIjNseKpamzcp8HWsMOv82
+	 BNTNgOw5H7TR4EeggE3LbJkcnpJYRPz2D7j2AONbonJiEqtLc5+oI2wNK3N4w76+hEAx5
+	 kxond4/lXTJg4zGGyLO0i0xLOvXPuwq6tJtCXQoJeA/PVp+uW8IvK+KbjCcaYlbtJ7OYu
+	 W73IXLI6YQlI3ZqTVD9NglsZutsea36GsI+5FvazF/e8YhjVi95lvCU89j4k6bYfGQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795526087;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oYMA+I1ChVexlwqljAYD9stKsVlsIrLPpIr5y/H1ce4=;
-	b=PsiwXrRHFSad7BtgczROE3efEHi7vOft43/Zyw0Nlg6dMvHOUoNqrJPCiuN8uGt1Ukj/
-	 VjWWDb53/rdAYpDYwWv+x6jJPFXx6gC7k1qjwOz4qp7INKTNBBepiT53fMvVOPBoqTj2q
-	 JQ0+na549Lx8Xdk4HH/dTNlztQJw/NdP/Su3m5/MBjkgOkoDv2DhipWucJStl2YPySoQd
-	 5eexjJfjshz/eufH1x4pm7wLPNQ0y4zSoK5qyGaagTOMmoB9/QpJB62MJTrzB490XArEB
-	 czIPZzodnUj/ANgsY9LgSaZJeCmhV2Fq4LD2mhV9gDviaawKUYkP+WLr7DYI3D90T7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795526306;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=R7P13K/7gG3j7Sdw2/bXjTTm8YI1OdWUIdO2o+cc/x4=;
+	b=S+P8xLuDQhMKnEtmWUhtyRoDWzejdzyoq3UFftxzxTElnFirj6YLU2h8lXGK2vNuUTx7
+	 vnv/rbtdYwqkxn5I+WquRLuu3eocFjHISotMyOFat3KKn30Mzq7zZlc3Ua9n97klcDxjV
+	 6QSuWJL1TdKdAOklxNtVauyuRvXBy3wfnpjWDZYX8wXnu4n6DwCTqg9tCIQcFo9TSNMiH
+	 dF1ilFAqT5kI7Ej6mSJ65AwByNtQbbxCtydj6NrBJ8qYlN6m6upDjX+HxlXFxSwyvSYBo
+	 lOPNfSH/83Q0utK6p4fzPvt4fRBJpkIMMg10ncE8sos8yYEAlvHRVoPnPuU64koj3kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y3dllRdg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="NL9ibpX/";
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A548E606A31E;
-	Tue, 24 Nov 2026 13:14:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FC8606A322;
+	Tue, 24 Nov 2026 13:18:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5FC8606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y3dllRdg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C6A61F000E1;
-	Tue, 24 Nov 2026 13:14:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795526086;
-	bh=oYMA+I1ChVexlwqljAYD9stKsVlsIrLPpIr5y/H1ce4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y3dllRdgovE0K8wEwpo/avOs2CTalQOyMxfZVAEtlhIH3lg+0WU8mies1GL2FipTP
-	 x8w4e/R57wOBo8oZMgyY1IdXz99YYYBcKxFxyrjPFn0S6/hZFBz/AnGfovfnzLs+aO
-	 50OCr1eECbZpkmOAO4BKX02aOPxzb5nFfMWOzHxtIaxGQDPd/2R32TUD8trDK55cVe
-	 IJPB2pTUlIOYUYZy1A88B1XrcGQkTbK/mY1Isd50rsFby+sQIL11huiWEEShOKzkqF
-	 S4naHNjqyrrWFu2rWtAEoxKXUdfWmHplQ4JGw0bP1lbl3KTm3v9dY+m2CKkr9xM6dv
-	 qlrHCDgay7rMQ==
-Date: Tue, 24 Nov 2026 13:14:40 +0000
-From: Lee Jones <lee@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thomas Abraham <thomas.ab@samsung.com>,
-	Chander Kashyap <k.chander@samsung.com>,
-	Amit Daniel Kachhap <amit.daniel@samsung.com>,
-	Tomasz Figa <t.figa@samsung.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Marian Mihailescu <mihailescu2m@gmail.com>,
-	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=NL9ibpX/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795526304;
+	bh=GYr0Q0EwABsuRiokJjoVaEcIUoL1Wcs+cF91nQ3RLaI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=NL9ibpX/RiRTvzWOOboZox5WC3WHJaf4GouK+EUGnv+VOrFwTZifPzBjHynHqA46j
+	 LRBqyLxPKWkEaaLY+WknPwS7x7GcCKOLlSW+tNh5jPzs2M80GyLvUOmMQUIHzY4e1L
+	 9wYgFl/cQRATQwj9b6tAr+HU/o3MiqbVqRJtBuAFnjSJjwNKGhEHgVACa+fZryvxwh
+	 AFlyMjO03pEpB9LV28EDCmruBXrOJA4nAjmNnrCwX11ZppF57FZLC8lMniDTQsqXT8
+	 3LSxrJTcyWs8V9SX1dIK6G42pKtoxvnLDB/KbUfPd23a6dGUIhAOA3/UXhwIngygC/
+	 0EHUrWe/ghPoA==
+Received: from benjamin-XPS-13-9310.home (unknown [100.64.1.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: benjamin.gaignard)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1ECF217E0CA0;
+	Tue, 24 Nov 2026 14:18:24 +0100 (CET)
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+To: nicolas.dufresne@collabora.com,
+	p.zabel@pengutronix.de,
+	mchehab@kernel.org,
+	heiko@sntech.de,
+	hverkuil@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	kernel@collabora.com,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 07/10] clk: samsung: exynos5420: Terminate PLL rate
- tables with sentinels
-Message-ID: <20261124131440.GG70182@joneslee-macbookpro.roam.internal>
-References: <20261123164834.3330320-1-lee@kernel.org>
- <20261123164834.3330320-8-lee@kernel.org>
- <ff973b48-043c-4cd8-88fb-dc38ec54c09d@kernel.org>
+Subject: [PATCH v8 2/3] media: verisilicon: AV1: Fix luma size
+Date: Tue, 24 Nov 2026 14:18:15 +0100
+Message-ID: <20261124131816.115131-3-benjamin.gaignard@collabora.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261124131816.115131-1-benjamin.gaignard@collabora.com>
+References: <20261124131816.115131-1-benjamin.gaignard@collabora.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,33 +78,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ff973b48-043c-4cd8-88fb-dc38ec54c09d@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, 23 Nov 2026, Krzysztof Kozlowski wrote:
+Use the values computed by v4l2 helpers to get luma size.
+Unlike before this will also take care of padding.
 
-> On 23/11/2026 17:47, Lee Jones wrote:
-> > _samsung_clk_register_pll() sizes each PLL rate table by scanning until
-> > it encounters an entry with .rate == 0, then copies the counted entries
-> > into pll->rate_table.  However, exynos5420_pll2550x_24mhz_tbl,
-> > exynos5422_bpll_rate_table, exynos5420_epll_24mhz_tbl, and
-> > exynos5420_vpll_24mhz_tbl all omit a terminating zero sentinel, causing
-> > out-of-bounds reads into adjacent read-only data and populating
-> > pll->rate_table with bogus entries.
-> > 
-> > Append a sentinel entry to each of the four PLL rate tables.
-> > 
-> > Fixes: ca5b40293822 ("clk: samsung: register exynos5420 apll/kpll configuration data")
-> > Fixes: 9842452acd3d ("clk: samsung: exynos542x: Add EPLL rate table")
-> > Fixes: 8b4a7acf7b30 ("clk: samsung: add BPLL rate table for Exynos 5422 SoC")
-> > Fixes: b92981de92cb ("clk: samsung: exynos5420: Add VPLL rate table")
-> > Closes: https://sashiko.dev/#/bug/linux-553831f9-0a7b-4e94-be60-222de60ca8c3
-> 
-> Also drivers/clk/samsung/clk-artpec8.c, artpec9, exynos5410,
-> clk-exynos7885.c and probably others?
+Fixes: 727a400686a2c ("media: verisilicon: Add Rockchip AV1 decoder")
+Cc: stable@vger.kernel.org
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+---
+changes in v8
+- add Reviewed-by tag and CC stable kernel.
 
-I have 43 fixes queued for clk, in all!  =:-|
+ drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+index bbfca34688eb..afa91a6c503c 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+@@ -215,7 +215,7 @@ static void rockchip_vpu981_av1_dec_clean_refs(struct hantro_ctx *ctx)
+ 
+ static size_t rockchip_vpu981_av1_dec_luma_size(struct hantro_ctx *ctx)
+ {
+-	return ctx->dst_fmt.width * ctx->dst_fmt.height * ctx->bit_depth / 8;
++	return ctx->ref_fmt.plane_fmt[0].bytesperline * ctx->ref_fmt.height;
+ }
+ 
+ static size_t rockchip_vpu981_av1_dec_chroma_size(struct hantro_ctx *ctx)
 -- 
-Lee Jones
+2.53.0
+
