@@ -1,59 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795539173;
-	b=jWJ8IX7cjLoGffZQWZWt2l2r3Sb6YR8IzLdjPO2FkQKb1G3Yn32Jc6qeMezqpkVinj2g
-	 VbJdsrUCtlHHHZ6ddut+bVE2wfCI+lNgQBTGkMxJyrT4ntKvGRpDW8mW6ZNImzXWxSo3P
-	 PAJt1oCMIZIwRf0mwKwKTYWNLI6nvNr5NwJeRhhCXRtKEDmqKykHfteuPHdF7JHsc/Bcz
-	 MHuBICrmViFhVmKBNf0L7a2oH2hq2LrmaAAOoeuCYoprDjJC4e2Mj+mEkf0ntB1u2MqK1
-	 58iMwnU4Kbm+1dYguRGp5pyZ77T9+Ht/5i4t7pmlSvLC212NwFO67mWjKWol1T0ouQA==
+	t=1795539399;
+	b=uL3pEdyMtVXIvAThMQ4fzr/9UJ9AbGC+kz2YK+C+B3cNCsQbenM/JmKL8dVFtC8l0PYT
+	 Gir9arZ+HKcL8MxGJXnpSTjrB/b8YA397xuXUcPwe9nNA39FTte5VOVaVLZwnNHVr0J+N
+	 F5UPVl5+0ITKM+AcMwio0prL9iIu6bzsVE9jVnGbYepWgt17KcDtncINf92XhVqZmSLLk
+	 yp2cIHLTZ8j8DMUCt+A0+C4+2HHMCNz0Id61HODHyWOO6EpCi7wzZUiwf21ONqx3+vKk6
+	 YNwLDv0egxIOaS4nMMMZaYIgsa0CDq1tO0oA8Rj8Pwhtauhpu1u7ZsabCffDLAlPkIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795539173;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=23A2BUHFe6VM/AwKx+Mlw+Ey/1Aj8HnIQKPlokLPThU=;
-	b=LSf9NAZAQDjHEJgb4lNievt4+nunCstz7Tm2sjZxtsBXXTOMUEHDDvGw9ByHwxcfmvFz
-	 CsnnPqAaqnM18WLiMNa92M3gsKdknebQEz/ke6GW6Mkh8w9MfJLPKQGcJeynZIJ6UqPkM
-	 apWc9Me9Bn9cVdx5mmGCC8A9X/iZsvIXI9jk6bQDZsM6TpzqmmLMAGCKntBsqsoKzBqKY
-	 MCxOdHetTW1KV7Y+sZG3XVDLWVoNqVgJYdkcXsIDmLHSyrvTkcvRiyhJwvKXFrDpC7okn
-	 Z+RNPBMhK5RAylA4KXUG9QXfThE3mlzmek3XQayKLFWr3ZG5jvf6n0leM04HnoqvspA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795539399;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=qhxOXXFZ0iFZgMtxr8bKuOyibgt1tlrxvRTZg6/cDpM=;
+	b=a6cbOxPTBQnAs/QGye3QlH2nVeAQqcK7C8q9y3W0hH2LGiv87J9Sed/2RCHcpORdTg43
+	 aw7pBcBW6pKBkCBQfaauHejwLslT1HY/6aj5BX2ImUGZxqfltl2gzW4KtUrZDNoMCxWbl
+	 LGI0sJppcbGOHk1unerQ1hxU1DwnNqvgq5+mgzqgJ1mf133tvyCGWEa8NuvuMIyqQKnxI
+	 3FIuQEPDuX9JH0+2dUqAxRSBp5AxZHH+MqueeDMno0NwOVZ6fDmpWZ+1NIWWCydeycsBn
+	 tvf8fUIj8la082ajq6XIegEtoNdkwoJ/XQefQu/eMtImLnwVipixCtwRu7K4Yf451bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Q89+Bx1d;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lciNhcqy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DCB606A33C;
-	Tue, 24 Nov 2026 16:52:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93DCB606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2641606A33F;
+	Tue, 24 Nov 2026 16:56:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Q89+Bx1d
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 482F81A1747;
-	Tue, 24 Nov 2026 16:52:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 145B7601E1;
-	Tue, 24 Nov 2026 16:52:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2773511E69A92;
-	Tue, 24 Nov 2026 17:52:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795539168; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=23A2BUHFe6VM/AwKx+Mlw+Ey/1Aj8HnIQKPlokLPThU=;
-	b=Q89+Bx1dKfy6o0XbZ1DlKpum+JP7/pbKVmb9zHWssO0BWeE+AkB4iUYy5CeZor7+Nl2QXd
-	Msj1dmVBTxWbhw5t4LlO/2+E1lu8hLFtDYOhDJxL9WmHa4efStWNuJ+6TP6Jq2NfygLK6k
-	8+m8vElm2Ed9pvjtZ7DFzAszzjIYEioFdpRAlM8qUoDko0zb+PWr4jMWWOQ4VMTkZYQnP0
-	UMgQRzh8nrL2PPTiQQrAtj0AbVhNikqKrsF6HekXdRMu1LGVBvYX83g1d43vtATUKJMcSq
-	hKDgdQYFH4qFrF5nch39LPU+1rf3SsxF99GKFasUzXgD5vDFd2yp3zP9WJSbaA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Tue, 24 Nov 2026 17:51:34 +0100
-Subject: [PATCH v13 09/10] clk: nuvoton: ma35d1: Fix CCAP muxes bus width
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lciNhcqy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81FDF1F000D2;
+	Tue, 24 Nov 2026 16:56:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795539399;
+	bh=qhxOXXFZ0iFZgMtxr8bKuOyibgt1tlrxvRTZg6/cDpM=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=lciNhcqy+2x9lkztYKu4Asji27wAvtheFi2JsqqNhZec4neS1ksQPSDLXO5YnHOSp
+	 a5FU9SxjYjtYFDyN+6nQvBl6D3aVAxVMsknN8MhxEDLgSONLKLMa47J0UduvC60baZ
+	 hMGqM9QREqc/O2aBVeBY0IN+bqHKfdU6tiKxzd0tOXtBwVacnz2ItIheUYsGl//k4Q
+	 //WrXk7C03fiig7YCClBvAp5iLm8HRrYzAod83V4k/8dAvdVwfX3N9mlwc6305QsD6
+	 63gEDlwujz5sldJ9RlgBBfr8QBQU1z1b1BvqTO8vDDcq+NlL5JLCN77MOOV3d2Xs5f
+	 vVtqE/mx+9wEA==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id C3516F40066;
+	Tue, 24 Nov 2026 11:56:37 -0500 (EST)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Tue, 24 Nov 2026 11:56:37 -0500
+X-ME-Sender: <xms:xcEFaxT8iLiHmwu699nsiUTM9zDwCjDjbrEIStCOZ3N6QXE0QjYmJQ>
+    <xme:xcEFa1kgzDopqJRYjMCFw48BqG3zpGSGD9ZDLosSFXq0B2G_MVC7wCPTCvof09-an
+    ZyomVLFKZkkxyxGHDWm4Z9Dy1q9dmZ1V58j0WNBLVFWQ6__79OIM-Gm>
+X-ME-Proxy-Cause: dmFkZTF2VPGdT3hwcSDfWSc5JZX9KcZ0BchKoqOJPVYsgmirjUgvIp4kLlb9X2f0DBd3KZ
+    Fb25azhflb3Ei9Kc2zitmQR5FVbMvNPcKm3yoqR/+Z5HTFogksQxZjzkb3QI4GIYUhmNId
+    aRm+EfHXNnWTSWXfGrjzrUYJsOTApRtU7T6c8zPIRHWMfZggP9jCWubUYCPBnUsDDRe9GZ
+    nMpiDfw0WMDr4wsPT9OjHQgMpWz8qxgWARSgxj66PdCMe6dxvRinrzVXh2XTqb7N0mOT73
+    P4h3z1oFQNGk4ieat+e83I/RKEiUwpyFP4gK3T6dFnR6hHzoUwW76XZbO59J/van0/Q/es
+    2E0oBgXuPe1CP/kiu2VPQ1ccJw9DxpalTO2rgrYjK/FIHulSmdjKa/M2JqVmIjhNjbrZhA
+    RWtJEKcO33xvTqRKyCfDx5U3j3J8DJlUL4AYhNOaKglY20SkFNl9sWcuu8/DAJCvzBQCFS
+    /2DRUcW9KeWZVrAvECcL6d2CSndStrtlFyWWjJko3JFiDgMfltVSwvkRWxSfx9ndghm6PH
+    Ah1q04sM1vM9Zsyuu+wpfrypiFxxFJ/XlMekFaNYTVe9dVvp9g+QJGyPH+4s28eE+hSc85
+    w3XWtwIkr/jDmtZ7ga35jYkEmRNHsIJM/Fd5o7Fhf64/WcZF4JzeSSvLFYZg
+X-ME-Proxy: <xmx:xcEFazgwJgPvFtsLuu8tlCD8WS2enSgzj-wfogdi5mG7PKEPKrw1-w>
+    <xmx:xcEFa8ZXFeuf5EZdfZ5po-zoI0ZrnX0-hnn_K2H7qnUo8WsoUvXkog>
+    <xmx:xcEFa3jUNSZ0MCSJEQd4S7GuDIA4dCKidFLQvEk2h1Uf6XaFc9Stjg>
+    <xmx:xcEFa-ZbpBeyb0Q3TSGgNjAYGrExt3MahJfbl2u26yn0BnfMtyHNsw>
+    <xmx:xcEFa9NkWpTEWACW44cc5JkIfZ6mxaotze9UKH3TNsHX8AzxExGobPVF>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id A212F780070; Tue, 24 Nov 2026 11:56:37 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,63 +77,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: AqqI4B7Q9Jis
+Date: Tue, 24 Nov 2026 11:56:17 -0500
+From: "Chuck Lever" <cel@kernel.org>
+To: "Li Xiasong" <lixiasong1@huawei.com>
+Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
+ "Tom Talpey" <tom@talpey.com>, "Trond Myklebust" <trondmy@kernel.org>,
+ "Anna Schumaker" <anna@kernel.org>, linux-nfs@vger.kernel.org,
+ linux-rdma@vger.kernel.org, stable@vger.kernel.org, yuehaibing@huawei.com,
+ zhangchangzhong@huawei.com, weiyongjun1@huawei.com
+Message-Id: <aa51ee58-3404-494b-bbdc-2f9b6a6a7cd6@slotpi15m67>
+In-Reply-To: <20261124021842.130141-3-lixiasong1@huawei.com>
+References: <20261124021842.130141-1-lixiasong1@huawei.com>
+ <20261124021842.130141-3-lixiasong1@huawei.com>
+Subject: Re: [PATCH v3 2/3] rpcrdma: Serialize removal callbacks with unregister
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-perso-ma35d1-upstream-clk-v13-9-c920f4a9f0ce@bootlin.com>
-References: <20261124-perso-ma35d1-upstream-clk-v13-0-c920f4a9f0ce@bootlin.com>
-In-Reply-To: <20261124-perso-ma35d1-upstream-clk-v13-0-c920f4a9f0ce@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
 
-Both CCAP muxes are registered with a single bit bus width which is
-obviously wrong since there are 4 possible parents. Fix the mux field
-width.
+On Tue, 24 Nov 2026 10:18:41 +0800, Li Xiasong wrote:
+> @@ -195,9 +214,17 @@ static void rpcrdma_remove_one(struct ib_device *device,
+>
+>  	mutex_lock(&rpcrdma_device_mutex);
+>  	set_bit(RPCRDMA_RD_F_REMOVING, &rd->rd_flags);
+> +	xa_for_each(&rd->rd_xa, index, rn) {
+> +		struct rpcrdma_notification_release release = {};
+> +
+> +		rn->rn_done(rn, &release);
+> +		if (!release.release)
+> +			continue;
+> +		mutex_unlock(&rpcrdma_device_mutex);
+> +		release.release(release.data);
+> +		mutex_lock(&rpcrdma_device_mutex);
+> +	}
+>  	mutex_unlock(&rpcrdma_device_mutex);
 
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
- drivers/clk/nuvoton/clk-ma35d1.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+AFAICT the release hooks now run one at a time inside the walk. A
+hook that blocks holds off rn_done() for every registrant after it.
+Before this patch, rpcrdma_remove_one() notified every registrant
+and then waited once.
 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index 06bbd63f2ccf..82a4aadeff6b 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -427,13 +427,13 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	hws[EMAC1_GATE] = ma35d1_clk_gate(dev, "emac1_gate", "epll_div2",
- 					  clk_base + REG_CLK_SYSCLK0, 28);
- 
--	hws[CCAP0_MUX] = ma35d1_clk_mux(dev, "ccap0_mux", clk_base + REG_CLK_CLKSEL0, 12, 1, hws,
-+	hws[CCAP0_MUX] = ma35d1_clk_mux(dev, "ccap0_mux", clk_base + REG_CLK_CLKSEL0, 12, 2, hws,
- 					ccap_parent_idx, ARRAY_SIZE(ccap_parent_idx));
- 	hws[CCAP0_DIV] = ma35d1_clk_divider(dev, "ccap0_div", "ccap0_mux",
- 					    clk_base + REG_CLK_CLKDIV1, 8, 4);
- 	hws[CCAP0_GATE] = ma35d1_clk_gate(dev, "ccap0_gate", "ccap0_div",
- 					  clk_base + REG_CLK_SYSCLK0, 29);
--	hws[CCAP1_MUX] = ma35d1_clk_mux(dev, "ccap1_mux", clk_base + REG_CLK_CLKSEL0, 14, 1, hws,
-+	hws[CCAP1_MUX] = ma35d1_clk_mux(dev, "ccap1_mux", clk_base + REG_CLK_CLKSEL0, 14, 2, hws,
- 					ccap_parent_idx, ARRAY_SIZE(ccap_parent_idx));
- 	hws[CCAP1_DIV] = ma35d1_clk_divider(dev, "ccap1_div", "ccap1_mux",
- 					    clk_base + REG_CLK_CLKDIV1,
+A client hook can block. When its xprt_put() drops the last reference,
+xprt_destroy() waits for XPRT_LOCKED. If the connect worker holds that
+bit in rpcrdma_xprt_connect(), it is waiting on re_connect_wait with
+no timeout, and only a CM event from the peer ends the wait. 3/3 wakes
+re_connect_wait from rn_done(). A connect worker still resolving the
+address or route has not registered its ep yet, though, so rn_done()
+cannot wake it.
+
+On iWARP, waking the connect worker does not release XPRT_LOCKED
+either. iw_cm_connect() returns with IWCM_F_CONNECT_WAIT set, and only
+the provider's connect reply clears it. destroy_cm_id() waits for that
+bit. The woken worker goes on to rpcrdma_xprt_disconnect(), and the
+rdma_destroy_id() call that 3/3 adds to rpcrdma_ep_destroy() blocks
+until the peer replies or the provider's connect timeout fires. A
+release hook waiting on XPRT_LOCKED waits that long too. One stalled
+transport should not delay the removal notification for all the
+others.
+
+Can rpcrdma_remove_one() call rn_done() for every registrant first,
+and run the release hooks after the walk finishes? The hooks would
+have to be collected somewhere, because a registrant can unregister as
+soon as the mutex is dropped.
+
+
+> @@ -289,12 +289,30 @@ rpcrdma_cm_event_handler(struct rdma_cm_id *id, struct rdma_cm_event *event)
+
+[ ... ]
+
+> +	/*
+> +	 * Pin the transport while the removal callback runs. Release the
+> +	 * reference outside rpcrdma_device_mutex: a final xprt_put() can wait
+> +	 * for the connect worker, which may need the mutex to unregister.
+> +	 */
+> +	xprt = xprt_get(ep->re_xprt);
+> +	if (!xprt)
+> +		return;
+
+xprt_get() pins a transport whose refcount has reached zero but whose
+memory is still allocated. It does not help once the rpc_xprt has been
+freed. At this point in the series an ep can outlive its rpc_xprt.
+The ESTABLISHED event takes an ep reference that only the DISCONNECTED
+event drops. When the put in rpcrdma_xprt_disconnect() is not the last
+one, xprt_rdma_destroy() goes on to xprt_free() while the ep is still
+registered. If the peer does not respond to the DREQ, the ep stays
+registered until the CM gives up. A device removal in that window
+calls xprt_get() on freed memory. I have not reproduced this.
+
+The xprt_force_disconnect(ep->re_xprt) call this patch replaces has
+the same problem, so your patch does not introduce this issue. 3/3
+closes this window by moving every ep put out of the CM event handler.
+But "Pin the client transport during its callback" in the patch
+description promises more than xprt_get() provides. Let's reword the
+description or note that 3/3 is what makes ep->re_xprt safe to
+dereference in this callback.
+
 
 -- 
-2.56.0
-
+Chuck Lever
