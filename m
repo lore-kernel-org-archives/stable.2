@@ -1,89 +1,92 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795510692;
-	b=5kNce5rLMscaFPkEg+jDWlT9OHGXF/0YC96lPz5b7uySeaTgsbyK6D9N9Jmv03RkEYDD
-	 EL58PHhgSIRhmwXAeLzOZOy51cCewfiwSoj5eFcitCv41qxR5StltZt346Qw3YqCA9NKX
-	 YL1/hxE/KbvlfYsMaeQXl8SMBBklVqDizHHMSuiohbo5IQC2BNfQva72YqPhxrHui/vM6
-	 RIFZTYemc0CJD1hKWCu6DR4+FbNOUWnT3XbQzs0l/LQW3UyIXrLABjKqbZhBsJvw9AbOG
-	 quZcCAOLSsXQmrn/g/6Jt/IvHtO8mUDaU/gqzWNLQ810tJg8rdec6ti9iUxlL4pGguQ==
+	b=ZxiEZGWLChv9rkqYibWvA5G+VIGDbuETA0OSkST43rkrCk1B6g1y14WOgkQqOFmQ0XHi
+	 DAVjgW4+7V12RqYp96eUET06jnxXfOP8wZjncskASAG8v0lRbSVaBbnpJJW+KX1goKxE7
+	 9GGkfY2A7G1D09lJC0KMyac5PjW7sLBbfbcvCZo35XtSTb3urxwNWIm/txX83tWnW8Ldm
+	 VNzlsD+cwjO5XfxwcDZmFcjSPydcXcu4ii7GoF++VqabykxHkyKW5/4D95IxzhM6BEZ0v
+	 qaoS3VbHdAOx/da9MAh8JPU0sSAMsI+ldE3B8CcX+MgtSuKhdqIPFObNRsUs+PFmI5A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795510692;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=pokTu+l1vM7o6Eh7om7s7KcxHn5AkgfsRI7hSQoz1Lc=;
-	b=l+Uc83NuPPa8a32DDsaUF76Sg4R+YcGNsHXWRXTKROb6I8B47TeQxgqKHaUfJLgIAZl1
-	 J3hGZftEU7GVc71lXQdIrsIHx+CPwS+KnPndB0vjuPxfxd0BQhfq43HaYuANgc7x5l+Uc
-	 48qPUWHG+bu2GuPypdaDPUgSfmrX85Rl9jcdfmEcwSqFGiVrdQnp3HzVILvDt3tB4hR6Y
-	 pSWhCbiRDoHFcv8SDrc6Tc1U6flzgnZnwUBkAUDbgVvqQ9aB8d+gr75TsyI5FsB3fFKfo
-	 LHyOzb/4YBHM6pftetIuz7aFA8UC9VBvh3kKu4wci3SK+zSuua/h+DNM0bVdDcZWHKA==
+	bh=sfW2tbmWaZxyyxEoA1wluudOlezM1GvW473v8XzFwrY=;
+	b=5e7aqs3fCredezDQ+Br2DMglu5ZRgkzuQMmiec6pSSghh57zT1lkOOO13wEyRWp02DfQ
+	 wHatazOyAECRfiA5VM7afA3d8TxZZ3Bwb3DSIzuJ10A1n2CYnckjy7Lt4w0/3Aj/CTiTY
+	 aGMGCK1+lPae0CqRLMVh6VNSYsp4Ha6mueN7o8kFdrkL4s9iD9ltZrhRODaRLUqTfjvC5
+	 1dZvkcT1p/d2gl6mbWL2n/bJrVNnTsk6H/by7ODP0yVFBwR8apsp3Ma75GBcEF1TgCTZD
+	 2iKMQo7SxjlG2wzPE1WDwaamg2+tSr7Ddhqv69slJVCsOlp4t+m1rapMwBOJEPFfbaw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Auy5RydO;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gxUwHuuI;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D35B60A2607;
-	Tue, 24 Nov 2026 08:58:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D35B60A2607
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7640060A260F;
+	Tue, 24 Nov 2026 08:58:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7640060A260F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Auy5RydO
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gxUwHuuI
 Received: from pengutronix.de (p20030102af17cb00d2e697ee776c6466.dip0.t-ipconnect.de [IPv6:2003:102:af17:cb00:d2e6:97ee:776c:6466])
 	(Authenticated sender: mkl@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4FF7B205A2A;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EE949205A2F;
 	Tue, 24 Nov 2026 09:58:07 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795510687;
+	s=20260414; t=1795510688;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pokTu+l1vM7o6Eh7om7s7KcxHn5AkgfsRI7hSQoz1Lc=;
-	b=Auy5RydOXqAec/lVdMqs4evD3UwyQ8mwNu40RinCaBSY3HftkKzQFWB0k9QVPoG99tYQ76
-	MF+x0ldOE4hagZfjhA6AgAxRCNTm8CBM3Gv7bDNBQs8Xgui4tfa6kGBrACQEGJgDdvScjZ
-	BP88UVsz47bN93SuaS0TWzfxfNlKpNHAxfevoplqXU7r0fi+SmH26wOvY1Bgu/lJCNOd5J
-	sE8m8Ej5q5P9X3x0hC+pZQi+lh1JS07QmCF9zhjvD5tiLnX9s3t+DqSGLvupJgl7Ls3Vt9
-	vYpkHC1TPa0/HBKLBOlDKnkNtXPaXumYyrCuuuKn4gS4UrI5HFR1VZhUFWt+Xw==
+	bh=sfW2tbmWaZxyyxEoA1wluudOlezM1GvW473v8XzFwrY=;
+	b=gxUwHuuIQjXpzBbnK7dEC4y9ET/0t264+tkISBXjGvhmDQS3ha69GganwgZ9q4QE7DMkav
+	fJHB/bmzE4nMqlxdHiLi3RZgaImWQEk+MdpDoArdHmLMBxESixXK/iqFAnS1ju0+MEA9lp
+	+H7Saa6VAX2xCuRenDFneKgg/wXNWsasSkDfj/0OEAvyazU0j5/QWl/OVnxCmQMYerqyXK
+	vIQ3IpKDMOVExOj/guAy+ouaLBmGzAEScmJ7HGn45AAAFMhwZ/+rizu8ovUw21eg8wh7SA
+	ByJowxES5qZNaoEy5GvmDtzG4GrB3FNJ24IRL3PqP4P/0Wp4ivN5T0G9WT6YAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795510687;
+	s=20260414; t=1795510688;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pokTu+l1vM7o6Eh7om7s7KcxHn5AkgfsRI7hSQoz1Lc=;
-	b=HDt0kPCrqMJu9otDig488FyPsUppCLJGJPLGi/QtZnWcFpBCX+GD4e3Kr6aDKPkzkCcfwX
-	P1P59ALw4kEwa4Ga9KuUCVc/tT1pa7C9qZl/MKmTwHyd0OZvgluJEtUbi5HZmdxu4gZyCF
-	P96ZvPnDfKBAYiLcNmHakgCmNAojCNGp5Qa7hfe5K7Q/a2+MCcq8h+5xQGpP8DFFyBNKSk
-	d2YeMTSOzVB4JatQYd0Fx31+57blEECuI+DEqWKO5F5lLzuQDpKYEA6duvqIsvVZyTikbl
-	ZuHhu0NSkleZW/5VxW453kGwfgtOZj7Xp7/nvvkh7xBeGciWYCcjRFMkx8apNQ==
+	bh=sfW2tbmWaZxyyxEoA1wluudOlezM1GvW473v8XzFwrY=;
+	b=LLV+lGfc0qFGaK89XW4KRoFqjUAnFAUxSgwGD5GCWENHxBDPOvk3fsxAsK4ZjIWuegimgl
+	slOev00Z8czo/2FTesp8p8GtaXj1IjBMdGhSgmdrRAnmyLOZF+MiqGMk5SyjzIufxxJu71
+	hoIDd9y+2ahad2LYIs449FM9tvyzt1LEV/lGhSzHHUh6bb++tOYjk6m4ebBmLJUDkWeAUw
+	5wZ+GHgvHzQn7byrnoslk0FgoA2ybDW+6icfdaL4ShOzViao4T87OEeIvxdVzzj7HUsy+8
+	gwmX7QY19qWNFGXfKKwufRMc80P8ErC2cud9M+AJxdodXjOGPXBvY/tERvpKww==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=mkl@pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795510687; a=rsa-sha256;
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795510688; a=rsa-sha256;
 	cv=none;
-	b=K2QduMmcYjpqKoDTJHgDRY2jAmYYn9W9ZQx2po0hIGYO6rAy3QgX8x3c/2wqUSPX0jdms1
-	miF72XS9tDxxogHzV4Cn3XDrc149NZQMaBI1nEY/K64AatYaQWfUG3cRndxh/UJllLxvgi
-	BDiFAhuUAZDu/5scrz+SDAvk3TLsMtJ9mSAVJfjgXxsOuabSM3Q/Nks+1O6x5AaPCxHKJ6
-	DMhDP/xQ2Cpzdf4ZkLiX/F5H12onu2bx9J3bPHlx+4nMORyVDXcoglg8MpxXWD+EdoR+5h
-	YiN4zZrW72oepfUxlK136VV7DobnzbJ68l3RMRUKwN4tWODjI6ALAXPG59gUjQ==
+	b=IYunNs0FVJugs65FXGx52CsvWwaFdHi5IYxnu3qtZc87s8P0eEZNbC5Luc8pyFrUMkAgOz
+	qAVQL9BSNlUtAX46cm1F/IgbdbiuFfJR4gLqBhccRtt2snBo2F5G6eAoGZowc1sh41REyp
+	j3xvjwqRBfKipFEgj2+n0YsZOu2MvcjH7EFg1FHENJ54LQr54xptod04bhZVzbmR/yNo/V
+	1dMTgykNYhU/dFKl4Znwe5nxfifm+23yNi/YnD7jl6GoICD2/Jc87bANIhtuMKkaBP57qv
+	nBORz3Q9pBKfkFM/+umdHMXX9mck2vzRliQVtYC9kZKbnLqM25p6Ujoe/oah9Q==
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 To: netdev@vger.kernel.org
 Cc: davem@davemloft.net,
 	kuba@kernel.org,
 	linux-can@vger.kernel.org,
 	kernel@pengutronix.de,
-	Zhu Ling <zhuling0805@qq.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
 	stable@vger.kernel.org,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net 09/12] can: netlink: fix IFLA_CAN_BITRATE_MAX attribute sizing
-Date: Tue, 24 Nov 2026 09:51:36 +0100
-Message-ID: <20261124085757.1093632-10-mkl@pengutronix.de>
+	linux-kernel@vger.kernel.org,
+	Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>
+Subject: [PATCH net 12/12] can: flexcan: Fix probing for m68k/coldfire
+Date: Tue, 24 Nov 2026 09:51:39 +0100
+Message-ID: <20261124085757.1093632-13-mkl@pengutronix.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261124085757.1093632-1-mkl@pengutronix.de>
 References: <20261124085757.1093632-1-mkl@pengutronix.de>
@@ -96,43 +99,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Zhu Ling <zhuling0805@qq.com>
+From: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 
-can_fill_info() emits IFLA_CAN_BITRATE_MAX with nla_put(), which consumes
-space for both the attribute header and its aligned payload. However,
-can_get_size() accounts for the payload only. The resulting underestimate
-can make filling the netlink response fail with -EMSGSIZE when the skb has
-no remaining slack.
+When determining the device details was reworked in commit 5e6c3454b405
+("net: can: Use device_get_match_data()") there was no replacement for
+the previous handling of non-of instantiated devices via the device's
+id_entry which then results in a NULL pointer exception. The only
+in-tree provider of such a device is arch/m68k/coldfire/device.c.
 
-Use nla_total_size() to account for the complete attribute.
+Given the id_table only contains a single entry just hardcode the result
+of `platform_get_device_id(pdev)->driver_data` and drop the unused
+assignment to .driver_data from the table.
 
-Fixes: 2290aefa2e90 ("can: dev: Add support for limiting configured bitrate")
+While touching the id table, drop the unusual comma after the terminator
+entry.
+
+Fixes: 5e6c3454b405 ("net: can: Use device_get_match_data()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhu Ling <zhuling0805@qq.com>
-Reviewed-by: Marc Kleine-Budde <mkl@pengutronix.de>
-Link: https://patch.msgid.link/tencent_D1C873B86B0E92011A264B0E196B911D5308@qq.com
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-3924d490-baed-49dc-880a-6fd1163cf08d
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+Link: https://patch.msgid.link/20260618140147.142489-2-u.kleine-koenig@baylibre.com
+Cc: Vincent Mailhol <mailhol@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: linux-can@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/net/can/dev/netlink.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/can/flexcan/flexcan-core.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
-index 521e2496e2cc..10e7ccaf40fb 100644
---- a/drivers/net/can/dev/netlink.c
-+++ b/drivers/net/can/dev/netlink.c
-@@ -833,7 +833,7 @@ static size_t can_get_size(const struct net_device *dev)
- 	if (priv->bitrate_const)				/* IFLA_CAN_BITRATE_CONST */
- 		size += nla_total_size(sizeof(*priv->bitrate_const) *
- 				       priv->bitrate_const_cnt);
--	size += sizeof(priv->bitrate_max);			/* IFLA_CAN_BITRATE_MAX */
-+	size += nla_total_size(sizeof(priv->bitrate_max));	/* IFLA_CAN_BITRATE_MAX */
- 	size += can_ctrlmode_ext_get_size();			/* IFLA_CAN_CTRLMODE_EXT */
+diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/flexcan/flexcan-core.c
+index 86b40abe9e76..e9b822678213 100644
+--- a/drivers/net/can/flexcan/flexcan-core.c
++++ b/drivers/net/can/flexcan/flexcan-core.c
+@@ -2077,10 +2077,9 @@ MODULE_DEVICE_TABLE(of, flexcan_of_match);
+ static const struct platform_device_id flexcan_id_table[] = {
+ 	{
+ 		.name = "flexcan-mcf5441x",
+-		.driver_data = (kernel_ulong_t)&fsl_mcf5441x_devtype_data,
+ 	}, {
+ 		/* sentinel */
+-	},
++	}
+ };
+ MODULE_DEVICE_TABLE(platform, flexcan_id_table);
  
- 	size += can_data_bittiming_get_size(dev, &priv->fd,
+@@ -2148,6 +2147,15 @@ static int flexcan_probe(struct platform_device *pdev)
+ 		return PTR_ERR(regs);
+ 
+ 	devtype_data = device_get_match_data(&pdev->dev);
++	if (!devtype_data)
++		/*
++		 * If the device was instantiated via the traditional platform
++		 * mechanisms (i.e. not by device tree), device_get_match_data()
++		 * returns NULL. The only remaining such device is mcf_flexcan0
++		 * (defined in arch/m68k/coldfire/device.c). Pick the right
++		 * device type for that.
++		 */
++		devtype_data = &fsl_mcf5441x_devtype_data;
+ 
+ 	if ((devtype_data->quirks & FLEXCAN_QUIRK_SUPPORT_FD) &&
+ 	    !((devtype_data->quirks &
 -- 
 2.53.0
 
