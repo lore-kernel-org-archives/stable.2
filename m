@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534929;
-	b=iq3OASViE3HuuBqg/CS0YjKkMs9iwFOnynkgvhF04eUMXmflokCfue77Aga/e4azhiD3
-	 +uKDniS48e4XVv7CMyOo+yOA9LDz5dAJiIy+7vkN16z+L6zZfRoQ4wMrYHdKkxMaTY0sH
-	 8OGi1CTV2z3q1JF/QTSKM3cX5nspF2oRoei1OAfqlHrAyCuekTzVoRzCSQf8NuOaks7qN
-	 glyCC4I0z9aaDFfp63gkyTcZspSTrz5gCZaF+cxUyxSlo41smdrNlhz/JuI7TxjJC30aP
-	 EGQbP081KZk5dKvuwP3gR9VnFOeFXFd/muJlXtpq8UTUfjdBVaJVeZJhFTY2DBwZKIQ==
+	t=1795534969;
+	b=ZV260bH9cYPkJ7x/3WZp/kByFEwtWgeYzr46O/M5sG2/07wj4qGKMGgTxtv2mPWIh48s
+	 O3UJXrR4hZSJzLK34p2dINVeRx4JFR8RLwbcXBSAMNugKd44NbVHsyB8cdbQmPAa90tPm
+	 LdfLZ/fxbvSU7wBxd3w4JXHV/dgbu8b71prK4FIcm58ZdxNWpigLjA74ZSLTWsDIn3RGC
+	 4SpyY5TDrIPRxdkxIQCn8lUXJXqK6v2UJ63Ge83jrY3vXVFEqjgGOgsFSSlKk4prQzij0
+	 AeSNnKPqOMxEoHMTnctyfqkLTv2HmiIuSsafyaosQlpSMqnE5POH2Bsqdo0XHsQHpIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534929;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rVP9wl3VunTWgKaPdNZy2OF/AnthAYjDVJYNAOWSczM=;
-	b=1QgRYiEbOUUP8/yaD5LK1GPpHX8wHDVocDZ8l4bntelKcop1IGVj/c9Lg//6d2L7vbg5
-	 8e0MQkPPRLfZ4s41FzQjOYcx/QNDakMh3hOvraFzSzlL/p2kLNhNhkehT2WFrScwPfrxk
-	 9/IVJ/4+h20bzDsFbA4RptIuoXGu+/4Ka9Ttb8fVfp88tb33tb5lyYBuVbX1I6pmVNmnu
-	 h60jwHXhDx+exF5hPkJDPS0UlQrX6ubbagHgPmYPmBhGpAqGw0eYKygbwxQKosIx6dLbp
-	 84nGpzBkg/7tFqA5sBpFjFfhWVwfStjkvb+41YvYLC6WlN+GBuLh56dSsPCn1IJbGaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534969;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=YoQo8x8RM9Zoa++3He8lkWo7hpo+FLZqzKP49nl3NG0=;
+	b=bU94S6gGSiiEP5Souu8ezZWwn11eIUz92c74l5b6be/a/R/yB1WsWIJzs9GjRFZGTVuo
+	 s+5JN69Z9N5OA7cwIOol4jBdmawGGUhMBdiOJ5dBzYCB0D1rBYBcLPTpOqY6+D3KpLdK6
+	 Z08GK9CpUaG2ED8O9RRrHVsNR/7rNrkgMarSud8W4QHD2ACIyH38z50ypJ5GOP+2XoQVg
+	 ZCSmeoGyhDX06W5m4p6Y/Y53NTY7KCrbJQdhfrXj8c8eRaMaT2v0Pw6AjUUTk0HDjZASx
+	 B3KdmvvN3e5Nr+qCQrUpyL0BhgI6z76nvXlfo4xNUn9f5fJaJ+d22IYCKRMVsGo0anw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGkoddxY;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WOv1geDm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A10606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:42:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BA2606A334
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:42:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGkoddxY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA0921F000C4;
-	Tue, 24 Nov 2026 15:42:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795534929;
-	bh=rVP9wl3VunTWgKaPdNZy2OF/AnthAYjDVJYNAOWSczM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XGkoddxYigV1IWUiRhdMzv2AQ0ojOJuT1HU3ovXB4Mt601oL82CZzuH+d4q06G/dv
-	 DWbZljWVyS/Vn3vhKt8KOpKzTwBNfBBEZenT7SasokKDHkT8Xx8JLuwXdGBR6JpYo6
-	 23wZ+JyMV8dcd2LIBzDCKDc/tgzDFIFMiMsssN16KuLR3WQAXQKRuavPaJe5+yIgMb
-	 YSDGYn+Z7ADVk6/dTG+5grZ4YkjrOVbotBcFlFIAxMnfuEodE/DGkiroijQMk0/y+k
-	 tDz3tC1PxjgavtW+p+aaaM14bPXpviAmnyeWm+bA3g8/J/gR18x7GGeU8uc3UNsSLj
-	 kdH9EXKn29+kg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Andrew Davison <andy@dvsn.net>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ALSA: hda: Fix [codec] ID matching in patch files for IDs with bit 31 set
-Date: Tue, 24 Nov 2026 10:42:07 -0500
-Message-ID: <20261124154202.24051-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112420-stunt-sharply-51f3@gregkh>
-References: <2026112420-stunt-sharply-51f3@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WOv1geDm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 734881F000E0;
+	Tue, 24 Nov 2026 15:42:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795534969;
+	bh=YoQo8x8RM9Zoa++3He8lkWo7hpo+FLZqzKP49nl3NG0=;
+	h=Subject:To:Cc:From:Date;
+	b=WOv1geDmD7Rf9RpofnR1xUVuKgxEDt1Er8jzPd67vjbU5AvZcBHqzDGyF7dzyO3Qt
+	 Dw+3+6Z8gq0pEksGH+mHw0R3PnZ3S/ULdGIriwlvH9NuvcFq71xG+s/56iget7iGDK
+	 /ejbKuMmUdfp5bdbOCqP4D0thKuMsnFLB1iMd4QQ=
+Subject: FAILED: patch "[PATCH] bootconfig: Trim unquoted values at end of file" failed to apply to 6.18-stable tree
+To: edumucelli@gmail.com,mhiramat@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 24 Nov 2026 16:43:00 +0100
+Message-ID: <2026112400-underage-preheated-44a9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,66 +51,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Andrew Davison <andy@dvsn.net>
 
-[ Upstream commit fda103c1432f344e1cd548f346d157b1e67ee7c5 ]
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-parse_codec_mode() reads the vendor and subsystem IDs of a patch file's
-[codec] line into an int, and skips the check when the value is zero or
-negative, as documented. An ID with bit 31 set, such as SigmaTel's
-0x8384xxxx or Intel's 0x8086xxxx, comes out negative, so it is taken as
-a wildcard and the section is applied to every codec instead of the one
-it names.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-This was seen on an OpenPeak OpenFrame 2 with an IDT 92HD75B2X5
-(0x111d7608). A patch file written for the STAC9202 (0x83847632) in the
-related OpenFrame 1 was applied to it, swapping the headphone and
-speaker pin configurations, so auto-mute never muted the speaker.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 381b391bfaa3f10d52da4740529804b0b6b8160d
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112400-underage-preheated-44a9@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-Read the IDs as long long, so real IDs are compared exactly. Values
-written as negative numbers (e.g. -1) still act as wildcards, as
-documented; a hex value such as 0xffffffff is now compared as written.
+Possible dependencies:
 
-Tested on 6.18.60 on an OpenFrame 2, with a rebuilt snd-hda-codec and
-the STAC9202 patch file: user_pin_configs stays empty for the IDT codec,
-and the headphone and line-out pins are assigned as the BIOS sets them.
-Not tested on a STAC9202 itself.
 
-The bug was tracked down and this fix written with an AI coding
-assistant (Claude Code, Claude Opus 5.5), which also ran the tests
-above. I have reviewed the change and the tests.
 
-Fixes: ef940b0403d4 ("ALSA: hda - Allow patching with any vendor/subsystem ids")
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 381b391bfaa3f10d52da4740529804b0b6b8160d Mon Sep 17 00:00:00 2001
+From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+Date: Tue, 10 Nov 2026 20:08:46 +0100
+Subject: [PATCH] bootconfig: Trim unquoted values at end of file
+
+__xbc_parse_value() trims an unquoted value when it encounters a
+delimiter, but leaves trailing whitespace intact when it reaches the end
+of the input. Thus "key = value   " has a different value depending on
+whether the file ends with a newline. The extra whitespace also reaches
+the rendered kernel command line.
+
+Trim unquoted values after the scan finishes, including at end of input.
+Skip trimming after a closing quote so intentional whitespace in quoted
+values remains unchanged. Add checks for scalars, arrays and quoted
+values without a final newline.
+
+Link: https://lore.kernel.org/all/31f248f330e716b925add3a0ba76f62826527312.1794337724.git.edumucelli@gmail.com/
+
+Fixes: 76db5a27a827 ("bootconfig: Add Extra Boot Config support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Andrew Davison <andy@dvsn.net>
-Link: https://patch.msgid.link/20261106175518.18629-1-andy@dvsn.net
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/pci/hda/hda_sysfs.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-diff --git a/sound/pci/hda/hda_sysfs.c b/sound/pci/hda/hda_sysfs.c
-index c6081f3c1ccd8..47b29e163ac0c 100644
---- a/sound/pci/hda/hda_sysfs.c
-+++ b/sound/pci/hda/hda_sysfs.c
-@@ -520,11 +520,12 @@ static inline int strmatch(const char *a, const char *b)
- static void parse_codec_mode(char *buf, struct hda_bus *bus,
- 			     struct hda_codec **codecp)
- {
--	int vendorid, subid, caddr;
-+	long long vendorid, subid;
-+	int caddr;
- 	struct hda_codec *codec;
+diff --git a/lib/bootconfig.c b/lib/bootconfig.c
+index a4aae9a9abca..948c8c10e4b9 100644
+--- a/lib/bootconfig.c
++++ b/lib/bootconfig.c
+@@ -793,16 +793,17 @@ static int __init __xbc_parse_value(char **__v, char **__n)
+ 				return xbc_parse_error("No value delimiter", p);
+ 			if (*p)
+ 				p++;
+-			break;
++			goto skip_trim;
+ 		}
+ 		if (strchr(",;\n#}", c)) {
+ 			*p++ = '\0';
+-			v = strim(v);
+ 			break;
+ 		}
+ 	}
+ 	if (quotes)
+ 		return xbc_parse_error("No closing quotes", p);
++	v = strim(v);
++skip_trim:
+ 	if (c == '#') {
+ 		p = skip_comment(p);
+ 		c = '\n';	/* A comment must be treated as a newline */
+diff --git a/tools/bootconfig/test-bootconfig.sh b/tools/bootconfig/test-bootconfig.sh
+index d19747e47890..f584f7637e12 100755
+--- a/tools/bootconfig/test-bootconfig.sh
++++ b/tools/bootconfig/test-bootconfig.sh
+@@ -181,6 +181,24 @@ $BOOTCONF $INITRD > $OUTFILE
+ xfail grep -q 'val[[:space:]]' $OUTFILE
+ xpass grep -q 'val2[[:space:]]' $OUTFILE
  
- 	*codecp = NULL;
--	if (sscanf(buf, "%i %i %i", &vendorid, &subid, &caddr) == 3) {
-+	if (sscanf(buf, "%lli %lli %i", &vendorid, &subid, &caddr) == 3) {
- 		list_for_each_codec(codec, bus) {
- 			if ((vendorid <= 0 || codec->core.vendor_id == vendorid) &&
- 			    (subid <= 0 || codec->core.subsystem_id == subid) &&
--- 
-2.53.0
++echo "Remove unquoted trailing whitespace at end of file"
++printf 'foo = val \t' > $TEMPCONF
++$BOOTCONF -l $TEMPCONF > $OUTFILE
++printf 'foo = "val"\n' > $TEMPCONF
++xpass cmp $TEMPCONF $OUTFILE
++
++echo "Remove trailing whitespace from the last array value at end of file"
++printf 'foo = first, last \t' > $TEMPCONF
++$BOOTCONF -l $TEMPCONF > $OUTFILE
++printf 'foo = "first", "last"\n' > $TEMPCONF
++xpass cmp $TEMPCONF $OUTFILE
++
++echo "Keep quoted trailing whitespace at end of file"
++printf 'foo = "val "' > $TEMPCONF
++$BOOTCONF -l $TEMPCONF > $OUTFILE
++printf 'foo = "val "\n' > $TEMPCONF
++xpass cmp $TEMPCONF $OUTFILE
++
+ echo "Showing correct line:column of no closing brace"
+ cat > $TEMPCONF << EOF
+ foo {
 
