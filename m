@@ -1,41 +1,41 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795510687;
-	b=ebD39gwHQE0zM3x1ql5bL/h49qXl3HpAdTQOJ+0FgAim+dltUedDZElnT5zkfHy1DteK
-	 nduM1I52ER0jnxBMFypivDv48Iw0bRUuPpBJj5h6YhLAzEToDrJIDfNVEV/wi0vwhUjAg
-	 juAgUMu4ThIxyXbj8u624Vo56LClmnENUUh0O4VDA4G7GZjfZTnM7/1ogGOEP4vkLJSno
-	 tuOrXp/KF1rqymiqRrnwQ96TdldN65A8/T3Xcp1LkQr3Ynod+UuOAXJEmzAoxymOJ6o+q
-	 YoFANN3Y6+VIWcR/J8cVr0qav5C+1CydbADGkp0fchOYLdVNvXWvtSyosGkLGKWK0vg==
+	t=1795510689;
+	b=vxuErdNqSULhlM1Q0dRixfRE+Uz4gts46RdL7yg/8yW+OqwrFEHQz7k9RR0hm+zye2eo
+	 MzrMxKl2tbOL48LgorrSQ/sR+T1Bt+Y7QRLGadZyzmCz42S0aZlmuOxP9jmm0h34Ouvq0
+	 YEectnl0yimkAUDFoxzdn5XyDLe3qV0u4mkYUjEQ6lCjenSjIgUZbqgMSdpOxzE1X45Ma
+	 unjYCapcDyr/K3JMyHNIuIdaIV56KLVFSgc2SqNXrewGZBlp8Fb+l3Um+md3z6NSuTsk5
+	 HUXEan9YDxWfRZ4O7jPAGPx1/hIE/piGsO6BmhHumgUd6jD22n8Z4eWZrlzEOvgvz5A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795510687;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795510689;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=76uqXxjlsjHRjkNzBtvYUvH+0OqjU/qj/joPKtF1TNo=;
-	b=sI774QVXdDqafB8XhnPsmkxc2PZ9ukELxcnnObqeJd0is4A4L264i4tT7kMuOR9ZyeHm
-	 CnY6fopYtsRwW0J+lPhrmuxxtz2cnc8B6A1+gMkE9S8c0yv7i2JitKZbQanbQA6GTJbTX
-	 Q14lwIHBGX1VCyxqKa/jJfB9TfPydtmUXDHcd2F9i0aadUvfYYOEtL76rNLvfzBt9L8AV
-	 KKGjzM69cC0qcM6gqSs+KyQzqUlvxZLfYocFkZ83kF+fmv2QoEWp5KjaIbV5GSSd1xBQw
-	 WEe7dMV5qWGf2FZCj/H7Vb9yeGwnRpYYKidUn6SIvP/rU5+11TDR9H52k4eZMyjiErg==
+	bh=1AhGJBLQYGXAjn/bCuARkdD/zoAEVzxwHiT2NyPmhQw=;
+	b=zsJeew7yua9OZdA4YHmpTHrbfBMk7LCoo9y28mc8+3hasDHiUeSpczxnlNVkDe0r1eM2
+	 Yt4QZGp3vYsIpr16lCWfClmEGhvdvR2nxWfdi6hkv+Pr5ETW3GFeR0N6cynGa/W2sn3MY
+	 dGVZq69xOzpOy7idjqwXfmcF+95uY8l0iS0gPV6SOWlh+T3BnAm/PwfBUHrAccjYydgIV
+	 aZB8T4feLsu9+VXypB8SPUaZfckWDxMZEXBSVd9Gv/wcclyeHDBWRv2pBnPb6ihVnkPFF
+	 1gP01ERpafOT+AGuAcVrpN2CAhqb5squeCgrlhqMqliqb7sBBVwkuIKp/kbFYilBmfA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Mz3zak1W;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=MY4X0eIf;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4257606A336;
-	Tue, 24 Nov 2026 08:58:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4257606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A57606A699;
+	Tue, 24 Nov 2026 08:58:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64A57606A699
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Mz3zak1W
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=MY4X0eIf
 Received: from pengutronix.de (p20030102af17cb00d2e697ee776c6466.dip0.t-ipconnect.de [IPv6:2003:102:af17:cb00:d2e6:97ee:776c:6466])
 	(Authenticated sender: mkl@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 474742024BE;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BB780205A22;
 	Tue, 24 Nov 2026 09:58:05 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1795510685;
@@ -43,34 +43,34 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=76uqXxjlsjHRjkNzBtvYUvH+0OqjU/qj/joPKtF1TNo=;
-	b=Mz3zak1WmUOJNiDzAQzo7oZHpYFQyFse3oZ+X035R6aX394itf+tbxF7G7NKLmYUI2FVqe
-	S/xZvDszRbBOHd2+M0qbUdZ26oAXFEkz28d8aI0omZSGYcux83Gx68ss6//ZPKku/I1ySj
-	b8fgtHuzlw0xskgxjLYOkaqjXZZDTpr+DZPSx/SmjCtJAyI3uJp1yiBBQ4RAbQVijEKKw2
-	6GIPEzHxCI4SbxZ2VjqnTycrVJhuFWpRLvTW/uAhpyaLJ0040AY1sJddqfPW2oWm03EnnW
-	1VSFwgy9DlB5UoxPheNpma6w4sdeqBG/cf6aD3hNmJ2wsMuoFJhEMqH1ocTdrw==
+	bh=1AhGJBLQYGXAjn/bCuARkdD/zoAEVzxwHiT2NyPmhQw=;
+	b=MY4X0eIfEHncu04urJK1+SValpfMVNznCHU6r7NEXanAP/X6J6enG3aOyH5yBJfpkvudT1
+	beXwdScRgANkBaMvwizEm7W1CEhBOK1tWJ22rzb3+u/vciXr/N1/5dgmbKiNFzqT4kkc8Y
+	JPGiSotXdEi4yRRLbDTd2rN3TW0In4J4Lq4PSc8sz8EVhqplx+Vp2gk6hneoZakLESQT3o
+	XGLlLQ2vdDiH+hIcCWiZ+KtCubKd6Mi3Tb0NVJ6blBepuot2N47z7SMijYIH5nh5qn+3Vh
+	iZ+tCP2V3FdiV0iqP1ZjJ+tvB4WawDVSNVbTnH5tFRFVMI5xGyCSE2LEO4H+qg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1795510685;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=76uqXxjlsjHRjkNzBtvYUvH+0OqjU/qj/joPKtF1TNo=;
-	b=V2MTHbbnk08tabwbyd1ZUyNsfmtpLRdjPSfGO1vgr7PzN1IQqSuVpDPNIVal1IegHEq8Jx
-	EPd9kUggF5X8cnEri2qFknHdp5/X3Ftyic7O4lYDIijjLKA6hBU/VGNjY6KCcYap+2+/vg
-	oAWhnV987at1W4ZoUU0ID0MDsZsTpdVCEU7Er/XSlm6VZYwp9RaEvo22FfT7N6rRIkIYuS
-	Jarc7sKNhQ+UzHZwOFYtb+hXwDlkfsAx3esK/Gm5J1HMkZDZFzEmgMQ6tzFnR30+6FqGvi
-	dLIEqUDELxRscfCzC7uSrBt7Yjjk1b5fSQ0SD1DoFwzXIjYZRcUDuYuM/Ttj0Q==
+	bh=1AhGJBLQYGXAjn/bCuARkdD/zoAEVzxwHiT2NyPmhQw=;
+	b=R+NYQL44UUZb6/+aBsV85CZvY0p+m/c4qN12gWvj5p6L/LJyGB+LjuSswgXEpfSbnQ727G
+	NYBttfVgB70eACL5tn4nNHlcDbETv535vXiv81QCVNip27Hbhm0WbCHj1HXa5Xrg1Ecfar
+	18E9oVOUBdj4Icg9EkzLg6TDgHu+rSBSFhq30GJsCKCQ57mUiJ/fqpm213p0mIGfoIStpp
+	WCGBSupT9v23A3dbB3xwLdQw2thJsbUj8PKcQOCp6bWR5zioF+ywUBslcCbxsFDjdxq3yA
+	z4cEiZyWWqcOzDf+UtYhBLr65FcA/1W5Fs1/9MsFKW2KiXgvDQGZNgCaPJyYIA==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=mkl@pengutronix.de smtp.mailfrom=mkl@pengutronix.de
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795510685; a=rsa-sha256;
 	cv=none;
-	b=B7gxxw21EyH9/4UPh0tfSXRoPZ58xOwRxD7vsUJ/TQ0AKs/ihP4z9wkFKtU6ipg6Vr5S+O
-	9OYtim7xIGFx+xoQAkGNDrsEkdanIQhAfxoJdaf8rWPDrQ3IjWVyxbj+z9G84wdfVK8S1D
-	2JZgLrdRD6mgFgRcKqecQkry4api1yWqTOtyiDRXKqBZ5qb1nrSZIeH4Hha4Gn0mQzJFO8
-	dLmj0vLyaIanB1rgaedWF1C7wiVODkjdv5piYfuUH5A++2swavRUYgUQfnPDtA/iz1C3LE
-	A6FPe8AQAzgZ92LTm94UXnMXG0cVSdVHnk4n7yTl/my31iSlLzh59XYXk+W5rw==
+	b=G4uxlMQDY+bcXa0VX5n4aPQLY/gnJL6/qzxltT+yuJNsh8It0S6ag6jQIWLmfCrh2Slm8f
+	vG3K/DYM+49ngT7qYiHXjXpDOSy3x1oZdtWnjSzYJwqXIG3cAGBS7uL0MXHEVktQLXiEhV
+	rXSTSWMchSxhg7z62BlCmC43xGte8bgJhONaXg6SVpF3s1/aJVfj2CXe3pIHFyBbOEJDJ2
+	pHPdeghPuZSbWY+iDp4NBCTiIewrl1oBqbqrF7k/sjKWi5TfmTMjUgcDKhzdjmUaRxYzgg
+	n10934d4DAywIR7e0gHZC3EYgYUx0WLeEJ3m3bwNpP++c6anXUgNk8w6PIeyXA==
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 To: netdev@vger.kernel.org
 Cc: davem@davemloft.net,
@@ -80,9 +80,9 @@ Cc: davem@davemloft.net,
 	Oliver Hartkopp <socketcan@hartkopp.net>,
 	stable@vger.kernel.org,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net 02/12] can: bcm: do not remove the procfs entry in bcm_notify()
-Date: Tue, 24 Nov 2026 09:51:29 +0100
-Message-ID: <20261124085757.1093632-3-mkl@pengutronix.de>
+Subject: [PATCH net 04/12] can: isotp: use a private mutex instead of lock_sock()
+Date: Tue, 24 Nov 2026 09:51:31 +0100
+Message-ID: <20261124085757.1093632-5-mkl@pengutronix.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261124085757.1093632-1-mkl@pengutronix.de>
 References: <20261124085757.1093632-1-mkl@pengutronix.de>
@@ -99,130 +99,168 @@ Content-Transfer-Encoding: 8bit
 
 From: Oliver Hartkopp <socketcan@hartkopp.net>
 
-bcm_notify() removes the procfs entry of a CAN_BCM socket that is bound
-to a vanishing CAN device with remove_proc_entry() while holding RTNL.
-remove_proc_entry() waits for all running readers of this entry. A
-reader of /proc/net/can-bcm/<inode> that stalls in its copy to user
-space, e.g. on a FUSE backed mapping, therefore blocks RTNL on the
-unregistration or namespace change of the bound CAN device.
+isotp_notify() takes lock_sock() of a socket that is bound to a
+vanishing CAN device while holding RTNL. Any path that holds the socket
+lock while accessing user space can therefore block RTNL. Since
+commit 43c973a0887d ("can: raw, isotp: copy socket options outside of
+lock_sock()") the CAN_ISOTP specific socket options copy their values
+outside of the socket lock, but the generic SOL_SOCKET options in
+sk_setsockopt() and sk_getsockopt() still access user space under
+sockopt_lock_sock(), e.g. for SO_ATTACH_FILTER, SO_LINGER or SO_TXTIME.
 
-The entry has been removed in bcm_notify() so that a later
-bcm_connect() of the unbound socket can register it again without a
-"proc_dir_entry already registered" warning.
+CAN_ISOTP only uses lock_sock() to serialize the binding and the
+CAN_ISOTP socket options. It does not use the socket backlog, as the
+received PDUs are queued directly to the socket.
 
-The CAN_BCM socket itself stays usable after a NETDEV_UNREGISTER:
-bcm_notify() only unbinds it and reports ENODEV, so the application can
-connect() the socket again, e.g. to a re-created CAN device. The name
-of the procfs entry is the inode number of the socket, which does not
-change until the socket is closed.
+Replace lock_sock() with the mutex conf_lock in struct isotp_sock. The
+generic socket options do not take this mutex, so they can not block
+isotp_notify() anymore. No user space access happens while the mutex is
+held. The memory allocations for the CAN receivers in isotp_bind() are
+still done under the mutex, as they have been under lock_sock() before.
+isotp_release() drops the mutex before synchronize_rcu() and the
+hrtimer cancellation, as the socket has already left the notifier list
+at this point.
 
-Keep the procfs entry until bcm_release() instead, which removes it
-after the socket has left the notifier list and without holding RTNL.
-bcm_connect() only creates the entry, if it does not exist yet.
-bcm_proc_show() reports an unbound socket as "unbound" instead of
-showing the cleared ifindex as "any".
+Following a Sashiko feedback for raw.c it would make sense to copy the
+content in isotp_getsockopt() under the new conf_lock mutex too.
+This change will be addressed in a follow-up patch as it goes beyond a
+simple lock replacement intended for stable.
 
-As bcm_proc_show() can now run while the socket is bound or unbound, it
-reads bo->ifindex locklessly with READ_ONCE() and the writers use
-WRITE_ONCE(). The NETDEV_DOWN handling in bcm_notify(), which runs
-without lock_sock(), reads bo->bound and bo->ifindex with READ_ONCE()
-as well. bo->ifindex is still only modified under lock_sock(). A
-concurrent bind or unbind may show an intermediate state in the procfs
-output, which is acceptable for this debug information.
-
-Fixes: 76fe372ccb81 ("can: bcm: Remove proc entry when dev is unregistered.")
-Cc: stable@vger.kernel.org
+Fixes: e057dd3fc20f ("can: add ISO 15765-2:2016 transport protocol")
+Cc: stable@vger.kernel.org # depends on "can: raw, isotp: copy socket options outside of lock_sock()"
+Tested-by: Oliver Hartkopp <socketcan@hartkopp.net>
 Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20261120-can-bcmlock-memcg-v7-2-f6b84f5257b1@hartkopp.net
+Link: https://patch.msgid.link/20261120-can-bcmlock-memcg-v7-4-f6b84f5257b1@hartkopp.net
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- net/can/bcm.c | 33 +++++++++++++++------------------
- 1 file changed, 15 insertions(+), 18 deletions(-)
+ net/can/isotp.c | 28 ++++++++++++++++------------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
 
-diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 3f4c8d828337..1595b7720c98 100644
---- a/net/can/bcm.c
-+++ b/net/can/bcm.c
-@@ -219,11 +219,16 @@ static int bcm_proc_show(struct seq_file *m, void *v)
- 	struct net *net = m->private;
- 	struct sock *sk = (struct sock *)pde_data(m->file->f_inode);
- 	struct bcm_sock *bo = bcm_sk(sk);
-+	int ifindex = READ_ONCE(bo->ifindex);
- 	struct bcm_op *op;
+diff --git a/net/can/isotp.c b/net/can/isotp.c
+index 7a90ba3f1cf1..8229b6a69ecd 100644
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -182,6 +182,7 @@ struct isotp_sock {
+ 	struct list_head notifier;
+ 	wait_queue_head_t wait;
+ 	spinlock_t rx_lock; /* protect single thread state machine */
++	struct mutex conf_lock; /* protects bind and setsockopt */
+ };
  
- 	seq_printf(m, ">>> sock inode %s", bo->procname);
- 	seq_printf(m, " / dropped %lu", bo->dropped_usr_msgs);
--	seq_printf(m, " / bound %s", bcm_proc_getifname(net, ifname, bo->ifindex));
-+	if (READ_ONCE(bo->bound))
-+		seq_printf(m, " / bound %s",
-+			   bcm_proc_getifname(net, ifname, ifindex));
-+	else
-+		seq_puts(m, " / unbound");
- 	seq_printf(m, " <<<\n");
+ static LIST_HEAD(isotp_notifier_list);
+@@ -1497,7 +1498,7 @@ static int isotp_release(struct socket *sock)
+ 	list_del(&so->notifier);
+ 	spin_unlock(&isotp_notifier_lock);
  
- 	rcu_read_lock();
-@@ -1866,19 +1871,9 @@ static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
+-	lock_sock(sk);
++	mutex_lock(&so->conf_lock);
  
- 		/* remove device reference, if this is our bound device */
- 		if (bo->bound && bo->ifindex == dev->ifindex) {
--#if IS_ENABLED(CONFIG_PROC_FS)
--			if (sock_net(sk)->can.bcmproc_dir && bo->bcm_proc_read) {
--				remove_proc_entry(bo->procname, sock_net(sk)->can.bcmproc_dir);
--				bo->bcm_proc_read = NULL;
--			}
--#endif
--			/* Paired with the lockless fast-path check in
--			 * bcm_sendmsg(); bo->ifindex itself is only ever
--			 * accessed under lock_sock() so it needs no
--			 * annotation.
--			 */
-+			/* pairs with the lockless check in bcm_sendmsg() */
- 			WRITE_ONCE(bo->bound, 0);
--			bo->ifindex = 0;
-+			WRITE_ONCE(bo->ifindex, 0);
- 			notify_enodev = 1;
+ 	/* remove current filters & unregister
+ 	 * the tracked reference so->dev keeps the device's receive lists
+@@ -1519,6 +1520,8 @@ static int isotp_release(struct socket *sock)
+ 	WRITE_ONCE(so->bound, 0);
+ 	so->dev = NULL;
+ 
++	mutex_unlock(&so->conf_lock);
++
+ 	/* Always wait for a grace period before touching the timers below.
+ 	 * A concurrent NETDEV_UNREGISTER may have already unregistered our
+ 	 * filters and cleared so->bound in isotp_notify() without waiting
+@@ -1535,7 +1538,6 @@ static int isotp_release(struct socket *sock)
+ 	sock_orphan(sk);
+ 	sock->sk = NULL;
+ 
+-	release_sock(sk);
+ 	sock_prot_inuse_add(net, sk->sk_prot, -1);
+ 	sock_put(sk);
+ 
+@@ -1585,8 +1587,8 @@ static int isotp_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int l
+ 	if (!addr->can_ifindex)
+ 		return -ENODEV;
+ 
+-	/* lock_sock() serializes the binding with isotp_notify() */
+-	lock_sock(sk);
++	/* so->conf_lock serializes the binding with isotp_notify() */
++	mutex_lock(&so->conf_lock);
+ 
+ 	if (so->bound) {
+ 		err = -EINVAL;
+@@ -1596,7 +1598,7 @@ static int isotp_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int l
+ 	/* A transmission or reception that outlived a previous binding
+ 	 * (unbound by NETDEV_UNREGISTER) may still be draining; the FC/echo
+ 	 * and RX watchdog timers bound how long this takes. Checked together
+-	 * with so->bound in the same lock_sock() section above, so there is
++	 * with so->bound in the same so->conf_lock section above, so there is
+ 	 * no window in which a concurrent isotp_notify() could be missed.
+ 	 */
+ 	if (READ_ONCE(so->tx.state) != ISOTP_IDLE ||
+@@ -1686,7 +1688,7 @@ static int isotp_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int l
+ 			sk_error_report(sk);
+ 	}
+ 
+-	release_sock(sk);
++	mutex_unlock(&so->conf_lock);
+ 
+ 	return err;
+ }
+@@ -1790,6 +1792,7 @@ static int isotp_setsockopt(struct socket *sock, int level, int optname,
+ 
+ {
+ 	struct sock *sk = sock->sk;
++	struct isotp_sock *so = isotp_sk(sk);
+ 	union {
+ 		struct can_isotp_options opt;
+ 		struct can_isotp_fc_options rxfc;
+@@ -1802,7 +1805,7 @@ static int isotp_setsockopt(struct socket *sock, int level, int optname,
+ 	if (level != SOL_CAN_ISOTP)
+ 		return -EINVAL;
+ 
+-	/* copy the option values from user space before lock_sock() */
++	/* copy the option values from user space before taking so->conf_lock */
+ 	switch (optname) {
+ 	case CAN_ISOTP_OPTS:
+ 		size = sizeof(val.opt);
+@@ -1831,9 +1834,9 @@ static int isotp_setsockopt(struct socket *sock, int level, int optname,
+ 	if (copy_from_sockptr(&val, optval, size))
+ 		return -EFAULT;
+ 
+-	lock_sock(sk);
++	mutex_lock(&so->conf_lock);
+ 	ret = isotp_setsockopt_locked(sock, optname, &val);
+-	release_sock(sk);
++	mutex_unlock(&so->conf_lock);
+ 	return ret;
+ }
+ 
+@@ -1906,9 +1909,9 @@ static void isotp_notify(struct isotp_sock *so, unsigned long msg,
+ 
+ 	switch (msg) {
+ 	case NETDEV_UNREGISTER:
+-		lock_sock(sk);
++		mutex_lock(&so->conf_lock);
+ 		if (so->dev != dev) {
+-			release_sock(sk);
++			mutex_unlock(&so->conf_lock);
+ 			break;
  		}
  
-@@ -1892,7 +1887,8 @@ static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
+@@ -1932,7 +1935,7 @@ static void isotp_notify(struct isotp_sock *so, unsigned long msg,
+ 		sk->sk_err = ENODEV;
+ 		if (!sock_flag(sk, SOCK_DEAD))
+ 			sk_error_report(sk);
+-		release_sock(sk);
++		mutex_unlock(&so->conf_lock);
  		break;
  
  	case NETDEV_DOWN:
--		if (bo->bound && bo->ifindex == dev->ifindex) {
-+		if (READ_ONCE(bo->bound) &&
-+		    READ_ONCE(bo->ifindex) == dev->ifindex) {
- 			sk->sk_err = ENETDOWN;
- 			if (!sock_flag(sk, SOCK_DEAD))
- 				sk_error_report(sk);
-@@ -2013,7 +2009,7 @@ static int bcm_release(struct socket *sock)
- 	/* remove device reference */
- 	if (bo->bound) {
- 		WRITE_ONCE(bo->bound, 0);
--		bo->ifindex = 0;
-+		WRITE_ONCE(bo->ifindex, 0);
- 	}
+@@ -1991,6 +1994,7 @@ static int isotp_init(struct sock *sk)
+ 	so->ifindex = 0;
+ 	so->bound = 0;
+ 	so->dev = NULL;
++	mutex_init(&so->conf_lock);
  
- 	sock_orphan(sk);
-@@ -2060,16 +2056,17 @@ static int bcm_connect(struct socket *sock, struct sockaddr_unsized *uaddr, int
- 			goto fail;
- 		}
- 
--		bo->ifindex = dev->ifindex;
-+		WRITE_ONCE(bo->ifindex, dev->ifindex);
- 		dev_put(dev);
- 
- 	} else {
- 		/* no interface reference for ifindex = 0 ('any' CAN device) */
--		bo->ifindex = 0;
-+		WRITE_ONCE(bo->ifindex, 0);
- 	}
- 
- #if IS_ENABLED(CONFIG_PROC_FS)
--	if (net->can.bcmproc_dir) {
-+	/* create the procfs entry once, it is removed in bcm_release() */
-+	if (net->can.bcmproc_dir && !bo->bcm_proc_read) {
- 		/* use unique socket inode number as filename */
- 		snprintf(bo->procname, sizeof(bo->procname),
- 			 "%llu", sock_i_ino(sk));
+ 	so->opt.flags = CAN_ISOTP_DEFAULT_FLAGS;
+ 	so->opt.ext_address = CAN_ISOTP_DEFAULT_EXT_ADDRESS;
 -- 
 2.53.0
 
