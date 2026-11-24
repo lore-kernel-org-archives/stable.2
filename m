@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795537128;
-	b=Tbn8c+eGkIsTo8+JX0Vbf5n4P8s2tjuH00MaHlx8RzchHiFqSdo7BfiUoulagUy+/OqS
-	 +4b9/hv/aobMsqxS51c0t8T4CBPaPDVBvPVDz79qe7tnSShjp6fQrkHdx/IlkajU+7a45
-	 7B1YOLqs7vcBBKF7NDWtlCoFH8T5LfAg0VzbsORDB12NNiEZH2bGCYCk/04cpdYCsToza
-	 c5PM39whOH+6DD3vv9rfvEiBXs3PZyfQpAVRFxQ5azhsMrv1rOt0tayDR5vnhQEy15iG8
-	 3jrs3Z47NcDpny5VFpmCd4X8Fi6GuPEJVsw1J4hZl4vMVcUnPGlsD9EDajUPw5WLRwg==
+	t=1795537139;
+	b=3poypSFpMPMtVWNx4uEZeFLR+q7zTcFpt1g2QrjFFyJ5UPh4YdjBQyxAmceRA4khzqW0
+	 Zfb88XDvDDZY18gIO/8mTLYsy+tcgzsO1aC3QK9a0sCwZy82Rs9nKrqjxQ9+Vwugq+uPF
+	 dbSvO3js1XKR9xO6P0EkSjqsItObXFkVkdAFfEYf2zoSTiZqIeooH1utR3ahEeI9YPAKv
+	 ybzPZa4F8uBxbJV99lxmY7z+n7OBNm7melZSz1athZ8KT/weAPmnPTeZnkQhsAbpCB0/i
+	 3Dx1zybNIKp4Br4UkaZOX6A0ECK3QZUgI+sOIFuBgE6Kmn73MRAFKwx0b2CL4spD2fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795537128;
-	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
-	 Message-Id;
-	bh=ujMTuwPOsmr1whJF+yqRvOV96KTaU05Y6dPCwFRLQMs=;
-	b=ds/S9f7xKUwWxUWA/aebqbykd3s6dQyzmvb7WmOimA2TqNewVHZ16tk+B9/7OHM5JLV7
-	 I+I0O8yXH49df+8fe7f2ogJXoPR80Nw0R+JsJyYtwwZ2J51Ze3uoXzNLRXFcIB0VbZKAm
-	 /DIDZB12rKhcSDsf61/a3t6/bCfiqmvYzYMLVBda8CHNgumAlDV17MPeUNu9OpZ+vI/7C
-	 A+3V1mA3jybIKj+AnRh1hXw2r7sbkntL3Ea+ECjNHkD86HU9tEq6CLamQhBRFcwgFBFqv
-	 bSDeC2BS6W9ukobrLcyHj2M7+B4d+/9HKss3B0hCScI+3Kj3I+gJcllL53JJkcpbMFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795537139;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=KqBiztSQeQD4jq+LzznM4b8cED7lYqyt739F8ZCBk/w=;
+	b=FczqQNKJE6EqGYRTXwE5yuhsqDOeMZqFqSUWIoxne3LGIF2SBgrMkXrf95cr0103YdEP
+	 YtOgmp1PRXN5xZ5KDu+UAzPAXq60/sdDmxOqKv5ZP8r/Dt/Vt393accZab7fPhWVvz4Hj
+	 uAFJT3KXWRryqY9C0TT4hp8suojclZXLk+ixjg2y2CGKxegoZxLRyfou8a43BlJlkeINg
+	 7OWmrmx3wZZmNUgltc1ZSaGMhIDi7iT7GKqMRHFkEZBbbPRtAu9RsUPMrESCXJfGyrLQD
+	 O8WY60e61rW57dqx3vjMUe7C44U/q7bCOG3cuovEkw3+0kj3knuV9RWqc3o7/FMBwgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=yjUiG9uA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LrOd5Lx/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87DC3606A326;
-	Tue, 24 Nov 2026 16:18:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8956A606A326
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:18:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=yjUiG9uA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0691F000D4;
-	Tue, 24 Nov 2026 16:18:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795537128;
-	bh=ujMTuwPOsmr1whJF+yqRvOV96KTaU05Y6dPCwFRLQMs=;
-	h=Date:To:From:In-Reply-To:References:Subject;
-	b=yjUiG9uABcG5/WVN7CU7nmnxBVAR8rh+AeleR2fTNlZt2khdUKrUs6M+WPghDGsNL
-	 9Rt3ZwfvBF4yNjTfGOz0bOkJCmYEB/KvwzEmQq8dmTJ3cSQ1fzytSBCzWTGCBWtxnD
-	 QKgRzjrIKJpBisoyElYP+k+lvbfyqHy04nRn0yjo=
-Date: Tue, 24 Nov 2026 08:18:47 -0800
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,yu-cheng.yu@intel.com,
-	ying.huang@linux.alibaba.com,willy@infradead.org,vbabka@kernel.org,
-	usama.arif@linux.dev,tj@kernel.org,surenb@google.com,stable@vger.kernel.org,
-	shakeel.butt@linux.dev,rppt@kernel.org,rientjes@google.com,
-	rick.p.edgecombe@intel.com,pfalcato@suse.de,peng.fan@nxp.com,
-	nphamcs@gmail.com,mhocko@suse.com,matthew.brost@intel.com,mason@kernel.org,
-	liam@infradead.org,kasong@tencent.com,kas@kernel.org,joshua.hahnjy@gmail.com,
-	jglisse@redhat.com,jbacik@fb.com,jannh@google.com,jack@suse.cz,
-	hannes@cmpxchg.org,gourry@gourry.net,dennisszhou@gmail.com,dennis@kernel.org,
-	david@kernel.org,dave.hansen@linux.intel.com,cl@gentwo.org,
-	chris@chrisdown.name,byungchul@sk.com,broonie@kernel.org,bp@alien8.de,
-	balbirs@nvidia.com,apopple@nvidia.com,ljs@kernel.org,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-12-50a2ed382b61@kernel.org>
-References: <20261113-mason-migrate-et-al-fixes-v2-12-50a2ed382b61@kernel.org>
-Subject: + percpu-search-the-whole-reserved-chunk.patch added to mm-unstable branch
-Message-Id: <20261124161848.2C0691F000D4@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LrOd5Lx/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227AF1F000D4;
+	Tue, 24 Nov 2026 16:18:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795537138;
+	bh=KqBiztSQeQD4jq+LzznM4b8cED7lYqyt739F8ZCBk/w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LrOd5Lx/HEZEwias3VRg2hGuwZHEppXvpGFm992M/QDYIKbKRxVhktzhcYxfEftgZ
+	 9R4VLdgHrYD9AaHfgPJQRI7Lb4K/elj6vNUobkKnS3SSOy24/fFOEapkXkd+fSbQnG
+	 h0+I7RzUMq8YrACTuSi7CDXc0LY6Yb//EkyV69ckFK3kUa7/Hyc4EZ8qvw0Ijtorwv
+	 1w5ffBHduzeC4R8wWOV2G1oeVtUoJlzo6lw38Ix51d1CGAThgLwPxVmz29v7fEJCV9
+	 3A2iUDCFbZG0i9nrmnE9LyLqNKf3cNS2wesHRQ7PSYGW/+XEv10bSWwRk7rKksL2SV
+	 9XMXjHD+Q8cOQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] keys: keyctl_pkey: replace BUG with return -EOPNOTSUPP
+Date: Tue, 24 Nov 2026 11:18:55 -0500
+Message-ID: <20261124161827.974466-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112437-flatworm-handprint-6101@gregkh>
+References: <2026112437-flatworm-handprint-6101@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,135 +58,48 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Mohammed EL Kadiri <med08elkadiri@gmail.com>
 
-The patch titled
-     Subject: percpu: search the whole reserved chunk
-has been added to the -mm mm-unstable branch.  Its filename is
-     percpu-search-the-whole-reserved-chunk.patch
+[ Upstream commit 1b9524250996b1f2f49833a1b2ae21c34e486f85 ]
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/percpu-search-the-whole-reserved-chunk.patch
+Replace two BUG() calls in keyctl_pkey_params_get_2() and
+keyctl_pkey_e_d_s() default cases with -EOPNOTSUPP, matching
+the error style already used in these functions.
 
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Signed-off-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+Stable-dep-of: bab48a104447 ("KEYS: Protect pkey method checks against type removal")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ security/keys/keyctl_pkey.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: percpu: search the whole reserved chunk
-Date: Fri, 13 Nov 2026 21:45:30 +0000
-
-Loading a module with static percpu data can fail with -ENOMEM even
-though the reserved chunk has a free area that fits the data.
-
-pcpu_find_block_fit() does not scan the allocation bitmap, rather it
-tests the request against hints, starting with the contig_hint of the
-chunk, which describes its largest free area. If that area is too small
-once aligned, the search gives up even if a smaller free area fits.
-
-Consider:
-
-    request:      256 bytes, aligned to 256 bytes
-    contig_hint:  260 bytes, starts 4 bytes after a 256-byte boundary,
-                  so 8 bytes remain after alignment
-    also free:    256 bytes, starts on a 256-byte boundary
-
-Ordinarily this is fine as the allocator moves on to the next chunk or
-creates a new one, but the static percpu data of modules can only come
-from the reserved chunk.
-
-Fix this by searching the allocation bitmap of the reserved chunk
-directly rather than using hints.
-
-Link: https://patch.msgid.link/20261113-mason-migrate-et-al-fixes-v2-12-50a2ed382b61@kernel.org
-Fixes: 13f966373f92 ("percpu: skip chunks if the alloc does not fit in the contig hint")
-Fixes: b4c2116cfae6 ("percpu: update pcpu_find_block_fit to use an iterator")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Chris Mason <mason@kernel.org>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Chris Down <chris@chrisdown.name>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: David Rientjes <rientjes@google.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Jan Kara <jack@suse.cz>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Usama Arif <usama.arif@linux.dev>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Balbir Singh <balbirs@nvidia.com>
-Cc: Jérôme Glisse <jglisse@redhat.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Yu, Yu-cheng <yu-cheng.yu@intel.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Dennis Zhou <dennis@kernel.org>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Christoph Lameter <cl@gentwo.org>
-Cc: Peng Fan <peng.fan@nxp.com>
-Cc: Josef Bacik <jbacik@fb.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Dennis Zhou (Facebook) <dennisszhou@gmail.com>
-Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Cc: <stable@vger.kernel.org>
-
- mm/percpu.c |    7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
---- a/mm/percpu.c~percpu-search-the-whole-reserved-chunk
-+++ a/mm/percpu.c
-@@ -1778,8 +1778,11 @@ void __percpu *pcpu_alloc_noprof(size_t
- 	if (reserved && pcpu_reserved_chunk) {
- 		chunk = pcpu_reserved_chunk;
+diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
+index ba150ee2d4a37..15b6bf6399b59 100644
+--- a/security/keys/keyctl_pkey.c
++++ b/security/keys/keyctl_pkey.c
+@@ -163,7 +163,7 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
+ 		params->out_len = info.max_sig_size;
+ 		break;
+ 	default:
+-		BUG();
++		return -EOPNOTSUPP;
+ 	}
  
--		off = pcpu_find_block_fit(chunk, bits, bit_align, is_atomic);
--		if (off < 0) {
-+		/* No other chunk to fall back on, so don't rely on hints. */
-+		off = bitmap_find_next_zero_area(chunk->alloc_map,
-+						 pcpu_chunk_map_bits(chunk), 0,
-+						 bits, bit_align - 1);
-+		if (off >= pcpu_chunk_map_bits(chunk)) {
- 			err = "alloc from reserved chunk failed";
- 			goto fail_unlock;
- 		}
-_
-
-Patches currently in -mm which might be from ljs@kernel.org are
-
-mm-msync-return-enomem-if-page-aligned-length-overflows.patch
-mm-vma-predicate-vma_assert_stabilised-on-config_debug_vm.patch
-mm-only-assert-mmap-locks-if-config_debug_vm-or-lockdep-is-set.patch
-mm-only-assert-vma-locks-if-config_debug_vm-is-set.patch
-mm-convert-warn_on_onces-to-vm_warn_on_once-in-vma-lock-code.patch
-mm-madvise-zap-markers-from-guard-regions.patch
-mm-mmap-free-gathered-pages-before-mmf_oom_skip.patch
-percpu-fix-contig-hints-that-are-too-low.patch
-percpu-search-the-whole-reserved-chunk.patch
+ 	params->in_len  = uparams.in_len;
+@@ -245,7 +245,8 @@ long keyctl_pkey_e_d_s(int op,
+ 		params.op = kernel_pkey_sign;
+ 		break;
+ 	default:
+-		BUG();
++		ret = -EOPNOTSUPP;
++		goto error_params;
+ 	}
+ 
+ 	in = memdup_user(_in, params.in_len);
+-- 
+2.53.0
 
