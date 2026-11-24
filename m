@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534914;
-	b=dgc20XemDbEXCGJm+iL09pXPdv3KtBLV4engwRwO5Xxr9jQAMDWUUQEsTiQKfJIdPzdK
-	 vUPxeHuHPle0sQvkNqxqGIpM3ns89idckAXi3+PF2m4holwKJrnILf26Xv5wgc+Ry+b5p
-	 DrOlKaub95/ke4UD1CVOeH73egbOuNJfx9/0ho/zBYlWMofP0NnSAD3VVvpRhLt7bPBT4
-	 RP2Y7CNlbmDNsm/zDD80Rh2pQWBsWUM2PJ+9mSms2zPqYQYKXZX1ir3HB8oiWGcMRth68
-	 8gYHHqd6xxX4U4MflWUtt7QFFKD2YjfjbSOrsjLPvJD3lb/EAvdII58kan1jXXN4MZA==
+	t=1795534917;
+	b=jQ7NjBsJTeGwkh8sx8V+j5bNUbiZLdHbvAWUDlfuincQRwbwmGjfuWp3Z1aXZOpv/3UB
+	 m6uvZ27o6pyJg+D0qWp/w73Hm4D1+csT5OlLLek9QY8Yxmj7aJLTL8gMNaE1GQrix7Vuh
+	 8tDg7VJGt7Pj1bJfX9Hr8NQi5br/Vl1tgGQJZR90Alcn5NsR6uH432zlz4s+/Jn/3VHQ6
+	 SyQIgBx8PyjwW7jMLcbYXHNNOlPo53+4dYkmKquiJK4Mj57cIkY+56Ld9MuaHPKM+D3mR
+	 ZBWLkjWnrRBp8c5C0lWBEisNHHS55XBUHwyB+2RNIrK0XCDcxoUNpVQwsVb4yvEBtqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534914;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534917;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=sWDD4G6yrYh9YzLh9oQ67URMEr0xwaTalRS64tBt0NM=;
-	b=Jp4BP9s0RbdynNXGrD3mtVvjFffp/u8BvI0nnC+mYBnI0oxFpjPIAWOCbdXObtjqPhKv
-	 GVDYn/4Ng66p3I0OAto0oWDn0pXpFaVL8AIT6lAQdpUMHdY/ybO4GPuufsRKQ+TazChIk
-	 JCX/B/BchcPfs1nIhXMbvr+IHFvmXWoAUFZzrs6LJ03hayYYUtWwFDLEujbgWV0FHkaEf
-	 Yd8Zh1uWYDhrtUTZbIyKxOULNSyEYYqvF1TXYfnygGi5b0nqWtCGuSk+srhtL3E2DuMWW
-	 9PYpfj5wnIiB2My1ZGPZ3T9JB6N8i97K4134x2uphqvgFgHpmod0kHFrWMi0s9jwfAA==
+	bh=fA7av+rRSXPH5re3KLlTaSPziAjkvBnpTVtIb8MAmQg=;
+	b=j9qDbVRAnbDYx/Kk+UHOyLMTMXdp+TdUkv692ciI3dB0yyVi/hnDl14WwkkZhuijSYvz
+	 b0lu03x5URjnkk9v0CreXl7kZ16n4Ij7SdtG1r5Iy43PPfhXG5AETZGIhWxJjOr8uvobe
+	 rimKr9JGT/afPxAO57HlReTfnduNaBgBnUChNpvOcGkTbPDgYbiXzcLaM/2ta1w3PM1hB
+	 aX+l1T5K2FmTvINunKT8zNmleV3881BvPVf0ITaSlQ5+2Bpz9MTLKIUkf6BNZa1yHKE/n
+	 wDKrdGryPccuauuJEI77qoEPPgmXzpYP+0mQC2DVh5Qvq4/8YwMEzksBzlrzwxJivVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LgO75nGn;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=H60hYDd3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F48606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:41:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1203606A323
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:41:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LgO75nGn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A9DF1F000D2;
-	Tue, 24 Nov 2026 15:41:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=H60hYDd3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B787F1F000C4;
+	Tue, 24 Nov 2026 15:41:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795534913;
-	bh=sWDD4G6yrYh9YzLh9oQ67URMEr0xwaTalRS64tBt0NM=;
+	s=korg; t=1795534917;
+	bh=fA7av+rRSXPH5re3KLlTaSPziAjkvBnpTVtIb8MAmQg=;
 	h=Subject:To:Cc:From:Date;
-	b=LgO75nGnjzbcGgmSHDj5vYKRPXyhxO1fVjTsJ2W9PdttbDm0RcjwBgPrt1xLyWfyA
-	 mEndpqv/JOAPFW3WUH2ynCUBXcqWvhcc/sb8nZbHnirwsLQlETKAf7YRfLXC/sB9tW
-	 34Os5kze5NWZvuYA42PaOjjV/8S8BEQVU2Gryn7o=
-Subject: FAILED: patch "[PATCH] mm/hugetlb: retry the pool walk when the zonelist is rebuilt" failed to apply to 5.15-stable tree
+	b=H60hYDd31nYEpHCyGbQQVJ3oWLCVgGkIlv6+cve8FthIpmBnvrjIFWtfTzggkUpl4
+	 uheB5WaAEgCeymEaWLT2RIJGE3Md7kibaSnf3hvyQcjgCXQK7FwbfzOwXL+n1hP4Jy
+	 00UyaDJ+CQaRVPGe68ZJfHQetjAmMR50dJciYSWg=
+Subject: FAILED: patch "[PATCH] mm/hugetlb: retry the pool walk when the zonelist is rebuilt" failed to apply to 5.10-stable tree
 To: gourry@gourry.net,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:42:01 +0100
-Message-ID: <2026112401-sherry-landmine-7e43@gregkh>
+Date: Tue, 24 Nov 2026 16:42:02 +0100
+Message-ID: <2026112402-wing-lung-d2ce@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 9f6674f842bbceda8326cf4e494af5ad3a5a05e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112401-sherry-landmine-7e43@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112402-wing-lung-d2ce@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
