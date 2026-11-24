@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795562152;
-	b=d8aEOELWdMHXSaEfK7wnFL/Gzb4/UoUUATXKyAh5hbrNvWIRnNgnOE+3ZLlClzNappGf
-	 aUufgFml4tTNSHudgt7Ksl2joNNYddHUjlPSKw79dGbP++One9CSEnYk9ZMlcbzuoDuYT
-	 jehTwp13pHUcDc3PJj6kMYgKHYyjMMivqo+JSS5sNuZYT6oV4pcV8ApnRSHJA4Ldj9oi4
-	 m90F/AZjwqll/kiy0NWW1zpNFvjcN/LVsYW9SweY+GhMPBgcTdh8MevcYX96qeIp/aORM
-	 ruxuisAspHaBz7iTigRpHFeBJ+38kqQO8Jag7BeC5xxIXQDQds0Kc/az4gA/qgewrrQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795562152;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hXIJkRFkLK1sgfrE7S9Rm7dZKwK7LpK9n83lai1vrKA=;
-	b=EPkfkgyd37skmERHhXTXwRiFTj0NBBthxNIqkofmbRa08efWSuDl5cefcJBTZ0UHrx43
-	 9g9XWeyTkXUX8f3XD/MflJyz8KesxDcdjGf1fRhxJSzIwkDCYP7bBwgQQTRCSCXDH7x6Z
-	 51+oj0yWE+8l7CSlS7f4LChGDAugBCpcDNemorbdcAnTwLiPKZ7T1IF1RfI+pmFh6LesK
-	 dcEFEit15/n1isyZiSVQtXcQhyvN4kmcyLgkurY7FDrYQ+c1aczXWslBxRXewn5o1IHek
-	 S2GMqq6Ei2TQ3CX9ZV2q2mGd91+xkAKZRLjE7uI0vzggoor9GbPUhFqPBVs8ob6cuxQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhcOzQYc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87690606A31E;
-	Tue, 24 Nov 2026 23:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhcOzQYc
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795562152;
-	b=y8uHO568j6sXcWTjqvrLNCcjf/8WUr2vuZqMhrCVF62HAvwXlV/u2gfd39f4dwP6eQDi
-	 3vBfYAPsJSc0rNoZofkWb1o3vVVyb+l2wBghhnLdD7RWUfIn7OoY6NU2Yzy6njNsl0WE3
-	 WaqcmthQabAiq0+fJupcWQ8+Nk1c7v0/Xm/2hnis6oaKPh1wASeleXPdEQQTzNJ0aCNYx
-	 8VLDioO1LQ8NtB4FthSKKndkAKavh4FBots6MqpbVmnhuN1KtuXZjVseuf041mzpq+dk/
-	 jBvhckMQgE8mQCzdOFTJWuSRxsKMN5Q6Fod7t/O2zpS3mVX8LrvI/8i6i1DeNTh73hA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795562152;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hXIJkRFkLK1sgfrE7S9Rm7dZKwK7LpK9n83lai1vrKA=;
-	b=PNJ4Ci+aHo3m+xMFMBqPQSK5XEQEbJMiK1TbLFQgBS5P7dA1Vd7dmOThRWGR6m44joDv
-	 iaFYYwmMLUedKR0SYEaizJTCkHUh8kkj4V17LYkA0ZpLkjx+HYWzLZCJcbY/Hd/kv9ZoA
-	 QlWq50bkLsnXJIBNY/AaO7SrS/yf1C98ZTmb8RStDlg0ct/qqK/ZyVWVDx+j0y7XoNwQi
-	 pyEEIOQtA5NE8uMO8BJKuTZ8oViFmEBrbGS8QCtFlKMDnGgB5C2wCP2ZIvUmfQtbxlKfn
-	 Qto/2yL6BAv3nspWA80pWiln/XJYqkrDVP6WFOt3XZjxy6ywapCqbDuIydZGzcPxRyQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795562303;
+	b=NuYA0QOfZLK0kOHezb12dyDAoTmZ590pC2ddRHgSUhAQXHK4moO8vGk3ThlbdeJMJfyg
+	 p3XN9wbt9PUXmYHdJ6i8+HthHIsxlfOnacQ1GcVzCfmDEyiJptVZb9AalwLH9GVsjZJT5
+	 omFHJGCKxLaOwfp4ouvI2Q3wgbGd9/FDExQJeAkqGRW8CukUZiE0zp0ZcpLcycNS0/KIe
+	 EEURu/dXRG85aTHONHLjMeTCz0XZPOjcMEAXjzobLOXaIfagRLAzPORH559E2jL+eoTI2
+	 vDqRAf9rlNSPbuHnDGDwj46Rw3cre0qqH3hsAhQ5xEYRnsbKbjUcAvibKcenD9mRU1Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795562303;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=JSPW10Pj7mWYrcYQV491CeBQq8pVVNVHWtKBSkpxQdY=;
+	b=V3wZzCPs8wDht6EUuBIVbUyV/rAHyKc7EErjYpOK4mqy9vWUQQM8sGf1Nf7egt7wwsZp
+	 +2rOJ7iJxzQjssL5y2YPhXAjxFYeavcuB0Loj9AcVro5yN73mpitnrWgZu3B5sS6DjCQq
+	 gpaX2BGimoa5gD4X7SVvJPyVRztL/DGWMwV+zf92YcZBBJ6VSsz/QHR2xkfjD+2OJZ3Id
+	 pY5RUQWaZdPTA8iZf7Wws1VwFpQfVXXlibu6v13kpQkE2PMsX3/cJnFk8nKq+rn1vlukT
+	 k+ZyU5tE88ghF5twKjawpbhTV/1pVDAyMs1OyU2tYFabwtFud3rxzBorskKyBNZshaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SI0ND5xy;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 00B561F000D4;
-	Tue, 24 Nov 2026 23:15:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795562152;
-	bh=hXIJkRFkLK1sgfrE7S9Rm7dZKwK7LpK9n83lai1vrKA=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=lhcOzQYce1NvH8AGSt0uGKVMP8SXEBVY+Or0XJxeejjz4J9j+uXyfgmLgh7704urb
-	 tpUM2JvPj5AgL9Qj/WS5eB4+MMRMxGheqIR+Pb9elGQR5BMlBXRlaKFVN9NdXz9Tup
-	 a+x1Qm0Xq4ErYQ38pd/rcpCH63ehOVRZQ0akesY+QLU7CXzAGXIuycNTXGN5c2BDis
-	 qkldeSYTU7yJ0AkO1AGbchWSLf3MSsPiPsU37aHStVwzNbipM2Afv2pXgWGwmDN+F7
-	 pxUQeXnKwvdtACA2sOUU060CtnjKNBE8NP7j5RNojr8M9S84fVe4IhOe2REgc46MEs
-	 K2/aKB7fzJ/tQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 51DCA4CC1C;
-	Tue, 24 Nov 2026 23:15:44 +0000 (UTC)
-From: Phil Williams via B4 Relay <devnull+phil.williams.advisoft.co.nz@kernel.org>
-Date: Wed, 25 Nov 2026 12:15:44 +1300
-Subject: [PATCH v2] iio: imu: st_lsm6dsx: set ts_sensitivity on parts
- without freq_fine
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C79606A32E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 23:18:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5C79606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SI0ND5xy
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4b467581b98so49767715e9.0
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:18:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795562301; x=1796167101; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JSPW10Pj7mWYrcYQV491CeBQq8pVVNVHWtKBSkpxQdY=;
+        b=SI0ND5xybHzRNkTlF7R69RrtN0WhAy6NS3Dqdmm282zxlySUryxFPjZeqOA4ldnWb5
+         FH5OmdYtPtrzSV66UbadG8hPTKejk4ztYaXVtXsnANibRwzyjV5hK4KeIQHNVBbQvaJ8
+         M8ZqJzEZ1LjwxzAt1FAa0FRaRwWF14rRR9WAxrdJJVo4Gowm/qAmWnKjuBGVOjlJqv+r
+         P3OyJS9FfRtChwteYvHKD12yKaZklv9pTtspU31NsUjDGL5LRdbPPsQVglSLOr1fWF+6
+         hIMCrU4rXEasa62orHeuZTrLDr7L1PNS8HdrlgyGxv64YzXyfuvVxBW4ZKB3h+qA0NDk
+         zg2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795562301; x=1796167101;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JSPW10Pj7mWYrcYQV491CeBQq8pVVNVHWtKBSkpxQdY=;
+        b=ZQNHJYvG/AJm1RY+6VVlq0i23/9ZFNMKpyZHvddunoea7kcpRsfozZNU9FJRQkdM35
+         2lMBdijJTNkeCcOU/okwOQARNp8wDlZNaSKR623/TUjmz2750IkiSsQ/aHnH27Rhp6tm
+         Yh61YlgDwcGdMtgUw7WHA8DfrRGMCuA8DvyMtGoKO1bfEq7tXPnzR+9yI5wfFi7li41c
+         oye27/wdmzlTxSnNdKJaHdvE4RS8SITAu8KJM3I2gQjqcM9pWesxWr1gRXQpPBRFjMBo
+         PGM+kepOEGLJ6ntoD2R0qm+ogSgLpfyBrC8VMA11sPwzXFOFGFqTXPli8xon5UfIerMw
+         Ky7A==
+X-Forwarded-Encrypted: i=1; AL+hErFFi/PL4NyVbztdzC1MXLInJZMtR5RQmFmtrc+OsiPsPbBKyz/enalwuRAeb/39ndi3jsC1trs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88jTi5sfc0b0qO3dfIgUf/C3Lnp7JwNcHbH869HjkPd2YhqKfU
+	MmBIWerjiywFGRx9VMfm2C4DIJMFfJ2bOyv2mE/XcVyR5cxUMnT8znPq
+X-Gm-Gg: AZFdTZflAhPtkpkrd1cl2DnxCUkZScSR3FK6QEJSZ0Lo/Ceuv88ozZE7iYqrn0ICM5G
+	acyNLTbal3UkK6Ngb2EicnrYYnMwedcs8s8ICrztn7pTTP9/ZTXEb1DQSxMcbaB6GDKt7B9lLgS
+	MdmM0IkUCJeYJYO+DDD4EGwAoP5MGTtEVqxXAYIDQfW4vIw8Fx/566G4BU7zwf43ReK9bY0VQht
+	0tL0dMVSrCDEX9puoDmuqodGOt1xjAhdiQZzOjUS6oSe+Y32Hpv0OwDbBKnnLGuhZ3+r3a1lpZX
+	c1yqdAyzMFlPBirqt2XctuOhD/I5HmbTH4MNeGUTdyhLz4xt/kN0af6gyIXFvFiG4hN9RCSfk9r
+	t/QcqugIAjh0DGsfUQ/UjO648RwOxaxlbzZNRhXPxJH+9GRuZG0WeJxIFhj+R9noHI050DktziE
+	t/SYGNtXYlFBHhwbyTXMZ7J3yBQn5gjleypLRYlGUtLoF2TdVipBG9Ys8aIcerymwGb8BAIOd6A
+	pTgFy79NahSxHT1J0aKays568YOOOT7fY0/RRs5YCgypoaF7FTmrbSAFE2anxTk2B5U+YyRSV4o
+	gl1vHbB9b/baWzEuGtwXzYU+lde+FhTmNL31xMkk5lm9zfDo8I3VG3bVfhfVuWyqGDW3CELj
+X-Received: by 2002:a05:600c:64c8:b0:4a0:1c0e:b057 with SMTP id 5b1f17b1804b1-4bb887e2380mr303656325e9.4.1795562301128;
+        Tue, 24 Nov 2026 15:18:21 -0800 (PST)
+Received: from localhost-live.home.vlan10 (053d9243.dynamic.tele-ag.de. [5.61.146.67])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853a9846sm554400825e9.11.2026.11.24.15.18.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 15:18:20 -0800 (PST)
+From: Joshua Covington <joshuacov@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <masneyb@kernel.org>
+Cc: Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Andrea della Porta <andrea.porta@suse.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	linux-clk@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joshua Covington <joshuacov@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/3] clk: allow a clk_hw to be registered again after unregistering it
+Date: Tue, 24 Nov 2026 23:17:49 +0000
+Message-ID: <20261124231751.83938-2-joshuacov@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261124231751.83938-1-joshuacov@gmail.com>
+References: <20261124231751.83938-1-joshuacov@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,110 +106,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261125-st-lsm6dsx-ts-fallback-v2-1-ea0ea2512070@advisoft.co.nz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WOTQ6CMBCFr0K6dghTIzGuvIdh0Z+pVJGaTm1Qw
- t0teACXX/Le+94smKInFqdqFpGyZx/GAnJXCdOr8UrgbWEhG9kiYgucYOBHa3mCxODUMGhl7mC
- sRIcWad+QKOVnJOenbfjS/Zhf+kYmrWtrovecQnxv5oxr7q8kIyAclSkS5bTTh7Oy5XJwqTahH
- j+iW5blC89ElLnTAAAA
-X-Change-ID: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
-To: Lorenzo Bianconi <lorenzo@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Mario Tesi <martepisa@gmail.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org, 
- Phil Williams <phil.williams@advisoft.co.nz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795562143; l=2777;
- i=phil.williams@advisoft.co.nz; s=kernel; h=from:subject:message-id;
- bh=fGzBxiYeqCVBJr9qUvLqytWRj2H3OFvl+kp4md9filo=;
- b=QpdXAjVXaPivFOUs6AdlJsF1sw2wxLPu6S1QzQ4gahR365MCZy6WI57iOzhxSM82kWsGkHoc8
- lQw4Ov9aivoAmSu6UnA89XcMVmwtTIXb5o7kagE2LCOa1H9boLk45UD
-X-Developer-Key: i=phil.williams@advisoft.co.nz; a=ed25519;
- pk=t0M8TApJRlA/rHh3lIu1XTiWO2+evmU8VnO43/qqLPk=
-X-Endpoint-Received: by B4 Relay for phil.williams@advisoft.co.nz/kernel
- with auth_id=1538
-X-Original-From: Phil Williams <phil.williams@advisoft.co.nz>
-Reply-To: phil.williams@advisoft.co.nz
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Phil Williams <phil.williams@advisoft.co.nz>
+__clk_register() sets hw->init to NULL, and clk_unregister() leaves
+hw->core and hw->clk pointing to the clk_core and clk it is about to
+release. A driver with statically allocated clk_hw structures can
+therefore not register them again, e.g. when its device is unbound and
+bound again. The second registration has no init data and oopses. A
+clk_parent_data.hw reference to such a clk_hw also resolves to the
+freed clk_core of the previous registration.
 
-Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
-calculation") takes the FIFO timestamp scale from ts_sensitivity.
-That field is only filled in for parts that have freq_fine. The
-untagged-FIFO parts are left at zero:
+Keep the init pointer in the clk_core, and put it back into the clk_hw
+when the registration fails and when the clock is unregistered. Init
+data on the stack of the registering function is gone by the time the
+clock is unregistered, so leave hw->init NULL in that case. This has to
+be checked at registration, as object_is_on_stack() only looks at the
+stack of the current task. Also clear hw->core and hw->clk on
+unregistration, so that a reference to an unregistered clk_hw is
+treated as an orphan.
 
-  LSM6DS3
-  LSM6DS3H
-  LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
-
-st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
-every sample is published with the timestamp taken when the buffer
-was enabled. The accelerometer and gyroscope values still update.
-Userspace that integrates attitude from the timestamp delta treats a
-stuck timestamp as dt = 0.
-
-Set ts_sensitivity to the previous fixed scale of 25000 ns/tick on
-those entries. They have no freq_fine register, so ts_trim_coeff is
-left unset and no trim is applied.
-
-Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calculation")
+Fixes: 0214f33c4e0e ("clk: Overwrite clk_hw::init with NULL during clk_register()")
+Link: https://lore.kernel.org/all/179545567027.246915.947299820828330388.b4-review@b4/
 Cc: stable@vger.kernel.org
-Suggested-by: Lorenzo Bianconi <lorenzo@kernel.org>
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz>
+Co-developed-by: Brian Masney <masneyb@kernel.org>
+Signed-off-by: Brian Masney <masneyb@kernel.org>
+Signed-off-by: Joshua Covington <joshuacov@gmail.com>
 ---
-Resending inline. The first copy went out as an attachment.
-No code changes.
----
-Changes in v2:
-- Drop the ts_gain fallback in st_lsm6dsx_init_hw_timer() and set
-  .ts_sensitivity = 25000 in the LSM6DS3, LSM6DS3H and LSM6DSL settings
-  entries instead (Lorenzo, Jonathan).
-- Leave .ts_trim_coeff unset on those entries since they have no
-  freq_fine register (Francesco).
-- Link to v1: https://lore.kernel.org/r/20261116-st-lsm6dsx-ts-fallback-v1-1-8ace30afbfb5@advisoft.co.nz
----
- drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/clk/clk.c            | 23 +++++++++++++++++++++++
+ include/linux/clk-provider.h |  5 ++++-
+ 2 files changed, 27 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-index 823f8ac66..dffaf76b5 100644
---- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-+++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-@@ -434,6 +434,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_sensor_settings[] = {
- 				.addr = 0x09,
- 				.mask = GENMASK(5, 3),
- 			},
-+			.ts_sensitivity = 25000,
- 		},
- 		.event_settings = {
- 			.sources = {
-@@ -601,6 +602,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_sensor_settings[] = {
- 				.addr = 0x09,
- 				.mask = GENMASK(5, 3),
- 			},
-+			.ts_sensitivity = 25000,
- 		},
- 		.event_settings = {
- 			.sources = {
-@@ -802,6 +804,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_sensor_settings[] = {
- 				.addr = 0x09,
- 				.mask = GENMASK(5, 3),
- 			},
-+			.ts_sensitivity = 25000,
- 		},
- 		.shub_settings = {
- 			.page_mux = {
-
----
-base-commit: fa2933aac170dd19c6a7f0d7b81a8f537e40915c
-change-id: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
-
-Best regards,
---  
-Phil Williams <phil.williams@advisoft.co.nz>
-
+diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+index 4d2cc86bfb..c19ae1812c 100644
+--- a/drivers/clk/clk.c
++++ b/drivers/clk/clk.c
+@@ -20,6 +20,7 @@
+ #include <linux/of.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/sched.h>
++#include <linux/sched/task_stack.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
+ #include <linux/string.h>
+@@ -70,6 +71,9 @@ struct clk_parent_map {
+  * @ops:               Pointer to hardware-specific operations for this clk.
+  * @hw:                Pointer for traversing from a struct clk to its
+  *                     corresponding hardware-specific structure.
++ * @hw_init:           Init data of @hw, put back into @hw when the
++ *                     registration fails or the clk is unregistered. NULL
++ *                     if the init data was on the stack.
+  * @owner:             Kernel module owning this clk (for reference counting).
+  * @dev:               Device associated with this clk (optional)
+  * @rpm_node:          Node for runtime power management list management.
+@@ -119,6 +123,7 @@ struct clk_core {
+ 	const char		*name;
+ 	const struct clk_ops	*ops;
+ 	struct clk_hw		*hw;
++	const struct clk_init_data *hw_init;
+ 	struct module		*owner;
+ 	struct device		*dev;
+ 	struct hlist_node	rpm_node;
+@@ -4457,6 +4462,8 @@ __clk_register(struct device *dev, struct device_node *np, struct clk_hw *hw)
+ 	if (dev && dev->driver)
+ 		core->owner = dev->driver->owner;
+ 	core->hw = hw;
++	/* Stack init data is gone once the registering function returns. */
++	core->hw_init = object_is_on_stack(init) ? NULL : init;
+ 	core->flags = init->flags;
+ 	core->num_parents = init->num_parents;
+ 	core->min_rate = 0;
+@@ -4505,6 +4512,9 @@ __clk_register(struct device *dev, struct device_node *np, struct clk_hw *hw)
+ 		pr_err("%pOF: error %pe: failed to register clk '%s' (%pS)\n",
+ 		       np, ERR_PTR(ret), init->name, hw);
+ 	}
++
++	hw->init = init;
++
+ 	return ERR_PTR(ret);
+ }
+ 
+@@ -4656,11 +4666,16 @@ static void clk_core_evict_parent_cache(struct clk_core *core)
+ /**
+  * clk_unregister - unregister a currently registered clock
+  * @clk: clock to unregister
++ *
++ * The clk_hw of @clk is returned to its state before registration, so
++ * that it can be registered again. Until then, a clk_parent_data.hw
++ * reference to it is treated as an orphan.
+  */
+ void clk_unregister(struct clk *clk)
+ {
+ 	unsigned long flags;
+ 	const struct clk_ops *ops;
++	struct clk_hw *hw;
+ 
+ 	if (!clk || WARN_ON_ONCE(IS_ERR(clk)))
+ 		return;
+@@ -4709,6 +4724,14 @@ void clk_unregister(struct clk *clk)
+ 	if (clk->core->protect_count)
+ 		pr_warn("%s: unregistering protected clock: %s\n",
+ 					__func__, clk->core->name);
++
++	hw = clk->core->hw;
++	if (!WARN_ON(hw->core != clk->core || hw->clk != clk)) {
++		hw->core = NULL;
++		hw->init = clk->core->hw_init;
++		hw->clk = NULL;
++	}
++
+ 	clk_prepare_unlock();
+ 
+ 	kref_put(&clk->core->ref, __clk_release);
+diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
+index a355d1ee51..026efed876 100644
+--- a/include/linux/clk-provider.h
++++ b/include/linux/clk-provider.h
+@@ -359,7 +359,10 @@ struct clk_init_data {
+  *
+  * @init: pointer to struct clk_init_data that contains the init data shared
+  * with the common clock framework. This pointer will be set to NULL once
+- * a clk_register() variant is called on this clk_hw pointer.
++ * a clk_register() variant is called on this clk_hw pointer. It is restored
++ * if registration fails, and when the clock is unregistered unless the init
++ * data was on the stack of the registering function. The clk_hw can then be
++ * registered again as long as the init data it points to is still valid.
+  */
+ struct clk_hw {
+ 	struct clk_core *core;
+-- 
+2.56.0
 
