@@ -1,45 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795564154;
-	b=zJfUN+utyZ25t/g4BwQHq7Eu2c1TMiQqtfVKl3WG27eqF8xj8DtUrl94DarX7wbgt5Xz
-	 sR688ZfN37Vu+Yj8UlkeUDIxD6frKsM02oAkmfRefuyjSdGRiMulBVScInVz7IYthdxYW
-	 qzk+/MwA2z+gdxOfpcMdwJc31ImE+2xA28/sZrCeKB8Zb63m6Erze9DSX/+GclaceY5xw
-	 8A0Q0irXi8fXnQBqaTVimUgLa24//Nj/i+DaCzLS0CUn6c8rxTp/9UhR3g07tzSsplo/8
-	 gYyS89w3ooH96KyvFKQmwGaA0b1tA87O7HIXe58rETRjtoiEFkiLkVq0QJFMbXM3QUA==
+	t=1795564238;
+	b=OI0JQ4TFb+JuUHNVHL2eu3L9qV6i2YauicE/X8pJnvSIwOFdMRWyJy4XhW17MqiMJfun
+	 5PFd3sPncRU6/jB7uDzIA4elXrApxnbMUPNPF3vMWaUdmcDWnkPucXngR5ixHg1++00BM
+	 x3EjRtKIEtvRVZY6NvAPF8qRVVstbFnlIdL8QtdXfI1MVPuheLKLz1s9ZZvGK+j4N/gmp
+	 +iF8MESaNI9sVez1D31sjQogdqIQYS3Mfnej6p0pfasQDvFhQ5Nqhr1piVGF6POJyo7Zu
+	 49cHoqIIng2X9WmPc2ETTmO6sa51Syvx658GAT3s8wmquGMXtH1GdZWPh+qRFlY1k4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795564154;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=DzVCyim1+gn9POglvsFKaOvJSiB4wTMgOv/rH14HWB0=;
-	b=DWYpRpsDShe8tBEbYZKzpwX1+aTSI425Lxm/efWeH44bjjJhkexeMSXrDxG308NdA884
-	 A7geQ9UYyqeUFSHZUHYIpOmbX6jenZEQjwIl687mhTAyDU9dAfOG1WViOQ56lYcfflrGV
-	 lKbpyGLsPhxHCKjdYOJfN/2LexFtwH2fZhsX6x37z61y1G/lwNVuSHzcyCffYIagZ5TAF
-	 rH6EcP3C2TPUHKICQ8ZbMqQrGuCruYE2nBkD3lhMj89S7LHEarVl27Rbyy27npdqqUmqb
-	 ECQ78HAN3kxnqhRzR2958QD5jew3NRJLzDDJQAIiLe51yulZqU+twQaAbC/t9lxEy7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795564238;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=hY2fJ+o6G3x6o1sL4E6iqcgKGFVJ/TNgjOS9YdLGu+8=;
+	b=TZbPZK+P3x/lp0eL49rCABRtT1cy44dO+1EI2CP1p0nN+j9qBQUQP2symg3saGO9Db+W
+	 YTOdaU3XP/LyBbGUOGVR0PkrvjnDP4bN+b9rNuZyig1mmzkiKx4SZ1+hyUJTV/P7q78sj
+	 gOt21KXAQc2tMmTbkR6sCXHz6kHXTOuazhkPRsXY63kY/vhyyxDrp66uXBXbRIHQG8rni
+	 KgbKdikwhI/VkRrxiPUqJBMbbnMeO+pKUlqTmA5QkiVU2eR1iPvcYvyay6y3WAcnyaRsP
+	 IBldqYNlIKbP4uEdylNYMpaCeo4wpw+13PhE7shfVvsn08aaTLpmLuO5VhDBDZLjEow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JWH0qSAZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MP2aZTrI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33F2606A327;
-	Tue, 24 Nov 2026 23:49:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D62606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 23:50:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JWH0qSAZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878B41F000D0;
-	Tue, 24 Nov 2026 23:49:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MP2aZTrI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FDCE1F000C6;
+	Tue, 24 Nov 2026 23:50:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795564153;
-	bh=DzVCyim1+gn9POglvsFKaOvJSiB4wTMgOv/rH14HWB0=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=JWH0qSAZTjFl6LjnHlO8g82S70LK9uxvihtFlxNyDhhs5nY326gdIHYnixSjHmfaj
-	 8Vd+Cbxr1IGXcnzxBME7sk4u4ky3aYbDxOzVkOdcqxsDaymjVYRqMXQadD05pB9kV8
-	 2ez1Axbs/sYM180DOmkFOSY5XTSgMglcfSs+Qnaevf7h+kmZZW2hTEuMBPTaTumHht
-	 fat1cYvsxmv5C8j+TzgeGNHb/kcNZ138P5eZgLX+3d5UTChnqU1MS6oNG03z1vZDy+
-	 OIZK4tk7e015n63m+Nb2xcSnz6tIcKV+EQisMwZYd7Tkc39xqCcfnYhcpXU/NrC7uP
-	 PVSxLH3y9+AEg==
-Content-Type: multipart/mixed; boundary="===============4896982406480640730=="
+	s=k20260515; t=1795564238;
+	bh=hY2fJ+o6G3x6o1sL4E6iqcgKGFVJ/TNgjOS9YdLGu+8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MP2aZTrIyKV7mXCplaydKm66DSrmGy1kJg+IctVl19FycaPIyp0WkSQAPaPXr/ZDw
+	 DTmShU1kVznIXN2cgLbFdmjM2+GOx9E4VDGyx3+x74rdt2VDCzrXaWH4EesaDK0Twe
+	 +QnSPPT6hQozlErZ9DjfsDOAS9Oad8TrDseWOc8XRJt0y5o1SExTdp194ZE3ghin1Z
+	 1R0q0DaaWMzhbVBKs40C/MDqnwmwLb/I7gg9GKcHXzH1wTaORGjRb2B9BuSNn3JQ3Y
+	 +6YqmCPs0DdC+DQ0JjbqBUEOe0dnenvmtB0TT4Sm3Ii/vm3KFcDb/bk5e9R80HlwBM
+	 m/uKULqnWq+vQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Avihai Horon <avihaih@nvidia.com>,
+	Shay Drory <shayd@nvidia.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] RDMA/mlx5: Remove pcie_relaxed_ordering_enabled() check for RO write
+Date: Tue, 24 Nov 2026 18:50:34 -0500
+Message-ID: <20261124235024.3360098-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112417-overrule-demeaning-63ab@gregkh>
+References: <2026112417-overrule-demeaning-63ab@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,71 +61,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <cd715ed46deb14d0a7becc6defb029b6862024758c2392d1cd203e806446fdca@mail.kernel.org>
-In-Reply-To: <20261124-work-exec-update_lock-v1-11-e489035395b8@kernel.org>
-References: <20261124-work-exec-update_lock-v1-11-e489035395b8@kernel.org>
-Subject: Re: [PATCH RFC 11/19] selinux: revalidate inherited files before taking exec_update_lock
-From: bot+bpf-ci@kernel.org
-To: brauner@kernel.org,jannh@google.com
-Cc: torvalds@linux-foundation.org,linux-fsdevel@vger.kernel.org,acme@kernel.org,linux-perf-users@vger.kernel.org,bpf@vger.kernel.org,selinux@vger.kernel.org,kees@kernel.org,linux-mm@kvack.org,linux-security-module@vger.kernel.org,apparmor@lists.ubuntu.com,david@kernel.org,brauner@kernel.org,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 24 Nov 2026 23:49:11 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============4896982406480640730==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Avihai Horon <avihaih@nvidia.com>
 
-> selinux: revalidate inherited files before taking exec_update_lock
+[ Upstream commit ed4b0661cce119870edb1994fd06c9cbc1dc05c3 ]
 
-TL;DR: Moving flush_unauthorized_files() earlier changes the comm logged in
-SELinux AVC denials to the pre-exec name instead of the new program's; asks
-whether that is intended and, if so, to note it in the commit message.
+pcie_relaxed_ordering_enabled() check was added to avoid a syndrome when
+creating a MKey with relaxed ordering (RO) enabled when the driver's
+relaxed_ordering_{read,write} HCA capabilities are out of sync with FW.
 
-> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> --- a/security/selinux/hooks.c
-> +++ b/security/selinux/hooks.c
+While this can happen with relaxed_ordering_read, it can't happen with
+relaxed_ordering_write as it's set if the device supports RO write,
+regardless of RO in PCI config space, and thus can't change during
+runtime.
 
-[ ... ]
+Therefore, drop the pcie_relaxed_ordering_enabled() check for
+relaxed_ordering_write while keeping it for relaxed_ordering_read.
+Doing so will also allow the usage of RO write in VFs and VMs (where RO
+in PCI config space is not reported/emulated properly).
 
-> +/*
-> + * Close files for which the new task SID is not authorized. Called before
-> + * exec_update_lock is taken as closing files may block in the filesystem.
-> + */
-> +static void selinux_bprm_revalidate_files(const struct linux_binprm *bprm)
-> +{
-> +	const struct cred_security_struct *new_crsec = selinux_cred(bprm->cred);
-> +
-> +	if (new_crsec->sid == new_crsec->osid)
-> +		return;
-> +
-> +	flush_unauthorized_files(bprm->cred, current->files);
-> +}
-
-Moving this call changes what the resulting AVC denial records contain.
-Denials from flush_unauthorized_files() go through match_file() ->
-file_has_perm() -> avc_has_perm() and are formatted by
-dump_common_audit_data(), which logs the program name from current->comm:
-
-    audit_log_format(ab, " pid=%d comm=", task_tgid_nr(current));
-    audit_log_untrustedstring(ab, get_task_comm(comm, current));
-
-Previously this ran from selinux_bprm_committing_creds() in
-begin_new_exec(), after __set_task_comm(me, kbasename(bprm->filename), true),
-so the record carried the new program's comm together with the new
-scontext.
-
-The new hook is called right after close_cloexec_files(), well before
-__set_task_comm(), so a denial for a revoked fd or controlling tty now
-reports the pre-exec comm (for a fork+exec, the parent's name such as "sh")
-while scontext is already the new domain.
-
-Is this change in the logged comm intended?  The commit message does not
-mention it.  If it is acceptable, could it be noted in the changelog?
-
-
+Signed-off-by: Avihai Horon <avihaih@nvidia.com>
+Reviewed-by: Shay Drory <shayd@nvidia.com>
+Link: https://lore.kernel.org/r/7e8f55e31572c1702d69cae015a395d3a824a38a.1681131553.git.leon@kernel.org
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
+Stable-dep-of: 68c183619f24 ("net/mlx5e: SHAMPO, Disable end padding when relaxed ordering is supported")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ drivers/infiniband/hw/mlx5/mr.c                     | 6 +++---
+ drivers/net/ethernet/mellanox/mlx5/core/en/params.c | 3 +--
+ drivers/net/ethernet/mellanox/mlx5/core/en_common.c | 2 +-
+ 3 files changed, 5 insertions(+), 6 deletions(-)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/45508356147
---===============4896982406480640730==--
+diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
+index dacda8d63c5a6..f235028376381 100644
+--- a/drivers/infiniband/hw/mlx5/mr.c
++++ b/drivers/infiniband/hw/mlx5/mr.c
+@@ -67,11 +67,11 @@ static void set_mkc_access_pd_addr_fields(void *mkc, int acc, u64 start_addr,
+ 	MLX5_SET(mkc, mkc, lw, !!(acc & IB_ACCESS_LOCAL_WRITE));
+ 	MLX5_SET(mkc, mkc, lr, 1);
+ 
+-	if ((acc & IB_ACCESS_RELAXED_ORDERING) &&
+-	    pcie_relaxed_ordering_enabled(dev->mdev->pdev)) {
++	if (acc & IB_ACCESS_RELAXED_ORDERING) {
+ 		if (MLX5_CAP_GEN(dev->mdev, relaxed_ordering_write))
+ 			MLX5_SET(mkc, mkc, relaxed_ordering_write, 1);
+-		if (MLX5_CAP_GEN(dev->mdev, relaxed_ordering_read))
++		if (MLX5_CAP_GEN(dev->mdev, relaxed_ordering_read) &&
++		    pcie_relaxed_ordering_enabled(dev->mdev->pdev))
+ 			MLX5_SET(mkc, mkc, relaxed_ordering_read, 1);
+ 	}
+ 
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/params.c b/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
+index 542cc017e64cd..1b109a8499f2d 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
+@@ -868,8 +868,7 @@ static void mlx5e_build_rx_cq_param(struct mlx5_core_dev *mdev,
+ static u8 rq_end_pad_mode(struct mlx5_core_dev *mdev, struct mlx5e_params *params)
+ {
+ 	bool lro_en = params->packet_merge.type == MLX5E_PACKET_MERGE_LRO;
+-	bool ro = pcie_relaxed_ordering_enabled(mdev->pdev) &&
+-		MLX5_CAP_GEN(mdev, relaxed_ordering_write);
++	bool ro = MLX5_CAP_GEN(mdev, relaxed_ordering_write);
+ 
+ 	return ro && lro_en ?
+ 		MLX5_WQ_END_PAD_MODE_NONE : MLX5_WQ_END_PAD_MODE_ALIGN;
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_common.c b/drivers/net/ethernet/mellanox/mlx5/core/en_common.c
+index 03a99918a8942..35eda9e8ba437 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_common.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_common.c
+@@ -43,7 +43,7 @@ void mlx5e_mkey_set_relaxed_ordering(struct mlx5_core_dev *mdev, void *mkc)
+ 	bool ro_read = MLX5_CAP_GEN(mdev, relaxed_ordering_read);
+ 
+ 	MLX5_SET(mkc, mkc, relaxed_ordering_read, ro_pci_enable && ro_read);
+-	MLX5_SET(mkc, mkc, relaxed_ordering_write, ro_pci_enable && ro_write);
++	MLX5_SET(mkc, mkc, relaxed_ordering_write, ro_write);
+ }
+ 
+ int mlx5e_create_mkey(struct mlx5_core_dev *mdev, u32 pdn, u32 *mkey)
+-- 
+2.53.0
+
