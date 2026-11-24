@@ -1,73 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795539722;
-	b=a4vmi8QhiIqmzZO8DP1RMqCEzM3nnjIY4cO1k+++ce/z8dfouQ35BULkncWT5fUw/gML
-	 0ePKEwmwBQPYUwTTGg5xN8uo0oHjnWDu+p3QDAWItGhc/IrCmuIn7YpXSyCLzZ2812Wtp
-	 /wJ5MDZMp0ID0Xur7j+ihqs7WyIdLhJRt4NU8xdnWhZO4a5adcgNYLPgc7QDDLXK31N4o
-	 9fhHonG134pl3/fy7JojMTT6b6uY7XP2U4ND7BFZpEwNWcS2otVpPfXv4nMvnUaMNaTUt
-	 Zub9CaM91qegZzDkDYXr0JUc52KnWnHXR6VYWugQZCYQRUXY8hy1tSoIs+2yeAJntOw==
+	t=1795539975;
+	b=b7U4fpom8KH1qy7WJfYE+HlJnQvee7kO7jregXHRLXlzw1yfzqvNJqd5pH+8vzFp/1mn
+	 YYMkACD5QxoA3tn++BJa8EDLlyBFvhhDZs9stQli+NmGrW9NCj8hyiBGxchVacAcBlgfQ
+	 ajVha9epy+N51X15gS0MnXpLGcZWg2+WvDJJ0MOegpBC5AVSDDmEj8c+KQk46gMXu1wqJ
+	 7Nuw3cusj/nlzSbza6xgaI1AjBZ2jOM5qyvyssjAIvWv5omUiuhwwctfDJtNtBU7aqGD8
+	 rJMlf3TOVoN8Yin66g53+Au5VQhsa/wp15Bsy2OguethO/yR0AvZlFDGhgZzAPhUL3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795539722;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=/YR2NdyGpQphRBfeuwhxgCxGzrHtOehNZjit7K3pY8Q=;
-	b=KSu6d3+pPAFb4bzaMjaX/E37WNE+HpYMpzPU9qNaT5C//kLtisjX/unFkS0WPaWAi6xT
-	 QYNkyZQ7r9EvOwNdgPIDYw+PBDX7PJNtmqe8okBGEUWPUJGBlgzomwmI2lqKMknCtM69D
-	 fZ7jcc6LZPXq6Qmbm2cpOVhnhwLUr7pxmPJNWkiSzUZ/Mg3BTJ0Xnks0hEBu/g4Xlpovn
-	 suhviKW36XpvIJ1L+9dSQOumOhfPIYHaJsejNbxr05fJtneDsDyyDpkVxHVpqjs91JysQ
-	 9aDrdc8lIyG6pw4AxeWC01EEOwxjJWV3DspJbavlWPEpfm4itycoBvLJo9xswJPIezg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795539975;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=3H/OahWV+3RChA14ZDJSZnina6/d+GytEJVi+69LbEU=;
+	b=BOmx8056sL+BjeOUxifaVCQ1pPKvI9kLtLKD9gAVpV1L1ax8IDRtg3P2vXQW9LzAQkRt
+	 qT3MGBrHMwTg4tqSbo3tX3QYypYB6qxBAuqriSNRHvfNFo70oGPOOv8+W5URfBUcMRCTa
+	 izoo0trRfmUuB55p9K4ZIBKbwXhCcmQhugGpKlbuUa2YEA+/hSTMB+eqaKUVZyoCtPQDk
+	 iHKpmy132pbMWnFGSpIcnths8EQwnj/J7YoF6pLXi73ma2e5d5rC2WXrkmKfA77JCrgyI
+	 6zdicFvLxbAOQ+28pL4Y0Y106WeY2I1qbRB2BNQc5eT2bJ2zwxLi7121N6pRRLC7X2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6r7Kuur;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=GUHb7dR8;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jl13DaVU;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FyD4ctRM;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5hH8EiLM;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5268606A327;
-	Tue, 24 Nov 2026 17:02:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB12606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:06:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AB12606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6r7Kuur
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1418A1F000D0;
-	Tue, 24 Nov 2026 17:02:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795539722;
-	bh=/YR2NdyGpQphRBfeuwhxgCxGzrHtOehNZjit7K3pY8Q=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=Q6r7KuurGcYYmLIkXt/WJ7+8UUfu37x0nDZP8djVlQ041HlbCxMyn4Kl/nrlGvUX3
-	 NAs3/l3Dfwq0YOGcnaCu8nvaue1VdNbeEQiQRD2c7L42qTbTaC9EjmTmZFx5kctAgM
-	 vSkKeoj4P75ttUNdFDmJb7aaIUXB9HlPt9q/NkW1ar+Q+Ac9ZVcZbZkwf1yeM6VBgm
-	 EKF+iI8MsWvaWljRiYWkLHQc726tHnkXbcno2VcKZHwIAiRq97cIh3BaZWtIimVVR0
-	 nVuUF+eN4B/5UweKHOa7gDnrJ6wDI9P+mb91hUG3MGLTjZp5x+OtEgR3eYjsvW1WET
-	 MzO3tCGlXWEyA==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 47F03F40067;
-	Tue, 24 Nov 2026 12:02:01 -0500 (EST)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Tue, 24 Nov 2026 12:02:01 -0500
-X-ME-Sender: <xms:CcMFa6VhvKzWWezBDCEVI9-iNiaw_GtjfX_wen_jE6gXnPQn7jNhrQ>
-    <xme:CcMFaxalmsFv48IzzzCDfQHyVQUa99_sK8AUfbrqyB8rpdyd_NI_4jGqX-gG6Eyjr
-    HW7UCkRSKF5UnBgplSuNtB7OX8WhSqhqhXTRdVEgjZX8xcVeofysfgw>
-X-ME-Proxy-Cause: dmFkZTFwXILTy4fQRfudKC0hWynHKvKwlza8s34nRlusPzeGPNvqBtaTo5l0TmHEx1Eu5e
-    cIwjFljVodOPqo2gBfY/h05A8TwW/b1JFqT1+ptiF0pQxoQ2A+Qe/wVC1gyuqhRskXXytV
-    X+SpdvMINxr8boRipFM6JVIyJSBEZwgqbmDrDXRC/mHxfLlQirs118vs006gGMqyG4dyMp
-    F0uTz44+9j/Zod8N7si79U0pEkaqiS+dPPDDmzsws4/MDJ3xmf9O1rNqCqGZQ5fHgneyAA
-    qSbBhZ1/JdJnb6dbVnZtVPD4q9gH3JboDauS/iK2U/Sl8Sac9TgCAQmRVgMv/vf/bNJyno
-    fkzVieuKII/jw9eQ3uuCEEH2wHsd7ethpwCy47MVDl/wZsIQlJUkWSsYX2hdyemACPbnBB
-    v0S5ckEvO3Kn5zbGLZrjV+mB1oTre18kZgpA+4mjKQLq/5PAaoGiDCOK08nItXQOAyNnay
-    NpeQNwhenintVlBsGGfsN8samSJ9oZ1KXXerlkFLZZyPtCh3iANjJwqdBMzdxfpzebpi00
-    TnQm8Y6MUmIpxOiRrm8xgR3uo9+1bwYTUp5sX+BvdwH9u+ENfRt4JFBU9kar7L1uQ7fmup
-    b7Z1pcLMiJr6qmrESZ2y7g69g8AnVEx/e3WtjReZak/DmqkZeycLVaHu9Y2w
-X-ME-Proxy: <xmx:CcMFazmMaSO0yDSxsO2ozkYPTgkjn6IK1ueRWu1DTfAEIvKjnz0gkg>
-    <xmx:CcMFazNqWNvDK1Ow315AenCCN7ZoWWVnr1YwjlDRybLYdhkCG78_bA>
-    <xmx:CcMFa-Gazjfw4O-qEbDK79ylh_xy_VhYq3l0bWqseg0F7_q4BiABMw>
-    <xmx:CcMFa5ssv84Qzxa-B3OSpAKnGfN_lfOsh2jxKRipQStc4tAMzbLVnA>
-    <xmx:CcMFa-TfI_9dq8GyDUiZPK4aefosCKMaclLq-0FxyOS7oOgEbl8TzedC>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 29F2678007B; Tue, 24 Nov 2026 12:02:01 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=GUHb7dR8;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jl13DaVU;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FyD4ctRM;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5hH8EiLM
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 17CAC21EA6;
+	Tue, 24 Nov 2026 17:06:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795539966; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3H/OahWV+3RChA14ZDJSZnina6/d+GytEJVi+69LbEU=;
+	b=GUHb7dR8DJcZCqltWabaoCMras6AdDniYmZhte7Kv3mosa4KVlVWDPqtEmx8cG2tjgpNi3
+	+nwFoigcsIzkC33vA/WNyrwkyv6KwVopZqq8CMB1yV6p0kPwe+Gj6ICS3WWDTiN8yLvhBi
+	BG/zx73fiaVH4cThpt5CkeqGjXBTrbM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795539966;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3H/OahWV+3RChA14ZDJSZnina6/d+GytEJVi+69LbEU=;
+	b=jl13DaVUtIuXwE8gkzhwqa+lmoyR8acxkuwi++RjMoBOZqSmaf20AgDdIwkNkXlcfCfkus
+	2C5aS1H0ceKbxbDQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=FyD4ctRM;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=5hH8EiLM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795539964; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3H/OahWV+3RChA14ZDJSZnina6/d+GytEJVi+69LbEU=;
+	b=FyD4ctRMa6vURRKaq+lEiQnTTsufczdXTOD+TgEpAd4Ugmc8TISjBPDkWxxZ22VzwGwWDq
+	3OCxg/v0esF87RkH+wNknxFIroaJeOdBR7Vj7kuEAyh2kmFdB31hts7+jFCcfkuCdPvj/9
+	b8qCwFiimMRe+FT8q3nCtENsWLgmAEA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795539964;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3H/OahWV+3RChA14ZDJSZnina6/d+GytEJVi+69LbEU=;
+	b=5hH8EiLMLcRIlXipgzw7UImf8yYu80scHY0CPwrmyI4gmq48c/V1RAsb2+qt4WKZ4uo4Y6
+	AdtQZNL4sjXkH0Ag==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DE6B11339F;
+	Tue, 24 Nov 2026 17:06:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id cAOALfvDBWulUQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 24 Nov 2026 17:06:03 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 6BA2127A34; Tue, 24 Nov 2026 18:06:03 +0100 (CET)
+Date: Tue, 24 Nov 2026 18:06:03 +0100
+From: Jan Kara <jack@suse.cz>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Miklos Szeredi <miklos@szeredi.hu>, 
+	Chris Mason <mason@kernel.org>, Christoph Hellwig <hch@lst.de>, Theodore Ts'o <tytso@mit.edu>, 
+	Carlos Maiolino <cem@kernel.org>, Alexander Mikhalitsyn <alex@amutable.com>, 
+	linux-fsdevel@vger.kernel.org, linux-unionfs@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] xattr: enforce the name and size limits for in-kernel
+ callers
+Message-ID: <p3k36hsnj5ucuzbu7e2x6mtlr6rku3j4ec2ighu4td6tbllbzd@5zfm6yvgttsi>
+References: <20261123113513.1910906-1-amir73il@gmail.com>
+ <20261123165807.1939942-1-amir73il@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,56 +116,162 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: A_umGGPHPaig
-Date: Tue, 24 Nov 2026 12:01:40 -0500
-From: "Chuck Lever" <cel@kernel.org>
-To: "Li Xiasong" <lixiasong1@huawei.com>
-Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
- "Tom Talpey" <tom@talpey.com>, "Trond Myklebust" <trondmy@kernel.org>,
- "Anna Schumaker" <anna@kernel.org>, linux-nfs@vger.kernel.org,
- linux-rdma@vger.kernel.org, stable@vger.kernel.org, yuehaibing@huawei.com,
- zhangchangzhong@huawei.com, weiyongjun1@huawei.com
-Message-Id: <40af69a1-be6b-4afd-acba-2185a7ad832a@slotpi15m67>
-In-Reply-To: <20261124021842.130141-4-lixiasong1@huawei.com>
-References: <20261124021842.130141-1-lixiasong1@huawei.com>
- <20261124021842.130141-4-lixiasong1@huawei.com>
-Subject: Re: [PATCH v3 3/3] xprtrdma: Wake connect worker on device removal
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123165807.1939942-1-amir73il@gmail.com>
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 17CAC21EA6
 
-On Tue, 24 Nov 2026 10:18:42 +0800, Li Xiasong wrote:
-> Device removal only forces a transport disconnect, leaving a connect
-> worker asleep while re_connect_status is zero and blocking endpoint
-> cleanup.
->
-> Set -ENODEV and wake pending connects on removal.
+On Mon 23-11-26 17:58:07, Amir Goldstein wrote:
+> The xattr system calls refuse a name longer than XATTR_NAME_MAX and a
+> value larger than XATTR_SIZE_MAX, but the VFS helpers do not. An
+> in-kernel caller may pass a name or a size that it got from another
+> filesystem, such as overlayfs copy up from a lower layer.
+> 
+> Check both limits before calling the xattr handler of the filesystem,
+> and fail with the errors that the system calls return for them.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 
-On InfiniBand, waking the connect worker works as described. On iWARP
-the woken connect worker goes on to rpcrdma_xprt_disconnect(), and
-the rdma_destroy_id() call in rpcrdma_ep_destroy() waits in
-destroy_cm_id() until IWCM_F_CONNECT_WAIT clears. Only the provider's
-connect reply clears that bit. The worker still waits for the peer or
-for the provider's connect timeout, and it now holds XPRT_LOCKED and
-rx_unmap_rwsem while it waits.
+Looks sensible. Feel free to add:
 
-On iWARP, then, this patch moves the wait from re_connect_wait into
-rdma_destroy_id(). I don't see a way around that in xprtrdma. The
-patch description should still not claim that removal unblocks
-endpoint cleanup on every device type.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
+								Honza
 
-> The final endpoint put can free id->context before rdma_destroy_id()
-> synchronizes with CM callbacks. Destroy the CM ID in the endpoint
-> destructor before freeing its context to close this window. Remove the
-> CM callback get/put pairs so final puts occur outside CM callbacks.
-
-Removing the get/put pairs from the CM event handler also moves the
-last ep put into rpcrdma_xprt_disconnect(), before xprt_rdma_destroy()
-reaches xprt_free(). That ordering closes the stale ep->re_xprt window
-I described in my reply to patch 2/3. Let's mention that ordering in
-this patch's commit message, since patch 2/3 relies on it.
-
-
+> ---
+> 
+> Changes since v1:
+> - Check the name in vfs_getxattr_alloc() too (Alex)
+> 
+> v1: https://lore.kernel.org/r/20261123113513.1910906-1-amir73il@gmail.com/
+> 
+>  fs/xattr.c | 35 ++++++++++++++++++++++++++++++++++-
+>  1 file changed, 34 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/xattr.c b/fs/xattr.c
+> index 0705801a62cc5..fb5e43d4ff356 100644
+> --- a/fs/xattr.c
+> +++ b/fs/xattr.c
+> @@ -178,6 +178,18 @@ xattr_permission(const struct mnt_idmap *idmap, struct inode *inode,
+>  	return inode_permission(idmap, inode, mask);
+>  }
+>  
+> +/*
+> + * The xattr system calls refuse a name above XATTR_NAME_MAX and a value above
+> + * XATTR_SIZE_MAX, but an in-kernel caller may pass a name or a size that it
+> + * got from another filesystem, such as the lower layer of overlayfs.
+> + */
+> +static int xattr_check_name(const char *name)
+> +{
+> +	if (strnlen(name, XATTR_NAME_MAX + 1) > XATTR_NAME_MAX)
+> +		return -ERANGE;
+> +	return 0;
+> +}
+> +
+>  /*
+>   * Look for any handler that deals with the specified namespace.
+>   */
+> @@ -209,10 +221,17 @@ __vfs_setxattr(const struct mnt_idmap *idmap, struct dentry *dentry,
+>  	       size_t size, int flags)
+>  {
+>  	const struct xattr_handler *handler;
+> +	int error;
+>  
+>  	if (is_posix_acl_xattr(name))
+>  		return -EOPNOTSUPP;
+>  
+> +	error = xattr_check_name(name);
+> +	if (error)
+> +		return error;
+> +	if (size > XATTR_SIZE_MAX)
+> +		return -E2BIG;
+> +
+>  	handler = xattr_resolve_name(inode, &name);
+>  	if (IS_ERR(handler))
+>  		return PTR_ERR(handler);
+> @@ -408,6 +427,10 @@ vfs_getxattr_alloc(const struct mnt_idmap *idmap, struct dentry *dentry,
+>  	if (error)
+>  		return error;
+>  
+> +	error = xattr_check_name(name);
+> +	if (error)
+> +		return error;
+> +
+>  	handler = xattr_resolve_name(inode, &name);
+>  	if (IS_ERR(handler))
+>  		return PTR_ERR(handler);
+> @@ -416,6 +439,8 @@ vfs_getxattr_alloc(const struct mnt_idmap *idmap, struct dentry *dentry,
+>  	error = handler->get(handler, dentry, inode, name, NULL, 0);
+>  	if (error < 0)
+>  		return error;
+> +	if (error > XATTR_SIZE_MAX)
+> +		return -E2BIG;
+>  
+>  	if (!value || (error > xattr_size)) {
+>  		value = krealloc(*xattr_value, error + 1, flags);
+> @@ -434,16 +459,24 @@ __vfs_getxattr(struct dentry *dentry, struct inode *inode, const char *name,
+>  	       void *value, size_t size)
+>  {
+>  	const struct xattr_handler *handler;
+> +	ssize_t ret;
+>  
+>  	if (is_posix_acl_xattr(name))
+>  		return -EOPNOTSUPP;
+>  
+> +	ret = xattr_check_name(name);
+> +	if (ret)
+> +		return ret;
+> +
+>  	handler = xattr_resolve_name(inode, &name);
+>  	if (IS_ERR(handler))
+>  		return PTR_ERR(handler);
+>  	if (!handler->get)
+>  		return -EOPNOTSUPP;
+> -	return handler->get(handler, dentry, inode, name, value, size);
+> +	ret = handler->get(handler, dentry, inode, name, value, size);
+> +	if (ret > XATTR_SIZE_MAX)
+> +		return -E2BIG;
+> +	return ret;
+>  }
+>  EXPORT_SYMBOL(__vfs_getxattr);
+>  
+> -- 
+> 2.56.1
+> 
 -- 
-Chuck Lever
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
