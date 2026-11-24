@@ -1,106 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.160.110
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795529215;
-	b=JJ4CiFkuttA3agvscBqt4ZPgmkGJSDerQC6uAIUzagqL1kBWymvJRIFOvcVdPbcHsEre
-	 cr0mzmJZ9LVmhdBxoKua4OpIB0waU3HMJmuGSmjD0SrhmFox12xCd4MxMy4E7ixyPhxAD
-	 WZTnanSVhJhx6HviT+iUPxvvZv8UZDCVlegZqEN4u1bx7xYQHPUhSFjWdL7XWeaeB0Bxs
-	 QMwjnsGJ5i0gsKZNtX6CFIbf2lTauX8LNzaS0Rox2Kc7cF8xK/gnxg6Nq3MQxgqkSEoCf
-	 njVmY8xvIe6+39g121lILkcuGbP48yEvb4CC3zGITEMoEBHwtXVNjlipdBsADSyOVqQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795529215;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=uAZyIjIYSxUKllcewpoHABXS4mX8F9Jyc32ESP8v5Es=;
-	b=R//Ja6oms30vdEzxycHsbA0hezheIXiorONzetF13FV/7csNRXRqYDNKsoR5cZYQKER2
-	 R8F2PqDeOp4oMC42869Coqm75xJ1sJYLcmQm0Cvc4azSxO4k8RnsulRW9ICwNuhmxhqc6
-	 MbA3YCF+fbRlcqV2HQ0jRjm4X0nBY274RZ2hJ5JG1erkfBJSMsMdju6QUbiKknxHT3txQ
-	 yfDUWLOaXC/gNv+NE9j5oo9Bi0kSECI0Tz8kiyJMCje3CtRx0no1jEw/AYDUKXPdmBLZM
-	 vLN4gNyIh8Lg3gAUSYhg2RXA2VCsAgtDBA3gbXF7H82rYITxLQTcenEcQGaXb3Nq4gQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wenske.fr;
-	spf=pass smtp.mailfrom=wenske.fr;
-	dkim=pass header.d=wenske.fr header.i=@wenske.fr header.a=rsa-sha256 header.s=selector1 header.b=dOmdpNGj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.160.110
-Received: from PAUP264CU001.outbound.protection.outlook.com (mail-francecentralazon11021110.outbound.protection.outlook.com [40.107.160.110])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795529430;
+	b=sRwV25xpKbzyZWj7GL7ZcAGOewvGBmeKRRjMKvG+o2FBNynJfGYntrEotExQ8BO65NLC
+	 +PKnd7v0xUpk+F/gLQyiboz2R7ByIhCyu7QvmdSYHsGK/FlVyhZ3tqAlMU9ibcjn/cD25
+	 CYCmM/ydc0twOfdw9tSeOWI2AKtTxa/ztKOmKKo6BtayEbmIwo06PESDHbh0lG7Y6nemD
+	 d6R+R8v1y3eGir/dubslpwzZjfbN4LzhPGrhIupCs/hIaNssd/baVwOIqkfffjPLQdJng
+	 OSh2iU5SO6uT1ikzlInThokjyeTTIsJCqqrT+6QrxSSvduq5nK88/uBf9L5QGrpCO7A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795529430;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type:
+	 Content-ID;
+	bh=Yf16UmoCdaq2rgm91/Zix7F1KLA/6UUFuc21FWaR1GM=;
+	b=RDNfnjqpFQ6chkgLRDudWz74CkOc8j9nezP9A9/7lx+0mIlk00AhhCV6ia/nqmjzMzrG
+	 aXsVAfAblTcMR9Xh8RahX/fxalC75lWVAKMvCb6TtxvGNYEHfcFFLBASd6zGgxD3/42Us
+	 L/lRYLCF4wJjlKWjrAzWel6V4bF0ZOEZRrwmQX8ImWPQgDF3S7hrwOLqksQqJlWZrnt33
+	 r+jAVQ19d9gCsm7p0BIO6+P3KakbRb0TdV0lCZZD6CW2Q+Z83TaRhnVpdVUvyOuIdnAO7
+	 CV4whRe1lK8h3SDvwDsEugoC4/YEWMaHJEOToCVLm7Wuv4TTE/6aeMwd6NbEIulhrOg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="NlZWj9w/";
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CE360A380A;
-	Tue, 24 Nov 2026 14:06:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66CE360A380A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wenske.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wenske.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6F9606A321;
+	Tue, 24 Nov 2026 14:10:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A6F9606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wenske.fr header.i=@wenske.fr header.a=rsa-sha256 header.s=selector1 header.b=dOmdpNGj
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qj2zb3uHv+XYxVQk2XE1veKj/3E4aF7Gmd8Isrjcj3SacXU45F8VgrJ2wBp8yzFPuY6eGd/XB0dg/SZ9DgtIf147vb52sHu845aK3yZrYHCwpacYCC2vVAVdIosyKB1R7jKGSM+BZT4OFTklWQWeeIy0GDyUVo9FrrCloDVvoIkyKQtGqv5wj7wLDoeQXF+d4nAtJ93ZzqbvHnhdfYLRGVnb5eEEjDk3LEmb/8psFvFEIf1TPYYNPKWGnZBpwUaD2qo1faKRbGLegIZYBXlCnAbSKTBhZEIcZHssL3jyKQvQ/3ElgZNJmhGAt8JS30Sg3TQoz2Gfs2viKvwUq7HiIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uAZyIjIYSxUKllcewpoHABXS4mX8F9Jyc32ESP8v5Es=;
- b=VEnLBGE+tX3HsEpk+Ed9CeVLUzwIWJKjmXKQyarZcr7DERAZOfh0hjOlhhcFTXlSA7NJ3H8t33BIzQkr4ltpAxdpj38LM9HdYh8b0t+6DPRrUGI2SeRwOXOSWhO3ugx0vdPUxPWUDfbfm54GgrySCBD0t91rSkEApWcDRvXVoZdxHYk3W1U9PAWLbokJgUKvHm6Nlsl+h5zCc/aicmWurASXHvQi11pzrXlzaJ3Nz7e1Nos/hxOAhCNaNk8dRWxsSzpWrfLHIlzUWpum7CHe4m/BafRkGvFmcp+Lobwh3wDOS9ARLjfc+akp01AqJFeWgMYFsI7wJ9G+sD412W2R0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 82.65.107.217) smtp.rcpttodomain=gentoo.org smtp.mailfrom=wenske.fr;
- dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
- header.from=wenske.fr; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wenske.fr;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uAZyIjIYSxUKllcewpoHABXS4mX8F9Jyc32ESP8v5Es=;
- b=dOmdpNGjSx2fwcAPU0V9qnUfw1uPRQu5JdKYSGT7ivPsZo0uLfHLN8Yv1DaJ6WaM8IXEq3i7GL2IBhHl62Fo/gvjsP4w9oq84/ZJ0iBNII/6xJLZZlrX9gnoW6TKz19C2eiIDG8jct9TasvSTBvDgDfpDZE0ITqZnnNHP9qQSIzdkWtv5zAj5opbYbhCrgKrTHr6FlOG4mCMm9A48AR5vjD+Xyd888tB8dnC6/KXPQx7zWiplarwuU7OikWAXz1rtxC3bnGzTp14fz1/SHIl6kXsQUNHQE4XZq/b7WQM0aPUpiRkENyLxPqGTGx+rQTdF7A7WqpF4DK+0i1HBDnvug==
-Received: from PA7P264CA0262.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:375::13)
- by PA3PPFADE62A42B.FRAP264.PROD.OUTLOOK.COM (2603:10a6:108:1::67b) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
- 2026 14:06:49 +0000
-Received: from PA2PEPF00019230.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:375:cafe::51) by PA7P264CA0262.outlook.office365.com
- (2603:10a6:102:375::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.15 via Frontend Transport; Tue,
- 24 Nov 2026 14:06:49 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 82.65.107.217) smtp.mailfrom=wenske.fr; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=wenske.fr;
-Received-SPF: Fail (protection.outlook.com: domain of wenske.fr does not
- designate 82.65.107.217 as permitted sender) receiver=protection.outlook.com;
- client-ip=82.65.107.217; helo=lgs.sw-servers.net;
-Received: from lgs.sw-servers.net (82.65.107.217) by
- PA2PEPF00019230.mail.protection.outlook.com (10.167.242.36) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.3
- via Frontend Transport; Tue, 24 Nov 2026 14:06:49 +0000
-Received: from zephy.int.sw-servers.net (zephy.int.sw-servers.net [10.1.2.3])
-	by lgs.sw-servers.net (Postfix) with ESMTPS id 77BD232D;
-	Tue, 24 Nov 2026 15:06:49 +0100 (CET)
-Received: by zephy.int.sw-servers.net (Postfix, from userid 1000)
-	id 59B8010B2C3; Tue, 24 Nov 2026 15:06:49 +0100 (CET)
-From: Sebastien WENSKE <sebastien@wenske.fr>
-To: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org
-Cc: swenske@veepee.com,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- James Le Cuirot <chewi@gentoo.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] efi/libstub: Allocate the INITRD table in ACPI reclaim memory
-Date: Tue, 24 Nov 2026 15:06:41 +0100
-Message-ID: <20261124140640.0f627d7e212c@wenske.fr>
-In-Reply-To: <37c38d1e-03cc-44ae-b617-d45fbf80acc5@app.fastmail.com>
-References: <20261012133712.618913-1-sebastien@wenske.fr>
- <37c38d1e-03cc-44ae-b617-d45fbf80acc5@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NlZWj9w/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795529429; x=1827065429;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=DbF9blqS58BsaJrl77anwBbzdIRE63KSKh4+UiAGdb4=;
+  b=NlZWj9w/DYGwwx6X10B/Emz3NA4vxTeS5ujTmtCAGjb2qxOiGvYy+ELg
+   PGVkQx7Wc1roNt4frctDspWpVgYMkZnS03nqGpQuejYa8zbIUmhnBOjgj
+   LpcAUC6OYCrCLSxWf+fVaEU5QOg8nm7lKWlO2LYwLWOc6+2XrHSEOT4d1
+   TfJbB0oimPrC4/9L6m+Lc48+6P/YGAlnWRwdUYdr5vA0w9r9CAMS/pKjj
+   XxHQUurHszu08f8/JjYPq41VKDUQYbWsjOhlBDTEG1QWMfUvIrT7Vq7ZI
+   MKR8laKTGRTMwg1D6vJbuegTL7VOIMN8e5xdSbKLwt2kCKeRg4Qssys0I
+   w==;
+X-CSE-ConnectionGUID: 9IWQfRUWQWuZdumYkbA/vw==
+X-CSE-MsgGUID: QYE1cFBVTDOWDl04ReT/3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4458048"
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
+   d="scan'208";a="4458048"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 06:10:28 -0800
+X-CSE-ConnectionGUID: QoaCtDQCQB6HE+TPlvwb+A==
+X-CSE-MsgGUID: akfHCXbTS5WImxDVLwN3OA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
+   d="scan'208";a="11782092"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.190])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 06:10:23 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 24 Nov 2026 16:10:20 +0200 (EET)
+To: David Matlack <dmatlack@google.com>
+cc: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, 
+    Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, 
+    Rob Herring <robh@kernel.org>, 
+    =?ISO-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kw@linux.com>, 
+    "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, 
+    =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+    Alex Williamson <alex@shazbot.org>, LKML <linux-kernel@vger.kernel.org>, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH v2 07/16] PCI: Serialize bridge window sizing and resource
+ assignment
+In-Reply-To: <DN314UP7ZLCR.39N4XNGLWKR05@google.com>
+Message-ID: <42d7af61-bf69-b440-8685-5d9cec4863dd@linux.intel.com>
+References: <20261120134716.3027-1-ilpo.jarvinen@linux.intel.com> <20261120134716.3027-8-ilpo.jarvinen@linux.intel.com> <DN314UP7ZLCR.39N4XNGLWKR05@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -110,72 +86,150 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA2PEPF00019230:EE_|PA3PPFADE62A42B:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88015a63-dce8-4efa-5ffa-08df4a342efa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|260925021911599003|260925022911599003|260925021311599003|10067099003|56012099006|5023799004|261026140227099003|4143699003|261021121427099003|261022105027099003|261022075727099003|261102123227099003|261028144727099003|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	W9E3ObsSffmNdXlc+LiaiZw/V5/83lFtRDcsFxx1h75+hCNISMAKzmL6tjNTwqzndVs+f9W1VbYQQCG9yP1SXtInt8QzH7UwSny5/6dKgnYYIm1MkYI9YvpypczJ9x9DdhxevOEKPSuR+Yus5QuvNH377ehQsjtYYtvL7LOA9gLC3n7my6CdTD/nJxX8Dny1qsYRLpq00oPrc/x1lJVXlQRBeJkJxmS97j5uV7cyhQG2DbG3YyXDOUVjNmj9oIEiUXveA2hNvBsBJjZicSvYE3s0NieP/A4p7HlmWRjMqYwcpFMCq3xjb1vv5sz8dM8BOKjWI4vhAPpX3k4oJgvQEqn00pIHfcOPRF9ltlvLtFSQgiBvwseNorQ/W/Lnu8a0Og03WyNV0rOXQmKZh3IUItueQuSkmupnLVfPgwifhGbxi9XykWoetcEhTE6Nmhg9V7xAk8Cbm7Vz5EwvhNdciMK0xzsrRuojYVJP14x9SuNoNa5QV4kBVrghOOIwacq4EoE5kRINg88o7xdV3CIqMB4yQJYbCq/9XjnlRUMjrZWbFQDCwXQcorBNQiQmmq+YNiFI1PK3Whz7mj5ojpPvQ3LmQdbn/8B7vhlBr+DBSq8OT5SUpwiSdQlAD07t0u4n3yZAiWzK/CMByz7a97C6Dg==
-X-Forefront-Antispam-Report:
-	CIP:82.65.107.217;CTRY:FR;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lgs.sw-servers.net;PTR:lgs.sw-servers.net;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(260925021911599003)(260925022911599003)(260925021311599003)(10067099003)(56012099006)(5023799004)(261026140227099003)(4143699003)(261021121427099003)(261022105027099003)(261022075727099003)(261102123227099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	tMOpfCS3V/QqIv53Y732yLMiNzNLAi32jHyMvTLNmfyUAPqgQn7EsKFN8TSJxLM5Ix0ajbsc3WmA5OA5ZOBKL/tnjcs90G3sVG4l6UWJOUNIdYeE144O1oXqbHPVh5u6vMF0035/Jk9a9uth6pGq2sd7kaG2BFJYeyZxy3YJaYemKVCSzFOitLttzhOsTav+C7mca7Hw1/vNEtqc2GjAAqySECguJOfJUPxF3kw5BnbEZ2XMLfwunEemCBsE3tPoDtOTEQG2iy3IgsfTVXwJT7kSnSfBEOXaU3pTcbQJBlwKH1ZfLHasTwWTvz6/1I9zNHRis4nN3cC2bEp5mVadKesBeixFvlNrvjbxEn0EJZCCm7REU/yDGmAigK203+eV7tFz8OKeJRIiI6wdaiVcHzIGnyZpzx7xHQnDohlbG9mACPp2eLTRZYX3lzqVYtuR
-X-OriginatorOrg: wenske.fr
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 14:06:49.6331
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88015a63-dce8-4efa-5ffa-08df4a342efa
-X-MS-Exchange-CrossTenant-Id: ff4ca3b8-6c54-4519-8b0b-9389fb15cdbb
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff4ca3b8-6c54-4519-8b0b-9389fb15cdbb;Ip=[82.65.107.217];Helo=[lgs.sw-servers.net]
-X-MS-Exchange-CrossTenant-AuthSource: PA2PEPF00019230.FRAP264.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA3PPFADE62A42B
+Content-Type: multipart/mixed; BOUNDARY="8323328-391643659-1795523890=:1182"
+Content-ID: <56a05202-b09a-9069-dc67-183d2681f167@linux.intel.com>
 
-On Tue, 24 Nov 2026, at 12:38, Ard Biesheuvel wrote:
-> There was a report recently about EFI_ACPI_RECLAIM_MEMORY being
-> problematic in combination with hibernate, as those regions tends
-> to move around.
->
-> Can you try this fix instead please?
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/efi/efi.git/commit/?h=urgent&id=6863183e8b65e833f8140e20d526282a725e040e
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Hello Ard,
+--8323328-391643659-1795523890=:1182
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <0777c4a3-630c-0741-ee0d-4cca22293e78@linux.intel.com>
 
-It works, thanks - please consider my patch withdrawn.
+On Mon, 23 Nov 2026, David Matlack wrote:
 
-Tested on x86_64 under QEMU/KVM (q35, SMM) with Debian's OVMF
-2025.02, both the plain and the Secure Boot capable builds (no keys
-enrolled), the kernel booted as a systemd-stub UKI (initrd through the
-LINUX_EFI_INITRD_MEDIA_GUID device path), then kexec'd twice in a row
-with kexec_file_load() and an initrd:
+> On Fri Nov 20, 2026 at 5:47 AM PST, Ilpo J=E4rvinen wrote:
+> > +/*
+> > + * Serializes bridge window sizing, resource fitting, and assignment.
+> > + * pci_rescan_remove_lock cannot be used for this because BAR resize a=
+nd
+> > + * some drivers run these operations under device_lock() during probe.
+> > + *
+> > + * Context:
+> > + *  - Nests inside pci_rescan_remove_lock and device_lock().
+> > + *  - Nests outside pci_bus_sem.
+> > + */
+> > +static DEFINE_MUTEX(pci_res_setup_lock);
+>=20
+> Hi Ilpo,
+>=20
+> Could this lock live in struct pci_host_bridge instead of being global?
+>=20
+> As far as I can tell, a sizing and assignment pass never goes above a
+> root bus, and root bus windows are only allocated from, never modified.
+> So passes on different host bridges never touch the same resources.
+> Every entrypoint has a pci_bus or pci_dev to look up the host bridge
+> with, and pci_assign_unassigned_resources() already goes one root bus at
+> a time.
 
-- v7.2.10, the setup of my report: without any patch the kexec'd
-  kernel oopses in tcp_parse_options+0xe7 again, 16 bytes of its text
-  zeroed at the stale table's address (0x1d4bcf98). With your patch
-  both kexec'd kernels log
+Hi David,
 
-    efi: ... (MEMATTR=0x1d4b9018 unusable) (INITRD=0x1d4bcf98 unusable)
+I don't immediately see anything preventing from moving it into the host=20
+bridge struct, I'll look into this. pci_assign_unassigned_resources() does=
+=20
+process all root busses but sequentially so it should work too.
 
-  and run normally.
+Not sure if it really helps much currently because pci_bus_sem is also=20
+held but that might eventually change (there's the series which=20
+attempted to split that into a separate lock in each bus, I don't=20
+remember why that work stalled).
 
-- v7.3.6, with a debug print before the wipe: without a fix the
-  kexec'd kernels read what looks like their own text at the table's
-  address (e.g. base 0x74fb894800000002 size 0x7400000208b73b26) and
-  clear it, without any visible failure this time. With your patch the
-  table is disregarded and the wipe never runs - also with the flash
-  locked to SMM (-global driver=cfi.pflash01,property=secure,value=on).
+> To be clear, the lock wouldn't protect any fields of struct
+> pci_host_bridge itself. It would protect the resource[] entries of the
+> devices below the host bridge, and the BAR, bridge window and Resizable
+> BAR registers they mirror. The host bridge is just the smallest object
+> that contains a whole pass.
+>=20
+> My motivation isn't performance. It's that global locks make it hard to
+> tell what data they protect. pci_rescan_remove_lock is a good example:
+> it's held around runtime rescans, but not around enumeration of ACPI
+> host bridges at boot,
 
-- v6.18.65: applies, both kexecs fine.
+Not yet. ;-)
 
-Tested-by: Sebastien WENSKE <sebastien@wenske.fr>
+=2E..I already have another (unsubmitted) series that adds=20
+pci_rescan_remove_lock around host bridge setups because they too can race=
+=20
+with a sysfs /rescan leading to adding devices more than once, etc.
 
-Thanks,
-Sebastien
+Early enumeration obviously won't need it but to be able to add lockdep=20
+asserts to strategic places, I want to cover early init paths too.
+
+The host bridge setup locking series requires though that=20
+pci_rescan_remove_lock is reentrant (the v16 series inflight) because=20
+there are a few cases that face lock-divergent callers (VMD, some HP=20
+driver, some arch code that will be partially fixed by that v16 series,=20
+and a few others I don't now recall).
+
+The races that this series is fixing, however, are easier to hit than host=
+=20
+bridge setup ones, because, e.g., ThunderBolt hotplug racing with some=20
+probe() initiated BAR resize does not depend on root triggering a racing=20
+rescan call through sysfs.
+
+
+> and that was confusing when I was working on PCI
+> Live Update. This is a different lock, of course, but it would be nice
+> to avoid adding another global lock.
+
+Now I actually started to wonder why couldn't pci_rescan_remove_lock also=
+=20
+be per host bridge?? (+ a separate lock to protect root buses list)
+=2E..I think I'll take a look at this as well.
+
+> I tried it on top of this series to see how much it changes. Only this
+> patch is affected. It adds a mutex to struct pci_host_bridge,
+> initializes it in pci_init_host_bridge(), and uses a small helper in
+> setup-bus.c:
+>=20
+>   static struct mutex *pci_res_setup_lock(struct pci_bus *bus)
+>   {
+>   =09return &pci_find_host_bridge(bus)->res_setup_lock;
+>   }
+>=20
+> All of the guard() sites and most of the lockdep asserts already have a
+> bus or dev to pass in. __assign_resources_sorted() only gets a list, so
+> it would have to assert using the first entry.
+
+I can just move that assert one level up to avoid this problem.
+
+> Putting the lock in the host bridge would also make it reachable from
+> remove.c. pci_destroy_dev() drops pci_bus_sem after list_del() and then
+> calls pci_free_resources() without pci_res_setup_lock. I couldn't find a
+> path where this can cause bugs, but that seems like just a lucky
+> side-effect of the current code. It would be nice to have the new lock
+> explicitly cover that case too.
+
+I don't think remove can cause problems because we also hold pci_bus_sem=20
+over the entire sizing and assignment operation on purpose to keep the bus=
+=20
+devices from coming and going underneath us.
+
+So either:
+
+1. list_del() has already removed the dev and sizing nor assigned never=20
+   sees it.
+
+2. pci_destroy_dev() cannot remove it from list until the sizing and=20
+   assignment algorithm has finished.
+
+=2E..So to me it looks it works as designed, and luck has nothing to do wit=
+h=20
+it. :-)
+
+
+=2E..I think what you were actually suggesting is to extend this new lock t=
+o=20
+do something else than serialize sizing and assignment calls. :-) It is=20
+not meant for that, and even less so competing with pci_bus_sem's role in=
+=20
+protecting devices in buses.
+
+> This is not a blocker by any means, just wanted to get your thoughts.
+
+I really appreciate you taking a look on this.
+
+--=20
+ i.
+--8323328-391643659-1795523890=:1182--
