@@ -1,95 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795529555;
-	b=rZBg+uvW4wHVqS9DyNZINpD/ITH+a0cxaCVI3QpzfHlCbI2Et53XykJh3G+12xIxDKQE
-	 TinHBJguPf+ttgV3fSvt1Z0CcJc8D/fc9ICrnNW90oqOis6oZEPC6lkCT2rlvUkV701wG
-	 ISLBvLr8PnguXni6ZA12zIOM4Xh40GpHXtfUkFpPIfPIQqE8+SCTebX34WmgpPakBrH0p
-	 vNcrOFjQeu/XWinlq7iqFZf6izF1OULVB2kYOQ8IMZdJcG/13js1sz740jDdENdA8Wh8g
-	 RUuVkspXg2nQLuNdvNF4DYJv7UyX5ROJu1/8f9dY/gvj8Dgu8leFrd1eeyc+b2YP0ZQ==
+	t=1795529661;
+	b=B3Brwjdda+ZwN8G+RD4mql3Lje3S0wPhC0ImOZo9chl+DrkRw6lvNxxkFvXh4ssVhMgv
+	 1SGGQp8JjfkAVUdcL5DE5UChC6tZohWhMruqSJsQ40nGZMW/6gr2KEkzLAjitjf9PhYbY
+	 KvCCDy2i58tq+GGA+4VtSP9uK48rVnWXPDumEBFeynFhC/nS8p1NsjhitQ52QX9uF4F4t
+	 ah7IeZM4ZD3mqM8ukOFYITm+9P5L4kMVFJnQlv6vtOuuhRG5AAOeCfvJdtOdJ/zniofui
+	 9Um3GrQ/2dMq5WFg9m9umOZTJUg64Arb7fo7zV2Rjo37DD6ExJ0OdWJMAr9j255/PtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795529555;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Ht6a9Ts55EUwl/9pAC+7DHZmdUzaMpvPagpqVmMJzTc=;
-	b=h7jgYiLHW4qeTB6HEdGm9z9NEHYhYlHO+UHH/8Xj35qPK6G+/VeLbhoyv5+pOXKhZryc
-	 o+wMfegTlCg6IBfetdDZVnI2MYBSSjYtWBJnr+ZpXUASifNcOLPrUaT/uilt597UZ/rue
-	 U21x8XWkG6UkNTLdYzLkCeXTJwVl+iwhLueAXXf5G4PS0XWoBKoPVNZQiZY8FUVAu7AaQ
-	 flUFUZENTLX1J55maDYzjxusjzVuS+Fj3MiKCbVMUAs3Ces9GTnB2SPg16tLZLp7JcQH2
-	 XPHhdj9P5aiEm/saV9JlANt1J4Vrlm2Vw96UEF23xa00oNEhR5tFHzQSp9xcw58IkBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795529661;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=LvJWJlf5iq1bxTZ/Pi7wnqUYZw6hL5app7P3pS/MwcY=;
+	b=dHsm5ibZMom+RU6fwMEb1PxZnRcCM2GVHu5oQ5FQkWDtuE0CXjgG7F3CPid6u0EMqImm
+	 VgmKZjAdayZHYgweQrrSuxeX2zNGM8oEUkjbbNZu2nbmXjETB2++SOf5OQN6XBcmpEqAk
+	 fs22KEItQCE/modhJ30xBNRIrPb4zyyEyqW7tXSp0l1kstkqjm/tEKtHe0vy232NGxMbO
+	 Pi/vGqRGRJvwITN+hdhWBid5Wz5zYEj+XQJwThScgH21vVUfBJLg2ZTvJ8MkMM7ej3PCR
+	 XFJszthixJtyPNNkWyNF5igUIj9MHZZrrJbjSIez7X/TFEEF785+9nj4FABDMb5Fx2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=J1AsbAII;
-	arc=none smtp.remote-ip=209.85.219.41
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEfj7T8Q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C92606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:12:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6C92606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0786606A321;
+	Tue, 24 Nov 2026 14:14:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=J1AsbAII
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-9214032a2fdso37076276d6.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 06:12:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1795529554; x=1796134354; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ht6a9Ts55EUwl/9pAC+7DHZmdUzaMpvPagpqVmMJzTc=;
-        b=J1AsbAIIOj558TKrW6Xgyf3YmEpePWEh7+GZrWJJVuOTPz9fsTZTbC2jOh2lLNnp8M
-         v0ePVusdqcnTvjNEhXKaB1cXvBL2oVDRvE1+9WmZ8VatU29VhD/I4nvybjwpzXCaXlkH
-         Z+y1WM+tdfRV9pY1QWh/BJgvxjWIGP93gPbVrZ1EsWkC7sLAN/GhXzZkpeo/BPcg7Md7
-         AKdfjNvoRLE4OCoPfB8ccgVlTkMxnXigRGMSvpMjC9D1cTRq5ooBZ1nADHPukBhLsk1K
-         74NyzDv9RvdLgxh/2qLb1JeBVIRvib0jW5+YaKjM12FKEpHrQ0Yy3wEj2cRT3Mbat1K8
-         QFvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795529554; x=1796134354;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ht6a9Ts55EUwl/9pAC+7DHZmdUzaMpvPagpqVmMJzTc=;
-        b=FIckuhX2CDsoJk+GGXjUP1y1Pbfjy+84FmleHcTDlleIR+LIIP3dtinWQxz6O+waNe
-         rkRB/GedE7CzTZ7Ornhxxt/qdICjfqFhSyIYFXylbdWxsAgW6f8uIGgzuDohDWapYEPv
-         w3/cmwcrWDejH0yYPfJXldq4EV9mvYIger0psLB9+40tYsq95NGIr0k1JpxFsaDhYo+b
-         clY4HBMnO6O8K+b9qjkanh/0+KNrZwy8ot/aVTFu75Q71mj0MJNV2r154U63p/41GQdN
-         z6uhTUEVlh3yU3Fj5wiD4WfG/X8658dqWBd2tctEZKUqQuij8cGLPM0FAxN8Ssp0bWc/
-         UtZA==
-X-Forwarded-Encrypted: i=1; AL+hErFKEnYqHihWvCOIR3Qhv7MNTZfUITfdXdZiRYGnz3VfvzjumoK8toK4US363RXL7amcHYih0hY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+i83NTIFwn3Fp+A5ljHTfiFnNtY1DlV3Y4C/Hf4Yl2fgN+IxEU
-	v7P4ji4hQXC7sIrXvuatEUPUJ+egTHqcO3Qwrw9wnAZ3XVAIEsJgikqwJ6/7+iZH0g==
-X-Gm-Gg: AZFdTZc5iW77v7TV/WXmcZEP0ZB8D1tvvp4IKYd/KNJt70pF2YNDeTZdGjwqYrM1TVL
-	LSK7CQe4+NKx/z8AMgxd8+oe5Gshmh0EkoTaUean+OikM8Lgzba+b65pIL6b1tNaazDGRQAbLTO
-	mRwEVaTzN6yuAfCd6yqqN8l2pBP8dbW1eCpSb6/U/OQuM3+sCpnoX1H6/YBMJjcfM/x3tGAllcl
-	DAqaMuVzpY0Uylcj2kfExV2kv0xtSmPziEDT+HS7458WcRSfH/aHph50U7jsqblmWNdpPvLjGVI
-	Xva+QW0NIYceUyKGROww01AuHHTs2s5ledidcMDnQ4r0UTH5FMk31Nn3bKOccjJSU4ZG7NEpujT
-	1lOdhnNPQgmTSvJBlUa7V9ZpN/AgT/pLGrX0oqI23c+M0FzhGYiUJ5BAZP5BpcsCddzmEoEQ3mo
-	vt1LIC85ix+AYwfqt55CUFPAlHI0DF4INJ+4GzaluSlw1bJNIVanaGDHe1tWOcZ4PBFj2ytcfRo
-	sd06Cu/ayEQfgPpBE8U3DJVfZYZmJ3REwzZ3YpQDATg5v+51cGqshmifmg7nSMP7PoX/BMc9kT7
-	qECWvx2ZdeOcbIHyikqvV5OnFcIGlw==
-X-Received: by 2002:a05:6214:27e6:b0:917:af36:df30 with SMTP id 6a1803df08f44-92134a69ac9mr267449386d6.16.1795529553760;
-        Tue, 24 Nov 2026 06:12:33 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d00:161a::9a34])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-921349cd592sm138586576d6.16.2026.11.24.06.12.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 06:12:33 -0800 (PST)
-Date: Tue, 24 Nov 2026 09:12:30 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Adriano Cordova <adrianox@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	syzbot+7bf725ed337e37307001@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3] usb: gadget: inode: fix use-after-free of struct
- ep_data
-Message-ID: <a47bfaa7-b82b-44ce-a4d7-573e212b9594@rowland.harvard.edu>
-References: <20261124084144.3208824-1-adrianox@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEfj7T8Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7501F000D2;
+	Tue, 24 Nov 2026 14:14:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795529660;
+	bh=LvJWJlf5iq1bxTZ/Pi7wnqUYZw6hL5app7P3pS/MwcY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=aEfj7T8Q1koa+ivp6riQSUXgnghMoIf8OrXc18aP+SnH9YPunS31TqKlIca2tcrQO
+	 ZN+KFI4NyZTpdVZdPJJaqfrC6WW8eObQevwGWRcdxVAxHrjNiME5wa3fSQyRyvwEIq
+	 6VFWSmLDQh8jJisv0KKaA6R6gWhCRf5gKjegRoAZiep1PQkZ1ah4iofTKlbPys8WdI
+	 Gq2byWrBdw/k0lx2jFEp73wx9YJ8RSdR0k/vHjGgZO1tKTseYqm6nyIQ3y+sseAwjk
+	 dG980EP41GAHloUklPP53zRbiW8iTic8zlSFtyewARrALVxCEcH8VUJ7+FCZmfKiYr
+	 Q3WTnEqckC9OQ==
+Subject: Re: [PATCH net v2 1/2] net/smc: bound the failover cursor catch-up by
+ what is outstanding
+From: netdev-bot+sashiko@kernel.org
+To: piyus@iiitd.ac.in
+Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
+ sidraya@linux.ibm.com, mjambigi@linux.ibm.com, netdev@vger.kernel.org,
+ tonylu@linux.alibaba.com, guwen@linux.alibaba.com, linux-rdma@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kapil@presceralabs.ai, stable@vger.kernel.org, kuba@kernel.org
+Date: Tue, 24 Nov 2026 14:14:19 +0000
+Message-ID: <179552965941.3135.8878591105354373466@kernel.org>
+In-Reply-To: <20261123135327.3953509-1-piyus@iiitd.ac.in>
+References: <20261123135327.3953509-1-piyus@iiitd.ac.in>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,77 +65,208 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261124084144.3208824-1-adrianox@gmail.com>
 
-On Tue, Nov 24, 2026 at 05:41:44AM -0300, Adriano Cordova wrote:
-> gadgetfs_unbind() -> destroy_ep_files() frees each struct ep_data via
-> put_ep(), but the inode still points at that ep_data through ->i_private
-> with no reference of its own.  A concurrent openat() on an endpoint file
-> can therefore reach ep_open() and dereference the freed ep_data (the
-> mutex fast path), even while the inode outlives it.
-> 
-> Give the inode its own reference: take get_ep() when the endpoint inode
-> is created and drop it again from a new gadgetfs_evict_inode(), so an
-> ep_data can never be freed while any inode still points at it.  This is
-> also safe against dcache pruning, since the inode reference keeps the
-> count >= 1 until the endpoint is removed from dev->epfiles.
-> 
-> The inode now holds ep_data for its whole lifetime, so an open() racing
-> with an unbind never dereferences freed ep_data.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reported-by: syzbot+7bf725ed337e37307001@syzkaller.appspotmail.com
-> Link: https://syzkaller.appspot.com/bug?extid=7bf725ed337e37307001
-> Tested-by: syzbot+7bf725ed337e37307001@syzkaller.appspotmail.com
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Adriano Cordova <adrianox@gmail.com>
-> ---
-> Changes in v3:
-> - Add a Fixes: tag.
-> - Add Cc: stable.
-> - v1: https://lore.kernel.org/all/20260904163827.216389-1-adrianox@gmail.com/
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
+Critical: 0 · High: 1 · Medium: 0 · Low: 2
 
->  drivers/usb/gadget/legacy/inode.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-> diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-> index cc059a6ee262..20453214e35e 100644
-> --- a/drivers/usb/gadget/legacy/inode.c
-> +++ b/drivers/usb/gadget/legacy/inode.c
-> @@ -1748,6 +1748,8 @@ static int activate_ep_files (struct dev_data *dev)
->  		if (!data->req)
->  			goto enomem1;
->  
-> +		/* The inode keeps this ep_data alive via ->i_private. */
-> +		get_ep(data);
->  		err = gadgetfs_create_file (dev->sb, data->name,
->  				data, &ep_io_operations);
->  		if (err)
-> @@ -2138,9 +2140,20 @@ static int gadgetfs_create_file (struct super_block *sb, char const *name,
->  	return 0;
->  }
->  
-> +static void gadgetfs_evict_inode(struct inode *inode)
-> +{
-> +	/* EP inodes hold the reference on their ep_data via ->i_private. */
-> +	if (inode->i_fop == &ep_io_operations)
-> +		put_ep(inode->i_private);
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The new bound in smc_switch_cursor() reads sndbuf_space, then
+  advances tx_curs_fin and sndbuf_space.
+- [Low] In smc_switch_cursor() (net/smc/smc_core.c:1080-1081), the new
+  bound is stored in a variable named `sent`, and the comment calls it…
+- [Low] When the new clamp in smc_switch_cursor() lowers diff below the
+  cons - fin gap the peer reported, local_tx_ctrl.prod and…
+
+--
+
+net/smc: bound the failover cursor catch-up by what is outstanding
+
+This commit clamps the diff that smc_switch_cursor() uses to advance
+tx_curs_sent and tx_curs_fin and to credit sndbuf_space during SMC-R link
+failover. The bound is sndbuf_desc->len - sndbuf_space. The goal is to stop
+a forged peer consumer cursor from pushing sndbuf_space past the send
+buffer size, which leads to an out-of-bounds write in smc_tx_sendmsg().
+
+Link: https://lore.kernel.org/all/20261122053223.2497832-2-piyus@iiitd.ac.in/
+
+> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> index a3164201c1420..436a702f3d8de 100644
+> --- a/net/smc/smc_core.c
+> +++ b/net/smc/smc_core.c
+
+[ ... ]
+
+> @@ -1069,6 +1070,16 @@ static int smc_switch_cursor(struct smc_sock *smc, struct smc_cdc_tx_pend *pend,
+>  		 * fin above, so now prod is smaller than cons. Fix that.
+>  		 */
+>  		diff = smc_curs_diff(conn->peer_rmbe_size, &fin, &cons);
+> +		/* The peer's consumer cursor is taken as it arrives, so this
+> +		 * difference is a value the peer chose.  An honest peer cannot
+> +		 * have consumed more than this side has outstanding, so bound
+> +		 * the catch-up by that: sndbuf_space then keeps the invariant
+> +		 * the tx path relies on, and the cursors advanced below stay
+> +		 * within the send buffer.
+> +		 */
+> +		sent = conn->sndbuf_desc->len - atomic_read(&conn->sndbuf_space);
+> +		diff = min_t(int, diff, max_t(int, sent, 0));
 > +
-> +	truncate_inode_pages_final(&inode->i_data);
-> +	clear_inode(inode);
-> +}
-> +
->  static const struct super_operations gadget_fs_operations = {
->  	.statfs =	simple_statfs,
->  	.drop_inode =	inode_just_drop,
-> +	.evict_inode =	gadgetfs_evict_inode,
->  };
->  
->  static int
-> -- 
-> 2.51.0
-> 
+
+[Severity: High]
+
+Does this bound keep sndbuf_space <= sndbuf_desc->len on the DELETE_LINK
+path, given that the old link's CDC completions can still run?
+
+smc_switch_conns() calls smc_switch_cursor() with only conn->send_lock
+held:
+
+	spin_lock_bh(&conn->send_lock);
+	smc_switch_link_and_count(conn, to_lnk);
+	rc = smc_switch_cursor(smc, pend, wr_buf);
+	spin_unlock_bh(&conn->send_lock);
+
+CDC send completions on the old link go through smc_cdc_tx_handler(),
+which holds only bh_lock_sock():
+
+	bh_lock_sock(&smc->sk);
+	if (!wc_status && sndbuf_desc) {
+		diff = smc_curs_diff(sndbuf_desc->len,
+				     &cdcpend->conn->tx_curs_fin,
+				     &cdcpend->cursor);
+		...
+		atomic_add(diff, &cdcpend->conn->sndbuf_space);
+		...
+		smc_curs_copy(&conn->tx_curs_fin, &cdcpend->cursor, conn);
+
+In smc_llc_process_cli_delete_link(), the old QP is still live when the
+connections are switched. It is moved to error and drained only later, in
+smcr_link_clear():
+
+	if (smc_link_downing(&lnk_del->state))
+		smc_switch_conns(lgr, lnk_del, false);
+	smcr_link_clear(lnk_del, true);
+
+So completions for CDCs already posted on the old QP can run during or
+after smc_switch_cursor().
+
+In the concurrent case, smc_switch_cursor() snapshots sent as
+prep - fin_old. The old-link handler then credits C - fin_old and sets
+tx_curs_fin to C. smc_switch_cursor() then credits up to prep - fin_old
+more and adds diff to the tx_curs_fin that has already moved. The total
+credit is more than prep - fin_old.
+
+In the late completion case, a peer forges cons so that the clamp moves
+tx_curs_fin all the way to prep. A completion for an older cursor C then
+arrives on the old QP. If C.wrap != prep.wrap, smc_curs_diff() looks only
+at the wraps:
+
+	if (old->wrap != new->wrap)
+		return max_t(int, 0,
+			     ((size - old->count) + new->count));
+
+It returns (len - prep.count) + C.count, which is larger than len, so
+sndbuf_space moves toward 2 * len. If the wraps are equal, the credit is 0
+but tx_curs_fin moves back to C. The next completion on the new link then
+credits prep - C again.
+
+Either way sndbuf_space ends up above sndbuf_desc->len. The second chunk
+in smc_tx_sendmsg() then writes past the send buffer:
+
+	rc = memcpy_from_msg(sndbuf_base + chunk_off,
+			     msg, chunk_len);
+
+The commit message says:
+
+  For a lying one sndbuf_space keeps the invariant that
+  smc_tx_sendmsg(), smc_tx_prepared_sends() and SIOCOUTQ in smc_ioctl()
+  all depend on
+
+Does that still hold on this path? The follow-up patch "net/smc: bound the
+DMB-nocopy send-buffer credit as well" only changes the SMC-D DMB-nocopy
+credit in smc_cdc_msg_recv_action(), so it doesn't cover this case.
+
+Do the old link's TX completions also need to be quiesced or serialized
+with the switch? Two options: drain them before smc_switch_cursor(), or
+take the same lock and ignore completions whose cursor is behind
+tx_curs_fin.
+
+[Severity: Low]
+
+Is sent the right name for this value? Does "what this side has
+outstanding" in the comment describe it accurately?
+
+sndbuf_desc->len - sndbuf_space is the amount prepared but not yet
+confirmed (tx_curs_prep - tx_curs_fin). smc_tx_sendmsg() lowers
+sndbuf_space when data is copied in, not when it is RDMA-written:
+
+	atomic_sub(copylen, &conn->sndbuf_space);
+
+The real pre-switch send position is already lost at this point, because
+smc_switch_cursor() starts with:
+
+	smc_curs_copy(&conn->tx_curs_sent, &conn->tx_curs_fin, conn);
+
+So a lying peer can still move tx_curs_sent and tx_curs_fin up to
+tx_curs_prep. Bytes that sendmsg() accepted but never wrote are then
+counted as confirmed and never sent. The clamp also hides the protocol
+violation: out_of_sync is not set and the connection is not aborted.
+
+Without a race, sndbuf_space and the cursors stay in range. But the
+variable name, the comment, and the commit message's "bound the catch-up
+by what is outstanding" all describe a tighter bound than the code
+applies. Could they be adjusted to match?
+
+>  		smc_curs_add(conn->sndbuf_desc->len,
+>  			     &conn->tx_curs_sent, diff);
+>  		smc_curs_add(conn->sndbuf_desc->len,
+
+[Severity: Low]
+
+When the clamp makes diff smaller than the cons - fin gap the peer
+reported, where does local_tx_ctrl.prod end up?
+
+prod was set to fin earlier, and this branch runs only when cons > fin.
+Further down, prod and local_tx_ctrl_fin move forward only by the clamped
+diff:
+
+	smc_curs_add(conn->peer_rmbe_size,
+		     &conn->local_tx_ctrl.prod, diff);
+	smc_curs_add(conn->peer_rmbe_size,
+		     &conn->local_tx_ctrl_fin, diff);
+
+That leaves prod behind local_rx_ctrl.cons, which is the state the
+existing "now prod is smaller than cons. Fix that." comment says this
+block repairs.
+
+The next statement recomputes peer_rmbe_space from that inverted pair:
+
+	atomic_set(&smc->conn.peer_rmbe_space, smc_write_space(conn));
+
+and smc_write_space() computes:
+
+	space = buffer_len - smc_curs_diff(buffer_len, &cons, &prod);
+
+If the wraps are equal, smc_curs_diff() returns 0 and peer_rmbe_space
+becomes peer_rmbe_size. If cons.wrap == prod.wrap + 1, it returns
+(size - cons.count) + prod.count. For example, size=100, prod=(0,90) and
+cons=(1,10) give space = -80.
+
+With a negative peer_rmbe_space, smc_tx_rdma_writes() returns early on
+every call:
+
+	if (rmbespace <= 0) {
+
+Later CDCs in smc_cdc_msg_recv_action() only add diff_cons on top of that
+wrong base, so the value never recovers and the connection stops sending.
+
+Should the clamp firing be treated as a protocol violation that aborts the
+connection, rather than continuing with inconsistent flow-control state?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261123135327.3953509-1-piyus%40iiitd.ac.in
