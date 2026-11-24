@@ -1,82 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795509817;
-	b=hiNvckAEdP1G2cDaOFcOVuzNK8WBD2L4pxMNH5XTL/FW6UkXLjPSSJqpFm3fvL4owJLH
-	 W8u7PfqdvaYrLEfIEKohsLdT2UkLy6U9jx0IDYVfbn7PAbj/a3QsqGbcCbTvUhYQ4zHmn
-	 69XxfwGlbJlj6SkFxDb+sJAaJGjVn7ywPB5f/bwXdPNSaxHfeK8MSW+JB0S6UXohbFiEB
-	 a1maCyJw+mwXrnK7y4R85FCwZnQuc2FNwTYWa/Ht4+KsnjNw92dAnOkfwS/fspwbn3Vn+
-	 XBYqWPZiijyYbWz8edlaCpYYLxcitru86jbtwIU9ekzq9Ai3HV1wfDSI+hIUVs1UmQA==
+	t=1795509997;
+	b=VTfR7hDls0qpiphfTBCew77zpS4LfNFMQXdMmVch6fAVXjKirb9Em2YRAxzuk/6DwMhc
+	 NjonHxzoqT8IuaSP06EN0JlU2RvVBjcL/A2+8gFSc4EWy0QzfDNwIR5Xi5RfFSkj0gufp
+	 fCGb36Wnm4YvnlEpDTTZfniUF3KFmsMBd6SVIlzwVYC2T3hpSOmkSgXcEGnkWfWfmvi1F
+	 nj3n8vS1siOiOoJFCy4ru/GJdyegVDW9su2H45rrn31WxSn+u0WSQTz+K8Ir8hJEKEAo9
+	 qNv3m04n6n3//xJDF9S0JzQgwRBJP91GLeIrMAiJUVXlOf1uwPZIIvivJLRIqjcpsqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795509817;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=21TKgW0K5jj6gPfdA/HfsQSmThGTrU/SrwtxeoW1Kw8=;
-	b=Lc5KfrP9IF0aT6YNjqKhXPiNLv7KMMypKiTDKY4aDjcS9uX0ZPgvJi9sGJyCBWMy0Wxz
-	 xJCjhJrMIukWOfoaIZrYbHHyJGi9EnVwmyLcqJGtwR8tZ1ZOdLKjvnKHhyJKYoFkYz6r1
-	 og5z33nlt1SAVTxosrq7CaTGx61i6r1f+4T5tcQvGhVuP3IIccHixKTo7Psok0Gg0cUKO
-	 hnSVdTkJI6q2XyTB+xR5qw4+5Px0FidE3EDXpejEdSPRfXkJEA6jJsek8J4SxfHMspztn
-	 9jy84jRAcw932s7Zm1n6Onxq/1jzd6jhao00NCWvI4YDQ4MpSloyyor2/5Woq3o4/ew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795509997;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=gB0t6lsEAvPLKP9TexVyZaTQIG5MDeT3iJA9FNr8QoU=;
+	b=YoTUKiYHMBja3i0ZCXgpwlTa/qLky+wQVs+eEuRrQp83gTjtvHu9JUTCkrcAXMb7ssXZ
+	 JdlGAp80r1kaWOKyS0MIW/1XqSHdCEZ9hxmSjdA+VxRXASUSz4zlzl0oz8nWMQXlsu7uR
+	 94OBC/qikCJ0TTEcIFvpCkHNxprMx07FPp1LmqZnZzhRXTL3rGJ/vYJ63V9A61i9qdJ5s
+	 vV5juAjn5LQ1f7JOplmTYyriVSDPjuzfDZJvHkXXcHxdODjkhu/xnJ1nrs43riYin1M0I
+	 fMfiHy9RUujUHebEP/T1PU9zYTHKNyULJ09AOWNxI6JCZvJh4Mknaqpx02CZXt6S8tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QFvgJkmo;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luuUbUMx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D253606A326;
-	Tue, 24 Nov 2026 08:43:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D253606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96235606A31E;
+	Tue, 24 Nov 2026 08:46:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QFvgJkmo
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AO34mGk1412604;
-	Tue, 24 Nov 2026 08:42:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=21TKgW
-	0K5jj6gPfdA/HfsQSmThGTrU/SrwtxeoW1Kw8=; b=QFvgJkmoQperorJhQoXt/M
-	tInTxbM0op4umEjumKTF2Sxgoj3C7Wx+NxNw0FwCk44x8+/zvD9qF8wG7BhopRNb
-	kfg9reC8JtYiGswymmpBuFq4r63Ig9uAQhGL9084S9fWrxCVnF7krUOJDaW/8wwn
-	K7kb+b+Z0f1+4sEKa+2/VOPI2ap4GQ+EGV+lgYm5m+pqS+GTMZ2SfUpaVh3ftBjX
-	g31jQV33DYwI5TmzVd51aaL00qAtmFX3cEoOW7yimcT48OsT5Lbq7ldNZUqi/QYz
-	Xr7e8JE/LFFJWoxDZYEUfJ9w66njh8IiqDDAXgFI+S6+97V+QHZ7KrTU1wzZ4KgA
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j34fa6v7m-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 24 Nov 2026 08:42:16 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AO8di4w2086934;
-	Tue, 24 Nov 2026 08:42:15 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4j3p0vj1p3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 24 Nov 2026 08:42:15 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AO8gEbE15925834
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 24 Nov 2026 08:42:14 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 70A2F58052;
-	Tue, 24 Nov 2026 08:42:14 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B090F58050;
-	Tue, 24 Nov 2026 08:42:01 +0000 (GMT)
-Received: from [9.43.57.13] (unknown [9.43.57.13])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 24 Nov 2026 08:42:01 +0000 (GMT)
-Message-ID: <a4b839a8-b710-4dc7-8b48-847d0526070b@linux.ibm.com>
-Date: Tue, 24 Nov 2026 14:11:59 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luuUbUMx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A98101F000C6;
+	Tue, 24 Nov 2026 08:46:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795509997;
+	bh=gB0t6lsEAvPLKP9TexVyZaTQIG5MDeT3iJA9FNr8QoU=;
+	h=From:Date:Subject:To:Cc;
+	b=luuUbUMxrkhNLvzR/ykSVOJC0ShGEA8Tnjhh9MfUuaBnKFEnkl7Dp/FDDOjre+mjQ
+	 Uu497cKyKMvHJ8hnvog5pv4/bEXilrV4uHJiB69mVnbqOjSGHtmKOO+0rDhQis//ga
+	 N7Aavq45Mrt77U3fPddWXtqsb4sxP9sXnwM2Uc7kulWLHaC29lv2Y5QKZ5rwho3lK7
+	 nZFonkMJ2Szzdyu+D4FuzXZbsTptt+KhZX2l/arvF18REdm6q5oF2V6DZvRBqQOy5/
+	 LaT9OUOG3lhwvZ3X6+/u9Q+bEAjXGiWS31xqQ17KIWcYo1uz4Flt0fR4huFIxDe/PY
+	 yLxrG3zdfn8fg==
+From: Christian Brauner <brauner@kernel.org>
+Date: Tue, 24 Nov 2026 09:46:22 +0100
+Subject: [PATCH] x86/shstk: don't warn when the shadow stack is freed twice
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,111 +52,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] powerpc/spufs: consider vm_pgoff in
- spufs_mem_mmap_access()
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
-        Lorenzo Stoakes <ljs@kernel.org>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
-        Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>,
-        Jani Nikula <jani.nikula@linux.intel.com>,
-        Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-        Rodrigo Vivi <rodrigo.vivi@intel.com>,
-        Tvrtko Ursulin
- <tursulin@ursulin.net>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Chris Wilson <chris@chris-wilson.co.uk>,
-        Matthew Auld <matthew.auld@intel.com>,
-        Michael Ellerman
- <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>,
-        Rik van Riel <riel@redhat.com>,
-        Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-        linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org
-References: <20261122-access_shite-v2-0-808d8d2aa700@kernel.org>
- <20261122-access_shite-v2-3-808d8d2aa700@kernel.org>
-Content-Language: en-US
-From: Madhavan Srinivasan <maddy@linux.ibm.com>
-In-Reply-To: <20261122-access_shite-v2-3-808d8d2aa700@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDAzMyBTYWx0ZWRfX83QlkRE/0mbR
- rSbqFVtgR0hZ7p7222GUVWClMGUQMQp177LOEKllQdCkGG4PmVzEaDJqym9zfZi8w906ss6ZEZq
- O7kwesKNucqAnGYQhXNruSUskMWo5Mu5QIEUFc5aTfLTHixAql3u/NK/AxKy87d5I90/B+bePMp
- va9G2OkkDKI3colkcgsG7m7NHbkDnFjKQMnnNaaECNkH+0ppr9BJZiEi8XyfAG7wo22XVByCfz6
- lxwvlHhJ6j7L4V0DJNufFmlwV6SmR9rADlacAfYMlI5rcgqfjaIfGOYfiUSVcMBeHoAInfk+4yV
- ddl5+A2snQxmZkBU46/Z9SqhF+ThRn71MkYqILS55qnRaW+a4IU8sakm6IGidXe9s02ctPb7dIz
- CJkri276R3EvFi7LQhRxQFpI5VSuqQ7tVGHTaFRJiArBT0fUGQ362waZxE/pETEwvqPbvMDdkC3
- O6zlXsfGgP6v4xMLZsA==
-X-Proofpoint-ORIG-GUID: rQbUKh4nIiE8IXo8G5N8XMBLAUi8qg9T
-X-Authority-Analysis: v=2.4 cv=U6QHnuru c=1 sm=1 tr=0 ts=6b054de9 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=VwQbUJbxAAAA:8 a=J0W00IkS15A3C8My_cQA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: wYVClD_dI4O0Mxc2R867DqpheE8clw8Q
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDAzMyBTYWx0ZWRfX/JRXOzmPmam+
- wVJRsZSa1X8Rw8FTMHaGZ5FUkSM4ElkoYrscS5eX7fc+0HpJl3beTU7+ONmTkA7vNBvunwh2u6s
- 3vIhhaEf7Dg1wq6W7uNEBvI7VoCH5bk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-24_01,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 spamscore=0 impostorscore=0
- clxscore=1011 bulkscore=0 suspectscore=0 adultscore=0 phishscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611240033
+Message-Id: <20261124-work-x86-shstk_free-v1-1-fc456c538e70@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0XMQQ7CIBCF4as0s3ZIoQ0pXsUYAzgVbEINU7VJ0
+ 7sLunD5T958GzDlSAzHZoNMr8hxTiXkoQEfbLoRxmtpUK3SUqoO33OecB00cuBluoyZCDujnB5
+ Mr1vTQ/l8ZBrj+lVP51/z093JL5WqC2eZ0GWbfKinioqCij8q6gT2/QMnZelVogAAAA==
+X-Change-ID: 20261123-work-x86-shstk_free-392b68946094
+To: Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+X-Mailer: b4 0.17-dev-04696
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2811; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=dvX2CcTQ7JihDgSkIo829jeueQbOyQefB2Hl7suGYzo=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSz+r3g1F4uqdvn/2Tls91PzCa//tzi1yigGehteuaxh
+ 6mX0uGujlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIkslWBk6Dm/8dyGlBcy0xb/
+ 79ojUKfNvIDBqC5G3Lqp+YPDUcnGfEaGrsIHS4zXzzHKLEw56OEn0V3x4te66oy1WziErju8ftz
+ FDAA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
+exec frees the shadow stack of the old image when it releases the old
+mm in mm_exit_exec_release(). That happens right before it takes
+exec_update_lock and before it switches to the new mm. If the exec fails
+after that the task exits with the old mm and exit_mm() calls
+mm_exit_exec_release() a second time. shstk_free() notices that the
+shadow stack is gone already as shstk->size is zero and warns:
 
-On 11/22/26 11:25 PM, David Hildenbrand (Arm) wrote:
-> spufs_mem_mmap_access() calculates the local store offset relative to the
-> start of the VMA and ignores vm_pgoff. After VMA splits, debugger reads and
-> writes access the wrong part of the local store. Mappings created with a
-> nonzero file offset have the same problem.
->
-> Properly take the vm_pgoff into account, just like spufs_mem_mmap_fault()
-> already does.
-minor nit:
+  WARNING: arch/x86/kernel/shstk.c:472 at shstk_free+0x7d/0x90, CPU#7: shstk-exec/120
+  RIP: 0010:shstk_free+0x7d/0x90
+  Call Trace:
+   mm_exit_exec_release+0x21/0x110
+   do_exit+0x1e8/0xc30
+   do_group_exit+0x2e/0xd0
+   get_signal+0xd11/0xd20
+   arch_do_signal_or_restart+0x72/0x2b0
+   exit_to_user_mode_loop+0xd8/0x560
+   do_syscall_64+0x412/0x600
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-subject can be
-"powerpc/spufs: Fix local store offset calculation in 
-spufs_mem_mmap_access()"
+All it takes is a SIGKILL while the task waits for exec_update_lock or
+for the mmap lock of the old mm. Both are taken killable. And a task
+that sleeps in a page fault while it holds the exec_update_lock of the
+exec'ing task for reading, e.g., in readlink() of /proc/<pid>/ns/mnt,
+makes that wait as long as it likes.
 
-rest looks fine to me.
-Acked-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+Nothing is unmapped twice as shstk_free() returns in that case. So just
+don't warn about it.
 
-> Fixes: a352894d0705 ("spufs: use new vm_ops->access to allow local state access from gdb")
-> Cc: stable@vger.kernel.org
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->   arch/powerpc/platforms/cell/spufs/file.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/powerpc/platforms/cell/spufs/file.c b/arch/powerpc/platforms/cell/spufs/file.c
-> index 98c47bafaf678..0a46d6f7178ab 100644
-> --- a/arch/powerpc/platforms/cell/spufs/file.c
-> +++ b/arch/powerpc/platforms/cell/spufs/file.c
-> @@ -248,7 +248,8 @@ static int spufs_mem_mmap_access(struct vm_area_struct *vma,
->   				void *buf, int len, int write)
->   {
->   	struct spu_context *ctx = vma->vm_file->private_data;
-> -	unsigned long offset = address - vma->vm_start;
-> +	unsigned long offset = address - vma->vm_start +
-> +			       (vma->vm_pgoff << PAGE_SHIFT);
->   	char *local_store;
->   
->   	if (write
+Fixes: 509ff51ee652 ("x86/shstk: Add warning for shadow stack double unmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+This removes a warning that a task with a user shadow stack triggers
+when its exec is killed while it waits for a lock. I have a reproducer.
+---
+Hey,
 
->   && !(vma->vm_flags & VM_WRITE))
->
+This also fell out of my exec massage. I was unsure whether it should go
+to sec or on the list but it's just a WARN() that we need to drop. I
+have a reproducer if that's needed.
+
+Thanks!
+Christian
+---
+ arch/x86/kernel/shstk.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/arch/x86/kernel/shstk.c b/arch/x86/kernel/shstk.c
+index eb690ba90180c..df5576d8d7d2b 100644
+--- a/arch/x86/kernel/shstk.c
++++ b/arch/x86/kernel/shstk.c
+@@ -465,11 +465,12 @@ void shstk_free(struct task_struct *tsk)
+ 
+ 	/*
+ 	 * shstk->base is NULL for CLONE_VFORK child tasks, and so is
+-	 * normal. But size = 0 on a shstk->base is not normal and
+-	 * indicated an attempt to free the thread shadow stack twice.
+-	 * Warn about it.
++	 * normal. size = 0 on a shstk->base means that the thread
++	 * shadow stack has been freed already. That happens when an
++	 * exec fails after it released the old mm as the task then
++	 * exits with the old mm and gets here a second time.
+ 	 */
+-	if (WARN_ON(!shstk->size))
++	if (!shstk->size)
+ 		return;
+ 
+ 	unmap_shadow_stack(shstk->base, shstk->size);
+
+---
+base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+change-id: 20261123-work-x86-shstk_free-392b68946094
+
