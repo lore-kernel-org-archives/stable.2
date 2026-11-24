@@ -1,98 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541961;
-	b=ngShSimP+mOPPCJ9aHnasJhVLukm9lPUAZ/Uc/s3HHqkASRsRDnwwIEzp2Dr6P59alFk
-	 yUwhraIanXWLyM7RPEgm5g1ABpIuoBmCrT/IyV0b7EySRhJsEOwgb1jWfWFhdbkwtkiLO
-	 fIcK9BmZI5noZ4C3olbhnFInSClJhJXQ367ujWL/jXRworxMvdjyRh9Y9KZLHyTzZH1Tn
-	 ToYwCBhXGJxHb+OVZBEX3M7nQOMBKyOufHN38nfKi5WM0/jLncI9IsOkBBa5ygQFLc8Hz
-	 /4i78yNAgEhxGMyPy/lOmGG86B6ctf+f0YojewvI8HCZwtrzFa2AzLylq/pt2fp3nWg==
+	t=1795541994;
+	b=QomspLbbJhKL1yDdIId9Bq9M9hi5xDfm/Ved7JBefQtMyMEfzAHlM9ig7XHjAs7DiJbd
+	 i4VmSz8kxgKYY7Lko+t5uOTMy8YRl9Rv3K+APVq2TJw0VdqeAYPvCUMwOfVOC1+uJFf0g
+	 N5MepAr/yeQIso/DR0RIQH6HKFfmYHrydrzy+NYGG8pXggorCE8QsTqPqGcgIBnczwiJN
+	 vSYKCps2I0QCtHRuIMq81hzoeSrE3a6rv4Thw/UjriGU2OeSzRgwJWX38KrSPTtIEOIhY
+	 T9abDo8C2qwxrVuHeuAjBv5hE76LH7mot793CUCDD+1n6e6q8ztBQAmDzFX0Qq1di5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541961;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/5aXYZOiCfmZpepVU5XcntNHJrd4O0PtQpD5cOGvrlc=;
-	b=4anJ4h3oJax98Vn58LUL06rBrFKroZTEwU5o3YJ1yS7OHUnTZgkHPu1GQJpO1I4nutSN
-	 4zzdXYGMqXOEiVDOlauKdBFNmIZzgjnD34MGJXr+gAp4yZCfEIr8dnGFAqQ78UQaCXpT2
-	 j5N9ZKxOLeCvMBCic5bhXC/lRYQQfi56WkKe1xlSW1Rt0qAoviIQskdOgphS6pLc5hn9H
-	 BBdKFqrkZaOJwFaQ1UvmcDGLoab/KlCoEqPxsrMaaJjY2vaQP6J1gP3FtJvWuVgABQDhK
-	 i6M/bJJ6X7dlXfHteL8zZ0k64L6LyhpsHtdMinQg0sqOFPKQUSCgV1nH7vMaoy0gnAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541994;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=RN3pxnhCJYpGp3xiHRqRfmEucdv+kIWIunOXN3qEkkk=;
+	b=yosrjpHDXUFFAQqLDcavPDq+do+EN9tE3VmS/0x0+QjjnIjdL2ONkbDi+G/FJeqr38Kz
+	 MMJP/06rV/U9VghnBbHb5Xrtvyu9ljrL6I7RJOm3pgRE7JmE7m5x98lf69Dfd8C8I5RHT
+	 mvBe0Qf+bK5XnSkV0RRdndAI1qdhgGX2NPc/1O1H8q9n4ez3B1ipAYFJ1ilaKvRZoYSnH
+	 jvK5qFv/zdZ0ur5KWpooqBZg1f0e0B1yk9L2Uf2BpWdyteefMoVKmygCuwXCS0bPqAmLv
+	 HdizKr/x4x+X/vMcSIzPtygLX5Oadh/03IDUkFC+GTGL8jrXzj/mJNJdAndfg/fUr6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openai.com;
-	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=g+CsQD8V;
-	arc=none smtp.remote-ip=209.85.210.46
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLNRfofh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553F2606A32A
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:39:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 553F2606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7C2606A31E;
+	Tue, 24 Nov 2026 17:39:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=g+CsQD8V
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-862df509d48so3780067a34.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:39:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1795541959; x=1796146759; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/5aXYZOiCfmZpepVU5XcntNHJrd4O0PtQpD5cOGvrlc=;
-        b=g+CsQD8V54qVIAt0fMSF2JLjZB8Sc4FGlKFaOY5d7F2cewuRxg+oUU33m11Wik04mv
-         fUdwoV7+IT54bov+7BscT4T32vEdrx469i6HpM5behQbrPVUtatpMt5d4eLCq2ATbe9j
-         x+uSFvGL+C9r81egeAdaDvlG6cM+XdqG239n4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795541959; x=1796146759;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/5aXYZOiCfmZpepVU5XcntNHJrd4O0PtQpD5cOGvrlc=;
-        b=wXvZGn+xkEDMvRwBKesYl10q+wg4gzKawRbmbejhBGJ0dJ5ytkbkIXsOmro6VVul13
-         2lZTOiWRlPs0oZCJ9aNeBNerWPgdGHXAAInz32vLOzmggi9SXUckiHitH7g9LkeL99lN
-         0I6EWFmMn2e8F1jpzTJ8CfnFtMdRM99euphKOofyi7fSMdwMpKZbv7sBCZnBswUPt3sm
-         aoszS2zboDRB4XoAO/Ykq5dN+jHYtB3phZfivRhcNg9j4Yp8d8W00u3zvKKwWGPaKNvk
-         YDVY9Vn7N5kIJD1plf+KoAbKeItPovjPGvWEy8WNIT9Csvi8GtwTnPMHucCx1lEmIHf9
-         ZPLg==
-X-Forwarded-Encrypted: i=1; AL+hErHtWWJjLv8ztwPo1/tUJB17EonjNNqyG5TgBjnV5g83FHoPtRwSKW8KDUq6qi3KR6A98gOyuyI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tDLdkZBqjGSSqMD+KFGDqHywee0a3a+Uu/nDMUb5H+TmbhpuT
-	OdDmZ05ZD6Wm9JefesK3PcDS2Vn/s4xzrMXlx1xGPBUuOPvuZ01LF+8RHcdfMxuFGO8=
-X-Gm-Gg: AZFdTZf46pk9eMStLM7vcVLZgn6KTt7DCaTHdiYhF19NNt4ZEM13VfaaefekHwX4jOf
-	beLnGXOX/DXmGty6YxdnC0u51F1Q5aOFinZplYlj5l5BXZ3JbFFRg5NEnn70dQAoeNpFfO4gAML
-	S8idAZpJcIscHVppzwcV8pnXh+zVn2O5sPjodi1az3ry9U8dfZPmEZlh7d1xq2wLSUWd+rnqaL7
-	rpX2NiPsyV6khC+nJRlZfqfL4sm6LHBjsEwk2DDcBs08NVY/45H/eESBinnfg3AiIjlg9brp4W8
-	tb5nEZtS0kXNLF2EF/L/S0efs/pNCr/hR1B6+bPr4N5Y3wgpk0AGM2Q7mz3zGi81TbllbuSUs3T
-	iBcSjGp6XpKG34sPNhl2FLgca86Ol/lgKZgIVNXrW+I5NXJbySE2M+I2/rqQM4u6vVxT2twfciN
-	loH4zucyogyVT+eSA4fz9GX/FoiuUakk76uDJNnU4ejfVyKC25Vvrdhz5G7I09pJgFNGl7rGdJR
-	jm/8X+xZJtukkab/3ulXVIHPn83PJld3FSpmF66mqujXiL15Cj9+jthTbAEAF+R/RJyx4MDDGiN
-	Xg9gxDXKYg34TLPyjGUg/LDxIT55u+arJXR71UOyPVQNL36bpujFdhT4rNjK1c+YmmFnmknTuNh
-	hqSjEUR98plDbtRwzPz9R4Sfc2Cr0cg==
-X-Received: by 2002:a05:6830:82ee:b0:85b:895:a015 with SMTP id 46e09a7af769-86309065b5amr12447788a34.4.1795541959275;
-        Tue, 24 Nov 2026 09:39:19 -0800 (PST)
-Received: from com-75606.corp.openai.org ([199.47.143.1])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168bdaf7sm11667094a34.5.2026.11.24.09.39.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 24 Nov 2026 09:39:19 -0800 (PST)
-From: Kyle Zeng <kylebot@openai.com>
-To: netdev@vger.kernel.org
-Cc: jhs@mojatatu.com,
-	jiri@resnulli.us,
-	kuba@kernel.org,
-	edumazet@kernel.org,
-	horms@kernel.org,
-	pabeni@redhat.com,
-	Kyle Zeng <kylebot@openai.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v3 2/2] net/sched: sfq: perturb the hash from the enqueue path
-Date: Tue, 24 Nov 2026 09:38:14 -0800
-Message-ID: <f2f59b9b0f7391a3b4c366cb0b04252af8e94eaa.1795540952.git.kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1795540952.git.kylebot@openai.com>
-References: <20261110044450.51921-1-kylebot@openai.com> <cover.1795540952.git.kylebot@openai.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLNRfofh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E5351F000C0;
+	Tue, 24 Nov 2026 17:39:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795541994;
+	bh=RN3pxnhCJYpGp3xiHRqRfmEucdv+kIWIunOXN3qEkkk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=MLNRfofhpzhbJogdT7qZlkES1pV+8p0B6u67WTjvMY0hNkkD7jsesA7K1ulp84url
+	 m1PxRVKVDnJA7MtrWbBrejqs86EYnGFDBtQR/opyX+JjFWVnzxfc9TcDuGoJBF4ooi
+	 VrtNz5qgpR38jbD3BzZrlyUV+ZjgwRUXVxIJHQ2ini0Crq7l2oK281FcQFbPphc1r2
+	 GeeL/b+uLvzWhuLSyhsZDj0LIxw9wkGUyYkqXEPnU6C7/nF3dRU8sI1KLEkYpsEEw1
+	 W77Ycds/xLhWzS+DA7f0fH3ikuNg074UDMOoWv7sG5FNOLJoPbRUfBaBWzAq0h0vKB
+	 e4JwUHbtZvROA==
+Subject: Re: [PATCH net] net: hix5hd2_gmac: do not release the RX ring on
+ interface close
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, shenjian15@huawei.com,
+ shaojijie@huawei.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ zhangfei.gao@linaro.org
+Date: Tue, 24 Nov 2026 17:39:52 +0000
+Message-ID: <179554199298.3135.9008055481061380435@kernel.org>
+In-Reply-To: <20261120173702.1551838-1-mmyangfl@gmail.com>
+References: <20261120173702.1551838-1-mmyangfl@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,153 +64,233 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-A backlogged SFQ can remain alive after its root is unpublished. Its
-perturbation timer takes the current sleeping-root lock, but rehashing
-can still resolve the old parent handles through the live device. A
-missing parent triggers a warning; a reused handle can make
-qdisc_tree_reduce_backlog() subtract packets from a replacement tree.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Perform a due perturbation before classifying the next enqueued packet.
-The packet path holds the queue's lock, so the key change and rehash
-happen together without an autonomous callback. Preserve the initial
-perturbation interval and pass dropped skbs through enqueue's
-deferred-free list. Idle queues keep their key until another packet
-arrives.
+Critical: 0 · High: 1 (1) · Medium: 2 · Low: 0
 
-An AI review found this path.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: 18cb809850fb ("net_sched: sfq: extend limits")
-Fixes: 47e8dbb6e763 ("net/sched: do not reset queues in graft operations")
-Cc: <stable@vger.kernel.org> # d6f81fd6abe2: net: sched: prevent scheduling deactivated qdiscs
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
- net/sched/sch_sfq.c | 49 ++++++++++++++-------------------------------
- 1 file changed, 15 insertions(+), 34 deletions(-)
+- [High] The patch does not remove the use-after-free it describes.
+- [Medium] Parts of the commit message do not match the code.
+- [Medium] The whole fix rests on the claim that the block 'has no reset
+  feature' and that prefetched RX descriptors 'cannot be expelled'.
 
-diff --git a/net/sched/sch_sfq.c b/net/sched/sch_sfq.c
-index 2bd3fc65053a..5810c458586e 100644
---- a/net/sched/sch_sfq.c
-+++ b/net/sched/sch_sfq.c
-@@ -130,11 +130,10 @@ struct sfq_sched_data {
- 					 * dep[X] : list of flows with X packets
- 					 */
- 
-+	unsigned long	perturb_time;	/* next hash perturbation */
- 	unsigned int	maxflows;	/* number of flows in flows array */
- 	int		perturb_period;
- 	unsigned int	quantum;	/* Allotment per round: MUST BE >= MTU */
--	struct timer_list perturb_timer;
--	struct Qdisc	*sch;
- };
- 
- /*
-@@ -340,6 +339,8 @@ static int sfq_headdrop(const struct sfq_sched_data *q)
- 	return q->headdrop;
- }
- 
-+static void sfq_perturbation(struct Qdisc *sch, struct sk_buff **to_free);
-+
- static int
- sfq_enqueue(struct sk_buff *skb, struct Qdisc *sch, struct sk_buff **to_free)
- {
-@@ -351,6 +352,10 @@ sfq_enqueue(struct sk_buff *skb, struct Qdisc *sch, struct sk_buff **to_free)
- 	struct sk_buff *head;
- 	int delta;
- 
-+	if (q->perturb_period &&
-+	    unlikely(time_after_eq(jiffies, q->perturb_time)))
-+		sfq_perturbation(sch, to_free);
-+
- 	hash = sfq_classify(skb, sch, &ret);
- 	if (hash == 0) {
- 		if (ret & __NET_XMIT_BYPASS)
-@@ -531,7 +536,7 @@ sfq_reset(struct Qdisc *sch)
-  * We dont use sfq_dequeue()/sfq_enqueue() because we dont want to change
-  * counters.
-  */
--static void sfq_rehash(struct Qdisc *sch)
-+static void sfq_rehash(struct Qdisc *sch, struct sk_buff **to_free)
- {
- 	struct sfq_sched_data *q = qdisc_priv(sch);
- 	struct sk_buff *skb;
-@@ -569,7 +574,7 @@ static void sfq_rehash(struct Qdisc *sch)
- drop:
- 				qdisc_qstats_backlog_dec(sch, skb);
- 				drop_len += qdisc_pkt_len(skb);
--				kfree_skb(skb);
-+				__qdisc_drop(skb, to_free);
- 				dropped++;
- 				continue;
- 			}
-@@ -601,29 +606,14 @@ static void sfq_rehash(struct Qdisc *sch)
- 	qdisc_tree_reduce_backlog(sch, dropped, drop_len);
- }
- 
--static void sfq_perturbation(struct timer_list *t)
-+static void sfq_perturbation(struct Qdisc *sch, struct sk_buff **to_free)
- {
--	struct sfq_sched_data *q = timer_container_of(q, t, perturb_timer);
--	struct Qdisc *sch = q->sch;
--	spinlock_t *root_lock;
--	siphash_key_t nkey;
--	int period;
-+	struct sfq_sched_data *q = qdisc_priv(sch);
- 
--	get_random_bytes(&nkey, sizeof(nkey));
--	rcu_read_lock();
--	root_lock = qdisc_lock_root_sleeping(sch);
--	q->perturbation = nkey;
-+	q->perturb_time = jiffies + q->perturb_period;
-+	get_random_bytes(&q->perturbation, sizeof(q->perturbation));
- 	if (!q->filter_list && q->tail)
--		sfq_rehash(sch);
--	spin_unlock(root_lock);
--
--	/* q->perturb_period can change under us from
--	 * sfq_change() and sfq_destroy().
--	 */
--	period = READ_ONCE(q->perturb_period);
--	if (period)
--		mod_timer(&q->perturb_timer, jiffies + period);
--	rcu_read_unlock();
-+		sfq_rehash(sch, to_free);
- }
- 
- static int sfq_change(struct Qdisc *sch, struct nlattr *opt,
-@@ -746,11 +736,7 @@ static int sfq_change(struct Qdisc *sch, struct nlattr *opt,
- 	rtnl_kfree_skbs(to_free, tail);
- 	qdisc_tree_reduce_backlog(sch, qlen - sch->q.qlen, dropped);
- 
--	timer_delete(&q->perturb_timer);
--	if (q->perturb_period) {
--		mod_timer(&q->perturb_timer, jiffies + q->perturb_period);
--		get_random_bytes(&q->perturbation, sizeof(q->perturbation));
--	}
-+	q->perturb_time = jiffies + q->perturb_period;
- 	sch_tree_unlock(sch);
- 	kfree(p);
- 	return 0;
-@@ -771,8 +757,6 @@ static void sfq_destroy(struct Qdisc *sch)
- 	struct sfq_sched_data *q = qdisc_priv(sch);
- 
- 	tcf_block_put(q->block);
--	WRITE_ONCE(q->perturb_period, 0);
--	timer_delete_sync(&q->perturb_timer);
- 	sfq_free(q->ht);
- 	sfq_free(q->slots);
- 	kfree(q->red_parms);
-@@ -785,9 +769,6 @@ static int sfq_init(struct Qdisc *sch, struct nlattr *opt,
- 	int i;
- 	int err;
- 
--	q->sch = sch;
--	timer_setup(&q->perturb_timer, sfq_perturbation, TIMER_DEFERRABLE);
--
- 	err = tcf_block_get(&q->block, &q->filter_list, sch, extack);
- 	if (err)
- 		return err;
+Pre-existing issues:
+- [High] This patch keeps the RX buffers across close because the MAC
+  keeps its queue state and descriptors it has already fetched.
+
+--
+
+net: hix5hd2_gmac: do not release the RX ring on interface close
+
+This patch splits hix5hd2_free_dma_desc_rings() into RX and TX helpers.
+hix5hd2_net_close() now frees only the TX buffers. The RX buffers are
+released in hix5hd2_destroy_hw_desc_queue() when the device goes away, so
+the MAC keeps ownership of the RX addresses it may have prefetched.
+
+> Do not release the receive buffers, their descriptors and the queue
+> pointers on the close, until the device goes away, so the block keeps
+> ownership of every address it prefetches.
+
+[Severity: Medium]
+Is this description accurate?
+
+Before this patch, hix5hd2_net_close() called
+hix5hd2_free_dma_desc_rings(), which only freed rx_skb[] and tx_skb[].
+The coherent descriptor rings were already freed only in
+hix5hd2_destroy_hw_desc_queue(). Nothing in the driver ever resets the
+RD/WR pointer registers.
+
+The only change in behaviour seems to be that the RX skbs and their DMA
+mappings are no longer freed on close.
+
+> The sibling hisi_femac has the same defect and resets the port before
+> freeing its ring, as in commit d54b21d82430 ("net: hisilicon:
+> hisi_femac: Stop the receiver before releasing the RX ring"); this one,
+> however, has no reset feature and has to keep them alive across a close.
+
+Does this block really have no reset feature?
+
+hix5hd2_dev_probe() requests an optional "mac_core" reset and pulses it
+through hix5hd2_mac_core_reset(). hi3798cv200.dtsi wires it up:
+
+    reset-names = "mac_core", "mac_ifc", "phy";
+
+So the GEMAC_V2 parts that this patch also changes do have one.
+
+Even on Hi3716cv200, clk_ether_prepare() in
+drivers/clk/hisilicon/clk-hix5hd2.c pulses the MAC core/IF reset bits on
+every prepare:
+
+    val |= clk->ctrl_clk_mask | clk->ctrl_rst_mask;
+    writel_relaxed(val, clk->ctrl_reg);
+    val &= ~(clk->ctrl_rst_mask);
+    writel_relaxed(val, clk->ctrl_reg);
+
+The commit message also leaves out two changes users can see:
+
+- rx_skb[] and the hardware pointers now survive a close. At the next
+  open, hix5hd2_rx() will pass RX BQ entries left over from the previous
+  session to napi_gro_receive().
+
+- The full RX ring of MAC_MAX_FRAME_SIZE skbs stays allocated and
+  DMA-mapped while the interface is down.
+
+Could the changelog be updated to describe these?
+
+> diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+> index 12a5657653f85..8c67a0670cbb2 100644
+> --- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+> +++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+
+[ ... ]
+
+> @@ -873,7 +880,10 @@ static int hix5hd2_net_close(struct net_device *dev)
+>  	hix5hd2_irq_disable(priv);
+>  	napi_disable(&priv->napi);
+>  	netif_stop_queue(dev);
+> -	hix5hd2_free_dma_desc_rings(priv);
+> +	/* free rx buffers when device goes away, not when interface closed;
+> +	 * the hardware prefetches rx descriptors and cannot be expelled
+> +	 */
+
+[Severity: Medium]
+Is "cannot be expelled" known to be true for this block? The driver
+already defines stop and flush controls for the queue DMA, and nothing
+uses them:
+
+    #define STOP_CMD            0x05e8
+    #define BITS_TX_STOP        BIT(1)
+    #define BITS_RX_STOP        BIT(0)
+    #define FLUSH_CMD           0x05eC
+    #define BITS_TX_FLUSH_CMD   BIT(5)
+    #define BITS_RX_FLUSH_CMD   BIT(4)
+
+The TX/RX FLUSH_FLAG_UP/DOWN status bits are defined there too.
+
+hix5hd2_mac_core_reset() is only called from probe. The reset pulse in
+clk_ether_prepare() has no delay between assert and deassert.
+hix5hd2_port_disable() is just two posted writes, with no wait for the
+DMA engine to go idle.
+
+Suppose STOP_CMD/FLUSH_CMD, or a properly timed core reset, does what
+the names suggest. Would the more complete fix then be to do this in
+hix5hd2_net_close():
+
+- stop and flush RX/TX
+- poll the flush flag
+- resync the RD/WR pointers
+
+That would also cover the TX and remove/re-probe paths raised below.
+
+There is also a possible regression in the other direction. On some
+parts, the reset pulse in clk_ether_prepare() or the mac_core reset may
+clear the queue RD/WR pointers. The RX FQ write pointer would then point
+back at a slot whose rx_skb[] this patch kept, and hix5hd2_rx_refill()
+stops right away:
+
+    for (i = 0, pos = start; i < num; i++) {
+        if (priv->rx_skb[pos]) {
+            break;
+
+Could the FQ then never be refilled, so RX starves after a close/open?
+
+These register semantics are not documented in-tree, so it may be worth
+checking them against the SoC manual or the vendor driver.
+
+> +	hix5hd2_free_tx_buffers(priv);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but doesn't the TX side of
+hix5hd2_net_close() have the same problem as the RX side fixed here?
+
+hix5hd2_free_tx_buffers() unmaps and frees every non-NULL tx_skb[]
+right after hix5hd2_port_disable(). There is no TX stop, flush or idle
+poll first. This includes skbs whose descriptors are still posted in
+TX_BQ, and skbs already completed in TX_RQ but not yet reclaimed.
+
+hix5hd2_hw_init() only writes DEPTH and START_ADDR. So at the next open
+the TX_BQ/TX_RQ RD/WR pointers are unchanged, and hix5hd2_port_enable()
+writes 0xf to DESC_WR_RD_ENA.
+
+If the MAC resumes the still-posted TX_BQ descriptors, can it DMA-read
+the freed buffers and send whatever memory now lives there?
+
+Any leftover TX_RQ entry also points at a slot where tx_skb[pos] is now
+NULL. hix5hd2_xmit_reclaim() then stops without advancing
+TX_RQ_RD_ADDR:
+
+    skb = priv->tx_skb[pos];
+    if (unlikely(!skb)) {
+        netdev_err(dev, "inconsistent tx_skb\n");
+        break;
+    }
+    ...
+    if (pos != start)
+        writel_relaxed(dma_byte(pos), priv->base + TX_RQ_RD_ADDR);
+
+With pos == start, no completion is ever reclaimed again.
+hix5hd2_net_xmit() eventually hits a non-NULL slot and returns
+NETDEV_TX_BUSY, and the queue is never woken.
+
+The watchdog path hix5hd2_net_timeout()->hix5hd2_tx_timeout_task()
+calls dev_close()/dev_open(). It runs exactly when TX_BQ descriptors are
+outstanding and resets nothing, so it does not look able to recover
+from this either.
+
+Would it make sense to handle TX in the same fix?
+
+>  
+>  	if (dev->phydev) {
+>  		phy_stop(dev->phydev);
+
+[ ... ]
+
+> @@ -985,6 +995,8 @@ static void hix5hd2_destroy_hw_desc_queue(struct hix5hd2_priv *priv)
+>  {
+>  	int i;
+>  
+> +	hix5hd2_free_rx_buffers(priv);
+> +
+
+[Severity: High]
+Doesn't this just move the use-after-free from ndo_stop to the remove
+path?
+
+hix5hd2_dev_remove()
+    unregister_netdev()
+        hix5hd2_net_close()          <- port disable + clock gate only
+    hix5hd2_destroy_hw_desc_queue()
+        hix5hd2_free_rx_buffers()    <- unmap + free every rx_skb[]
+        dma_free_coherent()          <- all four rings
+
+The commit message itself says the close sequence leaves the MAC's
+prefetched FQ descriptors and queue pointers in place. Here, the buffers
+they point to are freed.
+
+On a rebind (sysfs unbind/bind or rmmod/insmod), the only reset in
+hix5hd2_dev_probe() is hix5hd2_mac_core_reset(). That returns early
+when the optional "mac_core" reset is absent:
+
+    if (!priv->mac_core_rst)
+        return;
+
+hisi-x5hd2.dtsi (Hi3716cv200) has no resets property, and
+hix5hd2_hw_init() rewrites only DEPTH and START_ADDR.
+
+Could the first open after a rebind enable the port while the MAC still
+holds the RX addresses of skbs freed at remove? Received frames would
+then be DMA-written into memory that may have been reused.
+
+>  	for (i = 0; i < QUEUE_NUMS; i++) {
+>  		if (priv->pool[i].desc) {
+>  			dma_free_coherent(priv->dev, priv->pool[i].size,
+
 -- 
-2.55.0.openai.911.g06873a30d2f3
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261120173702.1551838-1-mmyangfl%40gmail.com
