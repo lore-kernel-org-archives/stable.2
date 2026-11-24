@@ -1,65 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795535890;
-	b=QA2EpJ80AB2IPRvLOFkn8FprVPo/PTxO4pRwbfZY1XWsLlcjnp3H4GJYhUGuhsiKvOlH
-	 LVyDTr/svIY/WAdIYaF9TWL5NtBAwQCc9jl6GgFCTx4LoFfZnoVnq8lc2iJ7OUd3Le0ad
-	 VQGpONBl3o+z638K4DV+48n8EhgIHWEvkqTUodlXsXTSEB61Q9pJ2syr0Pbr+JQbydTAx
-	 qqGNxg1ztHFyI+QeCw1BzpA4YJlT3GyV3BwCLWMacAUZuvQcdeovIrWLL2NlIFSuwynDh
-	 8Q7jJhjMdt4uiOyNhZYgFtIwnjcYSkF4xTQ/2caQoHImI18B41SUbJoGJ4U0DeGINLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795535890;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pIDEOjbq7+ZKjdjmkL/WuaSrdrNA5P329n5oCOdc1mI=;
-	b=wM5DGx1qzCfjL8pix9YUGl3YqCwwBGuXijyOAFSQaGvlyhjdTztP1a3CIA2XhvV5PgJj
-	 AeNdXippye5hBjZEZANd9dUVFCxZCMdgyrxV96e0L71PJVMJZtRARbVU2e10DU6MTssvC
-	 ek/0zi+RdIhh9J/2qljQRTolWSXVwxCf9kbRED1mHgreWjbzh94RXBwvTECZCDZ0KYP8U
-	 4+vG8HN7VqRQZ5KyBoyZUQFcrsnqU2qXCgiEd6NaKNJKX7g0KRPToTOnlPT+c9WLh17Gy
-	 f7xXWuu6DAMQDaS/eSZ5V2pwyfxqwzJ7TPspyv5EGSDhwWrP7DQnhn2JUXktE3pJuyA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzV0GS8z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795535948;
+	b=FW9llKhA9PvIapEUivDhW3gdgkkrJBEjijyEjpWHC9Bib/Smmyc6PydNgLFLe8HNwtBE
+	 ytAguUDkoPCr+BUxR1EScPNxFyKwxHK3CwWyaEJaZUmHgNVpCgi0BbQz69ZPSN7YBsZWV
+	 XAon+4TPT8LnyBq9oWrd+lpxeLSaHpthxNzoYweZqDixnX+J8TvqM2XCpfVloVDSgqyG2
+	 bMMs7Ad6b6J4oY0JcNJZhE7VFzuM05WHpT/IjekLKdZOQpd6F6Y0qWzhAVYf9hKKG2xJH
+	 5RvM9Q4JEbcz1Js1bD7kOU//Nv/XxjJvGhU0nK1jOkQ8HiJewn+dqVAeF7qt+mnkPIg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795535948;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=/74Ri30W6oVFNU4eqK6RxVx2Up+VW7ByxGiC/VStVG4=;
+	b=XnjP/KnCrWikk8gug4agZLRcfcSddUcqgGaanBqyjmbObZkN8iSYTlo1TsTkJoIyZ+7n
+	 2hXzyQjK/6Pm/Hj9Kwm+w6xb6fpZYO3eBavHe2XJnyx4e5NtgjR/wt6ZS+Nn59wKpKVl7
+	 JFLx2iuQywScHCLAE7lbLM0EwUzaaZc0pZ9M7l4xXXSOPaPdTjUFB1ynL40JeKREpmtpE
+	 hpT9WdozoBF2BnhPX3x45tP9jOXNwVX62ZT0PUkPVvgdLPGtpArU0cc9lldVk/6UMSFGh
+	 kFhbwWIuObWekCPnKdLswXrEXAxi6WwfKGPDIp4V8trsaHWcyb3p7vh/t5Ho3++tzDg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xe6FmElH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F392606A31E;
-	Tue, 24 Nov 2026 15:58:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A42606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:59:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35A42606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzV0GS8z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D68651F000D0;
-	Tue, 24 Nov 2026 15:58:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795535889;
-	bh=pIDEOjbq7+ZKjdjmkL/WuaSrdrNA5P329n5oCOdc1mI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WzV0GS8zHavb1OFv0CO1J+MIVGhMkE8wteCr9YvLcQ9aNqWJv8gqMkrMMPRSKkymt
-	 BEkdel8+bZ8C3ox0N6XRuftLsrJF/RuPn9hdn6iRTeemIUKiSzp293OrBxf1TjiN9g
-	 rWx2ZkO1flwawt/+BdqA0vsQeuUyIs8R/mzMjr2uIEMBofdv2mZXAGaErHrZVrku0G
-	 6QV6jjJ1iYqHdqV6VUUF7OA/cAEmRb0W38AhpynJbExx3tVdVmK+g9BhloPm/ABYYW
-	 0w+9rsA2vIlSz2/CJ9ie0OPwJEk2Z5wpOO+JSPiUbTrTwK1vBoKymKPjPrTn/qHuEn
-	 c9xRac28REvvA==
-Date: Tue, 24 Nov 2026 15:58:00 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Kees Cook <kees@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Jann Horn <jannh@google.com>, Puranjay Mohan <puranjay@kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/vma: drop mm asynchronously in vma_start_read()
-Message-ID: <awWz3nc_b8x3mIXq@gremlin>
-References: <20261124-vma-read-lock-mmdrop-async-v1-1-257f99f551de@kernel.org>
- <awWLCZ-jBjSD7V3M@pedro-suse.tail5790ac.ts.net>
- <CAJuCfpGk6eYK43Unxo+O4ML5=GM_siZ9owp6oa9fO0ipZXVg-g@mail.gmail.com>
- <CAJuCfpEd1rz3P7fB7W_mHkyzbpq9TscRE+QNwvHdYME=WJj6cw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xe6FmElH
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4a357b1c649so2773046f8f.3
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 07:59:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795535946; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ezi5fIEJZRTx+yxiOPKLzpOdU5qdD2iV8NT4iWv0MyBmng+vsyHPH+MeM89cHATG6O
+         Af7q5uSPp8T+xQM+02GpUjuthbGaZID2RP/GBBvN9s4PPc/5dMFiQJriUO+iHsJ7Er1T
+         tSrllIWJmbUEK4U+bahRjFqz1HSFRnbANPrpb7M65+CmHespgp6UZmGEkMvCpUVvh3WG
+         LsVD4lElXS04zkwLnYrVIWzDNoBIU82Mbbhgw8xWOR2aDzO0cDzncOFw4662PVLHZvEu
+         ZhsepaHws6RPDqITq3vLtl9r4sW9ee8gfrfUWvtfeG9mnItKIqkytAja9K9ydNeEagOY
+         5EqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/74Ri30W6oVFNU4eqK6RxVx2Up+VW7ByxGiC/VStVG4=;
+        fh=e0FMLcMIS/NqyU1RYlkUJDtzVbcl46LOffr2UVz38a4=;
+        b=e8+ciLcB1PKdm+IEkgoP6uBXVxE0aE59Rbr5y5F4dnZFBDtDOXXBMdFxH6fP94b73K
+         mJ+58ANCfefxXcngICEJA63eGBmGdBl0y+QDG/T3ZdxL25Ws+KskeQPgK7trtzr3gBk7
+         l/XgsrGwB/ioYleanJDCVh/un5FAiDf+SIY0oZap8y/aOR5MIJ3rVYfx5j9wRgkuYE/6
+         j0Z3crZniQSY1sr6dF2KQUlPmv1LQnD/3WkgUCJyWkZXW72rFVRvE58do1vVQgbp6DEx
+         eS5c4705vJkkXFVtUKpXrlGKmcX02rel/I8Nhp88U6JyrZylzyo18gwa2FvGZmnx6DHM
+         Evtw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795535946; x=1796140746; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/74Ri30W6oVFNU4eqK6RxVx2Up+VW7ByxGiC/VStVG4=;
+        b=Xe6FmElHRDHd8Mzt+qaORfLww3jW7bzp9w3MVasJYUJ2bJZdnE1Aw1mgy2NKI2sena
+         dDG8JEAhbJYTTlbinXSZDegIk7R+F17Ou0v5XWKXNH5HlC58k8XA+UB8E75ye6x1hAxJ
+         ga8Yx/qOWO+gSNY7Vkwg0B2Tu2ULmqkuiyfiTbxDBeLSnB8sybLjyPIk02kpUmWq/QQW
+         a+gkQYsudrPJpFuZ7BZ/19Nccy2+fGjptuK6LRS0+5Tu0+jYay3+7DhvzbdQE9Wo/1A8
+         xdns5t2s1hz6kYA3WVfIgT/6MY445hPydsnhJ/ULT4FlMJPvGlHi5HjWjed9/+gZZTCn
+         d0yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795535946; x=1796140746;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/74Ri30W6oVFNU4eqK6RxVx2Up+VW7ByxGiC/VStVG4=;
+        b=JZF0o0V68ko9zOkRIhy92D+808a6WY1zte0YSYv4YrTYBEIPRPjhxLGzC3srtl+z54
+         iQSphkegfMD4SmSJNLaCb0UqVk/JBTPZ/ACCiqlvb85mGVh2B9ye94oH+2qbXVMSP/Zp
+         lNmnbuZ7ydcBWi/v6zUWZ7SNL+n6KMGRM/i67m/Sb+PGDFUUzovWP/0RlUTf0NwLP4AQ
+         1UaXBZktxoZK6xHTjiqR/xoEUL0jZkOcDevsHEnqJt2hAg3JH0Rq4/rxTshXkKmpSFnz
+         2j5Ad/QIItfsnome5Y+9t54+Gl1UONeK6jUSksEVpHG+Hhi1YaXXTJzrG7W/YjrGC/hI
+         zoKg==
+X-Forwarded-Encrypted: i=1; AL+hErE7t2AzunM4w92ZHx5eMfIDq0c63kMTY404hy1RW5pv+5gcJhThFHCCFSgVsNUDY+Lsyug8H7s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DRT4W5n6hos5Cfdi4FDzl5glgu732ajzVAsS5uoYkpmf/3Vgm
+	+oDkmDVAYRKfnqNXrSXYnqzQlbxdSe5psCUi9e7/MvKzUBD8UAp/HYt7cd7OVC7fK+Vjx0eg9ce
+	eRN+9Um0ENUIO4O3ebPGdQcyWWf5kdwY=
+X-Gm-Gg: AZFdTZdq9P+b0m4wVjTKP1fFfJmxXRlpLTYQKKD0eiyypwukBV+5ah3Mla2AjF+r2Jd
+	OSAp/p561xTitcP7El71VK5T1nX4483qSe6F4iIbZZrj1GQfBzkaUgEkAjt7SyfmM3IXEGhE+tU
+	leYDNcnud7NworY0UvgyRJlPSAwH4Cveh2mFsE4E8++ZOEcQiNhdvqmeffXKKeBD6dVL7/AWTb2
+	3PGYeGfF1ECBjxSudC4qzb8iwQYNPTu0ANu4OwObAte8MfpFtjOSIT05hQ/Zf97Pt/7GDB7o7N0
+	CmGEx44ZFOCGbDmnqNFkm3asODBLpf86A4MYtDrGu0d0E6BO+WLpcmEBLFEZDbSrnqkYRizAAIf
+	oTLNcNKmed2kC3QHLcWvm/K0Swy5o6b232UekX9M+8R8M8GKUMmglWzsdXM95sQjo3IHTjODOp8
+	5bhYuLgnlP4VRkJ7jKdW7lOg76OHK/0yxXybtQFuSgD7CetcT3ChX5
+X-Received: by 2002:a05:600c:83c3:b0:4a1:7e77:c382 with SMTP id
+ 5b1f17b1804b1-4bb8880ad68mr297552635e9.5.1795535946309; Tue, 24 Nov 2026
+ 07:59:06 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,17 +105,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJuCfpEd1rz3P7fB7W_mHkyzbpq9TscRE+QNwvHdYME=WJj6cw@mail.gmail.com>
+References: <20261123030014.3116755-1-bsdhenrymartin@gmail.com> <lh4cnpy2kw3tdtmhubwhhvim25kxpqxo6xttt7sihyx7x5hqdf@3tvivew2qh7m>
+In-Reply-To: <lh4cnpy2kw3tdtmhubwhhvim25kxpqxo6xttt7sihyx7x5hqdf@3tvivew2qh7m>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Tue, 24 Nov 2026 08:58:55 -0700
+X-Gm-Features: Aa3M54pAoXL7yvOyF5JJv7RxaB2ypj1vzahwa9xON4kuYDyLqPQLjNR71spFULE
+Message-ID: <CAKEwX=Py7W0vOwxKdWMCZu3d=BbF2OkgDt6Tu_AHhEJZ06w0ew@mail.gmail.com>
+Subject: Re: [PATCH] mm: fix cachestat NULL pgdat dereference on DAX mappings
+To: Jan Kara <jack@suse.cz>
+Cc: Henry Martin <bsdhenrymartin@gmail.com>, Matthew Wilcox <willy@infradead.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 24, 2026 at 07:51:42AM -0800, Suren Baghdasaryan wrote:
-> Actually, VMAs are allocated from a SLAB_TYPESAFE_BY_RCU slub. With
-> that RCU unlocking move you don't need other_mm copy and the comment
-> that comes with it. VMA won't be freed until RCU lock is dropped.
+On Tue, Nov 24, 2026 at 5:42=E2=80=AFAM Jan Kara <jack@suse.cz> wrote:
+>
+> On Mon 23-11-26 11:00:14, Henry Martin wrote:
+> > filemap_cachestat() treats every xarray value entry as a workingset
+> > shadow.  On DAX mappings, value entries are DAX exceptional entries:
+> > same value bit, different bit layout (flags in the low bits, pfn
+> > above).  Decoded as a shadow, a DAX entry yields a bogus node id;
+> > NODE_DATA() for it can be NULL, and lru_gen_test_recent() then
+> > dereferences it:
+> >
+> >   Oops: general protection fault
+> >   RIP: 0010:lru_gen_test_recent+0xde/0x300
+> >   Call Trace:
+> >    workingset_test_recent
+> >    filemap_cachestat
+> >    __x64_sys_cachestat
+> >
+> > Any writable file on a DAX mount triggers this once an mmap write
+> > fault has populated entries.
+> >
+> > DAX entries track present pages, not evicted folios.  Count them as
+> > cached and skip the workingset decode, mirroring the dax_mapping()
+> > split in the invalidation paths in mm/truncate.c.  PMD-order entries
+> > are counted as one page, as value entries carry no order information.
+> >
+> > This issue was discovered by Tencent CodeBuddy Security.
+> > Cc: stable@vger.kernel.org
+> > Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
+> > Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+>
+> I think that for DAX mappings, cachestat should just return all zeros
+> because none of the fields really make sense there. There's simply no pag=
+e
+> cache for DAX mappings.
+>
+>                                                                 Honza
 
-Yeah but they can be reassigned? They won't be _freed_ until a grace period but
-they can go back to the slab and then allocated elsewhere  right?
++1. This sounds good to me.
 
---
-Cheers, Lorenzo
+Henry, would you mind sending v2 along this line?
+
+(and maybe add some documentation).
