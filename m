@@ -1,105 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795481752;
-	b=lcycdMlUmbCFe793D6XpMjKa6f3p+mGTY6zJfu4z4KJP68sdJlhKentqslQGY7H6WCPB
-	 EAki9aXIPAlch6KGsAvWVoFpkPir9s0HqR4rAymsCeLDOyVWHc9YUn8kHril+vYooeiVB
-	 YQU9gUldxbeHbvXxZCj7KLNDN0P0UT++55A5CZpQcM0pdEQb77tP6uPuELSgLu9ZtdWHn
-	 /H1Yvpt5DoUuMcyn3K9yiCQJz3wXCLlHyg2IiJviL+Imp2IfhsjXz3ca9q8JQ8toisN5t
-	 EJmDAMbUUh5jIp2RLIPJc87IxGBiVO/B/VyHRgJLFAxuRbtqALVFk/YqNhEuVWUgTug==
+	t=1795481981;
+	b=xLgCxsr0XhOAb0zSWbsR7fqJrQH0SaUYPOwm0UWDNVPyqjy8vVGcUWE6E0aOlzzZ7JnV
+	 uv98BsWuqF3dboPMZ3jvaDAwiFOWvLm7W24c0RcL9IameGNyQc/jTqZ0M0wj3n+chqH7P
+	 zurbYg6T6pIqYxeJ946W5qQSoGbHl1mo117Rqx7CB/974yF2SqMChxe6rNXMl3SEEBodV
+	 bLJZUyXs7tNSEISR8oH25A/HBnCrF7XDokJ5hBtXFtfOJ5O4LaGoogiOTtlFq4Qrw8qxS
+	 SxMzF6wDuAkJUWNB7Hh2XaXEJb1YA/0inR3GI3kEKk5kI4Sr/6xBEL55msS6178l8Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795481752;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795481981;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=G9FzbT/zJBdbcTMwuCKv/u2XIeFkphN379eodz2mpIw=;
-	b=Rd1fJA8L6ZtqjZplgXQsJ7xkS8WaA8t1W1EDspTvoVu/TLspud8kN16+BAxcMbkEdW4Q
-	 FCXQmiF4+AFhmeAcP+iAhOd7y33oeQdAhdRqRbb68U8n6bBCa55oGoXcAfnWLra7kkB+b
-	 mrxUDUmdR6UdOs/WqN2lveuPTXPU/UJJ/xBujgTqaDuKS6jWH5YahGEZmSkFgNYuhQKN1
-	 L6SgQvXsjs7re3s68zhGZ0qhHEoAmrwBtYeF46mX1AW8ilOL+fkLBzwXLK2Td2dNwrW20
-	 n/8Gp/ZvRfSOov88zb9ZB/KNNzaE5Mxnjc5mtEbn7dYqUxdPJRkrSPgLHcoqA4zjkYw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=CQ0ywlob12oatuyVpHVVygHWAZ6j+SXjJPArn5ZAhIw=;
+	b=wbBPGqC4ytrMTjRh1V0DxDYlPd9rhzfh/X0EYlr0Q6F3703zObMSUMBrvnFyyvhPEVDK
+	 kkNVXicbzPOluriHzG8oDxQPNSlE87ckQLt44O89/P5ZMfPTzxM+jbz0AFOy6hSsVYl4E
+	 8MpjHt449e7T+8jSmw0nnmO/Bi0AyxfGbdTR8gplyT//t+JrKkz+2H6N5SQf0ve+iNVVO
+	 dOu8opAJnw8NUpM2QshQTYYm7EexuBjktVWIWk/Agnjd7DVb3LdPB7X9boM/mPdTEMfeC
+	 QxkfeB+ycGgahqkvKfZQ3Am7NTq8kJwIRFdYhwNSi79HwvpU7LieXHrzwiAQ8BbNjNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WHKdUv7V;
-	arc=none smtp.remote-ip=209.85.222.171
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lFP6Sxa2;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B3C606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 00:55:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45B3C606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523C2606A33A
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 00:59:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 523C2606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WHKdUv7V
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-94958650b09so395720885a.1
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:55:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lFP6Sxa2
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b43d6c3485so428875a91.1
+        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 16:59:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795481751; x=1796086551; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=G9FzbT/zJBdbcTMwuCKv/u2XIeFkphN379eodz2mpIw=;
-        b=WHKdUv7VI2ka8Hv6xmfPtJrAyFhu1sa+j6HxyLbkAHBmiFpGQ4zjvZoi2zhH+kt2PR
-         SGzMa0ckh2n5RY7b72rWzY+qlJQwUlEpRwCPO8Go+yKELj6uiDfJnDxg1LRNtsKMRPCO
-         ePWyqC/Ma2UUlruQULuiCRbULB1BoqKLDa+eUolmBqJ7U9YXtGF6rWCutehEF3cnXr3+
-         ZooGkM6uxtEefYsMuDAEg73hknyG+cBeAvBgiYsPp823Kbltm6gxEOMRd2OtELuoOYx8
-         3lyb31YHsme47hBEwh9sE7BOfb8R16BmRbUNbAwXNmtLVXgmMGIKjAvyZX6amQJDuVa1
-         TYcA==
+        d=gmail.com; s=20260707; t=1795481981; x=1796086781; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CQ0ywlob12oatuyVpHVVygHWAZ6j+SXjJPArn5ZAhIw=;
+        b=lFP6Sxa2S4wDs/9G4Nz63q0Hq87wYPI8Ig1MkrL+7mJVSLjn1KUnGyCeelX46auegl
+         dwg7sjemuJPrNWnbSOHvyGdNrHKLFa4I7/liZR0AxURxgXuSdUARcPttMFIIUqY3sArr
+         KXz4KMNkIdWKj9RnCzMQSrASKimjC7eQtWySDNXCGuGP7sfRNYu55noNgoNe7wLjM4sr
+         dvEqMRnwK+/IS5HpDKfB7rdKjfy5r12nXTe5iv2PduDHxFpWOURPfgJDPEO4Yec3qx5d
+         lbmY1GO08d8x1rzhD9/30rjmqqbsowwSbYlxNNhjLF798ZslrvuUFmfkIaptcafOUG8t
+         ZdxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795481751; x=1796086551;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G9FzbT/zJBdbcTMwuCKv/u2XIeFkphN379eodz2mpIw=;
-        b=2AWfslvggOj04qf47cZfsc5UbDCZrGSj676LDiSdUVAnM6h4PFSiNBklNju5BGKga7
-         euCeZRsWf7YjxjY4fkSYH5VHitRJgStbnzu5MlCtvnNkrGqRnAmFEVR4l2oHVO1F3JAu
-         /wUi6EK94VA02wNfe5qkGvwXrIP4Rwkp5OXnwkTVNE/n5Z7BE/mq3/WIRr+Xu8r5zUqv
-         9bZ+wFrX+9iECbweGiBH666B2JCbICCE3atcHBJMNBfntJePhvb3HgYNvUlv+l+cvikW
-         jDScgENivdJhDxaADtybW6PzAl/SZAy5aOBskNLPhEr9KO0fSvs1UO8qtsfBqma/lTiu
-         alag==
-X-Forwarded-Encrypted: i=1; AL+hErFe+sCyhDKGtwje+66XGIkeecVGwJayj7sDVNLsjT5+PrwWr8INMp12x+U82ORuGbprmDP5RIg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KmvMa8HII+UIU5/blJGxXP9bORqQUtihUwRYLjtGX334nUs9u
-	I/ukt5yLOSNuADHwCQ+3gB9AJsA3gNdFzQl8+ZQsafv5IOBH6Aj4llU/
-X-Gm-Gg: AZFdTZflNXA2RPLpq4Ca94wCFIAanJGTwHCVUtiD0XarLNrRqB8aIu8JqktYOdWb8CR
-	MyUAGEo5UMOG3IVdh5RAjkjkywKwiR1AEDVO/aF6jycTBE2opsDnxY9t6z66e9VytLHaLC/LEy7
-	CyzL2YJuK/UUCddQ6LtruS0nLR3GJ7VgJuzrR5uDHlLbF4DSJn4Zt3eMipndkMVYp7gldlS4+e2
-	LhB5zn0K0OmE52gozWCaL3PeGFAavS/x5elmciMSJmGYQGXcFs3mPRxurfzCEoDxlKivggn3sDg
-	MrinRhefbOxseMBmfV9/sNr+ZZ4C5qiWVDtLCl0fCSwjucadFtW71sDRsUqwOwqxb+pUuPPnsGr
-	NkR7ySusZvA1yBL9jiEmzy0sD/HwD/k6KOmBVrjVmmr3xo7hmDPl3i5Sj9K3Sk3tqLICVc6tTOJ
-	D5l+v1eMy2lebK73UBm8dOKnva8TOFCueSRJE5H2Xlq8o20C9hZAA5Nkg/Zw4wxFdIu98pMkMSP
-	lKx1jo98Vf/PzdzSe8C5gl8wBDHUmGgla5TZctnf0VL6B4g32WXjePPKj/o0PAKrb6uJJ4riQBN
-	SBSJw8HIwE0SmhNhzr0zrsxir4/ZsK/4byjmnom0RuDJvOpU998lF2IjjMVeqIQBWj85x2N7IPw
-	FvX/SjPdWGzq49HQNanR5JSbb5r415rUxgvO0bhHV0VBCZv2em0mtTnWko1lv9Dw=
-X-Received: by 2002:a05:620a:1992:b0:949:743e:9149 with SMTP id af79cd13be357-949ba8239bdmr2301367185a.6.1795481751033;
-        Mon, 23 Nov 2026 16:55:51 -0800 (PST)
-Received: from gmail.com (15.60.86.34.bc.googleusercontent.com. [34.86.60.15])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb40efc4sm921340685a.36.2026.11.23.16.55.50
+        d=1e100.net; s=20260707; t=1795481981; x=1796086781;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CQ0ywlob12oatuyVpHVVygHWAZ6j+SXjJPArn5ZAhIw=;
+        b=cxcyQjt93z4qgHNlCcq1s7xAmxfNHmFz0OIM9mpM23k2fvZZQQOUcW2ql8xvFb7Z89
+         VVDPls/rCZupV47ROe0gmU3ZJX2g8Z1TSzcqn454jXlbACk4cZ0Zhu0DDQLKvRcroneW
+         BCSGZYChCij1JrraAIpZfQuUEgKGOx4xC+sFhW5erMcFtu2jrBheNT928Cl3h+bGjjha
+         8MowXhO83RTq/aWo3N8q2N5SNEZhIBloZGGZx0zjUvwljV9Xce4g0W9ulPiMmwLoLX/h
+         jXgU3xG8h7xXRLTVD7aJfTboyYbt8YPOHcbQYBUAqjot9kTijZnrBwFPo+cA3Ui6+IIz
+         Aafw==
+X-Forwarded-Encrypted: i=1; AL+hErE4j+ND1MGfbOEfXJWDTx8lUWJCDV/p+sdIRZFlhcb1xOWeBJmHe/cZU2hdUn9h2fQbe9ijFrQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8tKFBcefq2n7kl+qlS9lh3Ex1aYdzcgFK8oAQgM85Gku5xcPJE
+	lDNOZ9ww1VeVa9as7tNrUjmR8UzsoSiO/Z1yWpTR5fjzK7R8epMjZAkI2d2pAbN2/js=
+X-Gm-Gg: AZFdTZeZXdz4axaKtEeYEmT9llcbqT+oR0cl3XkyOeFl6AjIDobRIYeakGNebZgpfdZ
+	8aaN8Ox7gPiXWQhVSvP95fNYGHYTL05Vp0qsSzyQTNl8CV/R7fEIpygQVA49wpvn+cKZ4c07NQD
+	2wsbMn2DqIXQ087+Bq6/7S9cFwe4VyWwOPRhOVuzpdyO2zmkXKZLHhd6kxGqMRw6K02NG8WOB0C
+	fTZmGY8kWFP4S5l+yJr60saug+i7AbOTmstwYAss9cGCi0DdeaQfwKu90lh4uYe6ogft5iQ5sYl
+	lBKWNRc8/orUhdSBQjlvBXSexhKzAEeN0b8Ite/5/qsSSUdtAYF6Q+bq3aKrnXoq+mmcDm9WGAL
+	J8aFRgdyDcL5evYRuPS4YansLYjmbLBol8KijPyksCY5RwfymxNYkwH8lwoBLQZNU0Bdk9yEgYE
+	a7ojoN99TjIazsolB51qT/0Ft5Evk0uk7eTbpuUlTLs/R8JcmiWAD5UBcEaRgSO6pCqLo+/WwmJ
+	wgPuFmDxjlbVY5i1CXCEEuPYVCLUrWUb5iXb2yutkqH7U9jBrO4ihoCFlUC4B5ZvYuYy2gUvKHQ
+	8l2BmX14H6/0dK1Vd+VzdqtDnfzFKKcqwz3/uHcwml3MNxQDq4F2PRP8il5S34LBH3b2HDvdMjk
+	cT4xJkBc9A4qXVD6XGivUmu/l66AKwlmFodscItFGCKHOLkXtsEDr8uM/RVbVbdMsU3zOb1cTk0
+	+m5Q9F6y8NR9k=
+X-Received: by 2002:a17:90b:442d:b0:3b0:d0be:f02c with SMTP id 98e67ed59e1d1-3b41c98a095mr19699757a91.6.1795481980585;
+        Mon, 23 Nov 2026 16:59:40 -0800 (PST)
+Received: from esteban.lan ([2001:f71:5160:2b00:ae2a:b9d5:71b7:3bb9])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b40578d771sm22990964a91.1.2026.11.23.16.59.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 16:55:50 -0800 (PST)
-Date: Mon, 23 Nov 2026 19:55:50 -0500
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Julius Bairaktaris <julius@bairaktaris.de>, 
- willemdebruijn.kernel@gmail.com
-Cc: netdev@vger.kernel.org, 
- davem@davemloft.net, 
- kuba@kernel.org, 
- edumazet@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- willemb@google.com, 
- stable@vger.kernel.org, 
- hassansultan@google.com
-Message-ID: <willemdebruijn.kernel.609ac1383a60@gmail.com>
-In-Reply-To: <20261122164204.4058652-1-julius@bairaktaris.de>
-References: <20261120044733.222627-1-willemdebruijn.kernel@gmail.com>
- <20261120044733.222627-3-willemdebruijn.kernel@gmail.com>
- <20261122164204.4058652-1-julius@bairaktaris.de>
-Subject: Re: [PATCH net v2 2/2] net: gso: fall back to skb_segment when
- fraglist cannot satisfy checksum
+        Mon, 23 Nov 2026 16:59:40 -0800 (PST)
+From: Antoine Pichot <antoine.pichot@gmail.com>
+To: Brian Norris <briannorris@chromium.org>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: Antoine Pichot <antoine.pichot@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andreas Kemnade <andreas@kemnade.info>,
+	stable@vger.kernel.org
+Subject: [PATCH wireless 1/2] wifi: mwifiex: pcie: stop the card work before tearing down the adapter
+Date: Tue, 24 Nov 2026 09:59:31 +0900
+Message-ID: <20261124005935.290010-2-antoine.pichot@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261124005935.290010-1-antoine.pichot@gmail.com>
+References: <20261124005935.290010-1-antoine.pichot@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,183 +103,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Julius Bairaktaris wrote:
-> Willem de Bruijn wrote:
-> > 1. Outer tunnel checksums. __skb_udp_tunnel_segment() and
-> >    gre_gso_segment() compute these with gso_make_checksum(), which
-> >    reads stale SKB_GSO_CB() state, and needs an inner payload sum tha=
-t
-> >    skb_segment_list() does not compute.
-> =
+If the firmware does not answer the shutdown command sent by
+mwifiex_pcie_remove(), mwifiex_cmd_timeout_func() queues a firmware dump
+and a card reset on card->work. remove() continues into
+mwifiex_remove_card(), which clears card->adapter and frees the
+interfaces while the dump runs. When the dump ends, the work reads
+card->adapter for the reset and dereferences NULL:
 
-> Patch 2/5 of my "ipmr: forward GSO multicast packets" v6 changes the
-> same three conditions for this case. With this series on net, the case
-> from 2/5 (TCP from a local udpcsum VXLAN device, CHECKSUM_PARTIAL
-> aggregates, forwarded with rx-gro-list on) leaves no wrong outer
-> checksum, 3 of 3 cases in 2 runs, so 2/5 is not needed on top of it.
-> The other four patches apply unchanged on top of this series.
-> =
+  mwifiex_pcie 0000:01:00.0: mwifiex_cmd_timeout_func: Timeout cmd id = 0xaa, act = 0x0
+  mwifiex_pcie 0000:01:00.0: info: shutdown mwifiex...
+  mwifiex_pcie 0000:01:00.0: == mwifiex firmware dump start ==
+  BUG: kernel NULL pointer dereference, address: 0000000000000088
+  Workqueue: events mwifiex_pcie_work [mwifiex_pcie]
+  RIP: 0010:mwifiex_pcie_work+0x87/0xc0 [mwifiex_pcie]
 
-> https://lore.kernel.org/netdev/cover.1795295554.git.julius@bairaktaris.=
-de/
+This crashed a Surface Book 2 (88W8897) at shutdown four times in about
+400 reboots; the three crashes with a full log went through
+mwifiex_pcie_shutdown().
 
-Good catch.
+The teardown waits for the work in mwifiex_cleanup_pcie(), but only
+after card->adapter is cleared. Commit b713bbf1471b ("mwifiex: cancel
+pcie/sdio work in remove/shutdown handler") cancelled the work earlier
+in remove() for this crash. Commit 7e34c0d2f631 ("Revert "mwifiex:
+cancel pcie/sdio work in remove/shutdown handler"") reverted it, saying
+that since commit b014e96d1abb ("PCI: Protect
+pci_error_handlers->reset_notify() usage with device_lock()") a reset
+cannot run during remove(), and that the work then waited in
+pci_reset_function() for the device lock that remove() holds. The device
+lock does not cover the dump, nor the read of card->adapter before the
+reset. Since commit a64e7a79dd60 ("mwifiex: resolve reset vs.
+remove()/shutdown() deadlocks"), the work only tries to take that lock,
+so remove() can wait for it before the teardown again.
 
-> > +	/* Tunnel headers and outer checksums are not rebuilt */
-> > +	if (skb->encapsulation || skb_tnl_header_len(skb))
-> > +		return false;
-> =
+Use disable_work_sync() rather than cancel_work_sync(), so that a
+timeout or a debugfs reset request during the teardown cannot queue the
+work again. The card is allocated at probe, so a later bind starts with
+a new work. When the firmware does not answer the shutdown command,
+remove() already waited for the dump that the timeout starts (about 46 s
+on the 88W8897), in mwifiex_cleanup_pcie(); it now waits before the
+teardown instead. A dump still waiting in the queue is cancelled.
 
-> 1/5 is still needed: the fraglist branches of
-> tcp4/tcp6/udp4/udp6_gro_complete() leave inner_transport_header unset
-> for qdisc_pkt_len_segs_init() and skb_gso_transport_seglen(). VXLAN
-> forwarded with rx-gro-list on, 20 cases of 1000 packets, 2 runs: 34 to
-> 241 reach the receiver with this series, and with 1/5 and 3/5-5/5 on
-> top every packet the router received, with valid checksums.
-> =
+remove() also returns early when a failed reset or a failed probe left
+no adapter. The work can still be queued then: a failed reset queues it
+again from inside it, and the teardown of a failed probe stops the
+command timer only after waiting for the work. Wait for it there too,
+before the card is freed.
 
-> Is v7 without 2/5, based on net once this series is applied, how you
-> want the two combined?
+Tested on the Surface Book 2 with a debug change that queues the dump
+and the reset in remove() right after the shutdown command. Without this
+patch (kernel 7.2.15) the work found card->adapter NULL in 3 runs out of
+3. With it (kernel 7.3.4, before the wait on the early return was added;
+the main path is unchanged), and a 200 ms pause so that the dump was
+already running when remove() reached the wait, remove() waited for the
+dump (about 46 s) and the teardown completed cleanly in 5 runs out of 5.
+With patch 2 also applied, a debug change that makes a reset fail (it
+drops one command during firmware initialisation, so that the command
+timeout queues the work again and the initialisation fails), and a 5 s
+pause in the work when it finds no adapter, remove() took the early
+return while that work was running, and returned only after it.
 
-How about splitting into two series.
+Found, written and tested with an AI coding assistant (Claude Code with
+Claude Opus 5.5) under my direction; I reviewed the patch and the test
+results.
 
-One that is not ipmr specific: patches 1 and 3. That is ready to be
-merged I expect without major comments.
+Fixes: 7e34c0d2f631 ("Revert "mwifiex: cancel pcie/sdio work in remove/shutdown handler"")
+Cc: stable@vger.kernel.org # 6.10+
+Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
+---
+ drivers/net/wireless/marvell/mwifiex/pcie.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-A few comments to Patch 4:
+diff --git a/drivers/net/wireless/marvell/mwifiex/pcie.c b/drivers/net/wireless/marvell/mwifiex/pcie.c
+index ecbe864b0797..b63e6ac6e582 100644
+--- a/drivers/net/wireless/marvell/mwifiex/pcie.c
++++ b/drivers/net/wireless/marvell/mwifiex/pcie.c
+@@ -437,8 +437,14 @@ static void mwifiex_pcie_remove(struct pci_dev *pdev)
+ 	wait_for_completion(&card->fw_done);
+ 
+ 	adapter = card->adapter;
+-	if (!adapter || !adapter->priv_num)
++	if (!adapter || !adapter->priv_num) {
++		/* The adapter is gone, but a failed reset or probe can have
++		 * queued the work again, and the card it runs on is freed
++		 * when remove() returns.
++		 */
++		disable_work_sync(&card->work);
+ 		return;
++	}
+ 
+ 	reg = card->pcie.reg;
+ 	if (reg)
+@@ -456,6 +462,13 @@ static void mwifiex_pcie_remove(struct pci_dev *pdev)
+ 		mwifiex_init_shutdown_fw(priv, MWIFIEX_FUNC_SHUTDOWN);
+ 	}
+ 
++	/* A timeout of the commands above queues a firmware dump and a card
++	 * reset on card->work. Wait for it and keep it from being queued
++	 * again before the teardown clears card->adapter and frees the
++	 * interfaces the dump reads.
++	 */
++	disable_work_sync(&card->work);
++
+ 	mwifiex_remove_card(adapter);
+ }
+ 
+-- 
+2.56.1
 
-    > @@ -1948,6 +1952,15 @@ static int ipmr_prepare_xmit(struct net *net=
-, struct mr_table *mrt,
-    >      if (vif->flags & VIFF_TUNNEL) {
-    > +        /* An encapsulated packet carries the inner headers of its=
-
-    > +         * own tunnel. Only IPXIP4 GSO packets nest: their IP head=
-ers
-    > +         * are segmented by protocol field, while GRE and UDP tunn=
-el
-    > +         * segmentation read skb->inner_protocol, which ip_encap()=
-
-    > +         * sets for its own header.
-    > +         */
-    > +        if (skb_is_gso(skb) && skb->encapsulation &&
-    > +            !(skb_shinfo(skb)->gso_type & SKB_GSO_IPXIP4))
-    > +            return -1;
-
-    [severity: high, confidence: high]
-    Checking only !(gso_type & SKB_GSO_IPXIP4) lets compound tunnels with=
-
-    SKB_GSO_IPXIP4 set slip through: FOU/GUE over IPIP/SIT (both from GRO=
- via
-    udp_gro_complete() -> {ipip,sit}_gro_complete() and local ipip/sit de=
-vices
-    with encap fou/gue) carry SKB_GSO_UDP_TUNNEL[_CSUM] | SKB_GSO_IPXIP4 =
-(and
-    esp4_offload.c can combine SKB_GSO_ESP | SKB_GSO_IPXIP4). ip_encap() =
-then
-    unconditionally overwrites skb->inner_protocol_type and skb->inner_ip=
-proto
-    to IPPROTO_IPIP, so skb_udp_tunnel_segment() dispatches SIT-over-FOU/=
-GUE to
-    ipip_gso_segment() on an IPv6 header, dropping/corrupting it after vi=
-f stats
-    already counted it.
-
-  The hidden assumption is that SKB_GSO_IPXIP4 is mutually exclusive with=
- SKB_GSO_UDP_TUNNEL[_CSUM]. It isn't: FOU and GUE wrap IP-in-IP /
-  SIT inside UDP, so a single skb carries both SKB_GSO_UDP_TUNNEL[_CSUM] =
-and SKB_GSO_IPXIP4 in skb_shinfo(skb)->gso_type.
-
-  The check tests the wrong sense of the bitmask: it asks "is IPXIP4 pres=
-ent?" rather than "are any non-IPXIP4 tunnel bits present?"
-
-  Admittedly double encap is a bit niche. But something a fuzzer will fin=
-d. I'd lower the severity to medium though.
-
-    [severity: high, confidence: high]
-    Even for pure SKB_GSO_IPXIP4 (IPIP/SIT without FOU/GUE), pushing a th=
-ird IP
-    header without segmenting first breaks the invariant enforced by real=
- ipip
-    devices (IPIP_FEATURES omits NETIF_F_GSO_ENCAP_ALL and hw_enc_feature=
-s is 0,
-    so validate_xmit_skb() segments any encapsulated GSO skb before ipip_=
-tunnel_xmit()).
-    NICs advertising full NETIF_F_GSO_IPXIP4 offload (i40e, ice, iavf, io=
-nic)
-    take the 3-header skb directly and only update skb_network_header() a=
-nd
-    skb_inner_network_header(), leaving the middle IPv4 header with the f=
-ull
-    aggregate tot_len and static id on every segment (and patch 5 widens =
-this
-    from DF=3D0 to DF=3D1 traffic). GSO_PARTIAL NICs (mlx5, bnxt, ixgbe, =
-igb, igc)
-    also replicate the middle header with a fixed id even when DF is clea=
-r.
-    Either drop all skb_is_gso(skb) && skb->encapsulation here (as in v5)=
- or
-    segment already-encapsulated GSO skbs before ip_encap().
-
-
-  struct sk_buff only has two sets of header pointers: outer (network_hea=
-der, transport_header) and inner (inner_network_header,
-  inner_transport_header). Every hardware TSO driver and NIC descriptor f=
-ormat is built around that 2-layer model.
-  Normal ipip tunnel devices enforce this automatically. ipip_tunnel_setu=
-p:403-422 advertises NETIF_F_GSO_SOFTWARE (which excludes
-  NETIF_F_GSO_ENCAP_ALL) and leaves dev->hw_enc_features =3D 0. When an a=
-lready-encapsulated GSO skb (skb->encapsulation =3D=3D 1) is transmitted
-  to tunl0, __netif_skb_features:3998-3999 masks features with dev->hw_en=
-c_features (0), so validate_xmit_skb() segments it first before
-  ipip_tunnel_xmit() pushes the second IP header.
-  VIFF_TUNNEL bypasses dev_queue_xmit() on dvmrp%d and calls ip_encap() d=
-irectly inside ipmr_prepare_xmit(), so nothing segments an incoming
-  IPIP/SIT GSO skb before ip_encap() wraps it in another IPv4 header.
-
-  The root tension is that v6 added && !(gso_type & SKB_GSO_IPXIP4) solel=
-y to appease a review comment on v5 about preserving pre-existing
-  DF=3D0 software-GSO IPIP/SIT behavior, but doing so violates the kernel=
-'s 2-layer GSO invariant and creates both Issue #1 and Issue #2.
-  =
-
-  There are two clean ways out:
-  =
-
-  1. Minimal net fix (revert to v5): if (skb_is_gso(skb) && skb->encapsul=
-ation) return -1; =E2=80=94 drops all already-encapsulated GSO skbs on
-  VIFF_TUNNEL in one line, avoids illegal 3-IP-header GSO skbs completely=
-, and eliminates both Issue #1 and Issue #2.
-  2. Full fix (matching ipip netdev semantics): Segment already-encapsula=
-ted GSO skbs (skb_gso_segment(skb, 0) / software GSO) before calling
-  ip_encap() in ipmr_queue_{fwd,output}_xmit() =E2=80=94 then all encapsu=
-lated GSO traffic (IPIP, SIT, GRE, VXLAN, FOU/GUE) works over VIFF_TUNNEL=
- on
-  both software and hardware TSO NICs, with zero drops and zero 3-header =
-skbs (though slightly more invasive for net).
-
-    > @@ -1982,6 +1995,17 @@ static int ipmr_prepare_xmit(struct net *net=
-, struct mr_table *mrt,
-    > +    if ((vif->flags & VIFF_TUNNEL) && skb->encapsulation &&
-    > +        !skb_is_gso(skb) && skb->ip_summed =3D=3D CHECKSUM_PARTIAL=
- &&
-    > +        skb_checksum_help(skb)) {
-    > +        ip_rt_put(rt);
-    > +        return -1;
-    > +    }
-  =
-
-    [severity: medium, confidence: high]
-    A unicast SCTP packet inside VXLAN/GRE/IPIP with a multicast outer
-    destination can reach here with skb->encapsulation && CHECKSUM_PARTIA=
-L &&
-    skb->csum_not_inet (unlike unencapsulated multicast SCTP). skb_checks=
-um_help()
-    writes a 16-bit 1's-complement checksum over the first 2 bytes of the=
- 4-byte
-    SCTP CRC32c field. Use skb_csum_hwoffload_help(skb, 0) instead, match=
-ing
-    validate_xmit_skb() on an ipip device.
