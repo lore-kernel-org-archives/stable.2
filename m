@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795561182;
-	b=iBNnmVRnPxy6N0WrAi+PwvAqaZ+xIcw1GhRasha2/iP24ZSHyH+jMaKRkqBRTGOlV5c6
-	 622hWQbIxT/ejhqxBwnyGnwgA3ezRSdFvh5k4QkcHh0P9R0pRTwh5kcvKMmhBw7JSXj1h
-	 XwiWq9Zu8K3kZrj3Dp4DaiaUAyqjW1z07lLhR5YACb1aqK26LYq+xXhhPefDMcpqKkbHw
-	 Am/X1u4hVWHHqxQRdSFBKkkKx/9FEOJHNXvn7zTLc/Z0Ui2raSkpB35T/xeK94AW/ompo
-	 VMEkXjaClPmni3uhAwWZn8sXxVHa4X3FEhMPzOv2C6LIte3QEMR7liN05gusWB6Ij4A==
+	t=1795561185;
+	b=SfbuIFgmIt3AKZ0y1e4Du43aermWdY2FJYa5LqBQBssXBpSj56CjItVlXFKENjQ9aF7Q
+	 7MDA0gmkvcl1ZMe5iF3kNbv5iyaFKK/jLQJgtAYuilK/gX/lwM4kIzcVCudEMuXX7BLow
+	 4ibXE5RUQANna+dT5uKsH8G7Jh4eWwDByCZip4bvy9qQOBtMUDVOnGGkikvitY1H7eEwN
+	 CSJKxuj+kIon36npPrA8XeaWcswjzOO5HKcCh3uC3OxltJkE8+Ov84IxHuRdqlnEXzISl
+	 sKUGw7Ooh+G4jJkPm0vj48Sfgj9aIoIc/LFGWya1iyL+nV2Fjh7vKpDswGEgcn8ml8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795561182;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795561185;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=We7g4rjlDEvC14Rt3aeSkNWIUyaxM8r0Z8+EijuZ/qU=;
-	b=eGbea6CmLkkAdWeRnLKncxQK7Qz/Lt4NgBq4rCyfdAwchwx2+Wg20e+kghIDg9+Sedut
-	 4SN1RUUU0NR/bBAusgvpbwJCEho4fGS5O/cmOvgE0UD5xplwDOBGsrjdjDa/v4v5j98N/
-	 lb4NBAJXQHOzTMkA9pjrvpT6tTV6hfqo1MBEhBj4envkBs6cZQaPYmMOJxE7yLa9w5XDv
-	 ehOWU3wrJfyGFgkSWlbRBWgyG8KugJdn4dEQAKJB+6/7pwTpnBRQpzGsay07MUAz6tDkM
-	 k6J32Z4uUO/DwTZGkaXAlqNH3E1Yvxx1AWXu1/lSk5jk1c2f3TIDAtpYqoQWPX0EXhA==
+	bh=PVadO6FN4yERgIRYvZ1jIjoIb/Ez8TcW7BKAOAgnUo8=;
+	b=Q07LniW5mci/SMJT3SwZZRUBlpwE1zsfuaB4YJYY5xx1XB8zXDeBiZFAnXcxdsbaVE8T
+	 EJFkmhUH//jQC/YWNi8/bfFRU19vtoT00bhvnQRWivXodROJYadY/N4UModK2lh2XR60l
+	 y1C4jiVC4hEnIVprN+Adcb7W7P9pK9KS2qGMTHgMCJVEmzPY+KfgZevUS9g9NqBHTHFGy
+	 s2YXQ+FDF2RGjY/XHZImVVxmCAnSduxs6E0ynntxYPAMPy4uz+EQZkszn7wqjVcTUsi+1
+	 1pxVjJuJoizyZZWCM1Y6JxuXWP4OUHr2qew1pI0K3iLRj/SxXi0tBX7vQNQlMRVbucg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ri/17j1R";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lbw0GxdG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16966606A31E;
-	Tue, 24 Nov 2026 22:59:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D9F606A321;
+	Tue, 24 Nov 2026 22:59:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ri/17j1R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B83301F000EC;
-	Tue, 24 Nov 2026 22:59:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lbw0GxdG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3580E1F000C4;
+	Tue, 24 Nov 2026 22:59:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795561181;
-	bh=We7g4rjlDEvC14Rt3aeSkNWIUyaxM8r0Z8+EijuZ/qU=;
+	s=k20260515; t=1795561185;
+	bh=PVadO6FN4yERgIRYvZ1jIjoIb/Ez8TcW7BKAOAgnUo8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Ri/17j1Rt5RKcLJGc3pX2deQYRZ+LZ+G1bAtYDCVYKtkC1Zy5A/Z5GdnbhjahIGwy
-	 wr9Ad+6N8dCt7b6yCsWdI431ikhDYv0G/k5QQdEHmX/FhNTxKFwMCYadUzmRnFLJU3
-	 5hj4kv5olhynXTApByY3rhShBCwcPUNgHwBISSz1esbVTSAfsjpt81sHNdGMj2Is0Y
-	 23kfqQE862hULGihGBIz83ALL46EiiZjaBylYJxDDfQhlasNrzlbNQmnCCqKfwiOT9
-	 qk34Wbyf4zVQxAhuXG4ioOz0nYi28zS1qcw2gMw/HSnF1EbYstxQ8uTWXvwQxANjCc
-	 RR2nzSPZOEt6A==
+	b=Lbw0GxdG1Nz4OYr89mliWrg+kYmoXuGpeF3Gy9/2dbtXNZ0iSefXiM7lIBAM0nu3J
+	 /69CBhU3xMLpaBoFqrZurjIhfD7jGd/cTR5OtTwwXmduswoZxlIuosPRpvNuWyk1SK
+	 0kPp4/KUnIP1tuWwRhZuVCLrdQaMjU8pjLRTK/GsEcfw/fF64yjQ4WfwQNMIBnFbLS
+	 uH1xp0WERf0s5Hx8LOgMekEUWtMI14yuoLpi+zSxnWTURAo8cbAxcfUESfjwivBsCE
+	 L8zJNrzytFV6SV55S5iE/n2Y57ZRjMBmK4bdrqjjSWInapipQRLHyPWz4zJ1bZ5f2p
+	 CfPqP08p9p0Ag==
 From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 24 Nov 2026 23:58:26 +0100
-Subject: [PATCH RFC 03/19] perf: copy counter values after dropping
- ctx->mutex
+Date: Tue, 24 Nov 2026 23:58:27 +0100
+Subject: [PATCH RFC 04/19] perf: copy ioctl arguments without ctx->mutex
+ held
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-work-exec-update_lock-v1-3-e489035395b8@kernel.org>
+Message-Id: <20261124-work-exec-update_lock-v1-4-e489035395b8@kernel.org>
 References: <20261124-work-exec-update_lock-v1-0-e489035395b8@kernel.org>
 In-Reply-To: <20261124-work-exec-update_lock-v1-0-e489035395b8@kernel.org>
 To: Jann Horn <jannh@google.com>
@@ -67,191 +67,222 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  David Hildenbrand <david@kernel.org>, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-04696
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6259; i=brauner@kernel.org;
- h=from:subject:message-id; bh=rc/rAON3FyLKLA9sJD24e24XLxM38HdsZD8TQYVeAlE=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSzie1QVTh+4/ME7u4/7/zrpW8dV3CSakh0OF8TxXbyg
- vpf/ZpdHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABN5soXhn/V3+YtrBRPOqi19
- dpmra5bp3WuC+R2+Hpxn8rbLqG1r+M3I8OquE/PHx1OK6gotRabXL7ntKHmrszRUJuT1rxUXbQT
- tGQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7025; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=N17DCeHiDWeBL9NdRznr81HJuP5L50OLTyEoYplFMWc=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSzie06+nb3H9XVp+bPYNYKeX/QdNcXrtusH06Wcl7Y8
+ rB0r1SgekcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEFmxm+F9nvaLvr17ujpqF
+ M522Cbv1R/tu+bDLJ6P8e8CFc+tmVPQz/C/5t5rt4IJVRzquKqkuZlTI6nuRwMW6/dWtL963Wqq
+ fv2QDAA==
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-perf_read() copies the values to userspace with the mutex of the
-event's context held. If that faults the mutex is held for as long as
-the fault takes. With a buffer in a mapping of a file on a FUSE
-filesystem or in a range registered with userfaultfd it's the caller who
-decides how long that is:
+perf_ioctl() calls _perf_ioctl() with the mutex of the event's context
+held and a number of commands access userspace from there:
 
-  locks held by perf-reader/212:
+- PERF_EVENT_IOC_PERIOD copies the period from userspace.
+
+- PERF_EVENT_IOC_ID copies the id to userspace.
+
+- PERF_EVENT_IOC_SET_FILTER copies the filter string from userspace.
+
+- PERF_EVENT_IOC_QUERY_BPF copies the query from userspace and the ids
+  of the programs back.
+
+- PERF_EVENT_IOC_MODIFY_ATTRIBUTES copies the attributes from userspace.
+
+This is the same problem as for read(). If one of them faults the mutex
+is held for as long as the fault takes and an exec of the task the event
+counts for hangs with exec_update_lock held:
+
+  locks held by perf-ioctl/217:
    #0: (&ctx->mutex){+.+.}-{4:4}, at: perf_event_ctx_lock_nested+0x18f/0x360
-
-Since commit 2e498d0a74e5 ("perf: Add support for event removal on
-exec") perf_event_exec() takes that mutex whenever the task has a perf
-context. And begin_new_exec() calls it with exec_update_lock held. So an
-exec of the task the event counts for hangs past the point of no return
-until the fault is resolved. It can't be killed either:
-
-  locks held by exec-task/211:
+  locks held by exec-task/216:
    #0: (&sig->cred_guard_mutex){+.+.}-{4:4}, at: bprm_execve+0xb7/0x1400
    #1: (&sig->exec_update_lock){++++}-{4:4}, at: begin_new_exec+0xa4b/0x2df0
    #2: (&ctx->mutex){+.+.}-{4:4}, at: perf_event_exec+0x17e/0xe40
+  locks held by stat-reader/218:
+   #0: (&p->lock){+.+.}-{4:4}, at: seq_read_iter+0xc5/0x1280
+   #1: (&sig->exec_update_lock){++++}-{4:4}, at: do_task_stat+0x13b/0x2870
 
-  task:exec-task       state:D pid:211
-  Call Trace:
-   __schedule+0x1691/0x4b00
-   schedule+0xe0/0x2e0
-   schedule_preempt_disabled+0x11/0x20
-   __mutex_lock+0x6d7/0x2700
-   perf_event_exec+0x17e/0xe40
-   begin_new_exec+0x1c1e/0x2df0
-   load_elf_binary+0x340/0x4af0
-   bprm_execve+0x772/0x1400
-   do_execveat_common.isra.0+0x3d9/0x540
-   __x64_sys_execve+0x8c/0xc0
-   do_syscall_64+0x110/0x600
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Copy what comes from userspace before the mutex is taken and what goes
+to userspace after it has been dropped.
 
-And everyone who needs the exec_update_lock of the task waits with it.
-Since commit 6650527444da ("proc: protect ptrace_may_access() with
-exec_update_lock (part 1)") that includes a read of /proc/<pid>/stat:
-
-  task:stat-reader     state:D pid:214
-  Call Trace:
-   __schedule+0x1691/0x4b00
-   schedule+0xe0/0x2e0
-   schedule_preempt_disabled+0x11/0x20
-   rwsem_down_read_slowpath+0x5cc/0x10c0
-   down_read_killable+0xf1/0x5f0
-   do_task_stat+0x13b/0x2870
-   proc_single_show+0x110/0x1d0
-   seq_read_iter+0x2e4/0x1280
-   seq_read+0x29b/0x550
-   vfs_read+0x171/0xb20
-   ksys_read+0x111/0x250
-   do_syscall_64+0x110/0x600
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The values are gathered in a kernel buffer anyway. So hand that buffer
-to perf_read() and copy it out after the mutex has been dropped. What a
-read returns goes into a struct on the stack of perf_read() that the
-helpers fill in.
+PERF_EVENT_IOC_QUERY_BPF doesn't need the mutex. The programs of a
+tracepoint are protected by bpf_event_mutex. So call
+perf_event_query_prog_array() before the mutex is taken.
 
 Fixes: 2e498d0a74e5 ("perf: Add support for event removal on exec")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- kernel/events/core.c | 43 +++++++++++++++++++++++++------------------
- 1 file changed, 25 insertions(+), 18 deletions(-)
+ kernel/events/core.c | 93 ++++++++++++++++++++++++++++++++--------------------
+ 1 file changed, 57 insertions(+), 36 deletions(-)
 
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index e870f12c3ad81..f00eeded212c4 100644
+index f00eeded212c4..5f648e00ae661 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
-@@ -6188,8 +6188,15 @@ static int __perf_read_group_add(struct perf_event *leader,
- 	return ret;
- }
+@@ -6635,14 +6635,25 @@ static inline bool is_perf_file(struct fd f)
  
--static int perf_read_group(struct perf_event *event,
--				   u64 read_format, char __user *buf)
-+/* What a read of an event returns, filled in with ctx->mutex held. */
-+struct perf_read_buf {
-+	size_t	count;		/* room in the buffer of the reader */
-+	u64	values[5];	/* a single event */
-+	u64	*group_values;	/* PERF_FORMAT_GROUP, allocated */
+ static int perf_event_set_output(struct perf_event *event,
+ 				 struct perf_event *output_event);
+-static int perf_event_set_filter(struct perf_event *event, void __user *arg);
++static int perf_event_set_filter(struct perf_event *event, char *filter_str);
+ static int perf_copy_attr(struct perf_event_attr __user *uattr,
+ 			  struct perf_event_attr *attr);
+ static int __perf_event_set_bpf_prog(struct perf_event *event,
+ 				     struct bpf_prog *prog,
+ 				     u64 bpf_cookie);
+ 
+-static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned long arg)
++/*
++ * What perf_ioctl() copies from userspace before it takes ctx->mutex and
++ * what it copies back once it dropped it.
++ */
++struct perf_ioctl_data {
++	u64			value;
++	char			*filter;
++	struct perf_event_attr	attr;
 +};
 +
-+static int perf_read_group(struct perf_event *event, u64 read_format,
-+			   struct perf_read_buf *rb)
++static long _perf_ioctl(struct perf_event *event, unsigned int cmd,
++			unsigned long arg, struct perf_ioctl_data *data)
  {
- 	struct perf_event *leader = event->group_leader, *child;
- 	struct perf_event_context *ctx = leader->ctx;
-@@ -6218,23 +6225,20 @@ static int perf_read_group(struct perf_event *event,
+ 	void (*func)(struct perf_event *);
+ 	u32 flags = arg;
+@@ -6665,22 +6676,11 @@ static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned lon
+ 		return _perf_event_refresh(event, arg);
  
- 	mutex_unlock(&leader->child_mutex);
+ 	case PERF_EVENT_IOC_PERIOD:
+-	{
+-		u64 value;
++		return _perf_event_period(event, data->value);
  
--	ret = event->read_size;
--	if (copy_to_user(buf, values, event->read_size))
--		ret = -EFAULT;
--	goto out;
-+	rb->group_values = values;
-+	return event->read_size;
- 
- unlock:
- 	mutex_unlock(&leader->child_mutex);
--out:
- 	kfree(values);
- 	return ret;
- }
- 
--static int perf_read_one(struct perf_event *event,
--				 u64 read_format, char __user *buf)
-+static int perf_read_one(struct perf_event *event, u64 read_format,
-+			 struct perf_read_buf *rb)
- {
- 	u64 enabled, running;
--	u64 values[5];
-+	u64 *values = rb->values;
- 	int n = 0;
- 
- 	values[n++] = __perf_event_read_value(event, &enabled, &running);
-@@ -6247,9 +6251,6 @@ static int perf_read_one(struct perf_event *event,
- 	if (read_format & PERF_FORMAT_LOST)
- 		values[n++] = atomic64_read(&event->lost_samples);
- 
--	if (copy_to_user(buf, values, n * sizeof(u64)))
--		return -EFAULT;
+-		if (copy_from_user(&value, (u64 __user *)arg, sizeof(value)))
+-			return -EFAULT;
 -
- 	return n * sizeof(u64);
- }
- 
-@@ -6270,7 +6271,7 @@ static bool is_event_hup(struct perf_event *event)
-  * Read the performance event - simple non blocking version for now
-  */
- static ssize_t
--__perf_read(struct perf_event *event, char __user *buf, size_t count)
-+__perf_read(struct perf_event *event, struct perf_read_buf *rb)
- {
- 	u64 read_format = event->attr.read_format;
- 	int ret;
-@@ -6283,14 +6284,14 @@ __perf_read(struct perf_event *event, char __user *buf, size_t count)
- 	if (event->state == PERF_EVENT_STATE_ERROR)
+-		return _perf_event_period(event, value);
+-	}
+ 	case PERF_EVENT_IOC_ID:
+-	{
+-		u64 id = primary_event_id(event);
+-
+-		if (copy_to_user((void __user *)arg, &id, sizeof(id)))
+-			return -EFAULT;
++		data->value = primary_event_id(event);
  		return 0;
+-	}
  
--	if (count < event->read_size)
-+	if (rb->count < event->read_size)
- 		return -ENOSPC;
+ 	case PERF_EVENT_IOC_SET_OUTPUT:
+ 	{
+@@ -6695,7 +6695,7 @@ static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned lon
+ 	}
  
- 	WARN_ON_ONCE(event->ctx->parent_ctx);
- 	if (read_format & PERF_FORMAT_GROUP)
--		ret = perf_read_group(event, read_format, buf);
-+		ret = perf_read_group(event, read_format, rb);
- 	else
--		ret = perf_read_one(event, read_format, buf);
-+		ret = perf_read_one(event, read_format, rb);
+ 	case PERF_EVENT_IOC_SET_FILTER:
+-		return perf_event_set_filter(event, (void __user *)arg);
++		return perf_event_set_filter(event, data->filter);
  
- 	return ret;
- }
-@@ -6299,6 +6300,7 @@ static ssize_t
- perf_read(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ 	case PERF_EVENT_IOC_SET_BPF:
+ 	{
+@@ -6729,19 +6729,9 @@ static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned lon
+ 		return 0;
+ 	}
+ 
+-	case PERF_EVENT_IOC_QUERY_BPF:
+-		return perf_event_query_prog_array(event, (void __user *)arg);
+-
+-	case PERF_EVENT_IOC_MODIFY_ATTRIBUTES: {
+-		struct perf_event_attr new_attr;
+-		int err = perf_copy_attr((struct perf_event_attr __user *)arg,
+-					 &new_attr);
++	case PERF_EVENT_IOC_MODIFY_ATTRIBUTES:
++		return perf_event_modify_attr(event, &data->attr);
+ 
+-		if (err)
+-			return err;
+-
+-		return perf_event_modify_attr(event,  &new_attr);
+-	}
+ 	default:
+ 		return -ENOTTY;
+ 	}
+@@ -6758,6 +6748,7 @@ static long perf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
  {
  	struct perf_event *event = file->private_data;
-+	struct perf_read_buf rb = { .count = count };
  	struct perf_event_context *ctx;
- 	int ret;
++	struct perf_ioctl_data data;
+ 	long ret;
  
-@@ -6307,9 +6309,14 @@ perf_read(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ 	/* Treat ioctl like writes as it is likely a mutating operation. */
+@@ -6765,10 +6756,46 @@ static long perf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 	if (ret)
  		return ret;
  
++	/*
++	 * A copy from or to userspace can sleep in a page fault. Don't hold
++	 * ctx->mutex for it.
++	 */
++	data.filter = NULL;
++	switch (cmd) {
++	case PERF_EVENT_IOC_PERIOD:
++		if (copy_from_user(&data.value, (u64 __user *)arg,
++				   sizeof(data.value)))
++			return -EFAULT;
++		break;
++
++	case PERF_EVENT_IOC_SET_FILTER:
++		data.filter = strndup_user((void __user *)arg, PAGE_SIZE);
++		if (IS_ERR(data.filter))
++			return PTR_ERR(data.filter);
++		break;
++
++	case PERF_EVENT_IOC_QUERY_BPF:
++		/* Looks at the tracepoint's programs under bpf_event_mutex. */
++		return perf_event_query_prog_array(event, (void __user *)arg);
++
++	case PERF_EVENT_IOC_MODIFY_ATTRIBUTES:
++		ret = perf_copy_attr((struct perf_event_attr __user *)arg,
++				     &data.attr);
++		if (ret)
++			return ret;
++		break;
++	}
++
  	ctx = perf_event_ctx_lock(event);
--	ret = __perf_read(event, buf, count);
-+	ret = __perf_read(event, &rb);
+-	ret = _perf_ioctl(event, cmd, arg);
++	ret = _perf_ioctl(event, cmd, arg, &data);
  	perf_event_ctx_unlock(event, ctx);
  
-+	/* The copy can sleep in a page fault. Don't hold ctx->mutex for it. */
-+	if (ret > 0 && copy_to_user(buf, rb.group_values ?: rb.values, ret))
-+		ret = -EFAULT;
++	kfree(data.filter);
 +
-+	kfree(rb.group_values);
++	if (!ret && cmd == PERF_EVENT_IOC_ID &&
++	    copy_to_user((void __user *)arg, &data.value, sizeof(data.value)))
++		return -EFAULT;
++
+ 	return ret;
+ }
+ 
+@@ -12367,14 +12394,9 @@ perf_event_set_addr_filter(struct perf_event *event, char *filter_str)
+ 	return ret;
+ }
+ 
+-static int perf_event_set_filter(struct perf_event *event, void __user *arg)
++static int perf_event_set_filter(struct perf_event *event, char *filter_str)
+ {
+ 	int ret = -EINVAL;
+-	char *filter_str;
+-
+-	filter_str = strndup_user(arg, PAGE_SIZE);
+-	if (IS_ERR(filter_str))
+-		return PTR_ERR(filter_str);
+ 
+ #ifdef CONFIG_EVENT_TRACING
+ 	if (perf_event_is_tracing(event)) {
+@@ -12399,7 +12421,6 @@ static int perf_event_set_filter(struct perf_event *event, void __user *arg)
+ 	if (has_addr_filter(event))
+ 		ret = perf_event_set_addr_filter(event, filter_str);
+ 
+-	kfree(filter_str);
  	return ret;
  }
  
