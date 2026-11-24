@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=31.44.14.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=31.44.14.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795526688;
-	b=Iy/MeXQl8xSXGMeGFJZUnpM67uQM3drpuJgc+vVM6r0y5mWRPi022HAr9FL2UOO0djLo
-	 R3duPBBFech7Bk6j3b9qQqECUXJ5imCWyanUNiCLi4Vmto006OfXV+VoGTk1ASG56h0jZ
-	 646bDzXcnMWEsAIqkgMaoN9WRPvAQ2qKAnqyO5wajQekTdnAgGSYuhy6z4EDk7iBYoEyb
-	 e5E+wfvO4A5BRjX/E1KBwVDKa7N1+OfKAnWE8YTYw5Jtaz0w/qHLFtvkaLy0bYqk/tNy1
-	 zavpbfJ2ZYIBuV4lBLHPLy8RekjU8wmW9YYBfRI0eoGgFcdI0rUa2Mxd/5QkeHlO56w==
+	b=E3nZQjF4gcJueSuOyZMV958fUefOZA9t4RGFJuLLxt2nJpD/YwCAzy3iOB2JZFQUMa6Q
+	 vumDvG5zQjdvyc5VQJinkwhlAc5jbUEablQXnjqzBOYt2g77SOuG1R3FscWW4p7MPdt0k
+	 DlXj/9M3PXb37UYBB5v/fF17RrKcqJFBV9E8wFzEWn2/2XbeLycoJADjrR/qjO9LXw+PD
+	 iGe3dLm6dorZYjdL4swsIkQHisRmuUkxO3Ci8ZxEGuqCbDfcISZPL0KVryVQnYkIUc7e4
+	 Ev1siQjvXz/TmxaF/WA8tf7RuYNRB6CW9diwjmQTPdGpvYlJ1Migf5BQ5MsBMkkKWXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795526688;
 	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:From:To:
 	 Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Fk2IuaBvGlXxlTrtOtv1YxVQ7SMykl84uczNc/ER+x4=;
-	b=xnlVbJPjV1/9vFidvyAZT9Bixe+RIF/5fGheDeyGEZgl9JxJ1Lhm87MSEXLsJyjn7pYF
-	 zufZUELyfVFZ2Vo/kSuRX3HNpHt6BrGYfES7Dtf+dO5ccgrpIktkWDB+OTCpgsD4D5RDA
-	 MjChHBRFQjs9mPNsq/9Hgn/VRnZK1VkhTodRoC307+sUOgUVTTEQZFY93Fmiz1ZpcvazC
-	 /vgbhD35Gxj6czZf1+rtfgraSUET1D2WRH2O+gyg7yBKm4IGUkBTPTeqjqsmcYUnwD2Y9
-	 0baDC0OPAEnxhH5tnGdDURPi+VkTq+5I1gC+2QmSpCGmrRMgCIY+ljG+ow8x7dMUBjw==
+	bh=eoXndNCMVUFukFrxbYi3LBRkSPdIlz1+kEvkI3V/2PY=;
+	b=VvEN2osckIW7CR1Hnb3X0jCyVyj/f/E1MqpsMDD2/9Q9keKkceIweu2UBLHQAnHbNugn
+	 Bii7jUKCcenp+/fqCKYSjAaJAT68y7288RDnonsxckKYQJ1ZlXwEegFDqfGE/IOScasu3
+	 tQy5Jja30ug0Fw0RP7Ymr7HQcv1dbg9WXkQXbJwr6fHPSVqvsRvDQu0G7oUtouqu3uOEG
+	 7zxZ4HJSrMRVp07+jvtzfpjLbeRvpxSyGUk44zkujCYwFe9aDU7U0rvr8yLUCLhGxxUhF
+	 X/oZsxM0sPPduh/yPwEp2w6heFXNdLD2bjL2g/Bk9lpghOBXxmjT1iqRjo92mwIseJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=yandex.ru;
 	spf=pass smtp.mailfrom=yandex.ru;
-	dkim=pass header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=LAqUTiHb;
-	arc=none smtp.remote-ip=31.44.14.20
-Received: from forward504d.mail.yandex.net (forward504d.mail.yandex.net [31.44.14.20])
+	dkim=pass header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=N2zjfor4;
+	arc=none smtp.remote-ip=31.44.14.17
+Received: from forward501d.mail.yandex.net (forward501d.mail.yandex.net [31.44.14.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B6E606A327
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 13:24:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8B6E606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA175606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 13:24:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA175606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=LAqUTiHb
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=N2zjfor4
 Received: from mail-nwsmtp-smtp-production-canary-28 (mail-nwsmtp-smtp-production-canary-28.yp-c.yandex.net)
-	by forward504d.mail.yandex.net (postfix) with ESMTPS id 80DD0100418;
-	Tue, 24 Nov 2026 16:24:38 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-canary-28 with ESMTPSA id YOg8RW3Xma60-ty8i3vw9;
-	Tue, 24 Nov 2026 16:24:38 +0300
+	by forward501d.mail.yandex.net (postfix) with ESMTPS id F070181413;
+	Tue, 24 Nov 2026 16:24:39 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-canary-28 with ESMTPSA id YOg8RW3Xma60-yPQqCqJL;
+	Tue, 24 Nov 2026 16:24:39 +0300
 X-Yandex-Fwd: 1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1795526678; bh=Fk2IuaBvGlXxlTrtOtv1YxVQ7SMykl84uczNc/ER+x4=;
+	t=1795526679; bh=eoXndNCMVUFukFrxbYi3LBRkSPdIlz1+kEvkI3V/2PY=;
 	h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
-	b=LAqUTiHbAFWC0sTtzT02pzAafy1xxSzGztdMHrUZaZphA8YKtSJX27hhALzb1ugkz
-	 M+DELfE5wTQpB1huljNZpI/WyG9i/wWVDO/vcS9qjr2i+nCDAbCvnJAMiHYnwWFgxi
-	 aNmCdxlO6JX++05PjW3yffhdNe+BBdSRGeFaChsc=
+	b=N2zjfor4dCCFlU321soD2iMkhFC+XreInXgMW5XwCR84SiBy3ORRPLslKOJaqaDCG
+	 elMadyBJeZjSaJcp/Iblnp9sICZNha9pxEbC+O1UwLzQIACxKL8Ec1E2i+iDwzKttO
+	 wIxfm5DtAYDvuGxOUxmez+k7SDz5t1khWo03b/kY=
 Authentication-Results: mail-nwsmtp-smtp-production-canary-28; dkim=pass header.i=@yandex.ru
 From: Dmitry Antipov <dmantipov@yandex.ru>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/6.1/6.12 2/4] HID: roccat: use atomic_t for device status flag
-Date: Tue, 24 Nov 2026 16:24:32 +0300
-Message-ID: <20261124132434.134814-2-dmantipov@yandex.ru>
+Subject: [PATCH 5.10/6.1/6.12 4/4] HID: roccat: avoid unlocked report buffer access in roccat_poll()
+Date: Tue, 24 Nov 2026 16:24:34 +0300
+Message-ID: <20261124132434.134814-4-dmantipov@yandex.ru>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261124132434.134814-1-dmantipov@yandex.ru>
 References: <20261124132434.134814-1-dmantipov@yandex.ru>
@@ -67,91 +67,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 6569d814fa49384e3e0f4f41947ecfabf2eb93c8 upstream.
+commit 8343dd786b4725c69e4352afc5a24dd796aadbcf upstream.
 
-In roccat_disconnect(), per-device 'exist' status flag is cleared
-with 'devices_lock' locked but both roccat_read() and roccat_poll()
-checks this flag unlocked. To avoid data races, convert the flag
-to atomic_t and introduce the convenient roccat_device_available()
-wrapper.
+Since roccat_read() and roccat_report_event() uses per-device report
+buffer holding 'cbuf_lock', grab the same mutex in roccat_poll() to
+avoid race against them.
 
 Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
-Link: https://patch.msgid.link/20261022054454.238343-2-dmantipov@yandex.ru
+Link: https://patch.msgid.link/20261022054454.238343-4-dmantipov@yandex.ru
 Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
 ---
- drivers/hid/hid-roccat.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ drivers/hid/hid-roccat.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/hid/hid-roccat.c b/drivers/hid/hid-roccat.c
-index 12953852b465..648b42c2101b 100644
+index cd7385531eb4..ddf2f7dc1f7d 100644
 --- a/drivers/hid/hid-roccat.c
 +++ b/drivers/hid/hid-roccat.c
-@@ -40,7 +40,7 @@ struct roccat_device {
- 	unsigned int minor;
- 	int report_size;
- 	int open;
--	int exist;
-+	atomic_t exist;
- 	wait_queue_head_t wait;
- 	struct device *dev;
- 	struct hid_device *hid;
-@@ -70,6 +70,11 @@ static struct roccat_device *devices[ROCCAT_MAX_DEVICES];
- /* protects modifications of devices array */
- static DEFINE_MUTEX(devices_lock);
- 
-+static bool roccat_device_available(struct roccat_device *device)
-+{
-+	return atomic_read(&device->exist);
-+}
-+
- static void roccat_free_device(struct roccat_device *device)
+@@ -160,12 +160,18 @@ static ssize_t roccat_read(struct file *file, char __user *buffer,
+ static __poll_t roccat_poll(struct file *file, poll_table *wait)
  {
- 	int i;
-@@ -105,7 +110,7 @@ static ssize_t roccat_read(struct file *file, char __user *buffer,
- 				retval = -ERESTARTSYS;
- 				break;
- 			}
--			if (!device->exist) {
-+			if (!roccat_device_available(device)) {
- 				retval = -EIO;
- 				break;
- 			}
-@@ -149,7 +154,7 @@ static __poll_t roccat_poll(struct file *file, poll_table *wait)
+ 	struct roccat_reader *reader = file->private_data;
++	bool avail;
++
  	poll_wait(file, &reader->device->wait, wait);
- 	if (reader->cbuf_start != reader->device->cbuf_end)
- 		return EPOLLIN | EPOLLRDNORM;
--	if (!reader->device->exist)
-+	if (!roccat_device_available(reader->device))
+-	if (reader->cbuf_start != reader->device->cbuf_end)
+-		return EPOLLIN | EPOLLRDNORM;
++
+ 	if (!roccat_device_available(reader->device))
  		return EPOLLERR | EPOLLHUP;
- 	return 0;
+-	return 0;
++
++	mutex_lock(&reader->device->cbuf_lock);
++	avail = (reader->cbuf_start != reader->device->cbuf_end);
++	mutex_unlock(&reader->device->cbuf_lock);
++
++	return avail ? EPOLLIN | EPOLLRDNORM : 0;
  }
-@@ -226,7 +231,7 @@ static int roccat_release(struct inode *inode, struct file *file)
  
- 	if (!--device->open) {
- 		/* removing last reader */
--		if (device->exist) {
-+		if (roccat_device_available(device)) {
- 			hid_hw_power(device->hid, PM_HINT_NORMAL);
- 			hid_hw_close(device->hid);
- 		} else {
-@@ -345,7 +350,7 @@ int roccat_connect(const struct class *klass, struct hid_device *hid, int report
- 	mutex_init(&device->cbuf_lock);
- 	device->minor = minor;
- 	device->hid = hid;
--	device->exist = 1;
-+	atomic_set(&device->exist, 1);
- 	device->cbuf_end = 0;
- 	device->report_size = report_size;
- 
-@@ -364,7 +369,7 @@ void roccat_disconnect(int minor)
- 	mutex_lock(&devices_lock);
- 	device = devices[minor];
- 
--	device->exist = 0; /* TODO exist maybe not needed */
-+	atomic_set(&device->exist, 0);
- 
- 	device_destroy(device->dev->class, MKDEV(roccat_major, minor));
- 
+ static int roccat_open(struct inode *inode, struct file *file)
 -- 
 2.56.1
 
