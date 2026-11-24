@@ -1,101 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795545923;
-	b=JEEVBoY/hlHb2EQFGQjtNw0fCqPk0rstZ6mShUiZazi251vDwXOcDM6AcKe5a14DEazl
-	 L+BA2UcZIXwsBwfUYDtr7vVVX7SCfksC15vBqd68Ci/219iZ9EIUEVwyAH6rLerC/PcbY
-	 eGcZ1HRgFkTEJeRMO+xr8upL3WJaKLdm5ceztWZ5XV/UBblZz96rncDyrvlU9kUZ8gbMo
-	 PpMYoY6A843HdW3nqntt5U4kQdQvZY9lyRDKMRT3+YxlYpiXoibAqWfb2X/bBux7Z66Dh
-	 hDU2PvsiZu+D/G7KRSBRrPiaeeTYjvaWn54lU0OzHkgbt22gsvlGJHjJpc41mHzDP5A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795545923;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=yTtmFC9qSzyqzhkMZ+nRiaHuo2O22TiUVuXKFLL5NIQ=;
-	b=FTn7Uzr/3ifubJtJZ+QqIBWWQLkJrHlXKYfpQdb09GgYLSr4J9n1u2QVQjKrzFA5FP4D
-	 fR2OGdcze5Eb13R6XJzS0ZOAXvLK68YKcOl1xEbFcrCJXaEyAzLTaESbRjYCDy78tQWUY
-	 zVNgVeyUtA/RdGifTeDKD+T1rk6uuCr0ur8IkjxT2+Mf1vb0r6Wn0c8vsEhUsC4UldjZv
-	 o2Qe1/t0UDLD6wfaEOQxmj3s3w/d1roQdCvET41pXj8G8cbjdXAT+4U6I2ovQFsPMwpDI
-	 Ae4+D9J8nPzpbBaVAPdTFnDtgkdfiUc2+oKebRRqt3yLT6TDdAIEBQS5OerceLjxC4g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EVc0Idzc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795546283;
+	b=QmydLIAK52qmjiXy27vtWPQATMGq/fdIZpM7/JRgqRoWJVHHhCLxPY+iXq+OI9T3Cy7L
+	 EdMT6QUYd1Kfzmx4PAsQLV04VEXYtFdQw7OauvyrwqW6VbcdI6mltSLpXpj2pSvKG7F9V
+	 hN91QxVumUgJnp1NvsIb9I7ZpNmH0QfxmP/nRX6Qo8wugV2IDcu5faxOxTbUMfQ0ezXYL
+	 h4mOeizoFCo/joIBs++BadNqmCvmYkrfNMBQzLvI0VSXf3OC+3p2xOP5UQzcurTaoNN6S
+	 MHV+F2r3+nGffEAEsWGv7/Bix+owq9gZ3m1DcYCVeGIQbhp0+lxKsNmD7FsJS/sgHLA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795546283;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=L6NqhcU1tLVcfEpjY2Ck1sJrOKIOcHdxKOQPUwApeeM=;
+	b=RpExgYp3dsJor+hBIrWcnVe7lP52swtXbBCzqr2TAtC7BuRDKiruQdQtxkDpTfKIG7Ml
+	 ZgJa0IIndB+rq3I0b0jBgUMHrYtbpBKOKe+bYLwm+oxNsZYqzNynolzuCL1Fqk8S8tfGV
+	 LRAY8EdmYNsxE7e+EUh725i7zy124ddxTMlaSCCSuOoD8V8D4ZLvHb3LPpIxrKS7eq+Ch
+	 3xfp5pswXulA0r4DlBpTRYwg+qfGBwIIqtVPSs+1dlPOzh2AqCx3vxIekxGV94lsT4D4k
+	 +RDlQuLrMz+b1F49qdUOPNk4ai5b12EAqkCzc7G4HCr9lRLPddwxPMXmVzsljvxpIiQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3kfl4NR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F324606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:45:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F324606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7125606A31E;
+	Tue, 24 Nov 2026 18:51:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EVc0Idzc
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb5b33e2ffso126725e9.1
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 10:45:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795545922; cv=none;
-        d=google.com; s=arc-20260327;
-        b=otPeBMoTJLttDWq2IrUP19n8NPGMVQ+QjWE4+4tBc/dBZbxQ3JzOWerNdW6nFwn41H
-         6q8E16XPp1qApMfAjelWMZ4QTDTtnld54SLKKvupiIJ8Ak7OQ+BYaPxphggc0Z8tgKgf
-         qLre0ArMbAWPrS3atXemC4ggaNUp7KKQNcM1uwHVlgEae2jtA9iB+o/qZ1hE7wCHINVp
-         KE/J1hQHqibFbhsPpzrKNT4dufAzhzJ7kiBK599Dn8Ut/PpRKfqPYRFci6xMQfT78M69
-         3JLdhMDOjc8cvCzt+UzI0PuDyIa4cc4iRCWynn0nRbcInz8nKj/Wyyouaw/Qyq+nUOFK
-         q7lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yTtmFC9qSzyqzhkMZ+nRiaHuo2O22TiUVuXKFLL5NIQ=;
-        fh=7sOY7lUZcmpaF/nuYEabpuSGOXU3mooioPyICFQnc6k=;
-        b=eUqnEMTFjUpYGg3YFN2WaVv5UnIMFB1gvNLAXXSPdYl190mkaIFmakRBFMH1oxI7ek
-         wtvdTh88fY/gHFihiHzQ+wEBaW1aADfncAkSRDH+UbBb4lKycH1Zz5ovFfEaoMq94uls
-         OpuwaeFioMvT0x/Ij7BKsKcto00wdV4hexIh6/7ALOdymQM9UbqeRZHJFlbLV9YPRUhh
-         RRRkMWmvE1zeVnJDQGsI5hZBFO4ij9CjE8YxfKrKiCzXA/bmvl2hASFmzCGg2fjoFmQH
-         2GWd5H9WdIPDC0mGZosFMl3Rghkdm6QrQfwudreAthVhp1JlSTuLeA0fp0M1sm7GXQXM
-         M1Ag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795545922; x=1796150722; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yTtmFC9qSzyqzhkMZ+nRiaHuo2O22TiUVuXKFLL5NIQ=;
-        b=EVc0IdzczLGPm/v2iU4n6hBwE81QsJ8zWG+yjfbboj4t5N8hTiOE88NKhVmJi2crtR
-         HTXndKx4NydBQeufRJk8PsIC/q9Clfe8wcxX2IMKisD8MckBSGi4QA0f0kjKZTLytFDo
-         sYNo0OnMyYwTcH2VqcD/FEtFlzIHABB17UKW7QKVuF454x/QcOHfBPIXEkv5azRuW00X
-         i2+CQUYNWlmCKVBuIvlS+WryE6UKIqemHi4Q47djEbPNhXxsxa7+TqDozJxDxmVE9jys
-         iNI5C2ahSuqb24t8mTZZwrpfkVPA054RYqPSVfONF5BUbX4rp/35PHmzO/gwEDN6ptZp
-         etIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795545922; x=1796150722;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yTtmFC9qSzyqzhkMZ+nRiaHuo2O22TiUVuXKFLL5NIQ=;
-        b=z6ANgDAxxCN5tyvzHX/KWdCl7bOmJmUdsDdiV3tV95C7LCsAF176OfP+hkrd9qQRuV
-         +pR8sZ9M9ImB3sbL1DQF9KWNwbHOaxImnRKbqhOx2dEr+RP3BywHp6Ccxsu3LqmNChFf
-         F3S9BoqtP3IDeBsvhxZIy9hYnk8TOiXlRd2Pigc5Uvrh9KveWq+KeVdQKBq6fkrrXhgZ
-         oAfFP212RfZNdfRIT8XLRjQUlhe6DtNAN2vbP5ZghX2Zv+6iWLLRxpAMhpYVyAfRF9G9
-         WeRz54ZaJJk6WnJ29Nfw0M2riB629Tv0mrK9w6jW1+U/FuR5Cwy6BStIT7fMN7/jUe4U
-         lujw==
-X-Forwarded-Encrypted: i=1; AL+hErHF1aL1/LoY65RxQy1TxrYI+l6+1/jmj6UamDRQmuuCBsVcPGGWQ8KImkGaZeJ0ppLpNIER4OA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/0EH/IbfHprRkIz5Mv/T/KNUCSIGCXxI2aPfisETyOoDNBeIa9
-	qMvF0rgFLDFsPswg7btvvqs2acFyRDQLpTWC5Rm00aros1IdUJYlcdTgHRSTRL7oHdyfodTMkma
-	6u5aIPz6tQPEgVmcg+pcMroUsDxs+q10fUi2bbLX0
-X-Gm-Gg: AZFdTZeHxDdfYX6NKxN++kIfOkq2mQoDz0/SF8X6k0u8IscyBBJbwbth1BbbfMYUHfc
-	byPgA2OSSuHO8WxBNej0STHIWaq9qhkOI4wPoi43rKgfZp22EK+Z2d5uxL1SESJZ0WzhC6H1skH
-	ctSPDpaX9tPY5uBm6cOnHUqA1RyrjEvd8nzoZmEMG75mJ7mAvsz2fM/OydKQPxFn9BC4uEu2fVH
-	xCFATwDSSeMbsySMdM8FM0fUVyArEm9+R7bLBxvYQwJjZAD+V4XOvivqA07rZ8kp7+WLCt3Bg+z
-	ZvuMoAc2qImv7zVJ9ktny+abcGWzko/2gg2t6F1Jb08tov8YTAQmmcLjoyNcCg0kj8vzhaz/vcl
-	uU7drW5lNYpnJvy5ahxZMyRxy+dZ/sajqbtjM3dRNy4WDwfQfPtOqMugyvEuDmB8C8pmuTXx/L/
-	Ui2V1eThMWOfpnGYpJsX1nL9NEUqUdbUZIjdnPkhj6SCmi
-X-Received: by 2002:a05:600c:470d:b0:4b6:24ca:8848 with SMTP id
- 5b1f17b1804b1-4bb9169c773mr3294835e9.11.1795545921491; Tue, 24 Nov 2026
- 10:45:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3kfl4NR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33B71F000C0;
+	Tue, 24 Nov 2026 18:51:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795546282;
+	bh=L6NqhcU1tLVcfEpjY2Ck1sJrOKIOcHdxKOQPUwApeeM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I3kfl4NR9qEuuyy0EjdjDi7dgww4iRyl8pwU8q9GJgU35EDQQZO5ws/pf0MvK3OzB
+	 bYSZhRJ7hqHJsrjKKU7Eaam2n28TfeXl0ZyEuNKTTv0z5w1fI3UgjqtemhH4+LX3lZ
+	 +KkFX2UfhQ6Iud3xifvU8gfvbZ7n8zqpfIi1+A/csWvw6qnVntjlm2EAh/3sLZ4Y/6
+	 u7Zlq9w3FY3w1maR1Ag+Vdj7n1RzSh84grOnwKsb4tvEcAWdtLIxP+PE9wnTmHCdRd
+	 1VmKb6nJqO05uf6Ud2X3rtpeg0ol4IBoOT6HeGKnBdKThZdSF9/wjz5N4MDHQEPtQO
+	 N8TehsE9SnokQ==
+Date: Tue, 24 Nov 2026 18:51:12 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Puranjay Mohan <puranjay12@gmail.com>, 
+	Pedro Falcato <pfalcato@suse.de>, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Kees Cook <kees@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Jann Horn <jannh@google.com>, 
+	Alexei Starovoitov <ast@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/vma: drop mm asynchronously in vma_start_read()
+Message-ID: <awXbVeK7F2DmgL-9@gremlin>
+References: <awWLCZ-jBjSD7V3M@pedro-suse.tail5790ac.ts.net>
+ <CAJuCfpGk6eYK43Unxo+O4ML5=GM_siZ9owp6oa9fO0ipZXVg-g@mail.gmail.com>
+ <CAJuCfpEd1rz3P7fB7W_mHkyzbpq9TscRE+QNwvHdYME=WJj6cw@mail.gmail.com>
+ <awWz3nc_b8x3mIXq@gremlin>
+ <CANk7y0gAxY18Ew+6j5YsqrOsf5Dx+v5M78r7_8JLXh5RHZj4qA@mail.gmail.com>
+ <CAJuCfpFuDCUPTUi3SuAhmbtw5tubRZ0+YEY3PotjyJ8Or8pdQQ@mail.gmail.com>
+ <awXHR007d8MlhJUC@gremlin>
+ <20261124093328.3ba2e066e5d5081c69e0e667@linux-foundation.org>
+ <CAJuCfpEmFEX5iqLw_c94a97rVrC+xBWpKnO4rVpeDgkUfAPq7Q@mail.gmail.com>
+ <498284d2-70e4-4b6e-978b-98a2b9e1e74d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,68 +76,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117-huge-pfnmap-fault-races-v2-0-276007e73bcb@kernel.org> <20261117-huge-pfnmap-fault-races-v2-2-276007e73bcb@kernel.org>
-In-Reply-To: <20261117-huge-pfnmap-fault-races-v2-2-276007e73bcb@kernel.org>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Tue, 24 Nov 2026 10:45:08 -0800
-X-Gm-Features: Aa3M54pkUi88VYe-fpktO26ba_xgIBRMnt9i_jgdkEnyzZZvFIfmSEN7jCPiH-0
-Message-ID: <CABdmKX3ZihvsJfPGDhg+tmjn+xVfhKkZUshr8NbO5T1BmVcOPA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/4] mm/memory: remove racy huge PMD assertion from walk_to_pmd()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, 
-	Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
-	Roman Kisel <romank@linux.microsoft.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
-	Naman Jain <namjain@linux.microsoft.com>, Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org, 
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>, "Gregory Price (Meta)" <gourry@gourry.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <498284d2-70e4-4b6e-978b-98a2b9e1e74d@kernel.org>
 
-On Tue, Nov 17, 2026 at 10:32=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.=
-org> wrote:
+On Tue, Nov 24, 2026 at 07:35:39PM +0100, Vlastimil Babka (SUSE) wrote:
+> On 11/24/26 18:49, Suren Baghdasaryan wrote:
+> > On Tue, Nov 24, 2026 at 9:33 AM Andrew Morton <akpm@linux-foundation.org> wrote:
+> >>
+> >> On Tue, 24 Nov 2026 17:23:35 +0000 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+> >>
+> >> > On Tue, Nov 24, 2026 at 08:34:40AM -0800, Suren Baghdasaryan wrote:
+> >> > > On Tue, Nov 24, 2026 at 8:06 AM Puranjay Mohan <puranjay12@gmail.com> wrote:
+> >> > > >
+> >> > > > On Tue, Nov 24, 2026 at 9:28 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> >> > > > >
+> >> > > > > On Tue, Nov 24, 2026 at 07:51:42AM -0800, Suren Baghdasaryan wrote:
+> >> > > > > > Actually, VMAs are allocated from a SLAB_TYPESAFE_BY_RCU slub. With
+> >> > > > > > that RCU unlocking move you don't need other_mm copy and the comment
+> >> > > > > > that comes with it. VMA won't be freed until RCU lock is dropped.
+> >> > > > >
+> >> > > > > Yeah but they can be reassigned? They won't be _freed_ until a grace period but
+> >> > > > > they can go back to the slab and then allocated elsewhere  right?
+> >> > > > >
+> >> > > >
+> >> > > > Yes, they can go back to the slab and become a different VMA.
+> >> > >
+> >> > > Yeah, you are right about that. So, we either have to keep the RCU
+> >> > > unlock in place to keep other_mm comment valid (my personal
+> >> > > preference) or update the comment next to other_mm to explain the new
+> >> > > reason it is needed. Either way is fine with me.
+> >> >
+> >> > I think let's just change the comment?
+> >> >
+> >> > Andrew could you change:
+> >> >
+> >> >        * stable and can be freed in the narrow window after vma->vm_refcnt
+> >> >
+> >> > ->
+> >> >
+> >> >        * stable and can be reused in the narrow window after vma->vm_refcnt
+> >> >                            ^
+> >> >                            |
+> >> >                            just this freed -> reused :)
+> >> >
+> >>
+> >> np.
+> >>
+> >> --- a/mm/mmap_lock.c~mm-vma-drop-mm-asynchronously-in-vma_start_read-fix
+> >> +++ a/mm/mmap_lock.c
+> >> @@ -300,7 +300,7 @@ err:
+> >>  err_unstable:
+> >>         /*
+> >>          * If vma got attached to another mm from under us, that mm is not
+> >> -        * stable and can be freed in the narrow window after vma->vm_refcnt
+> >> +        * stable and can be reused in the narrow window after vma->vm_refcnt
 >
-> From: Eliav Farber <farbere@amazon.com>
+> But this is talking about the mm, not the vma, so the motivation to change
+> that was wrong? (it's not a typesafe cache). Moreover...
 >
-> walk_to_pmd() asserts that the PMD entry it returns is not huge, but does
-> so without holding the PMD lock, so the assertion is only valid if nothin=
-g
-> can concurrently install a huge PMD entry in the range.
+> >>          * is dropped and before rcuwait_wake_up(mm) is called. Grab it before
+> >>          * releasing vma->vm_refcnt.
+> >>          */
+> >
+> > Sorry for being pedantic :)
+> > There is also this comment later on:
+> >
+> >         other_mm = vma->vm_mm; /* use a copy as vma can be freed after
+> > we drop vm_refcnt */
+> >
+> > That should be replaced too with:
+> >
+> >         other_mm = vma->vm_mm; /* use a copy as vma can be reused
+> > after we drop vm_refcnt */
+> >
+> > Again, just replacing "freed" to "reused".
 >
-> This is not the case for a VMA whose driver implements both ->fault and
-> ->huge_fault and which invokes vmf_insert_pfn() from the former.
->
-> The existence of prctl(PR_SET_THP_DISABLE) is problematic here, as it onl=
-y
-> takes the mmap write lock and faults taken under the VMA lock are
-> unaffected by this.
->
-> This can result in two concurrent threads faulting the same thing
-> disagreeing as to whether to attempt a huge fault and thus ->fault and
-> ->huge_fault running at the same time and triggering this assertion.
->
-> So just remove the assert.
->
-> Target the commit which introduced the first driver able to do this for t=
-he
-> fix - vfio-pci. DAX also mixes fault orders within a VMA, but serialises
-> them using its own mapping entry lock.
->
-> Link: https://lore.kernel.org/all/20261112051440.16140-2-farbere@amazon.c=
-om/
-> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> [ ljs: rewrote commit message ]
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Nah let's not overthink this. It's freed back to the allocator first. Which
+> naturally allows it to be reused, yes. It doesn't matter if the underlying
+> page can be freed or not. UAF is a UAF.
 
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Let me just send a v2 that puts the rcu_read_unlock() back where it was, I don't
+really want to get into some long debate about nitpicky details. I just have too
+much to do sorry.
+
+--
+Cheers, Lorenzo
