@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540590;
-	b=Wtu5K8Gzx3CC4LAvyLPDzE+I3v///iMI2J5OUI+j8ab5eBJ19Err1kTqT1Ey3ptwvLhD
-	 4/hua+740/MGEyYMad6dRRGj4AMU5HVbkeJFAdkFgcBzify2G4ZnpWX+hVcXcwTDWp72b
-	 EfQq3BRNkIaHSuLtLspnPr9AFOne+FRyEmKahwL6M0zazX6oCEhJ9WeDlicukwS+qaAAY
-	 Z+zIzXwsBfyDGr529R7YgDiY6qCgHsnP6U8q5ugd92aw7QQiM/EHSWLv76wW3JNpCRNBQ
-	 ljNlPcMaZwSTWeccTBXe0K7G8iNFWEM8h3olt7BJaOoZH9s3O9PUPWiuMh5nJkg5f7w==
+	t=1795540648;
+	b=KXKkQ6Te8jzyLV4xRr+XffaZ8/wbJjWrCwcqW0KL13KU8s/ATBb2Ol3D6cw5q0McVJIC
+	 RNAAWiRPE9FZo0iJzs0TpuwZTfyz8LkYmJXXvArnZD9hQHTIwFgp/r/ZwEr0uwbfNwyoD
+	 ev6UzT++neLZRKVCYT88lhSodlJRuIUTDYyxw7QJnc+Lqvk0T5bWU/FPKwu6KR3L+KrTI
+	 EL2u0Mu9PvV2G9pgHzCycCxzoqZsToR6b6PPz4l0DCYWJhBaSxqZcZrmsnV4ADTUvYLAZ
+	 4uT2paFVS0Tr2A//O4RbMnxetGcFUZTm/hyGXjX7xsG4xQD8w6SbiUnwByAwapqajZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540590;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540648;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=huXqvi2jm6yjb1/t9kBYvGCrzZFO+qOvfmGDlDYoDds=;
-	b=kqQyYY/t17eYNovBICgaGXnynVxHCdyDxXYMQKBli6ZcLQkd3b3ez6v9V4gVDCsfoRqK
-	 LaIMKTRKp4c/BwIlKHmTzuA+kkIHSkPZHvgiwyxuateiuU1ITbEKCfrduV+5zERoOmykq
-	 hEPOmpJl9WNPdyGBCsnUd7fWLKax6fdBoz44Gi5JoEL4m+DipehyUGKmoBvyVrwi4mCI8
-	 S0xZ4X8LDZoLcvCVdY3pxYmNHXYkjQHnigCldbjFlz51g6xpJl9AKKoHtFRIWyeATsJcD
-	 OWimHS1lfZ29GoN4FwbcP52e8dU+UrE5mcQVvTB6IJ38TTdr4CiRE5nEOwpyp+IBuew==
+	bh=0UUY+MjptFzuugSfQZ14pmIXRSmdlnMNFxjO8+xiH+c=;
+	b=DVPF8sb1TkX/8qMRV3bfnHWYQNB34ySrdCGZ6A5/90bgNMTBYvKhBgLuoPBIm8a7fGxo
+	 yFGixvF+v7CnBIgw89AG53yi7XuswKqB2R4Rzt5rrzHKeDy1REfLyAhyj9MxBpn4o4/Yg
+	 cr8yDtSocnlsnq1ZXI3mXV+IfNCBWhVJAfX6Gsg5PInitw5H3KaB0CnW97TtN8wHE8eMA
+	 t84soM/oiwkZKiET4toSrSJM7eEhi5aL/7wJrtp5tUMuPbsWxSmqxxbdsEtlPWPXRPVif
+	 URdNz+gfwL6SSMBaRH0O1p6buDeEuHhkB30wrdaPIihHs0F/63zawmbTXCEL6jUT6dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WLueYk4l;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEi61kOa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC48606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:16:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C998606A323;
+	Tue, 24 Nov 2026 17:17:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WLueYk4l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 315E81F000C6;
-	Tue, 24 Nov 2026 17:16:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEi61kOa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1711F000EE;
+	Tue, 24 Nov 2026 17:17:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795540589;
-	bh=huXqvi2jm6yjb1/t9kBYvGCrzZFO+qOvfmGDlDYoDds=;
+	s=k20260515; t=1795540647;
+	bh=0UUY+MjptFzuugSfQZ14pmIXRSmdlnMNFxjO8+xiH+c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WLueYk4lvwgTPdmfL5XV9PD4n6BJlkmV4mAn+znKSubahjfKlma/ATK4YTsooxjSS
-	 +Gvu6fIvyoDjX5/rrSOD5l5rcKiVv7GNuE7tbmtYbBsW/xucGSZrowa2gtexkvFVuS
-	 oN+Zw2ZTi6vjpWxNZoXjLqLfQvWEolsawY0zRb3a061ukzxYiQdG4wVQbNTa2AVg5o
-	 rFo/bW+KURvCVlnL3saKpV+wsgcrUC7Y7JomQigpWkxxuKFgjK1wyXfaFzpUcnjOiU
-	 HL63/lPfJ1YiPZ7LmlfZn41Aiqaz8H/AX5ZN4L/d/9zuCPQyUZzfW3rDCdqNVVJ5Bx
-	 GBHKHSDDYbCew==
+	b=OEi61kOacz2kPuwCsgTqwiiPuOm4Hq6Zi65nylL04w1g0QLiDxaYhZdUVkLdnnTQw
+	 sTsW8pKSipasfEDPP1NHzwDoh13AM4v7dqYdjZq6R1QE+FClaWw7YUa0SoWRJMUEFo
+	 YSu4FtFc2EIC3+f66uneIFGNbXStjOHkPLfbRyaRbimVm/9Garo12zYnFJ+zhj1e8Q
+	 UVEb4WhMjp0Gfot+e37TaZxP/Muuq++hjK6sQKvH/IjR3ZsdsmBcXanLy/ltzc15Ej
+	 GiaLOwMQdhRUC9Sve35FtIo6xTu0nNVsaXKmw+YH8GLxY+x5uYYbdRkJCG1wc+TF7D
+	 rweIRt7EZBmVw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Ulf Hansson <ulfh@kernel.org>,
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
+	Chen-Yu Tsai <wens@csie.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	linux-sunxi@lists.linux.dev,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mmc: omap: synchronize clock timer before disabling fclk
-Date: Tue, 24 Nov 2026 12:16:27 -0500
-Message-ID: <20261124171556.1815642-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] mmc: sunxi: Use devm_mmc_alloc_host() helper
+Date: Tue, 24 Nov 2026 12:17:24 -0500
+Message-ID: <20261124171714.1789579-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112428-nullify-reactive-9011@gregkh>
-References: <2026112428-nullify-reactive-9011@gregkh>
+In-Reply-To: <2026112458-bloating-overwrite-732a@gregkh>
+References: <2026112458-bloating-overwrite-732a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,56 +66,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Binbin Zhou <zhoubinbin@loongson.cn>
 
-[ Upstream commit c931c51681e33b24bc8d65c6df35b70e1827daa2 ]
+[ Upstream commit 5a8af27596118f3e6a121059ac7ac8c299bee164 ]
 
-mmc_omap_select_slot() removes clk_timer with timer_delete() before
-switching slots and changing the functional clock state.  timer_delete()
-only removes a pending timer and does not wait for a callback that is
-already running.
+Use new function devm_mmc_alloc_host() to simplify the code.
 
-If mmc_omap_clk_timer() is already running, it can therefore call
-mmc_omap_fclk_enable() while the request or slot-switch path changes the
-same clock state.  During host removal, the same window can overlap the
-final clock shutdown.
-
-Use timer_delete_sync() so the callback has completed before slot switching
-or changing the functional clock state.  Keep the timer restartable for
-normal request handling.
-
-Fixes: 0807a9b5739a ("MMC: OMAP: Lazy clock shutdown")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-[ sashal: Replaced del_timer(&host->clk_timer) with del_timer_sync(...) in two places, since this tree predates the timer_delete* rename. ]
+Cc: Chen-Yu Tsai <wens@csie.org>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Samuel Holland <samuel@sholland.org>
+Cc: linux-sunxi@lists.linux.dev
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+Link: https://lore.kernel.org/r/ee7726b1ea37084258a5d8cec67cad12473152c2.1748933789.git.zhoubinbin@loongson.cn
+Signed-off-by: Ulf Hansson <ulf.hansson@linaro.org>
+Stable-dep-of: e35e360bd668 ("mmc: sunxi: fix clock and runtime PM leaks on probe failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mmc/host/omap.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/mmc/host/sunxi-mmc.c | 22 ++++++++--------------
+ 1 file changed, 8 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/mmc/host/omap.c b/drivers/mmc/host/omap.c
-index ee0940d96febf..973e6ab1401cf 100644
---- a/drivers/mmc/host/omap.c
-+++ b/drivers/mmc/host/omap.c
-@@ -214,7 +214,7 @@ static void mmc_omap_select_slot(struct mmc_omap_slot *slot, int claimed)
- 	host->mmc = slot->mmc;
- 	spin_unlock_irqrestore(&host->slot_lock, flags);
- no_claim:
--	del_timer(&host->clk_timer);
-+	del_timer_sync(&host->clk_timer);
- 	if (host->current_slot != slot || !claimed)
- 		mmc_omap_fclk_offdelay(host->current_slot);
+diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
+index e0ab5fd635e6c..cc7c8594a6cac 100644
+--- a/drivers/mmc/host/sunxi-mmc.c
++++ b/drivers/mmc/host/sunxi-mmc.c
+@@ -1369,11 +1369,10 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
+ 	struct mmc_host *mmc;
+ 	int ret;
  
-@@ -273,7 +273,7 @@ static void mmc_omap_release_slot(struct mmc_omap_slot *slot, int clk_enabled)
- 		/* Keeps clock running for at least 8 cycles on valid freq */
- 		mod_timer(&host->clk_timer, jiffies  + HZ/10);
- 	else {
--		del_timer(&host->clk_timer);
-+		del_timer_sync(&host->clk_timer);
- 		mmc_omap_fclk_offdelay(slot);
- 		mmc_omap_fclk_enable(host, 0);
+-	mmc = mmc_alloc_host(sizeof(struct sunxi_mmc_host), &pdev->dev);
+-	if (!mmc) {
+-		dev_err(&pdev->dev, "mmc alloc host failed\n");
+-		return -ENOMEM;
+-	}
++	mmc = devm_mmc_alloc_host(&pdev->dev, sizeof(*host));
++	if (!mmc)
++		return dev_err_probe(&pdev->dev, -ENOMEM,
++				     "mmc alloc host failed\n");
+ 	platform_set_drvdata(pdev, mmc);
+ 
+ 	host = mmc_priv(mmc);
+@@ -1383,15 +1382,13 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
+ 
+ 	ret = sunxi_mmc_resource_request(host, pdev);
+ 	if (ret)
+-		goto error_free_host;
++		return ret;
+ 
+ 	host->sg_cpu = dma_alloc_coherent(&pdev->dev, PAGE_SIZE,
+ 					  &host->sg_dma, GFP_KERNEL);
+-	if (!host->sg_cpu) {
+-		dev_err(&pdev->dev, "Failed to allocate DMA descriptor mem\n");
+-		ret = -ENOMEM;
+-		goto error_free_host;
+-	}
++	if (!host->sg_cpu)
++		return dev_err_probe(&pdev->dev, -ENOMEM,
++				     "Failed to allocate DMA descriptor mem\n");
+ 
+ 	if (host->cfg->ccu_has_timings_switch) {
+ 		/*
+@@ -1481,8 +1478,6 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
+ 
+ error_free_dma:
+ 	dma_free_coherent(&pdev->dev, PAGE_SIZE, host->sg_cpu, host->sg_dma);
+-error_free_host:
+-	mmc_free_host(mmc);
+ 	return ret;
+ }
+ 
+@@ -1498,7 +1493,6 @@ static void sunxi_mmc_remove(struct platform_device *pdev)
+ 		sunxi_mmc_disable(host);
  	}
+ 	dma_free_coherent(&pdev->dev, PAGE_SIZE, host->sg_cpu, host->sg_dma);
+-	mmc_free_host(mmc);
+ }
+ 
+ #ifdef CONFIG_PM
 -- 
 2.53.0
 
