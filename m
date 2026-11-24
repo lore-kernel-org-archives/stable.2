@@ -1,56 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795538749;
-	b=hnHdRDsoVXlIje8dAw0Jg1gwFYYPiIpHihfDMP6XUkrm0rG5G6jhlQJpig/4S69Pu/OD
-	 bj4Jz1JtDHzarZ8CUVO5ocaKvXXDUCQZ2HEDBvBUbStOLGyl9uH3tvYYmGnKuyML+XL3O
-	 gUrJ/K4fDLAIZraHb6iU3j568ZM7AAdz65AZ+h85Xvla4XvzfkVBgqMhT86wZK4qrnsLk
-	 VzMZ4NkzPBeOQcVju5rjKRzWQhu2/B7X9yMoRcG2nBqMLE8Eqvoar7H2raekces0C/ygt
-	 HO3plnO3/FS20PrQDWKonGkivDgBtSODqHjCWZfQy6RVDp6WPvc9bc83sZWAJ0PrE9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795538749;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=NxEUqxMS4+QPrlaTVEWgJwJSWYwUiBTj4xqIdeG8VuI=;
-	b=c6hs31roB6kRA28bVebgk3uvyn8FYF5Zxf5WR+zoiaeZGMKTAuB1TlWKvx0py73UCOzE
-	 v7LG4DRrhrQwTggHTHaZHW26+s+OrtJbR0GzsAOa4cYkeY2kb8ob2cqLP+vbTGDRuv70Z
-	 ZPzj6eP1tiVZOK78nP5iZtRLhETAjVlZdF10IxE4mmW530ZPRhVbPWAuGgRGJOxd+Gjse
-	 CVoqcunpmPf05qNgg1Ue0ImEF5/TnD0Lnbz7zW7cKGTcJ6TMJalq1mUYOOL6aWnUpmm2p
-	 gvws3o6cs2dDUlA3jDTp4W6s45uFGKgwcbuw2Uxnw9khcPfb8/uJiPAfFYjWOR0YOtQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=j+SuMpjC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
-Received: from sender5-pp-f112.zoho.com (sender5-pp-f112.zoho.com [165.173.182.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795538757;
+	b=VoCbMOzjpZIKoMq2bDqlxovoxhNvjTsmATj0+XuePCIgMjed3USMb4BCo/JkmfSiO127
+	 JSEt1dAkczeyL5M5SEul8c3MqYf8zx76MB9vPOWp67BKmEpPg5620/TxA4JNt2MUAMdww
+	 IxIdwUPgGmoot1UqqfsscduOejl0Aj6Ud4uoSLACbeknG2hoXJkXE13IRVZyUcDgMDzK7
+	 nYD8+fTluo2ov+5so1ZDVJRXcTvPBmC+2Y62FNKvuj6WCmWiRkO7J5labfp9ukUmMAvMI
+	 Vz9Z5aRivh49A0CbxmF1svTq0autnYCAmSanafqprjeZMvUpGAobjJsVpKgemCG5xGA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795538757;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=lH7DmMO6CmdhGISA9x27XFuIHI2B/YXr7/wtN78ZNko=;
+	b=Llf5kGaodRnid2GnvizMMutVMiQWai4C0g6qe3mTVNMdisBI3UROvAKOQjS+xnXDPbQ/
+	 THt2To0/maXfMidlQD6kmEdIXZ9J7DyIDFoMWdekYB8/aKfur5/Qp3y5uxLCLrcg3P/Qd
+	 twlqdSzpAuiDcqUIEmXHfHKL7MZLaNxSTPWvUBX5JGMEOpv7UeyaIYGja/4mq+uCY/Bja
+	 DrTz0HHQBGp9uFccD4DpamMH/GKMRBxMj8R0eeFFVlnaB8XD5nH0K7Ju3A/t9T5R5JZui
+	 I2BlsT/mTz9sqJaXSL2cbNXOUBHiFpL5OwH5oH/WHks8Siu+bh6q6My1gXoZzOu9CAQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=f3Ua6Ks9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC28606A323;
-	Tue, 24 Nov 2026 16:45:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFC28606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9AB0606A33B
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:45:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=j+SuMpjC
-ARC-Seal: i=1; a=rsa-sha256; t=1795538706; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=hBw7/fL+7KNbfb2O6t/yUndg7jvZphFbt0KjZyW6VH/GfxRVH5PDanZiZdZswWhUnN8y3yRZzEOCYZvTYZXQuPoDyhTaZCnNHtgafWk5cJsQmNzsoDs5hg5D4Mu2/JfOPIuHNoREaqkgboy7aEcc3UEFUfpsf5WsrGLNdZT+eQY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795538706; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=NxEUqxMS4+QPrlaTVEWgJwJSWYwUiBTj4xqIdeG8VuI=; 
-	b=HhtG0/YORTLcH1iFSvA0p7zRqb5kS0KtedG2bngTNjE6IwSCQbXvvGzWWzggTAZsjIKEC0qXcXarjnmod99KoRmzJ1f+0ndfg1LonTIcehIXpIQJhUR+D/p1y1hNHRvwBO8XrWD8ar70tfbNiJ+8dxss76IWTv81SlwfIkgpfKE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=j+SuMpjCQK1dtnTgay5IQIcy7CDGV3eL2KQN+OY0LydmB5njXLP9fPEGaGpzRf70YJ2PMeUJ3lsFZC3plIObpkzukmbZC2SPflVe+Q2pYqNTaqSpBaQBcz89PgrWwIymYZkJxPiMIb8+rEq3UmILHKTIxDS5/Y0ckIJfMjCvKC4dNRpf5IfTcK1TZ9rg5891JbNT9Hd8c98+JydByDOA16fsYaXMMOj3SRLgTBBIP1VSf2RtXTQIvQVgSgGYITc2ZhBGitfUaFFQLMmbGB+2rnQrQjX/VuZLrONQdnb1kiyrXC/ZqKGUaahCvS7wqqM2i6ZloO+fMqMNwApb964mIQ==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=NxEUqxMS4+QPrlaTVEWgJwJSWYwUiBTj4xqIdeG8VuI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795538704996748.7946167071358;
-	Tue, 24 Nov 2026 08:45:04 -0800 (PST)
-From: Rong Zhang <i@rong.moe>
-Date: Wed, 25 Nov 2026 00:44:29 +0800
-Subject: [PATCH v4 1/9] HID: haptic: Get rid of input_ff_destroy() in error
- paths
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=f3Ua6Ks9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE6C1F000ED;
+	Tue, 24 Nov 2026 16:45:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795538756;
+	bh=lH7DmMO6CmdhGISA9x27XFuIHI2B/YXr7/wtN78ZNko=;
+	h=Subject:To:Cc:From:Date;
+	b=f3Ua6Ks9uZTJcy8h7DtPcLLGEQylqayDue4lVheZZHZbSvLPDTzGfW8RjUHtEGCwz
+	 XV2qm7ObHfjNij5pnvpSJvJV1xC96NiW4FGtV5Mbk/6RTbJ4jaMN+IRnTHAMvSwSb0
+	 zwR+v8FttkjxNS2Rzwh28nJdsaC/iuI8jNdt4y+w=
+Subject: FAILED: patch "[PATCH] net/mlx5e: SHAMPO, Disable end padding when relaxed ordering" failed to apply to 6.1-stable tree
+To: dengjiabin2023@gmail.com,dtatulea@nvidia.com,kuba@kernel.org,tariqt@nvidia.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 24 Nov 2026 17:46:17 +0100
+Message-ID: <2026112417-overrule-demeaning-63ab@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,124 +51,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-hid-haptic-kmod-v4-1-03713a89f656@rong.moe>
-References: <20261125-hid-haptic-kmod-v4-0-03713a89f656@rong.moe>
-In-Reply-To: <20261125-hid-haptic-kmod-v4-0-03713a89f656@rong.moe>
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
- Angela Czubak <aczubak@google.com>, Henrik Rydberg <rydberg@bitmath.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-ce4c1
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-It's painful to have error paths after calling input_ff_create(),
-because input_ff_destroy() frees too much things but does not restore
-some other things. For example, every error path calling
-input_ff_destroy() frees ff->private, while the others don't. This
-divergence has caused quite a lot of trouble.
 
-Additionally, the driver's get_device() bail-out path calls module_put()
-right before hid_haptic_destroy() calling it again, causing refcount
-underflow.
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Since commit 2ae35f090d02 ("Input: destroy force-feedback device on
-input unregistration"), the HID device is now guaranteed to have a
-longer lifetime than the FF device, making get_device()/put_device()
-unnecessary.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Due to the driver being unable to build as a module since commit
-083a4f3f3cc7 ("HID: Kconfig: Fix build error from CONFIG_HID_HAPTIC"),
-try_module_get()/module_put() is needless, too.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 68c183619f24982a635930697bf8e148f2d78f71
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112417-overrule-demeaning-63ab@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
-Remove the said calls, so that there is no error path after
-input_ff_create(), eliminating the call to input_ff_destroy(). In this
-manner, we don't need to restore dev->flush and dev->event either.
+Possible dependencies:
 
-Fixes: 083a4f3f3cc7 ("HID: Kconfig: Fix build error from CONFIG_HID_HAPTIC")
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 68c183619f24982a635930697bf8e148f2d78f71 Mon Sep 17 00:00:00 2001
+From: Jiabin Deng <dengjiabin2023@gmail.com>
+Date: Tue, 10 Nov 2026 11:57:23 +0800
+Subject: [PATCH] net/mlx5e: SHAMPO, Disable end padding when relaxed ordering
+ is supported
+
+When SHAMPO and relaxed ordering writes are enabled, aligned RQ end
+padding can corrupt received TCP data. Due to reordering, alignment
+padding written at the end of one packet can overwrite data from the
+next packet.
+
+The current RQ end padding selection avoids alignment padding for LRO,
+but not for SHAMPO. Extend the condition to SHAMPO to prevent this
+corruption.
+
+The issue was observed in a two-host test using a BlueField-3 NIC and
+an NVIDIA H20 GPU. In the original test with MTU 1500, 354 of 400
+transfers contained corrupted data before the fix. After applying this
+change, all 400 transfers across eight message sizes from 32 KiB to
+4 MiB, with 50 transfers per size, completed successfully, with no
+incorrect bytes or corrupted intervals.
+
+Fixes: e5ca8fb08ab2 ("net/mlx5e: Add control path for SHAMPO feature")
+Closes: https://lore.kernel.org/r/CAFxp=AY2cVRQrZvB9WNnigbsobuw11NMG-cagHx0_V+ur2ToFw@mail.gmail.com
+Link: https://lore.kernel.org/r/atZKOtjrb9HKSNHF@dtatulea-c5.nvidia.com
+Suggested-by: Dragos Tatulea <dtatulea@nvidia.com>
+Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
 Cc: stable@vger.kernel.org
-Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Link: https://msgid.link/f44447354f28c295e79a025bbcab7a4e@gmail.com
-Signed-off-by: Rong Zhang <i@rong.moe>
----
-Changes in v4:
-- Drop get_device()/put_device() and try_module_get()/module_put()
-  completely, as they are needless now (thanks Dmitry Torokhov)
----
- drivers/hid/hid-haptic.c | 25 -------------------------
- 1 file changed, 25 deletions(-)
+Signed-off-by: Jiabin Deng <dengjiabin2023@gmail.com>
+Link: https://patch.msgid.link/20261110035723.26587-1-dengjiabin2023@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
-index b7fadfbddc4c..c675e14f06e1 100644
---- a/drivers/hid/hid-haptic.c
-+++ b/drivers/hid/hid-haptic.c
-@@ -380,12 +380,8 @@ static int hid_haptic_erase(struct input_dev *dev, int effect_id)
- static void hid_haptic_destroy(struct ff_device *ff)
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/params.c b/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
+index 5caf7820a136..159f79302a08 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
+@@ -911,10 +911,11 @@ static void mlx5e_build_rx_cq_param(struct mlx5_core_dev *mdev,
+ 
+ static u8 rq_end_pad_mode(struct mlx5_core_dev *mdev, struct mlx5e_params *params)
  {
- 	struct hid_haptic_device *haptic = ff->private;
--	struct hid_device *hdev = haptic->hdev;
- 	int r;
+-	bool lro_en = params->packet_merge.type == MLX5E_PACKET_MERGE_LRO;
++	bool no_pad = params->packet_merge.type == MLX5E_PACKET_MERGE_LRO ||
++		      params->packet_merge.type == MLX5E_PACKET_MERGE_SHAMPO;
+ 	bool ro = MLX5_CAP_GEN(mdev, relaxed_ordering_write);
  
--	if (hdev)
--		put_device(&hdev->dev);
--
- 	kfree(haptic->stop_effect.report_buf);
- 	haptic->stop_effect.report_buf = NULL;
- 
-@@ -404,8 +400,6 @@ static void hid_haptic_destroy(struct ff_device *ff)
- 
- 	kfree(haptic->hid_usage_map);
- 	haptic->hid_usage_map = NULL;
--
--	module_put(THIS_MODULE);
+-	return ro && lro_en ?
++	return ro && no_pad ?
+ 		MLX5_WQ_END_PAD_MODE_NONE : MLX5_WQ_END_PAD_MODE_ALIGN;
  }
  
- int hid_haptic_init(struct hid_device *hdev,
-@@ -419,8 +413,6 @@ int hid_haptic_init(struct hid_device *hdev,
- 	};
- 	const char *prefix = "hid-haptic";
- 	char *name;
--	int (*flush)(struct input_dev *dev, struct file *file);
--	int (*event)(struct input_dev *dev, unsigned int type, unsigned int code, int value);
- 
- 	haptic->hdev = hdev;
- 	haptic->max_waveform_id = max(2u, haptic->max_waveform_id);
-@@ -499,8 +491,6 @@ int hid_haptic_init(struct hid_device *hdev,
- 
- 	input_set_capability(dev, EV_FF, FF_HAPTIC);
- 
--	flush = dev->flush;
--	event = dev->event;
- 	ret = input_ff_create(dev, FF_MAX_EFFECTS);
- 	if (ret) {
- 		dev_err(&hdev->dev, "Failed to create ff device.\n");
-@@ -513,23 +503,8 @@ int hid_haptic_init(struct hid_device *hdev,
- 	ff->playback = hid_haptic_playback;
- 	ff->erase = hid_haptic_erase;
- 	ff->destroy = hid_haptic_destroy;
--	if (!try_module_get(THIS_MODULE)) {
--		dev_err(&hdev->dev, "Failed to increase module count.\n");
--		goto input_free;
--	}
--	if (!get_device(&hdev->dev)) {
--		dev_err(&hdev->dev, "Failed to get hdev device.\n");
--		module_put(THIS_MODULE);
--		goto input_free;
--	}
- 	return 0;
- 
--input_free:
--	input_ff_destroy(dev);
--	/* Restore dev flush and event */
--	dev->flush = flush;
--	dev->event = event;
--	return ret;
- stop_buffer_free:
- 	kfree(haptic->stop_effect.report_buf);
- 	haptic->stop_effect.report_buf = NULL;
-
--- 
-2.55.0
 
