@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795503323;
-	b=fr+QAxBdnZuIbQ+V7fL1cLX/d0Ps1KGbuS/Ohhio8HpoY0Isw5dQFvees/yrpsHsTUW4
-	 grPa3tXAWcRZwXSZs8WUPf8qt7zHpvXwzPslKhM4UbNgCqlTlyvDZahuS5/t9r5LTU0wm
-	 AfBRT8ZF0M8+OSw9YuHL5+ZZXq8o3Lk2NoJueE78ouQxOMeQ5LB5yeFH278Alj5kFn2h+
-	 gCBVa/JIit7Emfmfh2q4elseBHYsHLgt52385+RqIGQDQNjLBdZ5yv61pB7/dnqA2zfzh
-	 m+DsmIuRMfs4MNhX57U/o6Nmi6UCePBYFaJzjHI4EFiNRx8Vs90xQ9LSKL9NihA3pYA==
+	t=1795503688;
+	b=nJV1M0ZgM+bn8DAwAVnsV2VUJfrS6VlivF7fZP2IeRFM1Ph9SUEFc9J6LZEiXZctZzQx
+	 xGMg1CfDrlA7nMK/CEHACroE+G6uHJ5GHIIs1NqxcGvEWCUcYRGBIBSox9ZFj5HDVgdG5
+	 Mfn/DN3NtTy11p9tHFUs7YJM1sqad3LOgsgEpbYPVvxEr3i6o2JB2OZTU2hyBw/Pue4xj
+	 t9vK5iac7DDOcYVKwIMjEdXo/APwxC6UotBeOw8E6ckyObNyTLNSq/9PHkmuRv9iQKGkf
+	 QpV/+/xGpt9yWWaDXNrB767yi+zQL9Gc7l1kGTjROXncTBhY318KkMuZOUea++5lTeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795503323;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795503688;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=TgMg8cnKeGaOn1fh1GwgmxkFpMpIpPJnVBjPPAyDeV4=;
-	b=EbwkjCyqOTtKy0UJQWLmuMZ0m8T979kWnhn/rmfGEf6fD6UK8IAdDkk/A8Qt5j1vlLUA
-	 nO5y0xU3odt+QwG/93Kl5nM+zEkF60KZ8j2rbiDkgErpj7iXvLQFLFvr0c8yr6BOwg07G
-	 P3KVMhK/vEBg7H+MDJSPFa5yZzB81Wu+SY48/aHLcYSRfe0tk05Hg8Z09oFSPAOs0bsfD
-	 cjSU+GM/HdEJV8TzvZnddlMr2qJsm8J6LdGHrj3M1aeEkCV87Yu2eU9j3zieZmjVTzVK0
-	 3vrrRP95cB6rPzZVeOfSVkVgyYyA8AB0d3G6YbYYVyURBkBQx+xnEya7eZW0UWmcPBA==
+	bh=E/+uN0FVh/Zngjaw7BuQLway1eJuoVshOm3+K4xRT+Q=;
+	b=DMzM/CyuwuaZ30umTdUqDjwZGFYpfqSGv31xgWsCtX8CgFNfq5ktac4GqmZyPSYdk+LE
+	 OYCbRzJYE3ZfIKespTMRsCBZZflJntw+bnm8oVmwuBT7XF1jJtSgyOTg2BZp0AUVkY9Q/
+	 tPVuL8Z3TaStOSU6AwUhnctjpJSasRhiFI+eWj3HRyoj0hCtW4+73KdVUiS/OO0nqlpB4
+	 US+MxpYjztO3y9cjnk8NR+DR/j1cAunNEe/1NYBWxUeeXA8W281J4IlUnnWbQCDOeQ3Y9
+	 nHF+sLiUuOVKsTNgsw8UWZwudus36oEM69/v1ND1VSjOGJLYZ0jBKDUiP4hjVcHpCsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqH+Z9Jh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BYT2e97e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB578606A327;
-	Tue, 24 Nov 2026 06:55:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF25606A31E;
+	Tue, 24 Nov 2026 07:01:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqH+Z9Jh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048251F000C6;
-	Tue, 24 Nov 2026 06:55:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BYT2e97e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 663EE1F000C0;
+	Tue, 24 Nov 2026 07:01:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795503322;
-	bh=TgMg8cnKeGaOn1fh1GwgmxkFpMpIpPJnVBjPPAyDeV4=;
+	s=k20260515; t=1795503688;
+	bh=E/+uN0FVh/Zngjaw7BuQLway1eJuoVshOm3+K4xRT+Q=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lqH+Z9JhrLkNuswKiOV3R+y4DNBmImUp/NHnyP7CrYx0LY+PLwPNQpb+CPMt6e1KS
-	 NB2brULf1cVw9zXR2DzuqJzrZPZDBtrJrIZzdj8ndEagseHmPa0Pk706n3nNQgS9F2
-	 sNAfOO5QjbbaKms8t6eqyldkcuqiZUaE0zurQmj+1fUeHDVF9rbE/qQteK4W1/u4VM
-	 tVq4gCPscfxZ91M+/EzYOj/bo/511KMteFmKLjd1tgE4SBTd0iqCrwjStKxSD70jJL
-	 FPwO3UiLx3d52UtPrHjOr0MqvG3OgHIJFWtixUOaUn8mHYjZM7PGqpwBqLmjEum1NK
-	 ogWB8B//8wVNw==
-Subject: Re: [PATCH v3 2/2] nfc: preserve NCI data status error codes
+	b=BYT2e97e1KNX30veFsfEvAzH+X6iZtaCu//FRhvw+HkZsrY7C2ED4SqQ/AOvM30Lz
+	 1/HaGs5lCYUZhddDPiC6x2QpAt0ZivzaNE7YPI7lDOzgJUAT2/gjJDu2ppxOibjEyu
+	 r2rT3jJ+FdNpVrys6cJLlEzxO6hrWwYBht7p/xnJIaHvwZQAADgoJna/FsD/JtCl0E
+	 szzIWaejrluhjAJbAqpyN/Y+napP30AVfxY7j6Z0yl0IP7uIA/ZxOfcwGEWg9bCM95
+	 lug86nGQgk71Y3VG/uWRnWNf1kg2LfQ1kXKtnGC4tANwCUjncU69+G3kZ41+cwsJwv
+	 u+SOZm0VTQLBA==
+Subject:
+ Re: [PATCH net] ipv6: route: fix use-after-free in ip6_confirm_neigh()
 From: netdev-bot+sashiko@kernel.org
-To: luob87709@gmail.com
-Cc: oe-linux-nfc@lists.linux.dev, johan@kernel.org, david@ixit.cz,
- kuba@kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 24 Nov 2026 06:55:21 +0000
-Message-ID: <179550332158.3135.4466298540445819272@kernel.org>
-In-Reply-To: <20261123063310.1267-3-luob87709@gmail.com>
-References: <20261123063310.1267-3-luob87709@gmail.com>
-X-sashiko-severity: Low
+To: n0ps1edzz@gmail.com
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, hangbin.liu@linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Tue, 24 Nov 2026 07:01:26 +0000
+Message-ID: <179550368695.3135.12579094604954175182@kernel.org>
+In-Reply-To: <20261123133000.1.n0ps1edzz@gmail.com>
+References: <20261123133000.1.n0ps1edzz@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -62,65 +65,202 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 1 (2) · Medium: 0 · Low: 0
 
-- [Low] The commit message leaves out the user-visible effect of the bug,
-  even though the patch is tagged Cc: stable.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The RCU protection this patch adds to ip6_confirm_neigh() does
+  not cover the uncached-route flush, which is one of the two teardown…
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the IPv4
+  sibling callback ipv4_confirm_neigh() (net/ipv4/route.c:441-457) has…
+- [High] This problem wasn't introduced by this patch, but
+  ip6_dst_neigh_lookup(), the IPv6 dst_ops->neigh_lookup callback in the…
 
 --
 
-nfc: preserve NCI data status error codes
+ipv6: route: fix use-after-free in ip6_confirm_neigh()
 
-This commit changes the status parameter of nci_add_rx_data_frag() from
-__u8 to int. The negative errno returned by nci_to_errno() then reaches
-the data exchange completion path without being truncated.
+This commit takes rcu_read_lock() in ip6_confirm_neigh(), loads the device
+with dst_dev_rcu() and holds the section through the dev->flags test and
+__ipv6_confirm_neigh(). It is meant to stop a use-after-free when route
+teardown swaps dst->dev to blackhole_netdev and the old net_device is freed.
+That race is reached from rawv6_sendmsg() and udpv6_sendmsg() with
+MSG_CONFIRM|MSG_PROBE.
 
-> nci_to_errno() returns negative errno values for nonzero data-status
-> bytes. Passing that value to nci_add_rx_data_frag() through a __u8
-> parameter truncates the errno and changes it to an unrelated positive
-> value before the completion callback receives it.
+> diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+> index 1b2dcc066e198..6bdd4423ce784 100644
+> --- a/net/ipv6/route.c
+> +++ b/net/ipv6/route.c
+> @@ -257,16 +257,21 @@ static struct neighbour *ip6_dst_neigh_lookup(const struct dst_entry *dst,
+>  static void ip6_confirm_neigh(const struct dst_entry *dst, const void *daddr)
+>  {
+>  	const struct rt6_info *rt = dst_rt6_info(dst);
+> -	struct net_device *dev = dst_dev(dst);
+> +	struct net_device *dev;
+> +
+> +	rcu_read_lock();
+> +	dev = dst_dev_rcu(dst);
 
-[Severity: Low]
-This isn't a bug in the code change. Since the patch is tagged for stable,
-though, could the commit message say what userspace actually sees?
+[Severity: High]
+Does this RCU section cover the uncached-route flush that the commit
+message names as one of the two teardown paths?
 
-For frame-interface targets, nci_rx_data_packet() makes this call:
+Since commit f12d2907992db7 ("ipv6: Batch rt6_uncached_list_flush_dev() in
+netdev_run_todo()."), rt6_uncached_list_flush_dev(dev) returns early when
+dev->dismantle is set. During unregister, the pointer swap now happens
+from netdev_run_todo(), after that function's only rcu_barrier():
 
-    nci_add_rx_data_frag(ndev, skb, pbf, conn_id, nci_to_errno(status));
+net/core/dev.c:netdev_run_todo() {
+    ...
+	if (!list_empty(&list))
+		rcu_barrier();
+    ...
+	if (!list_empty(&list)) {
+		rt_flush_dev(NULL);
+		rt6_uncached_list_flush_dev(NULL);
+	}
 
-With the old __u8 parameter, -EPROTO (-71) became 185 and -ETIMEDOUT (-110)
-became 146.
+	cnt = 0;
+	while (!list_empty(&list)) {
+		...
+		dev = netdev_wait_allrefs_any(&list);
+		...
+		kobject_put(&dev->dev.kobj);
+    ...
+}
 
-On raw NFC sockets, that positive err takes this path:
+rt6_uncached_list_flush_dev(NULL) does:
 
-    nci_data_exchange_complete()
-      rawsock_data_exchange_complete()
-        rawsock_report_error()
+	rcu_assign_pointer(rt->dst.dev_rcu, blackhole_netdev);
+	netdev_ref_replace(rt_dev, blackhole_netdev,
+			   &rt->dst.dev_tracker,
+			   GFP_ATOMIC);
 
-rawsock_report_error() then does this:
+netdev_wait_allrefs_any() returns as soon as netdev_refcnt_read(dev) == 1.
+kobject_put() then reaches netdev_release(), which frees the device right
+away:
 
-    sk->sk_err = -err;
+	/* no need to wait for rcu grace period:
+	 * device is dead and about to be freed.
+	 */
+	kfree(rcu_access_pointer(dev->ifalias));
+	kvfree(dev);
 
-As a result, sk_err ends up negative (-185).
+free_netdev() only reaches synchronize_net() through netdev_napi_exit()
+when the device has NAPI instances. Dummy devices have none.
 
-In __skb_try_recv_datagram(), sock_error() returns -sk_err, which is +185.
-__skb_recv_datagram() stops retrying because the value is not -EAGAIN.
-rawsock_recvmsg() then returns the value unchanged:
+As far as I can tell, nothing between the swap and the free waits for
+current RCU readers. Can a task that loaded the old device here with
+dst_dev_rcu() just before the swap still read dev->flags, or dev_net(dev)
+in __ipv6_neigh_lookup_noref(), after the device has been freed?
 
-    skb = skb_recv_datagram(sk, flags, &rc);
-    if (!skb)
-        return rc;
+User space can get such a dst. rawv6_sendmsg() sets FLOWI_FLAG_KNOWN_NH for
+hdrincl sockets, and ip6_pol_route() then puts the route on
+rt6_uncached_list. MSG_CONFIRM|MSG_PROBE then reaches dst_confirm_neigh().
+This is the same rawv6_sendmsg() path as in the KASAN report.
 
-So before this patch, recvmsg() returns 185 and copies nothing, instead
-of returning an error. With the patch applied it returns -EPROTO.
+The dst_dev_put() path looks covered, because the NETDEV_UNREGISTER
+notifiers are followed by synchronize_net() in
+unregister_netdevice_many_notify().
 
-Would it help stable reviewers to add a sentence like this? "For example,
-for raw NFC sockets this sets a negative sk_err, so recvmsg() returns a
-bogus positive byte count with no data instead of an error."
+Would netdev_run_todo() need a synchronize_net() or synchronize_rcu() after
+the rt_flush_dev(NULL)/rt6_uncached_list_flush_dev(NULL) batch, before the
+device can be freed, to close the uncached-flush case?
+
+>  
+>  	daddr = choose_neigh_daddr(rt6_nexthop(rt, &in6addr_any), NULL, daddr);
+>  	if (!daddr)
+> -		return;
+> +		goto out;
+>  	if (dev->flags & (IFF_NOARP | IFF_LOOPBACK))
+> -		return;
+> +		goto out;
+>  	if (ipv6_addr_is_multicast((const struct in6_addr *)daddr))
+> -		return;
+> +		goto out;
+>  	__ipv6_confirm_neigh(dev, daddr);
+> +out:
+> +	rcu_read_unlock();
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the IPv4 callback
+ipv4_confirm_neigh() in net/ipv4/route.c have the same use-after-free?
+
+net/ipv4/route.c:ipv4_confirm_neigh() {
+	const struct rtable *rt = container_of(dst, struct rtable, dst);
+	struct net_device *dev = dst_dev(dst);
+	...
+	} else if (IS_ENABLED(CONFIG_IPV6) && rt->rt_gw_family == AF_INET6) {
+		return __ipv6_confirm_neigh(dev, &rt->rt_gw6);
+	...
+	__ipv4_confirm_neigh(dev, *(__force u32 *)pkey);
+}
+
+The device is loaded with a plain dst_dev() outside RCU.
+__ipv4_confirm_neigh() and __ipv6_confirm_neigh() only take
+rcu_read_lock() after that load. They then dereference the pointer:
+dev_net(dev) and dev->flags in __ipv4_neigh_lookup_noref(), or
+dev_net(dev) in __ipv6_neigh_lookup_noref().
+
+IPv4 teardown drops the dst's device reference in the same way.
+rt_flush_dev() does rcu_assign_pointer(rt->dst.dev_rcu, blackhole_netdev)
+and then netdev_ref_replace(). During unregister this runs from
+netdev_run_todo() through rt_flush_dev(NULL).
+
+udp_sendmsg(), raw_sendmsg() and ping_v4_sendmsg() all reach
+dst_confirm_neigh() with MSG_CONFIRM|MSG_PROBE. None of them holds RCU or a
+device reference, and the UDP path needs no privilege.
+
+The neighbouring ipv4_dst_neigh_lookup() already uses rcu_read_lock() with
+dst_dev_rcu(). Should ipv4_confirm_neigh() be converted the same way? It
+would also depend on the missing grace period in netdev_run_todo()
+described above.
+
+[Severity: High]
+This is a pre-existing issue, but ip6_dst_neigh_lookup(), just above this
+hunk, still uses the unpinned load that this patch removes from
+ip6_confirm_neigh():
+
+net/ipv6/route.c:ip6_dst_neigh_lookup() {
+	const struct rt6_info *rt = dst_rt6_info(dst);
+
+	return __ip6_dst_neigh_lookup(rt6_nexthop(rt, &in6addr_any),
+				      dst_dev(dst), skb, daddr);
+}
+
+__ip6_dst_neigh_lookup() calls __ipv6_neigh_lookup(dev, daddr), which only
+takes rcu_read_lock() after the pointer was loaded. On a cache miss it
+calls ipv6_neigh_create(dev, daddr), which leads to ___neigh_create():
+
+net/core/neighbour.c:___neigh_create() {
+    ...
+	n->dev = dev;
+	netdev_hold(dev, &n->dev_tracker, GFP_ATOMIC);
+    ...
+}
+
+After that it calls dev->netdev_ops->ndo_neigh_construct.
+
+Suppose dst_dev_put() or the uncached-route flush moves the dst to
+blackhole_netdev, and the old device is freed between the load and these
+uses. Could netdev_hold() then increment a refcount in a freed net_device?
+
+Some callers get here holding only a dst reference. For example,
+irdma_addr_resolve_neigh_ipv6() in drivers/infiniband/hw/irdma/cm.c calls
+dst_neigh_lookup() after ip6_route_output() without rcu_read_lock().
+
+The IPv4 counterpart ipv4_dst_neigh_lookup() already holds rcu_read_lock()
+around dst_dev_rcu() and the lookup/create.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261123063310.1267-1-luob87709%40gmail.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261123133000.1.n0ps1edzz%40gmail.com
