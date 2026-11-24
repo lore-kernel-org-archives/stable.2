@@ -1,67 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795542659;
-	b=nf7JIYk8pjfpVeuR+uspsBVgZSg/O43coAf56VFyaGeCjjqFWJSLuhc8XQ9DknlH323F
-	 1evg5miVuZLxhsQOBokNjwTLY9Gde7EhPb43ude/ZDCx84k/gJRcieHTPkZMbkSPtmbNV
-	 Ke+iChIWEvo4DYv1WV/6n7IRddsVCSK8tZP1tvoUPawAi2e/ouMglLFzDfy5BlVHFfMCZ
-	 /NQ84GV0sZUaZRNoIog43Srr7qvTzKydcWjYAgDg+uP7NkW/QhHgwztGfeIqeTSyNnc9C
-	 KKudIe4e03G5bDPfRsgTRFwtf/1LxdNV1AU1fVYMbZJlOO3xB6q9ct7ZFq7D5wmNsZQ==
+	t=1795542693;
+	b=bq94/tTp/vgtHnYYxoJYj9cJZQau4tq6GBkS/shleRglt21jUszcM2aPpX99ZV0W7z+O
+	 3MJH3FabGF6mrvIcVNwwNtFJV8iQAs8IWxH/IVsvXedl+LBZCCYrKhiYEeV6d+gbK8L+T
+	 JQXHmwb1Z74pz0Pb3wMPgfsaNwJpC3agOdswyylzpMTgR9AU3gPH0an+8yka3Bu7aCpe6
+	 d9yInmhzEiGxh6D6EkPdtb6/MRLLnxSk/0VfyIzsOlazYaF8NEI9bSV5beFI/coVOeb8+
+	 daMfECnmDT80NpnTE8aDxcNRGAkrnNbfB5PahNexzOA6a5chfQtt+7cHX0vFX3V+AAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795542659;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795542693;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0umf8O3DjQrzppFewFNsXqOGF86wKTW4LdEpoqux2L0=;
-	b=iGopnjG6M2zj5s1nJu1Meh7BgYYKfGSW5dRfIysehDgQxlBM5ueS/Mhq4lW4FG47J9J2
-	 PwwzhHozOiFuLJFMywbUzZER87sCaMpEoieRcfrnGr77zD0O49JbLBie0zFUaIofJDO0F
-	 gYSdUglin24SbwfMTuEsTj1nh5JvvaoTMFkWNuzklyHp4XPBNyPBeXdU6zj9HYre7Vxus
-	 QTrImAy/c1TTUAgu6V4r/lAm3TYEqB80lSLvuT+b+4JXr4FL83aLO2o9AiCnu5odLtmS5
-	 VuP+DCLbqJuO1CR01fIK2oOmu0UJIww7qongh71cP1MoNwIg6ZeKy4eZXFkhaGkMJBw==
+	bh=SkbRJ3BICaStaQpwyrBwVvkQ+2k3l99JSuWqhVYJ7js=;
+	b=1JSHeF87eVeDzv9vYTU3/HmnsN+YvCy+se9uBgkhQtjPze17zm13mzbIMgBzXyUX09ii
+	 0uLGw4SLC6zj2BThz03KAXjMVwYpu9phfa/5eptZSpdEgRkEz+4XZqG91zYbFBFiavdyT
+	 b2REA/MewWvL8x/uuOa8BK/S55JlygEgHk5SGiGYzlaRRu/XEgdw/XZmNWiRrWYCCiNdG
+	 QWS1NwDqRqIOyvcYgA0bqoMBFXrscsdBYRwsnOLdROBaDzehR1aYzAZ17HE0PCmdXbtEG
+	 mYMQbZyiSOrvViPLAhVbN8uYTLNZbI1H2Q1IdtjAhMBfFliJj+jzZXEss4FHmr/qRcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qj0FY0HE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K0VKDCfv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6D2E1606A31E;
-	Tue, 24 Nov 2026 17:50:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C61A606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:51:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qj0FY0HE
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 21CCD1F000CA;
-	Tue, 24 Nov 2026 17:50:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K0VKDCfv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCB9D1F000C4;
+	Tue, 24 Nov 2026 17:51:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795542658;
-	bh=0umf8O3DjQrzppFewFNsXqOGF86wKTW4LdEpoqux2L0=;
+	s=k20260515; t=1795542693;
+	bh=SkbRJ3BICaStaQpwyrBwVvkQ+2k3l99JSuWqhVYJ7js=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qj0FY0HElTl2tk/8v876CoTCb1kQjrWkDGpktqCeRe4TbMjgF/AbkO4AkV8bo0DBI
-	 FAXjEU7y99mfursvL3TaWNnHALnVHnmV74+LT3kJA6zbEdWMkAAiYSROU+BD5rJnQW
-	 9/5VvcDf8MtA/9WMJaveUnu8WUXJoSit6QkGl+8GOM3fCSIJhFmacpT/mLx0ebNWQy
-	 x4wJ8TOMuB8CPs0YTyDC8/vrMhbXnUYVfRvDbWA2BtEf1yPjqUFlqGSc+wnee9tAS1
-	 oZxjxtFMAr46OB0/bFedKd6CEczT7Vi0zBEzpMPO7GPnRkTxMPCHhvv5LlhXycjlcm
-	 lcppO/hoPbmrA==
-Date: Tue, 24 Nov 2026 19:50:55 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Florian Bauckholt <florian.bauckholt@cispa.de>
-Cc: Rodolfo Giometti <giometti@enneenne.com>,
-	David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>,
-	Ignat Korchagin <ignat@linux.win>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, Hui Peng <benquike@gmail.com>,
-	Stefan Berger <stefanb@linux.ibm.com>, keyrings@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Guicai Ma <maguicai@kylinos.cn>
-Subject: Re: [PATCH v2 1/2] KEYS: fix signature length passed to
- KEYCTL_PKEY_VERIFY
-Message-ID: <awXOfwPQUxO2L1M2@kernel.org>
-References: <20261119-keyctl-pkey-fixes-v2-0-9e2d1c7db7ec@cispa.de>
- <20261119-keyctl-pkey-fixes-v2-1-9e2d1c7db7ec@cispa.de>
- <80ded1ae-51a7-46d1-bb67-02b4b06de71b@enneenne.com>
- <av7x53CigERu-cf2@kernel.org>
- <5d833d4c-bf8b-4ffb-a214-126de4403d4e@cispa.de>
- <awXK5NCHf82v7yaj@kernel.org>
+	b=K0VKDCfvlDIfrnTyVFYmLMBRLCc0IoK9boz/D+vjMKZgAXHqUDOf44RmzhrWQf08d
+	 wiFBnIgPICA4wyb+azfEtvl7xtkuQsb2fVS98+wqcMmtpY2mYYyhtV1XkG8fd4JfSV
+	 U4zCZIWU9UIpwqon/qarS/CmT8ibKD6FBy+OmolAWRm2avKRK5NGwyefuB4XFDSiIC
+	 F9t6GnPPdhuCCIhLEzzTpFkSTXHLG8IZOXVEZgZyBkPlJ2NDHqn/Ds3ek6WVZYZOBU
+	 UxplVAlrajs5RBpqUj2HKnyVew82BHCOqBsplM3RhlnqKcTBEgI5WZDpyfolhwwt9q
+	 IWsUxu2wW7O5A==
+Date: Tue, 24 Nov 2026 17:51:26 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Brad Hawthorne <brad@sim.vu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org, Hajime Tazaki <thehajime@gmail.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/nommu: keep the maple tree in step when mremap()
+ resizes in place
+Message-ID: <awXMCqK5H2TOlvtf@gremlin>
+References: <20261121083139.803682-1-brad@sim.vu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,38 +63,203 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <awXK5NCHf82v7yaj@kernel.org>
+In-Reply-To: <20261121083139.803682-1-brad@sim.vu>
 
-On Tue, Nov 24, 2026 at 07:35:37PM +0200, Jarkko Sakkinen wrote:
-> On Tue, Nov 24, 2026 at 04:54:15PM +0100, Florian Bauckholt wrote:
-> > On 11/19/26 13:56, Jarkko Sakkinen wrote:
-> > > Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-> > 
-> > Hi,
-> > 
-> > I saw that for-next-keys now has 94cd21592349 ("KEYS: Fix asym key
-> > overflow in keyctl_pkey_verify()") with the same (trivial) patch.
-> > I'm not sure how this goes, but if you'd like to add some context, a
-> > link to this thread and these tags can probably be moved over:
-> > 
-> > https://lore.kernel.org/all/20261119-keyctl-pkey-fixes-v2-1-9e2d1c7db7ec@cispa.de/
-> > 
-> >   Tested-by: Stefan Berger <stefanb@linux.ibm.com>
-> >   Reviewed-by: Guicai Ma <maguicai@kylinos.cn>
-> >   Tested-by: Guicai Ma <maguicai@kylinos.cn>
-> >   Tested-by: Rodolfo Giometti <giometti@enneenne.com>
-> > 
-> > Thanks,
-> > Florian
-> 
-> OK, so I pulled that by mistake as I was picking patch for keys 
-> 1/2; not asymmetric keys.
-> 
-> I'll drop it.
+On Sat, Nov 21, 2026 at 02:31:39AM -0600, Brad Hawthorne wrote:
+> On !MMU, do_mremap() resizes a VMA by writing vma->vm_end and nothing
+> else, so mm->mm_mt keeps the old extent.
+>
+> After a shrink, [new_end, old_end) in the tree still points at the VMA.
+> When the VMA is unmapped, delete_vma_from_mm() clears only
+> [vm_start, vm_end), so that range survives and points at the freed
+> vm_area_struct. Lookups in the range then read freed memory (after the
+> munmap(), /proc/self/maps still lists it), and exit_mmap() frees the
+> VMA a second time. An unprivileged process is enough:
+>
+> 	long pg = sysconf(_SC_PAGESIZE);
+> 	char *p = mmap(NULL, 8 * pg, PROT_READ | PROT_WRITE,
+> 		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>
+> 	mremap(p, 8 * pg, 4 * pg, 0);
+> 	munmap(p, 4 * pg);
+> 	_exit(0);
+>
+> It was first seen on an Adafruit Fruit Jam board (RP2350, Cortex-M33)
+> running 7.3.1. There, three rounds of the program's mmap, mremap and
+> munmap leave the process's vsize at 2133 KB instead of 64 KB, and the
+> next exec faults the kernel, in vm_area_alloc() or __kernel_read()
+> under do_mmap(): the double free has corrupted the slab. With this
+> patch on the same kernel, 11 of 11 runs keep the vsize at 64 KB and
+> the board runs on.
+>
+> On mm-unstable at the base commit below, under QEMU mps2-an385
+> (mps2_defconfig plus SLUB_DEBUG_ON), run as uid 65534:
+>
+>   BUG vm_area_struct (Not tainted): Object already free
+>   Allocated in vm_area_alloc+0x10/0x38 age=0 cpu=0 pid=20
+>   Freed in do_munmap+0x2ec/0x2fc age=0 cpu=0 pid=20
+>    kmem_cache_free from exit_mmap+0x7c/0x8c
+>    exit_mmap from mmput+0x2a/0x74
+>    mmput from do_exit+0x1f8/0x520
+>
+> Clear the range given up on a shrink. Once a shrink clears it, a later
+> grow back into the region must store the VMA over its new extent, or
+> find_vma() would miss addresses that are mapped; so store it there on a
+> grow. Shared and overlay mappings are refused above, so the region is
+> this VMA's alone, and the grow is bounded by its size; but the range a
+> shrink gave up may since have been mapped again, by a direct mapping of
+> device memory at those addresses, so a grow into another mapping fails
+> with -ENOMEM. As before, a shrink keeps the region's pages, which is
+> what lets a grow back reuse them.
+>
+> With this patch the program above exits cleanly, with and without
+> DEBUG_VM_MAPLE_TREE (nommu has no tree validation of its own, so that
+> adds only the store's warnings). A shrink, grow and partial munmap()
+> sequence also passes, and fails with the shrink half alone, which is
+> why the grow half is needed.
+>
+> 524e00b36e8c is where nommu find_vma() started trusting the maple tree;
+> the exit_mmap() double free above follows from 8220543df148 ("nommu:
+> remove uses of VMA linked list") in the same v6.1 series.
+>
+> Not changed here: a private file mapping's place in the file's i_mmap
+> tree also goes stale on a resize. That predates the maple tree and is
+> left to a separate patch.
+>
+> Sashiko's review of Hajime Tazaki's nommu series found the stale range
+> in July, and his fixes and RFC since then cover it [1][2]; review asked
+> for a minimal fix-only patch with a Fixes: tag [3]. This is a minimal
+> version of that fix.
+>
+> The consequence was reproduced and this patch drafted with an AI coding
+> assistant (Claude, Anthropic): it reviewed mm/nommu.c, wrote the
+> reproducer and ran the board and QEMU tests; I checked the result.
+> Stable backports need adjusting: 6.6.y and 6.12.y lack
+> vma_iter_store_overwrite(), and 6.1.y nommu uses the ma_state API.
 
-I'm confused. The patch set had fixes for to separate subsystems
-so I picked the one that I should.
+Thanks for acking the AI, but this commit message is unreadable slop, sorry.
 
-I assume it will be picked by someone. If not send a new patch.
+I just can't gather the energy to try to decode something this dense.
 
-Br, Jarkko
+
+>
+> Link: https://lore.kernel.org/linux-mm/20260710021028.892645-1-thehajime@gmail.com/ [1]
+> Link: https://lore.kernel.org/linux-mm/20260813063401.1786548-2-thehajime@gmail.com/ [2]
+> Link: https://lore.kernel.org/linux-mm/an77pELeQdW-sTEi@lucifer/ [3]
+> Fixes: 524e00b36e8c ("mm: remove rb tree.")
+> Cc: Hajime Tazaki <thehajime@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Brad Hawthorne <brad@sim.vu>
+> ---
+> Hajime, as you asked, here it is as a separate patch with you on Cc.
+> Earlier note, and his reply: https://lore.kernel.org/linux-mm/20261120221021.789792-1-brad@sim.vu/
+>
+>  mm/nommu.c | 34 ++++++++++++++++++++++++++++++++--
+>  1 file changed, 32 insertions(+), 2 deletions(-)
+>
+> diff --git a/mm/nommu.c b/mm/nommu.c
+> index df99495c8..9221cd241 100644
+> --- a/mm/nommu.c
+> +++ b/mm/nommu.c
+> @@ -1575,6 +1575,7 @@ static unsigned long do_mremap(unsigned long addr,
+>  			unsigned long flags, unsigned long new_addr)
+>  {
+>  	struct vm_area_struct *vma;
+> +	unsigned long new_end;
+>
+>  	/* insanity checks first */
+>  	old_len = PAGE_ALIGN(old_len);
+> @@ -1601,8 +1602,37 @@ static unsigned long do_mremap(unsigned long addr,
+>  	if (new_len > vma->vm_region->vm_end - vma->vm_region->vm_start)
+>  		return (unsigned long) -ENOMEM;
+>
+> -	/* all checks complete - do it */
+> -	vma->vm_end = vma->vm_start + new_len;
+> +	/*
+> +	 * All checks complete - do it.  The maple tree must cover exactly the
+> +	 * new extent: a range given up but left in the tree still maps to this
+> +	 * VMA, and once the VMA is unmapped and freed, to freed memory.
+> +	 */
+
+This is a super schloppy comment. Please just drop that.
+
+> +	new_end = vma->vm_start + new_len;
+> +	if (new_len < old_len) {
+> +		VMA_ITERATOR(vmi, vma->vm_mm, new_end);
+> +
+> +		if (vma_iter_clear_gfp(&vmi, new_end, vma->vm_end, GFP_KERNEL))
+> +			return (unsigned long) -ENOMEM;
+> +		vma->vm_end = new_end;
+> +	} else if (new_len > old_len) {
+> +		VMA_ITERATOR(vmi, vma->vm_mm, vma->vm_start);
+> +
+> +		/*
+> +		 * Shared and overlay mappings were refused above, so the
+> +		 * region is this VMA's alone and still holds its pages: the
+> +		 * grow, bounded by the region's size, stays inside it. The
+> +		 * range a shrink gave up may since have been mapped again,
+> +		 * though: a direct mapping of device memory can take any
+> +		 * address.
+> +		 */
+
+Again this comment is just horrible. I don't want to see crap like this added to
+the kernel.
+
+It's classic LLM - ridiculously dense noise that doesn't help in any way.
+
+* !shared, !overlay
+* pages belong to VMA
+* growth bound by region size, is within the region (!)
+* a range that a shrink gave up may have been remapped
+* a direct device memory mapping can take any address
+
+I mean seriously, wtf.
+
+> +		if (find_vma_intersection(vma->vm_mm, vma->vm_end, new_end))
+
+You have a VMI, but then don't use it?
+
+> +			return (unsigned long) -ENOMEM;
+
+These casts are pointless AFAICT.
+
+> +		vma_iter_config(&vmi, vma->vm_start, new_end);
+
+You literally just configured it above and now you're reconfiguring it?
+
+> +		if (vma_iter_prealloc(&vmi, vma))
+> +			return (unsigned long) -ENOMEM;
+
+Why are you preallocating?... You usually do that outside of a lock that you
+can't allocate under?
+
+> +		vma->vm_end = new_end;
+> +		vma_iter_store_overwrite(&vmi, vma);
+
+I'm seriously confused why you're updating the maple tree here like this.
+
+> +	}
+>  	return vma->vm_start;
+>  }
+>
+>
+> base-commit: d12eccbcb79a4fa35c3aa588eb79056af62eb859
+> --
+> 2.43.0
+>
+
+In general see [0] I don't think we can really look at this this cycle anyway,
+but I'm not really confident you understand this code (see [1] especially bit at
+the end).
+
+I'd really want to be convinced of that before taking a fix that gets
+backported.
+
+And I imagine this can be done with less code. I'd suggest thinking about this
+without an LLM so involved.
+
+--
+Cheers, Lorenzo
+
+[0]: https://lore.kernel.org/linux-mm/a2f584f6-e382-4876-aa6d-d5a34de6ee59@kernel.org/
+[1]: https://docs.kernel.org/process/generated-content.html
