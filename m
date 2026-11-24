@@ -1,124 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795510334;
-	b=o2xHIfCCmg5zOMuxiAxQkPJTwcEjHFRtzoAfFv4B83g3KYkppVg2/h0Kle/F7HagiJvG
-	 geFoBfLwv+mcYC+XqBbcJ+tcRGoTOPc5Pb6RpGg0t34ildZZerQ03G/gQLrlEt6eS0YzV
-	 s6kKEQBlvWuJpspAZE+3yt6OpX02dp1+W6Pnn6mGAZRY/Wt85VQ9NjKa15m3yt610gdKu
-	 ddasPqEHDWwqeS15F5+L3lFTfK/90PRWoU9A9cUWF4ut3fQkQZprHQFtwNnhtwXKi61fb
-	 uxAEIylqcDQ10xQ7+um1/nt9NHsi6ThnCr7bgh26lFh5DIJU7yN4u1oPqdk3SrAbljg==
+	t=1795510687;
+	b=ebD39gwHQE0zM3x1ql5bL/h49qXl3HpAdTQOJ+0FgAim+dltUedDZElnT5zkfHy1DteK
+	 nduM1I52ER0jnxBMFypivDv48Iw0bRUuPpBJj5h6YhLAzEToDrJIDfNVEV/wi0vwhUjAg
+	 juAgUMu4ThIxyXbj8u624Vo56LClmnENUUh0O4VDA4G7GZjfZTnM7/1ogGOEP4vkLJSno
+	 tuOrXp/KF1rqymiqRrnwQ96TdldN65A8/T3Xcp1LkQr3Ynod+UuOAXJEmzAoxymOJ6o+q
+	 YoFANN3Y6+VIWcR/J8cVr0qav5C+1CydbADGkp0fchOYLdVNvXWvtSyosGkLGKWK0vg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795510334;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=IL7ykB//MICeY8UkBsqKUeetbddAABEUJHUTtFHkJSc=;
-	b=e3GPti1c5E4nJqC94MRBnTEFobDfWIkAW44JO8H0WZfZb1A6WLaDn07tC9lc4C1oqqC8
-	 EYGdW5IAgm0zQ+TC+GZ9vwB4RDdR/utHw2Xm1lVSSTQauSkQ+3+zdMJmgDWu+Rrla9kIF
-	 Ezu1ldBq2FtHde1fIFjQJCIXF0R533Nh4Mpqtv6BFgdql4t3xNbNVzyOaQhgroGPoWOX8
-	 iqlOUKBSiYC3t26mYKuTKgjOuytAinH7Uq6Bz+Ehi4u2yL3AxPC50xWNtukHaoYCw8Ry0
-	 PaieaN4mLazokUqGhN1qM/97UiphI/fGVrLIDmMNQY8E0LVLe5xV+pjmFhdboqtP+Aw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795510687;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=76uqXxjlsjHRjkNzBtvYUvH+0OqjU/qj/joPKtF1TNo=;
+	b=sI774QVXdDqafB8XhnPsmkxc2PZ9ukELxcnnObqeJd0is4A4L264i4tT7kMuOR9ZyeHm
+	 CnY6fopYtsRwW0J+lPhrmuxxtz2cnc8B6A1+gMkE9S8c0yv7i2JitKZbQanbQA6GTJbTX
+	 Q14lwIHBGX1VCyxqKa/jJfB9TfPydtmUXDHcd2F9i0aadUvfYYOEtL76rNLvfzBt9L8AV
+	 KKGjzM69cC0qcM6gqSs+KyQzqUlvxZLfYocFkZ83kF+fmv2QoEWp5KjaIbV5GSSd1xBQw
+	 WEe7dMV5qWGf2FZCj/H7Vb9yeGwnRpYYKidUn6SIvP/rU5+11TDR9H52k4eZMyjiErg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gULAaHek;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DJBkI7Ky;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Mz3zak1W;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894FE606A322
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 08:52:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 894FE606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4257606A336;
+	Tue, 24 Nov 2026 08:58:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4257606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gULAaHek;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DJBkI7Ky
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AO8DLN72209206
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 08:52:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IL7ykB//MICeY8UkBsqKUeetbddAABEUJHUTtFHkJSc=; b=gULAaHekKgIQsjv9
-	G4FUbn8KOs70p9fRP3Z6T3j25V1tkmBhH8gLkOgJTNlifcpeNyppzllUTUDMOb3Y
-	c0hCImuX/3jtOcOHliQTtYe966wxKG2VP7QA4bLNwn+5YHeWJskWeZi5GYxCbmLt
-	IO1QQX/QN0E2Kf+okUJkOMZIBcjbBYUJc8N+s3uqSILvm87w3yAh7jWzNiPCx90v
-	8VODdoptdGiLMKqaNK2zpMVWCZtBD6A40L5/ki1tqXYXWDnZoucvF4ILB6VUACUY
-	qh43wOs0rzVfBEli7xv4ywaeJXGhfsrPK1WfMvtATAMk1GdZNY+xHn/+rzydye0v
-	j68nEg==
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4yy11rq4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 08:52:12 +0000 (GMT)
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-67c0efb7b97so2179124d50.3
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 00:52:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795510332; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Yf08UnXJg/IrpGgunZIMsbtzAO2HGefISb9SDmoBWYi0a+lRbyyHB5JFXGhzizLSJV
-         GpCZwTZ6k650MjoJrxlgHFcTlaYY32fNs7dUHMgeEWEzvHmLv98C/RrOvK6d/Ys017lF
-         vnuly8oR9RYmkJaoo31+gxnNnm2xWfz5PgvkUByGb6c6OtceejcNAZVQ9Cinj+utKT4r
-         0KAKov1DP25HKtYTnsWQYa+8G86wC2LVz/U256KkSXlIZnCTr0ixrfSNec7XgOvMddSd
-         Gu4BHf/vaSZunIEu7BblFEZHFLQ0HHFyWet3fHirakentApLEuHKg2mOTf7fnIluxksY
-         8DIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IL7ykB//MICeY8UkBsqKUeetbddAABEUJHUTtFHkJSc=;
-        fh=/OswrcVMEk+hPZB6JGssAjop/4weQAAnRbIKqgLu/mA=;
-        b=BkLrwX3jonGcM3t/yBQFZ782cqJBgGLY1a59r2PmWnhKnizm/ja9ol3Ya4ph8AhexH
-         64mDb3pwZZmpB0ztgX3Y5JtKicFFPyt6sIVStVwo40WYZl+BKsTUyEHg3dvQeQDci4Q+
-         juZA5sDrHRcNy2sOVb5DjjduHRBZjyP5Xd9duPLvquvrJOFq0IgA2cvXYHzCympL38yV
-         o6W2wUX2TBAzYPX/KLcpmoTDGskgrW5Xs8wIdvMG/oUaYN08A1H3HovuoS6UvBuv///c
-         rLpFiJevU9WOMU1Y7Z8iaII47U+/ojq46JWR4KUPNIMUMiodLmv0TMNIoWHKMq34LAxt
-         VFZg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795510332; x=1796115132; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IL7ykB//MICeY8UkBsqKUeetbddAABEUJHUTtFHkJSc=;
-        b=DJBkI7KyQYqYCIhYq1QI1/aMNkekO1BIJVTkEP/7qv9/TZ8NNpZIjd9yL5LI4RxgJW
-         kPe02xxK4XfzCg+8psdyRKpIZvdV9WZTbiVC6wgR9PQ0PAhevjGUli7Yo3Z1C2voAXE5
-         mt/tA0Ri2DBAdOpl9uBNovHd+dcvEtDqCN4/H03ty9kDfVRknA1IK3jWS3vpF7j234E1
-         mxbLSL/+tkn3XeXV6/t9nNGewf/LwSp7fcAreTVlL81kX+Z+MDpOd9sQhNgOV4mjV29i
-         zIBoRWsD3n00Q/4GUNS5sbUggIm606/sosIAOKtYVkC37psFfc+9YDH3IwM8Lvzas0jY
-         OKAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795510332; x=1796115132;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IL7ykB//MICeY8UkBsqKUeetbddAABEUJHUTtFHkJSc=;
-        b=Nlk/glZi9yMsR/VRrLBWh63Sqw/A46jgK+ylLbcMvzL9EEkk65JC+OlRVzVpjiLagY
-         syBps85T1DkZoXr+Sg7QTMea10m9lhkAr4aoe7zFaausiHPkvk22bQUfUC7zaS1FRSa1
-         SiexySEfEUzWH4xldCC2uaWFgXXHYyFjuxurxPUP4gf879oITGBO3BJ0yirEwG2IoPHU
-         TTeMYgDmLlmwl36LMwWy6tzO3p930xpRXIfOuRlQb0kpVF7OcoHxHrEAXgOX+so+JXvS
-         KxfHk30TE+S4BLULvZPMkMsxKPCVGlCQezRGKfBZEtRCpWA9b1y81m72meiSSblDNhJk
-         riGg==
-X-Forwarded-Encrypted: i=1; AL+hErH/1KMwOHwRGhdJT8hhn7vGy0n3il1L7dmbHDxWOCNSQ77inBKTOLbmJC/ehC6usIFwGzYMkm0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HAJ+ZJARz6VuxoXSGpvtAzaI0sQnKb7ytJ+KqLL/8ZT9TnjOE
-	+A92LA2GOVSj6PC7zuwHDj7rTgecROpuhTe73aUhF1LZhGNbhV9cAfvE+1RcIW8mO5vPxHTIW8k
-	8/Jdifil6soNMd1Fuc10MODdopD5gLNlHfVABISzcYmrkgfS6+OCeY1XBMwa+VCWSyaXlkbewEh
-	T28T4+Iohvk/KSGxXrpIUVTeqkx3Z55gLNxQ==
-X-Gm-Gg: AZFdTZc7JS+2Ssx9ZikdUokPe7zqyxFY4lJDfwLiIAb8+c89hpuEkxMWTQR5jBZacJC
-	DIAOCiDMcksyU1HOO6g4Vl0S4/2Tk9rOCVs8l4gafH7mlq+GIhPURZAgoNlSFWEAXVaaPR7RhgB
-	hbyABAx1j3sW2qjk0qCpz8zeyoDUfoQ2cjQNMNjyeFnI6T+YAXpibyID7ENjl06O2QUCWKB6OVn
-	O8zRYVr5p5d+d5oPzzGEOcpjrCpdbE3oUmGLJwy
-X-Received: by 2002:a05:690e:450c:10b0:67d:eb6d:7458 with SMTP id 956f58d0204a3-67df44555damr2919001d50.55.1795510331873;
-        Tue, 24 Nov 2026 00:52:11 -0800 (PST)
-X-Received: by 2002:a05:690e:450c:10b0:67d:eb6d:7458 with SMTP id
- 956f58d0204a3-67df44555damr2918995d50.55.1795510331414; Tue, 24 Nov 2026
- 00:52:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Mz3zak1W
+Received: from pengutronix.de (p20030102af17cb00d2e697ee776c6466.dip0.t-ipconnect.de [IPv6:2003:102:af17:cb00:d2e6:97ee:776c:6466])
+	(Authenticated sender: mkl@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 474742024BE;
+	Tue, 24 Nov 2026 09:58:05 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795510685;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=76uqXxjlsjHRjkNzBtvYUvH+0OqjU/qj/joPKtF1TNo=;
+	b=Mz3zak1WmUOJNiDzAQzo7oZHpYFQyFse3oZ+X035R6aX394itf+tbxF7G7NKLmYUI2FVqe
+	S/xZvDszRbBOHd2+M0qbUdZ26oAXFEkz28d8aI0omZSGYcux83Gx68ss6//ZPKku/I1ySj
+	b8fgtHuzlw0xskgxjLYOkaqjXZZDTpr+DZPSx/SmjCtJAyI3uJp1yiBBQ4RAbQVijEKKw2
+	6GIPEzHxCI4SbxZ2VjqnTycrVJhuFWpRLvTW/uAhpyaLJ0040AY1sJddqfPW2oWm03EnnW
+	1VSFwgy9DlB5UoxPheNpma6w4sdeqBG/cf6aD3hNmJ2wsMuoFJhEMqH1ocTdrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795510685;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=76uqXxjlsjHRjkNzBtvYUvH+0OqjU/qj/joPKtF1TNo=;
+	b=V2MTHbbnk08tabwbyd1ZUyNsfmtpLRdjPSfGO1vgr7PzN1IQqSuVpDPNIVal1IegHEq8Jx
+	EPd9kUggF5X8cnEri2qFknHdp5/X3Ftyic7O4lYDIijjLKA6hBU/VGNjY6KCcYap+2+/vg
+	oAWhnV987at1W4ZoUU0ID0MDsZsTpdVCEU7Er/XSlm6VZYwp9RaEvo22FfT7N6rRIkIYuS
+	Jarc7sKNhQ+UzHZwOFYtb+hXwDlkfsAx3esK/Gm5J1HMkZDZFzEmgMQ6tzFnR30+6FqGvi
+	dLIEqUDELxRscfCzC7uSrBt7Yjjk1b5fSQ0SD1DoFwzXIjYZRcUDuYuM/Ttj0Q==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=mkl@pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795510685; a=rsa-sha256;
+	cv=none;
+	b=B7gxxw21EyH9/4UPh0tfSXRoPZ58xOwRxD7vsUJ/TQ0AKs/ihP4z9wkFKtU6ipg6Vr5S+O
+	9OYtim7xIGFx+xoQAkGNDrsEkdanIQhAfxoJdaf8rWPDrQ3IjWVyxbj+z9G84wdfVK8S1D
+	2JZgLrdRD6mgFgRcKqecQkry4api1yWqTOtyiDRXKqBZ5qb1nrSZIeH4Hha4Gn0mQzJFO8
+	dLmj0vLyaIanB1rgaedWF1C7wiVODkjdv5piYfuUH5A++2swavRUYgUQfnPDtA/iz1C3LE
+	A6FPe8AQAzgZ92LTm94UXnMXG0cVSdVHnk4n7yTl/my31iSlLzh59XYXk+W5rw==
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	linux-can@vger.kernel.org,
+	kernel@pengutronix.de,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	stable@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH net 02/12] can: bcm: do not remove the procfs entry in bcm_notify()
+Date: Tue, 24 Nov 2026 09:51:29 +0100
+Message-ID: <20261124085757.1093632-3-mkl@pengutronix.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261124085757.1093632-1-mkl@pengutronix.de>
+References: <20261124085757.1093632-1-mkl@pengutronix.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,113 +95,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113-tee-shm-dma-sync-v1-1-19d4efdfb4cd@oss.qualcomm.com>
-In-Reply-To: <20261113-tee-shm-dma-sync-v1-1-19d4efdfb4cd@oss.qualcomm.com>
-From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-Date: Tue, 24 Nov 2026 09:52:00 +0100
-X-Gm-Features: Aa3M54rFHqUJNXQjemvxf-Zt82SGX1HKER8XMMPmIBzLcusnrFpbxg6otAaKEJw
-Message-ID: <CAGgiveWm-xH_SjA5QrBJx6NtQhWyQWMw2FvfSd9SfG-wghpwmw@mail.gmail.com>
-Subject: Re: [PATCH] tee: shm: sync DMA memory for the device before it is lent
-To: Tyler Baker <tyler.baker@oss.qualcomm.com>
-Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
-        Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: 5fHUu2ry9Yrg6fWjd_B3QYUcdW8kdIFx
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDAzNCBTYWx0ZWRfX+9Wb5uc2GpYc
- /iyiZpuSdMGttJVSUDhoiK0jWBm8OGVpw8FFeX77SvmW78QIIAq7FT1VHIlNDHyWuFosQBvXvDj
- E9vPuoXdPBgf1jBRn3Atv5afWQyg1R0=
-X-Authority-Analysis: v=2.4 cv=JYspPkKV c=1 sm=1 tr=0 ts=6b05503c cx=c_pps
- a=J+5FMm3BkXb42VdG8aMU9w==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=6jbKIeu7AAAA:8 a=VwQbUJbxAAAA:8 a=1XWaLZrsAAAA:8
- a=EUspDBNiAAAA:8 a=i7LB113YSaF0UBaY600A:9 a=QEXdDO2ut3YA:10
- a=Epx66wHExT0cjJnnR-oj:22 a=-0VUF4iAjVmhXKmeMUOz:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDAzNCBTYWx0ZWRfXxTRQKKvUTFaN
- PpNQ/ktDAcV9o3RGOZBOIsyI9DvW4d8vAs5qVpBuTNvLAjBI1uct6y72ehV6SEKEkvOXIDPmh9Y
- VRyLG4nGEvLpd42A9oe8R1wQLsEsGGTm9MaFZ6z6uhGkGQ8FKjHlfEqreVG+I66r1xOpohRYRPs
- WSV3yh+5k3ueznyQo8jmTRhHkvBUCsCjD9lqohyUcmDYSjujVET2L3fmF9r5/Sh99pGi04qoPyA
- BjYt0jZbyIknTBb7JvNjnMI6HSM52g7DEV6tdHpYPwVANl1yH2JG9tBeyTt+HJdWg/y5FnFngZi
- YE5KkhfJ4ki4rONrMyOt0FlTttk8vnFiOD/P6AhZ8J/tY2GW4f/7h1+25gkjPBsPxUHtJbSAUHe
- BXbCoSIagrayVTbcXbXg+qlnFWy2W5i/HvLlIuFD/zWtjoxN4lIHX4tX2HfHgVkWvJh//hJC5Iq
- XDQ/uEAME04H13zzsRw==
-X-Proofpoint-GUID: 5fHUu2ry9Yrg6fWjd_B3QYUcdW8kdIFx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-24_01,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 adultscore=0 clxscore=1015 bulkscore=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611240034
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Oliver Hartkopp <socketcan@hartkopp.net>
 
-On Fri, Nov 13, 2026 at 2:22=E2=80=AFPM Tyler Baker
-<tyler.baker@oss.qualcomm.com> wrote:
->
-> tee_shm_alloc_dma_mem() returns dma_alloc_pages() memory without the
-> dma_sync_single_for_device() that the DMA API requires before a device
-> uses it. dma_alloc_pages() zeroes the pages through the cacheable
-> linear map, so the zeroes can still be dirty in the cache when the
-> optee protected memory pool lends the pages and a Secure Data Path TA
-> writes them through its secure mapping. A later eviction of those
-> lines overwrites the TA's data.
->
-> On an Eliza EVK with OP-TEE as the FF-A SPMC, a TA decrypts into a
-> protected buffer, a read of all RAM through /proc/kcore evicts the
-> lines, and the TA's digest of the buffer no longer matches:
->
->   frame 0: 0e534d8c..., reference d98ddba1...
->
-> Sync the allocation for the device before returning it.
->
-> Fixes: ab09dd6d9201 ("tee: add tee_shm_alloc_dma_mem()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
-> ---
-> Vincent's direct-map series [1] cleans the range in
-> dma_zap_direct_map() before the lend, which also covers this when it
-> can unmap. It returns -ENODEV without any cache maintenance when there
-> is no lendable pool and the direct map cannot change (arm64 with
-> rodata=3Dnoalias or rodata=3Doff), and it is not a stable candidate.
->
-> On a dma-coherent TEE device the sync does nothing. teedev->dev is not
-> configured from firmware, so it is not coherent today.
->
-> Without the fix the TA's data is lost:
->   https://lava.infra.foundries.io/scheduler/job/554467#L2262
-> With it, the data is intact after the scan and 50 lend rounds:
->   https://lava.infra.foundries.io/scheduler/job/563840#L1979
->   https://lava.infra.foundries.io/scheduler/job/563840#L2008
->
-> [1] https://lore.kernel.org/all/20261111110738.872947-1-vdonnefort@google=
-.com/
-> ---
->  drivers/tee/tee_shm.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
-> index 5c47a36916c45..70a273a425f88 100644
-> --- a/drivers/tee/tee_shm.c
-> +++ b/drivers/tee/tee_shm.c
-> @@ -297,6 +297,9 @@ struct tee_shm *tee_shm_alloc_dma_mem(struct tee_cont=
-ext *ctx,
->         if (!page)
->                 goto err_put_teedev;
->
-> +       dma_sync_single_for_device(&teedev->dev, dma_addr,
-> +                                  page_count * PAGE_SIZE, DMA_BIDIRECTIO=
-NAL);
-> +
->         dma_mem =3D kzalloc_obj(*dma_mem);
->         if (!dma_mem)
->                 goto err_free_pages;
->
-> ---
+bcm_notify() removes the procfs entry of a CAN_BCM socket that is bound
+to a vanishing CAN device with remove_proc_entry() while holding RTNL.
+remove_proc_entry() waits for all running readers of this entry. A
+reader of /proc/net/can-bcm/<inode> that stalls in its copy to user
+space, e.g. on a FUSE backed mapping, therefore blocks RTNL on the
+unregistration or namespace change of the bound CAN device.
 
-Looks good. Sumit, do you agree?
+The entry has been removed in bcm_notify() so that a later
+bcm_connect() of the unbound socket can register it again without a
+"proc_dir_entry already registered" warning.
 
-Cheers,
-Jens
+The CAN_BCM socket itself stays usable after a NETDEV_UNREGISTER:
+bcm_notify() only unbinds it and reports ENODEV, so the application can
+connect() the socket again, e.g. to a re-created CAN device. The name
+of the procfs entry is the inode number of the socket, which does not
+change until the socket is closed.
+
+Keep the procfs entry until bcm_release() instead, which removes it
+after the socket has left the notifier list and without holding RTNL.
+bcm_connect() only creates the entry, if it does not exist yet.
+bcm_proc_show() reports an unbound socket as "unbound" instead of
+showing the cleared ifindex as "any".
+
+As bcm_proc_show() can now run while the socket is bound or unbound, it
+reads bo->ifindex locklessly with READ_ONCE() and the writers use
+WRITE_ONCE(). The NETDEV_DOWN handling in bcm_notify(), which runs
+without lock_sock(), reads bo->bound and bo->ifindex with READ_ONCE()
+as well. bo->ifindex is still only modified under lock_sock(). A
+concurrent bind or unbind may show an intermediate state in the procfs
+output, which is acceptable for this debug information.
+
+Fixes: 76fe372ccb81 ("can: bcm: Remove proc entry when dev is unregistered.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Link: https://patch.msgid.link/20261120-can-bcmlock-memcg-v7-2-f6b84f5257b1@hartkopp.net
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ net/can/bcm.c | 33 +++++++++++++++------------------
+ 1 file changed, 15 insertions(+), 18 deletions(-)
+
+diff --git a/net/can/bcm.c b/net/can/bcm.c
+index 3f4c8d828337..1595b7720c98 100644
+--- a/net/can/bcm.c
++++ b/net/can/bcm.c
+@@ -219,11 +219,16 @@ static int bcm_proc_show(struct seq_file *m, void *v)
+ 	struct net *net = m->private;
+ 	struct sock *sk = (struct sock *)pde_data(m->file->f_inode);
+ 	struct bcm_sock *bo = bcm_sk(sk);
++	int ifindex = READ_ONCE(bo->ifindex);
+ 	struct bcm_op *op;
+ 
+ 	seq_printf(m, ">>> sock inode %s", bo->procname);
+ 	seq_printf(m, " / dropped %lu", bo->dropped_usr_msgs);
+-	seq_printf(m, " / bound %s", bcm_proc_getifname(net, ifname, bo->ifindex));
++	if (READ_ONCE(bo->bound))
++		seq_printf(m, " / bound %s",
++			   bcm_proc_getifname(net, ifname, ifindex));
++	else
++		seq_puts(m, " / unbound");
+ 	seq_printf(m, " <<<\n");
+ 
+ 	rcu_read_lock();
+@@ -1866,19 +1871,9 @@ static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
+ 
+ 		/* remove device reference, if this is our bound device */
+ 		if (bo->bound && bo->ifindex == dev->ifindex) {
+-#if IS_ENABLED(CONFIG_PROC_FS)
+-			if (sock_net(sk)->can.bcmproc_dir && bo->bcm_proc_read) {
+-				remove_proc_entry(bo->procname, sock_net(sk)->can.bcmproc_dir);
+-				bo->bcm_proc_read = NULL;
+-			}
+-#endif
+-			/* Paired with the lockless fast-path check in
+-			 * bcm_sendmsg(); bo->ifindex itself is only ever
+-			 * accessed under lock_sock() so it needs no
+-			 * annotation.
+-			 */
++			/* pairs with the lockless check in bcm_sendmsg() */
+ 			WRITE_ONCE(bo->bound, 0);
+-			bo->ifindex = 0;
++			WRITE_ONCE(bo->ifindex, 0);
+ 			notify_enodev = 1;
+ 		}
+ 
+@@ -1892,7 +1887,8 @@ static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
+ 		break;
+ 
+ 	case NETDEV_DOWN:
+-		if (bo->bound && bo->ifindex == dev->ifindex) {
++		if (READ_ONCE(bo->bound) &&
++		    READ_ONCE(bo->ifindex) == dev->ifindex) {
+ 			sk->sk_err = ENETDOWN;
+ 			if (!sock_flag(sk, SOCK_DEAD))
+ 				sk_error_report(sk);
+@@ -2013,7 +2009,7 @@ static int bcm_release(struct socket *sock)
+ 	/* remove device reference */
+ 	if (bo->bound) {
+ 		WRITE_ONCE(bo->bound, 0);
+-		bo->ifindex = 0;
++		WRITE_ONCE(bo->ifindex, 0);
+ 	}
+ 
+ 	sock_orphan(sk);
+@@ -2060,16 +2056,17 @@ static int bcm_connect(struct socket *sock, struct sockaddr_unsized *uaddr, int
+ 			goto fail;
+ 		}
+ 
+-		bo->ifindex = dev->ifindex;
++		WRITE_ONCE(bo->ifindex, dev->ifindex);
+ 		dev_put(dev);
+ 
+ 	} else {
+ 		/* no interface reference for ifindex = 0 ('any' CAN device) */
+-		bo->ifindex = 0;
++		WRITE_ONCE(bo->ifindex, 0);
+ 	}
+ 
+ #if IS_ENABLED(CONFIG_PROC_FS)
+-	if (net->can.bcmproc_dir) {
++	/* create the procfs entry once, it is removed in bcm_release() */
++	if (net->can.bcmproc_dir && !bo->bcm_proc_read) {
+ 		/* use unique socket inode number as filename */
+ 		snprintf(bo->procname, sizeof(bo->procname),
+ 			 "%llu", sock_i_ino(sk));
+-- 
+2.53.0
+
