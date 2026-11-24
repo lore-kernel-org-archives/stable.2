@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540050;
-	b=gCv82LWIof9IF5sRVUpJBfh+l2N4O0OBTf2jZGMzE0s5l0DWFHBWm5o5B+tPXhowETn0
-	 0lBxhFkubyv5OyueGtTONRU/4cZjAfrflT2B8JEb0N2py9KhmEeNFHeXa9utGZF9wM0dA
-	 uS6K354OHyQUWeS7KZoZyv3aRqlwKS6Sn4fpJ4RYh7WCFM1ZyrAO+g/gpHCGBnqB759iF
-	 r9IuYgawW0C34M6QSUbdn9MHYZu74yxa2r93ZoknHlSoXOI4BdPPFeamVigPrWhfAL7Pd
-	 QIHEZmfQRzIXlSeXaa5tPJ+JMvHuIJo2G0MViKTRw4auyBerjtiw7Z629EPRKrEKzQw==
+	t=1795540053;
+	b=uQ5JOf76DbMLmOes1rr4JcicY1/NDjcWGB82erzYdgcxarzKPPCTgu/96aySEcO+bEBg
+	 U1MyYi8t0x7m0LyDSBTzp9Rmdsgc4PekBl7udeL6BdRU/iQe6AmJwnX1y2lvR2YshdWHc
+	 L1ipgSEeRXux14sYVbZ3G5AB/ltw7F+EZMFRi5HnLdsQ+geGEtr7Z3xGt5BKj7qG6gBdo
+	 GvlJt2U9LBiamKB4XVyUMQ9cNuVNPCk+2kSJssEo35BznQE9AcRhUOC641O/NXcGqKa/V
+	 IsnofmisU6le6TEtk68p5tGniMSydvBgsABMwmgWSRhuh3lT4IJQCjqJwG27RD/BlFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540050;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540053;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BF0DNuyx8DoxgRY6hWIArKzA8ZiZyQcSFzFRK0FM0sA=;
-	b=iNvm5MlKDk7bv8vMwe30sldey7OwgR7z0hCjeFywxo+OEIDwXnUK3Hig9IDMp8OI6CUX
-	 lsdrcENnMFP8wxvYujeYfb+YpFCRoEQJ4Pa4V/H5uxNx9bj1SoFDNWz6iOSJUYSVFjKux
-	 rFU9de8GkdBs8ha4KWmTovJwFdhZEIFGj6+G+0O3HJJanPAgpkEC3wFjSK/yTyq5ATmsO
-	 gD5IWatwzMbblvrVILWQKbGtM8fF6pOMpQFEyOJQy9PbFZiUvPCAewd2Qjeo/S/TD7wdO
-	 e8pydGQh6X3/ZOrjRe/xeM1llzFINo7HdLE4hTki6x6Tfl3qDkfl0jUIbFVzHj/CGfg==
+	bh=QNKVqNxaT+KOgtM2wwYRspHLvB/aHDFwTzWwH5vqRSU=;
+	b=RAsr7Q9lFiO36sVI5iuabm3cblaApETo1z0HjI8YSrH8owRk4oTm26DmDFqo1gxibjax
+	 7EYZt5nvUjCEq1ExvUvdCAKxii8e/ZqvzKDbc0zjJTYLYWLysu6/K9B0dEzbI0hfj9ACi
+	 97Y5gBDrlBOwns/ZJxy0/pEomFzVUKNcNgk5gF59rxMDfz2tlcRAogFF+pR5kicXn+7qU
+	 7xNWcRfHKRRd9hOR1WvAdNx1XfVC0FrQ+GAk5bOVgC9lb9gpnPYG1G2yn7W522PeDh7cG
+	 VSohD2zTEZmO6Rhw9+qBechrhYFcjMXEV82FCae3JB/FVvBhmPyS+qiIxUHR412VoyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aNDHcgoa;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=urQtXnSC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0278606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:07:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA83A606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:07:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aNDHcgoa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C5531F000C4;
-	Tue, 24 Nov 2026 17:07:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=urQtXnSC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A441E1F000C0;
+	Tue, 24 Nov 2026 17:07:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795540049;
-	bh=BF0DNuyx8DoxgRY6hWIArKzA8ZiZyQcSFzFRK0FM0sA=;
+	s=korg; t=1795540053;
+	bh=QNKVqNxaT+KOgtM2wwYRspHLvB/aHDFwTzWwH5vqRSU=;
 	h=Subject:To:Cc:From:Date;
-	b=aNDHcgoapRufQMDTMcisFxEJ1InU9gPX0afMLIRNtSCTwSpWG75fQcpP5EvGofJdg
-	 +Q9tARG5OSzrQ5nI0UeAcG1yf9kPqhGt7wdFc2cTpjSOzlcH8/5vNne93y3Q/RC8hh
-	 n+rE3jKZ6mNVcXgOwWxyS2FRcb0DHcoWf7YLqlnQ=
-Subject: FAILED: patch "[PATCH] net/smc: fix link group ownership in handshake abort" failed to apply to 5.10-stable tree
+	b=urQtXnSCZExl/ZhIMgglH29q9hfYwO7q4dzZvFq2gOM2cvDClDi6/DrIAIvG+ISYL
+	 ep9C1YsBwRuuTdjJMvQ0GHOxIJ4v6gu6hKfk7pxU7ubYT98niK8qLmorTeAL5C4x/m
+	 4f/OelL6CY/74OHWKQTIqc2loikiNHDGCESR26vA=
+Subject: FAILED: patch "[PATCH] net/smc: fix link group ownership in handshake abort" failed to apply to 5.15-stable tree
 To: mjambigi@linux.ibm.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 24 Nov 2026 18:07:37 +0100
-Message-ID: <2026112437-choice-divinity-df23@gregkh>
+Message-ID: <2026112437-serpent-backtrack-b978@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x e227b511582828c5a6513f70fc6a71211e5efbf0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112437-choice-divinity-df23@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112437-serpent-backtrack-b978@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
