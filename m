@@ -1,101 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795546526;
-	b=R/4uJoDRidLNbR+bCoTq02ULoMWktzuE9Qb9gOaKxisRQ+MTMuTxP1NiXxHF2n/1CFqw
-	 22hQ9bIDbowfL/lrIVK9ua2eh2ycTMibBN0YIBChBzf8D/HvJ5YPIQbOz/5aotJ1x0v+Y
-	 LTuhL+kR2YFhQGZ2qHY9xGiaSPQ7nKU7TMCQNjZeQOeHeOzvj69cOiTMjr8OXFxsygzdh
-	 KXh3GCcTIQv+pb6Qbx6xWbW5xM8zBFOYlp44lldgf0U8qi5T8OgMt5+KILjRzyaLEY2e1
-	 h3u+xL6fyXnqC8Bj93KC3QxAPIqBUc5UUor+9MfeS0MqgLAyvejNI1SKhBN9+EnUduw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795546526;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1u8Dtdr50GkWxwr/o6Art46QnZZWoGSZDLZvedZdu3g=;
-	b=IpGUWn0ocAbtpcuM4+7Fw+9x6R1Wl/E2nafJgILIu3QfosEsMd7c/PvWe/QLxy9Q2uyq
-	 FhSGH1eNnCjTi8NIi/+PaQLODFDVKRgYY/q3L/TG/JA3vQVyFjx6xhKOn/QYwhauQS6bS
-	 Zjo1HN0JzCgam15tXCNFXxuupfiSiRQVLJe0IZnjupWtgo+jGVRc60m9uoCz0UMTFCLyP
-	 0u4lQg1zq1HqCI3EAJb4AF+zxInHAeTm3ZBrHB1st0PxSzAwQ06prxUh1x0CtoLtSrLzk
-	 apTbSPrEFZ+O0bjvkneRM5UZpYvr1WLpB8WwBwFLdTbg/jCopjhWZ2Cq1e8pt0O8E8g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Vz+5HP28;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795546623;
+	b=H9dV44hm5ojAk4LSsTGx7fylftCAQeLUi5kb/effs190Z11kFU9O75/cb22ACWYWdliU
+	 cSlBj3jk8LwbBdLrrgkdYu1KO+KegisSVP4q7FcEASAevzPw6st1THd+vlRbzoANXdWSW
+	 +7LYXheezf8M/4T6cHg7jSSCJIISesOZy71c6ugN2ACtlMwJNPbq46Sr4ZMWAGsFBn+j/
+	 Ct342ZtPHSzPilv+oJ8wseZh4hr1DDxeQEcPcXIZJKWTzTADgWsJSKIef+DupbcsPYBSX
+	 ukY/KhhvMS97CO0cbBVFit0vLKyKaBCEDhPq2L4RT4TuBtnJqgfJux8KepCclq0F/BQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795546623;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=K75Fomuhl/TeDSAhojtFFsF9TENIiJs0NQdhbNDZn+8=;
+	b=4pVcSWlPlo0lY3LdLGzWMp8l3dWUknFFnPcK8sRkej7vjZEmgnzWMYtpTESrFq4Vy7eb
+	 Gxxs6vXeV9cwIT6+WW9yr98N/JK/lVx/j5p8Jj+pCKvj1cDqgnLLlTslRAvVehnnFcOeY
+	 fC5CmPzbWV3kfSGcf7sNLcSvHiSAGerGRZu2XxPVRQdmw6x5QWZJkohwUXNAU3dZhwxcK
+	 fx0diwrVh8zWd2omih9JHKp5H4p3EjTCqxbUu2Q5bJOSanKSPu8mfZy8NztCFZVz8bNEN
+	 BGflzd7IngruFyxU7ZDFBaOiyhASO8HXMsSwPFY5BPYuDuF7DJbsnpXOidu9hIdx9hw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="D3dPwe1/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EAE6606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:55:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EAE6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83431606A31E;
+	Tue, 24 Nov 2026 18:57:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Vz+5HP28
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb5b33e2ffso127205e9.1
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 10:55:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795546524; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TLb0e+Six/9eK+SeI/glPGyvsSdySRzTCDUdTmskAPJ3Eg2/pvosxm/PcIxNewJtsz
-         oF/cz4NX2lVkwSzrx1iXsEeFv9oSWzpd0WG8IGCOfr6bHHhVuetwPywbqATrwU4yY+P2
-         57rzgr1fM06J6XX5Bln1wMgUWZPdVVCm3n/9InqsqzFoyjp7+CmJxyW2bLssfNWXs07R
-         AnskqVsvQ62lW9jIQs6j82V+q0FG6jqjzG7l0Fkd8krUhVrp5mJtlIEvx7kP84BqBMRz
-         TGtivzNb7f0g6yN19PCyzHG1/0/rKucJld+jcTnG5VghWgiJ6T0xxrV2+9IH9lW9nPgc
-         5QnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1u8Dtdr50GkWxwr/o6Art46QnZZWoGSZDLZvedZdu3g=;
-        fh=6uTIcqOv2oY8dXOTLa/43bnEgG/h46TXq7HWhdhl5YY=;
-        b=hemOL4RSaD1TosEwV4COxaBNQSJWnfbA8sDTxmCZRQ79pkmKnpGgWRcX5yWiYlc9Py
-         M5Ht/jb0Krb3mrwt6P541WezA9CsXuPuYRPhtB7NVb/mZYJMWwzzCWMb7HdejNCTVHEl
-         0f2snZ8MXsfk+rFii5Bsyxw+rpON/5xUlqC29eiI2BsTWkVIrBiYNCLnHjxEElndNW/p
-         hxe86Wmv/RXeJr5jpGxHtxyH9HtjziMmHrji55WWF9AOQaQFYyEmvDRklYsEO77PDvuD
-         qnP3fTYkSAks1kiirPDxckvAZbQUCCJTVdFY86pmovcoAYcgiRCaJ9AXOkeliaPDi20E
-         cdBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795546524; x=1796151324; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1u8Dtdr50GkWxwr/o6Art46QnZZWoGSZDLZvedZdu3g=;
-        b=Vz+5HP2869Z5ONW8Y9OVdf/1LqgOzZK2Y2POGAE2IeSEJXBWuGcBsTqNnhD7kYfpK3
-         rSw+ii//1wdSuglD1QviPlArcxERzzQ3x3TZ/cVQRm/xf9GAJvcBPYvP7rkPTY4dBAn0
-         DNOANmiVCizIcZjr89te8FclDZEEQAGW+kvy6QXEhnEQuZrkBf8rUMj0cSAdNHpFX52g
-         fwdXfpWeuPjibt+/J4buOzFwtc0ZorwGu6cQAkLxDQ+XwGJQoedHLGtSKh5elSWf2vfA
-         KBmdqtzhJFh/ydpeLFJdf4tf+Qbwrvtdjfs9UBtaMvsRfUhB17OS+klyMr4j93nZ9eWM
-         5SZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795546524; x=1796151324;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1u8Dtdr50GkWxwr/o6Art46QnZZWoGSZDLZvedZdu3g=;
-        b=x4hxl2ijA9I9sI6/PaGCyV+v+FPzw2mV0C7yscj1icQt438/KXDGOXZXfnyn6TnsJu
-         iLMibbxHoqFTTLPfS/+DifdBnK6jmwI0GNLU3yGMgxYaidMqQET0gwpsuhA1DNfGSyrj
-         jsPqRtF4JXwkPvbriuXcnVWcR9kbMYOwRXnt8FYGthPJfzYFUpme2Qe8HmRJx3e9AI7w
-         7Ky+yOyVNW46XfXJibuyQrxUg3GLMxgMKvc4EnPojNcyUCdT6XypjwfRvCccFdaeKW23
-         CJ6xBMVHTei9Rsz4ffiVgPlt0DAxUiaTjZ9+ZOyFjiqqaekO2lBNrKVzFCWlf+fYJrza
-         1BNQ==
-X-Forwarded-Encrypted: i=1; AL+hErF80MULDWfPq8ZQ4YSUsR9clmm9Ld5LeIWLikyrFvQ7WDOLsaRh5EbvbmIOOb363WDPgvKvpYk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+cuBAftVW2mL8BSjiex5exXN7b3vFG8nwZYQYQ8IS9n7G5Iepm
-	qm3ecgPIpYi4sgotlvFdF7+49U12NbiS4fohjFmgYcW+/V5szPG1cX5oQPpop8067NM1NZTPa8X
-	+buzFnFGll+StevHC0nqT5qTrDvLpXaHXN+iL2o2d
-X-Gm-Gg: AZFdTZcsKi3RGXKtbxIW7o0GeI62v+XGR0nZrWIT2Np7VD5amO3r8Rar05k7lb2Y1A3
-	TbOngw7Al3Df0TIh8qr8aCGIJM+XdZQj14PoqSIcFHKETRCNLZAlL07MiM87YRqTK2pIT+MDwqF
-	kT4XN/hs8JZfTgor7lacXcLfryZ0oEOZSZJ+/jse9EnMAVVN3WWYIVk1GEcNyveFtfWV4sVOkNf
-	wy1ke9mW7+FEbYxMp0msdsEVa8C7/Wzf0j/4APFBd+oFWnjF0qGnGsqkqmpeIqNKvS8SBbbOC6E
-	PRUq4ELoLyoHf28q0MbHTN88PatsyGmEYVmHIfm76YydUHTU/aiVJBKY/J7vRWuKhmBwH560b2w
-	xmvMjOYyJnrbP/AkrHyJOXznwNvbWjG0xdXLBJTqAzfxEnqbhpMQWbGjawfFzQdrQ9cPQf8QNHu
-	i18XoRWjvPbBibXThJfeo8o470
-X-Received: by 2002:a05:600c:608e:b0:4a1:e7fc:fed3 with SMTP id
- 5b1f17b1804b1-4bb916aef09mr3131205e9.13.1795546523926; Tue, 24 Nov 2026
- 10:55:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3dPwe1/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6135A1F000D0;
+	Tue, 24 Nov 2026 18:56:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795546622;
+	bh=K75Fomuhl/TeDSAhojtFFsF9TENIiJs0NQdhbNDZn+8=;
+	h=From:Date:Subject:To:Cc;
+	b=D3dPwe1/1qD1ZZgtB2coXTHOK1EaWGzIMeeU4TukjN+rtf5chKTy+Br7BuJctDfT0
+	 dLN89Kpf9dQINhB28PCvc3lQGwlyGRmczLhATl3VsJJZ3iOY+zjQw6K7rBE0BfEt1z
+	 6lm7b0KKUpb7LZU2EWw6/e8NGK9eeV49VpzAEJQlkbwsI+gKa/6FsDVYHiXUW3ioGV
+	 mYeTqpbEYFNeAiDKNnjwLMvuuaycvPu8y9HD0sEJDAkIMsw5sQDP1Q6BndT0MCnzOG
+	 qBVhPcG1CW9fZlfUJUzoiMEM8cFz/ibu8WSjYSwDNERaJFTeE0BfIkVH7fcUELy/MV
+	 rrANpkd8sVdPA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 24 Nov 2026 18:56:46 +0000
+Subject: [PATCH v2] mm/vma: drop mm asynchronously in vma_start_read()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,80 +52,209 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117-huge-pfnmap-fault-races-v2-0-276007e73bcb@kernel.org> <20261117-huge-pfnmap-fault-races-v2-3-276007e73bcb@kernel.org>
-In-Reply-To: <20261117-huge-pfnmap-fault-races-v2-3-276007e73bcb@kernel.org>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Tue, 24 Nov 2026 10:55:11 -0800
-X-Gm-Features: Aa3M54rcD7lAjqTBZlWobdm479k0AAUvm_iZ5SlmrfOCMEFaBN5uZR2IYPu5xbA
-Message-ID: <CABdmKX3Cfv9wO3SuzYOg-+UXC=BOSAAPRfMQUAep6JStd0DjUw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/4] mm/memory: do not report OOM if insert_pfn() races
- a huge fault
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, 
-	Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
-	Roman Kisel <romank@linux.microsoft.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
-	Naman Jain <namjain@linux.microsoft.com>, Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org, 
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261124-vma-read-lock-mmdrop-async-v2-1-8139b5cf24bb@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/43NTQqDMBBA4auEWTvFCVrRVe9RXKTJRIM/kUkJF
+ fHupZ6g27f43gGJJXCCTh0gnEMKcYVO6UKBHc06MAYHnQJd6juRrjAvBoWNwznaCZfFSdzQpH2
+ 1+DIVNdaRJV9CoWAT9uFz4c++UDCG9I6yX69Mv/oXmwkJdd34tvV1TY4fE8vK8y3KAP15nl9ea
+ lnIxQAAAA==
+X-Change-ID: 20261124-vma-read-lock-mmdrop-async-ba417cd1c1f0
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, Kees Cook <kees@kernel.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Suren Baghdasaryan <surenb@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
+ Jann Horn <jannh@google.com>, Puranjay Mohan <puranjay@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ ljs@kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5425; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=+GlkRGCdNbNl6lPRsAZ0GstxY0HQDDSVM2C8Wjvm9gk=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJZ735h09sQtFmBeXrXw5mxXfOCP9XkSc/Y/p157addx
+ rcdv0u96ChlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEhBYyMixZuUTd+eS+hMP3
+ MzaI8sfytiYvrJHZLFhgfmyNeOSdxMcM/1SkTs3heCliXSxXf8zjqcvU6wsXyalc/jT/7WX2aeu
+ kVnMCAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Tue, Nov 17, 2026 at 10:32=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.=
-org> wrote:
->
-> A driver that implements both ->fault and ->huge_fault must anticipate
-> concurrent use of both.
->
-> This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
-> concurrent with faulting, as that only holds the mmap write lock and thus
-> does not exclude faulting threads stabilised by VMA lock.
->
-> This is not currently safely handled by insert_pfn(), however, which
-> obtains its PTE entry via get_locked_pte(), and treats a NULL return valu=
-e
-> as an allocation failure, returning VM_FAULT_OOM.
->
-> The issue is that get_locked_pte() also returns NULL if the PMD entry is
-> not a page table which can happen if a concurrent huge fault installs a
-> huge PMD entry between __handle_mm_fault() observing the PMD entry to be
-> empty and insert_pfn() being invoked.
->
-> This can result in VM_FAULT_OOM being reported incorrectly.
->
-> Fix this by introducing and using __get_locked_pte() which returns -ENOME=
-M
-> if a page table allocation fails or -EFAULT if raced.
->
-> This allows insert_pfn() to return VM_FAULT_OOM only when an allocation
-> fails and VM_FAULT_NOPAGE otherwise so the fault is retried.
->
-> The same change is applied to insert_page(), which only impacts DAX (whic=
-h
-> has its own locking).
->
-> This means that insert_page() now propagates the returned error, so -EFAU=
-LT
-> in the case of a race. It's not possible currently, but guards against th=
-at
-> changing in future.
->
-> Similarly, update walk_to_pmd() to return -EFAULT if it encounters a huge
-> PUD leaf.
->
-> Target the commit introducing the first driver able to do this.
->
-> Reported-by: Eliav Farber <farbere@amazon.com>
-> Closes: https://lore.kernel.org/all/20261112051440.16140-3-farbere@amazon=
-.com/
-> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Commit bee9ef4a40a2 ("bpf: switch task_vma iterator from mmap_lock to
+per-VMA locks") open-codes a lock_next_vma() implementation that does
+roughly the same thing in bpf_iter_task_vma_find_next(), only without
+fallback to an mmap_lock.
 
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
+This is because bpf_iter_task_vma_find_next() can be called from
+non-sleepable contexts.
+
+However, lock_vma_under_rcu() gave no guarantee as to which contexts it is
+safe to be called from, and indeed it turns out this assumption is unsafe.
+
+Since commit 9bbffee67ffd ("mm: fix a UAF when vma->mm is freed after
+vma->vm_refcnt got dropped"), this call chain is possible on x86:
+
+lock_vma_under_rcu()
+  -> vma_start_read()
+    -> mmdrop()
+      -> __mmdrop()
+        -> mm_free_pgd()
+          -> pgd_free()
+            -> pgd_dtor()
+              -> spin_lock(&pgd_lock)
+
+Thus, a plain spin_lock() can occur when lock_vma_under_rcu() is
+called. Since bpf_iter_task_vma_find_next() can be called in softirq
+context, this can deadlock, for example:
+
+pgd_alloc()
+  -> spin_lock(&pgd_lock)
+    <softirq>
+    bpf_iter_task_vma_next()
+      -> lock_vma_under_rcu()
+        ...
+	  -> spin_lock(&pgd_lock) [ DEADLOCK ]
+
+Alexei Starovoitov also pointed out that a BPF program attached to
+trace_contention_end() can similarly cause a deadlock:
+
+  pgd_alloc()
+    spin_lock(&pgd_lock)
+      queued_spin_lock_slowpath()
+        trace_contention_end()          <- pgd_lock is held
+          tp_btf/contention_end prog
+            bpf_iter_task_vma_next()
+              lock_vma_under_rcu()
+                vma_start_read()
+                  mmdrop(other_mm)      <- last put takes pgd_lock again
+
+Resolve the issue by having vma_start_read() use mmdrop_async() instead of
+mmdrop() so the work is deferred to a work queue.
+
+Make mmdrop_async() an internal mm function, defined in mm/internal.h, to
+avoid abuse elsewhere (kernel/fork.c includes this header, so still retains
+access).
+
+Commit 0b16f8bed19c ("mm: change vma_start_read() to drop RCU lock on
+failure") accounted for the fact that the RCU lock had to be dropped for
+this operation, which is no longer applicable.
+
+Remove the now-defunct comment on the 'heavy operation', but leave
+examining that to a follow up.
+
+Reported-by: Chris Mason <mason@kernel.org>
+Fixes: bee9ef4a40a2 ("bpf: switch task_vma iterator from mmap_lock to per-VMA locks")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/DN267JUKDRNS.2VMV07CQ58R4X@gmail.com/
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Acked-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+v2:
+* Put the rcu_read_unlock() back where it was, a follow-up can address
+  anything else here.
+
+v1:
+https://lore.kernel.org/r/20261124-vma-read-lock-mmdrop-async-v1-1-257f99f551de@kernel.org
+---
+ kernel/fork.c  | 16 ----------------
+ mm/internal.h  |  3 +++
+ mm/mmap_lock.c | 19 +++++++++++++++++--
+ 3 files changed, 20 insertions(+), 18 deletions(-)
+
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 5efceb8d58a7..4d5866c83481 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -744,22 +744,6 @@ void __mmdrop(struct mm_struct *mm)
+ }
+ EXPORT_SYMBOL_GPL(__mmdrop);
+ 
+-static void mmdrop_async_fn(struct work_struct *work)
+-{
+-	struct mm_struct *mm;
+-
+-	mm = container_of(work, struct mm_struct, async_put_work);
+-	__mmdrop(mm);
+-}
+-
+-static void mmdrop_async(struct mm_struct *mm)
+-{
+-	if (unlikely(atomic_dec_and_test(&mm->mm_count))) {
+-		INIT_WORK(&mm->async_put_work, mmdrop_async_fn);
+-		schedule_work(&mm->async_put_work);
+-	}
+-}
+-
+ static inline void free_signal_struct(struct signal_struct *sig)
+ {
+ 	taskstats_tgid_free(sig);
+diff --git a/mm/internal.h b/mm/internal.h
+index de4593b3e3b6..cc95019c7e4b 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1671,4 +1671,7 @@ static inline bool can_spin_trylock(void)
+ /* char-mem.c */
+ bool file_is_dev_zero(const struct file *file);
+ 
++/* mmap_lock.c */
++void mmdrop_async(struct mm_struct *mm);
++
+ #endif	/* __MM_INTERNAL_H */
+diff --git a/mm/mmap_lock.c b/mm/mmap_lock.c
+index 073c5125b424..d28bbc3ba734 100644
+--- a/mm/mmap_lock.c
++++ b/mm/mmap_lock.c
+@@ -306,11 +306,10 @@ static struct vm_area_struct *vma_start_read(struct mm_struct *mm,
+ 	 */
+ 	other_mm = vma->vm_mm; /* use a copy as vma can be freed after we drop vm_refcnt */
+ 
+-	/* __mmdrop() is a heavy operation, do it after dropping RCU lock. */
+ 	rcu_read_unlock();
+ 	mmgrab(other_mm);
+ 	vma_refcount_put(vma);
+-	mmdrop(other_mm);
++	mmdrop_async(other_mm);
+ 
+ 	return NULL;
+ }
+@@ -560,6 +559,22 @@ void __mm_reset_vma_seqcounts(struct mm_struct *mm)
+ }
+ EXPORT_SYMBOL(__mm_reset_vma_seqcounts);
+ 
++static void mmdrop_async_fn(struct work_struct *work)
++{
++	struct mm_struct *mm;
++
++	mm = container_of(work, struct mm_struct, async_put_work);
++	__mmdrop(mm);
++}
++
++void mmdrop_async(struct mm_struct *mm)
++{
++	if (unlikely(atomic_dec_and_test(&mm->mm_count))) {
++		INIT_WORK(&mm->async_put_work, mmdrop_async_fn);
++		schedule_work(&mm->async_put_work);
++	}
++}
++
+ #ifdef CONFIG_LOCK_MM_AND_FIND_VMA
+ #include <linux/extable.h>
+ 
+
+---
+base-commit: 913390e679e23e3a45643028ee7f992889094051
+change-id: 20261124-vma-read-lock-mmdrop-async-ba417cd1c1f0
+
+Cheers,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
