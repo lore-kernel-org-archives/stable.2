@@ -1,84 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795487455;
-	b=AsnfbXwkuw5WmMDMZsjoKmzzgQiQ1+4FoNWUHi4Q/5NJLH6iAuDNfCclvUHKWh6Hcfiq
-	 XGdsVw1lC0pYPHacITVE/l9lr4ibiaZEb7ldfSidEg6FtOgXczpLX9I9wZOVPz2p8Xl63
-	 WjOTBoSUYfN0GMeNXBEK+AAdDTYiImh7B68hHi3PQ+TwTbL7ikZwuomd2r4YbZ12T0rT8
-	 zvwBR2BiFLe6hIlnGjnV6LgqeX4gF3IJB+DJr6BWsdli3oZPkM7TLMz/NPbYH5XQIfNA1
-	 S3Lz1SS9Lhmd2FccyiAXOzMgtJHy1Udop1GNDNSQmeCyYSaoKGDeROfF2M4DtuLmexA==
+	t=1795487852;
+	b=AgS0h4qhNsKl6sCndPCTOC/amdFZVmsBWAODFrOlu55AoC4PKqkex4j2p1XnDI/QjBha
+	 wW8bixOY1mrRvsLyKGxL/EBt8LLWApHKYeWJqI6liE9vXhZvAo3liS591U+M664iOPgJC
+	 7a2enRnr9bCs1vrgcWYNhW1Ycmp3sHWBBimOEfRAZCA411AwtyTYrcxco1EsCUETCr570
+	 E9uHmkIjDtnP7foJITlv2dcZMGgES6NMzOf6eXQUwblFA3fbAYVIBrHek6m5rfG2wLPLb
+	 rjpeBaoHix4RXJr6ITKVnXjgDbZC3EmXeofoZGcWlHfkuHWA3+bL/6nJlN6CcnoSGug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795487455;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
-	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
-	 Date:Message-ID;
-	bh=9yZMeK8ILbEGS7w4Bl6DNaIt/+VWz7cPdqWUCUq87jw=;
-	b=myISlKR+OhS75pbI6JmkWz+j3yJUUXUXO2T22SMv6GF/XPkg+Cy4Szk/B5JpMu5OX+to
-	 3rSxgr1wuJyEduKVkVq92YxZmHk2o9yo+jicP1TAtQwmyY8piCo9lfL1iiP0oNVp+08m/
-	 CwzuVrxSseOWDUqz6wRug8RfmdLBJSSgamJ1Tquy3FCs5j7/r3pZogcuVY3J7pLrEAzYg
-	 H6AUcwQ+FpmOJvB1JjzHOyGPmKFP684HQhd+JqdjiKNa7jQgudwyzjH5kJpdPD+S3JvLr
-	 n0kL7OtBqG4Y6kgwUT2xyPR+QJJiP/fI6q7HBmEPikAjh2oR0T9c4fWVOXHUJjevrUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795487852;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9aaMJwAetaq46EUyI+XQENYtiynOb1k9BZrDSha3iyo=;
+	b=0xdvFvcSI6Ol2492J5m3Bjcc9Do5UdehBXNbnSop2Eon7VrBRxtdlxsIsocNSmT+LIvW
+	 f+5swCnFGSrH/lyYWqgjtOc8vQuxqpdJ+C7Ux1R2JIDXCzL3s4aluU7ovuXMhqku55glJ
+	 s2ue/vGrboZ+u3LZNDlIdGlqZqtNoS0glwUiz+tSVqYVhyE9oW7V4Qy4bLVTS3UI8MHZN
+	 eXbIkBPTK1vvsaNRnrNwWbPYMIqo4LqKENbZtbQOIfYxysEGATr1xi7wueUUJbeX/2QBr
+	 iItWzIvgVIgBJBQ1XkqhXYvZu7R0HutU8VL8leVdf+uGj6wd0i+yzhE0qBwdj3xyTmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelci.org;
-	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=DRkLWopr;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PuCm+535;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0C1606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 02:30:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F0C1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120A5606A32E;
+	Tue, 24 Nov 2026 02:37:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 120A5606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=DRkLWopr
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-170135e43c7so5729899c88.0
-        for <stable@vger.kernel.org>; Mon, 23 Nov 2026 18:30:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1795487454; x=1796092254; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9yZMeK8ILbEGS7w4Bl6DNaIt/+VWz7cPdqWUCUq87jw=;
-        b=DRkLWoprTRad+hODIj18JUVPAQ3lHixleGXSVjx0+5HLcvZLmujhuTFe4ukVS6b9+p
-         Uhv9Jfrk9FeTs8fR2mEtSNbjxR27FNs8FZMZFjnP3lCa4w365XmUnxTJUtOzSaXZogzV
-         OH1b+JFo5rMMuI/QbIE1jxSpsxADEErTGcxHS4pycki4015s2BQ1MGn+eofkzVCWBsgD
-         2IJp+zLsTC2pdXRHZVPC+qAQ/zHVcqJinxd7BIb5BNHsfFxAS8yBWN27w25bPKnvMUGj
-         KZ7ONhy8C1EASjHFKHkWCaZsnRsp60Nj5GkYm/EO4J/WCXT8aW3IzXer6dci+L29ZGOQ
-         N6zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795487454; x=1796092254;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9yZMeK8ILbEGS7w4Bl6DNaIt/+VWz7cPdqWUCUq87jw=;
-        b=azQWJXoHCyU2kJiSQU1nkQa/hqwHqH0ABWFBW0yCNzCrcM0va6zz64OMIU0wdZM3oc
-         hoxqXXFiC4V7z9/w3Bd6nHnsZVq56jhPqSB0jzW/o4bfKfN+O6zWt6D6T79pS6CpcxV8
-         qK4y7u75qont+3fmabCN4LNTbfpVD6j6V9oT+DVzVOrMu43BadkkUPS1EkUce2b3lw2W
-         g8zRuq6BxDOEGOo6qnlYJ486ZPuJkSZT7I1l6c178IWNJy0sx6c75asbddUOatYq9S+p
-         pq685A7ITLGQ7rIfm4m0M83cUkO9wUPk9Aks1W1Ch4rbeT6z2HEtcuo1yAR7R/t4vTyM
-         RguA==
-X-Gm-Message-State: APuU4Z+m1qTn7juTlLq+CVDZLxYOxZWCZmm9SzwPoL0ENqaifMiLAFXb
-	kA0ATCQX+jjYHuZizp3hM/VcXAx0VpOpVPo8tvqs4kiGaDq11lL4RJqvQHGQihRzBe8=
-X-Gm-Gg: AZFdTZcOwq4LBaLKOXz9s9bjIsPKrjw/9Eo55uKgqaMTbNfOyQMrd85EUedp4CY/Dna
-	Q2GLCaUN4LS8Y7C6znq0LXAp99ikIO8Ksp7I+vpMYbIyYYtYqwbb/BGw9KfrAZnLhiBIrwGr/3T
-	Xz6Ab2fcFeMJ9yN8Tau0jNmFKUiCVLtn2cAyLhUTyFpduub35+55Z7IddileFgzESdUkeLzgaAW
-	9sDRczE1w427lQx25aADCcgbUy3OeHGgBhfeD4VnzKbHQG0AwilN9XivJrjrXltRBZVrpm93Np6
-	sAdK5HENWQRGunIbTMCc+5MLR14q4cGWiiY0hpV73ynE0zgxroffWA2345Juc3dqDOzTevFWR/L
-	ahLXZMkK3r6+sE8Uvu085f6rryiIee4xDojBXdpyV2DBEdmy/56xYK0FuVDhWtkKknEI6f11nLo
-	+NER0OGjXQ8yNu/yhqbgD2Pju3d/++qm1g+yk/xcr1Nb3No1TSFKll1smAaLfwNqLfUXIxnff3T
-	wbjIb5ppDoPw5E1yNi1FyVK/qI6oVo5ZUzVudqyHk2IxH8Zz40oPKZNFYPltSrsZ+CW83SWCXXY
-	BGwbjwUSJNl8Eg2YRNnH7w==
-X-Received: by 2002:a05:7022:150e:b0:1ac:9da7:e881 with SMTP id a92af1059eb24-1b55690bc2fmr15124756c88.36.1795487454040;
-        Mon, 23 Nov 2026 18:30:54 -0800 (PST)
-Received: from 52d83ede7c60 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38567abb870sm33551957eec.25.2026.11.23.18.30.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 18:30:53 -0800 (PST)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PuCm+535
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795487853; x=1827023853;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=TSZzxm9AhzGQXVzzdZ8sPb2fgY5Sb9l8OdPTSCZyscU=;
+  b=PuCm+535LXpgsOLhfUsPLufVqAKnUS9melj7joL+GRJbT9bJbs5bj1EA
+   BJrLeDKP0QjgFj17weip3B1JTuO6/BCJp8G/mvOAgMXwlhV+dbHmpXwC9
+   P4FfHrgvTQpJAkFiaAgsuzCVjVxU9dsynWD5fgbw/hAhdPhtzjtvBFHOh
+   464FPr/w4p4gRYOlzfEBe9iidUpfdzDmte8aqGYHm5+k6XE88dH1eGfLk
+   5k/whw7TsuLx/AgGhU2e2lNNuzDZacpLWhTYNAs86Dykokh619eQakBGZ
+   yRYAkH2rwA7d/O0rB6Ze+h3fFeQXKFfIXmFYtxet2ORe7d9dPrHmaOgNK
+   Q==;
+X-CSE-ConnectionGUID: HxDXShFuSkid/WF6yhUsMA==
+X-CSE-MsgGUID: +APJomvpR4Ob3EqpYkewsg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4205146"
+X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
+   d="scan'208";a="4205146"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 18:37:32 -0800
+X-CSE-ConnectionGUID: 1S6kDrGQQZeK7IapvQ1q1w==
+X-CSE-MsgGUID: +FisAPidR9u832zlRFgwhg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
+   d="scan'208";a="11764117"
+Received: from linux.intel.com ([10.54.29.200])
+  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 18:37:32 -0800
+Received: from [10.107.17.224] (unknown [10.107.17.224])
+	by linux.intel.com (Postfix) with ESMTP id CD81720B8CD1;
+	Mon, 23 Nov 2026 18:37:28 -0800 (PST)
+Message-ID: <bb5c5880-5a8f-4991-8dcd-91ffa3fa2271@linux.intel.com>
+Date: Tue, 24 Nov 2026 10:37:27 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,80 +76,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [STATUS] stable/linux-6.12.y -
- e2e4b92c2b2a3ae78423cb343951cb5d2241b405
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Tue, 24 Nov 2026 02:30:53 -0000
-Message-ID: <179548745321.20463.6640842739553570028@52d83ede7c60>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 1/1] af_packet: Fix wrong timestamps in tcpdump
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Song Yoong Siang <yoong.siang.song@intel.com>,
+ Looi Hong Aun <hong.aun.looi@intel.com>, KhaiWenTan <khai.wen.tan@intel.com>
+References: <20261111053728.2611070-1-khai.wen.tan@linux.intel.com>
+ <willemdebruijn.kernel.2721e06a6436@gmail.com>
+Content-Language: en-US
+From: KhaiWenTan <khai.wen.tan@linux.intel.com>
+In-Reply-To: <willemdebruijn.kernel.2721e06a6436@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 11/13/2026 6:01 AM, Willem de Bruijn wrote:
+> KhaiWenTan wrote:
+>> From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+>>
+>> Since commit 97dc7cd92ac6 ("ptp: Support late timestamp determination"),
+>> timestamps may need to be retrieved with input from the driver
+>> .ndo_get_tstamp(). Support was missing from mmap'ed AF_PACKET sockets.
+>>
+>> The problem was noticed using the igc driver, that since commit
+>> 069b142f5819 ("igc: Add support for PTP .getcyclesx64()") has migrated to
+>> use .ndo_get_tstamp() that timestamps were wrong on the receiving side,
+>> when using tcpdump.
+>>
+>> Fixes: 069b142f5819 ("igc: Add support for PTP .getcyclesx64()")a
+> 
+> Fixes: 97dc7cd92ac6 ("ptp: Support late timestamp determination")
+> 
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+>> Signed-off-by: KhaiWenTan <khai.wen.tan@linux.intel.com>
+>> ---
+>>   net/packet/af_packet.c | 29 ++++++++++++++++++++---------
+>>   1 file changed, 20 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+>> index cf6429f09477..7197236c8a3b 100644
+>> --- a/net/packet/af_packet.c
+>> +++ b/net/packet/af_packet.c
+>> @@ -456,15 +456,20 @@ static int __packet_get_status(const struct packet_sock *po, void *frame)
+>>   	}
+>>   }
+>>   
+>> -static __u32 tpacket_get_timestamp(struct sk_buff *skb, struct timespec64 *ts,
+>> -				   unsigned int flags)
+>> +static __u32 tpacket_get_timestamp(struct net_device *dev, struct sk_buff *skb,
+>> +				   struct timespec64 *ts, unsigned int flags,
+>> +				   unsigned int sk_tsflags)
+>>   {
+>>   	struct skb_shared_hwtstamps *shhwtstamps = skb_hwtstamps(skb);
+>>   
+>> -	if (shhwtstamps &&
+>> -	    (flags & SOF_TIMESTAMPING_RAW_HARDWARE) &&
+>> -	    ktime_to_timespec64_cond(shhwtstamps->hwtstamp, ts))
+>> -		return TP_STATUS_TS_RAW_HARDWARE;
+>> +	bool cycles = sk_tsflags & SOF_TIMESTAMPING_BIND_PHC;
+> 
+> nit: whitespace line between variable declarations
+> 
+>> +
+>> +	if (shhwtstamps && shhwtstamps->hwtstamp &&
+>> +	    (flags & SOF_TIMESTAMPING_RAW_HARDWARE)) {
+>> +		ktime_t tstamp = netdev_get_tstamp(dev, shhwtstamps, cycles);
+> 
+> Does this call need to be conditional on SKBTX_HW_TSTAMP_NETDEV, to
+> interpret the union as netdev_data?
+> 
+> like get_timestamp, resolve the orig_dev.
+> 
+>> +
+>> +		return ktime_to_timespec64_cond(tstamp, ts) ? TP_STATUS_TS_RAW_HARDWARE : 0;
+>> +	}
+>>   
+>>   	if ((flags & SOF_TIMESTAMPING_SOFTWARE) &&
+>>   	    ktime_to_timespec64_cond(skb_tstamp(skb), ts))
+>> @@ -476,11 +481,16 @@ static __u32 tpacket_get_timestamp(struct sk_buff *skb, struct timespec64 *ts,
+>>   static __u32 __packet_set_timestamp(struct packet_sock *po, void *frame,
+>>   				    struct sk_buff *skb)
+>>   {
+>> +	struct net_device *dev = skb->dev;
+> 
+> validate skb->dev != NULL
+> 
+>> +	unsigned int sk_tsflags;
+>>   	union tpacket_uhdr h;
+>>   	struct timespec64 ts;
+>>   	__u32 ts_status;
+>>   
+>> -	if (!(ts_status = tpacket_get_timestamp(skb, &ts, READ_ONCE(po->tp_tstamp))))
+>> +	sk_tsflags = READ_ONCE(po->sk.sk_tsflags);
+>> +	ts_status = tpacket_get_timestamp(dev, skb, &ts, READ_ONCE(po->tp_tstamp), sk_tsflags);
+>> +
+>> +	if (!(ts_status))
+>>   		return 0;
+>>   
+>>   	h.raw = frame;
+>> @@ -2424,9 +2434,10 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
+>>   	/* Always timestamp; prefer an existing software timestamp taken
+>>   	 * closer to the time of capture.
+>>   	 */
+>> -	ts_status = tpacket_get_timestamp(skb, &ts,
+>> +	ts_status = tpacket_get_timestamp(dev, skb, &ts,
+>>   					  READ_ONCE(po->tp_tstamp) |
+>> -					  SOF_TIMESTAMPING_SOFTWARE);
+>> +					  SOF_TIMESTAMPING_SOFTWARE,
+>> +					  READ_ONCE(sk->sk_tsflags));
+>>   	if (!ts_status)
+>>   		ktime_get_real_ts64(&ts);
+>>   
+>> -- 
+>> 2.34.1
+>>
+> 
+Hi Willem,
 
+We have gotten approval from Kohei to include his patch into our current 
+patch. Will be updating a v2 for both patches based on your comments.
 
-Hello,
+Thank you.
 
-Status summary for stable/linux-6.12.y
-
-Dashboard:
-https://d.kernelci.org/c/stable/linux-6.12.y/e2e4b92c2b2a3ae78423cb343951cb5d2241b405/
-
-giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-branch: linux-6.12.y
-commit hash: e2e4b92c2b2a3ae78423cb343951cb5d2241b405
-origin: maestro
-test start time: 2026-11-23 08:27:20.087000+00:00
-
-Builds:	   59 ✅    0 ❌    0 ⚠️
-Boots: 	  109 ✅    0 ❌    0 ⚠️
-Tests: 	11722 ✅  656 ❌ 1244 ⚠️
-
-### POSSIBLE REGRESSIONS
-    
-Hardware: mt8195-cherry-tomato-r2
-  > Config: defconfig+lab-setup+arm64-chromebook+CONFIG_MODULE_COMPRESS=n+CONFIG_MODULE_COMPRESS_NONE=y
-    - Architecture/compiler: arm64/gcc-14
-      - kernelci_watchdog_reset.wdt-reset.wdt-get-timeout
-      last run: https://d.kernelci.org/test/maestro:6b042b8e99c74e1a99b3ae61
-      history:  > ✅  > ❌  
-            
-
-
-### FIXED REGRESSIONS
-    
-Hardware: acer-cp514-2h-1160g7-volteer
-  > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
-    - Architecture/compiler: x86_64/gcc-14
-      - kernelci_wifi_basic
-      last run: https://d.kernelci.org/test/maestro:6b040ae899c74e1a99b2b97f
-      history:  > ❌  > ✅  
-            
-Hardware: mt8183-kukui-jacuzzi-juniper-sku16
-  > Config: defconfig+lab-setup+arm64-chromebook+CONFIG_MODULE_COMPRESS=n+CONFIG_MODULE_COMPRESS_NONE=y
-    - Architecture/compiler: arm64/gcc-14
-      - kernelci_watchdog_reset.wdt-reset.wdt-trigger-reset
-      last run: https://d.kernelci.org/test/maestro:6b042c9b99c74e1a99b3b3e5
-      history:  > ❌  > ✅  
-            
-
-
-### UNSTABLE TESTS
-    
-Hardware: qemu-arm64
-  > Config: defconfig+netdev+nfs-root-boot+ltp+crypto+ima
-    - Architecture/compiler: arm64/gcc-15
-      - ltp
-      last run: https://d.kernelci.org/test/maestro:6b04349999c74e1a99b461a8
-      history:  > ✅  > ✅  > ❌  > ✅  > ❌  
-            
-
-
-Sent every day if there were changes in the past 24 hours.
-Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
+Best Regards,
+KhaiWen
