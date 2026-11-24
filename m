@@ -1,83 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541671;
-	b=yMjWcjp1ZmBdmOUmZ13Xnc+p/W/bp/VtF385H7FEk/at4gSPgPDIPZfQYSSdcqhkooVL
-	 HoV++rzMms0YIhH41QaVF3INM+jQksBQXPdS1LN565Oc6epjL/A9XtfXdgBtouYQUnsU0
-	 56IdTCBTi58Xtpq23IeG7zI4uFX4iNXkDEOZu/2eMkSqkFT6mhp1HVPCW4VmpV1WWm/GW
-	 RabHIraNRbmujHAwyVWecOvEO8stoLMM9gcheYthGyRQZF8gxNaFgQWhCm6xEYkNGbH10
-	 QkvdYkXMPGe51fgzfQfmYtqn2OXO6Ny7cmCXV+5clW2abtJDp8GcJBBl9wcfVBGw+1A==
+	t=1795541737;
+	b=V4AiuxQAK9IBERAmlrR04Td1bQBZp8OBTtelUjQpWZoLK/VjAjBGhFoeBR3gcw78swTr
+	 ktFv+OL2ya4/IGciOQTjMC54lX3X5p9uynw1ewLn58mjVImaZLfFqwTAgmtCjc0RsH/Do
+	 6zfBpPU5+PzsPAb9n/r3U0U1mXEDYalmV33dG0Wzo0sPJGcjJQUIrrRTpVGd/QYSZkcmV
+	 ca2eTq5V3BVFlnnWM6YtB9V68HHgAbagL60OEGH2LKV5o95lOa9pB4WqrATs3dPwounBg
+	 KfDipf+yZ31IHcZ2yxTyWYhvmavdlRCeUE/8nQKNbJ15Ul8ZjULp6V4LhrccUPhiVoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541671;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=YXBT5fGxQzpSmmec75glwmrejQd84gFLPpxZUqqqdPM=;
-	b=SZHyRZpTgHTn6VhQDnRrSQPQ/8aldFBS2kdr5jsi1AoAtU2dH9niUkBQfJPFmqP+cr8z
-	 cRRCRHFZofyN6udlYV6h3E0w9ZdYdEoGoPhGe0oaE4QMVWa8oUNwL7yUwuMPWoVj+dqt8
-	 sEED3hQrk7z/r7W0avS0WfMHuKDGdR+uuTYtOZMmCHxUwJ1PnWvJ2vaQcO1v/2GAy/H2P
-	 iLCCI8B5/Z2FRQ8THihB2KyPR1Lg6kc0T0SyPaWXl7thLKLaBNZ/qnOHlx1seHgcM/Qqq
-	 iOjfHFqPPkC3hyRMwya3JczIqbyZ4FxlGxiqo4DJVNp3XMeBMfxf107t+HVDpcT321w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541737;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cWqL6q32i2ja46RHuRrMa8Y59cNELun9rcT6OJr7BfE=;
+	b=qZxtoW/8MqWqgzFXxG7EHaviOCjMLMm+2gUBVbEslNakpXLIjrIPmaAGNsZz8EhjoUUj
+	 tHjzpgQfzNUlReOM1Ry0XrA5+X24IL16NoVCL65VdGYyAYE4R8CXFsVdxEPvv0H74EmXB
+	 ZgZm0rFydICYvC/jrGRkFSoarNCMoxIiboIYnVYGFKLW+Th0jNLz2j4dyppN5gyScs97M
+	 tMuXPj1mW8o04sueu0E/EeT0yG88KozDVBCpmZmmN5qfjvOKCgHZibtIoWK5InOCiKTuL
+	 m0b03nVd6w4yEnoWUSja6vrxObQvRV0Wfvr/lNevDe8Hyc3u1aJMJHnGlYozEMvEd5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h0kk+JRp;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GeIPhm2b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99023606A31E;
-	Tue, 24 Nov 2026 17:34:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99023606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 14265606A33B;
+	Tue, 24 Nov 2026 17:35:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h0kk+JRp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795541671; x=1827077671;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rLTuWyHOEyXqppVXDLcqIEYXn4SkZFYPT8aClEe3ty0=;
-  b=h0kk+JRp+fKQdlzyOFwwVRkCymQZ/o3w6twbIl/y4yYueIA0lRT9MG+D
-   uRQJ8XCxrH81GLiSFHpP93FakP+4+CS15ONT0whgWtami21FcIm9VERAU
-   kfAI6zoFwvJ8VxoHirisr1GykQqRELi6DH3MVUhQgsf8mooqUjpvkTezL
-   VXfURzBd4khfXwQHZd6aj7loLSSM+2PNJz2hTqCqwum4YpucbZrmEWLC3
-   kA6lOh2JwONR/E+FjrZK5Fqzrj7MlCZrDHJrKhx3/tPgsll3Fb5BDV8EU
-   Z0HAn5fF6U72jt3T2xXn9lS7+Jqzmjgeg2zqlKtzbbUI1u1MCrdV6dZBY
-   Q==;
-X-CSE-ConnectionGUID: +kKZRzPiS3W3Mc9PaZYrdA==
-X-CSE-MsgGUID: SezB1vfDRbOqlhqQODujEw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4288890"
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="4288890"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 09:33:15 -0800
-X-CSE-ConnectionGUID: IUmLkCgRQKSS6IcN2EHBJQ==
-X-CSE-MsgGUID: yrwsXoOlQFeUpPQO8X3s9w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="11921018"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.125])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 09:33:12 -0800
-Date: Tue, 24 Nov 2026 19:33:09 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Gary Wang <is0124@gmail.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Thomas Richard <thomas.richard@bootlin.com>,
-	Daniele Cleri <danielecleri@aaeon.eu>,
-	JunYingLai <junyinglai@aaeon.com.tw>,
-	Louis Chen <louischen@aaeon.com.tw>,
-	BillyChou <BillyChou@aaeon.com.tw>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] upboard pinctrl support for device id INTC1055 &
- INTC1057 & INTC105E
-Message-ID: <awXKVXS0kIGnA0lD@ashevche-desk.local>
-References: <20261125-upboard-pinctrl-add-intc1057-intc105e-support-v2-0-c8079f8f569f@gmail.com>
- <awXJd59jTHM2bIlD@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GeIPhm2b
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id F18111F000CA;
+	Tue, 24 Nov 2026 17:35:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795541736;
+	bh=cWqL6q32i2ja46RHuRrMa8Y59cNELun9rcT6OJr7BfE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GeIPhm2bJlCmLIB2Uhp4YL9t1l7plYTcOJFMFBCjGAlQmjVZiRMwlkSYEO6Y+sjAx
+	 7VEOhgtmQfXP4HQtnMhNEC7fym2O5gK1LuFAiN/hzTGfmBAMePgGKfQYJW1eb+Ja/r
+	 wuIKJLAOs0WgMd7k3b1yVyOQtpvWDV2KYuxC+OhfZSvP/I3fAVnDKFf8Zlc/9nJpvZ
+	 87EgXxCP9rl1lPOSmt8Gm1N+kDYHIZ/phMeH2ymC14TG3TQpK737O1UBFF55oeSYRE
+	 yemyQu1anWZ4TVlunkbQEgVN1kqzrOmcB9MLf4KA6lSJFQt/HTEE1PI9/Y1UIEGG+E
+	 zcmOnsKZX8Xag==
+Date: Tue, 24 Nov 2026 19:35:32 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Florian Bauckholt <florian.bauckholt@cispa.de>
+Cc: Rodolfo Giometti <giometti@enneenne.com>,
+	David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>,
+	Ignat Korchagin <ignat@linux.win>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, Hui Peng <benquike@gmail.com>,
+	Stefan Berger <stefanb@linux.ibm.com>, keyrings@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Guicai Ma <maguicai@kylinos.cn>
+Subject: Re: [PATCH v2 1/2] KEYS: fix signature length passed to
+ KEYCTL_PKEY_VERIFY
+Message-ID: <awXK5NCHf82v7yaj@kernel.org>
+References: <20261119-keyctl-pkey-fixes-v2-0-9e2d1c7db7ec@cispa.de>
+ <20261119-keyctl-pkey-fixes-v2-1-9e2d1c7db7ec@cispa.de>
+ <80ded1ae-51a7-46d1-bb67-02b4b06de71b@enneenne.com>
+ <av7x53CigERu-cf2@kernel.org>
+ <5d833d4c-bf8b-4ffb-a214-126de4403d4e@cispa.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,43 +72,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <awXJd59jTHM2bIlD@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <5d833d4c-bf8b-4ffb-a214-126de4403d4e@cispa.de>
 
-On Tue, Nov 24, 2026 at 07:29:32PM +0200, Andy Shevchenko wrote:
-> On Wed, Nov 25, 2026 at 01:10:34AM +0800, Gary Wang wrote:
-> > Add missing groups and functions in Tigerlake & Alderlake & Meteorlake
-> > for INTC1055 & INTC1057 & INTC105E.
-> > Add support "UP Xtreme ARL","UP Xtreme i14","UP Squared Pro 7000",
-> > "UP Squared i12","UP 7000".
-> > Fix pinmux-select set CPLD GPIO OUT not function mode for I2C pins
-> > on the AANT0F04.
+On Tue, Nov 24, 2026 at 04:54:15PM +0100, Florian Bauckholt wrote:
+> On 11/19/26 13:56, Jarkko Sakkinen wrote:
+> > Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 > 
-> Make the above bullet points to be a regular English text which explains
-> all this. It sounds like the second sentence should be first to start
-> with what is this and why. Also don't blindly copy what AI provides you,
-> edit the text that it's correctly split on the paragraphs and in each
-> paragraph use full line length (~72 characters). Each paragraph should
-> be separated with a blank line.
+> Hi,
 > 
-> This comment is related to all commit messages in this series.
+> I saw that for-next-keys now has 94cd21592349 ("KEYS: Fix asym key
+> overflow in keyctl_pkey_verify()") with the same (trivial) patch.
+> I'm not sure how this goes, but if you'd like to add some context, a
+> link to this thread and these tags can probably be moved over:
 > 
-> > The pinctrl-upboard is provide additional driving power & pin mux function
-> > through native SOC pins->FPGA/CPLD->hat pins for flexable board level
-> > applications. it's probe from ACPI device id AANT0F01 & AANT0F04.
-
-Also you ignored my comment about how this series is supposed to be applied.
-Intel pin control drivers are maintained by me. The rest by Linus. People
-won't go through the code to understand if there any compile-time and/or
-run-rime dependencies between parts.
-
-> > To: Mika Westerberg <mika.westerberg@linux.intel.com>
+> https://lore.kernel.org/all/20261119-keyctl-pkey-fixes-v2-1-9e2d1c7db7ec@cispa.de/
 > 
-> No need to bother Mika, he is not maintaining this code anymore. :-(
+>   Tested-by: Stefan Berger <stefanb@linux.ibm.com>
+>   Reviewed-by: Guicai Ma <maguicai@kylinos.cn>
+>   Tested-by: Guicai Ma <maguicai@kylinos.cn>
+>   Tested-by: Rodolfo Giometti <giometti@enneenne.com>
+> 
+> Thanks,
+> Florian
 
--- 
-With Best Regards,
-Andy Shevchenko
+OK, so I pulled that by mistake as I was picking patch for keys 
+1/2; not asymmetric keys.
 
+I'll drop it.
 
+Br, Jarkko
