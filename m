@@ -1,56 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795544316;
-	b=uBY4Z7zg4ctE6v6qXcaGk/ZVLrfHq6dyLKBy3PesOmbg8/7VuMkWDPR88PU7fvO58rBz
-	 paJe58u7F5E/UUbB6Ce9oeT9Rd1PdycMa32OgWR9uYdSKQOf2mmrTt/oXwKzZM4iVafEj
-	 zaHtH55eLtXt1e5koghXDYV8Fm/jyxKn5sKMNjyDJCW4emHDsML0fx3v25StZNhkDNhvd
-	 qQJy1pAJ/e68r/DjLmwrNK2cio+kUY20nOdWmCQ66ifh2yUdvjvm38QTs2V539LR1OQQP
-	 0YSm1EKBiRrNMoHWIwn50dTwZ5HMfDahJMQnk3zF97KwxfK7QkDvnW+wZvbLDw+HqNQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795544316;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=QxFNOD5lI1FgrJVbksc8scDCM7jrgscRTbGCvMXijrE=;
-	b=yqZoS8TRxEJFpERli2qm0XJimj3HF74biYB3uRw/lKImK0I2gpVOE8yVRA1DacFMv2BD
-	 Wy7tIUhgrD0lm7WmXL4PX8NEwMPpkebdgTnsVNIto+5d0jPjE1j0pVeQaeUBmid+cXFKW
-	 02eTnBk4l7YtqBfp1/Tq335+VqQlPczR3DY7ayFnPcKbMLT03mUGzN/o/9D30WkElefEl
-	 opY8B4yG+H7mSIeJuOrap/W4Ep82/B+TCbAhkjrK17RpfaoBp21JAPPaoMYxgh5T2gwI4
-	 ySLd5b5K5rgv8305Lug/nYXJCM1gtUUMotETXA8WU0wANAYOVQDmiDIKDIRyZCMwrTA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=IOCG+6lO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
-Received: from sender5-pp-f112.zoho.com (sender5-pp-f112.zoho.com [165.173.182.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795544341;
+	b=AG9o7FIKk43CX3rVLNwEnxGM3yKo4owxlHYhXcpItGWSpAMsRm8j0TfEcNiP3V4A7JT8
+	 z5gz4HR3DjkE4n2bbTryicvLBU/COEX/Nn1MbKLVR4CBlnJV6vPJqh9auGYicfXvQATNl
+	 g67fqr59EcShdMwZ3a4u54mIGqe6CQr62KPE9wKpRIX9nWhsFFhmXPiHYj8YCcP4oguRO
+	 n/Z1R3N0x4/YpnnDd3E00WvY+MpeCqpqqWtL6NTaAjarGu4r9bdqHkhFyonVebw1KNq3m
+	 Qsp6qVuw9C/30NrHEGHzNSgsJicc4371hgA+PLfbARXe1jzbogsUzGz0kei9DefcGPA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795544341;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=bNO9YIUJ//sKhPtWveWkupKCWT4jJeib/STXIYwEYzc=;
+	b=Ign+qPHuv6wXOBl4DsX+mKGow1exVk/dTdJYA6Ac/ky7H4C8Oa2M+yumNzMiT67rQS/E
+	 l5ZJJ2ZM/8Ez+xCpGd8s+X+21RwU27W4NOsj+nn30fNQWWWkNLked9FdHCKs+LetquSMd
+	 rhnaHa6QZxoeXgRNYv+6SV7RWqmxqeRBCjkSFZtfdfeyv/lImnazvvF7ZEauMr9O6IPNE
+	 1og7jvVqu2dR/sqh12OaD5iVpKq3aTIKmV5ZC16V3atehnMaLEaENZAj6FcFmFbCGZvoS
+	 UF85BpOlUKo+SUC+XauQMx61IUzZZs9BNadDdlWdys8lVcklKGYQKvg+oXUUCD0pvoA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dETGIIIn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F45606A683;
-	Tue, 24 Nov 2026 18:18:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F45606A683
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC586606A337
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:19:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=IOCG+6lO
-ARC-Seal: i=1; a=rsa-sha256; t=1795544271; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=GFLnHaygwLAVKwP9MxfLxPO1Kg70AahzzVjonsyAYWPpsXNvB9Z0VTdx5QKkU/BLgeiqze12L7Ej7M1umLZa6aA6Ng6DqgyCQTRYCAmyz8WYBjPbwpdKfd39Q0JPqdP+LevTX34bJ3acah3cFMJlao9Y2Yc4XHNwYOt9xLAVP5o=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795544271; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QxFNOD5lI1FgrJVbksc8scDCM7jrgscRTbGCvMXijrE=; 
-	b=h6G0lmImi6aoIaxa2g85J0n5/Md2/iU28E95+d5W63TUpVPHMbRlr9CU3RrU8TfPcKcQuzsM6rP7xGsC0NkkmUMFIFgKntrcUpT1+h26CjTNDHxPyQhUo6jAJYAVJKslyl/UUEOLqp8K9Gc7xskvwM2D75gPmvgyoUHDeimSpvk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=IOCG+6lOe27hHHtHSjMF8FIBMFvtB9dYVNKeQ1cD/iMC/dH7uWK/yAVGZFTGHt+033aLf8OXC1+S6pOI/BI739k5gK+V7rdgFHxLUVeM4MVxQM3jj6f8zXuw8mPpnL0kte9HIIWpXT03x5PErjZGFwQ++Z0M5X/IYZAd3xxmNbBGiSAnPX7HMeC1sP7tz4aUF4HoOKl3mOPeeyDrSgJal+SvdrfS/jHivljsOZGQsD580axPfi5Rhy3ngIOisAcMxjai3R6SV4JprM1CpGi11JJAGuQGYqg8WrtmAUHNA/LgaAfPRVx8DPFgc+h31AxJ47rn2cMMitbByOr7QsOCKA==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=QxFNOD5lI1FgrJVbksc8scDCM7jrgscRTbGCvMXijrE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795544269370734.1361204959647;
-	Tue, 24 Nov 2026 10:17:49 -0800 (PST)
-From: Rong Zhang <i@rong.moe>
-Date: Wed, 25 Nov 2026 02:16:58 +0800
-Subject: [PATCH v2 2/7] platform/x86: lenovo-ymc: Serialize WMI event
- handling
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dETGIIIn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091151F000D0;
+	Tue, 24 Nov 2026 18:19:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795544341;
+	bh=bNO9YIUJ//sKhPtWveWkupKCWT4jJeib/STXIYwEYzc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dETGIIInQo+LL1pYynwXOVRWRwRbMQfFIK1CKlG7yiwPIYfo3GUX+pfZFpcKP8oB0
+	 vPWBQqw39VzzO8ApIafLaKqnyAcXArVb7Awy8q+F5XquA6SAWuVhBKFCtOfZgwgz3w
+	 UOlGZ8G1dsk87m2NTfeBvWZiFOabuugK3hxJf1Fp5Vetd4t06AbYemXJ+o+MwBCRI/
+	 wPMX19D3RPe7a0lsxeRi7uBIXuU6rSCVIxjJPcgTtsWq9jFtQqZNb3jhcq2vAiiyxw
+	 p8dzCccuIVlhRBXXd+lp4pWBgnt4JYfmxF7ljzalJIyJx19w2mnQZoH/osVglTkw0Y
+	 HepgTmaNZBC7Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Anfernee Cao <anferneemelokc5@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] mmc: sunxi: fix clock and runtime PM leaks on probe failure
+Date: Tue, 24 Nov 2026 13:18:59 -0500
+Message-ID: <20261124181817.2362922-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112400-cope-retiree-6c55@gregkh>
+References: <2026112400-cope-retiree-6c55@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,89 +59,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-ymc-82yl-v2-2-624bdcb3c50e@rong.moe>
-References: <20261125-ymc-82yl-v2-0-624bdcb3c50e@rong.moe>
-In-Reply-To: <20261125-ymc-82yl-v2-0-624bdcb3c50e@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Gergo Koteles <soyer@irl.hu>, Ike Panhc <ikepanhc@gmail.com>, 
- Andrew Kallmeyer <kallmeyeras@gmail.com>
-Cc: Eduard Aliman <edialiman20@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mahir Faisal <mahirfaisalantiq33@gmail.com>, Rong Zhang <i@rong.moe>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-ce4c1
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-WMI events may arrive in parallel, causing race conditions, e.g.,
+From: Anfernee Cao <anferneemelokc5@gmail.com>
 
-  CPU1				CPU2
-  query: posture A
-  				query: posture B
-  				input report B
-  input report A
-  				trigger EC with B
-  trigger EC with A
+[ Upstream commit e35e360bd66898a977c296ab71fe4bae17ddceb7 ]
 
-Fix it by serializing lenovo_ymc_notify() with a mutex.
+sunxi_mmc_resource_request() enables the bus, card, output and sample
+clocks before returning. Several failure paths later in
+sunxi_mmc_probe() leave them running:
 
-Fixes: e82882cdd241 ("platform/x86: Add driver for Yoga Tablet Mode switch")
-Cc: stable@vger.kernel.org
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Signed-off-by: Rong Zhang <i@rong.moe>
+ - If devm_request_threaded_irq() fails, the clocks enabled by
+   sunxi_mmc_enable() are never disabled.
+ - If dma_alloc_coherent(), mmc_of_parse() or sunxi_mmc_init_host()
+   fails, probe only frees the DMA buffer and the mmc_host.
+ - If mmc_add_host() fails, runtime PM has already been enabled, but
+   pm_runtime_disable() is never called.
+
+Besides leaking the clocks, this leaves the clock enable counts
+unbalanced, so a reprobe (for example after -EPROBE_DEFER) calls
+clk_prepare_enable() on the same clocks again.
+
+Disable the IRQ and the clocks in the probe error path, and disable
+runtime PM on the mmc_add_host() failure path. Also handle a failure of
+devm_request_threaded_irq() in sunxi_mmc_resource_request().
+
+Tested with QEMU's orangepi-pc machine: with forced sunxi_mmc_init_host()
+and mmc_add_host() failures the MMC clocks stay disabled in clk_summary,
+and a normal probe with an emulated SD card still works.
+
+This issue was found by manual code inspection.
+
+Fixes: 3cbcb16095f9 ("mmc: sunxi: Add driver for SD/MMC hosts found on Allwinner sunxi SoCs")
+Fixes: 9a8e1e8cc2c0 ("mmc: sunxi: Add runtime_pm support")
+Cc: stable@vger.kernel.org # v4.18+
+Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+[ sashal: Adapted the DMA allocation failure path to the older dev_err()/ret = -ENOMEM form, redirecting its goto from error_free_host to error_disable_mmc. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/lenovo/ymc.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/mmc/host/sunxi-mmc.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/platform/x86/lenovo/ymc.c b/drivers/platform/x86/lenovo/ymc.c
-index 70f3ae20d3e3..eba22600161e 100644
---- a/drivers/platform/x86/lenovo/ymc.c
-+++ b/drivers/platform/x86/lenovo/ymc.c
-@@ -10,9 +10,11 @@
- #include <linux/acpi.h>
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/dmi.h>
- #include <linux/input.h>
- #include <linux/input/sparse-keymap.h>
-+#include <linux/mutex.h>
- #include <linux/wmi.h>
- #include "ideapad-laptop.h"
+diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
+index 1b6e41d55b622..cc4fddd68430a 100644
+--- a/drivers/mmc/host/sunxi-mmc.c
++++ b/drivers/mmc/host/sunxi-mmc.c
+@@ -1355,8 +1355,13 @@ static int sunxi_mmc_resource_request(struct sunxi_mmc_host *host,
+ 		goto error_disable_mmc;
+ 	}
  
-@@ -60,6 +62,7 @@ static const struct dmi_system_id allowed_chasis_types_dmi_table[] = {
- 
- struct lenovo_ymc_private {
- 	struct input_dev *input_dev;
-+	struct mutex mutex; /* Protects event handling. */
- };
- 
- static const struct key_entry lenovo_ymc_keymap[] = {
-@@ -82,6 +85,8 @@ static void lenovo_ymc_notify(struct wmi_device *wdev, union acpi_object *data)
- 	acpi_status status;
- 	int code;
- 
-+	guard(mutex)(&priv->mutex);
+-	return devm_request_threaded_irq(&pdev->dev, host->irq, sunxi_mmc_irq,
+-			sunxi_mmc_handle_manual_stop, 0, "sunxi-mmc", host);
++	ret = devm_request_threaded_irq(&pdev->dev, host->irq, sunxi_mmc_irq,
++					sunxi_mmc_handle_manual_stop, 0,
++					"sunxi-mmc", host);
++	if (ret)
++		goto error_disable_mmc;
 +
- 	status = wmi_evaluate_method(LENOVO_YMC_QUERY_GUID,
- 				LENOVO_YMC_QUERY_INSTANCE,
- 				LENOVO_YMC_QUERY_METHOD,
-@@ -137,6 +142,10 @@ static int lenovo_ymc_probe(struct wmi_device *wdev, const void *ctx)
- 	if (!input_dev)
- 		return -ENOMEM;
++	return 0;
  
-+	err = devm_mutex_init(&wdev->dev, &priv->mutex);
-+	if (err)
-+		return err;
-+
- 	input_dev->name = "Lenovo Yoga Tablet Mode Control switch";
- 	input_dev->phys = LENOVO_YMC_EVENT_GUID "/input0";
- 	input_dev->id.bustype = BUS_HOST;
-
+ error_disable_mmc:
+ 	sunxi_mmc_disable(host);
+@@ -1390,7 +1395,7 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
+ 	if (!host->sg_cpu) {
+ 		dev_err(&pdev->dev, "Failed to allocate DMA descriptor mem\n");
+ 		ret = -ENOMEM;
+-		goto error_free_host;
++		goto error_disable_mmc;
+ 	}
+ 
+ 	if (host->cfg->ccu_has_timings_switch) {
+@@ -1471,7 +1476,7 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
+ 
+ 	ret = mmc_add_host(mmc);
+ 	if (ret)
+-		goto error_free_dma;
++		goto error_disable_rpm;
+ 
+ 	dev_info(&pdev->dev, "initialized, max. request size: %u KB%s\n",
+ 		 mmc->max_req_size >> 10,
+@@ -1479,8 +1484,13 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
+ 
+ 	return 0;
+ 
++error_disable_rpm:
++	pm_runtime_disable(&pdev->dev);
+ error_free_dma:
+ 	dma_free_coherent(&pdev->dev, PAGE_SIZE, host->sg_cpu, host->sg_dma);
++error_disable_mmc:
++	disable_irq(host->irq);
++	sunxi_mmc_disable(host);
+ error_free_host:
+ 	mmc_free_host(mmc);
+ 	return ret;
 -- 
-2.55.0
+2.53.0
 
