@@ -1,101 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795535948;
-	b=FW9llKhA9PvIapEUivDhW3gdgkkrJBEjijyEjpWHC9Bib/Smmyc6PydNgLFLe8HNwtBE
-	 ytAguUDkoPCr+BUxR1EScPNxFyKwxHK3CwWyaEJaZUmHgNVpCgi0BbQz69ZPSN7YBsZWV
-	 XAon+4TPT8LnyBq9oWrd+lpxeLSaHpthxNzoYweZqDixnX+J8TvqM2XCpfVloVDSgqyG2
-	 bMMs7Ad6b6J4oY0JcNJZhE7VFzuM05WHpT/IjekLKdZOQpd6F6Y0qWzhAVYf9hKKG2xJH
-	 5RvM9Q4JEbcz1Js1bD7kOU//Nv/XxjJvGhU0nK1jOkQ8HiJewn+dqVAeF7qt+mnkPIg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795535948;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795536172;
+	b=OMgOTUEuf8479tRFmN5RuqDWbGmLvHYYoISrp3xLoDbPkhGuDgTjorx/fMQrLcNPQE6k
+	 EBDUtzMi66IpniuAwk8tFwv3CO4UcEJcVzVBVNPe5nsvAkh+nDTeew2da/sXlVBCdSLsT
+	 YepyjC/Ssw2jhkKjAeL9+ozchnYxBGic+r+YQ08FcuBFOzMN/nRIC/pgSdmiU2mH9mti8
+	 E9O6fgSDwQOHnGcb5/C7eDV0dByeMs6ttSx64O1Ldb7vu+CEsS4s3UPpzgqY/X5ZdW4bx
+	 R+MXtGtAtFJUlQmqeGKhfDAeWDHoaXD+/YYWTU68nxkIzIZM0KARSIm4EBF26ZBGOwg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795536172;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/74Ri30W6oVFNU4eqK6RxVx2Up+VW7ByxGiC/VStVG4=;
-	b=XnjP/KnCrWikk8gug4agZLRcfcSddUcqgGaanBqyjmbObZkN8iSYTlo1TsTkJoIyZ+7n
-	 2hXzyQjK/6Pm/Hj9Kwm+w6xb6fpZYO3eBavHe2XJnyx4e5NtgjR/wt6ZS+Nn59wKpKVl7
-	 JFLx2iuQywScHCLAE7lbLM0EwUzaaZc0pZ9M7l4xXXSOPaPdTjUFB1ynL40JeKREpmtpE
-	 hpT9WdozoBF2BnhPX3x45tP9jOXNwVX62ZT0PUkPVvgdLPGtpArU0cc9lldVk/6UMSFGh
-	 kFhbwWIuObWekCPnKdLswXrEXAxi6WwfKGPDIp4V8trsaHWcyb3p7vh/t5Ho3++tzDg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xe6FmElH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.46
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=VIP6J/fBo0uMkDHJLPjC6lz8Vse963XInWutXlvbkwI=;
+	b=tzz9AQMs3tnz60K+kRhxO5iXSzUQwEoOeJn03V7xeQL78lfD9hxJ9ftMsKSvfW2mPoWv
+	 KtLjkXXmKurI01PD2+LMV+QissJYnXIoifVTTFtN/81Q1l68kPbi4Q+DXWuDAMfCnFFM2
+	 xatsWk/ea0I5sH93Fh8bsk5ghCaprQsvkiXoA6TbkCHTbMez8pJaVr/UC6YGXO/TWnmwu
+	 5nctsSzM4nI8RjFQvdLucaPke/wlxbtxdcpFSziNwTjUZLoCfXHv+Frr3BTSqrjDoZEAx
+	 C3N5iwMl6d+q9BsgiCsc3vniKQQL89eevc0FL5e1wcFpb6gBA5wkecfjYdbSg0Ukfaw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=b7ro8bt8;
+	arc=none smtp.remote-ip=209.85.221.46
 Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A42606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:59:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35A42606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A98606A335
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:02:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69A98606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xe6FmElH
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4a357b1c649so2773046f8f.3
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 07:59:07 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795535946; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ezi5fIEJZRTx+yxiOPKLzpOdU5qdD2iV8NT4iWv0MyBmng+vsyHPH+MeM89cHATG6O
-         Af7q5uSPp8T+xQM+02GpUjuthbGaZID2RP/GBBvN9s4PPc/5dMFiQJriUO+iHsJ7Er1T
-         tSrllIWJmbUEK4U+bahRjFqz1HSFRnbANPrpb7M65+CmHespgp6UZmGEkMvCpUVvh3WG
-         LsVD4lElXS04zkwLnYrVIWzDNoBIU82Mbbhgw8xWOR2aDzO0cDzncOFw4662PVLHZvEu
-         ZhsepaHws6RPDqITq3vLtl9r4sW9ee8gfrfUWvtfeG9mnItKIqkytAja9K9ydNeEagOY
-         5EqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/74Ri30W6oVFNU4eqK6RxVx2Up+VW7ByxGiC/VStVG4=;
-        fh=e0FMLcMIS/NqyU1RYlkUJDtzVbcl46LOffr2UVz38a4=;
-        b=e8+ciLcB1PKdm+IEkgoP6uBXVxE0aE59Rbr5y5F4dnZFBDtDOXXBMdFxH6fP94b73K
-         mJ+58ANCfefxXcngICEJA63eGBmGdBl0y+QDG/T3ZdxL25Ws+KskeQPgK7trtzr3gBk7
-         l/XgsrGwB/ioYleanJDCVh/un5FAiDf+SIY0oZap8y/aOR5MIJ3rVYfx5j9wRgkuYE/6
-         j0Z3crZniQSY1sr6dF2KQUlPmv1LQnD/3WkgUCJyWkZXW72rFVRvE58do1vVQgbp6DEx
-         eS5c4705vJkkXFVtUKpXrlGKmcX02rel/I8Nhp88U6JyrZylzyo18gwa2FvGZmnx6DHM
-         Evtw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=b7ro8bt8
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-490d59c3f0aso2195470f8f.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 08:02:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795535946; x=1796140746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/74Ri30W6oVFNU4eqK6RxVx2Up+VW7ByxGiC/VStVG4=;
-        b=Xe6FmElHRDHd8Mzt+qaORfLww3jW7bzp9w3MVasJYUJ2bJZdnE1Aw1mgy2NKI2sena
-         dDG8JEAhbJYTTlbinXSZDegIk7R+F17Ou0v5XWKXNH5HlC58k8XA+UB8E75ye6x1hAxJ
-         ga8Yx/qOWO+gSNY7Vkwg0B2Tu2ULmqkuiyfiTbxDBeLSnB8sybLjyPIk02kpUmWq/QQW
-         a+gkQYsudrPJpFuZ7BZ/19Nccy2+fGjptuK6LRS0+5Tu0+jYay3+7DhvzbdQE9Wo/1A8
-         xdns5t2s1hz6kYA3WVfIgT/6MY445hPydsnhJ/ULT4FlMJPvGlHi5HjWjed9/+gZZTCn
-         d0yw==
+        d=google.com; s=20260707; t=1795536171; x=1796140971; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VIP6J/fBo0uMkDHJLPjC6lz8Vse963XInWutXlvbkwI=;
+        b=b7ro8bt8s6WZ6goSKdTR9/b7UJZ+ETxzxEOK0KkeYo2eflpr8rt0OF6cFwV0jnuChQ
+         viEH1Te3AgIKQ6/QUdTLdEwn45BzlMSO/KkLMybo1MY4sV3bcqBM7pg4YLoF32KwKm8H
+         +lcVjh6X8y92UVgcXyfso+WFDHxbnhGvk/TeyGE0zkXdEfaCDi3p98b1jci2sgSm31fl
+         w6EvnZhsiX8/R6QD+XjTHNd9kIQqXTn+eL5AzVDkjKo8hRdiCQHd+U+rWOPGf06yuLs7
+         RNL0Mlb4kz0rsO68sTFR1NAJ/TSvmlvW+vAqvMMDbROXjbVQwWAddk9yPnDXxED9W8sD
+         MA1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795535946; x=1796140746;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/74Ri30W6oVFNU4eqK6RxVx2Up+VW7ByxGiC/VStVG4=;
-        b=JZF0o0V68ko9zOkRIhy92D+808a6WY1zte0YSYv4YrTYBEIPRPjhxLGzC3srtl+z54
-         iQSphkegfMD4SmSJNLaCb0UqVk/JBTPZ/ACCiqlvb85mGVh2B9ye94oH+2qbXVMSP/Zp
-         lNmnbuZ7ydcBWi/v6zUWZ7SNL+n6KMGRM/i67m/Sb+PGDFUUzovWP/0RlUTf0NwLP4AQ
-         1UaXBZktxoZK6xHTjiqR/xoEUL0jZkOcDevsHEnqJt2hAg3JH0Rq4/rxTshXkKmpSFnz
-         2j5Ad/QIItfsnome5Y+9t54+Gl1UONeK6jUSksEVpHG+Hhi1YaXXTJzrG7W/YjrGC/hI
-         zoKg==
-X-Forwarded-Encrypted: i=1; AL+hErE7t2AzunM4w92ZHx5eMfIDq0c63kMTY404hy1RW5pv+5gcJhThFHCCFSgVsNUDY+Lsyug8H7s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8DRT4W5n6hos5Cfdi4FDzl5glgu732ajzVAsS5uoYkpmf/3Vgm
-	+oDkmDVAYRKfnqNXrSXYnqzQlbxdSe5psCUi9e7/MvKzUBD8UAp/HYt7cd7OVC7fK+Vjx0eg9ce
-	eRN+9Um0ENUIO4O3ebPGdQcyWWf5kdwY=
-X-Gm-Gg: AZFdTZdq9P+b0m4wVjTKP1fFfJmxXRlpLTYQKKD0eiyypwukBV+5ah3Mla2AjF+r2Jd
-	OSAp/p561xTitcP7El71VK5T1nX4483qSe6F4iIbZZrj1GQfBzkaUgEkAjt7SyfmM3IXEGhE+tU
-	leYDNcnud7NworY0UvgyRJlPSAwH4Cveh2mFsE4E8++ZOEcQiNhdvqmeffXKKeBD6dVL7/AWTb2
-	3PGYeGfF1ECBjxSudC4qzb8iwQYNPTu0ANu4OwObAte8MfpFtjOSIT05hQ/Zf97Pt/7GDB7o7N0
-	CmGEx44ZFOCGbDmnqNFkm3asODBLpf86A4MYtDrGu0d0E6BO+WLpcmEBLFEZDbSrnqkYRizAAIf
-	oTLNcNKmed2kC3QHLcWvm/K0Swy5o6b232UekX9M+8R8M8GKUMmglWzsdXM95sQjo3IHTjODOp8
-	5bhYuLgnlP4VRkJ7jKdW7lOg76OHK/0yxXybtQFuSgD7CetcT3ChX5
-X-Received: by 2002:a05:600c:83c3:b0:4a1:7e77:c382 with SMTP id
- 5b1f17b1804b1-4bb8880ad68mr297552635e9.5.1795535946309; Tue, 24 Nov 2026
- 07:59:06 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795536171; x=1796140971;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VIP6J/fBo0uMkDHJLPjC6lz8Vse963XInWutXlvbkwI=;
+        b=cxhT7gFHV3Xa9Qg84h4RpGSfCIk4CuR6u9AKiamYIK3374t0AlJS41AFKqrX1HLKTM
+         n52ySyLEtQ6i3CyKLIE+kSKOPK7iLhQH/T7Ybzy2vApBcn04/JBcsfPSwht2IFlXx6n1
+         hJvco5ZbSJ0YMJ/cV6nMdJTFX/Ts8iFuAlFPPYY+He+a1zwfSbOfLHawFODScB8vtRDu
+         CygcuKGCEWwsZPSm7e8TWS6uaf8fJyF5YK8aDQZTMTqcnoAp6WufKfvISlTiX+m3ZATh
+         oRxIRfA4kJHP/zC4TMwputifmVu9l667jfvmtnljNntQ3DZu3/bUTNnTvGhE8lnAh9C3
+         uqfQ==
+X-Forwarded-Encrypted: i=1; AL+hErG5jX/WrKE81Me3jExDjV2EOVwyLGdT5HODvrLqOstZbRxZhqrb03Ne8e+IhVbEmuJBwu0xtrU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/sGSvz/6/G8uwE0Sl62vUzn9vdIKsO6Qaz5E5oqoiJtVlEIPB5
+	uNwdCVe3lXbjdTiQ5zY4ZA424uzrG/nrLtgtdPkwPgNTPY4U8cpDlq0l3qu2bCnyaA==
+X-Gm-Gg: AZFdTZccW6PcdJX40phie8t0lt7PB613zOAqdvDjqZUE296s8rFbPfl2mgNFJagSoxX
+	bStCmlqv/xqgTBWd0kMtRHlpVXjY87nLxafro9ixumZ9it7x3ybiUCJwXw/B1NhpZDemmaE/ON3
+	KpHqT7Ol2EKy8aO3nMqIyb8tf/F15rHliIFACqlEc+x9f887yNRzc/l3B2+TyppQqR+y4HCCwvj
+	ncxzltgqns1TGbpr4rRbhPyAkLEbIDZFpPvltImd2QcyR2ZKBZBvSUunbVEDn3SjNhehqIAC9jh
+	qbmwNcS6ii+H9geHxhu7JXxMvSPJ4Vc2SSa9l+wZlmFFkVdnh2I+fZEAoRqqFphetGkReRp5/n7
+	ZrIBggHoWG6nNPm4YeE5oAq9+AEb+2oceVwh3iBG8HZ+pbRoXZvO1xoC4qOqTmXs8WNi3M0IYdN
+	ppezIkllhDHElxgJNQFd8+LVIJild9Uybt8qiX3UN1cLJ2wZY63UT5587batwz9md6gZkMCRpyA
+	nVTEGDCp0GEze1t2723r4wSLDH1p4X3H56+f1fg4dYBtN8NEYccZ2uZADCOKXqhQwB120MCN5Z4
+	PJazMNq76z/EwnmTLOOMB+690drvxOvsS3mcjMK7zsRvTugEsNwr7xiBUHXc
+X-Received: by 2002:a05:6000:4541:b0:4aa:d196:f329 with SMTP id ffacd0b85a97d-4abb4c7afc6mr19740332f8f.27.1795536170162;
+        Tue, 24 Nov 2026 08:02:50 -0800 (PST)
+Received: from google.com ([2a00:79e0:288a:8:d01b:9df4:1123:37e8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2d1bsm30145984f8f.8.2026.11.24.08.02.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 08:02:49 -0800 (PST)
+Date: Tue, 24 Nov 2026 17:02:44 +0100
+From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>, Tejun Heo <tj@kernel.org>,
+	Bart Van Assche <bvanassche@acm.org>, Cen Zhang <blbllhy@gmail.com>,
+	James Morris <jmorris@namei.org>,
+	Lee Seong Hyeon <ihopenre@gmail.com>,
+	Marco Elver <elver@google.com>, NeilBrown <neil@brown.name>,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>,
+	Paul Moore <paul@paul-moore.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>,
+	Yihan Ding <dingyihan@uniontech.com>, linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] landlock: Do not hold exec_update_lock across the TSYNC
+ wait
+Message-ID: <awW1JBtrZUoBcwJq@google.com>
+References: <20261120151554.2651743-1-mic@digikod.net>
+ <20261121.bd9ab1ba5f9f@gnoack.org>
+ <20261123.RailieV3ePah@digikod.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,59 +111,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261123030014.3116755-1-bsdhenrymartin@gmail.com> <lh4cnpy2kw3tdtmhubwhhvim25kxpqxo6xttt7sihyx7x5hqdf@3tvivew2qh7m>
-In-Reply-To: <lh4cnpy2kw3tdtmhubwhhvim25kxpqxo6xttt7sihyx7x5hqdf@3tvivew2qh7m>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Tue, 24 Nov 2026 08:58:55 -0700
-X-Gm-Features: Aa3M54pAoXL7yvOyF5JJv7RxaB2ypj1vzahwa9xON4kuYDyLqPQLjNR71spFULE
-Message-ID: <CAKEwX=Py7W0vOwxKdWMCZu3d=BbF2OkgDt6Tu_AHhEJZ06w0ew@mail.gmail.com>
-Subject: Re: [PATCH] mm: fix cachestat NULL pgdat dereference on DAX mappings
-To: Jan Kara <jack@suse.cz>
-Cc: Henry Martin <bsdhenrymartin@gmail.com>, Matthew Wilcox <willy@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261123.RailieV3ePah@digikod.net>
 
-On Tue, Nov 24, 2026 at 5:42=E2=80=AFAM Jan Kara <jack@suse.cz> wrote:
->
-> On Mon 23-11-26 11:00:14, Henry Martin wrote:
-> > filemap_cachestat() treats every xarray value entry as a workingset
-> > shadow.  On DAX mappings, value entries are DAX exceptional entries:
-> > same value bit, different bit layout (flags in the low bits, pfn
-> > above).  Decoded as a shadow, a DAX entry yields a bogus node id;
-> > NODE_DATA() for it can be NULL, and lru_gen_test_recent() then
-> > dereferences it:
-> >
-> >   Oops: general protection fault
-> >   RIP: 0010:lru_gen_test_recent+0xde/0x300
-> >   Call Trace:
-> >    workingset_test_recent
-> >    filemap_cachestat
-> >    __x64_sys_cachestat
-> >
-> > Any writable file on a DAX mount triggers this once an mmap write
-> > fault has populated entries.
-> >
-> > DAX entries track present pages, not evicted folios.  Count them as
-> > cached and skip the workingset decode, mirroring the dax_mapping()
-> > split in the invalidation paths in mm/truncate.c.  PMD-order entries
-> > are counted as one page, as value entries carry no order information.
-> >
-> > This issue was discovered by Tencent CodeBuddy Security.
-> > Cc: stable@vger.kernel.org
-> > Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
-> > Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
->
-> I think that for DAX mappings, cachestat should just return all zeros
-> because none of the fields really make sense there. There's simply no pag=
-e
-> cache for DAX mappings.
->
->                                                                 Honza
+On Mon, Nov 23, 2026 at 10:37:22AM +0100, Mickaël Salaün wrote:
+> On Sat, Nov 21, 2026 at 10:46:49PM +0100, Günther Noack wrote:
+> > On Fri, Nov 20, 2026 at 04:15:52PM +0100, Mickaël Salaün wrote:
+> > > landlock_restrict_sibling_threads() write-locks
+> > > current->signal->exec_update_lock to serialize TSYNC callers, and holds
+> > > it until every sibling thread has run its task_work.  This wait is
+> > > unbounded: TWA_SIGNAL does not wake a TASK_KILLABLE sleeper, so a
+> > > sibling blocked as a vfork() parent runs it only once its child execs or
+> > > exits.
+> > > 
+> > > Meanwhile, readers of this lock block, mostly in D state:
+> > > /proc/<pid>/stat, mm_access(), pidfd_getfd(), kcmp(), perf_event_open(),
+> > > etc.  An unprivileged process can thus stall tools run by other users,
+> > > including root, such as ps and top.
+> > > 
+> > > Only a per-process "TSYNC in progress" marker is needed.  Use an unused
+> > > signal_struct.flags bit, protected by sighand->siglock, which is held
+> > > only to set or clear the marker.  A second caller still restarts the
+> > > syscall, and a cleanup class releases the marker on every return.
+> > > 
+> > > Like de_thread(), treat a group exit or an ongoing exec as a held
+> > > marker: a group exit may overwrite the flags, and both kill the other
+> > > threads, which the restart lets the caller handle.
+> > > 
+> > > Add KUnit tests for taking a free marker and for rejecting a held one.
+> > > A concurrent TSYNC caller cannot be started deterministically from user
+> > > space, but a KUnit thread has no sibling and can hold the marker itself.
+> > > 
+> > > Cc: Christian Brauner <brauner@kernel.org>
+> > > Cc: Günther Noack <gnoack@google.com>
+> > > Cc: Nickolai Zeldovich <nickolai@csail.mit.edu>
+> > > Cc: Oleg Nesterov <oleg@redhat.com>
+> > > Cc: Tejun Heo <tj@kernel.org>
+> > > Cc: Yihan Ding <dingyihan@uniontech.com>
+> > > Cc: stable@vger.kernel.org
+> > > Reported-by: Lee Seong Hyeon <ihopenre@gmail.com>
+> > > Suggested-by: Lee Seong Hyeon <ihopenre@gmail.com>
+> > > Fixes: ff88df67dbf7 ("landlock: Serialize TSYNC thread restriction")
+> > > Signed-off-by: Mickaël Salaün <mic@digikod.net>
+> > > ---
+> > > 
+> > > Changes since the initial report from Lee Seong Hyeon:
+> > > - Rewrite the fix, storing the marker in an unused signal_struct.flags
+> > >   bit protected by sighand->siglock instead of adding a signal_struct
+> > >   field.
+> > > - Treat group exit and ongoing exec as a held marker, because group exit
+> > >   may overwrite the flags.
+> > > - Release the marker with a cleanup class.
+> > 
+> > It's not clear to me why the cleanup class and the fix are bundled in
+> > one commit here.  (I do find the cleanup class useful, but shouldn't a
+> > bugfix commit be as minimal as possible so that it is easy for people
+> > to apply to their downstream kernels?)
+> 
+> I included the cleanup class because we needed to change the up_write()
+> call anyway, so it's a good opportunity to use an automatic cleanup
+> mechanism instead of replacing it with an explicit lock + flag change.
+> 
+> I also moved the initial check before the initialization because it
+> makes more sense there and it was a good opportunity to do it now (I
+> updated the comment as well).
+> 
+> This extra cleanup doesn't have any impact on backporting.
 
-+1. This sounds good to me.
+Fair enough, sounds good.
 
-Henry, would you mind sending v2 along this line?
+Acked-by: Günther Noack <gnoack@google.com>
 
-(and maybe add some documentation).
+—Günther
