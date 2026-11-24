@@ -1,61 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.212
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795493590;
-	b=kYjVtTjE2YcrAqmNjkcPZvDO/QoehZO/7bdfpxKN7e12WdXaYv2crQgt9F7KBt064rQw
-	 fC0UdYnMgBCXVWCsRiw8h2zB4nGmCoXlVPMB4j0qdCRwj1M8CcpI6ZuUOgdj2FpdMY7a1
-	 ee4RZ7euQku7yGKD+RTuntaUxDE3cDZspwDEH0OLX8z7CXzUgFHhzuXat1Haa/8hyP8/q
-	 8+kcOAgQdAvDJs8+Z6NPjEOrJTVj3EImbS9zsW0DBkfptwq6xpp9gUbl+wx798wT0jKL4
-	 ksi4ljhwPyjWKB8H+HL7rm0+8m78b/kmprh49reCKkucovbcpACToXElRuI1JzQzpDg==
+	t=1795494818;
+	b=luh7hzDmmiD8E23kIYk2C44ag1AongaGreohnAppg55CbyAWnMY+PC0vplr5L/++z3x5
+	 MA2A7mD1E6FdMUmLfwqPzNZ88bd4SRAWU08UZtlm+3zngvFmrI6QzwC9SSFAC/T5UyD3l
+	 JBAc+sD5zn4trFy7X6BKkyuvpLKSgHJFnGiy0XjjTIVZ3PevE1Lj8AM6AnOerVF8cTeEm
+	 QyFcrQYiI7lN2Z1PsE/go3C/oAF8a+OnlweYfe0rmCjdgj7e/KVN+bgM8+OrYb8XVrGC7
+	 bYEgI0xwIg044a86uFc6QdrfxoWEXFnRfhBOTKDwRbbSVwYJsxw/CVnnWB5G9KGkVyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795493590;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
-	 Cc:Subject:Message-ID:Reply-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=wgVbbg8AN2+MC7E46KUqvSner2LscJzA+99+j0fw+b0=;
-	b=tze1PwG6h4oc34Nbb2cD3d1iMW1tTl8nK/xz4e2DJQELzw7iY6nEPPYUObVdNDd/CK5A
-	 4JGyi/wmUZK1eHybA5fuCOS10BR5yNx0qPPRjAp4dPSLt5oYwTPlsD+Mi3FZ8/E2GFPto
-	 BWeZlvt1vVpuzJtbHUHlfDw29Gkx85Kv5SMHVJyZH64DuYtUurhnG4s6fRbNZQ1pM9d63
-	 9WoII3rN1ZLYx0voEGWp0rbqmbrB7Gsk+RH1ugATv4cMniiHRyh1ngYwt9wgBYZHMImoF
-	 GCthvNz80OBUK0ja191hcOHVQ13OL8JdS63Gc5EXy1Ka7Il8UEGbxAcbQqEyT3uLtuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795494818;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qeS+Wqldyca7IlFeTqWB+yHVGIRNOofJMih/xkJzWH0=;
+	b=H6GYfbF2V++Dr7iESjishyujDFVwMeJgPIN5UQQaJqhnAHpDj/D01hjbbAw8C3Vi/iJ4
+	 Mkbe0If1grwZwe5z4h328ROCTTi5eOjztaKBBSpLRk9etnPUA+20AuGzh4nlbm7ccrsI+
+	 H1SgZyMk/zFrrhRh0RV0d7pjlnZjqIKiX/zIjshBMkfw7mWuNnses4DLovtKogEirYMP/
+	 6M6On9Wb4vp9z/FRj8bFj4hpYo05SueNWgWQdOTajhtmGwToshAlYhN18ChPWnTy3Gk7O
+	 jHgVlsDJBO30QmJH8jjvWFyzSw1b4AasGj430JDN7Zj+W5WAW/QQP80O+xK8HWO+8gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="f9/Yjb0N";
-	arc=none smtp.remote-ip=115.124.30.124
-Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EChO5xkU;
+	arc=none smtp.remote-ip=91.218.175.212
+Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF98B606A31E;
-	Tue, 24 Nov 2026 04:13:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF98B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A78A606A322
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 04:33:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A78A606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=f9/Yjb0N
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1795493585; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=wgVbbg8AN2+MC7E46KUqvSner2LscJzA+99+j0fw+b0=;
-	b=f9/Yjb0NXEHBedXWjgqEvPuTBmkS669673zujoI6o+wM66P5KOO5vn4cw7APgt5XegCg2vj3pGjZLFlY01oSoMAu7hb6Vn6dFo1kZC9CXl1FpSuQchaWBHrlv2fwAekXtCHk4Xg+YwJE8MFHhjhau2V6RsuLDYBaxv8C+/Q1XSI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XFNJZxt_1795493584;
-Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XFNJZxt_1795493584 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 24 Nov 2026 12:13:05 +0800
-Date: Tue, 24 Nov 2026 12:13:04 +0800
-From: Dust Li <dust.li@linux.alibaba.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, Breno Leitao <leitao@debian.org>,
-	Sasha Levin <sashal@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.6.y] net: free_netdev: exit earlier if dummy
-Message-ID: <awUO0BqIzkLTLvFb@linux.alibaba.com>
-Reply-To: dust.li@linux.alibaba.com
-References: <20261107161415.1917665-1-dust.li@linux.alibaba.com>
- <2026112329-moonshine-vanity-29ae@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EChO5xkU
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XrJqniAxtYnOjs6qtgcphsG7K6LdaIDb/mHKEP/nTBc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795494815; v=1; x=1796099615;
+ b=EChO5xkUCstUOXGGiv9FCZ+/EkSHyKCcChaKP++g+zGEeyhOUnEGUMZvsDHJpcs2y2dHouLE
+ b0RxfeAV6fIkbBQc0izTiZA/u8hLON+4WUir1N5L37zz0r5EwLjvahELnjzlOaM76zpU9suNOdu
+ JLzoHdnuzLhmAShdbG7m3ZKE=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 40e2dd995e1bde24;
+	Tue, 24 Nov 2026 04:33:34 +0000
+X-Mizu-Trace-ID: 40e2dd995e1bde24
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 23 Nov 2026 20:33:33 -0800
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Muchun Song <muchun.song@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Tejun Heo <tj@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Koutny <mkoutny@suse.com>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] memcg: free the private ID of a memcg that never comes
+ online
+Message-ID: <awUTKy9tx8nWJgXf@linux.dev>
+References: <20261124000439.967403-1-shakeel.butt@linux.dev>
+ <F39B4A81-BB17-4C5D-851E-2740EBBBBA8B@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,46 +70,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2026112329-moonshine-vanity-29ae@gregkh>
+In-Reply-To: <F39B4A81-BB17-4C5D-851E-2740EBBBBA8B@linux.dev>
 
-On 2026-11-23 08:26:37, Greg Kroah-Hartman wrote:
->On Sun, Nov 08, 2026 at 12:14:15AM +0800, Dust Li wrote:
->> From: Breno Leitao <leitao@debian.org>
->> 
->> For dummy devices, exit earlier at free_netdev() instead of executing
->> the whole function. This is necessary, because dummy devices are
->> special, and shouldn't have the second part of the function executed.
->> 
->> Otherwise reg_state, which is NETREG_DUMMY, will be overwritten and
->> there will be no way to identify that this is a dummy device. Also, this
->> device do not need the final put_device(), since dummy devices are not
->> registered (through register_netdevice()), where the device reference is
->> increased (at netdev_register_kobject()/device_add()).
->> 
->> Suggested-by: Jakub Kicinski <kuba@kernel.org>
->> Signed-off-by: Breno Leitao <leitao@debian.org>
->> Reviewed-by: Ido Schimmel <idosch@nvidia.com>
->> Signed-off-by: David S. Miller <davem@davemloft.net>
->> Signed-off-by: Dust Li <dust.li@linux.alibaba.com>
->> ---
->>  net/core/dev.c | 3 ++-
->>  1 file changed, 2 insertions(+), 1 deletion(-)
->
->
-><formletter>
->
->This is not the correct way to submit patches for inclusion in the
->stable kernel tree.  Please read:
->    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
->for how to do this properly.
->
-></formletter>
+On Tue, Nov 24, 2026 at 10:50:00AM +0800, Muchun Song wrote:
+> 
+> 
+> > On Nov 24, 2026, at 08:04, Shakeel Butt <shakeel.butt@linux.dev> wrote:
+> > 
+[...]
+> 
+> The leak analysis and the fix look correct to me. However, using
+> CSS_RELEASED here makes the private ID cleanup depend on a generic CSS
+> teardown state, and adds an accessor solely for this failure path.
+> 
+> The private ID is not needed until mem_cgroup_css_online(), so could we
+> instead reserve it at the beginning of that callback? Failures in
+> css_create() before ->css_online() would then never own a private ID,
+> while failures after the reservation would continue to use the existing
+> mem_cgroup_private_id_remove() cleanup.
+> 
+> This would also make the private ID lifecycle more explicit: reserve and
+> publish it during online, then drop the initial reference during offline.
+> It would avoid both the new css_is_released() helper and special handling
+> in mem_cgroup_css_free().
 
-Hi Greg,
+Thanks Muchun. Nothing needs the private ID before ->css_online(), so
+reserving it there would work. But it moves the out-of-IDs failure from
+->css_alloc() to ->css_online(). By then css_create() has linked the
+css into the parent's children list and css_idr, so mem_cgroup_iter()
+can css_tryget() it and cache it in iter->position. A css that fails
+online is freed without ->css_released(), so
+invalidate_reclaim_iterators() never runs, and the free does not wait
+for those references. Today memcg's ->css_online() fails only when a
+small allocation fails. With the move, every mkdir on a system that is
+out of IDs would take that path. I would rather keep failing in
+->css_alloc(), before anything is visible.
 
-Sorry, I missed the upstream commit id in the commit message.
-I'll pay more attention on that next time.
-BTW I notice Sasha had already picked it and added the corrent id, thanks Sasha !
+To drop the CSS_RELEASED dependency, I can test the ID's own state:
+!memcg->private_id_objcg means the ID was never published and the memcg
+still owns the reservation. Let me know if that works for you.
 
-Best regards,
-Dust
