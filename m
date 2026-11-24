@@ -1,119 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795527471;
-	b=q7KpEermPxtsFkT3e1pF8v0lVfdOsop8KJOJnd9OMxrMZBCjY1w1C4SB1pKMpIU3sOHu
-	 f9A4udwISpiQXtJLYCQA6cFJrRBOhBDpl/DpsjbLWbyre5FgVPdxPzpkHqT/Rs3ib2bzO
-	 7gsJSYe7GB92s/JtJ/SY+Fdwbe5DbYx9bGv5xfzA8r8LMmZJ98UsfJ8FhNBuhATLyk+Lc
-	 HNGQQV68VPoLNvTmejhF3JFDgoGPalY8//5uaV32yUFWSYF1R+tFdRRVmEH5cbuW4iF4f
-	 9sws12FjouofJ2977d9++LXxXYoBGoJnJHX/ssYdaVKpElxge86MfHlPLAILHCsz1sw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795527471;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=qoBXvSkKFB/hg52/Z3aOD/B3EVltr1cS716I45qk3To=;
-	b=uaaf9L+PubH3Ee1VeD3z9EOfWr3K+BoJfFV4kzBO2uhl4IBS6nlfGP9t1+jg0eybdVOd
-	 3pdUZsBv7U9U1skfy5Dn/YsZE7FtV7EnC7XFqquFa5f3PcY3klHvQLdJ6fWvlYvEenfWG
-	 HqnNKARoRaR96FotuE7M7Gg/mKpndWaBRwTCZX7+UhBN7ProGCczCwjY5qGf24fLxYwhf
-	 5W2rZLuQcnXAavcFOYZWi5EwdBZm0BfqUejGF4B1NioQy2I6uooVJbbMivqvLR/14fJqw
-	 zwmkc9odpWLrJI6RrWtevkyZSUvifCNRb2Y3tQe4KeM/JAAkbN+CnR2vRnN9SYGseCA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="lco/hl8N";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=alZaJIH1;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GrSTaFhB;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="ctYW/Eio";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795527633;
+	b=rkXpQTbb/0h9FkAx0T7SlSFBi6E0ayIRixdnfRtYKXtUNSvKYzcf9+ye2dp88SvEMpUS
+	 l5dYaExIL1lK5QNMvIZzgiwwo/asd8F4K6PU31TnzjXzU/LMSgMnfHicAT9OuPzenB+/I
+	 AaET2VHafbvTHECOYRmdcG1E8PBYDsuiVsiysDTo6UKG1h6rV2cZIuNxyUYk1jFPV/z3a
+	 ZbWyzCPP/hMjqAKl4/cuxYTeiJ96oT6VIcAu2xL3ebmMLvOxlLdPtCk+4DiiChDv9obHK
+	 +GBjLR1K7QIXl1zWiZHH3x9/MCzyQm3YOr6EbcfLvCeEI4tNo9dfbC8s6so9N2++3Eg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795527633;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=AFQUerxMoXa3m0Ev5SjHXNJUPKI3EK/dEbiXEl5C7iY=;
+	b=zfUdKN2ZxoaQyIFseiq5cmDSecugnW9pK7OmidB7ndu9ZYhm+2H77nwlSUr/9cDIwas/
+	 bVefxUzXBH0+GQvxkSr8DJ9GvjLgG19vmZIIVy8o47Em6WrBqhKMtq4SdG+iicIchlvPO
+	 hzpd5v5b8Fo8z3aGTmU7jvWmZuZqG3BX2XAZHZ7K2sTOoMz3PzJXrf22RT8yyauZBnpft
+	 K+GsshO0YOFHKkFNeD6q8a7Phdw3Zi/f8vYiHQmI0mI/KCocbGqiQZQESOln6h5Y8h+IB
+	 ddzv8/C0BxXDTJ+mSyytM10kG7ttFcWvSpdei6aUOVFsnJAH1laLEtpdKwDTWrqFuFg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kbbr6xbT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F45606A327;
+	Tue, 24 Nov 2026 13:40:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kbbr6xbT
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795527633;
+	b=PNOPpiQgehXUUX/cRf8fuBPGz8qym7ylZuHXT75p/Tyjgef3X/U78HV7A025y33XIlNp
+	 MrxgsbYYYNZ0UOz9BVDZWnCd9U8ZuC/9r6iaZs+GtUan9dWzCTF/sdasujzoToN+Zma48
+	 c+Q9Y9bIwZz90mhHJ70P3Zo/KJkiZATQGq4XI6YYvTgQFKOTb9ai8MUbDQ3IfUVHS2m7z
+	 64a16OMrPu1Cf9CsR4KjhBKlnbdZRuP7XmMuQ4u0LeicqNkIqzxs3Ydm7RJVCaf6TyJEe
+	 KlPMStE4ITDQqDotBdimh0UVgXpJ8nvWBsl+nmaTpxkWmUjTxgMcMwcWA55JY5Vvitg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795527633;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=AFQUerxMoXa3m0Ev5SjHXNJUPKI3EK/dEbiXEl5C7iY=;
+	b=kwImLeRk01VPxTUo2TCBnOaa1CItpApRh8P+Y8rkzK7kOPw+XPz2Rd3AjHY4icViwAqQ
+	 7E0sAp9poh59WIZuPVLwqfF0pKv4/uYnLmkfziL6Qm11p3CG24UxemDXMZ7MAm/DZebNr
+	 Aunzf7fwA9YTAm/PnKMEIrhxP3cJzR5m2/LuAWoN6zMPXkxNlXE+f50DSzGFiposUz7U+
+	 eAPiIuLTFcZS5QUMqaJFirquu+HRSxQNQud7AddaDeEwfCI8L4US5S7QGzZhIk07cfIH8
+	 xSHq5zVdKjt0YcyoZGFBuQdWH+V6LQBzvMYLh4WnZbCjr/TTeaguYMF0AAZ5GGLSVAQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442F2606A321;
-	Tue, 24 Nov 2026 13:37:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 442F2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=lco/hl8N;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=alZaJIH1;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GrSTaFhB;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ctYW/Eio
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 406AD22045;
-	Tue, 24 Nov 2026 13:37:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795527469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qoBXvSkKFB/hg52/Z3aOD/B3EVltr1cS716I45qk3To=;
-	b=lco/hl8NuT52rOMTnhNPzkjxpgpMKgl5c3r+lYMfoziPUpXwuaQx+YQB23RIMuyWSJoVfU
-	TUOGfqMXf4Y4pJvrqFDCf/IsBODVwW5Uu53J8OeC9k4Z+RFDuT7q/cVpWQPmHdwv9erbgi
-	zajCwIL9kCHg3J+pIg8O76WcPmWTXjs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795527469;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qoBXvSkKFB/hg52/Z3aOD/B3EVltr1cS716I45qk3To=;
-	b=alZaJIH1IM9U6rlVlGHsk+Nm/4PIyn5M2HQasw4PKpXD7H47cw09mbtw4MdzByNUE8L6qc
-	scbWYIb+TmQeX8Cg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=GrSTaFhB;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="ctYW/Eio"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795527468; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qoBXvSkKFB/hg52/Z3aOD/B3EVltr1cS716I45qk3To=;
-	b=GrSTaFhBy00Ek0GciUVJgmyZIVu/eK/cYxonxQUwIRdDtq6VMbDnZh37Ab97BSn1RmQI2+
-	FZnIXV5iW8EatUHjUF+mDKTWJgrZ/lHOdKnZoHJhSgHxDtXUcfRl9beaLWkphKKt2baAjS
-	e6tcTJQNO2u7VK1SyExVAA2Bl/Hnwco=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795527468;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qoBXvSkKFB/hg52/Z3aOD/B3EVltr1cS716I45qk3To=;
-	b=ctYW/Eioa17vHbXnyPyrRNPD6yw6zFKUA5N6TmPXc7/uSEQumQBUZg5I8OHCCD+uGU7Odw
-	RqDRkTlHGnYqB0Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D1B6B13505;
-	Tue, 24 Nov 2026 13:37:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 8+SPJimTBWuuewAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Tue, 24 Nov 2026 13:37:45 +0000
-Date: Tue, 24 Nov 2026 13:37:43 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: John Hubbard <jhubbard@nvidia.com>, 
-	Christoph Hellwig <hch@infradead.org>, Jan Kara <jack@suse.cz>
-Cc: David Hildenbrand <david@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Peter Xu <peterx@redhat.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Michal Hocko <mhocko@kernel.org>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 0/5] mm: GUP dirty + ->release_folio() fixes
-Message-ID: <awWNyDZT2SVu2Zp9@pedro-suse.tail5790ac.ts.net>
-References: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
- <4f096d70-6f94-4148-8f47-242b8551e5f9@nvidia.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id C832D1F000C6;
+	Tue, 24 Nov 2026 13:40:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795527633;
+	bh=AFQUerxMoXa3m0Ev5SjHXNJUPKI3EK/dEbiXEl5C7iY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Kbbr6xbTbCIARPzRq9g7tdXU82V1bfd7v0xRG5zGVrUhpfHIhQ/EkOAw/3RMe4IUF
+	 vZiBNWoCSnfVIM5ODCkH/T0pt+NhepzzFvxT+HDtt5d8Bj9+vGqSiuyGRV4vVpEtz/
+	 C4gafFKjxf2cgTxOd74ZSvbYfpBXmpdNLhAqGze6eD/qpNhhURwlf34ZRAJL2/Qw9L
+	 n8rv8CXROiTwAlKDy2ajqo0T0Kl8+aOhk/g2nJuECQX9TDrjrlRA0g6y/Or3qOvTdy
+	 tCkopPDVPtgUe/lb/lNlxtptLiNDy3gU5pnRJWkodsoAnJg1fQV4kTTH8eFyMYTH+7
+	 UERQoO87kT/Rw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5A6B24CA3F;
+	Tue, 24 Nov 2026 13:40:21 +0000 (UTC)
+From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
+Date: Tue, 24 Nov 2026 16:40:17 +0300
+Subject: [PATCH v3 1/3] media: verisilicon: stop the VEPU1 JPEG encoder
+ after an unfinished frame
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -123,145 +83,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4f096d70-6f94-4148-8f47-242b8551e5f9@nvidia.com>
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[37];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RL89xh3ijk4gdpeanxbepagf1s)];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	URIBL_BLOCKED(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 406AD22045
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261124-hantro-buflimit-v3-1-780903970ca0@gmail.com>
+References: <20261124-hantro-buflimit-v3-0-780903970ca0@gmail.com>
+In-Reply-To: <20261124-hantro-buflimit-v3-0-780903970ca0@gmail.com>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Chen-Yu Tsai <wenst@chromium.org>, 
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795527620; l=3188;
+ i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=72wEzEpWvcZUPVzgCWpUbYv9ZbU47P8Ry3jsfvrX0JM=;
+ b=923nxQwhaJv7x9wuorJha3YiDSdvwEjHRzr4yYbRoLPca94/xekCNsPlns5m4UMmyxuBWi5yg
+ IMTJa230fFjAysnDMcDd/O4SEIwyDwVFJ1XqaG+tG2pJKgueKRZiqYe
+X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
+ pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
+X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
+ auth_id=1409
+X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
+Reply-To: shomenkow@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi John, Christoph, Jan,
+From: Sergei Khomenkov <shomenkow@gmail.com>
 
-Thank you for your replies. Since you largely share the same point, I'll
-combine this into a single reply.
+When the JPEG stream reaches the stream buffer limit, the H1 raises a
+buffer-full interrupt and pauses with the enable bit of H1_REG_ENC_CTRL
+still set. rockchip_vpu1_vepu_irq() does not stop it, so the next job is
+programmed into the paused encoder and times out.
 
-On Thu, Nov 19, 2026 at 04:55:30PM -0800, John Hubbard wrote:
-> On 11/19/26 12:10 PM, Pedro Falcato wrote:
-> > Sooo.... It turns out GUP dirty and ->release_folio() interact really
-> > weirdly. This was initially reported by some AI agent, and David let me
-> > know.
-> > 
-> > The basic issue is:
-> 
-> The basic issue is covered in a series of LWN articles that span 5 or
-> 6 years:
-> 
->     https://lwn.net/Kernel/Index/#Memory_management-get_user_pages
-> 
-> Probably good to read and absorb that. There's a lot.
->
+Clear only the enable bit when an interrupt does not report a finished
+frame, and warn (rate limited) about each fault bit that is set, as
+hantro_g2_irq() does.
 
-Thanks. I was aware of some of this, but it's good to take a fresh look again :)
+Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
+---
+Found with an LLM coding assistant while porting mainline Linux to a
+Rockchip RK3026 board; the assistant also drafted this change. Tested
+on that board, with the next patch applied: a frame that does not fit
+now ends with the ERROR flag and one interrupt, and the following jobs
+complete. Not tested on other SoCs.
+---
+ drivers/media/platform/verisilicon/hantro_h1_regs.h  |  4 ++++
+ drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 18 ++++++++++++++++++
+ 2 files changed, 22 insertions(+)
+
+diff --git a/drivers/media/platform/verisilicon/hantro_h1_regs.h b/drivers/media/platform/verisilicon/hantro_h1_regs.h
+index 8650cc489392..a7f18683dac1 100644
+--- a/drivers/media/platform/verisilicon/hantro_h1_regs.h
++++ b/drivers/media/platform/verisilicon/hantro_h1_regs.h
+@@ -11,6 +11,10 @@
  
-> The problem remains not fully solved. pin_user_pages() is a building
-> block, but we need to fully coordinate with filesystems in order to
-> finish. It's good that you are looking at this.
-> 
-> >  - ->dirty_folio() relies on buffers/IFS/etc being attached to the
-> >    folios. It _cannot_ attach them itself, as dirty_folio() cannot
-> >    block.
-> >  - certain MM paths (reclaim, khugepaged, folio split, etc) are very
-> >    trigger-happy when it comes to asking filesystems to release them. In
-> >    most cases, barring any dirty folios, buffers, it will just drop
-> >    them.
-> >  - there is no problem in usual IO submission, but issues start to pop
-> >    up with GUP, where the code flow (roughly) becomes:
-> >         [get_user_pages(), etc]
-> >            ->page_mkwrite() called here, or before
-> >              ->private correctly populated with whatever the filesystem
-> >                expects.
-> >              folio is marked as dirty, initially.
-> >        *write finishes*
-> >        folio_lock();
-> >        folio_mark_dirty();
-> >          ->dirty_folio()
-> >               dirty_folio expects ->private to be populated by
-> >               ->page_mkwrite(), ->write_begin().
-> >        folio_unlock();
-> > 
-> > What happens if any filemap_release_folio() runs (and succeeds) between
-> > the initial dirtying (plus eventually writeback) and the write to the
-> > folio completes? Welp, it's unpredictable. ext4 for example will
-> > WARN_ONCE, and likely drop data (see ext4_dirty_folio()).
-> > 
-> > So, what can we do about it? It's complicated, hence why this is an RFC.
-> > For the possible solutions:
-> >  - ->dirty_folio() attaching this FS information itself is not really
-> >    possible in many cases. ->dirty_folio() can't block, nor is it even
-> >    guaranteed to hold the folio lock while being called.
-> >  - Can pincount help? Kind of. Things like folio_maybe_dma_pinned() are
-> >    rough, and don't deal with the usage of get_user_pages(FOLL_WRITE).
-> >    pincount itself isn't available in the common order-0 case, and not
-> >    available on order-1 as well on 32-bit, but who cares about that^W^W^W^W^W
-> >  - Could get_user_pages() ban FOLL_WRITE? Mayhaps. I would not be
-> >    opposed to that, but that's probably a larger change than ideal for stable,
-> >    and I'm not familiar enough with GUP requirements to decide to go that way.
-> >    This would require migrating all FOLL_WRITE users to
-> >    pin_user_pages().
-> >  - Can the whole system be reworked? Probably, but not for stable.
-> > 
-> > This patch series is really rough but kind-of works. Instead of using
-> > folio_maybe_dma_pinned(), which only interacts with pin_user_pages(), I
-> 
-> pin_user_pages() was specifically introduced for this exact class of
-> problem. get_user_pages() is now meant for other, much more limited cases.
-> I've attempted to document that, here:
-> 
->     https://docs.kernel.org/core-api/pin_user_pages.html
-
-Ok, so I guess you want me to drop the hacks to make GUP FOLL_WRITE not
-screw itself over? To be clear, the rest is still broken, even with pin_user_pages().
-It just means we get nicer looking fixes, and I can drop patch 3.
-
-It's unclear (to me) whether we care about any straggling get_user_pages
-FOLL_WRITE users. A quick look around doesn't find me many; most seem to have
-been converted to pin_user_pages() (though, admittedly, I don't know how many
-of these are converted in stable; do we care?). Perhaps piling on a patch
-to simply disallow get_user_pages(FOLL_WRITE) is ok? Giving Lorenzo's idea
-a go again :)
-
-FWIW I asked my least-favourite chatbot about get_user_pages(FOLL_WRITE) users,
-and it found me a couple of cases. But little enough that it sounded fixable.
-But, again, I don't know if this reflects stable, or whether we really care
-that much.
-
-> > ---
-> > base-commit: 9663aa0da7070d958e333477ce0720512e9fa016
-> > change-id: 20261116-gup-dirty-what-b73da748f5d1
-> 
-> A git alias to wrap "git format-patch" with a sed(1) invocation is a great way
-> to avoid accidentally "leaking" gerrit change-id's into a posting, fwiw.
-
-I appreciate the advice, but this is gunk that b4 adds to every patchset ;) 
+ /* Encoder registers. */
+ #define H1_REG_INTERRUPT				0x004
++#define     H1_REG_INTERRUPT_TIMEOUT			BIT(6)
++#define     H1_REG_INTERRUPT_BUFFER_FULL		BIT(5)
++#define     H1_REG_INTERRUPT_RESET			BIT(4)
++#define     H1_REG_INTERRUPT_BUS_ERROR			BIT(3)
+ #define     H1_REG_INTERRUPT_FRAME_RDY			BIT(2)
+ #define     H1_REG_INTERRUPT_DIS_BIT			BIT(1)
+ #define     H1_REG_INTERRUPT_BIT			BIT(0)
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+index 02673be9878e..d201b058e5e8 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+@@ -376,6 +376,24 @@ static irqreturn_t rockchip_vpu1_vepu_irq(int irq, void *dev_id)
+ 	state = (status & H1_REG_INTERRUPT_FRAME_RDY) ?
+ 		VB2_BUF_STATE_DONE : VB2_BUF_STATE_ERROR;
+ 
++	if (status & H1_REG_INTERRUPT_BUFFER_FULL)
++		dev_warn_ratelimited(vpu->dev, "stream buffer full\n");
++	if (status & H1_REG_INTERRUPT_BUS_ERROR)
++		dev_warn_ratelimited(vpu->dev, "bus error detected\n");
++	if (status & H1_REG_INTERRUPT_TIMEOUT)
++		dev_warn_ratelimited(vpu->dev, "frame encode timed out\n");
++	if (status & H1_REG_INTERRUPT_RESET)
++		dev_warn_ratelimited(vpu->dev, "encoder reset\n");
++
++	/* After a buffer full the encoder pauses, still enabled: stop it. */
++	if (!(status & H1_REG_INTERRUPT_FRAME_RDY)) {
++		u32 ctrl = vepu_read(vpu, H1_REG_ENC_CTRL);
++
++		if (ctrl & H1_REG_ENC_CTRL_EN_BIT)
++			vepu_write(vpu, ctrl & ~H1_REG_ENC_CTRL_EN_BIT,
++				   H1_REG_ENC_CTRL);
++	}
++
+ 	vepu_write(vpu, 0, H1_REG_INTERRUPT);
+ 	vepu_write(vpu, 0, H1_REG_AXI_CTRL);
+ 
 
 -- 
-Pedro
+2.53.0
+
+
