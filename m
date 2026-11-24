@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795545264;
-	b=k5wPNvGEM2GngLhfLMDljWL6DtsqR4xTncyF1iAE4zCy9T2pnr40R0suhoP+IkJFertO
-	 ZXIec/SaBAjnVMb5rBehew+1WiS7n9VwBJ1ZWDrS8agmiGlWQMmDJmibeq/vPjCyI4Q6h
-	 4t4gXxIYxFr5dbZ3aRyTx7HkcgL4HFOErq/+dXAbfOVHTV9pXYZXd/lkYl2kfxpzE5uuG
-	 ZD6Y1XfX8BtN66HePwQn8kZ4vqI06gemF2EBP5aKgo3vubCqzKqB11fw+YXQPDNbFjvFU
-	 kljjYc47Jw/XTHqXImVNe4mqesHyHaCg/S80cHRuIDYojZmBA6A6QiIYBlJnR1o/Zsg==
+	t=1795545289;
+	b=itmta5YcyPKi7jRSz5QI/JyL2BKJRMDhGXNLmEtoUds5Y5dJyc386p0uVKGmHqHSPm2Q
+	 BLqC+hho7wg1oCHRbUzt3sDAzAkUchp/V20Zf9OoUnoQKkY8Ywrkd/3x1adDxTAR+AbPX
+	 2ReexMqdbCDQSLd5afwA5dbG0WJHHTj2NKvJFqbTIgKfxvyUWcfQkTsn7oIiaKZkX38Df
+	 G34b/s80UUaWzPwuYQ40KpFjUrMBqvkYSsEeY2Gt5xjVsSM9BlrKipufOWzYPRCoLZ5BN
+	 NAOCLz+Wb4RhE6jwDyjMBY2BSTgC0ya5zLTE2I1YuxqIC/pcO38LkatrAR5Pm5QEqmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795545264;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795545289;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=m1Szfjj2lZcypR8/1BGxa1fLvfYY4fpFjcYSWpTayI8=;
-	b=Co2TJo2tcyWTofEOVnRNVz2ab26VEldp+PfPXpcbFg1sT/6rYb77oAb7l5IoH/HA4lkM
-	 a5TuRlQ5ywGaxhKmOSEHuf5nAVu5N7gsEitn89YjRISxFyz/7LP9OT0tAAdMrdoDSwYK9
-	 kg/2TqqAOF6td21JSZjJnHIMSMif45WMPc6FbnA28F/xNVXti/lUjS45IqvFnYuqcU95h
-	 CQogCiYhqNWWzBiLUGHfi4CSuh3AR5e9bVm6TaJLoO+k3kG5Bc5nSbKbNt/2zMNmVwHkj
-	 YkXDyZpymZ52XA6/lw7+7Vu6u9e4MtQtR4t8JSVZy4siD7gUElnGxpon2av4yMSLCWA==
+	bh=KrdTl7N9FYdjc3AXPLaLv2IbJp09gp7k2Uvpe7ThBXw=;
+	b=zo9ZwgamCfLMjsNqk8v/seUmv51lFQyTeUyM3c2ScB3c7SAnmaLCMg4VtW5+VWnMYh4N
+	 2HYdmjxLCoYN4vm9fYyPWV3iXxA0+YvklTCP+tdBfe4awCC0rflesNVU35B37Cm+gaUXn
+	 Rg2E9W3YrXYdb15+99H1j2veBtcdMrOjfaq2//8SZWGcuEBFZl0JrspapTM4e0tce/DgU
+	 FcilzwApdBNLcqoNEMDLFUDIu5W/C8JKtGhmDpq4ABIRaQGOoK5qnmjpP0DBpgZLlBh37
+	 gnv8WwEyg7TWDQA6RAEaY0VsTPDItVdVO3EWLldTtggqMRHh/SxzRqxumaDWLpwqbuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JcKPozEv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VXZiBalh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD974606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:34:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28EB7606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 18:34:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JcKPozEv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C10901F000CA;
-	Tue, 24 Nov 2026 18:34:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VXZiBalh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1210C1F000C0;
+	Tue, 24 Nov 2026 18:34:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795545264;
-	bh=m1Szfjj2lZcypR8/1BGxa1fLvfYY4fpFjcYSWpTayI8=;
+	s=k20260515; t=1795545288;
+	bh=KrdTl7N9FYdjc3AXPLaLv2IbJp09gp7k2Uvpe7ThBXw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JcKPozEvlMONY0NYL71kyqWmGQce0u0YL8XKLlMcfzhhJz67UggpJ4qfU+vIi0Wu3
-	 JdUZuu20h0tgMOh2BzbLg709dRaO9mHAR5F/u/4+dz8GTx5n071+dGYFn6GPPugM1r
-	 hwEpUdCC0UpLk68XL6DqqCBASn5vZN0rHt4kT79oPI8xjrJ7USGQaKME8Bah99Ci7s
-	 3aAETSRWGsN21EG2onj/20UZKxph42t8JghvzhiDshgKklTAIPXKK33hpCiDsS6a/e
-	 IRM4jTlln+qk69OX6aV4fw5b//Wh2H715gH445yFdN2iKRzejsJdWoQ6y23yX267sj
-	 Jzh7qM16VgDuw==
+	b=VXZiBalhZJ7h9veMyZ9q2w3Oj0CiZI26nta20OUaU0CVNHVT2LIYL0x4Ggq9uefOq
+	 vL/pP3aQsAk5h8oZTd8AhkgHOx85yzSurbtOM+SzGaYq3laDsZgvqVGWc4KG+sBshi
+	 Iu/LDsnrTu8LxeSG2g/u3rFoo5A0VW65Ovaj3qbpKf4OXN4KP/uPF45MGQSKbgHyz1
+	 aUDK6lgj0vOjsDb6mZX2ZdZ13TDRySNkuj58J3jHLbVB/IwaSLE2AKOKpD/a15taLm
+	 p1bOOV8Xm7B8eM5t0Wqt4pyRGo8HpfjZWwYYxiA9RoENSW0VMDPKuvFi+BeA7Np2gy
+	 ATLhdSf95eN8w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Ulf Hansson <ulfh@kernel.org>,
+Cc: Mani Tofigh <mt4022@columbia.edu>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mmc: omap: synchronize clock timer before disabling fclk
-Date: Tue, 24 Nov 2026 13:34:21 -0500
-Message-ID: <20261124183241.2371892-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] eventpoll: wake the next waiter when a woken waiter is killed
+Date: Tue, 24 Nov 2026 13:34:46 -0500
+Message-ID: <20261124183220.2232955-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112430-lemon-ranging-6009@gregkh>
-References: <2026112430-lemon-ranging-6009@gregkh>
+In-Reply-To: <2026112443-enactment-candle-5f6b@gregkh>
+References: <2026112443-enactment-candle-5f6b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,56 +61,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Mani Tofigh <mt4022@columbia.edu>
 
-[ Upstream commit c931c51681e33b24bc8d65c6df35b70e1827daa2 ]
+[ Upstream commit 9f4413e522faed76f4cf610098b2369eb3ba1f1c ]
 
-mmc_omap_select_slot() removes clk_timer with timer_delete() before
-switching slots and changing the functional clock state.  timer_delete()
-only removes a pending timer and does not wait for a callback that is
-already running.
+Processes sharing an epoll instance can sleep forever while an event is
+ready.  An event wakes only one waiter, which then wakes the next one in
+ep_done_scan() if events are still ready.  Since commit c257a340ede0
+("fs, epoll: short circuit fetching events if thread has been killed"),
+ep_send_events() returns before the scan when the waiter has a fatal
+signal.  If the woken waiter is killed before it runs, nobody wakes the
+next one:
 
-If mmc_omap_clk_timer() is already running, it can therefore call
-mmc_omap_fclk_enable() while the request or slot-switch path changes the
-same clock state.  During host removal, the same window can overlap the
-final clock shutdown.
+  Task A                     Task B                 Task C
+  epoll_wait(ep, -1)         epoll_wait(ep, -1)
+                                                    write(efd)
+                                                      /* wakes A only */
+                                                    kill(A, SIGKILL)
+  ep_send_events()
+    return -EINTR
+      /* skips ep_done_scan() */
+                             /* still asleep */
 
-Use timer_delete_sync() so the callback has completed before slot switching
-or changing the functional clock state.  Keep the timer restartable for
-normal request handling.
+B then sleeps until another file on the instance becomes ready, if ever.
+This can hit eg a pre-fork server whose worker gets OOM killed.  Commit
+7fab29e35630 ("fs/epoll: restore waking from ep_done_scan()") fixed the
+same kind of hang when the wakeup in ep_done_scan() was removed.
 
-Fixes: 0807a9b5739a ("MMC: OMAP: Lazy clock shutdown")
+Keep the early return so that a dying task still doesn't take events
+nobody will see, but wake the next waiter there if events are ready, as
+ep_done_scan() would have.  With the fix, B gets the event.
+
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 2s.
+
+Fixes: c257a340ede0 ("fs, epoll: short circuit fetching events if thread has been killed")
 Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-[ sashal: Adapted to the older timer API: del_timer()/del_timer_sync() are used in place of timer_delete()/timer_delete_sync(). ]
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Link: https://patch.msgid.link/20261103-epoll-killed-waiter-v1-1-36e08c16b8a2@columbia.edu
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: Moved the fatal-signal wake-up into the early return in ep_poll() instead of ep_send_events(), using write_lock_irq() for the rwlock and referring to ep_scan_ready_list() in the comment. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mmc/host/omap.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/eventpoll.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mmc/host/omap.c b/drivers/mmc/host/omap.c
-index eb978b75d8e78..230253751b0ad 100644
---- a/drivers/mmc/host/omap.c
-+++ b/drivers/mmc/host/omap.c
-@@ -210,7 +210,7 @@ static void mmc_omap_select_slot(struct mmc_omap_slot *slot, int claimed)
- 	host->mmc = slot->mmc;
- 	spin_unlock_irqrestore(&host->slot_lock, flags);
- no_claim:
--	del_timer(&host->clk_timer);
-+	del_timer_sync(&host->clk_timer);
- 	if (host->current_slot != slot || !claimed)
- 		mmc_omap_fclk_offdelay(host->current_slot);
- 
-@@ -264,7 +264,7 @@ static void mmc_omap_release_slot(struct mmc_omap_slot *slot, int clk_enabled)
- 		/* Keeps clock running for at least 8 cycles on valid freq */
- 		mod_timer(&host->clk_timer, jiffies  + HZ/10);
- 	else {
--		del_timer(&host->clk_timer);
-+		del_timer_sync(&host->clk_timer);
- 		mmc_omap_fclk_offdelay(slot);
- 		mmc_omap_fclk_enable(host, 0);
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index 8cf4354e22e77..e5f36fc20972b 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -1981,8 +1981,15 @@ static int ep_poll(struct eventpoll *ep, struct epoll_event __user *events,
+ 		 * Always short-circuit for fatal signals to allow
+ 		 * threads to make a timely exit without the chance of
+ 		 * finding more events available and fetching
+-		 * repeatedly.
++		 * repeatedly. The wakeup that got us here may have
++		 * been the only one for the events on ->rdllist, so
++		 * pass it on to the next waiter, as
++		 * ep_scan_ready_list() would have.
+ 		 */
++		write_lock_irq(&ep->lock);
++		if (!list_empty(&ep->rdllist))
++			wake_up(&ep->wq);
++		write_unlock_irq(&ep->lock);
+ 		res = -EINTR;
  	}
+ 	/*
 -- 
 2.53.0
 
