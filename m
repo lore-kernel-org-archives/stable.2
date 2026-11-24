@@ -1,82 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795544349;
-	b=ypuOriz5/zNZzjXjJIhX4aRVcoRVxMXBgbIf/Cv6PE7YqsRCnqsVM4O+HCLJ99ilV9xo
-	 4PYoewElbhAhr/2DBOUcwgmaDoi3XU29A4zK8vC94ctH3Hjo4ao1pnQ3hSGV+8qaimxot
-	 SduMhPXdwGOeHHH74uvMIdJFPsP8eym6cAXOLqllenduaj64lmTlltpbK7pG6uzXEvwId
-	 7l2nQcDZAhfb3B0B8FKqlgYhzqsgN9417zKHn4EkMjsi8sulnie+uVWMQvEM+nB7ciX7I
-	 RVppfUa9CK2C/7PShW1r4kj8cA7UC2mMk9U+gWAI3h2vWeh7CZWFi8Gn9ys3Ms/38ZQ==
+	t=1795545120;
+	b=ayzL8+2Vt6TWzJmOLp9V5umLAQbNlrZkkL+gHQX69CuwKQOt/EgfKB06IL221nwk9297
+	 Q18Dlp2S/WCFx8p+OeOOU0sOMBQ6m0byXl/M/y6vuDfSZD1ECbLrBQPQilfPw7IJgT1XU
+	 ia1z8SM1jPXMQgTe9wq63zMwzAypEbmYHrMYz3NU4xUdXweDmvTvDOwgWD+8wHpcWuyTZ
+	 KVj7HWmsVmrBvhQAAzSzwyjH2RK0tcCJWlq3Z2NMC9d1nR+0i9AHY+Tz7tNuf1qJRLbxZ
+	 1kdZ25leDyyvAIuxEBrdIVAOeO5TvlDTnIuOBi+NWm4ZONinAruJkWJlGYbsudEipDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795544349;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=AQDvl+X/Rd7CTblufTQQVMUfiWZM3uTTjJQc3OJZx7Q=;
-	b=aXglLryvVZOZ7uUpRD5CTKv5ohmhG4n/LAdSvqujg7lrO1ofVJzs40dFvKvHzORN/+kZ
-	 vlMptk8bu9ehSbqpb5UAUbkuLZWABwQ91HoG1Q74bUJLs9tOrUwcw4Tyea9uw5fZPVqf9
-	 EB8PEtrbhF6W0fHgeW7J+aYMQ7xnSWVtaVd/qhiUuj0OMOdXD7Mqq1PEIAsqPe9Pw6YiB
-	 2G8Szi5qrlQFHK6adTrTVj2OACYd+FLNgxbfDVFDjQscDr5HSPtjK3IEW/58jgiRPYLJN
-	 fi4t/Bz2mSnr5MkEbW3sY9c04NX7RL8cG3yiNsOO/64rQjsSmwIMbRzyhWUpOjimc+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795545120;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 User-Agent;
+	bh=gw/J6tsrEEBYQGZcVt2c5cjvJDfXcBGni2CbulyGeQM=;
+	b=uCV+wbJzCKFiJMUcxGVc2Jm2gRCzWlv19mDKSDpMlgIAZRQiMzmXvg0oc/o3ip89XVVu
+	 EspTrc0Uzmf8WkSQIvLAnenPI/bGd/ZX06ie2vlt6wJaeFzlvuxN96OL+Ey6DRUd6dZ17
+	 5+k+fXnVxHlZcZ616diwNbsjQ+YS8Do2zyZ0cmIgnEPAlz0jLfQjp2bNkqIUKk5U0HVfO
+	 /xZsEZwFNf3D9tj2plY0L15wLp9tvLxy/78AszfhYEHFQ+vcAi06rrSjjjJV79quD8ZYW
+	 Y2AhvGtTJx2N05kCAl6qIzgz+eDl4HplJ7GaymRv2uXIbQDgA4IknxfLkT2J+NRUamw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=POzmhQx3;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZzTrYeD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978E3606A693;
-	Tue, 24 Nov 2026 18:19:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 978E3606A693
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77E9606A31E;
+	Tue, 24 Nov 2026 18:31:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=POzmhQx3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795544345; x=1827080345;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cGOOjqPPP9DPkFeOPFRhFkHSbuP38nKReBfH3FUCAbE=;
-  b=POzmhQx3m0OUOjVh/RghjCe1fIigdvb0UIWmOTDuJpCpElEwy1gxPVi8
-   +/zZQa6dno/eOjJ1RiTWHTd5zPxRXdoobQuO8e8Nja8piwpSqf0JqULb8
-   z96501sXbtdulyW+1m7vJmyRfnKR/7TmbrcryWrwqqXX0IgYFla63mRuG
-   m6+D7NLNQRVg3fLxru52gnvRfEgnX9H+bxEaA9vH/jL1wjR26lgqKOltM
-   aZWZEm6irqtjaP3cb9EchMlWxwnwoFwj1X3Osz9Crx6u26DoMgfxgLkqo
-   w+xPafk+68CQc/kABtmk5OGk8g831up+aA7ciwyMUkalwRpbiNTdQfQ9x
-   g==;
-X-CSE-ConnectionGUID: QSzmKrTZSuWGar5qsvLqKw==
-X-CSE-MsgGUID: 9qz8dTvDRtihPm3iwh7P1w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4399210"
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="4399210"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 09:39:21 -0800
-X-CSE-ConnectionGUID: aG2WGNXrRwGhCUHCYttOyg==
-X-CSE-MsgGUID: LB0DQFG1TTGg3XNiumhbnA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="11819137"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.125])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 09:29:30 -0800
-Date: Tue, 24 Nov 2026 19:29:27 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Gary Wang <is0124@gmail.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Thomas Richard <thomas.richard@bootlin.com>,
-	Daniele Cleri <danielecleri@aaeon.eu>,
-	JunYingLai <junyinglai@aaeon.com.tw>,
-	Louis Chen <louischen@aaeon.com.tw>,
-	BillyChou <BillyChou@aaeon.com.tw>, linux-gpio@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZzTrYeD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 087051F000C4;
+	Tue, 24 Nov 2026 18:31:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795545119;
+	bh=gw/J6tsrEEBYQGZcVt2c5cjvJDfXcBGni2CbulyGeQM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XZzTrYeDqn0b1CMgtlMjAD0oeEVxxe0f2v6I1ntpfCuzWkLiuvfwl7s4n5VqAC6DU
+	 xmVE+ZHysFW+GEoreUW7STi1p9rsvFt3OVxJ/fJ79j77hlpcCUezvLZhPRTYggyWRZ
+	 gDe5m5bfA3egdwacje+pIMEiNFscAXgvd/SH7+vYB+FPSIN8J4HWjbm8tHU/I7Hxa9
+	 IJdxsFTILMp6OV1FWbJJrGPeeS77oJ/UNHnqvwIIUr1d3Qb30Lnyjb3DC/yPtlBreg
+	 5WSPEHYqsYZjWlLcBkGJOMtkKRlOj9LTCTTQNpNXi85g1VYNBMdunnSata6wwEF6OF
+	 P1386DUcOZ6Rw==
+Date: Tue, 24 Nov 2026 13:31:56 -0500
+From: Brian Masney <masneyb@kernel.org>
+To: Lee Jones <lee@kernel.org>
+Cc: Drew Fustini <fustini@kernel.org>,
+	Joel Stanley <jms@oss.tenstorrent.com>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] upboard pinctrl support for device id INTC1055 &
- INTC1057 & INTC105E
-Message-ID: <awXJd59jTHM2bIlD@ashevche-desk.local>
-References: <20261125-upboard-pinctrl-add-intc1057-intc105e-support-v2-0-c8079f8f569f@gmail.com>
+Subject: Re: [PATCH 08/10] clk: tenstorrent: Poll atomically in
+ atlantis_clk_pll_enable()
+Message-ID: <awXYHBcmdDQ9OvlD@x1g10>
+References: <20261123164834.3330320-1-lee@kernel.org>
+ <20261123164834.3330320-9-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,37 +67,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261125-upboard-pinctrl-add-intc1057-intc105e-support-v2-0-c8079f8f569f@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261123164834.3330320-9-lee@kernel.org>
+User-Agent: Mutt/2.4.3 (2026-10-09)
 
-On Wed, Nov 25, 2026 at 01:10:34AM +0800, Gary Wang wrote:
-> Add missing groups and functions in Tigerlake & Alderlake & Meteorlake
-> for INTC1055 & INTC1057 & INTC105E.
-> Add support "UP Xtreme ARL","UP Xtreme i14","UP Squared Pro 7000",
-> "UP Squared i12","UP 7000".
-> Fix pinmux-select set CPLD GPIO OUT not function mode for I2C pins
-> on the AANT0F04.
+Hi Lee,
 
-Make the above bullet points to be a regular English text which explains
-all this. It sounds like the second sentence should be first to start
-with what is this and why. Also don't blindly copy what AI provides you,
-edit the text that it's correctly split on the paragraphs and in each
-paragraph use full line length (~72 characters). Each paragraph should
-be separated with a blank line.
+On Mon, Nov 23, 2026 at 04:47:41PM +0000, Lee Jones wrote:
+> The Common Clock Framework invokes .enable callbacks in atomic context
+> with interrupts disabled and enable_lock held.  In atlantis_clk_pll_ops,
+> atlantis_clk_pll_enable() is registered as the .enable callback yet
+> waits for PLL lock using regmap_read_poll_timeout() with a 500 us sleep
+> interval, triggering a sleep-in-atomic bug via usleep_range().
+> 
+> Since the PRCM regmap is backed by MMIO, use
+> regmap_read_poll_timeout_atomic() instead.
+> 
+> Fixes: 23c8ebc95284 ("clk: tenstorrent: Add Atlantis clock controller driver")
+> Closes: https://sashiko.dev/#/bug/linux-980395a6-f282-478a-bf18-b5695a725735
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
+>  drivers/clk/tenstorrent/atlantis-prcm.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/clk/tenstorrent/atlantis-prcm.c b/drivers/clk/tenstorrent/atlantis-prcm.c
+> index eccc8015da23..d9155f133713 100644
+> --- a/drivers/clk/tenstorrent/atlantis-prcm.c
+> +++ b/drivers/clk/tenstorrent/atlantis-prcm.c
+> @@ -313,10 +313,11 @@ static int atlantis_clk_pll_enable(struct clk_hw *hw)
+>  			   PLL_CFG_EN_BIT, PLL_CFG_EN_BIT);
+>  
+>  	/* Step 3: Wait for PLL lock */
+> -	ret = regmap_read_poll_timeout(pll->common.regmap,
+> -				       pll->config.reg_offset, val,
+> -				       val & PLL_CFG_LOCK_BIT,
+> -				       PLL_BYPASS_WAIT_US, PLL_LOCK_TIMEOUT_US);
+> +	ret = regmap_read_poll_timeout_atomic(pll->common.regmap,
+> +					      pll->config.reg_offset, val,
+> +					      val & PLL_CFG_LOCK_BIT,
+> +					      PLL_BYPASS_WAIT_US,
+> +					      PLL_LOCK_TIMEOUT_US);
 
-This comment is related to all commit messages in this series.
+This should actually be converted to use the enable lock instead of the
+prepare lock since this will sleep with interrupts disabled. The _atomic
+variant won't be needed there.
 
-> The pinctrl-upboard is provide additional driving power & pin mux function
-> through native SOC pins->FPGA/CPLD->hat pins for flexable board level
-> applications. it's probe from ACPI device id AANT0F01 & AANT0F04.
-
-> To: Mika Westerberg <mika.westerberg@linux.intel.com>
-
-No need to bother Mika, he is not maintaining this code anymore. :-(
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Brian
