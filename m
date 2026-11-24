@@ -1,68 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795542816;
-	b=WBOV2c9Z1NyiotXjtZIko+jIP516giDco1uz5CzAsV3b76rHpy5dbTZ6XlaFc/uPUv/3
-	 aLWJpWCAIcDL2H5zH7OzLVSQ655qgwfeeoH4SoGFdgREglwHhgCjTZd0/nUu8H6sRqwUw
-	 BDhs+1HNIZR6oRq6lsopX67oOSR0J1vYKfNgaf6l1Sp6V1GrrGP2yj4/mzu84RD5tzQL7
-	 cr+4vT1SET/87zhyHZALUy5iKK7Wqs5bGlBa9gmC7TmeUmNS9EK2sXFTQLleEsANvez+s
-	 vUHPj35LMQ9VAiebuT4b834UXWTZO3FOP/sg86S24sJ4cDKY8z97VgM7fPYNEkKMsEQ==
+	t=1795542903;
+	b=mcpZGZF21jTcHeOfTp5YA0y0VajE+Za9eTh63VMZyMEnCnWkqFw0nHE/jOEzFToYT9Ti
+	 YtbvST3DmEVApqgA3fGxU1cvSubNpWMu00xZJMPmK2OtGGqTYu+fXnu0aZwn5/a5nA328
+	 BHI0c92fJ91YZF2NyvwUBMPncjJCGQD35FAbdZi6XMnHXNCYTTKIfIXR3hxaL0vBSpa9q
+	 WlPyewsYUrsraDWGdniAeBaEKE3hQ9tE01pbJmY2u+tBJZrkvz0zFcZhoHBa4oVsOzxJV
+	 V2Brdu4paVMogdft9MHFDLqJgLmzy+Kpqy/7URDOS9BZ22W7es72m56BgpzdZIc/b1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795542816;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795542903;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=UM8r3RrjmSLVAs4cg3MYCKzmXpYfatwbT/NH7sSmYbU=;
-	b=BEsWWKHOcRHIh0N+ULzCXm8kVbOP77E218kWf857OjiclYms0gajEUJ3kzUlb10Ts8NR
-	 i0yo25LjiHWB7pNQ6TkiekDs+Q2tYVkytXhV2bK6BW7Biv3v4PRwzOG58W7kqfntbPOXy
-	 d/yljVJlEvtNPPZg9TseQjBXJbWPQxif80Dc3+12q4kZxFTWqiYoQtAcFI41XgSMxWTRE
-	 vDQdYdqdedzcpdMaMa4BQw/+UZTEmSBzzskyCb3flbid4/3QwFXE23z5L4RpOW9M8taHU
-	 z94+UFljAEMJ/dwSdfwe7ov3Df/vQyWpP+w3i7YCUjX3ZU85Y6t6Abbw8Z3SBFza1Ng==
+	bh=I2yxDbU7lOpiFweogZtcA4pKGDUYWG7cArF22khEzuE=;
+	b=pDVQk7ccPzaf8VYqB2gh4vc0wuXKbF1XAUOrNLNjeGeN2Y+NdQuTbyOH+zAGUJUw/Nfq
+	 xB82/hX9AZTNmQyKauhr0Gp+hQHn79seYeYXlTp7x5+zRO48OT19Qsg7WPfP7hMEtZzEF
+	 3T9xyUytmQnd6oULp/LyKWyiHsQ77iv/eoj1M9QtIAAv61QzgqDanFlnscgkmJVwDw27d
+	 Tpg3RFRzzaXBOH1Fgq6aDsEyEe+77qzqIHtQH1ly/2f4CNiTt9o9cyW/vqYTQicYrWwjt
+	 O1Kq9xOxFR5oWkHvCaAoMd5mRM1eRdwurA3r6Pgm70crJg+kBhb+AUD9Ctx/aDh64qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Yp/Wz8Ey";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K4qBbnj0;
+	arc=none smtp.remote-ip=95.215.58.240
+Received: from mta1.migadu.com (out-240.mta1.migadu.com [95.215.58.240])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3DC8D606A31E;
-	Tue, 24 Nov 2026 17:53:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9565606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:55:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9565606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yp/Wz8Ey
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DED4F1F000C0;
-	Tue, 24 Nov 2026 17:53:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795542815;
-	bh=UM8r3RrjmSLVAs4cg3MYCKzmXpYfatwbT/NH7sSmYbU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Yp/Wz8EyDw8mQFUJN21YmJp0d4VR0WIlM/zUKeSQBzLGvT/8eRoB7ajr84lpPyPkD
-	 lhVgbcJcn85m5CBNpxglcvakFE2ix61YYZas43+Ym0BgZnHirlL5PwBTx9+1rTZWku
-	 15vAC0P8pJjEYGCe+m7jyaQI6mhIzvF1nbdi7qf/NC4gT7CUbVZnMeL2XXJl0HYcAc
-	 0dDOtTxQAleWaApUMILPJj3d07N4WxUf2heyerujXCmKJE+aROeCXlfKvd0ROsCwZO
-	 QU0S1HXxEhhrrPEt9C23stWUd3fVpG+H6Z4LDVB4wmXfvx1xCEaGoN0R+iD1ST0pS3
-	 7CMheNuHIJHgQ==
-Date: Tue, 24 Nov 2026 19:53:31 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Florian Bauckholt <florian.bauckholt@cispa.de>
-Cc: Rodolfo Giometti <giometti@enneenne.com>,
-	David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>,
-	Ignat Korchagin <ignat@linux.win>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, Hui Peng <benquike@gmail.com>,
-	Stefan Berger <stefanb@linux.ibm.com>, keyrings@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Guicai Ma <maguicai@kylinos.cn>
-Subject: Re: [PATCH v2 1/2] KEYS: fix signature length passed to
- KEYCTL_PKEY_VERIFY
-Message-ID: <awXPG9RspYmccps2@kernel.org>
-References: <20261119-keyctl-pkey-fixes-v2-0-9e2d1c7db7ec@cispa.de>
- <20261119-keyctl-pkey-fixes-v2-1-9e2d1c7db7ec@cispa.de>
- <80ded1ae-51a7-46d1-bb67-02b4b06de71b@enneenne.com>
- <av7x53CigERu-cf2@kernel.org>
- <5d833d4c-bf8b-4ffb-a214-126de4403d4e@cispa.de>
- <awXK5NCHf82v7yaj@kernel.org>
- <awXOfwPQUxO2L1M2@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K4qBbnj0
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WAB79C+6SpcJcXgk0rqpViA2L6QwhWPx0WDOvroYZdg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795542900; v=1; x=1796147700;
+ b=K4qBbnj0YFn062jLpuAS6VoHfSwuSIIpz8YBKCjTCKImMV5ZwpQWPt8XDwLSkO7QdQC1UmKl
+ hjsrkT1kI5tfcAjvd7Pll7mnLKqpb409L9UiyNFUavsgm7dSknAZaEKtMzfUj47ztHwybjfETir
+ cxpqdrHG6XgiDmH0HOjHfb8s=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1aed601a24a53ad1;
+	Tue, 24 Nov 2026 17:54:59 +0000
+X-Mizu-Trace-ID: 1aed601a24a53ad1
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 24 Nov 2026 09:54:58 -0800
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Michal Hocko <mhocko@suse.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Tejun Heo <tj@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Koutny <mkoutny@suse.com>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] memcg: free the private ID of a memcg that never comes
+ online
+Message-ID: <awXO66mRuz_BRWs9@linux.dev>
+References: <20261124000439.967403-1-shakeel.butt@linux.dev>
+ <awVSrbJn00wmh1nn@tiehlicka>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,44 +70,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <awXOfwPQUxO2L1M2@kernel.org>
+In-Reply-To: <awVSrbJn00wmh1nn@tiehlicka>
 
-On Tue, Nov 24, 2026 at 07:50:59PM +0200, Jarkko Sakkinen wrote:
-> On Tue, Nov 24, 2026 at 07:35:37PM +0200, Jarkko Sakkinen wrote:
-> > On Tue, Nov 24, 2026 at 04:54:15PM +0100, Florian Bauckholt wrote:
-> > > On 11/19/26 13:56, Jarkko Sakkinen wrote:
-> > > > Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-> > > 
-> > > Hi,
-> > > 
-> > > I saw that for-next-keys now has 94cd21592349 ("KEYS: Fix asym key
-> > > overflow in keyctl_pkey_verify()") with the same (trivial) patch.
-> > > I'm not sure how this goes, but if you'd like to add some context, a
-> > > link to this thread and these tags can probably be moved over:
-> > > 
-> > > https://lore.kernel.org/all/20261119-keyctl-pkey-fixes-v2-1-9e2d1c7db7ec@cispa.de/
-> > > 
-> > >   Tested-by: Stefan Berger <stefanb@linux.ibm.com>
-> > >   Reviewed-by: Guicai Ma <maguicai@kylinos.cn>
-> > >   Tested-by: Guicai Ma <maguicai@kylinos.cn>
-> > >   Tested-by: Rodolfo Giometti <giometti@enneenne.com>
-> > > 
-> > > Thanks,
-> > > Florian
+On Tue, Nov 24, 2026 at 10:02:37AM +0100, Michal Hocko wrote:
+> On Mon 23-11-26 16:04:39, Shakeel Butt wrote:
+> > mem_cgroup_alloc() reserves the private ID of a memcg when its css is
+> > allocated. The ID is erased when the last reference to it is put, and
+> > that reference is first taken in mem_cgroup_css_online(). The failure
+> > paths of mem_cgroup_alloc() and mem_cgroup_css_online() erase the ID
+> > themselves.
 > > 
-> > OK, so I pulled that by mistake as I was picking patch for keys 
-> > 1/2; not asymmetric keys.
+> > But css_create() can also fail after css_alloc() and before
+> > online_css(): in percpu_ref_init(), cgroup_idr_alloc() or
+> > css_rstat_init(). The memcg is then freed through mem_cgroup_css_free()
+> > without ever coming online, and nothing erases its ID. The reserved
+> > entry stays in mem_cgroup_private_ids for good, and each such failure
+> > takes one of the 65,535 IDs away. With failslab failing radix tree node
+> > allocations during mkdir, 1,500 mkdirs leaked 6 IDs this way.
+> 
+> Considering these error paths they should be pretty impossible in
+> practice (and without fault injection), right?
+> 
+
+Yes, this one is found by code inspection while I was debugging the memcg ID
+leaks happening in the Meta fleet. One of the biggest source I found is the
+orphaned swap cache of offlined memcg. I am still working on the fix for that.
+
+> > Erase the ID in mem_cgroup_css_free() if the memcg never came online,
+> > which is when (memcg->css.flags & CSS_RELEASED) will be false: it is
+> > only set when an fully onlined memcg is released.
 > > 
-> > I'll drop it.
+> > Fixes: 73f576c04b94 ("mm: memcontrol: fix cgroup creation failure after many small jobs")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 > 
-> I'm confused. The patch set had fixes for to separate subsystems
-> so I picked the one that I should.
-> 
-> I assume it will be picked by someone. If not send a new patch.
+> Acked-by: Michal Hocko <mhocko@suse.com>
 
-I don't have your patch in my for-next-keys branch so perhaps
-it is unsynced.
+Thanks.
 
-I guess I call this done from my side.
-
-Br, Jarkko
