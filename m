@@ -1,100 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795536364;
-	b=F2WN3dWu/IVz2k6w83g9L0K72lnLc3wWBe9JFc+3cczr4xlkNAd6mgYffVLhL46mC37t
-	 GZhMMh4IUfess04xW2rOvfbhIDXtJgozEApK9gsaUfhjt6Ijwk/HaanD4bdrbvY0buBIo
-	 ULVJ0bYBHrmkuRMQvodToqyFVMz/Ag+Czbk5w/29jVrWE0tY547kz0Stdl1SKjBf3hkpx
-	 OKvxekS1xFTyr4LDJ1j0hvQjdqLiN+IRztsJN18AJrdghCXf49FCRsIGGmvtveLRubkSQ
-	 /kIqNXSZ90cgpJnP9yU2+Ykz/a1o8N297eXkhNYlAtsjfmRETppRSka6oD4Oh+SmZeQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795536364;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=i+X1zAbocrlZ5/LLPdVPcXdnhobUDrydqC0c9bKACg4=;
-	b=ZbOnoW/mHaeLVqz7WtiR5zmmOkuzQGJzhTyr5mD1ulb4F+qVuFAElcbeo52o6CFRhFtG
-	 eT6a7lePnjECLqMerN3ZL1hq5p3lJ4AwYQbfpFwrVVxkxct3NU7CHMs6NISvv22Zx+G/L
-	 P0IRyDXTUToa/zfPrbXRnnz7TYUxWGsnR12WUb6lctFvz9sONnhMbQO0SNHYQI5hMjYIs
-	 /Os0M4FYAaGiNDFbpk8ZLjzmunptqYKsH0MZs/8S4jk2EP17IZt+wufEEyjudoku8jJJL
-	 1nEq4kHPQ/r9ZjZgCDZGr22fFAmToa3wqGUD4RxfZ9BQOpvk9+Xm/m/nkIRl3oayrtA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="E/NXh2oE";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795536393;
+	b=5HLR9inhYJpbRNPBltwFvJnDqul8ZrXtoDU/4Ed0UC921AVaT68+Ps3E+moP2Ep1punT
+	 fMq+oI4gmDwlbudOGudyG7cWQwFFCihURtmElYEkqZzNVyVmg3QdOqDATF+3gqnsmGkym
+	 Fd3rZ5hKnlMmasq1Sn6NEtvOQCoPlVt/EKcsM728o63Ys5XosnM3ZrflhMnsSFsNkSawR
+	 UWEI502+nujFA5RsevlCTJ0JNFOOied+EBJx/QdFRCObbY9o2fOzPcFH1BYkcK57o3taK
+	 0XSgqWLkrdn7ysVtFOAUYIEebqFEjln/nWv4zKnOXyBiTEk8Kt17mbFukebmfEPa1Gg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795536393;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=SeiH+y9oEU8cX0xb0fJ15u3zmfwG8QzBATDeWrZBKN4=;
+	b=nT951Nunnv55svZvoZzAxsht7OHScccwQj+zQRyg8UC+QRcZybvTMP/GIF8H12wXaqFP
+	 p9n/YFxVHXzfqDg3qSVGjbPEz4hVYjRGwqec/lmeAGqfI5m7hyUa27q5kJMhWP7wA8M02
+	 w+NA6iVHp8siwyQpiq59Tu2xYcoMW9lKpp5qhGQ+aZ6iDY/npGhgs9F7bRT/afECJv11F
+	 apNRa26An5/IBm31Bzb0X0NzEs6hv6nW58VE79+xpMXcNoTiPlJmRRlQx9WZeOZNNKIg8
+	 I79kAba8jtvkRAQIPtmbdjrXFOROmWPJED/+zDdW/R8Uy1cz+7t5KOBcLFGR/16ViIg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nlfxfKy0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E44606A338
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:06:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20E44606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E82E606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:06:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E/NXh2oE
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b87a1a2babso10376772a12.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 08:06:03 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795536362; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Pd/aZFf3cwJnJ6K91Iv/ASCCfbLzb3choqo4m0xe+73T8BAZUbcQqWERasgqoOOToJ
-         jbdU0Jo43jTghDR0bj6w8yooUJzNi/9cWW6TdzcWGGTz4DmEvmRuNSvHvyjcLsZwHcmZ
-         0m6TzGYm7nA9DWfcEOQrfr/tGec5j/5BCMBWmnnzqcGs+Sa5WRx/9PGXh81lMYGgzfBj
-         3Rakut+Z9dzRwmpV4adlaP2sNr2LDUV6XnOz04J3U4OhSG5aGAF61T1GNN2q0epC7ro8
-         Kvyq0MUezYU0298kmTB/+LOqQZS4BQjVi6BBN0BmqADe56fcmoV9yGTOksayaa9wEejl
-         7VDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=i+X1zAbocrlZ5/LLPdVPcXdnhobUDrydqC0c9bKACg4=;
-        fh=pSp/RfINbJJmiWzQrzTj/xzlwwtSgXrtDhKqTOEVdRE=;
-        b=k+taEu06DEdg4pZwLPtu9fwhbUL2YHaBqPBvSDBoilj2tr2j4dPVBl6gcKbIQqHSdw
-         31PGq0WDSsS53DLShgXQEysQ1mjdafM4B/TXnyJt3st3m5PmoTvqMzbwTKEJFDT86Czk
-         Xz2vaf07YBnA5eV1DsROVt3GWhyQQzZ2aNLx5qfJk83eygzsq187lSXm6F8W7mYK25gQ
-         DXFrleSDAzMjZ/JnEM9YRIrFaFY5s9lXeozsxz67+dQWqxw4jBAOAiqOy9mq6fAtJiVU
-         DCbZHxM7QV73nHY2acPkFEtY/6DQYfgcXwqOj8egXAS3tQ9Nw38ic+V77eJ7SCzFhHAv
-         Czqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795536362; x=1796141162; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i+X1zAbocrlZ5/LLPdVPcXdnhobUDrydqC0c9bKACg4=;
-        b=E/NXh2oE2nEKSp1Nk9q/YlLPFggcAo4/RYF34vpQXstWnUL0v9VAbvpcmp70EeBgRn
-         f2BF2jCWaA6bR9UN9EbZhPArzSmequgjr85BP6axfLkoDByL2qJCOW4VTUsIEsSfL2Nc
-         TvwGUu8yW2CsGVHAMadwAwe8lxOiepnODue8PfCUkQmOVjnAofnNBX/ZtMaZyKark1Ow
-         aF1bEwFqlKnP4bdaiVJWN4uVX3KqbQ+i1nWK57JbtB8lnUyGdTofAuhyGbPuCoC6mUk6
-         I9y81VSMSAAVSUB/yIk6pqj8o9M8SKaUGemsg4aNAixUxGGz9k0DHm6ck4NpFQ3YVzhH
-         VGZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795536362; x=1796141162;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i+X1zAbocrlZ5/LLPdVPcXdnhobUDrydqC0c9bKACg4=;
-        b=GafENPAPwQ9sDx4oeZ3YXtjtaQF+n1FlZ0GVhJtGmOIWv1LNP/O93YKl2KZxQnQgGk
-         M2n1T0EoimY7LEfFrlyMhH0HL2L/vbQwmPBPuXsUMwl38oMqA9us+5FbC4h3S2t2Lri9
-         mT+b0CZm0MfH87Cm+N4bYtK73mfzw6W+R8H6jszyMw+fJPh77eq5Q9z/DSe6kMQXwSe2
-         1SbwoG38IM3ANSMKFU+RtnJZoTfGZjFq10uNsjXvDFToNAT816tztRwvqc4BeobvwCxk
-         NvVUrg58HUsug5CsTz7Gbl+/P9m5TI7tqrbEsLl9esdVTbrwEHpcA3/uVddGQEWMbr7l
-         sdSg==
-X-Forwarded-Encrypted: i=1; AL+hErH/y9u555rV/iKd7CrbYzR1/QNWX2CIRh4ZI+0De/XoxBiE+am1givM9gzaGReZkeHeqwcFLR4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/okQbwxQaEXHyZ5n1M/qYQAb3nGrM51brdq9Wfk60k7xdiEcBe
-	OmITChGUKINGiyzbpYGiod9mCjg00fTAIBHHrL4XKVqsGtOKrj66vaUgyw4bhlrERvjzuPMahXi
-	mebFnzHzfoSyJpulRStNCqiz1HT8n9tw=
-X-Gm-Gg: AZFdTZdm3p2R0t0YIKmdfcnC0PD/YteDqJ0M+b3wdiADFb3C3nXOBkJy2TuHF5euR5g
-	L/ErRy/jBVnhwix9Cf+r15gvAGV0hctRF5sxkskpBPVsDwET9ut6IRyXUL88oO75Lof8U3wDhSE
-	ajrj3AfNMmPl2aoB8GmKDWlfl8YoXu2mi2oyGe2Dt3TAMylloIRUsmqlxWS/n/VN4UXRoh/ZC9Z
-	Ca34G6/8kJDPNF0WoekqgUCg0zvYv/UK+HMRhSP8Sfx1J7rrz5YsId/oxUqrD7Xhu/xGdewSA+a
-	P8iIefyCDnZIbFPI3oWG7V+kQU1lcX87HV8yPO5scfGvQQpShcTDtzHD8smHMGeA+pyTxldPCWu
-	463eue13NRBkubwAmJRWzMtF6wUB2hdXt+20=
-X-Received: by 2002:aa7:d1c8:0:b0:6b7:37bf:13bf with SMTP id
- 4fb4d7f45d1cf-6ba1fadf982mr9292482a12.4.1795536362117; Tue, 24 Nov 2026
- 08:06:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nlfxfKy0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8081F000C6;
+	Tue, 24 Nov 2026 16:06:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795536392;
+	bh=SeiH+y9oEU8cX0xb0fJ15u3zmfwG8QzBATDeWrZBKN4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nlfxfKy0dcYMZqOGNOQetDQaaUvwFQFDLGb8GfUJaPakep+qO0eK+LYrpZjQLbEyc
+	 F0Cu23NyLK8DHzS1ycvf1CbpVQdP4TbxWT0hO52EYJjdwy19jOC/d3RllwBU+u4J1p
+	 ZBYRevsQYFRa5Q5LjgLcimNO2Ey1RXc1lghVTIHAtAlhFOTcOnv62eNBhC1lzRpjpY
+	 pqyryBcfbQSK94IekSERntYWrgpnOdx1UTnyhgnE7/trUa33PRqXfTPNcK+WH19HhK
+	 wL0e6bqogLnMr6oQ87CVZs2OUss/mh2DTgc/bmtwvCb3XWp1TINXT/c0nGK7R6fTtw
+	 BR52Fe91EGYmw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] kprobes: Adopt guard() and scoped_guard()
+Date: Tue, 24 Nov 2026 11:06:29 -0500
+Message-ID: <20261124160620.845524-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112410-footman-resume-b431@gregkh>
+References: <2026112410-footman-resume-b431@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,41 +58,531 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261124-vma-read-lock-mmdrop-async-v1-1-257f99f551de@kernel.org>
- <awWLCZ-jBjSD7V3M@pedro-suse.tail5790ac.ts.net> <CAJuCfpGk6eYK43Unxo+O4ML5=GM_siZ9owp6oa9fO0ipZXVg-g@mail.gmail.com>
- <CAJuCfpEd1rz3P7fB7W_mHkyzbpq9TscRE+QNwvHdYME=WJj6cw@mail.gmail.com> <awWz3nc_b8x3mIXq@gremlin>
-In-Reply-To: <awWz3nc_b8x3mIXq@gremlin>
-From: Puranjay Mohan <puranjay12@gmail.com>
-Date: Tue, 24 Nov 2026 21:35:50 +0530
-X-Gm-Features: Aa3M54pSMtL_EaeBSS6GmhvCgL293XFN6RiH4uS7LjK9j2GLa6vMCzrMZ8KZVJQ
-Message-ID: <CANk7y0gAxY18Ew+6j5YsqrOsf5Dx+v5M78r7_8JLXh5RHZj4qA@mail.gmail.com>
-Subject: Re: [PATCH] mm/vma: drop mm asynchronously in vma_start_read()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>, Pedro Falcato <pfalcato@suse.de>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Kees Cook <kees@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Jann Horn <jannh@google.com>, 
-	Alexei Starovoitov <ast@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 24, 2026 at 9:28=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.o=
-rg> wrote:
->
-> On Tue, Nov 24, 2026 at 07:51:42AM -0800, Suren Baghdasaryan wrote:
-> > Actually, VMAs are allocated from a SLAB_TYPESAFE_BY_RCU slub. With
-> > that RCU unlocking move you don't need other_mm copy and the comment
-> > that comes with it. VMA won't be freed until RCU lock is dropped.
->
-> Yeah but they can be reassigned? They won't be _freed_ until a grace peri=
-od but
-> they can go back to the slab and then allocated elsewhere  right?
->
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-Yes, they can go back to the slab and become a different VMA.
+[ Upstream commit 587e8e6d640bcf89a4bf29745a3c3fdfe8379ae0 ]
+
+Use guard() or scoped_guard() for critical sections rather than
+discrete lock/unlock pairs.
+
+Link: https://lore.kernel.org/all/173289887835.73724.608223217359025939.stgit@devnote2/
+
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Stable-dep-of: a553b499f22b ("kprobes: Validate re-registration earlier in register_kretprobe()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/kprobes.c | 205 ++++++++++++++++++++---------------------------
+ 1 file changed, 89 insertions(+), 116 deletions(-)
+
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index f05688f3acc55..8eb092fa66a82 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -144,10 +144,9 @@ static int collect_garbage_slots(struct kprobe_insn_cache *c);
+ kprobe_opcode_t *__get_insn_slot(struct kprobe_insn_cache *c)
+ {
+ 	struct kprobe_insn_page *kip;
+-	kprobe_opcode_t *slot = NULL;
+ 
+ 	/* Since the slot array is not protected by rcu, we need a mutex */
+-	mutex_lock(&c->mutex);
++	guard(mutex)(&c->mutex);
+  retry:
+ 	rcu_read_lock();
+ 	list_for_each_entry_rcu(kip, &c->pages, list) {
+@@ -158,9 +157,8 @@ kprobe_opcode_t *__get_insn_slot(struct kprobe_insn_cache *c)
+ 				if (kip->slot_used[i] == SLOT_CLEAN) {
+ 					kip->slot_used[i] = SLOT_USED;
+ 					kip->nused++;
+-					slot = kip->insns + (i * c->insn_size);
+ 					rcu_read_unlock();
+-					goto out;
++					return kip->insns + (i * c->insn_size);
+ 				}
+ 			}
+ 			/* kip->nused is broken. Fix it. */
+@@ -177,12 +175,12 @@ kprobe_opcode_t *__get_insn_slot(struct kprobe_insn_cache *c)
+ 	/* All out of space.  Need to allocate a new page. */
+ 	kip = kmalloc(KPROBE_INSN_PAGE_SIZE(slots_per_page(c)), GFP_KERNEL);
+ 	if (!kip)
+-		goto out;
++		return NULL;
+ 
+ 	kip->insns = c->alloc();
+ 	if (!kip->insns) {
+ 		kfree(kip);
+-		goto out;
++		return NULL;
+ 	}
+ 	INIT_LIST_HEAD(&kip->list);
+ 	memset(kip->slot_used, SLOT_CLEAN, slots_per_page(c));
+@@ -191,14 +189,12 @@ kprobe_opcode_t *__get_insn_slot(struct kprobe_insn_cache *c)
+ 	kip->ngarbage = 0;
+ 	kip->cache = c;
+ 	list_add_rcu(&kip->list, &c->pages);
+-	slot = kip->insns;
+ 
+ 	/* Record the perf ksymbol register event after adding the page */
+ 	perf_event_ksymbol(PERF_RECORD_KSYMBOL_TYPE_OOL, (unsigned long)kip->insns,
+ 			   PAGE_SIZE, false, c->sym);
+-out:
+-	mutex_unlock(&c->mutex);
+-	return slot;
++
++	return kip->insns;
+ }
+ 
+ /* Return true if all garbages are collected, otherwise false. */
+@@ -259,7 +255,7 @@ void __free_insn_slot(struct kprobe_insn_cache *c,
+ 	struct kprobe_insn_page *kip;
+ 	long idx;
+ 
+-	mutex_lock(&c->mutex);
++	guard(mutex)(&c->mutex);
+ 	rcu_read_lock();
+ 	list_for_each_entry_rcu(kip, &c->pages, list) {
+ 		idx = ((long)slot - (long)kip->insns) /
+@@ -285,7 +281,6 @@ void __free_insn_slot(struct kprobe_insn_cache *c,
+ 			collect_one_slot(kip, idx);
+ 		}
+ 	}
+-	mutex_unlock(&c->mutex);
+ }
+ 
+ /*
+@@ -643,10 +638,9 @@ static void kprobe_optimizer(struct work_struct *work)
+ 	mutex_unlock(&kprobe_mutex);
+ }
+ 
+-/* Wait for completing optimization and unoptimization */
+-void wait_for_kprobe_optimizer(void)
++static void wait_for_kprobe_optimizer_locked(void)
+ {
+-	mutex_lock(&kprobe_mutex);
++	lockdep_assert_held(&kprobe_mutex);
+ 
+ 	while (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list)) {
+ 		mutex_unlock(&kprobe_mutex);
+@@ -658,8 +652,14 @@ void wait_for_kprobe_optimizer(void)
+ 
+ 		mutex_lock(&kprobe_mutex);
+ 	}
++}
+ 
+-	mutex_unlock(&kprobe_mutex);
++/* Wait for completing optimization and unoptimization */
++void wait_for_kprobe_optimizer(void)
++{
++	guard(mutex)(&kprobe_mutex);
++
++	wait_for_kprobe_optimizer_locked();
+ }
+ 
+ bool optprobe_queued_unopt(struct optimized_kprobe *op)
+@@ -889,10 +889,10 @@ static void optimize_all_kprobes(void)
+ 	struct kprobe *p;
+ 	unsigned int i;
+ 
+-	mutex_lock(&kprobe_mutex);
++	guard(mutex)(&kprobe_mutex);
+ 	/* If optimization is already allowed, just return. */
+ 	if (kprobes_allow_optimization)
+-		goto out;
++		return;
+ 
+ 	cpus_read_lock();
+ 	kprobes_allow_optimization = true;
+@@ -904,8 +904,6 @@ static void optimize_all_kprobes(void)
+ 	}
+ 	cpus_read_unlock();
+ 	pr_info("kprobe jump-optimization is enabled. All kprobes are optimized if possible.\n");
+-out:
+-	mutex_unlock(&kprobe_mutex);
+ }
+ 
+ #ifdef CONFIG_SYSCTL
+@@ -915,12 +913,10 @@ static void unoptimize_all_kprobes(void)
+ 	struct kprobe *p;
+ 	unsigned int i;
+ 
+-	mutex_lock(&kprobe_mutex);
++	guard(mutex)(&kprobe_mutex);
+ 	/* If optimization is already prohibited, just return. */
+-	if (!kprobes_allow_optimization) {
+-		mutex_unlock(&kprobe_mutex);
++	if (!kprobes_allow_optimization)
+ 		return;
+-	}
+ 
+ 	cpus_read_lock();
+ 	kprobes_allow_optimization = false;
+@@ -932,10 +928,8 @@ static void unoptimize_all_kprobes(void)
+ 		}
+ 	}
+ 	cpus_read_unlock();
+-	mutex_unlock(&kprobe_mutex);
+-
+ 	/* Wait for unoptimizing completion. */
+-	wait_for_kprobe_optimizer();
++	wait_for_kprobe_optimizer_locked();
+ 	pr_info("kprobe jump-optimization is disabled. All kprobes are based on software breakpoint.\n");
+ }
+ 
+@@ -947,7 +941,7 @@ static int proc_kprobes_optimization_handler(struct ctl_table *table,
+ {
+ 	int ret;
+ 
+-	mutex_lock(&kprobe_sysctl_mutex);
++	guard(mutex)(&kprobe_sysctl_mutex);
+ 	sysctl_kprobes_optimization = kprobes_allow_optimization ? 1 : 0;
+ 	ret = proc_dointvec_minmax(table, write, buffer, length, ppos);
+ 
+@@ -955,7 +949,6 @@ static int proc_kprobes_optimization_handler(struct ctl_table *table,
+ 		optimize_all_kprobes();
+ 	else
+ 		unoptimize_all_kprobes();
+-	mutex_unlock(&kprobe_sysctl_mutex);
+ 
+ 	return ret;
+ }
+@@ -1031,7 +1024,8 @@ static void __disarm_kprobe(struct kprobe *p, bool reopt)
+ #define __arm_kprobe(p)				arch_arm_kprobe(p)
+ #define __disarm_kprobe(p, o)			arch_disarm_kprobe(p)
+ #define kprobe_disarmed(p)			kprobe_disabled(p)
+-#define wait_for_kprobe_optimizer()		do {} while (0)
++#define wait_for_kprobe_optimizer_locked()			\
++	lockdep_assert_held(&kprobe_mutex)
+ 
+ static int reuse_unused_kprobe(struct kprobe *ap)
+ {
+@@ -1502,6 +1496,7 @@ _kprobe_addr(kprobe_opcode_t *addr, const char *symbol_name,
+ static kprobe_opcode_t *kprobe_addr(struct kprobe *p)
+ {
+ 	bool on_func_entry;
++
+ 	return _kprobe_addr(p->addr, p->symbol_name, p->offset, &on_func_entry);
+ }
+ 
+@@ -1536,14 +1531,12 @@ static struct kprobe *__get_valid_kprobe(struct kprobe *p)
+  */
+ static inline int warn_kprobe_rereg(struct kprobe *p)
+ {
+-	int ret = 0;
++	guard(mutex)(&kprobe_mutex);
+ 
+-	mutex_lock(&kprobe_mutex);
+ 	if (WARN_ON_ONCE(__get_valid_kprobe(p)))
+-		ret = -EINVAL;
+-	mutex_unlock(&kprobe_mutex);
++		return -EINVAL;
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int check_ftrace_location(struct kprobe *p)
+@@ -1631,44 +1624,17 @@ static int check_kprobe_address_safe(struct kprobe *p,
+ 	return ret;
+ }
+ 
+-int register_kprobe(struct kprobe *p)
++static int __register_kprobe(struct kprobe *p)
+ {
+ 	int ret;
+ 	struct kprobe *old_p;
+-	struct module *probed_mod;
+-	kprobe_opcode_t *addr;
+-	bool on_func_entry;
+-
+-	/* Adjust probe address from symbol */
+-	addr = _kprobe_addr(p->addr, p->symbol_name, p->offset, &on_func_entry);
+-	if (IS_ERR(addr))
+-		return PTR_ERR(addr);
+-	p->addr = addr;
+-
+-	ret = warn_kprobe_rereg(p);
+-	if (ret)
+-		return ret;
+ 
+-	/* User can pass only KPROBE_FLAG_DISABLED to register_kprobe */
+-	p->flags &= KPROBE_FLAG_DISABLED;
+-	p->nmissed = 0;
+-	INIT_LIST_HEAD(&p->list);
+-
+-	ret = check_kprobe_address_safe(p, &probed_mod);
+-	if (ret)
+-		return ret;
+-
+-	mutex_lock(&kprobe_mutex);
+-
+-	if (on_func_entry)
+-		p->flags |= KPROBE_FLAG_ON_FUNC_ENTRY;
++	guard(mutex)(&kprobe_mutex);
+ 
+ 	old_p = get_kprobe(p->addr);
+-	if (old_p) {
++	if (old_p)
+ 		/* Since this may unoptimize 'old_p', locking 'text_mutex'. */
+-		ret = register_aggr_kprobe(old_p, p);
+-		goto out;
+-	}
++		return register_aggr_kprobe(old_p, p);
+ 
+ 	cpus_read_lock();
+ 	/* Prevent text modification */
+@@ -1677,7 +1643,7 @@ int register_kprobe(struct kprobe *p)
+ 	mutex_unlock(&text_mutex);
+ 	cpus_read_unlock();
+ 	if (ret)
+-		goto out;
++		return ret;
+ 
+ 	INIT_HLIST_NODE(&p->hlist);
+ 	hlist_add_head_rcu(&p->hlist,
+@@ -1688,14 +1654,43 @@ int register_kprobe(struct kprobe *p)
+ 		if (ret) {
+ 			hlist_del_rcu(&p->hlist);
+ 			synchronize_rcu();
+-			goto out;
+ 		}
+ 	}
+ 
+ 	/* Try to optimize kprobe */
+ 	try_to_optimize_kprobe(p);
+-out:
+-	mutex_unlock(&kprobe_mutex);
++	return 0;
++}
++
++int register_kprobe(struct kprobe *p)
++{
++	int ret;
++	struct module *probed_mod;
++	kprobe_opcode_t *addr;
++	bool on_func_entry;
++
++	/* Canonicalize probe address from symbol */
++	addr = _kprobe_addr(p->addr, p->symbol_name, p->offset, &on_func_entry);
++	if (IS_ERR(addr))
++		return PTR_ERR(addr);
++	p->addr = addr;
++
++	ret = warn_kprobe_rereg(p);
++	if (ret)
++		return ret;
++
++	/* User can pass only KPROBE_FLAG_DISABLED to register_kprobe */
++	p->flags &= KPROBE_FLAG_DISABLED;
++	if (on_func_entry)
++		p->flags |= KPROBE_FLAG_ON_FUNC_ENTRY;
++	p->nmissed = 0;
++	INIT_LIST_HEAD(&p->list);
++
++	ret = check_kprobe_address_safe(p, &probed_mod);
++	if (ret)
++		return ret;
++
++	ret = __register_kprobe(p);
+ 
+ 	if (probed_mod)
+ 		module_put(probed_mod);
+@@ -1870,12 +1865,11 @@ void unregister_kprobes(struct kprobe **kps, int num)
+ 
+ 	if (num <= 0)
+ 		return;
+-	mutex_lock(&kprobe_mutex);
+-	for (i = 0; i < num; i++)
+-		if (__unregister_kprobe_top(kps[i]) < 0)
+-			kps[i]->addr = NULL;
+-	mutex_unlock(&kprobe_mutex);
+-
++	scoped_guard(mutex, &kprobe_mutex) {
++		for (i = 0; i < num; i++)
++			if (__unregister_kprobe_top(kps[i]) < 0)
++				kps[i]->addr = NULL;
++	}
+ 	synchronize_rcu();
+ 	for (i = 0; i < num; i++)
+ 		if (kps[i]->addr)
+@@ -2327,8 +2321,9 @@ void unregister_kretprobes(struct kretprobe **rps, int num)
+ 
+ 	if (num <= 0)
+ 		return;
+-	mutex_lock(&kprobe_mutex);
+ 	for (i = 0; i < num; i++) {
++		guard(mutex)(&kprobe_mutex);
++
+ 		if (__unregister_kprobe_top(&rps[i]->kp) < 0)
+ 			rps[i]->kp.addr = NULL;
+ #ifdef CONFIG_KRETPROBE_ON_RETHOOK
+@@ -2337,7 +2332,6 @@ void unregister_kretprobes(struct kretprobe **rps, int num)
+ 		rcu_assign_pointer(rps[i]->rph->rp, NULL);
+ #endif
+ 	}
+-	mutex_unlock(&kprobe_mutex);
+ 
+ 	synchronize_rcu();
+ 	for (i = 0; i < num; i++) {
+@@ -2418,18 +2412,14 @@ static void kill_kprobe(struct kprobe *p)
+ /* Disable one kprobe */
+ int disable_kprobe(struct kprobe *kp)
+ {
+-	int ret = 0;
+ 	struct kprobe *p;
+ 
+-	mutex_lock(&kprobe_mutex);
++	guard(mutex)(&kprobe_mutex);
+ 
+ 	/* Disable this kprobe */
+ 	p = __disable_kprobe(kp);
+-	if (IS_ERR(p))
+-		ret = PTR_ERR(p);
+ 
+-	mutex_unlock(&kprobe_mutex);
+-	return ret;
++	return IS_ERR(p) ? PTR_ERR(p) : 0;
+ }
+ EXPORT_SYMBOL_GPL(disable_kprobe);
+ 
+@@ -2439,20 +2429,16 @@ int enable_kprobe(struct kprobe *kp)
+ 	int ret = 0;
+ 	struct kprobe *p;
+ 
+-	mutex_lock(&kprobe_mutex);
++	guard(mutex)(&kprobe_mutex);
+ 
+ 	/* Check whether specified probe is valid. */
+ 	p = __get_valid_kprobe(kp);
+-	if (unlikely(p == NULL)) {
+-		ret = -EINVAL;
+-		goto out;
+-	}
++	if (unlikely(p == NULL))
++		return -EINVAL;
+ 
+-	if (kprobe_gone(kp)) {
++	if (kprobe_gone(kp))
+ 		/* This kprobe has gone, we couldn't enable it. */
+-		ret = -EINVAL;
+-		goto out;
+-	}
++		return -EINVAL;
+ 
+ 	if (p != kp)
+ 		kp->flags &= ~KPROBE_FLAG_DISABLED;
+@@ -2466,8 +2452,6 @@ int enable_kprobe(struct kprobe *kp)
+ 				kp->flags |= KPROBE_FLAG_DISABLED;
+ 		}
+ 	}
+-out:
+-	mutex_unlock(&kprobe_mutex);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(enable_kprobe);
+@@ -2654,11 +2638,11 @@ static int kprobes_module_callback(struct notifier_block *nb,
+ 	unsigned int i;
+ 	int checkcore = (val == MODULE_STATE_GOING);
+ 
+-	if (val == MODULE_STATE_COMING) {
+-		mutex_lock(&kprobe_mutex);
++	guard(mutex)(&kprobe_mutex);
++
++	if (val == MODULE_STATE_COMING)
+ 		add_module_kprobe_blacklist(mod);
+-		mutex_unlock(&kprobe_mutex);
+-	}
++
+ 	if (val != MODULE_STATE_GOING && val != MODULE_STATE_LIVE)
+ 		return NOTIFY_DONE;
+ 
+@@ -2668,7 +2652,6 @@ static int kprobes_module_callback(struct notifier_block *nb,
+ 	 * notified, only '.init.text' section would be freed. We need to
+ 	 * disable kprobes which have been inserted in the sections.
+ 	 */
+-	mutex_lock(&kprobe_mutex);
+ 	for (i = 0; i < KPROBE_TABLE_SIZE; i++) {
+ 		head = &kprobe_table[i];
+ 		hlist_for_each_entry(p, head, hlist)
+@@ -2691,7 +2674,6 @@ static int kprobes_module_callback(struct notifier_block *nb,
+ 	}
+ 	if (val == MODULE_STATE_GOING)
+ 		remove_module_kprobe_blacklist(mod);
+-	mutex_unlock(&kprobe_mutex);
+ 	return NOTIFY_DONE;
+ }
+ 
+@@ -2708,7 +2690,7 @@ void kprobe_free_init_mem(void)
+ 	struct kprobe *p;
+ 	int i;
+ 
+-	mutex_lock(&kprobe_mutex);
++	guard(mutex)(&kprobe_mutex);
+ 
+ 	/* Kill all kprobes on initmem because the target code has been freed. */
+ 	for (i = 0; i < KPROBE_TABLE_SIZE; i++) {
+@@ -2718,8 +2700,6 @@ void kprobe_free_init_mem(void)
+ 				kill_kprobe(p);
+ 		}
+ 	}
+-
+-	mutex_unlock(&kprobe_mutex);
+ }
+ 
+ static int __init init_kprobes(void)
+@@ -2915,11 +2895,11 @@ static int arm_all_kprobes(void)
+ 	unsigned int i, total = 0, errors = 0;
+ 	int err, ret = 0;
+ 
+-	mutex_lock(&kprobe_mutex);
++	guard(mutex)(&kprobe_mutex);
+ 
+ 	/* If kprobes are armed, just return */
+ 	if (!kprobes_all_disarmed)
+-		goto already_enabled;
++		return 0;
+ 
+ 	/*
+ 	 * optimize_kprobe() called by arm_kprobe() checks
+@@ -2949,8 +2929,6 @@ static int arm_all_kprobes(void)
+ 	else
+ 		pr_info("Kprobes globally enabled\n");
+ 
+-already_enabled:
+-	mutex_unlock(&kprobe_mutex);
+ 	return ret;
+ }
+ 
+@@ -2961,13 +2939,11 @@ static int disarm_all_kprobes(void)
+ 	unsigned int i, total = 0, errors = 0;
+ 	int err, ret = 0;
+ 
+-	mutex_lock(&kprobe_mutex);
++	guard(mutex)(&kprobe_mutex);
+ 
+ 	/* If kprobes are already disarmed, just return */
+-	if (kprobes_all_disarmed) {
+-		mutex_unlock(&kprobe_mutex);
++	if (kprobes_all_disarmed)
+ 		return 0;
+-	}
+ 
+ 	kprobes_all_disarmed = true;
+ 
+@@ -2992,11 +2968,8 @@ static int disarm_all_kprobes(void)
+ 	else
+ 		pr_info("Kprobes globally disabled\n");
+ 
+-	mutex_unlock(&kprobe_mutex);
+-
+ 	/* Wait for disarming all kprobes by optimizer */
+-	wait_for_kprobe_optimizer();
+-
++	wait_for_kprobe_optimizer_locked();
+ 	return ret;
+ }
+ 
+-- 
+2.53.0
+
