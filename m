@@ -1,96 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795542392;
-	b=2rRCAp+IH6rEaV70AghxafE9TfI2wKAesnlII3zYftDrnSREX+9f6AuXSW7B7VAtdOof
-	 4b8DHxSFQJqOVAaoLda4ZNnHq66fHaBTD9hBP03LxWOH3CpoUTP0ynq2rHbIftkFdDv7W
-	 pRJrzTyIY49JnjIopeYYTHWNMURYZp2YPlx86aWQRT46wxEHhRUDzxqLTO0r+CfaLHwad
-	 lUpImGChw7M3gjHzALuPVuqMQV+2WD1X1KWzBwNaGmPDSSjJMRFg2aFtGl4+DiahltqtC
-	 +JblqirlfOYE+O9V1FDKMsvOBQJoZbsuON+9NDj8ucoC6XY5MXE5YveJvaTeHlbIU+g==
+	t=1795542395;
+	b=WPVjVac5SPSsoPEYYRg687iWyKGKwfan1tQT/Wh3foJlMc3pNOgnqSynj+HKLjiVnl7N
+	 rcS917VVcrvYrwBK7pHw44CvVfeT8Pzh9Bf1exQzlW/ILoye2pEKoMsXO5riD0YT6yja9
+	 p2lnMMmn3w4JnZWtR9abm4Pgy5s8Y1UHulVQj3+R1CUcOacXVXsOyGNd/UPv4iXdgVn51
+	 qqjG7MKFVrYQXlJYOCFSVYB+vhW9zqbidRAmbdDkF4inFbaKFfMaWD5C+4ji6KOtPpPIG
+	 ziAIcVhqeamxA5wE+LOwya/pqGfCRCAppAPhmbq58XshmZbLcfKxKLrTB3PHn9oHixg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795542392;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795542395;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=eJ45RhdWQYaNGviQo8DZFSlW6V3bfg/JFh/lL6cjCXc=;
-	b=J6M5hLklQ2nub0aQEoKFf37Z+hh8JGvnlqDhVGFpMLJd0Y6fN1rjm42Ah0fi47cG+zeh
-	 7dA5U43NLEBIjR8aZJN+BEp15DtTdTRRO+lXmoHC4DSPUpUYrFSW6ds78jx8NJiqAZtbI
-	 Cus7fXdB8zn5elzYu12a+Z4gX3i3glojAlb36S2ZsJ0AfyKqeG5n1CHLou27iFap5e27x
-	 1f6J1Yc4lki/dceJs9pYsFNdBmtg9iNFSMjlQNNYUOYTnvaqXzm2bI35MoZMxz4Dv1aCO
-	 XeHfwR5yQSISN7a+TBQE0t0avC3tGtvvs7TGMbl0ziMh2y4A4yhOJGHJw/Gccpb0JOQ==
+	 Received:X-Forwarded-Encrypted:X-Received:Received:From:In-Reply-To:
+	 References:MIME-Version:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=SQpKUtDlj4AZ1qDo3gcLs5ROWZFh7sOWq4cTgDCqyUA=;
+	b=F2/bK9d7PtK5twzNDLyYQtlkVWvV2/Prd6nsMoJopiuFjpXi9hkOihPv8Ll5ivrCSAMc
+	 VyBnpKhT0CfvfCM7zB185UFWDkFNLE2kXjPucbOFPeXM0yrLWVRDZeJlkBOob9Qj3ImTg
+	 jDgao5T0SLnxCpesQu3xsa5ITpYkl/fS7YyRKlkl1hYUFhUBnVZEmTBndz8ykln2wv1ix
+	 8Yr43bZfvErv6287uak7/LTrJ5V/N1WAkqgYOV9XN5QjP07vZxkm06T9LJuxsNL71v027
+	 4+3VKJJYng3VRErpzPcshnoxGJc0SYDKtj2lT2Y4QZD/QBixJ+dLfMwJLtYINmFr3SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bphLsgMU;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=VY3j1U8n;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073AE606A330
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:46:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 073AE606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9464C606A329
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:46:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9464C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bphLsgMU
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb70074ab2so52366575e9.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:46:31 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=VY3j1U8n
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c51a02ad3acso74041366b.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:46:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795542390; x=1796147190; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eJ45RhdWQYaNGviQo8DZFSlW6V3bfg/JFh/lL6cjCXc=;
-        b=bphLsgMUcTwPkjB8anUJ99p+2VGCLqKqRkqXlsXy+lJpPFTBWwtNrZbN43+4vIEd7h
-         lJCzArjzpNkZnTQqhPei8hZCob7DexbkSPZcoDrOKH67Laytffz+gAsY0a9pzy4gzQLp
-         U0sHfaCRzSKgqWYjQf171AVeHpCbJZyXUXNHUHHZ5mb1HuvpPpwpVYiyk4qlI8g+NxGi
-         QixorEntJmNC7QJbhyET2CSBtHhaOXJlc/57xXCULfx+fxzpdyFJZelq4GjemFr6zju8
-         WPqdLtY/7DxoMutiY62Cs4EH6kDNXxxDpBr3cMvKs5Nk0LNSW2fi2cHELw2/jVukN49O
-         4//Q==
+        d=linux-foundation.org; s=google; t=1795542394; x=1796147194; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SQpKUtDlj4AZ1qDo3gcLs5ROWZFh7sOWq4cTgDCqyUA=;
+        b=VY3j1U8n+qZEJ87j+i85Rht+OSsMOZCPHE9Pj3thiSEgnqgNUScHIdxC3bq2tJeOQR
+         T8G0YvCm87zEJfjvDRfrHeRudiRbMghYS9gmBGDKG7Bhd+E4L2wPYE5Kcx35WQY6/tlS
+         +KAUs7P0RmT4AvmtMlTSDsjFr1A6Jro2sanXk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795542390; x=1796147190;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eJ45RhdWQYaNGviQo8DZFSlW6V3bfg/JFh/lL6cjCXc=;
-        b=dDVYcPz2aVzp4TaGT1hZfZsVwsu6p6k1p68s8KA8DHAj/4NirdeKtMbKKZRgPEMWzt
-         fdvOcd9zOUypPLnPuNisv5UcQlks3Okwt4Rc9HzYS0OltmHWPS3XKeWZwhn+5PF4v2CR
-         UTA1ZXeScjJyW3RpXf0DxSAmwaIQ8H5uMIClCmPMrmCseMmjk5dXLb+EVbyRZK7NKY+u
-         XrEKG0zKwx4CPdykgcj5lHca70EIVWN7XeYTWkh/DBdQyZbAEBVmb4aEWIYiSz42BZMs
-         0ElPC/I2W6Ri13HBu0wGqIbFv7E+5Ez+++lqpmWM62gRVdAp+m1LMOq7jHYFH4x3vq5E
-         Jilw==
-X-Forwarded-Encrypted: i=1; AL+hErE/18DwuHWgiVjHRSPODSEiVQZdFHoY/my8aP6S+DdAdTxxO1JLL7stVm+nCdqdlgX+XUIzQXU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Z/DUwRnPZywQgsfMviC2vVIYzkhxqtXvv11/w1bW+qod86Sxz
-	09eWQFe2wuEBTgsK2QwGFXOfA87bTZ6uiykkLUHXaZ/2Un7nyGe8MsU=
-X-Gm-Gg: AZFdTZcbKSCU21IflC6tEVlPYVdnsXMGrIurQ0cihrRyXvDiyWEpQgd6NGWZMLQx26a
-	0wUe/4I3F1JlLebLLGaZ03Yt/a8ZWnq/xbAPs07SeDUTjDbGXYDP610BlCWf3ZAeEhf7ZTHeOIQ
-	sLRIpom+7j7w+Wz5c+8cS+uoU/TCJ7nAzUi9BWW3jyUlPZiDsUwpjOSJf4dx4/kNAxQpE2poDOl
-	l8ArWbLLPDhFD64v7MODOoMSGXvjavi2M3D01rwhjPW8unjA4pZ1qN6YJtJCJmuVAcAfcsg8yMb
-	ltjTJOZF1JQKJq0VvAAq/V+SBaBpKIMvg4vWmSb+7KynLaqyaRfAlf42Z7NVSV0jZ9diyAK3faA
-	nH8G5DHehGjv8LLhzmYrNLv6+yz9HA9jMWF77IK8tLPBqpBf+JZRldRIJcs7+TcaYn+k7XnG/nf
-	xIr/pIDreiz8j1HYNdq3eHF8MHwFMLYYPsTPVLi7NIjR6c1knuKXICYGo2qPDSynePP0p4eJbwH
-	L3lc1Cziyg6rya8aXmwyDTyMPjbT2Y8ureU24uUY8a8mK3T9PV2WolvxhsI0YQKn8SHu64IfTgf
-	JUEadgZ0mLiG3lc=
-X-Received: by 2002:a05:600c:3b8a:b0:4ba:761:c0c5 with SMTP id 5b1f17b1804b1-4bb8880f0e0mr316226585e9.5.1795542390429;
-        Tue, 24 Nov 2026 09:46:30 -0800 (PST)
-Received: from localhost.localdomain ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884b39b6sm413261165e9.12.2026.11.24.09.46.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 09:46:30 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-To: Brian Norris <briannorris@chromium.org>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Jeff Chen <jeff.chen_1@nxp.com>,
-	linux-wireless@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v2 wireless 3/3] wifi: mwifiex: cap TLV length in IBSS connected event handler
-Date: Tue, 24 Nov 2026 17:46:20 +0000
-Message-ID: <20261124174620.1572200-4-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261124174620.1572200-1-tristmd@gmail.com>
-References: <20261124174620.1572200-1-tristmd@gmail.com>
+        d=1e100.net; s=20260707; t=1795542394; x=1796147194;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SQpKUtDlj4AZ1qDo3gcLs5ROWZFh7sOWq4cTgDCqyUA=;
+        b=YiYg1c28OH2xROF7NSmCgCmDXtqqAqioj27uE7P2nrgHswdXnYrzH5b0g+bc762+P6
+         cjkghmPx3NyHpctcHxECA2egk//OP73MV67jmAjI+9xG9KcrYJMz6aVbtS6KRMDluOkt
+         wUgjBtop4bqGYBzn2XVmj/snWV1vr4HNsH2eij/kjX63VOBZ8UEAhnydUU2/L7O6Eh9d
+         l+oY/Sjd7pMIbiFMuUYp+pYDW3frrBGqPfNmJRdJCyzUeAwnHOWelSH2/HXecw2WtotC
+         y7In+p8ENLXGWkKsFO9ZwtQetmOD/lf8eNQfPOTPuCczT8VlODMTEZSAVYvUdhH6jXZy
+         aB/w==
+X-Forwarded-Encrypted: i=1; AL+hErHiONHWVrkgsuIValgNlH85ZXKPv1qjrBoZFjT9WDMH/TkcWMLMVWDeiTyYcYK4fNTUVCXHulQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CaZw7dXuLelnUdUh/pfinzi72PQWc7vI+XP03TD2J/6io/KgX
+	9IRlT67zeFewvmRcFlaFmDdr0Z8JriwxMUbLUU6dhmw5vaDIO0Rt5pgNPiN/D8fXE6jjSrrocux
+	P0sxqv7VxUA==
+X-Gm-Gg: AZFdTZct2TJZMhJZR5PSeqSLqLyKQk+7Nd4TIWa8i5Dbg9hweMMdP9Z7TXFkK4uP8Q4
+	m7uen4NUq/7mafWb8RvlK73q4MLbl/Wur512thy8rCu17Sk0IWcBlQbe6dJunuN7AwVUHplPmdb
+	Zai6ihEDdNQcbtIg9tJDsECdyFbJKc3cg45ktPfLZXgtNQeM9A0F/WDTlJSGz5icFpww3ha77bk
+	tdtlQ9QMS6yMbPjojWKvI1vY4X6tWYAfbqBPoFDSIRolSlCJJQDHy3jJIYEVRRya6LzN6R6aI1D
+	XEE6tRBDSHts2y1bjSY5pYNX9vDGKPeot9UJUhsuaKVGO6SWEkym9058hTSeb3pEFx59+WWTcWG
+	tI+0m36Kgw68Ep2OH9ObW7btJny1NkoHpZysvQVxRPBkAYCVWUnw5eUg3aM0U9AZ+IUovuugHJC
+	DbZIBvVqCdG2HNxNqm3Nm2eM5xQG0Y7hs9vUdSFwfFWkGK/UFOmsKFnQ86V5v11NHcCYhvUUUaE
+	cn5W/V+YzsbDnj+JSWFBtDqpNVhj6mkx0JEaLqYhdpcEUJfCAdx14MVbM3v0B3Ju2a9DDarJinH
+	1UDlosl1PQgR0uZos3sYeruNFHbmq34AYoRyO6aEXw1BQNqFJPVauopa26yqinX7r6hdtrpYa4d
+	utR4=
+X-Received: by 2002:a17:906:b342:b0:c4d:2895:e492 with SMTP id a640c23a62f3a-c513a829d7emr928839766b.21.1795542393830;
+        Tue, 24 Nov 2026 09:46:33 -0800 (PST)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com. [209.85.218.53])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ad00d2asm564657266b.3.2026.11.24.09.46.31
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 09:46:33 -0800 (PST)
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c51a02ad3acso74032366b.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:46:31 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErE81IIi/jKFTTxsdF4+p+l/l3G+K8UWH0zzpS+u3vCPcd6XYEsYdsh4T/IWdVkl/Bmn6XQwZZo=@vger.kernel.org
+X-Received: by 2002:a17:907:3ccb:b0:c3f:84aa:af0d with SMTP id
+ a640c23a62f3a-c513a811d6amr1255078566b.18.1795542391340; Tue, 24 Nov 2026
+ 09:46:31 -0800 (PST)
+Received: from 425495914135 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 24 Nov 2026 12:46:30 -0500
+From: Linus Torvalds <torvalds@linux-foundation.org>
+In-Reply-To: <CAHk-=wgYc9vFEmyV0Ch_e49j6GOhUCMQMnMV4f1FLLvumZOmRw@mail.gmail.com>
+References: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu>
+ <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
+ <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com>
+ <awWSwmvaTwBxfU-r@redhat.com> <CAHk-=wj3GCXZohdFWWPAOkC_LHno4X0oQW+0sQFJzRMvjpODUg@mail.gmail.com>
+ <CAHk-=wgYc9vFEmyV0Ch_e49j6GOhUCMQMnMV4f1FLLvumZOmRw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,41 +103,163 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Tue, 24 Nov 2026 12:46:30 -0500
+X-Gmail-Original-Message-ID: <CAHk-=wgNZfCN5qW-0pOK_TFBscqTu6an7fK5pEkxewg-Aif1Fg@mail.gmail.com>
+X-Gm-Features: Aa3M54p8plLWbVY6iSjVP3DnYsEIL6S32qEa4KRav48BblCo7RxKY_YSzzQDIJA
+Message-ID: <CAHk-=wgNZfCN5qW-0pOK_TFBscqTu6an7fK5pEkxewg-Aif1Fg@mail.gmail.com>
+Subject: [PATCH 5/7] sched/wait: always queue new waiters at the tail
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>, Michal Nazarewicz <mina86@mina86.com>, Wen Yang <wen.yang@linux.dev>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	tz2294@columbia.edu, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Tristan Madani <tristan@talencesecurity.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 23 Nov 2026 16:48:44 -0800
+Subject: [PATCH 5/7] sched/wait: always queue new waiters at the tail
 
-In the IBSS connected event handler, the buffer-bounded evt_len is
-replaced with the TLV header length from the firmware. An inflated
-value drives the IE parsing loop past the event buffer.
+Non-exclusive waiters have been added at the head and exclusive ones at
+the tail, so that an exclusive wakeup stopping early still woke every
+non-exclusive waiter.
 
-After the fixed-size header advance, check that curr has not overshot
-the event data before computing the remaining length -- the
-subtraction wraps when curr is past the end because event->len is
-unsigned. Then cap the TLV-derived length at the remaining data size.
+That only matters for waiters that mix both kinds on one queue like
+read() and poll() on a pipe - and even then it doesn't actually buy
+anything but complexity and fragility of the code.
 
-Fixes: 432da7d243da ("mwifiex: add HT aggregation support for adhoc mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+An exclusive reader consumes the event, the poller had nothing to see,
+so there's no real point in keeping the two ordered.
+
+The pointless ordering results in a special rule for everybody adding
+themselves to the wait queue, and that rule has not been consistently
+followed anyway (see for example do_wait_intr() and do_wait_intr_irq())
+
+So just queue everyone in FIFO order.  LIFO might be better for
+throughput, but every time we've ever tried that optimization in real
+life, it has caused fairness issues, so let's just do the obvious thing
+and add new waiters at the end of the list.
+
+Priority entries (used by the hypervisor code - questionable special
+case) are still placed at the head by add_wait_queue_priority*().
+
+And because epoll is a pile of stinking manure that I am afraid to touch
+this leaves __add_wait_queue_exclusive() alone and it adds its entry at
+the head for epoll's ep->wq so its own wakeup order doesn't change.
+
+Now that it isn't a "real" exclusive wake event, its ordering thankfully
+doesn't actually matter for anybody else.  It should be fixed, but it's
+now basically just an internal epoll thing (and that will be made more
+obvious in following patches).
+
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Oleg Nesterov <oleg@redhat.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Juri Lelli <juri.lelli@redhat.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 ---
- drivers/net/wireless/marvell/mwifiex/sta_event.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ include/linux/wait.h | 14 +++-----------
+ kernel/sched/wait.c  | 29 ++++++++++++++++-------------
+ 2 files changed, 19 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/net/wireless/marvell/mwifiex/sta_event.c b/drivers/net/wireless/marvell/mwifiex/sta_event.c
-index 1f746e8f6b3e1..98f33ec186e63 100644
---- a/drivers/net/wireless/marvell/mwifiex/sta_event.c
-+++ b/drivers/net/wireless/marvell/mwifiex/sta_event.c
-@@ -45,6 +45,10 @@ static int mwifiex_check_ibss_peer_capabilities(struct mwifiex_private *priv,
- 		 */
- 		evt_len = le16_to_cpu(tlv_mgmt_frame->header.len);
- 		curr += (sizeof(*tlv_mgmt_frame) + 12);
-+		if (curr > event->data + event->len)
-+			return 0;
-+		if (evt_len > event->len - (curr - event->data))
-+			evt_len = event->len - (curr - event->data);
+diff --git a/include/linux/wait.h b/include/linux/wait.h
+index 09518f8ff10c..bf0a3713ed0f 100644
+--- a/include/linux/wait.h
++++ b/include/linux/wait.h
+@@ -171,25 +171,17 @@ extern void remove_wait_queue(struct
+wait_queue_head *wq_head, struct wait_queue
+
+ static inline void __add_wait_queue(struct wait_queue_head *wq_head,
+struct wait_queue_entry *wq_entry)
+ {
+-	struct list_head *head = &wq_head->head;
+-	struct wait_queue_entry *wq;
+-
+-	list_for_each_entry(wq, &wq_head->head, entry) {
+-		if (!(wq->flags & WQ_FLAG_PRIORITY))
+-			break;
+-		head = &wq->entry;
+-	}
+-	list_add(&wq_entry->entry, head);
++	list_add_tail(&wq_entry->entry, &wq_head->head);
+ }
+
+ /*
+- * Used for wake-one threads:
++ * Adds at the head, for epoll's LIFO wakeup of its epoll_wait()ers.
+  */
+ static inline void
+ __add_wait_queue_exclusive(struct wait_queue_head *wq_head, struct
+wait_queue_entry *wq_entry)
+ {
+ 	wq_entry->flags |= WQ_FLAG_EXCLUSIVE;
+-	__add_wait_queue(wq_head, wq_entry);
++	list_add(&wq_entry->entry, &wq_head->head);
+ }
+
+ static inline void __add_wait_queue_entry_tail(struct wait_queue_head
+*wq_head, struct wait_queue_entry *wq_entry)
+diff --git a/kernel/sched/wait.c b/kernel/sched/wait.c
+index 9f126cc5c338..a14e14202279 100644
+--- a/kernel/sched/wait.c
++++ b/kernel/sched/wait.c
+@@ -40,11 +40,18 @@ EXPORT_SYMBOL(add_wait_queue_exclusive);
+
+ void add_wait_queue_priority(struct wait_queue_head *wq_head, struct
+wait_queue_entry *wq_entry)
+ {
++	struct list_head *head = &wq_head->head;
++	struct wait_queue_entry *wq;
+ 	unsigned long flags;
+
+ 	wq_entry->flags |= WQ_FLAG_PRIORITY;
+ 	spin_lock_irqsave(&wq_head->lock, flags);
+-	__add_wait_queue(wq_head, wq_entry);
++	list_for_each_entry(wq, &wq_head->head, entry) {
++		if (!(wq->flags & WQ_FLAG_PRIORITY))
++			break;
++		head = &wq->entry;
++	}
++	list_add(&wq_entry->entry, head);
+ 	spin_unlock_irqrestore(&wq_head->lock, flags);
+ }
+ EXPORT_SYMBOL_GPL(add_wait_queue_priority);
+@@ -78,12 +85,12 @@ EXPORT_SYMBOL(remove_wait_queue);
+
+ /*
+  * The core wakeup function. Non-exclusive wakeups (nr_exclusive == 0) just
+- * wake everything up. If it's an exclusive wakeup (nr_exclusive == small +ve
+- * number) then we wake that number of exclusive tasks, and potentially all
+- * the non-exclusive tasks. Normally, exclusive tasks will be at the end of
+- * the list and any non-exclusive tasks will be woken first. A priority task
+- * may be at the head of the list, and can consume the event without any other
+- * tasks being woken if it's also an exclusive task.
++ * wake everything up. Otherwise the walk stops once nr_exclusive exclusive
++ * tasks have been woken. Waiters are queued in FIFO order, so non-exclusive
++ * waiters queued behind that point are not woken: the exclusive waiters will
++ * consume the event. A priority task may be at the head of the list, and can
++ * consume the event without any other tasks being woken if it's also an
++ * exclusive task.
+  *
+  * An exclusive waiter that returns >0 promises to handle the event. Pollers
+  * (EPOLLEXCLUSIVE) can't promise that, since userspace may never consume it.
+@@ -308,12 +315,8 @@ long prepare_to_wait_event(struct wait_queue_head
+*wq_head, struct wait_queue_en
+ 		list_del_init(&wq_entry->entry);
+ 		ret = -ERESTARTSYS;
  	} else {
- 		mwifiex_dbg(priv->adapter, MSG,
- 			    "management frame tlv not found!\n");
+-		if (list_empty(&wq_entry->entry)) {
+-			if (wq_entry->flags & WQ_FLAG_EXCLUSIVE)
+-				__add_wait_queue_entry_tail(wq_head, wq_entry);
+-			else
+-				__add_wait_queue(wq_head, wq_entry);
+-		}
++		if (list_empty(&wq_entry->entry))
++			__add_wait_queue(wq_head, wq_entry);
+ 		set_current_state(state);
+ 	}
+ 	spin_unlock_irqrestore(&wq_head->lock, flags);
 -- 
-2.47.3
-
+2.56.0.313.g975a75ca90
