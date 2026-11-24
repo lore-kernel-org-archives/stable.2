@@ -1,119 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795551245;
-	b=sXfQlqLUS/yh97gGinMVKP+i+oDNX0egSQ1nCab7vnZpQgCVtlfWAz4VPFZa05SRcbSI
-	 +72b2m06lfqpx3CyfTpCQt5l+6kGyX+2iRYT74Q5SiU9dfPHn8GJDobQfQRVx8Drx9gXx
-	 EAaPRjqVLMw4wPP0P8wgGmW1ze4badGsaPHoystfTqGGoM246sp3kog2hJK/XJNmocLlk
-	 PMSxrVn5qVlchKn6mTkocqicXrEWRc/U0OQ5PTasDXwMWCRKR4wYUJlovpKMQmhumjgb9
-	 plB1kzgQ/KV0XdJbqOgXA016icRXnZY7kBWSEPuXNnuMcAIuaz/4noPuDnPmupsQ/nw==
+	t=1795551611;
+	b=WBbcCTbCzH1oxuge0xSPfWIvL9E0ffaz778c0PVTTcKtY6wnGaHoaAOZeOu76bR0DvT/
+	 4StM0cgeVB/BBSCN19Clb8QulaJdtgPpU+eA05HqeavH6imd57R9zzA2kUXG2CyMpwZtJ
+	 UVm9Jog+60g6/LmCiRzALkjpR0stPonHmrCnmINYwn7nf7327kbIqTI/BUecxX6hA/iqC
+	 qobAgvfwthcKhGq+GV7AeIq4apnQBKeGwcIdRxRtohPsmde9ANLtvFeGSGr9c2yocUXGM
+	 QV4iVTQXelmcHc7lrYHU5fIQ8L+MqSc3+ldYyhSGNAoPmOm4IGJIbD5ncojrPKKABEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795551245;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=CtbqCWcplP8s8TS4XxS3H42+jZhVRK/WEZW5XIZ9ues=;
-	b=Uvfcr3SZMGU1TsGlYVI17lNw7GfQt01inEOxos7az7Ijw+54PRTtwssVYfS5HM8ty9nq
-	 t9o70dv17zLvFRenOEfI2K29krTbMsb/Hiw5zy4HeUhsitSbPGWF2FKyr593Sx8QHdEgc
-	 QLdC5MUhAKT7OGKHL5GK2wEUgEXQJuw3yABVoZNEeyDnagEQsZULbUegTsyRPE29/AHfD
-	 NsNn8IVBx9T02oriUpzgC5FyS3A9ZvixY5bK8+/EVW8TdzFz0On6T/Y1wvkBTpNJLmSIn
-	 yhUVfGgLj4l6sQdaxJB0qGyHy4IfV7oZk71FTDt0uzR/bPviXQ0Riv6Cks6SGlyjh0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795551611;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=EhuMLGWO6ZCZM0+mIrcho8XnGB/eBtbLUdTmg3mSHh4=;
+	b=TZvtjcI0wvrVjFgApB2smTwWqis/8qNhEza/MBbAdBs+cWr7eRoYCptXGjItszyICWov
+	 JBbMDLuRs31PlmD1wYvtOX1621I0MdY1gnhSH6RqcnF7sxPMPjiN/7sNX8PcmlsEFd3OP
+	 //vJItA/D0zFlvnJVebjAfEgKxAy2kLePO+o/hJE7epstaOlqAIhQeiZegP/bwNIg45Gr
+	 1zjObAxcV5gR4KeKG1IMMWf3hnN2sv6rET/U20fW2gApSw65ZZacfsTM0KR8gh14Nx3gb
+	 DBvTC3Ycd/IUTPsEq4pPBDfUtitLdsd2r2aVlQp+YvBWE71K0seEtybmRgM4ulM9pCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=EsA9Klxn;
-	arc=none smtp.remote-ip=209.85.215.227
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cdk9P/6V";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41D4606A327
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 20:14:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B41D4606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43269606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 20:20:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=EsA9Klxn
-Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cddc597d062so2940557a12.3
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 12:14:04 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795551244; x=1796156044;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CtbqCWcplP8s8TS4XxS3H42+jZhVRK/WEZW5XIZ9ues=;
-        b=wKYVLBnK2X7I36jHo4sWEIYABF3TUAewi4AEwvYkblqlhSeXlROhtsF4OCTX7dS964
-         2ixokEvOWtWXFPcDNczenE4QUQV0pm2fHXo28fDLH/EhOJ5HGBV6Jj3Z0b1J9Tp8urrB
-         ZNp9EGe1UUhkGN5z5yYiDP3p2cWIs33TgSY2OzR9cutd1gHJUP/iB7EIh2vrSDFTPSaS
-         V5xj+QpfHVqVA96KKB+TvyVkJjvluTSA9f+mtRQzGwJy/+3ispuQiqMH8O1vsDAG7IiU
-         llyE4ZjHR7e4BSAlG6ePrtVCIdMNENUHldYdvI+712a8jK/DOQBI6g0YVejlQoL1egWa
-         TZXg==
-X-Forwarded-Encrypted: i=1; AL+hErHeg8AIW63ggbPJThkqqospUI+H2GkcDA0G4XG9wZNI3XUyYqFxLAGBbHNGY3Zd7KGGkcnbQNk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IZSJVLpN99yXO6KdeSwYE2o/sg1752uAzp4qxLsmCb11zUgjn
-	viWp+veSFoupiaN1Bg3fFFepOBAzHS25s4XiKHxXX9MiuLMHA3xMmvhNvz8drgm+7LhvMT9n3pt
-	FxjclceHzekTP0t3Q1hvq4EN9XAem6RRk3qR/uC3HSkN3ammUVe3QzwFissvPasAjC9JakJjsAT
-	kUcZ6WY99rzP4rw+yuGsChs93QFSP19qJ4hH3RY3F+1Mz4RWyYnY4epygNVzdabFpiXJip0kCFO
-	DLDAo9a1u6+zp5x/A==
-X-Gm-Gg: AZFdTZcYfOsIZU1+MR6GnZpc3Kg/X36pmyOcsRP0RlCWEAlS8C/+kUArTXHeHpurvdB
-	kj1GNl/Av+aRYZVI8TX3Y3uhTRtsrOxpHGRCc2mII4Mg0vCV2ps8N39XaTrJOONrYz17/tsjJNG
-	j9OOLdpvl5dK6hDqA9iV6nQaNNWZH/YW2xGkV0zq2QRV3CEw/4CLioy+bx3cPTma0hYS+WLZtEb
-	O4IxWHomPoiWAOvH5jZXkDOO2vBUBcpaUSIoNGGmaw6tgN7nyckNzMA5WF1vPoTbNAe3XS9BJM1
-	aIAEnOuqFwrU0jYpBcmh7UQyTnsA/q0eoyMEIYv94XT7KCXlYvF4aM9t+A71dBGyiHfyWpc0g0K
-	g+LI4fr3mVdCQt93wt7PBE3/UrGOyipCJzfMrXkGk8epVpPuBuc9FX6YPQZkYSkifbpEhCf1ZWI
-	MBS5NWJqhr1RKnRc8QxhBrLZtrSYZQ/lDlEGRFUqU=
-X-Received: by 2002:a17:90a:ec86:b0:3b4:889:883a with SMTP id 98e67ed59e1d1-3b41c9bacbbmr15656926a91.66.1795551244043;
-        Tue, 24 Nov 2026 12:14:04 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b40625d66bsm11924138a91.4.2026.11.24.12.14.03
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 24 Nov 2026 12:14:04 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-54af6c38092so61867351cf.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 12:14:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1795551242; x=1796156042; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CtbqCWcplP8s8TS4XxS3H42+jZhVRK/WEZW5XIZ9ues=;
-        b=EsA9Klxn+Q/y106PP2cCt1oIAmkdeOy89dF//oTCBnZmBkwacwhkEJqXikg8/lUb9r
-         f8gkhuMl174WemRY1o3X/buRu5ByJJu1Ltr8vbvRw9PijMhq10j/qn8hbqWtpk94UJLZ
-         hdoxxQnUYFSYdQITP5MjfUInRkzNobLDtF2wI=
-X-Forwarded-Encrypted: i=1; AL+hErF/VMjClEsUEiAUWf4ZYmZa2v1Qj3kDDsxJAeNviEFOl0HoxYZKLAuI9LeHrXiCwLTHAGtwZs4=@vger.kernel.org
-X-Received: by 2002:a05:622a:ea15:20b0:535:baa:a78d with SMTP id d75a77b69052e-55daab921bdmr54306261cf.10.1795551242434;
-        Tue, 24 Nov 2026 12:14:02 -0800 (PST)
-X-Received: by 2002:a05:622a:ea15:20b0:535:baa:a78d with SMTP id d75a77b69052e-55daab921bdmr54305701cf.10.1795551241893;
-        Tue, 24 Nov 2026 12:14:01 -0800 (PST)
-Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7884d01csm136284651cf.21.2026.11.24.12.13.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 12:14:01 -0800 (PST)
-From: Arend van Spriel <arend.vanspriel@broadcom.com>
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Cc: michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com,
-	stable@vger.kernel.org,
-	Abdun Nihaal <nihaal@cse.iitm.ac.in>,
-	Benjamin Drung <benjamin.drung@canonical.com>,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	brcm80211-dev-list.pdl@broadcom.com,
-	brcm80211@lists.linux.dev,
-	linux-wireless@vger.kernel.org,
-	Arend van Spriel <arend.vanspriel@broadcom.com>
-Subject: Re: [PATCH wireless] wifi: brcmfmac: fix use-after-free of the watchdog task_struct
-Date: Tue, 24 Nov 2026 21:13:57 +0100
-Message-ID: <20261124201357.3497730-1-arend.vanspriel@broadcom.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261120174231.2024897-1-dario.binacchi@amarulasolutions.com>
-References: <20261120174231.2024897-1-dario.binacchi@amarulasolutions.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdk9P/6V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224031F000C6;
+	Tue, 24 Nov 2026 20:20:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795551610;
+	bh=EhuMLGWO6ZCZM0+mIrcho8XnGB/eBtbLUdTmg3mSHh4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cdk9P/6VVgoUAZXgKdynXoRV4k/sux/G3gNEJsqvckaEMngL0hg0TS0vOwGPwxRlD
+	 0XGmMjC14aR6qQomCIKsXurpTiWa7fc48/LyPArfRaT97XRfgQnroVsIcz/Nz3ITGa
+	 V7vjIAAdVm14fLilE+OVSDam8nc4N1cA8fqny8lcUhHX4qOIORzELGq+nB1nXKBfW3
+	 LUvsFfm/6b85A8B/GXlXUhCbNivo+fUCen4gzi67obozBBJvKC53MTy9rhkz4Ig+hz
+	 bEMeb/p7x4LEXwC0uJFwtPp6mL62ggVP4p29nE6k8SH/rbRzi1rRziN6yydVFIw4y3
+	 tydfyPtuvqPbA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Gregory Price <gourry@gourry.net>,
+	David Hildenbrand <david@redhat.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Wei Yang <richard.weiyang@gmail.com>,
+	Michal Hocko <mhocko@suse.com>,
+	"David Hildenbrand (Red Hat)" <david@kernel.org>,
+	Brendan Jackman <jackmanb@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] page_alloc: allow migration of smaller hugepages during contig_alloc
+Date: Tue, 24 Nov 2026 15:20:06 -0500
+Message-ID: <20261124200953.2516046-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112436-division-scalding-7339@gregkh>
+References: <2026112436-division-scalding-7339@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -124,30 +69,177 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Fri, 20 Nov 2026 18:42:27 +0100, Dario Binacchi <dario.binacchi@amarulasolutions.com> wrote:
-> The watchdog thread exits as soon as it receives a SIGTERM, also from
-> userspace, e.g. when init kills all the processes at reboot. If the
-> driver is removed afterwards, the reference taken right before sending
-> the signal by commit c623b6358088 ("wifi: brcmfmac: Fix potential
-> use-after-free issue when stopping watchdog task") comes too late, and
-> kthread_stop() runs on a task_struct already freed.
+From: Gregory Price <gourry@gourry.net>
 
-[...]
+[ Upstream commit 3bb64898f00368cd110d4b31334f93251d56b404 ]
 
-> Take the reference before the thread is started and drop it with
-> kthread_stop_put() when it is stopped.
->
-> Fixes: c623b6358088 ("wifi: brcmfmac: Fix potential use-after-free issue when stopping watchdog task")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> ---
->
->  .../net/wireless/broadcom/brcm80211/brcmfmac/sdio.c  | 12 +++++++-----
->  1 file changed, 7 insertions(+), 5 deletions(-)
+We presently skip regions with hugepages entirely when trying to do
+contiguous page allocation.  This will cause otherwise-movable 2MB HugeTLB
+pages to be considered unmovable, and makes 1GB gigantic page allocation
+less reliable on systems utilizing both.
 
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+Commit 4d73ba5fa710 ("mm: page_alloc: skip regions with hugetlbfs pages
+when allocating 1G pages") skipped all HugePage containing regions because
+it can cause significant delays in 1G allocation (as HugeTLB migrations
+may fail for a number of reasons).
 
-Regards,
-Arend
+Instead, if hugepage migration is enabled, consider regions with hugepages
+smaller than the target contiguous allocation request as valid targets for
+allocation.
+
+We optimize for the existing behavior by searching for non-hugetlb regions
+in a first pass, then retrying the search to include hugetlb only on
+failure.  This allows the existing fast-path to remain the default case
+with a slow-path fallback to increase reliability.
+
+We only fallback to the slow path if a hugetlb region was detected, and we
+do a full re-scan because the zones/blocks may have changed during the
+first pass (and it's not worth further complexity).
+
+isolate_migrate_pages_block() has similar hugetlb filter logic, and the
+hugetlb code does a migratable check in folio_isolate_hugetlb() during
+isolation.  The code servicing the allocation and migration already
+supports this exact use case.
+
+To test, allocate a bunch of 2MB HugeTLB pages (in this case 48GB) and
+then attempt to allocate some 1G HugeTLB pages (in this case 4GB) (Scale
+to your machine's memory capacity).
+
+echo 24576 > .../hugepages-2048kB/nr_hugepages
+echo 4 > .../hugepages-1048576kB/nr_hugepages
+
+Prior to this patch, the 1GB page reservation can fail if no contiguous
+1GB pages remain.  After this patch, the kernel will try to move 2MB pages
+and successfully allocate the 1GB pages (assuming overall sufficient
+memory is available).  Also tested this while a program had the 2MB
+reservations mapped, and the 1GB reservation still succeeds.
+
+folio_alloc_gigantic() is the primary user of alloc_contig_pages(),
+other users are debug or init-time allocations and largely unaffected.
+- ppc/memtrace is a debugfs interface
+- x86/tdx memory allocation occurs once on module-init
+- kfence/core happens once on module (late) init
+- THP uses it in debug_vm_pgtable_alloc_huge_page at __init time
+
+Link: https://lkml.kernel.org/r/20251221124656.2362540-1-gourry@gourry.net
+Signed-off-by: Gregory Price <gourry@gourry.net>
+Suggested-by: David Hildenbrand <david@redhat.com>
+Link: https://lore.kernel.org/linux-mm/6fe3562d-49b2-4975-aa86-e139c535ad00@redhat.com/
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
+Acked-by: Michal Hocko <mhocko@suse.com>
+Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
+Cc: Brendan Jackman <jackmanb@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: da0d7a895e90 ("mm/page_alloc: retry alloc_contig_pages() when the zonelist is rebuilt")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/page_alloc.c | 59 +++++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 55 insertions(+), 4 deletions(-)
+
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index e9aadaf6e91b6..af979e29c7996 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -6851,7 +6851,8 @@ static int __alloc_contig_pages(unsigned long start_pfn,
+ }
+ 
+ static bool pfn_range_valid_contig(struct zone *z, unsigned long start_pfn,
+-				   unsigned long nr_pages)
++				   unsigned long nr_pages, bool skip_hugetlb,
++				   bool *skipped_hugetlb)
+ {
+ 	unsigned long i, end_pfn = start_pfn + nr_pages;
+ 	struct page *page;
+@@ -6867,8 +6868,42 @@ static bool pfn_range_valid_contig(struct zone *z, unsigned long start_pfn,
+ 		if (PageReserved(page))
+ 			return false;
+ 
+-		if (PageHuge(page))
+-			return false;
++		/*
++		 * Only consider ranges containing hugepages if those pages are
++		 * smaller than the requested contiguous region.  e.g.:
++		 *     Move 2MB pages to free up a 1GB range.
++		 *     Don't move 1GB pages to free up a 2MB range.
++		 *
++		 * This makes contiguous allocation more reliable if multiple
++		 * hugepage sizes are used without causing needless movement.
++		 */
++		if (PageHuge(page)) {
++			unsigned int order;
++
++			if (!IS_ENABLED(CONFIG_ARCH_ENABLE_HUGEPAGE_MIGRATION))
++				return false;
++
++			if (skip_hugetlb) {
++				*skipped_hugetlb = true;
++				return false;
++			}
++
++			page = compound_head(page);
++			order = compound_order(page);
++			if ((order >= MAX_FOLIO_ORDER) ||
++			    (nr_pages <= (1 << order)))
++				return false;
++
++			/*
++			 * Reaching this point means we've encounted a huge page
++			 * smaller than nr_pages, skip all pfn's for that page.
++			 *
++			 * We can't get here from a tail-PageHuge, as it implies
++			 * we started a scan in the middle of a hugepage larger
++			 * than nr_pages - which the prior check filters for.
++			 */
++			i += (1 << order) - 1;
++		}
+ 	}
+ 	return true;
+ }
+@@ -6911,7 +6946,10 @@ struct page *alloc_contig_pages_noprof(unsigned long nr_pages, gfp_t gfp_mask,
+ 	struct zonelist *zonelist;
+ 	struct zone *zone;
+ 	struct zoneref *z;
++	bool skip_hugetlb = true;
++	bool skipped_hugetlb = false;
+ 
++retry:
+ 	zonelist = node_zonelist(nid, gfp_mask);
+ 	for_each_zone_zonelist_nodemask(zone, z, zonelist,
+ 					gfp_zone(gfp_mask), nodemask) {
+@@ -6919,7 +6957,9 @@ struct page *alloc_contig_pages_noprof(unsigned long nr_pages, gfp_t gfp_mask,
+ 
+ 		pfn = ALIGN(zone->zone_start_pfn, nr_pages);
+ 		while (zone_spans_last_pfn(zone, pfn, nr_pages)) {
+-			if (pfn_range_valid_contig(zone, pfn, nr_pages)) {
++			if (pfn_range_valid_contig(zone, pfn, nr_pages,
++						   skip_hugetlb,
++						   &skipped_hugetlb)) {
+ 				/*
+ 				 * We release the zone lock here because
+ 				 * alloc_contig_range() will also lock the zone
+@@ -6938,6 +6978,17 @@ struct page *alloc_contig_pages_noprof(unsigned long nr_pages, gfp_t gfp_mask,
+ 		}
+ 		spin_unlock_irqrestore(&zone->lock, flags);
+ 	}
++	/*
++	 * If we failed, retry the search, but treat regions with HugeTLB pages
++	 * as valid targets.  This retains fast-allocations on first pass
++	 * without trying to migrate HugeTLB pages (which may fail). On the
++	 * second pass, we will try moving HugeTLB pages when those pages are
++	 * smaller than the requested contiguous region size.
++	 */
++	if (skip_hugetlb && skipped_hugetlb) {
++		skip_hugetlb = false;
++		goto retry;
++	}
+ 	return NULL;
+ }
+ #endif /* CONFIG_CONTIG_ALLOC */
+-- 
+2.53.0
+
