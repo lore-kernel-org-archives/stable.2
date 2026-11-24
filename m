@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.107
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795547502;
-	b=1VBp4mZ3UZMKZoqkJT2DhAIWofW5L3o6vy+r0JK35aM/r+Bo8XjQbAL7WZdMlKG6r4WL
-	 ClwgDEmOZTHjrBj4nfhqYDurVu1BwyK9hvESgiqn992EFMfDFZ+rXejfVNZ48D0o/axWR
-	 E1A56nM+DUQDNHvVgB3h8Xxyz+vTz6j0AE/l8EPyZTM3eDJnOGib+N2e/FCAo5A/eRQEK
-	 PXsRoa5olg9t8t4ixO8vULMo0SYIb6+3d1GcbWYXc/KoBMo+106G+YqKLJ5eJu3CW3NXt
-	 wk+Mckhbe2ZyME+BucRCmdjSRh7P295hG7rguf+9koo9TSKFzQzhXSYWggBF9gZ63rg==
+	t=1795547746;
+	b=wGkcMauXQLoayo4vIIF4Ox2BsxB5SNinO7oMqcSYFYM0YsOLA+vW2mfL60d639w2XtMU
+	 Y5+KALanQXbYcacbvj4ua/2S+8N/vbwT+UcJN3lL3Vl36JniId3xiLi/AGMEDNHkWYVZi
+	 gx6UmD41Ipiycwqmlt0WrCbmhjdm/SW3paTuwhL7hUS2DZ3FBbdPaf07bqolhlDP2PARd
+	 pfzrlXVi4CLPcchU1UV+zOYZBMSWWP1wJ4sFfZvGC2IjTC6LTRgbEdZ41GMHYIYJ7qWMD
+	 yDemKsRNq5U2zWMNFcHdpTZS+b21XaouiAAPxntFRi1syxbHFUxjhyTr+E4YBXGqF1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795547502;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kG9KFuO5noY6NMq45ErFzEPvkfSOGdlMRpWtZSUSF5A=;
-	b=3SQ247cbPaiXoO5k/O0YO+nqjFw6FKfZ7if93XmJQReS9ess2wUZAa1ollSPqP1Jvqmj
-	 HixUcl3xGV1s+tzM9CzPH1mALjyrcI7GdcnGya4/8aMcpW5GoKq1T1mitcCnAhaV+NiXS
-	 lYmUaCSDXSG72a3NxE/hsk/hDRZYU0Ja76WGHv+I0/60kebyuSCsaOVr0Ng7ZCceVp16z
-	 jw2JNO+5lg8HdMKaHsEAlUcqFHlqkzngUL5HoI+92MuprzL1EZxKJZzEB6xifin8mfRjb
-	 WZUkBvS8HlfvYkaGs5wGSOWGGOZD7pwSf3C8vejIEdVivCGFAUdMf09MU13cg1GuPcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795547746;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=iVaX5nAlkBKMSj8rUpfeIOl3ibSmoRV5kmxp9WpM+9Y=;
+	b=uL99gTdklf1b3aqC9jL10x1Po8Hwxv6lPsV4HyS2V4rqpvRBKUZgrBkU+IuZ5HoixvI9
+	 fa6qAVEXI7LIvlN6SX2UzqVljt4TlvssPxiQjP2g7OQPI0Xnpkqce/IFsqbc55BysJSNX
+	 FQWgHZKneiaQ0Wh20H+bEYbCtwi8h/gcjkAfUjY4JbcyP4KKi5FIqjG3PejTrgcIPTujl
+	 OuSDiQ0DvwKbx1o9mciR2l70tRaN6x3MNLC2Qd4uO7rBNzPBXArpwkHGH8+lPP+UH9i6M
+	 ltxfVxNLCRCaZEUG/2yt7m63V8nyb2/CI7LxNRmchMYnu6XWg4fjSmnBJ2hxuNFbXSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EPtawfgx;
-	arc=none smtp.remote-ip=95.215.58.107
-Received: from mta1.migadu.com (out-107.mta1.migadu.com [95.215.58.107])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D10606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 19:11:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2D10606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EPtawfgx
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=krsH8e935v+VecwkMh4EwZ7mke8ED/SG+KRG804l55Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795547499; v=1; x=1796152299;
- b=EPtawfgxRftuInZ4wRV6mgFF4duRaUJu3Xw3DwxgDWlr7zXHR67FG4Xy/hRflpacF6GrKJF+
- M+sLjf5Hy6ky0H8r2Q/jIleffXONht8/bQAlhqsL1JTR7Ak9hpi0L1VZ6yJUtMRVPPIPyuPu9AH
- xqz7Gsfzgyv9TSbvw3Fc4zgA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bc4a3746771a1fa5;
-	Tue, 24 Nov 2026 19:11:39 +0000
-X-Mizu-Trace-ID: bc4a3746771a1fa5
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <eabf4f7d-c3e7-4914-ae2f-e2688c992e86@linux.dev>
-Date: Tue, 24 Nov 2026 11:11:36 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD55D606A330
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 19:15:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD55D606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-5727b04b81eso3165416b6e.3
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 11:15:45 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795547745; x=1796152545;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=iVaX5nAlkBKMSj8rUpfeIOl3ibSmoRV5kmxp9WpM+9Y=;
+        b=lzDxyoAmc4GQuPqTJKgvvN7GWN6/KPVeKgcqjwwIf1dLO7m524fvVA7i6s6hfwoYHn
+         OaJSVULP3SxENNZMEgxrw4oC4u3hwQVrOIqs4Eq8FyvyMeBUyrSJL4tkRCVtphHL+8IX
+         61vaVcILuLpMa6agGavFIRISYYWlyrbUBW+p1su81gpiD+/G9/9pO4+3e/YZL18RLBJa
+         sLTJyZQTY9DqP4+lLpI5AqrwomudeiA2I/S9Svc+Y8Gwq7OCkMrAJCOKMpVXubY3q6zE
+         uDih46SIdjOY4JRjYrTygSp1RM7D66ZfoZHX90O+cCXQ9McWsEWgsEs1A7OpPsxlc8lt
+         XEUA==
+X-Forwarded-Encrypted: i=1; AL+hErFFX6ecxg6MzYF2lZ86yY3sWhOCpoTc+Ce8TKD0ZPtzhTxGbvRinylQTfR/mqubINeG2r3jiKM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9M30pFUlY92hArfnlqmPBniXPvSFDZJezeuhaKgVivQ5HieLcK
+	EokmsrAgVTU9igNuKDwrZ67Z6iUml+161a8clMElOjSnrBNwD6QT1t4DTVQtKlowvT2ycDlO7Pi
+	OBhZuBIoZMCVeniqq0cldDzpGapoymdErIEl2RAPKhxaB0R3yqXATNZ7eHWo=
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,98 +58,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-rc] RDMA/rxe: Allocate the MR page array with
- kvzalloc()
-To: Qiliang Yuan <qiliang.yuan@linux.dev>, Zhu Yanjun <zyjzyj2000@gmail.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Li Zhijian <lizhijian@fujitsu.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
- Zhu Yanjun <yanjun.zhu@linux.dev>, stable@vger.kernel.org
-References: <20261123-bug-rdma-rxe-large-mr-v1-1-8d0748ac4a3f@linux.dev>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <20261123-bug-rdma-rxe-large-mr-v1-1-8d0748ac4a3f@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:4488:b0:4d6:90f3:74ad with SMTP id
+ 5614622812f47-57a0b644678mr16259886b6e.45.1795547744778; Tue, 24 Nov 2026
+ 11:15:44 -0800 (PST)
+Date: Tue, 24 Nov 2026 11:15:44 -0800
+In-Reply-To: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6b05e260.e1ffc79a.44bf.0000.GAE@google.com>
+Subject: [syzbot ci] Re: mm: GUP dirty + ->release_folio() fixes
+From: syzbot ci <syzbot+ci6dc3bd0a53405de7@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, axelrasmussen@google.com, baohua@kernel.org, 
+	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, david@kernel.org, 
+	dev.jain@arm.com, hannes@cmpxchg.org, jack@suse.cz, jhubbard@nvidia.com, 
+	kas@kernel.org, kasong@tencent.com, lance.yang@linux.dev, liam@infradead.org, 
+	linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-nfs@vger.kernel.org, 
+	ljs@kernel.org, mhocko@kernel.org, mhocko@suse.com, nico.pache@linux.dev, 
+	peterx@redhat.com, pfalcato@suse.de, qi.zheng@linux.dev, rppt@kernel.org, 
+	ryan.roberts@arm.com, shakeel.butt@linux.dev, stable@vger.kernel.org, 
+	surenb@google.com, usama.arif@linux.dev, vbabka@kernel.org, 
+	weixugc@google.com, willy@infradead.org, yuanchu@google.com, ziy@nvidia.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+syzbot ci has tested the following series
+
+[v1] mm: GUP dirty + ->release_folio() fixes
+https://lore.kernel.org/all/20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de
+* [PATCH RFC 1/5] mm/khugepaged: fix filemap_release_folio() interaction with GUP dirty
+* [PATCH RFC 2/5] mm/huge_memory: fix filemap_release_folio() interaction with GUP dirty
+* [PATCH RFC 3/5] mm/vmscan: avoid releasing FS metadata for !FOLL_PIN gup folios
+* [PATCH RFC 4/5] mm/vmscan: be more careful when releasing FS metadata if buffer_heads_over_limit
+* [PATCH RFC 5/5] mm/filemap: refuse releasing maybe_dma_pinned folios
+
+and found the following issue:
+WARNING in filemap_release_folio
+
+Full report is available here:
+https://ci.syzbot.org/series/852fc6fd-04c3-494d-a18d-4072753d5c47
+
+***
+
+WARNING in filemap_release_folio
+
+tree:      linux-next
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next
+base:      bb7a206a3ffb0992b3600205b7cf2bcbd228d339
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/789b8ec7-0fce-48b1-bd3f-130fad443c68/config
+syz repro: https://ci.syzbot.org/findings/b27d3479-eda0-470a-a735-8bde8b489eea/syz_repro
+
+ __do_sys_exit_group kernel/exit.c:1134 [inline]
+ __se_sys_exit_group kernel/exit.c:1132 [inline]
+ __x64_sys_exit_group+0x3f/0x40 kernel/exit.c:1132
+ x64_sys_call+0x18c6/0x18d0 arch/x86/include/generated/asm/syscalls_64.h:232
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+------------[ cut here ]------------
+1
+WARNING: mm/filemap.c:4574 at filemap_release_folio+0x579/0x6a0 mm/filemap.c:4574, CPU#1: syz.0.32/5940
+Modules linked in:
+CPU: 1 UID: 0 PID: 5940 Comm: syz.0.32 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:filemap_release_folio+0x579/0x6a0 mm/filemap.c:4574
+Code: 89 df 48 83 c4 10 5b 41 5c 41 5d 41 5e 41 5f 5d e9 2c 88 58 00 e8 47 76 b7 ff 48 89 df 48 c7 c6 a0 82 39 8c e8 e8 74 16 ff 90 <0f> 0b 90 e9 00 fc ff ff e8 2a 76 b7 ff 48 89 df e8 a2 26 00 00 41
+RSP: 0000:ffffc90003486d78 EFLAGS: 00010246
+RAX: d29da7cf2dd17300 RBX: ffffea0006c30400 RCX: 0000000000000046
+RDX: 0000000000000000 RSI: ffffffff8e935905 RDI: ffff8881720f1e00
+RBP: dffffc0000000000 R08: ffffffff9014c6eb R09: 1ffffffff20298dd
+R10: dffffc0000000000 R11: fffffbfff20298de R12: 0000000000000001
+R13: ffffea0006c30408 R14: 1ffffd4000d86080 R15: 1ffffd4000d86081
+FS:  00007f9243ca06c0(0000) GS:ffff8882a7801000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fb8ff871a20 CR3: 000000016d7f6000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ collapse_file mm/khugepaged.c:2426 [inline]
+ collapse_pmd+0x389d/0x6bd0 mm/khugepaged.c:2869
+ collapse_single_pmd+0x1c74/0x36b0 mm/khugepaged.c:2921
+ madvise_collapse+0x3e7/0x920 mm/khugepaged.c:3313
+ madvise_vma_behavior+0xffe/0x4cb0 mm/madvise.c:1390
+ madvise_walk_vmas+0x57d/0xb70 mm/madvise.c:1742
+ madvise_do_behavior+0x385/0x540 mm/madvise.c:1937
+ do_madvise+0x327/0x3a0 mm/madvise.c:2035
+ __do_sys_madvise mm/madvise.c:2044 [inline]
+ __se_sys_madvise mm/madvise.c:2042 [inline]
+ __x64_sys_madvise+0xa6/0xc0 mm/madvise.c:2042
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f9242da8fd9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f9243ca0028 EFLAGS: 00000246 ORIG_RAX: 000000000000001c
+RAX: ffffffffffffffda RBX: 00007f9243026180 RCX: 00007f9242da8fd9
+RDX: 0000000000000019 RSI: 000000000060005f RDI: 0000200000000000
+RBP: 00007f9242e37fed R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f9243026218 R14: 00007f9243026180 R15: 00007fff1d17f228
+ </TASK>
 
 
-在 2026/11/23 1:26, Qiliang Yuan 写道:
-> A user MR keeps a struct rxe_mr_page, 16 bytes on 64-bit, for every
-> PAGE_SIZE page it covers, in one array allocated with kzalloc() when the
-> MR is registered. Before the array, the pages were kept in an xarray.
->
-> With 4 KiB pages, the array of an MR larger than 1 GiB exceeds
-> KMALLOC_MAX_SIZE, so registering it fails with -ENOMEM, and the first
-> attempt warns:
->
->    WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0xe9/0x130
->    Call Trace:
->     __kmalloc_large_node_noprof
->     __kmalloc_noprof
->     __alloc_mr_page_info
->     rxe_mr_init_user
->     rxe_reg_user_mr
->
-> Allocate the array with kvzalloc_objs() and free it with kvfree(), so
-> that MRs of any size can be registered again.
->
-> Registering an MR over THP-backed memory, median of 3:
->
->    size     before (ms)   after (ms)   change
->    1 GiB            5.3          5.2      -2%
->    2 GiB        -ENOMEM         10.8      n/a
->    4 GiB        -ENOMEM         21.1      n/a
->    16 GiB       -ENOMEM         85.9      n/a
+***
 
-Thanks a lot. kzalloc_objs only allocates contiguous physical memory,
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
 
-whereas kvzalloc_objs can allocate non-contiguous memory—making
-
-kvzalloc_objs much less likely to fail when allocating large amounts of 
-memory.
-
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-
-Yanjun Zhu
-
->
-> Fixes: 12985e5915a0b ("RDMA/rxe: Fix iova-to-va conversion for MR page sizes != PAGE_SIZE")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
-> ---
->   drivers/infiniband/sw/rxe/rxe_mr.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/infiniband/sw/rxe/rxe_mr.c b/drivers/infiniband/sw/rxe/rxe_mr.c
-> index 13cb28d3916f6..fbf4d89947383 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_mr.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_mr.c
-> @@ -157,7 +157,7 @@ static int rxe_mr_fill_pages_from_sgt(struct rxe_mr *mr, struct sg_table *sgt)
->   
->   static int __alloc_mr_page_info(struct rxe_mr *mr, int num_pages)
->   {
-> -	mr->page_info = kzalloc_objs(struct rxe_mr_page, num_pages);
-> +	mr->page_info = kvzalloc_objs(struct rxe_mr_page, num_pages);
->   	if (!mr->page_info)
->   		return -ENOMEM;
->   
-> @@ -186,7 +186,7 @@ static void free_mr_page_info(struct rxe_mr *mr)
->   	if (!mr->page_info)
->   		return;
->   
-> -	kfree(mr->page_info);
-> +	kvfree(mr->page_info);
->   	mr->page_info = NULL;
->   }
->   
->
-> ---
-> base-commit: e7732ec135b501e87ab060d992b3b5f2ec4396c9
-> change-id: 20261123-bug-rdma-rxe-large-mr-f752a49d8365
->
-> Best regards,
-
--- 
-Best Regards,
-Yanjun.Zhu
-
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
