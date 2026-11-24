@@ -1,64 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795530626;
-	b=khBGqJqdKpfjlyJRcyRjzqAGn2RSZYGL+zPrZn8ZlVF4pNy7lrNPnWvOjwlJqwaL6p6g
-	 /D0yComHa1SBnPE6t3ckW/VTi8d3gH31Xy0tvISQEwbp8f2tgc0uZ6+3jVr8beCLOTCqv
-	 DFbuf7+2rbD5VrLVqtNF+Ni4iYIozLiCRLo8e48qa39LX1qzP1FE0s5LqKFOn14C2+c3G
-	 VBw9MkdagCbbPEU9PTeShVPkATdeWLFBlpLG7SubzyBp01/51nCGQyQsk/0w7Aq5L4eVQ
-	 ECfyO7soZ9CZzJPzsoOlusfv1gErwa+cGqRmw/yqNdRm0C8CfC6NF+9r8HDye+m4WHQ==
+	t=1795530994;
+	b=4glgMSrdyFZo3gN/PNmBZ6jVwTPNz19Rf9WowpYkARCZpu7dXJuQpB8zWs/KEDgS2CKh
+	 cVaDndYq8yMtbnKzwzsO1TPf/XK+8Id8wOnoZ7F8/OzVEV0I7IzferkR7sGF5J5Wq/r8U
+	 csIlDHKwVr4LWpLsT49Zdf2GmlVbTV5oQF3+EKhRamHPzFa8YCLcllSWUDBPgcuFo68RE
+	 ExeVZpCjvTRNXTr2aLgotW2UU6x5K+XZuz5oyS3uk7uwBW5++eUnptMFOY0mw+7rzQYWw
+	 yLM5X29oOPb7oi9WB8gLGrFbf5pjGmpS4/nW/MW48971G8vH32vbEGRV6N2iVSu1Dtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795530626;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8k2Tkr44sGYSlrclTUYcdahKEXL+u5o0bkcorvRLgxc=;
-	b=ES5uYi9OC+1JzvqLgwEzwzh4Jl84v98Vfyabtd+a2vqaaO5tYN+rV3bn7yqLsLjL67SG
-	 5KvwuJAkca3Kq+6A/zM7xB/2JLEeYz0jD8vDNOX5JlASUIrp2hIKvI9HziKVDyfRvpU4N
-	 OO2n2RajILZqLu7ce0xLxzAahqmiz/0S19TMYO8YJJbSsfgHlry3hYTroNOLI2p9i67Ll
-	 ky2LOcJ9G5a80ipeVF5kcHeAkdsWCYeZpBcUctTGCiu9XsQljMtuZVP1l2yBnisY5HPA6
-	 7d7+x87hFwMS+Ka4pNXA9g1DtkeTxrxjzjI7GQ4+KMLqQ9YJM+Tz5rkKNz5f5647Dcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795530994;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=h2mPSw1B7T+UpRiyzIuukEUJ/+X1wVAS23+YiwuYWu4=;
+	b=4U60XWJeWEXZ9iwNLmUXUOolPyuvUtc+YBfND3udtZLBpuil0CRq61af4yCkpxRn4VNN
+	 4Yzsc5sYlQuxIJnPBIoEg5ipkdFxxq27U8sK6UU1vhqvF54o0+VYdWZjT2dlKTFib5rTK
+	 pfKyVmwYWIjqUG0f33xj+FhMi5q8h0I+tEgJE1FpFol9PnmAot338g+XbL4CbTYAcnFof
+	 H2Pt23AP/sq5F8KMRQtVRl260PTJl0EK1pZGkEupXXic7UtBHqaHLwY5TgEwCFzQLR4+6
+	 Vps7IbnGJfqKi8zR3+9Rm3HPKKGy4Hbo6ZrO2jEsuPXcIEUEXu+LIpbJCist8UcC/sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=apiz6wgp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--penghuang.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NyPCxRle;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0691F606A31E;
-	Tue, 24 Nov 2026 14:30:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A6B606A327
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:36:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71A6B606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--penghuang.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=apiz6wgp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFF611F000E0;
-	Tue, 24 Nov 2026 14:30:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795530625;
-	bh=8k2Tkr44sGYSlrclTUYcdahKEXL+u5o0bkcorvRLgxc=;
-	h=From:To:Cc:Subject:Date;
-	b=apiz6wgpM7XTWsyteqZcEtKk8FR4uGWTFhx+/RoaG00UMZt2pcwFHoUsCLbjZzOQ4
-	 Xd2rgP4T+RRL+nSu2YzSMf2497DycGqn1hroAU+DJv8xo1neRSle/OyQ3dTaXDZT1V
-	 bhuCvf0aYGou1int4PcD4DPGeC130+rNpl2px6wArbwtxKRo8d7S0mQDAF3/RrbYHl
-	 0m64rMTkHbuuhsPOIIlQkDdkehBundMp1jWKJKAiJP2kUMpeVXtKLbLMcTV2NcRjB2
-	 CP6v5lMXzfnUYgDXr4wLq4VQZZp2QWO3tTBwZjmL/NMfEwJcglNOA1ZpbTj0aWIAgC
-	 cvCvOVY9r+EEw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jan Kara <jack@suse.cz>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Iulian Vaideanu <iulian.vaideanu@gmail.com>,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>,
-	regressions@lists.linux.dev,
-	sparclinux@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org
-Subject: [PATCH 6.12.y] fs: move FMODE_NONOTIFY back to bit 26
-Date: Tue, 24 Nov 2026 09:30:22 -0500
-Message-ID: <20261124143022.3509525-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NyPCxRle
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so7379617eec.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 06:36:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795530993; x=1796135793; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h2mPSw1B7T+UpRiyzIuukEUJ/+X1wVAS23+YiwuYWu4=;
+        b=NyPCxRle6q/PoOijIEeK9vpuUZtBXjlCHeCU++Rk0tyQSNNTTHr0ljpFBIAjbzWHjR
+         3kmnaJ6m/BA9bY5ZPezWB1GRz+SGyR7xEDpbYtcfSoAmxXe9/uro4Sk8UyzueIxP7Mjb
+         E5iC0b/u/GUH+iMZx7NE4dDBYEUpo+dPusWRwcLMwUOHcGRYblHTl3n2g94nTQP4Z4aj
+         XGnviptnxXt3BBtMW2LBGUDl7FTgNBFOtq3yyqdTGExxUnv9Xkf7IClsN+rRJcY6FZDA
+         X2C81nVRpIbgDd2Djdjvb7PSTPnGF7Q2lbSsZ3NhoM9GcZoFOJHjqfjUwvAnqWACcyU7
+         lJgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795530993; x=1796135793;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h2mPSw1B7T+UpRiyzIuukEUJ/+X1wVAS23+YiwuYWu4=;
+        b=UudWtdiVbc7FTBKO/Z3esqKddkuFmFifPJZE3oNwCHzuRmK3kt3N/E3yR8bjB6Q1j5
+         6dzOrFNY8i73R7eCZl9sM4yoMnWR2cJWOH/xN3z4j5fx8QeaqLDJVLHXnKO9rNY6VKfz
+         4vZkKuUPIYJxSWRzxFF1IN7NGe+43ukKqqUNisaQWRumZF8myPBrS/b/W1zEsEnB8ilY
+         WyQRcOWWFlolzf4LzxexNN8pNpmkM5llkiyMWsjZdv029AL2kRr9lqjGYIIOGnz8DhBA
+         +J3szjRp1TT0mNDnK1fpGRGkzUX4rwIvLNT0PpM4OggMjz2JSwfkbDVJySlGV0nWyA4U
+         uuAA==
+X-Forwarded-Encrypted: i=1; AL+hErFKKAULC9eYnaJe3VDclZ9jOCRmWtQX9vsR0x1ocUr7eZ8e1Dwaygct1sWppIFzSyjMWwpxaeY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88HAm5lN3vm+V6prymrU5p3TxgWLbNEiKaCsGe669yX9sHoQtV
+	9QZgvg7511pXcLiwor5V/AGMqVw+mRAHrLjP7nC+dE9Bp7BnpCzeWe5CYJli9gWhoe17sxnOovp
+	UWvxcagRNMy+o4+NDLw==
+X-Received: from dyah11-n2.prod.google.com ([2002:a05:693c:83cb:20b0:386:458d:ba4c])
+ (user=penghuang job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:211a:b0:373:5561:8d06 with SMTP id 5a478bee46e88-38570c36e7cmr13603125eec.37.1795530992365;
+ Tue, 24 Nov 2026 06:36:32 -0800 (PST)
+Date: Tue, 24 Nov 2026 06:36:31 -0800
+In-Reply-To: <CAKfTPtDb6CZ8WyN8rdK_-9RNhaFRxaZGOE3+EfbkReqkFCCy2g@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,53 +78,39 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261122015729.2512645-1-penghuang@google.com>
+ <cover.1795462673.git.penghuang@google.com> <9b14aecb0ad560a3ce5f7925aaaee6e4f4a1a760.1795462673.git.penghuang@google.com>
+ <CAKfTPtDb6CZ8WyN8rdK_-9RNhaFRxaZGOE3+EfbkReqkFCCy2g@mail.gmail.com>
+X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
+Message-ID: <20261124143631.4012300-1-penghuang@google.com>
+Subject: Re: [PATCH v2 1/2] sched/fair: Clear residual sums on zero task-group
+ avg propagation
+From: Peng Huang <penghuang@google.com>
+To: Vincent Guittot <vincent.guittot@linaro.org>, Tejun Heo <tj@kernel.org>
+Cc: Peng Huang <penghuang@google.com>, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
+	Changwoo Min <changwoo@igalia.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	linux-kernel@vger.kernel.org, sched-ext@lists.linux.dev, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The backport of commit a94204f4d48e ("fsnotify: opt-in for permission
-events at file open time") moved FMODE_NONOTIFY to bit 25, which is
-__O_TMPFILE on sparc. 6.12.y still passes FMODE_NONOTIFY in open flags, so
-the BUILD_BUG_ON() in fcntl_init() has broken sparc builds since v6.12.105.
+Hi Vincent, Tejun,
 
-Swap it with FMODE_NONOTIFY_PERM, which never ends up in open flags.
+On Tue, Nov 24, 2026 at 11:23:03AM +0100, Vincent Guittot wrote:
+> When fair tasks are involved, the next decays will clear the *_sum
+> anyway so I suggest to skip this patch if it's not needed for
+> scx_switched_all() case
 
-Upstream avoided this with commit ebe559609d78 ("fs: get rid of
-__FMODE_NONOTIFY kludge"), but overlayfs in 6.12.y still uses
-__FMODE_NONOTIFY.
+Agreed -- let's drop patch 1/2 since it is not needed for
+scx_switched_all().
 
-Fixes: 07ee6057f92a ("fsnotify: opt-in for permission events at file open time")
-Reported-by: Guenter Roeck <linux@roeck-us.net>
-Closes: https://lore.kernel.org/all/7701ab76-4761-4596-b6a5-92c74e03ce5f@roeck-us.net/
-Reported-by: Iulian Vaideanu <iulian.vaideanu@gmail.com>
-Closes: https://lore.kernel.org/all/CAPK=yVMe1Ro=aw_daLCOM9cBATsp6crdgB4wd0ty4vrnxtVKkQ@mail.gmail.com/
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
+Tejun, patch 2/2 applies cleanly on its own with Vincent's Reviewed-by
+if you'd like to pick it up directly; please let me know if you prefer a
+standalone v3 instead.
 
- include/linux/fs.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 67b57ce46b203..d696a21b69ee2 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -178,13 +178,13 @@ typedef int (dio_iodone_t)(struct kiocb *iocb, loff_t offset,
-  * Together with FMODE_NONOTIFY_PERM defines which fsnotify events shouldn't be
-  * generated (see below)
-  */
--#define FMODE_NONOTIFY		((__force fmode_t)(1 << 25))
-+#define FMODE_NONOTIFY		((__force fmode_t)(1 << 26))
- 
- /*
-  * Together with FMODE_NONOTIFY defines which fsnotify events shouldn't be
-  * generated (see below)
-  */
--#define FMODE_NONOTIFY_PERM	((__force fmode_t)(1 << 26))
-+#define FMODE_NONOTIFY_PERM	((__force fmode_t)(1 << 25))
- 
- /* File is capable of returning -EAGAIN if I/O will block */
- #define FMODE_NOWAIT		((__force fmode_t)(1 << 27))
-
-base-commit: e2e4b92c2b2a3ae78423cb343951cb5d2241b405
--- 
-2.53.0
-
+Thanks,
+Peng
