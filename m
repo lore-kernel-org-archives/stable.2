@@ -1,55 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795562972;
-	b=YGEDlBnf99Irv2wyIKtE1k7gxCW4Kn5gKqbLLnIYWPJjfxapkK8SgkgMArAkOIsY7cW7
-	 rACbElzOC+Cyzoxwbogy6y4AwOGG71ubcTyxC5kn6Yh8ztYew8xj/VwK8SuF03dTPLTai
-	 ruQ4DO1aIzidcIM6B5XZZz2iWz/jB+HYSSnODGUAmJmxLWBLziyk9EHF0xYgovzupFnRi
-	 E6nlhtdbD6tTX9it5eke6PPZ92g95AO0P+MM2/XU9/zCZM0FU3Dt+3xWsXdfOJNxUGXsJ
-	 SS3O5jkKfbOR2fdvZjNlm3iM/WZpb4p5CbhBoIjAvX8WWd1QueB+T4MRZHlNP4+ESeg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795562972;
-	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
-	 Message-Id;
-	bh=Bf+XBPyChdHiXT7CR8kI8PmkqJa/ocekJYhEnaM1zK0=;
-	b=coAuTxOajAliHyCdCDI4jUU6X9pkJbSxZbRDPcO59lzRkmrxNnjMM7PhO8OXkaDFsMdy
-	 wORWXElmmeM5hLbVT6sAhpBgK+ID8Ewgo+wNc741zH5fSmk5RvuCeBNBc07LGtB7LEzPe
-	 evH7Wd4uN0gkEpZUoxDkvZJhG88TAYZHoM1Knl1bxefyBjksEjaqRdfhUWsiLaqb23QvU
-	 UBryTssCY7H2pvkXMPhmyxi9mfsu0faYwGxkukfX4dPcwWt2RsNxLvFSvuDDGa8qx17go
-	 flMRn4WLd4YtMOoyW8AE67ym9ELrWx7ljYyvPPbcLK4BI/3ml/8Ab96HS+YzKtoYrXA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mYlq0kUW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795563096;
+	b=ftPCh/qZaHjxlZgpUaNjFTpApFMLY3izGRkDpp5iszPhI9Mm5SimB1eYAI4qmeCDOWw0
+	 n1aGbAlXSBAPgWYOPodNy1ZPzLkhzMsn/ZrOOng5HOxNTJRINKL3NVqvfBfa1qwHeKuHC
+	 zXBZbRXq647EdWGYwyqAG9Eg9VHA5sXHYeDjiPkQm1yOqdXqddxuV3br3dTcqc31wejkz
+	 SA2Ni29YHjj5cD7K13MOJFtNCKlP8bjMV8QYYC+8k6iuDy/JolRfSXXIwNIX9uvRDRB9M
+	 +WUUaE73MRRSYitQHt5e//wsAH/zuJ2j3a2cpVO+c+70UWFYEcXZTZTKW3xMldDJc0A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795563096;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=OKIVDoQ6IbjrbJSFAkyn2r8WUZW+fQ5wkN0UYjtVEY4=;
+	b=jbQhQ3Lwj12k4OUDyIYAfiPl6oiKv2JSoVmG6dGWijzrzHFNJ2t4qTNpIOzWSKjCFYSy
+	 WsBEmll7PvCZbhtijR8xECByqH9NHuXgxQNqWPFnWwZR1hG6iDHJJdk/DwG4CNJRLaUwh
+	 iOOcxyLgkDhaom37HAx8RkTSFJ1LQnCcqtTWNd5TUGaIfdSJ1sVjpd9uuqfS5dvm7e7mn
+	 j9g/ftWQKClAGF78au8dMT5YkV1s3yKqV1pPPNiFF0pHx0/4Gew7UNpr4sf9/iRNerYFp
+	 rsZj66E2adfQx3Pn4x7MF1c+I8D6TIvSksLsU4qfFQmofyXQ+9siBPUOsWPeh2Zhpqw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=OWNmR4bQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E643606A321;
-	Tue, 24 Nov 2026 23:29:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172CB606A321
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 23:31:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 172CB606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mYlq0kUW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA9941F000D0;
-	Tue, 24 Nov 2026 23:29:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=OWNmR4bQ
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a06e79e152so2480089b3a.0
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:31:34 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795563094; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NnRuMQqwbMdIYL0W7AF36MPGcYFmWk8csDVpOI+bhw1Nr2poZCcGhP5CCRCHcw3bXe
+         tUBThRbH8SLndT6syV5/6yY87qRtOFzBPt7VNYCWjfXBF9QBSmOzdFzLdEbllqVq8Yn0
+         myhQAA/Q1QJcG6OFrFiwTMA/0u6IllX7uXmwOe1KfCPEhOhUfyPUpH/pMtNtQPoXR1XO
+         DSE+i4PzdOOxIydx/VMDf/Ja93iVu3gVgjosFgK3qYD7Ra4Wtm2aS9zBorHu9xuZBKtA
+         0Q4bgTVtHTms7YcOvkJlikA6+QIq5v19MgARdHGd4sqzKVQLoTS8PgXc1WlgqMPXNThp
+         8mJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OKIVDoQ6IbjrbJSFAkyn2r8WUZW+fQ5wkN0UYjtVEY4=;
+        fh=KkPuvWqnARHHcY2rW/Sh0qLRc/0BhCoBmSvKRTQJ/p0=;
+        b=msV6ew+OIzld1eGpNiTn+UwxH6DbfvpcXxT7D+C4EYzniBpBXuIL0gJhKoJxpyPazn
+         QKUWxXoecSF1qIqRVbf32r0IifYbjlNWiY7hc7iH3e1pnT6SkrodmAxJ9AQI+RSZPWgv
+         fY1YLuvE8S37feCumkmEOG/dnSQ2REyzrnd34fZlgYJXpZA6XF2u5/ZIG6sSahjCNXDf
+         QuD0DFqmt5n6OyXCf6VfKgT3dHkZlIT5fmtdJgcTXaME3dHwiSakvxOj6GXdPxqMvkCN
+         w7mtSo/ffQzfvRJqkXylKSP2BFJ6GwFRo31BuFkQLe5jVdRtR6Ir8j1ozOAwCAjKz/q7
+         +vJw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795562972;
-	bh=Bf+XBPyChdHiXT7CR8kI8PmkqJa/ocekJYhEnaM1zK0=;
-	h=Date:To:From:In-Reply-To:References:Subject;
-	b=mYlq0kUW2IRakdostg7qCwA2d6dNIH6zs6v5Ej1s3zTVRkpw8rOdzZFhar4+W75Gx
-	 FYjx23UTd6ktLaQqmEKRhYXFvOGrqNdM/UEbfaPm3uYwRb43rLfee+W4TXidXuFTX4
-	 +71scsIZ4YIJur9mwNZj7zOtuB/QTQYoOm8wCkhQ=
-Date: Tue, 24 Nov 2026 15:29:31 -0800
-To: mm-commits@vger.kernel.org,xu.xin@linux.dev,willy@infradead.org,
-	vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,
-	shakeel.butt@linux.dev,rppt@kernel.org,pfalcato@suse.de,mhocko@suse.com,
-	ljs@kernel.org,liam@infradead.org,kees@kernel.org,josef@toxicpanda.com,
-	joey.gouly@arm.com,jannh@google.com,hughd@google.com,gourry@gourry.net,
-	david@kernel.org,chengming.zhou@linux.dev,catalin.marinas@arm.com,
-	bunk@stusta.de,azpijr@gmail.com,a.p.zijlstra@chello.nl,aaw@google.com,
-	mason@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-In-Reply-To: <20261121-some-more-ai-fixes-v1-4-236e925d9b64@kernel.org>
-References: <20261121-some-more-ai-fixes-v1-4-236e925d9b64@kernel.org>
-Subject: + mm-vma-fix-uncharge-after-failed-stack-relocation.patch added to mm-new branch
-Message-Id: <20261124232931.EA9941F000D0@smtp.kernel.org>
+        d=mojatatu.com; s=google; t=1795563094; x=1796167894; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OKIVDoQ6IbjrbJSFAkyn2r8WUZW+fQ5wkN0UYjtVEY4=;
+        b=OWNmR4bQNuAY2g8kn3mBIKMy1mDBz5BqS5/LTU5OFQyzDO4CHsNkaczpxT16SbqhOF
+         aAR2c3qhiE3pTNOd7NMDyF7Zgv7mp8W9tixXX5dUCwy47PMIHFy8wfnilK7npcisz0hI
+         p+aSstV/JJpBGjRY7jpdgIwyq9pAim4oZ8kFk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795563094; x=1796167894;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OKIVDoQ6IbjrbJSFAkyn2r8WUZW+fQ5wkN0UYjtVEY4=;
+        b=diFddisD69CRsCjl2/Z2+u3T/2uIOia8iB8Es7tnYtH9SRRTADdTNSc63JzYTv1yGU
+         1KMWf6fVKcPKYS6m281zIiHdv2rlogY3FzSuC/F9RRnYeeUKcKBYJ020qOs87WFswe1p
+         VrTL7sgIX8V9odm3YTQ+90odLpNEtPmBrK9tJOtWmMW3KTkB82e7bsP8LVmuXpb1ODMZ
+         GnPbIassEtPI7vbUk0DEaJGCg0zDy/UaCV+Sw/W4l/dREZbqgwHYK1orlRB1m6gZF+vS
+         MooUrqMm9LSl1ZnHRCWdR3qGELoBRzE51N9/+3T/ishhRSx/XM/M3eBPsKwVkYx7Vg1X
+         O7hQ==
+X-Forwarded-Encrypted: i=1; AL+hErF+cnwa2fUri60wDoWgqeNiLyKIznUGqthsSs31wbacCdtQdCQkyj1x0oo5ew1rGVQEJw16oK4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Rzmrh0bqknXjhHrT9ZWpabT6yKL/1+1owwZXo2TnI5kpeHOXg
+	8gDji3ChjlOaHbJDXcZV7p9o0SogsVdC/86E/h9pX175R7iiWfeiJn4SlWBsOZ9ty+xZuuORQ54
+	Cx3ROnJA/Uj/kftfvR5H5bHrlk5ehxkqkgLyJ76J4
+X-Gm-Gg: AZFdTZeX2r6AXLf2DdN6ER0DmMlIl8wSlpNMhokutAmK9AR534/3+kgPP6Xjb/K054x
+	fvGWyhFOcw7nx188bnVK0CRpFim6eFQiOCsfRBkxX8ysbYh7JNZR1g0GiMbX1kCCPp/VTDLoE0I
+	2sukrEvskjUr3QEnJyhFdc7UTCACD5mex3+L/d5zUli9lq5hW0hcjst35BnqDrlq0IWvhQEbbPq
+	VFGqn2vSiq7+TrDy7oQtzy0llztd5PK9pfFO9jYJQVddoI3I/60dYKWKPC4oe71ZskZ9Q2OpBlU
+	k1TM9naj/8vC1ut0Z2h3yrxfsFwiqj4umcTHl/icsGTZMlCPm61uiBtvnfH6u25gQK5H4Peg53T
+	3UO9As3tJW2xQjCdQM/VlipYYS8QvGbwob5OODeopPMd0ozS//Ov17iICQ5Wkn+sQiJuow6onWk
+	S/fqeRthHmC4F8oHI=
+X-Received: by 2002:a05:6a20:a108:b0:3fa:f23f:a1d1 with SMTP id
+ adf61e73a8af0-4014df5edebmr15730791637.75.1795563094342; Tue, 24 Nov 2026
+ 15:31:34 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,169 +101,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <ACT-WEXM.v4.r0.20261124074514@mojatatu.com> <ACT-WEXM.v4.r0.20261124074514-1@mojatatu.com>
+ <DN3PFJ14HKX6.1W8QEBXWGFTHH@gmail.com>
+In-Reply-To: <DN3PFJ14HKX6.1W8QEBXWGFTHH@gmail.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Tue, 24 Nov 2026 18:31:22 -0500
+X-Gm-Features: Aa3M54p0BIuXeFK1hQe6wGuidNpnYhDPisOyEEe-Ji5-LRTxpCvmnGc2U6AgJTE
+Message-ID: <CAM0EoM=rNfC8O0+XVBTaCFX-NNf9TGp9scdETqju18PVaG=_dg@mail.gmail.com>
+Subject: Re: [PATCH net v4 1/3] net/sched: act_gate: bound the cycle time and
+ start time arithmetic
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Willem de Bruijn <willemb@google.com>, Simon Horman <horms@kernel.org>, 
+	Victor Nogueira <victor@mojatatu.com>, Po Liu <Po.Liu@nxp.com>, stable@vger.kernel.org, 
+	syzbot+0054fed3dc9085390f51@syzkaller.appspotmail.com, 
+	shaos <shawnq1@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Nov 24, 2026 at 2:57=E2=80=AFPM Alexei Starovoitov
+<alexei.starovoitov@gmail.com> wrote:
+>
+> On Tue, Nov 24, 2026 at 06:12 AM Jamal Hadi Salim <jhs@mojatatu.com> wrot=
+e:
+> > Conditions to recreate the bug:
+> > CONFIG_NET_ACT_GATE=3Dy, and CAP_NET_ADMIN in the initial user namespac=
+e:
+> > tc_ctl_action() tests netlink_capable(), which checks init_user_ns, so =
+a
+> > user namespace of its own does not help.  iproute2 parses cycle-time as
+>
+> Well ...
+> after "unshare -Urn" an unprivileged user can add a dummy device, clsact
+> and a matchall filter with this gate action.
+>
+> That check covers RTM_NEWACTION only.
+> RTM_NEWTFILTER creates the action too:
 
 
-The patch titled
-     Subject: mm/vma: fix uncharge after failed stack relocation
-has been added to the -mm mm-new branch.  Its filename is
-     mm-vma-fix-uncharge-after-failed-stack-relocation.patch
+True - based it on poc i could create; should have checked that code path.
+I hope the over-hyper bots dont complain this is "high" and have me
+resend to fix the commit log.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vma-fix-uncharge-after-failed-stack-relocation.patch
-
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Chris Mason <mason@kernel.org>
-Subject: mm/vma: fix uncharge after failed stack relocation
-Date: Sat, 21 Nov 2026 16:02:30 +0000
-
-An execve() that fails to relocate its stack can underflow
-vm_committed_as, and the commit limit of vm.overcommit_memory=2 then no
-longer holds.
-
-exit_mmap() uncharges vma_pages() of each VMA with VMA_ACCOUNT_BIT, so
-the charge has to match the size of the VMA. relocate_vma_down() expands
-the stack VMA by the relocation distance without a charge, and relies on
-its vma_shrink() to make the two match again. But it returns with the
-VMA still expanded if move_page_tables() can't allocate a page table,
-for example at the memory cgroup limit, or if vma_shrink() fails:
-
-    relocate_vma_down()             charged    vma_pages()
-    ===================             =======    ===========
-                                    L          L
-    vma_expand()                    L          L + shift
-    move_page_tables() fails
-      return -ENOMEM
-
-    exit_mmap()
-      tear_down_vmas()
-      vm_unacct_memory(L + shift)   -shift
-
-On x86-64 with 4-level page tables, the distance is up to 16 GiB for a
-64-bit program, and about 128 TiB for a 32-bit one.
-
-Fix the issue by giving back the charge of the stack VMA where its
-relocation fails, and excluding the VMA from what exit_mmap() uncharges.
-The argument pages of the dying task are then outside the commit charge
-until exit_mmap() frees them.
-
-Link: https://patch.msgid.link/20261121-some-more-ai-fixes-v1-4-236e925d9b64@kernel.org
-Fixes: b6a2fea39318 ("mm: variable length argument support")
-Signed-off-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-  Link: https://lore.kernel.org/179536262938.412063.9413830491196612418.b4-reply@b4
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Peter Zijlstra <a.p.zijlstra@chello.nl>
-Cc: Ollie Wild <aaw@google.com>
-Cc: Adrian Bunk <bunk@stusta.de>
-Cc: Xu Xin <xu.xin@linux.dev>
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Joey Gouly <joey.gouly@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Josef Bacik <josef@toxicpanda.com>
-Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Cc: <stable@vger.kernel.org>
-
- mm/vma_exec.c |   22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
-
---- a/mm/vma_exec.c~mm-vma-fix-uncharge-after-failed-stack-relocation
-+++ a/mm/vma_exec.c
-@@ -45,6 +45,7 @@ int relocate_vma_down(struct vm_area_str
- 	struct vm_area_struct *next;
- 	struct mmu_gather tlb;
- 	PAGETABLE_MOVE(pmc, vma, vma, old_start, new_start, length);
-+	int err;
- 
- 	BUG_ON(new_start > new_end);
- 
-@@ -68,8 +69,10 @@ int relocate_vma_down(struct vm_area_str
- 	 * process cleanup to remove whatever mess we made.
- 	 */
- 	pmc.for_stack = true;
--	if (length != move_page_tables(&pmc))
--		return -ENOMEM;
-+	if (length != move_page_tables(&pmc)) {
-+		err = -ENOMEM;
-+		goto err_unacct;
-+	}
- 
- 	tlb_gather_mmu(&tlb, mm);
- 	next = vma_next(&vmi);
-@@ -93,7 +96,20 @@ int relocate_vma_down(struct vm_area_str
- 
- 	vma_prev(&vmi);
- 	/* Shrink the vma to just the new range */
--	return vma_shrink(&vmi, vma, new_end);
-+	err = vma_shrink(&vmi, vma, new_end);
-+	if (err)
-+		goto err_unacct;
-+
-+	return 0;
-+
-+err_unacct:
-+	/*
-+	 * The vma now spans more than was charged, so exit_mmap() must not
-+	 * derive the uncharge from its size.
-+	 */
-+	vm_unacct_memory(length >> PAGE_SHIFT);
-+	vma_clear_flags(vma, VMA_ACCOUNT_BIT);
-+	return err;
- }
- 
- /*
-_
-
-Patches currently in -mm which might be from mason@kernel.org are
-
-mm-swap-fix-large-swap-in-across-swap-file-extents.patch
-hugetlbfs-do-not-grow-a-sealed-file-in-mmap.patch
-mm-hugetlb-keep-surplus-folios-that-are-reserved.patch
-mm-hugetlb-fix-reservation-leak-on-min_size=-mounts.patch
-mm-cachestat-count-each-page-only-once.patch
-mm-cachestat-restart-the-walk-after-each-entry.patch
-percpu-queue-the-balance-work-on-an-unbound-workqueue.patch
-mm-vma-fix-uncharge-after-failed-stack-relocation.patch
-mm-mremap-apply-the-mmap-offset-limits-on-expansion.patch
-mm-mremap-respect-guard-gaps-on-in-place-expansion.patch
-mm-vma-make-brk-mappings-non-executable-under-mdwe.patch
-
+cheers,
+jamal
+>   rtnetlink_rcv_msg()            netlink_net_capable(CAP_NET_ADMIN)
+>     tc_new_tfilter()             no check
+>       mall_change()
+>         tcf_exts_validate_ex()
+>           tcf_action_init()
+>             tcf_gate_init()
+>
+> Acked-by: Alexei Starovoitov <ast@kernel.org>
