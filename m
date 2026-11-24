@@ -1,57 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541594;
-	b=uKprtTDgHAX3vfFTSUJBPdQX/gpVOkavUWEfESjGcme6+4CQGbYgYyN8OHrK2uvpiJfX
-	 5m0hwwC/0IUUZMfcleYyRzcwxrYd8sbhrTOA+rLmXwMUYzDBNDohNsN4fscSZc2X3fgNi
-	 B/v0NljnQ+404Ria60EzXrjFa4xoApXJDVBhBn+BOyr3NJo1EKYHs3BhfZ3G5WPf+X8pn
-	 29M9ghiwhltpSps6yHYrCgw49gRjQ0cfEAdUfh++2Ybq8z2vuvJISTsGw1ACETW6EuTNt
-	 J11HHDZvKbfRhTjtzn7wUFTRswcoMeK+UK/bNk1Bb8EYxK9LPI+UoxjTiWdgNNNqEYQ==
+	t=1795541611;
+	b=E3s/6EKLjDFHRqzeHcl2eZHxGKxHwFFssk3hI0uM9UrIcR5/EhWFInMhwWVh2RXasELV
+	 g5Xb+I5/wdb1VxsoPyIeJDkORIOtVjhQDWAnYEb1WTydygTb4zxzM6D7hkNW3N2psmlpT
+	 Xfiy2RSc3rJH6qw3o+XPq7RVpt/rr0AFj3zFpYGhdWeah4yrn0Z2Sf6MspAPF8N4aDOR2
+	 hUNpyqhEN4UY6jLESr4riizfRd+ITTURxH18enG5fiWV1JR6exqzUMcP+0SU2OEmDYl/A
+	 OgCTClbTVB4wUW84ijMMYf5lji3RgQeKFvdg1ZKj+G1kTpog9Q77KRqanrfh/+x1BLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541594;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=btLf8DwtGC2+ScoNJ4jVSnhrEjvDT0vyo3gW2DWZJRg=;
-	b=N+/o8qjaDyKUE90Okn2KTGwk+eZ1ATVItEl3Fxh/GCDY1EXtNPub9L40QtAI9nZt7VWg
-	 4MoGSXl9cByciArYYID2lj79HVWkJXm9aIr+CYj56hnJ/spGBaD39h94ZHwY/lYbonXbS
-	 a/rRApo5sAqS681qG0fjmVfaoHnTCot1eOKt8mVXe9E0rHylyp7LdP/sHb2D8lKGs6F/Z
-	 +8gcgT8dRI03GkRoS6LqXPU/mMmYsBzr7lnHJ4r+fFrV5kE3BV16rQfwvRqJ/mMfCy9CQ
-	 M5WWU/JgcvWXNtiW9Boa1mQ9rOaJXx41FVlP6KTj06PFIdyIk8GnG48kQEgxhvdCaDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541611;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=blq/el2aPt5UfDt/KiVCvCZ0Fkkm7VLYJBz/or3AGCI=;
+	b=cZBe0YdBpNp+JlEKsADugMjXmKCYKfpbXXNflRGchHK+FVeKZdpRqBeYCaAiClLymtF5
+	 lBNoDK9C4akWH7B9qT5zzAfX0QUfNf3MKjDdjT5Ncti5QWFZbOM4F1+JOqa3YjYXpPLBy
+	 C48a6SRMhWxx5c0CIh0TpYXrxuBwVEAJ5RR2UU1yM/6iecu2TlXBjKp5H80OrFp7l9HsS
+	 wpcd8f6KYhsDoZNLk6+XOYGYJ9CDG/llL96Q8bvIwxO/vz3B7GCgoWp2vSis2lixzkEbL
+	 1Rlh5AxMNnTwSPtPI2spOZCTqjCJKJz2+bbZFvvm3aGxOi/4KLXEkba/dZCyx0hNrOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRF2nKf8;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=b4UlxNx+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A1F606A33C
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:33:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20E7606A31E;
+	Tue, 24 Nov 2026 17:33:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRF2nKf8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 892D41F00ADE;
-	Tue, 24 Nov 2026 17:33:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795541593;
-	bh=btLf8DwtGC2+ScoNJ4jVSnhrEjvDT0vyo3gW2DWZJRg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HRF2nKf8NdExQfXqPeEd7ievgJorP53uKGP32DjRcfd3VAyCuYmY/zSsctNl56Yqn
-	 I1KAGdLzmrXpNbLL1F/s8NMP5vmtEWTTbiV0Kil/AzVvNoJOLwADv107SH9AcowrPD
-	 KYa2ysm9JLVyzvr5dxKIfYacKWwZ/o6u7IIHs9b80fwKYl7cJ11nAjESCsmbhIHjfu
-	 Fdzbj7mDQi+Q4849sw3h65AqNZE4SNab2EX8Wrjbi15VV4S3qj2zgRqRV7ZizcLcIZ
-	 42lwtUey5WExmDVfqwwnxLfW90zmjXaHonYZopPXDhFjAF6CA61t7ZT+rwsJL9EOeC
-	 ZNIysGtMSTI8A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ian Ray <ian.ray@gehealthcare.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Haibo Chen <haibo.chen@nxp.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mmc: sdhci-esdhc-imx: map unsupported driver type to Type B
-Date: Tue, 24 Nov 2026 12:33:11 -0500
-Message-ID: <20261124173112.2014464-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112445-unviable-busload-101a@gregkh>
-References: <2026112445-unviable-busload-101a@gregkh>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=b4UlxNx+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 090C61F000E0;
+	Tue, 24 Nov 2026 17:33:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1795541610;
+	bh=blq/el2aPt5UfDt/KiVCvCZ0Fkkm7VLYJBz/or3AGCI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=b4UlxNx+hHhTvQlpuWn5Ve2tZChP3vfavnkVO8u3JGwAdSDvVnEl9QrxbONCENhk3
+	 DWYyWCuN5+CAQekwedZhHBjXousbu7eTBul+L2nCB4J8Y16encOJ22C99TIMv0Paca
+	 mifcMmZICk8tDWEmGDl+z8GQuiwgDybK5mZ9iTx4=
+Date: Tue, 24 Nov 2026 09:33:28 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>, Puranjay Mohan
+ <puranjay12@gmail.com>, Pedro Falcato <pfalcato@suse.de>, Ingo Molnar
+ <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, Juri Lelli
+ <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+ <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+ <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
+ Nayak <kprateek.nayak@amd.com>, Kees Cook <kees@kernel.org>, David
+ Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Shakeel Butt <shakeel.butt@linux.dev>, Jann
+ Horn <jannh@google.com>, Alexei Starovoitov <ast@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/vma: drop mm asynchronously in vma_start_read()
+Message-Id: <20261124093328.3ba2e066e5d5081c69e0e667@linux-foundation.org>
+In-Reply-To: <awXHR007d8MlhJUC@gremlin>
+References: <20261124-vma-read-lock-mmdrop-async-v1-1-257f99f551de@kernel.org>
+	<awWLCZ-jBjSD7V3M@pedro-suse.tail5790ac.ts.net>
+	<CAJuCfpGk6eYK43Unxo+O4ML5=GM_siZ9owp6oa9fO0ipZXVg-g@mail.gmail.com>
+	<CAJuCfpEd1rz3P7fB7W_mHkyzbpq9TscRE+QNwvHdYME=WJj6cw@mail.gmail.com>
+	<awWz3nc_b8x3mIXq@gremlin>
+	<CANk7y0gAxY18Ew+6j5YsqrOsf5Dx+v5M78r7_8JLXh5RHZj4qA@mail.gmail.com>
+	<CAJuCfpFuDCUPTUi3SuAhmbtw5tubRZ0+YEY3PotjyJ8Or8pdQQ@mail.gmail.com>
+	<awXHR007d8MlhJUC@gremlin>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,78 +74,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ian Ray <ian.ray@gehealthcare.com>
+On Tue, 24 Nov 2026 17:23:35 +0000 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-[ Upstream commit d35d93c2902592a84347a15deac4d67a323694c9 ]
+> On Tue, Nov 24, 2026 at 08:34:40AM -0800, Suren Baghdasaryan wrote:
+> > On Tue, Nov 24, 2026 at 8:06 AM Puranjay Mohan <puranjay12@gmail.com> wrote:
+> > >
+> > > On Tue, Nov 24, 2026 at 9:28 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> > > >
+> > > > On Tue, Nov 24, 2026 at 07:51:42AM -0800, Suren Baghdasaryan wrote:
+> > > > > Actually, VMAs are allocated from a SLAB_TYPESAFE_BY_RCU slub. With
+> > > > > that RCU unlocking move you don't need other_mm copy and the comment
+> > > > > that comes with it. VMA won't be freed until RCU lock is dropped.
+> > > >
+> > > > Yeah but they can be reassigned? They won't be _freed_ until a grace period but
+> > > > they can go back to the slab and then allocated elsewhere  right?
+> > > >
+> > >
+> > > Yes, they can go back to the slab and become a different VMA.
+> >
+> > Yeah, you are right about that. So, we either have to keep the RCU
+> > unlock in place to keep other_mm comment valid (my personal
+> > preference) or update the comment next to other_mm to explain the new
+> > reason it is needed. Either way is fine with me.
+> 
+> I think let's just change the comment?
+> 
+> Andrew could you change:
+> 
+> 	 * stable and can be freed in the narrow window after vma->vm_refcnt
+> 
+> ->
+> 
+> 	 * stable and can be reused in the narrow window after vma->vm_refcnt
+> 	                     ^
+> 			     |
+> 			     just this freed -> reused :)
+> 
 
-Since commit 5a52c5701a67 ("mmc: core: Fix host controller programming
-for fixed driver type"), the eMMC driver strength is passed directly to
-mmc_set_driver_type(), which propagates the value through ios.drv_type
-all the way to sdhci_set_ios().  For value 4, SDHCI correctly warns:
+np.
 
-  mmc2: invalid driver type, default to driver type B
-
-The host driver type has no effect on this controller: esdhc_writew_le()
-never programs the driver-type field of SDHCI_HOST_CONTROL2.  Hook
-set_ios() and force drv_type to the always-valid Type B, so that SDHCI
-never sees an unsupported value.
-
-Tested on i.MX8MP (usdhc3, eMMC in HS400) with
-`fixed-emmc-driver-type = <4>`: the warning is gone and the HS_TIMING
-register contains 0x43 as expected.
-
-Fixes: 5a52c5701a67 ("mmc: core: Fix host controller programming for fixed driver type")
-Link: https://lore.kernel.org/all/20260926122908.866-1-ian.ray@gehealthcare.com/
-Cc: stable@vger.kernel.org
-Suggested-by: Adrian Hunter <adrian.hunter@intel.com>
-Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
-Acked-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Haibo Chen <haibo.chen@nxp.com>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-[ sashal: Hunks were placed by hand with different context: the new set_ios function goes before esdhc_reset_tuning() (no usdhc_init_card() here), and the probe hook goes after the probe_dt error check. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/mmc/host/sdhci-esdhc-imx.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/drivers/mmc/host/sdhci-esdhc-imx.c b/drivers/mmc/host/sdhci-esdhc-imx.c
-index b030f657e2534..d032f5d5aed20 100644
---- a/drivers/mmc/host/sdhci-esdhc-imx.c
-+++ b/drivers/mmc/host/sdhci-esdhc-imx.c
-@@ -1137,6 +1137,20 @@ static void esdhc_set_strobe_dll(struct sdhci_host *host)
- 		"warning! HS400 strobe DLL status REF/SLV not lock in 50us, STROBE DLL status is %x!\n", v);
- }
- 
-+static void sdhci_esdhc_imx_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
-+{
-+	/*
-+	 * This controller has no driver-type control: esdhc_writew_le()
-+	 * discards the driver-type field when writing SDHCI_HOST_CONTROL2.
-+	 * The programmed value is therefore irrelevant, but SDHCI rejects
-+	 * non-SD values such as 4 (eMMC 40 ohm, from fixed-emmc-driver-type).
-+	 * Force an always-valid Type B.
-+	 */
-+	ios->drv_type = MMC_SET_DRIVER_TYPE_B;
-+
-+	sdhci_set_ios(mmc, ios);
-+}
-+
- static void esdhc_reset_tuning(struct sdhci_host *host)
- {
- 	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
-@@ -1623,6 +1637,9 @@ static int sdhci_esdhc_imx_probe(struct platform_device *pdev)
- 	if (err)
- 		goto disable_ahb_clk;
- 
-+	/* No SDHCI driver type control */
-+	host->mmc_host_ops.set_ios = sdhci_esdhc_imx_set_ios;
-+
- 	if (imx_data->socdata->flags & ESDHC_FLAG_MAN_TUNING)
- 		sdhci_esdhc_ops.platform_execute_tuning =
- 					esdhc_executing_tuning;
--- 
-2.53.0
+--- a/mm/mmap_lock.c~mm-vma-drop-mm-asynchronously-in-vma_start_read-fix
++++ a/mm/mmap_lock.c
+@@ -300,7 +300,7 @@ err:
+ err_unstable:
+ 	/*
+ 	 * If vma got attached to another mm from under us, that mm is not
+-	 * stable and can be freed in the narrow window after vma->vm_refcnt
++	 * stable and can be reused in the narrow window after vma->vm_refcnt
+ 	 * is dropped and before rcuwait_wake_up(mm) is called. Grab it before
+ 	 * releasing vma->vm_refcnt.
+ 	 */
+_
 
