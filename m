@@ -1,69 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.245
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795512841;
-	b=fWcrwx8WZbKP2GlT5yQWy5A6BCkOQvJQiPWXQaAfui7mUf4Mgi1fOzLip/B0nKrAqsEn
-	 9dGIj0t8tHyWwhOUOR+5pz6XyleD6FwJq5Wj3LYoRc6lS6dmkq0NqnBzylj8UtxAJ6L9I
-	 Ah9qbICbE8keTLFwuqZwydJlE+TVdcR2u/CA+Njq6+y2k0epwF0NJ8Ia5Cq4kuivHzGKY
-	 F9l05f17aDGXVeajm8jCQGKJMR1HOrIRJW5WhvlCRGdJIwvQ2hPzCvVWsR/SBKesEphdh
-	 HZGnwybevGv3o8ypwyRbOm1YboO/icrKUwa30Yaniw0HCyLaCqmVk0/E3v9Tcug+bZA==
+	t=1795513017;
+	b=Aq+NrleD5DBHzz044lwL+lexUELoLU7zE6H+E5Fcjsfo4pN7DbgPLMTwtFdwNUah1qX0
+	 FLh7+j+JlH0whddkUC66WeuixEvMiUArfYubk3lg9Rps1Z68CKtDIxEJDpV2GXsiIggj8
+	 F4gAm6Oyrc0aOpyrrawQ9C/i5aQkWvZFmba+AkB7Txp6QHrvLzA9g8I+tlx4Ht8tOIYrd
+	 YutSvYud/cmJRCShpTYh4axaKAM65p50w1eQEqr7bznWqVMKGkX1ulr0VxEVZvicJmCnU
+	 /68Ah+APzNDIbDeAqyKObWvCOD2YMMAg0BMKMFv9JWcz8s51fbAfzAWIq2KpniwZCeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795512841;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=xnHM6QCSfz4haO8qh+eGQ5MTOzq7qkQC9H2pOHh/vPs=;
-	b=fAtcViomDSxvifKo+lO9oUTI83IThtkH2SGPN4+IJpayDhMvTwn7N65CL3AC3DRi/Adm
-	 kiP78IPwNyLV5N+AZsfTYY1Z1mUW0xkSd+kUUgmfhZIbS6sZ2G+GlzZVsWNNY5NqZq/oq
-	 kX80uf1kdR5u1obRoxstPDmm46skyUHuMugqiDJmM2I9jqnEBfGhqZxOVE4ZpRsyc1sh9
-	 0ZSLTXdQsZkCN9YCGqSjpE2yOpEUbRUL7jTpw6PFWqE+MG+dhmxIyrZ/k0jh/fmbcCWiK
-	 v4OBw6h4qhwJh9jGcpmFWc105wNLhA3Xt9YplNV3ivhYXhg0ZXr16kzSI2VzO31nX3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795513017;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=mUK8JpDoInG3VuJFjVZB6WRxQ+kbA+qAqeBOuWnngnE=;
+	b=HCkTrtnKVkGEGrb7RvtVQhDSXVcY/CMwV17+P3Ky43a8ooF79B2JT9QNDEr0ds5/yFqg
+	 q0aZCPGND/MzQpzEdPXAAtR68re/d4NSbEfdDlf+Tdy2Avui6GsH+N/wXHn8s/KJTuJK+
+	 ZypRasanJKfveP1pTFTL8BpCXBUNzR/2f4i+DxJVoLljLN++qbrFV/rUiRwI5e0LaOmRP
+	 XIS0AZJaqf6DBo+xHUhj/sLnqQdDV7rlOahEL0w/JPqF+oft2jmg5Cg96dW0mGEckQG5w
+	 BuDLsPZqqJ8zGe6unzUMqgTF0bO/SK7RRJXQmRSPasQwnU7XQ7x++jnGp0XkiFrGvQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NOloo2kW;
-	arc=none smtp.remote-ip=95.215.58.245
-Received: from mta1.migadu.com (out-245.mta1.migadu.com [95.215.58.245])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PwdrEfh0;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0263606A322
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:34:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0263606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4454A606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:36:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4454A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NOloo2kW
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GYbL3+eOGyznpi+w5XQwf2OJd3SoN6YCyYiWbmrjVzE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795512838; v=1; x=1796117638;
- b=NOloo2kWnlG5LoWIxCLgiwDCTtmRE2Pv8tGIj/d2rdCb32NHPpq1V9DmsYEO9oi4JxwXvL4p
- +nyu2N40/WpDjXLEFQBZf2FKKm3tU7TG+UXSFOAZ+PwkufyMUcwE7ZI81UV2cOHEiwS1UYn9nMU
- 40VaX/2pJq5tqI2gEcT6JRVA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8c63c8a366e7c598;
-	Tue, 24 Nov 2026 09:33:58 +0000
-X-Mizu-Trace-ID: 8c63c8a366e7c598
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: Jens Axboe <axboe@kernel.dk>,
-	Bart Van Assche <bvanassche@acm.org>
-Cc: Keith Busch <kbusch@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Ming Lei <tom.leiming@gmail.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Hannes Reinecke <hare@kernel.org>,
-	Zhao Gongyi <zhaogongyi@bytedance.com>,
-	stable@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cuitao@kylinos.cn,
-	cui.tao@linux.dev
-Subject: [PATCH] loop: fix stale dma_alignment when direct I/O is silently dropped
-Date: Tue, 24 Nov 2026 17:33:42 +0800
-Message-ID: <20261124093342.838490-1-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PwdrEfh0
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 886FC1A17A9;
+	Tue, 24 Nov 2026 09:36:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 54B30601E1;
+	Tue, 24 Nov 2026 09:36:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 84AAC11E68893;
+	Tue, 24 Nov 2026 10:36:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795513014; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=mUK8JpDoInG3VuJFjVZB6WRxQ+kbA+qAqeBOuWnngnE=;
+	b=PwdrEfh0QbnmVJcCzNbLaRx8V2B2pMDk386ZarL645isDKiuEhDCb9F6q4knLVPMEGGJyf
+	xpzfKEiZ5rSl7D7IUW/bZVZKnG2bH7TqaV3+w+khv3sSW32V5CHN4a40IUYrQsAKB5ZL3W
+	TgpAQfDFkXlNqnGeFAGkv/UTPS861BnnqpJ0v1E4xzbGsRbaD9I4aALV4JiYIPe0ECPH6F
+	jyHJ/KbrGuea0BALDkEJpQtdRddiWgrGcoPyO5mY1T8H+uqFVhW9T41pu0YBD90RHOETSq
+	nBf6SK59sTmJZErei7/IEUQBgaoXUMPN9mXlvJfCMqVOqp9d9blY22i41jXQfA==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,134 +59,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] drm/mxsfb: lcdif: Fix use-after-free on unbind
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: laurentiu.palcu@oss.nxp.com, dri-devel@lists.freedesktop.org, 
+ imx@lists.linux.dev, marek.vasut@mailbox.org, mripard@kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261123223357.535424-1-festevam@gmail.com>
+References: <20261123223357.535424-1-festevam@gmail.com>
+Date: Tue, 24 Nov 2026 10:36:49 +0100
+Message-Id: <179551300942.327856.7174455040291936744.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Tao Cui <cuitao@kylinos.cn>
+Hello Fabio,
 
-LOOP_SET_BLOCK_SIZE and LOOP_CONFIGURE can silently drop
-LO_FLAGS_DIRECT_IO when the new block size is smaller than the backing
-device's DIO alignment or the offset is unaligned.  The drop happens in
-loop_update_dio(), which runs after queue_limits_commit_update(), so the
-committed limits keep the dma_alignment computed from the pre-drop flag
-state, i.e. the backing file's alignment.  With an f2fs backing file,
-setting the block size to 512 then leaves every O_DIRECT request
-requiring 4K-aligned buffers.
+> lcdif allocates its private data, which embeds the CRTC and primary
+> plane, and its encoders using devres. These DRM objects are linked into
+> the mode_config lists.
+>
+> Since mode_config cleanup is DRM-managed, it is deferred until the DRM
+> device is released. An open DRM file can keep the DRM device alive after
+> the platform device has been unbound and devres has freed those objects.
+> The later mode_config cleanup then dereferences freed memory.
+>
+> Allocate the private data with drmm before initializing mode_config so
+> that it remains alive until mode_config cleanup has completed. Allocate
+> encoders with drmm_plain_encoder_alloc(), which cleans up each encoder
+> and removes it from the mode_config list before freeing its memory.
+>
+> This can be reproduced on i.MX8MP by keeping the DRM card open across an
+> LCDIF unbind and closing it afterwards.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 1c71d925c03a ("drm: lcdif: Switch to drmm_mode_config_init")
+> Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+> Signed-off-by: Fabio Estevam <festevam@gmail.com>
 
-loop_set_status() has the same window in a different shape: an offset
-change can drop the flag but nothing recomputes the queue limits.
+I'm OK with the change (except a small nit, see below), but I have a
+general question: is there any valid use case for removing the lcdif, other
+than testing?
 
-Judge direct I/O usability against the block size the limits are being
-computed for rather than the committed one, and let loop_set_dma_limit()
-fall back to SECTOR_SIZE - 1 when the flag is about to be dropped, which
-is the order loop_set_dio() already uses.  Recompute the DMA alignment
-after the flag flip in loop_set_status().
+> diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> index b7be7e17d1d0..bc1a9a2fc6bd 100644
+> --- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> +++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> @@ -24,6 +24,7 @@
+>  #include <drm/drm_fbdev_dma.h>
+>  #include <drm/drm_gem_dma_helper.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+> +#include <drm/drm_managed.h>
+>  #include <drm/drm_mode_config.h>
+>  #include <drm/drm_module.h>
+>  #include <drm/drm_of.h>
+> @@ -43,10 +44,6 @@ static const struct drm_mode_config_helper_funcs lcdif_mode_config_helpers = {
+>  	.atomic_commit_tail = drm_atomic_helper_commit_tail_rpm,
+>  };
+>
+> -static const struct drm_encoder_funcs lcdif_encoder_funcs = {
+> -	.destroy = drm_encoder_cleanup,
+> -};
+> -
+>  static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+>  {
+>  	struct device *dev = lcdif->drm->dev;
+> @@ -74,19 +71,16 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+>  					     "Failed to get bridge for endpoint%u\n",
+>  					     of_ep.id);
+>
+> -		encoder = devm_kzalloc_obj(dev, *encoder);
+> -		if (!encoder)
+> -			return dev_err_probe(dev, -ENOMEM,
+> -					     "Failed to allocate encoder for endpoint%u\n",
+> -					     of_ep.id);
+> -
+> -		encoder->possible_crtcs = drm_crtc_mask(&lcdif->crtc);
+> -		ret = drm_encoder_init(lcdif->drm, encoder, &lcdif_encoder_funcs,
+> -				       DRM_MODE_ENCODER_NONE, NULL);
+> -		if (ret)
+> +		encoder = drmm_plain_encoder_alloc(lcdif->drm, NULL,
+> +						   DRM_MODE_ENCODER_NONE, NULL);
+> +		if (IS_ERR(encoder)) {
+> +			ret = PTR_ERR(encoder);
+>  			return dev_err_probe(dev, ret,
+>  					     "Failed to initialize encoder for endpoint%u\n",
+>  					     of_ep.id);
+> +		}
 
-Fixes: 6c8dec275ccc35e8f ("loop: set dma_alignment from the backing file for direct I/O")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- drivers/block/loop.c | 31 +++++++++++++++++++++++--------
- 1 file changed, 23 insertions(+), 8 deletions(-)
+No need to use the @ret temporary variable, just replace it with:
 
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 194f51d9dab6..4798c4d47a0e 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -179,11 +179,11 @@ static loff_t lo_calculate_size(struct loop_device *lo, struct file *file)
-  * of backing device, and the logical block size of loop is bigger than that of
-  * the backing device.
-  */
--static bool lo_can_use_dio(struct loop_device *lo)
-+static bool lo_can_use_dio(struct loop_device *lo, unsigned int bsize)
- {
- 	if (!(lo->lo_backing_file->f_mode & FMODE_CAN_ODIRECT))
- 		return false;
--	if (queue_logical_block_size(lo->lo_queue) < lo->lo_min_dio_size)
-+	if (bsize < lo->lo_min_dio_size)
- 		return false;
- 	if (lo->lo_offset & (lo->lo_min_dio_size - 1))
- 		return false;
-@@ -204,7 +204,8 @@ static inline void loop_update_dio(struct loop_device *lo)
- 	WARN_ON_ONCE(lo->lo_state == Lo_bound &&
- 		     lo->lo_queue->mq_freeze_depth == 0);
- 
--	if ((lo->lo_flags & LO_FLAGS_DIRECT_IO) && !lo_can_use_dio(lo))
-+	if ((lo->lo_flags & LO_FLAGS_DIRECT_IO) &&
-+	    !lo_can_use_dio(lo, queue_logical_block_size(lo->lo_queue)))
- 		lo->lo_flags &= ~LO_FLAGS_DIRECT_IO;
- }
- 
-@@ -840,13 +841,17 @@ static unsigned int loop_default_blocksize(struct loop_device *lo)
- 	return SECTOR_SIZE;
- }
- 
--static void loop_set_dma_limit(struct loop_device *lo, struct queue_limits *lim)
-+static void loop_set_dma_limit(struct loop_device *lo, struct queue_limits *lim,
-+		unsigned int bsize)
- {
- 	/*
- 	 * Direct I/O forwards the user pages to the backing file unchanged, so
- 	 * track the backing's DMA alignment requirement as the mode is toggled.
-+	 * Judge usability against @bsize rather than the committed block size,
-+	 * so limits computed for a pending change match the flag state that
-+	 * loop_update_dio() settles on right after the commit.
- 	 */
--	if (lo->lo_flags & LO_FLAGS_DIRECT_IO)
-+	if ((lo->lo_flags & LO_FLAGS_DIRECT_IO) && lo_can_use_dio(lo, bsize))
- 		lim->dma_alignment = max_t(unsigned int, lo->lo_dio_mem_align,
- 					   SECTOR_SIZE - 1);
- 	else
-@@ -874,7 +879,7 @@ static void loop_update_limits(struct loop_device *lo, struct queue_limits *lim,
- 	lim->logical_block_size = bsize;
- 	lim->physical_block_size = bsize;
- 	lim->io_min = bsize;
--	loop_set_dma_limit(lo, lim);
-+	loop_set_dma_limit(lo, lim, bsize);
- 	lim->features &= ~(BLK_FEAT_WRITE_CACHE | BLK_FEAT_ROTATIONAL);
- 	if (file->f_op->fsync && !(lo->lo_flags & LO_FLAGS_READ_ONLY))
- 		lim->features |= BLK_FEAT_WRITE_CACHE;
-@@ -1134,6 +1139,7 @@ loop_set_status(struct loop_device *lo, blk_mode_t mode,
- 		struct block_device *bdev, const struct loop_info64 *info)
- {
- 	struct block_device *claim_bdev = bdev_whole(bdev);
-+	struct queue_limits lim;
- 	int err;
- 	bool partscan = false;
- 	bool size_changed = false;
-@@ -1189,6 +1195,15 @@ loop_set_status(struct loop_device *lo, blk_mode_t mode,
- 	/* update the direct I/O flag if lo_offset changed */
- 	loop_update_dio(lo);
- 
-+	/*
-+	 * The offset change may have silently dropped LO_FLAGS_DIRECT_IO;
-+	 * refresh the DMA alignment so the queue limits match the new flag
-+	 * state.
-+	 */
-+	lim = queue_limits_start_update(lo->lo_queue);
-+	loop_set_dma_limit(lo, &lim, queue_logical_block_size(lo->lo_queue));
-+	queue_limits_commit_update(lo->lo_queue, &lim);
-+
- 	blk_mq_unfreeze_queue(lo->lo_queue, memflags);
- 	if (partscan)
- 		clear_bit(GD_SUPPRESS_PART_SCAN, &lo->lo_disk->state);
-@@ -1361,7 +1376,7 @@ static int loop_set_dio(struct loop_device *lo, unsigned long arg)
- 		return 0;
- 
- 	if (use_dio) {
--		if (!lo_can_use_dio(lo))
-+		if (!lo_can_use_dio(lo, queue_logical_block_size(lo->lo_queue)))
- 			return -EINVAL;
- 		/* flush dirty pages before starting to use direct I/O */
- 		vfs_fsync(lo->lo_backing_file, 0);
-@@ -1373,7 +1388,7 @@ static int loop_set_dio(struct loop_device *lo, unsigned long arg)
- 		lo->lo_flags |= LO_FLAGS_DIRECT_IO;
- 	else
- 		lo->lo_flags &= ~LO_FLAGS_DIRECT_IO;
--	loop_set_dma_limit(lo, &lim);
-+	loop_set_dma_limit(lo, &lim, queue_logical_block_size(lo->lo_queue));
- 	queue_limits_commit_update(lo->lo_queue, &lim);
- 	blk_mq_unfreeze_queue(lo->lo_queue, memflags);
- 	return 0;
+		if (IS_ERR(encoder))
+ 			return dev_err_probe(dev, PTR_ERR(encoder),
+ 					     "Failed to initialize encoder for endpoint%u\n",
+ 					     of_ep.id);
+
+With that done you can send v3 and add:
++Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
++Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+Luca
+
 -- 
-2.53.0
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
