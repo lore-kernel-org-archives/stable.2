@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795533049;
-	b=zuSzrBIBfQIvAqxn+2jCPpH208oeQW8CrWqkRd2dGHEBzxQZHgiccvNFf9/QlC+j3KNA
-	 MpMlIyH0tOV96TXSXiAYpF5cepujkYJ3/JLjfF9Yi010yYX9Yzr4BUByVtUQk8yT2ZdE+
-	 nlhlK6CR+i06IdsXyLB7snoZ9XjjD0HjlQXyt6v7vUHBbfXDJFxULc97HXBzWJVUiD4Ov
-	 ZdIC7OZmeYxdJ6Ow9EnLZaHrahZL037GTJ0lru0+ComssNu2yC81Dp1DvzUczT7LD2SsL
-	 vdVpgesQ53jG7dwCbe80kpIWS8+d7qfntwYtaBvLTJwKqkb8dBFACxINwm9TgszwB3w==
+	t=1795533052;
+	b=si6tSGXUX2s28drrJyU8ZvLXM6zRkhgYDW2VW5bBROMfNKgCz0sevpqS5q6tRUjXCpEY
+	 xVZbCy/kx9UfaksrjN0m7jlPe8/dWf/iZSjEvzFQgDtk6FNuqWGl27ZUjjJI8/Q2pO7cj
+	 /kjp6nNAmo2Ut/tEm3S72dFpgdtZYjqAo/DNydtCXn2032MgH1RjeiFXWyqMCpbaeAGr+
+	 O6pUDmYCmXoh1WeOqa7neGoq8vkk4MZZrcrb1t1O2nlroslxxNql23EZQ6U59tvseD71z
+	 W89inc1ygWGByubAeUInhzxQEfO8I6iowW4RCiJDf0ztCJB0wR5shO7h4T9TvFzqrlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533049;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795533052;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=P46Ep4CWc/n5zP7mdnvTrEB2JS24t/JO+KG8U8f3nAo=;
-	b=kRe6unNt0qXrdaxHHcSTQo6Pf63DzRyH/JqnMpuq1mFxFjCjyOuXf6psTU07Irt+vpZS
-	 vkQ5Z4lmeo4DoOlS77jI3mqvBkp6UHw+34SXcgTmDJte4rk+6nPb0288GAH/7ORWHr1ZW
-	 WJ9pT3Dg5yOeFKH4rx6VA9/++whB0WRA7S5+s8irolXyZOCUUGE9U6kc1xyiJLBQoUTB8
-	 kI2yUX0iY3B/h6Khbuh1MWB3lrYfYsph79RPdfQoCcBoC3dcGtjeoWy01vHQTFRXVkvLa
-	 fo1U8xKGEtQ3KpKXJUl6+QO1bTQCbs0TZyQ33sQa0qnXuPKBxC+ua/aqANzoKqnIT6A==
+	bh=hErS7gKhJGeuhtElSxKC310c/uN+t2Q6+jB8GnCUfnM=;
+	b=aBbohq6CPL9l9h4JQBJWt4TJYqF+1SSQf3mgce3Usw7JdYolzk357oHsPRFjgyWlCIDF
+	 DVUr6szVUrvKv+2Iboj5Kml85kmj0xzfk6DXc0g+UlgFb6ipYxrJ6KCF7aEQltFsn18YV
+	 0xTapP21cYSvUhTjODw2S7PL8VVigLMWM34fdjmRIVaMh3s4/cUIQN2uOoswtlG8o1vx4
+	 ZWp6lgTtfpR5kVhVMw9xCht6Z5MP0GfMxdiSrO7QLk6lweJoZ7W/5ADyuLugJzOK4a3Z4
+	 ksIKNmMpHTd+A1GMGMPV6Tah/rdAFqxrZn3pD5fpXJURePV/YLtsF+5MGnNGlkl0zJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LI4hB84N;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nKbg+qn3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7941606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:10:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF80606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:10:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LI4hB84N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E16511F000C6;
-	Tue, 24 Nov 2026 15:10:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nKbg+qn3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8571F000CA;
+	Tue, 24 Nov 2026 15:10:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795533049;
-	bh=P46Ep4CWc/n5zP7mdnvTrEB2JS24t/JO+KG8U8f3nAo=;
+	s=korg; t=1795533052;
+	bh=hErS7gKhJGeuhtElSxKC310c/uN+t2Q6+jB8GnCUfnM=;
 	h=Subject:To:Cc:From:Date;
-	b=LI4hB84NV+86w6bpbL42SGYeKmzPVVxhoGDoLInKtOUkUBL1209S6uzsB5ZyyB0uN
-	 x56MjlcsRD2RtEmrEo/P4dE2G40Sk3V0Qw2bXALZplYJjDbmqWdrWohyRVNsdUToYP
-	 lYbShbTgWAJU1QGQv3+Go8RSUp3o/M7o0sK1Fp98=
-Subject: FAILED: patch "[PATCH] mmc: sunxi: fix clock and runtime PM leaks on probe failure" failed to apply to 6.1-stable tree
+	b=nKbg+qn3+cgghFwu0EavIJDxcDBTO2Tpv+/eW2kf/qsR5fpJU+OzW8eHwBjpJKVH1
+	 MjdOfm5RkFQFLG6q3+VtgB38f356WDJMr3Z3VJHj3LBrzPaYk91GF0mfFPvlNwYVp5
+	 FO22NXf2Yz5+My1fgzFBEwya5Dr+3m68/POcAmiE=
+Subject: FAILED: patch "[PATCH] mmc: sunxi: fix clock and runtime PM leaks on probe failure" failed to apply to 5.10-stable tree
 To: anferneemelokc5@gmail.com,ulfh@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 24 Nov 2026 16:10:59 +0100
-Message-ID: <2026112459-scariness-levitate-edc6@gregkh>
+Date: Tue, 24 Nov 2026 16:11:00 +0100
+Message-ID: <2026112400-clumsy-mobile-79f3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x e35e360bd66898a977c296ab71fe4bae17ddceb7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112459-scariness-levitate-edc6@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112400-clumsy-mobile-79f3@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
