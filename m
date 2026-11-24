@@ -1,104 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795525742;
-	b=FLu88M7hE7O8X7j7HoBoLqWok77yKtqrUCqQvExnvFmOIyQp4CspNRLB8phCLeu2EZyh
-	 g2qHl7mr2/50VMpjECs0XnbiQ5VVHtp1tb3x+swNlWImP9UQ7cRxiTzoQMt2QeYwoZ+JT
-	 oL7XH0DeXWQXHtHOL+tg2ozjUcSYLe3WQG6fyFYp79AwQCfioAS2z3ZjezoT00/9fS9Zz
-	 eD9AP+a1xPK+sJzEAAxGmVzLLJmc97No8wcxtuuL7HLx3qMEWG8hUMmCtQ5mCwXw1jo0P
-	 7KkU6PxKOjON7/X5FOpCxz14WV143j5+mt4OdoQwthksbA8YYcAvfVMJM6TbAVkG2zg==
+	t=1795525852;
+	b=VzcQdIAsO7M+Os8rqNU2P/wt5H+oxKsrVEhXPKZr8bL9vCi5jdNZoQLxJr+DJzP815Qx
+	 9tTnHN+Kecjd/KPCJF2nImtwF6t9EP2iJ74ASTulkimzmz5RTyfSqSjSoWTCW9gJfWCpc
+	 Jw/YPfWqXaE/LDXM5a6RFxI3zab9sUzAPVzg+DuEJicRJdwSf5OITrLKqFd+DcjGMGnw9
+	 1tNxQwPI61S4071SB2Tu/gKLyD4Y5TM6fsttSJz1AGLMwEkHD9SsAxEdxG95f1ry9Me7X
+	 K3vEUFHIC5XEEqPN+OJxCLVFZH5OAakpL18v2qz1V/w39TTEhbxpoN+a7COTmFK89Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795525742;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=WcJSkaqY9Qq8Hd92McHt9i07oPBgHaZhYiQd4F7xNFM=;
-	b=W75inwOJAr98fxbsV0WMvGyd4imkS2Fpl0Q3N8y/pv8OudQ/p5W9gHET8ZvQwY1+JPHe
-	 I6TpOu7sCj02fa7w9F/Emo1t8iUZfygXPKUqGineXNneWEe7D6EUjvLnR1R8cVjfGIEUC
-	 aCfDs2v60pzUJIi7PR4mQy6gBVf0X0S3RmCSjU2dOMQRkIERnVr8iwsAAw8Fc2XABo8kc
-	 koCHtumYXGgFDfNDWW4zRU+gf44wdjwR3cK3IdBbihthnsXtws9OjULvBtxd77N6z3Wmy
-	 MNRjpTQNdrYzshvm2BcBagumA/0qBiV117ZFk6hr458lj5YatFQQijny28aQsHpf9Xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795525852;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=VblNmDy1pTq5RL0MSahF61gU6VHrFjsp5tATY9PSzZ4=;
+	b=Ab9y7AqO9FMSGPyKLHTDrwubHDqzIYrJQuK21hZL74A5ymwjsHqcTfFnMLFGwS85eJFU
+	 Kq8EVOwmRoImc0Ra99slqGk2HGcXV4vW4d8rwJFHCXajnJGniB5pi4rTZ1OTXq92V2y7c
+	 p2eRcNVdNGdCwRBEhZloti6TXLP2e7GI8j4/0sFtp1bWNWtFGcsdJMEzDhnRGI9xZsAau
+	 c8YZQbEWwZffYsyXwCCoKGM4MFY430eY7PgADvLXP00H6vHydmXycYhB4JLe2Ll3NMd2a
+	 ZJijjkCxd2U1BRWOeBmVh213kdxP0T2pYc0Urem3aXi8Sf4QOgSihLCmdWZ2n2euEIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mmUD+xsu;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=97c8Gm65;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=no7xFE9k;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XvYNRNNJ;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kFPFkzX0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25A3606A326;
-	Tue, 24 Nov 2026 13:09:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E25A3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFF0606A31E;
+	Tue, 24 Nov 2026 13:10:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mmUD+xsu;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=97c8Gm65;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=no7xFE9k;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XvYNRNNJ
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C79711F7CD;
-	Tue, 24 Nov 2026 13:08:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795525740; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=WcJSkaqY9Qq8Hd92McHt9i07oPBgHaZhYiQd4F7xNFM=;
-	b=mmUD+xsuUa7B/iXxIoqUvGyM9xNrE4ua0l7iAxS2Y2M4GtqqEM1XZb2WmCf3R/1AQcQUns
-	R8p59avmbySAHfYg12Ab/nfBoP+gF9UK5o+ZmznsSD3TG41YbJKyeD7j8DkDDROSQ3xPK3
-	QrSlmxbpTqkIOujibWP/aRmmB9859bo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795525740;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=WcJSkaqY9Qq8Hd92McHt9i07oPBgHaZhYiQd4F7xNFM=;
-	b=97c8Gm65I5xaQNqWkHPOaWRh+xRBvHI5FL66vC6xwgctIrr1cl2kCnl16LzS/ZoPm5Dhla
-	SdHo7QUcZiqvO6Ag==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=no7xFE9k;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=XvYNRNNJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795525739; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=WcJSkaqY9Qq8Hd92McHt9i07oPBgHaZhYiQd4F7xNFM=;
-	b=no7xFE9kf7JGQKe28BZel4ShYaE4zzTL5BIak1zW8v/xo5GPsr/s6sydUbEGQhfrHAYadS
-	QaPpvH2QACCd1dCbW6K34s1EGrihvQBlJkq78AYmE3Dc3zNRA2WinzgizDD2RhMFr5tkBJ
-	HTESxp7jut2xaGEIOPCp5knzhztoMt8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795525739;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=WcJSkaqY9Qq8Hd92McHt9i07oPBgHaZhYiQd4F7xNFM=;
-	b=XvYNRNNJXqCs9b455USCCnF4QILvmlgIMu6KafQN/mRztUDTVN1o3Xzh/fd/1U8vj1NUT1
-	O8nXZ7CNrzNImrDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2D1B813505;
-	Tue, 24 Nov 2026 13:08:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id zsLdNWqMBWt+MQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 24 Nov 2026 13:08:59 +0000
-Message-ID: <93890802-060e-4369-842e-2a02bbd2042c@suse.de>
-Date: Tue, 24 Nov 2026 14:08:58 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kFPFkzX0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C41A1F000C0;
+	Tue, 24 Nov 2026 13:10:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795525852;
+	bh=VblNmDy1pTq5RL0MSahF61gU6VHrFjsp5tATY9PSzZ4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=kFPFkzX0zBC0EG2IUEQ6KIxVYvyJDMh/KtDPrendHdplukYPNKta4Dis9yFvpVxEq
+	 UFhoyMMybPe7I07yeI21fnBsDAYzlnqHdkjIgk/neJmMFuPcSajURMiiPVIc6/TU2s
+	 VOFc6fxajtddQtnnZq/rzGY+gYBjseSBxSk/DDKDmNGv0HfdQV9uVNy3/XArOKkmfp
+	 hEdQuttVnLWjIlMw42ldD/31godteRLvPBE2MlArgZxZoX50Y71/3lQUJPQSstHUH8
+	 gUNyKClZU6C6khubdrNKQgYdi7nm7AAf5BTZImdw4N7UTRvEBf7A6xHo8ZWrtIzJp2
+	 RUyvIssk7E4/g==
+Subject: Re: [PATCH net v2] ip_gre: fix stale header length after erspan
+ version change
+From: netdev-bot+sashiko@kernel.org
+To: bsdhenrymartin@gmail.com
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ yanhaishuang@cmss.chinamobile.com, horms@kernel.org, netdev@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Tue, 24 Nov 2026 13:10:50 +0000
+Message-ID: <179552585089.3135.2845947180568348975@kernel.org>
+In-Reply-To: <20261123123529.3183627-1-bsdhenrymartin@gmail.com>
+References: <20261123123529.3183627-1-bsdhenrymartin@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,235 +64,239 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT v3 2/5] drm/fb-dma-helper: Add
- drm_fb_dma_get_gem_clipped_addr()
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Liu Ying <victor.liu@nxp.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-sunxi@lists.linux.dev,
- imx@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261124074041.115251-1-wenst@chromium.org>
- <20261124074041.115251-3-wenst@chromium.org>
- <19cd5949-05dc-4107-bd2b-d8ad1e2332eb@suse.de>
- <CAGXv+5HSV7MJ96qTcOp+JaKWtmmYYWAmDROrT18pZ9PztNCJ-g@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAGXv+5HSV7MJ96qTcOp+JaKWtmmYYWAmDROrT18pZ9PztNCJ-g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[nxp.com,oss.nxp.com,pengutronix.de,kernel.org,sholland.org,linux.intel.com,gmail.com,ffwll.ch,lists.linux.dev,lists.freedesktop.org,lists.infradead.org,vger.kernel.org];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: C79711F7CD
 
-Hi
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-Am 24.11.26 um 11:22 schrieb Chen-Yu Tsai:
-> On Tue, Nov 24, 2026 at 3:57 PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Hi
->>
->> Am 24.11.26 um 08:39 schrieb Chen-Yu Tsai:
->>> drm_fb_dma_get_gem_addr() returns the DMA address to the "unclipped"
->>> framebuffer. However some display drivers want the "clipped" framebuffer
->>> instead, as they are also using the clipped coordinates to program the
->>> hardware.
->>>
->>> Some of these drivers are open-coding drm_fb_dma_get_gem_addr() with
->>> the source coordinates replaced, while others have been incorrectly
->>> converted to using drm_fb_dma_get_gem_addr(), which would end up
->>> causing incorrect parts of the framebuffer to be displayed if it were
->>> somehow clipped.
->>>
->>> Add drm_fb_dma_get_gem_clipped_addr(), a "clipped" version of
->>> drm_fb_dma_get_gem_addr() for these drivers to use.
->>>
->>> Cc: <stable@vger.kernel.org> # dependency for next patch
->>> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
->>> ---
->>> Changes since v1:
->>> - Use new drm_framebuffer_get_block_offset() helper
->>> ---
->>>    drivers/gpu/drm/drm_fb_dma_helper.c | 37 +++++++++++++++++++++++++----
->>>    include/drm/drm_fb_dma_helper.h     |  4 ++++
->>>    2 files changed, 37 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/drm_fb_dma_helper.c
->>> index ab0f37d8a5ff..0aaf4926db4e 100644
->>> --- a/drivers/gpu/drm/drm_fb_dma_helper.c
->>> +++ b/drivers/gpu/drm/drm_fb_dma_helper.c
->>> @@ -60,15 +60,16 @@ struct drm_gem_dma_object *drm_fb_dma_get_gem_obj(struct drm_framebuffer *fb,
->>>    EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_obj);
->>>
->>>    /**
->>> - * drm_fb_dma_get_gem_addr() - Get DMA (bus) address for framebuffer, for pixel
->>> - * formats where values are grouped in blocks this will get you the beginning of
->>> - * the block
->>> + * drm_fb_dma_get_gem_addr() - Get DMA (bus) address for unclipped framebuffer,
->>> + * for pixel formats where values are grouped in blocks this will get you the
->>> + * beginning of the block
->>>     * @fb: The framebuffer
->>>     * @state: Which state of drm plane
->>>     * @plane: Which plane
->>> - * Return the DMA GEM address for given framebuffer.
->>>     *
->>>     * This function will usually be called from the PLANE callback functions.
->>> + *
->>> + * Return: GEM DMA address for given framebuffer, unclipped.
->>>     */
->>>    dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
->>>                                   struct drm_plane_state *state,
->>> @@ -86,6 +87,34 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
->>>    }
->>>    EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_addr);
->>>
->>> +/**
->>> + * drm_fb_dma_get_gem_clipped_addr() - Get DMA (bus) address for clipped
->>> + * framebuffer, for pixel formats where values are grouped in blocks this
->>> + * will get you the beginning of the block
->>> + * @fb: The framebuffer
->>> + * @state: Which state of drm plane
->>> + * @plane: Which plane
->>> + *
->>> + * This function will usually be called from the PLANE callback functions.
->> You should mention what clipping means in this context. It's not obvious
->> what it's clipping against. Or maybe point to other docs that explain it.
-> What about:
->
-> /**
->   * drm_fb_dma_get_gem_clipped_addr() - Get DMA (bus) address for the start
->   * of the visible (CRTC-clipped) part of the framebuffer
->   * @fb: The framebuffer
->   * @state: Which state of drm plane
->   * @plane: Which plane
->   *
->   * A plane may be positioned partially off-screen, in which case it gets
->   * clipped to the visible CRTC area by drm_atomic_helper_check_plane_state()
->   * (populating the clipped coordinates in &drm_plane_state.src and
->   * &drm_plane_state.dst). For example, if a plane extends past the left or
->   * top edge of the screen, only its right and/or bottom portion is visible.
->   * Drivers whose hardware cannot clip by itself (i.e. accept negative
->   * destination coordinates) should use this helper instead of
->   * drm_fb_dma_get_gem_addr() so scanout starts from the visible portion of
->   * the framebuffer.
->   *
->   * For pixel formats where values are grouped in blocks, this returns the
->   * beginning of the block.
->   *
->   * This function will usually be called from the PLANE callback functions.
->   *
->   * Return: GEM DMA address for the visible part of the framebuffer.
->   */
+Critical: 0 · High: 2 · Medium: 1 · Low: 1
 
-Looks good.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
->
->>> + *
->>> + * Return: GEM DMA address for given framebuffer, clipped.
->>> + */
->>> +dma_addr_t drm_fb_dma_get_gem_clipped_addr(struct drm_framebuffer *fb,
->>> +                                        struct drm_plane_state *state,
->>> +                                        unsigned int plane)
->>> +{
->>> +     struct drm_gem_dma_object *obj;
->>> +
->>> +     obj = drm_fb_dma_get_gem_obj(fb, plane);
->>> +     if (!obj)
->>> +             return 0;
->>> +
->>> +     return obj->dma_addr + drm_framebuffer_get_block_offset(fb, plane,
->>> +                                                             state->src.x1 >> 16,
->>> +                                                             state->src.y1 >> 16);
->> I had to look several times to spot the difference to the regular
-> I suppose I should add a comment to make the difference more visible:
->
->      /* Use clipped source coordinates state->src.[xy]1 instead ->src_[xy] */
+- [High] The fix is incomplete: every error return in erspan_changelink()
+  (net/ipv4/ip_gre.c) skips the new erspan_calc_hlen() call, but two…
+- [High] In erspan_changelink() (net/ipv4/ip_gre.c), the new delta
+  adjustment is wrong whenever the same request changes IFLA_GRE_LINK or…
+- [Medium] erspan_changelink() still updates the ERSPAN version and the
+  GRE header length as separate, unsynchronized stores, while the TX…
+- [Low] The new code in erspan_changelink() (net/ipv4/ip_gre.c:1540) does
+  a plain read-modify-write, `dev->needed_headroom += hlen`, while…
 
-Your choice.
+--
 
->
->> helper. In any case
->>
->> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-> If the changes above are acceptable to you I'll send out a new version
-> with your tag kept.
+ip_gre: fix stale header length after erspan version change
 
-Sure, go ahead.
+This patch moves the ERSPAN header length calculation out of
+erspan_tunnel_init() into a new helper, erspan_calc_hlen(). The helper is
+now also called from erspan_changelink(), so switching versions on an
+existing tunnel updates tun_hlen and hlen. The difference between the old
+and new hlen is then added to needed_headroom and, unless IFLA_MTU was
+given, to the MTU.
 
-Best regards
-Thomas
+Link: https://lore.kernel.org/netdev/20261123062752.27920-1-yanhaishuang@cmss.chinamobile.com/
 
->
->
-> Thanks
-> ChenYu
+> diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
+> index 5485586fa0e62..2a1d6ff16dfe1 100644
+> --- a/net/ipv4/ip_gre.c
+> +++ b/net/ipv4/ip_gre.c
+
+[ ... ]
+
+> @@ -1509,6 +1517,8 @@ static int erspan_changelink(struct net_device *dev, struct nlattr *tb[],
+>  		return -EOPNOTSUPP;
+>  	}
+>  
+> +	hlen = t->hlen;
+> +
+>  	err = ipgre_newlink_encap_setup(dev, data);
+>  	if (err)
+>  		return err;
+
+[Severity: High]
+What state are t->hlen and t->erspan_ver left in if one of the later
+error returns in erspan_changelink() is taken?
+
+By this point ipgre_newlink_encap_setup()->ip_tunnel_encap_setup() has
+already rewritten t->hlen, and the new value leaves out the erspan header:
+
+net/ipv4/ip_tunnel.c:ip_tunnel_encap_setup() {
+    ...
+	WRITE_ONCE(t->encap_hlen, hlen);
+	WRITE_ONCE(t->hlen, hlen + t->tun_hlen);
+    ...
+}
+
+erspan_netlink_parms() also writes the live version before it validates
+the version, index, dir and hwid:
+
+	if (data[IFLA_GRE_ERSPAN_VER]) {
+		t->erspan_ver = nla_get_u8(data[IFLA_GRE_ERSPAN_VER]);
+
+		if (t->erspan_ver > 2)
+			return -EINVAL;
+	}
+
+Both of the remaining error returns skip the new erspan_calc_hlen() call:
+
+	err = erspan_netlink_parms(dev, data, tb, &p, &fwmark);
+	if (err < 0)
+		return err;
+
+	err = ip_tunnel_changelink(dev, tb, &p, fwmark);
+	if (err < 0)
+		return err;
+
+ip_tunnel_changelink() can return -EEXIST when ip_tunnel_find() matches
+another tunnel. It can also return -EINVAL on the fallback device, or
+-ENODEV.
+
+Take a v1 tunnel that is given erspan_ver 0 with local/remote/key values
+that collide with another erspan tunnel. ip_tunnel_changelink() returns
+-EEXIST, and the tunnel is left with erspan_ver == 0 and tun_hlen == 8.
+erspan_xmit() then clears SEQ and KEY, and
+__gre_xmit()->gre_build_header() pushes 8 bytes but writes only 4.
+
+Doesn't that leave the leak of uninitialized headroom described in the
+commit message still reachable?
+
+The reverse case looks similar. A v0 tunnel given erspan_ver 1 with an
+out-of-range IFLA_GRE_ERSPAN_INDEX ends up with erspan_ver == 1 and
+tun_hlen == 4.
+
+The next successful changelink is affected as well. After a failed call,
+t->hlen lacks erspan_hdr_len() while needed_headroom and mtu are
+unchanged. The next call samples that value as its baseline, and
+erspan_calc_hlen() adds erspan_hdr_len() back. The delta is then +12 (v1)
+or +16 (v2) even when nothing changed.
+
+Can repeated failed/successful pairs walk the MTU down to 68 and keep
+growing needed_headroom? That is the drift the v1 -> v2 notes describe as
+fixed.
+
+The commit message says this mirrors the IPv6 side.
+ip6erspan_changelink() only applies the version, via
+ip6erspan_set_version(data, &p), after ip6gre_changelink_common() has
+succeeded. Would it work to stage version/index/dir/hwid in locals and
+commit them only after ip_tunnel_changelink() succeeds? Recomputing hlen
+on every error path might also work.
+
+[ ... ]
+
+> @@ -1524,6 +1534,14 @@ static int erspan_changelink(struct net_device *dev, struct nlattr *tb[],
+>  	ip_tunnel_flags_copy(t->parms.i_flags, p.i_flags);
+>  	ip_tunnel_flags_copy(t->parms.o_flags, p.o_flags);
+>  
+> +	erspan_calc_hlen(dev);
+
+[Severity: Medium]
+Can the lockless transmit path see the new erspan_ver together with the
+old tun_hlen?
+
+erspan_tunnel_init() sets dev->lltx, so erspan_xmit() runs without RTNL
+or any tunnel lock. erspan_netlink_parms() stores t->erspan_ver early.
+tun_hlen only changes here, after ip_tunnel_changelink() has taken
+tunnels_lock, rehashed the tunnel and run the netdev_state_change()
+notifiers.
+
+During a v1 -> v0 change:
+
+CPU0 (changelink)                CPU1 (erspan_xmit)
+erspan_netlink_parms()
+  t->erspan_ver = 0
+                                 reads erspan_ver == 0
+                                 clears SEQ and KEY
+                                 __gre_xmit()
+                                   gre_build_header(skb, tun_hlen == 8, ...)
+ip_tunnel_changelink()
+erspan_calc_hlen()
+  tun_hlen = 4
+
+Would packets sent in that window still get 8 bytes pushed and only 4
+written?
+
+Reordering the stores in changelink does not seem to close this, because
+the transmit path reads erspan_ver and tun_hlen separately. Would the
+transmit path need to derive the GRE length from a single
+READ_ONCE(tunnel->erspan_ver) snapshot? These plain write/lockless read
+pairs are also unannotated data races.
+
+A similar window already exists for plain GRE in
+ipgre_changelink()/ipgre_link_update(), where o_flags is copied before
+tun_hlen is updated.
+
+> +	hlen = t->hlen - hlen;
+> +	if (hlen) {
+> +		dev->needed_headroom += hlen;
+
+[Severity: Low]
+This is a plain read-modify-write of dev->needed_headroom with only RTNL
+held. The transmit path updates the same field locklessly through
+ip_tunnel_xmit()->ip_tunnel_adj_headroom():
+
+	if (headroom > READ_ONCE(dev->needed_headroom))
+		WRITE_ONCE(dev->needed_headroom, headroom);
+
+Could a concurrent transmit overwrite the adjustment made here, or could
+this store overwrite a transmit-side increase? It is also an unannotated
+data race, unlike the WRITE_ONCE(dev->mtu, ...) just below.
+
+ipgre_link_update() and ip_tunnel_bind_dev() already use plain writes for
+this field, so this follows existing practice in the file.
+
+> +		if (!tb[IFLA_MTU])
+> +			WRITE_ONCE(dev->mtu, max_t(int, dev->mtu - hlen, 68));
+> +	}
+
+[Severity: High]
+Is this delta still correct when the same request also changes
+IFLA_GRE_LINK or IFLA_GRE_FWMARK?
+
+In that case ip_tunnel_changelink()->ip_tunnel_update() calls
+ip_tunnel_bind_dev(). That function sets needed_headroom and mtu from
+tunnel->hlen as absolute values, not relative ones:
+
+net/ipv4/ip_tunnel.c:ip_tunnel_update() {
+    ...
+		mtu = ip_tunnel_bind_dev(dev);
+		if (set_mtu)
+			WRITE_ONCE(dev->mtu, mtu);
+    ...
+}
+
+At that point t->hlen still holds the in-between value left by
+ip_tunnel_encap_setup(): tun_hlen_old + encap_hlen_new, without
+erspan_hdr_len(). The delta here is computed against the hlen sampled
+before encap setup, but it is added to values that bind_dev already
+recomputed from the in-between hlen.
+
+Take v1 -> v0 plus a link change, with no encap, on an ARPHRD_ETHER
+device:
+
+  sampled hlen = 20, in-between hlen = 8
+  bind_dev: needed_headroom = 28 + LL, mtu = tdev_mtu - 42
+  delta = 4 - 20 = -16
+  result:   needed_headroom = 12 + LL, mtu = tdev_mtu - 26
+  expected: needed_headroom = 24 + LL, mtu = tdev_mtu - 38
+
+That leaves the MTU 12 bytes too large.
+
+The result can also go negative. Consider a v2 tunnel with GUE encap,
+switched to v0 with encap type none and moved to an underlay with zero
+headroom. bind_dev sets needed_headroom to 28, then the delta of
+-(20 + encap_hlen) is applied. Does that wrap the u16 needed_headroom?
+Because this is an open-coded +=, it also skips the 512-byte cap in
+ip_tunnel_limit_headroom().
+
+The IPv6 counterpart recomputes headroom and MTU from the final hlen
+rather than applying a delta. Would computing hlen before
+ip_tunnel_changelink(), or recomputing these values the same way, avoid
+mixing the two baselines?
+
+>  	return 0;
+>  }
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261123123529.3183627-1-bsdhenrymartin%40gmail.com
