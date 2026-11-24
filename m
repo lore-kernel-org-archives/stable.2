@@ -1,83 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795521270;
-	b=nt9iIQsJsWlPM/FpuEliB1NwrRf5Dc32MELW4ujae0nFZYfpLH+V5S6h3QPSnTdZ6Z1Q
-	 M0CRLQa7SRICzU2M+wcstqBplYmyWzUV77H7Gr6kaHC18fFCca+zmG45YJ8+d3y1aQFA5
-	 Ysgae/79LvrNdBWJJN73RvhM0tpXOmPWj5qS2NUqZ4RzQ3Ms4BQKoCekZRBVMqHH2UZz3
-	 9j5W0NHAVrujfpJJYjNFVxiF5O8AV6QK1Rb0NVKcbcS8aEn4+26eOKQ4DphoF4PO/a6zW
-	 nKOKIjRkOGAzjuH71ET33K2j8q3QdAe6XH96yfm15LjYWCEkvsg4ZhGHA3oGm8aEjoA==
+	t=1795521969;
+	b=jIsht3uYyakKnmY3Ii09RGOJDl7w77YW7zat93zzix1Y5wAT+myT+SW11aufZIDDUceN
+	 QN3Plid58SHinh2b0fsnOSNRKLqQI5l/m1hX+HS2g99UmFhxMwXSNWWDG7y8d+7wwstrH
+	 ynhzD082fcUPzRPSqhPxPk8EWHGIY6iZ8hBrEsMWbHubVu6MLuE0gVA3kdEmDo4ZR4/Tk
+	 /N/3ttQETfdvE9ZDkSXIu8/kELOMglu9MQloO6UEoGXfgepjJOzCEqgDATmDmqlj2pi2A
+	 P3V/kjSS6Z1rniTlMNli3TffW5uADRrtEvqexnz94WRKj+bcbS+mWpivohPSPe8hPOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795521270;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=SazTzdn4IEa6QiZ2+dOeuOq88TDrasWUOqoW06iFXvo=;
-	b=aHsusydjawYI1o0J9gyLHfVlucbN+AkU6eyc5kCRzLJKBGq6EpjrHjBkzlqxHUdgucVC
-	 KVyR30wt0q3eSqQ/EXzHAPhF+49DzgP+XpOPvDQQTZEr7jP9/OTzDLpmy+OFPw+92T1ZZ
-	 JxShCV58pO5cDi6JClzg6mACrfFtIOj0MB2K5gktlRkGQZTPw+1yHfXNjgWsHwG/KXPGF
-	 Z6IbNHKkOVnndwRBE6Fx+24N8UxVKhlTem4KT5qjGv4TH9SwvtiAzi+KRMYqu09FfDsiQ
-	 X/IQGN95pVQQkMPon7Rqk9sW3UYf/PD6fmdX7WvyN45yi3+fOCIbU9j0Wr8f/CuEEgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795521969;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=KOl2yz4M7C/s7a2F3laG5SJ8ROMJ5wzUSTSBiLclugA=;
+	b=zVQQPZSAaeAARDmym/HVFP1vt3gGE0ADFk+cH0YvQN++h24VhoUqCC1kj+d0Mr6GVJpp
+	 TrvTilI5tufweqbiTdqsrgwzcXo7uyOhEmqR0ZqaAGJrRHyxSJmLuVSfMd7fKRkRdfk3z
+	 l8TYxJOESzZybr7NcDlfme/oXs72Lhw5NpSfvpVuzkIEsjeCsuX6hv9WRLlbPms5x7j/4
+	 Yl0XydOM+C38p4xrJ7PoNdun1dKHQHOvp0Je7hKN8ucbydoJ7+FCq7f5BRUyqyG1jExms
+	 qpdDAr+GKCTkzwgI1InB6J1By0i+SYRB30aSBlL6OuDiiySZOtSu0HVKuM5noy1NNCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="QkR/Tblq";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="MQ/RXhgV";
+	arc=none smtp.remote-ip=209.85.167.50
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EEF606A322
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 11:54:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30EEF606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9185E606A334
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 12:06:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9185E606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QkR/Tblq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795521269;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SazTzdn4IEa6QiZ2+dOeuOq88TDrasWUOqoW06iFXvo=;
-	b=QkR/TblqxU1zKMLMl412HhoWnShgo3oOmJZrpSH0fsl4e1TRfeNpePahO78FbFDec3jAco
-	IIYLBiCVRZQRTUUInDZRoo7b5qrNCedoVe1tOE5Wr0sFcatEotR0lLU9UzXztN/FwMFuqA
-	BVdQWyPQC4ibsieK+whiA5URyxVkgyM=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-563-wSrG8mvnNHeWAvs1NWoD-g-1; Tue,
- 24 Nov 2026 11:54:23 +0000
-X-MC-Unique: wSrG8mvnNHeWAvs1NWoD-g-1
-X-Mimecast-MFC-AGG-ID: wSrG8mvnNHeWAvs1NWoD-g_1795521262
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A20151802171;
-	Tue, 24 Nov 2026 11:54:21 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id D9FE31956087;
-	Tue, 24 Nov 2026 11:54:17 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Tue, 24 Nov 2026 12:54:21 +0100 (CET)
-Date: Tue, 24 Nov 2026 12:54:16 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Michal Nazarewicz <mina86@mina86.com>,
-	Wen Yang <wen.yang@linux.dev>, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, tz2294@columbia.edu,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] sched/wait: Queue non-exclusive waiters at the
- head in do_wait_intr*()
-Message-ID: <awV66PQWrBOKcZCE@redhat.com>
-References: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu>
- <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
- <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MQ/RXhgV
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5c14470729eso4309430e87.2
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 04:06:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795521967; x=1796126767; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KOl2yz4M7C/s7a2F3laG5SJ8ROMJ5wzUSTSBiLclugA=;
+        b=MQ/RXhgVqU5sAcBNnuTQ5U0+AZ6JbM/oIPEOQ2KoEQwTD+GMBeWAGs5HSHWf5LbnjY
+         0dlv/BunRCPGkSSliuOGd524M5yxjRd8aHmBHJJOuW5cL9ddleDulX+v9QfPjxrB12in
+         pehtr+vEznWV+PMiZ0Vz5rsflnAJ2nOcmL/ck=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795521967; x=1796126767;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KOl2yz4M7C/s7a2F3laG5SJ8ROMJ5wzUSTSBiLclugA=;
+        b=XfOEpgNA5mYeEkmh3ip8np7gv0TipTuleelIWZSLsU7TKEjJB9CRZKDNCJZQRFhUtn
+         ru4mlHJyklpa5Qcp4OhK/QQX1QNwMYP2kbFCyk+qwcqJMTmYH8f9PW0pdxdM6/mJgvfJ
+         rEEZbUK5g9C/cqVMODLbyfjQIZ1egREMDE8S8ykePLBiNvLZO6qbAZIFf26zchJYaeCQ
+         w/+94G1O7ucEdJ8e1SUK7nBlwmCjtOHwmRe/+CmbaW27LOW+6QRNk3A5xxy2QJD0DVd6
+         ttEuBHV0aG6RdlLqDIZV6gkayuHONP/+5UXaA5v41iZ0isW2vIix2X0HcIPkI8KiMaQ0
+         NnwA==
+X-Forwarded-Encrypted: i=1; AL+hErHxfeLKQJsbthfkDF9tMrvDfCVCr31PFF6hPwhSX4S9SxNbTeKzSH5Y3rtoWC7bhRZl32xsK+U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8XvNx+1OWOVfjrZdAH1fIx4axKYS5g5ovyh2/45vke+/RKmfKg
+	BqPGkTOLJ0DVISwUzwvkplY9PuPaANVuPe57NkVMTSnGxzxT6m7UNZloxjhSx7y09g==
+X-Gm-Gg: AZFdTZdYRTBo4J/vGhy5uogssPmkCa9j7HK1qJvAJDFZPPhruRRHaIv4B8PaKvpiOIN
+	nzhdS3OEsrsoarTZh77zByP+jSA3TejYtTObGX1wcIqVSsZWAycH/3ib4Ag53eM5s22+rRouBeb
+	lmySvx3ZCxjqh7AdMIBOSnFnbNk1GzCkJmtCIsyqlb7e1tk5vf5wtnr6/u4OvqebWgcv7OjY9r1
+	mQ14hvQCFY2vQ2iagOAQnhy74UhWkvWVxL0R4vxk/Uqs6c9i65NxqRFLTUZOGaNp3g1q8aPvcb2
+	mjVHs2DZ8D5mxYJ+dfjcsWrJWJ8gffcSX7vIED89KkOF8SS+3P7++gE2gIWeq5kIPwu1HHGRThh
+	JoB510gNocqNhylZ+5mLwXLWg09iCIIdcdqiqyQHySDNfPiXduWI6J5X1xqrzUbl/AZhRbCjiVZ
+	Ygdz6F4RRPGxFL4UNpyEHaIVfTuwmz2BexCaxk8y0WDMhH0F01FEIkMQFGzLeFhpvLCB1xoUSfk
+	ZMAJxoeWdUJ2e6da8kQ34/yfWBVOM+T1bionGWVq4MobXbIFyz7ugDiYBvhLWR5LU/qm6G1Vd/3
+	xaO7AAqdBxCL2dBJE1c3i9WCJrhf1RXCkFl7SutJ4nJ/8u5y0nq7WYQ4R3NBxc8oSHdMV/UeK0V
+	OQLsogKIJNw==
+X-Received: by 2002:a05:6512:3087:b0:5c1:4a42:fb17 with SMTP id 2adb3069b0e04-5c1bc89ed7amr4414564e87.59.1795521966845;
+        Tue, 24 Nov 2026 04:06:06 -0800 (PST)
+Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd01772esm3654675e87.39.2026.11.24.04.06.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 04:06:06 -0800 (PST)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH v3 0/2] media: uvcvideo: Fix race condition on metadata
+ buffers
+Date: Tue, 24 Nov 2026 12:06:03 +0000
+Message-Id: <20261124-uvc-racemeta-v3-0-f82822cbadb3@chromium.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,131 +90,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="BuV4xHRsX/o8lmUR"
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKt9BWsC/3XMQQ6DIBCF4asY1p0GsNLQVe/RdDHCoCyUBpS0M
+ d69aNKNSZfvJf+3sETRU2K3amGRsk8+jGXUp4qZHseOwNuymeSy4VdxgTkbiGhooAnBEUlSum2
+ dsawkr0jOv3fu8Sy792kK8bPrWWzvHygLEFArbosnGtR4N30Mg5+Hc4gd26wsf73iSupDL4GD4
+ KSFleha5Id+XdcvXrJgeOsAAAA=
+X-Change-ID: 20250714-uvc-racemeta-fee2e69bbfcd
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>, Georg Neis <neis@google.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
---BuV4xHRsX/o8lmUR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+This series fixes a race condition when calling streamoff only on the
+metadata queue while streaming.
 
-On 11/23, Linus Torvalds wrote:
->
-> On Sun, 22 Nov 2026 at 16:35, Mani Tofigh via B4 Relay
-> <devnull+mt4022.columbia.edu@kernel.org> wrote:
-> >
-> > A task blocked in read() on an eventfd or timerfd can sleep forever
-> > while the file is readable, if an epoll(EPOLLEXCLUSIVE) watcher of the
-> > same file was added before it.
->
-> Honestly, I don't think this is the right approach.
->
-> We need to fix the disaster area that is epoll, rather than work around
-> more epoll bugs elsewhere and make other places more fragile and
-> complex.
+The first patch fixes the race condition and the second patch replaces a
+busy wait with a waitqueue. It is probably overkilled and this is why it
+is a follow-up patch.
 
-I agree. But to me it would be better to apply this patch from Mani,
-then do something else. Not because it "fixes" the scenario described
-in the changelog. As for eventfd_read(), it probably makes sense to
-change it to use wait_event_interruptible_exclusive_locked_irq() at
-least if !EFD_SEMAPHORE, and then we will have the same problem with
-EPOLLEXCLUSIVE again.
+Feel free to apply the first patch, both, or squash them into one patch.
 
-But simply because do_wait_intr*() are wrong regardless, and the
-change is trivial. And perhaps the changelog should not mention
-EPOLLEXCLUSIVE at all.
+Regards!!
 
-> And I think we should always add new waiters to the end of the queue,
-> and stop any other games. Just walk the whole queue at wakeup time.
->
-> Finally, I think we should make the return value from the wakeup
-> function be a bitmask, and count "exclusive" as only "we haven't seen
-> this bit returned yet". And then *real* exclusive users that actually
-> guarantee that they react to the wakeup return all bits set, but the
-> sh*t-for-brains garbage that is "epoll" only returns its own bit set -
-> so we only wake up *one* epoll user, but we wake up other users anyway,
-> because epoll clearl yis lying about its "exclusivity".
-
-Perhaps... But it is not clear how to do this gradually...
-
-And lets forget about epoll for the moment. Lets suppose we change
-__wake_up_common() to do
-
-	list_for_each_entry_safe(curr, next, &wq_head->head, entry) {
-		bool excl = curr->flags & WQ_FLAG_EXCLUSIVE;
-		int ret;
-
-		if (excl && !nr_exclusive)
-			continue;
-		ret = curr->func(curr, mode, wake_flags, key);
-		if (ret < 0)
-			break;
-		if (ret && excl)
-			--nr_exclusive;
-	}
-
-This will change the current behaviour if ret < 0. Say wake_page_function() does
-
-	if (flags & WQ_FLAG_EXCLUSIVE) {
-		if (test_bit(key->bit_nr, &key->folio->flags.f))
-			return -1;
-		...
-
-so this logic depends on wait-queue ordering too. "ret < 0" can be encoded
-in the bitmask, but it is not clear what exactly __wake_up_common() needs
-to do in this case.
-
-Can't we at least cleanup __wake_up_common() ? See the patch below, I already
-sent it but it was ignored.
-
-Oleg.
-
-
---BuV4xHRsX/o8lmUR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment;
-	filename=0001-sched-wait-kill-leftover-bookmark-logic-in-__wake_up.patch
-
-From 887e7597e23b1beb5c6ed536cb342a2daa740ce5 Mon Sep 17 00:00:00 2001
-From: Oleg Nesterov <oleg@redhat.com>
-Date: Thu, 12 Nov 2026 15:53:53 +0100
-Subject: [PATCH] sched/wait: kill leftover bookmark logic in
- __wake_up_common()
-
-The manual list head check and list_for_each_entry_safe_from() in
-__wake_up_common() are leftovers from commit 2554db916586 ("sched/wait:
-Break up long wake list walk").
-
-This logic was later removed by commit 37acade0ce89 ("sched: remove
-wait bookmarks") but the now-unnecessary list hacks were left behind.
-
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- kernel/sched/wait.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+Changes in v3:
+- Fix race condition in uvc_video_get_current_meta_buffer() by checking
+  stream->meta.streaming under stream->meta.irqlock before peeking the
+  metadata queue.
+- Introduce stream->meta.streaming set in uvc_start_streaming_meta() and
+  cleared in uvc_stop_streaming_meta() to prevent URB completions from
+  acquiring metadata buffers or starving stop_streaming.
+- Add Reported-by: Georg Neis <neis@google.com>, who also reported the
+  same bug internally and pointed at the race condition without
+  meta.streaming.
+- Link to v2: https://lore.kernel.org/r/20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org
 
-diff --git a/kernel/sched/wait.c b/kernel/sched/wait.c
-index f8d6d8b9d03e..d0521b54eeb3 100644
---- a/kernel/sched/wait.c
-+++ b/kernel/sched/wait.c
-@@ -96,12 +96,7 @@ static int __wake_up_common(struct wait_queue_head *wq_head, unsigned int mode,
- 
- 	lockdep_assert_held(&wq_head->lock);
- 
--	curr = list_first_entry(&wq_head->head, wait_queue_entry_t, entry);
--
--	if (&curr->entry == &wq_head->head)
--		return nr_exclusive;
--
--	list_for_each_entry_safe_from(curr, next, &wq_head->head, entry) {
-+	list_for_each_entry_safe(curr, next, &wq_head->head, entry) {
- 		unsigned flags = curr->flags;
- 		int ret;
- 
+Changes in v2:
+- Use a new flag in_flight to avoid keeping the spinlock for long
+  periods of time
+- Link to v1: https://lore.kernel.org/r/20250714-uvc-racemeta-v1-1-360de2e15a9a@chromium.org
+
+---
+Ricardo Ribalda (2):
+      media: uvcvideo: Fix race condition for meta buffer list
+      media: uvcvideo: Use wait queue for metadata streamoff
+
+ drivers/media/usb/uvc/uvc_queue.c | 27 ++++++++++++++++++++++++---
+ drivers/media/usb/uvc/uvc_video.c | 32 +++++++++++++++++++++++++++++++-
+ drivers/media/usb/uvc/uvcvideo.h  |  4 ++++
+ 3 files changed, 59 insertions(+), 4 deletions(-)
+---
+base-commit: b7ac871daee981f1963f632586ff9b9d898ce5dd
+change-id: 20250714-uvc-racemeta-fee2e69bbfcd
+
+Best regards,
 -- 
-2.55.0
-
-
---BuV4xHRsX/o8lmUR--
+Ricardo Ribalda <ribalda@chromium.org>
 
