@@ -1,56 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795538265;
-	b=Nvh4so9DHEp90PfY4rvH+0c12WjSAS8mmrNSwtXZP7kP2Ux0rh5+dAvyt7RA0UEaFvMR
-	 7UW2fbiv4RUR4nMYiERFC3+bih4RdlIO6hE39gvMtOAZvjfru7iwjDAMJBDff9gag9Qkt
-	 gGamnAoxnefLGOOcz3c5fFKWjEutRITqtiqLXViyp+bUP611xCoBlYSDUWnm8Mr7kuf1I
-	 Cvkruitacr/yYzizuvuNIIknuzNEZil2HlB26tw/8w2EytfM1hlceUeq85HBdxqrAcmY2
-	 FEY8lx80v0Z4h0OybMwhQy4Gu0Wkt1qSCjvmvBJyq0dFbA9upxB4AOYIjppUxVIKTdw==
+	t=1795538284;
+	b=5N3mtdyu+mLU6WhcbJH+QDyODYtrXDnwacmPV41H5b6D+gxzKYagBCYIHDI4rUjuPMLd
+	 6+XohbffIiPOxsV+1+wxs0ksrVpyQEL3Tp1Mjfl5uHLn/2BSn449fZO1nK7Ckq/i+0Yx1
+	 XKs3VDOpvNaRZYxJqiQQ7tf1DGJ40TU3p3uueuLP5FKlDaI5G6t+n4T6o1vBkVJeBUKA8
+	 cwjOt5IxN9OenOO29Usv+clPLEmshTpIVd5oWP4xReJb0Dw+gCWRRtb+NxraMcTzd9keZ
+	 82y5M8bfQciqX/IFkuYZzokH16ZA90WMJEGv3oidxfKdZ7TMVm/WpwHD0tcLW2VyULw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795538265;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+ff7BInrBH6z6xaJ3MprcZltj75NB8Zj15t1YfVZgdI=;
-	b=iGpDxt4HlsRdwxSftlkIASHpk1CTxtFAgHf7jh+mIHwJFza9ohZrG7E7NGm4KVH5q71M
-	 UNLCmWrqI77doWvIp82wo+12gdowpG9CeeV1uVZClVbaBqWQ4XF+rSQBvT00p8okPL5ga
-	 00nuSF6ryPLD3KgVlGJvInoZdZ7Z6QxqVMygHF26D7MexCX0tGR+uDMntg2dTibqgcN28
-	 pVldSFW0OdQSE8oe64X9zCZ01PdiRcDBKTETs1yFEio7qZJpRgSh3ff3J4F+6JwJGqzjH
-	 U4AIOgoN/+pR8ayGkd3wywTUjrj4nH2HmXopLGqzxpgiMpGwQB1jMHYh4tlNdJkAb3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795538284;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=VcKqAindQ+wtPkjkunJkcwHZ0Zj0u+55F0mjged3HyQ=;
+	b=M4lwzgHHMtvuqKDBn8ncyy+0eo8l664cAyns56wSxYReLxa+BBXhTcOtRO6IH58eMbLa
+	 GimHgM6w3ePz6D6l4xoVMUpv+E+LTrDj2U7GZF86S7wMFF4I5SM/5sz6/hYj5VgXtJasE
+	 qclFJo6d30omX50+eqg5JHt1WOmQ9jl6f5J1zWbiIFfAFthak1tfJWWiDyjuFjlsEv+KS
+	 unJyg91/tnOfb78CBZBNTRHJ9wmdHPjgHRuZZy41S/ocWzKxUagBZwgIVHWMzA4wstcC2
+	 nWeNxYJZrp/PUPRzeW5sF/uqe2Ei+dO0+wr+/YnJAJp69apRCknG9q4Rg99mY5JV8lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IDNzSbkp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=AaHe7eAY;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B17E606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:37:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C289606A32D;
+	Tue, 24 Nov 2026 16:38:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C289606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IDNzSbkp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4032E1F000C0;
-	Tue, 24 Nov 2026 16:37:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795538264;
-	bh=+ff7BInrBH6z6xaJ3MprcZltj75NB8Zj15t1YfVZgdI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IDNzSbkpWJKPvBJKhwJyHnokbvJrmR/foPUmSMy8y229htqW7Cj0xo5VJETkFn7Hk
-	 ZZFY6Vf0Yf011NWB8VRdzyM5KLn/NrccFA+IRhf/hkCCqiBX6BZYUf4ZYkr8BKKC+j
-	 TIWqytp5vqXn0QjOai9r+sFEX4WswNI7uCxiOg6Ojynri8ilOVhha1nNF+cu5CoG5y
-	 CDP9Gtre4iYjaUeDq69qJgCZvmszmrCSw8oijQSgRzNLzY5trMUIYg2CWMKUqWG7gy
-	 jo/eGwgXdNL5+TbxNVRlQ4B7NXKoqAFfHGFObdDBT1Fnm+cpBDhqWs+BZabgx2EaYD
-	 yEmGC9aJh3Myg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jarkko Sakkinen <jarkko@kernel.org>,
-	David Howells <dhowells@redhat.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] KEYS: Expand key->{datalen,quotalen} to unsigned int
-Date: Tue, 24 Nov 2026 11:37:43 -0500
-Message-ID: <20261124163726.1348363-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112411-grill-gurgle-4850@gregkh>
-References: <2026112411-grill-gurgle-4850@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=AaHe7eAY
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jYpQF6p9WzlfvqM;
+	Tue, 24 Nov 2026 16:37:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1795538272; x=1798130273; bh=VcKqAindQ+wtPkjkunJkcwHZ
+	0Zj0u+55F0mjged3HyQ=; b=AaHe7eAYuU8vzjg7cR1Z3k75naI24NXULG++7wgI
+	DLYImG5O+Q6lE0HGJ/IwjQQVs6tal314bXGukXQj/dlzsGqFUZ7e7AvEliOJ9Mdw
+	iMqzZR9NzQ4tPcaDAfsJmhDhe7BE4yIMrJXWSnnig+KDgX9s0L0F9IoLHjEERY+7
+	OU8yqGz/E2JfbItUw6FU1vyt2XXtWuBejLx55PbSwmJtsLdUD/8CXxRd7+PmcmVh
+	JA8c76xbSiV0/7oMrZeQQDkVCox03oA8fgAyardlcqOH3RKhO9mRn6ExKndlMKC8
+	rkPbNdC3afxHuJObuUQGtF1TBqXo2HfWL2xAyq6fs6Rz9Q==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id LkaBam14LBfH; Tue, 24 Nov 2026 16:37:52 +0000 (UTC)
+Received: from [IPV6:2a00:79e0:2ed2:d:b87d:aea9:8f72:a6cd] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jYpQ83pdbzlkvPv;
+	Tue, 24 Nov 2026 16:37:52 +0000 (UTC)
+Message-ID: <207069e4-6c99-40b3-ac0c-7ffe675a0c9f@acm.org>
+Date: Tue, 24 Nov 2026 08:37:51 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,96 +70,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] loop: fix stale dma_alignment when direct I/O is silently
+ dropped
+To: Tao Cui <cui.tao@linux.dev>, Jens Axboe <axboe@kernel.dk>
+Cc: Keith Busch <kbusch@kernel.org>, Jan Kara <jack@suse.cz>,
+ Ming Lei <tom.leiming@gmail.com>, Damien Le Moal <dlemoal@kernel.org>,
+ Hannes Reinecke <hare@kernel.org>, Zhao Gongyi <zhaogongyi@bytedance.com>,
+ stable@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cuitao@kylinos.cn
+References: <20261124093342.838490-1-cui.tao@linux.dev>
+ <96ffc97d-62bc-4a91-ae3d-9baa28ef500b@linux.dev>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <96ffc97d-62bc-4a91-ae3d-9baa28ef500b@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Jarkko Sakkinen <jarkko@kernel.org>
+On 11/24/26 2:56 AM, Tao Cui wrote:
+ > I noticed the sashiko report [1].  The lock order in loop_set_status()
+ > is indeed different from 06a2ff603f1f, but I think the reported
+ > deadlock cannot be reached through this code.  The queue is frozen and
+ > fully drained before queue_limits_start_update() takes q->limits_lock,
+ > and nothing between start_update() and commit_update() blocks, so the
+ > new code never waits for anything while holding the lock.
 
-[ Upstream commit 4a65eaf146f0d10ebaa88cfaef9c3b24f93766d9 ]
+Whether or not a deadlock can be triggered, I expect lockdep to complain
+about this patch. blk_mq_freeze_queue() acquires q->io_lockdep_map and
+that map is only released by blk_mq_unfreeze_queue(). Hence, calling
+queue_limits_start_update() between these two calls records the
+dependency q_usage_counter(io) -> limits_lock. The opposite order is
+already used by loop_set_dio(), loop_set_block_size() and
+queue_limits_commit_update_frozen(). This is the same complaint that has
+been fixed by commit 06a2ff603f1f ("loop: Fix recently introduced lock
+inversion"). A lockdep complaint is a problem by itself since it
+disables lockdep and hence hides later reports. Has this patch been
+tested with lockdep enabled?
 
-In key_alloc() and key_payload_reserve(), key->quotalen and key->datalen
-can receive values larger than USHRT_MAX.
+ > I am more worried about the suggested reorder: with start_update()
+ > before blk_mq_freeze_queue(), loop_set_status() would hold limits_lock
+ > while draining, and an in-flight write-zeroes request on an
+ > unsupported backing file would block in loop_clear_limits() on that
+ > lock while holding a queue usage counter, so the freeze would never
+ > complete.
 
-Example:
+That scenario is not specific to loop_set_status(). loop_set_dio(),
+loop_set_block_size() and the sysfs store methods already hold
+limits_lock while freezing the queue. Making loop_set_status() follow
+the same convention does not introduce a new class of problems. The
+proper fix is the loop_clear_limits() rework, so please make this patch
+depend on "loop: defer the queue limits clear to a workqueue" instead of
+deviating from the locking convention.
 
-  keyctl new_session >/dev/null
-  owner=$(keyctl newring owner @s)
-  keeper=$(keyctl newring keeper @s)
+ > The snapshot taken before the drain could also overwrite a concurrent
+ > loop_clear_limits() commit.
 
-  for ((i=0; i<16384; i++)); do
-      key=$(keyctl add user "k$i" x "$keeper")
-      keyctl link "$key" "$owner"
-  done
+I don't think that can happen. limits_lock is held from
+queue_limits_start_update() until queue_limits_commit_update(), so
+loop_clear_limits() cannot commit anything in between.
 
-  awk -v uid="$(id -u):" '$1 == uid {print $NF}' /proc/key-users
-  keyctl clear "$owner"
-  awk -v uid="$(id -u):" '$1 == uid {print $NF}' /proc/key-users
+ > So I would like to keep the patch as it stands, but happy to discuss
+ > further.
 
-Because key->datalen wraps around 65535, the quota refunded upon clearing
-is truncated, causing quota bytes to leak in /proc/key-users.
+Please call queue_limits_start_update() before blk_mq_freeze_queue() in
+loop_set_status() and call loop_set_dma_limit() and
+queue_limits_commit_update() after loop_update_dio().
 
-Change the types of key->datalen and key->quotalen from unsigned short to
-unsigned int so that they can carry the full payload length without
-truncation.
+A few more comments about the patch itself:
+- lo_can_use_dio() is now evaluated twice, once before the limits are
+   committed and once in loop_update_dio(), and both results must agree.
+   That seems fragile to me. Please consider documenting this
+   requirement above loop_set_dma_limit().
+- With this patch every LOOP_SET_STATUS call updates the queue limits.
+   Can that be restricted to the case where LO_FLAGS_DIRECT_IO has been
+   cleared?
+- Please mention in the patch description that the stale limit is too
+   strict rather than too permissive, in other words, that the effect is
+   that O_DIRECT I/O with 512-byte aligned buffers is rejected.
+- How has this patch been tested? A blktests test would be welcome.
+- Please use 12 characters for the commit ID in the Fixes: tag.
 
-Cc: stable@vger.kernel.org
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Eric Biggers <ebiggers@kernel.org>
-Link: https://lore.kernel.org/r/20261020174325.2229448-2-jarkko@kernel.org
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-[ sashal: Replaced the smb_EIO1()/smb_EIO2() error-trace helper calls with a plain rc = -EIO since those helpers don't exist in this tree. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/client/cifsacl.c | 6 +++---
- include/linux/key.h     | 4 ++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
+Thanks,
 
-diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
-index c3165e4893789..c91a80c55f8de 100644
---- a/fs/smb/client/cifsacl.c
-+++ b/fs/smb/client/cifsacl.c
-@@ -319,7 +319,7 @@ id_to_sid(unsigned int cid, uint sidtype, struct smb_sid *ssid)
- 		goto out_revert_creds;
- 	} else if (sidkey->datalen < CIFS_SID_BASE_SIZE) {
- 		rc = -EIO;
--		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%hu)\n",
-+		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%u)\n",
- 			 __func__, sidkey->datalen);
- 		goto invalidate_key;
- 	}
-@@ -336,7 +336,7 @@ id_to_sid(unsigned int cid, uint sidtype, struct smb_sid *ssid)
- 	ksid_size = CIFS_SID_BASE_SIZE + (ksid->num_subauth * sizeof(__le32));
- 	if (ksid_size > sidkey->datalen) {
- 		rc = -EIO;
--		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%hu, ksid_size=%u)\n",
-+		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%u, ksid_size=%u)\n",
- 			 __func__, sidkey->datalen, ksid_size);
- 		goto invalidate_key;
- 	}
-@@ -431,7 +431,7 @@ sid_to_id(struct cifs_sb_info *cifs_sb, struct smb_sid *psid,
- 	 */
- 	BUILD_BUG_ON(sizeof(uid_t) != sizeof(gid_t));
- 	if (sidkey->datalen != sizeof(uid_t)) {
--		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%hu)\n",
-+		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%u)\n",
- 			 __func__, sidkey->datalen);
- 		key_invalidate(sidkey);
- 		goto out_key_put;
-diff --git a/include/linux/key.h b/include/linux/key.h
-index 1d0732dd5c539..09677683abea7 100644
---- a/include/linux/key.h
-+++ b/include/linux/key.h
-@@ -216,8 +216,8 @@ struct key {
- 	kuid_t			uid;
- 	kgid_t			gid;
- 	key_perm_t		perm;		/* access permissions */
--	unsigned short		quotalen;	/* length added to quota */
--	unsigned short		datalen;	/* payload data length
-+	unsigned int		quotalen;	/* length added to quota */
-+	unsigned int		datalen;	/* payload data length
- 						 * - may not match RCU dereferenced payload
- 						 * - payload should contain own length
- 						 */
--- 
-2.53.0
-
+Bart.
