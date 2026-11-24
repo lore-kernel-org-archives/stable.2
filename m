@@ -1,96 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.59
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795557833;
-	b=DIW1aE0/l7aNV4o6bxL+AL1w9t4l8zGkPEGlMgFWFGB9KbpcFGM3/EAWMzClnlQvSlUh
-	 tip6U5/UaftJkNEcfPCG3MP5qR/yerTvTUqLgM9XWfDx4x1kYfbFXJjLPFEX6u2D7zn00
-	 FFc9E+8eGTmS3KrNkFSKj9An7jMO2CV1iVGwzPWX47D9BYmOi418ju/2lStxueeR/l/sj
-	 TUCOZPLdqRa8KZEFDeftoGpb1Z7z1jgxfxHJnFSbieG73VFKgTHKbM+7KPHmiIkUR0Sc5
-	 SPDSLkAWkViaTwneW9VNk+bYVg9Fx/zeqBKywa8YiHRgIpDe0qsJ9ouEzScK+brJaQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795557833;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xeb5VSrynavhPflR5N3IlZZRKSWyy9MZtjc/R0aQhys=;
-	b=JmT1lObXP6v3DwEQ+szZfFKYyetOFDGSHsBUJMV4jCNLSYeMjQTJJbCDafYowUXF7/qq
-	 lEc7eceqq/Hg/O68OgEKFxGvp+zUzmcqLPy+1GPolXtenfFNAbhh5QKZ42MVSioKaPn2k
-	 8YE9KJeTU36atXhSCgVKWCflh2Octq+qInTCnGtqGhfkufCkFSgFjVd/LB+ami4+N/wNO
-	 opl3sMP4CuOCS2jbVq88gyxYTcbsF/POvKca1+3IeImgLnRrnycmhCyUDG81lyy8uKScC
-	 /fBYV6SLwiMzerX2zFBSfmcnmBHVgdxk3G5TOCHBQ741ui9+/UCL84TzJHi8w+wpSDw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=B9wEWtQt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.59
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013059.outbound.protection.outlook.com [40.107.201.59])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795558112;
+	b=tUfbwqAFrv223/XzDvfJc+n74zIDUGk5GT76c/w8ksKdsNXai+K9bsjTDlKc/c1LAJuF
+	 L5FT9XaEjHWUq9gujNOIDqIdtKY7bgAqwm8TitmqRxnMWIq2NhIUhTboQ5NtNnsFFhyx8
+	 h7LP2cu8NUbOU1FYD8XI5PluPMeq1aspv19PQI+Zf4lJCxtPjaWkdnoR5ktH6POROBWES
+	 7G77Gr3g9pKJU492k1aRVMriWs+bwClw0JvdNneyCaeGkXYRtx8h0Q/gb+XJNBadKYs1U
+	 hnPhlrwQj1gB7/5eGhEF9YZ30Z2GfPmLrEkuzWV0Fl45fc5oa7mLU+3zzpFiIj4C0DQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795558112;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=wUd7P3Ye34O3sWY6zQup7AwNcEoSACo5n0ZnarzR1XI=;
+	b=KixWNeNqaBeYiu9k5LZ36kcUDYM11UvllgeGl47yUj0zpFcdWKKwmsiWamko/w91zmeZ
+	 6sAESfKVQDH4+r8NuqXTCVHtepQlmhIsEry4pUhuaBW8e/k3O9Ye0UjsCQ/SJutm0IuCp
+	 M3G2G2u17uq0n9GrWq3wY7qfQNJvDS1xGCBpgustrld+A3wNGXeluMYuzOdslrl45FsqN
+	 VmAON12ODLRI6yS7gHcD9ZBuLelWlpDiIF6rXPZEmlWl4matBOmwJr4s3hC75zZaHQIE8
+	 xtl/6Z09iFg9rs8MCm/oSGtZDrlX1AQiydrZ7vsjpPlqdt0kHLtqjhk+Dm+MiV07QfQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=JFArw5gx;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=cpKA93ld;
+	arc=none smtp.remote-ip=148.163.139.74
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB436606A31E;
-	Tue, 24 Nov 2026 22:03:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB436606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76019606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 22:08:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76019606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=B9wEWtQt
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sZlXGk9e9c4QF9ZLb7CKpXq80UaBJPo6lCQyfwpuigNycppKQtXCb6UCl8f7gAtK/0nEf0ot3BdgmGy1WfrYnSu5WuS4fsq5EmdokkX5aoO0FYHYc3RCIcnhnzSdK2fN1TjwgwXhlgSNaLokOAzpGhcpD4Htepi8UHEIuvAIfPMEJ8kUbCo/ic2Qvk5/o0GCT2saIeWviJpQZpD+mfrIccd4eTni+aZhOFqjsG8T3v+I0WbSnecTlZqG9/SLzGHuwf67vA2qtUnogX8SpZem7nqKgJVYBJpM/+KtsIWmrut8dIVcdNeUlN1UCM3verV9vCA2ptNJrqRLHOHEihHcJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xeb5VSrynavhPflR5N3IlZZRKSWyy9MZtjc/R0aQhys=;
- b=pQo54GAo1x5y79rOyqF7gM+BjpWTB6IyOYBMeFYkYCD/8m8tcd2MsWDJpiTOQMNzqGYATs5rZ8RMpBa8YJ4p5OD5uJ69H8rzlyHkBc+ptieRvcOtYk9QNTJw8Le1cnkYXWOSqOfoRpizkEUmu2AJN3ZwvRRzUpdyEzxfEnbZ2edzFChn3aD4oHHiMo2krKpfjyNQHPql6N85CLd/rYsDbhWKg0c8WD5Qq/F/6ZYpLQB0opwQQipz9GWqLlIYy0QabXCjcMKP7aGfpueX8zUAz8fsY1ocBCNxO1Yr2tetwwI0ZjtuLrdFDtxWzVl0TCjOO1dIveoah7XbxTWCt0suWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xeb5VSrynavhPflR5N3IlZZRKSWyy9MZtjc/R0aQhys=;
- b=B9wEWtQtcenG8ruBFT6F2Q7e7Ar/wVxD99T6dIbNr5B88OT8UsAdZXNfN0rcPYCepNbBFmk/i39S7oAP1JXh3Fg99P3P2mVCvbf2SUG6627JxjbEuH/ECx1oflp9iZAsbmysHHRiU8M4K74f0+ALYySEP/8pM2hZPFC2a3VS27kzsadcg62ieGAzYrCPFS6es42IU9oUv9F9dxlbZtD7HuiYyNPS+0LIn4QkWq/T62hTdiPqZE7dzsrJYfsQdkeIajikX0yTnue9q+uKipL9a0qfN58HlphYHqvz6vJ/OC2JZ8+EEGGDZmMPmjWyp1+CtDkRkOcJJc9tjvMZc3yuAA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9411.namprd12.prod.outlook.com (2603:10b6:408:215::20)
- by SN7PR12MB6768.namprd12.prod.outlook.com (2603:10b6:806:268::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
- 2026 22:03:49 +0000
-Received: from LV3PR12MB9411.namprd12.prod.outlook.com
- ([fe80::98b7:86de:b69:2a15]) by LV3PR12MB9411.namprd12.prod.outlook.com
- ([fe80::98b7:86de:b69:2a15%5]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 22:03:49 +0000
-Date: Tue, 24 Nov 2026 15:03:46 -0700
-From: Alex Williamson <alex.williamson@nvidia.com>
-To: Samiullah Khawaja <skhawaja@google.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Kevin Tian <kevin.tian@intel.com>,
- Jason Gunthorpe <jgg@nvidia.com>, Anthony Pighin
- <anthony.pighin@nokia.com>, Dave Jiang <dave.jiang@intel.com>, Dan Williams
- <djbw@kernel.org>, Ionut Nechita <ionut.nechita@windriver.com>,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] vfio/pci: Only lock the upstream bridge if the reset
- may need it
-Message-ID: <20261124150346.6bd3e909@nvidia.com>
-In-Reply-To: <20261124212842.1934651-1-skhawaja@google.com>
-References: <20261124212842.1934651-1-skhawaja@google.com>
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH5PR02CA0004.namprd02.prod.outlook.com
- (2603:10b6:610:1ed::21) To LV3PR12MB9411.namprd12.prod.outlook.com
- (2603:10b6:408:215::20)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=JFArw5gx;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=cpKA93ld
+Received: from pps.filterd (m0167076.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AOLXMOn194860
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:08:30 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=wUd7P3Ye34O3sWY6zQup7AwNcE
+	oSACo5n0ZnarzR1XI=; b=JFArw5gxspepOPID2sCILSVWBL62zA1klYsJ7L0s3j
+	mOyS6r4fCbJwPN8phjF0SlzHJuEJSmCK4NCDrWcmZiodznvt6H9U3enfhyLB1BBt
+	GMeGTESD6Lu0s7Qe8VxZtF58mFV+ragHiqZ4UG4zd4DocY88bbIwY8EZbM8sod7b
+	tfgD+nSrMRc8NNO1aHJJN8vO4B74oExHRrV5hhuZMlwzv/dGBzdwRfh+TKIDQFQ2
+	9k7HanLce70Lkg9n9hdGqFHcbaZOH7w0Dq0pKOqQDXtVfiz0XOQsTRMxn7l6nK2f
+	vo/0I48irWi0iRqAW5xUVY184z+oZUxe50sCqQ8ViawA==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4j5dsc3bn3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:08:30 -0500 (EST)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9213237a52eso89752486d6.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 14:08:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1795558110; x=1796162910; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wUd7P3Ye34O3sWY6zQup7AwNcEoSACo5n0ZnarzR1XI=;
+        b=cpKA93ld8v1LZnPqOyIfSem64jpgWC0h+R2fzejK1ynoPZg3MapwXMFWB2KgaLxJGM
+         Hm/h0WINz9LX9qtOINdHoY3FEz5+/VwC+MAGo4vpHf3OMAT4XRcq4fRV7B4ePdq1NHzJ
+         2qq1SpWkw5oJ7Ls8EmmdUJ0wqXbhgFdz50SCno88c4UlIGyUbtM82unY3qxEVaD4fMlz
+         Ko7z0Zv5GYuwXMVXfKh8z5KsGsKwTVmax44VWYgTyLrNC+ifp75KEMJkg9h0W+rTgVoL
+         jH06hkEtz7sQVON5uCtz2JDX9oz+f5BQF1++crDoCRVgQMwis6ljyY0jImGdmuCUnGuL
+         NOVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795558110; x=1796162910;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=wUd7P3Ye34O3sWY6zQup7AwNcEoSACo5n0ZnarzR1XI=;
+        b=RNwJpmSGLlMfdfZ6u8CIlXhprM+Rncq26RPiQz82rpgk3KqPfAHFRYazEFOx5EEDU9
+         PO0iE0oHsRgZyMTWIBpwW1kRQU8rhCieQnioBIoGyMCxhZJ5jgR6WpXE0WGdf3Rv41u8
+         k+pSO5uGrey5OZPogAxLHIjluG//cysR+8MhVVJz2dJfGZVGtSi8z9xI81bKKb7AgonA
+         p+aR81d8+zlpWjW4Km65OmoisZcwg8rLrlLgOW2rNckpHePwh/WjydyxzSrTqy3vHIKA
+         4JAMACB9mwGHybWvJfYqxIHur0l6LOVQjqxfE0yaNuYm+UOjGgQebghUVs5LdCga7+aY
+         58xw==
+X-Forwarded-Encrypted: i=1; AL+hErHaidpPvEuMBHLC4Xpab6C4xxfLEOVHtm6ax8lH8vCbPiKCB3ABaCW2U1JuwBrszBhERulzGDE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/po3dOd1yzOoqaq7OUySBO0tSrPAqG+C9B75Cofy7L4UMx4VhI
+	8sBg96ts6a5+b+DRbsBLMm3yIeYfKg8xoXGpls73RXmVCHssB8k57JpjMczK3seioVk3f6VA1rH
+	fV2Mw7CYaOEvS2LLYn/dJjLzEvGmMdeWQazOX3p/y292ggy+B826eBQ==
+X-Gm-Gg: AZFdTZdQ/NxHYy/EFeeywoEScQDb7ch1k9RFaRf7Lk3LWrIlToLGvFAUxPUC1LibDIA
+	4k337/wwAe3eRFqltFLcuBAw/LGZXBmpuDUXlLctNfMtaAU6As2exZEiSgJZAfYNoaun0VUoF8D
+	YsTpGw65773D5czDvQwDG5qhUoC/5tOUWx/YOKMOuKAp2Z60R+RzXohwV9N9a3/OvWMQ5ulR5PC
+	NnINutsvMzx6GoAJG8MPilz9Hf52UtQ0t5vFGZmV8OUVl/lrEqPw2CNftw7TLpMNEj95pI/joAL
+	snRcL6fxHCOnspnGOARQwh8Fbdsmo4TL8DEluNqUk4edsSTq9TmRSjLLFqI6cbHazmbs5AI37Ek
+	jO6z2CjTYjOy4zvQSi81bp4TNTaTNZpToPU+XqKIlMVksgOQIC5XyMQRATHc=
+X-Received: by 2002:a05:6214:458b:b0:917:bfa7:2598 with SMTP id 6a1803df08f44-92134aae4damr283166436d6.18.1795558109766;
+        Tue, 24 Nov 2026 14:08:29 -0800 (PST)
+X-Received: by 2002:a05:6214:458b:b0:917:bfa7:2598 with SMTP id 6a1803df08f44-92134aae4damr283166086d6.18.1795558109408;
+        Tue, 24 Nov 2026 14:08:29 -0800 (PST)
+Received: from [127.0.1.1] ([129.236.231.128])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-921349b3a0csm144944586d6.14.2026.11.24.14.08.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 14:08:28 -0800 (PST)
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Tue, 24 Nov 2026 17:08:18 -0500
+Subject: [PATCH] virt: acrn: unpin the interrupt monitor page when
+ destroying a VM
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,167 +114,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9411:EE_|SN7PR12MB6768:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56fb8360-9896-4a22-1f8d-08df4a76d18a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|6133799003|18002099003|22082099003|11063799006|261026121527099003|56012099006|261021123027099003|261026140227099003|261102130727099003|261028144727099003|261022075727099003|261021121427099003|261102123227099003|261009223027099003|261022105027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	HKqolz50Eq5Vtona0Ts9usW5othwdibJP3+g4v5vqQJNMX9baKTnWN8saiEG53wjrFOkQWmAeo8IyqqCHh/L8Um04MYTjZ/zqhJo3xGe6raMMrL3hgX1/4dEw/nj0GkXZcl9d7wAAle1+Uw24xbEVggFwAiMpEcyKEr7QU8joE94AKW/eQcBmKy/ezbrQnJnFxiCS2GL25Qk80kK69nCjxARCoyaZC87m0iWhnLkTVn0KdyRA3/MbN6Z31Ps+Jp/xrBr1xOPeeWlskF70f/DMAssOPmtSvX/bVxNJukE379pLopbvbWxi6W9UaYpFsEyknaYJL6Q4RMFsun2j/1av5CYi/SqTs2CJIdVUJ9g9tHD3J5BM5XFVrAKk1TNCKF9YU74lGc7U22l61qhX3worrlO+wx9yur9kMkUjzZvN6xHCB2JXtJgmHKQ1G5kuVosZ0OAX+M1ZvCyttx7EsoP+/oyjeYdVpiSXC68dUlsf2q9BhUbNRowAOXIm7XuOuz12o8NacEoJdoMLmFsfld8+aTD7AE3p8bH0x/OYPXJe4FtXYYgKtKD9Uoi5gwqZGjVAzQkQ+RDKmaxEmQjvkVzw642aEPqZdMp7rdhJp+hfIsjeN78efZcalf5Dz2N7llTRS8svymfvKTYTIOtxd/r8aJltjnVTH9gsbUuznE11+4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9411.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(6133799003)(18002099003)(22082099003)(11063799006)(261026121527099003)(56012099006)(261021123027099003)(261026140227099003)(261102130727099003)(261028144727099003)(261022075727099003)(261021121427099003)(261102123227099003)(261009223027099003)(261022105027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?B7vdDv0synvoyic7fr+ijswHkzB1Hf8HAidL47oiaQXLj1Jull3ZY4wptP7F?=
- =?us-ascii?Q?Vzac3jRomNExhmm7xmBRrE/bm31R60fvRmwplX5u4XF1RPCizUJ0zstaTCjm?=
- =?us-ascii?Q?JefJL1bXyuD7sj1n8sXsNYNkQin2g2Zcvay2YjIc8UzLDo9qnggt4t0pIZUb?=
- =?us-ascii?Q?h2of+NcBZqVct4P45TUZyxssK3MxFE2CB7FjCaO56NMT/KRvxjD+5lqTdQUz?=
- =?us-ascii?Q?y4s3+7OCDeG6Bit8P1g1xAHKCCES8Xe21TLQRJ72amukNZbeIkXZ+XYm6z6h?=
- =?us-ascii?Q?+kwDlWsI5woOOWQMl0bFLjWfRo74Qs3TwlFIUImZcmdzws5xS/j2psz2UXN1?=
- =?us-ascii?Q?eFjPCkX5M8qRXraiZlbsCUPEqnd9wzz6iGQemX/Q9UaNh88n384mVc12iC9G?=
- =?us-ascii?Q?mtE/Bs0cIXpUM5gtNx/1WZuCrCFtkEltF7ibFwi9cjngVVkhXYseuTMaFbO7?=
- =?us-ascii?Q?yTHWGSZNrVqr2B0EBuXRXhLuGDRj5hBA40M8Uxn436p4Rf89B7ZbYFZOSKin?=
- =?us-ascii?Q?+pCcT6Pc4Ul4RB5kxnavTaBqPVOnNhwQWfm9dpjGtEgB0wUUAPpwaMN1pFcF?=
- =?us-ascii?Q?8PyZ7dHvM5vXukZPujmV3HbG7gVPsyyLrBcIPiusn7aNgDD7Zf2rv33ZiYVp?=
- =?us-ascii?Q?YiLAo9uDzD39CGVH+0nK4ZRvInHEwoKddQNYw/OJth9sNCsxMDK3keywQD1P?=
- =?us-ascii?Q?xgIzlBPTMNat0m4uPl0XVw4ZyqQlfE9ontFJiN7ZXYHjKOOlNelo/5i5yrVj?=
- =?us-ascii?Q?Di6Q2BvvJOxTJguSeFvEmZoX+L11ZGNqlue+GQwzcRTRT45vPeKY72C/vaVC?=
- =?us-ascii?Q?pgpCgfnjfKQPDzmzZoNFB1D0rqGb3QKKSFxJ++QTAbQV4N8Vp53vbx56KUMT?=
- =?us-ascii?Q?TkdpRHh8hPFDgmGw4m7l+hRtP0JmI3bRSYdPv7hpzqAyFmG8Xb+FhHIl1Pe/?=
- =?us-ascii?Q?6J5OI17LuY1dV4oOsJmIhLnB0VX8jEC4Rrnw6WzNZuZbLE68bf7JHmD/9pSY?=
- =?us-ascii?Q?lXj1FfwGxmJu6VE9pR8NO+hkL/BBkcjJbc20mWbVHbCdCYwLkJVZJ1X9mtjq?=
- =?us-ascii?Q?f0uQY4ksuocRr/9aRF9quC7ZxSi9+nJrqW5iryeGa6CvgJUrBM74FUgv9alJ?=
- =?us-ascii?Q?SiyRx+pChd9ysqs0EE4TolD99Ro56828lOIiodIK8F1EYBKYvfRzRT7xRw9F?=
- =?us-ascii?Q?62Q7e3sr1hsWV/ESq69rjqtBkM52jDMVe+YLg2Uest0rSGLfbx3CjTtkbBoZ?=
- =?us-ascii?Q?VP7o8J91+j7WIHoulLqrOK+Ekf/8lIpM4WfyvuVWS2ESyhdRVk6QX+qy6ir9?=
- =?us-ascii?Q?FAuxQNWsDILhHtdsDU9foymHJNhoDQORympXyAKXXNeJozWdIVQc+mS4aYTD?=
- =?us-ascii?Q?/m8gVbdIf6tpyVM0BokCt2UXprqhSfw7psTwl1g0Nx0jqSJRAODCtKsmrEGj?=
- =?us-ascii?Q?jynI6WhV+opzfCyL5GEQmsvEkOI6PzTp87ltuSTHvn+ljZxIJGuuZXzXcKhr?=
- =?us-ascii?Q?lKtA8QB1s7q8UnqqLq0oGy0DDMj1lWSqXiHeNtlJrILbqMk8mxt4bzToWKqx?=
- =?us-ascii?Q?MPe+8Sd61WQvuppV7ikIiIIKpK8F2/w+3gn7UvpIw0vPYrMtUd5yvW/Ez7lv?=
- =?us-ascii?Q?kh8XSl3OJMiHg/2+p1mCSodHqe/Zez4eKaBF8JFbBtvE8JiBemmCkkk8yUxB?=
- =?us-ascii?Q?FydgFT2JzYZqpZoPBVIVUSzyXLE+RSKUXmjyS0C/QvnyHzFqkW/duT54KpKI?=
- =?us-ascii?Q?8w6ikLBflg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56fb8360-9896-4a22-1f8d-08df4a76d18a
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9411.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 22:03:49.3720
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GYOpRoEWRT6ElT+WwUd9HTPxYBSYPRl+HmfgdCNFNd39nuDdHCBCuLIxPZrahAoR+D+BlZ7+Uhslj/hlV0Gm7Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6768
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261124-acrn-unpin-monitor-page-v1-1-097458800936@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIANEKBmsC/yXMQQqDMBCF4avIrDtgIo3Qq5QuYhzbEZyEiYog3
+ t1Ulx+89++QSZkyvKodlFbOHKXAPCoIPy9fQu6LwdbWGWMN+qCCiyQWnKLwHBWTLzPX2P45tK2
+ rQwPlnZQG3q7y+3M7L91IYf7n4DhOEA6cy3sAAAA=
+X-Change-ID: 20261121-acrn-unpin-monitor-page-632d5f7760c3
+To: Fei Li <fei1.li@intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
+        Shuo Liu <shuo.a.liu@intel.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Reinette Chatre <reinette.chatre@intel.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795558108; l=1265;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=H8wehEAUOYpvrHyb1qYk3+1cUineECJ+mIJ3t8JdECM=;
+ b=byMqRJeO06XTgFeiumRYTldhQ5lhm+UaD14l657W89Gzqzq0DYteCj4m4uGEgSHVhs89eKLg7
+ Qz/fKrytaDKD3CcTN2ZwajcFVXFA0RLsAwD4XzsAjIIgU6q2sb3PAG1
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDA4NyBTYWx0ZWRfXz/YBUlaqVi6l
+ vjdIxzUeY2NZ0W6vhvkhRGDBoqXhwiXbJHZdo/DV/Gf4/GsDUK2HhA/dui9jGxpWhFxPKV4qkYc
+ WO/mE5zULo2iIOm5C0yUFjzfCmQwhJ8+FrGvde+BZfxMSI8tEVe53KV8Iv5nR6wWzVJNdFgDWTR
+ NdtltmNR6FJZO7VPN72hhh8AoFVMxqYUnBgIGAzy+8g5ZBzuexNEL/xBWgM6i9ozAPfXflISBwu
+ 7VZjii46YeSAcpGgJvRcNrgrfDSf8cBCh+5xwwk/eSZOqS6WUV0uHRnRhEAn62XyhLSnsJwDOU6
+ DkQNWFSiUzjPHrHjA9b1ZVwX7pcL2fdv+uER0tkqizBIVH//qmYQ+TVRRBncB6zvRIO/uNnJzFC
+ NUjvKWuZpUxuYWDyIoUZkRMvGpa1XYUDVR+cSkIfy1j4ziyb/Y91zhSNZV4BLFyWfY3OZl1QyDW
+ pM0e/XRSxQrQ53XkNKA==
+X-Authority-Analysis: v=2.4 cv=de4VTnXe c=1 sm=1 tr=0 ts=6b060ade cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=LNQXEAmb7IHcZyFqmLK0PA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=Qm0qsxP7aFY2tkT6R2MF:22
+ a=VwQbUJbxAAAA:8 a=vjun-3o0SPL4aK9ehdYA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDA4NyBTYWx0ZWRfX4QzLez/T4dEB
+ GnkUHgvrGLbhjQ4pZ44KQWzzAEn6/CIs8MuvTh2PWlfHGfFbwVkFyLY79oaqSOKFYvJm0B24mL0
+ d6Gy4vDEg2TKxoOt8W+NA4NNI8lziOBwcS+vTNSCa1nPRujWWlGl
+X-Proofpoint-ORIG-GUID: 7ISjcpEcbdegquT45tHQq1CpwQlTvirW
+X-Proofpoint-GUID: 7ISjcpEcbdegquT45tHQq1CpwQlTvirW
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11976
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=10
+ adultscore=0 suspectscore=0 impostorscore=10 clxscore=1015 bulkscore=10
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611240087
 
-On Tue, 24 Nov 2026 21:28:42 +0000
-Samiullah Khawaja <skhawaja@google.com> wrote:
+ACRN_IOCTL_VM_INTR_MONITOR pins the page it is given with
+pin_user_pages_fast() and stores it in vm->monitor_page. The ioctl
+releases a previous page with unpin_user_page(), but acrn_vm_destroy()
+releases the last one with put_page().
 
-> Commit 962ae6892d8b ("vfio/pci: Lock upstream bridge for
-> vfio_pci_core_disable()") makes vfio_pci_core_disable() trylock the
-> upstream bridge before resetting the device, and skips the reset if the
-> trylock fails.
-> 
-> All VFs of a PF have the same upstream bridge. Take a device with two
-> VFs, both used by one process. When the process is killed, both VFs can
-> be released at the same time. The first one takes the bridge lock and
-> does its FLR, the second one fails the trylock and is never reset.
-> 
-> The bridge lock is only needed for a bus reset, which is done through
-> the bridge. Add pci_reset_function_needs_bridge_lock(), which returns
-> false if there is no upstream bridge, if bus resets are disabled for the
-> device, or if the device is a VF. Use it in vfio_pci_core_disable() and
-> pci_reset_function() to only lock the bridge when it is needed.
-> 
-> Fixes: 962ae6892d8b ("vfio/pci: Lock upstream bridge for vfio_pci_core_disable()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
-> ---
-> v2:
-> - Replace pci_reset_needs_bridge_lock() with
->   pci_reset_function_needs_bridge_lock() as suggested by Alex, and use it
->   in pci_reset_function() too.
-> ---
->  drivers/pci/pci.c                | 25 ++++++++++++++++++++++---
->  drivers/vfio/pci/vfio_pci_core.c |  3 ++-
->  include/linux/pci.h              |  1 +
->  3 files changed, 25 insertions(+), 4 deletions(-)
+put_page() doesn't undo a pin. A small page is never freed, and a large
+folio is freed with its pin count still raised.
 
+To fix it, use unpin_user_page() in acrn_vm_destroy() as well.
 
-Reviewed-by: Alex Williamson <alex.williamson@nvidia.com>
+Fixes: c7cf8d27244f ("virt: acrn: Introduce interrupt injection interfaces")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+---
+Compile tested only.
+---
+ drivers/virt/acrn/vm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/virt/acrn/vm.c b/drivers/virt/acrn/vm.c
+index 3753b27c5312..49643dc52831 100644
+--- a/drivers/virt/acrn/vm.c
++++ b/drivers/virt/acrn/vm.c
+@@ -82,7 +82,7 @@ int acrn_vm_destroy(struct acrn_vm *vm)
+ 	acrn_ioreq_deinit(vm);
+ 
+ 	if (vm->monitor_page) {
+-		put_page(vm->monitor_page);
++		unpin_user_page(vm->monitor_page);
+ 		vm->monitor_page = NULL;
+ 	}
+ 
 
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 7c6f2aba8144..cc6647d091f7 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -5256,6 +5256,24 @@ int __pci_reset_function_locked(struct pci_dev *dev)
->  }
->  EXPORT_SYMBOL_GPL(__pci_reset_function_locked);
->  
-> +/**
-> + * pci_reset_function_needs_bridge_lock - check whether a function reset of
-> + * @dev may need the upstream bridge to be locked
-> + * @dev: PCI device to check
-> + *
-> + * A bus reset of @dev is done through its upstream bridge, so the caller must
-> + * hold the bridge lock. The bridge doesn't need to be locked if there is no
-> + * upstream bridge, if bus resets are disabled for @dev, or if @dev is a VF.
-> + *
-> + * Return: true if a function reset of @dev may be a bus reset.
-> + */
-> +bool pci_reset_function_needs_bridge_lock(struct pci_dev *dev)
-> +{
-> +	return pci_upstream_bridge(dev) &&
-> +	       !(dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET) && !dev->is_virtfn;
-> +}
-> +EXPORT_SYMBOL_GPL(pci_reset_function_needs_bridge_lock);
-> +
->  /**
->   * pci_init_reset_methods - check whether device can be safely reset
->   * and store supported reset mechanisms.
-> @@ -5313,10 +5331,11 @@ int pci_reset_function(struct pci_dev *dev)
->  		return -ENOTTY;
->  
->  	/*
-> -	 * If there's no upstream bridge, no locking is needed since there is
-> -	 * no upstream bridge configuration to hold consistent.
-> +	 * The upstream bridge only needs to be locked if the reset may be a
-> +	 * bus reset, which is done through the bridge.
->  	 */
-> -	bridge = pci_upstream_bridge(dev);
-> +	bridge = pci_reset_function_needs_bridge_lock(dev) ?
-> +		 pci_upstream_bridge(dev) : NULL;
->  	if (bridge)
->  		pci_dev_lock(bridge);
->  
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index fcbb2da860e2..5dcbefd2eba4 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -777,7 +777,8 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
->  	 * overwrite the previously restored configuration information.
->  	 */
->  	if (vdev->reset_works) {
-> -		bridge = pci_upstream_bridge(pdev);
-> +		bridge = pci_reset_function_needs_bridge_lock(pdev) ?
-> +			 pci_upstream_bridge(pdev) : NULL;
->  		if (bridge && !pci_dev_trylock(bridge))
->  			goto out_restore_state;
->  		if (pci_dev_trylock(pdev)) {
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index aa3765a20a96..aee6a178a535 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -1486,6 +1486,7 @@ void pcie_print_link_status(struct pci_dev *dev);
->  int pcie_reset_flr(struct pci_dev *dev, bool probe);
->  int pcie_flr(struct pci_dev *dev);
->  int __pci_reset_function_locked(struct pci_dev *dev);
-> +bool pci_reset_function_needs_bridge_lock(struct pci_dev *dev);
->  int pci_reset_function(struct pci_dev *dev);
->  int pci_reset_function_locked(struct pci_dev *dev);
->  int pci_try_reset_function(struct pci_dev *dev);
-> 
-> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+---
+base-commit: c44104f3642da720164042623e4832836aefdd8e
+change-id: 20261121-acrn-unpin-monitor-page-632d5f7760c3
+
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
+
