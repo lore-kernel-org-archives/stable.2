@@ -1,76 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795525625;
-	b=IoXADVirOZt5iPYhkuom4lio1v/0ojSDnbjAHUqFP7HmvdZNcHu3eQ3FLuyEHXIhC1J2
-	 Q8nn3kkNGNVJz1pVACNxOc10t7zthmmk2DHVr9iKJeWkUZaIFoEOrWtem0yYXPaDJYac4
-	 dKQM2vUY1oyzvhdGMB3OdBf7YXPqOz8u2LD9tF1bGs0ZyEmMjP6Z/s9DQP8D8z9wE8wnA
-	 v83kNUMkkDCniAonh+rLpQW4F2QuBAwxRFAVOd1C/MgRQARjd6oL9BEVeRPp/9xyXOBB9
-	 MydoI1MAhM8BJ7qKABoJCLeatknkKgst0f0bh15/SPF+o+T4BpbgLkwvg1bHRyPaH5w==
+	t=1795525742;
+	b=FLu88M7hE7O8X7j7HoBoLqWok77yKtqrUCqQvExnvFmOIyQp4CspNRLB8phCLeu2EZyh
+	 g2qHl7mr2/50VMpjECs0XnbiQ5VVHtp1tb3x+swNlWImP9UQ7cRxiTzoQMt2QeYwoZ+JT
+	 oL7XH0DeXWQXHtHOL+tg2ozjUcSYLe3WQG6fyFYp79AwQCfioAS2z3ZjezoT00/9fS9Zz
+	 eD9AP+a1xPK+sJzEAAxGmVzLLJmc97No8wcxtuuL7HLx3qMEWG8hUMmCtQ5mCwXw1jo0P
+	 7KkU6PxKOjON7/X5FOpCxz14WV143j5+mt4OdoQwthksbA8YYcAvfVMJM6TbAVkG2zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795525625;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Patchwork-Hint:Organization;
-	bh=9cDEhUhpswSYbiu47LsHUEy/96Fzpq2WscTeT3sqrt4=;
-	b=2rS6Re9gNhiXDoHQPRKklyF0MaDtc+LGLI4qE6y59M9pGxyz5o4c4cA3O5TSyWt8bjTk
-	 spDrlnHucts2Ueetbh9RqU0YDz//rLwH1ZCu3O/B38alANOmY0NMWzkNVejU/gU/XyXYy
-	 70JL2sOu5qKK6702e2P6VNnNaewuItsryW3AIvIG/DCZNteIVwqRhSUI8kz2HELgIQBiI
-	 lbwJYtloo8/64DpGOAtMhYgXYziwSLRjWSVPEoPowBhBwervmL6Q3kWSiqHThnVPI5TMx
-	 uqculBc08Zzrt9GtAB5CaulZNg4H7hKO5snbl5/bPAlbjtGe2qxEZ89bO50Yd4JKwLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795525742;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=WcJSkaqY9Qq8Hd92McHt9i07oPBgHaZhYiQd4F7xNFM=;
+	b=W75inwOJAr98fxbsV0WMvGyd4imkS2Fpl0Q3N8y/pv8OudQ/p5W9gHET8ZvQwY1+JPHe
+	 I6TpOu7sCj02fa7w9F/Emo1t8iUZfygXPKUqGineXNneWEe7D6EUjvLnR1R8cVjfGIEUC
+	 aCfDs2v60pzUJIi7PR4mQy6gBVf0X0S3RmCSjU2dOMQRkIERnVr8iwsAAw8Fc2XABo8kc
+	 koCHtumYXGgFDfNDWW4zRU+gf44wdjwR3cK3IdBbihthnsXtws9OjULvBtxd77N6z3Wmy
+	 MNRjpTQNdrYzshvm2BcBagumA/0qBiV117ZFk6hr458lj5YatFQQijny28aQsHpf9Xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VCVjLQ+D;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mmUD+xsu;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=97c8Gm65;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=no7xFE9k;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XvYNRNNJ;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA9E606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 13:07:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DA9E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25A3606A326;
+	Tue, 24 Nov 2026 13:09:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E25A3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VCVjLQ+D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795525624; x=1827061624;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=Te4AmTY9SNn131H6ENr5PVBO/axCNZkwfoJKkzYGjTs=;
-  b=VCVjLQ+DHJEdP67oMTODJLn3/3/vesfNkVsGzTwBRKdtFR2qAoIJgcQ+
-   7cEYipajidf9f8HGPgnA0QmnA3jknxDUonG2NB+8UOAfOM70sYFA2jIpd
-   kbhtQhTypEP1Lo4VQ54yF8u9evmhvyAKQawT6N+gCwYW+UNTekMHa9T+I
-   1FAOGGeV5gPbYW4wi/97HDP/JY503Hu4rOvAVN9sfUM1/TLLV+DC32eKT
-   oqVd9sxJuV0sp6+oQpI39Mj2F8v5zigIKidUGK+mJLSyObHIjuEAQS12Z
-   v6AdeeuJrLxh68tW/X19ou1O/AMJPFg6D6J6NoVute1mFQ6GJG57W9e/2
-   g==;
-X-CSE-ConnectionGUID: NIegLZztTau+fj0lkkoW5Q==
-X-CSE-MsgGUID: P+9Y0TpcQkakvf+bqY2Cbw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4413902"
-X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
-   d="scan'208";a="4413902"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 05:07:04 -0800
-X-CSE-ConnectionGUID: 4YtgsVJdS8qiO91lLP01TA==
-X-CSE-MsgGUID: iMP6K+SgSly5DqkK2je4rA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
-   d="scan'208";a="12002056"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.100])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 05:07:01 -0800
-Date: Tue, 24 Nov 2026 15:06:58 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Suraj Kandpal <suraj.kandpal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
-	imre.deak@intel.com, mika.kahola@intel.com, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/pps: Don't steal VDD from another eDP port
- sharing the PPS
-Message-ID: <awWL8jQGrCxadBMt@intel.com>
-References: <20261123050422.3130438-1-suraj.kandpal@intel.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mmUD+xsu;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=97c8Gm65;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=no7xFE9k;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XvYNRNNJ
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C79711F7CD;
+	Tue, 24 Nov 2026 13:08:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795525740; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=WcJSkaqY9Qq8Hd92McHt9i07oPBgHaZhYiQd4F7xNFM=;
+	b=mmUD+xsuUa7B/iXxIoqUvGyM9xNrE4ua0l7iAxS2Y2M4GtqqEM1XZb2WmCf3R/1AQcQUns
+	R8p59avmbySAHfYg12Ab/nfBoP+gF9UK5o+ZmznsSD3TG41YbJKyeD7j8DkDDROSQ3xPK3
+	QrSlmxbpTqkIOujibWP/aRmmB9859bo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795525740;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=WcJSkaqY9Qq8Hd92McHt9i07oPBgHaZhYiQd4F7xNFM=;
+	b=97c8Gm65I5xaQNqWkHPOaWRh+xRBvHI5FL66vC6xwgctIrr1cl2kCnl16LzS/ZoPm5Dhla
+	SdHo7QUcZiqvO6Ag==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=no7xFE9k;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=XvYNRNNJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795525739; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=WcJSkaqY9Qq8Hd92McHt9i07oPBgHaZhYiQd4F7xNFM=;
+	b=no7xFE9kf7JGQKe28BZel4ShYaE4zzTL5BIak1zW8v/xo5GPsr/s6sydUbEGQhfrHAYadS
+	QaPpvH2QACCd1dCbW6K34s1EGrihvQBlJkq78AYmE3Dc3zNRA2WinzgizDD2RhMFr5tkBJ
+	HTESxp7jut2xaGEIOPCp5knzhztoMt8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795525739;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=WcJSkaqY9Qq8Hd92McHt9i07oPBgHaZhYiQd4F7xNFM=;
+	b=XvYNRNNJXqCs9b455USCCnF4QILvmlgIMu6KafQN/mRztUDTVN1o3Xzh/fd/1U8vj1NUT1
+	O8nXZ7CNrzNImrDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2D1B813505;
+	Tue, 24 Nov 2026 13:08:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id zsLdNWqMBWt+MQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Tue, 24 Nov 2026 13:08:59 +0000
+Message-ID: <93890802-060e-4369-842e-2a02bbd2042c@suse.de>
+Date: Tue, 24 Nov 2026 14:08:58 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,120 +108,235 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFT v3 2/5] drm/fb-dma-helper: Add
+ drm_fb_dma_get_gem_clipped_addr()
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Liu Ying <victor.liu@nxp.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-sunxi@lists.linux.dev,
+ imx@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261124074041.115251-1-wenst@chromium.org>
+ <20261124074041.115251-3-wenst@chromium.org>
+ <19cd5949-05dc-4107-bd2b-d8ad1e2332eb@suse.de>
+ <CAGXv+5HSV7MJ96qTcOp+JaKWtmmYYWAmDROrT18pZ9PztNCJ-g@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CAGXv+5HSV7MJ96qTcOp+JaKWtmmYYWAmDROrT18pZ9PztNCJ-g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261123050422.3130438-1-suraj.kandpal@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[nxp.com,oss.nxp.com,pengutronix.de,kernel.org,sholland.org,linux.intel.com,gmail.com,ffwll.ch,lists.linux.dev,lists.freedesktop.org,lists.infradead.org,vger.kernel.org];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: C79711F7CD
 
-On Mon, Nov 23, 2026 at 10:34:23AM +0530, Suraj Kandpal wrote:
-> Some VBTs declare an unpopulated eDP port next to the real panel and
-> assign both the same PPS. The ghost port adopts the VDD bit the real
-> port turned on, and when its DPCD read fails it clears EDP_FORCE_VDD
-> underneath the real port. The real port's VDD reference is then never
-> released, leaking an AUX power domain reference and a runtime PM
-> wakelock:
-> 
->   drm_WARN_ON(intel_dp->pps.vdd_wakeref)
->   i915 raw-wakerefs=1 wakelocks=1 on cleanup
-> 
-> Don't adopt or turn off VDD owned by another eDP port on the same PPS.
-> 
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17232
-> Cc: stable@vger.kernel.org # v6.15+
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_pps.c | 35 ++++++++++++++++++++++++
->  1 file changed, 35 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
-> index 442b00491a88..653b8bf7ec6d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_pps.c
-> +++ b/drivers/gpu/drm/i915/display/intel_pps.c
-> @@ -570,6 +570,30 @@ static bool edp_have_panel_vdd(struct intel_dp *intel_dp)
->  	return intel_de_read(display, _pp_ctrl_reg(intel_dp)) & EDP_FORCE_VDD;
->  }
->  
-> +static bool pps_vdd_owned_by_other_port(struct intel_dp *intel_dp)
-> +{
-> +	struct intel_display *display = to_intel_display(intel_dp);
-> +	struct intel_encoder *encoder;
-> +
-> +	lockdep_assert_held(&display->pps.mutex);
-> +
-> +	if (display->platform.valleyview || display->platform.cherryview)
-> +		return false;
-> +
-> +	for_each_intel_dp(display->drm, encoder) {
-> +		struct intel_dp *dp = enc_to_intel_dp(encoder);
-> +
-> +		if (dp == intel_dp || encoder->type != INTEL_OUTPUT_EDP)
-> +			continue;
-> +
-> +		if (dp->pps.pps_idx == intel_dp->pps.pps_idx &&
-> +		    dp->pps.vdd_wakeref)
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
->  void intel_pps_check_power_unlocked(struct intel_dp *intel_dp)
->  {
->  	struct intel_display *display = to_intel_display(intel_dp);
-> @@ -839,6 +863,9 @@ static void intel_pps_vdd_off_sync_unlocked(struct intel_dp *intel_dp)
->  	if (!edp_have_panel_vdd(intel_dp))
->  		return;
->  
-> +	if (!intel_dp->pps.vdd_wakeref && pps_vdd_owned_by_other_port(intel_dp))
-> +		return;
-> +
->  	drm_dbg_kms(display->drm, "[ENCODER:%d:%s] %s turning VDD off\n",
->  		    dig_port->base.base.base.id, dig_port->base.base.name,
->  		    pps_name(intel_dp));
-> @@ -1334,6 +1361,14 @@ static void pps_vdd_init(struct intel_dp *intel_dp)
->  	if (!edp_have_panel_vdd(intel_dp))
->  		return;
->  
-> +	if (pps_vdd_owned_by_other_port(intel_dp)) {
-> +		drm_dbg_kms(display->drm,
-> +			    "[ENCODER:%d:%s] %s VDD owned by another eDP port, not adopting it\n",
-> +			    dig_port->base.base.base.id, dig_port->base.base.name,
-> +			    pps_name(intel_dp));
-> +		return;
-> +	}
+Hi
 
-If someone else already owns the PPS then we should stop the probe
-of the current port right here. So I think this belongs in
-pps_initial_setup(). And it should not look at the wakeref,
-pps_idx alone should be sufficient to figure out who owns what.
-That will also avoid racing with the delayed VDD off from a
-previously probed port.
+Am 24.11.26 um 11:22 schrieb Chen-Yu Tsai:
+> On Tue, Nov 24, 2026 at 3:57â€¯PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Hi
+>>
+>> Am 24.11.26 um 08:39 schrieb Chen-Yu Tsai:
+>>> drm_fb_dma_get_gem_addr() returns the DMA address to the "unclipped"
+>>> framebuffer. However some display drivers want the "clipped" framebuffer
+>>> instead, as they are also using the clipped coordinates to program the
+>>> hardware.
+>>>
+>>> Some of these drivers are open-coding drm_fb_dma_get_gem_addr() with
+>>> the source coordinates replaced, while others have been incorrectly
+>>> converted to using drm_fb_dma_get_gem_addr(), which would end up
+>>> causing incorrect parts of the framebuffer to be displayed if it were
+>>> somehow clipped.
+>>>
+>>> Add drm_fb_dma_get_gem_clipped_addr(), a "clipped" version of
+>>> drm_fb_dma_get_gem_addr() for these drivers to use.
+>>>
+>>> Cc: <stable@vger.kernel.org> # dependency for next patch
+>>> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+>>> ---
+>>> Changes since v1:
+>>> - Use new drm_framebuffer_get_block_offset() helper
+>>> ---
+>>>    drivers/gpu/drm/drm_fb_dma_helper.c | 37 +++++++++++++++++++++++++----
+>>>    include/drm/drm_fb_dma_helper.h     |  4 ++++
+>>>    2 files changed, 37 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/drm_fb_dma_helper.c
+>>> index ab0f37d8a5ff..0aaf4926db4e 100644
+>>> --- a/drivers/gpu/drm/drm_fb_dma_helper.c
+>>> +++ b/drivers/gpu/drm/drm_fb_dma_helper.c
+>>> @@ -60,15 +60,16 @@ struct drm_gem_dma_object *drm_fb_dma_get_gem_obj(struct drm_framebuffer *fb,
+>>>    EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_obj);
+>>>
+>>>    /**
+>>> - * drm_fb_dma_get_gem_addr() - Get DMA (bus) address for framebuffer, for pixel
+>>> - * formats where values are grouped in blocks this will get you the beginning of
+>>> - * the block
+>>> + * drm_fb_dma_get_gem_addr() - Get DMA (bus) address for unclipped framebuffer,
+>>> + * for pixel formats where values are grouped in blocks this will get you the
+>>> + * beginning of the block
+>>>     * @fb: The framebuffer
+>>>     * @state: Which state of drm plane
+>>>     * @plane: Which plane
+>>> - * Return the DMA GEM address for given framebuffer.
+>>>     *
+>>>     * This function will usually be called from the PLANE callback functions.
+>>> + *
+>>> + * Return: GEM DMA address for given framebuffer, unclipped.
+>>>     */
+>>>    dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
+>>>                                   struct drm_plane_state *state,
+>>> @@ -86,6 +87,34 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
+>>>    }
+>>>    EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_addr);
+>>>
+>>> +/**
+>>> + * drm_fb_dma_get_gem_clipped_addr() - Get DMA (bus) address for clipped
+>>> + * framebuffer, for pixel formats where values are grouped in blocks this
+>>> + * will get you the beginning of the block
+>>> + * @fb: The framebuffer
+>>> + * @state: Which state of drm plane
+>>> + * @plane: Which plane
+>>> + *
+>>> + * This function will usually be called from the PLANE callback functions.
+>> You should mention what clipping means in this context. It's not obvious
+>> what it's clipping against. Or maybe point to other docs that explain it.
+> What about:
+>
+> /**
+>   * drm_fb_dma_get_gem_clipped_addr() - Get DMA (bus) address for the start
+>   * of the visible (CRTC-clipped) part of the framebuffer
+>   * @fb: The framebuffer
+>   * @state: Which state of drm plane
+>   * @plane: Which plane
+>   *
+>   * A plane may be positioned partially off-screen, in which case it gets
+>   * clipped to the visible CRTC area by drm_atomic_helper_check_plane_state()
+>   * (populating the clipped coordinates in &drm_plane_state.src and
+>   * &drm_plane_state.dst). For example, if a plane extends past the left or
+>   * top edge of the screen, only its right and/or bottom portion is visible.
+>   * Drivers whose hardware cannot clip by itself (i.e. accept negative
+>   * destination coordinates) should use this helper instead of
+>   * drm_fb_dma_get_gem_addr() so scanout starts from the visible portion of
+>   * the framebuffer.
+>   *
+>   * For pixel formats where values are grouped in blocks, this returns the
+>   * beginning of the block.
+>   *
+>   * This function will usually be called from the PLANE callback functions.
+>   *
+>   * Return: GEM DMA address for the visible part of the framebuffer.
+>   */
 
-I think the proper solution for this PPS init mess should be
-something along the lines of:
-- extract the PPS tracking out from intel_dp into its' own per PPS
-  object, and have each intel_dp just point to the right one.
-  VLV/CHV with their screwed up PPS hardware would probably be the
-  hardest thing to handle here.
-- never turn VDD off during until connector probing is fully done
-- if multiple encoders are trying to use the same PPS let the first
-  one to successfully probe own it, don't even probe the remaining ones
-- after all connectors are probed turn off all PPSs that aren't in
-  use, and schedule the delayed off for the ones that are in use
+Looks good.
 
-but that's a lot of work, so we do probably want a less refined
-stopgap first.
+>
+>>> + *
+>>> + * Return: GEM DMA address for given framebuffer, clipped.
+>>> + */
+>>> +dma_addr_t drm_fb_dma_get_gem_clipped_addr(struct drm_framebuffer *fb,
+>>> +                                        struct drm_plane_state *state,
+>>> +                                        unsigned int plane)
+>>> +{
+>>> +     struct drm_gem_dma_object *obj;
+>>> +
+>>> +     obj = drm_fb_dma_get_gem_obj(fb, plane);
+>>> +     if (!obj)
+>>> +             return 0;
+>>> +
+>>> +     return obj->dma_addr + drm_framebuffer_get_block_offset(fb, plane,
+>>> +                                                             state->src.x1 >> 16,
+>>> +                                                             state->src.y1 >> 16);
+>> I had to look several times to spot the difference to the regular
+> I suppose I should add a comment to make the difference more visible:
+>
+>      /* Use clipped source coordinates state->src.[xy]1 instead ->src_[xy] */
 
-> +
->  	/*
->  	 * The VDD bit needs a power domain reference, so if the bit is
->  	 * already enabled when we boot or resume, grab this reference and
-> -- 
-> 2.34.1
+Your choice.
+
+>
+>> helper. In any case
+>>
+>> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+> If the changes above are acceptable to you I'll send out a new version
+> with your tag kept.
+
+Sure, go ahead.
+
+Best regards
+Thomas
+
+>
+>
+> Thanks
+> ChenYu
 
 -- 
-Ville Syrjälä
-Intel
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 NÃ¼rnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG NÃ¼rnberg)
+
+
