@@ -1,85 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795563534;
-	b=ITUW/sszzOULA0Rg/rhZxpF9PZ9xTwSC1siii1RYXO+63ZQSGkcsEj1k0xval7lJHEIC
-	 GDT3JdeJGvFlb4nwiFPLzwVDLkbZFzMfmdTWhr7sHge1lPVmyJDfgvvCzvRyBGpZlhtEY
-	 XzJQp5F9TlNDW8xN8TUBXuZhrlF92GQEcITvfI29736cJ/xrFLPBCwABkowUBQez/fkez
-	 GMBtTovcP3+TjNaqsLAhJp8ygO/gl/45gnDICPtjgNv8dVdEB6u635eeAgrY9i6oH+t4w
-	 FI84g1HoGMPHz8KxYRSibMjDH6Zmk4672TzjuMPbetw9U3HkJ77GPgcTWdIiVUMJY5A==
+	t=1795563902;
+	b=g4XodMqx8c59ZfXbXTiuzvSvk2u97MuXWTvJCwyJqpfTuwiqAqMQ9I9kTXsCfHgcINu6
+	 fWTg2mSoFSkV/pavRWPJ5igYhKGGIJt4zDqylmfJHEQwDJEVIpTe+YtYTBuISidN9cxSk
+	 tKpSXHu0ueS81rdVHwhMYjsHTdZNU+scr16h47CJJyNkahJ7y9BKnLiWT//vi8ZfwpmR4
+	 BaUvPlGVPvAlnjGRElcJ8LZTJ8TQJZdIy4w7xa44wr4i+BIQEpI1UN7o495FpFPwrkLen
+	 K9YmbhNF11P5CqUYTMx4lzGjcDK9mtHl7jyx2jJ3AXP9VJbTrkvyHWRgkwVwaq/pseA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795563534;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=DSz47Xb2Yu074okaoRlTthS67fhUdvqRS66Ctj90ArA=;
-	b=Mp+EmWBpbjXNYukNXo41D9GPNzIKsIMw1zuZ/u6qIE6kiYWpFcp+fT/sLayRHp3Ib6pD
-	 /EqVWFuijCqIcZRalQ/2eldkOMDUFMHrM3Iijil+TMIXKIsp5lqnySSSv3bPJsoEFMyHu
-	 Z2NQxv7mh6DNLRkAtoqXYu1+HrfIOoHHv7/nnZD3/MBWgBEPd4qPyiWw43b1XQ9EHNHcE
-	 rrkqb1KOyDTJJfomBiwV4kfGrn1NmKMOJQ/jOuOj8PpVceBKrK88WwnetZRO4PK+zh2ES
-	 7qw2KLnUZg/0u6hF3hrYgBy5IPpwIcEFkMHuLUoq0nRfEtizzkL7TLgvqPDMgX+aRLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795563902;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=iL87FokRS6FlayCEEXJujTpGxPMvSHKEkhgd3TzKtU8=;
+	b=lEgc1Xr9TSSOujPOfVEJ0gRaRq7zG8HsSXt1RUoeqDu9qEtrwRHv+C3tlzyrIFOZlkTH
+	 LYb/eZmVUYQnVOv9MqeJ+3NG6NfNwLiFb4TAuRmeR6rifN40MHeqCnGuyLDTeltdLviPr
+	 Ptfm+SxxlH1231mR5FPko4VtGh12N5ivPFT+68GP4pLj2K1mTlfG3TiIMqFtGGmHnd6JY
+	 ss6j+gRfpNQuGT9/3lHEJ7DgOejNDrTZZsFG8m1XYzTNl+Sn2brI+S0Vb2zUhJ6T/z4kB
+	 EYA3vwt7azvGmTv3lOGP2C3Eey5voDoUpr1N0oDmQJtI1vAQfWskxrAcpb78tKtas4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c49RfFi;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UY5F6bNU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E1B606A323
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 23:38:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25E1B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E425606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 23:45:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c49RfFi
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b3d4d3bba3so2560560a91.3
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:38:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795563533; x=1796168333; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DSz47Xb2Yu074okaoRlTthS67fhUdvqRS66Ctj90ArA=;
-        b=0c49RfFiXg7MMM+V5ReJSq/A1x19TeDfE7VYQIbwrsJHOILZPw9H9slMQiUCntCkDX
-         s+LI3kIDp/a474MULNg8So/YKq/2DINHMrgVIYAp7bLi/EQW/f0Y6ZdEk3zRry9f7Vp+
-         kKRtvl7Wd4Lq1/n8PEe6IWOW77BVNhNvIGyB3N0iczBvsTDj8sXjPbRBExDxqoFEo7i0
-         5dLUofgD1b5zJpTz4rwli/uicHWWc6d4ms1meAjyrxz+uLBsRbHeHMip8+5lv+1qV9St
-         qZONviLSW4iNSkTyG/NHgB/AJ1McJkBtc1zN1X2oGI3WXsaCpKAb5y0AEzTxWO0apGM7
-         XBbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795563533; x=1796168333;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DSz47Xb2Yu074okaoRlTthS67fhUdvqRS66Ctj90ArA=;
-        b=NiGpbpkeA+r3GBZVePRNjxj7dHJZuEnpEAJKuCVEQhAa0/tXtFxWcmvTpCe2M5cpKz
-         Z369iEePXq3tFgFDN3SLRrOEtXF4glAvi8+/+6VzTdu0ZSjUOTZXENWU5VixuD3ITZGQ
-         0A4maJHRtvssUfTD/NOnc+wZYi9hWcGbqz0kj3+1Bk2L7bXr7jvZprmWBujZbaql7MBi
-         /UyUaEn+PU5AvaYPvfQVzJa0qzoskB7ZLj5WzFtCla3OBd5XNFK6qDFYrbeHjtIw8u9o
-         8iG34vIDVEyHjcJchNGD/vqBHeVpf9sGGQ3F/rhHJq/p3L4YONYhpjcZ3E8dqqmSSzQt
-         RUtg==
-X-Forwarded-Encrypted: i=1; AL+hErEVpMysDYOt9jBnwxw+EvlEk52vJjpW2ImatxSvWEtC3saouGiWxYSa2ltFPTEzkX94Ro+fm2g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+BV0euIuvdPyZiKeFBYWIcppPgymoO40SVV1/F/ihXxcYWCoVU
-	4ucrfHtq22KvLVs5eglxM2hj5jCPBuRUGIbFN9OIH9Fbl4gTl5ra4GwD
-X-Gm-Gg: AZFdTZeSJSSMT9LqyBmXW1nCel2czT4YQRPJ3hvGeOV6RjDNsnQKDdYuto8QGHShsvI
-	ZNOMlwLC27DKFmEEGy1ps/hyE51OOfFuNWRM30DA6zN0bsQ1DgUgw7Z38GpP81e2A11OdnrIhqM
-	n+jRXSQ8qNIJ/mQiAi9tAetLHlYuo4hB2YkvFKagtpTRn/xnqKK8K6+XYzC9yyvw2Hae8HtWIWh
-	bKQJSuk/xaV2Phb0x5ZZqUOJRQr2hKf1meaj7vlSsO9egf7EHp64sZ6BlnmTlvKseNhG1KFMprT
-	mLQkH1ARG4bMKJWNClTNIRooRv/qOIS8KV7niGQKWyGlGwLW0G0kgdZQYz3ZJMskFSFooeAADEX
-	s+L9f4jqePLgDjBTw3dIolICRGlgQjiIpU2DCTYZVF2/8uZsuitSgRPSEbeqRWNV7PEamAeL31D
-	o7e1kOS23I/Fsjvrwon8NsTTKcVIebOT9jYD+ChYniFmA+eCXNGGV0AHt6bsRxYwj3aKFlSTv/1
-	Whm3bRcKNwkMddyChdK2LG5C7Z3v+2sRW3GDFtkAbRy7uf/Xaty256ue4LZqDLhoO6Qz98vJEkZ
-	MOG3uAi5rZUdvogLFG4D79HVxtCaek64yZM949mUSOts9wlaDsW//FNhXRjPgXxfkvqW4Oe5fSQ
-	Aixosn1yN4GPdBBao62HEdpishK7c/RUESg==
-X-Received: by 2002:a17:90b:5346:b0:3b0:9976:c1c6 with SMTP id 98e67ed59e1d1-3b41c9bbe00mr13922397a91.66.1795563533461;
-        Tue, 24 Nov 2026 15:38:53 -0800 (PST)
-Received: from localhost ([153.61.198.253])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad48786sm24744948a91.9.2026.11.24.15.38.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 15:38:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UY5F6bNU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C152B1F000C6;
+	Tue, 24 Nov 2026 23:45:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795563902;
+	bh=iL87FokRS6FlayCEEXJujTpGxPMvSHKEkhgd3TzKtU8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UY5F6bNU1NAvHZEfIput7pcTnQHhrd3U0LfxBFNIF8I9c4k+43HflTJIZOLWqmhXH
+	 hcGfSB2kug8K6F+tnoDIV/p90UB68DlUI1FbjnC5HjHZYWIfi287BqiyrIgDGXuRmc
+	 jNnNyAh5/s6iYBjtLr4Tb/cuoa993o/trtRXJC+kyzTG3wOBcsfSEWQx031UwXxurD
+	 z8gBOgno6V0KfbqyIIJ+4cCxSZC99VlGMC7PstU/4ZAQaCGpYtjv2Q255vNfplEYFH
+	 G43OeowmUhBQSJlHUdUX6rVMunS6tORCbAhd5equjEY1wLqsUm/vs0wBocPiOH9zOu
+	 3cJQhUkMjS41w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] net/smc: fix link group ownership in handshake abort
+Date: Tue, 24 Nov 2026 18:45:00 -0500
+Message-ID: <20261124234419.3360682-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112435-economic-unearned-ea8a@gregkh>
+References: <2026112435-economic-unearned-ea8a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,57 +58,254 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 24 Nov 2026 23:38:52 +0000
-Message-Id: <DN3U5FE54DYN.2WDV9ZPB6NWXL@gmail.com>
-Cc: <netdev@vger.kernel.org>, "Jiri Pirko" <jiri@resnulli.us>, "David S .
- Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Willem de
- Bruijn" <willemb@google.com>, "Simon Horman" <horms@kernel.org>, "Victor
- Nogueira" <victor@mojatatu.com>, "Po Liu" <Po.Liu@nxp.com>,
- <stable@vger.kernel.org>,
- <syzbot+0054fed3dc9085390f51@syzkaller.appspotmail.com>, "shaos"
- <shawnq1@163.com>
-Subject: Re: [PATCH net v4 1/3] net/sched: act_gate: bound the cycle time
- and start time arithmetic
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Jamal Hadi Salim" <jhs@mojatatu.com>
-X-Mailer: aerc 0.20.1-355-gf870624f6c37
-References: <ACT-WEXM.v4.r0.20261124074514@mojatatu.com>
- <ACT-WEXM.v4.r0.20261124074514-1@mojatatu.com>
- <DN3PFJ14HKX6.1W8QEBXWGFTHH@gmail.com>
- <CAM0EoM=rNfC8O0+XVBTaCFX-NNf9TGp9scdETqju18PVaG=_dg@mail.gmail.com>
-In-Reply-To: <CAM0EoM=rNfC8O0+XVBTaCFX-NNf9TGp9scdETqju18PVaG=_dg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Nov 24, 2026 at 11:31 PM UTC, Jamal Hadi Salim wrote:
-> On Tue, Nov 24, 2026 at 2:57=E2=80=AFPM Alexei Starovoitov
-> <alexei.starovoitov@gmail.com> wrote:
->>
->> On Tue, Nov 24, 2026 at 06:12 AM Jamal Hadi Salim <jhs@mojatatu.com> wro=
-te:
->> > Conditions to recreate the bug:
->> > CONFIG_NET_ACT_GATE=3Dy, and CAP_NET_ADMIN in the initial user namespa=
-ce:
->> > tc_ctl_action() tests netlink_capable(), which checks init_user_ns, so=
- a
->> > user namespace of its own does not help.  iproute2 parses cycle-time a=
-s
->>
->> Well ...
->> after "unshare -Urn" an unprivileged user can add a dummy device, clsact
->> and a matchall filter with this gate action.
->>
->> That check covers RTM_NEWACTION only.
->> RTM_NEWTFILTER creates the action too:
->
->
-> True - based it on poc i could create; should have checked that code path=
-.
-> I hope the over-hyper bots dont complain this is "high" and have me
-> resend to fix the commit log.
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
 
-Oh yeah. don't bother. small mistakes in commit logs are fine imo
-(at least we don't care in bpf land).
-This code will be rewritten tomorrow anyway.
+[ Upstream commit e227b511582828c5a6513f70fc6a71211e5efbf0 ]
+
+An aborted first-contact handshake can hang the handshake worker on the
+socket lock it already holds, reset the clcsock of a socket that has
+fallen back to TCP, or corrupt the alert-node lookup when the handshake
+retries with the same connection.
+
+The abort leaves a connection registered in a link group that another
+context has already unlinked for termination: smc_conn_free() skips the
+unregister when lgr->list is empty, so the alert token and alert node
+stay in lgr->conns_all. If the handshake retries another device or SMC
+version, smc_conn_create() creates a second link group and
+smc_lgr_register_conn() inserts the same alert node into it: the token
+loop is skipped, rb_link_node() links a node that is still in the old
+tree into the new one, and a second sock_hold() is taken where only one
+sock_put() will follow. The old group's terminator then keeps returning
+that node from rb_first() and can kill a connection that now belongs to
+the new group.
+
+smc_lgr_cleanup_early() also starts a second termination of the link
+group that is already being terminated, which takes lock_sock() on the
+socket the handshake worker holds; if the termination work wins the race
+instead, it later kills the freed connection and aborts the clcsock of a
+socket that has fallen back to TCP. Making the unregister unconditional
+also lets smc_conn_free() reach the delayed free work on a claimed link
+group, where the lockless freeing check can arm it after the owner has
+cancelled it.
+
+Always unregister the connection, claim a link group for termination
+once under lgr_lock, keep the link group alive across the abort, and arm
+the delayed free work only under the same lock and cancel it
+synchronously before the teardown. Drop an already freed connection in
+smc_conn_kill() without running the connection and socket teardown.
+
+Fixes: 2a0674fffb6b ("net/smc: improve abnormal termination of link groups")
+Fixes: f9aab6f2ce57 ("net/smc: immediate freeing in smc_lgr_cleanup_early()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Link: https://patch.msgid.link/20261106130457.1092203-1-mjambigi@linux.ibm.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/smc/af_smc.c   | 11 ++++---
+ net/smc/smc_core.c | 78 +++++++++++++++++++++++++++++++++-------------
+ net/smc/smc_core.h |  6 ++--
+ 3 files changed, 65 insertions(+), 30 deletions(-)
+
+diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+index 0d00fa56a9002..0adc46c691312 100644
+--- a/net/smc/af_smc.c
++++ b/net/smc/af_smc.c
+@@ -1010,14 +1010,15 @@ static void smc_conn_abort(struct smc_sock *smc, int local_first)
+ {
+ 	struct smc_connection *conn = &smc->conn;
+ 	struct smc_link_group *lgr = conn->lgr;
+-	bool lgr_valid = false;
+-
+-	if (smc_conn_lgr_valid(conn))
+-		lgr_valid = true;
++	bool lgr_valid = local_first && smc_conn_lgr_valid(conn);
+ 
++	if (lgr_valid)
++		smc_lgr_hold(lgr);	/* lgr_put below */
+ 	smc_conn_free(conn);
+-	if (local_first && lgr_valid)
++	if (lgr_valid) {
+ 		smc_lgr_cleanup_early(lgr);
++		smc_lgr_put(lgr);
++	}
+ }
+ 
+ /* check if there is a rdma device available for this connection. */
+diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+index 1f340de96ec83..982c9cf39ba6a 100644
+--- a/net/smc/smc_core.c
++++ b/net/smc/smc_core.c
+@@ -80,16 +80,21 @@ static void smc_ibdev_cnt_dec(struct smc_link *lnk)
+ 
+ static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
+ {
++	spinlock_t *lgr_lock;
++
+ 	/* client link group creation always follows the server link group
+ 	 * creation. For client use a somewhat higher removal delay time,
+ 	 * otherwise there is a risk of out-of-sync link groups.
+ 	 */
++	smc_lgr_list_head(lgr, &lgr_lock);
++	spin_lock_bh(lgr_lock);
+ 	if (!lgr->freeing) {
+ 		mod_delayed_work(system_wq, &lgr->free_work,
+ 				 (!lgr->is_smcd && lgr->role == SMC_CLNT) ?
+ 						SMC_LGR_FREE_DELAY_CLNT :
+ 						SMC_LGR_FREE_DELAY_SERV);
+ 	}
++	spin_unlock_bh(lgr_lock);
+ }
+ 
+ /* Register connection's alert token in our lookup structure.
+@@ -679,19 +684,34 @@ int smcd_nl_get_lgr(struct sk_buff *skb, struct netlink_callback *cb)
+ 	return skb->len;
+ }
+ 
+-void smc_lgr_cleanup_early(struct smc_link_group *lgr)
++/* Claim a link group for termination. Only one context can succeed: the
++ * lgr is removed from its list and marked freeing under lgr_lock.
++ * Returns false if @lgr is NULL or another context owns it.
++ */
++static bool smc_lgr_claim(struct smc_link_group *lgr)
+ {
+ 	spinlock_t *lgr_lock;
+ 
+ 	if (!lgr)
+-		return;
+-
++		return false;
+ 	smc_lgr_list_head(lgr, &lgr_lock);
+ 	spin_lock_bh(lgr_lock);
++	if (lgr->freeing || lgr->terminating || list_empty(&lgr->list)) {
++		spin_unlock_bh(lgr_lock);
++		return false;
++	}
+ 	/* do not use this link group for new connections */
+-	if (!list_empty(&lgr->list))
+-		list_del_init(&lgr->list);
++	list_del_init(&lgr->list);
++	lgr->freeing = 1;
+ 	spin_unlock_bh(lgr_lock);
++	return true;
++}
++
++/* The caller must keep @lgr alive for the duration of the call. */
++void smc_lgr_cleanup_early(struct smc_link_group *lgr)
++{
++	if (!smc_lgr_claim(lgr))
++		return;	/* another context owns the termination */
+ 	__smc_lgr_terminate(lgr, true);
+ }
+ 
+@@ -1260,10 +1280,12 @@ void smc_conn_free(struct smc_connection *conn)
+ 		if (current_work() != &conn->abort_work)
+ 			cancel_work_sync(&conn->abort_work);
+ 	}
+-	if (!list_empty(&lgr->list)) {
++	/* The handshake can retry another device or SMC version with this
++	 * connection, so it must never stay registered in an lgr it left.
++	 */
++	if (!list_empty(&lgr->list))
+ 		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
+-		smc_lgr_unregister_conn(conn);
+-	}
++	smc_lgr_unregister_conn(conn);
+ 
+ 	if (!lgr->conns_num)
+ 		smc_lgr_schedule_free_work(lgr);
+@@ -1498,6 +1520,15 @@ static void smc_conn_kill(struct smc_connection *conn, bool soft)
+ {
+ 	struct smc_sock *smc = container_of(conn, struct smc_sock, conn);
+ 
++	if (conn->freed) {
++		/* The connection was already freed, e.g. by a close or
++		 * a handshake that fell back to TCP. Do not abort a socket
++		 * that is no longer part of this link group.
++		 */
++		smc_lgr_unregister_conn(conn);
++		return;
++	}
++
+ 	if (conn->lgr->is_smcd && conn->lgr->peer_shutdown)
+ 		conn->local_tx_ctrl.conn_state_flags.peer_conn_abort = 1;
+ 	else
+@@ -1545,12 +1576,20 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
+ 	struct smc_connection *conn;
+ 	struct smc_sock *smc;
+ 	struct rb_node *node;
++	spinlock_t *lgr_lock;
+ 
+-	if (lgr->terminating)
++	smc_lgr_list_head(lgr, &lgr_lock);
++	spin_lock_bh(lgr_lock);
++	if (lgr->terminating) {
++		spin_unlock_bh(lgr_lock);
+ 		return;	/* lgr already terminating */
+-	/* cancel free_work sync, will terminate when lgr->freeing is set */
+-	cancel_delayed_work(&lgr->free_work);
++	}
+ 	lgr->terminating = 1;
++	spin_unlock_bh(lgr_lock);
++	/* The lgr is claimed, so no new free_work can be armed; wait for
++	 * one that is already queued or running.
++	 */
++	cancel_delayed_work_sync(&lgr->free_work);
+ 
+ 	/* kill remaining link group connections */
+ 	read_lock_bh(&lgr->conns_lock);
+@@ -1561,7 +1600,11 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
+ 		sock_hold(&smc->sk); /* sock_put below */
+ 		read_unlock_bh(&lgr->conns_lock);
+ 		lock_sock(&smc->sk);
+-		smc_conn_kill(conn, soft);
++		/* The connection may have been re-registered in another
++		 * link group by a retried handshake in the meantime.
++		 */
++		if (conn->lgr == lgr)
++			smc_conn_kill(conn, soft);
+ 		release_sock(&smc->sk);
+ 		sock_put(&smc->sk); /* sock_hold above */
+ 		read_lock_bh(&lgr->conns_lock);
+@@ -1575,17 +1618,8 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
+ /* unlink link group and schedule termination */
+ void smc_lgr_terminate_sched(struct smc_link_group *lgr)
+ {
+-	spinlock_t *lgr_lock;
+-
+-	smc_lgr_list_head(lgr, &lgr_lock);
+-	spin_lock_bh(lgr_lock);
+-	if (list_empty(&lgr->list) || lgr->terminating || lgr->freeing) {
+-		spin_unlock_bh(lgr_lock);
++	if (!smc_lgr_claim(lgr))
+ 		return;	/* lgr already terminating */
+-	}
+-	list_del_init(&lgr->list);
+-	lgr->freeing = 1;
+-	spin_unlock_bh(lgr_lock);
+ 	schedule_work(&lgr->terminate_work);
+ }
+ 
+diff --git a/net/smc/smc_core.h b/net/smc/smc_core.h
+index 69b54ecd65031..bc32e6c08fb56 100644
+--- a/net/smc/smc_core.h
++++ b/net/smc/smc_core.h
+@@ -288,9 +288,9 @@ struct smc_link_group {
+ 	struct delayed_work	free_work;	/* delayed freeing of an lgr */
+ 	struct work_struct	terminate_work;	/* abnormal lgr termination */
+ 	struct workqueue_struct	*tx_wq;		/* wq for conn. tx workers */
+-	u8			sync_err : 1;	/* lgr no longer fits to peer */
+-	u8			terminating : 1;/* lgr is terminating */
+-	u8			freeing : 1;	/* lgr is being freed */
++	u8			sync_err;	/* lgr no longer fits to peer */
++	u8			terminating;	/* lgr is terminating */
++	u8			freeing;	/* lgr is being freed */
+ 
+ 	refcount_t		refcnt;		/* lgr reference count */
+ 	bool			is_smcd;	/* SMC-R or SMC-D */
+-- 
+2.53.0
+
