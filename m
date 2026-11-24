@@ -1,60 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795533445;
-	b=Ryd0hi/hU8V41SHbytlPQnqDPRBkp4N1XOk57EMWS/CnHY+sRxcXK1MogP4ch9dH47Ij
-	 OJiD46ujGU2wjbkg005cr1gudrEccODXX1e38JXPhhBRG8Qc3wPP/XNvVkU0rMDFM76sJ
-	 9BrzevZCr3KU3Rhxe5En0IopnOO76YsZtCu2dzg50ZLNSFUZQe7I7A/d9L8hTkSNQgMTn
-	 LDRRisF3CXHRSwvYEVSxmuI5u35Hm4GZyb2Y8WYP0vyv0W8/+XyFUonwCK/3qEUZUf/0b
-	 9zAqswBDETi3keKCJ0UBzISpIMJSyAQt8vHGZxGGomgVyqVhdBDlKdzGtngxtq47oxQ==
+	t=1795533655;
+	b=lLhJaO0i/ingFisP2nRiTJv7PwAagnO5f6Y/Dxfng8WfpGOFjSiTCi4IQzXEWtk+JaI/
+	 UDlOwlsJUIwX02dTggsDBb9YyH+kFJGSkyJlV4G/C5W0ZHXQxcpoVTpOL9gWlqZLBZbP7
+	 LPsC8RQh+UEHeQtBu6fX9QdSHMyTKYSTU7JCKjkw3DqW+3EGVy575FEl4IJ2sidKvUgM/
+	 sdGR0MuN6x8cr2hSl3bBygonotv6STJc0Wscgi0pV/Iv2/BTYGxKdh7eFEp4HM1WFlje/
+	 uYvtg2BNTXupTVA8s8rVXE34D1LGU7gdyYqtmqcM4GGejN/uDjtIznijlYYG1RcOjDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533445;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=IaacVAvKGyMmPecRhuxGdgf3LN883I8nJRoVmWEAC8U=;
-	b=j+kALn02ml84GwP2nfZW/Uh+rqmGgcdLuC6uiMc5fWaoO+iF0wIdSCxCqw9FW+m2pokS
-	 l25jSXkHpHIOxRc91Ov4ws9d88c373sDNRgFdUAUjeDR38ZQm5T+tubbyKX6vIdJAjU2s
-	 oLFbx7YSx63kpJh5lHs2qrUC/0zLt6A4TegvZEZ9DnpZ3XYeM2IIRZ16Vo57ni55dzed0
-	 +u+YLTY71egGVjO5HtNerZg7nCofJ1sRShMww9S9Z7ulw8PCPgxz+20il4ShjP3sOEMCB
-	 s7FRo6HE2ZEq49+wHv8EAQSKmQ+8S+kTS3Zqo6zvadamEuitQrw91w5EQO8dBkV0lWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795533655;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=gSpkW3MOxOFAITrZEyN5ArohxbmkcLL8eZF7B6+jbus=;
+	b=SeihXETRgVuAY6tUbJxYmTmDdSyk0G/48b0EK+n8yI6FEUmSEXiYUmdO1LL2pk8FOSRj
+	 yCgsQUhoXh5ohJhl7165dOpkjd40s1MRmMfy84wqpieg3QRcho//VGCUs12eyJ1Am0zBP
+	 rBb0HribwNRJw60BF3kjr+vDQeSCZSKGeboQH2Sn3ZJDJBWR1RixPCn206cNwlckuuUbj
+	 rhFWK/hswzZs9aPs81VHhjvC9HnyTfNqh9AXZkzdbfMlfyHj0QM3J3hh0ZfeIK4NSmAil
+	 l+Bqd9hUZm6RtUkR7d1CK1N8Vmzka0gOIAVD46sWkKSwmqGg/YUDAprX4mrpYRelh/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=GmT5rvFJ;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jGrD8NKs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010C6606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:17:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 010C6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5FC606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:20:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=GmT5rvFJ
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261124151722euoutp021e94ecbee0b3c4e957f605fd15a1d68f~rBCcPLPWD2853028530euoutp02T
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 15:17:22 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261124151722euoutp021e94ecbee0b3c4e957f605fd15a1d68f~rBCcPLPWD2853028530euoutp02T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1795533442;
-	bh=IaacVAvKGyMmPecRhuxGdgf3LN883I8nJRoVmWEAC8U=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=GmT5rvFJ//Q0xjTnt1azHynt9KgxevYNbRk42IQr4pPkhx7CjTpVxdqpnyZZ+tfbl
-	 5lhLj+XQbwWkw6U/JcdvkoNY68kd0mOBRuPUDyQfIQlq0Ynjr1IhpH/2WMFmA6n57V
-	 bji+G50yBzT5nKPlz3Rj5K/sfdNGaWpsBmwDAzic=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261124151721eucas1p2767fd7a4a3036d2e7d11de472046c7e7~rBCb6IL8Y0751607516eucas1p2G;
-	Tue, 24 Nov 2026 15:17:21 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261124151720eusmtip10daeaa7910796136f5c7ea55a3ba4bd9~rBCagtcn-0894308943eusmtip1z;
-	Tue, 24 Nov 2026 15:17:20 +0000 (GMT)
-Message-ID: <42415609-c784-45d4-a79d-ef3cc5e6c3ef@samsung.com>
-Date: Tue, 24 Nov 2026 16:17:20 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jGrD8NKs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC4311F000C4;
+	Tue, 24 Nov 2026 15:20:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795533654;
+	bh=gSpkW3MOxOFAITrZEyN5ArohxbmkcLL8eZF7B6+jbus=;
+	h=Subject:To:Cc:From:Date;
+	b=jGrD8NKs8KKLa4zGwy4gHlnjyr82w7SAk+QTc1E+aoMUt1HpW/SsrpA41q0Dpnigv
+	 Ku6OP+xt5HOOIsju0rq9WsSHseoMWhbtiislPH2iiPLcfC+BKGx3asFFAjKF+MVQY9
+	 rrx5atl0tQO44Mx9qWPQXROlCQN180ZIYWG49swA=
+Subject: FAILED: patch "[PATCH] errseq: don't let errseq_check_and_advance() hide later" failed to apply to 6.12-stable tree
+To: jain.sm@gmail.com,brauner@kernel.org,jack@suse.cz,jlayton@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 24 Nov 2026 16:20:40 +0100
+Message-ID: <2026112440-lark-unfiled-3dec@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,107 +51,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] swiotlb: clear read bounce buffers on confidential
- guests
-To: Shukai Ni <shukai.ni@kuleuven.be>, Robin Murphy <robin.murphy@arm.com>,
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>
-Cc: Halil Pasic <pasic@linux.ibm.com>, Tom Lendacky
-	<thomas.lendacky@amd.com>, Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
-	<rick.p.edgecombe@intel.com>, Elena Reshetova <elena.reshetova@intel.com>,
-	Carlos Bilbao <carlos.bilbao@kernel.org>, linux-coco@lists.linux.dev,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>, Jason Gunthorpe <jgg@ziepe.ca>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261123205302.1034348-1-shukai.ni@kuleuven.be>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261124151721eucas1p2767fd7a4a3036d2e7d11de472046c7e7
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261123205317eucas1p2f96032281e0f5e9f17acc7ec343acced
-X-EPHeader: CA
-X-CMS-RootMailID: 20261123205317eucas1p2f96032281e0f5e9f17acc7ec343acced
-References: <CGME20261123205317eucas1p2f96032281e0f5e9f17acc7ec343acced@eucas1p2.samsung.com>
-	<20261123205302.1034348-1-shukai.ni@kuleuven.be>
-
-Hi!
-
-CCed Jason and Aneesh.
-
-On 23.11.2026 21:53, Shukai Ni wrote:
-> On confidential guests (AMD SEV, Intel TDX) all device DMA is bounced
-> through swiotlb, whose pool is shared with and readable by the untrusted
-> host. swiotlb_tbl_map_single() copies the destination buffer's current
-> contents into the bounce buffer at map time even for DMA_FROM_DEVICE. For
-> a reused read buffer that still holds private data, the host can read
-> that data from the bounce buffer before the device overwrites it.
->
-> For DMA_FROM_DEVICE into a host-shared pool, zero the bounce buffer
-> instead. Zeroing rather than skipping the copy keeps a short read from
-> returning a previous transfer's data.
->
-> Fixes: ddbd89deb7d3 ("swiotlb: fix info leak with DMA_FROM_DEVICE")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>
-> Signed-off-by: Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>
-> Signed-off-by: Shukai Ni <shukai.ni@kuleuven.be>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
 
-I'm not sure if DMA-mapping or SWIOTLB is the right place for such fixups.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Drivers should be aware that doing DMA from unsecure device to the given
-secure page might reveal its content to the host or other parties and
-prepare for that (like zeroing that page).
+To reproduce the conflict and resubmit, you may use the following commands:
 
-> ---
->
-> Notes:
->     We are open to discussing a different approach: e.g. clearing the
->     residual when read back, scrubbing slots on free, or extending zeroing
->     for bidirectional DMA.
->
->  drivers/iommu/dma-iommu.c | 3 ++-
->  kernel/dma/swiotlb.c      | 7 ++++++-
->  2 files changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 78742aeba..42e0bfced 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-> @@ -1187,7 +1187,8 @@ static phys_addr_t iommu_dma_map_swiotlb(struct device *dev, phys_addr_t phys,
->  	 * Untrusted devices should not see padding areas with random leftover
->  	 * kernel data, so zero the pre- and post-padding.
->  	 * swiotlb_tbl_map_single() has initialized the bounce buffer proper to
-> -	 * the contents of the original memory buffer.
-> +	 * the contents of the original memory buffer, or to zero for a read on
-> +	 * a confidential guest.
->  	 */
->  	if (phys != (phys_addr_t)DMA_MAPPING_ERROR && dev_is_untrusted(dev)) {
->  		size_t start, virt = (size_t)phys_to_virt(phys);
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index 786954bc5..351bc7c54 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-> @@ -1630,8 +1630,13 @@ phys_addr_t swiotlb_tbl_map_single(struct device *dev, phys_addr_t orig_addr,
->  	 * the original data, even if it's garbage, is necessary to match
->  	 * hardware behavior.  Use of swiotlb is supposed to be transparent,
->  	 * i.e. swiotlb must not corrupt memory by clobbering unwritten bytes.
-> +	 * Exception: on a confidential guest the bounce buffer is host-shared,
-> +	 * so for a read zero it before sharing.
->  	 */
-> -	swiotlb_bounce(dev, tlb_addr, mapping_size, DMA_TO_DEVICE, pool);
-> +	if (dir == DMA_FROM_DEVICE && mem->cc_shared)
-> +		memset(pool->vaddr + tlb_addr - pool->start, 0, mapping_size);
-> +	else
-> +		swiotlb_bounce(dev, tlb_addr, mapping_size, DMA_TO_DEVICE, pool);
->  	return tlb_addr;
->  }
->  
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 94defd41d80f10bbe883c0c8d1b28d1665b6b153
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112440-lark-unfiled-3dec@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 94defd41d80f10bbe883c0c8d1b28d1665b6b153 Mon Sep 17 00:00:00 2001
+From: Shashank Mohan Jain <jain.sm@gmail.com>
+Date: Sun, 27 Sep 2026 10:47:25 +0530
+Subject: [PATCH] errseq: don't let errseq_check_and_advance() hide later
+ errors
+
+errseq_check_and_advance() reads the errseq_t, sets ERRSEQ_SEEN with a
+cmpxchg() and then advances *since to the value it computed, ignoring
+whether the cmpxchg() succeeded. When it fails because errseq_set()
+recorded a different error in the meantime, *since ends up holding a
+value that was never stored in the errseq_t.
+
+errseq_set() only bumps the counter when ERRSEQ_SEEN is set. So as long
+as nobody has seen the new error, recording the original errno again
+recreates exactly the old value, and once another subscriber marks it
+seen, it is equal to the stale *since. The next check through that
+cursor then reports nothing, although -ENOSPC was recorded after the
+value that check reported, and -EIO was recorded again after it
+returned:
+
+  cursor f                writeback              cursor g
+  --------                ---------              --------
+                          set(-EIO)
+  check_and_advance(&f)
+    old = [c, EIO]
+                          set(-ENOSPC)
+                          -> [c, ENOSPC]
+    cmpxchg() fails
+    f = [c, EIO, SEEN]
+    returns -EIO
+                          set(-EIO)
+                          -> [c, EIO]
+                          (no bump: unseen)
+                                                 check_and_advance(&g)
+                                                 -> [c, EIO, SEEN]
+                                                 returns -EIO
+  check_and_advance(&f)
+    [c, EIO, SEEN] == f
+    returns 0             <- -ENOSPC and the second -EIO are lost
+
+For file->f_wb_err this means that fsync() on one descriptor can return
+0 although writeback failed after the previous fsync() on that
+descriptor returned, when writeback errors race with fsync() on another
+descriptor of the same file. The same applies to syncfs() through
+sb->s_wb_err, which every file on the filesystem shares, and to the
+ext4 and jbd2 cursors on the block device mapping. The kernel-doc
+promises "Negative errno if one has been stored, or 0 if no new error
+has occurred".
+
+Retry with the value found when the cmpxchg() fails, so that *since is
+only ever advanced to a value that was actually stored with ERRSEQ_SEEN
+set. Every later errseq_set() then has to bump the counter, and the
+error is reported. The retry loop terminates because each iteration
+needs a concurrent update, like the loop in errseq_set().
+
+A TLA+ model of errseq_set() and errseq_check_and_advance(), checked
+with the TLC model checker, finds the lost error with the current code;
+with this change TLC checks that an error recorded after a check
+returned is always reported by the next check (exhaustively for two
+subscribers with three checks each, and one writer recording four
+errors or two writers recording two each). The KUnit race test added
+in the next patch misses the error in 1-6% of 2 million rounds on
+4-CPU UML before this change (depending on host load), and in none
+after it.
+
+Fixes: 84cbadadc6ea ("lib: add errseq_t type and infrastructure for handling it")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
+Link: https://patch.msgid.link/20260927051726.71337-2-jain.sm@gmail.com
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+diff --git a/lib/errseq.c b/lib/errseq.c
+index 13a2581c5a87..ea4ff9cc2166 100644
+--- a/lib/errseq.c
++++ b/lib/errseq.c
+@@ -162,7 +162,8 @@ EXPORT_SYMBOL(errseq_check);
+  * points to. If it does, then just return 0.
+  *
+  * If it doesn't, then the value has changed. Set the "seen" flag, and try to
+- * swap it into place as the new eseq value. Then, set that value as the new
++ * swap it into place as the new eseq value. If the swap fails because the
++ * value changed, retry with the new value. Then, set that value as the new
+  * "since" value, and return whatever the error portion is set to.
+  *
+  * Note that no locking is provided here for concurrent updates to the "since"
+@@ -184,24 +185,30 @@ int errseq_check_and_advance(errseq_t *eseq, errseq_t *since)
+ 	 * to take the lock that protects the "since" value.
+ 	 */
+ 	old = READ_ONCE(*eseq);
+-	if (old != *since) {
++	while (old != *since) {
+ 		/*
+ 		 * Set the flag and try to swap it into place if it has
+ 		 * changed.
+ 		 *
+-		 * We don't care about the outcome of the swap here. If the
+-		 * swap doesn't occur, then it has either been updated by a
+-		 * writer who is altering the value in some way (updating
+-		 * counter or resetting the error), or another reader who is
+-		 * just setting the "seen" flag. Either outcome is OK, and we
+-		 * can advance "since" and return an error based on what we
+-		 * have.
++		 * If the swap fails, a writer or another reader changed the
++		 * value under us, so retry with the new value.  "since" must
++		 * only ever be set to a value that was stored with the SEEN
++		 * flag: errseq_set() does not bump the counter while the
++		 * flag is clear, so an unstored value could come back later
++		 * and hide the errors that were recorded in the meantime.
+ 		 */
+ 		new = old | ERRSEQ_SEEN;
+-		if (new != old)
+-			cmpxchg(eseq, old, new);
++		if (new != old) {
++			errseq_t cur = cmpxchg(eseq, old, new);
++
++			if (cur != old) {
++				old = cur;
++				continue;
++			}
++		}
+ 		*since = new;
+ 		err = -(new & ERRNO_MASK);
++		break;
+ 	}
+ 	return err;
+ }
 
