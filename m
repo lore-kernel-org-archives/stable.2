@@ -1,73 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795530293;
-	b=jHKj5foJa+n4YUTZ98TPJF63sQC0QwtYFEyTA1w4nPBlpka16effrSWUOLhpVA+nz2QZ
-	 44qoKRbeEgXNlocoAXaQwHQ2Tnd5DpnHzBmiOUt6EkzAPZl+GR/4tKs/wGM6GqEeM68y3
-	 HMlgRF4l41U2u9QC9rfFd4/LgdnDX9Vo41NeZIKSMM0QnVuGlysfsgMsvcvtlFLUdPFNg
-	 lkwzhs4J0wURvcHDJSNYkRWx35BGFesedCo+vswV1+9PjyUAFSRkO9Vokyei2A+FQAXHk
-	 rltwe7XoYYyI7PdxDqAHIXpgUs/KuO+JWaJcwfs1LvfP5AKhbaqFMc5Lwg5O8QkKl7w==
+	t=1795530413;
+	b=m7aP1Yyc8iJDoPUbRVy+mAI5BGZt5ZWswMa7+mZuuvTnXLrfODsT3Xglp4PoOSiI7/Dt
+	 u2nBW1NDu/LIxMkX1RTHqZ8OpMrr7lr/VjDjwgo1VqpA3o3/qa+gVUBbCgGT/Z73ZD4r4
+	 fEGPML7RDFHO6/h8B4XCZP3GSZG6/JljWmXVuC4LC5OTEK45ehwDGmDlDx3h5InLOuP29
+	 flPP6f+cx4xevpnhFjfD7tRDHRHUrA/dji/f6fjo6mt7Y8vglpqgXjOY4jRGYZL82STK0
+	 JGqrZPFZDuEPXFHkUD51ddow3U+ONjrEvWw0OUncSONlKXU4SfQDP2ky9n9OIPWxXnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795530293;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=YSiUJXA7jP1X5fyNltCeT27Ku9O4ReEnxhpFpx6/UHk=;
-	b=w+lqaKd6udnPXWZgl9SuGsp3TMQS2YJunUtfHBCOVD8mxKtG8qhn0Mv1mI2jSuam25eH
-	 nq1gzE8pfZ6pIEen2g34uw5011myzRXVSWLtOwHONjTm2YyWgIYUQBt841WO+jDrnF4nj
-	 wytRnF1brpEh37rFWqhei4eBDXslUfKIcN9VJYCuIIfFtg9YcD2GYND4UY019r+7jBNO1
-	 Zwwwe6/HAMbYA6jdgd8ptAIJVc15hKf/ZJbKgshLaCS8OATQU+QEnKtHUokLuoBJxpdOp
-	 zpMzOSlE3USQHZOxTKe8/t3ua+IGIYK6vqUGLr9NcIaaTsF9FKwG7i6sctKGEhWKz1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795530413;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=mTwBFRyFSROWCnCFCSSel89ouxGBgoxE6b1oZnyUXq4=;
+	b=wE9dX2kk6M7avozW0o+Je6gCmHzmv3nUHYQDmOd1jNQ/aOq5blqh/ga/HVa2m8G81rnP
+	 3mzvVTZod9Chl1W3imuj9pVCdcdZ2xmM5VnF31jYqLjpg+VO7BkPYYGmpGfoszkZWt7JF
+	 1+6qyrcMdeULMG7rguLLTnMYgpPG10sgJnWZCYuON8R5h+LTyfC4yEahES8V747GU3Etq
+	 h2DD6VNHJwCbZwDyUMK7k2Ea5mzQ7M46KKnES5XCP55TVwF3S+jdxaeyQvncjiCmyljvJ
+	 yWSvt07nvnzlm9y1Sfm5wKdmfo10++Ryn4vOQodfxDmvUsB7YYQ0/6iazu/WvJ9v1IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtRH6YKs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5UEACMU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C56606A339;
-	Tue, 24 Nov 2026 14:24:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B17606A321;
+	Tue, 24 Nov 2026 14:26:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtRH6YKs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EBBA1F000D1;
-	Tue, 24 Nov 2026 14:24:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5UEACMU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0CC91F000C6;
+	Tue, 24 Nov 2026 14:26:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795530293;
-	bh=YSiUJXA7jP1X5fyNltCeT27Ku9O4ReEnxhpFpx6/UHk=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=gtRH6YKsamtR0aVi/9eOGDXcQx14AzLXV/2+2FHuztbKotP6nOxCMWXCidG62DRix
-	 Iob6B/l07YW7Of8bOJLmeJR0QMgsoZiWl+maRfTCBISS2+FV6VG0KwQWFURGzunToW
-	 DPBRpQjhqBoe9UujZ9gq+9LVUXQFZ1xrb7zZeoTy+EQu944lcrlXK/ob++s+meoMLX
-	 C1NUCkVvpj49+I8Df1BmWJJYpKeMSDQ+SCZXpPDF2AvDhQ/gPGLbScotcOjMMsF4HP
-	 pkDHT0lTaLnPhbKNrhWp2el1SQ0QBuOEA0m29Wlnjp5ox8CpD38uLO6oh+UCqZGcJU
-	 sKu8fhIKmh8wQ==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 8A8A2198004A;
-	Tue, 24 Nov 2026 09:24:50 -0500 (EST)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Tue, 24 Nov 2026 09:24:50 -0500
-X-ME-Sender: <xms:MJ4FayrenX1n_QQ0UBReEj_-07DSJWaMmVBp2XvjFkCJ1tkDuU-QwA>
-    <xme:MJ4Fa7cnGGhdnEL8OGcY7J7pVyM_DC431gulx6ANHeDPl9jUs7MESVUApfeMmxi71
-    hEnv3w6QmPb-BLpk9UjY91NnagWQWJqQpH12ox2CX6M-lnacCrvbVqn>
-X-ME-Proxy-Cause: dmFkZTEeI/VnZe3weSWJvKW4r0xqOAy6MhJ+KiOnoSatFvw6iRFZYsuXQhPELvhnCaRO+1
-    JqSb2F5VWzYIFdhpnFcny4u4+3aL6ttqF8MtzE0N8SlJ0nNJYKq46flGe1YKof+yLnL0Wz
-    eIWIbbvsRdGWkfh8UrW3nwlVF7uk4SRLwgtlbnPu43ADGDGgPe/TxSyXFKiWzqdUeS6zsD
-    T5xNZTGCszj+x+ULiYehxvWxQGnQtMe/APAs9MfcHYnjitR4RLAxpab7l8kCuysqgEENbo
-    b57SGYKzrA4wubz8KkpVKEYRw4tpb2RvyqzOgP61zipcHFvdmAYu+dppqsYr3ZxgoYP7Sm
-    C46rafMMqhU2GamcpYuDPI4HisZ0cNhMCi3/dKSpun06BIDvlHEASXYaienwZkmLy/JGVh
-    V9QpE92cOOHCVWvQlCxHGf8GFM0VLDzOqzc26+dWmZyaLMsd8IkhBtkxL7tNvTur9fEdx3
-    taxce8jltwROINC960VBm9txVWG+o1HWrlvYxDR8rjLEWm63L1oE9bT9od5we6hm5l2IfI
-    fM6sfenhyu185ozy8X12qsiZRB4FEC4A84kyqRIQLjfA6zuuE/2uOKVlmflrp5x3fNsWPn
-    292TRVFsRjxi6KB3AJ5GpN4h78/XIMkewDc3fb/QF8GRG/5pVROERyD/yFgg
-X-ME-Proxy: <xmx:Mp4Fa9tfHYrXTjLQZm_cV3iud42zmSDNuIAscAg_nNTbefjopO8xJA>
-    <xmx:Mp4Fa1iN7QjcwxwND5oAuWBGtvu_IWGk3F0z2CaGx4zyVAkTkQpK0w>
-    <xmx:Mp4Fa2_8zmoZMV0IpaoWT61EVDQxQpwgerMl0SYVgkYwnSNFfpAgEw>
-    <xmx:Mp4FawtTKt6VP3ZIVGlIkoNvhElgAFrFm8vj9lJgbOV4sS_jiSE_Cw>
-    <xmx:Mp4FayrMA9_19elOiI5ThEPT0njd2fc3dnj5jaswKgTYEBLhySNFQ5Pb>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 9D78CF8009A; Tue, 24 Nov 2026 09:24:48 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1795530413;
+	bh=mTwBFRyFSROWCnCFCSSel89ouxGBgoxE6b1oZnyUXq4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=n5UEACMURgjfpgLFKrsVZFmC2awe4D2PQaskzHFD4iJKlNUhanPH9qPBzrspXZY91
+	 baGS4Fj1wT/jhTrGgr7T1gMIx0J3gfqmR77tS6normc8sU1b6DqOcRfcJJ1YgxX9hb
+	 OT5lNHfWt0gW3ayaKFpt/Pi55o0akAfLOAe+1s/I8SRbMktmNzMAKx+UwcCA264ZtM
+	 snimwJfXoSB3HZeOoF5i+K2nfaLIteU4laOZv3YWc3kyo8xdD0g6i3XmkehtZMxa+U
+	 Es/BMhvxtxpu3zTaohOPN1BTmL0Kh67iz83EfFLMYmRWG0r5WehR6lLFK3cG4Cbvgf
+	 kTEwORPTf0lYg==
+Subject: Re: [PATCH net 04/10] mptcp: fix use-after-free of the subflow
+ context on the delegated list
+From: netdev-bot+sashiko@kernel.org
+To: matttbe@kernel.org
+Cc: edumazet@kernel.org, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, willemb@google.com, horms@kernel.org, martineau@kernel.org,
+ geliang@kernel.org, cpaasch@openai.com, fw@strlen.de, netdev@vger.kernel.org,
+ mptcp@lists.linux.dev, dcaratti@redhat.com, mason@kernel.org,
+ stable@vger.kernel.org, ncardwell@google.com, kuniyu@google.com, kafai@fb.com,
+ daniel@iogearbox.net, ast@kernel.org, martin.lau@kernel.org,
+ bpf@vger.kernel.org
+Date: Tue, 24 Nov 2026 14:26:51 +0000
+Message-ID: <179553041150.3135.10012593386905502123@kernel.org>
+In-Reply-To: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-4-278042217e8d@kernel.org>
+References: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-4-278042217e8d@kernel.org>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,63 +67,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: ApnSy8YMrSZR
-Date: Tue, 24 Nov 2026 15:24:28 +0100
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Sebastien WENSKE" <sebastien@wenske.fr>, linux-efi@vger.kernel.org
-Cc: swenske@veepee.com, "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "James Le Cuirot" <chewi@gentoo.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Message-Id: <c753baad-b5e3-4e9e-9af1-ae146bc908d9@app.fastmail.com>
-In-Reply-To: <20261124140640.0f627d7e212c@wenske.fr>
-References: <20261012133712.618913-1-sebastien@wenske.fr>
- <37c38d1e-03cc-44ae-b617-d45fbf80acc5@app.fastmail.com>
- <20261124140640.0f627d7e212c@wenske.fr>
-Subject: Re: [PATCH] efi/libstub: Allocate the INITRD table in ACPI reclaim memory
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
+Low priority / nit picks for your consideration:
 
-On Tue, 24 Nov 2026, at 15:06, Sebastien WENSKE wrote:
-> On Tue, 24 Nov 2026, at 12:38, Ard Biesheuvel wrote:
->> There was a report recently about EFI_ACPI_RECLAIM_MEMORY being
->> problematic in combination with hibernate, as those regions tends
->> to move around.
->>
->> Can you try this fix instead please?
->>
->> https://git.kernel.org/pub/scm/linux/kernel/git/efi/efi.git/commit/?h=urgent&id=6863183e8b65e833f8140e20d526282a725e040e
->
-> Hello Ard,
->
-> It works, thanks - please consider my patch withdrawn.
->
-> Tested on x86_64 under QEMU/KVM (q35, SMM) with Debian's OVMF
-> 2025.02, both the plain and the Secure Boot capable builds (no keys
-> enrolled), the kernel booted as a systemd-stub UKI (initrd through the
-> LINUX_EFI_INITRD_MEDIA_GUID device path), then kexec'd twice in a row
-> with kexec_file_load() and an initrd:
->
-> - v7.2.10, the setup of my report: without any patch the kexec'd
->   kernel oopses in tcp_parse_options+0xe7 again, 16 bytes of its text
->   zeroed at the stale table's address (0x1d4bcf98). With your patch
->   both kexec'd kernels log
->
->     efi: ... (MEMATTR=0x1d4b9018 unusable) (INITRD=0x1d4bcf98 unusable)
->
->   and run normally.
->
-> - v7.3.6, with a debug print before the wipe: without a fix the
->   kexec'd kernels read what looks like their own text at the table's
->   address (e.g. base 0x74fb894800000002 size 0x7400000208b73b26) and
->   clear it, without any visible failure this time. With your patch the
->   table is disregarded and the wipe never runs - also with the flash
->   locked to SMM (-global driver=cfi.pflash01,property=secure,value=on).
->
-> - v6.18.65: applies, both kexecs fine.
->
-> Tested-by: Sebastien WENSKE <sebastien@wenske.fr>
->
+- [Low] The comment in the sock_owned_by_user() branch of
+  mptcp_napi_poll() (net/mptcp/protocol.c) is now wrong for the case…
 
-Excellent!
+--
+
+mptcp: fix use-after-free of the subflow context on the delegated list
+
+This fixes a use-after-free. subflow_ulp_release() frees the subflow
+context with kfree_rcu() while the context is still linked on the per-CPU
+delegated napi list. A new MPTCP_DELEGATE_DEAD bit hands the free to
+mptcp_napi_poll() when the subflow is scheduled, skips delegated actions
+for dead contexts, and moves delegated_status out of struct_group(reset).
+
+> diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+> index 50c294d925b0c..23d35f43b566e 100644
+> --- a/net/mptcp/protocol.c
+> +++ b/net/mptcp/protocol.c
+
+[ ... ]
+
+> @@ -4803,10 +4803,13 @@ static int mptcp_napi_poll(struct napi_struct *napi, int budget)
+>  	delegated = container_of(napi, struct mptcp_delegated_action, napi);
+>  	while ((subflow = mptcp_subflow_delegated_next(delegated)) != NULL) {
+>  		struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
+> +		long status;
+>  
+>  		bh_lock_sock_nested(ssk);
+>  		if (!sock_owned_by_user(ssk)) {
+> -			mptcp_subflow_process_delegated(ssk, xchg(&subflow->delegated_status, 0));
+> +			status = xchg(&subflow->delegated_status, 0);
+> +			if (!(status & BIT(MPTCP_DELEGATE_DEAD)))
+> +				mptcp_subflow_process_delegated(ssk, status);
+>  		} else {
+>  			/* tcp_release_cb_override already processed
+>  			 * the action or will do at next release_sock().
+> @@ -4814,11 +4817,15 @@ static int mptcp_napi_poll(struct napi_struct *napi, int budget)
+>  			 * CPU that scheduled it.
+>  			 */
+>  			smp_wmb();
+> -			clear_bit(MPTCP_DELEGATE_SCHEDULED, &subflow->delegated_status);
+> +			status = set_mask_bits(&subflow->delegated_status,
+> +					       BIT(MPTCP_DELEGATE_SCHEDULED), 0);
+
+[Severity: Low]
+This isn't a bug, but is the comment above this branch still accurate
+once MPTCP_DELEGATE_DEAD is set?
+
+The comment says tcp_release_cb_override "already processed the action or
+will do at next release_sock()". However, every path that reaches
+mptcp_subflow_free_ctx() runs after mptcp_subflow_ops_undo_override() has
+restored ssk->sk_prot to plain tcp_prot/tcpv6_prot:
+
+net/mptcp/subflow.c:subflow_ulp_release() {
+    ...
+	mptcp_subflow_ops_undo_override(ssk);
+	if (release)
+		mptcp_subflow_free_ctx(ctx);
+}
+
+mptcp_subflow_drop_ctx() reaches the same undo through
+subflow_ulp_fallback(). __mptcp_close_ssk() only calls
+mptcp_subflow_free_ctx() when icsk_ulp_ops is already NULL.
+
+So for a dead context, the next release_sock() calls tcp_release_cb()
+rather than tcp_release_cb_override(). Any pending action bits are dropped,
+and the commit message says that is intended ("the pending actions must not
+run").
+
+A dead context can reach this branch. __mptcp_close_ssk() holds
+lock_sock_nested(ssk) across this chain:
+
+__tcp_close()->inet_csk_destroy_sock()->tcp_cleanup_ulp()->
+    subflow_ulp_release()->mptcp_subflow_free_ctx()
+
+That means a concurrent mptcp_napi_poll() can see sock_owned_by_user(ssk)
+after DEAD has been set.
+
+Could the comment be updated to say that dead contexts have their pending
+actions discarded here? It could also mention that status is captured so
+the context can be freed with kfree_rcu() after bh_unlock_sock() and
+sock_put().
+
+>  		}
+>  		bh_unlock_sock(ssk);
+>  		sock_put(ssk);
+>  
+> +		if (status & BIT(MPTCP_DELEGATE_DEAD))
+> +			kfree_rcu(subflow, rcu);
+> +
+>  		if (++work_done == budget)
+>  			return budget;
+>  	}
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261123-net-mptcp-misc-fixes-7-4-rc5-v1-0-278042217e8d%40kernel.org
