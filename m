@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795536808;
-	b=q0HlF18+tjoyW1r1y7LmiAS/XZKndKnkcIi0ZH1ivJ04GjMKd1oaPHQoq1pmaSrfkCAv
-	 KAPrEnfM3bhoSRabgvKCzT8KUo64x9+WdcrJZa4LvcMeJX4THH6RKM4o1RPfJI6bY4cnj
-	 7psgxlS6ZrIKzUIdJhG8lQ7jMvW53ogLDVq4imHb6hlzJ/sxgy3LZGUoBdzSduCM8rBfJ
-	 Yi6qIy3hCGHdveh0XZKNHwR8O6O/ShFrVd+ptKLIDlWhnFS+3ydXmiiVX9vfg032NcnkO
-	 Fsc46J8QVGtW0ndkbjAfy1CZfO6VgB7H5Ym0JJEhMCgFyrZvKevhTpEpMZyuAWwoRrw==
+	t=1795536811;
+	b=KZX3Hqu/9vdxG8HMtJFQqfwrl3EFVm2xCGoW5ORWthQEJZehMRObg79nVf0bBuMKn5zv
+	 y06IULV5S+xRmzAQd5r8CzWGQb1Kb45r8GWdMOuarm5rlYiAydXQryzn3dmZrbbr1kqf/
+	 MKXg1l5t18oTQOMpEIWB9ELpEVpI6dJYoLyeyB9B5oFCUAxUoLpM7E9ojjVjc4495l9/C
+	 yOlgiRWkbvmVXpJXE78g0iXlXDrZBPLiZqubTpRm3tO15d9PlTXbrxfXZYecwtFOA6iMI
+	 259SVv8DIbRm1wB5lnYIalTeVrI3S7ccwN18ofNpXVQCf9zww6Bi+MEDOHfXNilz7tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795536808;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795536811;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=9qkIA4osyJB1IdKouCVst5K59UW4RbBPM1EDPpjobto=;
-	b=gh9O7NZtKRy0CPoWwBxzpeWkrkyQm+ZJdle2tkGSz1RzQM1pdEeP8GzYkGliKTu9m6fj
-	 ch2FZto4OZ+LcBoRzEmP+/OnfNQ2R7cNBmcZh+msrP09sRfNHG0C/Ea78UziqYcMvqHUS
-	 FXa0ubYFh+uxI3QKU8vmnuW2vCeenibNeoWpOJA6oXoZ2tTyVGzxBzZgaNbbkDrcFQfEi
-	 OWPe6jGOCxXYLotZ61o+3l1+CUzUxqF/uH8BFOU0Sdli71O+mLr+E0qitzkK2RrriQiLE
-	 tj7lXvPc0beNLAc2IhVdJ9XD83NA9O7xQt8dg3dNpO921GfzkF06VUiqco1m4QQ5PmA==
+	bh=ygmh6x4s8y4UYUbIDkaJBgv4POTnvtCO/UnLp5JA/pk=;
+	b=5j1IeWUI2gUfgD8h3uWFdMvczwrhufR8TnYgfOwS/tqc3PrizaznEVpKtuHvkDRLcYrG
+	 jO3PCwDZbsUo3RrLaFF75O1RxhLWZKBTEPYzmjWmU1wpOKey77ZsOFpbnf/e6bPwN0Khc
+	 LbohOpSJsffzqug+TfNkw3cZleQfZ6JtAA+YFRnnmLLmHSVEPvdInfMwRFirynAIDgM56
+	 nQMaxaadO566LHfCSz8arhOIZoRrF2hvTfA3c1s8lDcFIjH093p8anxoLxQN6eJHRP8Iq
+	 onnJ7i1grgzQc4wOmGTV7zRxaHmdgdIBcZUWYXuJajwjPbHaqGniz4Jb5cIIMTe9KPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WZbJt6h0;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=as6KQaC4;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D18606A333
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:13:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82D18606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D51606A32A
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:13:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33D51606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WZbJt6h0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=as6KQaC4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795536806;
+	s=mimecast20190719; t=1795536810;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9qkIA4osyJB1IdKouCVst5K59UW4RbBPM1EDPpjobto=;
-	b=WZbJt6h0mYSlxpdUnoM15yUhY2QjfUV6QOU6b8Hom4DH4o/lWsQdFtNoYfUgbCA7Wnqx2t
-	/kCDO3f7HeeWrTjH/tq0i5fJi9jraYE/PFmBG/c7SqCD4yU3bqqVSLbpCQtaapGVimSU89
-	B7zhL+I8vZWhXWx04EKQe7XL8m/ZcHU=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+	bh=ygmh6x4s8y4UYUbIDkaJBgv4POTnvtCO/UnLp5JA/pk=;
+	b=as6KQaC4oR01+rb1sts2r8vHuCoP+7uOvRVOdGHmnQIBmM83/nou/MjbTlSOJg1wu0TExX
+	ZEmZYlHvZqRfEpNWaZpRYG6aEPhQxvOhThMODZP3F9MmAQxeHuUj4GeRo9+/49UBZxWlpb
+	FwsOGZEsLdr9iNBxv6ctDZ3uJezP820=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-641-o3FLZbRIMjencDNElJmXnQ-1; Tue,
- 24 Nov 2026 16:13:22 +0000
-X-MC-Unique: o3FLZbRIMjencDNElJmXnQ-1
-X-Mimecast-MFC-AGG-ID: o3FLZbRIMjencDNElJmXnQ_1795536799
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-136-xNhmy4lbObiLCKS_W3atDg-1; Tue,
+ 24 Nov 2026 16:13:24 +0000
+X-MC-Unique: xNhmy4lbObiLCKS_W3atDg-1
+X-Mimecast-MFC-AGG-ID: xNhmy4lbObiLCKS_W3atDg_1795536802
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 634A2195609F;
-	Tue, 24 Nov 2026 16:13:18 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 94B9B1955F38;
+	Tue, 24 Nov 2026 16:13:22 +0000 (UTC)
 Received: from dhowells-thinkpadp1gen8.rmtgb.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E72AA30001B9;
-	Tue, 24 Nov 2026 16:13:14 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id BC6411801A60;
+	Tue, 24 Nov 2026 16:13:19 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: netdev@vger.kernel.org
 Cc: David Howells <dhowells@redhat.com>,
@@ -73,9 +73,9 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	Jeffrey Altman <jaltman@auristor.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v3 01/10] rxrpc: Fix incorrect unit conversion
-Date: Tue, 24 Nov 2026 16:12:49 +0000
-Message-ID: <20261124161302.4044422-2-dhowells@redhat.com>
+Subject: [PATCH net v3 02/10] rxrpc: Fix time unit conversion truncation
+Date: Tue, 24 Nov 2026 16:12:50 +0000
+Message-ID: <20261124161302.4044422-3-dhowells@redhat.com>
 In-Reply-To: <20261124161302.4044422-1-dhowells@redhat.com>
 References: <20261124161302.4044422-1-dhowells@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
@@ -88,10 +88,14 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Fix a place in rxrpc_rack_update() where it's mixing a value in
-microseconds with a value in nanoseconds.
+Fix three integer truncations on 32-bit arches in which a time unit
+conversion is performed that multiplies a 32-bit microsecond value by a
+largish number without first casting it to a 64-bit number.
+
+One of these bugs was found by Sashiko and the other two by Claude-opus-5-5
+run locally.
 
 Fixes: 7c482665931b ("rxrpc: Implement RACK/TLP to deal with transmission stalls [RFC8985]")
 Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020201258.290827-1-dhowells%40redhat.com
@@ -106,20 +110,48 @@ cc: Simon Horman <horms@kernel.org>
 cc: linux-afs@lists.infradead.org
 cc: stable@vger.kernel.org
 ---
+ net/rxrpc/call_event.c | 2 +-
+ net/rxrpc/input.c      | 2 +-
  net/rxrpc/input_rack.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/net/rxrpc/call_event.c b/net/rxrpc/call_event.c
+index 21be9c86d7a7..b102a055c2e0 100644
+--- a/net/rxrpc/call_event.c
++++ b/net/rxrpc/call_event.c
+@@ -45,7 +45,7 @@ void rxrpc_propose_delay_ACK(struct rxrpc_call *call, rxrpc_serial_t serial,
+ 	trace_rxrpc_propose_ack(call, why, RXRPC_ACK_DELAY, serial);
+ 
+ 	if (call->srtt_us)
+-		delay = (call->srtt_us >> 3) * NSEC_PER_USEC;
++		delay = ns_to_ktime((u64)call->srtt_us * (NSEC_PER_USEC / 8));
+ 	else
+ 		delay = ms_to_ktime(READ_ONCE(rxrpc_soft_ack_delay));
+ 	ktime_add_ms(delay, call->tx_backoff);
+diff --git a/net/rxrpc/input.c b/net/rxrpc/input.c
+index 73cafe6bfa9f..bda6e7d77013 100644
+--- a/net/rxrpc/input.c
++++ b/net/rxrpc/input.c
+@@ -185,7 +185,7 @@ void rxrpc_congestion_degrade(struct rxrpc_call *call)
+ 	    __rxrpc_call_state(call) == RXRPC_CALL_CLIENT_AWAIT_REPLY)
+ 		return;
+ 
+-	rtt = ns_to_ktime(call->srtt_us * (NSEC_PER_USEC / 8));
++	rtt = ns_to_ktime((u64)call->srtt_us * (NSEC_PER_USEC / 8));
+ 	now = ktime_get_real();
+ 	time_since = ktime_sub(now, call->tx_last_sent);
+ 	if (ktime_before(time_since, rtt))
 diff --git a/net/rxrpc/input_rack.c b/net/rxrpc/input_rack.c
-index 9eb109ffba56..edd0dee8ac32 100644
+index edd0dee8ac32..24903eb722b9 100644
 --- a/net/rxrpc/input_rack.c
 +++ b/net/rxrpc/input_rack.c
-@@ -75,7 +75,7 @@ static void rxrpc_rack_update(struct rxrpc_call *call,
- 		/* Use Rx.serial instead of TCP.ACK.ts_option.echo_reply. */
- 		if (before(call->acks_highest_serial, tq->segment_serial[ix]))
- 			return;
--		if (rtt < minmax_get(&call->min_rtt))
-+		if (rtt < us_to_ktime(minmax_get(&call->min_rtt)))
- 			return;
- 	}
+@@ -296,7 +296,7 @@ ktime_t rxrpc_tlp_calc_pto(struct rxrpc_call *call, ktime_t now)
  
+ 	if (call->rtt_count > 0) {
+ 		/* Use 2*SRTT as the timeout. */
+-		pto = ns_to_ktime(call->srtt_us * NSEC_PER_USEC / 4);
++		pto = ns_to_ktime((u64)call->srtt_us * (NSEC_PER_USEC / 4));
+ 		if (flight_size)
+ 			pto = ktime_add(pto, call->tlp_max_ack_delay);
+ 	} else {
 
