@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795512661;
-	b=eTy5lxJvG2BQa+05A5QaXJcXCS/+rYCpRUZlq/GSqCPHNOUh41vS+GXN7vs/0P2WMdXw
-	 VSpTzWd5pUAuolDdmJTWy/L85FGmvQfTK+9Z4GruesyJVnUCqYhBvTyoEpiJSxMvailWE
-	 Z2es4KOqX4BbQHlGy69nAIajtIyb0w89YMNgV+Bro1bKNg64TbsNrvoKUk/f8h6p5VOFR
-	 P4y3gw84/m755YvEE5cb3muQgz9Kr4xalOz6Jum3yVCu4H7AoNHS5bB2QdTgblwYi0yzx
-	 RXfTnalLykVLlt8NjdTjUfX7IkemsZ/4leSfAFuk5lV8dmg+H+IedBSfZAybFfqSfjw==
+	t=1795512663;
+	b=QyuNWI8M4wglvYv88f1ceMJlfGYdQ7NVLoh3QrP8jWOPkOqWvifUnVkcZZ+xrOi0jd7B
+	 BKDkr42gSGhqoKIccVd1yO7tCTp5a4IE5g8wG0PmJgUV10I8c2APzeZFVpdK+sMjqnZ6F
+	 zCLmZCI034iHhvX4USgjkAVnFxrWelXHJcZLuQ+o3k3kq0jJ8bfznmdARFeYRAr601gF0
+	 2e66xMj4sLA8xiVGbTpC8f3nfJBuhyHn98qrWiHK05bRTh40HVQSc6/Fdk4HIDDh3BL+Z
+	 6M5SQuUjza29dI8PbszcPA/lEcKCEmjp2NVf3hCyzRdf5KW5KfVf/od33s1DrSOZa3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795512661;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795512663;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=czr2NgLQec8c2t82MWxyebebRxRKRhT0v09ygt+K2IE=;
-	b=fsV4nYjnB1+lkp5UJXfkKyEwMez6jt3SWM9UuCd/BDnGQuiztkWBYxkKCgc4irbQu+lx
-	 p0wzz6wCkZfKW27tMA5QzZfGdjVMXb2KSmWH3aiDQCSsjWd7sBOuYirJvHyH001wzgQpe
-	 EfSHMnJMpwQW0mambIgYjwhatZNRfZ055u7ag3yuPIQfdCUoWjXCrVBcGB5eZ42ZEFtnH
-	 UkMZUYBmwzyRLOLysNWW5jYTl+RRQYpnD3saqzgzU2bE4DcFSHdT8tk+hCJTcFqxhks+S
-	 HHUSTOczU/sZz2vOuHrLCeI/ZDd8aB9iiGgcPt5IdPciE8VRl+5N+mUbD28GTAjwKdA==
+	bh=wxs9sFPe8ncOvSyteUdGMIPB6LVRyBPAvxC8TMhY7s4=;
+	b=Z4nV4GhiiOBaEXl/BLKWBb8YVYnna+zZ8VCmsAi3wBO6fuv5iTbjkGjWq7JRG3rjfZMJ
+	 Xbx4vyTsnORaeT+u15lhKw9YTttZZb4bVTBYd+u/bqEgfUvsoUKz0B79gQrV57/3a4TLF
+	 hwyizGhlIU5iDQ9P4iXnZr315MIsYsa5E5NOMnyOqhBNYHin3/IDL430jc4SN1T7+eg1c
+	 JT+j8C66T4CdrDotB1PVLGUvpC0jFXOx3q5aFCqMD9ZvNFQ3NK3AkA/sPQ1vb7wxlS4ap
+	 o4IU5Wmtp1cGiSPzSTDIp4t5PlCIn1nLeyOizatQwWdFaW7GMbYDTmzKQKsxGpNeQ9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MssYBrxM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhaokije;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672EC606A687;
-	Tue, 24 Nov 2026 09:31:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E93606A334;
+	Tue, 24 Nov 2026 09:31:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MssYBrxM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579361F000EC;
-	Tue, 24 Nov 2026 09:31:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhaokije
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EEDD1F000EE;
+	Tue, 24 Nov 2026 09:31:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795512660;
-	bh=czr2NgLQec8c2t82MWxyebebRxRKRhT0v09ygt+K2IE=;
+	s=k20260515; t=1795512662;
+	bh=wxs9sFPe8ncOvSyteUdGMIPB6LVRyBPAvxC8TMhY7s4=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MssYBrxMMfn4OvF++ExgouQ8j0l1vzUrCSTACFH2IpVix/pwALfUu4L6i772AFr2u
-	 lhAY9DZIuQk4+B4EZIoH1S02o0e4Wp0K2S6BipV8tTrz5qCDBNYbRJNZqf5dsb9+cN
-	 77UnLh6k4lqkrHyTCFUCqLMcAU/YN1bflQvY9TKymKdNgewUo0sHbdARWTaTK0Bfif
-	 eVk92HVJj2eoYlzPR7efcuNCnrpYewemBu1OrsWjtU2EC2FNf3soZoSa5P6mDnFVyH
-	 0dslA0+ORonK4zWJwNI6Gkdl2CNITD9JDT6lg2uTMAN6pB/tzQvLTSY3+5kbt4Q2jh
-	 EvHvjWpxZ6hmg==
-Subject: Re: [PATCH can-next v10 09/14] can: gs_usb: gs_usb_get_gs_can():
- introduce new function to consolidate validation of struct gs_can
+	b=jhaokijeq1xNdVgxYVnXDgQfYGo4o+EIxtcclOzeR9ss82tSh9BCDVDugRYlSsI4S
+	 s+EqARG2hpDLprV/XdM6n+6weXjZhzgyuidWkrZATyHLVyZl2+Tf3FvRbL5GXXFtLg
+	 WAkCgVowS4OL9Lx13mJV8aQTW7XQtaRITdtjs9dxhKJEyIuj6u+mA0dQSJs7VJIYwS
+	 nxZdRFTYWW2/OSic04FwcbadEU9+XXH1BK5WmsCbzUy0Bpqyqso46rGa/hunaoNhRh
+	 Qikr5qruKCKnxZ9MK1Elhoi9XYHbKLzDwYq222SCH6OcDupoTF+W7yeX/AYimsEj2I
+	 0S3w+KrVWpYJA==
+Subject: Re: [PATCH can-next v10 11/14] can: gs_usb:
+ gs_usb_get_rx_data_length(): new function to consolidate validation of host
+ frame
 From: netdev-bot+sashiko@kernel.org
 To: mkl@pengutronix.de
 Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
  max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
  linux-can@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 24 Nov 2026 09:30:59 +0000
-Message-ID: <179551265988.3131.9960814686983174068@kernel.org>
-In-Reply-To: <20261122-gs_usb-fixes-v10-9-7c165c35d04a@pengutronix.de>
-References: <20261122-gs_usb-fixes-v10-9-7c165c35d04a@pengutronix.de>
-X-sashiko-severity: Medium
+Date: Tue, 24 Nov 2026 09:31:01 +0000
+Message-ID: <179551266159.3131.6265981861655766301@kernel.org>
+In-Reply-To: <20261122-gs_usb-fixes-v10-11-7c165c35d04a@pengutronix.de>
+References: <20261122-gs_usb-fixes-v10-11-7c165c35d04a@pengutronix.de>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -64,160 +65,181 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] This patch quietly changes how gs_usb_receive_bulk_callback()
-  handles a frame for a channel whose netdev is not present.
+- [Low] The commit message says the patch only adds
+  gs_usb_get_rx_data_length() to consolidate host-frame validation, but…
+- [Low] After this patch, the driver's two paths for rejecting a bad TX-
+  completion echo ID handle stats and logging differently.
+- [Low] The patch makes gs_usb_get_minimum_rx_length() return `int` and
+  take an `int *data_length_p`, and gs_usb_get_rx_data_length() declares…
 
 --
 
-can: gs_usb: gs_usb_get_gs_can(): introduce new function to consolidate validation of struct gs_can
+can: gs_usb: gs_usb_get_rx_data_length(): new function to consolidate validation of host frame
 
-This commit moves the decoding and validation of struct gs_can from the
-host frame header into a new helper, gs_usb_get_gs_can(). The helper
-returns the gs_can pointer on success, or NULL on error. A fatal flag
-tells the caller whether to detach the device or resubmit the URB.
+This patch adds gs_usb_get_rx_data_length() and
+gs_usb_host_frame_header_valid(). They take the minimum length check and
+the out of range echo ID check out of gs_usb_receive_bulk_callback(). The
+new helper returns the data length of the host frame, or a negative errno.
 
 > diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-> index 75adec495e657..9078460aebcaa 100644
+> index df5ea6cb0cf2a..4aa674c743f67 100644
 > --- a/drivers/net/can/usb/gs_usb.c
 > +++ b/drivers/net/can/usb/gs_usb.c
+> @@ -620,9 +620,31 @@ gs_usb_get_echo_skb(struct gs_can *dev, struct sk_buff *skb,
+>  	return len;
+>  }
+>  
+> -static unsigned int
+> +static bool gs_usb_host_frame_header_valid(const struct gs_can *dev,
+> +					   const struct gs_host_frame_header *header)
+> +{
+> +	struct net_device *netdev = dev->netdev;
+> +	struct net_device_stats *stats = &netdev->stats;
+> +	bool valid = true;
+> +
+> +	if (header->echo_id >= GS_MAX_TX_URBS &&
+> +	    header->echo_id < GS_HOST_FRAME_ECHO_ID_RX) {
+> +		stats->rx_errors++;
+> +
+> +		if (net_ratelimit())
+> +			netdev_err(netdev,
+> +				   "out of range Echo ID (echo_id=0x%08x, max_echo_id=0x%08x)\n",
+> +				   header->echo_id, GS_MAX_TX_URBS - 1);
+> +
+> +		valid = false;
+> +	}
 
-[ ... ]
+[Severity: Low]
+The commit message only talks about adding gs_usb_get_rx_data_length() to
+consolidate validation. This hunk also brings in some visible changes that
+the message doesn't mention:
 
-> @@ -651,6 +651,43 @@ gs_usb_get_minimum_rx_length(const struct gs_can *dev, const struct gs_host_fram
+  - a second helper, gs_usb_host_frame_header_valid(), is added
+  - an out of range TX echo ID now increments netdev->stats.rx_errors;
+    before, no counter changed
+  - the message is now rate limited with net_ratelimit(); before, it was
+    an unconditional netdev_err()
+  - the message text changes from "Unexpected out of range echo id %u"
+    (decimal) to "out of range Echo ID (echo_id=0x%08x,
+    max_echo_id=0x%08x)" (hex)
+  - in gs_usb_get_rx_data_length(), the echo ID range check now runs
+    before the minimum length check; before, it ran after it, in the else
+    branch of gs_usb_receive_bulk_callback()
+
+None of these look harmful. Still, rx_errors in ip -s link and the log
+text both change for the same device input.
+
+Could the commit message describe these changes, so it doesn't read as a
+purely mechanical consolidation?
+
+> +
+> +	return valid;
+> +}
+> +
+> +static int
+>  gs_usb_get_minimum_rx_length(const struct gs_can *dev, const struct gs_host_frame *hf,
+> -			     unsigned int *data_length_p)
+> +			     int *data_length_p)
+>  {
+>  	unsigned int minimum_length, data_length = 0;
+>  
+> @@ -651,6 +673,33 @@ gs_usb_get_minimum_rx_length(const struct gs_can *dev, const struct gs_host_fram
 >  	return minimum_length;
 >  }
 >  
-> +static struct gs_can *
-> +gs_usb_get_gs_can(const struct gs_usb *parent,
-> +		  const struct gs_host_frame_header *header, u32 actual_length,
-> +		  bool *fatal)
+> +static int gs_usb_get_rx_data_length(const struct gs_can *dev,
+> +				     const struct gs_host_frame *hf,
+> +				     const u32 actual_length)
 > +{
-
-[ ... ]
-
-> +	struct gs_can *dev = parent->canch[header->channel];
-> +	const struct net_device *netdev = dev->netdev;
+> +	struct net_device *netdev = dev->netdev;
+> +	struct net_device_stats *stats = &netdev->stats;
+> +	int minimum_length, data_length;
 > +
-> +	if (!netif_device_present(netdev)) {
-> +		*fatal = true;
+> +	if (!gs_usb_host_frame_header_valid(dev, &hf->header))
+> +		return -EINVAL;
 > +
-> +		return NULL;
+> +	minimum_length = gs_usb_get_minimum_rx_length(dev, hf, &data_length);
+> +	if (actual_length < minimum_length) {
+> +		stats->rx_errors++;
+> +		stats->rx_length_errors++;
+> +
+> +		if (net_ratelimit())
+> +			netdev_err(netdev,
+> +				   "short read (actual_length=%u, minimum_length=%u)\n",
+> +				   actual_length, minimum_length);
+
+[Severity: Low]
+minimum_length is now a signed int. It is still compared against the u32
+actual_length and printed with %u.
+
+gs_usb_get_minimum_rx_length() above now returns int and fills an int
+pointer. Internally it still computes unsigned int minimum_length and
+data_length from sizeof() and struct_size().
+
+The value is always a small positive number today, so nothing misbehaves.
+But what happens if this helper ever returns a negative errno, as the int
+return type suggests it could? The comparison actual_length <
+minimum_length would turn it into a huge unsigned value, the check would
+fail, and the error path would be taken for every frame.
+
+Would it be cleaner to keep minimum_length as unsigned int or u32 here, or
+to print it with %d?
+
+> +
+> +		return -EINVAL;
 > +	}
 
-[Severity: Medium]
-Is this a deliberate behaviour change? Before this patch, the
-!netif_device_present() case did a plain return in
-gs_usb_receive_bulk_callback(). It dropped that one URB without
-resubmitting it, and it left the other channels alone:
+[ ... ]
 
--	if (!netif_device_present(netdev))
--		return;
+> @@ -780,13 +820,6 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+>  
+>  		gs_usb_rx_offload(dev, skb, hf);
+>  	} else { /* echo_id == hf->echo_id */
+> -		if (hf->echo_id >= GS_MAX_TX_URBS) {
+> -			netdev_err(netdev,
+> -				   "Unexpected out of range echo id %u\n",
+> -				   hf->echo_id);
+> -			goto resubmit_urb;
+> -		}
+> -
+>  		txc = gs_get_tx_context(dev, hf->echo_id);
+>  
+>  		/* bad devices send bad echo_ids. */
 
-With *fatal = true, the caller now jumps to device_detach. That label
-detaches every channel on the adapter:
+[Severity: Low]
+With the out of range check moved into gs_usb_host_frame_header_valid(),
+the two ways of rejecting a bad TX echo ID now behave differently.
 
-device_detach:
-		for (rc = 0; rc < parent->channel_cnt; rc++) {
-			if (parent->canch[rc])
-				netif_device_detach(parent->canch[rc]->netdev);
+An out of range echo ID increments rx_errors, is rate limited and is
+printed in hex. An echo ID that is in range but unused still ends up here
+in gs_usb_receive_bulk_callback():
+
+		if (!txc) {
+			netdev_err(netdev,
+				   "Unexpected unused echo id %u\n",
+				   hf->echo_id);
+			goto resubmit_urb;
 		}
 
-A netdev can be not-present while the USB device is still attached.
-gs_usb_probe() fills parent->canch[] for all channels first. It then
-calls register_candev() one channel at a time:
+This path changes no counter and isn't rate limited.
 
-	for (i = 0; i < icount; i++) {
-		struct gs_can *dev = parent->canch[i];
+Before this patch the two paths behaved the same. Should the unused echo
+ID case also bump rx_errors and use net_ratelimit()? Otherwise the
+rx_errors value depends on which kind of bad echo ID the device sent.
 
-		rc = register_candev(dev->netdev);
+Also, gs_get_tx_context() keeps its own range check:
 
-So channel 0 can be opened before channel 1 is registered, and
-gs_can_open() submits the shared bulk-IN URBs. If the device then sends
-a frame tagged with the unregistered channel, would that now detach the
-running channel 0 as well?
+	if (id < GS_MAX_TX_URBS) {
 
-Once channel 0 is detached, its later RX frames also hit the fatal
-path and the URBs are never resubmitted. TX queues stop, and reopening
-fails with -ENODEV. gs_usb.c never calls netif_device_attach(), so the
-channels appear to stay detached until the device is re-probed.
-
-The other detach sites in this file only detach the affected channel's
-netdev on -ENODEV, for example in gs_can_start_xmit():
-
-		if (rc == -ENODEV) {
-			netif_device_detach(netdev);
-
-A single bool also can't express the old third outcome: drop the URB,
-don't resubmit, don't detach.
-
-The commit message says:
-
-    If fatal is
-    true, detach the device, otherwise re-submit the URB.
-
-It doesn't mention that a case which used to just drop the URB now
-detaches every channel. If this change is intended, could the commit
-message say so? Otherwise, could the old drop-only behaviour be kept for
-the not-present case?
-
-This behaviour looks the same at the end of the series. The final
-gs_usb_get_gs_can() still sets *fatal for !netif_device_present(), and
-probe still registers the channels in sequence.
-
-> +
-> +	if (!netif_running(netdev))
-> +		return NULL;
-> +
-> +	return dev;
-> +}
-
-[ ... ]
-
-> @@ -678,30 +716,17 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
->  		return;
->  	}
->  
-> -	minimum_length = sizeof(hf->header);
-> -	if (urb->actual_length < minimum_length) {
-> -		dev_err_ratelimited(&parent->udev->dev,
-> -				    "short read (actual_length=%u, minimum_length=%u)\n",
-> -				    urb->actual_length, minimum_length);
-> +	dev = gs_usb_get_gs_can(parent, &hf->header, urb->actual_length, &fatal);
-> +	if (!dev) {
-> +		if (fatal)
-> +			goto device_detach;
->  
->  		goto resubmit_urb;
->  	}
->  
-> -	/* device reports out of range channel id */
-> -	if (hf->channel >= parent->channel_cnt)
-> -		goto device_detach;
-> -
-> -	dev = parent->canch[hf->channel];
-> -
->  	netdev = dev->netdev;
->  	stats = &netdev->stats;
->  
-> -	if (!netif_device_present(netdev))
-> -		return;
-> -
-> -	if (!netif_running(netdev))
-> -		goto resubmit_urb;
-> -
-
-[ ... ]
+This duplicates the check in gs_usb_host_frame_header_valid(). Is it meant
+to stay, given that the goal is to keep host frame validation in one
+place?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261122-gs_usb-fixes-v10-0-7c165c35d04a%40pengutronix.de
