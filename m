@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795547746;
-	b=wGkcMauXQLoayo4vIIF4Ox2BsxB5SNinO7oMqcSYFYM0YsOLA+vW2mfL60d639w2XtMU
-	 Y5+KALanQXbYcacbvj4ua/2S+8N/vbwT+UcJN3lL3Vl36JniId3xiLi/AGMEDNHkWYVZi
-	 gx6UmD41Ipiycwqmlt0WrCbmhjdm/SW3paTuwhL7hUS2DZ3FBbdPaf07bqolhlDP2PARd
-	 pfzrlXVi4CLPcchU1UV+zOYZBMSWWP1wJ4sFfZvGC2IjTC6LTRgbEdZ41GMHYIYJ7qWMD
-	 yDemKsRNq5U2zWMNFcHdpTZS+b21XaouiAAPxntFRi1syxbHFUxjhyTr+E4YBXGqF1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795547746;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=iVaX5nAlkBKMSj8rUpfeIOl3ibSmoRV5kmxp9WpM+9Y=;
-	b=uL99gTdklf1b3aqC9jL10x1Po8Hwxv6lPsV4HyS2V4rqpvRBKUZgrBkU+IuZ5HoixvI9
-	 fa6qAVEXI7LIvlN6SX2UzqVljt4TlvssPxiQjP2g7OQPI0Xnpkqce/IFsqbc55BysJSNX
-	 FQWgHZKneiaQ0Wh20H+bEYbCtwi8h/gcjkAfUjY4JbcyP4KKi5FIqjG3PejTrgcIPTujl
-	 OuSDiQ0DvwKbx1o9mciR2l70tRaN6x3MNLC2Qd4uO7rBNzPBXArpwkHGH8+lPP+UH9i6M
-	 ltxfVxNLCRCaZEUG/2yt7m63V8nyb2/CI7LxNRmchMYnu6XWg4fjSmnBJ2hxuNFbXSw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795547838;
+	b=yP6+E75XVL45mX0mxW2boY+x/8JWCZbsvIUvN5o+qPCCU4zt0UU3nFPk7tYcLzddEYOo
+	 wsYufBVjZaDUJddC3tq2O+ndL7o2+76ViEuadgri5Kljvb1H9d1gub0LaogpSyGPBelV0
+	 BzKdeKv1ogZKCxBWYa8m/0A9k0cjB1Kf+cGmwhDT30j/fAOHyxqFgwqNG5xR+5FCzJl6g
+	 Ht91fD+FLVYePRAi1QObFy21FN26v7bV/iwqdcwQQC2WIuJ3XmqpxmO5KOQcpYV15vmWA
+	 6Xb/eJ4ekz90fUs4DC4neigORPiQwWp+2bfZe76HnPebH4iPQBeZsjaDnSKDp6ntEWw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795547838;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uM//dOam8DkJvuuXWFByFXD5vsyC5IJq/TeXum8HMPM=;
+	b=U9eyfYrVyV+KVL4vjT7Me83ORB/QscYvIDZPN7uizUFvJYiKHU4rDwNumFU4TxLEwORH
+	 C0oDZDeml8jFYSeXZNSh7/14fKsmmvu85FBikq8NvKdXOmrbCMbgYKV1izLfhfchPo3ZG
+	 W8oroLpNOBuOX5FZM/gzLDuCe0Q8G53+ZFaWSH2ATOHm1ROt7YUFwjt5UIRk7AUsOBcqQ
+	 HBeDPUoB1HeBXdzxv2HRRsXITYfZxOOboJ7m9bdlQlmHIdzaOPc0HGeN3iJ/zM2Dwt7Dj
+	 yoLdBXvHdnuzsXKfWD6OsOmD+o/FYSKiA9XNsjXQ/n+L5FmlWzpm/QyPTO1l3GDzKkw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Lqrju3rg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.52
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012052.outbound.protection.outlook.com [40.93.195.52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD55D606A330
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 19:15:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD55D606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-5727b04b81eso3165416b6e.3
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 11:15:45 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795547745; x=1796152545;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=iVaX5nAlkBKMSj8rUpfeIOl3ibSmoRV5kmxp9WpM+9Y=;
-        b=lzDxyoAmc4GQuPqTJKgvvN7GWN6/KPVeKgcqjwwIf1dLO7m524fvVA7i6s6hfwoYHn
-         OaJSVULP3SxENNZMEgxrw4oC4u3hwQVrOIqs4Eq8FyvyMeBUyrSJL4tkRCVtphHL+8IX
-         61vaVcILuLpMa6agGavFIRISYYWlyrbUBW+p1su81gpiD+/G9/9pO4+3e/YZL18RLBJa
-         sLTJyZQTY9DqP4+lLpI5AqrwomudeiA2I/S9Svc+Y8Gwq7OCkMrAJCOKMpVXubY3q6zE
-         uDih46SIdjOY4JRjYrTygSp1RM7D66ZfoZHX90O+cCXQ9McWsEWgsEs1A7OpPsxlc8lt
-         XEUA==
-X-Forwarded-Encrypted: i=1; AL+hErFFX6ecxg6MzYF2lZ86yY3sWhOCpoTc+Ce8TKD0ZPtzhTxGbvRinylQTfR/mqubINeG2r3jiKM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9M30pFUlY92hArfnlqmPBniXPvSFDZJezeuhaKgVivQ5HieLcK
-	EokmsrAgVTU9igNuKDwrZ67Z6iUml+161a8clMElOjSnrBNwD6QT1t4DTVQtKlowvT2ycDlO7Pi
-	OBhZuBIoZMCVeniqq0cldDzpGapoymdErIEl2RAPKhxaB0R3yqXATNZ7eHWo=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA1E606A321;
+	Tue, 24 Nov 2026 19:17:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDA1E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Lqrju3rg
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zBIuC1GUcVTU1qa65JJFmOB0xjoLycPMa8gc/cSLwY+bG3JKGaVHDHCO6Mf0mO3rWOhDEbA7vfgOawVqAiMA/tBRqUFFdruWlQ7uMc489SL5fN7eIhEtvAGB/Io48gyCepE7dEUVqxrPmTuIF3AbgAz7wckb5hNjGUS4otpKSE95GHgslYLiX1Td6V9i+9CfpcyqkOOstvPx1cg88rwYfEXHU0+cx0IMCdt0Qa1LJj1uqyJos8ccugOb6pXtQALjGJkT2s5Qt0UQ3vrt1mEXjdNQjJlwnhshfOb7NpEZ0XjjnSBazKo7iW8DhDFJxBFUrqOeFuYhs8ME9xLR8//Kkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uM//dOam8DkJvuuXWFByFXD5vsyC5IJq/TeXum8HMPM=;
+ b=XkHB8rQwIKcJv6nOZz5x2ZxPgu2HSeg/dKOLenoyVtk7MRoPasCGamnjIfJCGC3WgqA+dwW8SCd+D5tFXjuRmcREoXXK4ZF7l+9qLBeliBdCB1TYbP848nurhRH99rOqH9FzfIVpVQ4DR0B/O2R5J+36JhDAqwDI58EwQrjm87oHo0Muq43KKXGbNutjJySWS1rKUOpNz8d/5h6yrF9C+iS1qciOGln8PWCrHWmhn3KFTXq/U5KlCUwn/FuYjkVbaxmglNLbOD+tQ08gLA7MweQtNFBqBlNCPcIIkiNnJLBKPvwY2TVJOlCczQwT3YzgvZZuDG4fJ8SDzTnkqdQhug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uM//dOam8DkJvuuXWFByFXD5vsyC5IJq/TeXum8HMPM=;
+ b=Lqrju3rgR1fQXzuuYBcmDb+7DcixfpmY0E2uib4QzQAUPo/4DToGS2Ej/ekD+fpIP/XnHc53FH2/eOG4RNBgm/FzwiEjLO1q/SsNfL5BCdp9gPhje07tiXz3vtfdIaBtLyRjiISkdfR5+mbF+r3rv53tnYAac0P2Y3aRLaSznXwU0sQgxxTfL+5Z+XxOWdrXN0itdQ7iuTivzJE10J9k97/h0xa0VHV0Ho251VrRc2x9DgXdKXpX31ZJRmbjnq7LLVET2mLDGXuj0CPBylGknzCWpbjMbFtSQ9WZkrNCmpFjxXykXsbq8Jm4BEzwEgAXfTIZK2d2t+xNT52Nntio0Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHAPR12MB999248.namprd12.prod.outlook.com
+ (2603:10b6:610:2ff::22) by DS7PR12MB6357.namprd12.prod.outlook.com
+ (2603:10b6:8:96::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
+ 2026 19:16:00 +0000
+Received: from CHAPR12MB999248.namprd12.prod.outlook.com
+ ([fe80::4972:8062:d74e:b205]) by CHAPR12MB999248.namprd12.prod.outlook.com
+ ([fe80::4972:8062:d74e:b205%6]) with mapi id 15.21.0662.001; Tue, 24 Nov 2026
+ 19:16:00 +0000
+Message-ID: <abc046dd-b8d4-4620-bc5a-08f12b7efcb6@nvidia.com>
+Date: Tue, 24 Nov 2026 20:15:55 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] vdpa/mlx5: Fix error cleanup when VQ setup fails in
+ .dev_add
+To: Eugenio Perez Martin <eperezma@redhat.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, virtualization@lists.linux.dev,
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Gal Pressman <gal@nvidia.com>, stable@vger.kernel.org
+References: <20261123135646.3962652-2-dtatulea@nvidia.com>
+ <20261123135646.3962652-3-dtatulea@nvidia.com>
+ <CAJaqyWedvj6htnM4rJyrbynW3u1k=6uLHrfuK05YvM5z8v1Hjg@mail.gmail.com>
+Content-Language: en-US
+From: Dragos Tatulea <dtatulea@nvidia.com>
+In-Reply-To: <CAJaqyWedvj6htnM4rJyrbynW3u1k=6uLHrfuK05YvM5z8v1Hjg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0247.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f5::10) To CHAPR12MB999248.namprd12.prod.outlook.com
+ (2603:10b6:610:2ff::22)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,115 +101,143 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4488:b0:4d6:90f3:74ad with SMTP id
- 5614622812f47-57a0b644678mr16259886b6e.45.1795547744778; Tue, 24 Nov 2026
- 11:15:44 -0800 (PST)
-Date: Tue, 24 Nov 2026 11:15:44 -0800
-In-Reply-To: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6b05e260.e1ffc79a.44bf.0000.GAE@google.com>
-Subject: [syzbot ci] Re: mm: GUP dirty + ->release_folio() fixes
-From: syzbot ci <syzbot+ci6dc3bd0a53405de7@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, axelrasmussen@google.com, baohua@kernel.org, 
-	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, david@kernel.org, 
-	dev.jain@arm.com, hannes@cmpxchg.org, jack@suse.cz, jhubbard@nvidia.com, 
-	kas@kernel.org, kasong@tencent.com, lance.yang@linux.dev, liam@infradead.org, 
-	linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-nfs@vger.kernel.org, 
-	ljs@kernel.org, mhocko@kernel.org, mhocko@suse.com, nico.pache@linux.dev, 
-	peterx@redhat.com, pfalcato@suse.de, qi.zheng@linux.dev, rppt@kernel.org, 
-	ryan.roberts@arm.com, shakeel.butt@linux.dev, stable@vger.kernel.org, 
-	surenb@google.com, usama.arif@linux.dev, vbabka@kernel.org, 
-	weixugc@google.com, willy@infradead.org, yuanchu@google.com, ziy@nvidia.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHAPR12MB999248:EE_|DS7PR12MB6357:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9c32b03-0881-443b-439b-08df4a5f5fbb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|22082099003|18002099003|261009223027099003|4143699003|56012099006|261026140227099003|11063799006|10067099003|261028144727099003|261102123227099003|261026121527099003|261022105027099003|261021123027099003|261022075727099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	eYmVV8MAadIOPhtURzJm9M174YB8Pl694hsHBQLU1z5wpsa6NTvRD/12OpEAzovqKRuXNeklM6mOkrsr3vcuGNyYkWr6sRGM2GE2sqK7YqAfXjkxgHdejJbS9s93ap9O7ASq8ZXfLXDtmydVGckt8FPRUgll0fjSsj2H5C84kQFKHJ7m5D42vxM2ZAOw9gCvZ0kLJ44F82p450iejSIkHHZW3uv1gOxpEpTPoySy+AH/h6wAK/4swHmARlsapY7f5S+TodJDSR5davS6moTZv3lGWtWWACQWODzeG6trdPH9P9QF7p6GiOo2sY9jD0BtD9OFGPeIzH8GyESEDA9PoMNkzKGGlUtdTDhuu/BaCBrk4MgFz98qFZLfki7Y+2/BXdGTLq0Hjpvqymw8nn/O4AXFUcoi0gzv1SNw7EOvzm1uRGl5truuDUaWOnEvyAbDCujlet84eRD+eZCAbcaaHaKvhLrceKjmADqN9z6Z21WEr1vdKUwSj3xLVS0vzK5Vxg/2pClN56NWzl4r9Rpb1Kge4QGrVy+gGH+GwR1D/U31hmbsfbua4NG+wj6ffcFQpTR1eVS7jW90CoQsTV6CrF/SfY4AhCTkqPoFjpV7l67xKKYAiQ/pdkHbccu3rCu2kn/CJ7cv37dSF2fT+CdPW8q1TL4ErGhg0laE+0RADCw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHAPR12MB999248.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(4143699003)(56012099006)(261026140227099003)(11063799006)(10067099003)(261028144727099003)(261102123227099003)(261026121527099003)(261022105027099003)(261021123027099003)(261022075727099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TkR4ZU4rR09QUzI5aGo1ZzRGeVk5Ynh1L2FlZXFjRWtEZDF2Q2xMMXVmdit2?=
+ =?utf-8?B?R25lb2FBSjVSZHE4anZQNWZaUTlrTnRNTmxOYVBocmNwdVpvMEE2UkxQZ2t5?=
+ =?utf-8?B?VyttVGtUR3JLY21oTFcxQk1UeitZS1I5UHFoalhBa1lWV1c0Vm1tQ09lWi9m?=
+ =?utf-8?B?cm5WdVlnRUl2aWxGei9xN0kxT0V3RDZxdWU4M3NuQ3VTU2hTV1N4cGtnb0FD?=
+ =?utf-8?B?RUxjUWxnL2NjRFRiRDJ6VjVWcS9pUWRNVjFzNXdOclc0VTE5Y3JWTFp5VjE0?=
+ =?utf-8?B?TTV1Q3ZHeTRwVDhBTmh5cnhiTFpraGQ0MHNadFBvdUw0OWlpTmJUKytmVUJk?=
+ =?utf-8?B?VVB4VzlUbUUrNkYwcXhkTVA2S1RwK0Y4emJLMVhPUU15Y1BESzBrMWk5Sk0x?=
+ =?utf-8?B?YVFYVWJVQ2lTTWhBb0Fkak50TEpBWUJCWHdBTlZMc0NRRE0xMFc1SmJHbnMx?=
+ =?utf-8?B?NDgrMk55QzBGaHhyNUFRVThGbTZ6R2l3RENMQm1BMHB3c0JSTkRmdE92aG9K?=
+ =?utf-8?B?QnFUUDliSFVUTlBQYWFTS1JiZWJvSTNUUkFKamowT2VHRi9HWll0VWxPZlAr?=
+ =?utf-8?B?ZXA5SW8wMzVCY0RKT01UMnBxbGZoTXNuWU1QNWloUDF1SVdhS2lPK3RHeWg0?=
+ =?utf-8?B?NmR5Wjd0UlRBemt5TEJyNFo2aFpVTWxDdkdQS21teCtoWExkYkhaRHdZM0Vp?=
+ =?utf-8?B?NmRBNC9OcktqMXdaU3VTYWMyLzZKaXZJb3RWSzFhd3BiYVNQallzRlk0eU9D?=
+ =?utf-8?B?a29vYkIzREp0UE4yTnpEeEV3cXJnQkdqMFUzMkpEdXd2a3RYWDVvU3lDbEE3?=
+ =?utf-8?B?N2tXOW5mM3orTHZXRTFYM2EwcmZEcW5IQk5NM2lUVTAzSzl2T0wydGRGZTJt?=
+ =?utf-8?B?d2VodWJUOHVIMjMvM3lXaFh5V1B6cEg2eVVHS1NTVXFqRXZkTGhPUjMwU1dq?=
+ =?utf-8?B?TmgxRXZ6Rno5RkxqTzh2OUlJUVJVcWpQMTBqUkNNWTJpTzNhTG41MThOQ3Fy?=
+ =?utf-8?B?K1lTS0ZlYmhGUHQ1dDMrcmhRU2UzSnd1aEt6eStzanhvc1JjT0ZyUmJ2SHJK?=
+ =?utf-8?B?VUF5cUJSOG1WUEpVV1JFd2FuRW5Na3Q2RUttU1lZejNXNC8wbjljd1hxR2wv?=
+ =?utf-8?B?bUIvS0lpdGI2TEIrMGNzT3VzT05PdmNMUmV5Mm42SXA1S054T1o4eUUwQkNi?=
+ =?utf-8?B?eWRudGFRMGhURXhnRWRZdTkrK2o4M2dXbGl6ZG5qbnFxRUFTYzZvUmtlbzVR?=
+ =?utf-8?B?Y2lwbmFycGNFMm54VG1sZUtBOGNiUEoxUWYvaWNWQW1FWGdVY1NqbXlHNDRn?=
+ =?utf-8?B?aHZRK2F5RnRJenlIeXh3WFNBekcvNGZCTUpzQlUvU05zVEJKREM3K3IwZlhV?=
+ =?utf-8?B?WE1HRVc4dDMrT3RISXZkSkVraHRNNFBsalJ0MWtJV2pScWsyaWpXNWIwWEUv?=
+ =?utf-8?B?NC85SUQvUlh2d0ZtYVFjdHVIYTlyK0lrV2N2RlpPTUJFQjRZaVR4bXlkSm1R?=
+ =?utf-8?B?cy9FM2o5Z1IzZVN2V09wMmxVS0FyNHdRVDV4L0NMSVNhNUFXeWhvSXlMOVJJ?=
+ =?utf-8?B?Lzh0OXVOU0hZbXIweEpTYlJkNDhKMjhzUTE1QnlkSTV5eG12MkVvbHp0RjRx?=
+ =?utf-8?B?Tld4YnhoMG1XTGIxMWxTWXljbXNwZEtiY0czRlR1TXE0dVhxRGtpTlFVNk9T?=
+ =?utf-8?B?L3kyL0lFOGd4MnlrWHJSekpMcDAxY090Tmthanp3M0JMWHNvbW92LzdwUjZx?=
+ =?utf-8?B?NmNzZlBwTVJRNUR4TllpY3hRR3NpbTV1b2xybTZ5Qi9YdXlzb1ZpMVIrWXBp?=
+ =?utf-8?B?UFI0MkUycndQMnc5QjZQbUpmcGQ1djhMSlJheEY1N0Q5QmhjUVc1cVVWVGt0?=
+ =?utf-8?B?bXk5QjRFSjA3cDdpczVISXhyUjAyU1RqdzIyb3k0UWRELzRITGtnZ0xWS0kz?=
+ =?utf-8?B?VVlsK0VZdWQvUGFBeE02cjlUT3hrMHNNVXJIK1k2U0VMRVd0cEY4cEdiTWpO?=
+ =?utf-8?B?SStkdVBwVk4rbXJXY1BLTXJRekVNMS9LaWg2bGR0NmRzem9tcDNZL2g2eTBD?=
+ =?utf-8?B?NXJkeklUby9IZmhzd3RSWGNBY0o4V29XZUJsRzZ3cklLcmxzQVZpK3M3SkJ5?=
+ =?utf-8?B?c2Vub0ZyWFRUSTZRY3lPSGg0MysyV0JlcnRVYTRudXJja1QzUlNhOTQ0cGNz?=
+ =?utf-8?B?MDUrRTJvVDB1VTVDYVJZMXFidWMwMDJtazlnaitKQmRJeXp2RWVDVlZqUVAy?=
+ =?utf-8?B?VXE2bXpMODNMcTEza29Xd2JsaUJjWVRtUHN1ODRreC9MYmM2NHRSYzU1cSta?=
+ =?utf-8?B?VmNYblF2ZHRqdVZZZ0lPbm1pNlJpQzVNdjJETi9mM2RSTmZwOGJXQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9c32b03-0881-443b-439b-08df4a5f5fbb
+X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999248.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 19:16:00.0528
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OVdxslBPZr9X3ZLtiPB1yQJKFeAGfHwB5AswW/8H3HpTR0fBu3+Y+tkcdKJ7DKcagd5TIrQQtChFRIuDFopuqw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6357
 
-syzbot ci has tested the following series
+On 23.11.26 17:08, Eugenio Perez Martin wrote:
+> On Mon, Nov 23, 2026 at 2:59 PM Dragos Tatulea <dtatulea@nvidia.com> wrote:
+>>
+>> When setup_vq_resources() fails in mlx5_vdpa_dev_add(), e.g. because the
+>> firmware rejects the provisioned features (HOST_TSO4/6 without CSUM),
+>> the error path unregisters the vdpa device first and then keeps using
+>> it:
+>>
+>> - _vdpa_unregister_device() drops the last reference to the device, so
+>>   mlx5_vdpa_free() runs and ndev is freed.
+>> - destroy_workqueue(mvdev->wq) then reads the freed ndev.
+>> - put_device() on the freed device underflows the refcount:
+>>
+>>   refcount_t: underflow; use-after-free.
+>>   WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90
+>>   Call Trace:
+>>    mlx5_vdpa_dev_add+0x3e0/0x760 [mlx5_vdpa]
+>>    vdpa_nl_cmd_dev_add_set_doit+0x362/0x440 [vdpa]
+>>    ...
+>>
+>> - mgtdev->ndev is left pointing to the freed ndev, so every following
+>>   "vdpa dev add" on this management device fails with -ENOSPC.
+>>
+>> mlx5_vdpa_dev_del() already does the cleanup properly so use that. Just
+>> make sure that an extra reference is taken during the call to avoid
+>> _vdpa_unregister_device() from freeing the device under us.
+>>
+>> Fixes: ffb1aae43ed5 ("vdpa/mlx5: Pre-create hardware VQs at vdpa .dev_add time")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Dragos Tatulea <dtatulea@nvidia.com>
+>> ---
+>>  drivers/vdpa/mlx5/net/mlx5_vnet.c | 7 ++++++-
+>>  1 file changed, 6 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/vdpa/mlx5/net/mlx5_vnet.c b/drivers/vdpa/mlx5/net/mlx5_vnet.c
+>> index 6830a80e8543..7a39b0bbbee3 100644
+>> --- a/drivers/vdpa/mlx5/net/mlx5_vnet.c
+>> +++ b/drivers/vdpa/mlx5/net/mlx5_vnet.c
+>> @@ -161,6 +161,8 @@ static void mvqs_set_defaults(struct mlx5_vdpa_net *ndev);
+>>  static int setup_vq_resources(struct mlx5_vdpa_net *ndev, bool filled);
+>>  static void teardown_vq_resources(struct mlx5_vdpa_net *ndev);
+>>  static int resume_vq(struct mlx5_vdpa_net *ndev, struct mlx5_vdpa_virtqueue *mvq);
+>> +static void mlx5_vdpa_dev_del(struct vdpa_mgmt_dev *v_mdev,
+>> +                             struct vdpa_device *dev);
+>>
+>>  static bool mlx5_vdpa_debug;
+>>
+>> @@ -4043,7 +4045,10 @@ static int mlx5_vdpa_dev_add(struct vdpa_mgmt_dev *v_mdev, const char *name,
+>>         return 0;
+>>
+>>  err_setup_vq_res:
+>> -       _vdpa_unregister_device(&mvdev->vdev);
+>> +       get_device(&mvdev->vdev.dev);
+>> +       mlx5_vdpa_dev_del(&mgtdev->mgtdev, &mvdev->vdev);
+>> +       put_device(&mvdev->vdev.dev);
+>> +       return err;
+> 
+> As a suggestion, the cleanup could be more symmetric if
+> mlx5_vdpa_dev_del checks for NULLs.
+> 
+It does, that's why we can call it:
+- teardown_vq_resources() checks ndev->setup.
+- mdev->wq is already initialized, so no need to check
 
-[v1] mm: GUP dirty + ->release_folio() fixes
-https://lore.kernel.org/all/20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de
-* [PATCH RFC 1/5] mm/khugepaged: fix filemap_release_folio() interaction with GUP dirty
-* [PATCH RFC 2/5] mm/huge_memory: fix filemap_release_folio() interaction with GUP dirty
-* [PATCH RFC 3/5] mm/vmscan: avoid releasing FS metadata for !FOLL_PIN gup folios
-* [PATCH RFC 4/5] mm/vmscan: be more careful when releasing FS metadata if buffer_heads_over_limit
-* [PATCH RFC 5/5] mm/filemap: refuse releasing maybe_dma_pinned folios
+My initial version was checking for NULLs and getting references in
+mlx5_vdpa_dev_del() but then I realized that it is not needed and
+it made the code more ugly.
 
-and found the following issue:
-WARNING in filemap_release_folio
+> But I'm ok if you prefer this way,
+> 
+> Acked-by: Eugenio Pérez <eperezma@redhat.com>
+> 
+Thanks for the Ack.
 
-Full report is available here:
-https://ci.syzbot.org/series/852fc6fd-04c3-494d-a18d-4072753d5c47
-
-***
-
-WARNING in filemap_release_folio
-
-tree:      linux-next
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next
-base:      bb7a206a3ffb0992b3600205b7cf2bcbd228d339
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/789b8ec7-0fce-48b1-bd3f-130fad443c68/config
-syz repro: https://ci.syzbot.org/findings/b27d3479-eda0-470a-a735-8bde8b489eea/syz_repro
-
- __do_sys_exit_group kernel/exit.c:1134 [inline]
- __se_sys_exit_group kernel/exit.c:1132 [inline]
- __x64_sys_exit_group+0x3f/0x40 kernel/exit.c:1132
- x64_sys_call+0x18c6/0x18d0 arch/x86/include/generated/asm/syscalls_64.h:232
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-------------[ cut here ]------------
-1
-WARNING: mm/filemap.c:4574 at filemap_release_folio+0x579/0x6a0 mm/filemap.c:4574, CPU#1: syz.0.32/5940
-Modules linked in:
-CPU: 1 UID: 0 PID: 5940 Comm: syz.0.32 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:filemap_release_folio+0x579/0x6a0 mm/filemap.c:4574
-Code: 89 df 48 83 c4 10 5b 41 5c 41 5d 41 5e 41 5f 5d e9 2c 88 58 00 e8 47 76 b7 ff 48 89 df 48 c7 c6 a0 82 39 8c e8 e8 74 16 ff 90 <0f> 0b 90 e9 00 fc ff ff e8 2a 76 b7 ff 48 89 df e8 a2 26 00 00 41
-RSP: 0000:ffffc90003486d78 EFLAGS: 00010246
-RAX: d29da7cf2dd17300 RBX: ffffea0006c30400 RCX: 0000000000000046
-RDX: 0000000000000000 RSI: ffffffff8e935905 RDI: ffff8881720f1e00
-RBP: dffffc0000000000 R08: ffffffff9014c6eb R09: 1ffffffff20298dd
-R10: dffffc0000000000 R11: fffffbfff20298de R12: 0000000000000001
-R13: ffffea0006c30408 R14: 1ffffd4000d86080 R15: 1ffffd4000d86081
-FS:  00007f9243ca06c0(0000) GS:ffff8882a7801000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fb8ff871a20 CR3: 000000016d7f6000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- collapse_file mm/khugepaged.c:2426 [inline]
- collapse_pmd+0x389d/0x6bd0 mm/khugepaged.c:2869
- collapse_single_pmd+0x1c74/0x36b0 mm/khugepaged.c:2921
- madvise_collapse+0x3e7/0x920 mm/khugepaged.c:3313
- madvise_vma_behavior+0xffe/0x4cb0 mm/madvise.c:1390
- madvise_walk_vmas+0x57d/0xb70 mm/madvise.c:1742
- madvise_do_behavior+0x385/0x540 mm/madvise.c:1937
- do_madvise+0x327/0x3a0 mm/madvise.c:2035
- __do_sys_madvise mm/madvise.c:2044 [inline]
- __se_sys_madvise mm/madvise.c:2042 [inline]
- __x64_sys_madvise+0xa6/0xc0 mm/madvise.c:2042
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f9242da8fd9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f9243ca0028 EFLAGS: 00000246 ORIG_RAX: 000000000000001c
-RAX: ffffffffffffffda RBX: 00007f9243026180 RCX: 00007f9242da8fd9
-RDX: 0000000000000019 RSI: 000000000060005f RDI: 0000200000000000
-RBP: 00007f9242e37fed R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f9243026218 R14: 00007f9243026180 R15: 00007fff1d17f228
- </TASK>
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+Thanks,
+Dragos
