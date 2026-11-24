@@ -1,94 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795547232;
-	b=J5AOij4DJm1wOb9GCUUXWDeG6uK+VqhqOwBwgvwCyzdrqoXOLeiKCljwLwxxfN9mP6nm
-	 hTZ1dwkp2l5d94kQPV0PVIW+tAPXEE66jHX8INs37AFiIx5T2ON5VDKD6z5uEEi3FdHqK
-	 eCZxCC7Fz34IMlK7NBh+24/+NVobNcwW/oAelHv6/cXq9fsS4gXA8Hra6w1VjP8AnaMGX
-	 sUnTRIrSBr4Nqq6NqJbmTAz80TNgF980upMhzpn1p6bBEGe2vLjNZWPjAfH8Ewg+407mJ
-	 a99F+s578O7l0PayM0idfsOB+xc2n2EvvK9Eo40wCabjWcYEIqDv8C7PDewofvhnWzg==
+	t=1795547239;
+	b=hflWpSKxD7RoN3tmoXmHBgaA11L16+S9Xy5OXouAMdcuoyhwycqwUfrkT6cWufSAfPa9
+	 LKDPoH/Jn1oVIJYynE7Yp9RGwlL5Pil0O0mPR9W+IkJB9RKwWzkxI0w+ysE725ZW1/y3h
+	 835Wwpl1cbW+DjOPqiQSLDYc0OSmQdEq7gZ9K4pVgM+Uq2PWKLMgyBOwFe4GinzFs9Iuz
+	 Cp72x+a1++yaDWCrBui+jKt9hs4M3M+JyoWiFG+/ybLfovfsyYip5CmgcXet8E+EduzfA
+	 gcYC8PQrTbNwV+9ggskPTvHZ1XiVs/oJwXiQrW0wTG5fPIWErFxXnp49VrzG9/djQyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795547232;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795547239;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=QWeS2DaaaqUG6TaX2cJ3ldFcn1Yi6+PWQCuv5r1XuOE=;
-	b=4qBlsulKQOY1jEc6J/bjio6CrWQYs5iFBhxYzGkpntf80fIvHnEpr+/3KKFX262bN7yr
-	 JC9n5XpIpFdgYy9LA29DhMRlLtWC13qq4SNS5svL+EiM1XD51t0TQtpeVPavh+wH3JUxS
-	 n+PfgrZBn2/4fE+lo3xGTE6uFCJqeEYNSnz9kr1ZuX81mP+Eu3NidAsS3ZuVThvg2wNTE
-	 cbuYARYVop/ZJhs6t64baq2g3Fpj/wx+O5Ug9XN/A77pBiTmggbY81zECmzuwwM8hhwBI
-	 0wilV1ayjYhALkNAcu8MmPfGQ1ouqlb4Oj/BE4vpIzPINc9oATJV/OoJpJbZeC/Pr+w==
+	bh=FgZi+nsyPVs7u3bXb6h/s8IEK/RFyuKclCr8Y77aBt8=;
+	b=0EREzClkz66F5qhzHvmA8xQzHjAJnwurFmCto+nM3e1hwfjGcupI8ZobvdBiV+HT0r3T
+	 F5sxsGwKbkx4MnHgChhtxZSztCrVxaW45IE38+2oZ3D2pSonRBYHvIBFBFQ0mV8X/6PgT
+	 i57wDsqJExj86loCg/m2ajbSJ2/WQ0hGqSz7QGgY2RS0o4uwoYnrCSP5eT45XLjifNQhq
+	 bPI6qEANTpZwh9rNDOSv+VtJudYWJoJzg8X1tFGNzSPHJaIeMGDuTOEW21C8L/Z3phCCQ
+	 DyIEmYwDvFy0yX/gVGSbROx5n8TqNGo+RNBiluVvGd5FMcC70VaUXC7cCIbR5mUjouQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hxXobVQ8;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=STJlAoLv;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48886606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 19:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48886606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D3C606A31E
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 19:07:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05D3C606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hxXobVQ8
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so45388365e9.2
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 11:07:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=STJlAoLv
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-49a92144733so2417687f8f.0
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 11:07:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795547231; x=1796152031; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795547237; x=1796152037; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=QWeS2DaaaqUG6TaX2cJ3ldFcn1Yi6+PWQCuv5r1XuOE=;
-        b=hxXobVQ8OGOjWGTeKo07K8PS/wPgtyJtQN0GjNBZY7UeDZNuYwHGVrbu5F4UfFgx35
-         0qz5K/BbB8nStJQ6frMK9ztXJDnsj/sgZNqkoX/wnJxEwlZiSE9JLPlIjA2lQdpFU80k
-         hIJ9uKKUvRCcOUYBd/z3YjDaQ5in3M3+Xw1omkij00TcevggtlzyaVAnYPzQSSnPsNm1
-         cIML7cqLSWEuz9WLi4WwYu24oTQvYrHiwGjUHKJrss9RJBvJcGW+iOizYoLTo6W1Bi0v
-         xxWQzSR3m9So0L86dXQtmnuGI6iQgiv6QzEh3Q31UybZverEQrrGoSXKRMP9GkK3gjSf
-         ub/g==
+        bh=FgZi+nsyPVs7u3bXb6h/s8IEK/RFyuKclCr8Y77aBt8=;
+        b=STJlAoLva/MdLxcgf0jtLAiUHzF1PHRhuLkilaUPq9copnvf/bswY9eLOJ8HjgeloV
+         Eg8j8YUZZq4HIt7QOVezpjovNMNteXfBFei7sERtVlUtuVnUhN6qzwiyOQmBQPGj3Rjq
+         Pjur8k7dIUaDd+4/hsJbd1nOdnymJxwn7bQk73TYcimVkf3Id2Bb6jVV+BKtxkbNuxgX
+         PuPQaBndU2ujxZ7W7dCEMxyN6+1ipssFWmb38kLIvWGUv2gECNhn8tzE+Z9VAXoBs3Qw
+         Y+1GPCAfQswSy1bEAWQeCtGUvwY80HEXoQDNOwGJMj9679gsoIPo4ziRTle2ZQ1YP6PI
+         mdWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795547231; x=1796152031;
+        d=1e100.net; s=20260707; t=1795547237; x=1796152037;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=QWeS2DaaaqUG6TaX2cJ3ldFcn1Yi6+PWQCuv5r1XuOE=;
-        b=vSemP56X0ZCFk1iG16WBKjswnFoMQgakS7w3egM94YWG7KryuqsZSf75g91kBxAI77
-         f+hXUQoo6Aq+znMdxY1HdxyrFTvB16puB4VKUMNLFTazItHN+C31sM6LTupqGmdTlI5g
-         35PGZdrrX3TUKI31elk4bHZW2LkjP+Cn/bey7mfe1PFuOzWW1PD7EIpeYvZgT+M87bE1
-         3sX/Su4WEEglseBnNAZeWNCHfkxVdapUjviOXC7dZ93veU+eiXlKAxNyWfjjKoULl8GK
-         QygNQcBt0apgzANBrKc5nbMtWnYQhCIX812AX5BpEKKcTOMxlfDi33UsyyAKp6FE+56e
-         a0Lw==
-X-Gm-Message-State: APuU4Z8llO75L4XpbkC3NyqQOUv34Z0NJLKnGL93m9tzyT56A4WalI9z
-	z+TB6JqmYnZ7V6MVnRArj92GXpdw5n8XxGhKNdfsh6nt8TaHV0rEVffGrdmuAw==
-X-Gm-Gg: AZFdTZdtyjHWr5H/tm++BFGZYss0/irBKcYgsXEo+JVaFvM5nw0Kh50UIQZTNj1y6FL
-	hsqSyAQsy5FGQpOJxXG59LFPC+lVq534W5K6VsrDjBucY+Awq4Rpc9RtigOQIuvp3c+zq1o0Ey5
-	qsXTYP4MJrn/9RHPAvzWYhoulS37CeyPq1MBnu1KyQm/FznrLrameQ4b02SKhGxEWyAqM/cidB6
-	awmnos2cLYS6EXKpyJBevjHMDH3/edljkrrHfpMNyiJSTJF7164dDDd9IEOyalKqTR+65o/ClPZ
-	7LxJSYUSBaeNbdt2Gs0R1DdvjfKus6AkDjh2TdQAQrz602Bsk1szTLEwKxK85wo0p6BiTxe61mL
-	Btx6PHQkg9FSf6a58PYDdfceb6f7wCKOoR1LDUyDFkxWdlccVwSmgupgB+2S0iRH3nlrVEhkFnk
-	M8/K3eD1LptjYxCrEBTF53+MyaUpq9IIT7ll6CUjtuna4/jSyq9vnnlcuXO5ghO5zjiXbviSRgK
-	dR3EhMKfeSPcJwxdc+xuiB9lcZzQqK/1H4ndWgKunk6QPIQexVn8wLO5Pb3f5i0lq6SVHC4Xc64
-	g3TxPGqaCRdyaqyD7nJX9Rt+UJywQTAJCHIJS2arboR72KH4MMGVcppA39Ol1pg4H4fQ35uViJ4
-	41e5lZv00qXXR1Ys19ZBmugjJzKjVq6HYlRnMByI+RA0JzU7RrtEeXEmgxHQyijhfSVtUc5p1lN
-	v/CDYd9KkuOrNfTw1lk2gJ+1A3XTmIN1Hac+NGaVrspXAvHCk3CovnFJsCvrnTSdlUioTzhsbpz
-	kbE6UYRDR9jPEAehHcF14PdM0rUZUC6NWEzqMw=
-X-Received: by 2002:a05:600c:a08e:b0:4a1:fae5:f2e2 with SMTP id 5b1f17b1804b1-4bb887e0682mr321398055e9.4.1795547230600;
-        Tue, 24 Nov 2026 11:07:10 -0800 (PST)
+        bh=FgZi+nsyPVs7u3bXb6h/s8IEK/RFyuKclCr8Y77aBt8=;
+        b=tY00okoEtY1JmSw2bFNdwMrKqFOr5aZUdNQ7bwKQHJMZ1twFRTP6NsDc/H7nfFukR/
+         lNet87Pfv6y2cDbZirQcOwBChkCxREEzK6JD3Ei+NI4EsAVuXO/tneSYvdOKbE8mreJm
+         jtwLtscKpj2e24TnOBiyTlvE6fSOLV8dg6TnTEGypaocftg3PY8JWfuA4xwYaAQZ/sq9
+         1W01UVknBI2OKM/5YIlNqtHeA/c+CMOcRbA18J6xWjbeRgG0G0sqXR2zAYbHejsXEaTQ
+         8H0czV8E22zQwmXdcwHafeCAWo+x34af/SPvy/4J0xbSJIAFMTKH4/RK9rrANFt/i2WR
+         xOyQ==
+X-Gm-Message-State: APuU4Z9QagxlgKX3mg+b3I1pghIVg0Kln3GR0Weq8djhue/MtxyKFdSC
+	2erZGGSDZB3zzMhpm3waq95Iifof1UnXkVJ0gJUcwUK98rEOyspHDIsL8cmaMA==
+X-Gm-Gg: AZFdTZc8gtzWXe/yUhJqFoq2pprfM1as3jNaH8J8l1dJBFKyqQtTyUXNJ9HA62/995T
+	mcLcwr/rx6Xp8MzQc0/P/nJf7rwxU+eMVTgvl6jQTQrnux0TxVdkOVGSfES+8KqbIpMr7C7Qmap
+	pI7nX0S9iIPf69C5gSmqfSDipzA/T3lWJxve0MkOdvAAHoLBwS/d3s6qx6sngvd8kdeSAVhab0m
+	lD3pm0WgFSeFBTxYBUASPc0Cf1sWPuZ9pXhadrtFoFT1NFMZP7LsY1u0GqfkIicV01tT//wio42
+	SsDtSGiWere0KWIgpMyWtwYtQ6zHL+sjhO+t38PXuxdRyxoiujhm1bHQTlWdGq7xFXq32QQiQ+t
+	VSCMFLN9q1yWDYHBuAxy+oNJ7HMEbdIFSU+46esNjsNf6TEkTkN5KTOM9yUhz//qJUVKUR5/C89
+	81YZ3SSAGZY67vbbV3iwWaZJm/vCdRSeOtqhZQ8rQ4vx9grT7SppBRyaKX2IYbOtuP5V2viaXDM
+	O1cICZoXGpRmdp85HL3MgH+oA7ZcU2eaE/EzgtsRHT70peH1F6WIM15CLOSw0wPtYlTaQtXGi3c
+	qOPySupeG6tmHvcmJ/ch1KFQBsTHVIoPo+LMwAUsJEq5dfhKOKFJkcQntZrpWSk7UpsnxNbAzGN
+	rIBxLigjKc1/E90asHbIiVxEXzL87TGrUHbbJmJWU9u38IjhJ5gAv8moTYwg7GUAqDgPFjDZ45y
+	Ee6pY2oQVZX2MJybBwxK5/q01tk6qMxNmh7sXQIZn+orl4KnlbdJEX0YJmeAfnbdwP2hZBV+ZUj
+	lqX4CI2nQIuC1BAoQ==
+X-Received: by 2002:a05:6000:29c6:b0:4a9:b2f1:aac4 with SMTP id ffacd0b85a97d-4abb42ea141mr20426548f8f.22.1795547237279;
+        Tue, 24 Nov 2026 11:07:17 -0800 (PST)
 Received: from longitude (2a02-8434-fda5-4201-fb56-7a23-de2e-e3d4.rev.sfr.net. [2a02:8434:fda5:4201:fb56:7a23:de2e:e3d4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88442995sm472294835e9.2.2026.11.24.11.07.09
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b2052c8sm29821513f8f.41.2026.11.24.11.07.16
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 11:07:10 -0800 (PST)
+        Tue, 24 Nov 2026 11:07:16 -0800 (PST)
 From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
 To: stable@vger.kernel.org
-Subject: [PATCH 5.15.y] bootconfig: Trim unquoted values at end of file
-Date: Tue, 24 Nov 2026 20:07:05 +0100
-Message-ID: <305b357184cbee7304972c7b293ad3da11a9c29e.1795547225.git.edumucelli@gmail.com>
+Subject: [PATCH 5.10.y] bootconfig: Trim unquoted values at end of file
+Date: Tue, 24 Nov 2026 20:07:13 +0100
+Message-ID: <17a42c040edf4cac0df91ac43a3c4a30f416613c.1795547233.git.edumucelli@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112402-unscrew-camisole-d511@gregkh>
-References: <2026112402-unscrew-camisole-d511@gregkh>
+In-Reply-To: <2026112402-grit-gauntlet-c172@gregkh>
+References: <2026112402-grit-gauntlet-c172@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -125,7 +125,7 @@ Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
 ---
 Hi Greg,
 
-Thanks for the notice. The parser hunk applies to 5.15.y as-is.
+Thanks for the notice. The parser hunk applies to 5.10.y as-is.
 I moved the EOF regression tests to the corresponding spot in the
 existing test script. The two unquoted cases fail on the original
 build and pass with the fix. The bootconfig suite also passes.
@@ -138,10 +138,10 @@ Eduardo
  2 files changed, 21 insertions(+), 2 deletions(-)
 
 diff --git a/lib/bootconfig.c b/lib/bootconfig.c
-index ac878b861c..6df7778291 100644
+index f6bede03c6..58ad45a93b 100644
 --- a/lib/bootconfig.c
 +++ b/lib/bootconfig.c
-@@ -586,16 +586,17 @@ static int __init __xbc_parse_value(char **__v, char **__n)
+@@ -556,16 +556,17 @@ static int __init __xbc_parse_value(char **__v, char **__n)
  				return xbc_parse_error("No value delimiter", p);
  			if (*p)
  				p++;
@@ -162,7 +162,7 @@ index ac878b861c..6df7778291 100644
  		p = skip_comment(p);
  		c = '\n';	/* A comment must be treated as a newline */
 diff --git a/tools/bootconfig/test-bootconfig.sh b/tools/bootconfig/test-bootconfig.sh
-index a2c484c243..be8d058337 100755
+index e36f178f7d..4dffe2bf8c 100755
 --- a/tools/bootconfig/test-bootconfig.sh
 +++ b/tools/bootconfig/test-bootconfig.sh
 @@ -170,6 +170,24 @@ $BOOTCONF $INITRD > $OUTFILE
@@ -191,7 +191,7 @@ index a2c484c243..be8d058337 100755
  for i in samples/bad-* ; do
    xfail $BOOTCONF -a $i $INITRD
 
-base-commit: 4f2df9a01754521fbba3493e8ad91ef65515e68c
+base-commit: 99112ea818e35b606397c84fbc05e6fadb6ea162
 -- 
 2.53.0
 
