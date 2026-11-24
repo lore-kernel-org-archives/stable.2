@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795536684;
-	b=YB3ouKhzj6mTGFMJFz/xFaOCZocI4IjTMYUN/+SfSMYaNvmt4F+7waGbsoybmk7/1xtj
-	 2YvebAMmnQoiATrxAPUmbGYvOh+MisfrjHDqTWf5I7HlvwwM8MY2EWefiHX57rRm79yIS
-	 HBgGg7Y0dcI2VGlrzdppYkcMIkn6pexELYc88ftiOMyY8KvBrnknPlvssfEd9VCN5cEW+
-	 2z0JAMLXMX69fMJV+4nQVLdg/yMZrAWt5hVX9CamktcJwJIApKCIHwr2g3fwmshqTUAzZ
-	 LQt2LLNomO3UohyUrIc95hxoahV1j+47gXIWAXd61TVvmjLq07TFTL4EzhP0td5cBvA==
+	t=1795536726;
+	b=3FT3vacBNayhCIWup8X2Jl1GlrZgtpWtf9Ny98sw0jcOIUrWm0VN75+fmN+De4oqSAyk
+	 cudmQGwQO2+ucN67heT2DgLcvvbBlLMYdo/GMa8ZMHxhaQAvPKFI+4sSz4VAJ+oeGl/+M
+	 VKj7GRfomehRPr9ndDtbwkTRDrDDZiZL5CbHgTfqWy/CdQw5Z2fzokjbfp8BkMFiGb/96
+	 E5NPDxhXEgCFiXM0Rg1uBzKHCwe06cOauOAFrfN8IcwskzFMnbMzLyFJPNYnrBsfNDU9y
+	 LGw7B56M9jlCHxbDI26MZg9TSArtIowoDpOimEgIq5OSGnfiBjDpDZ/Kzr34rMiq2Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795536684;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=LvG5+rNFbO4xSHxe8GcQBfnFez6a86Hx5Su/xchbI3I=;
-	b=InQAp4JIDSFswCCHEITr+UmsgQ5oYSNxOIwfSgCVPt9PSzbC7yEV5UucSW/CZlsKw7IZ
-	 AjNB+4xPq/145bW+IpOVa3Q+Yx25kuqbB0ezNfYMZWvstoXCmq8OEvubfSgQTETgOsx6Z
-	 scxas/NjXJU/AWydqXU4oPXJeyibUc6+DsuF8rllR2N33ecPcXCvdF24+/q4pK0a8Atmi
-	 awUsR6wTS/G79CCoXslMcJxAc57TCb6kxMZQAWTVc9PfQx5Md3wvvQtyHXUQYAlB5iH9P
-	 vAw/DWEOsHDmnmOOxFkoBBzypdgNVbrO6uOPVMlztn0CWpA67T9YJ3wmGUeO5Xg2UrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795536726;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=52m+UU6UqtGXp28m1Dg0w6G9mTnBbNsyuxDLSvQstA0=;
+	b=uX1lb4BOw58Vjf3HQQYC2wFn6Iz/+Gg5X1PEesTIuBQYZQpWb5g1hLHqb69hECzZ0/JI
+	 zap68Hg1YNAwd4cCovK4Lb2UzL3Sjo8EmR1VDaxyChGKPmpBHJevgYR39gzqEYq5agoTF
+	 q44xnQwewD5smCnaih2+9hF6lB8fydk3hp2GRRrgzoLiv9SK0uoYRXBmgl/eTzpt4DXe8
+	 c5CkK5iVw3KISF/eJ1aVampEjMsVoDEP7ymVl4e/O/ySJm9hWRXL/nFvBGsnhwT6JN+4R
+	 MbHfJP7pdeD61dg55ajzkFd10QslSL48Nv3/5GfwhvhYcjA22SjNcRviyY97Od44g1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=W5Obng5b;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vf1pJ0sp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E7A606A32A
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:11:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63E7A606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00216606A331
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:12:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=W5Obng5b
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261124161121euoutp028a43759a42efc31ddcbe61abb656bcd7~rBxlHCzLw2550825508euoutp023
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:11:21 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261124161121euoutp028a43759a42efc31ddcbe61abb656bcd7~rBxlHCzLw2550825508euoutp023
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1795536681;
-	bh=LvG5+rNFbO4xSHxe8GcQBfnFez6a86Hx5Su/xchbI3I=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=W5Obng5bAzdIWHFxF9I9m9C1d6+8NP9FzG+r96VD9Sb9x/xqf+U2kOQeBluLfNsGO
-	 5nfhNYmeVMjLXRkjZanueL3zrF9mfZiLtZBR/M8gV3zXKAapOmy4vtbNZGgT4nTqW/
-	 qNiM8nmPtLpfO5T8MQVoiZu6FlhVshppOkG2p4cg=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261124161121eucas1p111fb1f1e9e91dad3f8a68131f3951415~rBxkwlpaE2165621656eucas1p1Q;
-	Tue, 24 Nov 2026 16:11:21 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261124161119eusmtip1823cc0c3de84fe9a410d638a7a7849ca~rBxizLBG81311713117eusmtip1e;
-	Tue, 24 Nov 2026 16:11:19 +0000 (GMT)
-Message-ID: <874dc793-7287-4c23-b1b7-0417fc43b7b9@samsung.com>
-Date: Tue, 24 Nov 2026 17:11:18 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vf1pJ0sp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0791F000C4;
+	Tue, 24 Nov 2026 16:12:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795536725;
+	bh=52m+UU6UqtGXp28m1Dg0w6G9mTnBbNsyuxDLSvQstA0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Vf1pJ0spfG0u8aOuxM2/bRnpI0gzyyvcVKNQehZXQfwlW5eIlSB925X2fjjVUNXwV
+	 XyQvnOa0vc2Wj2vp1WqKvj7YUCzbjKVwwYfq0gWacnx6IBWJ7hP8bvd5Is8VdUcc9p
+	 65V9ZY3/o7B8E7sWDkZ36hr5Gs8Xod8vxaH001TKm8SgcanbIh+6/isa2nysmgXcvN
+	 1hlDr915eha7ZrhSH+bpKyQq8Nasoed+eU71ucpW75Q2G12Bu05Y9UT6PPkdp13MaR
+	 kPDhaFuOB7+l2gNhNnkKmzBRw9ivjs/Yh3U9apa6t3IDCeHrpn4W3Ufv+UM5XfYlBt
+	 Y6BZW4E4zRQZw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Olivier Louvignes <olivier@mgcrea.io>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] mmc: jz4740: Remove the host before resetting the controller
+Date: Tue, 24 Nov 2026 11:12:03 -0500
+Message-ID: <20261124161147.906737-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112435-active-relight-4a16@gregkh>
+References: <2026112435-active-relight-4a16@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,83 +59,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] swiotlb: clear read bounce buffers on confidential
- guests
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Shukai Ni <shukai.ni@kuleuven.be>, Robin Murphy <robin.murphy@arm.com>,
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Halil Pasic
-	<pasic@linux.ibm.com>, Tom Lendacky <thomas.lendacky@amd.com>, Kiryl
-	Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Elena Reshetova <elena.reshetova@intel.com>, Carlos Bilbao
-	<carlos.bilbao@kernel.org>, linux-coco@lists.linux.dev,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>, "Aneesh Kumar K.V"
-	<aneesh.kumar@kernel.org>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261124153615.GA114530@ziepe.ca>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261124161121eucas1p111fb1f1e9e91dad3f8a68131f3951415
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261123205317eucas1p2f96032281e0f5e9f17acc7ec343acced
-X-EPHeader: CA
-X-CMS-RootMailID: 20261123205317eucas1p2f96032281e0f5e9f17acc7ec343acced
-References: <CGME20261123205317eucas1p2f96032281e0f5e9f17acc7ec343acced@eucas1p2.samsung.com>
-	<20261123205302.1034348-1-shukai.ni@kuleuven.be>
-	<42415609-c784-45d4-a79d-ef3cc5e6c3ef@samsung.com>
-	<20261124153615.GA114530@ziepe.ca>
+Content-Transfer-Encoding: 8bit
 
-On 24.11.2026 16:36, Jason Gunthorpe wrote:
-> On Tue, Nov 24, 2026 at 04:17:20PM +0100, Marek Szyprowski wrote:
->> CCed Jason and Aneesh.
->>
->> On 23.11.2026 21:53, Shukai Ni wrote:
->>> On confidential guests (AMD SEV, Intel TDX) all device DMA is bounced
->>> through swiotlb, whose pool is shared with and readable by the untrusted
->>> host. swiotlb_tbl_map_single() copies the destination buffer's current
->>> contents into the bounce buffer at map time even for DMA_FROM_DEVICE. For
->>> a reused read buffer that still holds private data, the host can read
->>> that data from the bounce buffer before the device overwrites it.
->>>
->>> For DMA_FROM_DEVICE into a host-shared pool, zero the bounce buffer
->>> instead. Zeroing rather than skipping the copy keeps a short read from
->>> returning a previous transfer's data.
->>>
->>> Fixes: ddbd89deb7d3 ("swiotlb: fix info leak with DMA_FROM_DEVICE")
->>> Cc: stable@vger.kernel.org
->>> Co-developed-by: Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>
->>> Signed-off-by: Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>
->>> Signed-off-by: Shukai Ni <shukai.ni@kuleuven.be>
->>
->> I'm not sure if DMA-mapping or SWIOTLB is the right place for such fixups.
->>
->> Drivers should be aware that doing DMA from unsecure device to the given
->> secure page might reveal its content to the host or other parties and
->> prepare for that (like zeroing that page).
-> I think given the semantics we have to support partial write we don't
-> have a choice but to continue them as it is the DMA API.
->
-> The driver would have to opt out of partial write support somehow to
-> trigger this, and in that case it is more of an optimization and
-> shouldn't be linked to CC.
+From: Olivier Louvignes <olivier@mgcrea.io>
 
-This has been already tried some time ago:
+[ Upstream commit 6b8b1e8827837bf4cf1f87219038fddae9e81b0b ]
 
-https://lore.kernel.org/all/20250115194659.618438-1-florian.fainelli@broadcom.com/
+jz4740_mmc_remove() masks every interrupt and resets the controller
+before mmc_remove_host(), which removes the card and lets the card's
+driver send its last commands. Those commands then run on a controller
+that was just reset, and can wait out the driver's 5 s request timeout.
 
-It looks that something similar, but with zeroing the swiotlb buffer instead
+With an SDIO card that cost 5 s on every unbind: on a HiBy R1 (Ingenic
+X1600, a BCM43430A1 driven by brcmfmac), the CMD52 that
+sdio_release_irq() sends from brcmfmac's remove waited 5.1 s. The
+command had finished (END_CMD_RES set in MSC_STAT), but MSC_IMASK read
+0xffffffff although the request had unmasked END_CMD_RES. MSC_STAT can
+still show IS_RESETTING after jz4740_mmc_reset() returns, so the reset
+most likely completed after that write and undid it.
 
-of skipping the copy would make some sense.
+Remove the host first, then quiesce the controller, as other host
+drivers do. On the R1, unbinding the Wi-Fi's MSC now takes 0.65 s.
 
+Fixes: 61bfbdb85687 ("MMC: Add support for the controller on JZ4740 SoCs.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+[ sashal: adapted to the older int-returning jz4740_mmc_remove() signature and del_timer_sync() instead of timer_delete_sync() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/mmc/host/jz4740_mmc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-> I'm curious if there is a real issue here with a definitive issue on a
-> driver or it is just speculation?
->
->
-Best regards
+diff --git a/drivers/mmc/host/jz4740_mmc.c b/drivers/mmc/host/jz4740_mmc.c
+index 62d00232f85ea..753cf074e7c7e 100644
+--- a/drivers/mmc/host/jz4740_mmc.c
++++ b/drivers/mmc/host/jz4740_mmc.c
+@@ -1120,12 +1120,13 @@ static int jz4740_mmc_remove(struct platform_device *pdev)
+ {
+ 	struct jz4740_mmc_host *host = platform_get_drvdata(pdev);
+ 
++	/* The card's driver may still send commands as it goes */
++	mmc_remove_host(host->mmc);
++
+ 	del_timer_sync(&host->timeout_timer);
+ 	jz4740_mmc_set_irq_enabled(host, 0xff, false);
+ 	jz4740_mmc_reset(host);
+ 
+-	mmc_remove_host(host->mmc);
+-
+ 	free_irq(host->irq, host);
+ 
+ 	if (host->use_dma)
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.53.0
 
