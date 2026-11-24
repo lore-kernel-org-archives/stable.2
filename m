@@ -1,68 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795508185;
-	b=vqeCOdNuB4QGpi3Mfk9SSyAd+ph0bHo7hA0m2qA7c9FKhij2bE8uUILJytdJlpY5fREP
-	 7etNESuXLT3Z0ziu5D+9pN39WmTdDkzz9xpQA10tgfXn7t93GAScGVxDyii5ULUWPPfTr
-	 nVAktuEe1jYhrJejNBS2yqlz0QN3l9qnd5kO/U7I23MbvXjZL/FwVOZyPQ0XgUNIOEI+Y
-	 kGA4lm5YaDCeOWCWEo95ek6OgiTyRS1Y23byg7Ft7DTrn4wwH/91GtdIrQgrhLHBZVkz5
-	 HygdSx9kwc5D/CatfUq5sziTU+89tzurifM2hQz9FzqIlPBl0MUMnh81AMYHin+Jz8Q==
+	t=1795508192;
+	b=ZvKAKLLpLdWyvX3RNbyHcUBSw93gwPFt9JqPNMJQ3S77+wdIBFnZwDUKzf04Tgk9JYPh
+	 ANgGooxHLqfRDhOc4msAW5J09zK+fm3uY1TsBKTzNsHIlTvMNtxXCxj2AnFlSkLr8elNm
+	 5bWERf4NI98Qy9quU/OWrAjLxL4cS0QNCxgrURRSYozolgc1X6sipgk6CuOc+iLJ/M4/b
+	 Lg8PLmYTotO5+dC7jeKcS7mRpWrXbJmJB+n0NL9EpcW/TE0e/zU9A4L/I7Xbcmtl7FqGz
+	 TTqab33tL8jiY8HRUPQYSLxuH/Qb2RuVe/upkEwDpqo8ACJG9/eIYa80vjpH6wVqikw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795508185;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=LZM7DGDJCWUkbV6QOLu0g934zpHfuctVlWwnqyDatg4=;
-	b=yUauf701EX7wi8XWnH5Ft9kdabBEhwI5fUldI+2uNl4rfztN3bM2XAtu107KixsjLqG0
-	 IVeHxjh1lvbk4g5YMKFkSWtBpTu10J2kW8OnY7TTCQvV5LHG9k2mMCGGlNu5GswkS0bZJ
-	 u1v/iGfFyeuk/onJQAl9HKXqrAURa5C+JC37o1SPdl2KxIfHx16Pda9kYSLhlmwmQGyo4
-	 D8sgWzbPmepBIVaT8TasccA+C9SYAG2lAZ4h6Z48E3G+EgUbHjgy1Up596v3Bs6xZnRRT
-	 3HEb+oQnT9VuLhJgDsmpIxNUyQcB4AhSv1CWNK2Nv9C2RBtz05HbzteZ4s0sH/xVCcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795508192;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=gtfdC/ZGiUD1rSEakWBvxpLMWFjLacariuNQPtc6NHo=;
+	b=uY7A+9tLPtG2EfKQD717XwduHND4VndV9oQw8qDqOUHxy/A/OSTyeFYzfjll2L7oP2Sk
+	 ImoS5Ye96Qf3hxF6ORD56ilcRljtIudUjddEQH6B6XCffKMT6H8GXUSy//X9bWYZnhUs8
+	 mcXdU2mjK9ecAcA8QGu3ynPpJuPQBTXTTIKkqp02d9KErpWdXX6syfNiU0FwlDsoDLmxL
+	 3HhY6vR1xi+30ULva48rjMrSnPQ3kgu3a1zJK6q2VB33pEzeMXJL6rYqQjAUhYeedkQ0x
+	 PKgoiIeD9ta+FuguBvEiGeq/AxLC4bvMFKugq95hDdebNNEGvQFxEDXMXn0kcEJ9DFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.93.112
-Received: from dggmsgout12.his.huawei.com (dggmsgout12.his.huawei.com [124.71.93.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA36B606A31E;
-	Tue, 24 Nov 2026 08:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA36B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4jYbHR5Y1Pz209G;
-	Tue, 24 Nov 2026 16:16:19 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 3705A4056B;
-	Tue, 24 Nov 2026 16:16:21 +0800 (CST)
-Received: from huawei.com (unknown [10.67.174.193])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgCX0O_LRwVrMRxkFg--.47428S2;
-	Tue, 24 Nov 2026 16:16:20 +0800 (CST)
-From: Luo Gengkun <luogengkun@huaweicloud.com>
-To: stable@vger.kernel.org
-Cc: Luo Gengkun <luogengkun@huaweicloud.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	linux-perf-users@vger.kernel.org,
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 720F4606A321;
+	Tue, 24 Nov 2026 08:16:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 720F4606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=gtfdC/ZGiUD1rSEakWBvxpLMWFjLacariu
+	NQPtc6NHo=; b=U60AGqju8XH/SNHj7POOxLFRH9tyoUT6c8KGsuLezccyJrJ/Jw
+	B6kUoLYydOel2C3P/JO5XBBysO88J07KjJbsCBN1XTHnG129Q9oPpVOm2nW0zBQx
+	NYaFZF8HNy71Kd0syxcQydwDSWgxDAIbEIesxd+ETCM+Pz+hf3k6NXINA=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.70])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkC2u_7RRwVr66wkAg--.46263S2;
+	Tue, 24 Nov 2026 16:16:18 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Lachlan Hodges <lachlan.hodges@morsemicro.com>
+Cc: Dan Callaghan <dan.callaghan@morsemicro.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Arien Judge <arien.judge@morsemicro.com>,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	alexander.shishkin@linux.intel.com
-Subject: [PATCH stable/linux-6.6.y] perf, bpf: Fix NULL event->orig_overflow_handler dereference
-Date: Tue, 24 Nov 2026 08:48:37 +0000
-Message-Id: <20261124084837.2327711-1-luogengkun@huaweicloud.com>
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH 2/2] wifi: mm81x: clear a stalled bulk endpoint before the next transfer
+Date: Tue, 24 Nov 2026 16:16:15 +0800
+Message-Id: <20261124081615.3496-1-25031212351@stu.xidian.edu.cn>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <vshptwv5idooqjvdirp5ssf2ofiff6tjhgjnzqgptte556uzem@f7kec5a632s7>
+References: <vshptwv5idooqjvdirp5ssf2ofiff6tjhgjnzqgptte556uzem@f7kec5a632s7>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,124 +64,78 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgCX0O_LRwVrMRxkFg--.47428S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZr18Wr1DKr18ZFy5CFy3Arb_yoWrGF4kpr
-	ZFyr90kr4DWFnF9anIyF1vy3W7ur4fZFs8Ja1vkrWfCayFg3sxXFyUG34agrW5GryjkFyx
-	tw1UtryYy34UZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
-	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
-	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
-	nIWIevJa73UjIFyTuYvjTRNJ5oDUUUU
-X-CM-SenderInfo: 5oxrwvpqjn3046kxt4xhlfz01xgou0bp/
+X-CM-TRANSID:BbQMCkC2u_7RRwVr66wkAg--.46263S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar18tw45uF4Utr15KFWktFb_yoW8KF4kpF
+	WagrZ8tr4DtrW2y3WfZr1UtF1rAw4rJa47GF15K39xZ3W5GrySyr1FgFWYvFyUCrnag34Y
+	vanIq34Y9a4DZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9qb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJV
+	W8JbIYCTnIWIevJa73UjIFyTuYvjxUyQB_DUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUHD2sEVtikXAAAsV
 
-We hit the following problem on x86:
+> I applied patch #1, but this one seems .. interesting. Have you run
+> into this problem? Do you have a reproducer?
 
-	BUG: kernel NULL pointer dereference, address: 0000000000000000
-	#PF: supervisor instruction fetch in kernel mode
-	#PF: error_code(0x0010) - not-present page
-	RIP: 0010:0x0
-	Call Trace:
-	 <IRQ>
-	 bpf_overflow_handler+0xa4/0x120
-	 __perf_event_overflow+0x11d/0x2f0
-	 perf_swevent_hrtimer+0x127/0x140
-	 __hrtimer_run_queues+0x108/0x250
-	 hrtimer_interrupt+0xfb/0x230
-	 sysvec_apic_timer_interrupt+0x69/0x90
-	 </IRQ>
-	 <TASK>
-	 asm_sysvec_apic_timer_interrupt+0x1a/0x20
-	 __perf_event_set_bpf_prog+0xb7/0x180
-	 _perf_ioctl+0x1f9/0xb40
-	 perf_ioctl+0x41/0x70
-	 __se_sys_ioctl+0x82/0xc0
-	 do_syscall_64+0x44/0xb0
-	 entry_SYSCALL_64_after_hwframe+0x78/0xe2
-	 </TASK>
+Hi Lachlan,
 
-RIP is 0 with error_code(0x0010) (instruction fetch, not-present), i.e.
-an indirect call through a NULL function pointer.
+Thanks for taking patch 1.
 
-perf_event_set_bpf_handler() records the handler currently installed on
-the event and replaces it with bpf_overflow_handler():
+No - not on a real MM81x, and I do not have a reproducer. I should have
+been explicit about that in the cover letter. Let me describe what we
+actually saw, so you can judge whether the patch makes sense.
 
-	event->prog = prog;
-	event->bpf_cookie = bpf_cookie;
-	event->orig_overflow_handler = READ_ONCE(event->overflow_handler);
-	WRITE_ONCE(event->overflow_handler, bpf_overflow_handler);
+The path involved is the register/memory access path:
 
-WRITE_ONCE() is a single-copy atomic access, not a compiler barrier, and
-the store to orig_overflow_handler is a plain assignment, so the compiler
-may reorder the two stores. GCC 11.4.0 does; disassembly of
-__perf_event_set_bpf_prog():
+  mm81x_hw_otp_read() -> mm81x_reg32_read() -> mm81x_usb_mem_read()
+    mm81x_usb_cmd()          cmd urb on the bulk OUT endpoint, wait
+    usb_submit_urb()         data urb on the bulk IN endpoint
+    wait_event_interruptible_timeout()
+    completion callback      musb->errors = urb->status
 
-	mov    0x3d0(%rbp),%rax                  ; prev = overflow_handler
-	mov    %rsi,0x3e8(%rbp)                  ; event->prog = prog
-	mov    %r13,0x3f0(%rbp)                  ; event->bpf_cookie = cookie
-	movq   $bpf_overflow_handler,0x3d0(%rbp) ; publish overflow_handler
-	mov    %rax,0x3e0(%rbp)                  ; orig_overflow_handler = prev
+We drove this against a USB device model that can answer an individual
+transfer with STALL or IOERROR instead of data. On the guest side those
+complete as -EPIPE and -EPROTO on the data urb; the driver stores the
+status in musb->errors and reports it up the stack, and that is the
+"nonzero write bulk status received: -32" line in our logs.
 
-Use smp_store_release()/smp_load_acquire() to guarantee both the compiler
-and the memory ordering.
+The important part is what the model does next: it answers every
+transfer independently. The next transfer either gets a freshly injected
+status or completes normally, so the endpoint is never left in a halted
+state. The model therefore cannot exhibit the failure this patch is
+about - after -EPIPE its endpoint simply works again.
 
-Upstream status:
-Not affected. commit f11f10bfa1ca ("perf/bpf: Call BPF handler directly,
-not through overflow machinery") removed orig_overflow_handler and
-calls bpf_overflow_handler() directly from __perf_event_overflow(), so
-the reordering window no longer exists. That rework was not backported
-to any stable tree.
+So the statement that the endpoint stays halted is from the USB spec, not
+from observation: a bulk endpoint that returned STALL remains halted
+until the host sends CLEAR_FEATURE(ENDPOINT_HALT), and on xHCI a stall
+only resets the host-side ring. Whether MM8108 can leave these endpoints
+in that state, or whether a STALL on this interface always means the link
+is gone, is something you would know much better than we can tell from
+here - so we would rather leave the decision to you.
 
-Affected version:
-Introduced by commit aa6a5f3cb2b2 ("perf, bpf: add perf events core support
-for BPF_PROG_TYPE_PERF_EVENT programs").
+Any of these is fine with us:
 
-Fixes: aa6a5f3cb2b2 ("perf, bpf: add perf events core support for BPF_PROG_TYPE_PERF_EVENT programs")
-Cc: stable@vger.kernel.org # 6.6
-Assisted-by: LLM
-Signed-off-by: Luo Gengkun <luogengkun@huaweicloud.com>
----
- kernel/events/core.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ - drop 2/2; patch 1 stands on its own and we can resend this one if a
+   stall ever shows up in the field;
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 95743e6c5b0c..3ffb313d610c 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -9717,7 +9717,10 @@ static int __perf_event_overflow(struct perf_event *event,
- 		irq_work_queue(&event->pending_irq);
- 	}
- 
--	READ_ONCE(event->overflow_handler)(event, data, regs);
-+	/*
-+	 * matches smp_store_release() in perf_event_set_bpf_handler().
-+	 */
-+	smp_load_acquire(&event->overflow_handler)(event, data, regs);
- 
- 	if (*perf_event_fasync(event) && event->pending_kill) {
- 		event->pending_wakeup = 1;
-@@ -10626,7 +10629,12 @@ static int perf_event_set_bpf_handler(struct perf_event *event,
- 	event->prog = prog;
- 	event->bpf_cookie = bpf_cookie;
- 	event->orig_overflow_handler = READ_ONCE(event->overflow_handler);
--	WRITE_ONCE(event->overflow_handler, bpf_overflow_handler);
-+	/*
-+	 * Ensure the update of overflow_handler is after
-+	 * orig_overflow_handler. Otherwise, we may call a NULL
-+	 * orig_overflow_handler in bpf_overflow_handler.
-+	 */
-+	smp_store_release(&event->overflow_handler, bpf_overflow_handler);
- 	return 0;
- }
- 
--- 
-2.34.1
+ - keep it if you consider a bulk STALL reachable and want the driver to
+   recover instead of failing every later transfer on that endpoint;
+
+ - or go the other way and treat -EPIPE on the bulk pipes the same way
+   mm81x_usb_urb_status_is_disconnect() already treats the status
+   interrupt: mark the chip unresponsive and stop retrying.
+
+Just tell us which direction you prefer and we will follow it.
+
+Thanks,
+YuanZhe
 
