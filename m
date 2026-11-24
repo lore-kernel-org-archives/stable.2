@@ -1,52 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795550454;
-	b=UcDf4KbSQRtt1hHBeJ75JTAGA63D1IEkATALZBnn08ZlzxSgRzF5O3GEWs3fTvo3JsNu
-	 OvIiTvP7TuqE5/UMEvuPLki1400qX20/dr9tjjAKERB956b2oUfHS5AkviB7EeMMHpuld
-	 WKh4G+2YENMjstapbeHFKz4r7wPgDHj+pLthJs8hbSwWRjo63Llqwy/9rcF9aQq5wXihS
-	 hjcFypgHp6nBBTmij/L3xXsfpxYJJxFbZsNJixN1udPRoXLE/8lhZh3mWiEmFp5j0yrYf
-	 UchgwOG/x77MCKkPS08O73kykMG8P+lRrNNI6T6KtLupgls05qLajxvZ6NLiuM0StRQ==
+	t=1795550555;
+	b=oHdgdjKjJn/C/YsWZft4F4Oglnv7W/RX1ViH1/olCsCRaaeu7PjdR9b2/6GWyMkqesEa
+	 uR2UcFKdz72fTipNVEePWlGnWcJE90PxaPT6JOvK58TelS446XaBI8h+UFOV6uCCgJ9yj
+	 nQZ4N0finYejnh0kavr3lAiaguKNBMFoASSBqHAj8/uomcyovi/PJZuXH6CGBA+AnWAgo
+	 fRvZXc5TSWwsAiVTwdKvi+cvH25lx6hkwprCKw42wA1Eoa1zLBoqCyr+dKCqBJq+Cx++7
+	 oN39D5/89fNHnQYMTu5vJB8wqPyvEjihVuwVVtEJN3d0/DVfq3dXrbuWnjb88VRLRIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795550454;
-	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
-	 Message-Id;
-	bh=7lRWmlzPyJE22IVPZSA9OFki5MY2r+pzTxqXruhBxUA=;
-	b=O0Sxixw7AtBi/P8bEBpksl8IqFMhB76D+TSEnYurymGVK4qf8niYZjUIy9syK/zCzNbL
-	 uzIlkurNPoXQNQt1u87ctc/6vXH5SrJpSVp54SWPCPYEJ4RAJxrCujb0M0wrr25X91/jn
-	 4QsBKEaCsdPi2FayIB8MuqxhXzNAMR1uq7EKydRgrKFxFF9OnKHbRQ9tcZBJ2f4RVpj7V
-	 d858OKqooh2v0P6K3Y3EnIVqwYtzqPTZ3jWhCzTJzmH7eI2oEY5a50I4vQ6MAKT2Fe7Zm
-	 Ya14Muco75JZBI0a38z1eYEnLcLMukTZ2l4fyWgIvhjK5C/7hLfCUTFSbBskkohFMQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795550555;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Xa9ioU99jRs8QMmJqf8VPfD3uXpqKUyjdPJ22Op7B94=;
+	b=3RwSO0OLUP2L4rwyNduOml3U1N1lIvhfyqbBL4ZIsfIbloVZ/ZdriSkh0FlgV+rj6++E
+	 KIZW+Yr5bycyev9sh3EAL/C5uzt7fclD4IlmXcM0NI1g/tCDCJ9LevSJTITFXxNn5s/Uk
+	 1BDyq1nGsQa7AeGqNKQldnKFLy4D+jsileOjHnDad4871iwrSKzRIalJ/L04GCjh1Z+Wz
+	 TNJMsH2kBzcetd0QBE/XPcO4B8WePtKDsCV7jwIIkzAwDZljfgmFSsb/CdY8nmOcNxCvs
+	 3NjmG0PL6f9St03hC5XngmcIx5OCKcaWhzCP6k0Gd2XQSDuJPSMCD14v2n/c/WTAODQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="zxtp2/zJ";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YjdUJT5R;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48045606A31E;
-	Tue, 24 Nov 2026 20:00:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1421606A32C
+	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 20:02:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zxtp2/zJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018801F000C6;
-	Tue, 24 Nov 2026 20:00:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795550454;
-	bh=7lRWmlzPyJE22IVPZSA9OFki5MY2r+pzTxqXruhBxUA=;
-	h=Date:To:From:In-Reply-To:References:Subject;
-	b=zxtp2/zJl/AlBJo206VlaVbHGF9zLL0NH2W6NRZUD7PaU/PJafknxiU4IpMRwMCnq
-	 HhaOL5vmvw8Tmfb+LNEGsoWm8ZewUZBJh1WSXbUlyjTdNbCDxymh/GuzancIyckFRV
-	 de4sc2Y7UWDalgwVTd7j1i+yaSyDW+XEnYSDjzyk=
-Date: Tue, 24 Nov 2026 12:00:53 -0800
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,usama.arif@linux.dev,
-	stable@vger.kernel.org,ryan.roberts@arm.com,qi.zheng@linux.dev,
-	nico.pache@linux.dev,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,
-	hughd@google.com,dev.jain@arm.com,baolin.wang@linux.alibaba.com,
-	baohua@kernel.org,david@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-In-Reply-To: <c13cdd25-7d7b-4059-a22d-af0a48fabaac@kernel.org>
-References: <c13cdd25-7d7b-4059-a22d-af0a48fabaac@kernel.org>
-Subject: [merged mm/core.git: for-next] mm-khugepaged-free-unused-page-table-when-setting-a-huge-pmd-fails.patch removed from -mm tree
-Message-Id: <20261124200054.018801F000C6@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YjdUJT5R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA7E1F000EE;
+	Tue, 24 Nov 2026 20:02:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795550555;
+	bh=Xa9ioU99jRs8QMmJqf8VPfD3uXpqKUyjdPJ22Op7B94=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YjdUJT5R7T6JjCWYaFQcLsEUkfhEZWeaneDevNpKZoWWht+yjGRhcwLHxeQL3PfTy
+	 6wPGQzCmTL3kAFNuQYCNTOW7kMiRoCKw7LgUs6ku1b8iZ3JEU2h2Yh5jeeqRrmj9fh
+	 9i0ds63bwVzdbQz4r/ZYOwPaRrv++yWjIuFd77zNtdQ4PebXGlg6594lEvPmWilClI
+	 fKQ8GqLok1KBgF5gJLrCQ99HK9lwpyHQoXBkvHzpPRlet3fWBkwLR/+LjcEmo8Z1ht
+	 E00g1zCeKBK/XfS7fBx9YoOIBZf4+B/Nr3oIcs9K3rXBXCvwfAaDJDtEle3S2FwWNl
+	 UsTq0oNKoCnag==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Zijun Hu <quic_zijuhu@quicinc.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] errseq: eliminate special limitation for macro MAX_ERRNO
+Date: Tue, 24 Nov 2026 15:02:28 -0500
+Message-ID: <20261124200034.2551100-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112444-preschool-blaming-08e8@gregkh>
+References: <2026112444-preschool-blaming-08e8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,104 +59,90 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Zijun Hu <quic_zijuhu@quicinc.com>
 
-The quilt patch titled
-     Subject: mm: free unused page table allocated by do_set_pmd()
-has been removed from the -mm tree.  Its filename was
-     mm-khugepaged-free-unused-page-table-when-setting-a-huge-pmd-fails.patch
+[ Upstream commit 3eff6a3e574c2f704f9be1f4867c3d0b3d804435 ]
 
-This patch was dropped because it was merged into mm/core.git: for-next
+Current errseq implementation depends on a very special precondition that
+macro MAX_ERRNO must be (2^n - 1).
 
-------------------------------------------------------
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: mm: free unused page table allocated by do_set_pmd()
-Date: Wed, 4 Nov 2026 20:56:37 +0100
+Eliminate the limitation by
 
-do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
-deposited page table, such as PowerPC with the hash MMU.  If the PMD is no
-longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
-without consuming that table.
+- redefining macro ERRSEQ_SHIFT
+- defining a new macro ERRNO_MASK instead of MAX_ERRNO for errno mask.
 
-Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
-userfaultfd operation can install a PTE table before taking the folio
-lock.  If that races with set_huge_pmd(), the unused preallocated table is
-lost when its local vm_fault goes out of scope.
+There is no plan to change the value of MAX_ERRNO, but this makes the
+implementation more generic and eliminates the BUILD_BUG_ON().
 
-Track whether do_set_pmd() allocated the table and free it after dropping
-the PMD lock if it was not consumed.  Preserve any preallocated table
-supplied by the caller for PTE fallback.  Successful PMD installation
-consumes the table and clears the pointer.
-
-Returning without a preallocated table matches the existing behavior on
-architectures that do not need a deposited table.  All callers already
-handle that case.
-
-Link: https://patch.msgid.link/c13cdd25-7d7b-4059-a22d-af0a48fabaac@kernel.org
-Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Link: https://lkml.kernel.org/r/20250407-improve_errseq-v1-1-7b27cbeb8298@quicinc.com
+Signed-off-by: Zijun Hu <quic_zijuhu@quicinc.com>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nico Pache <nico.pache@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Usama Arif <usama.arif@linux.dev>
-Cc: Qi Zheng <qi.zheng@linux.dev>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: <stable@vger.kernel.org>
+Stable-dep-of: 94defd41d80f ("errseq: don't let errseq_check_and_advance() hide later errors")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ lib/errseq.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
- mm/memory.c |    6 ++++++
- 1 file changed, 6 insertions(+)
-
---- a/mm/memory.c~mm-khugepaged-free-unused-page-table-when-setting-a-huge-pmd-fails
-+++ a/mm/memory.c
-@@ -5741,6 +5741,7 @@ vm_fault_t do_set_pmd(struct vm_fault *v
- 	struct vm_area_struct *vma = vmf->vma;
- 	bool write = vmf->flags & FAULT_FLAG_WRITE;
- 	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
-+	bool pgtable_allocated = false;
- 	pmd_t entry;
- 	vm_fault_t ret = VM_FAULT_FALLBACK;
+diff --git a/lib/errseq.c b/lib/errseq.c
+index 81f9e33aa7e72..63aeaadd71c38 100644
+--- a/lib/errseq.c
++++ b/lib/errseq.c
+@@ -33,11 +33,14 @@
+  */
  
-@@ -5782,6 +5783,7 @@ vm_fault_t do_set_pmd(struct vm_fault *v
- 		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
- 		if (!vmf->prealloc_pte)
- 			return VM_FAULT_OOM;
-+		pgtable_allocated = true;
- 	}
+ /* The low bits are designated for error code (max of MAX_ERRNO) */
+-#define ERRSEQ_SHIFT		ilog2(MAX_ERRNO + 1)
++#define ERRSEQ_SHIFT		(ilog2(MAX_ERRNO) + 1)
  
- 	vmf->ptl = pmd_lock(vma->vm_mm, vmf->pmd);
-@@ -5812,6 +5814,10 @@ vm_fault_t do_set_pmd(struct vm_fault *v
- 	count_vm_event(THP_FILE_MAPPED);
- out:
- 	spin_unlock(vmf->ptl);
-+	if (pgtable_allocated && vmf->prealloc_pte) {
-+		pte_free(vma->vm_mm, vmf->prealloc_pte);
-+		vmf->prealloc_pte = NULL;
-+	}
- 	return ret;
+ /* This bit is used as a flag to indicate whether the value has been seen */
+ #define ERRSEQ_SEEN		(1 << ERRSEQ_SHIFT)
+ 
++/* Leverage macro ERRSEQ_SEEN to define errno mask macro here */
++#define ERRNO_MASK		(ERRSEQ_SEEN - 1)
++
+ /* The lowest bit of the counter */
+ #define ERRSEQ_CTR_INC		(1 << (ERRSEQ_SHIFT + 1))
+ 
+@@ -59,8 +62,6 @@ errseq_t errseq_set(errseq_t *eseq, int err)
+ {
+ 	errseq_t cur, old;
+ 
+-	/* MAX_ERRNO must be able to serve as a mask */
+-	BUILD_BUG_ON_NOT_POWER_OF_2(MAX_ERRNO + 1);
+ 
+ 	/*
+ 	 * Ensure the error code actually fits where we want it to go. If it
+@@ -78,7 +79,7 @@ errseq_t errseq_set(errseq_t *eseq, int err)
+ 		errseq_t new;
+ 
+ 		/* Clear out error bits and set new error */
+-		new = (old & ~(MAX_ERRNO|ERRSEQ_SEEN)) | -err;
++		new = (old & ~(ERRNO_MASK | ERRSEQ_SEEN)) | -err;
+ 
+ 		/* Only increment if someone has looked at it */
+ 		if (old & ERRSEQ_SEEN)
+@@ -147,7 +148,7 @@ int errseq_check(errseq_t *eseq, errseq_t since)
+ 
+ 	if (likely(cur == since))
+ 		return 0;
+-	return -(cur & MAX_ERRNO);
++	return -(cur & ERRNO_MASK);
  }
- #else
-_
-
-Patches currently in -mm which might be from david@kernel.org are
-
-mm-mprotect-dont-skip-uffd-marker-install-when-racing-with-pte-table-reclaim.patch
-mm-userfaultfd-prevent-poison-marker-loss.patch
-mm-hugetlb-compare-against-persistent-count-when-freeing-lowmem-folios.patch
-mm-hugetlb-preserve-reservations-when-shrinking-on-highmem.patch
-mm-hugetlb-account-temporary-folios-separately.patch
-mm-hugetlb-account-temporary-folios-separately-fix.patch
-mm-hugetlb-serialize-page-cache-allocations-with-truncation.patch
-mm-hugetlb-serialize-page-cache-allocations-with-truncation-fix.patch
-mm-memfd-recheck-the-page-cache-before-allocating-a-hugetlb-folio.patch
-mm-hugetlb-count-again-if-the-reserve-map-shrank.patch
-mm-hugetlb-account-restored-reservations-before-freeing-folios.patch
-mm-hugetlb-delay-anon-folio-rmap-removal-until-after-the-tlb-flush.patch
-mm-userfaultfd-reject-dax-mappings.patch
+ EXPORT_SYMBOL(errseq_check);
+ 
+@@ -199,7 +200,7 @@ int errseq_check_and_advance(errseq_t *eseq, errseq_t *since)
+ 		if (new != old)
+ 			cmpxchg(eseq, old, new);
+ 		*since = new;
+-		err = -(new & MAX_ERRNO);
++		err = -(new & ERRNO_MASK);
+ 	}
+ 	return err;
+ }
+-- 
+2.53.0
 
