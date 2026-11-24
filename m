@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540282;
-	b=e0EBTh66J/y0eerfZ0bGPg+xtQsTKyI+Vi6kmotSftBBkndjy9yQNg2hacGjx9fYBlc8
-	 fn1Sg0GaAgsCpPuq90vRKTVKUWKq6qX1TLPbY0vs6azsjYrfU8wJGrD9beyAvm/C57Ix+
-	 T575gvNrMC3+/cnnOJL7VfHviHzruKBjbNx29qtndzL/XqSLhY7TbzA1VCWL8BxMGr076
-	 7i9znMyzeSkWb2yGYHg1MLYHqpo89v05CTmolLA6sTakpuavAZOFDQWFgFi5/WSkYdrAw
-	 ioFmLsD4cEGLGt9W7Yd2aNVhQ5L/rAIbUHsKp6+O6on/SWbTBIGDCTO82jv4IEz7cVA==
+	t=1795540400;
+	b=EecfAiv0Wd0Dvv83tKOZA5OGIsBNAPU2NXDst2QB7aeZW3j2WGt3lgfSiRfW+XINH+YI
+	 A5ECz90djw2228upmEpJFRVZE2/stYYTR8O1SySJisiDjNJf8HZenX4AOgjnE9hh1/ygD
+	 NMbDx6yA/HSoYH7mkavU+EXEOmKXaPnTMUDwzXw5UMEsWEkhV1AQde1FRCsHbLISd186i
+	 Xvm/zky8myZcX7bG78Jp0B0dFI11UslzvXUfid08psPAB9OkWrvCokT1JXVGdeMGCg1NR
+	 QzYDdvbUkPBF7VQ8yWgSlj824978/EfHmK//5WDvqrbC7QPE/zZhgHD633ZkinZjhdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540282;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=ihyCWaQSe8/33b641CrQpm2QKnFFCoRtHpVnDp2/vYU=;
-	b=SsccoFmawnGsN+DKcWxH9PYaMBVY1Tfrkvtcf+0euOWtQpyqATnJuVDioHb8/anvwTGz
-	 LA4j9bVQzPdbduMmxaXr/clHO9377bk5zSmFr6s3bLjrFLAHRly8uVHT9JwxDUSYkspU9
-	 Us1dFuB4JCv3dhXCSuokgXJwrCx22IjlNp3Ty8XBIctoXZF9lzCDZpAU1G5FXw7ZAdhyd
-	 1dQaGXrdMy49uZcEuCAkBMULOze90vsQtlynygwZA0qzwu2Nf0aypYZ/heg+1+Fydo4P5
-	 gj+UQAWvPbzEvlfLLN5x/V31PmEd4ZsfH5JQ/rQrJK1hnCz/Hp5/KJqCVByMDVKFJcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540400;
+	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
+	 Message-Id;
+	bh=gZUr0K7ecy97bpbHsrEJJizhZVvILe97qxf/C1V9a0E=;
+	b=ln3/vCpgMZuoWy+sbY5UonmiHblQyyqNCt2abWiDr1O0vROp7wIoNb/xg0zOf9RiXAzY
+	 CoYYcOCqwTzTfTANEv8ceFXQ0qP8z3d8B4w8NfNNtCv06Cv7z4xIUCLiiLrrHaXKzZDaV
+	 h+/heMURIHr8NiAdNRxtGZL/Vp4dAO+ntBSg+oihwScVSaijufGBjz6jj9bNpSCwclD0T
+	 OAeLeytns32/1Qk9OO4OCPIxv20yma4px07JMLzaO9m2pcqVjSzSwzl3R84L0BbINSAnY
+	 V6Qcktgg7wWAWCoJoyhWPCRjxmDxMncuvI9+uIf/7a/x0Pvc6hSqZqAw1Kdt1rOAMUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BBDdQ4yK;
-	arc=none smtp.remote-ip=209.85.210.43
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=VG4fPCCK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705DE606E171
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:11:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 705DE606E171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F066606A31E;
+	Tue, 24 Nov 2026 17:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BBDdQ4yK
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-844a8bf7e25so2573653a34.1
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 09:11:22 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=VG4fPCCK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450EB1F000D1;
+	Tue, 24 Nov 2026 17:13:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795540281; x=1796145081; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ihyCWaQSe8/33b641CrQpm2QKnFFCoRtHpVnDp2/vYU=;
-        b=BBDdQ4yKiLrdEPoB2VIEm+j5xGV+HluV5UB68gIn4K71QRvfEsiffrRLn+oaI2uqHV
-         ZDCLZkw3lCe35+bDvylrY02CWuEE/Xth0fSoD9yCWHUwh/TTr0I+liEAX2gF0OS3/LKh
-         qdIA4VDFDC0AlcuvFXZ3Xht63Lz9hkLeAeN/mdKW8CjZa41TE4zJn91no7s2rQNU75MW
-         7RB+be4tLJqNry9t8pDKmtVOAVYpjTim/DS16KBe3aBPg8R1kc8FI9vFuIrH177YLSDm
-         hPMXLHP440qxmAYOWGdZ0iqDaP2jFkid/lPxVxNt8ZeYyjQ/y+fzP0ewFed3Q8mkhXnm
-         kFKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795540281; x=1796145081;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ihyCWaQSe8/33b641CrQpm2QKnFFCoRtHpVnDp2/vYU=;
-        b=PYYkh6l4JW9CtXbE1gmNzjhXgajNJDSi7emV5WGGaZ0cZPpm5133+0M8EIKsTuCvhY
-         VhkWGp6Na+QVQIekyjef3EEY4mHkEVroj3+Xz5M1UsZTeDmc4fUMq0A4r9yf+zn9N4/u
-         GHT23cRIMZvzKtm92lG0jVmoUQ4Sf4ousRsmSgqBg04y9Kn7uGOmiZKLTykVJdZNxwSI
-         6Rbty5PIkSSWuns2kBcbKy/2s1K+SNbLdQ0k7nsKnjmh+Q3oyxGG8h7cmx8cVSS4EPUc
-         F5kCZs5bW2OegFyu/BTC+O+lhm/9TsPhV3FQ6z8zFLx496AuHO/wOOnE+Du8sNF+JcYS
-         1tUQ==
-X-Forwarded-Encrypted: i=1; AL+hErF1p3gg5OD1sWHXX0OMQylcR+WZolvnXi+QKmLTpnq7UJ/HlEsQr2dc/eW4RawMoPhPkIBY+r0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wBO08ow1hJkmYCOZeCsjcZxgX1Uv0W0YVYJvtXm+Xi/d41iDV
-	3LfiHmb5UKPjJXSpK3E6Ql63Co8H7Uk+pciAWxzHY61ZQMxwIgeRddep
-X-Gm-Gg: AZFdTZdKPmBNfb/2rq4sCY5X37NCCqN+sIC9A7yEcMD024fKMOm97gHzJRHFFoeghbK
-	rU2y8VShwHNF1GOrEvtYYoSBI4KxyjSKJBWjrvoiQS4s5ecn703MJna9KmXUn5f41nqhFLjjpcP
-	1MnBhhBooGp/WLLw2UUvPSg50ZnAxAF+4B4x6KU5Zqkd88SjR1A70zz5gH+kkZu3LI6voWa9dgS
-	O7S+oraHGR9fg/Mw/KeF34YOVNA1M6PdbHWs2L0/4JLHTbV/rEpqXuzxOiHELdltr0iK63JWn89
-	Hhty6Rs/JGgbW1r618YTj3isi3+5i8PmdAXv8Q4qJ1SYcvTCJ5iYq/ggOaTkei5QIMf3HQ9jxcl
-	jaNjjxISQoYd9JQ6SN0cubrk5pemL4XZims06/wx7uIRJ/ce4e7kIu5iJDARHhVgNTfFcP2oHWV
-	u1AyKYR7AsRBP1XNDm08XfZpW+zzat2r5sJGUpSxditqsI9hCN6Hq69T2WYmh5CCuvFODYneCnC
-	j2zFgt/ByKAmYT1RMGILIDp2H4G2Pl9h5vI6vzPXuk3UMyzsgbHUSDANwNFbiUVbHuac6RwNFQ5
-	nt925R39d5Tyj/NOBzKfeZKoI5nPLA==
-X-Received: by 2002:a05:6830:903:b0:862:a48e:24c8 with SMTP id 46e09a7af769-86315944a86mr23180037a34.14.1795540281281;
-        Tue, 24 Nov 2026 09:11:21 -0800 (PST)
-Received: from [127.0.1.1] ([150.117.174.129])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168dd6besm11131021a34.11.2026.11.24.09.11.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 09:11:20 -0800 (PST)
-From: Gary Wang <is0124@gmail.com>
-Date: Wed, 25 Nov 2026 01:10:38 +0800
-Subject: [PATCH v2 4/5] pinctrl: upboard: fix I2C pinmux-select set CPLD
- GPIO OUT not function mode
+	d=linux-foundation.org; s=korg; t=1795540399;
+	bh=gZUr0K7ecy97bpbHsrEJJizhZVvILe97qxf/C1V9a0E=;
+	h=Date:To:From:In-Reply-To:References:Subject;
+	b=VG4fPCCKhCAfpHGwIZ0tDPCD1AWlcUGC6HJYT1iaUKSjAZhfZjaIm5xcoikxpv9By
+	 WtLJ2Xv+DIGsSH9TGgKWMO9vYvu02zFg+f3T1SrNkaMcZ9BojcwFQYP8AnY3NCsYSm
+	 53sa6vSemcFuMYzygPz8yetX+KgBkDxwcp3xh5VA=
+Date: Tue, 24 Nov 2026 09:13:18 -0800
+To: mm-commits@vger.kernel.org,vschneid@redhat.com,vincent.guittot@linaro.org,
+	vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,
+	shakeel.butt@linux.dev,rppt@kernel.org,rostedt@goodmis.org,
+	puranjay@kernel.org,pfalcato@suse.de,peterz@infradead.org,mingo@redhat.com,
+	mhocko@suse.com,mgorman@suse.de,mason@kernel.org,liam@infradead.org,
+	kprateek.nayak@amd.com,kees@kernel.org,juri.lelli@redhat.com,
+	jannh@google.com,dietmar.eggemann@arm.com,david@kernel.org,
+	bsegall@google.com,ast@kernel.org,ljs@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+In-Reply-To: <20261124-vma-read-lock-mmdrop-async-v1-1-257f99f551de@kernel.org>
+References: <20261124-vma-read-lock-mmdrop-async-v1-1-257f99f551de@kernel.org>
+Subject: + mm-vma-drop-mm-asynchronously-in-vma_start_read.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261124171319.450EB1F000D1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,59 +58,219 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-upboard-pinctrl-add-intc1057-intc105e-support-v2-4-c8079f8f569f@gmail.com>
-References: <20261125-upboard-pinctrl-add-intc1057-intc105e-support-v2-0-c8079f8f569f@gmail.com>
-In-Reply-To: <20261125-upboard-pinctrl-add-intc1057-intc105e-support-v2-0-c8079f8f569f@gmail.com>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>, 
- Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Thomas Richard <thomas.richard@bootlin.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Daniele Cleri <danielecleri@aaeon.eu>, 
- JunYingLai <junyinglai@aaeon.com.tw>, Louis Chen <louischen@aaeon.com.tw>, 
- BillyChou <BillyChou@aaeon.com.tw>, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Gary Wang <is0124@gmail.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.13.0
 
-The CPLD I2C pin mode setting through pinmux-select is not correct.
-Should be set UPBOARD_PIN_MODE_FUNCTION on AANT0F04 devices.
 
-CC: stable@vger.kernel.org
-Fixes: dca2f73cf19f ("pinctrl: Add pin controller driver for AAEON UP boards")
+The patch titled
+     Subject: mm/vma: drop mm asynchronously in vma_start_read()
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-vma-drop-mm-asynchronously-in-vma_start_read.patch
 
-Signed-off-by: Gary Wang <is0124@gmail.com>
----
- drivers/pinctrl/pinctrl-upboard.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vma-drop-mm-asynchronously-in-vma_start_read.patch
 
-diff --git a/drivers/pinctrl/pinctrl-upboard.c b/drivers/pinctrl/pinctrl-upboard.c
-index b9af6dd93c34..090316349331 100644
---- a/drivers/pinctrl/pinctrl-upboard.c
-+++ b/drivers/pinctrl/pinctrl-upboard.c
-@@ -33,7 +33,7 @@
- #include "pinmux.h"
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: mm/vma: drop mm asynchronously in vma_start_read()
+Date: Tue, 24 Nov 2026 12:26:19 +0000
+
+Commit bee9ef4a40a2 ("bpf: switch task_vma iterator from mmap_lock to
+per-VMA locks") open-codes a lock_next_vma() implementation that does
+roughly the same thing in bpf_iter_task_vma_find_next(), only without
+fallback to an mmap_lock.
+
+This is because bpf_iter_task_vma_find_next() can be called from
+non-sleepable contexts.
+
+However, lock_vma_under_rcu() gave no guarantee as to which contexts it is
+safe to be called from, and indeed it turns out this assumption is unsafe.
+
+Since commit 9bbffee67ffd ("mm: fix a UAF when vma->mm is freed after
+vma->vm_refcnt got dropped"), this call chain is possible on x86:
+
+lock_vma_under_rcu()
+  -> vma_start_read()
+    -> mmdrop()
+      -> __mmdrop()
+        -> mm_free_pgd()
+          -> pgd_free()
+            -> pgd_dtor()
+              -> spin_lock(&pgd_lock)
+
+Thus, a plain spin_lock() can occur when lock_vma_under_rcu() is
+called. Since bpf_iter_task_vma_find_next() can be called in softirq
+context, this can deadlock, for example:
+
+pgd_alloc()
+  -> spin_lock(&pgd_lock)
+    <softirq>
+    bpf_iter_task_vma_next()
+      -> lock_vma_under_rcu()
+        ...
+	  -> spin_lock(&pgd_lock) [ DEADLOCK ]
+
+Alexei Starovoitov also pointed out that a BPF program attached to
+trace_contention_end() can similarly cause a deadlock:
+
+  pgd_alloc()
+    spin_lock(&pgd_lock)
+      queued_spin_lock_slowpath()
+        trace_contention_end()          <- pgd_lock is held
+          tp_btf/contention_end prog
+            bpf_iter_task_vma_next()
+              lock_vma_under_rcu()
+                vma_start_read()
+                  mmdrop(other_mm)      <- last put takes pgd_lock again
+
+Resolve the issue by having vma_start_read() use mmdrop_async() instead of
+mmdrop() so the work is deferred to a work queue.
+
+Make mmdrop_async() an internal mm function, defined in mm/internal.h, to
+avoid abuse elsewhere (kernel/fork.c includes this header, so still retains
+access).
+
+Commit 0b16f8bed19c ("mm: change vma_start_read() to drop RCU lock on
+failure") accounted for the fact that the RCU lock had to be dropped for
+this operation, which is no longer applicable.
+
+For the sake of a backported fix, retain this behaviour, however drop the
+RCU lock last and remove the now irrelevant comment.
+
+Link: https://patch.msgid.link/20261124-vma-read-lock-mmdrop-async-v1-1-257f99f551de@kernel.org
+Link: https://lore.kernel.org/all/DN267JUKDRNS.2VMV07CQ58R4X@gmail.com/
+Fixes: bee9ef4a40a2 ("bpf: switch task_vma iterator from mmap_lock to per-VMA locks")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Chris Mason <mason@kernel.org>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Acked-by: Pedro Falcato <pfalcato@suse.de>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Juri Lelli <juri.lelli@redhat.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Benjamin Segall <bsegall@google.com>
+Cc: Mel Gorman <mgorman@suse.de>
+Cc: Valentin Schneider <vschneid@redhat.com>
+Cc: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Jann Horn <jannh@google.com>
+Cc: Puranjay Mohan <puranjay@kernel.org>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: <stable@vger.kernel.org>
+
+ kernel/fork.c  |   16 ----------------
+ mm/internal.h  |    3 +++
+ mm/mmap_lock.c |   21 ++++++++++++++++++---
+ 3 files changed, 21 insertions(+), 19 deletions(-)
+
+--- a/kernel/fork.c~mm-vma-drop-mm-asynchronously-in-vma_start_read
++++ a/kernel/fork.c
+@@ -744,22 +744,6 @@ void __mmdrop(struct mm_struct *mm)
+ }
+ EXPORT_SYMBOL_GPL(__mmdrop);
  
- enum upboard_pin_mode {
--	UPBOARD_PIN_MODE_FUNCTION,
-+	UPBOARD_PIN_MODE_FUNCTION = 1,
- 	UPBOARD_PIN_MODE_GPIO_IN,
- 	UPBOARD_PIN_MODE_GPIO_OUT,
- 	UPBOARD_PIN_MODE_DISABLED,
-@@ -289,8 +289,8 @@ static const unsigned int upboard_up_adc0_pins[] = {
+-static void mmdrop_async_fn(struct work_struct *work)
+-{
+-	struct mm_struct *mm;
+-
+-	mm = container_of(work, struct mm_struct, async_put_work);
+-	__mmdrop(mm);
+-}
+-
+-static void mmdrop_async(struct mm_struct *mm)
+-{
+-	if (unlikely(atomic_dec_and_test(&mm->mm_count))) {
+-		INIT_WORK(&mm->async_put_work, mmdrop_async_fn);
+-		schedule_work(&mm->async_put_work);
+-	}
+-}
+-
+ static inline void free_signal_struct(struct signal_struct *sig)
+ {
+ 	taskstats_tgid_free(sig);
+--- a/mm/internal.h~mm-vma-drop-mm-asynchronously-in-vma_start_read
++++ a/mm/internal.h
+@@ -1691,4 +1691,7 @@ static inline bool can_spin_trylock(void
+ /* char-mem.c */
+ bool file_is_dev_zero(const struct file *file);
  
- static const struct upboard_pingroup upboard_up_pin_groups[] = {
- 	UPBOARD_PINGROUP("uart1_grp", upboard_up_uart1_pins, &upboard_up_uart1_modes[0]),
--	UPBOARD_PINGROUP("i2c0_grp", upboard_up_i2c0_pins, UPBOARD_PIN_MODE_GPIO_OUT),
--	UPBOARD_PINGROUP("i2c1_grp", upboard_up_i2c1_pins, UPBOARD_PIN_MODE_GPIO_OUT),
-+	UPBOARD_PINGROUP("i2c0_grp", upboard_up_i2c0_pins, UPBOARD_PIN_MODE_FUNCTION),
-+	UPBOARD_PINGROUP("i2c1_grp", upboard_up_i2c1_pins, UPBOARD_PIN_MODE_FUNCTION),
- 	UPBOARD_PINGROUP("spi2_grp", upboard_up_spi2_pins, &upboard_up_spi2_modes[0]),
- 	UPBOARD_PINGROUP("i2s0_grp", upboard_up_i2s0_pins, &upboard_up_i2s0_modes[0]),
- 	UPBOARD_PINGROUP("pwm0_grp", upboard_up_pwm0_pins, UPBOARD_PIN_MODE_GPIO_OUT),
++/* mmap_lock.c */
++void mmdrop_async(struct mm_struct *mm);
++
+ #endif	/* __MM_INTERNAL_H */
+--- a/mm/mmap_lock.c~mm-vma-drop-mm-asynchronously-in-vma_start_read
++++ a/mm/mmap_lock.c
+@@ -306,11 +306,10 @@ err_unstable:
+ 	 */
+ 	other_mm = vma->vm_mm; /* use a copy as vma can be freed after we drop vm_refcnt */
+ 
+-	/* __mmdrop() is a heavy operation, do it after dropping RCU lock. */
+-	rcu_read_unlock();
+ 	mmgrab(other_mm);
+ 	vma_refcount_put(vma);
+-	mmdrop(other_mm);
++	mmdrop_async(other_mm);
++	rcu_read_unlock();
+ 
+ 	return NULL;
+ }
+@@ -560,6 +559,22 @@ void __mm_reset_vma_seqcounts(struct mm_
+ }
+ EXPORT_SYMBOL(__mm_reset_vma_seqcounts);
+ 
++static void mmdrop_async_fn(struct work_struct *work)
++{
++	struct mm_struct *mm;
++
++	mm = container_of(work, struct mm_struct, async_put_work);
++	__mmdrop(mm);
++}
++
++void mmdrop_async(struct mm_struct *mm)
++{
++	if (unlikely(atomic_dec_and_test(&mm->mm_count))) {
++		INIT_WORK(&mm->async_put_work, mmdrop_async_fn);
++		schedule_work(&mm->async_put_work);
++	}
++}
++
+ #ifdef CONFIG_LOCK_MM_AND_FIND_VMA
+ #include <linux/extable.h>
+ 
+_
 
--- 
-2.43.0
+Patches currently in -mm which might be from ljs@kernel.org are
+
+mm-msync-return-enomem-if-page-aligned-length-overflows.patch
+mm-vma-drop-mm-asynchronously-in-vma_start_read.patch
+mm-vma-predicate-vma_assert_stabilised-on-config_debug_vm.patch
+mm-only-assert-mmap-locks-if-config_debug_vm-or-lockdep-is-set.patch
+mm-only-assert-vma-locks-if-config_debug_vm-is-set.patch
+mm-convert-warn_on_onces-to-vm_warn_on_once-in-vma-lock-code.patch
+mm-madvise-zap-markers-from-guard-regions.patch
+mm-mmap-free-gathered-pages-before-mmf_oom_skip.patch
+percpu-fix-contig-hints-that-are-too-low.patch
+percpu-search-the-whole-reserved-chunk.patch
 
