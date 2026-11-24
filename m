@@ -1,63 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795479126;
-	b=2lFk271f8jbOuN/QqVv5cm1n15X0uUy0b4IihFYldQozvVAwb1/nWRlLufeDrIUgNnxE
-	 2EHA+GkHJmbtuCl73ok0p3TFAy5A5FkRRuR5gzHqyjYgwS7S0Q1U0eWrHyXJ5J8NMFCbh
-	 kKxFeXFbpIJv+0dwxWbs4k5U0tDKH1ZNYxxdPdJKulhhZ5GnVgyk3oLm8A03GgnaR4I7H
-	 73TeeKyDuzJ6fK8ewjShGK19jRCXkSrRzlM52q5CfOttOAu3EF5g5gGZsPvkgVFsDOrMQ
-	 w6Ywkqk3Cg39zapvLe0V1x6AIfxqc+6bT1hM2wsYEPSchT4gl+2uR76q2mU6YBL42lA==
+	t=1795479128;
+	b=fMCSOyKaQ2rw8xwqS+fSVwnRWPzFwnJDIZc0/0KeMArHsq9OK2+VNDult7S4Q4PYGLQk
+	 DB8mMTFm/mli6ZtmZaSL2u7mkauEE6W+B0Sjg5oP8V7oxOEZ3juCGK8VwX5KFuRYGO0W/
+	 5uAjrrJ+sGVCA9Fqio+AjWAOnOhHeFufXIRuFy3fJvojz+7kxrLk/+eeDLPP123dTtbaO
+	 0NGECbG88BAzaoZT5wWJuKTP6m5A7CEFSdDrWwu7Lwlu/5XdccuaxHqXcpoOKc5nlYkpf
+	 yTc/5KqcAdpL+CSc6yk1Y1ihz2NcGGeIfUJYMjRqakl7kBaELfYpUp8zw1ohnN3SAZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795479126;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795479128;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KaUYSIyeqCVeCloA99kFzTyzrXyLDFC03yQ/mhPIwQA=;
-	b=CB03CRTt8fAcIxuT3VIkGs/EUpL5qjdOloxiMIzhUCD+FOnE1FeCMBZ4qGgCOMH+GYHn
-	 yjmaylFEHwoCzoAVn/SkTr604i0UnUXpwQGmDnp5mHkop+58XjbZovQvqZfOCSF4sjM/e
-	 VyvKdhz+doxR/bZzQcnhqV0ooEshsStaXOwENsEXqE7sJbdr5a4vpMghHtrzkNniaG3UE
-	 5YnbKL8gyYDWsv2GBo2JLdbJGrcF7aNduLSafI7wtOQELSNDpXtQk3R1pigNXo3Ib/pcq
-	 n1RI8jAcz/0wbQtIzIhsZPEZS9lygRATQ8r8fy+rGsNGz2oTrLMFs+rvSv/a7i7kBYw==
+	bh=e4FrmJ/HVhDhmoQ4w982pmizkMioNXEgD+uGEJNmMSY=;
+	b=hY2NMBaxrv2nzMD4HJhMfR755evRcIDLSlF9VxZwEm8p+Oec/4RyQbO5mi67Yws206lx
+	 MKXctPwsZ22mIxO82p4e0XbtNqROjJjB5oKchZrc+3UWMXdzcTL4qsIenBpQlcRRpGEHR
+	 ZwDAx3AeEkpQ13Ok45iSLsJg0S60/GllnqqCIjzKB0VkGaOFwmmWotZRj/o8naRiVw2ku
+	 g99KHSfu1L1URJoYETTD4kIpKlynnU4Ltm1hd2P3YeUtD4a69GD55uMD3T+tBzZaA/nSQ
+	 IGnkKqrRbU/p8m6uVIifAKfrzb+7qX9nDNw5a+dv3976WLJahwCLZk0BxDQ/TjQ/OBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TEuhes+E;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TNZeUmtQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B266D606A326;
-	Tue, 24 Nov 2026 00:12:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113FB606A31E;
+	Tue, 24 Nov 2026 00:12:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TEuhes+E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E098F1F000C4;
-	Tue, 24 Nov 2026 00:12:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TNZeUmtQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6C481F000CA;
+	Tue, 24 Nov 2026 00:12:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795479126;
-	bh=KaUYSIyeqCVeCloA99kFzTyzrXyLDFC03yQ/mhPIwQA=;
+	s=k20260515; t=1795479127;
+	bh=e4FrmJ/HVhDhmoQ4w982pmizkMioNXEgD+uGEJNmMSY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TEuhes+Eajh+LoP+9RJQRinRmNuOfLbH88zOPsMVuEdPXzj1nUGy+aldJk48PXvKU
-	 FHubwGRfFyrw74ozipeQORMLUKubbSUVqJd8zO4NEgOw3RdTel952Y3tlbxOiG+BdY
-	 GL/D5Ah9g6XRevxYiDN5aG47sM4WjiAvESkXXW68VqUPgMUPHZ2mRRy/IdOduS0/bY
-	 O2IHiE41fToJrx6yWO/3q0FDgXNUWh+xvy//yhjv3qacQ7kXqiNWCz94KRoenTf0RR
-	 ZoalUXWAen+6WtwyH41pgkU9uEahGuVglgvCt05uK+3H0H9sej1q43o6L3M41OT0un
-	 BLhYyEVHBOTDA==
+	b=TNZeUmtQFSypFqtAnhrZqNgKlc2flAPD75wKX4RccE5VPwUUxHUTCMzCHhNEUf4tF
+	 ldS4M/Ts66d9U1Qslb+lqKwxmcxC76JM4K/OD58sgFaAbFPdrMnEOnE+3mENBUAGta
+	 /CbPzojUSXFPKvGSz9RxzXqlCkEk/IJY99V66/KDJ5+ru4d/2t6Up15ShIHHKa4f5J
+	 bLii4bAKNlUziIEJInM3us6EFkZB/go89pMA/dgDthpIYG+2XrExmCREk7B2bqATTt
+	 WW8cQlhuO+Txnr2Av2qmYNYFP28GQKEtwHBUuTBlroIU/4hOht+UyYlr5NjRHLobge
+	 dNJTCWyGTnhnA==
 From: Sasha Levin <sashal@kernel.org>
-To: Miklos Szeredi <miklos@szeredi.hu>
+To: Greg KH <gregkh@linuxfoundation.org>,
+	Iulian Vaideanu <iulian.vaideanu@gmail.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Junyoung Jang <graypanda.inzag@gmail.com>,
-	Gwanhyun Lee <gwanhyunlee@gmail.com>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Bernd Schubert <bernd@bsbernd.com>,
-	Dharmendra Singh <dsingh@ddn.com>,
-	Amir Goldstein <amir73il@gmail.com>,
-	fuse-devel@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 6.12.y] fuse: fix fuse_set_nowrite() race with parallel direct writes
-Date: Mon, 23 Nov 2026 19:11:52 -0500
-Message-ID: <2026-11-23-1-daily-reply-0006@kernel.org>
+	stable@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Re: Unable to compile 6.12 kernels on SPARC64 since 6.12.105
+Date: Mon, 23 Nov 2026 19:11:53 -0500
+Message-ID: <2026-11-23-1-daily-reply-0007@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261123141235.2477526-1-graypanda.inzag@gmail.com>
-References: <20261123141235.2477526-1-graypanda.inzag@gmail.com>
+In-Reply-To: <841bc5e9-51f3-4eff-8c54-8dfac6762c17@leemhuis.info>
+References: <841bc5e9-51f3-4eff-8c54-8dfac6762c17@leemhuis.info>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,31 +63,22 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> @@ -1850,6 +1855,7 @@ void fuse_release_nowrite(struct inode *inode)
->  	spin_lock(&fi->lock);
->  	__fuse_release_nowrite(inode);
->  	spin_unlock(&fi->lock);
-> +	wake_up(&fi->page_waitq);
->  }
+> Wondering if this is related to another sparc build problem in the same
+> area for which a fix was recently queued for 6.12.y, but then dropped
+> for now to prevent a deadlock situation:
 
-fuse_do_setattr() drops NOWRITE with __fuse_release_nowrite() directly, so
-it never gets this wake_up(). That path can run with the inode lock held
-only shared: fuse_direct_IO() -> fuse_do_truncate() when i_size shrank after
-fuse_dio_lock() (no writeback_cache). A parallel direct writer sleeping in
-the new wait in fuse_set_nowrite() then misses its wakeup and hangs holding
-i_rwsem shared. Could you do the wake_up() in __fuse_release_nowrite() (or
-on that path as well)?
+Yes, that's the one. 6.12.105 took a backport of a94204f4d48e ("fsnotify:
+opt-in for permission events at file open time"), which moved
+FMODE_NONOTIFY to bit 25. On sparc that is the same bit as __O_TMPFILE,
+so the BUILD_BUG_ON in fcntl_init() fires.
 
-Since this is a stable-only fix (mainline only fixed it through
-0c58a97f919c ("fuse: remove tmp folio for writebacks and internal rb
-tree")), it also needs an ack from a FUSE maintainer.
+The upstream fix, ebe559609d78 ("fs: get rid of __FMODE_NONOTIFY kludge"),
+can't simply be requeued: two overlayfs backports released in 6.12.119
+still use __FMODE_NONOTIFY, which it removes. I'll send a 6.12-only patch
+that moves FMODE_NONOTIFY back to bit 26 and FMODE_NONOTIFY_PERM to bit 25.
 
-> The patch also applies cleanly to linux-6.6.y (5139929c698c), though
-> 6.6.y was not runtime-tested.
-
-6.6.y and 6.1.y have the same bug from 153524053bbb ("fuse: allow
-non-extending parallel direct writes on the same file"), so please send
-v2 for 6.12.y, 6.6.y and 6.1.y together.
+Iulian, until that lands, swapping those two values in include/linux/fs.h
+works around it locally.
 
 -- 
 Thanks,
