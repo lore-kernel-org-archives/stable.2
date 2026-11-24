@@ -1,58 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540922;
-	b=KlcuPMQAnpEbHXSc/rCSGHx5kHY+bXzBivCdcaC7MEcr9/5xogUbZ+dUqrlNOEUTLdOi
-	 gqiC+RBng6AfAxnaMM8HKaZgqEk++CUk2VjULJQlRSxH57G08ThVzEljucv/pxaA4gAwv
-	 r//MUDXn9GjfUiQ0dedF1ok1ZNEkKaMdkz8UcH2g0O7GJ5dD4N/qWhdESszwkEbfVGg2q
-	 nfMnBkrmxeLHxL86D6nsVH0qPb4nkOQQCsBN5QFzVPd/S57TIhfdjgGHZOqhASiggfv/7
-	 POfjM+giMFzvTBTDqZWQHomQgc60hqOBH2KcxSbkqgE0lJQlwzxQUkp95ZoidL4i1tw==
+	t=1795541025;
+	b=mILOME7BGclUkA9p1ZMqaKU3LjH/1ca7rzaNXau5of4/IFLL3nFWypGiqLMupB873ZDa
+	 pgdZeS5737kg+NVz/rQlsoF1/XyWGhcX9OmDcHykBkKE9cZYBCU2dNK59iAcSZlUy66LF
+	 P22AqbBG+st0BOvQNQ7Cpb+FAvVWbmHAtngWKTCpUxc6ZriybpHpzcwT0mTK1fopLTnir
+	 pp26TmrLOiaUJXRLTuOk0OgMBw95NO+yMbKUxWsrf0tfKyP4SojcOkeZP007aQhX/HB1r
+	 FFxCsKXIffSxbQJj3zakEOHr4koNSnbBcMZH4l8JS+hFVE90lF/7f4g2RsVrOsAJTHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540922;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RhoE6ABhU1UsJqIZWJopjjssM7UJpQvdNNruj+7vgYM=;
-	b=yO6cD/68040k3sHqnyjIiFzqaKVabfzc4hufGLEhkVL41Cn6J0FvdhFxkPaN3ngXajOZ
-	 8xVrIBeSjqO7AM8wMYQqY6qMIG08dse18Yey4b9bYmUklm9cN9QHl7L6fuEBtwwc771Bv
-	 Q2WGqtQRwdD+OKm2as/hxIIgIRIBvaksDzPn8d3XuK0QAXL7eaXjzQI5DY4exbzWlpmq9
-	 djZvcBKAvyxe/yWrfsLG3G/eXJoAXNTJc2eG2R4VY9B59eE9k+DymX3tHHSMk3q4bFLCX
-	 CzyQgPlgQ0Vh9gGc9W/Tjjama+yid8lSApAhfAi5+rBeACzBinZ4n1/G5GrR98MQNfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541025;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=fS8UX0zOG7y5HTbRfTEb+A5QmGIQnuTVBZNrsVPO3QA=;
+	b=sq2uGb/2/WjKcxi0zlQ55QRYoNBZeu9A86Xvk26kv/4d6ZTthxvORN8w/SBu8Uqt2gZJ
+	 Gfs20eJhmhLkGUSZpVzol2P5Xhy48mBA25L9UTWx5yEj5WL+yG45BZ1sRa7VsnT9mcqvX
+	 N6lV5XA6q/rrvUIOSn/Qsu11kWjGk4RK0UohI6RxSS3prxURfGT4GrAyf0InLLR5Jw3K+
+	 x4CurLYMBKX3HgUyi7mf99JLQw8tfuO2AL0RKgViNig4PM3usE4cwgyuO4MlfnQTdYhXK
+	 gtgUNZJMnBONqYhFGq03qfm8oobQpgvnasx7pxOHqHawITXdhEoxYIrx7LkOlIASyyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WwD70/kG";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aIER/tK9";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B46606A31E
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 17:22:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA15606A32A;
+	Tue, 24 Nov 2026 17:23:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WwD70/kG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F71A1F000CA;
-	Tue, 24 Nov 2026 17:22:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIER/tK9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F0E1F000D1;
+	Tue, 24 Nov 2026 17:23:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795540922;
-	bh=RhoE6ABhU1UsJqIZWJopjjssM7UJpQvdNNruj+7vgYM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WwD70/kGzhBfMN5cK9R8K2lkJpYjjDdGFOdBO6x7YI147m+JSq9th+uuvQUsxI/XC
-	 i4SZ3MJzGrrAnxFFicp/d6a9/bShCfoxwW3lFYtAS22r7ZocTIuWPFwckMrvkp4joY
-	 uJxdewEr3RrwblJR+8wW+0ardIEyHKq2SxtVmq7/gRmsV16q29HzP1VeKUyAIYvGwd
-	 qIjr7VmtWqNdr0WVYPM4s4dRH+Y3rA/Vl3dZe4AwItVmO/zb0nHd9OpU9k7qTotuWk
-	 GVttmUCtHcRGC0GXPbWupDiWh8BOMTI5Y3TX0YICwWHDYKAYdXE6xXfdigF9DoeXgX
-	 HAIq1Gno7hQMw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ian Ray <ian.ray@gehealthcare.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Haibo Chen <haibo.chen@nxp.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] mmc: sdhci-esdhc-imx: map unsupported driver type to Type B
-Date: Tue, 24 Nov 2026 12:21:58 -0500
-Message-ID: <20261124172118.1820919-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124172118.1820919-1-sashal@kernel.org>
-References: <2026112445-preoccupy-capped-e0f2@gregkh>
- <20261124172118.1820919-1-sashal@kernel.org>
+	s=k20260515; t=1795541024;
+	bh=fS8UX0zOG7y5HTbRfTEb+A5QmGIQnuTVBZNrsVPO3QA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aIER/tK9Xj9J7xTkM7cNMYCpdtYq0gOZ2/0BrOQlgPEO6oQ5XstyYWIMiG9xBv81o
+	 dW0o2fsXWJ7a0R3kzyAd7SW3xgwAyK/lFagJBx9SUiAJivswcb77/aFDQis9KITn4z
+	 2hQCWdu8XGvvjs6cR7zxu41TDaqS1fRg7RPlbK6qgQsdkTQWIKRav9VBIUJDloU4/S
+	 T2qG0m0Y5nYwqLVJD7Bxbjy8GBYXbO+AkFaxmZ6p4feLXekf2YjojAswcGcH7TtM8d
+	 Zjm526349OF6EKBgApdu6YcK8jHdyS6sID2wuiZijTsgye75nh3feB7scItYNrqYsZ
+	 zfI0e9bBZJN1g==
+Date: Tue, 24 Nov 2026 17:23:35 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Puranjay Mohan <puranjay12@gmail.com>, 
+	Pedro Falcato <pfalcato@suse.de>, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Kees Cook <kees@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Jann Horn <jannh@google.com>, Alexei Starovoitov <ast@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/vma: drop mm asynchronously in vma_start_read()
+Message-ID: <awXHR007d8MlhJUC@gremlin>
+References: <20261124-vma-read-lock-mmdrop-async-v1-1-257f99f551de@kernel.org>
+ <awWLCZ-jBjSD7V3M@pedro-suse.tail5790ac.ts.net>
+ <CAJuCfpGk6eYK43Unxo+O4ML5=GM_siZ9owp6oa9fO0ipZXVg-g@mail.gmail.com>
+ <CAJuCfpEd1rz3P7fB7W_mHkyzbpq9TscRE+QNwvHdYME=WJj6cw@mail.gmail.com>
+ <awWz3nc_b8x3mIXq@gremlin>
+ <CANk7y0gAxY18Ew+6j5YsqrOsf5Dx+v5M78r7_8JLXh5RHZj4qA@mail.gmail.com>
+ <CAJuCfpFuDCUPTUi3SuAhmbtw5tubRZ0+YEY3PotjyJ8Or8pdQQ@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,76 +74,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJuCfpFuDCUPTUi3SuAhmbtw5tubRZ0+YEY3PotjyJ8Or8pdQQ@mail.gmail.com>
 
-From: Ian Ray <ian.ray@gehealthcare.com>
+On Tue, Nov 24, 2026 at 08:34:40AM -0800, Suren Baghdasaryan wrote:
+> On Tue, Nov 24, 2026 at 8:06 AM Puranjay Mohan <puranjay12@gmail.com> wrote:
+> >
+> > On Tue, Nov 24, 2026 at 9:28 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> > >
+> > > On Tue, Nov 24, 2026 at 07:51:42AM -0800, Suren Baghdasaryan wrote:
+> > > > Actually, VMAs are allocated from a SLAB_TYPESAFE_BY_RCU slub. With
+> > > > that RCU unlocking move you don't need other_mm copy and the comment
+> > > > that comes with it. VMA won't be freed until RCU lock is dropped.
+> > >
+> > > Yeah but they can be reassigned? They won't be _freed_ until a grace period but
+> > > they can go back to the slab and then allocated elsewhere  right?
+> > >
+> >
+> > Yes, they can go back to the slab and become a different VMA.
+>
+> Yeah, you are right about that. So, we either have to keep the RCU
+> unlock in place to keep other_mm comment valid (my personal
+> preference) or update the comment next to other_mm to explain the new
+> reason it is needed. Either way is fine with me.
 
-[ Upstream commit d35d93c2902592a84347a15deac4d67a323694c9 ]
+I think let's just change the comment?
 
-Since commit 5a52c5701a67 ("mmc: core: Fix host controller programming
-for fixed driver type"), the eMMC driver strength is passed directly to
-mmc_set_driver_type(), which propagates the value through ios.drv_type
-all the way to sdhci_set_ios().  For value 4, SDHCI correctly warns:
+Andrew could you change:
 
-  mmc2: invalid driver type, default to driver type B
+	 * stable and can be freed in the narrow window after vma->vm_refcnt
 
-The host driver type has no effect on this controller: esdhc_writew_le()
-never programs the driver-type field of SDHCI_HOST_CONTROL2.  Hook
-set_ios() and force drv_type to the always-valid Type B, so that SDHCI
-never sees an unsupported value.
+->
 
-Tested on i.MX8MP (usdhc3, eMMC in HS400) with
-`fixed-emmc-driver-type = <4>`: the warning is gone and the HS_TIMING
-register contains 0x43 as expected.
+	 * stable and can be reused in the narrow window after vma->vm_refcnt
+	                     ^
+			     |
+			     just this freed -> reused :)
 
-Fixes: 5a52c5701a67 ("mmc: core: Fix host controller programming for fixed driver type")
-Link: https://lore.kernel.org/all/20260926122908.866-1-ian.ray@gehealthcare.com/
-Cc: stable@vger.kernel.org
-Suggested-by: Adrian Hunter <adrian.hunter@intel.com>
-Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
-Acked-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Haibo Chen <haibo.chen@nxp.com>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/mmc/host/sdhci-esdhc-imx.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+Thanks!
 
-diff --git a/drivers/mmc/host/sdhci-esdhc-imx.c b/drivers/mmc/host/sdhci-esdhc-imx.c
-index 8637ad6bd90a1..baac9ba84d83c 100644
---- a/drivers/mmc/host/sdhci-esdhc-imx.c
-+++ b/drivers/mmc/host/sdhci-esdhc-imx.c
-@@ -1078,6 +1078,20 @@ static void esdhc_reset_tuning(struct sdhci_host *host)
- 	}
- }
- 
-+static void sdhci_esdhc_imx_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
-+{
-+	/*
-+	 * This controller has no driver-type control: esdhc_writew_le()
-+	 * discards the driver-type field when writing SDHCI_HOST_CONTROL2.
-+	 * The programmed value is therefore irrelevant, but SDHCI rejects
-+	 * non-SD values such as 4 (eMMC 40 ohm, from fixed-emmc-driver-type).
-+	 * Force an always-valid Type B.
-+	 */
-+	ios->drv_type = MMC_SET_DRIVER_TYPE_B;
-+
-+	sdhci_set_ios(mmc, ios);
-+}
-+
- static void usdhc_init_card(struct mmc_host *mmc, struct mmc_card *card)
- {
- 	struct sdhci_host *host = mmc_priv(mmc);
-@@ -1721,6 +1735,9 @@ static int sdhci_esdhc_imx_probe(struct platform_device *pdev)
- 		host->mmc_host_ops.init_card = usdhc_init_card;
- 	}
- 
-+	/* No SDHCI driver type control */
-+	host->mmc_host_ops.set_ios = sdhci_esdhc_imx_set_ios;
-+
- 	if (imx_data->socdata->flags & ESDHC_FLAG_MAN_TUNING)
- 		sdhci_esdhc_ops.platform_execute_tuning =
- 					esdhc_executing_tuning;
--- 
-2.53.0
-
+--
+Cheers, Lorenzo
