@@ -1,60 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795524094;
-	b=3VGEyxapLPcH4G29eXKh+H33nM3smKXsNmvVL36A/BzetlQc8MzT6Td8lQhXUfPUWU3S
-	 RXQxeYFWHibkR894zuTsmd2ZLTCBIsGKfsdZ1tL47GEh6iNHgecfgizxVYmA1DaDe9fgb
-	 /a1EDRI+jA85rewT2ZqvUasTHZATBC2gtTx4YgyJXqgdUwIgXmZ9htlq90GR9zzkNho6p
-	 s8Qkjt4qeVEwSdYvxT0H0XooGchAOVpSpnXFSvUUJdvpC+adH31d0M23w6E4/LqVq91RP
-	 LiVrvmBPZ5GAb8ohviVCBDGyj6kCzvLh+DgdGgOXtiK+OiPDkfsqj/dJXVeKoen1r/g==
+	t=1795524162;
+	b=OtxoP2NMPd9aD1hnDXw3F2TZf50e769DhrOGFWu8qDNm4fvd/wvImQiawloOGrZ+oA/T
+	 QNG1KNoSCt7EFrQxy7knjILVjBHv7A/Co4pPbamxCWTBMLRW3+h4mYp381pqlLdQ0sMqg
+	 L17UTBy2z3NmqgUU7JiLo7XvDzg0Ss6rr5POr8/+k3KwIzXsJtruFZiABZYog5f09DgbD
+	 FPLziobWKIZWokq1GYn68QbsWmviAY4aqj2LNvKRq7FvcGE5iiWPI8uYy3XyLoxSodRpC
+	 TvSXJR/F0qGlxY2OteclYkN8CNOovjMu6xTFIC3k51IgoEC2hwHa8pN+TbNKjnijcQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795524094;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=AXISzIl2GmdrgiGiNCrKwwMWhjga6IdbyVL6t7e5v3Q=;
-	b=ghX4LvX/KxYvxcMfB4PLvPGDUdmnOsEgiPHcSL3CQ0wXaTvhPyUGCMdQx3O+vRcPA1PZ
-	 a5UmqtGaHeVh+i9vrZvmKyELU3Wjt9O37Dy0jWVXYp25v6b+o8NjsuQmvZJWkA+P4CnDX
-	 KKZx9sBIy50mMOBwfc79sER3X7iThpGmRcHYHcgq8fssKBsm7gPtWgdDG1+hPmzzKBOBh
-	 2HQmpKZ8XsG0xElurB2kp/ZOh+alq+z5O5BK3EBQZilIpX+caglt+HLY2zIanJgg0gq7i
-	 ZSVdrr4CGreDSxEzRIfo4reP0NUYCD2WdzziK8w3PiNRFVAwX8g2NfpQDIfYsYnfQVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795524162;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=zTqJqtLVAhClH0Un/jCsQSvDa5fEGXg/BziUfu+XFT0=;
+	b=VRRdLUYKI08Q1tT1sANL2EpMCJZkBJfUjN3oa0k1hurnlMSKO93gENg7EawuDB76k75U
+	 i2ebnBkYNQtVbFNkEEA3qHFXOtmumUbZ73agJN8V6kl/lg0iwd9Hs5S6nlfsyXV/6HjA3
+	 hyq+j2LRNWlKa7Oy9ztOkSuVQHNVbdE+mdW8y5lrdPuJL5+LzoSf7edY9ZvqGMUDx6I0X
+	 3jO+57kwIR7rVNFEkfEi4Ywrqcldd9aCMZFXjieR05M5rbWOKIu/TAoLfDauXhWhbkMaN
+	 mKMZ2uzzNKxu5OBIeuWo82iQZFbZOPkiw6Cobqa9/Z2ZP1Fy9bXZuORempwOxrA8Twg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=Iacf0nFz;
-	arc=none smtp.remote-ip=109.224.244.25
-Received: from mail-24425.protonmail.ch (mail-24425.protonmail.ch [109.224.244.25])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sp9xq77Y;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lCNfS4CM;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sp9xq77Y;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lCNfS4CM;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD615606A321
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 12:41:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD615606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A82606A32D;
+	Tue, 24 Nov 2026 12:42:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82A82606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=Iacf0nFz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1795524091; x=1795783291;
-	bh=AXISzIl2GmdrgiGiNCrKwwMWhjga6IdbyVL6t7e5v3Q=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Iacf0nFzacgSAMU0Da/ajlV1EAEgzHG8ARPTDPdDf7ghexVQaBNkmvqktpWycGoFf
-	 0f6xrJDcA73vBvVACjdUKHe5FxqzFJvqo0V4x2GvNq0ZFvfMGFRNwN2Fu2lotrJaKD
-	 n9g3uiPuadkIwLDZGOhTXrNIg064QG+xGmwmT0Hr8HXBGNqRyQWNoubQ89WW/BINea
-	 0qE+gGHFLxkRxpQwfmPNCBCoWDsh63kUq1iQqxjETq1wey5qTpH2qU2DnpD8HOxFjV
-	 iHn+l6JxkgxMHPRtOAR2F12xX0DQ0TC+xZ5xceUlhOR7+tU5+kDR91FXJtPTsQ6d7o
-	 wXD4GY77tdUoA==
-Date: Tue, 24 Nov 2026 12:41:26 +0000
-To: Hyunchul Lee <hyc.lee@gmail.com>
-From: Ernest Borowski <ernest.borowski.git@proton.me>
-Cc: ernest.borowski.git@proton.me, Namjae Jeon <linkinjeon@kernel.org>, Baolin Liu <liubaolin12138@163.com>, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng1024@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 6/7] ntfs: zero new delalloc clusters even when writeback allocates them
-Message-ID: <179552408028.2458487.7065441678711617197.b4-reply@b4>
-In-Reply-To: <awPUQP3VxjqgW9Lf@hyunchul-PC02>
-References: <20261122-b4-ntfs-delalloc-fixes-v1-0-0726f0dce403@proton.me> <20261122-b4-ntfs-delalloc-fixes-v1-6-0726f0dce403@proton.me> <awPUQP3VxjqgW9Lf@hyunchul-PC02>
-Feedback-ID: 236360163:user:proton
-X-Pm-Message-ID: b499bba2639c34d5bee5f32abf88e83afe610d0b
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sp9xq77Y;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lCNfS4CM;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sp9xq77Y;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lCNfS4CM
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6CA641F461;
+	Tue, 24 Nov 2026 12:42:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795524159; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zTqJqtLVAhClH0Un/jCsQSvDa5fEGXg/BziUfu+XFT0=;
+	b=sp9xq77Y3UGi+wL44/r6/dl1iC7T/d1MmIfEnA/XjjNQjky3qmaYkvg4+UjHfbKMU2pK1+
+	Y3pMvDkyeho9IlFQKeIFMfe7nJBnrF0O1Vgw6lCUcMCkNL8mpySRs3rjsn01E0N1ZJKNtL
+	EtZwWvvrNUsa3i4vLB5h+zpoxOFn4Iw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795524159;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zTqJqtLVAhClH0Un/jCsQSvDa5fEGXg/BziUfu+XFT0=;
+	b=lCNfS4CMRo0oF/zKFxD4us1DHCLI/Qs7BRlFIV3VUqKxL2o0Q+2IOvaApUWJLy3TD1Cdsf
+	dwnMHQ606Uud1DAA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=sp9xq77Y;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=lCNfS4CM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795524159; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zTqJqtLVAhClH0Un/jCsQSvDa5fEGXg/BziUfu+XFT0=;
+	b=sp9xq77Y3UGi+wL44/r6/dl1iC7T/d1MmIfEnA/XjjNQjky3qmaYkvg4+UjHfbKMU2pK1+
+	Y3pMvDkyeho9IlFQKeIFMfe7nJBnrF0O1Vgw6lCUcMCkNL8mpySRs3rjsn01E0N1ZJKNtL
+	EtZwWvvrNUsa3i4vLB5h+zpoxOFn4Iw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795524159;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zTqJqtLVAhClH0Un/jCsQSvDa5fEGXg/BziUfu+XFT0=;
+	b=lCNfS4CMRo0oF/zKFxD4us1DHCLI/Qs7BRlFIV3VUqKxL2o0Q+2IOvaApUWJLy3TD1Cdsf
+	dwnMHQ606Uud1DAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4285A1339F;
+	Tue, 24 Nov 2026 12:42:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id yC5VCD+GBWucEgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 24 Nov 2026 12:42:39 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id CA50227875; Tue, 24 Nov 2026 13:42:34 +0100 (CET)
+Date: Tue, 24 Nov 2026 13:42:34 +0100
+From: Jan Kara <jack@suse.cz>
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm: fix cachestat NULL pgdat dereference on DAX mappings
+Message-ID: <lh4cnpy2kw3tdtmhubwhhvim25kxpqxo6xttt7sihyx7x5hqdf@3tvivew2qh7m>
+References: <20261123030014.3116755-1-bsdhenrymartin@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,55 +113,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123030014.3116755-1-bsdhenrymartin@gmail.com>
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[infradead.org,suse.cz,linux-foundation.org,gmail.com,cmpxchg.org,vger.kernel.org,kvack.org];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 6CA641F461
 
-On Mon, Nov 23, 2026 at 02:50:56PM +0900, Hyunchul Lee wrote:
-> Could the buffered-write iomap become stale after this unlock but before
-> the data is copied?
->
-> For example, suppose a buffered write obtains an IOMAP_DEALLOC mapping
-> for a hole. After the unlock, a mmap write can allocate the cluster
-> and write another byte in the same block. If that foilo is written back
-> and reclaimed before the buffered write resumes, the buffered write
-> still uses its old IOMAP_DEALLOC iomap. __iomap_write_begin() can zero
-> the rest of the block instead of reading the mmap data from disk.
+On Mon 23-11-26 11:00:14, Henry Martin wrote:
+> filemap_cachestat() treats every xarray value entry as a workingset
+> shadow.  On DAX mappings, value entries are DAX exceptional entries:
+> same value bit, different bit layout (flags in the low bits, pfn
+> above).  Decoded as a shadow, a DAX entry yields a bogus node id;
+> NODE_DATA() for it can be NULL, and lru_gen_test_recent() then
+> dereferences it:
+> 
+>   Oops: general protection fault
+>   RIP: 0010:lru_gen_test_recent+0xde/0x300
+>   Call Trace:
+>    workingset_test_recent
+>    filemap_cachestat
+>    __x64_sys_cachestat
+> 
+> Any writable file on a DAX mount triggers this once an mmap write
+> fault has populated entries.
+> 
+> DAX entries track present pages, not evicted folios.  Count them as
+> cached and skip the workingset decode, mirroring the dax_mapping()
+> split in the invalidation paths in mm/truncate.c.  PMD-order entries
+> are counted as one page, as value entries carry no order information.
+> 
+> This issue was discovered by Tencent CodeBuddy Security.
+> Cc: stable@vger.kernel.org
+> Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 
-Yes, it can.  This is pre-existing: on ntfs-next, buffered writes take
-no lock against page faults, and the ntfs_iomap_valid() removed by this
-patch only guarded the zeroing in ->iomap_begin(), not the copy.
+I think that for DAX mappings, cachestat should just return all zeros
+because none of the fields really make sense there. There's simply no page
+cache for DAX mappings.
 
-I wrote a reproducer for your sequence.  The copy blocks on a
-userfaultfd page before the write's second folio.  While it is blocked,
-the test stores a byte through a shared mapping into the block where the
-write ends, runs sync_file_range() (which does not wait for the inode
-lock), drops the page with POSIX_FADV_DONTNEED, and resumes the copy.
-The byte reads back as zero on ntfs-next and with v1, and is kept with
-the v2 fixes.  This holds in all 16 cases (512 B, 4 KiB, 16 KiB and
-64 KiB clusters; files initialized to their end or not; Ubuntu 26.04
-and Arch Linux):
+								Honza
 
-  ntfs-next:                 https://github.com/xerrni/linux-ntfs/actions/r=
-uns/45292350658
-  ntfs-next + v1:            https://github.com/xerrni/linux-ntfs/actions/r=
-uns/45292355094
-  ntfs-next + v1 + v2 fixes: https://github.com/xerrni/linux-ntfs/actions/r=
-uns/45292359194
-
-Reproducer: tests/stale_write_mapping.sh (with stale_write_mapping.c) in
-https://github.com/xerrni/linux-ntfs.
-
-v2 adds a ->iomap_valid() check for the delalloc mapping of a buffered
-write.  ntfs_attr_map_cluster() bumps a per-inode sequence count when it
-allocates clusters, and the mapping records that count.  If the count
-has changed, the mapping is stale unless all of its clusters are still
-delalloc.  A stale mapping is handled like a short write: ->iomap_end()
-releases the clean delalloc clusters the write did not reach and, if
-the cluster where it stopped is still delalloc, zeroes the rest of that
-cluster where it is not cached and dirties it where it is, as for any
-short copy.  The remaining range is then mapped again.  It is now
-allocated, so __iomap_write_begin() reads the block.
-
-Thanks,
-Ernest
-
+> ---
+>  mm/filemap.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index a1b2ca5b933c..caad0adde792 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -4694,6 +4694,16 @@ static void filemap_cachestat(struct address_space *mapping,
+>  			void *shadow = (void *)folio;
+>  			bool workingset; /* not used */
+>  
+> +			/*
+> +			 * DAX exceptional entries track present pages, not
+> +			 * evicted folios.  They must not be decoded as
+> +			 * workingset shadows.
+> +			 */
+> +			if (dax_mapping(mapping)) {
+> +				cs->nr_cache += nr_pages;
+> +				goto resched;
+> +			}
+> +
+>  			cs->nr_evicted += nr_pages;
+>  
+>  #ifdef CONFIG_SWAP /* implies CONFIG_MMU */
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
