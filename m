@@ -1,97 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608549;
-	b=YX+p+UnKbhur4Ca3t8FFXziM4CcqHYJIZZoAHQM1GWAsVIQSYs4IlfHfhP8MV/tlcgIK
-	 LwvmTDiCo6O/4hGhJm402a0kCmYjq3CbSwM0OkFdwPNj5NmMTWqCXgnm18yiQlsc35kYs
-	 wneBEPKQfiSPzADoOGRz4ByOZ0bGttyx2VwzafjIj7dWGtFWxROKsPDSKPzJFCdq4Sxr+
-	 MmzcSMDTCwNmTXXj1vPYH51URU0gQPTWjqu4ejEUrId4IIM1E94ezmH07SSrYTP9xZREX
-	 hKLGkEryI0qAgTy47JG+ET2x6SiupI4jywuxYTP/BtFf4ygd7caOdFh3/lwmrGvyksg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608549;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.67
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795608659;
+	b=gxKGinlt0SI5QKt+0g3R3N4syzyGU7tko0lSb7II6xwyu9z86nOlfAhTqRbA7PjhrsnL
+	 eSxxc6LK/tAxh+rUCvUCLhjQRL2/C9M4neil3VUH6uUybmQCxmNpH6GpgaGV81OCbDNLG
+	 Btux3FHy6HT3SDO8Bg8/YqZpWhYKNZ7HSA2AirCUX5V78dsNoA8/zb+WOhssUeEcB7n/D
+	 GjxgqS8rRqAr/VZmMq+5z4Eooqvzf0/ZUADoqk3bOl6O1t+QUW6CQSEApP+waTJwFMu/t
+	 Cjsml7EiY0h2Jmynhh5IJtEVNQ6oUFWRPRlYR1o1DwD04KwNzT2pZKzfboXiYEYI4Ag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608659;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=q+pas6iyIgctKAn1tCXhNYxNGSLbjoEgQaK/+oTuUAc=;
-	b=4CwmBsIOT4gB5lxPXgJyGBy0mxldz9AHYr1GsIpTN+j+4hLpsKr3QQgTCw+8rkz861tt
-	 y2x0O3ZS7IBKNOtgXZDQRdgB8b1uPYvamwxjz4ST8s44bnir9rwyJN0WJtug1ZJl1S6pz
-	 JoJ/6c0oI63AKCZByfQmWmoCWL+BLhpP4y+mcHgfKU2uiNb9XlOPma/tKmlx4Bq7jHBYE
-	 TGESE332Uwwtu9A8XpvtIdT4nFZYLAlMBGaks1v51isUXlo436YnOBTtGUVOpTb4zvAOj
-	 dMTfuZV0KzJGHTb90xfxEuY7evJes2cFvcKRWW1APPSNnOkNry63w7O7FecEWkJk9Yw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=1N96GBecg+GfJe1n2xMgqcFN0Pfbl8aGDYu4m8D5IIM=;
+	b=VDE1jjV4t43XZ6nzGCqmvfrvA7vQHDR47saHKi4PC9j6Ur0wLiW9voaszuBLvUmnoW08
+	 pjesgC0rHQYz772EK8UL3bII89Pd/yKmfJ2Eoj6XLVk9XDiPtjpXQKBGhRl7ff5Ha0pcQ
+	 e3bbwP1he35YAWSgYo/3NqkvpRHDGThjEtkRwn0Y9KZQA6KHl9tZFCvcHrid/ofDgcgWu
+	 TWrFvgyNmwqfEJPtoh0TPjVMBNtRy6KJ6I4a9bk5ByhuzylPElkdx/W+atSiJUWJn0klc
+	 BiIO8cXfAoYiV05bmjQ2Fb53BIS9p2QYI6bQiPZEm9bRYKiAx05jKtpkxhjBGLI7XYA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tTBGWGHM;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l3w63dkW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.67
+Received: from mail-lf1-f67.google.com (mail-lf1-f67.google.com [209.85.167.67])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4FC606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:09:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF4FC606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5768606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:10:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5768606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tTBGWGHM
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df4f7ccf4so406813f8f.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:09:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l3w63dkW
+Received: by mail-lf1-f67.google.com with SMTP id 2adb3069b0e04-5c158c4c15fso6983008e87.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:10:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795608657; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Aj8DiXeH6NyB99Zl1zFnm/k4F6dgkMVgZBeljZlN1dJmw5rhr/9xvXvu1T8Dk/CbtV
+         gzAfTTGyyUO+7/CjfXH1rG6/S0FZCNogox2utdZpJM9aRkgGHLMtUmVjIARJ90X3FuzU
+         MRN36OSCo/rjSeZnxVAmmi2ESgQ9WK2juVvp45ldUlWSGI9OVJgtn2B/67UOGxjoYxNg
+         tnGxowMXmieBUqcPF14MdBunXvMIDOyso+Ub6n9oRUXktyXZTb2ikW0v7HtI+I2Vbv5s
+         +T2CAEjHbULrSMWNG5yZL1l9tH0otlhEeBvhERQ2aALxkuoWdVE34vjn7l3Y/OYV8CRg
+         cDHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=1N96GBecg+GfJe1n2xMgqcFN0Pfbl8aGDYu4m8D5IIM=;
+        fh=nZ0fcKdg9FcfDWi02159big1q4EsrQGceHXpK7CShAo=;
+        b=DA6ztWmHjdRJTR9SOc52b9GZ4/5TrMEZC43Lov9irsoIbRS/JRN0m7/0DiItH7AeOT
+         YIrubobiWIq/XPfzEF/8l1vTkb61UE8rvjZnkcIXCWg/aYl22Y0/4ejNiBZV5zsQuNQf
+         pg+7YVp5W8mR7gJNK1Mm6C/U9aly0q3fOwFwYVC3tMo6GvYpDDHg9lF1J8/WTVv+Uaqf
+         D5etLXBljCd5hlRDdVS062pF8SHGPbifxBomoRRFnKIzT9XdmgohWVt9SoaCvL4kR98c
+         CnM/BnqbGnvhT9kOYeLceiu07oqRlNWv9hOyO5NDuJI/98okVQvqZZ564ZettVpnQspn
+         p0zw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795608547; x=1796213347; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q+pas6iyIgctKAn1tCXhNYxNGSLbjoEgQaK/+oTuUAc=;
-        b=tTBGWGHM8E+gzVeGSjQnKU1H3VkHzPOVDxC+1S6hQdKhEDqDyka7RVDS1vuO2suFwx
-         W1Y2WFGYTav3vLDw5NJQdkrPBv5f8yPEGXa3df2hv6uWaEiAr0aSKPtKS40ub5SKiZtx
-         1qf8/fMFo4tlXbYikAnAVoHw4EBS3e0PS5iDFd2/V+j1zAkvYn/1gREyMzI+Xcrtg/fz
-         gNw23KaV3ZeSrk2g4ijEr7jSqO3VNUV6ASUoSRjmiCAwazBQMmsH1cCyNFVoe7FOlEKl
-         gwjozYUEZSoKOELJFbxoNJ42Wbu6MVtITKQZ/5nfTYk48f4CLwcDQU6U1I0camSVtGmA
-         9rEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795608547; x=1796213347;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1795608657; x=1796213457; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=q+pas6iyIgctKAn1tCXhNYxNGSLbjoEgQaK/+oTuUAc=;
-        b=umv9qnDj7e+Fd068LeKlVOcTqyJ1DQiebpzH/VFnpUePqcX4bNouBQVQylQKHO0vhh
-         F0LA2rN3Irl3H8JdH3/bAyJV/zmKhF7iIeXJKMySCH7aZptiS70h4zxQbeJtTtMxKuem
-         ljrvI4cZkmSywfxvGxfVrvFJEWV2MYgHdgnqKxBmI4wVrZDiFfbjcCMVBWxeawCHME9C
-         q5TdtGhR6pLmQVxgn2RZfEVmFSBYGocRFUHESPpLZG5t1QiBl+hnIzPaJZYAL8Mwgeni
-         yOXP3ZqhUc5K11g9UIPv9sO0/4NlGAHiflUOI8TIfXv2wPqw/iEctm0A9IBHjMg6JAUy
-         UbzA==
-X-Forwarded-Encrypted: i=1; AL+hErEoOCvvYzopDPVbMcw52/UwHyYFLHzXmWNnpgX9mntwmpIN5eiqxMx9LtG5XLUT9kyw1+y8cYQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z92IoyW6f9YCw4JNnT9QVq3prrCnemAiYPOdoivTXJVAACtxL7n
-	Ji0c7EgN54hykNaRpGaxbVyglMcLJ0+lev3b0gLS7OUpgulke3o3LaEI
-X-Gm-Gg: AZFdTZetpcZ0gOOWBUvScIn7kHii+r3KFtIajkeoijPIVIuOK+/83RwGSClfKEh38AM
-	V/sq4OgotFpFmWge5OFFcdi2Q6i+dyG2eYQCidGMTyf4Pd1MOCLLOZdTJZNUzbjy/9TB+XNE/Dl
-	iKxlhal87nxzh739Lhkmmv4kdXTwy0fb81QZxRXzoACLTQ2Ko7JwGNj22WCuyzNF9ApZft9NpkA
-	ffuYTBF+CnW2TpLYpGBD27G3x1TspDm9KieB+4Q640aeMij+Sf8n/W4uI+zp4OhrYOzyWFEbl6j
-	D+glFtJBjpk8aEBGMPEy4bpGj1/WTEfmbvMHLYuZfX9/8tULDC27ZLmXqTl1xU/F3hZEbwoD2l8
-	mgkRwAIi/OKXDfZc92uBN76d3WmeOVFdA+uC8oeJyGH+j8z+BQBqiFB8i1XR9GlHe5gzHCNCiw/
-	prxCNMuBi7od3SxpBG1fnKlXe3l72gp/WqpIsR5bX87djSNZrxUM9gcAWbKFD5qEtZ5LYaZEJ+A
-	UDnYF9FRf+ZS9iavSx/zch5A95veAsjWm0lYphACPqRWV1kDLPu8+14fFUUxumVI9edj/4Wpm1y
-	ZMsYVpB3SzGXoPD/a1NQv8bz0b6bKbJbXFe22Mb+CeuNabnJhSqVCEuTew==
-X-Received: by 2002:a05:6000:2210:b0:4aa:8fc3:28fc with SMTP id ffacd0b85a97d-4abad0dedc8mr35898701f8f.1.1795608546671;
-        Wed, 25 Nov 2026 04:09:06 -0800 (PST)
-Received: from scheduler.schedules ([85.100.65.216])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6bb98b4dsm34561159f8f.53.2026.11.25.04.09.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 04:09:06 -0800 (PST)
-Date: Wed, 25 Nov 2026 15:09:02 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Wenwu Hou <hwenwur@gmail.com>
-Cc: Ingo Molnar <mingo@redhat.com>, stable@vger.kernel.org, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Wei Yang <albin_yang@163.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched/core: Avoid counting sleep time as run delay after
- migration
-Message-ID: <awbNyJl7j4z4wZ5H@scheduler.schedules>
-References: <20261125115519.2373653-1-hwenwur@gmail.com>
+        bh=1N96GBecg+GfJe1n2xMgqcFN0Pfbl8aGDYu4m8D5IIM=;
+        b=l3w63dkWTAYqvjFynZS4xnX29jt+TVSqB3Oz/76l7Ut4ant2iq1JBmVWrwsKayCB5S
+         C691m1mTzUfYB9DIfcn+WJpmxlcLuB6Zby4PB5S0Fk+MIYiEPXjCF+t7EjEefNdA7rhv
+         Mbovmphlm6yn/82ldH6BiwnmJV0kyZuP6eLFzgRPM8AWuKUKXgWLwkbNGMt3yFusLoTu
+         bn2cxWzghlhAVpOdR6SgG21IlAltobxaY5wgK8FuezGi4dsKOzx5xebyWzbviUPpCqy8
+         XSDBTL3cgYQ+EFredd8zR1RHXHEbEfkh2H+JhiI/2I509k4M5D89k6+AciY908cGKgfl
+         FLVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795608657; x=1796213457;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1N96GBecg+GfJe1n2xMgqcFN0Pfbl8aGDYu4m8D5IIM=;
+        b=h7X02NU3L8vJuJjFE5XQg9ADoCbHHpOXH1JotWdUapQkCFISdsd+g4n7IqSjK8+7Ya
+         ccqYTaSYNyXmFoMlD/2Ubp7j8APuTzVf9FWX5hB6DOAp7J3eAulsI/Pc56X3urIH59tK
+         5j9+r1ek/iFDyEHLEs5kMV0cbelS7xm31faZB1mHT5Z2K7h5LDuxftU4JvftlN4tDPLt
+         ooUd9XKGET5SDGNsDDAaODKgIJ+lmtzJ8ww+SqSMzXInNkrOzrnMYegSegNedO9Dfe/8
+         zyq0pq5uisjQnPa2VXn06h2Jq3Z8dbFOB1+ftHI0gc6CtPckb9MRL8bsq7kmxH+fOge8
+         w9xQ==
+X-Forwarded-Encrypted: i=1; AL+hErGxClKqeTtIW6cOWVEPIt65aJ77o+pL3r+xWZ9ox1614Mqszjd6X8PEjt5x3JuCzzlQl/4XZ1k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9gGpdLpRPOadibAFo2hgyliIOhBwfLTDLHDrXcESnuhc9DEQxc
+	t+Vaye6eDGHZOOlg5j1R74L9T743xnuGsDWo8k+XJYpFdWW3iqCVqnTpZO27vnAmRh5H28AypgR
+	nnA0xe0BSzokCWlw/n9J0sf52feSyxFWEhVOsjqQL7Sc8
+X-Gm-Gg: AZFdTZc5mHMQd7XeStxZLRa0SvEa00U60e0ExDJdkCXiVXBv21plwwBspSKd8aNPgio
+	MmjqKTt/uiFL7TRfuMLSPUSBww5pXEBpmZgqPk67txDhpoq6Wxs6vsejAx5w9rjxRIZe2jO5rRA
+	PFDWTidCYXeqcwtqoEGSfj7e23+c66/KDBby+mJconwTtlIivKa0jvl7DwNATZ1V7hMHeNxGSIR
+	T76bI4opGzNj/pYORU3hJSH49uSzmutk+WxNa1BjNdEmGYGNmyEoIriWh3coLiE0xlxsTTX13BR
+	NG0MMWXxRKWlJuKKG/ZIAejOfrToKlBWH/+hHKXkrUSpBA2Xd50xktSn6+R8fCrutX7Y6Bl882d
+	zrTfPo5oK/x6qzJwwzrgAIRdL+6jt3kSlnM9dEw==
+X-Received: by 2002:a05:6512:234f:b0:5bf:d938:b80b with SMTP id
+ 2adb3069b0e04-5c1b7c42d5emr4912988e87.27.1795608656760; Wed, 25 Nov 2026
+ 04:10:56 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,53 +103,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261125115519.2373653-1-hwenwur@gmail.com>
+References: <20261125074617.629026-1-bsdhenrymartin@gmail.com> <5f93ca8c-fe7c-45ec-9b88-4817d1b6a543@redhat.com>
+In-Reply-To: <5f93ca8c-fe7c-45ec-9b88-4817d1b6a543@redhat.com>
+From: henry martin <bsdhenrymartin@gmail.com>
+Date: Wed, 25 Nov 2026 20:10:45 +0800
+X-Gm-Features: Aa3M54p_62Oh-dLFBbck65__MmZTYOkFdjzUBkAF1Y2sTJexzGy5dWx3cXJRTfM
+Message-ID: <CAEnQdOrfsmhVfbznjSMf0YZhaiNVvt5WTqJAko6_QJ4toSCASA@mail.gmail.com>
+Subject: Re: [PATCH net v3] ip_gre: fix stale header length after erspan
+ version change
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, horms@kernel.org, 
+	yanhaishuang@cmss.chinamobile.com, netdev@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+> This is weird. The patch is broken, but it compiles successfully
+> (on some slice of the CI) because the first chunk is applied without
+> fuzz in the wrong context. Still causes CI build issues:
 
-On Wed, Nov 25, 2026 at 07:55:19PM +0800, Wenwu Hou wrote:
+Hi Paolo,
 
-[snip..]
+Sorry for the noise -- I have fixed it locally and will send a v4.
 
-> Link: https://gist.github.com/hwenwur/61cf383f8df72d4270ad9918b1d4edc8 [1]
-> Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wenwu Hou <hwenwur@gmail.com>
-> ---
->  kernel/sched/core.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 515b9d0353ce9..043885c66365e 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -2198,7 +2198,8 @@ void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
->  
->  	psi_enqueue(p, flags);
->  
-> -	if (!(flags & ENQUEUE_RESTORE))
-> +	/* Delayed tasks remain asleep across migration requeues. */
-> +	if (!(flags & ENQUEUE_RESTORE) && !p->se.sched_delayed)
->  		sched_info_enqueue(rq, p);
->  
->  	if (sched_core_enabled(rq))
-> -- 
-> 2.43.0
-> 
-
-Wei Yang is already working at the same issue at here:
-https://lore.kernel.org/lkml/20261122121823.2572209-1-albin_yang@163.com/
-
-And here:
-
-https://lore.kernel.org/all/20261024042753.2276779-1-albin_yang@163.com/
-
-So I'd just suggest dropping this patch.
-Or atleast working something out. Adding Wei to CC.
-
-
-Thanks!
-
-Kayra
+Thanks,
+Henry
