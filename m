@@ -1,89 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795638593;
-	b=T9GRayjsDJvIv5k14g1qgb/gJcT+cSDX5PfvIbGdGo3vlp7UNdNlAEyQoUwV5uHQTjaY
-	 N9hXAwwRpCXssL4BGsxNtUBdrJqkbOQ7GXHEVSexGUs7kYT3Bfct9RgooKH/uONjXAxDE
-	 07SSrcI1z70oC0xsm+NcIvfqz18wS8lWQE+hWF/E8Vfsy/yy0sxfNYQD9ZAkJo4po4nni
-	 PRZTNB6g4c/BE3PTvIBv6C+2Rx6RJWT+wKvRK3Sx5G58WtUC8K8Au5lzLwispsXPmVHQ8
-	 FT0SyQ3innD81c+/ztpJwCVpkwCxqabLZQy1xkibCxDAmNht/QkBQMmmDuibsIiSpCg==
+	t=1795638615;
+	b=r/xSUxPP26NRetzZbIkG8WJZtpBXp2sXgxr1ihOP+aS61PF/WPAghvvK0gUTa++lnq8u
+	 3TDYAW8hmIr7GuXs/DN+zYxLb6zQZ4t8GD4SerIIFQhEmQihtota5g0oWxAgztF42H9Ic
+	 LZXNi3/B91rCqyi6UK2l1vN6+xkvFcR+P6TlYHiAn81FULR9ffMzvOTPn0I5O7VIMPAYw
+	 QcCa33xvBnSaDLV0ph7X+Cno9rnOFVQ8eDSQzRQ/MUtp4sZYm08Xu36dkyvUnfs6L+cWR
+	 x6Om3fo0up+qRroqPImIZ4vnTlxv2bUOeXoUycCczWF+F7bQ4Yqk/LgACxhKGUpwh+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795638593;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795638615;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=5by1QEX/cGC23E25Nzrw5GrZTEPj5OnY/lGT7wIEPVw=;
-	b=FF6LkCBWd45/jxRXv8Vm3SwgVITXjl4S3fCN5oy5jrYEubv/BPp0gbhv143Q59ggOXbG
-	 VKHeIsG58wJJfGAGxNk9i8SpP/NJ8twew2KXMcG87D9fDGE2EhT2RxsDkyCbgE0UzKG2M
-	 ZCDni3KVLiow/lDuGYE54lj6NIt+zEsy2sy2KaKc92U9RmkV930xEpTUOz9vZ+LnSEBWK
-	 wwbLjuIu2rBciqbV7bpXzJKwQXvvld3F67Rj5xpk406AbKsGDGYwgK261b0U0uJrIhAGi
-	 jrohm17K3HMHMdyZK09sfkLawDj2YnthdbEVihMbHLDyCQDwD3VzAQtNmjQ4S7YaEJA==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=dB/Y0pBg3NHRJt+bh9ZKtMxsQux3tgEshsYt64sRnfQ=;
+	b=XIV3hQqQ5OmDN+zRdnmf/jScXmT/nGvHFt9rCsF5VOcwBycIa8idTSeY7fq1DHyjlW1i
+	 DchowiQI0BKAb3KN1KyMuOtobJ33/hwi1X68AZ0wqUDe55XHPIZKo/7+wStJAIatN7D/7
+	 QgcB659Xpt12994s7XqSUMDePun36z9EHCTQNgPQnJRZg8cDPhGXgNpL9kFm5dkV8DcMC
+	 xKXgaYaKbDzAx9TwNDMX9FfWpL+C2BnxxHZnWDv8DstxLN5lzTgfArOVChVr0PLl1x8qN
+	 /PVsProQBh7SxvTt/d2cxFQg69sm5feCM+tNyDdb5XHgPZIKNolQPRgOx9xpEFtHkhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b="I+MxKs/p";
-	arc=none smtp.remote-ip=74.125.82.225
-Received: from mail-dy1-f225.google.com (mail-dy1-f225.google.com [74.125.82.225])
+	dmarc=pass header.from=trailofbits.com;
+	spf=pass smtp.mailfrom=trailofbits.com;
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=TcYUDEhy;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A3C606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:29:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3A3C606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132B1606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:30:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 132B1606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=I+MxKs/p
-Received: by mail-dy1-f225.google.com with SMTP id 5a478bee46e88-386b8f2f671so3244208eec.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:29:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=TcYUDEhy
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-38190551625so12307344eec.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:30:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1795638592; x=1796243392; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5by1QEX/cGC23E25Nzrw5GrZTEPj5OnY/lGT7wIEPVw=;
-        b=I+MxKs/pMhX9Lj7v1b+pmXCQGTFkou16/qGRsto0wbGAUWQ3XXn+aSRSICAMwXsnkN
-         Lir3Ad13iPHE/klgrh1D1amjN7jyUF14MN4Hf5XwHQ23CXLJgptV6+7655hf0dMcFkM7
-         f37KztvfT8gUm0Tc21eq75yL/QjOQ+RnKIaARtYTnIIBcuaf3/y6XoFy6eTpASUtOVkQ
-         u9jO17NSMpZQFnKDv4D8MTtY6CY3HoX4AswUfqWxpKRO/IBI6kfcZKkNh9c/62jdEr2y
-         PmE4pCnc15x+tCmJY1nBLRghFI4OCiKsr0liwdqIgjg6a/q1qJT3ixv5I7I6W1b7Myws
-         XT3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795638592; x=1796243392;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=trailofbits.com; s=google; t=1795638614; x=1796243414; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5by1QEX/cGC23E25Nzrw5GrZTEPj5OnY/lGT7wIEPVw=;
-        b=YCI+b97+WPM8o9MsF8nkpKYaYQ2Eh4UY8kptJqJijSlKHNIKHZFAa9YJ5HYt/h+p9R
-         nuQIUXa73O7TfRwdXHjdkN2/q6lsokSPVZ4Xg3ktG4YBHqjEopmiOfwptQ3yP6qqRYD7
-         a0ZK11X8vom33on/ceJfkjqkZOx4v0/wle2eGOM6sEl3h8TDt/5CmhT3qLrtq+I21da0
-         59YMSPyEoyq5l6t9OOtdOAz+8WOG5MjuBrgMHsrCBMWfQfuM3hlkZX05OKy4lB1LpfQF
-         XbRV60kFn0JXJfhDjmb2v+j+OHfPzk/mayr6GO83IQrws7AYwsKVs06NEbE52loAbG/3
-         NEVw==
-X-Forwarded-Encrypted: i=1; AL+hErEvSdplckHsbbAEXqyDAvlbWIwgdCtecZTnsC5mcGGl06V79/FMiWA3CxE5jZFkrirSW+8LbIo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z92T6+OMpNCLehHQ7eitin6lZEdFxafXAeR5ZY6hz1gL0ahP2ml
-	gDjwrYA5DcpD35hypIFyRkZ2SrQp/W2YIMEXnNrnv5ONUXmNirZlQdzjOhN23gwKjhHfMW7Q2Re
-	af8/eF1WHPfQEsEIV/86r/DSbys8HyM6feUnboXWHMPQfW3N1ecEK+MgPitf2iOXt8HPkXRW9Ix
-	l2gPUih6aXnBqb5RcJm7qjEc4IgVRqpzK6n8ACNbgMOW4CH/kvsooAjbacWGjcwQVnc9qhsdHzL
-	r8sh2GYFQ1mQi2G7skCfAU=
-X-Gm-Gg: AZFdTZcnytUlh4VoA8K1WZ3s+4XSM24logWYArp9Q5QYVKjL5a4PWI77d5aRlGb0UV0
-	hfe2SvPnINRnzRXtexxfpRsWA8GISmgHuC7HX8UGuDwqlYiISql/Yfk2YwB9ffygXCnbcAP85ph
-	GHC0X4t9MbhwkbbLaZfXu4jPrVUF7MOe3eavjnfR3KkoF80L1QcyoIek9dXaoFz2wnfKZR9rGqo
-	mVWiPUXeFWTtsY2B0zaoLxS4dZlPB+B+zIPzxHvtw/BawMbVY+BNmwATE3cvNGKrh3msdQJuOIG
-	vAd359/OHfR+lYB72V7yyLXHh7/sIQhgd8WJM8XtdlvIoUfIMjaZlc5NJf9IIO+68EUJ0HZrgks
-	qZ9SZlqp7VeCn7p9c9AOsJEuHHGgMvfgNl9O89A==
-X-Received: by 2002:a05:7301:391c:b0:379:f7aa:1013 with SMTP id 5a478bee46e88-3856fd59fcemr19297575eec.15.1795638591450;
-        Wed, 25 Nov 2026 12:29:51 -0800 (PST)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
-        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-386c213b6c6sm1225263eec.5.2026.11.25.12.29.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 12:29:51 -0800 (PST)
-X-Relaying-Domain: purestorage.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id AC32934038A;
-	Wed, 25 Nov 2026 12:29:20 -0800 (PST)
+        bh=dB/Y0pBg3NHRJt+bh9ZKtMxsQux3tgEshsYt64sRnfQ=;
+        b=TcYUDEhyNYGx9ZCVdd9jWCvae+xbhMvmA2kaSonRJUzheZgzJMjniD9glNn9uZqtWP
+         ZZuZxcEhzShN1+Z0iu+R5Fq1NRCQTlbXbLFc206SZ0ZKc7uEp38imHOnBmwI5qw7HUyy
+         dBFcvENsJe/1bCX//G/GLY1wNGgN8XBEIwKwKiUkWHnk4m2tMOcbiqNaDYcyLzgfBWDk
+         564Bi/iSVBXfw3G5zbHmVdo9jXaThedM1F2AHna/ay4KPokp2Faw53vJTiu8K4YKhzGr
+         NiTX94IvMnjNaI0C81AXpFX6MCaekZi8dv5x8Cbh+wbo5sAL/5kypo0jYxk0i0BTSCBJ
+         3vjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795638614; x=1796243414;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dB/Y0pBg3NHRJt+bh9ZKtMxsQux3tgEshsYt64sRnfQ=;
+        b=h3TzmFjWS8/VOQ3chQJp4eQFdNd3A6ClbjDkwscVWeN7kFy3670+RQmq9amqOaOwuZ
+         FLYCztdUtTKAg6D30UWRMescL2zD6fBGDwLc/bd347m2x2Ox6ok+6hpXxQMiFjdgdEEb
+         bPc5nqRgs7VeRgE3+ot39tu/4r4O2UFsz7yq4w6RjWjKK1+W1onP3+CEL8JT8UiWJnzH
+         AmSKEaxPUCBjmE2C9tcNzC0BfFXofoSsWx4F4V/M7VKoSvoKtzbsMHKvl8UIEEF/SSxE
+         ex8DNZzb5x9iu9l2+j0Wyg9Hc9fYQVuWk82p5iK0suc+SebX7MzSObn+sEBe7/eqP60T
+         ajDw==
+X-Gm-Message-State: APuU4Z8qInHhyjBMyvxez2pPWN5m6S3Rn4u+nbfsS+FvdX2fJLWQXI47
+	I65vRk4yte9Z2fzMPK+1kaVYf16mJYUMSTHMIPxztj81wMfDx7HkeYoytGEW5CgmQwo59PWNU45
+	95zzTep8=
+X-Gm-Gg: AZFdTZc1LaOy/yZtPYz+JSsCmgDFZMVvRTmyCxl4Y9ex7GpQBk94BPV1+56XVehNZV/
+	u6H+91ibwN2NMWy5aAZUrXpTRDBPb5QhKMvcsos71fNRcecah0xWHGZieUnQ0AfOT02XtoM0awx
+	9X8CUXU7uQPfyrBbW10W2hxsoPnbRcTutbe0d53vcvmqpzLZn0ATWENikvvJ36Zfe07JyfKdgTG
+	A5LCiUfXw3AGNSKuxUtUU5Jjv/jIpluRVbXt0m5YW2GkGShCFWioPLP54ldG8q10FGdAg0CfRnp
+	oyHK88HNZRNQO6TfrszJ+zAwASV4Ocz2HgE9YVEfLTdHKTCbYr+veRCgjCOJAi05zbbCpQ/8wFW
+	TUji0x0BV76YD/+pftp01UhQwYjYteCvCWlTDczpamRvToXAXwY38Jg3te2QmiVyhOYyJ/DcM0M
+	Gc/8ZzbqFWBis4CNKfPZiomEO+fF4ZEXkNnR/iBkBjLgSs49/yFIBkYd0oJURoBA3xRQdpCRnTe
+	W3DKaMlPVaNzdovMbQeNfesFQ5Q6yGSN/XP+KemCNnpvlLaqhOXWotobWO0HU4tcrRF/BsgV6CL
+	3hei2pgdRYT9ZwlFKyDoEAIvVm21C8TKFoOf5wRJupKGBVVXPsoSoTtUC7LlWQhSCTW01eczjEO
+	WOhtWSwP23ImH+SSEyggJ5ywwTxg=
+X-Received: by 2002:a05:7301:1402:b0:36e:b3e6:ebe7 with SMTP id 5a478bee46e88-3857025f297mr17717038eec.26.1795638613970;
+        Wed, 25 Nov 2026 12:30:13 -0800 (PST)
+Received: from localhost.localdomain ([2603:8003:6d40:6669:75a7:83bd:63db:baa9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3866f299d0bsm47972746eec.19.2026.11.25.12.30.12
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 25 Nov 2026 12:30:13 -0800 (PST)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@kernel.org,
+	horms@kernel.org,
+	jeremy.jean@oss.cyber.gouv.fr,
+	kuba@kernel.org,
+	linux-sctp@vger.kernel.org,
+	lucien.xin@gmail.com,
+	marcelo.leitner@gmail.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com
+Subject: [PATCH 6.18.y] sctp: validate cookie AUTH state before use
+Date: Wed, 25 Nov 2026 15:30:10 -0500
+Message-ID: <20261125203010.67858-1-artem@trailofbits.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,77 +102,188 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 3/3] xprtrdma: Wake connect worker on device removal
-From: tmenninger@purestorage.com
-To: Li Xiasong <lixiasong1@huawei.com>
-Cc: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- linux-nfs@vger.kernel.org, linux-rdma@vger.kernel.org, 
- stable@vger.kernel.org, yuehaibing@huawei.com, zhangchangzhong@huawei.com, 
- weiyongjun1@huawei.com
-In-Reply-To: <20261124021842.130141-4-lixiasong1@huawei.com>
-References: <20261124021842.130141-1-lixiasong1@huawei.com>
- <20261124021842.130141-4-lixiasong1@huawei.com>
-Date: Wed, 25 Nov 2026 20:29:19 +0000
-Message-Id: <179563855914.3954750.11018048330217114132.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795638560; l=2167;
- i=tmenninger@everpuredata.com; s=20261125; h=from:subject:message-id;
- bh=Kd2c2EKrkQoXWQCM5emjG4zJKJ8aBSctLvqtZYaDmn0=;
- b=1V7sWT7lWWf0f8yfMDpj+BIRdbhVgODSyOZTykZ9roGfZtm7tD1sUCxO14/jnJRB0pHPY/wI1
- EgFk+lSkYfJDaPC2jMoNoxwp/6D3les2LPYNSdfYjt9mCQz3/cfkBmY
-X-Developer-Key: i=tmenninger@everpuredata.com; a=ed25519;
- pk=nZPlfTnkwWNTqraxDCv+eNh7JBZRFxAoLY1xeLR6zXI=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> Device removal only forces a transport disconnect, leaving a connect
-> worker asleep while re_connect_status is zero and blocking endpoint
-> cleanup.
-> 
-> Set -ENODEV and wake pending connects on removal. Give -ENODEV
-> precedence over other failures so late CM events cannot mask device
-> removal. Force established connections to disconnect and use atomic
-> transitions to prevent late ESTABLISHED events from overwriting errors.
-> Handle REJECTED with an atomic status update. Wake the connect worker
-> if the connection is still pending, or force an established connection
-> to disconnect without relying on CQ flushes.
-> 
-> The final endpoint put can free id->context before rdma_destroy_id()
-> synchronizes with CM callbacks. Destroy the CM ID in the endpoint
-> destructor before freeing its context to close this window. Remove the
-> CM callback get/put pairs so final puts occur outside CM callbacks.
-> Initialize the connect waitqueue before notification registration.
+From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Date: Tue, 4 Aug 2026 20:00:42 +0000
 
-A bit of a nit...
+[ Upstream commit 3dbb44d88b1e94dd31fe43588af7437b34b44d56 ]
 
-Could you split these endpoint/CM ID lifetime changes into a separate
-patch, ahead of the connect-worker wakeup changes?
+When cookie authentication is disabled, COOKIE_ECHO restores fixed-size
+AUTH fields directly from peer-controlled cookie bytes.  A forged RANDOM
+length, HMAC list, or CHUNKS list can then reach association consumers
+with lengths or identifiers that were never validated against the local
+backing arrays.
 
-Moving rdma_destroy_id() into the endpoint destructor and removing the
-CM callback get/put pairs changes the endpoint ownership and teardown
-rules. That addresses a different failure mode from the connect worker
-remaining asleep during device removal, and I think it warrants its own
-commit and explanation.
+A forged RANDOM length can cause out-of-bounds reads during key-vector
+construction.  A forged HMAC identifier also caused a 32-byte write past
+a zero-length AUTH chunk, providing a primitive for a local privilege
+escalation chain.
 
-> 
-> If transport pinning fails, fail and wake a pending connect under the
-> device mutex before skipping the notification. The final transport put
-> can be waiting for that worker to release XPRT_LOCKED.
-> 
-> Translate -ENODEV from the connection status to -ENOTCONN so pending
-> RPCs retry on a hard mount when the device disappears during setup.
-> 
-> Fixes: 3f4eb9ff9234 ("xprtrdma: Handle device removal outside of the CM event handler")
-> Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
->
+Validate the cookie's RANDOM, HMACS, and CHUNKS parameters at the cookie
+trust boundary before copying them into the association.  Reject invalid
+types, malformed lengths, unsupported HMAC identifiers, HMAC lists
+without SHA1, and forbidden chunk ids.
 
-I have no other feedback on this series that wasn't already brought up
-by Chuck.
+Fixes: bbd0d59809f9 ("[SCTP]: Implement the receive and verification of AUTH chunk")
+Fixes: 1f485649f529 ("[SCTP]: Implement SCTP-AUTH internals")
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20260804200042.2412009-1-Jeremy.Jean@oss.cyber.gouv.fr
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-I'm still working on a reproducer to give you a tested tag.
+[ Backport to 6.18.y: context adjusted in include/net/sctp/auth.h, where
+  6.18.y still declares sctp_auth_init_hmacs(), and in
+  sctp_unpack_cookie(), where 6.18.y still sets retval->c.peer_addr
+  after copying the cookie. No code changes. ]
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi,
 
--- 
-Tim Menninger <tmenninger@everpuredata.com>
+Please apply this backport to 6.18.y. It fixes CVE-2026-74752.
+
+The fix is in 6.6.160, 6.12.114 and 7.1.10, and in mainline since 7.2.
+It carries no stable tag; it reached those series through the
+Fixes-based selection but was not queued for 6.18.y. A three-way
+cherry-pick conflicts in include/net/sctp/auth.h, and the plain upstream
+diff also fails on context in sctp_unpack_cookie(). The code change is
+identical to upstream.
+
+Compiled net/sctp/auth.o and net/sctp/sm_make_chunk.o for x86_64 with
+CONFIG_WERROR=y, both on 6.18.65 and on 6.18.65 with the current
+queue-6.18 patches (stable-queue 0fdc4475764). No kernel boot or runtime
+test was performed.
+
+An LLM was used to prepare this backport and to check applicability and
+stable-queue history; I reviewed the result.
+
+Thanks,
+Artem Dinaburg
+
+ include/net/sctp/auth.h  |  3 ++
+ net/sctp/auth.c          | 75 ++++++++++++++++++++++++++++++++++++++++
+ net/sctp/sm_make_chunk.c |  3 ++
+ 3 files changed, 81 insertions(+)
+
+diff --git a/include/net/sctp/auth.h b/include/net/sctp/auth.h
+index 3d5879e08e78..fe45c8df210f 100644
+--- a/include/net/sctp/auth.h
++++ b/include/net/sctp/auth.h
+@@ -22,6 +22,7 @@ struct sctp_endpoint;
+ struct sctp_association;
+ struct sctp_authkey;
+ struct sctp_hmacalgo;
++struct sctp_cookie;
+ 
+ /* Defines an HMAC algorithm supported by SCTP chunk authentication */
+ struct sctp_hmac {
+@@ -72,6 +73,8 @@ struct sctp_shared_key *sctp_auth_get_shkey(
+ int sctp_auth_asoc_copy_shkeys(const struct sctp_endpoint *ep,
+ 				struct sctp_association *asoc,
+ 				gfp_t gfp);
++bool sctp_auth_verify_cookie_params(const struct sctp_endpoint *ep,
++				    const struct sctp_cookie *cookie);
+ int sctp_auth_init_hmacs(struct sctp_endpoint *ep, gfp_t gfp);
+ const struct sctp_hmac *sctp_auth_get_hmac(__u16 hmac_id);
+ const struct sctp_hmac *
+diff --git a/net/sctp/auth.c b/net/sctp/auth.c
+index fbbfa0c27955..95c272948c60 100644
+--- a/net/sctp/auth.c
++++ b/net/sctp/auth.c
+@@ -377,6 +377,81 @@ int sctp_auth_asoc_copy_shkeys(const struct sctp_endpoint *ep,
+ 	return -ENOMEM;
+ }
+ 
++static bool sctp_auth_chunk_id_forbidden(__u8 chunk_id)
++{
++	switch (chunk_id) {
++	case SCTP_CID_INIT:
++	case SCTP_CID_INIT_ACK:
++	case SCTP_CID_SHUTDOWN_COMPLETE:
++	case SCTP_CID_AUTH:
++		return true;
++	default:
++		return false;
++	}
++}
++
++/* Verify AUTH parameters copied from a state cookie before they are restored
++ * into an association.  When cookie authentication is disabled these fields
++ * are peer-controlled, so they must satisfy the same constraints as locally
++ * generated AUTH parameters.
++ */
++bool sctp_auth_verify_cookie_params(const struct sctp_endpoint *ep,
++				    const struct sctp_cookie *cookie)
++{
++	const struct sctp_paramhdr *random;
++	const struct sctp_hmac_algo_param *hmacs;
++	const struct sctp_chunks_param *chunks;
++	u16 hmacs_len, chunks_len;
++	u16 n_hmacs, n_chunks, i;
++	bool has_sha1 = false;
++
++	if (sctp_sk(ep->base.sk)->cookie_auth_enable || !ep->auth_enable)
++		return true;
++
++	random = (const struct sctp_paramhdr *)cookie->auth_random;
++	if (random->type != SCTP_PARAM_RANDOM ||
++	    ntohs(random->length) != sizeof(*random) + SCTP_AUTH_RANDOM_LENGTH)
++		return false;
++
++	hmacs = (const struct sctp_hmac_algo_param *)cookie->auth_hmacs;
++	hmacs_len = ntohs(hmacs->param_hdr.length);
++	if (hmacs->param_hdr.type != SCTP_PARAM_HMAC_ALGO ||
++	    hmacs_len < sizeof(struct sctp_paramhdr) +
++			sizeof(hmacs->hmac_ids[0]) ||
++	    hmacs_len > sizeof(cookie->auth_hmacs) ||
++	    (hmacs_len - sizeof(struct sctp_paramhdr)) %
++			sizeof(hmacs->hmac_ids[0]))
++		return false;
++
++	n_hmacs = (hmacs_len - sizeof(struct sctp_paramhdr)) /
++		  sizeof(hmacs->hmac_ids[0]);
++	for (i = 0; i < n_hmacs; i++) {
++		u16 hmac_id = ntohs(hmacs->hmac_ids[i]);
++
++		if (!sctp_hmac_supported(hmac_id))
++			return false;
++		if (hmac_id == SCTP_AUTH_HMAC_ID_SHA1)
++			has_sha1 = true;
++	}
++	if (!has_sha1)
++		return false;
++
++	chunks = (const struct sctp_chunks_param *)cookie->auth_chunks;
++	chunks_len = ntohs(chunks->param_hdr.length);
++	if (chunks->param_hdr.type != SCTP_PARAM_CHUNKS ||
++	    chunks_len < sizeof(struct sctp_paramhdr) ||
++	    chunks_len > sizeof(cookie->auth_chunks))
++		return false;
++
++	n_chunks = chunks_len - sizeof(struct sctp_paramhdr);
++	for (i = 0; i < n_chunks; i++) {
++		if (sctp_auth_chunk_id_forbidden(chunks->chunks[i]))
++			return false;
++	}
++
++	return true;
++}
++
+ 
+ /* Public interface to create the association shared key.
+  * See code above for the algorithm.
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index 3518f997a7b8..5d894b18ec39 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -1867,6 +1867,9 @@ struct sctp_association *sctp_unpack_cookie(
+ 	/* Set up our peer's port number.  */
+ 	retval->peer.port = ntohs(chunk->sctp_hdr->source);
+ 
++	if (!sctp_auth_verify_cookie_params(ep, bear_cookie))
++		goto malformed;
++
+ 	/* Populate the association from the cookie.  */
+ 	memcpy(&retval->c, bear_cookie, sizeof(*bear_cookie));
+ 	retval->c.peer_addr = paddr;
