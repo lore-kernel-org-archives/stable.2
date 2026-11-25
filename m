@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618041;
-	b=RBBoVcwiYbrz2HlYdWeJbxg6oGuG7nenuXIxr76E2rPZkLjrTkuC4F1B9GoUgQedhlrp
-	 g+s1yMyXpDO9Wu0CzJlnx4LhgLg/nhsZhws+gEnPx5P9b5V//L9W4u4mmPCYgN6+KWt/a
-	 JRjaTPEd4oUvnhxGWAsZpP2NfXYfXHSw4ZoT15vh0xkRao3u1Du7/fFQZQS0pb4fgf54/
-	 Bbp0CIUxoAJ12Ula/hG9xZtO4O/TGnTS098iAuSoBXLdEkySJ8Z0PDapgnKNCy6qJa7zU
-	 EkiZrFkdEhdWx1tTSqo/jLFr2Y5183/4Ph7BS4XMTS2eEAGgpnNtoR1WE1lqhj3hISA==
+	t=1795618043;
+	b=zoxjsvJrZUROUqRH54ZB7JQ3DxdkRl3Qn9grHtOkQVOcBSzSRDSYA5hi8MNWM3XLlpaS
+	 2CrNP3R94AMUTAiMR0TDzmsDPBrUDsKJBla6m5P+v+sXIHgPxaX8tjaKJHdV5BlVWmBp/
+	 6mBu/LzSBf79DkIkM7Fzanb6sSnmzIxrvYm0oWhKt3QFXnjfHW4xEH82SxgL7wcBonO7w
+	 0q87aH9vc+O3q0vTiBfGh7iOf86d5MDwTAIWLwUxRnz2f76jUzK53mtWKIwO/2WSrIGHM
+	 toA3U87X2QsPRuvc7UJgH5A6KXlA/x89hwauLXDffFgct36cbR090Qg/Rzx+ffXLZeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618041;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618043;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KHxaiE5b2FA1roH4UO5ZIitfCBD0QoFAAyCuyVIWm0Q=;
-	b=NCxPrSEwBk7jgO8MFdTicwfXm6bM8Lioo9dyxRj/0d/JBTFIFzPcU3AUWHnn6KX3zQMa
-	 CtT/R/B+5gnnfiQc0K7EXMmnwuxh0iDjnpWka9PmNLYotXm3HTkekAZMoAdeffSGrfiaA
-	 H8ncB2taOUpfpdPxgcG4oWGX8PrhYVI6/SQR1H1jnxO4hTxl+wJqWkmyFnRZ+uiFqIGFi
-	 WYphQJ0whNdbV/j456x90fI4VA0cKmYFSWU/3uDkWE8RTtg4hNxILpo2MqTLq5cJO3V4+
-	 CmGp4uSOWpJWqrLKmSizt2dy0e+yh1xq/EK8BGht8VXDMagzh+YB2zV0yf8dWbBvTGQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=pzOyiqmk8vOVYTUz/e5PR1CsjXHgNafQ7mmBH3pCevI=;
+	b=ApXb0ui09nmbe976ax9F8OkbbHdDZTzSaJEPCUZrnfR/O1EwQpoGyj2CqS+cPbJNUqd0
+	 iyoVdnB8kt2jE6OQdxD8d0h7uTD5lzbvxykbm97SlGF+dKpxu4cFFRwAtfHL+1TI2rTUO
+	 Pk/UvuqLFDfZpc1psLNd4qbDpw4WL+Ps5rFu9XD4p7S2uEDlrE5yrVoAZtFYKCFwflecV
+	 5tGoHSHLZs53t7BHZHJ43/HuyEfIse39G7cYHvufxBZQ32OSGozDMpwVmhcYUo7sMZOlu
+	 0wEG/+6JCuNyiwQyq++V+7IhSGr0rtGW9K2OnE7YYALluVJRTq4E9ncXcmcoObH50mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="P/QivG8g";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7keC8Dv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE606606A326;
-	Wed, 25 Nov 2026 14:47:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC494606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:47:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=P/QivG8g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED4FE1F000C6;
-	Wed, 25 Nov 2026 14:47:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618041;
-	bh=KHxaiE5b2FA1roH4UO5ZIitfCBD0QoFAAyCuyVIWm0Q=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7keC8Dv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D0E1F000C6;
+	Wed, 25 Nov 2026 14:47:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795618043;
+	bh=pzOyiqmk8vOVYTUz/e5PR1CsjXHgNafQ7mmBH3pCevI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P/QivG8gVhtNonjlVhh0bLd8jWEi2nE38DLxTUNm+aojDnKLGiY1c+hQJG5QkatUG
-	 uEjFWZGkn5jPJOgEBK5dATBQKg71A8DUTVOxcs5Iqi2mnp6+uDZI+XDJLTEfpGkt45
-	 Y+AB/s524jffR+pfqNs9bWu7rATV4OgfqLxJKLAU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=g7keC8Dv5mQ+rtS0EkpuaEf+3Vy2yp29Sst7Imo2vSayC/RSUhj1C9hRWX+NdsSgH
+	 4SHabpmI8lkuyjpNa9T7KXN/dyICvg9fUCHbLHCXZ1cC/DmLTvUtsFGjz0LbOlReSF
+	 apHV8Y+1v6sgUCBBdMGqfffe6b30Qo4vbApB6rXliIWH/uAe7SQ7l88nPVdzO7ZgL+
+	 2LwygaBEJ7lnlzZhbCKfb4fXGsTsM/s5qOWvssY4GZwrBoKyVFDCHyfVqXVwuOSxN5
+	 7QgfKsTtKp4Qfl6ZcXYNWTeX28Dqd5Cr8BfPulAv3W4p9Yu01ki+b1CrmxLppCegFL
+	 H4Qty4c+EqAeg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Linfeng Sun <linfeng.sun.dev@gmail.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0153/1005] vdpa_sim: serialize IOTLB updates with dataplane access
-Date: Wed, 25 Nov 2026 15:24:51 +0100
-Message-ID: <20261125143825.319153175@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y 1/3] xprtrdma: Decouple frwr_wp_create from frwr_map
+Date: Wed, 25 Nov 2026 09:47:19 -0500
+Message-ID: <20261125144713.4170491-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112556-maker-tabloid-5d68@gregkh>
+References: <2026112556-maker-tabloid-5d68@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,100 +61,118 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+From: Chuck Lever <chuck.lever@oracle.com>
 
-------------------
+[ Upstream commit 6f2e565fb3bd68636e4920223e599d70861f8ba6 ]
 
-From: Linfeng Sun <linfeng.sun.dev@gmail.com>
+frwr_wp_create is the only caller of frwr_map outside the encode
+path. It registers a single 4-byte write-pad region from a stack-
+local rpcrdma_mr_seg. Inlining the registration logic directly
+(sg_init_table + sg_set_page + ib_dma_map_sg + ib_map_mr_sg +
+IOVA mangle + reg_wr setup) eliminates the coupling that would
+otherwise complicate the removal of rpcrdma_mr_seg from frwr_map's
+interface.
 
-[ Upstream commit 8517ed4429a2eefd002dce00ea46e23e6714350b ]
+The inlined version adds a proper error-unwind ladder: on failure,
+the DMA mapping (if established) is released, ep->re_write_pad_mr is
+cleared, and the MR is returned to the transport free list. The old
+frwr_map-based code relied on rpcrdma_mrs_destroy at teardown to
+reclaim partially-initialized MRs.
 
-The simulator translates IOTLB entries into iovecs or bvecs under
-iommu_lock, then drops the lock before copying data. A concurrent DMA
-unmap can delete the mapping and release its pinned backing pages while
-the copy is still in progress, leading to a UAF in _copy_from_iter().
+This is a one-time setup path; duplicating ~20 lines is a reasonable
+tradeoff for decoupling the write-pad registration from the data-
+path MR registration.
 
-Use the existing simulator mutex to serialize DMA map changes with the
-full backend work function. Also make vhost-vdpa stop device access before
-unpinning the backing pages. Otherwise, waiting in the simulator DMA unmap
-callback happens after the pages have already been released and cannot
-protect their lifetime.
-
-Keep iommu_lock for the IOTLB table itself and avoid adding a second
-long-lived lock to the simulator.
-
-I found this bug myself, though the patch was written with AI assistance.
-
-Fixes: 2c53d0f64c06 ("vdpasim: vDPA device simulator")
-Assisted-by: OpenAI-Codex:GPT-5
-Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
-Message-ID: <20260911-fix-vdpa-iotlb-lifetime-v3-1-8766d371748e@gmail.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
+Stable-dep-of: 1fa415883c37 ("xprtrdma: serialize unmap_sync with xprt_disconnect")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/vdpa/vdpa_sim/vdpa_sim.c | 4 ++++
- drivers/vhost/vdpa.c             | 3 ++-
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ net/sunrpc/xprtrdma/frwr_ops.c | 57 +++++++++++++++++++++++++++++-----
+ 1 file changed, 50 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/vdpa/vdpa_sim/vdpa_sim.c b/drivers/vdpa/vdpa_sim/vdpa_sim.c
-index cfa88a60a38fd..017366cb6684c 100644
---- a/drivers/vdpa/vdpa_sim/vdpa_sim.c
-+++ b/drivers/vdpa/vdpa_sim/vdpa_sim.c
-@@ -713,6 +713,7 @@ static int vdpasim_dma_map(struct vdpa_device *vdpa, unsigned int asid,
- 	if (asid >= vdpasim->dev_attr.nas)
- 		return -EINVAL;
+diff --git a/net/sunrpc/xprtrdma/frwr_ops.c b/net/sunrpc/xprtrdma/frwr_ops.c
+index a82eefe5e6b58..d2c7ac5f4e016 100644
+--- a/net/sunrpc/xprtrdma/frwr_ops.c
++++ b/net/sunrpc/xprtrdma/frwr_ops.c
+@@ -669,9 +669,13 @@ void frwr_unmap_async(struct rpcrdma_xprt *r_xprt, struct rpcrdma_req *req)
+  */
+ int frwr_wp_create(struct rpcrdma_xprt *r_xprt)
+ {
++	struct rpcrdma_buffer *buf = &r_xprt->rx_buf;
+ 	struct rpcrdma_ep *ep = r_xprt->rx_ep;
+-	struct rpcrdma_mr_seg seg;
++	struct ib_reg_wr *reg_wr;
+ 	struct rpcrdma_mr *mr;
++	struct ib_mr *ibmr;
++	int dma_nents;
++	int ret;
  
-+	mutex_lock(&vdpasim->mutex);
- 	spin_lock(&vdpasim->iommu_lock);
- 	if (vdpasim->iommu_pt[asid]) {
- 		vhost_iotlb_reset(&vdpasim->iommu[asid]);
-@@ -721,6 +722,7 @@ static int vdpasim_dma_map(struct vdpa_device *vdpa, unsigned int asid,
- 	ret = vhost_iotlb_add_range_ctx(&vdpasim->iommu[asid], iova,
- 					iova + size - 1, pa, perm, opaque);
- 	spin_unlock(&vdpasim->iommu_lock);
-+	mutex_unlock(&vdpasim->mutex);
+ 	mr = rpcrdma_mr_get(r_xprt);
+ 	if (!mr)
+@@ -679,11 +683,39 @@ int frwr_wp_create(struct rpcrdma_xprt *r_xprt)
+ 	mr->mr_req = NULL;
+ 	ep->re_write_pad_mr = mr;
  
- 	return ret;
- }
-@@ -733,6 +735,7 @@ static int vdpasim_dma_unmap(struct vdpa_device *vdpa, unsigned int asid,
- 	if (asid >= vdpasim->dev_attr.nas)
- 		return -EINVAL;
+-	seg.mr_len = XDR_UNIT;
+-	seg.mr_page = virt_to_page(ep->re_write_pad);
+-	seg.mr_offset = offset_in_page(ep->re_write_pad);
+-	if (IS_ERR(frwr_map(r_xprt, &seg, 1, true, xdr_zero, mr)))
+-		return -EIO;
++	sg_init_table(mr->mr_sg, 1);
++	sg_set_page(mr->mr_sg, virt_to_page(ep->re_write_pad),
++		    XDR_UNIT, offset_in_page(ep->re_write_pad));
++
++	mr->mr_dir = DMA_FROM_DEVICE;
++	mr->mr_nents = 1;
++	dma_nents = ib_dma_map_sg(ep->re_id->device, mr->mr_sg,
++				  mr->mr_nents, mr->mr_dir);
++	if (!dma_nents) {
++		ret = -EIO;
++		goto out_mr;
++	}
++	mr->mr_device = ep->re_id->device;
++
++	ibmr = mr->mr_ibmr;
++	if (ib_map_mr_sg(ibmr, mr->mr_sg, dma_nents, NULL,
++			 PAGE_SIZE) != dma_nents) {
++		ret = -EIO;
++		goto out_unmap;
++	}
++
++	/* IOVA is not tagged with an XID; the write-pad is not RPC-specific. */
++	ib_update_fast_reg_key(ibmr, ib_inc_rkey(ibmr->rkey));
++
++	reg_wr = &mr->mr_regwr;
++	reg_wr->mr = ibmr;
++	reg_wr->key = ibmr->rkey;
++	reg_wr->access = IB_ACCESS_REMOTE_WRITE | IB_ACCESS_LOCAL_WRITE;
++
++	mr->mr_handle = ibmr->rkey;
++	mr->mr_length = ibmr->length;
++	mr->mr_offset = ibmr->iova;
++
+ 	trace_xprtrdma_mr_fastreg(mr);
  
-+	mutex_lock(&vdpasim->mutex);
- 	spin_lock(&vdpasim->iommu_lock);
- 	if (vdpasim->iommu_pt[asid]) {
- 		vhost_iotlb_reset(&vdpasim->iommu[asid]);
-@@ -740,6 +743,7 @@ static int vdpasim_dma_unmap(struct vdpa_device *vdpa, unsigned int asid,
- 	}
- 	vhost_iotlb_del_range(&vdpasim->iommu[asid], iova, iova + size - 1);
- 	spin_unlock(&vdpasim->iommu_lock);
-+	mutex_unlock(&vdpasim->mutex);
+ 	mr->mr_cqe.done = frwr_wc_fastreg;
+@@ -693,5 +725,16 @@ int frwr_wp_create(struct rpcrdma_xprt *r_xprt)
+ 	mr->mr_regwr.wr.opcode = IB_WR_REG_MR;
+ 	mr->mr_regwr.wr.send_flags = 0;
  
- 	return 0;
- }
-diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
-index c7a9702c2447b..6eb48cd5ac79e 100644
---- a/drivers/vhost/vdpa.c
-+++ b/drivers/vhost/vdpa.c
-@@ -976,6 +976,8 @@ static void vhost_vdpa_pa_unmap(struct vhost_vdpa *v, struct vhost_iotlb *iotlb,
- 	unsigned long pfn, pinned;
- 
- 	while ((map = vhost_iotlb_itree_first(iotlb, start, last)) != NULL) {
-+		/* Stop device access before releasing the pinned pages. */
-+		vhost_vdpa_general_unmap(v, map, asid);
- 		pinned = PFN_DOWN(map->size);
- 		for (pfn = PFN_DOWN(map->addr);
- 		     pinned > 0; pfn++, pinned--) {
-@@ -985,7 +987,6 @@ static void vhost_vdpa_pa_unmap(struct vhost_vdpa *v, struct vhost_iotlb *iotlb,
- 			unpin_user_page(page);
- 		}
- 		atomic64_sub(PFN_DOWN(map->size), &dev->mm->pinned_vm);
--		vhost_vdpa_general_unmap(v, map, asid);
- 		vhost_iotlb_map_free(iotlb, map);
- 	}
+-	return ib_post_send(ep->re_id->qp, &mr->mr_regwr.wr, NULL);
++	ret = ib_post_send(ep->re_id->qp, &mr->mr_regwr.wr, NULL);
++	if (!ret)
++		return 0;
++
++out_unmap:
++	frwr_mr_unmap(mr);
++out_mr:
++	ep->re_write_pad_mr = NULL;
++	spin_lock(&buf->rb_lock);
++	rpcrdma_mr_push(mr, &buf->rb_mrs);
++	spin_unlock(&buf->rb_lock);
++	return ret;
  }
 -- 
 2.53.0
-
-
 
