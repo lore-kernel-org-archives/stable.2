@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795628907;
-	b=iHAWLKVRND5UU0uSdynw0Cf/0IUw3RnSBKSESB74DJhiYpaiVIf/0yoz1l5z0ZeFZ8nF
-	 WOQo1bI7uw5AX4x6BM5WwwSwlKYrKt4/5B0wnfk4S84qMIeK+20fO8VdKmRs0MA3uSf7M
-	 s/U9SfgVm8Gt8u3gbhwrJqUG9gcAbRK0xT1ZqsHqjrcFzaXPAAFmTF9tkI7KCMnRvFMLr
-	 4EJ+F8jIbp4nGFEwdzqH4gHgf9xHA+TXCPIB3Qg3Htx2R0ijrGcm9FHOyT4fDzcl2BihB
-	 RWeG0+fhAMqDmuu+i3HYHHtKMIrKsWiONs58nfsRdL+V5wRvYqxtDit3uwQieycfupg==
+	t=1795628971;
+	b=XKh9gQO5xdLSbkV1NOGz/Dmx+pTKn26rUsdpptSvqRkLW8OlnLWUZVlRyFyphZ2091XW
+	 Uin+lPNa/bGwkMH5Sgfmi88xmsSfHd/uhQxP6Al6jRx9wH1GGIgDhs4qFV5ruaSIBm5wO
+	 4aYgcZJTEbbgq7RcWzBQQeilJFO0Hqo1o9QudCtCPwy419H71LTXb7NyfAfQlCN3iHluw
+	 IwIjIL7W12P4bI6NjFXgmrIQHcCIKdKxHd0YUKJCUslfMDt38bjbSAU0ES59QBN3jP4fo
+	 iu8Pib9cJ+tXP9xjxyzn4Ueh1z8mdSPcKUuKuVjFe7zKrKpSjXPYae+fl8BkkoSw8lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628907;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628971;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3Bb6wdHJJb1Ix/kHrQqbhsZvGNyBen1Xb6dnGQ/H4R0=;
-	b=c9c1VmL5DTLgTEBJSPvzZGlK5TSCysIRMd6UMNuZKSxCKsNqXIEAwjXIziMq6kO9BNqp
-	 c9mKrf4psckWPrR1zSqUyr9XV1FvIFgqffrE2n8REpwIZ4fwiM6JalKWomaGn0ryLcmOG
-	 mLYd1595K93rn3Ky1OsHwID2lNeTHy5zmth3dCoWgFtWBovD56twfS265rG241RgRqhnc
-	 56/NarvAWMAlB7ve+RfTnUqcfSbjQGSH+TOMTdODHyIxLUbYB3HMb6Z/6uofx0nppU1fw
-	 lj0wl+itbDVhSkMCywPX3tfPpwfMw2/6kBHWHDiD4QETBQyzO/AgwHE/URlcTFc5JsA==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=EVnXIVVTRbpBkBPehLLZhBR0TzdU4ArI0CAdfONTkqY=;
+	b=yNCNMtqXke/hI5Vx8vrMV2lG7UktUaNLp2nMpvk0nlLCTV7PsreXI7le7KC/Xq0Ch92Y
+	 +SkB+RzAFq3aaC/cD/uuCecjEbFLW1df8QqJFxoeAxQkMltb+SZq5zbHVhJcBfK6LRGc7
+	 UxZEq7u+vju+ERztj79gIum/0mNcxc3ALBOlYfplzcOdTbjGhdQZnBfk5ATY35CN3ogfu
+	 4otAreQXFB6lfNekxova6GNgVWMn17lrh96wX59EqI9EVw6ViiiJwcvEJT+AFPHg07+Xr
+	 nScacV+SLgKj5/2h16wIeT1rzsjsflzypNpDmpB/Thy4QQ3Ua8G5eFr9h5hQihCM5Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBS5iK0U;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iGRk2Z+N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A74F606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:48:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD5D606A33A
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:49:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBS5iK0U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CE411F000E6;
-	Wed, 25 Nov 2026 17:48:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iGRk2Z+N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 537871F000CF;
+	Wed, 25 Nov 2026 17:49:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795628906;
-	bh=3Bb6wdHJJb1Ix/kHrQqbhsZvGNyBen1Xb6dnGQ/H4R0=;
+	s=k20260515; t=1795628971;
+	bh=EVnXIVVTRbpBkBPehLLZhBR0TzdU4ArI0CAdfONTkqY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UBS5iK0U7MX/l0C+cLpFgD6ckxhAil1a5gGB/Iehwb2ihFeuk8SsgHXCwLEu9RZ+M
-	 +KJF4/1S9mvf4PZoHRe4j73c99YUAdY4Yb8TiSUGyJBImzJzLobfGDkTuFn5UAbrRW
-	 V4PfeZ3qArAiHlJJ960uQEqR2lWR8QTbpYWhLI29i4Fc9E9FMUUMWOraY+Rg0QslMX
-	 b4JumIT92JXdTS50gDMUYiu4b3elZU19R3ICI9HmeVd76lCqysfqXZAAoFSQOiw32H
-	 BDHLuMEaKDKD3ElyXc3GFA1diAP9yluFpd94qh3PXbIzykkf4z/VMcLv9m53JFHRJi
-	 cTmqy/QJO70Mw==
+	b=iGRk2Z+NZU/xw+cvzt3XS7OsNKtop89vRfVRSyMgFo2IWc1VCNffG8qlAfmWpI04c
+	 /XdMtqTi463e3shcOqvUgA7kdnQyZ5M46RoEIt4vgg8oS/NyLYh9uhjBx6Glm4J2K8
+	 Szb5iPGZisyFVPFZFLhhW1cyyoayCNaxUaIedhJ8/VU+KoC7g+ox3RZne/KjyhvLq/
+	 i3KYBbEA94FsDT9eVOe0WqcF7+LMiJ0mSQmNSn7SweHQpuqkXqU963JbSJRb1Se+3E
+	 y9UU8d1tFomJj5eCKKC+40P4IHR7P36BUgDBduCN53QeNVNEnqsLPyNoHt60BHd/EM
+	 NvLqnQOooKPSQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Anton Lundin <glance@ac2.se>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Stefan Haberland <sth@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	=?UTF-8?q?Jan=20H=C3=B6ppner?= <hoeppner@linux.ibm.com>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] hwmon: (nct6775) Handle dual use registers
-Date: Wed, 25 Nov 2026 12:48:24 -0500
-Message-ID: <20261125174818.1046387-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] s390/dasd: Fix typo 'immediatly' -> 'immediately'
+Date: Wed, 25 Nov 2026 12:49:27 -0500
+Message-ID: <20261125174916.1030533-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112509-boned-unholy-4e29@gregkh>
-References: <2026112509-boned-unholy-4e29@gregkh>
+In-Reply-To: <2026112514-study-reseller-e32c@gregkh>
+References: <2026112514-study-reseller-e32c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,55 +62,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Anton Lundin <glance@ac2.se>
+From: Stefan Haberland <sth@linux.ibm.com>
 
-[ Upstream commit ca1abdd1a9b9ce51713a18c8905bf10579533c3b ]
+[ Upstream commit ae6f19236b5ae4eef4df2780d51bee19add0eba8 ]
 
-The REG_TARGET register has different meaning, depending on if pwm is in
-thermal_cruise or speed_cruise.
+Fix typo in function name dasd_sleep_on_immediatly().
 
-This means we can't assume it's always word sized, so we need to handle
-it differently depending on which mode we're in.
-
-The code already does this, but the register was configured as word
-sized for the speed_cruise mode, which would do the wrong thing in
-thermal_cruise mode.
-
-Fixes: 6c009501ff20 ("hwmon: (nct6775) Add support for NCT6102D/6106D")
-Fixes: 29c7cb485b32 ("hwmon: (nct6775) Integrate new model nct6116")
-Fixes: 437b3c2a4bdc ("hwmon: (nct6775) Add support for NCT6126D")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anton Lundin <glance@ac2.se>
-Link: https://patch.msgid.link/20261109082511.851377-2-glance@ac2.se
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Suggested-by: Heiko Carstens <hca@linux.ibm.com>
+Reviewed-by: Jan Höppner <hoeppner@linux.ibm.com>
+Signed-off-by: Stefan Haberland <sth@linux.ibm.com>
+Link: https://patch.msgid.link/20261112102608.1057852-2-sth@linux.ibm.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: 25cdc1f63227 ("s390/dasd: Re-initialize RCD buffer with "V1.0" before every start")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/nct6775-core.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/s390/block/dasd.c       |  4 ++--
+ drivers/s390/block/dasd_alias.c |  2 +-
+ drivers/s390/block/dasd_eckd.c  | 14 +++++++-------
+ drivers/s390/block/dasd_int.h   |  2 +-
+ 4 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/hwmon/nct6775-core.c b/drivers/hwmon/nct6775-core.c
-index 7e8e265cc6c18..548837c4113a4 100644
---- a/drivers/hwmon/nct6775-core.c
-+++ b/drivers/hwmon/nct6775-core.c
-@@ -1151,14 +1151,12 @@ bool nct6775_reg_is_word_sized(struct nct6775_data *data, u16 reg)
- 	case nct6106:
- 		return reg == 0x20 || reg == 0x22 || reg == 0x24 ||
- 		  (reg >= 0x59 && reg < 0x69 && (reg & 1)) ||
--		  reg == 0xe0 || reg == 0xe2 || reg == 0xe4 ||
--		  reg == 0x111 || reg == 0x121 || reg == 0x131;
-+		  reg == 0xe0 || reg == 0xe2 || reg == 0xe4;
- 	case nct6116:
- 		return reg == 0x20 || reg == 0x22 || reg == 0x24 ||
- 		  reg == 0x26 || reg == 0x28 || reg == 0x59 || reg == 0x5b ||
- 		  reg == 0xe0 || reg == 0xe2 || reg == 0xe4 || reg == 0xe6 ||
--		  reg == 0xe8 || reg == 0x111 || reg == 0x121 || reg == 0x131 ||
--		  reg == 0x191 || reg == 0x1a1;
-+		  reg == 0xe8;
- 	case nct6775:
- 		return (((reg & 0xff00) == 0x100 ||
- 		    (reg & 0xff00) == 0x200) &&
+diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
+index f6e86692a21d7..f887b3657edd2 100644
+--- a/drivers/s390/block/dasd.c
++++ b/drivers/s390/block/dasd.c
+@@ -2573,7 +2573,7 @@ static inline int _dasd_term_running_cqr(struct dasd_device *device)
+ 	return rc;
+ }
+ 
+-int dasd_sleep_on_immediatly(struct dasd_ccw_req *cqr)
++int dasd_sleep_on_immediately(struct dasd_ccw_req *cqr)
+ {
+ 	struct dasd_device *device;
+ 	int rc;
+@@ -2621,7 +2621,7 @@ int dasd_sleep_on_immediatly(struct dasd_ccw_req *cqr)
+ 
+ 	return rc;
+ }
+-EXPORT_SYMBOL(dasd_sleep_on_immediatly);
++EXPORT_SYMBOL(dasd_sleep_on_immediately);
+ 
+ /*
+  * Cancels a request that was started with dasd_sleep_on_req.
+diff --git a/drivers/s390/block/dasd_alias.c b/drivers/s390/block/dasd_alias.c
+index f7e768d8ca766..2afac13cb79c2 100644
+--- a/drivers/s390/block/dasd_alias.c
++++ b/drivers/s390/block/dasd_alias.c
+@@ -751,7 +751,7 @@ static int reset_summary_unit_check(struct alias_lcu *lcu,
+ 	cqr->buildclk = get_tod_clock();
+ 	cqr->status = DASD_CQR_FILLED;
+ 
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	return rc;
+ }
+ 
+diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
+index 545446b3818f6..499b09162a0ae 100644
+--- a/drivers/s390/block/dasd_eckd.c
++++ b/drivers/s390/block/dasd_eckd.c
+@@ -887,7 +887,7 @@ static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
+ 	set_bit(DASD_CQR_ALLOW_SLOCK, &cqr->flags);
+ 	cqr->retries = 5;
+ 	cqr->callback = read_conf_cb;
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	return rc;
+ }
+ 
+@@ -5101,7 +5101,7 @@ dasd_eckd_release(struct dasd_device *device)
+ 	cqr->buildclk = get_tod_clock();
+ 	cqr->status = DASD_CQR_FILLED;
+ 
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	if (!rc)
+ 		clear_bit(DASD_FLAG_IS_RESERVED, &device->flags);
+ 
+@@ -5156,7 +5156,7 @@ dasd_eckd_reserve(struct dasd_device *device)
+ 	cqr->buildclk = get_tod_clock();
+ 	cqr->status = DASD_CQR_FILLED;
+ 
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	if (!rc)
+ 		set_bit(DASD_FLAG_IS_RESERVED, &device->flags);
+ 
+@@ -5210,7 +5210,7 @@ dasd_eckd_steal_lock(struct dasd_device *device)
+ 	cqr->buildclk = get_tod_clock();
+ 	cqr->status = DASD_CQR_FILLED;
+ 
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	if (!rc)
+ 		set_bit(DASD_FLAG_IS_RESERVED, &device->flags);
+ 
+@@ -5273,7 +5273,7 @@ static int dasd_eckd_snid(struct dasd_device *device,
+ 	cqr->status = DASD_CQR_FILLED;
+ 	cqr->lpm = usrparm.path_mask;
+ 
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	/* verify that I/O processing didn't modify the path mask */
+ 	if (!rc && usrparm.path_mask && (cqr->lpm != usrparm.path_mask))
+ 		rc = -EIO;
+@@ -5915,7 +5915,7 @@ static int dasd_eckd_read_message_buffer(struct dasd_device *device,
+ 	cqr->block = NULL;
+ 	cqr->expires = 10 * HZ;
+ 	set_bit(DASD_CQR_VERIFY_PATH, &cqr->flags);
+-	/* dasd_sleep_on_immediatly does not do complex error
++	/* dasd_sleep_on_immediately does not do complex error
+ 	 * recovery so clear erp flag and set retry counter to
+ 	 * do basic erp */
+ 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
+@@ -5947,7 +5947,7 @@ static int dasd_eckd_read_message_buffer(struct dasd_device *device,
+ 
+ 	cqr->buildclk = get_tod_clock();
+ 	cqr->status = DASD_CQR_FILLED;
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	if (rc == 0) {
+ 		prssdp = (struct dasd_psf_prssd_data *) cqr->data;
+ 		message_buf = (struct dasd_rssd_messages *)
+diff --git a/drivers/s390/block/dasd_int.h b/drivers/s390/block/dasd_int.h
+index 81cfb5c89681b..99c2534216537 100644
+--- a/drivers/s390/block/dasd_int.h
++++ b/drivers/s390/block/dasd_int.h
+@@ -857,7 +857,7 @@ void dasd_schedule_device_bh(struct dasd_device *);
+ void dasd_schedule_block_bh(struct dasd_block *);
+ int  dasd_sleep_on(struct dasd_ccw_req *);
+ int  dasd_sleep_on_queue(struct list_head *);
+-int  dasd_sleep_on_immediatly(struct dasd_ccw_req *);
++int  dasd_sleep_on_immediately(struct dasd_ccw_req *);
+ int  dasd_sleep_on_queue_interruptible(struct list_head *);
+ int  dasd_sleep_on_interruptible(struct dasd_ccw_req *);
+ void dasd_device_set_timer(struct dasd_device *, int);
 -- 
 2.53.0
 
