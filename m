@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608364;
-	b=SMfjgp3SFtvaX8Do+4F9k0l1SiynCCXmJOSThA40vo1aYD5OPGIoHWBpzIk3SjCqzMJh
-	 jTaVxJ7HMg9E7HKW62/agNpu0xY8ie6zjAD/Q70b/6o+A6oRM2CmNxsXkQK2eCkl6qmFC
-	 HJv05nfJxrLi+8W6ZfkLYElSJy+eM0R+ERYvsojxqvzt6WsMo/utmkoMGWT6TyhmOwOr6
-	 dZ4yzA30CmzBcGiVrqWQYyvAAEEcO/ISNrW168zAFDDQ0C7JQVRNSsMSUnGKlUoBsyzBH
-	 jmPfNCI0DP8wkLn/8GuNXDRfryeIJpBpC6a2YUNtGkYImMrgywrdkJYcccwnimHy3rw==
+	t=1795608367;
+	b=s4i4M32OsWw3eJYM0V6sIlZ3pZ+lq/bMHXlOdIO7IpE2D8sUgF1wRJfMvMPPH0Ax38Kl
+	 UYpPsbCt/D/YnIIDA8aKmn/2MlwFzIa4RyGPQCLRxeBToaYt3rsHjVX/qHnf5kOEhIABx
+	 m6zMp+Q2RVMqhmC0V/7tyoU9799Ac/y6zrddVZcLxElTFqvvH6q6j23d5ou1xAOt0vXXm
+	 6rJDS7O4V1LecFySDwITaKg3NTky8b0qD9eTlT+UtipEi2BoUXHWc5/np9ipZcBKtGzQW
+	 pBHcVCI4a0o5miiIBtZJf6KL/jExvW/eJstv62Evj64hfv99uFsn5NSZoE9OXciUQwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608364;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608367;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=J2pbe3lHTuazVOqx5/SH/T9Uu3OzmYTtXX6j/6bCBCQ=;
-	b=U2k6rMV9zIOD6W1GnV+k8BGepOf3qBJpJVd3jwFElSbdXjfGqHh2wAljBrWALm1vr6Vq
-	 PWd3ZZXTcwzYytqOXuTiqSLy/ZzSehn3NjyTZ3LBoza+svKUyjfU6jK9fNgJj2TKWCy7G
-	 SYhTdTk0c8dR4pKJJe038WZEYPIQGibMW73nlLBMOPqw5Jre9VMRoHIPZaDhdhDgxShu/
-	 r0tsZcgqMFcx0WGBPhNrwq8ibHk+N1XAhJPVd2a3WXmYaF7C386wfFwTBbrmR25WWwOjm
-	 /E82QYe2GwQvlBa8oUN3zoFCnLLKYiHqv5B+5AHoGUEPBB6XsmWreJJ5XFxvZgTKsnQ==
+	bh=fEX37cjduUOQou8diWqFv5xzvrR8itjuoWgVoDagOIs=;
+	b=noUs+3ctj2uTQvrpYpv/fPKuhKNu5npRS+C7BxhtciLmU6pVnyTT5wzqJSgzApMPT7xd
+	 qxlyf/LvqyBxNy3NNMFpUfUVnMQze/9DqCqNRZ66RyGC0bfUu9+8aL6onBRiIWqrqXU4q
+	 oSKksIiIczMI+TADCKZ5/yqGfwI7JE1G3IKfp1eXS4OGwbofoKL8ng+84XU11HvZ7zDDz
+	 Nx+dJty790/xG2MYcQtbJ5aICKBZCAjSmPsxWk6v+dFSMCDkf3g5SzH3TJFxCBp58x6bd
+	 g/0gNAI7iLvqdBTHFjirkM2m06laSIibsVCdPC6JvLXCxSN2x/6kKAveyonlp3dI/Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WQ6ZxexF;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FrrL2GQd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277B6606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB70D606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WQ6ZxexF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466C31F00A00;
-	Wed, 25 Nov 2026 12:06:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FrrL2GQd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A771F000E0;
+	Wed, 25 Nov 2026 12:06:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608363;
-	bh=J2pbe3lHTuazVOqx5/SH/T9Uu3OzmYTtXX6j/6bCBCQ=;
+	s=korg; t=1795608367;
+	bh=fEX37cjduUOQou8diWqFv5xzvrR8itjuoWgVoDagOIs=;
 	h=Subject:To:Cc:From:Date;
-	b=WQ6ZxexF38AIhhnR+sr5Zau5Wif3HmA98pSqATPskw+qGuBpHxp7WsfYzRZMFBdzB
-	 L1YSGbDo+srozdWsiB2MtW/aEBZw2rhh9aSTONUdJFIStoBxI4jiZjH3p0hTosqHW4
-	 bVQFZfjmzWd8ke+sVVjDJoCXPbK6ADb+L84BLKQ0=
-Subject: FAILED: patch "[PATCH] tty: fix misapplied compat_ptr() in tty_compat_ioctl()" failed to apply to 5.10-stable tree
+	b=FrrL2GQdOS/ILw7SxA0vasBzFx/Hv9mwNhdifbDsuR8MKYwa0jixvR+hpiQNey4Q0
+	 ptLRgueqjA2LjZyhXDeweo+To1oDu8TYyKGHR2aNKiEDhAMULIH/dVoi4rReWn5DbE
+	 Hy8psUiGFct5QqvWZtAtaQ/68xFpF38YKtWDCYOg=
+Subject: FAILED: patch "[PATCH] tty: fix misapplied compat_ptr() in tty_compat_ioctl()" failed to apply to 5.15-stable tree
 To: jirislaby@kernel.org,gregkh@linuxfoundation.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:33:15 +0100
-Message-ID: <2026112515-cardigan-coke-3d3d@gregkh>
+Message-ID: <2026112515-sinuous-decaf-4d71@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 895dc0eaa2779ff46a0b2a20b5ce9eb0b1125cb2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112515-cardigan-coke-3d3d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112515-sinuous-decaf-4d71@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
