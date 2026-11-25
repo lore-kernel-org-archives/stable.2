@@ -1,84 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618770;
-	b=rq3/onWHSzYC8ng5dfV3I4kCtOG1ZGp6WLEGCxbh7ViIiLCcyQ8sr47s/m6foy8pMT+N
-	 daZQa+wy/vn4d67B3WKHzPmQxauswcH3KuI12EnCfLoky6hBPRoEZ0xb35z3xPv7kwqj4
-	 1EfEnUjZe/CsALdF0n2mNmo7/KPi883IknQSgXiBUOsmFuRjHV1G2M8p9A9REzAKgzy3m
-	 J1w8iiFlb9IjNflQbHoePHZHFyFQ53hTfn8cI0x9kQB1SQWloWvrwVrxJFIXUsoO3EAin
-	 5TdkW6zUJ1N9imIICVQ5ZoiRc/7wMVvXIPfRplxhP4Wzz4yvVwFEwLlh/x8wcfRiKmw==
+	t=1795618771;
+	b=JDhE8N6/N1wB41JvJuHxmBGbUC24dM5E9LGFYaJfbhoWNCvcGaXc80AFpK6/E347tWHv
+	 RbYoK/7Fm4T3TOtjcq7qRIjSB1T/oVFVat4d0Mc1/UnmNOTydHFUWpHrJLHKxS3QLolj0
+	 TWCoKTFK6DNwcZR+himoNsxtTQgiIeS395HmON6sjR62leJfISCg2xr5OiVUhZvi/P6kY
+	 rwDMXt9ilGtl8WSxD5E9jkDx0s++KyNbcQphqmWCDnSKAY/Hlmf07YxYnQHU4HuZTV+jP
+	 e6cdSXIgmaPsiAAqdvBwgFZHai9Va+tM4vV/fVG0Bsq6+teH/yEUf8dZ8w6xsbVZ+JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618770;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
-	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
-	 Date:Message-ID;
-	bh=Xm78hw65Ko5AyJSpziphpWa5efhwx1WTcjmnvGu911s=;
-	b=FfqCVauEyEHVT9cxOjX/nIvB6MjeFeh1WmU5x5oMDehUBIQKLBLH3ZNnQEGom2Prmwp5
-	 mjn/KcZo9AlcVW9LOVDQsFwdDvtYdLdn1LKuaDAE2w01DOXBVY8NGlIz5kibJKqH6dyh5
-	 oV1u0bAOyzHdhB3fLIMOsmQzFC2Faed9ZbhkHE6PIrN4MDlC+KOzi6scqYHJOc/9Dt60J
-	 JCm+rZSAKXk/XCJladAWgII0kXdJtkm9gK16dfVzc5/s2M0qY7K8tBJtlcmCM1Q5tbyyT
-	 b+PK3Y5Pm2d68mmweDpagQcH/xCc7xAOOsXJ9d+1VNdVnte74J8ZWssiYpf3BkeFbZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618771;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=tX7iitDavLU/7kx7EgYsUvGi5BzrnRYdKJ/tLRO3qls=;
+	b=B1n3aKDIzGtfTWxSRg4Jf54DZ83KnLKzWIUTFE1b1ulaEttyRKJTBAY2R2uBKSBKeTyQ
+	 yqY/WhvYMJU7F3kTSkf7UYSES801J9+Kd1CiZSe9OfQ/lSUHGcKDNyNQZ9HIbWbijfwCo
+	 aLY7NvG1roiQux2CSpTXplSXGzpi/l2/71t5cJhIRvv/feOnI61g6HA5W5iVkwLrZAUot
+	 djz9kuPEK7OJP3sF1taSsJlDU/WMnRkJiNvCxnX0Pzdb9c3EY7/9Ed9S5ggW72WUfEw4C
+	 0LyMiA2V9UaDl8X7Kx3UDlYjD3i+ouGzyCALdRUZSFRfqJs6bau9qcLHWvDe7yDo/YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelci.org;
-	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=jZBKjzaD;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v85XfoQq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16999606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:59:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16999606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7F7606A321;
+	Wed, 25 Nov 2026 14:59:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=jZBKjzaD
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-38190551625so11620585eec.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:59:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1795618769; x=1796223569; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Xm78hw65Ko5AyJSpziphpWa5efhwx1WTcjmnvGu911s=;
-        b=jZBKjzaDR7NICr9L7/gxPpfLjEv6IJSMvH338FM1YjU7SrYhePKO2owYICoYtE+Dt2
-         sJIfEQ3sm2i4qHkV/3TqaiiubntAKzBPakyi/CeXmmHguGlBseu4pr64XvgNmW3JiHX/
-         7AOxhAUzyonD3Tym073kWAByugNos47KgTdXGlW3Bk4gQYN8qOlSwLGH6J4Eg0pT5DBM
-         hR2RWsdHHCVtJ6ryodshONGhAnCR7hqMIlRofEYMFp5dVJOjE24+2wUljoHIUgHckXWQ
-         0Y7Oti5wnK9c3MeRo3kFBLD7Ocg+4C2h8VZnIW3xtJp4gLFfsRGFvHNxxU2uKQG0YZES
-         IpBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795618769; x=1796223569;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xm78hw65Ko5AyJSpziphpWa5efhwx1WTcjmnvGu911s=;
-        b=IykJklBJaKMJ5sJVV3l2Bm76235WtyGVrkpXPuLMcF/KRTnNU1V7drLfpL+iOO8d0E
-         zfNGPCBJr9v2uKlT+fbb7YctgC/W6FKr8wU0Qm9ns4a4ciLivxQQx1fmKTOUMzpsCcRw
-         OQTLJwYwhrCSXpuaNmhMRT2n7yBbxU69HdhrNa3L+Ar96nrTPMPkm4XjQnd+cVTT9atK
-         yjB64RXwFLbjqqX3p0wDd17G1HI/0GXTKOrjbbkYS6UU0e288V2I5PHJ4tpLV5Xk+Cuw
-         kKiOt5jk2SxDguwhwKWMq9Jm6TCqsYyJHLHsaGpzgXUsZEXhB21T6zXs4h54rwmt/Y2w
-         gg8A==
-X-Gm-Message-State: APuU4Z/Knif/94G4T3RfOe+Y8Csv4DHrZjuQXOCzXdEUeGVIIROTCZ5u
-	2oEI0y3i7EKcMUsrwovNRXkpsRmcbJ1/VEmfKYCZfN5WzTaNwfdsxJlIsqld6HIAsmE=
-X-Gm-Gg: AZFdTZcnfUa9pZN0drCe3THXPXZ4o8jUWX376uiLfzYHkjDs8T2uVIeGKu7vkZqoQQl
-	bZXdqInIallS+a3crW4QZPEC4I9DukkBYxXUGlQyc+e3VukusM3Sf0ksgyqOFdns6elVlnKnaCy
-	UorlgGjYutFeqPKhRcnenaOjSNE3nxpHQaDaIcTKSuh+xMXJykg1561AFryczCbPMW8/LIzwXgO
-	zohQi78f1jNz0lps1CWAT/vHijEwhWTWw9GOVb0k489yLWhyvYhx/rNS0oti0g1jXjZgYRuxH0B
-	bKTusM/LJ+/BmgamKWkAWvAcTykYaP32+AHmAPgA1NADJ3+vDPWH4MjTEP6Twx9mQu0RbrAjTyP
-	hqCZaA1VCc4WlaFl2Jo3SUSkqvb3ArPN+5VVgVCNOrengSwxo0+spT7cbh4VqwkdGw6t/h1qOHK
-	hZwxbCIomYbiUQeZebqunDBJBblcheYdLj/5BiAv1ModUzOvWCEjqg5f6f+K61RWHKw0FfUlGJR
-	rvpu5BibEonuiHGFpiCakQ10zGLQ3ndseT9ekAs3uMugTBtnGqMcuZPcXBfBRpJTOu8KLE04lN4
-	msfCs/bBDW7S3az7Z8K/Ung=
-X-Received: by 2002:a05:7300:6da7:b0:384:5885:2f81 with SMTP id 5a478bee46e88-3856c0c7c06mr653455eec.5.1795618769070;
-        Wed, 25 Nov 2026 06:59:29 -0800 (PST)
-Received: from 52d83ede7c60 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386b1965c02sm24656302eec.27.2026.11.25.06.59.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 06:59:28 -0800 (PST)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v85XfoQq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1AE31F000D3;
+	Wed, 25 Nov 2026 14:59:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795618770;
+	bh=tX7iitDavLU/7kx7EgYsUvGi5BzrnRYdKJ/tLRO3qls=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=v85XfoQqbrSUX6L2fjKyLmSXL22d+yAsiRQqPCf8vaCtdZ9D6R10lqEQogYU5/wIU
+	 wDGGEgosH/Y/YPUHC3YOV28V5hY4zXykklkvB4Uzd1Z3Ndx4Qq3SX3em+eTEKf/JbI
+	 XKwA7kYi4f5WYYu3/WY8YOEfH2Mg9yKwLT+grFiQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jani Nikula <jani.nikula@intel.com>,
+	=?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0384/1005] drm/xe/pcode: match argument naming with PCODE_DATAx
+Date: Wed, 25 Nov 2026 15:28:42 +0100
+Message-ID: <20261125143830.733546407@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,85 +62,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: 
- =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-5=2E10=2Ey=3A_=28build=29implicit?=
- =?utf-8?q?_declaration_of_function_=E2=80=98init=5Fflush=5Ffput=E2=80=99_?=
- =?utf-8?q?=5B-Werror=3Dimplici=2E=2E=2E?=
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Wed, 25 Nov 2026 14:59:28 -0000
-Message-ID: <179561876780.101431.12231577479808549847@kernelci.org>
 
-Cc from: regression/stable-rc.yaml
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-New build issue found on stable-rc/linux-5.10.y:
+------------------
 
+From: Michał Grzelak <michal.grzelak@intel.com>
+
+[ Upstream commit 68b966310260924a9dc6a5a96fd91cd190edbe2a ]
+
+Variable naming of val and val1 should match register macro naming.
+
+For xe, register macro naming of PCODE_DATA0 and PCODE_DATA1 is already
+synced with register name. Nevertheless there are still functions
+declaring val and val1. Rename val into val0 in functions declaring val1
+in xe.
+
+v4->v5
+- clean changelog's versioning
+
+v3->v4
+- split i915 changes from xe (Jani)
+
+v2->v3
+- resolve conflict from rebase
+
+v1->v2
+- rebase onto drm-tip (Jani)
+
+Bspec: 19978, 19979
+Suggested-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
+Link: https://patch.msgid.link/20260828190956.2622350-3-michal.grzelak@intel.com
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Stable-dep-of: 94099304b80e ("drm/xe/hwmon: Fix pcode power limit handling")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-implicit declaration of function ‘init_flush_fput’ [-Werror=implicit-function-declaration] in init/do_mounts_rd.o (init/do_mounts_rd.c) [logspec:kbuild,kbuild.compiler.error]
----
+ drivers/gpu/drm/xe/display/xe_display_pcode.c | 4 ++--
+ drivers/gpu/drm/xe/xe_pcode.c                 | 4 ++--
+ drivers/gpu/drm/xe/xe_pcode.h                 | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
-Log excerpt:
-=====================================================
-init/do_mounts_rd.c:277:9: error: implicit declaration of function ‘init_flush_fput’ [-Werror=implicit-function-declaration]
-  277 |         init_flush_fput();
-      |         ^~~~~~~~~~~~~~~
-  CC      arch/mips/generic/irq.o
-  CC      arch/mips/generic/proc.o
-cc1: some warnings being treated as errors
+diff --git a/drivers/gpu/drm/xe/display/xe_display_pcode.c b/drivers/gpu/drm/xe/display/xe_display_pcode.c
+index f6820ef7e666d..8dc9cbdb18ec0 100644
+--- a/drivers/gpu/drm/xe/display/xe_display_pcode.c
++++ b/drivers/gpu/drm/xe/display/xe_display_pcode.c
+@@ -6,12 +6,12 @@
+ #include "xe_device.h"
+ #include "xe_pcode.h"
+ 
+-static int xe_display_pcode_read(struct drm_device *drm, u32 mbox, u32 *val, u32 *val1)
++static int xe_display_pcode_read(struct drm_device *drm, u32 mbox, u32 *val0, u32 *val1)
+ {
+ 	struct xe_device *xe = to_xe_device(drm);
+ 	struct xe_tile *tile = xe_device_get_root_tile(xe);
+ 
+-	return xe_pcode_read(tile, mbox, val, val1);
++	return xe_pcode_read(tile, mbox, val0, val1);
+ }
+ 
+ static int xe_display_pcode_write_timeout(struct drm_device *drm, u32 mbox, u32 val, int timeout_ms)
+diff --git a/drivers/gpu/drm/xe/xe_pcode.c b/drivers/gpu/drm/xe/xe_pcode.c
+index ccc3bdeed6bb2..ccdfc33cf5876 100644
+--- a/drivers/gpu/drm/xe/xe_pcode.c
++++ b/drivers/gpu/drm/xe/xe_pcode.c
+@@ -136,12 +136,12 @@ int xe_pcode_write64_timeout(struct xe_tile *tile, u32 mbox, u32 data0, u32 data
+ 	return err;
+ }
+ 
+-int xe_pcode_read(struct xe_tile *tile, u32 mbox, u32 *val, u32 *val1)
++int xe_pcode_read(struct xe_tile *tile, u32 mbox, u32 *val0, u32 *val1)
+ {
+ 	int err;
+ 
+ 	mutex_lock(&tile->pcode.lock);
+-	err = pcode_mailbox_rw(tile, mbox, val, val1, 1, true, false);
++	err = pcode_mailbox_rw(tile, mbox, val0, val1, 1, true, false);
+ 	mutex_unlock(&tile->pcode.lock);
+ 
+ 	return err;
+diff --git a/drivers/gpu/drm/xe/xe_pcode.h b/drivers/gpu/drm/xe/xe_pcode.h
+index 8fb3e4ba13a6e..ba8a1d1b21521 100644
+--- a/drivers/gpu/drm/xe/xe_pcode.h
++++ b/drivers/gpu/drm/xe/xe_pcode.h
+@@ -23,7 +23,7 @@ int xe_pcode_probe_early(struct xe_device *xe);
+ int xe_pcode_ready(struct xe_device *xe, bool locked);
+ int xe_pcode_init_min_freq_table(struct xe_tile *tile, u32 min_gt_freq,
+ 				 u32 max_gt_freq);
+-int xe_pcode_read(struct xe_tile *tile, u32 mbox, u32 *val, u32 *val1);
++int xe_pcode_read(struct xe_tile *tile, u32 mbox, u32 *val0, u32 *val1);
+ int xe_pcode_write_timeout(struct xe_tile *tile, u32 mbox, u32 val,
+ 			   int timeout_ms);
+ int xe_pcode_write64_timeout(struct xe_tile *tile, u32 mbox, u32 data0,
+-- 
+2.53.0
 
-=====================================================
 
-When fixing this issue, please attribute this report according to the
-patch submission rules:
 
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:af8739d40ff8199d25578188231a7fa47a6270b5
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  8e2fb60ab96e45de1da9779df42907b2dd01b85f
-
-# Builds where the incident occurred:
-
-## 32r2el_defconfig on (mips):
-- compiler: gcc-14
-- config: https://files.kernelci.org/kbuild-gcc-14-mips-32r2el_defconfig-6b06eecf286e1965ecb35a1b/.config
-- dashboard: https://d.kernelci.org/build/maestro:6b06eecf286e1965ecb35a1b
-
-## imx_v6_v7_defconfig on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06ee7f286e1965ecb33041
-
-## multi_v7_defconfig on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06ee8b286e1965ecb3306b
-
-## multi_v7_defconfig on (arm):
-- compiler: gcc-15
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06ee77286e1965ecb33034
-
-## multi_v7_defconfig+kselftest on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06ee83286e1965ecb33044
-
-## multi_v7_defconfig+netdev+nfs-root-boot+ltp+crypto+ima on (arm):
-- compiler: gcc-15
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06ee7b286e1965ecb3303e
-
-#kernelci issue maestro:af8739d40ff8199d25578188231a7fa47a6270b5
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
