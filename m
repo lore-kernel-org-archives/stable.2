@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618497;
-	b=eLHko54ikXDkGKD9bv8f/BKcrQ2+Ea1cj7D6yCGUnMw2JmI8f2j9c8DabrRbfH2EJS0C
-	 dz+oK60Zt+pMPoFLZIMvDcwgPnTGiIl6y5lZU2uMPDx8kFyAZqap+BJQKo0mgZw+2mIQ/
-	 7S2f/Y2/fKHAQXRQ/+kvkoW76aBfEJHUE3QjITdCtRGFmr5Eaiy/4ZQpHfLLHFCX9VXV0
-	 Q7+5TWqKX/9uHbUYHp9yenubReFELR4IA5XZPN2eli+zwNvs0MEyCUrcf0En08IB2bUsI
-	 cV3hwoAzTiEuQhByUA3UfXifV4rZ+YQZJOo2xN/Wya5k5IN1RqXtzd3Y3P/9CGqNiPw==
+	t=1795618498;
+	b=WiKn+vcSQ8lf1FglH/uf2VBAGRJmtgDJuT1OG9Qr33k3zAjOzK0KSrhmvxbZCpe85FzQ
+	 7SDnryBu3mfB2YA1/NgzqKaHDSvBTtHFBGH6W3z7kNDCNdd4fyvI731e0nB+/e7xwbvrq
+	 0dD2lP4zlBKD4h3AmjdYNdB7QOoWHNCq3LSuo7x+fN+EYKoZCbkoQKA2j9Hockvjju1Uf
+	 0ppMIOafF1youC097aKhSEYGel6WtoxZsoKBar837hP0HmAIqhR3Cty5ipwaeOumGbEZC
+	 jtx58YWSXJ7GxxHJQcC2gONsp9Zn75EhuteBJ4PaFLVrcQvjiPrjSlGW0HmMSFfroNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618497;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618498;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=53aGqxQF1iJaRNRW8V9Vi+dBvXKjWm4em5xL6KM3Knk=;
-	b=rDM3013vbJkVHLRa3VxfsZGIIu5CSPwSQEI/tx8atWFpa9mJXjx5hD/U4lhf0BcbVosJ
-	 QSTOtmqZRpZQUuJuEPLl3+9jW0d63I0yWHtCRoYoPSgfxv2R3+UFAXMnsFKNfDD+phGXK
-	 KDVRN7G7n0Ni3rz+9UCNhgh+KBmOVO9LOH4M7ssJO+Zn/C20Og0QnI1noxRgN3yVQS+pl
-	 B7ukjeVCLYoEEYJfHHeAozAoFS5s3Ibt8IvHk0MBPr9BG4WL4iuuZKt9qowI2DAxOVTTU
-	 jFNaBvgVVKhxbDWX43/y4C5xXutZzCU+l+mOE78NSJheqoqexoOdPgUuxZS+M2hS/Qg==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DUe0+Ce3I/7vzxw3wGVv0JfSfX/34cRryBH3Bv4xZ5g=;
+	b=boEshbAxMKSspQAmG6YovwdVnaVZqib1djOWKsISUxxjqCJGUkSsCEf1z3Nyzt5+hFzR
+	 6iZlPjRKIjc8ATdAI1p7C2ba6cY5ePc3ryllipridFNxXwwhbdjcvsSaS8afEFCs4Xe7j
+	 +uPC37tqhQ1WX/8vdTIYzugJguUdGpJOFTz2WMOiL0Cp/O5gs3D6XXC+frQ0lpCPrM+Gb
+	 sJnNDa/0sY22d1h+DjXfSg9+pX2JfUKbxhNZqBh6MNuG1mjSit1TDKzd1h5ogwLbR/mji
+	 MNdPU8TaBptH7twcsnpQOVNZpHUOhxXXUoOhNW5IYldUHa76Hg7B/uCaCWOygLTgcmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eNOyfeh5;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="SV/WRJtN";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAA6606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:54:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B833606A31E;
+	Wed, 25 Nov 2026 14:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eNOyfeh5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3951F000CF;
-	Wed, 25 Nov 2026 14:54:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795618496;
-	bh=53aGqxQF1iJaRNRW8V9Vi+dBvXKjWm4em5xL6KM3Knk=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SV/WRJtN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB4071F000C4;
+	Wed, 25 Nov 2026 14:54:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795618498;
+	bh=DUe0+Ce3I/7vzxw3wGVv0JfSfX/34cRryBH3Bv4xZ5g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eNOyfeh5lLzgd9xhsXFljKCrdkV16hTojRfplL/T9IOeAeYgZcj5R0h403vxWjFRY
-	 x+P7DbwDk5ngm3oT8hYx9QVrRcV+UnnboizsAJDT/bh1Y/LC/Ocx8xAIlkGcV+OEzi
-	 +mg/EjbmHZ21jwoSs0iqWnv9qUv3ZsYovCb0b+ghfdxoAq2FKUxij1r1i5E2Oy8JdN
-	 pOZOoYHFdECAHjee/yui6v0ADBkKaH5V3wOUkMo4ZmY7VjC9yJs/Bxdvt6S4/MOo19
-	 Ca/z1OxatGI9ypjl6mCNqW0NlJZG/f5JDHMZ0vH9NcOFPXbfqyH3oBZY2IHfCdSh1F
-	 nThJZMBy8TNDA==
-From: Sasha Levin <sashal@kernel.org>
+	b=SV/WRJtNLN0+3QiJYmwAi7uoaUBrmo+Tv04u5pJmECgVLEuMbjHsUuQYZmd02bvMy
+	 TXDnfD2JLwZpW6KpoJr4cNsdolKRq02RSKj9aEq28McbgwkF7MjdyTAZOZDY8eRG3N
+	 jtoJ665zeBRSDeiwHuUooU/tYUVmhnntOjmqYtV4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Joas Antonio dos Santos <joasantonio108@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Rosen Penev <rosenp@gmail.com>,
+	Dave Airlie <airlied@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] gtp: free the skb after handling an echo response
-Date: Wed, 25 Nov 2026 09:54:54 -0500
-Message-ID: <20261125145448.4175246-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112510-starved-striking-0546@gregkh>
-References: <2026112510-starved-striking-0546@gregkh>
+Subject: [PATCH 7.3 0298/1005] drm/nouveau/fifo: map Kepler video engine contexts non-privileged
+Date: Wed, 25 Nov 2026 15:27:16 +0100
+Message-ID: <20261125143828.716291877@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,111 +64,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit f17b293d155f377e4cff582b8113991d2ad346d6 ]
+------------------
 
-gtp0_handle_echo_resp() and gtp1u_handle_echo_resp() return the result
-of genlmsg_multicast_netns() to gtp_encap_recv().  When the netlink
-notification is delivered that result is 0, and gtp_encap_recv() treats
-0 as "the skb has been consumed":
+From: Rosen Penev <rosenp@gmail.com>
 
-	switch (ret) {
-	case 1:
-		netdev_dbg(gtp->dev, "pass up to the process\n");
-		break;
-	case 0:
-		break;
-	case -1:
-		netdev_dbg(gtp->dev, "GTP packet has been dropped\n");
-		kfree_skb(skb);
-		ret = 0;
-		break;
-	}
+[ Upstream commit 0820004c342af7ca1b01d0b21e0d5d99ad5c10eb ]
 
-The echo response handlers only read from the skb and never free it or
-pass it on, so every echo response that is reported to a listener on the
-gtp multicast group leaks the skb.  Echo responses are handled for any
-peer when the UDP sockets were created by the kernel, so a remote host
-can leak memory on the receiver by sending GTP echo responses while a
-process with CAP_NET_ADMIN is subscribed to the gtp multicast group, for
-example a daemon that monitors echo responses.
+Since the engine context rework, gk104_ectx_ctor() maps every engine
+context into the channel's VMM as a privileged page.  The MSVLD,
+MSPDEC and MSPPP falcons on Kepler fetch their context with
+non-privileged requests, so the first method sent to any of them
+faults and the channel is killed:
 
-The error paths do not leak but have a related problem.  -ENOMEM and the error from
-genlmsg_multicast_netns() (-ESRCH when nobody listens) are not -1, so
-they are returned unchanged to the UDP stack, which takes a negative
-value from encap_rcv() as a request to resubmit the packet to the
-protocol with that number.
+  fifo: fault 00 [READ] at 0000000001050000 engine 10 [MSVLD] client 0d [HUB/MSVLD] reason 05 [PRIV_VIOLATION] on channel 9
+  fifo: fault 00 [READ] at 0000000001051000 engine 14 [MSPDEC] client 0b [HUB/MSPDEC] reason 05 [PRIV_VIOLATION] on channel 10
+  fifo: fault 00 [READ] at 0000000001052000 engine 11 [MSPPP] client 0c [HUB/MSPPP] reason 05 [PRIV_VIOLATION] on channel 11
 
-Return -1 when the notification cannot be built, so that
-gtp_encap_recv() drops the skb, and consume the skb once the
-notification has been handed to netlink, whether or not anybody is
-listening.
+Before the rework, gk104_fifo_gpfifo_engine_ctor() mapped engine
+contexts without the privileged bit.  Restore that for the three video
+engines, and keep the privileged mapping for everything else.
 
-Found by LLM-assisted source review, untested.
-
-Fixes: d33bd757d362 ("gtp: Implement GTP echo request")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Link: https://patch.msgid.link/20261110-gtp-echo-rsp-leak-v1-1-192c032f3dfa@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: 8ab849d6dd4c ("drm/nouveau/fifo: add new engine context handling")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Reviewed-by: Dave Airlie <airlied@redhat.com>
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+Link: https://patch.msgid.link/20261103221529.585436-1-rosenp@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/gtp.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/gk104.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
-index 23a0dc9f578be..60c09d3b38ede 100644
---- a/drivers/net/gtp.c
-+++ b/drivers/net/gtp.c
-@@ -397,16 +397,19 @@ static int gtp0_handle_echo_resp(struct gtp_dev *gtp, struct sk_buff *skb)
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gk104.c b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gk104.c
+index 5655eda52a7b5..912eb6c3a13d4 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gk104.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gk104.c
+@@ -180,6 +180,19 @@ gk104_ectx_ctor(struct nvkm_engn *engn, struct nvkm_vctx *vctx)
+ 	struct gf100_vmm_map_v0 args = { .priv = 1 };
+ 	int ret;
  
- 	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_ATOMIC);
- 	if (!msg)
--		return -ENOMEM;
-+		return -1;
- 
- 	ret = gtp_genl_fill_echo(msg, 0, 0, 0, GTP_CMD_ECHOREQ, echo);
- 	if (ret < 0) {
- 		nlmsg_free(msg);
--		return ret;
-+		return -1;
- 	}
- 
--	return genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
--				       msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
-+	genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
-+				msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
-+	consume_skb(skb);
++	/* The video falcons access their context with non-privileged
++	 * requests, and fault with PRIV_VIOLATION on a privileged mapping.
++	 */
++	switch (engn->engine->subdev.type) {
++	case NVKM_ENGINE_MSVLD:
++	case NVKM_ENGINE_MSPDEC:
++	case NVKM_ENGINE_MSPPP:
++		args.priv = 0;
++		break;
++	default:
++		break;
++	}
 +
-+	return 0;
- }
- 
- /* 1 means pass up to the stack, -1 means drop and 0 means decapsulated. */
-@@ -561,16 +564,19 @@ static int gtp1u_handle_echo_resp(struct gtp_dev *gtp, struct sk_buff *skb)
- 
- 	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_ATOMIC);
- 	if (!msg)
--		return -ENOMEM;
-+		return -1;
- 
- 	ret = gtp_genl_fill_echo(msg, 0, 0, 0, GTP_CMD_ECHOREQ, echo);
- 	if (ret < 0) {
- 		nlmsg_free(msg);
--		return ret;
-+		return -1;
- 	}
- 
--	return genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
--				       msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
-+	genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
-+				msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
-+	consume_skb(skb);
-+
-+	return 0;
- }
- 
- static int gtp1u_udp_encap_recv(struct gtp_dev *gtp, struct sk_buff *skb)
+ 	ret = nvkm_vmm_get(vctx->vmm, 12, vctx->inst->size, &vctx->vma);
+ 	if (ret)
+ 		return ret;
 -- 
 2.53.0
+
+
 
