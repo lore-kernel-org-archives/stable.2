@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596628;
-	b=PwsFG1J29I+xAxMmXeY2RWVlzJK7lgb00ibwgJrQ1UWxUyhe+ECOt55HrIf/4TJ25Z5C
-	 MFvO2aXOSI+OD1eqLwdaPOfn+n+HmA+bh4YmDv7/2uymnK/SRkwUtEpdP8nVxYYsP8P47
-	 ubIkknkmE1uBsZ9kC6Ey01FlpzT/QennhjNdWrGni491ViwUXz6fJpDWLcmuQy8ESDYbX
-	 TP+2v3IpUVrgfCEUaGGr7gmG11Z8eLmJ/bMJbzn/zlP3+pLUswvTvdB6BMd2ZxKpZiV6+
-	 nyeXFn2fH8S5ac1iOCtDZclacNVuOxjjmyBHjL34UsGCywHx8o5DQlA2eJtv8ZNFY4Q==
+	t=1795596631;
+	b=t6+FufKdJvu47HoxDpcrOIjuqtB5M/e8Kza626UMMEjEork0QmcRPBLRRS8kUIg3iQtT
+	 PcVgveao5c/t4UxN7RQxzxR2hZYgG8Om6anyA6hvqQ4IksfK32PJVy9SG7Pn3vrl7+c4I
+	 SBXb7QdBVX/I6XyFYigfbVylg7tZWDpZ858bnXjXDLnmlSnJcANdC+UiVBpj9xcazZbDk
+	 4qsxiWgElunBEMIdOV385INkE5QUPqZqVWsb6bnqfGcdHKtw6ojJAc+QI7Yz6+SDVXHSM
+	 r0g9yFvmBhdsiJMqZkGAosJxJq2QNlCP9oPNpXP4jlxaLU9fGkK4SV0JnQ8GYxE7QhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596628;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596631;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3doEqo/MQL+CT7Cv+BbU24uhoy3B74PWQkdSA1sdS3I=;
-	b=ENeiRDwp9AwbUGmuGrmzej+Gzs00UFOD617mimWXRC7Q2esVdZNAXWnKXyVLuIAdSIey
-	 SZwFUd7sTLoOOA0dL7YT7sh4j+UXCrtWUi7wsMx5YrdTNIMQSGz+7dpZPRleh4XCr8ZS8
-	 BOGDha4nkO7LGMM4pIKbs50JetUxrvdNtKnsHLkUCQIejmTnZXxf+d+e/dX2TfvYlPxvb
-	 u6yXnv8xrNeg/o0+J2ZkJ5+BFd8tsPdMM3RTX9j8QG9eAiOiw1UHkuMRQyDdQMUeD3loq
-	 T+LuHllVtVGtk14B52kcHV64pVtWAJTTeWmr1rkhSsw43nujKsAH7QyfF+CFYelcoWQ==
+	bh=lwBNmxVKUn9DViD19L/QdoqObHpTVZymWXTIOpaW9fs=;
+	b=OL9yRHZxU4lCvy1mFA1Q6ORYsafWJ0KyZ3HsancS9wbDWHcoc0mcrZZIz/5Fe/+SnYsJ
+	 S/Q+LbBM/FQwOr9ysyE6JNl0GkLg44xHmLKATocUVOuHRdeB6iEwrxszYsYivoYXQRvBe
+	 Fy9jIjWac5udnAG2m+fMX2oVFRHQLiDN9WZoSHIxRO6gg4vDC7ggNB6h5G5UGbFkv8ZDB
+	 OaY445D3KWevQ3JwTpFiFg1bsi000ftyppSZFL/0tQKTMZPl2BBfVY5Q5xmjzCmdrTofE
+	 bU0qWePnkhTZvYLFkktSxPZGNX5ANq02/Ftdfhwg2JQ8x7pT70YLuP/vDniPR9RL78w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HF7G0Zt5;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JzzcVEca;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C23606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:50:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E63E606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:50:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HF7G0Zt5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4417D1F000CF;
-	Wed, 25 Nov 2026 08:50:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JzzcVEca
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21E921F000CA;
+	Wed, 25 Nov 2026 08:50:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795596627;
-	bh=3doEqo/MQL+CT7Cv+BbU24uhoy3B74PWQkdSA1sdS3I=;
+	s=korg; t=1795596630;
+	bh=lwBNmxVKUn9DViD19L/QdoqObHpTVZymWXTIOpaW9fs=;
 	h=Subject:To:Cc:From:Date;
-	b=HF7G0Zt50uEVcabOaLJGkDU7WkduZEpvhRMgYMMXOux1j8pxiGyVK1cBbtnRSaISo
-	 LHUwO0uBJ4ecgXlEXTDsOl4GGxbyt6hM9A6ZkQgkAlk54bjXLkcp4WzqIsFvjJX4IB
-	 567dn2Eb3Uj6u8GA2Zg1txwP7uxRwhLZ8V53x1vM=
-Subject: FAILED: patch "[PATCH] xprtrdma: serialize unmap_sync with xprt_disconnect" failed to apply to 5.10-stable tree
+	b=JzzcVEcaQlTP/j8WaU/tkO3T2dm9M6mHTxiyq7iy9tMkA8bYP7ZQ6rQGGUzU9ptC2
+	 k7KN6uwUI2aewhiFhHK7Ckzd90fa1I6/sgEQknBBkHxtHy6yqUirfXrE9QFpR1A63C
+	 GbumbPoaY4c5UPvc5WTBn6pt5uIjVzZ4uF7j1BYE=
+Subject: FAILED: patch "[PATCH] xprtrdma: serialize unmap_sync with xprt_disconnect" failed to apply to 5.15-stable tree
 To: tmenninger@everpuredata.com,anna.schumaker@hammerspace.com,cel@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 09:46:58 +0100
-Message-ID: <2026112558-shortage-thieving-b267@gregkh>
+Message-ID: <2026112558-goofball-gear-57c8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1fa415883c37b02ff17acdd7977ed591d3d389ee
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112558-shortage-thieving-b267@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112558-goofball-gear-57c8@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
