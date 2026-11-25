@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795628515;
-	b=NvhYGX9oSN1acwDnO9yK2CnB/G3GGrZv4G4+PwcGDDVdqTJA8LAplpFdV7CL0Gv7mMo+
-	 fq/DRHjUKfbsESVgL8fQlbWKmhQiki8gJ0CK9ExDiiyY1E3DKzoQqwPAJyGeLqmMxTTlK
-	 Si676uNWyjFFJ37HbBPnNnRMCihNwHAY61iv3RaXgbhwZuSrb696k3grNTbnWN2Uv+bN/
-	 dU3Xpgc1sfSe79zndGOYRraoymRJN190wThc7RxyqcRHdCdWj0UhNvo1sBOWqmiIeLuk8
-	 H3C12+jZPn+ckDPk5LojjiYUYmZ7bNFO+wIX0lHpIzSztREqU2OBWYgbTXEnj9B1Dyg==
+	t=1795628574;
+	b=MhNYwxRxsT4QKtCSHAVmg11yggYCO+jNLoi7PZL41gTbEcPDuZk3hkwGnzk7O+L3EGaQ
+	 sLJuurDNMsnn3t3HYIwTB3KsBtwJq/brDQCgA1KU1XWMvTFakutdD3rcygNtwoQLJ6fyZ
+	 6hiy/F+Lz01Euwu5lbnI1IE0qlxu55u0QyjPJNlw5rr46vNznVgSi2XLkJfjQbxi9zcGM
+	 IA0cExi/SAcIoWqac1iUnuDsNeYlJLaCrrGaKyTPI9RJ8m901MU17cEdQeHbDgLCLyIEC
+	 DchAlfl0HgaFVxrgS1sUKu1KwU2imxVkKdD+KSmCqOHPzvWjHPtA/2B5YF/aFuEjvzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628515;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628574;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zfiZ9pvD+SRHiJwfdJgRAKiv9TVkOufsnFgF6zfzJq0=;
-	b=yRH+55RXY93GdlWWH89mL23zWYy6Wz6Gzfs7xiE27fpBoz9n0i8W4YXXAQ6hqoInxe36
-	 a/c9AKMXdeNCe0DDjAEZ09dx8SSJnxi0y4yv8bat+TljWY6nsJkBWCQDZz6urW98V3V90
-	 PZmX7UmEOqN5icAzY4GhW7GUn6URY5mhaqTWevoWA3vyK1KEQ34EPlAJiMRnes78Bg9Ry
-	 Dxk2ihdqRSIdeZLO3xH/rJY3MM03yr9Rn3jxz7aJAcPESnG5BGTWxzb2U5TUALDphxXSr
-	 9KFaWp8//W9DYlznPBsVEVxfH/M5npwbvH22q99ljkBRQhDgJMn4TRlaBGSZINxR/Ew==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=DxJKwewUgUZqtLuS8HhNBwrR+jQCjU8WzIK/0udhZ9g=;
+	b=mtOGBkybgJk99JjR0AssItq7KzoRBq8hbwOn+Q11zWbJmDlxhXao/QrgXDtOYwW4fHjB
+	 U/upi3PCq1PjQlJ7o3e0f2dnGSj8d8GSERYHWS8qQxdFBTaqBD/NPkE1f5U883AUgpQgZ
+	 3WeQqi9hYlUdr8J0paLAjD8iSoil216OxWRgpGfNL/XnTiXChcWb7QbVJJPhtnJJTblU6
+	 vfkvDJ040hUpRM/Ab/2u+lFqcpvcaAKLc8mFXjGAw68yknGzsJZFSOdEBndwif6kMeGiJ
+	 MxBqVozwTD2LbS67VM7h+q1ldtbgMCOBCA2NTE4ivrNLjzozi+JhM9SEi1ZsowXd6nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HHLzbRvO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6CmCovM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A27E606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:41:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97396606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:42:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HHLzbRvO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2398D1F000D1;
-	Wed, 25 Nov 2026 17:41:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6CmCovM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8DF71F000C4;
+	Wed, 25 Nov 2026 17:42:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795628514;
-	bh=zfiZ9pvD+SRHiJwfdJgRAKiv9TVkOufsnFgF6zfzJq0=;
+	s=k20260515; t=1795628574;
+	bh=DxJKwewUgUZqtLuS8HhNBwrR+jQCjU8WzIK/0udhZ9g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HHLzbRvOlfx12sUYXqXlS//mbPFQrwB+EG42iu5/zVEpMM5ZSH8usyRBTLFLKBpMM
-	 giS0yzwPOz5B8sqTFzj63uzHz8sdRiW8wpWcc1fcomRwa9l059C/s4nSz1oqXnuhmS
-	 7zov9wKrTZZcB77NZA9MPvu1KovU4GYPc35TnjNl/K38rAWkzWJ5sH/+JjMWqe7LD3
-	 P9AaWl4WL902pm99V3QSiXZUDcDKi61kUA5Xov5BkjhP3hNM4x394aN8BkRXlP6eQ9
-	 r2S6wU+9KRDhkaTd9Z5a6+c7QV6sCCxwICIDQB95DAzmx9tXi68hcWyu4sqJYLaV2+
-	 eUFBycC9NhFeQ==
+	b=g6CmCovMjroxi9go6RVsZFKOgLG08vU3sFWsk2gQZB26ZXfs37CezGlA3+1XsKeMI
+	 d2U/f0kIVVoduw0jexUO6wL7+lolLPs/QJQzvwRPQhgjDE6/BBewXBVcdpeSSEh8Ge
+	 7edSwnNcPLdb0oVokB7kCmD57EBdly32dco5uOQF/9Osh3bRvUspBXFMNuD2grqx40
+	 Kb10bk8rgnRipYnhUV/gQHXb2ohSj0m371RNCZnEfsc6sKn49M9FTT2gwETEB0sKix
+	 OlqA38cl0DG1dVpAEjjZagrc0CBjEUNJTReKNfqfLdOaoh2/XMK0ez/h4SVgQj9eeI
+	 lEdQY0Nvza22g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Stefan Haberland <sth@linux.ibm.com>,
-	=?UTF-8?q?Jan=20H=C3=B6ppner?= <hoeppner@linux.ibm.com>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Anton Lundin <glance@ac2.se>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] s390/dasd: Re-initialize RCD buffer with "V1.0" before every start
-Date: Wed, 25 Nov 2026 12:41:51 -0500
-Message-ID: <20261125174145.999872-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] hwmon: (nct6775) Handle dual use registers
+Date: Wed, 25 Nov 2026 12:42:52 -0500
+Message-ID: <20261125174245.1026755-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125174145.999872-1-sashal@kernel.org>
-References: <2026112513-parasite-blouse-1597@gregkh>
- <20261125174145.999872-1-sashal@kernel.org>
+In-Reply-To: <2026112508-tidbit-squad-4a07@gregkh>
+References: <2026112508-tidbit-squad-4a07@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,198 +59,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Stefan Haberland <sth@linux.ibm.com>
+From: Anton Lundin <glance@ac2.se>
 
-[ Upstream commit 25cdc1f63227a1ea69a1ec823a8a860e33299169 ]
+[ Upstream commit ca1abdd1a9b9ce51713a18c8905bf10579533c3b ]
 
-Under z/VM the Read Configuration Data (RCD) buffer has to start with
-EBCDIC "V1.0" to request the virtual device SNEQ that carries the
-minidisk UIT. The request and the response share the same buffer:
-CP evaluates the magic on the way out and the RCD data is written into
-the same buffer on the way back.
+The REG_TARGET register has different meaning, depending on if pwm is in
+thermal_cruise or speed_cruise.
 
-The magic is only written when the request is built and again in
-read_conf_cb() when the original request fails.
+This means we can't assume it's always word sized, so we need to handle
+it differently depending on which mode we're in.
 
-Several restart paths do not run that callback:
- - ERP use the same buffer and if the same error occurs again,
-   the ERP restarts the existing ERP request;
-   if a different error occurs, it adds another ERP request.
-   Neither re-initializes the magic.
- - Terminated (timed out) ERP requests, killed requests and requests
-   requeued after the last path was gone are restarted without it.
- - dasd_sleep_on_immediately() overwrites cqr->callback, so read_conf_cb()
-   never ran for dasd_eckd_read_conf_immediately(), and its fastpath
-   retries in dasd_int_handler() do not call a callback either.
+The code already does this, but the register was configured as word
+sized for the speed_cruise mode, which would do the wrong thing in
+thermal_cruise mode.
 
-If such a restart succeeds, z/VM omits the virtual device SNEQ, the UID
-of that path is built without the UIT and the paths are reported as
-"Not all channel paths lead to the same device" although they lead to
-the same minidisk.
-
-Every start of a request, whatever path led to it, goes through
-dasd_start_IO(). Add an optional prepare_io function to the request
-that dasd_start_IO() calls before every start of the request and of
-its ERP requests, and use it to write the magic for RCD requests.
-
-The ERP handling stays unchanged. read_conf_cb() is no longer needed
-and is removed, which also gets rid of its memset() that only cleared
-a single byte.
-
-Fixes: 5915a873fcb1 ("[S390] dasd: re-initialize read_conf buffer for retries")
+Fixes: 6c009501ff20 ("hwmon: (nct6775) Add support for NCT6102D/6106D")
+Fixes: 29c7cb485b32 ("hwmon: (nct6775) Integrate new model nct6116")
+Fixes: 437b3c2a4bdc ("hwmon: (nct6775) Add support for NCT6126D")
 Cc: stable@vger.kernel.org
-Reviewed-by: Jan Höppner <hoeppner@linux.ibm.com>
-Signed-off-by: Stefan Haberland <sth@linux.ibm.com>
-Link: https://patch.msgid.link/20261112102608.1057852-3-sth@linux.ibm.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Anton Lundin <glance@ac2.se>
+Link: https://patch.msgid.link/20261109082511.851377-2-glance@ac2.se
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/block/dasd.c      |  1 +
- drivers/s390/block/dasd_eckd.c | 52 ++++++++++++----------------------
- drivers/s390/block/dasd_int.h  | 15 ++++++++++
- 3 files changed, 34 insertions(+), 34 deletions(-)
+ drivers/hwmon/nct6775-core.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
-index d74ef737ae26a..3a55c937d0d64 100644
---- a/drivers/s390/block/dasd.c
-+++ b/drivers/s390/block/dasd.c
-@@ -1396,6 +1396,7 @@ int dasd_start_IO(struct dasd_ccw_req *cqr)
- 		cqr->status = DASD_CQR_ERROR;
- 		return -EIO;
- 	}
-+	dasd_start_IO_prepare(cqr);
- 	cqr->startclk = get_tod_clock();
- 	cqr->starttime = jiffies;
- 	cqr->retries--;
-diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
-index 73741873d42a4..7e60d5b3b343c 100644
---- a/drivers/s390/block/dasd_eckd.c
-+++ b/drivers/s390/block/dasd_eckd.c
-@@ -845,20 +845,29 @@ static int dasd_eckd_compare_path_uid(struct dasd_device *device,
- 	return memcmp(&device_uid, &path_uid, sizeof(struct dasd_uid));
- }
- 
-+/*
-+ * The RCD buffer has to start with EBCDIC "V1.0" to show support for
-+ * virtual device SNEQ. The RCD data is written into the same buffer, so
-+ * a failed attempt may already have overwritten the magic. Re-initialize
-+ * it before every start, including restarts by ERP requests.
-+ */
-+static void dasd_eckd_rcd_prepare_io(struct dasd_ccw_req *cqr)
-+{
-+	struct ccw1 *ccw = cqr->cpaddr;
-+	__u8 *rcd_buffer = dma32_to_virt(ccw->cda);
-+
-+	rcd_buffer[0] = 0xE5;
-+	rcd_buffer[1] = 0xF1;
-+	rcd_buffer[2] = 0x4B;
-+	rcd_buffer[3] = 0xF0;
-+}
-+
- static void dasd_eckd_fill_rcd_cqr(struct dasd_device *device,
- 				   struct dasd_ccw_req *cqr,
- 				   __u8 *rcd_buffer,
- 				   __u8 lpm)
- {
- 	struct ccw1 *ccw;
--	/*
--	 * buffer has to start with EBCDIC "V1.0" to show
--	 * support for virtual device SNEQ
--	 */
--	rcd_buffer[0] = 0xE5;
--	rcd_buffer[1] = 0xF1;
--	rcd_buffer[2] = 0x4B;
--	rcd_buffer[3] = 0xF0;
- 
- 	ccw = cqr->cpaddr;
- 	ccw->cmd_code = DASD_ECKD_CCW_RCD;
-@@ -875,33 +884,10 @@ static void dasd_eckd_fill_rcd_cqr(struct dasd_device *device,
- 	cqr->retries = 256;
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
-+	cqr->prepare_io = dasd_eckd_rcd_prepare_io;
- 	set_bit(DASD_CQR_VERIFY_PATH, &cqr->flags);
- }
- 
--/*
-- * Wakeup helper for read_conf
-- * if the cqr is not done and needs some error recovery
-- * the buffer has to be re-initialized with the EBCDIC "V1.0"
-- * to show support for virtual device SNEQ
-- */
--static void read_conf_cb(struct dasd_ccw_req *cqr, void *data)
--{
--	struct ccw1 *ccw;
--	__u8 *rcd_buffer;
--
--	if (cqr->status !=  DASD_CQR_DONE) {
--		ccw = cqr->cpaddr;
--		rcd_buffer = dma32_to_virt(ccw->cda);
--		memset(rcd_buffer, 0, sizeof(*rcd_buffer));
--
--		rcd_buffer[0] = 0xE5;
--		rcd_buffer[1] = 0xF1;
--		rcd_buffer[2] = 0x4B;
--		rcd_buffer[3] = 0xF0;
--	}
--	dasd_wakeup_cb(cqr, data);
--}
--
- static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
- 					   struct dasd_ccw_req *cqr,
- 					   __u8 *rcd_buffer,
-@@ -921,7 +907,6 @@ static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
- 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
- 	set_bit(DASD_CQR_ALLOW_SLOCK, &cqr->flags);
- 	cqr->retries = 5;
--	cqr->callback = read_conf_cb;
- 	rc = dasd_sleep_on_immediately(cqr);
- 	return rc;
- }
-@@ -959,7 +944,6 @@ static int dasd_eckd_read_conf_lpm(struct dasd_device *device,
- 		goto out_error;
- 	}
- 	dasd_eckd_fill_rcd_cqr(device, cqr, rcd_buf, lpm);
--	cqr->callback = read_conf_cb;
- 	ret = dasd_sleep_on(cqr);
- 	/*
- 	 * on success we update the user input parms
-diff --git a/drivers/s390/block/dasd_int.h b/drivers/s390/block/dasd_int.h
-index 26ecf9f47d2eb..53c450036fe10 100644
---- a/drivers/s390/block/dasd_int.h
-+++ b/drivers/s390/block/dasd_int.h
-@@ -147,6 +147,8 @@ struct dasd_ccw_req {
- 	void *data;			/* pointer to data area */
- 	struct irb irb;			/* device status in case of an error */
- 	struct dasd_ccw_req *refers;	/* ERP-chain queueing. */
-+	/* optional prepare function called before every start_io, must not sleep */
-+	void (*prepare_io)(struct dasd_ccw_req *cqr);
- 	void *function; 		/* originating ERP action */
- 	void *mem_chunk;
- 
-@@ -892,6 +894,19 @@ static inline void *dasd_get_callback_data(struct dasd_ccw_req *cqr)
- 	return cqr->callback_data;
- }
- 
-+/*
-+ * Walk down the ERP chain to the original CQR and call its
-+ * prepare_io function if set.
-+ */
-+static inline void dasd_start_IO_prepare(struct dasd_ccw_req *cqr)
-+{
-+	/* ERP requests use the prepare function of the original request */
-+	while (cqr->refers)
-+		cqr = cqr->refers;
-+	if (cqr->prepare_io)
-+		cqr->prepare_io(cqr);
-+}
-+
- static inline bool dasd_req_conflict(struct dasd_ccw_req *cqr1,
- 				     struct dasd_ccw_req *cqr2)
- {
+diff --git a/drivers/hwmon/nct6775-core.c b/drivers/hwmon/nct6775-core.c
+index ce2cf1f229004..ed17b00433109 100644
+--- a/drivers/hwmon/nct6775-core.c
++++ b/drivers/hwmon/nct6775-core.c
+@@ -1152,14 +1152,12 @@ bool nct6775_reg_is_word_sized(struct nct6775_data *data, u16 reg)
+ 	case nct6106:
+ 		return reg == 0x20 || reg == 0x22 || reg == 0x24 ||
+ 		  (reg >= 0x59 && reg < 0x69 && (reg & 1)) ||
+-		  reg == 0xe0 || reg == 0xe2 || reg == 0xe4 ||
+-		  reg == 0x111 || reg == 0x121 || reg == 0x131;
++		  reg == 0xe0 || reg == 0xe2 || reg == 0xe4;
+ 	case nct6116:
+ 		return reg == 0x20 || reg == 0x22 || reg == 0x24 ||
+ 		  reg == 0x26 || reg == 0x28 || reg == 0x59 || reg == 0x5b ||
+ 		  reg == 0xe0 || reg == 0xe2 || reg == 0xe4 || reg == 0xe6 ||
+-		  reg == 0xe8 || reg == 0x111 || reg == 0x121 || reg == 0x131 ||
+-		  reg == 0x191 || reg == 0x1a1;
++		  reg == 0xe8;
+ 	case nct6775:
+ 		return (((reg & 0xff00) == 0x100 ||
+ 		    (reg & 0xff00) == 0x200) &&
 -- 
 2.53.0
 
