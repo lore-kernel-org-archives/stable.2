@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795646007;
-	b=35Y/bRRm1qPyoSGv57Os/9UL3SZYaSR2MXP0/SmsNAMASNXqkbS7Dk94Jqy2CfVRgNry
-	 uq5BU+CDzy/yXFZFrJpyYrWvg2dMpaLZMhzyafB2NWWt7gegeHRdEyJqIn56F8i1q2QjG
-	 GZ9fVxtpj9HKMbxvygeYT+QWha+CvmYvx5+f1ngiFyyD7SHQmtQgaCt8MNwRMgjbIhMLR
-	 GTDWhHv6qlbaYh/r270D2w2p/eh7pZM0XzPPat4lShVh9e2ZAYYfIAiyoF863hLycwEgB
-	 3kQ2V1CH5KCZYeDEkghxOjdCGmBASzWqtu2WsmkRruwDItniLhFXSJU3AMLCa47k3eg==
+	t=1795646040;
+	b=KcxxG54OMsvqv2KDOx7GHG5q2UxLAUzgHGwWrBdSnfOtqkisqZWkkLaGp08rP3AJfsBp
+	 ifyot2zmTTOGQxB3/ga+2ClVDMnMUgafCT2KpdQYDLORcFabdaoD65ed02XsYEYk6OEDy
+	 RFvk02rbW2w+e21FMvU+kHy8CKTb+Uc5J7xkswq7bfhK2SXvnkj7UJk5YxlWUXUXF0sM4
+	 6/435MkD+B1tcqz41psQV/Q4eHwd12x8XKfcRqEHCS7MrJUPKC1oBO+nkdNbe0l2oDaGc
+	 tI0RaVO8T3XD0IaQ63ixKIU7M7Kl8BVfRVUSbrKvhvWC3XIo/muljgC7DVPN9iOCYdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795646007;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=tzn+by+k8G1JwXk+S/E0tJAgmy0jLDfOi0f5NcqA/MY=;
-	b=etIfPFiDEcqW2qOOe+TrG1z6Kho3IQ+t/5H1NM6aPV9IEoey5HrX9Sao1NbfYvvzpX6c
-	 oQmLqsMPEQycOZjgIeAZrWZ8Ct11K7ZPnrUKVN94kjolvQSQs02QxB+eQJ3Md342g7rqG
-	 GLoU3rQMB9AhYUqXDCuh27jn445fol9M12HhYBPFk3QJZCZkKYb4JECWHRgOhQanMorZS
-	 VOIvsnnSUHx+poMKtPu49und4vA4PlBjqE7Jr/2kOZVASnqahLHYX8UbpB9K5wgBf3mOx
-	 k9TYavT47O08Wn/aYLYAze02t0/tmw687lnZddGuGZdXfAcIzdHA52iSVzYMhQA0GJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795646040;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=He20RWMnQEfWNCCjTnuFJzGYdzo97eyhNCvvU93SJYw=;
+	b=IEEcpJbf9x4/hqyCWZR/UTd9L83+R8oTt3Tw9dmbf8eASYvwxhLclZmqhWMjifKzeTLI
+	 XN1qgFKAK8NYinnob4W1GSq2yYST5XntO99m1HcPf8jee4SO/TQafPIWj4v6EnVMBN9Jv
+	 WMCbvvJ5hspeBx06Iwt4HydRUwSmEUpra/q4q5vL9RIIRp9EGgc2iYOfZoa9zUf2Z+5PP
+	 n/h8+0b43feeshySKzkdjhmwEoiKd5vhLfuKCaB4jKoYiRgq5Rf+OvCFYWrAQTFifE4IV
+	 kn2W/XL8DYSeB8Sipk1vcAMRpsVidG/UrMiXFtY08KaBeh3oI4S6ADl/SHBQjJUXKNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oeF+83ri;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ahK8ELcL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE971606A321;
-	Wed, 25 Nov 2026 22:33:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D69606A321;
+	Wed, 25 Nov 2026 22:33:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oeF+83ri
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 655D71F000C0;
-	Wed, 25 Nov 2026 22:33:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ahK8ELcL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A2D51F000C0;
+	Wed, 25 Nov 2026 22:33:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795646006;
-	bh=tzn+by+k8G1JwXk+S/E0tJAgmy0jLDfOi0f5NcqA/MY=;
-	h=From:Subject:Date:To:Cc;
-	b=oeF+83ripG+YMJQ6SibQuirzvfqlLreGg2dU0N4iBw6J9SwMfGbEdiYCtiUZLOpMd
-	 JYqiF79Vytug9G0B2DkzFLIWoipJtdH+XMvOxqN0DGGpyctPV9W9zPh95DOEF2Z+QY
-	 Xceo8UU5pO3BjrUwnu0S1uUp8LqLqgTugPbAVmqe/LCUO1oXZ7psZ5qitBlKCivcYb
-	 cJwxUd3Rj2XwgOzgIRdtbB/JU+sW9VMX6ByXF7MliTP9djs6rMrE08LzryKnJqRfcE
-	 PzisQMZIlNmWvvo++RWg05A5YHf7BJGoQffk2A7bJcTCTSBVSYYhY9OhGmH+h5669x
-	 28AaXAPpZrf/Q==
+	s=k20260515; t=1795646038;
+	bh=He20RWMnQEfWNCCjTnuFJzGYdzo97eyhNCvvU93SJYw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=ahK8ELcLkFb6vhynAAkR+XAD0pRhnkOpCP9l2RPpNRNuRZg3bHUGplidaID/6tCT3
+	 85TtdL/rN00U2qWrlx3w8v3WO1a28OwRWopl7PUuoyw9FHI/s+OXGB9oncb4k2gKKE
+	 0sSKwEstEQlISK2bJhRvBEC6QKWbsKBzMh8iOXAZ3zQaWyN55pgwfWQ+xsjxx8Awrp
+	 sKXPIUX3/ufMnpCJGA6yClocXINcWSUlgYxIIG34sHi2rcc9X4SikXyfwRI7dfM2UN
+	 DBn9seKPscn6Pz1yANZe6zemGHHxnKZHQZEEBrQ7LS8VmvS89o1b+Kcu/KNlL9prH7
+	 /UomkEFte94Tg==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: [PATCH 00/21] mm/hugetlb: various fixes (2)
-Date: Wed, 25 Nov 2026 23:32:58 +0100
-Message-Id: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
+Date: Wed, 25 Nov 2026 23:33:00 +0100
+Subject: [PATCH 02/21] mm/hugetlb: fix truncated copy result in UFFDIO_COPY
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,10 +54,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMUQqDMBBF0a0M79uAGRIp2UopoumoU4otGS0Fc
- e9i+3k5cDeYFBVDog1FPmr6mpHIV4Q8dfMoTu9IBK658Z5rN62jLM++HfQr1rLjJsSY4yUMQVA
- R3kV+hETX279t7R+Sl3ODfT8AsQh4LHMAAAA=
-X-Change-ID: 20261120-hugetlb_fixes_2-26455c584f4e
+Message-Id: <20261125-hugetlb_fixes_2-v1-2-db27fd2f71a8@kernel.org>
+References: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
+In-Reply-To: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
 To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
  Andrew Morton <akpm@linux-foundation.org>, 
  Jinmeng Zhou <jinmengzhou22@gmail.com>, Hongfu Li <lihongfu@kylinos.cn>, 
@@ -99,85 +97,60 @@ Cc: linux-mm@kvack.org, Jason Gunthorpe <jgg@ziepe.ca>,
  "David Hildenbrand (Arm)" <david@kernel.org>, 
  Chris Mason <mason@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3106; i=david@kernel.org;
- h=from:subject:message-id; bh=nzCzOz26eddU4SO7rlRqgKmrjP0kTfGyA8Ecr2EgmCo=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLZk5TjVFYV1bZe5k5Juf3u5oJJF15cifxTFhJhcLJqq
- bD0jE2KHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAExk40aG/zULo7sKr5Xeb15i
- yrPhVfhsTYlSt3trHn7f/fipxO+MF84Mf7iiPeLe3jxfdNmWL429a9eJRb0vt/byrv3/cI5p6+N
- fbnwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1560; i=david@kernel.org;
+ h=from:subject:message-id; bh=IM9Jn0PMIC7KdrlMfsHaSFMWAt4HGC1aolUW6gtZvro=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLZk5Rjdi+VyA5cFPbUoF87MlvvUGnL/k96RRznmXPXL
+ 3pv839RRykLgxgHg6yYIktQ8H2Dly/X1Va78THDzGFlAhnCwMUpABPJ+sHIsMnEy/jx6ccHVTxW
+ 7W7d8c5AS3n3vmjtVL9v6R1JKzOZGxgZTl5KXXnrwdue1sjQSBeLw7c9BUoerNDonj8reHKSXLo
+ zOwA=
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-Hi,
+From: Chris Mason <mason@kernel.org>
 
-some more hugetlb fixes, this time not as horrible and confusing stuff as
-last time:
+Folios that span more bytes than can fit into an unsigned integer (e.g.,
+16 GiB folios on arm64) are problematic with UFFDIO_COPY: the result
+from copy_folio_from_user() can be truncated, possibly indicating
+success instead of an error.
 
- - Patch #1: a hotfix for v7.4
- - Patch #2 - #18: a bunch of non-urgent fixes
- - Patch #19 - #20: two related improvements
- - Patch #21: an RFC for a hugetlb cgroup fix
+We will then continue with the folio that has stale data, and make it
+accessible to user space.
 
-I think patch #21 is the right thing to do, but I am not really a cgroup
-expert.
+For example, if copy_folio_from_user() fails such that the number of
+bytes not copied is a multiple of 4 GiB, we'll get an effective ret ==
+0.
 
-Patch #19 deserves a closer look from our VMA locking experts :)
+Let's fix it by simply testing the return value directly.
 
-Patch #1 should go into v7.4, the rest can wait for the next merge
-window.
+This has medium urgency, as it's an information leak.
 
-Tested with hugetlb selftests and some targeted tests that reproduce
-some of these issues.
-
+Fixes: 8fb5debc5fcd ("userfaultfd: hugetlbfs: add hugetlb_mcopy_atomic_pte for userfaultfd support")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ david: cleanup code and description ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
-Chris Mason (8):
-      mm/hugetlb: fix truncated copy result in UFFDIO_COPY
-      hugetlbfs: fix deadlock between hole punching and memory failure
-      hugetlbfs: recheck the vma range after the lock wait
-      mm/hugetlb: don't zap non-present entries when unmapping a folio
-      mm/hugetlb: unshare PMDs of a split VMA if allocating its lock fails
-      mm/hugetlb_cgroup: track in-use folios per cgroup
-      hugetlbfs: seal SHM_HUGETLB files against growth
-      mm/hugetlb: resolve protnone faults without a uffd bit
+ mm/hugetlb.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-David Hildenbrand (Arm) (13):
-      mm/hugetlb: charge the copy made at fork to the parent
-      mm/hugetlb: always mark new page cache folios migratable
-      mm/memfd: mark new hugetlb folios migratable
-      mm/hugetlb: free surplus folios of other nodes on free
-      hugetlbfs: don't zero poisoned pages in a hole punch
-      mm/hugetlb: only check PMD table sharing for PMD-sized folios
-      mm/migrate: check hugetlb PMD sharing in move_pages()
-      mm/hugetlb: don't share page tables of a VMA during mprotect()
-      mm/hugetlb: count migration entries at fork and unmap
-      mm/hugetlb: stop accounting HugetlbPages once PMD tables were shared
-      fs/proc/task_mmu: don't clear VM_SOFTDIRTY on hugetlb VMAs
-      mm/hugetlb: use the VMA lock to stabilize flags for PMD sharing
-      RFC: mm/hugetlb_cgroup: charge faults to mm->owner
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index f46c85fc0cd0b..d57964914e18a 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -6568,11 +6568,8 @@ int hugetlb_mfill_atomic_pte(pte_t *dst_pte,
+ 			goto out;
+ 		}
+ 
+-		ret = copy_folio_from_user(folio, (const void __user *) src_addr,
+-					   false);
+-
+ 		/* fallback to copy_from_user outside mmap_lock */
+-		if (unlikely(ret)) {
++		if (unlikely(copy_folio_from_user(folio, (const void __user *)src_addr, false))) {
+ 			ret = -ENOENT;
+ 			/* Free the allocated folio which may have
+ 			 * consumed a reservation.
 
- Documentation/filesystems/proc.rst |   3 +-
- fs/hugetlbfs/inode.c               |  22 +++--
- fs/proc/task_mmu.c                 |   9 +-
- include/linux/hugetlb.h            |  22 ++++-
- include/linux/hugetlb_cgroup.h     |  30 +++++--
- include/linux/leafops.h            |  11 +++
- include/linux/mmap_lock.h          |   1 +
- mm/hugetlb.c                       | 174 ++++++++++++++++++++++++++-----------
- mm/hugetlb_cgroup.c                |  64 ++++++++------
- mm/memfd.c                         |   1 +
- mm/mempolicy.c                     |   2 +-
- mm/migrate.c                       |  23 +++--
- mm/mmap_lock.c                     |  78 +++++++++++------
- mm/rmap.c                          |   4 +-
- mm/vma.c                           |   2 +-
- tools/testing/vma/include/stubs.h  |   3 +-
- 16 files changed, 314 insertions(+), 135 deletions(-)
----
-base-commit: c8117bff684306f5c1f959d055cc2b24dd67b1eb
-change-id: 20261120-hugetlb_fixes_2-26455c584f4e
-
-Best regards,
---  
-David Hildenbrand (Arm) <david@kernel.org>
+-- 
+2.56.1
 
