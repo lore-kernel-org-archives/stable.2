@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795627024;
-	b=t6FzobszgXHmwfsh8L/Lpz2rkbF0x/o1tj8AO2CW1+IYdXzfVcoPrJz9IF52u7xcQQ+I
-	 yjsvaJNn8lOM9kydRQ5WM5biBkW3UJZ9H7FcWHVQrptLj0LmcwUuk+9ODehyZ2SlBtTXp
-	 vRMqwDn91pVBQ4/wMjdEpvz7/vDhunKztbPXsE2bAHTQTBpRHCGaY4XUxtR0wZMDwoDfb
-	 zKc9j2juU7MwogxE6G1gJDKJk7J+I/viZRI8sjD/vul9b70PvxMYxds6S5qughU74Shh4
-	 9J9dvMXNUsygfCJF/CcmF4MwGFvcuDHujAZTjtVgOVkJnFBEBmVyQmygkslPkCUtoRg==
+	t=1795627085;
+	b=i7Xr4qHOAdjDcVc0lG0AI9fmvM6LPTRPf4skseWib5rSLY/lrlitVWxcRWmtRGc3C6wf
+	 Y1SNBX9tK/gejzgUetWGSZIT7XuB4cR0C4xS5ccaTdI7EbfU5Mc/vlkgnQK5LpTihElKf
+	 caRM+6j6bUZYamhkVtz9hiUBNp7ORPdKK77inQEpCoBCxQUnrTalee0GMuJrQP2t/p/xZ
+	 EZc97mBqT/xWWG8asbyDc0E1TKOPKMJHnmv5pcV34vccwNVTkvVSOJz9m4Rl8ReH49PTO
+	 j/UAANqRfDG2wti7cCPv90+HwkSBBiHeOZcWlrBYqQzXu0izUNUulZhuqLCPihkAbew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795627024;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795627085;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NEezloxu3BKJpHEwEDxoAVZlc4svB1WwrzlqJPWzJA4=;
-	b=DT1VXxKR8C9/dGh1NTJ2Y96uOXx4jEFVRfOZakO6OzlJZvt4fDe1qm2tEmoOEo+XWD05
-	 wmbQwwE38vYXp7jhW91/pGQK6SIMhnhUPDCK+zS6dqEls9EEoEaLD8TEAMALcLVuYhfgE
-	 2JMUcCeyPOUDBhs1x4vdFc/lnFXP7AAcQhZpvxIB6zX7I1VFH3S1CgCF2wbqeAiMWXETe
-	 HL0gu03gVjY9js16AQTbHwIdU2BfaXqnEXcAgU48D3fW6308VsRCXaXqKWeD7uREXls9S
-	 xfUbwgNFb7MD29ovEjVC/gttBWsJwRfFs4BXywwrEQwkfES7WGwQuMz/He4PhWAsUCw==
+	bh=OXq4QeH496KxN/3PUTaOk/W24i54lVWNaBos6pdsNcc=;
+	b=sQk8matPRDprDUlLTWWoNINpuwRJHbJr7PX34JvRvsAgOkuS8qwwzuW47hSCq9GPKXiA
+	 E1Po0X9t3mI6KG93WbrvbaYiucwDWWpsjdlZBGJtn5Ti8Gs0qXx1IfEQvzai+XSGoqjEx
+	 z/tOPS3W8Zx8iVwesma3O12PZE49s/Zs6RPYIqY1/9KvAJXkCt4j0G+h5wXvvnW1KOYbG
+	 eepwgUnj5YK0FpOZZKSU3lEiZvcbvLzJN/HHHutpCKchcL3o76ilDh1rHAOO/2RwgO+Vj
+	 +sSi0rdZo4+AQE3bFeGk9oC9wcfYwvzUYeBrLiI6ywopeq80aXDu9iT1dy6/W9ZlKbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCgIkb+3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RHpLnPwI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B801B606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:17:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D32606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:18:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCgIkb+3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2F31F000C4;
-	Wed, 25 Nov 2026 17:17:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RHpLnPwI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4834F1F000C0;
+	Wed, 25 Nov 2026 17:18:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795627023;
-	bh=NEezloxu3BKJpHEwEDxoAVZlc4svB1WwrzlqJPWzJA4=;
+	s=k20260515; t=1795627084;
+	bh=OXq4QeH496KxN/3PUTaOk/W24i54lVWNaBos6pdsNcc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NCgIkb+3/RgUmGv5FdSLVCGcSu5g6Q460MSVH0uwqdhci/jQPYi7o4JcWhu3ok+Nf
-	 ChHSJQET1SL+iZqmQ+X+CXDM++hRVnwnjF9nSdXA+7YBY++swZGWwXzaf1PFTn/OXk
-	 g6v9c0URwAsQiI4KZfJSorHPial/XkiEUlo0gXu2wzcDDxz4odD7qYLo0vRVAP7t/p
-	 iCmOzsXalxljGB5EGTHz+2xvuNIPM/5BPdTtPK/EHQnRLddv2HqEbUq7oLxdNjoQAM
-	 0phPm+aM3DfP/eQoL/coqS3uXjpRBQsKJtuvk8e0SVI0cPA+O4ATh58V8l8zwg8FI4
-	 eHT1YsLK/OHSA==
+	b=RHpLnPwIqD1T4vB63XWXWcxa1qeTKsVnx+TECfOBgjNTx6YYxyJi+XaE+oZpyTeyD
+	 aRitgYpWCOyrHbxW00u+IqJn1F8GOfUjZKNnIn4gsbKJsjHNBDSZ/wT9yq5uR9xxkA
+	 gLt6ecoFkcNCsQnaZMWFGj5my9sRdQOXIQSNTY7xxnb4DixkOal4CmVFfhb2wLfrr5
+	 S/eWo9a4HCOBco/eV+gET+NbJLcgdqQu8152YHdXZlhOVJ1vIDjKmcD/OO8PttT7l0
+	 flj8MDYESZxWeX0scwINcGD68szSb79t0iNVHRDeFnC0DK1hRAqgRQvyUc1/2vRZj/
+	 OowxmAvSI3n+w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+Cc: Chen Ni <nichen@iscas.ac.cn>,
 	Guenter Roeck <linux@roeck-us.net>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] watchdog: rzv2h: Use pm_runtime_put_sync()
-Date: Wed, 25 Nov 2026 12:17:00 -0500
-Message-ID: <20261125171644.939435-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] watchdog: npcm: Remove unnecessary NULL check before clk_prepare_enable/clk_disable_unprepare
+Date: Wed, 25 Nov 2026 12:18:01 -0500
+Message-ID: <20261125171756.959278-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125171644.939435-1-sashal@kernel.org>
-References: <2026112533-wand-debit-0e45@gregkh>
- <20261125171644.939435-1-sashal@kernel.org>
+In-Reply-To: <2026112522-venus-heritage-0a34@gregkh>
+References: <2026112522-venus-heritage-0a34@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,40 +62,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Chen Ni <nichen@iscas.ac.cn>
 
-[ Upstream commit ca800e625d18a9f5b19f94ab837ceb3fccdca22f ]
+[ Upstream commit ad3746700ae238a96a9a4244d02a2e8eb00f157e ]
 
-pm_runtime_put() may trigger the idle check after pm_runtime_disable()
-is run as part of devm_pm_runtime_enable()'s cleanup action, leaving
-runtime PM active.
+clk_prepare_enable() and clk_disable_unprepare() already checked
+NULL clock parameter.Remove unneeded NULL check for clk here.
 
-Use pm_runtime_put_sync() to ensure the idle check runs synchronously.
-
-Fixes: f6febd0a30b6e ("watchdog: Add Watchdog Timer driver for RZ/V2H(P)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Link: https://patch.msgid.link/20261001165201.763882-3-prabhakar.mahadev-lad.rj@bp.renesas.com
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+Link: https://lore.kernel.org/r/20250313084420.2481763-1-nichen@iscas.ac.cn
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: Replaced pm_runtime_put() with pm_runtime_put_sync() only in rzv2h_wdt_stop(), dropping the RZ/T2H-only hunk and its context lines because that support is absent here. ]
+Signed-off-by: Wim Van Sebroeck <wim@linux-watchdog.org>
+Stable-dep-of: 57c7cbe21acc ("watchdog: npcm: fix clock prepare leak when setting timeout on a running watchdog")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/watchdog/rzv2h_wdt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/watchdog/npcm_wdt.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
-index 2342e29962d23..1ad1c326084fb 100644
---- a/drivers/watchdog/rzv2h_wdt.c
-+++ b/drivers/watchdog/rzv2h_wdt.c
-@@ -140,7 +140,7 @@ static int rzv2h_wdt_stop(struct watchdog_device *wdev)
- 	if (ret)
- 		return ret;
+diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
+index a5dd1c2301374..e62ea054bc618 100644
+--- a/drivers/watchdog/npcm_wdt.c
++++ b/drivers/watchdog/npcm_wdt.c
+@@ -68,8 +68,7 @@ static int npcm_wdt_start(struct watchdog_device *wdd)
+ 	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
+ 	u32 val;
  
--	pm_runtime_put(wdev->parent);
-+	pm_runtime_put_sync(wdev->parent);
+-	if (wdt->clk)
+-		clk_prepare_enable(wdt->clk);
++	clk_prepare_enable(wdt->clk);
+ 
+ 	if (wdd->timeout < 2)
+ 		val = 0x800;
+@@ -105,8 +104,7 @@ static int npcm_wdt_stop(struct watchdog_device *wdd)
+ 
+ 	writel(0, wdt->reg);
+ 
+-	if (wdt->clk)
+-		clk_disable_unprepare(wdt->clk);
++	clk_disable_unprepare(wdt->clk);
  
  	return 0;
  }
+@@ -156,8 +154,7 @@ static int npcm_wdt_restart(struct watchdog_device *wdd,
+ 	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
+ 
+ 	/* For reset, we start the WDT clock and leave it running. */
+-	if (wdt->clk)
+-		clk_prepare_enable(wdt->clk);
++	clk_prepare_enable(wdt->clk);
+ 
+ 	writel(NPCM_WTR | NPCM_WTRE | NPCM_WTE, wdt->reg);
+ 	udelay(1000);
 -- 
 2.53.0
 
