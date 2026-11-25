@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603129;
-	b=j3tnK7zd+UwsiGbuUV4lqlwrODycPamKRyVNmadytp/ZTO3v0KoIgf0K1s9zhOq8bC5w
-	 NLPg+u1HSlx3fqs8ax1pY3GL3BMlHHx1AGXuVwVolPRAG+bX9m13JyR7uuGl6JUSyywo2
-	 Ze5n4vqUMpyggW3dQ1zoYycHtOUMgg2+diKKWfduQEr/CpiP4rUC3MERDyTbw3qAXCrhJ
-	 YNSnzYSoUjPjWV2bE0/6sJ3YgDveSCirtm80SMB8yTopo7ku5MN5C8/sXIdH7Y2B4KpkB
-	 I6YBRPY4J3SObYLyjVrUlHHKLFifKP3ZrxzjWm9IQAONpIYtC/onhK1lvu99K2FMh9g==
+	t=1795603132;
+	b=T8LDNug3TxU7ph4OnU37IQHXMGEVDJxpgtvXaUeSvHCWEpTVJO7toV2iqcE4+XkXePue
+	 aOJlVfaWjG1yByJq422YsSjseps+n5ql7Is8B79UiA84EPird7Jp+Hz7DjlgdX3M7L851
+	 i8Yp4/a/TTZjOVHlrn+R+4qnGg6V5JO0sq1RjwfnTdkX8lHhU2FYcUWQy+icINO0cNMcL
+	 6c2DOtioloyX1Jjzu//BPkd9FxIJrTIyW1BKlK4EJMzXCkmusWTSF5NFWLk5/83y1oXjb
+	 5LWbi1MfCutD4lcJWeFUzTagD+nNDMzHEUj5jJLGJ99s5T/UsH26LVwbhFOQ5uV2G7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603129;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603132;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4g3V5BTMQ0kBq7iLP905ZhvZDpUT7y99Summf34XwfE=;
-	b=UQnshS6HWtunkhLUyj6QxssZsB5KpHLfOwqstR2SPiC1XmEfPifjYyH2zXWFckfrFjes
-	 RZq70UQDI2ckdYjKCyZjdgCt/C1eIb2a9qDU+6zhQbVZpDiKBPYIvvT3wCIunpjrx96EH
-	 m4wz+b2pvxnbwEQR7auZyGveIcpwxtv5uedQTbEHmNrzn3cTDf/RdXF5qknHEiPUgi3xP
-	 YjBWg8WvViiitD8Ov9IMiwPHIHn7jFNm0vOsOnSZcDGzRq5Q29NSKnvYSHoyfaDXxD1O5
-	 KhogoWcDSuOBMOXX0rUbTr5GNFHUxXGN9S1CRh5Zk4Y9bWmCW2fVbeD5KUuQDGZxtyw==
+	bh=Mt2xhMJ7VONyMiFJGz0BL2n0smViPzSGlyyFe7fBOp4=;
+	b=1K5xnU874TdcyqphNyKgQPILH2U07x6cV3zOfJH8q7L1hBi2nUpSP8ZewzvSABJXNUHR
+	 c3Kog2qdSx2Wb8oNMBDvTK/aF18E/oryAyq2KcoAfErHkDfQr+izvqO25wG6xuVrD6ddO
+	 n6jc8+X5GUpZeaiUBLjJA2Jfpxcl+u2DN6BGC7kHtoZMwBPdYnuMnFudW5mRGBkKRPsdm
+	 AMP7N/h7qJZpI8i6HQmfuGGJJAhqW/TyocRvBdjDSq5zyGUa3TgpEvyXCPPO5VnrxP9P9
+	 /q+QOZx1SOlhAybShqmHPUYAqqQzXn3MZrOeZ5M66B7TtK8laCriqK1jhrdClX8XtYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="MM+bF/sJ";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=o1a8EVGf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187C8606A329
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:38:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D83E606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:38:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MM+bF/sJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4211F000CA;
-	Wed, 25 Nov 2026 10:38:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=o1a8EVGf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 972351F000CA;
+	Wed, 25 Nov 2026 10:38:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603128;
-	bh=4g3V5BTMQ0kBq7iLP905ZhvZDpUT7y99Summf34XwfE=;
+	s=korg; t=1795603132;
+	bh=Mt2xhMJ7VONyMiFJGz0BL2n0smViPzSGlyyFe7fBOp4=;
 	h=Subject:To:Cc:From:Date;
-	b=MM+bF/sJXg7fvL+6h423k+G7YRbBsZAeCa35CeVMRsHThRpizUqI4Kx08AHU+1Cgx
-	 2Bwolle72RNfC8W3014BXESZBmjj6Um/cDv5Jj6nPx20eS6B2uzbl49x7A8Gx3pPuk
-	 BbS+JTwX8BU3nQIrmzJbPa0IxU+azoFrxPu5+wOs=
-Subject: FAILED: patch "[PATCH] ksmbd: refuse to read a handle that is not open for reading" failed to apply to 6.1-stable tree
-To: wahidzk0091@gmail.com,icb@fastmail.org,linkinjeon@kernel.org
+	b=o1a8EVGfY3wS/s7GfzkGNJPlxUvWS6ENV8Sqg1QRUNVxKpKHTGXRJ8ZWZdAURC3Y5
+	 vJNtEsQDput8GxHN8fDOP8Y49ZdF47ZI32GjP5J5vIFp+cpPUMZHOtIpvUuBaZut7V
+	 vLMzoJ7DVSfj23to2rsPfQhA1Dl1O1/aRn/evlRY=
+Subject: FAILED: patch "[PATCH] ksmbd: skip metadata-only opens in sharing checks" failed to apply to 7.3-stable tree
+To: icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:26:26 +0100
-Message-ID: <2026112526-cider-posing-d58d@gregkh>
+Date: Wed, 25 Nov 2026 11:26:30 +0100
+Message-ID: <2026112530-spoof-absentee-8dbc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 7.3-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2fd145f8865bb1a6c38a3dc68fa44290008789d8
+git cherry-pick -x 81fefb6c635489e71e286d1465b6dd1d0a27ceec
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112526-cider-posing-d58d@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112530-spoof-absentee-8dbc@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,52 +79,212 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2fd145f8865bb1a6c38a3dc68fa44290008789d8 Mon Sep 17 00:00:00 2001
-From: Wahid Khan <wahidzk0091@gmail.com>
-Date: Thu, 5 Nov 2026 23:08:38 +0530
-Subject: [PATCH] ksmbd: refuse to read a handle that is not open for reading
+From 81fefb6c635489e71e286d1465b6dd1d0a27ceec Mon Sep 17 00:00:00 2001
+From: Ian Bridges <icb@fastmail.org>
+Date: Thu, 5 Nov 2026 21:53:44 -0600
+Subject: [PATCH] ksmbd: skip metadata-only opens in sharing checks
 
-smb2_create_open_flags() picks the open mode from the read and write
-bits of the desired access. FILE_EXECUTE and FILE_READ_ATTRIBUTES select
-neither, so a request for FILE_WRITE_DATA | FILE_EXECUTE |
-FILE_READ_ATTRIBUTES opens the file O_WRONLY.
+A READ_CONTROL open without sharing can block later reads, writes and
+deletes even though it holds no data, execute or delete access.
 
-smb2_read() accepts FILE_READ_ATTRIBUTES and ksmbd_vfs_read() accepts
-FILE_EXECUTE, so a later READ on that handle passes both checks and
-reaches __kernel_read() on a file that has no FMODE_READ:
+Keep the existing attribute-only exception. For other pairs, require
+both effective access masks to hold one of those rights. MS-FSA
+2.1.5.1.2 grants FILE_WRITE_DATA when an open overwrites a file or
+stream, or creates a named stream on an existing file. Use that granted
+access for sharing checks while keeping the requested access on the
+returned handle.
 
-  WARNING: fs/read_write.c:518 at __kernel_read
-   __kernel_read
-   ksmbd_vfs_read
-   smb2_read
-   handle_ksmbd_work
+The Time Machine AFP_AfpInfo synthesis keeps its requested access.
+ksmbd implements FILE_SUPERSEDE by truncating the file, so count it as
+a write.
 
-Any client that can open a file with write access on a share, including
-a guest session, can trigger it; with panic_on_warn it takes the machine
-down.
+This also prevents an overwrite from truncating a file while another
+open that holds data, execute or delete access does not share writing.
 
-Return STATUS_ACCESS_DENIED when the file is not readable.
-
-Fixes: f44158485826 ("cifsd: add file operations")
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
-Reviewed-by: Ian Bridges <icb@fastmail.org>
-Tested-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 1f2bc76f0d09..cb3f4f5fe9cf 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -367,6 +367,10 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
- 	if (ksmbd_stream_fd(fp))
- 		return ksmbd_vfs_stream_read(fp, rbuf, pos, count);
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index b084cca8813c..5bbc33d5a3a8 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3541,7 +3541,8 @@ static int smb2_set_ea(struct smb2_ea_info *eabuf, unsigned int buf_len,
  
-+	/* The access granted on open can include FILE_EXECUTE for a write-only file */
-+	if (!(filp->f_mode & FMODE_READ))
-+		return -EACCES;
+ static noinline int smb2_set_stream_name_xattr(const struct path *path,
+ 					       struct ksmbd_file *fp,
+-					       char *stream_name, int s_type)
++					       char *stream_name, int s_type,
++					       bool *created)
+ {
+ 	const struct mnt_idmap *idmap = mnt_idmap(path->mnt);
+ 	size_t xattr_stream_size;
+@@ -3605,6 +3606,8 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
+ 	rc = ksmbd_vfs_setxattr(idmap, path, xattr_stream_name, NULL, 0, 0, false);
+ 	if (rc < 0)
+ 		pr_err("Failed to store XATTR stream name :%d\n", rc);
++	else
++		*created = true;
+ 	return 0;
+ }
+ 
+@@ -4394,6 +4397,7 @@ int smb2_open(struct ksmbd_work *work)
+ 	char *stream_name = NULL;
+ 	bool file_present = false, created = false, already_permitted = false;
+ 	bool app_instance_id_checked = false, app_instance_closed;
++	bool stream_created = false;
+ 	int share_ret, need_truncate = 0;
+ 	u64 time, alloc_size = 0;
+ 	umode_t posix_mode = 0;
+@@ -5138,7 +5142,8 @@ int smb2_open(struct ksmbd_work *work)
+ 		rc = smb2_set_stream_name_xattr(&path,
+ 						fp,
+ 						stream_name,
+-						s_type);
++						s_type,
++						&stream_created);
+ 		if (rc)
+ 			goto err_out;
+ 		file_info = FILE_CREATED;
+@@ -5146,13 +5151,25 @@ int smb2_open(struct ksmbd_work *work)
+ 
+ 	fp->attrib_only = !(req->DesiredAccess & ~(FILE_READ_ATTRIBUTES_LE |
+ 			FILE_WRITE_ATTRIBUTES_LE | FILE_SYNCHRONIZE_LE));
++	need_truncate = !S_ISDIR(file_inode(filp)->i_mode) &&
++			open_flags & O_TRUNC && !fp->attrib_only && !stream_name;
++	/*
++	 * Count the FILE_WRITE_DATA that MS-FSA 2.1.5.1.2 grants an overwrite,
++	 * supersede included, or a new named stream on an existing file.
++	 * An attribute-only open of the file is not truncated, and the
++	 * synthesized AFP_AfpInfo stream is not created by the client.
++	 */
++	fp->implied_write = need_truncate ||
++			    (stream_name &&
++			     (open_flags & O_TRUNC ||
++			      (file_present && stream_created)));
+ 
+ 	fp->is_posix_ctxt = posix_ctxt;
+ 	fp->posix_append = posix_ctxt && !!(open_flags & O_APPEND);
+ 
+ 	/* fp should be searchable through ksmbd_inode.m_fp_list
+-	 * after daccess, saccess, attrib_only, and stream are
+-	 * initialized.
++	 * after daccess, saccess, attrib_only, implied_write, and
++	 * stream are initialized.
+ 	 */
+ 	down_write(&fp->f_ci->m_lock);
+ 	list_add(&fp->node, &fp->f_ci->m_fp_list);
+@@ -5173,11 +5190,8 @@ int smb2_open(struct ksmbd_work *work)
+ 	if (file_present || created)
+ 		path_put(&path);
+ 
+-	if (!S_ISDIR(file_inode(filp)->i_mode) && open_flags & O_TRUNC &&
+-	    !fp->attrib_only && !stream_name) {
++	if (need_truncate)
+ 		smb_break_all_oplock(work, fp);
+-		need_truncate = 1;
+-	}
+ 
+ 	share_ret = ksmbd_smb_check_shared_mode(fp->filp, fp);
+ 	if (!test_share_config_flag(work->tcon->share_conf, KSMBD_SHARE_FLAG_OPLOCKS) ||
+diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
+index f9fb3741ada3..e7a987af64ba 100644
+--- a/fs/smb/server/smb_common.c
++++ b/fs/smb/server/smb_common.c
+@@ -695,10 +695,24 @@ static void smb_shared_mode_error(int error, struct ksmbd_file *prev_fp,
+ 		    prev_fp->saccess, curr_fp->daccess);
+ }
+ 
++/*
++ * Sharing checks use fp->daccess plus the FILE_WRITE_DATA that MS-FSA
++ * grants an open that overwrites data or creates a named stream.
++ * fp->daccess keeps the open's own access.
++ */
++__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp)
++{
++	if (fp->implied_write)
++		return fp->daccess | FILE_WRITE_DATA_LE;
++	return fp->daccess;
++}
 +
- 	if (!fp->is_posix_ctxt) {
- 		int ret;
+ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
+ {
+ 	int rc = 0;
+ 	struct ksmbd_file *prev_fp;
++	__le32 curr_access = ksmbd_sharing_daccess(curr_fp);
++	__le32 access;
  
+ 	/*
+ 	 * Lookup fp in master fp list, and check desired access and
+@@ -719,6 +733,24 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
+ 		if (prev_fp->attrib_only != curr_fp->attrib_only)
+ 			continue;
+ 
++		/*
++		 * MS-FSA checks sharing per stream, so a named stream open's
++		 * implied write is not a write against the primary stream.
++		 * It still decides whether the pair is checked.
++		 */
++		access = curr_access;
++		if (ksmbd_stream_fd(curr_fp) && !ksmbd_stream_fd(prev_fp))
++			access = curr_fp->daccess;
++
++		/*
++		 * Two opens conflict only if both hold a right in
++		 * FILE_SHARE_CHECKED_ACCESS_LE (MS-FSA 2.1.5.1.2.1 and
++		 * 2.1.5.1.2.2)
++		 */
++		if (!(ksmbd_sharing_daccess(prev_fp) & FILE_SHARE_CHECKED_ACCESS_LE) ||
++		    !(curr_access & FILE_SHARE_CHECKED_ACCESS_LE))
++			continue;
++
+ 		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE) &&
+ 		    curr_fp->daccess & FILE_DELETE_LE) {
+ 			smb_shared_mode_error(SHARE_DELETE_ERROR,
+@@ -745,7 +777,7 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
+ 		}
+ 
+ 		if (!(prev_fp->saccess & FILE_SHARE_WRITE_LE) &&
+-		    curr_fp->daccess & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
++		    access & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
+ 			smb_shared_mode_error(SHARE_WRITE_ERROR,
+ 					      prev_fp,
+ 					      curr_fp);
+diff --git a/fs/smb/server/smb_common.h b/fs/smb/server/smb_common.h
+index a9cc09e31721..d3d19f1a23ea 100644
+--- a/fs/smb/server/smb_common.h
++++ b/fs/smb/server/smb_common.h
+@@ -69,6 +69,10 @@
+ 		FILE_EXECUTE | FILE_DELETE_CHILD | \
+ 		FILE_READ_ATTRIBUTES | FILE_WRITE_ATTRIBUTES)
+ 
++/* Rights that make an open take part in sharing checks */
++#define FILE_SHARE_CHECKED_ACCESS_LE	(FILE_EXECUTE_LE | FILE_READ_DATA_LE | \
++		FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE | FILE_DELETE_LE)
++
+ #define SMB_COM_NEGOTIATE		0x72 /* See MS-CIFS 2.2.2.1 */
+ 
+ /* See MS-CIFS 2.2.3.1 */
+@@ -284,6 +288,7 @@ int ksmbd_extract_shortname(struct ksmbd_conn *conn,
+ 
+ int ksmbd_smb_negotiate_common(struct ksmbd_work *work, unsigned int command);
+ 
++__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp);
+ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp);
+ int __ksmbd_override_fsids(struct ksmbd_work *work,
+ 			   struct ksmbd_share_config *share);
+diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
+index a0239ec178d8..57c81287efe6 100644
+--- a/fs/smb/server/vfs_cache.h
++++ b/fs/smb/server/vfs_cache.h
+@@ -131,6 +131,8 @@ struct ksmbd_file {
+ 
+ 	bool				is_nt_open;
+ 	bool				attrib_only;
++	/* writes data on open, see ksmbd_sharing_daccess() */
++	bool				implied_write;
+ 	bool				allocation_size_set;
+ 
+ 	char				client_guid[16];
 
