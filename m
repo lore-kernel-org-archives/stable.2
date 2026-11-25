@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618790;
-	b=pDeLNOpnyfKjJrBhfT654TVOfsxj/VTWNUftC+3lflpiNa9JTe3sdTYOGSjPLcDG+658
-	 XvIQ95UMlCwizmR9zKZvhW8pPatzaCVFb9GW8c9KNepoRq1nw9BFvZPvkpWAek9KS2JBH
-	 MXXuLEkaIKYZT3gwizs4ltoT2m/hYHhOLvZ/XaNk5TlhTznA9EtgAwCUOBGlij8XLBUOk
-	 fkX/5kRB8OGMaxy5e5Av4paj0fibdTwgkd/y/lHGjMBvsXhYK4QjGh19amB+5F6OQz9Sl
-	 kBsgrzFC/YIzXnG2QN7pFEFKZA2mgC3Oom03cO5ZXjzoz+e/0e1r3UR0Hb0V/zIbMBg==
+	t=1795618791;
+	b=2xAu5OyosMOGgwbAF5xdoVA5VHMKkgQuZx+7CmGE7uZSWFEHtV9sM9ZXi8BAVNnecUfP
+	 +3MzWeYOnjupg36gjsUC0gI0ZGmkDpSfs3zHrY9Q4Wdj9lAE4O4Sn6BgmjAUzTi2rf6Z1
+	 uWDLCh6/EpUjLkmtGwD7Peva6+c7K/4seoFvc8+81XvI6hs0O9P1eLDDrq6BqpyQsrMSy
+	 aK0x9EqJFgC+1+yN0wQfTCiqmHq8uSQy+eP8WE24PL7d2u+Tg4SIbrT7HHMY/IFbwM5g7
+	 UDniyCdaO5aMEya/HOQ7i9h4fEqGowoGM1XOAVU6P5rV0sPuR9j2mhLIC0Wx7uiLPwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618790;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=epVExBwV1+8Rlnp4YAhfw0/z/33OMpOM4klgvSPmn+Y=;
-	b=5q2wX8uri0wYtzasp0Y9mXk8GI9q7TSLrfIXaTznH8JjLUWEBJWYw/BxgIzgRgsMtVp3
-	 Ds0IAG6m64hVopotfNkwmDtDo0CUtTqHY4UeuC4nWZhoOzuQos1T7aF3K3kDdtx418vso
-	 pr8kKiOy4f2QbNepdtmv6jhGgZv5nrRJPU4R24LNMLKrI38am7uvTyqP0cOBprJpc1edw
-	 W+jC4p61WP1va2WreN3twAGKlWMw7yMA5todp883NcDW5u9N2YkEnKUIiZHh9mDeQq3Zk
-	 dk56nCijDTYfrjRonCCY+4dGKwaJjfC63ChSb9jdTUeZEnCgeucNcTzF34EOOoZTuMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618791;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=QmCu5AKk2S3c57ZAB2ojsPsTfvTf7eCUQPKcTVLaD0M=;
+	b=qbWxB6BlitBkkPx3wvW/BKBuZT+c0/BQumrFJ98ppwL4n1n5CQHMr0ik/KiEu+gcmWu1
+	 J/lUJpehMWiGswZy2a64h8jSlOtGJOpw4E/YGzJgKNLVcEsyzpb8JF3M3ZLIxNX+KkpHX
+	 WOzlDocMaBCR4kq9VLPlZsqStlWmWICDN+K64KzrXmtS7Z/Ja5Uat8d82hP0szDPY7MD2
+	 fQqJz3M2ydNi8wnxpnbi8JyQVzQuT9Jk4huGVrdYwahT+WB9t51NtRvky/L/4loUvFuvc
+	 R3GfEUTSCHpPHJYco8oLDWF6XrUUm1uUpEWgXolX96ygElxW2ETGBc5herhZZ96ptCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GcyEUgqm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B706606A321;
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="n2x5Zi8/";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 82FC9606A327;
 	Wed, 25 Nov 2026 14:59:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82FC9606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GcyEUgqm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488601F000C4;
-	Wed, 25 Nov 2026 14:59:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618789;
-	bh=epVExBwV1+8Rlnp4YAhfw0/z/33OMpOM4klgvSPmn+Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GcyEUgqm/xDuCAHzQ55uzZfMi8BvK8egMotc5/ZazKeFqwjXdsNpM2AbTxp9msCU3
-	 yH78xWOoWcXUHMzzi6UugQQeN+hb2D9TGtVWHwDRNvqcFo/gQDFGgQURvCHgrWgSSv
-	 OssyKH+Dz0u3/Kd6D5VyEKR1O5TXNR9sHW/0dczA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Karthik Poosa <karthik.poosa@intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Dave Airlie <airlied@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0389/1005] drm/xe/hwmon: Fix thermal sensor data handling
-Date: Wed, 25 Nov 2026 15:28:47 +0100
-Message-ID: <20261125143830.856196519@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=n2x5Zi8/
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EB3742F;
+	Wed, 25 Nov 2026 06:59:46 -0800 (PST)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4F6733F632;
+	Wed, 25 Nov 2026 06:59:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795618789; bh=BL+q0fknC9F7rKqq5zcQg0XNAF41khT3DRJ+4gVKlts=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=n2x5Zi8/WqfDNOnZ6v9d/sVFIIVK3FMWV+exGow74TZqDh+OF+L9kGMdRL71y4deS
+	 kBbGDLfBxbCgRa1uIz9HVyDIkbjvjOq/aN15MGozvmdW4VHhX9JmGNFqCDH41dnQqB
+	 4rGAC1SeG9p2mb/uwMuB28ncr5OZGq1lDXL6PjZQ=
+Date: Wed, 25 Nov 2026 14:59:45 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Yadong Qi <yadong.qi@linux.alibaba.com>
+Cc: will@kernel.org, mark.rutland@arm.com, ying.huang@linux.alibaba.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	ryan.roberts@arm.com, robh@kernel.org, gregkh@linuxfoundation.org,
+	ptg-linux-kernel@linux.alibaba.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: fixmap: fix missing break-before-make in
+ __set_fixmap()
+Message-ID: <awb34Zfblg-A1tHQ@arm.com>
+References: <20261125063224.553-1-yadong.qi@linux.alibaba.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,112 +62,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261125063224.553-1-yadong.qi@linux.alibaba.com>
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Nov 25, 2026 at 02:32:24PM +0800, Yadong Qi wrote:
+> __set_fixmap() installs a new PTE with __set_pte() but never invalidates
+> the TLB; only the clear path calls flush_tlb_kernel_range(). The
+> dsb(ishst)/isb that __set_pte() emits makes the new PTE visible to the
+> table walker but does not invalidate stale TLB entries. Overwriting a
+> still-valid slot therefore leaves the old translation cached and
+> violates break-before-make: accesses may keep hitting the old output
+> address, and changing the attributes of a cached entry can trigger TLB
+> conflict aborts or CONSTRAINED UNPREDICTABLE behaviour.
+> 
+> Two in-tree callers overwrite a valid FIX_EARLYCON_MEM_BASE slot:
+> 
+>  - earlycon: earlycon_map() maps the UART before match->setup() runs.
+>    If setup fails, con->write is unset, or the DT reg-io-width is
+>    unsupported, the slot stays valid but no console is registered. The
+>    console_is_registered() guard only blocks successful registrations,
+>    so a later attempt (e.g. a failed DT earlycon followed by earlycon=
+>    on the command line) remaps the slot to a different UART.
+> 
+>  - samsung_tty: apple_s5l_early_console_setup() overrides the
+>    just-installed entry from PROT_DEVICE_nGnRE (FIXMAP_PAGE_IO) to
+>    PROT_DEVICE_nGnRnE on the normal successful boot path.
+> 
+> Both are valid-to-valid changes (different output address or memory
+> type), which arm64 requires to be break-before-make.
+> 
+> Fix this in __set_fixmap() by invalidating any existing valid mapping
+> up front: clear the old PTE and flush the TLB, then install the new PTE
+> only when setting. The old translation is gone before the new one is
+> created, so the two can never coexist in the TLB. A first-time mapping
+> (old entry invalid) skips the invalidation and pays no extra cost, and
+> clearing a slot is handled by the same step.
+> 
+> A clear (!flags) always clears and flushes, even when the PTE is already
+> invalid. An invalid PTE does not imply an invalid TLB: another CPU may
+> have cleared the PTE but not yet completed its TLB flush, leaving a stale
+> entry cached locally. The unconditional flush preserves clear_fixmap()'s
+> TLB shootdown guarantee, which callers such as the KVM VNCR unmap path
+> rely on when racing with a remote invalidation.
+> 
+> This belongs in the callee, as on x86: __set_fixmap() there calls
+> set_pte_vaddr(), which flushes the TLB unconditionally after writing the
+> PTE. x86 can flush after the write because it has no break-before-make
+> requirement; arm64 must invalidate and flush before installing the new
+> valid entry to avoid TLB conflict aborts.
+> 
+> Fixes: 9aac5887595b ("tty/serial: add generic serial earlycon")
+> Cc: stable@vger.kernel.org
+> Reported-by: Huang Ying <ying.huang@linux.alibaba.com>
+> Signed-off-by: Yadong Qi <yadong.qi@linux.alibaba.com>
 
-------------------
+Nit: commit 9aac5 added earlycon_map() -> set_fixmap_io() but I think a
+a few other commits later caused overriding this fixmap entry. I think
+set_fixmap_io() was underspecified, not requiring a clear_fixmap() after
+use but they inherited the x86 behaviour already which did the flushing.
+Anyway, I think a better tag would be (to make it arm64-specific issue):
 
-From: Karthik Poosa <karthik.poosa@intel.com>
+Fixes: bf4b558eba92 ("arm64: add early_ioremap support")
 
-[ Upstream commit d37dcdaa99b18995d74c2381b103e308f21e2565 ]
+> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
+> index 951004ad700c..5da49e201b6f 100644
+> --- a/arch/arm64/mm/fixmap.c
+> +++ b/arch/arm64/mm/fixmap.c
+> @@ -126,13 +126,49 @@ void __set_fixmap(enum fixed_addresses idx,
+>  
+>  	ptep = fixmap_pte(addr);
+>  
+> +	/*
+> +	 * Break-before-make: when the slot still holds a valid mapping
+> +	 * (e.g. earlycon re-mapping FIX_EARLYCON_MEM_BASE), invalidate the
+> +	 * old entry and flush the TLB entries caching it before a new
+> +	 * mapping is installed, so old and new translations never coexist.
+> +	 *
+> +	 * A clear (!flags) always flushes even if the PTE is already invalid:
+> +	 * a remote CPU may have cleared the PTE but not yet completed its TLB
+> +	 * flush, leaving a stale entry cached locally. Take KVM VNCR unmap as
+> +	 * example:
+> +	 * When CPU1 wins atomic_xchg_relaxed(&vt->cpu, -1) in unmap_l1_vncr(),
+> +	 * CPU0 calls clear_fixmap() on its own slot so it cannot finish
+> +	 * vcpu_put() before the local TLB entry is invalidated:
+> +	 *      CPU0                                  CPU1
+> +	 *                                 invalidate_vncr()
+> +	 *                                 unmap_l1_vncr()
+> +	 *                                   atomic_xchg_relaxed(&vt->cpu, -1)
+> +	 *                                   clear_fixmap(vncr_fixmap(0))
+> +	 *                                     __pte_clear(..., ptep)
+> +	 *                                     <delayed before TLB flush>
+> +	 * kvm_vcpu_put_hw_mmu()
+> +	 * this_cpu_reset_vncr_fixmap()
+> +	 *   unmap_l1_vncr() == -1
+> +	 *   clear_fixmap(vncr_fixmap(0))
+> +	 *     !pte_valid(__ptep_get(ptep))
+> +	 *     <skips flush_tlb_kernel_range()>
+> +	 *                    <stale TLB entry still live on CPU0>
+> +	 * If another nested vCPU then schedules on CPU0 and calls
+> +	 * kvm_map_l1_vncr() before CPU1 finishes flush_tlb_kernel_range(),
+> +	 * __set_fixmap() also sees !pte_valid(__ptep_get(ptep)) and installs
+> +	 * the new PTE while the old translation is still cached in CPU0's TLB.
+> +	 * Unconditionally clearing and flushing when !pgprot_val(flags)
+> +	 * preserves clear_fixmap()'s TLB shootdown guarantee.
+> +	 */
 
-Read all required thermal groups in get_mc_temp() and store them in a
-dword-aligned buffer, avoiding unaligned pcode accesses and ensuring
-correct memory controller temperature reporting.
+There's too much text here. Move it in the commit log if you want and
+just write a few lines in the code, something like:
 
-Store the pcode thermal data and thermal limit words as little-endian,
-so their per-byte views match the hardware layout on big-endian hosts.
+	/*
+	 * Break-before-make if the slot holds a valid mapping. Always
+	 * flush on clear since another CPU may have cleared the pte
+	 * without completing its TLBI yet.
+	 */
 
-Fixes: 3a0cb885e111 ("drm/xe/hwmon: Expose memory controller temperature")
-Fixes: c332fba805d6 ("drm/xe/hwmon: Expose temperature limits")
-Signed-off-by: Karthik Poosa <karthik.poosa@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Link: https://patch.msgid.link/20261015071434.1063785-4-karthik.poosa@intel.com
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-(cherry picked from commit ca6e33701de8676118f1d039e0c00839d7de13c6)
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Dave Airlie <airlied@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/xe/xe_hwmon.c | 33 +++++++++++++++++++++------------
- 1 file changed, 21 insertions(+), 12 deletions(-)
+> +	if (pte_valid(__ptep_get(ptep)) || !pgprot_val(flags)) {
+> +		__pte_clear(&init_mm, addr, ptep);
+> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
+> +	}
+> +
 
-diff --git a/drivers/gpu/drm/xe/xe_hwmon.c b/drivers/gpu/drm/xe/xe_hwmon.c
-index 123aef35aaacd..89e4a8c842d26 100644
---- a/drivers/gpu/drm/xe/xe_hwmon.c
-+++ b/drivers/gpu/drm/xe/xe_hwmon.c
-@@ -138,13 +138,17 @@ struct xe_hwmon_thermal_info {
- 	union {
- 		/** @limit: temperatures limits */
- 		u8 limit[TEMP_LIMIT_MAX];
--		/** @data: temperature limits in dwords */
--		u32 data[DIV_ROUND_UP(TEMP_LIMIT_MAX, sizeof(u32))];
-+		/** @data: temperature limits as little-endian dwords */
-+		__le32 data[DIV_ROUND_UP(TEMP_LIMIT_MAX, sizeof(u32))];
- 	};
- 	/** @count: no of temperature sensors available for the platform */
- 	u8 count;
--	/** @value: per-sensor raw mailbox temperature; bit7=sign, bits6:0=magnitude */
--	u8 value[U8_MAX];
-+	union {
-+		/** @value: per-sensor raw mailbox temperature; bit7=sign, bits6:0=magnitude */
-+		u8 value[U8_MAX + 1];
-+		/** @dword: sensor values as little-endian dwords, u32-aligned for pcode reads */
-+		__le32 dword[DIV_ROUND_UP(U8_MAX + 1, sizeof(u32))];
-+	};
- 	/** @vram_label: vram label names */
- 	char vram_label[MAX_VRAM_CHANNELS][MAX_LABEL_SIZE];
- };
-@@ -803,16 +807,17 @@ static const struct hwmon_channel_info * const hwmon_info[] = {
- static int xe_hwmon_pcode_read_thermal_info(struct xe_hwmon *hwmon)
- {
- 	struct xe_tile *root_tile = xe_device_get_root_tile(hwmon->xe);
--	u32 config = 0;
-+	u32 config = 0, data0 = 0, data1 = 0;
- 	int ret;
- 
- 	ret = xe_pcode_read(root_tile, PCODE_MBOX(PCODE_THERMAL_INFO, READ_THERMAL_LIMITS, 0),
--			    &hwmon->temp.data[0], &hwmon->temp.data[1]);
-+			    &data0, &data1);
- 	if (ret)
- 		return ret;
- 
--	drm_dbg(&hwmon->xe->drm, "thermal info read val 0x%x val1 0x%x\n",
--		hwmon->temp.data[0], hwmon->temp.data[1]);
-+	drm_dbg(&hwmon->xe->drm, "thermal info read val 0x%x val1 0x%x\n", data0, data1);
-+	hwmon->temp.data[0] = cpu_to_le32(data0);
-+	hwmon->temp.data[1] = cpu_to_le32(data1);
- 
- 	ret = xe_pcode_read(root_tile, PCODE_MBOX(PCODE_THERMAL_INFO, READ_THERMAL_CONFIG, 0),
- 			    &config, NULL);
-@@ -836,16 +841,20 @@ static int mbx_temp_decode(u8 value)
- static int get_mc_temp(struct xe_hwmon *hwmon, long *val)
- {
- 	struct xe_tile *root_tile = xe_device_get_root_tile(hwmon->xe);
--	u32 *dword = (u32 *)hwmon->temp.value;
- 	s32 average = 0;
- 	int ret, i;
- 
--	for (i = 0; i < DIV_ROUND_UP(TEMP_LIMIT_MAX, sizeof(u32)); i++) {
-+	guard(mutex)(&hwmon->hwmon_lock);
-+
-+	for (i = 0; i < DIV_ROUND_UP(hwmon->temp.count, sizeof(u32)); i++) {
-+		u32 data = 0;
-+
- 		ret = xe_pcode_read(root_tile, PCODE_MBOX(PCODE_THERMAL_INFO, READ_THERMAL_DATA, i),
--				    (dword + i), NULL);
-+				    &data, NULL);
- 		if (ret)
- 			return ret;
--		drm_dbg(&hwmon->xe->drm, "thermal data for group %d val 0x%x\n", i, dword[i]);
-+		drm_dbg(&hwmon->xe->drm, "thermal data for group %d val 0x%x\n", i, data);
-+		hwmon->temp.dword[i] = cpu_to_le32(data);
- 	}
- 
- 	for (i = TEMP_INDEX_MCTRL; i < hwmon->temp.count - 1; i++)
--- 
-2.53.0
+With these changes,
 
-
-
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
