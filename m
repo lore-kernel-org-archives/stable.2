@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602951;
-	b=iZyZCUX2FGTV/kA9WBg6qBdkPbJM/8I0meIu+2bSy1eOLUM4+ARhRPu1DR9fhgqcOSps
-	 +P5XYximNHLKo4LUI1ddt1VklvxZ8sHb4drHsfT/zI86x1VfuNj3neHohTXvZCzZOzOuf
-	 sc5XITkRUme+1/RrqLC2e+eLzJf7FpdzCAIODmUeQuf6/Z8tLrOrlS2H3VqI8zWteSn0V
-	 U+84Hr25Ejpcew9p0USHq0A/DDH9lNxwQARcunXqljFiuckBxc5B6nzKA9vDQ2Nzr5UMc
-	 G1l5lUltTwMZmcLymjeFESlqqBHlSsR3987VJ4LT+rriMpuba9vdy0pZrJLOTj68lNA==
+	t=1795602955;
+	b=PBtdNVIVjB2KDEZIaDRuSQM3d1w3rG9AyABeWlgce8hyBZGkcr1vSQhLbfHCv6dsvzYG
+	 L82xeqp5t6r/TBaN+iraQ8PbbgRhcVEvyRW8tHNjFHZkr/fIrYWfwStxLv3pEPUGnkM7o
+	 VHCutF5BkmXA/zLKO3pVq3xZ8QG1qWF148qoB0ap9jKHdmwJeW40P3uB1rMlh86Ukkc8s
+	 1B//hbCl6SMrsDtZMiI9fosQvOAgpDKQBWXIYhwbCgPaTvAmuZ0myLaAFZcyDKPt/T7Q8
+	 NIMCovQyd6oOcQNtwA1NmWSm+C6W2lnhWd0LvpYZHHHptkSnfFVm3t+fKx6bVieNNJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602951;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602955;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ne8/t5W7CvzTvNc97OZZx3eCRjbBe1LhELXQ+GucbWk=;
-	b=KeCiu1K6zAVK3x/a2Dl+MSx/mqNZrg4cTgYqhL3c9LTE1qrVzpl3t+K8vc8Ks4xe68PI
-	 W3ZixK/M8mGXTbRkeWf7b0rxW3+QwmVuuS85QjuY7+1tPtXyeerDpJx2HDLADcU6hwJlJ
-	 IKzpEkHyFVV6j44gLQLpKULZwnY80DRfMrV55nFb5n+vQYPakWOJa7Re2sG6k3+ORU/aY
-	 qLzcfTMrsAnR7gzRlfh1oGAqQDNabWIB4uaK6x5gm7HJ4hzEdLbzQTVborgs1L/M8FOOL
-	 ZyoR7j/d92HANz1lShWWur6+bGfrvXgIeYR75GmG7WguqRy3LQdq+3rln8FyXCLs3Aw==
+	bh=7NoD2beT1v/VSdlqlUbE8UFmYqvJr4EHHhUX0E6xRoE=;
+	b=MaUtZ5V91H1up7ifI2IB+mlShjKBc0iFX81HvHNooPtsIshGzI7udTRFY17nNdLh9X6m
+	 PJKJxO2Z3kcrpomhHGfEP8vbRLPtKWouYgdUvrEo9zte8yRXHmlTzyy12cpsUzlKoDyju
+	 dGXPG3jQGZrgSGOi15zRJU/eMzgLapHUo0V/UkUZ/hJOoZ8fxUG1rIN7dw5YwwAKqxfqs
+	 KD+sXTTNJiuLmyfZm8C7G1ZQmBrSlHE6+nBII+S4NQSULssrp7M+Hdr4WrgqeQKOJyx5Y
+	 hrQh+PQREbeoLg9cfRDNGVZ1+JSF8mblmWodJltPtvFmfHU/Ct8DVfwd7X+0rF3lDMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=m88ZBAEJ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K5ATtAAr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAD0606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:35:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A78B606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:35:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=m88ZBAEJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB4401F000C4;
-	Wed, 25 Nov 2026 10:35:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K5ATtAAr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25B7B1F000C0;
+	Wed, 25 Nov 2026 10:35:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602951;
-	bh=ne8/t5W7CvzTvNc97OZZx3eCRjbBe1LhELXQ+GucbWk=;
+	s=korg; t=1795602954;
+	bh=7NoD2beT1v/VSdlqlUbE8UFmYqvJr4EHHhUX0E6xRoE=;
 	h=Subject:To:Cc:From:Date;
-	b=m88ZBAEJCmCV7mYRn9Tjn3puYG30/7Tdas0UBIj4QDtVzToRKJ6kHUfL+Pk9/yc+U
-	 E2nL2T0VJwKSbSzUcBte8IlAGOm6cN1MH4qDgNH1aSE8JtwY/8hOsSxUuuQ0ZKebrb
-	 TRrl14SATDHYwNZySLE05udHgESVp7k9FpYvsZoI=
-Subject: FAILED: patch "[PATCH] s390/dasd: Re-initialize RCD buffer with "V1.0" before every" failed to apply to 6.18-stable tree
+	b=K5ATtAArnYU1tr3luizG2OP3K8P7PMk/SVuX/2rIwTkBA82oc8gbtL9eIy4mvR7UX
+	 TCAjs+gB4Qn2JnYKmWVkbXGuJpEdTBkT3dHcdjXySx4QSv33uOMKUozDe2HSBJw2uw
+	 OfIVRTwnZajPc1BqOuS2YXZ9JpvQJgkY3OQlzmrE=
+Subject: FAILED: patch "[PATCH] s390/dasd: Re-initialize RCD buffer with "V1.0" before every" failed to apply to 6.6-stable tree
 To: sth@linux.ibm.com,axboe@kernel.dk,hoeppner@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:20:14 +0100
-Message-ID: <2026112514-study-reseller-e32c@gregkh>
+Date: Wed, 25 Nov 2026 11:20:15 +0100
+Message-ID: <2026112515-random-remodeler-3b18@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 25cdc1f63227a1ea69a1ec823a8a860e33299169
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112514-study-reseller-e32c@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112515-random-remodeler-3b18@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
