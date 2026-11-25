@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795610769;
-	b=d1lmbZPgDgnM2pu3o0H8FqyUZIedhVN1LzjWpyNQcO512ZRqK+JYUBLI9de1WJRYqs7P
-	 PIVVRh5kRs7GHuizJ2i9vp352zFRqZdpKjxBKYU6DoNzGmX9bMTdxBvqgRYsos0uUPMMp
-	 zojHo55jj3gRNtbBbC4DEBPmTIgGP+WpAAMqJEElXQcPsIa0VPHhhgqf8gbhS2P5ge0p3
-	 qUK6LdUR/p5sXoSwIbJB/NWGk7bvvCZLN3cB60hixxJI6HU9dY1btOycUfJ8bLx9sJyjo
-	 Warrp3N/xVS/h3uXaGkh2YYa5KHznmBgdOaAaA7D/u2Qg/9/MrIH4xT4ZY5+FdBrDlw==
+	t=1795610772;
+	b=WNolpzogX33nPIFpNXLwJASOg2D27uuMX60nvXYjMRgKimi4rBRoek54q5qfBUVQR9wD
+	 RbZl2Hg8r5NDERGvywgWKevsgfmaAr+TPUwDfONcremmp7z9mOJ04UF8MGKb3RI4i3Nyq
+	 l7e5DNoHMfgYCD5TqNuYxXWuftmfvE4QlaEsnYhGjqYQbuh/IQFEbW0eIOhV930Q6YsZR
+	 X7UrYyEaknjsbQ4mYQsxjQJL+RFaJrmdO0GnAFF26+fTFEWJOloSR2Z5ql4y/5G6GHOP/
+	 SDFJq/FLltargByl56SjcJcWj6djEnH/CCymdyT98kadbScw9MU5UClvnkmeQ8QOjZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795610769;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795610772;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=dS+dFFCqikWILpZsseQg2Ng4i5scj/E7/2PSZF4IeGM=;
-	b=NIHb4b2iYqiOlPVcowYPa6rU3IxRG/BhdDFtg85cIZcR+mNjCN500ogf6Fj3iRkOc009
-	 ugRTW3us+3e4tsXQtbXhCVVFJKISlIyjaUvyOJXrz0ALwS6XsaB9+xluGCJqnLe03PPiQ
-	 sHI1FCOiPlS5h/dhD2Hgn4czFUuj01+932M5te0CfRK8I+9C5UpWWxaGCpUtUAw02RD6r
-	 tuVe+FQQD7koJbl4+KXXy6cT5PGup2Ohnt8d825r7+DMtNZCKNpfT70HvhjBjygi6+et2
-	 WWlk6kiNsJFxI8B+U0jrrm/ZWOupYlffI78173S3vU3mt2KqocV5ncZU4AFCBne6KQg==
+	bh=PC7daVSL8FndeCzTxwdDo3nnq388Dh8/RSShpOz1k80=;
+	b=PGXKQAq6eTBGeZOX32kYqBIAefml7QEzDcYgVmudH6dWoMngbp5wGQmXJflrLCAQRPRc
+	 vl1Pg2dN9GDQbSXmZ4SUm4oEeLOQGeptztYw/vjeOA6gC7+ov2t6cPl+tQAtR9YjavC36
+	 pTHGNYIYu9175yYmRo21vHzEDxCaxr2Wl66mH/rIJC14+5O4mMS5k2ICWUnf80zuhjeqs
+	 OwUJaP12aZ2Qg7VnurCQJunmqdmA96f+H0pJL7YVdjPh/qdnGCa92ajEGRE7uDFdD4hNL
+	 VC9Ij3UQE7uH68gZp6n5fvIxtnN34dnh7TqipjbWhlLYL6ds6qNuTodpwY9d1dIBwaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Jy9CS6QI;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K3kKLfTT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEEB2606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:46:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31AE9606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:46:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Jy9CS6QI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9AC1F000CF;
-	Wed, 25 Nov 2026 12:46:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K3kKLfTT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC311F000CF;
+	Wed, 25 Nov 2026 12:46:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795610768;
-	bh=dS+dFFCqikWILpZsseQg2Ng4i5scj/E7/2PSZF4IeGM=;
+	s=korg; t=1795610771;
+	bh=PC7daVSL8FndeCzTxwdDo3nnq388Dh8/RSShpOz1k80=;
 	h=Subject:To:Cc:From:Date;
-	b=Jy9CS6QIdarJ1xEEo/JKKthrnEkLbbLB0kevdg/68zUoZuMcuY3ZeYQBNB3kcUU2o
-	 zTESRCaJIofAIKpN1zvIkeDdIcyeyYSui3NRe7OrwI85ng/Dgl9E4AcyVxfbHfW0qU
-	 p5HMApB7ZP148gc6xMLuqk3O9g2pRppcEiYStTb4=
-Subject: FAILED: patch "[PATCH] iio: proximity: hx9023s: Allocate trigger before requesting" failed to apply to 6.18-stable tree
+	b=K3kKLfTTuIVnqypFbxV7snqQpI4yy5GG9nRSep1vvl7Yz4hB3mUcDK76ej+Wo4tK0
+	 jsfSbmBj+ZYwYomArvde1FpJ9kPQVpahJRiUhBV2ePptIcOwKxukGhj5nblXylTwiw
+	 OC1fXC5IHynM0X8Somi+AogBh+VBzJQJSxyIh2cc=
+Subject: FAILED: patch "[PATCH] iio: proximity: hx9023s: Allocate trigger before requesting" failed to apply to 6.12-stable tree
 To: mhun512@gmail.com,ae878000@gmail.com,jonathan.cameron@oss.qualcomm.com,joshua.crofts1@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 13:44:10 +0100
-Message-ID: <2026112510-rhyme-sizable-422b@gregkh>
+Date: Wed, 25 Nov 2026 13:44:11 +0100
+Message-ID: <2026112511-mosaic-gigahertz-6594@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x bfa3b177d839bb303d0187335115b572a2644920
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112510-rhyme-sizable-422b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112511-mosaic-gigahertz-6594@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
