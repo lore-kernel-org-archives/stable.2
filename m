@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795618961;
-	b=fU/l5OeaR3XaBy50dB+g8fU4+kfy7cnroW/EWQB7l2QBm36sGreQP6hDWRFAVr7veLHn
-	 r6W1PFPC+dSOgZ8O+Kg8Ixlwpp8T/qAOMezJE/E0ri2Nbys3Ty1NOPbeUPrzKP9MTSd3s
-	 uxJjM0feXv7KA9M/VnkR87yTMufHextAVH94ZDQY2W0ux+qGkftc14L1Ed4sWsu9p1Nbg
-	 FeCVAEN7Y/l7vs2mNTZ0vVI8eGro3FahRn4xDOa9Ds4Z7K4A3jQEuSgXLPzmzBb6mVGPU
-	 o9/xy0bKcugE+iU70GvhFsaHia7hi9hd7IRRmp9P38FXej35K5LgWXLFwxuknHslZdw==
+	b=ae10+wRhUVuKFSVtb51xtxIVwDeHAteetRq7FDKqEPxoDUX5wCbDBlD9rsAhzkxU4IJ1
+	 /jLJXbPNight0vzFDfR5y7HOUwxt+DCNwG78Ch1M/TI65FSRdlL++zz8nF3tqa+NyPgz+
+	 WOlCBqBz/2pcS8zVwiLIIIcfYaHfwDjj9KxMLpeG8mnGdfuJ0w/VM7OfnFdDySD+MSDgP
+	 Ohye6Sn6pcYMpv4L2NYPunht8OeIAwzm6Wbce/uIqM8QokwTMvjP+0cyA4GUFXvYD9QEL
+	 WWjnGfyvkMHieAQBjIl28TtrUAaVP5Eo1E4xwk5eH5Y7UZV3m/wF/wWLLCtfH3hs8BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795618961;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rnyQZXcmuKtRusR6xhe6wNzym7TLuMtDa7djYnRHsfY=;
-	b=FSSu3o9bxTiLr/aiDdeCaHoPHhfujKne5yYsH7CyJnxaU3KIhWuRUdzUqPUt28nfQuVI
-	 pmit+b8tX2IApXVFkQX3f6tooSs6O+rtc+7HUfiQKNBV7k5t+Th2hey4tiRgP2BFcuhRq
-	 5fmvEwQOuYnlfXBrtTguwVyYivlTfnHxFPsQSFgy39lR12qoZ+V7zXJkG4netk7QjN8i3
-	 RKhE52ZN3iCne87tMLhZE8gnqxcOaBEcIMQh25eg+VNkmhHTHrXFsqsr928jxz1tFDvrv
-	 zmMxgZcgy8h/c3+bGVLHcwqyA8WUZ2LObooy6S5oc0Hs6FKp+HCQN7XNMTNTiJL7tjQ==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Rrc32RSUypwmIkzI5vlvcfQZOiMLPJ4k430nxHiq3rw=;
+	b=UWiEbmk4Zjvcp38q5fQU/p9nSdJ0XeNjxdCCCjT0phMp2vEZYkvYmqA3+09XRIOUidqh
+	 1mKfA22Dr1CydD2gJR+9kN0DCkXIn0jve9gGB6FEM/uQ1W+KvP21W7+ad6PBAcA3cwUnB
+	 tH+s2hxMbN+YaBws0qo4J7FXqlRLKKntv8Wq1O3jjXFoU0X5abnZ0rcy0pSFzVFLSZwuU
+	 xFEI/X0cGjPR7tezazQ71DLBfq7Rp6Pgr+Vxnqs4Xr1QXFERdPoiOWKlM0HpFPCcRjMzy
+	 xC4gUECoR09Zd0FXU0WlVd7iBnT8FUwr7o89vk3gHuT67ryRfVPppsO3yd3+MpD3AOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJy4bQcS;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="dugK/U2F";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20DAA606A329
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:02:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7BF606A323;
+	Wed, 25 Nov 2026 15:02:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJy4bQcS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C33571F000D0;
-	Wed, 25 Nov 2026 15:02:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795618960;
-	bh=rnyQZXcmuKtRusR6xhe6wNzym7TLuMtDa7djYnRHsfY=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dugK/U2F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD1EA1F000C0;
+	Wed, 25 Nov 2026 15:02:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795618961;
+	bh=Rrc32RSUypwmIkzI5vlvcfQZOiMLPJ4k430nxHiq3rw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bJy4bQcSrWGCFClPIxbn1KsHRimmCdLF3eXuDFxVDVJ0R0Giyladagi1Oh2RjCOGj
-	 jcj4bIWyua7yrD1ZXzQAptL0rIeW+rfPn617mvKZghj7Px6rmxp3zq7q+Lk6WEeIJP
-	 qUbH1t/IIKGjQ04LUiUAlzPqjbjPf4sxiqdMAqq5Un7aD4UUt0djOzroRdEolTcP6c
-	 1YIDvROOSVPSUn3nKFCxt+iTXpcgGTw6WvMeISuNjVOIE/9z12oDpW/MHK5avMlYcQ
-	 u9FXL9tnRvWG2HcMBuYDdFLVBppogZE3y75Qg3OGimatRaLvK0ye1CpzzL2dIxZvz9
-	 JNaXePlRx7Zpw==
-From: Sasha Levin <sashal@kernel.org>
+	b=dugK/U2FQtwdKkvAOpnXiYduIJ9ErO/QprdRlYvtGNpqB7G4kRK+2/apwDeIQibyu
+	 B0QZU8G4zth2JixD4w04s3aJcoDIUecU4TyflDRTaWEyKIA7/mFnVz2yEGb5voc/BK
+	 fpvCbQVkEPOZimSRacNu+Ain4S2hsq5eU56mvlj0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] tcp: do not coalesce segments after FIN
-Date: Wed, 25 Nov 2026 10:02:38 -0500
-Message-ID: <20261125150219.10302-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112555-figure-unmindful-3e90@gregkh>
-References: <2026112555-figure-unmindful-3e90@gregkh>
+Subject: [PATCH 7.3 0443/1005] i40e: xsk: fix xsk_buff_add_frag() error handling in Rx
+Date: Wed, 25 Nov 2026 15:29:41 +0100
+Message-ID: <20261125143832.126029316@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,137 +63,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Hyunwoo Kim <imv4bel@gmail.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 1c46780dec48893b8c25fd5e33a3127e8dc39dd4 ]
+------------------
 
-A FIN consumes a sequence number. If another FIN segment is coalesced
-into an skb that already carries FIN, end_seq advances to account for
-the additional FIN, but tcp_flags still contains only one FIN bit.
+From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
 
-When the preceding gap is filled and tcp_ofo_queue() processes the
-coalesced skb, rcv_nxt advances to the skb's end_seq. When the receive
-path consumes all data in the skb, copied_seq advances by the data
-length and one sequence number for FIN. If three or more FIN segments
-have been coalesced into one skb, tcp_inq() can still return a positive
-value after the receive queue becomes empty and the SOCK_DONE adjustment
-is applied.
+[ Upstream commit a259b7ec09efec032d5521dc2eb751a959c11d15 ]
 
-TCP_ZEROCOPY_RECEIVE is another consumer affected by this state.
-tcp_zerocopy_receive() takes its length from tcp_inq() and follows
-skb->next without checking for the end of the receive queue.
+When xsk_buff_add_frag() fails, i40e_clean_rx_irq_zc() frees the frame
+but stays on the current descriptor, so the next poll restarts from the
+freed head. If the frags array was full, the retry passes on a frame
+missing the freed frags, with its head already on the free list. If the
+buffer is a duplicate, every poll fails the same way and the queue
+stalls.
 
-Software kTLS receive is one consumer affected by this state. When
-strp->copy_mode is false, tls_strp_msg_consume() calls the TCP helper
-tcp_read_done() to consume the current TLS record. In the reproducer,
-tcp_read_done() consumed the record data and one FIN before freeing the
-receive skb.
+Free the current buffer along with the frame and move on to the next
+descriptor, as ice does. The rest of the dropped frame is received as
+a new frame. xp_free() skips a duplicate already freed with the frame.
 
-When kTLS looked for the next record, tcp_inq() reported at least
-TLS_HEADER_SIZE bytes even though the receive queue was empty.
-tcp_recv_skb() returned NULL, so tls_strp_load_anchor_with_queue() hit
-WARN_ON_ONCE() and returned without updating the anchor.
-
-Since tcp_inq() had reported at least TLS_HEADER_SIZE,
-tls_strp_read_sock() proceeded to tls_strp_check_queue_ok().
-skb_shinfo(strp->anchor)->frag_list still pointed to the freed receive
-skb. tls_strp_check_queue_ok() then read TCP_SKB_CB(first)->seq through
-the stale pointer, causing a use-after-free.
-
-The reproducer followed this call path:
-
-  tls_rx_rec_done()
-    tls_strp_msg_consume()
-      tcp_read_done()                       // frees the receive skb
-    tls_strp_check_rcv()
-      tls_strp_read_sock()
-        tls_strp_load_anchor_with_queue()   // returns after WARN_ON_ONCE()
-          tcp_recv_skb() == NULL
-        tls_strp_check_queue_ok()
-          TCP_SKB_CB(first)->seq            // reads the freed receive skb
-
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in tls_strp_check_queue_ok.isra.0+0x5f/0x100
-  Read of size 4 at addr ffff888103169ca8 by task ktls-server/71
-  ...
-  Call Trace:
-   <TASK>
-   ...
-   tls_strp_check_queue_ok.isra.0+0x5f/0x100
-   tls_strp_check_rcv+0x2a9/0x400
-   ...
-   tls_sw_recvmsg+0x3ce/0xa10
-   ...
-   sock_recvmsg+0xea/0x100
-   __sys_recvfrom+0x142/0x1f0
-   ...
-   __x64_sys_recvfrom+0x76/0x90
-   do_syscall_64+0xdd/0x4a0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   ...
-   </TASK>
-  ...
-  Freed by task 71:
-   ...
-   napi_skb_cache_put+0x24/0xf0
-   skb_attempt_defer_free+0x183/0x3b0
-   tcp_read_done+0x2d4/0x340
-   tls_strp_msg_consume+0x45/0x80
-   tls_sw_recvmsg+0x3c4/0xa10
-   ...
-
-In tcp_try_coalesce(), skip coalescing when the destination skb already
-carries FIN. tcp_add_backlog() calls skb_try_coalesce() directly instead
-of using this helper, so add the same check there. Since both paths check
-only the destination skb, a final segment carrying data and FIN can still
-be coalesced into an skb without FIN when the other coalescing checks pass.
-
-Fixes: e93a0435f809 ("tcp: allow segment with FIN in tcp_try_coalesce()")
-Fixes: 4f693b55c3d2 ("tcp: implement coalescing on backlog queue")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/au3HMfqNW3_DRMqS@v4bel
+Fixes: 1c9ba9c14658 ("i40e: xsk: add RX multi-buffer support")
+Signed-off-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Reviewed-by: Björn Töpel <bjorn@kernel.org>
+Link: https://patch.msgid.link/20261102124950.958345-3-maciej.fijalkowski@intel.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: adjusted context for older tree: CONFIG_TLS_DEVICE guard and mptcp_skb_can_collapse() instead of tcp_skb_can_collapse_rx(), and tcp_add_backlog() returns bool with a different signature. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/tcp_input.c | 4 ++++
- net/ipv4/tcp_ipv4.c  | 2 ++
- 2 files changed, 6 insertions(+)
+ drivers/net/ethernet/intel/i40e/i40e_xsk.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index 63fb1d5372030..cb55dddce3907 100644
---- a/net/ipv4/tcp_input.c
-+++ b/net/ipv4/tcp_input.c
-@@ -4808,6 +4808,10 @@ static bool tcp_try_coalesce(struct sock *sk,
- 		return false;
- #endif
+diff --git a/drivers/net/ethernet/intel/i40e/i40e_xsk.c b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
+index 9f47388eaba53..624f85851a7d1 100644
+--- a/drivers/net/ethernet/intel/i40e/i40e_xsk.c
++++ b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
+@@ -459,16 +459,24 @@ int i40e_clean_rx_irq_zc(struct i40e_ring *rx_ring, int budget)
+ 		xsk_buff_set_size(bi, size);
+ 		xsk_buff_dma_sync_for_cpu(bi);
  
-+	/* Nothing follows a FIN. */
-+	if (unlikely(TCP_SKB_CB(to)->tcp_flags & TCPHDR_FIN))
-+		return false;
+-		if (!first)
++		if (++next_to_process == count)
++			next_to_process = 0;
 +
- 	if (!skb_try_coalesce(to, from, fragstolen, &delta))
- 		return false;
++		if (!first) {
+ 			first = bi;
+-		else if (!xsk_buff_add_frag(first, bi)) {
++		} else if (!xsk_buff_add_frag(first, bi)) {
++			/* Drop what has been gathered so far. xp_free() skips
++			 * @bi if it duplicates a buffer that is already on a
++			 * pool list. Remaining buffers of this packet, if any,
++			 * will be processed as a new packet.
++			 */
+ 			xsk_buff_free(first);
+-			break;
++			xsk_buff_free(bi);
++			next_to_clean = next_to_process;
++			first = NULL;
++			continue;
+ 		}
  
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index c88228c76920d..4346e629e48a0 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -1832,6 +1832,8 @@ bool tcp_add_backlog(struct sock *sk, struct sk_buff *skb,
- #ifdef CONFIG_TLS_DEVICE
- 	    tail->decrypted != skb->decrypted ||
- #endif
-+	    /* Nothing follows a FIN, see tcp_try_coalesce() */
-+	    (TCP_SKB_CB(tail)->tcp_flags & TCPHDR_FIN) ||
- 	    !mptcp_skb_can_collapse(tail, skb) ||
- 	    thtail->doff != th->doff ||
- 	    memcmp(thtail + 1, th + 1, hdrlen - sizeof(*th)))
+-		if (++next_to_process == count)
+-			next_to_process = 0;
+-
+ 		if (i40e_is_non_eop(rx_ring, rx_desc))
+ 			continue;
+ 
 -- 
 2.53.0
+
+
 
