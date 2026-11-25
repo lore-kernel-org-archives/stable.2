@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602987;
-	b=oq90V5of5GzJgKgNI8d4FOf4y3bJIBxzobm2Set/Lg2bqH/pAIIkq5yLxdAIWrmOs1b2
-	 LMHih2d09iAWfNPewUNJmNLgWsxubBy37yg8gEmqKqxA5lAII3/5WtX7Z+Nl/M9a2cUUo
-	 hHiDcPDEOyHTPXRD59PbATHurToPThbMCN39rxQV4qsvTy4CXeTXN6VINgQe2RUx2JqSk
-	 KsjQNzGJXAZne/9LsoagqQX/qdeGDQMH0buHujMXaswqCeao/dFabpWSn3yM7HmPesS0D
-	 NtccZ4njiCfrR1dCb7oLBwYoBs5BtNlMl5UcSUYHx4uKvmpj7z4Noso4rH76UWM4Rug==
+	t=1795602990;
+	b=jIU93w+LcokpmKA/bTaDFNKVOpT/YVSd0zka4l2ZRJsb8iIIbMxdhzZvxw1RiHN/DJoW
+	 sbs0dztfbYni2VblMp5zv7rJg0UrYuKHOBZzt+sFQY0xCWeJCXln9+Sp2oPTe5kucLPQ4
+	 /cbxaCNqwE+QUh/HYucw5KqAerU+6xR88ZzQ8aWEA7JCbuqQiTAq4cgPOGAvNInPTZdGw
+	 aP40TiV2rUK5eC0HhMWKrneDcKo9s6mr2yrcntLLhPkYwgD1GsMMqHcAR25qIfAKP6RsL
+	 NVHgkBll066+/8HSQdLngdP4oQIrAj18f7t2AauxIkzWhskzkX3B7SjxQo4Uw92e8jQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602987;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602990;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=o7CDv0XE3H+vfduD1zLMRTPew9XkG7YGsSk0uy/eQZQ=;
-	b=azh4nU70tf+xfXhOP98wsen+Jw8qc9S4Gy7QMxBipDCPZ0OApBib3Fd5y5+NW3VpxNQd
-	 0/zZlfiFrytO2q5baYJORdbFKung0nc+fy+iTkJXPu4iQYmzd6BxPG/AgmqoHcUFFk74n
-	 XlvKbFlr4rcon3uHDkM1fO0/KBLGSjSvCzFR8F7CdIkYCzVeXBvwyk2rrb2YCBEPFbovv
-	 qWJUcfpJhwvgTQZVVW1Uo3AsGku4OfdIfWIOrBUEfA+qUY8vXYrmZqJ2zUo/PS4QMF+Od
-	 oma5aOMt5urNGvhW6mz68CxPxWPIwMdTTGo5OX9pcAUX0NQ43lvRrkzZL3qi88hr9xg==
+	bh=vmcuNKVMvyniacIv+ZP68F/O64+qlF8RdPKNsUY32RM=;
+	b=U/Ja+TT5NSVoDgBem/y4MkZYv5OONWo1Px94xMvY10U3zxCTUUFYdCELt2Z8TL5M7Ivi
+	 +tTI0tPeueiGUNP3yoXj1+KkI0sDRYaoSuzGf8EZLw3QoRzh8RDv0aZIhKvIIEeCIM2zi
+	 DGCAFLQDS/UFUpGbaowmI5s/guMPHeYxbA/v2qUMJNLHZfRZNknHWkQcmmELw2H42bnbm
+	 Y1fAz5PYizWljPvywy03p7LeywSGATb18JRrwyO0sX6xLoEXKSPZp2oUL9A8xTuinEhEp
+	 jFxroRVeNtha/KCCK8nP/QAEfd7iLUMdQcix9SWMFHUhZKiKCDnhYdYyPZcAXbIZDpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KOQhuXLu;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BCbkmnFJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29061606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B60E606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KOQhuXLu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA0E1F000C0;
-	Wed, 25 Nov 2026 10:36:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BCbkmnFJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55EF1F000C4;
+	Wed, 25 Nov 2026 10:36:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602986;
-	bh=o7CDv0XE3H+vfduD1zLMRTPew9XkG7YGsSk0uy/eQZQ=;
+	s=korg; t=1795602990;
+	bh=vmcuNKVMvyniacIv+ZP68F/O64+qlF8RdPKNsUY32RM=;
 	h=Subject:To:Cc:From:Date;
-	b=KOQhuXLuslMZSsErZLACsblz7ei+rQVYJ1kRZrJO7Bx4AYzTRQ8pPc8jrLfuOtMI+
-	 dVEi3PCLpQTQWXkx5i4iWqhHiYRWvNKIxI3ZjFxoMSGcYdAxeTuOnlg/TNM46TLcuK
-	 6RlEGKruLc6hlmqxwl/UoXVP5ZpvsjXbN3v0BnZY=
-Subject: FAILED: patch "[PATCH] sched/core: Fix cpuset_mutex double unlock in" failed to apply to 6.6-stable tree
+	b=BCbkmnFJp3mdO8OyoH7hza2Qr1pXcAPq3+ACNiYG3Lya1swFZJJfKUbblBL+cHNG6
+	 gwY3kIBWYVOtT8cTvbu31t/Ob7FPy2MFXoR81j8f6nKEAL2Q3pkyRnYcohJtkXI0FG
+	 2q32SxpPhfHZLKIlfADuriGUzcKP3KHe5SKgCFBM=
+Subject: FAILED: patch "[PATCH] sched/core: Fix cpuset_mutex double unlock in" failed to apply to 6.1-stable tree
 To: parri.andrea@gmail.com,juri.lelli@redhat.com,kayracizmeci@gmail.com,longman@redhat.com,mingo@kernel.org,peterz@infradead.org,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:21:25 +0100
-Message-ID: <2026112525-vividness-eggshell-be18@gregkh>
+Date: Wed, 25 Nov 2026 11:21:26 +0100
+Message-ID: <2026112526-fragrant-alienable-bd3d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x f7141257dd67d4936f906a6cfd1d0007721f6898
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112525-vividness-eggshell-be18@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112526-fragrant-alienable-bd3d@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
