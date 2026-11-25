@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608405;
-	b=xir33cqDGP7hsw/4z/143+RHEQyx8CGnaYv/eHGCOSPT3cQbrzTMxde47lzCcYJkoC4H
-	 gUZiqJVyxTlqpRmVGMfQGBQv4Nbp3g/vwE2ogxB7lAybpaPtq5e6U7k2H4+mlXS4ke0Xv
-	 /bDWIXL1e3QVUDFsqbfPEej6czp7wRGhyAkkXyKK44rXgr6RmX8rXunFonerZPk+VqSHi
-	 SKxZvaTFwwoa2dAUVR+M3i19mJKoRmkhFnrJN2jJfx1gF1J8iGIHt5P+5FT4hfa1k/n1A
-	 pEja9EPXT3gz15UQkCvx7HDO28bfmtFU4tfd526vn1U/YA5phZoQW5gIb5u+79Jasig==
+	t=1795608407;
+	b=DpYMyClG1McQplYeVTkTdxJ4buFdDQLCJj5UrNmi5EHXYzcRfEuT/r2LFG7bjZtpYHRR
+	 1ZFUGPKSWJL3SKwn0f96f77dRHW+aa3EMwfd8Uas2hxQbGvjeeBlivpAi+83eTDQki+6Z
+	 vSgXWJj2D5KOqwwWOlb7JL8WSv3GG27Gz0Fh3I4Mlxp85LCUbNMw13yY18NmVpuI6u54B
+	 /4mfAKQjVOZk8G5QimH9WHQz+H8rmcUi56HIJgQYowFAAcsuK7i1P2ULcU9D7LC2vLslH
+	 +Q6mjZzJhAvUAHiUeic46HI712Cx11kUZs4KC3Np5fu3Kle6nUWckw6fxl25P82PiOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608407;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=74icJtk+kwKOroA4rnQGr08z9IGRY06jnDqWgiWbSV4=;
-	b=zwLPoIyAaf96GmVohu7vds/O4vsVksmBvqVT0JLvXMnDmlUqWU/bqhkfmBf8dx1Lf8dx
-	 wsZ3Nzrw0iULSfiUbRnHawc011ikzaLzynLNVZoTSjZQu30ELk7s4/jrad40dh5LEK6xx
-	 Bnp5bARQo15RRa08KZn96FtYN+EsbyGxjJT2sT2UEfy52tzY9WRF+x2HTjfJB7bxCRwqE
-	 CBurEtWoWMMPewDvE3N4dEWMaPaKB2Xb+it6QAIeqtVCbetHe2Vpo7kK1CKwRbqP1gRB6
-	 cw3prKrnJhPFhcY+ejMDKC5uVveuipA9WAOV8c3T9Nn5JA+ZWAef6r/DYA1ckBnKkWQ==
+	bh=sK/mJL5kdEEUZ1SIwdxVfyOi1kYNVe5dPggn74Dxxeo=;
+	b=ca8OxKtYiGSHiMVK2u4j6GA4eUD2zF8s1eIhxgQmXJLQcLCqRfb1LFG6gvGtPxjLle2x
+	 8MVtpTxI4Di1ApEpomYXEFPhPpkIzzQ3uvE60kXrxx6CyEW4v5/UWq+Cf9xK7+I3F0BEf
+	 NTmL2J+YSA6PyeK/fbPn3U0GwA1MiM1myOQaVxEpqc7xeQfvEMeyJxe52vS3LEfrOKy9k
+	 YmDwwrpJcHX55rcSNQi2GDmzXxLEj/n1pdtft35Tykf4rzOpFqaNFoWkKPgJZZLOSd6Vg
+	 AchiFuYpalmKiEhL+Vftrd3nz1jRkW3QeWNy35XOKELQ53ecnofotcYmbfiFvy4BlDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Twzb/GCq";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="zP/1ttC3";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF5B606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5478606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Twzb/GCq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9571F000C6;
-	Wed, 25 Nov 2026 12:06:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zP/1ttC3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 322BF1F000C6;
+	Wed, 25 Nov 2026 12:06:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608404;
-	bh=74icJtk+kwKOroA4rnQGr08z9IGRY06jnDqWgiWbSV4=;
+	s=korg; t=1795608407;
+	bh=sK/mJL5kdEEUZ1SIwdxVfyOi1kYNVe5dPggn74Dxxeo=;
 	h=Subject:To:Cc:From:Date;
-	b=Twzb/GCqE4aItliTAGK6oDERXH80vDPyvSDtSkzM7dVJKxN3LIDYUu4xmXnMShbXM
-	 OZFqRwlS03PF1zoW72prUTVvaKUatQQzoipnKLA6WRcGN0IlH9A6yLGRClj3XfKvLQ
-	 xShFPPq2jogfSZlUaQjaBQOVc7juTUIPgU3XxKmQ=
-Subject: FAILED: patch "[PATCH] usb: gadget: u_serial: pin ports while TTYs are installed" failed to apply to 5.10-stable tree
+	b=zP/1ttC3AMwmyHy3YQcmPsnR3TurOCBcKslLIXSM6l1UIhrCO3HCRd7gXTK5tCq6/
+	 segsu4K2YYoGwizok/OHE+Daq9fpTP4YJ6hxiWdk7FRxoZmELVRbOA2FcIJIZzrlC5
+	 aXnDZxhzVPDoiyFxuE+0jFvkR+apFSPWN+ghId2w=
+Subject: FAILED: patch "[PATCH] usb: gadget: u_serial: pin ports while TTYs are installed" failed to apply to 5.15-stable tree
 To: krystianmkaniewski@gmail.com,gregkh@linuxfoundation.org,mehmet.fide@screeningeagle.com,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:36:22 +0100
-Message-ID: <2026112522-unnerve-repugnant-a1eb@gregkh>
+Message-ID: <2026112522-safehouse-cultivate-84f3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1981b53c2b52a00f0f4b9eb87183c9aedc8dac5d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112522-unnerve-repugnant-a1eb@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112522-safehouse-cultivate-84f3@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
