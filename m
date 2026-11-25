@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608410;
-	b=N0oASwPx2q7JZwJsdn5/jm3nJAVOA0qragvO0uEYaoWAVDb3DD7bCCrjnhMJ8Xud32m9
-	 kd3f1kuZoAzTcNo0NYC3+WxtF5b2QWE19F5OOr+WHfZ3zqSAdC9p3mIQgmUqUggxG6YNU
-	 V3Yftj6/6Hl5/Tn9xdS9woIbBWpg81kPH7C6TmFUuy5xTBYPtHE8NsTMs4T2B97SYYyu9
-	 ahe7Mh21FV8oSprQvpZUE/7Z4MkzKbS327Z7C4fQmsOd31vJa81f0ura8F6BK+hHt/99n
-	 ca3YNoI6d844KgDDvQSaWGrmVQfpjjGYkENUBLoHdip43ihQvNuY3/d5tSaDkFJOB2A==
+	t=1795608413;
+	b=mavcYrcpuzKVrQU6AlmEKOi5kEx0BMHhi6bu/pC7AWCu2pa/apXGCxkNOxDWcjJoaU0f
+	 ITyPb74HR+Bq0dplwgVZx12vWLMIRpJBcgYyKmk6o03tBMgYqlsKAJbNVXjiN5iCcfonv
+	 HKfqF/Yq4udowB4RRxsr814/Ow3HPZEY2Y8xf0Lep2/ZQnV6m3p7Vv3Kt6oMgH5LlEynK
+	 IAuxhBH4/idhoZKTXDd4hzkTm+jPONL3f74ZngurUwgV47dARhPYf2x4bPtioNLHK4sCY
+	 G5tCZWVec12ByTzEOVUTLOL1P3XLmhVmrcvHZnIqpioRdYdIG4qEX8f4z9/f5B5vAfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608413;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HQaU61iXHxyuT3IDqT+qj+Y2hUDEjPsH7tH4k4QCTus=;
-	b=mpRM1nk2wg780AlBol0/8+QLdYHVrWaxx9HgL5lmY9QZhxWszHI6c1IohIdakdz6B/BZ
-	 VfZdN1LspSR2O0OsrWAeIF06dSNO1kKg1CGFzT8JqUOugoojxlOkXhlQ/o1SPLUFXhkAQ
-	 1XGJBHbo+or6q3CasV24s86EMbCA0AOriaKQJRUafAL3xLuIoU4ewErhlwu71SzoLUGvR
-	 914pGRUfXXlI4lA3xzKxjP3RSJKpVKyuRoP0ByEDSF8ne0Fb/xgs+lCFCsEWVcPiL/WSQ
-	 7g75WJzSHGeLTzXTPm3X0GiVdg//4CxaKj7Gt2P4ESvFGCAn6Um5iUpe4fXZ8d8nJpQ==
+	bh=AHSa/JkW0eyBqt6RGtnTDIIHDR0SE/iS4hacOarSMtQ=;
+	b=wQiO2VLP6c9LxSIqjsyag3Hz4JEvMK49CQKqDArmN6/YKFPKRBAU9Na+1mFReOFdxHaF
+	 u7tX1dD7Rz02l7HKmX7QcB0dHATGr+sN+2oHe/ew6Eiwu+RCzEJ/OUiD+1y+ZiVPiLSvC
+	 VcaoBkf7tCiXVnvwJV31viSGe9qWBCc8Z8JvWqUvmxpvutNRsmPFXZft3iJvazAeSc4Fn
+	 rvMAY9ldEVUc/Ahwp/cuMtV1am/HDHwCOW1FCplVwZ4JMIA1fTP30CUyimjeD7S6A/0Tf
+	 sfLsdcJGbSFJ8q3s7k4JPVFBzTjlsTVCQWGdJPrjUsL+S44ka9ESB1eyUlpSseHGY/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BIfYB0m7;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=l8MspwXy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E78606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AEC606A329
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BIfYB0m7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03B4E1F000C6;
-	Wed, 25 Nov 2026 12:06:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=l8MspwXy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBD831F000C4;
+	Wed, 25 Nov 2026 12:06:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608410;
-	bh=HQaU61iXHxyuT3IDqT+qj+Y2hUDEjPsH7tH4k4QCTus=;
+	s=korg; t=1795608413;
+	bh=AHSa/JkW0eyBqt6RGtnTDIIHDR0SE/iS4hacOarSMtQ=;
 	h=Subject:To:Cc:From:Date;
-	b=BIfYB0m7vQWVg5/mA//xnI/zACj2CpkMw50JBWFX4CHmO3RxA/6tneF6xJpGm768f
-	 Bk1Uw6nu1X6AMRKXF5/54ibesZCUybdGXp5lDp7iD675DnrAoaJvoNIst8cWRxNGht
-	 YVUAmlthZP+QzlYq6sYuGQ/l9VRs9umH2pgvGp/Q=
-Subject: FAILED: patch "[PATCH] usb: dwc3: gadget: Issue no-op Start Transfer only for stream" failed to apply to 6.1-stable tree
+	b=l8MspwXys/vZPANeTRoA3/KssZo6V+UZEFwoR0T2PHCwyS8/OFIl7yiIIHR9u+XfB
+	 rZylZnNbAqTraTEnpA64/5xJ6MAZkFsfvqPVEDfhRbIJpGqnfKLcjyTPp3lIJ59xeo
+	 q/I8zrJ8NOoTYkg6jW4tmurhiKDmzGDY8TucoHnw=
+Subject: FAILED: patch "[PATCH] usb: dwc3: gadget: Issue no-op Start Transfer only for stream" failed to apply to 5.10-stable tree
 To: Thinh.Nguyen@synopsys.com,gregkh@linuxfoundation.org,selvarasu.g@samsung.com,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:40:35 +0100
-Message-ID: <2026112535-humming-whimsical-6e80@gregkh>
+Date: Wed, 25 Nov 2026 12:40:36 +0100
+Message-ID: <2026112536-enjoying-hemlock-1df3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x e616d91e02881983e5dadf6980c4aa08123800b3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112535-humming-whimsical-6e80@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112536-enjoying-hemlock-1df3@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
