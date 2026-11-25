@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603125;
-	b=P6h4AFI/bRfpLWAS+NYlDuv6yz+1Gl2cgXh8ofLWF3h+tz+fnr5KD4pNa49ZmUf2cwj9
-	 U60x3bfLSmIvog2JzCEYQVySmhn+jFvsRhgAa2pOzMxiVulccj2DBfZU8s8OAdc1wJS8u
-	 0M11O3jc9S0/1YoAIBfsV2z0UTuJ4mT3aJoPJR7i98V5LQJAQJc0ho8MDaBQrAvpHObm6
-	 49E2UalSjCUO2PzxZWiCcQJWbJwwIsCgejPqPv/YCfvUSFz/vL0HS6KS7wFHAOeqyCgsB
-	 VDxpJjcwGXkk+NwNgbrMHqjmRQCiPaSdVVFD1X3oH6E9nIH8g/Z+sOdcMo88mbIaXzA==
+	t=1795603129;
+	b=j3tnK7zd+UwsiGbuUV4lqlwrODycPamKRyVNmadytp/ZTO3v0KoIgf0K1s9zhOq8bC5w
+	 NLPg+u1HSlx3fqs8ax1pY3GL3BMlHHx1AGXuVwVolPRAG+bX9m13JyR7uuGl6JUSyywo2
+	 Ze5n4vqUMpyggW3dQ1zoYycHtOUMgg2+diKKWfduQEr/CpiP4rUC3MERDyTbw3qAXCrhJ
+	 YNSnzYSoUjPjWV2bE0/6sJ3YgDveSCirtm80SMB8yTopo7ku5MN5C8/sXIdH7Y2B4KpkB
+	 I6YBRPY4J3SObYLyjVrUlHHKLFifKP3ZrxzjWm9IQAONpIYtC/onhK1lvu99K2FMh9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603125;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603129;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WKtV2wsnwg15Cjzrwi8C80afM2hLNQ7TuNOnL8QFzS4=;
-	b=Z3Fs/klQtxonvCgbbCrLyFYFFOBLYRbFKJYzhf1l2M6c6CqpIZl4mS1K1tgUquNh0iTK
-	 CskpAGQedmwqz0Oz97ryNZeKZ4+ASvfPH01XGBS9ScMOmE1SFv6Dpmc8eda+3TNQBv9/W
-	 7aN0+gFZRebNnLFyWLoMVFALAHY5oyiJEVbaQ8jWhcElWhCCzzChaLds8xA/Aq8Zn17RE
-	 MPieKYm5BbFMM4/LGnZ9IHaA/YNjT1IDo3wwc2yS5lWa0NKLW538q28IIBZUhnzyEePp/
-	 FCJYh7tDldId8LHpG16Jrqx2KXqsxuDYfq9ENY+y80lsmFnbvJdautnSGYi7VavpI/Q==
+	bh=4g3V5BTMQ0kBq7iLP905ZhvZDpUT7y99Summf34XwfE=;
+	b=UQnshS6HWtunkhLUyj6QxssZsB5KpHLfOwqstR2SPiC1XmEfPifjYyH2zXWFckfrFjes
+	 RZq70UQDI2ckdYjKCyZjdgCt/C1eIb2a9qDU+6zhQbVZpDiKBPYIvvT3wCIunpjrx96EH
+	 m4wz+b2pvxnbwEQR7auZyGveIcpwxtv5uedQTbEHmNrzn3cTDf/RdXF5qknHEiPUgi3xP
+	 YjBWg8WvViiitD8Ov9IMiwPHIHn7jFNm0vOsOnSZcDGzRq5Q29NSKnvYSHoyfaDXxD1O5
+	 KhogoWcDSuOBMOXX0rUbTr5GNFHUxXGN9S1CRh5Zk4Y9bWmCW2fVbeD5KUuQDGZxtyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SoO3haD0;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="MM+bF/sJ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47F9606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:38:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187C8606A329
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:38:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SoO3haD0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 125231F000D8;
-	Wed, 25 Nov 2026 10:38:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MM+bF/sJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4211F000CA;
+	Wed, 25 Nov 2026 10:38:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603125;
-	bh=WKtV2wsnwg15Cjzrwi8C80afM2hLNQ7TuNOnL8QFzS4=;
+	s=korg; t=1795603128;
+	bh=4g3V5BTMQ0kBq7iLP905ZhvZDpUT7y99Summf34XwfE=;
 	h=Subject:To:Cc:From:Date;
-	b=SoO3haD0WkGEMVVQEVZ+2D8acsbit63lr2xnJx/fN2ZUl4dxLjU2mNsVqecn9mg0r
-	 gNnn6NLhYJAT4WEUACs2zw2aSQvlPmstiNEOaPBI8/7y5dbFj5HaBSrxXbaxmrGUWu
-	 TU6eBiFi2+bN/iRJOD9G32NYUU4OuzR4hr0besaA=
-Subject: FAILED: patch "[PATCH] ksmbd: refuse to read a handle that is not open for reading" failed to apply to 5.15-stable tree
+	b=MM+bF/sJXg7fvL+6h423k+G7YRbBsZAeCa35CeVMRsHThRpizUqI4Kx08AHU+1Cgx
+	 2Bwolle72RNfC8W3014BXESZBmjj6Um/cDv5Jj6nPx20eS6B2uzbl49x7A8Gx3pPuk
+	 BbS+JTwX8BU3nQIrmzJbPa0IxU+azoFrxPu5+wOs=
+Subject: FAILED: patch "[PATCH] ksmbd: refuse to read a handle that is not open for reading" failed to apply to 6.1-stable tree
 To: wahidzk0091@gmail.com,icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:26:26 +0100
-Message-ID: <2026112526-surviving-carpool-9331@gregkh>
+Message-ID: <2026112526-cider-posing-d58d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2fd145f8865bb1a6c38a3dc68fa44290008789d8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112526-surviving-carpool-9331@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112526-cider-posing-d58d@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
