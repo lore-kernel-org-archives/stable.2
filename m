@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608329;
-	b=ym0exnEwSqs4zHQucavddkyCQYdjTyw1omJmINridjwWBUd3S855V6MwllAWvvpTKU8W
-	 JpSGHZ76HyWLGIhARUlJwpNC+092JIPVB1GuaACjdOAS0+aVHu6vfu1jPi7xFgI6TfCLw
-	 DSwYE50R+etHjucny3znaQUbtePi+V6zglQ4Njbe99DZDYtmt4imOCg5Wlswk7rYw2na5
-	 mQzLNOxXAunAxMj++Q+bZPUgXUORKsEeBmdGmS5e1opFBlbK/Dr1pUReka5Mie7ykkrV8
-	 sNIM10x2DVLzdlTAbWXTlvenJ38Eb14m+OkBiT53+TUpAA1DvqPwESc328ZPHfPoE4A==
+	t=1795608333;
+	b=CIH3klML7KE9UAw2kjm5CPIZ0Y00wct+QAeuUt76YdmqaFAj8YZ9e70tCTQWOYc6kRKx
+	 axjYmQ/lbx7232XEVSKKGP6HQ7/tbH6rQJqBZcR9bE+l/dWzX9qmWuPT5Mt8YZX7k5eDe
+	 2TQYHBoRN0SJcLqiQSL5mvxwYVoTe36VGfD2gmI6J+iqnY30rLQHGi1egE3VAYyaase2b
+	 PZpsqh+e+fugrfWDmaHmHSVNCMuKpDYrJk0BZm6HlXPhI5L12qes067bOUsbKS7f9X8mT
+	 99ZG6juOZseNdqmn1mjKtN9oATx915nef4YsyeJC1gtFAQfGjMmoNNaeJTbfN+DpNmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608329;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608333;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=puQfW3p0R1e1g7ui45JZvVBr4KlyZ0qBqCbl9mK3nVQ=;
-	b=1lTLOq2/84WcJztdGom+/b8fSQuq5T0Pjw/uBjyvlbvdj3qrdNCYSd6dPJMF8IreJtpd
-	 9w8bOrdjiqrUfsmge3c0Qn50q7OKjvF9o7d/ug9Z06Y/OB7qFI6Zge3cDs8ebk0e6MxR5
-	 ZzNR7vYK28Fjg0p7bhLRRvrhZ8tGVUJJ1kkMPbHxaJe+gMTtIRcnQfn9T54E8HWtyOYp9
-	 GJzGmdlB8BXzGRKx0D3I+5Vxhm7JILg2qqcbwyaOOh0EO2BD5L6QuOmX5uRI0LFH90swK
-	 hrn4SwTsnWz1pWUObGlJjFwP9zhnlYXL2GwkETMr+2jw6EWSHiSPPc2uiFiz/jODegA==
+	bh=zI9/eOaZ+NBg8wMqQF3ENHdG4lQzi9l5mFCYnS3U5j8=;
+	b=R2tk5Deu7Rr9gH4/SaVdwtTtAM7EjHVwI3GORTo5YIjXfKL+TouniG7vFD+vmmRGUevi
+	 ToR46wn0uS+42SAnqLGZ6sQ+pnqtMuP6P2SgaQGg6wViu4ulxgKMv4SpFc+QcX2np+/nw
+	 VSCv1v7gjom3qf3/bDxdydObtEpooaTRGpn/gYqrK1mDuyWYF799wTIjdDfM5fING+k70
+	 I3WJ+8HMnfuDkOrAFD0aBogcWGLu2dM8RfDomZppRhY/LjVQpXkZ1sMai3iw7BIUJs+3f
+	 VVi740kAvVN/Rywv5utK7dz22ynSSBbXg76k2QlYD5RTGyTbxwPRGoSgjk4C7IKIwFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rKW1irpC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0MGVgTTo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518E7606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E246606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rKW1irpC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619C41F000C4;
-	Wed, 25 Nov 2026 12:05:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0MGVgTTo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 699601F000C6;
+	Wed, 25 Nov 2026 12:05:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608328;
-	bh=puQfW3p0R1e1g7ui45JZvVBr4KlyZ0qBqCbl9mK3nVQ=;
+	s=korg; t=1795608331;
+	bh=zI9/eOaZ+NBg8wMqQF3ENHdG4lQzi9l5mFCYnS3U5j8=;
 	h=Subject:To:Cc:From:Date;
-	b=rKW1irpCp1Nk1y1LHFNQenSLBJ43QF0MPGXKbC0/Lu1fUSMLrJGtQjTgRrB92pskZ
-	 sAUk0XndeibI2EItd8DxcWODkhPGpv43eUVcEwnUbEJ1bBfOqqAZ+GJtHkvXGDHBuq
-	 S0QQ0D0fh2nMoBQaVKnU2BCGOfVRH8jOr2TPBTcg=
-Subject: FAILED: patch "[PATCH] iio: adc: ad7923: add the AD7927 to the SPI ID table" failed to apply to 6.18-stable tree
+	b=0MGVgTTo7AT+zvuFeVxux9IWqYGiQ9EndP7DZ/yu/EzbwruiSVQi9YlEHVaoJr48h
+	 tyKeWW2jAta+VC+6mU7+x2YmfllhQLmK0QGVusJ99iqVms1ZN86imhRy1H8K0ho4Jx
+	 caIWUlwUbxomoOW7VeZfsJ+pAXW0Yy0F+WT7QB/A=
+Subject: FAILED: patch "[PATCH] iio: adc: ad7923: add the AD7927 to the SPI ID table" failed to apply to 6.6-stable tree
 To: josef@toxicpanda.com,gregkh@linuxfoundation.org,jonathan.cameron@oss.qualcomm.com,nuno.sa@analog.com,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:28:01 +0100
-Message-ID: <2026112501-stylist-frightful-2d5a@gregkh>
+Date: Wed, 25 Nov 2026 12:28:04 +0100
+Message-ID: <2026112504-fasting-putt-6cad@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 594157b4f3f64db5833dee679194c33a5968f92e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112501-stylist-frightful-2d5a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112504-fasting-putt-6cad@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
