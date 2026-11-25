@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606105;
-	b=dM1u5sHnoNtZBPVrM+aJIbKCARbIMu2+Q2fdfDvOBWGh0zTC/D02qLQ+urHCwQ47ZORY
-	 8jgUFRrFn6/71mDJIwp5U/q7WuvhQJ5LJ7quzOS5C31X1atx1RL0c8qkmk6ayIGLp7u8B
-	 t9U8C6tWf9Cq+w7phifkzBSw8QCsjh5FqIpLhr9u3ShUPAF/vj7YW/HL3InGegdyOe+5Y
-	 9UgPb/WWcZ6kRXEJe4cRiIBYYMJ+U8QvI9Tytd1KPmQPZcNdTHtqImdAy/p1EVByH62Ij
-	 IFFCIlcFtQYH4+/jrsvCwymVJ7PuFSkUDf+UHCTu5Lb53WK2486w3UuWzj3i2/uv3Fw==
+	t=1795606108;
+	b=TRaXtKPydzUf4mCKisGo2gqZWuVWEkLVTRutJVQzHd+gTLZF0Ul2JNwxIYZIrxAlEjqp
+	 nkA7aAaSsBJHNcM2Y6GqBXtT5lc2x91FkyhkLywyaurYJPGx9cqh0hr0mxO7mUAqOzAWc
+	 NkgN2HJ05nu+OCvPxZAIswImYPQW7Ve/2Q8LHgewzYhohjQfW7F28OkM0REjFfp4UUFOo
+	 PyhDHRHMV3T5IskuOMaxBtyDERMHUBwz5fkDL4eHITZupJdLrO1ZHREsPDRdBbsZBB06c
+	 lT+DAtPCBr+UJRYTfqNHkmrf0Xo7dTGWJdUz9aUpCs6fTs1pQ9KZPo3HRt+3fDNL8zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606108;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=b2OIcbavYfsYm8UUD2IhiUdnB2zWd3UtGxWuW1sB8xI=;
-	b=3i98eNeAVU3mwSuhK/561vPdng5du5QPaVcR1LDlPq+96kSZYPyo6Xn1iJXVb4P+xYg2
-	 aWIYp1orNX5CcJf2BMYHwz5s6alhZjf1YQjTmnGZJ01FG4O+kz2adQ0c434/+SJcV8Qv6
-	 ZJNxDgiKIJr2TOMataVb/d4RhN4Z+m8+MzlrHKq13x+w8dogkZy4Cr/cGH3EPizEfHmNA
-	 lXlk1pi6iD7f4Jzu4L0hZbhrhe/+DN/2I8hyCMTTtvxOjzPdg4ldGJNN0F2c5rH7p0zx/
-	 fe3lhe1hHRBnuAhIInhQIwwP+iTnPo/xyFf7024aRjTT174YMLK5uUDxarzSl4qdoZw==
+	bh=t8CcfFbuJMSuzueXPS8t2vSGkI0KZxCC8gWC/4LJKBM=;
+	b=5JrTw+qI4Aace+PKrLuL+QZsQMVEC2hq0CAbSybh/jplpg8GlPf4NfmaKG91dvJNZs2l
+	 vcaoP99/1ETlmpj1GwkEOVQv4wS9nhaPg5xp27wseKO021/0SHDstWt5YuJ+x/FWs+NSh
+	 tll4nmuLHSqzELgI0BnUHpOom7xqF8PT21WHtDRHQuZ+gZr8NxZpBLL3G45z9+VLRZeRQ
+	 DJNveY1j3bSSkAMtU73qcgfiSRb2F2K9r1g0V4uePNR1a+efdp/iABKQTpZVuiDzec79w
+	 FnjxoR1Tn1Bq7bNAix4jOAUlEDHFsbK3ikoCG//js13nvjeA2lbI1Hy9YCFwXWeBQiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="2c/FCuC8";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rN86KVaE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140EF606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:28:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2263F606A335
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:28:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2c/FCuC8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 504621F000C0;
-	Wed, 25 Nov 2026 11:28:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rN86KVaE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0CE1F000CF;
+	Wed, 25 Nov 2026 11:28:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606104;
-	bh=b2OIcbavYfsYm8UUD2IhiUdnB2zWd3UtGxWuW1sB8xI=;
+	s=korg; t=1795606107;
+	bh=t8CcfFbuJMSuzueXPS8t2vSGkI0KZxCC8gWC/4LJKBM=;
 	h=Subject:To:Cc:From:Date;
-	b=2c/FCuC8xxsHcH5SfKtHj/XyLw+d8kgpOLEK0H7fqW7+8qb67+VcaQCYrrofnXMdh
-	 P3tcxHj9RAo0L18c67/7nVSmuNDHxShO7KImOMZc6rFoA8Lnrfs2KYX8YBnmxmaavC
-	 RtGEFtn9wDAf+kvAh3OBpDLnG9xjd5i25+zClMos=
-Subject: FAILED: patch "[PATCH] smb: client: retry writeback after losing the connection," failed to apply to 6.18-stable tree
+	b=rN86KVaEbCq/qgd+wCcXbGV1EMiF2SZQN5aQ71mKy+ndksxVVPv5HYQliT1D5JUbF
+	 ouqiPNsVePZbAFvE7CTjbZwRisQcN08KFhTMjE3hF7pYD6eAkMj08mktceZbMOJiNt
+	 J9pLNYb2fUoqjvgANbGmOz4vrCSEo9KAHXs078P8=
+Subject: FAILED: patch "[PATCH] smb: client: retry writeback after losing the connection," failed to apply to 6.12-stable tree
 To: pc@manguebit.org,dhowells@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:15:51 +0100
-Message-ID: <2026112551-audibly-track-6101@gregkh>
+Date: Wed, 25 Nov 2026 12:15:52 +0100
+Message-ID: <2026112552-roving-scraggly-eddd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 59d223256f5912263a1a8d2b5b0c5abf9542cf7d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112551-audibly-track-6101@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112552-roving-scraggly-eddd@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
