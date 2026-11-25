@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617646;
-	b=1Yc1MgIVwZwzskN8Qx/L9vyaSH/4vpWXv31rmK9k8pLI09zigMrd9BxCfW9lugaJ89u9
-	 TRP6P20jh9fPWP5xJh4ZzfZTTdo0WaZI/byBCxLRAdrugCtlK/LvEPxBwi4Gx8aKJbklU
-	 bXOSttfMbZJYVOv+4stTqZY3CI5u+gB1AwekhjvtJic2P2PMPyEtYRw/SK4zBosiDEcpc
-	 CLa6yQAkmJU0bHiIiJlA3AX0ZAeeFHQTleYSd+o0HreBt69RpgNe5Ls7inZQMtVQAOaVT
-	 4M/9huN9QcJ+0KolxIhzgOigdmqKTDbJknEF/xdGXaGGT7h8P8ArGZMqyFKtjNhvT3w==
+	t=1795617648;
+	b=FizykebNM23cNglo2PAGq9qAiSaUst8BpZ/39wXC1Gkrn17HKomuTDCJTecyMlrpx7sj
+	 0yDObjxT72XiInt+cl2p5yCvl2S1Sukt+5sp2sDNl3kzuZU0QShdfZqHTvd4++x++wjHK
+	 XL28gxHTc7AuTVDZk3JLlVLFRfkxx6lwzgizSYIhhkg44vuEDfOxdPIimkEHSJY0vpkU+
+	 EVRRxg9becV+mdo/ZjN/g+832pwCt5hjav5sulonPxDOGyCC5oqi2l6+nT8U5jLrqSYUA
+	 lrjbF67g9xDbGpLMoOA/rwRWzIfjLxlNP6LtEC1/YVUOnsgyccM8iUks71UmtaVhiIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617646;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795617648;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jGZKHNETnUIrnzDLr1EEAgSFc/+yGzaG2BJTwxdKe+k=;
-	b=sCzbwsQvEEcuZX/bKnQh77bwFmx1AxqjWG1ySLh6DQgJ2tUJNMRSraDZgFsN/JZwIHUU
-	 IaLpK8ZXKoFjflNBqdgxuZR1wyxaOIFKa2vvQSBWsa96Jk4nNZGAui7wVtKqHN4ymCD2d
-	 Ete+tc4pOBC6Aiv2s1YYpFuVOQq9eZ0cnKexlk+eOFqvD6Jb9NJJH3ca/Jc8ggCxPjVZt
-	 esUFkRPHlF+VKO2FtaSfYoEaHIxjWLEN05L6W8sAPMSpHLkQU3ceN2GBOmL4grjLKlJ2a
-	 8pVsgdSfqzCsSWZ7JtJ48cUWFup0Od+3lWbtrLOHsq9BESepWubWwqgFp2IDQA3Pb7Q==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=fQyaTxLNyPR72pOCQmjN/dWUCCxdWkpNW4R9T+vb0pc=;
+	b=v/f0lYg3uf64ICUTgC1VplB5Q2+2Em3qMU89dirvwTE5eo6jj6lMfWypCd4A7mGUDAoC
+	 9diL48m+KbOfRqSuFkXaXIMBmYiofjwjbTXmP5CQluGrcKg+BkulvaGam46DrO76+DTcm
+	 JOrCzJHrhqRXSvkpMCMo1bdp/koogqYvMvSa0xqtEaUuspfFGPWfZKU02GW2y8xUR0kv8
+	 0IOPlz1NVvpypwThkdtinxTAsn0nXm/xM4VdQP47KutohA21ECrqSPb8l4O84HNvTQgGH
+	 0LgB0dnZGC+F8eOxdmZRZcF5qtODTLCCWQz6J2xFv6AcGhn+qU2K2/yWiELTxc6EWKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YARZT9ho;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="qBxe/ZRp";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB10E606A6A0
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:40:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BDA606A6A7;
+	Wed, 25 Nov 2026 14:40:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YARZT9ho
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8961F000C6;
-	Wed, 25 Nov 2026 14:40:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795617646;
-	bh=jGZKHNETnUIrnzDLr1EEAgSFc/+yGzaG2BJTwxdKe+k=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qBxe/ZRp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E681F000C6;
+	Wed, 25 Nov 2026 14:40:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795617647;
+	bh=fQyaTxLNyPR72pOCQmjN/dWUCCxdWkpNW4R9T+vb0pc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YARZT9hoaDKvqEZ0Y6aycF0IvKRDmwbwy7D22GfEg5pS1SknBqjTs4WfmVkEWU+aw
-	 l8A0zPMUDaPCJXtc2m24hNY+C06a9zQkXtAQl74+TaPFKBACj1uHOnbKiD9EJEjjqm
-	 nnpvrnx1OwF53+fhIMUoQpA+s+6XlrWksdRj/23WfINtfi3f3oxQJSzzrCtWgfMy5W
-	 fjFvK5kLI5QpopBGI9rYxbQMFrwgV9goUzmKjLtskpXEp2NR7uzUqZoHPls/W/hwT1
-	 9z9CtBm4d1sNucn/J+0pnccQ/J3DWOYGYl4Tckn/48rihjaHr+4fA/uQULC+Xz9Vjz
-	 /bladhg1m6Bzw==
-From: Sasha Levin <sashal@kernel.org>
+	b=qBxe/ZRp+QF21oO2aL1t3PyqQ59fHnjXxfjW9kuweEHDDFgv87r6ECt595eBgPmtF
+	 8mbAoQ0mKVXnEupVKjyb7lVgpnGOq5zdzFDlAyTB+oMJyNlUMwP2JcjHAtuWzIg/BO
+	 reAMC+IT0xOQJVmpFbfSLG2XjMcs3Uq8RkVW8YpQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Rongzheng Wang <testwrzwrz@gmail.com>,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Jason Xing <kerneljasonxing@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Giovanni Vignone <gio@octane.security>,
+	Shubham Antil <shubham@octane.security>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] xsk: defer software checksum until the skb is complete
-Date: Wed, 25 Nov 2026 09:40:44 -0500
-Message-ID: <20261125144028.4032388-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112511-clergyman-gulf-c3af@gregkh>
-References: <2026112511-clergyman-gulf-c3af@gregkh>
+Subject: [PATCH 7.3 0032/1005] xfrm: zero-initialise km_event in the replay-notify path
+Date: Wed, 25 Nov 2026 15:22:50 +0100
+Message-ID: <20261125143822.489715000@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,70 +65,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Rongzheng Wang <testwrzwrz@gmail.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit f2eddafbfcc004098425fee7c5664adbe29152d7 ]
+------------------
 
-When XDP_UMEM_TX_SW_CSUM is used with multi-buffer TX, xsk_skb_metadata()
-calls skb_checksum_help() while only the first descriptor has been added to
-the skb. The checksum therefore covers just the first fragment, and
-skb_checksum_help() sets ip_summed to CHECKSUM_NONE, so the remaining
-fragments are never included in the checksum.
+From: Shubham Antil <shubham@octane.security>
 
-Move the software checksum calculation to the point where the last
-descriptor has been added to the skb.
+[ Upstream commit e35a12dffd5da67b6ca12bd23eebdd0570592205 ]
 
-On a checksum failure the packet is now dropped instead of being returned
-to the application for a retry. This path is not reachable with the
-existing metadata validation, but the behavior change is intentional.
+xfrm_replay_notify(), xfrm_replay_notify_bmp() and
+xfrm_replay_notify_esn() declare a struct km_event on the stack and
+initialise only its .event and .data.aevent fields, leaving .seq and
+.portid uninitialised. build_aevent() then builds the XFRM_MSG_NEWAE
+message with those fields:
 
-Fixes: 11614723af26 ("xsk: Add option to calculate TX checksum in SW")
-Cc: stable@vger.kernel.org
-Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
-Signed-off-by: Rongzheng Wang <testwrzwrz@gmail.com>
-Link: https://patch.msgid.link/20261104034809.24545-2-testwrzwrz@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: Open-coded the final-descriptor software checksum call in the xmit loop and removed the early one inline, since there is no metadata helper split, and drop uses cancel-reservation semantics. ]
+  nlmsg_put(skb, c->portid, c->seq, ...)
+
+so the netlink header of a replay event carries uninitialised stack
+values rather than defined ones. This was confirmed at runtime rather
+than by inspection alone: the .seq and .portid carried in that header
+hold values that nothing in the replay path assigns.
+
+The request-driven paths set these header fields from the requester
+(xfrm_get_ae() / xfrm_new_ae()); only the kernel-originated replay path
+leaves them unset. Zero-initialise the event so the header fields are 0,
+the correct value for a kernel-originated notification.
+
+Fixes: f8cd54884e67 ("[IPSEC]: Sync series - core changes")
+Reported-by: Giovanni Vignone <gio@octane.security>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Shubham Antil <shubham@octane.security>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xdp/xsk.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ net/xfrm/xfrm_replay.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-index 1bc966669ec96..028791b80fbbc 100644
---- a/net/xdp/xsk.c
-+++ b/net/xdp/xsk.c
-@@ -952,12 +952,6 @@ static struct sk_buff *xsk_build_skb(struct xdp_sock *xs,
- 				skb->csum_start = hr + csum_start;
- 				skb->csum_offset = csum_offset;
- 				skb->ip_summed = CHECKSUM_PARTIAL;
--
--				if (unlikely(xs->pool->tx_sw_csum)) {
--					err = skb_checksum_help(skb);
--					if (err)
--						goto free_err;
--				}
- 			}
- 		}
- 	}
-@@ -1052,6 +1046,15 @@ static int __xsk_generic_xmit(struct sock *sk)
- 			continue;
- 		}
+diff --git a/net/xfrm/xfrm_replay.c b/net/xfrm/xfrm_replay.c
+index dbdf8a39dffee..9394953247ab9 100644
+--- a/net/xfrm/xfrm_replay.c
++++ b/net/xfrm/xfrm_replay.c
+@@ -40,7 +40,7 @@ static void xfrm_replay_notify_esn(struct xfrm_state *x, int event);
  
-+		if (unlikely(xs->pool->tx_sw_csum &&
-+			     skb->ip_summed == CHECKSUM_PARTIAL)) {
-+			err = skb_checksum_help(skb);
-+			if (unlikely(err)) {
-+				xsk_drop_skb(skb);
-+				goto out;
-+			}
-+		}
-+
- 		err = __dev_direct_xmit(skb, xs->queue_id);
- 		if  (err == NETDEV_TX_BUSY) {
- 			/* Tell user-space to retry the send */
+ void xfrm_replay_notify(struct xfrm_state *x, int event)
+ {
+-	struct km_event c;
++	struct km_event c = {};
+ 	/* we send notify messages in case
+ 	 *  1. we updated on of the sequence numbers, and the seqno difference
+ 	 *     is at least x->replay_maxdiff, in this case we also update the
+@@ -304,7 +304,7 @@ static void xfrm_replay_advance_bmp(struct xfrm_state *x, __be32 net_seq)
+ 
+ static void xfrm_replay_notify_bmp(struct xfrm_state *x, int event)
+ {
+-	struct km_event c;
++	struct km_event c = {};
+ 	struct xfrm_replay_state_esn *replay_esn = x->replay_esn;
+ 	struct xfrm_replay_state_esn *preplay_esn = x->preplay_esn;
+ 
+@@ -356,7 +356,7 @@ static void xfrm_replay_notify_bmp(struct xfrm_state *x, int event)
+ static void xfrm_replay_notify_esn(struct xfrm_state *x, int event)
+ {
+ 	u32 seq_diff, oseq_diff;
+-	struct km_event c;
++	struct km_event c = {};
+ 	struct xfrm_replay_state_esn *replay_esn = x->replay_esn;
+ 	struct xfrm_replay_state_esn *preplay_esn = x->preplay_esn;
+ 
 -- 
 2.53.0
+
+
 
