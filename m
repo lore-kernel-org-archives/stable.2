@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795644996;
-	b=Bz3AtNxK07vQGh6Vh/fpK7AfNCDuJCOUnI4Ozjix+k/Aaeg0U+kVmbXsGNn3f9EapCe6
-	 P+qzgxYmNY79X/OmX3o4tOd8tqxsfzD30Mj5fI8JWt9VKaQ9/Y5mnrVG+v2ral1l/E1UC
-	 93vpPA904CdhNPxy8w6BwOVqy+JVOD3Vk4RoZG0uKjYWjCMX79YTw88E3FPRDYHLNPE2T
-	 qCu0Wai8SOsGb5Sy052WbXfCR2DMNc9nIp/TP6w1wKWozZBzxI4c2ZMlQLuRR2Rh0Umz5
-	 TTNeoH5Z/SMiKgmalH8xAoTDSYdihCN7es1INeCaGJr4CDAd5ijiAzpZo8/mQa6V4uQ==
+	t=1795645020;
+	b=c/6VkBEKrkIADuSKzmydZ4dda3EQ213e75ZIczXAlifePv0m9GEBjAhP2eXs8vKqrXUg
+	 wO3O+pZ2ycvFFCAUam+45oIVlVDtw4qQrv/8P47lpX1nlQ0XDcrNANA2HSkTq+b8fXn0s
+	 rXJSAlqgXTlrrSRBGQF26o2oY/e6+fDsgQ277zNC5XuUcAsY4EPNFalWuxYJr2jzsrbcy
+	 u985Qo6far1349Ax0cG7Hmz//8TPyWZtktyurI98cMLKBtIJjmnE9uhBQmCqXrZ1b62GJ
+	 uvbKG/0Xwda4IL1TcqSKsGj9Cl5nMLUckmHBbcBvktwar07gRN1QXRXe8YxqGgpfpOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795644996;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795645020;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
 	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=iizZjgnpeBrU8oFjWBrGM7wL2DaScW85+h4ZhCRucEE=;
-	b=z1jpU1+CaKu6EFQLNazY2AIMnEOpqA/YyM2p2o6cu4PhOAzTNn8Jxi8gWTXkLPG8l4Xx
-	 pFLqxT1i9Zuxqdy2XNxI+v7W+cl2r/hWpmY8oYFnpU3dwJK8r2xvEIgfEfptG2bGNUg6u
-	 I/R49VT6zlKrTtXvqrYGCgKnNLVWxSXm6uKa0042iuG3RbqbKuTsT4P/4Q7s1laSD3XxB
-	 EenKyRCMHG9s1mQGNri6Esetk7dn4yDIUiinl7izjxVRPwSmQW6OIvpY8dXg5vOtgo7SP
-	 OYmrC0xU853oxkNdHGXoy2uyiGxt+RHpDcs21Zn8lysdVLT7r4eED9GDejZ6oNcc3cw==
+	bh=81UweMnintdLpa4xhqWOsmoebWo8cnvUdLQSh95F9E8=;
+	b=K8FWx61hlJ5DIX3ikNvLHEuogvjDnTtdHMxwc3P87nDy+jJIspE9pPn3n67opzu60H30
+	 tlK4vR2hSIso0RWa621I2f/bJqxFlzJaIzBUD6vohVcxLZHsS98aItZgzP4viwgsnyqp4
+	 whn0T+AxODZtMdirRAFDkNpvfRTo91NpVID8Pui5JwmZ/88bM76oNUQ6iqOe2gNkCrXeB
+	 a9qkaIy61LyxVBlaFdmEzPJZcdeHuUjQx8RJVtcDJPXKx5eImT/h4lAGhDpTPlA6hAZ5b
+	 5M7ddkRI/Qf8r4Or8+X/kamjqnkGtvJ7FP4yzGs8kLrceRuIlMVTtlj7qk4tXQuIPuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--elkin.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Teo9NpwM;
-	arc=none smtp.remote-ip=74.125.82.70
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="C/m8qY2H";
+	arc=none smtp.remote-ip=74.125.82.72
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFD2606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:16:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EFD2606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FEB606A32D
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:16:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47FEB606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elkin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Teo9NpwM
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1b3ae17c536so5972280c88.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:16:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C/m8qY2H
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1b3b45597c7so1882594c88.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:16:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795644995; x=1796249795; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1795645018; x=1796249818; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iizZjgnpeBrU8oFjWBrGM7wL2DaScW85+h4ZhCRucEE=;
-        b=Teo9NpwMC8++rq2N5VzSXEBY28G3IyCvEyTmeGoWzfeKOD38o/o53G3uCPTR54GSyy
-         dinPYPYlmuh0l9ATRyWKbafkOXI7YwfDzWn07wLcEE/OkhI5oVPSATtPWGssnCkrTInA
-         KGYYdVRONNUG4RCPdqaQz9cl18CIjw5fUIIuz4hMWsmxolBtobnk/TVBLgt6FvegUuFa
-         bMBxO2rOlx0McaiitvROzCh1kPyYhSOuwP/YueXJxwFGeW+txPvEjpfM6Ocf8MIqDN4F
-         /1aO9DBgh+THvP4Tj0+ISB+nOXDb8THATTrfiuqNVqy5t86CEOxOMyKYcpC9OYROisdY
-         C+4w==
+        bh=81UweMnintdLpa4xhqWOsmoebWo8cnvUdLQSh95F9E8=;
+        b=C/m8qY2HyaEZyw8rv5fW4LH8uDfYlgA4ICxEnS2Q2UnJS4c85gab/ALWXagjK/igjI
+         zlLbcVbjx2/gMZt2MyllXmHu9u0NPpPSdWPPfLse8iWgQaKVNyXxfWeGkUxw9zgL/mLH
+         oLBtnBV3Ym/xuyZrb0dOU3bqK8U1lPlCud9lXWJYiiRUmnUKf0lV4HmgNeAJzeXEprQE
+         4eYHIAtwyoWxnIS3QRdbHtqL4uudJiqeCEG5deuNErvQTRWyZB4me6fqKaJdfVFzZYQA
+         D1nUl52DhQWmQ9TXo5hPvkWgi7ttgvxGgCPH1nu7dzQcQ/qnIFuFx2VUFXtwvw1T3AdR
+         prDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795644995; x=1796249795;
+        d=1e100.net; s=20260707; t=1795645018; x=1796249818;
         h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iizZjgnpeBrU8oFjWBrGM7wL2DaScW85+h4ZhCRucEE=;
-        b=SrjBAJefCqUNroDtQeBxfi7ydFwsmbJN8yquQMfk2ix+Lbi9eYDNK8YVgXJwZzHcyL
-         W7RmIg5du7iouRXcTWdVHUrmX654VbuS+3eWJuALIX7NdApAH/LzkQnXIDof40pxwyxy
-         kJvpXo+1vya5DT7rcsPhHChG6QVm/HH5ms36egjFcjSWTC2NaEx3CxjB+ipgy/L1qfUr
-         YW0Wnjq3IM+pev4rf9k3YICjm9isisfIJG1GcQ1UuGxi2vcYAn7n9QSrX4TrE7+EgOL7
-         a8xmX7vneHB6DKEQS+WM6hICcKzOZBMZ7Yz+wwc7CAHjOq6HE/VHhDKX1UrBAW8j02d9
-         Fuig==
-X-Forwarded-Encrypted: i=1; AL+hErH7D/CNf39YWU7jwfDD2EsOC25ivg0YP1ceVRjFePLWMFLRvLFlaI3Zc8xCoCqW2Ja6qq2Q+Ac=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+AXjKV14B8YQP8a81BO/5XLFpAgOcqdZ9TclOLDh+T8xVHn+OY
-	a9NfYWAqBDB/3C9TyJRhLVu7qoKA886673NQbBnV6AfmsGG7wIwTI0WtGEnFdfKZ/GobFFd4Gec
-	OeA==
-X-Received: from dlbrl2.prod.google.com ([2002:a05:7022:f502:b0:19a:1425:bb9c])
- (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:3f07:b0:138:30b1:4c00
- with SMTP id a92af1059eb24-1b5567b5685mr21927000c88.3.1795644994359; Wed, 25
- Nov 2026 14:16:34 -0800 (PST)
-Date: Wed, 25 Nov 2026 22:16:27 +0000
+        bh=81UweMnintdLpa4xhqWOsmoebWo8cnvUdLQSh95F9E8=;
+        b=ydITjqcgXAGq1nRYsFtF4AIwag4esi7yiX4XP5LQMhqerRPO5ymREzkZ6Su7rIPhPH
+         o61NaVXgc/2+2nHcEeA10Sw3/8OVC/OjFxTcgW7pL4k7R1jd9zSBSq4GiPFGbd4WfxNo
+         o/PZ9QzHpC8p9kf/gmAnSf1o336vs8dlNEFWKWBcghGWp0ejwb1rtVO9cyunN6MGS9uI
+         eWdzyNhaa8V6NHtfiYthMq7Fw6LJo2hBthjk+knUCfgC25Bdij5ImzFCLSzWbio+xYSM
+         DmUT89zDif7rJLsW4jud6gVRxwrbkEC9S/KoxpAtA9LLoMlIfwDZNum9L0IYvzmfqnyj
+         ltTw==
+X-Forwarded-Encrypted: i=1; AL+hErERqK0BxxkP/yOqTWnSXVtKk2Z+Hkq5NJQVb1lTReUxbZYFHiQlasJFNv45Li7BG4izuBGSR8s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dxsA96szAncJ0uoEB104sm7ZebMtaNDj7NY7Oyk2W4ozAQKaU
+	CInvhyd9CRu4FI0E5x6txvMUNu4MXCINapTQQZycA0zayTUOagW7u4Rgqt6Y9uflz9rrExvsghr
+	SVg==
+X-Received: from dlbtx1.prod.google.com ([2002:a05:7022:fc01:b0:1a7:58c6:c957])
+ (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:231a:b0:1b3:a927:f17a
+ with SMTP id a92af1059eb24-1b5567a950fmr17469563c88.5.1795645017932; Wed, 25
+ Nov 2026 14:16:57 -0800 (PST)
+Date: Wed, 25 Nov 2026 22:16:34 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,57 +77,67 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
-Message-ID: <20261125221627.1419412-1-elkin@google.com>
-Subject: [PATCH net] phonet: fix use-after-free in can_respond()
+Message-ID: <20261125221635.1419707-1-elkin@google.com>
+Subject: [PATCH wireless] rfkill: initialize work items before publishing
+ rfkill device
 From: Elkin Cruz <elkin@google.com>
-To: Remi Denis-Courmont <courmisch@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Willem de Bruijn <willemb@google.com>, Nathan Chancellor <nathan@kernel.org>
-Cc: Simon Horman <horms@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org, 
-	llvm@lists.linux.dev, 
-	"=?UTF-8?q?R=C3=A9mi=20Denis-Courmont?=" <remi@remlab.net>, linux-kernel@vger.kernel.org, irogers@google.com, 
-	Elkin Cruz <elkin@google.com>, stable@vger.kernel.org
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, irogers@google.com, Elkin Cruz <elkin@google.com>, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-In can_respond(), ph is cached before pskb_may_pull(skb, 5). When
-ph->pn_res == PN_PREFIX and pskb_may_pull() reallocates skb->head,
-the check `if (ph->pn_res == PN_COMMGR)` dereferences the dangling ph
-pointer before the code re-acquires ph = pn_hdr(skb).
+rfkill_register() added the device to rfkill_list, called device_add(),
+and set rfkill->registered = true before initializing poll_work,
+uevent_work, and sync_work. Because rfkill_set_states() and
+rfkill_set_hw_state_reason() only serialize on rfkill->lock and schedule
+uevent_work once rfkill->registered is true, a concurrent state update
+can race with INIT_WORK().
 
-Check for PN_COMMGR before calling pskb_may_pull() to avoid accessing
-the potentially invalidated header pointer.
+Initialize all three work structs prior to publishing the device.
 
-This issue was found while trying out new Clang static analysis checks for
-kernel bug classes. The finding was triaged and fixed, and this commit
-description was drafted with the help of AI, then verified by code
-inspection and compile-tested against linux-next (not reproduced and not
-runtime-tested on hardware).
-
-Fixes: c3a90c788b74 ("Phonet: do not reply to indication reset packets")
+Fixes: 19d337dff95c ("rfkill: rewrite")
 Cc: stable@vger.kernel.org
 Signed-off-by: Elkin Cruz <elkin@google.com>
 ---
- net/phonet/af_phonet.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/phonet/af_phonet.c b/net/phonet/af_phonet.c
-index d89225d6bfd3..e70ade97bf17 100644
---- a/net/phonet/af_phonet.c
-+++ b/net/phonet/af_phonet.c
-@@ -294,10 +294,10 @@ static inline int can_respond(struct sk_buff *skb)
- 		return 0;
+I am trying out new Clang static analysis checks for kernel bug
+classes, and they flagged this code as possibly buggy. The findings
+were triaged/fixed and commit descriptions were drafted with help of AI,
+then checked against linux-next (not runtime-tested on hardware).
+
+Thanks,
+Elkin
+
+ net/rfkill/core.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/net/rfkill/core.c b/net/rfkill/core.c
+index 9e143c4bfe6a..071beb249b4c 100644
+--- a/net/rfkill/core.c
++++ b/net/rfkill/core.c
+@@ -1095,6 +1095,10 @@ int __must_check rfkill_register(struct rfkill *rfkill)
+ 	dev_set_name(dev, "rfkill%lu", rfkill_no);
+ 	rfkill_no++;
  
- 	ph = pn_hdr(skb);
--	if (ph->pn_res == PN_PREFIX && !pskb_may_pull(skb, 5))
--		return 0;
- 	if (ph->pn_res == PN_COMMGR) /* indications */
- 		return 0;
-+	if (ph->pn_res == PN_PREFIX && !pskb_may_pull(skb, 5))
-+		return 0;
++	INIT_DELAYED_WORK(&rfkill->poll_work, rfkill_poll);
++	INIT_WORK(&rfkill->uevent_work, rfkill_uevent_work);
++	INIT_WORK(&rfkill->sync_work, rfkill_sync_work);
++
+ 	list_add_tail(&rfkill->node, &rfkill_list);
  
- 	ph = pn_hdr(skb); /* re-acquires the pointer */
- 	pm = pn_msg(skb);
+ 	error = device_add(dev);
+@@ -1107,10 +1111,6 @@ int __must_check rfkill_register(struct rfkill *rfkill)
+ 
+ 	rfkill->registered = true;
+ 
+-	INIT_DELAYED_WORK(&rfkill->poll_work, rfkill_poll);
+-	INIT_WORK(&rfkill->uevent_work, rfkill_uevent_work);
+-	INIT_WORK(&rfkill->sync_work, rfkill_sync_work);
+-
+ 	if (rfkill->ops->poll)
+ 		queue_delayed_work(system_power_efficient_wq,
+ 			&rfkill->poll_work,
 -- 
 2.56.1.839.g22a8290db9-goog
 
