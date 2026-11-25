@@ -1,98 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795604186;
-	b=awrfi/1DjnJCbeugut9NDu5UaHdqZ2q8ni+yHkvjfIrKpWUNNLY+a03LvXV7uGX80FDQ
-	 XhxPzMRpIpjyQhwiTqMQbvJWfA7r+5Tei7oeJJeou/fJjDbmnA21yS81Aop5Nk+UMAECO
-	 U5+XQSKpv8hz8O1XrYfH9VPPnR8mgxnr6a+Ky1D894CR2BhVXluYQvB/VS9q44ClVRUx6
-	 4a/NsByT3WL1JWMdzp1sZFQPFIJBphslCxtHIumrVREpISrClqmuMnlsJu4tv36VdPx8/
-	 EGHYDIneaJU34o9DbwxnXL0puW2v73xmRQYZH7e0BzcEaCdftzQlsOjn2SnqOOHsz7g==
+	t=1795604516;
+	b=IMvjWwyuNsgSHnIJ8s82kFOCfPkglHcaAgmq2pF/+MwIeDGJ+A+WVdRozzbvTDxV26BQ
+	 uM52RnL1TtnNWZ1TcmxloSyQhj83MSMi5dkmh0TnFL7hTjFY6sQUAzNv0fwFgPQVOXeGf
+	 o69Q6Y/c3S8i6Elr1wXXZXIe/sjxJMMuq5lttc0gySBL7+Vnnp/coMvLYhea54Ldv1D1v
+	 AlBq9tGucw4JZq+4gBsaDHROJcCkOIuBDQK3hw1UpqNwm6hwvoXdb+8g+6kYVAlDcUuvS
+	 sCFUM9CLx+i9TW2jepngJ5MRTJLYOS6tU6JmSupagmzhlb69NNEHZiPJ7sI7jtnnkhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795604186;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FJOKwoI4nZDDgERDFtfVbeF2wwjtESDm04yE6n76iXo=;
-	b=4wWkGNboOSnakbiOJYYaQPl8hCEd3qMM9QFn2cXJL/mIYGl4FGq3dJNdUNN2B81AXU8s
-	 VgOf9fGOW/4Z10wNsWMi0gBi24U411zu/F7OqrmrrFjbQXScMKJFcRNs/ctyikOp6VfUb
-	 u7/CrEMQWN+YINfQuBkbzAMKqRCVNbfJIZwNSUl5lOA/E3s86EodRTQEk+H9W+DJQk5XZ
-	 M+rPVUe/Unv5BtIa2e1o5CHSAtOC8OtxuJ5LgbqH5AvsfOf5Cki8aPj8nQnAfw0lz1R8T
-	 At/ioqZxyR7OjjM65TIdM2JTUBAkQNpXDGAfE0noY9RJI5AGoC2IvhvnmB7n/8AStuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795604516;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Yk+njX7V6RJGgP9XfgRvAms2BGE7/SBj8/cDzF81vYM=;
+	b=giza7tHLb4DcisdMXNJCl9U2ri7hIRLtkfhChLqkzoEzClchooSGDE7XkNqaH7oPeM/f
+	 n2bYb3XeAzBGGxN5GEKVYPcqt9wQ6lXAEkRi6TSF3Dx24KGFC4gAh2KHkT0IfWkDVjtho
+	 FimvCvxaDQf1935iHGhma5m7ttjo9QmCy1mv4Vuay/TOEKGq5OHrVOCpudRd+IlXbZl8x
+	 ActkXsQpd+B29w9dotg6ypkDttSqUNONVCFE4tZ3/3uBDLltGopVXrdsbuer3GfQ+CoWw
+	 DkfSY4r19KHrOuY8OOcU2cOSlZ797QZECHbbuFRzOBu0UmKn/y7NItcvXeUj4iHaHZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uG5AoejD;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zWaCDQ99;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F2F606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:56:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69F2F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63AA606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:01:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uG5AoejD
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-49412eb1474so3626529f8f.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 02:56:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795604185; x=1796208985; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FJOKwoI4nZDDgERDFtfVbeF2wwjtESDm04yE6n76iXo=;
-        b=uG5AoejDVEKJJavEqPbereLnAU8Ll13LSLVcUCL8eUYTpcVslYfWhSmEKwt3SBWjpb
-         VUej4R5ove27BFmFWqgQEZgW/kNzN+bjCGHdXUE6tlC3w1o/eV4p90WX8hWQ7/io+dGL
-         jGL5Hxye9Fr95U//0dvbKmKG3R3BhilpHedV9TYyzzK/SLE5Jzw1GJ48+/fvs5P+NO7D
-         ygpvvQqTVAqqYwj06Vm97w0l+mh9kFaniPhDAltvmCyfpSaxzMMCeeRBgu8KDy5YBCBB
-         lz35EdmvGAKf+duNIkwMxGLr3fa9S3bdVs0MDReCCjIPJ5iM7R3Ww5vdAOX+H6Y6YMst
-         1dgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795604185; x=1796208985;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FJOKwoI4nZDDgERDFtfVbeF2wwjtESDm04yE6n76iXo=;
-        b=yaQQ2uNsbvh6YWHFjsUvPgBOZGa7G92UmnqxZa4iL4PrlW8J37ePMzIlh/u+D+Sy6S
-         5WmmJeB6POAPPfotVc+EBQqghQAqjjs2pQiaG5TzWT7fbNsVrOK9q2DDnVgxwkDhqk/E
-         EVIP3NSGpgvJvwfV9fvr69HRqlnHyjv8IEzb9dSxrBwb/HE+wDxuoypEdNsn8vRa3ZY8
-         pOiUOQ2kJ3QQ7faapcEYA6C+wZCx2XRAwYERH5tPj8zNDDNIJPoDKAhCht9y6E+H8KrT
-         V0yt4QHzkjyHLcyF2qhF+yfsse6ZIPPM59k8ucU6UJoQXxxb/ETHHx6H2iVv7zl1Ookq
-         i42g==
-X-Forwarded-Encrypted: i=1; AL+hErECfETxsE5woZdIJmbmVIBKvUcVr+GfMO4lR90jkTg9bJDsPz6DBD4ipIcYWZjUGRNO0Ofu3rQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tvtSvyE2DIoz3f3Ij+Rdfhsddx3xEH5ztH7+h3oIR71GpE3+j
-	0a6GwKN/8qqOB+JMl+bGRz0nR1M4E9hM0w1skG1A4JsxPosIpDYos8w6
-X-Gm-Gg: AZFdTZdSZMOz8yC0wQTQGPipRNdISvSQe7RAFZSJ4NCafUiV3FKKU5cv0hRD0O2rSvp
-	q3Buzi5tqp15LgUuwK4O4CwvpP7Dcu34aqbozpDU8pZRrmhkTd//eCfevhDATTzd79WdW+EgtGV
-	ujfpAXleBKlCedy/ZVs8PgShlyo8q9sOuSOQqz9yX27gVhv+kCehooZ9DgA6V82HFfwyJBE3GIt
-	UX2uWcOh/TKf8CWBFoaxnADKuP5KMif0a7mskBscRP0zuoG8dv0Xc6ItuuwEkNOBxrQLxecBxUp
-	38XqZf1FTwZ7LC/mmI/GKqVNCn6qF3lukQN3jghwMKHTovF8wk2QozCdJelPaTPLfMg8Ab3i1HJ
-	/2QdWkfc900oweuyzV2P8cYYM4fRCKCt0dhODMUhsKRSCi60TMK6BEGC9YFAkFpiOZ7POLVr/JR
-	avQ1UjHfJUiMjSAOjy/W2m+8zEiPxO42e7mOdkKR73TB/t0N3hzTfywvu3YuVheDHtf4VWfhoWY
-	yz56rv/LiVhKmIep5ZzsW6kx8doigtudzLXeZXLiLucn97Sye0MHBBmy6/KmkeE+xKNeRu6SX0x
-	n6HVh4gi3GVqzdgvcRNXy0VTi9/YHLJesbvnUXezIRw/4REHWn2q8bIzEazFRM4EAb06hUT3YHq
-	mjiJqHB3bNTn2pw==
-X-Received: by 2002:a5d:6f13:0:b0:491:3fdd:af42 with SMTP id ffacd0b85a97d-4abb5cc19b5mr30289182f8f.37.1795604184433;
-        Wed, 25 Nov 2026 02:56:24 -0800 (PST)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6c61f558sm33988993f8f.58.2026.11.25.02.56.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 02:56:24 -0800 (PST)
-From: David Carlier <devnexen@gmail.com>
-To: dan.scally@ideasonboard.com,
-	jacopo.mondi@ideasonboard.com,
-	nayden.kanchev@arm.com
-Cc: mchehab@kernel.org,
-	hverkuil+cisco@kernel.org,
-	linusw@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: mali-c55: Serialise the ISP enable in the params and stats paths
-Date: Wed, 25 Nov 2026 10:56:06 +0000
-Message-ID: <20261125105621.239518-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zWaCDQ99
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61F11F000C6;
+	Wed, 25 Nov 2026 11:01:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795604516;
+	bh=Yk+njX7V6RJGgP9XfgRvAms2BGE7/SBj8/cDzF81vYM=;
+	h=Subject:To:Cc:From:Date;
+	b=zWaCDQ99STjPkrZ8VxR7OVH84ruFl7TXPax/n3r1PQcXA+VNO2GCtYjuXye/kHm/Z
+	 4QQm63vq21mFNZvohU/4dC0Sw1OvCug3U9HWBzLLeASrjCRNyL0hssRlAExdDWS6m+
+	 Pxsu/Awi0W7uVj5ClXNdXRBkknlU2P/m5XElS//I=
+Subject: FAILED: patch "[PATCH] gpio: keep the chip reference when deferred setup fails" failed to apply to 6.12-stable tree
+To: vulab@iscas.ac.cn,bartosz.golaszewski@oss.qualcomm.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 25 Nov 2026 11:42:07 +0100
+Message-ID: <2026112507-repossess-kinsman-0ff2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,96 +51,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-Only the capture devices hold isp->capture_lock around the
-mali_c55_pipeline_ready() check and the ISP enable or disable. When the
-last two queues to start are on different video devices, both can see
-a ready pipeline and both enable the ISP. The second call fails with
--EALREADY and its queue's start_streaming_called flag is cleared, so
-the ISP is never disabled again and every later start fails.
 
-Take capture_lock in the params and stats paths too, and assert that it
-is held in mali_c55_pipeline_ready().
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 7e899fe007d2ffc753e6aa5bc8f2ae0a802b9e07
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112507-repossess-kinsman-0ff2@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 7e899fe007d2ffc753e6aa5bc8f2ae0a802b9e07 Mon Sep 17 00:00:00 2001
+From: Wentao Liang <vulab@iscas.ac.cn>
+Date: Wed, 4 Nov 2026 02:53:45 +0000
+Subject: [PATCH] gpio: keep the chip reference when deferred setup fails
+
+gpiochip_setup_devs() runs once gpiolib has been initialized and
+finishes the registration of the chips that were added before that.
+When the registration of such a chip fails, the function drops the
+reference taken in gpiochip_add_data_with_key() with
+gpio_device_put(), and only then logs the error through &gdev->dev.
+
+For these chips that reference is the last one, so gpiodev_release()
+frees gdev: the dev_err() dereferences freed memory, and the chip is
+still linked in gpio_devices, so the next lookup walks into the freed
+object as well.  Here the registration cannot be undone the way
+gpiochip_add_data_with_key() does it, as the driver already got success
+from gpiochip_add_data() and will call gpiochip_remove(), which unlinks
+the chip and drops the reference.
+
+Keep the reference and only report the failure.
+
+Fixes: 16fdabe143fc ("gpio: Fix resource leaks on errors in gpiochip_add_data_with_key()")
 Cc: stable@vger.kernel.org
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
-v2:
-- Add lockdep_assert_held() in mali_c55_pipeline_ready() (Jacopo)
-- Collect Linus's Reviewed-by
- drivers/media/platform/arm/mali-c55/mali-c55-core.c   | 3 +++
- drivers/media/platform/arm/mali-c55/mali-c55-params.c | 4 ++++
- drivers/media/platform/arm/mali-c55/mali-c55-stats.c  | 4 ++++
- 3 files changed, 11 insertions(+)
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://patch.msgid.link/20261104025345.1527526-1-vulab@iscas.ac.cn
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-index 241a625f7284..bf80935c20d2 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-@@ -13,6 +13,7 @@
- #include <linux/interrupt.h>
- #include <linux/iopoll.h>
- #include <linux/ioport.h>
-+#include <linux/lockdep.h>
- #include <linux/of.h>
- #include <linux/of_reserved_mem.h>
- #include <linux/platform_device.h>
-@@ -510,6 +511,8 @@ bool mali_c55_pipeline_ready(struct mali_c55 *mali_c55)
- 	struct mali_c55_params *params = &mali_c55->params;
- 	struct mali_c55_stats *stats = &mali_c55->stats;
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index db613770dcf5..5c489f4e5e83 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -924,7 +924,8 @@ static const struct device_type gpio_dev_type = {
  
-+	lockdep_assert_held(&mali_c55->isp.capture_lock);
-+
- 	/* Only wait for queues connected through enabled media links. */
- 	return (!media_pad_remote_pad_first(&fr->pad) ||
- 		vb2_start_streaming_called(&fr->queue)) &&
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-index 16e895e3488e..6515c78c1bb2 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-@@ -762,6 +762,8 @@ static int mali_c55_params_start_streaming(struct vb2_queue *q,
- 	struct mali_c55 *mali_c55 = params->mali_c55;
- 	int ret;
+ /*
+  * An initial reference count has been held in gpiochip_add_data_with_key().
+- * The caller should drop the reference via gpio_device_put() on errors.
++ * A caller that tears the chip down on errors must drop the reference via
++ * gpio_device_put().
+  */
+ static int gpiochip_setup_dev(struct gpio_chip *gc)
+ {
+@@ -1100,12 +1101,16 @@ static void gpiochip_setup_devs(void)
+ 			continue;
+ 		}
  
-+	guard(mutex)(&mali_c55->isp.capture_lock);
-+
- 	ret = pm_runtime_resume_and_get(mali_c55->dev);
- 	if (ret)
- 		goto err_return_buffers;
-@@ -796,6 +798,8 @@ static void mali_c55_params_stop_streaming(struct vb2_queue *q)
- 	struct mali_c55 *mali_c55 = params->mali_c55;
- 	struct mali_c55_isp *isp = &mali_c55->isp;
++		/*
++		 * The reference taken in gpiochip_add_data_with_key() is
++		 * dropped by gpiochip_remove(): this chip is still registered
++		 * and its driver has not been told about the failure, so the
++		 * reference must be kept here.
++		 */
+ 		ret = gpiochip_setup_dev(gc);
+-		if (ret) {
+-			gpio_device_put(gdev);
++		if (ret)
+ 			dev_err(&gdev->dev,
+ 				"Failed to initialize gpio device (%d)\n", ret);
+-		}
+ 	}
+ }
  
-+	guard(mutex)(&isp->capture_lock);
-+
- 	if (mali_c55_pipeline_ready(mali_c55)) {
- 		if (v4l2_subdev_is_streaming(&isp->sd))
- 			v4l2_subdev_disable_streams(&isp->sd,
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-index a9c28b090b2a..cbd2a2f77da3 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-@@ -146,6 +146,8 @@ static int mali_c55_stats_start_streaming(struct vb2_queue *q,
- 	struct mali_c55 *mali_c55 = stats->mali_c55;
- 	int ret;
- 
-+	guard(mutex)(&mali_c55->isp.capture_lock);
-+
- 	ret = pm_runtime_resume_and_get(mali_c55->dev);
- 	if (ret)
- 		goto err_return_buffers;
-@@ -180,6 +182,8 @@ static void mali_c55_stats_stop_streaming(struct vb2_queue *q)
- 	struct mali_c55 *mali_c55 = stats->mali_c55;
- 	struct mali_c55_isp *isp = &mali_c55->isp;
- 
-+	guard(mutex)(&isp->capture_lock);
-+
- 	if (mali_c55_pipeline_ready(mali_c55)) {
- 		if (v4l2_subdev_is_streaming(&isp->sd))
- 			v4l2_subdev_disable_streams(&isp->sd,
--- 
-2.55.0
 
