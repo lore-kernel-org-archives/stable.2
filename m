@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795629071;
-	b=wV4PMETjRfeIpJxcfDD4V56/llRiO2jMZJWpnmsHlHzlkbD5C9ySa/E2TwndYwisoiEj
-	 4VYjBxsXiAg1Vix96qGoLoqD3vizJeUj1fDEUTDIuU0Vn2c+/o9CIZOt3aNKXT1/W89rL
-	 XB1E8F7JMr6W1eNOaFITgbuqVCODSxoIh1CfvWgUiqmNV/90+HD9+H2aBolJTvZs+80xx
-	 GauVFXdBeZ4zx9Ja/6QZHzBqLNxCAXVyE8TBKKVzYyU980Aj2fBhsxV7e0kH7CQpOpZLC
-	 PyknxhiEtkB1dursh77xnkKBtak8S/yQFApE5Pem9GZk+RqlWjFY2qO8YaCTRii9nTQ==
+	t=1795629109;
+	b=xUA70f4gMOZ3NAatUjGoBs7B/ihZJ9qZa6ZByXVf6J9Ra8+OOxP+40+d+tETxChxoWeM
+	 DUDWq9rRNu6DjsWhcwzS3BBAl9ILWE0bH922PPAEdWoJo56Me3feIA5Kj2WD+hl3ynkjz
+	 RsPN6fj/GNtFfcIfATsuidfq26GRcOuhdvrJ7SAa0hIIZfkLOJR2SdRio3WiuDWNRpRIr
+	 KmEaZLzXpC8dvSPpK4vpyZ5PYWQjFiq1aNU/AjhWZtFYJdGAyMPzbX2g0S41kx0eHUMmt
+	 KowKyHAcBjtUlOkvsZxtFhJpCOLkaaIUBeygqz/Hq6S1z2IPOuN0CrgDra75dX4yvSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795629071;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795629109;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vBLkp9ptqEp123yZn2iXEws2HyWozrKsSC3LV6+y6RI=;
-	b=QIa0s+syfdDV7YrF+xMdeCLiKoZDC/ibEy/LCglK7Rf27RRCLWT3+kItfzalDkhAudpE
-	 AXvV8wrUG57G5dkt4zgaYfAOpF3Hxtx1bfKzW8ihApYDrX5uK6c0gXlvFw1sGUnI9DI8a
-	 qjTRpt7c8y0GqKPyp9G0ncfWF8iPvzg2mFuwEGsfFFK0kJroqB+Fr446RfKMEt8M35vKs
-	 9Gqwql+c54wj0/+JEHJwbXf2/GvcEZ2fHFScXP309iHUAZleF0rC6R9+5wLhTWXp+nVMD
-	 Sz+VPDe6Wfb7Ky1HbgC9UrtY+504VU1nvBHCGD1r3oXYWpVPDGABKEfW35YIWZA2hMg==
+	bh=rTXKee5W6zqiK4ZfFTcu1Eqg6D/HIb3gFzrTTVg62ig=;
+	b=mSmPT4hIpwHJ/xBjjkQ1r7dG1TUL5vK6kfw4HKdTv2vWvEqhB5i4SQsRGHZFkXpUC6GX
+	 c2vUZXMryWA1YHNDPEURVcagv+RnP99CKZaSXsYiZ5qxOYXBs0agvYAidy7VrXF8OF3Uc
+	 Llw8mrmELmRYszkuqrKj4yGwroB7UPLr19/ngOwrIdbYXxS22waQOGn9as/7vUatpi8Cx
+	 yeRrKbQy1gtMBEqvi49EzLDKwikLV29xFJQC8d8vhSjyVQa0YztZ3RCQ8s57i9Lz2vIH+
+	 /lW6DyrYZzAzcw29PM64ianUnPZeeRsHbAaOzaOv9cspBtX8f7zaUpqwMpzqvazmdDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hO2bQqln;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="E/w1tDgI";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D5C606A330
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:51:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9570606A684
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:51:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hO2bQqln
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC8831F00A03;
-	Wed, 25 Nov 2026 17:51:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E/w1tDgI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 813431F00AD4;
+	Wed, 25 Nov 2026 17:51:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795629070;
-	bh=vBLkp9ptqEp123yZn2iXEws2HyWozrKsSC3LV6+y6RI=;
+	s=k20260515; t=1795629109;
+	bh=rTXKee5W6zqiK4ZfFTcu1Eqg6D/HIb3gFzrTTVg62ig=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hO2bQqlnys54XbGkoc7TEOXQR4f2Yk9Enix+Osc6mTMEG9ww+jjMSsgH4jbYkfb/+
-	 frapAbyBsSShmisn1rRFQCkddOiQ5mFKrlyTmS6nnWueeb5/KGqWfRu02My7L5ifhw
-	 fUPDXxDtkXjoJq+7vSz1PX1cXi2A5LbcIsOi9ilCr2HyIRbuvb7IHC+U4ZCb1op7E0
-	 drKhHklhf7jvC24WKH7zWJd4CALc8HVdC5Be40CkNaT/+DuFptLu4L5AiJgsjKsq5z
-	 Cs0ahLNA0RZg0GNaYn3qDZ7qwkQtnSXpUtKGKXm7GyyB/vf7AeayDpugUGEa6TDQkl
-	 o5Yc38Wv34LZA==
+	b=E/w1tDgIaY6FHYnmWj1Z9NAsTiUZYMhvI6qwzSQB3LZn3AlkbZ3Yh6vfPm/NPyUqc
+	 OmWr2/JMQdv6Xcf/8xlw2FL2Aq9pwOtc1IE1AQgjVumvzNbyEB1VlpWux9DmKrL59X
+	 2v2A8bJmSmN1hHQDkqxnigOcLqOrm4ZTHrw7ff0XlqSlaG/8/V9RyttN58Lwnv8N7g
+	 JflcNxxHZlK5u5Cd8J7aXj2UkHG2f8Oh3XbFzVXRbJS84g4ij17ZKf1So6gVdkhrTb
+	 p19YoQAnVkH0aA+2cKRggsaEGx70VR6hx0oO0i+QqpdPdC3gIMgoKTanNFmq++0XBx
+	 9AVVl2R/dtR1Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Andrea Parri <parri.andrea@gmail.com>,
 	Sashiko <sashiko-bot@kernel.org>,
 	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Ingo Molnar <mingo@kernel.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
+	Waiman Long <longman@redhat.com>,
+	Kayra Cizmeci <kayracizmeci@gmail.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] sched/uclamp: Reject clamp values above SCHED_CAPACITY_SCALE
-Date: Wed, 25 Nov 2026 12:51:08 -0500
-Message-ID: <20261125175054.1050736-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] sched/core: Fix cpuset_mutex double unlock in __sched_setscheduler()
+Date: Wed, 25 Nov 2026 12:51:47 -0500
+Message-ID: <20261125175132.1054321-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112505-zigzagged-widget-9e48@gregkh>
-References: <2026112505-zigzagged-widget-9e48@gregkh>
+In-Reply-To: <2026112525-vividness-eggshell-be18@gregkh>
+References: <2026112525-vividness-eggshell-be18@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,58 +68,67 @@ Content-Transfer-Encoding: 8bit
 
 From: Andrea Parri <parri.andrea@gmail.com>
 
-[ Upstream commit 8127ec8458df29bd702db602473042ccb9e619b9 ]
+[ Upstream commit f7141257dd67d4936f906a6cfd1d0007721f6898 ]
 
-sched_setattr() accepts sched_util_min and sched_util_max values that do
-not fit in uclamp_se::value. A single thread can do:
+A sched_setattr() with SCHED_FLAG_KEEP_POLICY on a SCHED_DEADLINE task
+unlocks cpuset_mutex twice if the task's policy changes concurrently:
 
-  sched_setattr(max = 800)		returns 0
-  sched_setattr(min = 0xfffffffe)	returns 0
-  sched_getattr()			min=2046 max=800
-
-which leaves the minimum above both SCHED_CAPACITY_SCALE and the task's own
-maximum.
-
-The range check in uclamp_validate() relies on the + 1 wrapping -1, the
-reset value, to 0:
-
-	if (util_min + 1 > SCHED_CAPACITY_SCALE + 1)
-
-That only works for an unsigned type. util_min and util_max are int and
-SCHED_CAPACITY_SCALE is a long, so every negative value passes the check,
-and so does INT_MAX, whose + 1 wraps.
-
-uclamp_se_set() then truncates what got through to the 11 bits of
-uclamp_se::value, but computes the bucket from the full value. A minimum
-of 0xfffff800 is stored as 0 in the top bucket, where uclamp_rq_max_value()
-takes it for the highest active clamp once a higher value leaves the rq.
-The rq clamp falls below what the remaining tasks requested, and emptying
-their bucket trips the WARN_ON_ONCE() in uclamp_rq_dec_id(), without any
-privilege:
-
-  WARNING: kernel/sched/core.c:1862 at dequeue_task+0x2a3/0x2b0, CPU#0: repro/126
+  WARNING: bad unlock balance detected!
+  7.4.0-rc1 #1 Not tainted
+  -------------------------------------
+  repro/126 is trying to release lock (cpuset_mutex) at:
+  [<ffffffff9a17cacc>] __sched_setscheduler+0x9cc/0xc40
+  but there are no more locks to release!
+  ...
   Call Trace:
-   __schedule+0x933/0x1320
-   schedule+0x36/0x100
-   do_nanosleep+0x61/0x190
-   hrtimer_nanosleep+0xb5/0x1d0
+   print_unlock_imbalance_bug.part.0+0xfb/0x110
+   lock_release+0x286/0x2e0
+   __mutex_unlock_slowpath+0x1a/0x400
+   __sched_setscheduler+0x9cc/0xc40
+   __x64_sys_sched_setattr+0xa3/0x1b0
+   do_syscall_64+0x106/0x5f0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Make util_min and util_max unsigned int, so that -1 is the only value that
-wraps. The pair check below is unaffected, since it skips -1 explicitly and
-anything else is at most SCHED_CAPACITY_SCALE by then.
+__sched_setscheduler() samples p->policy before taking any lock, and
+restarts from the recheck label if p->policy differs under the rq lock.
+The restart drops cpuset_mutex but leaves cpuset_locked set, so a pass
+that no longer needs the mutex still unlocks it on its way out:
 
-Requests that were only accepted because of this now fail with -EINVAL.
+  CPU 1                                CPU 2
+  __sched_setscheduler(KEEP_POLICY)
+    policy = p->policy /* DEADLINE */
+                                       __sched_setscheduler(SCHED_OTHER)
+                                         p->policy = SCHED_OTHER
+    cpuset_locked = true
+    cpuset_lock()
+    rq = task_rq_lock(p)
+    oldpolicy != p->policy
+      cpuset_unlock()
+      goto recheck
+    /* no cpuset_lock() this time */
+    ...
+    if (cpuset_locked)
+      cpuset_unlock()
 
-The following program triggers the warning when run by any user outside
-a child cpu cgroup. With this applied, its 0xfffff800 request fails with
--EINVAL and the warning no longer appears:
+Without CONFIG_DEBUG_MUTEXES, or CONFIG_DEBUG_RT_MUTEXES on PREEMPT_RT,
+nothing warns. The second unlock still clears the owner field regardless
+of who holds the mutex, so another task can lose cpuset_mutex inside its
+critical section. Entering SCHED_DEADLINE needs CAP_SYS_NICE, but a
+racing caller that owns the task does not need it if it samples a policy
+other than SCHED_DEADLINE.
+
+Clear cpuset_locked when dropping the mutex for the restart. This should be
+safe because the flag is only tested on the paths leaving the next pass,
+after that pass has set it again if it took the mutex.
+
+The following program, run as root, reproduces the splat, which no longer
+appears with this applied. On PREEMPT_RT it crashes the kernel within
+seconds, which this also fixes:
 
   #define _GNU_SOURCE
   #include <pthread.h>
-  #include <sched.h>
   #include <stdint.h>
   #include <sys/syscall.h>
-  #include <time.h>
   #include <unistd.h>
 
   struct attr {
@@ -126,102 +137,98 @@ a child cpu cgroup. With this applied, its 0xfffff800 request fails with
       int32_t nice;
       uint32_t prio;
       uint64_t runtime, deadline, period;
-      uint32_t util_min, util_max;
   };
 
   static volatile int stop;
+  static volatile pid_t target;
 
-  static void set_min(uint32_t v)
+  static void set(struct attr a)
   {
-      /* KEEP_POLICY | KEEP_PARAMS | UTIL_CLAMP_MIN */
-      struct attr a = { .size = sizeof(a), .flags = 0x38, .util_min = v };
-
-      syscall(SYS_sched_setattr, 0, &a, 0);
+      a.size = sizeof(a);
+      syscall(SYS_sched_setattr, target, &a, 0);
   }
 
-  static void burn(long us)
+  static void *sleeper(void *arg)
   {
-      struct timespec s, n;
-
-      clock_gettime(CLOCK_MONOTONIC, &s);
-      do
-          clock_gettime(CLOCK_MONOTONIC, &n);
-      while ((n.tv_sec - s.tv_sec) * 1000000 +
-             (n.tv_nsec - s.tv_nsec) / 1000 < us);
-  }
-
-  static void *bogus(void *arg)
-  {
-      set_min(0xfffff800);
+      target = syscall(SYS_gettid);
       while (!stop)
-          burn(1000);
+          usleep(1000);
       return arg;
   }
 
-  static void *worker(void *arg)
+  static void *switcher(void *arg)
   {
-      long v = (long)arg;
-
-      set_min(v);
       while (!stop) {
-          burn(v == 800 ? 300 : 1500);
-          usleep(100);
+          /* SCHED_DEADLINE, 2us every 1s */
+          set((struct attr){ .policy = 6, .runtime = 2000,
+                             .deadline = 1000000000,
+                             .period = 1000000000 });
+          set((struct attr){ .policy = 0 }); /* SCHED_OTHER */
       }
+      return arg;
+  }
+
+  static void *racer(void *arg)
+  {
+      /* KEEP_POLICY | KEEP_PARAMS */
+      while (!stop)
+          set((struct attr){ .flags = 0x18 });
       return arg;
   }
 
   int main(void)
   {
-      pthread_t t[3];
-      cpu_set_t c;
+      pthread_t t[5];
       int i;
 
-      CPU_ZERO(&c);
-      CPU_SET(0, &c);
-      sched_setaffinity(0, sizeof(c), &c);
-      pthread_create(&t[0], NULL, bogus, NULL);
-      usleep(50000);
-      pthread_create(&t[1], NULL, worker, (void *)500L);
-      pthread_create(&t[2], NULL, worker, (void *)800L);
-      sleep(15);
+      pthread_create(&t[0], NULL, sleeper, NULL);
+      while (!target)
+          usleep(100);
+      pthread_create(&t[1], NULL, switcher, NULL);
+      for (i = 2; i < 5; i++)
+          pthread_create(&t[i], NULL, racer, NULL);
+      sleep(30);
       stop = 1;
-      for (i = 0; i < 3; i++)
+      for (i = 0; i < 5; i++)
           pthread_join(t[i], NULL);
       return 0;
   }
 
-An LLM helped find the warning and write this patch and its tests.
+An LLM helped find the PREEMPT_RT crash and write this patch and its test.
 
-Fixes: 480a6ca2dc6e ("sched/uclamp: Allow to reset a task uclamp constraint value")
+Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
+Reviewed-by: Waiman Long <longman@redhat.com>
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
 Cc: stable@vger.kernel.org
 Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
-Link: https://patch.msgid.link/20261102134831.243255-1-parri.andrea@gmail.com
-[ sashal: Applied the change to uclamp_validate() in the older core scheduler file, since the function hasn't yet moved to its separate syscalls file there. ]
+Link: https://patch.msgid.link/20261102134606.242743-1-parri.andrea@gmail.com
+[ sashal: Applied the same one-hunk change to __sched_setscheduler() in kernel/sched/core.c, since the upstream file for that function doesn't exist in this tree. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/sched/core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index ae06385109049..6f7269a6921de 100644
+index ae06385109049..d777139c7a909 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -1898,8 +1898,8 @@ static int sysctl_sched_uclamp_handler(struct ctl_table *table, int write,
- static int uclamp_validate(struct task_struct *p,
- 			   const struct sched_attr *attr)
- {
--	int util_min = p->uclamp_req[UCLAMP_MIN].value;
--	int util_max = p->uclamp_req[UCLAMP_MAX].value;
-+	unsigned int util_min = p->uclamp_req[UCLAMP_MIN].value;
-+	unsigned int util_max = p->uclamp_req[UCLAMP_MAX].value;
+@@ -7810,8 +7810,10 @@ static int __sched_setscheduler(struct task_struct *p,
+ 	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
+ 		policy = oldpolicy = -1;
+ 		task_rq_unlock(rq, p, &rf);
+-		if (cpuset_locked)
++		if (cpuset_locked) {
+ 			cpuset_unlock();
++			cpuset_locked = false;
++		}
+ 		goto recheck;
+ 	}
  
- 	if (attr->sched_flags & SCHED_FLAG_UTIL_CLAMP_MIN) {
- 		util_min = attr->sched_util_min;
 -- 
 2.53.0
 
