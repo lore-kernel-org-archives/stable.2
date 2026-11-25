@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795629142;
-	b=InPMUPtQJ4EQWSjrHuyRI1ygDpiM7IKIC1huGTCiDNqNgqDhK13Th4fsfeWS4zA/SmJj
-	 TqVxO0Qcy3UcG3BKiPj8wHJ461izMT+fU7urWw4i5/zyX+bcSD6ZQ1qDSLYEQ4+hbbj5r
-	 qjfDSWyCAueAVNlerhtYaBoc+Bi5NVHZDVMSBtzKV8vsAdZf0PdM+mnuZoOQBibOFxx5q
-	 8tLnRMYuTfIu9a4+D6cgyJzYIM1zxWcKwaTeCn8xhBmAJH7eiOzPTMHE679iGXoRw2mjv
-	 hqgz5ZE9jpnMlSnoQKBiWNH2vKz0f3UE9CWhCKj7SH3/uBGVwUHPNHLrEVkh61Ybvww==
+	t=1795629257;
+	b=WFDGyMgrS7DppJ9Mdr/cyf/vFizRSUrTY+0tgdkSExf+OzOejqx+lXmWQE3PXDdml9GY
+	 DRa0H03i6//XBcuUMLz8eHjj/OiOvyUgNt5/GLEZ/AtKYcfp4sahElO661RZEzAP+mhU5
+	 RGp5eay2L95qz3vYjZ/wXZEr7tgkzeqPTDc4ZO1XElymFiWJEAr7GreeqtbouFf9lPIiP
+	 /z1loIMYiTDg2Dm6NjkJT2+hwPsxRSTAkgppPnE+iCsYoOQPMYeRoY4FglQZcb58CDQNt
+	 tIXdDjDEbDpDDfRuEpUDp08hktPhgrVxLUcqzPYEGWZAJfa2sxcMTYkH1O2plF3WCTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795629142;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:Received:From:In-Reply-To:
-	 References:MIME-Version:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=0+MG6+0gHbyYQq/Q0s/NefIO/PQ2Tu2wSVhno+8Yx2A=;
-	b=lVMy3B6CqNe/eW3qnMgaoDzqYr7LQ/ua1CZcwDrsH5mW5HrBsjoudbtBORJ4GSxvY3Lm
-	 oa3JZm3hv3oFfG/lvtpl22Pxk660cMrfkxkj/uoL12stILSfWJ+sRlXUFXQE9fzkp+HzC
-	 GlYXyy/8pT7gQ+N18t9rBgIgX/Cw+hJHXeykybmnM/tm5NuEopB5fgwcyu8Fp1Lys7KR6
-	 1bOzat4E/B0R/StGAv1W2Xg6Tp8m8WkgRKvs6i8LpScJr6CXEpQ2cullhS51oUZ5R6jJK
-	 m7EPbKRgQlXyCmlVeRJUYgV1GYS+rxhv//W8j9OfOJacBgMupo5RRlRM1F4gkXB5Esg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795629257;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ZLOHQV4UPZI/HT+z5s7MyOxtdNirj7OAhwUsfWlSGeA=;
+	b=ZFeVn6LtJuci49oCC79I2CxPnuChUy4en87i3WFFc2Q7WwmMwtMcVXZyMugfelpeeMQs
+	 sq4C7RlaSuyM8Oy3uY14/QqsqHYLqB7XJ+netfkovHWbnM6rIjxXs+x4RCa1wia5agVq2
+	 j+MHXdHZlc7veQoRxUS4RbbzpA1Telf1vyabBgvRwxcaXE9S/ZMGs9iL+czxwW+G34PRl
+	 E3saVnxOk43yotxHJGkOqyp+sosCdjuNkv40+edb1ZuObRb6gX0TF7JRJS74oUzlfS00l
+	 jryZpWyl0iNPCixOjB/fQRWkaA+oTmks4mBwmRdWAQ1n0h3CmNHdPZwvK5ajvwR0fJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=OAzvLrB0;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nRYvW8FZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E8D606A32E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:52:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89E8D606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CDB606A6AB
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:54:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=OAzvLrB0
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4d5b2db4bbso1161821866b.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:52:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1795629139; x=1796233939; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0+MG6+0gHbyYQq/Q0s/NefIO/PQ2Tu2wSVhno+8Yx2A=;
-        b=OAzvLrB0OWE1iPxpRBcIihGMtwga8R+qGTKBq1iA2RWqJ8zKuwxIhpIYKjdy6ZPtSP
-         68iY63H9S81lQlwiKLsoa1c/h44fPrn+5sXkegNZPNMRiX+023Kr9qpT/Xp4eXh/BMaZ
-         4NZzPjJ1WvWH6xJWQPIjWj3p625norH8g4e8Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795629139; x=1796233939;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0+MG6+0gHbyYQq/Q0s/NefIO/PQ2Tu2wSVhno+8Yx2A=;
-        b=Xb8IL48hbJ5/CHrpx6I0U5yIHwhP4VXxNp59YGJGjPuQ2WJLqGIesYWpSOVVhwfa/r
-         Y+4obbiGC/Bvrqhn9JkldyQtCnPBItAvPEqXD6XDTqzNqSEgNUH8xN2EciC7tSZpMmfv
-         9I+ud5wumdrijzT5kT/9AGPzekQKPp+G6kYi+w9nhwaZV5og6Aqmxn2xpCBXpExUnQgT
-         fOVzgHAeJX+Nno9FH9E6D8PiaEXurbAZm7G0+I9t8EpeMXh8tqMFjR3VaQGZjWFtHCFR
-         zOeD4yr2cm2Ylqju/ZkT4QHexmmFFa0cVlJTMqD2BnA0UUHyZm725BM5S2sMOxCluU30
-         7llQ==
-X-Forwarded-Encrypted: i=1; AL+hErHCQq2s3D14Q/JQeeDU15uZYoKM1TLDuE/PKgHwEneMMsN9vgW4MI2MESs1wy7f7nm9J8L+AWk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8HrZvQOAdmDPwEUM05VVI1RvN+BJmZbJ62FwaObR6DgtdnDUKH
-	skFLnII+ZsNRVqC+ZJWmHECl1fdFYfGdJgQZWmctMW9XQ/oClxxL55X4hCzFQgIU7+SQKlQXYbC
-	yu/Quh9rgHg==
-X-Gm-Gg: AZFdTZczyDVYi7S0tFUZufqUAjdru7dpVD9+xv9oFbQCAEQ3FfbecY3AY32FfQHefk3
-	iWldw6zbCqz6JdnxgVBDkHkwJnp3qfp992X9Gnx+4hxmT6vSduIPms/K5WIlefIeCz6Saiijx9E
-	db6ND9YRrC6lHJXz1ZyMaDdzKW3HFbCq6VsbkWb14V+3DOHa06G8xBUKJIlactBh2k20GUZcFmD
-	yQbU5PJkk+oyrJUaKpTk8sfvyLJEydBHkX5Ji0pkZIe00lHawN1rk4oRQc7wywIttAaXT4waedE
-	zROsEnmVpMK+QdQs0dWxeC0zYixDvD9Qgc3Stj4602pAKs/NV4XoCgAoa3gI88QzkcYHCtPMTCw
-	JeEc6C1pvm6oiKM69RkuEkx3Mrv62Q/3JUaorBH+bH6N49GPOn5gmeWvIkadbFgSdzmZHCmBT53
-	JCIpZwYCRxB2d9nEihHvuomfiMFdq7rG+mFT/vXUrHN94PjEYOT33a9uWv/b8eUjiLYih7jlnB3
-	0BQQWqZmqnt9FG/tLgnGePZYbohuNUyFvRrnlWthcUhbBb/B1M62y/EosWgNGYDnf0dsWCsrNOK
-	NAgAi9ifPFxajU0+kb3/U66i4WsVE+g+mB7vAO1QyAkV6QD3pqNEzjQ/QY1CovyX2iYF7KkePEq
-	02/4=
-X-Received: by 2002:a17:907:9301:b0:c46:78af:6150 with SMTP id a640c23a62f3a-c5131585160mr1756983966b.2.1795629138974;
-        Wed, 25 Nov 2026 09:52:18 -0800 (PST)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com. [209.85.208.50])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afc6fb3sm666412266b.62.2026.11.25.09.52.17
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 09:52:18 -0800 (PST)
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6bab10842f8so6323989a12.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:52:17 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGvD1EYT69N5egHhLMMNwYhsTa/DDwo3oG96cMO5FPEEOm7XarMkE+5csfn1Y1ZKIPEiSBe+vc=@vger.kernel.org
-X-Received: by 2002:aa7:c0d8:0:b0:6b5:6b89:e3b0 with SMTP id
- 4fb4d7f45d1cf-6ba1fc3dcfamr11863663a12.19.1795629137592; Wed, 25 Nov 2026
- 09:52:17 -0800 (PST)
-Received: from 425495914135 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 25 Nov 2026 09:52:16 -0800
-From: Linus Torvalds <torvalds@linux-foundation.org>
-In-Reply-To: <CAHk-=wiTUE9vfMvHeGz+dgex_+sMicSHnf6Nt2_w1-SkOmu8ng@mail.gmail.com>
-References: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu>
- <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
- <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com>
- <awWSwmvaTwBxfU-r@redhat.com> <CAHk-=wj3GCXZohdFWWPAOkC_LHno4X0oQW+0sQFJzRMvjpODUg@mail.gmail.com>
- <CAHk-=wgYc9vFEmyV0Ch_e49j6GOhUCMQMnMV4f1FLLvumZOmRw@mail.gmail.com>
- <CAHk-=wgFnKO_O0fR_-O+i5yUGaDcz8_HwpM5QiLM4jPFYZb41Q@mail.gmail.com>
- <awbMwBDP9TsJBmzV@redhat.com> <CAHk-=wiTUE9vfMvHeGz+dgex_+sMicSHnf6Nt2_w1-SkOmu8ng@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nRYvW8FZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2334A1F000EE;
+	Wed, 25 Nov 2026 17:54:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795629257;
+	bh=ZLOHQV4UPZI/HT+z5s7MyOxtdNirj7OAhwUsfWlSGeA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nRYvW8FZNTC5fajV/tZymPXliwSCnrzutRuqi0A5c5r5EG1k6gwEJn2WCGxGiD5Lc
+	 vn9jojb/PBPmxhnZyVR08Plb1747CvRK+Xys6zBi1xZDs3UT0X7KOKyuWPTPVBI7Wc
+	 62fPGVTF4DzO/A7cIUqjwN2kroL7StWwe6mK4x/US44aMF05kOOWoCzWDQhY4s025P
+	 nww6HLCbyijTto0BYE9KS97hlOV3KdS51+u4DpviGY1EBryLLfcHvvb2HScNvtG44b
+	 4GoeCJu4qvgy9rFTn3+pp2TiZLzWuYWMt8XA/VNxKw72e8rVlzuDSAnpRV5gs8zkL4
+	 ifI890KajFHXA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] sched/uclamp: Reject clamp values above SCHED_CAPACITY_SCALE
+Date: Wed, 25 Nov 2026 12:54:14 -0500
+Message-ID: <20261125175400.1084434-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112506-pointy-crib-caa0@gregkh>
+References: <2026112506-pointy-crib-caa0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,88 +62,166 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 25 Nov 2026 09:52:16 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wiRbii1c78G2gwpKspaH1hj_VwLrur7NEBKn0GNduBvJA@mail.gmail.com>
-X-Gm-Features: Aa3M54pD_6kkJ5tspvLPVjU5eOwlU_YotXkRlOxaA6oY6c-rpN2ggFe7Zir-l2E
-Message-ID: <CAHk-=wiRbii1c78G2gwpKspaH1hj_VwLrur7NEBKn0GNduBvJA@mail.gmail.com>
-Subject: Re: [PATCH 3/7] eventpoll: don't claim real exclusivity for EPOLLEXCLUSIVE
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Christian Brauner <brauner@kernel.org>, Michal Nazarewicz <mina86@mina86.com>, Wen Yang <wen.yang@linux.dev>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	tz2294@columbia.edu, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 25 Nov 2026 at 08:39, Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> On Wed, 25 Nov 2026 at 03:55, Oleg Nesterov <oleg@redhat.com> wrote:
-> >
-> > FYI, none of these patches can be applied, both patch and git-am complain
-> > "patch: **** malformed patch at line 34: *file, wait_queue_head_t *whead,"
->
-> Grr. I was so proud of having finally figured out how to make gmail
-> send uncorrupted patches so that I could do it in my normal workflow.
+From: Andrea Parri <parri.andrea@gmail.com>
 
-Ok, my thing no longer mangled whitespace, but it looks like
-"Encoding: 8bit" will still then cause line-wrapping even when sent as
-a raw message.
+[ Upstream commit 8127ec8458df29bd702db602473042ccb9e619b9 ]
 
-Fair enough, I think it's actually smtp rules that technically limit
-things to 80 character lines even though no modern mail transfer
-likely cares.
+sched_setattr() accepts sched_util_min and sched_util_max values that do
+not fit in uclamp_se::value. A single thread can do:
 
-So I just have to make my little thing send as quoted-printable. So
-hopefully *this* actually comes through properly.
+  sched_setattr(max = 800)		returns 0
+  sched_setattr(min = 0xfffffffe)	returns 0
+  sched_getattr()			min=2046 max=800
 
-          Linus
+which leaves the minimum above both SCHED_CAPACITY_SCALE and the task's own
+maximum.
 
+The range check in uclamp_validate() relies on the + 1 wrapping -1, the
+reset value, to 0:
+
+	if (util_min + 1 > SCHED_CAPACITY_SCALE + 1)
+
+That only works for an unsigned type. util_min and util_max are int and
+SCHED_CAPACITY_SCALE is a long, so every negative value passes the check,
+and so does INT_MAX, whose + 1 wraps.
+
+uclamp_se_set() then truncates what got through to the 11 bits of
+uclamp_se::value, but computes the bucket from the full value. A minimum
+of 0xfffff800 is stored as 0 in the top bucket, where uclamp_rq_max_value()
+takes it for the highest active clamp once a higher value leaves the rq.
+The rq clamp falls below what the remaining tasks requested, and emptying
+their bucket trips the WARN_ON_ONCE() in uclamp_rq_dec_id(), without any
+privilege:
+
+  WARNING: kernel/sched/core.c:1862 at dequeue_task+0x2a3/0x2b0, CPU#0: repro/126
+  Call Trace:
+   __schedule+0x933/0x1320
+   schedule+0x36/0x100
+   do_nanosleep+0x61/0x190
+   hrtimer_nanosleep+0xb5/0x1d0
+
+Make util_min and util_max unsigned int, so that -1 is the only value that
+wraps. The pair check below is unaffected, since it skips -1 explicitly and
+anything else is at most SCHED_CAPACITY_SCALE by then.
+
+Requests that were only accepted because of this now fail with -EINVAL.
+
+The following program triggers the warning when run by any user outside
+a child cpu cgroup. With this applied, its 0xfffff800 request fails with
+-EINVAL and the warning no longer appears:
+
+  #define _GNU_SOURCE
+  #include <pthread.h>
+  #include <sched.h>
+  #include <stdint.h>
+  #include <sys/syscall.h>
+  #include <time.h>
+  #include <unistd.h>
+
+  struct attr {
+      uint32_t size, policy;
+      uint64_t flags;
+      int32_t nice;
+      uint32_t prio;
+      uint64_t runtime, deadline, period;
+      uint32_t util_min, util_max;
+  };
+
+  static volatile int stop;
+
+  static void set_min(uint32_t v)
+  {
+      /* KEEP_POLICY | KEEP_PARAMS | UTIL_CLAMP_MIN */
+      struct attr a = { .size = sizeof(a), .flags = 0x38, .util_min = v };
+
+      syscall(SYS_sched_setattr, 0, &a, 0);
+  }
+
+  static void burn(long us)
+  {
+      struct timespec s, n;
+
+      clock_gettime(CLOCK_MONOTONIC, &s);
+      do
+          clock_gettime(CLOCK_MONOTONIC, &n);
+      while ((n.tv_sec - s.tv_sec) * 1000000 +
+             (n.tv_nsec - s.tv_nsec) / 1000 < us);
+  }
+
+  static void *bogus(void *arg)
+  {
+      set_min(0xfffff800);
+      while (!stop)
+          burn(1000);
+      return arg;
+  }
+
+  static void *worker(void *arg)
+  {
+      long v = (long)arg;
+
+      set_min(v);
+      while (!stop) {
+          burn(v == 800 ? 300 : 1500);
+          usleep(100);
+      }
+      return arg;
+  }
+
+  int main(void)
+  {
+      pthread_t t[3];
+      cpu_set_t c;
+      int i;
+
+      CPU_ZERO(&c);
+      CPU_SET(0, &c);
+      sched_setaffinity(0, sizeof(c), &c);
+      pthread_create(&t[0], NULL, bogus, NULL);
+      usleep(50000);
+      pthread_create(&t[1], NULL, worker, (void *)500L);
+      pthread_create(&t[2], NULL, worker, (void *)800L);
+      sleep(15);
+      stop = 1;
+      for (i = 0; i < 3; i++)
+          pthread_join(t[i], NULL);
+      return 0;
+  }
+
+An LLM helped find the warning and write this patch and its tests.
+
+Fixes: 480a6ca2dc6e ("sched/uclamp: Allow to reset a task uclamp constraint value")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: stable@vger.kernel.org
+Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
+Link: https://patch.msgid.link/20261102134831.243255-1-parri.andrea@gmail.com
+[ sashal: Applied the same uclamp_validate() change to its location in kernel/sched/core.c instead of kernel/sched/syscalls.c, with context adjusted accordingly. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 23 Nov 2026 16:47:42 -0800
-Subject: [PATCH 3/7] eventpoll: don't claim real exclusivity for
- EPOLLEXCLUSIVE
+ kernel/sched/core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-An EPOLLEXCLUSIVE entry that wakes an epoll_wait()er returns 1, and
-because it was queued as an exclusive waiter that stops the wakeup walk.
-
-But nothing makes the epoll user consume the event: it may be killed,
-time out, pick another ready fd, or just not read.  Anything queued
-behind the entry - a blocked pipe reader, an accept()er, a recv()er -
-then sleeps with the event pending.
-
-Queue it with WQ_FLAG_POLL_EXCLUSIVE instead: still only one epoll
-instance is woken per wakeup, but real waiters are not skipped.
-
-Reported-by: Mani Tofigh <mt4022@columbia.edu>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Oleg Nesterov <oleg@redhat.com>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Juri Lelli <juri.lelli@redhat.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
----
- fs/eventpoll.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index b959af04772c..58c0cb845dc7 100644
---- a/fs/eventpoll.c
-+++ b/fs/eventpoll.c
-@@ -1626,9 +1626,8 @@ static void ep_ptable_queue_proc(struct file
-*file, wait_queue_head_t *whead,
- 	pwq->whead = whead;
- 	pwq->base = epi;
- 	if (epi->event.events & EPOLLEXCLUSIVE)
--		add_wait_queue_exclusive(whead, &pwq->wait);
--	else
--		add_wait_queue(whead, &pwq->wait);
-+		pwq->wait.flags |= WQ_FLAG_POLL_EXCLUSIVE;
-+	add_wait_queue(whead, &pwq->wait);
- 	pwq->next = epi->pwqlist;
- 	epi->pwqlist = pwq;
- }
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index cf470ac63af72..2e7fdb1e0da8d 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -1856,8 +1856,8 @@ static int sysctl_sched_uclamp_handler(struct ctl_table *table, int write,
+ static int uclamp_validate(struct task_struct *p,
+ 			   const struct sched_attr *attr)
+ {
+-	int util_min = p->uclamp_req[UCLAMP_MIN].value;
+-	int util_max = p->uclamp_req[UCLAMP_MAX].value;
++	unsigned int util_min = p->uclamp_req[UCLAMP_MIN].value;
++	unsigned int util_max = p->uclamp_req[UCLAMP_MAX].value;
+ 
+ 	if (attr->sched_flags & SCHED_FLAG_UTIL_CLAMP_MIN) {
+ 		util_min = attr->sched_util_min;
 -- 
-2.56.0.313.g975a75ca90
+2.53.0
+
