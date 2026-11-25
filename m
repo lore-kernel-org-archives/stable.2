@@ -1,63 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795610341;
-	b=O5zWHvzX+gMA5rgsVEIFnMaQY1wVCoSgSVViAdWOmRf+XD+o5g3p21tYswqN0qFqCN9E
-	 hNXXWCqy87BIEICtW2kX27xD5f4+A1od8kH77eEuPcu5HN3PiKImd44/y7W7hW9VqRj+J
-	 ssf1G7fE40+Hx2LKSN1jgQ1eFXLbFRwZQtHdp6s0z45rsqsgY1mc5XOZpeu/qW+uRTK/1
-	 68C5f17IjiVP1kt8saO7Ou9t1HXsw1u3Zj/yFdX/ncpm6Joug8wJqhDNLHC1EMbWBYxO6
-	 1ZiZCjka31XLcdG0lUypG8MUlp0hSq2mqhsA36mAWwlRGVaLkVsNX2ZHsXC5TyroMXA==
+	t=1795610581;
+	b=czScQ5O95jXxQrg15duPnCK9MShcGTIweskNG4V0tqaXQt6us8gT+YR6UMCOQ46BX9A0
+	 Lgo/cQGjhCmIJWnzl0/QPe7WVy8pV4nm/R87w03TVEkxg2UO4i48/5anTbrgfRuu0KnRy
+	 GqCJLpxlVih09RyoSa81NRtqzIMIMhyghkExUEqnb/89PlfeeQ5BMRx+nwvXYiVbi7qGr
+	 yyA5ZlQtzYC+UVJ/ekf+2sbfBPetPI3v5ayYStN7IQsHPi2yLoO/9Tb1Z14kclCNBFSMi
+	 61OFqtGNFoxBx1SfEhua+yLlShm9b5J5KgX6bz6/gJzpEXP7CM2oZttVaJd2E+K3xoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795610341;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8ksBKm+pzxuuq+S/3andYFYeVp/N1SmT8kmvLEwpdiM=;
-	b=eaNDc41wg9fvYHzJa5ab5e98M6DIQJppfwiLU41NjEkn9ASsI6kLDxmr4olN5uCCJwV+
-	 HjZVxuFPmyP4sqHZM7wJ4Yeh6S6FnLSaHieog/bbUdOtzX1FU7qCPDQ0NZCm6PBU4p87I
-	 TEY4ss/vE0AhxMTw3dF68qTbO8fitCqhe78NIboZa+UnwzFuTv7bz4ioW7ovL9auvJFSj
-	 64wOm2bHC73qFIXHwGHZ7gNn+g9WJ9NuiRvDnRd/JD8a+d4GGI1bayjlEVPic/6he74ME
-	 9mWGVuBbTcBptAxYK1/u3OWas69J3ynOJ7pX+8dLpo8NPcMwMp1RqaWIBmmwAxiQlDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795610581;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=iZI22dC0BuvL3b6xzlWPN3s8IoHdRulrkyuTDVsWIGE=;
+	b=a5hJaz53Pe9bvNY1ghODz2vM5Od1TmFOdTd8BGBSwmQ9PMHDR/fs7I5MfsQJjyqdxVvv
+	 RDhyYpWzxrnFbZn3Go9Zm4XYrt2JUcuaZftQ5YTrPtAQ+quaHTfWukIEcQ53h1MnCoOMj
+	 L/l59ZxNGq2PK7NQ7JfHTxv80M9+3h0Afbg3sHBNa0Udfcz2l2WlCUKjGhl/pvKYNbd8Q
+	 vCPfwLS9ZQ20DW1N82RKHtiA4gksAMnY8TkQIdNr0ec7E0NOUPPS4NxFuMA66AC85ah/Y
+	 boZXBB/ACSjSTYxE7zOGBNmCM3H1ChM+jyJGbDNnbsJaDYsRni8ewFZQ/QsmxE1Jb0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NOrbCY2W;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0DB01606A31E;
-	Wed, 25 Nov 2026 12:39:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DB01606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lH5SZz6G;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE6A606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:43:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAE6A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NOrbCY2W
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7D2F32F;
-	Wed, 25 Nov 2026 04:38:57 -0800 (PST)
-Received: from gaia.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F29D83F86C;
-	Wed, 25 Nov 2026 04:38:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795610340; bh=cmw1itbte3IzHLZQjDwA+gCBb29y9QBqMepaxZQDr1I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=NOrbCY2WFx1gwZJX7Wx1i7fm4XXe2zPom8L5eAedmsmxMPBfiaBWikKdBGOk7bjHS
-	 mHVKCa9/zp6coBzVCeCbxTt1If7iDivGxte3uh7DK+9cMls6f2Qv71tpRMJQ9jLZUW
-	 oBbGSjYObKlRGV4l6GLPWtMDYoT/emhCsRY+ZCY8=
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: will@kernel.org,
-	Rui Qi <qirui.001@bytedance.com>
-Cc: mark.rutland@arm.com,
-	dylanbhatch@google.com,
-	song@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lH5SZz6G
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-38190551625so11332935eec.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:43:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795610580; x=1796215380; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iZI22dC0BuvL3b6xzlWPN3s8IoHdRulrkyuTDVsWIGE=;
+        b=lH5SZz6G6yeLj1J77LPO8OzqF3h6LykbNJQG+IgdKowAQe+tIg92nG/LJzr8oDG7QK
+         22vlr2hdsiJaW4j7X1BrcgRTu2hQFhVwtU2Q7utU7f6afn5mQCqxB6BgQoChloU5p0oN
+         isQcsbLTuDAe7JWjIyc/r025qrQ1YSiMgy6zzbbAC4K+8PoiTkDhNJCy+M2H3wMGgPQ0
+         nOY/2ca0dwbVIsZL9/NBAJrUutu8W7PHKNHXMO84Kdvo1Ced9JjCS5jveavst0aVwQ+q
+         o+5sZPk4OLyvxRm89tbPPoBABipm6JY6LmWTB/Psl+Gk512Iutbb6h0fqb2RobUXiAih
+         QQjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795610580; x=1796215380;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iZI22dC0BuvL3b6xzlWPN3s8IoHdRulrkyuTDVsWIGE=;
+        b=ea1MReQ+IpAkNc58sPPQ+dVYyjEWeX+5KdjPMkU0jVNhHtsoANhBTdNzKt8R5GNfXp
+         IPTgmzTjccu/9U7c4V7+PTgK0SJdF/b+l/hpZsWnoj1CZRFwKIwtFQrCQ/opOGHhHJx3
+         C0VPGB+SxijioJRc0AoZhfJO72MkYQP7obypCJik6u/rNoRoYTgozkv2wRSevEx8ts/c
+         4z2I0rTD1R9fDT6NkoK9Y7hqIZor0oQTRJV9OxOejwBiy9V7S82VPWjqiQZeMvL/OT5g
+         +VblHB9lS8KVvl+X/pFlEVQRMx96983ubgDYfyovnoUv0XNZL5LPkFUTB7n/B7l/qhx0
+         1djg==
+X-Forwarded-Encrypted: i=1; AL+hErGxCCA2LdqBZKeYqUGKh8heI3K8sohVI963g4UxLD6DJ5XPkCjo4KdgNdUc29gyPnIt9YJEpHI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z86Np4WeK2sdgQymU6g4uUfoRD396dgSm9yv9+2OKcPo0esLOQv
+	2iLNsnulaO7UkwtKxGB6FBlyEG1ur64Y7nU7pDbhI9usSNG9nj5ZLj2F
+X-Gm-Gg: AZFdTZe6Qdef9iW3E1W7VzTcTKdFZKqsfBD8+AuPg4rNTJbkAdb0upJY+1Jjo0YwT4p
+	ANPQrxAJiYXDKEIpAMytp6ER+rjivb7cai+afLOgcGA2kRN+3sBWO4IYcu2l0Z+qCGzA3gotLU/
+	SJlpxTBHGICOlev6tkfTjtRGi+7cYukXHjDNke+diEiU1X9r/hIMpn9YHUsH4l3fDNEymi4f/pd
+	aFeVUUHqZLhVuLTjZPkDVArleNIrSCk1EBXTYzDYXEag5XFiyXOh01BLkXq1sG167sl4UFg5vHk
+	MSkCEiVt3NVESas6n6/fIQKnB5kvOWkVHVlNGxbUWgi/5MnjshWuuNvJCI/a1NJ5wM+qq4QD59E
+	ToUocwmIocMvjbjM4tTABdP3TDJavc6q5z03YY6VPZDufy3znlv8VY0s5gjbNI7KISN2yWGSNew
+	GSaupNiSiI0lLtM+4OtDM4fzsC6DrlV55MZyVZRraA29aDfKGihEmMNXZ+qjp69S37UxYA/oDt+
+	u+lKsR6E8ybOo66xPFvJfsWVE4KRISdcdbv2MqOC0psCtnafsB0ZW548MRSZTqOiYv707qjQ3cs
+	OVNXAVgkLTXumSypoWN/zw50zqNO5Apvrr3+RDqrcDh1NzDa6RE/8rZwVi2T
+X-Received: by 2002:a05:693c:69c7:b0:386:b745:ac60 with SMTP id 5a478bee46e88-386b745b019mr7056277eec.18.1795610579840;
+        Wed, 25 Nov 2026 04:42:59 -0800 (PST)
+Received: from LAPTOP-LJ15R92N.localdomain ([152.58.24.125])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385677c0c1dsm60000044eec.21.2026.11.25.04.42.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 04:42:59 -0800 (PST)
+From: Akshat Rawat <akshatrawat095@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	ardb@kernel.org
-Subject: Re: [PATCH v3] arm64: module: Use text-poke for late PLT/veneer emission
-Date: Wed, 25 Nov 2026 12:24:17 +0000
-Message-ID: <179560945711.1480244.17746046705685189549.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261117113535.399407-1-qirui.001@bytedance.com>
-References: <20261117113535.399407-1-qirui.001@bytedance.com>
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Elena Popa <elena.popa@nxp.com>,
+	Akshat Rawat <akshatrawat095@gmail.com>
+Subject: [PATCH] rtc: pcf2127: use const per-variant regmap_config tables
+Date: Wed, 25 Nov 2026 12:44:15 +0000
+Message-ID: <20261125124416.468-1-akshatrawat095@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,60 +98,166 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Tue, 17 Nov 2026 19:35:35 +0800, Rui Qi wrote:
-> module_emit_plt_entry() and module_emit_veneer_for_adrp() write PLT
-> entries into the .plt section by direct assignment.  Once a module is
-> fully formed its .plt is read-only/executable, so a late (livepatch)
-> relocation that falls back to PLT emission -- an out-of-range
-> R_AARCH64_CALL26/JUMP26, or an ADRP under CONFIG_ARM64_ERRATUM_843419
-> -- triggers a synchronous Data Abort and panics.
-> 
-> [...]
+Both pcf2127_i2c_probe() and pcf2127_spi_probe() declare config as a
+static struct regmap_config and update it in place based on the chip
+variant.
 
-Applied to arm64 (for-next/fixes), thanks!
+In pcf2127_spi_probe(), if a PCF2131 probes first, read_flag_mask and
+write_flag_mask are overwritten to 0 and never restored. Any PCF2127 or
+PCF2129 probed later reuses those zeroed masks instead of 0xa0/0x20,
+breaking SPI register access. Modifying static max_register and flag
+masks also races if multiple instances probe concurrently.
 
-[1/1] arm64: module: Use text-poke for late PLT/veneer emission
-      https://git.kernel.org/arm64/c/a7e632493acf
+Replace the shared mutable config structs in both probe paths with
+per-variant static const struct regmap_config tables, and drop the
+now-unused max_register field from struct pcf21xx_config.
 
-I folded in a small fix which addresses Sashiko's comment: the bounds
-check before the write must allow i == plt_max_entries since .plt has
-plt_max_entries + 1 slots (the last one is where a duplicate of the
-final entry is built before being discarded). I restored the
-plt_num_entries check after the duplicate test as well.
+Fixes: fd28ceb4603f ("rtc: pcf2127: add variant-specific configuration structure")
+Fixes: fa78e9b606a4 ("rtc: pcf2127: fix SPI command byte for PCF2131")
+Cc: stable@vger.kernel.org
+Signed-off-by: Akshat Rawat <akshatrawat095@gmail.com>
+---
+Compile-tested (x86_64 gcc 15.2.0, W=1, CONFIG_WERROR=y) with
+I2C+SPI, I2C-only, and SPI-only configs; not tested on hardware.
 
-I moved the module_write_place() prototype to asm/module.h, next
-to the other PLT emitters. I concluded it's a better fit than
-text-patching.h. My concern on v2 was the macro but now it's an
-out-of-line function. I also dropped the const from the val argument,
-which removes the (void *) cast when calling aarch64_insn_copy(). All
-callers pass non-const locals anyway. It would be a good cleanup in the
-future but that should also add const to aarch64_insn_copy().
+ drivers/rtc/rtc-pcf2127.c | 65 +++++++++++++++++++++++++--------------
+ 1 file changed, 42 insertions(+), 23 deletions(-)
 
-Please check that I got these right.
-
-Sashiko had some comments on v2 which we concluded are existing
-problems, just exposed because we no longer take a fault. If you have
-time for a livepatch reload follow-up (probably not cc stable), there
-are two separate problems when the target module is unloaded and loaded
-again:
-
-- The livepatch module's .plt slots are reserved once but used again on
-  every klp_module_coming(), so a reload eventually hits the WARN and
-  the target module is rejected. This is safe but we need some slot
-  rewinding or a clear_relocate_add().
-
-- With the A53 erratum 843419 workaround, if the first application
-  replaced an ADRP with a B to a veneer, reloc_insn_adrp() reads the
-  B back on reload as if it were an ADRP. It either encodes the ADR
-  immediate into the B or decodes Rd from the branch offset. This
-  corrupts the livepatch code silently on the first reload (unrelated to
-  how many slots are left). Not sure yet how to fix this, maybe the
-  original instruction needs restoring on unload (or saving).
-
-Thanks.
-
+diff --git a/drivers/rtc/rtc-pcf2127.c b/drivers/rtc/rtc-pcf2127.c
+index 27c5fb9b2aaa..b665728c6c1d 100644
+--- a/drivers/rtc/rtc-pcf2127.c
++++ b/drivers/rtc/rtc-pcf2127.c
+@@ -186,7 +186,6 @@ struct pcf21xx_ts_config {
+ 
+ struct pcf21xx_config {
+ 	int type; /* IC variant */
+-	int max_register;
+ 	unsigned int has_nvmem:1;
+ 	unsigned int has_bit_wd_ctl_cd0:1;
+ 	unsigned int wd_val_reg_readable:1; /* If watchdog value register can be read. */
+@@ -1020,7 +1019,6 @@ static struct attribute *pcf2131_attrs[] = {
+ static struct pcf21xx_config pcf21xx_cfg[] = {
+ 	[PCF2127] = {
+ 		.type = PCF2127,
+-		.max_register = 0x1d,
+ 		.has_nvmem = 1,
+ 		.has_bit_wd_ctl_cd0 = 1,
+ 		.wd_val_reg_readable = 1,
+@@ -1048,7 +1046,6 @@ static struct pcf21xx_config pcf21xx_cfg[] = {
+ 	},
+ 	[PCF2129] = {
+ 		.type = PCF2129,
+-		.max_register = 0x19,
+ 		.has_nvmem = 0,
+ 		.has_bit_wd_ctl_cd0 = 0,
+ 		.wd_val_reg_readable = 1,
+@@ -1076,7 +1073,6 @@ static struct pcf21xx_config pcf21xx_cfg[] = {
+ 	},
+ 	[PCF2131] = {
+ 		.type = PCF2131,
+-		.max_register = 0x36,
+ 		.has_nvmem = 0,
+ 		.has_bit_wd_ctl_cd0 = 0,
+ 		.wd_val_reg_readable = 0,
+@@ -1452,13 +1448,27 @@ static const struct i2c_device_id pcf2127_i2c_id[] = {
+ };
+ MODULE_DEVICE_TABLE(i2c, pcf2127_i2c_id);
+ 
++static const struct regmap_config pcf2127_i2c_regmap_config[PCF21XX_LAST_ID] = {
++	[PCF2127] = {
++		.reg_bits = 8,
++		.val_bits = 8,
++		.max_register = 0x1d,
++	},
++	[PCF2129] = {
++		.reg_bits = 8,
++		.val_bits = 8,
++		.max_register = 0x19,
++	},
++	[PCF2131] = {
++		.reg_bits = 8,
++		.val_bits = 8,
++		.max_register = 0x36,
++	},
++};
++
+ static int pcf2127_i2c_probe(struct i2c_client *client)
+ {
+ 	struct regmap *regmap;
+-	static struct regmap_config config = {
+-		.reg_bits = 8,
+-		.val_bits = 8,
+-	};
+ 	const struct pcf21xx_config *variant;
+ 
+ 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+@@ -1468,10 +1478,9 @@ static int pcf2127_i2c_probe(struct i2c_client *client)
+ 	if (!variant)
+ 		return -ENODEV;
+ 
+-	config.max_register = variant->max_register,
+-
+ 	regmap = devm_regmap_init(&client->dev, &pcf2127_i2c_regmap,
+-					&client->dev, &config);
++				  &client->dev,
++				  &pcf2127_i2c_regmap_config[variant->type]);
+ 	if (IS_ERR(regmap)) {
+ 		dev_err(&client->dev, "%s: regmap allocation failed: %ld\n",
+ 			__func__, PTR_ERR(regmap));
+@@ -1518,14 +1527,30 @@ static void pcf2127_i2c_unregister_driver(void)
+ static struct spi_driver pcf2127_spi_driver;
+ static const struct spi_device_id pcf2127_spi_id[];
+ 
+-static int pcf2127_spi_probe(struct spi_device *spi)
+-{
+-	static struct regmap_config config = {
++static const struct regmap_config pcf2127_spi_regmap_config[PCF21XX_LAST_ID] = {
++	[PCF2127] = {
++		.reg_bits = 8,
++		.val_bits = 8,
++		.read_flag_mask = 0xa0,
++		.write_flag_mask = 0x20,
++		.max_register = 0x1d,
++	},
++	[PCF2129] = {
+ 		.reg_bits = 8,
+ 		.val_bits = 8,
+ 		.read_flag_mask = 0xa0,
+ 		.write_flag_mask = 0x20,
+-	};
++		.max_register = 0x19,
++	},
++	[PCF2131] = {
++		.reg_bits = 8,
++		.val_bits = 8,
++		.max_register = 0x36,
++	},
++};
++
++static int pcf2127_spi_probe(struct spi_device *spi)
++{
+ 	struct regmap *regmap;
+ 	const struct pcf21xx_config *variant;
+ 
+@@ -1541,14 +1566,8 @@ static int pcf2127_spi_probe(struct spi_device *spi)
+ 		variant = &pcf21xx_cfg[type];
+ 	}
+ 
+-	if (variant->type == PCF2131) {
+-		config.read_flag_mask = 0x0;
+-		config.write_flag_mask = 0x0;
+-	}
+-
+-	config.max_register = variant->max_register;
+-
+-	regmap = devm_regmap_init_spi(spi, &config);
++	regmap = devm_regmap_init_spi(spi,
++				      &pcf2127_spi_regmap_config[variant->type]);
+ 	if (IS_ERR(regmap)) {
+ 		dev_err(&spi->dev, "%s: regmap allocation failed: %ld\n",
+ 			__func__, PTR_ERR(regmap));
 -- 
-Catalin
+2.56.1.windows.1
+
