@@ -1,58 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795628972;
-	b=RJE/JbJLAhZt7r+kBgn5/rJBEvS4z5HpnuwT7tVypFnMZSierCaYoetPPrlJLGmaLPYu
-	 Was1DhpM2bDKF2haQFXESs5KPs1B8yISzXo944bWfvfRUwECbLHZGTEZ/r8LgNjZHI+LK
-	 Bx8Qpk1kZ3sCr8rVeBp0hkXPnb8BbHSErV2b1+1yXOe0OWEeef0aazgfuRnpF/LE5oKXT
-	 T64217SA8AQzXM1xde8LcGRwoK52SpnKVCsPDqw8/i2IIT7536eBMWArvLSosh00sfFmZ
-	 vvNfvdQflku44yNgM5ZaS7JNX14DohCnqGSFW31dNJ9L5UktvN+nUL8UZlTcpEjar9A==
+	t=1795628981;
+	b=MmESA3ofqV9TPJL9kUbPqc0zIDofn1QQfAnIDr/K0vrAfgGEgwalFH2uxMCWeDF8m+zB
+	 lYuMjV4e+k8wy67fu5QE1vfTsTJQYmWe3Z7f3tpM+6TkyvIhOEdQQtwPgvP+wDCdu2mIe
+	 JlOap8S6xypDxq55Km5kA4z1ugmqb3AGk/hRFBIl4iSEA8dYdjied8pfsvj3R6GUJGDaU
+	 hRcOcrigs6U0gJrHB9zmBSnlHqOL5VnLwyUFb+yBGFtK9KGMWRXpJ5WKaAOtXX9F3/4be
+	 rsPVAi93oQy7UMhbjRxD3kyuncFifvM2JGmXYtWTHnQrJzHvQV1LprOftLK10o2tvPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628972;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628981;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1HY71HmvzPzy3m9lzkiM//T3TShgB7TKE1yRgapwXjY=;
-	b=mzjUODYolRPmjmW4lDAeKyisiEecRaoosr9UsnX4q0WR61Um7frZwkshwWTff34Qv/Ey
-	 ev855ReOnOjAq1vNQN64hh2TZpwNSW0ieDfzCOe1+HqEWFDXpmTkuRdcIeS8AGTJ45cwL
-	 K+2IJpLGLl82Oxtkf9u4m8fpkNwXCJZJJBk4nHKYAO2Ougsd2CBmwAAT/QFBtXsAMsA1N
-	 Pp4FjN3jOpdLnv5LeuekXRN2DhLr0w/G11+bBvN8pmaDyhRmrOd4TVENhVaIDof2ejpCw
-	 gGL9GMlVqVuJWbgZY6Ubffcy1it4gLsITalLPW9cRLuQUZNj40B0udetzX0PXu3iTqA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=uySkP+5sxNylgt6fs5CpygCl25AsXDw7BalnMfsy3/o=;
+	b=jPkyQV8fhHNjJtPi1pW+Xbn27xQ9KVMzgR3mmplQunHU2BhBt1N3XZih1BLg8PhSK/hJ
+	 pr05TUiJnGJwT2rjOZQo/rkPzTJUgJhpAs9F6zhi5sqvAzwceqzO8YPQ+xBlM7k7Jde+a
+	 OOdEMSuO+VrMPJNsR7lbZY9Vu65x+nQ/YxpsDN3fDMFBFYmFnP53esbe26NvNjGlSAnUS
+	 +0pv33GsNdj/sZJCqBQKHgX1V03Gk68V8Q0eZO+5YYJypFTvdemoE5peh9UCUgfMGfibE
+	 JEEKYKGy1b0Y+Sci3O+sr8AmG6cuUbODnVKJe+yFdrJnJXulm0/l1yGPV1CYWj7PXJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L2CWTojd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3vA8WgA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B724E606A33F
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:49:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685FE606A332
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:49:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L2CWTojd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30111F000CF;
-	Wed, 25 Nov 2026 17:49:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3vA8WgA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 387AB1F000CA;
+	Wed, 25 Nov 2026 17:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795628972;
-	bh=1HY71HmvzPzy3m9lzkiM//T3TShgB7TKE1yRgapwXjY=;
+	s=k20260515; t=1795628980;
+	bh=uySkP+5sxNylgt6fs5CpygCl25AsXDw7BalnMfsy3/o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L2CWTojdfg+A/iS9kMv9TNH0rwNs3z7ZxaVsxSCg5816/phek5H0dFEfbKZImZySN
-	 1draRorcGL+23NZHP8/se4CsyaaqEtfFpIFlFlDG1EOxdP567FvMyYJcee2sMwQ5yE
-	 MjzGYk50erL+eXykRsz0ZmK2bouVgjEVdD4AY0oFfiPGP9LNer387zy6XvO/sDUcu4
-	 XzdR2CUp/6gtIhoGABmGhJY3pc9kItGGO7asFCr8JDc1lzpErHzS00cJQE81FWchJ5
-	 lHMlqK+YUyq/bTi5YeETFEmNjSPtAkVlQCqHfFyXzjeJy6OQ5qxCMQ/g0D1NQfzDW2
-	 ZiqXj6Gv58Xhg==
+	b=K3vA8WgAMPxGtVsUaVczZ8NJcJ5EsiQKn5607WbXKZNLQy73QAhBghpr5D9AX0vr+
+	 v5YXF8y8mo9JvdrbyztJOBQxZDe2eQfdRohizm0N2A8H2NhVglTFj89/JYqCCLMVuI
+	 HuGREaOdNe4qFZXjx3RX86gH8RBLgIk4ge5xFa/IkjjTPQn23snTw2LIe0QU32ESwE
+	 FxP66A3zs93KFZ1wPQIU8FYwlZOv1EdksJhAz3bGjY9StNjCqcjal05zFE2lYZAA9U
+	 OeOBj1kxIfeSFwSdzjj/CPADt2VOSQ5v+Kje9M3oRCzBFgA9yufnlgMVWQOa9zOsb2
+	 lb/LhN9NXP8Kg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Stefan Haberland <sth@linux.ibm.com>,
-	=?UTF-8?q?Jan=20H=C3=B6ppner?= <hoeppner@linux.ibm.com>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] s390/dasd: Re-initialize RCD buffer with "V1.0" before every start
-Date: Wed, 25 Nov 2026 12:49:28 -0500
-Message-ID: <20261125174916.1030533-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] kprobes: Switch ftrace ops when adding probe with post_handler
+Date: Wed, 25 Nov 2026 12:49:38 -0500
+Message-ID: <20261125174917.1037795-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125174916.1030533-1-sashal@kernel.org>
-References: <2026112514-study-reseller-e32c@gregkh>
- <20261125174916.1030533-1-sashal@kernel.org>
+In-Reply-To: <2026112529-observer-seventy-3bee@gregkh>
+References: <2026112529-observer-seventy-3bee@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,199 +58,150 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Stefan Haberland <sth@linux.ibm.com>
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-[ Upstream commit 25cdc1f63227a1ea69a1ec823a8a860e33299169 ]
+[ Upstream commit f60f98881b54b0cf36b61f41c91fbd93b76a2d9c ]
 
-Under z/VM the Read Configuration Data (RCD) buffer has to start with
-EBCDIC "V1.0" to request the virtual device SNEQ that carries the
-minidisk UIT. The request and the response share the same buffer:
-CP evaluates the magic on the way out and the RCD data is written into
-the same buffer on the way back.
+When an ftrace-based kprobe is registered without a post_handler, it is
+armed using kprobe_ftrace_ops. If a second probe with a post_handler is
+subsequently registered at the same address, register_aggr_kprobe() sets
+ap->post_handler to aggr_post_handler, but leaves the probe armed using
+kprobe_ftrace_ops.
 
-The magic is only written when the request is built and again in
-read_conf_cb() when the original request fails.
+When the probe is later disarmed or disabled, disarm_kprobe_ftrace()
+checks whether p->post_handler is non-NULL and attempts to disarm from
+kprobe_ipmodify_ops. This fails with -ENOENT, decrements
+kprobe_ipmodify_enabled below zero, leaves the probe armed on
+kprobe_ftrace_ops, and aborts unregistration, leading to a use-after-free
+if the probe module is unloaded.
 
-Several restart paths do not run that callback:
- - ERP use the same buffer and if the same error occurs again,
-   the ERP restarts the existing ERP request;
-   if a different error occurs, it adds another ERP request.
-   Neither re-initializes the magic.
- - Terminated (timed out) ERP requests, killed requests and requests
-   requeued after the last path was gone are restarted without it.
- - dasd_sleep_on_immediately() overwrites cqr->callback, so read_conf_cb()
-   never ran for dasd_eckd_read_conf_immediately(), and its fastpath
-   retries in dasd_int_handler() do not call a callback either.
+Switch the armed probe from kprobe_ftrace_ops to kprobe_ipmodify_ops in
+register_aggr_kprobe() outside of text_mutex and cpus_read_lock to avoid
+lockdep and deadlock issues when modifying ftrace code. Defer adding the
+new probe onto ap->list until the ftrace ops switch completes so that the
+new probe's handlers are not published prematurely while ap is still on
+kprobe_ftrace_ops, and mark ap disabled if rollback re-arming fails.
+Also restore ftrace ops registration and counter if ftrace_set_filter_ip()
+fails in __disarm_kprobe_ftrace().
 
-If such a restart succeeds, z/VM omits the virtual device SNEQ, the UID
-of that path is built without the UIT and the paths are reported as
-"Not all channel paths lead to the same device" although they lead to
-the same minidisk.
+Link: https://lore.kernel.org/all/179440641120.328088.15542754095040659094.stgit@devnote2/
 
-Every start of a request, whatever path led to it, goes through
-dasd_start_IO(). Add an optional prepare_io function to the request
-that dasd_start_IO() calls before every start of the request and of
-its ERP requests, and use it to write the magic for RCD requests.
-
-The ERP handling stays unchanged. read_conf_cb() is no longer needed
-and is removed, which also gets rid of its memset() that only cleared
-a single byte.
-
-Fixes: 5915a873fcb1 ("[S390] dasd: re-initialize read_conf buffer for retries")
+Fixes: 5dd7caf0bdc5 ("kprobes: Skip clearing aggrprobe's post_handler in kprobe-on-ftrace case")
 Cc: stable@vger.kernel.org
-Reviewed-by: Jan Höppner <hoeppner@linux.ibm.com>
-Signed-off-by: Stefan Haberland <sth@linux.ibm.com>
-Link: https://patch.msgid.link/20261112102608.1057852-3-sth@linux.ibm.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ sashal: Context-only conflict in the DASD header: the new helper was added without the neighbouring collision-detection helpers, which this tree lacks. ]
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+[ sashal: Replaced scoped_guard(cpus_read_lock) with cpus_read_lock()/unlock(), placed the new ftrace-switch block accordingly, and kept the existing ret == 0 guard; newer-tree context lines are absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/block/dasd.c      |  1 +
- drivers/s390/block/dasd_eckd.c | 52 ++++++++++++----------------------
- drivers/s390/block/dasd_int.h  | 15 ++++++++++
- 3 files changed, 34 insertions(+), 34 deletions(-)
+ kernel/kprobes.c | 53 ++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 44 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
-index f887b3657edd2..de1543bfdb544 100644
---- a/drivers/s390/block/dasd.c
-+++ b/drivers/s390/block/dasd.c
-@@ -1402,6 +1402,7 @@ int dasd_start_IO(struct dasd_ccw_req *cqr)
- 		cqr->status = DASD_CQR_ERROR;
- 		return -EIO;
- 	}
-+	dasd_start_IO_prepare(cqr);
- 	cqr->startclk = get_tod_clock();
- 	cqr->starttime = jiffies;
- 	cqr->retries--;
-diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
-index 499b09162a0ae..d60d787e17bf2 100644
---- a/drivers/s390/block/dasd_eckd.c
-+++ b/drivers/s390/block/dasd_eckd.c
-@@ -810,20 +810,29 @@ static int dasd_eckd_compare_path_uid(struct dasd_device *device,
- 	return memcmp(&device_uid, &path_uid, sizeof(struct dasd_uid));
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index f2bcfae09fd9d..e392d4dedb84b 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -1096,9 +1096,14 @@ static int __disarm_kprobe_ftrace(struct kprobe *p, struct ftrace_ops *ops,
+ 	(*cnt)--;
+ 
+ 	ret = ftrace_set_filter_ip(ops, (unsigned long)p->addr, 1, 0);
+-	WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
+-		  p->addr, ret);
+-	return ret;
++	if (WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
++		      p->addr, ret)) {
++		if (*cnt == 0)
++			register_ftrace_function(ops);
++		(*cnt)++;
++		return ret;
++	}
++	return 0;
  }
  
-+/*
-+ * The RCD buffer has to start with EBCDIC "V1.0" to show support for
-+ * virtual device SNEQ. The RCD data is written into the same buffer, so
-+ * a failed attempt may already have overwritten the magic. Re-initialize
-+ * it before every start, including restarts by ERP requests.
-+ */
-+static void dasd_eckd_rcd_prepare_io(struct dasd_ccw_req *cqr)
-+{
-+	struct ccw1 *ccw = cqr->cpaddr;
-+	__u8 *rcd_buffer = dma32_to_virt(ccw->cda);
-+
-+	rcd_buffer[0] = 0xE5;
-+	rcd_buffer[1] = 0xF1;
-+	rcd_buffer[2] = 0x4B;
-+	rcd_buffer[3] = 0xF0;
-+}
-+
- static void dasd_eckd_fill_rcd_cqr(struct dasd_device *device,
- 				   struct dasd_ccw_req *cqr,
- 				   __u8 *rcd_buffer,
- 				   __u8 lpm)
+ static int disarm_kprobe_ftrace(struct kprobe *p)
+@@ -1297,16 +1302,12 @@ static inline void free_rp_inst(struct kretprobe *rp)
+ }
+ 
+ /* Add the new probe to ap->list */
+-static int add_new_kprobe(struct kprobe *ap, struct kprobe *p)
++static void add_new_kprobe(struct kprobe *ap, struct kprobe *p)
  {
- 	struct ccw1 *ccw;
--	/*
--	 * buffer has to start with EBCDIC "V1.0" to show
--	 * support for virtual device SNEQ
--	 */
--	rcd_buffer[0] = 0xE5;
--	rcd_buffer[1] = 0xF1;
--	rcd_buffer[2] = 0x4B;
--	rcd_buffer[3] = 0xF0;
+ 	if (p->post_handler)
+ 		unoptimize_kprobe(ap, true);	/* Fall back to normal kprobe */
  
- 	ccw = cqr->cpaddr;
- 	ccw->cmd_code = DASD_ECKD_CCW_RCD;
-@@ -840,33 +849,10 @@ static void dasd_eckd_fill_rcd_cqr(struct dasd_device *device,
- 	cqr->retries = 256;
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
-+	cqr->prepare_io = dasd_eckd_rcd_prepare_io;
- 	set_bit(DASD_CQR_VERIFY_PATH, &cqr->flags);
+ 	list_add_rcu(&p->list, &ap->list);
+-	if (p->post_handler && !ap->post_handler)
+-		ap->post_handler = aggr_post_handler;
+-
+-	return 0;
  }
  
--/*
-- * Wakeup helper for read_conf
-- * if the cqr is not done and needs some error recovery
-- * the buffer has to be re-initialized with the EBCDIC "V1.0"
-- * to show support for virtual device SNEQ
-- */
--static void read_conf_cb(struct dasd_ccw_req *cqr, void *data)
--{
--	struct ccw1 *ccw;
--	__u8 *rcd_buffer;
--
--	if (cqr->status !=  DASD_CQR_DONE) {
--		ccw = cqr->cpaddr;
--		rcd_buffer = dma32_to_virt(ccw->cda);
--		memset(rcd_buffer, 0, sizeof(*rcd_buffer));
--
--		rcd_buffer[0] = 0xE5;
--		rcd_buffer[1] = 0xF1;
--		rcd_buffer[2] = 0x4B;
--		rcd_buffer[3] = 0xF0;
--	}
--	dasd_wakeup_cb(cqr, data);
--}
--
- static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
- 					   struct dasd_ccw_req *cqr,
- 					   __u8 *rcd_buffer,
-@@ -886,7 +872,6 @@ static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
- 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
- 	set_bit(DASD_CQR_ALLOW_SLOCK, &cqr->flags);
- 	cqr->retries = 5;
--	cqr->callback = read_conf_cb;
- 	rc = dasd_sleep_on_immediately(cqr);
- 	return rc;
- }
-@@ -924,7 +909,6 @@ static int dasd_eckd_read_conf_lpm(struct dasd_device *device,
- 		goto out_error;
+ /*
+@@ -1340,6 +1341,8 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
+ {
+ 	int ret = 0;
+ 	struct kprobe *ap = orig_p;
++	bool reset_post_handler = false;
++	bool ftrace_switch_ops = false;
+ 
+ 	cpus_read_lock();
+ 
+@@ -1389,15 +1392,45 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
+ 			    | KPROBE_FLAG_DISABLED;
  	}
- 	dasd_eckd_fill_rcd_cqr(device, cqr, rcd_buf, lpm);
--	cqr->callback = read_conf_cb;
- 	ret = dasd_sleep_on(cqr);
- 	/*
- 	 * on success we update the user input parms
-diff --git a/drivers/s390/block/dasd_int.h b/drivers/s390/block/dasd_int.h
-index 99c2534216537..beba87a30e75b 100644
---- a/drivers/s390/block/dasd_int.h
-+++ b/drivers/s390/block/dasd_int.h
-@@ -147,6 +147,8 @@ struct dasd_ccw_req {
- 	void *data;			/* pointer to data area */
- 	struct irb irb;			/* device status in case of an error */
- 	struct dasd_ccw_req *refers;	/* ERP-chain queueing. */
-+	/* optional prepare function called before every start_io, must not sleep */
-+	void (*prepare_io)(struct dasd_ccw_req *cqr);
- 	void *function; 		/* originating ERP action */
- 	void *mem_chunk;
  
-@@ -815,6 +817,19 @@ static inline void *dasd_get_callback_data(struct dasd_ccw_req *cqr)
- 	return cqr->callback_data;
- }
- 
-+/*
-+ * Walk down the ERP chain to the original CQR and call its
-+ * prepare_io function if set.
-+ */
-+static inline void dasd_start_IO_prepare(struct dasd_ccw_req *cqr)
-+{
-+	/* ERP requests use the prepare function of the original request */
-+	while (cqr->refers)
-+		cqr = cqr->refers;
-+	if (cqr->prepare_io)
-+		cqr->prepare_io(cqr);
-+}
++	if (p->post_handler && !ap->post_handler) {
++		reset_post_handler = true;
++		if (kprobe_ftrace(ap) && !kprobes_all_disarmed &&
++		    !kprobe_disabled(ap))
++			ftrace_switch_ops = true;
++		else
++			ap->post_handler = aggr_post_handler;
++	}
 +
- /* externals in dasd.c */
- #define DASD_PROFILE_OFF	 0
- #define DASD_PROFILE_ON 	 1
+ 	/* Copy ap's insn slot to p */
+ 	copy_kprobe(ap, p);
+-	ret = add_new_kprobe(ap, p);
++	if (!ftrace_switch_ops)
++		add_new_kprobe(ap, p);
+ 
+ out:
+ 	mutex_unlock(&text_mutex);
+ 	jump_label_unlock();
+ 	cpus_read_unlock();
+ 
++	if (ret == 0 && ftrace_switch_ops) {
++		/*
++		 * Must switch ftrace ops outside of text_mutex and cpus_read_lock
++		 * to prevent deadlocks when ftrace code modification acquires text_mutex.
++		 */
++		ret = disarm_kprobe_ftrace(ap);
++		if (ret)
++			return ret;
++
++		ap->post_handler = aggr_post_handler;
++		ret = arm_kprobe_ftrace(ap);
++		if (ret) {
++			ap->post_handler = NULL;
++			if (arm_kprobe_ftrace(ap))
++				ap->flags |= KPROBE_FLAG_DISABLED;
++			return ret;
++		}
++		add_new_kprobe(ap, p);
++	}
++
+ 	if (ret == 0 && kprobe_disabled(ap) && !kprobe_disabled(p)) {
+ 		ap->flags &= ~KPROBE_FLAG_DISABLED;
+ 		if (!kprobes_all_disarmed) {
+@@ -1405,6 +1438,8 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
+ 			ret = arm_kprobe(ap);
+ 			if (ret) {
+ 				ap->flags |= KPROBE_FLAG_DISABLED;
++				if (reset_post_handler)
++					ap->post_handler = NULL;
+ 				list_del_rcu(&p->list);
+ 				synchronize_rcu();
+ 			}
 -- 
 2.53.0
 
