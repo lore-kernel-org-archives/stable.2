@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621673;
-	b=i//lzjecUHHg2Ep9HrgftQ9mbw4u66E49zBBvLTH2o35XOLQyC2dHwKZu35IM+aApDOQ
-	 GSBp2z67gDHzHzzH5pMgjzW4V5YFgzLTm3zKJdyVNgDhsY8koDTBsOpnmnWsV2ZN86A+t
-	 pdD2n+s18uggqfl1HU3mZaq+81JpkHsr4XxoBDtvd7b3qkkrVA0fuF/nA4cqOTm9yiQk2
-	 MuSgaRjsKDGZhJkU8T1tvbLWoeQ5j/7j4Ve8unYpjW4YnQQyEd+tee8pH3Kr2/gJC2D1T
-	 DY3ZtlUkgZ9dBT6w5Gjt3wqTzB5Gfjq6ryg9PMbBY8JBFMXHqXT6ZPjDwikhCxnkY+A==
+	t=1795621676;
+	b=W6029zyh0Y/d/K9CQ0x1pqW5Wy8c939vC9wPje3FmrbZPlotkvd26gmhCZ6zGnvO7Gz6
+	 Q/82CXVDBG5YwNNuwmO+65kRWO6n3pTeye8RqPp6DU0JfzNa+biYDZqIOCBA+AFe1PfQu
+	 9TAshISapHtr9kE0S+OrfI+rcaPqq+y6CzWLJcbVAhSBiDs7Qdljc/IViQADKBhvblWVe
+	 nVkCS/0y7Xl/iDR5Oac1oVLF4MpyaI+dVESuIEWfBzsTFlEOPNFYAgcKRc1Ukk1jYlMYu
+	 c5nxvsGl2S1eAWHOFg/5BDUnTYiK1REAd78y15BVj6wJiNyU3hjUZXQACrjVzRkbxJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621673;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621676;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=kd+CAJRrmXu7FKmt55NG18VaHiGfGc79p+WQQrpz3Lw=;
-	b=HDPkS/750puz73Wl0W0FD39qNkXzBy5FReoPtt29eRZXktE3ltDfnNXoGlM3Hfal5eJj
-	 vzuSIapAwKewsEBvymFpJyhVb1FQubPZ5DQMVQJidpw/8QybfB8GIR6EV7n8zOZFjRYbN
-	 rFg41GbpfeTfFVzWIDMlzuqkZdjBUVz9vuPAikAHe7Lmz48PCboEG8QwR/aXmSon8Z7ja
-	 G3KAvouKGfkSPGlHFJv2kjX8WSTgM6H3N39LPUc0WcUA0/LQNdnaUS9wq0G07fswB8gxb
-	 h6dLRc3cavnGarecpvGcFsDMgQPkAN/YTIgh7M/3U2Bo4x06TfspBhhZf7L7RPCENMA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ntw0c6SYewMx4izbNnLmumjrxcQAQglrJ5GohTX2xFQ=;
+	b=O0L3vA03vxOjJpkFGbCR/kzKZuravnE0dsM55kqsamdE6e/K++znNq7xGwuUcMnEi3Fe
+	 zPo1jfGQ1/SdoAxDJK3D8whzRIkNjnEkgIuDURSeztsMAZxeAyRrwIq43GoMMc1nHEeBP
+	 s+oxpbgC1AeC3dWSGx7xBsdQPKgb3vE0qfLH8r7NoMC2sJvzlJ1WebbsSGsGtYeCFBtHS
+	 ym6hbTjVR+b9ZX6kATvEJimVmVbX7Q3BcuPFygK3dg0xeYb6NaUhlFIBkOQ96iIDXXESY
+	 JYiYIHtQrQJPKEqSCMh1NU1E7zSuZ0NBmz6ee2g1WQGVojAYSUo8sFkxMRXG66b5mSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BipcSdGp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i3rexpDs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC611606A338;
-	Wed, 25 Nov 2026 15:47:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848CD606A33E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:47:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BipcSdGp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E5921F000D8;
-	Wed, 25 Nov 2026 15:47:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795621673;
-	bh=kd+CAJRrmXu7FKmt55NG18VaHiGfGc79p+WQQrpz3Lw=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i3rexpDs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 749441F000C4;
+	Wed, 25 Nov 2026 15:47:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795621676;
+	bh=ntw0c6SYewMx4izbNnLmumjrxcQAQglrJ5GohTX2xFQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BipcSdGpW/f+gEc03GyF/3cN+qhepAdTsqYzaMzEFFLLf52G7IRYvV960wklv1CkK
-	 mhUGFdl3QcMHye8N+1vq8wyOWQrJlSlisnjgpBw+AoQETxhPSgmSUwD1lEKFtMOZdL
-	 abRyHiZvmMLVx/LoaV+ggFRHwhBvKUWKUoDDWr8w=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=i3rexpDsq1dp2rPsmO2KpRXciprYKW+6tU3LlxLa3/k6N/vcMOY+6+darj1zuchT3
+	 5cl1Fr9XbWU7FrFljza/NXSWIEXhS9inLXoJ1SrIWYtuJtVJZdaePmQF8OElX45wBX
+	 QBcc1RP5AC75ZaefobmJmlNcyBjahxGg9PyalfbVBWkqvur6gehBipzJmVPd27rIau
+	 gWYrBMv7CS/Kdc64HxpTRhh8nylDIH4bOC2T10EA+VWQP/z0qjJKanKypJDpB6FIIO
+	 QAfh9qm9O8lx7OYITatHB5p8g2JplGEwVWMGFwmWsvDOyDX/ElbKoxAa3gL8w8Va7e
+	 n0b9mdVMBl8EQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+Cc: Harshitha Ramamurthy <hramamurthy@google.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Jordan Rhee <jordanrhee@google.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 298/990] MIPS: SB1250: Validate and update IRQ affinity
-Date: Wed, 25 Nov 2026 15:27:45 +0100
-Message-ID: <20261125143829.072681071@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.18.y 3/5] gve: refactor initialization with helper functions
+Date: Wed, 25 Nov 2026 10:47:48 -0500
+Message-ID: <20261125154711.373322-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125154711.373322-1-sashal@kernel.org>
+References: <2026112542-scrunch-president-9d95@gregkh>
+ <20261125154711.373322-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,56 +65,203 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Harshitha Ramamurthy <hramamurthy@google.com>
 
-------------------
+[ Upstream commit 94afe5cebcd2bc32d774bfe603a8259680e9e870 ]
 
-From: Florian Fainelli <f.fainelli@gmail.com>
+In the interest of commonizing code, refactor gve_probe()
+and gve_init_priv() with a few helper functions that can
+be expanded and utilized in upcoming patches that add the
+mailbox ABI to the driver. The helper functions are:
 
-[ Upstream commit 456c965ca46c59a4a241c755e6565fd883a522f4 ]
+- gve_set_num_ntfy_blks()
+- gve_set_num_queues()
 
-sb1250_set_affinity() selects the first online CPU in the requested
-affinity mask without checking whether such a CPU exists. If the
-intersection is empty, the resulting CPU index is invalid and must
-not be passed to cpu_logical_map().
+Reorder code to combine lines that accomplish a similar objective
+like setting defaults. Move setting HW-GRO and UDP GSO support out
+of an Adminq method into gve_init_priv().
 
-Reject affinity masks containing no online CPU with -EINVAL before
-accessing the CPU mapping or interrupt mapper registers.
+These changes are just code movement, no functional change.
 
-Also update the effective affinity mask to reflect the single logical
-CPU selected as the interrupt target.
-
-Fixes: 421d1563c662 ("mips: Validate online cpus in irq_set_affinity() callbacks")
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
-Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Link: https://patch.msgid.link/20260814021406.3044324-3-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: edc9a730ad3c ("gve: Block invalid ring sizes when device options are 0")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/mips/sibyte/sb1250/irq.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/ethernet/google/gve/gve_adminq.c | 49 ++++++++++++++---
+ drivers/net/ethernet/google/gve/gve_adminq.h |  2 +
+ drivers/net/ethernet/google/gve/gve_main.c   | 58 +++++++-------------
+ 3 files changed, 62 insertions(+), 47 deletions(-)
 
-diff --git a/arch/mips/sibyte/sb1250/irq.c b/arch/mips/sibyte/sb1250/irq.c
-index 2f08ad267a11e..d7a656cd7ec0c 100644
---- a/arch/mips/sibyte/sb1250/irq.c
-+++ b/arch/mips/sibyte/sb1250/irq.c
-@@ -76,6 +76,8 @@ static int sb1250_set_affinity(struct irq_data *d, const struct cpumask *mask,
- 	unsigned long flags;
+diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
+index f27b9501e3be6..3b48c29aac1d8 100644
+--- a/drivers/net/ethernet/google/gve/gve_adminq.c
++++ b/drivers/net/ethernet/google/gve/gve_adminq.c
+@@ -1127,14 +1127,6 @@ int gve_adminq_describe_device(struct gve_priv *priv)
  
- 	i = cpumask_first_and(mask, cpu_online_mask);
-+	if (i >= nr_cpu_ids)
+ 	gve_set_default_rss_sizes(priv);
+ 
+-	/* DQO supports HW-GRO and UDP_GSO */
+-	if (gve_is_dqo(priv)) {
+-		u64 additional_features = NETIF_F_GRO_HW | NETIF_F_GSO_UDP_L4;
+-
+-		priv->dev->hw_features |= additional_features;
+-		priv->dev->features |= additional_features;
+-	}
+-
+ 	priv->max_registered_pages =
+ 				be64_to_cpu(descriptor->max_registered_pages);
+ 	mtu = be16_to_cpu(descriptor->mtu);
+@@ -1610,3 +1602,44 @@ int gve_adminq_query_rss_config(struct gve_priv *priv, struct ethtool_rxfh_param
+ 	dma_pool_free(priv->adminq_pool, descriptor, descriptor_bus);
+ 	return err;
+ }
++
++int gve_set_num_ntfy_blks(struct gve_priv *priv)
++{
++	int num_ntfy;
++
++	num_ntfy = pci_msix_vec_count(priv->pdev);
++	if (num_ntfy <= 0) {
++		dev_err(&priv->pdev->dev,
++			"could not count MSI-x vectors: err=%d\n", num_ntfy);
++		return num_ntfy;
++	} else if (num_ntfy < GVE_MIN_MSIX) {
++		dev_err(&priv->pdev->dev, "gve needs at least %d MSI-x vectors, but only has %d\n",
++			GVE_MIN_MSIX, num_ntfy);
 +		return -EINVAL;
++	}
++
++	/* gvnic has one Notification Block per MSI-x vector, except for the
++	 * management vector
++	 */
++	priv->num_ntfy_blks = (num_ntfy - 1) & ~0x1;
++	priv->mgmt_msix_idx = priv->num_ntfy_blks;
++
++	return 0;
++}
++
++void gve_set_num_queues(struct gve_priv *priv)
++{
++	priv->tx_cfg.max_queues =
++		min_t(int, priv->tx_cfg.max_queues, priv->num_ntfy_blks / 2);
++	priv->rx_cfg.max_queues =
++		min_t(int, priv->rx_cfg.max_queues, priv->num_ntfy_blks / 2);
++
++	priv->tx_cfg.num_queues = priv->tx_cfg.max_queues;
++	priv->rx_cfg.num_queues = priv->rx_cfg.max_queues;
++	if (priv->default_num_queues > 0) {
++		priv->tx_cfg.num_queues = min_t(int, priv->default_num_queues,
++						priv->tx_cfg.num_queues);
++		priv->rx_cfg.num_queues = min_t(int, priv->default_num_queues,
++						priv->rx_cfg.num_queues);
++	}
++}
+diff --git a/drivers/net/ethernet/google/gve/gve_adminq.h b/drivers/net/ethernet/google/gve/gve_adminq.h
+index 22a74b6aa17ea..13b37699b2d00 100644
+--- a/drivers/net/ethernet/google/gve/gve_adminq.h
++++ b/drivers/net/ethernet/google/gve/gve_adminq.h
+@@ -656,5 +656,7 @@ int gve_adminq_report_nic_ts(struct gve_priv *priv,
+ struct gve_ptype_lut;
+ int gve_adminq_get_ptype_map_dqo(struct gve_priv *priv,
+ 				 struct gve_ptype_lut *ptype_lut);
++int gve_set_num_ntfy_blks(struct gve_priv *priv);
++void gve_set_num_queues(struct gve_priv *priv);
  
- 	/* Convert logical CPU to physical CPU */
- 	cpu = cpu_logical_map(i);
-@@ -103,6 +105,7 @@ static int sb1250_set_affinity(struct irq_data *d, const struct cpumask *mask,
- 		____raw_writeq(cur_ints, IOADDR(A_IMR_MAPPER(cpu) +
- 					R_IMR_INTERRUPT_MASK));
+ #endif /* _GVE_ADMINQ_H */
+diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+index 9b1f8933813cb..41d79b3555cae 100644
+--- a/drivers/net/ethernet/google/gve/gve_main.c
++++ b/drivers/net/ethernet/google/gve/gve_main.c
+@@ -2365,7 +2365,6 @@ static void gve_set_netdev_xdp_features(struct gve_priv *priv)
+ 
+ static int gve_init_priv(struct gve_priv *priv, bool skip_describe_device)
+ {
+-	int num_ntfy;
+ 	int err;
+ 
+ 	/* Set up the adminq */
+@@ -2396,57 +2395,38 @@ static int gve_init_priv(struct gve_priv *priv, bool skip_describe_device)
+ 			"Could not get device information: err=%d\n", err);
+ 		goto err;
  	}
-+	irq_data_update_effective_affinity(d, cpumask_of(i));
- 	raw_spin_unlock_irqrestore(&sb1250_imr_lock, flags);
+-	priv->dev->mtu = priv->dev->max_mtu;
+-	num_ntfy = pci_msix_vec_count(priv->pdev);
+-	if (num_ntfy <= 0) {
++
++	err = gve_set_num_ntfy_blks(priv);
++	if (err) {
+ 		dev_err(&priv->pdev->dev,
+-			"could not count MSI-x vectors: err=%d\n", num_ntfy);
+-		err = num_ntfy;
++			"Could not setup notify blocks: err=%d\n", err);
+ 		goto err;
+-	} else if (num_ntfy < GVE_MIN_MSIX) {
+-		dev_err(&priv->pdev->dev, "gve needs at least %d MSI-x vectors, but only has %d\n",
+-			GVE_MIN_MSIX, num_ntfy);
+-		err = -EINVAL;
+-		goto err;
+-	}
+-
+-	/* Big TCP is only supported on DQO */
+-	if (!gve_is_gqi(priv))
+-		netif_set_tso_max_size(priv->dev, GVE_DQO_TX_MAX);
+-
+-	priv->rx_copybreak = GVE_DEFAULT_RX_COPYBREAK;
+-	/* gvnic has one Notification Block per MSI-x vector, except for the
+-	 * management vector
+-	 */
+-	priv->num_ntfy_blks = (num_ntfy - 1) & ~0x1;
+-	priv->mgmt_msix_idx = priv->num_ntfy_blks;
+-	priv->numa_node = dev_to_node(&priv->pdev->dev);
+-
+-	priv->tx_cfg.max_queues =
+-		min_t(int, priv->tx_cfg.max_queues, priv->num_ntfy_blks / 2);
+-	priv->rx_cfg.max_queues =
+-		min_t(int, priv->rx_cfg.max_queues, priv->num_ntfy_blks / 2);
+-
+-	priv->tx_cfg.num_queues = priv->tx_cfg.max_queues;
+-	priv->rx_cfg.num_queues = priv->rx_cfg.max_queues;
+-	if (priv->default_num_queues > 0) {
+-		priv->tx_cfg.num_queues = min_t(int, priv->default_num_queues,
+-						priv->tx_cfg.num_queues);
+-		priv->rx_cfg.num_queues = min_t(int, priv->default_num_queues,
+-						priv->rx_cfg.num_queues);
+ 	}
+-	priv->tx_cfg.num_xdp_queues = 0;
  
- 	return 0;
++	gve_set_num_queues(priv);
+ 	dev_info(&priv->pdev->dev, "TX queues %d, RX queues %d\n",
+ 		 priv->tx_cfg.num_queues, priv->rx_cfg.num_queues);
+ 	dev_info(&priv->pdev->dev, "Max TX queues %d, Max RX queues %d\n",
+ 		 priv->tx_cfg.max_queues, priv->rx_cfg.max_queues);
+ 
+-	if (!gve_is_gqi(priv)) {
++	if (gve_is_dqo(priv)) {
++		/* DQO supports HW-GRO and UDP_GSO */
++		u64 additional_features = NETIF_F_GRO_HW | NETIF_F_GSO_UDP_L4;
++
++		priv->dev->hw_features |= additional_features;
++		priv->dev->features |= additional_features;
++
+ 		priv->tx_coalesce_usecs = GVE_TX_IRQ_RATELIMIT_US_DQO;
+ 		priv->rx_coalesce_usecs = GVE_RX_IRQ_RATELIMIT_US_DQO;
++
++		/* Big TCP is only supported on DQO */
++		netif_set_tso_max_size(priv->dev, GVE_DQO_TX_MAX);
+ 	}
+ 
++	priv->dev->mtu = priv->dev->max_mtu;
++	priv->numa_node = dev_to_node(&priv->pdev->dev);
++	priv->tx_cfg.num_xdp_queues = 0;
++	priv->rx_copybreak = GVE_DEFAULT_RX_COPYBREAK;
+ 	priv->ts_config.tx_type = HWTSTAMP_TX_OFF;
+ 	priv->ts_config.rx_filter = HWTSTAMP_FILTER_NONE;
+ 
 -- 
 2.53.0
-
-
 
