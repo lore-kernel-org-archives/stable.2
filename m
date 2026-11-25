@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621261;
-	b=H8Y2orEUpbEuGUyGNST/lDn8D4bEKNQxYAORjGrqJmlhHo/p+e1sOyU5xE8+aFBG3/wW
-	 Rx6QQ4ONGzgkrQPbVRwKxh96O6J6ZtSzSsw8wBdHL4gp0pjs7QPRSKhY/MT3Fxcd8K4yB
-	 7nVi+hUjUVSEIl97ffA3MGCh2ReHQwVE6WAuSr2O8MDRpSVO+FJxO3/1eHTKegG1vIItq
-	 uLSy2VQTMkuQ112zKQbfB6AccKB4iwzdGtRu249+xr0vZDJtDEUuLDrxegJd4SKBjlJvK
-	 piyWWawUUMEaNPnIXyungLwjI/AUFiqbSR7KuqXKuasCD1plcjUkJK6sdz0iYp3PVhQ==
+	t=1795621263;
+	b=uHGXpgxD/5C6h6wgNx1dk0zD/CRphMOd1Zy3WBmrVUtF/RD56TCn1PzVIvjJ6GSNYSXO
+	 +UWfa9YibT1hSghivszByj7OpXMulo/v7cH2pXv+9o4+3YDYLGfkfNobGRY7CX/CbPF2a
+	 wg1D9/2hDAUA1qKu3iwR5GK0a9ep4JNq7QKb66xR+xItlx/po5A4tAxFCPl3jAkQ06TRw
+	 jZMW993G0IVgJFuDsFqtaSbohtVrBYR+qzQSW7xYGd+ljL94vbi84fdr54L55ejYVflQB
+	 lvQzJswcLvwns0JuTwvIYox/WdXQ4mRv17/ep3PJWgyjS8MSjAZoXGQvSpDhFfkyC/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621261;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621263;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4cVQlcct+VT+lPKLLUePhofzVTZzmsqWz5tDqiV47mU=;
-	b=UpYr1A0evaY1v72RP8Z6oHMzsy6mBMZKMiNWgPnqULwBQGwwsvhR6eIWC2T+3Pp0CLO0
-	 Zc7i/N6vbxIqVDq+qp8DOQDXSOOOEOfepGnOuuMym+7MaUdlhcTR8UYiNA1pGOzITKW6m
-	 1watxyCJ4rAydy2IIpXUnDzEua1TpW4wlS722t9msuxf9pAR8Cxj3/AJ1/QVs2XLL0TA2
-	 3HsXrJwu2xPnw4lYbIYuFZ1fVUeD9aSNy/xrJFSxm3Zjfjqq7m8HUZUOvGWvljpTRcfLd
-	 iBZdOnhaSEDdKrSNM3eHn1XbN+QXS2Elz9fAcyo9s0pNFClRTcAZ3UhF8+VpsvRppjg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=BG6q7O8aTKNpjrerNbbv7tD6/GbdMPGdE4Y0KujVBz0=;
+	b=WvoXGTEeh7WZuODcvGp7rI6jXNbtyM0/8/n/EjTe6i7cgS1O59bDwztYrcCIx3XO3C9F
+	 /TI+fyMa4PKhZq3lOJX0T9gTEOYVEqFDBU0gTPzDwiggf0AHZxHtlE6ADd6cwcRwtqb5E
+	 lc3auAIFnGbla9rZGIuRZvcIV7d61ts9F8LiHL0fQl0AUkOPtWmMgybNtNNEMrsViXcNn
+	 kd+XIM/OymJa7Rg6vgcv3gB0HDOom+5yWidW1SJJVMYL9WP/oTVrZkbALhoimY5WwJ9bz
+	 0lpcyRwG23iTQEvoHrvPeSgLmg1si1+/j82+8jLzf3r1PHbqNg82Kk3toHTxFHOljzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kH4DORAk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IyNROB7P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF8E2606BF51;
-	Wed, 25 Nov 2026 15:41:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87576606BF78
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:41:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kH4DORAk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1051F00A3E;
-	Wed, 25 Nov 2026 15:40:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795621260;
-	bh=4cVQlcct+VT+lPKLLUePhofzVTZzmsqWz5tDqiV47mU=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IyNROB7P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4A4A1F01563;
+	Wed, 25 Nov 2026 15:41:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795621262;
+	bh=BG6q7O8aTKNpjrerNbbv7tD6/GbdMPGdE4Y0KujVBz0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kH4DORAkdtYwuJypbhy/3TxKhVfx7n8IZlHY0DhQkD6G4M3IJJscZE07js3jrrTch
-	 p4GCMZ69QUBF/WTErAYSQ4HZj8GIk0arIL9DwZLb9q3igGO6ml6WtQ2QBq/fLD6jKM
-	 YXDnfZOiyi0hgUmjxPo8tzTxHntAN+sF1DbhPF90=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=IyNROB7Pf3s6h5IgVXHulPuifclQkekJErDIy0ZEKzI5wSzmXL+A6R/z0V5h/tXfO
+	 EGcmiVLv4DnmhMDuu2ryFoPojBN7N1rvoxl51VCkTUFDWs3gBr48u8gAWsYNAbcOOs
+	 +XGTaUydj5dcXmVDBjKQqqkr76/H4fNcZndekQbHIWu/2QwKpferYh1t0xIr/Nc9nG
+	 2Y7+bpbdtZ9dT1Y//lPaDKP6XznUExU1JgEbOqlLqsmqTnzLa4RtBawNCs5Q1XHVaZ
+	 P8VeL7+YCKpvXcL7H+Z/Rp/xNsUGU9kNVzcIboSxVbJI39zwLzuIj2hhDDbtCV1Qw5
+	 qL2YpUBl5y15A==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Binbin Deng <18983559317@163.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Yingjie Wang <x-professor@outlook.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 172/990] Bluetooth: hci_core: Initialize IRK before publication
-Date: Wed, 25 Nov 2026 15:25:39 +0100
-Message-ID: <20261125143826.121851753@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.10.y] tcp: free saved_syn after an RCU grace period
+Date: Wed, 25 Nov 2026 10:41:00 -0500
+Message-ID: <20261125154037.475259-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112538-perm-tipper-2490@gregkh>
+References: <2026112538-perm-tipper-2490@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,77 +63,151 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Yingjie Wang <x-professor@outlook.com>
 
-------------------
+[ Upstream commit 2b9fd1a0abf0c1c7200be7a33cfeeca1c68089b6 ]
 
-From: Binbin Deng <18983559317@163.com>
+tcp_reqsk_record_syn() allocates saved_syn separately from its request
+socket. bpf_sock_ops_get_syn() can load that pointer while processing a
+retransmitted SYN under RCU.
 
-[ Upstream commit f0cf5a24cefeb629876bd15d668ff062c8655e28 ]
+There are two ownership transfers which can let another CPU reclaim the
+allocation while such a reader is still using it.
 
-hci_add_irk() initializes the identity address and address type of a newly
-allocated IRK, publishes it on hdev->identity_resolving_keys, and only then
-initializes its value and RPA.  RCU readers such as hci_find_irk_by_rpa()
-and the debugfs identity_resolving_keys_show() can traverse the new entry
-during that window and see a zero or partially initialized IRK.
+First, tcp_move_syn() transfers req->saved_syn to a newly created child
+socket. The child can be closed and tcp_saved_syn_free() can reclaim the
+allocation before a reader of the old request finishes.
 
-The race is reachable by racing an IRK addition with another CPU resolving
-or dumping IRKs.  In particular, userspace can issue MGMT_OP_LOAD_IRKS
-while another process reads the corresponding debugfs file or triggers RPA
-resolution.
+Second, inet_reqsk_clone() shallow-copies request_sock during request
+migration. After reqsk_migrate_reset() clears the old request pointer, the
+migrated clone owns it. However, a reader which already loaded the pointer
+from the old request can still be using it when the clone is released.
 
-Initialize the IRK value and RPA before publishing a newly allocated IRK.
-Existing IRKs remain published and continue to be updated in place.
+I found this through LLM-assisted concurrency fuzzing.
 
-Found during a static-analysis-assisted audit: candidate sites were
-surfaced by a Coccinelle rule, and the reader/writer paths were
-confirmed by LLM-assisted (GLM-5.3) code inspection.  The issue was
-not observed at runtime; it is identified by code inspection only.
+Mark the request-socket saved_syn pointer as RCU protected and use RCU
+accessors for its reads and updates. Keep the full-socket pointer plain
+because all of its accesses hold the socket lock. Embed an rcu_head in
+struct saved_syn and use kfree_rcu() in both teardown paths. This lets a
+request-side reader which loaded the object before an ownership transfer
+finish.
 
-Fixes: adae20cb2d20 ("Bluetooth: Convert IRK list to RCU")
-Assisted-by: GLM-5.3 coccinelle
-Signed-off-by: Binbin Deng <18983559317@163.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+This follows commit e3f33b0a1d89 ("ipv4: free inet_opt and ireq_opt
+after an RCU grace period"), which fixed the same ownership-transfer
+pattern for IPv4 options.
+
+The issue was confirmed with KASAN on v7.3-16007-g36aad21d50d1 using
+temporary kernel instrumentation to widen the reader and request-migration
+window. KASAN reported a slab-use-after-free read in
+bpf_sock_ops_get_syn(), with the allocation freed by __reqsk_free() from
+reqsk_timer_handler(). The same explicit migration test completed without
+a report with deferred reclamation. A patched kernel without the delay
+instrumentation also completed a successful migration and seven saved-SYN
+reads without a KASAN report.
+
+Fixes: 0813a841566f ("bpf: tcp: Allow bpf prog to write and parse TCP header option")
+Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/38fa9f2cc476502e9b1c1fef09ebba1df5dd5901.1793795528.git.x-professor@outlook.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Moved reqsk_alloc() and __reqsk_free() edits into include/net/request_sock.h since they live there here, and dropped the reqsk_migrate_reset() hunk because request migration is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/hci_core.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ include/linux/tcp.h        | 6 +++---
+ include/net/request_sock.h | 7 ++++---
+ net/core/filter.c          | 2 +-
+ net/ipv4/tcp_input.c       | 2 +-
+ 4 files changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index bb5bbeefcc67e..78c4be8e7109e 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -1351,9 +1351,10 @@ struct smp_ltk *hci_add_ltk(struct hci_dev *hdev, bdaddr_t *bdaddr,
- struct smp_irk *hci_add_irk(struct hci_dev *hdev, bdaddr_t *bdaddr,
- 			    u8 addr_type, u8 val[16], bdaddr_t *rpa)
+diff --git a/include/linux/tcp.h b/include/linux/tcp.h
+index 11a98144bda0b..76975fef36009 100644
+--- a/include/linux/tcp.h
++++ b/include/linux/tcp.h
+@@ -479,13 +479,13 @@ static inline void fastopen_queue_tune(struct sock *sk, int backlog)
+ static inline void tcp_move_syn(struct tcp_sock *tp,
+ 				struct request_sock *req)
  {
--	struct smp_irk *irk;
-+	struct smp_irk *irk, *old_irk;
- 
--	irk = hci_find_irk_by_addr(hdev, bdaddr, addr_type);
-+	old_irk = hci_find_irk_by_addr(hdev, bdaddr, addr_type);
-+	irk = old_irk;
- 	if (!irk) {
- 		irk = kzalloc(sizeof(*irk), GFP_KERNEL);
- 		if (!irk)
-@@ -1362,12 +1363,14 @@ struct smp_irk *hci_add_irk(struct hci_dev *hdev, bdaddr_t *bdaddr,
- 		bacpy(&irk->bdaddr, bdaddr);
- 		irk->addr_type = addr_type;
- 
--		list_add_rcu(&irk->list, &hdev->identity_resolving_keys);
- 	}
- 
- 	memcpy(irk->val, val, 16);
- 	bacpy(&irk->rpa, rpa);
- 
-+	if (!old_irk)
-+		list_add_rcu(&irk->list, &hdev->identity_resolving_keys);
-+
- 	return irk;
+-	tp->saved_syn = req->saved_syn;
+-	req->saved_syn = NULL;
++	tp->saved_syn = unrcu_pointer(req->saved_syn);
++	RCU_INIT_POINTER(req->saved_syn, NULL);
  }
  
+ static inline void tcp_saved_syn_free(struct tcp_sock *tp)
+ {
+-	kfree(tp->saved_syn);
++	kfree_rcu(tp->saved_syn, rcu);
+ 	tp->saved_syn = NULL;
+ }
+ 
+diff --git a/include/net/request_sock.h b/include/net/request_sock.h
+index 29e41ff3ec933..0755f2da9f83a 100644
+--- a/include/net/request_sock.h
++++ b/include/net/request_sock.h
+@@ -42,6 +42,7 @@ struct request_sock_ops {
+ int inet_rtx_syn_ack(const struct sock *parent, struct request_sock *req);
+ 
+ struct saved_syn {
++	struct rcu_head rcu;
+ 	u32 mac_hdrlen;
+ 	u32 network_hdrlen;
+ 	u32 tcp_hdrlen;
+@@ -67,7 +68,7 @@ struct request_sock {
+ 	struct timer_list		rsk_timer;
+ 	const struct request_sock_ops	*rsk_ops;
+ 	struct sock			*sk;
+-	struct saved_syn		*saved_syn;
++	struct saved_syn __rcu		*saved_syn;
+ 	u32				secid;
+ 	u32				peer_secid;
+ };
+@@ -103,7 +104,7 @@ reqsk_alloc(const struct request_sock_ops *ops, struct sock *sk_listener,
+ 	req_to_sk(req)->sk_prot = sk_listener->sk_prot;
+ 	sk_node_init(&req_to_sk(req)->sk_node);
+ 	sk_tx_queue_clear(req_to_sk(req));
+-	req->saved_syn = NULL;
++	RCU_INIT_POINTER(req->saved_syn, NULL);
+ 	req->num_timeout = 0;
+ 	req->num_retrans = 0;
+ 	req->sk = NULL;
+@@ -117,7 +118,7 @@ static inline void __reqsk_free(struct request_sock *req)
+ 	req->rsk_ops->destructor(req);
+ 	if (req->rsk_listener)
+ 		sock_put(req->rsk_listener);
+-	kfree(req->saved_syn);
++	kfree_rcu(unrcu_pointer(req->saved_syn), rcu);
+ 	kmem_cache_free(req->rsk_ops->slab, req);
+ }
+ 
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 398dddc9a255f..eb75617310202 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -5235,7 +5235,7 @@ static int bpf_sock_ops_get_syn(struct bpf_sock_ops_kern *bpf_sock,
+ 			 * not be available.  It has to resort to
+ 			 * saved_syn (if it is saved).
+ 			 */
+-			saved_syn = inet_reqsk(sk)->saved_syn;
++			saved_syn = rcu_dereference(inet_reqsk(sk)->saved_syn);
+ 		else
+ 			saved_syn = tcp_sk(sk)->saved_syn;
+ 
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index a640ddb61ff0f..cd1ba8b4955b0 100644
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -6852,7 +6852,7 @@ static void tcp_reqsk_record_syn(const struct sock *sk,
+ 			saved_syn->network_hdrlen = skb_network_header_len(skb);
+ 			saved_syn->tcp_hdrlen = tcp_hdrlen(skb);
+ 			memcpy(saved_syn->data, base, len);
+-			req->saved_syn = saved_syn;
++			RCU_INIT_POINTER(req->saved_syn, saved_syn);
+ 		}
+ 	}
+ }
 -- 
 2.53.0
-
-
 
