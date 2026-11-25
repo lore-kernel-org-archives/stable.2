@@ -1,100 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795615147;
-	b=MlXoJ7yAiM9RjlvjVjF5LhjOL2uXgPFPa7Hdp/oII8C4NbmTvNsmwwhDfjWjrXfYByZL
-	 tyHoMNORUZnESw/y8h2fPYqqBcbqNnv3aFyvQk6Erui6s33hFZeWVZ9KOGZgRlRrCorJo
-	 Ui/vyK3DtFMcAn4CkbEwBLEvQzgUdVPUZZTKEnzDnSUmGasHdIF8HaRQf6VggtwLGLXHh
-	 IvegBfpk94ZY4iJsT/uv/y2p9mK8N9khbo0PRDDzT0GSagjVC3rKeFOIvU9pK5wQX1/yE
-	 J4riidlYL9tusDPqXCYt8Ym8RC89H9V+fGPnPrZSaSji8uK90jtIPhgbGWly3OU0i+A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795615147;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=09UPLto6axokpNWgG+6ModtbjIWY6madfxL1sFeVDTE=;
-	b=BrJOsX6en9b7YXcRHAnLOrmqHQNTQfaPUJRqYrZzqG+fhYhjuNvfBfVnmyw8+MS1+fue
-	 EroBlyLOiG5bAmEtXE63j+pXQLsgV7ot3Yru7PRAH3FFMQM0rwJ2U6ZV+B45r0XAjqDNG
-	 Jz22EtOGzIDxuI6gah8w1nIGTxMektXjwu63uiXMdA9RqAVxFF8UKXs4ouqE2V/ERCzTi
-	 SftXsT8xyrTIwV2nqeJvBi+CJbQZlyn9MpCxLgg7APMG8YHxCq3vPvFcgwEKm0ZrJu5pI
-	 1aAM2edUj1v2C/rItf5eW+e9o/ni7CUjpnsQwt/jyQZTFO4KiI/XdrFBiqssDyiIEhw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Wmyd/y0D";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795615248;
+	b=ibiHCOHkPN/Zj187uRV/KXzfXoEseqxxrE6CNnD1trmKKljSTqjyPoGPkvo35SlT1wgZ
+	 0TH0ZpwZ5KS/mJktVHiU3cRHS4EW1GFaAXFKahPL2PK2POMpI5s7Y2KYlAswq4uZgQF0y
+	 pkQqdBcSrL9PfDYEnz/SDsDzdbAowO7Sf26mlbZbTWCuSv5B7J47+j66Fycr2A6ZUMpgC
+	 LuTii/SAvSex29Tqxch0w2IGyi3Ja+jmOGVGYn5SPtYpd1k9R264V/Gox+fLIM53OS4zB
+	 1UvgZ2JOybfyK4Z7pkhr+c55lEB5/LK2/u96cUbpW+ZRVpsHUMEw6bKc6+ixKt1JMCQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795615248;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Z0bHnKY18Sj6WcXxQyinu2JH9QaCsosfzwkAijHIYb4=;
+	b=c5C2/VmOMPulCUYL2Bk4xLIS4YWlkiyzvwkqBY2fS8qTsbQ9IwlDJRSw9/iIeTcuoDZ7
+	 JSbSOROrXBKW/v0UoQzSmY7ebkhLx4fVdb+S0o3YYc5htRs51k7IagsDPu11ap0+m2/we
+	 uRM1ao2DXtajacCW/1xaeMzokupQEmHPDL0XevuYDGI5tQM1W0JmWsOTIRQhsmwjR3gz4
+	 mzV9l01tqFG51KhWOiPVBYFgoVlppYjvqLjPGJptI+DT6McKNdN+jcWw7yoi869gz+R8f
+	 hQgBWH8nMl6kjJ+1m6e+jbA6RiCeq0XM8ahOLHAflp8V3azFzRygCQpQqXueLE857kw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UbWI4eZe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9427606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 13:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9427606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC18606A32D
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:00:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wmyd/y0D
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4a42b34e930so5056463f8f.2
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 05:59:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795615145; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oWGIuyT21Q7LvuUhhkyi+E5VHkgN31B/1aoOqtH7VUERSFNMqFO20DDWajzPFk6zqr
-         xjwzfAAfQt9q4UD1upF2b67mG3LhTPSCkjX5Z+x6m1sbDaHL5velct/6gI5r496NlFwl
-         pLYUQt8M5D5mUutuvFBP0yvEsxW5TkvsBsPJF3H5PF6Sp578TCVNCWCrai5hjJWFwKnG
-         4kORS5fODimI2bINkjtB9mm7aeg3Ao8oOSvrCtpKm567oqk8r8Gubx9ybaaefZesI181
-         Jf8HE6A0ZM+xcMynbXimOphL7Jz4DKwOMDXOuKWsWW15eS8Wbl2jWVm0eN5yldfnlkb+
-         xMgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=09UPLto6axokpNWgG+6ModtbjIWY6madfxL1sFeVDTE=;
-        fh=uVO1zCRrFgyMUrBrcLsdTdl/3a+sLEWRJMNETLScwts=;
-        b=D0ST7KajZPojz49BRFkck/HOOdOGFBxkEOD9OjgJ/8C61LG4Wi5M5aP4R4zPAmio0V
-         sA/leRh5ppph7qB/unZZI09ftvEuO+OlSaZWPOhPHBqysDN/kmq2nrqZ+2Tj+sE85vsW
-         O7hED6p6ssEDagMCG409MZTW1+5jT1yDk4ZQyMJaGqa8FmmbO815wsJcR4kpJAG35LXD
-         x0Bs3cA5X7BJNq/p7NmQibXzCfTT9FnXpNe1kfy8cytUvCDniB2F9YlhM63y1NCIceYx
-         LHAkhJnqYLQrLM/CtHtfebb4YOBJUM6z6N3oiJIi9fUSUHzSy6MfNFxNDhn7QizEgR5z
-         E9Pg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795615145; x=1796219945; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=09UPLto6axokpNWgG+6ModtbjIWY6madfxL1sFeVDTE=;
-        b=Wmyd/y0DLovIGl2bT8rvYbNpCaVeCRx2typ8roczSOcFM20V1I4zDlREol3Er0tywQ
-         H1F/1d2u3M7q6LeZKpuKD93ZpSkLRFYCFYM3WP7GirEDjZg4gVCmXxsrmfM+AW3VB31y
-         CHk5nBMwo07qh5XaomSLQ0R6Jb3+cpIjHHzIrTi7iN13sAxAeaITwl4sLDRec6fUKSbJ
-         KjD40arUGqjhjl6OKB0Febh/m92Imc+nFIWXonuqenHf0ZpimJLflZrUJamOiBTza2vf
-         Lrk1ow39lYiN08Jvhzckmvyt2dI1LVvJiwE5cBk29X0d8yRoPUtMltMynSkuDG+miYIk
-         lMHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795615145; x=1796219945;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=09UPLto6axokpNWgG+6ModtbjIWY6madfxL1sFeVDTE=;
-        b=TYXPlSZgJbNP5iryBrxrTdfp/zUBDNClR7kSpcASBcRv3SrztJQXF8a56HQegHBtVu
-         Qo0b+oAmI/BKUSCAU/wMEe4RLXcslKsJKgadVBAPvQ5K7oRfsLY2KSNQjwNXiNWijcjV
-         +llvZU+B44a9Be0X+NKZh7Uqu1b+F1vRtuU4dzpM4KE2CWMq68Hc4Ee+0T5Q+jdigTrU
-         EfkbF8lmPXpd56VAaZ0aDHLol0+cKrVJUjlNFE0bBTvNQ0dyp2Paa0Su8DoLnO7QDeJi
-         AP7YKFtZutM2USqq49x8iE1IF1VPYdG3JKIPLA6PYhluXYXIFAjsAKWv/p5lfeHZuY1Q
-         LZ5w==
-X-Forwarded-Encrypted: i=1; AL+hErEGntVaVgeMam+XKeCxt9lMc1sA13T6L0P/REvQbw1hSGuoEnjha3eic4Sa1dxCpDtb8X+qpeY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96o2UzBVKDd6z8du6sxQ2GP0P6gIWIYD4uZZpZ6VTQ/0InV6OO
-	WhZLI6+BdXqaHOGPKRcKsEsV5T4yWXdCsuYiwx+fzTC/if/yAEp48eHKIFXEpo3txiXzA5OIgkE
-	SeB4AGXCsFvyHmHpHYv+lN18KHNwfs1s=
-X-Gm-Gg: AZFdTZc+rYEGRCsecnwjfRp34QtUx+X82mQqm1Z05p5bUjIKqpt4jeMma5SmEMRXr7/
-	YGbeyDgrold3Jrvht2xvIF1dW4CZG/LkvXRITPxscUHWmLhz8y4CA84Epd9Ok74UscmHEHW+u8M
-	sKWouveL8Ie94N/qplCsWCIEZW8Hf/fIHCiqxV7pu7voK4VgDCddtURN54hAkDYWC03HC8LZs2g
-	V7A9ILnJePfBSfhHRu5kvdPhAw8UO+MPA8maGu6D5kcJkAkb1/N3JYUQieBgL1rGPIpid0EdGDM
-	JHjHLcHxlliRZQ93Ibk6AcqxUQIYdYjvvhQld+uWWokgWDkrEZgiGhfxcQBRvmiGcyYmu/a8Wv+
-	cHleuJcS2Ao8LVaGS+SUxByu4IX3ieggfFaeCTw8=
-X-Received: by 2002:a05:6000:4014:b0:4b7:ae36:5493 with SMTP id
- ffacd0b85a97d-4b7ae36567emr11689293f8f.12.1795615145005; Wed, 25 Nov 2026
- 05:59:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UbWI4eZe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37B241F000D3;
+	Wed, 25 Nov 2026 14:00:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795615248;
+	bh=Z0bHnKY18Sj6WcXxQyinu2JH9QaCsosfzwkAijHIYb4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UbWI4eZeRteujIZd5MPk06V94cl1sNONzrM0toh6SKwb7AwYFjj8MtCdX3pZaD416
+	 R88GcU8SpSfviZfMXfm964s5ba1erNPxBTEXZbaDo6XworvzdEfUd3vYk24/L/qi+g
+	 TuZ7PM7WMT6rcWlOhGenYOvFvykt+W+OO7LJIApiWJIFsPmUqcmzMVWVv44ufA3rky
+	 tLYAmePdpmENS2V/EiZ/5oBd8ZMtDO1rjL8ppIoSpPIAipadH9QGe/ePaCldERRDOo
+	 nqAiz9axllYYwC/MU5rHKU0N7dFXDsnv3p6DgG8PEJqOWqv64KlKq7jY+tqOtp7jv6
+	 y5tIZ03Jfw3fA==
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 82BF71980047;
+	Wed, 25 Nov 2026 09:00:42 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-12.internal (MEProxy); Wed, 25 Nov 2026 09:00:45 -0500
+X-ME-Sender: <xms:CeoGa2sbyq-knPaAr3polUCbTbAfusbSEbQkIuv3RGnGMDeE4I0IpA>
+    <xme:CeoGa5XUKPcBCJPbEyYstOF2hF5CZuHf8u0_gDMsgSIBKBgaSp8f4AMl65r0kymk4
+    6IpJz6zjcIMAjwll9tB_wwZqtlLcCs9sI-2RPpw8cu5Pqt0zY_kZDLI>
+X-ME-Received: <xmr:CeoGa63VkcYmI44d81-pIkWLwEJV3_2mriNLyrNKXgF5TBl-s4g4hEvoXsA>
+X-ME-Proxy-Cause: dmFkZTE1O4eBS6dBEH9F3C68qqyjyJ1vnOzgFGQ7e1lDYlMXiP0Bqwgudxue3EzhshTdfZ
+    wxdOsHNh21Us4t2qr8NIs2D82OWq8GrNR1+ApgjQnugMMUoOefB61JIxFry+YnlrEEPH0k
+    1lulqQ/KbfKwP3+h1Eq7NvvIazNhJ+RPZPqAUo6W6yvezRDAuG1Y9F4WydegAGsGXmWudY
+    uU/N0qF8rm1u8E23C3PBv/eYYSy65rIJIibXjAFAeda30En8uHkgplstM2XZioKLBowZJu
+    OQY/fboU+VsjF9UxxOTbEw3f2yad/ggXJ3hOpEq6coiUonOsSwIgZaZ/EJfocaRDTuU9B2
+    bpLH5GD503xlV1pw+X3TwoVttniLzFa5tkg/BlSGvpUUmV95buRKk+ZEFQkeCc6gNdHDR9
+    cZknIrGoR1hZBn+WTQ4ax3Cm/YYmBNK6WUDb2wLj/L4AojiXVzVUGY9OlSme68dHnVCJPC
+    EBZDvP5pgx4DOZIu8Pcv3syC6zvvEJQ++fneb7YiYAACWex4c8LaUOQ8NOxhFFt+6aqcCQ
+    ara+dxH+3HxYKIl4QBtspz+zZnTvm4tdjBZMgMgZS92PFHfDbLm6/QNtlRk3cKCE/HMKfa
+    vRoeL7e0y6AjGDREEe0jC3Ar91Wm0pEXHArWXQP9hAdrsG4pq4nqvpDQTPig
+X-ME-Proxy: <xmx:CeoGayfGny5F21riOaLOveSjwn-EJAzPaJzk4-vqnbHv7Pj2nN2sfg>
+    <xmx:CuoGa_VqJrc_CqPIcNU_aqo4LWnmsfqTTBV008mUeuWEwrI1fvFrAA>
+    <xmx:CuoGaw86kLMVxJ-7NBMr55J-FMvV0cQxvHDDazJAmckz17uJpjue6A>
+    <xmx:CuoGa0ixiJ8Vgnu-6JNrddSNMUl08zogEhc0hAW983Iq7YrEfhFSpA>
+    <xmx:CuoGa9VZt9XGvySBLdrZn4-zvJMAa5b6m1fu_TiYaJjV86Zb5hFoyQGY>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 25 Nov 2026 09:00:41 -0500 (EST)
+Date: Wed, 25 Nov 2026 14:00:40 +0000
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: YinFengwei <fengwei_yin@linux.alibaba.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	James Morse <james.morse@arm.com>, Jinjie Ruan <ruanjinjie@huawei.com>, 
+	Vladimir Murzin <vladimir.murzin@arm.com>, Ada Couprie Diaz <ada.coupriediaz@arm.com>, 
+	Marc Zyngier <maz@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Liao Chang <liaochang1@huawei.com>, Ashok Raj <ashok.raj@oss.qualcomm.com>, 
+	Doug Anderson <dianders@chromium.org>, Pengjie Zhang <zhangpengjie2@huawei.com>, 
+	Cong Wang <cwang@multikernel.io>, kernel-team@meta.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] firmware: arm_sdei: Do not signal event 0 to a
+ masked PE
+Message-ID: <awblcOnI8JVhpmPK@shutemov.name>
+References: <20261124194707.1030653-1-kas@kernel.org>
+ <20261124194707.1030653-2-kas@kernel.org>
+ <awavUsKX4XLRMbUq@U-V2QX163P-2032.local>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,74 +95,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261125-upboard-pinctrl-add-intc1057-intc105e-support-v2-0-c8079f8f569f@gmail.com>
- <awXJd59jTHM2bIlD@ashevche-desk.local> <awXKVXS0kIGnA0lD@ashevche-desk.local>
-In-Reply-To: <awXKVXS0kIGnA0lD@ashevche-desk.local>
-From: GaryWang <is0124@gmail.com>
-Date: Wed, 25 Nov 2026 21:58:53 +0800
-X-Gm-Features: Aa3M54psDnYYcIAEdsGV8up86M6nPP0lMFvOZv_SlI_4KubbZ_Jtr3McMresRDQ
-Message-ID: <CANYHO6q7Cx1ah7cJMfyeu83v80VAFcx-2TQNNWM6kNSv0zB7pg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/5] upboard pinctrl support for device id INTC1055 &
- INTC1057 & INTC105E
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Thomas Richard <thomas.richard@bootlin.com>, 
-	Daniele Cleri <danielecleri@aaeon.eu>, JunYingLai <junyinglai@aaeon.com.tw>, 
-	Louis Chen <louischen@aaeon.com.tw>, BillyChou <BillyChou@aaeon.com.tw>, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awavUsKX4XLRMbUq@U-V2QX163P-2032.local>
 
-On Wed, Nov 25, 2026 at 1:34=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Tue, Nov 24, 2026 at 07:29:32PM +0200, Andy Shevchenko wrote:
-> > On Wed, Nov 25, 2026 at 01:10:34AM +0800, Gary Wang wrote:
-> > > Add missing groups and functions in Tigerlake & Alderlake & Meteorlak=
-e
-> > > for INTC1055 & INTC1057 & INTC105E.
-> > > Add support "UP Xtreme ARL","UP Xtreme i14","UP Squared Pro 7000",
-> > > "UP Squared i12","UP 7000".
-> > > Fix pinmux-select set CPLD GPIO OUT not function mode for I2C pins
-> > > on the AANT0F04.
-> >
-> > Make the above bullet points to be a regular English text which explain=
-s
-> > all this. It sounds like the second sentence should be first to start
-> > with what is this and why. Also don't blindly copy what AI provides you=
-,
-> > edit the text that it's correctly split on the paragraphs and in each
-> > paragraph use full line length (~72 characters). Each paragraph should
-> > be separated with a blank line.
-> >
-> > This comment is related to all commit messages in this series.
-Ok.
-> >
-> > > The pinctrl-upboard is provide additional driving power & pin mux fun=
-ction
-> > > through native SOC pins->FPGA/CPLD->hat pins for flexable board level
-> > > applications. it's probe from ACPI device id AANT0F01 & AANT0F04.
->
-> Also you ignored my comment about how this series is supposed to be appli=
-ed.
-> Intel pin control drivers are maintained by me. The rest by Linus. People
-> won't go through the code to understand if there any compile-time and/or
-> run-rime dependencies between parts.
->
-There are no compile-time dependencies for each file.
-All pin groups/functions data will forward to set default when pinctrl
-upboard probe.
-It shows an error when run time dependencies are not mapping to right
-groups/functions.
+On Wed, Nov 25, 2026 at 05:50:10PM +0800, YinFengwei wrote:
+> Hi Kirill,
+> 
+> On Tue, Nov 24, 2026 at 07:47:04PM +0000, Kiryl Shutsemau (Meta) wrote:
+> > The SDEI NMI backtrace signals event 0 to every other CPU, idle ones
+> <snip>
+> > +static void sdei_block_signal(void)
+> > +{
+> > +	struct sdei_pe *pe = this_cpu_ptr(&sdei_pe);
+> > +	unsigned long flags;
+> > +
+> > +	/*
+> > +	 * A panic from an SDEI event or a pseudo-NMI may have left the lock
+> > +	 * held by this CPU. The CPUs that could signal it are stopped by now.
+> > +	 */
+> > +	if (panic_on_this_cpu()) {
+> > +		WRITE_ONCE(pe->unmasked, false);
+> If the panic didn't take the lock, should lock be taken
+> just like "else" path?
 
-> > > To: Mika Westerberg <mika.westerberg@linux.intel.com>
-> >
-> > No need to bother Mika, he is not maintaining this code anymore. :-(
-Ok.
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+If another CPU holds it at this point, that CPU was stopped in the
+middle of signalling this one, and it will never drop the lock. The
+panic would hang on it.
+
+If nobody holds it, there is nothing for it to keep out. This runs at
+the end of smp_send_stop(), after the other CPUs have been stopped. A
+sender stopped after it took the lock has either counted its signal,
+which sdei_wait_in_flight() waits for, or never sent one.
+
+Telling the two apart takes a trylock, and on failure we would go ahead
+without the lock anyway.
+
+> > +	} else {
+> > +		raw_spin_lock_irqsave(&pe->lock, flags);
+> > +		WRITE_ONCE(pe->unmasked, false);
+> > +		raw_spin_unlock_irqrestore(&pe->lock, flags);
+> > +	}
+> > +
+> > +	sdei_wait_in_flight(pe);
+> > +}
+> > +
+> >  static int sdei_pm_notifier(struct notifier_block *nb, unsigned long action,
+> >  			    void *data)
+> >  {
+> > +	struct sdei_pe *pe = this_cpu_ptr(&sdei_pe);
+> >  	int rv;
+> >  
+> >  	WARN_ON_ONCE(preemptible());
+> >  
+> >  	switch (action) {
+> >  	case CPU_PM_ENTER:
+> > +		/*
+> > +		 * Leave alone a PE that is masked already: before
+> > +		 * sdei_cpuhp_up(), or after sdei_cpuhp_down(), as cpuidle runs
+> > +		 * until CPU_OFF. CPU_PM_EXIT must not unmask it.
+> > +		 */
+> > +		if (!pe->unmasked)
+> I am wondering whether READ_ONCE() should be used here?
+
+No.
+
+We read the flag of this CPU, and only this CPU writes pe->unmasked.
+The notifier runs with IRQs off, so no store can race with this load.
+
+What can still interrupt it, a stop or a panic from an SDEI event or a
+pseudo-NMI, does not return here.
+
+READ_ONCE()/WRITE_ONCE() are for sdei_event_signal(), which reads the
+flag from another CPU.
+
+Left plain, KCSAN will report it if that ever changes. See item 5 under
+"Use of Plain C-Language Accesses" in
+tools/memory-model/Documentation/access-marking.txt.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
