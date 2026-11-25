@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795601579;
-	b=J+jRwjM4a5IWsCM/XelcR18xxgQ5KuQHn5yFyFNdwYnra8CR+qHLO4Ctprlr5L86IXEA
-	 QgQRt3BuoOmTIvHw9l1QYCj4b8Tk2LBmEyPYXHrI1mauaCktqjyjuYQvz/cc+2DoE6gpU
-	 HJw2ExwVFufjoSFoUJmy2rUU1veM1htqWHIiyjqI2mvx02XtlWcuO8TMLTEhDRBQ+ZNGQ
-	 GooOl0BMhZ2nDuvlyQrYIqz5/003jrgDqXBDgd5XPs/jqumNoB+VHHV7JQlxD+EDNwgxW
-	 RbrF6qdmWh0bzgPfcwway/e2a/3YRPwidmOAxVh/Tni375JJHkIoSDhC0ZQK58DouUw==
+	t=1795601582;
+	b=uFcXQOoVfqKgcM5bEvhycgMBs4RA/BqT/wIhue7FzHJsx24rKsuGfIyM24qsiJRNvXhk
+	 10jGRbFB+ByDl5aqaNch7FmHypOFwFVGI0vqRHl4LQQXAcsLjWcT5uOm/gPK7w17v9aR5
+	 OazPjEHVKallxrXq0CjyPnscAMzcFLbVbESRFYuP2jFmuxqPDPtmJQ6iCtxdKQ3gXoa6o
+	 Mw7R4li+LKGRAz/0UuwfEkMCZbKHWfvs7n0xzI4AIKco7CbYBDtuI+acvp1DG/KWo/UL/
+	 VarjWJyAKKqRPloloM75iWtdPA1SGrWA+rSFf01k2jlOJhhxeE9DkSLO4u81Mq7pQzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795601579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795601582;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pBSM8PBS1YwqQMa/qE12G/p2NX9Kthg8Y+WyICaJlFo=;
-	b=il+t4Jtse8afNV1m3y1I2vKvpBBT1/udl53ntWGpVSIXfLAb7av5jqoHtElmiyRPsBC2
-	 W43TYor+NLYjCQxvwNFaIDypIyK9hgINZF/06WW5AmRalMUWB8BzVeQVLgMzBtgO1sTzL
-	 ItI+7uc9w0mxFlVguDJFPRTof2HW22ktEJ6rf6CT+hVqs5Um0F10efdkOGSR3eek1OXxv
-	 nbrvojXGO04HKjOT2NmUSQrddzDEAaaM6Qb5ipIPyTN+z71YgDtNZNUc0CLuKmQ6V5pri
-	 KfObcTayvhmZFk9reJe9BVzYrpGRQc/ddTOkYKJ5lHWP0nBuQkIR04cJSZ/yO40fymA==
+	bh=fGwUUK5l6OWdvR/6gG7D8cbBbxdsRAd30miPMB6hiyU=;
+	b=IsNgnl89A9l2fJu08Srbt2I2enjJ3nFt3w8QDTdmfimPYRkkbd/AXB7SiKwRqqZ7A2kX
+	 oTvOwM3Imz8DZDEaf/MYtxNZ1xoUHbqM1KwHGfza/tDgHiHl7xsdzhGbDqutPg5jmPw+I
+	 QL8vZJWzXUbYcgwMjnNt3GQpAobj+4QRTVKr5ICyjTpJpFBomh93wt72774BbANv15i4f
+	 cTG9rQSjVEHFxdQjRVyByPiUGU7cPce6W/MXferRyOJN9RsMuGkb3/2trG5H+annjFIrS
+	 kpqwWNjA8TZxVTV54YI7GhIqfM2xhURhCcuZrouJF+60N6Mf/R2rNVjxVA4xKa7PiYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Dl1KtyO6;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GyEU1cgG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9424F606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:12:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B0B606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:13:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Dl1KtyO6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86001F000C4;
-	Wed, 25 Nov 2026 10:12:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GyEU1cgG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B351C1F000C6;
+	Wed, 25 Nov 2026 10:13:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795601579;
-	bh=pBSM8PBS1YwqQMa/qE12G/p2NX9Kthg8Y+WyICaJlFo=;
+	s=korg; t=1795601582;
+	bh=fGwUUK5l6OWdvR/6gG7D8cbBbxdsRAd30miPMB6hiyU=;
 	h=Subject:To:Cc:From:Date;
-	b=Dl1KtyO6JYLXjDaGHsx64BnSD9cSwv9UfyQrx9iNGsTAk+h3znByULl4xYqKTv+DP
-	 SCcb9XBkkLncWlAVc3i1nZxVzn2IIhLD6UNwvvucu0+GaTVCYs0X0ezdfTCsxeIPh8
-	 MaCrRryIVRyPDb/CoVbwPTwxvhe7szhbhkYharo4=
-Subject: FAILED: patch "[PATCH] arm64: suspend: Only track cpuidle context for idle tasks" failed to apply to 6.12-stable tree
-To: uladzislau.zhauniarovich@gmail.com,catalin.marinas@arm.com,stable@vger.kernel.org
+	b=GyEU1cgG12hJVUDxcHSwSCDBmsuSYV9FtocRVLKt1FJRShrQqUvTzJyFMJ9WYooQr
+	 5W+kcO6c5WQCUZMqcHQEZ6BsMxLh69rOv0Cf6Oo2ylVgci/LSygo5zAg8PvJRMvmb3
+	 DKcJWXESxKrWxcS0bjsEQmR4bLV2iisCwVDlz8Vk=
+Subject: FAILED: patch "[PATCH] cpufreq: Improve suspend-resume synchronization" failed to apply to 6.12-stable tree
+To: rafael.j.wysocki@intel.com,christian.loehle@arm.com,dsmythies@telus.net,stable@vger.kernel.org,viresh.kumar@linaro.org,zakbrightonknight@gmail.com,zhongqiu.han@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:08:40 +0100
-Message-ID: <2026112540-presoak-impromptu-e705@gregkh>
+Date: Wed, 25 Nov 2026 11:09:11 +0100
+Message-ID: <2026112511-delete-closable-12f4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x ad3fc05c7e65009355effeea06aa629a687acef2
+git cherry-pick -x eee2a44e4e2b41c0699919a550d41cc38daa4f42
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112540-presoak-impromptu-e705@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112511-delete-closable-12f4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,104 +79,240 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ad3fc05c7e65009355effeea06aa629a687acef2 Mon Sep 17 00:00:00 2001
-From: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
-Date: Thu, 5 Nov 2026 20:19:45 +0000
-Subject: [PATCH] arm64: suspend: Only track cpuidle context for idle tasks
+From eee2a44e4e2b41c0699919a550d41cc38daa4f42 Mon Sep 17 00:00:00 2001
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Date: Tue, 3 Nov 2026 20:45:38 +0100
+Subject: [PATCH] cpufreq: Improve suspend-resume synchronization
 
-Commit 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic") moved
-the calls to ct_cpuidle_enter() and ct_cpuidle_exit() into cpu_suspend() so
-that arm64 cpuidle could keep RCU watching longer and manage context
-tracking internally. However, cpu_suspend() is called not only by cpuidle
-via psci_cpu_suspend_enter() (which runs in the context of the idle task),
-but also during system suspend via psci_system_suspend_enter() (which runs
-in the context of the task initiating suspend, such as a process writing to
-/sys/power/state).
+The suspend-resume synchronization in the cpufreq core is not perfect
+because the global cpufreq_suspended variable is set at the end of
+cpufreq_suspend() after stopping governors for all of the active
+policies, so the governor .limits() callback may run via
+cpufreq_governor_limits() after stopping the governor and before
+setting cpufreq_suspended which is questionable.  Likewise, the
+governor .limits() callback may run between clearing cpufreq_suspended
+in cpufreq_resume() and starting the governor.
 
-When entering system suspend, current is a non-idle task. Calling
-ct_cpuidle_enter() invokes ct_kernel_exit() from kernel space (!user) on a
-non-idle task. With CONFIG_RCU_EQS_DEBUG enabled, this violates context
-tracking invariants and triggers a warning:
+Address this by adding a per-policy "suspended" flag that is always
+read under the policy rwsem and is updated under it when the governor
+is stopped in cpufreq_suspend() and when the governor is restarted in
+cpufreq_resume().
 
-WARNING: kernel/context_tracking.c:120 at ct_kernel_exit+0x1b4/0x1f4
-kernel/context_tracking.c:118
-Call trace:
- ct_kernel_exit+0x1b4/0x1f4 kernel/context_tracking.c:118
- ct_idle_enter+0x20/0x34 kernel/context_tracking.c:299
- ct_cpuidle_enter include/linux/cpuidle.h:134 [inline]
- cpu_suspend+0x264/0x474 arch/arm64/kernel/suspend.c:136
- psci_system_suspend_enter+0x4c/0x80 drivers/firmware/psci/psci.c:544
- suspend_enter kernel/power/suspend.c:468 [inline]
- suspend_devices_and_enter+0x88c/0xd0c kernel/power/suspend.c:533
- enter_state kernel/power/suspend.c:618 [inline]
- pm_suspend+0x498/0x698 kernel/power/suspend.c:644
- state_store+0x14c/0x1fc kernel/power/main.c:819
- kobj_attr_store+0x6c/0x90 lib/kobject.c:842
- sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
- vfs_write+0x51c/0xa0c fs/read_write.c:687
- ksys_write+0x12c/0x228 fs/read_write.c:739
+Also make cpufreq_resume() use the cpus_read_lock guard to reflect
+what is done in cpufreq_suspend() and call cpufreq_exit_governor() for
+policies that were suspended during a system suspend transition and
+are inactive during the subsequent system resume (to avoid leaking an
+inactive policy with a stopped governor that has not exited yet).
 
-A corresponding warning is subsequently triggered in ct_kernel_enter() via
-ct_cpuidle_exit() upon resume.
+Fixes: 8e30444e1530 ("cpufreq: fix cpufreq suspend/resume for intel_pstate")
+Fixes: b1b12babe3b7 ("cpufreq: update 'cpufreq_suspended' after stopping governors")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Tested-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
+Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+Tested-by: Doug Smythies <dsmythies@telus.net>
+Tested-by: Christian Loehle <christian.loehle@arm.com>
+Link: https://patch.msgid.link/4796894.LvFx2qVVIh@rafael.j.wysocki
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-Fix this by checking is_idle_task(current) in cpu_suspend() and only
-invoking ct_cpuidle_enter() and ct_cpuidle_exit() when executing in the
-context of an idle task.
-
-Fixes: 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic")
-Cc: <stable@vger.kernel.org>
-Assisted-by: Gemini:gemini-3.8-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+79883955da3a62652a80@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=79883955da3a62652a80
-Link: https://syzkaller.appspot.com/ai_job?id=5359e16f-013b-4850-9cbc-ddfb3bac95e5
-Signed-off-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
-Tested-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
-Link: https://lore.kernel.org/r/3e92ccb0-2952-4317-af4c-45457c15efae@gmail.com
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-
-diff --git a/arch/arm64/kernel/suspend.c b/arch/arm64/kernel/suspend.c
-index c41724a40b75..cde0b8c19377 100644
---- a/arch/arm64/kernel/suspend.c
-+++ b/arch/arm64/kernel/suspend.c
-@@ -5,6 +5,7 @@
- #include <linux/uaccess.h>
- #include <linux/pgtable.h>
- #include <linux/cpuidle.h>
-+#include <linux/sched.h>
- #include <asm/alternative.h>
- #include <asm/cacheflush.h>
- #include <asm/cpufeature.h>
-@@ -99,6 +100,7 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
- 	int ret = 0;
- 	unsigned long flags;
- 	struct sleep_stack_data state;
-+	bool idle = is_idle_task(current);
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index 015962e6c1fe..7b93cbf313bc 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -35,6 +35,9 @@
+ static LIST_HEAD(cpufreq_policy_list);
  
- 	/*
- 	 * Some portions of CPU state (e.g. PSTATE.{PAN,DIT}) are initialized
-@@ -133,7 +135,8 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
- 	 */
- 	pause_graph_tracing();
+ /* Macros to iterate over CPU policies */
++#define for_each_policy(__policy)	\
++	list_for_each_entry(__policy, &cpufreq_policy_list, policy_list)
++
+ #define for_each_suitable_policy(__policy, __active)			 \
+ 	list_for_each_entry(__policy, &cpufreq_policy_list, policy_list) \
+ 		if ((__active) == !policy_is_inactive(__policy))
+@@ -1960,6 +1963,14 @@ int cpufreq_generic_suspend(struct cpufreq_policy *policy)
+ }
+ EXPORT_SYMBOL(cpufreq_generic_suspend);
  
--	ct_cpuidle_enter();
-+	if (idle)
-+		ct_cpuidle_enter();
++static void cpufreq_suspend_policy(struct cpufreq_policy *policy)
++{
++	guard(cpufreq_policy_write)(policy);
++
++	cpufreq_stop_governor(policy);
++	policy->suspended = true;
++}
++
+ /**
+  * cpufreq_suspend() - Suspend CPUFreq governors.
+  *
+@@ -1982,11 +1993,8 @@ void cpufreq_suspend(void)
+ 	pr_debug("%s: Suspending Governors\n", __func__);
  
- 	if (__cpu_suspend_enter(&state)) {
- 		/* Call the suspend finisher */
-@@ -149,9 +152,11 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
- 		if (!ret)
- 			ret = -EOPNOTSUPP;
+ 	for_each_active_policy(policy) {
+-		if (has_target()) {
+-			scoped_guard(cpufreq_policy_write, policy) {
+-				cpufreq_stop_governor(policy);
+-			}
+-		}
++		if (has_target())
++			cpufreq_suspend_policy(policy);
  
--		ct_cpuidle_exit();
-+		if (idle)
-+			ct_cpuidle_exit();
- 	} else {
--		ct_cpuidle_exit();
-+		if (idle)
-+			ct_cpuidle_exit();
- 		__cpu_suspend_exit();
+ 		if (cpufreq_driver->suspend && cpufreq_driver->suspend(policy))
+ 			pr_err("%s: Failed to suspend driver: %s\n", __func__,
+@@ -1998,6 +2006,32 @@ void cpufreq_suspend(void)
+ 	cpus_read_unlock();
+ }
+ 
++static void cpufreq_resume_policy(struct cpufreq_policy *policy, bool start)
++{
++	guard(cpufreq_policy_write)(policy);
++
++	if (!policy->suspended)
++		return;
++
++	policy->suspended = false;
++
++	if (policy_is_inactive(policy)) {
++		/*
++		 * The policy was active when it was suspended, so its governor
++		 * is still there.  Let the governor go.
++		 */
++		cpufreq_exit_governor(policy);
++		return;
++	}
++
++	if (!start)
++		return;
++
++	if (cpufreq_start_governor(policy))
++		pr_err("%s: Failed to start governor for CPU%u's policy\n",
++		       __func__, policy->cpu);
++}
++
+ /**
+  * cpufreq_resume() - Resume CPUFreq governors.
+  *
+@@ -2007,11 +2041,12 @@ void cpufreq_suspend(void)
+ void cpufreq_resume(void)
+ {
+ 	struct cpufreq_policy *policy;
+-	int ret;
+ 
+ 	if (!cpufreq_driver)
+ 		return;
+ 
++	guard(cpus_read_lock)();
++
+ 	if (unlikely(!cpufreq_suspended))
+ 		return;
+ 
+@@ -2022,19 +2057,18 @@ void cpufreq_resume(void)
+ 
+ 	pr_debug("%s: Resuming Governors\n", __func__);
+ 
+-	for_each_active_policy(policy) {
+-		if (cpufreq_driver->resume && cpufreq_driver->resume(policy)) {
+-			pr_err("%s: Failed to resume driver: %s\n", __func__,
+-				cpufreq_driver->name);
+-		} else if (has_target()) {
+-			scoped_guard(cpufreq_policy_write, policy) {
+-				ret = cpufreq_start_governor(policy);
+-			}
++	for_each_policy(policy) {
++		int ret = 0;
+ 
++		if (cpufreq_driver->resume && !policy_is_inactive(policy)) {
++			ret = cpufreq_driver->resume(policy);
+ 			if (ret)
+-				pr_err("%s: Failed to start governor for CPU%u's policy\n",
+-				       __func__, policy->cpu);
++				pr_err("%s: Failed to resume driver: %s\n", __func__,
++				       cpufreq_driver->name);
+ 		}
++
++		if (has_target())
++			cpufreq_resume_policy(policy, ret == 0);
  	}
+ }
  
+@@ -2416,12 +2450,17 @@ __weak struct cpufreq_governor *cpufreq_fallback_governor(void)
+ 	return NULL;
+ }
+ 
++static bool cpufreq_is_suspended(struct cpufreq_policy *policy)
++{
++	return cpufreq_suspended || policy->suspended;
++}
++
+ static int cpufreq_init_governor(struct cpufreq_policy *policy)
+ {
+ 	int ret;
+ 
+-	/* Don't start any governor operations if we are entering suspend */
+-	if (cpufreq_suspended)
++	/* Don't start any governor operations for suspended policies. */
++	if (cpufreq_is_suspended(policy))
+ 		return 0;
+ 	/*
+ 	 * Governor might not be initiated here if ACPI _PPC changed
+@@ -2464,7 +2503,7 @@ static int cpufreq_init_governor(struct cpufreq_policy *policy)
+ 
+ static void cpufreq_exit_governor(struct cpufreq_policy *policy)
+ {
+-	if (cpufreq_suspended || !policy->governor)
++	if (cpufreq_is_suspended(policy) || !policy->governor)
+ 		return;
+ 
+ 	pr_debug("%s: for CPU %u\n", __func__, policy->cpu);
+@@ -2479,7 +2518,7 @@ int cpufreq_start_governor(struct cpufreq_policy *policy)
+ {
+ 	int ret;
+ 
+-	if (cpufreq_suspended)
++	if (cpufreq_is_suspended(policy))
+ 		return 0;
+ 
+ 	if (!policy->governor)
+@@ -2503,7 +2542,7 @@ int cpufreq_start_governor(struct cpufreq_policy *policy)
+ 
+ void cpufreq_stop_governor(struct cpufreq_policy *policy)
+ {
+-	if (cpufreq_suspended || !policy->governor)
++	if (cpufreq_is_suspended(policy) || !policy->governor)
+ 		return;
+ 
+ 	pr_debug("%s: for CPU %u\n", __func__, policy->cpu);
+@@ -2514,7 +2553,7 @@ void cpufreq_stop_governor(struct cpufreq_policy *policy)
+ 
+ static void cpufreq_governor_limits(struct cpufreq_policy *policy)
+ {
+-	if (cpufreq_suspended || !policy->governor)
++	if (cpufreq_is_suspended(policy) || !policy->governor)
+ 		return;
+ 
+ 	pr_debug("%s: for CPU %u\n", __func__, policy->cpu);
+@@ -2751,7 +2790,8 @@ static void cpufreq_policy_refresh(struct cpufreq_policy *policy)
+ 	 * -> ask driver for current freq and notify governors about a change
+ 	 */
+ 	if (cpufreq_driver->get && has_target() &&
+-	    (cpufreq_suspended || WARN_ON(!cpufreq_verify_current_freq(policy, false))))
++	    (cpufreq_is_suspended(policy) ||
++	     WARN_ON(!cpufreq_verify_current_freq(policy, false))))
+ 		return;
+ 
+ 	refresh_frequency_limits(policy);
+diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+index d3d0d9d02aa4..20a6863b640a 100644
+--- a/include/linux/cpufreq.h
++++ b/include/linux/cpufreq.h
+@@ -149,6 +149,9 @@ struct cpufreq_policy {
+ 	/* Pending policy->min/max update for the driver */
+ 	bool			update_limits;
+ 
++	/* The policy has been suspended. */
++	bool			suspended;
++
+ 	 /* Cached frequency lookup from cpufreq_driver_resolve_freq. */
+ 	unsigned int cached_target_freq;
+ 	unsigned int cached_resolved_idx;
 
