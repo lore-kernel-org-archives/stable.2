@@ -1,93 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795619584;
-	b=1MymwkZuK9JFnVA/YAmUIqRz8WPSMvsteH2Q3U/K5brB/iyZEXWmT3t9kzhRe6jirf7h
-	 s6see3qzTv86QCsrE9137mmWNOrgOaGIe8C89eDvMDe3vIuGliLN0yWThbJ4yQC2BG0wT
-	 H21PCIBuVVwFFRnJH8FjXmgdG5kvkzkE51OVgJ4fwCtxc4GCYY6aTPDF+HVVIhUnq+psx
-	 iHrCSXncFmF/CFgT11j30g3KrKvPnhibViRwwbpmm3qsMIliygSlVBfJcVku/4ZMgQlFx
-	 XBo5PZAnjWDvOgOltis82ppil16u69x2z25qF2qErRUoH1E09qHgAcmJHJ1LviM5G2Q==
+	b=jxdzPxNfhwsi85dGdesm5z1y3jLTunVi1bG3rWGIQOFChBbFuSaWbyQsUviI8c1jvAjJ
+	 flV83azXT5cwtdmpZupY+LNx04umAwn7Pg/6PYhoKPGGzUxtm4QGnESvmLE/WQ9lXlhes
+	 fyF0eWVulzZYtxk7P8arvDUCGKyDhpO+vf6/Xs6mHVn7ofMVM0LGcHM7+BUfwBTwUGH65
+	 Bl7w27T3Ev/YofPGSj5OYmV6rv/OGwA2pK52l6Y3TgURP9AhlRc1cthkv/2nm6raJMc6a
+	 P4nMiG0RFzcblLjFcxsqkLFjRfaW156d4DeWO7p8J/yJN/o3RX742aZ+N9cZfPV8big==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795619584;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Qe1rTWjqQDmAlXEufKG7vyV1ODzlCh2ivLyCCwvjgDs=;
-	b=BUms9vcZkrcNr4rw3BSdlrPT00cHQM71p4keJ+Umdi0HwSKrjT/nObnN+JOMnhEuZOjd
-	 hZKF/Ton40KWnBCe7eULGsDc2rrG6IXa0m5AgKp1CPZjg6K2lzH2L3lJGWnwxpR4yg1mT
-	 j3X199OyOSqOAMg+Hu7Kp/yx9OZc7/cJhL08BR8ZiCKDOI35zYIK/yPw9573yDyBiv4dn
-	 7KTtJhoE9xumlApgefi9sxCoChdWwCu94CpnFNxDGEhNwE4gPOVDrIOaaSQttE1jOT9vI
-	 l5sI4q8WUCXjvBn9xUa9bJBH+cjBivjaeW/z0syiFNFEiat2jGrRUHy/GBWuzDlo6NQ==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6w4chp7zeEqi+YirnrnjffDlS+XM1fM6uN+sNDq9BiM=;
+	b=bdELYxYtKHRi2nKMxCILufD8n9QIHZeo179DmW6JQvwmSjzRd6gfz0VgNVpH41CVOjxw
+	 +BseMCihAF+zz8JNto3GckEChubn8tEKMzvWIaxB+7rqPZB3F/XPi6+Oexyh3L+SiFyHa
+	 EhYTkJygmNn2/bZpEFNgRsSMMtl1/QAb4S3RIIcpqy+2SSbfW4o2d+t/m+Gi9OaIzFK9x
+	 qlVf4bD68NqpX//KTOimlkpqZlxgqsoI6OMzjtUt7VH+St7jA3yPiK0WayzCjcGYizL33
+	 fOGUu10QvxXILTVpCY/2sdEe8Sp9GigaqCkAQX/3dvyk0s5YI/BXHWN9N6cnKVqwTJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=In5rxvr1;
-	arc=none smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a8N+ieuU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C014C606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:13:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C014C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAEE6606A31E;
+	Wed, 25 Nov 2026 15:13:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=In5rxvr1
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f269e335eso689292085a.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 07:13:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795619583; x=1796224383; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qe1rTWjqQDmAlXEufKG7vyV1ODzlCh2ivLyCCwvjgDs=;
-        b=In5rxvr1K9t/DCN0HToF/0T7HxYD4eZzJDCtOPRDBPdspZeWRSffgCUZB2Wmonnizy
-         CwKh+oVaSYfQRjCrxM6W+7CuHRS1apb7PPP/6nipwztm9p2PPlKD1ixE5JES+H06pMCF
-         /SWSVZUhQxJVEq00suZJi3ydJIDnduWwS5TbZEER9lcR/DOlXt1t0aa36+yJv672D9KF
-         JknraiTprYYX6FnLtC8UrfqVkgfebrd+0YadQC0Sx4IWUpVtiN/P/XjMqS1FAzuE8Zqi
-         z4A9PF02zhTKAg+jb2smgKfcRtxy5j7JiJayquGw6GMKA7jwx63FbY/upql6cyLTxmHP
-         t9pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795619583; x=1796224383;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qe1rTWjqQDmAlXEufKG7vyV1ODzlCh2ivLyCCwvjgDs=;
-        b=JpNguEnmLlcLWHw32OYJInCAbj0QXjd64+DcQv3o/nD7xDC8vjqf3ycfuhPd3Kxmq1
-         /o5KKvaLLL/NORsi9NWf5/vOOe9VXA1glF8SjBzcYxsOypBsKqGjckjudeJE3ZsumFPV
-         05a8ALaEAUUCZyuhqKI99HjYEhw5ZK3ctAn9AMTD2hfazj08Ke4EmYhIs9EJmbiQ08x2
-         t9uA5P5KCjM2d3SknRZqC9i2MIqGVdiE/QvRpVN/Vp9iCVK+Qe3A22wXpz8MWzZJ8nYh
-         P7sHrA786nL3/H/2+OPMWvwkz3Db0ZM+leDk68lOYVCkX4gK41BFvJPsd8bDD/0oZE1H
-         zslA==
-X-Gm-Message-State: APuU4Z/Ad2vBpqe7nJ2q5hG7aRPIwgD1MjgjahPxhnFchGPkbmpfQqZJ
-	l+vLso9RFbn8C64fjF0pnZ487g3SVP1VkyHMPsL2XoXcvowedcORotbLfc4id0Mb
-X-Gm-Gg: AZFdTZf972k3AJ8dFZtik2m/kXwUkDNA79o7rd3pWeWteDp5xOAfCDp42iH3yMFi/uW
-	AXDQk/ozcjJ/RWrz2buxt8XTdBre2E6dpX3K2A6OFq8HYslo7hYuWxVdt8gjkOloIQcMg9yQjsE
-	GPsPFlKYmM1foBsy8q5D94H4StthfLyi9Vcu7cDZ7FbupzImAM6AUSdf8HmRNwJ1B4+6TheTa1E
-	B+R0OCB0aBQdK9xE6lqMx05hf2x0/4KZL5bcTtx9SuXk5QpjL1NKV4t362YxvoiEKOrKV9y0ujh
-	RZaI/wdP/MpRh0HZKwyJPidw4ejHtDtmLxVCUv7QgT/8Q5vSfAn3ye27xjpkE1perupKigTSFgC
-	1nfFsUkidjFSSymJKekP4HAf4/azzE1UevtrlViisvsvLhW9YczOEKj7oPRdKU0txDURsiaSmTQ
-	NPM/uhNsgrTcrFW8Uot/Ss9ksqarekMnEbxs/MQs2x8SqEQAHrn1m4LCvExs8K+rR1S5OKFb+yq
-	SRLtGZaQqI2tizzIUyrUMOIsQDie34vGL1YLO8GNyZ/r6mExkThG+ygPsGEMNzVv35jdSgQqhbJ
-	mIFBe6UtxVy9TtPvFj/QLcjUWAmIrKHehth7v+5QiOBD4gqOKSs8WQEegj3hsDdoCVjJv6gNSvu
-	qn09WbNW7SAkeqRyUENkH77lVGToLdXY2r0gyglT46eg2Jkje78Igt04MWo2eDgwL/nd2MEvg4T
-	cPXmi72PTOkJFeelRssn13j4Au5AzF/lQu2nwt+MV4iqpKAxk/iu/HwWW56khw1I0=
-X-Received: by 2002:a05:620a:270d:b0:949:6d95:f63d with SMTP id af79cd13be357-949ba99cda0mr3291503485a.25.1795619582530;
-        Wed, 25 Nov 2026 07:13:02 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949ca846322sm1155128185a.34.2026.11.25.07.13.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 07:13:02 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a8N+ieuU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1952B1F000C0;
+	Wed, 25 Nov 2026 15:13:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795619584;
+	bh=6w4chp7zeEqi+YirnrnjffDlS+XM1fM6uN+sNDq9BiM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=a8N+ieuU3w/j8wbU7efc83yPlwNI2o1sV/+5tlUpMKSTN7XtjmwnKsgGLewPCjn5z
+	 iFIXrjeyLIOe7CqPpJJZW5eAZtUKJzA84VyuXvklAPUjMWv3zjgLiU9xQaJ2LYXFsg
+	 LcLJf/qHzRKc2BIgKCHlt37ribrdghgVyM7r+3gg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 6.1.y] iio: proximity: sx9500: ignore event config writes that don't change state
-Date: Wed, 25 Nov 2026 20:42:56 +0530
-Message-ID: <20261125151257.341838-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112540-shone-tamer-89bf@gregkh>
-References: <2026112540-shone-tamer-89bf@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 7.3 0642/1005] tcp: do not coalesce segments after FIN
+Date: Wed, 25 Nov 2026 15:33:00 +0100
+Message-ID: <20261125143836.792297950@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,47 +65,133 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit b8ed9165906597b69a46fabf39ab41690721ebe8 upstream.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-sx9500_write_event_config() adjusts the channel and close/far user
-counts on every write, even when the event is already in the requested
-state. Writing 0 to a disabled event and then 1 leaves the counts at 0,
-so the channel and its interrupts stay off while the event reads as
-enabled. As channel_users[] is shared with raw reads, those can then
-wait forever for a conversion. Writing 1 twice and then 0 has the
-opposite effect.
+------------------
 
-Return early when the state doesn't change, as
-sx_common_write_event_config() does.
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-Fixes: 4193c0f1d863 ("iio: driver for Semtech SX9500 proximity solution")
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+commit 1c46780dec48893b8c25fd5e33a3127e8dc39dd4 upstream.
+
+A FIN consumes a sequence number. If another FIN segment is coalesced
+into an skb that already carries FIN, end_seq advances to account for
+the additional FIN, but tcp_flags still contains only one FIN bit.
+
+When the preceding gap is filled and tcp_ofo_queue() processes the
+coalesced skb, rcv_nxt advances to the skb's end_seq. When the receive
+path consumes all data in the skb, copied_seq advances by the data
+length and one sequence number for FIN. If three or more FIN segments
+have been coalesced into one skb, tcp_inq() can still return a positive
+value after the receive queue becomes empty and the SOCK_DONE adjustment
+is applied.
+
+TCP_ZEROCOPY_RECEIVE is another consumer affected by this state.
+tcp_zerocopy_receive() takes its length from tcp_inq() and follows
+skb->next without checking for the end of the receive queue.
+
+Software kTLS receive is one consumer affected by this state. When
+strp->copy_mode is false, tls_strp_msg_consume() calls the TCP helper
+tcp_read_done() to consume the current TLS record. In the reproducer,
+tcp_read_done() consumed the record data and one FIN before freeing the
+receive skb.
+
+When kTLS looked for the next record, tcp_inq() reported at least
+TLS_HEADER_SIZE bytes even though the receive queue was empty.
+tcp_recv_skb() returned NULL, so tls_strp_load_anchor_with_queue() hit
+WARN_ON_ONCE() and returned without updating the anchor.
+
+Since tcp_inq() had reported at least TLS_HEADER_SIZE,
+tls_strp_read_sock() proceeded to tls_strp_check_queue_ok().
+skb_shinfo(strp->anchor)->frag_list still pointed to the freed receive
+skb. tls_strp_check_queue_ok() then read TCP_SKB_CB(first)->seq through
+the stale pointer, causing a use-after-free.
+
+The reproducer followed this call path:
+
+  tls_rx_rec_done()
+    tls_strp_msg_consume()
+      tcp_read_done()                       // frees the receive skb
+    tls_strp_check_rcv()
+      tls_strp_read_sock()
+        tls_strp_load_anchor_with_queue()   // returns after WARN_ON_ONCE()
+          tcp_recv_skb() == NULL
+        tls_strp_check_queue_ok()
+          TCP_SKB_CB(first)->seq            // reads the freed receive skb
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in tls_strp_check_queue_ok.isra.0+0x5f/0x100
+  Read of size 4 at addr ffff888103169ca8 by task ktls-server/71
+  ...
+  Call Trace:
+   <TASK>
+   ...
+   tls_strp_check_queue_ok.isra.0+0x5f/0x100
+   tls_strp_check_rcv+0x2a9/0x400
+   ...
+   tls_sw_recvmsg+0x3ce/0xa10
+   ...
+   sock_recvmsg+0xea/0x100
+   __sys_recvfrom+0x142/0x1f0
+   ...
+   __x64_sys_recvfrom+0x76/0x90
+   do_syscall_64+0xdd/0x4a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   ...
+   </TASK>
+  ...
+  Freed by task 71:
+   ...
+   napi_skb_cache_put+0x24/0xf0
+   skb_attempt_defer_free+0x183/0x3b0
+   tcp_read_done+0x2d4/0x340
+   tls_strp_msg_consume+0x45/0x80
+   tls_sw_recvmsg+0x3c4/0xa10
+   ...
+
+In tcp_try_coalesce(), skip coalescing when the destination skb already
+carries FIN. tcp_add_backlog() calls skb_try_coalesce() directly instead
+of using this helper, so add the same check there. Since both paths check
+only the destination skb, a final segment carrying data and FIN can still
+be coalesced into an skb without FIN when the other coalescing checks pass.
+
+Fixes: e93a0435f809 ("tcp: allow segment with FIN in tcp_try_coalesce()")
+Fixes: 4f693b55c3d2 ("tcp: implement coalescing on backlog queue")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ Context: write_event_config() still takes int state here and tests
-state == 1; the added check is unchanged. ]
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/au3HMfqNW3_DRMqS@v4bel
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/iio/proximity/sx9500.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ net/ipv4/tcp_input.c |    4 ++++
+ net/ipv4/tcp_ipv4.c  |    2 ++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/drivers/iio/proximity/sx9500.c b/drivers/iio/proximity/sx9500.c
-index d4670864ddc7..1eff1c96e3b4 100644
---- a/drivers/iio/proximity/sx9500.c
-+++ b/drivers/iio/proximity/sx9500.c
-@@ -551,6 +551,12 @@ static int sx9500_write_event_config(struct iio_dev *indio_dev,
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -5263,6 +5263,10 @@ static bool tcp_try_coalesce(struct sock
+ 	if (!tcp_skb_can_collapse_rx(to, from))
+ 		return false;
  
- 	mutex_lock(&data->mutex);
- 
-+	/* The user counts must only change when the state does. */
-+	if (data->event_enabled[chan->channel] == state) {
-+		ret = 0;
-+		goto out_unlock;
-+	}
++	/* Nothing follows a FIN. */
++	if (unlikely(TCP_SKB_CB(to)->tcp_flags & TCPHDR_FIN))
++		return false;
 +
- 	if (state == 1) {
- 		ret = sx9500_inc_chan_users(data, chan->channel);
- 		if (ret < 0)
--- 
-2.53.0
+ 	if (!skb_try_coalesce(to, from, fragstolen, &delta))
+ 		return false;
+ 
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -1957,6 +1957,8 @@ enum skb_drop_reason tcp_add_backlog(str
+ 	    ((TCP_SKB_CB(tail)->tcp_flags ^
+ 	      TCP_SKB_CB(skb)->tcp_flags) &
+ 	     (TCPHDR_ECE | TCPHDR_CWR | TCPHDR_AE)) ||
++	    /* Nothing follows a FIN, see tcp_try_coalesce() */
++	    (TCP_SKB_CB(tail)->tcp_flags & TCPHDR_FIN) ||
+ 	    !tcp_skb_can_collapse_rx(tail, skb) ||
+ 	    thtail->doff != th->doff ||
+ 	    memcmp(thtail + 1, th + 1, hdrlen - sizeof(*th)) ||
+
 
