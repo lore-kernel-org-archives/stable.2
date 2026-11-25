@@ -1,90 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795649483;
-	b=h1TrhgE7Mz6cxjwrC+XMx89uTJ7L7x6Bzwxmzti4uEYKOpWrBED7iIPOjSZHKMP/Csmg
-	 tcQwnYf8dBZEQm1PDAam+CylKabAGAYZkkPiIyvlKrUYSQDvnsBhfV6oY6l1BYYfVBeFF
-	 FpyQuBANGGvSXdKMcTjtChlb2iwlXr7X+dtPeanxBeeZQkOe7s1X/lQ+OlGMlZ1UOZuM9
-	 s7/tNO61qC6KJxlWJchI8VLpOJPwbfWOpcGUOBCcYoKadyEQop0FhVtbuWVM9iXJQhLyg
-	 ALeR/J81WuDzUZh0whHcFfdE3g+3TsxXJ569ViUaJZ/uGUR0Q1/CIDreEcEiGcShhkw==
+	t=1795650271;
+	b=zAJGmfzFBcvRaLAGGbECjuAsteeinfP9Y/XBy+VO2if9PCEvk71VLY/FqF69kXpMprSq
+	 FW4STZB/xmPFL1Kw+auOA2B+gs1Zlg8Pa+2Yp8DKNskDnw4JH+gO9TpzZw3oJGfa5jPd5
+	 WUAFVkXi7UmfPTzxrpuiXxMDoEEvyeeTpCHK1XKys6gfiF45ROnVumlJ++mpOSPppLudx
+	 kILPc93RrxWqgiwojkZQhqmD+GErxUOExsLRED0RQ54W0tc//JssxLR6BSknZT/lE+yLi
+	 vLZSHe5407t46nWntyAd5JO/MimRWRYAoj/V1b1kD6pNgfyyxJvYIs1o/ejKVflgeYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795649483;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=/ZtgARPu379mLd6QbSu5w/3cZo17qHpWETtyZC6BRtE=;
-	b=vrffcyZ9tO6naABJuijsFKPQ8mn/d+2EaNKWfMQx2YpxoOnNmZNbK9DqQNf3qhCJBXH+
-	 OWQ+LKUIszs2NV8+agFN0dG3W04us9iMOqEs6mhY5xjlqQKpenqS+fEJw50yIm7OM4P9L
-	 sJZXuV/suyKPsIgVPbcq76h7F6EKSrh59rzAUs5NisesuUTQYuxJ7j/wNeWgC2U4J1NNL
-	 gLhaAndwy4CQv9wN0vLWusGfBAn6Nwm8hoNnyQbRy/q24xttGaiXt7NZzK0Ud0oTRsHTF
-	 5w6ouM6FAg7rJKBp0cCLX8d4fZyCo54ON37k/AFK5Sx7Ww8+go8mT9LwPDwbRv9oSTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795650271;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=f/ATAjGGuvCnHn352ejN1uMtKhQ6IIrtwCiWm+JOgec=;
+	b=lAiQfMumyG4ybea9QuXfPjRifd9gxsUUxUFykCs96qx6jd6Oxl5hhhjjllhBLrPUUQ9z
+	 kKtIxKGrNhQUZh0W3k6D8abQYvNPTGx/9sn085pHwcdi8QTJ7QP9TIsQ7wnoqhU9cIREo
+	 r+MqRT6z7e1diiGHzXU1DsmfZCUbd0s6Hh6cno7mdVd7ZQgVX97bxPiH6eD57tzUf4Vth
+	 OjvCqzlpAfJNEo2oF4KK4mKdJfRqVEPLn8uJMskc+WDCXiFcqkFKmoet8itkl4xmv6M8b
+	 djeZEfshJlZp9dU5901NiF9BpBafXSSPgA07F49ProZr6UQzHQqQRitpZr98NQDeC9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Etw1usMc;
-	arc=none smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfkTtSt2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31256606A329
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 23:31:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31256606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF288606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 23:44:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Etw1usMc
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b87a1a2babso13177658a12.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:31:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1795649481; x=1796254281; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/ZtgARPu379mLd6QbSu5w/3cZo17qHpWETtyZC6BRtE=;
-        b=Etw1usMcblqCO3PinEaDwsNBIFfJ2R3bcanX/VT2bD6spbWXgs4VMDGUWXITmEzF6l
-         4cKuhjSQww9QCE9PiuHa0LDpfymmbEJ+aGkTLBUteHROqzGGXddaiwL8Ae04N/ksy9Si
-         +Mag1Nerdbq310xTftvr6cmB5ax480VS+WF8g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795649481; x=1796254281;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/ZtgARPu379mLd6QbSu5w/3cZo17qHpWETtyZC6BRtE=;
-        b=kdjjTQqJw+u5oAo0nBjw9/S8UGzOCWsLqSBWvyqrPjK/duHIZAlayN8GDx5I+IStGO
-         CdfQ9v9vlkCfA+0lWvjDlFwHKue/zx0IXtCQGB6u04xLzDMXM7VcJNCNsXb6lgoi/JvR
-         jlwzMPmR2BZolqGohrtHxnqrZFbA8ruOuuC28mnt6bvx4zpdvFTxZRTALE8h7cVxePy6
-         SqO/Lf1ENjqRcm/9QXzTLuX5UzgbOyKElqGyt4k36OhPY5XRmSiyH90VMwgfLnGjLIXQ
-         NVfOL8BOhtSs8nYnvah/FtjPhcxBiKBidHW9Lkul98UbkCiqvAM2bnQu/ID8QODJyK+s
-         zFmw==
-X-Forwarded-Encrypted: i=1; AL+hErHacYPyF903XiQK4+W+ORDtKsWKQ1aFVNaO1wRbx2NXWD6J476NDcsffmTASo8BqXjm1vU0UF8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+od1qqoJkdOYhxgzjQcrFmDQYcxdFdwM8Xq7Dfp7SZMvVpNahY
-	VE+CTCjFAxCFE0NYw2dtZMz6glqOez/MeoXBcxBcGkHfcypICalaH8RHAnJOcrn23SSjv6Dsa2G
-	xNhdVoiDpcw==
-X-Gm-Gg: AZFdTZfQhOKV8ri96Hy66IeTbZBWUUVLrvFr5cqhlbeHdPo3MbjKVtaDoAFBFlyyWsm
-	vPZ+OQw/B8Rr2l9/BsxjxhdbpF1PQcRUem2RQJBnf+VNJf2ruNxKbVOd4bAzOFMPny4QzuojBOQ
-	HZlf7tUg59SEgjBaAGrD2A9hVzBAPg/gbvzRNyO1uG6XA6D4QksXJdEmJ9SlPqQk57Aszg4J6b3
-	/7BXQvi339eQ8AFv3SJeSdSILnHG9KkIqFkCL7lKArX7NRG4FeToAD9zfnGp+dgEgJCmwaM3zVD
-	o315Q66sA+8PWKbxrIYjsId7zVcVETA/Rks8YJFS5S/0x1k23+wm+PqnQPjh5REE5E1KESl3p7l
-	w8hfTHDkQRABAaaMSoJ4mmKUa+7crASx9tmKqllJUdKf6WRIr5NmKk6evW/tuehN8GdYCrYmwpT
-	TzBjDEOJnGK7YCf+DsqOStsZ7NqSgnyI+6xwK91xvnVWPEW4OJ6M8Pc0pHnPo+naN1env9USoBa
-	E3Pdhfxp5pB+qrssHBTXwfJBPZh/Z/aT7MW9Xk+ok+MqkUjCExVHKQQBqKOMNMbLO589d6nb/sl
-	DVB73Aagkn52NlWnGCZ+PSyMPncI6mxDuWe/DZrkbPzyrVtV6JVOC36wy3RUXa2DnkBPvSudfa+
-	nrJ4=
-X-Received: by 2002:aa7:d1c8:0:b0:6b7:37bf:13bf with SMTP id 4fb4d7f45d1cf-6ba1fadf982mr11884623a12.4.1795649481541;
-        Wed, 25 Nov 2026 15:31:21 -0800 (PST)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com. [209.85.218.50])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6bb1d03f9e5sm2041145a12.24.2026.11.25.15.31.20
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 15:31:20 -0800 (PST)
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c50d3ac6b51so1328130466b.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:31:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHoK/JdDwF3rfmFJUl5ZSZe4SXBI5qtWC/c520HcVwI+eF810y0R8jCxXQSSJucp5xnZWvRKgY=@vger.kernel.org
-X-Received: by 2002:a17:907:3e86:b0:c36:777f:824c with SMTP id
- a640c23a62f3a-c51315851d7mr1801088966b.4.1795649480354; Wed, 25 Nov 2026
- 15:31:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfkTtSt2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 081E81F000E6
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 23:44:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795650271;
+	bh=f/ATAjGGuvCnHn352ejN1uMtKhQ6IIrtwCiWm+JOgec=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OfkTtSt2xtBQR9UeimfOoTw6v3sL+yc1TRUwElnClmYZrlwHdJanGTW6e4tH5HmCu
+	 /ssM52sxD1/MhEerP68lHHZ2OqaasROIYX1xjwuQ6HHzNYlUZjf64/GqfLW5GZdNey
+	 8NDu78Zrgxpy1RRRhqMjMcGGez/CPEcafU2I5r4u998bsnBDVTJNGADkdyqGonNP0d
+	 8rY0clo9rfZHjK/mgu4HsuJwHdYmocLmWHimVsjmnkejjtqbC/khs90dLfWPk3USLN
+	 Vg+PjAWb+XDt2QrKNk+9tb9bIH62ElwnS3HqSHnCpzgH0FC2MhIY/+Vz90ywivXVIA
+	 3iXjXHfmqz9wQ==
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-9496317b730so731961785a.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:44:30 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHLagcko1w0Wg8MSDPHZbE9LWjXWfbLNbnf3HS4iCvUQezlwzq8guqeiMY+WDEC7eSMBPQ6zOk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9p8UaIhj4UdtrPBxE8SvGfeRFV5toKKS0p2SC+15G4Qrkmw+JJ
+	mwoSA9D/D3N7S1Re5vlFJZzOqCvaMblee3y1e3JwibwPkZoBHvC9U9vDw0C1a/JIw/4N7zigbNu
+	Q/EF/pZNifwpwjViuB7zmkLtZL2Uetxk=
+X-Received: by 2002:a05:620a:3188:b0:93e:869c:43e2 with SMTP id
+ af79cd13be357-949baa0d797mr3140085885a.50.1795650270349; Wed, 25 Nov 2026
+ 15:44:30 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,58 +59,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu>
- <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
- <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com> <awV66PQWrBOKcZCE@redhat.com>
-In-Reply-To: <awV66PQWrBOKcZCE@redhat.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 25 Nov 2026 15:31:03 -0800
-X-Gmail-Original-Message-ID: <CAHk-=whanFATRSwcW9TCa+4zR=k_QnNFtgxnFCg1d_vr6Ye=OA@mail.gmail.com>
-X-Gm-Features: Aa3M54q0sE_qX8UjHHTquK89Ec1CONb0zaQmq3jckN_Jm8WAOhqo827YNI7zBIg
-Message-ID: <CAHk-=whanFATRSwcW9TCa+4zR=k_QnNFtgxnFCg1d_vr6Ye=OA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] sched/wait: Queue non-exclusive waiters at the
- head in do_wait_intr*()
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Christian Brauner <brauner@kernel.org>, Michal Nazarewicz <mina86@mina86.com>, Wen Yang <wen.yang@linux.dev>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	tz2294@columbia.edu, stable@vger.kernel.org
+References: <20261125113518.1207280-1-hui.zhu@linux.dev>
+In-Reply-To: <20261125113518.1207280-1-hui.zhu@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 26 Nov 2026 07:44:17 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yTx+vQUQ44iLg8MNA718dY9Z1gAdnz9vvJnZWzVZx-4A@mail.gmail.com>
+X-Gm-Features: Aa3M54qXmwUVwHqi93lcxb96GVJpfnkGS49EGx9GJPqC8qElTspz68Xy-8zCgLQ
+Message-ID: <CAGsJ_4yTx+vQUQ44iLg8MNA718dY9Z1gAdnz9vvJnZWzVZx-4A@mail.gmail.com>
+Subject: Re: [PATCH v3] mm: mglru: reset the mm iteration cursor in try_to_inc_max_seq_nowalk()
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Harry Yoo <harry@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Hui Zhu <zhuhui@kylinos.cn>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 24 Nov 2026 at 03:54, Oleg Nesterov <oleg@redhat.com> wrote:
+On Wed, Nov 25, 2026 at 7:35=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
 >
-> This will change the current behaviour if ret < 0. Say wake_page_function() does
+> From: Hui Zhu <zhuhui@kylinos.cn>
 >
->         if (flags & WQ_FLAG_EXCLUSIVE) {
->                 if (test_bit(key->bit_nr, &key->folio->flags.f))
->                         return -1;
+> try_to_inc_max_seq_nowalk() advances mm_state->seq without walking the
+> mm_list, but unlike iterate_mm_list_nowalk() it leaves head and tail
+> alone. If it races with an ongoing page table walk, the cursor is left in
+> the middle of the fifo.
+>
+> The next walker reads that as "this generation already started": it skips
+> reset_bloom_filter() and resumes after the cursor. The mm it visits are
+> the ones the aborted walk never reached, so they have no bits in the
+> filter being read and walk_pmd_range() descends into none of their PMDs.
+> Those mm miss a generation of accessed-bit harvesting, so their aging is
+> less accurate and hot folios can be under-promoted. Eviction can still
+> detect their references via rmap and lru_gen_look_around(), so this
+> weakens aging rather than guaranteeing reclaim and refault.
+>
+> Reset head and tail with the seq increment, as iterate_mm_list_nowalk()
+> does. It is safe: get_next_mm() holds an mmgrab() reference and a
+> concurrent walker bails out at "walk->seq <=3D mm_state->seq" before
+> touching head again.
+>
+> Only reachable from memcg_reparent_objcgs() -> max_lru_gen_memcg(); not a
+> memory safety issue, since lru_gen_del_mm() repoints head and tail under
+> mm_list->lock.
+>
+> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+> ---
 
-So I looked into this. We only have a couple of cases where waiters
-return -1 to break out of the loop, and none of them have other
-waiters.
-
-In fact, I think that's pretty fundamental. The reason you'd return -1
-is because you have made any other wakeups pointless.
-
-The wake_page_function() is a good example of that: it returns -1 when
-it has taken over the lock. That means that the page simply isn't
-unlocked any more, and there is nothing else to wake up, because the
-*reason* for the wakeup has fundamentally gone away.
-
-But you're right that it's a differen tkind of case, so there's a
-slightly expanded comment about it now in that "always queue new
-waiters at the tail" commit.
-
-And:
-
-> Can't we at least cleanup __wake_up_common() ? See the patch below, I already
-> sent it but it was ignored.
-
-Yes. I've added that to the branch too. Maybe I should have added it
-to the head, but I was lazy.
-
-And I've updated some of the commits with reviewed-by and acked-by.
-Maybe I should have added it to the head, but I was lazy.
-
-               Linus
+Reviewed-by: Barry Song <baohua@kernel.org>
