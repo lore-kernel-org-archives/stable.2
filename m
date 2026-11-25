@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624108;
-	b=zTa+vbNayA7HsF7/E/ftGfgbRFt9cqULqVS+I/TC4JxQXiRgHakGWdfHLkxOxL7dmuG1
-	 NarvKCxGRa/mxOnbI+ioMjaNwKbUGZ0qFcTQFB8++Hfj2LubLnAU4bhbQwwJLaFmG84qD
-	 DfIS5iuP27n2cOyCrpf07Xtxw5XpDjckkTAmmBZh6v16HCj8xvNCyTmfkTJi+FNkx/AE1
-	 ySX8CdNJvxWQyzIhmpo1/WWv7iAP0bnyXlSDm5vYKgn7GUTQztlu99WW7/1orxwkeAOlS
-	 XGhISxd/7d2RAh98a+gCamDibFMot0r+9puPUF1eVfR1uUCAQaLLpBQIvIItqfJLVDQ==
+	t=1795624111;
+	b=3eV8rjECpjXYvrmvmLzlH2VCRb2wqTLCecOCIcyL8BOP0AEHVA2H7oZMT7m53R/gSvUC
+	 C2RpTfLwLQ+oRkGAFTuP18wRPvy7UKZaRno8GMAcS0ToB1f7J7E9Hi1E6Z787IiLHwJcv
+	 lboHCrxB9UKGv4hgAKtMqQAmtqX9pFU6pZ45OWaAIFBpZIlugPPWuU6y5VyIPPIZd5bd0
+	 lvslE2YLaIkjf2epZXXKwqGjeysP7G0cmo5vMCIiF33pf3GBEFef2pUDAF0AD5l9S/FeK
+	 iUVvrTmOLixFrcQk4I3yW4HJR7cyGO0Gl5T/YuaDSOh54AYzfq30EXfvn2S01N3uCtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624108;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624111;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=i6m/JgZZ1zk2LF2kfskm/kEzBXI6+sPtWmVx71zUq/w=;
-	b=lEF5IsSv8kuNqnuQhWnbPiEsP7ab8LaEhxknTRGqOR9yqmnuQCitNpQS2vmLrrWxKaAD
-	 /ZIp9N2EEZ8yCkzjzVoSECVAMV4lMecD4otq9kZFF0KDnK+hjtI4omShPa6M8Doa+CCsp
-	 eISIbJLD1m6iIZs6IwZN5H4tJVCk5jcQLkZA+ovLQLldQR7OduElmFnmrDQqoVvuuBYPs
-	 CNu9qBsnC9eIx5QS5rYZUf1SQgWkYRhrkVBZK37xs7ZqYdrKCY+w2elc3U41t5Bf9IXfl
-	 Q5zcdW3fQGuMVEhwx8Bz13xRKElubBLAt304NCuYlvpVLSwQJ5oepiM7cO+41Nl0fEg==
+	bh=a2q11BDhvFXiSl64k8G5DyoPWG9NZrHW271/1MccAcs=;
+	b=1DHRfGLRWegFlwF4Kuq7twNpVRwQPePFusAgTRHWxakp6+6PYS+tlPkG1VeggpfJfcTD
+	 V734TKwJmYSO8vcE1Kl0aGHbWEbIT+n0WSt0qbxq1JnEN7XA6osCK++tqkhP5cZNOzMqQ
+	 3nDhmnH1YQQ94ax9dF/cMSODgF5ATi9qKUWjyv7daqF44s5qiOMRWjORCrz+/1LtvCreI
+	 4hzvbPYX/WGqOGqDfaDazVv/ZpAPpdrlmadXtYgWNBv+fgYweN5rZKNlwBnH031v7mo7S
+	 FjomlPjblX32w36yDiSr4LWsUOq6KrCAxY2IJ3RccIztZ8bzaQhjqLyqWm4RA1DSw5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PnEqz68u;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="K5qmNQa/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C769606A31E;
-	Wed, 25 Nov 2026 16:28:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE415606A327;
+	Wed, 25 Nov 2026 16:28:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PnEqz68u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6EB81F000C6;
-	Wed, 25 Nov 2026 16:28:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K5qmNQa/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5BEA1F000C0;
+	Wed, 25 Nov 2026 16:28:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795624108;
-	bh=i6m/JgZZ1zk2LF2kfskm/kEzBXI6+sPtWmVx71zUq/w=;
+	s=korg; t=1795624111;
+	bh=a2q11BDhvFXiSl64k8G5DyoPWG9NZrHW271/1MccAcs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PnEqz68utnZ53sgIpqol/X0xy+GKYpzaifaXorjdWdAUjFGyNzIEGuruyB4AUc1EO
-	 O9kwEttlSXO42VdgSO4r2vnR/By42rwMqzzKCHqxL76OoepolbDVPuNtiH/OwF6hBC
-	 DdahI9bn6BRqTfBhDbpvj6sFtGVZobWV1YFP8L8E=
+	b=K5qmNQa/i3nszzjNWlBBRJIroS0ZIbPfKPu4gfqSIAdMFi33ozqk6f481Z4pClgqc
+	 ZIlboQhSAH0hQy+2hTCyBhmjpiv7om3ExC8mXKh6n3sDMd/ZyJgRzRyxFsMphqQBpz
+	 3/enrCaaAdVeTH3OUCwySkQKNJuo8xLg3Yc1a+PA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
+	Yu Junzhe <junzheyu1@gmail.com>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
 	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 089/816] netfilter: nf_dup_netdev: add nf_dev_xmit_recursion*() helpers and use them
-Date: Wed, 25 Nov 2026 15:27:17 +0100
-Message-ID: <20261125143851.281673874@linuxfoundation.org>
+Subject: [PATCH 6.12 090/816] netfilter: nft_reject: prevent unbounded recursion in output hooks
+Date: Wed, 25 Nov 2026 15:27:18 +0100
+Message-ID: <20261125143851.304906242@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
 References: <20261125143849.205329330@linuxfoundation.org>
@@ -67,166 +69,242 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
+From: Fernando Fernandez Mancera <fmancera@suse.de>
 
-[ Upstream commit 2354e975932dabb06fad239f07a3b68fd1809737 ]
+[ Upstream commit d6c18cadfc6c7a88e9e07e0a1b5ead37c0ddf866 ]
 
-Update nft_dup and nft_fwd to use the nf_dev_xmit_recursion() helpers.
-This patch also disables BH when transmitting the skb to address a
-possible migration to different CPU leading to imbalanced decrementation
-of the recursion counters.
+nftables payload-mangling rules can rewrite packet contents (such as TCP
+flags) before they are evaluated by reject targets. This defeats the
+content-based loop guards, allowing unbounded hook recursion that leads
+to kernel stack exhaustion and panics.
 
-This is modeled after Florian Westphal's dev_xmit_recursion*() API
-available since commit 97cdcf37b57e ("net: place xmit recursion in
-softnet data") according to its current state in the tree.
+Fix this by extracting the per-CPU xmit recursion limit previously used
+by the netdev duplication/forwarding paths into a shared header, and
+apply it to the inet and inet6 reject transmit functions. It disables BH
+while transmitting the skb to address a possible migration to different
+CPU leading to imbalanced decrementation of the recursion counters.
 
-Fixes: 1d47b55b36d2 ("netfilter: nft_fwd_netdev: use recursion counter in neigh egress path")
-Fixes: f37ad9127039 ("netfilter: nf_dup_netdev: Move the recursion counter struct netdev_xmit")
+Note that the dev_queue_xmit() path used when CONFIG_BRIDGE_NETFILTER is
+enabled does not require this recursion guard. In that scenario, the
+generated reset packet is transmitted directly at Layer 2. Because the
+packet egresses from a different hook, it cannot synchronously loop. In
+addition nf_send_unreach() and nf_send_unreach6() are safe as the ICMP
+transmit functions are protected against recursion by the
+icmp_xmit_lock() and icmpv6_xmit_lock() guards.
+
+Reported-by: Yu Junzhe <junzheyu1@gmail.com>
+Closes: https://lore.kernel.org/netfilter-devel/20260921061320.543-1-junzheyu1@gmail.com/
+Fixes: bee11dc78fc8 ("netfilter: nft_reject: support for IPv6 and TCP reset")
+Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
 Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Stable-dep-of: d6c18cadfc6c ("netfilter: nft_reject: prevent unbounded recursion in output hooks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/netfilter/nf_dup_netdev.h | 34 +++++++++++++++++++++++----
- net/netfilter/nf_dup_netdev.c         | 15 ++++++------
- net/netfilter/nft_fwd_netdev.c        | 17 ++++++++------
- 3 files changed, 47 insertions(+), 19 deletions(-)
+ include/linux/netdevice_xmit.h        |  4 +--
+ include/net/netfilter/nf_dup_netdev.h | 35 ----------------------
+ include/net/netfilter/nf_recursion.h  | 42 +++++++++++++++++++++++++++
+ net/ipv4/netfilter/nf_reject_ipv4.c   | 12 ++++++++
+ net/ipv6/netfilter/nf_reject_ipv6.c   | 13 +++++++++
+ net/netfilter/nf_dup_netdev.c         |  1 +
+ net/netfilter/nft_fwd_netdev.c        |  1 +
+ 7 files changed, 71 insertions(+), 37 deletions(-)
+ create mode 100644 include/net/netfilter/nf_recursion.h
 
+diff --git a/include/linux/netdevice_xmit.h b/include/linux/netdevice_xmit.h
+index cc232508e695e..286ae5a6101e8 100644
+--- a/include/linux/netdevice_xmit.h
++++ b/include/linux/netdevice_xmit.h
+@@ -18,8 +18,8 @@ struct netdev_xmit {
+ 	u8			sched_mirred_nest;
+ 	struct net_device	*sched_mirred_dev[MIRRED_NEST_LIMIT];
+ #endif
+-#if IS_ENABLED(CONFIG_NF_DUP_NETDEV)
+-	u8 nf_dup_skb_recursion;
++#if IS_ENABLED(CONFIG_NETFILTER)
++	u8 nf_xmit_skb_recursion;
+ #endif
+ };
+ 
 diff --git a/include/net/netfilter/nf_dup_netdev.h b/include/net/netfilter/nf_dup_netdev.h
-index 609bcf422a9b3..f6b05bd80c3fe 100644
+index f6b05bd80c3fe..a394112646144 100644
 --- a/include/net/netfilter/nf_dup_netdev.h
 +++ b/include/net/netfilter/nf_dup_netdev.h
-@@ -11,15 +11,39 @@ void nf_fwd_netdev_egress(const struct nft_pktinfo *pkt, int oif);
+@@ -9,41 +9,6 @@
+ void nf_dup_netdev_egress(const struct nft_pktinfo *pkt, int oif);
+ void nf_fwd_netdev_egress(const struct nft_pktinfo *pkt, int oif);
  
- #define NF_RECURSION_LIMIT	2
- 
--static inline u8 *nf_get_nf_dup_skb_recursion(void)
+-#define NF_RECURSION_LIMIT	2
+-
+-#ifndef CONFIG_PREEMPT_RT
+-static inline bool nf_dev_xmit_recursion(void)
 -{
- #ifndef CONFIG_PREEMPT_RT
--	return this_cpu_ptr(&softnet_data.xmit.nf_dup_skb_recursion);
+-	return unlikely(__this_cpu_read(softnet_data.xmit.nf_dup_skb_recursion) >
+-			NF_RECURSION_LIMIT);
+-}
+-
+-static inline void nf_dev_xmit_recursion_inc(void)
+-{
+-	__this_cpu_inc(softnet_data.xmit.nf_dup_skb_recursion);
+-}
+-
+-static inline void nf_dev_xmit_recursion_dec(void)
+-{
+-	__this_cpu_dec(softnet_data.xmit.nf_dup_skb_recursion);
+-}
+-#else
+-static inline bool nf_dev_xmit_recursion(void)
+-{
+-	return unlikely(current->net_xmit.nf_dup_skb_recursion > NF_RECURSION_LIMIT);
+-}
+-
+-static inline void nf_dev_xmit_recursion_inc(void)
+-{
+-	current->net_xmit.nf_dup_skb_recursion++;
+-}
+-
+-static inline void nf_dev_xmit_recursion_dec(void)
+-{
+-	current->net_xmit.nf_dup_skb_recursion--;
+-}
+-#endif
+-
+ struct nft_offload_ctx;
+ struct nft_flow_rule;
+ 
+diff --git a/include/net/netfilter/nf_recursion.h b/include/net/netfilter/nf_recursion.h
+new file mode 100644
+index 0000000000000..1ac65f7793f19
+--- /dev/null
++++ b/include/net/netfilter/nf_recursion.h
+@@ -0,0 +1,42 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _NF_RECURSION_H_
++#define _NF_RECURSION_H_
++
++#include <linux/netdevice.h>
++
++#define NF_RECURSION_LIMIT	2
++
++#ifndef CONFIG_PREEMPT_RT
 +static inline bool nf_dev_xmit_recursion(void)
 +{
-+	return unlikely(__this_cpu_read(softnet_data.xmit.nf_dup_skb_recursion) >
++	return unlikely(__this_cpu_read(softnet_data.xmit.nf_xmit_skb_recursion) >
 +			NF_RECURSION_LIMIT);
 +}
 +
 +static inline void nf_dev_xmit_recursion_inc(void)
 +{
-+	__this_cpu_inc(softnet_data.xmit.nf_dup_skb_recursion);
++	__this_cpu_inc(softnet_data.xmit.nf_xmit_skb_recursion);
 +}
 +
 +static inline void nf_dev_xmit_recursion_dec(void)
 +{
-+	__this_cpu_dec(softnet_data.xmit.nf_dup_skb_recursion);
++	__this_cpu_dec(softnet_data.xmit.nf_xmit_skb_recursion);
 +}
- #else
--	return &current->net_xmit.nf_dup_skb_recursion;
--#endif
++#else
 +static inline bool nf_dev_xmit_recursion(void)
 +{
-+	return unlikely(current->net_xmit.nf_dup_skb_recursion > NF_RECURSION_LIMIT);
++	return unlikely(current->net_xmit.nf_xmit_skb_recursion > NF_RECURSION_LIMIT);
 +}
 +
 +static inline void nf_dev_xmit_recursion_inc(void)
 +{
-+	current->net_xmit.nf_dup_skb_recursion++;
- }
- 
++	current->net_xmit.nf_xmit_skb_recursion++;
++}
++
 +static inline void nf_dev_xmit_recursion_dec(void)
 +{
-+	current->net_xmit.nf_dup_skb_recursion--;
++	current->net_xmit.nf_xmit_skb_recursion--;
 +}
 +#endif
 +
- struct nft_offload_ctx;
- struct nft_flow_rule;
++#endif /* _NF_RECURSION_H_ */
+diff --git a/net/ipv4/netfilter/nf_reject_ipv4.c b/net/ipv4/netfilter/nf_reject_ipv4.c
+index 29c70e92a1722..ccdbbae6ff513 100644
+--- a/net/ipv4/netfilter/nf_reject_ipv4.c
++++ b/net/ipv4/netfilter/nf_reject_ipv4.c
+@@ -10,6 +10,7 @@
+ #include <net/dst.h>
+ #include <net/dst_metadata.h>
+ #include <net/netfilter/ipv4/nf_reject.h>
++#include <net/netfilter/nf_recursion.h>
+ #include <linux/netfilter_ipv4.h>
+ #include <linux/netfilter_bridge.h>
+ 
+@@ -329,7 +330,18 @@ void nf_send_reset(struct net *net, struct sock *sk, struct sk_buff *oldskb,
+ 		dev_queue_xmit(nskb);
+ 	} else
+ #endif
++	{
++		local_bh_disable();
++		if (nf_dev_xmit_recursion()) {
++			local_bh_enable();
++			goto free_nskb;
++		}
++
++		nf_dev_xmit_recursion_inc();
+ 		ip_local_out(net, nskb->sk, nskb);
++		nf_dev_xmit_recursion_dec();
++		local_bh_enable();
++	}
+ 
+ 	return;
+ 
+diff --git a/net/ipv6/netfilter/nf_reject_ipv6.c b/net/ipv6/netfilter/nf_reject_ipv6.c
+index 7beb12046486f..6d897bf698abd 100644
+--- a/net/ipv6/netfilter/nf_reject_ipv6.c
++++ b/net/ipv6/netfilter/nf_reject_ipv6.c
+@@ -10,6 +10,7 @@
+ #include <net/ip6_checksum.h>
+ #include <net/dst_metadata.h>
+ #include <net/netfilter/ipv6/nf_reject.h>
++#include <net/netfilter/nf_recursion.h>
+ #include <linux/netfilter_ipv6.h>
+ #include <linux/netfilter_bridge.h>
+ 
+@@ -396,7 +397,19 @@ void nf_send_reset6(struct net *net, struct sock *sk, struct sk_buff *oldskb,
+ 		dev_queue_xmit(nskb);
+ 	} else
+ #endif
++	{
++		local_bh_disable();
++		if (nf_dev_xmit_recursion()) {
++			local_bh_enable();
++			kfree_skb(nskb);
++			return;
++		}
++
++		nf_dev_xmit_recursion_inc();
+ 		ip6_local_out(net, sk, nskb);
++		nf_dev_xmit_recursion_dec();
++		local_bh_enable();
++	}
+ }
+ EXPORT_SYMBOL_GPL(nf_send_reset6);
  
 diff --git a/net/netfilter/nf_dup_netdev.c b/net/netfilter/nf_dup_netdev.c
-index a958a1b0c5bee..02d1880bab6b3 100644
+index 02d1880bab6b3..c47508b54ba9c 100644
 --- a/net/netfilter/nf_dup_netdev.c
 +++ b/net/netfilter/nf_dup_netdev.c
-@@ -16,11 +16,6 @@
+@@ -12,6 +12,7 @@
+ #include <net/netfilter/nf_tables.h>
+ #include <net/netfilter/nf_tables_offload.h>
+ #include <net/netfilter/nf_dup_netdev.h>
++#include <net/netfilter/nf_recursion.h>
+ 
  static void nf_do_netdev_egress(struct sk_buff *skb, struct net_device *dev,
  				enum nf_dev_hooks hook)
- {
--	u8 *nf_dup_skb_recursion = nf_get_nf_dup_skb_recursion();
--
--	if (*nf_dup_skb_recursion > NF_RECURSION_LIMIT)
--		goto err;
--
- 	if (hook == NF_NETDEV_INGRESS && skb_mac_header_was_set(skb)) {
- 		if (skb_cow_head(skb, skb->mac_len))
- 			goto err;
-@@ -30,9 +25,15 @@ static void nf_do_netdev_egress(struct sk_buff *skb, struct net_device *dev,
- 
- 	skb->dev = dev;
- 	skb_clear_tstamp(skb);
--	(*nf_dup_skb_recursion)++;
-+	local_bh_disable();
-+	if (nf_dev_xmit_recursion()) {
-+		local_bh_enable();
-+		goto err;
-+	}
-+	nf_dev_xmit_recursion_inc();
- 	dev_queue_xmit(skb);
--	(*nf_dup_skb_recursion)--;
-+	nf_dev_xmit_recursion_dec();
-+	local_bh_enable();
- 	return;
- err:
- 	kfree_skb(skb);
 diff --git a/net/netfilter/nft_fwd_netdev.c b/net/netfilter/nft_fwd_netdev.c
-index 14c1ac9f20b6a..eceab479bd8c4 100644
+index eceab479bd8c4..84ae30cd208b7 100644
 --- a/net/netfilter/nft_fwd_netdev.c
 +++ b/net/netfilter/nft_fwd_netdev.c
-@@ -95,7 +95,6 @@ static void nft_fwd_neigh_eval(const struct nft_expr *expr,
- 			      struct nft_regs *regs,
- 			      const struct nft_pktinfo *pkt)
- {
--	u8 *nf_dup_skb_recursion = nf_get_nf_dup_skb_recursion();
- 	struct nft_fwd_neigh *priv = nft_expr_priv(expr);
- 	void *addr = &regs->data[priv->sreg_addr];
- 	int oif = regs->data[priv->sreg_dev];
-@@ -153,13 +152,15 @@ static void nft_fwd_neigh_eval(const struct nft_expr *expr,
- 		goto out;
- 	}
+@@ -14,6 +14,7 @@
+ #include <net/netfilter/nf_tables.h>
+ #include <net/netfilter/nf_tables_offload.h>
+ #include <net/netfilter/nf_dup_netdev.h>
++#include <net/netfilter/nf_recursion.h>
+ #include <net/neighbour.h>
+ #include <net/ip.h>
  
--	if (*nf_dup_skb_recursion > NF_RECURSION_LIMIT) {
-+	dev = dev_get_by_index_rcu(nft_net(pkt), oif);
-+	if (!dev) {
- 		verdict = NF_DROP;
- 		goto out;
- 	}
- 
--	dev = dev_get_by_index_rcu(nft_net(pkt), oif);
--	if (dev == NULL) {
-+	local_bh_disable();
-+	if (nf_dev_xmit_recursion()) {
-+		local_bh_enable();
- 		verdict = NF_DROP;
- 		goto out;
- 	}
-@@ -168,16 +169,18 @@ static void nft_fwd_neigh_eval(const struct nft_expr *expr,
- 	if (unlikely(skb_headroom(skb) < hh_len && dev->header_ops)) {
- 		skb = skb_expand_head(skb, hh_len);
- 		if (!skb) {
--			verdict = NF_STOLEN;
-+			local_bh_enable();
- 			goto out;
- 		}
- 	}
- 
- 	skb->dev = dev;
- 	skb_clear_tstamp(skb);
--	(*nf_dup_skb_recursion)++;
-+
-+	nf_dev_xmit_recursion_inc();
- 	neigh_xmit(neigh_table, dev, addr, skb);
--	(*nf_dup_skb_recursion)--;
-+	nf_dev_xmit_recursion_dec();
-+	local_bh_enable();
- out:
- 	regs->verdict.code = verdict;
- }
 -- 
 2.53.0
 
