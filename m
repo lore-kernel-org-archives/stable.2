@@ -1,79 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598132;
-	b=r3ZwskNzEuoPR3axNtovVq/Q4BGHYqMH4i1HEUlrTEIDLzUWiHTfrLSIoIeIPxzLRQNi
-	 1ts/uzvXMolRQ8pj1YOE3KEIFz7eBX+/F9qB4cQVIl4h23fD79Cb0Asnq4HQMQ3ilCknd
-	 hktHosGhdSINUcCY6A804y87gAFUhpiZjilrK4ZpVSlAI5y/LQsGq/P2+sCzwXnCBrE2p
-	 Apnd1s0ByxtABprVGVFt7+mh2TOQATA6yd2zq1mW97HzaIf1x/0xE2fjAChxiBjZBAXUB
-	 OiHuIRDeVJBQo1gJAC4y8OdiLv6nP6kf7g3B6EoMIBlq+yJ6AEjgrAPm1x2bCYxibPA==
+	t=1795598136;
+	b=cBkxIqsKYV0VchnmNgXHgfmJ89djfubZEu12PAA6kyi3AL0x1vfNK+gbpXr9Ig96miFU
+	 tn/KhVV3EJ59qDtihS8KaCwzpxjyz06j6saoVMpFJF/CeCLENBw9ahEdRHtuAkhFD+GV0
+	 G9A+Noba1lLu+4Eez1fg+XK/YX+klEXJXs+e72FYrrSZfAqwtq8XrQR0pZ42RSrjSQsYS
+	 ekasuyLmGHoz5UUm+mSpRSfky1QtvLQ0JN4bbtMipt2Z4RiVosBP2eL8NMo8Q1CexsySx
+	 oVwmtexgHX45ToV6ngHtxTXaXOycsrHQaOqSPPUWCL7ou4PtcbucT+ArgGPysc+TTJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598132;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=hrRNPDtfKveUVTbNFVJLmLTa2pRjc1jDU56urNIEi8s=;
-	b=B6j9GuDSZiDBk2Q+cAlg8Ah8crRrIhDKTcFPfdPtxxtStf50cktgph1sxhklhtmTpGmj
-	 2Vn32ORSPockFiC6KyvksEJU8EYFm+Oz+G+DmcHkVOQPmSS7ty1vDJY6rlU1cGSgiHP5t
-	 4vVQu6K2TUAqk4QiFbJHloOAWB6w+wsaXP7NskXEbSWkh22v1guNNUmjdEVNVUjy6FlyQ
-	 EQcUUE2j6mzPKbVBkOy+H47S1K4JCCnpD1npPXh2yhPuT9LIdm4S8dxg7lSrxptKOCXTa
-	 BvcKNR2BQqEZ8S/zTD5E4RAJMlJ5+kCUpxSoQn3a1KoUWO6YHKSsX3vNGOn2e8bY+3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598136;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YNu7gK1BJKuLSEdjnyDJSrGx8nAlTfgymyAg2Zi+FS0=;
+	b=kHs0QHWM9RMyq+tuAC+Mqm6PgBbmBHavGNSINtWYWiI8RiRGoceeS/ExKOcHaKdDciar
+	 L6liHN33kqiC6ItOdgO0FekpTVL6P0f5ThDPG5bEJfOkLYrwdogsfOW9FrQi9dDp8ZTNa
+	 xNJ2MrDA06IA9c1/qWI7+TCXVReNcTA7TiKvC/z1UgDqnp1oAYmgdYi9vV9tO04Z2lYUI
+	 qgtjrI1s2Ni85aF/y/KCokV7YCW5ATEiyX044qoSr9lRnNFwvM91K9ugikiawMZOK+ElY
+	 O1AH5NDzlemSHHFqnJBSkgxYHz272jphE3XLp9tjjRkhV9UtuyvnycvPokUXqoy/THA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q9MDgEBo;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=soOxamd3;
+	arc=none smtp.remote-ip=115.124.28.52
+Received: from out28-52.mail.aliyun.com (out28-52.mail.aliyun.com [115.124.28.52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32605606A6AC;
-	Wed, 25 Nov 2026 09:15:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32605606A6AC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9966606A336;
+	Wed, 25 Nov 2026 09:15:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9966606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q9MDgEBo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795598131; x=1827134131;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KWUqYV/VElJh+cNTl52WHVcIId83hNA9U9VjdH1qPbw=;
-  b=Q9MDgEBocrPWaQ/0Eh4Wzq3aQHLGTffJ9+kbYQAFoi8Gmr4KYda1GnAF
-   A2nd8UOb/GkBIaPPQqFDV3AMx89BcPR4Ct4Qc21yAVVMQ74hc6i1ge6Tt
-   ZvFaqNNzQIdEf3MPAHYd2hSunvh1r6NYgMGI7ewAdfzMiHTufEnRu53y2
-   0+eOhzQRIgt9QmK3f8d6kSlgUx6CYNkIzzhmyRbz0IcIRlPz9PEC6p/73
-   WkHrhrwxcyjRkQIzgnRxPvbCGWxIlgBfg3LQeY1FLxwg1AiOalOoin7h/
-   9fAUZ34dNK7cOCixZhlYK4OBoe8JLDAwg+iZKd9+dJJfc5rewPkPNdIBn
-   g==;
-X-CSE-ConnectionGUID: yJREJShzQf+RXW/J98XldA==
-X-CSE-MsgGUID: Utuk8TRfQ7a17POpWhjMGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4467854"
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
-   d="scan'208";a="4467854"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 01:15:31 -0800
-X-CSE-ConnectionGUID: MzJCY7uwRQ6k2rpiTCYyjQ==
-X-CSE-MsgGUID: fta7EKZVTka5p2GHG6fgwA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
-   d="scan'208";a="11678302"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa004.jf.intel.com with ESMTP; 25 Nov 2026 01:15:29 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 969CC98; Wed, 25 Nov 2026 10:15:27 +0100 (CET)
-Date: Wed, 25 Nov 2026 10:15:27 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Ian Rogers <irogers@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, Elkin Cruz <elkin@google.com>,
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=soOxamd3
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1795598121; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=YNu7gK1BJKuLSEdjnyDJSrGx8nAlTfgymyAg2Zi+FS0=;
+	b=soOxamd35RPnrPl63rIyC8r0XCsDfSnLGvjj5+KDUG3SSRvxBDarDNFfWBfzRl015TdF6EgqtiSeC2VhS1JbagTPmCfKi3N1m+2fguL/SgH7wJdoIaTIHuVi6HZOvy3F+2OrzDfd7XwVFIIy3ii+PDA3QclpuzAxOhF2fFFtBBM=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0368796-0.0826037-0.880517;FP=2827124052255786457|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033065158064;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.k9lV60-_1795598121;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.k9lV60-_1795598121 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 25 Nov 2026 17:15:21 +0800
+From: Zhu GuangLei <zhugl3@xiaopeng.com>
+To: Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	liuwb@xiaopeng.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: typec: hd3ss3220: Propagate regmap_read() errors
- from attached-state check
-Message-ID: <awanL3-lo2mVGVuT@black.igk.intel.com>
-References: <20261122045313.18372-1-irogers@google.com>
+Subject: [PATCH v2] misc/pvpanic: share the shutdown handler across devices
+Date: Wed, 25 Nov 2026 17:15:20 +0800
+Message-ID: <20261125091520.173803-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261125080635.112699-1-zhugl3@xiaopeng.com>
+References: <20261125080635.112699-1-zhugl3@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,157 +63,185 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261122045313.18372-1-irogers@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 21, 2026 at 08:53:13PM -0800, Ian Rogers wrote:
-> hd3ss3220_get_attached_state() has return type 'enum usb_role' (an
-> unsigned enum) yet returns negative regmap_read() error codes directly.
-> Neither hd3ss3220_set_role() nor output_poll_execute() checks for errors;
-> on a transient I2C failure (such as -EIO, cast to 0xfffffffb),
-> hd3ss3220_set_role() passes the bogus value to usb_role_switch_set_role()
-> and disables VBUS power. On role-switch providers without a .get callback
-> (where sw->role caches the value passed to usb_role_switch_set_role()),
-> reading /sys/class/usb_role/*/role subsequently indexes usb_roles[role]
-> out-of-bounds.
-> 
-> Return an int status from hd3ss3220_get_attached_state() and
-> hd3ss3220_set_role(), pass the resolved enum usb_role via an output
-> pointer, leave the current role and VBUS state unchanged on I2C read
-> errors, and propagate errors to hd3ss3220_probe() and hd3ss3220_irq().
-> 
-> Found via an x86_64 LLVM=1 (Clang 21.1.8) allyesconfig audit with
-> -Wimplicit-int-enum-cast enabled; fix and changelog drafted with an AI
-> coding assistant. Build-tested under LLVM=1 W=1 (-Werror) and
-> -Wimplicit-int-enum-cast; not tested on TI HD3SS3220 hardware.
-> 
-> Fixes: 1c48c759ef4b ("usb: typec: driver for TI HD3SS3220 USB Type-C DRP port controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ian Rogers <irogers@google.com>
+Each pvpanic device registers its own power-off handler at
+SYS_OFF_PRIO_LOW. register_sys_off_handler() accepts only one handler
+per non-default priority, so when a second pvpanic device is probed the
+registration fails with -EBUSY and the driver logs "Could not register
+sys_off_handler". The handler that did get registered notifies every
+device on the list, but it is owned by the first device. Once that
+device is unbound, or its shutdown event is masked through sysfs, the
+handler is unregistered and the remaining device stops reporting
+shutdowns even though its events mask still has PVPANIC_SHUTDOWN set.
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Register a single handler for the driver and keep it as long as at
+least one device has the shutdown event enabled. Serialize updates of
+the events mask and of the handler registration with a mutex, and also
+update the mask under the list spinlock, which is the only lock taken
+by the panic and power-off paths.
 
-> ---
-> 
-> Notes:
->     v2:
->       - Propagate regmap_read() errors out of hd3ss3220_set_role() to
->         hd3ss3220_probe() and hd3ss3220_irq(), and test
->         !hd3ss3220_get_attached_state() in output_poll_execute() (Greg
->         Kroah-Hartman).
->       - Add Cc: stable@vger.kernel.org (Heikki Krogerus).
->     
->     v1: https://lore.kernel.org/r/20261119170650.1521609-1-irogers@google.com
-> 
->  drivers/usb/typec/hd3ss3220.c | 38 ++++++++++++++++++++++++-----------
->  1 file changed, 26 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/hd3ss3220.c b/drivers/usb/typec/hd3ss3220.c
-> index 60d6de9ba339..bdd4eaeca753 100644
-> --- a/drivers/usb/typec/hd3ss3220.c
-> +++ b/drivers/usb/typec/hd3ss3220.c
-> @@ -163,10 +163,10 @@ static int hd3ss3220_set_source_pref(struct hd3ss3220 *hd3ss3220, int prefer_rol
->  				  src_pref);
->  }
->  
-> -static enum usb_role hd3ss3220_get_attached_state(struct hd3ss3220 *hd3ss3220)
-> +static int hd3ss3220_get_attached_state(struct hd3ss3220 *hd3ss3220,
-> +					enum usb_role *attached_state)
->  {
->  	unsigned int reg_val;
-> -	enum usb_role attached_state;
->  	int ret;
->  
->  	ret = regmap_read(hd3ss3220->regmap, HD3SS3220_REG_CN_STAT_CTRL,
-> @@ -176,17 +176,17 @@ static enum usb_role hd3ss3220_get_attached_state(struct hd3ss3220 *hd3ss3220)
->  
->  	switch (reg_val & HD3SS3220_REG_CN_STAT_CTRL_ATTACHED_STATE_MASK) {
->  	case HD3SS3220_REG_CN_STAT_CTRL_AS_DFP:
-> -		attached_state = USB_ROLE_HOST;
-> +		*attached_state = USB_ROLE_HOST;
->  		break;
->  	case HD3SS3220_REG_CN_STAT_CTRL_AS_UFP:
-> -		attached_state = USB_ROLE_DEVICE;
-> +		*attached_state = USB_ROLE_DEVICE;
->  		break;
->  	default:
-> -		attached_state = USB_ROLE_NONE;
-> +		*attached_state = USB_ROLE_NONE;
->  		break;
->  	}
->  
-> -	return attached_state;
-> +	return 0;
->  }
->  
->  static int hd3ss3220_try_role(struct typec_port *port, int role)
-> @@ -229,9 +229,14 @@ static void hd3ss3220_regulator_control(struct hd3ss3220 *hd3ss3220, bool on)
->  	hd3ss3220->vbus_enabled = on;
->  }
->  
-> -static void hd3ss3220_set_role(struct hd3ss3220 *hd3ss3220)
-> +static int hd3ss3220_set_role(struct hd3ss3220 *hd3ss3220)
->  {
-> -	enum usb_role role_state = hd3ss3220_get_attached_state(hd3ss3220);
-> +	enum usb_role role_state;
-> +	int ret;
-> +
-> +	ret = hd3ss3220_get_attached_state(hd3ss3220, &role_state);
-> +	if (ret < 0)
-> +		return ret;
->  
->  	usb_role_switch_set_role(hd3ss3220->role_sw, role_state);
->  
-> @@ -250,6 +255,8 @@ static void hd3ss3220_set_role(struct hd3ss3220 *hd3ss3220)
->  		hd3ss3220_regulator_control(hd3ss3220, role_state == USB_ROLE_HOST);
->  
->  	hd3ss3220->role_state = role_state;
-> +
-> +	return 0;
->  }
->  
->  static void output_poll_execute(struct work_struct *work)
-> @@ -258,9 +265,10 @@ static void output_poll_execute(struct work_struct *work)
->  	struct hd3ss3220 *hd3ss3220 = container_of(delayed_work,
->  						   struct hd3ss3220,
->  						   output_poll_work);
-> -	enum usb_role role_state = hd3ss3220_get_attached_state(hd3ss3220);
-> +	enum usb_role role_state;
->  
-> -	if (hd3ss3220->role_state != role_state)
-> +	if (!hd3ss3220_get_attached_state(hd3ss3220, &role_state) &&
-> +	    hd3ss3220->role_state != role_state)
->  		hd3ss3220_set_role(hd3ss3220);
->  
->  	schedule_delayed_work(&hd3ss3220->output_poll_work, HZ);
-> @@ -270,7 +278,10 @@ static irqreturn_t hd3ss3220_irq(struct hd3ss3220 *hd3ss3220)
->  {
->  	int err;
->  
-> -	hd3ss3220_set_role(hd3ss3220);
-> +	err = hd3ss3220_set_role(hd3ss3220);
-> +	if (err < 0)
-> +		return IRQ_NONE;
-> +
->  	err = regmap_write_bits(hd3ss3220->regmap, HD3SS3220_REG_CN_STAT_CTRL,
->  				HD3SS3220_REG_CN_STAT_CTRL_INT_STATUS,
->  				HD3SS3220_REG_CN_STAT_CTRL_INT_STATUS);
-> @@ -501,7 +512,10 @@ static int hd3ss3220_probe(struct i2c_client *client)
->  	if (ret < 0)
->  		goto err_unreg_port;
->  
-> -	hd3ss3220_set_role(hd3ss3220);
-> +	ret = hd3ss3220_set_role(hd3ss3220);
-> +	if (ret < 0)
-> +		goto err_unreg_port;
-> +
->  	ret = regmap_read(hd3ss3220->regmap, HD3SS3220_REG_CN_STAT_CTRL, &data);
->  	if (ret < 0)
->  		goto err_unreg_port;
-> -- 
-> 2.56.1.750.gf70dc682cf-goog
-> 
+The shutdown event only reaches pvpanic when no higher priority
+power-off handler, such as the ACPI one, turns the machine off first.
+Tested on a v6.18 based guest booted with acpi=off under QEMU 8.2.2
+(TCG) with two pvpanic-pci devices created with events=7: after
+unbinding the first device, or masking its shutdown event through
+sysfs, and powering off, QEMU did not receive the shutdown byte (0x4)
+without this change and does receive it with it.
+Masking the shutdown event on a single device still suppresses the
+write.
 
+OpenAI Codex was used to write the code change and the QEMU test
+scripts, and to run the tests. GitHub Copilot was used to review the
+change, to rewrite this changelog and to prepare v2.
+
+Fixes: 7b51b1373321 ("misc/pvpanic: add support for normal shutdowns")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhu GuangLei <zhugl3@xiaopeng.com>
+---
+
+Notes:
+    Changes in v2:
+    - Update the events mask under pvpanic_lock instead of using
+      READ_ONCE()/WRITE_ONCE(), and read it under the mutex in events_show()
+    - Use guard()/scoped_guard() for the locks (Greg)
+    - Also test masking the shutdown event of the first device via sysfs
+    
+    v1: https://lore.kernel.org/all/20261125080635.112699-1-zhugl3@xiaopeng.com/
+
+ drivers/misc/pvpanic/pvpanic.c | 55 ++++++++++++++++++++--------------
+ 1 file changed, 32 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/misc/pvpanic/pvpanic.c b/drivers/misc/pvpanic/pvpanic.c
+index 3d43045bf..150c38f80 100644
+--- a/drivers/misc/pvpanic/pvpanic.c
++++ b/drivers/misc/pvpanic/pvpanic.c
+@@ -7,6 +7,7 @@
+  *  Copyright (C) 2021 Oracle.
+  */
+ 
++#include <linux/cleanup.h>
+ #include <linux/device.h>
+ #include <linux/errno.h>
+ #include <linux/gfp_types.h>
+@@ -16,6 +17,7 @@
+ #include <linux/limits.h>
+ #include <linux/list.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/panic_notifier.h>
+ #include <linux/platform_device.h>
+ #include <linux/reboot.h>
+@@ -35,12 +37,14 @@ struct pvpanic_instance {
+ 	void __iomem *base;
+ 	unsigned int capability;
+ 	unsigned int events;
+-	struct sys_off_handler *sys_off;
+ 	struct list_head list;
+ };
+ 
+ static struct list_head pvpanic_list;
+ static spinlock_t pvpanic_lock;
++static DEFINE_MUTEX(pvpanic_sys_off_lock);
++static struct sys_off_handler *pvpanic_sys_off_handler;
++static unsigned int pvpanic_sys_off_users;
+ 
+ static void
+ pvpanic_send_event(unsigned int event)
+@@ -86,29 +90,35 @@ static int pvpanic_sys_off(struct sys_off_data *data)
+ 	return NOTIFY_DONE;
+ }
+ 
+-static void pvpanic_synchronize_sys_off_handler(struct device *dev, struct pvpanic_instance *pi)
++static void pvpanic_set_events(struct device *dev, struct pvpanic_instance *pi,
++			       unsigned int events)
+ {
+-	/* The kernel core has logic to fall back to system halt if no
+-	 * sys_off_handler is registered.
+-	 * When the pvpanic sys_off_handler is disabled via sysfs the kernel
+-	 * should use that fallback logic, so the handler needs to be unregistered.
+-	 */
+-
+ 	struct sys_off_handler *sys_off;
+ 
+-	if (!(pi->events & PVPANIC_SHUTDOWN) == !pi->sys_off)
+-		return;
++	guard(mutex)(&pvpanic_sys_off_lock);
+ 
+-	if (!pi->sys_off) {
+-		sys_off = register_sys_off_handler(SYS_OFF_MODE_POWER_OFF, SYS_OFF_PRIO_LOW,
++	if ((pi->events ^ events) & PVPANIC_SHUTDOWN) {
++		if (events & PVPANIC_SHUTDOWN)
++			pvpanic_sys_off_users++;
++		else
++			pvpanic_sys_off_users--;
++	}
++
++	scoped_guard(spinlock, &pvpanic_lock)
++		pi->events = events;
++
++	if (!pvpanic_sys_off_users) {
++		/* Allow the kernel to fall back to halt if no handler remains. */
++		unregister_sys_off_handler(pvpanic_sys_off_handler);
++		pvpanic_sys_off_handler = NULL;
++	} else if (dev && !pvpanic_sys_off_handler) {
++		sys_off = register_sys_off_handler(SYS_OFF_MODE_POWER_OFF,
++						   SYS_OFF_PRIO_LOW,
+ 						   pvpanic_sys_off, NULL);
+ 		if (IS_ERR(sys_off))
+ 			dev_warn(dev, "Could not register sys_off_handler: %pe\n", sys_off);
+ 		else
+-			pi->sys_off = sys_off;
+-	} else {
+-		unregister_sys_off_handler(pi->sys_off);
+-		pi->sys_off = NULL;
++			pvpanic_sys_off_handler = sys_off;
+ 	}
+ }
+ 
+@@ -126,7 +136,7 @@ static void pvpanic_remove(void *param)
+ 	}
+ 	spin_unlock(&pvpanic_lock);
+ 
+-	unregister_sys_off_handler(pi->sys_off);
++	pvpanic_set_events(NULL, pi, 0);
+ }
+ 
+ static ssize_t capability_show(struct device *dev, struct device_attribute *attr, char *buf)
+@@ -141,6 +151,8 @@ static ssize_t events_show(struct device *dev, struct device_attribute *attr, ch
+ {
+ 	struct pvpanic_instance *pi = dev_get_drvdata(dev);
+ 
++	guard(mutex)(&pvpanic_sys_off_lock);
++
+ 	return sysfs_emit(buf, "%x\n", pi->events);
+ }
+ 
+@@ -158,8 +170,7 @@ static ssize_t events_store(struct device *dev, struct device_attribute *attr,
+ 	if ((tmp & pi->capability) != tmp)
+ 		return -EINVAL;
+ 
+-	pi->events = tmp;
+-	pvpanic_synchronize_sys_off_handler(dev, pi);
++	pvpanic_set_events(dev, pi, tmp);
+ 
+ 	return count;
+ }
+@@ -197,10 +208,8 @@ int devm_pvpanic_probe(struct device *dev, void __iomem *base)
+ 
+ 	/* initlize capability by RDPT */
+ 	pi->capability &= ioread8(base);
+-	pi->events = pi->capability;
+-
+-	pi->sys_off = NULL;
+-	pvpanic_synchronize_sys_off_handler(dev, pi);
++	pi->events = 0;
++	pvpanic_set_events(dev, pi, pi->capability);
+ 
+ 	spin_lock(&pvpanic_lock);
+ 	list_add(&pi->list, &pvpanic_list);
+
+base-commit: 917fcbf033154a6c8d83cfa6c88f012b71eb37b2
 -- 
-heikki
+2.43.0
+
