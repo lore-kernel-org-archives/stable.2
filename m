@@ -1,60 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795627701;
-	b=OSYYXFNVVlRaTc9/POloureda+v0mKbcjwsQJR3L3LY5n2J6eqOo4ojm2p/kN8cHGBIz
-	 ZSi7aIFX+Vn9JgcBH4MggCjYjsQXUp/ROBhLH85ikIoGOYrrHC23heFuZwzBZqOH/wcgf
-	 EQFYst3XezaqY39AqFM4Sv2eIRzPo04A90MU9kNajbyT0u3jORGH7ULglyc3eY5AgG7R7
-	 OjovE8HDX3tZX9ob8nsZIWicmbZ5Xl76V6qdcWKDlbZYG6urW/G+SY5Po8dFJYVL+evEz
-	 G8HEPUf/IwlclTqzYvtGeQzOkbsMJOIWmIb7l3gkOpJWYbWc5ILUSAZ0XSZ1zsExekw==
+	t=1795627936;
+	b=PG9lP4jABImfl/fPGOIgGKNBEph1hA+MQE92F0PkjZ89tJQpA6QAPt7dYFEGM1vPtrWb
+	 vYR6M0N73TGbJHG7l2WEKuOYD6L6c0dHszTv35GhA+ofIM587eWEV5K6mfEnP0UDkMEmM
+	 O7lrrie+aqHCUQQV7D3ptPqDQpCxQshCeNDtt9grQzyvGYwkF2qyjoEHj/2OoAoXItUed
+	 aQV3w/CEMWQfhFmah/S2PAlyB6y4HULKzQCwbWuva77IfYytUs5VNaKU2lAQgl9oqowqr
+	 Z6G47NLk2Zd1x9Ovsbvr2D5ZJs8P2+XS1IRiUFN73bxeh8DZa2xJjhkKYh/RuIYuM+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795627701;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8h+5RP3U69j/2zVa78nMDxtSxC8teTp19AawwGi4kIQ=;
-	b=py7DQZJ5klwfOZnbHVBBZTyyTyBy1nREEdYsf9vSPtrFFZZubASPbD/F6RuELYlSFYRT
-	 kOpDQ1dkyY9x5IE8pod4Y4FppAK7I1SRVQK559CXH6hkIpIf1sdUMBzf8a6BmWSUlH2U3
-	 +uxTdSnPiN/8G7Jlj+gMBIFQLR1e9L9GGKezXCG1TG9z0wQQUNrVsAqkSFhKR66DLAuWk
-	 /jfzlaGJ4YugRjM3odQnmGX/WzB/p1bIhZHGuatz81/lD30NfKUKyOwofzIsnvoI0ZrGe
-	 LEwblsqnI3YL2NOd9lJNhN70IDjfOiy2t+jWaY+ptSAeCOEfaY5Pl3Fmci1pa9wX05A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795627936;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0HkGUAt0TkownVkXwCMu1x41EkVyymRWNHmR1Em1gck=;
+	b=jkF52LFlj6mkT6mwPnVnjEj0K87l+ybYIgP0d9lnTvPqskmkhgaR/9RwOaCUgp4keoSA
+	 f2E5cfFPgjbGKapw5KaS5j1KdsYKDLpBQCDCfzNYD2HU2v8WL+9yks8KN19Y90+2n8khm
+	 mUSGeK2wzcaiRBhRUc+HsNDxQKpy8zV0enzms5Z8ubRdVEuL7p/iMI+XFfN0ERiXWDnZX
+	 hnXkwAOe6Utm5S6sCy8Ro9E1we5p85C4Zy7kVSDsJlR29qZ0toILtmfUZuEJtjsAQzvOl
+	 v2OeBcDgn54MgeEXaSFkhqzkKh2nV4hq2iq0tH9qxUScchu+POcIw6ekQYuEEJIcdfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=7pkihfhpavb6lakjq6iwx2lajy.protonmail2 header.b=sf1UmTjD;
-	arc=none smtp.remote-ip=79.135.106.30
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b="U165c6/a";
+	arc=none smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D65B606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:28:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D65B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2FDE606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:32:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2FDE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=7pkihfhpavb6lakjq6iwx2lajy.protonmail2 header.b=sf1UmTjD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=7pkihfhpavb6lakjq6iwx2lajy.protonmail2; t=1795627696;
-	x=1795886896; bh=8h+5RP3U69j/2zVa78nMDxtSxC8teTp19AawwGi4kIQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=sf1UmTjDLv4YsCNMdfqb07AcxEvjQqTnf78UV9m6esbU+KPDbYMpmQ2w8PPS7qQiR
-	 +HkInoSZ0cpDAaE93ACbTVMoHmYTP8PqjeTugss7kLN8+kZSh8IlmlQ3eS3AjL1xmB
-	 PpkGDCexGQDBx91Ky8OfOrvAcLzYJ4Ro70E9dGRjWRSXMyRdHzBLinUxybkbV/Liq/
-	 idR83VE8yUhI76cRQfVBTcJlmI+vn0ctXeCkrKpJSRH/KxrbJX0YM/1O3/U37eoVzy
-	 /lGuwP4lpozc8k3//nMeny7Rcl4zEt6ORR5lRo2N2H2EDS4QyxEIINU72Hl97FsVRp
-	 27IvN+7GA1rYg==
-Date: Wed, 25 Nov 2026 17:28:10 +0000
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-From: Norman Herms <dockseed@proton.me>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Mika Westerberg <westeri@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-gpio@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] gpiolib: use the of_xlate() result when hogging lines
-Message-ID: <BdH-hgvZ3U7zGjPx0kKM-7SsjsgE-wN0wU4lbJykbkgUKvCLypS_PZUJBgCenst9JO7_MNMjyE6bqMmWzIsXfZIVPeoO8BQktyyEsCt1HCY=@proton.me>
-In-Reply-To: <20261125-gpio-three-cell-hog-v1-1-724b15c4f0d8@oss.qualcomm.com>
-References: <20261125-gpio-three-cell-hog-v1-1-724b15c4f0d8@oss.qualcomm.com>
-Feedback-ID: 144388465:user:proton
-X-Pm-Message-ID: 96744d9a3f8539d847b1326d39c57efcaaee3a47
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=U165c6/a
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b4c685c751so53774157b3.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:32:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1795627935; x=1796232735; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0HkGUAt0TkownVkXwCMu1x41EkVyymRWNHmR1Em1gck=;
+        b=U165c6/aZO6PCaTP1gi0+DzvxzmItJj0Ii1VSWCGVKRW8JNwSeZHA1wUZ9q/eGLeYH
+         yNjnw8VgP7iWrGEf4UAupDv4MdO1cE1AgLJrsy0/pXVU2mCQw6DF0kA5lJK+Ar5JfGMI
+         B02AayfnZIkW8hp+6r07ZbH3pzuICVhRxBb0gULHaJNtSccZRZtyUqJk5Zl+AIH6h2JA
+         u6mncC1Ay8v4ZmbBf3gXCHXviCIU27J2iUp0qN1P9oz+MOrDWY09qEGQcQp2XItCagzt
+         i0A+zKJ/MCxXTqR0mpPbAPlYcP8v0Qg0PQ1jGG9tQqzCZsekk/Z7HTDvelaXgwbm3WC/
+         DwsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795627935; x=1796232735;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0HkGUAt0TkownVkXwCMu1x41EkVyymRWNHmR1Em1gck=;
+        b=TYhb1KiS7t8nhRYjXXrkvNqofSggMxOzoO4h07pBw6+8Uf9g9BKSM6jpjyNzKjfj9b
+         SCE3CsiZYbhBH7AWznQPgfaMWp0Pxvc6aiSWDRA8jA50ixNIBScoWcxX7IKkn3vp35zC
+         uT/20CwfMRGuU0umI31EgiGvR/P5VRYQljW4W3LCsUAIZB5ZiW3GvTX0+aVwcKjViS2d
+         N4GNXmnUET4CBFnTyhDqTYClvMwOoc7wCQ8s+tYSsuCRUuVwJRF49lGeTMgDKyjI1xx1
+         YHa1oYsBnz0WcezC5Gni+O3G+L440gQSluUO1EE2N/4zLcmRR76Jve829SyB5bfZI4rv
+         Q9kA==
+X-Forwarded-Encrypted: i=1; AL+hErEA+Lkq1EiNfgqVsxltsbVIJjuH9ainhWZ7OM9xI/qnZ4qup2sEmnhqJj6tzuYanW4s52+6g9Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8R7iVmY6avl2AL+2Lb0TvVt4KsrIfOiG50PqvkwSwg8nDXDMfb
+	Gq731KlzUqn0M7raGKhlHa49zuFmqX56x54JD1viknAfJ+KAq32hVdinsP9hLfvKPA==
+X-Gm-Gg: AZFdTZffOsiipzDY/8imfyfjLArrtf7SSGYwk0XekmWTSgrUCMPHKv0lI141myDd2Zv
+	brV/oIfIJO0uX8B2vq1zg1/Txc4rpq7YJ+bPBxmZ4tSiSaqsXIRXTyO3MIVsYy/agbI9gp7a/en
+	Xv4TB4MaaHfElR6xua7gGCyALZu/aNikNBDPf8uwhmdJ1LoBKucsc1hsw8xA4wIVlaHHi+ExRuZ
+	bKKF9WMclQ59wHXaPqjkJoRi4ThIBrJSnG+eX9v6Inl0QfnNNIIT5Kdwo3JYrtD9GPBK/QbXyPt
+	dzUxUbPDfvoNymWWN+BMaaf6gUVR/UFM/24ayyQmj9XW+gNVjCixwLz+24yTSSGhkBG+ySrj5Ik
+	GvzV3bbVndTfthc5ER7EtDHX+lBjUqLJnZICg2jaBOSp8kZwiUgUAbDQtYLW4TN7EyfQes5ATZ4
+	hzLhUKLsmma0pmQgtfNFAkknlQDND+QKDDKVdiFsIV5a3h0TfFvMZwDyWDv/iW52K9TsSeykNhv
+	iMFCcJCAqzNdL18+GTEzlV9GrvA1vl3yhuVU/3gb9AuIqSCA8R/WSdaQ2D/esNT7wADbNghDZd2
+	+S75Dzy/upiRUWTVTWUFLFsiOmlBxfBr8o3P5LNXaJvryi9VG41H
+X-Received: by 2002:a05:690c:6988:b0:8b1:70be:d4d0 with SMTP id 00721157ae682-8b52047d511mr73732187b3.48.1795627934796;
+        Wed, 25 Nov 2026 09:32:14 -0800 (PST)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b52030d5c3sm75406057b3.32.2026.11.25.09.32.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 09:32:14 -0800 (PST)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Baoquan He <baoquan.he@linux.dev>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/gup: fault in ranges that start at address 0
+Date: Wed, 25 Nov 2026 12:32:02 -0500
+Message-ID: <20261125173202.3636133-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,26 +100,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Bartosz,
+Commit a7797e74bd39 ("mm/gup: clean up codes in fault_in_xxx()
+functions") made the loops of fault_in_readable(), fault_in_writeable()
+and fault_in_safe_writeable() stop when the current address is 0, to
+detect an overflow.
 
-thanks for the quick fix.
+However, the loops then do not run at all for a range that starts at
+address 0, and the functions report that nothing was faulted in. As of
+now, a write() from a buffer at address 0 fails with EFAULT when the
+page is mapped but not present yet.
 
-Tested on a Radxa Cubie A7S (Allwinner A733) with v7.3.6 plus our
-out-of-tree A733 support patches (none of them touches gpiolib or the
-sunxi of_xlate()), with this patch backported (context adjusted, the
-+/- lines unchanged). Test DT: a hog on the r_pio with
-gpios =3D <1 4 0> (PM4, input).
+The issue can be reproduced with this program, run as root:
 
-With the patch the hog is on line 36 (PM4) in /sys/kernel/debug/gpio
-and PM4's function field reads 0 (input). Without it, same tree and
-config otherwise, the hog is on line 1 (PL1) and PM4 stays at its
-reset value 0xf. In both cases PL1 ends up with the R_I2C0 controller
-and the PMIC on that bus probes.
+    #include <fcntl.h>
+    #include <stdio.h>
+    #include <sys/mman.h>
+    #include <unistd.h>
 
-Tested-by: Norman Herms <dockseed@proton.me>
+    int main(void)
+    {
+            int fd = open("file", O_WRONLY | O_CREAT, 0644);
 
-The kernels were built and the measurements taken by an AI agent
-(Claude) on my board.
+            mmap(NULL, 4096, PROT_READ | PROT_WRITE,
+                 MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0);
+            printf("%zd\n", write(fd, NULL, 7));
+            return 0;
+    }
+
+Before commit a7797e74bd39 ("mm/gup: clean up codes in fault_in_xxx()
+functions"), the result is:
+
+    7
+
+After that commit, the result is:
+
+    -1
+
+With this patch, the result is the same as before that commit.
+
+This patch will stop the loops when the current address is below the
+start address instead, which is only the case after an overflow.
+
+Fixes: a7797e74bd39 ("mm/gup: clean up codes in fault_in_xxx() functions")
+Cc: stable@vger.kernel.org # v6.16
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+I found this while comparing the behavior of different kernel versions.
+I used an LLM to analyze the problem and to draft the patch and this
+message, and I analyzed the result myself.
+
+Tested on v7.4-rc3 with KASAN and lockdep: with the buffer at address 0
+and at 0x10000, on ext4, tmpfs and xfs, write(), pwritev() and O_DIRECT
+reads and writes give the same results as before commit a7797e74bd39.
+
+ mm/gup.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/mm/gup.c b/mm/gup.c
+index 2b405cce2ca5..a174e93327e9 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -2074,7 +2074,7 @@ size_t fault_in_writeable(char __user *uaddr, size_t size)
+ 		return size;
+ 
+ 	/* Stop once we overflow to 0. */
+-	for (cur = start; cur && cur < end; cur = PAGE_ALIGN_DOWN(cur + PAGE_SIZE))
++	for (cur = start; cur >= start && cur < end; cur = PAGE_ALIGN_DOWN(cur + PAGE_SIZE))
+ 		unsafe_put_user(0, (char __user *)cur, out);
+ out:
+ 	user_write_access_end();
+@@ -2144,7 +2144,7 @@ size_t fault_in_safe_writeable(const char __user *uaddr, size_t size)
+ 
+ 	mmap_read_lock(mm);
+ 	/* Stop once we overflow to 0. */
+-	for (cur = start; cur && cur < end; cur = PAGE_ALIGN_DOWN(cur + PAGE_SIZE))
++	for (cur = start; cur >= start && cur < end; cur = PAGE_ALIGN_DOWN(cur + PAGE_SIZE))
+ 		if (fixup_user_fault(mm, cur, FAULT_FLAG_WRITE, &unlocked))
+ 			break;
+ 	mmap_read_unlock(mm);
+@@ -2176,7 +2176,7 @@ size_t fault_in_readable(const char __user *uaddr, size_t size)
+ 		return size;
+ 
+ 	/* Stop once we overflow to 0. */
+-	for (cur = start; cur && cur < end; cur = PAGE_ALIGN_DOWN(cur + PAGE_SIZE))
++	for (cur = start; cur >= start && cur < end; cur = PAGE_ALIGN_DOWN(cur + PAGE_SIZE))
+ 		unsafe_get_user(c, (const char __user *)cur, out);
+ out:
+ 	user_read_access_end();
+
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+-- 
+2.53.0
+
