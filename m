@@ -1,59 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624793;
-	b=Y2uXINdmGOYk/3z8fW6om6XuYw5ctPqy49L4mbsFfoskxkP2koBqHCkD/k4UQbbwlOkE
-	 0rG6Npl4l7C9BB5qpcZpDQTQKSsShldkc38vewNn8w6ZglT5NyBMqgUtsz4aUeuCkfhyP
-	 9KUn3Ak4NbQK24kQpsvKLczyuerriMrwKEiXHOOpFDEaFqz7I/YtZ9nUTS852AHZ0Fsvn
-	 TD4NCzy9GVLgqBxaN+/KHjucv+lgD0yLzEh/MJfLSqQleX5z/iTWKnB6M2NNP/Nci0viH
-	 nZwxDbmOWx2u15F3aK0Nuw/qKdP/oXtDAOG870pu77k0jk5GXNPLJFOjw5T1hsTRH1A==
+	t=1795624796;
+	b=LWPFN9WqVt4AmunYTd5yvGJMlSEaxasp3k/TWbGAl+8fIE+CK0G0AZBc5+U76aeeyFha
+	 CkIm1lGNOVyHwqeJolFziIO/IOSdpV/vR2XUZM/p6siyAKvs9vNck79bcUGAIMyFiGQel
+	 BNWO9iNjahrSYIbYDlnN3gEgNsluTDp7XB9ZsssgmRpRGrvrojTKiuV7LzNdYrJ+Aphat
+	 mDRuRmptp+MULFJ9BqRAVkywWzK0yua1l/uPSYPp7mq2VzfhYF9j5cuGIFKO39b5L8Kj5
+	 IwNHGZyQyN3sZue4yuc1vWhDT0qU9hHg3Wk0MuUXFj9yOS1NKaSsK0VTxlNohjWK1pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624793;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9ZTeH4ufTxRcyO2sz52D3kJy0d4d/dEbTvOcjanrwg4=;
-	b=UWylHnsLc7wtug4ZfhhQSQJPOw6EP7gWu+eSC/F9B12bhnAbu8a7wXIZAnGbprfraECE
-	 FOtFxFIwsVgNScCIFJyeTFLVWHNrDKBTlDJnVBGyuRGDN6N0WolJfZZWKpvcCw6V9a9mI
-	 8vTCYtOXzJ6Oqd8A8UriSAg9qWEepDpPImXbLKjntNZfg7nAwRddkuP9ofYeHihPAnBrF
-	 XJ8AeW7IRbHkQ8OfldiCyfXQj/9FDNz44dnp5S8zgjBXYeJuo8Nsf4UONupivusWNpCpM
-	 L6fDuGf3zL3gYwaTj3aUtEw7KXF/AdFrAb8VY2pETcEtDCc1BzIAAowKmyoAfQfisxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624796;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=JxExNuQaJd3Cwz7l+JHbWMh1g3amu769QhEVBhR2vvc=;
+	b=GC/qa8B4a+lWv8hK5L/k7qmWJHDjqvn+RU+V+GCNcvgFDTKjXQPb5e2dE6goOQtAlTxF
+	 J/JutQ8RdJmrJowagNv5ELZ5HK7JYNXIxOmNGwvk3r/5yMEsjjcBCzP5LFrfjnIDSbZ2j
+	 5dQtyYhdQWavua2p0kyqBxrPuS7GRXps+jiRuxQ2kJS4SPHa3ERPlsiYNK/x/5cW7ju5r
+	 18xy4EHtc5K3Znf9k8d3QVoM3yDZSrXT2rX9cp5jneUqeYVQYHFYtRjFMVCTsaaGWimPK
+	 D+eO/WMK25YElfmxZ21aMoAbe23cbfvL7I9roPigTB5htRnP00db1BzFw65HElVMZog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kRyeZuZx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=aWW+36V3;
+	arc=none smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58AC606A329;
-	Wed, 25 Nov 2026 16:39:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA8F606A326
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:39:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEA8F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kRyeZuZx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05F0E1F000D1;
-	Wed, 25 Nov 2026 16:39:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795624793;
-	bh=9ZTeH4ufTxRcyO2sz52D3kJy0d4d/dEbTvOcjanrwg4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kRyeZuZxaHE3myp4Nnw9zK+bAy1JU0Yxo34VO7FoGbjbVoLs1nFrDC8haTC/qXqnM
-	 FuSXtchB6X/Cb3U4Bzn8bw82G32cuxOUxmE2xXb2BEX0pTopfLNlbkA1MYRlkyJLkQ
-	 8fdabOUNGuWJ/91W8UuEEv0KkkajiOeNkGISeZk8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Qihang Tang <q.h.hack.winter@gmail.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 308/816] af_unix: Remove gc_in_progress check in unix_peek_fpl().
-Date: Wed, 25 Nov 2026 15:30:56 +0100
-Message-ID: <20261125143856.330585633@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=aWW+36V3
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b87a240de3so7595255a12.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:39:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1795624794; x=1796229594; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JxExNuQaJd3Cwz7l+JHbWMh1g3amu769QhEVBhR2vvc=;
+        b=aWW+36V3wVJ5sOytDC5DdSq859dneXZ6ZXDrHTotrLo+V7VO81yPP6nZfBFXCpGrYW
+         mNyMjkOeC5cXhz9pvLq6xrRWpg34OizBMlhXV6g3oMaZjw86iikI6Ges5j9br5OgHOhT
+         pOVevcrEu1sFpvVSfAybu0xK8SSWJZvPPM92E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795624794; x=1796229594;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JxExNuQaJd3Cwz7l+JHbWMh1g3amu769QhEVBhR2vvc=;
+        b=JM4O3FbpcFuWr2JA2pJszvLID0UfWUf615Xp/QdoEScSFN24uBp4yhv7GOyyteQykI
+         8smSuRli6OhxQaRrPpwlPpYmt5Xw1mDZZpYmOQhnDVLx6AdyYd2wteWzT/E5lgWOJwkY
+         WFQobC3ZIYkh/gCebRmRBzG4YT2uuS9VS85Fl/O/QOMRB8OIdY0RufvAqUHCs/qCUDvT
+         CZ387Ajv3TPO5g2x8jOnnO95MY8MwHfbhDw191nZgktyEzF/K6Ir0NyKiKEpYu55PX44
+         N0E2gIDhaPB+ur/Al6/t3QRH2VVrfcPyHwl6UQq0zNl7+huoGJ/t3Vc/8n4aGx6UGJpx
+         7/zg==
+X-Forwarded-Encrypted: i=1; AL+hErE8KyN4LTSHGxK3Vnhcf20Ixto18kIzt8SdR5SRqsGE10qC+P4F5SZGx5HlXuv9ZqdO9JqQvXE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8op0xsnx3kqDG/vape/eOJ0K5cza4QGNIBORFIx3mnQ1Gxk55L
+	2TmzgsdJv68ymgGD9D7bK1Q7SbgdMps+0Od8ajDJaj1X7QSWA5CQRkpxagh3/2NSoTRS1WDugNJ
+	NVQjBU3chaQ==
+X-Gm-Gg: AZFdTZcoaV7YoWWh/D+bShor7pQns1ShE1QpLEfWAUeRPoTAXARjaQxGXeoScG/+MQu
+	NTzgpAD51sG0IX3/1MZYWEsBIXvlTj60UE9SOxtJyVYW5S88HuJY37gyQGSxkguDWzdaoBhTzGx
+	DoCcO2j+G8+AaDuvwucxf+t9WG4U+zDt0jRAn/M/wkWl+/Xj0xnvq7sc7P17hDq+XYCrfgfM6Ps
+	I4zbVMCfjFahSx7VxIj4FLll16gWenfjhWyJFyCPuDY/rqs4+9D8emDCP4IriTsOppIh6Ryv60s
+	X/vYqqmn8aVQibt7VRL2v+ATPVgGUz3LHeZBXXpGq8Z3ZK1NYynPYZREa1e2BWt/lxTcy+X54Kt
+	NVckyZ7keWvPOGY+WtgyC1YLBjJrfequafX7jrLDwfd715rLupSGmSV5DemIBj3mh8SAChvL+R8
+	XldNBub5EsCeVBiuV2GVrMYlpr3F8KRtnQQvBx6Sodu5nIVxAaenHWrAUSkgZRNA11tgXH4FiQ8
+	5SFc8bux29do3ZQYK2Uy/Hew/IZeA7Lq+RW5UxhcKqsVHZVPxqS2eTEe3bl+W7kiPtqSr+35+4H
+	mM4qsuySdw4bnX46He1gBYkko4mxLOxXciIMwEYKmPWhjR/0O+ECCxl/824134qJAAoxu3P91XD
+	Sozg=
+X-Received: by 2002:aa7:d842:0:b0:6b6:e808:9703 with SMTP id 4fb4d7f45d1cf-6ba37c774camr9861780a12.4.1795624794334;
+        Wed, 25 Nov 2026 08:39:54 -0800 (PST)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com. [209.85.218.54])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370cb764sm8838509a12.12.2026.11.25.08.39.53
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 08:39:53 -0800 (PST)
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c506a231b88so816457466b.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:39:53 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFXf5VjsTZBs3WHJSnn3f1jSJ5rsuWhDXKDQwUeXd3gXcmA24A4LcRnwwnGwGsVf1vK+yPRsQ0=@vger.kernel.org
+X-Received: by 2002:a17:907:da02:b0:c2d:c247:5400 with SMTP id
+ a640c23a62f3a-c513a8493eemr1490131966b.27.1795624793689; Wed, 25 Nov 2026
+ 08:39:53 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,61 +94,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu>
+ <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
+ <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com>
+ <awWSwmvaTwBxfU-r@redhat.com> <CAHk-=wj3GCXZohdFWWPAOkC_LHno4X0oQW+0sQFJzRMvjpODUg@mail.gmail.com>
+ <CAHk-=wgYc9vFEmyV0Ch_e49j6GOhUCMQMnMV4f1FLLvumZOmRw@mail.gmail.com>
+ <CAHk-=wgFnKO_O0fR_-O+i5yUGaDcz8_HwpM5QiLM4jPFYZb41Q@mail.gmail.com> <awbMwBDP9TsJBmzV@redhat.com>
+In-Reply-To: <awbMwBDP9TsJBmzV@redhat.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 25 Nov 2026 08:39:37 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wiTUE9vfMvHeGz+dgex_+sMicSHnf6Nt2_w1-SkOmu8ng@mail.gmail.com>
+X-Gm-Features: Aa3M54phjOT0um3z9odpNNELrhe-bLH1gtujI8-yceR8vi0wZ9OAzggOhpFehRM
+Message-ID: <CAHk-=wiTUE9vfMvHeGz+dgex_+sMicSHnf6Nt2_w1-SkOmu8ng@mail.gmail.com>
+Subject: Re: [PATCH 3/7] eventpoll: don't claim real exclusivity for EPOLLEXCLUSIVE
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>, Michal Nazarewicz <mina86@mina86.com>, Wen Yang <wen.yang@linux.dev>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	tz2294@columbia.edu, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On Wed, 25 Nov 2026 at 03:55, Oleg Nesterov <oleg@redhat.com> wrote:
+>
+> FYI, none of these patches can be applied, both patch and git-am complain
+> "patch: **** malformed patch at line 34: *file, wait_queue_head_t *whead,"
 
-------------------
+Grr. I was so proud of having finally figured out how to make gmail
+send uncorrupted patches so that I could do it in my normal workflow.
 
-From: Kuniyuki Iwashima <kuniyu@google.com>
+But apparently my clever hack was just hot garbage. Not the first time
+that has happened...
 
-[ Upstream commit 0edbc945eb9edd0086f25b151a79cfe4adc0dfa8 ]
-
-unix_vertex_dead() and unix_peek_fpl() are synchronised
-with unix_peek_seq to prevent GC from purging a live
-socket's recvq.
-
-unix_peek_fpl() skips the synchronisation if gc_in_progress
-is false.
-
-However, on weakly ordered arch, GC might have already
-started working while the write to gc_in_progress is
-buffered.
-
-This does not occur on x86.
-
-This is an unlikely path that happens only when AF_UNIX
-fd is peeked so not worth complicating.
-
-Instead of adding memory barriers in unix_gc() and
-unix_peek_fpl(), let's simply remove the broken short-circuit.
-
-Fixes: e5b31d988a41 ("af_unix: Give up GC if MSG_PEEK intervened.")
-Reported-by: Qihang Tang <q.h.hack.winter@gmail.com>
-Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20261104162858.991930-1-kuniyu@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/unix/garbage.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/net/unix/garbage.c b/net/unix/garbage.c
-index 338769200065e..9c1afd8507c57 100644
---- a/net/unix/garbage.c
-+++ b/net/unix/garbage.c
-@@ -317,9 +317,6 @@ void unix_peek_fpl(struct scm_fp_list *fpl)
- 	if (!fpl || !fpl->count_unix)
- 		return;
- 
--	if (!READ_ONCE(gc_in_progress))
--		return;
--
- 	/* Invalidate the final refcnt check in unix_vertex_dead(). */
- 	spin_lock(&unix_peek_lock);
- 	raw_write_seqcount_barrier(&unix_peek_seq);
--- 
-2.53.0
-
-
-
+Back to the drawing board,
+             Linus
