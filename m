@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596638;
-	b=APPUsl6vFN8ElFFxLo514MC9QrPPVCNfvivhjrb/7gPnwNC7rqzs3eIWVGB6y/doPC5T
-	 V7gtrOLV1hX/icoyyt7VyRr8R4DEY6ihtU5V6HurckjwcDx9pRVxhYzFWZPMEzJrPZhhf
-	 DwuMeL0umR4CkKFehhrfoIL3pHd7fB0g4w2VsrtAmPt2wp4JzuRLL/j0+vJ87azUYGPAi
-	 dM6+LKp5vRJAE+lrYc2usLzDF7tpsemdcL9d80Gd9TETJI/G+O3qsoJHoxriKq6zSGccb
-	 1sVeixuQDn5+9kSD/MFAOPVTGhy4cpLH24cFVnck86xboVmZ32bLnytHUfUhXXdkuNg==
+	t=1795596640;
+	b=CcQBU5XtgBF49T/t/CI0EPC8pxCOZE1coOwUkdWpmch7sHW+S+C78R+2LcMD1s159F3w
+	 gI7chi2pShCK+PDEMSebRP3I4zPdMSOcLRS62/qWyzCH5cbWUKM/VVHg2pmgWRsUc7Xpv
+	 /Jx9yquf+dHnZOuqBbsOqEPJ1omTbUY3PBmE3huNFWjkLIIDePCdJCgsR5pa20fXmM1k2
+	 oW6lMXYnIX7rUcnOCFI/fAd2bMK0W9imShwcqHmVrV1HMF5JuAYfVK98tL+W6rKNvZATE
+	 Y4YZiyjr0ObXUa5AyZoz0gZ1bQEDZf/IbgEVW5idfO/MKT93VUPydJd3fEkbziyMUtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596638;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596640;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bwzq8xQn5ZJR5o7aGUbK6kgJ4E+HNU1HSvR6dW/JqPk=;
-	b=GOTqxoF0USq8Wf03MLiweQOSEoDDOuIhGjpqJciUHnIpoiL8O5gMBUXxHN+V1DueCVpj
-	 btIsKTEcgHtTfdE87fRA3wnhRKa2bpt0ogXMdtoy5h4K3G0//ppga9ownbaYZsgwdlEVI
-	 yw2VEBrPBoDRFsEevJNzfA67tprMk/NaT31kiSL+fTVOeGli6TUSGnS2JHxb2NaznDj1B
-	 lZR+WBnNFKsK/knVzlaC0rgxmjtblzCPewEd/dXXgx8jpcn5+kT+VqNO2JK6Pg8+RJNSx
-	 hiu0CgZtlgi9OcmKyTSbH2D7x7LyuEn403Jmo9X2f22QYMPLUTINEQ9bbcZqtNBJZfg==
+	bh=fungCuE+ZZPkZAEqjVa4+vR4NmUipjENpJL+HeEEfEc=;
+	b=15PofOLHBWk0aPk0do9qiXUTBD4VM0utBfRZJU1A4Mlb/jnM6PnS/M6S07GvTmWgbQyJ
+	 TJnwBheAy8WynbnWN0jFuiOkg8kJb9jrPOQMbm0F0Pr7X0SwGMULoFPlLOxEfrkBmi7F9
+	 AFCkbnSqU8fn6ypBGJKyrzKalWW37Ur4h+PSLdmPQgm7A2M4I2igdOpcWqSsuWFoFCQpG
+	 J5BTK4kq/dsiD9/wIYtIeHZS7IuP1Q2FXWsSUpvWmUrA6rwhR+aNXNIPElyvGK+Hd5tOo
+	 2mLBOoxuneH+XyDj1fg79ICQFnx20Mma71w9y2BBU7QzbDC+QlavuFfm63Oa0q9Dk4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zpqkSkHo;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dURKESIy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7ED606A32D
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:50:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D579E606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:50:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zpqkSkHo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFEC11F000C0;
-	Wed, 25 Nov 2026 08:50:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dURKESIy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D125F1F000D1;
+	Wed, 25 Nov 2026 08:50:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795596637;
-	bh=bwzq8xQn5ZJR5o7aGUbK6kgJ4E+HNU1HSvR6dW/JqPk=;
+	s=korg; t=1795596640;
+	bh=fungCuE+ZZPkZAEqjVa4+vR4NmUipjENpJL+HeEEfEc=;
 	h=Subject:To:Cc:From:Date;
-	b=zpqkSkHoS/iJ15hUWXA1GKpeUWqCzddvfIgQEss9wDa3TJcgBqjQyoOCW/ARXkgY+
-	 xK996keZmKlg2fYVzceWXxhp7dIlz9GfjppCz1woI878fexAFD0F2euRYfxcFiUXLH
-	 W3235URjFd3asbGAWFtB5/nNggM26mk+dFcq5NA8=
-Subject: FAILED: patch "[PATCH] vsock/virtio: clear vqs[] to avoid a UAF on a failed PM" failed to apply to 6.1-stable tree
+	b=dURKESIyPvAASLQU+0Euc6J14yYMnhqcE4XIQ9QIeu1HdgaFxThkagTAupCg/AX2G
+	 BPbU/zD5DGag4NabVeQJM6LuIRBfWo/pWKfS5XjFz1BIrnAfg2uqFwkujhRQJvdIEw
+	 sYP/FO4jILnlHzVW7tF09il0SeNhyQ8PlKPYM4hc=
+Subject: FAILED: patch "[PATCH] vsock/virtio: clear vqs[] to avoid a UAF on a failed PM" failed to apply to 6.6-stable tree
 To: jrmmhm.kernel@eldare.de,kuba@kernel.org,sgarzare@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 09:47:39 +0100
-Message-ID: <2026112539-sudoku-footbath-dbe4@gregkh>
+Message-ID: <2026112539-founder-small-f4da@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2a24ba1694f14299fbde3fa107e5d56629f2f8b6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112539-sudoku-footbath-dbe4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112539-founder-small-f4da@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
