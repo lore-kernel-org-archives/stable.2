@@ -1,59 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618890;
-	b=3fGCzx+LGAerBsDtF3D7dXAW03YR0RNSoR+LC/7QnAjPRiEJGkCwp3jNII1VWYEprsiA
-	 8hSrcIW2RIkax/sUkWXcYT7vXF/M/AMVLPj1/zBn8OVBdXMlg417HebFRDgqEvz004Oeb
-	 KGnbmByvLn2FKN4sG6FeCQ34ZHA0rX28t+2BbuZ6ZR54Z5//CNZVxWF2zLsQq9yS1TJdL
-	 gr5RDbsVlj6H5zER1QV6tg9MSJt4e+7Seyx29v2cV3m4Gy1pGzECGQErpDERsuBT3F8kb
-	 J1PHbTVx5HikjE+STTm61NhQ2auxdYAbGpBoUH5bA+Qywa45/h40+9GRjI9puiB4NQw==
+	t=1795618891;
+	b=TAP1AKaxnRXVUmL/cL9c++AKDW9SvzJqXMkAzXbTaHRXxfjXAjyiRQT1zbbQHifwgg/C
+	 iY+44ytQcbpIFop1xQxdON6SZJIL4D14ewpYtekw4OFRrCGkZ+qSctirK63Mzw+brjPFU
+	 LTK6iO8loGNFgmJIpAbdo7llQ3UANPfBzcMqMPjDQNA959YKo3wi337AleGJiJCenEFbx
+	 Y4BqADrRJX98opZxCgcfsk8I2OGtCiFZMRRUbFzHR5HjLpM/ljGgeTwjxyDz32bnw4X+E
+	 zQIbbSJhTsFLZ2B4J8I4RI9U429dkFzb3fuDYfACx8BfzphY60ywoC7FJj2L3FAwt6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618890;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dtna8J2GyD5Q+Va6HiEKZkKBfZHr5TX7wwt6SQIWc1Y=;
-	b=zXXdj6Rq65z/JMhDlkQszwmBYVFYQWs8CZzfdyiG4BCkimCnLp5xnUTZfzBSRnpn1P3y
-	 kUejdxq5ujvDP6FWWQ6KqupHeGSWQOYrNMvReHv8h1iI6PatuTQY7L4e/yl4bHalqhukw
-	 /2e0dsPeDWrqaLTAHzwCqVINeixnR7KTU35QJIr2tlRlMVUtTKt3TUDX//T+zZOAMzQKv
-	 MZ2WkNzqZXCli7s4LnlbezpbjY6oQj/PEON+xRgkwVALqXEX2bM2kn06d+ZGV752iP60m
-	 3XTmOzHRF0QpaBt4rpi1hC+aV2uM3qSGtXkGvkfwAfwVgB7p0Uox9Pjo03BUpHLunUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618891;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
+	 X-SRS-Rewrite;
+	bh=IkADng/l4Z8H3hkfoEhQoHEQBniUbrZ9k0nNnkDcv2w=;
+	b=QqtPsgK8NbswfrEa267yEYI2wSBJNno/CBIyw71DuDrMLG5Y8W1VYPyXuPhoT3u+2dqk
+	 jPH9OCK3yzIOsghCatxJB+ZegbSxQSOcV54pWzld6uskIyRfDyqbDxmsqaSvQOAr3FBY5
+	 eemH81qZkgbdhdF1oQZVyiivF74MPKDihr/KWbYmoxgrumbzRi3Sc90NKcODotiLNCaJ2
+	 WVAht2z8BDgjLRKolKcgcaIRKqsJRbGsjgx4CSTvHsX+aSXwFxAYj5WyugHy6x0CRwcKf
+	 rp0gbgRn7pzy7OswXUMP8t0YEXgHler2SV0If7/VCiHhNibnBhlhcJOHWokns6rnrfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=znpXBdu1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=vGqWfDWX;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC26606A335;
-	Wed, 25 Nov 2026 15:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=znpXBdu1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819911F000D8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDD1606A330;
 	Wed, 25 Nov 2026 15:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618890;
-	bh=dtna8J2GyD5Q+Va6HiEKZkKBfZHr5TX7wwt6SQIWc1Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=znpXBdu1Sks8dbkliw9GVLOUfCG01IORXkfa4rXv7GOOjpXQepeScPCgK0g6mTJzd
-	 neUu4hqrgBwxUcuLtIXqllHdL54v7Wl9hrzp4er3Mr+d0lc/Z/7ZSc0B8psJn8zJHn
-	 q4rRzoFENOXQGLSzx2na+PGE9C6WX385lrRom/1o=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Naohiro Aota <naohiro.aota@wdc.com>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	David Sterba <dsterba@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0422/1005] btrfs: zoned: fix lockdep splat on mount
-Date: Wed, 25 Nov 2026 15:29:20 +0100
-Message-ID: <20261125143831.640307766@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCDD1606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=vGqWfDWX
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=IkADng/l4Z8H3hkfoEhQoHEQBniUbrZ9k0nNnkDcv2w=; b=vGqWfDWXADy6QJdQtNfQuBH96V
+	OSBBYpuAFgobtyv+qLH0HpvAymftUgR6LXUa57oRzSHXWJh9hV1XU6Kqh4Q4OtwOt2pWd3Ojzqu7c
+	49b5Y3+tpPzr01gJShgDddUrQhjaAQ3rpiY7Dxg8LgcqutSVt6ML3i/G1K5e0Z3YuzoKKGWMglh2D
+	tDIf+SjtpDLlLjrmwlDKLfqMJGDcfxDm20+UMM8o/mpJrZuHGvadjVGwy1nIG98UuL2uzbNEc+TpJ
+	NdDz0vFi3mnhMnPWcf6W2h54dZCcqxUXTEjVOWeM/NEpkImplYelkcL9etv020FjPbKYrZv60zYrm
+	z7uClcag==;
+Received: from 54-240-197-238.amazon.com ([54.240.197.238] helo=freeip.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xWEUn-0000000GLOm-3Iza;
+	Wed, 25 Nov 2026 15:01:18 +0000
+Message-ID: <a724a94bef81dec39150a2d24201194e98ecc096.camel@infradead.org>
+Subject: Re: [PATCH net v3] ptp: vmclock: keep the device state until the
+ last file is closed
+From: David Woodhouse <dwmw2@infradead.org>
+To: Paolo Abeni <pabeni@redhat.com>, Chad Aldreda <ca@modelmiser.com>, 
+ Richard Cochran <richardcochran@gmail.com>, Wen Gu <guwen@linux.alibaba.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>,  Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+ <kuba@kernel.org>, Shuangpeng Bai	 <shuangpeng.kernel@gmail.com>,
+ netdev@vger.kernel.org, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 25 Nov 2026 15:01:16 +0000
+In-Reply-To: <fdc005b9-e48a-4550-b66b-0f58db82babe@redhat.com>
+References: <20261119061517.1142436-2-ca@modelmiser.com>
+	 <1f77fa9014f8dfafb2be9cf15a66c5541880656a.camel@infradead.org>
+	 <fdc005b9-e48a-4550-b66b-0f58db82babe@redhat.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-ifNNgHR31pmqYObLjYoP"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,175 +75,206 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-7.3-stable review patch.  If anyone has any objections, please let me know.
-
-------------------
-
-From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-
-[ Upstream commit 04df03585f0d8ef2727e043119bba2cdfac2d8d7 ]
-
-When mounting a filesystem on a zoned drive passed into a VM via a
-virtio-blk disk lockdep sporadically complains about a possible deadlock
-between BTRFS' dev_replace::rwsem and virtio-blk's vdev_mutex:
-
- ======================================================
- WARNING: possible circular locking dependency detected
- 7.3.0-rc6+ #317 Not tainted
- ------------------------------------------------------
- mount/7418 is trying to acquire lock:
- ffff888102c07860 (&vblk->vdev_mutex){+.+.}-{4:4}, at: virtblk_report_zones+0xda/0x440
-
- but task is already holding lock:
- ffff8881fd725ea8 (&fs_info->dev_replace.rwsem){++++}-{4:4}, at: btrfs_load_block_group_zone_info+0x186/0xe50
-
- which lock already depends on the new lock.
-
- the existing dependency chain (in reverse order) is:
-
- -> #4 (&fs_info->dev_replace.rwsem){++++}-{4:4}:
-        down_read+0x42/0x170
-        btrfs_map_block+0x1a6/0xe70
-        btrfs_submit_bbio+0x1a3/0x910
-        submit_one_bio+0x93/0xd0
-        btrfs_readahead+0x1c4/0x200
-        read_pages+0x56/0x200
-        page_cache_ra_order+0x27c/0x410
-        filemap_get_pages+0x12f/0x4a0
-        filemap_read+0xed/0x400
-        vfs_read+0x240/0x340
-        ksys_read+0x61/0xd0
-        do_syscall_64+0xa3/0x4f0
-        entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
- -> #3 (mapping.invalidate_lock#3){++++}-{4:4}:
-        down_read+0x42/0x170
-        filemap_fault+0xb0/0x1a40
-        __do_fault+0x34/0xc0
-        __handle_mm_fault+0x919/0x1db0
-        handle_mm_fault+0x97/0x240
-        do_user_addr_fault+0x21d/0x690
-        exc_page_fault+0x8e/0x230
-        asm_exc_page_fault+0x26/0x30
-
- -> #2 (vm_lock){++++}-{0:0}:
-        __vma_start_exclude_readers+0x91/0x1b0
-        __vma_start_write+0x47/0xd0
-        vma_expand+0x4c/0x2a0
-        relocate_vma_down+0x126/0x200
-        setup_arg_pages+0x240/0x3e0
-        load_elf_binary+0x1be/0x1860
-        bprm_execve+0x2d2/0x7b0
-        kernel_execve+0x107/0x130
-        kernel_init+0xc2/0x130
-        ret_from_fork+0x1ff/0x2f0
-        ret_from_fork_asm+0x1a/0x30
-
- -> #1 (&mm->mmap_lock){++++}-{4:4}:
-        __might_fault+0x68/0xa0
-        _copy_to_user+0x22/0x70
-        blkdev_copy_zone_to_user+0x22/0x40
-        virtblk_report_zones+0x297/0x440
-        blkdev_report_zones_ioctl+0xfd/0x130
-        blkdev_ioctl+0x20f/0x2c0
-        __x64_sys_ioctl+0x86/0xd0
-        do_syscall_64+0xa3/0x4f0
-        entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
- -> #0 (&vblk->vdev_mutex){+.+.}-{4:4}:
-        __lock_acquire+0x15a8/0x2850
-        lock_acquire+0xea/0x2f0
-        __mutex_lock+0xa7/0x10d0
-        virtblk_report_zones+0xda/0x440
-        blkdev_report_zones_cached+0x162/0x190
-        btrfs_get_dev_zones+0xdc/0x2c0
-        btrfs_load_block_group_zone_info+0x2b6/0xe50
-        btrfs_read_block_groups+0x338/0xc80
-        open_ctree+0x1aca/0x24b3
-        btrfs_get_tree.cold+0x105/0x26c
-        vfs_get_tree+0x28/0xb0
-        __do_sys_fsconfig+0x324/0x690
-        do_syscall_64+0xa3/0x4f0
-        entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
- other info that might help us debug this:
-
- Chain exists of:
-   &vblk->vdev_mutex --> mapping.invalidate_lock#3 --> &fs_info->dev_replace.rwsem
-
-  Possible unsafe locking scenario:
-
-        CPU0                    CPU1
-        ----                    ----
-   rlock(&fs_info->dev_replace.rwsem);
-                                lock(mapping.invalidate_lock#3);
-                                lock(&fs_info->dev_replace.rwsem);
-   lock(&vblk->vdev_mutex);
-
-  *** DEADLOCK ***
-
- locks held by mount/7418: 3, last CPU#0:
-  #0: ffff888110aa6868 (&fc->uapi_mutex){+.+.}-{4:4}, at: __do_sys_fsconfig+0x2ae/0x690
-  #1: ffff888112ba20e8 (&type->s_umount_key#31/1){+.+.}-{4:4}, at: sget_fc+0x148/0x8d0
-  #2: ffff8881fd725ea8 (&fs_info->dev_replace.rwsem){++++}-{4:4}, at: btrfs_load_block_group_zone_info+0x186/0xe50
-
-Holding the rwsem was widened in 0090d6e1b210 ("btrfs: zoned: fix
-use-after-free due to race with dev replace"), but it now also covers
-calling into blkdev_report_zones_cached(). The device replace ioctl()
-only works on a mounted filesystem and the only caller with setting
-'new' to false is read_one_block_group() which is only called during
-mount, so it is safe to drop the rwsem before calling into
-blkdev_report_zones_cached().
-
-Fixes: 0090d6e1b210 ("btrfs: zoned: fix use-after-free due to race with dev replace")
-Reviewed-by: Naohiro Aota <naohiro.aota@wdc.com>
-Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/btrfs/zoned.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
-index a1e681d77e9a2..40eb564993467 100644
---- a/fs/btrfs/zoned.c
-+++ b/fs/btrfs/zoned.c
-@@ -1393,11 +1393,13 @@ static int btrfs_load_zone_info(struct btrfs_fs_info *fs_info, int zone_idx,
- 		return 0;
- 	}
- 
-+	ASSERT(!test_bit(BTRFS_FS_OPEN, &fs_info->flags));
-+	up_read(&dev_replace->rwsem);
-+
- 	nofs_flag = memalloc_nofs_save();
- 	ret = btrfs_get_dev_zone(device, info->physical, &zone);
- 	memalloc_nofs_restore(nofs_flag);
- 	if (ret) {
--		up_read(&dev_replace->rwsem);
- 		if (ret != -EIO && ret != -EOPNOTSUPP)
- 			return ret;
- 		info->alloc_offset = WP_MISSING_DEV;
-@@ -1409,7 +1411,6 @@ static int btrfs_load_zone_info(struct btrfs_fs_info *fs_info, int zone_idx,
- 		"zoned: unexpected conventional zone %llu on device %s (devid %llu)",
- 			zone.start << SECTOR_SHIFT, rcu_dereference(device->name),
- 			device->devid);
--		up_read(&dev_replace->rwsem);
- 		return -EIO;
- 	}
- 
-@@ -1437,8 +1438,6 @@ static int btrfs_load_zone_info(struct btrfs_fs_info *fs_info, int zone_idx,
- 		break;
- 	}
- 
--	up_read(&dev_replace->rwsem);
--
- 	return 0;
- }
- 
--- 
-2.53.0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
+--=-ifNNgHR31pmqYObLjYoP
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, 2026-11-25 at 12:38 +0100, Paolo Abeni wrote:
+> On 11/24/26 20:44, David Woodhouse wrote:
+> > On Thu, 2026-11-19 at 06:15 +0000, Chad Aldreda wrote:
+> > > vmclock_probe() allocates struct vmclock_state with devm_kzalloc_obj(=
+)
+> > > and maps the shared page with devm_memremap(), so both are released
+> > > when the driver is unbound, but an open /dev/vmclockN keeps using the=
+m
+> > > through its file state. After an unbind, read() runs on the freed
+> > > struct and reads through the released mapping, and a poll() in
+> > > progress sleeps on a wait queue in the freed struct. KASAN reports a
+> > > slab-use-after-free in vmclock_miscdev_read(). In testing, the same
+> > > read() faulted on the unmapped page once the device had been bound
+> > > again.
+> > >=20
+> > > Allocate the state with kzalloc_obj() and map the page with memremap(=
+),
+> > > and release both on the last reference: open() takes a reference and
+> > > release() drops it, and a devm action drops the device's own referenc=
+e
+> > > after vmclock_remove() has called misc_deregister(). misc_open() call=
+s
+> > > open() with misc_mtx held, and misc_deregister() takes misc_mtx, so
+> > > open() always runs while the device's reference is held.
+> > >=20
+> > > vmclock_remove() now marks the device as removed and wakes every wait=
+er
+> > > on the wait queue. A read() or mmap() on a file that is still open fa=
+ils
+> > > with -ENODEV once it sees the mark. On a device that supports
+> > > notifications, poll() returns EPOLLHUP | EPOLLERR, including a poll()
+> > > that was already waiting; it tests the mark after poll_wait(), so it
+> > > cannot miss the wake-up. The wake-up uses wake_up_interruptible_all()=
+,
+> > > because no later notification will reach a waiter that the remove-tim=
+e
+> > > wake-up skips, such as a second epoll instance that registered the fi=
+le
+> > > with EPOLLEXCLUSIVE. Without notifications poll() already returns
+> > > POLLHUP.
+> > >=20
+> > > Separately from the report below, the bug was also found by a
+> > > Coccinelle script that reports device nodes in devm-allocated memory,
+> > > posted at
+> > > https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.com,
+> > > and reproduced in QEMU 10.2.4 with -device vmclock. There is no acces=
+s
+> > > to EC2 hardware with this device, so the fix has only been tested in
+> > > QEMU. QEMU's device has no notifications, so the poll() path was test=
+ed
+> > > with a local change that lets poll() wait without them.
+> > >=20
+> > > Fixes: 205032724226 ("ptp: Add support for the AMZNC10C 'vmclock' dev=
+ice")
+> > > Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+> > > Closes: https://lore.kernel.org/all/178144969601.60470.14493569608271=
+069160@gmail.com/
+> > > Cc: stable@vger.kernel.org=C2=A0# 7.0+
+> > > Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+> >=20
+> > Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
+> >=20
+> > We did have a plan to pull the PHC-only drivers out into drivers/phc
+> > and leave only the *real* PTP in drivers/ptp. I kind of stalled on that
+> > because I wasn't sure I had consensus especially from Richard and the
+> > net maintainers. Shall I revive that and repost it?
+>=20
+> I'm sorry but that conversation is way of my context window. Do you have =
+a
+> pointer to the prior discussion? why such separation would be useful?
+
+I think
+https://lore.kernel.org/netdev/20251127083610.6b66a728@kernel.org/ is
+the key answer to that.
+
+The latest update (which I'm suggesting I should dust off) is at
+https://lore.kernel.org/all/14969e704fb8e70deb549b2e1c8670f6756a8da7.camel@=
+infradead.org/
+
+--=-ifNNgHR31pmqYObLjYoP
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+yI0hlaaNiLgkI8rK1W70b/IAAAAAAAA=
+
+
+--=-ifNNgHR31pmqYObLjYoP--
