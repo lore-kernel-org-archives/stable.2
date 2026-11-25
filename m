@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622490;
-	b=iDj6mFx/gX+ub8oqWwSyGBNQTfML5ugFdBhyyiWb0qBgq2PM1uZV4hhJjCV++B6hI1XJ
-	 KEdrYYR83k8GV3uH9mKe7bRMQ1psUzYol6UmlsA86boUzAsekvzrLH4LMGV+mI7dwe/mF
-	 1iyIcpSAsQwsPAhvTWNlcQqU1RoWSHtI2yg83fzAnSeYkPHGJXo4sFqtCrZSGVo6m3ruG
-	 iJs8/S7aIt464lzPLpOgT7pVmmk7OdiaXIPRireUECXr4WlHoz5zbhBRVLTDZtAWnyrMd
-	 ctEP4joEBdvgxqQhhrUvRexNq//B79+AGrlradZcdA/JLLkMX4oFT6snnceeg6rbPng==
+	t=1795622492;
+	b=I9BuQuciEi42ZLapFw9JeCIggPm60rJ2vGLsPKcS3UxYeaqA19yRoFbT+Jgs6fexn8FU
+	 k3h7hGsJU0dnlFSV02jXmN973BhczkXBo+Eenl9jRsIlrl1QJw4/yDuNz+9vdJF9WS0iu
+	 1xPS3iPdpwU/Ox3vmyyD4NKfnFfPFofJ6h+Sd5qv3q47X+mvShsFld9qKEXHyznboiftp
+	 l2aBNtJ5CN9LUQRpCv9pnLt4KzrPicpHf8ubejRclCntdSNxrUuNE3+45KIBomrXGYlQ2
+	 /VojrC5zmJXR1qtdTfpT73zCMoPFmAEI9oZRBqZQU22FbnRI0Mxq74MEZkhpfK5keQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622490;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622492;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=H4Zp2fQDgT90DM06NlRn0jpTg64cA1Ew4vwdM+v5GA0=;
-	b=5Q8P/yV1lRolZTnV1fXqFMRRdLJgxkNRb9WoWZUKhqzm5Ee9pmewzxSpYjMwUw0W2eOb
-	 GQ0P58Uz7EVX5fZKGor3CWa5IfTscrEadX3Wm0QOPx72PX4q6NenLphX4Tx8Ts+/qBOKX
-	 5iDOWqgsx2NvMHDj2LJt0uMPquHAGEu1x5q8DIHPkacb+9CSnDWkvucPWOLPWBVhbyYgW
-	 iSeHeZRcafgUNFZDwsh/zczU7/i11PeKI2AUxdEMUTekIx2YpGLoA02v+l8lKSUz+4qkC
-	 MZ6lNNRm6/JSpMEy9cTKKrEs6CN2xUHxGWCqsUVbouMEqIm12l0AjuYZFub8Lx29Fhg==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=xR3u3abMU0VyUUZW41ptPNq/3QZv39hPpfigBKiY1zw=;
+	b=Z7H/wFJ8cpnLOajcsE8/tRR5C4wSTlKP+JuU9dvAoEGTYgRWxtUIFPj+DpKQFpidSIX3
+	 DeaA0nqQfTy+4a+AR5q1CppL1jaqY0rb9kCxP+Issg5eL/v1Oi0EW0ry++JZjopNOSdQk
+	 iXl8KRPK+HshG/DiFYW+XLWqU/f42Md0Yq7S15SEw83XOLSNfg3oKXwWS2iBLTHtMHp7C
+	 3rl7Lqv99X84zcJ8o/I9yv/+OSuKz6W5MQGbAJIagrKAxWbVxvNsu1vUs1KyjbtNZPZYX
+	 RVkP/s5gKLDV5VXVYITXuQcElhR2xQRVVvcyDNm/odMXTGVvb7lvB+Ds2bKNDg2FjNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FyTCLmA3;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="rFouUp/+";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D430606A334
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:01:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114BA606A331;
+	Wed, 25 Nov 2026 16:01:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FyTCLmA3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6E41F000D0;
-	Wed, 25 Nov 2026 16:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622489;
-	bh=H4Zp2fQDgT90DM06NlRn0jpTg64cA1Ew4vwdM+v5GA0=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rFouUp/+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10E281F000D3;
+	Wed, 25 Nov 2026 16:01:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795622491;
+	bh=xR3u3abMU0VyUUZW41ptPNq/3QZv39hPpfigBKiY1zw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FyTCLmA3NlEPc590pZsH2EmjTzyFsQew8gYmYuef4ikDcuusGVGrMrj+P32l6E+eC
-	 KY+nhakzej745ZtDfD+ifwYNLwhbDCFtAmcsSsnO323+/DGRa2hKtMAc2Rr48wvLE/
-	 rXT1CeDJxGGSFW7TScJz9PgTp/Zu5MkB0mohzeSJMQOj6m6sUkoYyswKFtKSCJJO/p
-	 xemfNzohakRFiFrxelIB/KgVEVDpHkiWHok6+wAVlWuUgNf3BwuIZdkwa0geRhhocb
-	 PIl0Y3jvXnMHklPSeqGAbpymWcIZvEozhi62n1462OAZUpHAsfHg8oVaNSVoB1SHqN
-	 caOAQqlfxKi0g==
-From: Sasha Levin <sashal@kernel.org>
+	b=rFouUp/+ITu2Q1l//hWt7wNjMSw7LEWFUj1+P4O29XgIKISm7ntDbTWlFki2FYGWU
+	 gj3vyEyr1f6kP2v7KLTNedXFE4TJbwvSfjs5Cj86zofTHl581d+ZuGvr2xmkA/wbaJ
+	 0zQrnDhFEXIYPtONg6aLVoXCIMZpbOOReBm+6PGw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yishai Hadas <yishaih@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] netfilter: nf_dup: preserve guard across NFQUEUE reinjection
-Date: Wed, 25 Nov 2026 11:01:22 -0500
-Message-ID: <20261125160115.575356-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125160115.575356-1-sashal@kernel.org>
-References: <2026112501-gilled-capsize-0004@gregkh>
- <20261125160115.575356-1-sashal@kernel.org>
+Subject: [PATCH 6.18 556/990] RDMA/mlx5: Set QP event handler before firmware QPC insertion
+Date: Wed, 25 Nov 2026 15:32:03 +0100
+Message-ID: <20261125143835.120972494@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,121 +64,160 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zihan Xi <zihanx@nebusec.ai>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 82052e5b5ec36504fe1b9c3c28a711a78fcacf37 ]
+------------------
 
-NFQUEUE can suspend traversal of a duplicated packet while the task-local
-duplication guard is set. The output call then returns and clears the guard
-before a later verdict resumes hook traversal.
+From: Yishai Hadas <yishaih@nvidia.com>
 
-Save the guard in the queue entry and restore it while reinjection
-continues hook traversal. Preserve and restore the verdict task's prior
-state, including nested synchronous reinjection.
+[ Upstream commit 05a078c97eb0bb7158526dae414b853737692485 ]
 
-Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Four QP creation paths assigned base->container_mibqp and
+base->mqp.event after the firmware create call that inserts the QP into
+dev->qp_table.tree. A firmware error EQE in that window reaches
+qp->event() with a NULL pointer.
+
+Move both assignments before the firmware call.
+
+Also set ibqp.qp_num inside mlx5_qpc_create_qp() before
+create_resource_common() so an EQE arriving early does not observe
+qp_num==0.
+
+In addition, add a WARN_ON_ONCE(!qp->event) guard in
+rsc_event_notifier() as a safeguard for future regressions.
+
+Fixes: e126ba97dba9 ("mlx5: Add driver for Mellanox Connect-IB adapters")
+Signed-off-by: Yishai Hadas <yishaih@nvidia.com>
+Link: https://patch.msgid.link/20260915140933.40580-14-yishaih@nvidia.com
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
+[ sashal: Moved the base->container_mibqp and mqp.event assignments ahead of the firmware QP creation call, with context adjusted for the older base (no attrs argument in create_raw_packet_qp_sq()). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/netfilter/nf_queue.h |  1 +
- net/netfilter/nf_queue.c         |  1 +
- net/netfilter/nfnetlink_queue.c  | 17 ++++++++++++++---
- 3 files changed, 16 insertions(+), 3 deletions(-)
+ drivers/infiniband/hw/mlx5/qp.c  | 22 ++++++++++------------
+ drivers/infiniband/hw/mlx5/qpc.c | 10 ++++++++++
+ 2 files changed, 20 insertions(+), 12 deletions(-)
 
-diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
-index fc3e81c07364f..039622d489051 100644
---- a/include/net/netfilter/nf_queue.h
-+++ b/include/net/netfilter/nf_queue.h
-@@ -23,6 +23,7 @@ struct nf_queue_entry {
- 	struct net_device	*physout;
- #endif
- 	struct nf_hook_state	state;
-+	bool			in_nf_duplicate;
- 	bool			nf_ct_is_unconfirmed;
- 	u16			size; /* sizeof(entry) + saved route keys */
+diff --git a/drivers/infiniband/hw/mlx5/qp.c b/drivers/infiniband/hw/mlx5/qp.c
+index 865000d1a2c52..5a6aede3f138a 100644
+--- a/drivers/infiniband/hw/mlx5/qp.c
++++ b/drivers/infiniband/hw/mlx5/qp.c
+@@ -1599,6 +1599,8 @@ static int create_raw_packet_qp(struct mlx5_ib_dev *dev, struct mlx5_ib_qp *qp,
+ 		if (err)
+ 			return err;
  
-diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
-index c0c9ea5fc4e19..e25966a09fe31 100644
---- a/net/netfilter/nf_queue.c
-+++ b/net/netfilter/nf_queue.c
-@@ -218,6 +218,7 @@ static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
- 	*entry = (struct nf_queue_entry) {
- 		.skb	= skb,
- 		.skb_dev = skb->dev,
-+		.in_nf_duplicate = current->in_nf_duplicate,
- 		.state	= *state,
- 		.hook_index = index,
- 		.size	= sizeof(*entry) + route_key_size,
-diff --git a/net/netfilter/nfnetlink_queue.c b/net/netfilter/nfnetlink_queue.c
-index 5d10a85a2f73d..1d827858155f9 100644
---- a/net/netfilter/nfnetlink_queue.c
-+++ b/net/netfilter/nfnetlink_queue.c
-@@ -37,6 +37,7 @@
- #include <net/sock.h>
- #include <net/tcp_states.h>
- #include <net/netfilter/nf_queue.h>
-+#include <net/net_debug.h>
- #include <net/netns/generic.h>
- 
- #include <linux/atomic.h>
-@@ -344,21 +345,30 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	const struct nf_hook_entry *hook_entry;
- 	const struct nf_hook_entries *hooks;
- 	struct sk_buff *skb = entry->skb;
-+	bool old_in_nf_duplicate;
- 	const struct net *net;
- 	unsigned int i;
- 	int err;
- 	u8 pf;
- 
-+	DEBUG_NET_WARN_ONCE(current->in_nf_duplicate &&
-+			    !entry->in_nf_duplicate,
-+			    "%s called with unexpected duplication guard",
-+			    __func__);
-+	local_bh_disable();
-+	old_in_nf_duplicate = current->in_nf_duplicate;
-+
- 	net = entry->state.net;
- 	pf = entry->state.pf;
- 
-+	current->in_nf_duplicate = entry->in_nf_duplicate;
- 	hooks = nf_hook_entries_head(net, pf, entry->state.hook);
- 
- 	i = entry->hook_index;
- 	if (!hooks || i >= hooks->num_hook_entries) {
- 		kfree_skb_reason(skb, SKB_DROP_REASON_NETFILTER_DROP);
- 		nf_queue_entry_free(entry);
--		return;
-+		goto out;
++		sq->base.container_mibqp = qp;
++		sq->base.mqp.event = mlx5_ib_qp_event;
+ 		err = create_raw_packet_qp_sq(dev, udata, sq, in, pd,
+ 					      to_mcq(init_attr->send_cq));
+ 		if (err)
+@@ -1610,9 +1612,6 @@ static int create_raw_packet_qp(struct mlx5_ib_dev *dev, struct mlx5_ib_qp *qp,
+ 			resp->sqn = sq->base.mqp.qpn;
+ 			resp->comp_mask |= MLX5_IB_CREATE_QP_RESP_MASK_SQN;
+ 		}
+-
+-		sq->base.container_mibqp = qp;
+-		sq->base.mqp.event = mlx5_ib_qp_event;
  	}
  
- 	hook_entry = &hooks->hooks[i];
-@@ -381,9 +391,7 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	switch (verdict & NF_VERDICT_MASK) {
- 	case NF_ACCEPT:
- 	case NF_STOP:
--		local_bh_disable();
- 		entry->state.okfn(entry->state.net, entry->state.sk, skb);
--		local_bh_enable();
- 		break;
- 	case NF_QUEUE:
- 		err = nf_queue(skb, &entry->state, i, verdict);
-@@ -397,6 +405,9 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	if (qp->rq.wqe_cnt) {
+@@ -2062,13 +2061,13 @@ static int create_xrc_tgt_qp(struct mlx5_ib_dev *dev, struct mlx5_ib_qp *qp,
  	}
  
- 	nf_queue_entry_free(entry);
-+out:
-+	current->in_nf_duplicate = old_in_nf_duplicate;
-+	local_bh_enable();
- }
+ 	base = &qp->trans_qp.base;
++	base->container_mibqp = qp;
++	base->mqp.event = mlx5_ib_qp_event;
+ 	err = mlx5_qpc_create_qp(dev, &base->mqp, in, inlen, out);
+ 	kvfree(in);
+ 	if (err)
+ 		return err;
  
- /* return true if the entry has an unconfirmed conntrack attached that isn't owned by us
+-	base->container_mibqp = qp;
+-	base->mqp.event = mlx5_ib_qp_event;
+ 	if (MLX5_CAP_GEN(mdev, ece_support))
+ 		params->resp.ece_options = MLX5_GET(create_qp_out, out, ece);
+ 
+@@ -2206,14 +2205,14 @@ static int create_dci(struct mlx5_ib_dev *dev, struct ib_pd *pd,
+ 		qp->flags &= ~IB_QP_CREATE_PCI_WRITE_END_PADDING;
+ 	}
+ 
++	base->container_mibqp = qp;
++	base->mqp.event = mlx5_ib_qp_event;
+ 	err = mlx5_qpc_create_qp(dev, &base->mqp, in, inlen, out);
+ 
+ 	kvfree(in);
+ 	if (err)
+ 		goto err_create;
+ 
+-	base->container_mibqp = qp;
+-	base->mqp.event = mlx5_ib_qp_event;
+ 	if (MLX5_CAP_GEN(mdev, ece_support))
+ 		params->resp.ece_options = MLX5_GET(create_qp_out, out, ece);
+ 
+@@ -2402,6 +2401,8 @@ static int create_user_qp(struct mlx5_ib_dev *dev, struct ib_pd *pd,
+ 		qp->flags &= ~IB_QP_CREATE_PCI_WRITE_END_PADDING;
+ 	}
+ 
++	base->container_mibqp = qp;
++	base->mqp.event = mlx5_ib_qp_event;
+ 	if (init_attr->qp_type == IB_QPT_RAW_PACKET ||
+ 	    qp->flags & IB_QP_CREATE_SOURCE_QPN) {
+ 		qp->raw_packet_qp.sq.ubuffer.buf_addr = ucmd->sq_buf_addr;
+@@ -2415,8 +2416,6 @@ static int create_user_qp(struct mlx5_ib_dev *dev, struct ib_pd *pd,
+ 	if (err)
+ 		goto err_create;
+ 
+-	base->container_mibqp = qp;
+-	base->mqp.event = mlx5_ib_qp_event;
+ 	if (MLX5_CAP_GEN(mdev, ece_support))
+ 		params->resp.ece_options = MLX5_GET(create_qp_out, out, ece);
+ 
+@@ -2545,14 +2544,13 @@ static int create_kernel_qp(struct mlx5_ib_dev *dev, struct ib_pd *pd,
+ 	    MLX5_CAP_GEN(mdev, go_back_n))
+ 		MLX5_SET(qpc, qpc, retry_mode, MLX5_QP_RM_GO_BACK_N);
+ 
++	base->container_mibqp = qp;
++	base->mqp.event = mlx5_ib_qp_event;
+ 	err = mlx5_qpc_create_qp(dev, &base->mqp, in, inlen, out);
+ 	kvfree(in);
+ 	if (err)
+ 		goto err_create;
+ 
+-	base->container_mibqp = qp;
+-	base->mqp.event = mlx5_ib_qp_event;
+-
+ 	get_cqs(qp->type, attr->send_cq, attr->recv_cq,
+ 		&send_cq, &recv_cq);
+ 	spin_lock_irqsave(&dev->reset_flow_resource_lock, flags);
+diff --git a/drivers/infiniband/hw/mlx5/qpc.c b/drivers/infiniband/hw/mlx5/qpc.c
+index 67ed45f3ae17f..9272e1ef81135 100644
+--- a/drivers/infiniband/hw/mlx5/qpc.c
++++ b/drivers/infiniband/hw/mlx5/qpc.c
+@@ -146,6 +146,8 @@ static int rsc_event_notifier(struct notifier_block *nb,
+ 	case MLX5_RES_RQ:
+ 	case MLX5_RES_SQ:
+ 		qp = (struct mlx5_core_qp *)common;
++		if (WARN_ON_ONCE(!qp->event))
++			goto out;
+ 		qp->event(qp, event_type);
+ 		/* Need to put resource in event handler */
+ 		return NOTIFY_OK;
+@@ -258,6 +260,14 @@ int mlx5_qpc_create_qp(struct mlx5_ib_dev *dev, struct mlx5_core_qp *qp,
+ 
+ 	qp->uid = MLX5_GET(create_qp_in, in, uid);
+ 	qp->qpn = MLX5_GET(create_qp_out, out, qpn);
++	/* Set ibqp.qp_num before create_resource_common() inserts the QP into
++	 * the radix tree and makes it visible to EQE processing.  The
++	 * assignment in create_qp() happens only after this function returns,
++	 * leaving a window where an arriving EQE would observe qp_num == 0.
++	 * create_qp() still overrides this with 0/1 for QP0/QP1, and sets it
++	 * independently for DCT (which does not go through this function).
++	 */
++	to_mibqp(qp)->ibqp.qp_num = qp->qpn;
+ 
+ 	err = create_resource_common(dev, qp, MLX5_RES_QP);
+ 	if (err)
 -- 
 2.53.0
+
+
 
