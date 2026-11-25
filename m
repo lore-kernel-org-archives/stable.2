@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603052;
-	b=of/pGVk+lJ368ALJwsDFJTmV4GY+F9jdvNtr5qZNxC/IFuQWL35HNL4E9sncjWdSTr67
-	 E1CPPqU4cdNQruxoQX8fzOX/OIQvZGFENGqJ6Wp5NQZwirvI9iIKjiglt0K8l4WgXSe8+
-	 j63Hkv+og12gSFoLZ/k9f0ou5jIQfLHPDkB4vK4OSJVSPcTG131D2RXX2r2V9hNI93ySN
-	 7+GnxerzYaPjXQMvU+BqHabUVDs/rbTPqnOua+QtrGaG/VHUO2vcvZUBuYF8wDnsyEW5q
-	 C/7FqnXzbEHAtf+cJiNLB3eLGMIGMqqkKdYK7c0ZVgBRmKsCP6WcvTFHHgWWVncf/Ow==
+	t=1795603055;
+	b=S4aT5XaulLuDfeWpzf+/TJdEaXWis8VMQpt+M5tXYdJWU5sCRblK3LisYpKuVKHadlQ6
+	 St4CTCiPtpU7TQ4x2hg5ihNhGVvJRl4RssQ1CHyzc8rcmlKJgBmG4rYvbZY5c/mnhswwG
+	 XAA/Xul8vv84w9fiMa8oVdKkEmVPwHON7eMEPRE/kQjAbYcd4P3HzVEAXdluKpsjkHNqI
+	 Q8Uq2rJkB/lfIkuqipD1Vb6I+ESPVW+zeZLrZXN9sR8I1/p6OjJ1fkSPVXCkm6LqoIN+S
+	 QUW6gxK/LXZQ7oOQTmL/siKbottoR6NRt0lAl97BhEG3Vio/jkeZWS+NnmANBZRQZKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603052;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603055;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=TVnCgtj+oTnozYAQhZg/CSqJU31gTfi9HEwqO2ME3EE=;
-	b=3Hopy929CITvRjo5WEnq7moUqtGo9E9Z+RnhA7x2Y7nEq9S5meqYXt/rZ8RkWWbDr3ZM
-	 XIyiUs1wXFZUxPZhjKkoSKebSxM7iP+NcIdZpQVkGIc1wL94YZqgo6GQftJGcYNyL65ev
-	 ykWymaPjwNPMgkDtUH1E2xMvMNxrvyOqIHSnfDTUPgSGKY+fOqQLtgz3EUCa9NNywYy3B
-	 CSP+I4Nj1uNUG20LtszHLysi7gLbmd7zsEoXn21x95RbNme4Fu3Eh6VqTuYW9VOFyxHtf
-	 ZRob2CFkjGi7E+afq9qqQsPxZjpYf/Pd8gfhrEEPmBs26tlea6zSTw6Vuai7NAWxDvQ==
+	bh=mb9uaGLF5eXuc5no13Xl26sTr0lFaf3vvsWgP0MZLls=;
+	b=uask3ZK3ILN3jkJkHb0fDi0VDCAsu8h2svwfvNoWRbo5Rv7rL0FD2XpL2JQ+KS95TKe1
+	 jhpk4nfwMzVPxI4vAOgbP/8b6Fg21iYFZXu3QtIaWNAhS6mlgFSpi40dtKfnDQMhiA4Xf
+	 FawQqe4W1aBxuvZwYLejV80SM13vImPwx8J6beEYhY/oTiWMvn8i9JCYAcW5tCAeuWPrT
+	 lPlJlqEXygzsOQt3yJjhXAk6ikPZKY49m8uSYNgplhsPAgyW/prOvoq8jHeCzebQaMe5d
+	 8CZBQ9Cjc0n7jqb/x/bS87TVUnuo2pkuvykbeenO63Gqakr4sS3eUGFJm//xoNeJOBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pHcV6e0P;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aD8+U5vm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D827606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FBF606A335
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pHcV6e0P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C07F41F000C4;
-	Wed, 25 Nov 2026 10:37:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aD8+U5vm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 972D51F000C6;
+	Wed, 25 Nov 2026 10:37:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603052;
-	bh=TVnCgtj+oTnozYAQhZg/CSqJU31gTfi9HEwqO2ME3EE=;
+	s=korg; t=1795603055;
+	bh=mb9uaGLF5eXuc5no13Xl26sTr0lFaf3vvsWgP0MZLls=;
 	h=Subject:To:Cc:From:Date;
-	b=pHcV6e0PZ+5XuoXyuAlyMGjhGO7Jc65J3UQk7yHmv8AH3i21/ZZsK6wGchoyDrLii
-	 qQNix7oA95Kht/VeGZMyM/nabqDhn4Vo80BOv8BoFELdNI5nF7pzrmaBbMzcD0iU2X
-	 06nNAMpGgNYf4gWiswTxh1gu/0u9/I5jBO07g/3M=
-Subject: FAILED: patch "[PATCH] ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs" failed to apply to 6.1-stable tree
-To: icb@fastmail.org,linkinjeon@kernel.org
+	b=aD8+U5vmDtK0W6b27jBVbXloTddOMiik6nU5Wm/DiOMSm+JU6qvPUJQ2QfKavC85N
+	 okNBDPV0vnNkyUEHC+s9TXVPSTi1skIsX58feVAvnsGvRrvYFGCaGoouD6V1pB4KrN
+	 LRsL2UyG6rSwrSP14WZHPLI+PVtjfVifTHxze/ws=
+Subject: FAILED: patch "[PATCH] ksmbd: keep group denials when a POSIX ACL entry decides" failed to apply to 5.15-stable tree
+To: icb@fastmail.org,linkinjeon@kernel.org,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:24:16 +0100
-Message-ID: <2026112515-plunder-granola-38b1@gregkh>
+Date: Wed, 25 Nov 2026 11:24:38 +0100
+Message-ID: <2026112538-spoiling-hardener-c7b0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 42ac1f1917ae678ee2c47f415ab844af03bbd46b
+git cherry-pick -x b0af9a3e6b1534d353ca6ac23caaf46127f62e4a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112515-plunder-granola-38b1@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112538-spoiling-hardener-c7b0@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,263 +79,54 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 42ac1f1917ae678ee2c47f415ab844af03bbd46b Mon Sep 17 00:00:00 2001
+From b0af9a3e6b1534d353ca6ac23caaf46127f62e4a Mon Sep 17 00:00:00 2001
 From: Ian Bridges <icb@fastmail.org>
-Date: Wed, 4 Nov 2026 12:58:04 -0600
-Subject: [PATCH] ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs
- allow
+Date: Mon, 9 Nov 2026 20:33:44 -0600
+Subject: [PATCH] ksmbd: keep group denials when a POSIX ACL entry decides
+ access
 
-smb_check_perm_dacl() does not match ACEs for the caller's Unix
-groups and refuses an owner named only by OWNER RIGHTS. These callers
-cannot use rights the DACL grants them under MS-DTYP 2.5.3.2.
+When no ACE names the caller, Everyone or Authenticated Users,
+smb_check_perm_dacl() lets a POSIX ACL entry for the caller decide
+access. The entry's rights replace the result of the DACL walk. Deny
+ACEs for the caller's groups, and OWNER RIGHTS for the owner, are then
+lost.
 
-Match Unix group SIDs (S-1-22-2) against the caller's credentials. Use
-the ordered DACL result when the existing SID lookup and POSIX ACL
-fallback do not decide access. In that result, deny ACEs for the
-caller's groups limit what it grants, also for MAXIMUM_ALLOWED. Count
-only the exact OWNER RIGHTS SID in that result, since compare_sids()
-also matches shorter and longer SIDs, and return only file access
-rights. Preserve the refusal for non-inherit-only object deny ACEs,
-which ksmbd does not parse.
+For example, a deny of FILE_WRITE_DATA for one of the caller's groups
+should refuse writes. A POSIX ACL entry that gives the caller write
+access still lets the caller write.
 
-MAXIMUM_ALLOWED still excludes group allow ACEs. Including them
-requires corresponding changes in smb2_open() to avoid breaking
-existing opens. An open relying on group grants can therefore still
-fail when it requests a maximal access reply. For the owner, that
-reply leaves out the rights of its groups.
+Remove the requested rights that those ACEs deny from the entry's
+rights. The DACL walk already records them in grp_denied.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Fixes: 42ac1f1917ae ("ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs allow")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20261102200353.884509-1-icb%40fastmail.org
+Link: https://sashiko.dev/#/patchset/20261103150458.11591-1-icb%40fastmail.org
+Link: https://sashiko.dev/#/patchset/20261107062233.1579198-1-icb%40fastmail.org?part=1
+Link: https://sashiko.dev/#/patchset/20261107231941.1824289-1-icb%40fastmail.org?part=1
+Link: https://sashiko.dev/#/patchset/20261108182011.1888520-1-icb%40fastmail.org?part=1
 Cc: stable@vger.kernel.org
 Signed-off-by: Ian Bridges <icb@fastmail.org>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
 diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index ab76c5c9e0ea..32feafe9f73b 100644
+index a81f17fa725a..6b5f22d6280c 100644
 --- a/fs/smb/server/smbacl.c
 +++ b/fs/smb/server/smbacl.c
-@@ -1459,6 +1459,35 @@ bool smb_inherit_flags(int flags, bool is_dir)
- 	return false;
- }
- 
-+/* Whether the caller's credentials hold the group of an S-1-22-2-<gid> SID */
-+static bool smb_sid_in_group(const struct smb_sid *sid)
-+{
-+	gid_t gid;
-+
-+	if (sid->num_subauth != sid_unix_groups.num_subauth + 1 ||
-+	    compare_sids(sid, &sid_unix_groups))
-+		return false;
-+	gid = le32_to_cpu(sid->sub_auth[sid->num_subauth - 1]);
-+	/*
-+	 * ksmbd_override_fsids() builds the caller's credentials with
-+	 * make_kgid(&init_user_ns, ...), so the group membership test must
-+	 * compare in that space. Applying the mount idmap here (as when
-+	 * resolving a SID to an on-disk gid) would mismatch on idmapped
-+	 * mounts.
-+	 */
-+	return in_group_p(make_kgid(&init_user_ns, gid));
-+}
-+
-+/*
-+ * compare_sids() compares only the sub-authorities both SIDs have, so it
-+ * also matches a shorter or longer SID, such as S-1-3 or S-1-3-4-777
-+ */
-+static bool smb_sid_is_owner_rights(const struct smb_sid *sid)
-+{
-+	return sid->num_subauth == sid_owner_rights.num_subauth &&
-+	       !compare_sids(sid, &sid_owner_rights);
-+}
-+
- int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			__le32 *pdaccess, __le32 raw_daccess, int uid,
- 			bool strict)
-@@ -1475,13 +1504,15 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	int granted = requested;
- 	struct smb_ace *ace;
- 	int i, found = 0;
--	unsigned int access_bits = 0, denied = 0;
-+	unsigned int access_bits = 0, denied = 0, grp_granted = 0;
-+	unsigned int grp_allowed = 0, grp_denied = 0, bits;
- 	struct smb_ace *others_ace = NULL;
--	bool or_ace = false;
-+	bool or_ace = false, obj_deny = false, member, counted;
- 	struct posix_acl_entry *pa_entry;
- 	unsigned int sid_type = SIDOWNER;
- 	unsigned short ace_size;
- 	bool is_owner, owner_rights = false;
-+	bool maximal = *pdaccess & FILE_MAXIMAL_ACCESS_LE;
- 	vfsuid_t vfsuid;
- 
- 	ksmbd_debug(SMB, "check permission using windows acl\n");
-@@ -1522,7 +1553,7 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		 */
- 		if (is_owner)
- 			allowed = READ_CONTROL | WRITE_DAC;
--		if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
-+		if (maximal)
- 			requested |= allowed;
- 		if (!allowed || requested & ~allowed)
- 			rc = -EACCES;
-@@ -1531,53 +1562,83 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		goto err_out;
- 	}
- 
--	if (*pdaccess & FILE_MAXIMAL_ACCESS_LE) {
--		ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
--		aces_size = pdacl_size - sizeof(struct smb_acl);
--		for (i = 0; i < le16_to_cpu(pdacl->num_aces); i++) {
--			if (aces_size < offsetof(struct smb_ace, sid) +
--			    CIFS_SID_BASE_SIZE)
--				break;
--			ace_size = le16_to_cpu(ace->size);
--			if (ace_size > aces_size ||
--			    ace_size < offsetof(struct smb_ace, sid) +
--				       CIFS_SID_BASE_SIZE)
--				break;
--			aces_size -= ace_size;
-+	/*
-+	 * Evaluate the DACL in order (MS-DTYP 2.5.3.2). access_bits collects
-+	 * the MAXIMUM_ALLOWED result. grp_granted collects what ACEs for the
-+	 * caller's groups, or OWNER RIGHTS for the owner, grant. It is used
-+	 * when the SID lookup and POSIX ACL fallback below do not decide.
-+	 */
-+	ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
-+	aces_size = pdacl_size - sizeof(struct smb_acl);
-+	for (i = 0; i < le16_to_cpu(pdacl->num_aces); i++) {
-+		if (aces_size < offsetof(struct smb_ace, sid) +
-+		    CIFS_SID_BASE_SIZE)
-+			break;
-+		ace_size = le16_to_cpu(ace->size);
-+		if (ace_size > aces_size ||
-+		    ace_size < offsetof(struct smb_ace, sid) +
-+			       CIFS_SID_BASE_SIZE)
-+			break;
-+		aces_size -= ace_size;
- 
--			if (ace->sid.num_subauth > SID_MAX_SUB_AUTHORITIES ||
--			    ace_size < offsetof(struct smb_ace, sid) +
--				      CIFS_SID_BASE_SIZE +
--				      sizeof(__le32) * ace->sid.num_subauth)
--				break;
-+		if (ace->sid.num_subauth > SID_MAX_SUB_AUTHORITIES ||
-+		    ace_size < offsetof(struct smb_ace, sid) +
-+			      CIFS_SID_BASE_SIZE +
-+			      sizeof(__le32) * ace->sid.num_subauth)
-+			break;
- 
--			if (!compare_sids(&sid_owner_rights, &ace->sid)) {
--				owner_rights = true;
--				if (!is_owner)
--					goto next_ace;
--			}
-+		if ((ace->type == ACCESS_DENIED_OBJECT_ACE_TYPE ||
-+		     ace->type == ACCESS_DENIED_CALLBACK_OBJECT_ACE_TYPE) &&
-+		    !(ace->flags & INHERIT_ONLY_ACE))
-+			obj_deny = true;
- 
--			if (ace->flags & INHERIT_ONLY_ACE ||
--			    (compare_sids(&sid, &ace->sid) &&
--			     compare_sids(&sid_unix_NFS_mode, &ace->sid) &&
--			     compare_sids(&sid_everyone, &ace->sid) &&
--			     compare_sids(&sid_authusers, &ace->sid) &&
--			     compare_sids(&sid_owner_rights, &ace->sid)))
-+		if (!compare_sids(&sid_owner_rights, &ace->sid)) {
-+			owner_rights = true;
-+			if (!is_owner)
- 				goto next_ace;
--
--			switch (ace->type) {
--			case ACCESS_ALLOWED_ACE_TYPE:
--				access_bits |= le32_to_cpu(ace->access_req);
--				break;
--			case ACCESS_DENIED_ACE_TYPE:
--			case ACCESS_DENIED_CALLBACK_ACE_TYPE:
--				denied |= ~access_bits &
--					le32_to_cpu(ace->access_req);
--				break;
--			}
--next_ace:
--			ace = (struct smb_ace *)((char *)ace + le16_to_cpu(ace->size));
- 		}
-+
-+		member = smb_sid_in_group(&ace->sid);
-+		/* The grp_ masks count groups and OWNER RIGHTS only */
-+		counted = member ||
-+			  (is_owner && smb_sid_is_owner_rights(&ace->sid));
-+		if (ace->flags & INHERIT_ONLY_ACE ||
-+		    (compare_sids(&sid, &ace->sid) &&
-+		     compare_sids(&sid_unix_NFS_mode, &ace->sid) &&
-+		     compare_sids(&sid_everyone, &ace->sid) &&
-+		     compare_sids(&sid_authusers, &ace->sid) &&
-+		     compare_sids(&sid_owner_rights, &ace->sid) &&
-+		     !member))
-+			goto next_ace;
-+
-+		bits = le32_to_cpu(ace->access_req);
-+		switch (ace->type) {
-+		case ACCESS_ALLOWED_ACE_TYPE:
-+			if (counted)
-+				grp_allowed |= bits;
-+			/* MAXIMUM_ALLOWED takes no group grants */
-+			if (maximal && member)
-+				break;
-+			if (counted)
-+				grp_granted |= bits;
-+			access_bits |= bits;
-+			break;
-+		case ACCESS_DENIED_ACE_TYPE:
-+		case ACCESS_DENIED_CALLBACK_ACE_TYPE:
-+			if (counted)
-+				grp_denied |= ~grp_allowed & bits;
-+			/* access_bits takes no group denials either */
-+			if (!member)
-+				denied |= ~access_bits & bits;
-+			break;
-+		}
-+next_ace:
-+		ace = (struct smb_ace *)((char *)ace + le16_to_cpu(ace->size));
-+	}
-+
-+	/* Keep only file rights, not MAXIMUM_ALLOWED or generic bits */
-+	grp_granted &= GENERIC_ALL_FLAGS & ~grp_denied;
-+	if (maximal) {
- 		if (is_owner && !owner_rights)
- 			access_bits |= READ_CONTROL | WRITE_DAC |
- 				FILE_READ_ATTRIBUTES | DELETE;
-@@ -1587,6 +1648,9 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		    (access_bits & GENERIC_READ_FLAGS) == GENERIC_READ_FLAGS)
- 			access_bits |= FILE_EXECUTE;
- 		granted = requested | access_bits;
-+	} else {
-+		/* An explicit request uses only grp_granted and obj_deny */
-+		access_bits = 0;
- 	}
- 
- 	ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
-@@ -1668,7 +1732,15 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			 */
- 			if (is_owner && !or_ace)
- 				allowed = READ_CONTROL | WRITE_DAC;
--			if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
-+			/*
-+			 * Add what ACEs for the caller's groups, or OWNER
-+			 * RIGHTS for the owner, grant in DACL order, unless an
-+			 * object deny ACE, which ksmbd does not parse, could
-+			 * apply.
-+			 */
-+			if (!obj_deny)
-+				allowed |= grp_granted;
-+			if (maximal)
- 				requested |= allowed;
- 			if (!allowed || requested & ~allowed) {
- 				ksmbd_debug(SMB, "Can't find corresponding sid\n");
-@@ -1680,7 +1752,7 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		}
- 	}
- 
--	if (!(*pdaccess & FILE_MAXIMAL_ACCESS_LE)) {
-+	if (!maximal) {
- 		switch (ace->type) {
- 		case ACCESS_ALLOWED_ACE_TYPE:
- 			access_bits = le32_to_cpu(ace->access_req);
+@@ -1771,6 +1771,15 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 					if (!access_bits)
+ 						access_bits =
+ 							SET_MINIMUM_RIGHTS;
++					/*
++					 * Only ACEs for the caller's groups,
++					 * or OWNER RIGHTS for the owner, apply
++					 * here. The POSIX ACL entry does not
++					 * grant an explicitly requested right
++					 * that they deny first in DACL order.
++					 */
++					access_bits &= ~(grp_denied &
++							 requested);
+ 					posix_acl_release(posix_acls);
+ 					goto check_access_bits;
+ 				}
 
