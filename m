@@ -1,49 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795646296;
-	b=IrET+h72uSKNOWxYmK91cQiRe2cHdUafu8rwy/Dkc/Pq0X1A2ovOiiwQQE1PPax0M22h
-	 HYYFAMNaaDyRlCL706NaZFsAryoAtpdwa6buZ5Jm7LCZiTLlW9jkKKdL/UN0mZX6KxwAU
-	 Xger2a4AzftJCCY+nHxutnpeu4HhAxGBIunLfFlbw3NEO0vsBgXvvVprLgWA60WZhPXR7
-	 i+Js1aiOXcpejDGfr99IVBooKCOUeMjnzn85Iz+16HnLW10Q/6uyu8FZgfsv7tKXJEMGk
-	 GZ1sCca/JzJD+CL36dYeTT0VzMJj9gEy4er7X9IutMMkb7fpB9lw0LphbPC/bI17Pag==
+	t=1795646442;
+	b=LVJY3xYYivqYcb1RzYVzBKz5pBM4XZdfDJI7fAt/kq1KcLRhfbnmZxYJhFiMfeGKxyLf
+	 lVWRrHR5c57J1nqMCWQ294KgyLAsiB5IJUcsq2h6lPK1j/1DKZGTd0zkIhQAWC1SUsawv
+	 bs0cmfYeBLbAYzzFty7gGngJd9zaVrDkg1RMR6GDO6lkxLWo3ZQEnj9h9+QLFZX1xaee/
+	 MmGzGACMNgIx/VazXExpoIisBbabEMzZSj0y/W6iVTPYD2+o4P25BYjdNexi3+BKz8oPO
+	 SrfNSDJuOpbdQ9q4AHjuQp29SUZS1oYGXiM/zrygv67qRWJ3Tdpd/f6J2EbtenzWn6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795646296;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=c5sCadhkwY9UanmmId4XEWhXMASQtuWsR/mG1JPVDXI=;
-	b=jebthmMroQQNfzolDo4kKoteP7Zj/Y2vlgPBFGEyiu4983PFAjvERg0FC8y4zr6xhYMs
-	 AlvGPeee1cgXCrKNwj3NpP8JpbJlgeuOFmdVujlGqUuya6L5o5aC02OAA7vwsKg1zhjBQ
-	 TfE9ZQfXML6DLAl2NBdWCrm+n5EdcPLkfdhqVF7lVhcSpGVcUx7kpuq1/W3LUGczh3Oek
-	 tv3+EqgtJ3nhugxVhrONPFDhXzJ5ivqrkGloI5GHjJZOxJSV6l+3N5Fwnok+UZEiC3nvx
-	 gOi0vgz6ZLXOdm+kLRXkqN/iVou9g9CWF6P3duvJ9iI0j8rV1BXtZ6KD+5mIxYxadqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795646442;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=HFEO3+Zpc0o9i9tlrP3rTUdlR6T3RFfXFEfEcMTXpBc=;
+	b=2MwRU1LQzZOBdoAVIEE/+p91A5SvvvllY7nCamU0/o1R4AhF6p8MmaDdwqQNejZoO6c0
+	 buSG+sNKBjSMCQWn0vmaxRrH3aLKs0AMGkOhWvmBJGeUjkqg4IEy0eHKjlEenJnNlYgAS
+	 P6sIT77F9BrD+Lk26vrgJiRBMKZPubG5GKu2dci9EXTIhwVmtXLfPtmqOCZ9H/e8t4pih
+	 D8HcT5+qCD0nyTJpAnTlCOnjAaU0tAySNTr302C/jBAcLpsVrjvnLFRGXFMkHVkZyD4vR
+	 hkq3mDyq53GSbnfdFI1JeN+nuxke45xswk4Xa7KGs+fIOBqF39xEvZswwsmR+UR9TBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcGV1irF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fF39pGtq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297E7606A31E;
-	Wed, 25 Nov 2026 22:38:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003FF606A31E;
+	Wed, 25 Nov 2026 22:40:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcGV1irF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19CA81F000C0;
-	Wed, 25 Nov 2026 22:37:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fF39pGtq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02C51F000C0;
+	Wed, 25 Nov 2026 22:40:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795646295;
-	bh=c5sCadhkwY9UanmmId4XEWhXMASQtuWsR/mG1JPVDXI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=mcGV1irFRfXDZP7eEVn2PE6y0zqMjBz3R4YH3XVsY1dIM8vndetGzsNVRLSa9MHqH
-	 Hl8tPm3IHHw8Q+AWHbAmKVE8Eokao7NczVWg8nPhKPR1BZ9rGJoernBmso/wi+Lvmn
-	 I1oNfQ86/7bW+rb+gZM3Sr9iVsB0iUxRM+nd6p3ha72bJMyr4FvbaQnt+EQPcQhZDF
-	 xmmEK1Ro+b8WaD1DQn4PQv8jOyiIt5Q8LY+q5ei+PGW6+Ud9+cpmHuOCatVBkqyr6Y
-	 lpvOFTcZtHdIOmkTP6GZ7zxp2qtV9fIRjDzqLM0Ep6XUzFQ42c4NcdPFrDEK/hSR1A
-	 sk6LwO1VZkHZQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 25 Nov 2026 23:33:16 +0100
-Subject: [PATCH 18/21] fs/proc/task_mmu: don't clear VM_SOFTDIRTY on
- hugetlb VMAs
+	s=k20260515; t=1795646441;
+	bh=HFEO3+Zpc0o9i9tlrP3rTUdlR6T3RFfXFEfEcMTXpBc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fF39pGtqxxepy+KP0PC+Y5OKcM1qbgbvQ7TJG1E7JQ1LbKpysFsiO4+v8/8SzJf1w
+	 CwsMtXjhKZYoN1dD3aJN2guDN3cw5Dznx4xjInTNJCFHq2bKJcBeVKeaFX5Rk7LKVP
+	 cYSHh1VQdh2C4FAW/3az0ia3b9J0ilS0+xym14vm2ErXaZGbuupCVmH/grvPI3gBt9
+	 DMDfqHie2T45umUwG0j8L4KHIe7dUHIRbaFRM9+qQ3qNDnF8tg/sXkbSJjDMnSAwoI
+	 rGjJR1e4Wgf9wcRUhgXTja5yXcvjS78LNDqT7CBfsYHk9o5q+zPtm/bUjPUNXOF/lh
+	 56G1y+0j7M6jA==
+Message-ID: <6afabd96-1888-43d2-9ccb-73ca6702a004@kernel.org>
+Date: Wed, 25 Nov 2026 23:40:32 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,112 +51,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: check VMA end bounds in insert_pmd() and
+ insert_pud()
+To: Elkin Cruz <elkin@google.com>, Zi Yan <ziy@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+ irogers@google.com, stable@vger.kernel.org
+References: <20261125221911.1425213-1-elkin@google.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20261125221911.1425213-1-elkin@google.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-hugetlb_fixes_2-v1-18-db27fd2f71a8@kernel.org>
-References: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
-In-Reply-To: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Jinmeng Zhou <jinmengzhou22@gmail.com>, Hongfu Li <lihongfu@kylinos.cn>, 
- Andrea Arcangeli <aarcange@redhat.com>, 
- Mike Kravetz <mike.kravetz@oracle.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Dave Airlie <airlied@redhat.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Gerd Hoffmann <kraxel@redhat.com>, Mike Rapoport <rppt@kernel.org>, 
- Mel Gorman <mel@csn.ul.ie>, Dave McCracken <dave.mccracken@oracle.com>, 
- Andy Whitcroft <apw@shadowen.org>, Adam Litke <agl@us.ibm.com>, 
- Lorenzo Stoakes <ljs@kernel.org>, Rik van Riel <riel@surriel.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
- Lance Yang <lance.yang@linux.dev>, James Houghton <jthoughton@google.com>, 
- Yang Shi <shy828301@gmail.com>, Suren Baghdasaryan <surenb@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
- Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Matthew Brost <matthew.brost@intel.com>, Byungchul Park <byungchul@sk.com>, 
- Alistair Popple <apopple@nvidia.com>, 
- Wanpeng Li <liwanp@linux.vnet.ibm.com>, Andi Kleen <ak@linux.intel.com>, 
- Kenneth W Chen <kenneth.w.chen@intel.com>, Hugh Dickins <hugh@veritas.com>, 
- Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
- Joern Engel <joern@logfs.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Michal Hocko <mhocko@suse.cz>, 
- "Aneesh Kumar K.V" <aneesh.kumar@linux.vnet.ibm.com>, 
- KAMEZAWA Hiroyuki <kamezawa.hiroyu@jp.fujitsu.com>, 
- "Kirill A. Shutemov" <kirill@shutemov.name>, 
- Sasha Levin <sasha.levin@oracle.com>, 
- Guillaume Morin <guillaume@morinfr.org>, Wanpeng Li <liwp.linux@gmail.com>
-Cc: linux-mm@kvack.org, Jason Gunthorpe <jgg@ziepe.ca>, 
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- Andrew Morton <akpm@osdl.org>, linux-doc@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
- Chris Mason <mason@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1880; i=david@kernel.org;
- h=from:subject:message-id; bh=+sv+UhDuOwJztPqdlwWWA+euIQWZKN3bwN8oaLd2OMA=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLZk1RjN1gnhsRf/3P15CPRqcePHrc9xZkad2Pdwldv2
- 2d6xawS7ChlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAiu5Yx/I/o3civLLybU1m6
- 1z3Qdp/Q7vdu6p+t9rxujPg/YU3NK1dGhtfpgcuaM5e8/G12cbkh71vRn9cr38Tqv9XZ8iC0ILr
- MnQsA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-hugetlb does not support soft-dirty tracking: since commit f96f7a40874d
-("mm/hugetlb: fix hugetlb not supporting softdirty tracking"),
-vma_wants_writenotify() ignores VM_SOFTDIRTY for hugetlb VMAs, and
-clear_refs never clears the soft-dirty bits of hugetlb entries.
+On 11/25/26 23:19, Elkin Cruz wrote:
+> insert_pmd() and insert_pud() only check that addr lies within
+> [vma->vm_start, vma->vm_end) without verifying that the full PMD or PUD
+> mapping fits below vma->vm_end. On a VMA whose end is not PMD- or
+> PUD-aligned, inserting a huge mapping at the tail straddles past
+> vma->vm_end.
+> 
+> Require vma->vm_end - addr >= HPAGE_PMD_SIZE in insert_pmd() and
+> vma->vm_end - addr >= HPAGE_PUD_SIZE in insert_pud().
+> 
+> Fixes: 5cad465d7fa6 ("mm: add vmf_insert_pfn_pmd()")
+> Fixes: a00cc7d9dd93 ("mm, x86: add support for PUD-sized transparent hugepages")
 
-However, clear_refs still clears VM_SOFTDIRTY on hugetlb VMAs. With
-CONFIG_MEM_SOFT_DIRTY, a FOLL_FORCE write to a private hugetlb mapping
-without VM_WRITE can then loop in __get_user_pages() until the task is
-killed, with the mmap_lock held for reading:
-
-    __get_user_pages()
-    retry:
-      follow_page_mask()
-        follow_huge_pmd()
-          can_follow_write_pmd()
-            pmd_needs_soft_dirty_wp() is true
-          returns NULL
-      faultin_page()
-        hugetlb_wp()
-          set_huge_ptep_maybe_writable()
-            no VM_WRITE: the entry stays as it is
-        returns 0
-      goto retry
-
-Let's fix it by not clearing VM_SOFTDIRTY on hugetlb VMAs, so we always
-treat hugetlb pages as soft-dirty.
-
-This has low urgency, as the loop can be killed.
-
-Fixes: 052ccfbcc6cd ("mm/hugetlb: support FOLL_FORCE|FOLL_WRITE")
-Cc: <stable@vger.kernel.org>
-Reported-by: Chris Mason <mason@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- fs/proc/task_mmu.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 41b280ab7b19d..d9ecb94f4daa5 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -1801,6 +1801,9 @@ static ssize_t clear_refs_write(struct file *file, const char __user *buf,
- 
- 		if (type == CLEAR_REFS_SOFT_DIRTY) {
- 			for_each_vma(vmi, vma) {
-+				/* hugetlb does not support soft-dirty tracking. */
-+				if (vma_is_hugetlb(vma))
-+					continue;
- 				if (!(vma->vm_flags & VM_SOFTDIRTY))
- 					continue;
- 				vm_flags_clear(vma, VM_SOFTDIRTY);
+Which users in the tree trigger this?
 
 -- 
-2.56.1
+Cheers,
 
+David
