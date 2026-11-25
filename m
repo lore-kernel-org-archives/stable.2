@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603049;
-	b=raeNUciSU0Ky2CCAp9usuzl/gAf4ACoqEJKgPesqVVDOEdJLhDrB1fTQjsdrosmPpjzQ
-	 G+ZZ42TsVbioTuf7dG/TOKZXPAlcW58/dZEQsNuGgyKDFmlHGbhxXONrGJkuIRgc7q1SP
-	 mAoQ4BdNi8+bt4ETwlV7d0zTRfcwLUrFaHX6RA/Pz1k9NobV5D6Mr92YKyitRQ3WdP43c
-	 WZ6wb2ZMqvx8nQByD3WFziQ9Wsl04Wus42m+NgAp+LSM6TeI9cpimb5FN99A9cR8bXegv
-	 DsdJyo3tAHxbKGJgcvaMb5G3W8jgMQPcgU33Xntk3iXLNQ0WhdMur6d+1GTGCcyLzpg==
+	t=1795603052;
+	b=of/pGVk+lJ368ALJwsDFJTmV4GY+F9jdvNtr5qZNxC/IFuQWL35HNL4E9sncjWdSTr67
+	 E1CPPqU4cdNQruxoQX8fzOX/OIQvZGFENGqJ6Wp5NQZwirvI9iIKjiglt0K8l4WgXSe8+
+	 j63Hkv+og12gSFoLZ/k9f0ou5jIQfLHPDkB4vK4OSJVSPcTG131D2RXX2r2V9hNI93ySN
+	 7+GnxerzYaPjXQMvU+BqHabUVDs/rbTPqnOua+QtrGaG/VHUO2vcvZUBuYF8wDnsyEW5q
+	 C/7FqnXzbEHAtf+cJiNLB3eLGMIGMqqkKdYK7c0ZVgBRmKsCP6WcvTFHHgWWVncf/Ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603049;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603052;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cBwbIviB0IbZ/jTeS5bvCv3uUvOvFqk2zgpulBYaqOk=;
-	b=1DjAnSedwMpjWXEu3Umi/60wzFQgrUHpfPeFh3rKsf0KuFhWjGmqePBjwoFATDjK0/3A
-	 MXswQzbQhIzlpQzpGbIiHn9k5SDoBYlyND7h8HUGgQUfqJndMADV56GvhtSSE8F1/YXjZ
-	 96A7D4hjQHctG7BasKhVN8KNqYGv37opVu/kaS01nT1gYyOZZKc8P0ek9XoyYsVoEe4o5
-	 6LJ9V5d5eimd4N4NnfTK63eXzYibDDeNBlgMwiA8bLxPrv1kDm9R5QAw6z/2V1Qm7nzJN
-	 p3uGhxZOmvUzKuE56j5/DUsjo+1PaU38kNVoNu4TfdX46Ixe3g3/mSGaeCPMYSCxE5w==
+	bh=TVnCgtj+oTnozYAQhZg/CSqJU31gTfi9HEwqO2ME3EE=;
+	b=3Hopy929CITvRjo5WEnq7moUqtGo9E9Z+RnhA7x2Y7nEq9S5meqYXt/rZ8RkWWbDr3ZM
+	 XIyiUs1wXFZUxPZhjKkoSKebSxM7iP+NcIdZpQVkGIc1wL94YZqgo6GQftJGcYNyL65ev
+	 ykWymaPjwNPMgkDtUH1E2xMvMNxrvyOqIHSnfDTUPgSGKY+fOqQLtgz3EUCa9NNywYy3B
+	 CSP+I4Nj1uNUG20LtszHLysi7gLbmd7zsEoXn21x95RbNme4Fu3Eh6VqTuYW9VOFyxHtf
+	 ZRob2CFkjGi7E+afq9qqQsPxZjpYf/Pd8gfhrEEPmBs26tlea6zSTw6Vuai7NAWxDvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0qNa9AnM;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pHcV6e0P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FD8606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D827606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0qNa9AnM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83D141F000CA;
-	Wed, 25 Nov 2026 10:37:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pHcV6e0P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C07F41F000C4;
+	Wed, 25 Nov 2026 10:37:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603049;
-	bh=cBwbIviB0IbZ/jTeS5bvCv3uUvOvFqk2zgpulBYaqOk=;
+	s=korg; t=1795603052;
+	bh=TVnCgtj+oTnozYAQhZg/CSqJU31gTfi9HEwqO2ME3EE=;
 	h=Subject:To:Cc:From:Date;
-	b=0qNa9AnMIqkXB+eRIhvjpEQPkIMQxf4bKkIsMLQsM7vkDoQQJSXGSB4WDsx2rA1No
-	 CczOSxLJDtnh0Cz/b8AS9Xsc7UQSGdVX8SIbUNDFfVc6IMw0PfNXTeQlJJcbOlJDLW
-	 mGHJRl616iNGl6KsLRpjOP06nvYE/LF56j6oH6Ww=
-Subject: FAILED: patch "[PATCH] ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs" failed to apply to 6.12-stable tree
+	b=pHcV6e0PZ+5XuoXyuAlyMGjhGO7Jc65J3UQk7yHmv8AH3i21/ZZsK6wGchoyDrLii
+	 qQNix7oA95Kht/VeGZMyM/nabqDhn4Vo80BOv8BoFELdNI5nF7pzrmaBbMzcD0iU2X
+	 06nNAMpGgNYf4gWiswTxh1gu/0u9/I5jBO07g/3M=
+Subject: FAILED: patch "[PATCH] ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs" failed to apply to 6.1-stable tree
 To: icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:24:15 +0100
-Message-ID: <2026112515-mud-confider-e3c6@gregkh>
+Date: Wed, 25 Nov 2026 11:24:16 +0100
+Message-ID: <2026112515-plunder-granola-38b1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 42ac1f1917ae678ee2c47f415ab844af03bbd46b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112515-mud-confider-e3c6@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112515-plunder-granola-38b1@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
